@@ -1,11 +1,16 @@
 import * as secp from '@noble/secp256k1';
 import { HDKey } from '@scure/bip32';
+import { bytesToHex } from '@stacks/common';
 import * as btc from 'micro-btc-signer';
 import * as yup from 'yup';
 
 import { NetworkModes } from '@shared/constants';
 import { getBtcSignerLibNetworkByMode } from '@shared/crypto/bitcoin/bitcoin.network';
-import { deriveAddressIndexKeychainFromAccount } from '@shared/crypto/bitcoin/bitcoin.utils';
+import {
+  deriveAddressIndexKeychainFromAccount,
+  ecdsaPublicKeyToSchnorr,
+} from '@shared/crypto/bitcoin/bitcoin.utils';
+import { getTaprootPayment } from '@shared/crypto/bitcoin/p2tr-address-gen';
 import { DerivationPathDepth } from '@shared/crypto/derivation-path.utils';
 
 /**
@@ -18,18 +23,19 @@ export const ordApiXyzGetInscriptionByInscriptionSchema = yup
   .object({
     // NOTE: this next key is using a space " ", uncommon as that is.
     ['content type']: yup.string().required(),
-
     content: yup.string().required(),
     preview: yup.string().required(),
     title: yup.string().required(),
   })
   .required();
 
+export type OrdApiXyzGetInscriptionByInscription = yup.InferType<
+  typeof ordApiXyzGetInscriptionByInscriptionSchema
+>;
+
 /**
  * Schema of data used from the `GET https://ordapi.xyz/output/:tx` endpoint. Additional data
  * that is not currently used by the app may be returned by this endpoint.
- *
- * See API docs, https://ordapi.xyz/
  */
 export const ordApiXyzGetTransactionOutput = yup
   .object({
@@ -53,11 +59,7 @@ export function getTaprootAddress(index: number, keychain: HDKey, network: Netwo
     throw new Error('Expected privateKey to be defined.');
   }
 
-  const payment = btc.p2tr(
-    secp.schnorr.getPublicKey(addressIndex.privateKey),
-    undefined,
-    getBtcSignerLibNetworkByMode(network)
-  );
+  const payment = getTaprootPayment(addressIndex.publicKey!, network);
 
   if (!payment.address) throw new Error('Expected address to be defined.');
 

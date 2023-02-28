@@ -10,6 +10,10 @@ import { getTaprootAddress, hasOrdinals } from './utils';
 
 const stopSearchAfterNumberAddressesWithoutOrdinals = 5;
 
+export interface TaprootUtxo extends UtxoResponseItem {
+  addressIndex: number;
+}
+
 /**
  * Returns all utxos for the user's current taproot account. The search for
  * utxos iterates through all addresses until a sufficiently large number of
@@ -22,29 +26,41 @@ export function useTaprootAddressUtxosQuery() {
 
   return useQuery(['taproot-address-utxos-metadata', keychain.pubKeyHash, network.id], async () => {
     let currentNumberOfAddressesWithoutOrdinals = 0;
-    const counter = createCounter(0);
-    let foundUnspentTransactions: UtxoResponseItem[] = [];
+    const addressIndexCounter = createCounter(0);
+    let foundUnspentTransactions: TaprootUtxo[] = [];
     while (
       currentNumberOfAddressesWithoutOrdinals < stopSearchAfterNumberAddressesWithoutOrdinals
     ) {
       const address = getTaprootAddress(
-        counter.getValue(),
+        addressIndexCounter.getValue(),
         keychain,
         network.chain.bitcoin.network
       );
 
       const unspentTransactions = await client.addressApi.getUtxosByAddress(address);
+      console.log('address', {
+        address,
+        unspentTransactions,
+        addressIndexCounter: addressIndexCounter.getValue(),
+      });
 
       if (!hasOrdinals(unspentTransactions)) {
         currentNumberOfAddressesWithoutOrdinals += 1;
-        counter.increment();
+        addressIndexCounter.increment();
         continue;
       }
 
-      foundUnspentTransactions = foundUnspentTransactions.concat(unspentTransactions);
+      foundUnspentTransactions = [
+        ...unspentTransactions.map(utxo => ({
+          // adds addresss index of which utxo belongs
+          ...utxo,
+          addressIndex: addressIndexCounter.getValue(),
+        })),
+        ...foundUnspentTransactions,
+      ];
 
       currentNumberOfAddressesWithoutOrdinals = 0;
-      counter.increment();
+      addressIndexCounter.increment();
     }
 
     return foundUnspentTransactions;

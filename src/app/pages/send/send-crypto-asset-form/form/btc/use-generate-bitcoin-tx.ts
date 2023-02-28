@@ -55,7 +55,7 @@ export function useGenerateSignedBitcoinTx() {
         inputs.forEach(input => {
           const p2wpkh = btc.p2wpkh(currentAddressIndexKeychain.publicKey!, networkMode);
           tx.addInput({
-            txid: hexToBytes(input.txid),
+            txid: input.txid,
             index: input.vout,
             witnessUtxo: {
               // script = 0014 + pubKeyHash

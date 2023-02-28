@@ -1,7 +1,10 @@
 import { useMemo } from 'react';
 import { useSelector } from 'react-redux';
 
-import { deriveTaprootReceiveAddressIndex } from '@shared/crypto/bitcoin/p2tr-address-gen';
+import * as btc from 'micro-btc-signer';
+
+import { deriveAddressIndexKeychainFromAccount } from '@shared/crypto/bitcoin/bitcoin.utils';
+import { getTaprootPaymentFromAddressIndex } from '@shared/crypto/bitcoin/p2tr-address-gen';
 import { isUndefined } from '@shared/utils';
 
 import { whenNetwork } from '@app/common/utils';
@@ -21,6 +24,13 @@ function useTaprootKeychainByAccount() {
   );
 }
 
+export function useCurrentTaprootAccountKeychain() {
+  const currentAccountIndex = useCurrentAccountIndex();
+  const accountKeychain = useTaprootKeychainByAccount();
+  if (!accountKeychain) throw new Error('No account keychain found');
+  return accountKeychain(currentAccountIndex);
+}
+
 function useBitcoinTaprootAccount(index: number) {
   const keychain = useTaprootKeychainByAccount();
   return useMemo(() => {
@@ -35,33 +45,36 @@ function useCurrentBitcoinTaprootAccount() {
   return useBitcoinTaprootAccount(currentAccountIndex);
 }
 
-function useDeriveTaprootAccountIndexAddressIndexZero(xpub: string) {
+// function useDeriveTaprootAccountIndexAddress(xpub: string, index: number) {
+//   const network = useCurrentNetwork();
+//   return useMemo(
+//     () =>
+//       deriveTaprootReceiveAddressIndex({
+//         xpub,
+//         index,
+//         network: network.chain.bitcoin.network,
+//       }),
+//     [xpub, index, network.chain.bitcoin.network]
+//   );
+// }
+
+// export function useCurrentTaprootAccountAddressIndexZero() {
+//   const { xpub } = useCurrentBitcoinTaprootAccount();
+//   return useDeriveTaprootAccountIndexAddressIndexZero(xpub)?.address as string;
+// }
+
+export function useCurrentAccountTaprootSigner(addressIndex: number) {
   const network = useCurrentNetwork();
-  return useMemo(
-    () =>
-      deriveTaprootReceiveAddressIndex({
-        xpub,
-        index: 0,
-        network: network.chain.bitcoin.network,
-      }),
-    [xpub, network]
-  );
-}
+  const accountKeychain = useCurrentTaprootAccountKeychain();
+  const addressIndexKeychain = deriveAddressIndexKeychainFromAccount(accountKeychain)(addressIndex);
 
-export function useCurrentTaprootAccountKeychain() {
-  const currentAccountIndex = useCurrentAccountIndex();
-  const accountKeychain = useTaprootKeychainByAccount();
-  if (!accountKeychain) throw new Error();
-  return accountKeychain(currentAccountIndex);
-}
+  return {
+    payment: getTaprootPaymentFromAddressIndex(addressIndexKeychain, network.chain.bitcoin.network),
+    sign(tx: btc.Transaction) {
+      if (!addressIndexKeychain.privateKey)
+        throw new Error('Unable to sign taproot transaction, no private key found');
 
-// ts-unused-exports:disable-next-line
-export function useCurrentTaprootAccountAddressIndexZero() {
-  const { xpub } = useCurrentBitcoinTaprootAccount();
-  return useDeriveTaprootAccountIndexAddressIndexZero(xpub)?.address as string;
-}
-// ts-unused-exports:disable-next-line
-export function useTaprootAccountIndexAddressIndexZero(accountIndex: number) {
-  const { xpub } = useBitcoinTaprootAccount(accountIndex);
-  return useDeriveTaprootAccountIndexAddressIndexZero(xpub)?.address as string;
+      tx.sign(addressIndexKeychain.privateKey);
+    },
+  };
 }

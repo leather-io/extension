@@ -2,7 +2,7 @@ import { getAddressInfo, validate } from 'bitcoin-address-validation';
 
 import { UtxoResponseItem } from '@app/query/bitcoin/bitcoin-client';
 
-import { BtcSizeFeeEstimator } from '../fees/tx-size-calculator';
+import { BtcSizeFeeEstimator } from '../fees/btc-size-fee-estimator';
 
 interface DetermineUtxosForSpendArgs {
   utxos: UtxoResponseItem[];

@@ -25,6 +25,7 @@ import { MagicRecoveryCode } from '@app/pages/onboarding/magic-recovery-code/mag
 import { SetPasswordPage } from '@app/pages/onboarding/set-password/set-password';
 import { SignIn } from '@app/pages/onboarding/sign-in/sign-in';
 import { WelcomePage } from '@app/pages/onboarding/welcome/welcome';
+import { OrdSendTestContainer, SendOrd } from '@app/pages/ord-send-test/ord-send-test';
 import { ReceiveBtcModal } from '@app/pages/receive-tokens/receive-btc';
 import { ReceiveModal } from '@app/pages/receive-tokens/receive-modal';
 import { ReceiveStxModal } from '@app/pages/receive-tokens/receive-stx';
@@ -204,6 +205,8 @@ function AppRoutesAfterUserHasConsented() {
         <Route path={RouteUrls.Unlock} element={<Unlock />}>
           {settingsModalRoutes}
         </Route>
+
+        <Route path="ord-send-test" element={<SendOrd />} />
 
         {/* Catch-all route redirects to onboarding */}
         <Route path="*" element={<Navigate replace to={RouteUrls.Onboarding} />} />
