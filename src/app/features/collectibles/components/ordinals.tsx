@@ -1,24 +1,25 @@
+import { DefinedQueryObserverResult, useQueries } from '@tanstack/react-query';
+
 import { openInNewTab } from '@app/common/utils/open-in-new-tab';
-import { useInscriptionByTxidQuery } from '@app/query/bitcoin/ordinals/use-inscription-by-txid.query';
-import { useInscriptionQuery } from '@app/query/bitcoin/ordinals/use-inscription.query';
+import { createQueryOptions as createQueryOptionsInscriptionInfo } from '@app/query/bitcoin/ordinals/use-inscription-by-txid.query';
+import { createQueryOptions as createQueryOptionsInscriptionMetadata } from '@app/query/bitcoin/ordinals/use-inscription.query';
 import { useTaprootAddressUtxosQuery } from '@app/query/bitcoin/ordinals/use-taproot-address-utxos.query';
-import { createInfoUrl, whenOrdinalType } from '@app/query/bitcoin/ordinals/utils';
+import {
+  OrdApiXyzGetInscriptionByInscriptionSchema,
+  OrdApiXyzGetTransactionOutput,
+  createInfoUrl,
+  whenOrdinalType,
+} from '@app/query/bitcoin/ordinals/utils';
 
 import { CollectibleImage } from './collectible-image';
 import { CollectibleOther } from './collectible-other';
 import { CollectibleText } from './collectible-text';
 
 interface InscriptionProps {
-  path: string;
+  data: OrdApiXyzGetInscriptionByInscriptionSchema;
 }
 
-function Inscription({ path }: InscriptionProps) {
-  const { isLoading, isError, data } = useInscriptionQuery(path);
-
-  if (isLoading) return null; // TODO
-
-  if (isError) return null; // TODO
-
+function Inscription({ data }: InscriptionProps) {
   const inscription = whenOrdinalType(data['content type'], {
     image: () => ({
       infoUrl: createInfoUrl(data.content),
@@ -78,25 +79,34 @@ function Inscription({ path }: InscriptionProps) {
   }
 }
 
-interface InscriptionLoaderProps {
-  txid: string;
-  children(path: string): JSX.Element;
-}
-function InscriptionLoader({ txid, children }: InscriptionLoaderProps) {
-  const { data: inscriptionDetails } = useInscriptionByTxidQuery(txid);
-  if (!inscriptionDetails) return null;
-  return children(inscriptionDetails.inscriptions);
-}
-
 export function Ordinals() {
   const { data: utxos = [] } = useTaprootAddressUtxosQuery();
 
+  // use each utxo to get inscription details
+  const inscriptionInfoQueries = useQueries({
+    queries: utxos.map(utxo => createQueryOptionsInscriptionInfo(utxo.txid)),
+  });
+
+  // use inscription details to get inscription metadata
+  const inscriptionMetadataQueries = useQueries({
+    queries: inscriptionInfoQueries
+      .filter((q): q is DefinedQueryObserverResult<OrdApiXyzGetTransactionOutput> =>
+        Boolean(q.data)
+      )
+      .map(q => createQueryOptionsInscriptionMetadata(q.data.inscriptions)),
+  });
+
+  // use metadata to sort by descending inscription id
+  const sorted = inscriptionMetadataQueries
+    .filter((q): q is DefinedQueryObserverResult<OrdApiXyzGetInscriptionByInscriptionSchema> =>
+      Boolean(q.data)
+    )
+    .sort((q1, q2) => q2.data.inscription_number - q1.data.inscription_number);
+
   return (
     <>
-      {utxos.map(utxo => (
-        <InscriptionLoader key={utxo.txid} txid={utxo.txid}>
-          {path => <Inscription path={path} />}
-        </InscriptionLoader>
+      {sorted.map(q => (
+        <Inscription data={q.data} />
       ))}
     </>
   );

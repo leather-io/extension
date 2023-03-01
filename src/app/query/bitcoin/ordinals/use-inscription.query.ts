@@ -1,5 +1,3 @@
-import { useQuery } from '@tanstack/react-query';
-
 import { QueryPrefixes } from '@app/query/query-prefixes';
 
 import { ordApiXyzGetInscriptionByInscriptionSchema } from './utils';
@@ -13,10 +11,16 @@ async function getInscriptionMetadata(path: string) {
   return ordApiXyzGetInscriptionByInscriptionSchema.validate(data);
 }
 
-export function useInscriptionQuery(path: string) {
-  return useQuery([QueryPrefixes.InscriptionMetadata, path], () => getInscriptionMetadata(path), {
+export function createQueryOptions(path: string) {
+  return {
+    queryKey: [QueryPrefixes.InscriptionMetadata, path],
+    queryFn: () => getInscriptionMetadata(path),
     enabled: !!path,
     staleTime: Infinity,
     cacheTime: Infinity,
-  });
+  };
 }
+
+// export function useInscriptionQuery(path: string) {
+//   return useQuery(createQuery(path));
+// }

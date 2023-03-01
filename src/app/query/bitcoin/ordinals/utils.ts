@@ -22,8 +22,13 @@ export const ordApiXyzGetInscriptionByInscriptionSchema = yup
     content: yup.string().required(),
     preview: yup.string().required(),
     title: yup.string().required(),
+    inscription_number: yup.number().required(),
   })
   .required();
+
+export type OrdApiXyzGetInscriptionByInscriptionSchema = yup.InferType<
+  typeof ordApiXyzGetInscriptionByInscriptionSchema
+>;
 
 /**
  * Schema of data used from the `GET https://ordapi.xyz/output/:tx` endpoint. Additional data

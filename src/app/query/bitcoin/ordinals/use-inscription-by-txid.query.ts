@@ -1,5 +1,3 @@
-import { useQuery } from '@tanstack/react-query';
-
 import { QueryPrefixes } from '@app/query/query-prefixes';
 
 import { OrdApiXyzGetTransactionOutput, ordApiXyzGetTransactionOutput } from './utils';
@@ -22,10 +20,14 @@ function makeInscriptionMetadataQueryKey(txid: string) {
   return [QueryPrefixes.InscriptionFromTxid, txid] as const;
 }
 
-export function useInscriptionByTxidQuery(txid: string) {
-  return useQuery({
+export function createQueryOptions(txid: string) {
+  return {
     queryKey: makeInscriptionMetadataQueryKey(txid),
     queryFn: () => getInscriptionByTxid(txid),
     ...queryOptions,
-  });
+  };
 }
+
+// export function useInscriptionByTxidQuery(txid: string) {
+//   return useQuery(createQuery(txid));
+// }
