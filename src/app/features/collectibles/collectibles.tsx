@@ -9,7 +9,7 @@ import { useConfigNftMetadataEnabled } from '@app/query/common/hiro-config/hiro-
 import { QueryPrefixes } from '@app/query/query-prefixes';
 
 import { AddCollectible } from './components/add-collectible';
-import { Ordinals } from './components/ordinals';
+import { OrdinalInscriptions } from './components/ordinal-inscriptions';
 import { StacksCryptoAssets } from './components/stacks-crypto-assets';
 
 function isSomeQueryFetching(...args: number[]) {
@@ -67,7 +67,7 @@ export function Collectibles() {
           software: (
             <>
               <AddCollectible />
-              <Ordinals />
+              <OrdinalInscriptions />
             </>
           ),
           ledger: null,

@@ -79,7 +79,7 @@ function Inscription({ data }: InscriptionProps) {
   }
 }
 
-export function Ordinals() {
+export function OrdinalInscriptions() {
   const { data: utxos = [] } = useTaprootAddressUtxosQuery();
 
   // use each utxo to get inscription details
