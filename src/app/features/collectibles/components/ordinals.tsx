@@ -1,5 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 
+import { RouteUrls } from '@shared/route-urls';
+
 import { useInscriptionByTxidQuery } from '@app/query/bitcoin/ordinals/use-inscription-by-txid.query';
 import { useInscriptionQuery } from '@app/query/bitcoin/ordinals/use-inscription.query';
 import {
@@ -45,7 +47,7 @@ function Inscription({ path, utxo }: InscriptionProps) {
   });
 
   function openSendInscriptionModal() {
-    navigate('', { state: { inscription, utxo } });
+    navigate(RouteUrls.SendOrdinalInscription, { state: { inscription, utxo } });
   }
 
   switch (inscription.type) {
@@ -94,13 +96,13 @@ interface InscriptionLoaderProps {
 function InscriptionLoader({ txid, children }: InscriptionLoaderProps) {
   const { data: inscriptionDetails } = useInscriptionByTxidQuery(txid);
   if (!inscriptionDetails) return null;
-  console.log({ inscriptionDetails });
+  // console.log({ inscriptionDetails });
   return children(inscriptionDetails.inscriptions);
 }
 
 export function Ordinals() {
   const { data: utxos = [] } = useTaprootAddressUtxosQuery();
-  console.log({ utxos });
+  // console.log({ utxos });
 
   return (
     <>

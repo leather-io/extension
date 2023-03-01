@@ -13,6 +13,7 @@ import { TaprootUtxo } from '@app/query/bitcoin/ordinals/use-taproot-address-utx
 import { useCurrentAccountTaprootSigner } from '@app/store/accounts/blockchain/bitcoin/taproot-account.hooks';
 import { useCurrentNetwork } from '@app/store/networks/networks.selectors';
 
+import { Inscription } from '../send/ordinal-inscription/use-send-ordinal-inscription-route-state';
 import { BtcSizeFeeEstimator } from '../send/send-crypto-asset-form/family/bitcoin/fees/btc-size-fee-estimator';
 
 //
@@ -36,55 +37,6 @@ function throwIfUtxoCannotCoverFee(fee: BigNumber, utxoValue: number) {
     throw new Error('Insufficient value to cover fee');
 }
 
-// schema doesn't have full type info, copying for now
-// if we do yup infer trick, let's type full schema
-export interface Inscription {
-  address: string;
-  content: string;
-  'content length': string;
-  'content type': string;
-  'genesis fee': string;
-  'genesis height': string;
-  'genesis transaction': string;
-  id: string;
-  inscription_number: number;
-  location: string;
-  offset: string;
-  output: string;
-  'output value': string;
-  preview: string;
-  sat: string;
-  timestamp: string;
-  title: string;
-}
-
-function useSendOrdRouteState() {
-  const location = useLocation();
-  return {
-    inscription: get(location, 'state.inscription', null) as Inscription | null,
-    utxo: get(location, 'state.utxo', null) as TaprootUtxo | null,
-  };
-}
-
-interface SendOrdLoaderProps {
-  children(data: OrdSendTestContainerProps): JSX.Element;
-}
-function SendOrdLoader({ children }: SendOrdLoaderProps) {
-  const { inscription, utxo } = useSendOrdRouteState();
-  const { data: fees } = useBitcoinFeeRate();
-  if (!inscription || !utxo || !fees) return null;
-  return children({ inscription, utxo, fees });
-}
-
-export function SendOrd() {
-  return <SendOrdLoader>{props => <OrdSendTestContainer {...props} />}</SendOrdLoader>;
-}
-
-interface OrdSendTestContainerProps {
-  inscription: Inscription;
-  utxo: TaprootUtxo;
-  fees: FeeEstimateMempoolSpaceApi;
-}
 function OrdSendTestContainer(props: OrdSendTestContainerProps) {
   const { inscription, utxo, fees } = props;
 

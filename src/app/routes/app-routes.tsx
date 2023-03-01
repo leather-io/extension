@@ -25,16 +25,15 @@ import { MagicRecoveryCode } from '@app/pages/onboarding/magic-recovery-code/mag
 import { SetPasswordPage } from '@app/pages/onboarding/set-password/set-password';
 import { SignIn } from '@app/pages/onboarding/sign-in/sign-in';
 import { WelcomePage } from '@app/pages/onboarding/welcome/welcome';
-import { OrdSendTestContainer, SendOrd } from '@app/pages/ord-send-test/ord-send-test';
 import { ReceiveBtcModal } from '@app/pages/receive-tokens/receive-btc';
 import { ReceiveModal } from '@app/pages/receive-tokens/receive-modal';
 import { ReceiveStxModal } from '@app/pages/receive-tokens/receive-stx';
 import { ReceiveCollectibleModal } from '@app/pages/receive/receive-collectible/receive-collectible-modal';
 import { ReceiveCollectibleOrdinal } from '@app/pages/receive/receive-collectible/receive-collectible-oridinal';
 import { SelectNetwork } from '@app/pages/select-network/select-network';
-import { Home as SendOrdinalInscriptionHome } from '@app/pages/send/ordinal-inscription/home';
-import { Review as SendOrdinalInscriptionReview } from '@app/pages/send/ordinal-inscription/review';
-import { Send as SendOrdinalInscriptionSend } from '@app/pages/send/ordinal-inscription/send';
+import { SendInscription } from '@app/pages/send/ordinal-inscription/send-inscription-container';
+import { SendInscriptionForm } from '@app/pages/send/ordinal-inscription/send-inscription-form';
+import { SendInscriptionReview } from '@app/pages/send/ordinal-inscription/send-inscription-review';
 import { sendCryptoAssetFormRoutes } from '@app/pages/send/send-crypto-asset-form/send-crypto-asset-form.routes';
 import { SignOutConfirmDrawer } from '@app/pages/sign-out-confirm/sign-out-confirm';
 import { TransactionRequest } from '@app/pages/transaction-request/transaction-request';
@@ -90,14 +89,11 @@ function AppRoutesAfterUserHasConsented() {
           <Route path={RouteUrls.ReceiveStx} element={<ReceiveStxModal />} />
           <Route path={RouteUrls.ReceiveBtc} element={<ReceiveBtcModal />} />
 
-          <Route path={RouteUrls.SendOrdinalInscription} element={<SendOrdinalInscriptionHome />}>
-            <Route
-              path={RouteUrls.SendOrdinalInscriptionSend}
-              element={<SendOrdinalInscriptionSend />}
-            />
+          <Route path={RouteUrls.SendOrdinalInscription} element={<SendInscription />}>
+            <Route index element={<SendInscriptionForm />} />
             <Route
               path={RouteUrls.SendOrdinalInscriptionReview}
-              element={<SendOrdinalInscriptionReview />}
+              element={<SendInscriptionReview />}
             />
           </Route>
 
@@ -220,8 +216,6 @@ function AppRoutesAfterUserHasConsented() {
         <Route path={RouteUrls.Unlock} element={<Unlock />}>
           {settingsModalRoutes}
         </Route>
-
-        <Route path="ord-send-test" element={<SendOrd />} />
 
         {/* Catch-all route redirects to onboarding */}
         <Route path="*" element={<Navigate replace to={RouteUrls.Onboarding} />} />

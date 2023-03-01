@@ -8,7 +8,7 @@ import {
 import { useCurrentBtcNativeSegwitAccountAddressIndexZero } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
 import { useCurrentNetwork } from '@app/store/networks/networks.selectors';
 
-import { recipeintFieldName } from './send';
+import { recipeintFieldName } from './send-inscription-form';
 
 export function useOrdinalInscriptionFormValidationSchema() {
   const currentNetwork = useCurrentNetwork();

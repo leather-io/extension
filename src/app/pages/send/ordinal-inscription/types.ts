@@ -1,3 +1,0 @@
-interface Values {
-  recipient: string;
-}
