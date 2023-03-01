@@ -1,10 +1,14 @@
 import { memo } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 import { useClipboard } from '@stacks/ui';
+
+import { RouteUrls } from '@shared/route-urls';
 
 import { useAccountDisplayName } from '@app/common/hooks/account/use-account-names';
 import { useSwitchAccount } from '@app/common/hooks/account/use-switch-account';
 import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
+import { useDrawers } from '@app/common/hooks/use-drawers';
 import { useLoading } from '@app/common/hooks/use-loading';
 import { AccountBalanceLabel } from '@app/components/account/account-balance-label';
 import { AccountListItemLayout } from '@app/components/account/account-list-item-layout';
@@ -25,6 +29,7 @@ export const SwitchAccountListItem = memo(
     const { handleSwitchAccount, getIsActive } = useSwitchAccount(handleClose);
     const [component, bind] = usePressable(true);
     const name = useAccountDisplayName(account);
+    const navigate = useNavigate();
 
     const btcAddress = useBtcNativeSegwitAccountIndexAddressIndexZero(account.index);
 
@@ -38,7 +43,7 @@ export const SwitchAccountListItem = memo(
 
     const analytics = useAnalytics();
     const { onCopy, hasCopied } = useClipboard(account.address || '');
-    const { onCopy: onCopyBtc, hasCopied: hasCopiedBtc } = useClipboard(btcAddress || '');
+    const { setIsShowingSwitchAccountsState } = useDrawers();
 
     const onCopyToClipboard = (e: React.MouseEvent) => {
       e.stopPropagation();
@@ -46,10 +51,10 @@ export const SwitchAccountListItem = memo(
       onCopy();
     };
 
-    const onCopyBtcToClipboard = (e: React.MouseEvent) => {
+    const onClickBtcCopyIcon = (e: React.MouseEvent) => {
       e.stopPropagation();
-      void analytics.track('copy_btc_address_to_clipboard');
-      onCopyBtc();
+      setIsShowingSwitchAccountsState(false);
+      navigate(RouteUrls.ReceiveBtc, { state: { btcAddress } });
     };
 
     return (
@@ -66,9 +71,8 @@ export const SwitchAccountListItem = memo(
         accountName={<AccountName account={account} />}
         balanceLabel={<AccountBalanceLabel address={account.address} />}
         hasCopied={hasCopied}
-        hasCopiedBtc={hasCopiedBtc}
         onCopyToClipboard={onCopyToClipboard}
-        onCopyBtcToClipboard={onCopyBtcToClipboard}
+        onClickBtcCopyIcon={onClickBtcCopyIcon}
         mt="loose"
         {...bind}
       >
