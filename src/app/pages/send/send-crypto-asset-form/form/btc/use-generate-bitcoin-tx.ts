@@ -1,6 +1,5 @@
 import { useCallback } from 'react';
 
-import { hexToBytes } from '@stacks/common';
 import * as btc from 'micro-btc-signer';
 
 import { getBtcSignerLibNetworkByMode } from '@shared/crypto/bitcoin/bitcoin.network';

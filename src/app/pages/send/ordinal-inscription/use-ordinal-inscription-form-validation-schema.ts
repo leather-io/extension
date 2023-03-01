@@ -16,7 +16,7 @@ export function useOrdinalInscriptionFormValidationSchema() {
   return yup.object().shape({
     [recipeintFieldName]: yup
       .string()
-      .required('Please provide a recipient.')
+      .required('Please provide a recipient')
       .concat(btcAddressValidator())
       .concat(btcAddressNetworkValidator(currentNetwork.chain.bitcoin.network))
       .concat(notCurrentAddressValidator(currentAccountBtcAddress || '')),

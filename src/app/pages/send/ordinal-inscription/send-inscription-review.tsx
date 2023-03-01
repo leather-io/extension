@@ -1,32 +1,39 @@
-import { useLocation, useNavigate, useOutletContext } from 'react-router-dom';
+import { useState } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
 
-import { Box, Button, Flex, Stack } from '@stacks/ui';
-import { truncateMiddle } from '@stacks/ui-utils';
-import { Formik, useFormikContext } from 'formik';
+import { Box, Flex, Stack } from '@stacks/ui';
+import get from 'lodash.get';
 
 import { RouteUrls } from '@shared/route-urls';
 
+import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
+import { useHomeTabs } from '@app/common/hooks/use-home-tabs';
 import { BaseDrawer } from '@app/components/drawer/base-drawer';
+import { PrimaryButton } from '@app/components/primary-button';
+import { useCurrentBitcoinAddress } from '@app/query/bitcoin/address/address.hooks';
 
-import { ConfirmationDetail } from '../send-crypto-asset-form/components/confirmation/components/confirmation-detail';
+import { useBitcoinBroadcastTransaction } from '../send-crypto-asset-form/family/bitcoin/hooks/use-bitcoin-broadcast-transaction';
+// import { ConfirmationDetail } from '../send-crypto-asset-form/components/confirmation/components/confirmation-detail';
 import { Image } from './components/image';
 import { Metadata } from './components/metadata';
 import { useInscriptionSendState } from './send-inscription-container';
-import { useSendOrdinalInscriptionRouteState } from './use-send-ordinal-inscription-route-state';
 
-export const recipeintFieldName = 'recipient';
-
-export function useSendInscrptionReviewState() {
+function useSendInscrptionReviewState() {
   const location = useLocation();
   return {
-    signedTx: '',
+    signedTx: get(location.state, 'tx'),
   };
 }
 
 export function SendInscriptionReview() {
+  const [isLoading, setIsLoading] = useState(false);
+  const analytics = useAnalytics();
   const navigate = useNavigate();
-
+  const { setActiveTabActivity } = useHomeTabs();
+  const { signedTx } = useSendInscrptionReviewState();
   const { inscription } = useInscriptionSendState();
+  const { refetch } = useCurrentBitcoinAddress();
+  const { broadcastTransaction } = useBitcoinBroadcastTransaction(signedTx);
 
   // const recipientTruncated = truncateMiddle(formik.values.recipient, 4);
 
@@ -51,9 +58,27 @@ export function SendInscriptionReview() {
             <Box width="100%">
               {/* <ConfirmationDetail detail="To" value={recipientTruncated} /> */}
             </Box>
-            <Button width="100%" onClick={() => navigate(RouteUrls.SendOrdinalInscriptionReview)}>
+            <PrimaryButton
+              isLoading={isLoading}
+              mb="base"
+              onClick={async () => {
+                try {
+                  setIsLoading(true);
+                  await broadcastTransaction();
+                  void analytics.track('broadcast_ordinal_transaction');
+                  await refetch();
+                  navigate(RouteUrls.Home);
+                  setActiveTabActivity();
+                } catch (e) {
+                  navigate(RouteUrls.SendOrdinalInscriptionError);
+                } finally {
+                  setIsLoading(false);
+                }
+              }}
+              width="100%"
+            >
               Confirm
-            </Button>
+            </PrimaryButton>
           </Stack>
         </Box>
       </BaseDrawer>

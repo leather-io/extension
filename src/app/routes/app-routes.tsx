@@ -31,6 +31,7 @@ import { ReceiveStxModal } from '@app/pages/receive-tokens/receive-stx';
 import { ReceiveCollectibleModal } from '@app/pages/receive/receive-collectible/receive-collectible-modal';
 import { ReceiveCollectibleOrdinal } from '@app/pages/receive/receive-collectible/receive-collectible-oridinal';
 import { SelectNetwork } from '@app/pages/select-network/select-network';
+import { BroadcastError } from '@app/pages/send/broadcast-error/broadcast-error';
 import { SendInscription } from '@app/pages/send/ordinal-inscription/send-inscription-container';
 import { SendInscriptionForm } from '@app/pages/send/ordinal-inscription/send-inscription-form';
 import { SendInscriptionReview } from '@app/pages/send/ordinal-inscription/send-inscription-review';
@@ -95,6 +96,7 @@ function AppRoutesAfterUserHasConsented() {
               path={RouteUrls.SendOrdinalInscriptionReview}
               element={<SendInscriptionReview />}
             />
+            <Route path={RouteUrls.SendOrdinalInscriptionError} element={<BroadcastError />} />
           </Route>
 
           {settingsModalRoutes}

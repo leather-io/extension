@@ -5,6 +5,7 @@ import { QueryPrefixes } from '@app/query/query-prefixes';
 import { UtxoResponseItem } from '../bitcoin-client';
 import { ordApiXyzGetTransactionOutput } from './utils';
 
+// ts-unused-exports:disable-next-line
 export function useTransactionsMetadataQuery(utxos: UtxoResponseItem[]) {
   const results = useQueries({
     queries: utxos.map(utxo => ({

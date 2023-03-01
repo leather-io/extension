@@ -1,15 +1,8 @@
-import * as secp from '@noble/secp256k1';
 import { HDKey } from '@scure/bip32';
-import { bytesToHex } from '@stacks/common';
-import * as btc from 'micro-btc-signer';
 import * as yup from 'yup';
 
 import { NetworkModes } from '@shared/constants';
-import { getBtcSignerLibNetworkByMode } from '@shared/crypto/bitcoin/bitcoin.network';
-import {
-  deriveAddressIndexKeychainFromAccount,
-  ecdsaPublicKeyToSchnorr,
-} from '@shared/crypto/bitcoin/bitcoin.utils';
+import { deriveAddressIndexKeychainFromAccount } from '@shared/crypto/bitcoin/bitcoin.utils';
 import { getTaprootPayment } from '@shared/crypto/bitcoin/p2tr-address-gen';
 import { DerivationPathDepth } from '@shared/crypto/derivation-path.utils';
 
@@ -28,10 +21,6 @@ export const ordApiXyzGetInscriptionByInscriptionSchema = yup
     title: yup.string().required(),
   })
   .required();
-
-export type OrdApiXyzGetInscriptionByInscription = yup.InferType<
-  typeof ordApiXyzGetInscriptionByInscriptionSchema
->;
 
 /**
  * Schema of data used from the `GET https://ordapi.xyz/output/:tx` endpoint. Additional data

@@ -1,17 +1,14 @@
-import { useMemo } from 'react';
 import { useSelector } from 'react-redux';
 
 import * as btc from 'micro-btc-signer';
 
 import { deriveAddressIndexKeychainFromAccount } from '@shared/crypto/bitcoin/bitcoin.utils';
 import { getTaprootPaymentFromAddressIndex } from '@shared/crypto/bitcoin/p2tr-address-gen';
-import { isUndefined } from '@shared/utils';
 
 import { whenNetwork } from '@app/common/utils';
 import { useCurrentNetwork } from '@app/store/networks/networks.selectors';
 
 import { useCurrentAccountIndex } from '../../account';
-import { formatBitcoinAccount, tempHardwareAccountForTesting } from './bitcoin-account.models';
 import { selectMainnetTaprootKeychain, selectTestnetTaprootKeychain } from './bitcoin-keychain';
 
 function useTaprootKeychainByAccount() {
@@ -31,19 +28,19 @@ export function useCurrentTaprootAccountKeychain() {
   return accountKeychain(currentAccountIndex);
 }
 
-function useBitcoinTaprootAccount(index: number) {
-  const keychain = useTaprootKeychainByAccount();
-  return useMemo(() => {
-    // TODO: Remove with bitcoin Ledger integration
-    if (isUndefined(keychain)) return tempHardwareAccountForTesting;
-    return formatBitcoinAccount(keychain(index))(index);
-  }, [keychain, index]);
-}
+// function useBitcoinTaprootAccount(index: number) {
+//   const keychain = useTaprootKeychainByAccount();
+//   return useMemo(() => {
+//     // TODO: Remove with bitcoin Ledger integration
+//     if (isUndefined(keychain)) return tempHardwareAccountForTesting;
+//     return formatBitcoinAccount(keychain(index))(index);
+//   }, [keychain, index]);
+// }
 
-function useCurrentBitcoinTaprootAccount() {
-  const currentAccountIndex = useCurrentAccountIndex();
-  return useBitcoinTaprootAccount(currentAccountIndex);
-}
+// function useCurrentBitcoinTaprootAccount() {
+//   const currentAccountIndex = useCurrentAccountIndex();
+//   return useBitcoinTaprootAccount(currentAccountIndex);
+// }
 
 // function useDeriveTaprootAccountIndexAddress(xpub: string, index: number) {
 //   const network = useCurrentNetwork();

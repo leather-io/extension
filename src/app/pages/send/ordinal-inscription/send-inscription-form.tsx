@@ -1,11 +1,15 @@
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import { Box, Button, Flex, Stack } from '@stacks/ui';
 import { Form, Formik } from 'formik';
 
+import { logger } from '@shared/logger';
+import { OrdinalSendFormValues } from '@shared/models/form.model';
 import { RouteUrls } from '@shared/route-urls';
 
 import { BaseDrawer } from '@app/components/drawer/base-drawer';
+import { ErrorLabel } from '@app/components/error-label';
 import { OrdinalIcon } from '@app/components/icons/ordinal-icon';
 
 import { FormErrors } from '../send-crypto-asset-form/components/form-errors';
@@ -15,21 +19,38 @@ import { CollectibleAsset } from './components/collectible-asset';
 import { Image } from './components/image';
 import { Metadata } from './components/metadata';
 import { useInscriptionSendState } from './send-inscription-container';
+import { useGenerateSignedOrdinalTx } from './use-generate-ordinal-tx';
 import { useOrdinalInscriptionFormValidationSchema } from './use-ordinal-inscription-form-validation-schema';
 
+const cannotCoverFeeErrorLabel = 'Insufficient value to cover fee';
 export const recipeintFieldName = 'recipient';
 
 export function SendInscriptionForm() {
+  const [showError, setShowError] = useState(false);
   const navigate = useNavigate();
   const validationSchema = useOrdinalInscriptionFormValidationSchema();
-
   const { inscription, utxo } = useInscriptionSendState();
+  const generateTx = useGenerateSignedOrdinalTx(inscription, utxo);
+
+  async function reviewTransaction(values: OrdinalSendFormValues) {
+    const resp = generateTx(values);
+
+    if (!resp) return logger.error('Attempted to generate raw tx, but no tx exists');
+
+    const { hex, fee, showCannotCoverFeeError } = resp;
+    if (showCannotCoverFeeError) setShowError(true);
+
+    return navigate(RouteUrls.SendOrdinalInscriptionReview, {
+      replace: true,
+      state: { fee, inscription, utxo, recipient: values.recipient, tx: hex },
+    });
+  }
 
   return (
     <Formik
       validationSchema={validationSchema}
       initialValues={{ [recipeintFieldName]: '' }}
-      onSubmit={values => console.log('TODO values', values)}
+      onSubmit={async values => await reviewTransaction(values)}
     >
       {form => (
         <BaseDrawer title="Send" isShowing onClose={() => navigate('../..')}>
@@ -58,18 +79,19 @@ export function SendInscriptionForm() {
                   />
                 </FormFieldsLayout>
                 <FormErrors />
+                {showError ? <ErrorLabel>{cannotCoverFeeErrorLabel}</ErrorLabel> : null}
+                <Button
+                  type="button"
+                  borderRadius="10px"
+                  height="48px"
+                  isDisabled={(!form.isValid && Boolean(form.touched)) || !form.dirty}
+                  mb="base"
+                  onClick={form.handleSubmit}
+                  width="100%"
+                >
+                  Continue
+                </Button>
               </Form>
-              <Button
-                width="100%"
-                onClick={() => {
-                  navigate(RouteUrls.SendOrdinalInscriptionReview, {
-                    state: { inscription, utxo },
-                  });
-                }}
-                isDisabled={(!form.isValid && Boolean(form.touched)) || !form.dirty}
-              >
-                Continue
-              </Button>
             </Stack>
           </Box>
         </BaseDrawer>

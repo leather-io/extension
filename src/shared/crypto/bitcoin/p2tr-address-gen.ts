@@ -44,6 +44,7 @@ interface DeriveTaprootReceiveAddressIndexArgs {
   index: number;
   network: NetworkModes;
 }
+// ts-unused-exports:disable-next-line
 export function deriveTaprootReceiveAddressIndex({
   xpub,
   index,

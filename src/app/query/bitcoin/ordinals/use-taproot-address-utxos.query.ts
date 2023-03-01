@@ -67,6 +67,7 @@ export function useTaprootAddressUtxosQuery() {
 
         return foundUnspentTransactions;
       }
+      return;
     }
   );
 }

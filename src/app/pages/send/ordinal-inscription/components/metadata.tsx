@@ -1,10 +1,12 @@
 import { Flex } from '@stacks/ui';
 
 import { Text } from '@app/components/typography';
-import { OrdinalInfo } from '@app/query/bitcoin/ordinals/utils';
 
+// import { OrdinalInfo } from '@app/query/bitcoin/ordinals/utils';
+
+// TODO: Resolve types
 interface MetadataProps {
-  inscription: OrdinalInfo;
+  inscription: any;
 }
 export function Metadata({ inscription }: MetadataProps) {
   return (
