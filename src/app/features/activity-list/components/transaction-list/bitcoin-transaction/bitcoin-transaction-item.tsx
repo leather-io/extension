@@ -11,6 +11,7 @@ import { TransactionTitle } from '@app/components/transaction/transaction-title'
 import { useCurrentBtcNativeSegwitAccountAddressIndexZero } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
 
 import { BitcoinTransactionCaption } from './bitcoin-transaction-caption';
+import { BitcoinTransactionIcon } from './bitcoin-transaction-icon';
 import { BitcoinTransactionItemLayout } from './bitcoin-transaction-item.layout';
 import { BitcoinTransactionStatus } from './bitcoin-transaction-status';
 import { BitcoinTransactionValue } from './bitcoin-transaction-value';
@@ -46,7 +47,7 @@ export function BitcoinTransactionItem({ transaction, ...rest }: BitcoinTransact
     <BitcoinTransactionItemLayout
       openTxLink={openTxLink}
       txCaption={txCaption}
-      txIcon={<Box as={BtcIcon} />}
+      txIcon={<BitcoinTransactionIcon transaction={transaction} />}
       txStatus={<BitcoinTransactionStatus transaction={transaction} />}
       txTitle={<TransactionTitle title="Bitcoin" />}
       txValue={txValue}
