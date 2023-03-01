@@ -1,28 +1,51 @@
-import { FiAlertOctagon, FiList } from 'react-icons/fi';
+import { FiArrowDown as IconArrowDown, FiArrowUp as IconArrowUp } from 'react-icons/fi';
 
-import { BoxProps, DynamicColorCircle } from '@stacks/ui';
+import { Box, BoxProps, Circle, ColorsStringLiteral, Flex, color } from '@stacks/ui';
 
 import { BitcoinTransaction } from '@shared/models/transactions/bitcoin-transaction.model';
-import { StacksTx } from '@shared/models/transactions/stacks-transaction.model';
 
 import { BtcIcon } from '@app/components/icons/btc-icon';
-import { StxIcon } from '@app/components/icons/stx-icon';
-import { TransactionIconWrapper } from '@app/components/transaction/transaction-icon-wrapper';
-
-import { TransactionTypeIcon } from '../transaction/transaction-type-icon';
 
 interface TransactionIconProps extends BoxProps {
   transaction: BitcoinTransaction;
 }
+type BtcStatusColorMap = Record<string, ColorsStringLiteral>;
+
+const statusFromTx = (tx: BitcoinTransaction): string => {
+  if (tx.status.confirmed) return 'success';
+  return 'pending';
+};
+
+const colorFromTx = (tx: BitcoinTransaction): ColorsStringLiteral => {
+  const colorMap: BtcStatusColorMap = {
+    pending: 'feedback-alert',
+    success: 'brand',
+  };
+
+  return colorMap[statusFromTx(tx)] ?? 'feedback-error';
+};
+
+function IconForTx(tx: BitcoinTransaction) {
+  if (tx.status.confirmed) return IconArrowDown;
+  return IconArrowUp;
+}
 export function BitcoinTransactionIcon({ transaction, ...rest }: TransactionIconProps) {
-  switch (transaction.tx_type) {
-    case 'coinbase':
-      return <TransactionIconWrapper icon={FiList} transaction={transaction} {...rest} />;
-    case 'token_transfer':
-      return <TransactionIconWrapper icon={BtcIcon} transaction={transaction} {...rest} />;
-    case 'poison_microblock':
-      return <TransactionIconWrapper icon={FiAlertOctagon} transaction={transaction} {...rest} />;
-    default:
-      return null;
-  }
+  return (
+    <Flex position="relative">
+      <Box as={BtcIcon} />
+      <Circle
+        bottom="-2px"
+        right="-9px"
+        position="absolute"
+        size="21px"
+        bg={color(colorFromTx(transaction))}
+        color={color('bg')}
+        border="2px solid"
+        borderColor={color('bg')}
+        {...rest}
+      >
+        <Box size="13px" as={IconForTx(transaction)} />
+      </Circle>
+    </Flex>
+  );
 }
