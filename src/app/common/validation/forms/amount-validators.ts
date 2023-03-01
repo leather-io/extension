@@ -11,7 +11,11 @@ import {
   stxToMicroStx,
 } from '@app/common/money/unit-conversion';
 
-import { formatInsufficientBalanceError, formatPrecisionError } from '../../error-formatters';
+import {
+  formatErrorWithSymbol,
+  formatInsufficientBalanceError,
+  formatPrecisionError,
+} from '../../error-formatters';
 import { FormErrorMessages } from '../../error-messages';
 import { countDecimals } from '../../utils';
 import { currencyAmountValidator, stxAmountPrecisionValidator } from './currency-validators';
@@ -19,7 +23,11 @@ import { currencyAmountValidator, stxAmountPrecisionValidator } from './currency
 const minSpendAmountInSats = 6000;
 
 function amountValidator() {
-  return yup.number().required().positive(FormErrorMessages.MustNotBeZero);
+  return yup
+    .number()
+    .required()
+    .positive(FormErrorMessages.MustNotBeZero)
+    .typeError('Amount must be a number');
 }
 
 interface BtcInsufficientBalanceValidatorArgs {
@@ -32,50 +40,60 @@ export function btcInsufficientBalanceValidator({
   recipient,
   calcMaxSpend,
 }: BtcInsufficientBalanceValidatorArgs) {
-  return yup.number().test({
-    message: 'Insufficient funds',
-    test(value) {
-      if (!value) return false;
-      const maxSpend = calcMaxSpend(recipient);
-      if (!maxSpend) return false;
-      const desiredSpend = new BigNumber(value);
-      if (desiredSpend.isGreaterThan(maxSpend.spendableBitcoin)) return false;
-      return true;
-    },
-  });
+  return yup
+    .number()
+    .typeError(formatErrorWithSymbol('BTC', FormErrorMessages.MustBeNumber))
+    .test({
+      message: FormErrorMessages.InsufficientFunds,
+      test(value) {
+        if (!value) return false;
+        const maxSpend = calcMaxSpend(recipient);
+        if (!maxSpend) return false;
+        const desiredSpend = new BigNumber(value);
+        if (desiredSpend.isGreaterThan(maxSpend.spendableBitcoin)) return false;
+        return true;
+      },
+    });
 }
 
 export function btcMinimumSpendValidator() {
-  return yup.number().test({
-    message: `Minimum is ${satToBtc(minSpendAmountInSats)}`,
-    test(value) {
-      if (!value) return false;
-      const desiredSpend = btcToSat(value);
-      if (desiredSpend.isLessThan(minSpendAmountInSats)) return false;
-      return true;
-    },
-  });
+  return yup
+    .number()
+    .typeError(formatErrorWithSymbol('BTC', FormErrorMessages.MustBeNumber))
+    .test({
+      message: `Minimum is ${satToBtc(minSpendAmountInSats)}`,
+      test(value) {
+        if (!value) return false;
+        const desiredSpend = btcToSat(value);
+        if (desiredSpend.isLessThan(minSpendAmountInSats)) return false;
+        return true;
+      },
+    });
 }
 
 export function stxAmountValidator() {
   return yup
     .number()
+    .typeError(formatErrorWithSymbol('STX', FormErrorMessages.MustBeNumber))
     .concat(currencyAmountValidator())
     .concat(stxAmountPrecisionValidator(formatPrecisionError()));
 }
 
 export function stxAvailableBalanceValidator(availableBalance: Money) {
-  return yup.number().test({
-    message: formatInsufficientBalanceError(availableBalance, sum =>
-      microStxToStx(sum.amount).toString()
-    ),
-    test(value: unknown) {
-      const fee = stxToMicroStx(this.parent.fee);
-      if (!availableBalance || !isNumber(value)) return false;
-      const availableBalanceLessFee = availableBalance.amount.minus(fee);
-      return availableBalanceLessFee.isGreaterThanOrEqualTo(stxToMicroStx(value));
-    },
-  });
+  return yup
+    .number()
+    .typeError(formatErrorWithSymbol('STX', FormErrorMessages.MustBeNumber))
+    .test({
+      message: formatInsufficientBalanceError(availableBalance, sum =>
+        microStxToStx(sum.amount).toString()
+      ),
+      test(value: unknown) {
+        const fee = stxToMicroStx(this.parent.fee);
+        if (!availableBalance || !isNumber(value)) return false;
+        const availableBalanceLessFee = availableBalance.amount.minus(fee);
+        return availableBalanceLessFee.isGreaterThanOrEqualTo(stxToMicroStx(value));
+      },
+    });
 }
 
 export function stacksFungibleTokenAmountValidator(balance: Money) {

@@ -6,10 +6,12 @@ import { Money } from '@shared/models/money.model';
 import { isNumber } from '@shared/utils';
 
 import { formatInsufficientBalanceError, formatPrecisionError } from '@app/common/error-formatters';
-import { btcAmountPrecisionValidator } from '@app/common/validation/forms/currency-validators';
+import {
+  btcAmountPrecisionValidator,
+  stxAmountPrecisionValidator,
+} from '@app/common/validation/forms/currency-validators';
 
 import { btcToSat, moneyToBaseUnit, stxToMicroStx } from '../../money/unit-conversion';
-import { stxAmountValidator } from './amount-validators';
 
 interface FeeValidatorFactoryArgs {
   availableBalance?: Money;
@@ -45,6 +47,6 @@ export function stxFeeValidator(availableBalance?: Money) {
   return feeValidatorFactory({
     availableBalance,
     unitConverter: stxToMicroStx,
-    validator: stxAmountValidator,
+    validator: stxAmountPrecisionValidator,
   });
 }

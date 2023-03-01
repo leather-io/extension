@@ -54,6 +54,7 @@ describe(`Onboarding integration tests`, () => {
     expect(signoutBtn).toBeTruthy();
     await wallet.page.click('text=Sign Out');
     await wallet.page.click(wallet.$signOutConfirmHasBackupCheckbox);
+    await wallet.page.click(wallet.$signOutConfirmPasswordDisable);
     await wallet.page.click(wallet.$signOutDeleteWalletBtn);
     await wallet.page.waitForSelector(wallet.$analyticsDenyButton);
   });

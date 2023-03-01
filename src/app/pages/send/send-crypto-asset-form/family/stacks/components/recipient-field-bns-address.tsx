@@ -26,7 +26,7 @@ export function RecipientFieldBnsAddress(props: { bnsAddress: string }) {
     <Stack isInline spacing="tight" zIndex={999}>
       <Text
         color={color('text-caption')}
-        data-testid={SendCryptoAssetSelectors.ResolvedBnsAddressPreview}
+        data-testid={SendCryptoAssetSelectors.ResolvedBnsAddressLabel}
         fontSize={0}
       >
         {truncateMiddle(bnsAddress, 4)}
@@ -37,7 +37,7 @@ export function RecipientFieldBnsAddress(props: { bnsAddress: string }) {
             _hover={{ cursor: 'pointer' }}
             as={FiInfo}
             color={color('text-caption')}
-            data-testid={SendCryptoAssetSelectors.ResolvedBnsAddressHoverInfoIcon}
+            data-testid={SendCryptoAssetSelectors.ResolvedBnsAddressInfoIcon}
             onMouseOver={onHover}
             size="12px"
           />

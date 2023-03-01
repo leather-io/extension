@@ -1,5 +1,6 @@
 import { css } from '@emotion/react';
 import { Flex, Input, Text, color } from '@stacks/ui';
+import { SendCryptoAssetSelectors } from '@tests/selectors/send.selectors';
 import { useField } from 'formik';
 
 import { SpaceBetween } from '@app/components/layout/space-between';
@@ -70,6 +71,7 @@ export function TextInputField({
         {labelAction ? (
           <Text
             _hover={{ cursor: 'pointer', textDecoration: 'underline' }}
+            data-testid={SendCryptoAssetSelectors.RecipientChooseAccountButton}
             as="button"
             color={color('accent')}
             fontSize={0}

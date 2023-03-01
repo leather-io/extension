@@ -8,21 +8,16 @@ import { useWalletType } from '@app/common/use-wallet-type';
 import { BaseDrawer } from '@app/components/drawer/base-drawer';
 import { useStacksAccounts } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
 
-import { useStacksFtRouteState } from '../../form/stacks-sip10/use-stacks-ft-params';
 import { AccountListItem } from './account-list-item';
 
 const smallNumberOfAccountsToRenderWholeList = 10;
 
 export const RecipientAccountsDrawer = memo(() => {
-  const { contractId } = useStacksFtRouteState();
   const { whenWallet } = useWalletType();
   const accounts = useStacksAccounts();
   const navigate = useNavigate();
 
-  const onGoBack = useCallback(
-    () => navigate('..', { replace: true, state: { contractId } }),
-    [contractId, navigate]
-  );
+  const onGoBack = useCallback(() => navigate('..', { replace: true }), [navigate]);
 
   return accounts ? (
     <BaseDrawer title="My accounts" isShowing onClose={onGoBack}>

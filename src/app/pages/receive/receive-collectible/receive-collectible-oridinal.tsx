@@ -2,7 +2,8 @@ import toast from 'react-hot-toast';
 import { FiArrowUpRight } from 'react-icons/fi';
 import { useLocation, useNavigate } from 'react-router-dom';
 
-import { Box, Stack, color, useClipboard } from '@stacks/ui';
+import { Box, Flex, Stack, color, useClipboard } from '@stacks/ui';
+import { truncateMiddle } from '@stacks/ui-utils';
 
 import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
 import { openInNewTab } from '@app/common/utils/open-in-new-tab';
@@ -11,7 +12,7 @@ import { ErrorLabel } from '@app/components/error-label';
 import { OrdinalIcon } from '@app/components/icons/ordinal-icon';
 import { Divider } from '@app/components/layout/divider';
 import { PrimaryButton } from '@app/components/primary-button';
-import { Text, Title } from '@app/components/typography';
+import { Caption, Text, Title } from '@app/components/typography';
 
 export function ReceiveCollectibleOrdinal() {
   const navigate = useNavigate();
@@ -80,6 +81,9 @@ export function ReceiveCollectibleOrdinal() {
             This Taproot address is for Ordinals only. Do not deposit other BTC here or you may have
             difficulty retrieving it
           </Text>
+          <Flex sx={{ maxWidth: '100%', flexWrap: 'wrap', justifyContent: 'center' }}>
+            <Caption mt="2px">{truncateMiddle(state.btcAddress, 6)}</Caption>
+          </Flex>
         </Stack>
         <PrimaryButton flexGrow={1} my="extra-loose" onClick={copyToClipboard} width="100%">
           Copy address
