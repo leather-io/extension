@@ -1,12 +1,13 @@
 import { Box, BoxProps, Circle, color } from '@stacks/ui';
 
+import { BitcoinTransaction } from '@shared/models/transactions/bitcoin-transaction.model';
 import { StacksTx } from '@shared/models/transactions/stacks-transaction.model';
 
 import { TransactionTypeIcon } from './transaction-type-icon';
 
 interface TransactionIconWrapperProps extends BoxProps {
   icon: React.FC;
-  transaction: StacksTx;
+  transaction: StacksTx | BitcoinTransaction;
 }
 export function TransactionIconWrapper({
   icon: Icon,
