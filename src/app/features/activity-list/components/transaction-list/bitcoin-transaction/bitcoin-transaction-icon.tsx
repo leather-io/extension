@@ -5,6 +5,9 @@ import { Box, BoxProps, Circle, ColorsStringLiteral, Flex, color } from '@stacks
 import { BitcoinTransaction } from '@shared/models/transactions/bitcoin-transaction.model';
 
 import { BtcIcon } from '@app/components/icons/btc-icon';
+import { useCurrentBtcNativeSegwitAccountAddressIndexZero } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
+
+import { isBitcoinTxInbound } from './bitcoin-transaction.utils';
 
 interface TransactionIconProps extends BoxProps {
   transaction: BitcoinTransaction;
@@ -25,11 +28,13 @@ const colorFromTx = (tx: BitcoinTransaction): ColorsStringLiteral => {
   return colorMap[statusFromTx(tx)] ?? 'feedback-error';
 };
 
-function IconForTx(tx: BitcoinTransaction) {
-  if (tx.status.confirmed) return IconArrowDown;
+function IconForTx(address: string, tx: BitcoinTransaction) {
+  if (isBitcoinTxInbound(address, tx)) return IconArrowDown;
   return IconArrowUp;
 }
 export function BitcoinTransactionIcon({ transaction, ...rest }: TransactionIconProps) {
+  const btcAddress = useCurrentBtcNativeSegwitAccountAddressIndexZero();
+
   return (
     <Flex position="relative">
       <Box as={BtcIcon} />
@@ -44,7 +49,7 @@ export function BitcoinTransactionIcon({ transaction, ...rest }: TransactionIcon
         borderColor={color('bg')}
         {...rest}
       >
-        <Box size="13px" as={IconForTx(transaction)} />
+        <Box size="13px" as={IconForTx(btcAddress, transaction)} />
       </Circle>
     </Flex>
   );
