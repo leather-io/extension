@@ -1,3 +1,32 @@
+## [4.3.0](https://github.com/hirosystems/stacks-wallet-web/compare/v4.2.0...v4.3.0) (2023-03-01)
+
+
+### Features
+
+* add password disable warning and check ([9ff59dd](https://github.com/hirosystems/stacks-wallet-web/commit/9ff59dd491012167b9987b70908123ee952986c2))
+* add proper selector to password checkbox ([bdd5942](https://github.com/hirosystems/stacks-wallet-web/commit/bdd594204bf328c7a722fd569679b03a59a19c32))
+* add total balance ([0dc04a5](https://github.com/hirosystems/stacks-wallet-web/commit/0dc04a59aac90be41283c40160aaadb5df56f3cf))
+* collectibles loading indicator ([5a04260](https://github.com/hirosystems/stacks-wallet-web/commit/5a04260c983098430b83d0d584ff6a756c0f09f6))
+* collectibles refresh button ([3c90c4a](https://github.com/hirosystems/stacks-wallet-web/commit/3c90c4a0df225a6afaaf27e0d6e994a234ed6740))
+* display ordinal address before copying ([4991edf](https://github.com/hirosystems/stacks-wallet-web/commit/4991edfe85f23db43bdb6426b4ada2a32dd677f7))
+* support for text inscriptions ([fa37772](https://github.com/hirosystems/stacks-wallet-web/commit/fa3777241bb2a93f28929c25a4fc89f8696bdf4d))
+* support for text inscriptions ([606d8e7](https://github.com/hirosystems/stacks-wallet-web/commit/606d8e7816f8ede40ab47741f40a67f3351f9493))
+* update manifest description ([7aa545a](https://github.com/hirosystems/stacks-wallet-web/commit/7aa545a776ac0d7330a0a01ba5a5d88d6904ef0d))
+
+
+### Bug Fixes
+
+* failing send max test ([e2d9e1f](https://github.com/hirosystems/stacks-wallet-web/commit/e2d9e1f97b648bcac08871e6b00a7a6af0858345))
+* integration tests ([81e76dd](https://github.com/hirosystems/stacks-wallet-web/commit/81e76dd95fa8951154493774e19abc07c5f77d2d))
+* ledger send stacks ft ([d7c8e1e](https://github.com/hirosystems/stacks-wallet-web/commit/d7c8e1edff82cf94eae2687609b1c77ba4fe0630))
+* send form tests ([a879475](https://github.com/hirosystems/stacks-wallet-web/commit/a87947511b892ce9cd8dc9164a1eec1d5664f013))
+* tx detail text ([480455f](https://github.com/hirosystems/stacks-wallet-web/commit/480455f17504e65d6fbd54e72abf49127fc73f78))
+
+
+### Internal
+
+* ord queries ([420592c](https://github.com/hirosystems/stacks-wallet-web/commit/420592cd1f4d4daca92c33d071304b49cb22c55e))
+
 ## [4.2.0](https://github.com/hirosystems/stacks-wallet-web/compare/v4.1.0...v4.2.0) (2023-02-27)
 
 
