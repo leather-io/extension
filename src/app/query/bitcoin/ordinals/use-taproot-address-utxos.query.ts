@@ -9,7 +9,7 @@ import { useCurrentNetwork } from '@app/store/networks/networks.selectors';
 import { UtxoResponseItem } from '../bitcoin-client';
 import { getTaprootAddress, hasOrdinals } from './utils';
 
-const stopSearchAfterNumberAddressesWithoutOrdinals = 5;
+const stopSearchAfterNumberAddressesWithoutOrdinals = 20;
 
 /**
  * Returns all utxos for the user's current taproot account. The search for
