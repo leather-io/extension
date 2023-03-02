@@ -118,7 +118,7 @@ export function whenInscriptionType<T>(
   throw new Error('Unhandled inscription type.');
 }
 
-export async function getNumberOfInscriptionOnUtxo(id: string, index: number) {
+async function getNumberOfInscriptionOnUtxo(id: string, index: number) {
   const resp = await fetch(`https://ordinals.com/output/${id}:${index}`);
   const html = await resp.text();
   const utxoPage = new DOMParser().parseFromString(html, 'text/html');
