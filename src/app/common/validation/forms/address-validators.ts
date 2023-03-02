@@ -1,4 +1,4 @@
-import validate, { Network } from 'bitcoin-address-validation';
+import { AddressType, Network, getAddressInfo, validate } from 'bitcoin-address-validation';
 import * as yup from 'yup';
 
 import { NetworkConfiguration, NetworkModes } from '@shared/constants';
@@ -30,6 +30,16 @@ export function btcAddressValidator() {
         });
       return true;
     });
+}
+export function btcTaprootAddressValidator() {
+  return yup.string().test((input, context) => {
+    if (!input || !validate(input)) return false;
+    if (getAddressInfo(input).type !== AddressType.p2tr)
+      return context.createError({
+        message: 'Only taproot addresses are supported',
+      });
+    return true;
+  });
 }
 
 function btcAddressNetworkValidatorFactory(network: NetworkModes) {

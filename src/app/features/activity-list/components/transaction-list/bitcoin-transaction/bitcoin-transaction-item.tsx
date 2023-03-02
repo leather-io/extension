@@ -1,16 +1,16 @@
 import { useMemo } from 'react';
 
-import { Box, BoxProps } from '@stacks/ui';
+import { BoxProps } from '@stacks/ui';
 
 import { BitcoinTransaction } from '@shared/models/transactions/bitcoin-transaction.model';
 
 import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
 import { useExplorerLink } from '@app/common/hooks/use-explorer-link';
-import { BtcIcon } from '@app/components/icons/btc-icon';
 import { TransactionTitle } from '@app/components/transaction/transaction-title';
 import { useCurrentBtcNativeSegwitAccountAddressIndexZero } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
 
 import { BitcoinTransactionCaption } from './bitcoin-transaction-caption';
+import { BitcoinTransactionIcon } from './bitcoin-transaction-icon';
 import { BitcoinTransactionItemLayout } from './bitcoin-transaction-item.layout';
 import { BitcoinTransactionStatus } from './bitcoin-transaction-status';
 import { BitcoinTransactionValue } from './bitcoin-transaction-value';
@@ -46,7 +46,7 @@ export function BitcoinTransactionItem({ transaction, ...rest }: BitcoinTransact
     <BitcoinTransactionItemLayout
       openTxLink={openTxLink}
       txCaption={txCaption}
-      txIcon={<Box as={BtcIcon} />}
+      txIcon={<BitcoinTransactionIcon transaction={transaction} btcAddress={bitcoinAddress} />}
       txStatus={<BitcoinTransactionStatus transaction={transaction} />}
       txTitle={<TransactionTitle title="Bitcoin" />}
       txValue={txValue}

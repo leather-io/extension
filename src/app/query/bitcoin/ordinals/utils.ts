@@ -1,12 +1,11 @@
-import * as secp from '@noble/secp256k1';
 import { HDKey } from '@scure/bip32';
-import * as btc from 'micro-btc-signer';
 import * as yup from 'yup';
 
 import { NetworkModes } from '@shared/constants';
-import { getBtcSignerLibNetworkByMode } from '@shared/crypto/bitcoin/bitcoin.network';
 import { deriveAddressIndexKeychainFromAccount } from '@shared/crypto/bitcoin/bitcoin.utils';
+import { getTaprootPayment } from '@shared/crypto/bitcoin/p2tr-address-gen';
 import { DerivationPathDepth } from '@shared/crypto/derivation-path.utils';
+import { logger } from '@shared/logger';
 
 /**
  * Schema of data used from the `GET https://ordapi.xyz/inscriptions/:id` endpoint. Additional data
@@ -18,7 +17,6 @@ export const ordApiXyzGetInscriptionByInscriptionSchema = yup
   .object({
     // NOTE: this next key is using a space " ", uncommon as that is.
     ['content type']: yup.string().required(),
-
     content: yup.string().required(),
     preview: yup.string().required(),
     title: yup.string().required(),
@@ -28,18 +26,16 @@ export const ordApiXyzGetInscriptionByInscriptionSchema = yup
 /**
  * Schema of data used from the `GET https://ordapi.xyz/output/:tx` endpoint. Additional data
  * that is not currently used by the app may be returned by this endpoint.
- *
- * See API docs, https://ordapi.xyz/
  */
 export const ordApiXyzGetTransactionOutput = yup
   .object({
-    inscriptions: yup.string().required(),
+    inscriptions: yup.string(),
   })
   .required();
 
 export type OrdApiXyzGetTransactionOutput = yup.InferType<typeof ordApiXyzGetTransactionOutput>;
 
-export function hasOrdinals(data: Array<unknown>) {
+export function hasInscriptions(data: Array<unknown>) {
   return data.length !== 0;
 }
 
@@ -53,11 +49,7 @@ export function getTaprootAddress(index: number, keychain: HDKey, network: Netwo
     throw new Error('Expected privateKey to be defined.');
   }
 
-  const payment = btc.p2tr(
-    secp.schnorr.getPublicKey(addressIndex.privateKey),
-    undefined,
-    getBtcSignerLibNetworkByMode(network)
-  );
+  const payment = getTaprootPayment(addressIndex.publicKey!, network);
 
   if (!payment.address) throw new Error('Expected address to be defined.');
 
@@ -65,64 +57,53 @@ export function getTaprootAddress(index: number, keychain: HDKey, network: Netwo
 }
 
 /**
- * Ordinals contain arbitrary data. When retrieving an ordinal, it should be
+ * Inscriptions contain arbitrary data. When retrieving an inscription, it should be
  * classified into one of the types below, indicating that the app can handle it
- * appropriately and securely. Ordinals of types not ready to be handled by the
+ * appropriately and securely. Inscriptions of types not ready to be handled by the
  * app should be classified as "other".
  */
-const supportedOrdinalTypes = ['image', 'text', 'other'] as const;
+const supportedInscriptionTypes = ['image', 'text', 'other'] as const;
 
-type SupportedOrdinalType = (typeof supportedOrdinalTypes)[number];
+type SupportedInscriptionType = (typeof supportedInscriptionTypes)[number];
 
-interface BaseOrdinalInfo {
+interface BaseInscriptionInfo {
   /**
-   * The kind of ordinal as classified by this app. Different kinds of ordinals
+   * The kind of inscription as classified by this app. Different kinds of inscriptions
    * require different treatment (e.g., images vs documents).
    */
-  type: SupportedOrdinalType;
-
-  /**
-   * Title which can be rendered in the UI alongside the ordinal.
-   */
+  type: SupportedInscriptionType;
   title: string;
-
-  /**
-   * A link to a detailed techincal description about the ordinal.
-   */
   infoUrl: string;
 }
 
-interface ImageOrdinalInfo extends BaseOrdinalInfo {
+interface ImageInscriptionInfo extends BaseInscriptionInfo {
   type: 'image';
-
-  /**
-   * URL where the image can be found.
-   */
   src: string;
 }
 
-interface TextOrdinalInfo extends BaseOrdinalInfo {
+interface TextInscriptionInfo extends BaseInscriptionInfo {
   type: 'text';
-
-  /**
-   * URL where the text content can be found.
-   */
   contentSrc: string;
 }
 
-interface OtherOrdinalInfo extends BaseOrdinalInfo {
+interface OtherInscriptionInfo extends BaseInscriptionInfo {
   type: 'other';
 }
 
-type OrdinalInfo = ImageOrdinalInfo | TextOrdinalInfo | OtherOrdinalInfo;
+/**
+ * Information useful to the app about an inscription depending on its
+ * type. Typically, API data will be used to construct this object. This is
+ * *not* the result of any one API response.
+ */
+export type InscriptionInfo = ImageInscriptionInfo | TextInscriptionInfo | OtherInscriptionInfo;
 
 export function createInfoUrl(contentPath: string) {
   return `https://ordinals.com${contentPath}`.replace('content', 'inscription');
 }
 
-export function whenOrdinalType(
+export function whenInscriptionType<T>(
   mimeType: string,
-  branches: { [k in SupportedOrdinalType]?: () => OrdinalInfo }
+  branches: { [k in SupportedInscriptionType]?: () => T }
 ) {
   if (mimeType.startsWith('image/') && branches.image) {
     return branches.image();
@@ -134,5 +115,21 @@ export function whenOrdinalType(
 
   if (branches.other) return branches.other();
 
-  throw new Error('Unhandled ordinal type.');
+  throw new Error('Unhandled inscription type.');
+}
+
+async function getNumberOfInscriptionOnUtxo(id: string, index: number) {
+  const resp = await fetch(`https://ordinals.com/output/${id}:${index}`);
+  const html = await resp.text();
+  const utxoPage = new DOMParser().parseFromString(html, 'text/html');
+  return utxoPage.querySelectorAll('.thumbnails a').length;
+}
+
+export async function getNumberOfInscriptionOnUtxoWithFallbackOfOne(id: string, index: number) {
+  try {
+    return await getNumberOfInscriptionOnUtxo(id, index);
+  } catch (e) {
+    logger.warn('Ordinals.com API down, assuming safe inscription spending', e);
+    return 1;
+  }
 }

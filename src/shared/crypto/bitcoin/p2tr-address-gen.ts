@@ -1,4 +1,3 @@
-import * as secp from '@noble/secp256k1';
 import { HDKey } from '@scure/bip32';
 import * as btc from 'micro-btc-signer';
 
@@ -8,6 +7,7 @@ import { DerivationPathDepth } from '../derivation-path.utils';
 import { getBtcSignerLibNetworkByMode } from './bitcoin.network';
 import {
   deriveAddressIndexKeychainFromAccount,
+  ecdsaPublicKeyToSchnorr,
   getBitcoinCoinTypeIndexByNetwork,
 } from './bitcoin.utils';
 
@@ -22,15 +22,21 @@ export function deriveTaprootAccountFromRootKeychain(keychain: HDKey, network: N
   return (index: number) => keychain.derive(getTaprootAccountDerivationPath(network, index));
 }
 
-export function getTaprootAddressIndexFromAccount(keychain: HDKey, network: NetworkModes) {
-  if (keychain.depth !== DerivationPathDepth.AddressIndex)
-    throw new Error('Keychain passed is not an address index');
-
+export function getTaprootPayment(publicKey: Uint8Array, network: NetworkModes) {
   return btc.p2tr(
-    secp.schnorr.getPublicKey(keychain?.privateKey!),
+    ecdsaPublicKeyToSchnorr(publicKey),
     undefined,
     getBtcSignerLibNetworkByMode(network)
   );
+}
+
+export function getTaprootPaymentFromAddressIndex(keychain: HDKey, network: NetworkModes) {
+  if (keychain.depth !== DerivationPathDepth.AddressIndex)
+    throw new Error('Keychain passed is not an address index');
+
+  if (!keychain.publicKey) throw new Error('Keychain has no public key');
+
+  return getTaprootPayment(keychain.publicKey, network);
 }
 
 interface DeriveTaprootReceiveAddressIndexArgs {
@@ -38,6 +44,7 @@ interface DeriveTaprootReceiveAddressIndexArgs {
   index: number;
   network: NetworkModes;
 }
+// ts-unused-exports:disable-next-line
 export function deriveTaprootReceiveAddressIndex({
   xpub,
   index,
@@ -45,10 +52,6 @@ export function deriveTaprootReceiveAddressIndex({
 }: DeriveTaprootReceiveAddressIndexArgs) {
   if (!xpub) return;
   const keychain = HDKey.fromExtendedKey(xpub);
-  const zeroAddressIndex = deriveAddressIndexKeychainFromAccount(keychain)(index);
-  return btc.p2tr(
-    secp.schnorr.getPublicKey(zeroAddressIndex?.privateKey!),
-    undefined,
-    getBtcSignerLibNetworkByMode(network)
-  );
+  const addressIndexKeychain = deriveAddressIndexKeychainFromAccount(keychain)(index);
+  return getTaprootPayment(addressIndexKeychain.publicKey!, network);
 }

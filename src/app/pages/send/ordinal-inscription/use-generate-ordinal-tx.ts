@@ -1,0 +1,52 @@
+import { useCallback } from 'react';
+
+import BigNumber from 'bignumber.js';
+import * as btc from 'micro-btc-signer';
+
+import { getBtcSignerLibNetworkByMode } from '@shared/crypto/bitcoin/bitcoin.network';
+import { OrdinalSendFormValues } from '@shared/models/form.model';
+
+import { useBitcoinFeeRate } from '@app/query/bitcoin/fees/fee-estimates.hooks';
+import { TaprootUtxo } from '@app/query/bitcoin/ordinals/use-taproot-address-utxos.query';
+import { useCurrentAccountTaprootSigner } from '@app/store/accounts/blockchain/bitcoin/taproot-account.hooks';
+import { useCurrentNetwork } from '@app/store/networks/networks.selectors';
+
+export function useGenerateSignedOrdinalTx(utxo: TaprootUtxo, fee: bigint) {
+  const signer = useCurrentAccountTaprootSigner(utxo?.addressIndex ?? 0);
+  const network = useCurrentNetwork();
+  const { data: feeRate } = useBitcoinFeeRate();
+
+  return useCallback(
+    (values: OrdinalSendFormValues) => {
+      if (!feeRate) return;
+
+      const networkMode = getBtcSignerLibNetworkByMode(network.chain.bitcoin.network);
+
+      try {
+        const tx = new btc.Transaction();
+        tx.addInput({
+          txid: utxo.txid,
+          index: utxo.vout,
+          tapInternalKey: signer.payment.tapInternalKey,
+          witnessUtxo: {
+            script: signer.payment.script,
+            amount: BigInt(utxo.value),
+          },
+        });
+        tx.addOutputAddress(
+          values.recipient,
+          BigInt(Math.ceil(new BigNumber(utxo.value).minus(fee.toString()).toNumber())),
+          networkMode
+        );
+        signer.sign(tx);
+        tx.finalize();
+        return { hex: tx.hex, fee };
+      } catch (e) {
+        // eslint-disable-next-line no-console
+        console.log('Error signing ordinal transaction', e);
+        return null;
+      }
+    },
+    [fee, feeRate, network.chain.bitcoin.network, signer, utxo.txid, utxo.value, utxo.vout]
+  );
+}

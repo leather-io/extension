@@ -5,7 +5,7 @@ import { SECRET_KEY } from '@tests-legacy/mocks';
 import { deriveAddressIndexKeychainFromAccount } from './bitcoin.utils';
 import {
   deriveTaprootAccountFromRootKeychain,
-  getTaprootAddressIndexFromAccount,
+  getTaprootPaymentFromAddressIndex,
 } from './p2tr-address-gen';
 
 // Source:
@@ -25,7 +25,7 @@ describe('taproot address gen', () => {
     const index = addresses.indexOf(address);
     const accountZeroKeychain = deriveTaprootAccountFromRootKeychain(keychain, 'testnet')(0);
 
-    const addressIndexDetails = getTaprootAddressIndexFromAccount(
+    const addressIndexDetails = getTaprootPaymentFromAddressIndex(
       deriveAddressIndexKeychainFromAccount(accountZeroKeychain)(index),
       'testnet'
     );

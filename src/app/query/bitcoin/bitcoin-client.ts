@@ -39,7 +39,7 @@ interface FeeEstimateEarnApiResponse {
   halfHourFee: number;
   hourFee: number;
 }
-interface FeeEstimateMempoolSpaceApi {
+export interface FeeEstimateMempoolSpaceApi {
   fastestFee: number;
   halfHourFee: number;
   hourFee: number;

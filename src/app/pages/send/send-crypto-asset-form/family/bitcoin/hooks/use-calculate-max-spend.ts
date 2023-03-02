@@ -11,7 +11,7 @@ import { useGetUtxosByAddressQuery } from '@app/query/bitcoin/address/utxos-by-a
 import { useBitcoinFeeRate } from '@app/query/bitcoin/fees/fee-estimates.hooks';
 import { useCurrentBtcNativeSegwitAccountAddressIndexZero } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
 
-import { BtcSizeFeeEstimator } from '../fees/tx-size-calculator';
+import { BtcSizeFeeEstimator } from '../fees/btc-size-fee-estimator';
 
 export function useCalculateMaxBitcoinSpend() {
   const currentAccountBtcAddress = useCurrentBtcNativeSegwitAccountAddressIndexZero();

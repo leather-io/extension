@@ -19,6 +19,15 @@ const transactionsSentByAddress = (address: string, transaction: BitcoinTransact
 const transactionsReceivedByAddress = (address: string, transaction: BitcoinTransaction) =>
   transaction.vout.filter(output => output.scriptpubkey_address === address);
 
+export function isBitcoinTxInbound(address: string, transaction: BitcoinTransaction) {
+  const inputs = transactionsSentByAddress(address, transaction);
+  const outputs = transactionsReceivedByAddress(address, transaction);
+
+  if (inputs.length && outputs.length) return false;
+  if (inputs.length) return false;
+  return true;
+}
+
 export function getBitcoinTxValue(address: string, transaction?: BitcoinTransaction) {
   if (!transaction) return '';
   const inputs = transactionsSentByAddress(address, transaction);

@@ -1,8 +1,18 @@
-import { openInNewTab } from '@app/common/utils/open-in-new-tab';
+import { useNavigate } from 'react-router-dom';
+
+import { RouteUrls } from '@shared/route-urls';
+
 import { useInscriptionByTxidQuery } from '@app/query/bitcoin/ordinals/use-inscription-by-txid.query';
 import { useInscriptionQuery } from '@app/query/bitcoin/ordinals/use-inscription.query';
-import { useTaprootAddressUtxosQuery } from '@app/query/bitcoin/ordinals/use-taproot-address-utxos.query';
-import { createInfoUrl, whenOrdinalType } from '@app/query/bitcoin/ordinals/utils';
+import {
+  TaprootUtxo,
+  useTaprootAddressUtxosQuery,
+} from '@app/query/bitcoin/ordinals/use-taproot-address-utxos.query';
+import {
+  InscriptionInfo,
+  createInfoUrl,
+  whenInscriptionType,
+} from '@app/query/bitcoin/ordinals/utils';
 
 import { CollectibleImage } from './collectible-image';
 import { CollectibleOther } from './collectible-other';
@@ -10,65 +20,72 @@ import { CollectibleText } from './collectible-text';
 
 interface InscriptionProps {
   path: string;
+  utxo: TaprootUtxo;
 }
 
-function Inscription({ path }: InscriptionProps) {
-  const { isLoading, isError, data } = useInscriptionQuery(path);
+function Inscription({ path, utxo }: InscriptionProps) {
+  const { isLoading, isError, data: inscription } = useInscriptionQuery(path);
+  const navigate = useNavigate();
 
-  if (isLoading) return null; // TODO
+  if (isLoading) return null;
+  if (isError) return null;
 
-  if (isError) return null; // TODO
-
-  const inscription = whenOrdinalType(data['content type'], {
+  const inscriptionMetadata = whenInscriptionType<InscriptionInfo>(inscription['content type'], {
     image: () => ({
-      infoUrl: createInfoUrl(data.content),
-      src: `https://ordinals.com${data.content}`,
-      title: data.title,
+      infoUrl: createInfoUrl(inscription.content),
+      src: `https://ordinals.com${inscription.content}`,
       type: 'image',
+      ...inscription,
     }),
     text: () => ({
-      contentSrc: `https://ordinals.com${data.content}`,
-      infoUrl: createInfoUrl(data.content),
-      title: data.title,
+      contentSrc: `https://ordinals.com${inscription.content}`,
+      infoUrl: createInfoUrl(inscription.content),
       type: 'text',
+      ...inscription,
     }),
     other: () => ({
-      infoUrl: createInfoUrl(data.content),
-      title: data.title,
+      infoUrl: createInfoUrl(inscription.content),
       type: 'other',
+      ...inscription,
     }),
   });
 
-  switch (inscription.type) {
+  function openSendInscriptionModal() {
+    navigate(RouteUrls.SendOrdinalInscription, {
+      state: { inscription: inscriptionMetadata, utxo },
+    });
+  }
+
+  switch (inscriptionMetadata.type) {
     case 'image': {
       return (
         <CollectibleImage
-          key={inscription.title}
-          onSelectCollectible={() => openInNewTab(inscription.infoUrl)}
-          src={inscription.src}
+          key={inscriptionMetadata.title}
+          onSelectCollectible={() => openSendInscriptionModal()}
+          src={inscriptionMetadata.src}
           subtitle="Ordinal inscription"
-          title={inscription.title}
+          title={inscriptionMetadata.title}
         />
       );
     }
     case 'text': {
       return (
         <CollectibleText
-          key={inscription.title}
-          onSelectCollectible={() => openInNewTab(inscription.infoUrl)}
-          contentSrc={inscription.contentSrc}
+          key={inscriptionMetadata.title}
+          onSelectCollectible={() => openSendInscriptionModal()}
+          contentSrc={inscriptionMetadata.contentSrc}
           subtitle="Ordinal inscription"
-          title={inscription.title}
+          title={inscriptionMetadata.title}
         />
       );
     }
     case 'other': {
       return (
         <CollectibleOther
-          key={inscription.title}
-          onSelectCollectible={() => openInNewTab(inscription.infoUrl)}
+          key={inscriptionMetadata.title}
+          onSelectCollectible={() => openSendInscriptionModal()}
           subtitle="Ordinal inscription"
-          title={inscription.title}
+          title={inscriptionMetadata.title}
         />
       );
     }
@@ -84,7 +101,7 @@ interface InscriptionLoaderProps {
 }
 function InscriptionLoader({ txid, children }: InscriptionLoaderProps) {
   const { data: inscriptionDetails } = useInscriptionByTxidQuery(txid);
-  if (!inscriptionDetails) return null;
+  if (!inscriptionDetails || !inscriptionDetails.inscriptions) return null;
   return children(inscriptionDetails.inscriptions);
 }
 
@@ -95,7 +112,7 @@ export function Ordinals() {
     <>
       {utxos.map(utxo => (
         <InscriptionLoader key={utxo.txid} txid={utxo.txid}>
-          {path => <Inscription path={path} />}
+          {path => <Inscription path={path} utxo={utxo} />}
         </InscriptionLoader>
       ))}
     </>

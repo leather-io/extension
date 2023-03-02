@@ -3,7 +3,7 @@ import { useIsFetching, useQueryClient } from '@tanstack/react-query';
 
 import { useWalletType } from '@app/common/use-wallet-type';
 import { sumNumbers } from '@app/common/utils';
-import { Refresh } from '@app/components/icons/refresh-icon';
+import { RefreshIcon } from '@app/components/icons/refresh-icon';
 import { Caption } from '@app/components/typography';
 import { useConfigNftMetadataEnabled } from '@app/query/common/hiro-config/hiro-config.query';
 import { QueryPrefixes } from '@app/query/query-prefixes';
@@ -47,7 +47,7 @@ export function Collectibles() {
         {isFetching ? (
           <Spinner color={color('text-caption')} opacity={0.5} size="16px" />
         ) : (
-          <Refresh
+          <RefreshIcon
             cursor="pointer"
             onClick={() => {
               queryClient.refetchQueries({ type: 'active' });
