@@ -30,7 +30,7 @@ describe(createTxDateFormatList.name, () => {
       {
         date: '1991-02-08',
         displayDate: 'Feb 8th, 1991',
-        txs: [mockBitcoinTx, mockStacksTx],
+        txs: [mockStacksTx, mockBitcoinTx],
       },
     ]);
   });
