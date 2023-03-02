@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">46.15% </span>
+                <span class="strong">50% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>6/13</span>
+                <span class='fraction'>8/16</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">33.33% </span>
+                <span class="strong">37.5% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>2/6</span>
+                <span class='fraction'>3/8</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">80% </span>
+                <span class="strong">83.33% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>4/5</span>
+                <span class='fraction'>5/6</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">45.45% </span>
+                <span class="strong">53.84% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>5/11</span>
+                <span class='fraction'>7/13</span>
             </div>
         
             
@@ -61,7 +61,7 @@
             </div>
         </template>
     </div>
-    <div class='status-line low'></div>
+    <div class='status-line medium'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -117,7 +117,10 @@
 <a name='L52'></a><a href='#L52'>52</a>
 <a name='L53'></a><a href='#L53'>53</a>
 <a name='L54'></a><a href='#L54'>54</a>
-<a name='L55'></a><a href='#L55'>55</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L55'></a><a href='#L55'>55</a>
+<a name='L56'></a><a href='#L56'>56</a>
+<a name='L57'></a><a href='#L57'>57</a>
+<a name='L58'></a><a href='#L58'>58</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -143,7 +146,17 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">6x</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">6x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">6x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -159,20 +172,12 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import * as secp from '@noble/secp256k1';
-import { HDKey } from '@scure/bip32';
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { HDKey } from '@scure/bip32';
 import * as btc from 'micro-btc-signer';
 &nbsp;
 import { NetworkModes } from '@shared/constants';
@@ -181,6 +186,7 @@ import { DerivationPathDepth } from '../derivation-path.utils';
 import { getBtcSignerLibNetworkByMode } from './bitcoin.network';
 import {
   deriveAddressIndexKeychainFromAccount,
+  ecdsaPublicKeyToSchnorr,
   getBitcoinCoinTypeIndexByNetwork,
 } from './bitcoin.utils';
 &nbsp;
@@ -195,15 +201,21 @@ export function deriveTaprootAccountFromRootKeychain(keychain: HDKey, network: N
   return (index: number) =&gt; keychain.derive(getTaprootAccountDerivationPath(network, index));
 }
 &nbsp;
-export function getTaprootAddressIndexFromAccount(keychain: HDKey, network: NetworkModes) {
-  <span class="missing-if-branch" title="if path not taken" >I</span>if (keychain.depth !== DerivationPathDepth.AddressIndex)
-<span class="cstat-no" title="statement not covered" >    throw new Error('Keychain passed is not an address index');</span>
-&nbsp;
+export function getTaprootPayment(publicKey: Uint8Array, network: NetworkModes) {
   return btc.p2tr(
-    secp.schnorr.getPublicKey(keychain?.privateKey!),
+    ecdsaPublicKeyToSchnorr(publicKey),
     undefined,
     getBtcSignerLibNetworkByMode(network)
   );
+}
+&nbsp;
+export function getTaprootPaymentFromAddressIndex(keychain: HDKey, network: NetworkModes) {
+  <span class="missing-if-branch" title="if path not taken" >I</span>if (keychain.depth !== DerivationPathDepth.AddressIndex)
+<span class="cstat-no" title="statement not covered" >    throw new Error('Keychain passed is not an address index');</span>
+&nbsp;
+  <span class="missing-if-branch" title="if path not taken" >I</span>if (!keychain.publicKey) <span class="cstat-no" title="statement not covered" >throw new Error('Keychain has no public key');</span>
+&nbsp;
+  return getTaprootPayment(keychain.publicKey, network);
 }
 &nbsp;
 interface DeriveTaprootReceiveAddressIndexArgs {
@@ -211,6 +223,7 @@ interface DeriveTaprootReceiveAddressIndexArgs {
   index: number;
   network: NetworkModes;
 }
+// ts-unused-exports:disable-next-line
 export function <span class="fstat-no" title="function not covered" >deriveTaprootReceiveAddressIndex({</span>
   xpub,
   index,
@@ -218,12 +231,8 @@ export function <span class="fstat-no" title="function not covered" >deriveTapro
 }: DeriveTaprootReceiveAddressIndexArgs) {
 <span class="cstat-no" title="statement not covered" >  if (!xpub) <span class="cstat-no" title="statement not covered" >return;</span></span>
   const keychain = <span class="cstat-no" title="statement not covered" >HDKey.fromExtendedKey(xpub);</span>
-  const zeroAddressIndex = <span class="cstat-no" title="statement not covered" >deriveAddressIndexKeychainFromAccount(keychain)(index);</span>
-<span class="cstat-no" title="statement not covered" >  return btc.p2tr(</span>
-    secp.schnorr.getPublicKey(zeroAddressIndex?.privateKey!),
-    undefined,
-    getBtcSignerLibNetworkByMode(network)
-  );
+  const addressIndexKeychain = <span class="cstat-no" title="statement not covered" >deriveAddressIndexKeychainFromAccount(keychain)(index);</span>
+<span class="cstat-no" title="statement not covered" >  return getTaprootPayment(addressIndexKeychain.publicKey!, network);</span>
 }
 &nbsp;</pre></td></tr></table></pre>
 
@@ -232,7 +241,7 @@ export function <span class="fstat-no" title="function not covered" >deriveTapro
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2023-03-01T16:54:10.328Z
+                at 2023-03-02T18:02:34.883Z
             </div>
         <script src="../../../../prettify.js"></script>
         <script>
