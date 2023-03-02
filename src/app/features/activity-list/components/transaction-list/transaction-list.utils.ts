@@ -36,21 +36,32 @@ function getTransactionTime(listTx: TransactionListTxs) {
 }
 
 function groupTxsByDateMap(txs: TransactionListTxs[]) {
-  return txs.reduce((txsByDate, tx) => {
-    const time = getTransactionTime(tx);
-    const date = time ? isoDateToLocalDateSafe(time) : undefined;
+  return txs
+    .sort((a, b) => {
+      const aTime = getTransactionTime(a);
+      const bTime = getTransactionTime(b);
 
-    if (isUndefined(date)) {
-      const today = todaysIsoDate();
-      txsByDate.set(today, [...(txsByDate.get(today) || []), tx]);
-    } else {
-      if (!txsByDate.has(date)) {
-        txsByDate.set(date, []);
+      if (!aTime || !bTime) return 0;
+
+      const aMsTime = new Date(aTime).getTime();
+      const bMsTime = new Date(bTime).getTime();
+
+      return aMsTime > bMsTime ? -1 : aMsTime < bMsTime ? 1 : 0;
+    })
+    .reduce((txsByDate, tx) => {
+      const time = getTransactionTime(tx);
+      const date = time ? isoDateToLocalDateSafe(time) : undefined;
+      if (isUndefined(date)) {
+        const today = todaysIsoDate();
+        txsByDate.set(today, [...(txsByDate.get(today) || []), tx]);
+      } else {
+        if (!txsByDate.has(date)) {
+          txsByDate.set(date, []);
+        }
+        txsByDate.set(date, [...(txsByDate.get(date) || []), tx]);
       }
-      txsByDate.set(date, [...(txsByDate.get(date) || []), tx]);
-    }
-    return txsByDate;
-  }, new Map<string, TransactionListTxs[]>());
+      return txsByDate;
+    }, new Map<string, TransactionListTxs[]>());
 }
 
 function formatTxDateMapAsList(txMap: Map<string, TransactionListTxs[]>) {
