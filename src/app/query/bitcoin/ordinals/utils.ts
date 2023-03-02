@@ -28,7 +28,7 @@ export const ordApiXyzGetInscriptionByInscriptionSchema = yup
  */
 export const ordApiXyzGetTransactionOutput = yup
   .object({
-    inscriptions: yup.string().required(),
+    inscriptions: yup.string(),
   })
   .required();
 

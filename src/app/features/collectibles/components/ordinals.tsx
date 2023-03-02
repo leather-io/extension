@@ -101,7 +101,7 @@ interface InscriptionLoaderProps {
 }
 function InscriptionLoader({ txid, children }: InscriptionLoaderProps) {
   const { data: inscriptionDetails } = useInscriptionByTxidQuery(txid);
-  if (!inscriptionDetails) return null;
+  if (!inscriptionDetails || !inscriptionDetails.inscriptions) return null;
   return children(inscriptionDetails.inscriptions);
 }
 
