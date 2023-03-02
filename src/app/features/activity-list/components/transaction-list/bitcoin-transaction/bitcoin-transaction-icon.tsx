@@ -5,16 +5,18 @@ import { Box, BoxProps, Circle, ColorsStringLiteral, Flex, color } from '@stacks
 import { BitcoinTransaction } from '@shared/models/transactions/bitcoin-transaction.model';
 
 import { BtcIcon } from '@app/components/icons/btc-icon';
-import { useCurrentBtcNativeSegwitAccountAddressIndexZero } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
 
 import { isBitcoinTxInbound } from './bitcoin-transaction.utils';
 
 interface TransactionIconProps extends BoxProps {
   transaction: BitcoinTransaction;
+  btcAddress: string;
 }
-type BtcStatusColorMap = Record<string, ColorsStringLiteral>;
 
-const statusFromTx = (tx: BitcoinTransaction): string => {
+type BtcTxStatus = 'pending' | 'success';
+type BtcStatusColorMap = Record<BtcTxStatus, ColorsStringLiteral>;
+
+const statusFromTx = (tx: BitcoinTransaction): BtcTxStatus => {
   if (tx.status.confirmed) return 'success';
   return 'pending';
 };
@@ -32,9 +34,7 @@ function IconForTx(address: string, tx: BitcoinTransaction) {
   if (isBitcoinTxInbound(address, tx)) return IconArrowDown;
   return IconArrowUp;
 }
-export function BitcoinTransactionIcon({ transaction, ...rest }: TransactionIconProps) {
-  const btcAddress = useCurrentBtcNativeSegwitAccountAddressIndexZero();
-
+export function BitcoinTransactionIcon({ transaction, btcAddress, ...rest }: TransactionIconProps) {
   return (
     <Flex position="relative">
       <Box as={BtcIcon} />

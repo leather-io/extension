@@ -46,7 +46,7 @@ export function BitcoinTransactionItem({ transaction, ...rest }: BitcoinTransact
     <BitcoinTransactionItemLayout
       openTxLink={openTxLink}
       txCaption={txCaption}
-      txIcon={<BitcoinTransactionIcon transaction={transaction} />}
+      txIcon={<BitcoinTransactionIcon transaction={transaction} btcAddress={bitcoinAddress} />}
       txStatus={<BitcoinTransactionStatus transaction={transaction} />}
       txTitle={<TransactionTitle title="Bitcoin" />}
       txValue={txValue}
