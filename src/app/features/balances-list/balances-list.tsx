@@ -51,8 +51,6 @@ export function BalancesList({ address, ...props }: BalancesListProps) {
         assetSubBalance={stxUnachoredAssetBalance}
         address={address}
         icon={<StxAvatar {...props} />}
-        isPressable
-        canCopy
       />
 
       <StacksFungibleTokenAssetList assetBalances={stacksFtAssetBalances} />
