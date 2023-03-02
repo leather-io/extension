@@ -12,6 +12,10 @@ import { RouteUrls } from '@shared/route-urls';
 import { BaseDrawer } from '@app/components/drawer/base-drawer';
 import { ErrorLabel } from '@app/components/error-label';
 import { OrdinalIcon } from '@app/components/icons/ordinal-icon';
+import {
+  getNumberOfInscriptionOnUtxo,
+  getNumberOfInscriptionOnUtxoWithFallbackOfOne,
+} from '@app/query/bitcoin/ordinals/utils';
 
 import { FormErrors } from '../send-crypto-asset-form/components/form-errors';
 import { FormFieldsLayout } from '../send-crypto-asset-form/components/form-fields.layout';
@@ -62,6 +66,15 @@ export function SendInscriptionForm() {
 
     if (Number(inscription.offset) !== 0) {
       setShowError('Sending inscriptions at non-zero offsets is unsupported');
+      return;
+    }
+
+    const numInscriptionsOnUtxo = await getNumberOfInscriptionOnUtxoWithFallbackOfOne(
+      utxo.txid,
+      utxo.vout
+    );
+    if (numInscriptionsOnUtxo !== 1) {
+      setShowError('Sending inscription from utxo with multiple inscriptions is unsupported');
       return;
     }
 
