@@ -12,10 +12,7 @@ import { RouteUrls } from '@shared/route-urls';
 import { BaseDrawer } from '@app/components/drawer/base-drawer';
 import { ErrorLabel } from '@app/components/error-label';
 import { OrdinalIcon } from '@app/components/icons/ordinal-icon';
-import {
-  getNumberOfInscriptionOnUtxo,
-  getNumberOfInscriptionOnUtxoWithFallbackOfOne,
-} from '@app/query/bitcoin/ordinals/utils';
+import { getNumberOfInscriptionOnUtxoWithFallbackOfOne } from '@app/query/bitcoin/ordinals/utils';
 
 import { FormErrors } from '../send-crypto-asset-form/components/form-errors';
 import { FormFieldsLayout } from '../send-crypto-asset-form/components/form-fields.layout';
@@ -51,21 +48,25 @@ export function SendInscriptionForm() {
   const navigate = useNavigate();
   const { inscription, utxo, recipient, fees } = useInscriptionSendState();
   const validationSchema = useOrdinalInscriptionFormValidationSchema();
+  const [isLoading, setIsLoading] = useState(false);
 
   const fee = calculateInscriptionSendTxFee(fees.hourFee);
 
   const generateTx = useGenerateSignedOrdinalTx(utxo, fee);
 
   async function reviewTransaction(values: OrdinalSendFormValues) {
+    setIsLoading(true);
     const resp = generateTx(values);
 
     if (!canUtxoCoverFee(fee, utxo.value)) {
       setShowError('To prevent loss, sending of this inscription is currently disabled.');
+      setIsLoading(false);
       return;
     }
 
     if (Number(inscription.offset) !== 0) {
       setShowError('Sending inscriptions at non-zero offsets is unsupported');
+      setIsLoading(false);
       return;
     }
 
@@ -75,13 +76,14 @@ export function SendInscriptionForm() {
     );
     if (numInscriptionsOnUtxo !== 1) {
       setShowError('Sending inscription from utxo with multiple inscriptions is unsupported');
+      setIsLoading(false);
       return;
     }
 
     if (!resp) return logger.error('Attempted to generate raw tx, but no tx exists');
 
     const { hex } = resp;
-
+    setIsLoading(false);
     return navigate(RouteUrls.SendOrdinalInscriptionReview, {
       state: { fee, inscription, utxo, recipient: values.recipient, tx: hex },
     });
@@ -119,7 +121,14 @@ export function SendInscriptionForm() {
                   {currentError}
                 </ErrorLabel>
               )}
-              <Button mb="extra-loose" type="submit" borderRadius="10px" height="48px" width="100%">
+              <Button
+                mb="extra-loose"
+                type="submit"
+                borderRadius="10px"
+                height="48px"
+                width="100%"
+                isLoading={isLoading}
+              >
                 Send
               </Button>
             </Box>
