@@ -16,6 +16,7 @@ export function CollectibleTextLayout(props: CollectibleTextLayoutProps) {
   return (
     <Box
       height="100%"
+      width="100%"
       color="white"
       p="20px"
       sx={{
