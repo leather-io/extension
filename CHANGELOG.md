@@ -1,3 +1,32 @@
+## [4.4.0](https://github.com/hirosystems/stacks-wallet-web/compare/v4.3.0...v4.4.0) (2023-03-02)
+
+
+### Features
+
+* add arrow up down logic ([c4fc057](https://github.com/hirosystems/stacks-wallet-web/commit/c4fc057d7bd5e888133e45606193ea3c59c6f479))
+* add btc tx icon ([f23b762](https://github.com/hirosystems/stacks-wallet-web/commit/f23b762cc26f68ca17f483c840f5da71e23b63c3))
+* add copy to balance assets ([efe0816](https://github.com/hirosystems/stacks-wallet-web/commit/efe08167effb112dbde8ef8dd19ac5858e489182))
+* add fiat amount in sending forms ([f98dcd2](https://github.com/hirosystems/stacks-wallet-web/commit/f98dcd21cd135f234e9e698c4e1a01f7c5f88da4))
+* add tx status arrow icons ([fe4e2ff](https://github.com/hirosystems/stacks-wallet-web/commit/fe4e2ffacab748de7166e7af138078608121fbfa))
+* enable sending inscriptions ([0ada40d](https://github.com/hirosystems/stacks-wallet-web/commit/0ada40d812cdbf80d0fa6d49897ce3426f280737))
+* increase unused taproot address search range ([00ddf28](https://github.com/hirosystems/stacks-wallet-web/commit/00ddf28e608211e8664362736cb9590721aa7805))
+* pass btc address via prop ([f92d3b2](https://github.com/hirosystems/stacks-wallet-web/commit/f92d3b2d3e6200665b759a9077f95486184fbcb1))
+* remove ability to copy btc address ([96d3de9](https://github.com/hirosystems/stacks-wallet-web/commit/96d3de98e282d484d881b76677dd5bd3e63bdccd))
+* remove copy stx from balance list ([0fe506d](https://github.com/hirosystems/stacks-wallet-web/commit/0fe506dba04a26cc6bd6c0508654f1ed007e1936))
+
+
+### Bug Fixes
+
+* failing send max test ([8872fc9](https://github.com/hirosystems/stacks-wallet-web/commit/8872fc9bb012f865f21b8381dfa4c374c2131056))
+* left align text inscription text ([4abf395](https://github.com/hirosystems/stacks-wallet-web/commit/4abf395b9de8ea686459c4f9883e1aaf319b3b92))
+* make inscriptions field not required ([3f91547](https://github.com/hirosystems/stacks-wallet-web/commit/3f915476072c0225b10afc6a6edb92446e642856))
+* prevent multi utxo inscription spend ([79a59f6](https://github.com/hirosystems/stacks-wallet-web/commit/79a59f6f71f30aaffdc9ade1834481d8452bbb94))
+
+
+### Internal
+
+* add loading state ([0c6ded5](https://github.com/hirosystems/stacks-wallet-web/commit/0c6ded578b4ec64798ae42ae462182f20f562ff4))
+
 ## [4.3.0](https://github.com/hirosystems/stacks-wallet-web/compare/v4.2.0...v4.3.0) (2023-03-01)
 
 
