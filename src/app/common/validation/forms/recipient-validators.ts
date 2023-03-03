@@ -6,8 +6,9 @@ import { NetworkConfiguration } from '@shared/constants';
 import { FormErrorMessages } from '@app/common/error-messages';
 import { StacksClient } from '@app/query/stacks/stacks-client';
 
-import { fetchNameOwner } from '../../../query/stacks/bns/bns.utils';
+import { fetchBtcNameOwner, fetchNameOwner } from '../../../query/stacks/bns/bns.utils';
 import {
+  btcAddressValidator,
   notCurrentAddressValidator,
   stxAddressNetworkValidatorFactory,
   stxAddressValidator,
@@ -47,6 +48,26 @@ export function stxRecipientAddressOrBnsNameValidator({
         const owner = await fetchNameOwner(client, value ?? '', isTestnet);
         return owner !== null;
       } catch (e) {
+        return false;
+      }
+    },
+  });
+}
+
+export function btcRecipientOrBnsNameValidator({ client }: { client: StacksClient }) {
+  return yup.string().test({
+    name: 'btcRecipientOrBnsName',
+    message: 'Recipient is not valid',
+    test: async value => {
+      try {
+        await btcAddressValidator().validate(value);
+        return true;
+      } catch (e) {}
+      try {
+        const btcAddress = await fetchBtcNameOwner(client, value ?? '');
+        await btcAddressValidator().validate(btcAddress);
+        return true;
+      } catch (error) {
         return false;
       }
     },
