@@ -189,6 +189,7 @@ function AppRoutesAfterUserHasConsented() {
           <Route path={RouteUrls.TransactionBroadcastError} element={<BroadcastErrorDrawer />} />
         </Route>
         <Route path={RouteUrls.UnauthorizedRequest} element={<UnauthorizedRequest />} />
+
         <Route
           path={RouteUrls.SignatureRequest}
           element={

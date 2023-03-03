@@ -26,7 +26,7 @@ export const useReplaceByFeeSoftwareWalletSubmitCallBack = () => {
       const signedTx = signTx(rawTx);
       if (!signedTx) return;
       await submitTransaction({
-        onClose() {
+        onSuccess() {
           setTxId(null);
           navigate(RouteUrls.Home);
         },
