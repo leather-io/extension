@@ -1,10 +1,9 @@
-import { Outlet, useNavigate } from 'react-router-dom';
+import { Outlet } from 'react-router-dom';
 
 import { Box } from '@stacks/ui';
 import { Form, Formik } from 'formik';
 
 import { HIGH_FEE_WARNING_LEARN_MORE_URL_BTC } from '@shared/constants';
-import { RouteUrls } from '@shared/route-urls';
 
 import { BtcIcon } from '@app/components/icons/btc-icon';
 import { HighFeeDrawer } from '@app/features/high-fee-drawer/high-fee-drawer';
@@ -17,7 +16,6 @@ import { AvailableBalance } from '../../components/available-balance';
 import { FormErrors } from '../../components/form-errors';
 import { FormFieldsLayout } from '../../components/form-fields.layout';
 import { PreviewButton } from '../../components/preview-button';
-import { RecipientField } from '../../components/recipient-field';
 import { SelectedAssetField } from '../../components/selected-asset-field';
 import { SendCryptoAssetFormLayout } from '../../components/send-crypto-asset-form.layout';
 import { SendFiatValue } from '../../components/send-fiat-value';
@@ -25,11 +23,11 @@ import { SendMaxButton } from '../../components/send-max-button';
 import { useCalculateMaxBitcoinSpend } from '../../family/bitcoin/hooks/use-calculate-max-spend';
 import { useSendFormRouteState } from '../../hooks/use-send-form-route-state';
 import { createDefaultInitialFormValues, defaultSendFormFormikProps } from '../../send-form.utils';
+import { BtcRecipientField } from './components/btc-recipient-field';
 import { TestnetBtcMessage } from './components/testnet-btc-message';
 import { useBtcSendForm } from './use-btc-send-form';
 
 export function BtcSendForm() {
-  const navigate = useNavigate();
   const routeState = useSendFormRouteState();
   const btcMarketData = useCryptoCurrencyMarketData('BTC');
 
@@ -44,7 +42,10 @@ export function BtcSendForm() {
   return (
     <SendCryptoAssetFormLayout>
       <Formik
-        initialValues={createDefaultInitialFormValues(routeState)}
+        initialValues={createDefaultInitialFormValues({
+          ...routeState,
+          recipientOrBnsName: '',
+        })}
         onSubmit={previewTransaction}
         validationSchema={validationSchema}
         innerRef={formRef}
@@ -68,15 +69,7 @@ export function BtcSendForm() {
               />
               <FormFieldsLayout>
                 <SelectedAssetField icon={<BtcIcon />} name={btcBalance.asset.name} symbol="BTC" />
-                <RecipientField
-                  labelAction="Choose account"
-                  lastChild
-                  name="recipient"
-                  onClickLabelAction={() =>
-                    navigate(RouteUrls.SendCryptoAssetFormRecipientAccounts)
-                  }
-                  placeholder="Address"
-                />
+                <BtcRecipientField />
               </FormFieldsLayout>
               {currentNetwork.chain.bitcoin.network === 'testnet' && <TestnetBtcMessage />}
               <FormErrors />

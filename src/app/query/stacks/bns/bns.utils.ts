@@ -1,3 +1,4 @@
+import { parseZoneFile } from '@fungible-systems/zone-file';
 import { asciiToBytes, bytesToAscii } from '@stacks/common';
 import { BnsNamesOwnByAddressResponse } from '@stacks/stacks-blockchain-api-types';
 import {
@@ -116,10 +117,12 @@ export async function fetchNamesForAddress({
   return { names };
 }
 
-// Fetch the owner of a name.
-//
-// If on mainnet, this function concurrently fetches a BNSx owner from the contract
-// and a BNS owner from the API.
+/**
+ * Fetch the owner of a name.
+ *
+ * If on mainnet, this function concurrently fetches a BNSx owner from the contract
+ * and a BNS owner from the API.
+ */
 export async function fetchNameOwner(client: StacksClient, name: string, isTestnet: boolean) {
   const fetchFromApi = async () => {
     const res = await client.namesApi.getNameInfo({ name });
@@ -132,4 +135,29 @@ export async function fetchNameOwner(client: StacksClient, name: string, isTestn
 
   const [bnsxOwner, apiOwner] = await Promise.all([fetchBnsxOwner(client, name), fetchFromApi()]);
   return bnsxOwner ?? apiOwner;
+}
+
+/**
+ * Fetch the zonefile-based BTC address for a specific name.
+ * The BTC address is found via the `_btc._addr` TXT record,
+ * as specified in https://www.newinternetlabs.com/blog/standardizing-names-for-bitcoin-addresses/
+ *
+ * The value returned from this function is not validated.
+ */
+export async function fetchBtcNameOwner(
+  client: StacksClient,
+  name: string
+): Promise<string | null> {
+  try {
+    const nameResponse = await client.namesApi.getNameInfo({ name });
+    const zonefile = parseZoneFile(nameResponse.zonefile);
+    if (!zonefile.txt) return null;
+    const btcRecord = zonefile.txt.find(record => record.name === '_btc._addr');
+    if (typeof btcRecord === 'undefined') return null;
+    const txtValue = btcRecord.txt;
+    return typeof txtValue === 'string' ? txtValue : txtValue[0] ?? null;
+  } catch (error) {
+    // name not found or invalid zonefile
+    return null;
+  }
 }
