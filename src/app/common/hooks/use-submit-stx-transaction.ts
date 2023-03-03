@@ -1,17 +1,14 @@
 import { useCallback } from 'react';
 import { toast } from 'react-hot-toast';
-import { useNavigate } from 'react-router-dom';
 
 import { bytesToHex } from '@stacks/common';
 import { StacksTransaction, broadcastTransaction } from '@stacks/transactions';
 
 import { logger } from '@shared/logger';
-import { RouteUrls } from '@shared/route-urls';
 
 import { getErrorMessage } from '@app/common/get-error-message';
 import { useRefreshAllAccountData } from '@app/common/hooks/account/use-refresh-all-account-data';
 import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
-import { useHomeTabs } from '@app/common/hooks/use-home-tabs';
 import { useLoading } from '@app/common/hooks/use-loading';
 import { safelyFormatHexTxid } from '@app/common/utils/safe-handle-txid';
 import { useCurrentStacksNetworkState } from '@app/store/networks/networks.hooks';
@@ -24,20 +21,18 @@ interface UseSubmitTransactionArgs {
 }
 interface UseSubmitTransactionCallbackArgs {
   replaceByFee?: boolean;
-  onClose(): void;
-  onError(error: Error): void;
+  onSuccess(txId: string): void;
+  onError(error: Error | string): void;
 }
 export function useSubmitTransactionCallback({ loadingKey }: UseSubmitTransactionArgs) {
   const refreshAccountData = useRefreshAllAccountData();
   const submittedTransactionsActions = useSubmittedTransactionsActions();
-  const navigate = useNavigate();
   const { setIsLoading, setIsIdle } = useLoading(loadingKey);
   const stacksNetwork = useCurrentStacksNetworkState();
-  const { setActiveTabActivity } = useHomeTabs();
   const analytics = useAnalytics();
 
   return useCallback(
-    ({ onClose, onError }: UseSubmitTransactionCallbackArgs) =>
+    ({ onSuccess, onError }: UseSubmitTransactionCallbackArgs) =>
       async (transaction: StacksTransaction) => {
         setIsLoading();
         try {
@@ -45,7 +40,7 @@ export function useSubmitTransactionCallback({ loadingKey }: UseSubmitTransactio
           if (response.error) {
             logger.error('Transaction broadcast', response);
             if (response.reason) toast.error(getErrorMessage(response.reason));
-            onClose();
+            onError(response.error);
             setIsIdle();
           } else {
             logger.info('Transaction broadcast', response);
@@ -55,11 +50,8 @@ export function useSubmitTransactionCallback({ loadingKey }: UseSubmitTransactio
             });
             toast.success('Transaction submitted!');
             void analytics.track('broadcast_transaction', { token: 'stx' });
-            onClose();
+            onSuccess(safelyFormatHexTxid(response.txid));
             setIsIdle();
-            navigate(RouteUrls.Home);
-            // switch active tab to activity
-            setActiveTabActivity();
             await refreshAccountData(timeForApiToUpdate);
           }
         } catch (error) {
@@ -74,8 +66,6 @@ export function useSubmitTransactionCallback({ loadingKey }: UseSubmitTransactio
       setIsIdle,
       submittedTransactionsActions,
       analytics,
-      navigate,
-      setActiveTabActivity,
       refreshAccountData,
     ]
   );
