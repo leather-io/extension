@@ -23,14 +23,19 @@ const bnsQueryOptions = {
 
 type BnsNameFetcher = (address: string) => Promise<BnsNamesOwnByAddressResponse>;
 
-function getBnsNameFetcherFactory(
-  client: StacksClient,
-  limiter: RateLimiter,
-  isTestnet: boolean
-): BnsNameFetcher {
+interface GetBnsNameFetcherFactoryArgs {
+  client: StacksClient;
+  limiter: RateLimiter;
+  isTestnet: boolean;
+}
+function getBnsNameFetcherFactory({
+  client,
+  limiter,
+  isTestnet,
+}: GetBnsNameFetcherFactoryArgs): BnsNameFetcher {
   return async (address: string) => {
     await limiter.removeTokens(1);
-    return fetchNamesForAddress(client, address, isTestnet);
+    return fetchNamesForAddress({ client, address, isTestnet });
   };
 }
 
@@ -46,7 +51,7 @@ export function useGetBnsNamesOwnedByAddress<T extends unknown = BnsNameFetcherR
   return useQuery({
     enabled: address !== '',
     queryKey: [QueryPrefixes.BnsNamesByAddress, address],
-    queryFn: () => getBnsNameFetcherFactory(client, limiter, isTestnet)(address),
+    queryFn: () => getBnsNameFetcherFactory({ client, limiter, isTestnet })(address),
     ...bnsQueryOptions,
     ...options,
   });
