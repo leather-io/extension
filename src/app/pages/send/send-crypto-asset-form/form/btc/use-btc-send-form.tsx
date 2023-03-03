@@ -26,6 +26,8 @@ import { useBitcoinAssetBalance } from '@app/query/bitcoin/address/address.hooks
 import { useCurrentBtcNativeSegwitAccountAddressIndexZero } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
 import { useCurrentNetwork } from '@app/store/networks/networks.selectors';
 
+import { btcRecipientOrBnsNameValidator } from '../../../../../common/validation/forms/recipient-validators';
+import { useStacksClientUnanchored } from '../../../../../store/common/api-clients.hooks';
 import { useCalculateMaxBitcoinSpend } from '../../family/bitcoin/hooks/use-calculate-max-spend';
 import { useSendFormNavigate } from '../../hooks/use-send-form-navigate';
 import { useGenerateSignedBitcoinTx } from './use-generate-bitcoin-tx';
@@ -42,6 +44,7 @@ export function useBtcSendForm() {
   const generateTx = useGenerateSignedBitcoinTx();
   const calcMaxSpend = useCalculateMaxBitcoinSpend();
   const { onFormStateChange } = useUpdatePersistedSendFormValues();
+  const client = useStacksClientUnanchored();
 
   return {
     formRef,
@@ -65,6 +68,9 @@ export function useBtcSendForm() {
           })
         )
         .concat(btcMinimumSpendValidator()),
+      recipientOrBnsName: btcRecipientOrBnsNameValidator({
+        client,
+      }),
       recipient: yup
         .string()
         .concat(btcAddressValidator())
