@@ -41,7 +41,7 @@ function setWalletEncryptionPassword(args: {
     }
 
     async function doesStacksAddressHaveBnsName(address: string) {
-      const resp = await fetchNamesForAddress(stxClient, address, true);
+      const resp = await fetchNamesForAddress({ client: stxClient, address, isTestnet: false });
       return resp.names.length > 0;
     }
 

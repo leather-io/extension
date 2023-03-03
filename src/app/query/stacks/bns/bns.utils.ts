@@ -1,4 +1,4 @@
-import { asciiToBytes } from '@stacks/common';
+import { asciiToBytes, bytesToAscii } from '@stacks/common';
 import { BnsNamesOwnByAddressResponse } from '@stacks/stacks-blockchain-api-types';
 import {
   BufferCV,
@@ -7,38 +7,28 @@ import {
   PrincipalCV,
   TupleCV,
   UIntCV,
-  addressToString,
   bufferCV,
   cvToHex,
   deserializeCV,
   standardPrincipalCV,
   tupleCV,
 } from '@stacks/transactions';
+import { principalToString } from '@stacks/transactions/dist/esm/clarity/types/principalCV';
 
 import { StacksClient } from '@app/query/stacks/stacks-client';
 
-export const BNSX_CONTRACT_CONSTS = {
+const bnsContractConsts = {
   contractAddress: 'SP1JTCR202ECC6333N7ZXD7MK7E3ZTEEE1MJ73C60',
   contractName: 'bnsx-registry',
 } as const;
 
-export function bytesToAscii(buffer: Uint8Array) {
-  let ret = '';
-  const end = buffer.length;
-
-  for (let i = 0; i < end; ++i) {
-    ret += String.fromCharCode(buffer[i] & 0x7f);
-  }
-  return ret;
-}
-
 // Fetch an address's "primary name" from the BNSx contract.
-export async function fetchBnsxName(client: StacksClient, address: string): Promise<string | null> {
+async function fetchBnsxName(client: StacksClient, address: string): Promise<string | null> {
   try {
     const addressCV = standardPrincipalCV(address);
     const addressHex = cvToHex(addressCV);
     const res = await client.smartContractsApi.callReadOnlyFunction({
-      ...BNSX_CONTRACT_CONSTS,
+      ...bnsContractConsts,
       functionName: 'get-primary-name',
       tip: 'latest',
       readOnlyFunctionArgs: {
@@ -60,24 +50,12 @@ export async function fetchBnsxName(client: StacksClient, address: string): Prom
   }
 }
 
-// This function is not exported from `@stacks/transactions`
-function principalToString(principal: PrincipalCV): string {
-  if (principal.type === ClarityType.PrincipalStandard) {
-    return addressToString(principal.address);
-  } else if (principal.type === ClarityType.PrincipalContract) {
-    const address = addressToString(principal.address);
-    return `${address}.${principal.contractName.content}`;
-  } else {
-    throw new Error(`Unexpected principal data: ${JSON.stringify(principal)}`);
-  }
-}
-
 // Fetch the owner of a BNSx name
 // If the name is not registered in BNSx, returns null.
 //
 // Subdomains don't exist on-chain, so if the name looks like a subdomain,
 // the function exits early with `null`.
-export async function fetchBnsxOwner(client: StacksClient, fqn: string): Promise<string | null> {
+async function fetchBnsxOwner(client: StacksClient, fqn: string): Promise<string | null> {
   const nameParts = fqn.split('.');
 
   // If the name includes a subdomain, it's not on-chain. Return null
@@ -90,12 +68,12 @@ export async function fetchBnsxOwner(client: StacksClient, fqn: string): Promise
   });
 
   const res = await client.smartContractsApi.callReadOnlyFunction({
-    ...BNSX_CONTRACT_CONSTS,
+    ...bnsContractConsts,
     functionName: 'get-name-properties',
     tip: 'latest',
     readOnlyFunctionArgs: {
       // Sender is irrelevant
-      sender: BNSX_CONTRACT_CONSTS.contractAddress,
+      sender: bnsContractConsts.contractAddress,
       arguments: [cvToHex(nameCV)],
     },
   });
@@ -112,11 +90,16 @@ export async function fetchBnsxOwner(client: StacksClient, fqn: string): Promise
 //
 // If `isTestnet` is `false` (aka mainnet), names are fetched from the
 // BNSx contract directly.
-export async function fetchNamesForAddress(
-  client: StacksClient,
-  address: string,
-  isTestnet: boolean
-): Promise<BnsNamesOwnByAddressResponse> {
+interface FetchNamesForAddressArgs {
+  client: StacksClient;
+  address: string;
+  isTestnet: boolean;
+}
+export async function fetchNamesForAddress({
+  client,
+  address,
+  isTestnet,
+}: FetchNamesForAddressArgs): Promise<BnsNamesOwnByAddressResponse> {
   const fetchFromApi = async () => {
     return client.namesApi.getNamesOwnedByAddress({ address, blockchain: 'stacks' });
   };

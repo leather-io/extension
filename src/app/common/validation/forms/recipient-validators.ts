@@ -4,9 +4,9 @@ import * as yup from 'yup';
 import { NetworkConfiguration } from '@shared/constants';
 
 import { FormErrorMessages } from '@app/common/error-messages';
+import { fetchNameOwner } from '@app/query/stacks/bns/bns.utils';
 import { StacksClient } from '@app/query/stacks/stacks-client';
 
-import { fetchNameOwner } from '../../../query/stacks/bns/bns.utils';
 import {
   notCurrentAddressValidator,
   stxAddressNetworkValidatorFactory,
