@@ -5,7 +5,6 @@ import { NetworkModes } from '@shared/constants';
 import { deriveAddressIndexKeychainFromAccount } from '@shared/crypto/bitcoin/bitcoin.utils';
 import { getTaprootPayment } from '@shared/crypto/bitcoin/p2tr-address-gen';
 import { DerivationPathDepth } from '@shared/crypto/derivation-path.utils';
-import { logger } from '@shared/logger';
 
 /**
  * Schema of data used from the `GET https://ordapi.xyz/inscriptions/:id` endpoint. Additional data
@@ -118,18 +117,9 @@ export function whenInscriptionType<T>(
   throw new Error('Unhandled inscription type.');
 }
 
-async function getNumberOfInscriptionOnUtxo(id: string, index: number) {
+export async function getNumberOfInscriptionOnUtxo(id: string, index: number) {
   const resp = await fetch(`https://ordinals.com/output/${id}:${index}`);
   const html = await resp.text();
   const utxoPage = new DOMParser().parseFromString(html, 'text/html');
   return utxoPage.querySelectorAll('.thumbnails a').length;
-}
-
-export async function getNumberOfInscriptionOnUtxoWithFallbackOfOne(id: string, index: number) {
-  try {
-    return await getNumberOfInscriptionOnUtxo(id, index);
-  } catch (e) {
-    logger.warn('Ordinals.com API down, assuming safe inscription spending', e);
-    return 1;
-  }
 }
