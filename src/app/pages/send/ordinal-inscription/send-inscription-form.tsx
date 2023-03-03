@@ -97,12 +97,7 @@ export function SendInscriptionForm() {
     >
       {() => (
         <Form>
-          <BaseDrawer
-            title="Ordinal inscription"
-            enableGoBack
-            isShowing
-            onClose={() => navigate(RouteUrls.Home)}
-          >
+          <BaseDrawer title="Send" enableGoBack isShowing onClose={() => navigate(RouteUrls.Home)}>
             <Box px="extra-loose">
               <CollectiblePreviewCard inscription={inscription} mt="extra-loose" />
               <Box mt={['base', 'extra-loose', '100px']}>
@@ -129,7 +124,7 @@ export function SendInscriptionForm() {
                 width="100%"
                 isLoading={isLoading}
               >
-                Send
+                Continue
               </Button>
             </Box>
           </BaseDrawer>
