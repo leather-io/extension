@@ -9,10 +9,11 @@ import { logger } from '@shared/logger';
 import { OrdinalSendFormValues } from '@shared/models/form.model';
 import { RouteUrls } from '@shared/route-urls';
 
+import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
 import { BaseDrawer } from '@app/components/drawer/base-drawer';
 import { ErrorLabel } from '@app/components/error-label';
 import { OrdinalIcon } from '@app/components/icons/ordinal-icon';
-import { getNumberOfInscriptionOnUtxoWithFallbackOfOne } from '@app/query/bitcoin/ordinals/utils';
+import { getNumberOfInscriptionOnUtxo } from '@app/query/bitcoin/ordinals/utils';
 
 import { FormErrors } from '../send-crypto-asset-form/components/form-errors';
 import { FormFieldsLayout } from '../send-crypto-asset-form/components/form-fields.layout';
@@ -49,41 +50,39 @@ export function SendInscriptionForm() {
   const { inscription, utxo, recipient, fees } = useInscriptionSendState();
   const validationSchema = useOrdinalInscriptionFormValidationSchema();
   const [isLoading, setIsLoading] = useState(false);
-
+  const analytics = useAnalytics();
   const fee = calculateInscriptionSendTxFee(fees.hourFee);
 
   const generateTx = useGenerateSignedOrdinalTx(utxo, fee);
 
   async function reviewTransaction(values: OrdinalSendFormValues) {
-    setIsLoading(true);
     const resp = generateTx(values);
 
     if (!canUtxoCoverFee(fee, utxo.value)) {
-      setShowError('To prevent loss, sending of this inscription is currently disabled.');
-      setIsLoading(false);
+      setShowError('UTXO balance is too low to cover fee');
       return;
     }
 
     if (Number(inscription.offset) !== 0) {
       setShowError('Sending inscriptions at non-zero offsets is unsupported');
-      setIsLoading(false);
       return;
     }
 
-    const numInscriptionsOnUtxo = await getNumberOfInscriptionOnUtxoWithFallbackOfOne(
-      utxo.txid,
-      utxo.vout
-    );
-    if (numInscriptionsOnUtxo !== 1) {
-      setShowError('Sending inscription from utxo with multiple inscriptions is unsupported');
-      setIsLoading(false);
+    try {
+      const numInscriptionsOnUtxo = await getNumberOfInscriptionOnUtxo(utxo.txid, utxo.vout);
+      if (numInscriptionsOnUtxo !== 1) {
+        setShowError('Sending inscription from utxo with multiple inscriptions is unsupported');
+        return;
+      }
+    } catch (error) {
+      void analytics.track('ordinals_dot_com_unavailable', { error });
+      setShowError('Unable to establish if utxo has multiple inscriptions.');
       return;
     }
 
     if (!resp) return logger.error('Attempted to generate raw tx, but no tx exists');
 
     const { hex } = resp;
-    setIsLoading(false);
     return navigate(RouteUrls.SendOrdinalInscriptionReview, {
       state: { fee, inscription, utxo, recipient: values.recipient, tx: hex },
     });
@@ -93,7 +92,14 @@ export function SendInscriptionForm() {
     <Formik
       validationSchema={validationSchema}
       initialValues={{ [recipeintFieldName]: recipient, inscription }}
-      onSubmit={async values => await reviewTransaction(values)}
+      onSubmit={async values => {
+        try {
+          setIsLoading(true);
+          await reviewTransaction(values);
+        } finally {
+          setIsLoading(false);
+        }
+      }}
     >
       {() => (
         <Form>
