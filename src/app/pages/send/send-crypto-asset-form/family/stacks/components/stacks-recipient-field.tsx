@@ -7,15 +7,20 @@ import { useStacksRecipientBnsName } from '../hooks/use-stacks-recipient-bns-nam
 import { RecipientFieldBnsAddress } from './recipient-field-bns-address';
 
 export function StacksRecipientField() {
-  const { getBnsAddress, bnsAddress } = useStacksRecipientBnsName();
+  const { bnsAddress, getBnsAddress, setBnsAddress } = useStacksRecipientBnsName();
   const navigate = useNavigate();
+
+  const onClickLabel = () => {
+    setBnsAddress('');
+    navigate(RouteUrls.SendCryptoAssetFormRecipientAccounts);
+  };
 
   return (
     <RecipientField
       labelAction="Choose account"
       name="recipientAddressOrBnsName"
       onBlur={getBnsAddress}
-      onClickLabelAction={() => navigate(RouteUrls.SendCryptoAssetFormRecipientAccounts)}
+      onClickLabelAction={onClickLabel}
       placeholder="Address or name"
       topInputOverlay={
         !!bnsAddress ? <RecipientFieldBnsAddress bnsAddress={bnsAddress} /> : undefined

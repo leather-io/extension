@@ -13,20 +13,20 @@ function notCurrentAddressValidatorFactory(currentAddress: string) {
 
 export function notCurrentAddressValidator(currentAddress: string) {
   return yup.string().test({
-    test: notCurrentAddressValidatorFactory(currentAddress),
     message: FormErrorMessages.SameAddress,
+    test: notCurrentAddressValidatorFactory(currentAddress),
   });
 }
 
 export function btcAddressValidator() {
   return yup
     .string()
-    .defined('Enter a bitcoin address')
+    .defined('Enter a Bitcoin address')
     .test((input, context) => {
       if (!input) return false;
       if (!validate(input))
         return context.createError({
-          message: 'Invalid bitcoin address',
+          message: 'Invalid Bitcoin address',
         });
       return true;
     });
@@ -56,19 +56,29 @@ export function btcAddressNetworkValidator(network: NetworkModes) {
   });
 }
 
-export function stxAddressNetworkValidatorFactory(currentNetwork: NetworkConfiguration) {
+function stxAddressNetworkValidatorFactory(currentNetwork: NetworkConfiguration) {
   return (value: unknown) => {
     if (!isString(value)) return false;
     return validateAddressChain(value, currentNetwork);
   };
 }
 
-export function stxAddressValidator(errorMsg: string) {
+export function stxAddressNetworkValidator(network: NetworkConfiguration) {
   return yup.string().test({
-    message: errorMsg,
-    test(value: unknown) {
-      if (!isString(value)) return false;
-      return validateStacksAddress(value);
-    },
+    message: FormErrorMessages.IncorrectNetworkAddress,
+    test: stxAddressNetworkValidatorFactory(network),
   });
+}
+
+export function stxAddressValidator(errorMsg: string) {
+  return yup
+    .string()
+    .defined('Enter a Stacks address')
+    .test({
+      message: errorMsg,
+      test(value: unknown) {
+        if (!isString(value)) return false;
+        return validateStacksAddress(value);
+      },
+    });
 }
