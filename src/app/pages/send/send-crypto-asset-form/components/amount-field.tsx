@@ -34,12 +34,14 @@ interface AmountFieldProps {
   switchableAmount?: JSX.Element;
   bottomInputOverlay?: JSX.Element;
   autofocus?: boolean;
+  autoComplete?: 'on' | 'off';
 }
 export function AmountField({
   balance,
   switchableAmount,
   bottomInputOverlay,
   autofocus = false,
+  autoComplete = 'on',
 }: AmountFieldProps) {
   const [field, meta] = useField('amount');
   const [fontSize, setFontSize] = useState(maxFontSize);
@@ -108,6 +110,7 @@ export function AmountField({
             width={!field.value.length ? '1ch' : previousTextLength + 'ch'}
             autoFocus={autofocus}
             fontWeight={500}
+            autoComplete={autoComplete}
             {...field}
           />
           <Text fontSize={fontSize + 'px'} pl="tight">

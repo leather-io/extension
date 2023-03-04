@@ -65,6 +65,7 @@ export function BtcSendForm() {
                     }
                   />
                 }
+                autoComplete="off"
               />
               <FormFieldsLayout>
                 <SelectedAssetField icon={<BtcIcon />} name={btcBalance.asset.name} symbol="BTC" />

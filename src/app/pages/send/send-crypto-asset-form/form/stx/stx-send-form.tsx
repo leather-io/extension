@@ -161,6 +161,7 @@ export function StxSendForm() {
                       sendMaxBalance={sendMaxBalance.minus(props.values.fee).toString()}
                     />
                   }
+                  autoComplete="off"
                 />
                 <FormFieldsLayout>
                   <SelectedAssetField icon={<StxAvatar />} name="Stacks" symbol="STX" />
