@@ -38,16 +38,11 @@ export function FormErrors() {
   const [firstError] =
     Object.entries(form.errors).filter(omitAmountErrorsAsDisplayedElsewhere) ?? [];
 
-  const [message] = firstError ?? [];
+  const [field, message] = firstError ?? [];
 
-  // TODO: This doesn't currently work with how we use two fields
-  // to handle bns name fetching and validation. The field here
-  // with the error is not the `firstError` so the input highlights
-  // as having an error, but doesn't show the message. Replacing with
-  // checking the entire form for `dirty`.
-  // const isFirstErrorFieldTouched = (form.touched as any)[field];
+  const isFirstErrorFieldTouched = (form.touched as any)[field];
 
-  return message && form.dirty && shouldDisplayErrors(form) ? (
+  return message && isFirstErrorFieldTouched && shouldDisplayErrors(form) ? (
     <AnimateHeight duration={400} easing="ease-out" height={showHide}>
       <Flex height={openHeight + 'px'}>
         <ErrorLabel

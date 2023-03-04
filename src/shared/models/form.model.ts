@@ -23,6 +23,7 @@ export interface StacksSendFormValues {
   nonce?: number | string;
   recipient: string;
   recipientAddressOrBnsName: string;
+  resolvedRecipient: string;
   symbol?: string;
 }
 

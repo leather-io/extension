@@ -26,10 +26,7 @@ import {
 } from '@app/common/validation/forms/amount-validators';
 import { stxFeeValidator } from '@app/common/validation/forms/fee-validators';
 import { stxMemoValidator } from '@app/common/validation/forms/memo-validators';
-import {
-  stxRecipientAddressOrBnsNameValidator,
-  stxRecipientValidator,
-} from '@app/common/validation/forms/recipient-validators';
+import { stxRecipientAddressOrBnsNameValidator } from '@app/common/validation/forms/recipient-validators';
 import { nonceValidator } from '@app/common/validation/nonce-validators';
 import { StxAvatar } from '@app/components/crypto-assets/stacks/components/stx-avatar';
 import { EditNonceButton } from '@app/components/edit-nonce-button';
@@ -100,14 +97,13 @@ export function StxSendForm() {
     feeType: FeeTypes[FeeTypes.Unknown],
     memo: '',
     nonce: nextNonce?.nonce,
-    recipientAddress: '',
     recipientAddressOrBnsName: '',
+    resolvedRecipient: '',
     ...routeState,
   });
 
   const validationSchema = yup.object({
     amount: stxAmountValidator().concat(stxAvailableBalanceValidator(availableStxBalance)),
-    recipient: stxRecipientValidator(currentAccountStxAddress, currentNetwork),
     recipientAddressOrBnsName: stxRecipientAddressOrBnsNameValidator({
       client,
       currentAddress: currentAccountStxAddress,
