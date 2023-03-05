@@ -9,17 +9,17 @@ import { TaprootUtxo } from '@app/query/bitcoin/ordinals/use-taproot-address-utx
 export interface Inscription {
   address: string;
   content: string;
-  'content length': string;
-  'content type': string;
-  'genesis fee': string;
-  'genesis height': string;
-  'genesis transaction': string;
+  content_length: string;
+  content_type: string;
+  genesis_fee: string;
+  genesis_height: string;
+  genesis_transaction: string;
   id: string;
   inscription_number: number;
   location: string;
   offset: string;
   output: string;
-  'output value': string;
+  output_value: string;
   preview: string;
   sat: string;
   timestamp: string;

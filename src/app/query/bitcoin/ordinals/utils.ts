@@ -15,7 +15,7 @@ import { DerivationPathDepth } from '@shared/crypto/derivation-path.utils';
 export const ordApiXyzGetInscriptionByInscriptionSchema = yup
   .object({
     // NOTE: this next key is using a space " ", uncommon as that is.
-    ['content type']: yup.string().required(),
+    content_type: yup.string().required(),
     content: yup.string().required(),
     preview: yup.string().required(),
     title: yup.string().required(),
@@ -45,12 +45,12 @@ export function getTaprootAddress(index: number, keychain: HDKey, network: Netwo
   const addressIndex = deriveAddressIndexKeychainFromAccount(keychain)(index);
 
   if (!addressIndex.privateKey) {
-    throw new Error('Expected privateKey to be defined.');
+    throw new Error('Expected privateKey to be defined');
   }
 
   const payment = getTaprootPayment(addressIndex.publicKey!, network);
 
-  if (!payment.address) throw new Error('Expected address to be defined.');
+  if (!payment.address) throw new Error('Expected address to be defined');
 
   return payment.address;
 }

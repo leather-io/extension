@@ -30,7 +30,7 @@ function Inscription({ path, utxo }: InscriptionProps) {
   if (isLoading) return null;
   if (isError) return null;
 
-  const inscriptionMetadata = whenInscriptionType<InscriptionInfo>(inscription['content type'], {
+  const inscriptionMetadata = whenInscriptionType<InscriptionInfo>(inscription.content_type, {
     image: () => ({
       infoUrl: createInfoUrl(inscription.content),
       src: `https://ordinals.com${inscription.content}`,
