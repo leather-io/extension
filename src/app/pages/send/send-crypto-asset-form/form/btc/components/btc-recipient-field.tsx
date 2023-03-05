@@ -13,7 +13,7 @@ import { RecipientFieldBnsAddress } from '../../../family/stacks/components/reci
 
 export function BtcRecipientField() {
   const client = useStacksClientUnanchored();
-  const [recipientAddressOrBnsField] = useField('recipientOrBnsName');
+  const [recipientAddressOrBnsField] = useField('recipientAddressOrBnsName');
   const [, _, recipientFieldHelpers] = useField('recipient');
   const navigate = useNavigate();
   const [bnsAddress, setBnsAddress] = useState('');
@@ -44,13 +44,18 @@ export function BtcRecipientField() {
     setLastValidatedInput,
   ]);
 
+  const onClickLabel = () => {
+    setBnsAddress('');
+    navigate(RouteUrls.SendCryptoAssetFormRecipientAccounts);
+  };
+
   return (
     <RecipientField
       labelAction="Choose account"
       lastChild
-      name="recipientOrBnsName"
+      name="recipientAddressOrBnsName"
       onBlur={getBtcAddressFromBns}
-      onClickLabelAction={() => navigate(RouteUrls.SendCryptoAssetFormRecipientAccounts)}
+      onClickLabelAction={onClickLabel}
       placeholder="Address"
       topInputOverlay={
         !!bnsAddress ? <RecipientFieldBnsAddress bnsAddress={bnsAddress} /> : undefined
