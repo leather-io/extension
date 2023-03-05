@@ -103,7 +103,7 @@ export function stxRecipientAddressOrBnsNameValidator({
   );
 }
 
-export function btcRecipientOrBnsNameValidator({ client }: { client: StacksClient }) {
+export function btcRecipientAddressOrBnsNameValidator({ client }: { client: StacksClient }) {
   return yup.string().test({
     name: 'btcRecipientOrBnsName',
     message: 'Recipient is not valid',
