@@ -16,6 +16,8 @@ import {
 } from '@stacks/transactions';
 import { principalToString } from '@stacks/transactions/dist/esm/clarity/types/principalCV';
 
+import { isString, isUndefined } from '@shared/utils';
+
 import { StacksClient } from '@app/query/stacks/stacks-client';
 
 const bnsContractConsts = {
@@ -126,7 +128,7 @@ export async function fetchNamesForAddress({
 export async function fetchNameOwner(client: StacksClient, name: string, isTestnet: boolean) {
   const fetchFromApi = async () => {
     const res = await client.namesApi.getNameInfo({ name });
-    if (typeof res.address !== 'string' || res.address.length === 0) return null;
+    if (!isString(res.address) || res.address.length === 0) return null;
     return res.address;
   };
   if (isTestnet) {
@@ -153,9 +155,9 @@ export async function fetchBtcNameOwner(
     const zonefile = parseZoneFile(nameResponse.zonefile);
     if (!zonefile.txt) return null;
     const btcRecord = zonefile.txt.find(record => record.name === '_btc._addr');
-    if (typeof btcRecord === 'undefined') return null;
+    if (isUndefined(btcRecord)) return null;
     const txtValue = btcRecord.txt;
-    return typeof txtValue === 'string' ? txtValue : txtValue[0] ?? null;
+    return isString(txtValue) ? txtValue : txtValue[0] ?? null;
   } catch (error) {
     // name not found or invalid zonefile
     return null;

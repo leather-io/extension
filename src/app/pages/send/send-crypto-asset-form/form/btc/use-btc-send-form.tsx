@@ -21,13 +21,13 @@ import {
   btcMinimumSpendValidator,
 } from '@app/common/validation/forms/amount-validators';
 import { btcAmountPrecisionValidator } from '@app/common/validation/forms/currency-validators';
+import { btcRecipientOrBnsNameValidator } from '@app/common/validation/forms/recipient-validators';
 import { useUpdatePersistedSendFormValues } from '@app/features/popup-send-form-restoration/use-update-persisted-send-form-values';
 import { useBitcoinAssetBalance } from '@app/query/bitcoin/address/address.hooks';
 import { useCurrentBtcNativeSegwitAccountAddressIndexZero } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
+import { useStacksClientUnanchored } from '@app/store/common/api-clients.hooks';
 import { useCurrentNetwork } from '@app/store/networks/networks.selectors';
 
-import { btcRecipientOrBnsNameValidator } from '../../../../../common/validation/forms/recipient-validators';
-import { useStacksClientUnanchored } from '../../../../../store/common/api-clients.hooks';
 import { useCalculateMaxBitcoinSpend } from '../../family/bitcoin/hooks/use-calculate-max-spend';
 import { useSendFormNavigate } from '../../hooks/use-send-form-navigate';
 import { useGenerateSignedBitcoinTx } from './use-generate-bitcoin-tx';
