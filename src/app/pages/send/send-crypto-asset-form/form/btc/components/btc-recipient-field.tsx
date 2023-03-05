@@ -13,7 +13,7 @@ import { RecipientFieldBnsAddress } from '../../../family/stacks/components/reci
 
 export function BtcRecipientField() {
   const client = useStacksClientUnanchored();
-  const [recipientAddressOrBnsField] = useField('recipientAddressOrBnsName');
+  const [recipientAddressOrBnsNameField] = useField('recipientAddressOrBnsName');
   const [, _, recipientFieldHelpers] = useField('recipient');
   const navigate = useNavigate();
   const [bnsAddress, setBnsAddress] = useState('');
@@ -21,24 +21,24 @@ export function BtcRecipientField() {
 
   const getBtcAddressFromBns = useCallback(async () => {
     // Skip if this input was already handled
-    if (lastValidatedInput === recipientAddressOrBnsField.value) return;
+    if (lastValidatedInput === recipientAddressOrBnsNameField.value) return;
 
     setBnsAddress('');
-    setLastValidatedInput(recipientAddressOrBnsField.value);
+    setLastValidatedInput(recipientAddressOrBnsNameField.value);
     try {
-      const btcFromBns = await fetchBtcNameOwner(client, recipientAddressOrBnsField.value);
+      const btcFromBns = await fetchBtcNameOwner(client, recipientAddressOrBnsNameField.value);
       if (btcFromBns) {
         recipientFieldHelpers.setValue(btcFromBns);
         setBnsAddress(btcFromBns);
       } else {
-        recipientFieldHelpers.setValue(recipientAddressOrBnsField.value);
+        recipientFieldHelpers.setValue(recipientAddressOrBnsNameField.value);
       }
     } catch (error) {
-      recipientFieldHelpers.setValue(recipientAddressOrBnsField.value);
+      recipientFieldHelpers.setValue(recipientAddressOrBnsNameField.value);
     }
   }, [
     client,
-    recipientAddressOrBnsField,
+    recipientAddressOrBnsNameField,
     recipientFieldHelpers,
     lastValidatedInput,
     setLastValidatedInput,

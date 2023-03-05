@@ -44,7 +44,7 @@ export function BtcSendForm() {
       <Formik
         initialValues={createDefaultInitialFormValues({
           ...routeState,
-          recipientOrBnsName: '',
+          recipientAddressOrBnsName: '',
         })}
         onSubmit={previewTransaction}
         validationSchema={validationSchema}

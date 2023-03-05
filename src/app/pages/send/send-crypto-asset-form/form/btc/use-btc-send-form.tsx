@@ -21,7 +21,7 @@ import {
   btcMinimumSpendValidator,
 } from '@app/common/validation/forms/amount-validators';
 import { btcAmountPrecisionValidator } from '@app/common/validation/forms/currency-validators';
-import { btcRecipientOrBnsNameValidator } from '@app/common/validation/forms/recipient-validators';
+import { btcRecipientAddressOrBnsNameValidator } from '@app/common/validation/forms/recipient-validators';
 import { useUpdatePersistedSendFormValues } from '@app/features/popup-send-form-restoration/use-update-persisted-send-form-values';
 import { useBitcoinAssetBalance } from '@app/query/bitcoin/address/address.hooks';
 import { useCurrentBtcNativeSegwitAccountAddressIndexZero } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
@@ -68,7 +68,7 @@ export function useBtcSendForm() {
           })
         )
         .concat(btcMinimumSpendValidator()),
-      recipientOrBnsName: btcRecipientOrBnsNameValidator({
+      recipientAddressOrBnsName: btcRecipientAddressOrBnsNameValidator({
         client,
       }),
       recipient: yup
