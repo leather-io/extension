@@ -8,6 +8,7 @@ import { sendMessage } from '@shared/messages';
 import { recurseAccountsForActivity } from '@app/common/account-restoration/account-restore';
 import { checkForLegacyGaiaConfigWithKnownGeneratedAccountIndex } from '@app/common/account-restoration/legacy-gaia-config-lookup';
 import { BitcoinClient } from '@app/query/bitcoin/bitcoin-client';
+import { fetchNamesForAddress } from '@app/query/stacks/bns/bns.utils';
 import { StacksClient } from '@app/query/stacks/stacks-client';
 import { AppThunk } from '@app/store';
 
@@ -40,10 +41,7 @@ function setWalletEncryptionPassword(args: {
     }
 
     async function doesStacksAddressHaveBnsName(address: string) {
-      const resp = await stxClient.namesApi.getNamesOwnedByAddress({
-        address,
-        blockchain: 'stacks',
-      });
+      const resp = await fetchNamesForAddress({ client: stxClient, address, isTestnet: false });
       return resp.names.length > 0;
     }
 

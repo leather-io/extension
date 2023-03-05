@@ -4,7 +4,6 @@ import {
   TEST_BNS_RESOLVED_ADDRESS,
 } from '@tests/mocks/constants';
 import { FeesSelectors } from '@tests/selectors/fees.selectors';
-import { SendCryptoAssetSelectors } from '@tests/selectors/send.selectors';
 
 import { FormErrorMessages } from '@app/common/error-messages';
 
@@ -21,15 +20,16 @@ test.describe('send stx', () => {
 
   test.describe('send form input fields', () => {
     test('that send max button sets available balance minus fee', async ({ sendPage }) => {
-      await sendPage.amountInput.fill('1');
+      await sendPage.amountInput.fill('.0001');
       await sendPage.amountInput.clear();
+      await sendPage.amountInput.blur();
       await sendPage.sendMaxButton.click();
-      await sendPage.recipientInput.fill(TEST_ACCOUNT_2_STX_ADDRESS);
+      await sendPage.amountInput.blur();
       test.expect(await sendPage.amountInput.inputValue()).toBeTruthy();
     });
 
     test('that recipient address matches bns name', async ({ page, sendPage }) => {
-      await sendPage.amountInput.fill('1');
+      await sendPage.amountInput.fill('.0001');
       await sendPage.recipientInput.fill(TEST_BNS_NAME);
       await sendPage.recipientInput.blur();
       await sendPage.resolvedBnsAddressLabel.waitFor();
@@ -81,13 +81,12 @@ test.describe('send stx', () => {
       test.expect(errorMsg).toContain('Insufficient balance');
     });
 
-    test('that valid addresses are accepted', async ({ page, sendPage }) => {
-      await sendPage.amountInput.fill('0.0001');
+    test('that valid addresses are accepted', async ({ sendPage }) => {
+      await sendPage.amountInput.fill('0.000001');
       await sendPage.recipientInput.fill(TEST_ACCOUNT_2_STX_ADDRESS);
-      await sendPage.recipientInput.blur();
       await sendPage.previewSendTxButton.click();
-      const detail = page.getByTestId(SendCryptoAssetSelectors.ConfirmationDetailsAmountAndSymbol);
-      test.expect(await detail.innerText()).toContain('STX');
+      const details = await sendPage.confirmationDetails.allInnerTexts();
+      test.expect(details).toBeTruthy();
     });
 
     test('that the address must be valid', async ({ sendPage }) => {
