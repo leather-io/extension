@@ -1,3 +1,20 @@
+## [4.6.0](https://github.com/hirosystems/stacks-wallet-web/compare/v4.5.0...v4.6.0) (2023-03-06)
+
+
+### Features
+
+* add sorting txs by time ([564fe8b](https://github.com/hirosystems/stacks-wallet-web/commit/564fe8b85ff49499e69d03ff94f45ebd92e98f39))
+* change btc tx pending msg ([2cb05f9](https://github.com/hirosystems/stacks-wallet-web/commit/2cb05f96002515787ba89e8e03d477bfbab69d41))
+* remove autocomplete in send forms ([c3db5af](https://github.com/hirosystems/stacks-wallet-web/commit/c3db5affea28eca0c438000c7d56a9ea76067b07))
+* use camelcase in naming ([e800b20](https://github.com/hirosystems/stacks-wallet-web/commit/e800b20fed0374b5af3dfdfc4e73cae59372c014))
+
+
+### Bug Fixes
+
+* bns recipient ([3378708](https://github.com/hirosystems/stacks-wallet-web/commit/3378708a4db17d04a73cf5bc29039ddbb5d7a47a))
+* recipient address field naming ([1ab5392](https://github.com/hirosystems/stacks-wallet-web/commit/1ab539251b79d49c4deb2d415a966a6eaa4e08b2))
+* tx list test ([302ac1b](https://github.com/hirosystems/stacks-wallet-web/commit/302ac1b9e9eeac19126da0e4e60f61a60787e522))
+
 ## [4.5.0](https://github.com/hirosystems/stacks-wallet-web/compare/v4.4.0...v4.5.0) (2023-03-05)
 
 
