@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">70.58% </span>
+                <span class="strong">73.17% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>24/34</span>
+                <span class='fraction'>30/41</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">44.11% </span>
+                <span class="strong">45.23% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>15/34</span>
+                <span class='fraction'>19/42</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">84.61% </span>
+                <span class="strong">85.71% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>11/13</span>
+                <span class='fraction'>12/14</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">73.33% </span>
+                <span class="strong">77.77% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>22/30</span>
+                <span class='fraction'>28/36</span>
             </div>
         
             
@@ -167,7 +167,18 @@
 <a name='L102'></a><a href='#L102'>102</a>
 <a name='L103'></a><a href='#L103'>103</a>
 <a name='L104'></a><a href='#L104'>104</a>
-<a name='L105'></a><a href='#L105'>105</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L105'></a><a href='#L105'>105</a>
+<a name='L106'></a><a href='#L106'>106</a>
+<a name='L107'></a><a href='#L107'>107</a>
+<a name='L108'></a><a href='#L108'>108</a>
+<a name='L109'></a><a href='#L109'>109</a>
+<a name='L110'></a><a href='#L110'>110</a>
+<a name='L111'></a><a href='#L111'>111</a>
+<a name='L112'></a><a href='#L112'>112</a>
+<a name='L113'></a><a href='#L113'>113</a>
+<a name='L114'></a><a href='#L114'>114</a>
+<a name='L115'></a><a href='#L115'>115</a>
+<a name='L116'></a><a href='#L116'>116</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -189,26 +200,37 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">13x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-yes">6x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">7x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-yes">7x</span>
 <span class="cline-any cline-yes">7x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">7x</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -309,21 +331,32 @@ function getTransactionTime(listTx: TransactionListTxs) {
 }
 &nbsp;
 function groupTxsByDateMap(txs: TransactionListTxs[]) {
-  return txs.reduce((txsByDate, tx) =&gt; {
-    const time = getTransactionTime(tx);
-    const date = time ? isoDateToLocalDateSafe(time) : <span class="branch-1 cbranch-no" title="branch not covered" >undefined;</span>
+  return txs
+    .sort((a, b) =&gt; {
+      const aTime = getTransactionTime(a);
+      const bTime = getTransactionTime(b);
 &nbsp;
-    <span class="missing-if-branch" title="if path not taken" >I</span>if (isUndefined(date)) {
-      const today = <span class="cstat-no" title="statement not covered" >todaysIsoDate();</span>
-<span class="cstat-no" title="statement not covered" >      txsByDate.set(today, [...(txsByDate.get(today) || []), tx]);</span>
-    } else {
-      if (!txsByDate.has(date)) {
-        txsByDate.set(date, []);
+      <span class="missing-if-branch" title="if path not taken" >I</span>if (!aTime || !bTime) <span class="cstat-no" title="statement not covered" >return 0;</span>
+&nbsp;
+      const aMsTime = new Date(aTime).getTime();
+      const bMsTime = new Date(bTime).getTime();
+&nbsp;
+      return aMsTime &gt; bMsTime ? -1 : <span class="branch-1 cbranch-no" title="branch not covered" >aMsTime &lt; bMsTime ? 1 : 0;</span>
+    })
+    .reduce((txsByDate, tx) =&gt; {
+      const time = getTransactionTime(tx);
+      const date = time ? isoDateToLocalDateSafe(time) : <span class="branch-1 cbranch-no" title="branch not covered" >undefined;</span>
+      <span class="missing-if-branch" title="if path not taken" >I</span>if (isUndefined(date)) {
+        const today = <span class="cstat-no" title="statement not covered" >todaysIsoDate();</span>
+<span class="cstat-no" title="statement not covered" >        txsByDate.set(today, [...(txsByDate.get(today) || []), tx]);</span>
+      } else {
+        if (!txsByDate.has(date)) {
+          txsByDate.set(date, []);
+        }
+        txsByDate.set(date, [...(txsByDate.get(date) || <span class="branch-1 cbranch-no" title="branch not covered" >[]), t</span>x]);
       }
-      txsByDate.set(date, [...(txsByDate.get(date) || <span class="branch-1 cbranch-no" title="branch not covered" >[]), t</span>x]);
-    }
-    return txsByDate;
-  }, new Map&lt;string, TransactionListTxs[]&gt;());
+      return txsByDate;
+    }, new Map&lt;string, TransactionListTxs[]&gt;());
 }
 &nbsp;
 function formatTxDateMapAsList(txMap: Map&lt;string, TransactionListTxs[]&gt;) {
@@ -382,7 +415,7 @@ export function createTxDateFormatList(
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2023-03-05T21:26:04.429Z
+                at 2023-03-06T11:47:00.737Z
             </div>
         <script src="../../../../../../prettify.js"></script>
         <script>
