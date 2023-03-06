@@ -10,10 +10,10 @@ export function StacksRecipientField() {
   const { bnsAddress, getBnsAddress, setBnsAddress } = useStacksRecipientBnsName();
   const navigate = useNavigate();
 
-  const onClickLabel = () => {
+  function onClickLabel() {
     setBnsAddress('');
     navigate(RouteUrls.SendCryptoAssetFormRecipientAccounts);
-  };
+  }
 
   return (
     <RecipientField
