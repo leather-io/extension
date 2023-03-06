@@ -1,3 +1,29 @@
+## [4.5.0](https://github.com/hirosystems/stacks-wallet-web/compare/v4.4.0...v4.5.0) (2023-03-05)
+
+
+### Features
+
+* fetch owner of a name ([cc49ffa](https://github.com/hirosystems/stacks-wallet-web/commit/cc49ffa105340bda5ffb2d56c3f5959123b67b7e))
+* prioritize bns name over bnsx ([03d0ec2](https://github.com/hirosystems/stacks-wallet-web/commit/03d0ec29b8ffbc118726088764d1807bd151e3c3))
+* query bnsx name from contract ([814718b](https://github.com/hirosystems/stacks-wallet-web/commit/814718bf83490f16c5e478c564053d8e2511caf7))
+* send btc to bns ([641fdad](https://github.com/hirosystems/stacks-wallet-web/commit/641fdad1d135602b732813da69a2cac220137076))
+
+
+### Bug Fixes
+
+* btc choose account drawer ([0fdd0a4](https://github.com/hirosystems/stacks-wallet-web/commit/0fdd0a44253b367a7ff183230b5ca973e683d5a8))
+* changed ordapi api, closes [#3358](https://github.com/hirosystems/stacks-wallet-web/issues/3358) ([2d495fc](https://github.com/hirosystems/stacks-wallet-web/commit/2d495fcc0383e3826e5c2c2360d2038b5eae0808))
+* error wording, removed fallback, closes [#3342](https://github.com/hirosystems/stacks-wallet-web/issues/3342) ([f61dae7](https://github.com/hirosystems/stacks-wallet-web/commit/f61dae7ba33cafd38f8510084898c14d45c13e49))
+* recipient address field naming ([44fab72](https://github.com/hirosystems/stacks-wallet-web/commit/44fab726c3bc379610ad5e706ac5640860a0b51f))
+* recipient validation with bns field ([da22011](https://github.com/hirosystems/stacks-wallet-web/commit/da2201157f6d14b3a20e25fa27f930d8f9695ea7))
+
+
+### Internal
+
+* avoid bool flag in params ([95885a2](https://github.com/hirosystems/stacks-wallet-web/commit/95885a2b594a54cf00dde62c80926a4538758b8c))
+* update copy ([8f9fd8f](https://github.com/hirosystems/stacks-wallet-web/commit/8f9fd8f741f5453cb53c98dc835e83e53d54711b))
+* use helpers ([05a3022](https://github.com/hirosystems/stacks-wallet-web/commit/05a3022e09bce383509d295352c5c3125f4e4623))
+
 ## [4.4.0](https://github.com/hirosystems/stacks-wallet-web/compare/v4.3.0...v4.4.0) (2023-03-02)
 
 
