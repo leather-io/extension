@@ -1,3 +1,5 @@
+import { OrdinalMinimalIcon } from '@app/components/icons/ordinal-minimal-icon';
+
 import { CollectibleImageLayout } from './collectible-image.layout';
 import { CollectibleLayout, CollectibleLayoutProps } from './collectible.layout';
 
@@ -7,7 +9,7 @@ interface ImageCollectibleProps extends Omit<CollectibleLayoutProps, 'children'>
 export function CollectibleImage(props: ImageCollectibleProps) {
   const { src, ...rest } = props;
   return (
-    <CollectibleLayout {...rest}>
+    <CollectibleLayout collectibleTypeIcon={<OrdinalMinimalIcon />} {...rest}>
       <CollectibleImageLayout src={src} />
     </CollectibleLayout>
   );
