@@ -69,7 +69,7 @@ export function useGenerateStxTokenTransferUnsignedTx() {
         txData: {
           txType: TransactionTypes.STXTransfer,
           // Using account address here as a fallback for a fee estimation
-          recipient: values?.recipient || account.address,
+          recipient: values?.recipient || values?.recipientAddressOrBnsName || account.address,
           amount: values?.amount ? stxToMicroStx(values?.amount).toString(10) : '0',
           memo: values?.memo || undefined,
           network: network,
