@@ -29,7 +29,7 @@ export function AddCollectible() {
   return (
     <CollectibleLayout
       backgroundElementProps={backgroundProps}
-      onSelectCollectible={() => {
+      onClickLayout={() => {
         void analytics.track('select_add_new_collectible');
         navigate(RouteUrls.ReceiveCollectible);
       }}
