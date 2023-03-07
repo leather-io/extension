@@ -69,7 +69,8 @@ export function useGenerateStxTokenTransferUnsignedTx() {
         txData: {
           txType: TransactionTypes.STXTransfer,
           // Using account address here as a fallback for a fee estimation
-          recipient: values?.recipient || values?.recipientAddressOrBnsName || account.address,
+          recipient:
+            values?.resolvedRecipient || values?.recipientAddressOrBnsName || account.address,
           amount: values?.amount ? stxToMicroStx(values?.amount).toString(10) : '0',
           memo: values?.memo || undefined,
           network: network,
@@ -125,7 +126,7 @@ export function useGenerateFtTokenTransferUnsignedTx(selectedAssetId: string) {
 
       const recipient =
         values && 'recipient' in values
-          ? createAddress(values.recipient || values.recipientAddressOrBnsName || '')
+          ? createAddress(values.resolvedRecipient || values.recipientAddressOrBnsName || '')
           : createEmptyAddress();
       const amount = values && 'amount' in values ? values.amount : 0;
       const memo =
