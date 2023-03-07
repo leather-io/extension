@@ -125,7 +125,7 @@ export function useGenerateFtTokenTransferUnsignedTx(selectedAssetId: string) {
 
       const recipient =
         values && 'recipient' in values
-          ? createAddress(values.recipient || '')
+          ? createAddress(values.recipient || values.recipientAddressOrBnsName || '')
           : createEmptyAddress();
       const amount = values && 'amount' in values ? values.amount : 0;
       const memo =
