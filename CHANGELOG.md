@@ -1,3 +1,16 @@
+## [4.7.0](https://github.com/hirosystems/stacks-wallet-web/compare/v4.6.0...v4.7.0) (2023-03-07)
+
+
+### Features
+
+* add collectible hover call to action ([b965cdf](https://github.com/hirosystems/stacks-wallet-web/commit/b965cdf003123087db891e0c6467b72a6693b425))
+
+
+### Bug Fixes
+
+* prevent sign-in while signed in with a route guard ([4378f72](https://github.com/hirosystems/stacks-wallet-web/commit/4378f727ed0e2814a06e6079329a4c1801c98b50))
+* sip10 recipient validation ([b604f54](https://github.com/hirosystems/stacks-wallet-web/commit/b604f54291234830b7fde29d0e3c428ecadbeb78))
+
 ## [4.6.0](https://github.com/hirosystems/stacks-wallet-web/compare/v4.5.0...v4.6.0) (2023-03-06)
 
 
