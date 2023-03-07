@@ -2,6 +2,7 @@
  * Inpage Script (StacksProvider) <-> Content Script
  */
 export enum DomEventName {
+  request = 'request',
   authenticationRequest = 'stacksAuthenticationRequest',
   signatureRequest = 'signatureRequest',
   structuredDataSignatureRequest = 'structuredDataSignatureRequest',

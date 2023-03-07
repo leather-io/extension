@@ -1,4 +1,4 @@
-import { useCallback } from 'react';
+import { useCallback, useMemo } from 'react';
 import { useSelector } from 'react-redux';
 
 import * as btc from '@scure/btc-signer';
@@ -17,9 +17,10 @@ import { whenNetwork } from '@app/common/utils';
 import { useCurrentNetwork } from '@app/store/networks/networks.selectors';
 
 import { useCurrentAccountIndex } from '../../account';
+import { formatBitcoinAccount, tempHardwareAccountForTesting } from './bitcoin-account.models';
 import { selectMainnetTaprootKeychain, selectTestnetTaprootKeychain } from './bitcoin-keychain';
 
-function useTaprootCurrentNetworkAccountKeychain() {
+function useTaprootCurrentNetworkAccountPrivateKeychain() {
   const network = useCurrentNetwork();
   return useSelector(
     whenNetwork(network.chain.bitcoin.network)({
@@ -35,11 +36,9 @@ export function useCurrentTaprootAccountKeychain() {
 }
 
 export function useTaprootAccountKeychain(accountIndex: number) {
-  const accountKeychain = useTaprootCurrentNetworkAccountKeychain();
+  const accountKeychain = useTaprootCurrentNetworkAccountPrivateKeychain();
   if (!accountKeychain) return; // TODO: Revisit this return early
-  const keychain = accountKeychain(accountIndex);
-  if (!keychain) throw new Error('No account keychain found');
-  return keychain;
+  return accountKeychain(accountIndex);
 }
 
 // Concept of current address index won't exist with privacy mode
@@ -49,9 +48,44 @@ export function useCurrentTaprootAddressIndexKeychain() {
   return deriveAddressIndexZeroFromAccount(keychain);
 }
 
+function useBitcoinTaprootAccountInfo(index: number) {
+  const keychain = useTaprootCurrentNetworkAccountPrivateKeychain();
+  return useMemo(() => {
+    // TODO: Remove with bitcoin Ledger integration
+    if (isUndefined(keychain)) return tempHardwareAccountForTesting;
+    return formatBitcoinAccount(keychain(index))(index);
+  }, [keychain, index]);
+}
+
+export function useCurrentBitcoinTaprootAccountInfo() {
+  const currentAccountIndex = useCurrentAccountIndex();
+  return useBitcoinTaprootAccountInfo(currentAccountIndex);
+}
+
+export function useDeriveTaprootAccountIndexAddressIndexZero(xpub: string) {
+  const network = useCurrentNetwork();
+  return useMemo(
+    () =>
+      deriveTaprootReceiveAddressIndex({
+        xpub,
+        index: 0,
+        network: network.chain.bitcoin.network,
+      }),
+    [xpub, network]
+  );
+}
+
+export function useCurrentBtcTaprootAccountAddressIndexZeroPayment() {
+  const { xpub } = useCurrentBitcoinTaprootAccountInfo();
+  const payment = useDeriveTaprootAccountIndexAddressIndexZero(xpub);
+  if (!payment?.address) throw new Error('No address found');
+  // Creating new object to have known property types
+  return { address: payment.address, type: payment.type };
+}
+
 export function useSignBitcoinTaprootTx() {
   const index = useCurrentAccountIndex();
-  const keychain = useTaprootCurrentNetworkAccountKeychain()?.(index);
+  const keychain = useTaprootCurrentNetworkAccountPrivateKeychain()?.(index);
 
   return useCallback(
     (tx: btc.Transaction) => {
@@ -69,7 +103,7 @@ interface UseSignBitcoinTaprootInputAtIndexArgs {
 }
 export function useSignBitcoinTaprootInputAtIndex() {
   const index = useCurrentAccountIndex();
-  const keychain = useTaprootCurrentNetworkAccountKeychain()?.(index);
+  const keychain = useTaprootCurrentNetworkAccountPrivateKeychain()?.(index);
 
   return useCallback(
     ({ allowedSighash, idx, tx }: UseSignBitcoinTaprootInputAtIndexArgs) => {

@@ -63,7 +63,7 @@ export function useNextFreshTaprootAddressQuery(accIndex?: number) {
       // Check shouldn't be necessary, but just in case
       if (emptyAddress.utxos.length !== 0) throw new Error('Address found not empty');
 
-      setHighestKnownAccountActivity(emptyAddress.index - 1);
+      setHighestKnownAccountActivity(Math.max(0, emptyAddress.index - 1));
       return emptyAddress.address;
     },
     {
