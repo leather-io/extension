@@ -8,7 +8,14 @@ interface OtherCollectibleProps extends Omit<CollectibleLayoutProps, 'children'>
 export function CollectibleOther(props: OtherCollectibleProps) {
   return (
     <CollectibleLayout {...props}>
-      <Box width="90px">
+      <Box
+        backgroundColor="black"
+        height="100%"
+        width="100%"
+        display="flex"
+        alignItems="center"
+        justifyContent="center"
+      >
         <OrdinalIconFull />
       </Box>
     </CollectibleLayout>

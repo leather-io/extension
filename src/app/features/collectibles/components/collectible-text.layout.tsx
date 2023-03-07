@@ -18,6 +18,7 @@ export function CollectibleTextLayout(props: CollectibleTextLayoutProps) {
       height="100%"
       width="100%"
       color="white"
+      backgroundColor="black"
       p="20px"
       sx={{
         position: 'relative',

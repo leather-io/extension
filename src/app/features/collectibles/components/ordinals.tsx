@@ -2,6 +2,7 @@ import { useNavigate } from 'react-router-dom';
 
 import { RouteUrls } from '@shared/route-urls';
 
+import { openInNewTab } from '@app/common/utils/open-in-new-tab';
 import { useInscriptionByTxidQuery } from '@app/query/bitcoin/ordinals/use-inscription-by-txid.query';
 import { useInscriptionQuery } from '@app/query/bitcoin/ordinals/use-inscription.query';
 import {
@@ -61,7 +62,8 @@ function Inscription({ path, utxo }: InscriptionProps) {
       return (
         <CollectibleImage
           key={inscriptionMetadata.title}
-          onSelectCollectible={() => openSendInscriptionModal()}
+          onClickCallToAction={() => openInNewTab(inscriptionMetadata.infoUrl)}
+          onClickSend={() => openSendInscriptionModal()}
           src={inscriptionMetadata.src}
           subtitle="Ordinal inscription"
           title={inscriptionMetadata.title}
@@ -72,7 +74,8 @@ function Inscription({ path, utxo }: InscriptionProps) {
       return (
         <CollectibleText
           key={inscriptionMetadata.title}
-          onSelectCollectible={() => openSendInscriptionModal()}
+          onClickCallToAction={() => openInNewTab(inscriptionMetadata.infoUrl)}
+          onClickSend={() => openSendInscriptionModal()}
           contentSrc={inscriptionMetadata.contentSrc}
           subtitle="Ordinal inscription"
           title={inscriptionMetadata.title}
@@ -83,7 +86,8 @@ function Inscription({ path, utxo }: InscriptionProps) {
       return (
         <CollectibleOther
           key={inscriptionMetadata.title}
-          onSelectCollectible={() => openSendInscriptionModal()}
+          onClickCallToAction={() => openInNewTab(inscriptionMetadata.infoUrl)}
+          onClickSend={() => openSendInscriptionModal()}
           subtitle="Ordinal inscription"
           title={inscriptionMetadata.title}
         />

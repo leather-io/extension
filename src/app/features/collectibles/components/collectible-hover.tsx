@@ -1,17 +1,23 @@
-import { Box, Text } from '@stacks/ui';
+import { Box, Flex, color } from '@stacks/ui';
 
-export function CollectibleHover(props: { hoverText?: string }) {
-  const { hoverText } = props;
+import { ArrowIcon } from '@app/components/icons/arrow-icon';
 
+interface CollectibleHoverProps {
+  collectibleTypeIcon?: JSX.Element;
+  isHovered: boolean;
+  onClickCallToAction?(): void;
+}
+export function CollectibleHover({
+  collectibleTypeIcon,
+  isHovered,
+  onClickCallToAction,
+}: CollectibleHoverProps) {
   return (
     <Box
-      _hover={{ opacity: '1' }}
-      alignItems="center"
-      background="linear-gradient(0deg, rgba(0, 0, 0, 0.75) 0%, rgba(12, 12, 13, 0) 100%);"
-      borderRadius="16px"
+      sx={{ opacity: isHovered ? 'inherit' : '0' }}
+      _focusWithin={{ opacity: 'inherit' }}
       display="flex"
       height="100%"
-      justifyContent="center"
       left="0px"
       opacity="0"
       overflow="hidden"
@@ -20,11 +26,30 @@ export function CollectibleHover(props: { hoverText?: string }) {
       width="100%"
       zIndex={999}
     >
-      {hoverText ? (
-        <Text bottom="0px" color="white" left="0px" lineHeight="1.5" p="base" position="absolute">
-          {hoverText}
-        </Text>
-      ) : null}
+      <Box position="absolute" left="12px" bottom="12px">
+        {collectibleTypeIcon}
+      </Box>
+      {onClickCallToAction && (
+        <Flex
+          onClick={e => {
+            e.stopPropagation();
+            onClickCallToAction();
+          }}
+          as="button"
+          position="absolute"
+          right="12px"
+          top="12px"
+          width="30px"
+          height="30px"
+          backgroundColor={color('bg')}
+          borderRadius="50%"
+          justifyContent="center"
+          alignItems="center"
+          _focus={{ outline: '4px solid #CEDAFA' }}
+        >
+          <ArrowIcon />
+        </Flex>
+      )}
     </Box>
   );
 }
