@@ -3,8 +3,8 @@ import { SendCryptoAssetSelectors } from '@tests/selectors/send.selectors';
 import { TextInputField } from './text-input-field';
 
 interface RecipientFieldProps {
+  isDisabled?: boolean;
   labelAction?: string;
-  lastChild?: boolean;
   name: string;
   onBlur?(): void;
   onClickLabelAction?(): void;
@@ -12,8 +12,8 @@ interface RecipientFieldProps {
   topInputOverlay?: JSX.Element;
 }
 export function RecipientField({
+  isDisabled,
   labelAction,
-  lastChild,
   name,
   onBlur,
   onClickLabelAction,
@@ -23,9 +23,9 @@ export function RecipientField({
   return (
     <TextInputField
       dataTestId={SendCryptoAssetSelectors.RecipientFieldInput}
-      label="To"
+      isDisabled={isDisabled}
       labelAction={labelAction}
-      lastChild={lastChild}
+      minHeight="76px"
       name={name}
       onBlur={onBlur}
       onClickLabelAction={onClickLabelAction}

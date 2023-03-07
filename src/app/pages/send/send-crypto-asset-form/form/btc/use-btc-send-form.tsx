@@ -68,6 +68,7 @@ export function useBtcSendForm() {
           })
         )
         .concat(btcMinimumSpendValidator()),
+      // TODO: Implement new recipient field here
       recipientAddressOrBnsName: btcRecipientAddressOrBnsNameValidator({
         client,
       }),

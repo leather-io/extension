@@ -18,9 +18,7 @@ import { useOnMount } from '@app/common/hooks/use-on-mount';
 import { convertAmountToBaseUnit } from '@app/common/money/calculate-money';
 import { useWalletType } from '@app/common/use-wallet-type';
 import { stacksFungibleTokenAmountValidator } from '@app/common/validation/forms/amount-validators';
-import { stxFeeValidator } from '@app/common/validation/forms/fee-validators';
 import { stxMemoValidator } from '@app/common/validation/forms/memo-validators';
-import { stxRecipientAddressOrBnsNameValidator } from '@app/common/validation/forms/recipient-validators';
 import { nonceValidator } from '@app/common/validation/nonce-validators';
 import { StxAvatar } from '@app/components/crypto-assets/stacks/components/stx-avatar';
 import { EditNonceButton } from '@app/components/edit-nonce-button';
@@ -30,12 +28,8 @@ import { HighFeeDrawer } from '@app/features/high-fee-drawer/high-fee-drawer';
 import { useLedgerNavigate } from '@app/features/ledger/hooks/use-ledger-navigate';
 import { useUpdatePersistedSendFormValues } from '@app/features/popup-send-form-restoration/use-update-persisted-send-form-values';
 import { useStacksFungibleTokenAssetBalance } from '@app/query/stacks/balance/stacks-ft-balances.hooks';
-import { useCurrentStacksAccountAnchoredBalances } from '@app/query/stacks/balance/stx-balance.hooks';
 import { useCalculateStacksTxFees } from '@app/query/stacks/fees/fees.hooks';
 import { useNextNonce } from '@app/query/stacks/nonce/account-nonces.hooks';
-import { useCurrentAccountStxAddressState } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
-import { useStacksClientUnanchored } from '@app/store/common/api-clients.hooks';
-import { useCurrentNetwork } from '@app/store/networks/networks.selectors';
 import {
   useFtTokenTransferUnsignedTx,
   useGenerateFtTokenTransferUnsignedTx,
@@ -49,7 +43,7 @@ import { PreviewButton } from '../../components/preview-button';
 import { SelectedAssetField } from '../../components/selected-asset-field';
 import { SendCryptoAssetFormLayout } from '../../components/send-crypto-asset-form.layout';
 import { SendMaxButton } from '../../components/send-max-button';
-import { StacksRecipientField } from '../../family/stacks/components/stacks-recipient-field';
+import { StacksRecipientField } from '../../family/stacks/components/stacks-recipient-field/stacks-recipient-field';
 import { useSendFormNavigate } from '../../hooks/use-send-form-navigate';
 import { useSendFormRouteState } from '../../hooks/use-send-form-route-state';
 import { createDefaultInitialFormValues, defaultSendFormFormikProps } from '../../send-form.utils';
@@ -66,12 +60,8 @@ export function StacksSip10FungibleTokenSendForm({}) {
   const assetBalance = useStacksFungibleTokenAssetBalance(contractId);
   const unsignedTx = useFtTokenTransferUnsignedTx(contractId);
   const { data: stacksFtFees } = useCalculateStacksTxFees(unsignedTx);
-  const { data: balances } = useCurrentStacksAccountAnchoredBalances();
   const generateTx = useGenerateFtTokenTransferUnsignedTx(contractId);
-  const currentAccountStxAddress = useCurrentAccountStxAddressState();
-  const currentNetwork = useCurrentNetwork();
   const { whenWallet } = useWalletType();
-  const client = useStacksClientUnanchored();
   const ledgerNavigate = useLedgerNavigate();
   const sendFormNavigate = useSendFormNavigate();
   const { onFormStateChange } = useUpdatePersistedSendFormValues();
@@ -92,20 +82,22 @@ export function StacksSip10FungibleTokenSendForm({}) {
     feeType: FeeTypes[FeeTypes.Unknown],
     memo: '',
     nonce: nextNonce?.nonce,
-    recipientAddressOrBnsName: '',
-    resolvedRecipient: '',
+    // TODO: Implement new recipient field here
+    // recipientAddressOrBnsName: '',
+    // resolvedRecipient: '',
     symbol,
     ...routeState,
   });
 
   const validationSchema = yup.object({
     amount: stacksFungibleTokenAmountValidator(availableTokenBalance),
-    recipientAddressOrBnsName: stxRecipientAddressOrBnsNameValidator({
-      client,
-      currentAddress: currentAccountStxAddress,
-      currentNetwork,
-    }),
-    fee: stxFeeValidator(balances?.stx.availableStx),
+    // TODO: Implement new recipient field here
+    // recipientAddressOrBnsName: stxRecipientAddressOrBnsNameValidator({
+    //   client,
+    //   currentAddress: currentAccountStxAddress,
+    //   currentNetwork,
+    // }),
+    // fee: stxFeeValidator(balances?.stx.availableStx),
     memo: stxMemoValidator(FormErrorMessages.MemoExceedsLimit),
     nonce: nonceValidator,
   });
@@ -150,7 +142,7 @@ export function StacksSip10FungibleTokenSendForm({}) {
           onFormStateChange(props.values);
           return (
             <NonceSetter>
-              <Form style={{ width: '100%' }}>
+              <Form>
                 <AmountField
                   balance={availableTokenBalance}
                   bottomInputOverlay={
@@ -162,8 +154,9 @@ export function StacksSip10FungibleTokenSendForm({}) {
                 />
                 <FormFieldsLayout>
                   <SelectedAssetField icon={<StxAvatar />} name={symbol} symbol={symbol} />
+                  {/* TODO: Implement new recipient field here */}
                   <StacksRecipientField />
-                  <MemoField lastChild />
+                  <MemoField />
                 </FormFieldsLayout>
                 <FeesRow fees={stacksFtFees} isSponsored={false} mt="base" />
                 <FormErrors />

@@ -1,10 +1,7 @@
 import { useMemo } from 'react';
 import { FiCheck, FiChevronDown } from 'react-icons/fi';
 
-import { Stack, color } from '@stacks/ui';
-
-import { SpaceBetween } from '@app/components/layout/space-between';
-import { Caption } from '@app/components/typography';
+import { Stack, Text, color } from '@stacks/ui';
 
 const labels = ['Low', 'Standard', 'High', 'Custom'];
 const testLabels = labels.map(label => label.toLowerCase());
@@ -26,8 +23,6 @@ export function FeeEstimateItem(props: FeeEstimateItemProps) {
   return (
     <Stack
       alignItems="center"
-      border={isVisible ? 'none' : '1px solid #EFEFF2'}
-      borderRadius={isVisible ? '0px' : '10px'}
       bg={color('bg')}
       data-testid={`${testLabels[index]}-fee`}
       _hover={{ bg: isVisible ? color('bg-alt') : 'none', borderRadius: '8px' }}
@@ -38,10 +33,10 @@ export function FeeEstimateItem(props: FeeEstimateItemProps) {
       onClick={() => onSelectItem(index)}
       p="tight"
     >
-      <SpaceBetween flexGrow={1}>
-        <Caption ml="2px">{labels[index]}</Caption>
-        {isVisible ? selectedIcon : <FiChevronDown />}
-      </SpaceBetween>
+      <Text fontSize={1} fontWeight={500} ml="2px">
+        {labels[index]}
+      </Text>
+      {isVisible ? selectedIcon : <FiChevronDown />}
     </Stack>
   );
 }

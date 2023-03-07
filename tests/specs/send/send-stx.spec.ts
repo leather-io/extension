@@ -33,8 +33,8 @@ test.describe('send stx', () => {
       await sendPage.amountInput.fill('.0001');
       await sendPage.recipientInput.fill(TEST_BNS_NAME);
       await sendPage.recipientInput.blur();
-      await sendPage.resolvedBnsAddressLabel.waitFor();
-      await sendPage.resolvedBnsAddressInfoIcon.hover();
+      await sendPage.recipientBnsAddressLabel.waitFor();
+      await sendPage.recipientBnsAddressInfoIcon.hover();
       const bnsResolvedAddress = await page.getByText(TEST_BNS_RESOLVED_ADDRESS).innerText();
 
       test.expect(bnsResolvedAddress).toBeTruthy();

@@ -14,9 +14,9 @@ export enum SendCryptoAssetSelectors {
   PreviewSendTxBtn = 'preview-send-tx-btn',
   RecipientChooseAccountButton = 'recipient-choose-account-button',
   RecipientFieldInput = 'recipient-field-input',
-  ResolvedBnsAddressLabel = 'resolved-bns-address-preview',
-  ResolvedBnsAddressInfoIcon = 'resolved-bns-address-hover-info-icon',
-  ResolvedBnsAddressCopyToClipboard = 'resolved-bns-address-copy-to-clipboard',
+  RecipientBnsAddressLabel = 'recipient-bns-address-label',
+  RecipientBnsAddressInfoIcon = 'recipient-bns-address-info-icon',
+  RecipientBnsAddressCopyToClipboard = 'recipient-bns-address-copy-to-clipboard',
   SendForm = 'send-form',
   SendMaxBtn = 'send-max-btn',
 }

@@ -1,21 +1,20 @@
 import { Flex } from '@stacks/ui';
 
-import { DividerSeparator } from '@app/components/layout/divider-separator';
-
 interface FormFieldsProps {
   children: React.ReactNode;
 }
 export function FormFieldsLayout({ children }: FormFieldsProps) {
   return (
     <Flex
-      border="1px solid"
-      borderColor="#DCDDE2"
-      borderRadius="10px"
+      alignItems="center"
       flexDirection="column"
-      mt="loose"
-      width="100%"
+      maxHeight={['calc(100vh - 116px)', 'calc(85vh - 116px)']}
+      overflowY="scroll"
+      pb={['92px', 'unset']}
+      pt={['base', '48px']}
+      px="loose"
     >
-      <DividerSeparator>{children}</DividerSeparator>
+      {children}
     </Flex>
   );
 }
