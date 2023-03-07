@@ -1,3 +1,4 @@
+// TODO: Remove with send form design refactor
 import { useEffect, useState } from 'react';
 import AnimateHeight from 'react-animate-height';
 

@@ -1,3 +1,4 @@
+// TODO: Remove with old recipient field in btc form
 import { useCallback } from 'react';
 import { FiCopy, FiInfo } from 'react-icons/fi';
 
@@ -26,7 +27,7 @@ export function RecipientFieldBnsAddress(props: { bnsAddress: string }) {
     <Stack isInline spacing="tight" zIndex={999}>
       <Text
         color={color('text-caption')}
-        data-testid={SendCryptoAssetSelectors.ResolvedBnsAddressLabel}
+        data-testid={SendCryptoAssetSelectors.RecipientBnsAddressLabel}
         fontSize={0}
       >
         {truncateMiddle(bnsAddress, 4)}
@@ -37,7 +38,7 @@ export function RecipientFieldBnsAddress(props: { bnsAddress: string }) {
             _hover={{ cursor: 'pointer' }}
             as={FiInfo}
             color={color('text-caption')}
-            data-testid={SendCryptoAssetSelectors.ResolvedBnsAddressInfoIcon}
+            data-testid={SendCryptoAssetSelectors.RecipientBnsAddressInfoIcon}
             onMouseOver={onHover}
             size="12px"
           />
@@ -49,7 +50,7 @@ export function RecipientFieldBnsAddress(props: { bnsAddress: string }) {
             _hover={{ cursor: 'pointer' }}
             as={FiCopy}
             color={color('text-caption')}
-            data-testid={SendCryptoAssetSelectors.ResolvedBnsAddressCopyToClipboard}
+            data-testid={SendCryptoAssetSelectors.RecipientBnsAddressCopyToClipboard}
             onClick={copyToClipboard}
             size="12px"
           />

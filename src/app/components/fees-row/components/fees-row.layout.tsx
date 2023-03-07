@@ -17,10 +17,10 @@ export function FeesRowLayout(props: FeesRowLayoutProps) {
   const [_, meta] = useField('fee');
 
   return (
-    <Stack spacing="base" {...rest}>
+    <Stack spacing="base" width="100%" {...rest}>
       <SpaceBetween position="relative">
         <Stack alignItems="center" isInline>
-          <Caption>Fees</Caption>
+          <Caption>Fee</Caption>
           {!isSponsored ? selectInput : null}
         </Stack>
         {feeField}

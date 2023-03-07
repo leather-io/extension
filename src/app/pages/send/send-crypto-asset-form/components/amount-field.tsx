@@ -86,7 +86,8 @@ export function AmountField({
       alignItems="center"
       onClick={onClickFocusInput}
       px="extra-loose"
-      spacing={['base', meta.error ? 'base' : '48px']}
+      spacing={['base', meta.error && meta.touched ? 'base' : '48px']}
+      width="100%"
     >
       <Flex alignItems="center" flexDirection="column">
         <Flex
@@ -125,7 +126,7 @@ export function AmountField({
           {meta.error}
         </ErrorLabel>
       )}
-      {bottomInputOverlay ?? <Box size="36px" />}
+      {bottomInputOverlay}
     </Stack>
   );
 }

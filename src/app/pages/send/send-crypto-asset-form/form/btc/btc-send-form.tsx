@@ -70,6 +70,7 @@ export function BtcSendForm() {
               />
               <FormFieldsLayout>
                 <SelectedAssetField icon={<BtcIcon />} name={btcBalance.asset.name} symbol="BTC" />
+                {/* TODO: Implement new recipient field here */}
                 <BtcRecipientField />
               </FormFieldsLayout>
               {currentNetwork.chain.bitcoin.network === 'testnet' && <TestnetBtcMessage />}

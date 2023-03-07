@@ -17,8 +17,8 @@ export class SendPage {
   readonly previewSendTxButton: Locator;
   readonly recipientChooseAccountButton: Locator;
   readonly recipientInput: Locator;
-  readonly resolvedBnsAddressLabel: Locator;
-  readonly resolvedBnsAddressInfoIcon: Locator;
+  readonly recipientBnsAddressLabel: Locator;
+  readonly recipientBnsAddressInfoIcon: Locator;
   readonly sendMaxButton: Locator;
   readonly feesRow: Locator;
   readonly memoRow: Locator;
@@ -41,11 +41,11 @@ export class SendPage {
       SendCryptoAssetSelectors.RecipientChooseAccountButton
     );
     this.recipientInput = this.page.getByTestId(SendCryptoAssetSelectors.RecipientFieldInput);
-    this.resolvedBnsAddressLabel = this.page.getByTestId(
-      SendCryptoAssetSelectors.ResolvedBnsAddressLabel
+    this.recipientBnsAddressLabel = this.page.getByTestId(
+      SendCryptoAssetSelectors.RecipientBnsAddressLabel
     );
-    this.resolvedBnsAddressInfoIcon = page.getByTestId(
-      SendCryptoAssetSelectors.ResolvedBnsAddressInfoIcon
+    this.recipientBnsAddressInfoIcon = page.getByTestId(
+      SendCryptoAssetSelectors.RecipientBnsAddressInfoIcon
     );
     this.feesRow = page.getByTestId(SendCryptoAssetSelectors.ConfirmationDetailsFee);
     this.memoRow = page.getByTestId(SendCryptoAssetSelectors.ConfirmationDetailsMemo);

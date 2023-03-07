@@ -15,16 +15,27 @@ export function SelectedAssetField({ icon, name, symbol }: SelectedAssetFieldPro
   useOnMount(() => helpers.setValue(symbol));
 
   return (
-    <Field as="div" name="symbol">
-      <SpaceBetween as="button" type="button" cursor="pointer" py="base" px="base" width="100%">
-        <Flex alignItems="center">
-          {icon}
-          <Text ml="tight" mr="extra-tight">
-            {name}
-          </Text>
-          <Text>({symbol.toUpperCase()})</Text>
-        </Flex>
-      </SpaceBetween>
-    </Field>
+    <Flex
+      alignItems="center"
+      border="1px solid #DCDDE2"
+      borderRadius="10px"
+      minHeight="64px"
+      mb="base"
+      mt="loose"
+      px="base"
+      width="100%"
+    >
+      <Field as="div" name="symbol">
+        <SpaceBetween>
+          <Flex alignItems="center">
+            {icon}
+            <Text ml="tight" mr="extra-tight">
+              {name}
+            </Text>
+            <Text>({symbol.toUpperCase()})</Text>
+          </Flex>
+        </SpaceBetween>
+      </Field>
+    </Flex>
   );
 }

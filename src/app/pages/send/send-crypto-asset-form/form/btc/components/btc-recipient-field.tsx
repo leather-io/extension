@@ -9,7 +9,7 @@ import { fetchBtcNameOwner } from '@app/query/stacks/bns/bns.utils';
 import { useStacksClientUnanchored } from '@app/store/common/api-clients.hooks';
 
 import { RecipientField } from '../../../components/recipient-field';
-import { RecipientFieldBnsAddress } from '../../../family/stacks/components/recipient-field-bns-address';
+import { RecipientFieldBnsAddress } from '../../../family/stacks/components/stacks-recipient-field/components/recipient-bns-address';
 
 export function BtcRecipientField() {
   const client = useStacksClientUnanchored();
@@ -52,7 +52,6 @@ export function BtcRecipientField() {
   return (
     <RecipientField
       labelAction="Choose account"
-      lastChild
       name="recipientAddressOrBnsName"
       onBlur={getBtcAddressFromBns}
       onClickLabelAction={onClickLabel}
