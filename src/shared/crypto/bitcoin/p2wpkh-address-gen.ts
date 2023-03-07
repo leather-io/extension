@@ -19,7 +19,7 @@ export function deriveNativeSegWitAccountKeychain(keychain: HDKey, network: Netw
   return (index: number) => keychain.derive(getNativeSegWitAccountDerivationPath(network, index));
 }
 
-export function getNativeSegWitAddressIndexDetails(keychain: HDKey, network: NetworkModes) {
+export function getNativeSegWitAddressIndexFromKeychain(keychain: HDKey, network: NetworkModes) {
   if (keychain.depth !== DerivationPathDepth.AddressIndex)
     throw new Error('Keychain passed is not an address index');
 
@@ -38,5 +38,5 @@ export function deriveNativeSegWitReceiveAddressIndex({
   const keychain = HDKey.fromExtendedKey(xpub);
   if (!keychain) return;
   const zeroAddressIndex = deriveAddressIndexZeroFromAccount(keychain);
-  return getNativeSegWitAddressIndexDetails(zeroAddressIndex, network);
+  return getNativeSegWitAddressIndexFromKeychain(zeroAddressIndex, network);
 }

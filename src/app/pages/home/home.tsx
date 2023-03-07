@@ -1,5 +1,7 @@
 import { Outlet, useNavigate } from 'react-router-dom';
 
+import { Button } from '@stacks/ui';
+
 import { RouteUrls } from '@shared/route-urls';
 
 import { useTrackFirstDeposit } from '@app/common/hooks/analytics/transactions-analytics.hooks';
@@ -13,6 +15,7 @@ import { InAppMessages } from '@app/features/hiro-messages/in-app-messages';
 import { SuggestedFirstSteps } from '@app/features/suggested-first-steps/suggested-first-steps';
 import { HomeActions } from '@app/pages/home/components/home-actions';
 import { StacksAccount } from '@app/store/accounts/blockchain/stacks/stacks-account.models';
+import { useAppPermissions } from '@app/store/app-permissions/app-permissions.slice';
 
 import { CurrentAccount } from './components/account-area';
 import { HomeTabs } from './components/home-tabs';
@@ -42,12 +45,25 @@ function HomeContainer({ account }: HomeContainerProps) {
     if (decodedAuthRequest) navigate(RouteUrls.ChooseAccount);
   });
 
+  const perm = useAppPermissions();
+
   return (
     <HomeLayout
       suggestedFirstSteps={<SuggestedFirstSteps />}
       currentAccount={<CurrentAccount />}
       actions={<HomeActions />}
     >
+      <Button
+        onClick={() => {
+          perm.hasRequestedAccounts(
+            `example${Math.ceil(Math.random() * 1000)
+              .toPrecision(4)
+              .replace('.', '')}.com`
+          );
+        }}
+      >
+        lskdjflksd
+      </Button>
       <HomeTabs balances={<BalancesList address={account.address} />} activity={<ActivityList />} />
       <Outlet />
     </HomeLayout>

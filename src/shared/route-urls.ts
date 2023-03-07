@@ -75,4 +75,7 @@ export enum RouteUrls {
   SendOrdinalInscriptionSummary = '/send/ordinal-inscription/',
   SendOrdinalInscriptionSent = '/send/ordinal-inscription/sent',
   SendOrdinalInscriptionError = '/send/ordinal-inscription/error',
+
+  // Request routes
+  RequestTapootAddress = '/taproot-address',
 }

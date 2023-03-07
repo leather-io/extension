@@ -7,7 +7,7 @@ import { deriveAddressIndexZeroFromAccount } from '@shared/crypto/bitcoin/bitcoi
 import { deriveTaprootAccountFromRootKeychain } from '@shared/crypto/bitcoin/p2tr-address-gen';
 import {
   deriveNativeSegWitAccountKeychain,
-  getNativeSegWitAddressIndexDetails,
+  getNativeSegWitAddressIndexFromKeychain,
 } from '@shared/crypto/bitcoin/p2wpkh-address-gen';
 
 import { mnemonicToRootNode } from '@app/common/keychain/keychain';
@@ -38,7 +38,7 @@ export function getNativeSegwitMainnetAddressFromMnemonic(secretKey: string) {
   return (accountIndex: number) => {
     const rootNode = mnemonicToRootNode(secretKey);
     const account = deriveNativeSegWitAccountKeychain(rootNode, 'mainnet')(accountIndex);
-    return getNativeSegWitAddressIndexDetails(
+    return getNativeSegWitAddressIndexFromKeychain(
       deriveAddressIndexZeroFromAccount(account),
       'mainnet'
     );
