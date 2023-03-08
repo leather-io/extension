@@ -16,7 +16,7 @@ import { PrimaryButton } from '@app/components/primary-button';
 import { SecondaryButton } from '@app/components/secondary-button';
 import { Caption } from '@app/components/typography';
 import { ErrorMessage } from '@app/pages/transaction-request/components/transaction-error/error-message';
-import { useCurrentStacksAccountAnchoredBalances } from '@app/query/stacks/balance/balance.hooks';
+import { useCurrentStacksAccountAnchoredBalances } from '@app/query/stacks/balance/stx-balance.hooks';
 import { useCurrentNetworkState } from '@app/store/networks/networks.hooks';
 import { useTransactionRequestState } from '@app/store/transactions/requests.hooks';
 

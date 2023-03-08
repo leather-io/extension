@@ -11,7 +11,7 @@ import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
 import { useHomeTabs } from '@app/common/hooks/use-home-tabs';
 import { BaseDrawer } from '@app/components/drawer/base-drawer';
 import { PrimaryButton } from '@app/components/primary-button';
-import { useCurrentBitcoinAddress } from '@app/query/bitcoin/address/address.hooks';
+import { useCurrentNativeSegwitUtxos } from '@app/query/bitcoin/address/address.hooks';
 
 import { ConfirmationDetail } from '../send-crypto-asset-form/components/confirmation/components/confirmation-detail';
 import { useBitcoinBroadcastTransaction } from '../send-crypto-asset-form/family/bitcoin/hooks/use-bitcoin-broadcast-transaction';
@@ -33,7 +33,7 @@ export function SendInscriptionReview() {
   const { setActiveTabBalances } = useHomeTabs();
   const { signedTx, recipient } = useSendInscrptionReviewState();
   const { inscription } = useInscriptionSendState();
-  const { refetch } = useCurrentBitcoinAddress();
+  const { refetch } = useCurrentNativeSegwitUtxos();
   const { broadcastTransaction } = useBitcoinBroadcastTransaction(signedTx);
 
   const truncatedAddress = truncateMiddle(recipient, 4);

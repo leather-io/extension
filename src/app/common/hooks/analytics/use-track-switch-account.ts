@@ -1,7 +1,7 @@
 import { useCallback } from 'react';
 
 import { queryClient } from '@app/common/persistence';
-import { parseBalanceResponse } from '@app/query/stacks/balance/balance.hooks';
+import { parseBalanceResponse } from '@app/query/stacks/balance/stx-balance.hooks';
 
 import { useAnalytics } from './use-analytics';
 

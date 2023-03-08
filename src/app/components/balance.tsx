@@ -2,7 +2,7 @@ import { useMemo } from 'react';
 
 import { stacksValue } from '@app/common/stacks-utils';
 import { Caption } from '@app/components/typography';
-import { useAnchoredStacksAccountBalances } from '@app/query/stacks/balance/balance.hooks';
+import { useAnchoredStacksAccountBalances } from '@app/query/stacks/balance/stx-balance.hooks';
 
 interface BalanceProps {
   address: string;

@@ -5,7 +5,7 @@ import {
   AccountBalanceLoading,
 } from '@app/components/account/account-balance-caption';
 import { useCryptoCurrencyMarketData } from '@app/query/common/market-data/market-data.hooks';
-import { useAnchoredStacksAccountBalances } from '@app/query/stacks/balance/balance.hooks';
+import { useAnchoredStacksAccountBalances } from '@app/query/stacks/balance/stx-balance.hooks';
 
 interface AccountBalanceLabelProps {
   address: string;

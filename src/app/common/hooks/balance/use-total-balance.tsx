@@ -2,9 +2,9 @@ import { useMemo } from 'react';
 
 import { baseCurrencyAmountInQuote } from '@app/common/money/calculate-money';
 import { i18nFormatCurrency } from '@app/common/money/format-money';
-import { useBitcoinAssetBalance } from '@app/query/bitcoin/address/address.hooks';
+import { useNativeSegwitBalance } from '@app/query/bitcoin/balance/bitcoin-balances.query';
 import { useCryptoCurrencyMarketData } from '@app/query/common/market-data/market-data.hooks';
-import { useCurrentStacksAccountAnchoredBalances } from '@app/query/stacks/balance/balance.hooks';
+import { useCurrentStacksAccountAnchoredBalances } from '@app/query/stacks/balance/stx-balance.hooks';
 import { useCurrentBtcNativeSegwitAccountAddressIndexZero } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
 
 export function useTotalBalance() {
@@ -17,7 +17,7 @@ export function useTotalBalance() {
 
   // get btc balance
   const btcAddress = useCurrentBtcNativeSegwitAccountAddressIndexZero();
-  const btcBalance = useBitcoinAssetBalance(btcAddress);
+  const btcBalance = useNativeSegwitBalance(btcAddress);
 
   return useMemo(() => {
     if (!balances || !btcBalance) return null;

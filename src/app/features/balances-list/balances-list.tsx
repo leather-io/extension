@@ -11,7 +11,7 @@ import { useConfigBitcoinEnabled } from '@app/query/common/hiro-config/hiro-conf
 import {
   useStacksFungibleTokenAssetBalancesAnchoredWithMetadata,
   useStacksUnanchoredCryptoCurrencyAssetBalance,
-} from '@app/query/stacks/balance/crypto-asset-balances.hooks';
+} from '@app/query/stacks/balance/stacks-ft-balances.hooks';
 
 import { Collectibles } from '../collectibles/collectibles';
 import { StacksFungibleTokenAssetList } from './components/stacks-fungible-token-asset-list';

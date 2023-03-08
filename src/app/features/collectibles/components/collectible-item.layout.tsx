@@ -7,7 +7,7 @@ import { useHover } from 'use-events';
 
 import { CollectibleHover } from './collectible-hover';
 
-export interface CollectibleLayoutProps {
+export interface CollectibleItemLayoutProps {
   backgroundElementProps?: BoxProps;
   children: ReactNode;
   hoverText?: string;
@@ -18,7 +18,7 @@ export interface CollectibleLayoutProps {
   subtitle: string;
   title: string;
 }
-export function CollectibleLayout({
+export function CollectibleItemLayout({
   backgroundElementProps,
   children,
   onClickCallToAction,
@@ -27,7 +27,7 @@ export function CollectibleLayout({
   collectibleTypeIcon,
   subtitle,
   title,
-}: CollectibleLayoutProps) {
+}: CollectibleItemLayoutProps) {
   const [isHovered, bind] = useHover();
 
   return (

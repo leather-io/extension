@@ -2,7 +2,7 @@ import { useEffect, useMemo } from 'react';
 
 import { AccountStxBalanceBigNumber } from '@shared/models/account.model';
 
-import { useCurrentStacksAccountUnanchoredBalances } from '@app/query/stacks/balance/balance.hooks';
+import { useCurrentStacksAccountUnanchoredBalances } from '@app/query/stacks/balance/stx-balance.hooks';
 import { store } from '@app/store';
 import { analyticsActions } from '@app/store/analytics/analytics.actions';
 import { useAnalyticsHasStxDeposits } from '@app/store/analytics/analytics.selectors';

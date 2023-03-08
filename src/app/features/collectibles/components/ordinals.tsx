@@ -3,8 +3,8 @@ import { useNavigate } from 'react-router-dom';
 import { RouteUrls } from '@shared/route-urls';
 
 import { openInNewTab } from '@app/common/utils/open-in-new-tab';
-import { useInscriptionByTxidQuery } from '@app/query/bitcoin/ordinals/use-inscription-by-txid.query';
 import { useInscriptionQuery } from '@app/query/bitcoin/ordinals/use-inscription.query';
+import { useOrdinalsAwareUtxoQuery } from '@app/query/bitcoin/ordinals/use-ordinals-aware-utxo.query';
 import {
   TaprootUtxo,
   useTaprootAddressUtxosQuery,
@@ -101,10 +101,11 @@ function Inscription({ path, utxo }: InscriptionProps) {
 
 interface InscriptionLoaderProps {
   txid: string;
+  index: number;
   children(path: string): JSX.Element;
 }
-function InscriptionLoader({ txid, children }: InscriptionLoaderProps) {
-  const { data: inscriptionDetails } = useInscriptionByTxidQuery(txid);
+function InscriptionLoader({ txid, index, children }: InscriptionLoaderProps) {
+  const { data: inscriptionDetails } = useOrdinalsAwareUtxoQuery({ txid, index });
   if (!inscriptionDetails || !inscriptionDetails.inscriptions) return null;
   return children(inscriptionDetails.inscriptions);
 }
@@ -115,7 +116,7 @@ export function Ordinals() {
   return (
     <>
       {utxos.map(utxo => (
-        <InscriptionLoader key={utxo.txid} txid={utxo.txid}>
+        <InscriptionLoader key={utxo.txid} txid={utxo.txid} index={utxo.vout}>
           {path => <Inscription path={path} utxo={utxo} />}
         </InscriptionLoader>
       ))}
