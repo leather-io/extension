@@ -3,24 +3,23 @@ import { useCallback } from 'react';
 import BigNumber from 'bignumber.js';
 import * as btc from 'micro-btc-signer';
 
-import { getBtcSignerLibNetworkByMode } from '@shared/crypto/bitcoin/bitcoin.network';
 import { OrdinalSendFormValues } from '@shared/models/form.model';
 
 import { useBitcoinFeeRate } from '@app/query/bitcoin/fees/fee-estimates.hooks';
 import { TaprootUtxo } from '@app/query/bitcoin/ordinals/use-taproot-address-utxos.query';
+import { useBitcoinLibNetworkConfig } from '@app/store/accounts/blockchain/bitcoin/bitcoin-keychain';
 import { useCurrentAccountTaprootSigner } from '@app/store/accounts/blockchain/bitcoin/taproot-account.hooks';
-import { useCurrentNetwork } from '@app/store/networks/networks.selectors';
 
 export function useGenerateSignedOrdinalTx(utxo: TaprootUtxo, fee: bigint) {
-  const signer = useCurrentAccountTaprootSigner(utxo?.addressIndex ?? 0);
-  const network = useCurrentNetwork();
+  const createSigner = useCurrentAccountTaprootSigner();
+  const networkMode = useBitcoinLibNetworkConfig();
   const { data: feeRate } = useBitcoinFeeRate();
 
   return useCallback(
     (values: OrdinalSendFormValues) => {
-      if (!feeRate) return;
+      const signer = createSigner(utxo.addressIndex);
 
-      const networkMode = getBtcSignerLibNetworkByMode(network.chain.bitcoin.network);
+      if (!feeRate) return;
 
       try {
         const tx = new btc.Transaction();
@@ -47,6 +46,6 @@ export function useGenerateSignedOrdinalTx(utxo: TaprootUtxo, fee: bigint) {
         return null;
       }
     },
-    [fee, feeRate, network.chain.bitcoin.network, signer, utxo.txid, utxo.value, utxo.vout]
+    [createSigner, fee, feeRate, networkMode, utxo?.addressIndex, utxo.txid, utxo.value, utxo.vout]
   );
 }

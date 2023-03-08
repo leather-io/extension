@@ -88,9 +88,31 @@ export function whenInscriptionType<T>(
   throw new Error('Unhandled inscription type.');
 }
 
-export async function getNumberOfInscriptionOnUtxo(id: string, index: number) {
+// In lieu of reliable API, we scrape HTML from the Ordinals.com explorer and
+// parses the HTML
+// Example:
+// https://ordinals.com/output/758bd2703dd9f0a2df31c2898aecf6caba05a906498c9bc076947f9fc4d8f081:0
+async function getOrdinalsComTxOutputHtmlPage(id: string, index: number) {
   const resp = await fetch(`https://ordinals.com/output/${id}:${index}`);
   const html = await resp.text();
-  const utxoPage = new DOMParser().parseFromString(html, 'text/html');
-  return utxoPage.querySelectorAll('.thumbnails a').length;
+  return new DOMParser().parseFromString(html, 'text/html');
+}
+
+export async function getNumberOfInscriptionOnUtxo(id: string, index: number) {
+  const utxoPage = await getOrdinalsComTxOutputHtmlPage(id, index);
+
+  // First content on page is inscrption section header and thumbnail of
+  // inscrptions in utxo
+  const firstSectionHeader = utxoPage.querySelector('dl > dt:first-child');
+  if (!firstSectionHeader)
+    throw new Error('If no element matching this selector is found, something is wrong');
+
+  const firstHeaderText = firstSectionHeader.textContent;
+  const thumbnailCount = utxoPage.querySelectorAll('dl > dt:first-child + dd.thumbnails a').length;
+
+  // Were HTML to page to change, thumbnailCount alone would dangerously return
+  // zero 0, hence additional check that inscrption header is also missing
+  if (thumbnailCount === 0 && firstHeaderText !== 'inscriptions') return 0;
+
+  return thumbnailCount;
 }

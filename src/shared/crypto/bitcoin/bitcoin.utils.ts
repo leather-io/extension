@@ -1,4 +1,6 @@
+import { hexToBytes } from '@noble/hashes/utils';
 import { HDKey } from '@scure/bip32';
+import * as btc from 'micro-btc-signer';
 
 import { NetworkModes } from '@shared/constants';
 
@@ -29,4 +31,8 @@ const ecdsaPublicKeyLength = 33;
 export function ecdsaPublicKeyToSchnorr(pubKey: Uint8Array) {
   if (pubKey.byteLength !== ecdsaPublicKeyLength) throw new Error('Invalid public key length');
   return pubKey.slice(1);
+}
+
+export function decodeBitcoinTx(tx: string) {
+  return btc.RawTx.decode(hexToBytes(tx));
 }

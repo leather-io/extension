@@ -44,7 +44,7 @@ export function StxSentSummary() {
   };
 
   return (
-    <InfoCard>
+    <InfoCard pt="extra-loose" pb="base-loose" px="extra-loose">
       <InfoCardAssetValue
         value={txValue}
         fiatValue={txFiatValue}

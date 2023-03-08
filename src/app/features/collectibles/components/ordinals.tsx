@@ -7,7 +7,7 @@ import { useInscriptionQuery } from '@app/query/bitcoin/ordinals/use-inscription
 import { useOrdinalsAwareUtxoQuery } from '@app/query/bitcoin/ordinals/use-ordinals-aware-utxo.query';
 import {
   TaprootUtxo,
-  useTaprootAddressUtxosQuery,
+  useTaprootAccountUtxosQuery,
 } from '@app/query/bitcoin/ordinals/use-taproot-address-utxos.query';
 import {
   InscriptionInfo,
@@ -100,23 +100,22 @@ function Inscription({ path, utxo }: InscriptionProps) {
 }
 
 interface InscriptionLoaderProps {
-  txid: string;
-  index: number;
+  utxo: TaprootUtxo;
   children(path: string): JSX.Element;
 }
-function InscriptionLoader({ txid, index, children }: InscriptionLoaderProps) {
-  const { data: inscriptionDetails } = useOrdinalsAwareUtxoQuery({ txid, index });
+function InscriptionLoader({ utxo, children }: InscriptionLoaderProps) {
+  const { data: inscriptionDetails } = useOrdinalsAwareUtxoQuery(utxo);
   if (!inscriptionDetails || !inscriptionDetails.inscriptions) return null;
   return children(inscriptionDetails.inscriptions);
 }
 
 export function Ordinals() {
-  const { data: utxos = [] } = useTaprootAddressUtxosQuery();
+  const { data: utxos = [] } = useTaprootAccountUtxosQuery();
 
   return (
     <>
       {utxos.map(utxo => (
-        <InscriptionLoader key={utxo.txid} txid={utxo.txid} index={utxo.vout}>
+        <InscriptionLoader key={utxo.txid} utxo={utxo}>
           {path => <Inscription path={path} utxo={utxo} />}
         </InscriptionLoader>
       ))}

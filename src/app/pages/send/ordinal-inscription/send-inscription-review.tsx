@@ -13,8 +13,8 @@ import { BaseDrawer } from '@app/components/drawer/base-drawer';
 import { PrimaryButton } from '@app/components/primary-button';
 import { useCurrentNativeSegwitUtxos } from '@app/query/bitcoin/address/address.hooks';
 
+import { useBitcoinBroadcastTransaction } from '../../../query/bitcoin/transaction/use-bitcoin-broadcast-transaction';
 import { ConfirmationDetail } from '../send-crypto-asset-form/components/confirmation/components/confirmation-detail';
-import { useBitcoinBroadcastTransaction } from '../send-crypto-asset-form/family/bitcoin/hooks/use-bitcoin-broadcast-transaction';
 import { CollectiblePreviewCard } from './components/collectible-preview-card';
 import { useInscriptionSendState } from './send-inscription-container';
 
@@ -34,7 +34,7 @@ export function SendInscriptionReview() {
   const { signedTx, recipient } = useSendInscrptionReviewState();
   const { inscription } = useInscriptionSendState();
   const { refetch } = useCurrentNativeSegwitUtxos();
-  const { broadcastTransaction } = useBitcoinBroadcastTransaction(signedTx);
+  const broadcastTransaction = useBitcoinBroadcastTransaction();
 
   const truncatedAddress = truncateMiddle(recipient, 4);
 
@@ -53,7 +53,7 @@ export function SendInscriptionReview() {
           onClick={async () => {
             try {
               setIsLoading(true);
-              await broadcastTransaction();
+              await broadcastTransaction(signedTx);
               void analytics.track('broadcast_ordinal_transaction');
               await refetch();
               navigate(RouteUrls.Home);

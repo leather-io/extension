@@ -2,35 +2,31 @@ import { useCallback } from 'react';
 
 import * as btc from 'micro-btc-signer';
 
-import { getBtcSignerLibNetworkByMode } from '@shared/crypto/bitcoin/bitcoin.network';
 import { BitcoinSendFormValues } from '@shared/models/form.model';
 
 import { btcToSat } from '@app/common/money/unit-conversion';
+import { determineUtxosForSpend } from '@app/common/transactions/bitcoin/coinselect/local-coin-selection';
 import { useGetUtxosByAddressQuery } from '@app/query/bitcoin/address/utxos-by-address.query';
 import { useBitcoinFeeRate } from '@app/query/bitcoin/fees/fee-estimates.hooks';
+import { useBitcoinLibNetworkConfig } from '@app/store/accounts/blockchain/bitcoin/bitcoin-keychain';
 import {
   useCurrentBitcoinNativeSegwitAddressIndexKeychain,
   useCurrentBtcNativeSegwitAccountAddressIndexZero,
   useSignBitcoinNativeSegwitTx,
 } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
-import { useCurrentNetwork } from '@app/store/networks/networks.selectors';
-
-import { determineUtxosForSpend } from '../../family/bitcoin/coinselect/local-coin-selection';
 
 export function useGenerateSignedBitcoinTx() {
   const currentAccountBtcAddress = useCurrentBtcNativeSegwitAccountAddressIndexZero();
   const { data: utxos } = useGetUtxosByAddressQuery(currentAccountBtcAddress);
   const currentAddressIndexKeychain = useCurrentBitcoinNativeSegwitAddressIndexKeychain();
   const signTx = useSignBitcoinNativeSegwitTx();
-  const network = useCurrentNetwork();
+  const networkMode = useBitcoinLibNetworkConfig();
   const { data: feeRate } = useBitcoinFeeRate();
 
   return useCallback(
     (values: BitcoinSendFormValues) => {
       if (!utxos) return;
       if (!feeRate) return;
-
-      const networkMode = getBtcSignerLibNetworkByMode(network.chain.bitcoin.network);
 
       try {
         const tx = new btc.Transaction();
@@ -85,7 +81,7 @@ export function useGenerateSignedBitcoinTx() {
       currentAccountBtcAddress,
       currentAddressIndexKeychain.publicKey,
       feeRate,
-      network.chain.bitcoin.network,
+      networkMode,
       signTx,
       utxos,
     ]
