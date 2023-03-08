@@ -52,6 +52,7 @@ export enum RouteUrls {
   EditNonce = 'edit-nonce',
   SelectNetwork = 'choose-network',
   SignOutConfirm = 'sign-out',
+  RetriveTaprootFunds = 'retrive-taproot-funds',
 
   // Send crypto asset routes
   SendCryptoAsset = '/send',

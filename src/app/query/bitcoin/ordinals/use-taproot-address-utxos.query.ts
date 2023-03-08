@@ -20,7 +20,7 @@ export interface TaprootUtxo extends UtxoResponseItem {
  * utxos iterates through all addresses until a sufficiently large number of
  * empty addresses is found.
  */
-export function useTaprootAddressUtxosQuery() {
+export function useTaprootAccountUtxosQuery() {
   const network = useCurrentNetwork();
   const keychain = useCurrentTaprootAccountKeychain();
   const client = useBitcoinClient();

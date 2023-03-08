@@ -24,7 +24,7 @@ export function useGetBitcoinFeeEstimatesQuery<T extends unknown = FetchBitcoinF
   return useQuery({
     queryKey: ['bitcoin-fee-estimates'],
     queryFn: fetchBitcoinFeeEstimates(client),
-    staleTime: 1000 * 60 * 3,
+    staleTime: 1000 * 60,
     refetchOnWindowFocus: false,
     refetchOnMount: false,
     ...options,

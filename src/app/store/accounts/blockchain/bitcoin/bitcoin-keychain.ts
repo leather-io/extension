@@ -2,6 +2,7 @@ import { createSelector } from '@reduxjs/toolkit';
 import { HDKey } from '@scure/bip32';
 
 import { NetworkModes } from '@shared/constants';
+import { getBtcSignerLibNetworkByMode } from '@shared/crypto/bitcoin/bitcoin.network';
 import { deriveAddressIndexZeroFromAccount } from '@shared/crypto/bitcoin/bitcoin.utils';
 import { deriveTaprootAccountFromRootKeychain } from '@shared/crypto/bitcoin/p2tr-address-gen';
 import {
@@ -13,6 +14,7 @@ import { mnemonicToRootNode } from '@app/common/keychain/keychain';
 import { selectInMemoryKey } from '@app/store/in-memory-key/in-memory-key.selectors';
 import { selectCurrentKey } from '@app/store/keys/key.selectors';
 import { defaultKeyId } from '@app/store/keys/key.slice';
+import { useCurrentNetwork } from '@app/store/networks/networks.selectors';
 
 // This factory selector extends from the wallet root keychain to derive child
 // keychains. It accepts a curried fn that takes a keychain and returns a fn
@@ -62,3 +64,8 @@ export const selectTestnetTaprootKeychain = bitcoinKeychainSelectorFactory(
   deriveTaprootAccountFromRootKeychain,
   'testnet'
 );
+
+export function useBitcoinLibNetworkConfig() {
+  const network = useCurrentNetwork();
+  return getBtcSignerLibNetworkByMode(network.chain.bitcoin.network);
+}

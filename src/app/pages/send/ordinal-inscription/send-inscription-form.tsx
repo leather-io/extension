@@ -15,10 +15,10 @@ import { ErrorLabel } from '@app/components/error-label';
 import { OrdinalIcon } from '@app/components/icons/ordinal-icon';
 import { getNumberOfInscriptionOnUtxo } from '@app/query/bitcoin/ordinals/utils';
 
+import { BtcSizeFeeEstimator } from '../../../common/transactions/bitcoin/fees/btc-size-fee-estimator';
 import { FormErrors } from '../send-crypto-asset-form/components/form-errors';
 import { FormFieldsLayout } from '../send-crypto-asset-form/components/form-fields.layout';
 import { RecipientField } from '../send-crypto-asset-form/components/recipient-field';
-import { BtcSizeFeeEstimator } from '../send-crypto-asset-form/family/bitcoin/fees/btc-size-fee-estimator';
 import { CollectibleAsset } from './components/collectible-asset';
 import { CollectiblePreviewCard } from './components/collectible-preview-card';
 import { useInscriptionSendState } from './send-inscription-container';

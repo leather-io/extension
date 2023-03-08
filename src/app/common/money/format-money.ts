@@ -6,6 +6,10 @@ export function formatMoney({ amount, symbol, decimals }: Money) {
   return `${amount.shiftedBy(-decimals).toString()} ${symbol}`;
 }
 
+export function formatMoneyPadded({ amount, symbol, decimals }: Money) {
+  return `${amount.shiftedBy(-decimals).toFormat(decimals)} ${symbol}`;
+}
+
 export function i18nFormatCurrency(quantity: Money, locale = 'en-US') {
   if (quantity.symbol !== 'USD') throw new Error('Cannot format non-USD amounts');
   const currencyFormatter = new Intl.NumberFormat(locale, { style: 'currency', currency: 'USD' });

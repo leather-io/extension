@@ -3,6 +3,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 
 import get from 'lodash.get';
 
+import { decodeBitcoinTx } from '@shared/crypto/bitcoin/bitcoin.utils';
 import { createMoney, createMoneyFromDecimal } from '@shared/models/money.model';
 import { RouteUrls } from '@shared/route-urls';
 
@@ -16,9 +17,9 @@ import { useCurrentNativeSegwitUtxos } from '@app/query/bitcoin/address/address.
 import { useBitcoinFeeRate } from '@app/query/bitcoin/fees/fee-estimates.hooks';
 import { useCryptoCurrencyMarketData } from '@app/query/common/market-data/market-data.hooks';
 
+import { useBitcoinBroadcastTransaction } from '../../../../../query/bitcoin/transaction/use-bitcoin-broadcast-transaction';
 import { ConfirmationButton } from '../../components/confirmation/components/confirmation-button';
 import { SendFormConfirmationLayout } from '../../components/confirmation/components/send-form-confirmation.layout';
-import { useBitcoinBroadcastTransaction } from '../../family/bitcoin/hooks/use-bitcoin-broadcast-transaction';
 import { useSendFormNavigate } from '../../hooks/use-send-form-navigate';
 import { BtcSendFormConfirmationDetails } from './btc-send-form-confirmation-details';
 
@@ -31,8 +32,10 @@ export function BtcSendFormConfirmation() {
   const [isLoading, setIsLoading] = useState(false);
   const { refetch } = useCurrentNativeSegwitUtxos();
   const analytics = useAnalytics();
-  const { psbt, broadcastTransaction } = useBitcoinBroadcastTransaction(tx);
+
   const btcMarketData = useCryptoCurrencyMarketData('BTC');
+  const broadcastTransaction = useBitcoinBroadcastTransaction();
+  const psbt = decodeBitcoinTx(tx);
 
   const nav = useSendFormNavigate();
 
@@ -43,7 +46,7 @@ export function BtcSendFormConfirmation() {
   async function confirmTransaction() {
     try {
       setIsLoading(true);
-      const txId = await broadcastTransaction();
+      const txId = await broadcastTransaction(tx);
 
       void analytics.track('broadcast_transaction', {
         token: 'btc',
@@ -63,7 +66,6 @@ export function BtcSendFormConfirmation() {
       setIsLoading(false);
     }
   }
-
   function formBtcTxSummaryState(txId: string) {
     const symbol = 'BTC';
     const arrivesIn = feeRate ? `~${feeRate?.fastestFee} min` : '~10 – 20 min';

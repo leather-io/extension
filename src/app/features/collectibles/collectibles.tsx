@@ -1,4 +1,8 @@
+import { useNavigate } from 'react-router-dom';
+
 import { useQueryClient } from '@tanstack/react-query';
+
+import { RouteUrls } from '@shared/route-urls';
 
 import { useWalletType } from '@app/common/use-wallet-type';
 import { useConfigNftMetadataEnabled } from '@app/query/common/hiro-config/hiro-config.query';
@@ -12,6 +16,7 @@ import { useIsFetchingCollectiblesRelatedQuery } from './use-is-fetching-collect
 
 export function Collectibles() {
   const { whenWallet } = useWalletType();
+  const navigate = useNavigate();
   const isNftMetadataEnabled = useConfigNftMetadataEnabled();
   const queryClient = useQueryClient();
   const isFetching = useIsFetchingCollectiblesRelatedQuery();
@@ -19,7 +24,14 @@ export function Collectibles() {
   return (
     <CollectiblesLayout
       title="Collectibles"
-      subHeader={whenWallet({ software: <TaprootBalanceDisplayer />, ledger: null })}
+      subHeader={whenWallet({
+        software: (
+          <TaprootBalanceDisplayer
+            onSelectRetrieveBalance={() => navigate(RouteUrls.RetriveTaprootFunds)}
+          />
+        ),
+        ledger: null,
+      })}
       isLoading={isFetching}
       onRefresh={() => void queryClient.refetchQueries({ type: 'active' })}
     >

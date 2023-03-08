@@ -44,13 +44,8 @@ export function BtcSentSummary() {
   };
 
   return (
-    <InfoCard>
-      <InfoCardAssetValue
-        value={txValue}
-        fiatValue={txFiatValue}
-        symbol={symbol}
-        icon={FiCheck}
-      ></InfoCardAssetValue>
+    <InfoCard pt="extra-loose" pb="base-loose" px="extra-loose">
+      <InfoCardAssetValue value={txValue} fiatValue={txFiatValue} symbol={symbol} icon={FiCheck} />
 
       <Stack width="100%" mb="44px">
         <InfoCardRow title="To" value={recipient} isAddressDisplayer />

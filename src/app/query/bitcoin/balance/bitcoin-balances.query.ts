@@ -11,7 +11,7 @@ import { useCurrentBtcNativeSegwitAccountAddressIndexZero } from '@app/store/acc
 import { createBitcoinCryptoCurrencyAssetTypeWrapper } from '../address/address.utils';
 import { useGetUtxosByAddressQuery } from '../address/utxos-by-address.query';
 import { useOrdinalsAwareUtxoQueries } from '../ordinals/use-ordinals-aware-utxo.query';
-import { useTaprootAddressUtxosQuery } from '../ordinals/use-taproot-address-utxos.query';
+import { useTaprootAccountUtxosQuery } from '../ordinals/use-taproot-address-utxos.query';
 
 function useGetBitcoinBalanceByAddress(address: string) {
   const utxos = useGetUtxosByAddressQuery(address).data;
@@ -33,24 +33,25 @@ export function useCurrentNativeSegwitAddressBalance() {
   return useGetBitcoinBalanceByAddress(currentAccountBtcAddress);
 }
 
-// Must be ordinals-aware and exclude utxo values that contain inscriptions
-export function useCurrentTaprootAccountBalance() {
-  const { data: utxos = [] } = useTaprootAddressUtxosQuery();
-  const utxoQueries = useOrdinalsAwareUtxoQueries(
-    utxos.map(u => ({ txid: u.txid, index: u.vout })) ?? []
-  );
+export function useCurrentTaprootAccountUninscribedUtxos() {
+  const { data: utxos = [] } = useTaprootAccountUtxosQuery();
+  const utxoQueries = useOrdinalsAwareUtxoQueries(utxos ?? []);
+
   return useMemo(
     () =>
-      createMoney(
-        sumNumbers(
-          utxoQueries
-            .map(query => query.data)
-            .filter(isDefined)
-            .filter(utxo => !utxo.inscriptions)
-            .map(utxo => Number(utxo.value))
-        ),
-        'BTC'
-      ),
+      utxoQueries
+        .map(query => query.data)
+        .filter(isDefined)
+        .filter(utxo => !utxo.inscriptions),
     [utxoQueries]
+  );
+}
+
+// Must be ordinals-aware and exclude utxo values that contain inscriptions
+export function useCurrentTaprootAccountBalance() {
+  const uninscribedUtxos = useCurrentTaprootAccountUninscribedUtxos();
+  return useMemo(
+    () => createMoney(sumNumbers(uninscribedUtxos.map(utxo => Number(utxo.value))), 'BTC'),
+    [uninscribedUtxos]
   );
 }
