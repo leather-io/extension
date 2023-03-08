@@ -3,8 +3,8 @@ import { useNavigate } from 'react-router-dom';
 import { RouteUrls } from '@shared/route-urls';
 
 import { openInNewTab } from '@app/common/utils/open-in-new-tab';
-import { useInscriptionByTxidQuery } from '@app/query/bitcoin/ordinals/use-inscription-by-txid.query';
 import { useInscriptionQuery } from '@app/query/bitcoin/ordinals/use-inscription.query';
+import { useOrdinalsAwareUtxoQuery } from '@app/query/bitcoin/ordinals/use-ordinals-aware-utxo.query';
 import {
   TaprootUtxo,
   useTaprootAddressUtxosQuery,
@@ -105,7 +105,7 @@ interface InscriptionLoaderProps {
   children(path: string): JSX.Element;
 }
 function InscriptionLoader({ txid, index, children }: InscriptionLoaderProps) {
-  const { data: inscriptionDetails } = useInscriptionByTxidQuery({ txid, index });
+  const { data: inscriptionDetails } = useOrdinalsAwareUtxoQuery({ txid, index });
   if (!inscriptionDetails || !inscriptionDetails.inscriptions) return null;
   return children(inscriptionDetails.inscriptions);
 }

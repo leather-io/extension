@@ -6,17 +6,17 @@ import { formatContractId, getFullyQualifiedStacksAssetName } from '@app/common/
 import { useCurrentStacksAccount } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
 
 import { useGetFungibleTokenMetadataListQuery } from '../fungible-tokens/fungible-token-metadata.query';
-import { parseBalanceResponse } from './balance.hooks';
-import {
-  useAnchoredStacksAccountBalanceQuery,
-  useUnanchoredStacksAccountBalanceQuery,
-} from './balance.query';
 import {
   addQueriedMetadataToInitializedStacksFungibleTokenAssetBalance,
   convertFtBalancesToStacksFungibleTokenAssetBalanceType,
   convertNftBalancesToStacksNonFungibleTokenAssetBalanceType,
   createStacksCryptoCurrencyAssetTypeWrapper,
-} from './crypto-asset-balances.utils';
+} from './stacks-ft-balances.utils';
+import { parseBalanceResponse } from './stx-balance.hooks';
+import {
+  useAnchoredStacksAccountBalanceQuery,
+  useUnanchoredStacksAccountBalanceQuery,
+} from './stx-balance.query';
 
 export function useStacksAnchoredCryptoCurrencyAssetBalance(address: string) {
   return useAnchoredStacksAccountBalanceQuery(address, {

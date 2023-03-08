@@ -23,7 +23,7 @@ import {
 import { btcAmountPrecisionValidator } from '@app/common/validation/forms/currency-validators';
 import { btcRecipientAddressOrBnsNameValidator } from '@app/common/validation/forms/recipient-validators';
 import { useUpdatePersistedSendFormValues } from '@app/features/popup-send-form-restoration/use-update-persisted-send-form-values';
-import { useBitcoinAssetBalance } from '@app/query/bitcoin/address/address.hooks';
+import { useNativeSegwitBalance } from '@app/query/bitcoin/balance/bitcoin-balances.query';
 import { useCurrentBtcNativeSegwitAccountAddressIndexZero } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
 import { useStacksClientUnanchored } from '@app/store/common/api-clients.hooks';
 import { useCurrentNetwork } from '@app/store/networks/networks.selectors';
@@ -37,7 +37,7 @@ export function useBtcSendForm() {
 
   const currentNetwork = useCurrentNetwork();
   const currentAccountBtcAddress = useCurrentBtcNativeSegwitAccountAddressIndexZero();
-  const btcCryptoCurrencyAssetBalance = useBitcoinAssetBalance(currentAccountBtcAddress);
+  const btcCryptoCurrencyAssetBalance = useNativeSegwitBalance(currentAccountBtcAddress);
   const { isShowingHighFeeConfirmation, setIsShowingHighFeeConfirmation } = useDrawers();
   const { whenWallet } = useWalletType();
   const sendFormNavigate = useSendFormNavigate();

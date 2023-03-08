@@ -1,16 +1,34 @@
 import { useQuery } from '@tanstack/react-query';
+import * as yup from 'yup';
 
+import { Prettify } from '@app/common/type-utils';
 import { QueryPrefixes } from '@app/query/query-prefixes';
 
-import { ordApiXyzGetInscriptionByInscriptionSchema } from './utils';
+/**
+ * Schema of data used from the `GET https://ordapi.xyz/inscriptions/:id` endpoint. Additional data
+ * that is not currently used by the app may be returned by this endpoint.
+ *
+ * See API docs, https://ordapi.xyz/
+ */
+const ordApiGetInscriptionByInscriptionSchema = yup
+  .object({
+    content_type: yup.string().required(),
+    content: yup.string().required(),
+    preview: yup.string().required(),
+    title: yup.string().required(),
+  })
+  .required();
 
-async function getInscription(path: string) {
+type OrdApiGetInscriptionByInscription = Prettify<
+  yup.InferType<typeof ordApiGetInscriptionByInscriptionSchema>
+>;
+
+async function getInscription(path: string): Promise<OrdApiGetInscriptionByInscription> {
   const res = await fetch(`https://ordapi.xyz${path}`);
-
   if (!res.ok) throw new Error('Error retrieving inscription metadata.');
   const data = await res.json();
 
-  return ordApiXyzGetInscriptionByInscriptionSchema.validate(data);
+  return ordApiGetInscriptionByInscriptionSchema.validate(data);
 }
 
 export function useInscriptionQuery(path: string) {

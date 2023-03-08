@@ -6,8 +6,8 @@ import { getAddressInfo, validate } from 'bitcoin-address-validation';
 import { createMoney } from '@shared/models/money.model';
 
 import { satToBtc } from '@app/common/money/unit-conversion';
-import { useCurrentBitcoinAddressBalance } from '@app/query/bitcoin/address/address.hooks';
 import { useGetUtxosByAddressQuery } from '@app/query/bitcoin/address/utxos-by-address.query';
+import { useCurrentNativeSegwitAddressBalance } from '@app/query/bitcoin/balance/bitcoin-balances.query';
 import { useBitcoinFeeRate } from '@app/query/bitcoin/fees/fee-estimates.hooks';
 import { useCurrentBtcNativeSegwitAccountAddressIndexZero } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
 
@@ -15,7 +15,7 @@ import { BtcSizeFeeEstimator } from '../fees/btc-size-fee-estimator';
 
 export function useCalculateMaxBitcoinSpend() {
   const currentAccountBtcAddress = useCurrentBtcNativeSegwitAccountAddressIndexZero();
-  const balance = useCurrentBitcoinAddressBalance();
+  const balance = useCurrentNativeSegwitAddressBalance();
   const { data: utxos } = useGetUtxosByAddressQuery(currentAccountBtcAddress);
   const { data: feeRate } = useBitcoinFeeRate();
 

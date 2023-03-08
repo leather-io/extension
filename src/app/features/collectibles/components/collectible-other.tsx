@@ -2,12 +2,12 @@ import { Box } from '@stacks/ui';
 
 import { OrdinalIconFull } from '@app/components/icons/ordinal-icon-full';
 
-import { CollectibleLayout, CollectibleLayoutProps } from './collectible.layout';
+import { CollectibleItemLayout, CollectibleItemLayoutProps } from './collectible-item.layout';
 
-interface OtherCollectibleProps extends Omit<CollectibleLayoutProps, 'children'> {}
+interface OtherCollectibleProps extends Omit<CollectibleItemLayoutProps, 'children'> {}
 export function CollectibleOther(props: OtherCollectibleProps) {
   return (
-    <CollectibleLayout {...props}>
+    <CollectibleItemLayout {...props}>
       <Box
         backgroundColor="black"
         height="100%"
@@ -18,6 +18,6 @@ export function CollectibleOther(props: OtherCollectibleProps) {
       >
         <OrdinalIconFull />
       </Box>
-    </CollectibleLayout>
+    </CollectibleItemLayout>
   );
 }
