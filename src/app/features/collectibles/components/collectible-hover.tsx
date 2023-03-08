@@ -1,5 +1,6 @@
 import { Box, Flex, color } from '@stacks/ui';
 
+import { figmaTheme } from '@app/common/utils/figma-theme';
 import { ArrowIcon } from '@app/components/icons/arrow-icon';
 
 interface CollectibleHoverProps {
@@ -45,7 +46,8 @@ export function CollectibleHover({
           borderRadius="50%"
           justifyContent="center"
           alignItems="center"
-          _focus={{ outline: '4px solid #CEDAFA' }}
+          _hover={{ backgroundColor: figmaTheme.surfaceHovered }}
+          _focus={{ outline: `4px solid ${figmaTheme.borderFocused}` }}
         >
           <ArrowIcon />
         </Flex>

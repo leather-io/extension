@@ -14,6 +14,7 @@ const ordApiGetInscriptionByInscriptionSchema = yup
   .object({
     content_type: yup.string().required(),
     content: yup.string().required(),
+    inscription_number: yup.number().required(),
     preview: yup.string().required(),
     title: yup.string().required(),
   })

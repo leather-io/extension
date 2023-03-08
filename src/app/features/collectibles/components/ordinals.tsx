@@ -66,7 +66,7 @@ function Inscription({ path, utxo }: InscriptionProps) {
           onClickSend={() => openSendInscriptionModal()}
           src={inscriptionMetadata.src}
           subtitle="Ordinal inscription"
-          title={inscriptionMetadata.title}
+          title={`# ${inscription.inscription_number}`}
         />
       );
     }
@@ -78,7 +78,7 @@ function Inscription({ path, utxo }: InscriptionProps) {
           onClickSend={() => openSendInscriptionModal()}
           contentSrc={inscriptionMetadata.contentSrc}
           subtitle="Ordinal inscription"
-          title={inscriptionMetadata.title}
+          title={`# ${inscription.inscription_number}`}
         />
       );
     }
@@ -89,7 +89,7 @@ function Inscription({ path, utxo }: InscriptionProps) {
           onClickCallToAction={() => openInNewTab(inscriptionMetadata.infoUrl)}
           onClickSend={() => openSendInscriptionModal()}
           subtitle="Ordinal inscription"
-          title={inscriptionMetadata.title}
+          title={`# ${inscription.inscription_number}`}
         />
       );
     }

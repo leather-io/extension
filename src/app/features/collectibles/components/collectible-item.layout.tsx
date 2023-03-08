@@ -5,6 +5,8 @@ import type { BoxProps } from '@stacks/ui';
 import { color } from '@stacks/ui-utils';
 import { useHover } from 'use-events';
 
+import { figmaTheme } from '@app/common/utils/figma-theme';
+
 import { CollectibleHover } from './collectible-hover';
 
 export interface CollectibleItemLayoutProps {
@@ -34,8 +36,11 @@ export function CollectibleItemLayout({
     <Box>
       <Box
         _focus={{
-          outline: '4px solid #CEDAFA',
+          outline: `4px solid ${figmaTheme.borderFocused}`,
           outlineOffset: '-4px',
+        }}
+        _hover={{
+          backgroundColor: figmaTheme.surfaceHovered,
         }}
         as={onClickLayout ? 'button' : 'div'}
         borderRadius="20px"
@@ -89,7 +94,7 @@ export function CollectibleItemLayout({
           </Text>
         </Stack>
 
-        {onClickSend && (
+        {onClickSend ? (
           <Box padding="8px">
             <Button
               mode="tertiary"
@@ -102,11 +107,14 @@ export function CollectibleItemLayout({
                 e.stopPropagation();
                 onClickSend && onClickSend();
               }}
-              _focus={{ clipPath: 'none', outline: '4px solid #CEDAFA' }}
+              _focus={{ clipPath: 'none', outline: `4px solid ${figmaTheme.borderFocused}` }}
             >
               Send
             </Button>
           </Box>
+        ) : (
+          // Spacer
+          <Box padding="4px" />
         )}
       </Box>
     </Box>
