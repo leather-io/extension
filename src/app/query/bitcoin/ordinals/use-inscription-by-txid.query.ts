@@ -1,4 +1,4 @@
-import { useQuery } from '@tanstack/react-query';
+import { useQueries, useQuery } from '@tanstack/react-query';
 
 import { QueryPrefixes } from '@app/query/query-prefixes';
 
@@ -9,8 +9,11 @@ const queryOptions = {
   staleTime: 15 * 60 * 1000, // 15 minutes
 } as const;
 
-async function getInscriptionByTxid(txid: string): Promise<OrdApiXyzGetTransactionOutput> {
-  const res = await fetch(`https://ordapi.xyz/output/${txid}:0`);
+async function getInscriptionByTxid(
+  txid: string,
+  index: number
+): Promise<OrdApiXyzGetTransactionOutput> {
+  const res = await fetch(`https://ordapi.xyz/output/${txid}:${index}`);
 
   if (!res.ok) throw new Error('Failed to fetch txid metadata.');
 
@@ -22,10 +25,25 @@ function makeInscriptionMetadataQueryKey(txid: string) {
   return [QueryPrefixes.InscriptionFromTxid, txid] as const;
 }
 
-export function useInscriptionByTxidQuery(txid: string) {
+interface UseInscriptionByTxidQueryArgs {
+  txid: string;
+  index: number;
+}
+export function useInscriptionByTxidQuery({ txid, index }: UseInscriptionByTxidQueryArgs) {
   return useQuery({
     queryKey: makeInscriptionMetadataQueryKey(txid),
-    queryFn: () => getInscriptionByTxid(txid),
+    queryFn: () => getInscriptionByTxid(txid, index),
     ...queryOptions,
+  });
+}
+
+// ts-unused-exports:disable-next-line
+export function useInscriptionByTxidQueries(outputs: UseInscriptionByTxidQueryArgs[]) {
+  return useQueries({
+    queries: outputs.map(({ txid, index }) => ({
+      queryKey: makeInscriptionMetadataQueryKey(txid),
+      queryFn: () => getInscriptionByTxid(txid, index),
+      ...queryOptions,
+    })),
   });
 }
