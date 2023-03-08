@@ -7,7 +7,7 @@ import { RouteUrls } from '@shared/route-urls';
 import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
 import { Plus } from '@app/components/icons/plus';
 
-import { CollectibleLayout } from './collectible.layout';
+import { CollectibleItemLayout } from './collectible-item.layout';
 
 const backgroundProps = {
   backgroundColor: 'white',
@@ -27,7 +27,7 @@ export function AddCollectible() {
   const analytics = useAnalytics();
 
   return (
-    <CollectibleLayout
+    <CollectibleItemLayout
       backgroundElementProps={backgroundProps}
       onClickLayout={() => {
         void analytics.track('select_add_new_collectible');
@@ -37,6 +37,6 @@ export function AddCollectible() {
       title="Add new"
     >
       <Box as={Plus} width="40px" />
-    </CollectibleLayout>
+    </CollectibleItemLayout>
   );
 }

@@ -22,4 +22,8 @@ export function isEmpty(value: Object) {
   return Object.keys(value).length === 0;
 }
 
+export function isDefined<T>(argument: T | undefined): argument is T {
+  return !isUndefined(argument);
+}
+
 export function noop() {}

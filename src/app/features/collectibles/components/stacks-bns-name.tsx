@@ -1,6 +1,6 @@
 import StacksNftBns from '@assets/images/stacks-nft-bns.png';
 
-import { CollectibleLayout } from './collectible.layout';
+import { CollectibleItemLayout } from './collectible-item.layout';
 
 const backgroundProps = {
   backgroundColor: '#DCDDE2',
@@ -12,7 +12,7 @@ export function StacksBnsName(props: { bnsName: string }) {
   const { bnsName } = props;
 
   return (
-    <CollectibleLayout
+    <CollectibleItemLayout
       backgroundElementProps={backgroundProps}
       // TODO: Add later when makes sense with other collectibles
       // hoverText="Bitcoin Naming System"
@@ -20,6 +20,6 @@ export function StacksBnsName(props: { bnsName: string }) {
       title={bnsName}
     >
       <img alt="nft image" src={StacksNftBns} width="100px" />
-    </CollectibleLayout>
+    </CollectibleItemLayout>
   );
 }

@@ -14,7 +14,7 @@ import { PrimaryButton } from '@app/components/primary-button';
 import {
   useStacksAnchoredCryptoCurrencyAssetBalance,
   useTransferableStacksFungibleTokenAssetBalances,
-} from '@app/query/stacks/balance/crypto-asset-balances.hooks';
+} from '@app/query/stacks/balance/stacks-ft-balances.hooks';
 import { useCurrentStacksAccount } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
 
 import { HomeActionButton } from './tx-button';

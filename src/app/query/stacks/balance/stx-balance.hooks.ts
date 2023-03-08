@@ -13,7 +13,7 @@ import { accountBalanceStxKeys } from '@app/store/accounts/blockchain/stacks/sta
 import {
   useAnchoredStacksAccountBalanceQuery,
   useUnanchoredStacksAccountBalanceQuery,
-} from './balance.query';
+} from './stx-balance.query';
 
 export function parseBalanceResponse(balances: AddressBalanceResponse) {
   const stxMoney = Object.fromEntries(

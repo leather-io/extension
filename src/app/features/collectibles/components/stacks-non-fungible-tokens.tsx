@@ -5,7 +5,7 @@ import StacksNft from '@assets/images/stacks-nft.png';
 import { StacksNftMetadata } from '@shared/models/stacks-nft-metadata.model';
 import { isValidUrl } from '@shared/utils/validate-url';
 
-import { CollectibleLayout } from './collectible.layout';
+import { CollectibleItemLayout } from './collectible-item.layout';
 
 const backgroundProps = {
   backgroundColor: 'transparent',
@@ -36,7 +36,7 @@ export function StacksNonFungibleTokens({ metadata }: StacksNftCryptoAssetsProps
   if (!isImageAvailable) return null;
 
   return (
-    <CollectibleLayout
+    <CollectibleItemLayout
       backgroundElementProps={bkgrdProps}
       subtitle="Stacks NFT"
       title={metadata?.name ?? 'Unknown'}
@@ -47,6 +47,6 @@ export function StacksNonFungibleTokens({ metadata }: StacksNftCryptoAssetsProps
         src={isImageAvailable ? metadata?.cached_image : placeholderImage}
         style={{ aspectRatio: '1 / 1', objectFit: 'cover' }}
       />
-    </CollectibleLayout>
+    </CollectibleItemLayout>
   );
 }

@@ -22,7 +22,7 @@ import { AccountListItemLayout } from '@app/components/account/account-list-item
 import { usePressable } from '@app/components/item-hover';
 import { Title } from '@app/components/typography';
 import { useCryptoCurrencyMarketData } from '@app/query/common/market-data/market-data.hooks';
-import { useAnchoredStacksAccountBalances } from '@app/query/stacks/balance/balance.hooks';
+import { useAnchoredStacksAccountBalances } from '@app/query/stacks/balance/stx-balance.hooks';
 import { useHasCreatedAccount } from '@app/store/accounts/account';
 import { useBtcNativeSegwitAccountIndexAddressIndexZero } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
 import { useStacksAccounts } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';

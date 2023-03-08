@@ -1,40 +1,11 @@
 import { HDKey } from '@scure/bip32';
-import * as yup from 'yup';
 
 import { NetworkModes } from '@shared/constants';
 import { deriveAddressIndexKeychainFromAccount } from '@shared/crypto/bitcoin/bitcoin.utils';
 import { getTaprootPayment } from '@shared/crypto/bitcoin/p2tr-address-gen';
 import { DerivationPathDepth } from '@shared/crypto/derivation-path.utils';
 
-/**
- * Schema of data used from the `GET https://ordapi.xyz/inscriptions/:id` endpoint. Additional data
- * that is not currently used by the app may be returned by this endpoint.
- *
- * See API docs, https://ordapi.xyz/
- */
-export const ordApiXyzGetInscriptionByInscriptionSchema = yup
-  .object({
-    // NOTE: this next key is using a space " ", uncommon as that is.
-    content_type: yup.string().required(),
-    content: yup.string().required(),
-    preview: yup.string().required(),
-    title: yup.string().required(),
-  })
-  .required();
-
-/**
- * Schema of data used from the `GET https://ordapi.xyz/output/:tx` endpoint. Additional data
- * that is not currently used by the app may be returned by this endpoint.
- */
-export const ordApiXyzGetTransactionOutput = yup
-  .object({
-    inscriptions: yup.string(),
-  })
-  .required();
-
-export type OrdApiXyzGetTransactionOutput = yup.InferType<typeof ordApiXyzGetTransactionOutput>;
-
-export function hasInscriptions(data: Array<unknown>) {
+export function hasInscriptions(data: unknown[]) {
   return data.length !== 0;
 }
 

@@ -1,16 +1,16 @@
 import { OrdinalMinimalIcon } from '@app/components/icons/ordinal-minimal-icon';
 
 import { CollectibleImageLayout } from './collectible-image.layout';
-import { CollectibleLayout, CollectibleLayoutProps } from './collectible.layout';
+import { CollectibleItemLayout, CollectibleItemLayoutProps } from './collectible-item.layout';
 
-interface ImageCollectibleProps extends Omit<CollectibleLayoutProps, 'children'> {
+interface ImageCollectibleProps extends Omit<CollectibleItemLayoutProps, 'children'> {
   src: string;
 }
 export function CollectibleImage(props: ImageCollectibleProps) {
   const { src, ...rest } = props;
   return (
-    <CollectibleLayout collectibleTypeIcon={<OrdinalMinimalIcon />} {...rest}>
+    <CollectibleItemLayout collectibleTypeIcon={<OrdinalMinimalIcon />} {...rest}>
       <CollectibleImageLayout src={src} />
-    </CollectibleLayout>
+    </CollectibleItemLayout>
   );
 }

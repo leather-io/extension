@@ -11,7 +11,7 @@ import { useHomeTabs } from '@app/common/hooks/use-home-tabs';
 import { useRouteHeader } from '@app/common/hooks/use-route-header';
 import { satToBtc } from '@app/common/money/unit-conversion';
 import { Header } from '@app/components/header';
-import { useCurrentBitcoinAddress } from '@app/query/bitcoin/address/address.hooks';
+import { useCurrentNativeSegwitUtxos } from '@app/query/bitcoin/address/address.hooks';
 
 import { ConfirmationButton } from '../../components/confirmation/components/confirmation-button';
 import { SendFormConfirmationLayout } from '../../components/confirmation/components/send-form-confirmation.layout';
@@ -27,7 +27,7 @@ export function BtcSendFormConfirmation() {
   const fee = get(location.state, 'fee');
   const { setActiveTabActivity } = useHomeTabs();
   const [isLoading, setIsLoading] = useState(false);
-  const { refetch } = useCurrentBitcoinAddress();
+  const { refetch } = useCurrentNativeSegwitUtxos();
   const analytics = useAnalytics();
   const { psbt, broadcastTransaction } = useBitcoinBroadcastTransaction(tx);
 
