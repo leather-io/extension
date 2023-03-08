@@ -41,11 +41,6 @@ export function useTaprootAddressUtxosQuery() {
         );
 
         const unspentTransactions = await client.addressApi.getUtxosByAddress(address);
-        // console.log('address', {
-        //   address,
-        //   unspentTransactions,
-        //   addressIndexCounter: addressIndexCounter.getValue(),
-        // });
 
         if (!hasInscriptions(unspentTransactions)) {
           currentNumberOfAddressesWithoutOrdinals += 1;
