@@ -109,11 +109,7 @@ export function SendInscriptionForm() {
               <Box mt={['base', 'extra-loose', '100px']}>
                 <FormFieldsLayout>
                   <CollectibleAsset icon={<OrdinalIcon />} name="Ordinal inscription" />
-                  <RecipientField
-                    name={recipeintFieldName}
-                    placeholder="Address or name"
-                    lastChild
-                  />
+                  <RecipientField name={recipeintFieldName} placeholder="Address" lastChild />
                 </FormFieldsLayout>
               </Box>
               <FormErrors />
