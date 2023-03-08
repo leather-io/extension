@@ -1,3 +1,21 @@
+## [4.8.0](https://github.com/hirosystems/stacks-wallet-web/compare/v4.7.0...v4.8.0) (2023-03-08)
+
+
+### Features
+
+* show inaccessible taproot btc balance ([750be5e](https://github.com/hirosystems/stacks-wallet-web/commit/750be5ef8dcbb79802e63bd0436832ebafc30de3))
+
+
+### Bug Fixes
+
+* recipient field bns address ([f552001](https://github.com/hirosystems/stacks-wallet-web/commit/f552001c0972667811024162f72686fe7c7c4dc8))
+* utxos that do not belong ([c229d76](https://github.com/hirosystems/stacks-wallet-web/commit/c229d76eeb33fb5fec9f97a3ad4b366bd8deda2d))
+
+
+### Internal
+
+* update copy ([9478499](https://github.com/hirosystems/stacks-wallet-web/commit/9478499813cd86566ce1c93feefa26cdcd59660c))
+
 ## [4.7.0](https://github.com/hirosystems/stacks-wallet-web/compare/v4.6.0...v4.7.0) (2023-03-07)
 
 
