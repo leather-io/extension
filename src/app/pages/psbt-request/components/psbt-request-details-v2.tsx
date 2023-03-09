@@ -1,9 +1,11 @@
 import { Box, Stack, color } from '@stacks/ui';
 
-import { HexDrawer } from './hex-drawer';
-import { PsbtDisplayer } from './psbt-displayer';
+import { PsbtRequestDisplayer } from './psbt-request-displayer';
+import { PsbtRequestHexDrawer } from './psbt-request-hex-drawer';
 
-export function PsbtBox(props: { details?: object; payloadTxHex: string }) {
+// TODO: In progress for v2 - rename
+// ts-unused-exports:disable-next-line
+export function PsbtRequestDetailsV2(props: { details?: object; payloadTxHex: string }) {
   const { details, payloadTxHex } = props;
 
   if (!details) return null;
@@ -19,10 +21,10 @@ export function PsbtBox(props: { details?: object; payloadTxHex: string }) {
       >
         <Box background="white" borderRadius="16px" overflowX="scroll" py="loose">
           <Box fontSize="14px" lineHeight="1.7" px="loose">
-            <PsbtDisplayer details={details} />
+            <PsbtRequestDisplayer details={details} />
           </Box>
         </Box>
-        {payloadTxHex ? <HexDrawer hex={payloadTxHex} /> : null}
+        {payloadTxHex ? <PsbtRequestHexDrawer hex={payloadTxHex} /> : null}
       </Stack>
     </Box>
   );

@@ -2,12 +2,12 @@ import { Button, Stack } from '@stacks/ui';
 
 import { PrimaryButton } from '@app/components/primary-button';
 
-interface SignPsbtActionProps {
+interface PsbtRequestActionsProps {
   isLoading: boolean;
   onCancel(): void;
   onSignPsbt(): void;
 }
-export function SignPsbtAction({ isLoading, onCancel, onSignPsbt }: SignPsbtActionProps) {
+export function PsbtRequestActions({ isLoading, onCancel, onSignPsbt }: PsbtRequestActionsProps) {
   return (
     <Stack isInline spacing="base">
       <Button borderRadius="10px" flexGrow={1} mode="tertiary" onClick={onCancel}>

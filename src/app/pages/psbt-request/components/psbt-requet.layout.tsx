@@ -1,6 +1,6 @@
 import { Stack } from '@stacks/ui';
 
-import { PageTop } from './page-top';
+import { PsbtRequestHeader } from './psbt-request-header';
 
 interface PsbtRequestLayoutProps {
   children: React.ReactNode;
@@ -8,7 +8,7 @@ interface PsbtRequestLayoutProps {
 export function PsbtRequestLayout({ children }: PsbtRequestLayoutProps) {
   return (
     <Stack px={['loose', 'unset']} spacing="base-loose" width="100%">
-      <PageTop />
+      <PsbtRequestHeader />
       {children}
     </Stack>
   );

@@ -36,10 +36,37 @@ function buildTestPsbtRequest(pubKey: Uint8Array): PsbtRequestOptions {
       script: p2wpkh.script,
     },
   });
+  tx.addInput({
+    index: 1,
+    txid: 'dca5179afaa63eae112d8a97794de2d30dd823315bcabe6d8b8a6b98e3567705',
+    witnessUtxo: {
+      amount: BigInt(2000),
+      script: p2wpkh.script,
+    },
+  });
 
   const psbt = tx.toPSBT();
 
-  return { signAtIndex: 0, txHex: bytesToHex(psbt) };
+  return { hex: bytesToHex(psbt) };
+}
+
+function buildTestPsbtRequestWithIndex(pubKey: Uint8Array): PsbtRequestOptions {
+  const p2wpkh = btc.p2wpkh(pubKey, bitcoinTestnet);
+
+  const tx = new btc.Transaction();
+
+  tx.addInput({
+    index: 0,
+    txid: '15f34b3bd2aab555a003cd1c6959ac09b36239c6af1cb16ff8198cef64f8db9c',
+    witnessUtxo: {
+      amount: BigInt(1000),
+      script: p2wpkh.script,
+    },
+  });
+
+  const psbt = tx.toPSBT();
+
+  return { signAtIndex: 0, hex: bytesToHex(psbt) };
 }
 
 export const Bitcoin = () => {
@@ -71,7 +98,14 @@ export const Bitcoin = () => {
         Try testing Partially Signed Bitcoin Transactions.
       </Text>
       <Button mt={3} onClick={() => signTx(buildTestPsbtRequest(pubKey), stacksTestnetNetwork)}>
-        Sign PSBT
+        Sign PSBT (all inputs)
+      </Button>
+      <Button
+        ml={3}
+        mt={3}
+        onClick={() => signTx(buildTestPsbtRequestWithIndex(pubKey), stacksTestnetNetwork)}
+      >
+        Sign PSBT (input at index)
       </Button>
     </Box>
   );

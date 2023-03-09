@@ -14,7 +14,7 @@ export function usePsbtRequestSearchParams() {
   return useMemo(
     () => ({
       origin,
-      tabId: tabId || 1,
+      tabId: tabId ?? 1,
       requestToken,
     }),
     [origin, requestToken, tabId]
