@@ -1,7 +1,6 @@
 import { useQueryClient } from '@tanstack/react-query';
 
 import { useWalletType } from '@app/common/use-wallet-type';
-import { useCurrentTaprootAccountBalance } from '@app/query/bitcoin/balance/bitcoin-balances.query';
 import { useConfigNftMetadataEnabled } from '@app/query/common/hiro-config/hiro-config.query';
 
 import { AddCollectible } from './components/add-collectible';
@@ -15,13 +14,12 @@ export function Collectibles() {
   const { whenWallet } = useWalletType();
   const isNftMetadataEnabled = useConfigNftMetadataEnabled();
   const queryClient = useQueryClient();
-  const taprootBalance = useCurrentTaprootAccountBalance();
   const isFetching = useIsFetchingCollectiblesRelatedQuery();
 
   return (
     <CollectiblesLayout
       title="Collectibles"
-      subHeader={<TaprootBalanceDisplayer balance={taprootBalance} />}
+      subHeader={whenWallet({ software: <TaprootBalanceDisplayer />, ledger: null })}
       isLoading={isFetching}
       onRefresh={() => void queryClient.refetchQueries({ type: 'active' })}
     >
