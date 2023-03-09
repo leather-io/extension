@@ -3,18 +3,18 @@ import { FiChevronDown, FiChevronUp } from 'react-icons/fi';
 
 import { Box, Flex, Text } from '@stacks/ui';
 
-interface ShowHashButtonProps {
+interface ShowHexButtonProps {
   expanded: boolean;
 }
-const ShowHexButton = (props: ShowHashButtonProps) => {
+const ShowHexButton = (props: ShowHexButtonProps) => {
   const { expanded } = props;
   return <Box as={expanded ? FiChevronUp : FiChevronDown} size="16px" />;
 };
 
-interface HashDrawerProps {
+interface PsbtRequestHexDrawerProps {
   hex: string;
 }
-export function HexDrawer(props: HashDrawerProps) {
+export function PsbtRequestHexDrawer(props: PsbtRequestHexDrawerProps) {
   const { hex } = props;
   const [showHex, setShowHex] = useState(false);
   const [displayHex, setDisplayHex] = useState(hex);

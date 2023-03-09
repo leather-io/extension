@@ -2,11 +2,10 @@ import { Stack, Text, color } from '@stacks/ui';
 
 import { Caption } from '@app/components/typography';
 
-interface PsbtDetailsProps {
+interface PsbtRequestDetailsProps {
   payloadTxHex: string;
 }
-// ts-unused-exports:disable-next-line
-export function PsbtDetails({ payloadTxHex }: PsbtDetailsProps) {
+export function PsbtRequestDetails({ payloadTxHex }: PsbtRequestDetailsProps) {
   return (
     <Stack
       border="4px solid"
@@ -16,7 +15,7 @@ export function PsbtDetails({ payloadTxHex }: PsbtDetailsProps) {
       minHeight="180px"
       spacing="tight"
     >
-      <Caption>PSBT Hex:</Caption>
+      <Caption>PSBT hex:</Caption>
       <Text wordWrap="break-word">{payloadTxHex}</Text>
     </Stack>
   );

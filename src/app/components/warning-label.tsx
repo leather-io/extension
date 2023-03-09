@@ -6,18 +6,20 @@ import { Box, BoxProps, Text, color } from '@stacks/ui';
 import { Flag } from './layout/flag';
 import { Caption } from './typography';
 
-const icon = (
-  <Box
-    _hover={{ cursor: 'pointer' }}
-    as={FiAlertCircle}
-    color={color('feedback-alert')}
-    size="16px"
-    minWidth="min-content"
-    alignSelf="flex-start"
-    position="relative"
-    top="2px"
-  />
-);
+function WarningIcon() {
+  return (
+    <Box
+      _hover={{ cursor: 'pointer' }}
+      as={FiAlertCircle}
+      color={color('feedback-alert')}
+      size="16px"
+      minWidth="min-content"
+      alignSelf="flex-start"
+      position="relative"
+      top="2px"
+    />
+  );
+}
 
 interface WarningLabelProps extends BoxProps {
   children: ReactNode | undefined;
@@ -29,7 +31,7 @@ export function WarningLabel({ children, title, ...props }: WarningLabelProps) {
       <Flag
         bg="#FFF5EB"
         borderRadius="10px"
-        img={icon}
+        img={<WarningIcon />}
         minHeight="48px"
         px="base"
         py="base-tight"
