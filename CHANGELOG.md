@@ -1,3 +1,10 @@
+## [4.8.1](https://github.com/hirosystems/stacks-wallet-web/compare/v4.8.0...v4.8.1) (2023-03-09)
+
+
+### Bug Fixes
+
+* **ledger:** prevent tr specific hook on ledger, closes [#3393](https://github.com/hirosystems/stacks-wallet-web/issues/3393) ([6b95201](https://github.com/hirosystems/stacks-wallet-web/commit/6b9520153329a06f5fbb7da1f4ea6da283e60a3a))
+
 ## [4.8.0](https://github.com/hirosystems/stacks-wallet-web/compare/v4.7.0...v4.8.0) (2023-03-08)
 
 
