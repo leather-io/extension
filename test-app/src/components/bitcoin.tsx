@@ -2,12 +2,12 @@ import React, { useContext } from 'react';
 
 import { AppContext } from '@common/context';
 import { stacksTestnetNetwork } from '@common/utils';
+import * as btc from '@scure/btc-signer';
 import { bytesToHex, hexToBytes } from '@stacks/common';
 import { PsbtData, PsbtRequestOptions } from '@stacks/connect';
 import { useConnect } from '@stacks/connect-react';
 import { StacksNetwork } from '@stacks/network';
 import { Box, Button, Text } from '@stacks/ui';
-import * as btc from 'micro-btc-signer';
 
 interface BitcoinNetwork {
   bech32: string;

@@ -1,6 +1,6 @@
 import { NetworkModes } from '@shared/constants';
 
-// See this PR https://github.com/paulmillr/micro-btc-signer/pull/15
+// See this PR https://github.com/paulmillr/@scure/btc-signer/pull/15
 // Atttempting to add these directly to the library
 interface BitcoinNetwork {
   bech32: string;

@@ -2,7 +2,7 @@ import { useCallback, useMemo } from 'react';
 import { useSelector } from 'react-redux';
 
 import { HDKey } from '@scure/bip32';
-import * as btc from 'micro-btc-signer';
+import * as btc from '@scure/btc-signer';
 
 import { deriveAddressIndexZeroFromAccount } from '@shared/crypto/bitcoin/bitcoin.utils';
 import { deriveNativeSegWitReceiveAddressIndex } from '@shared/crypto/bitcoin/p2wpkh-address-gen';

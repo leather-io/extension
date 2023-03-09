@@ -1643,10 +1643,10 @@
   resolved "https://registry.yarnpkg.com/@mdn/browser-compat-data/-/browser-compat-data-5.2.29.tgz#7f29e9a108aaf789600dd36e8442fe89ab41a815"
   integrity sha512-bEBrkTWbDAs/PB4IdRg4CtU750oBRytXHK/wC2oIDkgKZqnt76nACSooQQuHF11mK5k43f/IgFUMO5t5quRPVA==
 
-"@noble/curves@~0.6.3":
-  version "0.6.4"
-  resolved "https://registry.yarnpkg.com/@noble/curves/-/curves-0.6.4.tgz#f961dec2c1c5c6d650600b596aa0c2f6373835ee"
-  integrity sha512-EhjlSa2g2kZ69kmeq/FRZZ+FHcW/ptwVZHMjMw6f7eQqnFySPQAmYUFnhqF1rPLjNeslwOR64hfc8j7KGgAIsQ==
+"@noble/curves@~0.8.0":
+  version "0.8.0"
+  resolved "https://registry.yarnpkg.com/@noble/curves/-/curves-0.8.0.tgz#bcab798acfea6f8404bf89a0925aea90abdee9de"
+  integrity sha512-eQmQMfaj1skow6nwUL7eTDE2gSh2D2vMNjBJ5DlMh1XZmpnosinpMg4h6YGvPonbEz0e9JE/Do/hkir16/FIng==
   dependencies:
     "@noble/hashes" "1.2.0"
 
@@ -3254,6 +3254,16 @@
   dependencies:
     "@noble/hashes" "~1.2.0"
     "@scure/base" "~1.1.0"
+
+"@scure/btc-signer@0.5.0":
+  version "0.5.0"
+  resolved "https://registry.yarnpkg.com/@scure/btc-signer/-/btc-signer-0.5.0.tgz#5dc170e3d9266d6d7777657288d2571768090377"
+  integrity sha512-kgxcuPa9u06CZE8VWcAlPMwjMGhpAru6nAgQ1+of9Fe+hcIGEl2qn2FlpYYr+fRo1yE87DFVqxD5SFs0DUuSgA==
+  dependencies:
+    "@noble/curves" "~0.8.0"
+    "@noble/hashes" "~1.2.0"
+    "@scure/base" "~1.1.0"
+    micro-packed "~0.3.2"
 
 "@segment/analytics-core@1.2.1":
   version "1.2.1"
@@ -13239,16 +13249,6 @@ methods@~1.1.2:
   version "1.1.2"
   resolved "https://registry.yarnpkg.com/methods/-/methods-1.1.2.tgz#5529a4d67654134edcc5266656835b0f851afcee"
   integrity sha512-iclAHeNqNm68zFtnZ0e+1L2yUIdvzNoauKU4WBA3VvH/vPFieF7qfRlwUZU+DA9P9bPXIS90ulxoUoCH23sV2w==
-
-micro-btc-signer@0.4.0:
-  version "0.4.0"
-  resolved "https://registry.yarnpkg.com/micro-btc-signer/-/micro-btc-signer-0.4.0.tgz#d396ddf1c23b074cd5f5d5d43392fcdac06a238e"
-  integrity sha512-f+4za2AatXsGtGx+/QfoDk3rdZ+J8PGN+tKF17q9pdAtbJqPzxNjrl7+9wTpFTKk5La9uXWxwinYM/6gnL7Yng==
-  dependencies:
-    "@noble/curves" "~0.6.3"
-    "@noble/hashes" "~1.2.0"
-    "@scure/base" "~1.1.0"
-    micro-packed "~0.3.2"
 
 micro-memoize@^4.0.9:
   version "4.0.14"

@@ -1,6 +1,6 @@
 import { useCallback } from 'react';
 
-import * as btc from 'micro-btc-signer';
+import * as btc from '@scure/btc-signer';
 
 import { BitcoinSendFormValues } from '@shared/models/form.model';
 

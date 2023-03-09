@@ -1,6 +1,6 @@
 import { useSelector } from 'react-redux';
 
-import * as btc from 'micro-btc-signer';
+import * as btc from '@scure/btc-signer';
 
 import { deriveAddressIndexKeychainFromAccount } from '@shared/crypto/bitcoin/bitcoin.utils';
 import { getTaprootPaymentFromAddressIndex } from '@shared/crypto/bitcoin/p2tr-address-gen';
