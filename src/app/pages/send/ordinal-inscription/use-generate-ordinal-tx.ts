@@ -1,7 +1,7 @@
 import { useCallback } from 'react';
 
+import * as btc from '@scure/btc-signer';
 import BigNumber from 'bignumber.js';
-import * as btc from 'micro-btc-signer';
 
 import { OrdinalSendFormValues } from '@shared/models/form.model';
 

@@ -2,9 +2,9 @@ import { useState } from 'react';
 import { Outlet } from 'react-router-dom';
 
 import { bytesToHex, hexToBytes } from '@noble/hashes/utils';
+import * as btc from '@scure/btc-signer';
 import { ChainID } from '@stacks/common';
 import { PsbtPayload } from '@stacks/connect';
-import * as btc from 'micro-btc-signer';
 
 import { finalizePsbt } from '@shared/actions/finalize-psbt';
 import { logger } from '@shared/logger';

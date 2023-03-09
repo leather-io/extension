@@ -1,8 +1,8 @@
 import { useMemo } from 'react';
 
+import * as btc from '@scure/btc-signer';
 import { truncateMiddle } from '@stacks/ui-utils';
 import BigNumber from 'bignumber.js';
-import * as btc from 'micro-btc-signer';
 
 import { Money } from '@shared/models/money.model';
 
