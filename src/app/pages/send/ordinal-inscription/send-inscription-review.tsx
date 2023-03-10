@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 
 import { Box } from '@stacks/ui';
@@ -21,22 +20,35 @@ import { useInscriptionSendState } from './send-inscription-container';
 function useSendInscrptionReviewState() {
   const location = useLocation();
   return {
-    signedTx: get(location.state, 'tx'),
-    recipient: get(location.state, 'recipient', ''),
+    signedTx: get(location.state, 'tx') as string,
+    recipient: get(location.state, 'recipient', '') as string,
   };
 }
 
 export function SendInscriptionReview() {
-  const [isLoading, setIsLoading] = useState(false);
   const analytics = useAnalytics();
   const navigate = useNavigate();
   const { setActiveTabBalances } = useHomeTabs();
   const { signedTx, recipient } = useSendInscrptionReviewState();
   const { inscription } = useInscriptionSendState();
   const { refetch } = useCurrentNativeSegwitUtxos();
-  const broadcastTransaction = useBitcoinBroadcastTransaction();
-
+  const { broadcastTx, isBroadcasting } = useBitcoinBroadcastTransaction();
   const truncatedAddress = truncateMiddle(recipient, 4);
+
+  async function sendInscription() {
+    await broadcastTx({
+      tx: signedTx,
+      async onSuccess() {
+        void analytics.track('broadcast_ordinal_transaction');
+        await refetch();
+        navigate(RouteUrls.Home);
+        setActiveTabBalances();
+      },
+      onError() {
+        navigate(RouteUrls.SendOrdinalInscriptionError);
+      },
+    });
+  }
 
   return (
     <BaseDrawer title="Review" isShowing enableGoBack onClose={() => navigate(RouteUrls.Home)}>
@@ -47,23 +59,10 @@ export function SendInscriptionReview() {
           <ConfirmationDetail detail="To" value={truncatedAddress} title={recipient} />
         </Box>
         <PrimaryButton
-          isLoading={isLoading}
+          isLoading={isBroadcasting}
           my="base-loose"
           mb="extra-loose"
-          onClick={async () => {
-            try {
-              setIsLoading(true);
-              await broadcastTransaction(signedTx);
-              void analytics.track('broadcast_ordinal_transaction');
-              await refetch();
-              navigate(RouteUrls.Home);
-              setActiveTabBalances();
-            } catch (e) {
-              navigate(RouteUrls.SendOrdinalInscriptionError);
-            } finally {
-              setIsLoading(false);
-            }
-          }}
+          onClick={sendInscription}
           width="100%"
         >
           Confirm

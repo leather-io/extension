@@ -230,9 +230,6 @@ function AppRoutesAfterUserHasConsented() {
         <Route path={RouteUrls.Unlock} element={<Unlock />}>
           {settingsModalRoutes}
         </Route>
-        <Route path={RouteUrls.Unlock} element={<Unlock />}>
-          {settingsModalRoutes}
-        </Route>
 
         {/* Catch-all route redirects to onboarding */}
         <Route path="*" element={<Navigate replace to={RouteUrls.Onboarding} />} />
