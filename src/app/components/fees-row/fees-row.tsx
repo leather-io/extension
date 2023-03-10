@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
 
-import { StackProps } from '@stacks/ui';
+import { Box, StackProps } from '@stacks/ui';
 import BigNumber from 'bignumber.js';
 import { useField } from 'formik';
 
@@ -86,11 +86,13 @@ export function FeesRow(props: FeeRowProps): JSX.Element {
             setFieldWarning={(value: string) => setFieldWarning(value)}
           />
         ) : (
-          <TransactionFee
-            fee={feeField.value}
-            feeCurrencySymbol={feeCurrencySymbol}
-            usdAmount={feeInUsd}
-          />
+          <Box as="button" onClick={() => handleSelectFeeEstimateOrCustomField(FeeTypes.Custom)}>
+            <TransactionFee
+              fee={feeField.value}
+              feeCurrencySymbol={feeCurrencySymbol}
+              usdAmount={feeInUsd}
+            />
+          </Box>
         )
       }
       fieldWarning={fieldWarning}
