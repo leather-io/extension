@@ -23,7 +23,18 @@ const bitcoinTestnet: BitcoinNetwork = {
   wif: 0xef,
 };
 
-function buildTestPsbtRequest(pubKey: Uint8Array): PsbtRequestOptions {
+const ecdsaPublicKeyLength = 33;
+
+function ecdsaPublicKeyToSchnorr(pubKey: Uint8Array) {
+  if (pubKey.byteLength !== ecdsaPublicKeyLength) throw new Error('Invalid public key length');
+  return pubKey.slice(1);
+}
+
+function getTaprootPayment(publicKey: Uint8Array) {
+  return btc.p2tr(ecdsaPublicKeyToSchnorr(publicKey), undefined, bitcoinTestnet);
+}
+
+function buildTestNativeSegwitPsbtRequest(pubKey: Uint8Array): PsbtRequestOptions {
   const p2wpkh = btc.p2wpkh(pubKey, bitcoinTestnet);
 
   const tx = new btc.Transaction();
@@ -50,7 +61,7 @@ function buildTestPsbtRequest(pubKey: Uint8Array): PsbtRequestOptions {
   return { hex: bytesToHex(psbt) };
 }
 
-function buildTestPsbtRequestWithIndex(pubKey: Uint8Array): PsbtRequestOptions {
+function buildTestNativeSegwitPsbtRequestWithIndex(pubKey: Uint8Array): PsbtRequestOptions {
   const p2wpkh = btc.p2wpkh(pubKey, bitcoinTestnet);
 
   const tx = new btc.Transaction();
@@ -69,10 +80,61 @@ function buildTestPsbtRequestWithIndex(pubKey: Uint8Array): PsbtRequestOptions {
   return { signAtIndex: 0, hex: bytesToHex(psbt) };
 }
 
+function buildTestTaprootPsbtRequest(pubKey: Uint8Array): PsbtRequestOptions {
+  const p2wpkh = btc.p2wpkh(pubKey, bitcoinTestnet);
+
+  const tx = new btc.Transaction();
+
+  tx.addInput({
+    index: 0,
+    tapInternalKey: getTaprootPayment(pubKey).tapInternalKey,
+    txid: '15f34b3bd2aab555a003cd1c6959ac09b36239c6af1cb16ff8198cef64f8db9c',
+    witnessUtxo: {
+      amount: BigInt(1000),
+      script: p2wpkh.script,
+    },
+  });
+  tx.addInput({
+    index: 1,
+    tapInternalKey: getTaprootPayment(pubKey).tapInternalKey,
+    txid: 'dca5179afaa63eae112d8a97794de2d30dd823315bcabe6d8b8a6b98e3567705',
+    witnessUtxo: {
+      amount: BigInt(2000),
+      script: p2wpkh.script,
+    },
+  });
+
+  const psbt = tx.toPSBT();
+
+  return { hex: bytesToHex(psbt) };
+}
+
+function buildTestTaprootPsbtRequestWithIndex(pubKey: Uint8Array): PsbtRequestOptions {
+  const p2wpkh = btc.p2wpkh(pubKey, bitcoinTestnet);
+
+  const tx = new btc.Transaction();
+
+  tx.addInput({
+    index: 0,
+    tapInternalKey: getTaprootPayment(pubKey).tapInternalKey,
+    txid: '15f34b3bd2aab555a003cd1c6959ac09b36239c6af1cb16ff8198cef64f8db9c',
+    witnessUtxo: {
+      amount: BigInt(1000),
+      script: p2wpkh.script,
+    },
+  });
+
+  const psbt = tx.toPSBT();
+
+  return { signAtIndex: 0, hex: bytesToHex(psbt) };
+}
+
 export const Bitcoin = () => {
   const { userData } = useContext(AppContext);
   const { signPsbt } = useConnect();
   const pubKey = hexToBytes(userData?.profile.btcPublicKey.p2wpkh);
+
+  console.log('userData', userData);
 
   const signTx = async (options: PsbtRequestOptions, network?: StacksNetwork) => {
     const defaultNetwork = stacksTestnetNetwork;
@@ -97,15 +159,34 @@ export const Bitcoin = () => {
       <Text textStyle="body.large" display="block" my={'loose'}>
         Try testing Partially Signed Bitcoin Transactions.
       </Text>
-      <Button mt={3} onClick={() => signTx(buildTestPsbtRequest(pubKey), stacksTestnetNetwork)}>
-        Sign PSBT (all inputs)
+      <Button
+        mt={3}
+        onClick={() => signTx(buildTestNativeSegwitPsbtRequest(pubKey), stacksTestnetNetwork)}
+      >
+        Sign PSBT (Segwit)
       </Button>
       <Button
         ml={3}
         mt={3}
-        onClick={() => signTx(buildTestPsbtRequestWithIndex(pubKey), stacksTestnetNetwork)}
+        onClick={() =>
+          signTx(buildTestNativeSegwitPsbtRequestWithIndex(pubKey), stacksTestnetNetwork)
+        }
       >
-        Sign PSBT (input at index)
+        Sign PSBT at index (SegWit)
+      </Button>
+      <Button
+        ml={3}
+        mt={3}
+        onClick={() => signTx(buildTestTaprootPsbtRequest(pubKey), stacksTestnetNetwork)}
+      >
+        Sign PSBT (Taproot)
+      </Button>
+      <Button
+        ml={3}
+        mt={3}
+        onClick={() => signTx(buildTestTaprootPsbtRequestWithIndex(pubKey), stacksTestnetNetwork)}
+      >
+        Sign PSBT at index (Taproot)
       </Button>
     </Box>
   );

@@ -26,7 +26,7 @@ export function useTaprootAccountUtxosQuery() {
   const client = useBitcoinClient();
 
   return useQuery(
-    ['taproot-address-utxos-metadata', bytesToHex(keychain.pubKeyHash!), network.id],
+    ['taproot-address-utxos-metadata', bytesToHex(keychain?.pubKeyHash!), network.id],
     async () => {
       let currentNumberOfAddressesWithoutOrdinals = 0;
       const addressIndexCounter = createCounter(0);
@@ -34,11 +34,11 @@ export function useTaprootAccountUtxosQuery() {
       while (
         currentNumberOfAddressesWithoutOrdinals < stopSearchAfterNumberAddressesWithoutOrdinals
       ) {
-        const address = getTaprootAddress(
-          addressIndexCounter.getValue(),
+        const address = getTaprootAddress({
+          index: addressIndexCounter.getValue(),
           keychain,
-          network.chain.bitcoin.network
-        );
+          network: network.chain.bitcoin.network,
+        });
 
         const unspentTransactions = await client.addressApi.getUtxosByAddress(address);
 
