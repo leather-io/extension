@@ -76,6 +76,9 @@ export function useSignBitcoinTaprootInputAtIndex() {
   );
 }
 
+// TODO: Address index 0 is hardcoded here bc this is only used to pass the first
+// taproot address to the app thru the auth response. This is only temporary, it
+// should be removed once the request address api is in place.
 export function useAllBitcoinTaprootNetworksByAccount() {
   const mainnetKeychainAtAccount = useSelector(selectMainnetTaprootKeychain);
   const testnetKeychainAtAccount = useSelector(selectTestnetTaprootKeychain);
@@ -84,15 +87,16 @@ export function useAllBitcoinTaprootNetworksByAccount() {
     (accountIndex: number) => {
       if (!mainnetKeychainAtAccount || !testnetKeychainAtAccount)
         throw new Error('Cannot derive addresses in non-software mode');
+
       return {
         mainnet: deriveTaprootReceiveAddressIndex({
           xpub: mainnetKeychainAtAccount(accountIndex).publicExtendedKey,
-          index: accountIndex,
+          index: 0,
           network: 'mainnet',
         })?.address,
         testnet: deriveTaprootReceiveAddressIndex({
           xpub: testnetKeychainAtAccount(accountIndex).publicExtendedKey,
-          index: accountIndex,
+          index: 0,
           network: 'testnet',
         })?.address,
       };
@@ -104,6 +108,7 @@ export function useAllBitcoinTaprootNetworksByAccount() {
 export function useCurrentAccountTaprootSigner() {
   const network = useCurrentNetwork();
   const accountKeychain = useCurrentTaprootAccountKeychain();
+  if (!accountKeychain) return;
   const addressIndexKeychainFn = deriveAddressIndexKeychainFromAccount(accountKeychain);
 
   return (addressIndex: number) => {

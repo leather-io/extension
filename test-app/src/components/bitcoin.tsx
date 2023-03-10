@@ -61,7 +61,7 @@ function buildTestNativeSegwitPsbtRequest(pubKey: Uint8Array): PsbtRequestOption
   return { hex: bytesToHex(psbt) };
 }
 
-function buildTestNativeSegwitPsbtRequestWithIndex(pubKey: Uint8Array): PsbtRequestOptions {
+function buildTestNativeSegwitPsbtRequestWithIndexes(pubKey: Uint8Array): PsbtRequestOptions {
   const p2wpkh = btc.p2wpkh(pubKey, bitcoinTestnet);
 
   const tx = new btc.Transaction();
@@ -74,10 +74,18 @@ function buildTestNativeSegwitPsbtRequestWithIndex(pubKey: Uint8Array): PsbtRequ
       script: p2wpkh.script,
     },
   });
+  tx.addInput({
+    index: 1,
+    txid: 'dca5179afaa63eae112d8a97794de2d30dd823315bcabe6d8b8a6b98e3567705',
+    witnessUtxo: {
+      amount: BigInt(2000),
+      script: p2wpkh.script,
+    },
+  });
 
   const psbt = tx.toPSBT();
 
-  return { signAtIndex: 0, hex: bytesToHex(psbt) };
+  return { signAtIndex: [0, 1], hex: bytesToHex(psbt) };
 }
 
 function buildTestTaprootPsbtRequest(pubKey: Uint8Array): PsbtRequestOptions {
@@ -109,7 +117,7 @@ function buildTestTaprootPsbtRequest(pubKey: Uint8Array): PsbtRequestOptions {
   return { hex: bytesToHex(psbt) };
 }
 
-function buildTestTaprootPsbtRequestWithIndex(pubKey: Uint8Array): PsbtRequestOptions {
+function buildTestTaprootPsbtRequestWithIndexes(pubKey: Uint8Array): PsbtRequestOptions {
   const p2wpkh = btc.p2wpkh(pubKey, bitcoinTestnet);
 
   const tx = new btc.Transaction();
@@ -123,10 +131,19 @@ function buildTestTaprootPsbtRequestWithIndex(pubKey: Uint8Array): PsbtRequestOp
       script: p2wpkh.script,
     },
   });
+  tx.addInput({
+    index: 1,
+    tapInternalKey: getTaprootPayment(pubKey).tapInternalKey,
+    txid: 'dca5179afaa63eae112d8a97794de2d30dd823315bcabe6d8b8a6b98e3567705',
+    witnessUtxo: {
+      amount: BigInt(2000),
+      script: p2wpkh.script,
+    },
+  });
 
   const psbt = tx.toPSBT();
 
-  return { signAtIndex: 0, hex: bytesToHex(psbt) };
+  return { signAtIndex: [0, 1], hex: bytesToHex(psbt) };
 }
 
 export const Bitcoin = () => {
@@ -169,10 +186,10 @@ export const Bitcoin = () => {
         ml={3}
         mt={3}
         onClick={() =>
-          signTx(buildTestNativeSegwitPsbtRequestWithIndex(pubKey), stacksTestnetNetwork)
+          signTx(buildTestNativeSegwitPsbtRequestWithIndexes(pubKey), stacksTestnetNetwork)
         }
       >
-        Sign PSBT at index (SegWit)
+        Sign PSBT at indexes (SegWit)
       </Button>
       <Button
         ml={3}
@@ -184,9 +201,9 @@ export const Bitcoin = () => {
       <Button
         ml={3}
         mt={3}
-        onClick={() => signTx(buildTestTaprootPsbtRequestWithIndex(pubKey), stacksTestnetNetwork)}
+        onClick={() => signTx(buildTestTaprootPsbtRequestWithIndexes(pubKey), stacksTestnetNetwork)}
       >
-        Sign PSBT at index (Taproot)
+        Sign PSBT at indexes (Taproot)
       </Button>
     </Box>
   );

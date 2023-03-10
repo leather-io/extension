@@ -6,17 +6,19 @@ import { Caption } from '@app/components/typography';
 
 interface DisclaimerProps {
   disclaimerText: string;
-  learnMoreUrl: string;
+  learnMoreUrl?: string;
 }
 export function DisclaimerLayout({ disclaimerText, learnMoreUrl }: DisclaimerProps) {
   return (
     <Box>
       <Caption>
         {disclaimerText}
-        <Link display="inline" fontSize="14px" onClick={() => openInNewTab(learnMoreUrl)}>
-          {' '}
-          Learn more
-        </Link>
+        {learnMoreUrl ? (
+          <Link display="inline" fontSize="14px" onClick={() => openInNewTab(learnMoreUrl)}>
+            {' '}
+            Learn more
+          </Link>
+        ) : null}
         .
       </Caption>
     </Box>
