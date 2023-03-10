@@ -1,21 +1,22 @@
 import { Flex } from '@stacks/ui';
 
-import { Money } from '@shared/models/money.model';
-
 import { BaseDrawer } from '@app/components/drawer/base-drawer';
 import { BtcIcon } from '@app/components/icons/btc-icon';
+import { PrimaryButton } from '@app/components/primary-button';
 import { Body, Title } from '@app/components/typography';
+import { WarningLabel } from '@app/components/warning-label';
 
 interface RetrieveTaprootToNativeSegwitLayoutProps {
-  balance: Money;
-  onClose(): void;
+  isBroadcasting: boolean;
   children: React.ReactNode;
+  onClose(): void;
+  onApproveTransaction(): void;
 }
 
 export function RetrieveTaprootToNativeSegwitLayout(
   props: RetrieveTaprootToNativeSegwitLayoutProps
 ) {
-  const { onClose, children } = props;
+  const { onClose, onApproveTransaction, isBroadcasting, children } = props;
   return (
     <BaseDrawer isShowing onClose={() => onClose()}>
       <Flex flexDirection="column" alignItems="start" textAlign="left" mx="extra-loose" mt="-45px">
@@ -33,6 +34,17 @@ export function RetrieveTaprootToNativeSegwitLayout(
         </Body>
         <Body mt="base">This transaction may take upwards of 30 minutes to confirm.</Body>
         {children}
+        <WarningLabel mt="loose">
+          We recommend you check the UTXOs to ensure they contain no inscriptions
+        </WarningLabel>
+        <PrimaryButton
+          onClick={onApproveTransaction}
+          isLoading={isBroadcasting}
+          width="100%"
+          my="loose"
+        >
+          Retreive bitcoin
+        </PrimaryButton>
       </Flex>
     </BaseDrawer>
   );

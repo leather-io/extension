@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 
 import get from 'lodash.get';
@@ -15,9 +14,9 @@ import { satToBtc } from '@app/common/money/unit-conversion';
 import { Header } from '@app/components/header';
 import { useCurrentNativeSegwitUtxos } from '@app/query/bitcoin/address/address.hooks';
 import { useBitcoinFeeRate } from '@app/query/bitcoin/fees/fee-estimates.hooks';
+import { useBitcoinBroadcastTransaction } from '@app/query/bitcoin/transaction/use-bitcoin-broadcast-transaction';
 import { useCryptoCurrencyMarketData } from '@app/query/common/market-data/market-data.hooks';
 
-import { useBitcoinBroadcastTransaction } from '../../../../../query/bitcoin/transaction/use-bitcoin-broadcast-transaction';
 import { ConfirmationButton } from '../../components/confirmation/components/confirmation-button';
 import { SendFormConfirmationLayout } from '../../components/confirmation/components/send-form-confirmation.layout';
 import { useSendFormNavigate } from '../../hooks/use-send-form-navigate';
@@ -29,12 +28,12 @@ export function BtcSendFormConfirmation() {
   const tx = get(location.state, 'tx');
   const recipient = get(location.state, 'recipient');
   const fee = get(location.state, 'fee');
-  const [isLoading, setIsLoading] = useState(false);
+
   const { refetch } = useCurrentNativeSegwitUtxos();
   const analytics = useAnalytics();
 
   const btcMarketData = useCryptoCurrencyMarketData('BTC');
-  const broadcastTransaction = useBitcoinBroadcastTransaction();
+  const { broadcastTx, isBroadcasting } = useBitcoinBroadcastTransaction();
   const psbt = decodeBitcoinTx(tx);
 
   const nav = useSendFormNavigate();
@@ -43,28 +42,26 @@ export function BtcSendFormConfirmation() {
   const feeInBtc = satToBtc(fee);
   const { data: feeRate } = useBitcoinFeeRate();
 
-  async function confirmTransaction() {
-    try {
-      setIsLoading(true);
-      const txId = await broadcastTransaction(tx);
-
-      void analytics.track('broadcast_transaction', {
-        token: 'btc',
-        amount: transferAmount,
-        fee,
-        inputs: psbt.inputs.length,
-        outputs: psbt.inputs.length,
-      });
-      await refetch();
-
-      navigate(RouteUrls.SentBtcTxSummary.replace(':txId', `${txId}`), {
-        state: formBtcTxSummaryState(txId),
-      });
-    } catch (e) {
-      nav.toErrorPage(e);
-    } finally {
-      setIsLoading(false);
-    }
+  async function initiateTransaction() {
+    await broadcastTx({
+      tx,
+      async onSuccess(txid) {
+        void analytics.track('broadcast_transaction', {
+          token: 'btc',
+          amount: transferAmount,
+          fee,
+          inputs: psbt.inputs.length,
+          outputs: psbt.inputs.length,
+        });
+        await refetch();
+        navigate(RouteUrls.SentBtcTxSummary.replace(':txId', `${txid}`), {
+          state: formBtcTxSummaryState(txid),
+        });
+      },
+      onError(e) {
+        nav.toErrorPage(e);
+      },
+    });
   }
   function formBtcTxSummaryState(txId: string) {
     const symbol = 'BTC';
@@ -112,7 +109,7 @@ export function BtcSendFormConfirmation() {
         recipient={recipient}
         fee={createMoney(fee, 'BTC')}
       />
-      <ConfirmationButton isLoading={isLoading} onClick={confirmTransaction} />
+      <ConfirmationButton isLoading={isBroadcasting} onClick={initiateTransaction} />
     </SendFormConfirmationLayout>
   );
 }

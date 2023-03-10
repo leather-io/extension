@@ -115,26 +115,3 @@ export function useSignBitcoinNativeSegwitTx() {
     [keychain]
   );
 }
-
-// export function useCurrentAccountNativeSegwitSigner() {
-//   const network = useCurrentNetwork();
-//   const accountKeychainFn = useNativeSegWitCurrentNetworkAccountKeychain();
-
-//   return (addressIndex: number) => {
-//     if (!accountKeychainFn) throw new Error('No keychain found for current account');
-//     const accountKeychain = accountKeychainFn(addressIndex);
-//     const addressIndexKeychain = deriveAddressIndexZeroFromAccount(accountKeychain);
-//     return {
-//       payment: getNativeSegWitAddressIndexDetails(
-//         addressIndexKeychain,
-//         network.chain.bitcoin.network
-//       ),
-//       sign(tx: btc.Transaction) {
-//         if (!accountKeychain.privateKey)
-//           throw new Error('Unable to sign taproot transaction, no private key found');
-
-//         tx.sign(addressIndexKeychain.privateKey!);
-//       },
-//     };
-//   };
-// }
