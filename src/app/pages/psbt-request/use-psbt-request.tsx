@@ -15,6 +15,10 @@ import {
   useSignBitcoinNativeSegwitInputAtIndex,
   useSignBitcoinNativeSegwitTx,
 } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
+import {
+  useSignBitcoinTaprootInputAtIndex,
+  useSignBitcoinTaprootTx,
+} from '@app/store/accounts/blockchain/bitcoin/taproot-account.hooks';
 import { usePsbtRequestSearchParams } from '@app/store/psbts/requests.hooks';
 
 export function usePsbtRequest() {
@@ -23,8 +27,10 @@ export function usePsbtRequest() {
   const [tx, setTx] = useState<btc.Transaction>();
   const analytics = useAnalytics();
   const { requestToken, tabId } = usePsbtRequestSearchParams();
-  const signAtIndex = useSignBitcoinNativeSegwitInputAtIndex();
-  const signTx = useSignBitcoinNativeSegwitTx();
+  const signNativeSegwitTxAtIndex = useSignBitcoinNativeSegwitInputAtIndex();
+  const signNativeSegwitTx = useSignBitcoinNativeSegwitTx();
+  const signTaprootTxAtIndex = useSignBitcoinTaprootInputAtIndex();
+  const signTaprootTx = useSignBitcoinTaprootTx();
 
   useOnMount(() => {
     if (!requestToken) return;
@@ -66,9 +72,23 @@ export function usePsbtRequest() {
     const allowedSighash = psbtPayload?.allowedSighash;
 
     if (!isUndefined(idx) && idx >= 0) {
-      signAtIndex({ allowedSighash, idx, tx });
+      try {
+        signNativeSegwitTxAtIndex({ allowedSighash, idx, tx });
+      } catch (e1) {}
+      try {
+        signTaprootTxAtIndex({ allowedSighash, idx, tx });
+      } catch (e2) {
+        logger.error('Error signing tx at provided index', e2);
+      }
     } else {
-      signTx(tx);
+      try {
+        signNativeSegwitTx(tx);
+      } catch (e1) {}
+      try {
+        signTaprootTx(tx);
+      } catch (e2) {
+        logger.error('Error signing tx', e2);
+      }
     }
 
     const psbt = tx.toPSBT();

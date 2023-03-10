@@ -20,6 +20,10 @@ import {
   useAllBitcoinNativeSegWitNetworksByAccount,
   useCurrentBitcoinNativeSegwitAddressIndexKeychain,
 } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
+import {
+  useAllBitcoinTaprootNetworksByAccount,
+  useCurrentTaprootAddressIndexKeychain,
+} from '@app/store/accounts/blockchain/bitcoin/taproot-account.hooks';
 import { useStacksAccounts } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
 import { useStacksWallet } from '@app/store/accounts/blockchain/stacks/stacks-keychain';
 
@@ -32,7 +36,10 @@ export function useFinishAuthRequest() {
   const { origin, tabId } = useAuthRequestParams();
 
   const deriveNativeSegWitAccountAtIndex = useAllBitcoinNativeSegWitNetworksByAccount();
-  const currentAddressIndexKeychain = useCurrentBitcoinNativeSegwitAddressIndexKeychain();
+  const deriveTaprootAccountAtIndex = useAllBitcoinTaprootNetworksByAccount();
+  const currentBitcoinNativeSegwitAddressIndexKeychain =
+    useCurrentBitcoinNativeSegwitAddressIndexKeychain();
+  const currentBitcoinTaprootAddressIndexKeychain = useCurrentTaprootAddressIndexKeychain();
 
   return useCallback(
     async (accountIndex: number) => {
@@ -86,10 +93,12 @@ export function useFinishAuthRequest() {
           account: legacyAccount,
           additionalData: {
             btcAddress: {
+              p2tr: deriveTaprootAccountAtIndex(accountIndex),
               p2wpkh: deriveNativeSegWitAccountAtIndex(accountIndex),
             },
             btcPublicKey: {
-              p2wpkh: bytesToHex(currentAddressIndexKeychain?.publicKey!),
+              p2tr: bytesToHex(currentBitcoinTaprootAddressIndexKeychain?.publicKey!),
+              p2wpkh: bytesToHex(currentBitcoinNativeSegwitAddressIndexKeychain?.publicKey!),
             },
           },
         });
@@ -113,8 +122,10 @@ export function useFinishAuthRequest() {
       walletType,
       appIcon,
       appName,
+      deriveTaprootAccountAtIndex,
       deriveNativeSegWitAccountAtIndex,
-      currentAddressIndexKeychain?.publicKey,
+      currentBitcoinTaprootAddressIndexKeychain?.publicKey,
+      currentBitcoinNativeSegwitAddressIndexKeychain?.publicKey,
       keyActions,
     ]
   );

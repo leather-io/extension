@@ -9,7 +9,13 @@ export function hasInscriptions(data: unknown[]) {
   return data.length !== 0;
 }
 
-export function getTaprootAddress(index: number, keychain: HDKey, network: NetworkModes) {
+interface GetTaprootAddressArgs {
+  index: number;
+  keychain?: HDKey;
+  network: NetworkModes;
+}
+export function getTaprootAddress({ index, keychain, network }: GetTaprootAddressArgs) {
+  if (!keychain) throw new Error('Expected keychain to be provided.');
   if (keychain.depth !== DerivationPathDepth.Account)
     throw new Error('Expects keychain to be on the account index');
 
