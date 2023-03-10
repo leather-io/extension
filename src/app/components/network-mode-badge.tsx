@@ -27,6 +27,7 @@ export const NetworkModeBadge = memo((props: FlexProps) => {
       alignItems="center"
       px="12px"
       position="relative"
+      top="6px"
       zIndex={999}
       _hover={{ cursor: 'pointer', bg: color('bg-4') }}
       onClick={() => navigate(RouteUrls.SelectNetwork, { relative: 'path' })}
