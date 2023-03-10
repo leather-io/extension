@@ -77,7 +77,7 @@ export function makeTxExplorerLink({
 }: MakeTxExplorerLinkArgs) {
   switch (blockchain) {
     case 'bitcoin':
-      return `https://blockstream.info/${mode === 'testnet' ? 'testnet/' : ''}tx/${txid}`;
+      return `https://mempool.space/${mode === 'testnet' ? 'testnet/' : ''}tx/${txid}`;
     case 'stacks':
       return `https://explorer.stacks.co/txid/${txid}?chain=${mode}${suffix}`;
     default:
