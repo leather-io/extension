@@ -3525,12 +3525,12 @@
     "@types/node" "^18.0.4"
     buffer "^6.0.3"
 
-"@stacks/connect-react@22.0.0":
-  version "22.0.0"
-  resolved "https://registry.yarnpkg.com/@stacks/connect-react/-/connect-react-22.0.0.tgz#d7edd95bec9f2ef524847006d81fbe8f7fd2964f"
-  integrity sha512-3GXcys6o82uBXIJSD7Yrd5bL/9ypXpY8WFchjx6BcGpHz9GDhYUvbn2oJke3HAzsJTugndYFYY/zmBUua3B0QA==
+"@stacks/connect-react@5.0.6-alpha.9d9606f.0":
+  version "5.0.6-alpha.9d9606f.0"
+  resolved "https://registry.yarnpkg.com/@stacks/connect-react/-/connect-react-5.0.6-alpha.9d9606f.0.tgz#3647f71f69708a50dff3da46c4a483fc3dc46dd2"
+  integrity sha512-dweidsbJoIV5qJYF1jB1W1mxguDs8+PEbKneCzXhhLoOQaLENqAti1GHFZckUeUaMomUnbps7OevjYr/Wbc/pg==
   dependencies:
-    "@stacks/connect" "7.2.0"
+    "@stacks/connect" "^5.0.6-alpha.9d9606f.0"
     jsontokens "^4.0.1"
 
 "@stacks/connect-ui@6.0.0":
@@ -3540,20 +3540,20 @@
   dependencies:
     "@stencil/core" "^2.17.1"
 
-"@stacks/connect-ui@6.0.1":
-  version "6.0.1"
-  resolved "https://registry.yarnpkg.com/@stacks/connect-ui/-/connect-ui-6.0.1.tgz#1604f15df9b49b15c974ce65a786995ed5a2aa74"
-  integrity sha512-DOB2UdwLJAznHfsOmloTzK7JDIfxwUq+GqEH6z0snxA3Gsu2aernlLhwUW1QLFXQtPw/fUp1ty+re71qHUc6tg==
+"@stacks/connect-ui@^5.0.6-alpha.9d9606f.0":
+  version "5.5.4"
+  resolved "https://registry.yarnpkg.com/@stacks/connect-ui/-/connect-ui-5.5.4.tgz#f9612e2b05cbc0f013656ce16d07cdcb389bd0ca"
+  integrity sha512-xstC05PoxpPeA2HWytkJp/NJBtDEPDUoHuUyyvpuqS7f95rsHyx/tLFWv9ElxWiIbeMPPDEQipoy6S1qnZb8jw==
   dependencies:
     "@stencil/core" "^2.17.1"
 
-"@stacks/connect@7.2.0":
-  version "7.2.0"
-  resolved "https://registry.yarnpkg.com/@stacks/connect/-/connect-7.2.0.tgz#4eb815b8d6ec973c994c0e66eab220ef962895f7"
-  integrity sha512-3Y4bO31yCp0Cmf/W+fYxjRbONNK6Rb5ZaRxqfqgO+wKxHrYr1VoZobv109HF/z14a4zCECvvfqXVU6sls+FCXQ==
+"@stacks/connect@5.0.6-alpha.9d9606f.0", "@stacks/connect@^5.0.6-alpha.9d9606f.0":
+  version "5.0.6-alpha.9d9606f.0"
+  resolved "https://registry.yarnpkg.com/@stacks/connect/-/connect-5.0.6-alpha.9d9606f.0.tgz#39c2a16bf981c7d1c84d101b49ea9184723f053c"
+  integrity sha512-Ec0txcTn4HaR7BF28NX+l+prfAPIkOP0hGFu+CbbJMqrh8qg9tzBGY/DD6VEw1Ft7WnMhrmJavSYkLfYO/88MQ==
   dependencies:
     "@stacks/auth" "^6.1.1"
-    "@stacks/connect-ui" "6.0.1"
+    "@stacks/connect-ui" "^5.0.6-alpha.9d9606f.0"
     "@stacks/network" "^6.1.1"
     "@stacks/profile" "^6.1.1"
     "@stacks/transactions" "^6.1.1"

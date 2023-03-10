@@ -43,7 +43,7 @@ export function RetrieveTaprootToNativeSegwitLayout(
           width="100%"
           my="loose"
         >
-          Retreive bitcoin
+          Retrieve bitcoin
         </PrimaryButton>
       </Flex>
     </BaseDrawer>

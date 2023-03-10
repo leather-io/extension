@@ -17,9 +17,9 @@ export function useGenerateSignedOrdinalTx(utxo: TaprootUtxo, fee: bigint) {
 
   return useCallback(
     (values: OrdinalSendFormValues) => {
-      const signer = createSigner(utxo.addressIndex);
+      const signer = createSigner?.(utxo.addressIndex);
 
-      if (!feeRate) return;
+      if (!signer || !feeRate) return;
 
       try {
         const tx = new btc.Transaction();

@@ -42,20 +42,19 @@ export function usePsbtRequest() {
     setTx(tx);
   });
 
-  // TODO: Use for decoding the PSBT details (v2)
-  // const getPsbtDetails = () => {
-  //   if (!tx) return;
-  //   try {
-  //     return btc.RawPSBTV0.decode(hexToBytes(psbtPayload.hex));
-  //   } catch (e0) {
-  //     try {
-  //       return btc.RawPSBTV2.decode(hexToBytes(psbtPayload.hex));
-  //     } catch (e2) {
-  //       logger.error('Error parsing psbt version', e0);
-  //     }
-  //   }
-  //   return;
-  // };
+  const getPsbtDetails = () => {
+    if (!psbtPayload || !tx) return;
+    try {
+      return btc.RawPSBTV0.decode(hexToBytes(psbtPayload.hex));
+    } catch (e0) {
+      try {
+        return btc.RawPSBTV2.decode(hexToBytes(psbtPayload.hex));
+      } catch (e2) {
+        logger.error('Error parsing psbt version', e0);
+      }
+    }
+    return;
+  };
 
   const onCancel = () => {
     void analytics.track('request_psbt_cancel');
@@ -68,26 +67,30 @@ export function usePsbtRequest() {
 
     if (!tx) return logger.error('No psbt to sign');
 
-    const idx = psbtPayload?.signAtIndex;
+    const indexes = psbtPayload?.signAtIndex;
     const allowedSighash = psbtPayload?.allowedSighash;
 
-    if (!isUndefined(idx) && idx >= 0) {
-      try {
-        signNativeSegwitTxAtIndex({ allowedSighash, idx, tx });
-      } catch (e1) {}
-      try {
-        signTaprootTxAtIndex({ allowedSighash, idx, tx });
-      } catch (e2) {
-        logger.error('Error signing tx at provided index', e2);
-      }
+    if (!isUndefined(indexes) && indexes.length) {
+      indexes.map(idx => {
+        try {
+          signNativeSegwitTxAtIndex({ allowedSighash, idx, tx });
+        } catch (e1) {
+          try {
+            signTaprootTxAtIndex({ allowedSighash, idx, tx });
+          } catch (e2) {
+            logger.error('Error signing tx at provided index', e1, e2);
+          }
+        }
+      });
     } else {
       try {
         signNativeSegwitTx(tx);
-      } catch (e1) {}
-      try {
-        signTaprootTx(tx);
-      } catch (e2) {
-        logger.error('Error signing tx', e2);
+      } catch (e1) {
+        try {
+          signTaprootTx(tx);
+        } catch (e2) {
+          logger.error('Error signing tx', e1, e2);
+        }
       }
     }
 
@@ -105,12 +108,14 @@ export function usePsbtRequest() {
   };
 
   const appName = psbtPayload?.appDetails?.name;
+  const psbtDetails = getPsbtDetails();
 
   return {
     appName,
     isLoading,
     onCancel,
     onSignPsbt,
+    psbtDetails,
     psbtPayload,
     requestToken,
   };
