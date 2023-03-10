@@ -20,5 +20,5 @@ export function StxBalance(props: BalanceProps) {
     [balances]
   );
 
-  return <Caption variant="c3">{balance}</Caption>;
+  return <Caption variant="c2">{balance}</Caption>;
 }
