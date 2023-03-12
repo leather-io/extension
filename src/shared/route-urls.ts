@@ -52,6 +52,7 @@ export enum RouteUrls {
   EditNonce = 'edit-nonce',
   SelectNetwork = 'choose-network',
   SignOutConfirm = 'sign-out',
+  RetriveTaprootFunds = 'retrive-taproot-funds',
 
   // Send crypto asset routes
   SendCryptoAsset = '/send',
@@ -61,6 +62,8 @@ export enum RouteUrls {
   SendBtcDisabled = '/send/btc/disabled',
   SendStxConfirmation = '/send/stx/confirm',
   SendStacksSip10Confirmation = '/send/:symbol/confirm',
+  SentBtcTxSummary = '/sent/btc/:txId',
+  SentStxTxSummary = '/sent/stx/:txId',
 
   // Send ordinal inscriptions
   SendOrdinalInscription = '/send/ordinal-inscription',

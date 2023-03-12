@@ -5,6 +5,8 @@ import { Prettify } from '@app/common/type-utils';
 import { AppUseQueryConfig } from '@app/query/query-config';
 import { QueryPrefixes } from '@app/query/query-prefixes';
 
+import { TaprootUtxo } from './use-taproot-address-utxos.query';
+
 /**
  * Schema of data used from the `GET https://ordapi.xyz/output/:tx` endpoint. Additional data
  * that is not currently used by the app may be returned by this endpoint.
@@ -30,6 +32,7 @@ async function getOrdinalsAwareUtxo(
   if (!res.ok) throw new Error('Failed to fetch txid metadata');
 
   const data = await res.json();
+  if (Object.keys(data).length === 0) throw new Error('No output data found');
   return ordApiGetTransactionOutput.validate(data);
 }
 
@@ -42,33 +45,26 @@ const queryOptions = {
   staleTime: 15 * 60 * 1000, // 15 minutes
 } as const;
 
-interface UseOrdinalsAwareUtxoQueryArgs {
-  txid: string;
-  index: number;
-}
 export function useOrdinalsAwareUtxoQuery<T extends unknown = OrdApiXyzGetTransactionOutput>(
-  { txid, index }: UseOrdinalsAwareUtxoQueryArgs,
+  { txid, vout }: TaprootUtxo,
   options?: AppUseQueryConfig<OrdApiXyzGetTransactionOutput, T>
 ) {
   return useQuery({
     queryKey: makeOrdinalsAwareUtxoQueryKey(txid),
-    queryFn: () => getOrdinalsAwareUtxo(txid, index),
+    queryFn: () => getOrdinalsAwareUtxo(txid, vout),
     ...queryOptions,
     ...options,
   });
 }
 
-// ts-unused-exports:disable-next-line
-export function useOrdinalsAwareUtxoQueries<T extends unknown = OrdApiXyzGetTransactionOutput>(
-  outputs: UseOrdinalsAwareUtxoQueryArgs[],
-  options?: AppUseQueryConfig<OrdApiXyzGetTransactionOutput, T>
-) {
+export function useOrdinalsAwareUtxoQueries(outputs: TaprootUtxo[]) {
   return useQueries({
-    queries: outputs.map(({ txid, index }) => ({
-      queryKey: makeOrdinalsAwareUtxoQueryKey(txid),
-      queryFn: () => getOrdinalsAwareUtxo(txid, index),
+    queries: outputs.map(utxo => ({
+      queryKey: makeOrdinalsAwareUtxoQueryKey(utxo.txid),
+      queryFn: () => getOrdinalsAwareUtxo(utxo.txid, utxo.vout),
+      select: (resp: OrdApiXyzGetTransactionOutput) =>
+        ({ ...utxo, ...resp } as TaprootUtxo & OrdApiXyzGetTransactionOutput),
       ...queryOptions,
-      ...options,
     })),
   });
 }

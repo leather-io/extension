@@ -1,6 +1,8 @@
 import toast from 'react-hot-toast';
+import { useLocation } from 'react-router-dom';
 
 import { useClipboard } from '@stacks/ui';
+import get from 'lodash.get';
 
 import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
 import { useCurrentAccountIndex } from '@app/store/accounts/account';
@@ -11,8 +13,11 @@ import { ReceiveTokensLayout } from './components/receive-tokens.layout';
 
 export function ReceiveBtcModal() {
   const accountIndex = useCurrentAccountIndex();
-  const btcAddress = useBtcNativeSegwitAccountIndexAddressIndexZero(accountIndex);
+  const activeAccountBtcAddress = useBtcNativeSegwitAccountIndexAddressIndexZero(accountIndex);
   const analytics = useAnalytics();
+  const { state } = useLocation();
+  const btcAddress = get(state, 'btcAddress', activeAccountBtcAddress);
+
   const { onCopy } = useClipboard(btcAddress);
 
   function copyToClipboard() {

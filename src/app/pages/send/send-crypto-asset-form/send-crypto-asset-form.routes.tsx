@@ -13,6 +13,8 @@ import { BroadcastError } from '../broadcast-error/broadcast-error';
 import { ChooseCryptoAsset } from '../choose-crypto-asset/choose-crypto-asset';
 import { SendBtcDisabled } from '../choose-crypto-asset/components/send-btc-disabled';
 import { SendContainer } from '../send-container';
+import { BtcSentSummary } from '../sent-summary/btc-sent-summary';
+import { StxSentSummary } from '../sent-summary/stx-sent-summary';
 import { RecipientAccountsDrawer } from './components/recipient-accounts-drawer/recipient-accounts-drawer';
 import { BtcSendForm } from './form/btc/btc-send-form';
 import { BtcSendFormConfirmation } from './form/btc/btc-send-form-confirmation';
@@ -68,5 +70,7 @@ export const sendCryptoAssetFormRoutes = (
       {recipientAccountsDrawerRoute}
     </Route>
     <Route path="/send/:symbol/confirm" element={<StacksSip10SendFormConfirmation />} />
+    <Route path={RouteUrls.SentBtcTxSummary} element={<BtcSentSummary />}></Route>
+    <Route path={RouteUrls.SentStxTxSummary} element={<StxSentSummary />}></Route>
   </Route>
 );
