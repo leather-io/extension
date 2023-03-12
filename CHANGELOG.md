@@ -1,3 +1,19 @@
+## [4.9.0](https://github.com/hirosystems/stacks-wallet-web/compare/v4.8.1...v4.9.0) (2023-03-12)
+
+
+### Features
+
+* add routes for recovering tr funds ([97d3bc9](https://github.com/hirosystems/stacks-wallet-web/commit/97d3bc9e50a65905baab51e5ca54bfdffec55260))
+* add sent btc and stx summary pages ([0a9f87b](https://github.com/hirosystems/stacks-wallet-web/commit/0a9f87b6b11d6ea72a3a48c175ea206bcf94fcb2))
+* change link to mempool in btc txs ([a7cf682](https://github.com/hirosystems/stacks-wallet-web/commit/a7cf6828461d5f0f9575224f71a31d6147b69366))
+* open btc receive modal on copy icon click ([c51bbc0](https://github.com/hirosystems/stacks-wallet-web/commit/c51bbc08b4ebd2741364acc3f94e3eda5e3ce692))
+* open input on fees click ([d92a1f0](https://github.com/hirosystems/stacks-wallet-web/commit/d92a1f03d0bfd4ee42702bd282a4b016f50ee318))
+
+
+### Internal
+
+* broadcast transaction hook ([05c5b7d](https://github.com/hirosystems/stacks-wallet-web/commit/05c5b7dbf4896749810636406eb6cee29b7d1f8b))
+
 ## [4.8.1](https://github.com/hirosystems/stacks-wallet-web/compare/v4.8.0...v4.8.1) (2023-03-09)
 
 
