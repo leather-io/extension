@@ -8,6 +8,7 @@ interface ConfirmationRouteState {
   decimals?: number;
   token?: string;
   tx: string;
+  hasHeaderTitle?: boolean;
 }
 
 interface ConfirmationRouteStacksSip10Args {
@@ -31,6 +32,7 @@ export function useSendFormNavigate() {
             tx,
             recipient,
             fee,
+            hasHeaderTitle: true,
           } as ConfirmationRouteState,
         });
       },
@@ -39,6 +41,7 @@ export function useSendFormNavigate() {
           replace: true,
           state: {
             tx: bytesToHex(tx.serialize()),
+            hasHeaderTitle: true,
           } as ConfirmationRouteState,
         });
       },

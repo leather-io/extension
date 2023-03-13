@@ -11,7 +11,8 @@ export function SendContainer() {
   const navigate = useNavigate();
 
   useRouteHeader(
-    <Header hideActions onClose={() => navigate('..', { relative: 'path' })} title="Send" />
+    <Header hideActions onClose={() => navigate('..', { relative: 'path' })} title="Send" />,
+    true
   );
 
   return whenPageMode({

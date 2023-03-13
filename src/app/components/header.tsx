@@ -1,5 +1,5 @@
 import { memo, useMemo } from 'react';
-import { FiArrowLeft, FiMoreHorizontal } from 'react-icons/fi';
+import { FiArrowLeft, FiMoreHorizontal, FiX } from 'react-icons/fi';
 import { useLocation, useNavigate } from 'react-router-dom';
 
 import { Box, Flex, FlexProps, IconButton, Stack, Text, color, useMediaQuery } from '@stacks/ui';
@@ -17,12 +17,13 @@ import { Title } from '@app/components/typography';
 
 interface HeaderProps extends FlexProps {
   actionButton?: JSX.Element;
+  closeIcon?: boolean;
   hideActions?: boolean;
   onClose?(): void;
   title?: string;
 }
 export const Header: React.FC<HeaderProps> = memo(props => {
-  const { actionButton, hideActions, onClose, title, ...rest } = props;
+  const { actionButton, hideActions, onClose, closeIcon, title, ...rest } = props;
   const { isShowingSettings, setIsShowingSettings } = useDrawers();
   const { pathname } = useLocation();
   const navigate = useNavigate();
@@ -61,8 +62,8 @@ export const Header: React.FC<HeaderProps> = memo(props => {
       {...rest}
     >
       {onClose ? (
-        <Box flexBasis="20%">
-          <IconButton alignSelf="center" icon={FiArrowLeft} iconSize="16px" onClick={onClose} />
+        <Box flexBasis="20%" onClick={onClose} as="button">
+          <IconButton alignSelf="center" icon={closeIcon ? FiX : FiArrowLeft} iconSize="16px" />
         </Box>
       ) : null}
       {!title && (!onClose || desktopViewport) ? (
