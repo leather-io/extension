@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useCallback, useState } from 'react';
 
 import { bytesToHex, hexToBytes } from '@noble/hashes/utils';
 import * as btc from '@scure/btc-signer';
@@ -6,7 +6,7 @@ import { PsbtPayload } from '@stacks/connect';
 
 import { finalizePsbt } from '@shared/actions/finalize-psbt';
 import { logger } from '@shared/logger';
-import { isUndefined } from '@shared/utils';
+import { isNumber, isUndefined } from '@shared/utils';
 
 import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
 import { useOnMount } from '@app/common/hooks/use-on-mount';
@@ -42,7 +42,7 @@ export function usePsbtRequest() {
     setTx(tx);
   });
 
-  const getPsbtDetails = () => {
+  const getPsbtDetails = useCallback(() => {
     if (!psbtPayload || !tx) return;
     try {
       return btc.RawPSBTV0.decode(hexToBytes(psbtPayload.hex));
@@ -54,34 +54,46 @@ export function usePsbtRequest() {
       }
     }
     return;
-  };
+  }, [psbtPayload, tx]);
 
-  const onCancel = () => {
+  const onCancel = useCallback(() => {
     void analytics.track('request_psbt_cancel');
     finalizePsbt({ requestPayload: requestToken ?? '', tabId, data: 'cancel' });
-  };
+  }, [analytics, requestToken, tabId]);
 
-  const onSignPsbt = async () => {
+  const signPsbtAtIndex = useCallback(
+    (allowedSighash, idx, tx) => {
+      try {
+        signNativeSegwitTxAtIndex({ allowedSighash, idx, tx });
+      } catch (e1) {
+        try {
+          signTaprootTxAtIndex({ allowedSighash, idx, tx });
+        } catch (e2) {
+          logger.error('Error signing tx at provided index', e1, e2);
+        }
+      }
+    },
+    [signNativeSegwitTxAtIndex, signTaprootTxAtIndex]
+  );
+
+  const onSignPsbt = useCallback(() => {
     setIsLoading(true);
     void analytics.track('request_sign_psbt_submit');
 
     if (!tx) return logger.error('No psbt to sign');
 
-    const indexes = psbtPayload?.signAtIndex;
+    const indexOrIndexes = psbtPayload?.signAtIndex;
     const allowedSighash = psbtPayload?.allowedSighash;
 
-    if (!isUndefined(indexes) && indexes.length) {
-      indexes.map(idx => {
-        try {
-          signNativeSegwitTxAtIndex({ allowedSighash, idx, tx });
-        } catch (e1) {
-          try {
-            signTaprootTxAtIndex({ allowedSighash, idx, tx });
-          } catch (e2) {
-            logger.error('Error signing tx at provided index', e1, e2);
-          }
-        }
-      });
+    if (!isUndefined(indexOrIndexes)) {
+      if (Array.isArray(indexOrIndexes) && indexOrIndexes.length) {
+        indexOrIndexes.map(idx => {
+          signPsbtAtIndex(allowedSighash, idx, tx);
+        });
+      }
+      if (isNumber(indexOrIndexes)) {
+        signPsbtAtIndex(allowedSighash, indexOrIndexes, tx);
+      }
     } else {
       try {
         signNativeSegwitTx(tx);
@@ -105,7 +117,17 @@ export function usePsbtRequest() {
       tabId,
       data: { hex: bytesToHex(psbt) },
     });
-  };
+  }, [
+    analytics,
+    psbtPayload?.allowedSighash,
+    psbtPayload?.signAtIndex,
+    requestToken,
+    signNativeSegwitTx,
+    signPsbtAtIndex,
+    signTaprootTx,
+    tabId,
+    tx,
+  ]);
 
   const appName = psbtPayload?.appDetails?.name;
   const psbtDetails = getPsbtDetails();

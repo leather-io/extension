@@ -20,7 +20,7 @@ export function useNextFreshTaprootAddressQuery() {
   return useQuery(
     ['next-taproot-address', bytesToHex(keychain?.pubKeyHash!), network.id] as const,
     async () => {
-      if (!keychain) throw new Error('Expected keychain to be provided.');
+      if (!keychain) throw new Error('Expected keychain to be provided');
 
       async function taprootAddressIndexActivity(index: number) {
         const address = getTaprootAddress({
