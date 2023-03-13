@@ -37,6 +37,7 @@ import { BroadcastError } from '@app/pages/send/broadcast-error/broadcast-error'
 import { SendInscription } from '@app/pages/send/ordinal-inscription/send-inscription-container';
 import { SendInscriptionForm } from '@app/pages/send/ordinal-inscription/send-inscription-form';
 import { SendInscriptionReview } from '@app/pages/send/ordinal-inscription/send-inscription-review';
+import { SendInscriptionSummary } from '@app/pages/send/ordinal-inscription/sent-inscription-summary';
 import { sendCryptoAssetFormRoutes } from '@app/pages/send/send-crypto-asset-form/send-crypto-asset-form.routes';
 import { SignOutConfirmDrawer } from '@app/pages/sign-out-confirm/sign-out-confirm';
 import { TransactionRequest } from '@app/pages/transaction-request/transaction-request';
@@ -99,6 +100,10 @@ function AppRoutesAfterUserHasConsented() {
             <Route
               path={RouteUrls.SendOrdinalInscriptionReview}
               element={<SendInscriptionReview />}
+            />
+            <Route
+              path={RouteUrls.SendOrdinalInscriptionSent}
+              element={<SendInscriptionSummary />}
             />
             <Route path={RouteUrls.SendOrdinalInscriptionError} element={<BroadcastError />} />
           </Route>

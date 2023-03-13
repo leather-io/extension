@@ -10,6 +10,7 @@ import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
 import { useHomeTabs } from '@app/common/hooks/use-home-tabs';
 import { formatMoneyPadded } from '@app/common/money/format-money';
 import { delay } from '@app/common/utils';
+import { FormAddressDisplayer } from '@app/components/address-displayer/form-address-displayer';
 import { ExternalLink } from '@app/components/external-link';
 import { InfoCard, InfoCardRow, InfoCardSeparator } from '@app/components/info-card/info-card';
 import {
@@ -58,7 +59,7 @@ export function RetrieveTaprooToNativeSegwit() {
     >
       <InfoCard mt="loose">
         <Stack width="100%">
-          <InfoCardRow title="Your address" value={recipient} isAddressDisplayer />
+          <InfoCardRow title="Your address" value={<FormAddressDisplayer address={recipient} />} />
           <InfoCardSeparator />
           <InfoCardRow title="Amount" value={formatMoneyPadded(balance)} />
           <InfoCardRow title="Fee" value={formatMoneyPadded(fee)} />

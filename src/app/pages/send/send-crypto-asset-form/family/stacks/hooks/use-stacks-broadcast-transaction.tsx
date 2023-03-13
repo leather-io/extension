@@ -1,4 +1,4 @@
-import { useMemo } from 'react';
+import { useMemo, useState } from 'react';
 import toast from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
 
@@ -31,6 +31,7 @@ export function useStacksBroadcastTransaction(unsignedTx: string) {
   const { setActiveTabActivity } = useHomeTabs();
   const signSoftwareWalletTx = useSignTransactionSoftwareWallet();
   const stxMarketData = useCryptoCurrencyMarketData('STX');
+  const [isBroadcasting, setIsBroadcasting] = useState(false);
   const navigate = useNavigate();
 
   const broadcastTransactionFn = useSubmitTransactionCallback({
@@ -48,35 +49,44 @@ export function useStacksBroadcastTransaction(unsignedTx: string) {
     function handlePreviewSuccess(txId: string, signedTx: StacksTransaction) {
       navigate(
         RouteUrls.SentStxTxSummary.replace(':txId', `${txId}`),
-        formSummaryTxState(txId, signedTx)
+        formSentSummaryTxState(txId, signedTx)
       );
     }
 
-    function formSummaryTxState(txId: string, signedTx: StacksTransaction) {
-      const payload = signedTx.payload as TokenTransferPayload;
-      const txValue = payload.amount;
-      const fee = signedTx.auth.spendingCondition.fee;
-
+    function formSentSummaryTxState(txId: string, signedTx: StacksTransaction) {
       return {
         state: {
+          hasHeaderTitle: true,
           txLink: {
             blockchain: 'stacks',
             txid: txId || '',
           },
-          recipient: addressToString(payload.recipient.address),
-          fee: formatMoney(convertToMoneyTypeWithDefaultOfZero('STX', Number(fee))),
-          totalBalance: formatMoney(
-            convertToMoneyTypeWithDefaultOfZero('STX', Number(txValue + fee))
-          ),
-          arrivesIn: getArrivesInTime(),
-          symbol: 'STX',
-          txValue: microStxToStx(Number(txValue)),
-          sendingValue: formatMoney(convertToMoneyTypeWithDefaultOfZero('STX', Number(txValue))),
           txId,
-          txFiatValue: i18nFormatCurrency(
-            baseCurrencyAmountInQuote(createMoney(Number(payload.amount), 'STX'), stxMarketData)
-          ),
+          ...formReviewTxSummary(signedTx),
         },
+      };
+    }
+
+    function formReviewTxSummary(tx: StacksTransaction) {
+      const payload = tx.payload as TokenTransferPayload;
+      const txValue = payload.amount;
+      const fee = tx.auth.spendingCondition.fee;
+      const memoContent = payload?.memo?.content ?? '';
+      const memoDisplayText = removeTrailingNullCharacters(memoContent) || 'No memo';
+
+      return {
+        recipient: addressToString(payload.recipient.address),
+        fee: formatMoney(convertToMoneyTypeWithDefaultOfZero('STX', Number(fee))),
+        totalSpend: formatMoney(convertToMoneyTypeWithDefaultOfZero('STX', Number(txValue + fee))),
+        arrivesIn: getArrivesInTime(),
+        symbol: 'STX',
+        txValue: microStxToStx(Number(txValue)),
+        sendingValue: formatMoney(convertToMoneyTypeWithDefaultOfZero('STX', Number(txValue))),
+        txFiatValue: i18nFormatCurrency(
+          baseCurrencyAmountInQuote(createMoney(Number(payload.amount), 'STX'), stxMarketData)
+        ),
+        nonce: String(tx.auth.spendingCondition.nonce),
+        memoDisplayText,
       };
     }
 
@@ -84,14 +94,16 @@ export function useStacksBroadcastTransaction(unsignedTx: string) {
       let arrivesIn = isTestnet
         ? blockTime?.testnet.target_block_time
         : blockTime?.mainnet.target_block_time;
-
       if (!arrivesIn) {
         return '~10 – 20 min';
       }
 
       arrivesIn = arrivesIn / 60;
-
       return `~${arrivesIn} min`;
+    }
+
+    function removeTrailingNullCharacters(s: string) {
+      return s.replace(/\0*$/g, '');
     }
 
     async function broadcastTransactionAction(signedTx: StacksTransaction) {
@@ -101,6 +113,7 @@ export function useStacksBroadcastTransaction(unsignedTx: string) {
         return;
       }
       try {
+        setIsBroadcasting(true);
         await broadcastTransactionFn({
           onError(e: Error | string) {
             handlePreviewClose();
@@ -117,6 +130,8 @@ export function useStacksBroadcastTransaction(unsignedTx: string) {
         navigate(RouteUrls.TransactionBroadcastError, {
           state: { message: e instanceof Error ? e.message : 'unknown error' },
         });
+      } finally {
+        setIsBroadcasting(false);
       }
     }
 
@@ -132,6 +147,8 @@ export function useStacksBroadcastTransaction(unsignedTx: string) {
     return {
       stacksDeserializedTransaction: deserializedTransaction,
       stacksBroadcastTransaction: broadcastTransaction,
+      formReviewTxSummary,
+      isBroadcasting,
     };
   }, [
     broadcastTransactionFn,
@@ -142,5 +159,6 @@ export function useStacksBroadcastTransaction(unsignedTx: string) {
     stxMarketData,
     blockTime,
     isTestnet,
+    isBroadcasting,
   ]);
 }
