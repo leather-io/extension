@@ -10,11 +10,7 @@ const inMicroblockMessage =
 export function MicroblockLabel() {
   return (
     <Flex alignItems="center">
-      <Text
-        color={color('feedback-alert')}
-        fontSize={0}
-        mr="2px"
-      >
+      <Text color={color('feedback-alert')} fontSize={0} mr="2px">
         In microblock
       </Text>
       <Tooltip label={inMicroblockMessage} placement="bottom">
@@ -23,7 +19,7 @@ export function MicroblockLabel() {
             _hover={{ cursor: 'pointer' }}
             as={FiInfo}
             color={color('feedback-alert')}
-            ml={'2px'}
+            ml="2px"
             size="10px"
           />
         </Stack>

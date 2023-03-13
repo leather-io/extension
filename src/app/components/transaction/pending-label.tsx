@@ -25,7 +25,7 @@ export function PendingLabel({
             _hover={{ cursor: 'pointer' }}
             as={FiInfo}
             color={color('feedback-alert')}
-            ml={'2px'}
+            ml="2px"
             size="10px"
           />
         </Stack>
