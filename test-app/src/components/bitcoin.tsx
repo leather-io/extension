@@ -89,26 +89,26 @@ function buildTestNativeSegwitPsbtRequestWithIndexes(pubKey: Uint8Array): PsbtRe
 }
 
 function buildTestTaprootPsbtRequest(pubKey: Uint8Array): PsbtRequestOptions {
-  const p2wpkh = btc.p2wpkh(pubKey, bitcoinTestnet);
+  const payment = getTaprootPayment(pubKey);
 
   const tx = new btc.Transaction();
 
   tx.addInput({
     index: 0,
-    tapInternalKey: getTaprootPayment(pubKey).tapInternalKey,
+    tapInternalKey: payment.tapInternalKey,
     txid: '15f34b3bd2aab555a003cd1c6959ac09b36239c6af1cb16ff8198cef64f8db9c',
     witnessUtxo: {
       amount: BigInt(1000),
-      script: p2wpkh.script,
+      script: payment.script,
     },
   });
   tx.addInput({
     index: 1,
-    tapInternalKey: getTaprootPayment(pubKey).tapInternalKey,
+    tapInternalKey: payment.tapInternalKey,
     txid: 'dca5179afaa63eae112d8a97794de2d30dd823315bcabe6d8b8a6b98e3567705',
     witnessUtxo: {
       amount: BigInt(2000),
-      script: p2wpkh.script,
+      script: payment.script,
     },
   });
 
@@ -117,39 +117,31 @@ function buildTestTaprootPsbtRequest(pubKey: Uint8Array): PsbtRequestOptions {
   return { hex: bytesToHex(psbt) };
 }
 
-function buildTestTaprootPsbtRequestWithIndexes(pubKey: Uint8Array): PsbtRequestOptions {
-  const p2wpkh = btc.p2wpkh(pubKey, bitcoinTestnet);
+function buildTestTaprootPsbtRequestWithIndex(pubKey: Uint8Array): PsbtRequestOptions {
+  const payment = getTaprootPayment(pubKey);
 
   const tx = new btc.Transaction();
 
   tx.addInput({
     index: 0,
-    tapInternalKey: getTaprootPayment(pubKey).tapInternalKey,
+    tapInternalKey: payment.tapInternalKey,
     txid: '15f34b3bd2aab555a003cd1c6959ac09b36239c6af1cb16ff8198cef64f8db9c',
     witnessUtxo: {
       amount: BigInt(1000),
-      script: p2wpkh.script,
-    },
-  });
-  tx.addInput({
-    index: 1,
-    tapInternalKey: getTaprootPayment(pubKey).tapInternalKey,
-    txid: 'dca5179afaa63eae112d8a97794de2d30dd823315bcabe6d8b8a6b98e3567705',
-    witnessUtxo: {
-      amount: BigInt(2000),
-      script: p2wpkh.script,
+      script: payment.script,
     },
   });
 
   const psbt = tx.toPSBT();
 
-  return { signAtIndex: [0, 1], hex: bytesToHex(psbt) };
+  return { signAtIndex: 0, hex: bytesToHex(psbt) };
 }
 
 export const Bitcoin = () => {
   const { userData } = useContext(AppContext);
   const { signPsbt } = useConnect();
-  const pubKey = hexToBytes(userData?.profile.btcPublicKey.p2wpkh);
+  const segwitPubKey = hexToBytes(userData?.profile.btcPublicKey.p2wpkh);
+  const taprootPubKey = hexToBytes(userData?.profile.btcPublicKey.p2tr);
 
   console.log('userData', userData);
 
@@ -178,7 +170,7 @@ export const Bitcoin = () => {
       </Text>
       <Button
         mt={3}
-        onClick={() => signTx(buildTestNativeSegwitPsbtRequest(pubKey), stacksTestnetNetwork)}
+        onClick={() => signTx(buildTestNativeSegwitPsbtRequest(segwitPubKey), stacksTestnetNetwork)}
       >
         Sign PSBT (Segwit)
       </Button>
@@ -186,7 +178,7 @@ export const Bitcoin = () => {
         ml={3}
         mt={3}
         onClick={() =>
-          signTx(buildTestNativeSegwitPsbtRequestWithIndexes(pubKey), stacksTestnetNetwork)
+          signTx(buildTestNativeSegwitPsbtRequestWithIndexes(segwitPubKey), stacksTestnetNetwork)
         }
       >
         Sign PSBT at indexes (SegWit)
@@ -194,16 +186,18 @@ export const Bitcoin = () => {
       <Button
         ml={3}
         mt={3}
-        onClick={() => signTx(buildTestTaprootPsbtRequest(pubKey), stacksTestnetNetwork)}
+        onClick={() => signTx(buildTestTaprootPsbtRequest(taprootPubKey), stacksTestnetNetwork)}
       >
         Sign PSBT (Taproot)
       </Button>
       <Button
         ml={3}
         mt={3}
-        onClick={() => signTx(buildTestTaprootPsbtRequestWithIndexes(pubKey), stacksTestnetNetwork)}
+        onClick={() =>
+          signTx(buildTestTaprootPsbtRequestWithIndex(taprootPubKey), stacksTestnetNetwork)
+        }
       >
-        Sign PSBT at indexes (Taproot)
+        Sign PSBT at index (Taproot)
       </Button>
     </Box>
   );

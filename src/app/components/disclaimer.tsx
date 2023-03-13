@@ -19,7 +19,7 @@ export function DisclaimerLayout({ disclaimerText, learnMoreUrl }: DisclaimerPro
             Learn more
           </Link>
         ) : null}
-        .
+        {learnMoreUrl ? '.' : null}
       </Caption>
     </Box>
   );

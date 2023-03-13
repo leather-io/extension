@@ -108,7 +108,7 @@ export function useAllBitcoinTaprootNetworksByAccount() {
 export function useCurrentAccountTaprootSigner() {
   const network = useCurrentNetwork();
   const accountKeychain = useCurrentTaprootAccountKeychain();
-  if (!accountKeychain) return;
+  if (!accountKeychain) return; // TODO: Revisit this return early
   const addressIndexKeychainFn = deriveAddressIndexKeychainFromAccount(accountKeychain);
 
   return (addressIndex: number) => {
