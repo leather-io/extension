@@ -1,4 +1,5 @@
 import { Box, Text } from '@stacks/ui';
+import { sanitize } from 'dompurify';
 
 import { useTextInscriptionContentQuery } from '@app/query/bitcoin/ordinals/use-text-ordinal-content.query';
 
@@ -35,7 +36,7 @@ export function CollectibleTextLayout(props: CollectibleTextLayoutProps) {
         backgroundImage: 'linear-gradient(rgba(0,0,0,0), rgba(0,0,0,1))',
       }}
     >
-      <Text>{query.data}</Text>
+      <Text>{sanitize(query.data)}</Text>
     </Box>
   );
 }
