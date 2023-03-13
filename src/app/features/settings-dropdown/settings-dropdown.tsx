@@ -36,7 +36,7 @@ export function SettingsDropdown() {
   const hasGeneratedWallet = !!useCurrentStacksAccount();
   const wallet = useStacksWallet();
   const { lockWallet } = useKeyActions();
-  const [hasCreatedAccount, setHasCreatedAccount] = useHasCreatedAccount();
+  const [hasCreatedAccount] = useHasCreatedAccount();
   const { setIsShowingSettings, isShowingSettings, setIsShowingSwitchAccountsState } = useDrawers();
   const currentNetworkId = useCurrentNetworkId();
   const navigate = useNavigate();
