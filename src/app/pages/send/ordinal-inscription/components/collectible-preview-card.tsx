@@ -6,9 +6,14 @@ import { CollectibleMetadata } from './metadata';
 
 interface CollectiblePreviewCardProps extends FlexProps {
   inscription: Inscription;
+  icon?: JSX.Element;
 }
 
-export function CollectiblePreviewCard({ inscription, ...props }: CollectiblePreviewCardProps) {
+export function CollectiblePreviewCard({
+  inscription,
+  icon,
+  ...props
+}: CollectiblePreviewCardProps) {
   return (
     <Flex
       border="1px solid"
@@ -21,7 +26,7 @@ export function CollectiblePreviewCard({ inscription, ...props }: CollectiblePre
       {...props}
     >
       <CollectibleImage inscription={inscription} />
-      <CollectibleMetadata inscription={inscription} />
+      <CollectibleMetadata inscription={inscription} icon={icon} />
     </Flex>
   );
 }

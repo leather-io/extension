@@ -2,7 +2,6 @@ import { Box, Button, Flex, FlexProps, Stack, Text } from '@stacks/ui';
 
 import { isString } from '@shared/utils';
 
-import { AddressDisplayer } from '../address-displayer/address-displayer';
 import { SpaceBetween } from '../layout/space-between';
 
 // InfoCard
@@ -21,28 +20,18 @@ export function InfoCard({ children, ...props }: InfoCardProps) {
 interface InfoCardRowProps {
   title: string;
   value: React.ReactNode;
-  isAddressDisplayer?: boolean;
 }
 
-export function InfoCardRow({ title, value, isAddressDisplayer }: InfoCardRowProps) {
+export function InfoCardRow({ title, value }: InfoCardRowProps) {
   return (
     <SpaceBetween fontSize="14px" alignItems="start">
       <Text color="#74777D">{title}</Text>
-      {isAddressDisplayer && isString(value) ? (
-        <Box
-          maxWidth="300px"
-          display="flex"
-          flexWrap="wrap"
-          justifyContent="end"
-          mr="-8px"
-          fontSize="16px"
-        >
-          <AddressDisplayer address={value} />
-        </Box>
-      ) : (
+      {isString(value) ? (
         <Text color="#242629" fontWeight="500">
           {value}
         </Text>
+      ) : (
+        value
       )}
     </SpaceBetween>
   );
@@ -76,7 +65,7 @@ export function InfoCardAssetValue({ value, fiatValue, symbol, icon }: InfoCardA
       border="1px solid #EFEFF2"
       borderRadius="10px"
     >
-      {icon && <Box as={icon} size="16px" />}
+      {icon && <Box as={icon} size="32px" />}
 
       <Flex flexDirection="column" alignItems="center">
         <Text fontSize="24px" fontWeight="500" mb="4px" lineHeight="36px">
