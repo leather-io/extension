@@ -338,8 +338,3 @@ export const parseIfValidPunycode = (s: string) => {
     return s;
   }
 };
-
-export function isTypedArray(obj: any) {
-  const TypedArray = Object.getPrototypeOf(Uint8Array);
-  return obj instanceof TypedArray;
-}

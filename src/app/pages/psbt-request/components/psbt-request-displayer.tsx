@@ -1,8 +1,6 @@
 import { Box, Text, color } from '@stacks/ui';
 
-import { isUndefined } from '@shared/utils';
-
-import { isTypedArray } from '@app/common/utils';
+import { isTypedArray, isUndefined } from '@shared/utils';
 
 function wrapText(text: string): JSX.Element {
   return <Text wordWrap="break-word">{text}</Text>;
