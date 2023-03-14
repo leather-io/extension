@@ -7,7 +7,7 @@ import { useAnchoredStacksAccountBalances } from '@app/query/stacks/balance/stx-
 interface BalanceProps {
   address: string;
 }
-export function Balance(props: BalanceProps) {
+export function StxBalance(props: BalanceProps) {
   const { address } = props;
   const { data: balances } = useAnchoredStacksAccountBalances(address);
 
