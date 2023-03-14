@@ -7,7 +7,11 @@ import { RouteUrls } from '@shared/route-urls';
 import { Link } from '@app/components/link';
 import { WarningLabel } from '@app/components/warning-label';
 
-export function ReceiveBtcModalWarning() {
+interface ReceiveBtcModalWarningProps {
+  accountIndex: number;
+}
+
+export function ReceiveBtcModalWarning({ accountIndex }: ReceiveBtcModalWarningProps) {
   const navigate = useNavigate();
 
   return (
@@ -17,7 +21,7 @@ export function ReceiveBtcModalWarning() {
           Do not deposit Ordinal inscriptions here
         </Text>
         <Link
-          onClick={() => navigate(RouteUrls.ReceiveCollectible)}
+          onClick={() => navigate(RouteUrls.ReceiveCollectible, { state: { accountIndex } })}
           color="blue"
           display="inline-block"
           fontSize={1}

@@ -1,9 +1,10 @@
 import toast from 'react-hot-toast';
 import { FiCopy } from 'react-icons/fi';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 import { Box, Button, Flex, Stack, useClipboard } from '@stacks/ui';
 import { truncateMiddle } from '@stacks/ui-utils';
+import get from 'lodash.get';
 
 import { RouteUrls } from '@shared/route-urls';
 
@@ -18,7 +19,10 @@ import { useCurrentAccountStxAddressState } from '@app/store/accounts/blockchain
 export function ReceiveCollectible() {
   const analytics = useAnalytics();
   const navigate = useNavigate();
-  const { isLoading, isError, data: btcAddress } = useNextFreshTaprootAddressQuery();
+  const location = useLocation();
+  const accountIndex = get(location.state, 'accountIndex', undefined);
+
+  const { isLoading, isError, data: btcAddress } = useNextFreshTaprootAddressQuery(accountIndex);
 
   const stxAddress = useCurrentAccountStxAddressState();
   const { onCopy: onCopyStacks } = useClipboard(stxAddress);
