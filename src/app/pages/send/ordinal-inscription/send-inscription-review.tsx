@@ -39,7 +39,7 @@ export function SendInscriptionReview() {
     await broadcastTx({
       tx: signedTx,
       async onSuccess() {
-        void analytics.track('broadcast_ordinal_transaction');
+        void analytics.track('send_inscription');
         await refetch();
         navigate(RouteUrls.Home);
         setActiveTabBalances();
