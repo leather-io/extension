@@ -1,3 +1,28 @@
+## [4.10.0](https://github.com/hirosystems/stacks-wallet-web/compare/v4.9.0...v4.10.0) (2023-03-14)
+
+
+### Features
+
+* add support for psbt requests ([ef053c5](https://github.com/hirosystems/stacks-wallet-web/commit/ef053c50e8465394bb36faa0488ea9793b52f52d))
+* add taproot support for psbts ([a77b034](https://github.com/hirosystems/stacks-wallet-web/commit/a77b034b8c61cbe62cc0c9e20e562b4565cb9501))
+* deliver hex ui for v1 ([dc9de34](https://github.com/hirosystems/stacks-wallet-web/commit/dc9de34e5b9a49f6d5a86be496c466c838315bdd))
+* use dompurify to escape text ordinals ([a98791f](https://github.com/hirosystems/stacks-wallet-web/commit/a98791ff1b6e39cd412c6c008c1ce5d0ee4a0dcb))
+
+
+### Bug Fixes
+
+* remove unused code ([7926e04](https://github.com/hirosystems/stacks-wallet-web/commit/7926e040084045ba19706cdab8f5f33fecadfdf2))
+* removed create account button from settings dropdown ([3f028c7](https://github.com/hirosystems/stacks-wallet-web/commit/3f028c7cbbe4a1b8362006f4472632e7a3189cb8))
+* settings dropdown rebase ([18ff479](https://github.com/hirosystems/stacks-wallet-web/commit/18ff4797612ce04e36b470841a166ac02a505603))
+* test-app taproot psbts and update pkgs ([28bb4ca](https://github.com/hirosystems/stacks-wallet-web/commit/28bb4ca7c555561ca02733217c1f79844a052e74))
+
+
+### Internal
+
+* readme for bitcoin ([0f256c6](https://github.com/hirosystems/stacks-wallet-web/commit/0f256c63fefb078a99c3cb275e6944c9cb821d0b))
+* sign at index as an array ([756c2a4](https://github.com/hirosystems/stacks-wallet-web/commit/756c2a47d838e7b498e4d1faf8b1c5c2e698351d))
+* upgrade pkg to scure-btc-signer ([6e68f28](https://github.com/hirosystems/stacks-wallet-web/commit/6e68f28412f04378270585da2bf5d707559951db))
+
 ## [4.9.0](https://github.com/hirosystems/stacks-wallet-web/compare/v4.8.1...v4.9.0) (2023-03-12)
 
 
