@@ -6,7 +6,7 @@ import { CurrentAccountAvatar } from '@app/features/current-account/current-acco
 import { CurrentAccountName } from '@app/features/current-account/current-account-name';
 import { useCurrentStacksAccount } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
 
-import { AccountTotalBalance } from './account-total-balance';
+import { AccountTotalBalance } from '../../../components/account-total-balance';
 
 export const CurrentAccount = memo((props: StackProps) => {
   const currentAccount = useCurrentStacksAccount();
