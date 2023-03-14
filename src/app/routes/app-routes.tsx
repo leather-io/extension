@@ -26,6 +26,7 @@ import { MagicRecoveryCode } from '@app/pages/onboarding/magic-recovery-code/mag
 import { SetPasswordPage } from '@app/pages/onboarding/set-password/set-password';
 import { SignIn } from '@app/pages/onboarding/sign-in/sign-in';
 import { WelcomePage } from '@app/pages/onboarding/welcome/welcome';
+import { PsbtRequest } from '@app/pages/psbt-request/psbt-request';
 import { ReceiveBtcModal } from '@app/pages/receive-tokens/receive-btc';
 import { ReceiveModal } from '@app/pages/receive-tokens/receive-modal';
 import { ReceiveStxModal } from '@app/pages/receive-tokens/receive-stx';
@@ -216,7 +217,16 @@ function AppRoutesAfterUserHasConsented() {
             </AccountGate>
           }
         />
-
+        <Route
+          path={RouteUrls.PsbtRequest}
+          element={
+            <AccountGate>
+              <Suspense fallback={<LoadingSpinner height="600px" />}>
+                <PsbtRequest />
+              </Suspense>
+            </AccountGate>
+          }
+        />
         <Route
           path={RouteUrls.ViewSecretKey}
           element={

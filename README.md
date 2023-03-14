@@ -5,9 +5,9 @@
 [![coverage](https://raw.githubusercontent.com/hirosystems/stacks-wallet-web/gh-pages/badge.svg)](https://hirosystems.github.io/stacks-wallet-web/)
 [![semantic-release](https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg)](https://github.com/semantic-release/semantic-release)
 
-Hiro Wallet is a web extension for managing your digital assets, and connecting to apps built on the Stacks blockchain.
+Hiro Wallet is the most popular and trusted wallet for apps built on Bitcoin. Connect to apps and manage assets secured by Bitcoin and Bitcoin L2s with battle-tested wallet for the Stacks blockchain.
 
-To use this extension with your own Stacks App, we recommend [@stacks/connect](https://github.com/hirosystems/connect).
+To integrate this wallet into your app, we recommend [@stacks/connect](https://github.com/hirosystems/connect).
 
 [📚 See Hiro Wallet API Reference →](https://github.com/hirosystems/stacks-wallet-web/wiki)
 
@@ -15,7 +15,7 @@ To use this extension with your own Stacks App, we recommend [@stacks/connect](h
 
 ## Development
 
-This application is a Web Extension. There is no ability to run it as a standalone web application.
+This application is a browser extension. There is no ability to run it as a standalone web application.
 
 Each child of the `src` directory represents the JavaScript context in which it is ran.
 

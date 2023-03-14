@@ -1,6 +1,6 @@
 import { hexToBytes } from '@noble/hashes/utils';
 import { HDKey } from '@scure/bip32';
-import * as btc from 'micro-btc-signer';
+import * as btc from '@scure/btc-signer';
 
 import { NetworkModes } from '@shared/constants';
 

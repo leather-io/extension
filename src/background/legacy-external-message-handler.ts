@@ -1,6 +1,7 @@
 import { formatAuthResponse } from '@shared/actions/finalize-auth-response';
 import { formatMessageSigningResponse } from '@shared/actions/finalize-message-signature';
 import { formatProfileUpdateResponse } from '@shared/actions/finalize-profile-update';
+import { formatPsbtResponse } from '@shared/actions/finalize-psbt';
 import { formatTxSignatureResponse } from '@shared/actions/finalize-tx-signature';
 import {
   ExternalMethods,
@@ -182,6 +183,19 @@ export async function handleLegacyExternalMethodFormat(
         id,
         tabId,
         response: formatProfileUpdateResponse({ request: payload, response: 'cancel' }),
+      });
+      listenForOriginTabClose({ tabId });
+      break;
+    }
+
+    case ExternalMethods.psbtRequest: {
+      const { urlParams, tabId } = makeSearchParamsWithDefaults(port, [['request', payload]]);
+
+      const { id } = await triggerRequestWindowOpen(RouteUrls.PsbtRequest, urlParams);
+      listenForPopupClose({
+        id,
+        tabId,
+        response: formatPsbtResponse({ request: payload, response: 'cancel' }),
       });
       listenForOriginTabClose({ tabId });
       break;

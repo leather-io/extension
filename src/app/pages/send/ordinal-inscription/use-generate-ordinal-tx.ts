@@ -1,7 +1,7 @@
 import { useCallback } from 'react';
 
+import * as btc from '@scure/btc-signer';
 import BigNumber from 'bignumber.js';
-import * as btc from 'micro-btc-signer';
 
 import { OrdinalSendFormValues } from '@shared/models/form.model';
 
@@ -17,9 +17,9 @@ export function useGenerateSignedOrdinalTx(utxo: TaprootUtxo, fee: bigint) {
 
   return useCallback(
     (values: OrdinalSendFormValues) => {
-      const signer = createSigner(utxo.addressIndex);
+      const signer = createSigner?.(utxo.addressIndex);
 
-      if (!feeRate) return;
+      if (!signer || !feeRate) return;
 
       try {
         const tx = new btc.Transaction();

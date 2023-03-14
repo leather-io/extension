@@ -1,5 +1,3 @@
-import { SettingsMenuSelectors } from '@tests/selectors/settings.selectors';
-
 import { RouteUrls } from '@shared/route-urls';
 
 import { delay } from '@app/common/utils';
@@ -12,7 +10,6 @@ jest.setTimeout(60_000);
 jest.retryTimes(process.env.CI ? 2 : 0);
 
 describe(`Settings integration tests`, () => {
-  const numOfAccountsToTest = 3;
   let secretKey = '';
   let browser: BrowserDriver;
   let wallet: WalletPage;
@@ -30,47 +27,6 @@ describe(`Settings integration tests`, () => {
     try {
       await browser.context.close();
     } catch (error) {}
-  });
-
-  it('should be able to create a new account', async () => {
-    await wallet.waitForSettingsButton();
-    await wallet.clickSettingsButton();
-    await wallet.page.click(createTestSelector(SettingsSelectors.CreateAccountBtn));
-
-    const expectedText = 'Account 2';
-    await wallet.page.waitForSelector(`text=${expectedText}`);
-    const displayName = await wallet.page.textContent(
-      createTestSelector(SettingsSelectors.CurrentAccountDisplayName)
-    );
-    expect(displayName).toEqual(expectedText);
-  });
-
-  it(`should be able to create ${numOfAccountsToTest} new accounts then switch between them`, async () => {
-    for (let i = 0; i < numOfAccountsToTest - 1; i++) {
-      await wallet.waitForSettingsButton();
-      await wallet.clickSettingsButton();
-      await wallet.page.click(createTestSelector(SettingsSelectors.CreateAccountBtn));
-      await delay(500);
-      await wallet.waitForHomePage();
-    }
-
-    for (let i = 0; i < numOfAccountsToTest; i++) {
-      await wallet.waitForSettingsButton();
-      await wallet.clickSettingsButton();
-      await wallet.page.click(createTestSelector(SettingsMenuSelectors.SwitchAccountMenuItem));
-      await delay(500);
-      await wallet.page.click(createTestSelector(`switch-account-item-${i}`));
-      await wallet.page.waitForSelector(
-        createTestSelector(`account-checked-${i - 1 + numOfAccountsToTest}`),
-        { state: 'hidden' }
-      );
-      await delay(500);
-      await wallet.waitForHomePage();
-      const displayName = await wallet.page.textContent(
-        createTestSelector(SettingsSelectors.CurrentAccountDisplayName)
-      );
-      expect(displayName).toEqual(`Account ${i + 1}`);
-    }
   });
 
   it('should be able to view and save secret key to clipboard', async () => {

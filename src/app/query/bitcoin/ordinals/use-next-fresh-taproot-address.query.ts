@@ -18,12 +18,16 @@ export function useNextFreshTaprootAddressQuery() {
   const [highestKnownAccountActivity, setHighestKnownAccountActivity] = useState(0);
 
   return useQuery(
-    ['next-taproot-address', bytesToHex(keychain.pubKeyHash!), network.id] as const,
+    ['next-taproot-address', bytesToHex(keychain?.pubKeyHash!), network.id] as const,
     async () => {
-      if (!keychain) throw new Error('Expected keychain to be provided.');
+      if (!keychain) throw new Error('Expected keychain to be provided');
 
       async function taprootAddressIndexActivity(index: number) {
-        const address = getTaprootAddress(index, keychain, network.chain.bitcoin.network);
+        const address = getTaprootAddress({
+          index,
+          keychain,
+          network: network.chain.bitcoin.network,
+        });
         const utxos = await client.addressApi.getUtxosByAddress(address);
         return { address, utxos };
       }

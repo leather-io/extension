@@ -1,5 +1,6 @@
 import { useCallback } from 'react';
 
+import { bytesToHex } from '@stacks/common';
 import {
   createWalletGaiaConfig,
   getOrCreateWalletConfig,
@@ -15,7 +16,14 @@ import { useAuthRequestParams } from '@app/common/hooks/auth/use-auth-request-pa
 import { useOnboardingState } from '@app/common/hooks/auth/use-onboarding-state';
 import { useKeyActions } from '@app/common/hooks/use-key-actions';
 import { useWalletType } from '@app/common/use-wallet-type';
-import { useAllBitcoinNativeSegWitNetworksByAccount } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
+import {
+  useAllBitcoinNativeSegWitNetworksByAccount,
+  useCurrentBitcoinNativeSegwitAddressIndexKeychain,
+} from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
+import {
+  useAllBitcoinTaprootNetworksByAccount,
+  useCurrentTaprootAddressIndexKeychain,
+} from '@app/store/accounts/blockchain/bitcoin/taproot-account.hooks';
 import { useStacksAccounts } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
 import { useStacksWallet } from '@app/store/accounts/blockchain/stacks/stacks-keychain';
 
@@ -27,7 +35,14 @@ export function useFinishAuthRequest() {
   const accounts = useStacksAccounts();
   const { origin, tabId } = useAuthRequestParams();
 
+  // TODO: It would be good to separate out finishing auth by the wallet vs an app
+  // so that the additional data we provide apps can be removed from our onboarding.
+  // Currently, these create errors unless early returns are used in the keychain code.
   const deriveNativeSegWitAccountAtIndex = useAllBitcoinNativeSegWitNetworksByAccount();
+  const deriveTaprootAccountAtIndex = useAllBitcoinTaprootNetworksByAccount();
+  const currentBitcoinNativeSegwitAddressIndexKeychain =
+    useCurrentBitcoinNativeSegwitAddressIndexKeychain();
+  const currentBitcoinTaprootAddressIndexKeychain = useCurrentTaprootAddressIndexKeychain();
 
   return useCallback(
     async (accountIndex: number) => {
@@ -81,7 +96,12 @@ export function useFinishAuthRequest() {
           account: legacyAccount,
           additionalData: {
             btcAddress: {
+              p2tr: deriveTaprootAccountAtIndex(accountIndex),
               p2wpkh: deriveNativeSegWitAccountAtIndex(accountIndex),
+            },
+            btcPublicKey: {
+              p2tr: bytesToHex(currentBitcoinTaprootAddressIndexKeychain?.publicKey!),
+              p2wpkh: bytesToHex(currentBitcoinNativeSegwitAddressIndexKeychain?.publicKey!),
             },
           },
         });
@@ -105,7 +125,10 @@ export function useFinishAuthRequest() {
       walletType,
       appIcon,
       appName,
+      deriveTaprootAccountAtIndex,
       deriveNativeSegWitAccountAtIndex,
+      currentBitcoinTaprootAddressIndexKeychain?.publicKey,
+      currentBitcoinNativeSegwitAddressIndexKeychain?.publicKey,
       keyActions,
     ]
   );

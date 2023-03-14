@@ -1,4 +1,5 @@
 import React from 'react';
+
 import { Box, Button, Text } from '@stacks/ui';
 
 export const Bns = () => {
@@ -8,7 +9,7 @@ export const Bns = () => {
         BNS
       </Text>
       <Text textStyle="body.large" display="block" my={'loose'}>
-        Use the testnet version of btc.us to QA BNS names
+        Use the testnet version of btc.us to QA BNS names.
       </Text>
       <Button onClick={() => window.open('https://btc-website.tintashlabs.com/')}>
         Open testnet btc.us

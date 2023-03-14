@@ -3,7 +3,6 @@ export enum SettingsSelectors {
   NetworkListItem = 'network-list-item',
   ChangeNetworkAction = 'settings-change-network',
   CurrentNetwork = 'current-network',
-  CreateAccountBtn = 'create-account-button',
   CurrentAccountDisplayName = 'current-account-display-name',
   ViewSecretKeyListItem = 'settings-view-secret-key',
   CopyKeyToClipboardBtn = 'copy-key-to-clipboard-btn',

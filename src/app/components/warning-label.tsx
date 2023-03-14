@@ -1,38 +1,49 @@
 import { ReactNode } from 'react';
 import { FiAlertCircle } from 'react-icons/fi';
 
-import { Box, Flex, Stack, StackProps, Text, color } from '@stacks/ui';
+import { Box, BoxProps, Text, color } from '@stacks/ui';
 
-interface WarningLabelProps extends StackProps {
-  children: ReactNode | undefined;
-}
-export function WarningLabel({ children, ...rest }: WarningLabelProps) {
+import { Flag } from './layout/flag';
+import { Caption } from './typography';
+
+function WarningIcon() {
   return (
-    <Flex width="100%" {...rest}>
-      <Stack
-        alignItems="center"
+    <Box
+      _hover={{ cursor: 'pointer' }}
+      as={FiAlertCircle}
+      color={color('feedback-alert')}
+      size="16px"
+      minWidth="min-content"
+      alignSelf="flex-start"
+      position="relative"
+      top="2px"
+    />
+  );
+}
+
+interface WarningLabelProps extends BoxProps {
+  children: ReactNode | undefined;
+  title?: string;
+}
+export function WarningLabel({ children, title, ...props }: WarningLabelProps) {
+  return (
+    <Box {...props}>
+      <Flag
         bg="#FFF5EB"
         borderRadius="10px"
+        img={<WarningIcon />}
         minHeight="48px"
-        isInline
         px="base"
         py="base-tight"
         width="100%"
       >
-        <Box
-          _hover={{ cursor: 'pointer' }}
-          as={FiAlertCircle}
-          color={color('feedback-alert')}
-          size="16px"
-          minWidth="min-content"
-          alignSelf="flex-start"
-          position="relative"
-          top="2px"
-        />
-        <Text color="#242629" fontSize="12px" lineHeight="1.5">
-          {children}
-        </Text>
-      </Stack>
-    </Flex>
+        {title ? (
+          <Text color="#242629" fontSize={1} fontWeight={500} lineHeight="1.5" mb="extra-tight">
+            {title}
+          </Text>
+        ) : null}
+        <Caption lineHeight="1.5">{children}</Caption>
+      </Flag>
+    </Box>
   );
 }
