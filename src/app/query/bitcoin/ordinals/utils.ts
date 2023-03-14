@@ -74,7 +74,7 @@ interface OtherInscriptionInfo extends BaseInscriptionInfo {
 export type InscriptionInfo = ImageInscriptionInfo | TextInscriptionInfo | OtherInscriptionInfo;
 
 export function createInfoUrl(contentPath: string) {
-  return `https://ordinals.com${contentPath}`.replace('content', 'inscription');
+  return `https://ordinals.hiro.so${contentPath}`.replace('content', 'inscription');
 }
 
 export function whenInscriptionType<T>(
