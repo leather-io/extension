@@ -6,13 +6,15 @@ import { useQuery } from '@tanstack/react-query';
 import { createCounter } from '@app/common/utils/counter';
 import { UtxoResponseItem } from '@app/query/bitcoin/bitcoin-client';
 import { getTaprootAddress } from '@app/query/bitcoin/ordinals/utils';
-import { useCurrentTaprootAccountKeychain } from '@app/store/accounts/blockchain/bitcoin/taproot-account.hooks';
+import { useCurrentAccountIndex } from '@app/store/accounts/account';
+import { useTaprootAccountKeychain } from '@app/store/accounts/blockchain/bitcoin/taproot-account.hooks';
 import { useBitcoinClient } from '@app/store/common/api-clients.hooks';
 import { useCurrentNetwork } from '@app/store/networks/networks.selectors';
 
-export function useNextFreshTaprootAddressQuery() {
+export function useNextFreshTaprootAddressQuery(accIndex?: number) {
   const network = useCurrentNetwork();
-  const keychain = useCurrentTaprootAccountKeychain();
+  const currentAccountIndex = useCurrentAccountIndex();
+  const keychain = useTaprootAccountKeychain(accIndex ?? currentAccountIndex);
   const client = useBitcoinClient();
 
   const [highestKnownAccountActivity, setHighestKnownAccountActivity] = useState(0);
