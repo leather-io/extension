@@ -5,5 +5,5 @@ import { useCurrentNativeSegwitAddressBalance } from '@app/query/bitcoin/balance
 export function BtcBalance() {
   const balance = useCurrentNativeSegwitAddressBalance();
 
-  return <Caption>{formatMoney(balance)}</Caption>;
+  return <Caption variant="c2">{formatMoney(balance)}</Caption>;
 }
