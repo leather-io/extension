@@ -2,14 +2,14 @@
 
 [![Chrome Web Store](https://img.shields.io/chrome-web-store/stars/ldinpeekobnhjjdofggfgjlcehhmanlj?label=Chrome%20Web%20Store)](https://chrome.google.com/webstore/detail/stacks-wallet/ldinpeekobnhjjdofggfgjlcehhmanlj)
 [![Mozilla Add-on](https://img.shields.io/amo/stars/hiro-wallet?label=Firefox%20Add-on)](https://addons.mozilla.org/en-US/firefox/addon/hiro-wallet/)
-[![coverage](https://raw.githubusercontent.com/hirosystems/stacks-wallet-web/gh-pages/badge.svg)](https://hirosystems.github.io/stacks-wallet-web/)
+[![coverage](https://raw.githubusercontent.com/hirosystems/wallet/gh-pages/badge.svg)](https://hirosystems.github.io/wallet/)
 [![semantic-release](https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg)](https://github.com/semantic-release/semantic-release)
 
 Hiro Wallet is the most popular and trusted wallet for apps built on Bitcoin. Connect to apps and manage assets secured by Bitcoin and Bitcoin L2s with battle-tested wallet for the Stacks blockchain.
 
 To integrate this wallet into your app, we recommend [@stacks/connect](https://github.com/hirosystems/connect).
 
-[📚 See Hiro Wallet API Reference →](https://github.com/hirosystems/stacks-wallet-web/wiki)
+[📚 See Hiro Wallet API Reference →](https://github.com/hirosystems/wallet/wiki)
 
 [📩 Join the mailing list for updates →](https://forms.gle/sdZPu2jbX1AeQ8Fi9)
 
@@ -97,4 +97,4 @@ Please note this email is strictly for reporting security vulnerabilities. For s
 
 In Q1 2021, Hiro partnered with [Least Authority](https://leastauthority.com/), a leading security consultancy with experience in the crypto space, to audit Hiro Wallet for Web. On April 29th 2021, after addressing the major concerns described in the initial findings, as well as a concluding sign off from the Least Authority team, a final report was delivered.
 
-[Download and read the full report here](https://github.com/hirosystems/stacks-wallet-web/blob/main/public/docs/least-authority-security-audit-report.pdf)
+[Download and read the full report here](https://github.com/hirosystems/wallet/blob/main/public/docs/least-authority-security-audit-report.pdf)

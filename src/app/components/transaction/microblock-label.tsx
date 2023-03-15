@@ -4,22 +4,16 @@ import { Box, Flex, Stack, Text, color } from '@stacks/ui';
 
 import { Tooltip } from '@app/components/tooltip';
 
-const defaultPendingWaitingMessage =
-  'This transaction is waiting to be confirmed. Depending on network congestion, this may take anywhere from a few minutes, to a couple of hours.';
+const inMicroblockMessage =
+  'This transaction is currently in a microblock, which increases the chances of inclusion in the next anchor block.';
 
-interface PendingLabelProps {
-  pendingWaitingMessage?: string;
-}
-
-export function PendingLabel({
-  pendingWaitingMessage = defaultPendingWaitingMessage,
-}: PendingLabelProps) {
+export function MicroblockLabel() {
   return (
     <Flex alignItems="center">
       <Text color={color('feedback-alert')} fontSize={0} mr="2px">
-        Pending
+        In microblock
       </Text>
-      <Tooltip label={pendingWaitingMessage} placement="bottom">
+      <Tooltip label={inMicroblockMessage} placement="bottom">
         <Stack>
           <Box
             _hover={{ cursor: 'pointer' }}

@@ -11,6 +11,7 @@ import { useIsPsbtRequestValid } from '@app/store/psbts/requests.hooks';
 import { PsbtRequestActions } from './components/psbt-request-actions';
 import { PsbtRequestDetails } from './components/psbt-request-details';
 import { PsbtRequestDisclaimer } from './components/psbt-request-disclaimer';
+import { PsbtRequestHeader } from './components/psbt-request-header';
 import { PsbtRequestWarningLabel } from './components/psbt-request-warning-label';
 import { PsbtRequestLayout } from './components/psbt-requet.layout';
 import { usePsbtRequest } from './use-psbt-request';
@@ -20,7 +21,7 @@ export function PsbtRequest() {
   const { appName, isLoading, onCancel, onSignPsbt, psbtDetails, psbtPayload, requestToken } =
     usePsbtRequest();
 
-  useRouteHeader(<PopupHeader />);
+  useRouteHeader(<PopupHeader displayAddresssBalanceOf="all" />);
 
   useOnOriginTabClose(() => window.close());
 
@@ -29,6 +30,7 @@ export function PsbtRequest() {
 
   return (
     <PsbtRequestLayout>
+      <PsbtRequestHeader />
       <PsbtRequestWarningLabel appName={appName} />
       {/* TODO: Finish decoding the PSBT details for v2 of this feature */}
       {/* <PsbtRequestDetailsV2 details={psbtDetails} payloadTxHex={psbtPayload.hex} /> */}

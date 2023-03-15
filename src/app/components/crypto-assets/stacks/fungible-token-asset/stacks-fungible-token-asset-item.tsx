@@ -25,7 +25,7 @@ export const StacksFungibleTokenAssetItem = forwardRefWithAs(
     const avatar = `${formatContractId(contractAddress, contractName)}::${contractAssetName}`;
     const dataTestId = CryptoAssetSelectors.CryptoAssetListItem.replace(
       '{symbol}',
-      symbol.toLowerCase()
+      symbol?.toLowerCase()
     );
     const friendlyName =
       name ||

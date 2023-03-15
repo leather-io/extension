@@ -25,7 +25,7 @@ export const KEBAB_REGEX = /[A-Z\u00C0-\u00D6\u00D8-\u00DE]/g;
 export const MICROBLOCKS_ENABLED = !IS_TEST_ENV && true;
 
 export const GITHUB_ORG = 'hirosystems';
-export const GITHUB_REPO = 'stacks-wallet-web';
+export const GITHUB_REPO = 'wallet';
 
 export enum DefaultNetworkConfigurationIds {
   mainnet = 'mainnet',
@@ -34,6 +34,11 @@ export enum DefaultNetworkConfigurationIds {
 }
 
 export type DefaultNetworkConfigurations = keyof typeof DefaultNetworkConfigurationIds;
+
+export const chainIdToNetworkModeMap: Record<ChainID, NetworkModes> = {
+  [ChainID.Mainnet]: 'mainnet',
+  [ChainID.Testnet]: 'testnet',
+};
 
 interface BaseChainConfig {
   blockchain: Blockchains;
