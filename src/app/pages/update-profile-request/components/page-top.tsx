@@ -14,7 +14,6 @@ function PageTopBase() {
   if (!requestToken) return null;
   const profileUpdaterPayload = getProfileDataContentFromToken(requestToken);
   if (!profileUpdaterPayload) return null;
-
   const appName = profileUpdaterPayload?.appDetails?.name;
   const originAddition = origin ? ` (${getUrlHostname(origin)})` : '';
   const testnetAddition = isTestnet

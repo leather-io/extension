@@ -149,7 +149,7 @@ export function doesLedgerStacksAppVersionSupportJwtAuth(versionInfo: SemVerObje
 }
 
 // https://github.com/Zondax/ledger-stacks/issues/119
-// https://github.com/hirosystems/stacks-wallet-web/issues/2567
+// https://github.com/hirosystems/wallet/issues/2567
 const versionFromWhichContractPrincipalBugIsFixed = '0.23.3';
 
 export function isVersionOfLedgerStacksAppWithContractPrincipalBug(

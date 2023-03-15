@@ -28,7 +28,7 @@ jobs:
     steps:
       - uses: kyranjamie/pull-request-fixed-header@v1.0.1
         with:
-          header: '> Try out this version of the Hiro Wallet - download [extension builds](https://github.com/hirosystems/stacks-wallet-web/actions/runs/${{ github.run_id }}).'
+          header: '> Try out this version of the Hiro Wallet - download [extension builds](https://github.com/hirosystems/wallet/actions/runs/${{ github.run_id }}).'
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
   build_chrome_extension:
