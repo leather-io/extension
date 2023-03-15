@@ -13,13 +13,13 @@ import { baseCurrencyAmountInQuote } from '@app/common/money/calculate-money';
 import { formatMoney, i18nFormatCurrency } from '@app/common/money/format-money';
 import { satToBtc } from '@app/common/money/unit-conversion';
 import { FormAddressDisplayer } from '@app/components/address-displayer/form-address-displayer';
-import { Header } from '@app/components/header';
 import {
   InfoCard,
   InfoCardAssetValue,
   InfoCardRow,
   InfoCardSeparator,
 } from '@app/components/info-card/info-card';
+import { ModalHeader } from '@app/components/modal-header';
 import { PrimaryButton } from '@app/components/primary-button';
 import { useCurrentNativeSegwitUtxos } from '@app/query/bitcoin/address/address.hooks';
 import { useBitcoinFeeRate } from '@app/query/bitcoin/fees/fee-estimates.hooks';
@@ -101,18 +101,7 @@ export function BtcSendFormConfirmation() {
     };
   }
 
-  useRouteHeader(
-    <Header
-      hideActions
-      onClose={() =>
-        nav.backToSendForm({
-          recipient,
-          amount: transferAmount,
-        })
-      }
-      title="Review"
-    />
-  );
+  useRouteHeader(<ModalHeader hideActions defaultClose defaultGoBack title="Review" />);
 
   return (
     <InfoCard pt="extra-loose" pb="extra-loose" px="extra-loose">
