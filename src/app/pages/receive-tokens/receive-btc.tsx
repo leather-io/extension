@@ -12,10 +12,13 @@ import { ReceiveBtcModalWarning } from './components/receive-btc-warning';
 import { ReceiveTokensLayout } from './components/receive-tokens.layout';
 
 export function ReceiveBtcModal() {
-  const accountIndex = useCurrentAccountIndex();
-  const activeAccountBtcAddress = useBtcNativeSegwitAccountIndexAddressIndexZero(accountIndex);
   const analytics = useAnalytics();
   const { state } = useLocation();
+
+  const currentAccountIndex = useCurrentAccountIndex();
+  const accountIndex = get(state, 'accountIndex', currentAccountIndex);
+
+  const activeAccountBtcAddress = useBtcNativeSegwitAccountIndexAddressIndexZero(accountIndex);
   const btcAddress = get(state, 'btcAddress', activeAccountBtcAddress);
 
   const { onCopy } = useClipboard(btcAddress);
@@ -31,7 +34,7 @@ export function ReceiveBtcModal() {
       address={btcAddress}
       onCopyAddressToClipboard={copyToClipboard}
       title="Bitcoin address"
-      warning={ReceiveBtcModalWarning()}
+      warning={<ReceiveBtcModalWarning accountIndex={accountIndex} />}
       hasSubtitle={false}
     />
   );

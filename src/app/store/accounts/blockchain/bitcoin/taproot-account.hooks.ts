@@ -31,9 +31,13 @@ function useTaprootCurrentNetworkAccountKeychain() {
 
 export function useCurrentTaprootAccountKeychain() {
   const currentAccountIndex = useCurrentAccountIndex();
+  return useTaprootAccountKeychain(currentAccountIndex);
+}
+
+export function useTaprootAccountKeychain(accountIndex: number) {
   const accountKeychain = useTaprootCurrentNetworkAccountKeychain();
   if (!accountKeychain) return; // TODO: Revisit this return early
-  const keychain = accountKeychain(currentAccountIndex);
+  const keychain = accountKeychain(accountIndex);
   if (!keychain) throw new Error('No account keychain found');
   return keychain;
 }

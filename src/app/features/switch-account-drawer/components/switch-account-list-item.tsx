@@ -54,7 +54,7 @@ export const SwitchAccountListItem = memo(
     const onClickBtcCopyIcon = (e: React.MouseEvent) => {
       e.stopPropagation();
       setIsShowingSwitchAccountsState(false);
-      navigate(RouteUrls.ReceiveBtc, { state: { btcAddress } });
+      navigate(RouteUrls.ReceiveBtc, { state: { btcAddress, accountIndex: account.index } });
     };
 
     return (
