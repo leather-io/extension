@@ -24,13 +24,13 @@ interface StacksNftCryptoAssetsProps {
 export function StacksNonFungibleTokens({ metadata }: StacksNftCryptoAssetsProps) {
   const [isLoading, setIsLoading] = useState(true);
   const [isError, setIsError] = useState(false);
-  const isImageAvailable = metadata && metadata.cached_image && isValidUrl(metadata?.cached_image);
+  const isImageAvailable = isValidUrl(metadata.cached_image);
 
   return (
     <CollectibleItemLayout
       backgroundElementProps={backgroundProps}
       subtitle="Stacks NFT"
-      title={metadata?.name ?? 'Unknown'}
+      title={metadata.name}
       collectibleTypeIcon={<StxAvatar size="30px" />}
     >
       {isError || !isImageAvailable ? (
@@ -42,7 +42,7 @@ export function StacksNonFungibleTokens({ metadata }: StacksNftCryptoAssetsProps
             alt="nft image"
             onLoad={() => setIsLoading(false)}
             onError={() => setIsError(true)}
-            src={isImageAvailable ? metadata?.cached_image : placeholderImage}
+            src={metadata.cached_image}
             style={{
               aspectRatio: '1 / 1',
               objectFit: 'cover',
