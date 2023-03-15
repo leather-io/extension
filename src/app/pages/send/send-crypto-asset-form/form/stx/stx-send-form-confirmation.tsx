@@ -1,4 +1,4 @@
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 
 import { Stack } from '@stacks/ui';
 import { SendCryptoAssetSelectors } from '@tests/selectors/send.selectors';
@@ -6,7 +6,6 @@ import get from 'lodash.get';
 
 import { useRouteHeader } from '@app/common/hooks/use-route-header';
 import { FormAddressDisplayer } from '@app/components/address-displayer/form-address-displayer';
-import { Header } from '@app/components/header';
 import {
   InfoCard,
   InfoCardAssetValue,
@@ -14,6 +13,7 @@ import {
   InfoCardSeparator,
 } from '@app/components/info-card/info-card';
 import { InfoLabel } from '@app/components/info-label';
+import { ModalHeader } from '@app/components/modal-header';
 import { PrimaryButton } from '@app/components/primary-button';
 
 import { useStacksBroadcastTransaction } from '../../family/stacks/hooks/use-stacks-broadcast-transaction';
@@ -41,11 +41,7 @@ export function StxSendFormConfirmation() {
     symbol,
   } = formReviewTxSummary(stacksDeserializedTransaction);
 
-  const navigate = useNavigate();
-
-  useRouteHeader(
-    <Header hideActions onClose={() => navigate('..', { relative: 'path' })} title="Review" />
-  );
+  useRouteHeader(<ModalHeader hideActions defaultClose defaultGoBack title="Review" />);
 
   return (
     <InfoCard pt="extra-loose" pb="extra-loose" px="extra-loose">

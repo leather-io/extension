@@ -1,16 +1,13 @@
 import { toast } from 'react-hot-toast';
 import { FiCheck, FiCopy, FiExternalLink } from 'react-icons/fi';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 
 import { Stack, useClipboard } from '@stacks/ui';
-
-import { RouteUrls } from '@shared/route-urls';
 
 import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
 import { useExplorerLink } from '@app/common/hooks/use-explorer-link';
 import { useRouteHeader } from '@app/common/hooks/use-route-header';
 import { FormAddressDisplayer } from '@app/components/address-displayer/form-address-displayer';
-import { Header } from '@app/components/header';
 import {
   InfoCard,
   InfoCardAssetValue,
@@ -18,6 +15,7 @@ import {
   InfoCardRow,
   InfoCardSeparator,
 } from '@app/components/info-card/info-card';
+import { ModalHeader } from '@app/components/modal-header';
 
 export function StxSentSummary() {
   const { state } = useLocation();
@@ -48,16 +46,7 @@ export function StxSentSummary() {
     toast.success('ID copied!');
   };
 
-  const navigate = useNavigate();
-
-  useRouteHeader(
-    <Header
-      hideActions
-      onClose={() => navigate(RouteUrls.Home, { relative: 'path' })}
-      title="Sent"
-      closeIcon
-    />
-  );
+  useRouteHeader(<ModalHeader hideActions defaultClose title="Sent" />);
 
   return (
     <InfoCard pt="extra-loose" pb="extra-loose" px="extra-loose">
