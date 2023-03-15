@@ -1,9 +1,24 @@
+import { FungibleTokenMetadata } from '@stacks/stacks-blockchain-api-types';
+
 import { StacksFungibleTokenAsset } from '@shared/models/crypto-asset.model';
 
 import {
   isFtNameLikeStx,
   isTransferableStacksFungibleTokenAsset,
 } from './stacks-crypto-asset.utils';
+
+// Metadata is used here temporarily until we have the new Hiro API types
+const metadata: FungibleTokenMetadata = {
+  name: '',
+  symbol: '',
+  token_uri: '',
+  decimals: 0,
+  description: '',
+  image_uri: '',
+  image_canonical_uri: '',
+  tx_id: '',
+  sender_address: '',
+};
 
 describe(isFtNameLikeStx.name, () => {
   it('detect impersonating token names', () => {
@@ -33,7 +48,7 @@ describe(isTransferableStacksFungibleTokenAsset.name, () => {
       imageCanonicalUri: '',
       symbol: 'CAT',
     };
-    expect(isTransferableStacksFungibleTokenAsset(asset)).toBeTruthy();
+    expect(isTransferableStacksFungibleTokenAsset(asset, metadata)).toBeTruthy();
   });
 
   test('a token with no decimals is transferable', () => {
@@ -49,7 +64,7 @@ describe(isTransferableStacksFungibleTokenAsset.name, () => {
       imageCanonicalUri: '',
       symbol: 'CAT',
     };
-    expect(isTransferableStacksFungibleTokenAsset(asset)).toBeTruthy();
+    expect(isTransferableStacksFungibleTokenAsset(asset, metadata)).toBeTruthy();
   });
 
   test('assets missing either name, symbol or decimals may not be transferred', () => {
@@ -59,11 +74,12 @@ describe(isTransferableStacksFungibleTokenAsset.name, () => {
       decimals: undefined,
       type: 'fungible-token',
     } as unknown as StacksFungibleTokenAsset;
-    expect(isTransferableStacksFungibleTokenAsset(asset)).toBeFalsy();
+    expect(isTransferableStacksFungibleTokenAsset(asset, metadata)).toBeFalsy();
   });
 
   test('NFTs cannot be sent', () => {
     const asset = { type: 'non-fungible-token' } as unknown as StacksFungibleTokenAsset;
-    expect(isTransferableStacksFungibleTokenAsset(asset)).toBeFalsy();
+
+    expect(isTransferableStacksFungibleTokenAsset(asset, metadata)).toBeFalsy();
   });
 });
