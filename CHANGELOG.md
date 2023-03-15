@@ -1,3 +1,13 @@
+## [4.10.2](https://github.com/hirosystems/wallet/compare/v4.10.1...v4.10.2) (2023-03-15)
+
+
+### Bug Fixes
+
+* added in microblock label to activity ([0740dcb](https://github.com/hirosystems/wallet/commit/0740dcb71c7770b968a0bfd25a5755c55d3bd908))
+* ft metadata ([9aa5f2a](https://github.com/hirosystems/wallet/commit/9aa5f2a3892cbe4104bdc8792438050859ad5a98))
+* microblock label not working ([f962582](https://github.com/hirosystems/wallet/commit/f9625823f3343ddc5bbd345362b55cef02e99470))
+* show total balance, not stx in psbt ([3d08249](https://github.com/hirosystems/wallet/commit/3d082498a6e9d5e8570499d3d692296bcd1deb32))
+
 ## [4.10.1](https://github.com/hirosystems/stacks-wallet-web/compare/v4.10.0...v4.10.1) (2023-03-15)
 
 
