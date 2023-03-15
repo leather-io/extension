@@ -1,3 +1,10 @@
+## [4.10.1](https://github.com/hirosystems/stacks-wallet-web/compare/v4.10.0...v4.10.1) (2023-03-15)
+
+
+### Bug Fixes
+
+* ordinal inscription address ([a5e4e8e](https://github.com/hirosystems/stacks-wallet-web/commit/a5e4e8ec8395fb4c4c07e64c59976c8fae01bffb))
+
 ## [4.10.0](https://github.com/hirosystems/stacks-wallet-web/compare/v4.9.0...v4.10.0) (2023-03-14)
 
 
