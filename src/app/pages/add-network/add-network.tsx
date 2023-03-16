@@ -30,7 +30,7 @@ interface AddNetworkFormValues {
 }
 const addNetworkFormValues: AddNetworkFormValues = { key: '', name: '', url: '' };
 
-export const AddNetwork = () => {
+export function AddNetwork() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const navigate = useNavigate();
@@ -139,4 +139,4 @@ export const AddNetwork = () => {
       </Formik>
     </CenteredPageContainer>
   );
-};
+}

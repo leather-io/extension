@@ -18,7 +18,7 @@ interface StxTransferItemProps {
   stxTransfer: StxTransfer;
   parentTx: AddressTransactionWithTransfers;
 }
-export const StxTransferItem = ({ stxTransfer, parentTx }: StxTransferItemProps) => {
+export function StxTransferItem({ stxTransfer, parentTx }: StxTransferItemProps) {
   const currentAccount = useCurrentStacksAccount();
   const isOriginator = stxTransfer.sender === currentAccount?.address;
 
@@ -39,4 +39,4 @@ export const StxTransferItem = ({ stxTransfer, parentTx }: StxTransferItemProps)
   };
 
   return <StacksTransactionItem transferDetails={transferDetails} />;
-};
+}

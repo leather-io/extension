@@ -10,14 +10,14 @@ interface StacksAssetAvatarProps extends BoxProps {
   isStx?: boolean;
   isUnanchored?: boolean;
 }
-export const StacksAssetAvatar = ({
+export function StacksAssetAvatar({
   children,
   gradientString,
   imageCanonicalUri,
   isStx,
   isUnanchored,
   ...props
-}: StacksAssetAvatarProps) => {
+}: StacksAssetAvatarProps) {
   if (isStx) return <StxAvatar />;
 
   const { color, size } = props;
@@ -35,4 +35,4 @@ export const StacksAssetAvatar = ({
       {isUnanchored ? <StacksUnanchoredStatusIcon /> : null}
     </DynamicColorCircle>
   );
-};
+}

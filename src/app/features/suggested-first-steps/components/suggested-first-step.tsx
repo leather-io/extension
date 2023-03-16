@@ -11,7 +11,9 @@ export const externalLinkInfo =
 interface StepIllustrationProps {
   image: string;
 }
-export const StepIllustration = ({ image }: StepIllustrationProps) => <img src={image} />;
+export function StepIllustration({ image }: StepIllustrationProps) {
+  return <img src={image} />;
+}
 
 interface SuggestedFirstStepProps {
   action: string;

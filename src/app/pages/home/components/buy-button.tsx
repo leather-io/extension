@@ -28,7 +28,7 @@ function BuyTxButton(props: ButtonProps) {
 
 const BuyButtonFallback = memo(() => <BuyTxButton isDisabled />);
 
-export const BuyButton = () => {
+export function BuyButton() {
   const navigate = useNavigate();
   const hasFiatProviders = useHasFiatProviders();
   const currentNetwork = useCurrentNetworkState();
@@ -40,4 +40,4 @@ export const BuyButton = () => {
       <BuyTxButton onClick={() => navigate(RouteUrls.Fund)} />
     </Suspense>
   );
-};
+}

@@ -121,7 +121,9 @@ export const Text = forwardRefWithAs<BoxProps, 'span'>((props, ref) => (
   />
 ));
 
-export const Body = (props: BoxProps) => <Text css={c1} {...props} />;
+export function Body(props: BoxProps) {
+  return <Text css={c1} {...props} />;
+}
 
 export const Caption = forwardRefWithAs<{ variant?: 'c1' | 'c2' | 'c3' } & BoxProps, 'span'>(
   ({ variant, ...props }, ref) => (

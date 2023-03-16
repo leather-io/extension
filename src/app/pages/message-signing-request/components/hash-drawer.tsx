@@ -6,10 +6,10 @@ import { Box, Flex, Text } from '@stacks/ui';
 interface ShowHashButtonProps {
   expanded: boolean;
 }
-const ShowHashButton = (props: ShowHashButtonProps) => {
+function ShowHashButton(props: ShowHashButtonProps) {
   const { expanded } = props;
   return <Box as={expanded ? FiChevronUp : FiChevronDown} size="16px" />;
-};
+}
 
 interface HashDrawerProps {
   hash: string;

@@ -6,10 +6,10 @@ import { Box, Flex, Text } from '@stacks/ui';
 interface ShowHexButtonProps {
   expanded: boolean;
 }
-const ShowHexButton = (props: ShowHexButtonProps) => {
+function ShowHexButton(props: ShowHexButtonProps) {
   const { expanded } = props;
   return <Box as={expanded ? FiChevronUp : FiChevronDown} size="16px" />;
-};
+}
 
 interface PsbtRequestHexDrawerProps {
   hex: string;

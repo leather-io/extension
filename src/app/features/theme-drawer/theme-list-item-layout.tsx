@@ -8,12 +8,12 @@ interface ThemeListItemProps extends BoxProps {
   isActive: boolean;
   onThemeItemSelect: () => void;
 }
-export const ThemeListItemLayout = ({
+export function ThemeListItemLayout({
   themeLabel,
   isActive,
   onThemeItemSelect,
   ...props
-}: ThemeListItemProps) => {
+}: ThemeListItemProps) {
   return (
     <Box
       width="100%"
@@ -39,4 +39,4 @@ export const ThemeListItemLayout = ({
       </Flex>
     </Box>
   );
-};
+}

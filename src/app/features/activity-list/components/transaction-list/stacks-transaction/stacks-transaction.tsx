@@ -7,7 +7,7 @@ import { TransactionTransfers } from '@app/features/activity-list/components/tra
 interface StacksTransactionProps extends BoxProps {
   transaction: AddressTransactionWithTransfers;
 }
-export const StacksTransaction = ({ transaction, ...rest }: StacksTransactionProps) => {
+export function StacksTransaction({ transaction, ...rest }: StacksTransactionProps) {
   // Show transfer only for contract calls
   if (transaction.tx.tx_type !== 'contract_call')
     return <StacksTransactionItem transaction={transaction.tx} {...rest} />;
@@ -18,4 +18,4 @@ export const StacksTransaction = ({ transaction, ...rest }: StacksTransactionPro
       <StacksTransactionItem transaction={transaction.tx} {...rest} />
     </>
   );
-};
+}

@@ -11,12 +11,7 @@ interface ThemeListItemProps extends BoxProps {
   onThemeSelected: (theme: UserSelectedTheme) => void;
   isActive: boolean;
 }
-export const ThemeListItem = ({
-  theme,
-  onThemeSelected,
-  isActive,
-  ...props
-}: ThemeListItemProps) => {
+export function ThemeListItem({ theme, onThemeSelected, isActive, ...props }: ThemeListItemProps) {
   const themeLabel = getThemeLabel(theme);
   const itemSelectHandler = useCallback(() => {
     onThemeSelected(theme);
@@ -30,4 +25,4 @@ export const ThemeListItem = ({
       {...props}
     />
   );
-};
+}
