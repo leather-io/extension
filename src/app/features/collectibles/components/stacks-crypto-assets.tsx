@@ -15,7 +15,7 @@ export function StacksCryptoAssets() {
         <StacksBnsName bnsName={parseIfValidPunycode(name)} key={name} />
       ))}
       {stacksNftsMetadataResp.map(nft =>
-        nft ? <StacksNonFungibleTokens key={nft?.token_uri} metadata={nft?.metadata} /> : null
+        nft ? <StacksNonFungibleTokens key={nft.token_uri} metadata={nft.metadata} /> : null
       )}
     </>
   );
