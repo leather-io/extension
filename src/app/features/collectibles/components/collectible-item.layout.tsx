@@ -105,7 +105,7 @@ export function CollectibleItemLayout({
               }}
               onClick={e => {
                 e.stopPropagation();
-                onClickSend && onClickSend();
+                onClickSend();
               }}
               _focus={{ clipPath: 'none', outline: `4px solid ${figmaTheme.borderFocused}` }}
             >
