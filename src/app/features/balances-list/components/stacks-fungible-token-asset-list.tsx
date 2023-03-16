@@ -11,7 +11,10 @@ export function StacksFungibleTokenAssetList({ assetBalances }: StacksFtCryptoAs
   return (
     <Stack spacing="loose">
       {assetBalances.map(assetBalance => (
-        <StacksFungibleTokenAssetItem assetBalance={assetBalance} key={assetBalance.asset.name} />
+        <StacksFungibleTokenAssetItem
+          assetBalance={assetBalance}
+          key={assetBalance.asset.contractId}
+        />
       ))}
     </Stack>
   );
