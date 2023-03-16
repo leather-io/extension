@@ -1,10 +1,6 @@
 import { Box, BoxProps, Stack, color } from '@stacks/ui';
 
-const TabButton = ({
-  isActive,
-  label,
-  ...rest
-}: { isActive?: boolean; label: string } & BoxProps) => {
+function TabButton({ isActive, label, ...rest }: { isActive?: boolean; label: string } & BoxProps) {
   return (
     <Box
       flexGrow={1}
@@ -25,7 +21,7 @@ const TabButton = ({
       {label}
     </Box>
   );
-};
+}
 
 function BackgroundPill({ alignment }: { alignment: 'start' | 'end' }) {
   return (

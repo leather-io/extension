@@ -5,7 +5,7 @@ interface ImageProps {
   id?: string;
 }
 
-export const Image = (props: ImageProps) => {
+export function Image(props: ImageProps) {
   return (
     <img
       style={{
@@ -15,4 +15,4 @@ export const Image = (props: ImageProps) => {
       {...props}
     />
   );
-};
+}

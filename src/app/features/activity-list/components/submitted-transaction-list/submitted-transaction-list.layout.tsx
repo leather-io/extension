@@ -8,20 +8,15 @@ import { SubmittedTransaction } from '@app/store/submitted-transactions/submitte
 
 type SubmittedTransactionListItemProps = SubmittedTransaction;
 
-export const SubmittedTransactionListItem = ({
-  rawTx,
-  txId,
-}: SubmittedTransactionListItemProps) => {
+export function SubmittedTransactionListItem({ rawTx, txId }: SubmittedTransactionListItemProps) {
   const submittedTx = useMemo(() => deserializeTransaction(rawTx), [rawTx]);
   return <SubmittedTransactionItem transaction={submittedTx} txId={txId} />;
-};
+}
 
 interface SubmittedTransactionListLayoutProps {
   children: ReactNode;
 }
-export const SubmittedTransactionListLayout = ({
-  children,
-}: SubmittedTransactionListLayoutProps) => {
+export function SubmittedTransactionListLayout({ children }: SubmittedTransactionListLayoutProps) {
   return (
     <>
       <Text textStyle="body.small" color={color('text-caption')}>
@@ -32,4 +27,4 @@ export const SubmittedTransactionListLayout = ({
       </Stack>
     </>
   );
-};
+}

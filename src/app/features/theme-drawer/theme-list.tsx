@@ -8,7 +8,7 @@ import { UserSelectedTheme, themeLabelMap, useThemeSwitcher } from '@app/common/
 
 import { ThemeListItem } from './theme-list-item';
 
-export const ThemeList = (props: FlexProps) => {
+export function ThemeList(props: FlexProps) {
   const themes = Object.keys(themeLabelMap) as UserSelectedTheme[];
   const analytics = useAnalytics();
   const { setUserSelectedTheme } = useThemeSwitcher();
@@ -38,4 +38,4 @@ export const ThemeList = (props: FlexProps) => {
       ))}
     </Flex>
   );
-};
+}

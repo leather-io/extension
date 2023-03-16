@@ -9,7 +9,7 @@ const shine = keyframes`
     background-position: 500px;
   }
 `;
-export const LoadingRectangle = (props: BoxProps) => {
+export function LoadingRectangle(props: BoxProps) {
   return (
     <Box
       backgroundImage="linear-gradient(90deg, rgba(219,219,219,1) 0%, rgba(192,192,247,0.5) 35%, rgba(219,219,219,1) 100%)"
@@ -18,4 +18,4 @@ export const LoadingRectangle = (props: BoxProps) => {
       {...props}
     />
   );
-};
+}

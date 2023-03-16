@@ -34,26 +34,26 @@ const getLoadingProps = (loading: boolean) => (loading ? loadingProps : {});
 interface AccountTitlePlaceholderProps extends BoxProps {
   account: StacksAccount;
 }
-const AccountTitlePlaceholder = ({ account, ...rest }: AccountTitlePlaceholderProps) => {
+function AccountTitlePlaceholder({ account, ...rest }: AccountTitlePlaceholderProps) {
   const name = `Account ${account?.index + 1}`;
   return (
     <Title fontSize={2} lineHeight="1rem" fontWeight="400" {...rest}>
       {name}
     </Title>
   );
-};
+}
 
 interface AccountTitleProps extends BoxProps {
   account: StacksAccount;
   name: string;
 }
-const AccountTitle = ({ account, name, ...rest }: AccountTitleProps) => {
+function AccountTitle({ account, name, ...rest }: AccountTitleProps) {
   return (
     <Title fontSize={2} lineHeight="1rem" fontWeight="400" {...rest}>
       {name}
     </Title>
   );
-};
+}
 
 interface ChooseAccountItemProps extends FlexProps {
   selectedAddress?: string | null;

@@ -1,4 +1,3 @@
-import { FC } from 'react';
 import { FiCheck } from 'react-icons/fi';
 
 import HelpUsImprove from '@assets/images/onboarding/help-us-improve.png';
@@ -13,7 +12,7 @@ import { Text, Title } from '@app/components/typography';
 interface ReasonToAllowDiagnosticsProps {
   text: string;
 }
-const ReasonToAllowDiagnostics: FC<ReasonToAllowDiagnosticsProps> = ({ text }) => {
+function ReasonToAllowDiagnostics({ text }: ReasonToAllowDiagnosticsProps) {
   return (
     <Flex color={color('text-caption')} textStyle={['body.small', 'body.large']}>
       <Box mr="tight" mt="3px">
@@ -22,7 +21,7 @@ const ReasonToAllowDiagnostics: FC<ReasonToAllowDiagnosticsProps> = ({ text }) =
       <Box>{text}</Box>
     </Flex>
   );
-};
+}
 
 interface AllowDiagnosticsLayoutProps {
   onUserAllowDiagnostics(): void;

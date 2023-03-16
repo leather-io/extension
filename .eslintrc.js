@@ -15,7 +15,7 @@ module.exports = {
     browser: true,
     context: true,
   },
-  plugins: ['react-hooks', '@typescript-eslint', 'deprecation'],
+  plugins: ['react', 'react-hooks', '@typescript-eslint', 'deprecation'],
   rules: {
     // This rule helps highlight areas of the code that use deprecated
     // methods, such as implicit use of signed transactions
@@ -52,6 +52,7 @@ module.exports = {
     '@typescript-eslint/explicit-module-boundary-types': [0],
     '@typescript-eslint/no-unnecessary-condition': 'warn',
     'no-warning-comments': [0],
+    'react/function-component-definition': 'error',
     'react-hooks/rules-of-hooks': 'error',
     'react-hooks/exhaustive-deps': [
       'error',

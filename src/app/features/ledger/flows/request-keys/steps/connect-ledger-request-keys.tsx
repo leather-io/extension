@@ -5,7 +5,7 @@ import { ledgerRequestKeysContext } from '@app/features/ledger/flows/request-key
 import { ConnectLedgerLayout } from '@app/features/ledger/generic-steps/connect-device/connect-ledger.layout';
 import { useWhenReattemptingLedgerConnection } from '@app/features/ledger/hooks/use-when-reattempt-ledger-connection';
 
-export const ConnectLedgerRequestKeys = () => {
+export function ConnectLedgerRequestKeys() {
   const {
     pullPublicKeysFromDevice,
     latestDeviceResponse,
@@ -28,4 +28,4 @@ export const ConnectLedgerRequestKeys = () => {
       onConnectLedger={pullPublicKeysFromDevice}
     />
   );
-};
+}

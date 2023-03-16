@@ -1,8 +1,7 @@
-import { FC } from 'react';
-
 import { Box, Button, CodeBlock, Stack, color } from '@stacks/ui';
 
 import { Prism } from '@app/common/clarity-prism';
+import { HasChildren } from '@app/common/has-children';
 import { useRouteHeader } from '@app/common/hooks/use-route-header';
 import { Header } from '@app/components/header';
 import { Title } from '@app/components/typography';
@@ -49,7 +48,7 @@ function ErrorFallback({ error, resetErrorBoundary }: FallbackProps) {
   );
 }
 
-export const AppErrorBoundary: FC = ({ children }) => {
+export function AppErrorBoundary({ children }: HasChildren) {
   const handleOnError = useErrorHandler();
   return (
     <ErrorBoundary
@@ -62,4 +61,4 @@ export const AppErrorBoundary: FC = ({ children }) => {
       {children}
     </ErrorBoundary>
   );
-};
+}
