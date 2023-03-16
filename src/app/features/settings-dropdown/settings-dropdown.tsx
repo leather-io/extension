@@ -69,7 +69,7 @@ export function SettingsDropdown() {
             {key && key.type === 'ledger' && (
               <LedgerDeviceItemRow deviceType={extractDeviceNameFromKnownTargetIds(key.targetId)} />
             )}
-            {wallet && wallet?.accounts?.length > 1 && (
+            {wallet && (
               <MenuItem
                 data-testid={SettingsMenuSelectors.SwitchAccountMenuItem}
                 onClick={wrappedCloseCallback(() => setIsShowingSwitchAccountsState(true))}
