@@ -36,9 +36,10 @@ export function getImageCanonicalUri(imageCanonicalUri: string, name: string) {
 // Metadata is used here temporarily until we have the new Hiro API types
 export function isTransferableStacksFungibleTokenAsset(
   asset: StacksFungibleTokenAsset,
-  metadata: FungibleTokenMetadata
+  metadata?: FungibleTokenMetadata
 ) {
   return (
+    !isUndefined(metadata) &&
     !('error' in metadata) &&
     !isUndefined(asset.decimals) &&
     !isUndefined(asset.name) &&
