@@ -14,11 +14,9 @@ export function InAppMessages(props: FlexProps) {
   const dismissMessage = useDismissMessage();
   const dismissedIds = useDismissedMessageIds();
 
-  if (!messages || messages?.length === 0) return null;
+  if (messages.length === 0) return null;
 
   const firstMessage = messages.filter(msg => !dismissedIds.includes(msg.id))[0];
-
-  if (!firstMessage) return null;
 
   if (firstMessage.chainTarget !== 'all' && firstMessage.chainTarget !== mode) {
     return null;
