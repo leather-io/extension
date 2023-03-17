@@ -5,8 +5,8 @@ import BigNumber from 'bignumber.js';
 import { SuggestedFirstStepStatus, SuggestedFirstSteps } from '@shared/models/onboarding-types';
 
 import { useGetAnchoredAccountBalanceListQuery } from '@app/query/stacks/balance/stx-balance.query';
-import { useAllAccountsNonFungibleTokenHoldingsTotal } from '@app/query/stacks/non-fungible-tokens/non-fungible-token-holdings.hooks';
-import { useGetNonFungibleTokenHoldingsQuery } from '@app/query/stacks/non-fungible-tokens/non-fungible-token-holdings.query';
+import { useAllAccountsNonFungibleTokenHoldingsTotal } from '@app/query/stacks/tokens/non-fungible-tokens/non-fungible-token-holdings.hooks';
+import { useGetNonFungibleTokenHoldingsQuery } from '@app/query/stacks/tokens/non-fungible-tokens/non-fungible-token-holdings.query';
 import {
   useCurrentStacksAccount,
   useStacksAccounts,

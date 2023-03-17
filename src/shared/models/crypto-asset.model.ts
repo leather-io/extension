@@ -18,11 +18,11 @@ export interface StacksFungibleTokenAsset {
   contractAddress: string;
   contractAssetName: string;
   contractName: string;
-  decimals?: number;
+  decimals: number;
   hasMemo: boolean;
-  imageCanonicalUri?: string;
-  name?: string;
-  symbol?: string;
+  imageCanonicalUri: string;
+  name: string;
+  symbol: string;
 }
 
 export interface StacksNonFungibleTokenAsset {
