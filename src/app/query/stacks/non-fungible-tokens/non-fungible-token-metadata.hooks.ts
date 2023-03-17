@@ -2,5 +2,5 @@ import { useGetNonFungibleTokenMetadataListQuery } from './non-fungible-token-me
 
 export function useNonFungibleTokensMetadata() {
   const respList = useGetNonFungibleTokenMetadataListQuery();
-  return (respList ?? []).map(resp => resp.data).filter(data => data?.token_uri);
+  return respList.map(resp => resp.data).filter(data => data?.token_uri);
 }
