@@ -1,3 +1,5 @@
+import { figmaTheme } from '@app/common/utils/figma-theme';
+
 export function ArrowIcon(props: React.SVGProps<SVGSVGElement>) {
   return (
     <svg
@@ -10,7 +12,7 @@ export function ArrowIcon(props: React.SVGProps<SVGSVGElement>) {
     >
       <path
         d="M12.985 3.015 3.5 12.5M6 3h7v7"
-        stroke="#242629"
+        stroke={figmaTheme.icon}
         strokeWidth={1.5}
         strokeLinecap="round"
         strokeLinejoin="round"

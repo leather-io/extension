@@ -3,6 +3,8 @@ import { SharedComponentsSelectors } from '@tests/selectors/shared-component.sel
 
 import { isString } from '@shared/utils';
 
+import { figmaTheme } from '@app/common/utils/figma-theme';
+
 import { SpaceBetween } from '../layout/space-between';
 
 // InfoCard
@@ -26,10 +28,10 @@ interface InfoCardRowProps {
 export function InfoCardRow({ title, value, ...props }: InfoCardRowProps) {
   return (
     <SpaceBetween fontSize="14px" alignItems="start" {...props}>
-      <Text color="#74777D">{title}</Text>
+      <Text color={figmaTheme.textSubdued}>{title}</Text>
       {isString(value) ? (
         <Text
-          color="#242629"
+          color={figmaTheme.text}
           fontWeight="500"
           data-testid={SharedComponentsSelectors.InfoCardRowValue}
         >
