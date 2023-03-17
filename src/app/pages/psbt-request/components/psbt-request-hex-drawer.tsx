@@ -3,6 +3,8 @@ import { FiChevronDown, FiChevronUp } from 'react-icons/fi';
 
 import { Box, Flex, Text } from '@stacks/ui';
 
+import { figmaTheme } from '@app/common/utils/figma-theme';
+
 interface ShowHexButtonProps {
   expanded: boolean;
 }
@@ -45,7 +47,7 @@ export function PsbtRequestHexDrawer(props: PsbtRequestHexDrawerProps) {
       >
         <Text
           display="block"
-          color="#74777D"
+          color={figmaTheme.textSubdued}
           fontSize={1}
           lineHeight="1.6"
           wordBreak="break-all"

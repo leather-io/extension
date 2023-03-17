@@ -3,6 +3,8 @@ import { FiAlertCircle } from 'react-icons/fi';
 
 import { Box, Flex, Stack, StackProps, Text, color } from '@stacks/ui';
 
+import { figmaTheme } from '@app/common/utils/figma-theme';
+
 import { Caption } from './typography';
 
 interface InfoLabelProps extends StackProps {
@@ -31,7 +33,7 @@ export function InfoLabel({ children, title, ...rest }: InfoLabelProps) {
           position="relative"
           top="2px"
         />
-        <Text color="#242629" fontSize={1} fontWeight={500} lineHeight="1.5">
+        <Text color={figmaTheme.text} fontSize={1} fontWeight={500} lineHeight="1.5">
           {title}
         </Text>
         <Caption lineHeight="1.5">{children}</Caption>

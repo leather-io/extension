@@ -9,6 +9,7 @@ import { isNumber } from '@shared/utils';
 
 import { baseCurrencyAmountInQuote } from '@app/common/money/calculate-money';
 import { i18nFormatCurrency } from '@app/common/money/format-money';
+import { figmaTheme } from '@app/common/utils/figma-theme';
 
 interface SendFiatInputProps {
   marketData: MarketData;
@@ -31,7 +32,7 @@ export function SendFiatValue({ marketData, assetSymbol = '' }: SendFiatInputPro
   }, [field.value, assetSymbol]);
 
   return (
-    <Text fontWeight={500} color="#242629">
+    <Text fontWeight={500} color={figmaTheme.text}>
       {Number(field.value) > 0 && '~'}{' '}
       {i18nFormatCurrency(baseCurrencyAmountInQuote(assetValue, marketData))} USD
     </Text>

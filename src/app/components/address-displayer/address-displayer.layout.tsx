@@ -1,5 +1,7 @@
 import { Box } from '@stacks/ui';
 
+import { figmaTheme } from '@app/common/utils/figma-theme';
+
 interface AddressDisplayerLayoutProps {
   isEven: boolean;
   children: React.ReactNode;
@@ -8,7 +10,7 @@ export function AddressDisplayerLayout({ isEven, ...props }: AddressDisplayerLay
   return (
     <Box
       as="span"
-      color={isEven ? '#74777D' : '#242629'}
+      color={isEven ? figmaTheme.textSubdued : figmaTheme.text}
       fontFamily="Fira Code"
       mr="tight"
       {...props}

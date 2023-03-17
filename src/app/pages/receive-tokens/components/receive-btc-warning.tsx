@@ -4,6 +4,7 @@ import { Stack, Text } from '@stacks/ui';
 
 import { RouteUrls } from '@shared/route-urls';
 
+import { figmaTheme } from '@app/common/utils/figma-theme';
 import { Link } from '@app/components/link';
 import { WarningLabel } from '@app/components/warning-label';
 
@@ -17,7 +18,7 @@ export function ReceiveBtcModalWarning({ accountIndex }: ReceiveBtcModalWarningP
   return (
     <WarningLabel width="100%">
       <Stack spacing="none">
-        <Text color="#242629" fontSize={1} fontWeight={500} mb="0">
+        <Text color={figmaTheme.text} fontSize={1} fontWeight={500} mb="0">
           Do not deposit Ordinal inscriptions here
         </Text>
         <Link
