@@ -16,7 +16,6 @@ export const GlobalStyles = memo(() => {
   const styles = css`
     :root {
       ${theme === 'dark' ? 'filter: invert(1) hue-rotate(180deg)' : ''};
-      transition: filter 0.8s;
     }
 
     img {
