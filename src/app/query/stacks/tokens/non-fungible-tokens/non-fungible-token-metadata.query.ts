@@ -1,13 +1,13 @@
 import { hexToCV } from '@stacks/transactions';
-import { useQueries } from '@tanstack/react-query';
+import { UseQueryResult, useQueries } from '@tanstack/react-query';
 
-import { StacksNftMetadataResponse } from '@shared/models/stacks-nft-metadata.model';
-
-import { fetcher } from '@app/common/api/wrapped-fetch';
 import { pullContractIdFromIdentity } from '@app/common/utils';
 import { QueryPrefixes } from '@app/query/query-prefixes';
+import { useTokenMetadataClient } from '@app/store/common/api-clients.hooks';
 
-import { RateLimiter, useHiroApiRateLimiter } from '../rate-limiter';
+import { RateLimiter, useHiroApiRateLimiter } from '../../rate-limiter';
+import { TokenMetadataClient } from '../../token-metadata-client';
+import { NftAssetResponse } from '../token-metadata.utils';
 import { useAccountNonFungibleTokenHoldings } from './non-fungible-token-holdings.hooks';
 
 const queryOptions = {
@@ -21,18 +21,17 @@ function getTokenId(hex: string) {
   return clarityValue.type === 1 ? Number(clarityValue.value) : 0;
 }
 
-function fetchNonFungibleTokenMetadata(limiter: RateLimiter) {
-  return async (principal: string, tokenId?: number) => {
+function fetchNonFungibleTokenMetadata(client: TokenMetadataClient, limiter: RateLimiter) {
+  return (principal: string, tokenId: number) => async () => {
     await limiter.removeTokens(1);
-    const resp = await fetcher(`https://api.hiro.so/metadata/v1/nft/${principal}/${tokenId}`);
-    const data = await resp.json();
-    return data as Promise<StacksNftMetadataResponse>;
+    return client.tokensApi.getNftMetadata(principal, tokenId);
   };
 }
 
-export function useGetNonFungibleTokenMetadataListQuery() {
-  const nftHoldings = useAccountNonFungibleTokenHoldings();
+export function useGetNonFungibleTokenMetadataListQuery(): UseQueryResult<NftAssetResponse>[] {
+  const client = useTokenMetadataClient();
   const limiter = useHiroApiRateLimiter();
+  const nftHoldings = useAccountNonFungibleTokenHoldings();
 
   return useQueries({
     queries: nftHoldings.map(nft => {
@@ -42,7 +41,7 @@ export function useGetNonFungibleTokenMetadataListQuery() {
       return {
         enabled: !!tokenId,
         queryKey: [QueryPrefixes.GetNftMetadata, principal, tokenId],
-        queryFn: () => fetchNonFungibleTokenMetadata(limiter)(principal, tokenId),
+        queryFn: fetchNonFungibleTokenMetadata(client, limiter)(principal, tokenId),
         ...queryOptions,
       };
     }),

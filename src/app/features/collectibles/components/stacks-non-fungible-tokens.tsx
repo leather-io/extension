@@ -1,8 +1,8 @@
 import { useState } from 'react';
 
+import { Metadata as StacksNftMetadata } from '@hirosystems/token-metadata-api-client';
 import { Spinner } from '@stacks/ui';
 
-import { StacksNftMetadata } from '@shared/models/stacks-nft-metadata.model';
 import { isValidUrl } from '@shared/utils/validate-url';
 
 import { figmaTheme } from '@app/common/utils/figma-theme';
@@ -20,20 +20,16 @@ const backgroundProps = {
 interface StacksNftCryptoAssetsProps {
   metadata: StacksNftMetadata;
 }
-
 export function StacksNonFungibleTokens({ metadata }: StacksNftCryptoAssetsProps) {
   const [isLoading, setIsLoading] = useState(true);
   const [isError, setIsError] = useState(false);
-
-  if (!metadata) return null;
-
-  const isImageAvailable = isValidUrl(metadata.cached_image);
+  const isImageAvailable = metadata.cached_image && isValidUrl(metadata.cached_image);
 
   return (
     <CollectibleItemLayout
       backgroundElementProps={backgroundProps}
       subtitle="Stacks NFT"
-      title={metadata.name}
+      title={metadata.name ?? ''}
       collectibleTypeIcon={<StxAvatar size="30px" />}
     >
       {isError || !isImageAvailable ? (

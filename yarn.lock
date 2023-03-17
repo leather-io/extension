@@ -1241,10 +1241,10 @@
   dependencies:
     "@hapi/hoek" "^9.0.0"
 
-"@hirosystems/token-metadata-api-client@1.0.1":
-  version "1.0.1"
-  resolved "https://registry.yarnpkg.com/@hirosystems/token-metadata-api-client/-/token-metadata-api-client-1.0.1.tgz#b7dd8cdd7c17d47cdde8fca2a53f7af5903c6eb9"
-  integrity sha512-JN2PVx4K0FzBjqOxxJP1x3+YxAB4E1RFvFepgknFQJePIa2RVxFnVyJD3fck7+s8WW27RuEDWQfpOxbspzBbNw==
+"@hirosystems/token-metadata-api-client@1.0.3":
+  version "1.0.3"
+  resolved "https://registry.yarnpkg.com/@hirosystems/token-metadata-api-client/-/token-metadata-api-client-1.0.3.tgz#3d941449d32f2e73848c76dfc2b39784229b5a13"
+  integrity sha512-FGQAsuEELIYo/boOy9EScVtrcud+8BAcSuPM+BDN6PRUZNqLXHlR7G5ufB1oHA1RnNioP/Mzc+yQkzatD6ak2A==
   dependencies:
     isomorphic-fetch "^3.0.0"
 

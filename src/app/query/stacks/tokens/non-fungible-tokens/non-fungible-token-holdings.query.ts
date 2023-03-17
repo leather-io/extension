@@ -7,7 +7,7 @@ import { StacksAccount } from '@app/store/accounts/blockchain/stacks/stacks-acco
 import { useStacksClientUnanchored } from '@app/store/common/api-clients.hooks';
 import { useCurrentNetworkState } from '@app/store/networks/networks.hooks';
 
-import { RateLimiter, useHiroApiRateLimiter } from '../rate-limiter';
+import { RateLimiter, useHiroApiRateLimiter } from '../../rate-limiter';
 
 const staleTime = 15 * 60 * 1000; // 15 min
 

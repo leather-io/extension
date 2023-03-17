@@ -5,8 +5,8 @@ import { ChainID } from '@stacks/transactions';
 import {
   BITCOIN_API_BASE_URL_MAINNET,
   BITCOIN_API_BASE_URL_TESTNET,
-  TOKEN_METADATA_API_BASE_URL_MAINNET,
-  TOKEN_METADATA_API_BASE_URL_TESTNET,
+  HIRO_API_BASE_URL_MAINNET,
+  HIRO_API_BASE_URL_TESTNET,
 } from '@shared/constants';
 
 import { whenStxChainId } from '@app/common/utils';
@@ -56,8 +56,8 @@ export function useTokenMetadataClient() {
   const network = useCurrentNetworkState();
 
   const basePath = whenStxChainId(network.chain.stacks.chainId)({
-    [ChainID.Mainnet]: TOKEN_METADATA_API_BASE_URL_MAINNET,
-    [ChainID.Testnet]: TOKEN_METADATA_API_BASE_URL_TESTNET,
+    [ChainID.Mainnet]: HIRO_API_BASE_URL_MAINNET,
+    [ChainID.Testnet]: HIRO_API_BASE_URL_TESTNET,
   });
 
   const config = createTokenMetadataConfig(basePath);

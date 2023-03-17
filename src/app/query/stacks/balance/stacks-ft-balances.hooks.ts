@@ -5,7 +5,8 @@ import type { StacksFungibleTokenAssetBalance } from '@shared/models/crypto-asse
 import { formatContractId, getFullyQualifiedStacksAssetName } from '@app/common/utils';
 import { useCurrentStacksAccount } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
 
-import { useGetFungibleTokenMetadataListQuery } from '../fungible-tokens/fungible-token-metadata.query';
+import { useGetFungibleTokenMetadataListQuery } from '../tokens/fungible-tokens/fungible-token-metadata.query';
+import { isFtAsset } from '../tokens/token-metadata.utils';
 import {
   addQueriedMetadataToInitializedStacksFungibleTokenAssetBalance,
   convertFtBalancesToStacksFungibleTokenAssetBalanceType,
@@ -61,7 +62,7 @@ export function useStacksFungibleTokenAssetBalancesAnchoredWithMetadata(address:
     () =>
       initializedAssetBalances.map((assetBalance, i) => {
         const metadata = ftAssetsMetadata[i].data;
-        if (!metadata) return assetBalance;
+        if (!(metadata && isFtAsset(metadata))) return assetBalance;
         return addQueriedMetadataToInitializedStacksFungibleTokenAssetBalance(
           assetBalance,
           metadata
@@ -87,7 +88,7 @@ function useStacksFungibleTokenAssetBalancesUnanchoredWithMetadata(
     () =>
       initializedAssetBalances.map((assetBalance, i) => {
         const metadata = ftAssetsMetadata[i].data;
-        if (!metadata) return assetBalance;
+        if (!(metadata && isFtAsset(metadata))) return assetBalance;
         return addQueriedMetadataToInitializedStacksFungibleTokenAssetBalance(
           assetBalance,
           metadata

@@ -1,4 +1,4 @@
-import { FungibleTokenMetadata } from '@stacks/stacks-blockchain-api-types';
+import { FtMetadataResponse } from '@hirosystems/token-metadata-api-client';
 import { getAssetStringParts } from '@stacks/ui-utils';
 import BigNumber from 'bignumber.js';
 
@@ -99,7 +99,7 @@ export function convertNftBalancesToStacksNonFungibleTokenAssetBalanceType(
 
 export function addQueriedMetadataToInitializedStacksFungibleTokenAssetBalance(
   assetBalance: StacksFungibleTokenAssetBalance,
-  metadata: FungibleTokenMetadata
+  metadata: FtMetadataResponse
 ) {
   return {
     ...assetBalance,
@@ -111,11 +111,11 @@ export function addQueriedMetadataToInitializedStacksFungibleTokenAssetBalance(
     asset: {
       ...assetBalance.asset,
       canTransfer: isTransferableStacksFungibleTokenAsset(assetBalance.asset),
-      decimals: metadata.decimals,
+      decimals: metadata.decimals ?? 0,
       hasMemo: isTransferableStacksFungibleTokenAsset(assetBalance.asset),
-      imageCanonicalUri: metadata.image_canonical_uri,
-      name: metadata.name,
-      symbol: metadata.symbol,
+      imageCanonicalUri: metadata.image_canonical_uri ?? '',
+      name: metadata.name ?? '',
+      symbol: metadata.symbol ?? '',
     },
   };
 }
