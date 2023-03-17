@@ -110,9 +110,9 @@ export function addQueriedMetadataToInitializedStacksFungibleTokenAssetBalance(
     ),
     asset: {
       ...assetBalance.asset,
-      canTransfer: isTransferableStacksFungibleTokenAsset(assetBalance.asset, metadata),
+      canTransfer: isTransferableStacksFungibleTokenAsset(assetBalance.asset),
       decimals: metadata.decimals,
-      hasMemo: isTransferableStacksFungibleTokenAsset(assetBalance.asset, metadata),
+      hasMemo: isTransferableStacksFungibleTokenAsset(assetBalance.asset),
       imageCanonicalUri: metadata.image_canonical_uri,
       name: metadata.name,
       symbol: metadata.symbol,

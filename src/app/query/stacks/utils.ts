@@ -1,3 +1,4 @@
+import { Configuration as TokenMetadataConfiguration } from '@hirosystems/token-metadata-api-client';
 import { Configuration, Middleware, RequestContext } from '@stacks/blockchain-api-client';
 
 import { MICROBLOCKS_ENABLED } from '@shared/constants';
@@ -30,4 +31,8 @@ export function createStacksAnchoredConfig(basePath: string) {
     basePath,
     fetchApi,
   });
+}
+
+export function createTokenMetadataConfig(basePath: string) {
+  return new TokenMetadataConfiguration({ basePath });
 }

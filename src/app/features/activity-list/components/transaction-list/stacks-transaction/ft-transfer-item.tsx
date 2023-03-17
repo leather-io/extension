@@ -39,7 +39,7 @@ export function FtTransferItem({ ftTransfer, parentTx }: FtTransferItemProps) {
 
   const caption = getTxCaption(parentTx.tx) ?? '';
   const ftImageCanonicalUri =
-    assetMetadata && getImageCanonicalUri(assetMetadata.image_canonical_uri, assetMetadata.name);
+    assetMetadata && getImageCanonicalUri(assetMetadata.imageCanonicalUri, assetMetadata.name);
   const icon = isOriginator ? FiArrowUp : FiArrowDown;
   const title = `${assetMetadata?.name || 'Token'} Transfer`;
   const value = `${isOriginator ? '-' : ''}${displayAmount.toFormat()}`;

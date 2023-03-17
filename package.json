@@ -129,6 +129,7 @@
     "@emotion/react": "11.10.5",
     "@emotion/styled": "11.10.5",
     "@fungible-systems/zone-file": "2.0.0",
+    "@hirosystems/token-metadata-api-client": "1.0.1",
     "@ledgerhq/hw-transport-webusb": "6.27.10",
     "@noble/hashes": "1.2.0",
     "@noble/secp256k1": "1.7.1",

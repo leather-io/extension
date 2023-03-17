@@ -75,6 +75,9 @@ export type NetworkModes = keyof typeof DefaultNetworkModes;
 const DEFAULT_SERVER_MAINNET = 'https://stacks-node-api.stacks.co';
 export const DEFAULT_SERVER_TESTNET = 'https://stacks-node-api.testnet.stacks.co';
 
+export const TOKEN_METADATA_API_BASE_URL_MAINNET = 'https://api.hiro.so';
+export const TOKEN_METADATA_API_BASE_URL_TESTNET = 'https://api.testnet.hiro.so';
+
 export const BITCOIN_API_BASE_URL_MAINNET = 'https://blockstream.info/api';
 export const BITCOIN_API_BASE_URL_TESTNET = 'https://blockstream.info/testnet/api';
 

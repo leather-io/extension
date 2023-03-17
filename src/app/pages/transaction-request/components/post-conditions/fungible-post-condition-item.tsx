@@ -33,8 +33,7 @@ function FungiblePostConditionItemSuspense(
   const pendingTransaction = useTransactionRequestState();
   // Use token meta data if available
   const asset = useAssetFromFungiblePostCondition(pc);
-  // find the correct asset
-  const imageCanonicalUri = asset && getImageCanonicalUri(asset.image_canonical_uri, asset.name);
+  const imageCanonicalUri = asset && getImageCanonicalUri(asset.imageCanonicalUri, asset.name);
 
   const title = getPostConditionTitle(pc);
   const iconString = imageCanonicalUri ?? getIconStringFromPostCondition(pc);
