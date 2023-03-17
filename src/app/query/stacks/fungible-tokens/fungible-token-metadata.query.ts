@@ -1,12 +1,11 @@
-import { FungibleTokenMetadata } from '@stacks/stacks-blockchain-api-types';
+import { FtMetadataResponse } from '@hirosystems/token-metadata-api-client';
 import { UseQueryResult, useQueries, useQuery } from '@tanstack/react-query';
 
-import { NetworkModes, chainIdToNetworkModeMap } from '@shared/constants';
-
-import { fetcher } from '@app/common/api/wrapped-fetch';
+import { useTokenMetadataClient } from '@app/store/common/api-clients.hooks';
 import { useCurrentNetworkState } from '@app/store/networks/networks.hooks';
 
 import { RateLimiter, useHiroApiRateLimiter } from '../rate-limiter';
+import { TokenMetadataClient } from '../token-metadata-client';
 
 const staleTime = 12 * 60 * 60 * 1000;
 
@@ -21,47 +20,38 @@ const queryOptions = {
   retry: 0,
 } as const;
 
-const hiroApiUrlMap: Record<NetworkModes, string> = {
-  mainnet: 'https://api.hiro.so',
-  testnet: 'https://api.testnet.hiro.so',
-};
-
-function fetchUnanchoredAccountInfo(network: NetworkModes, limiter: RateLimiter) {
-  return (contractId: string) => async () => {
+function fetchFungibleTokenMetadata(client: TokenMetadataClient, limiter: RateLimiter) {
+  return (principal: string) => async () => {
     await limiter.removeTokens(1);
-    const resp = await fetcher(hiroApiUrlMap[network] + `/metadata/v1/ft/${contractId}`);
-    const data = await resp.json();
-    return data;
+    return client.tokensApi.getFtMetadata(principal);
   };
 }
 
 export function useGetFungibleTokenMetadataQuery(
-  contractId: string
-): UseQueryResult<FungibleTokenMetadata> {
-  const { chain } = useCurrentNetworkState();
+  principal: string
+): UseQueryResult<FtMetadataResponse> {
+  const client = useTokenMetadataClient();
+  const network = useCurrentNetworkState();
   const limiter = useHiroApiRateLimiter();
+
   return useQuery({
-    queryKey: ['get-ft-metadata', contractId, chain.stacks.url],
-    queryFn: fetchUnanchoredAccountInfo(
-      chainIdToNetworkModeMap[chain.stacks.chainId],
-      limiter
-    )(contractId),
+    queryKey: ['get-ft-metadata', principal, network.chain.stacks.url],
+    queryFn: fetchFungibleTokenMetadata(client, limiter)(principal),
     ...queryOptions,
   });
 }
 
 export function useGetFungibleTokenMetadataListQuery(
-  contractIds: string[]
-): UseQueryResult<FungibleTokenMetadata>[] {
-  const { chain } = useCurrentNetworkState();
+  principals: string[]
+): UseQueryResult<FtMetadataResponse>[] {
+  const client = useTokenMetadataClient();
+  const network = useCurrentNetworkState();
   const limiter = useHiroApiRateLimiter();
+
   return useQueries({
-    queries: contractIds.map(contractId => ({
-      queryKey: ['get-ft-metadata', contractId, chain.stacks.url],
-      queryFn: fetchUnanchoredAccountInfo(
-        chainIdToNetworkModeMap[chain.stacks.chainId],
-        limiter
-      )(contractId),
+    queries: principals.map(principal => ({
+      queryKey: ['get-ft-metadata', principal, network.chain.stacks.url],
+      queryFn: fetchFungibleTokenMetadata(client, limiter)(principal),
       ...queryOptions,
     })),
   });
