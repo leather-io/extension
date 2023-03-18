@@ -35,7 +35,9 @@ export function RetrieveTaprootToNativeSegwitLayout(
         <Body mt="base">This transaction may take upwards of 30 minutes to confirm.</Body>
         {children}
         <WarningLabel mt="loose">
-          We recommend you check the UTXOs to ensure they contain no inscriptions
+          We recommend you check the URL for each "Uninscribed UTXO" listed above to ensure it
+          displays no inscription. If it does diplay one, do not proceed with retrieval or you may
+          loose it!
         </WarningLabel>
         <PrimaryButton
           onClick={onApproveTransaction}

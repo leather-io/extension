@@ -34,12 +34,12 @@ function Inscription({ path, utxo }: InscriptionProps) {
   const inscriptionMetadata = whenInscriptionType<InscriptionInfo>(inscription.content_type, {
     image: () => ({
       infoUrl: createInfoUrl(inscription.content),
-      src: `https://ordinals.com${inscription.content}`,
+      src: `https://ordapi.xyz${inscription.content}`,
       type: 'image',
       ...inscription,
     }),
     text: () => ({
-      contentSrc: `https://ordinals.com${inscription.content}`,
+      contentSrc: `https://ordapi.xyz${inscription.content}`,
       infoUrl: createInfoUrl(inscription.content),
       type: 'text',
       ...inscription,
