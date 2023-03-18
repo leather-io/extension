@@ -1,3 +1,10 @@
+## [4.12.0](https://github.com/hirosystems/wallet/compare/v4.11.0...v4.12.0) (2023-03-18)
+
+
+### Features
+
+* change ordinals content url ([38e83a7](https://github.com/hirosystems/wallet/commit/38e83a76b9445bab200f6c5cbfbacb4c9d3e5b89))
+
 ## [4.11.0](https://github.com/hirosystems/wallet/compare/v4.10.2...v4.11.0) (2023-03-18)
 
 
