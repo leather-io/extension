@@ -1,3 +1,10 @@
+## [4.11.0](https://github.com/hirosystems/wallet/compare/v4.10.2...v4.11.0) (2023-03-18)
+
+
+### Features
+
+* update wallet config ([f20d8fe](https://github.com/hirosystems/wallet/commit/f20d8fe8dbabdcde10daf5fe5e5e2ebaf17725af))
+
 ## [4.10.2](https://github.com/hirosystems/wallet/compare/v4.10.1...v4.10.2) (2023-03-15)
 
 
