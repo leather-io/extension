@@ -11,6 +11,7 @@ import { useTaprootAccountKeychain } from '@app/store/accounts/blockchain/bitcoi
 import { useBitcoinClient } from '@app/store/common/api-clients.hooks';
 import { useCurrentNetwork } from '@app/store/networks/networks.selectors';
 
+// ts-unused-exports:disable-next-line
 export function useNextFreshTaprootAddressQuery(accIndex?: number) {
   const network = useCurrentNetwork();
   const currentAccountIndex = useCurrentAccountIndex();

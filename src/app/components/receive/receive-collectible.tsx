@@ -13,16 +13,18 @@ import { StxAvatar } from '@app/components/crypto-assets/stacks/components/stx-a
 import { OrdinalIcon } from '@app/components/icons/ordinal-icon';
 import { Flag } from '@app/components/layout/flag';
 import { Caption } from '@app/components/typography';
-import { useNextFreshTaprootAddressQuery } from '@app/query/bitcoin/ordinals/use-next-fresh-taproot-address.query';
+import { useZeroIndexTaprootAddress } from '@app/query/bitcoin/ordinals/use-zero-index-taproot-address';
 import { useCurrentAccountStxAddressState } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
 
 export function ReceiveCollectible() {
   const analytics = useAnalytics();
-  const navigate = useNavigate();
   const location = useLocation();
+  const navigate = useNavigate();
   const accountIndex = get(location.state, 'accountIndex', undefined);
+  const btcAddress = useZeroIndexTaprootAddress(accountIndex);
 
-  const { isLoading, isError, data: btcAddress } = useNextFreshTaprootAddressQuery(accountIndex);
+  // TODO: Reuse later for privacy mode
+  // const { isLoading, isError, data: btcAddress } = useNextFreshTaprootAddressQuery(accountIndex);
 
   const stxAddress = useCurrentAccountStxAddressState();
   const { onCopy: onCopyStacks } = useClipboard(stxAddress);
@@ -33,22 +35,19 @@ export function ReceiveCollectible() {
     copyHandler();
   }
 
+  if (!btcAddress) return null;
+
   return (
     <Stack spacing="loose" mt="base" mb="extra-loose">
       <Flag img={<OrdinalIcon />} spacing="base">
         <Flex justifyContent="space-between">
           <Box>
             Ordinal inscription
-            {isLoading ? (
-              <Caption mt="2px">Loading…</Caption>
-            ) : (
-              !isError && <Caption mt="2px">{truncateMiddle(btcAddress, 6)}</Caption>
-            )}
+            <Caption mt="2px">{truncateMiddle(btcAddress, 6)}</Caption>
           </Box>
           <Stack>
             <Box>
               <Button
-                isDisabled={isLoading || isError}
                 borderRadius="10px"
                 mode="tertiary"
                 onClick={() => {
