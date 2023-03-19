@@ -26,4 +26,9 @@ export function isDefined<T>(argument: T | undefined): argument is T {
   return !isUndefined(argument);
 }
 
+export function isTypedArray(val: unknown): val is Uint8Array {
+  const TypedArray = Object.getPrototypeOf(Uint8Array);
+  return val instanceof TypedArray;
+}
+
 export function noop() {}

@@ -1,3 +1,5 @@
+import { FungibleTokenMetadata } from '@stacks/blockchain-api-client';
+
 import { StacksFungibleTokenAsset } from '@shared/models/crypto-asset.model';
 import { isUndefined } from '@shared/utils';
 import { isValidUrl } from '@shared/utils/validate-url';
@@ -31,6 +33,16 @@ export function getImageCanonicalUri(imageCanonicalUri: string, name: string) {
     : '';
 }
 
-export function isTransferableStacksFungibleTokenAsset(asset: StacksFungibleTokenAsset) {
-  return !isUndefined(asset.decimals) && !isUndefined(asset.name) && !isUndefined(asset.symbol);
+// Metadata is used here temporarily until we have the new Hiro API types
+export function isTransferableStacksFungibleTokenAsset(
+  asset: StacksFungibleTokenAsset,
+  metadata?: FungibleTokenMetadata
+) {
+  return (
+    !isUndefined(metadata) &&
+    !('error' in metadata) &&
+    !isUndefined(asset.decimals) &&
+    !isUndefined(asset.name) &&
+    !isUndefined(asset.symbol)
+  );
 }

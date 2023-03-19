@@ -6,6 +6,8 @@ import { Stack, useClipboard } from '@stacks/ui';
 
 import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
 import { useExplorerLink } from '@app/common/hooks/use-explorer-link';
+import { useRouteHeader } from '@app/common/hooks/use-route-header';
+import { FormAddressDisplayer } from '@app/components/address-displayer/form-address-displayer';
 import {
   InfoCard,
   InfoCardAssetValue,
@@ -13,6 +15,7 @@ import {
   InfoCardRow,
   InfoCardSeparator,
 } from '@app/components/info-card/info-card';
+import { ModalHeader } from '@app/components/modal-header';
 
 export function BtcSentSummary() {
   const { state } = useLocation();
@@ -43,12 +46,14 @@ export function BtcSentSummary() {
     toast.success('ID copied!');
   };
 
+  useRouteHeader(<ModalHeader hideActions defaultClose title="Sent" />);
+
   return (
     <InfoCard pt="extra-loose" pb="base-loose" px="extra-loose">
       <InfoCardAssetValue value={txValue} fiatValue={txFiatValue} symbol={symbol} icon={FiCheck} />
 
       <Stack width="100%" mb="44px">
-        <InfoCardRow title="To" value={recipient} isAddressDisplayer />
+        <InfoCardRow title="To" value={<FormAddressDisplayer address={recipient} />} />
         <InfoCardSeparator />
         <InfoCardRow title="Total spend" value={totalSpend} />
 

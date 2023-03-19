@@ -1,5 +1,6 @@
 import { useLocation, useNavigate } from 'react-router-dom';
 
+import { Stack } from '@stacks/ui';
 import get from 'lodash.get';
 
 import { decodeBitcoinTx } from '@shared/crypto/bitcoin/bitcoin.utils';
@@ -11,16 +12,23 @@ import { useRouteHeader } from '@app/common/hooks/use-route-header';
 import { baseCurrencyAmountInQuote } from '@app/common/money/calculate-money';
 import { formatMoney, i18nFormatCurrency } from '@app/common/money/format-money';
 import { satToBtc } from '@app/common/money/unit-conversion';
-import { Header } from '@app/components/header';
+import { FormAddressDisplayer } from '@app/components/address-displayer/form-address-displayer';
+import {
+  InfoCard,
+  InfoCardAssetValue,
+  InfoCardRow,
+  InfoCardSeparator,
+} from '@app/components/info-card/info-card';
+import { ModalHeader } from '@app/components/modal-header';
+import { PrimaryButton } from '@app/components/primary-button';
 import { useCurrentNativeSegwitUtxos } from '@app/query/bitcoin/address/address.hooks';
 import { useBitcoinFeeRate } from '@app/query/bitcoin/fees/fee-estimates.hooks';
 import { useBitcoinBroadcastTransaction } from '@app/query/bitcoin/transaction/use-bitcoin-broadcast-transaction';
 import { useCryptoCurrencyMarketData } from '@app/query/common/market-data/market-data.hooks';
 
-import { ConfirmationButton } from '../../components/confirmation/components/confirmation-button';
-import { SendFormConfirmationLayout } from '../../components/confirmation/components/send-form-confirmation.layout';
 import { useSendFormNavigate } from '../../hooks/use-send-form-navigate';
-import { BtcSendFormConfirmationDetails } from './btc-send-form-confirmation-details';
+
+const symbol = 'BTC';
 
 export function BtcSendFormConfirmation() {
   const location = useLocation();
@@ -39,8 +47,18 @@ export function BtcSendFormConfirmation() {
   const nav = useSendFormNavigate();
 
   const transferAmount = satToBtc(psbt.outputs[0].amount.toString()).toString();
-  const feeInBtc = satToBtc(fee);
+  const txFiatValue = i18nFormatCurrency(
+    baseCurrencyAmountInQuote(createMoneyFromDecimal(Number(transferAmount), symbol), btcMarketData)
+  );
   const { data: feeRate } = useBitcoinFeeRate();
+  const arrivesIn = feeRate ? `~${feeRate?.fastestFee} min` : '~10 – 20 min';
+
+  const feeInBtc = satToBtc(fee);
+  const totalSpend = formatMoney(
+    createMoneyFromDecimal(Number(transferAmount) + Number(feeInBtc), symbol)
+  );
+  const sendingValue = formatMoney(createMoneyFromDecimal(Number(transferAmount), symbol));
+  const summaryFee = formatMoney(createMoney(Number(fee), symbol));
 
   async function initiateTransaction() {
     await broadcastTx({
@@ -63,53 +81,44 @@ export function BtcSendFormConfirmation() {
       },
     });
   }
+
   function formBtcTxSummaryState(txId: string) {
-    const symbol = 'BTC';
-    const arrivesIn = feeRate ? `~${feeRate?.fastestFee} min` : '~10 – 20 min';
     return {
+      hasHeaderTitle: true,
       txLink: {
         blockchain: 'bitcoin',
         txid: txId || '',
       },
       txId,
       recipient,
-      fee: formatMoney(createMoney(Number(fee), symbol)),
+      fee: summaryFee,
       txValue: transferAmount,
       arrivesIn,
-      totalSpend: formatMoney(
-        createMoneyFromDecimal(Number(transferAmount) + Number(feeInBtc), symbol)
-      ),
+      totalSpend,
       symbol,
-      sendingValue: formatMoney(createMoneyFromDecimal(Number(transferAmount), symbol)),
-      txFiatValue: i18nFormatCurrency(
-        baseCurrencyAmountInQuote(
-          createMoneyFromDecimal(Number(transferAmount), symbol),
-          btcMarketData
-        )
-      ),
+      sendingValue,
+      txFiatValue,
     };
   }
-  useRouteHeader(
-    <Header
-      hideActions
-      onClose={() =>
-        nav.backToSendForm({
-          recipient,
-          amount: transferAmount,
-        })
-      }
-      title="Confirm transaction"
-    />
-  );
+
+  useRouteHeader(<ModalHeader hideActions defaultClose defaultGoBack title="Review" />);
 
   return (
-    <SendFormConfirmationLayout>
-      <BtcSendFormConfirmationDetails
-        unsignedTx={psbt}
-        recipient={recipient}
-        fee={createMoney(fee, 'BTC')}
-      />
-      <ConfirmationButton isLoading={isBroadcasting} onClick={initiateTransaction} />
-    </SendFormConfirmationLayout>
+    <InfoCard pt="extra-loose" pb="extra-loose" px="extra-loose">
+      <InfoCardAssetValue value={Number(transferAmount)} fiatValue={txFiatValue} symbol={symbol} />
+
+      <Stack width="100%" mb="36px">
+        <InfoCardRow title="To" value={<FormAddressDisplayer address={recipient} />} />
+        <InfoCardSeparator />
+        <InfoCardRow title="Total spend" value={totalSpend} />
+        <InfoCardRow title="Sending" value={sendingValue} />
+        <InfoCardRow title="Fee" value={summaryFee} />
+        <InfoCardRow title="Estimated confirmation time" value={arrivesIn} />
+      </Stack>
+
+      <PrimaryButton isLoading={isBroadcasting} width="100%" onClick={initiateTransaction}>
+        Confirm and send transaction
+      </PrimaryButton>
+    </InfoCard>
   );
 }

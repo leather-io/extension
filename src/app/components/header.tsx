@@ -61,8 +61,8 @@ export const Header: React.FC<HeaderProps> = memo(props => {
       {...rest}
     >
       {onClose ? (
-        <Box flexBasis="20%">
-          <IconButton alignSelf="center" icon={FiArrowLeft} iconSize="16px" onClick={onClose} />
+        <Box flexBasis="20%" onClick={onClose} as="button">
+          <IconButton alignSelf="center" icon={FiArrowLeft} iconSize="16px" />
         </Box>
       ) : null}
       {!title && (!onClose || desktopViewport) ? (
