@@ -1,3 +1,29 @@
+## [4.13.0](https://github.com/hirosystems/wallet/compare/v4.12.0...v4.13.0) (2023-03-19)
+
+
+### Features
+
+* create new page header component ([053825f](https://github.com/hirosystems/wallet/commit/053825f28c246941f23c22ee11ff736e4dccc93b))
+* redesign send review flow ([98421ca](https://github.com/hirosystems/wallet/commit/98421cad0a6d1433583141f444358bd76ed31aca))
+
+
+### Bug Fixes
+
+* don't hide switch account menu ([960f477](https://github.com/hirosystems/wallet/commit/960f477f1a9e7bca9a4014e373e8d6fb309d65f9))
+* ft metadata not found ([7486870](https://github.com/hirosystems/wallet/commit/7486870f8f45d805c56783e28db2f64e80c77e14))
+* metadata undefined and key error ([d3137c5](https://github.com/hirosystems/wallet/commit/d3137c514f06f3dabb442001cec2b8470ed04a2e))
+* ordinals view details link ([28cd0ea](https://github.com/hirosystems/wallet/commit/28cd0ea3de73a1a77d1db51cb58b048b24ca8142))
+* psbt display of uint8array ([15870be](https://github.com/hirosystems/wallet/commit/15870bef0ed79461d27b7d8f1891492136e29ec0))
+* remove theme switch transition ([a5ce937](https://github.com/hirosystems/wallet/commit/a5ce937f33df3bb05d165288be3043f1dd2d6bb6))
+* stacks ft missing flag ([cf4975a](https://github.com/hirosystems/wallet/commit/cf4975a1a50f723721d88a17ccce94036427c513))
+
+
+### Internal
+
+* remove banner ([d87a059](https://github.com/hirosystems/wallet/commit/d87a0595ba27c1ba75f96fb1b6343a72fe5f49cd))
+* update banner in wallet config ([7380515](https://github.com/hirosystems/wallet/commit/73805153ca96e99cf2a5151ea7fdd8f8fc5a7efe))
+* use zero index for taproot receive address ([5af10e5](https://github.com/hirosystems/wallet/commit/5af10e50f006a98f9632bc12f4b65982d7f840ef))
+
 ## [4.12.0](https://github.com/hirosystems/wallet/compare/v4.11.0...v4.12.0) (2023-03-18)
 
 
