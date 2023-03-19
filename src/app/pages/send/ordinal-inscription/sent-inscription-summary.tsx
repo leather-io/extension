@@ -38,7 +38,7 @@ export function SendInscriptionSummary() {
 
   const navigate = useNavigate();
   const txLink = {
-    blockchain: 'stacks' as Blockchains,
+    blockchain: 'bitcoin' as Blockchains,
     txid: txId || '',
   };
 
@@ -47,7 +47,7 @@ export function SendInscriptionSummary() {
   const analytics = useAnalytics();
 
   const onClickLink = () => {
-    void analytics.track('view_transaction_confirmation', { symbol: 'STX' });
+    void analytics.track('view_transaction_confirmation', { symbol: 'BTC' });
     handleOpenTxLink(txLink);
   };
 
