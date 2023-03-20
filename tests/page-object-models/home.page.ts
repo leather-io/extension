@@ -1,11 +1,18 @@
 import { Locator, Page } from '@playwright/test';
+import { SettingsSelectors } from '@tests-legacy/integration/settings.selectors';
 import { HomePageSelectors } from '@tests/selectors/home.selectors';
+import { SettingsMenuSelectors } from '@tests/selectors/settings.selectors';
+import { SharedComponentsSelectors } from '@tests/selectors/shared-component.selectors';
+import { createTestSelector } from '@tests/utils';
+
+import { DefaultNetworkConfigurationIds } from '@shared/constants';
 
 export class HomePage {
   readonly page: Page;
   readonly drawerActionButton: Locator;
   readonly receiveButton: Locator;
   readonly sendButton: Locator;
+  readonly testNetworkSelector: string = createTestSelector(DefaultNetworkConfigurationIds.testnet);
 
   constructor(page: Page) {
     this.page = page;
@@ -27,7 +34,7 @@ export class HomePage {
     await this.goToReceiveModal();
     await this.page.getByTestId(HomePageSelectors.ReceiveBtcQrCodeBtn).click();
     const displayerAddress = await this.page
-      .getByTestId(HomePageSelectors.AddressDisplayer)
+      .getByTestId(SharedComponentsSelectors.AddressDisplayer)
       .innerText();
     return displayerAddress.replaceAll('\n', '');
   }
@@ -36,8 +43,17 @@ export class HomePage {
     await this.goToReceiveModal();
     await this.page.getByTestId(HomePageSelectors.ReceiveStxQrCodeBtn).click();
     const displayerAddress = await this.page
-      .getByTestId(HomePageSelectors.AddressDisplayer)
+      .getByTestId(SharedComponentsSelectors.AddressDisplayer)
       .innerText();
     return displayerAddress.replaceAll('\n', '');
+  }
+
+  async enableTestMode() {
+    await this.page.getByTestId(SettingsMenuSelectors.SettingsMenuBtn).click();
+    await this.page.getByTestId(SettingsSelectors.ChangeNetworkAction).click();
+    await (
+      await this.page.waitForSelector(this.testNetworkSelector, { timeout: 30000 })
+    ).isEnabled();
+    await this.page.getByTestId(DefaultNetworkConfigurationIds.testnet).click();
   }
 }

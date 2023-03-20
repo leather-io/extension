@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
 
 import { Box, StackProps } from '@stacks/ui';
+import { SharedComponentsSelectors } from '@tests/selectors/shared-component.selectors';
 import BigNumber from 'bignumber.js';
 import { useField } from 'formik';
 
@@ -78,6 +79,7 @@ export function FeesRow(props: FeeRowProps): JSX.Element {
 
   return (
     <FeesRowLayout
+      data-testid={SharedComponentsSelectors.FeeRow}
       feeField={
         isCustom ? (
           <CustomFeeField

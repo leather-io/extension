@@ -1,4 +1,5 @@
 import { Box, Button, Flex, FlexProps, Stack, Text } from '@stacks/ui';
+import { SharedComponentsSelectors } from '@tests/selectors/shared-component.selectors';
 
 import { isString } from '@shared/utils';
 
@@ -22,12 +23,16 @@ interface InfoCardRowProps {
   value: React.ReactNode;
 }
 
-export function InfoCardRow({ title, value }: InfoCardRowProps) {
+export function InfoCardRow({ title, value, ...props }: InfoCardRowProps) {
   return (
-    <SpaceBetween fontSize="14px" alignItems="start">
+    <SpaceBetween fontSize="14px" alignItems="start" {...props}>
       <Text color="#74777D">{title}</Text>
       {isString(value) ? (
-        <Text color="#242629" fontWeight="500">
+        <Text
+          color="#242629"
+          fontWeight="500"
+          data-testid={SharedComponentsSelectors.InfoCardRowValue}
+        >
           {value}
         </Text>
       ) : (
@@ -68,7 +73,13 @@ export function InfoCardAssetValue({ value, fiatValue, symbol, icon }: InfoCardA
       {icon && <Box as={icon} size="32px" />}
 
       <Flex flexDirection="column" alignItems="center">
-        <Text fontSize="24px" fontWeight="500" mb="4px" lineHeight="36px">
+        <Text
+          fontSize="24px"
+          fontWeight="500"
+          mb="4px"
+          lineHeight="36px"
+          data-testid={SharedComponentsSelectors.InfoCardAssetValue}
+        >
           {value} {symbol}
         </Text>
         <Text fontSize="12px">~ {fiatValue} USD</Text>
