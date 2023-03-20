@@ -1,7 +1,7 @@
 import { FormEvent, useCallback } from 'react';
 
 import { Input, InputGroup, Stack, StackProps, color } from '@stacks/ui';
-import { FeesSelectors } from '@tests/selectors/fees.selectors';
+import { SharedComponentsSelectors } from '@tests/selectors/shared-component.selectors';
 import { useField } from 'formik';
 
 import { CryptoCurrencies } from '@shared/models/currencies.model';
@@ -48,7 +48,7 @@ export function CustomFeeField(props: CustomFeeFieldProps) {
           autoComplete="off"
           borderRadius="8px"
           color={color('text-caption')}
-          data-testid={FeesSelectors.CustomFeeFieldInput}
+          data-testid={SharedComponentsSelectors.CustomFeeFieldInput}
           display="block"
           height="32px"
           name="fee"

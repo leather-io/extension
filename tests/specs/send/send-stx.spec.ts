@@ -3,7 +3,8 @@ import {
   TEST_BNS_NAME,
   TEST_BNS_RESOLVED_ADDRESS,
 } from '@tests/mocks/constants';
-import { FeesSelectors } from '@tests/selectors/fees.selectors';
+import { SharedComponentsSelectors } from '@tests/selectors/shared-component.selectors';
+import { getDisplayerAddress } from '@tests/utils';
 
 import { FormErrorMessages } from '@app/common/error-messages';
 
@@ -40,14 +41,18 @@ test.describe('send stx', () => {
     });
 
     test('that fee row defaults to middle fee estimation', async ({ page }) => {
-      const feeToBePaid = await page.getByTestId(FeesSelectors.FeeToBePaidLabel).innerText();
+      const feeToBePaid = await page
+        .getByTestId(SharedComponentsSelectors.FeeToBePaidLabel)
+        .innerText();
       test.expect(feeToBePaid).toEqual('0.003 STX');
     });
 
     test('that low fee estimate can be selected', async ({ page }) => {
-      await page.getByTestId(FeesSelectors.MiddleFeeEstimateItem).click();
-      await page.getByTestId(FeesSelectors.LowFeeEstimateItem).click();
-      const feeToBePaid = await page.getByTestId(FeesSelectors.FeeToBePaidLabel).innerText();
+      await page.getByTestId(SharedComponentsSelectors.MiddleFeeEstimateItem).click();
+      await page.getByTestId(SharedComponentsSelectors.LowFeeEstimateItem).click();
+      const feeToBePaid = await page
+        .getByTestId(SharedComponentsSelectors.FeeToBePaidLabel)
+        .innerText();
       test.expect(feeToBePaid).toEqual('0.0025 STX');
     });
   });
@@ -109,6 +114,7 @@ test.describe('send stx', () => {
     test('that it shows preview of tx details to be confirmed', async ({ sendPage }) => {
       await sendPage.amountInput.fill('0.000001');
       await sendPage.recipientInput.fill(TEST_ACCOUNT_2_STX_ADDRESS);
+      await sendPage.waitForFeesSelector();
       await sendPage.previewSendTxButton.click();
       const details = await sendPage.confirmationDetails.allInnerTexts();
       test.expect(details).toBeTruthy();
@@ -119,6 +125,7 @@ test.describe('send stx', () => {
     }) => {
       await sendPage.amountInput.fill('0.0000001');
       await sendPage.recipientInput.fill(TEST_ACCOUNT_2_STX_ADDRESS);
+      await sendPage.waitForFeesSelector();
       await sendPage.previewSendTxButton.click();
       const errorMsg = await sendPage.amountInputErrorLabel.innerText();
       test.expect(errorMsg).toEqual(FormErrorMessages.MustBePositive);
@@ -127,6 +134,56 @@ test.describe('send stx', () => {
       await sendPage.previewSendTxButton.click();
       const details = await sendPage.confirmationDetails.allInnerTexts();
       test.expect(details).toBeTruthy();
+    });
+
+    test('that asset value, recipient, memo and fees on preview match input', async ({
+      sendPage,
+    }) => {
+      const amount = '0.000001';
+      const amountSymbol = 'STX';
+      const memo = '123';
+      await sendPage.amountInput.fill(amount);
+      await sendPage.recipientInput.fill(TEST_ACCOUNT_2_STX_ADDRESS);
+      await sendPage.memoInput.fill(memo);
+      await sendPage.waitForFeesSelector();
+      const fees = await sendPage.page
+        .getByTestId(SharedComponentsSelectors.FeeToBePaidLabel)
+        .innerText();
+      await sendPage.previewSendTxButton.click();
+
+      const displayerAddress = await getDisplayerAddress(sendPage.confirmationDetailsRecipient);
+
+      test.expect(displayerAddress).toEqual(TEST_ACCOUNT_2_STX_ADDRESS);
+
+      const confirmationAssetValue = await sendPage.confirmationDetails
+        .getByTestId(SharedComponentsSelectors.InfoCardAssetValue)
+        .innerText();
+      test.expect(confirmationAssetValue).toEqual(`${amount} ${amountSymbol}`);
+
+      const confirmationFees = await sendPage.feesRow
+        .getByTestId(SharedComponentsSelectors.InfoCardRowValue)
+        .innerText();
+      test.expect(confirmationFees).toEqual(fees);
+
+      const confirmationMemo = await sendPage.memoRow
+        .getByTestId(SharedComponentsSelectors.InfoCardRowValue)
+        .innerText();
+      test.expect(confirmationMemo).toEqual(memo);
+    });
+
+    test('that empty memo on preview matches default empty value', async ({ sendPage }) => {
+      const amount = '0.000001';
+      const emptyMemoPreviewValue = 'No memo';
+
+      await sendPage.amountInput.fill(amount);
+      await sendPage.recipientInput.fill(TEST_ACCOUNT_2_STX_ADDRESS);
+      await sendPage.waitForFeesSelector();
+      await sendPage.previewSendTxButton.click();
+
+      const confirmationMemo = await sendPage.memoRow
+        .getByTestId(SharedComponentsSelectors.InfoCardRowValue)
+        .innerText();
+      test.expect(confirmationMemo).toEqual(emptyMemoPreviewValue);
     });
   });
 });

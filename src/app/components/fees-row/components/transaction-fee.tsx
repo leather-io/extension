@@ -1,5 +1,5 @@
 import { Tooltip } from '@stacks/ui';
-import { FeesSelectors } from '@tests/selectors/fees.selectors';
+import { SharedComponentsSelectors } from '@tests/selectors/shared-component.selectors';
 
 import { CryptoCurrencies } from '@shared/models/currencies.model';
 import { Money } from '@shared/models/money.model';
@@ -14,7 +14,7 @@ interface TransactionFeeProps {
 }
 export function TransactionFee({ fee, feeCurrencySymbol, usdAmount }: TransactionFeeProps) {
   const feeLabel = (
-    <Caption data-testid={FeesSelectors.FeeToBePaidLabel}>
+    <Caption data-testid={SharedComponentsSelectors.FeeToBePaidLabel}>
       {fee} {feeCurrencySymbol}
     </Caption>
   );

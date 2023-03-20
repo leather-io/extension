@@ -44,16 +44,38 @@ export function StxSendFormConfirmation() {
   useRouteHeader(<ModalHeader hideActions defaultClose defaultGoBack title="Review" />);
 
   return (
-    <InfoCard pt="extra-loose" pb="extra-loose" px="extra-loose">
-      <InfoCardAssetValue value={Number(txValue)} fiatValue={txFiatValue} symbol={symbol} />
+    <InfoCard
+      pt="extra-loose"
+      pb="extra-loose"
+      px="extra-loose"
+      data-testid={SendCryptoAssetSelectors.ConfirmationDetails}
+    >
+      <InfoCardAssetValue
+        value={Number(txValue)}
+        fiatValue={txFiatValue}
+        symbol={symbol}
+        data-testid={SendCryptoAssetSelectors.ConfirmationDetailsAssetValue}
+      />
 
       <Stack width="100%">
-        <InfoCardRow title="To" value={<FormAddressDisplayer address={recipient} />} />
+        <InfoCardRow
+          title="To"
+          value={<FormAddressDisplayer address={recipient} />}
+          data-testid={SendCryptoAssetSelectors.ConfirmationDetailsRecipient}
+        />
         <InfoCardSeparator />
         <InfoCardRow title="Total spend" value={totalSpend} />
         <InfoCardRow title="Sending" value={sendingValue} />
-        <InfoCardRow title="Fee" value={fee} />
-        <InfoCardRow title="Memo" value={memoDisplayText} />
+        <InfoCardRow
+          title="Fee"
+          value={fee}
+          data-testid={SendCryptoAssetSelectors.ConfirmationDetailsFee}
+        />
+        <InfoCardRow
+          title="Memo"
+          value={memoDisplayText}
+          data-testid={SendCryptoAssetSelectors.ConfirmationDetailsMemo}
+        />
         <InfoCardRow title="Nonce" value={nonce} />
         <InfoCardRow title="Estimated confirmation time" value={arrivesIn} />
       </Stack>
