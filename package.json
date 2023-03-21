@@ -217,7 +217,7 @@
     "@babel/core": "7.20.12",
     "@babel/preset-react": "7.18.6",
     "@babel/preset-typescript": "7.18.6",
-    "@btckit/types": "0.0.11",
+    "@btckit/types": "0.0.13",
     "@emotion/babel-plugin": "11.10.5",
     "@emotion/babel-preset-css-prop": "11.10.0",
     "@emotion/cache": "11.10.5",

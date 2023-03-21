@@ -674,10 +674,10 @@
     sha.js "^2.4.11"
     smart-buffer "^4.1.0"
 
-"@btckit/types@0.0.11":
-  version "0.0.11"
-  resolved "https://registry.yarnpkg.com/@btckit/types/-/types-0.0.11.tgz#dcc1f51beb621d091ad4a5f6cab4c365f1ae497e"
-  integrity sha512-9aqJd/Aw1PMKFN935tFh3ZajTIEVp+dwpSKoHf1d8tUc3tiu7Q2nF47OkxUvtQb+dHRHPY0HrSW+uH0B3VStAg==
+"@btckit/types@0.0.13":
+  version "0.0.13"
+  resolved "https://registry.yarnpkg.com/@btckit/types/-/types-0.0.13.tgz#02082079db5aacb032a59bbe024f752f7d7115ae"
+  integrity sha512-p3bb0rvs8tBMcQztn76Po7X94+f1sqAK1CAOpUYIV/gpy/SRejzmhQEtSfs5HjtbW/YKpCGwafL8opqIzBw/qg==
 
 "@coinbase/cbpay-js@1.0.2":
   version "1.0.2"
