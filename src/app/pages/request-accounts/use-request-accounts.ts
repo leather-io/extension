@@ -33,11 +33,13 @@ export function useRequestAccounts() {
   const taprootPayment = useCurrentBtcTaprootAccountAddressIndexZeroPayment();
 
   const taprootAddressResponse: BtcAddress = {
+    symbol: 'BTC',
     type: 'p2tr',
     address: taprootPayment.address,
   };
 
   const nativeSegwitAddressResponse: BtcAddress = {
+    symbol: 'BTC',
     type: 'p2wpkh',
     address: nativeSegwitAddress,
   };

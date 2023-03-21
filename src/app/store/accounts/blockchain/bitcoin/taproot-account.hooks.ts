@@ -57,12 +57,12 @@ function useBitcoinTaprootAccountInfo(index: number) {
   }, [keychain, index]);
 }
 
-export function useCurrentBitcoinTaprootAccountInfo() {
+function useCurrentBitcoinTaprootAccountInfo() {
   const currentAccountIndex = useCurrentAccountIndex();
   return useBitcoinTaprootAccountInfo(currentAccountIndex);
 }
 
-export function useDeriveTaprootAccountIndexAddressIndexZero(xpub: string) {
+function useDeriveTaprootAccountIndexAddressIndexZero(xpub: string) {
   const network = useCurrentNetwork();
   return useMemo(
     () =>

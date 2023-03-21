@@ -31,7 +31,7 @@ function useNativeSegWitCurrentNetworkAccountKeychain() {
   );
 }
 
-export function useCurrentBitcoinNativeSegwitAccountPublicKeychain() {
+function useCurrentBitcoinNativeSegwitAccountPublicKeychain() {
   const { xpub } = useCurrentBitcoinNativeSegwitAccountInfo();
   if (!xpub) return; // TODO: Revisit this return early
   const keychain = HDKey.fromExtendedKey(xpub);
@@ -79,7 +79,7 @@ function useBitcoinNativeSegwitAccountInfo(index: number) {
   }, [keychain, index]);
 }
 
-export function useCurrentBitcoinNativeSegwitAccountInfo() {
+function useCurrentBitcoinNativeSegwitAccountInfo() {
   const currentAccountIndex = useCurrentAccountIndex();
   return useBitcoinNativeSegwitAccountInfo(currentAccountIndex);
 }

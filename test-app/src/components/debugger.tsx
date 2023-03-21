@@ -451,7 +451,8 @@ export const Debugger = () => {
           <Button
             onClick={() => {
               console.log('requesting');
-              window.StacksProvider?.request('getAddresses')
+              window.btc
+                ?.request('getAddresses')
                 .then(resp => {
                   console.log({ sucesss: resp });
                 })
