@@ -35,13 +35,16 @@ export function useCurrentNativeSegwitAddressBalance() {
 
 export function useCurrentTaprootAccountUninscribedUtxos() {
   const { data: utxos = [] } = useTaprootAccountUtxosQuery();
-  const utxoQueries = useOrdinalsAwareUtxoQueries(utxos ?? []);
+  const utxoQueries = useOrdinalsAwareUtxoQueries(utxos);
 
   return useMemo(
     () =>
       utxoQueries
         .map(query => query.data)
         .filter(isDefined)
+        // If tx isn't confirmed, we can't tell yet whether or not it has
+        // inscriptions
+        .filter(utxo => utxo.status.confirmed)
         .filter(utxo => !utxo.inscriptions),
     [utxoQueries]
   );
