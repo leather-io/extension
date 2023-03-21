@@ -9,6 +9,7 @@ import {
   useStacksClientAnchored,
   useStacksClientUnanchored,
 } from '@app/store/common/api-clients.hooks';
+import { useCurrentNetworkState } from '@app/store/networks/networks.hooks';
 
 import { RateLimiter, useHiroApiRateLimiter } from '../rate-limiter';
 
@@ -52,10 +53,11 @@ export function useAnchoredStacksAccountBalanceQuery<T extends unknown = FetchAc
 ) {
   const client = useStacksClientAnchored();
   const limiter = useHiroApiRateLimiter();
+  const network = useCurrentNetworkState();
 
   return useQuery({
     enabled: !!address,
-    queryKey: ['get-address-anchored-stx-balance', address],
+    queryKey: ['get-address-anchored-stx-balance', address, network.id],
     queryFn: () => fetchAccountBalance(client, limiter)(address),
     ...balanceQueryOptions,
     ...options,
