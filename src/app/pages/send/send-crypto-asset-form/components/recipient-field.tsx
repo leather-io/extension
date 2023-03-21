@@ -4,6 +4,7 @@ import { TextInputField } from './text-input-field';
 
 interface RecipientFieldProps {
   isDisabled?: boolean;
+  label?: string;
   labelAction?: string;
   name: string;
   onBlur?(): void;
@@ -13,6 +14,7 @@ interface RecipientFieldProps {
 }
 export function RecipientField({
   isDisabled,
+  label,
   labelAction,
   name,
   onBlur,
@@ -24,6 +26,7 @@ export function RecipientField({
     <TextInputField
       dataTestId={SendCryptoAssetSelectors.RecipientFieldInput}
       isDisabled={isDisabled}
+      label={label}
       labelAction={labelAction}
       minHeight="76px"
       name={name}

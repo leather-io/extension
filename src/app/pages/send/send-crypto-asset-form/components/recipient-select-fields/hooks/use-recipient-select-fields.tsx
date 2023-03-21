@@ -3,19 +3,20 @@ import { useNavigate } from 'react-router-dom';
 
 import { useFormikContext } from 'formik';
 
-import { StacksSendFormValues } from '@shared/models/form.model';
+import { BitcoinSendFormValues, StacksSendFormValues } from '@shared/models/form.model';
 import { RouteUrls } from '@shared/route-urls';
 
 import { RecipientFieldType } from '@app/pages/send/send-crypto-asset-form/components/recipient-select/recipient-select';
 
-import { useStacksRecipientBnsName } from './use-stacks-recipient-bns-name';
+import { useRecipientBnsName } from './use-recipient-bns-name';
 
-export function useStacksRecipientField() {
-  const { setFieldError, setFieldTouched, setFieldValue } =
-    useFormikContext<StacksSendFormValues>();
+export function useRecipientSelectFields() {
+  const { setFieldError, setFieldTouched, setFieldValue } = useFormikContext<
+    BitcoinSendFormValues | StacksSendFormValues
+  >();
   const [selectedRecipientField, setSelectedRecipientField] = useState(RecipientFieldType.Address);
   const [isSelectVisible, setIsSelectVisible] = useState(false);
-  const { setBnsAddress } = useStacksRecipientBnsName();
+  const { setBnsAddress } = useRecipientBnsName();
   const navigate = useNavigate();
 
   const onClickLabelAction = useCallback(() => {

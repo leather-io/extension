@@ -31,10 +31,10 @@ import {
   useGenerateFtTokenTransferUnsignedTx,
 } from '@app/store/transactions/token-transfer.hooks';
 
+import { useStacksFtRouteState } from '../../family/stacks/hooks/use-stacks-ft-params';
 import { useSendFormNavigate } from '../../hooks/use-send-form-navigate';
 import { useSendFormRouteState } from '../../hooks/use-send-form-route-state';
 import { createDefaultInitialFormValues } from '../../send-form.utils';
-import { useStacksFtRouteState } from './use-stacks-ft-params';
 
 export function useSip10SendForm() {
   const [contractId, setContractId] = useState('');

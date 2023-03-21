@@ -50,7 +50,7 @@ export function FeeEstimateSelectLayout(props: FeeEstimateSelectLayoutProps) {
               position="absolute"
               ref={ref}
               style={styles}
-              top="-100px"
+              top="-35px"
               zIndex={9999}
             >
               {children}

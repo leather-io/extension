@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import { Box, Button } from '@stacks/ui';
+import { Box, Button, Flex } from '@stacks/ui';
 import BigNumber from 'bignumber.js';
 import { Form, Formik } from 'formik';
 
@@ -16,8 +16,6 @@ import { OrdinalIcon } from '@app/components/icons/ordinal-icon';
 import { getNumberOfInscriptionOnUtxo } from '@app/query/bitcoin/ordinals/utils';
 
 import { BtcSizeFeeEstimator } from '../../../common/transactions/bitcoin/fees/btc-size-fee-estimator';
-import { FormErrors } from '../send-crypto-asset-form/components/form-errors';
-import { FormFieldsLayout } from '../send-crypto-asset-form/components/form-fields.layout';
 import { RecipientField } from '../send-crypto-asset-form/components/recipient-field';
 import { CollectibleAsset } from './components/collectible-asset';
 import { CollectiblePreviewCard } from './components/collectible-preview-card';
@@ -107,12 +105,15 @@ export function SendInscriptionForm() {
             <Box px="extra-loose">
               <CollectiblePreviewCard inscription={inscription} mt="extra-loose" />
               <Box mt={['base', 'extra-loose', '100px']}>
-                <FormFieldsLayout>
+                <Flex flexDirection="column" mt="loose" width="100%">
                   <CollectibleAsset icon={<OrdinalIcon />} name="Ordinal inscription" />
-                  <RecipientField name={recipeintFieldName} placeholder="Address" />
-                </FormFieldsLayout>
+                  <RecipientField
+                    name={recipeintFieldName}
+                    label="To"
+                    placeholder="Enter recipient address"
+                  />
+                </Flex>
               </Box>
-              <FormErrors />
               {currentError && (
                 <ErrorLabel textAlign="left" mb="base-loose">
                   {currentError}
@@ -120,6 +121,7 @@ export function SendInscriptionForm() {
               )}
               <Button
                 mb="extra-loose"
+                mt="tight"
                 type="submit"
                 borderRadius="10px"
                 height="48px"

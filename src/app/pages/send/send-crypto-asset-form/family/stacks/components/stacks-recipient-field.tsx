@@ -1,9 +1,10 @@
 import { RecipientFieldType } from '@app/pages/send/send-crypto-asset-form/components/recipient-select/recipient-select';
+import { fetchNameOwner } from '@app/query/stacks/bns/bns.utils';
 
-import { RecipientFieldAddress } from './components/recipient-field-address';
-import { RecipientFieldBnsName } from './components/recipient-field-bns-name';
-import { RecipientSelectOverlay } from './components/recipient-select-overlay';
-import { useStacksRecipientField } from './hooks/use-stacks-recipient-field';
+import { useRecipientSelectFields } from '../../../components/recipient-select-fields/hooks/use-recipient-select-fields';
+import { RecipientFieldAddress } from '../../../components/recipient-select-fields/recipient-field-address';
+import { RecipientFieldBnsName } from '../../../components/recipient-select-fields/recipient-field-bns-name';
+import { RecipientSelectOverlay } from '../../../components/recipient-select/components/recipient-select-overlay';
 
 export function StacksRecipientField() {
   const {
@@ -12,7 +13,7 @@ export function StacksRecipientField() {
     onSelectRecipientFieldType,
     onSetIsSelectVisible,
     selectedRecipientField,
-  } = useStacksRecipientField();
+  } = useRecipientSelectFields();
 
   const topInputOverlay = (
     <RecipientSelectOverlay
@@ -38,6 +39,7 @@ export function StacksRecipientField() {
     case RecipientFieldType.BnsName:
       return (
         <RecipientFieldBnsName
+          fetchFn={fetchNameOwner}
           isSelectVisible={isSelectVisible}
           onClickLabelAction={onClickLabelAction}
           selectedRecipientField={selectedRecipientField}

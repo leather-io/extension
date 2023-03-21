@@ -1,5 +1,5 @@
-import { RecipientSelectItem } from './recipient-select-item';
-import { RecipientSelectLayout } from './recipient-select.layout';
+import { RecipientSelectItem } from './components/recipient-select-item';
+import { RecipientSelectLayout } from './components/recipient-select.layout';
 
 export enum RecipientFieldType {
   Address,

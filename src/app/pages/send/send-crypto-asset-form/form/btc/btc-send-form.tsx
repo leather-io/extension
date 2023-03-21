@@ -12,19 +12,15 @@ import { useCryptoCurrencyMarketData } from '@app/query/common/market-data/marke
 import { useCurrentBtcNativeSegwitAccountAddressIndexZero } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
 
 import { AmountField } from '../../components/amount-field';
-import { AvailableBalance } from '../../components/available-balance';
-import { FormErrors } from '../../components/form-errors';
-import { FormFieldsLayout } from '../../components/form-fields.layout';
-import { PreviewButton } from '../../components/preview-button';
+import { FormFooter } from '../../components/form-footer';
 import { SelectedAssetField } from '../../components/selected-asset-field';
 import { SendCryptoAssetFormLayout } from '../../components/send-crypto-asset-form.layout';
 import { SendFiatValue } from '../../components/send-fiat-value';
 import { SendMaxButton } from '../../components/send-max-button';
-import { useCalculateMaxBitcoinSpend } from '../../family/bitcoin/hooks/use-calculate-max-spend';
+import { BitcoinRecipientField } from '../../family/bitcoin/components/bitcoin-recipient-field';
+import { TestnetBtcMessage } from '../../family/bitcoin/components/testnet-btc-message';
 import { useSendFormRouteState } from '../../hooks/use-send-form-route-state';
 import { createDefaultInitialFormValues, defaultSendFormFormikProps } from '../../send-form.utils';
-import { BtcRecipientField } from './components/btc-recipient-field';
-import { TestnetBtcMessage } from './components/testnet-btc-message';
 import { useBtcSendForm } from './use-btc-send-form';
 
 export function BtcSendForm() {
@@ -34,17 +30,21 @@ export function BtcSendForm() {
   const currentAccountBtcAddress = useCurrentBtcNativeSegwitAccountAddressIndexZero();
   const btcBalance = useNativeSegwitBalance(currentAccountBtcAddress);
 
-  const calcMaxSpend = useCalculateMaxBitcoinSpend();
-
-  const { validationSchema, currentNetwork, formRef, previewTransaction, onFormStateChange } =
-    useBtcSendForm();
+  const {
+    calcMaxSpend,
+    currentNetwork,
+    formRef,
+    onFormStateChange,
+    previewTransaction,
+    validationSchema,
+  } = useBtcSendForm();
 
   return (
-    <SendCryptoAssetFormLayout>
+    <Box width="100%" pb="base">
       <Formik
         initialValues={createDefaultInitialFormValues({
           ...routeState,
-          recipientAddressOrBnsName: '',
+          recipientBnsName: '',
         })}
         onSubmit={previewTransaction}
         validationSchema={validationSchema}
@@ -55,36 +55,33 @@ export function BtcSendForm() {
           onFormStateChange(props.values);
           return (
             <Form>
-              <AmountField
-                balance={btcBalance.balance}
-                switchableAmount={<SendFiatValue marketData={btcMarketData} assetSymbol={'BTC'} />}
-                bottomInputOverlay={
-                  <SendMaxButton
-                    balance={btcBalance.balance}
-                    sendMaxBalance={
-                      calcMaxSpend(props.values.recipient)?.spendableBitcoin.toString() ?? '0'
-                    }
-                  />
-                }
-                autoComplete="off"
-              />
-              <FormFieldsLayout>
+              <SendCryptoAssetFormLayout>
+                <AmountField
+                  balance={btcBalance.balance}
+                  switchableAmount={
+                    <SendFiatValue marketData={btcMarketData} assetSymbol={'BTC'} />
+                  }
+                  bottomInputOverlay={
+                    <SendMaxButton
+                      balance={btcBalance.balance}
+                      sendMaxBalance={
+                        calcMaxSpend(props.values.recipient)?.spendableBitcoin.toString() ?? '0'
+                      }
+                    />
+                  }
+                  autoComplete="off"
+                />
                 <SelectedAssetField icon={<BtcIcon />} name={btcBalance.asset.name} symbol="BTC" />
-                {/* TODO: Implement new recipient field here */}
-                <BtcRecipientField />
-              </FormFieldsLayout>
-              {currentNetwork.chain.bitcoin.network === 'testnet' && <TestnetBtcMessage />}
-              <FormErrors />
-              <PreviewButton />
-              <Box my="base">
-                <AvailableBalance availableBalance={btcBalance.balance} />
-              </Box>
+                <BitcoinRecipientField />
+                {currentNetwork.chain.bitcoin.network === 'testnet' && <TestnetBtcMessage />}
+              </SendCryptoAssetFormLayout>
+              <FormFooter balance={btcBalance.balance} />
               <HighFeeDrawer learnMoreUrl={HIGH_FEE_WARNING_LEARN_MORE_URL_BTC} />
               <Outlet />
             </Form>
           );
         }}
       </Formik>
-    </SendCryptoAssetFormLayout>
+    </Box>
   );
 }

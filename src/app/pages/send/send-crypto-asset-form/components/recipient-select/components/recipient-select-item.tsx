@@ -3,6 +3,7 @@ import { FiChevronDown } from 'react-icons/fi';
 import { Box, Text, color } from '@stacks/ui';
 
 const labels = ['Address', 'BNS Name'];
+const testLabels = ['address', 'bns-name'];
 
 interface RecipientSelectItemProps {
   index: number;
@@ -18,6 +19,7 @@ export function RecipientSelectItem(props: RecipientSelectItemProps) {
       alignItems="center"
       as="button"
       bg={color('bg')}
+      data-testid={`recipient-select-field-${testLabels[index]}`}
       display="flex"
       height="32px"
       mb="0px !important"
@@ -26,10 +28,16 @@ export function RecipientSelectItem(props: RecipientSelectItemProps) {
       pl={isVisible ? 'tight' : 'unset'}
       type="button"
     >
-      <Text color={color('text-caption')} fontSize={1} fontWeight={500} ml="2px" mr="tight">
+      <Text
+        color={isVisible ? color('text-body') : color('accent')}
+        fontSize={1}
+        fontWeight={isVisible ? 400 : 500}
+        ml="2px"
+        mr="tight"
+      >
         {labels[index]}
       </Text>
-      {isVisible ? <></> : <FiChevronDown />}
+      {isVisible ? <></> : <FiChevronDown color={color('accent')} />}
     </Box>
   );
 }
