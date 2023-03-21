@@ -2,27 +2,32 @@ import { useEffect, useState } from 'react';
 
 import { useFormikContext } from 'formik';
 
-import { StacksSendFormValues } from '@shared/models/form.model';
+import { BitcoinSendFormValues, StacksSendFormValues } from '@shared/models/form.model';
 
 import { RecipientField } from '@app/pages/send/send-crypto-asset-form/components/recipient-field';
+import { StacksClient } from '@app/query/stacks/stacks-client';
 
-import { useStacksRecipientBnsName } from '../hooks/use-stacks-recipient-bns-name';
-import { RecipientBnsAddressDisplayer } from './recipient-bns-address-displayer';
+import { RecipientAddressDisplayer } from './components/recipient-address-displayer';
+import { useRecipientBnsName } from './hooks/use-recipient-bns-name';
 
 interface RecipientFieldBnsNameProps {
+  fetchFn(client: StacksClient, name: string, isTestnet?: boolean): Promise<string | null>;
   isSelectVisible: boolean;
   onClickLabelAction(): void;
   selectedRecipientField: number;
   topInputOverlay: JSX.Element;
 }
 export function RecipientFieldBnsName({
+  fetchFn,
   isSelectVisible,
   onClickLabelAction,
   topInputOverlay,
 }: RecipientFieldBnsNameProps) {
   const [showBnsAddress, setShowBnsAddress] = useState(false);
-  const { errors, setFieldError, values } = useFormikContext<StacksSendFormValues>();
-  const { bnsAddress, getBnsAddressAndValidate } = useStacksRecipientBnsName();
+  const { errors, setFieldError, values } = useFormikContext<
+    BitcoinSendFormValues | StacksSendFormValues
+  >();
+  const { bnsAddress, getBnsAddressAndValidate } = useRecipientBnsName();
 
   // Apply the recipient field validation to the bns name field
   // here so we don't need to validate the bns name on blur.
@@ -46,12 +51,12 @@ export function RecipientFieldBnsName({
         isDisabled={isSelectVisible}
         labelAction="Select account"
         name="recipientBnsName"
-        onBlur={getBnsAddressAndValidate}
+        onBlur={() => getBnsAddressAndValidate(fetchFn)}
         onClickLabelAction={onClickLabelAction}
         placeholder="Enter recipient BNS name"
         topInputOverlay={topInputOverlay}
       />
-      {showBnsAddress ? <RecipientBnsAddressDisplayer address={bnsAddress} /> : null}
+      {showBnsAddress ? <RecipientAddressDisplayer address={bnsAddress} /> : null}
     </>
   );
 }

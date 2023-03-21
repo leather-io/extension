@@ -21,20 +21,17 @@ import {
   btcMinimumSpendValidator,
 } from '@app/common/validation/forms/amount-validators';
 import { btcAmountPrecisionValidator } from '@app/common/validation/forms/currency-validators';
-import { btcRecipientAddressOrBnsNameValidator } from '@app/common/validation/forms/recipient-validators';
 import { useUpdatePersistedSendFormValues } from '@app/features/popup-send-form-restoration/use-update-persisted-send-form-values';
 import { useNativeSegwitBalance } from '@app/query/bitcoin/balance/bitcoin-balances.query';
 import { useCurrentBtcNativeSegwitAccountAddressIndexZero } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
-import { useStacksClientUnanchored } from '@app/store/common/api-clients.hooks';
 import { useCurrentNetwork } from '@app/store/networks/networks.selectors';
 
 import { useCalculateMaxBitcoinSpend } from '../../family/bitcoin/hooks/use-calculate-max-spend';
+import { useGenerateSignedBitcoinTx } from '../../family/bitcoin/hooks/use-generate-bitcoin-tx';
 import { useSendFormNavigate } from '../../hooks/use-send-form-navigate';
-import { useGenerateSignedBitcoinTx } from './use-generate-bitcoin-tx';
 
 export function useBtcSendForm() {
   const formRef = useRef<FormikProps<BitcoinSendFormValues>>(null);
-
   const currentNetwork = useCurrentNetwork();
   const currentAccountBtcAddress = useCurrentBtcNativeSegwitAccountAddressIndexZero();
   const btcCryptoCurrencyAssetBalance = useNativeSegwitBalance(currentAccountBtcAddress);
@@ -44,14 +41,12 @@ export function useBtcSendForm() {
   const generateTx = useGenerateSignedBitcoinTx();
   const calcMaxSpend = useCalculateMaxBitcoinSpend();
   const { onFormStateChange } = useUpdatePersistedSendFormValues();
-  const client = useStacksClientUnanchored();
 
   return {
-    formRef,
-
-    onFormStateChange,
-
+    calcMaxSpend,
     currentNetwork,
+    formRef,
+    onFormStateChange,
 
     validationSchema: yup.object({
       amount: yup
@@ -68,10 +63,6 @@ export function useBtcSendForm() {
           })
         )
         .concat(btcMinimumSpendValidator()),
-      // TODO: Implement new recipient field here
-      recipientAddressOrBnsName: btcRecipientAddressOrBnsNameValidator({
-        client,
-      }),
       recipient: yup
         .string()
         .concat(btcAddressValidator())

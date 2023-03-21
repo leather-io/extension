@@ -5,6 +5,7 @@ export interface BitcoinSendFormValues {
   feeType: string;
   memo: string;
   recipient: string;
+  recipientBnsName: string;
   symbol: string;
 }
 

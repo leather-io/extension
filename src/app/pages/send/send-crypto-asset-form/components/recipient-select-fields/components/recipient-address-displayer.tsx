@@ -1,17 +1,17 @@
 import { useCallback } from 'react';
 import { FiCopy } from 'react-icons/fi';
 
-import { Box, Stack, color, useClipboard } from '@stacks/ui';
+import { Box, Text, color, useClipboard } from '@stacks/ui';
 import { SendCryptoAssetSelectors } from '@tests/selectors/send.selectors';
 
 import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
-import { AddressDisplayer } from '@app/components/address-displayer/address-displayer';
+import { SpaceBetween } from '@app/components/layout/space-between';
 import { Tooltip } from '@app/components/tooltip';
 
-interface BnsAddressDisplayerProps {
+interface RecipientAddressDisplayerProps {
   address: string;
 }
-export function RecipientBnsAddressDisplayer({ address }: BnsAddressDisplayerProps) {
+export function RecipientAddressDisplayer({ address }: RecipientAddressDisplayerProps) {
   const analytics = useAnalytics();
   const { onCopy, hasCopied } = useClipboard(address);
 
@@ -21,16 +21,14 @@ export function RecipientBnsAddressDisplayer({ address }: BnsAddressDisplayerPro
   }, [analytics, onCopy]);
 
   return (
-    <Stack alignItems="center" isInline mb="base">
-      <Box
+    <SpaceBetween mb="base" width="100%">
+      <Text
+        color={color('text-caption')}
         data-testid={SendCryptoAssetSelectors.RecipientBnsAddressLabel}
-        display="flex"
-        flexWrap="wrap"
-        fontSize={1}
-        justifyContent="flex-start"
+        fontSize={0}
       >
-        <AddressDisplayer address={address} />
-      </Box>
+        {address}
+      </Text>
       <Tooltip hideOnClick={false} label={hasCopied ? 'Copied!' : 'Copy address'} placement="right">
         <Box
           _hover={{ cursor: 'pointer' }}
@@ -38,12 +36,11 @@ export function RecipientBnsAddressDisplayer({ address }: BnsAddressDisplayerPro
           color={color('text-caption')}
           data-testid={SendCryptoAssetSelectors.RecipientBnsAddressCopyToClipboard}
           onClick={copyToClipboard}
-          size="16px"
           type="button"
         >
-          <FiCopy />
+          <FiCopy size="16px" />
         </Box>
       </Tooltip>
-    </Stack>
+    </SpaceBetween>
   );
 }

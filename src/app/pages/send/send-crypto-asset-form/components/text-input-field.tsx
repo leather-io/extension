@@ -88,6 +88,7 @@ export function TextInputField({
               as="button"
               color={color('accent')}
               fontSize={1}
+              fontWeight={500}
               onClick={onClickLabelAction}
               type="button"
               zIndex={999}
