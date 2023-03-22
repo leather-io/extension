@@ -2,16 +2,17 @@ import ConnectionIllustration from '@assets/images/connect-arrows-facing-each-ot
 import HiroLogoInBox from '@assets/images/hiro-logo-white-box.png';
 import { Box, Button, Flex, Text } from '@stacks/ui';
 
+import { figmaTheme } from '@app/common/utils/figma-theme';
 import { Favicon } from '@app/components/favicon';
 import { Flag } from '@app/components/layout/flag';
 import { Caption } from '@app/components/typography';
 
-interface RequestAccountsLayoutProps {
+interface GetAddressesLayoutProps {
   requester: string;
-  onUserApproveRequestAccounts(): void;
+  onUserApproveGetAddresses(): void;
 }
-export function RequestAccountsLayout(props: RequestAccountsLayoutProps) {
-  const { requester, onUserApproveRequestAccounts } = props;
+export function GetAddressesLayout(props: GetAddressesLayoutProps) {
+  const { requester, onUserApproveGetAddresses } = props;
   return (
     <Flex flexDirection="column" height="100vh" width="100%">
       <Flex
@@ -32,21 +33,21 @@ export function RequestAccountsLayout(props: RequestAccountsLayoutProps) {
           <Caption>{requester}</Caption>
         </Flag>
 
-        <Button mt="extra-loose" onClick={() => onUserApproveRequestAccounts()} width="100%">
+        <Button mt="extra-loose" onClick={() => onUserApproveGetAddresses()} width="100%">
           <Flag align="middle" img={<img src={HiroLogoInBox} width="16px" />}>
             Connect to Hiro Wallet
           </Flag>
         </Button>
       </Flex>
       <Flex
-        backgroundColor="#F5F5F7"
+        backgroundColor={figmaTheme.backgroundSubdued}
         px="loose"
         py="base"
         lineHeight="20px"
         textAlign="center"
         alignSelf="bottom"
       >
-        <Text fontSize="14px" color="#74777D">
+        <Text fontSize="14px" color={figmaTheme.textSubdued}>
           By connecting you give permission to {requester} to see all addresses linked to this
           account
         </Text>

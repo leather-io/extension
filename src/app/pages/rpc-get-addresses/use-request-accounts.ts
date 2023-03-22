@@ -23,7 +23,7 @@ function useRpcRequestParams() {
   );
 }
 
-export function useRequestAccounts() {
+export function useGetAddresses() {
   const analytics = useAnalytics();
 
   const permissions = useAppPermissions();
@@ -46,12 +46,12 @@ export function useRequestAccounts() {
 
   return {
     origin,
-    onUserApproveRequestAccounts() {
+    onUserApproveGetAddresses() {
       if (!tabId || !origin) {
         logger.error('Cannot give app accounts: missing tabId, origin');
         return;
       }
-      void analytics.track('user_approved_request_accounts', { origin });
+      void analytics.track('user_approved_get_addresses', { origin });
       permissions.hasRequestedAccounts(origin);
       chrome.tabs.sendMessage(
         tabId,

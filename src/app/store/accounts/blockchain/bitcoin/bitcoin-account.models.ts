@@ -33,7 +33,7 @@ export function formatBitcoinAccount(keychain: HDKey) {
   return (index: number): SoftwareBitcoinAccount => ({
     type: 'software',
     index,
-    // The rationate for wrapping the keychain is so we pass around the xpub
+    // The rationale for wrapping the keychain is so we pass around the xpub
     // rather than the private-key containing HDKey
     xpub: keychain.publicExtendedKey,
     keychain: HDKey.fromExtendedKey(keychain.publicExtendedKey),

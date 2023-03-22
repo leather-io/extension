@@ -32,7 +32,7 @@ import { ReceiveModal } from '@app/pages/receive-tokens/receive-modal';
 import { ReceiveStxModal } from '@app/pages/receive-tokens/receive-stx';
 import { ReceiveCollectibleModal } from '@app/pages/receive/receive-collectible/receive-collectible-modal';
 import { ReceiveCollectibleOrdinal } from '@app/pages/receive/receive-collectible/receive-collectible-oridinal';
-import { RequestAccounts } from '@app/pages/request-accounts/request-accounts';
+import { RpcGetAddresses } from '@app/pages/rpc-get-addresses/rpc-get-addresses';
 import { SelectNetwork } from '@app/pages/select-network/select-network';
 import { BroadcastError } from '@app/pages/send/broadcast-error/broadcast-error';
 import { SendInscription } from '@app/pages/send/ordinal-inscription/send-inscription-container';
@@ -248,10 +248,10 @@ function AppRoutesAfterUserHasConsented() {
         </Route>
 
         <Route
-          path={RouteUrls.RequestTapootAddress}
+          path={RouteUrls.RpcGetAddresses}
           element={
             <AccountGate>
-              <RequestAccounts />
+              <RpcGetAddresses />
             </AccountGate>
           }
         />
