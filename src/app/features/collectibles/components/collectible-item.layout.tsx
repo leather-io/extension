@@ -85,7 +85,7 @@ export function CollectibleItemLayout({
             overflow="hidden"
             textOverflow="ellipsis"
             whiteSpace="nowrap"
-            width={['150px', '200px']}
+            width="95%"
           >
             {title}
           </Text>

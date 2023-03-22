@@ -24,6 +24,9 @@ interface StacksNftCryptoAssetsProps {
 export function StacksNonFungibleTokens({ metadata }: StacksNftCryptoAssetsProps) {
   const [isLoading, setIsLoading] = useState(true);
   const [isError, setIsError] = useState(false);
+
+  if (!metadata) return null;
+
   const isImageAvailable = isValidUrl(metadata.cached_image);
 
   return (
