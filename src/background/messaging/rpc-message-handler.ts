@@ -11,7 +11,7 @@ export async function rpcMessageHander(message: WalletRequests, port: chrome.run
   switch (message.method) {
     case 'getAddresses': {
       const { urlParams, tabId } = makeSearchParamsWithDefaults(port, [['requestId', message.id]]);
-      const { id } = await triggerRequestWindowOpen(RouteUrls.RequestTapootAddress, urlParams);
+      const { id } = await triggerRequestWindowOpen(RouteUrls.RpcGetAddresses, urlParams);
       listenForPopupClose({ tabId, id, response: { id: message.id, result: null } });
       break;
     }

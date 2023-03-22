@@ -35,7 +35,7 @@ function useCurrentBitcoinNativeSegwitAccountPublicKeychain() {
   const { xpub } = useCurrentBitcoinNativeSegwitAccountInfo();
   if (!xpub) return; // TODO: Revisit this return early
   const keychain = HDKey.fromExtendedKey(xpub);
-  if (!keychain?.publicKey) throw new Error('No public key for given keychain');
+  if (!keychain.publicKey) throw new Error('No public key for given keychain');
   if (!keychain.pubKeyHash) throw new Error('No pub key hash for given keychain');
   return keychain;
 }

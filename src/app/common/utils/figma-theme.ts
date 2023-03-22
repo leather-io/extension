@@ -59,7 +59,7 @@ export const figmaTheme = {
   // Background
 
   background: palette.white,
-  backgroundsubdued: palette.slate100,
+  backgroundSubdued: palette.slate100,
 
   // Surface
 
@@ -158,4 +158,4 @@ export const figmaTheme = {
   iconAccent: palette.blue600,
   surfaceAccent: palette.blue050,
   borderAccent: palette.blue600,
-};
+} as const;
