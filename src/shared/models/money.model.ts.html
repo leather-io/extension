@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">90.9% </span>
+                <span class="strong">93.33% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>10/11</span>
+                <span class='fraction'>14/15</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">75% </span>
+                <span class="strong">80% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>6/8</span>
+                <span class='fraction'>8/10</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>3/3</span>
+                <span class='fraction'>5/5</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">90.9% </span>
+                <span class="strong">92.85% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>10/11</span>
+                <span class='fraction'>13/14</span>
             </div>
         
             
@@ -118,7 +118,21 @@
 <a name='L53'></a><a href='#L53'>53</a>
 <a name='L54'></a><a href='#L54'>54</a>
 <a name='L55'></a><a href='#L55'>55</a>
-<a name='L56'></a><a href='#L56'>56</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L56'></a><a href='#L56'>56</a>
+<a name='L57'></a><a href='#L57'>57</a>
+<a name='L58'></a><a href='#L58'>58</a>
+<a name='L59'></a><a href='#L59'>59</a>
+<a name='L60'></a><a href='#L60'>60</a>
+<a name='L61'></a><a href='#L61'>61</a>
+<a name='L62'></a><a href='#L62'>62</a>
+<a name='L63'></a><a href='#L63'>63</a>
+<a name='L64'></a><a href='#L64'>64</a>
+<a name='L65'></a><a href='#L65'>65</a>
+<a name='L66'></a><a href='#L66'>66</a>
+<a name='L67'></a><a href='#L67'>67</a>
+<a name='L68'></a><a href='#L68'>68</a>
+<a name='L69'></a><a href='#L69'>69</a>
+<a name='L70'></a><a href='#L70'>70</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -135,6 +149,20 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">11x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">11x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -190,14 +218,28 @@ export interface Money {
 &nbsp;
 // Units of `Money` should be declared in their smallest unit. Similar to
 // Rosetta, we model currencies with their respective resolution
-export const currencydecimalsMap: Record&lt;Currencies, number&gt; = {
+export const currencyDecimalsMap = {
   BTC: BTC_DECIMALS,
   STX: STX_DECIMALS,
   USD: 2,
-};
+} as const;
 &nbsp;
-function throwWhenDecimalUnknown(symbol: Currencies, decimals?: number) {
-  <span class="missing-if-branch" title="if path not taken" >I</span>if (isUndefined(decimals) &amp;&amp; isUndefined(currencydecimalsMap[symbol]))
+type KnownCurrencyDecimals = keyof typeof currencyDecimalsMap;
+&nbsp;
+function isResolutionOfCurrencyKnown(symbol: Currencies): symbol is KnownCurrencyDecimals {
+  return symbol in currencyDecimalsMap;
+}
+&nbsp;
+function getDecimalsOfSymbolIfKnown(symbol: Currencies) {
+  if (isResolutionOfCurrencyKnown(symbol)) return currencyDecimalsMap[symbol];
+  return null;
+}
+&nbsp;
+function throwWhenDecimalUnknown(
+  symbol: Currencies,
+  decimals?: number
+): asserts decimals is number {
+  <span class="missing-if-branch" title="if path not taken" >I</span>if (isUndefined(decimals) &amp;&amp; isUndefined(getDecimalsOfSymbolIfKnown(symbol)))
 <span class="cstat-no" title="statement not covered" >    throw new Error(`Resolution of currency ${symbol} is unknown, must be described`);</span>
 }
 &nbsp;
@@ -212,7 +254,7 @@ export function createMoneyFromDecimal(
   resolution?: number
 ): Money {
   throwWhenDecimalUnknown(symbol, resolution);
-  const decimals = currencydecimalsMap[symbol] ?? resolution;
+  const decimals = getDecimalsOfSymbolIfKnown(symbol) ?? resolution;
   const amount = new BigNumber(value).shiftedBy(decimals);
   return Object.freeze({ amount, symbol, decimals });
 }
@@ -224,7 +266,7 @@ export function createMoneyFromDecimal(
  */
 export function createMoney(value: NumType, symbol: Currencies, resolution?: number): Money {
   throwWhenDecimalUnknown(symbol, resolution);
-  const decimals = currencydecimalsMap[symbol] ?? <span class="branch-1 cbranch-no" title="branch not covered" >resolution;</span>
+  const decimals = getDecimalsOfSymbolIfKnown(symbol) ?? <span class="branch-1 cbranch-no" title="branch not covered" >resolution;</span>
   const amount = new BigNumber(value);
   return Object.freeze({ amount, symbol, decimals });
 }
@@ -235,7 +277,7 @@ export function createMoney(value: NumType, symbol: Currencies, resolution?: num
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2023-03-19T18:37:09.171Z
+                at 2023-03-23T19:31:23.435Z
             </div>
         <script src="../../../prettify.js"></script>
         <script>
