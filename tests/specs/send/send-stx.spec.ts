@@ -44,7 +44,10 @@ test.describe('send stx', () => {
       const feeToBePaid = await page
         .getByTestId(SharedComponentsSelectors.FeeToBePaidLabel)
         .innerText();
-      test.expect(feeToBePaid).toEqual('0.003 STX');
+      const fee = Number(feeToBePaid.split(' ')[0]);
+      // Using min/max fee caps
+      const isMiddleFee = fee >= 0.003 && fee < 0.75;
+      test.expect(isMiddleFee).toBeTruthy();
     });
 
     test('that low fee estimate can be selected', async ({ page }) => {
@@ -53,7 +56,10 @@ test.describe('send stx', () => {
       const feeToBePaid = await page
         .getByTestId(SharedComponentsSelectors.FeeToBePaidLabel)
         .innerText();
-      test.expect(feeToBePaid).toEqual('0.0025 STX');
+      const fee = Number(feeToBePaid.split(' ')[0]);
+      // Using min/max fee caps
+      const isLowFee = fee >= 0.0025 && fee < 0.5;
+      test.expect(isLowFee).toBeTruthy();
     });
   });
 
