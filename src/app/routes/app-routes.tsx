@@ -13,14 +13,13 @@ import { ledgerJwtSigningRoutes } from '@app/features/ledger/flows/jwt-signing/l
 import { ledgerMessageSigningRoutes } from '@app/features/ledger/flows/message-signing/ledger-sign-msg.routes';
 import { ledgerRequestKeysRoutes } from '@app/features/ledger/flows/request-keys/ledger-request-keys.routes';
 import { ledgerTxSigningRoutes } from '@app/features/ledger/flows/tx-signing/ledger-sign-tx.routes';
+import { AddNetwork } from '@app/features/message-signer/add-network/add-network';
 import { RetrieveTaprootToNativeSegwit } from '@app/features/retrieve-taproot-to-native-segwit/retrieve-taproot-to-native-segwit';
 import { ThemesDrawer } from '@app/features/theme-drawer/theme-drawer';
-import { AddNetwork } from '@app/pages/add-network/add-network';
 import { AllowDiagnosticsPage } from '@app/pages/allow-diagnostics/allow-diagnostics';
 import { ChooseAccount } from '@app/pages/choose-account/choose-account';
 import { FundPage } from '@app/pages/fund/fund';
 import { Home } from '@app/pages/home/home';
-import { MessageSigningRequest } from '@app/pages/message-signing-request/message-signing-request';
 import { BackUpSecretKeyPage } from '@app/pages/onboarding/back-up-secret-key/back-up-secret-key';
 import { MagicRecoveryCode } from '@app/pages/onboarding/magic-recovery-code/magic-recovery-code';
 import { SetPasswordPage } from '@app/pages/onboarding/set-password/set-password';
@@ -34,6 +33,7 @@ import { ReceiveCollectibleModal } from '@app/pages/receive/receive-collectible/
 import { ReceiveCollectibleOrdinal } from '@app/pages/receive/receive-collectible/receive-collectible-oridinal';
 import { RpcGetAddresses } from '@app/pages/rpc-get-addresses/rpc-get-addresses';
 import { rpcSendTransferRoutes } from '@app/pages/rpc-send-transfer/rpc-send-transfer.routes';
+import { RpcSignBip322Message } from '@app/pages/rpc-sign-bip322-message/rpc-sign-bip322-message';
 import { SelectNetwork } from '@app/pages/select-network/select-network';
 import { BroadcastError } from '@app/pages/send/broadcast-error/broadcast-error';
 import { SendInscriptionChooseFee } from '@app/pages/send/ordinal-inscription/send-inscription-choose-fee';
@@ -43,6 +43,7 @@ import { SendInscriptionReview } from '@app/pages/send/ordinal-inscription/send-
 import { SendInscriptionSummary } from '@app/pages/send/ordinal-inscription/sent-inscription-summary';
 import { sendCryptoAssetFormRoutes } from '@app/pages/send/send-crypto-asset-form/send-crypto-asset-form.routes';
 import { SignOutConfirmDrawer } from '@app/pages/sign-out-confirm/sign-out-confirm';
+import { StacksMessageSigningRequest } from '@app/pages/stacks-message-signing-request/stacks-message-signing-request';
 import { TransactionRequest } from '@app/pages/transaction-request/transaction-request';
 import { UnauthorizedRequest } from '@app/pages/unauthorized-request/unauthorized-request';
 import { Unlock } from '@app/pages/unlock';
@@ -211,7 +212,7 @@ function AppRoutesAfterUserHasConsented() {
           element={
             <AccountGate>
               <Suspense fallback={<LoadingSpinner height="600px" />}>
-                <MessageSigningRequest />
+                <StacksMessageSigningRequest />
               </Suspense>
             </AccountGate>
           }
@@ -262,6 +263,14 @@ function AppRoutesAfterUserHasConsented() {
           }
         />
         {rpcSendTransferRoutes}
+        <Route
+          path={RouteUrls.RpcSignBip322Message}
+          element={
+            <AccountGate>
+              <RpcSignBip322Message />
+            </AccountGate>
+          }
+        />
 
         {/* Catch-all route redirects to onboarding */}
         <Route path="*" element={<Navigate replace to={RouteUrls.Onboarding} />} />

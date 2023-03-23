@@ -8,7 +8,7 @@ import {
   encodeStructuredData,
 } from '@stacks/transactions';
 
-import { SignedMessageStructured } from '@shared/signature/signature-types';
+import { UnsignedMessageStructured } from '@shared/signature/signature-types';
 
 import { whenStacksChainId } from '@app/common/utils';
 
@@ -31,6 +31,6 @@ export function chainIdToDisplay(chainIdCv: ClarityValue): string {
 export function deriveStructuredMessageHash({
   domain,
   message,
-}: Omit<SignedMessageStructured, 'messageType'>) {
+}: Omit<UnsignedMessageStructured, 'messageType'>) {
   return bytesToHex(sha256(encodeStructuredData({ message, domain })));
 }
