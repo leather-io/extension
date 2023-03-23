@@ -3,6 +3,8 @@ import { FiAlertCircle } from 'react-icons/fi';
 
 import { Box, BoxProps, Text, color } from '@stacks/ui';
 
+import { figmaTheme } from '@app/common/utils/figma-theme';
+
 import { Flag } from './layout/flag';
 import { Caption } from './typography';
 
@@ -38,7 +40,13 @@ export function WarningLabel({ children, title, ...props }: WarningLabelProps) {
         width="100%"
       >
         {title ? (
-          <Text color="#242629" fontSize={1} fontWeight={500} lineHeight="1.5" mb="extra-tight">
+          <Text
+            color={figmaTheme.text}
+            fontSize={1}
+            fontWeight={500}
+            lineHeight="1.5"
+            mb="extra-tight"
+          >
             {title}
           </Text>
         ) : null}

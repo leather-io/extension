@@ -1,6 +1,7 @@
 import { useLocation, useNavigate } from 'react-router-dom';
 
 import { Stack } from '@stacks/ui';
+import { SendCryptoAssetSelectors } from '@tests/selectors/send.selectors';
 import get from 'lodash.get';
 
 import { decodeBitcoinTx } from '@shared/crypto/bitcoin/bitcoin.utils';
@@ -51,7 +52,7 @@ export function BtcSendFormConfirmation() {
     baseCurrencyAmountInQuote(createMoneyFromDecimal(Number(transferAmount), symbol), btcMarketData)
   );
   const { data: feeRate } = useBitcoinFeeRate();
-  const arrivesIn = feeRate ? `~${feeRate?.fastestFee} min` : '~10 – 20 min';
+  const arrivesIn = feeRate ? `~${feeRate.fastestFee} min` : '~10 – 20 min';
 
   const feeInBtc = satToBtc(fee);
   const totalSpend = formatMoney(
@@ -104,15 +105,28 @@ export function BtcSendFormConfirmation() {
   useRouteHeader(<ModalHeader hideActions defaultClose defaultGoBack title="Review" />);
 
   return (
-    <InfoCard pt="extra-loose" pb="extra-loose" px="extra-loose">
-      <InfoCardAssetValue value={Number(transferAmount)} fiatValue={txFiatValue} symbol={symbol} />
+    <InfoCard padding="extra-loose" data-testid={SendCryptoAssetSelectors.ConfirmationDetails}>
+      <InfoCardAssetValue
+        value={Number(transferAmount)}
+        fiatValue={txFiatValue}
+        symbol={symbol}
+        data-testid={SendCryptoAssetSelectors.ConfirmationDetailsAssetValue}
+      />
 
       <Stack width="100%" mb="36px">
-        <InfoCardRow title="To" value={<FormAddressDisplayer address={recipient} />} />
+        <InfoCardRow
+          title="To"
+          value={<FormAddressDisplayer address={recipient} />}
+          data-testid={SendCryptoAssetSelectors.ConfirmationDetailsRecipient}
+        />
         <InfoCardSeparator />
         <InfoCardRow title="Total spend" value={totalSpend} />
         <InfoCardRow title="Sending" value={sendingValue} />
-        <InfoCardRow title="Fee" value={summaryFee} />
+        <InfoCardRow
+          title="Fee"
+          value={summaryFee}
+          data-testid={SendCryptoAssetSelectors.ConfirmationDetailsFee}
+        />
         <InfoCardRow title="Estimated confirmation time" value={arrivesIn} />
       </Stack>
 

@@ -1,6 +1,7 @@
 import UnsupportedBrowserImg from '@assets/images/ledger/unsupported-browser.png';
 import { Box, Flex, Text } from '@stacks/ui';
 
+import { figmaTheme } from '@app/common/utils/figma-theme';
 import { ExternalLink } from '@app/components/external-link';
 
 import { LedgerTitle } from '../../components/ledger-title';
@@ -19,7 +20,7 @@ export function UnsupportedBrowserLayout() {
         mt="base"
         pb="base-tight"
         mx="extra-loose"
-        color="#74777D"
+        color={figmaTheme.textSubdued}
       >
         To connect your Ledger with the Hiro Wallet try{' '}
         <ExternalLink href="https://www.google.com/chrome/">Chrome</ExternalLink> or{' '}

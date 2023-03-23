@@ -2,7 +2,7 @@ import { ReactNode, useRef } from 'react';
 import { FiInfo } from 'react-icons/fi';
 
 import { Box, Fade, Stack, Tooltip, color } from '@stacks/ui';
-import { FeesSelectors } from '@tests/selectors/fees.selectors';
+import { SharedComponentsSelectors } from '@tests/selectors/shared-component.selectors';
 
 import { FeeTypes } from '@shared/models/fees/_fees.model';
 
@@ -41,7 +41,7 @@ export function FeeEstimateSelectLayout(props: FeeEstimateSelectLayoutProps) {
               bg={color('bg')}
               borderRadius="8px"
               boxShadow="high"
-              data-testid={FeesSelectors.FeeEstimateSelect}
+              data-testid={SharedComponentsSelectors.FeeEstimateSelect}
               flexDirection="column"
               minHeight="96px"
               minWidth="100px"

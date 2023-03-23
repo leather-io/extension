@@ -15,14 +15,28 @@ export interface Money {
 
 // Units of `Money` should be declared in their smallest unit. Similar to
 // Rosetta, we model currencies with their respective resolution
-export const currencydecimalsMap: Record<Currencies, number> = {
+export const currencyDecimalsMap = {
   BTC: BTC_DECIMALS,
   STX: STX_DECIMALS,
   USD: 2,
-};
+} as const;
 
-function throwWhenDecimalUnknown(symbol: Currencies, decimals?: number) {
-  if (isUndefined(decimals) && isUndefined(currencydecimalsMap[symbol]))
+type KnownCurrencyDecimals = keyof typeof currencyDecimalsMap;
+
+function isResolutionOfCurrencyKnown(symbol: Currencies): symbol is KnownCurrencyDecimals {
+  return symbol in currencyDecimalsMap;
+}
+
+function getDecimalsOfSymbolIfKnown(symbol: Currencies) {
+  if (isResolutionOfCurrencyKnown(symbol)) return currencyDecimalsMap[symbol];
+  return null;
+}
+
+function throwWhenDecimalUnknown(
+  symbol: Currencies,
+  decimals?: number
+): asserts decimals is number {
+  if (isUndefined(decimals) && isUndefined(getDecimalsOfSymbolIfKnown(symbol)))
     throw new Error(`Resolution of currency ${symbol} is unknown, must be described`);
 }
 
@@ -37,7 +51,7 @@ export function createMoneyFromDecimal(
   resolution?: number
 ): Money {
   throwWhenDecimalUnknown(symbol, resolution);
-  const decimals = currencydecimalsMap[symbol] ?? resolution;
+  const decimals = getDecimalsOfSymbolIfKnown(symbol) ?? resolution;
   const amount = new BigNumber(value).shiftedBy(decimals);
   return Object.freeze({ amount, symbol, decimals });
 }
@@ -49,7 +63,7 @@ export function createMoneyFromDecimal(
  */
 export function createMoney(value: NumType, symbol: Currencies, resolution?: number): Money {
   throwWhenDecimalUnknown(symbol, resolution);
-  const decimals = currencydecimalsMap[symbol] ?? resolution;
+  const decimals = getDecimalsOfSymbolIfKnown(symbol) ?? resolution;
   const amount = new BigNumber(value);
   return Object.freeze({ amount, symbol, decimals });
 }

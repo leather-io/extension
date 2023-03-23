@@ -1,11 +1,15 @@
-import { SyntheticEvent, useState } from 'react';
+import { useState } from 'react';
 
-import StacksNft from '@assets/images/stacks-nft.png';
+import { Metadata as StacksNftMetadata } from '@hirosystems/token-metadata-api-client';
+import { Spinner } from '@stacks/ui';
 
-import { StacksNftMetadata } from '@shared/models/stacks-nft-metadata.model';
 import { isValidUrl } from '@shared/utils/validate-url';
 
+import { figmaTheme } from '@app/common/utils/figma-theme';
+import { StxAvatar } from '@app/components/crypto-assets/stacks/components/stx-avatar';
+
 import { CollectibleItemLayout } from './collectible-item.layout';
+import { ImageUnavailable } from './components/image-unavailable';
 
 const backgroundProps = {
   backgroundColor: 'transparent',
@@ -13,40 +17,39 @@ const backgroundProps = {
   borderRadius: '16px',
 };
 
-const placeholderBackgroundProps = {
-  backgroundColor: 'white',
-  border: '1px solid #DCDDE2',
-  borderRadius: '16px',
-};
-
 interface StacksNftCryptoAssetsProps {
   metadata: StacksNftMetadata;
 }
 export function StacksNonFungibleTokens({ metadata }: StacksNftCryptoAssetsProps) {
-  const [bkgrdProps, setBkgrdProps] = useState(backgroundProps);
-  const isImageAvailable = metadata && metadata.cached_image && isValidUrl(metadata?.cached_image);
-  const placeholderImage = StacksNft;
-
-  const onImageError = (evt: SyntheticEvent<HTMLImageElement>) => {
-    evt.currentTarget.src = StacksNft;
-    evt.currentTarget.width = 100;
-    setBkgrdProps(placeholderBackgroundProps);
-  };
-
-  if (!isImageAvailable) return null;
+  const [isLoading, setIsLoading] = useState(true);
+  const [isError, setIsError] = useState(false);
+  const isImageAvailable = metadata.cached_image && isValidUrl(metadata.cached_image);
 
   return (
     <CollectibleItemLayout
-      backgroundElementProps={bkgrdProps}
+      backgroundElementProps={backgroundProps}
       subtitle="Stacks NFT"
-      title={metadata?.name ?? 'Unknown'}
+      title={metadata.name ?? ''}
+      collectibleTypeIcon={<StxAvatar size="30px" />}
     >
-      <img
-        alt="nft image"
-        onError={onImageError}
-        src={isImageAvailable ? metadata?.cached_image : placeholderImage}
-        style={{ aspectRatio: '1 / 1', objectFit: 'cover' }}
-      />
+      {isError || !isImageAvailable ? (
+        <ImageUnavailable />
+      ) : (
+        <>
+          {isLoading && <Spinner color={figmaTheme.icon} size="16px" />}
+          <img
+            alt="nft image"
+            onLoad={() => setIsLoading(false)}
+            onError={() => setIsError(true)}
+            src={metadata.cached_image}
+            style={{
+              aspectRatio: '1 / 1',
+              objectFit: 'cover',
+              display: isLoading ? 'none' : 'inherit',
+            }}
+          />
+        </>
+      )}
     </CollectibleItemLayout>
   );
 }

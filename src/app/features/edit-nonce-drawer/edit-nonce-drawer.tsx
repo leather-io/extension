@@ -16,7 +16,7 @@ import { EditNonceForm } from './components/edit-nonce-form';
 
 const url = 'https://www.hiro.so/questions/transactions-advanced-settings';
 
-const CustomFeeMessaging = () => {
+function CustomFeeMessaging() {
   return (
     <Caption>
       If your transaction has been pending for a long time, its nonce might not be correct.{' '}
@@ -25,7 +25,7 @@ const CustomFeeMessaging = () => {
       </Link>
     </Caption>
   );
-};
+}
 
 export function EditNonceDrawer() {
   const { errors, setFieldError, setFieldValue, validateField, values } = useFormikContext<

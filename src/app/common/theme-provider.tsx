@@ -44,7 +44,7 @@ function setUserSelectedTheme(theme: UserSelectedTheme) {
 interface ThemeSwitcherProviderProps {
   children: JSX.Element | JSX.Element[];
 }
-export const ThemeSwitcherProvider = ({ children }: ThemeSwitcherProviderProps) => {
+export function ThemeSwitcherProvider({ children }: ThemeSwitcherProviderProps) {
   const userSelectedTheme = useUserSelectedTheme();
   const [theme, setTheme] = useState<ComputedTheme>(() => getComputedTheme(userSelectedTheme));
 
@@ -80,6 +80,6 @@ export const ThemeSwitcherProvider = ({ children }: ThemeSwitcherProviderProps) 
       {children}
     </ThemeContext.Provider>
   );
-};
+}
 
 export const useThemeSwitcher = () => useContext(ThemeContext);

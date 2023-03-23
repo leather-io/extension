@@ -20,28 +20,6 @@ import {
   MESSAGE_SOURCE,
 } from '@shared/message-types';
 import { RouteUrls } from '@shared/route-urls';
-import { getEventSourceWindow } from '@shared/utils/get-event-source-window';
-
-// Legacy messaging to work with older versions of Connect
-window.addEventListener('message', event => {
-  const { data } = event;
-  if (data.source === 'blockstack-app') {
-    const { method } = data;
-    if (method === 'getURL') {
-      const url = chrome.runtime.getURL('index.html');
-      const source = getEventSourceWindow(event);
-      source?.postMessage(
-        {
-          url,
-          method: 'getURLResponse',
-          source: 'blockstack-extension',
-        },
-        event.origin
-      );
-      return;
-    }
-  }
-});
 
 // Connection to background script - fires onConnect event in background script
 // and establishes two-way communication
@@ -54,8 +32,7 @@ function sendMessageToBackground(message: LegacyMessageFromContentScript) {
 
 // Receives message from background script to execute in browser
 chrome.runtime.onMessage.addListener((message: LegacyMessageToContentScript) => {
-  if (message.source === MESSAGE_SOURCE) {
-    // Forward to web app (browser)
+  if (message.source === MESSAGE_SOURCE || (message as any).jsonrpc === '2.0') {
     window.postMessage(message, window.location.origin);
   }
 });
@@ -66,7 +43,6 @@ interface ForwardDomEventToBackgroundArgs {
   urlParam: string;
   path: RouteUrls;
 }
-
 function forwardDomEventToBackground({ payload, method }: ForwardDomEventToBackgroundArgs) {
   sendMessageToBackground({
     method,
@@ -74,6 +50,10 @@ function forwardDomEventToBackground({ payload, method }: ForwardDomEventToBackg
     source: MESSAGE_SOURCE,
   });
 }
+
+document.addEventListener(DomEventName.request, (event: any) => {
+  sendMessageToBackground({ source: MESSAGE_SOURCE, ...event.detail });
+});
 
 // Listen for a CustomEvent (auth request) coming from the web app
 document.addEventListener(DomEventName.authenticationRequest, ((

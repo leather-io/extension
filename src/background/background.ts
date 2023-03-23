@@ -3,6 +3,7 @@ import * as Sentry from '@sentry/react';
 import { logger } from '@shared/logger';
 import { CONTENT_SCRIPT_PORT, LegacyMessageFromContentScript } from '@shared/message-types';
 import { RouteUrls } from '@shared/route-urls';
+import { WalletRequests } from '@shared/rpc/rpc-methods';
 import { initSentry } from '@shared/utils/analytics';
 import { warnUsersAboutDevToolsDangers } from '@shared/utils/dev-tools-warning-log';
 
@@ -11,8 +12,9 @@ import { initContextMenuActions } from './init-context-menus';
 import {
   handleLegacyExternalMethodFormat,
   isLegacyMessage,
-} from './legacy-external-message-handler';
-import { internalBackgroundMessageHandler } from './message-handler';
+} from './messaging/legacy-external-message-handler';
+import { internalBackgroundMessageHandler } from './messaging/message-handler';
+import { rpcMessageHander } from './messaging/rpc-message-handler';
 
 initSentry();
 initContextMenuActions();
@@ -37,7 +39,7 @@ chrome.runtime.onConnect.addListener(port =>
   Sentry.wrap(() => {
     if (port.name !== CONTENT_SCRIPT_PORT) return;
 
-    port.onMessage.addListener((message: LegacyMessageFromContentScript, port) => {
+    port.onMessage.addListener((message: LegacyMessageFromContentScript | WalletRequests, port) => {
       if (!port.sender?.tab?.id)
         return logger.error('Message reached background script without a corresponding tab');
 
@@ -47,6 +49,7 @@ chrome.runtime.onConnect.addListener(port =>
       if (!originUrl)
         return logger.error('Message reached background script without a corresponding origin');
 
+      // Legacy JWT format messages
       if (isLegacyMessage(message)) {
         void handleLegacyExternalMethodFormat(message, port);
         return;
@@ -55,6 +58,7 @@ chrome.runtime.onConnect.addListener(port =>
       // TODO:
       // Here we'll handle all messages using the rpc style comm method
       // For now all messages are handled as legacy format
+      void rpcMessageHander(message, port);
     });
   })
 );

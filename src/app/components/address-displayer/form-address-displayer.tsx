@@ -1,4 +1,5 @@
 import { Box } from '@stacks/ui';
+import { SharedComponentsSelectors } from '@tests/selectors/shared-component.selectors';
 
 import { AddressDisplayer } from './address-displayer';
 
@@ -15,6 +16,7 @@ export function FormAddressDisplayer({ address }: FormAddressDisplayerProps) {
       justifyContent="end"
       mr="-8px"
       fontSize="16px"
+      data-testid={SharedComponentsSelectors.AddressDisplayer}
     >
       <AddressDisplayer address={address} />
     </Box>

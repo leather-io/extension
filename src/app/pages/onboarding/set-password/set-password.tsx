@@ -36,7 +36,7 @@ interface SetPasswordFormValues {
 }
 const setPasswordFormValues: SetPasswordFormValues = { password: '', confirmPassword: '' };
 
-export const SetPasswordPage = () => {
+export function SetPasswordPage() {
   const [loading, setLoading] = useState(false);
   const [strengthResult, setStrengthResult] = useState(blankPasswordValidation);
   const wallet = useStacksWallet();
@@ -154,4 +154,4 @@ export const SetPasswordPage = () => {
       </Formik>
     </CenteredPageContainer>
   );
-};
+}

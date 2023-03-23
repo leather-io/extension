@@ -31,7 +31,7 @@ interface FiatProviderProps {
   onGoToProvider(): void;
   title: string;
 }
-export const FiatProviderItem = (props: FiatProviderProps) => {
+export function FiatProviderItem(props: FiatProviderProps) {
   const { availableRegions, hasFastCheckoutProcess, hasTradingFees, icon, onGoToProvider, title } =
     props;
 
@@ -52,4 +52,4 @@ export const FiatProviderItem = (props: FiatProviderProps) => {
       title={title}
     />
   );
-};
+}

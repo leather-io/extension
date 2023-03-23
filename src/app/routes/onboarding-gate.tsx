@@ -17,7 +17,7 @@ function keyDetailsExistsWalletAlreadyCreatedSoPreventOnboarding(keyDetails: unk
 interface OnboardingGateProps {
   children: ReactNode;
 }
-export const OnboardingGate = ({ children }: OnboardingGateProps) => {
+export function OnboardingGate({ children }: OnboardingGateProps) {
   const keyDetails = useCurrentKeyDetails();
   const currentInMemoryKey = useDefaultWalletSecretKey();
 
@@ -32,4 +32,4 @@ export const OnboardingGate = ({ children }: OnboardingGateProps) => {
     return <Navigate to={RouteUrls.Unlock} />;
 
   return <>{children}</>;
-};
+}

@@ -37,8 +37,15 @@ export function NetworkListItemLayout(props: NetworkListItemLayoutProps) {
       data-testid={SettingsSelectors.NetworkListItem}
       {...rest}
     >
-      <Flex width="100%" justifyContent="space-between" alignItems="center">
-        <Stack>
+      <Flex
+        width="100%"
+        as="button"
+        justifyContent="space-between"
+        alignItems="center"
+        disabled={!isOnline}
+        data-testid={network.id}
+      >
+        <Stack alignItems="flex-start">
           <Title
             fontWeight={400}
             lineHeight="1rem"

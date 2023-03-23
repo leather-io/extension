@@ -18,7 +18,7 @@ import { useKeyActions } from '@app/common/hooks/use-key-actions';
 import { useWalletType } from '@app/common/use-wallet-type';
 import {
   useAllBitcoinNativeSegWitNetworksByAccount,
-  useCurrentBitcoinNativeSegwitAddressIndexKeychain,
+  useCurrentBitcoinNativeSegwitAddressIndexPublicKeychain,
 } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
 import {
   useAllBitcoinTaprootNetworksByAccount,
@@ -41,7 +41,7 @@ export function useFinishAuthRequest() {
   const deriveNativeSegWitAccountAtIndex = useAllBitcoinNativeSegWitNetworksByAccount();
   const deriveTaprootAccountAtIndex = useAllBitcoinTaprootNetworksByAccount();
   const currentBitcoinNativeSegwitAddressIndexKeychain =
-    useCurrentBitcoinNativeSegwitAddressIndexKeychain();
+    useCurrentBitcoinNativeSegwitAddressIndexPublicKeychain();
   const currentBitcoinTaprootAddressIndexKeychain = useCurrentTaprootAddressIndexKeychain();
 
   return useCallback(

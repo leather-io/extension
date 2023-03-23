@@ -1,6 +1,9 @@
 export enum SettingsSelectors {
   ToggleTheme = 'change-theme',
   NetworkListItem = 'network-list-item',
+  MainnetNetworkItem = 'mainnet-network-item',
+  TestNetworkItem = 'test-network-item',
+  DevNetworkItem = 'dev-network-item',
   ChangeNetworkAction = 'settings-change-network',
   CurrentNetwork = 'current-network',
   CurrentAccountDisplayName = 'current-account-display-name',

@@ -54,9 +54,12 @@ export const validateStacksAddress = (stacksAddress: string): boolean => {
 
 export function validateAddressChain(address: string, currentNetwork: NetworkConfiguration) {
   const prefix = address.slice(0, 2);
-  if (currentNetwork.chain.stacks.chainId === ChainID.Testnet)
-    return prefix === 'SN' || prefix === 'ST';
-  if (currentNetwork.chain.stacks.chainId === ChainID.Mainnet)
-    return prefix === 'SM' || prefix === 'SP';
-  return false;
+  switch (currentNetwork.chain.stacks.chainId) {
+    case ChainID.Mainnet:
+      return prefix === 'SM' || prefix === 'SP';
+    case ChainID.Testnet:
+      return prefix === 'SN' || prefix === 'ST';
+    default:
+      return false;
+  }
 }

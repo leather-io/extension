@@ -1,4 +1,4 @@
-import { fetchBitcoinData } from './utils';
+import { fetchData } from '../utils';
 
 class Configuration {
   constructor(public baseUrl: string) {}
@@ -20,14 +20,14 @@ class AddressApi {
   constructor(public configuration: Configuration) {}
 
   async getTransactionsByAddress(address: string) {
-    return fetchBitcoinData({
+    return fetchData({
       errorMsg: 'No transactions fetched',
       url: `${this.configuration.baseUrl}/address/${address}/txs`,
     });
   }
 
   async getUtxosByAddress(address: string): Promise<UtxoResponseItem[]> {
-    return fetchBitcoinData({
+    return fetchData({
       errorMsg: 'No UTXOs fetched',
       url: `${this.configuration.baseUrl}/address/${address}/utxo`,
     });
@@ -50,14 +50,14 @@ class FeeEstimatesApi {
   constructor(public configuration: Configuration) {}
 
   async getFeeEstimatesFromEarnApi(): Promise<FeeEstimateEarnApiResponse> {
-    return fetchBitcoinData({
+    return fetchData({
       errorMsg: 'No fee estimates fetched',
       url: `https://bitcoinfees.earn.com/api/v1/fees/recommended`,
     });
   }
 
   async getFeeEstimatesFromMempoolSpaceApi(): Promise<FeeEstimateMempoolSpaceApi> {
-    return fetchBitcoinData({
+    return fetchData({
       errorMsg: 'No fee estimates fetched',
       url: ` https://mempool.space/api/v1/fees/recommended`,
     });

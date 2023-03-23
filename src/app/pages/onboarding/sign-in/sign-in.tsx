@@ -20,7 +20,7 @@ import { PrimaryButton } from '@app/components/primary-button';
 import { Title } from '@app/components/typography';
 import { useSignIn } from '@app/pages/onboarding/sign-in/hooks/use-sign-in';
 
-export const SignIn = () => {
+export function SignIn() {
   const { onPaste, submitMnemonicForm, error, isLoading, ref } = useSignIn();
   const navigate = useNavigate();
 
@@ -103,4 +103,4 @@ export const SignIn = () => {
       </Formik>
     </CenteredPageContainer>
   );
-};
+}

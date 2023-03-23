@@ -19,7 +19,7 @@ import { ReceiveStxItem } from './receive-stx-item';
 interface FiatProvidersProps {
   address: string;
 }
-export const FiatProvidersList = (props: FiatProvidersProps) => {
+export function FiatProvidersList(props: FiatProvidersProps) {
   const { address } = props;
   const navigate = useNavigate();
   const activeProviders = useActiveFiatProviders();
@@ -66,4 +66,4 @@ export const FiatProvidersList = (props: FiatProvidersProps) => {
       })}
     </Grid>
   );
-};
+}

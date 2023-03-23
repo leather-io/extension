@@ -1,4 +1,5 @@
-import { StacksProvider } from '@stacks/connect';
+import { RpcRequest } from '@btckit/types';
+import { StacksProvider, getStacksProvider } from '@stacks/connect';
 
 import { BRANCH, COMMIT_SHA } from '@shared/environment';
 import {
@@ -19,20 +20,20 @@ import {
   SignatureResponseMessage,
   TransactionResponseMessage,
 } from '@shared/message-types';
+import { WalletMethodMap, WalletMethodNames, WalletResponses } from '@shared/rpc/rpc-methods';
 
 type CallableMethods = keyof typeof ExternalMethods;
 
 interface ExtensionResponse {
   source: 'blockstack-extension';
   method: CallableMethods;
-
   [key: string]: any;
 }
 
-const callAndReceive = async (
+async function callAndReceive(
   methodName: CallableMethods | 'getURL',
   opts: any = {}
-): Promise<ExtensionResponse> => {
+): Promise<ExtensionResponse> {
   return new Promise((resolve, reject) => {
     const timeout = setTimeout(() => {
       reject('Unable to get response from Blockstack extension');
@@ -57,20 +58,21 @@ const callAndReceive = async (
       window.location.origin
     );
   });
-};
+}
 
-const isValidEvent = (event: MessageEvent, method: LegacyMessageToContentScript['method']) => {
+function isValidEvent(event: MessageEvent, method: LegacyMessageToContentScript['method']) {
   const { data } = event;
   const correctSource = data.source === MESSAGE_SOURCE;
   const correctMethod = data.method === method;
   return correctSource && correctMethod && !!data.payload;
-};
+}
 
 const provider: StacksProvider = {
   getURL: async () => {
     const { url } = await callAndReceive('getURL');
     return url;
   },
+
   structuredDataSignatureRequest: async signatureRequest => {
     const event = new CustomEvent<SignatureRequestEventDetails>(
       DomEventName.structuredDataSignatureRequest,
@@ -95,6 +97,7 @@ const provider: StacksProvider = {
       window.addEventListener('message', handleMessage);
     });
   },
+
   signatureRequest: async signatureRequest => {
     const event = new CustomEvent<SignatureRequestEventDetails>(DomEventName.signatureRequest, {
       detail: { signatureRequest },
@@ -116,6 +119,7 @@ const provider: StacksProvider = {
       window.addEventListener('message', handleMessage);
     });
   },
+
   authenticationRequest: async authenticationRequest => {
     const event = new CustomEvent<AuthenticationRequestEventDetails>(
       DomEventName.authenticationRequest,
@@ -138,6 +142,7 @@ const provider: StacksProvider = {
       window.addEventListener('message', handleMessage);
     });
   },
+
   transactionRequest: async transactionRequest => {
     const event = new CustomEvent<TransactionRequestEventDetails>(DomEventName.transactionRequest, {
       detail: { transactionRequest },
@@ -204,19 +209,58 @@ const provider: StacksProvider = {
       window.addEventListener('message', handleMessage);
     });
   },
+
   getProductInfo() {
     return {
       version: VERSION,
-      name: 'Hiro Wallet for Web',
+      name: 'Hiro Wallet',
       meta: {
         tag: BRANCH,
         commit: COMMIT_SHA,
       },
     };
   },
-  request: function (_method: string): Promise<Record<string, any>> {
-    throw new Error('`request` function is not implemented');
+
+  request<T extends WalletMethodNames>(
+    method: T,
+    params?: Record<string, any>
+  ): Promise<WalletMethodMap[T]['response']> {
+    const id = crypto.randomUUID();
+    const rpcRequest: RpcRequest<T> = {
+      jsonrpc: '2.0',
+      id,
+      method,
+      params,
+    };
+    document.dispatchEvent(new CustomEvent(DomEventName.request, { detail: rpcRequest }));
+    return new Promise((resolve, reject) => {
+      function handleMessage(event: MessageEvent<WalletResponses>) {
+        const response = event.data;
+        if (!response || response.id !== id) return;
+        window.removeEventListener('message', handleMessage);
+        if ('error' in response) {
+          return reject(response);
+        }
+        return resolve(response);
+      }
+      window.addEventListener('message', handleMessage);
+    });
   },
 };
 
 window.StacksProvider = provider;
+
+(window as any).HiroWalletProvider = provider;
+
+(window as any).btc = {
+  request: getStacksProvider()?.request,
+  listen(event: 'accountChange', callback: (arg: any) => void) {
+    function handler(e: MessageEvent) {
+      if (!e.data) return;
+      if ((e as any).event !== event) return;
+      callback((e as any).event);
+    }
+    window.addEventListener('message', handler);
+    return () => window.removeEventListener('message', handler);
+  },
+};

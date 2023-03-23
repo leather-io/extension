@@ -2,7 +2,7 @@ import { FiCopy } from 'react-icons/fi';
 import { useNavigate } from 'react-router-dom';
 
 import { Box, Button, Flex, Text, color } from '@stacks/ui';
-import { HomePageSelectors } from '@tests/selectors/home.selectors';
+import { SharedComponentsSelectors } from '@tests/selectors/shared-component.selectors';
 
 import { RouteUrls } from '@shared/route-urls';
 
@@ -44,7 +44,7 @@ export function ReceiveTokensLayout(props: ReceiveTokensLayoutProps) {
             </Title>
           )}
           <Flex
-            data-testid={HomePageSelectors.AddressDisplayer}
+            data-testid={SharedComponentsSelectors.AddressDisplayer}
             flexWrap="wrap"
             justifyContent="center"
             lineHeight={1.8}

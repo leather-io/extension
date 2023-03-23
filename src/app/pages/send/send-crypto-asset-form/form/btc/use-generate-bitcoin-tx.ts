@@ -10,7 +10,7 @@ import { useGetUtxosByAddressQuery } from '@app/query/bitcoin/address/utxos-by-a
 import { useBitcoinFeeRate } from '@app/query/bitcoin/fees/fee-estimates.hooks';
 import { useBitcoinLibNetworkConfig } from '@app/store/accounts/blockchain/bitcoin/bitcoin-keychain';
 import {
-  useCurrentBitcoinNativeSegwitAddressIndexKeychain,
+  useCurrentBitcoinNativeSegwitAddressIndexPublicKeychain,
   useCurrentBtcNativeSegwitAccountAddressIndexZero,
   useSignBitcoinNativeSegwitTx,
 } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
@@ -18,7 +18,7 @@ import {
 export function useGenerateSignedBitcoinTx() {
   const currentAccountBtcAddress = useCurrentBtcNativeSegwitAccountAddressIndexZero();
   const { data: utxos } = useGetUtxosByAddressQuery(currentAccountBtcAddress);
-  const currentAddressIndexKeychain = useCurrentBitcoinNativeSegwitAddressIndexKeychain();
+  const currentAddressIndexKeychain = useCurrentBitcoinNativeSegwitAddressIndexPublicKeychain();
   const signTx = useSignBitcoinNativeSegwitTx();
   const networkMode = useBitcoinLibNetworkConfig();
   const { data: feeRate } = useBitcoinFeeRate();

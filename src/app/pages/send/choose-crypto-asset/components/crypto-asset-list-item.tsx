@@ -20,7 +20,7 @@ export function CryptoAssetListItem(props: CryptoAssetListItemProps) {
 
   function navigateToSendForm(state?: object) {
     if (blockchain === 'bitcoin' && !isBitcoinSendEnabled) navigate(RouteUrls.SendBtcDisabled);
-    navigate(`${RouteUrls.SendCryptoAsset}/${asset.symbol.toLowerCase()}`, { state });
+    navigate(`${RouteUrls.SendCryptoAsset}/${asset.symbol?.toLowerCase()}`, { state });
   }
 
   switch (type) {

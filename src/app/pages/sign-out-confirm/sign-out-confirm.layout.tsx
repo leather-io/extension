@@ -1,5 +1,3 @@
-import { FC } from 'react';
-
 import { Box, Button, Flex, Text, color } from '@stacks/ui';
 import { SettingsSelectors } from '@tests-legacy/integration/settings.selectors';
 import { useFormik } from 'formik';
@@ -12,7 +10,7 @@ interface SignOutConfirmLayoutProps {
   onUserDeleteWallet(): void;
   onUserSafelyReturnToHomepage(): void;
 }
-export const SignOutConfirmLayout: FC<SignOutConfirmLayoutProps> = props => {
+export function SignOutConfirmLayout(props: SignOutConfirmLayoutProps) {
   const { onUserDeleteWallet, onUserSafelyReturnToHomepage } = props;
 
   const { whenWallet, walletType } = useWalletType();
@@ -109,4 +107,4 @@ export const SignOutConfirmLayout: FC<SignOutConfirmLayoutProps> = props => {
       </Box>
     </BaseDrawer>
   );
-};
+}

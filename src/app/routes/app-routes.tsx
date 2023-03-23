@@ -32,6 +32,7 @@ import { ReceiveModal } from '@app/pages/receive-tokens/receive-modal';
 import { ReceiveStxModal } from '@app/pages/receive-tokens/receive-stx';
 import { ReceiveCollectibleModal } from '@app/pages/receive/receive-collectible/receive-collectible-modal';
 import { ReceiveCollectibleOrdinal } from '@app/pages/receive/receive-collectible/receive-collectible-oridinal';
+import { RpcGetAddresses } from '@app/pages/rpc-get-addresses/rpc-get-addresses';
 import { SelectNetwork } from '@app/pages/select-network/select-network';
 import { BroadcastError } from '@app/pages/send/broadcast-error/broadcast-error';
 import { SendInscription } from '@app/pages/send/ordinal-inscription/send-inscription-container';
@@ -245,6 +246,15 @@ function AppRoutesAfterUserHasConsented() {
         <Route path={RouteUrls.Unlock} element={<Unlock />}>
           {settingsModalRoutes}
         </Route>
+
+        <Route
+          path={RouteUrls.RpcGetAddresses}
+          element={
+            <AccountGate>
+              <RpcGetAddresses />
+            </AccountGate>
+          }
+        />
 
         {/* Catch-all route redirects to onboarding */}
         <Route path="*" element={<Navigate replace to={RouteUrls.Onboarding} />} />

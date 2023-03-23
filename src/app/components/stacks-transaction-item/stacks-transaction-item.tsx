@@ -32,11 +32,11 @@ interface StacksTransactionItemProps extends BoxProps {
   transferDetails?: TxTransferDetails;
   transaction?: StacksTx;
 }
-export const StacksTransactionItem = ({
+export function StacksTransactionItem({
   transferDetails,
   transaction,
   ...rest
-}: StacksTransactionItemProps) => {
+}: StacksTransactionItemProps) {
   const [component, bind, { isHovered }] = usePressable(true);
   const { handleOpenTxLink } = useExplorerLink();
   const currentAccount = useCurrentStacksAccount();
@@ -123,4 +123,4 @@ export const StacksTransactionItem = ({
       {component}
     </Box>
   );
-};
+}

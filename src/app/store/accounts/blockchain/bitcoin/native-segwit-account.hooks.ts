@@ -31,6 +31,22 @@ function useNativeSegWitCurrentNetworkAccountKeychain() {
   );
 }
 
+function useCurrentBitcoinNativeSegwitAccountPublicKeychain() {
+  const { xpub } = useCurrentBitcoinNativeSegwitAccountInfo();
+  if (!xpub) return; // TODO: Revisit this return early
+  const keychain = HDKey.fromExtendedKey(xpub);
+  if (!keychain.publicKey) throw new Error('No public key for given keychain');
+  if (!keychain.pubKeyHash) throw new Error('No pub key hash for given keychain');
+  return keychain;
+}
+
+// Concept of current address index won't exist with privacy mode
+export function useCurrentBitcoinNativeSegwitAddressIndexPublicKeychain() {
+  const keychain = useCurrentBitcoinNativeSegwitAccountPublicKeychain();
+  if (!keychain) return; // TODO: Revisit this return early
+  return deriveAddressIndexZeroFromAccount(keychain);
+}
+
 export function useAllBitcoinNativeSegWitNetworksByAccount() {
   const mainnetKeychainAtAccount = useSelector(selectMainnetNativeSegWitKeychain);
   const testnetKeychainAtAccount = useSelector(selectTestnetNativeSegWitKeychain);
@@ -54,7 +70,7 @@ export function useAllBitcoinNativeSegWitNetworksByAccount() {
   );
 }
 
-function useBitcoinNativeSegwitAccount(index: number) {
+function useBitcoinNativeSegwitAccountInfo(index: number) {
   const keychain = useNativeSegWitCurrentNetworkAccountKeychain();
   return useMemo(() => {
     // TODO: Remove with bitcoin Ledger integration
@@ -63,9 +79,9 @@ function useBitcoinNativeSegwitAccount(index: number) {
   }, [keychain, index]);
 }
 
-function useCurrentBitcoinNativeSegwitAccount() {
+function useCurrentBitcoinNativeSegwitAccountInfo() {
   const currentAccountIndex = useCurrentAccountIndex();
-  return useBitcoinNativeSegwitAccount(currentAccountIndex);
+  return useBitcoinNativeSegwitAccountInfo(currentAccountIndex);
 }
 
 function useDeriveNativeSegWitAccountIndexAddressIndexZero(xpub: string) {
@@ -81,29 +97,13 @@ function useDeriveNativeSegWitAccountIndexAddressIndexZero(xpub: string) {
 }
 
 export function useCurrentBtcNativeSegwitAccountAddressIndexZero() {
-  const { xpub } = useCurrentBitcoinNativeSegwitAccount();
+  const { xpub } = useCurrentBitcoinNativeSegwitAccountInfo();
   return useDeriveNativeSegWitAccountIndexAddressIndexZero(xpub)?.address as string;
 }
 
 export function useBtcNativeSegwitAccountIndexAddressIndexZero(accountIndex: number) {
-  const { xpub } = useBitcoinNativeSegwitAccount(accountIndex);
+  const { xpub } = useBitcoinNativeSegwitAccountInfo(accountIndex);
   return useDeriveNativeSegWitAccountIndexAddressIndexZero(xpub)?.address as string;
-}
-
-function useCurrentBitcoinNativeSegwitAccountKeychain() {
-  const { xpub } = useCurrentBitcoinNativeSegwitAccount();
-  if (!xpub) return; // TODO: Revisit this return early
-  const keychain = HDKey.fromExtendedKey(xpub);
-  if (!keychain?.publicKey) throw new Error('No public key for given keychain');
-  if (!keychain.pubKeyHash) throw new Error('No pub key hash for given keychain');
-  return keychain;
-}
-
-// Concept of current address index won't exist with privacy mode
-export function useCurrentBitcoinNativeSegwitAddressIndexKeychain() {
-  const keychain = useCurrentBitcoinNativeSegwitAccountKeychain();
-  if (!keychain) return; // TODO: Revisit this return early
-  return deriveAddressIndexZeroFromAccount(keychain);
 }
 
 export function useSignBitcoinNativeSegwitTx() {

@@ -13,7 +13,7 @@ import { FiatProvidersList } from './components/fiat-providers-list';
 interface FundLayoutProps {
   address: string;
 }
-export const FundLayout = (props: FundLayoutProps) => {
+export function FundLayout(props: FundLayoutProps) {
   const { address } = props;
 
   const [desktopViewport] = useMediaQuery(`(min-width: ${DESKTOP_VIEWPORT_MIN_WIDTH})`);
@@ -60,4 +60,4 @@ export const FundLayout = (props: FundLayoutProps) => {
       <FiatProvidersList address={address} />
     </Flex>
   );
-};
+}

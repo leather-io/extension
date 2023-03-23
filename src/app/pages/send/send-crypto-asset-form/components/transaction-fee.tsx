@@ -1,5 +1,5 @@
 import { Tooltip } from '@stacks/ui';
-import { FeesSelectors } from '@tests/selectors/fees.selectors';
+import { SharedComponentsSelectors } from '@tests/selectors/shared-component.selectors';
 
 import { Money } from '@shared/models/money.model';
 
@@ -11,7 +11,9 @@ interface TransactionFeeProps {
   usdAmount: Money | null;
 }
 export function TransactionFee({ fee, usdAmount }: TransactionFeeProps) {
-  const feeLabel = <Caption data-testid={FeesSelectors.FeeToBePaidLabel}>{fee}</Caption>;
+  const feeLabel = (
+    <Caption data-testid={SharedComponentsSelectors.FeeToBePaidLabel}>{fee}</Caption>
+  );
   if (!usdAmount || usdAmount.amount.isNaN()) return feeLabel;
   return <Tooltip label={formatDustUsdAmounts(i18nFormatCurrency(usdAmount))}>{feeLabel}</Tooltip>;
 }

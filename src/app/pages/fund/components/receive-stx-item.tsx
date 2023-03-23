@@ -20,7 +20,7 @@ const StxIconWithEllipses = (
 interface ReceiveStxItemProps {
   onReceiveStx(): void;
 }
-export const ReceiveStxItem = ({ onReceiveStx }: ReceiveStxItemProps) => {
+export function ReceiveStxItem({ onReceiveStx }: ReceiveStxItemProps) {
   return (
     <FundAccountTile
       description={description}
@@ -30,4 +30,4 @@ export const ReceiveStxItem = ({ onReceiveStx }: ReceiveStxItemProps) => {
       testId={FundPageSelectors.BtnReceiveStx}
     />
   );
-};
+}

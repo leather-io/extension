@@ -5,7 +5,7 @@ import { Stack, Text, color } from '@stacks/ui';
 interface PendingTransactionListLayoutProps {
   children: ReactNode;
 }
-export const PendingTransactionListLayout = ({ children }: PendingTransactionListLayoutProps) => {
+export function PendingTransactionListLayout({ children }: PendingTransactionListLayoutProps) {
   return (
     <>
       <Text color={color('text-caption')} textStyle="body.small">
@@ -16,4 +16,4 @@ export const PendingTransactionListLayout = ({ children }: PendingTransactionLis
       </Stack>
     </>
   );
-};
+}

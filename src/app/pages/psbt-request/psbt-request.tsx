@@ -1,9 +1,6 @@
-import { ChainID } from '@stacks/common';
-
 import { isUndefined } from '@shared/utils';
 
 import { useRouteHeader } from '@app/common/hooks/use-route-header';
-import { NetworkRow } from '@app/components/network-row';
 import { PopupHeader } from '@app/features/current-account/popup-header';
 import { useOnOriginTabClose } from '@app/routes/hooks/use-on-tab-closed';
 import { useIsPsbtRequestValid } from '@app/store/psbts/requests.hooks';
@@ -35,7 +32,6 @@ export function PsbtRequest() {
       {/* TODO: Finish decoding the PSBT details for v2 of this feature */}
       {/* <PsbtRequestDetailsV2 details={psbtDetails} payloadTxHex={psbtPayload.hex} /> */}
       <PsbtRequestDetails details={psbtDetails} payloadTxHex={psbtPayload.hex} />
-      <NetworkRow chainId={psbtPayload.network?.chainId ?? ChainID.Testnet} />
       <PsbtRequestActions isLoading={isLoading} onCancel={onCancel} onSignPsbt={onSignPsbt} />
       <hr />
       <PsbtRequestDisclaimer appName={appName} />

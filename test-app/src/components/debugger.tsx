@@ -1,21 +1,32 @@
+import React, { useState } from 'react';
+
+import '@btckit/types';
+import { demoTokenContract } from '@common/contracts';
+import { useSTXAddress } from '@common/use-stx-address';
+import {
+  stacksTestnetNetwork as network,
+  stacksLocalhostNetwork,
+  stacksMainnetNetwork,
+  stacksTestnetNetwork,
+} from '@common/utils';
 import { useConnect } from '@stacks/connect-react';
 import { StacksMainnet, StacksTestnet } from '@stacks/network';
 import {
+  FungibleConditionCode,
+  NonFungibleConditionCode,
+  PostConditionMode,
+  StacksTransaction,
   broadcastTransaction,
   bufferCV,
   bufferCVFromString,
   createAssetInfo,
   createNonFungiblePostCondition,
-  FungibleConditionCode,
   intCV,
   makeStandardFungiblePostCondition,
   makeStandardSTXPostCondition,
   noneCV,
-  NonFungibleConditionCode,
-  PostConditionMode,
   someCV,
   sponsorTransaction,
-  StacksTransaction,
   standardPrincipalCV,
   stringAsciiCV,
   stringUtf8CV,
@@ -24,20 +35,10 @@ import {
   uintCV,
 } from '@stacks/transactions';
 import { Box, Button, ButtonGroup, Text } from '@stacks/ui';
-import BN from 'bn.js';
-import React, { useState } from 'react';
-
-import { demoTokenContract } from '@common/contracts';
-import { useSTXAddress } from '@common/use-stx-address';
-import {
-  stacksLocalhostNetwork,
-  stacksMainnetNetwork,
-  stacksTestnetNetwork as network,
-  stacksTestnetNetwork,
-} from '@common/utils';
 import { TransactionSigningSelectors } from '@tests-legacy/page-objects/transaction-signing.selectors';
-
 import { WalletPageSelectors } from '@tests-legacy/page-objects/wallet.selectors';
+import BN from 'bn.js';
+
 import { ExplorerLink } from './explorer-link';
 
 export const Debugger = () => {
@@ -445,6 +446,22 @@ export const Debugger = () => {
             }
           >
             Request API info
+          </Button>
+
+          <Button
+            onClick={() => {
+              console.log('requesting');
+              window.btc
+                ?.request('getAddresses')
+                .then(resp => {
+                  console.log({ sucesss: resp });
+                })
+                .catch(error => {
+                  console.log({ error });
+                });
+            }}
+          >
+            RPC test
           </Button>
         </ButtonGroup>
       </Box>

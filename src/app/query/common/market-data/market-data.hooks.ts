@@ -4,7 +4,7 @@ import BigNumber from 'bignumber.js';
 
 import { CryptoCurrencies } from '@shared/models/currencies.model';
 import { MarketData, createMarketData, createMarketPair } from '@shared/models/market.model';
-import { createMoney, currencydecimalsMap } from '@shared/models/money.model';
+import { createMoney, currencyDecimalsMap } from '@shared/models/money.model';
 
 import { calculateMeanAverage } from '@app/common/calculate-averages';
 import { convertAmountToFractionalUnit } from '@app/common/money/calculate-money';
@@ -31,7 +31,7 @@ function pullPriceDataFromAvailableResponses(responses: MarketDataVendorWithPric
     .filter(({ result }) => !!result)
     .map(({ result, selector: priceSelector }) => priceSelector(result))
     .map(val => new BigNumber(val))
-    .map(val => convertAmountToFractionalUnit(val, currencydecimalsMap.USD));
+    .map(val => convertAmountToFractionalUnit(val, currencyDecimalsMap.USD));
 }
 
 export function useCryptoCurrencyMarketData(currency: CryptoCurrencies): MarketData {

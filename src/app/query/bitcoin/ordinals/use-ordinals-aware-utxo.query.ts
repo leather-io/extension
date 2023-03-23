@@ -1,7 +1,8 @@
 import { useQueries, useQuery } from '@tanstack/react-query';
 import * as yup from 'yup';
 
-import { Prettify } from '@app/common/type-utils';
+import { Prettify } from '@shared/utils/type-utils';
+
 import { AppUseQueryConfig } from '@app/query/query-config';
 import { QueryPrefixes } from '@app/query/query-prefixes';
 

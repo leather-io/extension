@@ -5,6 +5,7 @@ import { Box, Stack, color } from '@stacks/ui';
 import { BtcBalance } from '@app/components/balance-btc';
 import { StxBalance } from '@app/components/balance-stx';
 import { LoadingRectangle } from '@app/components/loading-rectangle';
+import { NetworkModeBadge } from '@app/components/network-mode-badge';
 import { CurrentAccountAvatar } from '@app/features/current-account/current-account-avatar';
 import { CurrentAccountName } from '@app/features/current-account/current-account-name';
 import { CurrentStxAddress } from '@app/features/current-account/current-stx-address';
@@ -32,13 +33,16 @@ function PopupHeaderSuspense({ displayAddresssBalanceOf = 'stx' }: PopupHeaderPr
   const isBitcoinEnabled = useConfigBitcoinEnabled();
   return (
     <PopupHeaderLayout>
-      <Stack isInline alignItems="center">
+      <Stack isInline alignItems="end">
         <CurrentAccountAvatar size="24px" fontSize="10px" />
         <CurrentAccountName as="h3" />
-        {displayAddresssBalanceOf === 'stx' && <CurrentStxAddress />}
+        {displayAddresssBalanceOf === 'stx' && <CurrentStxAddress fontSize="12px" />}
       </Stack>
-      {account && displayAddresssBalanceOf === 'stx' && <StxBalance address={account.address} />}
-      {isBitcoinEnabled && <BtcBalance />}
+      <Stack isInline alignItems="end" justifyContent="right">
+        <NetworkModeBadge top="5px" />
+        {account && displayAddresssBalanceOf === 'stx' && <StxBalance address={account.address} />}
+        {isBitcoinEnabled && <BtcBalance />}
+      </Stack>
     </PopupHeaderLayout>
   );
 }

@@ -7,6 +7,7 @@ import { useField } from 'formik';
 import { STX_DECIMALS } from '@shared/constants';
 import { Money } from '@shared/models/money.model';
 
+import { figmaTheme } from '@app/common/utils/figma-theme';
 import { ErrorLabel } from '@app/components/error-label';
 
 const amountInputId = 'amount-input';
@@ -93,7 +94,7 @@ export function AmountField({
           height="55px"
           justifyContent="center"
           fontWeight={500}
-          color="#242629"
+          color={figmaTheme.text}
         >
           <Input
             _focus={{ border: 'none' }}

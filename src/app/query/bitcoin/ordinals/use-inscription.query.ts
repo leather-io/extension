@@ -1,7 +1,8 @@
 import { useQuery } from '@tanstack/react-query';
 import * as yup from 'yup';
 
-import { Prettify } from '@app/common/type-utils';
+import { Prettify } from '@shared/utils/type-utils';
+
 import { QueryPrefixes } from '@app/query/query-prefixes';
 
 /**
@@ -14,6 +15,7 @@ const ordApiGetInscriptionByInscriptionSchema = yup
   .object({
     content_type: yup.string().required(),
     content: yup.string().required(),
+    inscription_number: yup.number().required(),
     preview: yup.string().required(),
     title: yup.string().required(),
   })

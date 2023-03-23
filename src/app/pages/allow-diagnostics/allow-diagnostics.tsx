@@ -11,7 +11,7 @@ import { settingsActions } from '@app/store/settings/settings.actions';
 
 import { AllowDiagnosticsLayout } from './allow-diagnostics-layout';
 
-export const AllowDiagnosticsPage = () => {
+export function AllowDiagnosticsPage() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const analytics = useAnalytics();
@@ -46,4 +46,4 @@ export const AllowDiagnosticsPage = () => {
       }}
     />
   );
-};
+}
