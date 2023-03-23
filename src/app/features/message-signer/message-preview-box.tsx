@@ -1,32 +1,14 @@
-import { useEffect, useState } from 'react';
-
-import { bytesToHex } from '@stacks/common';
-import { hashMessage } from '@stacks/encryption';
 import { Box, Stack, Text, color } from '@stacks/ui';
 
 import { HashDrawer } from './hash-drawer';
 
 interface MessageBoxProps {
   message: string;
+  hash?: string;
 }
-export function MessageBox({ message }: MessageBoxProps) {
-  const [hash, setHash] = useState<string | undefined>();
-  const [displayMessage, setDisplayMessage] = useState<string[] | undefined>();
-
-  useEffect(() => {
-    setDisplayMessage(message.split(/\r?\n/));
-  }, [message]);
-
-  useEffect(() => {
-    if (!message) return;
-    const messageHash = bytesToHex(hashMessage(message));
-    setHash(messageHash);
-  }, [message]);
-
-  if (!message) return null;
-
+export function MessagePreviewBox({ message, hash }: MessageBoxProps) {
   return (
-    <Box minHeight="260px">
+    <Box minHeight="190px">
       <Stack
         border="4px solid"
         paddingBottom="8px"
@@ -42,9 +24,9 @@ export function MessageBox({ message }: MessageBoxProps) {
           px="loose"
           py="loose"
           spacing="tight"
-          overflowX="scroll"
+          overflowX="auto"
         >
-          {displayMessage?.map(line => (
+          {message.split(/\r?\n/).map(line => (
             <Text key={line}>{line}</Text>
           ))}
         </Stack>

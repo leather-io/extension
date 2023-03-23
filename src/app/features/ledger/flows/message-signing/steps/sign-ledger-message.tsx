@@ -1,7 +1,7 @@
 import { useContext } from 'react';
 
 import { logger } from '@shared/logger';
-import { whenSignedMessageOfType } from '@shared/signature/signature-types';
+import { whenSignableMessageOfType } from '@shared/signature/signature-types';
 
 import { ApproveLedgerOperationLayout } from '../../../generic-steps';
 import { useHasApprovedOperation } from '../../../hooks/use-has-approved-transaction';
@@ -17,7 +17,7 @@ export function SignLedgerMessage() {
     return null;
   }
 
-  return whenSignedMessageOfType(message)({
+  return whenSignableMessageOfType(message)({
     utf8: msg => (
       <ApproveLedgerOperationLayout
         description="Sign message on your Ledger"

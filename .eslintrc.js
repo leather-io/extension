@@ -49,7 +49,7 @@ module.exports = {
     ],
     '@typescript-eslint/no-floating-promises': ['warn'],
     '@typescript-eslint/no-unnecessary-type-assertion': ['warn'],
-
+    '@typescript-eslint/no-unused-vars': 'off',
     '@typescript-eslint/no-unsafe-assignment': [0],
     '@typescript-eslint/no-unsafe-return': [0],
     '@typescript-eslint/no-unsafe-call': [0],

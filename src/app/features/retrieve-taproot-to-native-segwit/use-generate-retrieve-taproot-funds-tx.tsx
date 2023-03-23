@@ -9,11 +9,11 @@ import { BtcSizeFeeEstimator } from '@app/common/transactions/bitcoin/fees/btc-s
 import { useCurrentTaprootAccountUninscribedUtxos } from '@app/query/bitcoin/balance/bitcoin-balances.query';
 import { useBitcoinFeeRate } from '@app/query/bitcoin/fees/fee-estimates.hooks';
 import { getNumberOfInscriptionOnUtxo } from '@app/query/bitcoin/ordinals/ordinals-aware-utxo.query';
-import { useBitcoinLibNetworkConfig } from '@app/store/accounts/blockchain/bitcoin/bitcoin-keychain';
+import { useBitcoinScureLibNetworkConfig } from '@app/store/accounts/blockchain/bitcoin/bitcoin-keychain';
 import { useCurrentAccountTaprootSigner } from '@app/store/accounts/blockchain/bitcoin/taproot-account.hooks';
 
 export function useGenerateRetrieveTaprootFundsTx() {
-  const networkMode = useBitcoinLibNetworkConfig();
+  const networkMode = useBitcoinScureLibNetworkConfig();
   const uninscribedUtxos = useCurrentTaprootAccountUninscribedUtxos();
   const createSigner = useCurrentAccountTaprootSigner();
   const { data: feeRate } = useBitcoinFeeRate();

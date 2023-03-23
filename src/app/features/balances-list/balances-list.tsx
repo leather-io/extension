@@ -23,7 +23,8 @@ interface BalancesListProps extends StackProps {
   address: string;
 }
 export function BalancesList({ address, ...props }: BalancesListProps) {
-  const { data: stxUnachoredAssetBalance } = useStacksUnanchoredCryptoCurrencyAssetBalance(address);
+  const { data: stxUnanchoredAssetBalance } =
+    useStacksUnanchoredCryptoCurrencyAssetBalance(address);
   const stacksFtAssetBalances = useStacksFungibleTokenAssetBalancesAnchoredWithMetadata(address);
   const isBitcoinEnabled = useConfigBitcoinEnabled();
   const { stxEffectiveBalance, stxEffectiveUsdBalance } = useStxBalance();
@@ -31,7 +32,7 @@ export function BalancesList({ address, ...props }: BalancesListProps) {
   const { whenWallet } = useWalletType();
 
   // Better handle loading state
-  if (!stxUnachoredAssetBalance) return <LoadingSpinner />;
+  if (!stxEffectiveBalance || !stxUnanchoredAssetBalance) return <LoadingSpinner />;
 
   return (
     <Stack
@@ -51,6 +52,7 @@ export function BalancesList({ address, ...props }: BalancesListProps) {
       <CryptoCurrencyAssetItem
         assetBalance={stxEffectiveBalance}
         usdBalance={stxEffectiveUsdBalance}
+        assetSubBalance={stxUnanchoredAssetBalance}
         address={address}
         icon={<StxAvatar {...props} />}
       />
