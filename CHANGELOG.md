@@ -1,3 +1,40 @@
+## [4.14.0](https://github.com/hirosystems/wallet/compare/v4.13.0...v4.14.0) (2023-03-23)
+
+
+### Features
+
+* add rpc methods ([8206122](https://github.com/hirosystems/wallet/commit/8206122b19c293728af3c1c16bd6e5ce123234f5))
+* add test for stx and btc send confirmation page ([09de591](https://github.com/hirosystems/wallet/commit/09de591f2812922e7bf1cbf1b56a89f61f49ecc4))
+* token metatdata api client ([2045628](https://github.com/hirosystems/wallet/commit/2045628c081849d68e0ef324aeb38adfebd7f8a0))
+
+
+### Bug Fixes
+
+* add testnet badge in app nav while signing ([a3dfa94](https://github.com/hirosystems/wallet/commit/a3dfa9469087f0074055c0d85122b40f7cb5c405))
+* align to baseline ([225446e](https://github.com/hirosystems/wallet/commit/225446eef4ec116e3d25e7301c8a29c4b6b9687d))
+* bug with not updating balance list on network change ([7be3827](https://github.com/hirosystems/wallet/commit/7be3827ede36ef78f4dd29f4b4eabc4e2e463693))
+* bugs introduced on dev ([faf7e1e](https://github.com/hirosystems/wallet/commit/faf7e1e449596e9b8a18370405e162efc26c05bd))
+* fee tests ([d40a33f](https://github.com/hirosystems/wallet/commit/d40a33fdadd6845b278c57e48c8df6995282d7fd))
+* filter unconfirmed utxos, closes [#3468](https://github.com/hirosystems/wallet/issues/3468) ([c3d865b](https://github.com/hirosystems/wallet/commit/c3d865beec193a96e1ab26b8996b50485a1f6aea))
+* improve collectibles ui ([a2ba78c](https://github.com/hirosystems/wallet/commit/a2ba78c024fbb3f39ee11fb9ada7fd609d6b7996))
+* remove network row from psbt request ([311426e](https://github.com/hirosystems/wallet/commit/311426edf89897ab82e9f61ffa0f707054354a6f))
+* updated testnet with latest changes to popup header ([e667284](https://github.com/hirosystems/wallet/commit/e667284963f64923c66937b326fc1418db84a5e9))
+
+
+### Internal
+
+* enforce strict component type ([149d643](https://github.com/hirosystems/wallet/commit/149d643cfaa81598b56bdf6ce053ab0481be6fa1))
+* ft and nft query to new client ([5bc54b5](https://github.com/hirosystems/wallet/commit/5bc54b5ab025add03989ef3fbf86ba7dd8781a2e))
+* money types ([1e40977](https://github.com/hirosystems/wallet/commit/1e4097754d3aeb5e6187c34986330400a9c36ac4))
+* move utility function ([7ca08d9](https://github.com/hirosystems/wallet/commit/7ca08d97814591d940ccd76a786970abcf7193f9))
+* remove unnecessary conditional ([4207cdd](https://github.com/hirosystems/wallet/commit/4207cdd869231190f06ea1bec70e329290283791))
+* remove unnecessary conditional ([c284ca1](https://github.com/hirosystems/wallet/commit/c284ca15a8555584430649cf751bf6298fce01f8))
+* remove unnecessary conditional ([093910c](https://github.com/hirosystems/wallet/commit/093910c159acac4f2384997db5dc4d267db6c699))
+* remove unnecessary conditional ([1173475](https://github.com/hirosystems/wallet/commit/11734751fce93dcdd0476e1c6d21313cab631e54))
+* remove unnecessary conditional ([bd6e722](https://github.com/hirosystems/wallet/commit/bd6e722d73db43de013a75a076dfe268a8cf426b))
+* rename method ([25b57b4](https://github.com/hirosystems/wallet/commit/25b57b422739a055ebd493c9f43ab45cd7ea93bc))
+* use theme colors ([aeafe02](https://github.com/hirosystems/wallet/commit/aeafe02f3f9b4eae80ab36cba92d6bcc4c8f50e1))
+
 ## [4.13.0](https://github.com/hirosystems/wallet/compare/v4.12.0...v4.13.0) (2023-03-19)
 
 
