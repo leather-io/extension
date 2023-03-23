@@ -39,7 +39,7 @@ function PopupHeaderSuspense({ displayAddresssBalanceOf = 'stx' }: PopupHeaderPr
         {displayAddresssBalanceOf === 'stx' && <CurrentStxAddress fontSize="12px" />}
       </Stack>
       <Stack isInline alignItems="end" justifyContent="right">
-        <NetworkModeBadge />
+        <NetworkModeBadge top="5px" />
         {account && displayAddresssBalanceOf === 'stx' && <StxBalance address={account.address} />}
         {isBitcoinEnabled && <BtcBalance />}
       </Stack>

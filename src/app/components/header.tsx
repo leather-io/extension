@@ -106,7 +106,7 @@ export const Header: React.FC<HeaderProps> = memo(props => {
         </Title>
       )}
       <Stack alignItems="center" flexBasis="20%" isInline justifyContent="flex-end">
-        <NetworkModeBadge />
+        <NetworkModeBadge top="4px" />
         {!hideActions && (
           <IconButton
             _hover={{ color: color('text-title') }}

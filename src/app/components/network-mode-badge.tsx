@@ -6,7 +6,6 @@ import { Flex, FlexProps, Text, color } from '@stacks/ui';
 
 import { RouteUrls } from '@shared/route-urls';
 
-import { whenPageMode } from '@app/common/utils';
 import { useCurrentNetworkState } from '@app/store/networks/networks.hooks';
 
 export const NetworkModeBadge = memo((props: FlexProps) => {
@@ -28,10 +27,6 @@ export const NetworkModeBadge = memo((props: FlexProps) => {
       alignItems="center"
       px="12px"
       position="relative"
-      top={whenPageMode({
-        full: 'unset',
-        popup: '6px',
-      })}
       zIndex={999}
       _hover={{ cursor: 'pointer', bg: color('bg-4') }}
       onClick={() => navigate(RouteUrls.SelectNetwork, { relative: 'path' })}
