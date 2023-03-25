@@ -11,7 +11,7 @@ import { RouteUrls } from '@shared/route-urls';
 import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
 import { useRouteHeader } from '@app/common/hooks/use-route-header';
 import { baseCurrencyAmountInQuote } from '@app/common/money/calculate-money';
-import { formatMoney, i18nFormatCurrency } from '@app/common/money/format-money';
+import { formatMoney } from '@app/common/money/format-money';
 import { satToBtc } from '@app/common/money/unit-conversion';
 import { FormAddressDisplayer } from '@app/components/address-displayer/form-address-displayer';
 import {
@@ -48,9 +48,11 @@ export function BtcSendFormConfirmation() {
   const nav = useSendFormNavigate();
 
   const transferAmount = satToBtc(psbt.outputs[0].amount.toString()).toString();
-  const txFiatValue = i18nFormatCurrency(
-    baseCurrencyAmountInQuote(createMoneyFromDecimal(Number(transferAmount), symbol), btcMarketData)
+  const txFiatValue = baseCurrencyAmountInQuote(
+    createMoneyFromDecimal(Number(transferAmount), symbol),
+    btcMarketData
   );
+
   const { data: feeRate } = useBitcoinFeeRate();
   const arrivesIn = feeRate ? `~${feeRate.fastestFee} min` : '~10 – 20 min';
 

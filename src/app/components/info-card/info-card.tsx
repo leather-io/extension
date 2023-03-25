@@ -1,8 +1,10 @@
 import { Box, Button, Flex, FlexProps, Stack, Text } from '@stacks/ui';
 import { SharedComponentsSelectors } from '@tests/selectors/shared-component.selectors';
 
+import { Money } from '@shared/models/money.model';
 import { isString } from '@shared/utils';
 
+import { i18nFormatCurrency } from '@app/common/money/format-money';
 import { figmaTheme } from '@app/common/utils/figma-theme';
 
 import { SpaceBetween } from '../layout/space-between';
@@ -56,7 +58,7 @@ export function InfoCardSeparator() {
 // InfoCardAssetValue
 interface InfoCardAssetValueProps {
   value: number;
-  fiatValue: string;
+  fiatValue?: Money;
   symbol: string;
   icon?: React.FC;
 }
@@ -78,13 +80,16 @@ export function InfoCardAssetValue({ value, fiatValue, symbol, icon }: InfoCardA
         <Text
           fontSize="24px"
           fontWeight="500"
-          mb="4px"
           lineHeight="36px"
           data-testid={SharedComponentsSelectors.InfoCardAssetValue}
         >
           {value} {symbol}
         </Text>
-        <Text fontSize="12px">~ {fiatValue} USD</Text>
+        {fiatValue && (
+          <Text fontSize="12px" mt="4px">
+            ~ {i18nFormatCurrency(fiatValue)} {fiatValue.symbol}
+          </Text>
+        )}
       </Flex>
     </Stack>
   );

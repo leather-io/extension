@@ -36,7 +36,7 @@ export function ModalHeader({
     navigate(RouteUrls.Home);
   }
   function defaultGoBackAction() {
-    navigate('..');
+    navigate(-1);
   }
 
   return (
