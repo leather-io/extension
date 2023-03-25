@@ -10,6 +10,7 @@ import { useDefaultRequestParams } from '@app/common/hooks/use-default-request-s
 import { initialSearchParams } from '@app/common/initial-search-params';
 import { useCurrentBtcNativeSegwitAccountAddressIndexZero } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
 import { useCurrentBtcTaprootAccountAddressIndexZeroPayment } from '@app/store/accounts/blockchain/bitcoin/taproot-account.hooks';
+import { useCurrentStacksAccount } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
 import { useAppPermissions } from '@app/store/app-permissions/app-permissions.slice';
 
 function useRpcRequestParams() {
@@ -31,6 +32,7 @@ export function useGetAddresses() {
 
   const nativeSegwitAddress = useCurrentBtcNativeSegwitAccountAddressIndexZero();
   const taprootPayment = useCurrentBtcTaprootAccountAddressIndexZeroPayment();
+  const stacksAccount = useCurrentStacksAccount();
 
   const taprootAddressResponse: BtcAddress = {
     symbol: 'BTC',
@@ -42,6 +44,11 @@ export function useGetAddresses() {
     symbol: 'BTC',
     type: 'p2wpkh',
     address: nativeSegwitAddress,
+  };
+
+  const stacksAddressResponse = {
+    symbol: 'STX',
+    address: stacksAccount?.address ?? '',
   };
 
   return {
@@ -58,7 +65,12 @@ export function useGetAddresses() {
         makeRpcSuccessResponse('getAddresses', {
           id: requestId,
           result: {
-            addresses: [nativeSegwitAddressResponse, taprootAddressResponse],
+            addresses: [
+              nativeSegwitAddressResponse,
+              taprootAddressResponse,
+              // casting until btckit has better extend support
+              stacksAddressResponse as any,
+            ],
           },
         })
       );
