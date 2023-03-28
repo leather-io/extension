@@ -8,7 +8,7 @@ export function SendCryptoAssetFormLayout({ children }: SendCryptoAssetFormLayou
   return (
     <Flex
       alignItems="center"
-      data-testId={SendCryptoAssetSelectors.SendForm}
+      data-testid={SendCryptoAssetSelectors.SendForm}
       flexDirection="column"
       maxHeight={['calc(100vh - 116px)', 'calc(85vh - 116px)']}
       overflowY="scroll"
