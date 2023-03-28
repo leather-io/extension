@@ -40,9 +40,14 @@ export function usePsbtRequest() {
     const payloadTxBytes = hexToBytes(payload.hex);
     const tx = btc.Transaction.fromPSBT(payloadTxBytes);
     setTx(tx);
+
+    return () => {
+      setPsbtPayload(undefined);
+      setTx(undefined);
+    };
   });
 
-  const getPsbtDetails = useCallback(() => {
+  const getDecodedPsbt = useCallback(() => {
     if (!psbtPayload || !tx) return;
     try {
       return btc.RawPSBTV0.decode(hexToBytes(psbtPayload.hex));
@@ -130,14 +135,14 @@ export function usePsbtRequest() {
   ]);
 
   const appName = psbtPayload?.appDetails?.name;
-  const psbtDetails = getPsbtDetails();
+  const decodedPsbt = getDecodedPsbt();
 
   return {
     appName,
+    decodedPsbt,
     isLoading,
     onCancel,
     onSignPsbt,
-    psbtDetails,
     psbtPayload,
     requestToken,
   };

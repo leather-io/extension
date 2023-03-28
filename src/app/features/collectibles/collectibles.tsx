@@ -8,11 +8,11 @@ import { useWalletType } from '@app/common/use-wallet-type';
 import { useConfigNftMetadataEnabled } from '@app/query/common/hiro-config/hiro-config.query';
 
 import { AddCollectible } from './components/add-collectible';
+import { Ordinals } from './components/bitcoin/ordinals';
 import { CollectiblesLayout } from './components/collectibes.layout';
-import { Ordinals } from './components/ordinals';
-import { StacksCryptoAssets } from './components/stacks-crypto-assets';
+import { StacksCryptoAssets } from './components/stacks/stacks-crypto-assets';
 import { TaprootBalanceDisplayer } from './components/taproot-balance-displayer';
-import { useIsFetchingCollectiblesRelatedQuery } from './use-is-fetching-collectibles';
+import { useIsFetchingCollectiblesRelatedQuery } from './hooks/use-is-fetching-collectibles';
 
 export function Collectibles() {
   const { whenWallet } = useWalletType();

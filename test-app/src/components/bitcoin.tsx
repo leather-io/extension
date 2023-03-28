@@ -16,6 +16,13 @@ interface BitcoinNetwork {
   wif: number;
 }
 
+const bitcoinMainnet: BitcoinNetwork = {
+  bech32: 'bc',
+  pubKeyHash: 0x00,
+  scriptHash: 0x05,
+  wif: 0x80,
+};
+
 const bitcoinTestnet: BitcoinNetwork = {
   bech32: 'tb',
   pubKeyHash: 0x6f,
@@ -31,7 +38,7 @@ function ecdsaPublicKeyToSchnorr(pubKey: Uint8Array) {
 }
 
 function getTaprootPayment(publicKey: Uint8Array) {
-  return btc.p2tr(ecdsaPublicKeyToSchnorr(publicKey), undefined, bitcoinTestnet);
+  return btc.p2tr(ecdsaPublicKeyToSchnorr(publicKey), undefined, bitcoinMainnet);
 }
 
 function buildTestNativeSegwitPsbtRequest(pubKey: Uint8Array): PsbtRequestOptions {
@@ -96,9 +103,9 @@ function buildTestTaprootPsbtRequest(pubKey: Uint8Array): PsbtRequestOptions {
   tx.addInput({
     index: 0,
     tapInternalKey: payment.tapInternalKey,
-    txid: '15f34b3bd2aab555a003cd1c6959ac09b36239c6af1cb16ff8198cef64f8db9c',
+    txid: 'ff4503ab9048d6d0ff4e23def81b614d5270d341ce993992e93902ceb0d4ed79',
     witnessUtxo: {
-      amount: BigInt(1000),
+      amount: BigInt(1200),
       script: payment.script,
     },
   });
@@ -110,6 +117,14 @@ function buildTestTaprootPsbtRequest(pubKey: Uint8Array): PsbtRequestOptions {
       amount: BigInt(2000),
       script: payment.script,
     },
+  });
+  tx.addOutput({
+    amount: BigInt(1200),
+    script: '001466124290d2fc62f8cb83c0e15836a548e43dcade',
+  });
+  tx.addOutput({
+    amount: BigInt(97000),
+    script: '0014ed8b1541478e76b6463057013822db08c964c346',
   });
 
   const psbt = tx.toPSBT();

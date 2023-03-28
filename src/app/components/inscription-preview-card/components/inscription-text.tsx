@@ -4,11 +4,10 @@ import { sanitize } from 'dompurify';
 import { figmaTheme } from '@app/common/utils/figma-theme';
 import { useTextInscriptionContentQuery } from '@app/query/bitcoin/ordinals/use-text-ordinal-content.query';
 
-interface CollectibleTextLayoutProps {
+interface InscriptionTextProps {
   contentSrc: string;
 }
-
-export function CollectibleTextLayout(props: CollectibleTextLayoutProps) {
+export function InscriptionText(props: InscriptionTextProps) {
   const query = useTextInscriptionContentQuery(props.contentSrc);
 
   if (query.isLoading) return <Spinner color={figmaTheme.icon} size="16px" />;
@@ -18,9 +17,7 @@ export function CollectibleTextLayout(props: CollectibleTextLayoutProps) {
   return (
     <Box
       height="100%"
-      width="100%"
       color="white"
-      backgroundColor="black"
       p="20px"
       sx={{
         position: 'relative',

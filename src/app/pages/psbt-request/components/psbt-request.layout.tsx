@@ -5,7 +5,7 @@ interface PsbtRequestLayoutProps {
 }
 export function PsbtRequestLayout({ children }: PsbtRequestLayoutProps) {
   return (
-    <Stack px={['loose', 'unset']} spacing="base-loose" width="100%">
+    <Stack pb="loose" px={['loose', 'unset']} spacing="base-loose" width="100%">
       {children}
     </Stack>
   );

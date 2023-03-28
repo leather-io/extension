@@ -11,12 +11,13 @@ import { formatMoney } from '@app/common/money/format-money';
 import { FormAddressDisplayer } from '@app/components/address-displayer/form-address-displayer';
 import { BaseDrawer } from '@app/components/drawer/base-drawer';
 import { InfoCard, InfoCardRow, InfoCardSeparator } from '@app/components/info-card/info-card';
+import { InscriptionPreview } from '@app/components/inscription-preview-card/components/inscription-preview';
 import { PrimaryButton } from '@app/components/primary-button';
 import { useCurrentNativeSegwitUtxos } from '@app/query/bitcoin/address/address.hooks';
 import { useBitcoinFeeRate } from '@app/query/bitcoin/fees/fee-estimates.hooks';
 
+import { InscriptionPreviewCard } from '../../../components/inscription-preview-card/inscription-preview-card';
 import { useBitcoinBroadcastTransaction } from '../../../query/bitcoin/transaction/use-bitcoin-broadcast-transaction';
-import { CollectiblePreviewCard } from './components/collectible-preview-card';
 import { useInscriptionSendState } from './send-inscription-container';
 
 function useSendInscriptionReviewState() {
@@ -70,7 +71,11 @@ export function SendInscriptionReview() {
   return (
     <BaseDrawer title="Review" isShowing enableGoBack onClose={() => navigate(RouteUrls.Home)}>
       <Box px="extra-loose" mt="extra-loose">
-        <CollectiblePreviewCard inscription={inscription} />
+        <InscriptionPreviewCard
+          image={<InscriptionPreview inscription={inscription} />}
+          subtitle="Ordinal inscription"
+          title={inscription.title}
+        />
       </Box>
 
       <InfoCard pt="extra-loose" pb="extra-loose" px="extra-loose">

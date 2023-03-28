@@ -33,7 +33,7 @@ export function AddCollectible() {
         void analytics.track('select_add_new_collectible');
         navigate(RouteUrls.ReceiveCollectible);
       }}
-      subtitle="Ordinal inscription"
+      subtitle="Ordinal or Stacks NFT"
       title="Add new"
     >
       <Box as={Plus} width="40px" />

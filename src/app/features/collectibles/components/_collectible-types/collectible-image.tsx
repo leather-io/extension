@@ -3,22 +3,27 @@ import { useState } from 'react';
 import { Spinner } from '@stacks/ui';
 
 import { figmaTheme } from '@app/common/utils/figma-theme';
+import { OrdinalMinimalIcon } from '@app/components/icons/ordinal-minimal-icon';
 
-import { ImageUnavailable } from './components/image-unavailable';
+import { CollectibleItemLayout, CollectibleItemLayoutProps } from '../collectible-item.layout';
+import { ImageUnavailable } from '../image-unavailable';
 
-interface ImageCollectibleProps {
+interface CollectibleImageProps extends Omit<CollectibleItemLayoutProps, 'children'> {
+  alt?: string;
   src: string;
 }
-export function CollectibleImageLayout({ src }: ImageCollectibleProps) {
+export function CollectibleImage(props: CollectibleImageProps) {
+  const { alt, src, ...rest } = props;
   const [isError, setIsError] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
 
   if (isError) return <ImageUnavailable />;
 
   return (
-    <>
+    <CollectibleItemLayout collectibleTypeIcon={<OrdinalMinimalIcon />} {...rest}>
       {isLoading && <Spinner color={figmaTheme.icon} size="16px" />}
       <img
+        alt={alt}
         onError={() => setIsError(true)}
         onLoad={() => setIsLoading(false)}
         src={src}
@@ -30,6 +35,6 @@ export function CollectibleImageLayout({ src }: ImageCollectibleProps) {
           display: isLoading ? 'none' : 'inherit',
         }}
       />
-    </>
+    </CollectibleItemLayout>
   );
 }

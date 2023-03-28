@@ -100,7 +100,6 @@ export function CollectibleItemLayout({
               mode="tertiary"
               p="6px 12px"
               sx={{
-                // Used to hide the button visually while keeping it in the accessibility tree.
                 clipPath: isHovered ? 'none' : 'circle(0%)',
               }}
               onClick={e => {
@@ -113,7 +112,6 @@ export function CollectibleItemLayout({
             </Button>
           </Box>
         ) : (
-          // Spacer
           <Box padding="4px" />
         )}
       </Box>
