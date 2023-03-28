@@ -4,28 +4,19 @@ import { useParams } from 'react-router-dom';
 import { FormikHelpers } from 'formik';
 import * as yup from 'yup';
 
-import { HIGH_FEE_AMOUNT_STX } from '@shared/constants';
 import { logger } from '@shared/logger';
-import { FeeTypes } from '@shared/models/fees/_fees.model';
 import { StacksSendFormValues } from '@shared/models/form.model';
 import { createMoney } from '@shared/models/money.model';
-import { isEmpty } from '@shared/utils';
 
-import { FormErrorMessages } from '@app/common/error-messages';
-import { useDrawers } from '@app/common/hooks/use-drawers';
+import { getImageCanonicalUri } from '@app/common/crypto-assets/stacks-crypto-asset.utils';
 import { useOnMount } from '@app/common/hooks/use-on-mount';
 import { convertAmountToBaseUnit } from '@app/common/money/calculate-money';
 import { useWalletType } from '@app/common/use-wallet-type';
+import { formatContractId } from '@app/common/utils';
 import { stacksFungibleTokenAmountValidator } from '@app/common/validation/forms/amount-validators';
-import { stxMemoValidator } from '@app/common/validation/forms/memo-validators';
-import { stxRecipientValidator } from '@app/common/validation/forms/recipient-validators';
-import { nonceValidator } from '@app/common/validation/nonce-validators';
 import { useLedgerNavigate } from '@app/features/ledger/hooks/use-ledger-navigate';
 import { useStacksFungibleTokenAssetBalance } from '@app/query/stacks/balance/stacks-ft-balances.hooks';
 import { useCalculateStacksTxFees } from '@app/query/stacks/fees/fees.hooks';
-import { useNextNonce } from '@app/query/stacks/nonce/account-nonces.hooks';
-import { useCurrentAccountStxAddressState } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
-import { useCurrentNetworkState } from '@app/store/networks/networks.hooks';
 import {
   useFtTokenTransferUnsignedTx,
   useGenerateFtTokenTransferUnsignedTx,
@@ -33,26 +24,22 @@ import {
 
 import { useStacksFtRouteState } from '../../family/stacks/hooks/use-stacks-ft-params';
 import { useSendFormNavigate } from '../../hooks/use-send-form-navigate';
-import { useSendFormRouteState } from '../../hooks/use-send-form-route-state';
-import { createDefaultInitialFormValues } from '../../send-form.utils';
+import { useStacksCommonSendForm } from '../stacks/use-stacks-common-send-form';
 
 export function useSip10SendForm() {
-  const [contractId, setContractId] = useState('');
-  const { isShowingHighFeeConfirmation, setIsShowingHighFeeConfirmation } = useDrawers();
   const { symbol } = useParams();
-  const { data: nextNonce } = useNextNonce();
-  const routeState = useSendFormRouteState();
+  const { contractId: routeContractId } = useStacksFtRouteState();
+  const [contractId, setContractId] = useState('');
+
   const generateTx = useGenerateFtTokenTransferUnsignedTx(contractId);
-  const currentAccountStxAddress = useCurrentAccountStxAddressState();
-  const currentNetwork = useCurrentNetworkState();
+  const assetBalance = useStacksFungibleTokenAssetBalance(contractId);
+
   const { whenWallet } = useWalletType();
   const ledgerNavigate = useLedgerNavigate();
   const sendFormNavigate = useSendFormNavigate();
-  const assetBalance = useStacksFungibleTokenAssetBalance(contractId);
+
   const unsignedTx = useFtTokenTransferUnsignedTx(contractId);
   const { data: stacksFtFees } = useCalculateStacksTxFees(unsignedTx);
-
-  const { contractId: routeContractId } = useStacksFtRouteState();
 
   const availableTokenBalance = assetBalance?.balance ?? createMoney(0, 'STX');
   const sendMaxBalance = useMemo(
@@ -64,16 +51,21 @@ export function useSip10SendForm() {
     setContractId(routeContractId);
   });
 
-  const initialValues: StacksSendFormValues = createDefaultInitialFormValues({
-    fee: '',
-    feeCurrency: 'STX',
-    feeType: FeeTypes[FeeTypes.Unknown],
-    memo: '',
-    nonce: nextNonce?.nonce,
-    recipientBnsName: '',
-    symbol,
-    ...routeState,
+  const { initialValues, checkFormValidation, recipient, memo, nonce } = useStacksCommonSendForm({
+    symbol: symbol ?? '',
+    availableTokenBalance,
   });
+
+  function createFtAvatar() {
+    const asset = assetBalance?.asset;
+    if (!asset) return;
+
+    const { contractAddress, contractAssetName, contractName } = asset;
+    return {
+      avatar: `${formatContractId(contractAddress, contractName)}::${contractAssetName}`,
+      imageCanonicalUri: getImageCanonicalUri(asset.imageCanonicalUri, asset.name),
+    };
+  }
 
   return {
     availableTokenBalance,
@@ -81,27 +73,20 @@ export function useSip10SendForm() {
     sendMaxBalance,
     stacksFtFees,
     symbol,
-
+    avatar: createFtAvatar(),
     validationSchema: yup.object({
       amount: stacksFungibleTokenAmountValidator(availableTokenBalance),
-      recipient: stxRecipientValidator(currentAccountStxAddress, currentNetwork),
-      memo: stxMemoValidator(FormErrorMessages.MemoExceedsLimit),
-      nonce: nonceValidator,
+      recipient,
+      memo,
+      nonce,
     }),
 
     async previewTransaction(
       values: StacksSendFormValues,
       formikHelpers: FormikHelpers<StacksSendFormValues>
     ) {
-      // Validate and check high fee warning first
-      const formErrors = formikHelpers.validateForm();
-      if (
-        !isShowingHighFeeConfirmation &&
-        isEmpty(formErrors) &&
-        values.fee > HIGH_FEE_AMOUNT_STX
-      ) {
-        return setIsShowingHighFeeConfirmation(true);
-      }
+      const isFormValid = await checkFormValidation(values, formikHelpers);
+      if (!isFormValid) return;
 
       const tx = await generateTx(values);
       if (!tx) return logger.error('Attempted to generate unsigned tx, but tx is undefined');
