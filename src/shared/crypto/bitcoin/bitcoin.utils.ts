@@ -36,3 +36,24 @@ export function ecdsaPublicKeyToSchnorr(pubKey: Uint8Array) {
 export function decodeBitcoinTx(tx: string) {
   return btc.RawTx.decode(hexToBytes(tx));
 }
+
+function getAddressFromWshOutScript(script: Uint8Array) {
+  return btc.programToWitness(0, script.slice(2));
+}
+
+function getAddressFromWpkhOutScript(script: Uint8Array) {
+  return btc.programToWitness(0, script.slice(2));
+}
+
+function getAddressFromTrOutScript(script: Uint8Array) {
+  return btc.programToWitness(1, script.slice(2));
+}
+
+export function getAddressFromOutScript(script: Uint8Array) {
+  const outScript = btc.OutScript.decode(script);
+
+  if (outScript.type === 'wsh') return getAddressFromWshOutScript(script);
+  if (outScript.type === 'wpkh') return getAddressFromWpkhOutScript(script);
+  if (outScript.type === 'tr') return getAddressFromTrOutScript(script);
+  return '';
+}

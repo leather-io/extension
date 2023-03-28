@@ -13,12 +13,13 @@ import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
 import { BaseDrawer } from '@app/components/drawer/base-drawer';
 import { ErrorLabel } from '@app/components/error-label';
 import { OrdinalIcon } from '@app/components/icons/ordinal-icon';
+import { InscriptionPreview } from '@app/components/inscription-preview-card/components/inscription-preview';
 import { getNumberOfInscriptionOnUtxo } from '@app/query/bitcoin/ordinals/utils';
 
 import { BtcSizeFeeEstimator } from '../../../common/transactions/bitcoin/fees/btc-size-fee-estimator';
+import { InscriptionPreviewCard } from '../../../components/inscription-preview-card/inscription-preview-card';
 import { RecipientField } from '../send-crypto-asset-form/components/recipient-field';
 import { CollectibleAsset } from './components/collectible-asset';
-import { CollectiblePreviewCard } from './components/collectible-preview-card';
 import { useInscriptionSendState } from './send-inscription-container';
 import { useGenerateSignedOrdinalTx } from './use-generate-ordinal-tx';
 import { useOrdinalInscriptionFormValidationSchema } from './use-ordinal-inscription-form-validation-schema';
@@ -102,8 +103,12 @@ export function SendInscriptionForm() {
       {() => (
         <Form>
           <BaseDrawer title="Send" enableGoBack isShowing onClose={() => navigate(RouteUrls.Home)}>
-            <Box px="extra-loose">
-              <CollectiblePreviewCard inscription={inscription} mt="extra-loose" />
+            <Box mt="extra-loose" px="extra-loose">
+              <InscriptionPreviewCard
+                image={<InscriptionPreview inscription={inscription} />}
+                subtitle="Ordinal inscription"
+                title={inscription.title}
+              />
               <Box mt={['base', 'extra-loose', '100px']}>
                 <Flex flexDirection="column" mt="loose" width="100%">
                   <CollectibleAsset icon={<OrdinalIcon />} name="Ordinal inscription" />

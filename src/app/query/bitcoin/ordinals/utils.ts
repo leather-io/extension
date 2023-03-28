@@ -32,68 +32,6 @@ export function getTaprootAddress({ index, keychain, network }: GetTaprootAddres
   return payment.address;
 }
 
-/**
- * Inscriptions contain arbitrary data. When retrieving an inscription, it should be
- * classified into one of the types below, indicating that the app can handle it
- * appropriately and securely. Inscriptions of types not ready to be handled by the
- * app should be classified as "other".
- */
-const supportedInscriptionTypes = ['image', 'text', 'other'] as const;
-
-type SupportedInscriptionType = (typeof supportedInscriptionTypes)[number];
-
-interface BaseInscriptionInfo {
-  /**
-   * The kind of inscription as classified by this app. Different kinds of inscriptions
-   * require different treatment (e.g., images vs documents).
-   */
-  type: SupportedInscriptionType;
-  title: string;
-  infoUrl: string;
-}
-
-interface ImageInscriptionInfo extends BaseInscriptionInfo {
-  type: 'image';
-  src: string;
-}
-
-interface TextInscriptionInfo extends BaseInscriptionInfo {
-  type: 'text';
-  contentSrc: string;
-}
-
-interface OtherInscriptionInfo extends BaseInscriptionInfo {
-  type: 'other';
-}
-
-/**
- * Information useful to the app about an inscription depending on its
- * type. Typically, API data will be used to construct this object. This is
- * *not* the result of any one API response.
- */
-export type InscriptionInfo = ImageInscriptionInfo | TextInscriptionInfo | OtherInscriptionInfo;
-
-export function createInfoUrl(contentPath: string) {
-  return `https://ordinals.hiro.so${contentPath}`.replace('content', 'inscription');
-}
-
-export function whenInscriptionType<T>(
-  mimeType: string,
-  branches: { [k in SupportedInscriptionType]?: () => T }
-) {
-  if (mimeType.startsWith('image/') && branches.image) {
-    return branches.image();
-  }
-
-  if (mimeType.startsWith('text') && branches.text) {
-    return branches.text();
-  }
-
-  if (branches.other) return branches.other();
-
-  throw new Error('Unhandled inscription type.');
-}
-
 // In lieu of reliable API, we scrape HTML from the Ordinals.com explorer and
 // parses the HTML
 // Example:

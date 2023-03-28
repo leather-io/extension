@@ -2,21 +2,19 @@ import { Navigate, Outlet, useLocation, useOutletContext } from 'react-router-do
 
 import get from 'lodash.get';
 
+import { SupportedInscription } from '@shared/models/inscription.model';
 import { RouteUrls } from '@shared/route-urls';
 
 import { FeeEstimateMempoolSpaceApi } from '@app/query/bitcoin/bitcoin-client';
 import { useBitcoinFeeRate } from '@app/query/bitcoin/fees/fee-estimates.hooks';
 import { TaprootUtxo } from '@app/query/bitcoin/ordinals/use-taproot-address-utxos.query';
 
-import {
-  Inscription,
-  useSendOrdinalInscriptionRouteState,
-} from './use-send-ordinal-inscription-route-state';
+import { useSendOrdinalInscriptionRouteState } from './use-send-ordinal-inscription-route-state';
 
 interface InscriptionSendState {
-  inscription: Inscription;
-  utxo: TaprootUtxo;
   fees: FeeEstimateMempoolSpaceApi;
+  inscription: SupportedInscription;
+  utxo: TaprootUtxo;
 }
 
 export function useInscriptionSendState() {
