@@ -1,8 +1,6 @@
 import { Stack } from '@stacks/ui';
 import { SendCryptoAssetSelectors } from '@tests/selectors/send.selectors';
 
-import { Money } from '@shared/models/money.model';
-
 import { FormAddressDisplayer } from '@app/components/address-displayer/form-address-displayer';
 import {
   InfoCard,
@@ -21,7 +19,8 @@ interface SendFormConfirmationProps {
   symbol: string;
   txValue: string | number;
   sendingValue: string;
-  txFiatValue?: Money;
+  txFiatValue?: string;
+  txFiatValueSymbol?: string;
   nonce: string;
   memoDisplayText: string;
   isLoading: boolean;
@@ -31,6 +30,7 @@ interface SendFormConfirmationProps {
 export function SendFormConfirmation({
   txValue,
   txFiatValue,
+  txFiatValueSymbol,
   recipient,
   fee,
   totalSpend,
@@ -47,6 +47,7 @@ export function SendFormConfirmation({
       <InfoCardAssetValue
         value={Number(txValue)}
         fiatValue={txFiatValue}
+        fiatSymbol={txFiatValueSymbol}
         symbol={symbol}
         data-testid={SendCryptoAssetSelectors.ConfirmationDetailsAssetValue}
       />
