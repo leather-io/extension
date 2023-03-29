@@ -13,7 +13,7 @@ import { CryptoCurrencies } from '@shared/models/currencies.model';
 import { createMoney } from '@shared/models/money.model';
 
 import { baseCurrencyAmountInQuote } from '@app/common/money/calculate-money';
-import { formatMoney } from '@app/common/money/format-money';
+import { formatMoney, i18nFormatCurrency } from '@app/common/money/format-money';
 import { useCryptoCurrencyMarketData } from '@app/query/common/market-data/market-data.hooks';
 import { useStacksBlockTime } from '@app/query/stacks/info/info.hooks';
 import { useCurrentNetworkState } from '@app/store/networks/networks.hooks';
@@ -58,10 +58,10 @@ export function useStacksTransactionSummary(token: CryptoCurrencies) {
       symbol: 'STX',
       txValue: microStxToStx(Number(txValue)),
       sendingValue: formatMoney(convertToMoneyTypeWithDefaultOfZero('STX', Number(txValue))),
-      txFiatValue: baseCurrencyAmountInQuote(
-        createMoney(Number(payload.amount), 'STX'),
-        tokenMarketData
+      txFiatValue: i18nFormatCurrency(
+        baseCurrencyAmountInQuote(createMoney(Number(payload.amount), 'STX'), tokenMarketData)
       ),
+      txFiatValueSymbol: tokenMarketData.price.symbol,
       nonce: String(tx.auth.spendingCondition.nonce),
       memoDisplayText,
     };
@@ -85,7 +85,9 @@ export function useStacksTransactionSummary(token: CryptoCurrencies) {
       tokenMarketData
     );
 
-    const txFiatValue = currencyTxAmount.amount.toNumber() ? currencyTxAmount : undefined;
+    const txFiatValue = currencyTxAmount.amount.toNumber()
+      ? i18nFormatCurrency(currencyTxAmount)
+      : undefined;
 
     return {
       recipient: cvToString(payload.functionArgs[2]),
@@ -96,6 +98,7 @@ export function useStacksTransactionSummary(token: CryptoCurrencies) {
       totalSpend,
       sendingValue,
       txFiatValue,
+      txFiatValueSymbol: tokenMarketData.price.symbol,
       memoDisplayText,
       symbol,
     };
