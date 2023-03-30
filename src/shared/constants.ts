@@ -73,8 +73,8 @@ export const DEFAULT_SERVER_TESTNET = 'https://stacks-node-api.testnet.stacks.co
 export const HIRO_API_BASE_URL_MAINNET = 'https://api.hiro.so';
 export const HIRO_API_BASE_URL_TESTNET = 'https://api.testnet.hiro.so';
 
-export const BITCOIN_API_BASE_URL_MAINNET = 'https://blockstream.info/api';
-export const BITCOIN_API_BASE_URL_TESTNET = 'https://blockstream.info/testnet/api';
+export const BITCOIN_API_BASE_URL_MAINNET = 'https://mempool.space/api';
+export const BITCOIN_API_BASE_URL_TESTNET = 'https://mempool.space/testnet/api';
 
 const networkMainnet: NetworkConfiguration = {
   id: DefaultNetworkConfigurationIds.mainnet,
