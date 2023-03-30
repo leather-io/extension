@@ -27,10 +27,15 @@ class AddressApi {
   }
 
   async getUtxosByAddress(address: string): Promise<UtxoResponseItem[]> {
-    return fetchData({
-      errorMsg: 'No UTXOs fetched',
-      url: `${this.configuration.baseUrl}/address/${address}/utxo`,
-    });
+    try {
+      const utxos = await fetchData({
+        errorMsg: 'No UTXOs fetched',
+        url: `${this.configuration.baseUrl}/address/${address}/utxo`,
+      });
+      return utxos;
+    } catch (e) {
+      return [];
+    }
   }
 }
 
