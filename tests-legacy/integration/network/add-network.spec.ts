@@ -44,6 +44,7 @@ describe('Buy tokens test', () => {
 
     it('unable to fetch info from node', async () => {
       await networkPage.inputNetworkAddressField('https://www.google.com/');
+      await networkPage.inputNetworkKeyField('test-network');
       await networkPage.clickAddNetwork();
       await networkPage.waitForErrorMessage();
       const errorMsgElement = await networkPage.page.$$(networkPage.getSelector('$errorText'));
