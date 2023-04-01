@@ -49,6 +49,11 @@ export function AddNetwork() {
             setError('Enter a valid URL');
             return;
           }
+          if (!key) {
+            setError('Enter a unique key');
+            return;
+          }
+
           setLoading(true);
           setError('');
           try {
