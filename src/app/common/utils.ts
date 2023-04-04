@@ -13,10 +13,6 @@ import { toUnicode } from 'punycode';
 import { KEBAB_REGEX, NetworkModes } from '@shared/constants';
 import { logger } from '@shared/logger';
 import type { Blockchains } from '@shared/models/blockchain.model';
-import {
-  StacksCryptoCurrencyAssetBalance,
-  StacksFungibleTokenAssetBalance,
-} from '@shared/models/crypto-asset-balance.model';
 
 export function createNullArrayOfLength(length: number) {
   return new Array(length).fill(null);
@@ -273,20 +269,6 @@ export function pullContractIdFromIdentity(identifier: string) {
 
 export function formatContractId(address: string, name: string) {
   return `${address}.${name}`;
-}
-
-/**
- * Refactored with new send form; remove with legacy send form.
- * @deprecated
- */
-export function getFullyQualifiedStacksAssetName(
-  assetBalance: StacksCryptoCurrencyAssetBalance | StacksFungibleTokenAssetBalance
-) {
-  if (assetBalance.type === 'crypto-currency') return '::stacks-token';
-  return `${formatContractId(
-    assetBalance.asset.contractAddress,
-    assetBalance.asset.contractName
-  )}::${assetBalance.asset.contractAssetName}`;
 }
 
 export function doesBrowserSupportWebUsbApi() {

@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react';
+import { useMemo } from 'react';
 import { useParams } from 'react-router-dom';
 
 import { FormikHelpers } from 'formik';
@@ -9,7 +9,6 @@ import { StacksSendFormValues } from '@shared/models/form.model';
 import { createMoney } from '@shared/models/money.model';
 
 import { getImageCanonicalUri } from '@app/common/crypto-assets/stacks-crypto-asset.utils';
-import { useOnMount } from '@app/common/hooks/use-on-mount';
 import { convertAmountToBaseUnit } from '@app/common/money/calculate-money';
 import { useWalletType } from '@app/common/use-wallet-type';
 import { formatContractId } from '@app/common/utils';
@@ -22,23 +21,19 @@ import {
   useGenerateFtTokenTransferUnsignedTx,
 } from '@app/store/transactions/token-transfer.hooks';
 
-import { useStacksFtRouteState } from '../../family/stacks/hooks/use-stacks-ft-params';
 import { useSendFormNavigate } from '../../hooks/use-send-form-navigate';
 import { useStacksCommonSendForm } from '../stacks/use-stacks-common-send-form';
 
 export function useSip10SendForm() {
-  const { symbol } = useParams();
-  const { contractId: routeContractId } = useStacksFtRouteState();
-  const [contractId, setContractId] = useState('');
-
-  const generateTx = useGenerateFtTokenTransferUnsignedTx(contractId);
+  const { symbol, contractId = '' } = useParams();
   const assetBalance = useStacksFungibleTokenAssetBalance(contractId);
+  const generateTx = useGenerateFtTokenTransferUnsignedTx(assetBalance);
 
   const { whenWallet } = useWalletType();
   const ledgerNavigate = useLedgerNavigate();
   const sendFormNavigate = useSendFormNavigate();
 
-  const unsignedTx = useFtTokenTransferUnsignedTx(contractId);
+  const unsignedTx = useFtTokenTransferUnsignedTx(assetBalance);
   const { data: stacksFtFees } = useCalculateStacksTxFees(unsignedTx);
 
   const availableTokenBalance = assetBalance?.balance ?? createMoney(0, 'STX');
@@ -46,10 +41,6 @@ export function useSip10SendForm() {
     () => convertAmountToBaseUnit(availableTokenBalance),
     [availableTokenBalance]
   );
-
-  useOnMount(() => {
-    setContractId(routeContractId);
-  });
 
   const { initialValues, checkFormValidation, recipient, memo, nonce } = useStacksCommonSendForm({
     symbol: symbol ?? '',
