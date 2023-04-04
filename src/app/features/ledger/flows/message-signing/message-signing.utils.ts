@@ -10,7 +10,7 @@ import {
 
 import { SignedMessageStructured } from '@shared/signature/signature-types';
 
-import { whenStxChainId } from '@app/common/utils';
+import { whenStacksChainId } from '@app/common/utils';
 
 export function cvToDisplay(cv: ClarityValue): string {
   return cvToString(cv).replaceAll('"', '');
@@ -22,7 +22,7 @@ export function chainIdToDisplay(chainIdCv: ClarityValue): string {
   const chainId = parseInt(chainIdString.replace('u', ''));
   if (!Object.values(ChainID).includes(chainId)) return '';
 
-  return whenStxChainId(chainId as ChainID)({
+  return whenStacksChainId(chainId as ChainID)({
     [ChainID.Testnet]: 'Testnet',
     [ChainID.Mainnet]: 'Mainnet',
   });

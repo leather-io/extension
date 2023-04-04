@@ -1,8 +1,8 @@
 import { EntityId, PayloadAction, createEntityAdapter, createSlice } from '@reduxjs/toolkit';
 
-import { DefaultNetworkConfigurationIds, NetworkConfiguration } from '@shared/constants';
+import { NetworkConfiguration, WalletDefaultNetworkConfigurationIds } from '@shared/constants';
 
-const defaultCurrentNetworkId = DefaultNetworkConfigurationIds.mainnet as EntityId;
+const defaultCurrentNetworkId = WalletDefaultNetworkConfigurationIds.mainnet as EntityId;
 
 // Creates type that replicates network store before addition of Bitcoin.
 // Current implementation uses a static btc config, based on stx config, so

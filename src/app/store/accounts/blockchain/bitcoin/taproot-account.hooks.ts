@@ -13,7 +13,7 @@ import {
 } from '@shared/crypto/bitcoin/p2tr-address-gen';
 import { isUndefined } from '@shared/utils';
 
-import { whenNetwork } from '@app/common/utils';
+import { bitcoinNetworkModeToCoreNetworkMode, whenNetwork } from '@app/common/utils';
 import { useCurrentNetwork } from '@app/store/networks/networks.selectors';
 
 import { useCurrentAccountIndex } from '../../account';
@@ -23,7 +23,7 @@ import { selectMainnetTaprootKeychain, selectTestnetTaprootKeychain } from './bi
 function useTaprootCurrentNetworkAccountPrivateKeychain() {
   const network = useCurrentNetwork();
   return useSelector(
-    whenNetwork(network.chain.bitcoin.network)({
+    whenNetwork(bitcoinNetworkModeToCoreNetworkMode(network.chain.bitcoin.network))({
       mainnet: selectMainnetTaprootKeychain,
       testnet: selectTestnetTaprootKeychain,
     })

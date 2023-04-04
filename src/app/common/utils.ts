@@ -10,7 +10,7 @@ import {
 import BigNumber from 'bignumber.js';
 import { toUnicode } from 'punycode';
 
-import { KEBAB_REGEX, NetworkModes } from '@shared/constants';
+import { BitcoinNetworkModes, KEBAB_REGEX, NetworkModes } from '@shared/constants';
 import { logger } from '@shared/logger';
 import type { Blockchains } from '@shared/models/blockchain.model';
 
@@ -61,7 +61,7 @@ export function validateAndCleanRecoveryInput(value: string) {
 
 interface MakeTxExplorerLinkArgs {
   blockchain: Blockchains;
-  mode: NetworkModes;
+  mode: BitcoinNetworkModes;
   suffix?: string;
   txid: string;
 }
@@ -73,7 +73,7 @@ export function makeTxExplorerLink({
 }: MakeTxExplorerLinkArgs) {
   switch (blockchain) {
     case 'bitcoin':
-      return `https://mempool.space/${mode === 'testnet' ? 'testnet/' : ''}tx/${txid}`;
+      return `https://mempool.space/${mode !== 'mainnet' ? mode + '/' : 'mainnet'}tx/${txid}`;
     case 'stacks':
       return `https://explorer.stacks.co/txid/${txid}?chain=${mode}${suffix}`;
     default:
@@ -291,17 +291,27 @@ export function isPopupMode() {
   return pageMode === 'popup';
 }
 
-interface WhenChainIdMap<T> {
+interface WhenStacksChainIdMap<T> {
   [ChainID.Mainnet]: T;
   [ChainID.Testnet]: T;
 }
-export function whenStxChainId(chainId: ChainID) {
-  return <T>(chainIdMap: WhenChainIdMap<T>): T => chainIdMap[chainId];
+export function whenStacksChainId(chainId: ChainID) {
+  return <T>(chainIdMap: WhenStacksChainIdMap<T>): T => chainIdMap[chainId];
 }
 
 type NetworkMap<T> = Record<NetworkModes, T>;
 export function whenNetwork(mode: NetworkModes) {
   return <T>(networkMap: NetworkMap<T>): T => networkMap[mode];
+}
+
+const bitcoinNetworkToCoreNetworkMap: Record<BitcoinNetworkModes, NetworkModes> = {
+  mainnet: 'mainnet',
+  testnet: 'testnet',
+  regtest: 'testnet',
+  signet: 'testnet',
+};
+export function bitcoinNetworkModeToCoreNetworkMode(mode: BitcoinNetworkModes) {
+  return bitcoinNetworkToCoreNetworkMap[mode];
 }
 
 export function sumNumbers(nums: number[]) {

@@ -1,6 +1,6 @@
 import { HDKey } from '@scure/bip32';
 
-import { NetworkModes } from '@shared/constants';
+import { BitcoinNetworkModes } from '@shared/constants';
 import { deriveAddressIndexKeychainFromAccount } from '@shared/crypto/bitcoin/bitcoin.utils';
 import { getTaprootPayment } from '@shared/crypto/bitcoin/p2tr-address-gen';
 import { DerivationPathDepth } from '@shared/crypto/derivation-path.utils';
@@ -12,7 +12,7 @@ export function hasInscriptions(data: unknown[]) {
 interface GetTaprootAddressArgs {
   index: number;
   keychain?: HDKey;
-  network: NetworkModes;
+  network: BitcoinNetworkModes;
 }
 export function getTaprootAddress({ index, keychain, network }: GetTaprootAddressArgs) {
   if (!keychain) throw new Error('Expected keychain to be provided');

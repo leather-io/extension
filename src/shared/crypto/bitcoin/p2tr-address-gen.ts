@@ -1,10 +1,10 @@
 import { HDKey } from '@scure/bip32';
 import * as btc from '@scure/btc-signer';
 
-import { NetworkModes } from '@shared/constants';
+import { BitcoinNetworkModes, NetworkModes } from '@shared/constants';
 
 import { DerivationPathDepth } from '../derivation-path.utils';
-import { getBtcSignerLibNetworkByMode } from './bitcoin.network';
+import { getBtcSignerLibNetworkConfigByMode } from './bitcoin.network';
 import {
   deriveAddressIndexKeychainFromAccount,
   ecdsaPublicKeyToSchnorr,
@@ -22,15 +22,15 @@ export function deriveTaprootAccountFromRootKeychain(keychain: HDKey, network: N
   return (index: number) => keychain.derive(getTaprootAccountDerivationPath(network, index));
 }
 
-export function getTaprootPayment(publicKey: Uint8Array, network: NetworkModes) {
+export function getTaprootPayment(publicKey: Uint8Array, network: BitcoinNetworkModes) {
   return btc.p2tr(
     ecdsaPublicKeyToSchnorr(publicKey),
     undefined,
-    getBtcSignerLibNetworkByMode(network)
+    getBtcSignerLibNetworkConfigByMode(network)
   );
 }
 
-export function getTaprootPaymentFromAddressIndex(keychain: HDKey, network: NetworkModes) {
+export function getTaprootPaymentFromAddressIndex(keychain: HDKey, network: BitcoinNetworkModes) {
   if (keychain.depth !== DerivationPathDepth.AddressIndex)
     throw new Error('Keychain passed is not an address index');
 
@@ -42,7 +42,7 @@ export function getTaprootPaymentFromAddressIndex(keychain: HDKey, network: Netw
 interface DeriveTaprootReceiveAddressIndexArgs {
   xpub: string;
   index: number;
-  network: NetworkModes;
+  network: BitcoinNetworkModes;
 }
 export function deriveTaprootReceiveAddressIndex({
   xpub,

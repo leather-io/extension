@@ -2,7 +2,7 @@ import { createSelector } from '@reduxjs/toolkit';
 import { HDKey } from '@scure/bip32';
 
 import { NetworkModes } from '@shared/constants';
-import { getBtcSignerLibNetworkByMode } from '@shared/crypto/bitcoin/bitcoin.network';
+import { getBtcSignerLibNetworkConfigByMode } from '@shared/crypto/bitcoin/bitcoin.network';
 import { deriveAddressIndexZeroFromAccount } from '@shared/crypto/bitcoin/bitcoin.utils';
 import { deriveTaprootAccountFromRootKeychain } from '@shared/crypto/bitcoin/p2tr-address-gen';
 import {
@@ -67,5 +67,5 @@ export const selectTestnetTaprootKeychain = bitcoinKeychainSelectorFactory(
 
 export function useBitcoinLibNetworkConfig() {
   const network = useCurrentNetwork();
-  return getBtcSignerLibNetworkByMode(network.chain.bitcoin.network);
+  return getBtcSignerLibNetworkConfigByMode(network.chain.bitcoin.network);
 }
