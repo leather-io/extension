@@ -6,10 +6,10 @@ import { NetworkModes } from '@shared/constants';
 
 import { DerivationPathDepth } from '../derivation-path.utils';
 
-const coinTypeMap: Record<NetworkModes, 0 | 1 | 2> = {
+const coinTypeMap: Record<NetworkModes, 0 | 1> = {
   mainnet: 0,
   testnet: 1,
-  regtest: 2
+  regtest: 1
 };
 
 export function getBitcoinCoinTypeIndexByNetwork(network: NetworkModes) {
