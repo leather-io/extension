@@ -9,7 +9,7 @@ import {
   HIRO_API_BASE_URL_TESTNET,
 } from '@shared/constants';
 
-import { whenStxChainId } from '@app/common/utils';
+import { whenStacksChainId } from '@app/common/utils';
 import { BitcoinClient } from '@app/query/bitcoin/bitcoin-client';
 import { StacksClient } from '@app/query/stacks/stacks-client';
 import { TokenMetadataClient } from '@app/query/stacks/token-metadata-client';
@@ -24,7 +24,7 @@ import { useCurrentNetworkState } from '../networks/networks.hooks';
 export function useBitcoinClient() {
   const network = useCurrentNetworkState();
 
-  const baseUrl = whenStxChainId(network.chain.stacks.chainId)({
+  const baseUrl = whenStacksChainId(network.chain.stacks.chainId)({
     [ChainID.Mainnet]: BITCOIN_API_BASE_URL_MAINNET,
     [ChainID.Testnet]: BITCOIN_API_BASE_URL_TESTNET,
   });
@@ -55,7 +55,7 @@ export function useStacksClientAnchored() {
 export function useTokenMetadataClient() {
   const network = useCurrentNetworkState();
 
-  const basePath = whenStxChainId(network.chain.stacks.chainId)({
+  const basePath = whenStacksChainId(network.chain.stacks.chainId)({
     [ChainID.Mainnet]: HIRO_API_BASE_URL_MAINNET,
     [ChainID.Testnet]: HIRO_API_BASE_URL_TESTNET,
   });

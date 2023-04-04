@@ -1,10 +1,10 @@
 import { HDKey } from '@scure/bip32';
 import * as btc from '@scure/btc-signer';
 
-import { NetworkModes } from '@shared/constants';
+import { BitcoinNetworkModes, NetworkModes } from '@shared/constants';
 
 import { DerivationPathDepth } from '../derivation-path.utils';
-import { getBtcSignerLibNetworkByMode } from './bitcoin.network';
+import { getBtcSignerLibNetworkConfigByMode } from './bitcoin.network';
 import {
   deriveAddressIndexZeroFromAccount,
   getBitcoinCoinTypeIndexByNetwork,
@@ -19,16 +19,19 @@ export function deriveNativeSegWitAccountKeychain(keychain: HDKey, network: Netw
   return (index: number) => keychain.derive(getNativeSegWitAccountDerivationPath(network, index));
 }
 
-export function getNativeSegWitAddressIndexFromKeychain(keychain: HDKey, network: NetworkModes) {
+export function getNativeSegWitAddressIndexFromKeychain(
+  keychain: HDKey,
+  network: BitcoinNetworkModes
+) {
   if (keychain.depth !== DerivationPathDepth.AddressIndex)
     throw new Error('Keychain passed is not an address index');
 
-  return btc.p2wpkh(keychain.publicKey!, getBtcSignerLibNetworkByMode(network));
+  return btc.p2wpkh(keychain.publicKey!, getBtcSignerLibNetworkConfigByMode(network));
 }
 
 interface DeriveNativeSegWitReceiveAddressIndexArgs {
   xpub: string;
-  network: NetworkModes;
+  network: BitcoinNetworkModes;
 }
 export function deriveNativeSegWitReceiveAddressIndex({
   xpub,
