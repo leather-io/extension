@@ -25,7 +25,6 @@ import {
   GenerateUnsignedTransactionOptions,
   generateUnsignedTransaction,
 } from '@app/common/transactions/stacks/generate-unsigned-txs';
-import { useStacksCryptoAssetBalanceByAssetId } from '@app/query/stacks/balance/stacks-ft-balances.hooks';
 import { getStacksFungibleTokenCurrencyAssetBalance } from '@app/query/stacks/balance/stacks-ft-balances.utils';
 import { useNextNonce } from '@app/query/stacks/nonce/account-nonces.hooks';
 import { useCurrentStacksNetworkState } from '@app/store/networks/networks.hooks';
@@ -100,12 +99,13 @@ export function useStxTokenTransferUnsignedTxState(values?: StacksSendFormValues
   return tx.result;
 }
 
-export function useGenerateFtTokenTransferUnsignedTx(selectedAssetId: string) {
+export function useGenerateFtTokenTransferUnsignedTx(
+  assetBalance?: StacksFungibleTokenAssetBalance
+) {
   const { data: nextNonce } = useNextNonce();
   const account = useCurrentStacksAccount();
-  const selectedAssetBalance = useStacksCryptoAssetBalanceByAssetId(selectedAssetId);
-  const tokenCurrencyAssetBalance =
-    getStacksFungibleTokenCurrencyAssetBalance(selectedAssetBalance);
+
+  const tokenCurrencyAssetBalance = getStacksFungibleTokenCurrencyAssetBalance(assetBalance);
   const assetTransferState = useMakeFungibleTokenTransfer(tokenCurrencyAssetBalance);
 
   return useCallback(
@@ -182,22 +182,10 @@ export function useGenerateFtTokenTransferUnsignedTx(selectedAssetId: string) {
   );
 }
 
-// TODO: Refactor when remove legacy send form?
-export function useFtTokenTransferUnsignedTx(
-  selectedAssetId: string,
-  values?: StacksSendFormValues
-) {
-  const generateTx = useGenerateFtTokenTransferUnsignedTx(selectedAssetId);
+export function useFtTokenTransferUnsignedTx(assetBalance?: StacksFungibleTokenAssetBalance) {
+  const generateTx = useGenerateFtTokenTransferUnsignedTx(assetBalance);
   const account = useCurrentStacksAccount();
-  const selectedAssetBalance = useStacksCryptoAssetBalanceByAssetId(selectedAssetId);
-  const tokenCurrencyAssetBalance =
-    getStacksFungibleTokenCurrencyAssetBalance(selectedAssetBalance);
-  const assetTransferState = useMakeFungibleTokenTransfer(tokenCurrencyAssetBalance);
 
-  const tx = useAsync(
-    async () => generateTx(values ?? undefined),
-    [account, assetTransferState, selectedAssetBalance, values]
-  );
-
+  const tx = useAsync(async () => generateTx(), [account]);
   return tx.result;
 }

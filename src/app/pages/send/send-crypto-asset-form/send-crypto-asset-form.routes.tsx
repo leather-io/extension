@@ -62,13 +62,13 @@ export const sendCryptoAssetFormRoutes = (
     </Route>
     <Route path="/send/stx/confirm" element={<StacksSendFormConfirmation />} />
 
-    <Route path={RouteUrls.SendCryptoAssetForm} element={<StacksSip10FungibleTokenSendForm />}>
+    <Route path={RouteUrls.SendSip10Form} element={<StacksSip10FungibleTokenSendForm />}>
       {broadcastErrorDrawerRoute}
       {editNonceDrawerRoute}
       {ledgerTxSigningRoutes}
       {recipientAccountsDrawerRoute}
     </Route>
-    <Route path="/send/:symbol/confirm" element={<StacksSendFormConfirmation />} />
+    <Route path="/send/:symbol/:contractId/confirm" element={<StacksSendFormConfirmation />} />
     <Route path={RouteUrls.SentBtcTxSummary} element={<BtcSentSummary />}></Route>
     <Route path={RouteUrls.SentStxTxSummary} element={<StxSentSummary />}></Route>
   </Route>

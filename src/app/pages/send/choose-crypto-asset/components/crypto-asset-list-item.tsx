@@ -1,6 +1,9 @@
 import { useNavigate } from 'react-router-dom';
 
-import type { AllTransferableCryptoAssetBalances } from '@shared/models/crypto-asset-balance.model';
+import type {
+  AllTransferableCryptoAssetBalances,
+  StacksFungibleTokenAssetBalance,
+} from '@shared/models/crypto-asset-balance.model';
 import { RouteUrls } from '@shared/route-urls';
 
 import { CryptoCurrencyAssetItem } from '@app/components/crypto-assets/crypto-currency-asset/crypto-currency-asset-item';
@@ -18,9 +21,18 @@ export function CryptoAssetListItem(props: CryptoAssetListItemProps) {
   const navigate = useNavigate();
   const isBitcoinSendEnabled = useConfigBitcoinSendEnabled();
 
-  function navigateToSendForm(state?: object) {
-    if (blockchain === 'bitcoin' && !isBitcoinSendEnabled) navigate(RouteUrls.SendBtcDisabled);
-    navigate(`${RouteUrls.SendCryptoAsset}/${asset.symbol?.toLowerCase()}`, { state });
+  function navigateToSendForm({ isFtToken = false }: { isFtToken: boolean }) {
+    if (blockchain === 'bitcoin' && !isBitcoinSendEnabled) {
+      return navigate(RouteUrls.SendBtcDisabled);
+    }
+    const symbol = asset.symbol?.toLowerCase();
+
+    if (isFtToken) {
+      const asset = (assetBalance as StacksFungibleTokenAssetBalance).asset;
+      const contractId = `${asset.contractId.split('::')[0]}`;
+      return navigate(`${RouteUrls.SendCryptoAsset}/${symbol}/${contractId}`);
+    }
+    navigate(`${RouteUrls.SendCryptoAsset}/${symbol}`);
   }
 
   switch (type) {
@@ -30,14 +42,14 @@ export function CryptoAssetListItem(props: CryptoAssetListItemProps) {
           assetBalance={assetBalance}
           icon={<CryptoCurrencyAssetIcon blockchain={blockchain} />}
           isPressable
-          onClick={navigateToSendForm}
+          onClick={() => navigateToSendForm({ isFtToken: false })}
         />
       );
     case 'fungible-token':
       return (
         <FungibleTokenAssetItem
           assetBalance={assetBalance}
-          onClick={() => navigateToSendForm({ contractId: assetBalance.asset.contractId })}
+          onClick={() => navigateToSendForm({ isFtToken: true })}
         />
       );
     default:
