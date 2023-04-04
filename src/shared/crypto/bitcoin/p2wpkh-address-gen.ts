@@ -16,6 +16,7 @@ function getNativeSegWitAccountDerivationPath(network: NetworkModes, accountInde
 
 export function deriveNativeSegWitAccountKeychain(keychain: HDKey, network: NetworkModes) {
   if (keychain.depth !== DerivationPathDepth.Root) throw new Error('Keychain passed is not a root');
+  console.log(network)
   return (index: number) => keychain.derive(getNativeSegWitAccountDerivationPath(network, index));
 }
 

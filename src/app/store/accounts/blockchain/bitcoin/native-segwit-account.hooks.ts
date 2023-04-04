@@ -19,6 +19,7 @@ import { useCurrentAccountIndex } from '../../account';
 import {
   selectMainnetNativeSegWitKeychain,
   selectTestnetNativeSegWitKeychain,
+  selectRegtestNativeSegWitKeychain
 } from './bitcoin-keychain';
 
 function useNativeSegWitCurrentNetworkAccountKeychain() {
@@ -27,6 +28,7 @@ function useNativeSegWitCurrentNetworkAccountKeychain() {
     whenNetwork(network.chain.bitcoin.network)({
       mainnet: selectMainnetNativeSegWitKeychain,
       testnet: selectTestnetNativeSegWitKeychain,
+      regtest: selectRegtestNativeSegWitKeychain,
     })
   );
 }
@@ -63,6 +65,10 @@ export function useAllBitcoinNativeSegWitNetworksByAccount() {
         testnet: deriveNativeSegWitReceiveAddressIndex({
           xpub: testnetKeychainAtAccount(accountIndex).publicExtendedKey,
           network: 'testnet',
+        })?.address,
+        regtest: deriveNativeSegWitReceiveAddressIndex({
+          xpub: testnetKeychainAtAccount(accountIndex).publicExtendedKey,
+          network: 'regtest',
         })?.address,
       };
     },

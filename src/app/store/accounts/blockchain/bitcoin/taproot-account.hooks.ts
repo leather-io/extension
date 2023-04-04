@@ -18,7 +18,7 @@ import { useCurrentNetwork } from '@app/store/networks/networks.selectors';
 
 import { useCurrentAccountIndex } from '../../account';
 import { formatBitcoinAccount, tempHardwareAccountForTesting } from './bitcoin-account.models';
-import { selectMainnetTaprootKeychain, selectTestnetTaprootKeychain } from './bitcoin-keychain';
+import { selectMainnetTaprootKeychain, selectTestnetTaprootKeychain, selectRegtestTaprootKeychain } from './bitcoin-keychain';
 
 function useTaprootCurrentNetworkAccountPrivateKeychain() {
   const network = useCurrentNetwork();
@@ -26,6 +26,7 @@ function useTaprootCurrentNetworkAccountPrivateKeychain() {
     whenNetwork(network.chain.bitcoin.network)({
       mainnet: selectMainnetTaprootKeychain,
       testnet: selectTestnetTaprootKeychain,
+      regtest: selectRegtestTaprootKeychain,
     })
   );
 }

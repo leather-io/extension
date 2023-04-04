@@ -50,6 +50,11 @@ export const selectMainnetNativeSegWitKeychain = bitcoinKeychainSelectorFactory(
   'mainnet'
 );
 
+export const selectRegtestNativeSegWitKeychain = bitcoinKeychainSelectorFactory(
+  deriveNativeSegWitAccountKeychain,
+  'regtest'
+);
+
 export const selectTestnetNativeSegWitKeychain = bitcoinKeychainSelectorFactory(
   deriveNativeSegWitAccountKeychain,
   'testnet'
@@ -63,6 +68,11 @@ export const selectMainnetTaprootKeychain = bitcoinKeychainSelectorFactory(
 export const selectTestnetTaprootKeychain = bitcoinKeychainSelectorFactory(
   deriveTaprootAccountFromRootKeychain,
   'testnet'
+);
+
+export const selectRegtestTaprootKeychain = bitcoinKeychainSelectorFactory(
+  deriveTaprootAccountFromRootKeychain,
+  'regtest'
 );
 
 export function useBitcoinLibNetworkConfig() {

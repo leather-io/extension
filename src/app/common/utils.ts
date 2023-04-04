@@ -312,6 +312,7 @@ export function isPopupMode() {
 interface WhenChainIdMap<T> {
   [ChainID.Mainnet]: T;
   [ChainID.Testnet]: T;
+  [ChainID.Regtest]: T;
 }
 export function whenStxChainId(chainId: ChainID) {
   return <T>(chainIdMap: WhenChainIdMap<T>): T => chainIdMap[chainId];

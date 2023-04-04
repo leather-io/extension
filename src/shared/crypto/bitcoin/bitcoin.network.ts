@@ -23,9 +23,24 @@ const bitcoinTestnet: BitcoinNetwork = {
   wif: 0xef,
 };
 
+const bitcoinRegtest: BitcoinNetwork = {
+  bech32: 'bcrt',
+  pubKeyHash: 0x6f,
+  scriptHash: 0xc4,
+  wif: 0xef,
+};
+
+const bitcoinSignet: BitcoinNetwork = {
+  bech32: 'sb',
+  pubKeyHash: 0x3f,
+  scriptHash: 0x7f,
+  wif: 0x80,
+};
+
 const bitcoinNetworks: Record<NetworkModes, BitcoinNetwork> = {
   mainnet: bitcoinMainnet,
   testnet: bitcoinTestnet,
+  regtest: bitcoinRegtest,
 };
 
 export function getBtcSignerLibNetworkByMode(network: NetworkModes) {

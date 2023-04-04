@@ -63,9 +63,17 @@ export interface NetworkConfiguration {
 export enum DefaultNetworkModes {
   mainnet = 'mainnet',
   testnet = 'testnet',
+  regtest = 'regtest'
+}
+
+export enum DefaultTestnetModes {
+  testnet = 'testnet',
+  signet = 'signet'
 }
 
 export type NetworkModes = keyof typeof DefaultNetworkModes;
+
+export type TestnetModes = keyof typeof DefaultTestnetModes;
 
 const DEFAULT_SERVER_MAINNET = 'https://stacks-node-api.stacks.co';
 export const DEFAULT_SERVER_TESTNET = 'https://stacks-node-api.testnet.stacks.co';
@@ -121,8 +129,8 @@ const networkDevnet: NetworkConfiguration = {
     },
     bitcoin: {
       blockchain: 'bitcoin',
-      network: 'testnet',
-      url: BITCOIN_API_BASE_URL_TESTNET,
+      network: 'regtest',
+      url: 'http://localhost:18443',
     },
   },
 };

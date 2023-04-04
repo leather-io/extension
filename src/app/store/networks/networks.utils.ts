@@ -55,7 +55,7 @@ export function transformNetworkStateToMultichainStucture(
           key,
           {
             id,
-            name,
+          name,
             chain: {
               stacks: {
                 blockchain: 'stacks',
@@ -68,6 +68,7 @@ export function transformNetworkStateToMultichainStucture(
                 url: whenStxChainId(chainId)({
                   [ChainID.Mainnet]: BITCOIN_API_BASE_URL_MAINNET,
                   [ChainID.Testnet]: BITCOIN_API_BASE_URL_TESTNET,
+                  [ChainID.Regtest]: 'http://localhost:18443',
                 }),
               },
             },

@@ -10,13 +10,22 @@
       "request": "launch",
       "reAttach": false,
       "addonPath": "${workspaceFolder}/dist",
-      "skipFiles": ["${workspaceRoot}/node_modules/**", "stacks/wallet-web/node_modules/**"],
+      "skipFiles": [
+        "${workspaceRoot}/node_modules/**",
+        "stacks/wallet-web/node_modules/**"
+      ],
       "pathMappings": [
         {
           "url": "webpack://stacks/wallet-web/src",
           "path": "${workspaceFolder}/src"
         }
       ]
+    },
+    {
+      "type": "chrome",
+      "name": "chrome-extension://heblfebjiladnnikadeekgoadgaedkdg/index.html#/",
+      "request": "launch",
+      "url": "chrome-extension://heblfebjiladnnikadeekgoadgaedkdg/index.html#/"
     }
   ]
 }
