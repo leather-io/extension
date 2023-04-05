@@ -16,6 +16,7 @@ export function CollectibleImage(props: CollectibleImageProps) {
   const { alt, src, ...rest } = props;
   const [isError, setIsError] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
+  const [width, setWidth] = useState(0);
 
   if (isError)
     return (
@@ -30,7 +31,11 @@ export function CollectibleImage(props: CollectibleImageProps) {
       <img
         alt={alt}
         onError={() => setIsError(true)}
-        onLoad={() => setIsLoading(false)}
+        onLoad={event => {
+          const target = event.target as HTMLImageElement;
+          setWidth(target.naturalWidth);
+          setIsLoading(false);
+        }}
         src={src}
         style={{
           width: '100%',
@@ -38,6 +43,7 @@ export function CollectibleImage(props: CollectibleImageProps) {
           aspectRatio: '1 / 1',
           objectFit: 'cover',
           display: isLoading ? 'none' : 'inherit',
+          imageRendering: width <= 40 ? 'pixelated' : 'auto',
         }}
       />
     </CollectibleItemLayout>
