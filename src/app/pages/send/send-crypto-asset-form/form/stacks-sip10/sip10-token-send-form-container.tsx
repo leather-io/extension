@@ -1,8 +1,3 @@
-import { Navigate } from 'react-router-dom';
-
-import { RouteUrls } from '@shared/route-urls';
-import { isString } from '@shared/utils';
-
 import { StacksAssetAvatar } from '@app/components/crypto-assets/stacks/components/stacks-asset-avatar';
 import { StxAvatar } from '@app/components/crypto-assets/stacks/components/stx-avatar';
 
@@ -12,21 +7,24 @@ import { SendMaxButton } from '../../components/send-max-button';
 import { StacksCommonSendForm } from '../stacks/stacks-common-send-form';
 import { useSip10SendForm } from './use-sip10-send-form';
 
-export function StacksSip10FungibleTokenSendForm() {
+interface Sip10TokenSendFormContainerProps {
+  symbol: string;
+  contractId: string;
+}
+
+export function Sip10TokenSendFormContainer({
+  symbol,
+  contractId,
+}: Sip10TokenSendFormContainerProps) {
   const {
     availableTokenBalance,
     initialValues,
     previewTransaction,
     sendMaxBalance,
     stacksFtFees: fees,
-    symbol,
     validationSchema,
     avatar,
-  } = useSip10SendForm();
-
-  if (!isString(symbol)) {
-    return <Navigate to={RouteUrls.SendCryptoAsset} />;
-  }
+  } = useSip10SendForm({ symbol, contractId });
 
   const amountField = (
     <AmountField
@@ -34,6 +32,7 @@ export function StacksSip10FungibleTokenSendForm() {
       bottomInputOverlay={
         <SendMaxButton balance={availableTokenBalance} sendMaxBalance={sendMaxBalance.toString()} />
       }
+      autoComplete="off"
     />
   );
   const selectedAssetField = (

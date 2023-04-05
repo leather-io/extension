@@ -1,4 +1,6 @@
 import { useMemo } from 'react';
+import { toast } from 'react-hot-toast';
+import { useNavigate } from 'react-router-dom';
 
 import type { StacksFungibleTokenAssetBalance } from '@shared/models/crypto-asset-balance.model';
 
@@ -101,13 +103,20 @@ function useStacksFungibleTokenAssetBalancesUnanchoredWithMetadata(
 
 export function useStacksFungibleTokenAssetBalance(contractId: string) {
   const account = useCurrentStacksAccount();
+  const navigate = useNavigate();
   const assetBalances = useStacksFungibleTokenAssetBalancesUnanchoredWithMetadata(
     account?.address ?? ''
   );
   return useMemo(() => {
-    if (!assetBalances.length || contractId === '') return;
-    return assetBalances.find(assetBalance => assetBalance.asset.contractId.includes(contractId));
-  }, [assetBalances, contractId]);
+    const balance = assetBalances.find(assetBalance =>
+      assetBalance.asset.contractId.includes(contractId)
+    );
+    if (!balance) {
+      toast.error('Unable to find balance by contract id');
+      navigate('..');
+    }
+    return balance as StacksFungibleTokenAssetBalance;
+  }, [assetBalances, contractId, navigate]);
 }
 
 export function useTransferableStacksFungibleTokenAssetBalances(
