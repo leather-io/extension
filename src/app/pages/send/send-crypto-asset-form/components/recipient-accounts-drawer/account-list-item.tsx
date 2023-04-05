@@ -29,7 +29,6 @@ export const AccountListItem = memo(({ account, onClose }: AccountListItemProps)
   const onSelectAccount = () => {
     const isBitcoin = values.symbol === 'BTC';
     setFieldValue('recipient', isBitcoin ? btcAddress : account.address);
-    setFieldValue('recipientAddressOrBnsName', isBitcoin ? btcAddress : account.address);
     onClose();
   };
 

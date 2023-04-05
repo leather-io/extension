@@ -56,12 +56,19 @@ export function InfoCardSeparator() {
 // InfoCardAssetValue
 interface InfoCardAssetValueProps {
   value: number;
-  fiatValue: string;
+  fiatValue?: string;
+  fiatSymbol?: string;
   symbol: string;
   icon?: React.FC;
 }
 
-export function InfoCardAssetValue({ value, fiatValue, symbol, icon }: InfoCardAssetValueProps) {
+export function InfoCardAssetValue({
+  value,
+  fiatValue,
+  fiatSymbol,
+  symbol,
+  icon,
+}: InfoCardAssetValueProps) {
   return (
     <Stack
       mb="44px"
@@ -78,13 +85,16 @@ export function InfoCardAssetValue({ value, fiatValue, symbol, icon }: InfoCardA
         <Text
           fontSize="24px"
           fontWeight="500"
-          mb="4px"
           lineHeight="36px"
           data-testid={SharedComponentsSelectors.InfoCardAssetValue}
         >
           {value} {symbol}
         </Text>
-        <Text fontSize="12px">~ {fiatValue} USD</Text>
+        {fiatValue && (
+          <Text fontSize="12px" mt="4px">
+            ~ {fiatValue} {fiatSymbol}
+          </Text>
+        )}
       </Flex>
     </Stack>
   );

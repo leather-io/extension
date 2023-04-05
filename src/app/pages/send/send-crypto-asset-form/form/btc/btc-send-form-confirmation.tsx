@@ -51,6 +51,7 @@ export function BtcSendFormConfirmation() {
   const txFiatValue = i18nFormatCurrency(
     baseCurrencyAmountInQuote(createMoneyFromDecimal(Number(transferAmount), symbol), btcMarketData)
   );
+  const txFiatValueSymbol = btcMarketData.price.symbol;
   const { data: feeRate } = useBitcoinFeeRate();
   const arrivesIn = feeRate ? `~${feeRate.fastestFee} min` : '~10 – 20 min';
 
@@ -99,6 +100,7 @@ export function BtcSendFormConfirmation() {
       symbol,
       sendingValue,
       txFiatValue,
+      txFiatValueSymbol,
     };
   }
 
@@ -109,6 +111,7 @@ export function BtcSendFormConfirmation() {
       <InfoCardAssetValue
         value={Number(transferAmount)}
         fiatValue={txFiatValue}
+        fiatSymbol={txFiatValueSymbol}
         symbol={symbol}
         data-testid={SendCryptoAssetSelectors.ConfirmationDetailsAssetValue}
       />

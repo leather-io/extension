@@ -31,26 +31,30 @@ test.describe('send stx', () => {
 
     test('that recipient address matches bns name', async ({ page, sendPage }) => {
       await sendPage.amountInput.fill('.0001');
+      await sendPage.amountInput.blur();
+      await sendPage.recipientSelectFieldAddress.click();
+      await sendPage.recipientSelectFieldBnsName.click();
       await sendPage.recipientInput.fill(TEST_BNS_NAME);
       await sendPage.recipientInput.blur();
-      await sendPage.resolvedBnsAddressLabel.waitFor();
-      await sendPage.resolvedBnsAddressInfoIcon.hover();
+      await sendPage.recipientBnsAddressLabel.waitFor();
       const bnsResolvedAddress = await page.getByText(TEST_BNS_RESOLVED_ADDRESS).innerText();
 
       test.expect(bnsResolvedAddress).toBeTruthy();
     });
 
     test('that fee row defaults to middle fee estimation', async ({ page }) => {
+      await page.getByTestId(SharedComponentsSelectors.FeeToBePaidLabel).scrollIntoViewIfNeeded();
       const feeToBePaid = await page
         .getByTestId(SharedComponentsSelectors.FeeToBePaidLabel)
         .innerText();
       const fee = Number(feeToBePaid.split(' ')[0]);
       // Using min/max fee caps
-      const isMiddleFee = fee >= 0.003 && fee < 0.75;
+      const isMiddleFee = fee >= 0.003 && fee <= 0.75;
       test.expect(isMiddleFee).toBeTruthy();
     });
 
     test('that low fee estimate can be selected', async ({ page }) => {
+      await page.getByTestId(SharedComponentsSelectors.FeeToBePaidLabel).scrollIntoViewIfNeeded();
       await page.getByTestId(SharedComponentsSelectors.MiddleFeeEstimateItem).click();
       await page.getByTestId(SharedComponentsSelectors.LowFeeEstimateItem).click();
       const feeToBePaid = await page
@@ -58,7 +62,7 @@ test.describe('send stx', () => {
         .innerText();
       const fee = Number(feeToBePaid.split(' ')[0]);
       // Using min/max fee caps
-      const isLowFee = fee >= 0.0025 && fee < 0.5;
+      const isLowFee = fee >= 0.0025 && fee <= 0.5;
       test.expect(isLowFee).toBeTruthy();
     });
   });
@@ -117,21 +121,22 @@ test.describe('send stx', () => {
   });
 
   test.describe('send form preview', () => {
-    test('that it shows preview of tx details to be confirmed', async ({ sendPage }) => {
+    test('that it shows preview of tx details to be confirmed', async ({ page, sendPage }) => {
       await sendPage.amountInput.fill('0.000001');
       await sendPage.recipientInput.fill(TEST_ACCOUNT_2_STX_ADDRESS);
-      await sendPage.waitForFeesSelector();
+      await page.getByTestId(SharedComponentsSelectors.FeeToBePaidLabel).scrollIntoViewIfNeeded();
       await sendPage.previewSendTxButton.click();
       const details = await sendPage.confirmationDetails.allInnerTexts();
       test.expect(details).toBeTruthy();
     });
 
     test('that it shows preview of tx details after validation error is resolved', async ({
+      page,
       sendPage,
     }) => {
       await sendPage.amountInput.fill('0.0000001');
       await sendPage.recipientInput.fill(TEST_ACCOUNT_2_STX_ADDRESS);
-      await sendPage.waitForFeesSelector();
+      await page.getByTestId(SharedComponentsSelectors.FeeToBePaidLabel).scrollIntoViewIfNeeded();
       await sendPage.previewSendTxButton.click();
       const errorMsg = await sendPage.amountInputErrorLabel.innerText();
       test.expect(errorMsg).toEqual(FormErrorMessages.MustBePositive);
@@ -143,6 +148,7 @@ test.describe('send stx', () => {
     });
 
     test('that asset value, recipient, memo and fees on preview match input', async ({
+      page,
       sendPage,
     }) => {
       const amount = '0.000001';
@@ -151,7 +157,7 @@ test.describe('send stx', () => {
       await sendPage.amountInput.fill(amount);
       await sendPage.recipientInput.fill(TEST_ACCOUNT_2_STX_ADDRESS);
       await sendPage.memoInput.fill(memo);
-      await sendPage.waitForFeesSelector();
+      await page.getByTestId(SharedComponentsSelectors.FeeToBePaidLabel).scrollIntoViewIfNeeded();
       const fees = await sendPage.page
         .getByTestId(SharedComponentsSelectors.FeeToBePaidLabel)
         .innerText();
@@ -177,13 +183,13 @@ test.describe('send stx', () => {
       test.expect(confirmationMemo).toEqual(memo);
     });
 
-    test('that empty memo on preview matches default empty value', async ({ sendPage }) => {
+    test('that empty memo on preview matches default empty value', async ({ page, sendPage }) => {
       const amount = '0.000001';
       const emptyMemoPreviewValue = 'No memo';
 
       await sendPage.amountInput.fill(amount);
       await sendPage.recipientInput.fill(TEST_ACCOUNT_2_STX_ADDRESS);
-      await sendPage.waitForFeesSelector();
+      await page.getByTestId(SharedComponentsSelectors.FeeToBePaidLabel).scrollIntoViewIfNeeded();
       await sendPage.previewSendTxButton.click();
 
       const confirmationMemo = await sendPage.memoRow

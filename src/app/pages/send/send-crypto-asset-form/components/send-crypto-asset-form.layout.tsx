@@ -1,19 +1,23 @@
-import { Box } from '@stacks/ui';
+import { Flex } from '@stacks/ui';
 import { SendCryptoAssetSelectors } from '@tests/selectors/send.selectors';
 
 interface SendCryptoAssetFormLayoutProps {
-  children: JSX.Element;
+  children: React.ReactNode;
 }
 export function SendCryptoAssetFormLayout({ children }: SendCryptoAssetFormLayoutProps) {
   return (
-    <Box
+    <Flex
+      alignItems="center"
       data-testid={SendCryptoAssetSelectors.SendForm}
-      mt={['unset', '48px']}
-      width="100%"
-      pb="base"
+      flexDirection="column"
+      maxHeight={['calc(100vh - 116px)', 'calc(85vh - 116px)']}
+      overflowY="scroll"
+      pb={['120px', '48px']}
+      pt={['base', '48px']}
       px="loose"
+      width="100%"
     >
       {children}
-    </Box>
+    </Flex>
   );
 }

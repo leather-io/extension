@@ -16,7 +16,6 @@ export function ErrorLabel({ children, ...rest }: StackProps) {
         color={color('feedback-error')}
         as={FiAlertCircle}
         position="relative"
-        top="2px"
         strokeWidth={1.5}
       />
       <Box>{children}</Box>

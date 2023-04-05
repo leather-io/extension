@@ -1,8 +1,10 @@
 import { useMemo } from 'react';
+import { toast } from 'react-hot-toast';
+import { useNavigate } from 'react-router-dom';
 
 import type { StacksFungibleTokenAssetBalance } from '@shared/models/crypto-asset-balance.model';
 
-import { formatContractId, getFullyQualifiedStacksAssetName } from '@app/common/utils';
+import { formatContractId } from '@app/common/utils';
 import { useCurrentStacksAccount } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
 
 import { useGetFungibleTokenMetadataListQuery } from '../tokens/fungible-tokens/fungible-token-metadata.query';
@@ -101,13 +103,20 @@ function useStacksFungibleTokenAssetBalancesUnanchoredWithMetadata(
 
 export function useStacksFungibleTokenAssetBalance(contractId: string) {
   const account = useCurrentStacksAccount();
+  const navigate = useNavigate();
   const assetBalances = useStacksFungibleTokenAssetBalancesUnanchoredWithMetadata(
     account?.address ?? ''
   );
   return useMemo(() => {
-    if (!assetBalances.length) return;
-    return assetBalances.find(assetBalance => assetBalance.asset.contractId === contractId);
-  }, [assetBalances, contractId]);
+    const balance = assetBalances.find(assetBalance =>
+      assetBalance.asset.contractId.includes(contractId)
+    );
+    if (!balance) {
+      toast.error('Unable to find balance by contract id');
+      navigate('..');
+    }
+    return balance as StacksFungibleTokenAssetBalance;
+  }, [assetBalances, contractId, navigate]);
 }
 
 export function useTransferableStacksFungibleTokenAssetBalances(
@@ -117,36 +126,6 @@ export function useTransferableStacksFungibleTokenAssetBalances(
   return useMemo(
     () => assetBalances.filter(assetBalance => assetBalance.asset.canTransfer),
     [assetBalances]
-  );
-}
-
-/**
- * Use caution with this hook, is incredibly expensive. To get an asset's
- * balance, we query all balances metadata (possibly hundreds) and then search
- * the results.
- *
- * Remove with legacy send form.
- * @deprecated
- */
-export function useStacksCryptoAssetBalanceByAssetId(selectedAssetId?: string) {
-  const account = useCurrentStacksAccount();
-
-  const { data: stxCryptoCurrencyAssetBalance } = useStacksAnchoredCryptoCurrencyAssetBalance(
-    account?.address ?? ''
-  );
-  const stacksFtCryptoAssetBalances = useStacksFungibleTokenAssetBalancesUnanchoredWithMetadata(
-    account?.address ?? ''
-  );
-
-  return useMemo(
-    () => {
-      if (!stxCryptoCurrencyAssetBalance) return;
-      return [stxCryptoCurrencyAssetBalance, ...stacksFtCryptoAssetBalances].find(
-        assetBalance => getFullyQualifiedStacksAssetName(assetBalance) === selectedAssetId
-      );
-    },
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    [selectedAssetId]
   );
 }
 

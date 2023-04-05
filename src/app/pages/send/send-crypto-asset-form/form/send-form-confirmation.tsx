@@ -1,10 +1,6 @@
-import { useLocation } from 'react-router-dom';
-
 import { Stack } from '@stacks/ui';
 import { SendCryptoAssetSelectors } from '@tests/selectors/send.selectors';
-import get from 'lodash.get';
 
-import { useRouteHeader } from '@app/common/hooks/use-route-header';
 import { FormAddressDisplayer } from '@app/components/address-displayer/form-address-displayer';
 import {
   InfoCard,
@@ -13,46 +9,45 @@ import {
   InfoCardSeparator,
 } from '@app/components/info-card/info-card';
 import { InfoLabel } from '@app/components/info-label';
-import { ModalHeader } from '@app/components/modal-header';
 import { PrimaryButton } from '@app/components/primary-button';
 
-import { useStacksBroadcastTransaction } from '../../family/stacks/hooks/use-stacks-broadcast-transaction';
+interface SendFormConfirmationProps {
+  recipient: string;
+  fee?: string;
+  totalSpend: string;
+  arrivesIn: string;
+  symbol: string;
+  txValue: string | number;
+  sendingValue: string;
+  txFiatValue?: string;
+  txFiatValueSymbol?: string;
+  nonce: string;
+  memoDisplayText: string;
+  isLoading: boolean;
+  onBroadcastTransaction: () => void;
+}
 
-export function StxSendFormConfirmation() {
-  const location = useLocation();
-  const tx = get(location.state, 'tx');
-  const {
-    stacksDeserializedTransaction,
-    stacksBroadcastTransaction,
-    formReviewTxSummary,
-    isBroadcasting,
-  } = useStacksBroadcastTransaction(tx);
-
-  const {
-    txValue,
-    txFiatValue,
-    recipient,
-    fee,
-    totalSpend,
-    sendingValue,
-    arrivesIn,
-    nonce,
-    memoDisplayText,
-    symbol,
-  } = formReviewTxSummary(stacksDeserializedTransaction);
-
-  useRouteHeader(<ModalHeader hideActions defaultClose defaultGoBack title="Review" />);
-
+export function SendFormConfirmation({
+  txValue,
+  txFiatValue,
+  txFiatValueSymbol,
+  recipient,
+  fee,
+  totalSpend,
+  sendingValue,
+  arrivesIn,
+  isLoading,
+  onBroadcastTransaction,
+  nonce,
+  memoDisplayText,
+  symbol,
+}: SendFormConfirmationProps) {
   return (
-    <InfoCard
-      pt="extra-loose"
-      pb="extra-loose"
-      px="extra-loose"
-      data-testid={SendCryptoAssetSelectors.ConfirmationDetails}
-    >
+    <InfoCard padding="extra-loose" data-testid={SendCryptoAssetSelectors.ConfirmationDetails}>
       <InfoCardAssetValue
         value={Number(txValue)}
         fiatValue={txFiatValue}
+        fiatSymbol={txFiatValueSymbol}
         symbol={symbol}
         data-testid={SendCryptoAssetSelectors.ConfirmationDetailsAssetValue}
       />
@@ -87,8 +82,8 @@ export function StxSendFormConfirmation() {
       <PrimaryButton
         data-testid={SendCryptoAssetSelectors.ConfirmSendTxBtn}
         width="100%"
-        isLoading={isBroadcasting}
-        onClick={() => stacksBroadcastTransaction(stacksDeserializedTransaction)}
+        isLoading={isLoading}
+        onClick={onBroadcastTransaction}
       >
         Confirm and send transaction
       </PrimaryButton>

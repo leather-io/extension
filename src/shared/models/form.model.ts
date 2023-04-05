@@ -5,6 +5,7 @@ export interface BitcoinSendFormValues {
   feeType: string;
   memo: string;
   recipient: string;
+  recipientBnsName: string;
   symbol: string;
 }
 
@@ -22,8 +23,7 @@ export interface StacksSendFormValues {
   memo: string;
   nonce?: number | string;
   recipient: string;
-  recipientAddressOrBnsName: string;
-  resolvedRecipient: string;
+  recipientBnsName: string;
   symbol?: string;
 }
 

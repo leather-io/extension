@@ -21,16 +21,17 @@ export function notCurrentAddressValidator(currentAddress: string) {
 export function btcAddressValidator() {
   return yup
     .string()
-    .defined('Enter a Bitcoin address')
+    .defined(FormErrorMessages.AddressRequired)
     .test((input, context) => {
       if (!input) return false;
       if (!validate(input))
         return context.createError({
-          message: 'Invalid Bitcoin address',
+          message: FormErrorMessages.InvalidAddress,
         });
       return true;
     });
 }
+
 export function btcTaprootAddressValidator() {
   return yup.string().test((input, context) => {
     if (!input || !validate(input)) return false;
@@ -52,7 +53,7 @@ function btcAddressNetworkValidatorFactory(network: NetworkModes) {
 export function btcAddressNetworkValidator(network: NetworkModes) {
   return yup.string().test({
     test: btcAddressNetworkValidatorFactory(network),
-    message: 'Bitcoin address targets different network',
+    message: FormErrorMessages.IncorrectNetworkAddress,
   });
 }
 
@@ -63,17 +64,17 @@ function stxAddressNetworkValidatorFactory(currentNetwork: NetworkConfiguration)
   };
 }
 
-export function stxAddressNetworkValidator(network: NetworkConfiguration) {
+export function stxAddressNetworkValidator(currentNetwork: NetworkConfiguration) {
   return yup.string().test({
     message: FormErrorMessages.IncorrectNetworkAddress,
-    test: stxAddressNetworkValidatorFactory(network),
+    test: stxAddressNetworkValidatorFactory(currentNetwork),
   });
 }
 
 export function stxAddressValidator(errorMsg: string) {
   return yup
     .string()
-    .defined('Enter a Stacks address')
+    .defined(FormErrorMessages.AddressRequired)
     .test({
       message: errorMsg,
       test(value: unknown) {

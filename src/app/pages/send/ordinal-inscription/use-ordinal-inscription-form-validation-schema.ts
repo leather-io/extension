@@ -1,5 +1,6 @@
 import * as yup from 'yup';
 
+import { FormErrorMessages } from '@app/common/error-messages';
 import {
   btcAddressNetworkValidator,
   btcAddressValidator,
@@ -14,7 +15,7 @@ export function useOrdinalInscriptionFormValidationSchema() {
   return yup.object({
     [recipeintFieldName]: yup
       .string()
-      .required('Please provide a recipient')
+      .required(FormErrorMessages.AddressRequired)
       .concat(btcAddressValidator())
       .concat(btcAddressNetworkValidator(currentNetwork.chain.bitcoin.network))
       .concat(btcTaprootAddressValidator()),

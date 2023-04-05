@@ -23,6 +23,7 @@ export function StxSentSummary() {
   const {
     txValue,
     txFiatValue,
+    txFiatValueSymbol,
     symbol,
     txLink,
     arrivesIn,
@@ -53,6 +54,7 @@ export function StxSentSummary() {
       <InfoCardAssetValue
         value={txValue}
         fiatValue={txFiatValue}
+        fiatSymbol={txFiatValueSymbol}
         symbol={symbol}
         icon={FiCheck}
       ></InfoCardAssetValue>

@@ -1,8 +1,6 @@
 import { Locator, Page } from '@playwright/test';
 import { CryptoAssetSelectors } from '@tests/selectors/crypto-asset.selectors';
 import { SendCryptoAssetSelectors } from '@tests/selectors/send.selectors';
-import { SharedComponentsSelectors } from '@tests/selectors/shared-component.selectors';
-import { createTestSelector } from '@tests/utils';
 
 import { RouteUrls } from '@shared/route-urls';
 
@@ -16,13 +14,13 @@ export class SendPage {
   readonly memoInput: Locator;
   readonly previewSendTxButton: Locator;
   readonly recipientChooseAccountButton: Locator;
+  readonly recipientSelectFieldAddress: Locator;
+  readonly recipientSelectFieldBnsName: Locator;
   readonly recipientInput: Locator;
-  readonly resolvedBnsAddressLabel: Locator;
-  readonly resolvedBnsAddressInfoIcon: Locator;
+  readonly recipientBnsAddressLabel: Locator;
   readonly sendMaxButton: Locator;
   readonly feesRow: Locator;
   readonly memoRow: Locator;
-  readonly feesSelector: string = createTestSelector(SharedComponentsSelectors.FeeRow);
 
   constructor(page: Page) {
     this.page = page;
@@ -40,12 +38,15 @@ export class SendPage {
     this.recipientChooseAccountButton = page.getByTestId(
       SendCryptoAssetSelectors.RecipientChooseAccountButton
     );
-    this.recipientInput = this.page.getByTestId(SendCryptoAssetSelectors.RecipientFieldInput);
-    this.resolvedBnsAddressLabel = this.page.getByTestId(
-      SendCryptoAssetSelectors.ResolvedBnsAddressLabel
+    this.recipientSelectFieldAddress = this.page.getByTestId(
+      SendCryptoAssetSelectors.RecipientSelectFieldAddress
     );
-    this.resolvedBnsAddressInfoIcon = page.getByTestId(
-      SendCryptoAssetSelectors.ResolvedBnsAddressInfoIcon
+    this.recipientSelectFieldBnsName = this.page.getByTestId(
+      SendCryptoAssetSelectors.RecipientSelectFieldBnsName
+    );
+    this.recipientInput = this.page.getByTestId(SendCryptoAssetSelectors.RecipientFieldInput);
+    this.recipientBnsAddressLabel = this.page.getByTestId(
+      SendCryptoAssetSelectors.RecipientBnsAddressLabel
     );
     this.feesRow = page.getByTestId(SendCryptoAssetSelectors.ConfirmationDetailsFee);
     this.memoRow = page.getByTestId(SendCryptoAssetSelectors.ConfirmationDetailsMemo);
@@ -69,9 +70,5 @@ export class SendPage {
       .click();
     await this.page.waitForURL('**' + `${RouteUrls.SendCryptoAsset}/stx`);
     await this.page.getByTestId(SendCryptoAssetSelectors.SendForm).waitFor();
-  }
-
-  async waitForFeesSelector() {
-    await this.page.waitForSelector(this.feesSelector, { timeout: 30000 });
   }
 }

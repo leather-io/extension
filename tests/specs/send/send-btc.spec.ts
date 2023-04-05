@@ -7,7 +7,6 @@ import { FormErrorMessages } from '@app/common/error-messages';
 import { test } from '../../fixtures/fixtures';
 
 test.describe('send btc', () => {
-  // TODO: Don't run these if we disable bitcoin sending?
   test.beforeEach(async ({ extensionId, globalPage, homePage, onboardingPage, sendPage }) => {
     await globalPage.setupAndUseApiCalls(extensionId);
     await onboardingPage.signInExistingUser();

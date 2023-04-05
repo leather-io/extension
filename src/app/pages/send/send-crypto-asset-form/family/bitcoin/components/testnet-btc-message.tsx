@@ -5,7 +5,7 @@ import { WarningLabel } from '@app/components/warning-label';
 
 export function TestnetBtcMessage() {
   return (
-    <WarningLabel mt="base-loose" width="100%">
+    <WarningLabel mb="base">
       This is a Bitcoin testnet transaction. Funds have no value.{' '}
       <ExternalLink
         href="https://coinfaucet.eu/en/btc-testnet"
