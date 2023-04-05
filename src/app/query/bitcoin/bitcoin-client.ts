@@ -30,7 +30,10 @@ class AddressApi {
     return fetchData({
       errorMsg: 'No UTXOs fetched',
       url: `${this.configuration.baseUrl}/address/${address}/utxo`,
-    });
+    }).then((utxos: UtxoResponseItem[]) =>
+      // Sort by vout as blockstream API returns them inconsistently
+      utxos.sort((a, b) => a.vout - b.vout)
+    );
   }
 }
 

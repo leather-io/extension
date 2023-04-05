@@ -3,13 +3,13 @@ import * as btc from '@scure/btc-signer';
 import { isEmpty } from '@shared/utils';
 
 import {
-  OrdApiXyzGetTransactionOutput,
+  OrdApiInscriptionTxOutput,
   useOrdinalsAwareUtxoQuery,
 } from '@app/query/bitcoin/ordinals/use-ordinals-aware-utxo.query';
 
 interface PsbtInscriptionLoaderProps {
   utxo: btc.TransactionInputRequired;
-  children(txOutput: OrdApiXyzGetTransactionOutput): JSX.Element | null;
+  children(txOutput: OrdApiInscriptionTxOutput): JSX.Element | null;
 }
 export function PsbtInscriptionLoader({ utxo, children }: PsbtInscriptionLoaderProps) {
   const { data: txOutput } = useOrdinalsAwareUtxoQuery(utxo);

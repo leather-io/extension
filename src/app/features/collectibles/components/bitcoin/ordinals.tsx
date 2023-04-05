@@ -9,7 +9,7 @@ export function Ordinals() {
   return (
     <>
       {utxos.map(utxo => (
-        <InscriptionLoader key={utxo.txid} utxo={utxo}>
+        <InscriptionLoader key={utxo.txid + utxo.vout} utxo={utxo}>
           {path => <Inscription path={path} utxo={utxo} />}
         </InscriptionLoader>
       ))}
