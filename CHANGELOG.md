@@ -1,3 +1,29 @@
+## [4.15.0](https://github.com/hirosystems/wallet/compare/v4.14.0...v4.15.0) (2023-04-05)
+
+
+### Features
+
+* add common stacks send form ([4524e1a](https://github.com/hirosystems/wallet/commit/4524e1a8f0e8c31c0fe0ea28207c271e4c43f878))
+* change sip10 confirmation screen ([f3d61a3](https://github.com/hirosystems/wallet/commit/f3d61a3133d21fdb197faf96ac23e4fc21679e98))
+* make custom network key required ([1395afd](https://github.com/hirosystems/wallet/commit/1395afd26e2e5a7e3966b8ed214cedc9eb48e678))
+* sort user txs ([46a7e2e](https://github.com/hirosystems/wallet/commit/46a7e2e6d16027c9cc4bedc31ae824cddfb5f251))
+
+
+### Bug Fixes
+
+* return stx address in getAddresses ([f634775](https://github.com/hirosystems/wallet/commit/f634775b848e33cf07f772cb5495097928bd667d))
+* sent tx summary ([47b43af](https://github.com/hirosystems/wallet/commit/47b43afa7b21a8a40acb01bb00a56b06637aa350))
+* sip10 token send form bug ([fd4c4ed](https://github.com/hirosystems/wallet/commit/fd4c4ed1c6931c8a96b05b82fa77dbbd2003c334))
+* stx send form test ([fd901fd](https://github.com/hirosystems/wallet/commit/fd901fd1ed0ea96371e06a6281e3c0122dad4cb4))
+
+
+### Internal
+
+* btc send form ([f28aabf](https://github.com/hirosystems/wallet/commit/f28aabfdc7ad4deb5ee72d14d032fda3e6a21a19))
+* recipient field ([61852f8](https://github.com/hirosystems/wallet/commit/61852f8daa2061d2d18580c907ecaa5ef52b230d))
+* remove sip10 form optional params ([ec609a6](https://github.com/hirosystems/wallet/commit/ec609a61f9fe4b127f25fddbd37432b33a7bbd79))
+* sip 10 send form ([64a04a4](https://github.com/hirosystems/wallet/commit/64a04a42b123df1988b2b539be5334ded1e21af7))
+
 ## [4.14.0](https://github.com/hirosystems/wallet/compare/v4.13.0...v4.14.0) (2023-03-23)
 
 
