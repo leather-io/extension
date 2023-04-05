@@ -25,14 +25,12 @@ const ordApiGetTransactionOutput = yup
   })
   .required();
 
-export type OrdApiXyzGetTransactionOutput = Prettify<
-  yup.InferType<typeof ordApiGetTransactionOutput>
->;
+export type OrdApiInscriptionTxOutput = Prettify<yup.InferType<typeof ordApiGetTransactionOutput>>;
 
 async function getOrdinalsAwareUtxo(
   txid: string,
   index: number
-): Promise<OrdApiXyzGetTransactionOutput> {
+): Promise<OrdApiInscriptionTxOutput> {
   const res = await fetch(`https://ordapi.xyz/output/${txid}:${index}`);
 
   if (!res.ok) throw new Error('Failed to fetch txid metadata');
@@ -51,9 +49,9 @@ const queryOptions = {
   staleTime: 15 * 60 * 1000, // 15 minutes
 } as const;
 
-export function useOrdinalsAwareUtxoQuery<T extends unknown = OrdApiXyzGetTransactionOutput>(
+export function useOrdinalsAwareUtxoQuery<T extends unknown = OrdApiInscriptionTxOutput>(
   utxo: TaprootUtxo | btc.TransactionInputRequired,
-  options?: AppUseQueryConfig<OrdApiXyzGetTransactionOutput, T>
+  options?: AppUseQueryConfig<OrdApiInscriptionTxOutput, T>
 ) {
   const txId = isTypedArray(utxo.txid) ? bytesToHex(utxo.txid) : utxo.txid;
   const txIndex = 'index' in utxo ? utxo.index : utxo.vout;
@@ -71,8 +69,8 @@ export function useOrdinalsAwareUtxoQueries(outputs: TaprootUtxo[]) {
     queries: outputs.map(utxo => ({
       queryKey: makeOrdinalsAwareUtxoQueryKey(utxo.txid, utxo.vout),
       queryFn: () => getOrdinalsAwareUtxo(utxo.txid, utxo.vout),
-      select: (resp: OrdApiXyzGetTransactionOutput) =>
-        ({ ...utxo, ...resp } as TaprootUtxo & OrdApiXyzGetTransactionOutput),
+      select: (resp: OrdApiInscriptionTxOutput) =>
+        ({ ...utxo, ...resp } as TaprootUtxo & OrdApiInscriptionTxOutput),
       ...queryOptions,
     })),
   });

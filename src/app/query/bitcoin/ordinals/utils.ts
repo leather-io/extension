@@ -37,7 +37,7 @@ export function getTaprootAddress({ index, keychain, network }: GetTaprootAddres
 // Example:
 // https://ordinals.com/output/758bd2703dd9f0a2df31c2898aecf6caba05a906498c9bc076947f9fc4d8f081:0
 async function getOrdinalsComTxOutputHtmlPage(id: string, index: number) {
-  const resp = await fetch(`https://ord.ordscan.xyz/output/${id}:${index}`);
+  const resp = await fetch(`https://ordinals-explorer.generative.xyz/output/${id}:${index}`);
   const html = await resp.text();
   return new DOMParser().parseFromString(html, 'text/html');
 }
