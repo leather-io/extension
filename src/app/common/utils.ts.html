@@ -23,16 +23,16 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">29.45% </span>
+                <span class="strong">29.92% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>38/129</span>
+                <span class='fraction'>38/127</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">18.62% </span>
+                <span class="strong">19% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>19/102</span>
+                <span class='fraction'>19/100</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">30.97% </span>
+                <span class="strong">31.25% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>35/113</span>
+                <span class='fraction'>35/112</span>
             </div>
         
             
@@ -389,25 +389,7 @@
 <a name='L324'></a><a href='#L324'>324</a>
 <a name='L325'></a><a href='#L325'>325</a>
 <a name='L326'></a><a href='#L326'>326</a>
-<a name='L327'></a><a href='#L327'>327</a>
-<a name='L328'></a><a href='#L328'>328</a>
-<a name='L329'></a><a href='#L329'>329</a>
-<a name='L330'></a><a href='#L330'>330</a>
-<a name='L331'></a><a href='#L331'>331</a>
-<a name='L332'></a><a href='#L332'>332</a>
-<a name='L333'></a><a href='#L333'>333</a>
-<a name='L334'></a><a href='#L334'>334</a>
-<a name='L335'></a><a href='#L335'>335</a>
-<a name='L336'></a><a href='#L336'>336</a>
-<a name='L337'></a><a href='#L337'>337</a>
-<a name='L338'></a><a href='#L338'>338</a>
-<a name='L339'></a><a href='#L339'>339</a>
-<a name='L340'></a><a href='#L340'>340</a>
-<a name='L341'></a><a href='#L341'>341</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L327'></a><a href='#L327'>327</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -681,20 +663,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -743,6 +711,10 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import type { ClipboardEvent } from 'react';
 &nbsp;
 import { hexToBytes } from '@stacks/common';
@@ -758,10 +730,6 @@ import { toUnicode } from 'punycode';
 import { KEBAB_REGEX, NetworkModes } from '@shared/constants';
 import { logger } from '@shared/logger';
 import type { Blockchains } from '@shared/models/blockchain.model';
-import {
-  StacksCryptoCurrencyAssetBalance,
-  StacksFungibleTokenAssetBalance,
-} from '@shared/models/crypto-asset-balance.model';
 &nbsp;
 export function createNullArrayOfLength(length: number) {
   return new Array(length).fill(null);
@@ -1020,20 +988,6 @@ export function <span class="fstat-no" title="function not covered" >formatContr
 <span class="cstat-no" title="statement not covered" >  return `${address}.${name}`;</span>
 }
 &nbsp;
-/**
- * Refactored with new send form; remove with legacy send form.
- * @deprecated
- */
-export function <span class="fstat-no" title="function not covered" >getFullyQualifiedStacksAssetName(</span>
-  assetBalance: StacksCryptoCurrencyAssetBalance | StacksFungibleTokenAssetBalance
-) {
-<span class="cstat-no" title="statement not covered" >  if (assetBalance.type === 'crypto-currency') <span class="cstat-no" title="statement not covered" >return '::stacks-token';</span></span>
-<span class="cstat-no" title="statement not covered" >  return `${formatContractId(</span>
-    assetBalance.asset.contractAddress,
-    assetBalance.asset.contractName
-  )}::${assetBalance.asset.contractAssetName}`;
-}
-&nbsp;
 export function <span class="fstat-no" title="function not covered" >doesBrowserSupportWebUsbApi() {</span>
 <span class="cstat-no" title="statement not covered" >  return Boolean((navigator as any).usb);</span>
 }
@@ -1083,6 +1037,10 @@ export const parseIfValidPunycode = <span class="fstat-no" title="function not c
 <span class="cstat-no" title="statement not covered" >    return s;</span>
   }
 };
+&nbsp;
+export function <span class="fstat-no" title="function not covered" >capitalize(v</span>al: string) {
+<span class="cstat-no" title="statement not covered" >  return val.charAt(0).toUpperCase() + val.slice(1);</span>
+}
 &nbsp;</pre></td></tr></table></pre>
 
                 <div class='push'></div><!-- for sticky footer -->
@@ -1090,7 +1048,7 @@ export const parseIfValidPunycode = <span class="fstat-no" title="function not c
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2023-03-23T19:31:39.037Z
+                at 2023-04-05T18:05:32.976Z
             </div>
         <script src="../../../prettify.js"></script>
         <script>
