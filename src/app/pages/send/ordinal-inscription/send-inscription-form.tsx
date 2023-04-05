@@ -14,7 +14,7 @@ import { BaseDrawer } from '@app/components/drawer/base-drawer';
 import { ErrorLabel } from '@app/components/error-label';
 import { OrdinalIcon } from '@app/components/icons/ordinal-icon';
 import { InscriptionPreview } from '@app/components/inscription-preview-card/components/inscription-preview';
-import { getNumberOfInscriptionOnUtxo } from '@app/query/bitcoin/ordinals/use-ordinals-aware-utxo.query';
+import { getNumberOfInscriptionOnUtxo } from '@app/query/bitcoin/ordinals/ordinals-aware-utxo.query';
 
 import { BtcSizeFeeEstimator } from '../../../common/transactions/bitcoin/fees/btc-size-fee-estimator';
 import { InscriptionPreviewCard } from '../../../components/inscription-preview-card/inscription-preview-card';

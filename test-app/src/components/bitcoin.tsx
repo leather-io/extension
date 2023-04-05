@@ -16,13 +16,6 @@ interface BitcoinNetwork {
   wif: number;
 }
 
-const bitcoinMainnet: BitcoinNetwork = {
-  bech32: 'bc',
-  pubKeyHash: 0x00,
-  scriptHash: 0x05,
-  wif: 0x80,
-};
-
 const bitcoinTestnet: BitcoinNetwork = {
   bech32: 'tb',
   pubKeyHash: 0x6f,
@@ -31,6 +24,10 @@ const bitcoinTestnet: BitcoinNetwork = {
 };
 
 const ecdsaPublicKeyLength = 33;
+export const TEST_TESTNET_ACCOUNT_1_PUBKEY_P2WPKH =
+  '02b6b0afe5f620bc8e532b640b148dd9dea0ed19d11f8ab420fcce488fe3974893';
+export const TEST_TESTNET_ACCOUNT_1_PUBKEY_TR =
+  '03cf7525b9d94fd35eaf6b4ac4c570f718d1df142606ba3a64e2407ea01a37778f';
 
 function ecdsaPublicKeyToSchnorr(pubKey: Uint8Array) {
   if (pubKey.byteLength !== ecdsaPublicKeyLength) throw new Error('Invalid public key length');
@@ -38,7 +35,7 @@ function ecdsaPublicKeyToSchnorr(pubKey: Uint8Array) {
 }
 
 function getTaprootPayment(publicKey: Uint8Array) {
-  return btc.p2tr(ecdsaPublicKeyToSchnorr(publicKey), undefined, bitcoinMainnet);
+  return btc.p2tr(ecdsaPublicKeyToSchnorr(publicKey), undefined, bitcoinTestnet);
 }
 
 function buildTestNativeSegwitPsbtRequest(pubKey: Uint8Array): PsbtRequestOptions {
@@ -48,19 +45,23 @@ function buildTestNativeSegwitPsbtRequest(pubKey: Uint8Array): PsbtRequestOption
 
   tx.addInput({
     index: 0,
-    txid: '15f34b3bd2aab555a003cd1c6959ac09b36239c6af1cb16ff8198cef64f8db9c',
+    txid: '5be910a6557bae29b8ff2dbf4607dbf783eaf82802896d13f61d975c133ccce7',
     witnessUtxo: {
-      amount: BigInt(1000),
+      amount: BigInt(1268294),
       script: p2wpkh.script,
     },
   });
   tx.addInput({
     index: 1,
-    txid: 'dca5179afaa63eae112d8a97794de2d30dd823315bcabe6d8b8a6b98e3567705',
+    txid: '513bb27703148f97fbc2b7758ee314c14510a7ccd2b10cd8cb57366022fea8ab',
     witnessUtxo: {
-      amount: BigInt(2000),
+      amount: BigInt(1000),
       script: p2wpkh.script,
     },
+  });
+  tx.addOutput({
+    amount: BigInt(5000),
+    script: p2wpkh.script,
   });
 
   const psbt = tx.toPSBT();
@@ -75,19 +76,23 @@ function buildTestNativeSegwitPsbtRequestWithIndexes(pubKey: Uint8Array): PsbtRe
 
   tx.addInput({
     index: 0,
-    txid: '15f34b3bd2aab555a003cd1c6959ac09b36239c6af1cb16ff8198cef64f8db9c',
+    txid: '5be910a6557bae29b8ff2dbf4607dbf783eaf82802896d13f61d975c133ccce7',
     witnessUtxo: {
-      amount: BigInt(1000),
+      amount: BigInt(1268294),
       script: p2wpkh.script,
     },
   });
   tx.addInput({
     index: 1,
-    txid: 'dca5179afaa63eae112d8a97794de2d30dd823315bcabe6d8b8a6b98e3567705',
+    txid: '513bb27703148f97fbc2b7758ee314c14510a7ccd2b10cd8cb57366022fea8ab',
     witnessUtxo: {
-      amount: BigInt(2000),
+      amount: BigInt(1000),
       script: p2wpkh.script,
     },
+  });
+  tx.addOutput({
+    amount: BigInt(5000),
+    script: p2wpkh.script,
   });
 
   const psbt = tx.toPSBT();
@@ -102,29 +107,15 @@ function buildTestTaprootPsbtRequest(pubKey: Uint8Array): PsbtRequestOptions {
 
   tx.addInput({
     index: 0,
-    tapInternalKey: payment.tapInternalKey,
-    txid: 'ff4503ab9048d6d0ff4e23def81b614d5270d341ce993992e93902ceb0d4ed79',
+    txid: '4f4cc7cb40b04978bd7704798dc1adf55b58196cef616b0fac8181965abc4726',
     witnessUtxo: {
-      amount: BigInt(1200),
-      script: payment.script,
-    },
-  });
-  tx.addInput({
-    index: 1,
-    tapInternalKey: payment.tapInternalKey,
-    txid: 'dca5179afaa63eae112d8a97794de2d30dd823315bcabe6d8b8a6b98e3567705',
-    witnessUtxo: {
-      amount: BigInt(2000),
+      amount: BigInt(1000),
       script: payment.script,
     },
   });
   tx.addOutput({
-    amount: BigInt(1200),
-    script: '001466124290d2fc62f8cb83c0e15836a548e43dcade',
-  });
-  tx.addOutput({
-    amount: BigInt(97000),
-    script: '0014ed8b1541478e76b6463057013822db08c964c346',
+    amount: BigInt(1000),
+    script: payment.script,
   });
 
   const psbt = tx.toPSBT();
@@ -139,12 +130,15 @@ function buildTestTaprootPsbtRequestWithIndex(pubKey: Uint8Array): PsbtRequestOp
 
   tx.addInput({
     index: 0,
-    tapInternalKey: payment.tapInternalKey,
-    txid: '15f34b3bd2aab555a003cd1c6959ac09b36239c6af1cb16ff8198cef64f8db9c',
+    txid: '4f4cc7cb40b04978bd7704798dc1adf55b58196cef616b0fac8181965abc4726',
     witnessUtxo: {
       amount: BigInt(1000),
       script: payment.script,
     },
+  });
+  tx.addOutput({
+    amount: BigInt(1000),
+    script: payment.script,
   });
 
   const psbt = tx.toPSBT();
@@ -155,8 +149,8 @@ function buildTestTaprootPsbtRequestWithIndex(pubKey: Uint8Array): PsbtRequestOp
 export const Bitcoin = () => {
   const { userData } = useContext(AppContext);
   const { signPsbt } = useConnect();
-  const segwitPubKey = hexToBytes(userData?.profile.btcPublicKey.p2wpkh);
-  const taprootPubKey = hexToBytes(userData?.profile.btcPublicKey.p2tr);
+  const segwitPubKey = hexToBytes(TEST_TESTNET_ACCOUNT_1_PUBKEY_P2WPKH);
+  const taprootPubKey = hexToBytes(TEST_TESTNET_ACCOUNT_1_PUBKEY_TR);
 
   console.log('userData', userData);
 

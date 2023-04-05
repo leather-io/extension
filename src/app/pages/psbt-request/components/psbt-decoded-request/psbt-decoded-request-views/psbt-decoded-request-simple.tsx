@@ -1,35 +1,36 @@
-import { useState } from 'react';
+import { InputsOutputPair } from '@app/pages/psbt-request/hooks/match-inputs-and-outputs';
 
-import * as btc from '@scure/btc-signer';
+import { PsbtInputOutputPair } from '../psbt-input-output-pair/psbt-input-output-pair';
+import { PsbtInputOutputPlaceholder } from '../psbt-input-output-pair/psbt-input-output-placeholder';
 
-import { useCurrentBtcNativeSegwitAccountAddressIndexZero } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
-import { useCurrentBtcTaprootAccountAddressIndexZeroPayment } from '@app/store/accounts/blockchain/bitcoin/taproot-account.hooks';
-
-import { PsbtDecodedInputs } from '../psbt-decoded-request-nodes/inputs/psbt-decoded-inputs';
-import { PsbtDecodedOutputs } from '../psbt-decoded-request-nodes/outputs/psbt-decoded-outputs';
-
-export function PsbtDecodedRequestSimple(props: { psbt: any }) {
-  const { psbt } = props;
-  const [showPlaceholder, setShowPlaceholder] = useState(false);
-  const bitcoinAddressNativeSegwit = useCurrentBtcNativeSegwitAccountAddressIndexZero();
-  const { address: bitcoinAddressTaproot } = useCurrentBtcTaprootAccountAddressIndexZeroPayment();
-  const inputs: btc.TransactionInputRequired[] = psbt.global.unsignedTx.inputs;
-  const outputs: btc.TransactionOutputRequired[] = psbt.global.unsignedTx.outputs;
+interface PsbtDecodedRequestSimpleProps {
+  bitcoinAddressNativeSegwit: string;
+  bitcoinAddressTaproot: string;
+  inputOutputPairs: InputsOutputPair[];
+  showPlaceholder: boolean;
+}
+export function PsbtDecodedRequestSimple({
+  bitcoinAddressNativeSegwit,
+  bitcoinAddressTaproot,
+  inputOutputPairs,
+  showPlaceholder,
+}: PsbtDecodedRequestSimpleProps) {
+  if (showPlaceholder) return <PsbtInputOutputPlaceholder />;
 
   return (
     <>
-      <PsbtDecodedInputs
-        addressNativeSegwit={bitcoinAddressNativeSegwit}
-        inputs={inputs}
-        showPlaceholder={showPlaceholder}
-      />
-      <PsbtDecodedOutputs
-        addressNativeSegwit={bitcoinAddressNativeSegwit}
-        addressTaproot={bitcoinAddressTaproot}
-        onSetShowPlaceholder={() => setShowPlaceholder(true)}
-        outputs={outputs}
-        showPlaceholder={showPlaceholder}
-      />
+      {inputOutputPairs.map((pair, i) => {
+        return (
+          <PsbtInputOutputPair
+            addressNativeSegwit={bitcoinAddressNativeSegwit}
+            addressTaproot={bitcoinAddressTaproot}
+            inputOutputPair={pair}
+            isFirstPair={i === 0}
+            isLastPair={i === inputOutputPairs.length - 1}
+            key={i}
+          />
+        );
+      })}
     </>
   );
 }

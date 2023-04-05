@@ -29,11 +29,11 @@ const ordApiGetTransactionOutput = yup
 export type OrdApiInscriptionTxOutput = Prettify<yup.InferType<typeof ordApiGetTransactionOutput>>;
 
 export async function getNumberOfInscriptionOnUtxo(id: string, index: number) {
-  const resp = await getOrdinalsAwareUtxo(id, index);
+  const resp = await fetchOrdinalsAwareUtxo(id, index);
   return resp.all_inscriptions?.length ?? 1;
 }
 
-async function getOrdinalsAwareUtxo(
+async function fetchOrdinalsAwareUtxo(
   txid: string,
   index: number
 ): Promise<OrdApiInscriptionTxOutput> {
@@ -52,7 +52,7 @@ function makeOrdinalsAwareUtxoQueryKey(txId: string, txIndex: number) {
 
 const queryOptions = {
   cacheTime: Infinity,
-  staleTime: 15 * 60 * 1000, // 15 minutes
+  staleTime: 15 * 60 * 1000,
 } as const;
 
 export function useOrdinalsAwareUtxoQuery<T extends unknown = OrdApiInscriptionTxOutput>(
@@ -64,20 +64,24 @@ export function useOrdinalsAwareUtxoQuery<T extends unknown = OrdApiInscriptionT
 
   return useQuery({
     queryKey: makeOrdinalsAwareUtxoQueryKey(txId, txIndex),
-    queryFn: () => getOrdinalsAwareUtxo(txId, txIndex),
+    queryFn: () => fetchOrdinalsAwareUtxo(txId, txIndex),
     ...queryOptions,
     ...options,
   });
 }
 
-export function useOrdinalsAwareUtxoQueries(outputs: TaprootUtxo[]) {
+export function useOrdinalsAwareUtxoQueries(utxos: TaprootUtxo[] | btc.TransactionInputRequired[]) {
   return useQueries({
-    queries: outputs.map(utxo => ({
-      queryKey: makeOrdinalsAwareUtxoQueryKey(utxo.txid, utxo.vout),
-      queryFn: () => getOrdinalsAwareUtxo(utxo.txid, utxo.vout),
-      select: (resp: OrdApiInscriptionTxOutput) =>
-        ({ ...utxo, ...resp } as TaprootUtxo & OrdApiInscriptionTxOutput),
-      ...queryOptions,
-    })),
+    queries: utxos.map(utxo => {
+      const txId = isTypedArray(utxo.txid) ? bytesToHex(utxo.txid) : utxo.txid;
+      const txIndex = 'index' in utxo ? utxo.index : utxo.vout;
+      return {
+        queryKey: makeOrdinalsAwareUtxoQueryKey(txId, txIndex),
+        queryFn: () => fetchOrdinalsAwareUtxo(txId, txIndex),
+        select: (resp: OrdApiInscriptionTxOutput) =>
+          ({ ...utxo, ...resp } as TaprootUtxo & OrdApiInscriptionTxOutput),
+        ...queryOptions,
+      };
+    }),
   });
 }

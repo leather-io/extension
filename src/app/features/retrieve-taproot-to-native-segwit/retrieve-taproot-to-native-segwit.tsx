@@ -23,7 +23,7 @@ import { useCurrentBtcNativeSegwitAccountAddressIndexZero } from '@app/store/acc
 import { RetrieveTaprootToNativeSegwitLayout } from './components/retrieve-taproot-to-native-segwit.layout';
 import { useGenerateRetrieveTaprootFundsTx } from './use-generate-retrieve-taproot-funds-tx';
 
-export function RetrieveTaprooToNativeSegwit() {
+export function RetrieveTaprootToNativeSegwit() {
   const navigate = useNavigate();
   const { setActiveTabActivity } = useHomeTabs();
   const balance = useCurrentTaprootAccountBalance();

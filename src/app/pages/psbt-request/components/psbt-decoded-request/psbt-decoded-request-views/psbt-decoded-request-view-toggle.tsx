@@ -1,29 +1,33 @@
-import { FiSettings } from 'react-icons/fi';
-
-import { Box, Flex, Text, color } from '@stacks/ui';
+import { Flex, Text, color } from '@stacks/ui';
 
 interface PsbtDecodedRequestViewToggleProps {
   onSetShowAdvancedView(): void;
+  shouldDefaultToAdvancedView: boolean;
   showAdvancedView: boolean;
 }
 export function PsbtDecodedRequestViewToggle({
   onSetShowAdvancedView,
+  shouldDefaultToAdvancedView,
   showAdvancedView,
 }: PsbtDecodedRequestViewToggleProps) {
   return (
     <Flex
       _hover={{ cursor: 'pointer' }}
+      justifyContent="flex-end"
       as="button"
       onClick={onSetShowAdvancedView}
+      pt="tight"
       px="loose"
       width="100%"
     >
-      <Text color={color('text-caption')} display="block" fontSize={1} py="tight">
+      <Text
+        color={color('accent')}
+        display={shouldDefaultToAdvancedView ? 'none' : 'block'}
+        fontSize={1}
+        py="tight"
+      >
         {showAdvancedView ? 'Hide advanced view' : 'Show advanced view'}
       </Text>
-      <Box marginLeft="auto" marginTop="auto" marginBottom="auto">
-        <FiSettings color={showAdvancedView ? color('accent') : color('text-caption')} />
-      </Box>
     </Flex>
   );
 }

@@ -1,7 +1,10 @@
-import { useState } from 'react';
-
+import * as btc from '@scure/btc-signer';
 import { Stack, color } from '@stacks/ui';
 
+import { useCurrentBtcNativeSegwitAccountAddressIndexZero } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
+import { useCurrentBtcTaprootAccountAddressIndexZeroPayment } from '@app/store/accounts/blockchain/bitcoin/taproot-account.hooks';
+
+import { PsbtInput, usePsbtDecodedRequest } from '../../hooks/use-psbt-decoded-request';
 import { PsbtDecodedRequestAdvanced } from './psbt-decoded-request-views/psbt-decoded-request-advanced';
 import { PsbtDecodedRequestSimple } from './psbt-decoded-request-views/psbt-decoded-request-simple';
 import { PsbtDecodedRequestViewToggle } from './psbt-decoded-request-views/psbt-decoded-request-view-toggle';
@@ -9,9 +12,24 @@ import { PsbtDecodedRequestViewToggle } from './psbt-decoded-request-views/psbt-
 interface PsbtDecodedRequestProps {
   psbt: any;
 }
-// ts-unused-exports:disable-next-line
 export function PsbtDecodedRequest({ psbt }: PsbtDecodedRequestProps) {
-  const [showAdvancedView, setShowAdvancedView] = useState(false);
+  const bitcoinAddressNativeSegwit = useCurrentBtcNativeSegwitAccountAddressIndexZero();
+  const { address: bitcoinAddressTaproot } = useCurrentBtcTaprootAccountAddressIndexZeroPayment();
+  const psbtInputs: PsbtInput[] = psbt.inputs;
+  const unsignedInputs: btc.TransactionInputRequired[] = psbt.global.unsignedTx.inputs;
+  const unsignedOutputs: btc.TransactionOutputRequired[] = psbt.global.unsignedTx.outputs;
+
+  const {
+    inputOutputPairs,
+    onSetShowAdvancedView,
+    shouldDefaultToAdvancedView,
+    shouldShowPlaceholder,
+    showAdvancedView,
+  } = usePsbtDecodedRequest({
+    psbtInputs,
+    unsignedInputs,
+    unsignedOutputs,
+  });
 
   return (
     <Stack
@@ -21,14 +39,21 @@ export function PsbtDecodedRequest({ psbt }: PsbtDecodedRequestProps) {
       borderRadius="20px"
       paddingBottom="tight"
       spacing="extra-tight"
+      width="100%"
     >
-      {showAdvancedView ? (
+      {showAdvancedView || shouldDefaultToAdvancedView ? (
         <PsbtDecodedRequestAdvanced psbt={psbt} />
       ) : (
-        <PsbtDecodedRequestSimple psbt={psbt} />
+        <PsbtDecodedRequestSimple
+          bitcoinAddressNativeSegwit={bitcoinAddressNativeSegwit}
+          bitcoinAddressTaproot={bitcoinAddressTaproot}
+          inputOutputPairs={inputOutputPairs}
+          showPlaceholder={shouldShowPlaceholder}
+        />
       )}
       <PsbtDecodedRequestViewToggle
-        onSetShowAdvancedView={() => setShowAdvancedView(!showAdvancedView)}
+        onSetShowAdvancedView={onSetShowAdvancedView}
+        shouldDefaultToAdvancedView={shouldDefaultToAdvancedView}
         showAdvancedView={showAdvancedView}
       />
     </Stack>
