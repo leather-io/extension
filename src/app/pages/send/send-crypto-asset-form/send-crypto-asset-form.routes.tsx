@@ -18,7 +18,7 @@ import { StxSentSummary } from '../sent-summary/stx-sent-summary';
 import { RecipientAccountsDrawer } from './components/recipient-accounts-drawer/recipient-accounts-drawer';
 import { BtcSendForm } from './form/btc/btc-send-form';
 import { BtcSendFormConfirmation } from './form/btc/btc-send-form-confirmation';
-import { StacksSip10FungibleTokenSendForm } from './form/stacks-sip10/stacks-sip10-fungible-token-send-form';
+import { Sip10TokenSendForm } from './form/stacks-sip10/sip10-token-send-form';
 import { StacksSendFormConfirmation } from './form/stacks/stacks-send-form-confirmation';
 import { StxSendForm } from './form/stx/stx-send-form';
 
@@ -62,7 +62,7 @@ export const sendCryptoAssetFormRoutes = (
     </Route>
     <Route path="/send/stx/confirm" element={<StacksSendFormConfirmation />} />
 
-    <Route path={RouteUrls.SendSip10Form} element={<StacksSip10FungibleTokenSendForm />}>
+    <Route path={RouteUrls.SendSip10Form} element={<Sip10TokenSendForm />}>
       {broadcastErrorDrawerRoute}
       {editNonceDrawerRoute}
       {ledgerTxSigningRoutes}

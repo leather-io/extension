@@ -100,7 +100,7 @@ export function useStxTokenTransferUnsignedTxState(values?: StacksSendFormValues
 }
 
 export function useGenerateFtTokenTransferUnsignedTx(
-  assetBalance?: StacksFungibleTokenAssetBalance
+  assetBalance: StacksFungibleTokenAssetBalance
 ) {
   const { data: nextNonce } = useNextNonce();
   const account = useCurrentStacksAccount();
@@ -182,7 +182,7 @@ export function useGenerateFtTokenTransferUnsignedTx(
   );
 }
 
-export function useFtTokenTransferUnsignedTx(assetBalance?: StacksFungibleTokenAssetBalance) {
+export function useFtTokenTransferUnsignedTx(assetBalance: StacksFungibleTokenAssetBalance) {
   const generateTx = useGenerateFtTokenTransferUnsignedTx(assetBalance);
   const account = useCurrentStacksAccount();
 
