@@ -5,7 +5,15 @@ interface PsbtRequestLayoutProps {
 }
 export function PsbtRequestLayout({ children }: PsbtRequestLayoutProps) {
   return (
-    <Stack pb="loose" px={['loose', 'unset']} spacing="base-loose" width="100%">
+    <Stack
+      alignItems="center"
+      maxHeight="calc(100vh - 72px)"
+      overflowY="scroll"
+      pb="120px"
+      px="loose"
+      spacing="base-loose"
+      width="100%"
+    >
       {children}
     </Stack>
   );

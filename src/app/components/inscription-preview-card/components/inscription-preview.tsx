@@ -1,4 +1,4 @@
-import { Box, Flex } from '@stacks/ui';
+import { Box, BoxProps, Flex } from '@stacks/ui';
 
 import { SupportedInscription } from '@shared/models/inscription.model';
 
@@ -8,28 +8,28 @@ import { InscriptionImage } from './inscription-image';
 import { InscriptionPreviewContainer } from './inscription-preview-container';
 import { InscriptionText } from './inscription-text';
 
-interface InscriptionPreviewProps {
+interface InscriptionPreviewProps extends BoxProps {
   inscription: SupportedInscription;
 }
-export function InscriptionPreview({ inscription }: InscriptionPreviewProps) {
+export function InscriptionPreview({ inscription, ...props }: InscriptionPreviewProps) {
   switch (inscription.type) {
     case 'image': {
       return (
-        <InscriptionPreviewContainer>
+        <InscriptionPreviewContainer {...props}>
           <InscriptionImage src={inscription.src} />
         </InscriptionPreviewContainer>
       );
     }
     case 'text': {
       return (
-        <InscriptionPreviewContainer>
+        <InscriptionPreviewContainer {...props}>
           <InscriptionText contentSrc={inscription.contentSrc} />
         </InscriptionPreviewContainer>
       );
     }
     case 'other': {
       return (
-        <InscriptionPreviewContainer>
+        <InscriptionPreviewContainer {...props}>
           <Flex justifyContent="center" alignItems="center" height="100%">
             <Box width="40px">
               <OrdinalIconFull width={40} height={40} />

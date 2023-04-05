@@ -1,4 +1,4 @@
-import { useOrdinalsAwareUtxoQuery } from '@app/query/bitcoin/ordinals/use-ordinals-aware-utxo.query';
+import { useOrdinalsAwareUtxoQuery } from '@app/query/bitcoin/ordinals/ordinals-aware-utxo.query';
 import { TaprootUtxo } from '@app/query/bitcoin/ordinals/use-taproot-address-utxos.query';
 
 interface InscriptionLoaderProps {

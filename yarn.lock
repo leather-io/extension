@@ -13339,7 +13339,7 @@ micro-memoize@^4.0.9:
   resolved "https://registry.yarnpkg.com/micro-memoize/-/micro-memoize-4.0.14.tgz#d1239ce2e5831125ac518509f5a23b54e7ca3e17"
   integrity sha512-2tzWP1w2Hh+r7kCYa4f//jpBEA6dAueiuLco38NxfjF9Py3KCCI7wVOTdCvOhmTC043t+ulclVBdl3v+s+UJIQ==
 
-micro-packed@~0.3.2:
+micro-packed@0.3.2, micro-packed@~0.3.2:
   version "0.3.2"
   resolved "https://registry.yarnpkg.com/micro-packed/-/micro-packed-0.3.2.tgz#3679188366c2283cb60a78366ed0416e5472b7cf"
   integrity sha512-D1Bq0/lVOzdxhnX5vylCxZpdw5LylH7Vd81py0DfRsKUP36XYpwvy8ZIsECVo3UfnoROn8pdKqkOzL7Cd82sGA==

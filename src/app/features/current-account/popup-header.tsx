@@ -4,6 +4,8 @@ import { Box, Stack, color } from '@stacks/ui';
 
 import { BtcBalance } from '@app/components/balance-btc';
 import { StxBalance } from '@app/components/balance-stx';
+import { Flag } from '@app/components/layout/flag';
+import { SpaceBetween } from '@app/components/layout/space-between';
 import { LoadingRectangle } from '@app/components/loading-rectangle';
 import { NetworkModeBadge } from '@app/components/network-mode-badge';
 import { CurrentAccountAvatar } from '@app/features/current-account/current-account-avatar';
@@ -18,9 +20,7 @@ interface PopupHeaderLayoutProps {
 function PopupHeaderLayout({ children }: PopupHeaderLayoutProps) {
   return (
     <Box p="base-loose" width="100%" borderBottom="1px solid" borderColor={color('border')}>
-      <Stack isInline alignItems="center" width="100%" justifyContent="space-between">
-        {children}
-      </Stack>
+      {children}
     </Box>
   );
 }
@@ -33,16 +33,21 @@ function PopupHeaderSuspense({ displayAddresssBalanceOf = 'stx' }: PopupHeaderPr
   const isBitcoinEnabled = useConfigBitcoinEnabled();
   return (
     <PopupHeaderLayout>
-      <Stack isInline alignItems="end">
-        <CurrentAccountAvatar size="24px" fontSize="10px" />
-        <CurrentAccountName as="h3" />
-        {displayAddresssBalanceOf === 'stx' && <CurrentStxAddress fontSize="12px" />}
-      </Stack>
-      <Stack isInline alignItems="end" justifyContent="right">
-        <NetworkModeBadge top="5px" />
-        {account && displayAddresssBalanceOf === 'stx' && <StxBalance address={account.address} />}
-        {isBitcoinEnabled && <BtcBalance />}
-      </Stack>
+      <Flag align="middle" img={<CurrentAccountAvatar size="24px" fontSize="10px" />}>
+        <SpaceBetween>
+          <Stack isInline alignItems="flex-end">
+            <CurrentAccountName as="h3" />
+            {displayAddresssBalanceOf === 'stx' && <CurrentStxAddress fontSize="12px" />}
+          </Stack>
+          <Stack isInline alignItems="flex-end" justifyContent="right">
+            <NetworkModeBadge top="4px" />
+            {account && displayAddresssBalanceOf === 'stx' && (
+              <StxBalance address={account.address} />
+            )}
+            {isBitcoinEnabled && <BtcBalance />}
+          </Stack>
+        </SpaceBetween>
+      </Flag>
     </PopupHeaderLayout>
   );
 }

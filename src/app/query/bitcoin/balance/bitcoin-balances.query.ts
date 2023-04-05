@@ -10,7 +10,7 @@ import { useCurrentBtcNativeSegwitAccountAddressIndexZero } from '@app/store/acc
 
 import { createBitcoinCryptoCurrencyAssetTypeWrapper } from '../address/address.utils';
 import { useGetUtxosByAddressQuery } from '../address/utxos-by-address.query';
-import { useOrdinalsAwareUtxoQueries } from '../ordinals/use-ordinals-aware-utxo.query';
+import { useOrdinalsAwareUtxoQueries } from '../ordinals/ordinals-aware-utxo.query';
 import { useTaprootAccountUtxosQuery } from '../ordinals/use-taproot-address-utxos.query';
 
 function useGetBitcoinBalanceByAddress(address: string) {
