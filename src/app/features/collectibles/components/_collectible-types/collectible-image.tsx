@@ -17,7 +17,12 @@ export function CollectibleImage(props: CollectibleImageProps) {
   const [isError, setIsError] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
 
-  if (isError) return <ImageUnavailable />;
+  if (isError)
+    return (
+      <CollectibleItemLayout collectibleTypeIcon={<OrdinalMinimalIcon />} {...rest}>
+        <ImageUnavailable />
+      </CollectibleItemLayout>
+    );
 
   return (
     <CollectibleItemLayout collectibleTypeIcon={<OrdinalMinimalIcon />} {...rest}>
