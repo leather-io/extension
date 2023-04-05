@@ -1,3 +1,4 @@
+import { toast } from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
 
 import type {
@@ -25,10 +26,14 @@ export function CryptoAssetListItem(props: CryptoAssetListItemProps) {
     if (blockchain === 'bitcoin' && !isBitcoinSendEnabled) {
       return navigate(RouteUrls.SendBtcDisabled);
     }
-    const symbol = asset.symbol?.toLowerCase();
+    const symbol = asset.symbol.toLowerCase();
 
     if (isFtToken) {
       const asset = (assetBalance as StacksFungibleTokenAssetBalance).asset;
+      if (!asset.contractId) {
+        toast.error('Unable to find contract id');
+        return navigate('..');
+      }
       const contractId = `${asset.contractId.split('::')[0]}`;
       return navigate(`${RouteUrls.SendCryptoAsset}/${symbol}/${contractId}`);
     }

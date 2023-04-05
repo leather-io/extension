@@ -1,12 +1,10 @@
 import { useMemo } from 'react';
-import { useParams } from 'react-router-dom';
 
 import { FormikHelpers } from 'formik';
 import * as yup from 'yup';
 
 import { logger } from '@shared/logger';
 import { StacksSendFormValues } from '@shared/models/form.model';
-import { createMoney } from '@shared/models/money.model';
 
 import { getImageCanonicalUri } from '@app/common/crypto-assets/stacks-crypto-asset.utils';
 import { convertAmountToBaseUnit } from '@app/common/money/calculate-money';
@@ -24,8 +22,12 @@ import {
 import { useSendFormNavigate } from '../../hooks/use-send-form-navigate';
 import { useStacksCommonSendForm } from '../stacks/use-stacks-common-send-form';
 
-export function useSip10SendForm() {
-  const { symbol, contractId = '' } = useParams();
+interface UseSip10SendFormArgs {
+  symbol: string;
+  contractId: string;
+}
+
+export function useSip10SendForm({ symbol, contractId }: UseSip10SendFormArgs) {
   const assetBalance = useStacksFungibleTokenAssetBalance(contractId);
   const generateTx = useGenerateFtTokenTransferUnsignedTx(assetBalance);
 
@@ -36,20 +38,19 @@ export function useSip10SendForm() {
   const unsignedTx = useFtTokenTransferUnsignedTx(assetBalance);
   const { data: stacksFtFees } = useCalculateStacksTxFees(unsignedTx);
 
-  const availableTokenBalance = assetBalance?.balance ?? createMoney(0, 'STX');
+  const availableTokenBalance = assetBalance.balance;
   const sendMaxBalance = useMemo(
     () => convertAmountToBaseUnit(availableTokenBalance),
     [availableTokenBalance]
   );
 
   const { initialValues, checkFormValidation, recipient, memo, nonce } = useStacksCommonSendForm({
-    symbol: symbol ?? '',
+    symbol: symbol,
     availableTokenBalance,
   });
 
   function createFtAvatar() {
-    const asset = assetBalance?.asset;
-    if (!asset) return;
+    const asset = assetBalance.asset;
 
     const { contractAddress, contractAssetName, contractName } = asset;
     return {
