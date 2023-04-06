@@ -1,4 +1,4 @@
-import { LocalStorageMock } from '@tests-legacy/mocks/localStorage-mock';
+import { LocalStorageMock } from '@tests-legacy/mocks/local-storage-mock';
 import { vi } from 'vitest';
 
 import { defaultKeyId } from '../keys/key.slice';

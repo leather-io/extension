@@ -4,7 +4,7 @@ import { FiInfo } from 'react-icons/fi';
 import { Box, Fade, Stack, Tooltip, color } from '@stacks/ui';
 import { SharedComponentsSelectors } from '@tests/selectors/shared-component.selectors';
 
-import { FeeTypes } from '@shared/models/fees/_fees.model';
+import { FeeTypes } from '@shared/models/fees/fees.model';
 
 import { useOnClickOutside } from '@app/common/hooks/use-onclickoutside';
 import { openInNewTab } from '@app/common/utils/open-in-new-tab';

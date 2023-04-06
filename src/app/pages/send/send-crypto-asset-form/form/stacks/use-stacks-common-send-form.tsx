@@ -1,7 +1,7 @@
 import { FormikHelpers } from 'formik';
 
 import { HIGH_FEE_AMOUNT_STX } from '@shared/constants';
-import { FeeTypes } from '@shared/models/fees/_fees.model';
+import { FeeTypes } from '@shared/models/fees/fees.model';
 import { StacksSendFormValues } from '@shared/models/form.model';
 import { Money } from '@shared/models/money.model';
 import { isEmpty } from '@shared/utils';

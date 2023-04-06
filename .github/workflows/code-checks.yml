@@ -24,6 +24,15 @@ jobs:
       - name: Lint
         run: yarn lint:eslint
 
+  lint-filename:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: ./.github/actions/provision
+
+      - name: File name checker
+        run: yarn lint:filename
+
   audit:
     runs-on: ubuntu-latest
     steps:

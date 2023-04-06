@@ -5,7 +5,7 @@ import { SharedComponentsSelectors } from '@tests/selectors/shared-component.sel
 import BigNumber from 'bignumber.js';
 import { useField } from 'formik';
 
-import { FeeTypes, Fees } from '@shared/models/fees/_fees.model';
+import { FeeTypes, Fees } from '@shared/models/fees/fees.model';
 import { createMoney } from '@shared/models/money.model';
 import { isNumber, isString } from '@shared/utils';
 
