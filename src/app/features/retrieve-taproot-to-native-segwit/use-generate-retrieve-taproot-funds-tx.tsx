@@ -8,7 +8,7 @@ import { BtcSizeFeeEstimator } from '@app/common/transactions/bitcoin/fees/btc-s
 import { sumNumbers } from '@app/common/utils';
 import { useCurrentTaprootAccountUninscribedUtxos } from '@app/query/bitcoin/balance/bitcoin-balances.query';
 import { useBitcoinFeeRate } from '@app/query/bitcoin/fees/fee-estimates.hooks';
-import { getNumberOfInscriptionOnUtxo } from '@app/query/bitcoin/ordinals/utils';
+import { getNumberOfInscriptionOnUtxo } from '@app/query/bitcoin/ordinals/use-ordinals-aware-utxo.query';
 import { useBitcoinLibNetworkConfig } from '@app/store/accounts/blockchain/bitcoin/bitcoin-keychain';
 import { useCurrentAccountTaprootSigner } from '@app/store/accounts/blockchain/bitcoin/taproot-account.hooks';
 

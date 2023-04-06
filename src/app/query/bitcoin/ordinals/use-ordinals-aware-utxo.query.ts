@@ -18,6 +18,7 @@ import { TaprootUtxo } from './use-taproot-address-utxos.query';
 const ordApiGetTransactionOutput = yup
   .object({
     address: yup.string(),
+    all_inscriptions: yup.array().of(yup.string()).optional(),
     inscriptions: yup.string(),
     script_pubkey: yup.string(),
     transaction: yup.string(),
@@ -26,6 +27,11 @@ const ordApiGetTransactionOutput = yup
   .required();
 
 export type OrdApiInscriptionTxOutput = Prettify<yup.InferType<typeof ordApiGetTransactionOutput>>;
+
+export async function getNumberOfInscriptionOnUtxo(id: string, index: number) {
+  const resp = await getOrdinalsAwareUtxo(id, index);
+  return resp.all_inscriptions?.length ?? 1;
+}
 
 async function getOrdinalsAwareUtxo(
   txid: string,
