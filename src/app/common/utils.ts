@@ -73,7 +73,7 @@ export function makeTxExplorerLink({
 }: MakeTxExplorerLinkArgs) {
   switch (blockchain) {
     case 'bitcoin':
-      return `https://mempool.space/${mode !== 'mainnet' ? mode + '/' : 'mainnet'}tx/${txid}`;
+      return `https://mempool.space/${mode !== 'mainnet' ? mode + '/' : ''}tx/${txid}`;
     case 'stacks':
       return `https://explorer.hiro.so/txid/${txid}?chain=${mode}${suffix}`;
     default:
@@ -85,7 +85,7 @@ export function truncateString(str: string, maxLength: number) {
   if (str.length <= maxLength) {
     return str;
   }
-  return str.slice(0, maxLength) + '...';
+  return str.slice(0, maxLength) + '…';
 }
 
 function isMultipleOf(multiple: number) {
