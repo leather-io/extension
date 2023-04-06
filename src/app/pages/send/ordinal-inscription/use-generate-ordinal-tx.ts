@@ -1,51 +1,76 @@
-import { useCallback } from 'react';
-
 import * as btc from '@scure/btc-signer';
-import BigNumber from 'bignumber.js';
 
+import { logger } from '@shared/logger';
 import { OrdinalSendFormValues } from '@shared/models/form.model';
 
+import { useCurrentNativeSegwitUtxos } from '@app/query/bitcoin/address/address.hooks';
 import { useBitcoinFeeRate } from '@app/query/bitcoin/fees/fee-estimates.hooks';
 import { TaprootUtxo } from '@app/query/bitcoin/ordinals/use-taproot-address-utxos.query';
 import { useBitcoinLibNetworkConfig } from '@app/store/accounts/blockchain/bitcoin/bitcoin-keychain';
+import { useCurrentAccountNativeSegwitSigner } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
 import { useCurrentAccountTaprootSigner } from '@app/store/accounts/blockchain/bitcoin/taproot-account.hooks';
 
-export function useGenerateSignedOrdinalTx(utxo: TaprootUtxo, fee: bigint) {
-  const createSigner = useCurrentAccountTaprootSigner();
+import { selectInscriptionTransferCoins } from './select-inscription-coins';
+
+export function useGenerateSignedOrdinalTx(trInput: TaprootUtxo) {
+  const createTapRootSigner = useCurrentAccountTaprootSigner();
+  const createNativeSegwitSigner = useCurrentAccountNativeSegwitSigner();
   const networkMode = useBitcoinLibNetworkConfig();
   const { data: feeRate } = useBitcoinFeeRate();
+  const { data: nativeSegwitUtxos } = useCurrentNativeSegwitUtxos();
 
-  return useCallback(
-    (values: OrdinalSendFormValues) => {
-      const signer = createSigner?.(utxo.addressIndex);
+  function coverFeeFromAdditionalUtxos(values: OrdinalSendFormValues) {
+    const trSigner = createTapRootSigner?.(trInput.addressIndex);
+    const nativeSegwitSigner = createNativeSegwitSigner?.(0);
 
-      if (!signer || !feeRate) return;
+    if (!trSigner || !nativeSegwitSigner || !nativeSegwitUtxos || !feeRate) return;
 
-      try {
-        const tx = new btc.Transaction();
-        tx.addInput({
-          txid: utxo.txid,
-          index: utxo.vout,
-          tapInternalKey: signer.payment.tapInternalKey,
-          witnessUtxo: {
-            script: signer.payment.script,
-            amount: BigInt(utxo.value),
-          },
-        });
-        tx.addOutputAddress(
-          values.recipient,
-          BigInt(Math.ceil(new BigNumber(utxo.value).minus(fee.toString()).toNumber())),
-          networkMode
-        );
-        signer.sign(tx);
-        tx.finalize();
-        return { hex: tx.hex, fee };
-      } catch (e) {
-        // eslint-disable-next-line no-console
-        console.log('Error signing ordinal transaction', e);
-        return null;
+    const result = selectInscriptionTransferCoins({
+      recipient: values.recipient,
+      inscriptionInput: trInput,
+      nativeSegwitUtxos,
+      changeAddress: nativeSegwitSigner.payment.address!,
+      feeRate: feeRate.halfHourFee,
+    });
+
+    if (!result.success) return null;
+
+    const { inputs, outputs, txFee } = result;
+
+    try {
+      const tx = new btc.Transaction();
+
+      // tr inscription input
+      tx.addInput({
+        txid: trInput.txid,
+        index: trInput.vout,
+        tapInternalKey: trSigner.payment.tapInternalKey,
+        witnessUtxo: {
+          script: trSigner.payment.script,
+          amount: BigInt(trInput.value),
+        },
+      });
+
+      inputs.forEach(input => tx.addInput(input));
+
+      outputs.forEach(output => tx.addOutputAddress(output.address, output.value, networkMode));
+
+      // We know the first is TR and the rest are native segwit
+      for (let i = 0; i < tx.inputsLength; i++) {
+        if (i === 0) {
+          trSigner.signIndex(tx, i);
+          continue;
+        }
+        nativeSegwitSigner.signIndex(tx, i);
       }
-    },
-    [createSigner, fee, feeRate, networkMode, utxo?.addressIndex, utxo.txid, utxo.value, utxo.vout]
-  );
+
+      tx.finalize();
+      return { hex: tx.hex, fee: txFee };
+    } catch (e) {
+      logger.error('Unable to sign transaction');
+      return null;
+    }
+  }
+
+  return { coverFeeFromAdditionalUtxos };
 }

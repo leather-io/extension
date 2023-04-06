@@ -19,6 +19,9 @@ export const PERSISTENCE_CACHE_TIME = 1000 * 60 * 60 * 12; // 12 hours
 export const BTC_DECIMALS = 8;
 export const STX_DECIMALS = 6;
 
+// https://bitcoin.stackexchange.com/a/41082/139277
+export const BTC_P2WPKH_DUST_AMOUNT = 294;
+
 export const KEBAB_REGEX = /[A-Z\u00C0-\u00D6\u00D8-\u00DE]/g;
 
 export const MICROBLOCKS_ENABLED = !IS_TEST_ENV && true;
