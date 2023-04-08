@@ -5,8 +5,9 @@ import { PopupHeader } from '@app/features/current-account/popup-header';
 import { useOnOriginTabClose } from '@app/routes/hooks/use-on-tab-closed';
 import { useIsPsbtRequestValid } from '@app/store/psbts/requests.hooks';
 
-import { PsbtDecodedRequest } from './components/psbt-decoded-request/psbt-decoded-request';
+// import { PsbtDecodedRequest } from './components/psbt-decoded-request/psbt-decoded-request';
 import { PsbtRequestActions } from './components/psbt-request-actions';
+import { PsbtRequestDetails } from './components/psbt-request-details/psbt-request-details';
 import { PsbtRequestDisclaimer } from './components/psbt-request-disclaimer';
 import { PsbtRequestHeader } from './components/psbt-request-header';
 import { PsbtRequestWarningLabel } from './components/psbt-request-warning-label';
@@ -29,7 +30,9 @@ export function PsbtRequest() {
     <PsbtRequestLayout>
       <PsbtRequestHeader />
       <PsbtRequestWarningLabel appName={appName} />
-      <PsbtDecodedRequest psbt={decodedPsbt} />
+      <PsbtRequestDetails details={decodedPsbt} payloadTxHex={psbtPayload.hex} />
+      {/* TODO: Hiding until feature is ready */}
+      {/* <PsbtDecodedRequest psbt={decodedPsbt} /> */}
       <PsbtRequestActions isLoading={isLoading} onCancel={onCancel} onSignPsbt={onSignPsbt} />
       <hr />
       <PsbtRequestDisclaimer appName={appName} />
