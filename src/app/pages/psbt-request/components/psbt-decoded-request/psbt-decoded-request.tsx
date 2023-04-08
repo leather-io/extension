@@ -9,6 +9,7 @@ import { PsbtDecodedRequestViewToggle } from './psbt-decoded-request-views/psbt-
 interface PsbtDecodedRequestProps {
   psbt: any;
 }
+// ts-unused-exports:disable-next-line
 export function PsbtDecodedRequest({ psbt }: PsbtDecodedRequestProps) {
   const [showAdvancedView, setShowAdvancedView] = useState(false);
 
