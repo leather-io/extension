@@ -20,7 +20,7 @@ import {
   SignatureResponseMessage,
   TransactionResponseMessage,
 } from '@shared/message-types';
-import { WalletMethodMap, WalletMethodNames, WalletResponses } from '@shared/rpc/rpc-methods';
+import type { WalletMethodMap, WalletMethodNames, WalletResponses } from '@shared/rpc/rpc-methods';
 
 type CallableMethods = keyof typeof ExternalMethods;
 
@@ -252,15 +252,17 @@ window.StacksProvider = provider;
 
 (window as any).HiroWalletProvider = provider;
 
-(window as any).btc = {
-  request: getStacksProvider()?.request,
-  listen(event: 'accountChange', callback: (arg: any) => void) {
-    function handler(e: MessageEvent) {
-      if (!e.data) return;
-      if ((e as any).event !== event) return;
-      callback((e as any).event);
-    }
-    window.addEventListener('message', handler);
-    return () => window.removeEventListener('message', handler);
-  },
-};
+if (typeof window.btc === 'undefined') {
+  (window as any).btc = {
+    request: getStacksProvider()?.request,
+    listen(event: 'accountChange', callback: (arg: any) => void) {
+      function handler(e: MessageEvent) {
+        if (!e.data) return;
+        if ((e as any).event !== event) return;
+        callback((e as any).event);
+      }
+      window.addEventListener('message', handler);
+      return () => window.removeEventListener('message', handler);
+    },
+  };
+}
