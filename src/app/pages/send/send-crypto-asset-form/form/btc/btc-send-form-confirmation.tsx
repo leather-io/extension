@@ -4,6 +4,7 @@ import { Stack } from '@stacks/ui';
 import { SendCryptoAssetSelectors } from '@tests/selectors/send.selectors';
 import get from 'lodash.get';
 
+import { BTC_DECIMALS } from '@shared/constants';
 import { decodeBitcoinTx } from '@shared/crypto/bitcoin/bitcoin.utils';
 import { createMoney, createMoneyFromDecimal } from '@shared/models/money.model';
 import { RouteUrls } from '@shared/route-urls';
@@ -65,7 +66,7 @@ export function BtcSendFormConfirmation() {
     createMoneyFromDecimal(Number(transferAmount) + Number(feeInBtc), symbol)
   );
   const sendingValue = formatMoney(createMoneyFromDecimal(Number(transferAmount), symbol));
-  const summaryFee = formatMoney(createMoney(Number(fee), symbol));
+  const summaryFee = formatMoney(createMoney(Number(fee), symbol, BTC_DECIMALS));
 
   async function initiateTransaction() {
     await broadcastTx({
