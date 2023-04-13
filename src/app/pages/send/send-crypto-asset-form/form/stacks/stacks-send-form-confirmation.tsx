@@ -24,7 +24,7 @@ export function StacksSendFormConfirmation() {
   const { symbol = 'STX' } = useParams();
 
   const { stacksDeserializedTransaction, stacksBroadcastTransaction, isBroadcasting } =
-    useStacksBroadcastTransaction(tx, symbol.toUpperCase() as CryptoCurrencies);
+    useStacksBroadcastTransaction(tx, symbol.toUpperCase() as CryptoCurrencies, decimals);
 
   const { formReviewTxSummary } = useStacksTransactionSummary(
     symbol.toUpperCase() as CryptoCurrencies
@@ -32,6 +32,7 @@ export function StacksSendFormConfirmation() {
   const {
     txValue,
     txFiatValue,
+    txFiatValueSymbol,
     recipient,
     fee,
     totalSpend,
@@ -47,6 +48,7 @@ export function StacksSendFormConfirmation() {
     <SendFormConfirmation
       txValue={txValue}
       txFiatValue={txFiatValue}
+      txFiatValueSymbol={txFiatValueSymbol}
       recipient={recipient}
       fee={fee}
       totalSpend={totalSpend}

@@ -82,6 +82,20 @@ class TransactionsApi {
   }
 }
 
+export const btcTxTimeMap: Record<keyof FeeEstimateMempoolSpaceApi, string> = {
+  fastestFee: '~10 – 20min',
+  halfHourFee: '~30 min',
+  economyFee: '~1 hour+',
+  hourFee: '~1 hour+',
+  minimumFee: '~1 hour+',
+};
+
+export enum BtcFeeType {
+  High = 'High',
+  Standard = 'Standard',
+  Low = 'Low',
+}
+
 export class BitcoinClient {
   configuration: Configuration;
   addressApi: AddressApi;

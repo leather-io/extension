@@ -18,6 +18,7 @@ import { StxSentSummary } from '../sent-summary/stx-sent-summary';
 import { RecipientAccountsDrawer } from './components/recipient-accounts-drawer/recipient-accounts-drawer';
 import { BtcSendForm } from './form/btc/btc-send-form';
 import { BtcSendFormConfirmation } from './form/btc/btc-send-form-confirmation';
+import { BtcSetFee } from './form/btc/btc-set-fee';
 import { Sip10TokenSendForm } from './form/stacks-sip10/sip10-token-send-form';
 import { StacksSendFormConfirmation } from './form/stacks/stacks-send-form-confirmation';
 import { StxSendForm } from './form/stx/stx-send-form';
@@ -53,7 +54,7 @@ export const sendCryptoAssetFormRoutes = (
     <Route path="/send/btc/confirm" element={<BtcSendFormConfirmation />} />
     <Route path="/send/btc/disabled" element={<SendBtcDisabled />} />
     <Route path="/send/btc/error" element={<BroadcastError />} />
-
+    <Route path={RouteUrls.SendBtcSetFee} element={<BtcSetFee />}></Route>
     <Route path={RouteUrls.SendCryptoAssetForm.replace(':symbol', 'stx')} element={<StxSendForm />}>
       {broadcastErrorDrawerRoute}
       {editNonceDrawerRoute}

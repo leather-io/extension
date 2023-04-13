@@ -1,6 +1,7 @@
 import { Outlet } from 'react-router-dom';
 
 import { Box } from '@stacks/ui';
+import { SendCryptoAssetSelectors } from '@tests/selectors/send.selectors';
 import { Form, Formik } from 'formik';
 
 import { HIGH_FEE_WARNING_LEARN_MORE_URL_BTC } from '@shared/constants';
@@ -35,7 +36,7 @@ export function BtcSendForm() {
     currentNetwork,
     formRef,
     onFormStateChange,
-    previewTransaction,
+    chooseTransactionFee,
     validationSchema,
   } = useBtcSendForm();
 
@@ -46,7 +47,7 @@ export function BtcSendForm() {
           ...routeState,
           recipientBnsName: '',
         })}
-        onSubmit={previewTransaction}
+        onSubmit={chooseTransactionFee}
         validationSchema={validationSchema}
         innerRef={formRef}
         {...defaultSendFormFormikProps}
@@ -78,6 +79,11 @@ export function BtcSendForm() {
               <FormFooter balance={btcBalance.balance} />
               <HighFeeDrawer learnMoreUrl={HIGH_FEE_WARNING_LEARN_MORE_URL_BTC} />
               <Outlet />
+
+              {/* This is for testing purposes only, to make sure the form is ready to be submitted */}
+              {calcMaxSpend(props.values.recipient).spendableBitcoin.toNumber() > 0 ? (
+                <Box data-testid={SendCryptoAssetSelectors.SendPageReady}></Box>
+              ) : null}
             </Form>
           );
         }}

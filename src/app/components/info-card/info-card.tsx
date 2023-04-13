@@ -1,8 +1,9 @@
-import { Box, Button, Flex, FlexProps, Stack, Text } from '@stacks/ui';
+import { Box, Button, Flex, FlexProps, Stack, StackProps, Text } from '@stacks/ui';
 import { SharedComponentsSelectors } from '@tests/selectors/shared-component.selectors';
 
 import { isString } from '@shared/utils';
 
+import { whenPageMode } from '@app/common/utils';
 import { figmaTheme } from '@app/common/utils/figma-theme';
 
 import { SpaceBetween } from '../layout/space-between';
@@ -54,7 +55,7 @@ export function InfoCardSeparator() {
 }
 
 // InfoCardAssetValue
-interface InfoCardAssetValueProps {
+interface InfoCardAssetValueProps extends StackProps {
   value: number;
   fiatValue?: string;
   fiatSymbol?: string;
@@ -68,35 +69,37 @@ export function InfoCardAssetValue({
   fiatSymbol,
   symbol,
   icon,
+  ...props
 }: InfoCardAssetValueProps) {
   return (
-    <Stack
-      mb="44px"
-      width="100%"
-      alignItems="center"
-      backgroundColor="#F9F9FA"
-      py="24px"
-      border="1px solid #EFEFF2"
-      borderRadius="10px"
-    >
-      {icon && <Box as={icon} size="32px" />}
+    <Box width="100%" {...props}>
+      <Stack
+        width="100%"
+        alignItems="center"
+        backgroundColor="#F9F9FA"
+        py="24px"
+        border="1px solid #EFEFF2"
+        borderRadius="10px"
+      >
+        {icon && <Box as={icon} size="32px" />}
 
-      <Flex flexDirection="column" alignItems="center">
-        <Text
-          fontSize="24px"
-          fontWeight="500"
-          lineHeight="36px"
-          data-testid={SharedComponentsSelectors.InfoCardAssetValue}
-        >
-          {value} {symbol}
-        </Text>
-        {fiatValue && (
-          <Text fontSize="12px" mt="4px">
-            ~ {fiatValue} {fiatSymbol}
+        <Flex flexDirection="column" alignItems="center">
+          <Text
+            fontSize="24px"
+            fontWeight="500"
+            lineHeight="36px"
+            data-testid={SharedComponentsSelectors.InfoCardAssetValue}
+          >
+            {value} {symbol}
           </Text>
-        )}
-      </Flex>
-    </Stack>
+          {fiatValue && (
+            <Text fontSize="12px" mt="4px">
+              ~ {fiatValue} {fiatSymbol}
+            </Text>
+          )}
+        </Flex>
+      </Stack>
+    </Box>
   );
 }
 
@@ -122,5 +125,35 @@ export function InfoCardBtn({ icon, label, onClick }: InfoCardBtnProps) {
       </Text>
       <Box as={icon} mr="tight" size="14px" />
     </Button>
+  );
+}
+
+// InfoCardFooter
+interface InfoCardFooterProps {
+  children: React.ReactNode;
+}
+
+export function InfoCardFooter({ children }: InfoCardFooterProps) {
+  return (
+    <Flex
+      bottom="0"
+      width="100%"
+      bg={whenPageMode({
+        full: '',
+        popup: '#fff',
+      })}
+      borderTop="1px solid #EFEFF2"
+      alignItems="center"
+      justifyContent="center"
+      zIndex="999"
+      py="loose"
+      px="extra-loose"
+      position={whenPageMode({
+        full: 'unset',
+        popup: 'fixed',
+      })}
+    >
+      {children}
+    </Flex>
   );
 }

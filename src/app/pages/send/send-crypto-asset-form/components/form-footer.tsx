@@ -17,7 +17,7 @@ export function FormFooter(props: { balance: Money }) {
       bg={color('bg')}
       borderTop="1px solid #DCDDE2"
       bottom="0px"
-      height={['106px', '116px']}
+      height={['96px', '116px']}
       position={whenPageMode({
         full: 'unset',
         popup: 'absolute',
