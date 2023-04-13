@@ -1,6 +1,8 @@
 import { Locator, Page } from '@playwright/test';
 import { CryptoAssetSelectors } from '@tests/selectors/crypto-asset.selectors';
 import { SendCryptoAssetSelectors } from '@tests/selectors/send.selectors';
+import { SharedComponentsSelectors } from '@tests/selectors/shared-component.selectors';
+import { createTestSelector } from '@tests/utils';
 
 import { RouteUrls } from '@shared/route-urls';
 
@@ -21,6 +23,7 @@ export class SendPage {
   readonly sendMaxButton: Locator;
   readonly feesRow: Locator;
   readonly memoRow: Locator;
+  readonly feesCard: Locator;
 
   constructor(page: Page) {
     this.page = page;
@@ -52,6 +55,7 @@ export class SendPage {
     this.memoRow = page.getByTestId(SendCryptoAssetSelectors.ConfirmationDetailsMemo);
 
     this.sendMaxButton = page.getByTestId(SendCryptoAssetSelectors.SendMaxBtn);
+    this.feesCard = page.getByTestId(SharedComponentsSelectors.FeeCard);
   }
 
   async selectBtcAndGoToSendForm() {
@@ -70,5 +74,11 @@ export class SendPage {
       .click();
     await this.page.waitForURL('**' + `${RouteUrls.SendCryptoAsset}/stx`);
     await this.page.getByTestId(SendCryptoAssetSelectors.SendForm).waitFor();
+  }
+
+  async waitForSendPageReady() {
+    await this.page.waitForSelector(createTestSelector(SendCryptoAssetSelectors.SendPageReady), {
+      state: 'attached',
+    });
   }
 }

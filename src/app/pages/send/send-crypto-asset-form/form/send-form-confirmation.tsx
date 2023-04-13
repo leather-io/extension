@@ -1,10 +1,12 @@
 import { Stack } from '@stacks/ui';
 import { SendCryptoAssetSelectors } from '@tests/selectors/send.selectors';
 
+import { whenPageMode } from '@app/common/utils';
 import { FormAddressDisplayer } from '@app/components/address-displayer/form-address-displayer';
 import {
   InfoCard,
   InfoCardAssetValue,
+  InfoCardFooter,
   InfoCardRow,
   InfoCardSeparator,
 } from '@app/components/info-card/info-card';
@@ -43,16 +45,28 @@ export function SendFormConfirmation({
   symbol,
 }: SendFormConfirmationProps) {
   return (
-    <InfoCard padding="extra-loose" data-testid={SendCryptoAssetSelectors.ConfirmationDetails}>
+    <InfoCard
+      data-testid={SendCryptoAssetSelectors.ConfirmationDetails}
+      pb={whenPageMode({
+        full: '0px',
+        popup: '80px',
+      })}
+    >
       <InfoCardAssetValue
         value={Number(txValue)}
         fiatValue={txFiatValue}
         fiatSymbol={txFiatValueSymbol}
         symbol={symbol}
         data-testid={SendCryptoAssetSelectors.ConfirmationDetailsAssetValue}
+        my="loose"
+        px="loose"
       />
 
-      <Stack width="100%">
+      <InfoLabel px="loose" mb="loose" title="Sending to an exchange?">
+        {`Make sure you include the memo so the exchange can credit the ${symbol} to your account`}
+      </InfoLabel>
+
+      <Stack width="100%" px="extra-loose" pb="extra-loose">
         <InfoCardRow
           title="To"
           value={<FormAddressDisplayer address={recipient} />}
@@ -75,18 +89,16 @@ export function SendFormConfirmation({
         <InfoCardRow title="Estimated confirmation time" value={arrivesIn} />
       </Stack>
 
-      <InfoLabel my="extra-loose" title="Sending to an exchange?">
-        {`Make sure you include the memo so the exchange can credit the ${symbol} to your account`}
-      </InfoLabel>
-
-      <PrimaryButton
-        data-testid={SendCryptoAssetSelectors.ConfirmSendTxBtn}
-        width="100%"
-        isLoading={isLoading}
-        onClick={onBroadcastTransaction}
-      >
-        Confirm and send transaction
-      </PrimaryButton>
+      <InfoCardFooter>
+        <PrimaryButton
+          data-testid={SendCryptoAssetSelectors.ConfirmSendTxBtn}
+          width="100%"
+          isLoading={isLoading}
+          onClick={onBroadcastTransaction}
+        >
+          Confirm and send transaction
+        </PrimaryButton>
+      </InfoCardFooter>
     </InfoCard>
   );
 }

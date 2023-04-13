@@ -17,13 +17,13 @@ import { FormAddressDisplayer } from '@app/components/address-displayer/form-add
 import {
   InfoCard,
   InfoCardAssetValue,
+  InfoCardFooter,
   InfoCardRow,
   InfoCardSeparator,
 } from '@app/components/info-card/info-card';
 import { ModalHeader } from '@app/components/modal-header';
 import { PrimaryButton } from '@app/components/primary-button';
 import { useCurrentNativeSegwitUtxos } from '@app/query/bitcoin/address/address.hooks';
-import { useBitcoinFeeRate } from '@app/query/bitcoin/fees/fee-estimates.hooks';
 import { useBitcoinBroadcastTransaction } from '@app/query/bitcoin/transaction/use-bitcoin-broadcast-transaction';
 import { useCryptoCurrencyMarketData } from '@app/query/common/market-data/market-data.hooks';
 
@@ -31,12 +31,19 @@ import { useSendFormNavigate } from '../../hooks/use-send-form-navigate';
 
 const symbol = 'BTC';
 
-export function BtcSendFormConfirmation() {
+function useBtcSendFormConfirmationState() {
   const location = useLocation();
+  return {
+    tx: get(location.state, 'tx') as string,
+    fee: get(location.state, 'fee') as string,
+    arrivesIn: get(location.state, 'time') as string,
+    recipient: get(location.state, 'recipient') as string,
+  };
+}
+
+export function BtcSendFormConfirmation() {
   const navigate = useNavigate();
-  const tx = get(location.state, 'tx');
-  const recipient = get(location.state, 'recipient');
-  const fee = get(location.state, 'fee');
+  const { tx, recipient, fee, arrivesIn } = useBtcSendFormConfirmationState();
 
   const { refetch } = useCurrentNativeSegwitUtxos();
   const analytics = useAnalytics();
@@ -52,8 +59,6 @@ export function BtcSendFormConfirmation() {
     baseCurrencyAmountInQuote(createMoneyFromDecimal(Number(transferAmount), symbol), btcMarketData)
   );
   const txFiatValueSymbol = btcMarketData.price.symbol;
-  const { data: feeRate } = useBitcoinFeeRate();
-  const arrivesIn = feeRate ? `~${feeRate.fastestFee} min` : '~10 – 20 min';
 
   const feeInBtc = satToBtc(fee);
   const totalSpend = formatMoney(
@@ -107,16 +112,19 @@ export function BtcSendFormConfirmation() {
   useRouteHeader(<ModalHeader hideActions defaultClose defaultGoBack title="Review" />);
 
   return (
-    <InfoCard padding="extra-loose" data-testid={SendCryptoAssetSelectors.ConfirmationDetails}>
+    <InfoCard data-testid={SendCryptoAssetSelectors.ConfirmationDetails}>
       <InfoCardAssetValue
         value={Number(transferAmount)}
         fiatValue={txFiatValue}
         fiatSymbol={txFiatValueSymbol}
         symbol={symbol}
         data-testid={SendCryptoAssetSelectors.ConfirmationDetailsAssetValue}
+        mt="loose"
+        mb="extra-loose"
+        px="loose"
       />
 
-      <Stack width="100%" mb="36px">
+      <Stack width="100%" px="extra-loose" pb="extra-loose">
         <InfoCardRow
           title="To"
           value={<FormAddressDisplayer address={recipient} />}
@@ -133,9 +141,11 @@ export function BtcSendFormConfirmation() {
         <InfoCardRow title="Estimated confirmation time" value={arrivesIn} />
       </Stack>
 
-      <PrimaryButton isLoading={isBroadcasting} width="100%" onClick={initiateTransaction}>
-        Confirm and send transaction
-      </PrimaryButton>
+      <InfoCardFooter>
+        <PrimaryButton isLoading={isBroadcasting} width="100%" onClick={initiateTransaction}>
+          Confirm and send transaction
+        </PrimaryButton>
+      </InfoCardFooter>
     </InfoCard>
   );
 }

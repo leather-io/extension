@@ -15,7 +15,11 @@ import { useSignTransactionSoftwareWallet } from '@app/store/transactions/transa
 
 import { useStacksTransactionSummary } from './use-stacks-transaction-summary';
 
-export function useStacksBroadcastTransaction(unsignedTx: string, token: CryptoCurrencies) {
+export function useStacksBroadcastTransaction(
+  unsignedTx: string,
+  token: CryptoCurrencies,
+  decimals?: number
+) {
   const signSoftwareWalletTx = useSignTransactionSoftwareWallet();
   const [isBroadcasting, setIsBroadcasting] = useState(false);
   const { formSentSummaryTxState } = useStacksTransactionSummary(token);
@@ -32,7 +36,7 @@ export function useStacksBroadcastTransaction(unsignedTx: string, token: CryptoC
           ':txId',
           `${txId}`
         ),
-        formSentSummaryTxState(txId, signedTx)
+        formSentSummaryTxState(txId, signedTx, decimals)
       );
     }
 
@@ -85,5 +89,6 @@ export function useStacksBroadcastTransaction(unsignedTx: string, token: CryptoC
     isBroadcasting,
     token,
     formSentSummaryTxState,
+    decimals,
   ]);
 }

@@ -4,6 +4,9 @@ import { useNavigate } from 'react-router-dom';
 import { bytesToHex } from '@stacks/common';
 import { StacksTransaction } from '@stacks/transactions';
 
+import { BitcoinSendFormValues } from '@shared/models/form.model';
+import { RouteUrls } from '@shared/route-urls';
+
 interface ConfirmationRouteState {
   decimals?: number;
   token?: string;
@@ -17,6 +20,13 @@ interface ConfirmationRouteStacksSip10Args {
   tx: StacksTransaction;
 }
 
+interface ConfirmationRouteBtcArgs {
+  tx: string;
+  recipient: string;
+  fee: number;
+  time: string;
+}
+
 export function useSendFormNavigate() {
   const navigate = useNavigate();
 
@@ -25,13 +35,21 @@ export function useSendFormNavigate() {
       backToSendForm(state: any) {
         return navigate('../', { relative: 'path', replace: true, state });
       },
-      toConfirmAndSignBtcTransaction(tx: string, recipient: string, fee: number) {
-        return navigate('confirm', {
-          replace: true,
+      toChooseTransactionFee(values: BitcoinSendFormValues) {
+        return navigate('set-fee', {
+          state: {
+            values,
+            hasHeaderTitle: true,
+          },
+        });
+      },
+      toConfirmAndSignBtcTransaction({ tx, recipient, fee, time }: ConfirmationRouteBtcArgs) {
+        return navigate(RouteUrls.SendBtcConfirmation, {
           state: {
             tx,
             recipient,
             fee,
+            time,
             hasHeaderTitle: true,
           } as ConfirmationRouteState,
         });

@@ -7,7 +7,6 @@ import { BitcoinSendFormValues } from '@shared/models/form.model';
 import { btcToSat } from '@app/common/money/unit-conversion';
 import { determineUtxosForSpend } from '@app/common/transactions/bitcoin/coinselect/local-coin-selection';
 import { useGetUtxosByAddressQuery } from '@app/query/bitcoin/address/utxos-by-address.query';
-import { useBitcoinFeeRate } from '@app/query/bitcoin/fees/fee-estimates.hooks';
 import { useBitcoinLibNetworkConfig } from '@app/store/accounts/blockchain/bitcoin/bitcoin-keychain';
 import {
   useCurrentBitcoinNativeSegwitAddressIndexPublicKeychain,
@@ -21,10 +20,9 @@ export function useGenerateSignedBitcoinTx() {
   const currentAddressIndexKeychain = useCurrentBitcoinNativeSegwitAddressIndexPublicKeychain();
   const signTx = useSignBitcoinNativeSegwitTx();
   const networkMode = useBitcoinLibNetworkConfig();
-  const { data: feeRate } = useBitcoinFeeRate();
 
   return useCallback(
-    (values: BitcoinSendFormValues) => {
+    (values: BitcoinSendFormValues, feeRate: number) => {
       if (!utxos) return;
       if (!feeRate) return;
 
@@ -35,7 +33,7 @@ export function useGenerateSignedBitcoinTx() {
           utxos,
           recipient: values.recipient,
           amount: btcToSat(values.amount).toNumber(),
-          feeRate: feeRate.fastestFee,
+          feeRate,
         });
 
         // eslint-disable-next-line no-console
@@ -77,13 +75,6 @@ export function useGenerateSignedBitcoinTx() {
         return null;
       }
     },
-    [
-      currentAccountBtcAddress,
-      currentAddressIndexKeychain?.publicKey,
-      feeRate,
-      networkMode,
-      signTx,
-      utxos,
-    ]
+    [currentAccountBtcAddress, currentAddressIndexKeychain?.publicKey, networkMode, signTx, utxos]
   );
 }

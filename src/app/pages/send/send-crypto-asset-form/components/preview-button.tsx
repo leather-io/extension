@@ -16,7 +16,7 @@ export function PreviewButton(props: ButtonProps) {
       width="100%"
       {...props}
     >
-      Preview
+      Continue
     </Button>
   );
 }

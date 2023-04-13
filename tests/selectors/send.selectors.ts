@@ -20,4 +20,6 @@ export enum SendCryptoAssetSelectors {
   RecipientBnsAddressCopyToClipboard = 'recipient-bns-address-copy-to-clipboard',
   SendForm = 'send-form',
   SendMaxBtn = 'send-max-btn',
+
+  SendPageReady = 'send-page-ready',
 }

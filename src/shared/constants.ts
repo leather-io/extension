@@ -8,7 +8,6 @@ export const gaiaUrl = 'https://hub.blockstack.org';
 export const POPUP_CENTER_WIDTH = 442;
 export const POPUP_CENTER_HEIGHT = 646;
 
-export const HIGH_FEE_AMOUNT_BTC = 0.001;
 export const HIGH_FEE_AMOUNT_STX = 5;
 export const HIGH_FEE_WARNING_LEARN_MORE_URL_BTC = 'https://bitcoinfees.earn.com/';
 export const HIGH_FEE_WARNING_LEARN_MORE_URL_STX = 'https://hiro.so/questions/fee-estimates';

@@ -14,7 +14,7 @@ import { InfoCard, InfoCardRow, InfoCardSeparator } from '@app/components/info-c
 import { InscriptionPreview } from '@app/components/inscription-preview-card/components/inscription-preview';
 import { PrimaryButton } from '@app/components/primary-button';
 import { useCurrentNativeSegwitUtxos } from '@app/query/bitcoin/address/address.hooks';
-import { useBitcoinFeeRate } from '@app/query/bitcoin/fees/fee-estimates.hooks';
+import { btcTxTimeMap } from '@app/query/bitcoin/bitcoin-client';
 
 import { InscriptionPreviewCard } from '../../../components/inscription-preview-card/inscription-preview-card';
 import { useBitcoinBroadcastTransaction } from '../../../query/bitcoin/transaction/use-bitcoin-broadcast-transaction';
@@ -25,7 +25,7 @@ function useSendInscriptionReviewState() {
   return {
     signedTx: get(location.state, 'tx') as string,
     recipient: get(location.state, 'recipient', '') as string,
-    fee: get(location.state, 'fee'),
+    fee: get(location.state, 'fee') as number,
   };
 }
 
@@ -39,9 +39,7 @@ export function SendInscriptionReview() {
   const { refetch } = useCurrentNativeSegwitUtxos();
   const { broadcastTx, isBroadcasting } = useBitcoinBroadcastTransaction();
 
-  const { data: feeRate } = useBitcoinFeeRate();
-
-  const arrivesIn = feeRate ? `~${feeRate?.fastestFee} min` : '~10 – 20 min';
+  const arrivesIn = btcTxTimeMap.hourFee;
   const summaryFee = formatMoney(createMoney(Number(fee), 'BTC'));
 
   async function sendInscription() {
