@@ -36,6 +36,7 @@ interface AmountFieldProps {
   bottomInputOverlay?: JSX.Element;
   autofocus?: boolean;
   autoComplete?: 'on' | 'off';
+  tokenSymbol?: string;
 }
 export function AmountField({
   balance,
@@ -43,16 +44,21 @@ export function AmountField({
   bottomInputOverlay,
   autofocus = false,
   autoComplete = 'on',
+  tokenSymbol,
 }: AmountFieldProps) {
   const [field, meta] = useField('amount');
   const [fontSize, setFontSize] = useState(maxFontSize);
   const [previousTextLength, setPreviousTextLength] = useState(1);
 
-  const { decimals, symbol } = balance;
+  const { decimals } = balance;
+  const symbol = tokenSymbol || balance.symbol;
   const maxLength = decimals === 0 ? maxLengthDefault : decimals + 2;
   const fontSizeModifier = (maxFontSize - minFontSize) / maxLength;
 
   useEffect(() => {
+    // case, when e.g token doesn't have symbol
+    if (symbol.length > 4) setFontSize(minFontSize);
+
     // Typing
     if (field.value.length === symbol.length) setFontSize(maxFontSize);
     if (field.value.length > symbol.length && previousTextLength > field.value.length) {
