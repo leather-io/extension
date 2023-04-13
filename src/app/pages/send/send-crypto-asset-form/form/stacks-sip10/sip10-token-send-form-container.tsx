@@ -32,6 +32,7 @@ export function Sip10TokenSendFormContainer({
       bottomInputOverlay={
         <SendMaxButton balance={availableTokenBalance} sendMaxBalance={sendMaxBalance.toString()} />
       }
+      tokenSymbol={symbol}
       autoComplete="off"
     />
   );
