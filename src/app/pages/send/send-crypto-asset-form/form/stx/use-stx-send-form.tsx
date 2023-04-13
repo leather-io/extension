@@ -67,7 +67,9 @@ export function useStxSendForm() {
     stxFees,
 
     validationSchema: yup.object({
-      amount: stxAmountValidator().concat(stxAvailableBalanceValidator(availableStxBalance)),
+      amount: stxAmountValidator().concat(
+        stxAvailableBalanceValidator(availableStxBalance, pendingTxsBalance)
+      ),
       fee: stxFeeValidator(availableStxBalance),
       recipient,
       memo,
