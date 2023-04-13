@@ -75,7 +75,7 @@ export function makeTxExplorerLink({
     case 'bitcoin':
       return `https://mempool.space/${mode !== 'mainnet' ? mode + '/' : 'mainnet'}tx/${txid}`;
     case 'stacks':
-      return `https://explorer.stacks.co/txid/${txid}?chain=${mode}${suffix}`;
+      return `https://explorer.hiro.so/txid/${txid}?chain=${mode}${suffix}`;
     default:
       return '';
   }

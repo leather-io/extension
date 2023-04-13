@@ -15,7 +15,7 @@ export function PrincipalValue(props: PrincipalValueProps) {
       fontWeight={500}
       lineHeight="1.6"
       wordBreak="break-all"
-      onClick={() => openInNewTab(`https://explorer.stacks.co/address/${address}?chain=${mode}`)}
+      onClick={() => openInNewTab(`https://explorer.hiro.so/address/${address}?chain=${mode}`)}
       {...rest}
     >
       {address}
