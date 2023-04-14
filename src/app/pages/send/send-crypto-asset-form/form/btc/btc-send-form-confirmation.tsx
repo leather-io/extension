@@ -4,7 +4,6 @@ import { Stack } from '@stacks/ui';
 import { SendCryptoAssetSelectors } from '@tests/selectors/send.selectors';
 import get from 'lodash.get';
 
-import { BTC_DECIMALS } from '@shared/constants';
 import { decodeBitcoinTx } from '@shared/crypto/bitcoin/bitcoin.utils';
 import { createMoney, createMoneyFromDecimal } from '@shared/models/money.model';
 import { RouteUrls } from '@shared/route-urls';
@@ -12,7 +11,7 @@ import { RouteUrls } from '@shared/route-urls';
 import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
 import { useRouteHeader } from '@app/common/hooks/use-route-header';
 import { baseCurrencyAmountInQuote } from '@app/common/money/calculate-money';
-import { formatMoney, i18nFormatCurrency } from '@app/common/money/format-money';
+import { formatMoney, formatMoneyPadded, i18nFormatCurrency } from '@app/common/money/format-money';
 import { satToBtc } from '@app/common/money/unit-conversion';
 import { FormAddressDisplayer } from '@app/components/address-displayer/form-address-displayer';
 import {
@@ -66,7 +65,7 @@ export function BtcSendFormConfirmation() {
     createMoneyFromDecimal(Number(transferAmount) + Number(feeInBtc), symbol)
   );
   const sendingValue = formatMoney(createMoneyFromDecimal(Number(transferAmount), symbol));
-  const summaryFee = formatMoney(createMoney(Number(fee), symbol, BTC_DECIMALS));
+  const summaryFee = formatMoneyPadded(createMoney(Number(fee), symbol));
 
   async function initiateTransaction() {
     await broadcastTx({
