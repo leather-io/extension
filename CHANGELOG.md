@@ -1,3 +1,32 @@
+## [4.16.0](https://github.com/hirosystems/wallet/compare/v4.15.0...v4.16.0) (2023-04-17)
+
+
+### Features
+
+* add btc set fee choice ([485dbcd](https://github.com/hirosystems/wallet/commit/485dbcddfa95459b0d9249831f2c1ff4014fe554))
+* add collectibles analytic event ([6067028](https://github.com/hirosystems/wallet/commit/60670285ecd6b2ee490c6180ca1b275748954243))
+* add regtest support to BTC address config files ([8e84eb0](https://github.com/hirosystems/wallet/commit/8e84eb0be01f6f7745b85c2d9bd032f06e4c3b1a))
+* remove scraping for utxo inscriptions ([31acf9b](https://github.com/hirosystems/wallet/commit/31acf9bb2b9f1b93f24f84dd838f00e880060a07))
+
+
+### Bug Fixes
+
+* btc fees test ([b78c9a7](https://github.com/hirosystems/wallet/commit/b78c9a73d6ca6126429315fd4cfebd2e3a619049))
+* formatMoney needed a decimal ([a4521d9](https://github.com/hirosystems/wallet/commit/a4521d97f1c03af0365d46d7e060e63e2bbf5eb9))
+* google docs breaking, closes [#3502](https://github.com/hirosystems/wallet/issues/3502) ([c9830b2](https://github.com/hirosystems/wallet/commit/c9830b29208cc750b8cc34af5bbf5f174993b8b5))
+* infer pixelated images, set rendering ([0890016](https://github.com/hirosystems/wallet/commit/089001662a120fd9b03c43a86000fccf9e688bef))
+* issue with jumbled utxo ordering ([e7871b0](https://github.com/hirosystems/wallet/commit/e7871b0d74050e5ab072f315c7ec0282daf5590b))
+* missing inscriptoin frame, closes [#3520](https://github.com/hirosystems/wallet/issues/3520) ([a8c7622](https://github.com/hirosystems/wallet/commit/a8c76229351c497675b95122091d3b4ebeefa1d2))
+* sip10 tokens send bug ([afe15f4](https://github.com/hirosystems/wallet/commit/afe15f45377aa0fcbb8862b72d6a6f797df9e033))
+* temp hide psbt changes ([58520fd](https://github.com/hirosystems/wallet/commit/58520fd2a432d1c1c91648eca2e9d4074108bbe1))
+
+
+### Internal
+
+* hiro explorer path ([f02070a](https://github.com/hirosystems/wallet/commit/f02070ad2e587008015202b4a4534516e476ede6))
+* improve psbt ui ([f5c8b1e](https://github.com/hirosystems/wallet/commit/f5c8b1e3be397acb92a2e14247caf84d32e61c4f))
+* next version of psbt ui ([98ffb3a](https://github.com/hirosystems/wallet/commit/98ffb3a0f94ce66e021f74663afd0358998b8e4c))
+
 ## [4.15.0](https://github.com/hirosystems/wallet/compare/v4.14.0...v4.15.0) (2023-04-05)
 
 
