@@ -138,7 +138,7 @@
     "@scure/base": "1.1.1",
     "@scure/bip32": "1.1.5",
     "@scure/bip39": "1.1.1",
-    "@scure/btc-signer": "0.5.0",
+    "@scure/btc-signer": "0.5.1",
     "@segment/analytics-next": "1.49.2",
     "@sentry/react": "7.35.0",
     "@sentry/tracing": "7.35.0",

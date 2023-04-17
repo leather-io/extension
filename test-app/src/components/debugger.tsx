@@ -440,7 +440,7 @@ export const Debugger = () => {
           <Button
             mt={3}
             onClick={() =>
-              fetch('https://stacks-node-api.stacks.co/v2/info')
+              fetch('https://api.hiro.so/v2/info')
                 .then(resp => resp.json())
                 .then(console.log)
             }
