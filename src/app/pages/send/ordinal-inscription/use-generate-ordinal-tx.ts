@@ -40,7 +40,7 @@ export function useGenerateSignedOrdinalTx(trInput: TaprootUtxo) {
     try {
       const tx = new btc.Transaction();
 
-      // tr inscription input
+      // Inscription input
       tx.addInput({
         txid: trInput.txid,
         index: trInput.vout,
@@ -51,8 +51,19 @@ export function useGenerateSignedOrdinalTx(trInput: TaprootUtxo) {
         },
       });
 
-      inputs.forEach(input => tx.addInput(input));
+      // Fee-covering Native Segwit inputs
+      inputs.forEach(input =>
+        tx.addInput({
+          txid: input.txid,
+          index: input.vout,
+          witnessUtxo: {
+            amount: BigInt(input.value),
+            script: nativeSegwitSigner.payment.script,
+          },
+        })
+      );
 
+      // Recipient and change outputs
       outputs.forEach(output => tx.addOutputAddress(output.address, output.value, networkMode));
 
       // We know the first is TR and the rest are native segwit
