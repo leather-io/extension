@@ -36,7 +36,7 @@ export function useSendFormNavigate() {
         return navigate('../', { relative: 'path', replace: true, state });
       },
       toChooseTransactionFee(values: BitcoinSendFormValues) {
-        return navigate('set-fee', {
+        return navigate('choose-fee', {
           state: {
             values,
             hasHeaderTitle: true,
