@@ -23,9 +23,9 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">29.92% </span>
+                <span class="strong">30.23% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>38/127</span>
+                <span class='fraction'>39/129</span>
             </div>
         
             
@@ -37,16 +37,16 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">32.6% </span>
+                <span class="strong">31.91% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>15/46</span>
+                <span class='fraction'>15/47</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">31.25% </span>
+                <span class="strong">31.57% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>35/112</span>
+                <span class='fraction'>36/114</span>
             </div>
         
             
@@ -389,7 +389,17 @@
 <a name='L324'></a><a href='#L324'>324</a>
 <a name='L325'></a><a href='#L325'>325</a>
 <a name='L326'></a><a href='#L326'>326</a>
-<a name='L327'></a><a href='#L327'>327</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L327'></a><a href='#L327'>327</a>
+<a name='L328'></a><a href='#L328'>328</a>
+<a name='L329'></a><a href='#L329'>329</a>
+<a name='L330'></a><a href='#L330'>330</a>
+<a name='L331'></a><a href='#L331'>331</a>
+<a name='L332'></a><a href='#L332'>332</a>
+<a name='L333'></a><a href='#L333'>333</a>
+<a name='L334'></a><a href='#L334'>334</a>
+<a name='L335'></a><a href='#L335'>335</a>
+<a name='L336'></a><a href='#L336'>336</a>
+<a name='L337'></a><a href='#L337'>337</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -695,6 +705,16 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">9x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">11x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -727,7 +747,7 @@ import {
 import BigNumber from 'bignumber.js';
 import { toUnicode } from 'punycode';
 &nbsp;
-import { KEBAB_REGEX, NetworkModes } from '@shared/constants';
+import { BitcoinNetworkModes, KEBAB_REGEX, NetworkModes } from '@shared/constants';
 import { logger } from '@shared/logger';
 import type { Blockchains } from '@shared/models/blockchain.model';
 &nbsp;
@@ -778,7 +798,7 @@ export function <span class="fstat-no" title="function not covered" >validateAnd
 &nbsp;
 interface MakeTxExplorerLinkArgs {
   blockchain: Blockchains;
-  mode: NetworkModes;
+  mode: BitcoinNetworkModes;
   suffix?: string;
   txid: string;
 }
@@ -790,9 +810,9 @@ export function <span class="fstat-no" title="function not covered" >makeTxExplo
 }: MakeTxExplorerLinkArgs) {
 <span class="cstat-no" title="statement not covered" >  switch (blockchain) {</span>
     case 'bitcoin':
-<span class="cstat-no" title="statement not covered" >      return `https://mempool.space/${mode === 'testnet' ? 'testnet/' : ''}tx/${txid}`;</span>
+<span class="cstat-no" title="statement not covered" >      return `https://mempool.space/${mode !== 'mainnet' ? mode + '/' : 'mainnet'}tx/${txid}`;</span>
     case 'stacks':
-<span class="cstat-no" title="statement not covered" >      return `https://explorer.stacks.co/txid/${txid}?chain=${mode}${suffix}`;</span>
+<span class="cstat-no" title="statement not covered" >      return `https://explorer.hiro.so/txid/${txid}?chain=${mode}${suffix}`;</span>
     default:
 <span class="cstat-no" title="statement not covered" >      return '';</span>
   }
@@ -1008,17 +1028,27 @@ export function <span class="fstat-no" title="function not covered" >isPopupMode
 <span class="cstat-no" title="statement not covered" >  return pageMode === 'popup';</span>
 }
 &nbsp;
-interface WhenChainIdMap&lt;T&gt; {
+interface WhenStacksChainIdMap&lt;T&gt; {
   [ChainID.Mainnet]: T;
   [ChainID.Testnet]: T;
 }
-export function whenStxChainId(chainId: ChainID) {
-  return &lt;T&gt;(chainIdMap: WhenChainIdMap&lt;T&gt;): T =&gt; chainIdMap[chainId];
+export function whenStacksChainId(chainId: ChainID) {
+  return &lt;T&gt;(chainIdMap: WhenStacksChainIdMap&lt;T&gt;): T =&gt; chainIdMap[chainId];
 }
 &nbsp;
 type NetworkMap&lt;T&gt; = Record&lt;NetworkModes, T&gt;;
 export function <span class="fstat-no" title="function not covered" >whenNetwork(m</span>ode: NetworkModes) {
 <span class="cstat-no" title="statement not covered" >  return <span class="fstat-no" title="function not covered" >&lt;T&gt;(n</span>etworkMap: NetworkMap&lt;T&gt;): T =&gt; <span class="cstat-no" title="statement not covered" >networkMap[mode];</span></span>
+}
+&nbsp;
+const bitcoinNetworkToCoreNetworkMap: Record&lt;BitcoinNetworkModes, NetworkModes&gt; = {
+  mainnet: 'mainnet',
+  testnet: 'testnet',
+  regtest: 'testnet',
+  signet: 'testnet',
+};
+export function <span class="fstat-no" title="function not covered" >bitcoinNetworkModeToCoreNetworkMode(m</span>ode: BitcoinNetworkModes) {
+<span class="cstat-no" title="statement not covered" >  return bitcoinNetworkToCoreNetworkMap[mode];</span>
 }
 &nbsp;
 export function sumNumbers(nums: number[]) {
@@ -1048,7 +1078,7 @@ export function <span class="fstat-no" title="function not covered" >capitalize(
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2023-04-05T18:06:26.870Z
+                at 2023-04-17T13:45:59.639Z
             </div>
         <script src="../../../prettify.js"></script>
         <script>

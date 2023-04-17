@@ -25,28 +25,28 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>36/36</span>
+                <span class='fraction'>31/31</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>6/6</span>
+                <span class='fraction'>4/4</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>2/2</span>
+                <span class='fraction'>1/1</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>34/34</span>
+                <span class='fraction'>30/30</span>
             </div>
         
             
@@ -202,9 +202,7 @@
 <a name='L137'></a><a href='#L137'>137</a>
 <a name='L138'></a><a href='#L138'>138</a>
 <a name='L139'></a><a href='#L139'>139</a>
-<a name='L140'></a><a href='#L140'>140</a>
-<a name='L141'></a><a href='#L141'>141</a>
-<a name='L142'></a><a href='#L142'>142</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L140'></a><a href='#L140'>140</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -217,7 +215,6 @@
 <span class="cline-any cline-yes">12x</span>
 <span class="cline-any cline-yes">12x</span>
 <span class="cline-any cline-yes">12x</span>
-<span class="cline-any cline-yes">12x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">12x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -266,9 +263,8 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">12x</span>
-<span class="cline-any cline-yes">12x</span>
-<span class="cline-any cline-yes">12x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -355,7 +351,6 @@ export const gaiaUrl = 'https://hub.blockstack.org';
 export const POPUP_CENTER_WIDTH = 442;
 export const POPUP_CENTER_HEIGHT = 646;
 &nbsp;
-export const HIGH_FEE_AMOUNT_BTC = 0.001;
 export const HIGH_FEE_AMOUNT_STX = 5;
 export const HIGH_FEE_WARNING_LEARN_MORE_URL_BTC = 'https://bitcoinfees.earn.com/';
 export const HIGH_FEE_WARNING_LEARN_MORE_URL_STX = 'https://hiro.so/questions/fee-estimates';
@@ -374,13 +369,19 @@ export const MICROBLOCKS_ENABLED = !IS_TEST_ENV &amp;&amp; true;
 export const GITHUB_ORG = 'hirosystems';
 export const GITHUB_REPO = 'wallet';
 &nbsp;
-export enum DefaultNetworkConfigurationIds {
+export enum WalletDefaultNetworkConfigurationIds {
   mainnet = 'mainnet',
   testnet = 'testnet',
   devnet = 'devnet',
 }
 &nbsp;
-export type DefaultNetworkConfigurations = keyof typeof DefaultNetworkConfigurationIds;
+export type DefaultNetworkConfigurations = keyof typeof WalletDefaultNetworkConfigurationIds;
+&nbsp;
+export type NetworkModes = 'mainnet' | 'testnet';
+&nbsp;
+type BitcoinTestnetModes = 'testnet' | 'regtest' | 'signet';
+&nbsp;
+export type BitcoinNetworkModes = NetworkModes | BitcoinTestnetModes;
 &nbsp;
 interface BaseChainConfig {
   blockchain: Blockchains;
@@ -389,7 +390,7 @@ interface BaseChainConfig {
 interface BitcoinChainConfig extends BaseChainConfig {
   blockchain: 'bitcoin';
   url: string;
-  network: NetworkModes;
+  network: BitcoinNetworkModes;
 }
 &nbsp;
 interface StacksChainConfig extends BaseChainConfig {
@@ -407,13 +408,6 @@ export interface NetworkConfiguration {
   };
 }
 &nbsp;
-export enum DefaultNetworkModes {
-  mainnet = 'mainnet',
-  testnet = 'testnet',
-}
-&nbsp;
-export type NetworkModes = keyof typeof DefaultNetworkModes;
-&nbsp;
 const DEFAULT_SERVER_MAINNET = 'https://stacks-node-api.stacks.co';
 export const DEFAULT_SERVER_TESTNET = 'https://stacks-node-api.testnet.stacks.co';
 &nbsp;
@@ -424,7 +418,7 @@ export const BITCOIN_API_BASE_URL_MAINNET = 'https://blockstream.info/api';
 export const BITCOIN_API_BASE_URL_TESTNET = 'https://blockstream.info/testnet/api';
 &nbsp;
 const networkMainnet: NetworkConfiguration = {
-  id: DefaultNetworkConfigurationIds.mainnet,
+  id: WalletDefaultNetworkConfigurationIds.mainnet,
   name: 'Mainnet',
   chain: {
     stacks: {
@@ -441,7 +435,7 @@ const networkMainnet: NetworkConfiguration = {
 };
 &nbsp;
 const networkTestnet: NetworkConfiguration = {
-  id: DefaultNetworkConfigurationIds.testnet,
+  id: WalletDefaultNetworkConfigurationIds.testnet,
   name: 'Testnet',
   chain: {
     stacks: {
@@ -458,7 +452,7 @@ const networkTestnet: NetworkConfiguration = {
 };
 &nbsp;
 const networkDevnet: NetworkConfiguration = {
-  id: DefaultNetworkConfigurationIds.devnet,
+  id: WalletDefaultNetworkConfigurationIds.devnet,
   name: 'Devnet',
   chain: {
     stacks: {
@@ -468,8 +462,8 @@ const networkDevnet: NetworkConfiguration = {
     },
     bitcoin: {
       blockchain: 'bitcoin',
-      network: 'testnet',
-      url: BITCOIN_API_BASE_URL_TESTNET,
+      network: 'regtest',
+      url: 'http://localhost:18443',
     },
   },
 };
@@ -477,12 +471,12 @@ const networkDevnet: NetworkConfiguration = {
 export const defaultCurrentNetwork: NetworkConfiguration = networkMainnet;
 &nbsp;
 export const defaultNetworksKeyedById: Record&lt;
-  DefaultNetworkConfigurationIds,
+  WalletDefaultNetworkConfigurationIds,
   NetworkConfiguration
 &gt; = {
-  [DefaultNetworkConfigurationIds.mainnet]: networkMainnet,
-  [DefaultNetworkConfigurationIds.testnet]: networkTestnet,
-  [DefaultNetworkConfigurationIds.devnet]: networkDevnet,
+  [WalletDefaultNetworkConfigurationIds.mainnet]: networkMainnet,
+  [WalletDefaultNetworkConfigurationIds.testnet]: networkTestnet,
+  [WalletDefaultNetworkConfigurationIds.devnet]: networkDevnet,
 };
 &nbsp;
 export const DEFAULT_LIST_LIMIT = 50;
@@ -493,7 +487,7 @@ export const DEFAULT_LIST_LIMIT = 50;
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2023-04-05T18:06:26.870Z
+                at 2023-04-17T13:45:59.639Z
             </div>
         <script src="../../prettify.js"></script>
         <script>
