@@ -30,7 +30,10 @@ class AddressApi {
     return fetchData({
       errorMsg: 'No UTXOs fetched',
       url: `${this.configuration.baseUrl}/address/${address}/utxo`,
-    });
+    }).then((utxos: UtxoResponseItem[]) =>
+      // Sort by vout as blockstream API returns them inconsistently
+      utxos.sort((a, b) => a.vout - b.vout)
+    );
   }
 }
 
@@ -80,6 +83,20 @@ class TransactionsApi {
       },
     });
   }
+}
+
+export const btcTxTimeMap: Record<keyof FeeEstimateMempoolSpaceApi, string> = {
+  fastestFee: '~10 – 20min',
+  halfHourFee: '~30 min',
+  economyFee: '~1 hour+',
+  hourFee: '~1 hour+',
+  minimumFee: '~1 hour+',
+};
+
+export enum BtcFeeType {
+  High = 'High',
+  Standard = 'Standard',
+  Low = 'Low',
 }
 
 export class BitcoinClient {

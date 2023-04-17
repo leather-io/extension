@@ -1,4 +1,5 @@
 import React from 'react';
+
 import { Link } from '@components/link';
 import { Box } from '@stacks/ui';
 
@@ -13,7 +14,7 @@ export const ExplorerLink: React.FC<LinkProps> = ({ txId, text }) => {
   if (!id.startsWith('0x') && !id.includes('.')) {
     id = `0x${id}`;
   }
-  const url = `https://explorer.stacks.co/txid/${id}?chain=testnet`;
+  const url = `https://explorer.hiro.so/txid/${id}?chain=testnet`;
   return (
     <Box>
       <Link onClick={() => window.open(url, '_blank')} color="blue" display="inline-block" my={3}>

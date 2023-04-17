@@ -8,7 +8,6 @@ export const gaiaUrl = 'https://hub.blockstack.org';
 export const POPUP_CENTER_WIDTH = 442;
 export const POPUP_CENTER_HEIGHT = 646;
 
-export const HIGH_FEE_AMOUNT_BTC = 0.001;
 export const HIGH_FEE_AMOUNT_STX = 5;
 export const HIGH_FEE_WARNING_LEARN_MORE_URL_BTC = 'https://bitcoinfees.earn.com/';
 export const HIGH_FEE_WARNING_LEARN_MORE_URL_STX = 'https://hiro.so/questions/fee-estimates';
@@ -27,13 +26,19 @@ export const MICROBLOCKS_ENABLED = !IS_TEST_ENV && true;
 export const GITHUB_ORG = 'hirosystems';
 export const GITHUB_REPO = 'wallet';
 
-export enum DefaultNetworkConfigurationIds {
+export enum WalletDefaultNetworkConfigurationIds {
   mainnet = 'mainnet',
   testnet = 'testnet',
   devnet = 'devnet',
 }
 
-export type DefaultNetworkConfigurations = keyof typeof DefaultNetworkConfigurationIds;
+export type DefaultNetworkConfigurations = keyof typeof WalletDefaultNetworkConfigurationIds;
+
+export type NetworkModes = 'mainnet' | 'testnet';
+
+type BitcoinTestnetModes = 'testnet' | 'regtest' | 'signet';
+
+export type BitcoinNetworkModes = NetworkModes | BitcoinTestnetModes;
 
 interface BaseChainConfig {
   blockchain: Blockchains;
@@ -42,7 +47,7 @@ interface BaseChainConfig {
 interface BitcoinChainConfig extends BaseChainConfig {
   blockchain: 'bitcoin';
   url: string;
-  network: NetworkModes;
+  network: BitcoinNetworkModes;
 }
 
 interface StacksChainConfig extends BaseChainConfig {
@@ -60,13 +65,6 @@ export interface NetworkConfiguration {
   };
 }
 
-export enum DefaultNetworkModes {
-  mainnet = 'mainnet',
-  testnet = 'testnet',
-}
-
-export type NetworkModes = keyof typeof DefaultNetworkModes;
-
 const DEFAULT_SERVER_MAINNET = 'https://stacks-node-api.stacks.co';
 export const DEFAULT_SERVER_TESTNET = 'https://stacks-node-api.testnet.stacks.co';
 
@@ -77,7 +75,7 @@ export const BITCOIN_API_BASE_URL_MAINNET = 'https://blockstream.info/api';
 export const BITCOIN_API_BASE_URL_TESTNET = 'https://blockstream.info/testnet/api';
 
 const networkMainnet: NetworkConfiguration = {
-  id: DefaultNetworkConfigurationIds.mainnet,
+  id: WalletDefaultNetworkConfigurationIds.mainnet,
   name: 'Mainnet',
   chain: {
     stacks: {
@@ -94,7 +92,7 @@ const networkMainnet: NetworkConfiguration = {
 };
 
 const networkTestnet: NetworkConfiguration = {
-  id: DefaultNetworkConfigurationIds.testnet,
+  id: WalletDefaultNetworkConfigurationIds.testnet,
   name: 'Testnet',
   chain: {
     stacks: {
@@ -111,7 +109,7 @@ const networkTestnet: NetworkConfiguration = {
 };
 
 const networkDevnet: NetworkConfiguration = {
-  id: DefaultNetworkConfigurationIds.devnet,
+  id: WalletDefaultNetworkConfigurationIds.devnet,
   name: 'Devnet',
   chain: {
     stacks: {
@@ -121,8 +119,8 @@ const networkDevnet: NetworkConfiguration = {
     },
     bitcoin: {
       blockchain: 'bitcoin',
-      network: 'testnet',
-      url: BITCOIN_API_BASE_URL_TESTNET,
+      network: 'regtest',
+      url: 'http://localhost:18443',
     },
   },
 };
@@ -130,12 +128,12 @@ const networkDevnet: NetworkConfiguration = {
 export const defaultCurrentNetwork: NetworkConfiguration = networkMainnet;
 
 export const defaultNetworksKeyedById: Record<
-  DefaultNetworkConfigurationIds,
+  WalletDefaultNetworkConfigurationIds,
   NetworkConfiguration
 > = {
-  [DefaultNetworkConfigurationIds.mainnet]: networkMainnet,
-  [DefaultNetworkConfigurationIds.testnet]: networkTestnet,
-  [DefaultNetworkConfigurationIds.devnet]: networkDevnet,
+  [WalletDefaultNetworkConfigurationIds.mainnet]: networkMainnet,
+  [WalletDefaultNetworkConfigurationIds.testnet]: networkTestnet,
+  [WalletDefaultNetworkConfigurationIds.devnet]: networkDevnet,
 };
 
 export const DEFAULT_LIST_LIMIT = 50;

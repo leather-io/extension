@@ -5,14 +5,16 @@ import { SettingsMenuSelectors } from '@tests/selectors/settings.selectors';
 import { SharedComponentsSelectors } from '@tests/selectors/shared-component.selectors';
 import { createTestSelector } from '@tests/utils';
 
-import { DefaultNetworkConfigurationIds } from '@shared/constants';
+import { WalletDefaultNetworkConfigurationIds } from '@shared/constants';
 
 export class HomePage {
   readonly page: Page;
   readonly drawerActionButton: Locator;
   readonly receiveButton: Locator;
   readonly sendButton: Locator;
-  readonly testNetworkSelector: string = createTestSelector(DefaultNetworkConfigurationIds.testnet);
+  readonly testNetworkSelector: string = createTestSelector(
+    WalletDefaultNetworkConfigurationIds.testnet
+  );
 
   constructor(page: Page) {
     this.page = page;
@@ -54,6 +56,6 @@ export class HomePage {
     await (
       await this.page.waitForSelector(this.testNetworkSelector, { timeout: 30000 })
     ).isEnabled();
-    await this.page.getByTestId(DefaultNetworkConfigurationIds.testnet).click();
+    await this.page.getByTestId(WalletDefaultNetworkConfigurationIds.testnet).click();
   }
 }

@@ -1,10 +1,13 @@
 import { hexToBytes } from '@noble/hashes/utils';
 import { HDKey } from '@scure/bip32';
 import * as btc from '@scure/btc-signer';
+import * as P from 'micro-packed';
 
-import { NetworkModes } from '@shared/constants';
+import { BitcoinNetworkModes, NetworkModes } from '@shared/constants';
+import { logger } from '@shared/logger';
 
 import { DerivationPathDepth } from '../derivation-path.utils';
+import { BitcoinNetwork, getBtcSignerLibNetworkConfigByMode } from './bitcoin.network';
 
 const coinTypeMap: Record<NetworkModes, 0 | 1> = {
   mainnet: 0,
@@ -35,4 +38,36 @@ export function ecdsaPublicKeyToSchnorr(pubKey: Uint8Array) {
 
 export function decodeBitcoinTx(tx: string) {
   return btc.RawTx.decode(hexToBytes(tx));
+}
+
+const concat = P.concatBytes;
+
+function formatKey(hashed: Uint8Array, prefix: number[]): string {
+  return btc.base58check.encode(concat(Uint8Array.from(prefix), hashed));
+}
+
+function getAddressFromWshOutScript(script: Uint8Array, network: BitcoinNetwork) {
+  return btc.programToWitness(0, script.slice(2), network);
+}
+
+function getAddressFromWpkhOutScript(script: Uint8Array, network: BitcoinNetwork) {
+  return btc.programToWitness(0, script.slice(2), network);
+}
+
+function getAddressFromTrOutScript(script: Uint8Array, network: BitcoinNetwork) {
+  return btc.programToWitness(1, script.slice(2), network);
+}
+
+export function getAddressFromOutScript(script: Uint8Array, network: BitcoinNetworkModes) {
+  const outScript = btc.OutScript.decode(script);
+  // This appears to be undefined at times?
+  const bitcoinNetwork = getBtcSignerLibNetworkConfigByMode(network);
+
+  if (outScript.type === 'wsh') return getAddressFromWshOutScript(script, bitcoinNetwork);
+  else if (outScript.type === 'wpkh') return getAddressFromWpkhOutScript(script, bitcoinNetwork);
+  else if (outScript.type === 'tr') return getAddressFromTrOutScript(script, bitcoinNetwork);
+  else if (outScript.type === 'pkh') return formatKey(script, [bitcoinNetwork?.pubKeyHash]);
+  else if (outScript.type === 'sh') return formatKey(script, [bitcoinNetwork?.scriptHash]);
+  logger.error(`Unknown address type=${outScript.type}`);
+  return '';
 }

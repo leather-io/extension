@@ -1,6 +1,6 @@
 import { useFormikContext } from 'formik';
 
-import { Fees } from '@shared/models/fees/_fees.model';
+import { Fees } from '@shared/models/fees/fees.model';
 import { StacksTransactionFormValues } from '@shared/models/form.model';
 
 import { isTxSponsored } from '@app/common/transactions/stacks/transaction.utils';

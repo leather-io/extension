@@ -1,7 +1,7 @@
 import { ChainID } from '@stacks/transactions';
 import { RateLimiter } from 'limiter';
 
-import { whenStxChainId } from '@app/common/utils';
+import { whenStacksChainId } from '@app/common/utils';
 import { useCurrentNetworkState } from '@app/store/networks/networks.hooks';
 
 const hiroStacksMainnetApiLimiter = new RateLimiter({
@@ -17,7 +17,7 @@ const hiroStacksTestnetApiLimiter = new RateLimiter({
 export function useHiroApiRateLimiter() {
   const network = useCurrentNetworkState();
 
-  return whenStxChainId(network.chain.stacks.chainId)({
+  return whenStacksChainId(network.chain.stacks.chainId)({
     [ChainID.Mainnet]: hiroStacksMainnetApiLimiter,
     [ChainID.Testnet]: hiroStacksTestnetApiLimiter,
   });

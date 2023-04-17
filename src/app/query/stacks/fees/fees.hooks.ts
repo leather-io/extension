@@ -3,7 +3,7 @@ import { useMemo } from 'react';
 import { StacksTransaction } from '@stacks/transactions';
 
 import { logger } from '@shared/logger';
-import { FeeCalculationTypes, Fees } from '@shared/models/fees/_fees.model';
+import { FeeCalculationTypes, Fees } from '@shared/models/fees/fees.model';
 import { StacksFeeEstimate, StacksTxFeeEstimation } from '@shared/models/fees/stacks-fees.model';
 import { Money, createMoney } from '@shared/models/money.model';
 

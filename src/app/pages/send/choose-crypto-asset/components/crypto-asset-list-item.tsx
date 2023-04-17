@@ -26,7 +26,7 @@ export function CryptoAssetListItem(props: CryptoAssetListItemProps) {
     if (blockchain === 'bitcoin' && !isBitcoinSendEnabled) {
       return navigate(RouteUrls.SendBtcDisabled);
     }
-    const symbol = asset.symbol.toLowerCase();
+    const symbol = asset.symbol === '' ? asset.contractAssetName : asset.symbol.toLowerCase();
 
     if (isFtToken) {
       const asset = (assetBalance as StacksFungibleTokenAssetBalance).asset;

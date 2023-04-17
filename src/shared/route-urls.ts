@@ -69,6 +69,7 @@ export enum RouteUrls {
   SendStacksSip10Confirmation = '/send/:symbol/confirm',
   SentBtcTxSummary = '/sent/btc/:txId',
   SentStxTxSummary = '/sent/stx/:txId',
+  SendBtcSetFee = '/send/btc/set-fee',
 
   // Send ordinal inscriptions
   SendOrdinalInscription = '/send/ordinal-inscription',
@@ -77,6 +78,7 @@ export enum RouteUrls {
   SendOrdinalInscriptionSummary = '/send/ordinal-inscription/',
   SendOrdinalInscriptionSent = '/send/ordinal-inscription/sent',
   SendOrdinalInscriptionError = '/send/ordinal-inscription/error',
+  SendOrdinalInscriptionSetFee = '/send/ordinal-inscription/set-fee',
 
   // Request routes
   RpcGetAddresses = '/get-addresses',

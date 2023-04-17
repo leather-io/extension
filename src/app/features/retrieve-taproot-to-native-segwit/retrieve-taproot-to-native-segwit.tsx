@@ -23,7 +23,7 @@ import { useCurrentBtcNativeSegwitAccountAddressIndexZero } from '@app/store/acc
 import { RetrieveTaprootToNativeSegwitLayout } from './components/retrieve-taproot-to-native-segwit.layout';
 import { useGenerateRetrieveTaprootFundsTx } from './use-generate-retrieve-taproot-funds-tx';
 
-export function RetrieveTaprooToNativeSegwit() {
+export function RetrieveTaprootToNativeSegwit() {
   const navigate = useNavigate();
   const { setActiveTabActivity } = useHomeTabs();
   const balance = useCurrentTaprootAccountBalance();
@@ -69,7 +69,9 @@ export function RetrieveTaprooToNativeSegwit() {
               key={utxo.txid}
               title={`Uninscribed UTXO #${i}`}
               value={
-                <ExternalLink href={`https://ord.ordscan.xyz/output/${utxo.txid}:${utxo.vout}`}>
+                <ExternalLink
+                  href={`https://ordinals-explorer.generative.xyz/output/${utxo.txid}:${utxo.vout}`}
+                >
                   {`${truncateMiddle(utxo.txid, 4)}:${utxo.vout}`} ↗
                 </ExternalLink>
               }

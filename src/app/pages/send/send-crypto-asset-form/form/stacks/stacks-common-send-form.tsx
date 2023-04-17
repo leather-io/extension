@@ -5,7 +5,7 @@ import { Form, Formik, FormikHelpers } from 'formik';
 import { OptionalObjectSchema } from 'yup/lib/object';
 
 import { HIGH_FEE_WARNING_LEARN_MORE_URL_STX } from '@shared/constants';
-import { Fees } from '@shared/models/fees/_fees.model';
+import { Fees } from '@shared/models/fees/fees.model';
 import { StacksSendFormValues } from '@shared/models/form.model';
 import { Money } from '@shared/models/money.model';
 import { RouteUrls } from '@shared/route-urls';

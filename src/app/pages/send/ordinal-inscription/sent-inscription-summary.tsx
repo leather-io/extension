@@ -6,6 +6,7 @@ import { Box, Stack, useClipboard } from '@stacks/ui';
 import get from 'lodash.get';
 
 import { Blockchains } from '@shared/models/blockchain.model';
+import { SupportedInscription } from '@shared/models/inscription.model';
 import { RouteUrls } from '@shared/route-urls';
 
 import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
@@ -18,9 +19,9 @@ import {
   InfoCardRow,
   InfoCardSeparator,
 } from '@app/components/info-card/info-card';
+import { InscriptionPreview } from '@app/components/inscription-preview-card/components/inscription-preview';
 
-import { CollectiblePreviewCard } from './components/collectible-preview-card';
-import { Inscription } from './use-send-ordinal-inscription-route-state';
+import { InscriptionPreviewCard } from '../../../components/inscription-preview-card/inscription-preview-card';
 
 function useSendInscriptionSummaryState() {
   const location = useLocation();
@@ -29,7 +30,7 @@ function useSendInscriptionSummaryState() {
     recipient: get(location.state, 'recipient', '') as string,
     arrivesIn: get(location.state, 'arrivesIn') as string,
     summaryFee: get(location.state, 'summaryFee') as string,
-    inscription: get(location.state, 'inscription') as Inscription,
+    inscription: get(location.state, 'inscription') as SupportedInscription,
   };
 }
 
@@ -58,9 +59,11 @@ export function SendInscriptionSummary() {
   return (
     <BaseDrawer title="Sent" isShowing onClose={() => navigate(RouteUrls.Home)}>
       <Box px="extra-loose" mt="extra-loose">
-        <CollectiblePreviewCard
-          inscription={inscription}
+        <InscriptionPreviewCard
           icon={<Box size="32px" as={FiCheck} mt="2px" />}
+          image={<InscriptionPreview inscription={inscription} />}
+          subtitle="Ordinal inscription"
+          title={inscription.title}
         />
       </Box>
 

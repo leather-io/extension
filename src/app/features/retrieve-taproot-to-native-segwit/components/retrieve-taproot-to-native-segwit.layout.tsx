@@ -36,7 +36,7 @@ export function RetrieveTaprootToNativeSegwitLayout(
         {children}
         <WarningLabel mt="loose">
           We recommend you check the URL for each "Uninscribed UTXO" listed above to ensure it
-          displays no inscription. If it does diplay one, do not proceed with retrieval or you may
+          displays no inscription. If it does display one, do not proceed with retrieval or you may
           loose it!
         </WarningLabel>
         <PrimaryButton

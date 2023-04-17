@@ -12,6 +12,7 @@ import {
   InfoCard,
   InfoCardAssetValue,
   InfoCardBtn,
+  InfoCardFooter,
   InfoCardRow,
   InfoCardSeparator,
 } from '@app/components/info-card/info-card';
@@ -50,16 +51,18 @@ export function BtcSentSummary() {
   useRouteHeader(<ModalHeader hideActions defaultClose title="Sent" />);
 
   return (
-    <InfoCard pt="extra-loose" pb="base-loose" px="extra-loose">
+    <InfoCard>
       <InfoCardAssetValue
         value={txValue}
         fiatValue={txFiatValue}
         fiatSymbol={txFiatValueSymbol}
         symbol={symbol}
         icon={FiCheck}
+        my="loose"
+        px="loose"
       />
 
-      <Stack width="100%" mb="44px">
+      <Stack width="100%" px="extra-loose" pb="extra-loose">
         <InfoCardRow title="To" value={<FormAddressDisplayer address={recipient} />} />
         <InfoCardSeparator />
         <InfoCardRow title="Total spend" value={totalSpend} />
@@ -69,10 +72,12 @@ export function BtcSentSummary() {
         <InfoCardRow title="Arrives in" value={arrivesIn} />
       </Stack>
 
-      <Stack spacing="base" isInline width="100%">
-        <InfoCardBtn onClick={onClickLink} icon={FiExternalLink} label="View Details" />
-        <InfoCardBtn onClick={onClickCopy} icon={FiCopy} label="Copy ID" />
-      </Stack>
+      <InfoCardFooter>
+        <Stack spacing="base" isInline width="100%">
+          <InfoCardBtn onClick={onClickLink} icon={FiExternalLink} label="View Details" />
+          <InfoCardBtn onClick={onClickCopy} icon={FiCopy} label="Copy ID" />
+        </Stack>
+      </InfoCardFooter>
     </InfoCard>
   );
 }

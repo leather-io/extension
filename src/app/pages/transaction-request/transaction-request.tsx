@@ -7,7 +7,7 @@ import get from 'lodash.get';
 import * as yup from 'yup';
 
 import { HIGH_FEE_WARNING_LEARN_MORE_URL_STX } from '@shared/constants';
-import { FeeTypes } from '@shared/models/fees/_fees.model';
+import { FeeTypes } from '@shared/models/fees/fees.model';
 import { StacksTransactionFormValues } from '@shared/models/form.model';
 import { RouteUrls } from '@shared/route-urls';
 

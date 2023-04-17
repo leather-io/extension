@@ -1,8 +1,8 @@
-import { NetworkModes } from '@shared/constants';
+import { BitcoinNetworkModes } from '@shared/constants';
 
 // See this PR https://github.com/paulmillr/@scure/btc-signer/pull/15
 // Atttempting to add these directly to the library
-interface BitcoinNetwork {
+export interface BitcoinNetwork {
   bech32: string;
   pubKeyHash: number;
   scriptHash: number;
@@ -23,11 +23,27 @@ const bitcoinTestnet: BitcoinNetwork = {
   wif: 0xef,
 };
 
-const bitcoinNetworks: Record<NetworkModes, BitcoinNetwork> = {
-  mainnet: bitcoinMainnet,
-  testnet: bitcoinTestnet,
+const bitcoinRegtest: BitcoinNetwork = {
+  bech32: 'bcrt',
+  pubKeyHash: 0x6f,
+  scriptHash: 0xc4,
+  wif: 0xef,
 };
 
-export function getBtcSignerLibNetworkByMode(network: NetworkModes) {
+const bitcoinSignet: BitcoinNetwork = {
+  bech32: 'sb',
+  pubKeyHash: 0x3f,
+  scriptHash: 0x7f,
+  wif: 0x80,
+};
+
+const bitcoinNetworks: Record<BitcoinNetworkModes, BitcoinNetwork> = {
+  mainnet: bitcoinMainnet,
+  testnet: bitcoinTestnet,
+  regtest: bitcoinRegtest,
+  signet: bitcoinSignet,
+};
+
+export function getBtcSignerLibNetworkConfigByMode(network: BitcoinNetworkModes) {
   return bitcoinNetworks[network];
 }

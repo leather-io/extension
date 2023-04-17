@@ -7,7 +7,7 @@ import {
   NetworkConfiguration,
 } from '@shared/constants';
 
-import { whenStxChainId } from '@app/common/utils';
+import { whenStacksChainId } from '@app/common/utils';
 
 import { PersistedNetworkConfiguration } from './networks.slice';
 
@@ -65,7 +65,7 @@ export function transformNetworkStateToMultichainStucture(
               bitcoin: {
                 blockchain: 'bitcoin',
                 network: ChainID[chainId].toLowerCase(),
-                url: whenStxChainId(chainId)({
+                url: whenStacksChainId(chainId)({
                   [ChainID.Mainnet]: BITCOIN_API_BASE_URL_MAINNET,
                   [ChainID.Testnet]: BITCOIN_API_BASE_URL_TESTNET,
                 }),

@@ -25,7 +25,7 @@ export function useStacksTransactionSummary(token: CryptoCurrencies) {
   const { isTestnet } = useCurrentNetworkState();
   const { data: blockTime } = useStacksBlockTime();
 
-  function formSentSummaryTxState(txId: string, signedTx: StacksTransaction) {
+  function formSentSummaryTxState(txId: string, signedTx: StacksTransaction, decimals?: number) {
     return {
       state: {
         hasHeaderTitle: true,
@@ -34,7 +34,7 @@ export function useStacksTransactionSummary(token: CryptoCurrencies) {
           txid: txId || '',
         },
         txId,
-        ...formReviewTxSummary(signedTx, token),
+        ...formReviewTxSummary(signedTx, token, decimals),
       },
     };
   }

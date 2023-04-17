@@ -2,7 +2,7 @@ Object.assign(global, require('jest-chrome'));
 
 // setup jsdom inside `node` test environment
 const JSDOM = require('jsdom').JSDOM;
-const LocalStorageMock = require('@tests-legacy/mocks/localStorage-mock').LocalStorageMock;
+const LocalStorageMock = require('@tests-legacy/mocks/local-storage-mock').LocalStorageMock;
 
 const dom = new JSDOM('', { url: 'http://localhost/' });
 

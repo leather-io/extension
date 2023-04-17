@@ -68,13 +68,7 @@ export function ModalHeader({
         </Title>
       </Flex>
 
-      <Flex
-        alignItems="center"
-        flexBasis="20%"
-        isInline
-        justifyContent="flex-end"
-        position="relative"
-      >
+      <Flex alignItems="center" flexBasis="20%" justifyContent="flex-end" position="relative">
         <NetworkModeBadge position="absolute" right="35px" />
         {(onClose || defaultClose) && (
           <IconButton

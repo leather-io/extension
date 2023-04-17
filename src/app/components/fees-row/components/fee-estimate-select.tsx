@@ -1,5 +1,5 @@
-import { FeeTypes } from '@shared/models/fees/_fees.model';
 import { BitcoinFeeEstimate } from '@shared/models/fees/bitcoin-fees.model';
+import { FeeTypes } from '@shared/models/fees/fees.model';
 import { StacksFeeEstimate } from '@shared/models/fees/stacks-fees.model';
 
 import { FeeEstimateItem } from './fee-estimate-item';

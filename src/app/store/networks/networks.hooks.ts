@@ -4,9 +4,9 @@ import { useSelector } from 'react-redux';
 import { StacksMainnet, StacksNetwork, StacksTestnet } from '@stacks/network';
 import { ChainID } from '@stacks/transactions';
 
-import { DefaultNetworkModes } from '@shared/constants';
+import { NetworkModes } from '@shared/constants';
 
-import { whenStxChainId } from '@app/common/utils';
+import { whenStacksChainId } from '@app/common/utils';
 import { useAppDispatch } from '@app/store';
 
 import { networksActions } from './networks.actions';
@@ -18,7 +18,7 @@ export function useCurrentNetworkState() {
 
   return useMemo(() => {
     const isTestnet = currentNetwork.chain.stacks.chainId === ChainID.Testnet;
-    const mode = isTestnet ? DefaultNetworkModes.testnet : DefaultNetworkModes.mainnet;
+    const mode = (isTestnet ? 'testnet' : 'mainnet') as NetworkModes;
     return { ...currentNetwork, isTestnet, mode };
   }, [currentNetwork]);
 }
@@ -29,7 +29,7 @@ export function useCurrentStacksNetworkState(): StacksNetwork {
   return useMemo(() => {
     if (!currentNetwork) throw new Error('No current network');
 
-    const stacksNetwork = whenStxChainId(currentNetwork.chain.stacks.chainId || 1)({
+    const stacksNetwork = whenStacksChainId(currentNetwork.chain.stacks.chainId)({
       [ChainID.Mainnet]: new StacksMainnet({ url: currentNetwork.chain.stacks.url }),
       [ChainID.Testnet]: new StacksTestnet({ url: currentNetwork.chain.stacks.url }),
     });

@@ -8,7 +8,7 @@ import { deriveAddressIndexZeroFromAccount } from '@shared/crypto/bitcoin/bitcoi
 import { deriveNativeSegWitReceiveAddressIndex } from '@shared/crypto/bitcoin/p2wpkh-address-gen';
 import { isUndefined } from '@shared/utils';
 
-import { whenNetwork } from '@app/common/utils';
+import { bitcoinNetworkModeToCoreNetworkMode, whenNetwork } from '@app/common/utils';
 import {
   formatBitcoinAccount,
   tempHardwareAccountForTesting,
@@ -24,7 +24,7 @@ import {
 function useNativeSegWitCurrentNetworkAccountKeychain() {
   const network = useCurrentNetwork();
   return useSelector(
-    whenNetwork(network.chain.bitcoin.network)({
+    whenNetwork(bitcoinNetworkModeToCoreNetworkMode(network.chain.bitcoin.network))({
       mainnet: selectMainnetNativeSegWitKeychain,
       testnet: selectTestnetNativeSegWitKeychain,
     })
@@ -63,6 +63,10 @@ export function useAllBitcoinNativeSegWitNetworksByAccount() {
         testnet: deriveNativeSegWitReceiveAddressIndex({
           xpub: testnetKeychainAtAccount(accountIndex).publicExtendedKey,
           network: 'testnet',
+        })?.address,
+        regtest: deriveNativeSegWitReceiveAddressIndex({
+          xpub: testnetKeychainAtAccount(accountIndex).publicExtendedKey,
+          network: 'regtest',
         })?.address,
       };
     },

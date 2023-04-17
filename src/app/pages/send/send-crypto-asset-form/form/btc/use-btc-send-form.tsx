@@ -3,13 +3,10 @@ import { useRef } from 'react';
 import { FormikHelpers, FormikProps } from 'formik';
 import * as yup from 'yup';
 
-import { HIGH_FEE_AMOUNT_BTC } from '@shared/constants';
 import { logger } from '@shared/logger';
 import { BitcoinSendFormValues } from '@shared/models/form.model';
-import { isEmpty } from '@shared/utils';
 
 import { formatPrecisionError } from '@app/common/error-formatters';
-import { useDrawers } from '@app/common/hooks/use-drawers';
 import { useWalletType } from '@app/common/use-wallet-type';
 import {
   btcAddressNetworkValidator,
@@ -27,7 +24,6 @@ import { useCurrentBtcNativeSegwitAccountAddressIndexZero } from '@app/store/acc
 import { useCurrentNetwork } from '@app/store/networks/networks.selectors';
 
 import { useCalculateMaxBitcoinSpend } from '../../family/bitcoin/hooks/use-calculate-max-spend';
-import { useGenerateSignedBitcoinTx } from '../../family/bitcoin/hooks/use-generate-bitcoin-tx';
 import { useSendFormNavigate } from '../../hooks/use-send-form-navigate';
 
 export function useBtcSendForm() {
@@ -35,10 +31,8 @@ export function useBtcSendForm() {
   const currentNetwork = useCurrentNetwork();
   const currentAccountBtcAddress = useCurrentBtcNativeSegwitAccountAddressIndexZero();
   const btcCryptoCurrencyAssetBalance = useNativeSegwitBalance(currentAccountBtcAddress);
-  const { isShowingHighFeeConfirmation, setIsShowingHighFeeConfirmation } = useDrawers();
   const { whenWallet } = useWalletType();
   const sendFormNavigate = useSendFormNavigate();
-  const generateTx = useGenerateSignedBitcoinTx();
   const calcMaxSpend = useCalculateMaxBitcoinSpend();
   const { onFormStateChange } = useUpdatePersistedSendFormValues();
 
@@ -70,29 +64,16 @@ export function useBtcSendForm() {
         .concat(notCurrentAddressValidator(currentAccountBtcAddress || '')),
     }),
 
-    async previewTransaction(
+    async chooseTransactionFee(
       values: BitcoinSendFormValues,
       formikHelpers: FormikHelpers<BitcoinSendFormValues>
     ) {
       logger.debug('btc form values', values);
       // Validate and check high fee warning first
-      const formErrors = await formikHelpers.validateForm();
-      if (
-        !isShowingHighFeeConfirmation &&
-        isEmpty(formErrors) &&
-        values.fee > HIGH_FEE_AMOUNT_BTC
-      ) {
-        return setIsShowingHighFeeConfirmation(true);
-      }
-
-      const resp = generateTx(values);
-
-      if (!resp) return logger.error('Attempted to generate raw tx, but no tx exists');
-
-      const { hex, fee } = resp;
+      await formikHelpers.validateForm();
 
       whenWallet({
-        software: () => sendFormNavigate.toConfirmAndSignBtcTransaction(hex, values.recipient, fee),
+        software: () => sendFormNavigate.toChooseTransactionFee(values),
         ledger: () => {},
       })();
     },
