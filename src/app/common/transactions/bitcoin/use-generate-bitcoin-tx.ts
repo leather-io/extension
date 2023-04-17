@@ -3,9 +3,8 @@ import { useCallback } from 'react';
 import * as btc from '@scure/btc-signer';
 
 import { logger } from '@shared/logger';
-import { BitcoinSendFormValues } from '@shared/models/form.model';
+import { Money } from '@shared/models/money.model';
 
-import { btcToSat } from '@app/common/money/unit-conversion';
 import { determineUtxosForSpend } from '@app/common/transactions/bitcoin/coinselect/local-coin-selection';
 import { useGetUtxosByAddressQuery } from '@app/query/bitcoin/address/utxos-by-address.query';
 import { useBitcoinLibNetworkConfig } from '@app/store/accounts/blockchain/bitcoin/bitcoin-keychain';
@@ -15,6 +14,11 @@ import {
   useCurrentBtcNativeSegwitAccountAddressIndexZero,
 } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
 
+interface GenerateBitcoinTxValues {
+  amount: Money;
+  recipient: string;
+}
+
 export function useGenerateSignedBitcoinTx() {
   const currentAccountBtcAddress = useCurrentBtcNativeSegwitAccountAddressIndexZero();
   const { data: utxos } = useGetUtxosByAddressQuery(currentAccountBtcAddress);
@@ -23,7 +27,7 @@ export function useGenerateSignedBitcoinTx() {
   const networkMode = useBitcoinLibNetworkConfig();
 
   return useCallback(
-    (values: BitcoinSendFormValues, feeRate: number) => {
+    (values: GenerateBitcoinTxValues, feeRate: number) => {
       if (!utxos) return;
       if (!feeRate) return;
       if (!createSigner) return;
@@ -36,7 +40,7 @@ export function useGenerateSignedBitcoinTx() {
         const { inputs, outputs, fee } = determineUtxosForSpend({
           utxos,
           recipient: values.recipient,
-          amount: btcToSat(values.amount).toNumber(),
+          amount: values.amount.amount.toNumber(),
           feeRate,
         });
 

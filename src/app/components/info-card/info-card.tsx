@@ -14,7 +14,7 @@ interface InfoCardProps extends FlexProps {
 }
 export function InfoCard({ children, ...props }: InfoCardProps) {
   return (
-    <Flex flexDirection="column" alignItems="center" justifyItems="centers" width="100%" {...props}>
+    <Flex flexDirection="column" alignItems="center" justifyItems="center" width="100%" {...props}>
       {children}
     </Flex>
   );

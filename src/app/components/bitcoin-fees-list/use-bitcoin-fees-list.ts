@@ -12,12 +12,11 @@ import { useBitcoinFeeRate } from '@app/query/bitcoin/fees/fee-estimates.hooks';
 import { useCryptoCurrencyMarketData } from '@app/query/common/market-data/market-data.hooks';
 import { useCurrentBtcNativeSegwitAccountAddressIndexZero } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
 
-interface UseBitcoinSetFeesArgs {
-  recipient: string;
+interface UseBitcoinFeesListArgs {
   amount: number;
+  recipient: string;
 }
-
-export function useBitcoinSetFees({ recipient, amount }: UseBitcoinSetFeesArgs) {
+export function useBitcoinFeesList({ amount, recipient }: UseBitcoinFeesListArgs) {
   const currentAccountBtcAddress = useCurrentBtcNativeSegwitAccountAddressIndexZero();
   const { data: utxos } = useGetUtxosByAddressQuery(currentAccountBtcAddress);
 
@@ -64,7 +63,6 @@ export function useBitcoinSetFees({ recipient, amount }: UseBitcoinSetFeesArgs) 
         fiatValue: getFiatFeeValue(highFeeValue),
         feeRate: feeRate.fastestFee,
       },
-
       {
         label: BtcFeeType.Standard,
         value: standartFeeValue,
