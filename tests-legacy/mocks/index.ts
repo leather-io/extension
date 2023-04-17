@@ -1,4 +1,4 @@
-import { DEFAULT_SERVER_TESTNET } from '@shared/constants';
+import { HIRO_API_BASE_URL_MAINNET, HIRO_API_BASE_URL_TESTNET } from '@shared/constants';
 
 export { setupMocks } from './playwright-mocks';
 
@@ -19,8 +19,8 @@ export const HEYSTACK_HEY_TX_REQUEST_DECODED = {
   network: {
     version: 128,
     chainId: 2147483648,
-    coreApiUrl: DEFAULT_SERVER_TESTNET,
-    bnsLookupUrl: 'https://stacks-node-api.mainnet.stacks.co',
+    coreApiUrl: HIRO_API_BASE_URL_TESTNET,
+    bnsLookupUrl: HIRO_API_BASE_URL_MAINNET,
     broadcastEndpoint: '/v2/transactions',
     transferFeeEstimateEndpoint: '/v2/fees/transfer',
     accountEndpoint: '/v2/accounts',

@@ -1,11 +1,11 @@
+import { StacksMainnet, StacksTestnet } from '@stacks/network';
 import { RPCClient } from '@stacks/rpc-client';
 import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
-import { StacksMainnet, StacksTestnet } from '@stacks/network';
 
 dayjs.extend(relativeTime);
 
-const testnetUrl = 'https://stacks-node-api.testnet.stacks.co';
+const testnetUrl = 'https://api.testnet.hiro.so/';
 const localhostUrl = 'http://localhost:3999';
 
 export const getRPCClient = () => {

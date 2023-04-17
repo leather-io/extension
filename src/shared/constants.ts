@@ -65,9 +65,6 @@ export interface NetworkConfiguration {
   };
 }
 
-const DEFAULT_SERVER_MAINNET = 'https://stacks-node-api.stacks.co';
-export const DEFAULT_SERVER_TESTNET = 'https://stacks-node-api.testnet.stacks.co';
-
 export const HIRO_API_BASE_URL_MAINNET = 'https://api.hiro.so';
 export const HIRO_API_BASE_URL_TESTNET = 'https://api.testnet.hiro.so';
 
@@ -81,7 +78,7 @@ const networkMainnet: NetworkConfiguration = {
     stacks: {
       blockchain: 'stacks',
       chainId: ChainID.Mainnet,
-      url: DEFAULT_SERVER_MAINNET,
+      url: HIRO_API_BASE_URL_MAINNET,
     },
     bitcoin: {
       blockchain: 'bitcoin',
@@ -98,7 +95,7 @@ const networkTestnet: NetworkConfiguration = {
     stacks: {
       blockchain: 'stacks',
       chainId: ChainID.Testnet,
-      url: DEFAULT_SERVER_TESTNET,
+      url: HIRO_API_BASE_URL_TESTNET,
     },
     bitcoin: {
       blockchain: 'bitcoin',
