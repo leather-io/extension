@@ -4,7 +4,6 @@ import { useNavigate } from 'react-router-dom';
 import { Box, Button, Flex } from '@stacks/ui';
 import { Form, Formik } from 'formik';
 
-import { logger } from '@shared/logger';
 import { OrdinalSendFormValues } from '@shared/models/form.model';
 import { RouteUrls } from '@shared/route-urls';
 
@@ -38,6 +37,13 @@ export function SendInscriptionForm() {
   async function reviewTransaction(values: OrdinalSendFormValues) {
     const resp = coverFeeFromAdditionalUtxos(values);
 
+    if (!resp) {
+      setShowError(
+        'Insufficient funds to cover fee. Deposit some BTC to your Native Segwit address.'
+      );
+      return;
+    }
+
     if (Number(inscription.offset) !== 0) {
       setShowError('Sending inscriptions at non-zero offsets is unsupported');
       return;
@@ -54,8 +60,6 @@ export function SendInscriptionForm() {
       setShowError('Unable to establish if utxo has multiple inscriptions.');
       return;
     }
-
-    if (!resp) return logger.error('Attempted to generate raw tx, but no tx exists');
 
     const { hex } = resp;
     return navigate(RouteUrls.SendOrdinalInscriptionReview, {
