@@ -10,4 +10,6 @@ export enum QueryPrefixes {
   InscriptionMetadata = 'inscription-metadata',
   InscriptionFromTxid = 'inscription-from-txid',
   GetNftMetadata = 'get-nft-metadata',
+
+  StampCollection = 'stamp-collection',
 }
