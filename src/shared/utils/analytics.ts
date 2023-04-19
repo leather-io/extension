@@ -13,10 +13,10 @@ import { persistConfig } from '@shared/storage';
 
 import type { RootState } from '@app/store';
 
-function initAnalytics() {
-  if (IS_TEST_ENV || !SEGMENT_WRITE_KEY) return null;
+export const analytics = new AnalyticsBrowser();
 
-  return AnalyticsBrowser.load(
+export function initAnalytics() {
+  return analytics.load(
     { writeKey: SEGMENT_WRITE_KEY },
     {
       integrations: {
@@ -33,7 +33,6 @@ function initAnalytics() {
     }
   );
 }
-export const analytics: null | AnalyticsBrowser = initAnalytics();
 
 export function initSentry() {
   if (IS_TEST_ENV || !SENTRY_DSN) return;
