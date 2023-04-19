@@ -7,6 +7,7 @@ import { Money } from '@shared/models/money.model';
 
 import { determineUtxosForSpend } from '@app/common/transactions/bitcoin/coinselect/local-coin-selection';
 import { useGetUtxosByAddressQuery } from '@app/query/bitcoin/address/utxos-by-address.query';
+import { useIsStampedTx } from '@app/query/bitcoin/stamps/use-is-stamped-tx';
 import { useBitcoinLibNetworkConfig } from '@app/store/accounts/blockchain/bitcoin/bitcoin-keychain';
 import {
   useCurrentAccountNativeSegwitSigner,
@@ -24,6 +25,8 @@ export function useGenerateSignedBitcoinTx() {
   const { data: utxos } = useGetUtxosByAddressQuery(currentAccountBtcAddress);
   const currentAddressIndexKeychain = useCurrentBitcoinNativeSegwitAddressIndexPublicKeychain();
   const createSigner = useCurrentAccountNativeSegwitSigner();
+  const isStamped = useIsStampedTx();
+
   const networkMode = useBitcoinLibNetworkConfig();
 
   return useCallback(
@@ -38,7 +41,7 @@ export function useGenerateSignedBitcoinTx() {
         const tx = new btc.Transaction();
 
         const { inputs, outputs, fee } = determineUtxosForSpend({
-          utxos,
+          utxos: utxos.filter(utxo => !isStamped(utxo.txid)),
           recipient: values.recipient,
           amount: values.amount.amount.toNumber(),
           feeRate,
@@ -87,6 +90,7 @@ export function useGenerateSignedBitcoinTx() {
       createSigner,
       currentAccountBtcAddress,
       currentAddressIndexKeychain?.publicKey,
+      isStamped,
       networkMode,
       utxos,
     ]
