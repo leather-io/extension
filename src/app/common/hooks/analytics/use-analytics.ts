@@ -1,4 +1,4 @@
-import { useMemo } from 'react';
+import { useEffect, useMemo } from 'react';
 import { useLocation } from 'react-router-dom';
 
 import {
@@ -6,9 +6,9 @@ import {
   PageParams,
 } from '@segment/analytics-next/dist/types/core/arguments-resolver';
 
-import { IS_TEST_ENV } from '@shared/environment';
+import { IS_TEST_ENV, SEGMENT_WRITE_KEY } from '@shared/environment';
 import { logger } from '@shared/logger';
-import { analytics } from '@shared/utils/analytics';
+import { analytics, initAnalytics } from '@shared/utils/analytics';
 
 import { flow, origin } from '@app/common/initial-search-params';
 import { useWalletType } from '@app/common/use-wallet-type';
@@ -25,12 +25,19 @@ function isHiroApiUrl(url: string) {
   return /^https:\/\/.*\.stacks.co/.test(url);
 }
 
+export function useInitalizeAnalytics() {
+  const hasUserDeclinedAnalytics = useHasUserExplicitlyDeclinedAnalytics();
+
+  useEffect(() => {
+    if (hasUserDeclinedAnalytics || !SEGMENT_WRITE_KEY || IS_TEST_ENV) return;
+    initAnalytics();
+  }, [hasUserDeclinedAnalytics]);
+}
+
 export function useAnalytics() {
   const currentNetwork = useCurrentNetworkState();
   const location = useLocation();
   const { walletType } = useWalletType();
-
-  const hasDeclined = useHasUserExplicitlyDeclinedAnalytics();
 
   return useMemo(() => {
     const defaultProperties = {
@@ -48,37 +55,29 @@ export function useAnalytics() {
     };
 
     return {
+      async identify(properties: object) {
+        return analytics.identify(properties).catch(logger.error);
+      },
+
       async page(...args: PageParams) {
         const [category, name, properties, options, ...rest] = args;
         const prop = { ...defaultProperties, ...properties };
         const opts = { ...defaultOptions, ...options };
         logger.info(`Analytics page view: ${name}`, properties);
 
-        if (!analytics) return;
-        if (hasDeclined) return;
-        if (IS_TEST_ENV) return;
         if (typeof name === 'string' && isIgnoredPath(name)) return;
 
         return analytics.page(category, name, prop, opts, ...rest).catch(logger.error);
       },
+
       async track(...args: EventParams) {
         const [eventName, properties, options, ...rest] = args;
         const prop = { ...defaultProperties, ...properties };
         const opts = { ...defaultOptions, ...options };
         logger.info(`Analytics event: ${eventName}`, properties);
 
-        if (!analytics) return;
-        if (hasDeclined) return;
-        if (IS_TEST_ENV) return;
-
         return analytics.track(eventName, prop, opts, ...rest).catch(logger.error);
       },
     };
-  }, [
-    currentNetwork.chain.stacks.url,
-    currentNetwork.name,
-    location.pathname,
-    walletType,
-    hasDeclined,
-  ]);
+  }, [currentNetwork.chain.stacks.url, currentNetwork.name, location.pathname, walletType]);
 }

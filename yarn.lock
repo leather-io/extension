@@ -3299,22 +3299,22 @@
     "@scure/base" "~1.1.0"
     micro-packed "~0.3.2"
 
-"@segment/analytics-core@1.2.1":
-  version "1.2.1"
-  resolved "https://registry.yarnpkg.com/@segment/analytics-core/-/analytics-core-1.2.1.tgz#6f551b74a6af2331cb86c7e29428487f3d135266"
-  integrity sha512-FaKE7uIBXsclO4GcA7cEgb4iyQ23aFHRcxqLpxaCGeB5nqIdVQHigmGgL3hAjCZeBqtojLEV6as27ozXHQXCkg==
+"@segment/analytics-core@1.2.4":
+  version "1.2.4"
+  resolved "https://registry.yarnpkg.com/@segment/analytics-core/-/analytics-core-1.2.4.tgz#a01f0c87246292e0b9790e12c73d2f7e5fceb168"
+  integrity sha512-M16osD6+z/bQPSVCZdlU+BAhCk968ppi+SGxU2gVa4B196Qr8SEkBPr3NxUCGTSoULo4/T+k8Ea5cF+pXlgf6Q==
   dependencies:
     "@lukeed/uuid" "^2.0.0"
     dset "^3.1.2"
     tslib "^2.4.1"
 
-"@segment/analytics-next@1.49.2":
-  version "1.49.2"
-  resolved "https://registry.yarnpkg.com/@segment/analytics-next/-/analytics-next-1.49.2.tgz#7499f0adbdf8ad5eca840e4e31f3858bd716792a"
-  integrity sha512-i1Z5OfapDQQkielF9Cz9q8PeLvRTgBMPxHn5SoIx3SZJEzWTzFkvrmg/v98P8TcyjzbSa6hsVySm4E0tVdj8mA==
+"@segment/analytics-next@1.51.5":
+  version "1.51.5"
+  resolved "https://registry.yarnpkg.com/@segment/analytics-next/-/analytics-next-1.51.5.tgz#2f4558a13cb2ccc0be394f4ad9de253f659a3bba"
+  integrity sha512-al/8j/GKuTLV7vK4qKrsb2uTfh07Q8ETChPnklIgKfgUMsMZJHJWj/TAjuIgVt7SPmoiqH+ESOrH4yzKT1Wvag==
   dependencies:
     "@lukeed/uuid" "^2.0.0"
-    "@segment/analytics-core" "1.2.1"
+    "@segment/analytics-core" "1.2.4"
     "@segment/analytics.js-video-plugins" "^0.2.1"
     "@segment/facade" "^3.4.9"
     "@segment/tsub" "1.0.1"
