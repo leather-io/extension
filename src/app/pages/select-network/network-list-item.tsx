@@ -7,9 +7,16 @@ import { NetworkListItemLayout } from './components/network-list-item.layout';
 
 interface NetworkListItemProps {
   networkId: string;
+  isCustom: boolean;
   onNetworkSelected(networkId: string): void;
+  onRemoveNetwork(networkId: string): void;
 }
-export function NetworkListItem({ networkId, onNetworkSelected }: NetworkListItemProps) {
+export function NetworkListItem({
+  networkId,
+  onNetworkSelected,
+  onRemoveNetwork,
+  isCustom,
+}: NetworkListItemProps) {
   const currentNetworkId = useCurrentNetworkId();
   const networks = useNetworks();
 
@@ -22,7 +29,9 @@ export function NetworkListItem({ networkId, onNetworkSelected }: NetworkListIte
       isOnline={isOnline}
       network={network}
       networkId={networkId}
+      isCustom={isCustom}
       onSelectNetwork={() => onNetworkSelected(networkId)}
+      onRemoveNetwork={onRemoveNetwork}
     />
   );
 }

@@ -1,4 +1,6 @@
-import { Box, BoxProps, Flex, Stack, color } from '@stacks/ui';
+import { FiTrash2 } from 'react-icons/fi';
+
+import { Box, BoxProps, Button, Flex, Stack, color } from '@stacks/ui';
 import { SettingsSelectors } from '@tests-legacy/integration/settings.selectors';
 
 import { NetworkConfiguration } from '@shared/constants';
@@ -12,11 +14,22 @@ interface NetworkListItemLayoutProps extends BoxProps {
   networkId: string;
   isOnline: boolean;
   isActive: boolean;
+  isCustom: boolean;
   network: NetworkConfiguration;
   onSelectNetwork(): void;
+  onRemoveNetwork(id: string): void;
 }
 export function NetworkListItemLayout(props: NetworkListItemLayoutProps) {
-  const { networkId, isOnline, isActive, network, onSelectNetwork, ...rest } = props;
+  const {
+    networkId,
+    isOnline,
+    isActive,
+    network,
+    isCustom,
+    onRemoveNetwork,
+    onSelectNetwork,
+    ...rest
+  } = props;
 
   return (
     <Box
@@ -45,7 +58,7 @@ export function NetworkListItemLayout(props: NetworkListItemLayoutProps) {
         disabled={!isOnline}
         data-testid={network.id}
       >
-        <Stack alignItems="flex-start">
+        <Stack alignItems="flex-start" flex={1}>
           <Title
             fontWeight={400}
             lineHeight="1rem"
@@ -58,6 +71,19 @@ export function NetworkListItemLayout(props: NetworkListItemLayoutProps) {
           <Caption>{getUrlHostname(network.chain.stacks.url)}</Caption>
         </Stack>
         <NetworkStatusIndicator isActive={isActive} isOnline={isOnline} />
+        {isCustom && (
+          <Button
+            type="button"
+            mode="tertiary"
+            ml="base"
+            onClick={e => {
+              e.stopPropagation();
+              onRemoveNetwork(network.id);
+            }}
+          >
+            <FiTrash2 size="14px" />
+          </Button>
+        )}
       </Flex>
     </Box>
   );

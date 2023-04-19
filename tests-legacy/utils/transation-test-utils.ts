@@ -53,7 +53,7 @@ export async function generateContractCallToken({
     functionArgs: [],
     functionName: 'print',
     postConditionMode: PostConditionMode.Allow,
-    network,
+    network: network as any,
     postConditions: [
       makeStandardFungiblePostCondition(
         address,
