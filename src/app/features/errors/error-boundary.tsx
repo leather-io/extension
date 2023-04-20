@@ -67,7 +67,7 @@ type ErrorBoundaryProps =
   | ErrorBoundaryPropsWithComponent
   | ErrorBoundaryPropsWithRender;
 
-type ErrorBoundaryState = { error: Error | null };
+interface ErrorBoundaryState { error: Error | null }
 
 const initialState: ErrorBoundaryState = { error: null };
 
