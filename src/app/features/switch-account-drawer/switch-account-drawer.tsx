@@ -24,7 +24,7 @@ export const SwitchAccountDrawer = memo(() => {
   const onClose = () => setShowSwitchAccountsState(false);
 
   const onCreateAccount = () => {
-    void createAccount();
+    createAccount();
     setHasCreatedAccount(true);
     setShowSwitchAccountsState(false);
   };

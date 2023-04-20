@@ -10,7 +10,7 @@ import { GenericError } from '@app/components/generic-error/generic-error';
 
 const body = 'Sending bitcoin is temporarily disabled';
 const helpTextList = [
-  <Box as="li" mt="base">
+  <Box as="li" mt="base" key={1}>
     <Stack alignItems="center" isInline>
       <Text>Learm more on Twitter at @hirowallet</Text>
       <Box as="button" onClick={() => openInNewTab('https://mobile.twitter.com/hirowallet')}>

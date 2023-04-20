@@ -5,6 +5,7 @@ import * as yup from 'yup';
 
 import { logger } from '@shared/logger';
 import { BitcoinSendFormValues } from '@shared/models/form.model';
+import { noop } from '@shared/utils';
 
 import { formatPrecisionError } from '@app/common/error-formatters';
 import { useWalletType } from '@app/common/use-wallet-type';
@@ -74,7 +75,7 @@ export function useBtcSendForm() {
 
       whenWallet({
         software: () => sendFormNavigate.toChooseTransactionFee(values),
-        ledger: () => {},
+        ledger: noop,
       })();
     },
   };

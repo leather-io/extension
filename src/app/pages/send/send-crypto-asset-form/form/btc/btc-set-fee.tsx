@@ -4,6 +4,7 @@ import get from 'lodash.get';
 
 import { logger } from '@shared/logger';
 import { BitcoinSendFormValues } from '@shared/models/form.model';
+import { noop } from '@shared/utils';
 
 import { useRouteHeader } from '@app/common/hooks/use-route-header';
 import { useWalletType } from '@app/common/use-wallet-type';
@@ -41,7 +42,7 @@ export function BtcSetFee() {
           fee: feeValue,
           time,
         }),
-      ledger: () => {},
+      ledger: noop,
     })();
   }
 

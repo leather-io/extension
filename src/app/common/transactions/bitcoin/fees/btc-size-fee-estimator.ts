@@ -1,4 +1,5 @@
 // https://github.com/argvil19/bitcoin-transaction-size-calculator/blob/master/index.js
+import BigNumber from 'bignumber.js';
 
 type InputScriptTypes =
   | 'p2pkh'
@@ -84,7 +85,7 @@ export class BtcSizeFeeEstimator {
       return 3;
     } else if (length < 4294967295) {
       return 5;
-    } else if (length < 18446744073709551615) {
+    } else if (new BigNumber(length).isLessThan('18446744073709551615')) {
       return 9;
     } else {
       throw new Error('Invalid let int');
