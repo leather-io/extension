@@ -19,7 +19,7 @@ export function useCalculateMaxBitcoinSpend() {
   const { data: feeRate } = useBitcoinFeeRate();
 
   return useCallback(
-    (address: string = '') => {
+    (address = '') => {
       if (!utxos || !feeRate)
         return {
           spendAllFee: 0,

@@ -17,7 +17,11 @@ export function AssetCaption({ caption, isUnanchored }: AssetCaptionProps) {
           <Caption ml={1}> • Microblock </Caption>
           <Tooltip placement="right-end" label={'Learn more about microblocks'}>
             <Stack isInline>
-              <a href="https://docs.stacks.co/understand-stacks/microblocks" target="_blank">
+              <a
+                href="https://docs.stacks.co/understand-stacks/microblocks"
+                target="_blank"
+                rel="noreferrer"
+              >
                 <Box
                   _hover={{ cursor: 'pointer' }}
                   size="12px"

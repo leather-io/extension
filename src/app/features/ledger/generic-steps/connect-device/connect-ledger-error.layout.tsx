@@ -3,6 +3,7 @@ import { FiCircle } from 'react-icons/fi';
 import ConnectLedgerError from '@assets/images/ledger/connect-ledger-error.png';
 import { Box, Flex, Stack, color } from '@stacks/ui';
 
+import { openInNewTab } from '@app/common/utils/open-in-new-tab';
 import { ErrorLabel } from '@app/components/error-label';
 import { Link } from '@app/components/link';
 import { PrimaryButton } from '@app/components/primary-button';
@@ -73,7 +74,11 @@ export function ConnectLedgerErrorLayout(props: ConnectLedgerErrorLayoutProps) {
       </PrimaryButton>
       <Caption mt="loose">
         If the problem persists, check our{' '}
-        <Link display="inline" fontSize={1} onClick={() => {}}>
+        <Link
+          display="inline"
+          fontSize={1}
+          onClick={() => openInNewTab('https://hirowallet.gitbook.io')}
+        >
           Support Page
         </Link>
       </Caption>

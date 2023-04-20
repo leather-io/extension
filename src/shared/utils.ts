@@ -10,7 +10,7 @@ export function isUndefined(value: unknown): value is undefined {
   return typeof value === 'undefined';
 }
 
-export function isFunction(value: unknown): value is Function {
+export function isFunction(value: unknown): value is () => void {
   return typeof value === 'function';
 }
 
@@ -18,7 +18,7 @@ export function isObject(value: unknown): value is object {
   return typeof value === 'object';
 }
 
-export function isEmpty(value: Object) {
+export function isEmpty(value: object) {
   return Object.keys(value).length === 0;
 }
 
@@ -31,4 +31,5 @@ export function isTypedArray(val: unknown): val is Uint8Array {
   return val instanceof TypedArray;
 }
 
+// eslint-disable-next-line @typescript-eslint/no-empty-function
 export function noop() {}

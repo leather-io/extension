@@ -1,6 +1,5 @@
 import { useState } from 'react';
 
-import { bytesToHex } from '@stacks/common';
 import { useQuery } from '@tanstack/react-query';
 
 import { createCounter } from '@app/common/utils/counter';
@@ -21,7 +20,7 @@ export function useNextFreshTaprootAddressQuery(accIndex?: number) {
   const [highestKnownAccountActivity, setHighestKnownAccountActivity] = useState(0);
 
   return useQuery(
-    ['next-taproot-address', bytesToHex(keychain?.pubKeyHash!), network.id] as const,
+    ['next-taproot-address', currentAccountIndex, network.id] as const,
     async () => {
       if (!keychain) throw new Error('Expected keychain to be provided');
 

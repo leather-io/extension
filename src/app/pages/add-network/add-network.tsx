@@ -88,7 +88,11 @@ export function AddNetwork() {
             >
               <Text>
                 Use this form to add a new instance of the{' '}
-                <a href="https://github.com/blockstack/stacks-blockchain-api" target="_blank">
+                <a
+                  href="https://github.com/blockstack/stacks-blockchain-api"
+                  target="_blank"
+                  rel="noreferrer"
+                >
                   Stacks Blockchain API
                 </a>
                 . Make sure you review and trust the host before you add it.

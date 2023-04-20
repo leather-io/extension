@@ -1,7 +1,9 @@
 import { useEffect, useRef } from 'react';
 
+import { noop } from '@shared/utils';
+
 export function useInterval(callback: () => void, delay: number | null) {
-  const savedCallback = useRef(() => {});
+  const savedCallback = useRef(noop);
 
   // Remember the latest callback.
   useEffect(() => {

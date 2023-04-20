@@ -1,5 +1,7 @@
 import { createContext, useContext, useEffect, useState } from 'react';
 
+import { noop } from '@shared/utils';
+
 import { store } from '@app/store';
 import { settingsActions } from '@app/store/settings/settings.actions';
 import { useUserSelectedTheme } from '@app/store/settings/settings.selectors';
@@ -25,7 +27,7 @@ const ThemeContext = createContext<{
   // These values are not used, but are set to satisfy the context's value type.
   theme: 'light',
   userSelectedTheme: 'system',
-  setUserSelectedTheme: () => {},
+  setUserSelectedTheme: noop,
 });
 
 const getSystemTheme = () =>
