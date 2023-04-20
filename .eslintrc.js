@@ -51,6 +51,7 @@ module.exports = {
     '@typescript-eslint/restrict-template-expressions': [0],
     '@typescript-eslint/explicit-module-boundary-types': [0],
     '@typescript-eslint/no-unnecessary-condition': 'warn',
+    '@typescript-eslint/consistent-type-definitions': ['error', 'interface'],
     'no-warning-comments': [0],
     'react/function-component-definition': 'error',
     'react-hooks/rules-of-hooks': 'error',

@@ -9,7 +9,7 @@ declare module '*.svg' {
 declare const EXT_ENV: string;
 declare const VERSION: string;
 
-type QrOptions = {
+interface QrOptions {
   /**
    * Size of QR code
    * @default 128
@@ -55,7 +55,7 @@ type QrOptions = {
    * ECC Level
    */
   ecc?: number;
-};
+}
 
 declare module '@vkontakte/vk-qr' {
   /**
