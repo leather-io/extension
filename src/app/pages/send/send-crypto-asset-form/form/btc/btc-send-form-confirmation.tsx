@@ -11,7 +11,7 @@ import { RouteUrls } from '@shared/route-urls';
 import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
 import { useRouteHeader } from '@app/common/hooks/use-route-header';
 import { baseCurrencyAmountInQuote } from '@app/common/money/calculate-money';
-import { formatMoney, formatMoneyPadded, i18nFormatCurrency } from '@app/common/money/format-money';
+import { formatMoneyPadded, i18nFormatCurrency } from '@app/common/money/format-money';
 import { satToBtc } from '@app/common/money/unit-conversion';
 import { FormAddressDisplayer } from '@app/components/address-displayer/form-address-displayer';
 import {
@@ -61,10 +61,10 @@ export function BtcSendFormConfirmation() {
   const txFiatValueSymbol = btcMarketData.price.symbol;
 
   const feeInBtc = satToBtc(fee);
-  const totalSpend = formatMoney(
+  const totalSpend = formatMoneyPadded(
     createMoneyFromDecimal(Number(transferAmount) + Number(feeInBtc), symbol)
   );
-  const sendingValue = formatMoney(createMoneyFromDecimal(Number(transferAmount), symbol));
+  const sendingValue = formatMoneyPadded(createMoneyFromDecimal(Number(transferAmount), symbol));
   const summaryFee = formatMoneyPadded(createMoney(Number(fee), symbol));
 
   async function initiateTransaction() {
