@@ -1,13 +1,14 @@
 import { createSelector } from '@reduxjs/toolkit';
 import { HDKey } from '@scure/bip32';
+import * as btc from '@scure/btc-signer';
 
-import { NetworkModes } from '@shared/constants';
+import { BitcoinNetworkModes, NetworkModes } from '@shared/constants';
 import { getBtcSignerLibNetworkConfigByMode } from '@shared/crypto/bitcoin/bitcoin.network';
 import { deriveAddressIndexZeroFromAccount } from '@shared/crypto/bitcoin/bitcoin.utils';
 import { deriveTaprootAccountFromRootKeychain } from '@shared/crypto/bitcoin/p2tr-address-gen';
 import {
   deriveNativeSegWitAccountKeychain,
-  getNativeSegWitAddressIndexFromKeychain,
+  getNativeSegWitPaymentFromKeychain,
 } from '@shared/crypto/bitcoin/p2wpkh-address-gen';
 
 import { mnemonicToRootNode } from '@app/common/keychain/keychain';
@@ -38,7 +39,7 @@ export function getNativeSegwitMainnetAddressFromMnemonic(secretKey: string) {
   return (accountIndex: number) => {
     const rootNode = mnemonicToRootNode(secretKey);
     const account = deriveNativeSegWitAccountKeychain(rootNode, 'mainnet')(accountIndex);
-    return getNativeSegWitAddressIndexFromKeychain(
+    return getNativeSegWitPaymentFromKeychain(
       deriveAddressIndexZeroFromAccount(account),
       'mainnet'
     );
@@ -68,4 +69,31 @@ export const selectTestnetTaprootKeychain = bitcoinKeychainSelectorFactory(
 export function useBitcoinLibNetworkConfig() {
   const network = useCurrentNetwork();
   return getBtcSignerLibNetworkConfigByMode(network.chain.bitcoin.network);
+}
+
+interface BitcoinSignerFactoryArgs {
+  addressIndexKeychainFn(addressIndex: number): HDKey;
+  paymentFn(keychain: HDKey, network: BitcoinNetworkModes): unknown;
+  network: BitcoinNetworkModes;
+}
+export function bitcoinSignerFactory<T extends BitcoinSignerFactoryArgs>(args: T) {
+  const { network, paymentFn, addressIndexKeychainFn } = args;
+  return (addressIndex: number) => {
+    const addressIndexKeychain = addressIndexKeychainFn(addressIndex);
+    return {
+      payment: paymentFn(addressIndexKeychain, network) as ReturnType<T['paymentFn']>,
+      sign(tx: btc.Transaction) {
+        if (!addressIndexKeychain.privateKey)
+          throw new Error('Unable to sign taproot transaction, no private key found');
+
+        tx.sign(addressIndexKeychain.privateKey);
+      },
+      signIndex(tx: btc.Transaction, index: number, allowedSighash?: btc.SignatureHash[]) {
+        if (!addressIndexKeychain.privateKey)
+          throw new Error('Unable to sign taproot transaction, no private key found');
+
+        tx.signIdx(addressIndexKeychain.privateKey, index, allowedSighash);
+      },
+    };
+  };
 }
