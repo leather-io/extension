@@ -1,4 +1,4 @@
-import { Money } from '@shared/models/money.model';
+import { Money, createMoney } from '@shared/models/money.model';
 
 const thinSpace = ' ';
 
@@ -26,4 +26,9 @@ export function i18nFormatCurrency(quantity: Money, locale = 'en-US') {
 
 export function formatDustUsdAmounts(value: string) {
   return value.endsWith('0.00') ? '<' + thinSpace + value.replace('0.00', '0.01') : value;
+}
+
+export function subtractMoney(xAmount: Money, yAmount: Money) {
+  if (xAmount.symbol !== yAmount.symbol) throw new Error('Cannot subtract different currencies');
+  return createMoney(xAmount.amount.minus(yAmount.amount), xAmount.symbol, xAmount.decimals);
 }

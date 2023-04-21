@@ -4,6 +4,7 @@ import * as yup from 'yup';
 import { Money } from '@shared/models/money.model';
 import { isNumber } from '@shared/utils';
 
+import { subtractMoney } from '@app/common/money/format-money';
 import {
   btcToSat,
   microStxToStx,
@@ -79,19 +80,22 @@ export function stxAmountValidator() {
     .concat(stxAmountPrecisionValidator(formatPrecisionError()));
 }
 
-export function stxAvailableBalanceValidator(availableBalance: Money) {
+export function stxAvailableBalanceValidator(availableBalance: Money, pendingTxsBalance: Money) {
   return yup
     .number()
     .typeError(formatErrorWithSymbol('STX', FormErrorMessages.MustBeNumber))
     .test({
       message: formatInsufficientBalanceError(availableBalance, sum =>
-        microStxToStx(sum.amount).toString()
+        microStxToStx(subtractMoney(sum, pendingTxsBalance).amount).toString()
       ),
       test(value: unknown) {
         const fee = stxToMicroStx(this.parent.fee);
         if (!availableBalance || !isNumber(value)) return false;
-        const availableBalanceLessFee = availableBalance.amount.minus(fee);
-        return availableBalanceLessFee.isGreaterThanOrEqualTo(stxToMicroStx(value));
+        const availableBalanceLessAll = subtractMoney(
+          availableBalance,
+          pendingTxsBalance
+        ).amount.minus(fee);
+        return availableBalanceLessAll.isGreaterThanOrEqualTo(stxToMicroStx(value));
       },
     });
 }

@@ -20,7 +20,7 @@ interface InscriptionSendState {
 export function useInscriptionSendState() {
   const location = useLocation();
   const context = useOutletContext<InscriptionSendState>();
-  return { ...context, recipient: get(location, 'state.recipient', '') };
+  return { ...context, recipient: get(location, 'state.recipient', '') as string };
 }
 
 interface SendInscriptionLoaderProps {

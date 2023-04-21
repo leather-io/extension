@@ -19,6 +19,9 @@ export const PERSISTENCE_CACHE_TIME = 1000 * 60 * 60 * 12; // 12 hours
 export const BTC_DECIMALS = 8;
 export const STX_DECIMALS = 6;
 
+// https://bitcoin.stackexchange.com/a/41082/139277
+export const BTC_P2WPKH_DUST_AMOUNT = 294;
+
 export const KEBAB_REGEX = /[A-Z\u00C0-\u00D6\u00D8-\u00DE]/g;
 
 export const MICROBLOCKS_ENABLED = !IS_TEST_ENV && true;
@@ -65,9 +68,6 @@ export interface NetworkConfiguration {
   };
 }
 
-const DEFAULT_SERVER_MAINNET = 'https://stacks-node-api.stacks.co';
-export const DEFAULT_SERVER_TESTNET = 'https://stacks-node-api.testnet.stacks.co';
-
 export const HIRO_API_BASE_URL_MAINNET = 'https://api.hiro.so';
 export const HIRO_API_BASE_URL_TESTNET = 'https://api.testnet.hiro.so';
 
@@ -81,7 +81,7 @@ const networkMainnet: NetworkConfiguration = {
     stacks: {
       blockchain: 'stacks',
       chainId: ChainID.Mainnet,
-      url: DEFAULT_SERVER_MAINNET,
+      url: HIRO_API_BASE_URL_MAINNET,
     },
     bitcoin: {
       blockchain: 'bitcoin',
@@ -98,7 +98,7 @@ const networkTestnet: NetworkConfiguration = {
     stacks: {
       blockchain: 'stacks',
       chainId: ChainID.Testnet,
-      url: DEFAULT_SERVER_TESTNET,
+      url: HIRO_API_BASE_URL_TESTNET,
     },
     bitcoin: {
       blockchain: 'bitcoin',

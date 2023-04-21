@@ -46,7 +46,7 @@ export function IncreaseFeeForm() {
   }, [rawTx, tx?.tx_status, setTxId]);
 
   const onSubmit = useCallback(
-    async values => {
+    async (values: any) => {
       if (!tx || !rawTx) return;
       rawTx.setFee(stxToMicroStx(values.fee).toString());
       const txId = tx.tx_id || safelyFormatHexTxid(rawTx.txid());

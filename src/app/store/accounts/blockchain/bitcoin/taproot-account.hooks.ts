@@ -162,6 +162,12 @@ export function useCurrentAccountTaprootSigner() {
 
         tx.sign(addressIndexKeychain.privateKey);
       },
+      signIndex(tx: btc.Transaction, index: number) {
+        if (!addressIndexKeychain.privateKey)
+          throw new Error('Unable to sign taproot transaction, no private key found');
+
+        tx.signIdx(addressIndexKeychain.privateKey, index);
+      },
     };
   };
 }
