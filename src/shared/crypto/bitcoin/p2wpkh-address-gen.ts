@@ -19,14 +19,13 @@ export function deriveNativeSegWitAccountKeychain(keychain: HDKey, network: Netw
   return (index: number) => keychain.derive(getNativeSegWitAccountDerivationPath(network, index));
 }
 
-export function getNativeSegWitAddressIndexFromKeychain(
-  keychain: HDKey,
-  network: BitcoinNetworkModes
-) {
+export function getNativeSegWitPaymentFromKeychain(keychain: HDKey, network: BitcoinNetworkModes) {
   if (keychain.depth !== DerivationPathDepth.AddressIndex)
     throw new Error('Keychain passed is not an address index');
 
-  return btc.p2wpkh(keychain.publicKey!, getBtcSignerLibNetworkConfigByMode(network));
+  if (!keychain.publicKey) throw new Error('Keychain does not have a public key');
+
+  return btc.p2wpkh(keychain.publicKey, getBtcSignerLibNetworkConfigByMode(network));
 }
 
 interface DeriveNativeSegWitReceiveAddressIndexArgs {
@@ -41,5 +40,5 @@ export function deriveNativeSegWitReceiveAddressIndex({
   const keychain = HDKey.fromExtendedKey(xpub);
   if (!keychain) return;
   const zeroAddressIndex = deriveAddressIndexZeroFromAccount(keychain);
-  return getNativeSegWitAddressIndexFromKeychain(zeroAddressIndex, network);
+  return getNativeSegWitPaymentFromKeychain(zeroAddressIndex, network);
 }
