@@ -4,12 +4,15 @@ import { Stack, StackProps } from '@stacks/ui';
 
 import { CurrentAccountAvatar } from '@app/features/current-account/current-account-avatar';
 import { CurrentAccountName } from '@app/features/current-account/current-account-name';
+import { useCurrentBtcNativeSegwitAccountAddressIndexZero } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
 import { useCurrentStacksAccount } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
 
 import { AccountTotalBalance } from '../../../components/account-total-balance';
 
 export const CurrentAccount = memo((props: StackProps) => {
   const currentAccount = useCurrentStacksAccount();
+  const btcAddress = useCurrentBtcNativeSegwitAccountAddressIndexZero();
+
   if (!currentAccount) return null;
   return (
     <Stack spacing="base-tight" alignItems="center" isInline {...props}>
@@ -17,7 +20,7 @@ export const CurrentAccount = memo((props: StackProps) => {
       <Stack overflow="hidden" display="block" alignItems="flex-start" spacing="base-tight">
         <CurrentAccountName />
         <Stack isInline>
-          <AccountTotalBalance />
+          <AccountTotalBalance stxAddress={currentAccount.address} btcAddress={btcAddress} />
         </Stack>
       </Stack>
     </Stack>

@@ -5,8 +5,8 @@ import { useFormikContext } from 'formik';
 import { BitcoinSendFormValues, StacksSendFormValues } from '@shared/models/form.model';
 
 import { useAccountDisplayName } from '@app/common/hooks/account/use-account-names';
+import { AccountTotalBalance } from '@app/components/account-total-balance';
 import { AccountAvatarItem } from '@app/components/account/account-avatar';
-import { AccountBalanceLabel } from '@app/components/account/account-balance-label';
 import { AccountListItemLayout } from '@app/components/account/account-list-item-layout';
 import { AccountName } from '@app/components/account/account-name';
 import { usePressable } from '@app/components/item-hover';
@@ -39,7 +39,7 @@ export const AccountListItem = memo(({ account, onClose }: AccountListItemProps)
       avatar={
         <AccountAvatarItem index={account.index} publicKey={account.stxPublicKey} name={name} />
       }
-      balanceLabel={<AccountBalanceLabel address={account.address} />}
+      balanceLabel={<AccountTotalBalance stxAddress={account.address} btcAddress={btcAddress} />}
       btcAddress={btcAddress}
       index={account.index}
       isActive={false}
