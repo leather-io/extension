@@ -1,3 +1,23 @@
+## [4.17.0](https://github.com/hirosystems/wallet/compare/v4.16.0...v4.17.0) (2023-04-21)
+
+
+### Features
+
+* subtract pending fees from available balance in stx send form ([21493a6](https://github.com/hirosystems/wallet/commit/21493a6fe53066bd6a5160691645b54326c64238))
+
+
+### Bug Fixes
+
+* **activity:** fetch on interval, closes [#3409](https://github.com/hirosystems/wallet/issues/3409) ([4fad22f](https://github.com/hirosystems/wallet/commit/4fad22f5f7c37138ceb17c801e7b13d5931546b1))
+* upgrade react 18 ([3add4f7](https://github.com/hirosystems/wallet/commit/3add4f7f52b2ccd2a01d560bed56a53a9c36cb76))
+* use new hiro urls, closes [#3383](https://github.com/hirosystems/wallet/issues/3383) ([658b723](https://github.com/hirosystems/wallet/commit/658b723f0305c8734938a042a90b201a996d2084))
+
+
+### Internal
+
+* improve inscrption transfer logic, closes [#3399](https://github.com/hirosystems/wallet/issues/3399) ([112ee3e](https://github.com/hirosystems/wallet/commit/112ee3ed793f5ba8d93c78a6c2e3ec5bd7d737ac))
+* update noble packages ([cbf3616](https://github.com/hirosystems/wallet/commit/cbf3616cf0cb94f304d491a97a9d7f167ff67460))
+
 ## [4.16.0](https://github.com/hirosystems/wallet/compare/v4.15.0...v4.16.0) (2023-04-17)
 
 
