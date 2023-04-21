@@ -116,22 +116,6 @@ export function useBtcNativeSegwitAccountIndexAddressIndexZero(accountIndex: num
   return useDeriveNativeSegWitAccountIndexAddressIndexZero(xpub)?.address as string;
 }
 
-/**
- * @deprecated
- * Let's update to use the signer structure, also used in taproot
- */
-export function useSignBitcoinNativeSegwitTx() {
-  const index = useCurrentAccountIndex();
-  const keychain = useNativeSegWitCurrentNetworkAccountKeychain()?.(index);
-  return useCallback(
-    (tx: btc.Transaction) => {
-      if (isUndefined(keychain)) return;
-      tx.sign(deriveAddressIndexZeroFromAccount(keychain).privateKey!);
-    },
-    [keychain]
-  );
-}
-
 export function useCurrentAccountNativeSegwitSigner() {
   const network = useCurrentNetwork();
   const index = useCurrentAccountIndex();
@@ -153,30 +137,12 @@ export function useCurrentAccountNativeSegwitSigner() {
 
         tx.sign(addressIndexKeychain.privateKey);
       },
-      signIndex(tx: btc.Transaction, index: number) {
+      signIndex(tx: btc.Transaction, index: number, allowedSighash?: btc.SignatureHash[]) {
         if (!addressIndexKeychain.privateKey)
           throw new Error('Unable to sign taproot transaction, no private key found');
 
-        tx.signIdx(addressIndexKeychain.privateKey, index);
+        tx.signIdx(addressIndexKeychain.privateKey, index, allowedSighash);
       },
     };
   };
-}
-
-interface UseSignBitcoinNativeSegwitInputAtIndexArgs {
-  allowedSighash?: btc.SignatureHash[];
-  idx: number;
-  tx: btc.Transaction;
-}
-export function useSignBitcoinNativeSegwitInputAtIndex() {
-  const index = useCurrentAccountIndex();
-  const keychain = useNativeSegWitCurrentNetworkAccountKeychain()?.(index);
-
-  return useCallback(
-    ({ allowedSighash, idx, tx }: UseSignBitcoinNativeSegwitInputAtIndexArgs) => {
-      if (isUndefined(keychain)) return;
-      tx.signIdx(deriveAddressIndexZeroFromAccount(keychain).privateKey!, idx, allowedSighash);
-    },
-    [keychain]
-  );
 }

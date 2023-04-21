@@ -83,37 +83,6 @@ export function useCurrentBtcTaprootAccountAddressIndexZeroPayment() {
   return { address: payment.address, type: payment.type };
 }
 
-export function useSignBitcoinTaprootTx() {
-  const index = useCurrentAccountIndex();
-  const keychain = useTaprootCurrentNetworkAccountPrivateKeychain()?.(index);
-
-  return useCallback(
-    (tx: btc.Transaction) => {
-      if (isUndefined(keychain)) return;
-      tx.sign(deriveAddressIndexZeroFromAccount(keychain).privateKey!);
-    },
-    [keychain]
-  );
-}
-
-interface UseSignBitcoinTaprootInputAtIndexArgs {
-  allowedSighash?: btc.SignatureHash[];
-  idx: number;
-  tx: btc.Transaction;
-}
-export function useSignBitcoinTaprootInputAtIndex() {
-  const index = useCurrentAccountIndex();
-  const keychain = useTaprootCurrentNetworkAccountPrivateKeychain()?.(index);
-
-  return useCallback(
-    ({ allowedSighash, idx, tx }: UseSignBitcoinTaprootInputAtIndexArgs) => {
-      if (isUndefined(keychain)) return;
-      tx.signIdx(deriveAddressIndexZeroFromAccount(keychain).privateKey!, idx, allowedSighash);
-    },
-    [keychain]
-  );
-}
-
 // TODO: Address index 0 is hardcoded here bc this is only used to pass the first
 // taproot address to the app thru the auth response. This is only temporary, it
 // should be removed once the request address api is in place.
@@ -162,11 +131,11 @@ export function useCurrentAccountTaprootSigner() {
 
         tx.sign(addressIndexKeychain.privateKey);
       },
-      signIndex(tx: btc.Transaction, index: number) {
+      signIndex(tx: btc.Transaction, index: number, allowedSighash?: btc.SignatureHash[]) {
         if (!addressIndexKeychain.privateKey)
           throw new Error('Unable to sign taproot transaction, no private key found');
 
-        tx.signIdx(addressIndexKeychain.privateKey, index);
+        tx.signIdx(addressIndexKeychain.privateKey, index, allowedSighash);
       },
     };
   };
