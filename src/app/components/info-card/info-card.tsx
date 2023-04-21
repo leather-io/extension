@@ -35,6 +35,8 @@ export function InfoCardRow({ title, value, ...props }: InfoCardRowProps) {
           color={figmaTheme.text}
           fontWeight="500"
           data-testid={SharedComponentsSelectors.InfoCardRowValue}
+          fontVariant="tabular-nums"
+          letterSpacing="-0.01em"
         >
           {value}
         </Text>

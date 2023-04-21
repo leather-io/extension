@@ -13,6 +13,7 @@ export function AddressDisplayerLayout({ isEven, ...props }: AddressDisplayerLay
       color={isEven ? figmaTheme.textSubdued : figmaTheme.text}
       fontFamily="Fira Code"
       mr="tight"
+      lineHeight="24px"
       {...props}
     />
   );
