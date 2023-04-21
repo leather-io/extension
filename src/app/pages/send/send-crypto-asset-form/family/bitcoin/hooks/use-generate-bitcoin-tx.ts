@@ -2,6 +2,7 @@ import { useCallback } from 'react';
 
 import * as btc from '@scure/btc-signer';
 
+import { logger } from '@shared/logger';
 import { BitcoinSendFormValues } from '@shared/models/form.model';
 
 import { btcToSat } from '@app/common/money/unit-conversion';
@@ -9,24 +10,27 @@ import { determineUtxosForSpend } from '@app/common/transactions/bitcoin/coinsel
 import { useGetUtxosByAddressQuery } from '@app/query/bitcoin/address/utxos-by-address.query';
 import { useBitcoinLibNetworkConfig } from '@app/store/accounts/blockchain/bitcoin/bitcoin-keychain';
 import {
+  useCurrentAccountNativeSegwitSigner,
   useCurrentBitcoinNativeSegwitAddressIndexPublicKeychain,
   useCurrentBtcNativeSegwitAccountAddressIndexZero,
-  useSignBitcoinNativeSegwitTx,
 } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
 
 export function useGenerateSignedBitcoinTx() {
   const currentAccountBtcAddress = useCurrentBtcNativeSegwitAccountAddressIndexZero();
   const { data: utxos } = useGetUtxosByAddressQuery(currentAccountBtcAddress);
   const currentAddressIndexKeychain = useCurrentBitcoinNativeSegwitAddressIndexPublicKeychain();
-  const signTx = useSignBitcoinNativeSegwitTx();
+  const createSigner = useCurrentAccountNativeSegwitSigner();
   const networkMode = useBitcoinLibNetworkConfig();
 
   return useCallback(
     (values: BitcoinSendFormValues, feeRate: number) => {
       if (!utxos) return;
       if (!feeRate) return;
+      if (!createSigner) return;
 
       try {
+        const signer = createSigner(0);
+
         const tx = new btc.Transaction();
 
         const { inputs, outputs, fee } = determineUtxosForSpend({
@@ -36,11 +40,10 @@ export function useGenerateSignedBitcoinTx() {
           feeRate,
         });
 
-        // eslint-disable-next-line no-console
-        console.log('coinselect', { inputs, outputs, fee });
+        logger.info('coinselect', { inputs, outputs, fee });
 
-        if (!inputs) throw new Error('No inputs to sign');
-        if (!outputs) throw new Error('No outputs to sign');
+        if (!inputs.length) throw new Error('No inputs to sign');
+        if (!outputs.length) throw new Error('No outputs to sign');
 
         if (outputs.length > 2)
           throw new Error('Address reuse mode: wallet should have max 2 outputs');
@@ -66,8 +69,9 @@ export function useGenerateSignedBitcoinTx() {
           }
           tx.addOutputAddress(values.recipient, BigInt(output.value), networkMode);
         });
-        signTx(tx);
+        signer.sign(tx);
         tx.finalize();
+
         return { hex: tx.hex, fee };
       } catch (e) {
         // eslint-disable-next-line no-console
@@ -75,6 +79,12 @@ export function useGenerateSignedBitcoinTx() {
         return null;
       }
     },
-    [currentAccountBtcAddress, currentAddressIndexKeychain?.publicKey, networkMode, signTx, utxos]
+    [
+      createSigner,
+      currentAccountBtcAddress,
+      currentAddressIndexKeychain?.publicKey,
+      networkMode,
+      utxos,
+    ]
   );
 }
