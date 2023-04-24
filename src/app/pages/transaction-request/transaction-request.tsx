@@ -1,7 +1,7 @@
 import { memo } from 'react';
 import { Outlet, useNavigate } from 'react-router-dom';
 
-import { Flex, Stack } from '@stacks/ui';
+import { Flex } from '@stacks/ui';
 import { Formik } from 'formik';
 import get from 'lodash.get';
 import * as yup from 'yup';
@@ -42,6 +42,7 @@ import {
 } from '@app/store/transactions/transaction.hooks';
 
 import { FeeForm } from './components/fee-form';
+import { MinimalErrorMessage } from './components/minimal-error-message';
 import { SubmitAction } from './components/submit-action';
 
 function TransactionRequestBase() {
@@ -105,37 +106,40 @@ function TransactionRequestBase() {
   };
 
   return (
-    <Flex alignItems="center" flexDirection="column" width="100%">
-      <Stack px="loose" spacing="loose" width="100%">
-        <PageTop />
-        <RequestingTabClosedWarningMessage />
-        <PostConditionModeWarning />
-        <TransactionError />
-        <PostConditions />
-        {transactionRequest.txType === 'contract_call' && <ContractCallDetails />}
-        {transactionRequest.txType === 'token_transfer' && <StxTransferDetails />}
-        {transactionRequest.txType === 'smart_contract' && <ContractDeployDetails />}
-        <Formik
-          initialValues={initialValues}
-          onSubmit={onSubmit}
-          validateOnChange={false}
-          validateOnBlur={false}
-          validateOnMount={false}
-          validationSchema={validationSchema}
-        >
-          {() => (
-            <>
-              <NonceSetter>
-                <FeeForm fees={stxFees} />
-                <SubmitAction />
-                <EditNonceButton onEditNonce={() => navigate(RouteUrls.EditNonce)} />
-                <HighFeeDrawer learnMoreUrl={HIGH_FEE_WARNING_LEARN_MORE_URL_STX} />
-              </NonceSetter>
-              <Outlet />
-            </>
-          )}
-        </Formik>
-      </Stack>
+    <Flex alignItems="center" flexDirection="column" p="loose" width="100%">
+      <PageTop />
+      <RequestingTabClosedWarningMessage />
+      <PostConditionModeWarning />
+      <TransactionError />
+      <PostConditions />
+      {transactionRequest.txType === 'contract_call' && <ContractCallDetails />}
+      {transactionRequest.txType === 'token_transfer' && <StxTransferDetails />}
+      {transactionRequest.txType === 'smart_contract' && <ContractDeployDetails />}
+      <Formik
+        initialValues={initialValues}
+        onSubmit={onSubmit}
+        validateOnChange={false}
+        validateOnBlur={false}
+        validateOnMount={false}
+        validationSchema={validationSchema}
+      >
+        {() => (
+          <>
+            <NonceSetter>
+              <FeeForm fees={stxFees} />
+              <EditNonceButton
+                alignSelf="flex-end"
+                my="base"
+                onEditNonce={() => navigate(RouteUrls.EditNonce)}
+              />
+              <MinimalErrorMessage />
+              <SubmitAction />
+              <HighFeeDrawer learnMoreUrl={HIGH_FEE_WARNING_LEARN_MORE_URL_STX} />
+            </NonceSetter>
+            <Outlet />
+          </>
+        )}
+      </Formik>
     </Flex>
   );
 }

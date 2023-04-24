@@ -80,7 +80,7 @@ export function ContractDeployDetails(): JSX.Element | null {
   }
 
   return (
-    <Stack spacing="loose">
+    <Stack mb="loose" spacing="loose">
       <Stack spacing="0" isInline>
         <TabButton onClick={() => setTab('details')} isActive={tab === 'details'}>
           Details

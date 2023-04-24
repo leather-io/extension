@@ -14,7 +14,7 @@ import { useTransactionError } from '@app/pages/transaction-request/hooks/use-tr
 
 function BaseConfirmButton(props: ButtonProps): JSX.Element {
   return (
-    <Button borderRadius="10px" py="base" type="submit" width="100%" {...props}>
+    <Button borderRadius="10px" mt="base" py="base" type="submit" width="100%" {...props}>
       Confirm
     </Button>
   );
