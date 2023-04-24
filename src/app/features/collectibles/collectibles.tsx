@@ -9,6 +9,7 @@ import { useConfigNftMetadataEnabled } from '@app/query/common/hiro-config/hiro-
 
 import { AddCollectible } from './components/add-collectible';
 import { Ordinals } from './components/bitcoin/ordinals';
+import { Stamps } from './components/bitcoin/stamps';
 import { CollectiblesLayout } from './components/collectibes.layout';
 import { StacksCryptoAssets } from './components/stacks/stacks-crypto-assets';
 import { TaprootBalanceDisplayer } from './components/taproot-balance-displayer';
@@ -40,6 +41,7 @@ export function Collectibles() {
           <>
             <AddCollectible />
             <Ordinals />
+            <Stamps />
           </>
         ),
         ledger: null,
