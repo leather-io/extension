@@ -3,16 +3,16 @@ import { useQuery } from '@tanstack/react-query';
 import { AppUseQueryConfig } from '@app/query/query-config';
 import { QueryPrefixes } from '@app/query/query-prefixes';
 
-interface Stamp {
-  message_index: number;
-  block_index: number;
-  timestamp: number;
-  tx_hash: string;
+export interface Stamp {
   asset: string;
-  tx_index: number;
+  block_index: number;
+  message_index: number;
+  stamp: number;
   stamp_mimetype: string;
   stamp_url: string;
-  stamp: number;
+  timestamp: number;
+  tx_hash: string;
+  tx_index: number;
 }
 
 async function fetchStampCollection() {
