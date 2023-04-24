@@ -28,7 +28,7 @@ function PageTopBase() {
   return (
     <Stack
       data-testid={TransactionSigningSelectors.TxSigningPageContainer}
-      pt="extra-loose"
+      mb="loose"
       spacing="base"
     >
       <Title as="h1" fontWeight="bold">

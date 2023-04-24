@@ -34,12 +34,13 @@ function MinimalErrorMessageSuspense(props: StackProps) {
 
   return (
     <Stack
-      data-testid={TransactionSigningSelectors.TransactionErrorMessage}
       alignItems="center"
       bg="#FCEEED"
-      p="base"
       borderRadius="12px"
+      data-testid={TransactionSigningSelectors.TransactionErrorMessage}
       isInline
+      p="base"
+      width="100%"
       {...props}
     >
       <Box color={color('feedback-error')} strokeWidth={2} as={FiAlertTriangle} />

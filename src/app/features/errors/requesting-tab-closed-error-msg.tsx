@@ -16,7 +16,7 @@ export function RequestingTabClosedWarningMessage() {
   if (!hasTabClosed) return null;
 
   return (
-    <Box background={color('bg-alt')} py="base" px="base-loose" borderRadius="10px">
+    <Box background={color('bg-alt')} borderRadius="10px" mb="loose" px="base-loose" py="base">
       <Flex>
         <Box mr="base-tight" mt="2px">
           <FiAlertCircle color={color('feedback-alert')} />
