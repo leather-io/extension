@@ -32,7 +32,7 @@ const recipientAccountsDrawerRoute = (
 
 const editNonceDrawerRoute = <Route path={RouteUrls.EditNonce} element={<EditNonceDrawer />} />;
 const broadcastErrorDrawerRoute = (
-  <Route path={RouteUrls.TransactionBroadcastError} element={<BroadcastErrorDrawer />} />
+  <Route path={'confirm/broadcast-error'} element={<BroadcastErrorDrawer />} />
 );
 
 export const sendCryptoAssetFormRoutes = (
