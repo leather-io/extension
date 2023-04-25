@@ -8,7 +8,7 @@ import { useDefaultRequestParams } from '@app/common/hooks/use-default-request-s
 import { initialSearchParams } from '@app/common/initial-search-params';
 import { useWalletType } from '@app/common/use-wallet-type';
 
-function useRpcSendTransferRequestParams() {
+export function useRpcSendTransferRequestParams() {
   const defaultParams = useDefaultRequestParams();
   return useMemo(
     () => ({

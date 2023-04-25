@@ -7,6 +7,7 @@ import { decodeBitcoinTx } from '@shared/crypto/bitcoin/bitcoin.utils';
 import { logger } from '@shared/logger';
 import { createMoney, createMoneyFromDecimal } from '@shared/models/money.model';
 import { RouteUrls } from '@shared/route-urls';
+import { makeRpcSuccessResponse } from '@shared/rpc/rpc-methods';
 
 import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
 import { baseCurrencyAmountInQuote } from '@app/common/money/calculate-money';
@@ -19,6 +20,7 @@ import { useCurrentBtcNativeSegwitAccountAddressIndexZero } from '@app/store/acc
 
 import { SendTransferActions } from './components/send-transfer-actions';
 import { SendTransferConfirmationDetails } from './components/send-transfer-confirmation-details';
+import { useRpcSendTransferRequestParams } from './use-rpc-send-transfer';
 
 const symbol = 'BTC';
 
@@ -35,6 +37,7 @@ function useRpcSendTransferConfirmationState() {
 export function RpcSendTransferConfirmation() {
   const analytics = useAnalytics();
   const navigate = useNavigate();
+  const { origin, requestId, tabId } = useRpcSendTransferRequestParams();
   const { fee, recipient, time, tx } = useRpcSendTransferConfirmationState();
   const bitcoinAddress = useCurrentBtcNativeSegwitAccountAddressIndexZero();
   const { broadcastTx, isBroadcasting } = useBitcoinBroadcastTransaction();
@@ -74,7 +77,13 @@ export function RpcSendTransferConfirmation() {
     };
   }
 
-  async function initiateTransaction() {
+  async function onUserApproveSendTransferRequest() {
+    if (!tabId || !origin) {
+      logger.error('Cannot send transfer: missing tabId, origin');
+      return;
+    }
+    void analytics.track('user_approved_send_transfer', { origin });
+
     await broadcastTx({
       tx,
       async onSuccess(txid) {
@@ -86,6 +95,15 @@ export function RpcSendTransferConfirmation() {
           outputs: psbt.inputs.length,
         });
         await refetch();
+
+        chrome.tabs.sendMessage(
+          tabId,
+          makeRpcSuccessResponse('sendTransfer', {
+            id: requestId,
+            result: { txid },
+          })
+        );
+
         navigate(RouteUrls.RpcSendTransferSummary, {
           state: formBtcTxSummaryState(txid),
         });
@@ -109,7 +127,7 @@ export function RpcSendTransferConfirmation() {
       <SendTransferActions
         action="Send"
         isLoading={isBroadcasting}
-        onApprove={initiateTransaction}
+        onApprove={onUserApproveSendTransferRequest}
       />
     </>
   );
