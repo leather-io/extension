@@ -4,7 +4,7 @@ import { RouteUrls } from '@shared/route-urls';
 
 import { popupCenter } from '@background/popup-center';
 
-export function getTabIdFromPort(port: chrome.runtime.Port) {
+function getTabIdFromPort(port: chrome.runtime.Port) {
   return port.sender?.tab?.id ?? 0;
 }
 

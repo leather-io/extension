@@ -28,7 +28,7 @@ const TEST_TESTNET_ACCOUNT_1_PUBKEY_P2WPKH =
   '02b6b0afe5f620bc8e532b640b148dd9dea0ed19d11f8ab420fcce488fe3974893';
 const TEST_TESTNET_ACCOUNT_1_PUBKEY_TR =
   '03cf7525b9d94fd35eaf6b4ac4c570f718d1df142606ba3a64e2407ea01a37778f';
-const TEST_TESTNET_ACCOUNT_2_BTC_ADDRESS = 'tb1qkzvk9hr7uvas23hspvsgqfvyc8h4nngeqjqtnj';
+// const TEST_TESTNET_ACCOUNT_2_BTC_ADDRESS = 'tb1qkzvk9hr7uvas23hspvsgqfvyc8h4nngeqjqtnj';
 
 function ecdsaPublicKeyToSchnorr(pubKey: Uint8Array) {
   if (pubKey.byteLength !== ecdsaPublicKeyLength) throw new Error('Invalid public key length');
@@ -209,7 +209,7 @@ export const Bitcoin = () => {
       >
         Sign PSBT at index (Taproot)
       </Button>
-      <Button
+      {/* <Button
         mt={3}
         onClick={() => {
           console.log('requesting');
@@ -227,7 +227,7 @@ export const Bitcoin = () => {
         }}
       >
         Send transfer
-      </Button>
+      </Button> */}
     </Box>
   );
 };
