@@ -1,3 +1,30 @@
+## [4.18.0](https://github.com/hirosystems/wallet/compare/v4.17.0...v4.18.0) (2023-04-26)
+
+
+### Features
+
+* add btc balance in account selection total balance ([2a06e95](https://github.com/hirosystems/wallet/commit/2a06e95a552c03a391abbf95bf2b20920f9b0e0f))
+* btc send transfer ([7c7fdae](https://github.com/hirosystems/wallet/commit/7c7fdaee32f410191c0c6c7de2ec477a5a609e22))
+
+
+### Bug Fixes
+
+* **analytics:** exploring use of traits ([2fda5a3](https://github.com/hirosystems/wallet/commit/2fda5a3d459ce1c3faae0febf238ae501b346e28))
+* inability to remove network ([dcf3c40](https://github.com/hirosystems/wallet/commit/dcf3c40996d49de1055bca6f56a9e9b737439c98))
+* pad decimals, closes [#3582](https://github.com/hirosystems/wallet/issues/3582) ([1ccf7dd](https://github.com/hirosystems/wallet/commit/1ccf7dd3ec1bea7566672771141d2f1b64d4a698))
+* send transfer success response ([6d12445](https://github.com/hirosystems/wallet/commit/6d124452957b481d7652350fc455ae10934a916e))
+* stx and sip10 tx error routing ([c46797f](https://github.com/hirosystems/wallet/commit/c46797f641655aaab08dd3d54eead990e8391e0c))
+* tabular alignment of numberical amounts ([4cbce03](https://github.com/hirosystems/wallet/commit/4cbce03bf0044b5a1a982b2b514d10aadcf04216))
+* tx req edit nonce ([5871a95](https://github.com/hirosystems/wallet/commit/5871a9582ff9fd420d22823872864c42076fdf45))
+
+
+### Internal
+
+* force consistent interface style ([63714ca](https://github.com/hirosystems/wallet/commit/63714ca4f2e2d0090d4aad2ff079cce10eb32385))
+* improve linting ([485bf6e](https://github.com/hirosystems/wallet/commit/485bf6ecf58d488ea8a17c0ad7a7ace383a01a6a))
+* use consistent signing pattern, closes [#3405](https://github.com/hirosystems/wallet/issues/3405) ([8ea185a](https://github.com/hirosystems/wallet/commit/8ea185a785b9f99822e8315300e8f77a8ac9da2e))
+* using factory fn for signer ([541c3b7](https://github.com/hirosystems/wallet/commit/541c3b78e887ae7710433e58c8a796981f9f9af9))
+
 ## [4.17.0](https://github.com/hirosystems/wallet/compare/v4.16.0...v4.17.0) (2023-04-21)
 
 
