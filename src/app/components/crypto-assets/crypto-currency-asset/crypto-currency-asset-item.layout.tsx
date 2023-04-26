@@ -41,12 +41,9 @@ export const CryptoCurrencyAssetItemLayout = forwardRefWithAs(
       isPressable,
       subBalance,
       title,
-      currency,
-      canCopy,
       usdBalance,
       address = '',
       isHovered = false,
-      hasCopied = false,
       ...rest
     } = props;
     const [component, bind] = usePressable(isPressable);

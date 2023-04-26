@@ -15,6 +15,7 @@ export function Ordinals() {
       void analytics.track('view_collectibles', {
         ordinals_count: utxos.length,
       });
+      void analytics.identify({ ordinals_count: utxos.length });
     }
   }, [utxos.length, analytics]);
 

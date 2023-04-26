@@ -21,12 +21,13 @@ function ContractCallDetailsSuspense() {
 
   return (
     <Stack
-      spacing="loose"
       border="4px solid"
       borderColor={color('border')}
       borderRadius="12px"
-      py="extra-loose"
+      mb="loose"
       px="base-loose"
+      py="extra-loose"
+      spacing="loose"
     >
       <Title as="h2" fontWeight="500">
         Function and arguments

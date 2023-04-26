@@ -14,7 +14,7 @@ import {
   isLegacyMessage,
 } from './messaging/legacy-external-message-handler';
 import { internalBackgroundMessageHandler } from './messaging/message-handler';
-import { rpcMessageHander } from './messaging/rpc-message-handler';
+import { rpcMessageHandler } from './messaging/rpc-message-handler';
 
 initSentry();
 initContextMenuActions();
@@ -58,7 +58,7 @@ chrome.runtime.onConnect.addListener(port =>
       // TODO:
       // Here we'll handle all messages using the rpc style comm method
       // For now all messages are handled as legacy format
-      void rpcMessageHander(message, port);
+      void rpcMessageHandler(message, port);
     });
   })
 );

@@ -35,7 +35,6 @@ interface WelcomeLayoutProps {
   isGeneratingWallet: boolean;
   onSelectConnectLedger(): void;
   onStartOnboarding(): void;
-  onSelectConnectLedger(): void;
   onRestoreWallet(): void;
 }
 export function WelcomeLayout(props: WelcomeLayoutProps): JSX.Element {

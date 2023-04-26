@@ -1,0 +1,86 @@
+import toast from 'react-hot-toast';
+import { FiCheck, FiCopy, FiExternalLink } from 'react-icons/fi';
+import { useLocation } from 'react-router-dom';
+
+import { Stack, useClipboard } from '@stacks/ui';
+
+import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
+import { useExplorerLink } from '@app/common/hooks/use-explorer-link';
+// import { useOnMount } from '@app/common/hooks/use-on-mount';
+import { FormAddressDisplayer } from '@app/components/address-displayer/form-address-displayer';
+import {
+  InfoCard,
+  InfoCardAssetValue,
+  InfoCardBtn,
+  InfoCardFooter,
+  InfoCardRow,
+  InfoCardSeparator,
+} from '@app/components/info-card/info-card';
+
+// const timeOut = 5000;
+
+export function RpcSendTransferSummary() {
+  const { state } = useLocation();
+  const { handleOpenTxLink } = useExplorerLink();
+  const analytics = useAnalytics();
+
+  const {
+    txId,
+    txValue,
+    txFiatValue,
+    txFiatValueSymbol,
+    symbol,
+    txLink,
+    arrivesIn,
+    sendingValue,
+    recipient,
+    fee,
+    totalSpend,
+  } = state;
+
+  const { onCopy } = useClipboard(txId);
+
+  // TODO: Force close window?
+  // useOnMount(() => {
+  //   setTimeout(() => window.close(), timeOut);
+  // });
+
+  function onClickLink() {
+    void analytics.track('view_rpc_send_transfer_confirmation', { symbol: 'BTC' });
+    handleOpenTxLink(txLink);
+  }
+
+  function onClickCopy() {
+    onCopy();
+    toast.success('ID copied!');
+  }
+
+  return (
+    <>
+      <InfoCard>
+        <InfoCardAssetValue
+          value={txValue}
+          fiatValue={txFiatValue}
+          fiatSymbol={txFiatValueSymbol}
+          symbol={symbol}
+          icon={FiCheck}
+          mb="loose"
+        />
+        <Stack pb="extra-loose" width="100%">
+          <InfoCardRow title="To" value={<FormAddressDisplayer address={recipient} />} />
+          <InfoCardSeparator />
+          <InfoCardRow title="Total spend" value={totalSpend} />
+          <InfoCardRow title="Sending" value={sendingValue} />
+          <InfoCardRow title="Fee" value={fee} />
+          <InfoCardRow title="Estimated confirmation time" value={arrivesIn} />
+        </Stack>
+        <InfoCardFooter>
+          <Stack isInline spacing="base" width="100%">
+            <InfoCardBtn icon={FiExternalLink} label="View Details" onClick={onClickLink} />
+            <InfoCardBtn icon={FiCopy} label="Copy ID" onClick={onClickCopy} />
+          </Stack>
+        </InfoCardFooter>
+      </InfoCard>
+    </>
+  );
+}

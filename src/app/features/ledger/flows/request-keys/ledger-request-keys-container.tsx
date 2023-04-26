@@ -86,7 +86,7 @@ export function LedgerRequestKeysContainer() {
         return;
       }
       ledgerNavigate.toDeviceBusyStep();
-      completeLedgerDeviceOnboarding(resp.publicKeys, latestDeviceResponse!?.targetId);
+      completeLedgerDeviceOnboarding(resp.publicKeys, latestDeviceResponse?.targetId!);
       ledgerAnalytics.publicKeysPulledFromLedgerSuccessfully();
 
       navigate(RouteUrls.Home);

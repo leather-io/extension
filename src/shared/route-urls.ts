@@ -39,7 +39,7 @@ export enum RouteUrls {
   Send = '/send-transaction',
   ViewSecretKey = '/view-secret-key',
 
-  // App requests
+  // App requests (legacy)
   ProfileUpdateRequest = '/update-profile',
   PsbtRequest = '/psbt',
   SignatureRequest = '/signature',
@@ -63,13 +63,13 @@ export enum RouteUrls {
   SendSip10Form = '/send/:symbol/:contractId',
   SendCryptoAssetFormRecipientAccounts = 'recipient-accounts',
   SendCryptoAssetFormRecipientBns = 'recipient-bns',
+  SendBtcChooseFee = '/send/btc/choose-fee',
   SendBtcConfirmation = '/send/btc/confirm',
   SendBtcDisabled = '/send/btc/disabled',
   SendStxConfirmation = '/send/stx/confirm',
   SendStacksSip10Confirmation = '/send/:symbol/confirm',
   SentBtcTxSummary = '/sent/btc/:txId',
   SentStxTxSummary = '/sent/stx/:txId',
-  SendBtcSetFee = '/send/btc/set-fee',
 
   // Send ordinal inscriptions
   SendOrdinalInscription = '/send/ordinal-inscription',
@@ -78,8 +78,11 @@ export enum RouteUrls {
   SendOrdinalInscriptionSummary = '/send/ordinal-inscription/',
   SendOrdinalInscriptionSent = '/send/ordinal-inscription/sent',
   SendOrdinalInscriptionError = '/send/ordinal-inscription/error',
-  SendOrdinalInscriptionSetFee = '/send/ordinal-inscription/set-fee',
 
   // Request routes
   RpcGetAddresses = '/get-addresses',
+  RpcSendTransfer = '/send-transfer',
+  RpcSendTransferChooseFee = '/send-transfer/choose-fee',
+  RpcSendTransferConfirmation = '/send-transfer/confirm',
+  RpcSendTransferSummary = '/send-transfer/summary',
 }

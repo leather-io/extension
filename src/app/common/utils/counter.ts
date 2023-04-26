@@ -1,4 +1,4 @@
-export function createCounter(startPosition: number = 0) {
+export function createCounter(startPosition = 0) {
   let count = startPosition;
   return {
     getValue() {

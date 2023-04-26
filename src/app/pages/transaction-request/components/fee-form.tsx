@@ -6,7 +6,6 @@ import { StacksTransactionFormValues } from '@shared/models/form.model';
 import { isTxSponsored } from '@app/common/transactions/stacks/transaction.utils';
 import { FeesRow } from '@app/components/fees-row/fees-row';
 import { LoadingRectangle } from '@app/components/loading-rectangle';
-import { MinimalErrorMessage } from '@app/pages/transaction-request/components/minimal-error-message';
 import { useUnsignedPrepareTransactionDetails } from '@app/store/transactions/transaction.hooks';
 
 interface FeeFormProps {
@@ -26,7 +25,6 @@ export function FeeForm({ fees }: FeeFormProps) {
       ) : (
         <LoadingRectangle height="32px" width="100%" />
       )}
-      <MinimalErrorMessage />
     </>
   );
 }

@@ -28,7 +28,7 @@ interface StacksCommonSendFormProps {
     formikHelpers: FormikHelpers<StacksSendFormValues>
   ): Promise<void>;
   initialValues: StacksSendFormValues;
-  validationSchema: OptionalObjectSchema<{}>;
+  validationSchema: OptionalObjectSchema<any>;
   amountField: JSX.Element;
   selectedAssetField: JSX.Element;
   availableTokenBalance: Money;

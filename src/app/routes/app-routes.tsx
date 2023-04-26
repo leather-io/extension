@@ -33,12 +33,13 @@ import { ReceiveStxModal } from '@app/pages/receive-tokens/receive-stx';
 import { ReceiveCollectibleModal } from '@app/pages/receive/receive-collectible/receive-collectible-modal';
 import { ReceiveCollectibleOrdinal } from '@app/pages/receive/receive-collectible/receive-collectible-oridinal';
 import { RpcGetAddresses } from '@app/pages/rpc-get-addresses/rpc-get-addresses';
+import { rpcSendTransferRoutes } from '@app/pages/rpc-send-transfer/rpc-send-transfer.routes';
 import { SelectNetwork } from '@app/pages/select-network/select-network';
 import { BroadcastError } from '@app/pages/send/broadcast-error/broadcast-error';
+import { SendInscriptionChooseFee } from '@app/pages/send/ordinal-inscription/send-inscription-choose-fee';
 import { SendInscription } from '@app/pages/send/ordinal-inscription/send-inscription-container';
 import { SendInscriptionForm } from '@app/pages/send/ordinal-inscription/send-inscription-form';
 import { SendInscriptionReview } from '@app/pages/send/ordinal-inscription/send-inscription-review';
-import { SendInscriptionSetFee } from '@app/pages/send/ordinal-inscription/send-inscription-set-fee';
 import { SendInscriptionSummary } from '@app/pages/send/ordinal-inscription/sent-inscription-summary';
 import { sendCryptoAssetFormRoutes } from '@app/pages/send/send-crypto-asset-form/send-crypto-asset-form.routes';
 import { SignOutConfirmDrawer } from '@app/pages/sign-out-confirm/sign-out-confirm';
@@ -104,8 +105,8 @@ function AppRoutesAfterUserHasConsented() {
               element={<SendInscriptionReview />}
             />
             <Route
-              path={RouteUrls.SendOrdinalInscriptionSetFee}
-              element={<SendInscriptionSetFee />}
+              path={RouteUrls.SendOrdinalInscriptionChooseFee}
+              element={<SendInscriptionChooseFee />}
             />
             <Route
               path={RouteUrls.SendOrdinalInscriptionSent}
@@ -260,6 +261,7 @@ function AppRoutesAfterUserHasConsented() {
             </AccountGate>
           }
         />
+        {rpcSendTransferRoutes}
 
         {/* Catch-all route redirects to onboarding */}
         <Route path="*" element={<Navigate replace to={RouteUrls.Onboarding} />} />

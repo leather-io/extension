@@ -33,8 +33,9 @@ function PostConditionsSuspense(): JSX.Element | null {
       border="4px solid"
       borderColor={color('border')}
       borderRadius="12px"
-      width="100%"
       flexDirection="column"
+      mb="loose"
+      width="100%"
     >
       {hasPostConditions ? (
         <PostConditionsList />

@@ -2,7 +2,6 @@ import { useCallback, useMemo } from 'react';
 import { useSelector } from 'react-redux';
 
 import { HDKey } from '@scure/bip32';
-import * as btc from '@scure/btc-signer';
 
 import {
   deriveAddressIndexKeychainFromAccount,
@@ -10,7 +9,7 @@ import {
 } from '@shared/crypto/bitcoin/bitcoin.utils';
 import {
   deriveNativeSegWitReceiveAddressIndex,
-  getNativeSegWitAddressIndexFromKeychain,
+  getNativeSegWitPaymentFromKeychain,
 } from '@shared/crypto/bitcoin/p2wpkh-address-gen';
 import { isUndefined } from '@shared/utils';
 
@@ -23,6 +22,7 @@ import { useCurrentNetwork } from '@app/store/networks/networks.selectors';
 
 import { useCurrentAccountIndex } from '../../account';
 import {
+  bitcoinSignerFactory,
   selectMainnetNativeSegWitKeychain,
   selectTestnetNativeSegWitKeychain,
 } from './bitcoin-keychain';
@@ -116,67 +116,16 @@ export function useBtcNativeSegwitAccountIndexAddressIndexZero(accountIndex: num
   return useDeriveNativeSegWitAccountIndexAddressIndexZero(xpub)?.address as string;
 }
 
-/**
- * @deprecated
- * Let's update to use the signer structure, also used in taproot
- */
-export function useSignBitcoinNativeSegwitTx() {
-  const index = useCurrentAccountIndex();
-  const keychain = useNativeSegWitCurrentNetworkAccountKeychain()?.(index);
-  return useCallback(
-    (tx: btc.Transaction) => {
-      if (isUndefined(keychain)) return;
-      tx.sign(deriveAddressIndexZeroFromAccount(keychain).privateKey!);
-    },
-    [keychain]
-  );
-}
-
 export function useCurrentAccountNativeSegwitSigner() {
   const network = useCurrentNetwork();
   const index = useCurrentAccountIndex();
   const accountKeychain = useNativeSegWitCurrentNetworkAccountKeychain()?.(index);
   if (!accountKeychain) return;
-
   const addressIndexKeychainFn = deriveAddressIndexKeychainFromAccount(accountKeychain);
 
-  return (addressIndex: number) => {
-    const addressIndexKeychain = addressIndexKeychainFn(addressIndex);
-    return {
-      payment: getNativeSegWitAddressIndexFromKeychain(
-        addressIndexKeychain,
-        network.chain.bitcoin.network
-      ),
-      sign(tx: btc.Transaction) {
-        if (!addressIndexKeychain.privateKey)
-          throw new Error('Unable to sign taproot transaction, no private key found');
-
-        tx.sign(addressIndexKeychain.privateKey);
-      },
-      signIndex(tx: btc.Transaction, index: number) {
-        if (!addressIndexKeychain.privateKey)
-          throw new Error('Unable to sign taproot transaction, no private key found');
-
-        tx.signIdx(addressIndexKeychain.privateKey, index);
-      },
-    };
-  };
-}
-
-interface UseSignBitcoinNativeSegwitInputAtIndexArgs {
-  allowedSighash?: btc.SignatureHash[];
-  idx: number;
-  tx: btc.Transaction;
-}
-export function useSignBitcoinNativeSegwitInputAtIndex() {
-  const index = useCurrentAccountIndex();
-  const keychain = useNativeSegWitCurrentNetworkAccountKeychain()?.(index);
-
-  return useCallback(
-    ({ allowedSighash, idx, tx }: UseSignBitcoinNativeSegwitInputAtIndexArgs) => {
-      if (isUndefined(keychain)) return;
-      tx.signIdx(deriveAddressIndexZeroFromAccount(keychain).privateKey!, idx, allowedSighash);
-    },
-    [keychain]
-  );
+  return bitcoinSignerFactory({
+    addressIndexKeychainFn,
+    paymentFn: getNativeSegWitPaymentFromKeychain,
+    network: network.chain.bitcoin.network,
+  });
 }

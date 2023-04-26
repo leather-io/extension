@@ -4,19 +4,22 @@ import { baseCurrencyAmountInQuote } from '@app/common/money/calculate-money';
 import { i18nFormatCurrency } from '@app/common/money/format-money';
 import { useNativeSegwitBalance } from '@app/query/bitcoin/balance/bitcoin-balances.query';
 import { useCryptoCurrencyMarketData } from '@app/query/common/market-data/market-data.hooks';
-import { useCurrentStacksAccountAnchoredBalances } from '@app/query/stacks/balance/stx-balance.hooks';
-import { useCurrentBtcNativeSegwitAccountAddressIndexZero } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
+import { useAnchoredStacksAccountBalances } from '@app/query/stacks/balance/stx-balance.hooks';
 
-export function useTotalBalance() {
+interface UseTotalBalanceArgs {
+  btcAddress: string;
+  stxAddress: string;
+}
+
+export function useTotalBalance({ btcAddress, stxAddress }: UseTotalBalanceArgs) {
   // get market data
   const btcMarketData = useCryptoCurrencyMarketData('BTC');
   const stxMarketData = useCryptoCurrencyMarketData('STX');
 
   // get stx balance
-  const { data: balances } = useCurrentStacksAccountAnchoredBalances();
+  const { data: balances, isLoading } = useAnchoredStacksAccountBalances(stxAddress);
 
   // get btc balance
-  const btcAddress = useCurrentBtcNativeSegwitAccountAddressIndexZero();
   const btcBalance = useNativeSegwitBalance(btcAddress);
 
   return useMemo(() => {
@@ -30,6 +33,7 @@ export function useTotalBalance() {
     return {
       totalBalance,
       totalUsdBalance: i18nFormatCurrency(totalBalance),
+      isLoading,
     };
-  }, [btcBalance, balances, btcMarketData, stxMarketData]);
+  }, [btcBalance, balances, btcMarketData, stxMarketData, isLoading]);
 }

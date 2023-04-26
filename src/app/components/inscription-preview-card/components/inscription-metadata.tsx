@@ -31,7 +31,7 @@ export function InscriptionMetadata({
           as="button"
           color={color('accent')}
           fontSize={1}
-          onClick={() => {}}
+          onClick={() => action()}
           type="button"
         >
           {actionLabel}

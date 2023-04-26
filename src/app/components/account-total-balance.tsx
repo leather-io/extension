@@ -4,8 +4,13 @@ import { Text } from '@stacks/ui';
 
 import { useTotalBalance } from '@app/common/hooks/balance/use-total-balance';
 
-export const AccountTotalBalance = memo(() => {
-  const totalBalance = useTotalBalance();
+interface AccountTotalBalanceProps {
+  btcAddress: string;
+  stxAddress: string;
+}
+
+export const AccountTotalBalance = memo(({ btcAddress, stxAddress }: AccountTotalBalanceProps) => {
+  const totalBalance = useTotalBalance({ btcAddress, stxAddress });
 
   if (!totalBalance) return null;
 

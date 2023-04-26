@@ -40,7 +40,7 @@ function useUpdateProfileSoftwareWallet() {
       const profile = (await fetchProfileFromUrl(profileUrl, fetchFn)) || DEFAULT_PROFILE;
       const updatedProfile = {
         ...profile,
-        ...(publicProfile as PublicPersonProfile),
+        ...publicProfile,
         // apps and appsMeta must not be overwritten by user
         apps: profile.apps,
         appsMeta: profile.appsMeta,

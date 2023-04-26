@@ -1,8 +1,6 @@
 import { useCallback, useMemo } from 'react';
 import { useSelector } from 'react-redux';
 
-import * as btc from '@scure/btc-signer';
-
 import {
   deriveAddressIndexKeychainFromAccount,
   deriveAddressIndexZeroFromAccount,
@@ -18,7 +16,11 @@ import { useCurrentNetwork } from '@app/store/networks/networks.selectors';
 
 import { useCurrentAccountIndex } from '../../account';
 import { formatBitcoinAccount, tempHardwareAccountForTesting } from './bitcoin-account.models';
-import { selectMainnetTaprootKeychain, selectTestnetTaprootKeychain } from './bitcoin-keychain';
+import {
+  bitcoinSignerFactory,
+  selectMainnetTaprootKeychain,
+  selectTestnetTaprootKeychain,
+} from './bitcoin-keychain';
 
 function useTaprootCurrentNetworkAccountPrivateKeychain() {
   const network = useCurrentNetwork();
@@ -83,37 +85,6 @@ export function useCurrentBtcTaprootAccountAddressIndexZeroPayment() {
   return { address: payment.address, type: payment.type };
 }
 
-export function useSignBitcoinTaprootTx() {
-  const index = useCurrentAccountIndex();
-  const keychain = useTaprootCurrentNetworkAccountPrivateKeychain()?.(index);
-
-  return useCallback(
-    (tx: btc.Transaction) => {
-      if (isUndefined(keychain)) return;
-      tx.sign(deriveAddressIndexZeroFromAccount(keychain).privateKey!);
-    },
-    [keychain]
-  );
-}
-
-interface UseSignBitcoinTaprootInputAtIndexArgs {
-  allowedSighash?: btc.SignatureHash[];
-  idx: number;
-  tx: btc.Transaction;
-}
-export function useSignBitcoinTaprootInputAtIndex() {
-  const index = useCurrentAccountIndex();
-  const keychain = useTaprootCurrentNetworkAccountPrivateKeychain()?.(index);
-
-  return useCallback(
-    ({ allowedSighash, idx, tx }: UseSignBitcoinTaprootInputAtIndexArgs) => {
-      if (isUndefined(keychain)) return;
-      tx.signIdx(deriveAddressIndexZeroFromAccount(keychain).privateKey!, idx, allowedSighash);
-    },
-    [keychain]
-  );
-}
-
 // TODO: Address index 0 is hardcoded here bc this is only used to pass the first
 // taproot address to the app thru the auth response. This is only temporary, it
 // should be removed once the request address api is in place.
@@ -149,25 +120,9 @@ export function useCurrentAccountTaprootSigner() {
   if (!accountKeychain) return; // TODO: Revisit this return early
   const addressIndexKeychainFn = deriveAddressIndexKeychainFromAccount(accountKeychain);
 
-  return (addressIndex: number) => {
-    const addressIndexKeychain = addressIndexKeychainFn(addressIndex);
-    return {
-      payment: getTaprootPaymentFromAddressIndex(
-        addressIndexKeychain,
-        network.chain.bitcoin.network
-      ),
-      sign(tx: btc.Transaction) {
-        if (!addressIndexKeychain.privateKey)
-          throw new Error('Unable to sign taproot transaction, no private key found');
-
-        tx.sign(addressIndexKeychain.privateKey);
-      },
-      signIndex(tx: btc.Transaction, index: number) {
-        if (!addressIndexKeychain.privateKey)
-          throw new Error('Unable to sign taproot transaction, no private key found');
-
-        tx.signIdx(addressIndexKeychain.privateKey, index);
-      },
-    };
-  };
+  return bitcoinSignerFactory({
+    addressIndexKeychainFn,
+    paymentFn: getTaprootPaymentFromAddressIndex,
+    network: network.chain.bitcoin.network,
+  });
 }

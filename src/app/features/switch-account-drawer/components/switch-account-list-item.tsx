@@ -10,7 +10,7 @@ import { useSwitchAccount } from '@app/common/hooks/account/use-switch-account';
 import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
 import { useDrawers } from '@app/common/hooks/use-drawers';
 import { useLoading } from '@app/common/hooks/use-loading';
-import { AccountBalanceLabel } from '@app/components/account/account-balance-label';
+import { AccountTotalBalance } from '@app/components/account-total-balance';
 import { AccountListItemLayout } from '@app/components/account/account-list-item-layout';
 import { usePressable } from '@app/components/item-hover';
 import { useBtcNativeSegwitAccountIndexAddressIndexZero } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
@@ -69,7 +69,7 @@ export const SwitchAccountListItem = memo(
         }
         onSelectAccount={handleClick}
         accountName={<AccountName account={account} />}
-        balanceLabel={<AccountBalanceLabel address={account.address} />}
+        balanceLabel={<AccountTotalBalance stxAddress={account.address} btcAddress={btcAddress} />}
         hasCopied={hasCopied}
         onCopyToClipboard={onCopyToClipboard}
         onClickBtcCopyIcon={onClickBtcCopyIcon}

@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 
 import { StacksTransaction } from '@stacks/transactions';
 
+import { logger } from '@shared/logger';
 import { RouteUrls } from '@shared/route-urls';
 
 import { LoadingKeys } from '@app/common/hooks/use-loading';
@@ -30,7 +31,9 @@ export const useReplaceByFeeSoftwareWalletSubmitCallBack = () => {
           setTxId(null);
           navigate(RouteUrls.Home);
         },
-        onError() {},
+        onError() {
+          logger.error('Error submitting transaction');
+        },
         replaceByFee: true,
       })(signedTx);
     },

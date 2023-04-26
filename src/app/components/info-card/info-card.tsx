@@ -14,7 +14,7 @@ interface InfoCardProps extends FlexProps {
 }
 export function InfoCard({ children, ...props }: InfoCardProps) {
   return (
-    <Flex flexDirection="column" alignItems="center" justifyItems="centers" width="100%" {...props}>
+    <Flex flexDirection="column" alignItems="center" justifyItems="center" width="100%" {...props}>
       {children}
     </Flex>
   );
@@ -35,6 +35,8 @@ export function InfoCardRow({ title, value, ...props }: InfoCardRowProps) {
           color={figmaTheme.text}
           fontWeight="500"
           data-testid={SharedComponentsSelectors.InfoCardRowValue}
+          fontVariant="tabular-nums"
+          letterSpacing="-0.01em"
         >
           {value}
         </Text>

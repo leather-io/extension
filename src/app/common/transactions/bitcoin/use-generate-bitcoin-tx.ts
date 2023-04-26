@@ -2,45 +2,52 @@ import { useCallback } from 'react';
 
 import * as btc from '@scure/btc-signer';
 
-import { BitcoinSendFormValues } from '@shared/models/form.model';
+import { logger } from '@shared/logger';
+import { Money } from '@shared/models/money.model';
 
-import { btcToSat } from '@app/common/money/unit-conversion';
 import { determineUtxosForSpend } from '@app/common/transactions/bitcoin/coinselect/local-coin-selection';
 import { useGetUtxosByAddressQuery } from '@app/query/bitcoin/address/utxos-by-address.query';
 import { useBitcoinLibNetworkConfig } from '@app/store/accounts/blockchain/bitcoin/bitcoin-keychain';
 import {
+  useCurrentAccountNativeSegwitSigner,
   useCurrentBitcoinNativeSegwitAddressIndexPublicKeychain,
   useCurrentBtcNativeSegwitAccountAddressIndexZero,
-  useSignBitcoinNativeSegwitTx,
 } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
+
+interface GenerateBitcoinTxValues {
+  amount: Money;
+  recipient: string;
+}
 
 export function useGenerateSignedBitcoinTx() {
   const currentAccountBtcAddress = useCurrentBtcNativeSegwitAccountAddressIndexZero();
   const { data: utxos } = useGetUtxosByAddressQuery(currentAccountBtcAddress);
   const currentAddressIndexKeychain = useCurrentBitcoinNativeSegwitAddressIndexPublicKeychain();
-  const signTx = useSignBitcoinNativeSegwitTx();
+  const createSigner = useCurrentAccountNativeSegwitSigner();
   const networkMode = useBitcoinLibNetworkConfig();
 
   return useCallback(
-    (values: BitcoinSendFormValues, feeRate: number) => {
+    (values: GenerateBitcoinTxValues, feeRate: number) => {
       if (!utxos) return;
       if (!feeRate) return;
+      if (!createSigner) return;
 
       try {
+        const signer = createSigner(0);
+
         const tx = new btc.Transaction();
 
         const { inputs, outputs, fee } = determineUtxosForSpend({
           utxos,
           recipient: values.recipient,
-          amount: btcToSat(values.amount).toNumber(),
+          amount: values.amount.amount.toNumber(),
           feeRate,
         });
 
-        // eslint-disable-next-line no-console
-        console.log('coinselect', { inputs, outputs, fee });
+        logger.info('coinselect', { inputs, outputs, fee });
 
-        if (!inputs) throw new Error('No inputs to sign');
-        if (!outputs) throw new Error('No outputs to sign');
+        if (!inputs.length) throw new Error('No inputs to sign');
+        if (!outputs.length) throw new Error('No outputs to sign');
 
         if (outputs.length > 2)
           throw new Error('Address reuse mode: wallet should have max 2 outputs');
@@ -66,8 +73,9 @@ export function useGenerateSignedBitcoinTx() {
           }
           tx.addOutputAddress(values.recipient, BigInt(output.value), networkMode);
         });
-        signTx(tx);
+        signer.sign(tx);
         tx.finalize();
+
         return { hex: tx.hex, fee };
       } catch (e) {
         // eslint-disable-next-line no-console
@@ -75,6 +83,12 @@ export function useGenerateSignedBitcoinTx() {
         return null;
       }
     },
-    [currentAccountBtcAddress, currentAddressIndexKeychain?.publicKey, networkMode, signTx, utxos]
+    [
+      createSigner,
+      currentAccountBtcAddress,
+      currentAddressIndexKeychain?.publicKey,
+      networkMode,
+      utxos,
+    ]
   );
 }
