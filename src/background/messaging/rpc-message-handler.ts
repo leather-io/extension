@@ -3,6 +3,7 @@ import { RpcErrorCode } from '@btckit/types';
 import { RouteUrls } from '@shared/route-urls';
 import { WalletRequests, makeRpcErrorResponse } from '@shared/rpc/rpc-methods';
 
+import { rpcMessages$ } from './message-events';
 import {
   getTabIdFromPort,
   listenForPopupClose,
@@ -10,7 +11,7 @@ import {
   triggerRequestWindowOpen,
 } from './messaging-utils';
 
-export async function rpcMessageHandler(message: WalletRequests, port: chrome.runtime.Port) {
+async function rpcMessageHandler(message: WalletRequests, port: chrome.runtime.Port) {
   switch (message.method) {
     case 'getAddresses': {
       const { urlParams, tabId } = makeSearchParamsWithDefaults(port, [['requestId', message.id]]);
@@ -54,3 +55,13 @@ export async function rpcMessageHandler(message: WalletRequests, port: chrome.ru
     }
   }
 }
+
+rpcMessages$.subscribe({
+  complete() {
+    // eslint-disable-next-line no-console
+    console.log('rpcMessages$ completed');
+  },
+  next: ({ message, port }) => rpcMessageHandler(message, port),
+  // eslint-disable-next-line no-console
+  error: console.error,
+});

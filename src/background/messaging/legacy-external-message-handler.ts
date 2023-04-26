@@ -14,6 +14,8 @@ import {
   triggerRequestWindowOpen,
 } from '@background/messaging/messaging-utils';
 
+import { legacyMessage$ } from './message-events';
+
 export function isLegacyMessage(message: any): message is LegacyMessageFromContentScript {
   // Now that we use a RPC communication style, we can infer
   // legacy message types by presence of an id
@@ -31,7 +33,7 @@ function getNetworkParamsFromPayload(payload: string): [string, string][] {
   ];
 }
 
-export async function handleLegacyExternalMethodFormat(
+async function handleLegacyExternalMethodFormat(
   message: LegacyMessageFromContentScript,
   port: chrome.runtime.Port
 ) {
@@ -134,3 +136,5 @@ export async function handleLegacyExternalMethodFormat(
     }
   }
 }
+
+legacyMessage$.subscribe(({ message, port }) => handleLegacyExternalMethodFormat(message, port));
