@@ -1,3 +1,11 @@
+## [4.18.1](https://github.com/hirosystems/wallet/compare/v4.18.0...v4.18.1) (2023-04-27)
+
+
+### Bug Fixes
+
+* ensure users don't accidentally send stamped utxos ([fccf6a9](https://github.com/hirosystems/wallet/commit/fccf6a95c291c9f7a4ac79419129de6b836661aa))
+* retrieve bitcoin from tr addresses, closes [#3575](https://github.com/hirosystems/wallet/issues/3575) ([76d400e](https://github.com/hirosystems/wallet/commit/76d400e20492d57bebb1cb5ce6eecdbaa3b7abf9))
+
 ## [4.18.0](https://github.com/hirosystems/wallet/compare/v4.17.0...v4.18.0) (2023-04-26)
 
 
