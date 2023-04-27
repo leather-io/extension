@@ -1,4 +1,6 @@
 import { FiCopy } from 'react-icons/fi';
+import { BiShow, BiHide } from 'react-icons/bi';
+import { useState } from 'react';
 
 import YourSecretKey from '@assets/images/onboarding/your-secret-key.png';
 import { Box, Stack, color } from '@stacks/ui';
@@ -17,6 +19,7 @@ interface SecretKeyDisplayerLayoutProps {
 }
 export function SecretKeyDisplayerLayout(props: SecretKeyDisplayerLayoutProps) {
   const { hasCopied, onCopyToClipboard, secretKeyWords, showTitleAndIllustration } = props;
+  const [isKeyMasked, setIsKeyMasked] = useState(true);
 
   return (
     <Box border="1px solid" borderColor={color('border')} borderRadius="16px">
@@ -34,10 +37,25 @@ export function SecretKeyDisplayerLayout(props: SecretKeyDisplayerLayoutProps) {
             <Title fontSize="20px">Your Secret Key</Title>
           </>
         ) : null}
+
         <Stack isInline justifyContent="center" rowGap="tight" wrap="wrap">
           {secretKeyWords?.map(word => (
-            <SecretKeyWord key={word} word={word} />
+            <SecretKeyWord key={word} word={isKeyMasked ? '*'.repeat(word.length) : word} />
           ))}
+        </Stack>
+        <Stack alignItems="center" isInline>
+          <Link
+            fontSize="14px"
+            _hover={{ textDecoration: 'none' }}
+            onClick={() => setIsKeyMasked(!isKeyMasked)}
+          >
+            <Stack alignItems="center" isInline spacing="tight">
+              {isKeyMasked ? <BiShow /> : <BiHide />}
+              <Text color={color('accent')} whiteSpace="nowrap">
+                {isKeyMasked ? 'Show key' : 'Hide key'}
+              </Text>
+            </Stack>
+          </Link>
         </Stack>
         <Link
           data-testid={SettingsSelectors.CopyKeyToClipboardBtn}
