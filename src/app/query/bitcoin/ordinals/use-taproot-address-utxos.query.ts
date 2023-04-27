@@ -7,6 +7,7 @@ import { useBitcoinClient } from '@app/store/common/api-clients.hooks';
 import { useCurrentNetwork } from '@app/store/networks/networks.selectors';
 
 import { UtxoResponseItem } from '../bitcoin-client';
+import { useIsStampedTx } from '../stamps/use-is-stamped-tx';
 import { getTaprootAddress, hasInscriptions } from './utils';
 
 const stopSearchAfterNumberAddressesWithoutOrdinals = 20;
@@ -23,6 +24,7 @@ export interface TaprootUtxo extends UtxoResponseItem {
 export function useTaprootAccountUtxosQuery() {
   const network = useCurrentNetwork();
   const keychain = useCurrentTaprootAccountKeychain();
+  const isStamped = useIsStampedTx();
   const client = useBitcoinClient();
 
   const currentAccountIndex = useCurrentAccountIndex();
@@ -60,6 +62,6 @@ export function useTaprootAccountUtxosQuery() {
       currentNumberOfAddressesWithoutOrdinals = 0;
       addressIndexCounter.increment();
     }
-    return foundUnspentTransactions;
+    return foundUnspentTransactions.filter(tx => !isStamped(tx.txid));
   });
 }
