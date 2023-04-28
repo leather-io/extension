@@ -8,7 +8,7 @@ import { btcToSat } from '@app/common/money/unit-conversion';
 import { determineUtxosForSpend } from '@app/common/transactions/bitcoin/coinselect/local-coin-selection';
 import { useGetUtxosByAddressQuery } from '@app/query/bitcoin/address/utxos-by-address.query';
 import { BtcFeeType, btcTxTimeMap } from '@app/query/bitcoin/bitcoin-client';
-import { useBitcoinFeeRate } from '@app/query/bitcoin/fees/fee-estimates.hooks';
+import { useAverageBitcoinFeeRate } from '@app/query/bitcoin/fees/fee-estimates.hooks';
 import { useCryptoCurrencyMarketData } from '@app/query/common/market-data/market-data.hooks';
 import { useCurrentBtcNativeSegwitAccountAddressIndexZero } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
 
@@ -21,7 +21,7 @@ export function useBitcoinFeesList({ amount, recipient }: UseBitcoinFeesListArgs
   const { data: utxos } = useGetUtxosByAddressQuery(currentAccountBtcAddress);
 
   const btcMarketData = useCryptoCurrencyMarketData('BTC');
-  const { data: feeRate } = useBitcoinFeeRate();
+  const { avgApiFeeRates: feeRate, isLoading } = useAverageBitcoinFeeRate();
 
   const feesList = useMemo(() => {
     function getFiatFeeValue(fee: number) {
@@ -37,21 +37,21 @@ export function useBitcoinFeesList({ amount, recipient }: UseBitcoinFeesListArgs
       utxos,
       recipient,
       amount: satAmount,
-      feeRate: feeRate.fastestFee,
+      feeRate: feeRate.fastestFee.toNumber(),
     });
 
     const { fee: standartFeeValue } = determineUtxosForSpend({
       utxos,
       recipient,
       amount: satAmount,
-      feeRate: feeRate.halfHourFee,
+      feeRate: feeRate.halfHourFee.toNumber(),
     });
 
     const { fee: lowFeeValue } = determineUtxosForSpend({
       utxos,
       recipient,
       amount: satAmount,
-      feeRate: feeRate.economyFee,
+      feeRate: feeRate.hourFee.toNumber(),
     });
 
     return [
@@ -61,7 +61,7 @@ export function useBitcoinFeesList({ amount, recipient }: UseBitcoinFeesListArgs
         btcValue: formatMoneyPadded(createMoney(highFeeValue, 'BTC')),
         time: btcTxTimeMap.fastestFee,
         fiatValue: getFiatFeeValue(highFeeValue),
-        feeRate: feeRate.fastestFee,
+        feeRate: feeRate.fastestFee.toNumber(),
       },
       {
         label: BtcFeeType.Standard,
@@ -69,7 +69,7 @@ export function useBitcoinFeesList({ amount, recipient }: UseBitcoinFeesListArgs
         btcValue: formatMoneyPadded(createMoney(standartFeeValue, 'BTC')),
         time: btcTxTimeMap.halfHourFee,
         fiatValue: getFiatFeeValue(standartFeeValue),
-        feeRate: feeRate.halfHourFee,
+        feeRate: feeRate.halfHourFee.toNumber(),
       },
       {
         label: BtcFeeType.Low,
@@ -77,12 +77,13 @@ export function useBitcoinFeesList({ amount, recipient }: UseBitcoinFeesListArgs
         btcValue: formatMoneyPadded(createMoney(lowFeeValue, 'BTC')),
         time: btcTxTimeMap.economyFee,
         fiatValue: getFiatFeeValue(lowFeeValue),
-        feeRate: feeRate.economyFee,
+        feeRate: feeRate.hourFee.toNumber(),
       },
     ];
   }, [feeRate, btcMarketData, utxos, recipient, amount]);
 
   return {
     feesList,
+    isLoading,
   };
 }
