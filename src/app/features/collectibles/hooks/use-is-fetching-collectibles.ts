@@ -1,6 +1,6 @@
 import { useIsFetching } from '@tanstack/react-query';
 
-import { sumNumbers } from '@app/common/utils';
+import { sumNumbers } from '@app/common/math/helpers';
 import { QueryPrefixes } from '@app/query/query-prefixes';
 
 function areAnyQueriesFetching(...args: number[]) {

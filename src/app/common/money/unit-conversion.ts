@@ -3,7 +3,7 @@ import BigNumber from 'bignumber.js';
 import { BTC_DECIMALS, STX_DECIMALS } from '@shared/constants';
 import { Money } from '@shared/models/money.model';
 
-import { initBigNumber } from '../utils';
+import { initBigNumber } from '../math/helpers';
 
 function fractionalUnitToUnit(decimals: number) {
   return (unit: number | string | BigNumber) => {

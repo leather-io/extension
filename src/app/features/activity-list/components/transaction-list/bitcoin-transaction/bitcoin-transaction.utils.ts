@@ -2,8 +2,8 @@ import { truncateMiddle } from '@stacks/ui-utils';
 
 import { BitcoinTransaction } from '@shared/models/transactions/bitcoin-transaction.model';
 
+import { sumNumbers } from '@app/common/math/helpers';
 import { satToBtc } from '@app/common/money/unit-conversion';
-import { sumNumbers } from '@app/common/utils';
 
 export const getBitcoinTxCaption = (transaction?: BitcoinTransaction) =>
   transaction ? truncateMiddle(transaction.txid, 4) : '';

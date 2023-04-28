@@ -1,4 +1,5 @@
-import { createNullArrayOfLength, sumNumbers } from '@app/common/utils';
+import { sumNumbers } from '@app/common/math/helpers';
+import { createNullArrayOfLength } from '@app/common/utils';
 
 import { determineUtxosForSpend } from './local-coin-selection';
 
