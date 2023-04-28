@@ -5,7 +5,7 @@ import BigNumber from 'bignumber.js';
 import { createMoney } from '@shared/models/money.model';
 import { isDefined } from '@shared/utils';
 
-import { sumNumbers } from '@app/common/utils';
+import { sumNumbers } from '@app/common/math/helpers';
 import { useCurrentBtcNativeSegwitAccountAddressIndexZero } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
 
 import { createBitcoinCryptoCurrencyAssetTypeWrapper } from '../address/address.utils';

@@ -1,8 +1,8 @@
 import { BTC_P2WPKH_DUST_AMOUNT } from '@shared/constants';
 import { isDefined } from '@shared/utils';
 
+import { sumNumbers } from '@app/common/math/helpers';
 import { BtcSizeFeeEstimator } from '@app/common/transactions/bitcoin/fees/btc-size-fee-estimator';
-import { sumNumbers } from '@app/common/utils';
 import { createCounter } from '@app/common/utils/counter';
 import { UtxoResponseItem } from '@app/query/bitcoin/bitcoin-client';
 import { TaprootUtxo } from '@app/query/bitcoin/ordinals/use-taproot-address-utxos.query';

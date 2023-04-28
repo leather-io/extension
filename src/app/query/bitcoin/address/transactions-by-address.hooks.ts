@@ -2,7 +2,7 @@ import { useMemo } from 'react';
 
 import { createMoney } from '@shared/models/money.model';
 
-import { sumNumbers } from '@app/common/utils';
+import { sumNumbers } from '@app/common/math/helpers';
 import { useCurrentBtcNativeSegwitAccountAddressIndexZero } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
 
 import { useGetBitcoinTransactionsByAddressQuery } from './transactions-by-address.query';

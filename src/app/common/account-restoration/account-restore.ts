@@ -1,5 +1,5 @@
+import { fibonacciGenerator } from '../math/fibonacci';
 import { createCounter } from '../utils/counter';
-import { fibonacciGenerator } from '../utils/fibonacci';
 
 const numOfEmptyAccountsToCheck = 20;
 
