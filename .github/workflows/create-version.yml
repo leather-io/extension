@@ -24,12 +24,16 @@ jobs:
       new_release_version: ${{ steps.semantic.outputs.new_release_version }}
 
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
         with:
           token: ${{ secrets.GH_TOKEN }}
           persist-credentials: false
 
       - uses: ./.github/actions/provision
+
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 14
 
       - name: Semantic Release
         uses: cycjimmy/semantic-release-action@v3.4.2
