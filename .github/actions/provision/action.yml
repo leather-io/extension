@@ -9,12 +9,13 @@ runs:
         node-version: 16
 
     - uses: actions/cache@v3
-      id: cache-node-modules
+      id: cache
       with:
         path: '**/node_modules'
         key: ${{ runner.os }}-${{ hashFiles('**/yarn.lock') }}-${{ hashFiles('**/package.json') }}
 
     - name: Install dependencies
+      if: steps.cache.outputs.cache-hit != 'true'
       env:
         PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD: 1
       run: yarn --frozen-lockfile
