@@ -1,4 +1,4 @@
-import { sumNumbers } from '@app/common/utils';
+import { sumNumbers } from '@app/common/math/helpers';
 
 import { selectInscriptionTransferCoins } from './select-inscription-coins';
 

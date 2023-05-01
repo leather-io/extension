@@ -5,7 +5,7 @@ import { isNumber } from '@shared/utils';
 
 import { formatErrorWithSymbol } from '@app/common/error-formatters';
 import { FormErrorMessages } from '@app/common/error-messages';
-import { countDecimals } from '@app/common/utils';
+import { countDecimals } from '@app/common/math/helpers';
 
 export function currencyAmountValidator() {
   return yup

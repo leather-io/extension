@@ -30,7 +30,9 @@ export type OrdApiInscriptionTxOutput = Prettify<yup.InferType<typeof ordApiGetT
 
 export async function getNumberOfInscriptionOnUtxo(id: string, index: number) {
   const resp = await fetchOrdinalsAwareUtxo(id, index);
-  return resp.all_inscriptions?.length ?? 0;
+  if (resp.all_inscriptions) return resp.all_inscriptions.length;
+  if (resp.inscriptions) return 1;
+  return 0;
 }
 
 async function fetchOrdinalsAwareUtxo(

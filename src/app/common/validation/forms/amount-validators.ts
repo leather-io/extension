@@ -4,6 +4,7 @@ import * as yup from 'yup';
 import { Money } from '@shared/models/money.model';
 import { isNumber } from '@shared/utils';
 
+import { countDecimals } from '@app/common/math/helpers';
 import { subtractMoney } from '@app/common/money/format-money';
 import {
   btcToSat,
@@ -18,7 +19,6 @@ import {
   formatPrecisionError,
 } from '../../error-formatters';
 import { FormErrorMessages } from '../../error-messages';
-import { countDecimals } from '../../utils';
 import { currencyAmountValidator, stxAmountPrecisionValidator } from './currency-validators';
 
 const minSpendAmountInSats = 6000;
