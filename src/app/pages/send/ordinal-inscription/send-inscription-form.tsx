@@ -51,7 +51,7 @@ export function SendInscriptionForm() {
 
     try {
       const numInscriptionsOnUtxo = await getNumberOfInscriptionOnUtxo(utxo.txid, utxo.vout);
-      if (numInscriptionsOnUtxo !== 1) {
+      if (numInscriptionsOnUtxo > 1) {
         setShowError('Sending inscription from utxo with multiple inscriptions is unsupported');
         return;
       }
