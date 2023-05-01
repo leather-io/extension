@@ -1,3 +1,21 @@
+## [4.19.0](https://github.com/hirosystems/wallet/compare/v4.18.1...v4.19.0) (2023-05-01)
+
+
+### Features
+
+* add average bitcoin fee rate ([c1cdbbe](https://github.com/hirosystems/wallet/commit/c1cdbbec62ca1dd9cb9186a23dcf2b6410c569bf))
+
+
+### Bug Fixes
+
+* **ordinals:** improved check, all_inscrptions first ([420d136](https://github.com/hirosystems/wallet/commit/420d136df00d9248e3667b32480f4709fc8764cb))
+* **ordinals:** sending inscriptions validation, closes [#3618](https://github.com/hirosystems/wallet/issues/3618) ([1f49ad2](https://github.com/hirosystems/wallet/commit/1f49ad248d22fceeabe948f5e900b018dd06b958))
+
+
+### Internal
+
+* group math helpers ([b6ff306](https://github.com/hirosystems/wallet/commit/b6ff306ee93a61fa3a2a4d54938ef4a37b1195e7))
+
 ## [4.18.1](https://github.com/hirosystems/wallet/compare/v4.18.0...v4.18.1) (2023-04-27)
 
 
