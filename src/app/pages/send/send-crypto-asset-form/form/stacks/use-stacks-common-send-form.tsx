@@ -1,3 +1,4 @@
+import BigNumber from 'bignumber.js';
 import { FormikHelpers } from 'formik';
 
 import { HIGH_FEE_AMOUNT_STX } from '@shared/constants';
@@ -50,7 +51,11 @@ export function useStacksCommonSendForm({
   ) {
     // Validate and check high fee warning first
     const formErrors = formikHelpers.validateForm();
-    if (!isShowingHighFeeConfirmation && isEmpty(formErrors) && values.fee > HIGH_FEE_AMOUNT_STX) {
+    if (
+      !isShowingHighFeeConfirmation &&
+      isEmpty(formErrors) &&
+      new BigNumber(values.fee).isGreaterThan(HIGH_FEE_AMOUNT_STX)
+    ) {
       setIsShowingHighFeeConfirmation(true);
       return false;
     }
