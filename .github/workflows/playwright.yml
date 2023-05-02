@@ -14,6 +14,12 @@ jobs:
   test:
     timeout-minutes: 60
     runs-on: ubuntu-22.04
+    strategy:
+      fail-fast: false
+      matrix:
+        shardIndex: [1, 2, 3, 4, 5]
+        shardTotal: [5]
+
     steps:
       - uses: actions/checkout@v3
 
@@ -54,7 +60,7 @@ jobs:
         # provides a virtual X display server to the process it runs, allowing
         # processes that require a display server to run in environments where
         # one is not available.
-        run: xvfb-run yarn playwright test
+        run: xvfb-run yarn playwright test --shard=${{ matrix.shardIndex }}/${{ matrix.shardTotal }} --workers=1
 
       - uses: actions/upload-artifact@v3
         if: always()
