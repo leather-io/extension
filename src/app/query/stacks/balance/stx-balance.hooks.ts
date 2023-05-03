@@ -23,10 +23,11 @@ export function parseBalanceResponse(balances: AddressBalanceResponse) {
     ])
   ) as Record<AccountBalanceStxKeys, Money>;
 
-  const stx: AccountStxBalanceBigNumber & { availableStx: Money } = {
+  const stx: AccountStxBalanceBigNumber & { unlockedStx: Money } = {
     ...balances.stx,
     ...stxMoney,
-    availableStx: createMoney(stxMoney.balance.amount.minus(stxMoney.locked.amount), 'STX'),
+    balance: createMoney(stxMoney.balance.amount, 'STX'),
+    unlockedStx: createMoney(stxMoney.balance.amount.minus(stxMoney.locked.amount), 'STX'),
   };
   return { ...balances, stx };
 }

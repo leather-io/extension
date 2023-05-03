@@ -24,17 +24,13 @@ import {
 export function useStacksAnchoredCryptoCurrencyAssetBalance(address: string) {
   return useAnchoredStacksAccountBalanceQuery(address, {
     select: resp =>
-      createStacksCryptoCurrencyAssetTypeWrapper(
-        parseBalanceResponse(resp).stx.availableStx.amount
-      ),
+      createStacksCryptoCurrencyAssetTypeWrapper(parseBalanceResponse(resp).stx.unlockedStx.amount),
   });
 }
 export function useStacksUnanchoredCryptoCurrencyAssetBalance(address: string) {
   return useUnanchoredStacksAccountBalanceQuery(address, {
     select: resp =>
-      createStacksCryptoCurrencyAssetTypeWrapper(
-        parseBalanceResponse(resp).stx.availableStx.amount
-      ),
+      createStacksCryptoCurrencyAssetTypeWrapper(parseBalanceResponse(resp).stx.unlockedStx.amount),
   });
 }
 
