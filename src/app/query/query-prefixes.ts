@@ -12,4 +12,5 @@ export enum QueryPrefixes {
   GetNftMetadata = 'get-nft-metadata',
 
   StampCollection = 'stamp-collection',
+  StampsByAddress = 'stamps-by-address',
 }

@@ -87,10 +87,9 @@ export function LedgerRequestKeysContainer() {
       }
       ledgerNavigate.toDeviceBusyStep();
       completeLedgerDeviceOnboarding(resp.publicKeys, latestDeviceResponse?.targetId!);
-      ledgerAnalytics.publicKeysPulledFromLedgerSuccessfully();
-
-      navigate(RouteUrls.Home);
       await stacksApp.transport.close();
+      ledgerAnalytics.publicKeysPulledFromLedgerSuccessfully();
+      navigate(RouteUrls.Home, { replace: true });
     } catch (e) {
       logger.error('Failed to request Ledger keys', e);
       ledgerNavigate.toErrorStep();

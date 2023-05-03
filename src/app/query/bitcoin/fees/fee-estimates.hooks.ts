@@ -33,6 +33,7 @@ export function useAverageBitcoinFeeRate() {
         earnApiFeeRates = resp[1].value;
       }
 
+      // zero values for cases when one api is down
       const fastestFees = [
         new BigNumber(mempoolApiFeeRates?.fastestFee ?? 0),
         new BigNumber(earnApiFeeRates?.fastestFee ?? 0),
@@ -48,9 +49,11 @@ export function useAverageBitcoinFeeRate() {
         new BigNumber(earnApiFeeRates?.hourFee ?? 0),
       ].filter(fee => fee.isGreaterThan(0));
 
-      // zero values for cases when one api is down
+      // use the highest fee rate for fastest fee
+      const fastestFee = fastestFees.reduce((p, v) => (p.isGreaterThan(v) ? p : v));
+
       return {
-        fastestFee: calculateMeanAverage(fastestFees),
+        fastestFee,
         halfHourFee: calculateMeanAverage(halfHourFees),
         hourFee: calculateMeanAverage(hourFees),
       };

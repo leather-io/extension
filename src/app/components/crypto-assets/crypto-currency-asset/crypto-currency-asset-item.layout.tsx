@@ -28,7 +28,6 @@ interface CryptoCurrencyAssetItemLayoutProps extends StackProps {
   address?: string;
   canCopy?: boolean;
   isHovered?: boolean;
-  hasCopied?: boolean;
   currency?: CryptoCurrencies;
 }
 export const CryptoCurrencyAssetItemLayout = forwardRefWithAs(
@@ -49,7 +48,7 @@ export const CryptoCurrencyAssetItemLayout = forwardRefWithAs(
     const [component, bind] = usePressable(isPressable);
 
     const amount = balance.decimals
-      ? ftDecimals(balance.amount, balance.decimals || 0)
+      ? ftDecimals(balance.amount, balance.decimals)
       : balance.amount.toString();
     const dataTestId = CryptoAssetSelectors.CryptoAssetListItem.replace(
       '{symbol}',
@@ -81,7 +80,7 @@ export const CryptoCurrencyAssetItemLayout = forwardRefWithAs(
           </SpaceBetween>
           <SpaceBetween height="1.25rem" width="100%">
             <Caption>{caption}</Caption>
-            {Number(amount) > 0 && address ? <Caption>{usdBalance}</Caption> : null}
+            {balance.amount.toNumber() > 0 && address ? <Caption>{usdBalance}</Caption> : null}
             {isUnanchored && subBalance ? <SubBalance balance={subBalance} /> : null}
           </SpaceBetween>
         </Flag>

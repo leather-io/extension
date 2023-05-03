@@ -3,10 +3,17 @@ import BigNumber from 'bignumber.js';
 import { MarketData, createMarketData, createMarketPair } from '@shared/models/market.model';
 import { createMoney, createMoneyFromDecimal } from '@shared/models/money.model';
 
-import { baseCurrencyAmountInQuote, convertAmountToFractionalUnit } from './calculate-money';
+import {
+  baseCurrencyAmountInQuote,
+  convertAmountToFractionalUnit,
+  subtractMoney,
+  sumMoney,
+} from './calculate-money';
 
 const tenMicroStx = createMoney(10, 'STX');
 const tenStx = createMoneyFromDecimal(10, 'STX');
+
+const tenBtc = createMoneyFromDecimal(10, 'BTC');
 
 const mockWrongMarketData = {
   pair: createMarketPair('BTC' as any, 'USD'),
@@ -39,4 +46,26 @@ describe(convertAmountToFractionalUnit.name, () => {
 
   test('it converts 99 as decimal amount to a fractional unit', () =>
     expect(convertAmountToFractionalUnit(new BigNumber(99), 6).toNumber()).toEqual(99000000));
+});
+
+describe(sumMoney.name, () => {
+  test('it sums two money objects', () => {
+    const result = sumMoney([tenMicroStx, tenMicroStx]);
+    expect(result.amount.toString()).toEqual('20');
+    expect(result.symbol).toEqual(tenMicroStx.symbol);
+  });
+  test('it throws error when summing different currencies', () => {
+    expect(() => sumMoney([tenMicroStx, tenBtc])).toThrowError();
+  });
+});
+
+describe(subtractMoney.name, () => {
+  test('it subtracts two money objects', () => {
+    const result = subtractMoney(tenMicroStx, tenMicroStx);
+    expect(result.amount.toString()).toEqual('0');
+    expect(result.symbol).toEqual(tenMicroStx.symbol);
+  });
+  test('it throws error when subtracting different currencies', () => {
+    expect(() => subtractMoney(tenMicroStx, tenBtc)).toThrowError();
+  });
 });
