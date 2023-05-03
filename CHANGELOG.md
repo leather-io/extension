@@ -1,3 +1,19 @@
+## [4.20.0](https://github.com/hirosystems/wallet/compare/v4.19.0...v4.20.0) (2023-05-03)
+
+
+### Features
+
+* apply highest fee for high estimate, closes [#3639](https://github.com/hirosystems/wallet/issues/3639) ([a1d941b](https://github.com/hirosystems/wallet/commit/a1d941b602ffed62bff568ca749a8d7a40ba29fa))
+* refactor available balance ([155e809](https://github.com/hirosystems/wallet/commit/155e80973c332b638074b2160945387d1970bced))
+* stamps collectibles, closes [#3589](https://github.com/hirosystems/wallet/issues/3589) ([4d31163](https://github.com/hirosystems/wallet/commit/4d31163d9bb3350eedd7eb9d019d0bcbacf256ef))
+
+
+### Bug Fixes
+
+* **ledger:** user landing on sign in screen, closes [#3632](https://github.com/hirosystems/wallet/issues/3632) ([28437bf](https://github.com/hirosystems/wallet/commit/28437bf5170ec8545dee4ab76eb7fc1652d29c54))
+* prop error in asset items component ([bda1343](https://github.com/hirosystems/wallet/commit/bda1343bd5ec9e67a5d4ec0491af6d38c38598b7))
+* stamps query options ([6a8c7aa](https://github.com/hirosystems/wallet/commit/6a8c7aab7634da455ed98fca447c2928007badaa))
+
 ## [4.19.0](https://github.com/hirosystems/wallet/compare/v4.18.1...v4.19.0) (2023-05-01)
 
 
