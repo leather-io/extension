@@ -3,12 +3,17 @@ import { useQuery } from '@tanstack/react-query';
 import { AppUseQueryConfig } from '@app/query/query-config';
 import { QueryPrefixes } from '@app/query/query-prefixes';
 
-import { Stamp } from './stamp-collection.query';
-
-const stampsByAddressQueryOptions = {
-  cacheTime: Infinity,
-  staleTime: 15 * 60 * 1000,
-} as const;
+export interface Stamp {
+  asset: string;
+  block_index: number;
+  message_index: number;
+  stamp: number;
+  stamp_mimetype: string;
+  stamp_url: string;
+  timestamp: number;
+  tx_hash: string;
+  tx_index: number;
+}
 
 async function fetchStampsByAddress(address: string): Promise<Stamp[]> {
   return fetch(`https://stampchain.io/api/stamps?wallet_address=${address}`).then(res =>
@@ -25,7 +30,6 @@ export function useStampsByAddressQuery<T extends unknown = FetchStampsByAddress
   return useQuery({
     queryKey: [QueryPrefixes.StampsByAddress],
     queryFn: () => fetchStampsByAddress(address),
-    ...stampsByAddressQueryOptions,
     ...options,
   });
 }

@@ -4,6 +4,7 @@ import { RouteUrls } from '@shared/route-urls';
 
 import { openInNewTab } from '@app/common/utils/open-in-new-tab';
 import { OrdinalIconFull } from '@app/components/icons/ordinal-icon-full';
+import { OrdinalMinimalIcon } from '@app/components/icons/ordinal-minimal-icon';
 import { useInscription } from '@app/query/bitcoin/ordinals/inscription.hooks';
 import { TaprootUtxo } from '@app/query/bitcoin/ordinals/use-taproot-address-utxos.query';
 
@@ -32,6 +33,7 @@ export function Inscription({ path, utxo }: InscriptionProps) {
     case 'image': {
       return (
         <CollectibleImage
+          icon={<OrdinalMinimalIcon />}
           key={inscription.title}
           onClickCallToAction={() => openInNewTab(inscription.infoUrl)}
           onClickSend={() => openSendInscriptionModal()}
