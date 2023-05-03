@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">61.53% </span>
+                <span class="strong">77.27% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>8/13</span>
+                <span class='fraction'>17/22</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">50% </span>
+                <span class="strong">64.28% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>5/10</span>
+                <span class='fraction'>9/14</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>3/3</span>
+                <span class='fraction'>7/7</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">77.77% </span>
+                <span class="strong">86.66% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>7/9</span>
+                <span class='fraction'>13/15</span>
             </div>
         
             
@@ -101,7 +101,22 @@
 <a name='L36'></a><a href='#L36'>36</a>
 <a name='L37'></a><a href='#L37'>37</a>
 <a name='L38'></a><a href='#L38'>38</a>
-<a name='L39'></a><a href='#L39'>39</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L39'></a><a href='#L39'>39</a>
+<a name='L40'></a><a href='#L40'>40</a>
+<a name='L41'></a><a href='#L41'>41</a>
+<a name='L42'></a><a href='#L42'>42</a>
+<a name='L43'></a><a href='#L43'>43</a>
+<a name='L44'></a><a href='#L44'>44</a>
+<a name='L45'></a><a href='#L45'>45</a>
+<a name='L46'></a><a href='#L46'>46</a>
+<a name='L47'></a><a href='#L47'>47</a>
+<a name='L48'></a><a href='#L48'>48</a>
+<a name='L49'></a><a href='#L49'>49</a>
+<a name='L50'></a><a href='#L50'>50</a>
+<a name='L51'></a><a href='#L51'>51</a>
+<a name='L52'></a><a href='#L52'>52</a>
+<a name='L53'></a><a href='#L53'>53</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -139,12 +154,26 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { BigNumber } from 'bignumber.js';
 &nbsp;
 import { MarketData, formatMarketPair } from '@shared/models/market.model';
 import { Money, createMoney } from '@shared/models/money.model';
 import { isNumber } from '@shared/utils';
 &nbsp;
+import { sumNumbers } from '../math/helpers';
 import { formatMoney } from './format-money';
 import { isMoney } from './is-money';
 &nbsp;
@@ -177,6 +206,19 @@ export function convertAmountToBaseUnit(num: Money | BigNumber, decimals?: numbe
 <span class="cstat-no" title="statement not covered" >  if (!isNumber(decimals)) <span class="cstat-no" title="statement not covered" >throw new Error('Must define decimal of given currency');</span></span>
 <span class="cstat-no" title="statement not covered" >  return num.shiftedBy(-decimals);</span>
 }
+&nbsp;
+export function subtractMoney(xAmount: Money, yAmount: Money) {
+  if (xAmount.symbol !== yAmount.symbol) throw new Error('Cannot subtract different currencies');
+  return createMoney(xAmount.amount.minus(yAmount.amount), xAmount.symbol, xAmount.decimals);
+}
+&nbsp;
+export function sumMoney(moneysArr: Money[]) {
+  if (moneysArr.some(item =&gt; item.symbol !== moneysArr[0].symbol))
+    throw new Error('Cannot sum different currencies');
+&nbsp;
+  const sum = sumNumbers(moneysArr.map(item =&gt; item.amount.toNumber()));
+  return createMoney(sum, moneysArr[0].symbol, moneysArr[0].decimals);
+}
 &nbsp;</pre></td></tr></table></pre>
 
                 <div class='push'></div><!-- for sticky footer -->
@@ -184,7 +226,7 @@ export function convertAmountToBaseUnit(num: Money | BigNumber, decimals?: numbe
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2023-04-17T13:46:07.063Z
+                at 2023-05-03T21:41:21.971Z
             </div>
         <script src="../../../../prettify.js"></script>
         <script>

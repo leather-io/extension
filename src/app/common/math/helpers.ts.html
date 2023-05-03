@@ -3,7 +3,7 @@
 <html lang="en">
 
 <head>
-    <title>Code coverage report for src/app/store/keys/key.selectors.ts</title>
+    <title>Code coverage report for src/app/common/math/helpers.ts</title>
     <meta charset="utf-8" />
     <link rel="stylesheet" href="../../../../prettify.css" />
     <link rel="stylesheet" href="../../../../base.css" />
@@ -19,34 +19,34 @@
 <body>
 <div class='wrapper'>
     <div class='pad1'>
-        <h1><a href="../../../../index.html">All files</a> / <a href="index.html">src/app/store/keys</a> key.selectors.ts</h1>
+        <h1><a href="../../../../index.html">All files</a> / <a href="index.html">src/app/common/math</a> helpers.ts</h1>
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">30.76% </span>
+                <span class="strong">72.72% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>4/13</span>
+                <span class='fraction'>8/11</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">75% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/4</span>
+                <span class='fraction'>3/4</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">57.14% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/5</span>
+                <span class='fraction'>4/7</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">40% </span>
+                <span class="strong">77.77% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>4/10</span>
+                <span class='fraction'>7/9</span>
             </div>
         
             
@@ -61,7 +61,7 @@
             </div>
         </template>
     </div>
-    <div class='status-line low'></div>
+    <div class='status-line medium'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -88,22 +88,16 @@
 <a name='L23'></a><a href='#L23'>23</a>
 <a name='L24'></a><a href='#L24'>24</a>
 <a name='L25'></a><a href='#L25'>25</a>
-<a name='L26'></a><a href='#L26'>26</a>
-<a name='L27'></a><a href='#L27'>27</a>
-<a name='L28'></a><a href='#L28'>28</a>
-<a name='L29'></a><a href='#L29'>29</a>
-<a name='L30'></a><a href='#L30'>30</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L26'></a><a href='#L26'>26</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">27x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -112,44 +106,38 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { useSelector } from 'react-redux';
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import BigNumber from 'bignumber.js';
 &nbsp;
-import { createSelector } from '@reduxjs/toolkit';
-&nbsp;
-import { RootState } from '@app/store';
-&nbsp;
-import { selectStacksChain } from '../chains/stx-chain.selectors';
-import { defaultKeyId } from './key.slice';
-&nbsp;
-const selectKeysSlice = <span class="fstat-no" title="function not covered" >(s</span>tate: RootState) =&gt; <span class="cstat-no" title="statement not covered" >state.keys;</span>
-&nbsp;
-export const selectCurrentKey = createSelector(
-  selectKeysSlice,
-<span class="fstat-no" title="function not covered" >  state =&gt; <span class="cstat-no" title="statement not covered" >s</span>tate.entities[defaultKeyId]</span>
-);
-&nbsp;
-export function <span class="fstat-no" title="function not covered" >useCurrentKeyDetails() {</span>
-<span class="cstat-no" title="statement not covered" >  return useSelector(selectCurrentKey);</span>
+export function initBigNumber(num: string | number | BigNumber) {
+  return BigNumber.isBigNumber(num) ? <span class="branch-0 cbranch-no" title="branch not covered" >num : n</span>ew BigNumber(num);
 }
 &nbsp;
-export const selectCurrentAccountIndex = createSelector(selectStacksChain, <span class="fstat-no" title="function not covered" >state =&gt; {</span>
-<span class="cstat-no" title="statement not covered" >  return state[defaultKeyId].currentAccountIndex;</span>
-});
+export function sumNumbers(nums: number[]) {
+  return nums.reduce((acc, num) =&gt; acc.plus(num), new BigNumber(0));
+}
 &nbsp;
-export const selectLedgerKey = createSelector(selectKeysSlice, <span class="fstat-no" title="function not covered" >keys =&gt; {</span>
-<span class="cstat-no" title="statement not covered" >  if (!keys.entities.default) <span class="cstat-no" title="statement not covered" >return;</span></span>
-<span class="cstat-no" title="statement not covered" >  if (keys.entities.default.type !== 'ledger') <span class="cstat-no" title="statement not covered" >return;</span></span>
-<span class="cstat-no" title="statement not covered" >  return keys.entities.default;</span>
-});
+function <span class="fstat-no" title="function not covered" >isMultipleOf(m</span>ultiple: number) {
+<span class="cstat-no" title="statement not covered" >  return <span class="fstat-no" title="function not covered" >(n</span>um: number) =&gt; <span class="cstat-no" title="statement not covered" >num % multiple === 0;</span></span>
+}
+&nbsp;
+export function <span class="fstat-no" title="function not covered" >isEven(n</span>um: number) {
+<span class="cstat-no" title="statement not covered" >  return isMultipleOf(2)(num);</span>
+}
+&nbsp;
+export function countDecimals(num: string | number | BigNumber) {
+  const LARGE_NUMBER_OF_DECIMALS = 100;
+  BigNumber.config({ DECIMAL_PLACES: LARGE_NUMBER_OF_DECIMALS });
+  const amount = initBigNumber(num);
+  const decimals = amount.toString(10).split('.')[1];
+  return decimals ? decimals.length : 0;
+}
 &nbsp;</pre></td></tr></table></pre>
 
                 <div class='push'></div><!-- for sticky footer -->
