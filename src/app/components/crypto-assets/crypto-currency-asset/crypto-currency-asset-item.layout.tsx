@@ -28,7 +28,6 @@ interface CryptoCurrencyAssetItemLayoutProps extends StackProps {
   address?: string;
   canCopy?: boolean;
   isHovered?: boolean;
-  hasCopied?: boolean;
   currency?: CryptoCurrencies;
 }
 export const CryptoCurrencyAssetItemLayout = forwardRefWithAs(
