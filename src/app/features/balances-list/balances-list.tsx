@@ -1,8 +1,8 @@
 import { Box, Stack, StackProps } from '@stacks/ui';
 import { HomePageSelectorsLegacy } from '@tests-legacy/page-objects/home.selectors';
 
-import { useBtcAssetBalance } from '@app/common/hooks/balance/use-btc-balance';
-import { useStxAssetBalance } from '@app/common/hooks/balance/use-stx-balance';
+import { useBtcAssetBalance } from '@app/common/hooks/balance/btc/use-btc-balance';
+import { useStxBalance } from '@app/common/hooks/balance/stx/use-stx-balance';
 import { CryptoCurrencyAssetItem } from '@app/components/crypto-assets/crypto-currency-asset/crypto-currency-asset-item';
 import { StxAvatar } from '@app/components/crypto-assets/stacks/components/stx-avatar';
 import { BtcIcon } from '@app/components/icons/btc-icon';
@@ -23,11 +23,11 @@ export function BalancesList({ address, ...props }: BalancesListProps) {
   const { data: stxUnachoredAssetBalance } = useStacksUnanchoredCryptoCurrencyAssetBalance(address);
   const stacksFtAssetBalances = useStacksFungibleTokenAssetBalancesAnchoredWithMetadata(address);
   const isBitcoinEnabled = useConfigBitcoinEnabled();
-  const { stxUsdBalance, stxAssetBalance } = useStxAssetBalance(address);
+  const { stxEffectiveBalance, stxEffectiveUsdBalance } = useStxBalance();
   const { btcAddress, btcAssetBalance, btcUsdBalance } = useBtcAssetBalance();
 
   // Better handle loading state
-  if (!stxAssetBalance || !stxUnachoredAssetBalance) return <LoadingSpinner />;
+  if (!stxUnachoredAssetBalance) return <LoadingSpinner />;
 
   return (
     <Stack
@@ -46,9 +46,8 @@ export function BalancesList({ address, ...props }: BalancesListProps) {
       )}
 
       <CryptoCurrencyAssetItem
-        assetBalance={stxAssetBalance}
-        usdBalance={stxUsdBalance}
-        assetSubBalance={stxUnachoredAssetBalance}
+        assetBalance={stxEffectiveBalance}
+        usdBalance={stxEffectiveUsdBalance}
         address={address}
         icon={<StxAvatar {...props} />}
       />

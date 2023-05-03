@@ -81,17 +81,17 @@ export function IncreaseFeeForm() {
       validateOnChange={false}
       validateOnBlur={false}
       validateOnMount={false}
-      validationSchema={yup.object({ fee: stxFeeValidator(balances?.stx.availableStx) })}
+      validationSchema={yup.object({ fee: stxFeeValidator(balances?.stx.unlockedStx) })}
     >
       {() => (
         <Stack spacing="extra-loose">
           {tx && <StacksTransactionItem position="relative" transaction={tx} zIndex={99} />}
           <Stack spacing="base">
             <IncreaseFeeField currentFee={fee} />
-            {balances?.stx.availableStx.amount && (
+            {balances?.stx.unlockedStx.amount && (
               <Caption>
                 Balance:{' '}
-                {stacksValue({ value: balances?.stx.availableStx.amount, fixedDecimals: true })}
+                {stacksValue({ value: balances?.stx.unlockedStx.amount, fixedDecimals: true })}
               </Caption>
             )}
           </Stack>

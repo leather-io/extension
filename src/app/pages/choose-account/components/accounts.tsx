@@ -105,7 +105,7 @@ const ChooseAccountItem = memo((props: ChooseAccountItemProps) => {
             <AccountBalanceLoading />
           ) : balances ? (
             <AccountBalanceCaption
-              availableBalance={balances.stx.availableStx}
+              availableBalance={balances.stx.unlockedStx}
               marketData={stxMarketData}
             />
           ) : null

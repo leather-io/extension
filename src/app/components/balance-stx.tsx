@@ -14,7 +14,7 @@ export function StxBalance(props: BalanceProps) {
   const balance = useMemo(
     () =>
       stacksValue({
-        value: balances?.stx?.availableStx.amount ?? 0,
+        value: balances?.stx?.unlockedStx.amount ?? 0,
         withTicker: true,
       }),
     [balances]

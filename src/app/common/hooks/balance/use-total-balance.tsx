@@ -26,7 +26,7 @@ export function useTotalBalance({ btcAddress, stxAddress }: UseTotalBalanceArgs)
     if (!balances || !btcBalance) return null;
 
     // calculate total balance
-    const stxUsdAmount = baseCurrencyAmountInQuote(balances.stx.availableStx, stxMarketData);
+    const stxUsdAmount = baseCurrencyAmountInQuote(balances.stx.balance, stxMarketData);
     const btcUsdAmount = baseCurrencyAmountInQuote(btcBalance.balance, btcMarketData);
 
     const totalBalance = { ...stxUsdAmount, amount: stxUsdAmount.amount.plus(btcUsdAmount.amount) };

@@ -17,7 +17,7 @@ export function useTrackSwitchAccount() {
       if (!accountBalanceCache) return;
       try {
         const balances = parseBalanceResponse(accountBalanceCache as any);
-        const hasStxBalance = !!balances?.stx.availableStx.amount.isGreaterThan(0);
+        const hasStxBalance = !!balances?.stx.unlockedStx.amount.isGreaterThan(0);
         void analytics.track('switch_account', { index, hasStxBalance });
       } finally {
       }
