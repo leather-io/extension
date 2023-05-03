@@ -71,7 +71,6 @@ export const CryptoCurrencyAssetItem = forwardRefWithAs(
         subBalance={assetSubBalance?.balance}
         title={asset.name}
         isHovered={isHovered}
-        hasCopied={hasCopied}
         address={address}
         usdBalance={usdBalance}
         onClick={onClick}
