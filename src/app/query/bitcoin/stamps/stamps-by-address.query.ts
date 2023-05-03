@@ -6,8 +6,8 @@ import { QueryPrefixes } from '@app/query/query-prefixes';
 import { Stamp } from './stamp-collection.query';
 
 const stampsByAddressQueryOptions = {
-  staleTime: Infinity,
   cacheTime: Infinity,
+  staleTime: 15 * 60 * 1000,
 } as const;
 
 async function fetchStampsByAddress(address: string): Promise<Stamp[]> {
