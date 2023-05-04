@@ -20,6 +20,7 @@ export class OnboardingPage {
   async setPassword() {
     await this.page.waitForURL('**' + RouteUrls.SetPassword);
     await this.page.getByTestId(OnboardingSelectors.NewPasswordInput).fill(TEST_PASSWORD);
+    await this.page.waitForTimeout(100);
     await this.page.getByTestId(OnboardingSelectors.SetPasswordBtn).click();
   }
 
