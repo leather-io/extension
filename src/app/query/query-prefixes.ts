@@ -3,6 +3,7 @@
  * queries they are used in to be read from any part of the app.
  */
 export enum QueryPrefixes {
+  Brc20TokenBalance = 'brc20-token-balance',
   OrdinalTextContent = 'ordinal-text-content',
   TaprootAddressUtxosMetadata = 'taproot-address-utxos-metadata',
   InscriptionFromUtxo = 'inscription-from-utxo',
