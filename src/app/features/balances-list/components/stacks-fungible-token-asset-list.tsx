@@ -4,10 +4,10 @@ import type { StacksFungibleTokenAssetBalance } from '@shared/models/crypto-asse
 
 import { StacksFungibleTokenAssetItem } from '@app/components/crypto-assets/stacks/fungible-token-asset/stacks-fungible-token-asset-item';
 
-interface StacksFtCryptoAssetsProps {
+interface StacksFungibleTokenAssetListProps {
   assetBalances: StacksFungibleTokenAssetBalance[];
 }
-export function StacksFungibleTokenAssetList({ assetBalances }: StacksFtCryptoAssetsProps) {
+export function StacksFungibleTokenAssetList({ assetBalances }: StacksFungibleTokenAssetListProps) {
   return (
     <Stack spacing="loose">
       {assetBalances.map(assetBalance => (

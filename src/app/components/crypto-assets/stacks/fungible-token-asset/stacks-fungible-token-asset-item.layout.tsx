@@ -3,7 +3,7 @@ import { forwardRefWithAs } from '@stacks/ui-core';
 
 import type { Money } from '@shared/models/money.model';
 
-import { getFormattedBalance } from '@app/common/crypto-assets/stacks-crypto-asset.utils';
+import { formatBalance } from '@app/common/format-balance';
 import { ftDecimals } from '@app/common/stacks-utils';
 import { StacksAssetAvatar } from '@app/components/crypto-assets/stacks/components/stacks-asset-avatar';
 import { usePressable } from '@app/components/item-hover';
@@ -33,7 +33,7 @@ export const StacksFungibleTokenAssetItemLayout = forwardRefWithAs(
     const amount = balance.decimals
       ? ftDecimals(balance.amount, balance.decimals || 0)
       : balance.amount.toString();
-    const formattedBalance = getFormattedBalance(amount);
+    const formattedBalance = formatBalance(amount);
     const isUnanchored =
       subBalance?.amount.isGreaterThan(0) && !balance.amount.isEqualTo(subBalance.amount);
 

@@ -7,6 +7,7 @@ import { CryptoCurrencyAssetItem } from '@app/components/crypto-assets/crypto-cu
 import { StxAvatar } from '@app/components/crypto-assets/stacks/components/stx-avatar';
 import { BtcIcon } from '@app/components/icons/btc-icon';
 import { LoadingSpinner } from '@app/components/loading-spinner';
+import { useBrc20TokensByAddressQuery } from '@app/query/bitcoin/ordinals/brc20-tokens.query';
 import { useConfigBitcoinEnabled } from '@app/query/common/hiro-config/hiro-config.query';
 import {
   useStacksFungibleTokenAssetBalancesAnchoredWithMetadata,
@@ -14,6 +15,7 @@ import {
 } from '@app/query/stacks/balance/stacks-ft-balances.hooks';
 
 import { Collectibles } from '../collectibles/collectibles';
+import { BitcoinFungibleTokenAssetList } from './components/bitcoin-fungible-tokens-asset-list';
 import { StacksFungibleTokenAssetList } from './components/stacks-fungible-token-asset-list';
 
 interface BalancesListProps extends StackProps {
@@ -25,6 +27,7 @@ export function BalancesList({ address, ...props }: BalancesListProps) {
   const isBitcoinEnabled = useConfigBitcoinEnabled();
   const { stxEffectiveBalance, stxEffectiveUsdBalance } = useStxBalance();
   const { btcAddress, btcAssetBalance, btcUsdBalance } = useBtcAssetBalance();
+  const { data: brc20Tokens } = useBrc20TokensByAddressQuery(btcAddress);
 
   // Better handle loading state
   if (!stxUnachoredAssetBalance) return <LoadingSpinner />;
@@ -32,7 +35,7 @@ export function BalancesList({ address, ...props }: BalancesListProps) {
   return (
     <Stack
       pb="extra-loose"
-      spacing="extra-loose"
+      spacing="loose"
       data-testid={HomePageSelectorsLegacy.BalancesList}
       {...props}
     >
@@ -44,15 +47,14 @@ export function BalancesList({ address, ...props }: BalancesListProps) {
           address={btcAddress}
         />
       )}
-
       <CryptoCurrencyAssetItem
         assetBalance={stxEffectiveBalance}
         usdBalance={stxEffectiveUsdBalance}
         address={address}
         icon={<StxAvatar {...props} />}
       />
-
       <StacksFungibleTokenAssetList assetBalances={stacksFtAssetBalances} />
+      <BitcoinFungibleTokenAssetList brc20Tokens={brc20Tokens?.result.list} />
       <Collectibles />
     </Stack>
   );

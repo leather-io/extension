@@ -6,7 +6,7 @@ import { CryptoAssetSelectors } from '@tests/selectors/crypto-asset.selectors';
 import { CryptoCurrencies } from '@shared/models/currencies.model';
 import { Money } from '@shared/models/money.model';
 
-import { getFormattedBalance } from '@app/common/crypto-assets/stacks-crypto-asset.utils';
+import { formatBalance } from '@app/common/format-balance';
 import { ftDecimals } from '@app/common/stacks-utils';
 import { usePressable } from '@app/components/item-hover';
 import { Flag } from '@app/components/layout/flag';
@@ -54,7 +54,7 @@ export const CryptoCurrencyAssetItemLayout = forwardRefWithAs(
       '{symbol}',
       balance.symbol.toLowerCase()
     );
-    const formattedBalance = getFormattedBalance(amount);
+    const formattedBalance = formatBalance(amount);
     const isUnanchored = !!(subBalance && !balance.amount.isEqualTo(subBalance.amount));
 
     return (
