@@ -1,6 +1,7 @@
 import StacksNftBns from '@assets/images/stacks-nft-bns.png';
 
 import { figmaTheme } from '@app/common/utils/figma-theme';
+import { StxAvatar } from '@app/components/crypto-assets/stacks/components/stx-avatar';
 
 import { CollectibleItemLayout } from '../collectible-item.layout';
 
@@ -16,6 +17,7 @@ export function StacksBnsName(props: { bnsName: string }) {
   return (
     <CollectibleItemLayout
       backgroundElementProps={backgroundProps}
+      collectibleTypeIcon={<StxAvatar size="30px" />}
       subtitle="Bitcoin Naming System"
       title={bnsName}
     >

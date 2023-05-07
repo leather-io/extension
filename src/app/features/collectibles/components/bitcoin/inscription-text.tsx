@@ -1,6 +1,7 @@
 import { Spinner } from '@stacks/ui';
 
 import { figmaTheme } from '@app/common/utils/figma-theme';
+import { OrdinalMinimalIcon } from '@app/components/icons/ordinal-minimal-icon';
 import { useTextInscriptionContentQuery } from '@app/query/bitcoin/ordinals/use-text-ordinal-content.query';
 
 import { CollectibleText } from '../_collectible-types/collectible-text';
@@ -24,6 +25,7 @@ export function InscriptionText({
 
   return (
     <CollectibleText
+      icon={<OrdinalMinimalIcon />}
       key={inscriptionNumber}
       onClickCallToAction={onClickCallToAction}
       onClickSend={onClickSend}
