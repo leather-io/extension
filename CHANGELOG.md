@@ -1,3 +1,20 @@
+## [4.21.0](https://github.com/hirosystems/wallet/compare/v4.20.0...v4.21.0) (2023-05-07)
+
+
+### Features
+
+* brc-20 token balances, closes [#3629](https://github.com/hirosystems/wallet/issues/3629) ([85e5f9a](https://github.com/hirosystems/wallet/commit/85e5f9a6b6d733ec987278fda8ebb9ec0698eed1))
+
+
+### Bug Fixes
+
+* onboarding test ([c45efea](https://github.com/hirosystems/wallet/commit/c45efea4a85c63d96a6ba34e43db1e8ad6e98f6a))
+
+
+### Internal
+
+* stamps query and ui, closes [#3648](https://github.com/hirosystems/wallet/issues/3648) ([501ac5f](https://github.com/hirosystems/wallet/commit/501ac5f7154136bbd25d02ed2bf2e3366a27afbf))
+
 ## [4.20.0](https://github.com/hirosystems/wallet/compare/v4.19.0...v4.20.0) (2023-05-03)
 
 
