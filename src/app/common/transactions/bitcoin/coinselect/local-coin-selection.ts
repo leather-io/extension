@@ -1,5 +1,7 @@
 import { getAddressInfo, validate } from 'bitcoin-address-validation';
 
+import { BTC_P2WPKH_DUST_AMOUNT } from '@shared/constants';
+
 import { UtxoResponseItem } from '@app/query/bitcoin/bitcoin-client';
 
 import { BtcSizeFeeEstimator } from '../fees/btc-size-fee-estimator';
@@ -20,7 +22,9 @@ export function determineUtxosForSpend({
 
   const addressInfo = getAddressInfo(recipient);
 
-  const orderedUtxos = utxos.sort((a, b) => b.value - a.value);
+  const orderedUtxos = utxos
+    .filter(utxo => utxo.value >= BTC_P2WPKH_DUST_AMOUNT)
+    .sort((a, b) => b.value - a.value);
 
   const txSizer = new BtcSizeFeeEstimator();
 
