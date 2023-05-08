@@ -103,6 +103,7 @@ export function useFinishAuthRequest() {
               p2tr: bytesToHex(currentBitcoinTaprootAddressIndexKeychain?.publicKey!),
               p2wpkh: bytesToHex(currentBitcoinNativeSegwitAddressIndexKeychain?.publicKey!),
             },
+            walletProvider: 'hiro-wallet',
           },
         });
         keyActions.switchAccount(accountIndex);
