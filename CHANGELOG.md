@@ -1,3 +1,17 @@
+## [4.22.0](https://github.com/hirosystems/wallet/compare/v4.21.1...v4.22.0) (2023-05-08)
+
+
+### Features
+
+* include wallet provider to user session object, closes [#3603](https://github.com/hirosystems/wallet/issues/3603) ([6830ea5](https://github.com/hirosystems/wallet/commit/6830ea57a61f4170ab032a1409e76660ecc58b71))
+
+
+### Bug Fixes
+
+* balances list tr breaking ledger ([69f6a71](https://github.com/hirosystems/wallet/commit/69f6a71232170788f066e1eecb74529fddb09c78))
+* copy taproot address, [#3664](https://github.com/hirosystems/wallet/issues/3664) ([ef8e19d](https://github.com/hirosystems/wallet/commit/ef8e19df9313b6689aca034b22583033b1973979))
+* filtering dust utxos, closes [#3374](https://github.com/hirosystems/wallet/issues/3374), closes [#3163](https://github.com/hirosystems/wallet/issues/3163) ([403c7cb](https://github.com/hirosystems/wallet/commit/403c7cb0da1e60af55abbf78993d6dbcf50c6f35))
+
 ## [4.21.1](https://github.com/hirosystems/wallet/compare/v4.21.0...v4.21.1) (2023-05-08)
 
 
