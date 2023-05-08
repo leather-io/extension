@@ -18,7 +18,7 @@ export function ReceiveCollectibleOrdinal() {
   const navigate = useNavigate();
   const analytics = useAnalytics();
   const { state } = useLocation();
-  const { onCopy } = useClipboard(state.btcAddress);
+  const { onCopy } = useClipboard(state.btcAddressTaproot);
 
   function copyToClipboard() {
     void analytics.track('copy_address_to_add_new_inscription');
@@ -82,7 +82,7 @@ export function ReceiveCollectibleOrdinal() {
             difficulty retrieving it
           </Text>
           <Flex sx={{ maxWidth: '100%', flexWrap: 'wrap', justifyContent: 'center' }}>
-            <Caption mt="2px">{truncateMiddle(state.btcAddress, 6)}</Caption>
+            <Caption mt="2px">{truncateMiddle(state.btcAddressTaproot, 6)}</Caption>
           </Flex>
         </Stack>
         <PrimaryButton flexGrow={1} my="extra-loose" onClick={copyToClipboard} width="100%">
