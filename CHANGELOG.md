@@ -1,3 +1,10 @@
+## [4.21.1](https://github.com/hirosystems/wallet/compare/v4.21.0...v4.21.1) (2023-05-08)
+
+
+### Bug Fixes
+
+* brc-20 address ([3b204f4](https://github.com/hirosystems/wallet/commit/3b204f4b0acb9a8f5f426492e8ecbd113f8675a5))
+
 ## [4.21.0](https://github.com/hirosystems/wallet/compare/v4.20.0...v4.21.0) (2023-05-07)
 
 
