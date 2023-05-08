@@ -1,7 +1,7 @@
 import { defineConfig, devices } from '@playwright/test';
 
 /**
- * See https://playwright.dev/docs/test-configuration.
+ * See https://playwright.dev/docs/test-configuration
  */
 export default defineConfig({
   testDir: './tests',
@@ -13,7 +13,7 @@ export default defineConfig({
   forbidOnly: !!process.env.CI,
   retries: process.env.CI ? 2 : 0,
   workers: process.env.CI ? 1 : undefined,
-  reporter: [['html', { open: 'never' }]],
+  reporter: [[process.env.CI ? 'github' : 'list'], ['html', { open: 'never' }]],
   use: {
     trace: 'on-first-retry',
   },
