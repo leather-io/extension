@@ -13,6 +13,7 @@ import {
   useStacksFungibleTokenAssetBalancesAnchoredWithMetadata,
   useStacksUnanchoredCryptoCurrencyAssetBalance,
 } from '@app/query/stacks/balance/stacks-ft-balances.hooks';
+import { useCurrentBtcTaprootAccountAddressIndexZeroPayment } from '@app/store/accounts/blockchain/bitcoin/taproot-account.hooks';
 
 import { Collectibles } from '../collectibles/collectibles';
 import { BitcoinFungibleTokenAssetList } from './components/bitcoin-fungible-tokens-asset-list';
@@ -27,7 +28,8 @@ export function BalancesList({ address, ...props }: BalancesListProps) {
   const isBitcoinEnabled = useConfigBitcoinEnabled();
   const { stxEffectiveBalance, stxEffectiveUsdBalance } = useStxBalance();
   const { btcAddress, btcAssetBalance, btcUsdBalance } = useBtcAssetBalance();
-  const { data: brc20Tokens } = useBrc20TokensByAddressQuery(btcAddress);
+  const { address: bitcoinAddressTaproot } = useCurrentBtcTaprootAccountAddressIndexZeroPayment();
+  const { data: brc20Tokens } = useBrc20TokensByAddressQuery(bitcoinAddressTaproot);
 
   // Better handle loading state
   if (!stxUnachoredAssetBalance) return <LoadingSpinner />;
