@@ -1,7 +1,7 @@
 import { useMemo, useState } from 'react';
 import toast from 'react-hot-toast';
 
-import { RpcErrorCode } from '@btckit/types';
+import { PaymentTypes, RpcErrorCode } from '@btckit/types';
 import * as bitcoin from 'bitcoinjs-lib';
 
 import {
@@ -34,7 +34,10 @@ function useRpcSignBitcoinMessage() {
       ...defaultParams,
       requestId: initialSearchParams.get('requestId') ?? '',
       message: initialSearchParams.get('message') ?? '',
-      paymentType: (initialSearchParams.get('paymentType') ?? 'p2wpkh') as 'p2tr' | 'p2wpkh',
+      paymentType: (initialSearchParams.get('paymentType') ?? 'p2wpkh') as Extract<
+        'p2tr' | 'p2wpkh',
+        PaymentTypes
+      >,
     }),
     [defaultParams]
   );
@@ -96,7 +99,7 @@ function useSignBip322MessageFactory({ address, signPsbt }: SignBip322MessageFac
         tabId,
         makeRpcSuccessResponse('signMessage', {
           id: requestId,
-          result: { signature, address, message } as any,
+          result: { signature, address, message },
         })
       );
 
