@@ -1,9 +1,14 @@
-import { Suspense, useEffect } from 'react';
-import { Navigate, Route, Routes, useLocation } from 'react-router-dom';
+import { Suspense } from 'react';
+import {
+  Navigate,
+  Route,
+  RouterProvider,
+  createHashRouter,
+  createRoutesFromElements,
+} from 'react-router-dom';
 
 import { RouteUrls } from '@shared/route-urls';
 
-import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
 import { BroadcastErrorDrawer } from '@app/components/broadcast-error-drawer/broadcast-error-drawer';
 import { LoadingSpinner } from '@app/components/loading-spinner';
 import { Container } from '@app/features/container/container';
@@ -22,7 +27,6 @@ import { FundPage } from '@app/pages/fund/fund';
 import { Home } from '@app/pages/home/home';
 import { BackUpSecretKeyPage } from '@app/pages/onboarding/back-up-secret-key/back-up-secret-key';
 import { MagicRecoveryCode } from '@app/pages/onboarding/magic-recovery-code/magic-recovery-code';
-import { SetPasswordPage } from '@app/pages/onboarding/set-password/set-password';
 import { SignIn } from '@app/pages/onboarding/sign-in/sign-in';
 import { WelcomePage } from '@app/pages/onboarding/welcome/welcome';
 import { PsbtRequest } from '@app/pages/psbt-request/psbt-request';
@@ -33,7 +37,6 @@ import { ReceiveCollectibleModal } from '@app/pages/receive/receive-collectible/
 import { ReceiveCollectibleOrdinal } from '@app/pages/receive/receive-collectible/receive-collectible-oridinal';
 import { RpcGetAddresses } from '@app/pages/rpc-get-addresses/rpc-get-addresses';
 import { rpcSendTransferRoutes } from '@app/pages/rpc-send-transfer/rpc-send-transfer.routes';
-import { RpcSignBip322Message } from '@app/pages/rpc-sign-bip322-message/rpc-sign-bip322-message';
 import { SelectNetwork } from '@app/pages/select-network/select-network';
 import { BroadcastError } from '@app/pages/send/broadcast-error/broadcast-error';
 import { SendInscriptionChooseFee } from '@app/pages/send/ordinal-inscription/send-inscription-choose-fee';
@@ -50,33 +53,49 @@ import { Unlock } from '@app/pages/unlock';
 import { ProfileUpdateRequest } from '@app/pages/update-profile-request/update-profile-request';
 import { ViewSecretKey } from '@app/pages/view-secret-key/view-secret-key';
 import { AccountGate } from '@app/routes/account-gate';
-import { useHasStateRehydrated } from '@app/store';
 import { useHasUserRespondedToAnalyticsConsent } from '@app/store/settings/settings.selectors';
 
-import { useOnSignOut } from './hooks/use-on-sign-out';
-import { useOnWalletLock } from './hooks/use-on-wallet-lock';
 import { OnboardingGate } from './onboarding-gate';
 
-function AppRoutesAfterUserHasConsented() {
-  const { pathname } = useLocation();
+export function AppRoutes() {
+  const routes = useAppRoutes();
+  return <RouterProvider router={routes} />;
+}
 
-  const analytics = useAnalytics();
+function useAppRoutes() {
+  const userHasNoConsentedToDiagnostics = useHasUserRespondedToAnalyticsConsent();
 
-  useOnWalletLock(() => window.close());
-  useOnSignOut(() => window.close());
-  useEffect(() => void analytics.page('view', `${pathname}`), [analytics, pathname]);
+  if (!userHasNoConsentedToDiagnostics)
+    return createHashRouter(
+      createRoutesFromElements(
+        <Route>
+          <Route path={RouteUrls.RequestDiagnostics} element={<AllowDiagnosticsPage />} />
+          <Route path="*" element={<Navigate replace to={RouteUrls.RequestDiagnostics} />} />
+        </Route>
+      )
+    );
 
   const settingsModalRoutes = (
-    <>
+    <Route>
       <Route path={RouteUrls.SignOutConfirm} element={<SignOutConfirmDrawer />} />
       <Route path={RouteUrls.ChangeTheme} element={<ThemesDrawer />} />
       <Route path={RouteUrls.SelectNetwork} element={<SelectNetwork />} />
-    </>
+    </Route>
   );
 
-  return (
-    <Routes>
+  return createHashRouter(
+    createRoutesFromElements(
       <Route path={RouteUrls.Container} element={<Container />}>
+        <Route
+          path={RouteUrls.RequestDiagnostics}
+          element={
+            <>
+              lksjdflksjdlfkjs
+              <AllowDiagnosticsPage />
+            </>
+          }
+        />
+
         <Route
           path={RouteUrls.Home}
           element={
@@ -139,13 +158,14 @@ function AppRoutesAfterUserHasConsented() {
         />
         <Route
           path={RouteUrls.SetPassword}
-          element={
-            <OnboardingGate>
-              <SetPasswordPage />
-            </OnboardingGate>
-          }
+          lazy={async () => {
+            const { SetPasswordRoute } = await import(
+              '@app/pages/onboarding/set-password/set-password'
+            );
+            return { Component: SetPasswordRoute };
+          }}
         />
-        <Route path={RouteUrls.RequestDiagnostics} element={<AllowDiagnosticsPage />} />
+
         <Route
           path={RouteUrls.SignIn}
           element={
@@ -265,36 +285,17 @@ function AppRoutesAfterUserHasConsented() {
         {rpcSendTransferRoutes}
         <Route
           path={RouteUrls.RpcSignBip322Message}
-          element={
-            <AccountGate>
-              <RpcSignBip322Message />
-            </AccountGate>
-          }
+          lazy={async () => {
+            const { RpcSignBip322MessageRoute } = await import(
+              '@app/pages/rpc-sign-bip322-message/rpc-sign-bip322-message'
+            );
+            return { Component: RpcSignBip322MessageRoute };
+          }}
         />
 
         {/* Catch-all route redirects to onboarding */}
         <Route path="*" element={<Navigate replace to={RouteUrls.Onboarding} />} />
       </Route>
-    </Routes>
+    )
   );
-}
-
-function AppRoutesBeforeUserHasConsented() {
-  return (
-    <Routes>
-      <Route path={RouteUrls.RequestDiagnostics} element={<AllowDiagnosticsPage />} />
-      <Route path="*" element={<Navigate replace to={RouteUrls.RequestDiagnostics} />} />
-    </Routes>
-  );
-}
-
-export function AppRoutes() {
-  const hasStateRehydrated = useHasStateRehydrated();
-  const hasResponded = useHasUserRespondedToAnalyticsConsent();
-
-  if (!hasStateRehydrated) return <LoadingSpinner />;
-
-  if (!hasResponded) return <AppRoutesBeforeUserHasConsented />;
-
-  return <AppRoutesAfterUserHasConsented />;
 }

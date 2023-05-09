@@ -71,11 +71,6 @@ export function useBitcoinScureLibNetworkConfig() {
   return getBtcSignerLibNetworkConfigByMode(network.chain.bitcoin.network);
 }
 
-export function useBitcoinJsLibNetworkConfig() {
-  const network = useCurrentNetwork();
-  return getBtcSignerLibNetworkConfigByMode(network.chain.bitcoin.network);
-}
-
 interface BitcoinSignerFactoryArgs {
   addressIndexKeychainFn(addressIndex: number): HDKey;
   paymentFn(keychain: HDKey, network: BitcoinNetworkModes): unknown;

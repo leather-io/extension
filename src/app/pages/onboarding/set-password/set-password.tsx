@@ -26,9 +26,20 @@ import { Header } from '@app/components/header';
 import { PageTitle } from '@app/components/page-title';
 import { PrimaryButton } from '@app/components/primary-button';
 import { Caption } from '@app/components/typography';
+import { OnboardingGate } from '@app/routes/onboarding-gate';
 import { useStacksWallet } from '@app/store/accounts/blockchain/stacks/stacks-keychain';
 
 import { PasswordField } from './components/password-field';
+
+// Imported dynamically
+// ts-unused-exports:disable-next-line
+export function SetPasswordRoute() {
+  return (
+    <OnboardingGate>
+      <SetPasswordPage />
+    </OnboardingGate>
+  );
+}
 
 interface SetPasswordFormValues {
   password: string;
@@ -36,7 +47,7 @@ interface SetPasswordFormValues {
 }
 const setPasswordFormValues: SetPasswordFormValues = { password: '', confirmPassword: '' };
 
-export function SetPasswordPage() {
+function SetPasswordPage() {
   const [loading, setLoading] = useState(false);
   const [strengthResult, setStrengthResult] = useState(blankPasswordValidation);
   const wallet = useStacksWallet();

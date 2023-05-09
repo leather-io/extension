@@ -3,13 +3,24 @@ import { Disclaimer } from '@app/components/disclaimer';
 import { NoFeesWarningRow } from '@app/components/no-fees-warning-row';
 import { MessagePreviewBox } from '@app/features/message-signer/message-preview-box';
 import { MessageSigningRequestLayout } from '@app/features/message-signer/message-signing-request.layout';
+import { AccountGate } from '@app/routes/account-gate';
 import { useCurrentNetwork } from '@app/store/networks/networks.selectors';
 
 import { MessageSigningHeader } from '../../features/message-signer/message-signing-header';
 import { SignMessageActions } from '../../features/message-signer/stacks-sign-message-action';
 import { useSignBip322Message } from './use-sign-bip322-message';
 
-export function RpcSignBip322Message() {
+// Imported dynamically
+// ts-unused-exports:disable-next-line
+export function RpcSignBip322MessageRoute() {
+  return (
+    <AccountGate>
+      <RpcSignBip322Message />
+    </AccountGate>
+  );
+}
+
+function RpcSignBip322Message() {
   useRouteHeader(<></>);
 
   const {
