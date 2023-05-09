@@ -14,7 +14,6 @@ export enum FormErrorMessages {
   MemoExceedsLimit = 'Memo must be less than 34-bytes',
   MustBeNumber = 'Amount of {symbol} must be a number',
   MustBePositive = 'Amount must be positive',
-  MustNotBeZero = 'Must be more than zero',
   MustSelectAsset = 'Select a valid token to transfer',
   SameAddress = 'Cannot send to yourself',
   TooMuchPrecision = '{symbol} can only have {decimals} decimals',
