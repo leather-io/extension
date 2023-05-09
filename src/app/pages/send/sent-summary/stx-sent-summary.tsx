@@ -39,14 +39,15 @@ export function StxSentSummary() {
   const { handleOpenTxLink } = useExplorerLink();
   const analytics = useAnalytics();
 
-  const onClickLink = () => {
+  function onClickLink() {
     void analytics.track('view_transaction_confirmation', { symbol: 'STX' });
     handleOpenTxLink(txLink);
-  };
-  const onClickCopy = () => {
+  }
+
+  function onClickCopy() {
     onCopy();
     toast.success('ID copied!');
-  };
+  }
 
   useRouteHeader(<ModalHeader hideActions defaultClose title="Sent" />);
 

@@ -1,24 +1,16 @@
 import BigNumber from 'bignumber.js';
 
 import { logger } from '@shared/logger';
+import { AverageBitcoinFeeRates } from '@shared/models/fees/bitcoin-fees.model';
 
 import { calculateMeanAverage } from '@app/common/math/calculate-averages';
 
-import {
-  useGetBitcoinAllFeeEstimatesQuery,
-  useGetBitcoinMempoolApiFeeEstimatesQuery,
-} from './fee-estimates.query';
+import { useGetAllBitcoinFeeEstimatesQuery } from './fee-estimates.query';
 
-export function useBitcoinFeeRate() {
-  return useGetBitcoinMempoolApiFeeEstimatesQuery({
-    onError: err => logger.error('Error getting bitcoin fee estimates', { err }),
-  });
-}
-
-export function useAverageBitcoinFeeRate() {
-  const { data: avgApiFeeRates, isLoading } = useGetBitcoinAllFeeEstimatesQuery({
+export function useAverageBitcoinFeeRates() {
+  const { data: avgApiFeeRates, isLoading } = useGetAllBitcoinFeeEstimatesQuery({
     onError: err => logger.error('Error getting all apis bitcoin fee estimates', { err }),
-    select: resp => {
+    select: (resp): AverageBitcoinFeeRates | null => {
       if (resp[0].status === 'rejected' && resp[1].status === 'rejected') {
         return null;
       }

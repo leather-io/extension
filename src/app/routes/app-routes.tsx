@@ -39,8 +39,8 @@ import { RpcGetAddresses } from '@app/pages/rpc-get-addresses/rpc-get-addresses'
 import { rpcSendTransferRoutes } from '@app/pages/rpc-send-transfer/rpc-send-transfer.routes';
 import { SelectNetwork } from '@app/pages/select-network/select-network';
 import { BroadcastError } from '@app/pages/send/broadcast-error/broadcast-error';
+import { SendInscriptionContainer } from '@app/pages/send/ordinal-inscription/components/send-inscription-container';
 import { SendInscriptionChooseFee } from '@app/pages/send/ordinal-inscription/send-inscription-choose-fee';
-import { SendInscription } from '@app/pages/send/ordinal-inscription/send-inscription-container';
 import { SendInscriptionForm } from '@app/pages/send/ordinal-inscription/send-inscription-form';
 import { SendInscriptionReview } from '@app/pages/send/ordinal-inscription/send-inscription-review';
 import { SendInscriptionSummary } from '@app/pages/send/ordinal-inscription/sent-inscription-summary';
@@ -118,15 +118,15 @@ function useAppRoutes() {
           <Route path={RouteUrls.ReceiveStx} element={<ReceiveStxModal />} />
           <Route path={RouteUrls.ReceiveBtc} element={<ReceiveBtcModal />} />
 
-          <Route path={RouteUrls.SendOrdinalInscription} element={<SendInscription />}>
+          <Route path={RouteUrls.SendOrdinalInscription} element={<SendInscriptionContainer />}>
             <Route index element={<SendInscriptionForm />} />
-            <Route
-              path={RouteUrls.SendOrdinalInscriptionReview}
-              element={<SendInscriptionReview />}
-            />
             <Route
               path={RouteUrls.SendOrdinalInscriptionChooseFee}
               element={<SendInscriptionChooseFee />}
+            />
+            <Route
+              path={RouteUrls.SendOrdinalInscriptionReview}
+              element={<SendInscriptionReview />}
             />
             <Route
               path={RouteUrls.SendOrdinalInscriptionSent}

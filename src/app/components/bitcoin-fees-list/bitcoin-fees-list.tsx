@@ -1,17 +1,25 @@
 import { Stack, Text } from '@stacks/ui';
 
+import { BtcFeeType } from '@shared/models/fees/bitcoin-fees.model';
+
 import { LoadingSpinner } from '../loading-spinner';
 import { FeesCard } from './components/fees-card';
-import { useBitcoinFeesList } from './use-bitcoin-fees-list';
+
+export interface FeesListItem {
+  label: BtcFeeType;
+  value: number;
+  btcValue: string;
+  time: string;
+  fiatValue: string;
+  feeRate: number;
+}
 
 interface BitcoinFeesListProps {
-  amount: number;
+  feesList: FeesListItem[];
+  isLoading: boolean;
   onChooseFee(feeRate: number, feeValue: number, time: string): Promise<void> | void;
-  recipient: string;
 }
-export function BitcoinFeesList({ amount, onChooseFee, recipient }: BitcoinFeesListProps) {
-  const { feesList, isLoading } = useBitcoinFeesList({ amount, recipient });
-
+export function BitcoinFeesList({ feesList, isLoading, onChooseFee }: BitcoinFeesListProps) {
   if (isLoading) return <LoadingSpinner />;
 
   if (!feesList.length) {

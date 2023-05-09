@@ -10,6 +10,7 @@ import { noop } from '@shared/utils';
 import { useGenerateSignedBitcoinTx } from '@app/common/transactions/bitcoin/use-generate-bitcoin-tx';
 import { useWalletType } from '@app/common/use-wallet-type';
 import { BitcoinFeesList } from '@app/components/bitcoin-fees-list/bitcoin-fees-list';
+import { useBitcoinFeesList } from '@app/components/bitcoin-fees-list/use-bitcoin-fees-list';
 
 function useRpcSendTransferFeeState() {
   const location = useLocation();
@@ -24,6 +25,10 @@ export function RpcSendTransferChooseFee() {
   const navigate = useNavigate();
   const { whenWallet } = useWalletType();
   const generateTx = useGenerateSignedBitcoinTx();
+  const { feesList, isLoading } = useBitcoinFeesList({
+    amount: Number(amount),
+    recipient: address,
+  });
 
   async function previewTransfer(feeRate: number, feeValue: number, time: string) {
     const resp = generateTx(
@@ -50,6 +55,6 @@ export function RpcSendTransferChooseFee() {
   }
 
   return (
-    <BitcoinFeesList amount={Number(amount)} onChooseFee={previewTransfer} recipient={address} />
+    <BitcoinFeesList feesList={feesList} isLoading={isLoading} onChooseFee={previewTransfer} />
   );
 }

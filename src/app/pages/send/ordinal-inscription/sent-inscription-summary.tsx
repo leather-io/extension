@@ -47,15 +47,16 @@ export function SendInscriptionSummary() {
   const { handleOpenTxLink } = useExplorerLink();
   const analytics = useAnalytics();
 
-  const onClickLink = () => {
+  function onClickLink() {
     void analytics.track('view_transaction_confirmation', { symbol: 'BTC' });
     handleOpenTxLink(txLink);
-  };
+  }
 
-  const onClickCopy = () => {
+  function onClickCopy() {
     onCopy();
     toast.success('ID copied!');
-  };
+  }
+
   return (
     <BaseDrawer title="Sent" isShowing onClose={() => navigate(RouteUrls.Home)}>
       <Box px="extra-loose" mt="extra-loose">
