@@ -22,11 +22,11 @@ import { currencyAmountValidator, stxAmountPrecisionValidator } from './currency
 
 const minSpendAmountInSats = 6000;
 
-function amountValidator() {
+function amountValidator(symbol: string) {
   return yup
     .number()
-    .required()
-    .positive(FormErrorMessages.MustNotBeZero)
+    .required(formatErrorWithSymbol(symbol, FormErrorMessages.AmountRequired))
+    .positive(FormErrorMessages.MustBePositive)
     .typeError('Amount must be a number');
 }
 
@@ -97,8 +97,8 @@ export function stxAvailableBalanceValidator(availableBalance: Money) {
 }
 
 export function stacksFungibleTokenAmountValidator(balance: Money) {
-  const { amount, decimals } = balance;
-  return amountValidator()
+  const { amount, decimals, symbol } = balance;
+  return amountValidator(symbol)
     .test((value, context) => {
       if (!isNumber(value)) return false;
       if (!decimals && countDecimals(value) > 0)
