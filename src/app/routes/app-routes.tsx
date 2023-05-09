@@ -63,9 +63,9 @@ export function AppRoutes() {
 }
 
 function useAppRoutes() {
-  const userHasNoConsentedToDiagnostics = useHasUserRespondedToAnalyticsConsent();
+  const userHasNotConsentedToDiagnostics = useHasUserRespondedToAnalyticsConsent();
 
-  if (!userHasNoConsentedToDiagnostics)
+  if (!userHasNotConsentedToDiagnostics)
     return createHashRouter(
       createRoutesFromElements(
         <Route>

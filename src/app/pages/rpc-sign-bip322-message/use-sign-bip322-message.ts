@@ -34,7 +34,7 @@ function useRpcSignBitcoinMessage() {
       ...defaultParams,
       requestId: initialSearchParams.get('requestId') ?? '',
       message: initialSearchParams.get('message') ?? '',
-      paymentType: initialSearchParams.get('paymentType') ?? 'p2wpkh',
+      paymentType: (initialSearchParams.get('paymentType') ?? 'p2wpkh') as 'p2tr' | 'p2wpkh',
     }),
     [defaultParams]
   );
@@ -43,33 +43,23 @@ function useRpcSignBitcoinMessage() {
 const shortPauseBeforeToast = createDelay(250);
 const allowTimeForUserToReadToast = createDelay(1200);
 
-export function useSignBip322Message() {
+interface SignBip322MessageFactoryArgs {
+  address: string;
+  signPsbt(a: bitcoin.Psbt): void;
+}
+function useSignBip322MessageFactory({ address, signPsbt }: SignBip322MessageFactoryArgs) {
   const network = useCurrentNetwork();
   const analytics = useAnalytics();
   const [isLoading, setIsLoading] = useState(false);
 
-  const { tabId, origin, requestId, message, paymentType } = useRpcSignBitcoinMessage();
-
-  const createNativeSegwitSigner = useCurrentAccountNativeSegwitSigner();
-  const createTaprootSigner = useCurrentAccountTaprootSigner();
-
-  const currentAccountNativeSegwitKeychain = useNativeSegwitCurrentAccountPrivateKeychain();
-
-  if (!currentAccountNativeSegwitKeychain) throw new Error('No keychain for current account');
-  const nativeSegwitIndexZeroKeychain = deriveAddressIndexZeroFromAccount(
-    currentAccountNativeSegwitKeychain
-  );
-
-  const currentAccountTaprootKeychain = useCurrentTaprootAccountKeychain();
-  const taprootIndexZeroKeychain = deriveAddressIndexZeroFromAccount(
-    currentAccountTaprootKeychain!
-  );
+  const { tabId, origin, requestId, message } = useRpcSignBitcoinMessage();
 
   return {
     origin,
     message,
     isLoading,
     formattedOrigin: new URL(origin ?? '').host,
+    address,
     onUserRejectBip322MessageSigningRequest() {
       if (!tabId) return;
       chrome.tabs.sendMessage(
@@ -86,75 +76,90 @@ export function useSignBip322Message() {
     },
     async onUserApproveBip322MessageSigningRequest() {
       setIsLoading(true);
-      const nativeSegwitSigner = createNativeSegwitSigner?.(0);
-      const taprootSigner = createTaprootSigner?.(0);
 
       if (!tabId || !origin) {
         logger.error('Cannot give app accounts: missing tabId, origin');
         return;
       }
 
-      void analytics.track('user_approved_message_signing', { origin });
-
-      switch (paymentType) {
-        case 'p2wpkh': {
-          const nativeSegwitAddress = nativeSegwitSigner?.payment.address;
-          if (!nativeSegwitAddress) throw new Error('Cannot sign message: no address');
-
-          function signPsbt(psbt: bitcoin.Psbt) {
-            psbt.signAllInputs(
-              createNativeSegwitBitcoinJsSigner(
-                Buffer.from(nativeSegwitIndexZeroKeychain?.privateKey!)
-              )
-            );
-          }
-
-          const { signature } = signBip322MessageSimple({
-            message,
-            address: nativeSegwitAddress,
-            signPsbt,
-            network: network.chain.bitcoin.network,
-          });
-
-          chrome.tabs.sendMessage(
-            tabId,
-            makeRpcSuccessResponse('signMessage', {
-              id: requestId,
-              result: { signature, address: nativeSegwitAddress } as any,
-            })
-          );
-          break;
-        }
-        case 'p2tr': {
-          function signPsbt(psbt: bitcoin.Psbt) {
-            psbt.data.inputs.forEach(
-              input => (input.tapInternalKey = Buffer.from(taprootSigner?.payment.tapInternalKey!))
-            );
-            psbt.signAllInputs(
-              createTaprootBitcoinJsSigner(Buffer.from(taprootIndexZeroKeychain?.privateKey!))
-            );
-          }
-          const { signature } = signBip322MessageSimple({
-            message,
-            address: taprootSigner?.payment.address!,
-            signPsbt,
-            network: network.chain.bitcoin.network,
-          });
-
-          chrome.tabs.sendMessage(
-            tabId,
-            makeRpcSuccessResponse('signMessage', {
-              id: requestId,
-              result: { signature, address: taprootSigner?.payment.address! } as any,
-            })
-          );
-        }
-      }
+      const { signature } = signBip322MessageSimple({
+        message,
+        address,
+        signPsbt,
+        network: network.chain.bitcoin.network,
+      });
 
       await shortPauseBeforeToast();
       toast.success('Message signed successfully');
+
+      chrome.tabs.sendMessage(
+        tabId,
+        makeRpcSuccessResponse('signMessage', {
+          id: requestId,
+          result: { signature, address, message } as any,
+        })
+      );
+
+      void analytics.track('user_approved_message_signing', { origin });
+
       await allowTimeForUserToReadToast();
       window.close();
     },
   };
+}
+
+function useSignBip322MessageTaproot() {
+  const createTaprootSigner = useCurrentAccountTaprootSigner();
+  if (!createTaprootSigner) throw new Error('No taproot signer for current account');
+  const currentAccountTaprootKeychain = useCurrentTaprootAccountKeychain();
+  if (!currentAccountTaprootKeychain) throw new Error('No keychain for current account');
+
+  const signer = createTaprootSigner(0);
+  const keychain = deriveAddressIndexZeroFromAccount(currentAccountTaprootKeychain);
+
+  function signPsbt(psbt: bitcoin.Psbt) {
+    psbt.data.inputs.forEach(
+      input => (input.tapInternalKey = Buffer.from(signer.payment.tapInternalKey))
+    );
+    psbt.signAllInputs(createTaprootBitcoinJsSigner(Buffer.from(keychain.privateKey!)));
+  }
+
+  return useSignBip322MessageFactory({
+    address: signer.payment.address ?? '',
+    signPsbt,
+  });
+}
+
+function useSignBip322MessageNativeSegwit() {
+  const createNativeSegwitSigner = useCurrentAccountNativeSegwitSigner();
+  if (!createNativeSegwitSigner) throw new Error('No native segwit signer for current account');
+
+  const currentAccountNativeSegwitKeychain = useNativeSegwitCurrentAccountPrivateKeychain();
+  if (!currentAccountNativeSegwitKeychain) throw new Error('No keychain for current account');
+
+  const keychain = deriveAddressIndexZeroFromAccount(currentAccountNativeSegwitKeychain);
+  const signer = createNativeSegwitSigner(0);
+
+  function signPsbt(psbt: bitcoin.Psbt) {
+    psbt.signAllInputs(createNativeSegwitBitcoinJsSigner(Buffer.from(keychain.privateKey!)));
+  }
+
+  return useSignBip322MessageFactory({
+    address: signer.payment.address ?? '',
+    signPsbt,
+  });
+}
+
+export function useSignBip322Message() {
+  const { paymentType } = useRpcSignBitcoinMessage();
+
+  const taprootMsgSigner = useSignBip322MessageTaproot();
+  const nativeSegwitMsgSigner = useSignBip322MessageNativeSegwit();
+
+  switch (paymentType) {
+    case 'p2tr':
+      return taprootMsgSigner;
+    case 'p2wpkh':
+      return nativeSegwitMsgSigner;
+  }
 }

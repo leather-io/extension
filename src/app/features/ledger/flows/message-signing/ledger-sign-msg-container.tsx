@@ -29,7 +29,7 @@ import { useLedgerAnalytics } from '../../hooks/use-ledger-analytics.hook';
 import { useLedgerNavigate } from '../../hooks/use-ledger-navigate';
 import { useVerifyMatchingLedgerPublicKey } from '../../hooks/use-verify-matching-public-key';
 import { LedgerMessageSigningContext, LedgerMsgSigningProvider } from './ledger-sign-msg.context';
-import { useSignedMessageType } from './use-message-type';
+import { useUnsignedMessageType } from './use-message-type';
 
 interface LedgerSignMsgData {
   account: StacksAccount;
@@ -40,7 +40,7 @@ interface LedgerSignMsgDataProps {
 }
 function LedgerSignMsgData({ children }: LedgerSignMsgDataProps) {
   const account = useCurrentStacksAccount();
-  const unsignedMessage = useSignedMessageType();
+  const unsignedMessage = useUnsignedMessageType();
   if (!unsignedMessage || !account) return null;
   return children({ account, unsignedMessage });
 }
