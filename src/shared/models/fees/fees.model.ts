@@ -1,5 +1,4 @@
 import { Blockchains } from '../blockchain.model';
-import { BitcoinFeeEstimate } from './bitcoin-fees.model';
 import { StacksFeeEstimate } from './stacks-fees.model';
 
 export enum FeeTypes {
@@ -19,6 +18,6 @@ export enum FeeCalculationTypes {
 
 export interface Fees {
   blockchain: Blockchains;
-  estimates: BitcoinFeeEstimate[] | StacksFeeEstimate[];
+  estimates: StacksFeeEstimate[];
   calculation: FeeCalculationTypes;
 }
