@@ -7,8 +7,13 @@ import { useCurrentNetworkState } from '@app/store/networks/networks.hooks';
 interface MessageSigningHeaderProps {
   name?: string;
   origin: string | null;
+  additionalText?: string;
 }
-export function MessageSigningHeader({ name, origin }: MessageSigningHeaderProps) {
+export function MessageSigningHeader({
+  name,
+  origin,
+  additionalText = '',
+}: MessageSigningHeaderProps) {
   const { chain, isTestnet } = useCurrentNetworkState();
 
   const originAddition = origin ? ` (${getUrlHostname(origin)})` : '';
@@ -27,7 +32,12 @@ export function MessageSigningHeader({ name, origin }: MessageSigningHeaderProps
       <Title fontWeight="bold" as="h1">
         Sign Message
       </Title>
-      {caption && <Caption wordBreak="break-word">{caption}</Caption>}
+      {caption && (
+        <Caption wordBreak="break-word" lineHeight={1.5}>
+          {caption}
+          {additionalText}
+        </Caption>
+      )}
     </Stack>
   );
 }

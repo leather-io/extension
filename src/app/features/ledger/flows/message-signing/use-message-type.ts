@@ -5,7 +5,7 @@ import { isString } from '@shared/utils';
 
 import { useLocationStateWithCache } from '@app/common/hooks/use-location-state';
 
-export function useSignedMessageType(): UnsignedMessage | null {
+export function useUnsignedMessageType(): UnsignedMessage | null {
   const message = useLocationStateWithCache<string | ClarityValue>('message');
   const domain = useLocationStateWithCache<StructuredMessageDataDomain>('domain');
 

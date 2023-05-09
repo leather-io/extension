@@ -1,6 +1,9 @@
+import { truncateMiddle } from '@stacks/ui-utils';
+
 import { useRouteHeader } from '@app/common/hooks/use-route-header';
 import { Disclaimer } from '@app/components/disclaimer';
 import { NoFeesWarningRow } from '@app/components/no-fees-warning-row';
+import { PopupHeader } from '@app/features/current-account/popup-header';
 import { MessagePreviewBox } from '@app/features/message-signer/message-preview-box';
 import { MessageSigningRequestLayout } from '@app/features/message-signer/message-signing-request.layout';
 import { AccountGate } from '@app/routes/account-gate';
@@ -21,11 +24,12 @@ export function RpcSignBip322MessageRoute() {
 }
 
 function RpcSignBip322Message() {
-  useRouteHeader(<></>);
+  useRouteHeader(<PopupHeader displayAddresssBalanceOf="all" />);
 
   const {
     origin,
     message,
+    address,
     isLoading,
     onUserApproveBip322MessageSigningRequest,
     onUserRejectBip322MessageSigningRequest,
@@ -40,7 +44,10 @@ function RpcSignBip322Message() {
 
   return (
     <MessageSigningRequestLayout>
-      <MessageSigningHeader origin={origin} />
+      <MessageSigningHeader
+        origin={origin}
+        additionalText={`. This message is signed by ${truncateMiddle(address)}`}
+      />
       <MessagePreviewBox message={message} />
       <NoFeesWarningRow chainId={chain.stacks.chainId} />
       <SignMessageActions
@@ -51,7 +58,6 @@ function RpcSignBip322Message() {
       <hr />
       <Disclaimer
         disclaimerText="By signing this message, you prove that you own this address"
-        learnMoreUrl="https://docs.hiro.so/build-apps/message-signing"
         mb="loose"
       />
     </MessageSigningRequestLayout>
