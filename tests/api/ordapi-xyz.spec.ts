@@ -5,7 +5,7 @@ import { getNumberOfInscriptionOnUtxo } from '@app/query/bitcoin/ordinals/ordina
 import { fetchData } from '@app/query/utils';
 
 test.describe('OrdAPI.xyz', () => {
-  test('should return 3 in case of 3 inscriptions', async ({}) => {
+  test('should return 3 in case of 3 inscriptions', async () => {
     const resp = await getNumberOfInscriptionOnUtxo(
       'aa24aecb0e60afa43b646c5a61fee76aebdbbf85b8f85a4aa429f9d0c52c9623',
       0
