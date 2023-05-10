@@ -20,18 +20,18 @@ import { CollectibleAsset } from './components/collectible-asset';
 import { useInscriptionSendState } from './send-inscription-container';
 import { useGenerateSignedOrdinalTx } from './use-generate-ordinal-tx';
 import { useOrdinalInscriptionFormValidationSchema } from './use-ordinal-inscription-form-validation-schema';
+import { createUtxoFromInscription } from './utils';
 
 export const recipeintFieldName = 'recipient';
 
 export function SendInscriptionForm() {
   const [currentError, setShowError] = useState<null | string>(null);
   const navigate = useNavigate();
-  const { inscription, utxo, recipient } = useInscriptionSendState();
-
+  const { inscription, recipient } = useInscriptionSendState();
   const validationSchema = useOrdinalInscriptionFormValidationSchema();
   const [isLoading, setIsLoading] = useState(false);
   const analytics = useAnalytics();
-
+  const utxo = createUtxoFromInscription(inscription);
   const { coverFeeFromAdditionalUtxos } = useGenerateSignedOrdinalTx(utxo);
 
   async function reviewTransaction(values: OrdinalSendFormValues) {
@@ -63,7 +63,7 @@ export function SendInscriptionForm() {
 
     const { hex } = resp;
     return navigate(RouteUrls.SendOrdinalInscriptionReview, {
-      state: { fee: resp.fee, inscription, utxo, recipient: values.recipient, tx: hex },
+      state: { fee: resp.fee, inscription, recipient: values.recipient, tx: hex },
     });
   }
 

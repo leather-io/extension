@@ -1,12 +1,11 @@
 import * as btc from '@scure/btc-signer';
 import { bytesToHex } from '@stacks/common';
-import { useQueries, useQuery } from '@tanstack/react-query';
+import { useQueries } from '@tanstack/react-query';
 import * as yup from 'yup';
 
 import { isTypedArray } from '@shared/utils';
 import { Prettify } from '@shared/utils/type-utils';
 
-import { AppUseQueryConfig } from '@app/query/query-config';
 import { QueryPrefixes } from '@app/query/query-prefixes';
 
 import { TaprootUtxo } from './use-taproot-address-utxos.query';
@@ -56,21 +55,6 @@ const queryOptions = {
   cacheTime: Infinity,
   staleTime: 15 * 60 * 1000,
 } as const;
-
-export function useOrdinalsAwareUtxoQuery<T extends unknown = OrdApiInscriptionTxOutput>(
-  utxo: TaprootUtxo | btc.TransactionInputRequired,
-  options?: AppUseQueryConfig<OrdApiInscriptionTxOutput, T>
-) {
-  const txId = isTypedArray(utxo.txid) ? bytesToHex(utxo.txid) : utxo.txid;
-  const txIndex = 'index' in utxo ? utxo.index : utxo.vout;
-
-  return useQuery({
-    queryKey: makeOrdinalsAwareUtxoQueryKey(txId, txIndex),
-    queryFn: () => fetchOrdinalsAwareUtxo(txId, txIndex),
-    ...queryOptions,
-    ...options,
-  });
-}
 
 export function useOrdinalsAwareUtxoQueries(utxos: TaprootUtxo[] | btc.TransactionInputRequired[]) {
   return useQueries({

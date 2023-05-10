@@ -1,21 +1,29 @@
-export interface Inscription {
-  address: string;
-  content: string;
-  content_length: string;
-  content_type: string;
-  genesis_fee: string;
-  genesis_height: string;
-  genesis_transaction: string;
+export interface InscriptionResponseItem {
   id: string;
-  inscription_number: number;
+  number: number;
+  address: string;
+  genesis_address: string;
+  genesis_block_height: number;
+  genesis_block_hash: string;
+  genesis_tx_id: string;
+  genesis_fee: string;
+  genesis_timestamp: number;
+  tx_id: string;
   location: string;
-  offset: string;
   output: string;
-  output_value: string;
-  preview: string;
-  sat: string;
-  timestamp: string;
-  title: string;
+  value: string;
+  offset: string;
+  sat_ordinal: string;
+  sat_rarity: string;
+  sat_coinbase_height: number;
+  mime_type: string;
+  content_type: string;
+  content_length: number;
+  timestamp: number;
+}
+
+export interface Inscription extends InscriptionResponseItem {
+  addressIndex: number;
 }
 
 /**

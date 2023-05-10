@@ -35,7 +35,7 @@ export function SendInscriptionReview() {
 
   const { signedTx, recipient, fee } = useSendInscriptionReviewState();
 
-  const { inscription, utxo } = useInscriptionSendState();
+  const { inscription } = useInscriptionSendState();
   const { refetch } = useCurrentNativeSegwitUtxos();
   const { broadcastTx, isBroadcasting } = useBitcoinBroadcastTransaction();
 
@@ -52,7 +52,6 @@ export function SendInscriptionReview() {
         navigate(RouteUrls.SendOrdinalInscriptionSent, {
           state: {
             inscription,
-            utxo,
             recipient,
             arrivesIn,
             txId,
