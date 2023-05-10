@@ -15,7 +15,9 @@ const inscriptionQueryOptions = {
  */
 function fetchInscription() {
   return async (path: string) => {
-    const res = await fetch(`https://ordapi.xyz${path}`);
+    const res = await fetch(
+      `https://api.hiro.so/ordinals/v1${path.replace('inscription', 'inscriptions')}`
+    );
     if (!res.ok) throw new Error('Error retrieving inscription metadata');
     const data = await res.json();
     return data as Inscription;

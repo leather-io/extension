@@ -6,27 +6,31 @@ import {
 
 import { useGetInscriptionQuery } from './inscription.query';
 
-function createInfoUrl(contentPath: string) {
-  return `https://ordinals.hiro.so${contentPath}`.replace('content', 'inscription');
+function createInfoUrl(id: string) {
+  return `https://ordinals.hiro.so/inscription/${id}`;
 }
 
-function convertInscriptionToSupportedInscriptionType(inscription: Inscription) {
+export function convertInscriptionToSupportedInscriptionType(inscription: Inscription) {
+  const title = `Inscription ${inscription.number}`;
   return whenInscriptionType<SupportedInscription>(inscription.content_type, {
     image: () => ({
-      infoUrl: createInfoUrl(inscription.content),
-      src: `https://ordapi.xyz${inscription.content}`,
+      infoUrl: createInfoUrl(inscription.id),
+      src: `https://api.hiro.so/ordinals/v1/inscriptions/${inscription.id}/content`,
       type: 'image',
+      title,
       ...inscription,
     }),
     text: () => ({
-      contentSrc: `https://ordapi.xyz${inscription.content}`,
-      infoUrl: createInfoUrl(inscription.content),
+      contentSrc: `https://api.hiro.so/ordinals/v1/inscriptions/${inscription.id}/content`,
+      infoUrl: createInfoUrl(inscription.id),
       type: 'text',
+      title,
       ...inscription,
     }),
     other: () => ({
-      infoUrl: createInfoUrl(inscription.content),
+      infoUrl: createInfoUrl(inscription.id),
       type: 'other',
+      title,
       ...inscription,
     }),
   });
