@@ -12,7 +12,7 @@ jobs:
     outputs:
       dir: ${{ steps.set-dirs.outputs.dir }}
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
       - id: set-dirs
         working-directory: ./tests-legacy/integration
         run: echo "::set-output name=dir::$( ls -d */ | xargs -0 | sed 's/\///' | jq -R -s -c 'split("\n")[:-2]')"
@@ -25,7 +25,7 @@ jobs:
         dir: ${{ fromJson(needs.directories.outputs.dir) }}
     steps:
       - name: Check out Git repository
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 
       - run: echo ${{ fromJson(needs.directories.outputs.dir) }}
       - run: echo ${{ matrix.dir }}

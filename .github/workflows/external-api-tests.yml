@@ -13,14 +13,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-
+      - uses: ./.github/actions/provision
       - uses: actions/setup-node@v3
         with:
           node-version: 18
-          cache: 'yarn'
-
-      - name: Install dependencies
-        run: yarn
 
       - name: Get installed Playwright version
         id: playwright-version
