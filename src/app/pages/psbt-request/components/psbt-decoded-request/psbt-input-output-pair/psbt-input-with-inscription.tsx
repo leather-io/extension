@@ -16,7 +16,11 @@ export function PsbtInputWithInscription({
   inputValue,
   path,
 }: PsbtInputWithInscriptionProps) {
-  const { isLoading, isError, data: inscription } = useInscription(path);
+  const {
+    isLoading,
+    isError,
+    data: inscription,
+  } = useInscription(path.replace('/inscription/', ''));
 
   if (isLoading || isError) return null;
 
