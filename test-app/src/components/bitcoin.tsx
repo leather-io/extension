@@ -30,7 +30,7 @@ const TEST_TESTNET_ACCOUNT_1_PUBKEY_TR =
   '03cf7525b9d94fd35eaf6b4ac4c570f718d1df142606ba3a64e2407ea01a37778f';
 const TEST_TESTNET_ACCOUNT_2_BTC_ADDRESS = 'tb1qkzvk9hr7uvas23hspvsgqfvyc8h4nngeqjqtnj';
 
-function ecdsaPublicKeyToSchnorr(pubKey: Uint8Array) {
+export function ecdsaPublicKeyToSchnorr(pubKey: Uint8Array) {
   if (pubKey.byteLength !== ecdsaPublicKeyLength) throw new Error('Invalid public key length');
   return pubKey.slice(1);
 }

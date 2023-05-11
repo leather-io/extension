@@ -8,7 +8,7 @@ import get from 'lodash.get';
 
 import { finalizeMessageSignature } from '@shared/actions/finalize-message-signature';
 import { logger } from '@shared/logger';
-import { SignedMessage, whenSignedMessageOfType } from '@shared/signature/signature-types';
+import { UnsignedMessage, whenSignableMessageOfType } from '@shared/signature/signature-types';
 
 import { useScrollLock } from '@app/common/hooks/use-scroll-lock';
 import { delay } from '@app/common/utils';
@@ -29,18 +29,18 @@ import { useLedgerAnalytics } from '../../hooks/use-ledger-analytics.hook';
 import { useLedgerNavigate } from '../../hooks/use-ledger-navigate';
 import { useVerifyMatchingLedgerPublicKey } from '../../hooks/use-verify-matching-public-key';
 import { LedgerMessageSigningContext, LedgerMsgSigningProvider } from './ledger-sign-msg.context';
-import { useSignedMessageType } from './use-message-type';
+import { useUnsignedMessageType } from './use-message-type';
 
 interface LedgerSignMsgData {
   account: StacksAccount;
-  unsignedMessage: SignedMessage;
+  unsignedMessage: UnsignedMessage;
 }
 interface LedgerSignMsgDataProps {
   children({ account, unsignedMessage }: LedgerSignMsgData): JSX.Element;
 }
 function LedgerSignMsgData({ children }: LedgerSignMsgDataProps) {
   const account = useCurrentStacksAccount();
-  const unsignedMessage = useSignedMessageType();
+  const unsignedMessage = useUnsignedMessageType();
   if (!unsignedMessage || !account) return null;
   return children({ account, unsignedMessage });
 }
@@ -89,7 +89,7 @@ function LedgerSignMsg({ account, unsignedMessage }: LedgerSignMsgProps) {
       await delay(1000);
       ledgerNavigate.toAwaitingDeviceOperation({ hasApprovedOperation: false });
 
-      const resp = await whenSignedMessageOfType(unsignedMessage)({
+      const resp = await whenSignableMessageOfType(unsignedMessage)({
         async utf8(msg) {
           return signLedgerUtf8Message(stacksApp)(msg, account.index);
         },

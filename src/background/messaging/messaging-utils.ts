@@ -58,7 +58,7 @@ export function makeSearchParamsWithDefaults(
   const origin = getOriginFromPort(port);
   const tabId = getTabIdFromPort(port);
   urlParams.set('origin', origin ?? '');
-  urlParams.set('tabId', tabId?.toString() ?? '');
+  urlParams.set('tabId', tabId.toString());
   otherParams.forEach(([key, value]) => urlParams.set(key, value));
   return { urlParams, origin, tabId };
 }

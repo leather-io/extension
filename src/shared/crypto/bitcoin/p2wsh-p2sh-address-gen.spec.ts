@@ -1,3 +1,6 @@
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore
+import ecc from '@bitcoinerlab/secp256k1';
 import { sha256 } from '@noble/hashes/sha256';
 import { base58check } from '@scure/base';
 import { HDKey } from '@scure/bip32';
@@ -5,7 +8,6 @@ import { hashP2WPKH } from '@stacks/transactions';
 import { BIP32Factory } from 'bip32';
 import * as bip39 from 'bip39';
 import * as bitcoin from 'bitcoinjs-lib';
-import * as ecc from 'tiny-secp256k1';
 
 import {
   decodeCompressedWifPrivateKey,

@@ -31,7 +31,7 @@ export function SubmitAction() {
   const onConfirmTransaction = async () => {
     // Check for errors before showing the high fee confirmation
     const formErrors = await validateForm();
-    if (isEmpty(formErrors) && values.fee > HIGH_FEE_AMOUNT_STX) {
+    if (isEmpty(formErrors) && Number(values.fee) > HIGH_FEE_AMOUNT_STX) {
       return setIsShowingHighFeeConfirmation(!isShowingHighFeeConfirmation);
     }
     handleSubmit();

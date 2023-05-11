@@ -6,7 +6,7 @@ import { OrdinalSendFormValues } from '@shared/models/form.model';
 import { useCurrentNativeSegwitUtxos } from '@app/query/bitcoin/address/address.hooks';
 import { useBitcoinFeeRate } from '@app/query/bitcoin/fees/fee-estimates.hooks';
 import { TaprootUtxo } from '@app/query/bitcoin/ordinals/use-taproot-address-utxos.query';
-import { useBitcoinLibNetworkConfig } from '@app/store/accounts/blockchain/bitcoin/bitcoin-keychain';
+import { useBitcoinScureLibNetworkConfig } from '@app/store/accounts/blockchain/bitcoin/bitcoin-keychain';
 import { useCurrentAccountNativeSegwitSigner } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
 import { useCurrentAccountTaprootSigner } from '@app/store/accounts/blockchain/bitcoin/taproot-account.hooks';
 
@@ -15,7 +15,7 @@ import { selectInscriptionTransferCoins } from './select-inscription-coins';
 export function useGenerateSignedOrdinalTx(trInput: TaprootUtxo) {
   const createTapRootSigner = useCurrentAccountTaprootSigner();
   const createNativeSegwitSigner = useCurrentAccountNativeSegwitSigner();
-  const networkMode = useBitcoinLibNetworkConfig();
+  const networkMode = useBitcoinScureLibNetworkConfig();
   const { data: feeRate } = useBitcoinFeeRate();
   const { data: nativeSegwitUtxos } = useCurrentNativeSegwitUtxos();
 
