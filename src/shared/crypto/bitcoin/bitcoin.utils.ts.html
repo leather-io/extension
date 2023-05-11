@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">32.25% </span>
+                <span class="strong">36.36% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>10/31</span>
+                <span class='fraction'>12/33</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">14.28% </span>
+                <span class="strong">18.75% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>2/14</span>
+                <span class='fraction'>3/16</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">45.45% </span>
+                <span class="strong">50% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>5/11</span>
+                <span class='fraction'>6/12</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">37.5% </span>
+                <span class="strong">40% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>9/24</span>
+                <span class='fraction'>10/25</span>
             </div>
         
             
@@ -136,7 +136,10 @@
 <a name='L71'></a><a href='#L71'>71</a>
 <a name='L72'></a><a href='#L72'>72</a>
 <a name='L73'></a><a href='#L73'>73</a>
-<a name='L74'></a><a href='#L74'>74</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L74'></a><a href='#L74'>74</a>
+<a name='L75'></a><a href='#L75'>75</a>
+<a name='L76'></a><a href='#L76'>76</a>
+<a name='L77'></a><a href='#L77'>77</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -147,7 +150,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -167,18 +170,21 @@
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">6x</span>
-<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-yes">7x</span>
+<span class="cline-any cline-yes">7x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -218,7 +224,7 @@ import { BitcoinNetworkModes, NetworkModes } from '@shared/constants';
 import { logger } from '@shared/logger';
 &nbsp;
 import { DerivationPathDepth } from '../derivation-path.utils';
-import { BitcoinNetwork, getBtcSignerLibNetworkConfigByMode } from './bitcoin.network';
+import { BtcSignerNetwork, getBtcSignerLibNetworkConfigByMode } from './bitcoin.network';
 &nbsp;
 const coinTypeMap: Record&lt;NetworkModes, 0 | 1&gt; = {
   mainnet: 0,
@@ -247,6 +253,9 @@ export function ecdsaPublicKeyToSchnorr(pubKey: Uint8Array) {
   return pubKey.slice(1);
 }
 &nbsp;
+// basically same as above, to remov
+export const toXOnly = (pubKey: Buffer) =&gt; (pubKey.length === 32 ? <span class="branch-0 cbranch-no" title="branch not covered" >pubKey : p</span>ubKey.slice(1, 33));
+&nbsp;
 export function <span class="fstat-no" title="function not covered" >decodeBitcoinTx(t</span>x: string) {
 <span class="cstat-no" title="statement not covered" >  return btc.RawTx.decode(hexToBytes(tx));</span>
 }
@@ -257,15 +266,15 @@ function <span class="fstat-no" title="function not covered" >formatKey(h</span>
 <span class="cstat-no" title="statement not covered" >  return btc.base58check.encode(concat(Uint8Array.from(prefix), hashed));</span>
 }
 &nbsp;
-function <span class="fstat-no" title="function not covered" >getAddressFromWshOutScript(s</span>cript: Uint8Array, network: BitcoinNetwork) {
+function <span class="fstat-no" title="function not covered" >getAddressFromWshOutScript(s</span>cript: Uint8Array, network: BtcSignerNetwork) {
 <span class="cstat-no" title="statement not covered" >  return btc.programToWitness(0, script.slice(2), network);</span>
 }
 &nbsp;
-function <span class="fstat-no" title="function not covered" >getAddressFromWpkhOutScript(s</span>cript: Uint8Array, network: BitcoinNetwork) {
+function <span class="fstat-no" title="function not covered" >getAddressFromWpkhOutScript(s</span>cript: Uint8Array, network: BtcSignerNetwork) {
 <span class="cstat-no" title="statement not covered" >  return btc.programToWitness(0, script.slice(2), network);</span>
 }
 &nbsp;
-function <span class="fstat-no" title="function not covered" >getAddressFromTrOutScript(s</span>cript: Uint8Array, network: BitcoinNetwork) {
+function <span class="fstat-no" title="function not covered" >getAddressFromTrOutScript(s</span>cript: Uint8Array, network: BtcSignerNetwork) {
 <span class="cstat-no" title="statement not covered" >  return btc.programToWitness(1, script.slice(2), network);</span>
 }
 &nbsp;
@@ -289,7 +298,7 @@ export function <span class="fstat-no" title="function not covered" >getAddressF
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2023-05-08T17:35:50.274Z
+                at 2023-05-11T07:52:00.408Z
             </div>
         <script src="../../../../prettify.js"></script>
         <script>
