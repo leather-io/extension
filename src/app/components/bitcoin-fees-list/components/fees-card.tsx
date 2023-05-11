@@ -1,26 +1,36 @@
 import { Box, Flex, Text, color, transition } from '@stacks/ui';
 import { SharedComponentsSelectors } from '@tests/selectors/shared-component.selectors';
 
+import { figmaTheme } from '@app/common/utils/figma-theme';
+
 interface FeesCardProps {
-  feeType: string;
+  arrivesIn: string;
   feeAmount: string;
   feeFiatValue: string;
-  arrivesIn: string;
+  feeType: string;
+  isSelected?: boolean;
   onClick: () => void;
 }
-export function FeesCard({ feeType, feeAmount, feeFiatValue, arrivesIn, ...props }: FeesCardProps) {
+export function FeesCard({
+  arrivesIn,
+  feeAmount,
+  feeFiatValue,
+  feeType,
+  isSelected,
+  ...props
+}: FeesCardProps) {
   return (
     <Box
+      _hover={{ background: '#F9F9FA' }}
       as="button"
-      border="1px solid"
-      borderColor={color('border')}
+      border={isSelected ? '4px solid' : '1px solid'}
+      borderColor={isSelected ? figmaTheme.borderFocused : color('border')}
       borderRadius="16px"
       boxShadow="0px 1px 2px rgba(0, 0, 0, 0.04)"
-      transition={transition}
-      padding="extra-loose"
-      width="100%"
-      _hover={{ background: '#F9F9FA' }}
       data-testid={SharedComponentsSelectors.FeeCard}
+      padding="extra-loose"
+      transition={transition}
+      width="100%"
       {...props}
     >
       <Flex justifyContent="space-between" mb="tight" fontWeight={500}>

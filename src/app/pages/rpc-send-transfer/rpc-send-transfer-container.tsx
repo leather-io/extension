@@ -1,4 +1,7 @@
-import { Outlet } from 'react-router-dom';
+import { useState } from 'react';
+import { Outlet, useOutletContext } from 'react-router-dom';
+
+import { BtcFeeType } from '@shared/models/fees/bitcoin-fees.model';
 
 import { useRouteHeader } from '@app/common/hooks/use-route-header';
 import { PopupHeader } from '@app/features/current-account/popup-header';
@@ -6,7 +9,17 @@ import { PopupHeader } from '@app/features/current-account/popup-header';
 import { RpcSendTransferContainerLayout } from './components/rpc-send-transfer-container.layout';
 import { useRpcSendTransfer } from './use-rpc-send-transfer';
 
+interface RpcSendTransferContextState {
+  selectedFeeType: BtcFeeType;
+  setSelectedFeeType(value: BtcFeeType): void;
+}
+export function useRpcSendTransferState() {
+  const context = useOutletContext<RpcSendTransferContextState>();
+  return { ...context };
+}
+
 export function RpcSendTransferContainer() {
+  const [selectedFeeType, setSelectedFeeType] = useState(BtcFeeType.Low);
   const { origin } = useRpcSendTransfer();
 
   useRouteHeader(<PopupHeader displayAddresssBalanceOf="all" />);
@@ -18,7 +31,7 @@ export function RpcSendTransferContainer() {
 
   return (
     <RpcSendTransferContainerLayout>
-      <Outlet />
+      <Outlet context={{ selectedFeeType, setSelectedFeeType }} />
     </RpcSendTransferContainerLayout>
   );
 }
