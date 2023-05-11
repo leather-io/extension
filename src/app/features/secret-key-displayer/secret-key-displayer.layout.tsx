@@ -1,6 +1,5 @@
-import { FiCopy } from 'react-icons/fi';
-import { BiShow, BiHide } from 'react-icons/bi';
 import { useState } from 'react';
+import { FiCopy, FiEye, FiEyeOff } from 'react-icons/fi';
 
 import YourSecretKey from '@assets/images/onboarding/your-secret-key.png';
 import { Box, Stack, color } from '@stacks/ui';
@@ -50,7 +49,7 @@ export function SecretKeyDisplayerLayout(props: SecretKeyDisplayerLayoutProps) {
             onClick={() => setIsKeyMasked(!isKeyMasked)}
           >
             <Stack alignItems="center" isInline spacing="tight">
-              {isKeyMasked ? <BiShow /> : <BiHide />}
+              {isKeyMasked ? <FiEye /> : <FiEyeOff />}
               <Text color={color('accent')} whiteSpace="nowrap">
                 {isKeyMasked ? 'Show key' : 'Hide key'}
               </Text>
