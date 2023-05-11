@@ -13,11 +13,9 @@ const inscriptionQueryOptions = {
 /**
  * @param path - inscription/:inscription_id
  */
-function fetchInscription() {
-  return async (path: string) => {
-    const res = await fetch(
-      `https://api.hiro.so/ordinals/v1${path.replace('inscription', 'inscriptions')}`
-    );
+export function fetchInscription() {
+  return async (id: string) => {
+    const res = await fetch(`https://api.hiro.so/ordinals/v1/inscriptions/${id}`);
     if (!res.ok) throw new Error('Error retrieving inscription metadata');
     const data = await res.json();
     return data as Inscription;
@@ -27,13 +25,13 @@ function fetchInscription() {
 type FetchInscriptionResp = Awaited<ReturnType<ReturnType<typeof fetchInscription>>>;
 
 export function useGetInscriptionQuery<T extends unknown = FetchInscriptionResp>(
-  path: string,
+  id: string,
   options?: AppUseQueryConfig<FetchInscriptionResp, T>
 ) {
   return useQuery({
-    enabled: !!path,
-    queryKey: [QueryPrefixes.InscriptionMetadata, path],
-    queryFn: () => fetchInscription()(path),
+    enabled: !!id,
+    queryKey: [QueryPrefixes.InscriptionMetadata, id],
+    queryFn: () => fetchInscription()(id),
     ...inscriptionQueryOptions,
     ...options,
   });

@@ -36,8 +36,8 @@ export function convertInscriptionToSupportedInscriptionType(inscription: Inscri
   });
 }
 
-export function useInscription(path: string) {
-  return useGetInscriptionQuery(path, {
+export function useInscription(id: string) {
+  return useGetInscriptionQuery(id, {
     select: resp => convertInscriptionToSupportedInscriptionType(resp),
   });
 }
