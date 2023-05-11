@@ -13,14 +13,14 @@ import { InscriptionPreviewCard } from '@app/components/inscription-preview-card
 
 import { RecipientField } from '../send-crypto-asset-form/components/recipient-field';
 import { CollectibleAsset } from './components/collectible-asset';
-import { useInscriptionSendState } from './components/send-inscription-loader';
+import { useSendInscriptionState } from './components/send-inscription-container';
 import { useSendInscriptionForm } from './hooks/use-send-inscription-form';
 
 export const recipeintFieldName = 'recipient';
 
 export function SendInscriptionForm() {
   const navigate = useNavigate();
-  const { feeRates, inscription, recipient } = useInscriptionSendState();
+  const { feeRates, inscription, recipient } = useSendInscriptionState();
   const { chooseTransactionFee, currentError, validationSchema } = useSendInscriptionForm();
 
   return (
@@ -29,7 +29,7 @@ export function SendInscriptionForm() {
       initialValues={{
         [recipeintFieldName]: recipient,
         inscription,
-        feeRate: feeRates.fastestFee.toNumber(),
+        feeRate: feeRates.hourFee.toNumber(),
       }}
       onSubmit={chooseTransactionFee}
     >

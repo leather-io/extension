@@ -17,7 +17,7 @@ import { useCurrentNativeSegwitUtxos } from '@app/query/bitcoin/address/address.
 
 import { InscriptionPreviewCard } from '../../../components/inscription-preview-card/inscription-preview-card';
 import { useBitcoinBroadcastTransaction } from '../../../query/bitcoin/transaction/use-bitcoin-broadcast-transaction';
-import { useInscriptionSendState } from './components/send-inscription-loader';
+import { useSendInscriptionState } from './components/send-inscription-container';
 
 function useSendInscriptionReviewState() {
   const location = useLocation();
@@ -35,7 +35,7 @@ export function SendInscriptionReview() {
 
   const { arrivesIn, signedTx, recipient, fee } = useSendInscriptionReviewState();
 
-  const { inscription } = useInscriptionSendState();
+  const { inscription } = useSendInscriptionState();
   const { refetch } = useCurrentNativeSegwitUtxos();
   const { broadcastTx, isBroadcasting } = useBitcoinBroadcastTransaction();
 

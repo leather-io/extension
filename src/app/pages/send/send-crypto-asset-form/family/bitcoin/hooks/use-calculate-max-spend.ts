@@ -35,7 +35,7 @@ export function useCalculateMaxBitcoinSpend() {
         input_count: utxos.length,
         [`${addressTypeWithFallback}_output_count`]: 2,
       });
-      const fee = Math.ceil(size.txVBytes * feeRates.fastestFee.toNumber());
+      const fee = Math.ceil(size.txVBytes * feeRates.hourFee.toNumber());
 
       const spendableAmount = BigNumber.max(0, balance.amount.minus(fee));
 

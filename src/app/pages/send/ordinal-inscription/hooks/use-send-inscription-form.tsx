@@ -19,7 +19,7 @@ import {
 import { getNumberOfInscriptionOnUtxo } from '@app/query/bitcoin/ordinals/ordinals-aware-utxo.query';
 import { useCurrentNetwork } from '@app/store/networks/networks.selectors';
 
-import { useInscriptionSendState } from '../components/send-inscription-loader';
+import { useSendInscriptionState } from '../components/send-inscription-container';
 import { recipeintFieldName } from '../send-inscription-form';
 import { useGenerateSignedOrdinalTx } from './use-generate-ordinal-tx';
 
@@ -28,7 +28,7 @@ export function useSendInscriptionForm() {
   const analytics = useAnalytics();
   const navigate = useNavigate();
   const { whenWallet } = useWalletType();
-  const { inscription, utxo } = useInscriptionSendState();
+  const { inscription, utxo } = useSendInscriptionState();
   const currentNetwork = useCurrentNetwork();
 
   const { coverFeeFromAdditionalUtxos } = useGenerateSignedOrdinalTx(utxo);
@@ -37,7 +37,7 @@ export function useSendInscriptionForm() {
     currentError,
 
     async chooseTransactionFee(values: OrdinalSendFormValues) {
-      // Check tx with fastest fee for errors before routing and
+      // Check tx with lowest fee for errors before routing and
       // generating the final transaction with the chosen fee to send
       const resp = coverFeeFromAdditionalUtxos(values);
 
