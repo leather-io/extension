@@ -12,6 +12,7 @@ import { BalancesList } from '@app/features/balances-list/balances-list';
 import { InAppMessages } from '@app/features/hiro-messages/in-app-messages';
 import { SuggestedFirstSteps } from '@app/features/suggested-first-steps/suggested-first-steps';
 import { HomeActions } from '@app/pages/home/components/home-actions';
+import { useTaprootUtxoInfiniteQuery } from '@app/query/bitcoin/ordinals/use-taproot-address-utxos.query';
 import { StacksAccount } from '@app/store/accounts/blockchain/stacks/stacks-account.models';
 
 import { CurrentAccount } from './components/account-area';
@@ -31,6 +32,12 @@ function HomeContainer({ account }: HomeContainerProps) {
   const navigate = useNavigate();
   useTrackFirstDeposit();
 
+  const { data: result } = useTaprootUtxoInfiniteQuery();
+  // Below line causes infinite render loop, not sure why
+  // const { data: result, ...rest } = useTaprootUtxoInfiniteQuery();
+
+  console.log('result', result);
+
   useRouteHeader(
     <>
       <InAppMessages />
@@ -46,7 +53,13 @@ function HomeContainer({ account }: HomeContainerProps) {
     <HomeLayout
       suggestedFirstSteps={<SuggestedFirstSteps />}
       currentAccount={<CurrentAccount />}
-      actions={<HomeActions />}
+      actions={
+        <>
+          {/* <button onClick={() => rest.refetch()}>refetch</button>
+          <button onClick={() => rest.fetchNextPage()}>next page</button> */}
+          <HomeActions />
+        </>
+      }
     >
       <HomeTabs balances={<BalancesList address={account.address} />} activity={<ActivityList />} />
       <Outlet />
