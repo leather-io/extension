@@ -18,9 +18,13 @@ interface Brc20TokensByAddressResponse {
 }
 
 async function fetchBrc20TokensByAddress(address: string): Promise<Brc20TokensByAddressResponse> {
-  return fetch(`https://unisat.io/api/v3/brc20/tokens?address=${address}&cursor=0&size=100`).then(
-    res => res.json()
+  const res = await fetch(
+    `https://unisat.io/api/v3/brc20/tokens?address=${address}&cursor=0&size=100`
   );
+
+  if (!res.ok) throw new Error('Failed to fetch BRC-20 token balances');
+
+  return res.json();
 }
 
 type FetchBrc20TokensByAddressResp = Awaited<ReturnType<typeof fetchBrc20TokensByAddress>>;
