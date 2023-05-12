@@ -1,4 +1,4 @@
-name: Ordinals API test
+name: External API tests
 
 on:
   pull_request:
@@ -13,14 +13,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-
+      - uses: ./.github/actions/provision
       - uses: actions/setup-node@v3
         with:
           node-version: 18
-          cache: 'yarn'
-
-      - name: Install dependencies
-        run: yarn
 
       - name: Get installed Playwright version
         id: playwright-version
@@ -38,7 +34,10 @@ jobs:
         if: steps.playwright-cache.outputs.cache-hit != 'true'
 
       - name: Run Playwright tests
-        run: yarn playwright test tests/specs/ordinals/ordinals.spec.ts
+        id: playwright
+        uses: mathiasvr/command-output@v2.0.0
+        with:
+          run: yarn playwright test --reporter=github tests/api
 
       - name: Discord notification
         if: failure()
@@ -46,4 +45,9 @@ jobs:
           DISCORD_WEBHOOK: ${{ secrets.DISCORD_ALERT_CHANNEL }}
         uses: Ilshidur/action-discord@master
         with:
-          args: "Something funky's up with the OrdAPI.xyz. Wallet team engineer to investigate. See `ordinals-checker.yml Github Action."
+          args: |
+            Something funky's up with the OrdAPI.xyz. Wallet team engineer to investigate. See `ordinals-checker.yml` Github Action.
+            [Failing test job](${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }})
+            ```bash
+            ${{ steps.playwright.outputs.stdout }}
+            ```

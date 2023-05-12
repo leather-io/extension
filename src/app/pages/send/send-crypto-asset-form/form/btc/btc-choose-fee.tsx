@@ -13,6 +13,7 @@ import { useGenerateSignedBitcoinTx } from '@app/common/transactions/bitcoin/use
 import { useWalletType } from '@app/common/use-wallet-type';
 import { BitcoinFeesList } from '@app/components/bitcoin-fees-list/bitcoin-fees-list';
 import { BitcoinFeesListLayout } from '@app/components/bitcoin-fees-list/components/bitcoin-fees-list.layout';
+import { useBitcoinFeesList } from '@app/components/bitcoin-fees-list/use-bitcoin-fees-list';
 import { ModalHeader } from '@app/components/modal-header';
 
 import { useSendFormNavigate } from '../../hooks/use-send-form-navigate';
@@ -29,6 +30,10 @@ export function BtcChooseFee() {
   const { whenWallet } = useWalletType();
   const sendFormNavigate = useSendFormNavigate();
   const generateTx = useGenerateSignedBitcoinTx();
+  const { feesList, isLoading } = useBitcoinFeesList({
+    amount: Number(txValues.amount),
+    recipient: txValues.recipient,
+  });
 
   async function previewTransaction(feeRate: number, feeValue: number, time: string) {
     const resp = generateTx(
@@ -59,11 +64,7 @@ export function BtcChooseFee() {
 
   return (
     <BitcoinFeesListLayout>
-      <BitcoinFeesList
-        amount={Number(txValues.amount)}
-        onChooseFee={previewTransaction}
-        recipient={txValues.recipient}
-      />
+      <BitcoinFeesList feesList={feesList} isLoading={isLoading} onChooseFee={previewTransaction} />
     </BitcoinFeesListLayout>
   );
 }
