@@ -1,3 +1,17 @@
+## [4.24.0](https://github.com/hirosystems/wallet/compare/v4.23.0...v4.24.0) (2023-05-12)
+
+
+### Features
+
+* add hiro api test ([db53c6d](https://github.com/hirosystems/wallet/commit/db53c6d77b3c6e3d28c27ac2957217c7a80ba822))
+* change ordapi to hiro ordinals api, closes [#3417](https://github.com/hirosystems/wallet/issues/3417) ([73a2957](https://github.com/hirosystems/wallet/commit/73a2957f6d06562b0e12204ced8084ba9be3c13a))
+* send inscription choose fee, closes [#3544](https://github.com/hirosystems/wallet/issues/3544) ([45c090f](https://github.com/hirosystems/wallet/commit/45c090fa3ce584bebb8c321eb787ae9d06346385))
+
+
+### Bug Fixes
+
+* **brc-20:** handle bad response ([3775a6c](https://github.com/hirosystems/wallet/commit/3775a6c7776a0cfe541bccbc0009140a0f55c8f4))
+
 ## [4.23.0](https://github.com/hirosystems/wallet/compare/v4.22.0...v4.23.0) (2023-05-11)
 
 
