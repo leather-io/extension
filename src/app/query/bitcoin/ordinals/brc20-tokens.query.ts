@@ -11,7 +11,7 @@ export interface Brc20Token {
 }
 
 interface Brc20TokensByAddressResponse {
-  result: {
+  result?: {
     list: Brc20Token[];
     total: number;
   };
