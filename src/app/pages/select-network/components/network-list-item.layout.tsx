@@ -50,27 +50,29 @@ export function NetworkListItemLayout(props: NetworkListItemLayoutProps) {
       data-testid={SettingsSelectors.NetworkListItem}
       {...rest}
     >
-      <Flex
-        width="100%"
-        as="button"
-        justifyContent="space-between"
-        alignItems="center"
-        disabled={!isOnline}
-        data-testid={network.id}
-      >
-        <Stack alignItems="flex-start" flex={1}>
-          <Title
-            fontWeight={400}
-            lineHeight="1rem"
-            fontSize={2}
-            display="block"
-            fontFamily="'Inter'"
-          >
-            {network.name}
-          </Title>
-          <Caption>{getUrlHostname(network.chain.stacks.url)}</Caption>
-        </Stack>
-        <NetworkStatusIndicator isActive={isActive} isOnline={isOnline} />
+      <Flex>
+        <Flex
+          width="100%"
+          as="button"
+          justifyContent="space-between"
+          alignItems="center"
+          disabled={!isOnline}
+          data-testid={network.id}
+        >
+          <Stack alignItems="flex-start" flex={1}>
+            <Title
+              fontWeight={400}
+              lineHeight="1rem"
+              fontSize={2}
+              display="block"
+              fontFamily="'Inter'"
+            >
+              {network.name}
+            </Title>
+            <Caption>{getUrlHostname(network.chain.stacks.url)}</Caption>
+          </Stack>
+          <NetworkStatusIndicator isActive={isActive} isOnline={isOnline} />
+        </Flex>
         {isCustom && (
           <Button
             type="button"
