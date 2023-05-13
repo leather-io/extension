@@ -1,3 +1,16 @@
+## [4.24.1](https://github.com/hirosystems/wallet/compare/v4.24.0...v4.24.1) (2023-05-12)
+
+
+### Bug Fixes
+
+* delete networks bug in firefox, closes [#3608](https://github.com/hirosystems/wallet/issues/3608) ([0d44d13](https://github.com/hirosystems/wallet/commit/0d44d1363806c25461d5c995ecf38dc9ff3f834d))
+
+
+### Internal
+
+* add query headers ([37e1cbf](https://github.com/hirosystems/wallet/commit/37e1cbf6adbcaba893ba94e77caf22080d55ac66))
+* brc-20 token balance query ([1c41703](https://github.com/hirosystems/wallet/commit/1c4170328ca8ae2f9514e2d68b0179e577df3d05))
+
 ## [4.24.0](https://github.com/hirosystems/wallet/compare/v4.23.0...v4.24.0) (2023-05-12)
 
 
