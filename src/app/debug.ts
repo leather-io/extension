@@ -3,7 +3,7 @@ import toast from 'react-hot-toast';
 import * as reduxPersist from 'redux-persist';
 
 import { getLogsFromBrowserStorage } from '@shared/logger-storage';
-import { persistConfig } from '@shared/storage';
+import { persistConfig } from '@shared/storage/redux-pesist';
 
 import { store } from './store';
 import { stxChainSlice } from './store/chains/stx-chain.slice';

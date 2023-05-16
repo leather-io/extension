@@ -121,7 +121,11 @@ describe(`Onboarding integration tests`, () => {
     await wallet.waitForHomePage();
     await wallet.waitForsuggestedStepsList();
     const stepsToStartBtns = await wallet.page.$$(wallet.$suggestedStepStartBtn);
-    await stepsToStartBtns[1].click();
+    const [newPage] = await Promise.all([
+      browser.context.waitForEvent('page'),
+      stepsToStartBtns[1].click(),
+    ]);
+    await newPage.waitForLoadState();
     const stepsDone = await wallet.page.$$(wallet.$suggestedStepDoneBadge);
     expect(stepsDone.length).toEqual(2);
   });
