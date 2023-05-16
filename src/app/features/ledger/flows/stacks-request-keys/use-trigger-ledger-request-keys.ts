@@ -3,8 +3,6 @@ import toast from 'react-hot-toast';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
-import { InternalMethods } from '@shared/message-types';
-import { sendMessage } from '@shared/messages';
 import { RouteUrls } from '@shared/route-urls';
 
 import { keySlice } from '@app/store/keys/key.slice';
@@ -29,10 +27,6 @@ export function useTriggerLedgerDeviceRequestStacksKeys() {
             publicKeys,
           })
         );
-        // It's possible a user may have first generated a key, then decided
-        // they wanted to pair with Ledger. Here, we kill all in memory keys when
-        // a new Ledger wallet is created
-        sendMessage({ method: InternalMethods.RemoveInMemoryKeys, payload: undefined });
         navigate(RouteUrls.Home);
       },
     }),

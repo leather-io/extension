@@ -25,14 +25,14 @@ type ClearActiveFormState = BackgroundMessage<
   { tabId: number }
 >;
 
-type ShareInMemoryKeyToBackground = BackgroundMessage<
+type FirefoxShareInMemoryKeyToBackground = BackgroundMessage<
   InternalMethods.ShareInMemoryKeyToBackground,
   { secretKey: string; keyId: string }
 >;
 
-type RequestInMemoryKeys = BackgroundMessage<InternalMethods.RequestInMemoryKeys>;
+type FirefoxRequestInMemoryKeys = BackgroundMessage<InternalMethods.RequestInMemoryKeys>;
 
-type RemoveInMemoryKeys = BackgroundMessage<InternalMethods.RemoveInMemoryKeys>;
+type FirefoxRemoveInMemoryKeys = BackgroundMessage<InternalMethods.RemoveInMemoryKeys>;
 
 type OriginatingTabClosed = BackgroundMessage<
   InternalMethods.OriginatingTabClosed,
@@ -44,9 +44,9 @@ export type BackgroundMessages =
   | GetActiveFormState
   | SetActiveFormState
   | ClearActiveFormState
-  | ShareInMemoryKeyToBackground
-  | RequestInMemoryKeys
-  | RemoveInMemoryKeys
+  | FirefoxShareInMemoryKeyToBackground
+  | FirefoxRequestInMemoryKeys
+  | FirefoxRemoveInMemoryKeys
   | OriginatingTabClosed;
 
 export function sendMessage(message: BackgroundMessages) {

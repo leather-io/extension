@@ -1,7 +1,4 @@
-// import { StacksMainnet } from '@stacks/network';
-import { generateNewAccount, generateWallet } from '@stacks/wallet-sdk';
-import memoize from 'promise-memoize';
-
+import { deriveStacksAccountsMemoized } from '@shared/crypto/stacks/derive-stacks-accounts';
 import { logger } from '@shared/logger';
 import { InternalMethods } from '@shared/message-types';
 import { BackgroundMessages } from '@shared/messages';
@@ -11,18 +8,6 @@ function validateMessagesAreFromExtension(sender: chrome.runtime.MessageSender) 
   return sender.url?.startsWith(chrome.runtime.getURL(''));
 }
 
-const deriveWalletWithAccounts = memoize(async (secretKey: string, highestAccountIndex: number) => {
-  // Here we only want the resulting `Wallet` objects, but the API
-  // requires a password (so it can also return an encrypted key)
-  const wallet = await generateWallet({ secretKey, password: '' });
-  let walWithAccounts = wallet;
-  for (let i = 0; i < highestAccountIndex; i++) {
-    walWithAccounts = generateNewAccount(walWithAccounts);
-  }
-  return walWithAccounts;
-});
-
-// Persists keys in memory for the duration of the background scripts life
 const inMemoryKeys = new Map();
 
 const inMemoryFormState = new Map<number, object>();
@@ -35,17 +20,19 @@ export async function internalBackgroundMessageHandler(
   sender: chrome.runtime.MessageSender,
   sendResponse: (response?: any) => void
 ) {
-  // console.info('Internal msg', message, validateMessagesAreFromExtension(sender));
   if (!validateMessagesAreFromExtension(sender)) {
     logger.error('Error: Received background script msg from ' + sender.url);
     sendResponse();
     return;
   }
-  // logger.debug('Internal message', message);
+  logger.debug('Internal message', message);
   switch (message.method) {
     case InternalMethods.RequestDerivedStxAccounts: {
       const { secretKey, highestAccountIndex } = message.payload;
-      const walletsWithAccounts = await deriveWalletWithAccounts(secretKey, highestAccountIndex);
+      const walletsWithAccounts = await deriveStacksAccountsMemoized(
+        secretKey,
+        highestAccountIndex
+      );
       sendResponse(walletsWithAccounts);
       break;
     }
@@ -59,7 +46,6 @@ export async function internalBackgroundMessageHandler(
 
     case InternalMethods.RequestInMemoryKeys: {
       sendResponse(Object.fromEntries(inMemoryKeys));
-      sendResponse();
       break;
     }
 
@@ -71,11 +57,13 @@ export async function internalBackgroundMessageHandler(
     case InternalMethods.SetActiveFormState: {
       const { tabId, ...state } = message.payload;
       inMemoryFormState.set(tabId, state);
+      sendResponse();
       break;
     }
 
     case InternalMethods.ClearActiveFormState: {
       inMemoryFormState.delete(message.payload.tabId);
+      sendResponse();
       break;
     }
 
@@ -85,7 +73,4 @@ export async function internalBackgroundMessageHandler(
       break;
     }
   }
-  // As browser is instructed that, if there is a response it will be
-  // asyncronous, we must always return a response, even if empty
-  sendResponse();
 }

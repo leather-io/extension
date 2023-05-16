@@ -6,7 +6,7 @@ import { selectCurrentAccountIndex } from '../keys/key.selectors';
 
 // This is only used when there is a pending transaction request and
 // the user switches accounts during the signing process
-export const hasSwitchedAccountsState = atom<boolean>(false);
+export const hasSwitchedAccountsState = atom(false);
 
 const hasCreatedAccountState = atom<boolean>(false);
 

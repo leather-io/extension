@@ -32,7 +32,7 @@ const contentSecurityPolicyEnvironment = {
   development:
     "script-src 'self' 'wasm-unsafe-eval'; object-src 'self'; frame-src 'none'; frame-ancestors 'none';",
   production:
-    "default-src 'none'; connect-src *; style-src 'unsafe-inline'; img-src 'self' https:; script-src 'self' 'wasm-unsafe-eval'; object-src 'none'; frame-src 'none'; frame-ancestors 'none';",
+    "default-src 'none'; connect-src *; style-src 'unsafe-inline'; img-src 'self' data: https:; script-src 'self' 'wasm-unsafe-eval'; object-src 'none'; frame-src 'none'; frame-ancestors 'none';",
 };
 
 const defaultIconEnvironment = {
@@ -42,18 +42,9 @@ const defaultIconEnvironment = {
 
 const browserSpecificConfig = {
   firefox: {
-    manifest_version: 2,
-    permissions: ['contextMenus', 'storage', '*://*/*'],
     background: {
-      page: 'background.js',
+      scripts: ['background.js'],
     },
-    web_accessible_resources: ['inpage.js'],
-    browser_action: {
-      default_title: 'Stacks',
-      default_popup: 'popup.html',
-      default_icon: defaultIconEnvironment[NODE_ENV],
-    },
-    content_security_policy: contentSecurityPolicyEnvironment[NODE_ENV],
     browser_specific_settings: {
       gecko: {
         id: '{e22ae397-03d7-4622-bd8f-ecaca8c9b277}',
@@ -61,20 +52,8 @@ const browserSpecificConfig = {
     },
   },
   chromium: {
-    manifest_version: 3,
-    host_permissions: ['*://*/*'],
-    permissions: ['contextMenus', 'storage'],
     background: {
       service_worker: 'background.js',
-    },
-    web_accessible_resources: [{ resources: ['inpage.js'], matches: ['*://*/*'] }],
-    action: {
-      default_title: 'Stacks',
-      default_popup: 'popup.html',
-      default_icon: defaultIconEnvironment[NODE_ENV],
-    },
-    content_security_policy: {
-      extension_pages: contentSecurityPolicyEnvironment[NODE_ENV],
     },
   },
 };
@@ -83,9 +62,11 @@ const browserSpecificConfig = {
  * @type {Manifest} manifest
  */
 const manifest = {
+  manifest_version: 3,
   author: 'Hiro PBC',
   description:
     'Hiro Wallet is a safe way to manage your STX, sign into apps, and protect your funds while interacting with Clarity smart contracts.',
+  permissions: ['contextMenus', 'storage'],
   commands: {
     _execute_browser_action: {
       suggested_key: {
@@ -94,6 +75,16 @@ const manifest = {
       },
       description: 'Opens Stacks App',
     },
+  },
+  host_permissions: ['*://*/*'],
+  content_security_policy: {
+    extension_pages: contentSecurityPolicyEnvironment[NODE_ENV],
+  },
+  web_accessible_resources: [{ resources: ['inpage.js'], matches: ['*://*/*'] }],
+  action: {
+    default_title: 'Stacks',
+    default_popup: 'popup.html',
+    default_icon: defaultIconEnvironment[NODE_ENV],
   },
   options_ui: {
     page: 'index.html',
@@ -116,12 +107,8 @@ const name = PREVIEW_RELEASE ? 'Hiro Wallet Preview' : 'Hiro Wallet';
 
 const prodManifest = {
   name,
-  // CSP loosened to allow `wasm-eval` per
-  // https://bugs.chromium.org/p/chromium/issues/detail?id=1268576
-  content_security_policy:
-    "default-src 'none'; connect-src *; style-src 'unsafe-inline'; img-src 'self' data: https:; script-src 'self' 'wasm-eval'; object-src 'none'; frame-src 'none'; frame-ancestors 'none';",
   icons: generateImageAssetUrlsWithSuffix(PREVIEW_RELEASE ? '-preview' : ''),
-  browser_action: {
+  action: {
     default_icon: `assets/connect-logo/Stacks128w${PREVIEW_RELEASE ? '-preview' : ''}.png`,
   },
 };
