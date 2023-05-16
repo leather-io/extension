@@ -37,7 +37,6 @@ export function Container() {
       <SwitchAccountDrawer />
       <SettingsDropdown />
       <Toaster position="bottom-center" toastOptions={{ style: { fontSize: '14px' } }} />
-
       <ContainerLayout header={routeHeader}>
         <Outlet />
       </ContainerLayout>

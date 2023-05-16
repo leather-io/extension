@@ -1,5 +1,5 @@
+import { BrowserContext, Page } from '@playwright/test';
 import { OnboardingSelectors } from '@tests/selectors/onboarding.selectors';
-import { BrowserContext, Page } from 'playwright';
 
 import { createTestSelector } from '../integration/utils';
 

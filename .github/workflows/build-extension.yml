@@ -47,8 +47,6 @@ jobs:
           key: ${{ runner.os }}-modules-${{ hashFiles('**/yarn.lock') }}-${{ hashFiles('**/package.json') }}
 
       - uses: actions/setup-node@v3
-        with:
-          node-version: 14.x
 
       - name: Install packages
         uses: ./.github/actions/provision
@@ -83,8 +81,6 @@ jobs:
 
       - name: Set Node Version
         uses: actions/setup-node@v3
-        with:
-          node-version: 14.x
 
       - name: Restore cache
         uses: actions/cache@v3

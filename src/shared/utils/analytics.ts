@@ -8,7 +8,7 @@ import {
   SENTRY_DSN,
   WALLET_ENVIRONMENT,
 } from '@shared/environment';
-import { persistConfig } from '@shared/storage';
+import { persistConfig } from '@shared/storage/redux-pesist';
 
 import type { RootState } from '@app/store';
 

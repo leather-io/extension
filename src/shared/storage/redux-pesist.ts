@@ -2,7 +2,7 @@ import { PersistConfig, createMigrate, getStoredState } from 'redux-persist';
 
 import type { RootState } from '@app/store';
 
-import { analytics } from './utils/analytics';
+import { analytics } from '../utils/analytics';
 
 export async function clearChromeStorage(): Promise<void> {
   return new Promise(resolve => chrome.storage.local.clear(resolve));

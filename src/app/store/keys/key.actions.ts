@@ -2,8 +2,6 @@ import { AddressVersion } from '@stacks/transactions';
 
 import { decryptMnemonic, encryptMnemonic } from '@shared/crypto/mnemonic-encryption';
 import { logger } from '@shared/logger';
-import { InternalMethods } from '@shared/message-types';
-import { sendMessage } from '@shared/messages';
 
 import { recurseAccountsForActivity } from '@app/common/account-restoration/account-restore';
 import { checkForLegacyGaiaConfigWithKnownGeneratedAccountIndex } from '@app/common/account-restoration/legacy-gaia-config-lookup';
@@ -11,6 +9,7 @@ import { BitcoinClient } from '@app/query/bitcoin/bitcoin-client';
 import { fetchNamesForAddress } from '@app/query/stacks/bns/bns.utils';
 import { StacksClient } from '@app/query/stacks/stacks-client';
 import { AppThunk } from '@app/store';
+import { initalizeWalletSession } from '@app/store/session-restore';
 
 import { getNativeSegwitMainnetAddressFromMnemonic } from '../accounts/blockchain/bitcoin/bitcoin-keychain';
 import { getStacksAddressByIndex } from '../accounts/blockchain/stacks/stacks-keychain';
@@ -30,7 +29,13 @@ function setWalletEncryptionPassword(args: {
   return async (dispatch, getState) => {
     const secretKey = selectDefaultWalletKey(getState());
     if (!secretKey) throw new Error('Cannot generate wallet without first having generated a key');
-    const { encryptedSecretKey, salt } = await encryptMnemonic({ secretKey, password });
+
+    const { encryptedSecretKey, salt, encryptionKey } = await encryptMnemonic({
+      secretKey,
+      password,
+    });
+
+    await initalizeWalletSession(encryptionKey, secretKey);
 
     const legacyAccountActivityLookup =
       await checkForLegacyGaiaConfigWithKnownGeneratedAccountIndex(secretKey);
@@ -76,12 +81,6 @@ function setWalletEncryptionPassword(args: {
       dispatch(stxChainSlice.actions.restoreAccountIndex(recursiveActivityIndex));
     });
 
-    sendMessage({
-      method: InternalMethods.ShareInMemoryKeyToBackground,
-      payload: { secretKey, keyId: defaultKeyId },
-    });
-
-    dispatch(inMemoryKeySlice.actions.setKeysInMemory({ default: secretKey }));
     dispatch(
       keySlice.actions.createStacksSoftwareWalletComplete({
         type: 'software',
@@ -100,11 +99,9 @@ function unlockWalletAction(password: string): AppThunk {
     const currentKey = selectCurrentKey(getState());
     if (!currentKey) return;
     if (currentKey.type !== 'software') return;
-    const { secretKey } = await decryptMnemonic({ password, ...currentKey });
-    sendMessage({
-      method: InternalMethods.ShareInMemoryKeyToBackground,
-      payload: { secretKey: secretKey, keyId: defaultKeyId },
-    });
+    const { secretKey, encryptionKey } = await decryptMnemonic({ password, ...currentKey });
+
+    await initalizeWalletSession(encryptionKey, secretKey);
     dispatch(inMemoryKeySlice.actions.setKeysInMemory({ default: secretKey }));
   };
 }
