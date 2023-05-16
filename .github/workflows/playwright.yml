@@ -52,7 +52,7 @@ jobs:
           key: ${{ runner.os }}-playwright-cache-${{ env.PLAYWRIGHT_VERSION }}
 
       - name: Install Playwright browsers
-        run: yarn playwright install chrome
+        run: yarn playwright install chrome chromium
         if: steps.playwright-cache.outputs.cache-hit != 'true'
 
       - name: Install Playwright deps

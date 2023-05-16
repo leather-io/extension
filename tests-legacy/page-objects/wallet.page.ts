@@ -1,9 +1,9 @@
+import { Page } from '@playwright/test';
 import { SettingsSelectors } from '@tests-legacy/integration/settings.selectors';
 import { HomePageSelectorsLegacy } from '@tests-legacy/page-objects/home.selectors';
 import { HomePageSelectors } from '@tests/selectors/home.selectors';
 import { OnboardingSelectors } from '@tests/selectors/onboarding.selectors';
 import { SettingsMenuSelectors } from '@tests/selectors/settings.selectors';
-import { Page } from 'playwright';
 
 import { RouteUrls } from '@shared/route-urls';
 

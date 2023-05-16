@@ -16,7 +16,7 @@ import {
 import { PersistPartial } from 'redux-persist/es/persistReducer';
 
 import { IS_DEV_ENV } from '@shared/environment';
-import { persistConfig } from '@shared/storage';
+import { persistConfig } from '@shared/storage/redux-pesist';
 
 import { analyticsSlice } from './analytics/analytics.slice';
 import { appPermissionsSlice } from './app-permissions/app-permissions.slice';

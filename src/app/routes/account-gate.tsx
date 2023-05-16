@@ -21,6 +21,9 @@ export function AccountGate({ children }: AccountGateProps) {
   const currentKeyDetails = useCurrentKeyDetails();
   const currentInMemorySecretKey = useDefaultWalletSecretKey();
 
+  // console.log('currentKeyDetails', currentKeyDetails);
+  // console.log('currentInMemorySecretKey', currentInMemorySecretKey);
+
   if (currentKeyDetails?.type === 'ledger') return <>{children}</>;
 
   if (shouldNavigateToOnboardingStartPage(currentKeyDetails))

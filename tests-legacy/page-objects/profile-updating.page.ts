@@ -1,5 +1,5 @@
+import { Page } from '@playwright/test';
 import { ProfileUpdatingSelectors } from '@tests-legacy/integration/profile/profile-updating.selector';
-import { Page } from 'playwright';
 
 import { createTestSelector } from '../integration/utils';
 

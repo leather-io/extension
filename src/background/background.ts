@@ -21,10 +21,6 @@ initSentry();
 initContextMenuActions();
 warnUsersAboutDevToolsDangers();
 
-const keepAlive = () => setInterval(async () => await chrome.runtime.getPlatformInfo(), 20_000);
-chrome.runtime.onStartup.addListener(keepAlive);
-keepAlive();
-
 const IS_TEST_ENV = process.env.TEST_ENV === 'true';
 
 chrome.runtime.onInstalled.addListener(async details => {
@@ -69,34 +65,34 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
   return true;
 });
 
-const storageArea = chrome.storage.local as chrome.storage.LocalStorageArea;
+// const storageArea = chrome.storage.local as chrome.storage.LocalStorageArea;
 
-const testIntervalMs = 10000;
-const storageWaitTimeMs = 100;
+// const testIntervalMs = 10000;
+// const storageWaitTimeMs = 100;
 
 // @see https://bugs.chromium.org/p/chromium/issues/detail?id=1316588
-async function hasChromiumIssue1316588() {
-  return new Promise(resolve => {
-    let dispatched = false;
-    const testEventDispatching = () => {
-      storageArea.onChanged.removeListener(testEventDispatching);
-      dispatched = true;
-    };
-    storageArea.onChanged.addListener(testEventDispatching);
-    void storageArea.set({ testEventDispatching: Math.random() });
-    setTimeout(() => resolve(!dispatched), storageWaitTimeMs);
-  });
-}
+// async function hasChromiumIssue1316588() {
+//   return new Promise(resolve => {
+//     let dispatched = false;
+//     const testEventDispatching = () => {
+//       storageArea.onChanged.removeListener(testEventDispatching);
+//       dispatched = true;
+//     };
+//     storageArea.onChanged.addListener(testEventDispatching);
+//     void storageArea.set({ testEventDispatching: Math.random() });
+//     setTimeout(() => resolve(!dispatched), storageWaitTimeMs);
+//   });
+// }
 
-function fixChromiumIssue1316588() {
-  void hasChromiumIssue1316588().then(hasIssue => {
-    if (hasIssue) {
-      chrome.runtime.reload();
-      return;
-    }
+// function fixChromiumIssue1316588() {
+//   void hasChromiumIssue1316588().then(hasIssue => {
+//     if (hasIssue) {
+//       chrome.runtime.reload();
+//       return;
+//     }
 
-    setTimeout(fixChromiumIssue1316588, testIntervalMs);
-  });
-}
+//     setTimeout(fixChromiumIssue1316588, testIntervalMs);
+//   });
+// }
 
-fixChromiumIssue1316588();
+// fixChromiumIssue1316588();
