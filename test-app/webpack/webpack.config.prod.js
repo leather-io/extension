@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
 const config = require('./webpack.config.base');
-const { ESBuildMinifyPlugin } = require('esbuild-loader');
+const { EsbuildPlugin } = require('esbuild-loader');
 
 // Basically, disable any code splitting stuff
 config.optimization = {
@@ -16,7 +16,7 @@ config.optimization = {
     maxInitialRequests: Infinity,
   },
   minimizer: [
-    new ESBuildMinifyPlugin({
+    new EsbuildPlugin({
       target: 'es2020',
       tsconfigRaw: require('../tsconfig.json'),
     }),
