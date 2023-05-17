@@ -36,6 +36,7 @@ function useNativeSegwitAccountKeychain() {
     })
   );
 }
+
 export function useNativeSegwitCurrentAccountPrivateKeychain() {
   const keychain = useNativeSegwitAccountKeychain();
   const currentAccountIndex = useCurrentAccountIndex();
