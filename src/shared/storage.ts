@@ -67,5 +67,5 @@ export const persistConfig: PersistConfig<RootState> = {
   version: 1,
   storage,
   serialize: true,
-  whitelist: ['analytics', 'chains', 'keys', 'networks', 'onboarding', 'settings'],
+  whitelist: ['analytics', 'chains', 'keys', 'networks', 'onboarding', 'settings', 'bitcoinContracts'],
 };

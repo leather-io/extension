@@ -17,6 +17,7 @@ import { RetrieveTaprootToNativeSegwit } from '@app/features/retrieve-taproot-to
 import { ThemesDrawer } from '@app/features/theme-drawer/theme-drawer';
 import { AddNetwork } from '@app/pages/add-network/add-network';
 import { AllowDiagnosticsPage } from '@app/pages/allow-diagnostics/allow-diagnostics';
+import BitcoinContractRequest from '@app/pages/bitcoin-contract-request/bitcoin-contract-request';
 import { ChooseAccount } from '@app/pages/choose-account/choose-account';
 import { FundPage } from '@app/pages/fund/fund';
 import { Home } from '@app/pages/home/home';
@@ -118,6 +119,16 @@ function AppRoutesAfterUserHasConsented() {
           {settingsModalRoutes}
           {ledgerTxSigningRoutes}
         </Route>
+        <Route
+          path={RouteUrls.BitcoinContractOffer}
+          element={
+            <AccountGate>
+              <Suspense fallback={<LoadingSpinner height="600px" />}>
+                <BitcoinContractRequest />
+              </Suspense>
+            </AccountGate>
+          }
+        ></Route>
         <Route
           path={RouteUrls.Onboarding}
           element={
