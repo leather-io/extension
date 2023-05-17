@@ -3,7 +3,7 @@ import { SendCryptoAssetSelectors } from '@tests/selectors/send.selectors';
 import { SharedComponentsSelectors } from '@tests/selectors/shared-component.selectors';
 import { getDisplayerAddress } from '@tests/utils';
 
-import { BtcFeeType } from '@app/query/bitcoin/bitcoin-client';
+import { BtcFeeType } from '@shared/models/fees/bitcoin-fees.model';
 
 import { test } from '../../fixtures/fixtures';
 

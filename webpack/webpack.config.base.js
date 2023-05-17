@@ -217,7 +217,10 @@ const config = {
       ],
     }),
     new CopyWebpackPlugin({
-      patterns: [{ from: 'node_modules/webextension-polyfill/dist/browser-polyfill.js' }],
+      patterns: [
+        { from: 'node_modules/webextension-polyfill/dist/browser-polyfill.js' },
+        { from: 'node_modules/webextension-polyfill/dist/browser-polyfill.js.map' },
+      ],
     }),
 
     new Dotenv({

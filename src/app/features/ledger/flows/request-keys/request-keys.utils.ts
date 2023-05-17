@@ -1,3 +1,4 @@
+import { bytesToHex } from '@noble/hashes/utils';
 import * as secp from '@noble/secp256k1';
 import StacksApp from '@zondax/ledger-stacks';
 
@@ -14,8 +15,8 @@ function requestPublicKeyForIdentityAccount(app: StacksApp) {
 }
 
 function decompressSecp256k1PublicKey(publicKey: string) {
-  const point = secp.Point.fromHex(publicKey);
-  return secp.utils.bytesToHex(point.toRawBytes(false));
+  const point = secp.ProjectivePoint.fromHex(publicKey);
+  return bytesToHex(point.toRawBytes(false));
 }
 
 interface PullKeysFromLedgerSuccess {

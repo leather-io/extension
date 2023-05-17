@@ -1,6 +1,5 @@
 import BigNumber from 'bignumber.js';
-import { RequiredNumberSchema } from 'yup/lib/number';
-import { AnyObject } from 'yup/lib/object';
+import { AnyObject, NumberSchema } from 'yup';
 
 import { Money } from '@shared/models/money.model';
 import { isNumber } from '@shared/utils';
@@ -16,7 +15,7 @@ import { btcToSat, moneyToBaseUnit, stxToMicroStx } from '../../money/unit-conve
 interface FeeValidatorFactoryArgs {
   availableBalance?: Money;
   unitConverter: (unit: string | number | BigNumber) => BigNumber;
-  validator: (errorMsg: string) => RequiredNumberSchema<number | undefined, AnyObject>;
+  validator: (errorMsg: string) => NumberSchema<number | undefined, AnyObject>;
 }
 function feeValidatorFactory({
   availableBalance,

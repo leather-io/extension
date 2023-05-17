@@ -1,6 +1,6 @@
 import { ClarityValue, StringAsciiCV, TupleCV, UIntCV } from '@stacks/transactions';
 
-type SignedMessageType = 'utf8' | 'structured';
+export type SignedMessageType = 'utf8' | 'structured';
 
 export type StructuredMessageDataDomain = TupleCV<{
   name: StringAsciiCV;
@@ -8,22 +8,22 @@ export type StructuredMessageDataDomain = TupleCV<{
   'chain-id': UIntCV;
 }>;
 
-interface AbstractSignedMessage {
+interface AbstractUnsignedMessage {
   messageType: SignedMessageType;
 }
 
-interface SignedMessageUtf8 extends AbstractSignedMessage {
+interface UnsignedMessageUtf8 extends AbstractUnsignedMessage {
   messageType: 'utf8';
   message: string;
 }
 
-export interface SignedMessageStructured extends AbstractSignedMessage {
+export interface UnsignedMessageStructured extends AbstractUnsignedMessage {
   messageType: 'structured';
   message: ClarityValue;
   domain: StructuredMessageDataDomain;
 }
 
-export type SignedMessage = SignedMessageUtf8 | SignedMessageStructured;
+export type UnsignedMessage = UnsignedMessageUtf8 | UnsignedMessageStructured;
 
 export function isStructuredMessageType(
   messageType: SignedMessageType
@@ -35,18 +35,17 @@ export function isUtf8MessageType(messageType: SignedMessageType): messageType i
   return messageType === 'utf8';
 }
 
-export function isSignedMessageType(messageType: unknown): messageType is SignedMessageType {
+export function isSignableMessageType(messageType: unknown): messageType is SignedMessageType {
   return typeof messageType === 'string' && ['utf8', 'structured'].includes(messageType);
 }
 
-interface WhenSignedMessageOfType<T> {
+interface WhenSignableMessageOfType<T> {
   utf8(message: string): T;
   structured(domain: StructuredMessageDataDomain, message: ClarityValue): T;
 }
-export function whenSignedMessageOfType(msg: SignedMessage) {
-  return <T>({ utf8, structured }: WhenSignedMessageOfType<T>) => {
+export function whenSignableMessageOfType(msg: UnsignedMessage) {
+  return <T>({ utf8, structured }: WhenSignableMessageOfType<T>) => {
     if (msg.messageType === 'utf8') return utf8(msg.message);
-    if (msg.messageType === 'structured') return structured(msg.domain, msg.message);
-    throw new Error('Message can only be either `utf8` or `structured`');
+    return structured(msg.domain, msg.message);
   };
 }

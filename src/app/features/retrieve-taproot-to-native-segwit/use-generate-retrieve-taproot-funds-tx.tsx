@@ -7,26 +7,26 @@ import { Money, createMoney } from '@shared/models/money.model';
 import { sumNumbers } from '@app/common/math/helpers';
 import { BtcSizeFeeEstimator } from '@app/common/transactions/bitcoin/fees/btc-size-fee-estimator';
 import { useCurrentTaprootAccountUninscribedUtxos } from '@app/query/bitcoin/balance/bitcoin-balances.query';
-import { useBitcoinFeeRate } from '@app/query/bitcoin/fees/fee-estimates.hooks';
+import { useAverageBitcoinFeeRates } from '@app/query/bitcoin/fees/fee-estimates.hooks';
 import { getNumberOfInscriptionOnUtxo } from '@app/query/bitcoin/ordinals/ordinals-aware-utxo.query';
-import { useBitcoinLibNetworkConfig } from '@app/store/accounts/blockchain/bitcoin/bitcoin-keychain';
+import { useBitcoinScureLibNetworkConfig } from '@app/store/accounts/blockchain/bitcoin/bitcoin-keychain';
 import { useCurrentAccountTaprootSigner } from '@app/store/accounts/blockchain/bitcoin/taproot-account.hooks';
 
 export function useGenerateRetrieveTaprootFundsTx() {
-  const networkMode = useBitcoinLibNetworkConfig();
+  const networkMode = useBitcoinScureLibNetworkConfig();
   const uninscribedUtxos = useCurrentTaprootAccountUninscribedUtxos();
   const createSigner = useCurrentAccountTaprootSigner();
-  const { data: feeRate } = useBitcoinFeeRate();
+  const { avgApiFeeRates: feeRates } = useAverageBitcoinFeeRates();
 
   const fee = useMemo(() => {
-    if (!feeRate) return createMoney(0, 'BTC');
+    if (!feeRates) return createMoney(0, 'BTC');
     const txSizer = new BtcSizeFeeEstimator();
     const { txVBytes } = txSizer.calcTxSize({
       input_count: uninscribedUtxos.length,
       p2wpkh_output_count: 1,
     });
-    return createMoney(Math.ceil(txVBytes * feeRate.hourFee), 'BTC');
-  }, [feeRate, uninscribedUtxos.length]);
+    return createMoney(Math.ceil(txVBytes * feeRates.hourFee.toNumber()), 'BTC');
+  }, [feeRates, uninscribedUtxos.length]);
 
   const generateRetrieveTaprootFundsTx = useCallback(
     async ({ recipient, fee }: { recipient: string; fee: Money }) => {

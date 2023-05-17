@@ -14,15 +14,15 @@ import { InfoCard, InfoCardRow, InfoCardSeparator } from '@app/components/info-c
 import { InscriptionPreview } from '@app/components/inscription-preview-card/components/inscription-preview';
 import { PrimaryButton } from '@app/components/primary-button';
 import { useCurrentNativeSegwitUtxos } from '@app/query/bitcoin/address/address.hooks';
-import { btcTxTimeMap } from '@app/query/bitcoin/bitcoin-client';
 
 import { InscriptionPreviewCard } from '../../../components/inscription-preview-card/inscription-preview-card';
 import { useBitcoinBroadcastTransaction } from '../../../query/bitcoin/transaction/use-bitcoin-broadcast-transaction';
-import { useInscriptionSendState } from './send-inscription-container';
+import { useSendInscriptionState } from './components/send-inscription-container';
 
 function useSendInscriptionReviewState() {
   const location = useLocation();
   return {
+    arrivesIn: get(location.state, 'time') as string,
     signedTx: get(location.state, 'tx') as string,
     recipient: get(location.state, 'recipient', '') as string,
     fee: get(location.state, 'fee') as number,
@@ -33,13 +33,12 @@ export function SendInscriptionReview() {
   const analytics = useAnalytics();
   const navigate = useNavigate();
 
-  const { signedTx, recipient, fee } = useSendInscriptionReviewState();
+  const { arrivesIn, signedTx, recipient, fee } = useSendInscriptionReviewState();
 
-  const { inscription, utxo } = useInscriptionSendState();
+  const { inscription } = useSendInscriptionState();
   const { refetch } = useCurrentNativeSegwitUtxos();
   const { broadcastTx, isBroadcasting } = useBitcoinBroadcastTransaction();
 
-  const arrivesIn = btcTxTimeMap.hourFee;
   const summaryFee = formatMoney(createMoney(Number(fee), 'BTC'));
 
   async function sendInscription() {
@@ -52,7 +51,6 @@ export function SendInscriptionReview() {
         navigate(RouteUrls.SendOrdinalInscriptionSent, {
           state: {
             inscription,
-            utxo,
             recipient,
             arrivesIn,
             txId,

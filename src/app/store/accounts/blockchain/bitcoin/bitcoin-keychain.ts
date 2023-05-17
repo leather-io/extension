@@ -66,7 +66,7 @@ export const selectTestnetTaprootKeychain = bitcoinKeychainSelectorFactory(
   'testnet'
 );
 
-export function useBitcoinLibNetworkConfig() {
+export function useBitcoinScureLibNetworkConfig() {
   const network = useCurrentNetwork();
   return getBtcSignerLibNetworkConfigByMode(network.chain.bitcoin.network);
 }

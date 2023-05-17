@@ -3,6 +3,7 @@ import { useLocation } from 'react-router-dom';
 import get from 'lodash.get';
 
 import { logger } from '@shared/logger';
+import { BtcFeeType } from '@shared/models/fees/bitcoin-fees.model';
 import { BitcoinSendFormValues } from '@shared/models/form.model';
 import { createMoney } from '@shared/models/money.model';
 import { noop } from '@shared/utils';
@@ -11,10 +12,15 @@ import { useRouteHeader } from '@app/common/hooks/use-route-header';
 import { btcToSat } from '@app/common/money/unit-conversion';
 import { useGenerateSignedBitcoinTx } from '@app/common/transactions/bitcoin/use-generate-bitcoin-tx';
 import { useWalletType } from '@app/common/use-wallet-type';
-import { BitcoinFeesList } from '@app/components/bitcoin-fees-list/bitcoin-fees-list';
+import {
+  BitcoinFeesList,
+  OnChooseFeeArgs,
+} from '@app/components/bitcoin-fees-list/bitcoin-fees-list';
 import { BitcoinFeesListLayout } from '@app/components/bitcoin-fees-list/components/bitcoin-fees-list.layout';
+import { useBitcoinFeesList } from '@app/components/bitcoin-fees-list/use-bitcoin-fees-list';
 import { ModalHeader } from '@app/components/modal-header';
 
+import { useSendBtcState } from '../../family/bitcoin/components/send-btc-container';
 import { useSendFormNavigate } from '../../hooks/use-send-form-navigate';
 
 function useBtcChooseFeeState() {
@@ -29,11 +35,18 @@ export function BtcChooseFee() {
   const { whenWallet } = useWalletType();
   const sendFormNavigate = useSendFormNavigate();
   const generateTx = useGenerateSignedBitcoinTx();
+  const { selectedFeeType, setSelectedFeeType } = useSendBtcState();
+  const { feesList, isLoading } = useBitcoinFeesList({
+    amount: Number(txValues.amount),
+    recipient: txValues.recipient,
+  });
 
-  async function previewTransaction(feeRate: number, feeValue: number, time: string) {
+  const amountAsMoney = createMoney(btcToSat(txValues.amount).toNumber(), 'BTC');
+
+  async function previewTransaction({ feeRate, feeValue, time }: OnChooseFeeArgs) {
     const resp = generateTx(
       {
-        amount: createMoney(btcToSat(txValues.amount).toNumber(), 'BTC'),
+        amount: amountAsMoney,
         recipient: txValues.recipient,
       },
       feeRate
@@ -55,14 +68,17 @@ export function BtcChooseFee() {
     })();
   }
 
-  useRouteHeader(<ModalHeader hideActions defaultGoBack title="Choose fee" />);
+  useRouteHeader(<ModalHeader defaultGoBack hideActions title="Choose fee" />);
 
   return (
     <BitcoinFeesListLayout>
       <BitcoinFeesList
-        amount={Number(txValues.amount)}
+        amount={amountAsMoney}
+        feesList={feesList}
+        isLoading={isLoading}
         onChooseFee={previewTransaction}
-        recipient={txValues.recipient}
+        onSetSelectedFeeType={(value: BtcFeeType) => setSelectedFeeType(value)}
+        selectedFeeType={selectedFeeType}
       />
     </BitcoinFeesListLayout>
   );

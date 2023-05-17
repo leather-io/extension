@@ -60,19 +60,23 @@ export function selectInscriptionTransferCoins(
   let utxos = nativeSegwitUtxos
     .filter(utxo => utxo.value >= BTC_P2WPKH_DUST_AMOUNT)
     .sort((a, b) => b.value - a.value);
+  let txSize = null;
 
   while (shouldContinueTryingWithMoreInputs()) {
     const [nextUtxo, ...remainingUtxos] = utxos;
     if (nextUtxo) neededInputs.push(nextUtxo);
     utxos = remainingUtxos;
-    const txSize = txSizer.calcTxSize({
+    txSize = txSizer.calcTxSize({
       input_script: 'p2tr',
       input_count: neededInputs.length + 1,
       p2tr_output_count: 1,
     });
-    txFee = Math.ceil(txSize.txVBytes * feeRate);
     indexCounter.increment();
   }
+
+  if (!txSize) throw new Error('Transaction size must be defined');
+
+  txFee = Math.ceil(txSize.txVBytes * feeRate);
 
   const inputs = [...neededInputs];
 

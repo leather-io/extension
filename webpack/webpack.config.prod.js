@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
 const config = require('./webpack.config.base');
 const packageJson = require('../package.json');
-const { ESBuildMinifyPlugin } = require('esbuild-loader');
+const { EsbuildPlugin } = require('esbuild-loader');
 const SentryWebpackPlugin = require('@sentry/webpack-plugin');
 const webpack = require('webpack');
 
@@ -28,7 +28,7 @@ config.optimization = {
   ...(shouldMinify
     ? {
         minimizer: [
-          new ESBuildMinifyPlugin({
+          new EsbuildPlugin({
             target: 'esnext',
           }),
         ],
@@ -44,7 +44,7 @@ config.plugins = [
     // `chrome-extension://` protocol, throwing console errors. To prevent
     // these, we do not generate source maps for these files. Otherwise, these
     // `SourceMapDevToolPlugin` options emulate the `devtool: source-map` config
-    exclude: [/inpage/, /content\-script/],
+    exclude: [/inpage/, /content\-script/, /browser\-polyfill/],
     filename: '[file].map',
   }),
   ...(sentryAuthToken

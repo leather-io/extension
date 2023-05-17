@@ -1,31 +1,27 @@
 import { useNavigate } from 'react-router-dom';
 
+import { Inscription as InscriptionType } from '@shared/models/inscription.model';
 import { RouteUrls } from '@shared/route-urls';
 
 import { openInNewTab } from '@app/common/utils/open-in-new-tab';
 import { OrdinalIconFull } from '@app/components/icons/ordinal-icon-full';
 import { OrdinalMinimalIcon } from '@app/components/icons/ordinal-minimal-icon';
-import { useInscription } from '@app/query/bitcoin/ordinals/inscription.hooks';
-import { TaprootUtxo } from '@app/query/bitcoin/ordinals/use-taproot-address-utxos.query';
+import { convertInscriptionToSupportedInscriptionType } from '@app/query/bitcoin/ordinals/inscription.hooks';
 
 import { CollectibleImage } from '../_collectible-types/collectible-image';
 import { CollectibleOther } from '../_collectible-types/collectible-other';
 import { InscriptionText } from './inscription-text';
 
 interface InscriptionProps {
-  path: string;
-  utxo: TaprootUtxo;
+  rawInscription: InscriptionType;
 }
-export function Inscription({ path, utxo }: InscriptionProps) {
-  const { isLoading, isError, data: inscription } = useInscription(path);
+export function Inscription({ rawInscription }: InscriptionProps) {
+  const inscription = convertInscriptionToSupportedInscriptionType(rawInscription);
   const navigate = useNavigate();
-
-  if (isLoading) return null;
-  if (isError) return null;
 
   function openSendInscriptionModal() {
     navigate(RouteUrls.SendOrdinalInscription, {
-      state: { inscription, utxo },
+      state: { inscription },
     });
   }
 
@@ -39,7 +35,7 @@ export function Inscription({ path, utxo }: InscriptionProps) {
           onClickSend={() => openSendInscriptionModal()}
           src={inscription.src}
           subtitle="Ordinal inscription"
-          title={`# ${inscription.inscription_number}`}
+          title={`# ${inscription.number}`}
         />
       );
     }
@@ -47,7 +43,7 @@ export function Inscription({ path, utxo }: InscriptionProps) {
       return (
         <InscriptionText
           contentSrc={inscription.contentSrc}
-          inscriptionNumber={inscription.inscription_number}
+          inscriptionNumber={inscription.number}
           onClickCallToAction={() => openInNewTab(inscription.infoUrl)}
           onClickSend={() => openSendInscriptionModal()}
         />
@@ -60,7 +56,7 @@ export function Inscription({ path, utxo }: InscriptionProps) {
           onClickCallToAction={() => openInNewTab(inscription.infoUrl)}
           onClickSend={() => openSendInscriptionModal()}
           subtitle="Ordinal inscription"
-          title={`# ${inscription.inscription_number}`}
+          title={`# ${inscription.number}`}
         >
           <OrdinalIconFull />
         </CollectibleOther>

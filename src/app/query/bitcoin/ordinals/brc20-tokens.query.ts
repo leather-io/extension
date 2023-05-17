@@ -11,16 +11,27 @@ export interface Brc20Token {
 }
 
 interface Brc20TokensByAddressResponse {
-  result: {
+  result?: {
     list: Brc20Token[];
     total: number;
   };
 }
 
 async function fetchBrc20TokensByAddress(address: string): Promise<Brc20TokensByAddressResponse> {
-  return fetch(`https://unisat.io/api/v3/brc20/tokens?address=${address}&cursor=0&size=100`).then(
-    res => res.json()
+  const res = await fetch(
+    `https://unisat.io/api/v3/brc20/tokens?address=${address}&cursor=0&size=100`,
+    {
+      method: 'GET',
+      headers: {
+        'X-Client': 'UniSat Wallet',
+        'X-Version': '1.1.19',
+      },
+    }
   );
+
+  if (!res.ok) throw new Error('Failed to fetch BRC-20 token balances');
+
+  return res.json();
 }
 
 type FetchBrc20TokensByAddressResp = Awaited<ReturnType<typeof fetchBrc20TokensByAddress>>;

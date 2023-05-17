@@ -13,6 +13,7 @@ export default defineConfig({
     environment: 'node',
     setupFiles: './tests-legacy/unit-test.setup.js',
     deps: { interopDefault: true },
+    silent: false,
   },
   resolve: {
     alias: {

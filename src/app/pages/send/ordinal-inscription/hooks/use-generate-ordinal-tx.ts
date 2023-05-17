@@ -4,38 +4,36 @@ import { logger } from '@shared/logger';
 import { OrdinalSendFormValues } from '@shared/models/form.model';
 
 import { useCurrentNativeSegwitUtxos } from '@app/query/bitcoin/address/address.hooks';
-import { useBitcoinFeeRate } from '@app/query/bitcoin/fees/fee-estimates.hooks';
 import { TaprootUtxo } from '@app/query/bitcoin/ordinals/use-taproot-address-utxos.query';
-import { useBitcoinLibNetworkConfig } from '@app/store/accounts/blockchain/bitcoin/bitcoin-keychain';
+import { useBitcoinScureLibNetworkConfig } from '@app/store/accounts/blockchain/bitcoin/bitcoin-keychain';
 import { useCurrentAccountNativeSegwitSigner } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
 import { useCurrentAccountTaprootSigner } from '@app/store/accounts/blockchain/bitcoin/taproot-account.hooks';
 
-import { selectInscriptionTransferCoins } from './select-inscription-coins';
+import { selectInscriptionTransferCoins } from '../coinselect/select-inscription-coins';
 
 export function useGenerateSignedOrdinalTx(trInput: TaprootUtxo) {
   const createTapRootSigner = useCurrentAccountTaprootSigner();
   const createNativeSegwitSigner = useCurrentAccountNativeSegwitSigner();
-  const networkMode = useBitcoinLibNetworkConfig();
-  const { data: feeRate } = useBitcoinFeeRate();
+  const networkMode = useBitcoinScureLibNetworkConfig();
   const { data: nativeSegwitUtxos } = useCurrentNativeSegwitUtxos();
 
   function coverFeeFromAdditionalUtxos(values: OrdinalSendFormValues) {
     const trSigner = createTapRootSigner?.(trInput.addressIndex);
     const nativeSegwitSigner = createNativeSegwitSigner?.(0);
 
-    if (!trSigner || !nativeSegwitSigner || !nativeSegwitUtxos || !feeRate) return;
+    if (!trSigner || !nativeSegwitSigner || !nativeSegwitUtxos || !values.feeRate) return;
 
     const result = selectInscriptionTransferCoins({
       recipient: values.recipient,
       inscriptionInput: trInput,
       nativeSegwitUtxos,
       changeAddress: nativeSegwitSigner.payment.address!,
-      feeRate: feeRate.halfHourFee,
+      feeRate: values.feeRate,
     });
 
     if (!result.success) return null;
 
-    const { inputs, outputs, txFee } = result;
+    const { inputs, outputs } = result;
 
     try {
       const tx = new btc.Transaction();
@@ -76,7 +74,7 @@ export function useGenerateSignedOrdinalTx(trInput: TaprootUtxo) {
       }
 
       tx.finalize();
-      return { hex: tx.hex, fee: txFee };
+      return { hex: tx.hex };
     } catch (e) {
       logger.error('Unable to sign transaction');
       return null;

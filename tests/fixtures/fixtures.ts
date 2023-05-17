@@ -5,14 +5,14 @@ import { OnboardingPage } from '@tests/page-object-models/onboarding.page';
 import { SendPage } from '@tests/page-object-models/send.page';
 import path from 'path';
 
-type TestFixtures = {
+interface TestFixtures {
   context: BrowserContext;
   extensionId: string;
   globalPage: GlobalPage;
   homePage: HomePage;
   onboardingPage: OnboardingPage;
   sendPage: SendPage;
-};
+}
 
 /**
  * Loads the extension into the browser context. Use this test function with

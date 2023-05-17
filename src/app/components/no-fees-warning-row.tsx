@@ -5,15 +5,15 @@ import { whenStacksChainId } from '@app/common/utils';
 import { SpaceBetween } from '@app/components/layout/space-between';
 import { Caption } from '@app/components/typography';
 
-interface NetworkRowProps {
+interface NoFeesWarningRowProps {
   chainId: ChainID;
 }
-export function NetworkRow({ chainId }: NetworkRowProps) {
+export function NoFeesWarningRow({ chainId }: NoFeesWarningRowProps) {
   return (
     <Box spacing="base">
       <SpaceBetween position="relative">
         <Box alignItems="center">
-          <Caption>No fees will be incurred</Caption>
+          <Caption>No fees are incurred</Caption>
         </Box>
         <Caption>
           <span>

@@ -27,7 +27,7 @@ import {
   selectTestnetNativeSegWitKeychain,
 } from './bitcoin-keychain';
 
-function useNativeSegWitCurrentNetworkAccountKeychain() {
+function useNativeSegwitAccountKeychain() {
   const network = useCurrentNetwork();
   return useSelector(
     whenNetwork(bitcoinNetworkModeToCoreNetworkMode(network.chain.bitcoin.network))({
@@ -35,6 +35,12 @@ function useNativeSegWitCurrentNetworkAccountKeychain() {
       testnet: selectTestnetNativeSegWitKeychain,
     })
   );
+}
+
+export function useNativeSegwitCurrentAccountPrivateKeychain() {
+  const keychain = useNativeSegwitAccountKeychain();
+  const currentAccountIndex = useCurrentAccountIndex();
+  return keychain?.(currentAccountIndex);
 }
 
 function useCurrentBitcoinNativeSegwitAccountPublicKeychain() {
@@ -81,7 +87,7 @@ export function useAllBitcoinNativeSegWitNetworksByAccount() {
 }
 
 function useBitcoinNativeSegwitAccountInfo(index: number) {
-  const keychain = useNativeSegWitCurrentNetworkAccountKeychain();
+  const keychain = useNativeSegwitAccountKeychain();
   return useMemo(() => {
     // TODO: Remove with bitcoin Ledger integration
     if (isUndefined(keychain)) return tempHardwareAccountForTesting;
@@ -119,7 +125,7 @@ export function useBtcNativeSegwitAccountIndexAddressIndexZero(accountIndex: num
 export function useCurrentAccountNativeSegwitSigner() {
   const network = useCurrentNetwork();
   const index = useCurrentAccountIndex();
-  const accountKeychain = useNativeSegWitCurrentNetworkAccountKeychain()?.(index);
+  const accountKeychain = useNativeSegwitAccountKeychain()?.(index);
   if (!accountKeychain) return;
   const addressIndexKeychainFn = deriveAddressIndexKeychainFromAccount(accountKeychain);
 

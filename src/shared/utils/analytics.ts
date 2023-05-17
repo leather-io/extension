@@ -1,6 +1,5 @@
 import { AnalyticsBrowser } from '@segment/analytics-next';
 import * as Sentry from '@sentry/react';
-import { BrowserTracing } from '@sentry/tracing';
 import { getStoredState } from 'redux-persist';
 
 import {
@@ -40,13 +39,19 @@ export function initSentry() {
   Sentry.init({
     dsn: SENTRY_DSN,
     integrations: [
-      new BrowserTracing({
+      new Sentry.BrowserTracing({
         traceFetch: false,
         traceXHR: false,
         startTransactionOnLocationChange: false,
         startTransactionOnPageLoad: false,
         markBackgroundTransactions: false,
       }),
+    ],
+    ignoreErrors: [
+      // Thrown on Android mobile extension
+      'ResizeObserver loop limit exceeded',
+      // Failed network requests needn't be tracked
+      'Network request failed',
     ],
     tracesSampleRate: 1,
     environment: WALLET_ENVIRONMENT,

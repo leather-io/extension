@@ -1,6 +1,7 @@
 import { useMemo } from 'react';
 import { useAsync } from 'react-async-hook';
 
+import { SignedMessageType } from '@shared/signature/signature-types';
 import { isString } from '@shared/utils';
 
 import { useDefaultRequestParams } from '@app/common/hooks/use-default-request-search-params';
@@ -16,7 +17,7 @@ export function useSignatureRequestSearchParams() {
 
   return useMemo(() => {
     const requestToken = initialSearchParams.get('request');
-    const messageType = initialSearchParams.get('messageType');
+    const messageType = initialSearchParams.get('messageType') as SignedMessageType;
 
     return {
       tabId: isString(tabId) ? parseInt(tabId, 10) : tabId,

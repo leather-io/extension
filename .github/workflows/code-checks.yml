@@ -9,7 +9,7 @@ jobs:
   lint-prettier:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
       - uses: ./.github/actions/provision
 
       - name: Lint
@@ -18,7 +18,7 @@ jobs:
   lint-eslint:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
       - uses: ./.github/actions/provision
 
       - name: Lint
@@ -27,7 +27,7 @@ jobs:
   lint-filename:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
       - uses: ./.github/actions/provision
 
       - name: File name checker
@@ -36,7 +36,7 @@ jobs:
   audit:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
       - uses: ./.github/actions/provision
 
       - name: Audit
@@ -45,7 +45,7 @@ jobs:
   typecheck:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
       - uses: ./.github/actions/provision
 
       - name: Typecheck
@@ -54,7 +54,7 @@ jobs:
   lint-deps:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
       - uses: ./.github/actions/provision
 
       - name: Lint dependency rules
@@ -63,7 +63,7 @@ jobs:
   locked-versions:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
       - uses: ./.github/actions/provision
 
       - name: Check exact versions
@@ -72,7 +72,7 @@ jobs:
   test-unit:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
       - uses: ./.github/actions/provision
 
       - name: Build
@@ -84,7 +84,7 @@ jobs:
   lint-message-schema:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
       - uses: ./.github/actions/provision
 
       - name: Validate message schema
@@ -93,7 +93,7 @@ jobs:
   lint-unused-exports:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
       - uses: ./.github/actions/provision
 
       - name: Lint unused TypeScript exports
@@ -102,7 +102,7 @@ jobs:
   lint-firefox-build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
       - uses: ./.github/actions/provision
 
       - run: yarn build
@@ -114,7 +114,7 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
       - uses: ./.github/actions/provision
 
       - name: Build

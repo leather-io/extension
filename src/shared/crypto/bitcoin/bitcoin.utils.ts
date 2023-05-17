@@ -7,7 +7,7 @@ import { BitcoinNetworkModes, NetworkModes } from '@shared/constants';
 import { logger } from '@shared/logger';
 
 import { DerivationPathDepth } from '../derivation-path.utils';
-import { BitcoinNetwork, getBtcSignerLibNetworkConfigByMode } from './bitcoin.network';
+import { BtcSignerNetwork, getBtcSignerLibNetworkConfigByMode } from './bitcoin.network';
 
 const coinTypeMap: Record<NetworkModes, 0 | 1> = {
   mainnet: 0,
@@ -36,6 +36,9 @@ export function ecdsaPublicKeyToSchnorr(pubKey: Uint8Array) {
   return pubKey.slice(1);
 }
 
+// basically same as above, to remov
+export const toXOnly = (pubKey: Buffer) => (pubKey.length === 32 ? pubKey : pubKey.slice(1, 33));
+
 export function decodeBitcoinTx(tx: string) {
   return btc.RawTx.decode(hexToBytes(tx));
 }
@@ -46,15 +49,15 @@ function formatKey(hashed: Uint8Array, prefix: number[]): string {
   return btc.base58check.encode(concat(Uint8Array.from(prefix), hashed));
 }
 
-function getAddressFromWshOutScript(script: Uint8Array, network: BitcoinNetwork) {
+function getAddressFromWshOutScript(script: Uint8Array, network: BtcSignerNetwork) {
   return btc.programToWitness(0, script.slice(2), network);
 }
 
-function getAddressFromWpkhOutScript(script: Uint8Array, network: BitcoinNetwork) {
+function getAddressFromWpkhOutScript(script: Uint8Array, network: BtcSignerNetwork) {
   return btc.programToWitness(0, script.slice(2), network);
 }
 
-function getAddressFromTrOutScript(script: Uint8Array, network: BitcoinNetwork) {
+function getAddressFromTrOutScript(script: Uint8Array, network: BtcSignerNetwork) {
   return btc.programToWitness(1, script.slice(2), network);
 }
 
