@@ -20,8 +20,9 @@ logs$
 
 const pinoLogger = pino({
   enabled: !IS_TEST_ENV,
+  level: 'info',
   browser: {
-    asObject: true,
+    asObject: false,
     transmit: {
       level: 'info',
       send(_level, logEvent) {

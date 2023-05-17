@@ -37,7 +37,10 @@ const server = new WebpackDevServer(
     // Disabled as web configure manually above
     hot: false,
     // We disable client bc we do a manual setup for specific entries
-    client: false,
+    client: {
+      overlay: false,
+      logging: 'none',
+    },
     port: process.env.PORT,
     static: {
       directory: path.join(__dirname, '../build'),
