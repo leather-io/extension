@@ -10,7 +10,7 @@ export enum QueryPrefixes {
   BnsNamesByAddress = 'bns-names-by-address',
   InscriptionMetadata = 'inscription-metadata',
   InscriptionFromTxid = 'inscription-from-txid',
-  InscriptionsFromApi = 'inscriptions-from-api',
+  InscriptionsFromApiInfiniteQuery = 'inscriptions-from-api-infinite-query',
   GetNftMetadata = 'get-nft-metadata',
 
   StampCollection = 'stamp-collection',
