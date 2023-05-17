@@ -32,7 +32,7 @@ export function useBitcoinFeesList({ amount, recipient }: UseBitcoinFeesListArgs
       )}`;
     }
 
-    if (!feeRate || !utxos) return [];
+    if (!feeRate || !utxos || !utxos.length) return [];
 
     const satAmount = btcToSat(amount).toNumber();
     const { fee: highFeeValue } = determineUtxosForSpend({

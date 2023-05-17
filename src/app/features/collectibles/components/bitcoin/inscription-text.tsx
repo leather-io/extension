@@ -6,6 +6,14 @@ import { useTextInscriptionContentQuery } from '@app/query/bitcoin/ordinals/use-
 
 import { CollectibleText } from '../_collectible-types/collectible-text';
 
+function processContent(content: string) {
+  try {
+    return JSON.stringify(JSON.parse(content), null, 2);
+  } catch (e) {
+    return content;
+  }
+}
+
 interface InscriptionTextProps {
   contentSrc: string;
   inscriptionNumber: number;
@@ -29,7 +37,7 @@ export function InscriptionText({
       key={inscriptionNumber}
       onClickCallToAction={onClickCallToAction}
       onClickSend={onClickSend}
-      content={query.data}
+      content={processContent(query.data)}
       subtitle="Ordinal inscription"
       title={`# ${inscriptionNumber}`}
     />

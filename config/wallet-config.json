@@ -1,4 +1,5 @@
 {
+  "$schema": "./wallet-config.schema.json",
   "messages": {
     "global": []
   },

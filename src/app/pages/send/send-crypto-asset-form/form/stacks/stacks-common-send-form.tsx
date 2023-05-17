@@ -2,7 +2,7 @@ import { Outlet, useNavigate } from 'react-router-dom';
 
 import { Box } from '@stacks/ui';
 import { Form, Formik, FormikHelpers } from 'formik';
-import { OptionalObjectSchema } from 'yup/lib/object';
+import { ObjectSchema } from 'yup';
 
 import { HIGH_FEE_WARNING_LEARN_MORE_URL_STX } from '@shared/constants';
 import { Fees } from '@shared/models/fees/fees.model';
@@ -28,7 +28,7 @@ interface StacksCommonSendFormProps {
     formikHelpers: FormikHelpers<StacksSendFormValues>
   ): Promise<void>;
   initialValues: StacksSendFormValues;
-  validationSchema: OptionalObjectSchema<any>;
+  validationSchema: ObjectSchema<any>;
   amountField: JSX.Element;
   selectedAssetField: JSX.Element;
   availableTokenBalance: Money;

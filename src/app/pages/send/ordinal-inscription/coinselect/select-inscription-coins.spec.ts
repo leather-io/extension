@@ -37,7 +37,7 @@ describe(selectInscriptionTransferCoins.name, () => {
         Number(inscriptionInputAmount)
     );
 
-    expect(result.txFee).toEqual(8483);
+    expect(result.txFee).toEqual(6765);
   });
 
   test('when there are not enough utxo to cover fee', () => {

@@ -18,6 +18,8 @@ export function InAppMessages(props: FlexProps) {
 
   const firstMessage = messages.filter(msg => !dismissedIds.includes(msg.id))[0];
 
+  if (!firstMessage) return null;
+
   if (firstMessage.chainTarget !== 'all' && firstMessage.chainTarget !== mode) {
     return null;
   }

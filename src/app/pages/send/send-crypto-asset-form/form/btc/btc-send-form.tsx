@@ -33,10 +33,10 @@ export function BtcSendForm() {
 
   const {
     calcMaxSpend,
+    chooseTransactionFee,
     currentNetwork,
     formRef,
     onFormStateChange,
-    chooseTransactionFee,
     validationSchema,
   } = useBtcSendForm();
 
@@ -65,9 +65,9 @@ export function BtcSendForm() {
                   bottomInputOverlay={
                     <SendMaxButton
                       balance={btcBalance.balance}
-                      sendMaxBalance={
-                        calcMaxSpend(props.values.recipient)?.spendableBitcoin.toString() ?? '0'
-                      }
+                      sendMaxBalance={calcMaxSpend(
+                        props.values.recipient
+                      ).spendableBitcoin.toString()}
                     />
                   }
                   autoComplete="off"
