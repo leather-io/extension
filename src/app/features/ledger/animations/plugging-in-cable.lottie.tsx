@@ -15,9 +15,7 @@ const options: Options = {
 
 const Lottie = LottieRaw as any;
 
-// Required for interop with `React.lazy`
-// ts-unused-exports:disable-next-line
-export default function PluggingInLedgerCableAnimation(props: BoxProps) {
+export function PluggingInLedgerCableAnimation(props: BoxProps) {
   return (
     <Box width="100%" height="200px" overflow="hidden" position="relative" {...props}>
       <Box position="absolute" left="-72px" right={0}>

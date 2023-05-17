@@ -9,11 +9,16 @@ import {
   UnsupportedBrowserLayout,
 } from '../../generic-steps';
 import { LedgerRequestKeysContainer } from './ledger-request-keys-container';
-import { ConnectLedgerRequestKeys } from './steps/connect-ledger-request-keys';
 
 export const ledgerRequestKeysRoutes = (
   <Route element={<LedgerRequestKeysContainer />}>
-    <Route path={RouteUrls.ConnectLedger} element={<ConnectLedgerRequestKeys />} />
+    <Route
+      path={RouteUrls.ConnectLedger}
+      lazy={async () => {
+        const { ConnectLedgerRequestKeys } = await import('./steps/connect-ledger-request-keys');
+        return { Component: ConnectLedgerRequestKeys };
+      }}
+    />
     <Route path={RouteUrls.DeviceBusy} element={<DeviceBusy />} />
     <Route path={RouteUrls.ConnectLedgerError} element={<ConnectLedgerError />} />
     <Route path={RouteUrls.ConnectLedgerSuccess} element={<ConnectLedgerSuccessLayout />} />

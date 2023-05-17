@@ -7,12 +7,9 @@ import { Divider } from '@app/components/layout/divider';
 import { PrimaryButton } from '@app/components/primary-button';
 import { Caption } from '@app/components/typography';
 
+import { PluggingInLedgerCableAnimation } from '../../animations/plugging-in-cable.lottie';
 import { LedgerConnectInstructionTitle } from '../../components/ledger-title';
 import { LedgerWrapper } from '../../components/ledger-wrapper';
-
-const PluggingInLedgerCableAnimation = lazy(
-  () => import('../../animations/plugging-in-cable.lottie')
-);
 
 interface ConnectLedgerLayoutProps {
   awaitingLedgerConnection: boolean;
