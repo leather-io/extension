@@ -1,9 +1,5 @@
 import { useState } from 'react';
 
-import { Spinner } from '@stacks/ui';
-
-import { figmaTheme } from '@app/common/utils/figma-theme';
-
 import { CollectibleItemLayout, CollectibleItemLayoutProps } from '../collectible-item.layout';
 import { ImageUnavailable } from '../image-unavailable';
 
@@ -27,7 +23,6 @@ export function CollectibleImage(props: CollectibleImageProps) {
 
   return (
     <CollectibleItemLayout collectibleTypeIcon={icon} {...rest}>
-      {isLoading && <Spinner color={figmaTheme.icon} size="16px" />}
       <img
         alt={alt}
         onError={() => setIsError(true)}
