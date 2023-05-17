@@ -63,7 +63,7 @@ export function useAnalytics() {
         const [category, name, properties, options, ...rest] = args;
         const prop = { ...defaultProperties, ...properties };
         const opts = { ...defaultOptions, ...options };
-        logger.info(`Analytics page view: ${name}`, properties);
+        logger.debug(`Analytics page view: ${name}`, properties);
 
         if (typeof name === 'string' && isIgnoredPath(name)) return;
 
@@ -74,7 +74,7 @@ export function useAnalytics() {
         const [eventName, properties, options, ...rest] = args;
         const prop = { ...defaultProperties, ...properties };
         const opts = { ...defaultOptions, ...options };
-        logger.info(`Analytics event: ${eventName}`, properties);
+        logger.debug(`Analytics event: ${eventName}`, properties);
 
         return analytics.track(eventName, prop, opts, ...rest).catch(logger.error);
       },
