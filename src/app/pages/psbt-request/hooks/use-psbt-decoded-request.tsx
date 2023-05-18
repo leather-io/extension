@@ -11,7 +11,7 @@ import {
   OrdApiInscriptionTxOutput,
   useOrdinalsAwareUtxoQueries,
 } from '@app/query/bitcoin/ordinals/ordinals-aware-utxo.query';
-import { useCurrentBtcNativeSegwitAccountAddressIndexZero } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
+import { useCurrentAccountNativeSegwitAddressIndexZero } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
 import { useCurrentNetwork } from '@app/store/networks/networks.selectors';
 
 import { buildPsbtInputsForUi } from './build-psbt-input-for-ui';
@@ -70,7 +70,7 @@ export function usePsbtDecodedRequest({
 }: UsePsbtDecodedRequestArgs) {
   const [showAdvancedView, setShowAdvancedView] = useState(false);
   const network = useCurrentNetwork();
-  const bitcoinAddressNativeSegwit = useCurrentBtcNativeSegwitAccountAddressIndexZero();
+  const bitcoinAddressNativeSegwit = useCurrentAccountNativeSegwitAddressIndexZero();
   const unsignedUtxos = useOrdinalsAwareUtxoQueries(unsignedInputs).map(query => query.data);
 
   const inputs = useMemo(() => {

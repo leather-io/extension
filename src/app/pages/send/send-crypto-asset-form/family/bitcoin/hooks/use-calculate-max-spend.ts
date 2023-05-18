@@ -10,10 +10,10 @@ import { BtcSizeFeeEstimator } from '@app/common/transactions/bitcoin/fees/btc-s
 import { useGetUtxosByAddressQuery } from '@app/query/bitcoin/address/utxos-by-address.query';
 import { useCurrentNativeSegwitAddressBalance } from '@app/query/bitcoin/balance/bitcoin-balances.query';
 import { useAverageBitcoinFeeRates } from '@app/query/bitcoin/fees/fee-estimates.hooks';
-import { useCurrentBtcNativeSegwitAccountAddressIndexZero } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
+import { useCurrentAccountNativeSegwitAddressIndexZero } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
 
 export function useCalculateMaxBitcoinSpend() {
-  const currentAccountBtcAddress = useCurrentBtcNativeSegwitAccountAddressIndexZero();
+  const currentAccountBtcAddress = useCurrentAccountNativeSegwitAddressIndexZero();
   const balance = useCurrentNativeSegwitAddressBalance();
   const { data: utxos } = useGetUtxosByAddressQuery(currentAccountBtcAddress);
   const { avgApiFeeRates: feeRates } = useAverageBitcoinFeeRates();

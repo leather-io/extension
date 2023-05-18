@@ -7,7 +7,7 @@ import { InscriptionResponseItem } from '@shared/models/inscription.model';
 import { createNumArrayOfRange } from '@app/common/utils';
 import { QueryPrefixes } from '@app/query/query-prefixes';
 import { useCurrentAccountIndex } from '@app/store/accounts/account';
-import { useCurrentTaprootAccountKeychain } from '@app/store/accounts/blockchain/bitcoin/taproot-account.hooks';
+import { useTaprootCurrentAccountPrivateKeychain } from '@app/store/accounts/blockchain/bitcoin/taproot-account.hooks';
 import { useCurrentNetwork } from '@app/store/networks/networks.selectors';
 
 import { getTaprootAddress } from './utils';
@@ -46,7 +46,7 @@ async function fetchInscriptions(addresses: string, offset = 0) {
  */
 export function useInscriptionsInfiniteQuery() {
   const network = useCurrentNetwork();
-  const keychain = useCurrentTaprootAccountKeychain();
+  const keychain = useTaprootCurrentAccountPrivateKeychain();
   const currentAccountIndex = useCurrentAccountIndex();
 
   // TO-DO remove code for testing purposes before merge

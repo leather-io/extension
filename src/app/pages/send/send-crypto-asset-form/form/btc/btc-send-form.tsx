@@ -10,7 +10,7 @@ import { BtcIcon } from '@app/components/icons/btc-icon';
 import { HighFeeDrawer } from '@app/features/high-fee-drawer/high-fee-drawer';
 import { useNativeSegwitBalance } from '@app/query/bitcoin/balance/bitcoin-balances.query';
 import { useCryptoCurrencyMarketData } from '@app/query/common/market-data/market-data.hooks';
-import { useCurrentBtcNativeSegwitAccountAddressIndexZero } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
+import { useCurrentAccountNativeSegwitAddressIndexZero } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
 
 import { AmountField } from '../../components/amount-field';
 import { FormFooter } from '../../components/form-footer';
@@ -28,7 +28,7 @@ export function BtcSendForm() {
   const routeState = useSendFormRouteState();
   const btcMarketData = useCryptoCurrencyMarketData('BTC');
 
-  const currentAccountBtcAddress = useCurrentBtcNativeSegwitAccountAddressIndexZero();
+  const currentAccountBtcAddress = useCurrentAccountNativeSegwitAddressIndexZero();
   const btcBalance = useNativeSegwitBalance(currentAccountBtcAddress);
 
   const {

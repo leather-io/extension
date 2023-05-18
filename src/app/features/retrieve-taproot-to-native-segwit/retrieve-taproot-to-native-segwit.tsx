@@ -18,7 +18,7 @@ import {
   useCurrentTaprootAccountUninscribedUtxos,
 } from '@app/query/bitcoin/balance/bitcoin-balances.query';
 import { useBitcoinBroadcastTransaction } from '@app/query/bitcoin/transaction/use-bitcoin-broadcast-transaction';
-import { useCurrentBtcNativeSegwitAccountAddressIndexZero } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
+import { useCurrentAccountNativeSegwitAddressIndexZero } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
 
 import { RetrieveTaprootToNativeSegwitLayout } from './components/retrieve-taproot-to-native-segwit.layout';
 import { useGenerateRetrieveTaprootFundsTx } from './use-generate-retrieve-taproot-funds-tx';
@@ -27,7 +27,7 @@ export function RetrieveTaprootToNativeSegwit() {
   const navigate = useNavigate();
   const { setActiveTabActivity } = useHomeTabs();
   const balance = useCurrentTaprootAccountBalance();
-  const recipient = useCurrentBtcNativeSegwitAccountAddressIndexZero();
+  const recipient = useCurrentAccountNativeSegwitAddressIndexZero();
   const uninscribedUtxos = useCurrentTaprootAccountUninscribedUtxos();
   const analytics = useAnalytics();
   const { generateRetrieveTaprootFundsTx, fee } = useGenerateRetrieveTaprootFundsTx();

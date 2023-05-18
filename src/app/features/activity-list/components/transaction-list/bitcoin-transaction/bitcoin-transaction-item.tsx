@@ -7,7 +7,7 @@ import { BitcoinTransaction } from '@shared/models/transactions/bitcoin-transact
 import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
 import { useExplorerLink } from '@app/common/hooks/use-explorer-link';
 import { TransactionTitle } from '@app/components/transaction/transaction-title';
-import { useCurrentBtcNativeSegwitAccountAddressIndexZero } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
+import { useCurrentAccountNativeSegwitAddressIndexZero } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
 
 import { BitcoinTransactionCaption } from './bitcoin-transaction-caption';
 import { BitcoinTransactionIcon } from './bitcoin-transaction-icon';
@@ -20,7 +20,7 @@ interface BitcoinTransactionItemProps extends BoxProps {
   transaction?: BitcoinTransaction;
 }
 export function BitcoinTransactionItem({ transaction, ...rest }: BitcoinTransactionItemProps) {
-  const bitcoinAddress = useCurrentBtcNativeSegwitAccountAddressIndexZero();
+  const bitcoinAddress = useCurrentAccountNativeSegwitAddressIndexZero();
   const { handleOpenTxLink } = useExplorerLink();
   const analytics = useAnalytics();
   const caption = useMemo(() => getBitcoinTxCaption(transaction), [transaction]);

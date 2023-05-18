@@ -10,7 +10,7 @@ import { AccountAvatarItem } from '@app/components/account/account-avatar';
 import { AccountListItemLayout } from '@app/components/account/account-list-item-layout';
 import { AccountName } from '@app/components/account/account-name';
 import { usePressable } from '@app/components/item-hover';
-import { useBtcNativeSegwitAccountIndexAddressIndexZero } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
+import { useNativeSegwitAccountIndexAddressIndexZero } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
 import { StacksAccount } from '@app/store/accounts/blockchain/stacks/stacks-account.models';
 
 interface AccountListItemProps {
@@ -24,7 +24,7 @@ export const AccountListItem = memo(({ account, onClose }: AccountListItemProps)
   const [component, bind] = usePressable(true);
   const name = useAccountDisplayName(account);
 
-  const btcAddress = useBtcNativeSegwitAccountIndexAddressIndexZero(account.index);
+  const btcAddress = useNativeSegwitAccountIndexAddressIndexZero(account.index);
 
   const onSelectAccount = () => {
     const isBitcoin = values.symbol === 'BTC';
