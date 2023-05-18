@@ -5,11 +5,7 @@ import { BitcoinNetworkModes, NetworkModes } from '@shared/constants';
 
 import { DerivationPathDepth } from '../derivation-path.utils';
 import { getBtcSignerLibNetworkConfigByMode } from './bitcoin.network';
-import {
-  deriveAddressIndexKeychainFromAccount,
-  ecdsaPublicKeyToSchnorr,
-  getBitcoinCoinTypeIndexByNetwork,
-} from './bitcoin.utils';
+import { ecdsaPublicKeyToSchnorr, getBitcoinCoinTypeIndexByNetwork } from './bitcoin.utils';
 
 function getTaprootAccountDerivationPath(network: NetworkModes, accountIndex: number) {
   return `m/86'/${getBitcoinCoinTypeIndexByNetwork(network)}'/${accountIndex}'`;
@@ -37,20 +33,4 @@ export function getTaprootPaymentFromAddressIndex(keychain: HDKey, network: Bitc
   if (!keychain.publicKey) throw new Error('Keychain has no public key');
 
   return getTaprootPayment(keychain.publicKey, network);
-}
-
-interface DeriveTaprootReceiveAddressIndexArgs {
-  xpub: string;
-  index: number;
-  network: BitcoinNetworkModes;
-}
-export function deriveTaprootReceiveAddressIndex({
-  xpub,
-  index,
-  network,
-}: DeriveTaprootReceiveAddressIndexArgs) {
-  if (!xpub) return;
-  const keychain = HDKey.fromExtendedKey(xpub);
-  const addressIndexKeychain = deriveAddressIndexKeychainFromAccount(keychain)(index);
-  return getTaprootPayment(addressIndexKeychain.publicKey!, network);
 }

@@ -24,7 +24,7 @@ import { Title } from '@app/components/typography';
 import { useCryptoCurrencyMarketData } from '@app/query/common/market-data/market-data.hooks';
 import { useAnchoredStacksAccountBalances } from '@app/query/stacks/balance/stx-balance.hooks';
 import { useHasCreatedAccount } from '@app/store/accounts/account';
-import { useBtcNativeSegwitAccountIndexAddressIndexZero } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
+import { useNativeSegwitAccountIndexAddressIndexZero } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
 import { useStacksAccounts } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
 import { StacksAccount } from '@app/store/accounts/blockchain/stacks/stacks-account.models';
 
@@ -69,7 +69,7 @@ const ChooseAccountItem = memo((props: ChooseAccountItemProps) => {
   const { data: balances, isLoading: isBalanceLoading } = useAnchoredStacksAccountBalances(
     account.address
   );
-  const btcAddress = useBtcNativeSegwitAccountIndexAddressIndexZero(account.index);
+  const btcAddress = useNativeSegwitAccountIndexAddressIndexZero(account.index);
   const stxMarketData = useCryptoCurrencyMarketData('STX');
 
   const showLoadingProps = !!selectedAddress || !decodedAuthRequest;
