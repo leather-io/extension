@@ -13,7 +13,6 @@ import { Tooltip } from '@app/components/tooltip';
 import { Text } from '@app/components/typography';
 
 import { AssetCaption } from '../../components/asset-caption';
-import { SubBalance } from '../../components/sub-balance';
 
 interface StacksFungibleTokenAssetItemLayoutProps extends BoxProps {
   avatar: string;
@@ -21,21 +20,17 @@ interface StacksFungibleTokenAssetItemLayoutProps extends BoxProps {
   caption: string;
   imageCanonicalUri?: string;
   isPressable?: boolean;
-  subBalance?: Money;
   title: string;
 }
 export const StacksFungibleTokenAssetItemLayout = forwardRefWithAs(
   (props: StacksFungibleTokenAssetItemLayoutProps, ref) => {
-    const { avatar, balance, caption, imageCanonicalUri, isPressable, subBalance, title, ...rest } =
-      props;
+    const { avatar, balance, caption, imageCanonicalUri, isPressable, title, ...rest } = props;
     const [component, bind] = usePressable(isPressable);
 
     const amount = balance.decimals
       ? ftDecimals(balance.amount, balance.decimals || 0)
       : balance.amount.toString();
     const formattedBalance = formatBalance(amount);
-    const isUnanchored =
-      subBalance?.amount.isGreaterThan(0) && !balance.amount.isEqualTo(subBalance.amount);
 
     return (
       <Flex as={isPressable ? 'button' : 'div'} outline={0} ref={ref} {...rest} {...bind}>
@@ -46,7 +41,6 @@ export const StacksFungibleTokenAssetItemLayout = forwardRefWithAs(
               color="white"
               gradientString={avatar}
               imageCanonicalUri={imageCanonicalUri}
-              isUnanchored={isUnanchored}
               size="36px"
             >
               {title[0]}
@@ -66,8 +60,7 @@ export const StacksFungibleTokenAssetItemLayout = forwardRefWithAs(
             </Tooltip>
           </SpaceBetween>
           <SpaceBetween height="1.25rem" width="100%">
-            <AssetCaption caption={caption} isUnanchored={isUnanchored} />
-            {isUnanchored && subBalance ? <SubBalance balance={subBalance} /> : null}
+            <AssetCaption caption={caption} />
           </SpaceBetween>
           {component}
         </Flag>
