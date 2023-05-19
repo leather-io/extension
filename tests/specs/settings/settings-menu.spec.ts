@@ -5,7 +5,7 @@ import { test } from '../../fixtures/fixtures';
 test.describe('settings menu', () => {
   test.beforeEach(async ({ extensionId, globalPage, onboardingPage }) => {
     await globalPage.setupAndUseApiCalls(extensionId);
-    await onboardingPage.signUpNewUser();
+    await onboardingPage.signInWithTestAccount(extensionId);
   });
 
   test('that menu item takes user to support page', async ({ page }) => {

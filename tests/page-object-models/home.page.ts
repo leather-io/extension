@@ -51,7 +51,9 @@ export class HomePage {
 
   async getReceiveStxAddress() {
     await this.goToReceiveModal();
-    await this.page.getByTestId(HomePageSelectors.ReceiveStxQrCodeBtn).click();
+    // In Ledger mode, this element isn't visible, so clicking is conditional
+    const qrCodeBtn = this.page.getByTestId(HomePageSelectors.ReceiveStxQrCodeBtn);
+    if (await qrCodeBtn.isVisible()) await qrCodeBtn.click();
     const displayerAddress = await this.page
       .getByTestId(SharedComponentsSelectors.AddressDisplayer)
       .innerText();
