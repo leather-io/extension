@@ -32,13 +32,21 @@ export class HomePage {
   // Also, an open issue to consistently determine `isMac` in the workaround:
   // https://github.com/microsoft/playwright/issues/12168
   // Using the `Receive` route to get the account address for now.
-  async getReceiveBtcAddress() {
+  async getReceiveNativeSegwitAddress() {
     await this.goToReceiveModal();
-    await this.page.getByTestId(HomePageSelectors.ReceiveBtcQrCodeBtn).click();
+    await this.page.getByTestId(HomePageSelectors.ReceiveBtcNativeSegwitQrCodeBtn).click();
     const displayerAddress = await this.page
       .getByTestId(SharedComponentsSelectors.AddressDisplayer)
       .innerText();
     return displayerAddress.replaceAll('\n', '');
+  }
+
+  // Currently under Ordinals receive flow
+  async getReceiveTaprootAddress() {
+    await this.goToReceiveModal();
+    await this.page.getByTestId(HomePageSelectors.ReceiveBtcTaprootQrCodeBtn).click();
+    await this.page.getByRole('button', { name: 'Copy address' }).click();
+    return this.page.evaluate('navigator.clipboard.readText()');
   }
 
   async getReceiveStxAddress() {

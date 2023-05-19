@@ -47,7 +47,7 @@ export function ReceiveModal() {
                 <Box>
                   <Button
                     borderRadius="10px"
-                    data-testid={HomePageSelectors.ReceiveBtcQrCodeBtn}
+                    data-testid={HomePageSelectors.ReceiveBtcNativeSegwitQrCodeBtn}
                     mode="tertiary"
                     onClick={() => navigate(RouteUrls.ReceiveBtc)}
                   >

@@ -1,12 +1,12 @@
 import { FiCopy } from 'react-icons/fi';
 
-import { Box, Button, Flex, Stack } from '@stacks/ui';
+import { Box, Button, ButtonProps, Flex, Stack } from '@stacks/ui';
 import { truncateMiddle } from '@stacks/ui-utils';
 
 import { Flag } from '../layout/flag';
 import { Caption } from '../typography';
 
-interface ReceiveCollectibleItemProps {
+interface ReceiveCollectibleItemProps extends ButtonProps {
   address: string;
   icon: JSX.Element;
   onCopyAddress(): void;
@@ -17,6 +17,7 @@ export function ReceiveCollectibleItem({
   icon,
   onCopyAddress,
   title,
+  ...rest
 }: ReceiveCollectibleItemProps) {
   return (
     <Flag img={icon} spacing="base">
@@ -27,7 +28,7 @@ export function ReceiveCollectibleItem({
         </Box>
         <Stack>
           <Box>
-            <Button borderRadius="10px" mode="tertiary" onClick={onCopyAddress}>
+            <Button borderRadius="10px" mode="tertiary" onClick={onCopyAddress} {...rest}>
               <FiCopy />
             </Button>
           </Box>

@@ -3,6 +3,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 
 import BitcoinStampImg from '@assets/images/bitcoin-stamp.png';
 import { Box, Stack, useClipboard } from '@stacks/ui';
+import { HomePageSelectors } from '@tests/selectors/home.selectors';
 import get from 'lodash.get';
 
 import { RouteUrls } from '@shared/route-urls';
@@ -50,6 +51,7 @@ export function ReceiveCollectible() {
       <ReceiveCollectibleItem
         address={btcAddressTaproot}
         icon={<OrdinalIcon />}
+        data-testid={HomePageSelectors.ReceiveBtcTaprootQrCodeBtn}
         onCopyAddress={() => {
           void analytics.track('select_inscription_to_add_new_collectible');
           navigate(RouteUrls.ReceiveCollectibleOrdinal, { state: { btcAddressTaproot } });
