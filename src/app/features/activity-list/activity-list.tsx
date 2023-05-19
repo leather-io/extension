@@ -19,7 +19,7 @@ export function ActivityList() {
   const bitcoinAddress = useCurrentBtcNativeSegwitAccountAddressIndexZero();
   const { isInitialLoading: isInitialLoadingBitcoinTransactions, data: bitcoinTransactions } =
     useGetBitcoinTransactionsByAddressQuery(bitcoinAddress);
-  const bitcoinPendingTxs = useBitcoinPendingTransactions();
+  const bitcoinPendingTxs = useBitcoinPendingTransactions(bitcoinAddress);
   const {
     isInitialLoading: isInitialLoadingStacksTransactions,
     data: stacksTransactionsWithTransfers,
