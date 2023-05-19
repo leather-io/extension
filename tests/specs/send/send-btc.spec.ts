@@ -10,7 +10,7 @@ import { test } from '../../fixtures/fixtures';
 test.describe('send btc', () => {
   test.beforeEach(async ({ extensionId, globalPage, homePage, onboardingPage, sendPage }) => {
     await globalPage.setupAndUseApiCalls(extensionId);
-    await onboardingPage.signInExistingUser();
+    await onboardingPage.signInWithTestAccount(extensionId);
     await homePage.enableTestMode();
     await homePage.sendButton.click();
     await sendPage.selectBtcAndGoToSendForm();

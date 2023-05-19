@@ -6,7 +6,7 @@ test.describe('Message signing', () =>
   test.describe('BIP-322 message signing', () => {
     test.beforeEach(async ({ extensionId, globalPage, onboardingPage, page }) => {
       await globalPage.setupAndUseApiCalls(extensionId);
-      await onboardingPage.signInExistingUser();
+      await onboardingPage.signInWithTestAccount(extensionId);
       await page.goto('https://wallet.hiro.so');
     });
 
@@ -35,7 +35,7 @@ test.describe('Message signing', () =>
         clickActionButton(context)('Sign'),
       ]);
 
-      // ID is random, so we anticipate it
+      // ID is random, removed so we can test known values
       delete result.id;
 
       test.expect(result).toEqual({

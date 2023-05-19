@@ -11,7 +11,7 @@ import { LoadingSpinner } from '@app/components/loading-spinner';
 import { Brc20TokensLoader } from '@app/features/balances-list/components/brc-20-tokens-loader';
 import { useConfigBitcoinEnabled } from '@app/query/common/hiro-config/hiro-config.query';
 import { useStacksFungibleTokenAssetBalancesAnchoredWithMetadata } from '@app/query/stacks/balance/stacks-ft-balances.hooks';
-import { useCurrentBtcNativeSegwitAccountAddressIndexZero } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
+import { useCurrentAccountNativeSegwitAddressIndexZero } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
 
 import { Collectibles } from '../collectibles/collectibles';
 import { BitcoinFungibleTokenAssetList } from './components/bitcoin-fungible-tokens-asset-list';
@@ -24,7 +24,7 @@ interface BalancesListProps extends StackProps {
 export function BalancesList({ address, ...props }: BalancesListProps) {
   const stacksFtAssetBalances = useStacksFungibleTokenAssetBalancesAnchoredWithMetadata(address);
   const isBitcoinEnabled = useConfigBitcoinEnabled();
-  const btcAddress = useCurrentBtcNativeSegwitAccountAddressIndexZero();
+  const btcAddress = useCurrentAccountNativeSegwitAddressIndexZero();
   const { stxEffectiveBalance, stxEffectiveUsdBalance, isLoading } = useStxBalance();
   const { btcAvailableAssetBalance, btcAvailableUsdBalance } = useBtcAssetBalance(btcAddress);
   const { whenWallet } = useWalletType();
