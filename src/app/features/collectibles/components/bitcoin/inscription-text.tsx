@@ -1,6 +1,3 @@
-import { Spinner } from '@stacks/ui';
-
-import { figmaTheme } from '@app/common/utils/figma-theme';
 import { OrdinalMinimalIcon } from '@app/components/icons/ordinal-minimal-icon';
 import { useTextInscriptionContentQuery } from '@app/query/bitcoin/ordinals/use-text-ordinal-content.query';
 
@@ -28,8 +25,7 @@ export function InscriptionText({
 }: InscriptionTextProps) {
   const query = useTextInscriptionContentQuery(contentSrc);
 
-  if (query.isLoading) return <Spinner color={figmaTheme.icon} size="16px" />;
-  if (query.isError) return null;
+  if (query.isLoading || query.isError) return null;
 
   return (
     <CollectibleText

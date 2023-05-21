@@ -12,18 +12,16 @@ import { Tooltip } from '@app/components/tooltip';
 import { Text } from '@app/components/typography';
 
 import { AssetCaption } from '../../components/asset-caption';
-import { SubBalance } from '../../components/sub-balance';
 
 interface Brc20TokenAssetItemLayoutProps extends BoxProps {
   balance: Money;
   caption: string;
   isPressable?: boolean;
-  subBalance?: Money;
   title: string;
 }
 export const Brc20TokenAssetItemLayout = forwardRefWithAs(
   (props: Brc20TokenAssetItemLayoutProps, ref) => {
-    const { balance, caption, isPressable, subBalance, title, ...rest } = props;
+    const { balance, caption, isPressable, title, ...rest } = props;
     const [component, bind] = usePressable(isPressable);
 
     const formattedBalance = formatBalance(balance.amount.toString());
@@ -44,7 +42,6 @@ export const Brc20TokenAssetItemLayout = forwardRefWithAs(
           </SpaceBetween>
           <SpaceBetween height="1.25rem" width="100%">
             <AssetCaption caption={caption} />
-            {subBalance ? <SubBalance balance={subBalance} /> : null}
           </SpaceBetween>
           {component}
         </Flag>

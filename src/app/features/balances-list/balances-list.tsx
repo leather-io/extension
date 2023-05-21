@@ -10,10 +10,7 @@ import { BtcIcon } from '@app/components/icons/btc-icon';
 import { LoadingSpinner } from '@app/components/loading-spinner';
 import { Brc20TokensLoader } from '@app/features/balances-list/components/brc-20-tokens-loader';
 import { useConfigBitcoinEnabled } from '@app/query/common/hiro-config/hiro-config.query';
-import {
-  useStacksFungibleTokenAssetBalancesAnchoredWithMetadata,
-  useStacksUnanchoredCryptoCurrencyAssetBalance,
-} from '@app/query/stacks/balance/stacks-ft-balances.hooks';
+import { useStacksFungibleTokenAssetBalancesAnchoredWithMetadata } from '@app/query/stacks/balance/stacks-ft-balances.hooks';
 
 import { Collectibles } from '../collectibles/collectibles';
 import { BitcoinFungibleTokenAssetList } from './components/bitcoin-fungible-tokens-asset-list';
@@ -22,17 +19,16 @@ import { StacksFungibleTokenAssetList } from './components/stacks-fungible-token
 interface BalancesListProps extends StackProps {
   address: string;
 }
+
 export function BalancesList({ address, ...props }: BalancesListProps) {
-  const { data: stxUnanchoredAssetBalance } =
-    useStacksUnanchoredCryptoCurrencyAssetBalance(address);
   const stacksFtAssetBalances = useStacksFungibleTokenAssetBalancesAnchoredWithMetadata(address);
   const isBitcoinEnabled = useConfigBitcoinEnabled();
-  const { stxEffectiveBalance, stxEffectiveUsdBalance } = useStxBalance();
+  const { stxEffectiveBalance, stxEffectiveUsdBalance, isLoading } = useStxBalance();
   const { btcAddress, btcAssetBalance, btcUsdBalance } = useBtcAssetBalance();
   const { whenWallet } = useWalletType();
 
   // Better handle loading state
-  if (!stxEffectiveBalance || !stxUnanchoredAssetBalance) return <LoadingSpinner />;
+  if (isLoading) return <LoadingSpinner />;
 
   return (
     <Stack
@@ -52,7 +48,6 @@ export function BalancesList({ address, ...props }: BalancesListProps) {
       <CryptoCurrencyAssetItem
         assetBalance={stxEffectiveBalance}
         usdBalance={stxEffectiveUsdBalance}
-        assetSubBalance={stxUnanchoredAssetBalance}
         address={address}
         icon={<StxAvatar {...props} />}
       />

@@ -17,6 +17,14 @@ export function createNullArrayOfLength(length: number) {
   return new Array(length).fill(null);
 }
 
+export function createNumArrayOfRange(fromIndex: number, toIndex: number) {
+  const result = [];
+  for (let i = fromIndex; i <= toIndex; i++) {
+    result.push(i);
+  }
+  return result;
+}
+
 function kebabCase(str: string) {
   return str.replace(KEBAB_REGEX, match => '-' + match.toLowerCase());
 }

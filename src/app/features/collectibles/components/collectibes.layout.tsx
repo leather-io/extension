@@ -1,17 +1,19 @@
 import { Flex, Grid, Spinner, color } from '@stacks/ui';
 
 import { RefreshIcon } from '@app/components/icons/refresh-icon';
+import { LoadingSpinner } from '@app/components/loading-spinner';
 import { Caption } from '@app/components/typography';
 
 interface CollectiblesLayoutProps {
   title: string;
   isLoading: boolean;
+  isLoadingMore?: boolean;
   onRefresh(): void;
   subHeader?: React.ReactNode;
   children: React.ReactNode;
 }
 export function CollectiblesLayout(props: CollectiblesLayoutProps) {
-  const { title, isLoading, onRefresh, subHeader, children } = props;
+  const { title, isLoading, onRefresh, subHeader, isLoadingMore, children } = props;
   return (
     <>
       <Flex flexDirection="row" justifyContent="space-between" flex={1}>
@@ -35,6 +37,7 @@ export function CollectiblesLayout(props: CollectiblesLayoutProps) {
       >
         {children}
       </Grid>
+      {isLoadingMore && <LoadingSpinner />}
     </>
   );
 }

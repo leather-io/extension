@@ -13,7 +13,6 @@ import { CryptoCurrencyAssetItemLayout } from './crypto-currency-asset-item.layo
 
 interface CryptoCurrencyAssetItemProps extends StackProps {
   assetBalance: AllCryptoCurrencyAssetBalances;
-  assetSubBalance?: AllCryptoCurrencyAssetBalances;
   icon: JSX.Element;
   usdBalance?: string;
   address?: string;
@@ -22,16 +21,7 @@ interface CryptoCurrencyAssetItemProps extends StackProps {
 }
 export const CryptoCurrencyAssetItem = forwardRefWithAs(
   (props: CryptoCurrencyAssetItemProps, ref) => {
-    const {
-      assetBalance,
-      assetSubBalance,
-      icon,
-      isPressable,
-      address,
-      canCopy,
-      usdBalance,
-      ...rest
-    } = props;
+    const { assetBalance, icon, isPressable, address, canCopy, usdBalance, ...rest } = props;
     const { balance, asset } = assetBalance;
     const [isHovered, setIsHovered] = useState(false);
     const { onCopy, hasCopied } = useClipboard(address || '');
@@ -68,7 +58,6 @@ export const CryptoCurrencyAssetItem = forwardRefWithAs(
         copyIcon={canCopy ? <AssetItemCopyIcon hasCopied={hasCopied} /> : undefined}
         isPressable={isPressable}
         ref={ref}
-        subBalance={assetSubBalance?.balance}
         title={asset.name}
         isHovered={isHovered}
         address={address}
