@@ -1,3 +1,16 @@
+## [4.25.0](https://github.com/hirosystems/wallet/compare/v4.24.2...v4.25.0) (2023-05-21)
+
+
+### Features
+
+* add inscriptions infinite loading, closes [#3694](https://github.com/hirosystems/wallet/issues/3694) ([e10e6e1](https://github.com/hirosystems/wallet/commit/e10e6e1af6f0d29995fe368ee86dea2ab795e407))
+* remove subbalance ([6fee549](https://github.com/hirosystems/wallet/commit/6fee549b6c0c5ed424bae190dda9a3eddeb02fb6))
+
+
+### Internal
+
+* update documentation link ([89e46b5](https://github.com/hirosystems/wallet/commit/89e46b5aa7c28d2d14e972568023245dd5847019))
+
 ## [4.24.2](https://github.com/hirosystems/wallet/compare/v4.24.1...v4.24.2) (2023-05-17)
 
 
