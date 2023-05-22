@@ -26,6 +26,11 @@ export function useStxBalance() {
     ? i18nFormatCurrency(baseCurrencyAmountInQuote(stxEffectiveBalance, stxMarketData))
     : undefined;
 
+  const stxLockedBalance = anchoredBalanceQuery.data?.stx.locked;
+  const stxUsdLockedBalance = isDefined(stxLockedBalance)
+    ? i18nFormatCurrency(baseCurrencyAmountInQuote(stxLockedBalance, stxMarketData))
+    : undefined;
+
   return useMemo(() => {
     return {
       anchoredBalanceQuery,
@@ -36,6 +41,8 @@ export function useStxBalance() {
         : createMoney(0, 'STX'),
       stxEffectiveBalance: createStacksCryptoCurrencyAssetTypeWrapper(stxEffectiveBalance.amount),
       stxEffectiveUsdBalance,
+      stxLockedBalance,
+      stxUsdLockedBalance,
     };
   }, [
     anchoredBalanceQuery,
@@ -43,5 +50,7 @@ export function useStxBalance() {
     unlockedStxBalance,
     stxEffectiveBalance,
     stxEffectiveUsdBalance,
+    stxLockedBalance,
+    stxUsdLockedBalance,
   ]);
 }
