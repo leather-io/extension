@@ -28,12 +28,14 @@ class BitcoinBlockchainInterface implements Blockchain {
     };
   }
 
-  async getTransaction(txid: string): Promise<string> {
-    return await this._getTransaction(txid);
+  async getTransaction(txID: string): Promise<string> {
+    const tx = await this._getTransaction(txID);
+    return tx;
   }
-
+  
   async sendRawTransaction(txHex: string): Promise<void> {
-    await this._sendRawTransaction(txHex);
+    const txResponse = await this._sendRawTransaction(txHex);
+    console.log('txResponse', txResponse.text())
   }
 
   async getUtxosForAddress(address: string): Promise<Utxo[]> {

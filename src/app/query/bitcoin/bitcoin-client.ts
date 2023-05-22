@@ -75,6 +75,10 @@ class TransactionsApi {
     return fetch(`${this.configuration.baseUrl}/tx/${txid}`).then(res => res.json());
   }
 
+  async getRawBitcoinTransaction(txid: string): Promise<string> {
+    return fetch(`${this.configuration.baseUrl}/tx/${txid}/hex`).then(res => res.text());
+  }
+
   async broadcastTransaction(tx: string) {
     return fetch(`${this.configuration.baseUrl}/tx`, {
       method: 'POST',

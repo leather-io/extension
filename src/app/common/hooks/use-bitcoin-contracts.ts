@@ -1,36 +1,35 @@
 import { useEffect } from 'react';
+import { useSelector } from 'react-redux';
 
+import { Transaction } from 'bitcoinjs-lib';
 import { ContractState, ContractUpdater, DlcManager, DlcSigner, getId } from 'dlc-lib';
-import { NetworkType } from 'dlc-lib/src/types/networkTypes';
 
 import BitcoinBlockchainInterface from '@shared/models/bitcoin-blockchain-interface';
 import BitcoinContractService from '@shared/models/bitcoin-contract-service';
 import LocalBitcoinContractRepository from '@shared/models/local-bitcoin-contract-repository';
 
 import { useAppDispatch } from '@app/store';
-import { store } from '@app/store';
+import { RootState } from '@app/store';
 import {
-  useCurrentBitcoinNativeSegwitAddressIndexPublicKeychain,
+  useCurrentAccountNativeSegwitDetails,
   useCurrentBtcNativeSegwitAccountAddressIndexZero,
 } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
 import {
   requestOfferedContractAcceptance,
   requestOfferedContractProcess,
   requestOfferedContractRejection,
-  requestOfferedContractSigning,
   updateContractsOnFailedAction,
   updateContractsOnSuccessfulAction,
 } from '@app/store/bitcoin-contracts/bitcoin-contracts.slice';
 import { FailedBitcoinContractDetails } from '@app/store/bitcoin-contracts/bitcoin-contracts.slice';
 import { useBitcoinClient } from '@app/store/common/api-clients.hooks';
-import { useCurrentNetwork } from '@app/store/networks/networks.selectors';
 
 const useBitcoinContracts = () => {
   const dispatch = useAppDispatch();
   const btcClient = useBitcoinClient();
 
   const btcBlockchainInterface = new BitcoinBlockchainInterface(
-    (txid: string) => btcClient.transactionsApi.getBitcoinTransaction(txid),
+    (txid: string) => btcClient.transactionsApi.getRawBitcoinTransaction(txid),
     (txHex: string) => btcClient.transactionsApi.broadcastTransaction(txHex),
     (address: string) => btcClient.addressApi.getUtxosByAddress(address)
   );
@@ -40,79 +39,76 @@ const useBitcoinContracts = () => {
   const btcContractManager = new DlcManager(btcContractUpdater, btcContractStorage);
   const btcContractService = new BitcoinContractService(btcContractManager, btcContractStorage);
 
-  const currentNetwork = useCurrentNetwork();
   const btcAddress = useCurrentBtcNativeSegwitAccountAddressIndexZero();
-  const btcKeychain = useCurrentBitcoinNativeSegwitAddressIndexPublicKeychain();
+  const btcDetails = useCurrentAccountNativeSegwitDetails();
 
   const {
     bitcoinContractCounterpartyWalletURL,
-    bitcoinContractProcessing,
     bitcoinContractAcceptMessageSubmitted,
-    bitcoinContractSigningRequested,
     bitcoinContractActionSuccessful,
-    bitcoinContractActionError,
-    bitcoinContracts,
     selectedBitcoinContractID,
-  } = store.getState().bitcoinContracts;
+  } = useSelector((state: RootState) => state.bitcoinContracts);
 
-  let btcNetwork: NetworkType;
-
-  useEffect(() => {
-    switch (currentNetwork.chain.bitcoin.network) {
+  const getBitcoinNetwork = (network: string) => {
+    switch (btcDetails?.network.chain.bitcoin.network) {
       case 'mainnet':
-        btcNetwork = 'Mainnet';
-        break;
+        return 'Mainnet';
       case 'testnet':
-        btcNetwork = 'Testnet';
-        break;
+        return 'Testnet';
       case 'regtest':
-        btcNetwork = 'Regtest';
-        break;
+        return 'Regtest';
       default:
-        btcNetwork = 'Testnet';
+        return 'Testnet';
     }
-  }, [currentNetwork]);
+  };
 
   useEffect(() => {
-    const bitcoinContract = bitcoinContracts.find(
-      c =>
-        getId(c) === selectedBitcoinContractID ||
-        c.temporaryContractId === selectedBitcoinContractID
-    );
-    if (
-      bitcoinContractAcceptMessageSubmitted &&
-      bitcoinContractActionSuccessful &&
-      bitcoinContractSigningRequested &&
-      bitcoinContract?.state === ContractState.Accepted
-    ) {
-      handleSign(selectedBitcoinContractID!);
-    }
+    const validateForSigning = async () => {
+      const bitcoinContract = await getContract(selectedBitcoinContractID!);
+      if (
+        bitcoinContractAcceptMessageSubmitted &&
+        bitcoinContractActionSuccessful &&
+        bitcoinContract?.state === ContractState.Accepted
+      ) {
+        await handleSign(selectedBitcoinContractID!);
+      }
+    };
+    validateForSigning();
   }, [
     bitcoinContractAcceptMessageSubmitted,
     bitcoinContractActionSuccessful,
-    bitcoinContractSigningRequested,
     selectedBitcoinContractID,
   ]);
 
+  async function getAllContracts() {
+    const bitcoinContracts = await btcContractService.getAllContracts();
+    return bitcoinContracts;
+  }
+
+  async function getContract(bitcoinContractID: string) {
+    const bitcoinContract = await btcContractService.getContract(bitcoinContractID);
+    return bitcoinContract;
+  }
+
   async function handleOffer(bitcoinContractOffer: string, counterPartyWalletURL: string) {
-    console.log('Handle Offer Effect')
     dispatch(requestOfferedContractProcess(counterPartyWalletURL));
     try {
       const bitcoinContract = await btcContractService.processContractOffer(bitcoinContractOffer);
-      console.log('Handle Offer Effect Success', bitcoinContract)
+      console.log('Handle Offer Success', bitcoinContract);
       dispatch(updateContractsOnSuccessfulAction(bitcoinContract));
     } catch (error) {
       const failedBitcoinContractDetails: FailedBitcoinContractDetails = {
         bitcoinContractID: '',
-        bitcoinContractActionError: `HandleOffer Effect Failure: ${error}`,
+        bitcoinContractActionError: `Handle Offer Failure: ${error}`,
       };
       dispatch(updateContractsOnFailedAction(failedBitcoinContractDetails));
     }
   }
 
   async function handleAccept(bitcoinContractID: string) {
-    const btcPublicKey = String.fromCharCode(...btcKeychain?.publicKey!);
-    const btcPrivateKey = String.fromCharCode(...btcKeychain?.privateKey!);
+    const btcNetwork = getBitcoinNetwork(btcDetails?.network.chain.bitcoin.network!);
+    const btcPrivateKey = uint8ArrayToHex(btcDetails?.addressIndexKeychain.privateKey!);
+    const btcPublicKey = uint8ArrayToHex(btcDetails?.addressIndexKeychain.publicKey!);
 
     dispatch(requestOfferedContractAcceptance());
     try {
@@ -123,11 +119,12 @@ const useBitcoinContracts = () => {
         btcPrivateKey,
         btcNetwork
       );
+      console.log('Handle Accept Success', bitcoinContract);
       dispatch(updateContractsOnSuccessfulAction(bitcoinContract));
     } catch (error) {
       const failedBitcoinContractDetails: FailedBitcoinContractDetails = {
         bitcoinContractID: bitcoinContractID,
-        bitcoinContractActionError: `HandleAccept Effect Failure: ${error}`,
+        bitcoinContractActionError: `Handle Accept Failure: ${error}`,
       };
       dispatch(updateContractsOnFailedAction(failedBitcoinContractDetails));
     }
@@ -137,37 +134,51 @@ const useBitcoinContracts = () => {
     dispatch(requestOfferedContractRejection());
     try {
       const bitcoinContract = await btcContractService.rejectContract(bitcoinContractID);
+      console.log('Handle Reject Success', bitcoinContract);
       dispatch(updateContractsOnSuccessfulAction(bitcoinContract));
     } catch (error) {
       const failedBitcoinContractDetails: FailedBitcoinContractDetails = {
         bitcoinContractID: bitcoinContractID,
-        bitcoinContractActionError: `HandleReject Effect Failure: ${error}`,
+        bitcoinContractActionError: `Handle Reject Failure: ${error}`,
       };
       dispatch(updateContractsOnFailedAction(failedBitcoinContractDetails));
     }
   }
 
   async function handleSign(bitcoinContractID: string) {
-    const btcPrivateKey = String.fromCharCode(...btcKeychain?.privateKey!);
+    const btcPrivateKey = uint8ArrayToHex(btcDetails?.addressIndexKeychain.privateKey!);
 
-    dispatch(requestOfferedContractSigning());
     try {
       const bitcoinContract = await btcContractService.processContractSign(
         bitcoinContractID,
         btcPrivateKey,
         bitcoinContractCounterpartyWalletURL!
       );
+      console.log('Handle Sign Success', bitcoinContract);
+      if (bitcoinContract.state === ContractState.Broadcast) {
+        const txID = Transaction.fromHex(bitcoinContract.dlcTransactions.fund).getId();
+        console.log('Broadcasted Transaction ID', txID);
+      }
       dispatch(updateContractsOnSuccessfulAction(bitcoinContract));
     } catch (error) {
       const failedBitcoinContractDetails: FailedBitcoinContractDetails = {
         bitcoinContractID: bitcoinContractID,
-        bitcoinContractActionError: `HandleSign Effect Failure: ${error}`,
+        bitcoinContractActionError: `Handle Sign Failure: ${error}`,
       };
       dispatch(updateContractsOnFailedAction(failedBitcoinContractDetails));
     }
   }
 
-  return { handleOffer, handleAccept, handleReject, handleSign };
+  return { getAllContracts, getContract, handleOffer, handleAccept, handleReject, handleSign };
 };
+
+function uint8ArrayToHex(uint8Array: Uint8Array) {
+  let hex = '';
+  for (let i = 0; i < uint8Array.length; i++) {
+    const byte = uint8Array[i].toString(16).padStart(2, '0');
+    hex += byte;
+  }
+  return hex;
+}
 
 export default useBitcoinContracts;

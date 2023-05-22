@@ -181,12 +181,8 @@
     "coinselect": "3.1.13",
     "compare-versions": "4.1.3",
     "dayjs": "1.11.7",
-<<<<<<< HEAD
     "dlc-lib": "file:../dlc-lib",
-    "dompurify": "3.0.1",
-=======
     "dompurify": "3.0.3",
->>>>>>> dev
     "downshift": "6.1.7",
     "ecdsa-sig-formatter": "1.0.11",
     "ecpair": "2.1.0",

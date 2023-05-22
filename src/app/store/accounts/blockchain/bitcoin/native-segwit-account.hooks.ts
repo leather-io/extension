@@ -135,3 +135,14 @@ export function useCurrentAccountNativeSegwitSigner() {
     network: network.chain.bitcoin.network,
   });
 }
+
+export function useCurrentAccountNativeSegwitDetails() {
+  const network = useCurrentNetwork();
+  const index = useCurrentAccountIndex();
+  const accountKeychain = useNativeSegwitAccountKeychain()?.(index);
+  if (!accountKeychain) return;
+  const addressIndexKeychainFn = deriveAddressIndexKeychainFromAccount(accountKeychain);
+  const addressIndexKeychain = addressIndexKeychainFn(index);
+
+  return {network, addressIndexKeychain};
+}
