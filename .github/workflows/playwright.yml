@@ -12,8 +12,9 @@ env:
 
 jobs:
   test:
-    timeout-minutes: 60
-    runs-on: ubuntu-22.04
+    name: Shard ${{ matrix.shardIndex }} of ${{ matrix.shardTotal }}
+    timeout-minutes: 5
+    runs-on: ubuntu-latest
     strategy:
       fail-fast: false
       matrix:
@@ -26,11 +27,15 @@ jobs:
         with:
           node-version: 18
 
+      - name: Get installed Playwright version
+        id: playwright-version
+        run: echo "PLAYWRIGHT_VERSION=$(node -e "console.log(require('./package.json').devDependencies['@playwright/test'])")" >> $GITHUB_ENV
+
       - uses: actions/cache@v3
         id: cache
         with:
           path: '**/node_modules'
-          key: ${{ runner.os }}-${{ hashFiles('**/yarn.lock') }}-${{ hashFiles('**/package.json') }}
+          key: ${{ runner.os }}-${{ hashFiles('**/yarn.lock') }}-${{ hashFiles('**/package.json') }}-${{ env.PLAYWRIGHT_VERSION }}-force
 
       - name: Install dependencies
         if: steps.cache.outputs.cache-hit != 'true'
@@ -39,19 +44,15 @@ jobs:
         run: yarn --frozen-lockfile
         shell: bash
 
-      - name: Get installed Playwright version
-        id: playwright-version
-        run: echo "PLAYWRIGHT_VERSION=$(node -e "console.log(require('./package.json').devDependencies['@playwright/test'])")" >> $GITHUB_ENV
-
       - name: Cache playwright binaries
         uses: actions/cache@v3
         id: playwright-cache
         with:
           path: ~/.cache/ms-playwright
-          key: ${{ runner.os }}-playwright-${{ env.PLAYWRIGHT_VERSION }}
+          key: ${{ runner.os }}-playwright-${{ env.PLAYWRIGHT_VERSION }}-force
 
       - name: Install Playwright deps
-        run: yarn playwright install chrome
+        run: yarn playwright install --with-deps
         if: steps.playwright-cache.outputs.cache-hit != 'true'
 
       - name: Build extension in test mode

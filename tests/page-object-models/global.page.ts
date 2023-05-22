@@ -1,5 +1,5 @@
+import { Page } from '@playwright/test';
 import { setupMockApis } from '@tests/mocks/mock-apis';
-import { Page } from 'playwright';
 
 export class GlobalPage {
   readonly page: Page;

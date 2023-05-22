@@ -6,7 +6,7 @@ import { OnboardingSelectors } from '@tests/selectors/onboarding.selectors';
 import { RouteUrls } from '@shared/route-urls';
 
 // If default wallet state changes, we'll need to update this
-export const testAccountDefaultWalletState = {
+export const testSoftwareAccountDefaultWalletState = {
   analytics: { hasStxDeposits: { '1': true, '2147483648': true } },
   chains: { stx: { default: { highestAccountIndex: 16, currentAccountIndex: 0 } } },
   keys: {
@@ -35,7 +35,7 @@ export const testAccountDefaultWalletState = {
   _persist: { version: 1, rehydrated: true },
 };
 
-const ledgerTestAccount = {
+const testLedgerAccountDefaultWalletState = {
   _persist: { rehydrated: true, version: 1 },
   analytics: { hasStxDeposits: { '1': false, '2147483648': true } },
   chains: { stx: { default: { currentAccountIndex: 0, highestAccountIndex: 0 } } },
@@ -132,7 +132,7 @@ export class OnboardingPage {
   async signInWithTestAccount(id: string) {
     await this.page.evaluate(
       walletState => chrome.storage.local.set({ 'persist:root': walletState }),
-      testAccountDefaultWalletState
+      testSoftwareAccountDefaultWalletState
     );
     await this.page.goto(`chrome-extension://${id}/index.html`);
     await this.page.getByRole('textbox').type(TEST_PASSWORD);
@@ -149,7 +149,7 @@ export class OnboardingPage {
   async signInWithLedgerAccount(id: string) {
     await this.page.evaluate(
       async walletState => chrome.storage.local.set({ 'persist:root': walletState }),
-      ledgerTestAccount
+      testLedgerAccountDefaultWalletState
     );
     await this.page.goto(`chrome-extension://${id}/index.html`);
   }

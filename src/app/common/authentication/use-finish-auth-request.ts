@@ -32,7 +32,6 @@ export function useFinishAuthRequest() {
   // TODO: It would be good to separate out finishing auth by the wallet vs an app
   // so that the additional data we provide apps can be removed from our onboarding.
   // Currently, these create errors unless early returns are used in the keychain code.
-  // const deriveTaprootAccountAtIndex = useAllBitcoinTaprootNetworksByAccount();
   const deriveAllNativeSegWitNetworkSigners = useNativeSegwitNetworkSigners();
   const deriveAllTaprootNetworkSigners = useTaprootNetworkSigners();
 

@@ -29,6 +29,9 @@ export const test = base.extend<TestFixtures>({
       args: [
         `--disable-extensions-except=${pathToExtension}`,
         `--load-extension=${pathToExtension}`,
+        // force GPU hardware acceleration
+        // (even in headless mode)
+        '--use-gl=egl',
       ],
     });
     await use(context);

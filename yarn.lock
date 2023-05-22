@@ -1976,13 +1976,15 @@
   resolved "https://registry.yarnpkg.com/@pkgjs/parseargs/-/parseargs-0.11.0.tgz#a77ea742fab25775145434eb1d2328cf5013ac33"
   integrity sha512-+1VkjdD0QBLPodGrJUeqarH8VAIvQODIbwh9XpP5Syisf7YoQgsJKPNFoqqLQlu+VQ/tVSshMR6loPMn8U+dPg==
 
-"@playwright/test@1.30.0":
-  version "1.30.0"
-  resolved "https://registry.yarnpkg.com/@playwright/test/-/test-1.30.0.tgz#8c0c4930ff2c7be7b3ec3fd434b2a3b4465ed7cb"
-  integrity sha512-SVxkQw1xvn/Wk/EvBnqWIq6NLo1AppwbYOjNLmyU0R1RoQ3rLEBtmjTnElcnz8VEtn11fptj1ECxK0tgURhajw==
+"@playwright/test@1.34.0":
+  version "1.34.0"
+  resolved "https://registry.yarnpkg.com/@playwright/test/-/test-1.34.0.tgz#1f3359523c3fd7460c83fe83c8152751a9e21f49"
+  integrity sha512-GIALJVODOIrMflLV54H3Cow635OfrTwOu24ZTDyKC66uchtFX2NcCRq83cLdakMjZKYK78lODNLQSYBj2OgaTw==
   dependencies:
     "@types/node" "*"
-    playwright-core "1.30.0"
+    playwright-core "1.34.0"
+  optionalDependencies:
+    fsevents "2.3.2"
 
 "@pmmmwh/react-refresh-webpack-plugin@0.5.10":
   version "0.5.10"
@@ -3394,10 +3396,10 @@
     redux-thunk "^2.4.2"
     reselect "^4.1.8"
 
-"@remix-run/router@1.6.1":
-  version "1.6.1"
-  resolved "https://registry.yarnpkg.com/@remix-run/router/-/router-1.6.1.tgz#3a3a408481a3796f45223a549c2571517bc8af2d"
-  integrity sha512-YUkWj+xs0oOzBe74OgErsuR3wVn+efrFhXBWrit50kOiED+pvQe2r6MWY0iJMQU/mSVKxvNzL4ZaYvjdX+G7ZA==
+"@remix-run/router@1.6.2":
+  version "1.6.2"
+  resolved "https://registry.yarnpkg.com/@remix-run/router/-/router-1.6.2.tgz#bbe75f8c59e0b7077584920ce2cc76f8f354934d"
+  integrity sha512-LzqpSrMK/3JBAVBI9u3NWtOhWNw5AMQfrUFYB0+bDHTSw17z++WJLsPsxAuK+oSddsxk4d7F/JcdDPM1M5YAhA==
 
 "@rjsf/core@^4.2.0":
   version "4.2.3"
@@ -9183,10 +9185,10 @@ depd@~1.1.2:
   resolved "https://registry.yarnpkg.com/depd/-/depd-1.1.2.tgz#9bcd52e14c097763e749b274c4346ed2e560b5a9"
   integrity sha512-7emPTl6Dpo6JRXOXjLRxck+FlLRX5847cLKEn00PLAgc3g2hTZZgr+e4c2v6QpSmLeFP3n5yUo7ft6avBK/5jQ==
 
-dependency-cruiser@13.0.1:
-  version "13.0.1"
-  resolved "https://registry.yarnpkg.com/dependency-cruiser/-/dependency-cruiser-13.0.1.tgz#b13ef98ddcd2a9ab4c2478526bc010b8420898b7"
-  integrity sha512-zXTyzJPQQFKpGF3RL8+1nJe2PxY5QoQKmcMy1iuzDnvD5TbvzJS/ITTRmGoK9H9QfjqDpEwXzJAWVYADm6H+xQ==
+dependency-cruiser@13.0.2:
+  version "13.0.2"
+  resolved "https://registry.yarnpkg.com/dependency-cruiser/-/dependency-cruiser-13.0.2.tgz#8ecfe1b82d15ea3bacae4d5a3af20d157d5a79b0"
+  integrity sha512-N7kQk6F7nEL5z2Yr7zLcDbPKWmqWacH/5GN6piFsMYgwLkLgZFQvpd7Z8BwlVT9G1v/+shb+IQZa+ilfVAD9rA==
   dependencies:
     acorn "8.8.2"
     acorn-jsx "5.3.2"
@@ -9199,7 +9201,7 @@ dependency-cruiser@13.0.1:
     enhanced-resolve "5.14.0"
     figures "5.0.0"
     get-stream "^6.0.1"
-    glob "10.2.4"
+    glob "10.2.6"
     handlebars "4.7.7"
     ignore "5.2.4"
     indent-string "5.0.0"
@@ -10716,7 +10718,7 @@ fs.realpath@^1.0.0:
   resolved "https://registry.yarnpkg.com/fs.realpath/-/fs.realpath-1.0.0.tgz#1504ad2523158caa40db4a2787cb01411994ea4f"
   integrity sha512-OO0pH2lK6a0hZnAdau5ItzHPI6pUlvI7jMVnxUQRtw4owF2wk8lOSabtGDCTP4Ggrg2MbGnWO9X8K1t4+fGMDw==
 
-fsevents@^2.3.2, fsevents@~2.3.2:
+fsevents@2.3.2, fsevents@^2.3.2, fsevents@~2.3.2:
   version "2.3.2"
   resolved "https://registry.yarnpkg.com/fsevents/-/fsevents-2.3.2.tgz#8a526f78b8fdf4623b709e0b975c52c24c02fd1a"
   integrity sha512-xiqMQR4xAeHTuB9uWm+fFRcIOgKBMiOBP+eXiyT7jsgVCq1bkVygt00oASowB7EdtpOHaaPgKt812P9ab+DDKA==
@@ -10887,15 +10889,15 @@ glob-to-regexp@^0.4.1:
   resolved "https://registry.yarnpkg.com/glob-to-regexp/-/glob-to-regexp-0.4.1.tgz#c75297087c851b9a578bd217dd59a92f59fe546e"
   integrity sha512-lkX1HJXwyMcprw/5YUZc2s7DrpAiHB21/V+E1rHUrVNokkvB6bqMzT0VfV6/86ZNabt1k14YOIaT7nDvOX3Iiw==
 
-glob@10.2.4:
-  version "10.2.4"
-  resolved "https://registry.yarnpkg.com/glob/-/glob-10.2.4.tgz#f5bf7ddb080e3e9039b148a9e2aef3d5ebfc0a25"
-  integrity sha512-fDboBse/sl1oXSLhIp0FcCJgzW9KmhC/q8ULTKC82zc+DL3TL7FNb8qlt5qqXN53MsKEUSIcb+7DLmEygOE5Yw==
+glob@10.2.6:
+  version "10.2.6"
+  resolved "https://registry.yarnpkg.com/glob/-/glob-10.2.6.tgz#1e27edbb3bbac055cb97113e27a066c100a4e5e1"
+  integrity sha512-U/rnDpXJGF414QQQZv5uVsabTVxMSwzS5CH0p3DRCIV6ownl4f7PzGnkGmvlum2wB+9RlJWJZ6ACU1INnBqiPA==
   dependencies:
     foreground-child "^3.1.0"
     jackspeak "^2.0.3"
-    minimatch "^9.0.0"
-    minipass "^5.0.0 || ^6.0.0"
+    minimatch "^9.0.1"
+    minipass "^5.0.0 || ^6.0.2"
     path-scurry "^1.7.0"
 
 glob@8.0.3:
@@ -13606,10 +13608,10 @@ minimatch@^7.4.1:
   dependencies:
     brace-expansion "^2.0.1"
 
-minimatch@^9.0.0:
-  version "9.0.0"
-  resolved "https://registry.yarnpkg.com/minimatch/-/minimatch-9.0.0.tgz#bfc8e88a1c40ffd40c172ddac3decb8451503b56"
-  integrity sha512-0jJj8AvgKqWN05mrwuqi8QYKx1WmYSUoKSxu5Qhs9prezTz10sxAHGNZe9J9cqIJzta8DWsleh2KaVaLl6Ru2w==
+minimatch@^9.0.1:
+  version "9.0.1"
+  resolved "https://registry.yarnpkg.com/minimatch/-/minimatch-9.0.1.tgz#8a555f541cf976c622daf078bb28f29fb927c253"
+  integrity sha512-0jWhJpD/MdhPXwPuiRkCbfYfSKp2qnn2eOc279qI7f+osl/l+prKSrvhg157zSYvx/1nmgn2NqdT6k2Z7zSH9w==
   dependencies:
     brace-expansion "^2.0.1"
 
@@ -13687,6 +13689,11 @@ minipass@^5.0.0:
   version "6.0.1"
   resolved "https://registry.yarnpkg.com/minipass/-/minipass-6.0.1.tgz#315417c259cb32a1b2fc530c0e7f55c901a60a6d"
   integrity sha512-Tenl5QPpgozlOGBiveNYHg2f6y+VpxsXRoIHFUVJuSmTonXRAE6q9b8Mp/O46762/2AlW4ye4Nkyvx0fgWDKbw==
+
+"minipass@^5.0.0 || ^6.0.2":
+  version "6.0.2"
+  resolved "https://registry.yarnpkg.com/minipass/-/minipass-6.0.2.tgz#542844b6c4ce95b202c0995b0a471f1229de4c81"
+  integrity sha512-MzWSV5nYVT7mVyWCwn2o7JH13w2TBRmmSqSRCKzTw+lmft9X4z+3wjvs06Tzijo5z4W/kahUCDpRXTF+ZrmF/w==
 
 minizlib@^2.0.0, minizlib@^2.1.1:
   version "2.1.2"
@@ -14661,17 +14668,10 @@ pkg-up@^3.1.0:
   dependencies:
     find-up "^3.0.0"
 
-playwright-core@1.30.0:
-  version "1.30.0"
-  resolved "https://registry.yarnpkg.com/playwright-core/-/playwright-core-1.30.0.tgz#de987cea2e86669e3b85732d230c277771873285"
-  integrity sha512-7AnRmTCf+GVYhHbLJsGUtskWTE33SwMZkybJ0v6rqR1boxq2x36U7p1vDRV7HO2IwTZgmycracLxPEJI49wu4g==
-
-playwright@1.30.0:
-  version "1.30.0"
-  resolved "https://registry.yarnpkg.com/playwright/-/playwright-1.30.0.tgz#b1d7be2d45d97fbb59f829f36f521f12010fe072"
-  integrity sha512-ENbW5o75HYB3YhnMTKJLTErIBExrSlX2ZZ1C/FzmHjUYIfxj/UnI+DWpQr992m+OQVSg0rCExAOlRwB+x+yyIg==
-  dependencies:
-    playwright-core "1.30.0"
+playwright-core@1.34.0:
+  version "1.34.0"
+  resolved "https://registry.yarnpkg.com/playwright-core/-/playwright-core-1.34.0.tgz#6a8f05c657400677591ed82b6749ef7e120a152d"
+  integrity sha512-fMUY1+iR6kYbJF/EsOOqzBA99ZHXbw9sYPNjwA4X/oV0hVF/1aGlWYBGPVUEqxBkGANDKMziYoOdKGU5DIP5Gg==
 
 postcss-value-parser@^4.0.2:
   version "4.2.0"
@@ -15223,20 +15223,20 @@ react-refresh@0.14.0:
   resolved "https://registry.yarnpkg.com/react-refresh/-/react-refresh-0.14.0.tgz#4e02825378a5f227079554d4284889354e5f553e"
   integrity sha512-wViHqhAd8OHeLS/IRMJjTSDHF3U9eWi62F/MledQGPdJGDhodXJ9PBLNGr6WWL7qlH12Mt3TyTpbS+hGXMjCzQ==
 
-react-router-dom@6.11.1:
-  version "6.11.1"
-  resolved "https://registry.yarnpkg.com/react-router-dom/-/react-router-dom-6.11.1.tgz#af226bae950deb437208a606a47cf5c2d72c55dc"
-  integrity sha512-dPC2MhoPeTQ1YUOt5uIK376SMNWbwUxYRWk2ZmTT4fZfwlOvabF8uduRKKJIyfkCZvMgiF0GSCQckmkGGijIrg==
+react-router-dom@6.11.2:
+  version "6.11.2"
+  resolved "https://registry.yarnpkg.com/react-router-dom/-/react-router-dom-6.11.2.tgz#324d55750ffe2ecd54ca4ec6b7bc7ab01741f170"
+  integrity sha512-JNbKtAeh1VSJQnH6RvBDNhxNwemRj7KxCzc5jb7zvDSKRnPWIFj9pO+eXqjM69gQJ0r46hSz1x4l9y0651DKWw==
   dependencies:
-    "@remix-run/router" "1.6.1"
-    react-router "6.11.1"
+    "@remix-run/router" "1.6.2"
+    react-router "6.11.2"
 
-react-router@6.11.1:
-  version "6.11.1"
-  resolved "https://registry.yarnpkg.com/react-router/-/react-router-6.11.1.tgz#6e58458c03e16834dda2b433c6adb9e7c2b1d7a8"
-  integrity sha512-OZINSdjJ2WgvAi7hgNLazrEV8SGn6xrKA+MkJe9wVDMZ3zQ6fdJocUjpCUCI0cNrelWjcvon0S/QK/j0NzL3KA==
+react-router@6.11.2:
+  version "6.11.2"
+  resolved "https://registry.yarnpkg.com/react-router/-/react-router-6.11.2.tgz#006301c4da1a173d7ad76b7ecd2da01b9dd3837a"
+  integrity sha512-74z9xUSaSX07t3LM+pS6Un0T55ibUE/79CzfZpy5wsPDZaea1F8QkrsiyRnA2YQ7LwE/umaydzXZV80iDCPkMg==
   dependencies:
-    "@remix-run/router" "1.6.1"
+    "@remix-run/router" "1.6.2"
 
 react-select@^5.3.2:
   version "5.7.3"
@@ -17811,10 +17811,10 @@ webpack-sources@^1.4.3:
   resolved "https://registry.yarnpkg.com/webpack-sources/-/webpack-sources-3.2.3.tgz#2d4daab8451fd4b240cc27055ff6a0c2ccea0cde"
   integrity sha512-/DyMEOrDgLKKIG0fmvtz+4dUX/3Ghozwgm6iPp8KRhvn+eQf9+Q7GWxVNMk3+uCPWfdXYC4ExGBckIXdFEfH1w==
 
-webpack@5.82.1:
-  version "5.82.1"
-  resolved "https://registry.yarnpkg.com/webpack/-/webpack-5.82.1.tgz#8f38c78e53467556e8a89054ebd3ef6e9f67dbab"
-  integrity sha512-C6uiGQJ+Gt4RyHXXYt+v9f+SN1v83x68URwgxNQ98cvH8kxiuywWGP4XeNZ1paOzZ63aY3cTciCEQJNFUljlLw==
+webpack@5.83.1:
+  version "5.83.1"
+  resolved "https://registry.yarnpkg.com/webpack/-/webpack-5.83.1.tgz#fcb69864a0669ac3539a471081952c45b15d1c40"
+  integrity sha512-TNsG9jDScbNuB+Lb/3+vYolPplCS3bbEaJf+Bj0Gw4DhP3ioAflBb1flcRt9zsWITyvOhM96wMQNRWlSX52DgA==
   dependencies:
     "@types/eslint-scope" "^3.7.3"
     "@types/estree" "^1.0.0"
