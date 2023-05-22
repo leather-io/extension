@@ -1,4 +1,4 @@
-import { BrowserContext } from 'playwright';
+import { BrowserContext } from '@playwright/test';
 
 export const setupMocks = async (context: BrowserContext) => {
   await context.route('https://test-registrar.blockstack.org/register', route => {

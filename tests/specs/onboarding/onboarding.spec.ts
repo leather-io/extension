@@ -3,7 +3,7 @@ import {
   TEST_ACCOUNT_1_STX_ADDRESS,
   TEST_ACCOUNT_1_TAPROOT_ADDRESS,
 } from '@tests/mocks/constants';
-import { testAccountDefaultWalletState } from '@tests/page-object-models/onboarding.page';
+import { testSoftwareAccountDefaultWalletState } from '@tests/page-object-models/onboarding.page';
 
 import { test } from '../../fixtures/fixtures';
 
@@ -25,10 +25,10 @@ test.describe('Onboarding an existing user', () => {
     // Deleting values that are known to differ at random
     delete (walletState as any).keys.entities.default.encryptedSecretKey;
     delete (walletState as any).keys.entities.default.salt;
-    delete (testAccountDefaultWalletState as any).keys.entities.default.encryptedSecretKey;
-    delete (testAccountDefaultWalletState as any).keys.entities.default.salt;
+    delete (testSoftwareAccountDefaultWalletState as any).keys.entities.default.encryptedSecretKey;
+    delete (testSoftwareAccountDefaultWalletState as any).keys.entities.default.salt;
 
-    test.expect(walletState).toEqual(testAccountDefaultWalletState);
+    test.expect(walletState).toEqual(testSoftwareAccountDefaultWalletState);
   });
 
   test.describe('Address generation', () => {
