@@ -18,7 +18,7 @@ interface StacksFungibleTokenAssetItemProps extends BoxProps {
 }
 export const StacksFungibleTokenAssetItem = forwardRefWithAs(
   (props: StacksFungibleTokenAssetItemProps, ref) => {
-    const { assetBalance, unanchoredAssetBalance, ...rest } = props;
+    const { assetBalance, ...rest } = props;
     const { asset, balance } = assetBalance;
     const { contractAddress, contractAssetName, contractName, name, symbol } = asset;
 
@@ -39,7 +39,6 @@ export const StacksFungibleTokenAssetItem = forwardRefWithAs(
         data-testid={dataTestId}
         imageCanonicalUri={imageCanonicalUri}
         ref={ref}
-        subBalance={unanchoredAssetBalance}
         title={friendlyName}
         {...rest}
       />

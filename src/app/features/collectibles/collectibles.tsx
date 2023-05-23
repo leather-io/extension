@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import { useQueryClient } from '@tanstack/react-query';
@@ -21,6 +22,7 @@ export function Collectibles() {
   const isNftMetadataEnabled = useConfigNftMetadataEnabled();
   const queryClient = useQueryClient();
   const isFetching = useIsFetchingCollectiblesRelatedQuery();
+  const [isLoadingMore, setIsLoadingMore] = useState(false);
 
   return (
     <CollectiblesLayout
@@ -34,14 +36,15 @@ export function Collectibles() {
         ledger: null,
       })}
       isLoading={isFetching}
+      isLoadingMore={isLoadingMore}
       onRefresh={() => void queryClient.refetchQueries({ type: 'active' })}
     >
       {whenWallet({
         software: (
           <>
             <AddCollectible />
-            <Ordinals />
             <Stamps />
+            <Ordinals setIsLoadingMore={setIsLoadingMore} />
           </>
         ),
         ledger: null,

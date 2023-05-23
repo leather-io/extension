@@ -1,3 +1,36 @@
+## [4.25.0](https://github.com/hirosystems/wallet/compare/v4.24.2...v4.25.0) (2023-05-21)
+
+
+### Features
+
+* add inscriptions infinite loading, closes [#3694](https://github.com/hirosystems/wallet/issues/3694) ([e10e6e1](https://github.com/hirosystems/wallet/commit/e10e6e1af6f0d29995fe368ee86dea2ab795e407))
+* remove subbalance ([6fee549](https://github.com/hirosystems/wallet/commit/6fee549b6c0c5ed424bae190dda9a3eddeb02fb6))
+
+
+### Internal
+
+* update documentation link ([89e46b5](https://github.com/hirosystems/wallet/commit/89e46b5aa7c28d2d14e972568023245dd5847019))
+
+## [4.24.2](https://github.com/hirosystems/wallet/compare/v4.24.1...v4.24.2) (2023-05-17)
+
+
+### Bug Fixes
+
+* delete networks bug in firefox, closes [#3608](https://github.com/hirosystems/wallet/issues/3608) ([a092f8d](https://github.com/hirosystems/wallet/commit/a092f8d60c225388fda4d7921b8ef541134c915a))
+* display json mime type inscriptions, closes [#3533](https://github.com/hirosystems/wallet/issues/3533) ([ec350ca](https://github.com/hirosystems/wallet/commit/ec350ca3195670cc3c5071c48ab53eb1b1f7d93c))
+* ignore known sentry errors ([db5150a](https://github.com/hirosystems/wallet/commit/db5150a750da206f2ec43e143bdbb2ba7a747006))
+* insufficient funds error, closes [#3661](https://github.com/hirosystems/wallet/issues/3661), closes [#3651](https://github.com/hirosystems/wallet/issues/3651) ([5d95d99](https://github.com/hirosystems/wallet/commit/5d95d994dc24bb1014e2f8c732810c18e2f742bc))
+
+
+### Internal
+
+* add query headers ([4841867](https://github.com/hirosystems/wallet/commit/484186795aac51df0da6705069ac6a2dc301e353))
+* add temp warning msg ([5d4a454](https://github.com/hirosystems/wallet/commit/5d4a454e9d7a9cbdd6830caf76d8087a52a29c8a))
+* brc-20 token balance query ([bad4797](https://github.com/hirosystems/wallet/commit/bad4797854f1c48f5e6245c464b9bf1691f035f8))
+* improve logging ([bbb7dc0](https://github.com/hirosystems/wallet/commit/bbb7dc0472b27c9934237da7f9d980350b5dd4be))
+* remove react type resolutions ([bac98ce](https://github.com/hirosystems/wallet/commit/bac98ceac0bfb22ae4b47a14ce79a5dde58fc46a))
+* upgrade packages ([356e794](https://github.com/hirosystems/wallet/commit/356e794346faf086651c5655b17b550b9e53c994))
+
 ## [4.24.1](https://github.com/hirosystems/wallet/compare/v4.24.0...v4.24.1) (2023-05-12)
 
 

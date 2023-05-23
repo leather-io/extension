@@ -16,13 +16,13 @@ import { Flag } from '@app/components/layout/flag';
 import { QrCodeIcon } from '@app/components/qr-code-icon';
 import { ReceiveCollectible } from '@app/components/receive/receive-collectible';
 import { Caption } from '@app/components/typography';
-import { useCurrentBtcNativeSegwitAccountAddressIndexZero } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
+import { useCurrentAccountNativeSegwitAddressIndexZero } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
 import { useCurrentAccountStxAddressState } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
 
 export function ReceiveModal() {
   const analytics = useAnalytics();
   const navigate = useNavigate();
-  const btcAddress = useCurrentBtcNativeSegwitAccountAddressIndexZero();
+  const btcAddress = useCurrentAccountNativeSegwitAddressIndexZero();
   const stxAddress = useCurrentAccountStxAddressState();
   const { onCopy: onCopyStacks } = useClipboard(stxAddress);
 
@@ -47,7 +47,7 @@ export function ReceiveModal() {
                 <Box>
                   <Button
                     borderRadius="10px"
-                    data-testid={HomePageSelectors.ReceiveBtcQrCodeBtn}
+                    data-testid={HomePageSelectors.ReceiveBtcNativeSegwitQrCodeBtn}
                     mode="tertiary"
                     onClick={() => navigate(RouteUrls.ReceiveBtc)}
                   >

@@ -10,9 +10,9 @@ import { useGetUtxosByAddressQuery } from '@app/query/bitcoin/address/utxos-by-a
 import { useIsStampedTx } from '@app/query/bitcoin/stamps/use-is-stamped-tx';
 import { useBitcoinScureLibNetworkConfig } from '@app/store/accounts/blockchain/bitcoin/bitcoin-keychain';
 import {
+  useCurrentAccountNativeSegwitAddressIndexZero,
   useCurrentAccountNativeSegwitSigner,
   useCurrentBitcoinNativeSegwitAddressIndexPublicKeychain,
-  useCurrentBtcNativeSegwitAccountAddressIndexZero,
 } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
 
 interface GenerateBitcoinTxValues {
@@ -21,7 +21,7 @@ interface GenerateBitcoinTxValues {
 }
 
 export function useGenerateSignedBitcoinTx() {
-  const currentAccountBtcAddress = useCurrentBtcNativeSegwitAccountAddressIndexZero();
+  const currentAccountBtcAddress = useCurrentAccountNativeSegwitAddressIndexZero();
   const { data: utxos } = useGetUtxosByAddressQuery(currentAccountBtcAddress);
   const currentAddressIndexKeychain = useCurrentBitcoinNativeSegwitAddressIndexPublicKeychain();
   const createSigner = useCurrentAccountNativeSegwitSigner();

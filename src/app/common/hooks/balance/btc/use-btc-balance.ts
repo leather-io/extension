@@ -1,15 +1,17 @@
 import { useMemo } from 'react';
 
-import { baseCurrencyAmountInQuote } from '@app/common/money/calculate-money';
+import { baseCurrencyAmountInQuote, subtractMoney } from '@app/common/money/calculate-money';
 import { i18nFormatCurrency } from '@app/common/money/format-money';
+import { createBitcoinCryptoCurrencyAssetTypeWrapper } from '@app/query/bitcoin/address/address.utils';
+import { useBitcoinPendingTransactionsBalance } from '@app/query/bitcoin/address/transactions-by-address.hooks';
 import { useNativeSegwitBalance } from '@app/query/bitcoin/balance/bitcoin-balances.query';
 import { useCryptoCurrencyMarketData } from '@app/query/common/market-data/market-data.hooks';
-import { useCurrentBtcNativeSegwitAccountAddressIndexZero } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
 
-export function useBtcAssetBalance() {
+export function useBtcAssetBalance(btcAddress: string) {
   const btcMarketData = useCryptoCurrencyMarketData('BTC');
-  const btcAddress = useCurrentBtcNativeSegwitAccountAddressIndexZero();
   const btcAssetBalance = useNativeSegwitBalance(btcAddress);
+  const pendingBalance = useBitcoinPendingTransactionsBalance(btcAddress);
+  const availableBalance = subtractMoney(btcAssetBalance.balance, pendingBalance);
 
   return useMemo(
     () => ({
@@ -18,7 +20,11 @@ export function useBtcAssetBalance() {
       btcUsdBalance: i18nFormatCurrency(
         baseCurrencyAmountInQuote(btcAssetBalance.balance, btcMarketData)
       ),
+      btcAvailableAssetBalance: createBitcoinCryptoCurrencyAssetTypeWrapper(availableBalance),
+      btcAvailableUsdBalance: i18nFormatCurrency(
+        baseCurrencyAmountInQuote(availableBalance, btcMarketData)
+      ),
     }),
-    [btcAddress, btcAssetBalance, btcMarketData]
+    [btcAddress, btcAssetBalance, btcMarketData, availableBalance]
   );
 }

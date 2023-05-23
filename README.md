@@ -9,7 +9,7 @@ Hiro Wallet is the most popular and trusted wallet for apps built on Bitcoin. Co
 
 To integrate this wallet into your app, we recommend [@stacks/connect](https://github.com/hirosystems/connect).
 
-[📚 See Hiro Wallet API Reference →](https://github.com/hirosystems/wallet/wiki)
+[📚 See Hiro Wallet Developer Documentation →](https://hirowallet.gitbook.io/developers)
 
 [📩 Join the mailing list for updates →](https://forms.gle/sdZPu2jbX1AeQ8Fi9)
 

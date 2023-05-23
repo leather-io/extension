@@ -10,7 +10,7 @@ import { determineUtxosForSpend } from '@app/common/transactions/bitcoin/coinsel
 import { useGetUtxosByAddressQuery } from '@app/query/bitcoin/address/utxos-by-address.query';
 import { useAverageBitcoinFeeRates } from '@app/query/bitcoin/fees/fee-estimates.hooks';
 import { useCryptoCurrencyMarketData } from '@app/query/common/market-data/market-data.hooks';
-import { useCurrentBtcNativeSegwitAccountAddressIndexZero } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
+import { useCurrentAccountNativeSegwitAddressIndexZero } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
 
 import { FeesListItem } from './bitcoin-fees-list';
 
@@ -19,7 +19,7 @@ interface UseBitcoinFeesListArgs {
   recipient: string;
 }
 export function useBitcoinFeesList({ amount, recipient }: UseBitcoinFeesListArgs) {
-  const currentAccountBtcAddress = useCurrentBtcNativeSegwitAccountAddressIndexZero();
+  const currentAccountBtcAddress = useCurrentAccountNativeSegwitAddressIndexZero();
   const { data: utxos } = useGetUtxosByAddressQuery(currentAccountBtcAddress);
 
   const btcMarketData = useCryptoCurrencyMarketData('BTC');

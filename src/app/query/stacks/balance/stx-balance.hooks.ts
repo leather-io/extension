@@ -27,6 +27,7 @@ export function parseBalanceResponse(balances: AddressBalanceResponse) {
     ...balances.stx,
     ...stxMoney,
     balance: createMoney(stxMoney.balance.amount, 'STX'),
+    locked: createMoney(stxMoney.locked.amount, 'STX'),
     unlockedStx: createMoney(stxMoney.balance.amount.minus(stxMoney.locked.amount), 'STX'),
   };
   return { ...balances, stx };

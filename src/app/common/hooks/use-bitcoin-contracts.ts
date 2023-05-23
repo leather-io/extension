@@ -10,10 +10,7 @@ import LocalBitcoinContractRepository from '@shared/models/local-bitcoin-contrac
 
 import { useAppDispatch } from '@app/store';
 import { RootState } from '@app/store';
-import {
-  useCurrentAccountNativeSegwitDetails,
-  useCurrentBtcNativeSegwitAccountAddressIndexZero,
-} from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
+import { useCurrentAccountNativeSegwitDetails } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
 import {
   requestOfferedContractAcceptance,
   requestOfferedContractProcess,
@@ -23,6 +20,7 @@ import {
 } from '@app/store/bitcoin-contracts/bitcoin-contracts.slice';
 import { FailedBitcoinContractDetails } from '@app/store/bitcoin-contracts/bitcoin-contracts.slice';
 import { useBitcoinClient } from '@app/store/common/api-clients.hooks';
+import { useCurrentNetwork } from '@app/store/networks/networks.selectors';
 
 const useBitcoinContracts = () => {
   const dispatch = useAppDispatch();
@@ -39,8 +37,7 @@ const useBitcoinContracts = () => {
   const btcContractManager = new DlcManager(btcContractUpdater, btcContractStorage);
   const btcContractService = new BitcoinContractService(btcContractManager, btcContractStorage);
 
-  const btcAddress = useCurrentBtcNativeSegwitAccountAddressIndexZero();
-  const btcDetails = useCurrentAccountNativeSegwitDetails();
+  const btcAccountDetails = useCurrentAccountNativeSegwitDetails();
 
   const {
     bitcoinContractCounterpartyWalletURL,
@@ -49,8 +46,8 @@ const useBitcoinContracts = () => {
     selectedBitcoinContractID,
   } = useSelector((state: RootState) => state.bitcoinContracts);
 
-  const getBitcoinNetwork = (network: string) => {
-    switch (btcDetails?.network.chain.bitcoin.network) {
+  const getBitcoinNetwork = (btcNetwork: string) => {
+    switch (btcNetwork) {
       case 'mainnet':
         return 'Mainnet';
       case 'testnet':
@@ -106,9 +103,11 @@ const useBitcoinContracts = () => {
   }
 
   async function handleAccept(bitcoinContractID: string) {
-    const btcNetwork = getBitcoinNetwork(btcDetails?.network.chain.bitcoin.network!);
-    const btcPrivateKey = uint8ArrayToHex(btcDetails?.addressIndexKeychain.privateKey!);
-    const btcPublicKey = uint8ArrayToHex(btcDetails?.addressIndexKeychain.publicKey!);
+   
+    const btcNetwork = getBitcoinNetwork(btcAccountDetails?.currentNetwork.chain.bitcoin.network!);
+    const btcAddress = btcAccountDetails?.currentAddress!;
+    const btcPrivateKey = uint8ArrayToHex(btcAccountDetails?.currentAddressIndexKeychain.privateKey!);
+    const btcPublicKey = uint8ArrayToHex(btcAccountDetails?.currentAddressIndexKeychain.publicKey!);
 
     dispatch(requestOfferedContractAcceptance());
     try {
@@ -146,7 +145,7 @@ const useBitcoinContracts = () => {
   }
 
   async function handleSign(bitcoinContractID: string) {
-    const btcPrivateKey = uint8ArrayToHex(btcDetails?.addressIndexKeychain.privateKey!);
+    const btcPrivateKey = uint8ArrayToHex(btcAccountDetails?.currentAddressIndexKeychain.privateKey!);
 
     try {
       const bitcoinContract = await btcContractService.processContractSign(

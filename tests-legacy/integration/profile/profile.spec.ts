@@ -1,7 +1,7 @@
+import { Page } from '@playwright/test';
 import { DemoPage } from '@tests-legacy/page-objects/demo.page';
 import { ProfileUpdatingPage } from '@tests-legacy/page-objects/profile-updating.page';
 import { WalletPage } from '@tests-legacy/page-objects/wallet.page';
-import { Page } from 'playwright';
 
 import { RouteUrls } from '@shared/route-urls';
 

@@ -14,21 +14,20 @@ import { SpaceBetween } from '@app/components/layout/space-between';
 import { Tooltip } from '@app/components/tooltip';
 import { Caption, Text } from '@app/components/typography';
 
-import { SubBalance } from '../components/sub-balance';
-
 interface CryptoCurrencyAssetItemLayoutProps extends StackProps {
   balance: Money;
   caption: string;
   icon: JSX.Element;
   copyIcon?: JSX.Element;
   isPressable?: boolean;
-  subBalance?: Money;
   title: string;
   usdBalance?: string;
   address?: string;
   canCopy?: boolean;
   isHovered?: boolean;
   currency?: CryptoCurrencies;
+  additionalBalanceInfo?: JSX.Element;
+  additionalUsdBalanceInfo?: JSX.Element;
 }
 export const CryptoCurrencyAssetItemLayout = forwardRefWithAs(
   (props: CryptoCurrencyAssetItemLayoutProps, ref) => {
@@ -38,11 +37,12 @@ export const CryptoCurrencyAssetItemLayout = forwardRefWithAs(
       icon,
       copyIcon,
       isPressable,
-      subBalance,
       title,
       usdBalance,
       address = '',
       isHovered = false,
+      additionalBalanceInfo,
+      additionalUsdBalanceInfo,
       ...rest
     } = props;
     const [component, bind] = usePressable(isPressable);
@@ -55,7 +55,6 @@ export const CryptoCurrencyAssetItemLayout = forwardRefWithAs(
       balance.symbol.toLowerCase()
     );
     const formattedBalance = formatBalance(amount);
-    const isUnanchored = !!(subBalance && !balance.amount.isEqualTo(subBalance.amount));
 
     return (
       <Flex
@@ -74,14 +73,16 @@ export const CryptoCurrencyAssetItemLayout = forwardRefWithAs(
               placement="left-start"
             >
               <Text data-testid={title} fontVariantNumeric="tabular-nums" textAlign="right">
-                {formattedBalance.value}
+                {formattedBalance.value} {additionalBalanceInfo}
               </Text>
             </Tooltip>
           </SpaceBetween>
           <SpaceBetween height="1.25rem" width="100%">
             <Caption>{caption}</Caption>
-            {balance.amount.toNumber() > 0 && address ? <Caption>{usdBalance}</Caption> : null}
-            {isUnanchored && subBalance ? <SubBalance balance={subBalance} /> : null}
+            <Flex>
+              {balance.amount.toNumber() > 0 && address ? <Caption>{usdBalance}</Caption> : null}
+              {additionalUsdBalanceInfo}
+            </Flex>
           </SpaceBetween>
         </Flag>
         {component}

@@ -6,7 +6,7 @@ import { createMoney } from '@shared/models/money.model';
 import { isDefined } from '@shared/utils';
 
 import { sumNumbers } from '@app/common/math/helpers';
-import { useCurrentBtcNativeSegwitAccountAddressIndexZero } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
+import { useCurrentAccountNativeSegwitAddressIndexZero } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
 
 import { createBitcoinCryptoCurrencyAssetTypeWrapper } from '../address/address.utils';
 import { useGetUtxosByAddressQuery } from '../address/utxos-by-address.query';
@@ -29,7 +29,7 @@ export function useNativeSegwitBalance(address: string) {
 }
 
 export function useCurrentNativeSegwitAddressBalance() {
-  const currentAccountBtcAddress = useCurrentBtcNativeSegwitAccountAddressIndexZero();
+  const currentAccountBtcAddress = useCurrentAccountNativeSegwitAddressIndexZero();
   return useGetBitcoinBalanceByAddress(currentAccountBtcAddress);
 }
 

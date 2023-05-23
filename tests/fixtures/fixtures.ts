@@ -25,9 +25,13 @@ export const test = base.extend<TestFixtures>({
     const pathToExtension = path.join(__dirname, '../../dist');
     const context = await chromium.launchPersistentContext('', {
       headless: false,
+      permissions: ['clipboard-read'],
       args: [
         `--disable-extensions-except=${pathToExtension}`,
         `--load-extension=${pathToExtension}`,
+        // force GPU hardware acceleration
+        // (even in headless mode)
+        '--use-gl=egl',
       ],
     });
     await use(context);

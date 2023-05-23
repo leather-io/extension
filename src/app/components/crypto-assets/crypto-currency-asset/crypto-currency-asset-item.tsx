@@ -13,23 +13,25 @@ import { CryptoCurrencyAssetItemLayout } from './crypto-currency-asset-item.layo
 
 interface CryptoCurrencyAssetItemProps extends StackProps {
   assetBalance: AllCryptoCurrencyAssetBalances;
-  assetSubBalance?: AllCryptoCurrencyAssetBalances;
   icon: JSX.Element;
   usdBalance?: string;
   address?: string;
   isPressable?: boolean;
   canCopy?: boolean;
+  additionalBalanceInfo?: JSX.Element;
+  additionalUsdBalanceInfo?: JSX.Element;
 }
 export const CryptoCurrencyAssetItem = forwardRefWithAs(
   (props: CryptoCurrencyAssetItemProps, ref) => {
     const {
       assetBalance,
-      assetSubBalance,
       icon,
       isPressable,
       address,
       canCopy,
       usdBalance,
+      additionalBalanceInfo,
+      additionalUsdBalanceInfo,
       ...rest
     } = props;
     const { balance, asset } = assetBalance;
@@ -68,7 +70,6 @@ export const CryptoCurrencyAssetItem = forwardRefWithAs(
         copyIcon={canCopy ? <AssetItemCopyIcon hasCopied={hasCopied} /> : undefined}
         isPressable={isPressable}
         ref={ref}
-        subBalance={assetSubBalance?.balance}
         title={asset.name}
         isHovered={isHovered}
         address={address}
@@ -76,6 +77,8 @@ export const CryptoCurrencyAssetItem = forwardRefWithAs(
         onClick={onClick}
         onMouseOver={onHover}
         onMouseOut={onBlur}
+        additionalBalanceInfo={additionalBalanceInfo}
+        additionalUsdBalanceInfo={additionalUsdBalanceInfo}
         {...rest}
       />
     );
