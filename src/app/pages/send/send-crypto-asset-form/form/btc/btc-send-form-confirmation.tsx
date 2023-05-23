@@ -72,7 +72,7 @@ export function BtcSendFormConfirmation() {
       tx,
       async onSuccess(txid) {
         void analytics.track('broadcast_transaction', {
-          token: 'btc',
+          symbol: 'btc',
           amount: transferAmount,
           fee,
           inputs: psbt.inputs.length,

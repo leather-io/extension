@@ -6,6 +6,7 @@ import {
   PageParams,
 } from '@segment/analytics-next/dist/types/core/arguments-resolver';
 
+import { HIRO_API_BASE_URL_MAINNET, HIRO_API_BASE_URL_TESTNET } from '@shared/constants';
 import { IS_TEST_ENV, SEGMENT_WRITE_KEY } from '@shared/environment';
 import { logger } from '@shared/logger';
 import { analytics, initAnalytics } from '@shared/utils/analytics';
@@ -22,7 +23,7 @@ function isIgnoredPath(path: string) {
 }
 
 function isHiroApiUrl(url: string) {
-  return /^https:\/\/.*\.stacks.co/.test(url);
+  return url.includes(HIRO_API_BASE_URL_MAINNET) || url.includes(HIRO_API_BASE_URL_TESTNET);
 }
 
 export function useInitalizeAnalytics() {
@@ -50,9 +51,7 @@ export function useAnalytics() {
       ...(origin && { origin }),
     };
 
-    const defaultOptions = {
-      context: { ip: '0.0.0.0' },
-    };
+    const defaultOptions = { context: { ip: '0.0.0.0' } };
 
     return {
       async identify(properties: object) {

@@ -22,7 +22,7 @@ import { isString, isUndefined } from '@shared/utils';
 import { useDefaultRequestParams } from '@app/common/hooks/use-default-request-search-params';
 import { stxToMicroStx } from '@app/common/money/unit-conversion';
 import { validateStacksAddress } from '@app/common/stacks-utils';
-import { broadcastTransaction } from '@app/common/transactions/stacks/broadcast-transaction';
+import { broadcastStacksTransaction } from '@app/common/transactions/stacks/broadcast-transaction';
 import {
   GenerateUnsignedTransactionOptions,
   generateUnsignedTransaction,
@@ -120,7 +120,7 @@ export function useTransactionBroadcast() {
   return async ({ signedTx }: { signedTx: StacksTransaction }) => {
     try {
       const { isSponsored, serialized, txRaw } = prepareTxDetailsForBroadcast(signedTx);
-      const result = await broadcastTransaction({
+      const result = await broadcastStacksTransaction({
         isSponsored,
         serialized,
         txRaw,
