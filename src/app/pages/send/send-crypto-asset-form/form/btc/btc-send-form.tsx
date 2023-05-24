@@ -17,8 +17,8 @@ import { FormFooter } from '../../components/form-footer';
 import { SelectedAssetField } from '../../components/selected-asset-field';
 import { SendCryptoAssetFormLayout } from '../../components/send-crypto-asset-form.layout';
 import { SendFiatValue } from '../../components/send-fiat-value';
-import { SendMaxButton } from '../../components/send-max-button';
 import { BitcoinRecipientField } from '../../family/bitcoin/components/bitcoin-recipient-field';
+import { BitcoinSendMaxButton } from '../../family/bitcoin/components/bitcoin-send-max-button';
 import { TestnetBtcMessage } from '../../family/bitcoin/components/testnet-btc-message';
 import { useSendFormRouteState } from '../../hooks/use-send-form-route-state';
 import { createDefaultInitialFormValues, defaultSendFormFormikProps } from '../../send-form.utils';
@@ -36,7 +36,9 @@ export function BtcSendForm() {
     chooseTransactionFee,
     currentNetwork,
     formRef,
+    isSendingMax,
     onFormStateChange,
+    onSetIsSendingMax,
     validationSchema,
   } = useBtcSendForm();
 
@@ -54,23 +56,27 @@ export function BtcSendForm() {
       >
         {props => {
           onFormStateChange(props.values);
+          const sendMaxCalculation = calcMaxSpend(props.values.recipient);
+
           return (
             <Form>
               <SendCryptoAssetFormLayout>
                 <AmountField
+                  autoComplete="off"
                   balance={btcBalance.balance}
+                  bottomInputOverlay={
+                    <BitcoinSendMaxButton
+                      balance={btcBalance.balance}
+                      isSendingMax={isSendingMax}
+                      onSetIsSendingMax={onSetIsSendingMax}
+                      sendMaxBalance={sendMaxCalculation.spendableBitcoin.toString()}
+                      sendMaxFee={sendMaxCalculation.spendAllFee.toString()}
+                    />
+                  }
+                  isSendingMax={isSendingMax}
                   switchableAmount={
                     <SendFiatValue marketData={btcMarketData} assetSymbol={'BTC'} />
                   }
-                  bottomInputOverlay={
-                    <SendMaxButton
-                      balance={btcBalance.balance}
-                      sendMaxBalance={calcMaxSpend(
-                        props.values.recipient
-                      ).spendableBitcoin.toString()}
-                    />
-                  }
-                  autoComplete="off"
                 />
                 <SelectedAssetField icon={<BtcIcon />} name={btcBalance.asset.name} symbol="BTC" />
                 <BitcoinRecipientField />

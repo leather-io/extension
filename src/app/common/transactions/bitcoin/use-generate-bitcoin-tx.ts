@@ -5,7 +5,10 @@ import * as btc from '@scure/btc-signer';
 import { logger } from '@shared/logger';
 import { Money } from '@shared/models/money.model';
 
-import { determineUtxosForSpend } from '@app/common/transactions/bitcoin/coinselect/local-coin-selection';
+import {
+  determineUtxosForSpend,
+  determineUtxosForSpendAll,
+} from '@app/common/transactions/bitcoin/coinselect/local-coin-selection';
 import { useSpendableCurrentNativeSegwitAccountUtxos } from '@app/query/bitcoin/address/use-spendable-native-segwit-utxos';
 import { useIsStampedTx } from '@app/query/bitcoin/stamps/use-is-stamped-tx';
 import { useBitcoinScureLibNetworkConfig } from '@app/store/accounts/blockchain/bitcoin/bitcoin-keychain';
@@ -29,7 +32,7 @@ export function useGenerateSignedNativeSegwitTx() {
   const networkMode = useBitcoinScureLibNetworkConfig();
 
   return useCallback(
-    (values: GenerateNativeSegwitTxValues, feeRate: number) => {
+    (values: GenerateNativeSegwitTxValues, feeRate: number, isSendingMax?: boolean) => {
       if (!utxos) return;
       if (!feeRate) return;
       if (!createSigner) return;
@@ -38,13 +41,19 @@ export function useGenerateSignedNativeSegwitTx() {
         const signer = createSigner(0);
 
         const tx = new btc.Transaction();
+        const filteredUtxos = utxos.filter(utxo => !isStamped(utxo.txid));
+        const amountAsNumber = values.amount.amount.toNumber();
 
-        const { inputs, outputs, fee } = determineUtxosForSpend({
-          utxos: utxos.filter(utxo => !isStamped(utxo.txid)),
-          recipient: values.recipient,
-          amount: values.amount.amount.toNumber(),
+        const determineUtxosArgs = {
+          amount: amountAsNumber,
           feeRate,
-        });
+          recipient: values.recipient,
+          utxos: filteredUtxos,
+        };
+
+        const { inputs, outputs, fee } = isSendingMax
+          ? determineUtxosForSpendAll(determineUtxosArgs)
+          : determineUtxosForSpend(determineUtxosArgs);
 
         logger.info('coinselect', { inputs, outputs, fee });
 

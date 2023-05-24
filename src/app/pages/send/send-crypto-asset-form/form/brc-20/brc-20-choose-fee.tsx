@@ -106,6 +106,7 @@ export function BrcChooseFee() {
         amount={amountAsMoney}
         feesList={feesList}
         isLoading={isLoading}
+        isSendingMax={false}
         onChooseFee={previewTransaction}
         onSetSelectedFeeType={(value: BtcFeeType) => setSelectedFeeType(value)}
         selectedFeeType={selectedFeeType}

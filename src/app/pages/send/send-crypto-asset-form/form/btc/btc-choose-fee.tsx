@@ -1,4 +1,4 @@
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 import get from 'lodash.get';
 
@@ -21,23 +21,28 @@ import { useBitcoinFeesList } from '@app/components/bitcoin-fees-list/use-bitcoi
 import { ModalHeader } from '@app/components/modal-header';
 
 import { useSendBtcState } from '../../family/bitcoin/components/send-btc-container';
+import { useCalculateMaxBitcoinSpend } from '../../family/bitcoin/hooks/use-calculate-max-spend';
 import { useSendFormNavigate } from '../../hooks/use-send-form-navigate';
 
 function useBtcChooseFeeState() {
   const location = useLocation();
   return {
+    isSendingMax: get(location.state, 'isSendingMax') as boolean,
     txValues: get(location.state, 'values') as BitcoinSendFormValues,
   };
 }
 
 export function BtcChooseFee() {
-  const { txValues } = useBtcChooseFeeState();
+  const { isSendingMax, txValues } = useBtcChooseFeeState();
+  const navigate = useNavigate();
   const { whenWallet } = useWalletType();
   const sendFormNavigate = useSendFormNavigate();
   const generateTx = useGenerateSignedNativeSegwitTx();
   const { selectedFeeType, setSelectedFeeType } = useSendBtcState();
+  const calcMaxSpend = useCalculateMaxBitcoinSpend();
   const { feesList, isLoading } = useBitcoinFeesList({
     amount: Number(txValues.amount),
+    isSendingMax,
     recipient: txValues.recipient,
   });
 
@@ -46,10 +51,13 @@ export function BtcChooseFee() {
   async function previewTransaction({ feeRate, feeValue, time }: OnChooseFeeArgs) {
     const resp = generateTx(
       {
-        amount: amountAsMoney,
+        amount: isSendingMax
+          ? createMoney(btcToSat(calcMaxSpend(txValues.recipient, feeRate).spendableBitcoin), 'BTC')
+          : amountAsMoney,
         recipient: txValues.recipient,
       },
-      feeRate
+      feeRate,
+      isSendingMax
     );
 
     if (!resp) return logger.error('Attempted to generate raw tx, but no tx exists');
@@ -68,7 +76,12 @@ export function BtcChooseFee() {
     })();
   }
 
-  useRouteHeader(<ModalHeader defaultGoBack hideActions title="Choose fee" />);
+  function onGoBack() {
+    setSelectedFeeType(BtcFeeType.Low);
+    navigate(-1);
+  }
+
+  useRouteHeader(<ModalHeader hideActions onGoBack={onGoBack} title="Choose fee" />);
 
   return (
     <BitcoinFeesListLayout>
@@ -76,6 +89,7 @@ export function BtcChooseFee() {
         amount={amountAsMoney}
         feesList={feesList}
         isLoading={isLoading}
+        isSendingMax={isSendingMax}
         onChooseFee={previewTransaction}
         onSetSelectedFeeType={(value: BtcFeeType) => setSelectedFeeType(value)}
         selectedFeeType={selectedFeeType}
