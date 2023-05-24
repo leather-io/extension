@@ -17,7 +17,7 @@ const excludeEntriesFromHotModuleReload = ['content-script', 'inpage'];
 Object.keys(config.entry).forEach(entryName => {
   if (!excludeEntriesFromHotModuleReload.includes(entryName) && config.entry) {
     config.entry[entryName] = [
-      `webpack-dev-server/client?hot=true&live-reload=true&hostname=${HOST}&port=${PORT}`,
+      `webpack-dev-server/client?hot=true&live-reload=true&logging=none&hostname=${HOST}&port=${PORT}`,
       'webpack/hot/dev-server',
     ].concat(config.entry[entryName]);
   }
@@ -37,10 +37,7 @@ const server = new WebpackDevServer(
     // Disabled as web configure manually above
     hot: false,
     // We disable client bc we do a manual setup for specific entries
-    client: {
-      overlay: false,
-      logging: 'none',
-    },
+    client: false,
     port: process.env.PORT,
     static: {
       directory: path.join(__dirname, '../build'),

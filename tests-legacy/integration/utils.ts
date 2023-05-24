@@ -1,9 +1,9 @@
+import { ChromiumBrowserContext, chromium } from '@playwright/test';
 import { SettingsSelectors } from '@tests-legacy/integration/settings.selectors';
 import { WalletPage } from '@tests-legacy/page-objects/wallet.page';
 import { mkdtemp } from 'fs';
 import { tmpdir } from 'os';
 import { join } from 'path';
-import { ChromiumBrowserContext, chromium } from 'playwright';
 import { Page } from 'playwright-core';
 import { promisify } from 'util';
 

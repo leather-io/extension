@@ -18,10 +18,22 @@ interface CryptoCurrencyAssetItemProps extends StackProps {
   address?: string;
   isPressable?: boolean;
   canCopy?: boolean;
+  additionalBalanceInfo?: JSX.Element;
+  additionalUsdBalanceInfo?: JSX.Element;
 }
 export const CryptoCurrencyAssetItem = forwardRefWithAs(
   (props: CryptoCurrencyAssetItemProps, ref) => {
-    const { assetBalance, icon, isPressable, address, canCopy, usdBalance, ...rest } = props;
+    const {
+      assetBalance,
+      icon,
+      isPressable,
+      address,
+      canCopy,
+      usdBalance,
+      additionalBalanceInfo,
+      additionalUsdBalanceInfo,
+      ...rest
+    } = props;
     const { balance, asset } = assetBalance;
     const [isHovered, setIsHovered] = useState(false);
     const { onCopy, hasCopied } = useClipboard(address || '');
@@ -65,6 +77,8 @@ export const CryptoCurrencyAssetItem = forwardRefWithAs(
         onClick={onClick}
         onMouseOver={onHover}
         onMouseOut={onBlur}
+        additionalBalanceInfo={additionalBalanceInfo}
+        additionalUsdBalanceInfo={additionalUsdBalanceInfo}
         {...rest}
       />
     );

@@ -1,7 +1,7 @@
+import { Page } from '@playwright/test';
 import { DemoPage } from '@tests-legacy/page-objects/demo.page';
 import { ProfileUpdatingPage } from '@tests-legacy/page-objects/profile-updating.page';
 import { WalletPage } from '@tests-legacy/page-objects/wallet.page';
-import { Page } from 'playwright';
 
 import { RouteUrls } from '@shared/route-urls';
 
@@ -50,7 +50,7 @@ describe(`Profile updating`, () => {
     function interceptGaiaRequest(page: Page): Promise<Buffer> {
       return new Promise(resolve => {
         page.on('request', request => {
-          if (request.url().startsWith('https://hub.blockstack.org/store')) {
+          if (request.url().startsWith('https://hub.hiro.so')) {
             const requestBody = request.postDataBuffer();
             if (request.method() === 'GET') return;
             if (requestBody === null) return;

@@ -26,6 +26,8 @@ interface CryptoCurrencyAssetItemLayoutProps extends StackProps {
   canCopy?: boolean;
   isHovered?: boolean;
   currency?: CryptoCurrencies;
+  additionalBalanceInfo?: JSX.Element;
+  additionalUsdBalanceInfo?: JSX.Element;
 }
 export const CryptoCurrencyAssetItemLayout = forwardRefWithAs(
   (props: CryptoCurrencyAssetItemLayoutProps, ref) => {
@@ -39,6 +41,8 @@ export const CryptoCurrencyAssetItemLayout = forwardRefWithAs(
       usdBalance,
       address = '',
       isHovered = false,
+      additionalBalanceInfo,
+      additionalUsdBalanceInfo,
       ...rest
     } = props;
     const [component, bind] = usePressable(isPressable);
@@ -69,13 +73,16 @@ export const CryptoCurrencyAssetItemLayout = forwardRefWithAs(
               placement="left-start"
             >
               <Text data-testid={title} fontVariantNumeric="tabular-nums" textAlign="right">
-                {formattedBalance.value}
+                {formattedBalance.value} {additionalBalanceInfo}
               </Text>
             </Tooltip>
           </SpaceBetween>
           <SpaceBetween height="1.25rem" width="100%">
             <Caption>{caption}</Caption>
-            {balance.amount.toNumber() > 0 && address ? <Caption>{usdBalance}</Caption> : null}
+            <Flex>
+              {balance.amount.toNumber() > 0 && address ? <Caption>{usdBalance}</Caption> : null}
+              {additionalUsdBalanceInfo}
+            </Flex>
           </SpaceBetween>
         </Flag>
         {component}

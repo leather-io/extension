@@ -23,7 +23,7 @@ import {
 } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
 import {
   useCurrentAccountTaprootSigner,
-  useCurrentTaprootAccountKeychain,
+  useTaprootCurrentAccountPrivateKeychain,
 } from '@app/store/accounts/blockchain/bitcoin/taproot-account.hooks';
 import { useCurrentNetwork } from '@app/store/networks/networks.selectors';
 
@@ -114,7 +114,7 @@ function useSignBip322MessageFactory({ address, signPsbt }: SignBip322MessageFac
 function useSignBip322MessageTaproot() {
   const createTaprootSigner = useCurrentAccountTaprootSigner();
   if (!createTaprootSigner) throw new Error('No taproot signer for current account');
-  const currentAccountTaprootKeychain = useCurrentTaprootAccountKeychain();
+  const currentAccountTaprootKeychain = useTaprootCurrentAccountPrivateKeychain();
   if (!currentAccountTaprootKeychain) throw new Error('No keychain for current account');
 
   const signer = createTaprootSigner(0);

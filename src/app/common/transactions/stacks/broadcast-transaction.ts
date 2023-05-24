@@ -17,7 +17,7 @@ interface BroadcastTransactionOptions {
   attachment?: string;
   networkUrl: string;
 }
-export async function broadcastTransaction(options: BroadcastTransactionOptions) {
+export async function broadcastStacksTransaction(options: BroadcastTransactionOptions) {
   const { txRaw, serialized, isSponsored, attachment, networkUrl } = options;
 
   if (isSponsored) {

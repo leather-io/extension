@@ -2,9 +2,10 @@ import { useMemo } from 'react';
 
 import { baseCurrencyAmountInQuote } from '@app/common/money/calculate-money';
 import { i18nFormatCurrency } from '@app/common/money/format-money';
-import { useNativeSegwitBalance } from '@app/query/bitcoin/balance/bitcoin-balances.query';
 import { useCryptoCurrencyMarketData } from '@app/query/common/market-data/market-data.hooks';
 import { useAnchoredStacksAccountBalances } from '@app/query/stacks/balance/stx-balance.hooks';
+
+import { useBtcAssetBalance } from './btc/use-btc-balance';
 
 interface UseTotalBalanceArgs {
   btcAddress: string;
@@ -20,14 +21,17 @@ export function useTotalBalance({ btcAddress, stxAddress }: UseTotalBalanceArgs)
   const { data: balances, isLoading } = useAnchoredStacksAccountBalances(stxAddress);
 
   // get btc balance
-  const btcBalance = useNativeSegwitBalance(btcAddress);
+  const btcBalance = useBtcAssetBalance(btcAddress);
 
   return useMemo(() => {
-    if (!balances || !btcBalance) return null;
+    if (!balances) return null;
 
     // calculate total balance
     const stxUsdAmount = baseCurrencyAmountInQuote(balances.stx.balance, stxMarketData);
-    const btcUsdAmount = baseCurrencyAmountInQuote(btcBalance.balance, btcMarketData);
+    const btcUsdAmount = baseCurrencyAmountInQuote(
+      btcBalance.btcAvailableAssetBalance.balance,
+      btcMarketData
+    );
 
     const totalBalance = { ...stxUsdAmount, amount: stxUsdAmount.amount.plus(btcUsdAmount.amount) };
     return {

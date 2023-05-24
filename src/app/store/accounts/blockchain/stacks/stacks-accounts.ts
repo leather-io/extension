@@ -13,8 +13,8 @@ import {
   StacksAccount,
 } from './stacks-account.models';
 
-const softwareAccountsState = atom<SoftwareStacksAccount[] | undefined>(get => {
-  const wallet = get(softwareStacksWalletState);
+const softwareAccountsState = atom<Promise<SoftwareStacksAccount[] | undefined>>(async get => {
+  const wallet = await get(softwareStacksWalletState);
   const addressVersion = get(addressNetworkVersionState);
   if (!wallet) return undefined;
   return wallet.accounts.map(account => {
@@ -44,8 +44,8 @@ const ledgerAccountsState = atom<HardwareStacksAccount[] | undefined>(get => {
   });
 });
 
-export const stacksAccountState = atom<StacksAccount[] | undefined>(get => {
+export const stacksAccountState = atom<Promise<StacksAccount[] | undefined>>(async get => {
   const ledgerAccounts = get(ledgerAccountsState);
-  const softwareAccounts = get(softwareAccountsState);
+  const softwareAccounts = await get(softwareAccountsState);
   return ledgerAccounts ? ledgerAccounts : softwareAccounts;
 });

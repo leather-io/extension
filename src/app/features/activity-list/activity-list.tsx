@@ -6,7 +6,7 @@ import { useGetBitcoinTransactionsByAddressQuery } from '@app/query/bitcoin/addr
 import { useConfigBitcoinEnabled } from '@app/query/common/hiro-config/hiro-config.query';
 import { useStacksPendingTransactions } from '@app/query/stacks/mempool/mempool.hooks';
 import { useGetAccountTransactionsWithTransfersQuery } from '@app/query/stacks/transactions/transactions-with-transfers.query';
-import { useCurrentBtcNativeSegwitAccountAddressIndexZero } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
+import { useCurrentAccountNativeSegwitAddressIndexZero } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
 import { useSubmittedTransactions } from '@app/store/submitted-transactions/submitted-transactions.selectors';
 
 import { convertBitcoinTxsToListType, convertStacksTxsToListType } from './activity-list.utils';
@@ -16,10 +16,10 @@ import { SubmittedTransactionList } from './components/submitted-transaction-lis
 import { TransactionList } from './components/transaction-list/transaction-list';
 
 export function ActivityList() {
-  const bitcoinAddress = useCurrentBtcNativeSegwitAccountAddressIndexZero();
+  const bitcoinAddress = useCurrentAccountNativeSegwitAddressIndexZero();
   const { isInitialLoading: isInitialLoadingBitcoinTransactions, data: bitcoinTransactions } =
     useGetBitcoinTransactionsByAddressQuery(bitcoinAddress);
-  const bitcoinPendingTxs = useBitcoinPendingTransactions();
+  const bitcoinPendingTxs = useBitcoinPendingTransactions(bitcoinAddress);
   const {
     isInitialLoading: isInitialLoadingStacksTransactions,
     data: stacksTransactionsWithTransfers,

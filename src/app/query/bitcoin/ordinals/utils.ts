@@ -16,6 +16,7 @@ interface GetTaprootAddressArgs {
 }
 export function getTaprootAddress({ index, keychain, network }: GetTaprootAddressArgs) {
   if (!keychain) throw new Error('Expected keychain to be provided');
+
   if (keychain.depth !== DerivationPathDepth.Account)
     throw new Error('Expects keychain to be on the account index');
 
