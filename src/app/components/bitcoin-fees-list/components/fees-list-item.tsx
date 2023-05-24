@@ -3,22 +3,24 @@ import { SharedComponentsSelectors } from '@tests/selectors/shared-component.sel
 
 import { figmaTheme } from '@app/common/utils/figma-theme';
 
-interface FeesCardProps {
+interface FeesListItemProps {
   arrivesIn: string;
   feeAmount: string;
   feeFiatValue: string;
+  feeRate: number;
   feeType: string;
   isSelected?: boolean;
   onClick: () => void;
 }
-export function FeesCard({
+export function FeesListItem({
   arrivesIn,
   feeAmount,
   feeFiatValue,
+  feeRate,
   feeType,
   isSelected,
   ...props
-}: FeesCardProps) {
+}: FeesListItemProps) {
   return (
     <Box
       _hover={{ background: '#F9F9FA' }}
@@ -27,19 +29,21 @@ export function FeesCard({
       borderColor={isSelected ? figmaTheme.borderFocused : color('border')}
       borderRadius="16px"
       boxShadow="0px 1px 2px rgba(0, 0, 0, 0.04)"
-      data-testid={SharedComponentsSelectors.FeeCard}
-      padding="extra-loose"
+      data-testid={SharedComponentsSelectors.FeesListItem}
+      px="base"
+      py="extra-loose"
       transition={transition}
       width="100%"
       {...props}
     >
-      <Flex justifyContent="space-between" mb="tight" fontWeight={500}>
-        <Text>{feeType}</Text>
-        <Text data-testid={SharedComponentsSelectors.FeeCardFeeValue}>{feeAmount}</Text>
-      </Flex>
-      <Flex justifyContent="space-between" color="#74777D">
+      <Flex justifyContent="center" mb="base-tight" fontWeight={500}>
+        <Text mr="tight">{feeType}</Text>
         <Text>{arrivesIn}</Text>
-        <Text>{feeFiatValue}</Text>
+      </Flex>
+      <Flex justifyContent="center" color={color('text-caption')}>
+        <Text
+          data-testid={SharedComponentsSelectors.FeesListItemFeeValue}
+        >{`${feeFiatValue} | ${feeRate} sats/vB | ${feeAmount}`}</Text>
       </Flex>
     </Box>
   );

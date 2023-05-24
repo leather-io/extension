@@ -66,6 +66,7 @@ export function RpcSendTransferChooseFee() {
       amount={amountAsMoney}
       feesList={feesList}
       isLoading={isLoading}
+      isSendingMax={false}
       onChooseFee={previewTransfer}
       onSetSelectedFeeType={(value: BtcFeeType) => setSelectedFeeType(value)}
       selectedFeeType={selectedFeeType}

@@ -15,6 +15,6 @@ export enum SharedComponentsSelectors {
   FeeToBePaidLabel = 'fee-to-be-paid-label',
   LowFeeEstimateItem = 'low-fee',
   MiddleFeeEstimateItem = 'standard-fee',
-  FeeCard = 'fee-card',
-  FeeCardFeeValue = 'fee-card-fee-value',
+  FeesListItem = 'fee-list-item',
+  FeesListItemFeeValue = 'fee-list-item-fee-value',
 }
