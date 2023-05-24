@@ -40,7 +40,7 @@ export const softwareStacksWalletState = atom(async get => {
   if (currentAccountIndex > highestAccountIndex) {
     void analytics?.track('illegal_wallet_state_current_index_higher_than_highest');
   }
-  return deriveWalletWithAccounts(defaultInMemoryKey, accountsToRender);
+  return await deriveWalletWithAccounts(defaultInMemoryKey, accountsToRender);
 });
 
 //
@@ -62,9 +62,9 @@ export const softwareStacksWalletState = atom(async get => {
 // Here, we mock the `Wallet` type for hardware wallets. Setting all the crypto
 // values to an empty string, and only including the properties we do have
 // access to.
-const ledgerStacksWalletState = atom(get => {
+const ledgerStacksWalletState = atom(async get => {
   const store = get(storeAtom);
-  const accounts = get(stacksAccountState);
+  const accounts = await get(stacksAccountState);
   const defaultKey = store.keys.entities[defaultKeyId];
 
   if (!defaultKey || defaultKey.type !== 'ledger') return;
@@ -79,8 +79,8 @@ const ledgerStacksWalletState = atom(get => {
   return wallet;
 });
 
-const stacksWalletState = atom(get => {
-  const softwareWallet = get(softwareStacksWalletState);
+const stacksWalletState = atom(async get => {
+  const softwareWallet = await get(softwareStacksWalletState);
   const ledgerWallet = get(ledgerStacksWalletState);
   return softwareWallet ? softwareWallet : ledgerWallet;
 });
