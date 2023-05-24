@@ -1,6 +1,6 @@
 import { useCallback, useState } from 'react';
 
-import { Box, Stack, Text, color } from '@stacks/ui';
+import { Stack, Text, color } from '@stacks/ui';
 
 import { BtcFeeType } from '@shared/models/fees/bitcoin-fees.model';
 import { Money, createMoney } from '@shared/models/money.model';
@@ -10,7 +10,10 @@ import { formatMoney } from '@app/common/money/format-money';
 import { useCurrentNativeSegwitAddressBalance } from '@app/query/bitcoin/balance/bitcoin-balances.query';
 
 import { LoadingSpinner } from '../loading-spinner';
-import { FeesCard } from './components/fees-card';
+import { FeesListError } from './components/fees-list-error';
+import { FeesListItem } from './components/fees-list-item';
+import { FeesListSubtitle } from './components/fees-list-subtitle';
+import { InsufficientBalanceError } from './components/insufficient-balance-error';
 
 export interface FeesListItem {
   label: BtcFeeType;
@@ -31,6 +34,7 @@ interface BitcoinFeesListProps {
   amount: Money;
   feesList: FeesListItem[];
   isLoading: boolean;
+  isSendingMax: boolean;
   onChooseFee({ feeRate, feeValue, time }: OnChooseFeeArgs): Promise<void>;
   onSetSelectedFeeType(value: BtcFeeType): void;
   selectedFeeType: BtcFeeType;
@@ -39,6 +43,7 @@ export function BitcoinFeesList({
   amount,
   feesList,
   isLoading,
+  isSendingMax,
   onChooseFee,
   onSetSelectedFeeType,
   selectedFeeType,
@@ -75,15 +80,9 @@ export function BitcoinFeesList({
 
   if (isLoading) return <LoadingSpinner />;
 
-  if (!feesList.length) {
-    return (
-      <Text color={color('text-caption')} fontSize={1} lineHeight="20px" textAlign="center">
-        Unable to calculate fees.
-        <br />
-        Check balance and try again.
-      </Text>
-    );
-  }
+  // TODO: This should be changed when custom fees are implemented. We can simply
+  // force custom fee setting when api requests fail and we can't calculate fees.
+  if (!feesList.length) return <FeesListError />;
 
   return (
     <Stack alignItems="center" spacing="base" width="100%">
@@ -97,23 +96,17 @@ export function BitcoinFeesList({
         </Text>
       ) : null}
       {showInsufficientBalanceError ? (
-        <Box display="flex" alignItems="center" minHeight="40px">
-          <Text color={color('feedback-error')} fontSize={1} textAlign="center">
-            Fee is too expensive for available balance
-          </Text>
-        </Box>
+        <InsufficientBalanceError />
       ) : (
-        <Text color={color('text-caption')} fontSize={1} lineHeight="20px" textAlign="center">
-          Fees are deducted from your balance,
-          <br /> it won't affect your sending amount.
-        </Text>
+        <FeesListSubtitle isSendingMax={isSendingMax} />
       )}
       <Stack mt="tight" spacing="base" width="100%">
         {feesList.map(({ label, value, btcValue, fiatValue, time, feeRate }) => (
-          <FeesCard
+          <FeesListItem
             arrivesIn={time}
             feeAmount={btcValue}
             feeFiatValue={fiatValue}
+            feeRate={feeRate}
             feeType={label}
             key={label}
             isSelected={label === selectedFeeType}

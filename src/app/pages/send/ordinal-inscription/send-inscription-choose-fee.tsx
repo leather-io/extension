@@ -41,6 +41,7 @@ export function SendInscriptionChooseFee() {
           amount={createMoney(0, 'BTC')}
           feesList={feesList}
           isLoading={isLoading}
+          isSendingMax={false}
           onChooseFee={previewTransaction}
           onSetSelectedFeeType={(value: BtcFeeType) => setSelectedFeeType(value)}
           selectedFeeType={selectedFeeType}

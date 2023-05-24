@@ -23,7 +23,7 @@ export class SendPage {
   readonly sendMaxButton: Locator;
   readonly feesRow: Locator;
   readonly memoRow: Locator;
-  readonly feesCard: Locator;
+  readonly feesListItem: Locator;
 
   constructor(page: Page) {
     this.page = page;
@@ -55,7 +55,7 @@ export class SendPage {
     this.memoRow = page.getByTestId(SendCryptoAssetSelectors.ConfirmationDetailsMemo);
 
     this.sendMaxButton = page.getByTestId(SendCryptoAssetSelectors.SendMaxBtn);
-    this.feesCard = page.getByTestId(SharedComponentsSelectors.FeeCard);
+    this.feesListItem = page.getByTestId(SharedComponentsSelectors.FeesListItem);
   }
 
   async selectBtcAndGoToSendForm() {
