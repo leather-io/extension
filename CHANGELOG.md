@@ -1,3 +1,26 @@
+## [4.26.0](https://github.com/hirosystems/wallet/compare/v4.25.0...v4.26.0) (2023-05-24)
+
+
+### Features
+
+* change gaia url, closes [#3678](https://github.com/hirosystems/wallet/issues/3678) ([baa3c4a](https://github.com/hirosystems/wallet/commit/baa3c4a11f41d599e120f2323dcf70fcab361821))
+* show available btc balance in balances list and total balance, closes [#3685](https://github.com/hirosystems/wallet/issues/3685) ([c329a69](https://github.com/hirosystems/wallet/commit/c329a69a52c9e070511f99ae8fb5cfd75b875ed3))
+* show stacked balance, closes [#2835](https://github.com/hirosystems/wallet/issues/2835) ([80af821](https://github.com/hirosystems/wallet/commit/80af8217c86631148900bc71188b8867c69b78d6))
+
+
+### Bug Fixes
+
+* **analytics:** wrong api details, missing token ([db3a296](https://github.com/hirosystems/wallet/commit/db3a296a4f0b4c87c6b99d32272dd1e3cf9e021d))
+* live reload losing in memory key ([0803ce6](https://github.com/hirosystems/wallet/commit/0803ce6ad7b62fe0d17e9b90a4107f09bb86249b))
+* stamps query key ([647cbee](https://github.com/hirosystems/wallet/commit/647cbee1079a50ff620864d8cf5955b8b39152da))
+
+
+### Internal
+
+* key derivation, closes [#3725](https://github.com/hirosystems/wallet/issues/3725) ([11f9461](https://github.com/hirosystems/wallet/commit/11f9461a68c35c58a23c00aee8766c2b463106f1))
+* upgrade dev deps ([d9c9f30](https://github.com/hirosystems/wallet/commit/d9c9f30ad5a675028c305fc889c9212a162f1a10))
+* upgrade to jotai v2, other pkgs ([b3ec461](https://github.com/hirosystems/wallet/commit/b3ec461bb8da40d90acf4b7c6b6055cc39fd07aa))
+
 ## [4.25.0](https://github.com/hirosystems/wallet/compare/v4.24.2...v4.25.0) (2023-05-21)
 
 
