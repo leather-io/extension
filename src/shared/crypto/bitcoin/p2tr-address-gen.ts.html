@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">50% </span>
+                <span class="strong">72.72% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>8/16</span>
+                <span class='fraction'>8/11</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">37.5% </span>
+                <span class="strong">50% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>3/8</span>
+                <span class='fraction'>3/6</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">83.33% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>5/6</span>
+                <span class='fraction'>5/5</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">53.84% </span>
+                <span class="strong">77.77% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>7/13</span>
+                <span class='fraction'>7/9</span>
             </div>
         
             
@@ -99,31 +99,7 @@
 <a name='L34'></a><a href='#L34'>34</a>
 <a name='L35'></a><a href='#L35'>35</a>
 <a name='L36'></a><a href='#L36'>36</a>
-<a name='L37'></a><a href='#L37'>37</a>
-<a name='L38'></a><a href='#L38'>38</a>
-<a name='L39'></a><a href='#L39'>39</a>
-<a name='L40'></a><a href='#L40'>40</a>
-<a name='L41'></a><a href='#L41'>41</a>
-<a name='L42'></a><a href='#L42'>42</a>
-<a name='L43'></a><a href='#L43'>43</a>
-<a name='L44'></a><a href='#L44'>44</a>
-<a name='L45'></a><a href='#L45'>45</a>
-<a name='L46'></a><a href='#L46'>46</a>
-<a name='L47'></a><a href='#L47'>47</a>
-<a name='L48'></a><a href='#L48'>48</a>
-<a name='L49'></a><a href='#L49'>49</a>
-<a name='L50'></a><a href='#L50'>50</a>
-<a name='L51'></a><a href='#L51'>51</a>
-<a name='L52'></a><a href='#L52'>52</a>
-<a name='L53'></a><a href='#L53'>53</a>
-<a name='L54'></a><a href='#L54'>54</a>
-<a name='L55'></a><a href='#L55'>55</a>
-<a name='L56'></a><a href='#L56'>56</a>
-<a name='L57'></a><a href='#L57'>57</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L37'></a><a href='#L37'>37</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -158,22 +134,6 @@
 <span class="cline-any cline-yes">6x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">6x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { HDKey } from '@scure/bip32';
 import * as btc from '@scure/btc-signer';
@@ -182,11 +142,7 @@ import { BitcoinNetworkModes, NetworkModes } from '@shared/constants';
 &nbsp;
 import { DerivationPathDepth } from '../derivation-path.utils';
 import { getBtcSignerLibNetworkConfigByMode } from './bitcoin.network';
-import {
-  deriveAddressIndexKeychainFromAccount,
-  ecdsaPublicKeyToSchnorr,
-  getBitcoinCoinTypeIndexByNetwork,
-} from './bitcoin.utils';
+import { ecdsaPublicKeyToSchnorr, getBitcoinCoinTypeIndexByNetwork } from './bitcoin.utils';
 &nbsp;
 function getTaprootAccountDerivationPath(network: NetworkModes, accountIndex: number) {
   return `m/86'/${getBitcoinCoinTypeIndexByNetwork(network)}'/${accountIndex}'`;
@@ -215,22 +171,6 @@ export function getTaprootPaymentFromAddressIndex(keychain: HDKey, network: Bitc
 &nbsp;
   return getTaprootPayment(keychain.publicKey, network);
 }
-&nbsp;
-interface DeriveTaprootReceiveAddressIndexArgs {
-  xpub: string;
-  index: number;
-  network: BitcoinNetworkModes;
-}
-export function <span class="fstat-no" title="function not covered" >deriveTaprootReceiveAddressIndex({</span>
-  xpub,
-  index,
-  network,
-}: DeriveTaprootReceiveAddressIndexArgs) {
-<span class="cstat-no" title="statement not covered" >  if (!xpub) <span class="cstat-no" title="statement not covered" >return;</span></span>
-  const keychain = <span class="cstat-no" title="statement not covered" >HDKey.fromExtendedKey(xpub);</span>
-  const addressIndexKeychain = <span class="cstat-no" title="statement not covered" >deriveAddressIndexKeychainFromAccount(keychain)(index);</span>
-<span class="cstat-no" title="statement not covered" >  return getTaprootPayment(addressIndexKeychain.publicKey!, network);</span>
-}
 &nbsp;</pre></td></tr></table></pre>
 
                 <div class='push'></div><!-- for sticky footer -->
@@ -238,7 +178,7 @@ export function <span class="fstat-no" title="function not covered" >deriveTapro
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2023-05-21T13:35:24.801Z
+                at 2023-05-24T17:30:53.449Z
             </div>
         <script src="../../../../prettify.js"></script>
         <script>
