@@ -50,7 +50,7 @@ describe(`Profile updating`, () => {
     function interceptGaiaRequest(page: Page): Promise<Buffer> {
       return new Promise(resolve => {
         page.on('request', request => {
-          if (request.url().startsWith('https://hub.hiro.so')) {
+          if (request.url().startsWith('https://hub.blockstack.org/store')) {
             const requestBody = request.postDataBuffer();
             if (request.method() === 'GET') return;
             if (requestBody === null) return;
