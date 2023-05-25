@@ -3,7 +3,7 @@ import { ChainID } from '@stacks/transactions';
 import { IS_TEST_ENV } from './environment';
 import { Blockchains } from './models/blockchain.model';
 
-export const gaiaUrl = 'https://hub.hiro.so';
+export const gaiaUrl = 'https://hub.blockstack.org';
 
 export const POPUP_CENTER_WIDTH = 442;
 export const POPUP_CENTER_HEIGHT = 646;
