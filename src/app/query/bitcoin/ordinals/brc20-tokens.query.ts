@@ -19,12 +19,13 @@ interface Brc20TokensByAddressResponse {
 
 async function fetchBrc20TokensByAddress(address: string): Promise<Brc20TokensByAddressResponse> {
   const res = await fetch(
-    `https://unisat.io/api/v3/brc20/tokens?address=${address}&cursor=0&size=100`,
+    `https://unisat.io/wallet-api-v4/brc20/tokens?address=${address}&cursor=0&size=100`,
     {
       method: 'GET',
       headers: {
-        'X-Client': 'UniSat Wallet',
-        'X-Version': '1.1.19',
+        'x-client': 'UniSat Wallet',
+        'x-version': '1.1.20',
+        'x-address': address,
       },
     }
   );
