@@ -43,7 +43,6 @@ jobs:
         env:
           PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD: 1
         run: yarn --frozen-lockfile
-        shell: bash
 
       - name: Cache playwright binaries
         uses: actions/cache@v3
@@ -53,7 +52,7 @@ jobs:
           key: ${{ runner.os }}-playwright-cache-${{ env.PLAYWRIGHT_VERSION }}
 
       - name: Install Playwright browsers
-        run: yarn playwright install chrome
+        run: yarn playwright install chrome chromium
         if: steps.playwright-cache.outputs.cache-hit != 'true'
 
       - name: Install Playwright deps
