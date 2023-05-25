@@ -61,7 +61,8 @@ module.exports = {
     '@typescript-eslint/no-explicit-any': ['off'],
     '@typescript-eslint/no-meaningless-void-operator': 'error',
     '@typescript-eslint/ban-types': ['error'],
-    '@typescript-eslint/no-unnecessary-condition': 'warn',
+    // This rule is off until we can enable tsconfig noUncheckedIndexedAccess
+    '@typescript-eslint/no-unnecessary-condition': 'off',
     '@typescript-eslint/consistent-type-definitions': ['error', 'interface'],
     'no-warning-comments': [0],
 
