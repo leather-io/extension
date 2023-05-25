@@ -3,8 +3,9 @@ import { BtcKitMethodMap, ExtractErrorResponse, ExtractSuccessResponse } from '@
 import { ValueOf } from '@shared/utils/type-utils';
 
 import { Test } from './methods/test-method';
+import { DefineHandleBitcoinContractMethod } from './methods/handle-bitcoin-contract-method';
 
-export type WalletMethodMap = BtcKitMethodMap & Test;
+export type WalletMethodMap = BtcKitMethodMap & Test & DefineHandleBitcoinContractMethod;
 
 export type WalletRequests = ValueOf<WalletMethodMap>['request'];
 export type WalletResponses = ValueOf<WalletMethodMap>['response'];

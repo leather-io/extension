@@ -7,6 +7,7 @@ import { ContractState, ContractUpdater, DlcManager, DlcSigner, getId } from 'dl
 import BitcoinBlockchainInterface from '@shared/models/bitcoin-blockchain-interface';
 import BitcoinContractService from '@shared/models/bitcoin-contract-service';
 import LocalBitcoinContractRepository from '@shared/models/local-bitcoin-contract-repository';
+import { makeRpcSuccessResponse } from '@shared/rpc/rpc-methods';
 
 import { useAppDispatch } from '@app/store';
 import { RootState } from '@app/store';
@@ -20,11 +21,15 @@ import {
 } from '@app/store/bitcoin-contracts/bitcoin-contracts.slice';
 import { FailedBitcoinContractDetails } from '@app/store/bitcoin-contracts/bitcoin-contracts.slice';
 import { useBitcoinClient } from '@app/store/common/api-clients.hooks';
-import { useCurrentNetwork } from '@app/store/networks/networks.selectors';
+
+import { initialSearchParams } from '../initial-search-params';
+import { useDefaultRequestParams } from './use-default-request-search-params';
 
 const useBitcoinContracts = () => {
   const dispatch = useAppDispatch();
   const btcClient = useBitcoinClient();
+
+  const defaultParams = useDefaultRequestParams();
 
   const btcBlockchainInterface = new BitcoinBlockchainInterface(
     (txid: string) => btcClient.transactionsApi.getRawBitcoinTransaction(txid),
@@ -103,10 +108,11 @@ const useBitcoinContracts = () => {
   }
 
   async function handleAccept(bitcoinContractID: string) {
-   
     const btcNetwork = getBitcoinNetwork(btcAccountDetails?.currentNetwork.chain.bitcoin.network!);
     const btcAddress = btcAccountDetails?.currentAddress!;
-    const btcPrivateKey = uint8ArrayToHex(btcAccountDetails?.currentAddressIndexKeychain.privateKey!);
+    const btcPrivateKey = uint8ArrayToHex(
+      btcAccountDetails?.currentAddressIndexKeychain.privateKey!
+    );
     const btcPublicKey = uint8ArrayToHex(btcAccountDetails?.currentAddressIndexKeychain.publicKey!);
 
     dispatch(requestOfferedContractAcceptance());
@@ -135,6 +141,15 @@ const useBitcoinContracts = () => {
       const bitcoinContract = await btcContractService.rejectContract(bitcoinContractID);
       console.log('Handle Reject Success', bitcoinContract);
       dispatch(updateContractsOnSuccessfulAction(bitcoinContract));
+      chrome.tabs.sendMessage(
+        defaultParams.tabId!,
+        makeRpcSuccessResponse('acceptOffer', {
+          id: initialSearchParams.get('requestID')!,
+          contractID: bitcoinContract.temporaryContractId,
+          action: 'reject',
+        })
+      );
+      close();
     } catch (error) {
       const failedBitcoinContractDetails: FailedBitcoinContractDetails = {
         bitcoinContractID: bitcoinContractID,
@@ -145,7 +160,9 @@ const useBitcoinContracts = () => {
   }
 
   async function handleSign(bitcoinContractID: string) {
-    const btcPrivateKey = uint8ArrayToHex(btcAccountDetails?.currentAddressIndexKeychain.privateKey!);
+    const btcPrivateKey = uint8ArrayToHex(
+      btcAccountDetails?.currentAddressIndexKeychain.privateKey!
+    );
 
     try {
       const bitcoinContract = await btcContractService.processContractSign(
@@ -157,6 +174,15 @@ const useBitcoinContracts = () => {
       if (bitcoinContract.state === ContractState.Broadcast) {
         const txID = Transaction.fromHex(bitcoinContract.dlcTransactions.fund).getId();
         console.log('Broadcasted Transaction ID', txID);
+        chrome.tabs.sendMessage(
+          defaultParams.tabId!,
+          makeRpcSuccessResponse('acceptOffer', {
+            id: initialSearchParams.get('requestID')!,
+            contractID: bitcoinContract.temporaryContractId,
+            txID: txID,
+            action: 'broadcast',
+          })
+        );
       }
       dispatch(updateContractsOnSuccessfulAction(bitcoinContract));
     } catch (error) {

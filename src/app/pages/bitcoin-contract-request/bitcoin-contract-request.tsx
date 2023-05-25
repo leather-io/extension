@@ -1,33 +1,38 @@
 import { useEffect } from 'react';
 import { useState } from 'react';
 import { useSelector } from 'react-redux';
-import { useParams } from 'react-router-dom';
 
 import { Button } from '@stacks/ui';
 import { Text } from '@stacks/ui';
 import { AnyContract } from 'dlc-lib';
 
 import useBitcoinContracts from '@app/common/hooks/use-bitcoin-contracts';
+import { initialSearchParams } from '@app/common/initial-search-params';
+import { useNativeSegwitBalance } from '@app/query/bitcoin/balance/bitcoin-balances.query';
 import { RootState, useAppDispatch } from '@app/store';
-import { store } from '@app/store';
+import { useCurrentAccountNativeSegwitDetails } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
 import { requestClearState } from '@app/store/bitcoin-contracts/bitcoin-contracts.slice';
 
 function BitcoinContractRequest() {
   const bitcoinContractHandler = useBitcoinContracts();
   const dispatch = useAppDispatch();
 
-  const { offer, counterpartyWalletUrl } = useParams();
+  const { selectedBitcoinContractID, bitcoinContractActionError, bitcoinContractProcessing } =
+    useSelector((state: RootState) => state.bitcoinContracts);
 
-  const {
-    selectedBitcoinContractID,
-    bitcoinContractActionError,
-    bitcoinContractProcessing,
-  } = useSelector((state: RootState) => state.bitcoinContracts);
-
-  const bitcoinContractsSlice = store.getState().bitcoinContracts;
+  const btcAccountDetails = useCurrentAccountNativeSegwitDetails();
+  const bitcoinBalance = useNativeSegwitBalance(btcAccountDetails?.currentAddress!);
 
   const [selectedBitcoinContract, selectBitcoinContract] = useState<AnyContract>();
+  const [canAccept, setCanAccept] = useState(false);
   const [isLoading, setLoading] = useState(true);
+
+  function calculateAndSetCanAccept(totalCollateral: number, offerorCollateral: number): void {
+    console.log('calculateAndSetCanAccept', Number(bitcoinBalance.balance.amount));
+    const btcCollateralAmount = totalCollateral - offerorCollateral;
+    const updatedCanAccept = Number(bitcoinBalance.balance.amount) >= btcCollateralAmount;
+    setCanAccept(updatedCanAccept);
+  }
 
   const handleReceivedOffer = async (
     bitcoinContractOffer: string,
@@ -55,11 +60,13 @@ function BitcoinContractRequest() {
   }, []);
 
   useEffect(() => {
-    if (!offer || !counterpartyWalletUrl) {
-      return;
-    }
-    handleReceivedOffer(offer, counterpartyWalletUrl);
-  }, [offer, counterpartyWalletUrl]);
+    const bitcoinContractOffer = initialSearchParams.get('bitcoinContractOffer');
+    const counterpartyWalletURL = initialSearchParams.get('counterpartyWalletURL');
+
+    if (!bitcoinContractOffer || !counterpartyWalletURL) return;
+
+    handleReceivedOffer(bitcoinContractOffer, counterpartyWalletURL);
+  }, []);
 
   useEffect(() => {
     if (!selectedBitcoinContractID) {
@@ -68,13 +75,11 @@ function BitcoinContractRequest() {
     getBitcoinContract(selectedBitcoinContractID).then(bitcoinContract => {
       selectBitcoinContract(bitcoinContract);
     });
+    calculateAndSetCanAccept(
+      selectedBitcoinContract?.contractInfo.totalCollateral!,
+      selectedBitcoinContract?.offerParams.collateral!
+    );
   }, [selectedBitcoinContractID]);
-
-  useEffect(() => {
-    if (bitcoinContractActionError) {
-      console.error(bitcoinContractActionError);
-    }
-  }, [bitcoinContractActionError]);
 
   return (
     <>
@@ -83,7 +88,10 @@ function BitcoinContractRequest() {
           {bitcoinContractActionError === undefined ? (
             <>
               <Text>'State:'{selectedBitcoinContract?.state}</Text>
-              <Button onClick={() => handleAcceptClick(selectedBitcoinContractID!)}>
+              <Button
+                isDisabled={canAccept}
+                onClick={() => handleAcceptClick(selectedBitcoinContractID!)}
+              >
                 ACCEPT OFFER
               </Button>
               <Button onClick={() => handleRejectClick(selectedBitcoinContractID!)}>

@@ -15,7 +15,6 @@ import {
 } from './messaging/legacy-external-message-handler';
 import { internalBackgroundMessageHandler } from './messaging/message-handler';
 import { rpcMessageHandler } from './messaging/rpc-message-handler';
-import { popupCenter } from './popup-center';
 
 initSentry();
 initContextMenuActions();
@@ -78,25 +77,3 @@ if (IS_TEST_ENV) {
   // Expose a helper function to open a new tab with the wallet from tests
   (window as any).openOptionsPage = (page: string) => chrome.runtime.getURL(`index.html#${page}`);
 }
-
-export interface RequestInterface {
-  action: 'dlc.offerRequest';
-  data: {
-    offer: string;
-    counterpartyWalletUrl: string;
-  };
-}
-
-chrome.runtime.onMessageExternal.addListener(async function (
-  request: RequestInterface,
-  sender,
-  sendResponse
-) {
-  const encodedBitcoinContractOffer = encodeURIComponent(JSON.stringify(request.data.offer));
-  const encodedCounterpartyWalletUrl = encodeURIComponent(request.data.counterpartyWalletUrl);
-  const url = `/popup.html#/bitcoin-contract-offer/${encodedBitcoinContractOffer}/${encodedCounterpartyWalletUrl}`;
-  await popupCenter({
-    url,
-  });
-  sendResponse({ success: true });
-});
