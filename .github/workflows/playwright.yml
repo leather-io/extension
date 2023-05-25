@@ -42,7 +42,6 @@ jobs:
         env:
           PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD: 1
         run: yarn --frozen-lockfile
-        shell: bash
 
       - name: Cache playwright binaries
         uses: actions/cache@v3
