@@ -57,6 +57,7 @@ import { AccountGate } from '@app/routes/account-gate';
 import { useHasUserRespondedToAnalyticsConsent } from '@app/store/settings/settings.selectors';
 
 import { OnboardingGate } from './onboarding-gate';
+import { LockBitcoinSummary } from '@app/pages/send/lock-bitcoin-contract/lock-bitcoin-contract';
 
 export function AppRoutes() {
   const routes = useAppRoutes();
@@ -149,6 +150,7 @@ function useAppRoutes() {
             </AccountGate>
           }
         ></Route>
+        <Route path={RouteUrls.LockBitcoin} element={<LockBitcoinSummary/>} />
         <Route
           path={RouteUrls.Onboarding}
           element={

@@ -86,6 +86,7 @@ export enum RouteUrls {
   RpcSendTransferConfirmation = '/send-transfer/confirm',
   RpcSendTransferSummary = '/send-transfer/summary',
   BitcoinContractOffer = '/bitcoin-contract-offer/:bitcoinContractOffer/:counterpartyWalletURL',
+  LockBitcoin = '/lock-bitcoin',
 
   RpcSignBip322Message = '/sign-bip322-message',
 }

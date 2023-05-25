@@ -1,5 +1,7 @@
 import { useEffect } from 'react';
+import { useCallback } from 'react';
 import { useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 
 import { Transaction } from 'bitcoinjs-lib';
 import { ContractState, ContractUpdater, DlcManager, DlcSigner, getId } from 'dlc-lib';
@@ -7,8 +9,10 @@ import { ContractState, ContractUpdater, DlcManager, DlcSigner, getId } from 'dl
 import BitcoinBlockchainInterface from '@shared/models/bitcoin-blockchain-interface';
 import BitcoinContractService from '@shared/models/bitcoin-contract-service';
 import LocalBitcoinContractRepository from '@shared/models/local-bitcoin-contract-repository';
+import { createMoneyFromDecimal } from '@shared/models/money.model';
 import { makeRpcSuccessResponse } from '@shared/rpc/rpc-methods';
 
+import { useCryptoCurrencyMarketData } from '@app/query/common/market-data/market-data.hooks';
 import { useAppDispatch } from '@app/store';
 import { RootState } from '@app/store';
 import { useCurrentAccountNativeSegwitDetails } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
@@ -23,13 +27,19 @@ import { FailedBitcoinContractDetails } from '@app/store/bitcoin-contracts/bitco
 import { useBitcoinClient } from '@app/store/common/api-clients.hooks';
 
 import { initialSearchParams } from '../initial-search-params';
+import { baseCurrencyAmountInQuote } from '../money/calculate-money';
+import { i18nFormatCurrency } from '../money/format-money';
+import { satToBtc } from '../money/unit-conversion';
 import { useDefaultRequestParams } from './use-default-request-search-params';
 
 const useBitcoinContracts = () => {
   const dispatch = useAppDispatch();
   const btcClient = useBitcoinClient();
+  const navigate = useNavigate();
 
   const defaultParams = useDefaultRequestParams();
+
+  const btcMarketData = useCryptoCurrencyMarketData('BTC');
 
   const btcBlockchainInterface = new BitcoinBlockchainInterface(
     (txid: string) => btcClient.transactionsApi.getRawBitcoinTransaction(txid),
@@ -50,6 +60,14 @@ const useBitcoinContracts = () => {
     bitcoinContractActionSuccessful,
     selectedBitcoinContractID,
   } = useSelector((state: RootState) => state.bitcoinContracts);
+
+  const getFiatValue = useCallback(
+    (value: string) =>
+      i18nFormatCurrency(
+        baseCurrencyAmountInQuote(createMoneyFromDecimal(Number(value), 'BTC'), btcMarketData)
+      ),
+    [btcMarketData]
+  );
 
   const getBitcoinNetwork = (btcNetwork: string) => {
     switch (btcNetwork) {
@@ -171,9 +189,29 @@ const useBitcoinContracts = () => {
         bitcoinContractCounterpartyWalletURL!
       );
       console.log('Handle Sign Success', bitcoinContract);
+
       if (bitcoinContract.state === ContractState.Broadcast) {
         const txID = Transaction.fromHex(bitcoinContract.dlcTransactions.fund).getId();
-        console.log('Broadcasted Transaction ID', txID);
+        const btcCollateral = bitcoinContract.contractInfo.totalCollateral - bitcoinContract.offerParams.collateral;
+        const txValue = satToBtc(btcCollateral).toString();
+        const txFiatValue = getFiatValue(txValue);
+        const txFiatValueSymbol = btcMarketData.price.symbol;
+        const txLink = {
+          blockchain: 'bitcoin',
+          txid: txID,
+        };
+
+        navigate('/lock-bitcoin', {
+          state: {
+            txId: txID,
+            txValue,
+            txFiatValue,
+            txFiatValueSymbol,
+            symbol: 'BTC',
+            txLink,
+          },
+        });
+
         chrome.tabs.sendMessage(
           defaultParams.tabId!,
           makeRpcSuccessResponse('acceptOffer', {
@@ -193,6 +231,19 @@ const useBitcoinContracts = () => {
       dispatch(updateContractsOnFailedAction(failedBitcoinContractDetails));
     }
   }
+
+  // useEffect(() => {
+  //   if (error) {
+  //     navigate('/tx-status', {
+  //       state: {
+  //         txid: '',
+  //         currency: 'BTC',
+  //         error: error,
+  //         browserTx: true,
+  //       },
+  //     });
+  //   }
+  // }, [error]);
 
   return { getAllContracts, getContract, handleOffer, handleAccept, handleReject, handleSign };
 };

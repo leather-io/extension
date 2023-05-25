@@ -4,6 +4,8 @@ import { AllowAdditionaProperties } from '@btckit/types/dist/types/utils';
 export interface HandleBitcoinContractResponseParams extends AllowAdditionaProperties {
   bitcoinContractOffer: string;
   counterpartyWalletURL: string;
+  counterpartyWalletName: string;
+  counterpartyWalletIcon: string;
 }
 
 export interface HandleBitcoinContractResponseBody extends AllowAdditionaProperties {

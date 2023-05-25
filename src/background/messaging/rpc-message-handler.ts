@@ -152,6 +152,8 @@ export async function rpcMessageHandler(message: WalletRequests, port: chrome.ru
       const { urlParams, tabId } = makeSearchParamsWithDefaults(port, [
         ['bitcoinContractOffer', message.params?.bitcoinContractOffer!],
         ['counterpartyWalletURL', message.params?.counterpartyWalletURL!],
+        ['counterpartyWalletName', message.params?.counterpartyWalletName!],
+        ['counterpartyWalletIcon', message.params?.counterpartyWalletIcon!],
         ['requestID', message.id],
       ]);
       const { id } = await triggerRequestWindowOpen(RouteUrls.BitcoinContractOffer, urlParams);
