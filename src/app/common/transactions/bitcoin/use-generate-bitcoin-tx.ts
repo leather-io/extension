@@ -6,7 +6,7 @@ import { logger } from '@shared/logger';
 import { Money } from '@shared/models/money.model';
 
 import { determineUtxosForSpend } from '@app/common/transactions/bitcoin/coinselect/local-coin-selection';
-import { useGetUtxosByAddressQuery } from '@app/query/bitcoin/address/utxos-by-address.query';
+import { useSpendableCurrentNativeSegwitAccountUtxos } from '@app/query/bitcoin/address/use-spendable-native-segwit-utxos';
 import { useIsStampedTx } from '@app/query/bitcoin/stamps/use-is-stamped-tx';
 import { useBitcoinScureLibNetworkConfig } from '@app/store/accounts/blockchain/bitcoin/bitcoin-keychain';
 import {
@@ -22,7 +22,7 @@ interface GenerateBitcoinTxValues {
 
 export function useGenerateSignedBitcoinTx() {
   const currentAccountBtcAddress = useCurrentAccountNativeSegwitAddressIndexZero();
-  const { data: utxos } = useGetUtxosByAddressQuery(currentAccountBtcAddress);
+  const { data: utxos } = useSpendableCurrentNativeSegwitAccountUtxos();
   const currentAddressIndexKeychain = useCurrentBitcoinNativeSegwitAddressIndexPublicKeychain();
   const createSigner = useCurrentAccountNativeSegwitSigner();
   const isStamped = useIsStampedTx();
