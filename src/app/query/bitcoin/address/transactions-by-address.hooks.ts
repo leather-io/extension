@@ -24,6 +24,7 @@ export function useBitcoinPendingTransactionsBalance(address: string) {
         sumNumbers(
           pendingTransactions
             .flatMap(tx => tx.vout.filter(output => output.scriptpubkey_address === address))
+            .filter(tx => tx.scriptpubkey_address !== address)
             .map(vout => vout.value)
         ),
         'BTC'
