@@ -42,7 +42,7 @@ export function useBrc20TokensByAddressQuery<T extends unknown = FetchBrc20Token
   options?: AppUseQueryConfig<FetchBrc20TokensByAddressResp, T>
 ) {
   return useQuery({
-    queryKey: [QueryPrefixes.Brc20TokenBalance],
+    queryKey: [QueryPrefixes.Brc20TokenBalance, address],
     queryFn: () => fetchBrc20TokensByAddress(address),
     ...options,
   });
