@@ -25,6 +25,12 @@ interface InscriptionsQueryResponse {
   total: number;
 }
 
+interface AccountData {
+  addressesWithoutOrdinalsNum: number;
+  fromIndex: number;
+  addressesMap: Record<string, number>;
+}
+
 function formQueryParams(addressesMap: Record<string, number>) {
   return Object.keys(addressesMap).reduce((acc, address) => {
     acc.append('address', address);
@@ -52,13 +58,18 @@ export function useInscriptionsInfiniteQuery() {
   // TO-DO remove code for testing purposes before merge
   const searchParams = new URLSearchParams(document.location.search);
   const testInscriptionAddress = searchParams.get('testAddress');
-  const currentNumberOfAddressesWithoutOrdinals = useRef(0);
 
-  const fromIndex = useRef(0);
-  const addressesMap = useRef(
-    getAddressesData(fromIndex.current, fromIndex.current + addressesSimultaneousFetchLimit)
-  );
-  const queryParams = useRef(formQueryParams(addressesMap.current));
+  const defaultAccountData = {
+    fromIndex: 0,
+    addressesWithoutOrdinalsNum: 0,
+    addressesMap: getAddressesData(0, addressesSimultaneousFetchLimit),
+  };
+  const currentAccData = useRef<AccountData>(defaultAccountData);
+
+  useEffect(() => {
+    currentAccData.current = defaultAccountData;
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [currentAccountIndex]);
 
   // get taproot addresses
   function getAddressesData(fromIndex: number, toIndex: number) {
@@ -80,13 +91,17 @@ export function useInscriptionsInfiniteQuery() {
     queryKey: [QueryPrefixes.InscriptionsFromApiInfiniteQuery, currentAccountIndex, network.id],
     async queryFn({ pageParam }) {
       const responsesArr: InscriptionsQueryResponse[] = [];
+      let addressesData = getAddressesData(
+        currentAccData.current.fromIndex,
+        currentAccData.current.fromIndex + addressesSimultaneousFetchLimit
+      );
       // loop through addresses until we reach the limit or until we find an address with many inscriptions
       while (
-        currentNumberOfAddressesWithoutOrdinals.current <
+        currentAccData.current.addressesWithoutOrdinalsNum <
         stopSearchAfterNumberAddressesWithoutOrdinals
       ) {
         const response = await fetchInscriptions(
-          testInscriptionAddress || queryParams.current.toString(),
+          testInscriptionAddress || formQueryParams(addressesData).toString(),
           pageParam?.offset || 0
         );
 
@@ -94,23 +109,25 @@ export function useInscriptionsInfiniteQuery() {
 
         // stop loop to dynamically fetch inscriptions from 1 address if there are many inscriptions
         if (response.total > inscriptionsLimit) {
-          currentNumberOfAddressesWithoutOrdinals.current = 0;
+          currentAccData.current.addressesWithoutOrdinalsNum = 0;
           break;
         }
 
-        fromIndex.current += addressesSimultaneousFetchLimit;
-        currentNumberOfAddressesWithoutOrdinals.current += addressesSimultaneousFetchLimit;
+        currentAccData.current.fromIndex += addressesSimultaneousFetchLimit;
+        currentAccData.current.addressesWithoutOrdinalsNum += addressesSimultaneousFetchLimit;
 
-        const addressesData = getAddressesData(
-          fromIndex.current,
-          fromIndex.current + addressesSimultaneousFetchLimit
+        addressesData = getAddressesData(
+          currentAccData.current.fromIndex,
+          currentAccData.current.fromIndex + addressesSimultaneousFetchLimit
         );
-        queryParams.current = formQueryParams(addressesData);
 
         // add new addresses to the map
-        addressesMap.current = { ...addressesMap.current, ...addressesData };
+        currentAccData.current.addressesMap = {
+          ...currentAccData.current.addressesMap,
+          ...addressesData,
+        };
         if (response.results.length > 0) {
-          currentNumberOfAddressesWithoutOrdinals.current = 0;
+          currentAccData.current.addressesWithoutOrdinalsNum = 0;
         }
       }
 
@@ -123,10 +140,10 @@ export function useInscriptionsInfiniteQuery() {
         offset: pageParam?.offset ?? offset,
         total,
         stopNextFetch:
-          currentNumberOfAddressesWithoutOrdinals.current >=
+          currentAccData.current.addressesWithoutOrdinalsNum >=
           stopSearchAfterNumberAddressesWithoutOrdinals,
         inscriptions: results.map(inscription => ({
-          addressIndex: addressesMap.current[inscription.address],
+          addressIndex: currentAccData.current.addressesMap[inscription.address],
           ...inscription,
         })),
       };
@@ -149,6 +166,7 @@ export function useInscriptionsInfiniteQuery() {
 
       return { offset: calculatedOffset, total };
     },
+    staleTime: 3 * 60 * 1000,
     refetchOnMount: false,
     refetchOnReconnect: false,
     refetchOnWindowFocus: false,
