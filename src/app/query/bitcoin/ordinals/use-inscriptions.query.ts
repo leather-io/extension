@@ -3,6 +3,7 @@ import { useEffect, useRef } from 'react';
 import { useInfiniteQuery } from '@tanstack/react-query';
 
 import { InscriptionResponseItem } from '@shared/models/inscription.model';
+import { ensureArray } from '@shared/utils';
 
 import { createNumArrayOfRange } from '@app/common/utils';
 import { QueryPrefixes } from '@app/query/query-prefixes';
@@ -16,7 +17,7 @@ const stopSearchAfterNumberAddressesWithoutOrdinals = 20;
 const addressesSimultaneousFetchLimit = 5;
 
 // max limit value in Hiro API - 60
-const inscriptionsLimit = 20;
+const inscriptionsLazyLoadLimit = 20;
 
 interface InscriptionsQueryResponse {
   results: InscriptionResponseItem[];
@@ -31,17 +32,13 @@ interface AccountData {
   addressesMap: Record<string, number>;
 }
 
-function formQueryParams(addressesMap: Record<string, number>) {
-  return Object.keys(addressesMap).reduce((acc, address) => {
-    acc.append('address', address);
-    return acc;
-  }, new URLSearchParams());
-}
+async function fetchInscriptions(addresses: string | string[], offset = 0, limit = 60) {
+  const params = new URLSearchParams();
+  ensureArray(addresses).forEach(address => params.append('address', address));
+  params.append('limit', limit.toString());
+  params.append('offset', offset.toString());
 
-async function fetchInscriptions(addresses: string, offset = 0) {
-  const res = await fetch(
-    `https://api.hiro.so/ordinals/v1/inscriptions?limit=${inscriptionsLimit}&offset=${offset}&${addresses}`
-  );
+  const res = await fetch('https://api.hiro.so/ordinals/v1/inscriptions?' + params.toString());
   if (!res.ok) throw new Error('Error retrieving inscription metadata');
   const data = await res.json();
   return data as InscriptionsQueryResponse;
@@ -50,19 +47,15 @@ async function fetchInscriptions(addresses: string, offset = 0) {
 /**
  * Returns all inscriptions for the user's current taproot account
  */
-export function useInscriptionsInfiniteQuery() {
+export function useTaprootInscriptionsInfiniteQuery() {
   const network = useCurrentNetwork();
   const keychain = useTaprootCurrentAccountPrivateKeychain();
   const currentAccountIndex = useCurrentAccountIndex();
 
-  // TO-DO remove code for testing purposes before merge
-  const searchParams = new URLSearchParams(document.location.search);
-  const testInscriptionAddress = searchParams.get('testAddress');
-
   const defaultAccountData = {
     fromIndex: 0,
     addressesWithoutOrdinalsNum: 0,
-    addressesMap: getAddressesData(0, addressesSimultaneousFetchLimit),
+    addressesMap: getTaprootAddressData(0, addressesSimultaneousFetchLimit),
   };
   const currentAccData = useRef<AccountData>(defaultAccountData);
 
@@ -71,8 +64,7 @@ export function useInscriptionsInfiniteQuery() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentAccountIndex]);
 
-  // get taproot addresses
-  function getAddressesData(fromIndex: number, toIndex: number) {
+  function getTaprootAddressData(fromIndex: number, toIndex: number) {
     return createNumArrayOfRange(fromIndex, toIndex - 1).reduce(
       (acc: Record<string, number>, i: number) => {
         const address = getTaprootAddress({
@@ -91,24 +83,26 @@ export function useInscriptionsInfiniteQuery() {
     queryKey: [QueryPrefixes.InscriptionsFromApiInfiniteQuery, currentAccountIndex, network.id],
     async queryFn({ pageParam }) {
       const responsesArr: InscriptionsQueryResponse[] = [];
-      let addressesData = getAddressesData(
+      let addressesData = getTaprootAddressData(
         currentAccData.current.fromIndex,
         currentAccData.current.fromIndex + addressesSimultaneousFetchLimit
       );
-      // loop through addresses until we reach the limit or until we find an address with many inscriptions
+
+      // Loop through addresses until we reach the limit, or until we find an address with many inscriptions
       while (
         currentAccData.current.addressesWithoutOrdinalsNum <
         stopSearchAfterNumberAddressesWithoutOrdinals
       ) {
         const response = await fetchInscriptions(
-          testInscriptionAddress || formQueryParams(addressesData).toString(),
-          pageParam?.offset || 0
+          Object.keys(addressesData),
+          pageParam?.offset || 0,
+          inscriptionsLazyLoadLimit
         );
 
         responsesArr.push(response);
 
         // stop loop to dynamically fetch inscriptions from 1 address if there are many inscriptions
-        if (response.total > inscriptionsLimit) {
+        if (response.total > inscriptionsLazyLoadLimit) {
           currentAccData.current.addressesWithoutOrdinalsNum = 0;
           break;
         }
@@ -116,7 +110,7 @@ export function useInscriptionsInfiniteQuery() {
         currentAccData.current.fromIndex += addressesSimultaneousFetchLimit;
         currentAccData.current.addressesWithoutOrdinalsNum += addressesSimultaneousFetchLimit;
 
-        addressesData = getAddressesData(
+        addressesData = getTaprootAddressData(
           currentAccData.current.fromIndex,
           currentAccData.current.fromIndex + addressesSimultaneousFetchLimit
         );
@@ -153,9 +147,9 @@ export function useInscriptionsInfiniteQuery() {
       if (stopNextFetch) return undefined;
 
       // calculate offset for next fetch
-      let calculatedOffset = offset + inscriptionsLimit;
+      let calculatedOffset = offset + inscriptionsLazyLoadLimit;
 
-      if (offset + inscriptionsLimit > total) {
+      if (offset + inscriptionsLazyLoadLimit > total) {
         calculatedOffset = offset + (total - offset);
       }
 
@@ -175,23 +169,13 @@ export function useInscriptionsInfiniteQuery() {
   return query;
 }
 
-// TODO: Duplicated, to refactor
-async function fetchInscription(address: string, offset = 0) {
-  const res = await fetch(
-    `https://api.hiro.so/ordinals/v1/inscriptions?limit=60&offset=${offset}&address=${address}`
-  );
-  if (!res.ok) throw new Error('Error retrieving inscription metadata');
-  const data = await res.json();
-  return data as InscriptionsQueryResponse;
-}
-
 export function useInscriptionByAddressQuery(address: string) {
   const network = useCurrentNetwork();
 
   const query = useInfiniteQuery({
     queryKey: [QueryPrefixes.InscriptionsByAddress, address, network.id],
     async queryFn({ pageParam = 0 }) {
-      return fetchInscription(address, pageParam);
+      return fetchInscriptions(address, pageParam);
     },
     getNextPageParam(prevInscriptionQuery) {
       if (prevInscriptionQuery.offset >= prevInscriptionQuery.total) return undefined;
