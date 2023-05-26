@@ -7,7 +7,7 @@ import { baseCurrencyAmountInQuote } from '@app/common/money/calculate-money';
 import { formatMoneyPadded, i18nFormatCurrency } from '@app/common/money/format-money';
 import { btcToSat } from '@app/common/money/unit-conversion';
 import { determineUtxosForSpend } from '@app/common/transactions/bitcoin/coinselect/local-coin-selection';
-import { useGetUtxosByAddressQuery } from '@app/query/bitcoin/address/utxos-by-address.query';
+import { useSpendableNativeSegwitUtxos } from '@app/query/bitcoin/address/use-spendable-native-segwit-utxos';
 import { useAverageBitcoinFeeRates } from '@app/query/bitcoin/fees/fee-estimates.hooks';
 import { useCryptoCurrencyMarketData } from '@app/query/common/market-data/market-data.hooks';
 import { useCurrentAccountNativeSegwitAddressIndexZero } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
@@ -20,7 +20,7 @@ interface UseBitcoinFeesListArgs {
 }
 export function useBitcoinFeesList({ amount, recipient }: UseBitcoinFeesListArgs) {
   const currentAccountBtcAddress = useCurrentAccountNativeSegwitAddressIndexZero();
-  const { data: utxos } = useGetUtxosByAddressQuery(currentAccountBtcAddress);
+  const { data: utxos } = useSpendableNativeSegwitUtxos(currentAccountBtcAddress);
 
   const btcMarketData = useCryptoCurrencyMarketData('BTC');
   const { avgApiFeeRates: feeRate, isLoading } = useAverageBitcoinFeeRates();
