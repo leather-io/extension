@@ -1,3 +1,15 @@
+## [4.27.0](https://github.com/hirosystems/wallet/compare/v4.26.0...v4.27.0) (2023-05-25)
+
+
+### Features
+
+* revert gaia url ([52375a0](https://github.com/hirosystems/wallet/commit/52375a0d8bc8175846c99c1a660c4b8767d3fd8e))
+
+
+### Internal
+
+* brc-20 query path ([bc1ee1c](https://github.com/hirosystems/wallet/commit/bc1ee1cd2ec68c9bf22f4609f93cb52771639403))
+
 ## [4.26.0](https://github.com/hirosystems/wallet/compare/v4.25.0...v4.26.0) (2023-05-24)
 
 
