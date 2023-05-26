@@ -1,4 +1,4 @@
-import { useRef } from 'react';
+import { useEffect, useRef } from 'react';
 
 import { useInfiniteQuery } from '@tanstack/react-query';
 
@@ -153,6 +153,42 @@ export function useInscriptionsInfiniteQuery() {
     refetchOnReconnect: false,
     refetchOnWindowFocus: false,
   });
+
+  return query;
+}
+
+// TODO: Duplicated, to refactor
+async function fetchInscription(address: string, offset = 0) {
+  const res = await fetch(
+    `https://api.hiro.so/ordinals/v1/inscriptions?limit=60&offset=${offset}&address=${address}`
+  );
+  if (!res.ok) throw new Error('Error retrieving inscription metadata');
+  const data = await res.json();
+  return data as InscriptionsQueryResponse;
+}
+
+export function useInscriptionByAddressQuery(address: string) {
+  const network = useCurrentNetwork();
+
+  const query = useInfiniteQuery({
+    queryKey: [QueryPrefixes.InscriptionsByAddress, address, network.id],
+    async queryFn({ pageParam = 0 }) {
+      return fetchInscription(address, pageParam);
+    },
+    getNextPageParam(prevInscriptionQuery) {
+      if (prevInscriptionQuery.offset >= prevInscriptionQuery.total) return undefined;
+      return prevInscriptionQuery.offset + 60;
+    },
+    refetchOnMount: false,
+    refetchOnReconnect: false,
+    refetchOnWindowFocus: false,
+    staleTime: 3 * 60 * 1000,
+  });
+
+  // Auto-trigger next request
+  useEffect(() => {
+    void query.fetchNextPage();
+  }, [query, query.data]);
 
   return query;
 }
