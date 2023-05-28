@@ -39,12 +39,16 @@ export function Collectibles() {
       isLoadingMore={isLoadingMore}
       onRefresh={() => void queryClient.refetchQueries({ type: 'active' })}
     >
+      {whenWallet({
+        software: <AddCollectible />,
+        ledger: null,
+      })}
+
       {isNftMetadataEnabled ? <StacksCryptoAssets /> : null}
 
       {whenWallet({
         software: (
           <>
-            <AddCollectible />
             <Stamps />
             <Ordinals setIsLoadingMore={setIsLoadingMore} />
           </>
