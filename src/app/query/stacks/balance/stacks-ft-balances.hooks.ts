@@ -24,17 +24,16 @@ import {
 export function useStacksAnchoredCryptoCurrencyAssetBalance(address: string) {
   return useAnchoredStacksAccountBalanceQuery(address, {
     select: resp =>
-      createStacksCryptoCurrencyAssetTypeWrapper(
-        parseBalanceResponse(resp).stx.availableStx.amount
-      ),
+      createStacksCryptoCurrencyAssetTypeWrapper(parseBalanceResponse(resp).stx.unlockedStx.amount),
   });
 }
+
+// we will probably need this in the future
+// ts-unused-exports:disable-next-line
 export function useStacksUnanchoredCryptoCurrencyAssetBalance(address: string) {
   return useUnanchoredStacksAccountBalanceQuery(address, {
     select: resp =>
-      createStacksCryptoCurrencyAssetTypeWrapper(
-        parseBalanceResponse(resp).stx.availableStx.amount
-      ),
+      createStacksCryptoCurrencyAssetTypeWrapper(parseBalanceResponse(resp).stx.unlockedStx.amount),
   });
 }
 

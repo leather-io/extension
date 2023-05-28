@@ -1,4 +1,4 @@
-import { isEven } from '@app/common/utils';
+import { isEven } from '@app/common/math/helpers';
 
 import { AddressDisplayerLayout } from './address-displayer.layout';
 

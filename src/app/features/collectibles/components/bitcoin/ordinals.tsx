@@ -1,31 +1,65 @@
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
+
+import { Box } from '@stacks/ui';
 
 import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
-import { InscriptionLoader } from '@app/components/inscription-loader';
-import { useTaprootAccountUtxosQuery } from '@app/query/bitcoin/ordinals/use-taproot-address-utxos.query';
+import { useIntersectionObserver } from '@app/common/hooks/use-intersection-observer';
+import { useInscriptionsInfiniteQuery } from '@app/query/bitcoin/ordinals/use-inscriptions.query';
 
 import { Inscription } from './inscription';
 
-export function Ordinals() {
-  const { data: utxos = [] } = useTaprootAccountUtxosQuery();
+interface OrdinalsProps {
+  setIsLoadingMore: (isLoading: boolean) => void;
+}
+
+export function Ordinals({ setIsLoadingMore }: OrdinalsProps) {
+  const query = useInscriptionsInfiniteQuery();
+  const pages = query.data?.pages;
   const analytics = useAnalytics();
 
-  useEffect(() => {
-    if (utxos.length > 0) {
-      void analytics.track('view_collectibles', {
-        ordinals_count: utxos.length,
-      });
-      void analytics.identify({ ordinals_count: utxos.length });
+  const intersectionSentinel = useRef<HTMLDivElement | null>(null);
+
+  async function fetchNextPage() {
+    if (!query.hasNextPage) return;
+    try {
+      setIsLoadingMore(true);
+      await query.fetchNextPage();
+    } catch (e) {
+      // TO-DO: handle error
+      // console.log(e);
+    } finally {
+      setIsLoadingMore(false);
     }
-  }, [utxos.length, analytics]);
+  }
+  const callback = (entries: IntersectionObserverEntry[]): void => {
+    entries.forEach(async entry => {
+      if (entry.isIntersecting) {
+        await fetchNextPage();
+      }
+    });
+  };
+
+  useIntersectionObserver(intersectionSentinel, callback, {});
+  useEffect(() => {
+    const inscriptionsLength = pages?.reduce((acc, page) => acc + page.inscriptions.length, 0) || 0;
+    if (inscriptionsLength > 0) {
+      void analytics.track('view_collectibles', {
+        ordinals_count: inscriptionsLength,
+      });
+      void analytics.identify({ ordinals_count: inscriptionsLength });
+    }
+  }, [pages, analytics]);
+
+  if (!pages) return null;
 
   return (
     <>
-      {utxos.map(utxo => (
-        <InscriptionLoader key={utxo.txid + utxo.vout} utxo={utxo}>
-          {path => <Inscription path={path} utxo={utxo} />}
-        </InscriptionLoader>
-      ))}
+      {pages.map(page =>
+        page.inscriptions.map(inscription => (
+          <Inscription rawInscription={inscription} key={inscription.id} />
+        ))
+      )}
+      <Box ref={intersectionSentinel} />
     </>
   );
 }

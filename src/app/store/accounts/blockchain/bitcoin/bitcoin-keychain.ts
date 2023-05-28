@@ -1,14 +1,19 @@
+import { useCallback } from 'react';
+
 import { createSelector } from '@reduxjs/toolkit';
 import { HDKey } from '@scure/bip32';
 import * as btc from '@scure/btc-signer';
 
 import { BitcoinNetworkModes, NetworkModes } from '@shared/constants';
 import { getBtcSignerLibNetworkConfigByMode } from '@shared/crypto/bitcoin/bitcoin.network';
-import { deriveAddressIndexZeroFromAccount } from '@shared/crypto/bitcoin/bitcoin.utils';
+import {
+  deriveAddressIndexKeychainFromAccount,
+  deriveAddressIndexZeroFromAccount,
+} from '@shared/crypto/bitcoin/bitcoin.utils';
 import { deriveTaprootAccountFromRootKeychain } from '@shared/crypto/bitcoin/p2tr-address-gen';
 import {
   deriveNativeSegWitAccountKeychain,
-  getNativeSegWitPaymentFromKeychain,
+  getNativeSegWitPaymentFromAddressIndex,
 } from '@shared/crypto/bitcoin/p2wpkh-address-gen';
 
 import { mnemonicToRootNode } from '@app/common/keychain/keychain';
@@ -20,7 +25,7 @@ import { useCurrentNetwork } from '@app/store/networks/networks.selectors';
 // This factory selector extends from the wallet root keychain to derive child
 // keychains. It accepts a curried fn that takes a keychain and returns a fn
 // accepting an account index, to further derive a nested layer of derivation.
-// We use this approach to reuse code between both native segwit and taproot
+// This approach allow us to reuse code between both native segwit and taproot
 // keychains.
 function bitcoinKeychainSelectorFactory(
   keychainFn: (hdkey: HDKey, network: NetworkModes) => (index: number) => HDKey,
@@ -39,7 +44,7 @@ export function getNativeSegwitMainnetAddressFromMnemonic(secretKey: string) {
   return (accountIndex: number) => {
     const rootNode = mnemonicToRootNode(secretKey);
     const account = deriveNativeSegWitAccountKeychain(rootNode, 'mainnet')(accountIndex);
-    return getNativeSegWitPaymentFromKeychain(
+    return getNativeSegWitPaymentFromAddressIndex(
       deriveAddressIndexZeroFromAccount(account),
       'mainnet'
     );
@@ -66,21 +71,25 @@ export const selectTestnetTaprootKeychain = bitcoinKeychainSelectorFactory(
   'testnet'
 );
 
-export function useBitcoinLibNetworkConfig() {
+export function useBitcoinScureLibNetworkConfig() {
   const network = useCurrentNetwork();
   return getBtcSignerLibNetworkConfigByMode(network.chain.bitcoin.network);
 }
 
 interface BitcoinSignerFactoryArgs {
-  addressIndexKeychainFn(addressIndex: number): HDKey;
+  accountKeychain: HDKey;
   paymentFn(keychain: HDKey, network: BitcoinNetworkModes): unknown;
   network: BitcoinNetworkModes;
 }
 export function bitcoinSignerFactory<T extends BitcoinSignerFactoryArgs>(args: T) {
-  const { network, paymentFn, addressIndexKeychainFn } = args;
+  const { network, paymentFn, accountKeychain } = args;
   return (addressIndex: number) => {
-    const addressIndexKeychain = addressIndexKeychainFn(addressIndex);
+    const addressIndexKeychain =
+      deriveAddressIndexKeychainFromAccount(accountKeychain)(addressIndex);
+
     return {
+      addressIndex,
+      publicKeychain: HDKey.fromExtendedKey(addressIndexKeychain.publicExtendedKey),
       payment: paymentFn(addressIndexKeychain, network) as ReturnType<T['paymentFn']>,
       sign(tx: btc.Transaction) {
         if (!addressIndexKeychain.privateKey)
@@ -96,4 +105,57 @@ export function bitcoinSignerFactory<T extends BitcoinSignerFactoryArgs>(args: T
       },
     };
   };
+}
+
+interface CreateSignersForAllNetworkTypesArgs {
+  mainnetKeychainFn: (accountIndex: number) => HDKey;
+  testnetKeychainFn: (accountIndex: number) => HDKey;
+  paymentFn: (keychain: HDKey, network: BitcoinNetworkModes) => unknown;
+}
+function createSignersForAllNetworkTypes<T extends CreateSignersForAllNetworkTypesArgs>({
+  mainnetKeychainFn,
+  testnetKeychainFn,
+  paymentFn,
+}: T) {
+  return ({ accountIndex, addressIndex }: { accountIndex: number; addressIndex: number }) => {
+    const mainnetAccount = mainnetKeychainFn(accountIndex);
+    const testnetAccount = testnetKeychainFn(accountIndex);
+
+    function makeNetworkSigner(keychain: HDKey, network: BitcoinNetworkModes) {
+      return bitcoinSignerFactory({
+        accountKeychain: keychain,
+        paymentFn: paymentFn as T['paymentFn'],
+        network,
+      })(addressIndex);
+    }
+
+    return {
+      mainnet: makeNetworkSigner(mainnetAccount, 'mainnet'),
+      testnet: makeNetworkSigner(testnetAccount, 'testnet'),
+      regtest: makeNetworkSigner(testnetAccount, 'regtest'),
+      signet: makeNetworkSigner(testnetAccount, 'signet'),
+    };
+  };
+}
+
+export function useMakeBitcoinNetworkSignersForPaymentType<T>(
+  mainnetKeychainFn: ((index: number) => HDKey) | undefined,
+  testnetKeychainFn: ((index: number) => HDKey) | undefined,
+  paymentFn: (keychain: HDKey, network: BitcoinNetworkModes) => T
+) {
+  return useCallback(
+    (accountIndex: number) => {
+      if (!mainnetKeychainFn || !testnetKeychainFn)
+        throw new Error('Cannot derive addresses in non-software mode');
+
+      const zeroIndex = 0;
+
+      return createSignersForAllNetworkTypes({
+        mainnetKeychainFn,
+        testnetKeychainFn,
+        paymentFn,
+      })({ accountIndex, addressIndex: zeroIndex });
+    },
+    [mainnetKeychainFn, paymentFn, testnetKeychainFn]
+  );
 }

@@ -1,33 +1,28 @@
 import { useState } from 'react';
 
-import { Spinner } from '@stacks/ui';
-
-import { figmaTheme } from '@app/common/utils/figma-theme';
-import { OrdinalMinimalIcon } from '@app/components/icons/ordinal-minimal-icon';
-
 import { CollectibleItemLayout, CollectibleItemLayoutProps } from '../collectible-item.layout';
 import { ImageUnavailable } from '../image-unavailable';
 
 interface CollectibleImageProps extends Omit<CollectibleItemLayoutProps, 'children'> {
   alt?: string;
+  icon: JSX.Element;
   src: string;
 }
 export function CollectibleImage(props: CollectibleImageProps) {
-  const { alt, src, ...rest } = props;
+  const { alt, icon, src, ...rest } = props;
   const [isError, setIsError] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const [width, setWidth] = useState(0);
 
   if (isError)
     return (
-      <CollectibleItemLayout collectibleTypeIcon={<OrdinalMinimalIcon />} {...rest}>
+      <CollectibleItemLayout collectibleTypeIcon={icon} {...rest}>
         <ImageUnavailable />
       </CollectibleItemLayout>
     );
 
   return (
-    <CollectibleItemLayout collectibleTypeIcon={<OrdinalMinimalIcon />} {...rest}>
-      {isLoading && <Spinner color={figmaTheme.icon} size="16px" />}
+    <CollectibleItemLayout collectibleTypeIcon={icon} {...rest}>
       <img
         alt={alt}
         onError={() => setIsError(true)}

@@ -1,4 +1,7 @@
-import { createNullArrayOfLength, sumNumbers } from '@app/common/utils';
+import { BTC_P2WPKH_DUST_AMOUNT } from '@shared/constants';
+
+import { sumNumbers } from '@app/common/math/helpers';
+import { createNullArrayOfLength } from '@app/common/utils';
 
 import { determineUtxosForSpend } from './local-coin-selection';
 
@@ -28,7 +31,13 @@ describe(determineUtxosForSpend.name, () => {
     });
   }
 
-  describe('sorting algorithm (biggest first)', () => {
+  describe('sorting algorithm (biggest first and no dust)', () => {
+    test('that it filters out dust utxos', () => {
+      const result = generate10kSpendWithTestData('tb1qt28eagxcl9gvhq2rpj5slg7dwgxae2dn2hk93m');
+      const hasDust = result.orderedUtxos.some(utxo => utxo.value <= BTC_P2WPKH_DUST_AMOUNT);
+      expect(hasDust).toBeFalsy();
+    });
+
     test('that it sorts utxos in decending order', () => {
       const result = generate10kSpendWithTestData('tb1qt28eagxcl9gvhq2rpj5slg7dwgxae2dn2hk93m');
       result.inputs.forEach((u, i) => {

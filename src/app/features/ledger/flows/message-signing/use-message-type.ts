@@ -1,11 +1,11 @@
 import { ClarityValue } from '@stacks/transactions';
 
-import { SignedMessage, StructuredMessageDataDomain } from '@shared/signature/signature-types';
+import { StructuredMessageDataDomain, UnsignedMessage } from '@shared/signature/signature-types';
 import { isString } from '@shared/utils';
 
 import { useLocationStateWithCache } from '@app/common/hooks/use-location-state';
 
-export function useSignedMessageType(): SignedMessage | null {
+export function useUnsignedMessageType(): UnsignedMessage | null {
   const message = useLocationStateWithCache<string | ClarityValue>('message');
   const domain = useLocationStateWithCache<StructuredMessageDataDomain>('domain');
 

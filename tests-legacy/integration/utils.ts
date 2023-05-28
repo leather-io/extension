@@ -1,9 +1,9 @@
+import { ChromiumBrowserContext, chromium } from '@playwright/test';
 import { SettingsSelectors } from '@tests-legacy/integration/settings.selectors';
 import { WalletPage } from '@tests-legacy/page-objects/wallet.page';
 import { mkdtemp } from 'fs';
 import { tmpdir } from 'os';
 import { join } from 'path';
-import { ChromiumBrowserContext, chromium } from 'playwright';
 import { Page } from 'playwright-core';
 import { promisify } from 'util';
 
@@ -160,19 +160,3 @@ export const timeDifference = (startDate: Date, endDate: Date) => {
   const seconds = (endDate.getTime() - startDate.getTime()) / 1000;
   return seconds;
 };
-
-// TODO: Need to fix this. It is producing an error: `Unable to fetch info from node.`
-// I don't even understand why this is being used in a test to check a balance?
-//
-// export const addAPINetwork = async (wallet: WalletPage) => {
-//   await wallet.clickSettingsButton();
-//   await wallet.page.click(createTestSelector(SettingsSelectors.ChangeNetworkAction));
-//   await wallet.page.click(createTestSelector(SettingsSelectors.BtnAddNetwork));
-//   const networkPage: NetworkPage = new NetworkPage(wallet.page);
-//   await networkPage.inputNetworkNameField('api');
-//   await networkPage.inputNetworkAddressField(
-//     process.env.APIEnvVariable || 'https://stacks-node-api-inactive.stacks.co/'
-//   );
-//   await networkPage.inputNetworkKeyField('api');
-//   await networkPage.clickAddNetwork();
-// };

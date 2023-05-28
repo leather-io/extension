@@ -7,11 +7,13 @@ export default defineConfig({
     coverage: {
       provider: 'istanbul',
       reporter: ['text', 'json-summary', 'json', 'html'],
+      reportsDirectory: './coverage',
     },
     globals: true,
     environment: 'node',
     setupFiles: './tests-legacy/unit-test.setup.js',
     deps: { interopDefault: true },
+    silent: false,
   },
   resolve: {
     alias: {

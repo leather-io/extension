@@ -13,7 +13,7 @@ import { useLoading } from '@app/common/hooks/use-loading';
 import { AccountTotalBalance } from '@app/components/account-total-balance';
 import { AccountListItemLayout } from '@app/components/account/account-list-item-layout';
 import { usePressable } from '@app/components/item-hover';
-import { useBtcNativeSegwitAccountIndexAddressIndexZero } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
+import { useNativeSegwitAccountIndexAddressIndexZero } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
 import { StacksAccount } from '@app/store/accounts/blockchain/stacks/stacks-account.models';
 
 import { AccountAvatarItem } from '../../../components/account/account-avatar';
@@ -31,7 +31,7 @@ export const SwitchAccountListItem = memo(
     const name = useAccountDisplayName(account);
     const navigate = useNavigate();
 
-    const btcAddress = useBtcNativeSegwitAccountIndexAddressIndexZero(account.index);
+    const btcAddress = useNativeSegwitAccountIndexAddressIndexZero(account.index);
 
     const handleClick = async () => {
       setIsLoading();

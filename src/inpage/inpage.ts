@@ -67,7 +67,13 @@ function isValidEvent(event: MessageEvent, method: LegacyMessageToContentScript[
   return correctSource && correctMethod && !!data.payload;
 }
 
-const provider: StacksProvider = {
+interface HiroWalletProviderOverrides extends StacksProvider {
+  isHiroWallet: true;
+}
+
+const provider: HiroWalletProviderOverrides = {
+  isHiroWallet: true,
+
   getURL: async () => {
     const { url } = await callAndReceive('getURL');
     return url;
@@ -236,11 +242,9 @@ const provider: StacksProvider = {
     return new Promise((resolve, reject) => {
       function handleMessage(event: MessageEvent<WalletResponses>) {
         const response = event.data;
-        if (!response || response.id !== id) return;
+        if (response.id !== id) return;
         window.removeEventListener('message', handleMessage);
-        if ('error' in response) {
-          return reject(response);
-        }
+        if ('error' in response) return reject(response);
         return resolve(response);
       }
       window.addEventListener('message', handleMessage);

@@ -4,7 +4,7 @@ import * as yup from 'yup';
 import { Money } from '@shared/models/money.model';
 import { isNumber } from '@shared/utils';
 
-import { subtractMoney } from '@app/common/money/format-money';
+import { countDecimals } from '@app/common/math/helpers';
 import {
   btcToSat,
   microStxToStx,
@@ -12,13 +12,8 @@ import {
   stxToMicroStx,
 } from '@app/common/money/unit-conversion';
 
-import {
-  formatErrorWithSymbol,
-  formatInsufficientBalanceError,
-  formatPrecisionError,
-} from '../../error-formatters';
+import { formatInsufficientBalanceError, formatPrecisionError } from '../../error-formatters';
 import { FormErrorMessages } from '../../error-messages';
-import { countDecimals } from '../../utils';
 import { currencyAmountValidator, stxAmountPrecisionValidator } from './currency-validators';
 
 const minSpendAmountInSats = 6000;
@@ -26,8 +21,8 @@ const minSpendAmountInSats = 6000;
 function amountValidator() {
   return yup
     .number()
-    .required()
-    .positive(FormErrorMessages.MustNotBeZero)
+    .required(FormErrorMessages.AmountRequired)
+    .positive(FormErrorMessages.MustBePositive)
     .typeError('Amount must be a number');
 }
 
@@ -43,7 +38,7 @@ export function btcInsufficientBalanceValidator({
 }: BtcInsufficientBalanceValidatorArgs) {
   return yup
     .number()
-    .typeError(formatErrorWithSymbol('BTC', FormErrorMessages.MustBeNumber))
+    .typeError(FormErrorMessages.MustBeNumber)
     .test({
       message: FormErrorMessages.InsufficientFunds,
       test(value) {
@@ -60,7 +55,7 @@ export function btcInsufficientBalanceValidator({
 export function btcMinimumSpendValidator() {
   return yup
     .number()
-    .typeError(formatErrorWithSymbol('BTC', FormErrorMessages.MustBeNumber))
+    .typeError(FormErrorMessages.MustBeNumber)
     .test({
       message: `Minimum is ${satToBtc(minSpendAmountInSats)}`,
       test(value) {
@@ -75,27 +70,24 @@ export function btcMinimumSpendValidator() {
 export function stxAmountValidator() {
   return yup
     .number()
-    .typeError(formatErrorWithSymbol('STX', FormErrorMessages.MustBeNumber))
+    .typeError(FormErrorMessages.MustBeNumber)
     .concat(currencyAmountValidator())
     .concat(stxAmountPrecisionValidator(formatPrecisionError()));
 }
 
-export function stxAvailableBalanceValidator(availableBalance: Money, pendingTxsBalance: Money) {
+export function stxAvailableBalanceValidator(availableBalance: Money) {
   return yup
     .number()
-    .typeError(formatErrorWithSymbol('STX', FormErrorMessages.MustBeNumber))
+    .typeError(FormErrorMessages.MustBeNumber)
     .test({
       message: formatInsufficientBalanceError(availableBalance, sum =>
-        microStxToStx(subtractMoney(sum, pendingTxsBalance).amount).toString()
+        microStxToStx(sum.amount).toString()
       ),
       test(value: unknown) {
         const fee = stxToMicroStx(this.parent.fee);
         if (!availableBalance || !isNumber(value)) return false;
-        const availableBalanceLessAll = subtractMoney(
-          availableBalance,
-          pendingTxsBalance
-        ).amount.minus(fee);
-        return availableBalanceLessAll.isGreaterThanOrEqualTo(stxToMicroStx(value));
+        const availableBalanceLessFee = availableBalance.amount.minus(fee);
+        return availableBalanceLessFee.isGreaterThanOrEqualTo(stxToMicroStx(value));
       },
     });
 }

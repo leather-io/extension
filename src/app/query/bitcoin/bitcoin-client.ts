@@ -42,13 +42,14 @@ interface FeeEstimateEarnApiResponse {
   halfHourFee: number;
   hourFee: number;
 }
-export interface FeeEstimateMempoolSpaceApi {
+interface FeeEstimateMempoolSpaceApiResponse {
   fastestFee: number;
   halfHourFee: number;
   hourFee: number;
   economyFee: number;
   minimumFee: number;
 }
+
 class FeeEstimatesApi {
   constructor(public configuration: Configuration) {}
 
@@ -59,7 +60,7 @@ class FeeEstimatesApi {
     });
   }
 
-  async getFeeEstimatesFromMempoolSpaceApi(): Promise<FeeEstimateMempoolSpaceApi> {
+  async getFeeEstimatesFromMempoolSpaceApi(): Promise<FeeEstimateMempoolSpaceApiResponse> {
     return fetchData({
       errorMsg: 'No fee estimates fetched',
       url: ` https://mempool.space/api/v1/fees/recommended`,
@@ -83,20 +84,6 @@ class TransactionsApi {
       },
     });
   }
-}
-
-export const btcTxTimeMap: Record<keyof FeeEstimateMempoolSpaceApi, string> = {
-  fastestFee: '~10 – 20min',
-  halfHourFee: '~30 min',
-  economyFee: '~1 hour+',
-  hourFee: '~1 hour+',
-  minimumFee: '~1 hour+',
-};
-
-export enum BtcFeeType {
-  High = 'High',
-  Standard = 'Standard',
-  Low = 'Low',
 }
 
 export class BitcoinClient {

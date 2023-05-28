@@ -1,3 +1,225 @@
+## [4.27.0](https://github.com/hirosystems/wallet/compare/v4.26.0...v4.27.0) (2023-05-25)
+
+
+### Features
+
+* revert gaia url ([52375a0](https://github.com/hirosystems/wallet/commit/52375a0d8bc8175846c99c1a660c4b8767d3fd8e))
+
+
+### Internal
+
+* brc-20 query path ([bc1ee1c](https://github.com/hirosystems/wallet/commit/bc1ee1cd2ec68c9bf22f4609f93cb52771639403))
+
+## [4.26.0](https://github.com/hirosystems/wallet/compare/v4.25.0...v4.26.0) (2023-05-24)
+
+
+### Features
+
+* change gaia url, closes [#3678](https://github.com/hirosystems/wallet/issues/3678) ([baa3c4a](https://github.com/hirosystems/wallet/commit/baa3c4a11f41d599e120f2323dcf70fcab361821))
+* show available btc balance in balances list and total balance, closes [#3685](https://github.com/hirosystems/wallet/issues/3685) ([c329a69](https://github.com/hirosystems/wallet/commit/c329a69a52c9e070511f99ae8fb5cfd75b875ed3))
+* show stacked balance, closes [#2835](https://github.com/hirosystems/wallet/issues/2835) ([80af821](https://github.com/hirosystems/wallet/commit/80af8217c86631148900bc71188b8867c69b78d6))
+
+
+### Bug Fixes
+
+* **analytics:** wrong api details, missing token ([db3a296](https://github.com/hirosystems/wallet/commit/db3a296a4f0b4c87c6b99d32272dd1e3cf9e021d))
+* live reload losing in memory key ([0803ce6](https://github.com/hirosystems/wallet/commit/0803ce6ad7b62fe0d17e9b90a4107f09bb86249b))
+* stamps query key ([647cbee](https://github.com/hirosystems/wallet/commit/647cbee1079a50ff620864d8cf5955b8b39152da))
+
+
+### Internal
+
+* key derivation, closes [#3725](https://github.com/hirosystems/wallet/issues/3725) ([11f9461](https://github.com/hirosystems/wallet/commit/11f9461a68c35c58a23c00aee8766c2b463106f1))
+* upgrade dev deps ([d9c9f30](https://github.com/hirosystems/wallet/commit/d9c9f30ad5a675028c305fc889c9212a162f1a10))
+* upgrade to jotai v2, other pkgs ([b3ec461](https://github.com/hirosystems/wallet/commit/b3ec461bb8da40d90acf4b7c6b6055cc39fd07aa))
+
+## [4.25.0](https://github.com/hirosystems/wallet/compare/v4.24.2...v4.25.0) (2023-05-21)
+
+
+### Features
+
+* add inscriptions infinite loading, closes [#3694](https://github.com/hirosystems/wallet/issues/3694) ([e10e6e1](https://github.com/hirosystems/wallet/commit/e10e6e1af6f0d29995fe368ee86dea2ab795e407))
+* remove subbalance ([6fee549](https://github.com/hirosystems/wallet/commit/6fee549b6c0c5ed424bae190dda9a3eddeb02fb6))
+
+
+### Internal
+
+* update documentation link ([89e46b5](https://github.com/hirosystems/wallet/commit/89e46b5aa7c28d2d14e972568023245dd5847019))
+
+## [4.24.2](https://github.com/hirosystems/wallet/compare/v4.24.1...v4.24.2) (2023-05-17)
+
+
+### Bug Fixes
+
+* delete networks bug in firefox, closes [#3608](https://github.com/hirosystems/wallet/issues/3608) ([a092f8d](https://github.com/hirosystems/wallet/commit/a092f8d60c225388fda4d7921b8ef541134c915a))
+* display json mime type inscriptions, closes [#3533](https://github.com/hirosystems/wallet/issues/3533) ([ec350ca](https://github.com/hirosystems/wallet/commit/ec350ca3195670cc3c5071c48ab53eb1b1f7d93c))
+* ignore known sentry errors ([db5150a](https://github.com/hirosystems/wallet/commit/db5150a750da206f2ec43e143bdbb2ba7a747006))
+* insufficient funds error, closes [#3661](https://github.com/hirosystems/wallet/issues/3661), closes [#3651](https://github.com/hirosystems/wallet/issues/3651) ([5d95d99](https://github.com/hirosystems/wallet/commit/5d95d994dc24bb1014e2f8c732810c18e2f742bc))
+
+
+### Internal
+
+* add query headers ([4841867](https://github.com/hirosystems/wallet/commit/484186795aac51df0da6705069ac6a2dc301e353))
+* add temp warning msg ([5d4a454](https://github.com/hirosystems/wallet/commit/5d4a454e9d7a9cbdd6830caf76d8087a52a29c8a))
+* brc-20 token balance query ([bad4797](https://github.com/hirosystems/wallet/commit/bad4797854f1c48f5e6245c464b9bf1691f035f8))
+* improve logging ([bbb7dc0](https://github.com/hirosystems/wallet/commit/bbb7dc0472b27c9934237da7f9d980350b5dd4be))
+* remove react type resolutions ([bac98ce](https://github.com/hirosystems/wallet/commit/bac98ceac0bfb22ae4b47a14ce79a5dde58fc46a))
+* upgrade packages ([356e794](https://github.com/hirosystems/wallet/commit/356e794346faf086651c5655b17b550b9e53c994))
+
+## [4.24.1](https://github.com/hirosystems/wallet/compare/v4.24.0...v4.24.1) (2023-05-12)
+
+
+### Bug Fixes
+
+* delete networks bug in firefox, closes [#3608](https://github.com/hirosystems/wallet/issues/3608) ([0d44d13](https://github.com/hirosystems/wallet/commit/0d44d1363806c25461d5c995ecf38dc9ff3f834d))
+
+
+### Internal
+
+* add query headers ([37e1cbf](https://github.com/hirosystems/wallet/commit/37e1cbf6adbcaba893ba94e77caf22080d55ac66))
+* brc-20 token balance query ([1c41703](https://github.com/hirosystems/wallet/commit/1c4170328ca8ae2f9514e2d68b0179e577df3d05))
+
+## [4.24.0](https://github.com/hirosystems/wallet/compare/v4.23.0...v4.24.0) (2023-05-12)
+
+
+### Features
+
+* add hiro api test ([db53c6d](https://github.com/hirosystems/wallet/commit/db53c6d77b3c6e3d28c27ac2957217c7a80ba822))
+* change ordapi to hiro ordinals api, closes [#3417](https://github.com/hirosystems/wallet/issues/3417) ([73a2957](https://github.com/hirosystems/wallet/commit/73a2957f6d06562b0e12204ced8084ba9be3c13a))
+* send inscription choose fee, closes [#3544](https://github.com/hirosystems/wallet/issues/3544) ([45c090f](https://github.com/hirosystems/wallet/commit/45c090fa3ce584bebb8c321eb787ae9d06346385))
+
+
+### Bug Fixes
+
+* **brc-20:** handle bad response ([3775a6c](https://github.com/hirosystems/wallet/commit/3775a6c7776a0cfe541bccbc0009140a0f55c8f4))
+
+## [4.23.0](https://github.com/hirosystems/wallet/compare/v4.22.0...v4.23.0) (2023-05-11)
+
+
+### Features
+
+* bip322, closes [#3386](https://github.com/hirosystems/wallet/issues/3386) ([ad8ed1b](https://github.com/hirosystems/wallet/commit/ad8ed1b2075206d5f999a88fe49a6e5ba5d4515e))
+
+
+### Bug Fixes
+
+* send-zero-error-msg, closes [#3662](https://github.com/hirosystems/wallet/issues/3662) ([400cc51](https://github.com/hirosystems/wallet/commit/400cc51cf37d8a29406e76e20985d3a5c9d188f1))
+* upgrade noble packages, and others ([38749a4](https://github.com/hirosystems/wallet/commit/38749a4775db6dac3d8692d0084a72f2a84efe51))
+
+
+### Internal
+
+* **bip322:** create factory fn to reduce repitition ([c13ae58](https://github.com/hirosystems/wallet/commit/c13ae584a42d3e38967fc30db7de4e9d6bd06c99))
+* remove symbol from error msgs ([e873225](https://github.com/hirosystems/wallet/commit/e873225f2d6eef6736e119ee56fd8002ffcbafb8))
+* **routing:** upgrade to v6.4 Data APIs, closes [#3663](https://github.com/hirosystems/wallet/issues/3663) ([739b44d](https://github.com/hirosystems/wallet/commit/739b44d3f590c24acef56eae07a3a92596c739af))
+
+## [4.22.0](https://github.com/hirosystems/wallet/compare/v4.21.1...v4.22.0) (2023-05-08)
+
+
+### Features
+
+* include wallet provider to user session object, closes [#3603](https://github.com/hirosystems/wallet/issues/3603) ([6830ea5](https://github.com/hirosystems/wallet/commit/6830ea57a61f4170ab032a1409e76660ecc58b71))
+
+
+### Bug Fixes
+
+* balances list tr breaking ledger ([69f6a71](https://github.com/hirosystems/wallet/commit/69f6a71232170788f066e1eecb74529fddb09c78))
+* copy taproot address, [#3664](https://github.com/hirosystems/wallet/issues/3664) ([ef8e19d](https://github.com/hirosystems/wallet/commit/ef8e19df9313b6689aca034b22583033b1973979))
+* filtering dust utxos, closes [#3374](https://github.com/hirosystems/wallet/issues/3374), closes [#3163](https://github.com/hirosystems/wallet/issues/3163) ([403c7cb](https://github.com/hirosystems/wallet/commit/403c7cb0da1e60af55abbf78993d6dbcf50c6f35))
+
+## [4.21.1](https://github.com/hirosystems/wallet/compare/v4.21.0...v4.21.1) (2023-05-08)
+
+
+### Bug Fixes
+
+* brc-20 address ([3b204f4](https://github.com/hirosystems/wallet/commit/3b204f4b0acb9a8f5f426492e8ecbd113f8675a5))
+
+## [4.21.0](https://github.com/hirosystems/wallet/compare/v4.20.0...v4.21.0) (2023-05-07)
+
+
+### Features
+
+* brc-20 token balances, closes [#3629](https://github.com/hirosystems/wallet/issues/3629) ([85e5f9a](https://github.com/hirosystems/wallet/commit/85e5f9a6b6d733ec987278fda8ebb9ec0698eed1))
+
+
+### Bug Fixes
+
+* onboarding test ([c45efea](https://github.com/hirosystems/wallet/commit/c45efea4a85c63d96a6ba34e43db1e8ad6e98f6a))
+
+
+### Internal
+
+* stamps query and ui, closes [#3648](https://github.com/hirosystems/wallet/issues/3648) ([501ac5f](https://github.com/hirosystems/wallet/commit/501ac5f7154136bbd25d02ed2bf2e3366a27afbf))
+
+## [4.20.0](https://github.com/hirosystems/wallet/compare/v4.19.0...v4.20.0) (2023-05-03)
+
+
+### Features
+
+* apply highest fee for high estimate, closes [#3639](https://github.com/hirosystems/wallet/issues/3639) ([a1d941b](https://github.com/hirosystems/wallet/commit/a1d941b602ffed62bff568ca749a8d7a40ba29fa))
+* refactor available balance ([155e809](https://github.com/hirosystems/wallet/commit/155e80973c332b638074b2160945387d1970bced))
+* stamps collectibles, closes [#3589](https://github.com/hirosystems/wallet/issues/3589) ([4d31163](https://github.com/hirosystems/wallet/commit/4d31163d9bb3350eedd7eb9d019d0bcbacf256ef))
+
+
+### Bug Fixes
+
+* **ledger:** user landing on sign in screen, closes [#3632](https://github.com/hirosystems/wallet/issues/3632) ([28437bf](https://github.com/hirosystems/wallet/commit/28437bf5170ec8545dee4ab76eb7fc1652d29c54))
+* prop error in asset items component ([bda1343](https://github.com/hirosystems/wallet/commit/bda1343bd5ec9e67a5d4ec0491af6d38c38598b7))
+* stamps query options ([6a8c7aa](https://github.com/hirosystems/wallet/commit/6a8c7aab7634da455ed98fca447c2928007badaa))
+
+## [4.19.0](https://github.com/hirosystems/wallet/compare/v4.18.1...v4.19.0) (2023-05-01)
+
+
+### Features
+
+* add average bitcoin fee rate ([c1cdbbe](https://github.com/hirosystems/wallet/commit/c1cdbbec62ca1dd9cb9186a23dcf2b6410c569bf))
+
+
+### Bug Fixes
+
+* **ordinals:** improved check, all_inscrptions first ([420d136](https://github.com/hirosystems/wallet/commit/420d136df00d9248e3667b32480f4709fc8764cb))
+* **ordinals:** sending inscriptions validation, closes [#3618](https://github.com/hirosystems/wallet/issues/3618) ([1f49ad2](https://github.com/hirosystems/wallet/commit/1f49ad248d22fceeabe948f5e900b018dd06b958))
+
+
+### Internal
+
+* group math helpers ([b6ff306](https://github.com/hirosystems/wallet/commit/b6ff306ee93a61fa3a2a4d54938ef4a37b1195e7))
+
+## [4.18.1](https://github.com/hirosystems/wallet/compare/v4.18.0...v4.18.1) (2023-04-27)
+
+
+### Bug Fixes
+
+* ensure users don't accidentally send stamped utxos ([fccf6a9](https://github.com/hirosystems/wallet/commit/fccf6a95c291c9f7a4ac79419129de6b836661aa))
+* retrieve bitcoin from tr addresses, closes [#3575](https://github.com/hirosystems/wallet/issues/3575) ([76d400e](https://github.com/hirosystems/wallet/commit/76d400e20492d57bebb1cb5ce6eecdbaa3b7abf9))
+
+## [4.18.0](https://github.com/hirosystems/wallet/compare/v4.17.0...v4.18.0) (2023-04-26)
+
+
+### Features
+
+* add btc balance in account selection total balance ([2a06e95](https://github.com/hirosystems/wallet/commit/2a06e95a552c03a391abbf95bf2b20920f9b0e0f))
+* btc send transfer ([7c7fdae](https://github.com/hirosystems/wallet/commit/7c7fdaee32f410191c0c6c7de2ec477a5a609e22))
+
+
+### Bug Fixes
+
+* **analytics:** exploring use of traits ([2fda5a3](https://github.com/hirosystems/wallet/commit/2fda5a3d459ce1c3faae0febf238ae501b346e28))
+* inability to remove network ([dcf3c40](https://github.com/hirosystems/wallet/commit/dcf3c40996d49de1055bca6f56a9e9b737439c98))
+* pad decimals, closes [#3582](https://github.com/hirosystems/wallet/issues/3582) ([1ccf7dd](https://github.com/hirosystems/wallet/commit/1ccf7dd3ec1bea7566672771141d2f1b64d4a698))
+* send transfer success response ([6d12445](https://github.com/hirosystems/wallet/commit/6d124452957b481d7652350fc455ae10934a916e))
+* stx and sip10 tx error routing ([c46797f](https://github.com/hirosystems/wallet/commit/c46797f641655aaab08dd3d54eead990e8391e0c))
+* tabular alignment of numberical amounts ([4cbce03](https://github.com/hirosystems/wallet/commit/4cbce03bf0044b5a1a982b2b514d10aadcf04216))
+* tx req edit nonce ([5871a95](https://github.com/hirosystems/wallet/commit/5871a9582ff9fd420d22823872864c42076fdf45))
+
+
+### Internal
+
+* force consistent interface style ([63714ca](https://github.com/hirosystems/wallet/commit/63714ca4f2e2d0090d4aad2ff079cce10eb32385))
+* improve linting ([485bf6e](https://github.com/hirosystems/wallet/commit/485bf6ecf58d488ea8a17c0ad7a7ace383a01a6a))
+* use consistent signing pattern, closes [#3405](https://github.com/hirosystems/wallet/issues/3405) ([8ea185a](https://github.com/hirosystems/wallet/commit/8ea185a785b9f99822e8315300e8f77a8ac9da2e))
+* using factory fn for signer ([541c3b7](https://github.com/hirosystems/wallet/commit/541c3b78e887ae7710433e58c8a796981f9f9af9))
+
 ## [4.17.0](https://github.com/hirosystems/wallet/compare/v4.16.0...v4.17.0) (2023-04-21)
 
 

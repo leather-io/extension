@@ -1,0 +1,66 @@
+name: External API tests
+
+on:
+  pull_request:
+  schedule:
+    # https://crontab.guru
+    - cron: '0 * * * *'
+env:
+  CI: true
+
+jobs:
+  test-ordinals:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: ./.github/actions/provision
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 18
+
+      - uses: actions/cache@v3
+        id: cache
+        with:
+          path: '**/node_modules'
+          key: ${{ runner.os }}-${{ hashFiles('**/yarn.lock') }}-${{ hashFiles('**/package.json') }}
+
+      - name: Install dependencies
+        if: steps.cache.outputs.cache-hit != 'true'
+        env:
+          PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD: 1
+        run: yarn --frozen-lockfile
+        shell: bash
+
+      - name: Get installed Playwright version
+        id: playwright-version
+        run: echo "PLAYWRIGHT_VERSION=$(node -e "console.log(require('./package.json').devDependencies['@playwright/test'])")" >> $GITHUB_ENV
+
+      - name: Cache playwright binaries
+        uses: actions/cache@v3
+        id: playwright-cache
+        with:
+          path: ~/.cache/ms-playwright
+          key: ${{ runner.os }}-playwright-${{ env.PLAYWRIGHT_VERSION }}
+
+      - name: Install Playwright deps
+        run: yarn playwright install chrome
+        if: steps.playwright-cache.outputs.cache-hit != 'true'
+
+      - name: Run Playwright tests
+        id: playwright
+        uses: mathiasvr/command-output@v2.0.0
+        with:
+          run: yarn playwright test --reporter=github tests/api
+
+      - name: Discord notification
+        if: failure()
+        env:
+          DISCORD_WEBHOOK: ${{ secrets.DISCORD_ALERT_CHANNEL }}
+        uses: Ilshidur/action-discord@master
+        with:
+          args: |
+            Something funky's up with the OrdAPI.xyz. Wallet team engineer to investigate. See `ordinals-checker.yml` Github Action.
+            [Failing test job](${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }})
+            ```bash
+            ${{ steps.playwright.outputs.stdout }}
+            ```

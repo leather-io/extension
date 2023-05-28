@@ -1,4 +1,3 @@
-import { BitcoinFeeEstimate } from '@shared/models/fees/bitcoin-fees.model';
 import { FeeTypes } from '@shared/models/fees/fees.model';
 import { StacksFeeEstimate } from '@shared/models/fees/stacks-fees.model';
 
@@ -7,7 +6,7 @@ import { FeeEstimateSelectLayout } from './fee-estimate-select.layout';
 
 interface FeeEstimateSelectProps {
   isVisible: boolean;
-  estimate: BitcoinFeeEstimate[] | StacksFeeEstimate[];
+  estimate: StacksFeeEstimate[];
   onSelectItem(index: number): void;
   onSetIsSelectVisible(value: boolean): void;
   selectedItem: number;

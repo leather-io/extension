@@ -12,32 +12,47 @@ env:
 
 jobs:
   test:
-    timeout-minutes: 60
-    runs-on: ubuntu-22.04
+    name: Shard ${{ matrix.shardIndex }} of ${{ matrix.shardTotal }}
+    timeout-minutes: 5
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        shardIndex: [1, 2, 3, 4, 5, 6, 7, 8]
+        shardTotal: [8]
+
     steps:
       - uses: actions/checkout@v3
-
       - uses: actions/setup-node@v3
         with:
           node-version: 18
-          cache: 'yarn'
-
-      - name: Install dependencies
-        run: yarn
 
       - name: Get installed Playwright version
         id: playwright-version
         run: echo "PLAYWRIGHT_VERSION=$(node -e "console.log(require('./package.json').devDependencies['@playwright/test'])")" >> $GITHUB_ENV
+
+      - uses: actions/cache@v3
+        id: cache
+        with:
+          path: '**/node_modules'
+          key: ${{ runner.os }}-${{ hashFiles('**/yarn.lock') }}-${{ hashFiles('**/package.json') }}-${{ env.PLAYWRIGHT_VERSION }}-force
+
+      - name: Install dependencies
+        if: steps.cache.outputs.cache-hit != 'true'
+        env:
+          PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD: 1
+        run: yarn --frozen-lockfile
+        shell: bash
 
       - name: Cache playwright binaries
         uses: actions/cache@v3
         id: playwright-cache
         with:
           path: ~/.cache/ms-playwright
-          key: ${{ runner.os }}-playwright-${{ env.PLAYWRIGHT_VERSION }}
+          key: ${{ runner.os }}-playwright-${{ env.PLAYWRIGHT_VERSION }}-force
 
       - name: Install Playwright deps
-        run: yarn playwright install chrome
+        run: yarn playwright install --with-deps
         if: steps.playwright-cache.outputs.cache-hit != 'true'
 
       - name: Build extension in test mode
@@ -54,7 +69,7 @@ jobs:
         # provides a virtual X display server to the process it runs, allowing
         # processes that require a display server to run in environments where
         # one is not available.
-        run: xvfb-run yarn playwright test
+        run: xvfb-run yarn playwright test --shard=${{ matrix.shardIndex }}/${{ matrix.shardTotal }} --workers=1
 
       - uses: actions/upload-artifact@v3
         if: always()

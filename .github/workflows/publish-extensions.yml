@@ -28,7 +28,7 @@ jobs:
     outputs:
       new_version: ${{ steps.extract_version.outputs.version }}
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
       - uses: ./.github/actions/provision
 
       - name: Extract version
@@ -88,7 +88,7 @@ jobs:
       publish_status: ${{ steps.publish-chrome.outputs.publish_status }}
     steps:
       - name: Check out Git repository
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 
       - uses: actions/cache@v2
         id: cache-node-modules
@@ -139,7 +139,7 @@ jobs:
       publish_status: ${{ steps.publish-firefox.outputs.publish_status }}
     steps:
       - name: Check out Git repository
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 
       - uses: actions/cache@v2
         id: cache-node-modules

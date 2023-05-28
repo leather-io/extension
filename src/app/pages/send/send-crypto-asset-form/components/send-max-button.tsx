@@ -1,7 +1,7 @@
 import { useCallback } from 'react';
 import toast from 'react-hot-toast';
 
-import { Button } from '@stacks/ui';
+import { Box, Button } from '@stacks/ui';
 import { ButtonProps } from '@stacks/ui';
 import { SendCryptoAssetSelectors } from '@tests/selectors/send.selectors';
 import { useField } from 'formik';
@@ -20,16 +20,14 @@ export function SendMaxButton({ balance, sendMaxBalance, ...props }: SendMaxButt
   const analytics = useAnalytics();
 
   const onSendMax = useCallback(() => {
-    // if (isUndefined(feeField.value)) return toast.error('Loading fee, try again');
-    // if (!feeField.value)
-    //   return toast.error(
-    //     `A fee must be set to calculate max ${balance.symbol.toUpperCase()} transfer amount`
-    //   );
-
     void analytics.track('select_maximum_amount_for_send');
     if (balance.amount.isLessThanOrEqualTo(0)) return toast.error(`Zero balance`);
     return amountFieldHelpers.setValue(sendMaxBalance);
   }, [amountFieldHelpers, analytics, balance.amount, sendMaxBalance]);
+
+  // Hide send max button if using lowest fee to perform the calc
+  // is greater than available balance and will show zero
+  if (sendMaxBalance === '0') return <Box height="32px" />;
 
   return (
     <Button

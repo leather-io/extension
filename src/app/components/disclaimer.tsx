@@ -1,16 +1,16 @@
-import { Box } from '@stacks/ui';
+import { Box, BoxProps } from '@stacks/ui';
 
 import { openInNewTab } from '@app/common/utils/open-in-new-tab';
 import { Link } from '@app/components/link';
 import { Caption } from '@app/components/typography';
 
-interface DisclaimerProps {
+interface DisclaimerProps extends BoxProps {
   disclaimerText: string;
   learnMoreUrl?: string;
 }
-export function DisclaimerLayout({ disclaimerText, learnMoreUrl }: DisclaimerProps) {
+export function Disclaimer({ disclaimerText, learnMoreUrl, ...props }: DisclaimerProps) {
   return (
-    <Box>
+    <Box lineHeight="1.4" {...props}>
       <Caption>
         {disclaimerText}
         {learnMoreUrl ? (

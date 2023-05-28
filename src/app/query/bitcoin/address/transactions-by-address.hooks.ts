@@ -2,14 +2,12 @@ import { useMemo } from 'react';
 
 import { createMoney } from '@shared/models/money.model';
 
-import { sumNumbers } from '@app/common/utils';
-import { useCurrentBtcNativeSegwitAccountAddressIndexZero } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
+import { sumNumbers } from '@app/common/math/helpers';
 
 import { useGetBitcoinTransactionsByAddressQuery } from './transactions-by-address.query';
 
-export function useBitcoinPendingTransactions() {
-  const bitcoinAddress = useCurrentBtcNativeSegwitAccountAddressIndexZero();
-  const { data: bitcoinTransactions } = useGetBitcoinTransactionsByAddressQuery(bitcoinAddress);
+export function useBitcoinPendingTransactions(address: string) {
+  const { data: bitcoinTransactions } = useGetBitcoinTransactionsByAddressQuery(address);
   // TODO: use useQuery select method
   return useMemo(
     () => (bitcoinTransactions ?? []).filter(tx => !tx.status.confirmed),
@@ -17,21 +15,20 @@ export function useBitcoinPendingTransactions() {
   );
 }
 
-// ts-unused-exports:disable-next-line
-export function useBitcoinPendingTransactionsBalance() {
-  const bitcoinAddress = useCurrentBtcNativeSegwitAccountAddressIndexZero();
-  const pendingTransactions = useBitcoinPendingTransactions();
+export function useBitcoinPendingTransactionsBalance(address: string) {
+  const pendingTransactions = useBitcoinPendingTransactions(address);
 
   return useMemo(
     () =>
       createMoney(
         sumNumbers(
           pendingTransactions
-            .flatMap(tx => tx.vout.filter(output => output.scriptpubkey_address === bitcoinAddress))
+            .flatMap(tx => tx.vout.filter(output => output.scriptpubkey_address === address))
+            .filter(tx => tx.scriptpubkey_address !== address)
             .map(vout => vout.value)
         ),
         'BTC'
       ),
-    [bitcoinAddress, pendingTransactions]
+    [address, pendingTransactions]
   );
 }

@@ -19,7 +19,6 @@ export function makeRpcSuccessResponse<T extends WalletMethodNames>(
   return { jsonrpc: '2.0', ...response } as WalletMethodMap[T]['response'];
 }
 
-// ts-unused-exports:disable-next-line
 export function makeRpcErrorResponse<T extends WalletMethodNames>(
   _method: T,
   response: Omit<ExtractErrorResponse<WalletMethodMap[T]['response']>, 'jsonrpc'>

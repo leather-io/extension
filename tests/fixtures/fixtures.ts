@@ -5,14 +5,14 @@ import { OnboardingPage } from '@tests/page-object-models/onboarding.page';
 import { SendPage } from '@tests/page-object-models/send.page';
 import path from 'path';
 
-type TestFixtures = {
+interface TestFixtures {
   context: BrowserContext;
   extensionId: string;
   globalPage: GlobalPage;
   homePage: HomePage;
   onboardingPage: OnboardingPage;
   sendPage: SendPage;
-};
+}
 
 /**
  * Loads the extension into the browser context. Use this test function with
@@ -25,9 +25,13 @@ export const test = base.extend<TestFixtures>({
     const pathToExtension = path.join(__dirname, '../../dist');
     const context = await chromium.launchPersistentContext('', {
       headless: false,
+      permissions: ['clipboard-read'],
       args: [
         `--disable-extensions-except=${pathToExtension}`,
         `--load-extension=${pathToExtension}`,
+        // force GPU hardware acceleration
+        // (even in headless mode)
+        '--use-gl=egl',
       ],
     });
     await use(context);

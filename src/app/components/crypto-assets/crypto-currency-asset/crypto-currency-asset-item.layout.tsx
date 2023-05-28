@@ -6,7 +6,7 @@ import { CryptoAssetSelectors } from '@tests/selectors/crypto-asset.selectors';
 import { CryptoCurrencies } from '@shared/models/currencies.model';
 import { Money } from '@shared/models/money.model';
 
-import { getFormattedBalance } from '@app/common/crypto-assets/stacks-crypto-asset.utils';
+import { formatBalance } from '@app/common/format-balance';
 import { ftDecimals } from '@app/common/stacks-utils';
 import { usePressable } from '@app/components/item-hover';
 import { Flag } from '@app/components/layout/flag';
@@ -14,22 +14,20 @@ import { SpaceBetween } from '@app/components/layout/space-between';
 import { Tooltip } from '@app/components/tooltip';
 import { Caption, Text } from '@app/components/typography';
 
-import { SubBalance } from '../components/sub-balance';
-
 interface CryptoCurrencyAssetItemLayoutProps extends StackProps {
   balance: Money;
   caption: string;
   icon: JSX.Element;
   copyIcon?: JSX.Element;
   isPressable?: boolean;
-  subBalance?: Money;
   title: string;
   usdBalance?: string;
   address?: string;
   canCopy?: boolean;
   isHovered?: boolean;
-  hasCopied?: boolean;
   currency?: CryptoCurrencies;
+  additionalBalanceInfo?: JSX.Element;
+  additionalUsdBalanceInfo?: JSX.Element;
 }
 export const CryptoCurrencyAssetItemLayout = forwardRefWithAs(
   (props: CryptoCurrencyAssetItemLayoutProps, ref) => {
@@ -39,24 +37,24 @@ export const CryptoCurrencyAssetItemLayout = forwardRefWithAs(
       icon,
       copyIcon,
       isPressable,
-      subBalance,
       title,
       usdBalance,
       address = '',
       isHovered = false,
+      additionalBalanceInfo,
+      additionalUsdBalanceInfo,
       ...rest
     } = props;
     const [component, bind] = usePressable(isPressable);
 
     const amount = balance.decimals
-      ? ftDecimals(balance.amount, balance.decimals || 0)
+      ? ftDecimals(balance.amount, balance.decimals)
       : balance.amount.toString();
     const dataTestId = CryptoAssetSelectors.CryptoAssetListItem.replace(
       '{symbol}',
       balance.symbol.toLowerCase()
     );
-    const formattedBalance = getFormattedBalance(amount);
-    const isUnanchored = !!(subBalance && !balance.amount.isEqualTo(subBalance.amount));
+    const formattedBalance = formatBalance(amount);
 
     return (
       <Flex
@@ -75,14 +73,16 @@ export const CryptoCurrencyAssetItemLayout = forwardRefWithAs(
               placement="left-start"
             >
               <Text data-testid={title} fontVariantNumeric="tabular-nums" textAlign="right">
-                {formattedBalance.value}
+                {formattedBalance.value} {additionalBalanceInfo}
               </Text>
             </Tooltip>
           </SpaceBetween>
           <SpaceBetween height="1.25rem" width="100%">
             <Caption>{caption}</Caption>
-            {Number(amount) > 0 && address ? <Caption>{usdBalance}</Caption> : null}
-            {isUnanchored && subBalance ? <SubBalance balance={subBalance} /> : null}
+            <Flex>
+              {balance.amount.toNumber() > 0 && address ? <Caption>{usdBalance}</Caption> : null}
+              {additionalUsdBalanceInfo}
+            </Flex>
           </SpaceBetween>
         </Flag>
         {component}

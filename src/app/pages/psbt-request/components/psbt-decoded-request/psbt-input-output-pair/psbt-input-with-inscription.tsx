@@ -16,7 +16,11 @@ export function PsbtInputWithInscription({
   inputValue,
   path,
 }: PsbtInputWithInscriptionProps) {
-  const { isLoading, isError, data: inscription } = useInscription(path);
+  const {
+    isLoading,
+    isError,
+    data: inscription,
+  } = useInscription(path.replace('/inscription/', ''));
 
   if (isLoading || isError) return null;
 
@@ -25,7 +29,7 @@ export function PsbtInputWithInscription({
       hoverLabel={address}
       image={<InscriptionPreview inscription={inscription} height="40px" width="40px" />}
       subtitle={truncateMiddle(address)}
-      subValue={`#${inscription.inscription_number}`}
+      subValue={`#${inscription.number}`}
       subValueAction={() => openInNewTab(inscription.infoUrl)}
       title="Ordinal inscription"
       value={`- ${inputValue}`}

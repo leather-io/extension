@@ -1,28 +1,20 @@
-import { useCallback, useMemo } from 'react';
 import { useSelector } from 'react-redux';
 
-import {
-  deriveAddressIndexKeychainFromAccount,
-  deriveAddressIndexZeroFromAccount,
-} from '@shared/crypto/bitcoin/bitcoin.utils';
-import {
-  deriveTaprootReceiveAddressIndex,
-  getTaprootPaymentFromAddressIndex,
-} from '@shared/crypto/bitcoin/p2tr-address-gen';
-import { isUndefined } from '@shared/utils';
+import { BitcoinNetworkModes } from '@shared/constants';
+import { getTaprootPaymentFromAddressIndex } from '@shared/crypto/bitcoin/p2tr-address-gen';
 
 import { bitcoinNetworkModeToCoreNetworkMode, whenNetwork } from '@app/common/utils';
 import { useCurrentNetwork } from '@app/store/networks/networks.selectors';
 
 import { useCurrentAccountIndex } from '../../account';
-import { formatBitcoinAccount, tempHardwareAccountForTesting } from './bitcoin-account.models';
 import {
   bitcoinSignerFactory,
   selectMainnetTaprootKeychain,
   selectTestnetTaprootKeychain,
+  useMakeBitcoinNetworkSignersForPaymentType,
 } from './bitcoin-keychain';
 
-function useTaprootCurrentNetworkAccountPrivateKeychain() {
+function useTaprootActiveNetworkAccountPrivateKeychain() {
   const network = useCurrentNetwork();
   return useSelector(
     whenNetwork(bitcoinNetworkModeToCoreNetworkMode(network.chain.bitcoin.network))({
@@ -32,97 +24,49 @@ function useTaprootCurrentNetworkAccountPrivateKeychain() {
   );
 }
 
-export function useCurrentTaprootAccountKeychain() {
+export function useTaprootCurrentAccountPrivateKeychain() {
   const currentAccountIndex = useCurrentAccountIndex();
   return useTaprootAccountKeychain(currentAccountIndex);
 }
 
 export function useTaprootAccountKeychain(accountIndex: number) {
-  const accountKeychain = useTaprootCurrentNetworkAccountPrivateKeychain();
+  const accountKeychain = useTaprootActiveNetworkAccountPrivateKeychain();
   if (!accountKeychain) return; // TODO: Revisit this return early
   return accountKeychain(accountIndex);
 }
 
-// Concept of current address index won't exist with privacy mode
-export function useCurrentTaprootAddressIndexKeychain() {
-  const keychain = useCurrentTaprootAccountKeychain();
-  if (!keychain) return; // TODO: Revisit this return early
-  return deriveAddressIndexZeroFromAccount(keychain);
-}
+export function useTaprootNetworkSigners() {
+  const mainnetKeychainFn = useSelector(selectMainnetTaprootKeychain);
+  const testnetKeychainFn = useSelector(selectTestnetTaprootKeychain);
 
-function useBitcoinTaprootAccountInfo(index: number) {
-  const keychain = useTaprootCurrentNetworkAccountPrivateKeychain();
-  return useMemo(() => {
-    // TODO: Remove with bitcoin Ledger integration
-    if (isUndefined(keychain)) return tempHardwareAccountForTesting;
-    return formatBitcoinAccount(keychain(index))(index);
-  }, [keychain, index]);
-}
-
-function useCurrentBitcoinTaprootAccountInfo() {
-  const currentAccountIndex = useCurrentAccountIndex();
-  return useBitcoinTaprootAccountInfo(currentAccountIndex);
-}
-
-function useDeriveTaprootAccountIndexAddressIndexZero(xpub: string) {
-  const network = useCurrentNetwork();
-  return useMemo(
-    () =>
-      deriveTaprootReceiveAddressIndex({
-        xpub,
-        index: 0,
-        network: network.chain.bitcoin.network,
-      }),
-    [xpub, network]
+  return useMakeBitcoinNetworkSignersForPaymentType(
+    mainnetKeychainFn,
+    testnetKeychainFn,
+    getTaprootPaymentFromAddressIndex
   );
 }
 
-export function useCurrentBtcTaprootAccountAddressIndexZeroPayment() {
-  const { xpub } = useCurrentBitcoinTaprootAccountInfo();
-  const payment = useDeriveTaprootAccountIndexAddressIndexZero(xpub);
-  if (!payment?.address) throw new Error('No address found');
-  // Creating new object to have known property types
-  return { address: payment.address, type: payment.type };
-}
+function useTaprootSigner(accountIndex: number, network: BitcoinNetworkModes) {
+  const accountKeychain = useTaprootAccountKeychain(accountIndex);
+  if (!accountKeychain) return; // TODO: Revisit this return early
 
-// TODO: Address index 0 is hardcoded here bc this is only used to pass the first
-// taproot address to the app thru the auth response. This is only temporary, it
-// should be removed once the request address api is in place.
-export function useAllBitcoinTaprootNetworksByAccount() {
-  const mainnetKeychainAtAccount = useSelector(selectMainnetTaprootKeychain);
-  const testnetKeychainAtAccount = useSelector(selectTestnetTaprootKeychain);
-
-  return useCallback(
-    (accountIndex: number) => {
-      if (!mainnetKeychainAtAccount || !testnetKeychainAtAccount)
-        throw new Error('Cannot derive addresses in non-software mode');
-
-      return {
-        mainnet: deriveTaprootReceiveAddressIndex({
-          xpub: mainnetKeychainAtAccount(accountIndex).publicExtendedKey,
-          index: 0,
-          network: 'mainnet',
-        })?.address,
-        testnet: deriveTaprootReceiveAddressIndex({
-          xpub: testnetKeychainAtAccount(accountIndex).publicExtendedKey,
-          index: 0,
-          network: 'testnet',
-        })?.address,
-      };
-    },
-    [mainnetKeychainAtAccount, testnetKeychainAtAccount]
-  );
+  return bitcoinSignerFactory({
+    accountKeychain,
+    paymentFn: getTaprootPaymentFromAddressIndex,
+    network,
+  });
 }
 
 export function useCurrentAccountTaprootSigner() {
+  const currentAccountIndex = useCurrentAccountIndex();
   const network = useCurrentNetwork();
-  const accountKeychain = useCurrentTaprootAccountKeychain();
-  if (!accountKeychain) return; // TODO: Revisit this return early
-  const addressIndexKeychainFn = deriveAddressIndexKeychainFromAccount(accountKeychain);
+  return useTaprootSigner(currentAccountIndex, network.chain.bitcoin.network);
+}
 
-  return bitcoinSignerFactory({
-    addressIndexKeychainFn,
-    paymentFn: getTaprootPaymentFromAddressIndex,
-    network: network.chain.bitcoin.network,
-  });
+export function useCurrentAccountTaprootAddressIndexZeroPayment() {
+  const createSigner = useCurrentAccountTaprootSigner();
+  const indexZeroSigner = createSigner?.(0);
+  if (!indexZeroSigner?.payment.address) throw new Error('No address found');
+  // Creating new object to have known property types
+  return { address: indexZeroSigner.payment.address, type: indexZeroSigner.payment.type };
 }

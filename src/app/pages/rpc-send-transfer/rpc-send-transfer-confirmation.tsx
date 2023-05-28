@@ -13,10 +13,10 @@ import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
 import { baseCurrencyAmountInQuote } from '@app/common/money/calculate-money';
 import { formatMoney, formatMoneyPadded, i18nFormatCurrency } from '@app/common/money/format-money';
 import { satToBtc } from '@app/common/money/unit-conversion';
-import { useCurrentNativeSegwitUtxos } from '@app/query/bitcoin/address/address.hooks';
+import { useCurrentNativeSegwitUtxos } from '@app/query/bitcoin/address/use-current-account-native-segwit-utxos';
 import { useBitcoinBroadcastTransaction } from '@app/query/bitcoin/transaction/use-bitcoin-broadcast-transaction';
 import { useCryptoCurrencyMarketData } from '@app/query/common/market-data/market-data.hooks';
-import { useCurrentBtcNativeSegwitAccountAddressIndexZero } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
+import { useCurrentAccountNativeSegwitAddressIndexZero } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
 
 import { SendTransferActions } from './components/send-transfer-actions';
 import { SendTransferConfirmationDetails } from './components/send-transfer-confirmation-details';
@@ -39,7 +39,7 @@ export function RpcSendTransferConfirmation() {
   const navigate = useNavigate();
   const { origin, requestId, tabId } = useRpcSendTransferRequestParams();
   const { fee, recipient, time, tx } = useRpcSendTransferConfirmationState();
-  const bitcoinAddress = useCurrentBtcNativeSegwitAccountAddressIndexZero();
+  const bitcoinAddress = useCurrentAccountNativeSegwitAddressIndexZero();
   const { broadcastTx, isBroadcasting } = useBitcoinBroadcastTransaction();
   const { refetch } = useCurrentNativeSegwitUtxos();
   const btcMarketData = useCryptoCurrencyMarketData('BTC');
@@ -88,7 +88,7 @@ export function RpcSendTransferConfirmation() {
       tx,
       async onSuccess(txid) {
         void analytics.track('broadcast_transaction', {
-          token: 'btc',
+          symbol: 'btc',
           amount: transferAmount,
           fee,
           inputs: psbt.inputs.length,

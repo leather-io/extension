@@ -23,7 +23,7 @@ import {
 } from '@app/components/info-card/info-card';
 import { ModalHeader } from '@app/components/modal-header';
 import { PrimaryButton } from '@app/components/primary-button';
-import { useCurrentNativeSegwitUtxos } from '@app/query/bitcoin/address/address.hooks';
+import { useCurrentNativeSegwitUtxos } from '@app/query/bitcoin/address/use-current-account-native-segwit-utxos';
 import { useBitcoinBroadcastTransaction } from '@app/query/bitcoin/transaction/use-bitcoin-broadcast-transaction';
 import { useCryptoCurrencyMarketData } from '@app/query/common/market-data/market-data.hooks';
 
@@ -72,7 +72,7 @@ export function BtcSendFormConfirmation() {
       tx,
       async onSuccess(txid) {
         void analytics.track('broadcast_transaction', {
-          token: 'btc',
+          symbol: 'btc',
           amount: transferAmount,
           fee,
           inputs: psbt.inputs.length,

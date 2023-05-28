@@ -34,13 +34,13 @@ export function useTransactionError() {
     }
 
     if (balances) {
-      const zeroBalance = balances?.stx.availableStx.amount.toNumber() === 0;
+      const zeroBalance = balances?.stx.unlockedStx.amount.toNumber() === 0;
 
       if (transactionRequest.txType === TransactionTypes.STXTransfer) {
         if (zeroBalance) return TransactionErrorReason.StxTransferInsufficientFunds;
 
         const transferAmount = new BigNumber(transactionRequest.amount);
-        if (transferAmount.gte(balances?.stx.availableStx.amount))
+        if (transferAmount.gte(balances?.stx.unlockedStx.amount))
           return TransactionErrorReason.StxTransferInsufficientFunds;
       }
 
@@ -49,7 +49,7 @@ export function useTransactionError() {
 
         if (transactionRequest.fee) {
           const feeValue = microStxToStx(transactionRequest.fee);
-          if (feeValue.gte(balances?.stx.availableStx.amount))
+          if (feeValue.gte(balances?.stx.unlockedStx.amount))
             return TransactionErrorReason.FeeInsufficientFunds;
         }
       }

@@ -1,10 +1,10 @@
+import { Page } from '@playwright/test';
 import { TokenTransferPayload, deserializeTransaction } from '@stacks/transactions';
 import { SECRET_KEY_2 } from '@tests-legacy/mocks';
 import { DemoPage } from '@tests-legacy/page-objects/demo.page';
 import { TransactionSigningPage } from '@tests-legacy/page-objects/transaction-signing.page';
 import { TransactionSigningSelectors } from '@tests-legacy/page-objects/transaction-signing.selectors';
 import { WalletPage } from '@tests-legacy/page-objects/wallet.page';
-import { Page } from 'playwright';
 
 import { RouteUrls } from '@shared/route-urls';
 

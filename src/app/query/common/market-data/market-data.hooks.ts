@@ -6,7 +6,7 @@ import { CryptoCurrencies } from '@shared/models/currencies.model';
 import { MarketData, createMarketData, createMarketPair } from '@shared/models/market.model';
 import { createMoney, currencyDecimalsMap } from '@shared/models/money.model';
 
-import { calculateMeanAverage } from '@app/common/calculate-averages';
+import { calculateMeanAverage } from '@app/common/math/calculate-averages';
 import { convertAmountToFractionalUnit } from '@app/common/money/calculate-money';
 
 import {

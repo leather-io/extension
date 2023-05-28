@@ -18,10 +18,13 @@ import {
   btcInsufficientBalanceValidator,
   btcMinimumSpendValidator,
 } from '@app/common/validation/forms/amount-validators';
-import { btcAmountPrecisionValidator } from '@app/common/validation/forms/currency-validators';
+import {
+  btcAmountPrecisionValidator,
+  currencyAmountValidator,
+} from '@app/common/validation/forms/currency-validators';
 import { useUpdatePersistedSendFormValues } from '@app/features/popup-send-form-restoration/use-update-persisted-send-form-values';
 import { useNativeSegwitBalance } from '@app/query/bitcoin/balance/bitcoin-balances.query';
-import { useCurrentBtcNativeSegwitAccountAddressIndexZero } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
+import { useCurrentAccountNativeSegwitAddressIndexZero } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
 import { useCurrentNetwork } from '@app/store/networks/networks.selectors';
 
 import { useCalculateMaxBitcoinSpend } from '../../family/bitcoin/hooks/use-calculate-max-spend';
@@ -30,7 +33,7 @@ import { useSendFormNavigate } from '../../hooks/use-send-form-navigate';
 export function useBtcSendForm() {
   const formRef = useRef<FormikProps<BitcoinSendFormValues>>(null);
   const currentNetwork = useCurrentNetwork();
-  const currentAccountBtcAddress = useCurrentBtcNativeSegwitAccountAddressIndexZero();
+  const currentAccountBtcAddress = useCurrentAccountNativeSegwitAddressIndexZero();
   const btcCryptoCurrencyAssetBalance = useNativeSegwitBalance(currentAccountBtcAddress);
   const { whenWallet } = useWalletType();
   const sendFormNavigate = useSendFormNavigate();
@@ -49,6 +52,7 @@ export function useBtcSendForm() {
         .concat(
           btcAmountPrecisionValidator(formatPrecisionError(btcCryptoCurrencyAssetBalance.balance))
         )
+        .concat(currencyAmountValidator())
         .concat(
           btcInsufficientBalanceValidator({
             // TODO: investigate yup features for cross-field validation

@@ -4,8 +4,9 @@ import { c32addressDecode } from 'c32check';
 
 import { NetworkConfiguration, STX_DECIMALS } from '@shared/constants';
 
-import { abbreviateNumber, initBigNumber } from '@app/common/utils';
+import { abbreviateNumber } from '@app/common/utils';
 
+import { initBigNumber } from './math/helpers';
 import { microStxToStx } from './money/unit-conversion';
 
 export const stacksValue = ({

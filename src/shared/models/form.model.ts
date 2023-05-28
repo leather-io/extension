@@ -10,6 +10,7 @@ export interface BitcoinSendFormValues {
 }
 
 export interface OrdinalSendFormValues {
+  feeRate: number;
   recipient: string;
 }
 

@@ -6,12 +6,13 @@ import { logger } from '@shared/logger';
 import { Money } from '@shared/models/money.model';
 
 import { determineUtxosForSpend } from '@app/common/transactions/bitcoin/coinselect/local-coin-selection';
-import { useGetUtxosByAddressQuery } from '@app/query/bitcoin/address/utxos-by-address.query';
-import { useBitcoinLibNetworkConfig } from '@app/store/accounts/blockchain/bitcoin/bitcoin-keychain';
+import { useSpendableCurrentNativeSegwitAccountUtxos } from '@app/query/bitcoin/address/use-spendable-native-segwit-utxos';
+import { useIsStampedTx } from '@app/query/bitcoin/stamps/use-is-stamped-tx';
+import { useBitcoinScureLibNetworkConfig } from '@app/store/accounts/blockchain/bitcoin/bitcoin-keychain';
 import {
+  useCurrentAccountNativeSegwitAddressIndexZero,
   useCurrentAccountNativeSegwitSigner,
   useCurrentBitcoinNativeSegwitAddressIndexPublicKeychain,
-  useCurrentBtcNativeSegwitAccountAddressIndexZero,
 } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
 
 interface GenerateBitcoinTxValues {
@@ -20,11 +21,13 @@ interface GenerateBitcoinTxValues {
 }
 
 export function useGenerateSignedBitcoinTx() {
-  const currentAccountBtcAddress = useCurrentBtcNativeSegwitAccountAddressIndexZero();
-  const { data: utxos } = useGetUtxosByAddressQuery(currentAccountBtcAddress);
+  const currentAccountBtcAddress = useCurrentAccountNativeSegwitAddressIndexZero();
+  const { data: utxos } = useSpendableCurrentNativeSegwitAccountUtxos();
   const currentAddressIndexKeychain = useCurrentBitcoinNativeSegwitAddressIndexPublicKeychain();
   const createSigner = useCurrentAccountNativeSegwitSigner();
-  const networkMode = useBitcoinLibNetworkConfig();
+  const isStamped = useIsStampedTx();
+
+  const networkMode = useBitcoinScureLibNetworkConfig();
 
   return useCallback(
     (values: GenerateBitcoinTxValues, feeRate: number) => {
@@ -38,7 +41,7 @@ export function useGenerateSignedBitcoinTx() {
         const tx = new btc.Transaction();
 
         const { inputs, outputs, fee } = determineUtxosForSpend({
-          utxos,
+          utxos: utxos.filter(utxo => !isStamped(utxo.txid)),
           recipient: values.recipient,
           amount: values.amount.amount.toNumber(),
           feeRate,
@@ -87,6 +90,7 @@ export function useGenerateSignedBitcoinTx() {
       createSigner,
       currentAccountBtcAddress,
       currentAddressIndexKeychain?.publicKey,
+      isStamped,
       networkMode,
       utxos,
     ]

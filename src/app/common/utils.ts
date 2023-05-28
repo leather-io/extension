@@ -7,7 +7,6 @@ import {
   PostCondition,
   deserializePostCondition,
 } from '@stacks/transactions';
-import BigNumber from 'bignumber.js';
 import { toUnicode } from 'punycode';
 
 import { BitcoinNetworkModes, KEBAB_REGEX, NetworkModes } from '@shared/constants';
@@ -16,6 +15,14 @@ import type { Blockchains } from '@shared/models/blockchain.model';
 
 export function createNullArrayOfLength(length: number) {
   return new Array(length).fill(null);
+}
+
+export function createNumArrayOfRange(fromIndex: number, toIndex: number) {
+  const result = [];
+  for (let i = fromIndex; i <= toIndex; i++) {
+    result.push(i);
+  }
+  return result;
 }
 
 function kebabCase(str: string) {
@@ -86,14 +93,6 @@ export function truncateString(str: string, maxLength: number) {
     return str;
   }
   return str.slice(0, maxLength) + '…';
-}
-
-function isMultipleOf(multiple: number) {
-  return (num: number) => num % multiple === 0;
-}
-
-export function isEven(num: number) {
-  return isMultipleOf(2)(num);
 }
 
 function getLetters(string: string, offset = 1) {
@@ -251,18 +250,6 @@ export function with0x(value: string): string {
   return !value.startsWith('0x') ? `0x${value}` : value;
 }
 
-export function initBigNumber(num: string | number | BigNumber) {
-  return BigNumber.isBigNumber(num) ? num : new BigNumber(num);
-}
-
-export function countDecimals(num: string | number | BigNumber) {
-  const LARGE_NUMBER_OF_DECIMALS = 100;
-  BigNumber.config({ DECIMAL_PLACES: LARGE_NUMBER_OF_DECIMALS });
-  const amount = initBigNumber(num);
-  const decimals = amount.toString(10).split('.')[1];
-  return decimals ? decimals.length : 0;
-}
-
 export function pullContractIdFromIdentity(identifier: string) {
   return identifier.split('::')[0];
 }
@@ -312,10 +299,6 @@ const bitcoinNetworkToCoreNetworkMap: Record<BitcoinNetworkModes, NetworkModes> 
 };
 export function bitcoinNetworkModeToCoreNetworkMode(mode: BitcoinNetworkModes) {
   return bitcoinNetworkToCoreNetworkMap[mode];
-}
-
-export function sumNumbers(nums: number[]) {
-  return nums.reduce((acc, num) => acc.plus(num), new BigNumber(0));
 }
 
 export function logAndThrow(msg: string, args: any[] = []) {

@@ -1,7 +1,7 @@
 export enum FormErrorMessages {
   AdjustedFeeExceedsBalance = 'Fee added exceeds current balance',
   AddressRequired = 'Enter an address',
-  AmountRequired = 'Enter an amount of {symbol}',
+  AmountRequired = 'Enter an amount',
   BnsAddressNotFound = 'Address not found',
   CannotDetermineBalance = 'Cannot determine balance',
   CannotDeterminePrecision = 'Cannot determine decimal precision',
@@ -12,10 +12,9 @@ export enum FormErrorMessages {
   InsufficientBalance = 'Insufficient balance. Available:',
   InsufficientFunds = 'Insufficient funds',
   MemoExceedsLimit = 'Memo must be less than 34-bytes',
-  MustBeNumber = 'Amount of {symbol} must be a number',
+  MustBeNumber = 'Amount must be a number',
   MustBePositive = 'Amount must be positive',
-  MustNotBeZero = 'Must be more than zero',
   MustSelectAsset = 'Select a valid token to transfer',
   SameAddress = 'Cannot send to yourself',
-  TooMuchPrecision = '{symbol} can only have {decimals} decimals',
+  TooMuchPrecision = 'Token can only have {decimals} decimals',
 }

@@ -3,14 +3,14 @@ import { SendCryptoAssetSelectors } from '@tests/selectors/send.selectors';
 import { SharedComponentsSelectors } from '@tests/selectors/shared-component.selectors';
 import { getDisplayerAddress } from '@tests/utils';
 
-import { BtcFeeType } from '@app/query/bitcoin/bitcoin-client';
+import { BtcFeeType } from '@shared/models/fees/bitcoin-fees.model';
 
 import { test } from '../../fixtures/fixtures';
 
 test.describe('send btc', () => {
   test.beforeEach(async ({ extensionId, globalPage, homePage, onboardingPage, sendPage }) => {
     await globalPage.setupAndUseApiCalls(extensionId);
-    await onboardingPage.signInExistingUser();
+    await onboardingPage.signInWithTestAccount(extensionId);
     await homePage.enableTestMode();
     await homePage.sendButton.click();
     await sendPage.selectBtcAndGoToSendForm();

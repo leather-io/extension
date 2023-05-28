@@ -93,7 +93,7 @@ function TransactionRequestBase() {
 
   const validationSchema = !transactionRequest.sponsored
     ? yup.object({
-        fee: stxFeeValidator(stacksBalances?.stx.availableStx),
+        fee: stxFeeValidator(stacksBalances?.stx.unlockedStx),
         nonce: nonceValidator,
       })
     : null;

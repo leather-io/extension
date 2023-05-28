@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import { useQueryClient } from '@tanstack/react-query';
@@ -9,6 +10,7 @@ import { useConfigNftMetadataEnabled } from '@app/query/common/hiro-config/hiro-
 
 import { AddCollectible } from './components/add-collectible';
 import { Ordinals } from './components/bitcoin/ordinals';
+import { Stamps } from './components/bitcoin/stamps';
 import { CollectiblesLayout } from './components/collectibes.layout';
 import { StacksCryptoAssets } from './components/stacks/stacks-crypto-assets';
 import { TaprootBalanceDisplayer } from './components/taproot-balance-displayer';
@@ -20,6 +22,7 @@ export function Collectibles() {
   const isNftMetadataEnabled = useConfigNftMetadataEnabled();
   const queryClient = useQueryClient();
   const isFetching = useIsFetchingCollectiblesRelatedQuery();
+  const [isLoadingMore, setIsLoadingMore] = useState(false);
 
   return (
     <CollectiblesLayout
@@ -33,18 +36,21 @@ export function Collectibles() {
         ledger: null,
       })}
       isLoading={isFetching}
+      isLoadingMore={isLoadingMore}
       onRefresh={() => void queryClient.refetchQueries({ type: 'active' })}
     >
+      {isNftMetadataEnabled ? <StacksCryptoAssets /> : null}
+
       {whenWallet({
         software: (
           <>
             <AddCollectible />
-            <Ordinals />
+            <Stamps />
+            <Ordinals setIsLoadingMore={setIsLoadingMore} />
           </>
         ),
         ledger: null,
       })}
-      {isNftMetadataEnabled ? <StacksCryptoAssets /> : null}
     </CollectiblesLayout>
   );
 }
