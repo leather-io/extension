@@ -10,6 +10,6 @@ interface Brc20TokensLoaderProps {
 export function Brc20TokensLoader({ children }: Brc20TokensLoaderProps) {
   const { address: bitcoinAddressTaproot } = useCurrentAccountTaprootAddressIndexZeroPayment();
   const { data: brc20Tokens } = useBrc20TokensByAddressQuery(bitcoinAddressTaproot);
-  if (!bitcoinAddressTaproot || !brc20Tokens || !brc20Tokens.result) return null;
-  return children(brc20Tokens.result.list);
+  if (!bitcoinAddressTaproot || !brc20Tokens) return null;
+  return children(brc20Tokens);
 }
