@@ -291,14 +291,8 @@ export function whenNetwork(mode: NetworkModes) {
   return <T>(networkMap: NetworkMap<T>): T => networkMap[mode];
 }
 
-const bitcoinNetworkToCoreNetworkMap: Record<BitcoinNetworkModes, NetworkModes> = {
-  mainnet: 'mainnet',
-  testnet: 'testnet',
-  regtest: 'testnet',
-  signet: 'testnet',
-};
-export function bitcoinNetworkModeToCoreNetworkMode(mode: BitcoinNetworkModes) {
-  return bitcoinNetworkToCoreNetworkMap[mode];
+export function whenBitcoinNetwork(mode: BitcoinNetworkModes) {
+  return <T>(networkMap: Record<BitcoinNetworkModes, T>): T => networkMap[mode];
 }
 
 export function logAndThrow(msg: string, args: any[] = []) {
