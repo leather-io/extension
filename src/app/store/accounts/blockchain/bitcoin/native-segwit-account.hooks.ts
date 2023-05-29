@@ -1,8 +1,9 @@
 import { useSelector } from 'react-redux';
 
+import { bitcoinNetworkModeToCoreNetworkMode } from '@shared/crypto/bitcoin/bitcoin.utils';
 import { getNativeSegWitPaymentFromAddressIndex } from '@shared/crypto/bitcoin/p2wpkh-address-gen';
 
-import { bitcoinNetworkModeToCoreNetworkMode, whenNetwork } from '@app/common/utils';
+import { whenNetwork } from '@app/common/utils';
 import { useCurrentNetwork } from '@app/store/networks/networks.selectors';
 
 import { useCurrentAccountIndex } from '../../account';

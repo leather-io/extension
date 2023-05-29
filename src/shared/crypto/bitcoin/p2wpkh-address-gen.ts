@@ -10,7 +10,7 @@ import {
   getBitcoinCoinTypeIndexByNetwork,
 } from './bitcoin.utils';
 
-function getNativeSegWitAccountDerivationPath(network: NetworkModes, accountIndex: number) {
+function getNativeSegWitAccountDerivationPath(network: BitcoinNetworkModes, accountIndex: number) {
   return `m/84'/${getBitcoinCoinTypeIndexByNetwork(network)}'/${accountIndex}'`;
 }
 

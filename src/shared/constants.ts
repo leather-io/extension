@@ -32,6 +32,7 @@ export const GITHUB_REPO = 'wallet';
 export enum WalletDefaultNetworkConfigurationIds {
   mainnet = 'mainnet',
   testnet = 'testnet',
+  signet = 'signet',
   devnet = 'devnet',
 }
 
@@ -73,6 +74,7 @@ export const HIRO_API_BASE_URL_TESTNET = 'https://api.testnet.hiro.so';
 
 export const BITCOIN_API_BASE_URL_MAINNET = 'https://blockstream.info/api';
 export const BITCOIN_API_BASE_URL_TESTNET = 'https://blockstream.info/testnet/api';
+export const BITCOIN_API_BASE_URL_SIGNET = 'https://mempool.space/signet/api';
 
 const networkMainnet: NetworkConfiguration = {
   id: WalletDefaultNetworkConfigurationIds.mainnet,
@@ -108,6 +110,23 @@ const networkTestnet: NetworkConfiguration = {
   },
 };
 
+const networkSignet: NetworkConfiguration = {
+  id: WalletDefaultNetworkConfigurationIds.signet,
+  name: 'Signet',
+  chain: {
+    stacks: {
+      blockchain: 'stacks',
+      chainId: ChainID.Testnet,
+      url: HIRO_API_BASE_URL_TESTNET,
+    },
+    bitcoin: {
+      blockchain: 'bitcoin',
+      network: 'signet',
+      url: BITCOIN_API_BASE_URL_SIGNET,
+    },
+  },
+};
+
 const networkDevnet: NetworkConfiguration = {
   id: WalletDefaultNetworkConfigurationIds.devnet,
   name: 'Devnet',
@@ -133,6 +152,7 @@ export const defaultNetworksKeyedById: Record<
 > = {
   [WalletDefaultNetworkConfigurationIds.mainnet]: networkMainnet,
   [WalletDefaultNetworkConfigurationIds.testnet]: networkTestnet,
+  [WalletDefaultNetworkConfigurationIds.signet]: networkSignet,
   [WalletDefaultNetworkConfigurationIds.devnet]: networkDevnet,
 };
 
