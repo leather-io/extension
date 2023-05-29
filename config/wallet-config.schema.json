@@ -127,6 +127,16 @@
     "nftMetadataEnabled": {
       "type": "boolean",
       "description": "Determines whether or not we display nft metadata in the wallet"
+    },
+    "ordinalsbot": {
+      "type": "object",
+      "description": "Configuration for the ordinalsbot",
+      "additionalProperties": false,
+      "properties": {
+        "integrationEnabled": { "type": "boolean" },
+        "mainnetApiUrl": { "type": "string" },
+        "signetApiUrl": { "type": "string" }
+      }
     }
   },
   "$defs": {

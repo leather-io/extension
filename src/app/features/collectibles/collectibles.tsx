@@ -6,7 +6,7 @@ import { useQueryClient } from '@tanstack/react-query';
 import { RouteUrls } from '@shared/route-urls';
 
 import { useWalletType } from '@app/common/use-wallet-type';
-import { useConfigNftMetadataEnabled } from '@app/query/common/hiro-config/hiro-config.query';
+import { useConfigNftMetadataEnabled } from '@app/query/common/remote-config/remote-config.query';
 
 import { AddCollectible } from './components/add-collectible';
 import { Ordinals } from './components/bitcoin/ordinals';

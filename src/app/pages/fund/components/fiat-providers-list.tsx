@@ -10,7 +10,7 @@ import { LoadingSpinner } from '@app/components/loading-spinner';
 import {
   useActiveFiatProviders,
   useHasFiatProviders,
-} from '@app/query/common/hiro-config/hiro-config.query';
+} from '@app/query/common/remote-config/remote-config.query';
 
 import { FiatProviderItem } from './fiat-provider-item';
 import { activeFiatProviderIcons, getProviderUrl } from './fiat-providers.utils';

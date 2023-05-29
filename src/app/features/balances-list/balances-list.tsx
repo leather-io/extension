@@ -11,7 +11,7 @@ import { BtcIcon } from '@app/components/icons/btc-icon';
 import { LoadingSpinner } from '@app/components/loading-spinner';
 import { Caption } from '@app/components/typography';
 import { Brc20TokensLoader } from '@app/features/balances-list/components/brc-20-tokens-loader';
-import { useConfigBitcoinEnabled } from '@app/query/common/hiro-config/hiro-config.query';
+import { useConfigBitcoinEnabled } from '@app/query/common/remote-config/remote-config.query';
 import { useStacksFungibleTokenAssetBalancesAnchoredWithMetadata } from '@app/query/stacks/balance/stacks-ft-balances.hooks';
 import { useCurrentAccountNativeSegwitAddressIndexZero } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
 

@@ -7,7 +7,7 @@ import { SettingsMenuSelectors } from '@tests/selectors/settings.selectors';
 
 import { Tooltip } from '@app/components/tooltip';
 import { Caption } from '@app/components/typography';
-import { useConfigBitcoinEnabled } from '@app/query/common/hiro-config/hiro-config.query';
+import { useConfigBitcoinEnabled } from '@app/query/common/remote-config/remote-config.query';
 
 import { CaptionDotSeparator } from '../caption-dot-separator';
 import { AccountActiveCheckmark } from './account-active-checkmark';
