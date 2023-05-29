@@ -4,31 +4,13 @@ import { AppUseQueryConfig } from '@app/query/query-config';
 import { QueryPrefixes } from '@app/query/query-prefixes';
 
 export interface Brc20Token {
-  availableBalance: string;
-  overallBalance: string;
-  ticker: string;
-  transferableBalance: string;
+  available_balance: string;
+  overall_balance: string;
+  tick: string;
 }
 
-interface Brc20TokensByAddressResponse {
-  result?: {
-    list: Brc20Token[];
-    total: number;
-  };
-}
-
-async function fetchBrc20TokensByAddress(address: string): Promise<Brc20TokensByAddressResponse> {
-  const res = await fetch(
-    `https://unisat.io/wallet-api-v4/brc20/tokens?address=${address}&cursor=0&size=100`,
-    {
-      method: 'GET',
-      headers: {
-        'x-client': 'UniSat Wallet',
-        'x-version': '1.1.20',
-        'x-address': address,
-      },
-    }
-  );
+async function fetchBrc20TokensByAddress(address: string): Promise<Brc20Token[]> {
+  const res = await fetch(`https://brc20api.bestinslot.xyz/v1/get_brc20_balance/${address}`);
 
   if (!res.ok) throw new Error('Failed to fetch BRC-20 token balances');
 
