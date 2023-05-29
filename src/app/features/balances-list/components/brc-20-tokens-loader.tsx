@@ -1,7 +1,7 @@
 import {
   Brc20Token,
   useBrc20TokensByAddressQuery,
-} from '@app/query/bitcoin/ordinals/brc20-tokens.query';
+} from '@app/query/bitcoin/ordinals/brc20/brc20-tokens.query';
 import { useCurrentAccountTaprootAddressIndexZeroPayment } from '@app/store/accounts/blockchain/bitcoin/taproot-account.hooks';
 
 interface Brc20TokensLoaderProps {

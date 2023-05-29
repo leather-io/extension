@@ -2,7 +2,7 @@ import { FiX } from 'react-icons/fi';
 
 import { Box, Flex, Text } from '@stacks/ui';
 
-import { HiroMessage } from '@app/query/common/hiro-config/hiro-config.query';
+import { HiroMessage } from '@app/query/common/remote-config/remote-config.query';
 
 interface HiroMessageItemProps extends HiroMessage {
   onDismiss(id: string): void;
