@@ -1,17 +1,20 @@
 import { HDKey } from '@scure/bip32';
 import * as btc from '@scure/btc-signer';
 
-import { BitcoinNetworkModes, NetworkModes } from '@shared/constants';
+import { BitcoinNetworkModes } from '@shared/constants';
 
 import { DerivationPathDepth } from '../derivation-path.utils';
 import { getBtcSignerLibNetworkConfigByMode } from './bitcoin.network';
 import { ecdsaPublicKeyToSchnorr, getBitcoinCoinTypeIndexByNetwork } from './bitcoin.utils';
 
-function getTaprootAccountDerivationPath(network: NetworkModes, accountIndex: number) {
+function getTaprootAccountDerivationPath(network: BitcoinNetworkModes, accountIndex: number) {
   return `m/86'/${getBitcoinCoinTypeIndexByNetwork(network)}'/${accountIndex}'`;
 }
 
-export function deriveTaprootAccountFromRootKeychain(keychain: HDKey, network: NetworkModes) {
+export function deriveTaprootAccountFromRootKeychain(
+  keychain: HDKey,
+  network: BitcoinNetworkModes
+) {
   if (keychain.depth !== DerivationPathDepth.Root)
     throw new Error('Keychain passed is not an account');
 

@@ -9,13 +9,23 @@ import { logger } from '@shared/logger';
 import { DerivationPathDepth } from '../derivation-path.utils';
 import { BtcSignerNetwork, getBtcSignerLibNetworkConfigByMode } from './bitcoin.network';
 
+const bitcoinNetworkToCoreNetworkMap: Record<BitcoinNetworkModes, NetworkModes> = {
+  mainnet: 'mainnet',
+  testnet: 'testnet',
+  regtest: 'testnet',
+  signet: 'testnet',
+};
+export function bitcoinNetworkModeToCoreNetworkMode(mode: BitcoinNetworkModes) {
+  return bitcoinNetworkToCoreNetworkMap[mode];
+}
+
 const coinTypeMap: Record<NetworkModes, 0 | 1> = {
   mainnet: 0,
   testnet: 1,
 };
 
-export function getBitcoinCoinTypeIndexByNetwork(network: NetworkModes) {
-  return coinTypeMap[network];
+export function getBitcoinCoinTypeIndexByNetwork(network: BitcoinNetworkModes) {
+  return coinTypeMap[bitcoinNetworkModeToCoreNetworkMode(network)];
 }
 
 export function deriveAddressIndexKeychainFromAccount(keychain: HDKey) {

@@ -2,6 +2,7 @@ import { AddressType, Network, getAddressInfo, validate } from 'bitcoin-address-
 import * as yup from 'yup';
 
 import { BitcoinNetworkModes, NetworkConfiguration } from '@shared/constants';
+import { bitcoinNetworkModeToCoreNetworkMode } from '@shared/crypto/bitcoin/bitcoin.utils';
 import { isString } from '@shared/utils';
 
 import { FormErrorMessages } from '@app/common/error-messages';
@@ -46,7 +47,7 @@ export function btcTaprootAddressValidator() {
 function btcAddressNetworkValidatorFactory(network: BitcoinNetworkModes) {
   return (value?: string) => {
     if (!isString(value)) return false;
-    return validate(value, network as Network);
+    return validate(value, bitcoinNetworkModeToCoreNetworkMode(network) as Network);
   };
 }
 
