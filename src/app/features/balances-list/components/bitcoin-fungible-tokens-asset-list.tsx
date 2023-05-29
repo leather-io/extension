@@ -12,7 +12,7 @@ export function BitcoinFungibleTokenAssetList({ brc20Tokens }: BitcoinFungibleTo
   return (
     <Stack spacing="loose">
       {brc20Tokens.map(token => (
-        <Brc20TokenAssetItem key={token.ticker} token={token} />
+        <Brc20TokenAssetItem key={token.tick} token={token} />
       ))}
     </Stack>
   );

@@ -15,10 +15,10 @@ export const Brc20TokenAssetItem = forwardRefWithAs((props: Brc20TokenAssetItemP
 
   return (
     <Brc20TokenAssetItemLayout
-      balance={createMoney(Number(token.availableBalance), token.ticker, 0)}
+      balance={createMoney(Number(token.overall_balance), token.tick, 0)}
       caption="BRC-20"
       ref={ref}
-      title={token.ticker}
+      title={token.tick}
       {...rest}
     />
   );
