@@ -45,13 +45,18 @@ interface FeeEstimationsConfig {
   minValuesEnabled?: boolean;
 }
 
-interface HiroConfig {
+interface RemoteConfig {
   messages: any;
   activeFiatProviders?: Record<string, ActiveFiatProvider>;
   bitcoinEnabled: boolean;
   bitcoinSendEnabled: boolean;
   feeEstimationsMinMax?: FeeEstimationsConfig;
   nftMetadataEnabled: boolean;
+  ordinalsbot: {
+    integrationEnabled: boolean;
+    mainnetApiUrl: string;
+    signetApiUrl: string;
+  };
 }
 
 // TODO: BRANCH_NAME is not working here for config changes on PR branches
@@ -61,12 +66,12 @@ const githubWalletConfigRawUrl = `https://raw.githubusercontent.com/${GITHUB_ORG
   BRANCH_NAME || defaultBranch
 }/config/wallet-config.json`;
 
-async function fetchHiroMessages(): Promise<HiroConfig> {
-  if (!BRANCH_NAME && WALLET_ENVIRONMENT !== 'production') return localConfig as HiroConfig;
+async function fetchHiroMessages(): Promise<RemoteConfig> {
+  if (!BRANCH_NAME && WALLET_ENVIRONMENT !== 'production') return localConfig as RemoteConfig;
   return fetch(githubWalletConfigRawUrl).then(msg => msg.json());
 }
 
-function useRemoteHiroConfig() {
+function useRemoteConfig() {
   const { data } = useQuery(['walletConfig'], fetchHiroMessages, {
     // As we're fetching from Github, a third-party, we want
     // to avoid any unnecessary stress on their services, so
@@ -78,12 +83,12 @@ function useRemoteHiroConfig() {
 }
 
 export function useRemoteHiroMessages(): HiroMessage[] {
-  const config = useRemoteHiroConfig();
+  const config = useRemoteConfig();
   return get(config, 'messages.global', []);
 }
 
 export function useActiveFiatProviders() {
-  const config = useRemoteHiroConfig();
+  const config = useRemoteConfig();
   if (!config?.activeFiatProviders) return {} as Record<string, ActiveFiatProvider>;
 
   return Object.fromEntries(
@@ -101,7 +106,7 @@ export function useHasFiatProviders() {
 
 export function useConfigBitcoinEnabled() {
   const { whenWallet } = useWalletType();
-  const config = useRemoteHiroConfig();
+  const config = useRemoteConfig();
   return whenWallet({
     ledger: false,
     software: config?.bitcoinEnabled ?? true,
@@ -110,7 +115,7 @@ export function useConfigBitcoinEnabled() {
 
 export function useConfigBitcoinSendEnabled() {
   const { whenWallet } = useWalletType();
-  const config = useRemoteHiroConfig();
+  const config = useRemoteConfig();
   return whenWallet({
     ledger: false,
     software: config?.bitcoinSendEnabled ?? true,
@@ -118,13 +123,13 @@ export function useConfigBitcoinSendEnabled() {
 }
 
 export function useConfigFeeEstimationsMaxEnabled() {
-  const config = useRemoteHiroConfig();
+  const config = useRemoteConfig();
   if (isUndefined(config) || isUndefined(config?.feeEstimationsMinMax)) return;
   return config.feeEstimationsMinMax.maxValuesEnabled;
 }
 
 export function useConfigFeeEstimationsMaxValues() {
-  const config = useRemoteHiroConfig();
+  const config = useRemoteConfig();
   if (typeof config?.feeEstimationsMinMax === 'undefined') return;
   if (!config.feeEstimationsMinMax.maxValues) return;
   if (!Array.isArray(config.feeEstimationsMinMax.maxValues)) return;
@@ -132,13 +137,13 @@ export function useConfigFeeEstimationsMaxValues() {
 }
 
 export function useConfigFeeEstimationsMinEnabled() {
-  const config = useRemoteHiroConfig();
+  const config = useRemoteConfig();
   if (isUndefined(config) || isUndefined(config?.feeEstimationsMinMax)) return;
   return config.feeEstimationsMinMax.minValuesEnabled;
 }
 
 export function useConfigFeeEstimationsMinValues() {
-  const config = useRemoteHiroConfig();
+  const config = useRemoteConfig();
   if (typeof config?.feeEstimationsMinMax === 'undefined') return;
   if (!config.feeEstimationsMinMax.minValues) return;
   if (!Array.isArray(config.feeEstimationsMinMax.minValues)) return;
@@ -146,6 +151,19 @@ export function useConfigFeeEstimationsMinValues() {
 }
 
 export function useConfigNftMetadataEnabled() {
-  const config = useRemoteHiroConfig();
+  const config = useRemoteConfig();
   return config?.nftMetadataEnabled ?? true;
+}
+
+export function useConfigOrdinalsbot() {
+  const config = useRemoteConfig();
+  return {
+    integrationEnabled: get(config, 'ordinalsbot.integrationEnabled', true),
+    mainnetApiUrl: get(
+      config,
+      'ordinalsbot.mainnetApiUrl',
+      'https://ordinalsbot-api2.herokuapp.com'
+    ),
+    signetApiUrl: get(config, 'ordinalsbot.signetApiUrl', 'https://signet.ordinalsbot.com'),
+  };
 }

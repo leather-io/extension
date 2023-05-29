@@ -1,6 +1,6 @@
 import { Flex, FlexProps } from '@stacks/ui';
 
-import { useRemoteHiroMessages } from '@app/query/common/hiro-config/hiro-config.query';
+import { useRemoteHiroMessages } from '@app/query/common/remote-config/remote-config.query';
 import { useCurrentNetworkState } from '@app/store/networks/networks.hooks';
 import { useDismissMessage } from '@app/store/settings/settings.actions';
 import { useDismissedMessageIds } from '@app/store/settings/settings.selectors';

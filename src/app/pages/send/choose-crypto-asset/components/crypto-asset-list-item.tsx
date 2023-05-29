@@ -8,7 +8,7 @@ import type {
 import { RouteUrls } from '@shared/route-urls';
 
 import { CryptoCurrencyAssetItem } from '@app/components/crypto-assets/crypto-currency-asset/crypto-currency-asset-item';
-import { useConfigBitcoinSendEnabled } from '@app/query/common/hiro-config/hiro-config.query';
+import { useConfigBitcoinSendEnabled } from '@app/query/common/remote-config/remote-config.query';
 
 import { CryptoCurrencyAssetIcon } from './crypto-currency-asset-icon';
 import { FungibleTokenAssetItem } from './fungible-token-asset-item';

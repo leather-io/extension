@@ -3,7 +3,7 @@ import { forwardRefWithAs } from '@stacks/ui-core';
 
 import { createMoney } from '@shared/models/money.model';
 
-import { Brc20Token } from '@app/query/bitcoin/ordinals/brc20-tokens.query';
+import { Brc20Token } from '@app/query/bitcoin/ordinals/brc20/brc20-tokens.query';
 
 import { Brc20TokenAssetItemLayout } from './brc20-token-asset-item.layout';
 

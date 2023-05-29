@@ -83,5 +83,10 @@
     "minValues": [2500, 3000, 3500],
     "minValuesEnabled": true
   },
-  "nftMetadataEnabled": true
+  "nftMetadataEnabled": true,
+  "ordinalsbot": {
+    "integrationEnabled": true,
+    "mainnetApiUrl": "https://ordinalsbot-api2.herokuapp.com",
+    "signetApiUrl": "https://signet.ordinalsbot.com"
+  }
 }
