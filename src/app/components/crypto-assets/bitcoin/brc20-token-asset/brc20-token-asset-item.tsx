@@ -9,9 +9,10 @@ import { Brc20TokenAssetItemLayout } from './brc20-token-asset-item.layout';
 
 interface Brc20TokenAssetItemProps extends BoxProps {
   token: Brc20Token;
+  isPressable?: boolean;
 }
 export const Brc20TokenAssetItem = forwardRefWithAs((props: Brc20TokenAssetItemProps, ref) => {
-  const { token, ...rest } = props;
+  const { token, isPressable, ...rest } = props;
 
   return (
     <Brc20TokenAssetItemLayout
@@ -19,6 +20,7 @@ export const Brc20TokenAssetItem = forwardRefWithAs((props: Brc20TokenAssetItemP
       caption="BRC-20"
       ref={ref}
       title={token.tick}
+      isPressable={isPressable}
       {...rest}
     />
   );

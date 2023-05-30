@@ -16,6 +16,7 @@ import { useStacksFungibleTokenAssetBalancesAnchoredWithMetadata } from '@app/qu
 import { useCurrentAccountNativeSegwitAddressIndexZero } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
 
 import { Collectibles } from '../collectibles/collectibles';
+import { PendingBrc20TransferList } from '../pending-brc-20-transfers/pending-brc-20-transfers';
 import { BitcoinFungibleTokenAssetList } from './components/bitcoin-fungible-tokens-asset-list';
 import { StacksFungibleTokenAssetList } from './components/stacks-fungible-token-asset-list';
 
@@ -80,6 +81,8 @@ export function BalancesList({ address, ...props }: BalancesListProps) {
         ),
         ledger: null,
       })}
+
+      <PendingBrc20TransferList />
 
       <Collectibles />
     </Stack>

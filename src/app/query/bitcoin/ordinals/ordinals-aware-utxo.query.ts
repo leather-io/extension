@@ -54,6 +54,7 @@ function makeOrdinalsAwareUtxoQueryKey(txId: string, txIndex: number) {
 const queryOptions = {
   cacheTime: Infinity,
   staleTime: 15 * 60 * 1000,
+  refetchOnWindowFocus: false,
 } as const;
 
 export function useOrdinalsAwareUtxoQueries(utxos: TaprootUtxo[] | btc.TransactionInputRequired[]) {

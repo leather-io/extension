@@ -10,7 +10,7 @@ import { noop } from '@shared/utils';
 
 import { useRouteHeader } from '@app/common/hooks/use-route-header';
 import { btcToSat } from '@app/common/money/unit-conversion';
-import { useGenerateSignedBitcoinTx } from '@app/common/transactions/bitcoin/use-generate-bitcoin-tx';
+import { useGenerateSignedNativeSegwitTx } from '@app/common/transactions/bitcoin/use-generate-bitcoin-tx';
 import { useWalletType } from '@app/common/use-wallet-type';
 import {
   BitcoinFeesList,
@@ -34,7 +34,7 @@ export function BtcChooseFee() {
   const { txValues } = useBtcChooseFeeState();
   const { whenWallet } = useWalletType();
   const sendFormNavigate = useSendFormNavigate();
-  const generateTx = useGenerateSignedBitcoinTx();
+  const generateTx = useGenerateSignedNativeSegwitTx();
   const { selectedFeeType, setSelectedFeeType } = useSendBtcState();
   const { feesList, isLoading } = useBitcoinFeesList({
     amount: Number(txValues.amount),
