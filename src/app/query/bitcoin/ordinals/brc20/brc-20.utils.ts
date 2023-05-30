@@ -1,7 +1,9 @@
+import { utf8ToBytes } from '@noble/hashes/utils';
+import { base64 } from '@scure/base';
 import BigNumber from 'bignumber.js';
 import * as yup from 'yup';
 
-interface Brc20TransferInscription {
+export interface Brc20TransferInscription {
   p: 'brc-20';
   op: 'transfer';
   tick: string;
@@ -27,15 +29,23 @@ function validateBrc20TransferInscription(val: unknown): val is Brc20TransferIns
 }
 
 // ts-unused-exports:disable-next-line
-export function createBrc20TransferInscription(tick: string, amt: string) {
+export function createBrc20TransferInscription(tick: string, amt: number) {
   const transfer: Brc20TransferInscription = {
     p: 'brc-20',
     op: 'transfer',
     tick,
-    amt,
+    amt: amt.toString(),
   };
 
   if (!validateBrc20TransferInscription(transfer)) throw new Error('Invalid transfer inscription');
 
   return transfer;
+}
+
+export function encodeBrc20TransferInscription(transfer: Brc20TransferInscription) {
+  const transferBytes = utf8ToBytes(JSON.stringify(transfer));
+  const encodedTransfer = base64.encode(transferBytes);
+  const size = transferBytes.length;
+  const dataUriPrefix = 'data:plain/text;base64,';
+  return { payload: dataUriPrefix + encodedTransfer, transferBytes, size };
 }
