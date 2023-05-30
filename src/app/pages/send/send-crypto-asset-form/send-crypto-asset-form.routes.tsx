@@ -13,10 +13,15 @@ import { BroadcastError } from '../broadcast-error/broadcast-error';
 import { ChooseCryptoAsset } from '../choose-crypto-asset/choose-crypto-asset';
 import { SendBtcDisabled } from '../choose-crypto-asset/components/send-btc-disabled';
 import { SendContainer } from '../send-container';
+import { Brc20SentSummary } from '../sent-summary/brc20-sent-symmary';
 import { BtcSentSummary } from '../sent-summary/btc-sent-summary';
 import { StxSentSummary } from '../sent-summary/stx-sent-summary';
 import { RecipientAccountsDrawer } from './components/recipient-accounts-drawer/recipient-accounts-drawer';
 import { SendBtcContainer } from './family/bitcoin/components/send-btc-container';
+import { SendBrc20Container } from './family/brc20/components/send-brc20-container';
+import { Brc20SendForm } from './form/brc-20/brc20-send-form';
+import { Brc20SendFormConfirmation } from './form/brc-20/brc20-send-form-confirmation';
+import { BrcChooseFee } from './form/brc-20/brc-20-choose-fee';
 import { BtcChooseFee } from './form/btc/btc-choose-fee';
 import { BtcSendForm } from './form/btc/btc-send-form';
 import { BtcSendFormConfirmation } from './form/btc/btc-send-form-confirmation';
@@ -63,6 +68,12 @@ export const sendCryptoAssetFormRoutes = (
       <Route path={RouteUrls.SentBtcTxSummary} element={<BtcSentSummary />}></Route>
     </Route>
 
+    <Route element={<SendBrc20Container />}>
+      <Route path={RouteUrls.SendBrc20SendForm} element={<Brc20SendForm />} />
+      <Route path={RouteUrls.SendBrc20ChooseFee} element={<BrcChooseFee />} />
+      <Route path={RouteUrls.SendBrc20Confirmation} element={<Brc20SendFormConfirmation />} />
+      <Route path={RouteUrls.SentBrc20Summary} element={<Brc20SentSummary />}></Route>
+    </Route>
     <Route path={RouteUrls.SendCryptoAssetForm.replace(':symbol', 'stx')} element={<StxSendForm />}>
       {broadcastErrorDrawerRoute}
       {editNonceDrawerRoute}

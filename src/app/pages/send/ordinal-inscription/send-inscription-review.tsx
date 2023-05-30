@@ -14,6 +14,8 @@ import { InfoCard, InfoCardRow, InfoCardSeparator } from '@app/components/info-c
 import { InscriptionPreview } from '@app/components/inscription-preview-card/components/inscription-preview';
 import { PrimaryButton } from '@app/components/primary-button';
 import { useCurrentNativeSegwitUtxos } from '@app/query/bitcoin/address/use-current-account-native-segwit-utxos';
+import { useAppDispatch } from '@app/store';
+import { inscriptionSent } from '@app/store/ordinals/ordinals.slice';
 
 import { InscriptionPreviewCard } from '../../../components/inscription-preview-card/inscription-preview-card';
 import { useBitcoinBroadcastTransaction } from '../../../query/bitcoin/transaction/use-bitcoin-broadcast-transaction';
@@ -32,7 +34,7 @@ function useSendInscriptionReviewState() {
 export function SendInscriptionReview() {
   const analytics = useAnalytics();
   const navigate = useNavigate();
-
+  const dispatch = useAppDispatch();
   const { arrivesIn, signedTx, recipient, fee } = useSendInscriptionReviewState();
 
   const { inscription } = useSendInscriptionState();
@@ -47,7 +49,8 @@ export function SendInscriptionReview() {
       async onSuccess(txId: string) {
         void analytics.track('broadcast_ordinal_transaction');
         await refetch();
-
+        // Might be a BRC-20 transfer, so we want to remove it from the pending
+        dispatch(inscriptionSent({ inscriptionId: inscription.id }));
         navigate(RouteUrls.SendOrdinalInscriptionSent, {
           state: {
             inscription,
