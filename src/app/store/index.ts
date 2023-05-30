@@ -25,6 +25,7 @@ import { inMemoryKeySlice } from './in-memory-key/in-memory-key.slice';
 import { keySlice } from './keys/key.slice';
 import { networksSlice } from './networks/networks.slice';
 import { onboardingSlice } from './onboarding/onboarding.slice';
+import { ordinalsReducer } from './ordinals/ordinals.slice';
 import { settingsSlice } from './settings/settings.slice';
 import { submittedTransactionsSlice } from './submitted-transactions/submitted-transactions.slice';
 import { broadcastActionTypeToOtherFramesMiddleware } from './utils/broadcast-action-types';
@@ -35,6 +36,7 @@ export interface RootState {
   chains: {
     stx: ReturnType<typeof stxChainSlice.reducer>;
   };
+  ordinals: ReturnType<typeof ordinalsReducer>;
   inMemoryKeys: ReturnType<typeof inMemoryKeySlice.reducer>;
   keys: ReturnType<typeof keySlice.reducer>;
   networks: ReturnType<typeof networksSlice.reducer>;
@@ -49,6 +51,7 @@ const appReducer = combineReducers({
   chains: combineReducers({
     stx: stxChainSlice.reducer,
   }),
+  ordinals: ordinalsReducer,
   inMemoryKeys: inMemoryKeySlice.reducer,
   keys: keySlice.reducer,
   networks: networksSlice.reducer,
