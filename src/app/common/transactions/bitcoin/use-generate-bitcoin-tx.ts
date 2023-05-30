@@ -15,12 +15,11 @@ import {
   useCurrentBitcoinNativeSegwitAddressIndexPublicKeychain,
 } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
 
-interface GenerateBitcoinTxValues {
+interface GenerateNativeSegwitTxValues {
   amount: Money;
   recipient: string;
 }
-
-export function useGenerateSignedBitcoinTx() {
+export function useGenerateSignedNativeSegwitTx() {
   const currentAccountBtcAddress = useCurrentAccountNativeSegwitAddressIndexZero();
   const { data: utxos } = useSpendableCurrentNativeSegwitAccountUtxos();
   const currentAddressIndexKeychain = useCurrentBitcoinNativeSegwitAddressIndexPublicKeychain();
@@ -30,7 +29,7 @@ export function useGenerateSignedBitcoinTx() {
   const networkMode = useBitcoinScureLibNetworkConfig();
 
   return useCallback(
-    (values: GenerateBitcoinTxValues, feeRate: number) => {
+    (values: GenerateNativeSegwitTxValues, feeRate: number) => {
       if (!utxos) return;
       if (!feeRate) return;
       if (!createSigner) return;

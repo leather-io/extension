@@ -7,7 +7,7 @@ import { useCurrentNetworkState } from '@app/store/networks/networks.hooks';
 
 import { openInNewTab } from '../utils/open-in-new-tab';
 
-interface HandleOpenTxLinkArgs {
+export interface HandleOpenTxLinkArgs {
   blockchain: Blockchains;
   suffix?: string;
   txid: string;

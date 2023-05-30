@@ -1,75 +1,13 @@
-import axios from 'axios';
-import urlJoin from 'url-join';
-
 import { useConfigOrdinalsbot } from '@app/query/common/remote-config/remote-config.query';
+import { useAppDispatch } from '@app/store';
+import { useCurrentAccountIndex } from '@app/store/accounts/account';
+import { useCurrentAccountTaprootAddressIndexZeroPayment } from '@app/store/accounts/blockchain/bitcoin/taproot-account.hooks';
 import { useCurrentNetwork } from '@app/store/networks/networks.selectors';
+import { brc20TransferInitiated } from '@app/store/ordinals/ordinals.slice';
 
-interface TextInscriptionSuccessResponse {
-  status: 'ok';
-  charge: {
-    id: string;
-    address: string;
-    amount: number;
-    lightning_invoice: {
-      expires_at: number;
-      payreq: string;
-    };
-    created_at: number;
-  };
-  chainFee: number;
-  serviceFee: number;
-  orderType: string;
-  createdAt: number;
-}
-
-interface OrderStatusSuccessResponse {
-  status: string;
-  paid: boolean;
-  underpaid: boolean;
-  expired: boolean;
-  tx: {
-    commit: string;
-    fees: number;
-    inscription: string;
-    reveal: string;
-  };
-  sent: string;
-}
-
-class OrdinalsbotClient {
-  constructor(readonly baseUrl: string) {}
-
-  async isAvailable() {
-    return axios.get<{ status: string }>(urlJoin(this.baseUrl, 'status'));
-  }
-
-  async textInscription(text: string, receiveAddress: string) {
-    return axios.post<TextInscriptionSuccessResponse>(urlJoin(this.baseUrl, 'textorder'), {
-      receiveAddress,
-      texts: [text],
-    });
-  }
-
-  async orderStatus(id: string) {
-    return axios.get<OrderStatusSuccessResponse>(urlJoin(this.baseUrl, 'order'), {
-      params: { id },
-    });
-  }
-}
-
-function useOrdinalsbotApiUrl() {
-  const currentNetwork = useCurrentNetwork();
-  const ordinalsbotConfig = useConfigOrdinalsbot();
-
-  if (currentNetwork.chain.bitcoin.network === 'mainnet') return ordinalsbotConfig.mainnetApiUrl;
-  return ordinalsbotConfig.signetApiUrl;
-}
-
-// ts-unused-exports:disable-next-line
-export function useOrdinalsbotClient() {
-  const apiUrl = useOrdinalsbotApiUrl();
-  return new OrdinalsbotClient(apiUrl);
-}
+import { useAverageBitcoinFeeRates } from '../../fees/fee-estimates.hooks';
+import { useOrdinalsbotClient } from '../../ordinalsbot-client';
+import { createBrc20TransferInscription, encodeBrc20TransferInscription } from './brc-20.utils';
 
 // ts-unused-exports:disable-next-line
 export function useBrc20FeatureFlag() {
@@ -90,4 +28,49 @@ export function useBrc20FeatureFlag() {
   // TODO: Add api availability check
 
   return { enabled: true } as const;
+}
+
+export function useBrc20Transfers() {
+  const dispatch = useAppDispatch();
+  const currentAccountIndex = useCurrentAccountIndex();
+  const ordinalsbotClient = useOrdinalsbotClient();
+  const { address } = useCurrentAccountTaprootAddressIndexZeroPayment();
+  const bitcoinFees = useAverageBitcoinFeeRates();
+
+  return {
+    async initiateTransfer(tick: string, amount: string) {
+      const transferInscription = createBrc20TransferInscription(tick, Number(amount));
+      const { payload, size } = encodeBrc20TransferInscription(transferInscription);
+
+      const order = await ordinalsbotClient.order({
+        receiveAddress: address,
+        file: payload,
+        size,
+        name: `${tick}-${amount}.txt`,
+        fee: bitcoinFees.avgApiFeeRates?.halfHourFee.toNumber() ?? 10,
+      });
+
+      if (order.data.status !== 'ok') throw new Error('Failed to initiate transfer');
+
+      return { id: order.data.charge.id, order };
+    },
+
+    inscriptionPaymentTransactionComplete(
+      orderId: string,
+      amount: number,
+      recipient: string,
+      tick: string
+    ) {
+      dispatch(
+        brc20TransferInitiated({
+          accountIndex: currentAccountIndex,
+          amount,
+          tick,
+          recipient,
+          status: 'pending',
+          id: orderId,
+        })
+      );
+    },
+  };
 }

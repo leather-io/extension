@@ -8,7 +8,7 @@ import { createMoney } from '@shared/models/money.model';
 import { RouteUrls } from '@shared/route-urls';
 import { noop } from '@shared/utils';
 
-import { useGenerateSignedBitcoinTx } from '@app/common/transactions/bitcoin/use-generate-bitcoin-tx';
+import { useGenerateSignedNativeSegwitTx } from '@app/common/transactions/bitcoin/use-generate-bitcoin-tx';
 import { useWalletType } from '@app/common/use-wallet-type';
 import {
   BitcoinFeesList,
@@ -34,7 +34,7 @@ export function RpcSendTransferChooseFee() {
   const { address, amountAsMoney } = useRpcSendTransferFeeState();
   const navigate = useNavigate();
   const { whenWallet } = useWalletType();
-  const generateTx = useGenerateSignedBitcoinTx();
+  const generateTx = useGenerateSignedNativeSegwitTx();
   const { feesList, isLoading } = useBitcoinFeesList({
     amount: Number(amountAsMoney.amount),
     recipient: address,

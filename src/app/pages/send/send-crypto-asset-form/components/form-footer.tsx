@@ -11,10 +11,12 @@ import { Caption } from '@app/components/typography';
 
 import { PreviewButton } from './preview-button';
 
-export function FormFooter(props: { balance: Money }) {
-  const { balance } = props;
-  const balanceTooltipLabel =
-    'Amount that is immediately available for use after taking into account any pending transactions or holds placed on your account by the protocol.';
+export function FormFooter(props: { balance: Money; balanceTooltipLabel?: string }) {
+  const {
+    balance,
+    balanceTooltipLabel = 'Amount that is immediately available for use after taking into account any pending transactions or holds placed on your account by the protocol.',
+  } = props;
+
   return (
     <Box
       bg={color('bg')}

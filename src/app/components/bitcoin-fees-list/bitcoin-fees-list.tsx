@@ -48,6 +48,7 @@ export function BitcoinFeesList({
 
   const validateTotalSpend = useCallback(
     (feeValue: number) => {
+      if (amount.symbol !== 'BTC') return;
       const feeAsMoney = createMoney(feeValue, 'BTC');
       const totalSpend = sumMoney([amount, feeAsMoney]);
       if (totalSpend.amount.isGreaterThan(balance.amount)) {
