@@ -4,10 +4,16 @@ import { PrimaryButton } from '@app/components/primary-button';
 
 interface BitcoinContractRequestActionsProps {
   isLoading: boolean;
-  onReject(): Promise<void>;
+  canAccept: boolean;
+  onRejectBitcoinContractOffer(): Promise<void>;
   onAcceptBitcoinContractOffer(): Promise<void>;
 }
-export function BitcoinContractRequestActions({ isLoading, onReject, onAcceptBitcoinContractOffer }: BitcoinContractRequestActionsProps) {
+export function BitcoinContractRequestActions({
+  isLoading,
+  canAccept,
+  onRejectBitcoinContractOffer,
+  onAcceptBitcoinContractOffer,
+}: BitcoinContractRequestActionsProps) {
   return (
     <Box
       bg={color('bg')}
@@ -20,10 +26,21 @@ export function BitcoinContractRequestActions({ isLoading, onReject, onAcceptBit
       zIndex={999}
     >
       <Stack isInline mt="loose" spacing="base">
-        <Button borderRadius="10px" flexGrow={1} mode="tertiary" onClick={onReject}>
+        <Button
+          borderRadius="10px"
+          flexGrow={1}
+          mode="tertiary"
+          onClick={onRejectBitcoinContractOffer}
+        >
           Reject
         </Button>
-        <PrimaryButton borderRadius="10px" flexGrow={1} isLoading={isLoading} onClick={onAcceptBitcoinContractOffer}>
+        <PrimaryButton
+          borderRadius="10px"
+          flexGrow={1}
+          isLoading={isLoading}
+          isDisabled={!canAccept}
+          onClick={onAcceptBitcoinContractOffer}
+        >
           Accept
         </PrimaryButton>
       </Stack>

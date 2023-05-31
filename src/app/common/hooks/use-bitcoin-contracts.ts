@@ -2,7 +2,6 @@ import { useEffect } from 'react';
 import { useCallback } from 'react';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-
 import { Transaction } from 'bitcoinjs-lib';
 import { ContractState, ContractUpdater, DlcManager, DlcSigner, getId } from 'dlc-lib';
 
@@ -69,18 +68,6 @@ const useBitcoinContracts = () => {
     [btcMarketData]
   );
 
-  const getBitcoinNetwork = (btcNetwork: string) => {
-    switch (btcNetwork) {
-      case 'mainnet':
-        return 'Mainnet';
-      case 'testnet':
-        return 'Testnet';
-      case 'regtest':
-        return 'Regtest';
-      default:
-        return 'Testnet';
-    }
-  };
 
   useEffect(() => {
     const validateForSigning = async () => {
@@ -126,7 +113,7 @@ const useBitcoinContracts = () => {
   }
 
   async function handleAccept(bitcoinContractID: string) {
-    const btcNetwork = getBitcoinNetwork(btcAccountDetails?.currentNetwork.chain.bitcoin.network!);
+    const btcNetwork = btcAccountDetails?.currentNetwork.chain.bitcoin.network!
     const btcAddress = btcAccountDetails?.currentAddress!;
     const btcPrivateKey = uint8ArrayToHex(
       btcAccountDetails?.currentAddressIndexKeychain.privateKey!

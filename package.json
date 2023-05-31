@@ -182,6 +182,7 @@
     "compare-versions": "4.1.3",
     "dayjs": "1.11.7",
     "dlc-lib": "file:../dlc-lib",
+    "dlc-wasm-wallet": "file:../dlc-stack/wasm-wallet/pkg",
     "dompurify": "3.0.3",
     "downshift": "6.1.7",
     "ecdsa-sig-formatter": "1.0.11",

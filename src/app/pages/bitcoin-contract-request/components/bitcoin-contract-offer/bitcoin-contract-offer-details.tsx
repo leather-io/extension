@@ -2,16 +2,15 @@ import { AnyContract } from 'dlc-lib';
 
 import { BitcoinContractExpirationDate } from './bitcoin-contract-expiration-date';
 import { BitcoinContractOfferInput } from './bitcoin-contract-offer-input';
+import { SimplifiedBitcoinContract } from '../../bitcoin-contract-request';
 
 interface BitcoinContractOfferDetailsSimpleProps {
   bitcoinAddressNativeSegwit: string;
-  bitcoinContractOffer: AnyContract;
-  bitcoinContractExpirationDate: string;
+  bitcoinContractOffer: SimplifiedBitcoinContract;
 }
 export function BitcoinContractOfferDetailsSimple({
   bitcoinAddressNativeSegwit,
   bitcoinContractOffer,
-  bitcoinContractExpirationDate,
 }: BitcoinContractOfferDetailsSimpleProps) {
   return (
     <>
@@ -20,7 +19,7 @@ export function BitcoinContractOfferDetailsSimple({
         bitcoinContractOffer={bitcoinContractOffer}
       />
       <BitcoinContractExpirationDate
-        expirationDate={bitcoinContractExpirationDate}
+        expirationDate={bitcoinContractOffer.bitcoinContractExpirationDate}
       ></BitcoinContractExpirationDate>
     </>
   );

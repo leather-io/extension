@@ -234,7 +234,6 @@ const config = {
     new webpack.ProvidePlugin({
       process: 'process/browser',
       Buffer: ['buffer', 'Buffer'],
-      fetch: 'cross-fetch',
     }),
 
     new ProgressBarPlugin(),

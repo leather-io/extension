@@ -13,10 +13,11 @@ import { satToBtc } from '@app/common/money/unit-conversion';
 import { useCryptoCurrencyMarketData } from '@app/query/common/market-data/market-data.hooks';
 
 import { BitcoinContractLockAmount } from './bitcoin-contract-lock-amount';
+import { SimplifiedBitcoinContract } from '../../bitcoin-contract-request';
 
 interface BitcoinContractOfferInputProps {
   addressNativeSegwit: string;
-  bitcoinContractOffer: AnyContract;
+  bitcoinContractOffer: SimplifiedBitcoinContract;
 }
 export function BitcoinContractOfferInput({
   addressNativeSegwit,
@@ -32,8 +33,7 @@ export function BitcoinContractOfferInput({
     [btcMarketData]
   );
 
-  const collateral = bitcoinContractOffer.contractInfo.totalCollateral - bitcoinContractOffer.offerParams.collateral;
-  const inputValue = satToBtc(collateral).toString();
+  const inputValue = satToBtc(bitcoinContractOffer.bitcoinContractCollateralAmount).toString();
   const fiatValue = getFiatValue(inputValue);
 
   return (
