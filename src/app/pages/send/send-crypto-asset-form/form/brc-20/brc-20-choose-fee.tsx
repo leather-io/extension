@@ -46,6 +46,7 @@ export function BrcChooseFee() {
   const amountAsMoney = createMoney(Number(amount), tick, 0);
 
   const [isLoadingOrder, setIsLoadingOrder] = useState(false);
+
   async function previewTransaction({ feeRate, feeValue }: OnChooseFeeArgs) {
     setIsLoadingOrder(true);
     try {
