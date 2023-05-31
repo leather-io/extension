@@ -46,26 +46,26 @@ export function BitcoinFeesList({
   const [showInsufficientBalanceError, setShowInsufficientBalanceError] = useState(false);
   const balance = useCurrentNativeSegwitAddressBalance();
 
-  const validateTotalSpend = useCallback(
-    (feeValue: number) => {
-      if (amount.symbol !== 'BTC') return;
+  const onSelectBtcFeeType = useCallback(
+    async ({ feeRate, feeValue, time }: OnChooseFeeArgs, label: BtcFeeType) => {
+      onSetSelectedFeeType(label);
       const feeAsMoney = createMoney(feeValue, 'BTC');
+
+      if (amount.symbol !== 'BTC') {
+        if (feeAsMoney.amount.isGreaterThan(balance.amount)) setShowInsufficientBalanceError(true);
+        return;
+      }
+
       const totalSpend = sumMoney([amount, feeAsMoney]);
+
       if (totalSpend.amount.isGreaterThan(balance.amount)) {
         setShowInsufficientBalanceError(true);
         return;
       }
-    },
-    [amount, balance.amount]
-  );
 
-  const onSelectBtcFeeType = useCallback(
-    async ({ feeRate, feeValue, time }: OnChooseFeeArgs, label: BtcFeeType) => {
-      onSetSelectedFeeType(label);
-      validateTotalSpend(feeValue);
       await onChooseFee({ feeRate, feeValue, time });
     },
-    [onChooseFee, onSetSelectedFeeType, validateTotalSpend]
+    [amount, balance.amount, onChooseFee, onSetSelectedFeeType]
   );
 
   if (isLoading) return <LoadingSpinner />;

@@ -12,10 +12,12 @@ import { StatusPending } from '@app/components/status-pending';
 import { StatusReady } from '@app/components/status-ready';
 import { Tooltip } from '@app/components/tooltip';
 import { Caption } from '@app/components/typography';
+import { useNativeSegwitBalance } from '@app/query/bitcoin/balance/bitcoin-balances.query';
 import { useCheckOrderStatuses } from '@app/query/bitcoin/ordinals/brc20/use-check-order-status';
 import { convertInscriptionToSupportedInscriptionType } from '@app/query/bitcoin/ordinals/inscription.hooks';
 import { fetchInscripionById } from '@app/query/bitcoin/ordinals/use-inscription-by-id';
 import { useOrdinalsbotClient } from '@app/query/bitcoin/ordinalsbot-client';
+import { useCurrentAccountNativeSegwitAddressIndexZero } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
 import {
   OrdinalsbotInscriptionStatus,
   PendingBrc20Transfer,
@@ -89,28 +91,35 @@ function PendingBrcTransfer({ order }: PendingBrcTransferProps) {
   const [component, bind] = usePressable(order.status === 'ready');
   const navigate = useNavigate();
   const ordinalsbotClient = useOrdinalsbotClient();
+  const currentAccountBtcAddress = useCurrentAccountNativeSegwitAddressIndexZero();
+  const btcCryptoCurrencyAssetBalance = useNativeSegwitBalance(currentAccountBtcAddress);
+
+  const hasPositiveBtcBalanceForFees =
+    btcCryptoCurrencyAssetBalance.balance.amount.isGreaterThan(0);
 
   return (
     <Box
       key={order.id}
       my="base-tight"
       onClick={
-        order.status === 'ready'
-          ? async () => {
-              // Really inefficient, find way to not have to refetch data
-              const { data: orderInfo } = await ordinalsbotClient.orderStatus(order.id);
-              const { data: inscription } = await fetchInscripionById(
-                (orderInfo as any).files[0].tx?.inscription
-              );
-              navigate(RouteUrls.SendOrdinalInscription, {
-                state: {
-                  inscription: convertInscriptionToSupportedInscriptionType({
-                    ...inscription,
-                    addressIndex: 0,
-                  }),
-                },
-              });
-            }
+        hasPositiveBtcBalanceForFees
+          ? order.status === 'ready'
+            ? async () => {
+                // Really inefficient, find way to not have to refetch data
+                const { data: orderInfo } = await ordinalsbotClient.orderStatus(order.id);
+                const { data: inscription } = await fetchInscripionById(
+                  (orderInfo as any).files[0].tx?.inscription
+                );
+                navigate(RouteUrls.SendOrdinalInscription, {
+                  state: {
+                    inscription: convertInscriptionToSupportedInscriptionType({
+                      ...inscription,
+                      addressIndex: 0,
+                    }),
+                  },
+                });
+              }
+            : noop
           : noop
       }
       {...(order.status === 'ready' ? bind : {})}
