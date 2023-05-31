@@ -45,9 +45,7 @@ export function Brc20SentSummary() {
     navigate('/');
   }
 
-  useRouteHeader(
-    <ModalHeader hideActions defaultClose title="One more step is required to send tokens" />
-  );
+  useRouteHeader(<ModalHeader hideActions defaultClose title="Creating transfer inscription" />);
 
   return (
     <InfoCard>
@@ -60,7 +58,7 @@ export function Brc20SentSummary() {
       />
 
       <Stack width="100%" px="extra-loose" pb="extra-loose">
-        <InfoLabel mb="loose" title="Sending requires another step">
+        <InfoLabel mb="loose" title="One more step is required to send tokens">
           {`You'll need to send the transfer inscription to your recipient of choice from the home screen once its status changes to "Ready to send"`}
           <br />
           <br />
