@@ -128,7 +128,8 @@ export function useTaprootInscriptionsInfiniteQuery() {
       const results = responsesArr.flatMap(response => response.results);
 
       // get offset and total from the last response
-      const { offset, total } = responsesArr[responsesArr.length - 1];
+      const offset = responsesArr[responsesArr.length - 1]?.offset;
+      const total = responsesArr[responsesArr.length - 1]?.total;
 
       return {
         offset: pageParam?.offset ?? offset,
@@ -151,11 +152,6 @@ export function useTaprootInscriptionsInfiniteQuery() {
 
       if (offset + inscriptionsLazyLoadLimit > total) {
         calculatedOffset = offset + (total - offset);
-      }
-
-      // if we reached the end of the list, start from the beginning
-      if (calculatedOffset >= total) {
-        calculatedOffset = 0;
       }
 
       return { offset: calculatedOffset, total };
