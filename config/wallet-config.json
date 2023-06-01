@@ -86,7 +86,7 @@
   "nftMetadataEnabled": true,
   "ordinalsbot": {
     "integrationEnabled": true,
-    "mainnetApiUrl": "https://ordinalsbot-api2.herokuapp.com",
+    "mainnetApiUrl": "https://api2.ordinalsbot.com",
     "signetApiUrl": "https://signet.ordinalsbot.com"
   }
 }

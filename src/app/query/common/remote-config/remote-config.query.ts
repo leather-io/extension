@@ -159,11 +159,7 @@ export function useConfigOrdinalsbot() {
   const config = useRemoteConfig();
   return {
     integrationEnabled: get(config, 'ordinalsbot.integrationEnabled', true),
-    mainnetApiUrl: get(
-      config,
-      'ordinalsbot.mainnetApiUrl',
-      'https://ordinalsbot-api2.herokuapp.com'
-    ),
+    mainnetApiUrl: get(config, 'ordinalsbot.mainnetApiUrl', 'https://api2.ordinalsbot.com'),
     signetApiUrl: get(config, 'ordinalsbot.signetApiUrl', 'https://signet.ordinalsbot.com'),
   };
 }
