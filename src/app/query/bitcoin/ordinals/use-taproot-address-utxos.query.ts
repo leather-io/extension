@@ -27,39 +27,45 @@ export function useTaprootAccountUtxosQuery() {
 
   const currentAccountIndex = useCurrentAccountIndex();
 
-  return useQuery(['taproot-address-utxos-metadata', currentAccountIndex, network.id], async () => {
-    let currentNumberOfAddressesWithoutOrdinals = 0;
-    const addressIndexCounter = createCounter(0);
-    let foundUnspentTransactions: TaprootUtxo[] = [];
-    while (
-      currentNumberOfAddressesWithoutOrdinals < stopSearchAfterNumberAddressesWithoutOrdinals
-    ) {
-      const address = getTaprootAddress({
-        index: addressIndexCounter.getValue(),
-        keychain,
-        network: network.chain.bitcoin.network,
-      });
+  return useQuery(
+    ['taproot-address-utxos-metadata', currentAccountIndex, network.id],
+    async () => {
+      let currentNumberOfAddressesWithoutOrdinals = 0;
+      const addressIndexCounter = createCounter(0);
+      let foundUnspentTransactions: TaprootUtxo[] = [];
+      while (
+        currentNumberOfAddressesWithoutOrdinals < stopSearchAfterNumberAddressesWithoutOrdinals
+      ) {
+        const address = getTaprootAddress({
+          index: addressIndexCounter.getValue(),
+          keychain,
+          network: network.chain.bitcoin.network,
+        });
 
-      const unspentTransactions = await client.addressApi.getUtxosByAddress(address);
+        const unspentTransactions = await client.addressApi.getUtxosByAddress(address);
 
-      if (!hasInscriptions(unspentTransactions)) {
-        currentNumberOfAddressesWithoutOrdinals += 1;
+        if (!hasInscriptions(unspentTransactions)) {
+          currentNumberOfAddressesWithoutOrdinals += 1;
+          addressIndexCounter.increment();
+          continue;
+        }
+
+        foundUnspentTransactions = [
+          ...unspentTransactions.map(utxo => ({
+            // adds addresss index of which utxo belongs
+            ...utxo,
+            addressIndex: addressIndexCounter.getValue(),
+          })),
+          ...foundUnspentTransactions,
+        ];
+
+        currentNumberOfAddressesWithoutOrdinals = 0;
         addressIndexCounter.increment();
-        continue;
       }
-
-      foundUnspentTransactions = [
-        ...unspentTransactions.map(utxo => ({
-          // adds addresss index of which utxo belongs
-          ...utxo,
-          addressIndex: addressIndexCounter.getValue(),
-        })),
-        ...foundUnspentTransactions,
-      ];
-
-      currentNumberOfAddressesWithoutOrdinals = 0;
-      addressIndexCounter.increment();
+      return foundUnspentTransactions;
+    },
+    {
+      refetchOnWindowFocus: false,
     }
-    return foundUnspentTransactions;
-  });
+  );
 }
