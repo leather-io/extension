@@ -65,6 +65,7 @@ export function useTaprootAccountUtxosQuery() {
       return foundUnspentTransactions;
     },
     {
+      refetchInterval: 15000,
       refetchOnWindowFocus: false,
     }
   );
