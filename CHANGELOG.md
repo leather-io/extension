@@ -1,3 +1,17 @@
+## [4.27.1](https://github.com/hirosystems/wallet/compare/v4.27.0...v4.27.1) (2023-05-26)
+
+
+### Bug Fixes
+
+* **brc-20:** caching without query key ([3ae4af1](https://github.com/hirosystems/wallet/commit/3ae4af1d8b12265fcf9b23b9f6179d4351d9abbc))
+* improve utxo selection ([a5a114b](https://github.com/hirosystems/wallet/commit/a5a114b253c1b6a90e6319ef14d2f4d554def4b6))
+* same inscriptions among accounts bug ([1f04dd7](https://github.com/hirosystems/wallet/commit/1f04dd76b8ec086712bedc3548ce197af0de67ae))
+
+
+### Internal
+
+* update readme ([1bc6198](https://github.com/hirosystems/wallet/commit/1bc619875a8285681a82902ea980e6c5dbb6f981))
+
 ## [4.27.0](https://github.com/hirosystems/wallet/compare/v4.26.0...v4.27.0) (2023-05-25)
 
 

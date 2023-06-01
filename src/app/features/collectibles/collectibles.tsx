@@ -39,6 +39,8 @@ export function Collectibles() {
       isLoadingMore={isLoadingMore}
       onRefresh={() => void queryClient.refetchQueries({ type: 'active' })}
     >
+      {isNftMetadataEnabled ? <StacksCryptoAssets /> : null}
+
       {whenWallet({
         software: <AddCollectible />,
         ledger: null,

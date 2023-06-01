@@ -34,7 +34,8 @@ function useSendInscriptionReviewState() {
 export function SendInscriptionReview() {
   const analytics = useAnalytics();
   const navigate = useNavigate();
-  const dispatch = useAppDispatch();
+  const dispatch = useAppD;
+  ispatch();
   const { arrivesIn, signedTx, recipient, fee } = useSendInscriptionReviewState();
 
   const { inscription } = useSendInscriptionState();
