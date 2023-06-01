@@ -1,3 +1,30 @@
+## [4.28.0](https://github.com/hirosystems/wallet/compare/v4.27.1...v4.28.0) (2023-06-01)
+
+
+### Features
+
+* add brc-20 send flow, closes [#3669](https://github.com/hirosystems/wallet/issues/3669) ([f12322b](https://github.com/hirosystems/wallet/commit/f12322b03757d0fe22d059104747b72787087cdd))
+* add signet support, closes [#3771](https://github.com/hirosystems/wallet/issues/3771) ([2800623](https://github.com/hirosystems/wallet/commit/2800623fac63f18d4695b6eeca39fc82fc27b98e))
+* change brc-20 balances api provider, closes [#3772](https://github.com/hirosystems/wallet/issues/3772) ([3805c77](https://github.com/hirosystems/wallet/commit/3805c771ff62286c21b2d4343b0ce568537491dc))
+* initial brc-20 transfers ([bc4e180](https://github.com/hirosystems/wallet/commit/bc4e1800f60ffbd010224071326a51f6742b42fc))
+* move add collectible card, closes [#3762](https://github.com/hirosystems/wallet/issues/3762) ([c91aba6](https://github.com/hirosystems/wallet/commit/c91aba66358cd3316f61a18386a3c4e2a89c6f1d))
+
+
+### Bug Fixes
+
+* don't subtract balances being returned to sender ([fc28749](https://github.com/hirosystems/wallet/commit/fc28749a714c65ec54707035b23132f1de5543c4))
+* infinite loading bug, closes [#3783](https://github.com/hirosystems/wallet/issues/3783) ([dd3d218](https://github.com/hirosystems/wallet/commit/dd3d218555fa9aff3e34a12cfb67078452c44c75))
+* insufficient balance error ([d4edf00](https://github.com/hirosystems/wallet/commit/d4edf006b0f6b514f27887650d67139470925e14))
+* insufficient fee validation ([00f7c09](https://github.com/hirosystems/wallet/commit/00f7c099c37e0733fe9703c597a12e2b912f3236))
+
+
+### Internal
+
+* adjust refetch interval ([2f13612](https://github.com/hirosystems/wallet/commit/2f136125be9b493353091368449cdcee07c61d96))
+* change api url ([fafbc54](https://github.com/hirosystems/wallet/commit/fafbc547a144a415d3903697a0f099f3ee48642d))
+* remove duplicated fetcher fn ([8c2bad3](https://github.com/hirosystems/wallet/commit/8c2bad3948463de90db5803352366d0c275719b2))
+* remove fetch on focus ([e915a43](https://github.com/hirosystems/wallet/commit/e915a437145423297d3db7a5126b4483d26b7d79))
+
 ## [4.27.1](https://github.com/hirosystems/wallet/compare/v4.27.0...v4.27.1) (2023-05-26)
 
 
