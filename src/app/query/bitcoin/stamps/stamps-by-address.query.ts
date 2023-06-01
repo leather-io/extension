@@ -31,5 +31,6 @@ export function useStampsByAddressQuery<T extends unknown = FetchStampsByAddress
     queryKey: [QueryPrefixes.StampsByAddress, address],
     queryFn: () => fetchStampsByAddress(address),
     ...options,
+    refetchOnWindowFocus: false,
   });
 }
