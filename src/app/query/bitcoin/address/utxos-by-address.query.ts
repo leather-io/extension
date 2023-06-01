@@ -7,7 +7,7 @@ import { UtxoResponseItem } from '../bitcoin-client';
 
 const staleTime = 3 * 60 * 1000;
 
-const queryOptions = { staleTime };
+const queryOptions = { staleTime, refetchOnWindowFocus: false };
 
 export function useGetUtxosByAddressQuery<T extends unknown = UtxoResponseItem[]>(
   address: string,
