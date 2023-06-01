@@ -52,15 +52,20 @@ export function BitcoinFeesList({
       const feeAsMoney = createMoney(feeValue, 'BTC');
 
       if (amount.symbol !== 'BTC') {
-        if (feeAsMoney.amount.isGreaterThan(balance.amount)) setShowInsufficientBalanceError(true);
-        return;
+        if (feeAsMoney.amount.isGreaterThan(balance.amount)) {
+          setShowInsufficientBalanceError(true);
+          return;
+        }
       }
 
-      const totalSpend = sumMoney([amount, feeAsMoney]);
+      // check amount + fee only for BTC
+      if (amount.symbol === 'BTC') {
+        const totalSpend = sumMoney([amount, feeAsMoney]);
 
-      if (totalSpend.amount.isGreaterThan(balance.amount)) {
-        setShowInsufficientBalanceError(true);
-        return;
+        if (totalSpend.amount.isGreaterThan(balance.amount)) {
+          setShowInsufficientBalanceError(true);
+          return;
+        }
       }
 
       await onChooseFee({ feeRate, feeValue, time });
