@@ -1,3 +1,11 @@
+## [4.28.1](https://github.com/hirosystems/wallet/compare/v4.28.0...v4.28.1) (2023-06-02)
+
+
+### Bug Fixes
+
+* brc-20 tokens breaking ledger ([73b5f1e](https://github.com/hirosystems/wallet/commit/73b5f1ea929eed86e681dd03073d4ef1211a2e08))
+* brc20 tokens asset list layout ([ad35d06](https://github.com/hirosystems/wallet/commit/ad35d06c4334e2b531f6c87952c729ce4e2089ce))
+
 ## [4.28.0](https://github.com/hirosystems/wallet/compare/v4.27.1...v4.28.0) (2023-06-01)
 
 
