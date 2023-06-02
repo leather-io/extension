@@ -18,8 +18,6 @@ test.describe('settings menu', () => {
 
     await test
       .expect(supportPage)
-      .toHaveURL(
-        'https://wallet.hiro.so/wallet-faq/where-can-i-find-support-for-the-stacks-wallet'
-      );
+      .toHaveURL('https://hirowallet.gitbook.io/guides/installing/contact-support');
   });
 });
