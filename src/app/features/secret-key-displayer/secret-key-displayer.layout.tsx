@@ -44,8 +44,9 @@ export function SecretKeyDisplayerLayout(props: SecretKeyDisplayerLayoutProps) {
         </Stack>
         <Stack alignItems="center" isInline>
           <Link
-            fontSize="14px"
             _hover={{ textDecoration: 'none' }}
+            data-testid={SettingsSelectors.ShowSecretKeyBtn}
+            fontSize="14px"
             onClick={() => setShowSecretKey(!showSecretKey)}
           >
             <Stack alignItems="center" isInline spacing="tight">

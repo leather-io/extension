@@ -18,4 +18,5 @@ export enum SettingsSelectors {
   EnterPasswordInput = 'password-input',
   UnlockWalletBtn = 'unlock-wallet-btn',
   BtnAddNetwork = 'btn-add-network',
+  ShowSecretKeyBtn = 'show-secret-key-btn',
 }
