@@ -9,6 +9,8 @@ import { useNativeSegwitBalance } from '@app/query/bitcoin/balance/bitcoin-balan
 import { Brc20Token } from '@app/query/bitcoin/ordinals/brc20/brc20-tokens.query';
 import { useCurrentAccountNativeSegwitAddressIndexZero } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
 
+import { Brc20AssetListLayout } from './components/brc20-token-asset-list.layout';
+
 export function Brc20TokenAssetList(props: { brc20Tokens?: Brc20Token[] }) {
   const navigate = useNavigate();
   const currentAccountBtcAddress = useCurrentAccountNativeSegwitAddressIndexZero();
@@ -25,7 +27,7 @@ export function Brc20TokenAssetList(props: { brc20Tokens?: Brc20Token[] }) {
   }
 
   return (
-    <>
+    <Brc20AssetListLayout>
       {props.brc20Tokens?.map(token => (
         <Tooltip
           disabled={hasPositiveBtcBalanceForFees}
@@ -41,6 +43,6 @@ export function Brc20TokenAssetList(props: { brc20Tokens?: Brc20Token[] }) {
           />
         </Tooltip>
       ))}
-    </>
+    </Brc20AssetListLayout>
   );
 }
