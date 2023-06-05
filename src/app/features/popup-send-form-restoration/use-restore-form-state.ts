@@ -1,6 +1,5 @@
 import { useNavigate } from 'react-router-dom';
 
-import { InternalMethods } from '@shared/message-types';
 import { getActiveTab } from '@shared/utils/get-active-tab';
 
 import { useOnMount } from '@app/common/hooks/use-on-mount';
@@ -23,14 +22,12 @@ void run();
 export function useRestoreFormState() {
   const navigate = useNavigate();
 
-  useOnMount(() => {
-    if (!isPopupMode() || !currentTabId) return;
-    chrome.runtime.sendMessage(
-      { method: InternalMethods.GetActiveFormState, payload: { tabId: currentTabId } },
-      persistedState => {
-        if (!persistedState || !persistedState.symbol) return;
-        navigate('send/' + persistedState.symbol, { state: persistedState });
-      }
-    );
+  useOnMount(async () => {
+    if (!isPopupMode() || !currentTabId || !chrome.storage.session) return;
+    const key = 'form-state-' + currentTabId.toString();
+    const state = await chrome.storage.session.get('form-state-' + currentTabId.toString());
+    const persistedState = state[key];
+    if (!persistedState || !persistedState.symbol) return;
+    navigate('send/' + persistedState.symbol, { state: persistedState });
   });
 }

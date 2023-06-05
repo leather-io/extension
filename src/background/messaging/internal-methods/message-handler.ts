@@ -10,10 +10,16 @@ function validateMessagesAreFromExtension(sender: chrome.runtime.MessageSender) 
 
 const inMemoryKeys = new Map();
 
-const inMemoryFormState = new Map<number, object>();
+function makeFormStateKey(tabId: number) {
+  return 'form-state-' + tabId.toString();
+}
+
+async function removeFormState(tabId: number) {
+  return chrome.storage.session.remove(makeFormStateKey(tabId));
+}
 
 // Remove any persisted form state when a tab is closed
-chrome.tabs.onRemoved.addListener(tabId => inMemoryFormState.delete(tabId));
+chrome.tabs.onRemoved.addListener(tabId => removeFormState(tabId));
 
 export async function internalBackgroundMessageHandler(
   message: BackgroundMessages,
@@ -49,23 +55,23 @@ export async function internalBackgroundMessageHandler(
       break;
     }
 
-    case InternalMethods.GetActiveFormState: {
-      sendResponse(inMemoryFormState.get(message.payload.tabId));
-      break;
-    }
+    // case InternalMethods.GetActiveFormState: {
+    //   sendResponse(await chrome.storage.session.get(makeFormStateKey(message.payload.tabId)));
+    //   break;
+    // }
 
-    case InternalMethods.SetActiveFormState: {
-      const { tabId, ...state } = message.payload;
-      inMemoryFormState.set(tabId, state);
-      sendResponse();
-      break;
-    }
+    // case InternalMethods.SetActiveFormState: {
+    //   const { tabId, ...state } = message.payload;
+    //   await chrome.storage.session.set({ [makeFormStateKey(tabId)]: state });
+    //   sendResponse();
+    //   break;
+    // }
 
-    case InternalMethods.ClearActiveFormState: {
-      inMemoryFormState.delete(message.payload.tabId);
-      sendResponse();
-      break;
-    }
+    // case InternalMethods.ClearActiveFormState: {
+    //   await removeFormState(message.payload.tabId);
+    //   sendResponse();
+    //   break;
+    // }
 
     case InternalMethods.RemoveInMemoryKeys: {
       inMemoryKeys.clear();
