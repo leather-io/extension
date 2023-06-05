@@ -72,10 +72,6 @@ export async function verifySignatureRequest({
   const token = decodeToken(requestToken);
   const signature = token.payload as unknown as CommonSignaturePayload;
   const { publicKey, stxAddress } = signature;
-  if (!publicKey) {
-    return signature;
-  }
-
   const verifier = new TokenVerifier('ES256k', publicKey);
   const isSigned = await verifier.verifyAsync(requestToken);
   if (!isSigned) {
