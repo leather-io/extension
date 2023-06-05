@@ -37,7 +37,7 @@ interface BitcoinFeesListProps {
   isSendingMax: boolean;
   onChooseFee({ feeRate, feeValue, time }: OnChooseFeeArgs): Promise<void>;
   onSetSelectedFeeType(value: BtcFeeType): void;
-  selectedFeeType: BtcFeeType;
+  selectedFeeType: BtcFeeType | null;
 }
 export function BitcoinFeesList({
   amount,

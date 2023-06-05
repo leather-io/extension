@@ -77,7 +77,7 @@ export function BtcChooseFee() {
   }
 
   function onGoBack() {
-    setSelectedFeeType(BtcFeeType.Low);
+    setSelectedFeeType(null);
     navigate(-1);
   }
 
