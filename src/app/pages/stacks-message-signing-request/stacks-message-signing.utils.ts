@@ -6,17 +6,14 @@ import { finalizeMessageSignature } from '@shared/actions/finalize-message-signa
 import { signMessage, signStructuredDataMessage } from '@shared/crypto/sign-message';
 import { logger } from '@shared/logger';
 import { UnsignedMessage, whenSignableMessageOfType } from '@shared/signature/signature-types';
-import { isDefined, isString } from '@shared/utils';
+import { isString } from '@shared/utils';
 
 import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
 import { useWalletType } from '@app/common/use-wallet-type';
 import { createDelay } from '@app/common/utils';
 import { useLedgerNavigate } from '@app/features/ledger/hooks/use-ledger-navigate';
 import { useCurrentStacksAccount } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
-import {
-  useIsSignatureRequestValid,
-  useSignatureRequestSearchParams,
-} from '@app/store/signatures/requests.hooks';
+import { useSignatureRequestSearchParams } from '@app/store/signatures/requests.hooks';
 
 const improveUxWithShortDelayAsSigningIsSoFast = createDelay(1000);
 
@@ -42,14 +39,10 @@ export function useStacksMessageSigner() {
   const analytics = useAnalytics();
   const signSoftwareWalletMessage = useMessageSignerStacksSoftwareWallet();
 
-  const validSignatureRequest = useIsSignatureRequestValid();
   const { whenWallet } = useWalletType();
   const ledgerNavigate = useLedgerNavigate();
 
   const [isLoading, setIsLoading] = useState(false);
-
-  if (isDefined(validSignatureRequest) && !validSignatureRequest)
-    throw new Error('Invalid request');
 
   const { requestToken, tabId } = useSignatureRequestSearchParams();
   if (!tabId) throw new Error('Requests can only be made with corresponding tab');
