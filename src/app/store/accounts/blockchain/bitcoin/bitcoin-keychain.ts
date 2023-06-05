@@ -78,7 +78,7 @@ export function useBitcoinScureLibNetworkConfig() {
 
 interface BitcoinSignerFactoryArgs {
   accountKeychain: HDKey;
-  paymentFn(keychain: HDKey, network: BitcoinNetworkModes): unknown;
+  paymentFn(keychain: HDKey, network: BitcoinNetworkModes): any;
   network: BitcoinNetworkModes;
 }
 export function bitcoinSignerFactory<T extends BitcoinSignerFactoryArgs>(args: T) {
@@ -87,10 +87,23 @@ export function bitcoinSignerFactory<T extends BitcoinSignerFactoryArgs>(args: T
     const addressIndexKeychain =
       deriveAddressIndexKeychainFromAccount(accountKeychain)(addressIndex);
 
+    const payment = paymentFn(addressIndexKeychain, network) as ReturnType<T['paymentFn']>;
+
+    const publicKeychain = HDKey.fromExtendedKey(addressIndexKeychain.publicExtendedKey);
+
     return {
+      network,
+      payment,
       addressIndex,
-      publicKeychain: HDKey.fromExtendedKey(addressIndexKeychain.publicExtendedKey),
-      payment: paymentFn(addressIndexKeychain, network) as ReturnType<T['paymentFn']>,
+      publicKeychain,
+      get address() {
+        if (!payment.address) throw new Error('Unable to get address from payment');
+        return payment.address;
+      },
+      get publicKey() {
+        if (!publicKeychain.publicKey) throw new Error('Unable to get publicKey from keychain');
+        return publicKeychain.publicKey;
+      },
       sign(tx: btc.Transaction) {
         if (!addressIndexKeychain.privateKey)
           throw new Error('Unable to sign taproot transaction, no private key found');

@@ -68,6 +68,12 @@ export function useCurrentAccountTaprootAddressIndexZeroPayment() {
   const createSigner = useCurrentAccountTaprootSigner();
   const indexZeroSigner = createSigner?.(0);
   if (!indexZeroSigner?.payment.address) throw new Error('No address found');
+  const publicKey = indexZeroSigner.publicKeychain.publicKey;
+  if (!publicKey) throw new Error('No public key found');
   // Creating new object to have known property types
-  return { address: indexZeroSigner.payment.address, type: indexZeroSigner.payment.type };
+  return {
+    address: indexZeroSigner.payment.address,
+    publicKey,
+    type: indexZeroSigner.payment.type,
+  };
 }
