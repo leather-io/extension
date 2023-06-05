@@ -94,7 +94,12 @@ export function BrcChooseFee() {
     }
   }
 
-  useRouteHeader(<ModalHeader defaultGoBack hideActions title="Choose fee" />);
+  function onGoBack() {
+    setSelectedFeeType(null);
+    navigate(-1);
+  }
+
+  useRouteHeader(<ModalHeader defaultGoBack hideActions onGoBack={onGoBack} title="Choose fee" />);
 
   return isLoadingOrder ? (
     <Stack alignItems="center" p="extra-loose" spacing="base" width="100%">

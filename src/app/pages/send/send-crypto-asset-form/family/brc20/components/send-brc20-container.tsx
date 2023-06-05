@@ -4,8 +4,8 @@ import { Outlet, useOutletContext } from 'react-router-dom';
 import { BtcFeeType } from '@shared/models/fees/bitcoin-fees.model';
 
 interface SendBrc20ContextState {
-  selectedFeeType: BtcFeeType;
-  setSelectedFeeType(value: BtcFeeType): void;
+  selectedFeeType: BtcFeeType | null;
+  setSelectedFeeType(value: BtcFeeType | null): void;
 }
 export function useSendBrc20State() {
   const context = useOutletContext<SendBrc20ContextState>();
@@ -13,6 +13,6 @@ export function useSendBrc20State() {
 }
 
 export function SendBrc20Container() {
-  const [selectedFeeType, setSelectedFeeType] = useState(BtcFeeType.Low);
+  const [selectedFeeType, setSelectedFeeType] = useState(null);
   return <Outlet context={{ selectedFeeType, setSelectedFeeType }} />;
 }
