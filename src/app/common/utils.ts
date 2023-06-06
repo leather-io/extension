@@ -311,3 +311,11 @@ export const parseIfValidPunycode = (s: string) => {
 export function capitalize(val: string) {
   return val.charAt(0).toUpperCase() + val.slice(1);
 }
+
+export function isFulfilled<T>(p: PromiseSettledResult<T>): p is PromiseFulfilledResult<T> {
+  return p.status === 'fulfilled';
+}
+
+export function isRejected<T>(p: PromiseSettledResult<T>): p is PromiseRejectedResult {
+  return p.status === 'rejected';
+}

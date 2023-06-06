@@ -16,7 +16,7 @@ export function useCalculateMaxBitcoinSpend() {
   const currentAccountBtcAddress = useCurrentAccountNativeSegwitAddressIndexZero();
   const balance = useCurrentNativeSegwitAddressBalance();
   const { data: utxos } = useSpendableNativeSegwitUtxos(currentAccountBtcAddress);
-  const { avgApiFeeRates: feeRates } = useAverageBitcoinFeeRates();
+  const { data: feeRates } = useAverageBitcoinFeeRates();
 
   return useCallback(
     (address = '', feeRate?: number) => {

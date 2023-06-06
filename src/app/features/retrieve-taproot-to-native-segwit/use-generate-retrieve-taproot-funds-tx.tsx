@@ -16,7 +16,7 @@ export function useGenerateRetrieveTaprootFundsTx() {
   const networkMode = useBitcoinScureLibNetworkConfig();
   const uninscribedUtxos = useCurrentTaprootAccountUninscribedUtxos();
   const createSigner = useCurrentAccountTaprootSigner();
-  const { avgApiFeeRates: feeRates } = useAverageBitcoinFeeRates();
+  const { data: feeRates } = useAverageBitcoinFeeRates();
 
   const fee = useMemo(() => {
     if (!feeRates) return createMoney(0, 'BTC');

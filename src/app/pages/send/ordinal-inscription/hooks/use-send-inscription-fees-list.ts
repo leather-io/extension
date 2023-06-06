@@ -23,7 +23,7 @@ export function useSendInscriptionFeesList({ recipient, utxo }: UseSendInscripti
   const { data: nativeSegwitUtxos } = useCurrentNativeSegwitUtxos();
 
   const btcMarketData = useCryptoCurrencyMarketData('BTC');
-  const { avgApiFeeRates: feeRates, isLoading } = useAverageBitcoinFeeRates();
+  const { data: feeRates, isLoading } = useAverageBitcoinFeeRates();
 
   const feesList: FeesListItem[] = useMemo(() => {
     function getFiatFeeValue(fee: number) {
