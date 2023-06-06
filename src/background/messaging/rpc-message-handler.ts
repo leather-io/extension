@@ -2,7 +2,11 @@ import { RpcErrorCode } from '@btckit/types';
 
 import { isSupportedMessageSigningPaymentType } from '@shared/crypto/bitcoin/bip322/bip322-utils';
 import { RouteUrls } from '@shared/route-urls';
-import { WalletRequests, makeRpcErrorResponse } from '@shared/rpc/rpc-methods';
+import {
+  WalletRequests,
+  makeRpcErrorResponse,
+  makeRpcSuccessResponse,
+} from '@shared/rpc/rpc-methods';
 
 import {
   getTabIdFromPort,
@@ -118,6 +122,36 @@ export async function rpcMessageHandler(message: WalletRequests, port: chrome.ru
       break;
     }
 
+    case 'supportedMethods': {
+      const { tabId } = makeSearchParamsWithDefaults(port);
+      chrome.tabs.sendMessage(
+        tabId,
+        makeRpcSuccessResponse('supportedMethods', {
+          id: message.id,
+          result: {
+            documentation: 'https://hirowallet.gitbook.io/developers',
+            methods: [
+              {
+                name: 'getAddresses',
+                docsUrl: [
+                  'https://hirowallet.gitbook.io/developers/bitcoin/connect-users/get-addresses',
+                  'https://btckit.org/docs/requests/getaddresses',
+                ],
+              },
+              {
+                name: 'signMessage',
+                docsUrl: 'https://hirowallet.gitbook.io/developers/bitcoin/sign-messages',
+              },
+              {
+                name: 'sendTransfer',
+              },
+            ],
+          },
+        })
+      );
+      break;
+    }
+
     default:
       chrome.tabs.sendMessage(
         getTabIdFromPort(port),
@@ -125,7 +159,7 @@ export async function rpcMessageHandler(message: WalletRequests, port: chrome.ru
           id: message.id,
           error: {
             code: RpcErrorCode.METHOD_NOT_FOUND,
-            message: `${message.method} is not supported`,
+            message: `"${message.method}" is not supported. Try running \`.request('supportedMethods')\` to see what Hiro Wallet can do, or check out our developer documentation at https://hirowallet.gitbook.io/developers`,
           },
         })
       );
