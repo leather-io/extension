@@ -55,12 +55,13 @@ export function useSendFormNavigate() {
           } as ConfirmationRouteState,
         });
       },
-      toConfirmAndSignStxTransaction(tx: StacksTransaction) {
+      toConfirmAndSignStxTransaction(tx: StacksTransaction, showFeeChangeWarning: boolean) {
         return navigate('confirm', {
           replace: true,
           state: {
             tx: bytesToHex(tx.serialize()),
             hasHeaderTitle: true,
+            showFeeChangeWarning,
           } as ConfirmationRouteState,
         });
       },
