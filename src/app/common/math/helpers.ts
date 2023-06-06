@@ -23,3 +23,7 @@ export function countDecimals(num: string | number | BigNumber) {
   const decimals = amount.toString(10).split('.')[1];
   return decimals ? decimals.length : 0;
 }
+
+export function increaseValueByOneMicroStx(value: string | number | BigNumber) {
+  return new BigNumber(value).plus(0.000001).toNumber();
+}

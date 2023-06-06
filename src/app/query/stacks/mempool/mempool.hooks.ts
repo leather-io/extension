@@ -9,6 +9,8 @@ import BigNumber from 'bignumber.js';
 import { createMoney } from '@shared/models/money.model';
 
 import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
+import { increaseValueByOneMicroStx } from '@app/common/math/helpers';
+import { microStxToStx } from '@app/common/money/unit-conversion';
 import { useTransactionsById } from '@app/query/stacks/transactions/transactions-by-id.query';
 import { useCurrentAccountStxAddressState } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
 
@@ -74,4 +76,18 @@ export function useCurrentAccountMempoolTransactionsBalance() {
     new BigNumber(0)
   );
   return createMoney(tokenTransferTxsBalance.plus(pendingTxsFeesBalance), 'STX');
+}
+
+export function useStacksValidateFeeByNonce() {
+  const { transactions } = useStacksPendingTransactions();
+
+  function changeFeeByNonce({ nonce, fee }: { nonce: number; fee: number }) {
+    return transactions.reduce((updatedFee, tx) => {
+      if (Number(tx.nonce) === nonce && microStxToStx(tx.fee_rate).toNumber() >= fee) {
+        return increaseValueByOneMicroStx(microStxToStx(tx.fee_rate));
+      }
+      return updatedFee;
+    }, fee);
+  }
+  return { changeFeeByNonce };
 }

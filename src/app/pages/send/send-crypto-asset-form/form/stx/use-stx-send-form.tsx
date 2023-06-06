@@ -18,6 +18,7 @@ import { stxFeeValidator } from '@app/common/validation/forms/fee-validators';
 import { useLedgerNavigate } from '@app/features/ledger/hooks/use-ledger-navigate';
 import { useUpdatePersistedSendFormValues } from '@app/features/popup-send-form-restoration/use-update-persisted-send-form-values';
 import { useCalculateStacksTxFees } from '@app/query/stacks/fees/fees.hooks';
+import { useStacksValidateFeeByNonce } from '@app/query/stacks/mempool/mempool.hooks';
 import {
   useGenerateStxTokenTransferUnsignedTx,
   useStxTokenTransferUnsignedTxState,
@@ -36,6 +37,7 @@ export function useStxSendForm() {
   const { whenWallet } = useWalletType();
   const ledgerNavigate = useLedgerNavigate();
   const sendFormNavigate = useSendFormNavigate();
+  const { changeFeeByNonce } = useStacksValidateFeeByNonce();
 
   const { availableBalance: availableStxBalance } = useStxBalance();
 
@@ -74,12 +76,20 @@ export function useStxSendForm() {
     ) {
       const isFormValid = await checkFormValidation(values, formikHelpers);
       if (!isFormValid) return;
+      const initialFee = values.fee;
+      values.fee = changeFeeByNonce({
+        nonce: Number(values.nonce),
+        fee: Number(values.fee),
+      });
+
+      // if fee has changed, show info message
+      const showFeeChangeWarning = initialFee !== values.fee;
 
       const tx = await generateTx(values);
       if (!tx) return logger.error('Attempted to generate unsigned tx, but tx is undefined');
 
       whenWallet({
-        software: () => sendFormNavigate.toConfirmAndSignStxTransaction(tx),
+        software: () => sendFormNavigate.toConfirmAndSignStxTransaction(tx, showFeeChangeWarning),
         ledger: () => ledgerNavigate.toConnectAndSignTransactionStep(tx),
       })();
     },
