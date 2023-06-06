@@ -7,7 +7,7 @@ import { ensureArray } from '@shared/utils';
 
 import { createNumArrayOfRange } from '@app/common/utils';
 import { QueryPrefixes } from '@app/query/query-prefixes';
-import { useCurrentAccountIndex } from '@app/store/accounts/account';
+import { useCurrentAccountNativeSegwitIndexZeroSigner } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
 import { useTaprootCurrentAccountPrivateKeychain } from '@app/store/accounts/blockchain/bitcoin/taproot-account.hooks';
 import { useCurrentNetwork } from '@app/store/networks/networks.selectors';
 
@@ -50,7 +50,8 @@ async function fetchInscriptions(addresses: string | string[], offset = 0, limit
 export function useTaprootInscriptionsInfiniteQuery() {
   const network = useCurrentNetwork();
   const keychain = useTaprootCurrentAccountPrivateKeychain();
-  const currentAccountIndex = useCurrentAccountIndex();
+  const nativeSegwitSigner = useCurrentAccountNativeSegwitIndexZeroSigner();
+  const currentBitcoinAddress = nativeSegwitSigner.address;
 
   const defaultAccountData = {
     fromIndex: 0,
@@ -62,7 +63,7 @@ export function useTaprootInscriptionsInfiniteQuery() {
   useEffect(() => {
     currentAccData.current = defaultAccountData;
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [currentAccountIndex]);
+  }, [currentBitcoinAddress]);
 
   function getTaprootAddressData(fromIndex: number, toIndex: number) {
     return createNumArrayOfRange(fromIndex, toIndex - 1).reduce(
@@ -80,7 +81,7 @@ export function useTaprootInscriptionsInfiniteQuery() {
   }
 
   const query = useInfiniteQuery({
-    queryKey: [QueryPrefixes.InscriptionsFromApiInfiniteQuery, currentAccountIndex, network.id],
+    queryKey: [QueryPrefixes.InscriptionsFromApiInfiniteQuery, currentBitcoinAddress, network.id],
     async queryFn({ pageParam }) {
       const responsesArr: InscriptionsQueryResponse[] = [];
       let addressesData = getTaprootAddressData(
