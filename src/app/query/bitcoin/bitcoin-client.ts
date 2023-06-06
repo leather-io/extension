@@ -38,9 +38,20 @@ class AddressApi {
 }
 
 interface FeeEstimateEarnApiResponse {
-  fastestFee: number;
-  halfHourFee: number;
-  hourFee: number;
+  name: string;
+  height: number;
+  hash: string;
+  time: string;
+  latest_url: string;
+  previous_hash: string;
+  previous_url: string;
+  peer_count: number;
+  unconfirmed_count: number;
+  high_fee_per_kb: number;
+  medium_fee_per_kb: number;
+  low_fee_per_kb: number;
+  last_fork_height: number;
+  last_fork_hash: string;
 }
 interface FeeEstimateMempoolSpaceApiResponse {
   fastestFee: number;
@@ -50,20 +61,41 @@ interface FeeEstimateMempoolSpaceApiResponse {
   minimumFee: number;
 }
 
+interface FeeResult {
+  fast: number;
+  medium: number;
+  slow: number;
+}
+
 class FeeEstimatesApi {
   constructor(public configuration: Configuration) {}
 
-  async getFeeEstimatesFromEarnApi(): Promise<FeeEstimateEarnApiResponse> {
+  async getFeeEstimatesFromBlockcypherApi(): Promise<FeeResult> {
     return fetchData({
       errorMsg: 'No fee estimates fetched',
-      url: `https://bitcoinfees.earn.com/api/v1/fees/recommended`,
+      url: `https://api.blockcypher.com/v1/btc/main`,
+    }).then((resp: FeeEstimateEarnApiResponse) => {
+      const { low_fee_per_kb, medium_fee_per_kb, high_fee_per_kb } = resp;
+      // These fees are in satoshis per kb
+      return {
+        slow: low_fee_per_kb / 1000,
+        medium: medium_fee_per_kb / 1000,
+        fast: high_fee_per_kb / 1000,
+      };
     });
   }
 
-  async getFeeEstimatesFromMempoolSpaceApi(): Promise<FeeEstimateMempoolSpaceApiResponse> {
+  async getFeeEstimatesFromMempoolSpaceApi(): Promise<FeeResult> {
     return fetchData({
       errorMsg: 'No fee estimates fetched',
       url: ` https://mempool.space/api/v1/fees/recommended`,
+    }).then((resp: FeeEstimateMempoolSpaceApiResponse) => {
+      const { fastestFee, halfHourFee, hourFee } = resp;
+      return {
+        slow: hourFee,
+        medium: halfHourFee,
+        fast: fastestFee,
+      };
     });
   }
 }
