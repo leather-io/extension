@@ -38,7 +38,7 @@ export function useBitcoinFeesList({ amount, isSendingMax, recipient }: UseBitco
   const { data: utxos } = useSpendableNativeSegwitUtxos(currentAccountBtcAddress);
 
   const btcMarketData = useCryptoCurrencyMarketData('BTC');
-  const { avgApiFeeRates: feeRates, isLoading } = useAverageBitcoinFeeRates();
+  const { data: feeRates, isLoading } = useAverageBitcoinFeeRates();
 
   const feesList: FeesListItem[] = useMemo(() => {
     function getFiatFeeValue(fee: number) {
