@@ -1,56 +1,33 @@
-import BigNumber from 'bignumber.js';
-
 import { logger } from '@shared/logger';
-import { AverageBitcoinFeeRates } from '@shared/models/fees/bitcoin-fees.model';
 
+import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
 import { calculateMeanAverage } from '@app/common/math/calculate-averages';
+import { initBigNumber } from '@app/common/math/helpers';
+import { isFulfilled, isRejected } from '@app/common/utils';
 
 import { useGetAllBitcoinFeeEstimatesQuery } from './fee-estimates.query';
 
 export function useAverageBitcoinFeeRates() {
-  const { data: avgApiFeeRates, isLoading } = useGetAllBitcoinFeeEstimatesQuery({
+  const analytics = useAnalytics();
+  return useGetAllBitcoinFeeEstimatesQuery({
     onError: err => logger.error('Error getting all apis bitcoin fee estimates', { err }),
-    select: (resp): AverageBitcoinFeeRates | null => {
-      if (resp[0].status === 'rejected' && resp[1].status === 'rejected') {
-        return null;
+    select(feeEstimates) {
+      if (feeEstimates.every(isRejected)) {
+        void analytics.track('error_using_fallback_bitcoin_fees');
+        return {
+          fastestFee: initBigNumber(15),
+          halfHourFee: initBigNumber(10),
+          hourFee: initBigNumber(5),
+        };
       }
 
-      let mempoolApiFeeRates = null;
-      if (resp[0].status === 'fulfilled') {
-        mempoolApiFeeRates = resp[0].value;
-      }
-
-      let earnApiFeeRates = null;
-      if (resp[1].status === 'fulfilled') {
-        earnApiFeeRates = resp[1].value;
-      }
-
-      // zero values for cases when one api is down
-      const fastestFees = [
-        new BigNumber(mempoolApiFeeRates?.fastestFee ?? 0),
-        new BigNumber(earnApiFeeRates?.fastestFee ?? 0),
-      ].filter(fee => fee.isGreaterThan(0));
-
-      const halfHourFees = [
-        new BigNumber(mempoolApiFeeRates?.halfHourFee ?? 0),
-        new BigNumber(earnApiFeeRates?.halfHourFee ?? 0),
-      ].filter(fee => fee.isGreaterThan(0));
-
-      const hourFees = [
-        new BigNumber(mempoolApiFeeRates?.hourFee ?? 0),
-        new BigNumber(earnApiFeeRates?.hourFee ?? 0),
-      ].filter(fee => fee.isGreaterThan(0));
-
-      // use the highest fee rate for fastest fee
-      const fastestFee = fastestFees.reduce((p, v) => (p.isGreaterThan(v) ? p : v));
+      const fees = feeEstimates.filter(isFulfilled).map(result => result.value);
 
       return {
-        fastestFee,
-        halfHourFee: calculateMeanAverage(halfHourFees),
-        hourFee: calculateMeanAverage(hourFees),
+        fastestFee: calculateMeanAverage(fees.map(fee => fee.fast)),
+        halfHourFee: calculateMeanAverage(fees.map(fee => fee.medium)),
+        hourFee: calculateMeanAverage(fees.map(fee => fee.slow)),
       };
     },
   });
-
-  return { isLoading, avgApiFeeRates };
 }

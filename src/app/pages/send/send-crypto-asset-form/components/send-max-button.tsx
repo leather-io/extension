@@ -25,8 +25,8 @@ export function SendMaxButton({ balance, sendMaxBalance, ...props }: SendMaxButt
     return amountFieldHelpers.setValue(sendMaxBalance);
   }, [amountFieldHelpers, analytics, balance.amount, sendMaxBalance]);
 
-  // Hide send max button if using lowest fee to perform the calc
-  // is greater than available balance and will show zero
+  // Hide send max button if lowest fee calc is greater
+  // than available balance which will default to zero
   if (sendMaxBalance === '0') return <Box height="32px" />;
 
   return (

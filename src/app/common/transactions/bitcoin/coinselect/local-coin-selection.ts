@@ -6,17 +6,49 @@ import { UtxoResponseItem } from '@app/query/bitcoin/bitcoin-client';
 
 import { BtcSizeFeeEstimator } from '../fees/btc-size-fee-estimator';
 
-interface DetermineUtxosForSpendArgs {
-  utxos: UtxoResponseItem[];
+export interface DetermineUtxosForSpendArgs {
   amount: number;
   feeRate: number;
   recipient: string;
+  utxos: UtxoResponseItem[];
 }
-export function determineUtxosForSpend({
-  utxos,
+
+export function determineUtxosForSpendAll({
   amount,
   feeRate,
   recipient,
+  utxos,
+}: DetermineUtxosForSpendArgs) {
+  if (!validate(recipient)) throw new Error('Cannot calculate spend of invalid address type');
+
+  const addressInfo = getAddressInfo(recipient);
+
+  const txSizer = new BtcSizeFeeEstimator();
+
+  const sizeInfo = txSizer.calcTxSize({
+    input_script: 'p2wpkh',
+    input_count: utxos.length,
+    [addressInfo.type + '_output_count']: 1,
+  });
+
+  const outputs = [{ value: BigInt(amount), address: recipient }];
+
+  const fee = Math.ceil(sizeInfo.txVBytes * feeRate);
+
+  return {
+    utxos,
+    inputs: utxos,
+    outputs,
+    size: sizeInfo.txVBytes,
+    fee,
+  };
+}
+
+export function determineUtxosForSpend({
+  amount,
+  feeRate,
+  recipient,
+  utxos,
 }: DetermineUtxosForSpendArgs) {
   if (!validate(recipient)) throw new Error('Cannot calculate spend of invalid address type');
 

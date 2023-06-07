@@ -13,7 +13,7 @@ interface SendInscriptionLoaderProps {
 }
 export function SendInscriptionLoader({ children }: SendInscriptionLoaderProps) {
   const { inscription } = useSendInscriptionRouteState();
-  const { avgApiFeeRates: feeRates } = useAverageBitcoinFeeRates();
+  const { data: feeRates } = useAverageBitcoinFeeRates();
 
   if (!feeRates) return null;
 

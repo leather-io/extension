@@ -1,6 +1,7 @@
 import { useMemo } from 'react';
 
 import { BtcAddress } from '@btckit/types';
+import { bytesToHex } from '@stacks/common';
 
 import { logger } from '@shared/logger';
 import { makeRpcSuccessResponse } from '@shared/rpc/rpc-methods';
@@ -8,7 +9,7 @@ import { makeRpcSuccessResponse } from '@shared/rpc/rpc-methods';
 import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
 import { useDefaultRequestParams } from '@app/common/hooks/use-default-request-search-params';
 import { initialSearchParams } from '@app/common/initial-search-params';
-import { useCurrentAccountNativeSegwitAddressIndexZero } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
+import { useCurrentAccountNativeSegwitIndexZeroSigner } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
 import { useCurrentAccountTaprootAddressIndexZeroPayment } from '@app/store/accounts/blockchain/bitcoin/taproot-account.hooks';
 import { useCurrentStacksAccount } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
 import { useAppPermissions } from '@app/store/app-permissions/app-permissions.slice';
@@ -30,7 +31,7 @@ export function useGetAddresses() {
   const permissions = useAppPermissions();
   const { tabId, origin, requestId } = useRpcRequestParams();
 
-  const nativeSegwitAddress = useCurrentAccountNativeSegwitAddressIndexZero();
+  const nativeSegwitSigner = useCurrentAccountNativeSegwitIndexZeroSigner();
   const taprootPayment = useCurrentAccountTaprootAddressIndexZeroPayment();
   const stacksAccount = useCurrentStacksAccount();
 
@@ -38,12 +39,14 @@ export function useGetAddresses() {
     symbol: 'BTC',
     type: 'p2tr',
     address: taprootPayment.address,
+    publicKey: bytesToHex(taprootPayment.publicKey),
   };
 
   const nativeSegwitAddressResponse: BtcAddress = {
     symbol: 'BTC',
     type: 'p2wpkh',
-    address: nativeSegwitAddress,
+    address: nativeSegwitSigner.address,
+    publicKey: bytesToHex(nativeSegwitSigner.publicKey),
   };
 
   const stacksAddressResponse = {

@@ -1,15 +1,11 @@
 import { useMemo } from 'react';
-import { useAsync } from 'react-async-hook';
 
 import { SignedMessageType } from '@shared/signature/signature-types';
 import { isString } from '@shared/utils';
 
 import { useDefaultRequestParams } from '@app/common/hooks/use-default-request-search-params';
 import { initialSearchParams } from '@app/common/initial-search-params';
-import {
-  getGenericSignaturePayloadFromToken,
-  verifySignatureRequest,
-} from '@app/common/signature/requests';
+import { getGenericSignaturePayloadFromToken } from '@app/common/signature/requests';
 import { useStacksAccounts } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
 
 export function useSignatureRequestSearchParams() {
@@ -47,24 +43,4 @@ export function useSignatureRequestAccountIndex() {
     return accounts.findIndex(account => account.address === stxAddress); // selected account
   }
   return undefined;
-}
-
-export function useIsSignatureRequestValid() {
-  const accounts = useStacksAccounts();
-  const { origin, requestToken } = useSignatureRequestSearchParams();
-
-  return useAsync(async () => {
-    if (typeof accounts === 'undefined') return;
-    if (!origin || !accounts || !requestToken) return;
-    try {
-      const valid = await verifySignatureRequest({
-        requestToken,
-        accounts,
-        appDomain: origin,
-      });
-      return !!valid;
-    } catch (e) {
-      return false;
-    }
-  }, [accounts, requestToken, origin]).result;
 }

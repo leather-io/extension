@@ -35,9 +35,10 @@ export function useSendFormNavigate() {
       backToSendForm(state: any) {
         return navigate('../', { relative: 'path', replace: true, state });
       },
-      toChooseTransactionFee(values: BitcoinSendFormValues) {
+      toChooseTransactionFee(isSendingMax: boolean, values: BitcoinSendFormValues) {
         return navigate('choose-fee', {
           state: {
+            isSendingMax,
             values,
             hasHeaderTitle: true,
           },
@@ -54,12 +55,13 @@ export function useSendFormNavigate() {
           } as ConfirmationRouteState,
         });
       },
-      toConfirmAndSignStxTransaction(tx: StacksTransaction) {
+      toConfirmAndSignStxTransaction(tx: StacksTransaction, showFeeChangeWarning: boolean) {
         return navigate('confirm', {
           replace: true,
           state: {
             tx: bytesToHex(tx.serialize()),
             hasHeaderTitle: true,
+            showFeeChangeWarning,
           } as ConfirmationRouteState,
         });
       },

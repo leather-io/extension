@@ -35,7 +35,7 @@ export function useBrc20Transfers() {
   const currentAccountIndex = useCurrentAccountIndex();
   const ordinalsbotClient = useOrdinalsbotClient();
   const { address } = useCurrentAccountTaprootAddressIndexZeroPayment();
-  const bitcoinFees = useAverageBitcoinFeeRates();
+  const { data: fees } = useAverageBitcoinFeeRates();
 
   return {
     async initiateTransfer(tick: string, amount: string) {
@@ -47,7 +47,7 @@ export function useBrc20Transfers() {
         file: payload,
         size,
         name: `${tick}-${amount}.txt`,
-        fee: bitcoinFees.avgApiFeeRates?.halfHourFee.toNumber() ?? 10,
+        fee: fees?.halfHourFee.toNumber() ?? 10,
       });
 
       if (order.data.status !== 'ok') throw new Error('Failed to initiate transfer');

@@ -24,12 +24,16 @@ export function InfoCard({ children, ...props }: InfoCardProps) {
 interface InfoCardRowProps {
   title: string;
   value: React.ReactNode;
+  titleAdditionalElement?: React.ReactNode;
 }
 
-export function InfoCardRow({ title, value, ...props }: InfoCardRowProps) {
+export function InfoCardRow({ title, value, titleAdditionalElement, ...props }: InfoCardRowProps) {
   return (
     <SpaceBetween fontSize="14px" alignItems="start" {...props}>
-      <Text color={figmaTheme.textSubdued}>{title}</Text>
+      <Flex alignItems="center">
+        <Text color={figmaTheme.textSubdued}>{title}</Text>
+        {titleAdditionalElement && titleAdditionalElement}
+      </Flex>
       {isString(value) ? (
         <Text
           color={figmaTheme.text}

@@ -16,10 +16,10 @@ export function useCalculateMaxBitcoinSpend() {
   const currentAccountBtcAddress = useCurrentAccountNativeSegwitAddressIndexZero();
   const balance = useCurrentNativeSegwitAddressBalance();
   const { data: utxos } = useSpendableNativeSegwitUtxos(currentAccountBtcAddress);
-  const { avgApiFeeRates: feeRates } = useAverageBitcoinFeeRates();
+  const { data: feeRates } = useAverageBitcoinFeeRates();
 
   return useCallback(
-    (address = '') => {
+    (address = '', feeRate?: number) => {
       if (!utxos || !feeRates)
         return {
           spendAllFee: 0,
@@ -35,7 +35,7 @@ export function useCalculateMaxBitcoinSpend() {
         input_count: utxos.length,
         [`${addressTypeWithFallback}_output_count`]: 2,
       });
-      const fee = Math.ceil(size.txVBytes * feeRates.hourFee.toNumber());
+      const fee = Math.ceil(size.txVBytes * (feeRate ?? feeRates.hourFee.toNumber()));
 
       const spendableAmount = BigNumber.max(0, balance.amount.minus(fee));
 
