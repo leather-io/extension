@@ -1,3 +1,29 @@
+## [4.29.0](https://github.com/hirosystems/wallet/compare/v4.28.1...v4.29.0) (2023-06-07)
+
+
+### Features
+
+* edit fee in case of pending tx with same nonce, closes [#3426](https://github.com/hirosystems/wallet/issues/3426) ([6c96063](https://github.com/hirosystems/wallet/commit/6c9606370bc2f10d9c39962aa7d881717470a6c0))
+
+
+### Bug Fixes
+
+* add public keys to getAddresses response, closes [#3778](https://github.com/hirosystems/wallet/issues/3778) ([ebe594a](https://github.com/hirosystems/wallet/commit/ebe594acbb654872e71564c8b8cb81984c2c023c))
+* inscriptions cache bug ([3c67a9b](https://github.com/hirosystems/wallet/commit/3c67a9b8db845f5edb732a108a5af95e57ee2b2a))
+* prevent default low fee selection, closes [#3768](https://github.com/hirosystems/wallet/issues/3768) ([c4dd1ae](https://github.com/hirosystems/wallet/commit/c4dd1aeab224b1d923896d017e5de341cbac4cfc))
+* reduce btc send form click area ([30b63a6](https://github.com/hirosystems/wallet/commit/30b63a6c083f48f0d70ec9938d93eace03e6ea94))
+* remove disabling on send input click ([1b049e5](https://github.com/hirosystems/wallet/commit/1b049e52cad8d1a4d0a3e957d7a5395b39609409))
+* request signatures should work with unsecured tokens ([d426457](https://github.com/hirosystems/wallet/commit/d4264575a91b0a5938be07858c7d553aad46aebe))
+* unwanted blur validation ([e06305a](https://github.com/hirosystems/wallet/commit/e06305a7c14b503c0a8eb11e3277367ae4a48953))
+
+
+### Internal
+
+* **deps:** bump vite from 4.3.8 to 4.3.9 ([7af5e8a](https://github.com/hirosystems/wallet/commit/7af5e8afb7f3a8b4767c2f18c2cf272a5c6740d9))
+* improve fee estimation ([11ce4b0](https://github.com/hirosystems/wallet/commit/11ce4b01955f51c3f27b325fed7a0dd42168f7a6))
+* improve rpc message erroring ([da511d6](https://github.com/hirosystems/wallet/commit/da511d6f1339297c2383aa13fcd6bfda69d1d302))
+* send max, closes [#3136](https://github.com/hirosystems/wallet/issues/3136), closes [#3576](https://github.com/hirosystems/wallet/issues/3576) ([5b7d99a](https://github.com/hirosystems/wallet/commit/5b7d99a890caa7fcea41275a74780c3109a5a5e2))
+
 ## [4.28.1](https://github.com/hirosystems/wallet/compare/v4.28.0...v4.28.1) (2023-06-02)
 
 
