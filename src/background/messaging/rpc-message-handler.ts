@@ -88,7 +88,7 @@ export async function rpcMessageHandler(message: WalletRequests, port: chrome.ru
     }
 
     case 'sendTransfer': {
-      if (!message.params) {
+      if (!message.params || !message.params.address || !message.params.amount) {
         chrome.tabs.sendMessage(
           getTabIdFromPort(port),
           makeRpcErrorResponse('sendTransfer', {

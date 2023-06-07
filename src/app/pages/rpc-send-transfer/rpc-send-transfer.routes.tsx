@@ -11,15 +11,14 @@ import { RpcSendTransferContainer } from './rpc-send-transfer-container';
 import { RpcSendTransferSummary } from './rpc-send-transfer-summary';
 
 export const rpcSendTransferRoutes = (
-  <Route element={<RpcSendTransferContainer />}>
-    <Route
-      path={RouteUrls.RpcSendTransfer}
-      element={
-        <AccountGate>
-          <RpcSendTransfer />
-        </AccountGate>
-      }
-    />
+  <Route
+    element={
+      <AccountGate>
+        <RpcSendTransferContainer />
+      </AccountGate>
+    }
+  >
+    <Route path={RouteUrls.RpcSendTransfer} element={<RpcSendTransfer />} />
     <Route path={RouteUrls.RpcSendTransferChooseFee} element={<RpcSendTransferChooseFee />} />
     <Route path={RouteUrls.RpcSendTransferConfirmation} element={<RpcSendTransferConfirmation />} />
     <Route path={RouteUrls.RpcSendTransferSummary} element={<RpcSendTransferSummary />} />
