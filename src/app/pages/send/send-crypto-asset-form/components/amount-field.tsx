@@ -38,6 +38,7 @@ interface AmountFieldProps {
   isSendingMax?: boolean;
   switchableAmount?: React.JSX.Element;
   tokenSymbol?: string;
+  onSetIsSendingMax?(value: boolean): void;
 }
 export function AmountField({
   autoComplete = 'on',
@@ -45,10 +46,11 @@ export function AmountField({
   balance,
   bottomInputOverlay,
   isSendingMax,
+  onSetIsSendingMax,
   switchableAmount,
   tokenSymbol,
 }: AmountFieldProps) {
-  const [field, meta] = useField('amount');
+  const [field, meta, helpers] = useField('amount');
   const [fontSize, setFontSize] = useState(maxFontSize);
   const [previousTextLength, setPreviousTextLength] = useState(1);
 
@@ -89,8 +91,16 @@ export function AmountField({
 
   // TODO: could be implemented with html using padded label element
   const onClickFocusInput = useCallback(() => {
-    document.getElementById(amountInputId)?.focus();
-  }, []);
+    if (isSendingMax) {
+      helpers.setValue('');
+      onSetIsSendingMax?.(false);
+    }
+
+    // put focus in the queue, otherwise it won't work
+    setTimeout(() => {
+      document.getElementById(amountInputId)?.focus();
+    });
+  }, [isSendingMax, helpers, onSetIsSendingMax]);
 
   return (
     <Stack
