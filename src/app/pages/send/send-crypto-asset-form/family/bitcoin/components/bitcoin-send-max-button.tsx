@@ -58,7 +58,7 @@ export function BitcoinSendMaxButton({
         width="fit-content"
         {...props}
       >
-        Sending max
+        {isSendingMax ? 'Sending max' : 'Send max'}
       </Button>
     </Tooltip>
   );

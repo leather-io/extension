@@ -73,6 +73,7 @@ export function BtcSendForm() {
                       sendMaxFee={sendMaxCalculation.spendAllFee.toString()}
                     />
                   }
+                  onSetIsSendingMax={onSetIsSendingMax}
                   isSendingMax={isSendingMax}
                   switchableAmount={
                     <SendFiatValue marketData={btcMarketData} assetSymbol={'BTC'} />
