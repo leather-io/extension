@@ -1,4 +1,4 @@
-import { DefineRpcMethod, RpcRequest, RpcSuccessResponse } from '@btckit/types';
+import { DefineRpcMethod, RpcRequest, RpcResponse } from '@btckit/types';
 import { AllowAdditionaProperties } from '@btckit/types/dist/types/utils';
 
 export interface HandleBitcoinContractResponseParams extends AllowAdditionaProperties {
@@ -16,6 +16,12 @@ export interface HandleBitcoinContractResponseBody extends AllowAdditionaPropert
   error?: string;
 }
 
-export type HandleBitcoinContractRequest = RpcRequest<'acceptOffer', HandleBitcoinContractResponseParams>;
-export type HandleBitcoinContractResponse = RpcSuccessResponse<HandleBitcoinContractResponseBody>;
-export type DefineHandleBitcoinContractMethod = DefineRpcMethod<HandleBitcoinContractRequest, HandleBitcoinContractResponse>;
+export type HandleBitcoinContractRequest = RpcRequest<
+  'acceptOffer',
+  HandleBitcoinContractResponseParams
+>;
+export type HandleBitcoinContractResponse = RpcResponse<HandleBitcoinContractResponseBody>;
+export type DefineHandleBitcoinContractMethod = DefineRpcMethod<
+  HandleBitcoinContractRequest,
+  HandleBitcoinContractResponse
+>;
