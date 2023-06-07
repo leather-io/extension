@@ -52,6 +52,7 @@ export function useBtcSendForm() {
     validationSchema: yup.object({
       amount: yup
         .number()
+        .concat(btcMinimumSpendValidator())
         .concat(
           btcAmountPrecisionValidator(formatPrecisionError(btcCryptoCurrencyAssetBalance.balance))
         )
@@ -63,8 +64,7 @@ export function useBtcSendForm() {
             recipient: formRef.current?.values.recipient ?? '',
             calcMaxSpend,
           })
-        )
-        .concat(btcMinimumSpendValidator()),
+        ),
       recipient: yup
         .string()
         .concat(btcAddressValidator())

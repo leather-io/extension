@@ -51,7 +51,10 @@ export function BitcoinSendMaxButton({
         data-testid={SendCryptoAssetSelectors.SendMaxBtn}
         fontSize={0}
         height="32px"
-        onClick={onSendMax}
+        onClick={e => {
+          e.stopPropagation();
+          onSendMax();
+        }}
         mode="tertiary"
         px="base-tight"
         type="button"

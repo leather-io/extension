@@ -105,12 +105,11 @@ export function AmountField({
   return (
     <Stack
       alignItems="center"
-      onClick={onClickFocusInput}
       px="extra-loose"
       spacing={['base', meta.error && meta.touched ? 'base' : '48px']}
       width="100%"
     >
-      <Flex alignItems="center" flexDirection="column">
+      <Flex alignItems="center" flexDirection="column" onClick={onClickFocusInput}>
         <Flex
           alignItems="center"
           height="55px"
