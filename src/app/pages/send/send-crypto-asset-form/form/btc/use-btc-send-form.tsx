@@ -47,8 +47,9 @@ export function useBtcSendForm() {
     formRef,
     isSendingMax,
     onFormStateChange,
-    onSetIsSendingMax: (value: boolean) => setIsSendingMax(value),
-
+    onSetIsSendingMax(value: boolean) {
+      setIsSendingMax(value);
+    },
     validationSchema: yup.object({
       amount: yup
         .number()
