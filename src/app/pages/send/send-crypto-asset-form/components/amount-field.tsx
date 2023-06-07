@@ -137,6 +137,13 @@ export function AmountField({
             fontWeight={500}
             autoComplete={autoComplete}
             {...field}
+            // Custom `onBlur` logic. If value is empty, let's not validate to
+            // avoid unwanted blur interactions such as when interacting with
+            // send max button
+            onBlur={e => {
+              if (!field.value || field.value === '0') return;
+              return field.onBlur(e);
+            }}
           />
           <Text fontSize={fontSize + 'px'} pl="tight">
             {symbol.toUpperCase()}

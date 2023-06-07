@@ -28,11 +28,15 @@ export function useSendMax({
 
   return useCallback(() => {
     void analytics.track('select_maximum_amount_for_send');
-    if (balance.amount.isLessThanOrEqualTo(0)) return toast.error(`Zero balance`);
+    if (balance.amount.isLessThanOrEqualTo(0)) {
+      toast.error(`Zero balance`);
+      return;
+    }
     onSetIsSendingMax(!isSendingMax);
-    amountFieldHelpers.setError('');
     feeFieldHelpers.setValue(sendMaxFee);
-    return amountFieldHelpers.setValue(sendMaxBalance);
+    amountFieldHelpers.setValue(sendMaxBalance, false);
+    amountFieldHelpers.setTouched(false, false);
+    amountFieldHelpers.setError(undefined);
   }, [
     amountFieldHelpers,
     analytics,
