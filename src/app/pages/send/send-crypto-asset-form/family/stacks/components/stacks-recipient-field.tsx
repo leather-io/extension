@@ -1,10 +1,10 @@
-import { RecipientFieldType } from '@app/pages/send/send-crypto-asset-form/components/recipient-select/recipient-select';
+import { RecipientFieldType } from '@app/pages/send/send-crypto-asset-form/components/recipient-type-dropdown/recipient-type-dropdown';
 import { fetchNameOwner } from '@app/query/stacks/bns/bns.utils';
 
-import { useRecipientSelectFields } from '../../../components/recipient-select-fields/hooks/use-recipient-select-fields';
-import { RecipientFieldAddress } from '../../../components/recipient-select-fields/recipient-field-address';
-import { RecipientFieldBnsName } from '../../../components/recipient-select-fields/recipient-field-bns-name';
-import { RecipientSelectOverlay } from '../../../components/recipient-select/components/recipient-select-overlay';
+import { useRecipientSelectFields } from '../../../components/recipient-fields/hooks/use-recipient-select-fields';
+import { RecipientFieldAddress } from '../../../components/recipient-fields/recipient-field-address';
+import { RecipientFieldBnsName } from '../../../components/recipient-fields/recipient-field-bns-name';
+import { RecipientDropdownOverlay } from '../../../components/recipient-type-dropdown/components/recipient-dropdown-overlay';
 
 export function StacksRecipientField() {
   const {
@@ -16,7 +16,7 @@ export function StacksRecipientField() {
   } = useRecipientSelectFields();
 
   const topInputOverlay = (
-    <RecipientSelectOverlay
+    <RecipientDropdownOverlay
       isSelectVisible={isSelectVisible}
       onSelectRecipientFieldType={onSelectRecipientFieldType}
       onSetIsSelectVisible={onSetIsSelectVisible}

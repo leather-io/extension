@@ -19,7 +19,9 @@ export const RecipientAccountsDrawer = memo(() => {
 
   const onGoBack = useCallback(() => navigate('..', { replace: true }), [navigate]);
 
-  return accounts ? (
+  if (!accounts) return null;
+
+  return (
     <BaseDrawer title="My accounts" isShowing onClose={onGoBack}>
       <Box mb="loose" mx={['base-loose', 'extra-loose']}>
         {accounts.length <= smallNumberOfAccountsToRenderWholeList ? (
@@ -38,5 +40,5 @@ export const RecipientAccountsDrawer = memo(() => {
         )}
       </Box>
     </BaseDrawer>
-  ) : null;
+  );
 });

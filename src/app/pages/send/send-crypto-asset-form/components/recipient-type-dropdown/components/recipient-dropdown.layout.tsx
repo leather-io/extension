@@ -4,15 +4,15 @@ import { Box, Fade, Stack, color } from '@stacks/ui';
 
 import { useOnClickOutside } from '@app/common/hooks/use-onclickoutside';
 
-import { RecipientSelectItem } from './recipient-select-item';
+import { RecipientDropdownItem } from './recipient-dropdown-item';
 
-interface RecipientSelectLayoutProps {
+interface RecipientDropdownLayoutProps {
   children: ReactNode;
   isVisible: boolean;
   onSetIsSelectVisible(value: boolean): void;
   selectedItem: number;
 }
-export function RecipientSelectLayout(props: RecipientSelectLayoutProps) {
+export function RecipientDropdownLayout(props: RecipientDropdownLayoutProps) {
   const { children, isVisible, onSetIsSelectVisible, selectedItem } = props;
   const ref = useRef<HTMLDivElement | null>(null);
 
@@ -20,7 +20,7 @@ export function RecipientSelectLayout(props: RecipientSelectLayoutProps) {
 
   return (
     <Box>
-      <RecipientSelectItem index={selectedItem} onSelectItem={() => onSetIsSelectVisible(true)} />
+      <RecipientDropdownItem index={selectedItem} onSelectItem={() => onSetIsSelectVisible(true)} />
       <Fade in={isVisible}>
         {styles => (
           <Stack

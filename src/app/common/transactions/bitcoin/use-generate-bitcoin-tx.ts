@@ -10,7 +10,6 @@ import {
   determineUtxosForSpendAll,
 } from '@app/common/transactions/bitcoin/coinselect/local-coin-selection';
 import { useSpendableCurrentNativeSegwitAccountUtxos } from '@app/query/bitcoin/address/use-spendable-native-segwit-utxos';
-import { useIsStampedTx } from '@app/query/bitcoin/stamps/use-is-stamped-tx';
 import { useBitcoinScureLibNetworkConfig } from '@app/store/accounts/blockchain/bitcoin/bitcoin-keychain';
 import {
   useCurrentAccountNativeSegwitAddressIndexZero,
@@ -27,7 +26,6 @@ export function useGenerateSignedNativeSegwitTx() {
   const { data: utxos } = useSpendableCurrentNativeSegwitAccountUtxos();
   const currentAddressIndexKeychain = useCurrentBitcoinNativeSegwitAddressIndexPublicKeychain();
   const createSigner = useCurrentAccountNativeSegwitSigner();
-  const isStamped = useIsStampedTx();
 
   const networkMode = useBitcoinScureLibNetworkConfig();
 
@@ -41,14 +39,14 @@ export function useGenerateSignedNativeSegwitTx() {
         const signer = createSigner(0);
 
         const tx = new btc.Transaction();
-        const filteredUtxos = utxos.filter(utxo => !isStamped(utxo.txid));
+
         const amountAsNumber = values.amount.amount.toNumber();
 
         const determineUtxosArgs = {
           amount: amountAsNumber,
           feeRate,
           recipient: values.recipient,
-          utxos: filteredUtxos,
+          utxos,
         };
 
         const { inputs, outputs, fee } = isSendingMax
@@ -98,7 +96,6 @@ export function useGenerateSignedNativeSegwitTx() {
       createSigner,
       currentAccountBtcAddress,
       currentAddressIndexKeychain?.publicKey,
-      isStamped,
       networkMode,
       utxos,
     ]

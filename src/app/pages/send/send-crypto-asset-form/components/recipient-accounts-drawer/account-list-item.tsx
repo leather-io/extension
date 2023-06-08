@@ -18,7 +18,7 @@ interface AccountListItemProps {
   onClose(): void;
 }
 export const AccountListItem = memo(({ account, onClose }: AccountListItemProps) => {
-  const { setFieldValue, values } = useFormikContext<
+  const { setFieldValue, values, setFieldTouched } = useFormikContext<
     BitcoinSendFormValues | StacksSendFormValues
   >();
   const [component, bind] = usePressable(true);
@@ -28,7 +28,8 @@ export const AccountListItem = memo(({ account, onClose }: AccountListItemProps)
 
   const onSelectAccount = () => {
     const isBitcoin = values.symbol === 'BTC';
-    setFieldValue('recipient', isBitcoin ? btcAddress : account.address);
+    void setFieldValue('recipient', isBitcoin ? btcAddress : account.address, false);
+    setFieldTouched('recipient', false);
     onClose();
   };
 

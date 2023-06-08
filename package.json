@@ -186,7 +186,7 @@
     "downshift": "6.1.7",
     "ecdsa-sig-formatter": "1.0.11",
     "ecpair": "2.1.0",
-    "formik": "2.2.9",
+    "formik": "2.4.1",
     "jotai": "2.1.0",
     "jotai-redux": "0.2.1",
     "jsontokens": "4.0.1",
@@ -218,7 +218,7 @@
     "valid-url": "1.0.9",
     "varuint-bitcoin": "1.1.2",
     "webextension-polyfill": "0.10.0",
-    "yup": "1.1.1",
+    "yup": "1.2.0",
     "zxcvbn": "4.4.2"
   },
   "devDependencies": {
