@@ -3,10 +3,11 @@ import { Box, Flex, FlexProps, Input, Text, color } from '@stacks/ui';
 import { SendCryptoAssetSelectors } from '@tests/selectors/send.selectors';
 import { useField } from 'formik';
 
+import { useShowFieldError } from '@app/common/form-utils';
 import { capitalize } from '@app/common/utils';
 import { SpaceBetween } from '@app/components/layout/space-between';
 
-import { FieldError } from './field-error';
+import { TextInputFieldError } from './field-error';
 
 interface TextInputFieldProps extends FlexProps {
   dataTestId?: string;
@@ -31,9 +32,9 @@ export function TextInputField({
   topInputOverlay,
   ...props
 }: TextInputFieldProps) {
-  const [field, meta] = useField(name);
+  const [field] = useField(name);
 
-  const showError = meta.error && meta.touched;
+  const showError = useShowFieldError(name);
 
   return (
     <>
@@ -120,7 +121,7 @@ export function TextInputField({
           }}
         />
       </Flex>
-      <FieldError name={name} />
+      <TextInputFieldError name={name} />
     </>
   );
 }
