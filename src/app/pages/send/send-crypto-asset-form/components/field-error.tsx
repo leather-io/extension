@@ -5,17 +5,17 @@ import { Box, Flex } from '@stacks/ui';
 import { SendCryptoAssetSelectors } from '@tests/selectors/send.selectors';
 import { useField } from 'formik';
 
+import { useShowFieldError } from '@app/common/form-utils';
 import { ErrorLabel } from '@app/components/error-label';
 
 const closedHeight = 0;
 const openHeight = 24;
 
-export function FieldError(props: { name: string }) {
+export function TextInputFieldError(props: { name: string }) {
   const { name } = props;
   const [, meta] = useField(name);
   const [showHide, setShowHide] = useState(closedHeight);
-
-  const showError = meta.touched && meta.error;
+  const showError = useShowFieldError(name);
 
   useEffect(() => {
     if (meta.touched && meta.error) {
