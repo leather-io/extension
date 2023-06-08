@@ -6,7 +6,7 @@ import { useFormikContext } from 'formik';
 import { BitcoinSendFormValues, StacksSendFormValues } from '@shared/models/form.model';
 import { RouteUrls } from '@shared/route-urls';
 
-import { RecipientFieldType } from '@app/pages/send/send-crypto-asset-form/components/recipient-select/recipient-select';
+import { RecipientFieldType } from '@app/pages/send/send-crypto-asset-form/components/recipient-type-dropdown/recipient-type-dropdown';
 
 import { useRecipientBnsName } from './use-recipient-bns-name';
 
@@ -26,10 +26,10 @@ export function useRecipientSelectFields() {
 
   // Formik does not provide a field reset
   const resetAllRecipientFields = useCallback(() => {
-    setFieldValue('recipient', '');
+    void setFieldValue('recipient', '');
     setFieldError('recipient', undefined);
     setFieldTouched('recipient', false);
-    setFieldValue('recipientBnsName', '');
+    void setFieldValue('recipientBnsName', '');
     setFieldError('recipientBnsName', undefined);
     setFieldTouched('recipientBnsName', false);
   }, [setFieldError, setFieldTouched, setFieldValue]);

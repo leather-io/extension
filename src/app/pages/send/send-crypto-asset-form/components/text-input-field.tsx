@@ -1,3 +1,5 @@
+import { useRef } from 'react';
+
 import { css } from '@emotion/react';
 import { Box, Flex, FlexProps, Input, Text, color } from '@stacks/ui';
 import { SendCryptoAssetSelectors } from '@tests/selectors/send.selectors';
@@ -33,6 +35,7 @@ export function TextInputField({
   ...props
 }: TextInputFieldProps) {
   const [field] = useField(name);
+  const ref = useRef<HTMLInputElement>(null);
 
   const showError = useShowFieldError(name);
 
@@ -90,7 +93,16 @@ export function TextInputField({
               color={color('accent')}
               fontSize={1}
               fontWeight={500}
-              onClick={onClickLabelAction}
+              // Prevents focusing underlying input
+              onMouseDown={e => e.preventDefault()}
+              onClick={() => {
+                onClickLabelAction?.();
+                // Improves UX of selecting a recipient from the window. As the
+                // button to open the drawer is inside the input, we force
+                // blur the input when interacting with the modal, if focused.
+                if (ref.current !== null && ref.current === document.activeElement)
+                  ref.current.blur();
+              }}
               type="button"
               zIndex={999}
             >
@@ -99,6 +111,7 @@ export function TextInputField({
           ) : null}
         </SpaceBetween>
         <Input
+          ref={ref}
           _disabled={{ bg: color('bg') }}
           _focus={{ border: 'none' }}
           autoComplete="off"

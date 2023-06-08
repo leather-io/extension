@@ -18,12 +18,12 @@ export function TextInputFieldError(props: { name: string }) {
   const showError = useShowFieldError(name);
 
   useEffect(() => {
-    if (meta.touched && meta.error) {
+    if (showError) {
       setShowHide(openHeight);
       return;
     }
     setShowHide(closedHeight);
-  }, [meta.error, meta.touched]);
+  }, [showError]);
 
   if (!showError) return <Box height={closedHeight + 'px'} />;
 

@@ -1,19 +1,19 @@
-import { RecipientSelect } from '@app/pages/send/send-crypto-asset-form/components/recipient-select/recipient-select';
+import { RecipientTypeDropdown } from '@app/pages/send/send-crypto-asset-form/components/recipient-type-dropdown/recipient-type-dropdown';
 
-interface RecipientSelectOverlayProps {
+interface RecipientDropdownOverlayProps {
   isSelectVisible: boolean;
   onSelectRecipientFieldType(index: number): void;
   onSetIsSelectVisible(value: boolean): void;
   selectedRecipientField: number;
 }
-export function RecipientSelectOverlay({
+export function RecipientDropdownOverlay({
   isSelectVisible,
   onSelectRecipientFieldType,
   onSetIsSelectVisible,
   selectedRecipientField,
-}: RecipientSelectOverlayProps) {
+}: RecipientDropdownOverlayProps) {
   return (
-    <RecipientSelect
+    <RecipientTypeDropdown
       isVisible={isSelectVisible}
       onSelectItem={onSelectRecipientFieldType}
       onSetIsSelectVisible={onSetIsSelectVisible}

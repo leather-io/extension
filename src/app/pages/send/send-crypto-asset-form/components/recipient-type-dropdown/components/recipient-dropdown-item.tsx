@@ -5,12 +5,12 @@ import { Box, Text, color } from '@stacks/ui';
 const labels = ['Address', 'BNS Name'];
 const testLabels = ['address', 'bns-name'];
 
-interface RecipientSelectItemProps {
+interface RecipientDropdownItemProps {
   index: number;
   isVisible?: boolean;
   onSelectItem(index: number): void;
 }
-export function RecipientSelectItem(props: RecipientSelectItemProps) {
+export function RecipientDropdownItem(props: RecipientDropdownItemProps) {
   const { index, isVisible, onSelectItem } = props;
 
   return (

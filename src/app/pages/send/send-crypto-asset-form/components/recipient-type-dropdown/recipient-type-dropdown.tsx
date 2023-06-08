@@ -1,36 +1,36 @@
-import { RecipientSelectItem } from './components/recipient-select-item';
-import { RecipientSelectLayout } from './components/recipient-select.layout';
+import { RecipientDropdownItem } from './components/recipient-dropdown-item';
+import { RecipientDropdownLayout } from './components/recipient-dropdown.layout';
 
 export enum RecipientFieldType {
   Address,
   BnsName,
 }
 
-interface RecipientSelectProps {
+interface RecipientTypeDropdownProps {
   isVisible: boolean;
   onSelectItem(index: number): void;
   onSetIsSelectVisible(value: boolean): void;
   selectedItem: number;
 }
-export function RecipientSelect(props: RecipientSelectProps) {
+export function RecipientTypeDropdown(props: RecipientTypeDropdownProps) {
   const { isVisible, onSelectItem, onSetIsSelectVisible, selectedItem } = props;
 
   return (
-    <RecipientSelectLayout
+    <RecipientDropdownLayout
       isVisible={isVisible}
       onSetIsSelectVisible={onSetIsSelectVisible}
       selectedItem={selectedItem}
     >
-      <RecipientSelectItem
+      <RecipientDropdownItem
         index={RecipientFieldType.Address}
         isVisible={isVisible}
         onSelectItem={onSelectItem}
       />
-      <RecipientSelectItem
+      <RecipientDropdownItem
         index={RecipientFieldType.BnsName}
         isVisible={isVisible}
         onSelectItem={onSelectItem}
       />
-    </RecipientSelectLayout>
+    </RecipientDropdownLayout>
   );
 }
