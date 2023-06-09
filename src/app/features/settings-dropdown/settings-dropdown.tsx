@@ -25,7 +25,7 @@ import { useStacksWallet } from '@app/store/accounts/blockchain/stacks/stacks-ke
 import { useCurrentKeyDetails } from '@app/store/keys/key.selectors';
 import { useCurrentNetworkId } from '@app/store/networks/networks.selectors';
 
-import { extractDeviceNameFromKnownTargetIds } from '../ledger/ledger-utils';
+import { extractDeviceNameFromKnownTargetIds } from '../ledger/utils/generic-ledger-utils';
 import { AdvancedMenuItems } from './components/advanced-menu-items';
 import { LedgerDeviceItemRow } from './components/ledger-item-row';
 import { SettingsMenuItem as MenuItem } from './components/settings-menu-item';

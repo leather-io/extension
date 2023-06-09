@@ -4,7 +4,7 @@ import { CommonLedgerDeviceInlineWarnings } from '@app/features/ledger/component
 import { ConnectLedgerLayout } from '@app/features/ledger/generic-steps/connect-device/connect-ledger.layout';
 import { useWhenReattemptingLedgerConnection } from '@app/features/ledger/hooks/use-when-reattempt-ledger-connection';
 
-import { ledgerMsgSigningContext } from '../ledger-sign-msg.context';
+import { ledgerMsgSigningContext } from '../ledger-stacks-sign-msg.context';
 
 export function ConnectLedgerSignMsg() {
   const { signMessage, latestDeviceResponse, awaitingDeviceConnection } =

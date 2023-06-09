@@ -12,13 +12,13 @@ import {
   OperationRejected,
   UnsupportedBrowserLayout,
 } from '../../generic-steps';
-import { LedgerSignTxContainer } from './ledger-sign-tx-container';
+import { LedgerSignStacksTxContainer } from './ledger-sign-tx-container';
 import { ApproveSignLedgerTx } from './steps/approve-sign-ledger-tx';
 import { ConnectLedgerSignTx } from './steps/connect-ledger-sign-tx';
 import { ContractPrincipalBugWarning } from './steps/contract-principal-bug-warning';
 
-export const ledgerTxSigningRoutes = (
-  <Route element={<LedgerSignTxContainer />}>
+export const ledgerStacksTxSigningRoutes = (
+  <Route element={<LedgerSignStacksTxContainer />}>
     <Route path={RouteUrls.ConnectLedger} element={<ConnectLedgerSignTx />} />
     <Route path={RouteUrls.DeviceBusy} element={<DeviceBusy />} />
     <Route path={RouteUrls.ConnectLedgerError} element={<ConnectLedgerError />} />

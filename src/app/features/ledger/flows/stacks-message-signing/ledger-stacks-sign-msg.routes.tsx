@@ -12,11 +12,11 @@ import {
   OperationRejected,
   UnsupportedBrowserLayout,
 } from '../../generic-steps';
-import { LedgerSignMsgContainer } from './ledger-sign-msg-container';
+import { LedgerSignMsgContainer } from './ledger-stacks-sign-msg-container';
 import { ConnectLedgerSignMsg } from './steps/connect-ledger-sign-msg';
-import { SignLedgerMessage } from './steps/sign-ledger-message';
+import { SignLedgerMessage } from './steps/sign-stacks-ledger-message';
 
-export const ledgerMessageSigningRoutes = (
+export const ledgerStacksMessageSigningRoutes = (
   <Route element={<LedgerSignMsgContainer />}>
     <Route path={RouteUrls.ConnectLedger} element={<ConnectLedgerSignMsg />} />
     <Route path={RouteUrls.DeviceBusy} element={<DeviceBusy />} />

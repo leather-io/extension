@@ -8,11 +8,11 @@ import {
   DeviceBusy,
   UnsupportedBrowserLayout,
 } from '../../generic-steps';
-import { LedgerRequestKeysContainer } from './ledger-request-keys-container';
+import { LedgerRequestStacksKeysContainer } from './ledger-request-keys-container';
 import { ConnectLedgerRequestKeys } from './steps/connect-ledger-request-keys';
 
-export const ledgerRequestKeysRoutes = (
-  <Route element={<LedgerRequestKeysContainer />}>
+export const ledgerRequestStacksKeysRoutes = (
+  <Route element={<LedgerRequestStacksKeysContainer />}>
     <Route path={RouteUrls.ConnectLedger} element={<ConnectLedgerRequestKeys />} />
     <Route path={RouteUrls.DeviceBusy} element={<DeviceBusy />} />
     <Route path={RouteUrls.ConnectLedgerError} element={<ConnectLedgerError />} />

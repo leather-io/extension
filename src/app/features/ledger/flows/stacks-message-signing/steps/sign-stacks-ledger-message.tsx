@@ -5,7 +5,7 @@ import { whenSignableMessageOfType } from '@shared/signature/signature-types';
 
 import { ApproveLedgerOperationLayout } from '../../../generic-steps';
 import { useHasApprovedOperation } from '../../../hooks/use-has-approved-transaction';
-import { ledgerMsgSigningContext } from '../ledger-sign-msg.context';
+import { ledgerMsgSigningContext } from '../ledger-stacks-sign-msg.context';
 import { cvToDisplay, deriveStructuredMessageHash } from '../message-signing.utils';
 
 export function SignLedgerMessage() {

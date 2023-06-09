@@ -2,7 +2,7 @@ import { createContext } from 'react';
 
 import { noop } from '@shared/utils';
 
-import { BaseLedgerOperationContext } from '../../ledger-utils';
+import { BaseLedgerOperationContext } from '../../utils/stacks-ledger-utils';
 
 export interface LedgerRequestKeysContext extends BaseLedgerOperationContext {
   pullPublicKeysFromDevice(): Promise<void> | void;
