@@ -13,22 +13,22 @@ import { BaseDrawer } from '@app/components/drawer/base-drawer';
 import {
   LedgerRequestKeysContext,
   LedgerRequestKeysProvider,
-} from '@app/features/ledger/flows/request-keys/ledger-request-keys.context';
+} from '@app/features/ledger/flows/stacks-request-keys/ledger-request-keys.context';
 import { useLedgerAnalytics } from '@app/features/ledger/hooks/use-ledger-analytics.hook';
 import { useLedgerNavigate } from '@app/features/ledger/hooks/use-ledger-navigate';
 import {
   doesLedgerStacksAppVersionSupportJwtAuth,
-  getAppVersion,
+  getStacksAppVersion,
   isStacksLedgerAppClosed,
-  prepareLedgerDeviceConnection,
+  prepareLedgerDeviceStacksAppConnection,
   useActionCancellableByUser,
-  useLedgerResponseState,
-} from '@app/features/ledger/ledger-utils';
+} from '@app/features/ledger/utils/stacks-ledger-utils';
 
-import { pullKeysFromLedgerDevice } from './request-keys.utils';
-import { useTriggerLedgerDeviceRequestKeys } from './use-trigger-ledger-request-keys';
+import { useLedgerResponseState } from '../../utils/generic-ledger-utils';
+import { pullStacksKeysFromLedgerDevice } from './request-stacks-keys.utils';
+import { useTriggerLedgerDeviceRequestStacksKeys } from './use-trigger-ledger-request-keys';
 
-export function LedgerRequestKeysContainer() {
+export function LedgerRequestStacksKeysContainer() {
   const navigate = useNavigate();
   const ledgerNavigate = useLedgerNavigate();
   const ledgerAnalytics = useLedgerAnalytics();
@@ -38,21 +38,21 @@ export function LedgerRequestKeysContainer() {
   useScrollLock(true);
 
   const { completeLedgerDeviceOnboarding, fireErrorMessageToast } =
-    useTriggerLedgerDeviceRequestKeys();
+    useTriggerLedgerDeviceRequestStacksKeys();
 
   const [outdatedAppVersionWarning, setAppVersionOutdatedWarning] = useState(false);
   const [latestDeviceResponse, setLatestDeviceResponse] = useLedgerResponseState();
   const [awaitingDeviceConnection, setAwaitingDeviceConnection] = useState(false);
 
   const pullPublicKeysFromDevice = async () => {
-    const stacksApp = await prepareLedgerDeviceConnection({
+    const stacksApp = await prepareLedgerDeviceStacksAppConnection({
       setLoadingState: setAwaitingDeviceConnection,
       onError() {
         ledgerNavigate.toErrorStep();
       },
     });
 
-    const versionInfo = await getAppVersion(stacksApp);
+    const versionInfo = await getStacksAppVersion(stacksApp);
     ledgerAnalytics.trackDeviceVersionInfo(versionInfo);
     setLatestDeviceResponse(versionInfo);
 
@@ -75,7 +75,7 @@ export function LedgerRequestKeysContainer() {
       ledgerNavigate.toConnectionSuccessStep();
       await delay(1250);
 
-      const resp = await pullKeysFromLedgerDevice(stacksApp)({
+      const resp = await pullStacksKeysFromLedgerDevice(stacksApp)({
         onRequestKey(index) {
           ledgerNavigate.toDeviceBusyStep(`Requesting STX addresses (${index + 1}…5)`);
         },

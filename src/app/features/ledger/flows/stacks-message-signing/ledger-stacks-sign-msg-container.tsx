@@ -14,21 +14,24 @@ import { useScrollLock } from '@app/common/hooks/use-scroll-lock';
 import { delay } from '@app/common/utils';
 import { BaseDrawer } from '@app/components/drawer/base-drawer';
 import {
-  getAppVersion,
-  prepareLedgerDeviceConnection,
+  getStacksAppVersion,
+  prepareLedgerDeviceStacksAppConnection,
   signLedgerStructuredMessage,
   signLedgerUtf8Message,
   useActionCancellableByUser,
-  useLedgerResponseState,
-} from '@app/features/ledger/ledger-utils';
+} from '@app/features/ledger/utils/stacks-ledger-utils';
 import { useCurrentStacksAccount } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
 import { StacksAccount } from '@app/store/accounts/blockchain/stacks/stacks-account.models';
 import { useSignatureRequestSearchParams } from '@app/store/signatures/requests.hooks';
 
 import { useLedgerAnalytics } from '../../hooks/use-ledger-analytics.hook';
 import { useLedgerNavigate } from '../../hooks/use-ledger-navigate';
-import { useVerifyMatchingLedgerPublicKey } from '../../hooks/use-verify-matching-public-key';
-import { LedgerMessageSigningContext, LedgerMsgSigningProvider } from './ledger-sign-msg.context';
+import { useVerifyMatchingLedgerStacksPublicKey } from '../../hooks/use-verify-matching-stacks-public-key';
+import { useLedgerResponseState } from '../../utils/generic-ledger-utils';
+import {
+  LedgerMessageSigningContext,
+  LedgerMsgSigningProvider,
+} from './ledger-stacks-sign-msg.context';
 import { useUnsignedMessageType } from './use-message-type';
 
 interface LedgerSignMsgData {
@@ -46,13 +49,13 @@ function LedgerSignMsgData({ children }: LedgerSignMsgDataProps) {
 }
 
 type LedgerSignMsgProps = LedgerSignMsgData;
-function LedgerSignMsg({ account, unsignedMessage }: LedgerSignMsgProps) {
+function LedgerSignStacksMsg({ account, unsignedMessage }: LedgerSignMsgProps) {
   useScrollLock(true);
 
   const location = useLocation();
   const ledgerNavigate = useLedgerNavigate();
   const ledgerAnalytics = useLedgerAnalytics();
-  const verifyLedgerPublicKey = useVerifyMatchingLedgerPublicKey();
+  const verifyLedgerPublicKey = useVerifyMatchingLedgerStacksPublicKey();
   const { tabId, requestToken } = useSignatureRequestSearchParams();
 
   const [latestDeviceResponse, setLatestDeviceResponse] = useLedgerResponseState();
@@ -61,14 +64,14 @@ function LedgerSignMsg({ account, unsignedMessage }: LedgerSignMsgProps) {
   const [awaitingDeviceConnection, setAwaitingDeviceConnection] = useState(false);
 
   async function signMessage() {
-    const stacksApp = await prepareLedgerDeviceConnection({
+    const stacksApp = await prepareLedgerDeviceStacksAppConnection({
       setLoadingState: setAwaitingDeviceConnection,
       onError() {
         ledgerNavigate.toErrorStep();
       },
     });
 
-    const versionInfo = await getAppVersion(stacksApp);
+    const versionInfo = await getStacksAppVersion(stacksApp);
     ledgerAnalytics.trackDeviceVersionInfo(versionInfo);
     setLatestDeviceResponse(versionInfo);
     if (versionInfo.deviceLocked) {
@@ -164,5 +167,5 @@ function LedgerSignMsg({ account, unsignedMessage }: LedgerSignMsgProps) {
 }
 
 export function LedgerSignMsgContainer() {
-  return <LedgerSignMsgData>{props => <LedgerSignMsg {...props} />}</LedgerSignMsgData>;
+  return <LedgerSignMsgData>{props => <LedgerSignStacksMsg {...props} />}</LedgerSignMsgData>;
 }

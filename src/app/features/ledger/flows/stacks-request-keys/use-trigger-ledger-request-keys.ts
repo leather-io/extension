@@ -9,9 +9,9 @@ import { RouteUrls } from '@shared/route-urls';
 
 import { keySlice } from '@app/store/keys/key.slice';
 
-import { StxAndIdentityPublicKeys } from '../../ledger-utils';
+import { StxAndIdentityPublicKeys } from '../../utils/stacks-ledger-utils';
 
-export function useTriggerLedgerDeviceRequestKeys() {
+export function useTriggerLedgerDeviceRequestStacksKeys() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 

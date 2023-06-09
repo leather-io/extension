@@ -8,7 +8,7 @@ import {
   StxAndIdentityPublicKeys,
   getIdentityDerivationPath,
   requestPublicKeyForStxAccount,
-} from '../../ledger-utils';
+} from '../../utils/stacks-ledger-utils';
 
 function requestPublicKeyForIdentityAccount(app: StacksApp) {
   return async (index: number) => app.getIdentityPubKey(getIdentityDerivationPath(index));
@@ -19,24 +19,28 @@ function decompressSecp256k1PublicKey(publicKey: string) {
   return bytesToHex(point.toRawBytes(false));
 }
 
-interface PullKeysFromLedgerSuccess {
+interface PullStacksKeysFromLedgerSuccess {
   status: 'success';
   publicKeys: StxAndIdentityPublicKeys[];
 }
 
-interface PullKeysFromLedgerFailure {
+interface PullStacksKeysFromLedgerFailure {
   status: 'failure';
   errorMessage: string;
   returnCode: number;
 }
 
-type PullKeysFromLedgerResponse = Promise<PullKeysFromLedgerSuccess | PullKeysFromLedgerFailure>;
+type PullStacksKeysFromLedgerResponse = Promise<
+  PullStacksKeysFromLedgerSuccess | PullStacksKeysFromLedgerFailure
+>;
 
-interface PullKeysFromLedgerDeviceArgs {
+interface PullStacksKeysFromLedgerDeviceArgs {
   onRequestKey?(keyIndex: number): void;
 }
-export function pullKeysFromLedgerDevice(stacksApp: StacksApp) {
-  return async ({ onRequestKey }: PullKeysFromLedgerDeviceArgs): PullKeysFromLedgerResponse => {
+export function pullStacksKeysFromLedgerDevice(stacksApp: StacksApp) {
+  return async ({
+    onRequestKey,
+  }: PullStacksKeysFromLedgerDeviceArgs): PullStacksKeysFromLedgerResponse => {
     const publicKeys = [];
     const amountOfKeysToExtractFromDevice = 5;
     for (let index = 0; index < amountOfKeysToExtractFromDevice; index++) {

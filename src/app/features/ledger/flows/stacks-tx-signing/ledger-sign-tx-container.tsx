@@ -15,24 +15,24 @@ import {
   LedgerTxSigningContext,
   LedgerTxSigningProvider,
   createWaitForUserToSeeWarningScreen,
-} from '@app/features/ledger/flows/tx-signing/ledger-sign-tx.context';
+} from '@app/features/ledger/flows/stacks-tx-signing/ledger-sign-tx.context';
 import {
-  getAppVersion,
+  getStacksAppVersion,
   isVersionOfLedgerStacksAppWithContractPrincipalBug,
-  prepareLedgerDeviceConnection,
+  prepareLedgerDeviceStacksAppConnection,
   signLedgerTransaction,
   signTransactionWithSignature,
   useActionCancellableByUser,
-  useLedgerResponseState,
-} from '@app/features/ledger/ledger-utils';
+} from '@app/features/ledger/utils/stacks-ledger-utils';
 import { useCurrentStacksAccount } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
 import { useTransactionBroadcast } from '@app/store/transactions/transaction.hooks';
 
 import { useLedgerAnalytics } from '../../hooks/use-ledger-analytics.hook';
 import { useLedgerNavigate } from '../../hooks/use-ledger-navigate';
-import { useVerifyMatchingLedgerPublicKey } from '../../hooks/use-verify-matching-public-key';
+import { useVerifyMatchingLedgerStacksPublicKey } from '../../hooks/use-verify-matching-stacks-public-key';
+import { useLedgerResponseState } from '../../utils/generic-ledger-utils';
 
-export function LedgerSignTxContainer() {
+export function LedgerSignStacksTxContainer() {
   const location = useLocation();
   const navigate = useNavigate();
   const ledgerNavigate = useLedgerNavigate();
@@ -41,7 +41,7 @@ export function LedgerSignTxContainer() {
   const account = useCurrentStacksAccount();
   const hwWalletTxBroadcast = useTransactionBroadcast();
   const canUserCancelAction = useActionCancellableByUser();
-  const verifyLedgerPublicKey = useVerifyMatchingLedgerPublicKey();
+  const verifyLedgerPublicKey = useVerifyMatchingLedgerStacksPublicKey();
   const [unsignedTransaction, setUnsignedTransaction] = useState<null | string>(null);
 
   const hasUserSkippedBuggyAppWarning = useMemo(() => createWaitForUserToSeeWarningScreen(), []);
@@ -60,14 +60,14 @@ export function LedgerSignTxContainer() {
   const signTransaction = async () => {
     if (!account) return;
 
-    const stacksApp = await prepareLedgerDeviceConnection({
+    const stacksApp = await prepareLedgerDeviceStacksAppConnection({
       setLoadingState: setAwaitingDeviceConnection,
       onError() {
         ledgerNavigate.toErrorStep();
       },
     });
 
-    const versionInfo = await getAppVersion(stacksApp);
+    const versionInfo = await getStacksAppVersion(stacksApp);
     ledgerAnalytics.trackDeviceVersionInfo(versionInfo);
     setLatestDeviceResponse(versionInfo);
 

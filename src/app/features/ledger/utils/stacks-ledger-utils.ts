@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import { useLocation } from 'react-router-dom';
 
 import Transport from '@ledgerhq/hw-transport-webusb';
@@ -16,16 +15,17 @@ import { RouteUrls } from '@shared/route-urls';
 
 import { delay } from '@app/common/utils';
 
-import { LedgerTxSigningContext } from './flows/tx-signing/ledger-sign-tx.context';
+import { SemVerObject } from './generic-ledger-utils';
+import { versionObjectToVersionString } from './generic-ledger-utils';
 
 export interface BaseLedgerOperationContext {
-  latestDeviceResponse: null | Awaited<ReturnType<typeof getAppVersion>>;
+  latestDeviceResponse: null | Awaited<ReturnType<typeof getStacksAppVersion>>;
   awaitingDeviceConnection: boolean;
 }
 
 const stxDerivationWithAccount = `m/44'/5757'/0'/0/{account}`;
 
-const identityDerivationWithAccount = `m/888'/0'/{account}'`;
+const stxIdentityDerivationWithAccount = `m/888'/0'/{account}'`;
 
 function getAccountIndexFromDerivationPathFactory(derivationPath: string) {
   return (account: number) => derivationPath.replace('{account}', account.toString());
@@ -34,7 +34,7 @@ function getAccountIndexFromDerivationPathFactory(derivationPath: string) {
 const getStxDerivationPath = getAccountIndexFromDerivationPathFactory(stxDerivationWithAccount);
 
 export const getIdentityDerivationPath = getAccountIndexFromDerivationPathFactory(
-  identityDerivationWithAccount
+  stxIdentityDerivationWithAccount
 );
 
 export function requestPublicKeyForStxAccount(app: StacksApp) {
@@ -52,31 +52,25 @@ export interface StxAndIdentityPublicKeys {
   dataPublicKey: string;
 }
 
-async function connectLedger() {
+async function connectLedgerStacksApp() {
   const transport = await Transport.create();
   return new StacksApp(transport as any);
 }
 
-export async function getAppVersion(app: StacksApp) {
+export async function getStacksAppVersion(app: StacksApp) {
   return app.getVersion();
-}
-
-const targetIdMap = new Map([
-  ['31100004', 'Nano S'],
-  ['33000004', 'Nano X'],
-]);
-export function extractDeviceNameFromKnownTargetIds(targetId: string) {
-  return targetIdMap.get(targetId);
 }
 
 interface PrepareLedgerDeviceConnectionArgs {
   setLoadingState(loadingState: boolean): void;
   onError(error?: Error): void;
 }
-export async function prepareLedgerDeviceConnection(args: PrepareLedgerDeviceConnectionArgs) {
+export async function prepareLedgerDeviceStacksAppConnection(
+  args: PrepareLedgerDeviceConnectionArgs
+) {
   const { setLoadingState, onError } = args;
   setLoadingState(true);
-  const [error, stacks] = await safeAwait(connectLedger());
+  const [error, stacks] = await safeAwait(connectLedgerStacksApp());
   await delay(1000);
   setLoadingState(false);
 
@@ -111,10 +105,6 @@ export function signTransactionWithSignature(transaction: string, signatureVRS: 
   return deserialzedTx;
 }
 
-export function useLedgerResponseState() {
-  return useState<LedgerTxSigningContext['latestDeviceResponse']>(null);
-}
-
 export function useActionCancellableByUser() {
   const { pathname } = useLocation();
   return (
@@ -130,12 +120,6 @@ export function isStacksLedgerAppClosed(response: ResponseVersion) {
     response.returnCode === LedgerError.AppDoesNotSeemToBeOpen ||
     response.returnCode === anotherUnknownErrorCodeMeaningAppClosed
   );
-}
-
-type SemVerObject = Record<'major' | 'minor' | 'patch', number>;
-
-function versionObjectToVersionString(version: SemVerObject) {
-  return [version.major, version.minor, version.patch].join('.');
 }
 
 const ledgerStacksAppVersionFromWhichJwtAuthIsSupported = '0.22.5';
