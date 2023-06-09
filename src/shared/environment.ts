@@ -9,3 +9,4 @@ export const SEGMENT_WRITE_KEY = process.env.SEGMENT_WRITE_KEY ?? '';
 export const SENTRY_DSN = process.env.SENTRY_DSN ?? '';
 export const TRANSAK_API_KEY = process.env.TRANSAK_API_KEY ?? '';
 export const WALLET_ENVIRONMENT = process.env.WALLET_ENVIRONMENT ?? 'unknown';
+export const LEDGER_BITCOIN_ENABLED = process.env.LEDGER_BITCOIN_ENABLED === 'true';

@@ -6,7 +6,7 @@ import { createCounter } from '@app/common/utils/counter';
 import { UtxoResponseItem } from '@app/query/bitcoin/bitcoin-client';
 import { getTaprootAddress } from '@app/query/bitcoin/ordinals/utils';
 import { useCurrentAccountIndex } from '@app/store/accounts/account';
-import { useTaprootAccountKeychain } from '@app/store/accounts/blockchain/bitcoin/taproot-account.hooks';
+import { useTaprootAccount } from '@app/store/accounts/blockchain/bitcoin/taproot-account.hooks';
 import { useBitcoinClient } from '@app/store/common/api-clients.hooks';
 import { useCurrentNetwork } from '@app/store/networks/networks.selectors';
 
@@ -14,7 +14,7 @@ import { useCurrentNetwork } from '@app/store/networks/networks.selectors';
 export function useNextFreshTaprootAddressQuery(accIndex?: number) {
   const network = useCurrentNetwork();
   const currentAccountIndex = useCurrentAccountIndex();
-  const account = useTaprootAccountKeychain(accIndex ?? currentAccountIndex);
+  const account = useTaprootAccount(accIndex ?? currentAccountIndex);
   const client = useBitcoinClient();
 
   const [highestKnownAccountActivity, setHighestKnownAccountActivity] = useState(0);

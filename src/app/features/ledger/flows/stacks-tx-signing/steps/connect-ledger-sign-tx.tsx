@@ -13,8 +13,14 @@ export function ConnectLedgerSignTx() {
 
   return (
     <ConnectLedgerLayout
+      chain="stacks"
       awaitingLedgerConnection={awaitingDeviceConnection}
-      warning={<CommonLedgerDeviceInlineWarnings latestDeviceResponse={latestDeviceResponse} />}
+      warning={
+        <CommonLedgerDeviceInlineWarnings
+          chain="stacks"
+          latestDeviceResponse={latestDeviceResponse}
+        />
+      }
       onConnectLedger={signTransaction}
       showInstructions={false}
     />

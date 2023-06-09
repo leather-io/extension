@@ -22,6 +22,7 @@ export enum RouteUrls {
   LedgerUnsupportedBrowser = 'unsupported-browser',
   LedgerOutdatedAppWarning = 'outdated-app-warning',
   LedgerBroadcastError = 'transaction-broadcast-error',
+  LedgerAddMoreKeys = 'add-more-keys',
 
   // Active wallet routes
   Home = '/',

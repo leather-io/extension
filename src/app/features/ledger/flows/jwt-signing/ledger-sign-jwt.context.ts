@@ -2,7 +2,7 @@ import { createContext } from 'react';
 
 import { noop } from '@shared/utils';
 
-import { BaseLedgerOperationContext } from '../../utils/stacks-ledger-utils';
+import { BaseLedgerOperationContext } from '../../utils/generic-ledger-utils';
 
 export interface LedgerJwtSigningContext extends BaseLedgerOperationContext {
   signJwtPayload(): Promise<void> | void;
