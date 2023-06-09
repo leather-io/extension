@@ -3,5 +3,7 @@ import { DeviceBusyLayout } from '@app/features/ledger/generic-steps';
 
 export function DeviceBusy() {
   const description = useLocationState('description');
-  return <DeviceBusyLayout activityDescription={description ?? 'Ledger device busy'} />;
+  return (
+    <DeviceBusyLayout chain="stacks" activityDescription={description ?? 'Ledger device busy'} />
+  );
 }

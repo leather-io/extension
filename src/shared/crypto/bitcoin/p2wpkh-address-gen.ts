@@ -11,7 +11,10 @@ import {
   getBitcoinCoinTypeIndexByNetwork,
 } from './bitcoin.utils';
 
-function getNativeSegwitAccountDerivationPath(network: BitcoinNetworkModes, accountIndex: number) {
+export function getNativeSegwitAccountDerivationPath(
+  network: BitcoinNetworkModes,
+  accountIndex: number
+) {
   return `m/84'/${getBitcoinCoinTypeIndexByNetwork(network)}'/${accountIndex}'`;
 }
 
@@ -23,9 +26,10 @@ export function getNativeSegwitAddressIndexDerivationPath(
   return getNativeSegwitAccountDerivationPath(network, accountIndex) + `/0/${addressIndex}`;
 }
 
-export function deriveNativeSegwitAccount(keychain: HDKey, network: NetworkModes) {
+export function deriveNativeSegwitAccountFromRootKeychain(keychain: HDKey, network: NetworkModes) {
   if (keychain.depth !== DerivationPathDepth.Root) throw new Error('Keychain passed is not a root');
   return (accountIndex: number): BitcoinAccount => ({
+    type: 'p2wpkh',
     network,
     accountIndex,
     derivationPath: getNativeSegwitAccountDerivationPath(network, accountIndex),

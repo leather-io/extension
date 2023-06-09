@@ -110,5 +110,14 @@ export const persistConfig: PersistConfig<RootState> & UntypedDeserializeOption 
     },
   } as any),
   deserialize: false,
-  whitelist: ['analytics', 'chains', 'ordinals', 'keys', 'networks', 'onboarding', 'settings'],
+  whitelist: [
+    'analytics',
+    'chains',
+    'ordinals',
+    'keys',
+    'ledger',
+    'networks',
+    'onboarding',
+    'settings',
+  ],
 };

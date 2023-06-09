@@ -19,11 +19,11 @@ import { initialSearchParams } from '@app/common/initial-search-params';
 import { createDelay } from '@app/common/utils';
 import {
   useCurrentAccountNativeSegwitSigner,
-  useNativeSegwitCurrentAccountPrivateKeychain,
+  useCurrentNativeSegwitAccount,
 } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
 import {
   useCurrentAccountTaprootSigner,
-  useTaprootCurrentPrivateAccount,
+  useCurrentTaprootAccount,
 } from '@app/store/accounts/blockchain/bitcoin/taproot-account.hooks';
 import { useCurrentNetwork } from '@app/store/networks/networks.selectors';
 
@@ -114,7 +114,7 @@ function useSignBip322MessageFactory({ address, signPsbt }: SignBip322MessageFac
 function useSignBip322MessageTaproot() {
   const createTaprootSigner = useCurrentAccountTaprootSigner();
   if (!createTaprootSigner) throw new Error('No taproot signer for current account');
-  const currentTaprootAccount = useTaprootCurrentPrivateAccount();
+  const currentTaprootAccount = useCurrentTaprootAccount();
   if (!currentTaprootAccount) throw new Error('No keychain for current account');
 
   const signer = createTaprootSigner(0);
@@ -137,7 +137,7 @@ function useSignBip322MessageNativeSegwit() {
   const createNativeSegwitSigner = useCurrentAccountNativeSegwitSigner();
   if (!createNativeSegwitSigner) throw new Error('No native segwit signer for current account');
 
-  const currentNativeSegwitAccount = useNativeSegwitCurrentAccountPrivateKeychain();
+  const currentNativeSegwitAccount = useCurrentNativeSegwitAccount();
   if (!currentNativeSegwitAccount) throw new Error('No keychain for current account');
 
   const keychain = deriveAddressIndexZeroFromAccount(currentNativeSegwitAccount.keychain);

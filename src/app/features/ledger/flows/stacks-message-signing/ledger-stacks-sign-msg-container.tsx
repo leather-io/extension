@@ -88,7 +88,7 @@ function LedgerSignStacksMsg({ account, unsignedMessage }: LedgerSignMsgProps) {
     await verifyLedgerPublicKey(stacksApp);
 
     try {
-      ledgerNavigate.toConnectionSuccessStep();
+      ledgerNavigate.toConnectionSuccessStep('stacks');
       await delay(1000);
       ledgerNavigate.toAwaitingDeviceOperation({ hasApprovedOperation: false });
 

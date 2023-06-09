@@ -4,7 +4,7 @@ import { RouteUrls } from '@shared/route-urls';
 
 import {
   ConnectLedgerError,
-  ConnectLedgerSuccessLayout,
+  ConnectLedgerSuccess,
   DeviceBusy,
   LedgerDeviceInvalidPayload,
   LedgerDisconnected,
@@ -21,7 +21,7 @@ export const ledgerStacksMessageSigningRoutes = (
     <Route path={RouteUrls.ConnectLedger} element={<ConnectLedgerSignMsg />} />
     <Route path={RouteUrls.DeviceBusy} element={<DeviceBusy />} />
     <Route path={RouteUrls.ConnectLedgerError} element={<ConnectLedgerError />} />
-    <Route path={RouteUrls.ConnectLedgerSuccess} element={<ConnectLedgerSuccessLayout />} />
+    <Route path={RouteUrls.ConnectLedgerSuccess} element={<ConnectLedgerSuccess />} />
     <Route path={RouteUrls.AwaitingDeviceUserAction} element={<SignLedgerMessage />} />
     <Route path={RouteUrls.LedgerDisconnected} element={<LedgerDisconnected />} />
     <Route path={RouteUrls.LedgerOperationRejected} element={<OperationRejected />} />

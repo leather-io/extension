@@ -9,7 +9,7 @@ import {
 } from '@stacks/transactions';
 import { toUnicode } from 'punycode';
 
-import { BitcoinNetworkModes, KEBAB_REGEX, NetworkModes } from '@shared/constants';
+import { BitcoinNetworkModes, KEBAB_REGEX } from '@shared/constants';
 import { logger } from '@shared/logger';
 import type { Blockchains } from '@shared/models/blockchain.model';
 
@@ -284,11 +284,6 @@ interface WhenStacksChainIdMap<T> {
 }
 export function whenStacksChainId(chainId: ChainID) {
   return <T>(chainIdMap: WhenStacksChainIdMap<T>): T => chainIdMap[chainId];
-}
-
-type NetworkMap<T> = Record<NetworkModes, T>;
-export function whenNetwork(mode: NetworkModes) {
-  return <T>(networkMap: NetworkMap<T>): T => networkMap[mode];
 }
 
 export function whenBitcoinNetwork(mode: BitcoinNetworkModes) {

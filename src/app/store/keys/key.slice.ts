@@ -1,5 +1,6 @@
 import { PayloadAction, createEntityAdapter, createSlice } from '@reduxjs/toolkit';
 
+import { BitcoinLedgerAccountDetails } from '@app/features/ledger/utils/bitcoin-ledger-utils';
 import { StxAndIdentityPublicKeys } from '@app/features/ledger/utils/stacks-ledger-utils';
 
 import { migrateVaultReducerStoreToNewStateStructure } from '../utils/vault-reducer-migration';
@@ -12,10 +13,12 @@ interface KeyConfigSoftware {
   encryptedSecretKey: string;
   salt: string;
 }
+
 interface KeyConfigLedger {
   type: 'ledger';
   id: string;
   publicKeys: StxAndIdentityPublicKeys[];
+  bitcoin?: Record<string, BitcoinLedgerAccountDetails>;
   targetId: string;
 }
 

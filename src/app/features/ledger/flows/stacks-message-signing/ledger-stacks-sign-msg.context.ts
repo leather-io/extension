@@ -3,7 +3,7 @@ import { createContext } from 'react';
 import { UnsignedMessage } from '@shared/signature/signature-types';
 import { noop } from '@shared/utils';
 
-import { BaseLedgerOperationContext } from '../../utils/stacks-ledger-utils';
+import { BaseLedgerOperationContext } from '../../utils/generic-ledger-utils';
 
 export interface LedgerMessageSigningContext extends BaseLedgerOperationContext {
   message: UnsignedMessage | undefined;

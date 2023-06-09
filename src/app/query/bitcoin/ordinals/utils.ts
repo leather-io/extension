@@ -22,7 +22,7 @@ export function getTaprootAddress({ index, keychain, network }: GetTaprootAddres
 
   const addressIndex = deriveAddressIndexKeychainFromAccount(keychain)(index);
 
-  if (!addressIndex.privateKey) {
+  if (!addressIndex.publicKey) {
     throw new Error('Expected privateKey to be defined');
   }
 

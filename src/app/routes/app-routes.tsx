@@ -17,8 +17,9 @@ import { Container } from '@app/features/container/container';
 import { EditNonceDrawer } from '@app/features/edit-nonce-drawer/edit-nonce-drawer';
 import { IncreaseFeeDrawer } from '@app/features/increase-fee-drawer/increase-fee-drawer';
 import { ledgerJwtSigningRoutes } from '@app/features/ledger/flows/jwt-signing/ledger-sign-jwt.routes';
+import { requestBitcoinKeysRoutes } from '@app/features/ledger/flows/request-bitcoin-keys/ledger-request-bitcoin-keys';
+import { requestStacksKeysRoutes } from '@app/features/ledger/flows/request-stacks-keys/ledger-request-stacks-keys';
 import { ledgerStacksMessageSigningRoutes } from '@app/features/ledger/flows/stacks-message-signing/ledger-stacks-sign-msg.routes';
-import { ledgerRequestStacksKeysRoutes } from '@app/features/ledger/flows/stacks-request-keys/ledger-request-keys.routes';
 import { ledgerStacksTxSigningRoutes } from '@app/features/ledger/flows/stacks-tx-signing/ledger-sign-tx.routes';
 import { AddNetwork } from '@app/features/message-signer/add-network/add-network';
 import { RetrieveTaprootToNativeSegwit } from '@app/features/retrieve-taproot-to-native-segwit/retrieve-taproot-to-native-segwit';
@@ -104,6 +105,8 @@ function useAppRoutes() {
           <Route index element={<BalancesList />} />
           <Route path={RouteUrls.Activity} element={<ActivityList />} />
 
+          {requestBitcoinKeysRoutes}
+          {requestStacksKeysRoutes}
           <Route path={RouteUrls.RetriveTaprootFunds} element={<RetrieveTaprootToNativeSegwit />} />
 
           <Route path={RouteUrls.IncreaseFee} element={<IncreaseFeeDrawer />}>
@@ -158,7 +161,8 @@ function useAppRoutes() {
             </OnboardingGate>
           }
         >
-          {ledgerRequestStacksKeysRoutes}
+          {requestBitcoinKeysRoutes}
+          {requestStacksKeysRoutes}
         </Route>
         <Route
           path={RouteUrls.BackUpSecretKey}

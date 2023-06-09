@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { bytesToHex } from '@stacks/common';
 import { ClarityValue, StacksTransaction } from '@stacks/transactions';
 
+import { SupportedBlockchains } from '@shared/constants';
 import { RouteUrls } from '@shared/route-urls';
 
 import { immediatelyAttemptLedgerConnection } from './use-when-reattempt-ledger-connection';
@@ -45,8 +46,8 @@ export function useLedgerNavigate() {
         return navigate(RouteUrls.DeviceBusy, { replace: true, state: { description } });
       },
 
-      toConnectionSuccessStep() {
-        return navigate(RouteUrls.ConnectLedgerSuccess, { replace: true });
+      toConnectionSuccessStep(chain: SupportedBlockchains) {
+        return navigate(RouteUrls.ConnectLedgerSuccess, { replace: true, state: { chain } });
       },
 
       toErrorStep(errorMessage?: string) {

@@ -24,7 +24,10 @@ export const ledgerStacksTxSigningRoutes = (
     <Route path={RouteUrls.DeviceBusy} element={<DeviceBusy />} />
     <Route path={RouteUrls.ConnectLedgerError} element={<ConnectLedgerError />} />
     <Route path={RouteUrls.LedgerUnsupportedBrowser} element={<UnsupportedBrowserLayout />} />
-    <Route path={RouteUrls.ConnectLedgerSuccess} element={<ConnectLedgerSuccessLayout />} />
+    <Route
+      path={RouteUrls.ConnectLedgerSuccess}
+      element={<ConnectLedgerSuccessLayout chain="stacks" />}
+    />
     <Route path={RouteUrls.AwaitingDeviceUserAction} element={<ApproveSignLedgerTx />} />
     <Route path={RouteUrls.LedgerDisconnected} element={<LedgerDisconnected />} />
     <Route path={RouteUrls.LedgerOperationRejected} element={<OperationRejected />} />

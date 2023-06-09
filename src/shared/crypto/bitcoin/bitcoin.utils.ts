@@ -1,16 +1,18 @@
 import { PaymentTypes } from '@btckit/types';
 import { hexToBytes } from '@noble/hashes/utils';
-import { HDKey } from '@scure/bip32';
+import { HDKey, Versions } from '@scure/bip32';
 import * as btc from '@scure/btc-signer';
 import * as P from 'micro-packed';
 
 import { BitcoinNetworkModes, NetworkModes } from '@shared/constants';
 import { logger } from '@shared/logger';
+import { whenNetwork } from '@shared/utils';
 
 import { DerivationPathDepth } from '../derivation-path.utils';
 import { BtcSignerNetwork, getBtcSignerLibNetworkConfigByMode } from './bitcoin.network';
 
 export interface BitcoinAccount {
+  type: PaymentTypes;
   derivationPath: string;
   keychain: HDKey;
   accountIndex: number;
@@ -120,4 +122,79 @@ function parseKnownPaymentType(payment: BtcSignerLibPaymentTypeIdentifers | Paym
 type PaymentTypeMap<T> = Record<PaymentTypes, T>;
 export function whenPaymentType(mode: PaymentTypes | BtcSignerLibPaymentTypeIdentifers) {
   return <T>(paymentMap: PaymentTypeMap<T>): T => paymentMap[parseKnownPaymentType(mode)];
+}
+
+function inferPaymentTypeFromPath(path: string): PaymentTypes {
+  if (path.startsWith('m/84')) return 'p2wpkh';
+  if (path.startsWith('m/86')) return 'p2tr';
+  if (path.startsWith('m/44')) return 'p2pkh';
+  throw new Error(`Unable to infer payment type from path=${path}`);
+}
+
+function inferNetworkFromPath(path: string): NetworkModes {
+  return path.split('/')[2].startsWith('0') ? 'mainnet' : 'testnet';
+}
+
+function extractSectionFromDerivationPath(depth: DerivationPathDepth) {
+  return (path: string) => {
+    const segments = path.split('/');
+    const accountNum = parseInt(segments[depth].replaceAll("'", ''), 10);
+    if (isNaN(accountNum)) throw new Error(`Cannot parse ${DerivationPathDepth[depth]} from path`);
+    return accountNum;
+  };
+}
+
+export const extractAccountIndexFromPath = extractSectionFromDerivationPath(
+  DerivationPathDepth.Account
+);
+
+export const extractAddressIndexFromPath = extractSectionFromDerivationPath(
+  DerivationPathDepth.AddressIndex
+);
+
+function extractExtendedPublicKeyFromPolicy(policy: string) {
+  return policy.split(']')[1];
+}
+
+export function createWalletIdDecoratedPath(policy: string, walletId: string) {
+  return policy.split(']')[0].replace('[', '').replace('m', walletId);
+}
+
+// Primarily used to get the correct `Version` when passing Ledger Bitcoin
+// extended public keys to the HDKey constructor
+export function getHdKeyVersionsFromNetwork(network: NetworkModes) {
+  return whenNetwork(network)({
+    mainnet: undefined,
+    testnet: {
+      private: 0x00000000,
+      public: 0x043587cf,
+    } as Versions,
+  });
+}
+
+// Ledger wallets are keyed by their derivation path. To reuse the look up logic
+// between payment types, this factory fn accepts a fn that generates the path
+export function lookUpLedgerKeysByPath(
+  derivationPathFn: (network: BitcoinNetworkModes, accountIndex: number) => string
+) {
+  return (keyMap: Record<string, { policy: string } | undefined>, network: NetworkModes) =>
+    (accountIndex: number) => {
+      const path = derivationPathFn(network, accountIndex);
+      // Single wallet mode, hardcoded default walletId
+      const account = keyMap[path.replace('m', 'default')];
+      if (!account) return;
+      return initBitcoinAccount(path, account.policy);
+    };
+}
+
+function initBitcoinAccount(derivationPath: string, policy: string): BitcoinAccount {
+  const xpub = extractExtendedPublicKeyFromPolicy(policy);
+  const network = inferNetworkFromPath(derivationPath);
+  return {
+    keychain: HDKey.fromExtendedKey(xpub, getHdKeyVersionsFromNetwork(network)),
+    network,
+    derivationPath,
+    type: inferPaymentTypeFromPath(derivationPath),
+    accountIndex: extractAccountIndexFromPath(derivationPath),
+  };
 }

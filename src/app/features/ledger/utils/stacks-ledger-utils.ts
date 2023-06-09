@@ -7,21 +7,17 @@ import {
   createMessageSignature,
   deserializeTransaction,
 } from '@stacks/transactions';
-import { safeAwait } from '@stacks/ui';
 import StacksApp, { LedgerError, ResponseSign, ResponseVersion } from '@zondax/ledger-stacks';
 import { compare } from 'compare-versions';
 
 import { RouteUrls } from '@shared/route-urls';
 
-import { delay } from '@app/common/utils';
-
-import { SemVerObject } from './generic-ledger-utils';
+import {
+  PrepareLedgerDeviceConnectionArgs,
+  SemVerObject,
+  prepareLedgerDeviceForAppFn,
+} from './generic-ledger-utils';
 import { versionObjectToVersionString } from './generic-ledger-utils';
-
-export interface BaseLedgerOperationContext {
-  latestDeviceResponse: null | Awaited<ReturnType<typeof getStacksAppVersion>>;
-  awaitingDeviceConnection: boolean;
-}
 
 const stxDerivationWithAccount = `m/44'/5757'/0'/0/{account}`;
 
@@ -52,35 +48,23 @@ export interface StxAndIdentityPublicKeys {
   dataPublicKey: string;
 }
 
-async function connectLedgerStacksApp() {
+export async function connectLedgerStacksApp() {
   const transport = await Transport.create();
-  return new StacksApp(transport as any);
+  return new StacksApp(transport);
 }
 
 export async function getStacksAppVersion(app: StacksApp) {
-  return app.getVersion();
-}
-
-interface PrepareLedgerDeviceConnectionArgs {
-  setLoadingState(loadingState: boolean): void;
-  onError(error?: Error): void;
-}
-export async function prepareLedgerDeviceStacksAppConnection(
-  args: PrepareLedgerDeviceConnectionArgs
-) {
-  const { setLoadingState, onError } = args;
-  setLoadingState(true);
-  const [error, stacks] = await safeAwait(connectLedgerStacksApp());
-  await delay(1000);
-  setLoadingState(false);
-
-  if (error || !stacks) {
-    onError(error);
-    throw new Error('Unable to initiate Ledger Stacks app');
+  const resp = await app.getVersion();
+  if (resp.errorMessage !== 'No errors') {
+    throw new Error(resp.errorMessage);
   }
-
-  return stacks;
+  return { name: 'Stacks', ...resp };
 }
+
+export const prepareLedgerDeviceStacksAppConnection = prepareLedgerDeviceForAppFn(
+  connectLedgerStacksApp
+  // Casting type here as factory function reads it was a double Promise
+) as (args: PrepareLedgerDeviceConnectionArgs) => Promise<StacksApp>;
 
 export function signLedgerTransaction(app: StacksApp) {
   return async (payload: Buffer, accountIndex: number) =>
@@ -119,16 +103,6 @@ export function isStacksLedgerAppClosed(response: ResponseVersion) {
   return (
     response.returnCode === LedgerError.AppDoesNotSeemToBeOpen ||
     response.returnCode === anotherUnknownErrorCodeMeaningAppClosed
-  );
-}
-
-const ledgerStacksAppVersionFromWhichJwtAuthIsSupported = '0.22.5';
-
-export function doesLedgerStacksAppVersionSupportJwtAuth(versionInfo: SemVerObject) {
-  return compare(
-    ledgerStacksAppVersionFromWhichJwtAuthIsSupported,
-    versionObjectToVersionString(versionInfo),
-    '>'
   );
 }
 
