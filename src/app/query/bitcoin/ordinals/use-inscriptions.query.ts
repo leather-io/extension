@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react';
+import { useCallback, useEffect } from 'react';
 
 import { useInfiniteQuery } from '@tanstack/react-query';
 
@@ -26,10 +26,13 @@ interface InscriptionsQueryResponse {
   total: number;
 }
 
-interface AccountData {
-  addressesWithoutOrdinalsNum: number;
-  fromIndex: number;
-  addressesMap: Record<string, number>;
+interface InfiniteQueryPageParam {
+  pageParam?: {
+    fromIndex: number;
+    offset: number;
+    addressesWithoutOrdinalsNum: number;
+    addressesMap: Record<string, number>;
+  };
 }
 
 async function fetchInscriptions(addresses: string | string[], offset = 0, limit = 60) {
@@ -53,47 +56,41 @@ export function useTaprootInscriptionsInfiniteQuery() {
   const nativeSegwitSigner = useCurrentAccountNativeSegwitIndexZeroSigner();
   const currentBitcoinAddress = nativeSegwitSigner.address;
 
-  const defaultAccountData = {
-    fromIndex: 0,
-    addressesWithoutOrdinalsNum: 0,
-    addressesMap: getTaprootAddressData(0, addressesSimultaneousFetchLimit),
-  };
-  const currentAccData = useRef<AccountData>(defaultAccountData);
-
-  useEffect(() => {
-    currentAccData.current = defaultAccountData;
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [currentBitcoinAddress]);
-
-  function getTaprootAddressData(fromIndex: number, toIndex: number) {
-    return createNumArrayOfRange(fromIndex, toIndex - 1).reduce(
-      (acc: Record<string, number>, i: number) => {
-        const address = getTaprootAddress({
-          index: i,
-          keychain,
-          network: network.chain.bitcoin.network,
-        });
-        acc[address] = i;
-        return acc;
-      },
-      {}
-    );
-  }
+  const getTaprootAddressData = useCallback(
+    (fromIndex: number, toIndex: number) => {
+      return createNumArrayOfRange(fromIndex, toIndex - 1).reduce(
+        (acc: Record<string, number>, i: number) => {
+          const address = getTaprootAddress({
+            index: i,
+            keychain,
+            network: network.chain.bitcoin.network,
+          });
+          acc[address] = i;
+          return acc;
+        },
+        {}
+      );
+    },
+    [keychain, network.chain.bitcoin.network]
+  );
 
   const query = useInfiniteQuery({
     queryKey: [QueryPrefixes.InscriptionsFromApiInfiniteQuery, currentBitcoinAddress, network.id],
-    async queryFn({ pageParam }) {
+    async queryFn({ pageParam }: InfiniteQueryPageParam) {
       const responsesArr: InscriptionsQueryResponse[] = [];
+      let fromIndex = pageParam?.fromIndex ?? 0;
+      let addressesWithoutOrdinalsNum = pageParam?.addressesWithoutOrdinalsNum ?? 0;
+      let addressesMap =
+        pageParam?.addressesMap ??
+        getTaprootAddressData(fromIndex, fromIndex + addressesSimultaneousFetchLimit);
+
       let addressesData = getTaprootAddressData(
-        currentAccData.current.fromIndex,
-        currentAccData.current.fromIndex + addressesSimultaneousFetchLimit
+        fromIndex,
+        fromIndex + addressesSimultaneousFetchLimit
       );
 
       // Loop through addresses until we reach the limit, or until we find an address with many inscriptions
-      while (
-        currentAccData.current.addressesWithoutOrdinalsNum <
-        stopSearchAfterNumberAddressesWithoutOrdinals
-      ) {
+      while (addressesWithoutOrdinalsNum < stopSearchAfterNumberAddressesWithoutOrdinals) {
         const response = await fetchInscriptions(
           Object.keys(addressesData),
           pageParam?.offset || 0,
@@ -104,25 +101,25 @@ export function useTaprootInscriptionsInfiniteQuery() {
 
         // stop loop to dynamically fetch inscriptions from 1 address if there are many inscriptions
         if (response.total > inscriptionsLazyLoadLimit) {
-          currentAccData.current.addressesWithoutOrdinalsNum = 0;
+          addressesWithoutOrdinalsNum = 0;
           break;
         }
 
-        currentAccData.current.fromIndex += addressesSimultaneousFetchLimit;
-        currentAccData.current.addressesWithoutOrdinalsNum += addressesSimultaneousFetchLimit;
+        fromIndex += addressesSimultaneousFetchLimit;
+        addressesWithoutOrdinalsNum += addressesSimultaneousFetchLimit;
 
         addressesData = getTaprootAddressData(
-          currentAccData.current.fromIndex,
-          currentAccData.current.fromIndex + addressesSimultaneousFetchLimit
+          fromIndex,
+          fromIndex + addressesSimultaneousFetchLimit
         );
 
         // add new addresses to the map
-        currentAccData.current.addressesMap = {
-          ...currentAccData.current.addressesMap,
+        addressesMap = {
+          ...addressesMap,
           ...addressesData,
         };
         if (response.results.length > 0) {
-          currentAccData.current.addressesWithoutOrdinalsNum = 0;
+          addressesWithoutOrdinalsNum = 0;
         }
       }
 
@@ -135,17 +132,19 @@ export function useTaprootInscriptionsInfiniteQuery() {
       return {
         offset: pageParam?.offset ?? offset,
         total,
-        stopNextFetch:
-          currentAccData.current.addressesWithoutOrdinalsNum >=
-          stopSearchAfterNumberAddressesWithoutOrdinals,
+        stopNextFetch: addressesWithoutOrdinalsNum >= stopSearchAfterNumberAddressesWithoutOrdinals,
         inscriptions: results.map(inscription => ({
-          addressIndex: currentAccData.current.addressesMap[inscription.address],
+          addressIndex: addressesMap[inscription.address],
           ...inscription,
         })),
+        fromIndex,
+        addressesWithoutOrdinalsNum,
+        addressesMap,
       };
     },
     getNextPageParam(prevInscriptionsQuery) {
-      const { offset, total, stopNextFetch } = prevInscriptionsQuery;
+      const { offset, total, stopNextFetch, fromIndex, addressesWithoutOrdinalsNum, addressesMap } =
+        prevInscriptionsQuery;
       if (stopNextFetch) return undefined;
 
       // calculate offset for next fetch
@@ -155,7 +154,13 @@ export function useTaprootInscriptionsInfiniteQuery() {
         calculatedOffset = offset + (total - offset);
       }
 
-      return { offset: calculatedOffset, total };
+      return {
+        offset: calculatedOffset,
+        total,
+        fromIndex,
+        addressesWithoutOrdinalsNum,
+        addressesMap,
+      };
     },
     staleTime: 3 * 60 * 1000,
     refetchOnMount: false,

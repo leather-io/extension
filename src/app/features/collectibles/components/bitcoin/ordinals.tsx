@@ -20,7 +20,7 @@ export function Ordinals({ setIsLoadingMore }: OrdinalsProps) {
   const intersectionSentinel = useRef<HTMLDivElement | null>(null);
 
   async function fetchNextPage() {
-    if (!query.hasNextPage || query.isLoading) return;
+    if (!query.hasNextPage || query.isLoading || query.isFetchingNextPage) return;
     try {
       setIsLoadingMore(true);
       await query.fetchNextPage();
