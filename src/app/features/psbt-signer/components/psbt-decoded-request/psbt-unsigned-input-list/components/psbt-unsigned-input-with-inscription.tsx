@@ -9,7 +9,7 @@ import { InscriptionPreview } from '@app/components/inscription-preview-card/com
 import { LoadingSpinner } from '@app/components/loading-spinner';
 import { useInscription } from '@app/query/bitcoin/ordinals/inscription.hooks';
 
-import { PsbtDecodedNodeLayout } from '../../psbt-decoded-node.layout';
+import { PsbtDecodedNodeLayout } from '../../psbt-decoded-request-node/psbt-decoded-node.layout';
 
 interface PsbtUnsignedInputWithInscriptionProps {
   address: string;

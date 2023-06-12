@@ -1,7 +1,7 @@
 import * as btc from '@scure/btc-signer';
 import { Box, Text } from '@stacks/ui';
 
-import { PsbtPlaceholderNode } from '../psbt-placeholder-node';
+import { PsbtPlaceholderNode } from '../psbt-decoded-request-node/psbt-placeholder-node';
 import { PsbtUnsignedOutputItem } from './components/psbt-unsigned-output-item';
 
 interface PsbtUnsignedOutputListProps {

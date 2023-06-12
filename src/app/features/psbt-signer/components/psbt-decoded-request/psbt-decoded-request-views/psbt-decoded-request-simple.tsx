@@ -1,7 +1,7 @@
 import * as btc from '@scure/btc-signer';
 
-import { PsbtUnsignedInputList } from '../psbt-decoded-request-node/psbt-unsigned-input-list/psbt-unsigned-input-list';
-import { PsbtUnsignedOutputList } from '../psbt-decoded-request-node/psbt-unsigned-output-list/psbt-unsigned-output-list';
+import { PsbtUnsignedInputList } from '../psbt-unsigned-input-list/psbt-unsigned-input-list';
+import { PsbtUnsignedOutputList } from '../psbt-unsigned-output-list/psbt-unsigned-output-list';
 
 interface PsbtDecodedRequestSimpleProps {
   bitcoinAddressNativeSegwit: string;
