@@ -48,8 +48,9 @@ export function initSentry() {
       }),
     ],
     ignoreErrors: [
-      // Thrown on Android mobile extension
+      // Harmless error
       'ResizeObserver loop limit exceeded',
+      /ResizeObserver/,
       // Failed network requests needn't be tracked
       'Network request failed',
     ],
