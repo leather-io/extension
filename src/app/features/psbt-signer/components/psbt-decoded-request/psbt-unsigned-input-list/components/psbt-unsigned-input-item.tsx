@@ -6,7 +6,7 @@ import { OrdApiInscriptionTxOutput } from '@app/query/bitcoin/ordinals/ordinals-
 import { TaprootUtxo } from '@app/query/bitcoin/ordinals/use-taproot-address-utxos.query';
 import { useCalculateBitcoinFiatValue } from '@app/query/common/market-data/market-data.hooks';
 
-import { PsbtDecodedNodeLayout } from '../../psbt-decoded-node.layout';
+import { PsbtDecodedNodeLayout } from '../../psbt-decoded-request-node/psbt-decoded-node.layout';
 import { PsbtUnsignedInputWithInscription } from './psbt-unsigned-input-with-inscription';
 
 interface PsbtUnsignedInputItemProps {

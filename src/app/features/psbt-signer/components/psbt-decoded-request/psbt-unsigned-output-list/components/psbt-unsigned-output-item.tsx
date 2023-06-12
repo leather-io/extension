@@ -8,7 +8,7 @@ import { satToBtc } from '@app/common/money/unit-conversion';
 import { useCalculateBitcoinFiatValue } from '@app/query/common/market-data/market-data.hooks';
 import { useCurrentNetwork } from '@app/store/networks/networks.selectors';
 
-import { PsbtDecodedNodeLayout } from '../../psbt-decoded-node.layout';
+import { PsbtDecodedNodeLayout } from '../../psbt-decoded-request-node/psbt-decoded-node.layout';
 
 interface PsbtUnsignedOutputItemProps {
   addressNativeSegwit: string;

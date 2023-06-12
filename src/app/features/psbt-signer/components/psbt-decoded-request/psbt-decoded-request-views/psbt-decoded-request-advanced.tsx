@@ -4,14 +4,18 @@ import { Box } from '@stacks/ui';
 
 import { isTypedArray } from '@shared/utils';
 
+import { DecodedPsbt } from '@app/features/psbt-signer/hooks/use-psbt-signer';
+
 function parseJsonReadable(value: any) {
   if (typeof value === 'bigint') return value.toString();
   if (isTypedArray(value)) return bytesToHex(value);
   return value;
 }
 
-export function PsbtDecodedRequestAdvanced(props: { psbt: any }) {
-  const { psbt } = props;
+interface PsbtDecodedRequestAdvancedProps {
+  psbt: DecodedPsbt;
+}
+export function PsbtDecodedRequestAdvanced({ psbt }: PsbtDecodedRequestAdvancedProps) {
   return (
     <Box background="white" borderRadius="16px" p="loose">
       <Box

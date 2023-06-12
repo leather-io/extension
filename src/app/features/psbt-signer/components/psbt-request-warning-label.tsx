@@ -7,7 +7,7 @@ export function PsbtRequestWarningLabel(props: { appName?: string }) {
   return (
     <WarningLabel title={title} width="100%">
       Signing this PSBT can have dangerous side effects. Only sign if the PSBT is from a site you
-      fully trust.
+      trust.
     </WarningLabel>
   );
 }

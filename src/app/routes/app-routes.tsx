@@ -37,6 +37,7 @@ import { ReceiveCollectibleModal } from '@app/pages/receive/receive-collectible/
 import { ReceiveCollectibleOrdinal } from '@app/pages/receive/receive-collectible/receive-collectible-oridinal';
 import { RpcGetAddresses } from '@app/pages/rpc-get-addresses/rpc-get-addresses';
 import { rpcSendTransferRoutes } from '@app/pages/rpc-send-transfer/rpc-send-transfer.routes';
+import { RpcSignPsbt } from '@app/pages/rpc-sign-psbt/rpc-sign-psbt';
 import { SelectNetwork } from '@app/pages/select-network/select-network';
 import { BroadcastError } from '@app/pages/send/broadcast-error/broadcast-error';
 import { SendInscriptionContainer } from '@app/pages/send/ordinal-inscription/components/send-inscription-container';
@@ -283,6 +284,16 @@ function useAppRoutes() {
           }
         />
         {rpcSendTransferRoutes}
+
+        <Route
+          path={RouteUrls.RpcSignPsbt}
+          element={
+            <AccountGate>
+              <RpcSignPsbt />
+            </AccountGate>
+          }
+        />
+
         <Route
           path={RouteUrls.RpcSignBip322Message}
           lazy={async () => {

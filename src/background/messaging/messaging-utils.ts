@@ -47,11 +47,11 @@ export function listenForOriginTabClose({ tabId }: ListenForOriginTabCloseArgs) 
   });
 }
 
-type OtherParams = [string, string][];
+export type RequestParams = [string, string][];
 
 export function makeSearchParamsWithDefaults(
   port: chrome.runtime.Port,
-  otherParams: OtherParams = []
+  otherParams: RequestParams = []
 ) {
   const urlParams = new URLSearchParams();
   // All actions must have a corresponding `origin` and `tabId`
@@ -59,7 +59,7 @@ export function makeSearchParamsWithDefaults(
   const tabId = getTabIdFromPort(port);
   urlParams.set('origin', origin ?? '');
   urlParams.set('tabId', tabId.toString());
-  otherParams.forEach(([key, value]) => urlParams.set(key, value));
+  otherParams.forEach(([key, value]) => urlParams.append(key, value));
   return { urlParams, origin, tabId };
 }
 

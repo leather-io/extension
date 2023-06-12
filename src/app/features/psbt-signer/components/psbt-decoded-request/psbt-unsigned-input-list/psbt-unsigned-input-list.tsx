@@ -5,8 +5,8 @@ import { isUndefined } from '@shared/utils';
 
 import { useOrdinalsAwareUtxoQueries } from '@app/query/bitcoin/ordinals/ordinals-aware-utxo.query';
 
-import { PsbtDecodedNodeLayout } from '../psbt-decoded-node.layout';
-import { PsbtPlaceholderNode } from '../psbt-placeholder-node';
+import { PsbtDecodedNodeLayout } from '../psbt-decoded-request-node/psbt-decoded-node.layout';
+import { PsbtPlaceholderNode } from '../psbt-decoded-request-node/psbt-placeholder-node';
 import { PsbtUnsignedInputItem } from './components/psbt-unsigned-input-item';
 
 interface PsbtUnsignedInputListProps {

@@ -5,18 +5,19 @@ import { useCurrentAccountNativeSegwitIndexZeroSigner } from '@app/store/account
 import { useCurrentAccountTaprootAddressIndexZeroPayment } from '@app/store/accounts/blockchain/bitcoin/taproot-account.hooks';
 
 import { usePsbtDecodedRequest } from '../../hooks/use-psbt-decoded-request';
+import { DecodedPsbt } from '../../hooks/use-psbt-signer';
 import { PsbtDecodedRequestAdvanced } from './psbt-decoded-request-views/psbt-decoded-request-advanced';
 import { PsbtDecodedRequestSimple } from './psbt-decoded-request-views/psbt-decoded-request-simple';
 import { PsbtDecodedRequestViewToggle } from './psbt-decoded-request-views/psbt-decoded-request-view-toggle';
 
 interface PsbtDecodedRequestProps {
-  psbt: any;
+  psbt: DecodedPsbt;
 }
 export function PsbtDecodedRequest({ psbt }: PsbtDecodedRequestProps) {
   const nativeSegwitSigner = useCurrentAccountNativeSegwitIndexZeroSigner();
   const { address: bitcoinAddressTaproot } = useCurrentAccountTaprootAddressIndexZeroPayment();
-  const unsignedInputs: btc.TransactionInputRequired[] = psbt.global.unsignedTx.inputs;
-  const unsignedOutputs: btc.TransactionOutputRequired[] = psbt.global.unsignedTx.outputs;
+  const unsignedInputs: btc.TransactionInputRequired[] = psbt.global.unsignedTx?.inputs ?? [];
+  const unsignedOutputs: btc.TransactionOutputRequired[] = psbt.global.unsignedTx?.outputs ?? [];
 
   const {
     onSetShowAdvancedView,
