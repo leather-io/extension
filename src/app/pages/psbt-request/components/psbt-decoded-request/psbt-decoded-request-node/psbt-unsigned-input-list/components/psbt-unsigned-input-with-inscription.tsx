@@ -1,28 +1,49 @@
+import { Box } from '@stacks/ui';
 import { truncateMiddle } from '@stacks/ui-utils';
 
+import { isUndefined } from '@shared/utils';
+
 import { openInNewTab } from '@app/common/utils/open-in-new-tab';
+import { OrdinalIcon } from '@app/components/icons/ordinal-icon';
 import { InscriptionPreview } from '@app/components/inscription-preview-card/components/inscription-preview';
+import { LoadingSpinner } from '@app/components/loading-spinner';
 import { useInscription } from '@app/query/bitcoin/ordinals/inscription.hooks';
 
-import { PsbtDecodedNodeLayout } from './psbt-decoded-node.layout';
+import { PsbtDecodedNodeLayout } from '../../psbt-decoded-node.layout';
 
-interface PsbtInputWithInscriptionProps {
+interface PsbtUnsignedInputWithInscriptionProps {
   address: string;
   inputValue: string;
   path: string;
 }
-export function PsbtInputWithInscription({
+export function PsbtUnsignedInputWithInscription({
   address,
   inputValue,
   path,
-}: PsbtInputWithInscriptionProps) {
+}: PsbtUnsignedInputWithInscriptionProps) {
   const {
     isLoading,
     isError,
     data: inscription,
   } = useInscription(path.replace('/inscription/', ''));
 
-  if (isLoading || isError) return null;
+  if (isLoading)
+    return (
+      <Box my="loose">
+        <LoadingSpinner />
+      </Box>
+    );
+  if (isError || isUndefined(inscription))
+    return (
+      <PsbtDecodedNodeLayout
+        hoverLabel={address}
+        image={<OrdinalIcon />}
+        subtitle={truncateMiddle(address)}
+        subValue="# Unknown"
+        title="No data"
+        value={`-${inputValue}`}
+      />
+    );
 
   return (
     <PsbtDecodedNodeLayout
@@ -32,7 +53,7 @@ export function PsbtInputWithInscription({
       subValue={`#${inscription.number}`}
       subValueAction={() => openInNewTab(inscription.infoUrl)}
       title="Ordinal inscription"
-      value={`- ${inputValue}`}
+      value={`-${inputValue}`}
     />
   );
 }

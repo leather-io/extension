@@ -1,13 +1,16 @@
 import { useMemo } from 'react';
+import { useCallback } from 'react';
 
 import BigNumber from 'bignumber.js';
 
 import { CryptoCurrencies } from '@shared/models/currencies.model';
 import { MarketData, createMarketData, createMarketPair } from '@shared/models/market.model';
 import { createMoney, currencyDecimalsMap } from '@shared/models/money.model';
+import { createMoneyFromDecimal } from '@shared/models/money.model';
 
 import { calculateMeanAverage } from '@app/common/math/calculate-averages';
 import { convertAmountToFractionalUnit } from '@app/common/money/calculate-money';
+import { baseCurrencyAmountInQuote } from '@app/common/money/calculate-money';
 
 import {
   selectBinanceUsdPrice,
@@ -49,4 +52,14 @@ export function useCryptoCurrencyMarketData(currency: CryptoCurrencies): MarketD
 
     return createMarketData(createMarketPair(currency, 'USD'), createMoney(meanStxPrice, 'USD'));
   }, [binance, coincap, coingecko, currency]);
+}
+
+export function useCalculateBitcoinFiatValue() {
+  const btcMarketData = useCryptoCurrencyMarketData('BTC');
+
+  return useCallback(
+    (value: string) =>
+      baseCurrencyAmountInQuote(createMoneyFromDecimal(Number(value), 'BTC'), btcMarketData),
+    [btcMarketData]
+  );
 }

@@ -1,36 +1,36 @@
-import { InputsOutputPair } from '@app/pages/psbt-request/hooks/match-inputs-and-outputs';
+import * as btc from '@scure/btc-signer';
 
-import { PsbtInputOutputPair } from '../psbt-input-output-pair/psbt-input-output-pair';
-import { PsbtInputOutputPlaceholder } from '../psbt-input-output-pair/psbt-input-output-placeholder';
+import { PsbtUnsignedInputList } from '../psbt-decoded-request-node/psbt-unsigned-input-list/psbt-unsigned-input-list';
+import { PsbtUnsignedOutputList } from '../psbt-decoded-request-node/psbt-unsigned-output-list/psbt-unsigned-output-list';
 
 interface PsbtDecodedRequestSimpleProps {
   bitcoinAddressNativeSegwit: string;
   bitcoinAddressTaproot: string;
-  inputOutputPairs: InputsOutputPair[];
+  inputs: btc.TransactionInputRequired[];
+  outputs: btc.TransactionOutputRequired[];
   showPlaceholder: boolean;
 }
 export function PsbtDecodedRequestSimple({
   bitcoinAddressNativeSegwit,
   bitcoinAddressTaproot,
-  inputOutputPairs,
+  inputs,
+  outputs,
   showPlaceholder,
 }: PsbtDecodedRequestSimpleProps) {
-  if (showPlaceholder) return <PsbtInputOutputPlaceholder />;
-
   return (
     <>
-      {inputOutputPairs.map((pair, i) => {
-        return (
-          <PsbtInputOutputPair
-            addressNativeSegwit={bitcoinAddressNativeSegwit}
-            addressTaproot={bitcoinAddressTaproot}
-            inputOutputPair={pair}
-            isFirstPair={i === 0}
-            isLastPair={i === inputOutputPairs.length - 1}
-            key={i}
-          />
-        );
-      })}
+      <PsbtUnsignedInputList
+        addressNativeSegwit={bitcoinAddressNativeSegwit}
+        addressTaproot={bitcoinAddressTaproot}
+        inputs={inputs}
+        showPlaceholder={showPlaceholder}
+      />
+      <PsbtUnsignedOutputList
+        addressNativeSegwit={bitcoinAddressNativeSegwit}
+        addressTaproot={bitcoinAddressTaproot}
+        outputs={outputs}
+        showPlaceholder={showPlaceholder}
+      />
     </>
   );
 }
