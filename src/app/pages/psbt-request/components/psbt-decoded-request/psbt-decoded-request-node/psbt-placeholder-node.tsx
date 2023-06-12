@@ -2,7 +2,7 @@ import { Box, Text } from '@stacks/ui';
 
 import { PsbtDecodedNodeLayout } from './psbt-decoded-node.layout';
 
-export function PsbtInputOutputPlaceholder() {
+export function PsbtPlaceholderNode() {
   return (
     <Box background="white" borderRadius="16px" p="loose">
       <Text fontWeight={500}>Inputs</Text>

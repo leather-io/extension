@@ -9,7 +9,7 @@ import { Tooltip } from '@app/components/tooltip';
 
 interface PsbtDecodedNodeLayoutProps {
   hoverLabel?: string;
-  image?: JSX.Element;
+  image?: React.JSX.Element;
   subtitle?: string;
   subValue?: string;
   subValueAction?(): void;
