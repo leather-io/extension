@@ -8,11 +8,11 @@ import { Stamp } from './stamp';
 
 export function Stamps() {
   const currentAccountBtcAddress = useCurrentAccountNativeSegwitAddressIndexZero();
-  const { data: stamps } = useStampsByAddressQuery(currentAccountBtcAddress);
+  const { data: stamps = [] } = useStampsByAddressQuery(currentAccountBtcAddress);
   const analytics = useAnalytics();
 
   useEffect(() => {
-    if (!stamps) return;
+    if (!stamps.length) return;
     if (stamps.length > 0) {
       void analytics.track('view_collectibles', {
         stamps_count: stamps.length,
@@ -21,7 +21,7 @@ export function Stamps() {
     }
   }, [analytics, stamps]);
 
-  if (!stamps) return null;
+  if (!stamps.length) return null;
 
   return (
     <>

@@ -1,3 +1,10 @@
+## [4.29.1](https://github.com/hirosystems/wallet/compare/v4.29.0...v4.29.1) (2023-06-13)
+
+
+### Bug Fixes
+
+* early return if stamps query returns undefined ([9378be5](https://github.com/hirosystems/wallet/commit/9378be575b69953329fa67164bfabc37c21357c2))
+
 ## [4.29.0](https://github.com/hirosystems/wallet/compare/v4.28.1...v4.29.0) (2023-06-07)
 
 
