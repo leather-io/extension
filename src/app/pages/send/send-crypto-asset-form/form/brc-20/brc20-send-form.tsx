@@ -22,11 +22,12 @@ function useBrc20SendFormRouteState() {
   return {
     balance: get(state, 'balance', '') as string,
     tick: get(state, 'tick', '') as string,
+    decimals: get(state, 'decimals', '') as number,
   };
 }
 
 export function Brc20SendForm() {
-  const { balance, tick } = useBrc20SendFormRouteState();
+  const { balance, tick, decimals } = useBrc20SendFormRouteState();
   const {
     initialValues,
     chooseTransactionFee,
@@ -34,7 +35,7 @@ export function Brc20SendForm() {
     formRef,
     onFormStateChange,
     moneyBalance,
-  } = useBrc20SendForm({ balance, tick });
+  } = useBrc20SendForm({ balance, tick, decimals });
 
   return (
     <Box width="100%" pb="base">

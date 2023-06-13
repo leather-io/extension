@@ -12,7 +12,7 @@ function fractionalUnitToUnit(decimals: number) {
   };
 }
 
-function unitToFractionalUnit(decimals: number) {
+export function unitToFractionalUnit(decimals: number) {
   return (unit: number | string | BigNumber) => {
     const unitBigNumber = initBigNumber(unit);
     return unitBigNumber.shiftedBy(decimals);
