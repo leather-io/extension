@@ -20,9 +20,9 @@ export function Brc20TokenAssetList(props: { brc20Tokens?: Brc20Token[] }) {
     btcCryptoCurrencyAssetBalance.balance.amount.isGreaterThan(0);
 
   function navigateToBrc20SendForm(token: Brc20Token) {
-    const { tick, available_balance } = token;
+    const { tick, available_balance, decimals } = token;
     navigate(RouteUrls.SendBrc20SendForm.replace(':ticker', tick), {
-      state: { balance: available_balance, tick },
+      state: { balance: available_balance, tick, decimals },
     });
   }
 
