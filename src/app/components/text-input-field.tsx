@@ -1,4 +1,4 @@
-import { useRef } from 'react';
+import { Ref, useRef } from 'react';
 
 import { css } from '@emotion/react';
 import { Box, Flex, FlexProps, Input, Text, color } from '@stacks/ui';
@@ -20,7 +20,9 @@ interface TextInputFieldProps extends FlexProps {
   onBlur?(): void;
   onClickLabelAction?(): void;
   placeholder?: string;
+  inputRef?: Ref<HTMLInputElement>;
   topInputOverlay?: JSX.Element;
+  hasError?: boolean;
 }
 export function TextInputField({
   dataTestId,
@@ -32,12 +34,14 @@ export function TextInputField({
   onClickLabelAction,
   placeholder,
   topInputOverlay,
+  inputRef,
+  hasError,
   ...props
 }: TextInputFieldProps) {
   const [field] = useField(name);
   const ref = useRef<HTMLInputElement>(null);
 
-  const showError = useShowFieldError(name);
+  const showError = useShowFieldError(name) || hasError;
 
   return (
     <>
@@ -75,7 +79,7 @@ export function TextInputField({
           <Flex alignItems="center">
             {label && field.value ? (
               <Text
-                color={showError ? '#C83532' : color('text-caption')}
+                color={showError ? '#C83532' : color('accent')}
                 fontSize={1}
                 fontWeight={500}
                 mr="tight"
@@ -111,7 +115,7 @@ export function TextInputField({
           ) : null}
         </SpaceBetween>
         <Input
-          ref={ref}
+          ref={inputRef || ref}
           _disabled={{ bg: color('bg') }}
           _focus={{ border: 'none' }}
           autoComplete="off"

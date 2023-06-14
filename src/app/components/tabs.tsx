@@ -1,9 +1,10 @@
-import { Box, BoxProps, Stack, color } from '@stacks/ui';
+import { Box, BoxProps, Stack, StackProps, color } from '@stacks/ui';
 
 function TabButton({ isActive, label, ...rest }: { isActive?: boolean; label: string } & BoxProps) {
   return (
     <Box
       flexGrow={1}
+      flex="1"
       px="base"
       py="tight"
       textAlign="center"
@@ -53,7 +54,7 @@ export function Tabs({
   tabs: Tabs[];
   activeTab: number;
   onTabClick: (index: number) => void;
-}) {
+} & StackProps) {
   return (
     <Stack
       bg={color('bg-4')}
@@ -61,7 +62,6 @@ export function Tabs({
       isInline
       p="extra-tight"
       position="relative"
-      width={['100%', '193px']}
       {...rest}
     >
       <BackgroundPill alignment={activeTab === 0 ? 'start' : 'end'} />

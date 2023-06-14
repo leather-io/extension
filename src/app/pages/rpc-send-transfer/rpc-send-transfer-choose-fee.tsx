@@ -15,7 +15,10 @@ import {
   OnChooseFeeArgs,
 } from '@app/components/bitcoin-fees-list/bitcoin-fees-list';
 import { useBitcoinFeesList } from '@app/components/bitcoin-fees-list/use-bitcoin-fees-list';
+import { BitcoinChooseFee } from '@app/features/bitcoin-choose-fee/bitcoin-choose-fee';
+import { useValidateBitcoinSpend } from '@app/features/bitcoin-choose-fee/hooks/use-validate-bitcoin-spend';
 
+import { formFeeRowValue } from '../../common/send/utils';
 import { useRpcSendTransferState } from './rpc-send-transfer-container';
 
 function useRpcSendTransferFeeState() {
@@ -39,14 +42,16 @@ export function RpcSendTransferChooseFee() {
     amount: Number(amountAsMoney.amount),
     recipient: address,
   });
+  const { showInsufficientBalanceError, onValidateBitcoinFeeSpend } = useValidateBitcoinSpend();
 
-  async function previewTransfer({ feeRate, feeValue, time }: OnChooseFeeArgs) {
+  async function previewTransfer({ feeRate, feeValue, time, isCustomFee }: OnChooseFeeArgs) {
     const resp = generateTx({ amount: amountAsMoney, recipient: address }, feeRate);
 
     if (!resp) return logger.error('Attempted to generate raw tx, but no tx exists');
 
     const { hex } = resp;
 
+    const feeRowValue = formFeeRowValue(feeRate, isCustomFee);
     whenWallet({
       software: () =>
         navigate(RouteUrls.RpcSendTransferConfirmation, {
@@ -55,6 +60,7 @@ export function RpcSendTransferChooseFee() {
             recipient: address,
             time,
             tx: hex,
+            feeRowValue,
           },
         }),
       ledger: noop,
@@ -62,14 +68,24 @@ export function RpcSendTransferChooseFee() {
   }
 
   return (
-    <BitcoinFeesList
+    <BitcoinChooseFee
       amount={amountAsMoney}
-      feesList={feesList}
-      isLoading={isLoading}
-      isSendingMax={false}
+      feesList={
+        <BitcoinFeesList
+          feesList={feesList}
+          isLoading={isLoading}
+          onChooseFee={previewTransfer}
+          onValidateBitcoinSpend={onValidateBitcoinFeeSpend}
+          onSetSelectedFeeType={(value: BtcFeeType) => setSelectedFeeType(value)}
+          selectedFeeType={selectedFeeType}
+        />
+      }
+      recommendedFeeRate={feesList[1].feeRate}
+      onValidateBitcoinSpend={onValidateBitcoinFeeSpend}
+      recipient={address}
       onChooseFee={previewTransfer}
-      onSetSelectedFeeType={(value: BtcFeeType) => setSelectedFeeType(value)}
-      selectedFeeType={selectedFeeType}
+      isSendingMax={false}
+      showError={showInsufficientBalanceError}
     />
   );
 }

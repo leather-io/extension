@@ -4,17 +4,17 @@ import { SpaceBetween } from '@app/components/layout/space-between';
 
 interface SendTransferConfirmationDetailsProps {
   currentAddress: string;
-  fee: string;
   recipient: string;
   time: string;
   total: string;
+  feeRowValue: string;
 }
 export function SendTransferConfirmationDetails({
   currentAddress,
-  fee,
   recipient,
   time,
   total,
+  feeRowValue,
 }: SendTransferConfirmationDetailsProps) {
   return (
     <Stack
@@ -35,16 +35,18 @@ export function SendTransferConfirmationDetails({
       </SpaceBetween>
       <SpaceBetween spacing="base">
         <Text color={color('text-caption')}>Fee</Text>
-        <Text>{fee}</Text>
+        <Text>{feeRowValue}</Text>
       </SpaceBetween>
       <SpaceBetween spacing="base">
         <Text color={color('text-caption')}>Total</Text>
         <Text>{total}</Text>
       </SpaceBetween>
-      <SpaceBetween spacing="base">
-        <Text color={color('text-caption')}>Estimated Time</Text>
-        <Text>{time}</Text>
-      </SpaceBetween>
+      {time && (
+        <SpaceBetween spacing="base">
+          <Text color={color('text-caption')}>Estimated Time</Text>
+          <Text>{time}</Text>
+        </SpaceBetween>
+      )}
     </Stack>
   );
 }

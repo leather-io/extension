@@ -24,6 +24,7 @@ interface ConfirmationRouteBtcArgs {
   tx: string;
   recipient: string;
   fee: number;
+  feeRowValue: string;
   time: string;
 }
 
@@ -44,12 +45,19 @@ export function useSendFormNavigate() {
           },
         });
       },
-      toConfirmAndSignBtcTransaction({ tx, recipient, fee, time }: ConfirmationRouteBtcArgs) {
+      toConfirmAndSignBtcTransaction({
+        tx,
+        recipient,
+        fee,
+        feeRowValue,
+        time,
+      }: ConfirmationRouteBtcArgs) {
         return navigate(RouteUrls.SendBtcConfirmation, {
           state: {
             tx,
             recipient,
             fee,
+            feeRowValue,
             time,
             hasHeaderTitle: true,
           } as ConfirmationRouteState,

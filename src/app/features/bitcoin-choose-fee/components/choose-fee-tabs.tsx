@@ -1,49 +1,46 @@
-import { Suspense } from 'react';
+import { Suspense, useState } from 'react';
 
 import { Box, Flex, SlideFade, Stack } from '@stacks/ui';
 import type { StackProps } from '@stacks/ui';
 
 import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
-import { useHomeTabs } from '@app/common/hooks/use-home-tabs';
 import { LoadingSpinner } from '@app/components/loading-spinner';
 import { Tabs } from '@app/components/tabs';
 
-interface HomeTabsProps extends StackProps {
-  balances: React.JSX.Element;
-  activity: React.JSX.Element;
+const analyticsPath = ['/recommended', '/custom'];
+
+interface ChooseFeeTabsProps extends StackProps {
+  customFee: React.JSX.Element;
+  feesList: React.JSX.Element;
 }
-
-const ANALYTICS_PATH = ['/balances', '/activity'];
-
-export function HomeTabs(props: HomeTabsProps) {
-  const { balances, activity, ...rest } = props;
+export function ChooseFeeTabs(props: ChooseFeeTabsProps) {
+  const { feesList, customFee, ...rest } = props;
   const analytics = useAnalytics();
 
-  const { activeTab, setActiveTab } = useHomeTabs();
+  const [activeTab, setActiveTab] = useState(0);
 
   const setActiveTabTracked = (index: number) => {
-    void analytics.page('view', ANALYTICS_PATH[index]);
+    void analytics.page('view', analyticsPath[index]);
     setActiveTab(index);
   };
 
   return (
-    <Stack flexGrow={1} mt="loose" spacing="extra-loose" {...rest}>
+    <Stack flexGrow={1} mt="tight" spacing="base" width="100%" {...rest}>
       <Tabs
         tabs={[
-          { slug: 'balances', label: 'Balances' },
-          { slug: 'activity', label: 'Activity' },
+          { slug: 'recommended', label: 'Recommended' },
+          { slug: 'custom', label: 'Custom' },
         ]}
         activeTab={activeTab}
         onTabClick={setActiveTabTracked}
-        width={['100%', '193px']}
       />
       <Flex position="relative" flexGrow={1}>
         {activeTab === 0 && (
           <Suspense fallback={<LoadingSpinner pb="72px" />}>
-            <SlideFade in={activeTab === 0}>
+            <SlideFade in={true}>
               {styles => (
                 <Box style={styles} width="100%">
-                  {balances}
+                  {feesList}
                 </Box>
               )}
             </SlideFade>
@@ -51,10 +48,10 @@ export function HomeTabs(props: HomeTabsProps) {
         )}
         {activeTab === 1 && (
           <Suspense fallback={<LoadingSpinner pb="72px" />}>
-            <SlideFade in={activeTab === 1}>
+            <SlideFade in={true}>
               {styles => (
                 <Box width="100%" style={styles}>
-                  {activity}
+                  {customFee}
                 </Box>
               )}
             </SlideFade>

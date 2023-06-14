@@ -10,6 +10,8 @@ export function ChooseCryptoAssetLayout({ children }: StackProps) {
       flexGrow={1}
       flexDirection="column"
       justifyContent="start"
+      maxHeight={['unset', '85vh']}
+      overflowY="auto"
     >
       <PageTitle
         fontSize={3}
