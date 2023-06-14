@@ -1,40 +1,62 @@
-import * as btc from '@scure/btc-signer';
-import { Box, Text } from '@stacks/ui';
-
-import { isUndefined } from '@shared/utils';
-
-import { useOrdinalsAwareUtxoQueries } from '@app/query/bitcoin/ordinals/ordinals-aware-utxo.query';
+import {
+  PsbtDecodedUtxosMainnet,
+  PsbtDecodedUtxosTestnet,
+} from '@app/features/psbt-signer/hooks/use-psbt-decoded-utxos';
 
 import { PsbtDecodedNodeLayout } from '../psbt-decoded-request-node/psbt-decoded-node.layout';
 import { PsbtUnsignedInputItem } from './components/psbt-unsigned-input-item';
+import { PsbtUnsignedInputItemWithPossibleInscription } from './components/psbt-unsigned-input-item-with-possible-inscription';
+import { PsbtUnsignedInputListLayout } from './components/psbt-unsigned-input-list.layout';
 
 interface PsbtUnsignedInputListProps {
   addressNativeSegwit: string;
   addressTaproot: string;
-  inputs: btc.TransactionInputRequired[];
+  inputs: PsbtDecodedUtxosMainnet | PsbtDecodedUtxosTestnet;
 }
 export function PsbtUnsignedInputList({
   addressNativeSegwit,
   addressTaproot,
   inputs,
 }: PsbtUnsignedInputListProps) {
-  const unsignedUtxos = useOrdinalsAwareUtxoQueries(inputs).map(query => query.data);
+  if (!inputs.utxos.length)
+    return (
+      <PsbtUnsignedInputListLayout>
+        <PsbtDecodedNodeLayout value="No inputs found" />
+      </PsbtUnsignedInputListLayout>
+    );
 
-  return (
-    <Box background="white" borderTopLeftRadius="16px" borderTopRightRadius="16px" p="loose">
-      <Text fontWeight={500}>Inputs</Text>
-      {unsignedUtxos.map(utxo => {
-        if (isUndefined(utxo)) return <PsbtDecodedNodeLayout value="No input data found" />;
-
-        return (
-          <PsbtUnsignedInputItem
-            addressNativeSegwit={addressNativeSegwit}
-            addressTaproot={addressTaproot}
-            key={utxo.transaction}
-            utxo={utxo}
-          />
-        );
-      })}
-    </Box>
-  );
+  switch (inputs.network) {
+    case 'mainnet':
+      return (
+        <PsbtUnsignedInputListLayout>
+          {inputs.utxos.map((utxo, i) => {
+            return (
+              <PsbtUnsignedInputItemWithPossibleInscription
+                addressNativeSegwit={addressNativeSegwit}
+                addressTaproot={addressTaproot}
+                key={i}
+                utxo={utxo}
+              />
+            );
+          })}
+        </PsbtUnsignedInputListLayout>
+      );
+    case 'testnet':
+      return (
+        <PsbtUnsignedInputListLayout>
+          {inputs.utxos.map((utxo, i) => {
+            return (
+              <PsbtUnsignedInputItem
+                addressNativeSegwit={addressNativeSegwit}
+                addressTaproot={addressTaproot}
+                key={i}
+                utxo={utxo}
+              />
+            );
+          })}
+        </PsbtUnsignedInputListLayout>
+      );
+    default:
+      return null;
+  }
 }

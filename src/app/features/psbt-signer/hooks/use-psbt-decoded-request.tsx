@@ -4,29 +4,41 @@ import * as btc from '@scure/btc-signer';
 
 import { BitcoinNetworkModes } from '@shared/constants';
 import { getAddressFromOutScript } from '@shared/crypto/bitcoin/bitcoin.utils';
-import { isUndefined } from '@shared/utils';
 
-import {
-  OrdApiInscriptionTxOutput,
-  useOrdinalsAwareUtxoQueries,
-} from '@app/query/bitcoin/ordinals/ordinals-aware-utxo.query';
 import { useCurrentAccountNativeSegwitIndexZeroSigner } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
 import { useCurrentNetwork } from '@app/store/networks/networks.selectors';
 
+import {
+  PsbtDecodedUtxosMainnet,
+  PsbtDecodedUtxosTestnet,
+  usePsbtDecodedUtxos,
+} from './use-psbt-decoded-utxos';
+
 function isPlaceholderTransaction(
   address: string,
-  inputs: (OrdApiInscriptionTxOutput | undefined)[],
-  outputs: btc.TransactionOutputRequired[],
-  network: BitcoinNetworkModes
+  network: BitcoinNetworkModes,
+  unsignedOutputs: btc.TransactionOutputRequired[],
+  unsignedUtxos: PsbtDecodedUtxosMainnet | PsbtDecodedUtxosTestnet
 ) {
-  const inputsNotFromCurrentAddress = inputs.filter(input => {
-    return input?.address !== address;
-  });
-  const outputsNotToCurrentAddress = outputs.filter(output => {
+  let utxosNotFromCurrentAddress = [];
+
+  switch (unsignedUtxos.network) {
+    case 'mainnet':
+      utxosNotFromCurrentAddress = unsignedUtxos.utxos.filter(utxo => utxo.address !== address);
+      break;
+    case 'testnet':
+      utxosNotFromCurrentAddress = unsignedUtxos.utxos.filter(
+        vo => vo.scriptpubkey_address !== address
+      );
+      break;
+  }
+
+  const outputsNotToCurrentAddress = unsignedOutputs.filter(output => {
     const addressFromScript = getAddressFromOutScript(output.script, network);
     return addressFromScript !== address;
   });
-  return inputsNotFromCurrentAddress.length === 0 && outputsNotToCurrentAddress.length === 0;
+
+  return utxosNotFromCurrentAddress.length === 0 && outputsNotToCurrentAddress.length === 0;
 }
 
 interface UsePsbtDecodedRequestArgs {
@@ -40,20 +52,20 @@ export function usePsbtDecodedRequest({
   const [showAdvancedView, setShowAdvancedView] = useState(false);
   const network = useCurrentNetwork();
   const nativeSegwitSigner = useCurrentAccountNativeSegwitIndexZeroSigner();
-  const unsignedUtxos = useOrdinalsAwareUtxoQueries(unsignedInputs).map(query => query.data);
+  const unsignedUtxos = usePsbtDecodedUtxos(unsignedInputs);
 
   const defaultToAdvancedView = useCallback(() => {
-    const noInputs = isUndefined(unsignedUtxos) || !unsignedUtxos.length;
-    const noOutputs = isUndefined(unsignedOutputs) || !unsignedOutputs.length;
+    const noInputs = !unsignedInputs.length;
+    const noOutputs = !unsignedOutputs.length;
     return noInputs || noOutputs;
-  }, [unsignedOutputs, unsignedUtxos]);
+  }, [unsignedInputs.length, unsignedOutputs.length]);
 
   const showPlaceholder = useCallback(() => {
     return isPlaceholderTransaction(
       nativeSegwitSigner.address,
-      unsignedUtxos,
+      network.chain.bitcoin.network,
       unsignedOutputs,
-      network.chain.bitcoin.network
+      unsignedUtxos
     );
   }, [nativeSegwitSigner.address, network.chain.bitcoin.network, unsignedOutputs, unsignedUtxos]);
 
@@ -62,5 +74,6 @@ export function usePsbtDecodedRequest({
     shouldDefaultToAdvancedView: defaultToAdvancedView(),
     shouldShowPlaceholder: showPlaceholder(),
     showAdvancedView,
+    unsignedUtxos,
   };
 }

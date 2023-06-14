@@ -24,6 +24,7 @@ export function PsbtDecodedRequest({ psbt }: PsbtDecodedRequestProps) {
     shouldDefaultToAdvancedView,
     shouldShowPlaceholder,
     showAdvancedView,
+    unsignedUtxos,
   } = usePsbtDecodedRequest({
     unsignedInputs,
     unsignedOutputs,
@@ -45,7 +46,7 @@ export function PsbtDecodedRequest({ psbt }: PsbtDecodedRequestProps) {
         <PsbtDecodedRequestSimple
           bitcoinAddressNativeSegwit={nativeSegwitSigner.address}
           bitcoinAddressTaproot={bitcoinAddressTaproot}
-          inputs={unsignedInputs}
+          inputs={unsignedUtxos}
           outputs={unsignedOutputs}
           showPlaceholder={shouldShowPlaceholder}
         />

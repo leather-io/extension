@@ -3,7 +3,10 @@ import { BitcoinTransactionItem } from '@app/features/activity-list/components/t
 import { StacksTransaction } from './stacks-transaction/stacks-transaction';
 import { TransactionListTxs } from './transaction-list.model';
 
-function renderTransaction(tx: TransactionListTxs) {
+interface TransactionListItemProps {
+  tx: TransactionListTxs;
+}
+export function TransactionListItem({ tx }: TransactionListItemProps) {
   switch (tx.blockchain) {
     case 'bitcoin':
       return <BitcoinTransactionItem transaction={tx.transaction} />;
@@ -12,11 +15,4 @@ function renderTransaction(tx: TransactionListTxs) {
     default:
       return null;
   }
-}
-
-interface TransactionListItemProps {
-  tx: TransactionListTxs;
-}
-export function TransactionListItem({ tx }: TransactionListItemProps) {
-  return renderTransaction(tx);
 }
