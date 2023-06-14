@@ -3,7 +3,7 @@ import { FiEye, FiEyeOff } from 'react-icons/fi';
 import { useNavigate } from 'react-router-dom';
 
 import YourSecretKey from '@assets/images/onboarding/your-secret-key.png';
-import { Box, Input, Stack, Text, color, useMediaQuery } from '@stacks/ui';
+import { Box, Input, Stack, Text, color, useClipboard, useMediaQuery } from '@stacks/ui';
 import { OnboardingSelectors } from '@tests/selectors/onboarding.selectors';
 import { Form, Formik } from 'formik';
 
@@ -36,6 +36,7 @@ export function SignIn() {
     sanitizedSecretKey,
   } = useSignIn();
   const navigate = useNavigate();
+  const { onCopy } = useClipboard(sanitizedSecretKey);
 
   const [desktopViewport] = useMediaQuery(`(min-width: ${DESKTOP_VIEWPORT_MIN_WIDTH})`);
 
@@ -83,6 +84,7 @@ export function SignIn() {
                   }}
                   onKeyDown={e => e.key === 'Enter' && form.submitForm()}
                   onPaste={onPaste}
+                  onCopy={onCopy}
                   placeholder="Paste or type your Secret Key"
                   ref={ref as any}
                   spellCheck={false}
