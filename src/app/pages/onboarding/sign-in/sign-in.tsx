@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { ChangeEvent } from 'react';
 import { FiEye, FiEyeOff } from 'react-icons/fi';
 import { useNavigate } from 'react-router-dom';
 
@@ -24,9 +24,18 @@ import { Title } from '@app/components/typography';
 import { useSignIn } from '@app/pages/onboarding/sign-in/hooks/use-sign-in';
 
 export function SignIn() {
-  const { onPaste, submitMnemonicForm, error, isLoading, ref } = useSignIn();
+  const {
+    onPaste,
+    submitMnemonicForm,
+    error,
+    isLoading,
+    ref,
+    onChange,
+    toggleKeyMask,
+    isKeyMasked,
+    sanitizedSecretKey,
+  } = useSignIn();
   const navigate = useNavigate();
-  const [isKeyMasked, setIsKeyMasked] = useState(true);
 
   const [desktopViewport] = useMediaQuery(`(min-width: ${DESKTOP_VIEWPORT_MIN_WIDTH})`);
 
@@ -36,7 +45,7 @@ export function SignIn() {
     <CenteredPageContainer>
       <Formik
         initialValues={{ secretKey: '' }}
-        onSubmit={values => submitMnemonicForm(values.secretKey)}
+        onSubmit={_values => submitMnemonicForm(sanitizedSecretKey)}
       >
         {form => (
           <Form>
@@ -69,7 +78,9 @@ export function SignIn() {
                   borderRadius="10px"
                   fontSize="16px"
                   minHeight="168px"
-                  onChange={form.handleChange}
+                  onChange={event => {
+                    onChange(event as ChangeEvent<HTMLInputElement>, form.handleChange);
+                  }}
                   onKeyDown={e => e.key === 'Enter' && form.submitForm()}
                   onPaste={onPaste}
                   placeholder="Paste or type your Secret Key"
@@ -77,9 +88,7 @@ export function SignIn() {
                   spellCheck={false}
                   style={{ resize: 'none' }}
                   value={
-                    isKeyMasked
-                      ? form.values.secretKey.replace(/[^ ]/g, '*')
-                      : form.values.secretKey
+                    isKeyMasked ? form.values.secretKey.replace(/[^ ]/g, '*') : sanitizedSecretKey
                   }
                   width="100%"
                 />
@@ -98,11 +107,7 @@ export function SignIn() {
                   </ErrorLabel>
                 )}
                 <Stack alignItems="center">
-                  <Link
-                    fontSize="14px"
-                    _hover={{ textDecoration: 'none' }}
-                    onClick={() => setIsKeyMasked(!isKeyMasked)}
-                  >
+                  <Link fontSize="14px" _hover={{ textDecoration: 'none' }} onClick={toggleKeyMask}>
                     <Stack alignItems="center" isInline spacing="tight">
                       {isKeyMasked ? <FiEye /> : <FiEyeOff />}
                       <Text>{isKeyMasked ? 'Show' : 'Hide'} Secret Key</Text>
