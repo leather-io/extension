@@ -10,6 +10,7 @@ interface SignPsbtRequestParams {
   signAtIndex?: number | number[];
   network?: NetworkModes;
 }
+
 export type SignPsbtRequest = RpcRequest<'signPsbt', SignPsbtRequestParams>;
 
 type SignPsbtResponse = RpcResponse<{ hex: string }>;

@@ -1,5 +1,6 @@
 import { Flex } from '@stacks/ui';
 
+import { Favicon } from '@app/components/favicon';
 import { Flag } from '@app/components/layout/flag';
 import { Caption, Title } from '@app/components/typography';
 
@@ -15,7 +16,7 @@ export function PsbtRequestHeader({ origin }: PsbtRequestHeaderProps) {
         Sign transaction
       </Title>
       {caption && (
-        <Flag align="middle" img={<img src="" height="16px" width="16px" />} pl="tight">
+        <Flag align="middle" img={<Favicon origin={origin} />} pl="tight">
           <Caption wordBreak="break-word">{caption}</Caption>
         </Flag>
       )}
