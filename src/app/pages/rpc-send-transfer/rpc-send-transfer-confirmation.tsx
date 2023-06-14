@@ -31,6 +31,7 @@ function useRpcSendTransferConfirmationState() {
     recipient: get(location.state, 'recipient') as string,
     time: get(location.state, 'time') as string,
     tx: get(location.state, 'tx') as string,
+    feeRowValue: get(location.state, 'feeRowValue') as string,
   };
 }
 
@@ -38,7 +39,7 @@ export function RpcSendTransferConfirmation() {
   const analytics = useAnalytics();
   const navigate = useNavigate();
   const { origin, requestId, tabId } = useRpcSendTransferRequestParams();
-  const { fee, recipient, time, tx } = useRpcSendTransferConfirmationState();
+  const { fee, recipient, time, tx, feeRowValue } = useRpcSendTransferConfirmationState();
   const bitcoinAddress = useCurrentAccountNativeSegwitAddressIndexZero();
   const { broadcastTx, isBroadcasting } = useBitcoinBroadcastTransaction();
   const { refetch } = useCurrentNativeSegwitUtxos();
@@ -74,6 +75,7 @@ export function RpcSendTransferConfirmation() {
       sendingValue,
       txFiatValue,
       txFiatValueSymbol,
+      feeRowValue,
     };
   }
 
@@ -119,10 +121,10 @@ export function RpcSendTransferConfirmation() {
     <>
       <SendTransferConfirmationDetails
         currentAddress={truncateMiddle(bitcoinAddress)}
-        fee={summaryFee}
         recipient={truncateMiddle(recipient)}
         time={time}
         total={totalSpend}
+        feeRowValue={feeRowValue}
       />
       <SendTransferActions
         action="Send"

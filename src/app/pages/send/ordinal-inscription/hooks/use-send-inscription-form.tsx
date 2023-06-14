@@ -10,6 +10,7 @@ import { noop } from '@shared/utils';
 
 import { FormErrorMessages } from '@app/common/error-messages';
 import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
+import { formFeeRowValue } from '@app/common/send/utils';
 import { useWalletType } from '@app/common/use-wallet-type';
 import {
   btcAddressNetworkValidator,
@@ -25,6 +26,7 @@ import { useGenerateSignedOrdinalTx } from './use-generate-ordinal-tx';
 
 export function useSendInscriptionForm() {
   const [currentError, setShowError] = useState<null | string>(null);
+  const [isCheckingFees, setIsCheckingFees] = useState(false);
   const analytics = useAnalytics();
   const navigate = useNavigate();
   const { whenWallet } = useWalletType();
@@ -35,8 +37,9 @@ export function useSendInscriptionForm() {
 
   return {
     currentError,
-
+    isCheckingFees,
     async chooseTransactionFee(values: OrdinalSendFormValues) {
+      setIsCheckingFees(true);
       // Check tx with lowest fee for errors before routing and
       // generating the final transaction with the chosen fee to send
       const resp = coverFeeFromAdditionalUtxos(values);
@@ -63,6 +66,8 @@ export function useSendInscriptionForm() {
         void analytics.track('ordinals_dot_com_unavailable', { error });
         setShowError('Unable to establish if utxo has multiple inscriptions');
         return;
+      } finally {
+        setIsCheckingFees(false);
       }
 
       whenWallet({
@@ -74,7 +79,12 @@ export function useSendInscriptionForm() {
       })();
     },
 
-    async reviewTransaction(feeValue: number, time: string, values: OrdinalSendFormValues) {
+    async reviewTransaction(
+      feeValue: number,
+      time: string,
+      values: OrdinalSendFormValues,
+      isCustomFee?: boolean
+    ) {
       // Generate the final tx with the chosen fee to send
       const resp = coverFeeFromAdditionalUtxos(values);
 
@@ -84,8 +94,17 @@ export function useSendInscriptionForm() {
       }
 
       const { hex } = resp;
+      const feeRowValue = formFeeRowValue(values.feeRate, isCustomFee);
       return navigate(RouteUrls.SendOrdinalInscriptionReview, {
-        state: { fee: feeValue, inscription, utxo, recipient: values.recipient, time, tx: hex },
+        state: {
+          fee: feeValue,
+          inscription,
+          utxo,
+          recipient: values.recipient,
+          time,
+          feeRowValue,
+          tx: hex,
+        },
       });
     },
 

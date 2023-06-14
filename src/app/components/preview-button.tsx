@@ -2,7 +2,11 @@ import { Button, ButtonProps } from '@stacks/ui';
 import { SendCryptoAssetSelectors } from '@tests/selectors/send.selectors';
 import { useFormikContext } from 'formik';
 
-export function PreviewButton(props: ButtonProps) {
+interface PreviewButtonProps extends ButtonProps {
+  text?: string;
+}
+
+export function PreviewButton({ text = 'Continue', ...props }: PreviewButtonProps) {
   const { handleSubmit } = useFormikContext();
 
   return (
@@ -16,7 +20,7 @@ export function PreviewButton(props: ButtonProps) {
       width="100%"
       {...props}
     >
-      Continue
+      {text}
     </Button>
   );
 }

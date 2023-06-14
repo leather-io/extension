@@ -1,6 +1,6 @@
 import { Text, color } from '@stacks/ui';
 
-export function FeesListSubtitle(props: { isSendingMax: boolean }) {
+export function ChooseFeeSubtitle(props: { isSendingMax: boolean }) {
   const { isSendingMax } = props;
 
   const subtitle = isSendingMax ? (

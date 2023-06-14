@@ -24,7 +24,7 @@ export function useSendInscriptionState() {
 }
 
 export function SendInscriptionContainer() {
-  const [selectedFeeType, setSelectedFeeType] = useState(BtcFeeType.Low);
+  const [selectedFeeType, setSelectedFeeType] = useState(null);
 
   return (
     <SendInscriptionLoader>
