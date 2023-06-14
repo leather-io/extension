@@ -1,6 +1,6 @@
 import { DefineRpcMethod, RpcRequest, RpcSuccessResponse } from '@btckit/types';
 
-type SupportedMethodsRequest = RpcRequest<'supportedMethods'>;
+export type SupportedMethodsRequest = RpcRequest<'supportedMethods'>;
 
 type SupportedMethodsResponse = RpcSuccessResponse<{
   documentation: string;

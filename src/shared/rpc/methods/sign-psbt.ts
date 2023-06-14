@@ -1,9 +1,16 @@
 import { DefineRpcMethod, RpcRequest, RpcResponse } from '@btckit/types';
-import { PsbtBase, PsbtPayload } from '@stacks/connect';
+import { SignatureHash } from '@scure/btc-signer';
 
-import { Prettify } from '@shared/utils/type-utils';
+import { NetworkModes } from '@shared/constants';
 
-type SignPsbtRequest = RpcRequest<'signPsbt', Prettify<Omit<PsbtPayload, keyof PsbtBase>>>;
+interface SignPsbtRequestParams {
+  publicKey: string;
+  allowedSighash?: SignatureHash[];
+  hex: string;
+  signAtIndex?: number | number[];
+  network?: NetworkModes;
+}
+export type SignPsbtRequest = RpcRequest<'signPsbt', SignPsbtRequestParams>;
 
 type SignPsbtResponse = RpcResponse<{ hex: string }>;
 

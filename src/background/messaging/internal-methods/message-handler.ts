@@ -5,7 +5,7 @@ import { logger } from '@shared/logger';
 import { InternalMethods } from '@shared/message-types';
 import { BackgroundMessages } from '@shared/messages';
 
-import { backupWalletSaltForGaia } from '../backup-old-wallet-salt';
+import { backupWalletSaltForGaia } from '../../backup-old-wallet-salt';
 
 function validateMessagesAreFromExtension(sender: chrome.runtime.MessageSender) {
   // Only respond to internal messages from our UI, not content scripts in other applications
