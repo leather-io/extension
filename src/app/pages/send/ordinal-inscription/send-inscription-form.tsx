@@ -15,13 +15,15 @@ import { RecipientField } from '../send-crypto-asset-form/components/recipient-f
 import { CollectibleAsset } from './components/collectible-asset';
 import { useSendInscriptionState } from './components/send-inscription-container';
 import { useSendInscriptionForm } from './hooks/use-send-inscription-form';
+import { SendInscriptionFormLoader } from './send-indcription-form-loader';
 
 export const recipeintFieldName = 'recipient';
 
 export function SendInscriptionForm() {
   const navigate = useNavigate();
   const { feeRates, inscription, recipient } = useSendInscriptionState();
-  const { chooseTransactionFee, currentError, validationSchema } = useSendInscriptionForm();
+  const { chooseTransactionFee, currentError, validationSchema, isCheckingFees } =
+    useSendInscriptionForm();
 
   return (
     <Formik
@@ -35,38 +37,40 @@ export function SendInscriptionForm() {
     >
       <Form>
         <BaseDrawer title="Send" enableGoBack isShowing onClose={() => navigate(RouteUrls.Home)}>
-          <Box mt="extra-loose" px="extra-loose">
-            <InscriptionPreviewCard
-              image={<InscriptionPreview inscription={inscription} />}
-              subtitle="Ordinal inscription"
-              title={inscription.title}
-            />
-            <Box mt={['base', 'extra-loose', '100px']}>
-              <Flex flexDirection="column" mt="loose" width="100%">
-                <CollectibleAsset icon={<OrdinalIcon />} name="Ordinal inscription" />
-                <RecipientField
-                  name={recipeintFieldName}
-                  label="To"
-                  placeholder="Enter recipient address"
-                />
-              </Flex>
+          <SendInscriptionFormLoader isLoading={isCheckingFees}>
+            <Box mt="extra-loose" px="extra-loose">
+              <InscriptionPreviewCard
+                image={<InscriptionPreview inscription={inscription} />}
+                subtitle="Ordinal inscription"
+                title={inscription.title}
+              />
+              <Box mt={['base', 'extra-loose', '100px']}>
+                <Flex flexDirection="column" mt="loose" width="100%">
+                  <CollectibleAsset icon={<OrdinalIcon />} name="Ordinal inscription" />
+                  <RecipientField
+                    name={recipeintFieldName}
+                    label="To"
+                    placeholder="Enter recipient address"
+                  />
+                </Flex>
+              </Box>
+              {currentError && (
+                <ErrorLabel textAlign="left" mb="base-loose">
+                  {currentError}
+                </ErrorLabel>
+              )}
+              <Button
+                borderRadius="10px"
+                height="48px"
+                mb="extra-loose"
+                mt="tight"
+                type="submit"
+                width="100%"
+              >
+                Continue
+              </Button>
             </Box>
-            {currentError && (
-              <ErrorLabel textAlign="left" mb="base-loose">
-                {currentError}
-              </ErrorLabel>
-            )}
-            <Button
-              borderRadius="10px"
-              height="48px"
-              mb="extra-loose"
-              mt="tight"
-              type="submit"
-              width="100%"
-            >
-              Continue
-            </Button>
-          </Box>
+          </SendInscriptionFormLoader>
         </BaseDrawer>
       </Form>
     </Formik>

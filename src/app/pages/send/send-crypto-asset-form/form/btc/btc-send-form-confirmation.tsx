@@ -35,7 +35,8 @@ function useBtcSendFormConfirmationState() {
   const location = useLocation();
   return {
     tx: get(location.state, 'tx') as string,
-    fee: get(location.state, 'fee') as string,
+    fee: get(location.state, 'fee') as number,
+    feeRowValue: get(location.state, 'feeRowValue') as string,
     arrivesIn: get(location.state, 'time') as string,
     recipient: get(location.state, 'recipient') as string,
   };
@@ -43,8 +44,7 @@ function useBtcSendFormConfirmationState() {
 
 export function BtcSendFormConfirmation() {
   const navigate = useNavigate();
-  const { tx, recipient, fee, arrivesIn } = useBtcSendFormConfirmationState();
-
+  const { tx, recipient, fee, arrivesIn, feeRowValue } = useBtcSendFormConfirmationState();
   const { refetch } = useCurrentNativeSegwitUtxos();
   const analytics = useAnalytics();
 
@@ -106,6 +106,7 @@ export function BtcSendFormConfirmation() {
       sendingValue,
       txFiatValue,
       txFiatValueSymbol,
+      feeRowValue,
     };
   }
 
@@ -135,10 +136,10 @@ export function BtcSendFormConfirmation() {
         <InfoCardRow title="Sending" value={sendingValue} />
         <InfoCardRow
           title="Fee"
-          value={summaryFee}
+          value={feeRowValue}
           data-testid={SendCryptoAssetSelectors.ConfirmationDetailsFee}
         />
-        <InfoCardRow title="Estimated confirmation time" value={arrivesIn} />
+        {arrivesIn && <InfoCardRow title="Estimated confirmation time" value={arrivesIn} />}
       </Stack>
 
       <InfoCardFooter>

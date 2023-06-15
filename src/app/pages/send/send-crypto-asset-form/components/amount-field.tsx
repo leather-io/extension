@@ -7,6 +7,7 @@ import { useField } from 'formik';
 import { STX_DECIMALS } from '@shared/constants';
 import { Money } from '@shared/models/money.model';
 
+import { useShowFieldError } from '@app/common/form-utils';
 import { figmaTheme } from '@app/common/utils/figma-theme';
 import { ErrorLabel } from '@app/components/error-label';
 
@@ -51,6 +52,7 @@ export function AmountField({
   tokenSymbol,
 }: AmountFieldProps) {
   const [field, meta, helpers] = useField('amount');
+  const showError = useShowFieldError('amount');
   const [fontSize, setFontSize] = useState(maxFontSize);
   const [previousTextLength, setPreviousTextLength] = useState(1);
 
@@ -106,7 +108,7 @@ export function AmountField({
     <Stack
       alignItems="center"
       px="extra-loose"
-      spacing={['base', meta.error && meta.touched ? 'base' : '48px']}
+      spacing={['base', showError ? 'base' : '48px']}
       width="100%"
     >
       <Flex alignItems="center" flexDirection="column" onClick={onClickFocusInput}>
@@ -137,13 +139,6 @@ export function AmountField({
             fontWeight={500}
             autoComplete={autoComplete}
             {...field}
-            // Custom `onBlur` logic. If value is empty, let's not validate to
-            // avoid unwanted blur interactions such as when interacting with
-            // send max button
-            onBlur={e => {
-              if (!field.value || field.value === '0') return;
-              return field.onBlur(e);
-            }}
           />
           <Text fontSize={fontSize + 'px'} pl="tight">
             {symbol.toUpperCase()}
@@ -151,7 +146,7 @@ export function AmountField({
         </Flex>
         <Box mt="12px">{switchableAmount && switchableAmount}</Box>
       </Flex>
-      {meta.error && meta.touched && (
+      {showError && (
         <ErrorLabel data-testid={SendCryptoAssetSelectors.AmountFieldInputErrorLabel}>
           {meta.error}
         </ErrorLabel>

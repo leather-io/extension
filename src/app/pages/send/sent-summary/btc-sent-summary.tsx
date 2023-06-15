@@ -31,8 +31,8 @@ export function BtcSentSummary() {
     arrivesIn,
     sendingValue,
     recipient,
-    fee,
     totalSpend,
+    feeRowValue,
   } = state;
 
   const { onCopy } = useClipboard(txId);
@@ -69,8 +69,8 @@ export function BtcSentSummary() {
         <InfoCardRow title="Total spend" value={totalSpend} />
 
         <InfoCardRow title="Sending" value={sendingValue} />
-        <InfoCardRow title="Fee" value={fee} />
-        <InfoCardRow title="Arrives in" value={arrivesIn} />
+        <InfoCardRow title="Fee" value={feeRowValue} />
+        {arrivesIn && <InfoCardRow title="Arrives in" value={arrivesIn} />}
       </Stack>
 
       <InfoCardFooter>

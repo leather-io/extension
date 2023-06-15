@@ -9,11 +9,11 @@ import { warnUsersAboutDevToolsDangers } from '@shared/utils/dev-tools-warning-l
 
 import { backupOldWalletSalt } from './backup-old-wallet-salt';
 import { initContextMenuActions } from './init-context-menus';
+import { internalBackgroundMessageHandler } from './messaging/internal-methods/message-handler';
 import {
   handleLegacyExternalMethodFormat,
   isLegacyMessage,
-} from './messaging/legacy-external-message-handler';
-import { internalBackgroundMessageHandler } from './messaging/message-handler';
+} from './messaging/legacy/legacy-external-message-handler';
 import { rpcMessageHandler } from './messaging/rpc-message-handler';
 
 initSentry();

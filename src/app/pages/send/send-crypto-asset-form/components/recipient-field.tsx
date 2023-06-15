@@ -1,6 +1,6 @@
 import { SendCryptoAssetSelectors } from '@tests/selectors/send.selectors';
 
-import { TextInputField } from './text-input-field';
+import { TextInputField } from '@app/components/text-input-field';
 
 interface RecipientFieldProps {
   isDisabled?: boolean;

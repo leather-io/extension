@@ -1,19 +1,12 @@
-import { useCallback, useState } from 'react';
+import { useCallback } from 'react';
 
-import { Stack, Text, color } from '@stacks/ui';
+import { Stack } from '@stacks/ui';
 
 import { BtcFeeType } from '@shared/models/fees/bitcoin-fees.model';
-import { Money, createMoney } from '@shared/models/money.model';
-
-import { sumMoney } from '@app/common/money/calculate-money';
-import { formatMoney } from '@app/common/money/format-money';
-import { useCurrentNativeSegwitAddressBalance } from '@app/query/bitcoin/balance/bitcoin-balances.query';
 
 import { LoadingSpinner } from '../loading-spinner';
 import { FeesListError } from './components/fees-list-error';
 import { FeesListItem } from './components/fees-list-item';
-import { FeesListSubtitle } from './components/fees-list-subtitle';
-import { InsufficientBalanceError } from './components/insufficient-balance-error';
 
 export interface FeesListItem {
   label: BtcFeeType;
@@ -28,54 +21,33 @@ export interface OnChooseFeeArgs {
   feeRate: number;
   feeValue: number;
   time: string;
+  isCustomFee?: boolean;
 }
 
 interface BitcoinFeesListProps {
-  amount: Money;
   feesList: FeesListItem[];
   isLoading: boolean;
-  isSendingMax: boolean;
   onChooseFee({ feeRate, feeValue, time }: OnChooseFeeArgs): Promise<void>;
   onSetSelectedFeeType(value: BtcFeeType): void;
+  onValidateBitcoinSpend(value: number): boolean;
   selectedFeeType: BtcFeeType | null;
 }
 export function BitcoinFeesList({
-  amount,
   feesList,
   isLoading,
-  isSendingMax,
   onChooseFee,
   onSetSelectedFeeType,
+  onValidateBitcoinSpend,
   selectedFeeType,
 }: BitcoinFeesListProps) {
-  const [showInsufficientBalanceError, setShowInsufficientBalanceError] = useState(false);
-  const balance = useCurrentNativeSegwitAddressBalance();
-
   const onSelectBtcFeeType = useCallback(
     async ({ feeRate, feeValue, time }: OnChooseFeeArgs, label: BtcFeeType) => {
       onSetSelectedFeeType(label);
-      const feeAsMoney = createMoney(feeValue, 'BTC');
-
-      if (amount.symbol !== 'BTC') {
-        if (feeAsMoney.amount.isGreaterThan(balance.amount)) {
-          setShowInsufficientBalanceError(true);
-          return;
-        }
-      }
-
-      // check amount + fee only for BTC
-      if (amount.symbol === 'BTC') {
-        const totalSpend = sumMoney([amount, feeAsMoney]);
-
-        if (totalSpend.amount.isGreaterThan(balance.amount)) {
-          setShowInsufficientBalanceError(true);
-          return;
-        }
-      }
-
+      const isValid = onValidateBitcoinSpend(feeValue);
+      if (!isValid) return;
       await onChooseFee({ feeRate, feeValue, time });
     },
-    [amount, balance.amount, onChooseFee, onSetSelectedFeeType]
+    [onChooseFee, onSetSelectedFeeType, onValidateBitcoinSpend]
   );
 
   if (isLoading) return <LoadingSpinner />;
@@ -85,35 +57,19 @@ export function BitcoinFeesList({
   if (!feesList.length) return <FeesListError />;
 
   return (
-    <Stack alignItems="center" spacing="base" width="100%">
-      {amount.amount.isGreaterThan(0) ? (
-        <Text
-          color={showInsufficientBalanceError ? color('feedback-error') : 'unset'}
-          fontSize={6}
-          fontWeight={500}
-        >
-          {formatMoney(amount)}
-        </Text>
-      ) : null}
-      {showInsufficientBalanceError ? (
-        <InsufficientBalanceError />
-      ) : (
-        <FeesListSubtitle isSendingMax={isSendingMax} />
-      )}
-      <Stack mt="tight" spacing="base" width="100%">
-        {feesList.map(({ label, value, btcValue, fiatValue, time, feeRate }) => (
-          <FeesListItem
-            arrivesIn={time}
-            feeAmount={btcValue}
-            feeFiatValue={fiatValue}
-            feeRate={feeRate}
-            feeType={label}
-            key={label}
-            isSelected={label === selectedFeeType}
-            onClick={() => onSelectBtcFeeType({ feeRate, feeValue: value, time }, label)}
-          />
-        ))}
-      </Stack>
+    <Stack mt="tight" spacing="base" width="100%">
+      {feesList.map(({ label, value, btcValue, fiatValue, time, feeRate }) => (
+        <FeesListItem
+          arrivesIn={time}
+          feeAmount={btcValue}
+          feeFiatValue={fiatValue}
+          feeRate={feeRate}
+          feeType={label}
+          key={label}
+          isSelected={label === selectedFeeType}
+          onClick={() => onSelectBtcFeeType({ feeRate, feeValue: value, time }, label)}
+        />
+      ))}
     </Stack>
   );
 }

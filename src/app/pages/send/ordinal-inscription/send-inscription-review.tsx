@@ -3,11 +3,9 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { Box, Stack } from '@stacks/ui';
 import get from 'lodash.get';
 
-import { createMoney } from '@shared/models/money.model';
 import { RouteUrls } from '@shared/route-urls';
 
 import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
-import { formatMoney } from '@app/common/money/format-money';
 import { FormAddressDisplayer } from '@app/components/address-displayer/form-address-displayer';
 import { BaseDrawer } from '@app/components/drawer/base-drawer';
 import { InfoCard, InfoCardRow, InfoCardSeparator } from '@app/components/info-card/info-card';
@@ -27,7 +25,7 @@ function useSendInscriptionReviewState() {
     arrivesIn: get(location.state, 'time') as string,
     signedTx: get(location.state, 'tx') as string,
     recipient: get(location.state, 'recipient', '') as string,
-    fee: get(location.state, 'fee') as number,
+    feeRowValue: get(location.state, 'feeRowValue') as string,
   };
 }
 
@@ -35,13 +33,11 @@ export function SendInscriptionReview() {
   const analytics = useAnalytics();
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
-  const { arrivesIn, signedTx, recipient, fee } = useSendInscriptionReviewState();
+  const { arrivesIn, signedTx, recipient, feeRowValue } = useSendInscriptionReviewState();
 
   const { inscription } = useSendInscriptionState();
   const { refetch } = useCurrentNativeSegwitUtxos();
   const { broadcastTx, isBroadcasting } = useBitcoinBroadcastTransaction();
-
-  const summaryFee = formatMoney(createMoney(Number(fee), 'BTC'));
 
   async function sendInscription() {
     await broadcastTx({
@@ -57,7 +53,7 @@ export function SendInscriptionReview() {
             recipient,
             arrivesIn,
             txId,
-            summaryFee,
+            feeRowValue,
           },
         });
       },
@@ -81,8 +77,8 @@ export function SendInscriptionReview() {
         <Stack width="100%" mb="36px">
           <InfoCardRow title="To" value={<FormAddressDisplayer address={recipient} />} />
           <InfoCardSeparator />
-          <InfoCardRow title="Estimated confirmation time" value={arrivesIn} />
-          <InfoCardRow title="Fee" value={summaryFee} />
+          {arrivesIn && <InfoCardRow title="Estimated confirmation time" value={arrivesIn} />}
+          <InfoCardRow title="Fee" value={feeRowValue} />
         </Stack>
 
         <PrimaryButton isLoading={isBroadcasting} width="100%" onClick={sendInscription}>

@@ -32,6 +32,7 @@ function useBrc20SendFormConfirmationState() {
   return {
     orderId: get(location.state, 'orderId') as string,
     fee: get(location.state, 'fee') as string,
+    feeRowValue: get(location.state, 'feeRowValue') as string,
     serviceFee: get(location.state, 'serviceFee') as number,
     serviceFeeRecipient: get(location.state, 'serviceFeeRecipient') as string,
     recipient: get(location.state, 'recipient') as string,
@@ -45,11 +46,10 @@ export function Brc20SendFormConfirmation() {
   const navigate = useNavigate();
   const analytics = useAnalytics();
 
-  const { amount, recipient, fee, tick, serviceFee, tx, orderId } =
+  const { amount, recipient, fee, tick, serviceFee, tx, orderId, feeRowValue } =
     useBrc20SendFormConfirmationState();
 
   const summaryFeeMoney = createMoney(Number(fee), 'BTC');
-  const summaryFee = formatMoneyPadded(summaryFeeMoney);
 
   const serviceFeeMoney = createMoney(serviceFee, 'BTC');
   const serviceFeeFormatted = formatMoneyPadded(serviceFeeMoney);
@@ -82,13 +82,13 @@ export function Brc20SendFormConfirmation() {
         await refetch();
         navigate(RouteUrls.SentBrc20Summary.replace(':ticker', tick), {
           state: {
-            fee: summaryFee,
             serviceFee: serviceFeeFormatted,
             totalFee: totalFeeFormatted,
             recipient,
             tick,
             amount,
             txId,
+            feeRowValue,
             txLink: {
               blockchain: 'bitcoin',
               txid: txId || '',
@@ -121,7 +121,7 @@ export function Brc20SendFormConfirmation() {
         <InfoCardRow title="Inscription service fee" value={serviceFeeFormatted} />
         <InfoCardRow
           title="Payment transaction fee"
-          value={summaryFee}
+          value={feeRowValue}
           data-testid={SendCryptoAssetSelectors.ConfirmationDetailsFee}
         />
         <InfoCardSeparator />

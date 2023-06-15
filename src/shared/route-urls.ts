@@ -85,10 +85,10 @@ export enum RouteUrls {
 
   // Request routes
   RpcGetAddresses = '/get-addresses',
+  RpcSignPsbt = '/sign-psbt',
   RpcSendTransfer = '/send-transfer',
   RpcSendTransferChooseFee = '/send-transfer/choose-fee',
   RpcSendTransferConfirmation = '/send-transfer/confirm',
   RpcSendTransferSummary = '/send-transfer/summary',
-
   RpcSignBip322Message = '/sign-bip322-message',
 }

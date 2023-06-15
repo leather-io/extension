@@ -37,8 +37,14 @@ export const selectCurrentNetworkId = createSelector(
 );
 
 export const selectAppRequestedNetworkId = createSelector(selectNetworks, networks => {
+  // CoreAPI URL and networkChainId are from legacy Stacks transactions
   const coreApiUrl = initialSearchParams.get('coreApiUrl');
   const networkChainId = initialSearchParams.get('networkChainId');
+  // `network` param is a more generic network selector that doesn't deal with
+  // custom networks
+  const network = initialSearchParams.get('network');
+  if (network && networks[network]?.id) return networks[network]?.id;
+
   return findMatchingNetworkKey({ coreApiUrl, networkChainId, networks });
 });
 

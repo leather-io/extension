@@ -10,6 +10,7 @@ import { createMoney } from '@shared/models/money.model';
 import { RouteUrls } from '@shared/route-urls';
 import { noop } from '@shared/utils';
 
+import { unitToFractionalUnit } from '@app/common/money/unit-conversion';
 import { useWalletType } from '@app/common/use-wallet-type';
 import {
   btcAddressNetworkValidator,
@@ -29,7 +30,13 @@ interface Brc20SendFormValues {
   symbol: string;
 }
 
-export function useBrc20SendForm({ balance, tick }: { balance: string; tick: string }) {
+interface UseBrc20SendFormArgs {
+  balance: string;
+  tick: string;
+  decimals: number;
+}
+
+export function useBrc20SendForm({ balance, tick, decimals }: UseBrc20SendFormArgs) {
   const formRef = useRef<FormikProps<Brc20SendFormValues>>(null);
   const { whenWallet } = useWalletType();
   const navigate = useNavigate();
@@ -78,6 +85,10 @@ export function useBrc20SendForm({ balance, tick }: { balance: string; tick: str
     validationSchema,
     formRef,
     onFormStateChange,
-    moneyBalance: createMoney(new BigNumber(balance), tick, 0),
+    moneyBalance: createMoney(
+      unitToFractionalUnit(decimals)(new BigNumber(balance)),
+      tick,
+      decimals
+    ),
   };
 }

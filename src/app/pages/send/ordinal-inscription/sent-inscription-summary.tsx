@@ -29,13 +29,13 @@ function useSendInscriptionSummaryState() {
     txId: get(location.state, 'txId') as string,
     recipient: get(location.state, 'recipient', '') as string,
     arrivesIn: get(location.state, 'arrivesIn') as string,
-    summaryFee: get(location.state, 'summaryFee') as string,
     inscription: get(location.state, 'inscription') as SupportedInscription,
+    feeRowValue: get(location.state, 'feeRowValue') as string,
   };
 }
 
 export function SendInscriptionSummary() {
-  const { txId, recipient, arrivesIn, inscription, summaryFee } = useSendInscriptionSummaryState();
+  const { txId, recipient, arrivesIn, inscription, feeRowValue } = useSendInscriptionSummaryState();
 
   const navigate = useNavigate();
   const txLink = {
@@ -72,8 +72,8 @@ export function SendInscriptionSummary() {
         <Stack width="100%" mb="36px">
           <InfoCardRow title="To" value={<FormAddressDisplayer address={recipient} />} />
           <InfoCardSeparator />
-          <InfoCardRow title="Estimated confirmation time" value={arrivesIn} />
-          <InfoCardRow title="Fee" value={summaryFee} />
+          {arrivesIn && <InfoCardRow title="Estimated confirmation time" value={arrivesIn} />}
+          <InfoCardRow title="Fee" value={feeRowValue} />
         </Stack>
 
         <Stack spacing="base" isInline width="100%">

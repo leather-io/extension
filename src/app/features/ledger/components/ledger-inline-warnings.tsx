@@ -2,7 +2,7 @@ import { Text } from '@stacks/ui';
 
 import { WarningLabel } from '@app/components/warning-label';
 
-import { isStacksLedgerAppClosed } from '../ledger-utils';
+import { isStacksLedgerAppClosed } from '../utils/stacks-ledger-utils';
 
 interface CommonLedgerInlineWarningsProps {
   latestDeviceResponse: any | null;

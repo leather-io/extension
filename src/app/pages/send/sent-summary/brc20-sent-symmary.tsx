@@ -25,7 +25,6 @@ import { ModalHeader } from '@app/components/modal-header';
 function useBrc20SentSummaryState() {
   const location = useLocation();
   return {
-    fee: get(location.state, 'fee') as string,
     serviceFee: get(location.state, 'serviceFee') as string,
     totalFee: get(location.state, 'totalFee') as string,
     recipient: get(location.state, 'recipient') as string,
@@ -33,11 +32,12 @@ function useBrc20SentSummaryState() {
     amount: get(location.state, 'amount') as string,
     txId: get(location.state, 'txId') as string,
     txLink: get(location.state, 'txLink') as HandleOpenTxLinkArgs,
+    feeRowValue: get(location.state, 'feeRowValue') as string,
   };
 }
 
 export function Brc20SentSummary() {
-  const { fee, tick, amount, serviceFee, totalFee } = useBrc20SentSummaryState();
+  const { tick, amount, serviceFee, totalFee, feeRowValue } = useBrc20SentSummaryState();
   const amountFormatted = formatMoney(createMoney(Number(amount), tick, 0));
   const navigate = useNavigate();
 
@@ -77,7 +77,7 @@ export function Brc20SentSummary() {
 
         <InfoCardRow title="Sending" value={amountFormatted} />
         <InfoCardRow title="Inscription service fee" value={serviceFee} />
-        <InfoCardRow title="Payment transaction fee" value={fee} />
+        <InfoCardRow title="Payment transaction fee" value={feeRowValue} />
 
         <InfoCardSeparator />
         <InfoCardRow title="Total fee" value={totalFee} />
