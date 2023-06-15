@@ -24,6 +24,7 @@ export function useGetAllBitcoinFeeEstimatesQuery<
   return useQuery({
     queryKey: ['average-bitcoin-fee-estimates'],
     queryFn: fetchAllBitcoinFeeEstimates(client),
+    refetchInterval: 2000 * 60,
     staleTime: 1000 * 60,
     refetchOnWindowFocus: false,
     refetchOnMount: false,
