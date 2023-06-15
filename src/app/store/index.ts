@@ -20,7 +20,6 @@ import { persistConfig } from '@shared/storage';
 
 import { analyticsSlice } from './analytics/analytics.slice';
 import { appPermissionsSlice } from './app-permissions/app-permissions.slice';
-import { bitcoinContractsSlice } from './bitcoin-contracts/bitcoin-contracts.slice';
 import { stxChainSlice } from './chains/stx-chain.slice';
 import { inMemoryKeySlice } from './in-memory-key/in-memory-key.slice';
 import { keySlice } from './keys/key.slice';
@@ -36,7 +35,6 @@ export interface RootState {
   chains: {
     stx: ReturnType<typeof stxChainSlice.reducer>;
   };
-  bitcoinContracts: ReturnType<typeof bitcoinContractsSlice.reducer>;
   inMemoryKeys: ReturnType<typeof inMemoryKeySlice.reducer>;
   keys: ReturnType<typeof keySlice.reducer>;
   networks: ReturnType<typeof networksSlice.reducer>;
@@ -51,7 +49,6 @@ const appReducer = combineReducers({
   chains: combineReducers({
     stx: stxChainSlice.reducer,
   }),
-  bitcoinContracts: bitcoinContractsSlice.reducer,
   inMemoryKeys: inMemoryKeySlice.reducer,
   keys: keySlice.reducer,
   networks: networksSlice.reducer,

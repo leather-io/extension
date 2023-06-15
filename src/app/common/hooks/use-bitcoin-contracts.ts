@@ -4,7 +4,11 @@ import { useNavigate } from 'react-router-dom';
 import BigNumber from 'bignumber.js';
 import { JsDLCInterface } from 'dlc-wasm-wallet';
 
-import { createMoneyFromDecimal } from '@shared/models/money.model';
+import { BitcoinCryptoCurrencyAssetBalance } from '@shared/models/crypto-asset-balance.model';
+import { BitcoinCryptoCurrencyAsset } from '@shared/models/crypto-asset.model';
+import { createMoneyFromDecimal, currencyDecimalsMap } from '@shared/models/money.model';
+import { Money } from '@shared/models/money.model';
+import { RouteUrls } from '@shared/route-urls';
 import { makeRpcSuccessResponse } from '@shared/rpc/rpc-methods';
 
 import { CounterpartyWalletDetails } from '@app/pages/bitcoin-contract-request/bitcoin-contract-request';
@@ -16,14 +20,6 @@ import { baseCurrencyAmountInQuote } from '../money/calculate-money';
 import { i18nFormatCurrency } from '../money/format-money';
 import { satToBtc } from '../money/unit-conversion';
 import { useDefaultRequestParams } from './use-default-request-search-params';
-
-function checkSufficientFunds(
-  bitcoinContractCollateral: number,
-  bitcoinAccountBalance: BigNumber
-): boolean {
-  const hasSufficientFunds = Number(bitcoinAccountBalance) >= bitcoinContractCollateral;
-  return hasSufficientFunds;
-}
 
 function convertUint8ArrayToHexString(uint8Array: Uint8Array) {
   let hex = '';
@@ -68,7 +64,10 @@ const useBitcoinContracts = () => {
     const { currentNetwork, currentAddress, currentAddressIndexKeychain } = bitcoinAccountDetails;
     const network = currentNetwork.chain.bitcoin.network;
     const privateKey = convertUint8ArrayToHexString(currentAddressIndexKeychain.privateKey!);
-    const blockchainAPI = 'https://blockstream.info/testnet/api';
+    const blockchainAPI =
+      network === 'mainnet'
+        ? 'https://blockstream.info/api'
+        : 'https://blockstream.info/testnet/api';
     const oracleAPI = 'https://testnet.dlc.link/oracle';
 
     const bitcoinContractInterface = await JsDLCInterface.new(
@@ -90,7 +89,10 @@ const useBitcoinContracts = () => {
     const { currentNetwork, currentAddress, currentAddressIndexKeychain } = bitcoinAccountDetails;
     const network = currentNetwork.chain.bitcoin.network;
     const privateKey = convertUint8ArrayToHexString(currentAddressIndexKeychain.privateKey!);
-    const blockchainAPI = 'https://blockstream.info/testnet/api';
+    const blockchainAPI =
+      network === 'mainnet'
+        ? 'https://blockstream.info/api'
+        : 'https://blockstream.info/testnet/api';
     const oracleAPI = 'https://testnet.dlc.link/oracle';
 
     const bitcoinContractInterface = await JsDLCInterface.new(
@@ -110,19 +112,28 @@ const useBitcoinContracts = () => {
     bitcoinContractJSON: string,
     counterpartyWalletDetails: CounterpartyWalletDetails
   ) {
-    if (!bitcoinAccountDetails) return;
-
+    const { currentNetwork, currentAddress, currentAddressIndexKeychain } =
+      bitcoinAccountDetails ?? {};
+    if (
+      !currentNetwork ||
+      !currentAddress ||
+      !currentAddressIndexKeychain ||
+      !currentAddressIndexKeychain.privateKey
+    )
+      return;
     const bitcoinContractOffer = JSON.parse(bitcoinContractJSON);
 
     const bitcoinContractID = bitcoinContractOffer.temporaryContractId;
     const bitcoinContractCollateralAmount =
       bitcoinContractOffer.contractInfo.singleContractInfo.totalCollateral;
 
-    const { currentNetwork, currentAddress, currentAddressIndexKeychain } = bitcoinAccountDetails;
     const network = currentNetwork.chain.bitcoin.network;
-    const privateKey = convertUint8ArrayToHexString(currentAddressIndexKeychain.privateKey!);
-    const blockchainAPI = 'https://blockstream.info/testnet/api';
-    const oracleAPI = 'https://dev-oracle.dlc.link/oracle';
+    const privateKey = convertUint8ArrayToHexString(currentAddressIndexKeychain.privateKey);
+    const blockchainAPI =
+      network === 'mainnet'
+        ? 'https://blockstream.info/api'
+        : 'https://blockstream.info/testnet/api';
+    const oracleAPI = 'https://testnet.dlc.link/oracle';
 
     const bitcoinContractInterface = await JsDLCInterface.new(
       privateKey,
@@ -132,25 +143,21 @@ const useBitcoinContracts = () => {
       oracleAPI
     );
 
-    console.log('balance', await bitcoinContractInterface.get_wallet_balance());
     try {
       const acceptedBitcoinContract = await bitcoinContractInterface.accept_offer(
         bitcoinContractJSON
       );
-      console.log('acceptedBitcoinContract', acceptedBitcoinContract);
 
       const signedBitcoinContract = await sendAcceptedBitcoinContractOfferToProtocolWallet(
         acceptedBitcoinContract,
         counterpartyWalletDetails.counterpartyWalletURL
       );
-      console.log('signedBitcoinContract', signedBitcoinContract);
 
       const txID = await bitcoinContractInterface.countersign_and_broadcast(
         JSON.stringify(signedBitcoinContract)
       );
-      console.log('txID', txID);
 
-      const bitcoinCollateral = bitcoinContractCollateralAmount
+      const bitcoinCollateral = bitcoinContractCollateralAmount;
       const txValue = satToBtc(bitcoinCollateral).toString();
       const txFiatValue = getFiatValue(txValue);
       const txFiatValueSymbol = bitcoinMarketData.price.symbol;
@@ -159,7 +166,7 @@ const useBitcoinContracts = () => {
         txid: txID,
       };
 
-      navigate('/lock-bitcoin', {
+      navigate(RouteUrls.BitcoinContractLockSuccess, {
         state: {
           txId: txID,
           txValue,
@@ -170,25 +177,27 @@ const useBitcoinContracts = () => {
         },
       });
 
+      if (!defaultParams.tabId || !initialSearchParams.get('requestID')) return;
       chrome.tabs.sendMessage(
-        defaultParams.tabId!,
+        defaultParams.tabId,
         makeRpcSuccessResponse('acceptOffer', {
-          id: initialSearchParams.get('requestID')!,
+          id: initialSearchParams.get('requestID') as string,
           contractID: bitcoinContractID,
           txID: txID,
           action: 'broadcast',
         })
       );
     } catch (error) {
-      console.error(error);
+      navigate(RouteUrls.BitcoinContractLockError, { state: { error } });
     }
   }
 
   async function handleReject(bitcoinContractID: string) {
+    if (!defaultParams.tabId || !initialSearchParams.get('requestID')) return;
     chrome.tabs.sendMessage(
-      defaultParams.tabId!,
+      defaultParams.tabId,
       makeRpcSuccessResponse('acceptOffer', {
-        id: initialSearchParams.get('requestID')!,
+        id: initialSearchParams.get('requestID') as string,
         contractID: bitcoinContractID,
         action: 'reject',
       })
@@ -196,7 +205,67 @@ const useBitcoinContracts = () => {
     close();
   }
 
-  return { getAllContracts, getContract, handleAccept, handleReject };
+  async function handleLockedBitcoinBalance() {
+    let lockedBitcoins = 0;
+    const allContracts: any[] = await getAllContracts();
+
+    for (const contract of allContracts) {
+      if (contract.state === 'Broadcasted') {
+        lockedBitcoins += contract.contractInfo.totalCollateral;
+      }
+    }
+
+    const lockedBitcoinBalanceInFiat = getFiatValue(lockedBitcoins.toString());
+    const lockedBitcoinBalanceBigNumber = new BigNumber(lockedBitcoins);
+    const lockedBitcoinBalanceMoney: Money = {
+      amount: lockedBitcoinBalanceBigNumber,
+      decimals: currencyDecimalsMap.BTC,
+      symbol: 'BTC',
+    };
+    const asset: BitcoinCryptoCurrencyAsset = {
+      decimals: 0,
+      hasMemo: false,
+      name: 'Locked Bitcoin',
+      symbol: 'BTC',
+    };
+
+    const lockedBitcoinBalance: BitcoinCryptoCurrencyAssetBalance = {
+      blockchain: 'bitcoin',
+      type: 'crypto-currency',
+      asset: asset,
+      balance: lockedBitcoinBalanceMoney,
+    };
+
+    return { lockedBitcoinBalanceInFiat, lockedBitcoinBalance };
+  }
+
+  const initialLockedBitcoinBalance = {
+    lockedBitcoinBalanceInFiat: getFiatValue('0'),
+    lockedBitcoinBalance: {
+      blockchain: 'bitcoin',
+      type: 'crypto-currency',
+      asset: {
+        decimals: 0,
+        hasMemo: false,
+        name: 'Locked Bitcoin',
+        symbol: 'BTC',
+      },
+      balance: {
+        amount: new BigNumber(0),
+        decimals: currencyDecimalsMap.BTC,
+        symbol: 'BTC',
+      },
+    },
+  };
+
+  return {
+    getAllContracts,
+    getContract,
+    handleAccept,
+    handleReject,
+    handleLockedBitcoinBalance,
+    initialLockedBitcoinBalance,
+  };
 };
 
 export default useBitcoinContracts;

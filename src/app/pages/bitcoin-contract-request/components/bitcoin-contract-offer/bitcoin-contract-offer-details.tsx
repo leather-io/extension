@@ -1,5 +1,3 @@
-import { AnyContract } from 'dlc-lib';
-
 import { BitcoinContractExpirationDate } from './bitcoin-contract-expiration-date';
 import { BitcoinContractOfferInput } from './bitcoin-contract-offer-input';
 import { SimplifiedBitcoinContract } from '../../bitcoin-contract-request';

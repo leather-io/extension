@@ -1,6 +1,6 @@
 import { useSelector } from 'react-redux';
 
-import { deriveAddressIndexKeychainFromAccount } from '@shared/crypto/bitcoin/bitcoin.utils';
+import { deriveAddressIndexZeroFromAccount } from '@shared/crypto/bitcoin/bitcoin.utils';
 import { getNativeSegWitPaymentFromAddressIndex } from '@shared/crypto/bitcoin/p2wpkh-address-gen';
 
 import { bitcoinNetworkModeToCoreNetworkMode, whenNetwork } from '@app/common/utils';
@@ -63,8 +63,7 @@ export function useCurrentAccountNativeSegwitDetails() {
   const currentAddress = useNativeSegwitAccountIndexAddressIndexZero(currentAccountIndex);
   const currentAccountKeychain = useNativeSegwitCurrentAccountPrivateKeychain();
   if (!currentAccountKeychain) return;
-  const currentAddressIndexKeychain =
-    deriveAddressIndexKeychainFromAccount(currentAccountKeychain)(currentAccountIndex);
+  const currentAddressIndexKeychain = deriveAddressIndexZeroFromAccount(currentAccountKeychain);
 
   return { currentNetwork, currentAddress, currentAddressIndexKeychain };
 }

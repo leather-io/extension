@@ -76,7 +76,7 @@ const legacyPersistConfig: PersistConfig<RootState> = {
   version: 1,
   storage,
   serialize: true,
-  whitelist: ['analytics', 'chains', 'keys', 'networks', 'onboarding', 'settings', 'bitcoinContracts'],
+  whitelist: ['analytics', 'chains', 'keys', 'networks', 'onboarding', 'settings' ],
 };
 
 async function migrateToUsingNoSerialization() {

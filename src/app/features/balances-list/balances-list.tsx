@@ -3,6 +3,7 @@ import { HomePageSelectorsLegacy } from '@tests-legacy/page-objects/home.selecto
 
 import { useBtcAssetBalance } from '@app/common/hooks/balance/btc/use-btc-balance';
 import { useStxBalance } from '@app/common/hooks/balance/stx/use-stx-balance';
+import useBitcoinContracts from '@app/common/hooks/use-bitcoin-contracts';
 import { ftDecimals } from '@app/common/stacks-utils';
 import { useWalletType } from '@app/common/use-wallet-type';
 import { CryptoCurrencyAssetItem } from '@app/components/crypto-assets/crypto-currency-asset/crypto-currency-asset-item';
@@ -18,6 +19,9 @@ import { useCurrentAccountNativeSegwitAddressIndexZero } from '@app/store/accoun
 import { Collectibles } from '../collectibles/collectibles';
 import { BitcoinFungibleTokenAssetList } from './components/bitcoin-fungible-tokens-asset-list';
 import { StacksFungibleTokenAssetList } from './components/stacks-fungible-token-asset-list';
+import { useNavigate } from 'react-router-dom';
+import { BitcoinCryptoCurrencyAssetBalance } from '@shared/models/crypto-asset-balance.model';
+import { RouteUrls } from '@shared/route-urls';
 
 interface BalancesListProps extends StackProps {
   address: string;
@@ -27,6 +31,7 @@ export function BalancesList({ address, ...props }: BalancesListProps) {
   const stacksFtAssetBalances = useStacksFungibleTokenAssetBalancesAnchoredWithMetadata(address);
   const isBitcoinEnabled = useConfigBitcoinEnabled();
   const btcAddress = useCurrentAccountNativeSegwitAddressIndexZero();
+  const navigate = useNavigate();
   const {
     stxEffectiveBalance,
     stxEffectiveUsdBalance,
@@ -35,6 +40,7 @@ export function BalancesList({ address, ...props }: BalancesListProps) {
     isLoading,
   } = useStxBalance();
   const { btcAvailableAssetBalance, btcAvailableUsdBalance } = useBtcAssetBalance(btcAddress);
+  const { initialLockedBitcoinBalance } = useBitcoinContracts();
   const { whenWallet } = useWalletType();
 
   // Better handle loading state
@@ -56,12 +62,22 @@ export function BalancesList({ address, ...props }: BalancesListProps) {
       {...props}
     >
       {isBitcoinEnabled && (
-        <CryptoCurrencyAssetItem
-          assetBalance={btcAvailableAssetBalance}
-          usdBalance={btcAvailableUsdBalance}
-          icon={<Box as={BtcIcon} />}
-          address={btcAddress}
-        />
+        <>
+          <CryptoCurrencyAssetItem
+            assetBalance={btcAvailableAssetBalance}
+            usdBalance={btcAvailableUsdBalance}
+            icon={<Box as={BtcIcon} />}
+            address={btcAddress}
+          />
+          <CryptoCurrencyAssetItem
+            assetBalance={initialLockedBitcoinBalance.lockedBitcoinBalance as BitcoinCryptoCurrencyAssetBalance}
+            usdBalance={initialLockedBitcoinBalance.lockedBitcoinBalanceInFiat}
+            icon={<Box as={BtcIcon} />}
+            address={btcAddress}
+            isPressable={true}
+            onClick={() => navigate(RouteUrls.BitcoinContractList)}
+          />
+        </>
       )}
       <CryptoCurrencyAssetItem
         assetBalance={stxEffectiveBalance}

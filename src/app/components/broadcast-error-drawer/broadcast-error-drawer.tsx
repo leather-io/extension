@@ -7,6 +7,7 @@ import { BroadcastErrorDrawerLayout } from './broadcast-error-drawer.layout';
 export function BroadcastErrorDrawer() {
   const navigate = useNavigate();
   const location = useLocation();
+  console.log('LOCATION', location)
 
   return (
     <BroadcastErrorDrawerLayout

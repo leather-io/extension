@@ -2,9 +2,7 @@ import { useCallback } from 'react';
 
 import { Box, Text } from '@stacks/ui';
 import { truncateMiddle } from '@stacks/ui-utils';
-import { AnyContract } from 'dlc-lib';
 
-import { getAddressFromOutScript } from '@shared/crypto/bitcoin/bitcoin.utils';
 import { createMoneyFromDecimal } from '@shared/models/money.model';
 
 import { baseCurrencyAmountInQuote } from '@app/common/money/calculate-money';

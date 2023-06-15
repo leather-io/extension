@@ -12,15 +12,15 @@ export function BroadcastError() {
   const analytics = useAnalytics();
   const msg = get(state, 'error.message', 'Unknown error response');
 
-  useOnMount(() => void analytics.track('bitcoin_broadcast_tx_error', { msg }));
+  useOnMount(() => void analytics.track('bitcoin_contract_error', { msg }));
 
   return (
     <BroadcastErrorLayout
       my="loose"
       textAlign="center"
       errorPayload={msg}
-      title="There was an error broadcasting your transaction"
-      body="Unable to broadcast transaction"
+      title="There was an error with you Bitcoin Contract"
+      body="Unable to lock bitcoin"
     />
   );
 }

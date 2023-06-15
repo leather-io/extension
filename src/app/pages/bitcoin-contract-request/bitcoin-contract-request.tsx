@@ -2,7 +2,6 @@ import { useEffect } from 'react';
 import { useState } from 'react';
 
 import BigNumber from 'bignumber.js';
-import { JsDLCInterface } from 'dlc-wasm-wallet';
 
 import useBitcoinContracts from '@app/common/hooks/use-bitcoin-contracts';
 import { initialSearchParams } from '@app/common/initial-search-params';
@@ -27,14 +26,6 @@ export interface CounterpartyWalletDetails {
   counterpartyWalletIcon: string;
 }
 
-function checkSufficientFunds(
-  bitcoinContractCollateral: number,
-  bitcoinAccountBalance: BigNumber
-): boolean {
-  const hasSufficientFunds = Number(bitcoinAccountBalance) >= bitcoinContractCollateral;
-  return hasSufficientFunds;
-}
-
 function BitcoinContractRequest() {
   const bitcoinAccountDetails = useCurrentAccountNativeSegwitDetails();
   const bitcoinAccountBalance = useNativeSegwitBalance(bitcoinAccountDetails?.currentAddress!);
@@ -47,35 +38,13 @@ function BitcoinContractRequest() {
   const [canAcceptContract, setCanAcceptContract] = useState(false);
   const [isLoading, setLoading] = useState(true);
 
-  function checkSufficientFunds(
+  const checkSufficientFunds = (
     bitcoinContractCollateral: number,
     bitcoinAccountBalance: BigNumber
-  ): boolean {
+  ): boolean => {
     const hasSufficientFunds = Number(bitcoinAccountBalance) >= bitcoinContractCollateral;
     return hasSufficientFunds;
-  }
-
-  // function convertUint8ArrayToHexString(uint8Array: Uint8Array) {
-  //   let hex = '';
-  //   for (let i = 0; i < uint8Array.length; i++) {
-  //     const byte = uint8Array[i].toString(16).padStart(2, '0');
-  //     hex += byte;
-  //   }
-  //   return hex;
-  // }
-
-  // async function sendAcceptedBitcoinContractOfferToProtocolWallet(
-  //   acceptedBitcoinContractOffer: string,
-  //   counterpartyWalletURL: string
-  // ) {
-  //   return fetch(`${counterpartyWalletURL}/offer/accept`, {
-  //     method: 'put',
-  //     body: JSON.stringify({
-  //       acceptMessage: acceptedBitcoinContractOffer,
-  //     }),
-  //     headers: { 'Content-Type': 'application/json' },
-  //   }).then(res => res.json());
-  // }
+  };
 
   const handleReceivedOffer = (
     bitcoinContractOfferJSON: string,
@@ -84,6 +53,7 @@ function BitcoinContractRequest() {
     counterpartyWalletIcon: string
   ) => {
     const bitcoinContractOffer = JSON.parse(bitcoinContractOfferJSON);
+    console.log(bitcoinContractOffer)
 
     const bitcoinContractID = bitcoinContractOffer.temporaryContractId;
     const bitcoinContractCollateralAmount =
@@ -108,65 +78,14 @@ function BitcoinContractRequest() {
   };
 
   const handleAcceptClick = async () => {
-    if (!bitcoinAccountDetails || !bitcoinContractJSON || !counterpartyWalletDetails || !bitcoinContract) return;
-
-
-    async function fetchOfferFromProtocolWallet() {
-      let body = {
-          "uuid": 'abc12345',
-          "acceptCollateral": 10000,
-          "offerCollateral": 0,
-          "totalOutcomes": 100
-      };
-
-      console.log('body', body)
-  
-      return fetch('https://testnet.dlc.link/wallet/offer', {
-          method: 'post',
-          body: JSON.stringify(body),
-          headers: { 'Content-Type': 'application/json' },
-      }).then(res => res.json());
-  }
-
-  // const offer = await fetchOfferFromProtocolWallet();
-  // console.log('offer', offer);
-
+    if (
+      !bitcoinAccountDetails ||
+      !bitcoinContractJSON ||
+      !counterpartyWalletDetails ||
+      !bitcoinContract
+    )
+      return;
     handleAccept(bitcoinContractJSON, counterpartyWalletDetails);
-
-    // const { currentNetwork, currentAddress, currentAddressIndexKeychain } = bitcoinAccountDetails;
-    // const network = currentNetwork.chain.bitcoin.network;
-    // const privateKey = convertUint8ArrayToHexString(currentAddressIndexKeychain.privateKey!);
-    // const blockchainAPI = 'https://blockstream.info/testnet/api';
-    // const oracleAPI = 'https://testnet.dlc.link/oracle';
-
-    // const bitcoinContractInterface = await JsDLCInterface.new(
-    //   privateKey,
-    //   currentAddress,
-    //   network,
-    //   blockchainAPI,
-    //   oracleAPI
-    // );
-
-    // console.log('balance', await bitcoinContractInterface.get_wallet_balance());
-    // try {
-    //   const acceptedBitcoinContract = await bitcoinContractInterface.accept_offer(
-    //     bitcoinContractJSON
-    //   );
-    //   console.log('acceptedBitcoinContract', acceptedBitcoinContract);
-
-    //   const signedBitcoinContract = await sendAcceptedBitcoinContractOfferToProtocolWallet(
-    //     acceptedBitcoinContract,
-    //     counterpartyWalletDetails.counterpartyWalletURL
-    //   );
-    //   console.log('signedBitcoinContract', signedBitcoinContract);
-
-    //   const txID = await bitcoinContractInterface.countersign_and_broadcast(
-    //     JSON.stringify(signedBitcoinContract)
-    //   );
-    //   console.log('txID', txID);
-    // } catch (error) {
-    //   console.error(error);
-    // }
   };
 
   const handleRejectClick = async () => {
@@ -196,7 +115,7 @@ function BitcoinContractRequest() {
       counterpartyWalletIcon
     );
 
-    const hasSufficientFunds = checkSufficientFunds(
+  const hasSufficientFunds = checkSufficientFunds(
       simplifiedBitcoinContractOffer.bitcoinContractCollateralAmount,
       bitcoinAccountBalance.balance.amount
     );
