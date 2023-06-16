@@ -24,7 +24,8 @@ interface BitcoinChooseFeeProps {
   onChooseFee({ feeRate, feeValue, time }: OnChooseFeeArgs): Promise<void>;
   onValidateBitcoinSpend(value: number): boolean;
   recipient: string;
-  recommendedFeeRate: number;
+  recommendedFeeRate: string;
+  isLoading: boolean;
 }
 export function BitcoinChooseFee({
   amount,
@@ -34,15 +35,16 @@ export function BitcoinChooseFee({
   onChooseFee,
   recipient,
   onValidateBitcoinSpend,
+  isLoading,
   recommendedFeeRate,
 }: BitcoinChooseFeeProps) {
   const currentAccountBtcAddress = useCurrentAccountNativeSegwitAddressIndexZero();
   const btcBalance = useNativeSegwitBalance(currentAccountBtcAddress);
   const hasAmount = amount.amount.isGreaterThan(0);
-  const [customFeeInitialValue, setCustomFeeInitialValue] = useState(recommendedFeeRate.toString());
+  const [customFeeInitialValue, setCustomFeeInitialValue] = useState(recommendedFeeRate);
 
   return (
-    <BitcoinChooseFeeLayout>
+    <BitcoinChooseFeeLayout isLoading={isLoading}>
       <Stack alignItems="center" spacing="base" width="100%">
         {hasAmount ? (
           <Text color={showError ? color('feedback-error') : 'unset'} fontSize={6} fontWeight={500}>

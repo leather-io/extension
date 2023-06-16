@@ -22,6 +22,8 @@ export function SendInscriptionChooseFee() {
   const navigate = useNavigate();
   const { recipient, selectedFeeType, setSelectedFeeType, utxo } = useSendInscriptionState();
   const { feesList, isLoading } = useSendInscriptionFeesList({ recipient, utxo });
+  const recommendedFeeRate = feesList[1]?.feeRate.toString() || '';
+
   const { reviewTransaction } = useSendInscriptionForm();
   const { showInsufficientBalanceError, onValidateBitcoinFeeSpend } = useValidateBitcoinSpend();
 
@@ -40,17 +42,17 @@ export function SendInscriptionChooseFee() {
     <BaseDrawer title="Choose fee" isShowing enableGoBack onClose={() => navigate(-1)}>
       <BitcoinChooseFee
         amount={createMoney(0, 'BTC')}
+        isLoading={isLoading}
         feesList={
           <BitcoinFeesList
             feesList={feesList}
-            isLoading={isLoading}
             onChooseFee={previewTransaction}
             onValidateBitcoinSpend={onValidateBitcoinFeeSpend}
             onSetSelectedFeeType={(value: BtcFeeType) => setSelectedFeeType(value)}
             selectedFeeType={selectedFeeType}
           />
         }
-        recommendedFeeRate={feesList[1].feeRate}
+        recommendedFeeRate={recommendedFeeRate}
         onChooseFee={previewTransaction}
         recipient={recipient}
         onValidateBitcoinSpend={onValidateBitcoinFeeSpend}

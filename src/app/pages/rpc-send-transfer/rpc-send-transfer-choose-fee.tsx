@@ -42,6 +42,8 @@ export function RpcSendTransferChooseFee() {
     amount: Number(amountAsMoney.amount),
     recipient: address,
   });
+  const recommendedFeeRate = feesList[1]?.feeRate.toString() || '';
+
   const { showInsufficientBalanceError, onValidateBitcoinFeeSpend } = useValidateBitcoinSpend();
 
   async function previewTransfer({ feeRate, feeValue, time, isCustomFee }: OnChooseFeeArgs) {
@@ -70,17 +72,17 @@ export function RpcSendTransferChooseFee() {
   return (
     <BitcoinChooseFee
       amount={amountAsMoney}
+      isLoading={isLoading}
       feesList={
         <BitcoinFeesList
           feesList={feesList}
-          isLoading={isLoading}
           onChooseFee={previewTransfer}
           onValidateBitcoinSpend={onValidateBitcoinFeeSpend}
           onSetSelectedFeeType={(value: BtcFeeType) => setSelectedFeeType(value)}
           selectedFeeType={selectedFeeType}
         />
       }
-      recommendedFeeRate={feesList[1].feeRate}
+      recommendedFeeRate={recommendedFeeRate}
       onValidateBitcoinSpend={onValidateBitcoinFeeSpend}
       recipient={address}
       onChooseFee={previewTransfer}
