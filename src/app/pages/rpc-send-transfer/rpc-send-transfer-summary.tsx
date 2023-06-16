@@ -6,7 +6,6 @@ import { Stack, useClipboard } from '@stacks/ui';
 
 import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
 import { useExplorerLink } from '@app/common/hooks/use-explorer-link';
-// import { useOnMount } from '@app/common/hooks/use-on-mount';
 import { FormAddressDisplayer } from '@app/components/address-displayer/form-address-displayer';
 import {
   InfoCard,
@@ -16,8 +15,6 @@ import {
   InfoCardRow,
   InfoCardSeparator,
 } from '@app/components/info-card/info-card';
-
-// const timeOut = 5000;
 
 export function RpcSendTransferSummary() {
   const { state } = useLocation();
@@ -34,7 +31,7 @@ export function RpcSendTransferSummary() {
     arrivesIn,
     sendingValue,
     recipient,
-    fee,
+    feeRowValue,
     totalSpend,
   } = state;
 
@@ -71,8 +68,8 @@ export function RpcSendTransferSummary() {
           <InfoCardSeparator />
           <InfoCardRow title="Total spend" value={totalSpend} />
           <InfoCardRow title="Sending" value={sendingValue} />
-          <InfoCardRow title="Fee" value={fee} />
-          <InfoCardRow title="Estimated confirmation time" value={arrivesIn} />
+          <InfoCardRow title="Fee" value={feeRowValue} />
+          {arrivesIn && <InfoCardRow title="Estimated confirmation time" value={arrivesIn} />}
         </Stack>
         <InfoCardFooter>
           <Stack isInline spacing="base" width="100%">

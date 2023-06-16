@@ -9,8 +9,8 @@ import { LoadingSpinner } from '@app/components/loading-spinner';
 import { Tabs } from '@app/components/tabs';
 
 interface HomeTabsProps extends StackProps {
-  balances: JSX.Element;
-  activity: JSX.Element;
+  balances: React.JSX.Element;
+  activity: React.JSX.Element;
 }
 
 const ANALYTICS_PATH = ['/balances', '/activity'];
@@ -35,6 +35,7 @@ export function HomeTabs(props: HomeTabsProps) {
         ]}
         activeTab={activeTab}
         onTabClick={setActiveTabTracked}
+        width={['100%', '193px']}
       />
       <Flex position="relative" flexGrow={1}>
         {activeTab === 0 && (

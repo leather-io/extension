@@ -1,9 +1,10 @@
 import { useSelector } from 'react-redux';
 
-import { deriveAddressIndexZeroFromAccount } from '@shared/crypto/bitcoin/bitcoin.utils';
+import { deriveAddressIndexKeychainFromAccount } from '@shared/crypto/bitcoin/bitcoin.utils';
+import { bitcoinNetworkModeToCoreNetworkMode } from '@shared/crypto/bitcoin/bitcoin.utils';
 import { getNativeSegWitPaymentFromAddressIndex } from '@shared/crypto/bitcoin/p2wpkh-address-gen';
 
-import { bitcoinNetworkModeToCoreNetworkMode, whenNetwork } from '@app/common/utils';
+import { whenNetwork } from '@app/common/utils';
 import { useCurrentNetwork } from '@app/store/networks/networks.selectors';
 
 import { useCurrentAccountIndex } from '../../account';
@@ -41,10 +42,6 @@ export function useNativeSegwitNetworkSigners() {
   );
 }
 
-function useCurrentAccountNativeSegwitSignerIndexZero() {
-  return useCurrentAccountNativeSegwitSigner()?.(0);
-}
-
 function useNativeSegwitSigner(accountIndex: number) {
   const network = useCurrentNetwork();
   const accountKeychain = useNativeSegwitActiveNetworkAccountPrivateKeychain()?.(accountIndex);
@@ -59,13 +56,17 @@ function useNativeSegwitSigner(accountIndex: number) {
 
 export function useCurrentAccountNativeSegwitDetails() {
   const currentAccountIndex = useCurrentAccountIndex();
-  const currentNetwork = useCurrentNetwork();
-  const currentAddress = useNativeSegwitAccountIndexAddressIndexZero(currentAccountIndex);
-  const currentAccountKeychain = useNativeSegwitCurrentAccountPrivateKeychain();
-  if (!currentAccountKeychain) return;
-  const currentAddressIndexKeychain = deriveAddressIndexZeroFromAccount(currentAccountKeychain);
+  const currentNetworkConfiguration = useCurrentNetwork();
+  const currentBitcoinNetwork = currentNetworkConfiguration.chain.bitcoin.network;
+  const currentKeychain =
+    useNativeSegwitActiveNetworkAccountPrivateKeychain()?.(currentAccountIndex);
+  if (!currentKeychain) return;
+  const currentAddressIndexKeychain =
+    deriveAddressIndexKeychainFromAccount(currentKeychain)(currentAccountIndex);
+  const currentPayment = getNativeSegWitPaymentFromAddressIndex(currentAddressIndexKeychain, currentBitcoinNetwork);
+  const currentAddress = currentPayment.address;
 
-  return { currentNetwork, currentAddress, currentAddressIndexKeychain };
+  return { currentBitcoinNetwork, currentAddress, currentAddressIndexKeychain };
 }
 
 export function useCurrentAccountNativeSegwitSigner() {
@@ -73,17 +74,32 @@ export function useCurrentAccountNativeSegwitSigner() {
   return useNativeSegwitSigner(currentAccountIndex);
 }
 
-export function useCurrentAccountNativeSegwitAddressIndexZero() {
-  const signer = useCurrentAccountNativeSegwitSignerIndexZero();
-  return signer?.payment.address as string;
+export function useCurrentAccountNativeSegwitIndexZeroSigner() {
+  const signer = useCurrentAccountNativeSegwitSigner();
+  if (!signer) throw new Error('No signer');
+  return signer(0);
 }
 
+/**
+ * @deprecated Use signer.address instead
+ */
+export function useCurrentAccountNativeSegwitAddressIndexZero() {
+  const signer = useCurrentAccountNativeSegwitSigner();
+  return signer?.(0).payment.address as string;
+}
+
+/**
+ * @deprecated Use signer.address instead
+ */
 export function useNativeSegwitAccountIndexAddressIndexZero(accountIndex: number) {
   const signer = useNativeSegwitSigner(accountIndex)?.(0);
   return signer?.payment.address as string;
 }
 
+/**
+ * @deprecated Use signer.publicKeychain directly instead
+ */
 export function useCurrentBitcoinNativeSegwitAddressIndexPublicKeychain() {
-  const signer = useCurrentAccountNativeSegwitSignerIndexZero();
-  return signer?.publicKeychain;
+  const signer = useCurrentAccountNativeSegwitSigner();
+  return signer?.(0).publicKeychain;
 }

@@ -32,18 +32,13 @@ const bitcoinRegtest: BtcSignerNetwork = {
   wif: 0xef,
 };
 
-const bitcoinSignet: BtcSignerNetwork = {
-  bech32: 'sb',
-  pubKeyHash: 0x3f,
-  scriptHash: 0x7f,
-  wif: 0x80,
-};
-
 const btcSignerLibNetworks: Record<BitcoinNetworkModes, BtcSignerNetwork> = {
   mainnet: bitcoinMainnet,
   testnet: bitcoinTestnet,
   regtest: bitcoinRegtest,
-  signet: bitcoinSignet,
+  // Signet originally was going to have its own prefix but authors decided to
+  // copy testnet
+  signet: bitcoinTestnet,
 };
 
 export function getBtcSignerLibNetworkConfigByMode(network: BitcoinNetworkModes) {
@@ -54,8 +49,7 @@ const bitcoinJsLibNetworks: Record<BitcoinNetworkModes, bitcoinJs.Network> = {
   mainnet: bitcoinJs.networks.bitcoin,
   testnet: bitcoinJs.networks.testnet,
   regtest: bitcoinJs.networks.regtest,
-  // Signet doesn't exist in bitcoinjs-lib
-  signet: bitcoinJs.networks.regtest,
+  signet: bitcoinJs.networks.testnet,
 };
 
 export function getBitcoinJsLibNetworkConfigByMode(network: BitcoinNetworkModes) {

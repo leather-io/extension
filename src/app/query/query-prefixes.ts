@@ -8,6 +8,7 @@ export enum QueryPrefixes {
   TaprootAddressUtxosMetadata = 'taproot-address-utxos-metadata',
   InscriptionFromUtxo = 'inscription-from-utxo',
   BnsNamesByAddress = 'bns-names-by-address',
+  InscriptionsByAddress = 'inscriptions-by-address',
   InscriptionMetadata = 'inscription-metadata',
   InscriptionFromTxid = 'inscription-from-txid',
   InscriptionsFromApiInfiniteQuery = 'inscriptions-from-api-infinite-query',

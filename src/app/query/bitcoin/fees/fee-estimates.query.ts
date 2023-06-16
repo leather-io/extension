@@ -6,12 +6,11 @@ import { useBitcoinClient } from '@app/store/common/api-clients.hooks';
 import { BitcoinClient } from '../bitcoin-client';
 
 function fetchAllBitcoinFeeEstimates(client: BitcoinClient) {
-  return async () => {
-    return Promise.allSettled([
+  return async () =>
+    Promise.allSettled([
       client.feeEstimatesApi.getFeeEstimatesFromMempoolSpaceApi(),
-      client.feeEstimatesApi.getFeeEstimatesFromEarnApi(),
+      client.feeEstimatesApi.getFeeEstimatesFromBlockcypherApi(),
     ]);
-  };
 }
 
 type FetchAllBitcoinFeeEstimatesResp = Awaited<
@@ -23,7 +22,7 @@ export function useGetAllBitcoinFeeEstimatesQuery<
 >(options?: AppUseQueryConfig<FetchAllBitcoinFeeEstimatesResp, T>) {
   const client = useBitcoinClient();
   return useQuery({
-    queryKey: ['all-bitcoin-fee-estimates'],
+    queryKey: ['average-bitcoin-fee-estimates'],
     queryFn: fetchAllBitcoinFeeEstimates(client),
     staleTime: 1000 * 60,
     refetchOnWindowFocus: false,

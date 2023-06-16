@@ -7,6 +7,7 @@ import { InternalMethods } from '@shared/message-types';
 import { sendMessage } from '@shared/messages';
 import { clearChromeStorage } from '@shared/storage';
 
+import { queryClient } from '@app/common/persistence';
 import { partiallyClearLocalStorage } from '@app/common/store-utils';
 import { useAppDispatch } from '@app/store';
 import { createNewAccount, stxChainActions } from '@app/store/chains/stx-chain.actions';
@@ -61,6 +62,7 @@ export function useKeyActions() {
         await clearChromeStorage();
         partiallyClearLocalStorage();
         void analytics.track('sign_out');
+        queryClient.clear();
       },
 
       lockWallet() {

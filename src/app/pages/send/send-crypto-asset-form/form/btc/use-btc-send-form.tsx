@@ -1,4 +1,4 @@
-import { useRef } from 'react';
+import { useRef, useState } from 'react';
 
 import { FormikHelpers, FormikProps } from 'formik';
 import * as yup from 'yup';
@@ -31,6 +31,7 @@ import { useCalculateMaxBitcoinSpend } from '../../family/bitcoin/hooks/use-calc
 import { useSendFormNavigate } from '../../hooks/use-send-form-navigate';
 
 export function useBtcSendForm() {
+  const [isSendingMax, setIsSendingMax] = useState(false);
   const formRef = useRef<FormikProps<BitcoinSendFormValues>>(null);
   const currentNetwork = useCurrentNetwork();
   const currentAccountBtcAddress = useCurrentAccountNativeSegwitAddressIndexZero();
@@ -44,11 +45,15 @@ export function useBtcSendForm() {
     calcMaxSpend,
     currentNetwork,
     formRef,
+    isSendingMax,
     onFormStateChange,
-
+    onSetIsSendingMax(value: boolean) {
+      setIsSendingMax(value);
+    },
     validationSchema: yup.object({
       amount: yup
         .number()
+        .concat(btcMinimumSpendValidator())
         .concat(
           btcAmountPrecisionValidator(formatPrecisionError(btcCryptoCurrencyAssetBalance.balance))
         )
@@ -60,13 +65,13 @@ export function useBtcSendForm() {
             recipient: formRef.current?.values.recipient ?? '',
             calcMaxSpend,
           })
-        )
-        .concat(btcMinimumSpendValidator()),
+        ),
       recipient: yup
         .string()
         .concat(btcAddressValidator())
         .concat(btcAddressNetworkValidator(currentNetwork.chain.bitcoin.network))
-        .concat(notCurrentAddressValidator(currentAccountBtcAddress || '')),
+        .concat(notCurrentAddressValidator(currentAccountBtcAddress || ''))
+        .required('Enter a bitcoin address'),
     }),
 
     async chooseTransactionFee(
@@ -78,7 +83,7 @@ export function useBtcSendForm() {
       await formikHelpers.validateForm();
 
       whenWallet({
-        software: () => sendFormNavigate.toChooseTransactionFee(values),
+        software: () => sendFormNavigate.toChooseTransactionFee(isSendingMax, values),
         ledger: noop,
       })();
     },

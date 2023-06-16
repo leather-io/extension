@@ -9,7 +9,7 @@ import {
   chainIdToDisplay,
   cvToDisplay,
   deriveStructuredMessageHash,
-} from '@app/features/ledger/flows/message-signing/message-signing.utils';
+} from '@app/features/ledger/flows/stacks-message-signing/message-signing.utils';
 import { HashDrawer } from '@app/features/message-signer/hash-drawer';
 
 import { ClarityValueListDisplayer } from './clarity-value-list';

@@ -11,7 +11,7 @@ export function SendCryptoAssetFormLayout({ children }: SendCryptoAssetFormLayou
       data-testid={SendCryptoAssetSelectors.SendForm}
       flexDirection="column"
       maxHeight={['calc(100vh - 116px)', 'calc(85vh - 116px)']}
-      overflowY="scroll"
+      overflowY="auto"
       pb={['120px', '48px']}
       pt={['base', '48px']}
       px="loose"

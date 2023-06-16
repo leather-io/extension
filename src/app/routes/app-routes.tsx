@@ -15,9 +15,9 @@ import { Container } from '@app/features/container/container';
 import { EditNonceDrawer } from '@app/features/edit-nonce-drawer/edit-nonce-drawer';
 import { IncreaseFeeDrawer } from '@app/features/increase-fee-drawer/increase-fee-drawer';
 import { ledgerJwtSigningRoutes } from '@app/features/ledger/flows/jwt-signing/ledger-sign-jwt.routes';
-import { ledgerMessageSigningRoutes } from '@app/features/ledger/flows/message-signing/ledger-sign-msg.routes';
-import { ledgerRequestKeysRoutes } from '@app/features/ledger/flows/request-keys/ledger-request-keys.routes';
-import { ledgerTxSigningRoutes } from '@app/features/ledger/flows/tx-signing/ledger-sign-tx.routes';
+import { ledgerStacksMessageSigningRoutes } from '@app/features/ledger/flows/stacks-message-signing/ledger-stacks-sign-msg.routes';
+import { ledgerRequestStacksKeysRoutes } from '@app/features/ledger/flows/stacks-request-keys/ledger-request-keys.routes';
+import { ledgerStacksTxSigningRoutes } from '@app/features/ledger/flows/stacks-tx-signing/ledger-sign-tx.routes';
 import { AddNetwork } from '@app/features/message-signer/add-network/add-network';
 import { RetrieveTaprootToNativeSegwit } from '@app/features/retrieve-taproot-to-native-segwit/retrieve-taproot-to-native-segwit';
 import { ThemesDrawer } from '@app/features/theme-drawer/theme-drawer';
@@ -38,6 +38,7 @@ import { ReceiveCollectibleModal } from '@app/pages/receive/receive-collectible/
 import { ReceiveCollectibleOrdinal } from '@app/pages/receive/receive-collectible/receive-collectible-oridinal';
 import { RpcGetAddresses } from '@app/pages/rpc-get-addresses/rpc-get-addresses';
 import { rpcSendTransferRoutes } from '@app/pages/rpc-send-transfer/rpc-send-transfer.routes';
+import { RpcSignPsbt } from '@app/pages/rpc-sign-psbt/rpc-sign-psbt';
 import { SelectNetwork } from '@app/pages/select-network/select-network';
 import { BroadcastError } from '@app/pages/send/broadcast-error/broadcast-error';
 import { SendInscriptionContainer } from '@app/pages/send/ordinal-inscription/components/send-inscription-container';
@@ -110,7 +111,7 @@ function useAppRoutes() {
           <Route path={RouteUrls.RetriveTaprootFunds} element={<RetrieveTaprootToNativeSegwit />} />
 
           <Route path={RouteUrls.IncreaseFee} element={<IncreaseFeeDrawer />}>
-            {ledgerTxSigningRoutes}
+            {ledgerStacksTxSigningRoutes}
           </Route>
           <Route path={RouteUrls.Receive} element={<ReceiveModal />} />
           <Route path={RouteUrls.ReceiveCollectible} element={<ReceiveCollectibleModal />} />
@@ -139,7 +140,7 @@ function useAppRoutes() {
           </Route>
 
           {settingsModalRoutes}
-          {ledgerTxSigningRoutes}
+          {ledgerStacksTxSigningRoutes}
         </Route>
         <Route
           path={RouteUrls.BitcoinContractOffer}
@@ -168,7 +169,7 @@ function useAppRoutes() {
             </OnboardingGate>
           }
         >
-          {ledgerRequestKeysRoutes}
+          {ledgerRequestStacksKeysRoutes}
         </Route>
         <Route
           path={RouteUrls.BackUpSecretKey}
@@ -243,7 +244,7 @@ function useAppRoutes() {
             </AccountGate>
           }
         >
-          {ledgerTxSigningRoutes}
+          {ledgerStacksTxSigningRoutes}
           <Route path={RouteUrls.EditNonce} element={<EditNonceDrawer />} />
           <Route path={RouteUrls.TransactionBroadcastError} element={<BroadcastErrorDrawer />} />
         </Route>
@@ -259,7 +260,7 @@ function useAppRoutes() {
             </AccountGate>
           }
         >
-          {ledgerMessageSigningRoutes}
+          {ledgerStacksMessageSigningRoutes}
         </Route>
 
         <Route
@@ -305,6 +306,16 @@ function useAppRoutes() {
           }
         />
         {rpcSendTransferRoutes}
+
+        <Route
+          path={RouteUrls.RpcSignPsbt}
+          element={
+            <AccountGate>
+              <RpcSignPsbt />
+            </AccountGate>
+          }
+        />
+
         <Route
           path={RouteUrls.RpcSignBip322Message}
           lazy={async () => {

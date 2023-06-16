@@ -26,6 +26,7 @@ export class WalletPage {
   $analyticsDenyButton = createTestSelector(OnboardingSelectors.DenyAnalyticsBtn);
   $homePageContainer = createTestSelector(HomePageSelectors.HomePageContainer);
   $secretKey = createTestSelector(OnboardingSelectors.SecretKey);
+  $showSecretKey = createTestSelector(SettingsSelectors.ShowSecretKeyBtn);
   $buttonSignInKeyContinue = createTestSelector(OnboardingSelectors.SignInBtn);
   setPasswordDone = createTestSelector(OnboardingSelectors.SetPasswordBtn);
   $passwordInput = createTestSelector(SettingsSelectors.EnterPasswordInput);
@@ -155,6 +156,7 @@ export class WalletPage {
 
   async getSecretKey() {
     await this.page.waitForSelector(this.$secretKey);
+    await this.page.locator(this.$showSecretKey).click();
     const secretKeyWords = await this.page.locator(this.$secretKey).allInnerTexts();
     return secretKeyWords.join(' ');
   }

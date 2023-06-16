@@ -31,6 +31,10 @@ export const testSoftwareAccountDefaultWalletState = {
       'Buy an NFT': 0,
     },
   },
+  ordinals: {
+    entities: {},
+    ids: [],
+  },
   settings: { userSelectedTheme: 'system', hasAllowedAnalytics: false, dismissedMessages: [] },
   _persist: { version: 1, rehydrated: true },
 };

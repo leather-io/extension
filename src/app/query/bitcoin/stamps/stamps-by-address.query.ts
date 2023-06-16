@@ -28,8 +28,9 @@ export function useStampsByAddressQuery<T extends unknown = FetchStampsByAddress
   options?: AppUseQueryConfig<FetchStampsByAddressResp, T>
 ) {
   return useQuery({
-    queryKey: [QueryPrefixes.StampsByAddress],
+    queryKey: [QueryPrefixes.StampsByAddress, address],
     queryFn: () => fetchStampsByAddress(address),
     ...options,
+    refetchOnWindowFocus: false,
   });
 }

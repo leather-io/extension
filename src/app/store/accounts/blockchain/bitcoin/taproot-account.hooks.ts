@@ -1,9 +1,10 @@
 import { useSelector } from 'react-redux';
 
 import { BitcoinNetworkModes } from '@shared/constants';
+import { bitcoinNetworkModeToCoreNetworkMode } from '@shared/crypto/bitcoin/bitcoin.utils';
 import { getTaprootPaymentFromAddressIndex } from '@shared/crypto/bitcoin/p2tr-address-gen';
 
-import { bitcoinNetworkModeToCoreNetworkMode, whenNetwork } from '@app/common/utils';
+import { whenNetwork } from '@app/common/utils';
 import { useCurrentNetwork } from '@app/store/networks/networks.selectors';
 
 import { useCurrentAccountIndex } from '../../account';
@@ -67,6 +68,12 @@ export function useCurrentAccountTaprootAddressIndexZeroPayment() {
   const createSigner = useCurrentAccountTaprootSigner();
   const indexZeroSigner = createSigner?.(0);
   if (!indexZeroSigner?.payment.address) throw new Error('No address found');
+  const publicKey = indexZeroSigner.publicKeychain.publicKey;
+  if (!publicKey) throw new Error('No public key found');
   // Creating new object to have known property types
-  return { address: indexZeroSigner.payment.address, type: indexZeroSigner.payment.type };
+  return {
+    address: indexZeroSigner.payment.address,
+    publicKey,
+    type: indexZeroSigner.payment.type,
+  };
 }

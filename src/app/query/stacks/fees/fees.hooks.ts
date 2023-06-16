@@ -12,7 +12,7 @@ import {
   useConfigFeeEstimationsMaxValues,
   useConfigFeeEstimationsMinEnabled,
   useConfigFeeEstimationsMinValues,
-} from '@app/query/common/hiro-config/hiro-config.query';
+} from '@app/query/common/remote-config/remote-config.query';
 import { useGetStacksTransactionFeeEstimationQuery } from '@app/query/stacks/fees/fees.query';
 
 import {

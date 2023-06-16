@@ -14,9 +14,13 @@ export const currentNetworkAtom = atom(get => {
   const store = get(storeAtom);
   const coreApiUrl = initialSearchParams.get('coreApiUrl');
   const networkChainId = initialSearchParams.get('networkChainId');
+  const networkMode = initialSearchParams.get('network');
+
+  const networks: Dictionary<NetworkConfiguration> = selectNetworks(store);
+
+  if (networkMode) return networks[networkMode] ?? defaultCurrentNetwork;
 
   const currentNetworkId = selectCurrentNetworkId(store);
-  const networks: Dictionary<NetworkConfiguration> = selectNetworks(store);
 
   const requestNetworkId = findMatchingNetworkKey({ coreApiUrl, networkChainId, networks });
   return networks[requestNetworkId || currentNetworkId] ?? defaultCurrentNetwork;

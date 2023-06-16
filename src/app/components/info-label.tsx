@@ -22,6 +22,7 @@ export function InfoLabel({ children, title, ...rest }: InfoLabelProps) {
         px="base"
         py="base-tight"
         spacing="tight"
+        width="100%"
       >
         <Box
           _hover={{ cursor: 'pointer' }}

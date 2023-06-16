@@ -7,6 +7,7 @@ import { useField } from 'formik';
 import { STX_DECIMALS } from '@shared/constants';
 import { Money } from '@shared/models/money.model';
 
+import { useShowFieldError } from '@app/common/form-utils';
 import { figmaTheme } from '@app/common/utils/figma-theme';
 import { ErrorLabel } from '@app/components/error-label';
 
@@ -31,22 +32,27 @@ function getAmountModifiedFontSize(props: GetAmountModifiedFontSize) {
 }
 
 interface AmountFieldProps {
-  balance: Money;
-  switchableAmount?: JSX.Element;
-  bottomInputOverlay?: JSX.Element;
-  autofocus?: boolean;
   autoComplete?: 'on' | 'off';
+  autofocus?: boolean;
+  balance: Money;
+  bottomInputOverlay?: React.JSX.Element;
+  isSendingMax?: boolean;
+  switchableAmount?: React.JSX.Element;
   tokenSymbol?: string;
+  onSetIsSendingMax?(value: boolean): void;
 }
 export function AmountField({
-  balance,
-  switchableAmount,
-  bottomInputOverlay,
-  autofocus = false,
   autoComplete = 'on',
+  autofocus = false,
+  balance,
+  bottomInputOverlay,
+  isSendingMax,
+  onSetIsSendingMax,
+  switchableAmount,
   tokenSymbol,
 }: AmountFieldProps) {
-  const [field, meta] = useField('amount');
+  const [field, meta, helpers] = useField('amount');
+  const showError = useShowFieldError('amount');
   const [fontSize, setFontSize] = useState(maxFontSize);
   const [previousTextLength, setPreviousTextLength] = useState(1);
 
@@ -54,6 +60,7 @@ export function AmountField({
   const symbol = tokenSymbol || balance.symbol;
   const maxLength = decimals === 0 ? maxLengthDefault : decimals + 2;
   const fontSizeModifier = (maxFontSize - minFontSize) / maxLength;
+  const subtractedLengthToPositionPrefix = 0.5;
 
   useEffect(() => {
     // case, when e.g token doesn't have symbol
@@ -66,7 +73,7 @@ export function AmountField({
       fontSize < maxFontSize && setFontSize(textSize);
     } else if (field.value.length > symbol.length && previousTextLength < field.value.length) {
       const textSize = Math.ceil(fontSize - fontSizeModifier);
-      fontSize > 22 && setFontSize(textSize);
+      fontSize > minFontSize && setFontSize(textSize);
     }
     // Copy/paste
     if (field.value.length > symbol.length && field.value.length > previousTextLength + 2) {
@@ -79,23 +86,32 @@ export function AmountField({
       });
       setFontSize(modifiedFontSize < minFontSize ? minFontSize : modifiedFontSize);
     }
-    setPreviousTextLength(field.value.length);
-  }, [field.value, fontSize, fontSizeModifier, previousTextLength, symbol]);
+    setPreviousTextLength(
+      isSendingMax ? field.value.length - subtractedLengthToPositionPrefix : field.value.length
+    );
+  }, [field.value, fontSize, fontSizeModifier, isSendingMax, previousTextLength, symbol]);
 
   // TODO: could be implemented with html using padded label element
   const onClickFocusInput = useCallback(() => {
-    document.getElementById(amountInputId)?.focus();
-  }, []);
+    if (isSendingMax) {
+      helpers.setValue('');
+      onSetIsSendingMax?.(false);
+    }
+
+    // put focus in the queue, otherwise it won't work
+    setTimeout(() => {
+      document.getElementById(amountInputId)?.focus();
+    });
+  }, [isSendingMax, helpers, onSetIsSendingMax]);
 
   return (
     <Stack
       alignItems="center"
-      onClick={onClickFocusInput}
       px="extra-loose"
-      spacing={['base', meta.error && meta.touched ? 'base' : '48px']}
+      spacing={['base', showError ? 'base' : '48px']}
       width="100%"
     >
-      <Flex alignItems="center" flexDirection="column">
+      <Flex alignItems="center" flexDirection="column" onClick={onClickFocusInput}>
         <Flex
           alignItems="center"
           height="55px"
@@ -103,7 +119,9 @@ export function AmountField({
           fontWeight={500}
           color={figmaTheme.text}
         >
+          {isSendingMax ? <Text fontSize={fontSize + 'px'}>~</Text> : null}
           <Input
+            _disabled={{ bg: color('bg') }}
             _focus={{ border: 'none' }}
             border="none"
             caretColor={color('accent')}
@@ -111,6 +129,7 @@ export function AmountField({
             fontSize={fontSize + 'px'}
             height="100%"
             id={amountInputId}
+            isDisabled={isSendingMax}
             maxLength={maxLength}
             placeholder="0"
             px="none"
@@ -127,7 +146,7 @@ export function AmountField({
         </Flex>
         <Box mt="12px">{switchableAmount && switchableAmount}</Box>
       </Flex>
-      {meta.error && meta.touched && (
+      {showError && (
         <ErrorLabel data-testid={SendCryptoAssetSelectors.AmountFieldInputErrorLabel}>
           {meta.error}
         </ErrorLabel>

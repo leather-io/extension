@@ -6,7 +6,7 @@ import { createMoney } from '@shared/models/money.model';
 import { baseCurrencyAmountInQuote } from '@app/common/money/calculate-money';
 import { formatMoneyPadded, i18nFormatCurrency } from '@app/common/money/format-money';
 import { FeesListItem } from '@app/components/bitcoin-fees-list/bitcoin-fees-list';
-import { useCurrentNativeSegwitUtxos } from '@app/query/bitcoin/address/address.hooks';
+import { useCurrentNativeSegwitUtxos } from '@app/query/bitcoin/address/use-current-account-native-segwit-utxos';
 import { useAverageBitcoinFeeRates } from '@app/query/bitcoin/fees/fee-estimates.hooks';
 import { TaprootUtxo } from '@app/query/bitcoin/ordinals/use-taproot-address-utxos.query';
 import { useCryptoCurrencyMarketData } from '@app/query/common/market-data/market-data.hooks';
@@ -23,7 +23,7 @@ export function useSendInscriptionFeesList({ recipient, utxo }: UseSendInscripti
   const { data: nativeSegwitUtxos } = useCurrentNativeSegwitUtxos();
 
   const btcMarketData = useCryptoCurrencyMarketData('BTC');
-  const { avgApiFeeRates: feeRates, isLoading } = useAverageBitcoinFeeRates();
+  const { data: feeRates, isLoading } = useAverageBitcoinFeeRates();
 
   const feesList: FeesListItem[] = useMemo(() => {
     function getFiatFeeValue(fee: number) {

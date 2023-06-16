@@ -59,13 +59,19 @@ const useBitcoinContracts = () => {
   );
 
   async function getAllContracts() {
-    if (!bitcoinAccountDetails) return;
+    const { currentBitcoinNetwork, currentAddress, currentAddressIndexKeychain } =
+      bitcoinAccountDetails ?? {};
+    if (
+      !currentBitcoinNetwork ||
+      !currentAddress ||
+      !currentAddressIndexKeychain ||
+      !currentAddressIndexKeychain.privateKey
+    )
+      return;
 
-    const { currentNetwork, currentAddress, currentAddressIndexKeychain } = bitcoinAccountDetails;
-    const network = currentNetwork.chain.bitcoin.network;
-    const privateKey = convertUint8ArrayToHexString(currentAddressIndexKeychain.privateKey!);
+    const privateKey = convertUint8ArrayToHexString(currentAddressIndexKeychain.privateKey);
     const blockchainAPI =
-      network === 'mainnet'
+      currentBitcoinNetwork === 'mainnet'
         ? 'https://blockstream.info/api'
         : 'https://blockstream.info/testnet/api';
     const oracleAPI = 'https://testnet.dlc.link/oracle';
@@ -73,7 +79,7 @@ const useBitcoinContracts = () => {
     const bitcoinContractInterface = await JsDLCInterface.new(
       privateKey,
       currentAddress,
-      network,
+      currentBitcoinNetwork,
       blockchainAPI,
       oracleAPI
     );
@@ -84,13 +90,19 @@ const useBitcoinContracts = () => {
   }
 
   async function getContract(bitcoinContractID: string) {
-    if (!bitcoinAccountDetails) return;
+    const { currentBitcoinNetwork, currentAddress, currentAddressIndexKeychain } =
+      bitcoinAccountDetails ?? {};
+    if (
+      !currentBitcoinNetwork ||
+      !currentAddress ||
+      !currentAddressIndexKeychain ||
+      !currentAddressIndexKeychain.privateKey
+    )
+      return;
 
-    const { currentNetwork, currentAddress, currentAddressIndexKeychain } = bitcoinAccountDetails;
-    const network = currentNetwork.chain.bitcoin.network;
-    const privateKey = convertUint8ArrayToHexString(currentAddressIndexKeychain.privateKey!);
+    const privateKey = convertUint8ArrayToHexString(currentAddressIndexKeychain.privateKey);
     const blockchainAPI =
-      network === 'mainnet'
+      currentBitcoinNetwork === 'mainnet'
         ? 'https://blockstream.info/api'
         : 'https://blockstream.info/testnet/api';
     const oracleAPI = 'https://testnet.dlc.link/oracle';
@@ -98,7 +110,7 @@ const useBitcoinContracts = () => {
     const bitcoinContractInterface = await JsDLCInterface.new(
       privateKey,
       currentAddress,
-      network,
+      currentBitcoinNetwork,
       blockchainAPI,
       oracleAPI
     );
@@ -112,25 +124,19 @@ const useBitcoinContracts = () => {
     bitcoinContractJSON: string,
     counterpartyWalletDetails: CounterpartyWalletDetails
   ) {
-    const { currentNetwork, currentAddress, currentAddressIndexKeychain } =
+    const { currentBitcoinNetwork, currentAddress, currentAddressIndexKeychain } =
       bitcoinAccountDetails ?? {};
     if (
-      !currentNetwork ||
+      !currentBitcoinNetwork ||
       !currentAddress ||
       !currentAddressIndexKeychain ||
       !currentAddressIndexKeychain.privateKey
     )
       return;
-    const bitcoinContractOffer = JSON.parse(bitcoinContractJSON);
 
-    const bitcoinContractID = bitcoinContractOffer.temporaryContractId;
-    const bitcoinContractCollateralAmount =
-      bitcoinContractOffer.contractInfo.singleContractInfo.totalCollateral;
-
-    const network = currentNetwork.chain.bitcoin.network;
     const privateKey = convertUint8ArrayToHexString(currentAddressIndexKeychain.privateKey);
     const blockchainAPI =
-      network === 'mainnet'
+      currentBitcoinNetwork === 'mainnet'
         ? 'https://blockstream.info/api'
         : 'https://blockstream.info/testnet/api';
     const oracleAPI = 'https://testnet.dlc.link/oracle';
@@ -138,10 +144,16 @@ const useBitcoinContracts = () => {
     const bitcoinContractInterface = await JsDLCInterface.new(
       privateKey,
       currentAddress,
-      network,
+      currentBitcoinNetwork,
       blockchainAPI,
       oracleAPI
     );
+
+    const bitcoinContractOffer = JSON.parse(bitcoinContractJSON);
+
+    const bitcoinContractID = bitcoinContractOffer.temporaryContractId;
+    const bitcoinContractCollateralAmount =
+      bitcoinContractOffer.contractInfo.singleContractInfo.totalCollateral;
 
     try {
       const acceptedBitcoinContract = await bitcoinContractInterface.accept_offer(
@@ -189,6 +201,15 @@ const useBitcoinContracts = () => {
       );
     } catch (error) {
       navigate(RouteUrls.BitcoinContractLockError, { state: { error } });
+      if (!defaultParams.tabId || !initialSearchParams.get('requestID')) return;
+      chrome.tabs.sendMessage(
+        defaultParams.tabId,
+        makeRpcSuccessResponse('acceptOffer', {
+          id: initialSearchParams.get('requestID') as string,
+          contractID: bitcoinContractID,
+          action: 'failed',
+        })
+      );
     }
   }
 

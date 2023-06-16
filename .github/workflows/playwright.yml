@@ -69,7 +69,7 @@ jobs:
         # provides a virtual X display server to the process it runs, allowing
         # processes that require a display server to run in environments where
         # one is not available.
-        run: xvfb-run yarn playwright test --shard=${{ matrix.shardIndex }}/${{ matrix.shardTotal }} --workers=1
+        run: xvfb-run yarn playwright test tests/specs --shard=${{ matrix.shardIndex }}/${{ matrix.shardTotal }} --workers=1
 
       - uses: actions/upload-artifact@v3
         if: always()

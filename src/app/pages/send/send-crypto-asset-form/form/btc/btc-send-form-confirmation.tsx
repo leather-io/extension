@@ -23,7 +23,7 @@ import {
 } from '@app/components/info-card/info-card';
 import { ModalHeader } from '@app/components/modal-header';
 import { PrimaryButton } from '@app/components/primary-button';
-import { useCurrentNativeSegwitUtxos } from '@app/query/bitcoin/address/address.hooks';
+import { useCurrentNativeSegwitUtxos } from '@app/query/bitcoin/address/use-current-account-native-segwit-utxos';
 import { useBitcoinBroadcastTransaction } from '@app/query/bitcoin/transaction/use-bitcoin-broadcast-transaction';
 import { useCryptoCurrencyMarketData } from '@app/query/common/market-data/market-data.hooks';
 
@@ -35,7 +35,8 @@ function useBtcSendFormConfirmationState() {
   const location = useLocation();
   return {
     tx: get(location.state, 'tx') as string,
-    fee: get(location.state, 'fee') as string,
+    fee: get(location.state, 'fee') as number,
+    feeRowValue: get(location.state, 'feeRowValue') as string,
     arrivesIn: get(location.state, 'time') as string,
     recipient: get(location.state, 'recipient') as string,
   };
@@ -43,8 +44,7 @@ function useBtcSendFormConfirmationState() {
 
 export function BtcSendFormConfirmation() {
   const navigate = useNavigate();
-  const { tx, recipient, fee, arrivesIn } = useBtcSendFormConfirmationState();
-
+  const { tx, recipient, fee, arrivesIn, feeRowValue } = useBtcSendFormConfirmationState();
   const { refetch } = useCurrentNativeSegwitUtxos();
   const analytics = useAnalytics();
 
@@ -72,7 +72,7 @@ export function BtcSendFormConfirmation() {
       tx,
       async onSuccess(txid) {
         void analytics.track('broadcast_transaction', {
-          token: 'btc',
+          symbol: 'btc',
           amount: transferAmount,
           fee,
           inputs: psbt.inputs.length,
@@ -106,6 +106,7 @@ export function BtcSendFormConfirmation() {
       sendingValue,
       txFiatValue,
       txFiatValueSymbol,
+      feeRowValue,
     };
   }
 
@@ -135,10 +136,10 @@ export function BtcSendFormConfirmation() {
         <InfoCardRow title="Sending" value={sendingValue} />
         <InfoCardRow
           title="Fee"
-          value={summaryFee}
+          value={feeRowValue}
           data-testid={SendCryptoAssetSelectors.ConfirmationDetailsFee}
         />
-        <InfoCardRow title="Estimated confirmation time" value={arrivesIn} />
+        {arrivesIn && <InfoCardRow title="Estimated confirmation time" value={arrivesIn} />}
       </Stack>
 
       <InfoCardFooter>

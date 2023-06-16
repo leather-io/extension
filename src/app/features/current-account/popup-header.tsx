@@ -11,7 +11,7 @@ import { NetworkModeBadge } from '@app/components/network-mode-badge';
 import { CurrentAccountAvatar } from '@app/features/current-account/current-account-avatar';
 import { CurrentAccountName } from '@app/features/current-account/current-account-name';
 import { CurrentStxAddress } from '@app/features/current-account/current-stx-address';
-import { useConfigBitcoinEnabled } from '@app/query/common/hiro-config/hiro-config.query';
+import { useConfigBitcoinEnabled } from '@app/query/common/remote-config/remote-config.query';
 import { useCurrentStacksAccount } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
 
 interface PopupHeaderLayoutProps {

@@ -26,6 +26,7 @@ interface SendFormConfirmationProps {
   nonce: string;
   memoDisplayText: string;
   isLoading: boolean;
+  feeWarningTooltip?: React.ReactNode;
   onBroadcastTransaction: () => void;
 }
 
@@ -43,6 +44,7 @@ export function SendFormConfirmation({
   nonce,
   memoDisplayText,
   symbol,
+  feeWarningTooltip,
 }: SendFormConfirmationProps) {
   return (
     <InfoCard
@@ -78,6 +80,7 @@ export function SendFormConfirmation({
         <InfoCardRow
           title="Fee"
           value={fee}
+          titleAdditionalElement={feeWarningTooltip}
           data-testid={SendCryptoAssetSelectors.ConfirmationDetailsFee}
         />
         <InfoCardRow

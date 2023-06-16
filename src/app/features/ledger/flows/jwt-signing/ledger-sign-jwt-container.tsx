@@ -16,17 +16,17 @@ import { makeLedgerCompatibleUnsignedAuthResponsePayload } from '@app/common/uns
 import { delay } from '@app/common/utils';
 import { BaseDrawer } from '@app/components/drawer/base-drawer';
 import {
-  getAppVersion,
-  prepareLedgerDeviceConnection,
+  getStacksAppVersion,
+  prepareLedgerDeviceStacksAppConnection,
   useActionCancellableByUser,
-  useLedgerResponseState,
-} from '@app/features/ledger/ledger-utils';
+} from '@app/features/ledger/utils/stacks-ledger-utils';
 import {
   useCurrentStacksAccount,
   useStacksAccounts,
 } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
 
 import { useLedgerNavigate } from '../../hooks/use-ledger-navigate';
+import { useLedgerResponseState } from '../../utils/generic-ledger-utils';
 import {
   addSignatureToAuthResponseJwt,
   getSha256HashOfJwtAuthPayload,
@@ -86,14 +86,14 @@ export function LedgerSignJwtContainer() {
       return;
     }
 
-    const stacks = await prepareLedgerDeviceConnection({
+    const stacks = await prepareLedgerDeviceStacksAppConnection({
       setLoadingState: setAwaitingDeviceConnection,
       onError() {
         ledgerNavigate.toErrorStep();
       },
     });
 
-    const versionInfo = await getAppVersion(stacks);
+    const versionInfo = await getStacksAppVersion(stacks);
     setLatestDeviceResponse(versionInfo);
 
     if (versionInfo.deviceLocked) {

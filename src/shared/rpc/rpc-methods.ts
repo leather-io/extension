@@ -2,10 +2,13 @@ import { BtcKitMethodMap, ExtractErrorResponse, ExtractSuccessResponse } from '@
 
 import { ValueOf } from '@shared/utils/type-utils';
 
-import { Test } from './methods/test-method';
 import { DefineHandleBitcoinContractMethod } from './methods/handle-bitcoin-contract-method';
 
-export type WalletMethodMap = BtcKitMethodMap & Test & DefineHandleBitcoinContractMethod;
+import { SignPsbt } from './methods/sign-psbt';
+import { SupportedMethods } from './methods/supported-methods';
+
+// Supports BtcKit methods, as well as custom Hiro Wallet methods
+export type WalletMethodMap = BtcKitMethodMap & SupportedMethods & SignPsbt & DefineHandleBitcoinContractMethod;
 
 export type WalletRequests = ValueOf<WalletMethodMap>['request'];
 export type WalletResponses = ValueOf<WalletMethodMap>['response'];

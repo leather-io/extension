@@ -9,12 +9,12 @@ import { sumNumbers } from '@app/common/math/helpers';
 import { useCurrentAccountNativeSegwitAddressIndexZero } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
 
 import { createBitcoinCryptoCurrencyAssetTypeWrapper } from '../address/address.utils';
-import { useGetUtxosByAddressQuery } from '../address/utxos-by-address.query';
+import { useSpendableNativeSegwitUtxos } from '../address/use-spendable-native-segwit-utxos';
 import { useOrdinalsAwareUtxoQueries } from '../ordinals/ordinals-aware-utxo.query';
 import { useTaprootAccountUtxosQuery } from '../ordinals/use-taproot-address-utxos.query';
 
 function useGetBitcoinBalanceByAddress(address: string) {
-  const utxos = useGetUtxosByAddressQuery(address).data;
+  const utxos = useSpendableNativeSegwitUtxos(address).data;
   return useMemo(() => {
     if (!utxos) return createMoney(new BigNumber(0), 'BTC');
     return createMoney(sumNumbers(utxos.map(utxo => utxo.value)), 'BTC');

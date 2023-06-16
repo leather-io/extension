@@ -8,9 +8,10 @@ import {
   BitcoinFeesList,
   OnChooseFeeArgs,
 } from '@app/components/bitcoin-fees-list/bitcoin-fees-list';
-import { BitcoinFeesListLayout } from '@app/components/bitcoin-fees-list/components/bitcoin-fees-list.layout';
 import { BaseDrawer } from '@app/components/drawer/base-drawer';
 import { LoadingSpinner } from '@app/components/loading-spinner';
+import { BitcoinChooseFee } from '@app/features/bitcoin-choose-fee/bitcoin-choose-fee';
+import { useValidateBitcoinSpend } from '@app/features/bitcoin-choose-fee/hooks/use-validate-bitcoin-spend';
 
 import { useSendInscriptionState } from './components/send-inscription-container';
 import { useSendInscriptionFeesList } from './hooks/use-send-inscription-fees-list';
@@ -22,11 +23,12 @@ export function SendInscriptionChooseFee() {
   const { recipient, selectedFeeType, setSelectedFeeType, utxo } = useSendInscriptionState();
   const { feesList, isLoading } = useSendInscriptionFeesList({ recipient, utxo });
   const { reviewTransaction } = useSendInscriptionForm();
+  const { showInsufficientBalanceError, onValidateBitcoinFeeSpend } = useValidateBitcoinSpend();
 
-  async function previewTransaction({ feeRate, feeValue, time }: OnChooseFeeArgs) {
+  async function previewTransaction({ feeRate, feeValue, time, isCustomFee }: OnChooseFeeArgs) {
     try {
       setIsLoadingReview(true);
-      await reviewTransaction(feeValue, time, { feeRate, recipient });
+      await reviewTransaction(feeValue, time, { feeRate, recipient }, isCustomFee);
     } finally {
       setIsLoadingReview(false);
     }
@@ -36,16 +38,25 @@ export function SendInscriptionChooseFee() {
 
   return (
     <BaseDrawer title="Choose fee" isShowing enableGoBack onClose={() => navigate(-1)}>
-      <BitcoinFeesListLayout>
-        <BitcoinFeesList
-          amount={createMoney(0, 'BTC')}
-          feesList={feesList}
-          isLoading={isLoading}
-          onChooseFee={previewTransaction}
-          onSetSelectedFeeType={(value: BtcFeeType) => setSelectedFeeType(value)}
-          selectedFeeType={selectedFeeType}
-        />
-      </BitcoinFeesListLayout>
+      <BitcoinChooseFee
+        amount={createMoney(0, 'BTC')}
+        feesList={
+          <BitcoinFeesList
+            feesList={feesList}
+            isLoading={isLoading}
+            onChooseFee={previewTransaction}
+            onValidateBitcoinSpend={onValidateBitcoinFeeSpend}
+            onSetSelectedFeeType={(value: BtcFeeType) => setSelectedFeeType(value)}
+            selectedFeeType={selectedFeeType}
+          />
+        }
+        recommendedFeeRate={feesList[1].feeRate}
+        onChooseFee={previewTransaction}
+        recipient={recipient}
+        onValidateBitcoinSpend={onValidateBitcoinFeeSpend}
+        isSendingMax={false}
+        showError={showInsufficientBalanceError}
+      />
     </BaseDrawer>
   );
 }

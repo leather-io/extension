@@ -53,7 +53,6 @@ function BitcoinContractRequest() {
     counterpartyWalletIcon: string
   ) => {
     const bitcoinContractOffer = JSON.parse(bitcoinContractOfferJSON);
-    console.log(bitcoinContractOffer)
 
     const bitcoinContractID = bitcoinContractOffer.temporaryContractId;
     const bitcoinContractCollateralAmount =
@@ -85,12 +84,12 @@ function BitcoinContractRequest() {
       !bitcoinContract
     )
       return;
-    handleAccept(bitcoinContractJSON, counterpartyWalletDetails);
+    await handleAccept(bitcoinContractJSON, counterpartyWalletDetails);
   };
 
   const handleRejectClick = async () => {
     if (!bitcoinContract) return;
-    handleReject(bitcoinContract.bitcoinContractID);
+    await handleReject(bitcoinContract.bitcoinContractID);
   };
 
   useEffect(() => {
@@ -145,7 +144,7 @@ function BitcoinContractRequest() {
             onAcceptBitcoinContractOffer={handleAcceptClick}
           />
           <BitcoinContractOfferDetailsSimple
-            bitcoinAddressNativeSegwit={bitcoinAccountDetails.currentAddress}
+            bitcoinAddressNativeSegwit={bitcoinAccountDetails.currentAddress!}
             bitcoinContractOffer={bitcoinContract}
           />
         </BitcoinContractRequestLayout>

@@ -6,7 +6,7 @@ import { useQueryClient } from '@tanstack/react-query';
 import { RouteUrls } from '@shared/route-urls';
 
 import { useWalletType } from '@app/common/use-wallet-type';
-import { useConfigNftMetadataEnabled } from '@app/query/common/hiro-config/hiro-config.query';
+import { useConfigNftMetadataEnabled } from '@app/query/common/remote-config/remote-config.query';
 
 import { AddCollectible } from './components/add-collectible';
 import { Ordinals } from './components/bitcoin/ordinals';
@@ -40,16 +40,21 @@ export function Collectibles() {
       onRefresh={() => void queryClient.refetchQueries({ type: 'active' })}
     >
       {whenWallet({
+        software: <AddCollectible />,
+        ledger: null,
+      })}
+
+      {isNftMetadataEnabled ? <StacksCryptoAssets /> : null}
+
+      {whenWallet({
         software: (
           <>
-            <AddCollectible />
             <Stamps />
             <Ordinals setIsLoadingMore={setIsLoadingMore} />
           </>
         ),
         ledger: null,
       })}
-      {isNftMetadataEnabled ? <StacksCryptoAssets /> : null}
     </CollectiblesLayout>
   );
 }

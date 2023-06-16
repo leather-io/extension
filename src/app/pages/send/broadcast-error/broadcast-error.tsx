@@ -19,7 +19,7 @@ export function BroadcastError() {
       my="loose"
       textAlign="center"
       errorPayload={msg}
-      title="There was an error with you Bitcoin Contract"
+      title="There was an error with your Bitcoin Contract"
       body="Unable to lock bitcoin"
     />
   );
