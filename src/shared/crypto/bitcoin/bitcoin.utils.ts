@@ -1,3 +1,4 @@
+import { PaymentTypes } from '@btckit/types';
 import { hexToBytes } from '@noble/hashes/utils';
 import { HDKey } from '@scure/bip32';
 import * as btc from '@scure/btc-signer';
@@ -83,4 +84,33 @@ export function getAddressFromOutScript(script: Uint8Array, network: BitcoinNetw
   else if (outScript.type === 'sh') return formatKey(script, [bitcoinNetwork?.scriptHash]);
   logger.error(`Unknown address type=${outScript.type}`);
   return '';
+}
+
+type BtcSignerLibPaymentTypeIdentifers = 'wpkh' | 'wsh' | 'tr' | 'pkh' | 'sh';
+
+const paymentTypeMap: Record<BtcSignerLibPaymentTypeIdentifers, PaymentTypes> = {
+  wpkh: 'p2wpkh',
+  wsh: 'p2wpkh-p2sh',
+  tr: 'p2tr',
+  pkh: 'p2pkh',
+  sh: 'p2sh',
+};
+
+function btcSignerLibPaymentTypeToPaymentTypeMap(payment: BtcSignerLibPaymentTypeIdentifers) {
+  return paymentTypeMap[payment];
+}
+
+function isBtcSignerLibPaymentType(payment: string): payment is BtcSignerLibPaymentTypeIdentifers {
+  return payment in paymentTypeMap;
+}
+
+function parseKnownPaymentType(payment: BtcSignerLibPaymentTypeIdentifers | PaymentTypes) {
+  return isBtcSignerLibPaymentType(payment)
+    ? btcSignerLibPaymentTypeToPaymentTypeMap(payment)
+    : payment;
+}
+
+type PaymentTypeMap<T> = Record<PaymentTypes, T>;
+export function whenPaymentType(mode: PaymentTypes | BtcSignerLibPaymentTypeIdentifers) {
+  return <T>(paymentMap: PaymentTypeMap<T>): T => paymentMap[parseKnownPaymentType(mode)];
 }
