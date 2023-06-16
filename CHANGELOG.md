@@ -1,3 +1,47 @@
+## [4.30.1](https://github.com/hirosystems/wallet/compare/v4.30.0...v4.30.1) (2023-06-16)
+
+
+### Bug Fixes
+
+* brc-20 send form bug ([d45f26e](https://github.com/hirosystems/wallet/commit/d45f26e62bf200f87a527fe6bca544f4b5560029))
+
+
+### Internal
+
+* track caught chain errors ([595230d](https://github.com/hirosystems/wallet/commit/595230dd8e55c820a14fd7ca5d41e50bdfe2c52e))
+
+## [4.30.0](https://github.com/hirosystems/wallet/compare/v4.29.1...v4.30.0) (2023-06-15)
+
+
+### Features
+
+* add brc20 decimals, closes [#3840](https://github.com/hirosystems/wallet/issues/3840) ([dac9920](https://github.com/hirosystems/wallet/commit/dac99204ebaa7b0e1ce39b0313df8139596c908b))
+* btc custom fees, closes [#3597](https://github.com/hirosystems/wallet/issues/3597), closes [#3760](https://github.com/hirosystems/wallet/issues/3760) ([1940eaf](https://github.com/hirosystems/wallet/commit/1940eaf8a8f0ebb8c07b41aed1e0acf57a4644d1))
+* remove useref in infinite inscriptions query ([3a8ab16](https://github.com/hirosystems/wallet/commit/3a8ab169a64559bcfd3a0342af47799179999765))
+
+
+### Bug Fixes
+
+* allow user defined network ([0c23475](https://github.com/hirosystems/wallet/commit/0c23475049f55dfb688b25c0aa91fe5f3aafde24))
+* another try ignoring err ([6f83383](https://github.com/hirosystems/wallet/commit/6f8338355ee5e9ece83db259f6966e79ce761a08))
+* dup placeholder node ([d95e590](https://github.com/hirosystems/wallet/commit/d95e5905e7b760642524042456e23727b809a8b0))
+* failing test with masking secret key ([2a4dc5f](https://github.com/hirosystems/wallet/commit/2a4dc5f108b8097811b08b813bbb2ff6763d5a02))
+* request fees more often, closes [#3657](https://github.com/hirosystems/wallet/issues/3657) ([1d32325](https://github.com/hirosystems/wallet/commit/1d32325829ad292518fec671a0c27464cb30a8ca))
+* **send-transfer:** poor validation, missing route guard, closes [#3823](https://github.com/hirosystems/wallet/issues/3823) ([d5720b9](https://github.com/hirosystems/wallet/commit/d5720b9c90a36d9e7a9d61f3bb6fd0d6d7660496))
+* unwanted decimals in sats, closes [#3836](https://github.com/hirosystems/wallet/issues/3836) ([e1987ed](https://github.com/hirosystems/wallet/commit/e1987ed674b75edca2c3d6d19f08593390599b48))
+
+
+### Internal
+
+* add warning ([72105c7](https://github.com/hirosystems/wallet/commit/72105c7a24f42f8a866d82f4e724e6b10be1d7e5))
+* each rpc method own file ([f0763a4](https://github.com/hirosystems/wallet/commit/f0763a4f27fa2fa7d30039d3c350d38798f8595e))
+* improve form validation ([51f305d](https://github.com/hirosystems/wallet/commit/51f305d72669881549544d4351735d0df5c44399))
+* mask secret key for new wallet onboarding ([84951d4](https://github.com/hirosystems/wallet/commit/84951d43578b69d3091dc3da4410d6578ed590a9))
+* psbt ui to inputs and outputs ([dea361f](https://github.com/hirosystems/wallet/commit/dea361f3803c8a9478e3a87b7fa2cd3b214a17d9))
+* **psbt:** support via RPC, closes [#3581](https://github.com/hirosystems/wallet/issues/3581) ([f828341](https://github.com/hirosystems/wallet/commit/f82834141b4bec0402f6ca50aaaf86b79c21e237))
+* recipient select behaviour ([409cc72](https://github.com/hirosystems/wallet/commit/409cc7231689d87614bb1920d964d67d905f19d9))
+* renaming stacks-specific code ([5d51b1e](https://github.com/hirosystems/wallet/commit/5d51b1eea80c9145d33128367a2087b3fa8e7b1c))
+
 ## [4.29.1](https://github.com/hirosystems/wallet/compare/v4.29.0...v4.29.1) (2023-06-13)
 
 

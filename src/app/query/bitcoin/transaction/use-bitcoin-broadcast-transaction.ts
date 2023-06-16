@@ -1,5 +1,6 @@
 import { useCallback, useState } from 'react';
 
+import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
 import { delay } from '@app/common/utils';
 import { useBitcoinClient } from '@app/store/common/api-clients.hooks';
 
@@ -13,6 +14,7 @@ interface BroadcastCallbackArgs {
 export function useBitcoinBroadcastTransaction() {
   const client = useBitcoinClient();
   const [isBroadcasting, setIsBroadcasting] = useState(false);
+  const analytics = useAnalytics();
 
   const broadcastTx = useCallback(
     async ({ tx, onSuccess, onError, onFinally }: BroadcastCallbackArgs) => {
@@ -27,6 +29,7 @@ export function useBitcoinBroadcastTransaction() {
         return txid;
       } catch (e) {
         onError?.(e as Error);
+        void analytics.track('error_broadcasting_transaction', { error: e });
         return;
       } finally {
         setIsBroadcasting(false);
@@ -34,7 +37,7 @@ export function useBitcoinBroadcastTransaction() {
         return;
       }
     },
-    [client.transactionsApi]
+    [analytics, client.transactionsApi]
   );
 
   return { broadcastTx, isBroadcasting };

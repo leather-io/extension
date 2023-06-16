@@ -1,8 +1,20 @@
 import { Flex } from '@stacks/ui';
 
-import { HasChildren } from '@app/common/has-children';
+import { LoadingSpinner } from '@app/components/loading-spinner';
 
-export function BitcoinChooseFeeLayout({ children }: HasChildren) {
+interface BitcoinChooseFeeLayoutProps {
+  children: JSX.Element;
+  isLoading: boolean;
+}
+
+export function BitcoinChooseFeeLayout({ children, isLoading }: BitcoinChooseFeeLayoutProps) {
+  if (isLoading) {
+    return (
+      <Flex py="108px" justifyContent="center" alignItems="center" width="100%">
+        <LoadingSpinner />
+      </Flex>
+    );
+  }
   return (
     <Flex alignItems="center" p="extra-loose" spacing="base" width="100%">
       {children}
