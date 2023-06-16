@@ -1,3 +1,15 @@
+## [4.30.1](https://github.com/hirosystems/wallet/compare/v4.30.0...v4.30.1) (2023-06-16)
+
+
+### Bug Fixes
+
+* brc-20 send form bug ([d45f26e](https://github.com/hirosystems/wallet/commit/d45f26e62bf200f87a527fe6bca544f4b5560029))
+
+
+### Internal
+
+* track caught chain errors ([595230d](https://github.com/hirosystems/wallet/commit/595230dd8e55c820a14fd7ca5d41e50bdfe2c52e))
+
 ## [4.30.0](https://github.com/hirosystems/wallet/compare/v4.29.1...v4.30.0) (2023-06-15)
 
 
