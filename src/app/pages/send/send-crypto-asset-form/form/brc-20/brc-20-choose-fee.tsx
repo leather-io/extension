@@ -45,6 +45,8 @@ export function BrcChooseFee() {
     amount: Number(amount),
     recipient,
   });
+  const recommendedFeeRate = feesList[1]?.feeRate.toString() || '';
+
   const amountAsMoney = createMoney(Number(amount), tick, 0);
 
   const { showInsufficientBalanceError, onValidateBitcoinFeeSpend } =
@@ -121,17 +123,17 @@ export function BrcChooseFee() {
   ) : (
     <BitcoinChooseFee
       amount={amountAsMoney}
+      isLoading={isLoading}
       feesList={
         <BitcoinFeesList
           feesList={feesList}
-          isLoading={isLoading}
           onChooseFee={previewTransaction}
           onSetSelectedFeeType={(value: BtcFeeType) => setSelectedFeeType(value)}
           onValidateBitcoinSpend={onValidateBitcoinFeeSpend}
           selectedFeeType={selectedFeeType}
         />
       }
-      recommendedFeeRate={feesList[1].feeRate}
+      recommendedFeeRate={recommendedFeeRate}
       onChooseFee={previewTransaction}
       recipient={recipient}
       onValidateBitcoinSpend={onValidateBitcoinFeeSpend}
