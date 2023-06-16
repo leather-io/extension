@@ -9,11 +9,16 @@ import { getBtcSignerLibNetworkConfigByMode } from '@shared/crypto/bitcoin/bitco
 import {
   deriveAddressIndexKeychainFromAccount,
   deriveAddressIndexZeroFromAccount,
+  whenPaymentType,
 } from '@shared/crypto/bitcoin/bitcoin.utils';
-import { deriveTaprootAccountFromRootKeychain } from '@shared/crypto/bitcoin/p2tr-address-gen';
+import {
+  deriveTaprootAccountFromRootKeychain,
+  getTaprootAddressIndexDerivationPath,
+} from '@shared/crypto/bitcoin/p2tr-address-gen';
 import {
   deriveNativeSegWitAccountKeychain,
   getNativeSegWitPaymentFromAddressIndex,
+  getNativeSegwitAddressIndexDerivationPath,
 } from '@shared/crypto/bitcoin/p2wpkh-address-gen';
 
 import { mnemonicToRootNode } from '@app/common/keychain/keychain';
@@ -77,12 +82,13 @@ export function useBitcoinScureLibNetworkConfig() {
 }
 
 interface BitcoinSignerFactoryArgs {
+  accountIndex: number;
   accountKeychain: HDKey;
   paymentFn(keychain: HDKey, network: BitcoinNetworkModes): any;
   network: BitcoinNetworkModes;
 }
 export function bitcoinSignerFactory<T extends BitcoinSignerFactoryArgs>(args: T) {
-  const { network, paymentFn, accountKeychain } = args;
+  const { accountIndex, network, paymentFn, accountKeychain } = args;
   return (addressIndex: number) => {
     const addressIndexKeychain =
       deriveAddressIndexKeychainFromAccount(accountKeychain)(addressIndex);
@@ -96,6 +102,13 @@ export function bitcoinSignerFactory<T extends BitcoinSignerFactoryArgs>(args: T
       payment,
       addressIndex,
       publicKeychain,
+      derivationPath: whenPaymentType(payment.type)({
+        p2wpkh: getNativeSegwitAddressIndexDerivationPath(network, accountIndex, addressIndex),
+        p2tr: getTaprootAddressIndexDerivationPath(network, accountIndex, addressIndex),
+        'p2wpkh-p2sh': 'Not supported',
+        p2pkh: 'Not supported',
+        p2sh: 'Not supported',
+      }),
       get address() {
         if (!payment.address) throw new Error('Unable to get address from payment');
         return payment.address;
@@ -136,6 +149,7 @@ function createSignersForAllNetworkTypes<T extends CreateSignersForAllNetworkTyp
 
     function makeNetworkSigner(keychain: HDKey, network: BitcoinNetworkModes) {
       return bitcoinSignerFactory({
+        accountIndex,
         accountKeychain: keychain,
         paymentFn: paymentFn as T['paymentFn'],
         network,

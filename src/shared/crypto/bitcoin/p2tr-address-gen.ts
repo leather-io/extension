@@ -11,6 +11,14 @@ function getTaprootAccountDerivationPath(network: BitcoinNetworkModes, accountIn
   return `m/86'/${getBitcoinCoinTypeIndexByNetwork(network)}'/${accountIndex}'`;
 }
 
+export function getTaprootAddressIndexDerivationPath(
+  network: BitcoinNetworkModes,
+  accountIndex: number,
+  addressIndex: number
+) {
+  return getTaprootAccountDerivationPath(network, accountIndex) + `/0/${addressIndex}`;
+}
+
 export function deriveTaprootAccountFromRootKeychain(
   keychain: HDKey,
   network: BitcoinNetworkModes
