@@ -21,7 +21,7 @@ export type HandleBitcoinContractRequest = RpcRequest<
   HandleBitcoinContractResponseParams
 >;
 export type HandleBitcoinContractResponse = RpcResponse<HandleBitcoinContractResponseBody>;
-export type DefineHandleBitcoinContractMethod = DefineRpcMethod<
+export type HandleBitcoinContractMethod = DefineRpcMethod<
   HandleBitcoinContractRequest,
   HandleBitcoinContractResponse
 >;

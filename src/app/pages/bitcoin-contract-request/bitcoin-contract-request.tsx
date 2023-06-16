@@ -114,7 +114,7 @@ function BitcoinContractRequest() {
       counterpartyWalletIcon
     );
 
-  const hasSufficientFunds = checkSufficientFunds(
+    const hasSufficientFunds = checkSufficientFunds(
       simplifiedBitcoinContractOffer.bitcoinContractCollateralAmount,
       bitcoinAccountBalance.balance.amount
     );
@@ -128,27 +128,31 @@ function BitcoinContractRequest() {
 
   return (
     <>
-      {!isLoading && bitcoinAccountDetails && bitcoinContract && counterpartyWalletDetails && (
-        <BitcoinContractRequestLayout>
-          <BitcoinContractRequestHeader
-            counterpartyWalletName={counterpartyWalletDetails.counterpartyWalletName}
-            counterpartyWalletIcon={counterpartyWalletDetails.counterpartyWalletIcon}
-          />
-          <BitcoinContractRequestWarningLabel
-            appName={counterpartyWalletDetails.counterpartyWalletName}
-          />
-          <BitcoinContractRequestActions
-            isLoading={isLoading}
-            canAccept={canAcceptContract}
-            onRejectBitcoinContractOffer={handleRejectClick}
-            onAcceptBitcoinContractOffer={handleAcceptClick}
-          />
-          <BitcoinContractOfferDetailsSimple
-            bitcoinAddressNativeSegwit={bitcoinAccountDetails.currentAddress!}
-            bitcoinContractOffer={bitcoinContract}
-          />
-        </BitcoinContractRequestLayout>
-      )}
+      {!isLoading &&
+        bitcoinAccountDetails &&
+        bitcoinAccountDetails.currentAddress &&
+        bitcoinContract &&
+        counterpartyWalletDetails && (
+          <BitcoinContractRequestLayout>
+            <BitcoinContractRequestHeader
+              counterpartyWalletName={counterpartyWalletDetails.counterpartyWalletName}
+              counterpartyWalletIcon={counterpartyWalletDetails.counterpartyWalletIcon}
+            />
+            <BitcoinContractRequestWarningLabel
+              appName={counterpartyWalletDetails.counterpartyWalletName}
+            />
+            <BitcoinContractRequestActions
+              isLoading={isLoading}
+              canAccept={canAcceptContract}
+              onRejectBitcoinContractOffer={handleRejectClick}
+              onAcceptBitcoinContractOffer={handleAcceptClick}
+            />
+            <BitcoinContractOfferDetailsSimple
+              bitcoinAddressNativeSegwit={bitcoinAccountDetails.currentAddress}
+              bitcoinContractOffer={bitcoinContract}
+            />
+          </BitcoinContractRequestLayout>
+        )}
     </>
   );
 }

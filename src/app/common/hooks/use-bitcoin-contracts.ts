@@ -1,13 +1,9 @@
 import { useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import BigNumber from 'bignumber.js';
 import { JsDLCInterface } from 'dlc-wasm-wallet';
 
-import { BitcoinCryptoCurrencyAssetBalance } from '@shared/models/crypto-asset-balance.model';
-import { BitcoinCryptoCurrencyAsset } from '@shared/models/crypto-asset.model';
-import { createMoneyFromDecimal, currencyDecimalsMap } from '@shared/models/money.model';
-import { Money } from '@shared/models/money.model';
+import { createMoneyFromDecimal  } from '@shared/models/money.model';
 import { RouteUrls } from '@shared/route-urls';
 import { makeRpcSuccessResponse } from '@shared/rpc/rpc-methods';
 
@@ -58,67 +54,6 @@ const useBitcoinContracts = () => {
     [bitcoinMarketData]
   );
 
-  async function getAllContracts() {
-    const { currentBitcoinNetwork, currentAddress, currentAddressIndexKeychain } =
-      bitcoinAccountDetails ?? {};
-    if (
-      !currentBitcoinNetwork ||
-      !currentAddress ||
-      !currentAddressIndexKeychain ||
-      !currentAddressIndexKeychain.privateKey
-    )
-      return;
-
-    const privateKey = convertUint8ArrayToHexString(currentAddressIndexKeychain.privateKey);
-    const blockchainAPI =
-      currentBitcoinNetwork === 'mainnet'
-        ? 'https://blockstream.info/api'
-        : 'https://blockstream.info/testnet/api';
-    const oracleAPI = 'https://testnet.dlc.link/oracle';
-
-    const bitcoinContractInterface = await JsDLCInterface.new(
-      privateKey,
-      currentAddress,
-      currentBitcoinNetwork,
-      blockchainAPI,
-      oracleAPI
-    );
-
-    const bitcoinContracts = await bitcoinContractInterface.get_contracts();
-
-    return bitcoinContracts;
-  }
-
-  async function getContract(bitcoinContractID: string) {
-    const { currentBitcoinNetwork, currentAddress, currentAddressIndexKeychain } =
-      bitcoinAccountDetails ?? {};
-    if (
-      !currentBitcoinNetwork ||
-      !currentAddress ||
-      !currentAddressIndexKeychain ||
-      !currentAddressIndexKeychain.privateKey
-    )
-      return;
-
-    const privateKey = convertUint8ArrayToHexString(currentAddressIndexKeychain.privateKey);
-    const blockchainAPI =
-      currentBitcoinNetwork === 'mainnet'
-        ? 'https://blockstream.info/api'
-        : 'https://blockstream.info/testnet/api';
-    const oracleAPI = 'https://testnet.dlc.link/oracle';
-
-    const bitcoinContractInterface = await JsDLCInterface.new(
-      privateKey,
-      currentAddress,
-      currentBitcoinNetwork,
-      blockchainAPI,
-      oracleAPI
-    );
-
-    const bitcoinContracts = await bitcoinContractInterface.get_contract(bitcoinContractID);
-
-    return bitcoinContracts;
-  }
 
   async function handleAccept(
     bitcoinContractJSON: string,
@@ -226,66 +161,9 @@ const useBitcoinContracts = () => {
     close();
   }
 
-  async function handleLockedBitcoinBalance() {
-    let lockedBitcoins = 0;
-    const allContracts: any[] = await getAllContracts();
-
-    for (const contract of allContracts) {
-      if (contract.state === 'Broadcasted') {
-        lockedBitcoins += contract.contractInfo.totalCollateral;
-      }
-    }
-
-    const lockedBitcoinBalanceInFiat = getFiatValue(lockedBitcoins.toString());
-    const lockedBitcoinBalanceBigNumber = new BigNumber(lockedBitcoins);
-    const lockedBitcoinBalanceMoney: Money = {
-      amount: lockedBitcoinBalanceBigNumber,
-      decimals: currencyDecimalsMap.BTC,
-      symbol: 'BTC',
-    };
-    const asset: BitcoinCryptoCurrencyAsset = {
-      decimals: 0,
-      hasMemo: false,
-      name: 'Locked Bitcoin',
-      symbol: 'BTC',
-    };
-
-    const lockedBitcoinBalance: BitcoinCryptoCurrencyAssetBalance = {
-      blockchain: 'bitcoin',
-      type: 'crypto-currency',
-      asset: asset,
-      balance: lockedBitcoinBalanceMoney,
-    };
-
-    return { lockedBitcoinBalanceInFiat, lockedBitcoinBalance };
-  }
-
-  const initialLockedBitcoinBalance = {
-    lockedBitcoinBalanceInFiat: getFiatValue('0'),
-    lockedBitcoinBalance: {
-      blockchain: 'bitcoin',
-      type: 'crypto-currency',
-      asset: {
-        decimals: 0,
-        hasMemo: false,
-        name: 'Locked Bitcoin',
-        symbol: 'BTC',
-      },
-      balance: {
-        amount: new BigNumber(0),
-        decimals: currencyDecimalsMap.BTC,
-        symbol: 'BTC',
-      },
-    },
-  };
-
   return {
-    getAllContracts,
-    getContract,
     handleAccept,
     handleReject,
-    handleLockedBitcoinBalance,
-    initialLockedBitcoinBalance,
   };
 };
 

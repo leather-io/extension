@@ -59,7 +59,6 @@ import { useHasUserRespondedToAnalyticsConsent } from '@app/store/settings/setti
 
 import { OnboardingGate } from './onboarding-gate';
 import { LockBitcoinSummary } from '@app/pages/send/lock-bitcoin-contract/lock-bitcoin-contract';
-import { BitcoinContractList } from '@app/pages/bitcoin-contract-list/bitcoin-contract-list';
 
 export function AppRoutes() {
   const routes = useAppRoutes();
@@ -153,12 +152,6 @@ function useAppRoutes() {
           }
         >
         </Route>
-        <Route
-          path={RouteUrls.BitcoinContractList}
-          element={
-           <BitcoinContractList/>
-          }
-        ></Route>
         <Route path={RouteUrls.BitcoinContractLockSuccess} element={<LockBitcoinSummary/>} />
         <Route path={RouteUrls.BitcoinContractLockError} element={<BroadcastError />} />
         <Route
