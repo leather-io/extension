@@ -1,6 +1,6 @@
 import { WarningLabel } from '@app/components/warning-label';
 
-export function PsbtRequestWarningLabel(props: { appName?: string }) {
+export function PsbtRequestAppWarningLabel(props: { appName?: string }) {
   const { appName } = props;
   const title = `Do not proceed unless you trust ${appName ?? 'Unknown'}!`;
 
