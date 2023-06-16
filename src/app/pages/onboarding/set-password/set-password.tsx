@@ -57,7 +57,7 @@ function SetPasswordPage() {
   const { decodedAuthRequest } = useOnboardingState();
   const analytics = useAnalytics();
 
-  useRouteHeader(<Header hideActions onClose={() => navigate(RouteUrls.BackUpSecretKey)} />);
+  useRouteHeader(<Header hideActions onClose={() => navigate(-1)} />);
 
   useEffect(() => {
     void analytics.page('view', '/set-password');
