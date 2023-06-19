@@ -11,7 +11,6 @@ interface PopupOptions {
 }
 export function popupCenter(options: PopupOptions): Promise<Windows.Window> {
   const { url, w = POPUP_CENTER_WIDTH, h = POPUP_CENTER_HEIGHT } = options;
-  console.log('popupCenter', options)
 
   return new Promise(resolve => {
     // @see https://developer.chrome.com/docs/extensions/reference/windows/#method-getCurrent

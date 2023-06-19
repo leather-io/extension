@@ -10,7 +10,6 @@ interface BroadcastErrorDrawerLayoutProps {
   onClose(): void;
 }
 export function BroadcastErrorDrawerLayout({ message, onClose }: BroadcastErrorDrawerLayoutProps) {
-  console.log('MESSAGE', message)
   return (
     <BaseDrawer icon={<></>} isShowing onClose={onClose} textAlign="center">
       <Flex

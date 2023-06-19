@@ -21,9 +21,6 @@ const manifest = {
     scripts: ['browser-polyfill.js', 'background.js'],
     persistent: true,
   },
-  externally_connectable: {
-    matches: ["*://*/*"],
-  },
   web_accessible_resources: ['inpage.js'],
   browser_action: {
     default_title: 'Hiro Wallet',

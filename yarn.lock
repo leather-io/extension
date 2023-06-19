@@ -9314,15 +9314,6 @@ dir-glob@^3.0.1:
   dependencies:
     path-type "^4.0.0"
 
-"dlc-lib@file:../dlc-lib":
-  version "1.0.0"
-  dependencies:
-    bitcoinjs-lib "^6.0.2"
-    coinselect "^3.1.13"
-    crypto "^1.0.1"
-    ecpair "^2.0.1"
-    tiny-secp256k1 "^2.2.1"
-
 "dlc-wasm-wallet@file:../dlc-stack/wasm-wallet/pkg":
   version "0.4.0"
 
