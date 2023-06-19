@@ -1,3 +1,4 @@
+import { useMemo } from 'react';
 import { useSelector } from 'react-redux';
 
 import { BitcoinNetworkModes } from '@shared/constants';
@@ -32,8 +33,10 @@ export function useTaprootCurrentAccountPrivateKeychain() {
 
 export function useTaprootAccountKeychain(accountIndex: number) {
   const accountKeychain = useTaprootActiveNetworkAccountPrivateKeychain();
-  if (!accountKeychain) return; // TODO: Revisit this return early
-  return accountKeychain(accountIndex);
+  return useMemo(() => {
+    if (!accountKeychain) return; // TODO: Revisit this return early
+    return accountKeychain(accountIndex);
+  }, [accountIndex, accountKeychain]);
 }
 
 export function useTaprootNetworkSigners() {
@@ -49,31 +52,28 @@ export function useTaprootNetworkSigners() {
 
 function useTaprootSigner(accountIndex: number, network: BitcoinNetworkModes) {
   const accountKeychain = useTaprootAccountKeychain(accountIndex);
-  if (!accountKeychain) return; // TODO: Revisit this return early
 
-  return bitcoinSignerFactory({
-    accountKeychain,
-    paymentFn: getTaprootPaymentFromAddressIndex,
-    network,
-  });
+  return useMemo(() => {
+    if (!accountKeychain) return; // TODO: Revisit this return early
+    return bitcoinSignerFactory({
+      accountIndex,
+      accountKeychain,
+      paymentFn: getTaprootPaymentFromAddressIndex,
+      network,
+    });
+  }, [accountIndex, accountKeychain, network]);
+}
+
+export function useCurrentAccountTaprootIndexZeroSigner() {
+  const signer = useCurrentAccountTaprootSigner();
+  return useMemo(() => {
+    if (!signer) throw new Error('No signer');
+    return signer(0);
+  }, [signer]);
 }
 
 export function useCurrentAccountTaprootSigner() {
   const currentAccountIndex = useCurrentAccountIndex();
   const network = useCurrentNetwork();
   return useTaprootSigner(currentAccountIndex, network.chain.bitcoin.network);
-}
-
-export function useCurrentAccountTaprootAddressIndexZeroPayment() {
-  const createSigner = useCurrentAccountTaprootSigner();
-  const indexZeroSigner = createSigner?.(0);
-  if (!indexZeroSigner?.payment.address) throw new Error('No address found');
-  const publicKey = indexZeroSigner.publicKeychain.publicKey;
-  if (!publicKey) throw new Error('No public key found');
-  // Creating new object to have known property types
-  return {
-    address: indexZeroSigner.payment.address,
-    publicKey,
-    type: indexZeroSigner.payment.type,
-  };
 }
