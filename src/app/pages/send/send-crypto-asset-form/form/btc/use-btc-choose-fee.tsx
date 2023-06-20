@@ -16,7 +16,7 @@ import { useSendFormNavigate } from '../../hooks/use-send-form-navigate';
 import { useBtcChooseFeeState } from './btc-choose-fee';
 
 export function useBtcChooseFee() {
-  const { isSendingMax, txValues } = useBtcChooseFeeState();
+  const { isSendingMax, txValues, utxos } = useBtcChooseFeeState();
   const navigate = useNavigate();
   const { whenWallet } = useWalletType();
   const sendFormNavigate = useSendFormNavigate();
@@ -38,13 +38,14 @@ export function useBtcChooseFee() {
         {
           amount: isSendingMax
             ? createMoney(
-                btcToSat(calcMaxSpend(txValues.recipient, feeRate).spendableBitcoin),
+                btcToSat(calcMaxSpend(txValues.recipient, utxos, feeRate).spendableBitcoin),
                 'BTC'
               )
             : amountAsMoney,
           recipient: txValues.recipient,
         },
         feeRate,
+        utxos,
         isSendingMax
       );
 

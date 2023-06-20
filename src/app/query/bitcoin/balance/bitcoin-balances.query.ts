@@ -3,20 +3,21 @@ import { useMemo } from 'react';
 import BigNumber from 'bignumber.js';
 
 import { createMoney } from '@shared/models/money.model';
-import { isDefined } from '@shared/utils';
+import { isDefined, isUndefined } from '@shared/utils';
 
 import { sumNumbers } from '@app/common/math/helpers';
 import { useCurrentAccountNativeSegwitIndexZeroSigner } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
 
 import { createBitcoinCryptoCurrencyAssetTypeWrapper } from '../address/address.utils';
-import { useSpendableNativeSegwitUtxos } from '../address/utxos-by-address.hooks';
+import { useAllSpendableNativeSegwitUtxos } from '../address/utxos-by-address.hooks';
 import { useOrdinalsAwareUtxoQueries } from '../ordinals/ordinals-aware-utxo.query';
 import { useTaprootAccountUtxosQuery } from '../ordinals/use-taproot-address-utxos.query';
 
 function useGetBitcoinBalanceByAddress(address: string) {
-  const utxos = useSpendableNativeSegwitUtxos(address).data;
+  const { data: utxos } = useAllSpendableNativeSegwitUtxos(address);
+
   return useMemo(() => {
-    if (!utxos) return createMoney(new BigNumber(0), 'BTC');
+    if (isUndefined(utxos)) return createMoney(new BigNumber(0), 'BTC');
     return createMoney(sumNumbers(utxos.map(utxo => utxo.value)), 'BTC');
   }, [utxos]);
 }

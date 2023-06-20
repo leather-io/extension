@@ -10,7 +10,7 @@ import { BtcIcon } from '@app/components/icons/btc-icon';
 import { HighFeeDrawer } from '@app/features/high-fee-drawer/high-fee-drawer';
 import { useNativeSegwitBalance } from '@app/query/bitcoin/balance/bitcoin-balances.query';
 import { useCryptoCurrencyMarketData } from '@app/query/common/market-data/market-data.hooks';
-import { useCurrentAccountNativeSegwitAddressIndexZero } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
+import { useCurrentAccountNativeSegwitIndexZeroSigner } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
 
 import { AmountField } from '../../components/amount-field';
 import { FormFooter } from '../../components/form-footer';
@@ -28,8 +28,8 @@ export function BtcSendForm() {
   const routeState = useSendFormRouteState();
   const btcMarketData = useCryptoCurrencyMarketData('BTC');
 
-  const currentAccountBtcAddress = useCurrentAccountNativeSegwitAddressIndexZero();
-  const btcBalance = useNativeSegwitBalance(currentAccountBtcAddress);
+  const nativeSegwitSigner = useCurrentAccountNativeSegwitIndexZeroSigner();
+  const btcBalance = useNativeSegwitBalance(nativeSegwitSigner.address);
 
   const {
     calcMaxSpend,
@@ -39,6 +39,7 @@ export function BtcSendForm() {
     isSendingMax,
     onFormStateChange,
     onSetIsSendingMax,
+    utxos,
     validationSchema,
   } = useBtcSendForm();
 
@@ -56,7 +57,7 @@ export function BtcSendForm() {
       >
         {props => {
           onFormStateChange(props.values);
-          const sendMaxCalculation = calcMaxSpend(props.values.recipient);
+          const sendMaxCalculation = calcMaxSpend(props.values.recipient, utxos);
 
           return (
             <Form>
@@ -88,7 +89,7 @@ export function BtcSendForm() {
               <Outlet />
 
               {/* This is for testing purposes only, to make sure the form is ready to be submitted */}
-              {calcMaxSpend(props.values.recipient).spendableBitcoin.toNumber() > 0 ? (
+              {calcMaxSpend(props.values.recipient, utxos).spendableBitcoin.toNumber() > 0 ? (
                 <Box data-testid={SendCryptoAssetSelectors.SendPageReady}></Box>
               ) : null}
             </Form>
