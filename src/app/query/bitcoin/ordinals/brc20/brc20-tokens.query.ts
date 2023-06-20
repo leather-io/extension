@@ -1,7 +1,15 @@
-import { useQuery } from '@tanstack/react-query';
+import { useCallback, useEffect } from 'react';
 
-import { AppUseQueryConfig } from '@app/query/query-config';
+import { useInfiniteQuery } from '@tanstack/react-query';
+
+import { createNumArrayOfRange } from '@app/common/utils';
 import { QueryPrefixes } from '@app/query/query-prefixes';
+import { useCurrentAccountNativeSegwitIndexZeroSigner } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
+import { useCurrentAccountTaprootSigner } from '@app/store/accounts/blockchain/bitcoin/taproot-account.hooks';
+import { useCurrentNetwork } from '@app/store/networks/networks.selectors';
+
+const addressesSimultaneousFetchLimit = 5;
+const stopSearchAfterNumberAddressesWithoutBrc20Tokens = 20;
 
 interface Brc20TokenResponse {
   available_balance: string;
@@ -53,15 +61,65 @@ async function fetchBrc20TokensByAddress(address: string): Promise<Brc20Token[]>
   });
 }
 
-type FetchBrc20TokensByAddressResp = Awaited<ReturnType<typeof fetchBrc20TokensByAddress>>;
+export function useBrc20TokensQuery() {
+  const network = useCurrentNetwork();
+  const nativeSegwitSigner = useCurrentAccountNativeSegwitIndexZeroSigner();
+  const currentBitcoinAddress = nativeSegwitSigner.address;
+  const createSigner = useCurrentAccountTaprootSigner();
 
-export function useBrc20TokensByAddressQuery<T extends unknown = FetchBrc20TokensByAddressResp>(
-  address: string,
-  options?: AppUseQueryConfig<FetchBrc20TokensByAddressResp, T>
-) {
-  return useQuery({
-    queryKey: [QueryPrefixes.Brc20TokenBalance, address],
-    queryFn: () => fetchBrc20TokensByAddress(address),
-    ...options,
+  const getTaprootAddressData = useCallback(
+    (fromIndex: number, toIndex: number) => {
+      return createNumArrayOfRange(fromIndex, toIndex - 1).map(num => {
+        // TO-DO remove this check when we have a better way to handle this
+        if (!createSigner) return '';
+        const address = createSigner(num).address;
+        return address;
+      });
+    },
+    [createSigner]
+  );
+  const query = useInfiniteQuery({
+    queryKey: [QueryPrefixes.Brc20InfiniteQuery, currentBitcoinAddress, network.id],
+    async queryFn({ pageParam }) {
+      const fromIndex: number = pageParam?.fromIndex ?? 0;
+
+      const addressesData = getTaprootAddressData(
+        fromIndex,
+        fromIndex + addressesSimultaneousFetchLimit
+      );
+      const brc20TokensPromises = addressesData.map(address => {
+        return fetchBrc20TokensByAddress(address);
+      });
+
+      const brc20Tokens = await Promise.all(brc20TokensPromises);
+
+      return {
+        brc20Tokens,
+        fromIndex,
+      };
+    },
+    getNextPageParam(prevInscriptionQuery) {
+      const { fromIndex, brc20Tokens } = prevInscriptionQuery;
+
+      if (fromIndex >= stopSearchAfterNumberAddressesWithoutBrc20Tokens) {
+        return undefined;
+      }
+
+      return {
+        fromIndex: fromIndex + addressesSimultaneousFetchLimit,
+        brc20Tokens,
+      };
+    },
+    refetchOnMount: false,
+    refetchOnReconnect: false,
+    refetchOnWindowFocus: false,
+    staleTime: 3 * 60 * 1000,
   });
+
+  // Auto-trigger next request
+  useEffect(() => {
+    void query.fetchNextPage();
+  }, [query, query.data]);
+
+  return query;
 }
