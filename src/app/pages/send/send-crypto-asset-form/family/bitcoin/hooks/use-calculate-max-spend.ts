@@ -7,15 +7,15 @@ import { createMoney } from '@shared/models/money.model';
 
 import { satToBtc } from '@app/common/money/unit-conversion';
 import { BtcSizeFeeEstimator } from '@app/common/transactions/bitcoin/fees/btc-size-fee-estimator';
-import { useSpendableNativeSegwitUtxos } from '@app/query/bitcoin/address/use-spendable-native-segwit-utxos';
+import { useSpendableNativeSegwitUtxos } from '@app/query/bitcoin/address/utxos-by-address.hooks';
 import { useCurrentNativeSegwitAddressBalance } from '@app/query/bitcoin/balance/bitcoin-balances.query';
 import { useAverageBitcoinFeeRates } from '@app/query/bitcoin/fees/fee-estimates.hooks';
-import { useCurrentAccountNativeSegwitAddressIndexZero } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
+import { useCurrentAccountNativeSegwitIndexZeroSigner } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
 
 export function useCalculateMaxBitcoinSpend() {
-  const currentAccountBtcAddress = useCurrentAccountNativeSegwitAddressIndexZero();
+  const nativeSegwitSigner = useCurrentAccountNativeSegwitIndexZeroSigner();
   const balance = useCurrentNativeSegwitAddressBalance();
-  const { data: utxos } = useSpendableNativeSegwitUtxos(currentAccountBtcAddress);
+  const { data: utxos } = useSpendableNativeSegwitUtxos(nativeSegwitSigner.address);
   const { data: feeRates } = useAverageBitcoinFeeRates();
 
   return useCallback(
