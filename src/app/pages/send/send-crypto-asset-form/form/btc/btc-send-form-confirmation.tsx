@@ -23,7 +23,7 @@ import {
 } from '@app/components/info-card/info-card';
 import { ModalHeader } from '@app/components/modal-header';
 import { PrimaryButton } from '@app/components/primary-button';
-import { useCurrentNativeSegwitUtxos } from '@app/query/bitcoin/address/use-current-account-native-segwit-utxos';
+import { useCurrentNativeSegwitUtxos } from '@app/query/bitcoin/address/utxos-by-address.hooks';
 import { useBitcoinBroadcastTransaction } from '@app/query/bitcoin/transaction/use-bitcoin-broadcast-transaction';
 import { useCryptoCurrencyMarketData } from '@app/query/common/market-data/market-data.hooks';
 

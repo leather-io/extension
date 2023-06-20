@@ -10,6 +10,7 @@ import { createMoney } from '@shared/models/money.model';
 import { RouteUrls } from '@shared/route-urls';
 import { noop } from '@shared/utils';
 
+import { useOnMount } from '@app/common/hooks/use-on-mount';
 import { unitToFractionalUnit } from '@app/common/money/unit-conversion';
 import { useWalletType } from '@app/common/use-wallet-type';
 import {
@@ -19,7 +20,8 @@ import {
 import { brc20TokenAmountValidator } from '@app/common/validation/forms/amount-validators';
 import { currencyAmountValidator } from '@app/common/validation/forms/currency-validators';
 import { useUpdatePersistedSendFormValues } from '@app/features/popup-send-form-restoration/use-update-persisted-send-form-values';
-import { useCurrentAccountNativeSegwitAddressIndexZero } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
+import { useSpendableCurrentNativeSegwitAccountUtxos } from '@app/query/bitcoin/address/utxos-by-address.hooks';
+import { useCurrentAccountNativeSegwitIndexZeroSigner } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
 import { useCurrentNetwork } from '@app/store/networks/networks.selectors';
 
 import { createDefaultInitialFormValues } from '../../send-form.utils';
@@ -41,11 +43,15 @@ export function useBrc20SendForm({ balance, tick, decimals }: UseBrc20SendFormAr
   const { whenWallet } = useWalletType();
   const navigate = useNavigate();
   const currentNetwork = useCurrentNetwork();
-  const currentAccountBtcAddress = useCurrentAccountNativeSegwitAddressIndexZero();
+  const nativeSegwitSigner = useCurrentAccountNativeSegwitIndexZeroSigner();
+  const { data: utxos = [], refetch } = useSpendableCurrentNativeSegwitAccountUtxos();
+
+  // Forcing a refetch to ensure UTXOs are fresh
+  useOnMount(() => refetch());
 
   // TODO: change recipient to that one user iputs
   const initialValues = createDefaultInitialFormValues({
-    recipient: currentAccountBtcAddress,
+    recipient: nativeSegwitSigner.address,
     amount: '',
     symbol: tick,
   });
@@ -73,7 +79,7 @@ export function useBrc20SendForm({ balance, tick, decimals }: UseBrc20SendFormAr
     whenWallet({
       software: () =>
         navigate(RouteUrls.SendBrc20ChooseFee.replace(':ticker', tick), {
-          state: { ...values, tick, hasHeaderTitle: true },
+          state: { ...values, tick, utxos, hasHeaderTitle: true },
         }),
       ledger: noop,
     })();

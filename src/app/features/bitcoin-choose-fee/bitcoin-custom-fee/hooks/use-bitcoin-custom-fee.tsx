@@ -5,9 +5,8 @@ import { createMoney } from '@shared/models/money.model';
 import { baseCurrencyAmountInQuote } from '@app/common/money/calculate-money';
 import { i18nFormatCurrency } from '@app/common/money/format-money';
 import { determineUtxosForSpend } from '@app/common/transactions/bitcoin/coinselect/local-coin-selection';
-import { useSpendableNativeSegwitUtxos } from '@app/query/bitcoin/address/utxos-by-address.hooks';
+import { useSpendableCurrentNativeSegwitAccountUtxos } from '@app/query/bitcoin/address/utxos-by-address.hooks';
 import { useCryptoCurrencyMarketData } from '@app/query/common/market-data/market-data.hooks';
-import { useCurrentAccountNativeSegwitIndexZeroSigner } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
 
 interface UseBitcoinCustomFeeArgs {
   recipient: string;
@@ -15,15 +14,12 @@ interface UseBitcoinCustomFeeArgs {
 }
 
 export function useBitcoinCustomFee({ recipient, amount }: UseBitcoinCustomFeeArgs) {
-  const nativeSegwitSigner = useCurrentAccountNativeSegwitIndexZeroSigner();
-  const currentAccountBtcAddress = nativeSegwitSigner.address;
-
-  const { data: utxos } = useSpendableNativeSegwitUtxos(currentAccountBtcAddress);
+  const { data: utxos = [] } = useSpendableCurrentNativeSegwitAccountUtxos();
   const btcMarketData = useCryptoCurrencyMarketData('BTC');
 
   return useCallback(
     (feeRate: number) => {
-      if (!feeRate || !utxos || !utxos.length) return { fee: 0, fiatFeeValue: '' };
+      if (!feeRate || !utxos.length) return { fee: 0, fiatFeeValue: '' };
 
       const determineUtxosArgs = {
         amount,

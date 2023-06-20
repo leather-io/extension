@@ -6,7 +6,7 @@ import { createMoney } from '@shared/models/money.model';
 import { baseCurrencyAmountInQuote } from '@app/common/money/calculate-money';
 import { formatMoneyPadded, i18nFormatCurrency } from '@app/common/money/format-money';
 import { FeesListItem } from '@app/components/bitcoin-fees-list/bitcoin-fees-list';
-import { useCurrentNativeSegwitUtxos } from '@app/query/bitcoin/address/use-current-account-native-segwit-utxos';
+import { useCurrentNativeSegwitUtxos } from '@app/query/bitcoin/address/utxos-by-address.hooks';
 import { useAverageBitcoinFeeRates } from '@app/query/bitcoin/fees/fee-estimates.hooks';
 import { TaprootUtxo } from '@app/query/bitcoin/ordinals/use-taproot-address-utxos.query';
 import { useCryptoCurrencyMarketData } from '@app/query/common/market-data/market-data.hooks';
