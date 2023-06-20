@@ -16,4 +16,5 @@ export enum QueryPrefixes {
 
   StampCollection = 'stamp-collection',
   StampsByAddress = 'stamps-by-address',
+  Brc20InfiniteQuery = 'brc20-infinite-query',
 }
