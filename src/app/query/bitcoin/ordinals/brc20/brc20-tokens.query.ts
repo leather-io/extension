@@ -2,6 +2,7 @@ import { useCallback, useEffect } from 'react';
 
 import { useInfiniteQuery } from '@tanstack/react-query';
 
+import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
 import { createNumArrayOfRange } from '@app/common/utils';
 import { QueryPrefixes } from '@app/query/query-prefixes';
 import { useCurrentAccountNativeSegwitIndexZeroSigner } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
@@ -9,7 +10,7 @@ import { useCurrentAccountTaprootSigner } from '@app/store/accounts/blockchain/b
 import { useCurrentNetwork } from '@app/store/networks/networks.selectors';
 
 const addressesSimultaneousFetchLimit = 5;
-const stopSearchAfterNumberAddressesWithoutBrc20Tokens = 20;
+const stopSearchAfterNumberAddressesWithoutBrc20Tokens = 5;
 
 interface Brc20TokenResponse {
   available_balance: string;
@@ -66,12 +67,13 @@ export function useBrc20TokensQuery() {
   const nativeSegwitSigner = useCurrentAccountNativeSegwitIndexZeroSigner();
   const currentBitcoinAddress = nativeSegwitSigner.address;
   const createSigner = useCurrentAccountTaprootSigner();
+  const analytics = useAnalytics();
 
-  const getTaprootAddressData = useCallback(
+  if (!createSigner) throw new Error('No signer');
+
+  const getNextTaprootAddressBatch = useCallback(
     (fromIndex: number, toIndex: number) => {
       return createNumArrayOfRange(fromIndex, toIndex - 1).map(num => {
-        // TO-DO remove this check when we have a better way to handle this
-        if (!createSigner) return '';
         const address = createSigner(num).address;
         return address;
       });
@@ -82,8 +84,9 @@ export function useBrc20TokensQuery() {
     queryKey: [QueryPrefixes.Brc20InfiniteQuery, currentBitcoinAddress, network.id],
     async queryFn({ pageParam }) {
       const fromIndex: number = pageParam?.fromIndex ?? 0;
+      let addressesWithoutTokens = pageParam?.addressesWithoutTokens ?? 0;
 
-      const addressesData = getTaprootAddressData(
+      const addressesData = getNextTaprootAddressBatch(
         fromIndex,
         fromIndex + addressesSimultaneousFetchLimit
       );
@@ -92,21 +95,24 @@ export function useBrc20TokensQuery() {
       });
 
       const brc20Tokens = await Promise.all(brc20TokensPromises);
+      addressesWithoutTokens += brc20Tokens.filter(tokens => tokens.length === 0).length;
 
       return {
+        addressesWithoutTokens,
         brc20Tokens,
         fromIndex,
       };
     },
     getNextPageParam(prevInscriptionQuery) {
-      const { fromIndex, brc20Tokens } = prevInscriptionQuery;
+      const { fromIndex, brc20Tokens, addressesWithoutTokens } = prevInscriptionQuery;
 
-      if (fromIndex >= stopSearchAfterNumberAddressesWithoutBrc20Tokens) {
+      if (addressesWithoutTokens >= stopSearchAfterNumberAddressesWithoutBrc20Tokens) {
         return undefined;
       }
 
       return {
         fromIndex: fromIndex + addressesSimultaneousFetchLimit,
+        addressesWithoutTokens,
         brc20Tokens,
       };
     },
@@ -120,6 +126,17 @@ export function useBrc20TokensQuery() {
   useEffect(() => {
     void query.fetchNextPage();
   }, [query, query.data]);
+  useEffect(() => {
+    const brc20AcrossAddressesCount = query.data?.pages.reduce((acc, page) => {
+      return acc + page.brc20Tokens.flatMap(item => item).length;
+    }, 0);
 
+    if (!query.hasNextPage && brc20AcrossAddressesCount && brc20AcrossAddressesCount > 0) {
+      void analytics.identify({
+        brc20_across_addresses_count: brc20AcrossAddressesCount,
+      });
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [analytics, query.hasNextPage]);
   return query;
 }
