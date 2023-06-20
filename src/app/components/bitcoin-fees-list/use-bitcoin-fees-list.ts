@@ -11,10 +11,10 @@ import {
   determineUtxosForSpend,
   determineUtxosForSpendAll,
 } from '@app/common/transactions/bitcoin/coinselect/local-coin-selection';
-import { useSpendableNativeSegwitUtxos } from '@app/query/bitcoin/address/use-spendable-native-segwit-utxos';
+import { useSpendableNativeSegwitUtxos } from '@app/query/bitcoin/address/utxos-by-address.hooks';
 import { useAverageBitcoinFeeRates } from '@app/query/bitcoin/fees/fee-estimates.hooks';
 import { useCryptoCurrencyMarketData } from '@app/query/common/market-data/market-data.hooks';
-import { useCurrentAccountNativeSegwitAddressIndexZero } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
+import { useCurrentAccountNativeSegwitIndexZeroSigner } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
 
 import { FeesListItem } from './bitcoin-fees-list';
 
@@ -34,8 +34,8 @@ interface UseBitcoinFeesListArgs {
   recipient: string;
 }
 export function useBitcoinFeesList({ amount, isSendingMax, recipient }: UseBitcoinFeesListArgs) {
-  const currentAccountBtcAddress = useCurrentAccountNativeSegwitAddressIndexZero();
-  const { data: utxos } = useSpendableNativeSegwitUtxos(currentAccountBtcAddress);
+  const nativeSegwitSigner = useCurrentAccountNativeSegwitIndexZeroSigner();
+  const { data: utxos } = useSpendableNativeSegwitUtxos(nativeSegwitSigner.address);
 
   const btcMarketData = useCryptoCurrencyMarketData('BTC');
   const { data: feeRates, isLoading } = useAverageBitcoinFeeRates();
