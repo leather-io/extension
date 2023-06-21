@@ -6,6 +6,10 @@ export function isString(value: unknown): value is string {
   return typeof value === 'string';
 }
 
+export function isBigInt(value: unknown): value is bigint {
+  return typeof value === 'bigint';
+}
+
 export function isUndefined(value: unknown): value is undefined {
   return typeof value === 'undefined';
 }
