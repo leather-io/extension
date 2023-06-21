@@ -38,7 +38,9 @@ export enum WalletDefaultNetworkConfigurationIds {
 
 export type DefaultNetworkConfigurations = keyof typeof WalletDefaultNetworkConfigurationIds;
 
-export type NetworkModes = 'mainnet' | 'testnet';
+export const networkModes = ['mainnet', 'testnet'] as const;
+
+export type NetworkModes = (typeof networkModes)[number];
 
 type BitcoinTestnetModes = 'testnet' | 'regtest' | 'signet';
 

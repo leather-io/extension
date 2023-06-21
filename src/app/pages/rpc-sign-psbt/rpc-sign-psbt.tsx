@@ -5,7 +5,6 @@ import { RpcErrorCode } from '@btckit/types';
 import { bytesToHex } from '@noble/hashes/utils';
 import * as btc from '@scure/btc-signer';
 
-import { logger } from '@shared/logger';
 import { makeRpcErrorResponse, makeRpcSuccessResponse } from '@shared/rpc/rpc-methods';
 import { isUndefined } from '@shared/utils';
 
@@ -40,13 +39,7 @@ function useRpcSignPsbtParams() {
 
 function useRpcSignPsbt() {
   const { origin, tabId, requestId, psbtHex, allowedSighash, signAtIndex } = useRpcSignPsbtParams();
-  const {
-    signPsbtAtIndex,
-    getDecodedPsbt,
-    nativeSegwitSigner,
-    taprootSigner,
-    getPsbtAsTransaction,
-  } = usePsbtSigner();
+  const { signPsbt, signPsbtAtIndex, getDecodedPsbt, getPsbtAsTransaction } = usePsbtSigner();
 
   const tx = getPsbtAsTransaction(psbtHex);
 
@@ -61,15 +54,7 @@ function useRpcSignPsbt() {
           signPsbtAtIndex(allowedSighash, idx, tx);
         });
       } else {
-        try {
-          nativeSegwitSigner?.sign(tx);
-        } catch (e1) {
-          try {
-            taprootSigner?.sign(tx);
-          } catch (e2) {
-            logger.error('Error signing tx', e1, e2);
-          }
-        }
+        signPsbt(tx);
       }
       const psbt = tx.toPSBT();
 

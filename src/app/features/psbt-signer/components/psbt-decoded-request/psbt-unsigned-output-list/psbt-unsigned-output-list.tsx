@@ -1,7 +1,8 @@
 import * as btc from '@scure/btc-signer';
-import { Box, Text } from '@stacks/ui';
 
+import { PsbtDecodedNodeLayout } from '../psbt-decoded-request-node/psbt-decoded-node.layout';
 import { PsbtUnsignedOutputItem } from './components/psbt-unsigned-output-item';
+import { PsbtUnsignedOutputListLayout } from './components/psbt-unsigned-output-list.layout';
 
 interface PsbtUnsignedOutputListProps {
   addressNativeSegwit: string;
@@ -13,9 +14,15 @@ export function PsbtUnsignedOutputList({
   addressTaproot,
   outputs,
 }: PsbtUnsignedOutputListProps) {
+  if (!outputs.length)
+    return (
+      <PsbtUnsignedOutputListLayout>
+        <PsbtDecodedNodeLayout value="No outputs found" />
+      </PsbtUnsignedOutputListLayout>
+    );
+
   return (
-    <Box background="white" borderBottomLeftRadius="16px" borderBottomRightRadius="16px" p="loose">
-      <Text fontWeight={500}>Outputs</Text>
+    <PsbtUnsignedOutputListLayout>
       {outputs.map((output, i) => {
         return (
           <PsbtUnsignedOutputItem
@@ -26,6 +33,6 @@ export function PsbtUnsignedOutputList({
           />
         );
       })}
-    </Box>
+    </PsbtUnsignedOutputListLayout>
   );
 }

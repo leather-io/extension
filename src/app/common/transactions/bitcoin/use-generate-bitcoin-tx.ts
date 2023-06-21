@@ -11,21 +11,19 @@ import {
 } from '@app/common/transactions/bitcoin/coinselect/local-coin-selection';
 import { useSpendableCurrentNativeSegwitAccountUtxos } from '@app/query/bitcoin/address/use-spendable-native-segwit-utxos';
 import { useBitcoinScureLibNetworkConfig } from '@app/store/accounts/blockchain/bitcoin/bitcoin-keychain';
-import {
-  useCurrentAccountNativeSegwitAddressIndexZero,
-  useCurrentAccountNativeSegwitSigner,
-  useCurrentBitcoinNativeSegwitAddressIndexPublicKeychain,
-} from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
+import { useCurrentAccountNativeSegwitIndexZeroSigner } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
 
 interface GenerateNativeSegwitTxValues {
   amount: Money;
   recipient: string;
 }
 export function useGenerateSignedNativeSegwitTx() {
-  const currentAccountBtcAddress = useCurrentAccountNativeSegwitAddressIndexZero();
   const { data: utxos } = useSpendableCurrentNativeSegwitAccountUtxos();
-  const currentAddressIndexKeychain = useCurrentBitcoinNativeSegwitAddressIndexPublicKeychain();
-  const createSigner = useCurrentAccountNativeSegwitSigner();
+  const {
+    address,
+    publicKeychain: currentAddressIndexKeychain,
+    sign,
+  } = useCurrentAccountNativeSegwitIndexZeroSigner();
 
   const networkMode = useBitcoinScureLibNetworkConfig();
 
@@ -33,11 +31,8 @@ export function useGenerateSignedNativeSegwitTx() {
     (values: GenerateNativeSegwitTxValues, feeRate: number, isSendingMax?: boolean) => {
       if (!utxos) return;
       if (!feeRate) return;
-      if (!createSigner) return;
 
       try {
-        const signer = createSigner(0);
-
         const tx = new btc.Transaction();
 
         const amountAsNumber = values.amount.amount.toNumber();
@@ -77,12 +72,12 @@ export function useGenerateSignedNativeSegwitTx() {
           // When coin selection returns output with no address we assume it is
           // a change output
           if (!output.address) {
-            tx.addOutputAddress(currentAccountBtcAddress, BigInt(output.value), networkMode);
+            tx.addOutputAddress(address, BigInt(output.value), networkMode);
             return;
           }
           tx.addOutputAddress(values.recipient, BigInt(output.value), networkMode);
         });
-        signer.sign(tx);
+        sign(tx);
         tx.finalize();
 
         return { hex: tx.hex, fee };
@@ -92,12 +87,6 @@ export function useGenerateSignedNativeSegwitTx() {
         return null;
       }
     },
-    [
-      createSigner,
-      currentAccountBtcAddress,
-      currentAddressIndexKeychain?.publicKey,
-      networkMode,
-      utxos,
-    ]
+    [address, currentAddressIndexKeychain?.publicKey, networkMode, sign, utxos]
   );
 }

@@ -16,8 +16,10 @@ export function PsbtRequestHeader({ origin }: PsbtRequestHeaderProps) {
         Sign transaction
       </Title>
       {caption && (
-        <Flag align="middle" img={<Favicon origin={origin} />} pl="tight">
-          <Caption wordBreak="break-word">{caption}</Caption>
+        <Flag align="top" img={<Favicon origin={origin} />} pl="tight">
+          <Caption wordBreak="break-word" lineHeight={1.3}>
+            {caption}
+          </Caption>
         </Flag>
       )}
     </Flex>

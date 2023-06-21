@@ -1,7 +1,7 @@
 import { useConfigOrdinalsbot } from '@app/query/common/remote-config/remote-config.query';
 import { useAppDispatch } from '@app/store';
 import { useCurrentAccountIndex } from '@app/store/accounts/account';
-import { useCurrentAccountTaprootAddressIndexZeroPayment } from '@app/store/accounts/blockchain/bitcoin/taproot-account.hooks';
+import { useCurrentAccountTaprootIndexZeroSigner } from '@app/store/accounts/blockchain/bitcoin/taproot-account.hooks';
 import { useCurrentNetwork } from '@app/store/networks/networks.selectors';
 import { brc20TransferInitiated } from '@app/store/ordinals/ordinals.slice';
 
@@ -34,7 +34,7 @@ export function useBrc20Transfers() {
   const dispatch = useAppDispatch();
   const currentAccountIndex = useCurrentAccountIndex();
   const ordinalsbotClient = useOrdinalsbotClient();
-  const { address } = useCurrentAccountTaprootAddressIndexZeroPayment();
+  const { address } = useCurrentAccountTaprootIndexZeroSigner();
   const { data: fees } = useAverageBitcoinFeeRates();
 
   return {

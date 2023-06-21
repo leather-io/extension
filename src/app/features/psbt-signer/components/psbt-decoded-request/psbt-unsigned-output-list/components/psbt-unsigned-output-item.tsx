@@ -33,7 +33,7 @@ export function PsbtUnsignedOutputItem({
     <PsbtDecodedNodeLayout
       hoverLabel={addressFromScript}
       subtitle={truncateMiddle(addressFromScript)}
-      subValue={`${i18nFormatCurrency(calculateBitcoinFiatValue(outputValue))} USD`}
+      subValue={i18nFormatCurrency(calculateBitcoinFiatValue(outputValue))}
       value={`${isOutputCurrentAddress ? '+' : ' '}${outputValue}`}
     />
   );
