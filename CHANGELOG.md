@@ -1,3 +1,29 @@
+## [4.31.0](https://github.com/hirosystems/wallet/compare/v4.30.1...v4.31.0) (2023-06-21)
+
+
+### Features
+
+* add brc-20 send for non-zero-index taproot addresses, closes [#3830](https://github.com/hirosystems/wallet/issues/3830) ([be93e72](https://github.com/hirosystems/wallet/commit/be93e72f1a6faa258aa85d30dfc70a2e94c86296))
+* enable copying secret key from textarea when key is masked ([6ba30bb](https://github.com/hirosystems/wallet/commit/6ba30bbbdd79e73067e591a0007d44fc2320bd1e))
+* masking secret key functionality while typing and copying key ([63e3c48](https://github.com/hirosystems/wallet/commit/63e3c486fe5a5f2d2e7e51475a95b0d7b654896e))
+
+
+### Bug Fixes
+
+* dockerfile to reduce vulnerabilities ([69bfc94](https://github.com/hirosystems/wallet/commit/69bfc943cf10e4447f70d7df93a1ea250209ffad))
+* **psbt:** parse param schema, return error, closes [#3804](https://github.com/hirosystems/wallet/issues/3804) ([950a28a](https://github.com/hirosystems/wallet/commit/950a28a955e49850a0a346336b3d890a52a94fc9))
+* set password routing ([73444e4](https://github.com/hirosystems/wallet/commit/73444e47bdb4b18f5c0fa49ab2032229e1bbd427))
+
+
+### Internal
+
+* add derivation path, ref [#3868](https://github.com/hirosystems/wallet/issues/3868) ([392aa01](https://github.com/hirosystems/wallet/commit/392aa019336cd672d3b9e1c2b35e817e3eb1ed03))
+* **deps:** bump @apollo/server from 4.7.1 to 4.7.4 ([ec9909a](https://github.com/hirosystems/wallet/commit/ec9909ac0ab6b0ee8c3d17eba9fce4c0419190cd))
+* mask secret key during sign in ([aac0d56](https://github.com/hirosystems/wallet/commit/aac0d565747fe5ae4e1fecfaae473485947709c2))
+* psbt ui inputs query ([f320e84](https://github.com/hirosystems/wallet/commit/f320e8455c0885ef5c496ec61eb69857011d3426))
+* **psbt:** support custom account index, fixes [#3868](https://github.com/hirosystems/wallet/issues/3868) ([f6e5e9d](https://github.com/hirosystems/wallet/commit/f6e5e9d30c0102f9c67c773015cdb53121a117ee))
+* updated supported methods response ([38afa40](https://github.com/hirosystems/wallet/commit/38afa40453b8e1069f8012e606f143572e26ac43))
+
 ## [4.30.1](https://github.com/hirosystems/wallet/compare/v4.30.0...v4.30.1) (2023-06-16)
 
 
