@@ -25,6 +25,13 @@ export function rpcSupportedMethods(message: SupportedMethodsRequest, port: chro
           },
           {
             name: 'sendTransfer',
+            docsUrl:
+              'https://hirowallet.gitbook.io/developers/bitcoin/sign-transactions/sending-bitcoin',
+          },
+          {
+            name: 'signPsbt',
+            docsUrl:
+              'https://hirowallet.gitbook.io/developers/bitcoin/sign-transactions/partially-signed-bitcoin-transactions-psbts',
           },
         ],
       },

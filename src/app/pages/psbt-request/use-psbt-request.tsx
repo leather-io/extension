@@ -14,13 +14,7 @@ import { usePsbtRequestSearchParams } from '@app/pages/psbt-request/psbt-request
 export function usePsbtRequest() {
   const { requestToken, tabId } = usePsbtRequestSearchParams();
   const [isLoading, setIsLoading] = useState(false);
-  const {
-    signPsbtAtIndex,
-    getDecodedPsbt,
-    nativeSegwitSigner,
-    taprootSigner,
-    getPsbtAsTransaction,
-  } = usePsbtSigner();
+  const { signPsbt, signPsbtAtIndex, getDecodedPsbt, getPsbtAsTransaction } = usePsbtSigner();
   const analytics = useAnalytics();
   return useMemo(() => {
     if (!requestToken) throw new Error('Cannot decode psbt without request token');
@@ -56,15 +50,7 @@ export function usePsbtRequest() {
         if (!isUndefined(indexOrIndexes) && !isUndefined(allowedSighash)) {
           ensureArray(indexOrIndexes).forEach(idx => signPsbtAtIndex(allowedSighash, idx, tx));
         } else {
-          try {
-            nativeSegwitSigner?.sign(tx);
-          } catch (e1) {
-            try {
-              taprootSigner?.sign(tx);
-            } catch (e2) {
-              logger.error('Error signing tx', e1, e2);
-            }
-          }
+          signPsbt(tx);
         }
 
         const psbt = tx.toPSBT();
@@ -85,10 +71,9 @@ export function usePsbtRequest() {
     getDecodedPsbt,
     getPsbtAsTransaction,
     isLoading,
-    nativeSegwitSigner,
     requestToken,
+    signPsbt,
     signPsbtAtIndex,
     tabId,
-    taprootSigner,
   ]);
 }

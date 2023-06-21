@@ -1,14 +1,36 @@
 import { DefineRpcMethod, RpcRequest, RpcResponse } from '@btckit/types';
-import { SignatureHash } from '@scure/btc-signer';
+import * as yup from 'yup';
 
-import { NetworkModes } from '@shared/constants';
+import { networkModes } from '@shared/constants';
 
-interface SignPsbtRequestParams {
-  publicKey: string;
-  allowedSighash?: SignatureHash[];
-  hex: string;
-  signAtIndex?: number | number[];
-  network?: NetworkModes;
+const rpcSignPsbtValidator = yup.object().shape({
+  publicKey: yup.string().required(),
+  allowedSighash: yup.array().of(yup.number().required()),
+  hex: yup.string().required(),
+  signAtIndex: yup.number().integer(),
+  network: yup.string().oneOf(networkModes),
+  account: yup.number().integer(),
+});
+
+type SignPsbtRequestParams = yup.InferType<typeof rpcSignPsbtValidator>;
+
+export function validateRpcSignPsbtParams(obj: unknown): obj is SignPsbtRequestParams {
+  try {
+    rpcSignPsbtValidator.validateSync(obj, { abortEarly: false });
+    return true;
+  } catch (e) {
+    return false;
+  }
+}
+
+export function getRpcSignPsbtParamErrors(obj: unknown) {
+  try {
+    rpcSignPsbtValidator.validateSync(obj, { abortEarly: false });
+    return [];
+  } catch (e) {
+    if (e instanceof yup.ValidationError) return e.inner;
+    return [];
+  }
 }
 
 export type SignPsbtRequest = RpcRequest<'signPsbt', SignPsbtRequestParams>;

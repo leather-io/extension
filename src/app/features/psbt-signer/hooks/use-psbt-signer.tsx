@@ -20,8 +20,6 @@ export function usePsbtSigner() {
 
   return useMemo(
     () => ({
-      nativeSegwitSigner,
-      taprootSigner,
       signPsbtAtIndex(allowedSighash: btc.SignatureHash[], idx: number, tx: btc.Transaction) {
         try {
           nativeSegwitSigner?.signIndex(tx, idx, allowedSighash);
@@ -30,6 +28,17 @@ export function usePsbtSigner() {
             taprootSigner?.signIndex(tx, idx, allowedSighash);
           } catch (e2) {
             logger.error('Error signing tx at provided index', e1, e2);
+          }
+        }
+      },
+      signPsbt(tx: btc.Transaction) {
+        try {
+          nativeSegwitSigner?.sign(tx);
+        } catch (e1) {
+          try {
+            taprootSigner?.sign(tx);
+          } catch (e2) {
+            logger.error('Error signing PSBT', e1, e2);
           }
         }
       },

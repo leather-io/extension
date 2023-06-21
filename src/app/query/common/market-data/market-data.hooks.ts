@@ -7,6 +7,7 @@ import { CryptoCurrencies } from '@shared/models/currencies.model';
 import { MarketData, createMarketData, createMarketPair } from '@shared/models/market.model';
 import { createMoney, currencyDecimalsMap } from '@shared/models/money.model';
 import { createMoneyFromDecimal } from '@shared/models/money.model';
+import { isNumber } from '@shared/utils';
 
 import { calculateMeanAverage } from '@app/common/math/calculate-averages';
 import { convertAmountToFractionalUnit } from '@app/common/money/calculate-money';
@@ -58,8 +59,11 @@ export function useCalculateBitcoinFiatValue() {
   const btcMarketData = useCryptoCurrencyMarketData('BTC');
 
   return useCallback(
-    (value: string) =>
-      baseCurrencyAmountInQuote(createMoneyFromDecimal(Number(value), 'BTC'), btcMarketData),
+    (value: string | number) =>
+      baseCurrencyAmountInQuote(
+        createMoneyFromDecimal(isNumber(value) ? value : Number(value), 'BTC'),
+        btcMarketData
+      ),
     [btcMarketData]
   );
 }
