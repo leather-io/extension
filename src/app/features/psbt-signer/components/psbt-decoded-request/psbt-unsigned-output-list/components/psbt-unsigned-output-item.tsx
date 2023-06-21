@@ -27,7 +27,7 @@ export function PsbtUnsignedOutputItem({
 
   const isOutputCurrentAddress =
     addressFromScript === addressNativeSegwit || addressFromScript === addressTaproot;
-  const outputValueAsMoney = createMoney(Number(output.amount), 'BTC');
+  const outputValueAsMoney = createMoney(output.amount, 'BTC');
 
   return (
     <PsbtDecodedNodeLayout
