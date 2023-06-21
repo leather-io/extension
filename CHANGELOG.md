@@ -1,3 +1,15 @@
+## [4.32.0](https://github.com/hirosystems/wallet/compare/v4.31.0...v4.32.0) (2023-06-21)
+
+
+### Features
+
+* migrate profile legacy test, closes [#3709](https://github.com/hirosystems/wallet/issues/3709) ([1c01d54](https://github.com/hirosystems/wallet/commit/1c01d544a2b7cb231b9470a7424109d8096d5f38))
+
+
+### Bug Fixes
+
+* **psbt:** validated positive by mistake, 0 index broken ([bf793a0](https://github.com/hirosystems/wallet/commit/bf793a02b47e688a563388fc4c6e04160fcb1b7a))
+
 ## [4.31.0](https://github.com/hirosystems/wallet/compare/v4.30.1...v4.31.0) (2023-06-21)
 
 
