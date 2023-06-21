@@ -1,19 +1,25 @@
 import { Box, Button, Stack, color } from '@stacks/ui';
 
 import { PrimaryButton } from '@app/components/primary-button';
+import { useBtcAssetBalance } from '@app/common/hooks/balance/btc/use-btc-balance';
 
 interface BitcoinContractRequestActionsProps {
   isLoading: boolean;
-  canAccept: boolean;
+  bitcoinAddress: string;
+  requiredAmount: number;
   onRejectBitcoinContractOffer(): Promise<void>;
   onAcceptBitcoinContractOffer(): Promise<void>;
 }
 export function BitcoinContractRequestActions({
   isLoading,
-  canAccept,
+  bitcoinAddress,
+  requiredAmount,
   onRejectBitcoinContractOffer,
   onAcceptBitcoinContractOffer,
 }: BitcoinContractRequestActionsProps) {
+  const { btcAvailableAssetBalance } = useBtcAssetBalance(bitcoinAddress);
+  const canAccept = btcAvailableAssetBalance.balance.amount.isGreaterThan(requiredAmount);
+
   return (
     <Box
       bg={color('bg')}

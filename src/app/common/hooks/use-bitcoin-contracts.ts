@@ -1,94 +1,142 @@
-import { useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 
+import { bytesToHex } from '@stacks/common';
 import { JsDLCInterface } from 'dlc-wasm-wallet';
 
-import { createMoneyFromDecimal  } from '@shared/models/money.model';
+import { BITCOIN_API_BASE_URL_MAINNET, BITCOIN_API_BASE_URL_TESTNET } from '@shared/constants';
+import { deriveAddressIndexKeychainFromAccount } from '@shared/crypto/bitcoin/bitcoin.utils';
 import { RouteUrls } from '@shared/route-urls';
 import { makeRpcSuccessResponse } from '@shared/rpc/rpc-methods';
 
-import { CounterpartyWalletDetails } from '@app/pages/bitcoin-contract-request/bitcoin-contract-request';
-import { useCryptoCurrencyMarketData } from '@app/query/common/market-data/market-data.hooks';
-import { useCurrentAccountNativeSegwitDetails } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
+import { sendAcceptedBitcoinContractOfferToProtocolWallet } from '@app/query/bitcoin/bitcoinContract/send-accepted-bitcoin-contract-offer';
+import {
+  useCalculateBitcoinFiatValue,
+  useCryptoCurrencyMarketData,
+} from '@app/query/common/market-data/market-data.hooks';
+import { useCurrentAccountIndex } from '@app/store/accounts/account';
+import {
+  useCurrentAccountNativeSegwitSigner,
+  useNativeSegwitActiveNetworkAccountPrivateKeychain,
+} from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
 
 import { initialSearchParams } from '../initial-search-params';
-import { baseCurrencyAmountInQuote } from '../money/calculate-money';
 import { i18nFormatCurrency } from '../money/format-money';
 import { satToBtc } from '../money/unit-conversion';
+import { whenBitcoinNetwork } from '../utils';
 import { useDefaultRequestParams } from './use-default-request-search-params';
 
-function convertUint8ArrayToHexString(uint8Array: Uint8Array) {
-  let hex = '';
-  for (let i = 0; i < uint8Array.length; i++) {
-    const byte = uint8Array[i].toString(16).padStart(2, '0');
-    hex += byte;
-  }
-  return hex;
+export interface SimplifiedBitcoinContract {
+  bitcoinContractId: string;
+  bitcoinContractCollateralAmount: number;
+  bitcoinContractExpirationDate: string;
 }
 
-async function sendAcceptedBitcoinContractOfferToProtocolWallet(
-  acceptedBitcoinContractOffer: string,
-  counterpartyWalletURL: string
-) {
-  return fetch(`${counterpartyWalletURL}/offer/accept`, {
-    method: 'put',
-    body: JSON.stringify({
-      acceptMessage: acceptedBitcoinContractOffer,
-    }),
-    headers: { 'Content-Type': 'application/json' },
-  }).then(res => res.json());
+export interface CounterpartyWalletDetails {
+  counterpartyWalletURL: string;
+  counterpartyWalletName: string;
+  counterpartyWalletIcon: string;
 }
 
-const useBitcoinContracts = () => {
+export interface BitcoinContractOfferDetails {
+  simplifiedBitcoinContract: SimplifiedBitcoinContract;
+  counterpartyWalletDetails: CounterpartyWalletDetails;
+}
+
+export function useBitcoinContracts() {
   const navigate = useNavigate();
   const defaultParams = useDefaultRequestParams();
-
   const bitcoinMarketData = useCryptoCurrencyMarketData('BTC');
-  const bitcoinAccountDetails = useCurrentAccountNativeSegwitDetails();
+  const calculateFiatValue = useCalculateBitcoinFiatValue();
+  const getNativeSegwitSigner = useCurrentAccountNativeSegwitSigner();
+  const currentIndex = useCurrentAccountIndex();
+  const nativeSegwitPrivateKeychain =
+    useNativeSegwitActiveNetworkAccountPrivateKeychain()?.(currentIndex);
 
-  const getFiatValue = useCallback(
-    (value: string) =>
-      i18nFormatCurrency(
-        baseCurrencyAmountInQuote(createMoneyFromDecimal(Number(value), 'BTC'), bitcoinMarketData)
-      ),
-    [bitcoinMarketData]
-  );
+  async function getBitcoinContractInterface(): Promise<JsDLCInterface | undefined> {
+    const bitcoinAccountDetails = getNativeSegwitSigner?.(0);
 
+    if (!nativeSegwitPrivateKeychain || !bitcoinAccountDetails) return;
 
-  async function handleAccept(
-    bitcoinContractJSON: string,
-    counterpartyWalletDetails: CounterpartyWalletDetails
-  ) {
-    const { currentBitcoinNetwork, currentAddress, currentAddressIndexKeychain } =
-      bitcoinAccountDetails ?? {};
-    if (
-      !currentBitcoinNetwork ||
-      !currentAddress ||
-      !currentAddressIndexKeychain ||
-      !currentAddressIndexKeychain.privateKey
-    )
-      return;
+    const currentBitcoinNetwork = bitcoinAccountDetails.network;
+    const currentAddress = bitcoinAccountDetails.address;
+    const currentAccountIndex = bitcoinAccountDetails.addressIndex;
 
-    const privateKey = convertUint8ArrayToHexString(currentAddressIndexKeychain.privateKey);
-    const blockchainAPI =
-      currentBitcoinNetwork === 'mainnet'
-        ? 'https://blockstream.info/api'
-        : 'https://blockstream.info/testnet/api';
+    const currentAddressPrivateKey = deriveAddressIndexKeychainFromAccount(
+      nativeSegwitPrivateKeychain
+    )(currentAccountIndex).privateKey;
+
+    if (!currentAddressPrivateKey) return;
+
+    const blockchainAPI = whenBitcoinNetwork(currentBitcoinNetwork)({
+      mainnet: BITCOIN_API_BASE_URL_MAINNET,
+      testnet: BITCOIN_API_BASE_URL_TESTNET,
+      regtest: BITCOIN_API_BASE_URL_TESTNET,
+      signet: BITCOIN_API_BASE_URL_TESTNET,
+    });
+
     const oracleAPI = 'https://testnet.dlc.link/oracle';
 
-    const bitcoinContractInterface = await JsDLCInterface.new(
-      privateKey,
+    const bitcoinContractInterface = JsDLCInterface.new(
+      bytesToHex(currentAddressPrivateKey),
       currentAddress,
       currentBitcoinNetwork,
       blockchainAPI,
       oracleAPI
     );
 
-    const bitcoinContractOffer = JSON.parse(bitcoinContractJSON);
+    return bitcoinContractInterface;
+  }
 
-    const bitcoinContractID = bitcoinContractOffer.temporaryContractId;
+  function handleOffer(
+    bitcoinContractOfferJSON: string,
+    counterpartyWalletURL: string,
+    counterpartyWalletName: string,
+    counterpartyWalletIcon: string
+  ): BitcoinContractOfferDetails {
+    const bitcoinContractOffer = JSON.parse(bitcoinContractOfferJSON);
+
+    const bitcoinContractId = bitcoinContractOffer.temporaryContractId;
     const bitcoinContractCollateralAmount =
       bitcoinContractOffer.contractInfo.singleContractInfo.totalCollateral;
+    const bitcoinContractExpirationDate = new Date(
+      bitcoinContractOffer.cetLocktime * 1000
+    ).toLocaleDateString();
+
+    const simplifiedBitcoinContractOffer: SimplifiedBitcoinContract = {
+      bitcoinContractId,
+      bitcoinContractCollateralAmount,
+      bitcoinContractExpirationDate,
+    };
+
+    const counterpartyWalletDetails: CounterpartyWalletDetails = {
+      counterpartyWalletURL,
+      counterpartyWalletName,
+      counterpartyWalletIcon,
+    };
+
+    const bitcoinContractOfferDetails: BitcoinContractOfferDetails = {
+      simplifiedBitcoinContract: simplifiedBitcoinContractOffer,
+      counterpartyWalletDetails,
+    };
+
+    return bitcoinContractOfferDetails;
+  }
+
+  async function handleAccept(
+    bitcoinContractJSON: string,
+    counterpartyWalletDetails: CounterpartyWalletDetails
+  ) {
+    const bitcoinContractInterface = await getBitcoinContractInterface();
+
+    if (!bitcoinContractInterface) return;
+
+    const bitcoinContractOffer = JSON.parse(bitcoinContractJSON);
+
+    const bitcoinContractId = bitcoinContractOffer.temporaryContractId;
+    const bitcoinContractCollateralAmount =
+      bitcoinContractOffer.contractInfo.singleContractInfo.totalCollateral;
+
+    await bitcoinContractInterface.get_wallet_balance();
 
     try {
       const acceptedBitcoinContract = await bitcoinContractInterface.accept_offer(
@@ -100,71 +148,79 @@ const useBitcoinContracts = () => {
         counterpartyWalletDetails.counterpartyWalletURL
       );
 
-      const txID = await bitcoinContractInterface.countersign_and_broadcast(
+      const txId = await bitcoinContractInterface.countersign_and_broadcast(
         JSON.stringify(signedBitcoinContract)
       );
 
-      const bitcoinCollateral = bitcoinContractCollateralAmount;
-      const txValue = satToBtc(bitcoinCollateral).toString();
-      const txFiatValue = getFiatValue(txValue);
-      const txFiatValueSymbol = bitcoinMarketData.price.symbol;
-      const txLink = {
-        blockchain: 'bitcoin',
-        txid: txID,
-      };
+      const { txValue, txFiatValue, txFiatValueSymbol, txLink, symbol } = getTransactionDetails(
+        txId,
+        bitcoinContractCollateralAmount
+      );
 
       navigate(RouteUrls.BitcoinContractLockSuccess, {
         state: {
-          txId: txID,
+          txId,
           txValue,
           txFiatValue,
           txFiatValueSymbol,
-          symbol: 'BTC',
+          symbol,
           txLink,
         },
       });
 
-      if (!defaultParams.tabId || !initialSearchParams.get('requestID')) return;
-      chrome.tabs.sendMessage(
-        defaultParams.tabId,
-        makeRpcSuccessResponse('acceptOffer', {
-          id: initialSearchParams.get('requestID') as string,
-          contractID: bitcoinContractID,
-          txID: txID,
-          action: 'broadcast',
-        })
-      );
+      sendRpcResponse(bitcoinContractId, txId, 'accept');
     } catch (error) {
-      navigate(RouteUrls.BitcoinContractLockError, { state: { error } });
-      if (!defaultParams.tabId || !initialSearchParams.get('requestID')) return;
-      chrome.tabs.sendMessage(
-        defaultParams.tabId,
-        makeRpcSuccessResponse('acceptOffer', {
-          id: initialSearchParams.get('requestID') as string,
-          contractID: bitcoinContractID,
-          action: 'failed',
-        })
-      );
+      navigate(RouteUrls.BitcoinContractLockError, {
+        state: {
+          error,
+          title: 'There was an error with your Bitcoin Contract',
+          body: 'Unable to lock bitcoin',
+        },
+      });
+      sendRpcResponse(bitcoinContractId, '', 'failed');
     }
   }
 
-  async function handleReject(bitcoinContractID: string) {
-    if (!defaultParams.tabId || !initialSearchParams.get('requestID')) return;
-    chrome.tabs.sendMessage(
-      defaultParams.tabId,
-      makeRpcSuccessResponse('acceptOffer', {
-        id: initialSearchParams.get('requestID') as string,
-        contractID: bitcoinContractID,
-        action: 'reject',
-      })
-    );
+  function handleReject(bitcoinContractId: string) {
+    sendRpcResponse(bitcoinContractId, '', 'reject');
     close();
   }
 
+  function getTransactionDetails(txId: string, bitcoinCollateral: number) {
+    const txValue = satToBtc(bitcoinCollateral).toString();
+    const txFiatValue = i18nFormatCurrency(calculateFiatValue(txValue)).toString();
+    const txFiatValueSymbol = bitcoinMarketData.price.symbol;
+    const txLink = { blockchain: 'bitcoin', txid: txId };
+
+    return {
+      txId,
+      txValue,
+      txFiatValue,
+      txFiatValueSymbol,
+      symbol: 'BTC',
+      txLink,
+    };
+  }
+
+  function sendRpcResponse(bitcoinContractId: string, txId: string, action: string) {
+    if (!defaultParams.tabId || !initialSearchParams.get('requestId')) return;
+
+    chrome.tabs.sendMessage(
+      defaultParams.tabId,
+      makeRpcSuccessResponse('acceptBitcoinContractOffer', {
+        id: initialSearchParams.get('requestId') as string,
+        result: {
+        contractId: bitcoinContractId,
+        txId,
+        action,
+        },
+      })
+    );
+  }
+
   return {
+    handleOffer,
     handleAccept,
     handleReject,
   };
-};
-
-export default useBitcoinContracts;
+}

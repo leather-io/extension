@@ -1,19 +1,19 @@
 import { BitcoinContractExpirationDate } from './bitcoin-contract-expiration-date';
 import { BitcoinContractOfferInput } from './bitcoin-contract-offer-input';
-import { SimplifiedBitcoinContract } from '../../bitcoin-contract-request';
+import { SimplifiedBitcoinContract } from '@app/common/hooks/use-bitcoin-contracts';
 
 interface BitcoinContractOfferDetailsSimpleProps {
-  bitcoinAddressNativeSegwit: string;
+  bitcoinAddress: string;
   bitcoinContractOffer: SimplifiedBitcoinContract;
 }
 export function BitcoinContractOfferDetailsSimple({
-  bitcoinAddressNativeSegwit,
+  bitcoinAddress,
   bitcoinContractOffer,
 }: BitcoinContractOfferDetailsSimpleProps) {
   return (
     <>
       <BitcoinContractOfferInput
-        addressNativeSegwit={bitcoinAddressNativeSegwit}
+        addressNativeSegwit={bitcoinAddress}
         bitcoinContractOffer={bitcoinContractOffer}
       />
       <BitcoinContractExpirationDate

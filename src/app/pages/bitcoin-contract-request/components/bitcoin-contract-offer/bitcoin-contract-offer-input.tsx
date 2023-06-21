@@ -1,17 +1,12 @@
-import { useCallback } from 'react';
-
 import { Box, Text } from '@stacks/ui';
 import { truncateMiddle } from '@stacks/ui-utils';
 
-import { createMoneyFromDecimal } from '@shared/models/money.model';
-
-import { baseCurrencyAmountInQuote } from '@app/common/money/calculate-money';
+import { SimplifiedBitcoinContract } from '@app/common/hooks/use-bitcoin-contracts';
 import { i18nFormatCurrency } from '@app/common/money/format-money';
 import { satToBtc } from '@app/common/money/unit-conversion';
-import { useCryptoCurrencyMarketData } from '@app/query/common/market-data/market-data.hooks';
+import { useCalculateBitcoinFiatValue } from '@app/query/common/market-data/market-data.hooks';
 
 import { BitcoinContractLockAmount } from './bitcoin-contract-lock-amount';
-import { SimplifiedBitcoinContract } from '../../bitcoin-contract-request';
 
 interface BitcoinContractOfferInputProps {
   addressNativeSegwit: string;
@@ -21,18 +16,11 @@ export function BitcoinContractOfferInput({
   addressNativeSegwit,
   bitcoinContractOffer,
 }: BitcoinContractOfferInputProps) {
-  const btcMarketData = useCryptoCurrencyMarketData('BTC');
+  const calculateFiatValue = useCalculateBitcoinFiatValue();
 
-  const getFiatValue = useCallback(
-    (value: string) =>
-      i18nFormatCurrency(
-        baseCurrencyAmountInQuote(createMoneyFromDecimal(Number(value), 'BTC'), btcMarketData)
-      ),
-    [btcMarketData]
-  );
-
-  const inputValue = satToBtc(bitcoinContractOffer.bitcoinContractCollateralAmount).toString();
-  const fiatValue = getFiatValue(inputValue);
+  const bitcoinValue = satToBtc(bitcoinContractOffer.bitcoinContractCollateralAmount).toString();
+  const fiatValue = calculateFiatValue(bitcoinValue);
+  const formattedFiatValue = i18nFormatCurrency(fiatValue);
 
   return (
     <Box
@@ -44,12 +32,12 @@ export function BitcoinContractOfferInput({
       p="loose"
     >
       <Text fontWeight={500}>Amount</Text>
-          <BitcoinContractLockAmount
-            hoverLabel={addressNativeSegwit}
-            subtitle={truncateMiddle(addressNativeSegwit)}
-            subValue={`${fiatValue} USD`}
-            value={inputValue}
-          />
+      <BitcoinContractLockAmount
+        hoverLabel={addressNativeSegwit}
+        subtitle={truncateMiddle(addressNativeSegwit)}
+        subValue={`${formattedFiatValue} USD`}
+        value={bitcoinValue}
+      />
       <hr />
     </Box>
   );

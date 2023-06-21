@@ -22,7 +22,7 @@ import { AddNetwork } from '@app/features/message-signer/add-network/add-network
 import { RetrieveTaprootToNativeSegwit } from '@app/features/retrieve-taproot-to-native-segwit/retrieve-taproot-to-native-segwit';
 import { ThemesDrawer } from '@app/features/theme-drawer/theme-drawer';
 import { AllowDiagnosticsPage } from '@app/pages/allow-diagnostics/allow-diagnostics';
-import BitcoinContractRequest from '@app/pages/bitcoin-contract-request/bitcoin-contract-request';
+import { BitcoinContractRequest } from '@app/pages/bitcoin-contract-request/bitcoin-contract-request';
 import { ChooseAccount } from '@app/pages/choose-account/choose-account';
 import { FundPage } from '@app/pages/fund/fund';
 import { Home } from '@app/pages/home/home';

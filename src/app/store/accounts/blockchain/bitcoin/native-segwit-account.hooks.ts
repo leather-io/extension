@@ -16,7 +16,7 @@ import {
   useMakeBitcoinNetworkSignersForPaymentType,
 } from './bitcoin-keychain';
 
-function useNativeSegwitActiveNetworkAccountPrivateKeychain() {
+export function useNativeSegwitActiveNetworkAccountPrivateKeychain() {
   const network = useCurrentNetwork();
   const selector = useMemo(
     () =>
@@ -59,21 +59,6 @@ function useNativeSegwitSigner(accountIndex: number) {
       network: network.chain.bitcoin.network,
     });
   }, [accountIndex, accountKeychain, network.chain.bitcoin.network]);
-}
-
-export function useCurrentAccountNativeSegwitDetails() {
-  const currentAccountIndex = useCurrentAccountIndex();
-  const currentNetworkConfiguration = useCurrentNetwork();
-  const currentBitcoinNetwork = currentNetworkConfiguration.chain.bitcoin.network;
-  const currentKeychain =
-    useNativeSegwitActiveNetworkAccountPrivateKeychain()?.(currentAccountIndex);
-  if (!currentKeychain) return;
-  const currentAddressIndexKeychain =
-    deriveAddressIndexKeychainFromAccount(currentKeychain)(currentAccountIndex);
-  const currentPayment = getNativeSegWitPaymentFromAddressIndex(currentAddressIndexKeychain, currentBitcoinNetwork);
-  const currentAddress = currentPayment.address;
-
-  return { currentBitcoinNetwork, currentAddress, currentAddressIndexKeychain };
 }
 
 export function useCurrentAccountNativeSegwitSigner() {
