@@ -6,7 +6,7 @@ import { openProfileUpdateRequestPopup } from '@stacks/connect';
 import { StacksNetwork } from '@stacks/network';
 import { PublicPersonProfile, PublicProfile } from '@stacks/profile';
 import { Box, Button, ButtonGroup, Text } from '@stacks/ui';
-import { ProfileTabSelectors } from '@tests-legacy/integration/profile/profile-test-app.selectors';
+import { TestAppSelectors } from '@tests/selectors/test-app.selectors';
 
 export const Profile = () => {
   const name = 'Name ' + new Date().getTime().toString();
@@ -47,7 +47,7 @@ export const Profile = () => {
       )}
       <ButtonGroup spacing={4} my="base">
         <Button
-          data-testid={ProfileTabSelectors.BtnUpdateValidProfile}
+          data-testid={TestAppSelectors.BtnUpdateValidProfile}
           mt={3}
           onClick={() =>
             updateProfile(
@@ -76,7 +76,7 @@ export const Profile = () => {
         </Button>
 
         <Button
-          data-testid={ProfileTabSelectors.BtnUpdateInvalidProfile}
+          data-testid={TestAppSelectors.BtnUpdateInvalidProfile}
           mt={3}
           onClick={() =>
             updateProfile(
