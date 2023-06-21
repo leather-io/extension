@@ -4,7 +4,7 @@ import { truncateMiddle } from '@stacks/ui-utils';
 import { getAddressFromOutScript } from '@shared/crypto/bitcoin/bitcoin.utils';
 import { createMoney } from '@shared/models/money.model';
 
-import { i18nFormatCurrency } from '@app/common/money/format-money';
+import { formatMoneyWithoutSymbol, i18nFormatCurrency } from '@app/common/money/format-money';
 import { useCalculateBitcoinFiatValue } from '@app/query/common/market-data/market-data.hooks';
 import { useCurrentNetwork } from '@app/store/networks/networks.selectors';
 
@@ -34,7 +34,7 @@ export function PsbtUnsignedOutputItem({
       hoverLabel={addressFromScript}
       subtitle={truncateMiddle(addressFromScript)}
       subValue={i18nFormatCurrency(calculateBitcoinFiatValue(outputValueAsMoney))}
-      value={`${isOutputCurrentAddress ? '+' : ' '}${outputValueAsMoney.amount.toString()}`}
+      value={`${isOutputCurrentAddress ? '+' : ' '}${formatMoneyWithoutSymbol(outputValueAsMoney)}`}
     />
   );
 }

@@ -3,7 +3,7 @@ import { truncateMiddle } from '@stacks/ui-utils';
 import { createMoney } from '@shared/models/money.model';
 import { BitcoinTransactionVectorOutput } from '@shared/models/transactions/bitcoin-transaction.model';
 
-import { i18nFormatCurrency } from '@app/common/money/format-money';
+import { formatMoneyWithoutSymbol, i18nFormatCurrency } from '@app/common/money/format-money';
 import { useCalculateBitcoinFiatValue } from '@app/query/common/market-data/market-data.hooks';
 
 import { PsbtDecodedNodeLayout } from '../../psbt-decoded-request-node/psbt-decoded-node.layout';
@@ -30,7 +30,7 @@ export function PsbtUnsignedInputItem({
       hoverLabel={utxo.scriptpubkey_address}
       subtitle={truncateMiddle(utxo.scriptpubkey_address)}
       subValue={i18nFormatCurrency(calculateBitcoinFiatValue(inputValueAsMoney))}
-      value={`${isInputCurrentAddress ? '-' : '+'}${inputValueAsMoney.amount.toString()}`}
+      value={`${isInputCurrentAddress ? '-' : '+'}${formatMoneyWithoutSymbol(inputValueAsMoney)}`}
     />
   );
 }
