@@ -7,9 +7,9 @@ const rpcSignPsbtValidator = yup.object().shape({
   publicKey: yup.string().required(),
   allowedSighash: yup.array().of(yup.number().required()),
   hex: yup.string().required(),
-  signAtIndex: yup.number().integer().positive(),
+  signAtIndex: yup.number().integer(),
   network: yup.string().oneOf(networkModes),
-  account: yup.number().integer().positive(),
+  account: yup.number().integer(),
 });
 
 type SignPsbtRequestParams = yup.InferType<typeof rpcSignPsbtValidator>;
