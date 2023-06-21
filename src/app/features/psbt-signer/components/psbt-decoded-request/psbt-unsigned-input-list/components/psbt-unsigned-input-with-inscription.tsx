@@ -1,6 +1,7 @@
 import { Box } from '@stacks/ui';
 import { truncateMiddle } from '@stacks/ui-utils';
 
+import { Money } from '@shared/models/money.model';
 import { isUndefined } from '@shared/utils';
 
 import { openInNewTab } from '@app/common/utils/open-in-new-tab';
@@ -13,12 +14,12 @@ import { PsbtDecodedNodeLayout } from '../../psbt-decoded-request-node/psbt-deco
 
 interface PsbtUnsignedInputWithInscriptionProps {
   address: string;
-  inputValue: string;
   path: string;
+  value: Money;
 }
 export function PsbtUnsignedInputWithInscription({
   address,
-  inputValue,
+  value,
   path,
 }: PsbtUnsignedInputWithInscriptionProps) {
   const {
@@ -41,7 +42,7 @@ export function PsbtUnsignedInputWithInscription({
         subtitle={truncateMiddle(address)}
         subValue="# Unknown"
         title="No data"
-        value={`-${inputValue}`}
+        value={`-${value.amount.toString()}`}
       />
     );
 
@@ -53,7 +54,7 @@ export function PsbtUnsignedInputWithInscription({
       subValue={`#${inscription.number}`}
       subValueAction={() => openInNewTab(inscription.infoUrl)}
       title="Ordinal inscription"
-      value={`-${inputValue}`}
+      value={`-${value.amount.toString()}`}
     />
   );
 }

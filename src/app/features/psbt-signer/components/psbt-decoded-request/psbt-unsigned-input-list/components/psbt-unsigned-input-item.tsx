@@ -1,9 +1,9 @@
 import { truncateMiddle } from '@stacks/ui-utils';
 
+import { createMoney } from '@shared/models/money.model';
 import { BitcoinTransactionVectorOutput } from '@shared/models/transactions/bitcoin-transaction.model';
 
 import { i18nFormatCurrency } from '@app/common/money/format-money';
-import { satToBtc } from '@app/common/money/unit-conversion';
 import { useCalculateBitcoinFiatValue } from '@app/query/common/market-data/market-data.hooks';
 
 import { PsbtDecodedNodeLayout } from '../../psbt-decoded-request-node/psbt-decoded-node.layout';
@@ -23,14 +23,14 @@ export function PsbtUnsignedInputItem({
   const isInputCurrentAddress =
     utxo.scriptpubkey_address === addressNativeSegwit ||
     utxo.scriptpubkey_address === addressTaproot;
-  const inputValue = satToBtc(utxo.value).toString();
+  const inputValueAsMoney = createMoney(utxo.value, 'BTC');
 
   return (
     <PsbtDecodedNodeLayout
       hoverLabel={utxo.scriptpubkey_address}
       subtitle={truncateMiddle(utxo.scriptpubkey_address)}
-      subValue={i18nFormatCurrency(calculateBitcoinFiatValue(inputValue))}
-      value={`${isInputCurrentAddress ? '-' : '+'}${inputValue}`}
+      subValue={i18nFormatCurrency(calculateBitcoinFiatValue(inputValueAsMoney))}
+      value={`${isInputCurrentAddress ? '-' : '+'}${inputValueAsMoney.amount.toString()}`}
     />
   );
 }
