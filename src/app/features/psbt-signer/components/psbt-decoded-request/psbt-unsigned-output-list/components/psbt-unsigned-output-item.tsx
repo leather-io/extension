@@ -2,9 +2,9 @@ import * as btc from '@scure/btc-signer';
 import { truncateMiddle } from '@stacks/ui-utils';
 
 import { getAddressFromOutScript } from '@shared/crypto/bitcoin/bitcoin.utils';
+import { createMoney } from '@shared/models/money.model';
 
 import { i18nFormatCurrency } from '@app/common/money/format-money';
-import { satToBtc } from '@app/common/money/unit-conversion';
 import { useCalculateBitcoinFiatValue } from '@app/query/common/market-data/market-data.hooks';
 import { useCurrentNetwork } from '@app/store/networks/networks.selectors';
 
@@ -27,14 +27,14 @@ export function PsbtUnsignedOutputItem({
 
   const isOutputCurrentAddress =
     addressFromScript === addressNativeSegwit || addressFromScript === addressTaproot;
-  const outputValue = satToBtc(Number(output.amount)).toString();
+  const outputValueAsMoney = createMoney(Number(output.amount), 'BTC');
 
   return (
     <PsbtDecodedNodeLayout
       hoverLabel={addressFromScript}
       subtitle={truncateMiddle(addressFromScript)}
-      subValue={i18nFormatCurrency(calculateBitcoinFiatValue(outputValue))}
-      value={`${isOutputCurrentAddress ? '+' : ' '}${outputValue}`}
+      subValue={i18nFormatCurrency(calculateBitcoinFiatValue(outputValueAsMoney))}
+      value={`${isOutputCurrentAddress ? '+' : ' '}${outputValueAsMoney.amount.toString()}`}
     />
   );
 }
