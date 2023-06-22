@@ -2,7 +2,7 @@ import { DefineRpcMethod, RpcRequest, RpcResponse } from '@btckit/types';
 import * as yup from 'yup';
 
 import { networkModes } from '@shared/constants';
-import { isNumber, isUndefined } from '@shared/utils';
+import { isDefined, isNumber, isUndefined } from '@shared/utils';
 
 function testIsNumberOrArrayOfNumbers(value: unknown) {
   if (isUndefined(value)) return true;
@@ -12,7 +12,14 @@ function testIsNumberOrArrayOfNumbers(value: unknown) {
 
 const rpcSignPsbtValidator = yup.object().shape({
   publicKey: yup.string().required(),
-  allowedSighash: yup.mixed<number | number[]>().test(testIsNumberOrArrayOfNumbers),
+  allowedSighash: yup.mixed<number | number[]>().when('signAtIndex', {
+    is: (signAtIndex: unknown) => isDefined(signAtIndex),
+    then: schema =>
+      schema
+        .test(testIsNumberOrArrayOfNumbers)
+        .required('allowedSighash required when signAtIndex is provided'),
+    otherwise: schema => schema.test(testIsNumberOrArrayOfNumbers),
+  }),
   hex: yup.string().required(),
   signAtIndex: yup.mixed<number | number[]>().test(testIsNumberOrArrayOfNumbers),
   network: yup.string().oneOf(networkModes),
