@@ -1,44 +1,12 @@
-import { useMemo } from 'react';
-import { useSearchParams } from 'react-router-dom';
-
 import { RpcErrorCode } from '@btckit/types';
 import { bytesToHex } from '@noble/hashes/utils';
-import * as btc from '@scure/btc-signer';
 
 import { makeRpcErrorResponse, makeRpcSuccessResponse } from '@shared/rpc/rpc-methods';
-import { isDefined, undefinedIfLengthZero } from '@shared/utils';
+import { isDefined } from '@shared/utils';
 
-import { useDefaultRequestParams } from '@app/common/hooks/use-default-request-search-params';
-import { useRejectIfLedgerWallet } from '@app/common/rpc-helpers';
+import { useRpcSignPsbtParams } from '@app/common/psbt/use-psbt-request-params';
 import { usePsbtSigner } from '@app/features/psbt-signer/hooks/use-psbt-signer';
 import { PsbtSigner } from '@app/features/psbt-signer/psbt-signer';
-
-function useRpcSignPsbtParams() {
-  useRejectIfLedgerWallet('signPsbt');
-
-  const [searchParams] = useSearchParams();
-  const { origin, tabId } = useDefaultRequestParams();
-  const requestId = searchParams.get('requestId');
-  const psbtHex = searchParams.get('hex');
-  const allowedSighash = searchParams.getAll('allowedSighash');
-  const signAtIndex = searchParams.getAll('signAtIndex');
-
-  if (!requestId || !psbtHex || !origin) throw new Error('Invalid params');
-
-  return useMemo(
-    () => ({
-      origin,
-      tabId: tabId ?? 0,
-      requestId,
-      psbtHex,
-      allowedSighash: undefinedIfLengthZero(
-        allowedSighash.map(h => Number(h)) as btc.SignatureHash[]
-      ),
-      signAtIndex: undefinedIfLengthZero(signAtIndex.map(h => Number(h))),
-    }),
-    [allowedSighash, origin, psbtHex, requestId, signAtIndex, tabId]
-  );
-}
 
 function useRpcSignPsbt() {
   const { origin, tabId, requestId, psbtHex, allowedSighash, signAtIndex } = useRpcSignPsbtParams();
@@ -78,6 +46,7 @@ function useRpcSignPsbt() {
           },
         })
       );
+      window.close();
     },
   };
 }
