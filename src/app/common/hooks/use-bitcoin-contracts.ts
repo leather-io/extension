@@ -31,7 +31,7 @@ export interface SimplifiedBitcoinContract {
   bitcoinContractExpirationDate: string;
 }
 
-export interface CounterpartyWalletDetails {
+interface CounterpartyWalletDetails {
   counterpartyWalletURL: string;
   counterpartyWalletName: string;
   counterpartyWalletIcon: string;
@@ -210,9 +210,9 @@ export function useBitcoinContracts() {
       makeRpcSuccessResponse('acceptBitcoinContractOffer', {
         id: initialSearchParams.get('requestId') as string,
         result: {
-        contractId: bitcoinContractId,
-        txId,
-        action,
+          contractId: bitcoinContractId,
+          txId,
+          action,
         },
       })
     );
