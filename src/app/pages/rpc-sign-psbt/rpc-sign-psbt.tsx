@@ -49,9 +49,9 @@ function useRpcSignPsbt() {
       return getDecodedPsbt(psbtHex);
     },
     onSignPsbt() {
-      if (!isUndefined(signAtIndex) && !isUndefined(allowedSighash)) {
+      if (!isUndefined(signAtIndex)) {
         signAtIndex.forEach(idx => {
-          signPsbtAtIndex(allowedSighash, idx, tx);
+          signPsbtAtIndex(idx, tx, allowedSighash);
         });
       } else {
         signPsbt(tx);
