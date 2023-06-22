@@ -47,8 +47,8 @@ export function usePsbtRequest() {
         const indexOrIndexes = payload?.signAtIndex;
         const allowedSighash = payload?.allowedSighash;
 
-        if (!isUndefined(indexOrIndexes) && !isUndefined(allowedSighash)) {
-          ensureArray(indexOrIndexes).forEach(idx => signPsbtAtIndex(allowedSighash, idx, tx));
+        if (!isUndefined(indexOrIndexes)) {
+          ensureArray(indexOrIndexes).forEach(idx => signPsbtAtIndex(idx, tx, allowedSighash));
         } else {
           signPsbt(tx);
         }
