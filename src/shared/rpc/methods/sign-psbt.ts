@@ -5,9 +5,14 @@ import { networkModes } from '@shared/constants';
 
 const rpcSignPsbtValidator = yup.object().shape({
   publicKey: yup.string().required(),
-  allowedSighash: yup.array().of(yup.number().required()),
+  allowedSighash: yup
+    .mixed<number | number[]>()
+    // Forcing type as yup doesn't infer it correctly
+    .oneOf<any>([yup.number().integer(), yup.array().of(yup.number().integer())]),
   hex: yup.string().required(),
-  signAtIndex: yup.number().integer(),
+  signAtIndex: yup
+    .mixed<number | number[]>()
+    .oneOf<any>([yup.number().integer(), yup.array().of(yup.number().integer())]),
   network: yup.string().oneOf(networkModes),
   account: yup.number().integer(),
 });
