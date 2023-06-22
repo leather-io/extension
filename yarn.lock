@@ -9258,8 +9258,10 @@ dir-glob@^3.0.1:
   dependencies:
     path-type "^4.0.0"
 
-"dlc-wasm-wallet@file:../dlc-stack/wasm-wallet/pkg":
+dlc-wasm-wallet@^0.4.0:
   version "0.4.0"
+  resolved "https://registry.yarnpkg.com/dlc-wasm-wallet/-/dlc-wasm-wallet-0.4.0.tgz#440e46feced098b6e50d787e6e263c5c32cfa308"
+  integrity sha512-a1Iog36buippaHBnUXmjEEKnakhVbji0EJPLQHz3yvc94okaz8tKmwHQH8FDvkTg3NjYIitMtxdzAMQ/8LRx2w==
 
 dlv@^1.1.3:
   version "1.1.3"
