@@ -2,17 +2,19 @@ import { DefineRpcMethod, RpcRequest, RpcResponse } from '@btckit/types';
 import * as yup from 'yup';
 
 import { networkModes } from '@shared/constants';
+import { isNumber, isUndefined } from '@shared/utils';
+
+function testIsNumberOrArrayOfNumbers(value: unknown) {
+  if (isUndefined(value)) return true;
+  if (Array.isArray(value)) return value.every(item => isNumber(item));
+  return isNumber(value);
+}
 
 const rpcSignPsbtValidator = yup.object().shape({
   publicKey: yup.string().required(),
-  allowedSighash: yup
-    .mixed<number | number[]>()
-    // Forcing type as yup doesn't infer it correctly
-    .oneOf<any>([yup.number().integer(), yup.array().of(yup.number().integer())]),
+  allowedSighash: yup.mixed<number | number[]>().test(testIsNumberOrArrayOfNumbers),
   hex: yup.string().required(),
-  signAtIndex: yup
-    .mixed<number | number[]>()
-    .oneOf<any>([yup.number().integer(), yup.array().of(yup.number().integer())]),
+  signAtIndex: yup.mixed<number | number[]>().test(testIsNumberOrArrayOfNumbers),
   network: yup.string().oneOf(networkModes),
   account: yup.number().integer(),
 });
