@@ -39,6 +39,8 @@ export function ModalHeader({
     navigate(-1);
   }
 
+  const hasCloseIcon = onClose || defaultClose;
+
   return (
     <Flex
       alignItems={hideActions ? 'center' : 'flex-start'}
@@ -69,8 +71,8 @@ export function ModalHeader({
       </Flex>
 
       <Flex alignItems="center" flexBasis="20%" justifyContent="flex-end" position="relative">
-        <NetworkModeBadge position="absolute" right="35px" />
-        {(onClose || defaultClose) && (
+        <NetworkModeBadge position="absolute" right={hasCloseIcon ? '35px' : '15px'} />
+        {hasCloseIcon && (
           <IconButton
             onClick={onClose || defaultCloseAction}
             alignSelf="center"
