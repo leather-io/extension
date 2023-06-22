@@ -3,11 +3,11 @@ import { RpcErrorCode } from '@btckit/types';
 import { WalletRequests, makeRpcErrorResponse } from '@shared/rpc/rpc-methods';
 
 import { getTabIdFromPort } from './messaging-utils';
+import { rpcAcceptBitcoinContractOffer } from './rpc-methods/accept-bitcoin-contract';
 import { rpcGetAddresses } from './rpc-methods/get-addresses';
 import { rpcSendTransfer } from './rpc-methods/send-transfer';
 import { rpcSignMessage } from './rpc-methods/sign-message';
 import { rpcSignPsbt } from './rpc-methods/sign-psbt';
-import { rpcAcceptBitcoinContractOffer } from './rpc-methods/accept-bitcoin-contract';
 import { rpcSupportedMethods } from './rpc-methods/supported-methods';
 
 export async function rpcMessageHandler(message: WalletRequests, port: chrome.runtime.Port) {

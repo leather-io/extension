@@ -10,7 +10,10 @@ interface BitcoinContractRequestHeaderBaseProps {
   counterpartyWalletName: string;
 }
 
-function BitcoinContractRequestHeaderBase({ counterpartyWalletName, counterpartyWalletIcon }: BitcoinContractRequestHeaderBaseProps) {
+function BitcoinContractRequestHeaderBase({
+  counterpartyWalletName,
+  counterpartyWalletIcon,
+}: BitcoinContractRequestHeaderBaseProps) {
   const caption = `${counterpartyWalletName} is requesting you accept this offer`;
 
   return (
@@ -19,7 +22,11 @@ function BitcoinContractRequestHeaderBase({ counterpartyWalletName, counterparty
         Lock Bitcoin
       </Title>
       {caption && (
-        <Flag align="middle" img={<img src={counterpartyWalletIcon} height="32px" width="32px" />} pl="tight">
+        <Flag
+          align="middle"
+          img={<img src={counterpartyWalletIcon} height="32px" width="32px" />}
+          pl="tight"
+        >
           <Caption wordBreak="break-word">{caption}</Caption>
         </Flag>
       )}

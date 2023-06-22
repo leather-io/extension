@@ -6,8 +6,8 @@ export function BitcoinContractRequestWarningLabel(props: { appName?: string }) 
 
   return (
     <WarningLabel title={title} width="100%">
-      By signing the contract YOU AGREE TO LOCK YOUR BITCOIN with {appName} into a contract
-      where it will remain until a triggering event will release it.
+      By signing the contract YOU AGREE TO LOCK YOUR BITCOIN with {appName} into a contract where it
+      will remain until a triggering event will release it.
     </WarningLabel>
   );
 }

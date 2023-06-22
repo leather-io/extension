@@ -3,7 +3,6 @@ import { BtcKitMethodMap, ExtractErrorResponse, ExtractSuccessResponse } from '@
 import { ValueOf } from '@shared/utils/type-utils';
 
 import { AcceptBitcoinContract } from './methods/accept-bitcoin-contract';
-
 import { SignPsbt } from './methods/sign-psbt';
 import { SupportedMethods } from './methods/supported-methods';
 

@@ -1,4 +1,5 @@
 import { RpcErrorCode } from '@btckit/types';
+
 import { RouteUrls } from '@shared/route-urls';
 import { BitcoinContractRequest } from '@shared/rpc/methods/accept-bitcoin-contract';
 import { makeRpcErrorResponse } from '@shared/rpc/rpc-methods';
@@ -41,8 +42,7 @@ export async function rpcAcceptBitcoinContractOffer(
         id: message.id,
         error: {
           code: RpcErrorCode.INVALID_REQUEST,
-          message:
-            'The counterparty does not have enough funds to complete the offer',
+          message: 'The counterparty does not have enough funds to complete the offer',
         },
       })
     );

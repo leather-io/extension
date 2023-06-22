@@ -41,6 +41,7 @@ import { rpcSendTransferRoutes } from '@app/pages/rpc-send-transfer/rpc-send-tra
 import { RpcSignPsbt } from '@app/pages/rpc-sign-psbt/rpc-sign-psbt';
 import { SelectNetwork } from '@app/pages/select-network/select-network';
 import { BroadcastError } from '@app/pages/send/broadcast-error/broadcast-error';
+import { LockBitcoinSummary } from '@app/pages/send/lock-bitcoin-contract/lock-bitcoin-contract';
 import { SendInscriptionContainer } from '@app/pages/send/ordinal-inscription/components/send-inscription-container';
 import { SendInscriptionChooseFee } from '@app/pages/send/ordinal-inscription/send-inscription-choose-fee';
 import { SendInscriptionForm } from '@app/pages/send/ordinal-inscription/send-inscription-form';
@@ -58,7 +59,6 @@ import { AccountGate } from '@app/routes/account-gate';
 import { useHasUserRespondedToAnalyticsConsent } from '@app/store/settings/settings.selectors';
 
 import { OnboardingGate } from './onboarding-gate';
-import { LockBitcoinSummary } from '@app/pages/send/lock-bitcoin-contract/lock-bitcoin-contract';
 
 export function AppRoutes() {
   const routes = useAppRoutes();
@@ -150,9 +150,8 @@ function useAppRoutes() {
               </Suspense>
             </AccountGate>
           }
-        >
-        </Route>
-        <Route path={RouteUrls.BitcoinContractLockSuccess} element={<LockBitcoinSummary/>} />
+        ></Route>
+        <Route path={RouteUrls.BitcoinContractLockSuccess} element={<LockBitcoinSummary />} />
         <Route path={RouteUrls.BitcoinContractLockError} element={<BroadcastError />} />
         <Route
           path={RouteUrls.Onboarding}

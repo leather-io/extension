@@ -1,7 +1,7 @@
 import { Box, Button, Stack, color } from '@stacks/ui';
 
-import { PrimaryButton } from '@app/components/primary-button';
 import { useBtcAssetBalance } from '@app/common/hooks/balance/btc/use-btc-balance';
+import { PrimaryButton } from '@app/components/primary-button';
 
 interface BitcoinContractRequestActionsProps {
   isLoading: boolean;
