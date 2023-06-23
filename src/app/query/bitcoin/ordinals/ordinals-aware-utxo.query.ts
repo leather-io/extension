@@ -7,7 +7,6 @@ import { isTypedArray } from '@shared/utils';
 import { Prettify } from '@shared/utils/type-utils';
 
 import { QueryPrefixes } from '@app/query/query-prefixes';
-import { useCurrentNetwork } from '@app/store/networks/networks.selectors';
 
 import { TaprootUtxo } from './use-taproot-address-utxos.query';
 
@@ -59,14 +58,11 @@ const queryOptions = {
 } as const;
 
 export function useOrdinalsAwareUtxoQueries(utxos: TaprootUtxo[] | btc.TransactionInputRequired[]) {
-  const network = useCurrentNetwork();
-
   return useQueries({
     queries: utxos.map(utxo => {
       const txId = isTypedArray(utxo.txid) ? bytesToHex(utxo.txid) : utxo.txid;
       const txIndex = 'index' in utxo ? utxo.index : utxo.vout;
       return {
-        enabled: network.chain.bitcoin.network === 'mainnet',
         queryKey: makeOrdinalsAwareUtxoQueryKey(txId, txIndex),
         queryFn: () => fetchOrdinalsAwareUtxo(txId, txIndex),
         select: (resp: OrdApiInscriptionTxOutput) =>

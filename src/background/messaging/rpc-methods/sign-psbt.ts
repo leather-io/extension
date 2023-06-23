@@ -9,7 +9,7 @@ import {
   validateRpcSignPsbtParams,
 } from '@shared/rpc/methods/sign-psbt';
 import { makeRpcErrorResponse } from '@shared/rpc/rpc-methods';
-import { ensureArray, isDefined } from '@shared/utils';
+import { ensureArray, isDefined, isUndefined } from '@shared/utils';
 
 import {
   RequestParams,
@@ -29,17 +29,25 @@ function validatePsbt(hex: string) {
 }
 
 export async function rpcSignPsbt(message: SignPsbtRequest, port: chrome.runtime.Port) {
+  if (isUndefined(message.params)) {
+    chrome.tabs.sendMessage(
+      getTabIdFromPort(port),
+      makeRpcErrorResponse('signPsbt', {
+        id: message.id,
+        error: { code: RpcErrorCode.INVALID_REQUEST, message: 'Parameters undefined' },
+      })
+    );
+    return;
+  }
+
   if (!validateRpcSignPsbtParams(message.params)) {
-    const errors = getRpcSignPsbtParamErrors(message.params);
     chrome.tabs.sendMessage(
       getTabIdFromPort(port),
       makeRpcErrorResponse('signPsbt', {
         id: message.id,
         error: {
           code: RpcErrorCode.INVALID_PARAMS,
-          message:
-            'Invalid parameters: ' +
-            errors.map(e => `Error in path ${e.path}, ${e.message}.`).join(' '),
+          message: getRpcSignPsbtParamErrors(message.params),
         },
       })
     );
@@ -60,7 +68,6 @@ export async function rpcSignPsbt(message: SignPsbtRequest, port: chrome.runtime
   const requestParams: RequestParams = [
     ['requestId', message.id],
     ['hex', message.params.hex],
-    ['publicKey', message.params.publicKey],
     ['network', message.params.network ?? 'mainnet'],
   ];
 
@@ -68,10 +75,14 @@ export async function rpcSignPsbt(message: SignPsbtRequest, port: chrome.runtime
     requestParams.push(['accountIndex', message.params.account.toString()]);
   }
 
-  if (isDefined(message.params.allowedSighash))
-    message.params.allowedSighash.forEach(hash =>
-      requestParams.push(['allowedSighash', (hash ?? btc.SignatureHash.ALL).toString()])
+  if (isDefined(message.params.allowedSighash) && message.params.allowedSighash.length)
+    message.params.allowedSighash.forEach((hash: any) =>
+      requestParams.push(['allowedSighash', hash.toString()])
     );
+
+  if (isDefined(message.params.publicKey)) {
+    requestParams.push(['publicKey', message.params.publicKey.toString()]);
+  }
 
   if (isDefined(message.params.signAtIndex))
     ensureArray(message.params.signAtIndex).forEach(index =>
@@ -81,6 +92,7 @@ export async function rpcSignPsbt(message: SignPsbtRequest, port: chrome.runtime
   const { urlParams, tabId } = makeSearchParamsWithDefaults(port, requestParams);
 
   const { id } = await triggerRequestWindowOpen(RouteUrls.RpcSignPsbt, urlParams);
+
   listenForPopupClose({
     tabId,
     id,

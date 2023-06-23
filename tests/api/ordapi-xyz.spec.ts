@@ -1,8 +1,8 @@
-import { test } from '@playwright/test';
-
 import { fetchInscription } from '@app/query/bitcoin/ordinals/inscription.query';
 import { getNumberOfInscriptionOnUtxo } from '@app/query/bitcoin/ordinals/ordinals-aware-utxo.query';
 import { fetchData } from '@app/query/utils';
+
+import { test } from './../fixtures/fixtures';
 
 test.describe('OrdAPI.xyz', () => {
   test('should return 3 in case of 3 inscriptions', async () => {
