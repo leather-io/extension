@@ -6,7 +6,7 @@ import { bytesToHex } from '@noble/hashes/utils';
 import * as btc from '@scure/btc-signer';
 
 import { makeRpcErrorResponse, makeRpcSuccessResponse } from '@shared/rpc/rpc-methods';
-import { isUndefined } from '@shared/utils';
+import { isDefined, undefinedIfLengthZero } from '@shared/utils';
 
 import { useDefaultRequestParams } from '@app/common/hooks/use-default-request-search-params';
 import { usePsbtSigner } from '@app/features/psbt-signer/hooks/use-psbt-signer';
@@ -30,8 +30,10 @@ function useRpcSignPsbtParams() {
       requestId,
       psbtHex,
       publicKey,
-      allowedSighash: allowedSighash.map(h => Number(h)) as btc.SignatureHash[],
-      signAtIndex: signAtIndex.map(h => Number(h)),
+      allowedSighash: undefinedIfLengthZero(
+        allowedSighash.map(h => Number(h)) as btc.SignatureHash[]
+      ),
+      signAtIndex: undefinedIfLengthZero(signAtIndex.map(h => Number(h))),
     }),
     [allowedSighash, origin, psbtHex, publicKey, requestId, signAtIndex, tabId]
   );
@@ -49,7 +51,7 @@ function useRpcSignPsbt() {
       return getDecodedPsbt(psbtHex);
     },
     onSignPsbt() {
-      if (!isUndefined(signAtIndex)) {
+      if (isDefined(signAtIndex)) {
         signAtIndex.forEach(idx => {
           signPsbtAtIndex(idx, tx, allowedSighash);
         });
