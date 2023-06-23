@@ -89,11 +89,12 @@ export function useTaprootInscriptionsInfiniteQuery() {
         fromIndex + addressesSimultaneousFetchLimit
       );
 
+      let offset = pageParam?.offset || 0;
       // Loop through addresses until we reach the limit, or until we find an address with many inscriptions
       while (addressesWithoutOrdinalsNum < stopSearchAfterNumberAddressesWithoutOrdinals) {
         const response = await fetchInscriptions(
           Object.keys(addressesData),
-          pageParam?.offset || 0,
+          offset,
           inscriptionsLazyLoadLimit
         );
 
@@ -103,6 +104,11 @@ export function useTaprootInscriptionsInfiniteQuery() {
         if (response.total > inscriptionsLazyLoadLimit) {
           addressesWithoutOrdinalsNum = 0;
           break;
+        }
+
+        // case when we fetched all inscriptions from address with many inscriptions
+        if (response.total === 0 && response.offset > 0) {
+          offset = 0;
         }
 
         fromIndex += addressesSimultaneousFetchLimit;
@@ -126,11 +132,10 @@ export function useTaprootInscriptionsInfiniteQuery() {
       const results = responsesArr.flatMap(response => response.results);
 
       // get offset and total from the last response
-      const offset = responsesArr[responsesArr.length - 1]?.offset;
       const total = responsesArr[responsesArr.length - 1]?.total;
 
       return {
-        offset: pageParam?.offset ?? offset,
+        offset,
         total,
         stopNextFetch: addressesWithoutOrdinalsNum >= stopSearchAfterNumberAddressesWithoutOrdinals,
         inscriptions: results.map(inscription => ({

@@ -69,8 +69,8 @@ export async function rpcSignPsbt(message: SignPsbtRequest, port: chrome.runtime
   }
 
   if (isDefined(message.params.allowedSighash))
-    ensureArray(message.params.allowedSighash).forEach(hash =>
-      requestParams.push(['allowedSighash', hash.toString()])
+    message.params.allowedSighash.forEach(hash =>
+      requestParams.push(['allowedSighash', (hash ?? btc.SignatureHash.ALL).toString()])
     );
 
   if (isDefined(message.params.signAtIndex))

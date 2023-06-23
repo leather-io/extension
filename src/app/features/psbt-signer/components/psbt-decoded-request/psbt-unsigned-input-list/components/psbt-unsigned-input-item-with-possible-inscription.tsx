@@ -1,9 +1,9 @@
 import { truncateMiddle } from '@stacks/ui-utils';
 
 import { logger } from '@shared/logger';
+import { createMoney } from '@shared/models/money.model';
 
-import { i18nFormatCurrency } from '@app/common/money/format-money';
-import { satToBtc } from '@app/common/money/unit-conversion';
+import { formatMoneyWithoutSymbol, i18nFormatCurrency } from '@app/common/money/format-money';
 import { OrdApiInscriptionTxOutput } from '@app/query/bitcoin/ordinals/ordinals-aware-utxo.query';
 import { TaprootUtxo } from '@app/query/bitcoin/ordinals/use-taproot-address-utxos.query';
 import { useCalculateBitcoinFiatValue } from '@app/query/common/market-data/market-data.hooks';
@@ -25,7 +25,7 @@ export function PsbtUnsignedInputItemWithPossibleInscription({
 
   const isInputCurrentAddress =
     utxo.address === addressNativeSegwit || utxo.address === addressTaproot;
-  const inputValue = satToBtc(utxo.value).toString();
+  const inputValueAsMoney = createMoney(utxo.value, 'BTC');
 
   if (!utxo.address) {
     logger.error('UTXO does not have an address');
@@ -35,15 +35,15 @@ export function PsbtUnsignedInputItemWithPossibleInscription({
   return utxo.inscriptions ? (
     <PsbtUnsignedInputWithInscription
       address={utxo.address}
-      inputValue={inputValue}
       path={utxo.inscriptions}
+      value={inputValueAsMoney}
     />
   ) : (
     <PsbtDecodedNodeLayout
       hoverLabel={utxo.address}
       subtitle={truncateMiddle(utxo.address)}
-      subValue={i18nFormatCurrency(calculateBitcoinFiatValue(inputValue))}
-      value={`${isInputCurrentAddress ? '-' : '+'}${inputValue}`}
+      subValue={i18nFormatCurrency(calculateBitcoinFiatValue(inputValueAsMoney))}
+      value={`${isInputCurrentAddress ? '-' : '+'}${formatMoneyWithoutSymbol(inputValueAsMoney)}`}
     />
   );
 }

@@ -1,11 +1,11 @@
 import BigNumber from 'bignumber.js';
 
 import { BTC_DECIMALS, STX_DECIMALS } from '@shared/constants';
-import { isUndefined } from '@shared/utils';
+import { isBigInt, isUndefined } from '@shared/utils';
 
 import type { Currencies } from './currencies.model';
 
-export type NumType = BigNumber | number;
+export type NumType = BigNumber | bigint | number;
 
 export interface Money {
   readonly amount: BigNumber;
@@ -52,7 +52,7 @@ export function createMoneyFromDecimal(
 ): Money {
   throwWhenDecimalUnknown(symbol, resolution);
   const decimals = getDecimalsOfSymbolIfKnown(symbol) ?? resolution;
-  const amount = new BigNumber(value).shiftedBy(decimals);
+  const amount = new BigNumber(isBigInt(value) ? value.toString() : value).shiftedBy(decimals);
   return Object.freeze({ amount, symbol, decimals });
 }
 
@@ -64,6 +64,6 @@ export function createMoneyFromDecimal(
 export function createMoney(value: NumType, symbol: Currencies, resolution?: number): Money {
   throwWhenDecimalUnknown(symbol, resolution);
   const decimals = getDecimalsOfSymbolIfKnown(symbol) ?? resolution;
-  const amount = new BigNumber(value);
+  const amount = new BigNumber(isBigInt(value) ? value.toString() : value);
   return Object.freeze({ amount, symbol, decimals });
 }
