@@ -41,3 +41,7 @@ export function noop() {}
 export function ensureArray<T>(value: T | T[]): T[] {
   return Array.isArray(value) ? value : [value];
 }
+
+export function undefinedIfLengthZero<T extends any[]>(arr: T) {
+  return arr.length ? arr : undefined;
+}
