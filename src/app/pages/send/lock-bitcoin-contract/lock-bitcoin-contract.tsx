@@ -15,11 +15,12 @@ import {
   InfoCardFooter,
 } from '@app/components/info-card/info-card';
 import { ModalHeader } from '@app/components/modal-header';
+import { satToBtc } from '@app/common/money/unit-conversion';
 
 export function LockBitcoinSummary() {
   const { state } = useLocation();
 
-  const { txId, txValue, txFiatValue, txFiatValueSymbol, symbol, txLink } = state;
+  const { txId, txMoney, txFiatValue, txFiatValueSymbol, symbol, txLink } = state;
 
   const { onCopy } = useClipboard(txId);
   const { handleOpenTxLink } = useExplorerLink();
@@ -40,7 +41,7 @@ export function LockBitcoinSummary() {
   return (
     <InfoCard>
       <InfoCardAssetValue
-        value={txValue}
+        value={Number(satToBtc(txMoney.amount))}
         fiatValue={txFiatValue}
         fiatSymbol={txFiatValueSymbol}
         symbol={symbol}

@@ -8,7 +8,7 @@ import { deriveAddressIndexKeychainFromAccount } from '@shared/crypto/bitcoin/bi
 import { RouteUrls } from '@shared/route-urls';
 import { makeRpcSuccessResponse } from '@shared/rpc/rpc-methods';
 
-import { sendAcceptedBitcoinContractOfferToProtocolWallet } from '@app/query/bitcoin/bitcoinContract/send-accepted-bitcoin-contract-offer';
+import { sendAcceptedBitcoinContractOfferToProtocolWallet } from '@app/query/bitcoin/contract/send-accepted-bitcoin-contract-offer';
 import {
   useCalculateBitcoinFiatValue,
   useCryptoCurrencyMarketData,
@@ -24,6 +24,7 @@ import { i18nFormatCurrency } from '../money/format-money';
 import { satToBtc } from '../money/unit-conversion';
 import { whenBitcoinNetwork } from '../utils';
 import { useDefaultRequestParams } from './use-default-request-search-params';
+import { createMoneyFromDecimal } from '@shared/models/money.model';
 
 export interface SimplifiedBitcoinContract {
   bitcoinContractId: string;
@@ -152,7 +153,7 @@ export function useBitcoinContracts() {
         JSON.stringify(signedBitcoinContract)
       );
 
-      const { txValue, txFiatValue, txFiatValueSymbol, txLink, symbol } = getTransactionDetails(
+      const { txMoney, txFiatValue, txFiatValueSymbol, txLink, symbol } = getTransactionDetails(
         txId,
         bitcoinContractCollateralAmount
       );
@@ -160,7 +161,7 @@ export function useBitcoinContracts() {
       navigate(RouteUrls.BitcoinContractLockSuccess, {
         state: {
           txId,
-          txValue,
+          txMoney,
           txFiatValue,
           txFiatValueSymbol,
           symbol,
@@ -187,14 +188,15 @@ export function useBitcoinContracts() {
   }
 
   function getTransactionDetails(txId: string, bitcoinCollateral: number) {
-    const txValue = satToBtc(bitcoinCollateral).toString();
-    const txFiatValue = i18nFormatCurrency(calculateFiatValue(txValue)).toString();
+    const bitcoinValue = satToBtc(bitcoinCollateral);
+    const txMoney = createMoneyFromDecimal(bitcoinValue, 'BTC');
+    const txFiatValue = i18nFormatCurrency(calculateFiatValue(txMoney)).toString();
     const txFiatValueSymbol = bitcoinMarketData.price.symbol;
     const txLink = { blockchain: 'bitcoin', txid: txId };
 
     return {
       txId,
-      txValue,
+      txMoney,
       txFiatValue,
       txFiatValueSymbol,
       symbol: 'BTC',

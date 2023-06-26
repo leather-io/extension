@@ -51,7 +51,7 @@ export async function rpcAcceptBitcoinContractOffer(
 
   const { urlParams, tabId } = makeSearchParamsWithDefaults(port, params);
 
-  const { id } = await triggerRequestWindowOpen(RouteUrls.BitcoinContractOffer, urlParams);
+  const { id } = await triggerRequestWindowOpen(RouteUrls.RpcReceiveBitcoinContractOffer, urlParams);
 
   listenForPopupClose({
     tabId,

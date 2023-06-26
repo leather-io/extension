@@ -134,7 +134,7 @@ function useAppRoutes() {
           {ledgerStacksTxSigningRoutes}
         </Route>
         <Route
-          path={RouteUrls.BitcoinContractOffer}
+          path={RouteUrls.RpcReceiveBitcoinContractOffer}
           element={
             <AccountGate>
               <Suspense fallback={<LoadingSpinner height="600px" />}>

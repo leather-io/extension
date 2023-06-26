@@ -2,11 +2,12 @@ import { Box, Text } from '@stacks/ui';
 import { truncateMiddle } from '@stacks/ui-utils';
 
 import { SimplifiedBitcoinContract } from '@app/common/hooks/use-bitcoin-contracts';
-import { i18nFormatCurrency } from '@app/common/money/format-money';
+import { formatMoney, i18nFormatCurrency } from '@app/common/money/format-money';
 import { satToBtc } from '@app/common/money/unit-conversion';
 import { useCalculateBitcoinFiatValue } from '@app/query/common/market-data/market-data.hooks';
 
 import { BitcoinContractLockAmount } from './bitcoin-contract-lock-amount';
+import { createMoneyFromDecimal } from '@shared/models/money.model';
 
 interface BitcoinContractOfferInputProps {
   addressNativeSegwit: string;
@@ -18,8 +19,10 @@ export function BitcoinContractOfferInput({
 }: BitcoinContractOfferInputProps) {
   const calculateFiatValue = useCalculateBitcoinFiatValue();
 
-  const bitcoinValue = satToBtc(bitcoinContractOffer.bitcoinContractCollateralAmount).toString();
-  const fiatValue = calculateFiatValue(bitcoinValue);
+  const bitcoinValue = satToBtc(bitcoinContractOffer.bitcoinContractCollateralAmount);
+  const money = createMoneyFromDecimal(bitcoinValue, 'BTC');
+  const fiatValue = calculateFiatValue(money);
+  const formattedBitcoinValue = formatMoney(money)
   const formattedFiatValue = i18nFormatCurrency(fiatValue);
 
   return (
@@ -36,7 +39,7 @@ export function BitcoinContractOfferInput({
         hoverLabel={addressNativeSegwit}
         subtitle={truncateMiddle(addressNativeSegwit)}
         subValue={`${formattedFiatValue} USD`}
-        value={bitcoinValue}
+        value={formattedBitcoinValue }
       />
       <hr />
     </Box>
