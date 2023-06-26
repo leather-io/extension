@@ -1,3 +1,34 @@
+## [4.32.1](https://github.com/hirosystems/wallet/compare/v4.32.0...v4.32.1) (2023-06-23)
+
+
+### Bug Fixes
+
+* inscriptions on regen addresses, closes [#3752](https://github.com/hirosystems/wallet/issues/3752) ([5cb868f](https://github.com/hirosystems/wallet/commit/5cb868fa7a3549fe1d748ab66233db00dad44c64))
+* **psbt:** allow number array ([b5df8c4](https://github.com/hirosystems/wallet/commit/b5df8c4c598803d1c58bbdc8f04d0af8dcb20bbe))
+* **psbt:** bad index check logic ([a0ff51e](https://github.com/hirosystems/wallet/commit/a0ff51eb8497d0a69f5e731eeb7c9efac0831ac1))
+* **psbt:** dynamic validation of sighash type ([d86f865](https://github.com/hirosystems/wallet/commit/d86f865177473f5a3964a71fceb561d8f6538f94))
+* **psbt:** write custom test, yup mixed not working ([53e3385](https://github.com/hirosystems/wallet/commit/53e33859db9603b45eebfca8e62e8349b41fa466))
+* required allowedSighash ([6ddb8b7](https://github.com/hirosystems/wallet/commit/6ddb8b71974a3623acf0859eb3a1087a70b2d875))
+
+
+### Internal
+
+* allow bigint in createMoney ([3672e89](https://github.com/hirosystems/wallet/commit/3672e8904ae243fe2fa10f654d344799b642d126))
+* calc btc fiat value hook ([cf7b8db](https://github.com/hirosystems/wallet/commit/cf7b8dbd628bf280e361e271229277c062b63398))
+* format money with optional symbol ([e6ea975](https://github.com/hirosystems/wallet/commit/e6ea975be189668b2e128ff9068abd88ef090532))
+
+## [4.32.0](https://github.com/hirosystems/wallet/compare/v4.31.0...v4.32.0) (2023-06-21)
+
+
+### Features
+
+* migrate profile legacy test, closes [#3709](https://github.com/hirosystems/wallet/issues/3709) ([1c01d54](https://github.com/hirosystems/wallet/commit/1c01d544a2b7cb231b9470a7424109d8096d5f38))
+
+
+### Bug Fixes
+
+* **psbt:** validated positive by mistake, 0 index broken ([bf793a0](https://github.com/hirosystems/wallet/commit/bf793a02b47e688a563388fc4c6e04160fcb1b7a))
+
 ## [4.31.0](https://github.com/hirosystems/wallet/compare/v4.30.1...v4.31.0) (2023-06-21)
 
 

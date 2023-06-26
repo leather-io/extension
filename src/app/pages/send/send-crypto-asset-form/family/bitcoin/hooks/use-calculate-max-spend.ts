@@ -7,20 +7,17 @@ import { createMoney } from '@shared/models/money.model';
 
 import { satToBtc } from '@app/common/money/unit-conversion';
 import { BtcSizeFeeEstimator } from '@app/common/transactions/bitcoin/fees/btc-size-fee-estimator';
-import { useSpendableNativeSegwitUtxos } from '@app/query/bitcoin/address/use-spendable-native-segwit-utxos';
 import { useCurrentNativeSegwitAddressBalance } from '@app/query/bitcoin/balance/bitcoin-balances.query';
+import { UtxoResponseItem } from '@app/query/bitcoin/bitcoin-client';
 import { useAverageBitcoinFeeRates } from '@app/query/bitcoin/fees/fee-estimates.hooks';
-import { useCurrentAccountNativeSegwitAddressIndexZero } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
 
 export function useCalculateMaxBitcoinSpend() {
-  const currentAccountBtcAddress = useCurrentAccountNativeSegwitAddressIndexZero();
   const balance = useCurrentNativeSegwitAddressBalance();
-  const { data: utxos } = useSpendableNativeSegwitUtxos(currentAccountBtcAddress);
   const { data: feeRates } = useAverageBitcoinFeeRates();
 
   return useCallback(
-    (address = '', feeRate?: number) => {
-      if (!utxos || !feeRates)
+    (address = '', utxos: UtxoResponseItem[], feeRate?: number) => {
+      if (!utxos.length || !feeRates)
         return {
           spendAllFee: 0,
           amount: createMoney(0, 'BTC'),
@@ -45,6 +42,6 @@ export function useCalculateMaxBitcoinSpend() {
         spendableBitcoin: satToBtc(spendableAmount),
       };
     },
-    [balance.amount, feeRates, utxos]
+    [balance.amount, feeRates]
   );
 }

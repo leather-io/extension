@@ -22,6 +22,7 @@ import { LoadingSpinner } from '@app/components/loading-spinner';
 import { ModalHeader } from '@app/components/modal-header';
 import { BitcoinChooseFee } from '@app/features/bitcoin-choose-fee/bitcoin-choose-fee';
 import { useValidateBitcoinSpend } from '@app/features/bitcoin-choose-fee/hooks/use-validate-bitcoin-spend';
+import { UtxoResponseItem } from '@app/query/bitcoin/bitcoin-client';
 import { useBrc20Transfers } from '@app/query/bitcoin/ordinals/brc20/use-brc-20';
 
 import { useSendBitcoinAssetContextState } from '../../family/bitcoin/components/send-bitcoin-asset-container';
@@ -32,18 +33,20 @@ function useBrc20ChooseFeeState() {
     tick: get(location.state, 'tick') as string,
     amount: get(location.state, 'amount') as string,
     recipient: get(location.state, 'recipient') as string,
+    utxos: get(location.state, 'utxos') as UtxoResponseItem[],
   };
 }
 
 export function BrcChooseFee() {
   const navigate = useNavigate();
-  const { amount, recipient, tick } = useBrc20ChooseFeeState();
+  const { amount, recipient, tick, utxos } = useBrc20ChooseFeeState();
   const generateTx = useGenerateSignedNativeSegwitTx();
   const { selectedFeeType, setSelectedFeeType } = useSendBitcoinAssetContextState();
   const { initiateTransfer } = useBrc20Transfers();
   const { feesList, isLoading } = useBitcoinFeesList({
     amount: Number(amount),
     recipient,
+    utxos,
   });
   const recommendedFeeRate = feesList[1]?.feeRate.toString() || '';
 
@@ -72,7 +75,8 @@ export function BrcChooseFee() {
           amount: serviceFeeAsMoney,
           recipient: serviceFeeRecipient,
         },
-        feeRate
+        feeRate,
+        utxos
       );
 
       if (!resp) return logger.error('Attempted to generate raw tx, but no tx exists');

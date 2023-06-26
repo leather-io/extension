@@ -5,9 +5,7 @@ import BigNumber from 'bignumber.js';
 
 import { CryptoCurrencies } from '@shared/models/currencies.model';
 import { MarketData, createMarketData, createMarketPair } from '@shared/models/market.model';
-import { createMoney, currencyDecimalsMap } from '@shared/models/money.model';
-import { createMoneyFromDecimal } from '@shared/models/money.model';
-import { isNumber } from '@shared/utils';
+import { Money, createMoney, currencyDecimalsMap } from '@shared/models/money.model';
 
 import { calculateMeanAverage } from '@app/common/math/calculate-averages';
 import { convertAmountToFractionalUnit } from '@app/common/money/calculate-money';
@@ -59,11 +57,7 @@ export function useCalculateBitcoinFiatValue() {
   const btcMarketData = useCryptoCurrencyMarketData('BTC');
 
   return useCallback(
-    (value: string | number) =>
-      baseCurrencyAmountInQuote(
-        createMoneyFromDecimal(isNumber(value) ? value : Number(value), 'BTC'),
-        btcMarketData
-      ),
+    (value: Money) => baseCurrencyAmountInQuote(value, btcMarketData),
     [btcMarketData]
   );
 }

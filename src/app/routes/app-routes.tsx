@@ -89,15 +89,7 @@ function useAppRoutes() {
   return createHashRouter(
     createRoutesFromElements(
       <Route path={RouteUrls.Container} element={<Container />}>
-        <Route
-          path={RouteUrls.RequestDiagnostics}
-          element={
-            <>
-              lksjdflksjdlfkjs
-              <AllowDiagnosticsPage />
-            </>
-          }
-        />
+        <Route path={RouteUrls.RequestDiagnostics} element={<AllowDiagnosticsPage />} />
 
         <Route
           path={RouteUrls.Home}

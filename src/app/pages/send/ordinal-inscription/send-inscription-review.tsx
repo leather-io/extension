@@ -11,7 +11,7 @@ import { BaseDrawer } from '@app/components/drawer/base-drawer';
 import { InfoCard, InfoCardRow, InfoCardSeparator } from '@app/components/info-card/info-card';
 import { InscriptionPreview } from '@app/components/inscription-preview-card/components/inscription-preview';
 import { PrimaryButton } from '@app/components/primary-button';
-import { useCurrentNativeSegwitUtxos } from '@app/query/bitcoin/address/use-current-account-native-segwit-utxos';
+import { useCurrentNativeSegwitUtxos } from '@app/query/bitcoin/address/utxos-by-address.hooks';
 import { useAppDispatch } from '@app/store';
 import { inscriptionSent } from '@app/store/ordinals/ordinals.slice';
 

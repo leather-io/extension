@@ -1,8 +1,10 @@
 import { Box } from '@stacks/ui';
 import { truncateMiddle } from '@stacks/ui-utils';
 
+import { Money } from '@shared/models/money.model';
 import { isUndefined } from '@shared/utils';
 
+import { formatMoneyWithoutSymbol } from '@app/common/money/format-money';
 import { openInNewTab } from '@app/common/utils/open-in-new-tab';
 import { OrdinalIcon } from '@app/components/icons/ordinal-icon';
 import { InscriptionPreview } from '@app/components/inscription-preview-card/components/inscription-preview';
@@ -13,12 +15,12 @@ import { PsbtDecodedNodeLayout } from '../../psbt-decoded-request-node/psbt-deco
 
 interface PsbtUnsignedInputWithInscriptionProps {
   address: string;
-  inputValue: string;
   path: string;
+  value: Money;
 }
 export function PsbtUnsignedInputWithInscription({
   address,
-  inputValue,
+  value,
   path,
 }: PsbtUnsignedInputWithInscriptionProps) {
   const {
@@ -41,7 +43,7 @@ export function PsbtUnsignedInputWithInscription({
         subtitle={truncateMiddle(address)}
         subValue="# Unknown"
         title="No data"
-        value={`-${inputValue}`}
+        value={`-${formatMoneyWithoutSymbol(value)}`}
       />
     );
 
@@ -53,7 +55,7 @@ export function PsbtUnsignedInputWithInscription({
       subValue={`#${inscription.number}`}
       subValueAction={() => openInNewTab(inscription.infoUrl)}
       title="Ordinal inscription"
-      value={`-${inputValue}`}
+      value={`-${formatMoneyWithoutSymbol(value)}`}
     />
   );
 }

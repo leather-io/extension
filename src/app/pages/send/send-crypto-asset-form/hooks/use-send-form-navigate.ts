@@ -7,6 +7,8 @@ import { StacksTransaction } from '@stacks/transactions';
 import { BitcoinSendFormValues } from '@shared/models/form.model';
 import { RouteUrls } from '@shared/route-urls';
 
+import { UtxoResponseItem } from '@app/query/bitcoin/bitcoin-client';
+
 interface ConfirmationRouteState {
   decimals?: number;
   token?: string;
@@ -36,10 +38,15 @@ export function useSendFormNavigate() {
       backToSendForm(state: any) {
         return navigate('../', { relative: 'path', replace: true, state });
       },
-      toChooseTransactionFee(isSendingMax: boolean, values: BitcoinSendFormValues) {
+      toChooseTransactionFee(
+        isSendingMax: boolean,
+        utxos: UtxoResponseItem[],
+        values: BitcoinSendFormValues
+      ) {
         return navigate('choose-fee', {
           state: {
             isSendingMax,
+            utxos,
             values,
             hasHeaderTitle: true,
           },

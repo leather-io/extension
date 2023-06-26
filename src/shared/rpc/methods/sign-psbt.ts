@@ -1,13 +1,21 @@
 import { DefineRpcMethod, RpcRequest, RpcResponse } from '@btckit/types';
+import * as btc from '@scure/btc-signer';
 import * as yup from 'yup';
 
 import { networkModes } from '@shared/constants';
+import { isNumber, isUndefined } from '@shared/utils';
+
+function testIsNumberOrArrayOfNumbers(value: unknown) {
+  if (isUndefined(value)) return true;
+  if (Array.isArray(value)) return value.every(item => isNumber(item));
+  return isNumber(value);
+}
 
 const rpcSignPsbtValidator = yup.object().shape({
   publicKey: yup.string().required(),
-  allowedSighash: yup.array().of(yup.number().required()),
+  allowedSighash: yup.array().of(yup.mixed().oneOf(Object.values(btc.SignatureHash))),
   hex: yup.string().required(),
-  signAtIndex: yup.number().integer(),
+  signAtIndex: yup.mixed<number | number[]>().test(testIsNumberOrArrayOfNumbers),
   network: yup.string().oneOf(networkModes),
   account: yup.number().integer(),
 });

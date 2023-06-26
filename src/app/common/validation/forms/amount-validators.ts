@@ -11,6 +11,7 @@ import {
   satToBtc,
   stxToMicroStx,
 } from '@app/common/money/unit-conversion';
+import { UtxoResponseItem } from '@app/query/bitcoin/bitcoin-client';
 
 import { formatInsufficientBalanceError, formatPrecisionError } from '../../error-formatters';
 import { FormErrorMessages } from '../../error-messages';
@@ -27,14 +28,19 @@ function amountValidator() {
 }
 
 interface BtcInsufficientBalanceValidatorArgs {
-  recipient: string;
-  calcMaxSpend(recipient: string): {
+  calcMaxSpend(
+    recipient: string,
+    utxos: UtxoResponseItem[]
+  ): {
     spendableBitcoin: BigNumber;
   };
+  recipient: string;
+  utxos: UtxoResponseItem[];
 }
 export function btcInsufficientBalanceValidator({
-  recipient,
   calcMaxSpend,
+  recipient,
+  utxos,
 }: BtcInsufficientBalanceValidatorArgs) {
   return yup
     .number()
@@ -43,7 +49,7 @@ export function btcInsufficientBalanceValidator({
       message: FormErrorMessages.InsufficientFunds,
       test(value) {
         if (!value) return false;
-        const maxSpend = calcMaxSpend(recipient);
+        const maxSpend = calcMaxSpend(recipient, utxos);
         if (!maxSpend) return false;
         const desiredSpend = new BigNumber(value);
         if (desiredSpend.isGreaterThan(maxSpend.spendableBitcoin)) return false;

@@ -9,7 +9,7 @@ import {
   determineUtxosForSpend,
   determineUtxosForSpendAll,
 } from '@app/common/transactions/bitcoin/coinselect/local-coin-selection';
-import { useSpendableCurrentNativeSegwitAccountUtxos } from '@app/query/bitcoin/address/use-spendable-native-segwit-utxos';
+import { UtxoResponseItem } from '@app/query/bitcoin/bitcoin-client';
 import { useBitcoinScureLibNetworkConfig } from '@app/store/accounts/blockchain/bitcoin/bitcoin-keychain';
 import { useCurrentAccountNativeSegwitIndexZeroSigner } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
 
@@ -18,7 +18,6 @@ interface GenerateNativeSegwitTxValues {
   recipient: string;
 }
 export function useGenerateSignedNativeSegwitTx() {
-  const { data: utxos } = useSpendableCurrentNativeSegwitAccountUtxos();
   const {
     address,
     publicKeychain: currentAddressIndexKeychain,
@@ -28,8 +27,13 @@ export function useGenerateSignedNativeSegwitTx() {
   const networkMode = useBitcoinScureLibNetworkConfig();
 
   return useCallback(
-    (values: GenerateNativeSegwitTxValues, feeRate: number, isSendingMax?: boolean) => {
-      if (!utxos) return;
+    (
+      values: GenerateNativeSegwitTxValues,
+      feeRate: number,
+      utxos: UtxoResponseItem[],
+      isSendingMax?: boolean
+    ) => {
+      if (!utxos.length) return;
       if (!feeRate) return;
 
       try {
@@ -87,6 +91,6 @@ export function useGenerateSignedNativeSegwitTx() {
         return null;
       }
     },
-    [address, currentAddressIndexKeychain?.publicKey, networkMode, sign, utxos]
+    [address, currentAddressIndexKeychain?.publicKey, networkMode, sign]
   );
 }

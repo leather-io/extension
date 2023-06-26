@@ -20,7 +20,7 @@ export function usePsbtSigner() {
 
   return useMemo(
     () => ({
-      signPsbtAtIndex(allowedSighash: btc.SignatureHash[], idx: number, tx: btc.Transaction) {
+      signPsbtAtIndex(idx: number, tx: btc.Transaction, allowedSighash?: btc.SignatureHash[]) {
         try {
           nativeSegwitSigner?.signIndex(tx, idx, allowedSighash);
         } catch (e1) {
