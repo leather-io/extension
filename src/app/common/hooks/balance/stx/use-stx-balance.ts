@@ -22,6 +22,7 @@ export function useStxBalance() {
   const stxEffectiveBalance = isDefined(totalBalance)
     ? subtractMoney(totalBalance, stxOutboundQuery.data)
     : createMoney(0, 'STX');
+
   const stxEffectiveUsdBalance = isDefined(totalBalance)
     ? i18nFormatCurrency(baseCurrencyAmountInQuote(stxEffectiveBalance, stxMarketData))
     : undefined;
