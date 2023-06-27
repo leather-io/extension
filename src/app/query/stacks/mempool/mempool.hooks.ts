@@ -66,15 +66,19 @@ export function useCurrentAccountMempoolTransactionsBalance() {
   const address = useCurrentAccountStxAddressState();
   const { transactions: pendingTransactions } = useStacksPendingTransactions();
 
-  const tokenTransferTxsBalance = (
-    pendingTransactions.filter(
-      tx => tx.tx_type === 'token_transfer' && tx.sender_address === address
-    ) as unknown as MempoolTokenTransferTransaction[]
-  ).reduce((acc, tx) => acc.plus(tx.token_transfer.amount), new BigNumber(0));
-  const pendingTxsFeesBalance = pendingTransactions.reduce(
+  const pendingOutboundTxs = pendingTransactions.filter(
+    tx => tx.tx_type === 'token_transfer' && tx.sender_address === address
+  ) as unknown as MempoolTokenTransferTransaction[];
+
+  const tokenTransferTxsBalance = pendingOutboundTxs.reduce(
+    (acc, tx) => acc.plus(tx.token_transfer.amount),
+    new BigNumber(0)
+  );
+  const pendingTxsFeesBalance = pendingOutboundTxs.reduce(
     (acc, tx) => acc.plus(tx.fee_rate),
     new BigNumber(0)
   );
+
   return createMoney(tokenTransferTxsBalance.plus(pendingTxsFeesBalance), 'STX');
 }
 
