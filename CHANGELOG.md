@@ -1,3 +1,23 @@
+## [4.33.0](https://github.com/hirosystems/wallet/compare/v4.32.1...v4.33.0) (2023-06-27)
+
+
+### Features
+
+* change btc available balance logic, closes [#3758](https://github.com/hirosystems/wallet/issues/3758) ([76515b1](https://github.com/hirosystems/wallet/commit/76515b1e56151ab2c12b365666a01612668c37f8))
+
+
+### Bug Fixes
+
+* ledger support link, closes [#3900](https://github.com/hirosystems/wallet/issues/3900) ([05f1d7f](https://github.com/hirosystems/wallet/commit/05f1d7f82deefbb1a22c80328e20f784dbf96df7))
+* negative stx available balance, closes [#3761](https://github.com/hirosystems/wallet/issues/3761) ([6a2adf0](https://github.com/hirosystems/wallet/commit/6a2adf05747f8a9b33e696d37519df8edf7a7e18))
+* trim recipient address field to remove leading/ trailing spaces, fixes [#2806](https://github.com/hirosystems/wallet/issues/2806) ([1a7f683](https://github.com/hirosystems/wallet/commit/1a7f6830eba0bcabc9559dadb4503caf7b445d68))
+
+
+### Internal
+
+* filter utxos, closes [#3732](https://github.com/hirosystems/wallet/issues/3732) ([ab7d24f](https://github.com/hirosystems/wallet/commit/ab7d24f98b33613b3f3150d9215b092924585369))
+* send form utxos ([11f8047](https://github.com/hirosystems/wallet/commit/11f8047f40df2a4198c00e92cbe841b7dddba90c))
+
 ## [4.32.1](https://github.com/hirosystems/wallet/compare/v4.32.0...v4.32.1) (2023-06-23)
 
 
