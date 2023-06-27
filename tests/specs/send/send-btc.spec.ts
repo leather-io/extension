@@ -28,6 +28,17 @@ test.describe('send btc', () => {
       const details = await sendPage.confirmationDetails.allInnerTexts();
       test.expect(details).toBeTruthy();
     });
+    test('that recipient input is trimmed correctly', async ({ sendPage }) => {
+      await sendPage.amountInput.fill('0.00006');
+      await sendPage.recipientInput.fill(' ' + TEST_TESTNET_ACCOUNT_2_BTC_ADDRESS + ' ');
+      await sendPage.recipientInput.blur();
+      await sendPage.page.waitForTimeout(1000);
+      await sendPage.previewSendTxButton.click();
+      await sendPage.feesListItem.filter({ hasText: BtcFeeType.High }).click();
+
+      const displayerAddress = await getDisplayerAddress(sendPage.confirmationDetailsRecipient);
+      test.expect(displayerAddress).toEqual(TEST_TESTNET_ACCOUNT_2_BTC_ADDRESS);
+    });
 
     test('that asset value and recipient on preview match input', async ({ sendPage }) => {
       const amount = '0.00006';

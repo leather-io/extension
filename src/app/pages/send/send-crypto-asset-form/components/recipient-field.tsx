@@ -1,4 +1,9 @@
+import { JSX, useEffect } from 'react';
+
 import { SendCryptoAssetSelectors } from '@tests/selectors/send.selectors';
+import { useField, useFormikContext } from 'formik';
+
+import { BitcoinSendFormValues, StacksSendFormValues } from '@shared/models/form.model';
 
 import { TextInputField } from '@app/components/text-input-field';
 
@@ -22,6 +27,12 @@ export function RecipientField({
   placeholder,
   topInputOverlay,
 }: RecipientFieldProps) {
+  const [field] = useField(name);
+  const { setFieldValue } = useFormikContext<BitcoinSendFormValues | StacksSendFormValues>();
+  useEffect(() => {
+    void setFieldValue(name, field.value.trim());
+  }, [name, field.value, setFieldValue]);
+
   return (
     <TextInputField
       dataTestId={SendCryptoAssetSelectors.RecipientFieldInput}
