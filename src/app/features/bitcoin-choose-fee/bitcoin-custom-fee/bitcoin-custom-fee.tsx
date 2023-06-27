@@ -13,6 +13,8 @@ import { TextInputField } from '../../../components/text-input-field';
 import { BitcoinCustomFeeFiat } from './bitcoin-custom-fee-fiat';
 import { useBitcoinCustomFee } from './hooks/use-bitcoin-custom-fee';
 
+const feeInputLabel = 'sats/vB';
+
 interface BitcoinCustomFeeProps {
   onChooseFee({ feeRate, feeValue, time, isCustomFee }: OnChooseFeeArgs): Promise<void>;
   onValidateBitcoinSpend(value: number): boolean;
@@ -22,9 +24,6 @@ interface BitcoinCustomFeeProps {
   customFeeInitialValue: string;
   setCustomFeeInitialValue: Dispatch<SetStateAction<string>>;
 }
-
-const feeInputLabel = 'sats/vB';
-
 export function BitcoinCustomFee({
   onChooseFee,
   recipient,
@@ -44,7 +43,7 @@ export function BitcoinCustomFee({
       if (!isValid) return;
       await onChooseFee({ feeRate: Number(feeRate), feeValue, time: '', isCustomFee: true });
     },
-    [onChooseFee, onValidateBitcoinSpend, getCustomFeeValues]
+    [getCustomFeeValues, onValidateBitcoinSpend, onChooseFee]
   );
 
   const validationSchema = yup.object({

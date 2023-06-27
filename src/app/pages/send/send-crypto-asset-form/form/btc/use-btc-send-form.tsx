@@ -8,6 +8,7 @@ import { BitcoinSendFormValues } from '@shared/models/form.model';
 import { noop } from '@shared/utils';
 
 import { formatPrecisionError } from '@app/common/error-formatters';
+import { useOnMount } from '@app/common/hooks/use-on-mount';
 import { useWalletType } from '@app/common/use-wallet-type';
 import {
   btcAddressNetworkValidator,
@@ -23,8 +24,9 @@ import {
   currencyAmountValidator,
 } from '@app/common/validation/forms/currency-validators';
 import { useUpdatePersistedSendFormValues } from '@app/features/popup-send-form-restoration/use-update-persisted-send-form-values';
+import { useSpendableCurrentNativeSegwitAccountUtxos } from '@app/query/bitcoin/address/utxos-by-address.hooks';
 import { useNativeSegwitBalance } from '@app/query/bitcoin/balance/bitcoin-balances.query';
-import { useCurrentAccountNativeSegwitAddressIndexZero } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
+import { useCurrentAccountNativeSegwitIndexZeroSigner } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
 import { useCurrentNetwork } from '@app/store/networks/networks.selectors';
 
 import { useCalculateMaxBitcoinSpend } from '../../family/bitcoin/hooks/use-calculate-max-spend';
@@ -34,12 +36,16 @@ export function useBtcSendForm() {
   const [isSendingMax, setIsSendingMax] = useState(false);
   const formRef = useRef<FormikProps<BitcoinSendFormValues>>(null);
   const currentNetwork = useCurrentNetwork();
-  const currentAccountBtcAddress = useCurrentAccountNativeSegwitAddressIndexZero();
-  const btcCryptoCurrencyAssetBalance = useNativeSegwitBalance(currentAccountBtcAddress);
+  const nativeSegwitSigner = useCurrentAccountNativeSegwitIndexZeroSigner();
+  const { data: utxos = [], refetch } = useSpendableCurrentNativeSegwitAccountUtxos();
+  const btcCryptoCurrencyAssetBalance = useNativeSegwitBalance(nativeSegwitSigner.address);
   const { whenWallet } = useWalletType();
   const sendFormNavigate = useSendFormNavigate();
   const calcMaxSpend = useCalculateMaxBitcoinSpend();
   const { onFormStateChange } = useUpdatePersistedSendFormValues();
+
+  // Forcing a refetch to ensure UTXOs are fresh
+  useOnMount(() => refetch());
 
   return {
     calcMaxSpend,
@@ -50,6 +56,7 @@ export function useBtcSendForm() {
     onSetIsSendingMax(value: boolean) {
       setIsSendingMax(value);
     },
+    utxos,
     validationSchema: yup.object({
       amount: yup
         .number()
@@ -60,17 +67,18 @@ export function useBtcSendForm() {
         .concat(currencyAmountValidator())
         .concat(
           btcInsufficientBalanceValidator({
+            calcMaxSpend,
             // TODO: investigate yup features for cross-field validation
             // to prevent need to access form via ref
             recipient: formRef.current?.values.recipient ?? '',
-            calcMaxSpend,
+            utxos,
           })
         ),
       recipient: yup
         .string()
         .concat(btcAddressValidator())
         .concat(btcAddressNetworkValidator(currentNetwork.chain.bitcoin.network))
-        .concat(notCurrentAddressValidator(currentAccountBtcAddress || ''))
+        .concat(notCurrentAddressValidator(nativeSegwitSigner.address || ''))
         .required('Enter a bitcoin address'),
     }),
 
@@ -83,7 +91,7 @@ export function useBtcSendForm() {
       await formikHelpers.validateForm();
 
       whenWallet({
-        software: () => sendFormNavigate.toChooseTransactionFee(isSendingMax, values),
+        software: () => sendFormNavigate.toChooseTransactionFee(isSendingMax, utxos, values),
         ledger: noop,
       })();
     },

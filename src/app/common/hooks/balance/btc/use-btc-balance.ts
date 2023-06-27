@@ -1,5 +1,9 @@
 import { useMemo } from 'react';
 
+import BigNumber from 'bignumber.js';
+
+import { createMoney } from '@shared/models/money.model';
+
 import { baseCurrencyAmountInQuote, subtractMoney } from '@app/common/money/calculate-money';
 import { i18nFormatCurrency } from '@app/common/money/format-money';
 import { createBitcoinCryptoCurrencyAssetTypeWrapper } from '@app/query/bitcoin/address/address.utils';
@@ -10,8 +14,11 @@ import { useCryptoCurrencyMarketData } from '@app/query/common/market-data/marke
 export function useBtcAssetBalance(btcAddress: string) {
   const btcMarketData = useCryptoCurrencyMarketData('BTC');
   const btcAssetBalance = useNativeSegwitBalance(btcAddress);
-  const pendingBalance = useBitcoinPendingTransactionsBalance(btcAddress);
-  const availableBalance = subtractMoney(btcAssetBalance.balance, pendingBalance);
+  const { data: pendingBalance } = useBitcoinPendingTransactionsBalance(btcAddress);
+  const availableBalance = subtractMoney(
+    btcAssetBalance.balance,
+    pendingBalance ?? createMoney(new BigNumber(0), 'BTC')
+  );
 
   return useMemo(
     () => ({

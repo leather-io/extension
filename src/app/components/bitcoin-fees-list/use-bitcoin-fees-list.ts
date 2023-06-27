@@ -11,10 +11,9 @@ import {
   determineUtxosForSpend,
   determineUtxosForSpendAll,
 } from '@app/common/transactions/bitcoin/coinselect/local-coin-selection';
-import { useSpendableNativeSegwitUtxos } from '@app/query/bitcoin/address/use-spendable-native-segwit-utxos';
+import { UtxoResponseItem } from '@app/query/bitcoin/bitcoin-client';
 import { useAverageBitcoinFeeRates } from '@app/query/bitcoin/fees/fee-estimates.hooks';
 import { useCryptoCurrencyMarketData } from '@app/query/common/market-data/market-data.hooks';
-import { useCurrentAccountNativeSegwitAddressIndexZero } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
 
 import { FeesListItem } from './bitcoin-fees-list';
 
@@ -32,11 +31,14 @@ interface UseBitcoinFeesListArgs {
   amount: number;
   isSendingMax?: boolean;
   recipient: string;
+  utxos: UtxoResponseItem[];
 }
-export function useBitcoinFeesList({ amount, isSendingMax, recipient }: UseBitcoinFeesListArgs) {
-  const currentAccountBtcAddress = useCurrentAccountNativeSegwitAddressIndexZero();
-  const { data: utxos } = useSpendableNativeSegwitUtxos(currentAccountBtcAddress);
-
+export function useBitcoinFeesList({
+  amount,
+  isSendingMax,
+  recipient,
+  utxos,
+}: UseBitcoinFeesListArgs) {
   const btcMarketData = useCryptoCurrencyMarketData('BTC');
   const { data: feeRates, isLoading } = useAverageBitcoinFeeRates();
 
@@ -47,7 +49,7 @@ export function useBitcoinFeesList({ amount, isSendingMax, recipient }: UseBitco
       )}`;
     }
 
-    if (!feeRates || !utxos || !utxos.length) return [];
+    if (!feeRates || !utxos.length) return [];
 
     const satAmount = btcToSat(amount).toNumber();
 

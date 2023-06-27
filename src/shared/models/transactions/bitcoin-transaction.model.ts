@@ -20,9 +20,9 @@ interface BitcoinTransactionPegOut {
 
 interface BitcoinTransactionStatus {
   confirmed: boolean;
-  block_height: number | null;
-  block_hash: string | null;
-  block_time: number | null;
+  block_height?: number | null;
+  block_hash?: string | null;
+  block_time?: number | null;
 }
 
 export interface BitcoinTransactionVectorOutput {
@@ -57,7 +57,7 @@ export interface BitcoinTransaction {
   locktime: number;
   size: number;
   status: BitcoinTransactionStatus;
-  tx_type: string;
+  tx_type?: string;
   txid: string;
   version: number;
   vin: BitcoinTransactionVectorInput[];

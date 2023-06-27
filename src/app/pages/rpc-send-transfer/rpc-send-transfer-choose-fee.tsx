@@ -17,6 +17,7 @@ import {
 import { useBitcoinFeesList } from '@app/components/bitcoin-fees-list/use-bitcoin-fees-list';
 import { BitcoinChooseFee } from '@app/features/bitcoin-choose-fee/bitcoin-choose-fee';
 import { useValidateBitcoinSpend } from '@app/features/bitcoin-choose-fee/hooks/use-validate-bitcoin-spend';
+import { UtxoResponseItem } from '@app/query/bitcoin/bitcoin-client';
 
 import { formFeeRowValue } from '../../common/send/utils';
 import { useRpcSendTransferState } from './rpc-send-transfer-container';
@@ -25,29 +26,32 @@ function useRpcSendTransferFeeState() {
   const location = useLocation();
   const amount = get(location.state, 'amount');
   const amountAsMoney = createMoney(Number(amount), 'BTC');
+  const utxos = get(location.state, 'utxos') as UtxoResponseItem[];
 
   return {
     address: get(location.state, 'address') as string,
     amountAsMoney,
+    utxos,
   };
 }
 
 export function RpcSendTransferChooseFee() {
   const { selectedFeeType, setSelectedFeeType } = useRpcSendTransferState();
-  const { address, amountAsMoney } = useRpcSendTransferFeeState();
+  const { address, amountAsMoney, utxos } = useRpcSendTransferFeeState();
   const navigate = useNavigate();
   const { whenWallet } = useWalletType();
   const generateTx = useGenerateSignedNativeSegwitTx();
   const { feesList, isLoading } = useBitcoinFeesList({
     amount: Number(amountAsMoney.amount),
     recipient: address,
+    utxos,
   });
   const recommendedFeeRate = feesList[1]?.feeRate.toString() || '';
 
   const { showInsufficientBalanceError, onValidateBitcoinFeeSpend } = useValidateBitcoinSpend();
 
   async function previewTransfer({ feeRate, feeValue, time, isCustomFee }: OnChooseFeeArgs) {
-    const resp = generateTx({ amount: amountAsMoney, recipient: address }, feeRate);
+    const resp = generateTx({ amount: amountAsMoney, recipient: address }, feeRate, utxos);
 
     if (!resp) return logger.error('Attempted to generate raw tx, but no tx exists');
 

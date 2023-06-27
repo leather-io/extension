@@ -9,7 +9,7 @@ import { AvailableBalance } from '@app/components/available-balance';
 import { OnChooseFeeArgs } from '@app/components/bitcoin-fees-list/bitcoin-fees-list';
 import { BitcoinCustomFee } from '@app/features/bitcoin-choose-fee/bitcoin-custom-fee/bitcoin-custom-fee';
 import { useNativeSegwitBalance } from '@app/query/bitcoin/balance/bitcoin-balances.query';
-import { useCurrentAccountNativeSegwitAddressIndexZero } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
+import { useCurrentAccountNativeSegwitIndexZeroSigner } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
 
 import { BitcoinChooseFeeLayout } from './components/bitcoin-choose-fee.layout';
 import { ChooseFeeSubtitle } from './components/choose-fee-subtitle';
@@ -38,8 +38,8 @@ export function BitcoinChooseFee({
   isLoading,
   recommendedFeeRate,
 }: BitcoinChooseFeeProps) {
-  const currentAccountBtcAddress = useCurrentAccountNativeSegwitAddressIndexZero();
-  const btcBalance = useNativeSegwitBalance(currentAccountBtcAddress);
+  const nativeSegwitSigner = useCurrentAccountNativeSegwitIndexZeroSigner();
+  const btcBalance = useNativeSegwitBalance(nativeSegwitSigner.address);
   const hasAmount = amount.amount.isGreaterThan(0);
   const [customFeeInitialValue, setCustomFeeInitialValue] = useState(recommendedFeeRate);
 
