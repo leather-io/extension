@@ -19,7 +19,7 @@ export function BitcoinContractOfferDetailsSimple({
       />
       <BitcoinContractExpirationDate
         expirationDate={bitcoinContractOffer.bitcoinContractExpirationDate}
-      ></BitcoinContractExpirationDate>
+      />
     </>
   );
 }

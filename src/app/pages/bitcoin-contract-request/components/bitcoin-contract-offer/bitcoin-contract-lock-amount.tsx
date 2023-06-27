@@ -28,7 +28,7 @@ export function BitcoinContractLockAmount({
   const { onCopy, hasCopied } = useClipboard(hoverLabel ?? '');
 
   return (
-    <Flag align="middle" img={image ? image : <BtcIcon />} my="loose" spacing="base">
+    <Flag align="middle" img={image || <BtcIcon />} my="loose" spacing="base">
       <SpaceBetween>
         <Text fontSize={2} fontWeight="500">
           {title ? title : 'BTC'}

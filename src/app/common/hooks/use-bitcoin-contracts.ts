@@ -52,6 +52,7 @@ export function useBitcoinContracts() {
   const currentIndex = useCurrentAccountIndex();
   const nativeSegwitPrivateKeychain =
     useNativeSegwitActiveNetworkAccountPrivateKeychain()?.(currentIndex);
+  const oracleAPI = 'https://testnet.dlc.link/oracle';
 
   async function getBitcoinContractInterface(): Promise<JsDLCInterface | undefined> {
     const bitcoinAccountDetails = getNativeSegwitSigner?.(0);
@@ -74,8 +75,6 @@ export function useBitcoinContracts() {
       regtest: BITCOIN_API_BASE_URL_TESTNET,
       signet: BITCOIN_API_BASE_URL_TESTNET,
     });
-
-    const oracleAPI = 'https://testnet.dlc.link/oracle';
 
     const bitcoinContractInterface = JsDLCInterface.new(
       bytesToHex(currentAddressPrivateKey),
@@ -127,7 +126,19 @@ export function useBitcoinContracts() {
     bitcoinContractJSON: string,
     counterpartyWalletDetails: CounterpartyWalletDetails
   ) {
-    const bitcoinContractInterface = await getBitcoinContractInterface();
+    let bitcoinContractInterface: JsDLCInterface | undefined;
+    try {
+      bitcoinContractInterface = await getBitcoinContractInterface();
+    } catch (error) {
+      navigate(RouteUrls.BitcoinContractLockError, {
+        state: {
+          error,
+          title: 'There was an error with getting the bitcoin contract interface',
+          body: 'Unable to setup interface',
+        },
+      });
+      sendRpcResponse('none', '', 'failed');
+    }
 
     if (!bitcoinContractInterface) return;
 
