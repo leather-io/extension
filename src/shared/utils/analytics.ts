@@ -66,6 +66,12 @@ export function initSentry() {
       delete event.user?.ip_address;
       delete event.extra?.ip_address;
 
+      const values = event.exception?.values?.map(({ value }) => value);
+
+      // @see https://stackoverflow.com/questions/49384120/resizeobserver-loop-limit-exceeded
+      if (values?.includes('ResizeObserver loop limit exceeded')) {
+        return null;
+      }
       return event;
     },
   });

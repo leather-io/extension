@@ -68,4 +68,8 @@ export class HomePage {
     ).isEnabled();
     await this.page.getByTestId(WalletDefaultNetworkConfigurationIds.testnet).click();
   }
+
+  async clickActivityTab() {
+    await this.page.getByTestId(HomePageSelectors.ActivityTabBtn).click();
+  }
 }

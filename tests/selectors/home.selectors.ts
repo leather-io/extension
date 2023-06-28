@@ -6,4 +6,6 @@ export enum HomePageSelectors {
   ReceiveBtcTaprootQrCodeBtn = 'receive-taproot-qr-code-btn',
   ReceiveStxQrCodeBtn = 'receive-stx-qr-code-btn',
   SendCryptoAssetBtn = 'send-crypto-asset-btn',
+  ActivityTabBtn = 'tab-activity',
+  BalancesTabBtn = 'tab-balances',
 }

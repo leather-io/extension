@@ -69,6 +69,7 @@ export function Tabs({
         {tabs.map((tab, index) => (
           <TabButton
             onClick={() => onTabClick(index)}
+            data-testid={`tab-${tab.slug}`}
             isActive={activeTab === index}
             key={tab.slug}
             label={tab.label}

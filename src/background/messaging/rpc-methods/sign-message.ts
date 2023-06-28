@@ -1,12 +1,17 @@
-import { RpcErrorCode } from '@btckit/types';
+import { PaymentTypes, RpcErrorCode } from '@btckit/types';
 import { SignMessageRequest } from '@btckit/types/dist/types/methods/sign-message';
 
 import { isSupportedMessageSigningPaymentType } from '@shared/crypto/bitcoin/bip322/bip322-utils';
 import { RouteUrls } from '@shared/route-urls';
+import {
+  getRpcSignMessageParamErrors,
+  validateRpcSignMessageParams,
+} from '@shared/rpc/methods/sign-message';
 import { makeRpcErrorResponse } from '@shared/rpc/rpc-methods';
-import { isString } from '@shared/utils';
+import { isDefined, isUndefined } from '@shared/utils';
 
 import {
+  RequestParams,
   getTabIdFromPort,
   listenForPopupClose,
   makeSearchParamsWithDefaults,
@@ -14,21 +19,34 @@ import {
 } from '../messaging-utils';
 
 export async function rpcSignMessage(message: SignMessageRequest, port: chrome.runtime.Port) {
-  if (!message.params || !isString(message.params.message)) {
+  if (isUndefined(message.params)) {
+    chrome.tabs.sendMessage(
+      getTabIdFromPort(port),
+      makeRpcErrorResponse('signMessage', {
+        id: message.id,
+        error: { code: RpcErrorCode.INVALID_REQUEST, message: 'Parameters undefined' },
+      })
+    );
+    return;
+  }
+
+  if (!validateRpcSignMessageParams(message.params)) {
     chrome.tabs.sendMessage(
       getTabIdFromPort(port),
       makeRpcErrorResponse('signMessage', {
         id: message.id,
         error: {
           code: RpcErrorCode.INVALID_PARAMS,
-          message:
-            'Invalid parameters. Message signing requires a message. See the btckit spec for more information: https://btckit.org/docs/spec',
+          message: getRpcSignMessageParamErrors(message.params),
         },
       })
     );
     return;
   }
-  const paymentType = (message.params as any).paymentType ?? 'p2wpkh';
+
+  const paymentType: Extract<'p2tr' | 'p2wpkh', PaymentTypes> =
+    (message.params as any).paymentType ?? 'p2wpkh';
+
   if (!isSupportedMessageSigningPaymentType(paymentType)) {
     chrome.tabs.sendMessage(
       getTabIdFromPort(port),
@@ -43,12 +61,21 @@ export async function rpcSignMessage(message: SignMessageRequest, port: chrome.r
     );
     return;
   }
-  const { urlParams, tabId } = makeSearchParamsWithDefaults(port, [
+
+  const requestParams: RequestParams = [
     ['message', message.params.message],
-    ['requestId', message.id],
+    ['network', (message.params as any).network ?? 'mainnet'],
     ['paymentType', paymentType],
-  ]);
+    ['requestId', message.id],
+  ];
+
+  if (isDefined((message.params as any).account)) {
+    requestParams.push(['accountIndex', (message.params as any).account.toString()]);
+  }
+
+  const { urlParams, tabId } = makeSearchParamsWithDefaults(port, requestParams);
   const { id } = await triggerRequestWindowOpen(RouteUrls.RpcSignBip322Message, urlParams);
+
   listenForPopupClose({
     tabId,
     id,

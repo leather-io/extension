@@ -24,6 +24,7 @@ test.describe('Message signing', () =>
           async message =>
             (window as any).HiroWalletProvider.request('signMessage', {
               message,
+              paymentType: 'p2wpkh',
             }).catch((e: unknown) => e),
           message
         );

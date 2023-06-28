@@ -15,13 +15,21 @@ import { PendingTransactionList } from './components/pending-transaction-list/pe
 import { SubmittedTransactionList } from './components/submitted-transaction-list/submitted-transaction-list';
 import { TransactionList } from './components/transaction-list/transaction-list';
 
+// TODO: temporary really ugly fix while we address conditional data problem of
+// bitcoin sometimes being undefined
+function useBitcoinAddress() {
+  try {
+    return useCurrentAccountNativeSegwitIndexZeroSigner().address;
+  } catch (e) {
+    return '';
+  }
+}
+
 export function ActivityList() {
-  const nativeSegwitSigner = useCurrentAccountNativeSegwitIndexZeroSigner();
+  const bitcoinAddress = useBitcoinAddress();
   const { isInitialLoading: isInitialLoadingBitcoinTransactions, data: bitcoinTransactions } =
-    useGetBitcoinTransactionsByAddressQuery(nativeSegwitSigner.address);
-  const { data: bitcoinPendingTxs = [] } = useBitcoinPendingTransactions(
-    nativeSegwitSigner.address
-  );
+    useGetBitcoinTransactionsByAddressQuery(bitcoinAddress);
+  const { data: bitcoinPendingTxs = [] } = useBitcoinPendingTransactions(bitcoinAddress);
   const {
     isInitialLoading: isInitialLoadingStacksTransactions,
     data: stacksTransactionsWithTransfers,

@@ -17,11 +17,10 @@ function useRpcSignPsbtParams() {
   const { origin, tabId } = useDefaultRequestParams();
   const requestId = searchParams.get('requestId');
   const psbtHex = searchParams.get('hex');
-  const publicKey = searchParams.get('publicKey');
   const allowedSighash = searchParams.getAll('allowedSighash');
   const signAtIndex = searchParams.getAll('signAtIndex');
 
-  if (!requestId || !psbtHex || !publicKey || !origin) throw new Error('Invalid params');
+  if (!requestId || !psbtHex || !origin) throw new Error('Invalid params');
 
   return useMemo(
     () => ({
@@ -29,13 +28,12 @@ function useRpcSignPsbtParams() {
       tabId: tabId ?? 0,
       requestId,
       psbtHex,
-      publicKey,
       allowedSighash: undefinedIfLengthZero(
         allowedSighash.map(h => Number(h)) as btc.SignatureHash[]
       ),
       signAtIndex: undefinedIfLengthZero(signAtIndex.map(h => Number(h))),
     }),
-    [allowedSighash, origin, psbtHex, publicKey, requestId, signAtIndex, tabId]
+    [allowedSighash, origin, psbtHex, requestId, signAtIndex, tabId]
   );
 }
 

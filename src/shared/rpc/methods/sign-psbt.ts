@@ -2,44 +2,34 @@ import { DefineRpcMethod, RpcRequest, RpcResponse } from '@btckit/types';
 import * as btc from '@scure/btc-signer';
 import * as yup from 'yup';
 
-import { networkModes } from '@shared/constants';
-import { isNumber, isUndefined } from '@shared/utils';
+import { WalletDefaultNetworkConfigurationIds } from '@shared/constants';
 
-function testIsNumberOrArrayOfNumbers(value: unknown) {
-  if (isUndefined(value)) return true;
-  if (Array.isArray(value)) return value.every(item => isNumber(item));
-  return isNumber(value);
-}
+import {
+  accountSchema,
+  formatValidationErrors,
+  getRpcParamErrors,
+  testIsNumberOrArrayOfNumbers,
+  validateRpcParams,
+} from './validation.utils';
 
-const rpcSignPsbtValidator = yup.object().shape({
-  publicKey: yup.string().required(),
+const rpcSignPsbtParamsSchema = yup.object().shape({
+  account: accountSchema,
   allowedSighash: yup.array().of(yup.mixed().oneOf(Object.values(btc.SignatureHash))),
   hex: yup.string().required(),
+  network: yup.string().oneOf(Object.values(WalletDefaultNetworkConfigurationIds)),
   signAtIndex: yup.mixed<number | number[]>().test(testIsNumberOrArrayOfNumbers),
-  network: yup.string().oneOf(networkModes),
-  account: yup.number().integer(),
 });
 
-type SignPsbtRequestParams = yup.InferType<typeof rpcSignPsbtValidator>;
-
-export function validateRpcSignPsbtParams(obj: unknown): obj is SignPsbtRequestParams {
-  try {
-    rpcSignPsbtValidator.validateSync(obj, { abortEarly: false });
-    return true;
-  } catch (e) {
-    return false;
-  }
+// TODO: Import param types from btckit when updated
+export function validateRpcSignPsbtParams(obj: unknown) {
+  return validateRpcParams(obj, rpcSignPsbtParamsSchema);
 }
 
 export function getRpcSignPsbtParamErrors(obj: unknown) {
-  try {
-    rpcSignPsbtValidator.validateSync(obj, { abortEarly: false });
-    return [];
-  } catch (e) {
-    if (e instanceof yup.ValidationError) return e.inner;
-    return [];
-  }
+  return formatValidationErrors(getRpcParamErrors(obj, rpcSignPsbtParamsSchema));
 }
+
+type SignPsbtRequestParams = yup.InferType<typeof rpcSignPsbtParamsSchema>;
 
 export type SignPsbtRequest = RpcRequest<'signPsbt', SignPsbtRequestParams>;
 

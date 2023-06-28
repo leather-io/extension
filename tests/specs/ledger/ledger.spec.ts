@@ -13,4 +13,10 @@ test.describe('App with Ledger', () => {
     const address = await homePage.getReceiveStxAddress();
     test.expect(address).toEqual('SPSDM5RXY2E3V7JTFYKPFNRPDHG1B85788FKG2KN');
   });
+
+  test('that you can navigate to activity page', async ({ homePage }) => {
+    await homePage.clickActivityTab();
+    const noActivityText = homePage.page.getByText('No activity yet');
+    await test.expect(noActivityText).toBeVisible();
+  });
 });

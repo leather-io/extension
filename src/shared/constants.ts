@@ -38,7 +38,7 @@ export enum WalletDefaultNetworkConfigurationIds {
 
 export type DefaultNetworkConfigurations = keyof typeof WalletDefaultNetworkConfigurationIds;
 
-export const networkModes = ['mainnet', 'testnet'] as const;
+const networkModes = ['mainnet', 'testnet'] as const;
 
 export type NetworkModes = (typeof networkModes)[number];
 
