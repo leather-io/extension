@@ -86,8 +86,8 @@ export function useSip10SendForm({ symbol, contractId }: UseSip10SendFormArgs) {
       whenWallet({
         software: () =>
           sendFormNavigate.toConfirmAndSignStacksSip10Transaction({
-            decimals: assetBalance?.balance.decimals,
-            name: assetBalance?.asset.name,
+            decimals: assetBalance.balance.decimals,
+            name: assetBalance.asset.name,
             tx,
           }),
         ledger: () => ledgerNavigate.toConnectAndSignTransactionStep(tx),

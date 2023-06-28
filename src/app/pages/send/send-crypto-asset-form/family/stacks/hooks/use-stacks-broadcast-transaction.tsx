@@ -60,7 +60,7 @@ export function useStacksBroadcastTransaction(
         })(signedTx);
       } catch (e) {
         navigate(RouteUrls.TransactionBroadcastError, {
-          state: { message: e instanceof Error ? e.message : 'unknown error' },
+          state: { message: e instanceof Error ? e.message : 'Unknown error' },
         });
       } finally {
         setIsBroadcasting(false);
