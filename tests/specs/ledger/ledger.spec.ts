@@ -17,7 +17,6 @@ test.describe('App with Ledger', () => {
   test('that you can navigate to activity page', async ({ homePage }) => {
     await homePage.clickActivityTab();
     const noActivityText = homePage.page.getByText('No activity yet');
-
-    test.expect(await noActivityText.count()).toBeGreaterThan(0);
+    await test.expect(noActivityText).toBeVisible();
   });
 });
