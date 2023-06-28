@@ -26,10 +26,10 @@ const AccountNameSuspense = memo((props: BoxProps) => {
   const currentAccount = useCurrentStacksAccount();
   const name = useCurrentAccountDisplayName();
   if (!currentAccount || typeof currentAccount.index === 'undefined') return null;
+  // FIXME: The name is truncated here with JS but we could just use CSS to do this
   const nameCharLimit = 18;
   const isLong = name.length > nameCharLimit;
   const displayName = truncateString(name, nameCharLimit);
-
   return (
     <AccountNameTitle {...props}>
       <Tooltip label={isLong ? name : undefined}>
