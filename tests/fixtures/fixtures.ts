@@ -45,7 +45,19 @@ export const test = base.extend<TestFixtures>({
     await use(extensionId);
   },
   globalPage: async ({ page }, use) => {
+    const errors: any[] = [];
+    page.on('console', msg => {
+      if (msg.type() === 'error') {
+        if (msg.text().includes('WebSocket connection')) return;
+        if (msg.text().includes('Failed to load resource')) return;
+        errors.push(`[${msg.type()}] ${msg.text()}`);
+      }
+    });
+    page.on('pageerror', error => {
+      errors.push(`[${error.name}] ${error.message}`);
+    });
     await use(new GlobalPage(page));
+    test.expect(errors).toStrictEqual([]);
   },
   homePage: async ({ page }, use) => {
     await use(new HomePage(page));
