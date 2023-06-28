@@ -35,7 +35,7 @@ function PopupHeaderSuspense({ displayAddresssBalanceOf = 'stx' }: PopupHeaderPr
     <PopupHeaderLayout>
       <Flag align="middle" img={<CurrentAccountAvatar size="24px" fontSize="10px" />}>
         <SpaceBetween>
-          <Stack isInline alignItems="flex-end">
+          <Stack isInline alignItems="center">
             <CurrentAccountName as="h3" />
             {displayAddresssBalanceOf === 'stx' && <CurrentStxAddress fontSize="12px" />}
           </Stack>
