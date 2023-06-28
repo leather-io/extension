@@ -31,6 +31,14 @@ test.describe('Onboarding an existing user', () => {
     test.expect(walletState).toEqual(testSoftwareAccountDefaultWalletState);
   });
 
+  test('Activity tab', async ({ extensionId, globalPage, onboardingPage, homePage }) => {
+    await globalPage.setupAndUseApiCalls(extensionId);
+    await onboardingPage.signUpNewUser();
+    await homePage.clickActivityTab();
+    const noActivityText = homePage.page.getByText('No activity yet');
+    await test.expect(noActivityText).toBeVisible();
+  });
+
   test.describe('Address generation', () => {
     test.beforeEach(async ({ extensionId, globalPage, onboardingPage }) => {
       await globalPage.setupAndUseApiCalls(extensionId);
