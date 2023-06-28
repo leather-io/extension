@@ -45,6 +45,7 @@ export async function rpcSendTransfer(message: SendTransferRequest, port: chrome
   const requestParams: RequestParams = [
     ['address', message.params.address],
     ['amount', message.params.amount],
+    ['network', (message.params as any).network ?? 'mainnet'],
     ['requestId', message.id],
   ];
 
