@@ -4,16 +4,21 @@ import { createMoney } from '@shared/models/money.model';
 
 import { baseCurrencyAmountInQuote } from '@app/common/money/calculate-money';
 import { i18nFormatCurrency } from '@app/common/money/format-money';
-import { determineUtxosForSpend } from '@app/common/transactions/bitcoin/coinselect/local-coin-selection';
+import {
+  determineUtxosForSpend,
+  determineUtxosForSpendAll,
+} from '@app/common/transactions/bitcoin/coinselect/local-coin-selection';
 import { useSpendableCurrentNativeSegwitAccountUtxos } from '@app/query/bitcoin/address/utxos-by-address.hooks';
+import { useCurrentNativeSegwitAddressBalance } from '@app/query/bitcoin/balance/bitcoin-balances.query';
 import { useCryptoCurrencyMarketData } from '@app/query/common/market-data/market-data.hooks';
 
 interface UseBitcoinCustomFeeArgs {
-  recipient: string;
   amount: number;
+  isSendingMax: boolean;
+  recipient: string;
 }
-
-export function useBitcoinCustomFee({ recipient, amount }: UseBitcoinCustomFeeArgs) {
+export function useBitcoinCustomFee({ amount, isSendingMax, recipient }: UseBitcoinCustomFeeArgs) {
+  const balance = useCurrentNativeSegwitAddressBalance();
   const { data: utxos = [] } = useSpendableCurrentNativeSegwitAccountUtxos();
   const btcMarketData = useCryptoCurrencyMarketData('BTC');
 
@@ -21,13 +26,17 @@ export function useBitcoinCustomFee({ recipient, amount }: UseBitcoinCustomFeeAr
     (feeRate: number) => {
       if (!feeRate || !utxos.length) return { fee: 0, fiatFeeValue: '' };
 
+      const satAmount = isSendingMax ? balance.amount.toNumber() : amount;
+
       const determineUtxosArgs = {
-        amount,
+        amount: satAmount,
         recipient,
         utxos,
         feeRate,
       };
-      const { fee } = determineUtxosForSpend(determineUtxosArgs);
+      const { fee } = isSendingMax
+        ? determineUtxosForSpendAll(determineUtxosArgs)
+        : determineUtxosForSpend(determineUtxosArgs);
 
       return {
         fee,
@@ -36,6 +45,6 @@ export function useBitcoinCustomFee({ recipient, amount }: UseBitcoinCustomFeeAr
         )}`,
       };
     },
-    [btcMarketData, amount, recipient, utxos]
+    [utxos, isSendingMax, balance.amount, amount, recipient, btcMarketData]
   );
 }

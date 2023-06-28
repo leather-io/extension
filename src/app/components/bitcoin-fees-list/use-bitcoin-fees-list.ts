@@ -11,6 +11,7 @@ import {
   determineUtxosForSpend,
   determineUtxosForSpendAll,
 } from '@app/common/transactions/bitcoin/coinselect/local-coin-selection';
+import { useCurrentNativeSegwitAddressBalance } from '@app/query/bitcoin/balance/bitcoin-balances.query';
 import { UtxoResponseItem } from '@app/query/bitcoin/bitcoin-client';
 import { useAverageBitcoinFeeRates } from '@app/query/bitcoin/fees/fee-estimates.hooks';
 import { useCryptoCurrencyMarketData } from '@app/query/common/market-data/market-data.hooks';
@@ -39,6 +40,7 @@ export function useBitcoinFeesList({
   recipient,
   utxos,
 }: UseBitcoinFeesListArgs) {
+  const balance = useCurrentNativeSegwitAddressBalance();
   const btcMarketData = useCryptoCurrencyMarketData('BTC');
   const { data: feeRates, isLoading } = useAverageBitcoinFeeRates();
 
@@ -51,7 +53,7 @@ export function useBitcoinFeesList({
 
     if (!feeRates || !utxos.length) return [];
 
-    const satAmount = btcToSat(amount).toNumber();
+    const satAmount = isSendingMax ? balance.amount.toNumber() : btcToSat(amount).toNumber();
 
     const determineUtxosDefaultArgs = {
       amount: satAmount,
@@ -104,7 +106,7 @@ export function useBitcoinFeesList({
         feeRate: feeRates.hourFee.toNumber(),
       },
     ];
-  }, [feeRates, utxos, amount, recipient, isSendingMax, btcMarketData]);
+  }, [feeRates, utxos, isSendingMax, balance.amount, amount, recipient, btcMarketData]);
 
   return {
     feesList,

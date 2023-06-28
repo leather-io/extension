@@ -42,21 +42,22 @@ export function SendInscriptionChooseFee() {
     <BaseDrawer title="Choose fee" isShowing enableGoBack onClose={() => navigate(-1)}>
       <BitcoinChooseFee
         amount={createMoney(0, 'BTC')}
-        isLoading={isLoading}
         feesList={
           <BitcoinFeesList
             feesList={feesList}
             onChooseFee={previewTransaction}
             onValidateBitcoinSpend={onValidateBitcoinFeeSpend}
-            onSetSelectedFeeType={(value: BtcFeeType) => setSelectedFeeType(value)}
+            onSetSelectedFeeType={(value: BtcFeeType | null) => setSelectedFeeType(value)}
             selectedFeeType={selectedFeeType}
           />
         }
-        recommendedFeeRate={recommendedFeeRate}
-        onChooseFee={previewTransaction}
-        recipient={recipient}
-        onValidateBitcoinSpend={onValidateBitcoinFeeSpend}
+        isLoading={isLoading}
         isSendingMax={false}
+        onChooseFee={previewTransaction}
+        onSetSelectedFeeType={(value: BtcFeeType | null) => setSelectedFeeType(value)}
+        onValidateBitcoinSpend={onValidateBitcoinFeeSpend}
+        recipient={recipient}
+        recommendedFeeRate={recommendedFeeRate}
         showError={showInsufficientBalanceError}
       />
     </BaseDrawer>

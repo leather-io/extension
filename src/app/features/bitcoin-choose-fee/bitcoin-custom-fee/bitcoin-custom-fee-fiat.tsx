@@ -8,13 +8,18 @@ import { satToBtc } from '@app/common/money/unit-conversion';
 import { useBitcoinCustomFee } from './hooks/use-bitcoin-custom-fee';
 
 interface BitcoinCustomFeeFiatProps {
-  recipient: string;
   amount: number;
+  isSendingMax: boolean;
+  recipient: string;
 }
 
-export function BitcoinCustomFeeFiat({ recipient, amount }: BitcoinCustomFeeFiatProps) {
+export function BitcoinCustomFeeFiat({
+  amount,
+  isSendingMax,
+  recipient,
+}: BitcoinCustomFeeFiatProps) {
   const [field] = useField('feeRate');
-  const getCustomFeeValues = useBitcoinCustomFee({ amount, recipient });
+  const getCustomFeeValues = useBitcoinCustomFee({ amount, isSendingMax, recipient });
 
   const feeData = useMemo(() => {
     const { fee, fiatFeeValue } = getCustomFeeValues(Number(field.value));
