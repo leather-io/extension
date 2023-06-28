@@ -17,6 +17,7 @@ import { TransactionList } from './components/transaction-list/transaction-list'
 
 export function ActivityList() {
   const nativeSegwitSigner = useCurrentAccountNativeSegwitIndexZeroSigner();
+
   const { isInitialLoading: isInitialLoadingBitcoinTransactions, data: bitcoinTransactions } =
     useGetBitcoinTransactionsByAddressQuery(nativeSegwitSigner.address);
   const { data: bitcoinPendingTxs = [] } = useBitcoinPendingTransactions(
