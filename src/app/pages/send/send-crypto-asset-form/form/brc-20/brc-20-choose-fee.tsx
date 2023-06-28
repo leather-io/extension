@@ -127,21 +127,22 @@ export function BrcChooseFee() {
   ) : (
     <BitcoinChooseFee
       amount={amountAsMoney}
-      isLoading={isLoading}
       feesList={
         <BitcoinFeesList
           feesList={feesList}
           onChooseFee={previewTransaction}
-          onSetSelectedFeeType={(value: BtcFeeType) => setSelectedFeeType(value)}
+          onSetSelectedFeeType={(value: BtcFeeType | null) => setSelectedFeeType(value)}
           onValidateBitcoinSpend={onValidateBitcoinFeeSpend}
           selectedFeeType={selectedFeeType}
         />
       }
-      recommendedFeeRate={recommendedFeeRate}
-      onChooseFee={previewTransaction}
-      recipient={recipient}
-      onValidateBitcoinSpend={onValidateBitcoinFeeSpend}
+      isLoading={isLoading}
       isSendingMax={false}
+      onChooseFee={previewTransaction}
+      onSetSelectedFeeType={(value: BtcFeeType | null) => setSelectedFeeType(value)}
+      onValidateBitcoinSpend={onValidateBitcoinFeeSpend}
+      recommendedFeeRate={recommendedFeeRate}
+      recipient={recipient}
       showError={showInsufficientBalanceError}
     />
   );

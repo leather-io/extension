@@ -2,6 +2,7 @@ import { useState } from 'react';
 
 import { Box, Stack, Text, color } from '@stacks/ui';
 
+import { BtcFeeType } from '@shared/models/fees/bitcoin-fees.model';
 import { Money } from '@shared/models/money.model';
 
 import { formatMoney } from '@app/common/money/format-money';
@@ -19,24 +20,26 @@ import { InsufficientBalanceError } from './components/insufficient-balance-erro
 interface BitcoinChooseFeeProps {
   amount: Money;
   feesList: React.JSX.Element;
+  isLoading: boolean;
   isSendingMax: boolean;
-  showError: boolean;
   onChooseFee({ feeRate, feeValue, time }: OnChooseFeeArgs): Promise<void>;
+  onSetSelectedFeeType(value: BtcFeeType | null): void;
   onValidateBitcoinSpend(value: number): boolean;
   recipient: string;
   recommendedFeeRate: string;
-  isLoading: boolean;
+  showError: boolean;
 }
 export function BitcoinChooseFee({
   amount,
   feesList,
-  isSendingMax,
-  showError,
-  onChooseFee,
-  recipient,
-  onValidateBitcoinSpend,
   isLoading,
+  isSendingMax,
+  onChooseFee,
+  onSetSelectedFeeType,
+  onValidateBitcoinSpend,
+  recipient,
   recommendedFeeRate,
+  showError,
 }: BitcoinChooseFeeProps) {
   const nativeSegwitSigner = useCurrentAccountNativeSegwitIndexZeroSigner();
   const btcBalance = useNativeSegwitBalance(nativeSegwitSigner.address);
@@ -59,13 +62,15 @@ export function BitcoinChooseFee({
         <ChooseFeeTabs
           customFee={
             <BitcoinCustomFee
-              customFeeInitialValue={customFeeInitialValue}
-              setCustomFeeInitialValue={setCustomFeeInitialValue}
-              onChooseFee={onChooseFee}
               amount={amount.amount.toNumber()}
-              recipient={recipient}
-              onValidateBitcoinSpend={onValidateBitcoinSpend}
+              customFeeInitialValue={customFeeInitialValue}
               hasInsufficientBalanceError={showError}
+              isSendingMax={isSendingMax}
+              onChooseFee={onChooseFee}
+              onSetSelectedFeeType={onSetSelectedFeeType}
+              onValidateBitcoinSpend={onValidateBitcoinSpend}
+              recipient={recipient}
+              setCustomFeeInitialValue={setCustomFeeInitialValue}
             />
           }
           feesList={feesList}

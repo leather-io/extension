@@ -30,9 +30,9 @@ export function useCalculateMaxBitcoinSpend() {
       const size = txSizer.calcTxSize({
         input_script: 'p2wpkh',
         input_count: utxos.length,
-        [`${addressTypeWithFallback}_output_count`]: 2,
+        [`${addressTypeWithFallback}_output_count`]: 1,
       });
-      const fee = Math.ceil(size.txVBytes * (feeRate ?? feeRates.hourFee.toNumber()));
+      const fee = Math.ceil(size.txVBytes * (feeRate ?? feeRates.halfHourFee.toNumber()));
 
       const spendableAmount = BigNumber.max(0, balance.amount.minus(fee));
 
