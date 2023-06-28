@@ -66,9 +66,9 @@ export async function rpcSignPsbt(message: SignPsbtRequest, port: chrome.runtime
   }
 
   const requestParams: RequestParams = [
-    ['requestId', message.id],
     ['hex', message.params.hex],
     ['network', message.params.network ?? 'mainnet'],
+    ['requestId', message.id],
   ];
 
   if (isDefined(message.params.account)) {
@@ -79,10 +79,6 @@ export async function rpcSignPsbt(message: SignPsbtRequest, port: chrome.runtime
     message.params.allowedSighash.forEach((hash: any) =>
       requestParams.push(['allowedSighash', hash.toString()])
     );
-
-  if (isDefined(message.params.publicKey)) {
-    requestParams.push(['publicKey', message.params.publicKey.toString()]);
-  }
 
   if (isDefined(message.params.signAtIndex))
     ensureArray(message.params.signAtIndex).forEach(index =>

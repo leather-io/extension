@@ -17,7 +17,6 @@ const rpcSignPsbtParamsSchema = yup.object().shape({
   allowedSighash: yup.array().of(yup.mixed().oneOf(Object.values(btc.SignatureHash))),
   hex: yup.string().required(),
   network: yup.string().oneOf(Object.values(WalletDefaultNetworkConfigurationIds)),
-  publicKey: yup.string(),
   signAtIndex: yup.mixed<number | number[]>().test(testIsNumberOrArrayOfNumbers),
 });
 

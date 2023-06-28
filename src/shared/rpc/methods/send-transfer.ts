@@ -1,5 +1,7 @@
 import * as yup from 'yup';
 
+import { WalletDefaultNetworkConfigurationIds } from '@shared/constants';
+
 import {
   accountSchema,
   formatValidationErrors,
@@ -11,6 +13,7 @@ const rpcSendTransferParamsSchema = yup.object().shape({
   account: accountSchema,
   address: yup.string().required(),
   amount: yup.string().required(),
+  network: yup.string().oneOf(Object.values(WalletDefaultNetworkConfigurationIds)),
 });
 
 // TODO: Import param types from btckit when updated

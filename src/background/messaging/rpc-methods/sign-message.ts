@@ -64,8 +64,9 @@ export async function rpcSignMessage(message: SignMessageRequest, port: chrome.r
 
   const requestParams: RequestParams = [
     ['message', message.params.message],
-    ['requestId', message.id],
+    ['network', (message.params as any).network ?? 'mainnet'],
     ['paymentType', paymentType],
+    ['requestId', message.id],
   ];
 
   if (isDefined((message.params as any).account)) {

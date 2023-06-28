@@ -1,6 +1,8 @@
 import { PaymentTypes } from '@btckit/types';
 import * as yup from 'yup';
 
+import { WalletDefaultNetworkConfigurationIds } from '@shared/constants';
+
 import {
   accountSchema,
   formatValidationErrors,
@@ -15,6 +17,7 @@ const rpcSignMessageParamsSchema = yup.object().shape({
   type: yup.string<SupportedBip322MessageTypes>(),
   account: accountSchema,
   message: yup.string().required(),
+  network: yup.string().oneOf(Object.values(WalletDefaultNetworkConfigurationIds)),
   paymentType: yup.string<PaymentTypes>().required(),
 });
 
