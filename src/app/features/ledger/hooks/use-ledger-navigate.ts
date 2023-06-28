@@ -82,6 +82,10 @@ export function useLedgerNavigate() {
         return navigate(RouteUrls.LedgerDisconnected, { replace: true });
       },
 
+      toBroadcastErrorStep(error: string) {
+        return navigate(RouteUrls.LedgerBroadcastError, { replace: true, state: { error } });
+      },
+
       cancelLedgerAction() {
         return navigate('..', { relative: 'path' });
       },

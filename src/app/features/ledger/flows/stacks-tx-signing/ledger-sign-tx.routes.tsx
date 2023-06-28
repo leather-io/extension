@@ -12,6 +12,7 @@ import {
   OperationRejected,
   UnsupportedBrowserLayout,
 } from '../../generic-steps';
+import { LedgerBroadcastError } from '../../generic-steps/broadcast-error/broadcast-error';
 import { LedgerSignStacksTxContainer } from './ledger-sign-tx-container';
 import { ApproveSignLedgerTx } from './steps/approve-sign-ledger-tx';
 import { ConnectLedgerSignTx } from './steps/connect-ledger-sign-tx';
@@ -30,5 +31,6 @@ export const ledgerStacksTxSigningRoutes = (
     <Route path={RouteUrls.LedgerPublicKeyMismatch} element={<LedgerPublicKeyMismatch />} />
     <Route path={RouteUrls.LedgerDevicePayloadInvalid} element={<LedgerDeviceInvalidPayload />} />
     <Route path={RouteUrls.LedgerOutdatedAppWarning} element={<ContractPrincipalBugWarning />} />
+    <Route path={RouteUrls.LedgerBroadcastError} element={<LedgerBroadcastError />} />
   </Route>
 );
