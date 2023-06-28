@@ -19,50 +19,42 @@ const openSauceMetrics = {
 const h1 = {
   fontMetrics: openSauceMetrics,
   fontSize: 24,
-  leading: 32,
 };
 
 // B2
 const h2 = {
   fontMetrics: openSauceMetrics,
   fontSize: 18,
-  leading: 28,
 };
 // B3
 const h3 = {
   fontMetrics: openSauceMetrics,
   fontSize: 16,
-  leading: 24,
 };
 // C1
 const h4 = {
   fontMetrics: openSauceMetrics,
   fontSize: 14,
-  leading: 20,
 };
 // C2
 const h5 = {
   fontMetrics: openSauceMetrics,
   fontSize: 12,
-  leading: 16,
 };
 
 const c1 = {
   fontMetrics: interMetrics,
   fontSize: 14,
-  leading: 20,
 };
 
 const c2 = {
   fontMetrics: interMetrics,
   fontSize: 12,
-  leading: 16,
 };
 
 const c3 = {
   fontMetrics: interMetrics,
   fontSize: 10,
-  leading: 16,
 };
 
 const captionStyles = (variant?: 'c1' | 'c2' | 'c3') => {
