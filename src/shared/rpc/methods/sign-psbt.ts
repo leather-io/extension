@@ -2,7 +2,7 @@ import { DefineRpcMethod, RpcRequest, RpcResponse } from '@btckit/types';
 import * as btc from '@scure/btc-signer';
 import * as yup from 'yup';
 
-import { networkModes } from '@shared/constants';
+import { WalletDefaultNetworkConfigurationIds } from '@shared/constants';
 
 import {
   accountSchema,
@@ -16,7 +16,7 @@ const rpcSignPsbtParamsSchema = yup.object().shape({
   account: accountSchema,
   allowedSighash: yup.array().of(yup.mixed().oneOf(Object.values(btc.SignatureHash))),
   hex: yup.string().required(),
-  network: yup.string().oneOf(networkModes),
+  network: yup.string().oneOf(Object.values(WalletDefaultNetworkConfigurationIds)),
   publicKey: yup.string(),
   signAtIndex: yup.mixed<number | number[]>().test(testIsNumberOrArrayOfNumbers),
 });
