@@ -3,6 +3,7 @@ import { useMemo } from 'react';
 import { BtcAddress } from '@btckit/types';
 import { bytesToHex } from '@stacks/common';
 
+import { ecdsaPublicKeyToSchnorr } from '@shared/crypto/bitcoin/bitcoin.utils';
 import { logger } from '@shared/logger';
 import { makeRpcSuccessResponse } from '@shared/rpc/rpc-methods';
 
@@ -40,6 +41,7 @@ export function useGetAddresses() {
     type: 'p2tr',
     address: taprootSigner.address,
     publicKey: bytesToHex(taprootSigner.publicKey),
+    tweakedPublicKey: bytesToHex(ecdsaPublicKeyToSchnorr(taprootSigner.publicKey)),
     derivationPath: taprootSigner.derivationPath,
   };
 
