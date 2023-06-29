@@ -1,3 +1,22 @@
+## [4.34.0](https://github.com/hirosystems/wallet/compare/v4.33.0...v4.34.0) (2023-06-28)
+
+
+### Features
+
+* ignore resize observer error ([4a3a8a5](https://github.com/hirosystems/wallet/commit/4a3a8a5e36ae4024c6ce7ac4c52ce3ca469d214f))
+
+
+### Bug Fixes
+
+* **ledger:** broken activity page ([eeb535e](https://github.com/hirosystems/wallet/commit/eeb535e9023e08590120d7249c19e734534c58a1))
+* psbt network possibilities ([0021a3a](https://github.com/hirosystems/wallet/commit/0021a3a88b10599b7d700333ccb0c386d950652d))
+
+
+### Internal
+
+* add account to rpc methods ([c08b154](https://github.com/hirosystems/wallet/commit/c08b15421e86cd9f4bc50c88200e6ff1a252860f))
+* add network to other rpc methods ([fa2a097](https://github.com/hirosystems/wallet/commit/fa2a09729c104d8d7a6ee1cb54797ecc28d4acdd))
+
 ## [4.33.0](https://github.com/hirosystems/wallet/compare/v4.32.1...v4.33.0) (2023-06-27)
 
 
