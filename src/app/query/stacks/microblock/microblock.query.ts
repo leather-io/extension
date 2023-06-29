@@ -24,5 +24,6 @@ export function useCurrentAccountMicroblockBalanceQuery(address: string) {
         'STX'
       );
     },
+    refetchOnWindowFocus: false,
   });
 }
