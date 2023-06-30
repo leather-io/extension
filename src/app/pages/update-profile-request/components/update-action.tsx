@@ -2,10 +2,9 @@ import { useCallback, useState } from 'react';
 
 import { ProfileUpdatePayload } from '@stacks/connect';
 import { createFetchFn } from '@stacks/network';
-import { PublicPersonProfile } from '@stacks/profile';
+import { PublicPersonProfile, PublicProfileBase } from '@stacks/profile';
 import {
   DEFAULT_PROFILE,
-  Profile as WalletSdkProfile,
   fetchAccountProfileUrl,
   fetchProfileFromUrl,
   signAndUploadProfile,
@@ -44,7 +43,7 @@ function useUpdateProfileSoftwareWallet() {
         appsMeta: profile.appsMeta,
       };
       await signAndUploadProfile({
-        profile: updatedProfile as unknown as WalletSdkProfile,
+        profile: updatedProfile as unknown as PublicProfileBase,
         account,
         gaiaHubUrl: gaiaUrl,
       });
