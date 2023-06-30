@@ -8,11 +8,6 @@ type BackgroundMessage<Msg extends ExtensionMethods, Payload = undefined> = Omit
   'source'
 >;
 
-export type RequestDerivedStxAccounts = BackgroundMessage<
-  InternalMethods.RequestDerivedStxAccounts,
-  { secretKey: string; highestAccountIndex: number }
->;
-
 type FirefoxShareInMemoryKeyToBackground = BackgroundMessage<
   InternalMethods.ShareInMemoryKeyToBackground,
   { secretKey: string; keyId: string }
@@ -28,7 +23,6 @@ type OriginatingTabClosed = BackgroundMessage<
 >;
 
 export type BackgroundMessages =
-  | RequestDerivedStxAccounts
   | FirefoxShareInMemoryKeyToBackground
   | FirefoxRequestInMemoryKeys
   | FirefoxRemoveInMemoryKeys

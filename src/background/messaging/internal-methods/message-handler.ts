@@ -1,4 +1,3 @@
-import { deriveStacksAccountsMemoized } from '@shared/crypto/stacks/derive-stacks-accounts';
 import { logger } from '@shared/logger';
 import { InternalMethods } from '@shared/message-types';
 import { BackgroundMessages } from '@shared/messages';
@@ -33,16 +32,6 @@ export async function internalBackgroundMessageHandler(
   }
   logger.debug('Internal message', message);
   switch (message.method) {
-    case InternalMethods.RequestDerivedStxAccounts: {
-      const { secretKey, highestAccountIndex } = message.payload;
-      const walletsWithAccounts = await deriveStacksAccountsMemoized(
-        secretKey,
-        highestAccountIndex
-      );
-      sendResponse(walletsWithAccounts);
-      break;
-    }
-
     case InternalMethods.ShareInMemoryKeyToBackground: {
       const { keyId, secretKey } = message.payload;
       inMemoryKeys.set(keyId, secretKey);
@@ -54,24 +43,6 @@ export async function internalBackgroundMessageHandler(
       sendResponse(Object.fromEntries(inMemoryKeys));
       break;
     }
-
-    // case InternalMethods.GetActiveFormState: {
-    //   sendResponse(await chrome.storage.session.get(makeFormStateKey(message.payload.tabId)));
-    //   break;
-    // }
-
-    // case InternalMethods.SetActiveFormState: {
-    //   const { tabId, ...state } = message.payload;
-    //   await chrome.storage.session.set({ [makeFormStateKey(tabId)]: state });
-    //   sendResponse();
-    //   break;
-    // }
-
-    // case InternalMethods.ClearActiveFormState: {
-    //   await removeFormState(message.payload.tabId);
-    //   sendResponse();
-    //   break;
-    // }
 
     case InternalMethods.RemoveInMemoryKeys: {
       inMemoryKeys.clear();

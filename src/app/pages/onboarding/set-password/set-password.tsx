@@ -27,7 +27,7 @@ import { PageTitle } from '@app/components/page-title';
 import { PrimaryButton } from '@app/components/primary-button';
 import { Caption } from '@app/components/typography';
 import { OnboardingGate } from '@app/routes/onboarding-gate';
-import { useStacksWallet } from '@app/store/accounts/blockchain/stacks/stacks-keychain';
+import { useStacksAccounts } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
 
 import { PasswordField } from './components/password-field';
 
@@ -50,7 +50,7 @@ const setPasswordFormValues: SetPasswordFormValues = { password: '', confirmPass
 function SetPasswordPage() {
   const [loading, setLoading] = useState(false);
   const [strengthResult, setStrengthResult] = useState(blankPasswordValidation);
-  const wallet = useStacksWallet();
+  const stacksAccounts = useStacksAccounts();
   const { setPassword } = useKeyActions();
   const finishSignIn = useFinishAuthRequest();
   const navigate = useNavigate();
@@ -68,9 +68,9 @@ function SetPasswordPage() {
       await setPassword(password);
 
       if (decodedAuthRequest) {
-        if (!wallet) return;
-        const { accounts } = wallet;
-        if (accounts && accounts.length > 1) {
+        if (!stacksAccounts) return;
+
+        if (stacksAccounts && stacksAccounts.length > 1) {
           navigate(RouteUrls.ChooseAccount);
         } else {
           await finishSignIn(0);
@@ -79,7 +79,7 @@ function SetPasswordPage() {
         navigate(RouteUrls.Home);
       }
     },
-    [setPassword, decodedAuthRequest, wallet, navigate, finishSignIn]
+    [setPassword, decodedAuthRequest, stacksAccounts, navigate, finishSignIn]
   );
 
   const onSubmit = useCallback(
