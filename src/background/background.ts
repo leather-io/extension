@@ -25,7 +25,9 @@ const IS_TEST_ENV = process.env.TEST_ENV === 'true';
 
 chrome.runtime.onInstalled.addListener(async details => {
   if (details.reason === 'install' && !IS_TEST_ENV) {
-    await chrome.tabs.create({ url: chrome.runtime.getURL(`index.html#${RouteUrls.Onboarding}`) });
+    await chrome.tabs.create({
+      url: chrome.runtime.getURL(`index.html#${RouteUrls.RequestDiagnostics}`),
+    });
   }
 });
 
