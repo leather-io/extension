@@ -33,10 +33,8 @@ export function useRpcSignPsbtParams() {
   const allowedSighash = searchParams.getAll('allowedSighash');
   const signAtIndex = searchParams.getAll('signAtIndex');
 
-  if (!requestId || !psbtHex || !origin) throw new Error('Invalid params');
-
-  return useMemo(
-    () => ({
+  return useMemo(() => {
+    return {
       origin,
       tabId: tabId ?? 0,
       requestId,
@@ -45,7 +43,6 @@ export function useRpcSignPsbtParams() {
         allowedSighash.map(h => Number(h)) as btc.SignatureHash[]
       ),
       signAtIndex: undefinedIfLengthZero(signAtIndex.map(h => Number(h))),
-    }),
-    [allowedSighash, origin, psbtHex, requestId, signAtIndex, tabId]
-  );
+    };
+  }, [allowedSighash, origin, psbtHex, requestId, signAtIndex, tabId]);
 }

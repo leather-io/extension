@@ -9,12 +9,9 @@ import { isString } from '@shared/utils';
 import { useCurrentAccountNativeSegwitSigner } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
 import { useCurrentAccountTaprootSigner } from '@app/store/accounts/blockchain/bitcoin/taproot-account.hooks';
 
-import { useSignPsbtError } from './use-sign-psbt-error';
-
-export type DecodedPsbt = ReturnType<typeof btc.RawPSBTV0.decode>;
+export type RawPsbt = ReturnType<typeof btc.RawPSBTV0.decode>;
 
 export function usePsbtSigner() {
-  const signPsbtError = useSignPsbtError();
   const createNativeSegwitSigner = useCurrentAccountNativeSegwitSigner();
   const createTaprootSigner = useCurrentAccountTaprootSigner();
 
@@ -30,7 +27,7 @@ export function usePsbtSigner() {
           try {
             taprootSigner?.signIndex(tx, idx, allowedSighash);
           } catch (e2) {
-            signPsbtError(`Error signing PSBT at provided index, ${e1}, ${e2}`);
+            throw new Error(`Unable to sign PSBT at provided index, ${e1 ?? e2}`);
           }
         }
       },
@@ -41,9 +38,10 @@ export function usePsbtSigner() {
           try {
             taprootSigner?.sign(tx);
           } catch (e2) {
-            signPsbtError(`Error signing PSBT, ${e1}, ${e2}`);
+            throw new Error(`Unable to sign PSBT, ${e1 ?? e2}`);
           }
         }
+        return;
       },
       getPsbtAsTransaction(psbt: string | Uint8Array) {
         const bytes = isString(psbt) ? hexToBytes(psbt) : psbt;
@@ -53,17 +51,16 @@ export function usePsbtSigner() {
         const bytes = isString(psbt) ? hexToBytes(psbt) : psbt;
         try {
           return btc.RawPSBTV0.decode(bytes);
-        } catch (e0) {
-          logger.error(`Failed to decode as PSBT v0, trying v2, ${e0}`);
+        } catch (e1) {
+          logger.error(`Unable to decode PSBT as v0, trying v2, ${e1}`);
           try {
             return btc.RawPSBTV2.decode(bytes);
           } catch (e2) {
-            signPsbtError(`Failed to decode PSBT as v0 and v2, ${e0}, ${e2}`);
+            throw new Error(`Unable to decode PSBT, ${e1 ?? e2}`);
           }
         }
-        return;
       },
     }),
-    [nativeSegwitSigner, signPsbtError, taprootSigner]
+    [nativeSegwitSigner, taprootSigner]
   );
 }

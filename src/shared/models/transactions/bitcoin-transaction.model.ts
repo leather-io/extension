@@ -25,7 +25,7 @@ interface BitcoinTransactionStatus {
   block_time?: number | null;
 }
 
-export interface BitcoinTransactionVectorOutput {
+interface BitcoinTransactionVectorOutput {
   scriptpubkey: string;
   scriptpubkey_asm: string;
   scriptpubkey_type: string;

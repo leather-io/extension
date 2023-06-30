@@ -40,14 +40,15 @@ const queryOptions = {
   refetchOnWindowFocus: false,
 } as const;
 
+// ts-unused-exports:disable-next-line
 export function useGetBitcoinTransactionQueries(
-  inputs: btc.TransactionInputRequired[]
+  inputs: btc.TransactionInput[]
 ): UseQueryResult<BitcoinTx>[] {
   const client = useBitcoinClient();
 
   return useQueries({
     queries: inputs.map(input => {
-      const txId = bytesToHex(input.txid);
+      const txId = input.txid ? bytesToHex(input.txid) : '';
       return {
         queryKey: ['bitcoin-transaction', txId],
         queryFn: () => fetchBitcoinTransaction(client)(txId),

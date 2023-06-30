@@ -40,6 +40,7 @@ import { ReceiveModal } from '@app/pages/receive-tokens/receive-modal';
 import { ReceiveStxModal } from '@app/pages/receive-tokens/receive-stx';
 import { ReceiveCollectibleModal } from '@app/pages/receive/receive-collectible/receive-collectible-modal';
 import { ReceiveCollectibleOrdinal } from '@app/pages/receive/receive-collectible/receive-collectible-oridinal';
+import { RequestError } from '@app/pages/request-error/request-error';
 import { RpcGetAddresses } from '@app/pages/rpc-get-addresses/rpc-get-addresses';
 import { rpcSendTransferRoutes } from '@app/pages/rpc-send-transfer/rpc-send-transfer.routes';
 import { RpcSignPsbt } from '@app/pages/rpc-sign-psbt/rpc-sign-psbt';
@@ -88,6 +89,88 @@ function useAppRoutes() {
       <Route path={RouteUrls.ChangeTheme} element={<ThemesDrawer />} />
       <Route path={RouteUrls.SelectNetwork} element={<SelectNetwork />} />
     </Route>
+  );
+
+  const legacyRequestRoutes = (
+    <>
+      <Route
+        path={RouteUrls.TransactionRequest}
+        element={
+          <AccountGate>
+            <Suspense fallback={<LoadingSpinner height="600px" />}>
+              <TransactionRequest />
+            </Suspense>
+          </AccountGate>
+        }
+      >
+        {ledgerStacksTxSigningRoutes}
+        <Route path={RouteUrls.EditNonce} element={<EditNonceDrawer />} />
+        <Route path={RouteUrls.TransactionBroadcastError} element={<BroadcastErrorDrawer />} />
+      </Route>
+      <Route
+        path={RouteUrls.SignatureRequest}
+        element={
+          <AccountGate>
+            <Suspense fallback={<LoadingSpinner height="600px" />}>
+              <StacksMessageSigningRequest />
+            </Suspense>
+          </AccountGate>
+        }
+      >
+        {ledgerStacksMessageSigningRoutes}
+      </Route>
+      <Route
+        path={RouteUrls.ProfileUpdateRequest}
+        element={
+          <AccountGate>
+            <Suspense fallback={<LoadingSpinner height="600px" />}>
+              <ProfileUpdateRequest />
+            </Suspense>
+          </AccountGate>
+        }
+      />
+      <Route
+        path={RouteUrls.PsbtRequest}
+        element={
+          <AccountGate>
+            <Suspense fallback={<LoadingSpinner height="600px" />}>
+              <PsbtRequest />
+            </Suspense>
+          </AccountGate>
+        }
+      />
+    </>
+  );
+
+  const rpcRequestRoutes = (
+    <>
+      <Route
+        path={RouteUrls.RpcGetAddresses}
+        element={
+          <AccountGate>
+            <RpcGetAddresses />
+          </AccountGate>
+        }
+      />
+      {rpcSendTransferRoutes}
+      <Route
+        path={RouteUrls.RpcSignBip322Message}
+        lazy={async () => {
+          const { RpcSignBip322MessageRoute } = await import(
+            '@app/pages/rpc-sign-bip322-message/rpc-sign-bip322-message'
+          );
+          return { Component: RpcSignBip322MessageRoute };
+        }}
+      />
+      <Route
+        path={RouteUrls.RpcSignPsbt}
+        element={
+          <AccountGate>
+            <RpcSignPsbt />
+          </AccountGate>
+        }
+      />
+    </>
   );
 
   return createHashRouter(
@@ -229,55 +312,6 @@ function useAppRoutes() {
         {sendCryptoAssetFormRoutes}
 
         <Route
-          path={RouteUrls.TransactionRequest}
-          element={
-            <AccountGate>
-              <Suspense fallback={<LoadingSpinner height="600px" />}>
-                <TransactionRequest />
-              </Suspense>
-            </AccountGate>
-          }
-        >
-          {ledgerStacksTxSigningRoutes}
-          <Route path={RouteUrls.EditNonce} element={<EditNonceDrawer />} />
-          <Route path={RouteUrls.TransactionBroadcastError} element={<BroadcastErrorDrawer />} />
-        </Route>
-        <Route path={RouteUrls.UnauthorizedRequest} element={<UnauthorizedRequest />} />
-
-        <Route
-          path={RouteUrls.SignatureRequest}
-          element={
-            <AccountGate>
-              <Suspense fallback={<LoadingSpinner height="600px" />}>
-                <StacksMessageSigningRequest />
-              </Suspense>
-            </AccountGate>
-          }
-        >
-          {ledgerStacksMessageSigningRoutes}
-        </Route>
-
-        <Route
-          path={RouteUrls.ProfileUpdateRequest}
-          element={
-            <AccountGate>
-              <Suspense fallback={<LoadingSpinner height="600px" />}>
-                <ProfileUpdateRequest />
-              </Suspense>
-            </AccountGate>
-          }
-        />
-        <Route
-          path={RouteUrls.PsbtRequest}
-          element={
-            <AccountGate>
-              <Suspense fallback={<LoadingSpinner height="600px" />}>
-                <PsbtRequest />
-              </Suspense>
-            </AccountGate>
-          }
-        />
-        <Route
           path={RouteUrls.ViewSecretKey}
           element={
             <AccountGate>
@@ -291,33 +325,16 @@ function useAppRoutes() {
           {settingsModalRoutes}
         </Route>
 
+        {legacyRequestRoutes}
+        {rpcRequestRoutes}
+        <Route path={RouteUrls.UnauthorizedRequest} element={<UnauthorizedRequest />} />
         <Route
-          path={RouteUrls.RpcGetAddresses}
+          path={RouteUrls.RequestError}
           element={
             <AccountGate>
-              <RpcGetAddresses />
+              <RequestError />
             </AccountGate>
           }
-        />
-        {rpcSendTransferRoutes}
-
-        <Route
-          path={RouteUrls.RpcSignPsbt}
-          element={
-            <AccountGate>
-              <RpcSignPsbt />
-            </AccountGate>
-          }
-        />
-
-        <Route
-          path={RouteUrls.RpcSignBip322Message}
-          lazy={async () => {
-            const { RpcSignBip322MessageRoute } = await import(
-              '@app/pages/rpc-sign-bip322-message/rpc-sign-bip322-message'
-            );
-            return { Component: RpcSignBip322MessageRoute };
-          }}
         />
 
         {/* Catch-all route redirects to onboarding */}

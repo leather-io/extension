@@ -3,7 +3,7 @@ import { bytesToHex } from '@stacks/common';
 import { useQueries } from '@tanstack/react-query';
 import * as yup from 'yup';
 
-import { isTypedArray } from '@shared/utils';
+import { isDefined, isTypedArray } from '@shared/utils';
 import { Prettify } from '@shared/utils/type-utils';
 
 import { QueryPrefixes } from '@app/query/query-prefixes';
@@ -25,13 +25,19 @@ const ordApiGetTransactionOutput = yup
   })
   .required();
 
-export type OrdApiInscriptionTxOutput = Prettify<yup.InferType<typeof ordApiGetTransactionOutput>>;
+type OrdApiInscriptionTxOutput = Prettify<yup.InferType<typeof ordApiGetTransactionOutput>>;
 
 export async function getNumberOfInscriptionOnUtxo(id: string, index: number) {
   const resp = await fetchOrdinalsAwareUtxo(id, index);
   if (resp.all_inscriptions) return resp.all_inscriptions.length;
   if (resp.inscriptions) return 1;
   return 0;
+}
+
+function getQueryArgsWithDefaults(utxo: TaprootUtxo | btc.TransactionInput) {
+  const txId = isTypedArray(utxo.txid) ? bytesToHex(utxo.txid) : utxo.txid ?? '';
+  const txIndex = 'vout' in utxo ? utxo.vout : utxo.index ?? 0;
+  return { txId, txIndex };
 }
 
 async function fetchOrdinalsAwareUtxo(
@@ -48,7 +54,7 @@ async function fetchOrdinalsAwareUtxo(
   return ordApiGetTransactionOutput.validate(data);
 }
 
-function makeOrdinalsAwareUtxoQueryKey(txId: string, txIndex: number) {
+function makeOrdinalsAwareUtxoQueryKey(txId: string, txIndex?: number) {
   return [QueryPrefixes.InscriptionFromTxid, txId, txIndex] as const;
 }
 
@@ -58,12 +64,12 @@ const queryOptions = {
   refetchOnWindowFocus: false,
 } as const;
 
-export function useOrdinalsAwareUtxoQueries(utxos: TaprootUtxo[] | btc.TransactionInputRequired[]) {
+export function useOrdinalsAwareUtxoQueries(utxos: TaprootUtxo[] | btc.TransactionInput[]) {
   return useQueries({
     queries: utxos.map(utxo => {
-      const txId = isTypedArray(utxo.txid) ? bytesToHex(utxo.txid) : utxo.txid;
-      const txIndex = 'index' in utxo ? utxo.index : utxo.vout;
+      const { txId, txIndex } = getQueryArgsWithDefaults(utxo);
       return {
+        enable: txId !== '' && isDefined(txIndex),
         queryKey: makeOrdinalsAwareUtxoQueryKey(txId, txIndex),
         queryFn: () => fetchOrdinalsAwareUtxo(txId, txIndex),
         select: (resp: OrdApiInscriptionTxOutput) =>

@@ -1,6 +1,9 @@
+import { useNavigate } from 'react-router-dom';
+
 import { RpcErrorCode } from '@btckit/types';
 import { bytesToHex } from '@noble/hashes/utils';
 
+import { RouteUrls } from '@shared/route-urls';
 import { makeRpcErrorResponse, makeRpcSuccessResponse } from '@shared/rpc/rpc-methods';
 import { isDefined } from '@shared/utils';
 
@@ -9,15 +12,27 @@ import { usePsbtSigner } from '@app/features/psbt-signer/hooks/use-psbt-signer';
 import { PsbtSigner } from '@app/features/psbt-signer/psbt-signer';
 
 function useRpcSignPsbt() {
+  const navigate = useNavigate();
   const { origin, tabId, requestId, psbtHex, allowedSighash, signAtIndex } = useRpcSignPsbtParams();
   const { signPsbt, signPsbtAtIndex, getDecodedPsbt, getPsbtAsTransaction } = usePsbtSigner();
+
+  if (!requestId || !psbtHex || !origin) throw new Error('Invalid params');
 
   const tx = getPsbtAsTransaction(psbtHex);
 
   return {
+    allowedSighashes: allowedSighash,
+    inputsToSign: signAtIndex,
     origin,
+    tx,
     get decodedPsbt() {
-      return getDecodedPsbt(psbtHex);
+      try {
+        return getDecodedPsbt(psbtHex);
+      } catch (e) {
+        return navigate(RouteUrls.RequestError, {
+          state: { message: e instanceof Error ? e.message : '', title: 'Failed request' },
+        });
+      }
     },
     onSignPsbt() {
       if (isDefined(signAtIndex)) {
@@ -52,9 +67,18 @@ function useRpcSignPsbt() {
 }
 
 export function RpcSignPsbt() {
-  const { origin, decodedPsbt, onSignPsbt, onCancel } = useRpcSignPsbt();
+  const { allowedSighashes, origin, decodedPsbt, inputsToSign, onSignPsbt, onCancel, tx } =
+    useRpcSignPsbt();
   if (!decodedPsbt) return null;
   return (
-    <PsbtSigner appName={origin} onSignPsbt={onSignPsbt} onCancel={onCancel} psbt={decodedPsbt} />
+    <PsbtSigner
+      allowedSighashes={allowedSighashes}
+      inputsToSign={inputsToSign}
+      origin={origin}
+      onSignPsbt={onSignPsbt}
+      onCancel={onCancel}
+      psbtRaw={decodedPsbt}
+      psbtTx={tx}
+    />
   );
 }

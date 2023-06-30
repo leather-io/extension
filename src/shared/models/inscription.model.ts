@@ -1,25 +1,33 @@
 export interface InscriptionResponseItem {
-  id: string;
-  number: number;
   address: string;
-  genesis_address: string;
-  genesis_block_height: number;
-  genesis_block_hash: string;
-  genesis_tx_id: string;
+  content: string;
+  content_length: string;
+  content_type: string;
   genesis_fee: string;
-  genesis_timestamp: number;
-  tx_id: string;
+  genesis_height: string;
+  genesis_transaction: string;
+  id: string;
+  inscription_number: number;
   location: string;
-  output: string;
-  value: string;
   offset: string;
+  output: string;
+  output_value: string;
+  preview: string;
+  sat: string;
+  timestamp: string;
+  // Outdated props?
+  genesis_address: string;
+  genesis_block_hash: string;
+  genesis_block_height: number;
+  genesis_timestamp: number;
+  genesis_tx_id: string;
+  mime_type: string;
+  number: number;
+  sat_coinbase_height: number;
   sat_ordinal: string;
   sat_rarity: string;
-  sat_coinbase_height: number;
-  mime_type: string;
-  content_type: string;
-  content_length: number;
-  timestamp: number;
+  tx_id: string;
+  value: string;
 }
 
 export interface Inscription extends InscriptionResponseItem {
