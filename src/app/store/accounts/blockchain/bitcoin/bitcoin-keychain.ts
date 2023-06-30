@@ -22,9 +22,8 @@ import {
 } from '@shared/crypto/bitcoin/p2wpkh-address-gen';
 
 import { mnemonicToRootNode } from '@app/common/keychain/keychain';
-import { selectInMemoryKey } from '@app/store/in-memory-key/in-memory-key.selectors';
+import { selectRootKeychain } from '@app/store/in-memory-key/in-memory-key.selectors';
 import { selectCurrentKey } from '@app/store/keys/key.selectors';
-import { defaultKeyId } from '@app/store/keys/key.slice';
 import { useCurrentNetwork } from '@app/store/networks/networks.selectors';
 
 // This factory selector extends from the wallet root keychain to derive child
@@ -36,12 +35,10 @@ function bitcoinKeychainSelectorFactory(
   keychainFn: (hdkey: HDKey, network: NetworkModes) => (index: number) => HDKey,
   network: NetworkModes
 ) {
-  return createSelector(selectCurrentKey, selectInMemoryKey, (currentKey, inMemKey) => {
+  return createSelector(selectCurrentKey, selectRootKeychain, (currentKey, rootKeychain) => {
     if (currentKey?.type !== 'software') return;
-
-    if (!inMemKey.keys[defaultKeyId]) throw new Error('No in-memory key found');
-
-    return keychainFn(mnemonicToRootNode(inMemKey.keys.default), network);
+    if (!rootKeychain) throw new Error('No in-memory key found');
+    return keychainFn(rootKeychain, network);
   });
 }
 
