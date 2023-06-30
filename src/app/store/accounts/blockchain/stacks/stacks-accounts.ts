@@ -35,10 +35,10 @@ const selectStacksWalletState = createSelector(
   (keychain, chain) => {
     if (!keychain) return;
     const { highestAccountIndex, currentAccountIndex } = chain[defaultKeyId];
-    const accountsToRender = Math.max(highestAccountIndex, currentAccountIndex);
+    const accountsToRender = Math.max(highestAccountIndex, currentAccountIndex) + 1;
 
-    return createNullArrayOfLength(accountsToRender + 1).map((_, index) => {
-      const stxPrivateKey = deriveStxPrivateKey({ rootNode: keychain, index } as any);
+    return createNullArrayOfLength(accountsToRender).map((_, index) => {
+      const stxPrivateKey = deriveStxPrivateKey({ rootNode: keychain, index });
       const pubKey = getPublicKey(createStacksPrivateKey(stxPrivateKey));
 
       const identitiesKeychain = keychain.derive(DATA_DERIVATION_PATH);
