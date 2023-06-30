@@ -1,10 +1,8 @@
 import React, { cloneElement, isValidElement } from 'react';
 
-import { Box, BoxProps } from '@stacks/ui';
+import { BoxProps } from '@stacks/ui';
 
-function Hr(props: BoxProps) {
-  return <Box as="hr" width="100%" backgroundColor="#DCDDE2" {...props} />;
-}
+import { Hr } from '../hr';
 
 interface DividerSeparatorProps extends BoxProps {
   children: React.ReactNode;

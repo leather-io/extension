@@ -1,4 +1,4 @@
-import { useQuery } from '@tanstack/react-query';
+import { useQueries, useQuery } from '@tanstack/react-query';
 
 import { Inscription } from '@shared/models/inscription.model';
 
@@ -34,5 +34,18 @@ export function useGetInscriptionQuery<T extends unknown = FetchInscriptionResp>
     queryFn: () => fetchInscription()(id),
     ...inscriptionQueryOptions,
     ...options,
+  });
+}
+
+export function useGetInscriptionQueries(ids: string[]) {
+  return useQueries({
+    queries: ids.map(id => {
+      return {
+        enabled: !!id,
+        queryKey: [QueryPrefixes.InscriptionMetadata, id],
+        queryFn: () => fetchInscription()(id),
+        ...inscriptionQueryOptions,
+      };
+    }),
   });
 }

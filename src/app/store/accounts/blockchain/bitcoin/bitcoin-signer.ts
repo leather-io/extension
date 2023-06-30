@@ -85,13 +85,13 @@ export function bitcoinAddressIndexSignerFactory<T extends BitcoinAddressIndexSi
       paymentFn,
       signFn(tx: btc.Transaction) {
         if (!addressIndexKeychain.privateKey)
-          throw new Error('Unable to sign taproot transaction, no private key found');
+          throw new Error('Unable to sign transaction, no private key found');
 
         tx.sign(addressIndexKeychain.privateKey);
       },
       signAtIndexFn(tx: btc.Transaction, index: number, allowedSighash?: btc.SignatureHash[]) {
         if (!addressIndexKeychain.privateKey)
-          throw new Error('Unable to sign taproot transaction, no private key found');
+          throw new Error('Unable to sign transaction, no private key found');
 
         tx.signIdx(addressIndexKeychain.privateKey, index, allowedSighash);
       },

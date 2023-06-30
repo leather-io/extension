@@ -44,14 +44,6 @@ export enum RouteUrls {
   Send = '/send-transaction',
   ViewSecretKey = '/view-secret-key',
 
-  // App requests (legacy)
-  ProfileUpdateRequest = '/update-profile',
-  PsbtRequest = '/psbt',
-  SignatureRequest = '/signature',
-  TransactionRequest = '/transaction',
-  TransactionBroadcastError = 'broadcast-error',
-  UnauthorizedRequest = '/unauthorized-request',
-
   // Locked wallet route
   Unlock = '/unlock',
 
@@ -93,7 +85,14 @@ export enum RouteUrls {
   SendOrdinalInscriptionSent = '/send/ordinal-inscription/sent',
   SendOrdinalInscriptionError = '/send/ordinal-inscription/error',
 
-  // Request routes
+  // Legacy request routes
+  ProfileUpdateRequest = '/update-profile',
+  PsbtRequest = '/psbt',
+  SignatureRequest = '/signature',
+  TransactionRequest = '/transaction',
+  TransactionBroadcastError = 'broadcast-error',
+
+  // Rpc request routes
   RpcGetAddresses = '/get-addresses',
   RpcSignPsbt = '/sign-psbt',
   RpcSendTransfer = '/send-transfer',
@@ -102,4 +101,8 @@ export enum RouteUrls {
   RpcSendTransferSummary = '/send-transfer/summary',
   RpcReceiveBitcoinContractOffer = '/bitcoin-contract-offer/:bitcoinContractOffer/:counterpartyWalletURL',
   RpcSignBip322Message = '/sign-bip322-message',
+
+  // Shared legacy and rpc request routes
+  RequestError = '/request-error',
+  UnauthorizedRequest = '/unauthorized-request',
 }

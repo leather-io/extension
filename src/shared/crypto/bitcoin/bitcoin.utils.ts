@@ -2,14 +2,12 @@ import { PaymentTypes } from '@btckit/types';
 import { hexToBytes } from '@noble/hashes/utils';
 import { HDKey, Versions } from '@scure/bip32';
 import * as btc from '@scure/btc-signer';
-import * as P from 'micro-packed';
 
 import { BitcoinNetworkModes, NetworkModes } from '@shared/constants';
-import { logger } from '@shared/logger';
 import { whenNetwork } from '@shared/utils';
 
 import { DerivationPathDepth } from '../derivation-path.utils';
-import { BtcSignerNetwork, getBtcSignerLibNetworkConfigByMode } from './bitcoin.network';
+import { BtcSignerNetwork } from './bitcoin.network';
 
 export interface BitcoinAccount {
   type: PaymentTypes;
@@ -56,43 +54,45 @@ export function ecdsaPublicKeyToSchnorr(pubKey: Uint8Array) {
   return pubKey.slice(1);
 }
 
-// basically same as above, to remov
+// Basically same as above, to remove
 export const toXOnly = (pubKey: Buffer) => (pubKey.length === 32 ? pubKey : pubKey.slice(1, 33));
 
 export function decodeBitcoinTx(tx: string) {
   return btc.RawTx.decode(hexToBytes(tx));
 }
 
-const concat = P.concatBytes;
+export function getAddressFromOutScript(script: Uint8Array, bitcoinNetwork: BtcSignerNetwork) {
+  const outputScript = btc.OutScript.decode(script);
 
-function formatKey(hashed: Uint8Array, prefix: number[]): string {
-  return btc.base58check.encode(concat(Uint8Array.from(prefix), hashed));
-}
-
-function getAddressFromWshOutScript(script: Uint8Array, network: BtcSignerNetwork) {
-  return btc.programToWitness(0, script.slice(2), network);
-}
-
-function getAddressFromWpkhOutScript(script: Uint8Array, network: BtcSignerNetwork) {
-  return btc.programToWitness(0, script.slice(2), network);
-}
-
-function getAddressFromTrOutScript(script: Uint8Array, network: BtcSignerNetwork) {
-  return btc.programToWitness(1, script.slice(2), network);
-}
-
-export function getAddressFromOutScript(script: Uint8Array, network: BitcoinNetworkModes) {
-  const outScript = btc.OutScript.decode(script);
-  // This appears to be undefined at times?
-  const bitcoinNetwork = getBtcSignerLibNetworkConfigByMode(network);
-
-  if (outScript.type === 'wsh') return getAddressFromWshOutScript(script, bitcoinNetwork);
-  else if (outScript.type === 'wpkh') return getAddressFromWpkhOutScript(script, bitcoinNetwork);
-  else if (outScript.type === 'tr') return getAddressFromTrOutScript(script, bitcoinNetwork);
-  else if (outScript.type === 'pkh') return formatKey(script, [bitcoinNetwork?.pubKeyHash]);
-  else if (outScript.type === 'sh') return formatKey(script, [bitcoinNetwork?.scriptHash]);
-  logger.error(`Unknown address type=${outScript.type}`);
-  return '';
+  if (outputScript.type === 'pk' || outputScript.type === 'tr') {
+    return btc.Address(bitcoinNetwork).encode({
+      type: outputScript.type,
+      pubkey: outputScript.pubkey,
+    });
+  }
+  if (outputScript.type === 'ms' || outputScript.type === 'tr_ms') {
+    return btc.Address(bitcoinNetwork).encode({
+      type: outputScript.type,
+      pubkeys: outputScript.pubkeys,
+      m: outputScript.m,
+    });
+  }
+  if (outputScript.type === 'tr_ns') {
+    return btc.Address(bitcoinNetwork).encode({
+      type: outputScript.type,
+      pubkeys: outputScript.pubkeys,
+    });
+  }
+  if (outputScript.type === 'unknown') {
+    return btc.Address(bitcoinNetwork).encode({
+      type: outputScript.type,
+      script,
+    });
+  }
+  return btc.Address(bitcoinNetwork).encode({
+    type: outputScript.type,
+    hash: outputScript.hash,
+  });
 }
 
 type BtcSignerLibPaymentTypeIdentifers = 'wpkh' | 'wsh' | 'tr' | 'pkh' | 'sh';

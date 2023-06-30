@@ -1,22 +1,28 @@
+import * as btc from '@scure/btc-signer';
+
 import { useRouteHeader } from '@app/common/hooks/use-route-header';
 import { PopupHeader } from '@app/features/current-account/popup-header';
 import { useOnOriginTabClose } from '@app/routes/hooks/use-on-tab-closed';
 
-import { PsbtDecodedRequest } from './components/psbt-decoded-request/psbt-decoded-request';
 import { PsbtRequestActions } from './components/psbt-request-actions';
+import { PsbtRequestDetails } from './components/psbt-request-details/psbt-request-details';
 import { PsbtRequestHeader } from './components/psbt-request-header';
-import { PsbtRequestAppWarningLabel } from './components/psbt-request-warning-label';
-import { PsbtRequestLayout } from './components/psbt-request.layout';
-import { DecodedPsbt } from './hooks/use-psbt-signer';
+import { PsbtSignerLayout } from './components/psbt-signer.layout';
+import { RawPsbt } from './hooks/use-psbt-signer';
 
 interface PsbtSignerProps {
-  appName: string;
-  psbt: DecodedPsbt;
+  allowedSighashes?: btc.SignatureHash[];
+  inputsToSign?: number | number[];
+  name?: string;
+  origin: string;
   onCancel(): void;
   onSignPsbt(): void;
+  psbtRaw: RawPsbt;
+  psbtTx: btc.Transaction;
 }
 export function PsbtSigner(props: PsbtSignerProps) {
-  const { appName, psbt, onCancel, onSignPsbt } = props;
+  const { allowedSighashes, inputsToSign, name, origin, onCancel, onSignPsbt, psbtRaw, psbtTx } =
+    props;
 
   useRouteHeader(<PopupHeader displayAddresssBalanceOf="all" />);
 
@@ -24,11 +30,15 @@ export function PsbtSigner(props: PsbtSignerProps) {
 
   return (
     <>
-      <PsbtRequestLayout>
-        <PsbtRequestHeader origin={appName} />
-        <PsbtRequestAppWarningLabel appName={appName} />
-        <PsbtDecodedRequest psbt={psbt} />
-      </PsbtRequestLayout>
+      <PsbtSignerLayout>
+        <PsbtRequestHeader name={name} origin={origin} />
+        <PsbtRequestDetails
+          allowedSighashes={allowedSighashes}
+          inputsToSign={inputsToSign}
+          psbtRaw={psbtRaw}
+          psbtTx={psbtTx}
+        />
+      </PsbtSignerLayout>
       <PsbtRequestActions isLoading={false} onCancel={onCancel} onSignPsbt={onSignPsbt} />
     </>
   );
