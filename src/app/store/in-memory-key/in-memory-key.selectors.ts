@@ -14,9 +14,9 @@ export const selectDefaultWalletKey = createSelector(
   state => state.keys[defaultKeyId]
 );
 
-export const selectRootKeychain = createSelector(selectDefaultWalletKey, state => {
-  if (!state) return null;
-  return mnemonicToRootNode(state);
+export const selectRootKeychain = createSelector(selectDefaultWalletKey, key => {
+  if (!key) return null;
+  return mnemonicToRootNode(key);
 });
 
 export function useDefaultWalletSecretKey() {

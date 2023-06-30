@@ -1,6 +1,6 @@
 import { bytesToHex } from '@noble/hashes/utils';
 import { createSelector } from '@reduxjs/toolkit';
-import { HARDENED_OFFSET } from '@scure/bip32';
+import { HARDENED_OFFSET, HDKey } from '@scure/bip32';
 import {
   AddressVersion,
   createStacksPrivateKey,
@@ -29,39 +29,41 @@ import {
   StacksAccount,
 } from './stacks-account.models';
 
+function initalizeStacksAccount(rootKeychain: HDKey, index: number) {
+  const stxPrivateKey = deriveStxPrivateKey({ rootNode: rootKeychain, index } as any);
+  const pubKey = getPublicKey(createStacksPrivateKey(stxPrivateKey));
+
+  const identitiesKeychain = rootKeychain.derive(DATA_DERIVATION_PATH);
+  const identityKeychain = identitiesKeychain.deriveChild(index + HARDENED_OFFSET);
+  if (!identityKeychain.privateKey) throw new Error('Must have private key to derive identities');
+  const dataPrivateKey = bytesToHex(identityKeychain.privateKey);
+
+  const appsKey = identityKeychain.deriveChild(0 + HARDENED_OFFSET).privateExtendedKey;
+
+  const salt = deriveStacksSalt(identitiesKeychain);
+
+  return {
+    index,
+    appsKey,
+    dataPrivateKey,
+    stxPrivateKey,
+    publicKey: pubKey,
+    salt,
+    mainnetAddress: publicKeyToAddress(AddressVersion.MainnetSingleSig, pubKey),
+    testnetAddress: publicKeyToAddress(AddressVersion.TestnetSingleSig, pubKey),
+  };
+}
+
 const selectStacksWalletState = createSelector(
   selectRootKeychain,
   selectStacksChain,
   (keychain, chain) => {
     if (!keychain) return;
     const { highestAccountIndex, currentAccountIndex } = chain[defaultKeyId];
-    const accountsToRender = Math.max(highestAccountIndex, currentAccountIndex) + 1;
-
-    return createNullArrayOfLength(accountsToRender).map((_, index) => {
-      const stxPrivateKey = deriveStxPrivateKey({ rootNode: keychain, index });
-      const pubKey = getPublicKey(createStacksPrivateKey(stxPrivateKey));
-
-      const identitiesKeychain = keychain.derive(DATA_DERIVATION_PATH);
-      const identityKeychain = identitiesKeychain.deriveChild(index + HARDENED_OFFSET);
-      if (!identityKeychain.privateKey)
-        throw new Error('Must have private key to derive identities');
-      const dataPrivateKey = bytesToHex(identityKeychain.privateKey);
-
-      const appsKey = identityKeychain.deriveChild(0 + HARDENED_OFFSET).privateExtendedKey;
-
-      const salt = deriveStacksSalt(identitiesKeychain);
-
-      return {
-        index,
-        appsKey,
-        dataPrivateKey,
-        stxPrivateKey,
-        publicKey: pubKey,
-        salt,
-        mainnetAddress: publicKeyToAddress(AddressVersion.MainnetSingleSig, pubKey),
-        testnetAddress: publicKeyToAddress(AddressVersion.TestnetSingleSig, pubKey),
-      };
-    });
+    const numberOfAccountsToDerive = Math.max(highestAccountIndex, currentAccountIndex) + 1;
+    return createNullArrayOfLength(numberOfAccountsToDerive).map((_, index) =>
+      initalizeStacksAccount(keychain, index)
+    );
   }
 );
 
