@@ -2,7 +2,10 @@ import { useMemo } from 'react';
 
 import { useAtomValue } from 'jotai';
 
-import { stacksAccountState } from '@app/store/accounts/blockchain/stacks/stacks-accounts';
+import {
+  legacyStackWallet,
+  stacksAccountState,
+} from '@app/store/accounts/blockchain/stacks/stacks-accounts';
 import { useSignatureRequestAccountIndex } from '@app/store/signatures/requests.hooks';
 import { useTransactionRequestState } from '@app/store/transactions/requests.hooks';
 import { transactionNetworkVersionState } from '@app/store/transactions/transaction';
@@ -53,4 +56,13 @@ export function useTransactionAccountIndex() {
 
 export function useTransactionNetworkVersion() {
   return useAtomValue(transactionNetworkVersionState);
+}
+
+/**
+ * @deprecated
+ * This exists only to serve the remaining Gaia functionality.
+ * Do not perpetuate its use.
+ */
+export function useLegacyStacksWallet() {
+  return useAtomValue(legacyStackWallet);
 }

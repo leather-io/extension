@@ -1,7 +1,12 @@
 import { useCallback } from 'react';
 
 import { bytesToHex } from '@stacks/common';
-import { makeAuthResponse } from '@stacks/wallet-sdk';
+import {
+  createWalletGaiaConfig,
+  getOrCreateWalletConfig,
+  makeAuthResponse,
+  updateWalletConfigWithApp,
+} from '@stacks/wallet-sdk';
 
 import { finalizeAuthResponse } from '@shared/actions/finalize-auth-response';
 import { gaiaUrl } from '@shared/constants';
@@ -13,15 +18,20 @@ import { useKeyActions } from '@app/common/hooks/use-key-actions';
 import { useWalletType } from '@app/common/use-wallet-type';
 import { useNativeSegwitNetworkSigners } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
 import { useTaprootNetworkSigners } from '@app/store/accounts/blockchain/bitcoin/taproot-account.hooks';
-import { useStacksAccounts } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
+import {
+  useLegacyStacksWallet,
+  useStacksAccounts,
+} from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
 
 export function useFinishAuthRequest() {
-  const { decodedAuthRequest, authRequest } = useOnboardingState();
+  const { decodedAuthRequest, authRequest, appIcon, appName } = useOnboardingState();
   const keyActions = useKeyActions();
   const stacksAccounts = useStacksAccounts();
   const { walletType } = useWalletType();
   const accounts = useStacksAccounts();
   const { origin, tabId } = useAuthRequestParams();
+
+  const wallet = useLegacyStacksWallet();
 
   // TODO: It would be good to separate out finishing auth by the wallet vs an app
   // so that the additional data we provide apps can be removed from our onboarding.
@@ -43,6 +53,28 @@ export function useFinishAuthRequest() {
       // We can't perform any of this logic for non-software wallets
       // as they require the key to be available in the JS context
       if (walletType === 'software' && account.type === 'software') {
+        if (!wallet) return;
+
+        const gaiaHubConfig = await createWalletGaiaConfig({ gaiaHubUrl: gaiaUrl, wallet });
+        const walletConfig = await getOrCreateWalletConfig({
+          wallet,
+          gaiaHubConfig,
+          skipUpload: true,
+        });
+        await updateWalletConfigWithApp({
+          wallet,
+          walletConfig,
+          gaiaHubConfig,
+          account,
+          app: {
+            origin: appURL.origin,
+            lastLoginAt: new Date().getTime(),
+            scopes: decodedAuthRequest.scopes,
+            appIcon: appIcon as string,
+            name: appName as string,
+          },
+        });
+
         const taprootAccount = deriveAllTaprootNetworkSigners(accountIndex);
         const nativeSegwitAccount = deriveAllNativeSegWitNetworkSigners(accountIndex);
 
@@ -82,12 +114,15 @@ export function useFinishAuthRequest() {
     },
     [
       accounts,
-      stacksAccounts,
       decodedAuthRequest,
       authRequest,
+      stacksAccounts,
       origin,
       tabId,
       walletType,
+      wallet,
+      appIcon,
+      appName,
       deriveAllTaprootNetworkSigners,
       deriveAllNativeSegWitNetworkSigners,
       keyActions,

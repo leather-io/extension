@@ -9,7 +9,7 @@ import {
   pubKeyfromPrivKey,
   publicKeyToAddress,
 } from '@stacks/transactions';
-import { deriveStxPrivateKey } from '@stacks/wallet-sdk';
+import { deriveStxPrivateKey, generateWallet } from '@stacks/wallet-sdk';
 import { atom } from 'jotai';
 
 import { DATA_DERIVATION_PATH, deriveStacksSalt } from '@shared/crypto/stacks/stacks-address-gen';
@@ -18,7 +18,10 @@ import { derivePublicKey } from '@app/common/keychain/keychain';
 import { createNullArrayOfLength } from '@app/common/utils';
 import { storeAtom } from '@app/store';
 import { selectStacksChain } from '@app/store/chains/stx-chain.selectors';
-import { selectRootKeychain } from '@app/store/in-memory-key/in-memory-key.selectors';
+import {
+  selectDefaultWalletKey,
+  selectRootKeychain,
+} from '@app/store/in-memory-key/in-memory-key.selectors';
 import { selectLedgerKey } from '@app/store/keys/key.selectors';
 import { addressNetworkVersionState } from '@app/store/transactions/transaction';
 
@@ -103,4 +106,14 @@ export const stacksAccountState = atom<StacksAccount[] | undefined>(get => {
   const ledgerAccounts = get(ledgerAccountsState);
   const softwareAccounts = get(softwareAccountsState);
   return ledgerAccounts ?? softwareAccounts;
+});
+
+export const legacyStackWallet = atom(async get => {
+  const store = get(storeAtom);
+  const secretKey = selectDefaultWalletKey(store);
+  const accounts = get(softwareAccountsState);
+  if (!secretKey) return;
+  const wallet = await generateWallet({ secretKey, password: '' });
+  wallet.accounts = accounts ?? [];
+  return wallet;
 });
