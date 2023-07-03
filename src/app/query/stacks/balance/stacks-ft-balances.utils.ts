@@ -29,7 +29,7 @@ export function createStacksCryptoCurrencyAssetTypeWrapper(
   };
 }
 
-function createStacksFtCryptoAssetBalanceTypeWrapper(
+export function createStacksFtCryptoAssetBalanceTypeWrapper(
   balance: BigNumber,
   contractId: string
 ): StacksFungibleTokenAssetBalance {

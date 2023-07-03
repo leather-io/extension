@@ -9,10 +9,13 @@ import { makeRpcErrorResponse, makeRpcSuccessResponse } from '@shared/rpc/rpc-me
 import { isDefined, undefinedIfLengthZero } from '@shared/utils';
 
 import { useDefaultRequestParams } from '@app/common/hooks/use-default-request-search-params';
+import { useRejectIfLedgerWallet } from '@app/common/rpc-helpers';
 import { usePsbtSigner } from '@app/features/psbt-signer/hooks/use-psbt-signer';
 import { PsbtSigner } from '@app/features/psbt-signer/psbt-signer';
 
 function useRpcSignPsbtParams() {
+  useRejectIfLedgerWallet('signPsbt');
+
   const [searchParams] = useSearchParams();
   const { origin, tabId } = useDefaultRequestParams();
   const requestId = searchParams.get('requestId');

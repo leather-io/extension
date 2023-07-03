@@ -33,6 +33,7 @@ export function btcAddressValidator() {
     });
 }
 
+// ts-unused-exports:disable-next-line
 export function btcTaprootAddressValidator() {
   return yup.string().test((input, context) => {
     if (!input || !validate(input)) return false;

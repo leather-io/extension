@@ -18,7 +18,7 @@ const rpcSignMessageParamsSchema = yup.object().shape({
   account: accountSchema,
   message: yup.string().required(),
   network: yup.string().oneOf(Object.values(WalletDefaultNetworkConfigurationIds)),
-  paymentType: yup.string<PaymentTypes>().required(),
+  paymentType: yup.string<PaymentTypes>(),
 });
 
 // TODO: Import param types from btckit when updated

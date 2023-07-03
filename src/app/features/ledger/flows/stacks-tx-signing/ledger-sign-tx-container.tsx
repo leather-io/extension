@@ -134,7 +134,7 @@ export function LedgerSignStacksTxContainer() {
         await hwWalletTxBroadcast({ signedTx });
         navigate(RouteUrls.Home);
       } catch (e) {
-        navigate(RouteUrls.TransactionBroadcastError);
+        ledgerNavigate.toBroadcastErrorStep(e instanceof Error ? e.message : 'Unknown error');
         return;
       }
     } catch (e) {

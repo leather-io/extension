@@ -223,6 +223,7 @@ export const Bitcoin = () => {
             ?.request('sendTransfer', {
               address: TEST_TESTNET_ACCOUNT_2_BTC_ADDRESS,
               amount: '10000',
+              network: 'testnet',
             })
             .then(resp => {
               console.log({ sucesss: resp });

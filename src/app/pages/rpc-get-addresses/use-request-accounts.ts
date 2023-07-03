@@ -1,29 +1,16 @@
-import { useMemo } from 'react';
-
 import { BtcAddress } from '@btckit/types';
 import { bytesToHex } from '@stacks/common';
 
+import { ecdsaPublicKeyToSchnorr } from '@shared/crypto/bitcoin/bitcoin.utils';
 import { logger } from '@shared/logger';
 import { makeRpcSuccessResponse } from '@shared/rpc/rpc-methods';
 
 import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
-import { useDefaultRequestParams } from '@app/common/hooks/use-default-request-search-params';
-import { initialSearchParams } from '@app/common/initial-search-params';
+import { useRpcRequestParams } from '@app/common/rpc-helpers';
 import { useCurrentAccountNativeSegwitIndexZeroSigner } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
 import { useCurrentAccountTaprootIndexZeroSigner } from '@app/store/accounts/blockchain/bitcoin/taproot-account.hooks';
 import { useCurrentStacksAccount } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
 import { useAppPermissions } from '@app/store/app-permissions/app-permissions.slice';
-
-function useRpcRequestParams() {
-  const defaultParams = useDefaultRequestParams();
-  return useMemo(
-    () => ({
-      ...defaultParams,
-      requestId: initialSearchParams.get('requestId') ?? '',
-    }),
-    [defaultParams]
-  );
-}
 
 export function useGetAddresses() {
   const analytics = useAnalytics();
@@ -40,6 +27,7 @@ export function useGetAddresses() {
     type: 'p2tr',
     address: taprootSigner.address,
     publicKey: bytesToHex(taprootSigner.publicKey),
+    tweakedPublicKey: bytesToHex(ecdsaPublicKeyToSchnorr(taprootSigner.publicKey)),
     derivationPath: taprootSigner.derivationPath,
   };
 

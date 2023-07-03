@@ -15,7 +15,6 @@ import { useWalletType } from '@app/common/use-wallet-type';
 import {
   btcAddressNetworkValidator,
   btcAddressValidator,
-  btcTaprootAddressValidator,
 } from '@app/common/validation/forms/address-validators';
 import { getNumberOfInscriptionOnUtxo } from '@app/query/bitcoin/ordinals/ordinals-aware-utxo.query';
 import { useCurrentNetwork } from '@app/store/networks/networks.selectors';
@@ -113,8 +112,7 @@ export function useSendInscriptionForm() {
         .string()
         .required(FormErrorMessages.AddressRequired)
         .concat(btcAddressValidator())
-        .concat(btcAddressNetworkValidator(currentNetwork.chain.bitcoin.network))
-        .concat(btcTaprootAddressValidator()),
+        .concat(btcAddressNetworkValidator(currentNetwork.chain.bitcoin.network)),
     }),
   };
 }

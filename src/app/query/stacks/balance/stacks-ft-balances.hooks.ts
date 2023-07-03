@@ -2,6 +2,8 @@ import { useMemo } from 'react';
 import { toast } from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
 
+import BigNumber from 'bignumber.js';
+
 import type { StacksFungibleTokenAssetBalance } from '@shared/models/crypto-asset-balance.model';
 
 import { formatContractId } from '@app/common/utils';
@@ -14,6 +16,7 @@ import {
   convertFtBalancesToStacksFungibleTokenAssetBalanceType,
   convertNftBalancesToStacksNonFungibleTokenAssetBalanceType,
   createStacksCryptoCurrencyAssetTypeWrapper,
+  createStacksFtCryptoAssetBalanceTypeWrapper,
 } from './stacks-ft-balances.utils';
 import { parseBalanceResponse } from './stx-balance.hooks';
 import {
@@ -114,7 +117,7 @@ export function useStacksFungibleTokenAssetBalance(contractId: string) {
       toast.error('Unable to find balance by contract id');
       navigate('..');
     }
-    return balance as StacksFungibleTokenAssetBalance;
+    return balance ?? createStacksFtCryptoAssetBalanceTypeWrapper(new BigNumber(0), contractId);
   }, [assetBalances, contractId, navigate]);
 }
 
