@@ -1,3 +1,26 @@
+## [4.35.0](https://github.com/hirosystems/wallet/compare/v4.34.0...v4.35.0) (2023-07-03)
+
+
+### Features
+
+* remove taproot address validator, closes [#3670](https://github.com/hirosystems/wallet/issues/3670) ([0f33a29](https://github.com/hirosystems/wallet/commit/0f33a29b910ad4921471876da9f7c8998b274021))
+
+
+### Bug Fixes
+
+* add alignItems center to ensure title aligns correctly, fixes [#3881](https://github.com/hirosystems/wallet/issues/3881) ([df8454d](https://github.com/hirosystems/wallet/commit/df8454d6cf16fbc0db4eb12442155489919eec56))
+* add pre-tweaked key ([52d2b33](https://github.com/hirosystems/wallet/commit/52d2b3386aa0b4e2e5573ba761444de62877b8fe))
+* ledger routing bug with broadcast error ([648af7c](https://github.com/hirosystems/wallet/commit/648af7cc8ae1e3049a19633d67ed9592c98dcc68))
+* **ledger:** reject when ledger wallet ([574d618](https://github.com/hirosystems/wallet/commit/574d618d17e053073e1097e636f00b630e20344a))
+* remove required payment type from sign msg ([d46b310](https://github.com/hirosystems/wallet/commit/d46b310884386eda4cabb7e769ea429d99c0975b))
+* subtract microblock txs from available balance, closes [#3898](https://github.com/hirosystems/wallet/issues/3898) ([78a4349](https://github.com/hirosystems/wallet/commit/78a434954c65b2649ad90951ebd315e3f01f7fba))
+
+
+### Internal
+
+* add note about refactoring to remove JS truncation ([a798bd1](https://github.com/hirosystems/wallet/commit/a798bd1a40faf97c7420e8db463e31a21dd45cf4))
+* remove leading as its not a valid CSS prop ([5632c1c](https://github.com/hirosystems/wallet/commit/5632c1cd9537a4af6ef4170e54c37c481e4d295b))
+
 ## [4.34.0](https://github.com/hirosystems/wallet/compare/v4.33.0...v4.34.0) (2023-06-28)
 
 
