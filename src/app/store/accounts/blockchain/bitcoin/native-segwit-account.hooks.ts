@@ -1,31 +1,59 @@
 import { useMemo } from 'react';
 import { useSelector } from 'react-redux';
 
-import { bitcoinNetworkModeToCoreNetworkMode } from '@shared/crypto/bitcoin/bitcoin.utils';
-import { getNativeSegWitPaymentFromAddressIndex } from '@shared/crypto/bitcoin/p2wpkh-address-gen';
+import { createSelector } from '@reduxjs/toolkit';
 
+import {
+  bitcoinNetworkModeToCoreNetworkMode,
+  deriveAddressIndexZeroFromAccount,
+} from '@shared/crypto/bitcoin/bitcoin.utils';
+import {
+  deriveNativeSegwitAccount,
+  getNativeSegWitPaymentFromAddressIndex,
+} from '@shared/crypto/bitcoin/p2wpkh-address-gen';
+
+import { mnemonicToRootNode } from '@app/common/keychain/keychain';
 import { whenNetwork } from '@app/common/utils';
-import { useCurrentNetwork } from '@app/store/networks/networks.selectors';
+import { RootState } from '@app/store';
+import { selectCurrentNetwork } from '@app/store/networks/networks.selectors';
 
 import { useCurrentAccountIndex } from '../../account';
-import {
-  bitcoinSignerFactory,
-  selectMainnetNativeSegWitKeychain,
-  selectTestnetNativeSegWitKeychain,
-  useMakeBitcoinNetworkSignersForPaymentType,
-} from './bitcoin-keychain';
+import { bitcoinKeychainSelectorFactory } from './bitcoin-keychain';
+import { bitcoinSignerFactory, useMakeBitcoinNetworkSignersForPaymentType } from './bitcoin-signer';
+
+export function getNativeSegwitMainnetAddressFromMnemonic(secretKey: string) {
+  return (accountIndex: number) => {
+    const rootNode = mnemonicToRootNode(secretKey);
+    const account = deriveNativeSegwitAccount(rootNode, 'mainnet')(accountIndex);
+    return getNativeSegWitPaymentFromAddressIndex(
+      deriveAddressIndexZeroFromAccount(account.keychain),
+      'mainnet'
+    );
+  };
+}
+
+const selectMainnetNativeSegwitAccount = bitcoinKeychainSelectorFactory(
+  deriveNativeSegwitAccount,
+  'mainnet'
+);
+
+const selectTestnetNativeSegwitAccount = bitcoinKeychainSelectorFactory(
+  deriveNativeSegwitAccount,
+  'testnet'
+);
+
+const selectNativeSegwitActiveNetworkAccountPrivateKeychain = createSelector(
+  (state: RootState) => state,
+  selectCurrentNetwork,
+  (rootState, network) =>
+    whenNetwork(bitcoinNetworkModeToCoreNetworkMode(network.chain.bitcoin.network))({
+      mainnet: selectMainnetNativeSegwitAccount(rootState),
+      testnet: selectTestnetNativeSegwitAccount(rootState),
+    })
+);
 
 function useNativeSegwitActiveNetworkAccountPrivateKeychain() {
-  const network = useCurrentNetwork();
-  const selector = useMemo(
-    () =>
-      whenNetwork(bitcoinNetworkModeToCoreNetworkMode(network.chain.bitcoin.network))({
-        mainnet: selectMainnetNativeSegWitKeychain,
-        testnet: selectTestnetNativeSegWitKeychain,
-      }),
-    [network.chain.bitcoin.network]
-  );
-  return useSelector(selector);
+  return useSelector(selectNativeSegwitActiveNetworkAccountPrivateKeychain);
 }
 
 export function useNativeSegwitCurrentAccountPrivateKeychain() {
@@ -35,8 +63,8 @@ export function useNativeSegwitCurrentAccountPrivateKeychain() {
 }
 
 export function useNativeSegwitNetworkSigners() {
-  const mainnetKeychainFn = useSelector(selectMainnetNativeSegWitKeychain);
-  const testnetKeychainFn = useSelector(selectTestnetNativeSegWitKeychain);
+  const mainnetKeychainFn = useSelector(selectMainnetNativeSegwitAccount);
+  const testnetKeychainFn = useSelector(selectTestnetNativeSegwitAccount);
 
   return useMakeBitcoinNetworkSignersForPaymentType(
     mainnetKeychainFn,
@@ -46,18 +74,17 @@ export function useNativeSegwitNetworkSigners() {
 }
 
 function useNativeSegwitSigner(accountIndex: number) {
-  const network = useCurrentNetwork();
-  const accountKeychain = useNativeSegwitActiveNetworkAccountPrivateKeychain()?.(accountIndex);
+  const account = useNativeSegwitActiveNetworkAccountPrivateKeychain()?.(accountIndex);
 
   return useMemo(() => {
-    if (!accountKeychain) return;
+    if (!account) return;
     return bitcoinSignerFactory({
       accountIndex,
-      accountKeychain,
+      accountKeychain: account.keychain,
       paymentFn: getNativeSegWitPaymentFromAddressIndex,
-      network: network.chain.bitcoin.network,
+      network: account.network,
     });
-  }, [accountIndex, accountKeychain, network.chain.bitcoin.network]);
+  }, [accountIndex, account]);
 }
 
 export function useCurrentAccountNativeSegwitSigner() {

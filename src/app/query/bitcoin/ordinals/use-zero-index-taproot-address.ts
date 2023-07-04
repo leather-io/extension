@@ -7,13 +7,13 @@ import { useCurrentNetwork } from '@app/store/networks/networks.selectors';
 export function useZeroIndexTaprootAddress(accIndex?: number) {
   const network = useCurrentNetwork();
   const currentAccountIndex = useCurrentAccountIndex();
-  const keychain = useTaprootAccountKeychain(accIndex ?? currentAccountIndex);
+  const account = useTaprootAccountKeychain(accIndex ?? currentAccountIndex);
 
-  if (!keychain) throw new Error('Expected keychain to be provided');
+  if (!account) throw new Error('Expected keychain to be provided');
 
   const address = getTaprootAddress({
     index: 0,
-    keychain,
+    keychain: account.keychain,
     network: network.chain.bitcoin.network,
   });
 

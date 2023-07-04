@@ -10,6 +10,13 @@ import { logger } from '@shared/logger';
 import { DerivationPathDepth } from '../derivation-path.utils';
 import { BtcSignerNetwork, getBtcSignerLibNetworkConfigByMode } from './bitcoin.network';
 
+export interface BitcoinAccount {
+  derivationPath: string;
+  keychain: HDKey;
+  accountIndex: number;
+  network: BitcoinNetworkModes;
+}
+
 const bitcoinNetworkToCoreNetworkMap: Record<BitcoinNetworkModes, NetworkModes> = {
   mainnet: 'mainnet',
   testnet: 'testnet',
