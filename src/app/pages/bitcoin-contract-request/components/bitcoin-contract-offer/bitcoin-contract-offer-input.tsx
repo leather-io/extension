@@ -27,11 +27,7 @@ export function BitcoinContractOfferInput({
   const formattedFiatValue = i18nFormatCurrency(fiatValue);
 
   return (
-    <Stack
-      p="loose"
-      spacing="loose"
-      width="100%"
-    >
+    <Stack p="loose" spacing="loose" width="100%">
       <Text fontWeight="bold">Amount</Text>
       <BitcoinContractLockAmount
         hoverLabel={addressNativeSegwit}
