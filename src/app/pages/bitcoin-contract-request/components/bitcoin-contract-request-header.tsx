@@ -18,7 +18,7 @@ function BitcoinContractRequestHeaderBase({
 
   return (
     <Flex flexDirection="column" my="loose" width="100%">
-      <Title fontSize={3} fontWeight={500} mb="base">
+      <Title fontSize={4} fontWeight="bold" mb="base">
         Lock Bitcoin
       </Title>
       {caption && (
@@ -27,7 +27,7 @@ function BitcoinContractRequestHeaderBase({
           img={<img src={counterpartyWalletIcon} height="32px" width="32px" />}
           pl="tight"
         >
-          <Caption wordBreak="break-word">{caption}</Caption>
+          <Caption>{caption}</Caption>
         </Flag>
       )}
     </Flex>

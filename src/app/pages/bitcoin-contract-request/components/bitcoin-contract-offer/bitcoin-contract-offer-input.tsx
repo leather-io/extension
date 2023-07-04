@@ -1,4 +1,4 @@
-import { Box, Text } from '@stacks/ui';
+import { Stack, Text, transition } from '@stacks/ui';
 import { truncateMiddle } from '@stacks/ui-utils';
 
 import { createMoneyFromDecimal } from '@shared/models/money.model';
@@ -27,22 +27,18 @@ export function BitcoinContractOfferInput({
   const formattedFiatValue = i18nFormatCurrency(fiatValue);
 
   return (
-    <Box
-      background="white"
-      borderBottomLeftRadius={'16px'}
-      borderBottomRightRadius={'16px'}
-      borderTopLeftRadius={'16px'}
-      borderTopRightRadius={'16px'}
+    <Stack
       p="loose"
+      spacing="loose"
+      width="100%"
     >
-      <Text fontWeight={500}>Amount</Text>
+      <Text fontWeight="bold">Amount</Text>
       <BitcoinContractLockAmount
         hoverLabel={addressNativeSegwit}
         subtitle={truncateMiddle(addressNativeSegwit)}
         subValue={`${formattedFiatValue} USD`}
         value={formattedBitcoinValue}
       />
-      <hr />
-    </Box>
+    </Stack>
   );
 }

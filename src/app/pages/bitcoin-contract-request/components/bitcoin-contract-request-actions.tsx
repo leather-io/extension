@@ -26,7 +26,7 @@ export function BitcoinContractRequestActions({
       borderTop="1px solid #DCDDE2"
       bottom="0px"
       height="96px"
-      position="absolute"
+      position="fixed"
       px="loose"
       width="100%"
       zIndex={999}
