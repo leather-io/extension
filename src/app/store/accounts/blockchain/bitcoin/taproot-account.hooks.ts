@@ -1,47 +1,56 @@
 import { useMemo } from 'react';
 import { useSelector } from 'react-redux';
 
+import { createSelector } from '@reduxjs/toolkit';
+
 import { BitcoinNetworkModes } from '@shared/constants';
 import { bitcoinNetworkModeToCoreNetworkMode } from '@shared/crypto/bitcoin/bitcoin.utils';
-import { getTaprootPaymentFromAddressIndex } from '@shared/crypto/bitcoin/p2tr-address-gen';
+import {
+  deriveTaprootAccount,
+  getTaprootPaymentFromAddressIndex,
+} from '@shared/crypto/bitcoin/p2tr-address-gen';
 
 import { whenNetwork } from '@app/common/utils';
-import { useCurrentNetwork } from '@app/store/networks/networks.selectors';
+import { RootState } from '@app/store';
+import { selectCurrentAccountIndex } from '@app/store/keys/key.selectors';
+import { selectCurrentNetwork, useCurrentNetwork } from '@app/store/networks/networks.selectors';
 
 import { useCurrentAccountIndex } from '../../account';
-import {
-  bitcoinSignerFactory,
-  selectMainnetTaprootKeychain,
-  selectTestnetTaprootKeychain,
-  useMakeBitcoinNetworkSignersForPaymentType,
-} from './bitcoin-keychain';
+import { bitcoinKeychainSelectorFactory } from './bitcoin-keychain';
+import { bitcoinSignerFactory, useMakeBitcoinNetworkSignersForPaymentType } from './bitcoin-signer';
 
-function useTaprootActiveNetworkAccountPrivateKeychain() {
-  const network = useCurrentNetwork();
-  return useSelector(
+const selectMainnetTaprootAccount = bitcoinKeychainSelectorFactory(deriveTaprootAccount, 'mainnet');
+
+const selectTestnetTaprootAccount = bitcoinKeychainSelectorFactory(deriveTaprootAccount, 'testnet');
+
+const selectTaprootActiveNetworkAccountPrivateKeychain = createSelector(
+  (state: RootState) => state,
+  selectCurrentNetwork,
+  (rootState, network) =>
     whenNetwork(bitcoinNetworkModeToCoreNetworkMode(network.chain.bitcoin.network))({
-      mainnet: selectMainnetTaprootKeychain,
-      testnet: selectTestnetTaprootKeychain,
+      mainnet: selectMainnetTaprootAccount(rootState),
+      testnet: selectTestnetTaprootAccount(rootState),
     })
-  );
-}
+);
 
-export function useTaprootCurrentAccountPrivateKeychain() {
-  const currentAccountIndex = useCurrentAccountIndex();
-  return useTaprootAccountKeychain(currentAccountIndex);
-}
+const selectCurrentTaprootAccountKeychain = createSelector(
+  selectTaprootActiveNetworkAccountPrivateKeychain,
+  selectCurrentAccountIndex,
+  (taprootKeychain, accountIndex) => taprootKeychain?.(accountIndex)
+);
 
 export function useTaprootAccountKeychain(accountIndex: number) {
-  const accountKeychain = useTaprootActiveNetworkAccountPrivateKeychain();
-  return useMemo(() => {
-    if (!accountKeychain) return; // TODO: Revisit this return early
-    return accountKeychain(accountIndex);
-  }, [accountIndex, accountKeychain]);
+  const taprootKeychain = useSelector(selectTaprootActiveNetworkAccountPrivateKeychain);
+  return useMemo(() => taprootKeychain?.(accountIndex), [taprootKeychain, accountIndex]);
+}
+
+export function useTaprootCurrentPrivateAccount() {
+  return useSelector(selectCurrentTaprootAccountKeychain);
 }
 
 export function useTaprootNetworkSigners() {
-  const mainnetKeychainFn = useSelector(selectMainnetTaprootKeychain);
-  const testnetKeychainFn = useSelector(selectTestnetTaprootKeychain);
+  const mainnetKeychainFn = useSelector(selectMainnetTaprootAccount);
+  const testnetKeychainFn = useSelector(selectTestnetTaprootAccount);
 
   return useMakeBitcoinNetworkSignersForPaymentType(
     mainnetKeychainFn,
@@ -51,17 +60,17 @@ export function useTaprootNetworkSigners() {
 }
 
 function useTaprootSigner(accountIndex: number, network: BitcoinNetworkModes) {
-  const accountKeychain = useTaprootAccountKeychain(accountIndex);
+  const account = useTaprootAccountKeychain(accountIndex);
 
   return useMemo(() => {
-    if (!accountKeychain) return; // TODO: Revisit this return early
+    if (!account) return; // TODO: Revisit this return early
     return bitcoinSignerFactory({
       accountIndex,
-      accountKeychain,
+      accountKeychain: account.keychain,
       paymentFn: getTaprootPaymentFromAddressIndex,
       network,
     });
-  }, [accountIndex, accountKeychain, network]);
+  }, [account, accountIndex, network]);
 }
 
 export function useCurrentAccountTaprootIndexZeroSigner() {

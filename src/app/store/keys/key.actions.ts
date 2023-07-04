@@ -11,7 +11,7 @@ import { StacksClient } from '@app/query/stacks/stacks-client';
 import { AppThunk } from '@app/store';
 import { initalizeWalletSession } from '@app/store/session-restore';
 
-import { getNativeSegwitMainnetAddressFromMnemonic } from '../accounts/blockchain/bitcoin/bitcoin-keychain';
+import { getNativeSegwitMainnetAddressFromMnemonic } from '../accounts/blockchain/bitcoin/native-segwit-account.hooks';
 import { getStacksAddressByIndex } from '../accounts/blockchain/stacks/stacks-keychain';
 import { stxChainSlice } from '../chains/stx-chain.slice';
 import { selectDefaultWalletKey } from '../in-memory-key/in-memory-key.selectors';

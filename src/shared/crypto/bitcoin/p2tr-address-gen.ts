@@ -5,7 +5,11 @@ import { BitcoinNetworkModes } from '@shared/constants';
 
 import { DerivationPathDepth } from '../derivation-path.utils';
 import { getBtcSignerLibNetworkConfigByMode } from './bitcoin.network';
-import { ecdsaPublicKeyToSchnorr, getBitcoinCoinTypeIndexByNetwork } from './bitcoin.utils';
+import {
+  BitcoinAccount,
+  ecdsaPublicKeyToSchnorr,
+  getBitcoinCoinTypeIndexByNetwork,
+} from './bitcoin.utils';
 
 function getTaprootAccountDerivationPath(network: BitcoinNetworkModes, accountIndex: number) {
   return `m/86'/${getBitcoinCoinTypeIndexByNetwork(network)}'/${accountIndex}'`;
@@ -19,14 +23,16 @@ export function getTaprootAddressIndexDerivationPath(
   return getTaprootAccountDerivationPath(network, accountIndex) + `/0/${addressIndex}`;
 }
 
-export function deriveTaprootAccountFromRootKeychain(
-  keychain: HDKey,
-  network: BitcoinNetworkModes
-) {
+export function deriveTaprootAccount(keychain: HDKey, network: BitcoinNetworkModes) {
   if (keychain.depth !== DerivationPathDepth.Root)
     throw new Error('Keychain passed is not an account');
 
-  return (index: number) => keychain.derive(getTaprootAccountDerivationPath(network, index));
+  return (accountIndex: number): BitcoinAccount => ({
+    network,
+    accountIndex,
+    derivationPath: getTaprootAccountDerivationPath(network, accountIndex),
+    keychain: keychain.derive(getTaprootAccountDerivationPath(network, accountIndex)),
+  });
 }
 
 export function getTaprootPayment(publicKey: Uint8Array, network: BitcoinNetworkModes) {
