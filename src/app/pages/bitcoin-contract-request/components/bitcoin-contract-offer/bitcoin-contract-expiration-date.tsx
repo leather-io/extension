@@ -1,6 +1,5 @@
 import { Flex } from '@stacks/ui';
 
-import { SpaceBetween } from '@app/components/layout/space-between';
 import { Text } from '@app/components/typography';
 
 interface BitcoinContractExpirationDateProps {
@@ -10,15 +9,14 @@ export function BitcoinContractExpirationDate({
   expirationDate,
 }: BitcoinContractExpirationDateProps) {
   return (
-    <Flex>
-      <SpaceBetween spacing="base">
-        <Text fontSize={2} fontWeight="500">
-          Expiration Date
-        </Text>
-        <Text fontSize={1} textAlign="right">
-          {expirationDate}
-        </Text>
-      </SpaceBetween>
+    <Flex p="loose"
+    spacing="loose"
+    width="100%"
+    justifyContent="space-between">
+      <Text fontSize={2} fontWeight="bold">
+        Expiration Date
+      </Text>
+      <Text fontSize={2}>{expirationDate}</Text>
     </Flex>
   );
 }
