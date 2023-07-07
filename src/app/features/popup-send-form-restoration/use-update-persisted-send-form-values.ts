@@ -10,8 +10,7 @@ export function useUpdatePersistedSendFormValues() {
 
   function onFormStateChange(state: { recipient: string; amount: string | number }) {
     if (!isPopupMode() || !activeTab || !chrome.storage.session) return;
-
-    chrome.storage.session.set({ ['form-state-' + activeTab.toString()]: state });
+    chrome.storage.session.set({ ['form-state-' + activeTab.id?.toString()]: state });
   }
 
   useEffect(
@@ -19,7 +18,7 @@ export function useUpdatePersistedSendFormValues() {
       if (!isPopupMode()) return;
       if (!activeTab) return;
       if (!chrome.storage.session) return;
-      chrome.storage.session.remove('form-state-' + activeTab.toString());
+      chrome.storage.session.remove('form-state-' + activeTab.id?.toString());
     },
     [activeTab]
   );
