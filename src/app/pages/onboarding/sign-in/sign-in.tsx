@@ -23,11 +23,6 @@ import { PrimaryButton } from '@app/components/primary-button';
 import { Title } from '@app/components/typography';
 import { useSignIn } from '@app/pages/onboarding/sign-in/hooks/use-sign-in';
 
-const hideInputStyle = css`
-  color: transparent;
-  text-shadow: 0 0 8px rgba(0, 0, 0, 0.8);
-`;
-
 export function SignIn() {
   const { onPaste, submitMnemonicForm, error, isLoading, ref, toggleKeyMask, isKeyMasked } =
     useSignIn();
@@ -67,7 +62,13 @@ export function SignIn() {
               <Stack spacing="base-tight">
                 <Input
                   data-testid={OnboardingSelectors.SecretKeyInput}
-                  css={form.values.secretKey && isKeyMasked && hideInputStyle}
+                  css={
+                    isKeyMasked &&
+                    css`
+                      color: transparent;
+                      ${form.values.secretKey && 'text-shadow: 0 0 8px rgba(0, 0, 0, 0.8)'};
+                    `
+                  }
                   as="textarea"
                   autoCapitalize="off"
                   autoFocus
