@@ -1,4 +1,4 @@
-import { ChangeEvent, useCallback, useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import toast from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
 
@@ -25,7 +25,6 @@ async function simulateShortDelayToAvoidImmediateNavigation() {
 export function useSignIn() {
   const [error, setError] = useSeedInputErrorState();
   const [isKeyMasked, setIsKeyMasked] = useState(true);
-  const [sanitizedSecretKey, setSanitizedSecretKey] = useState('');
 
   const { isLoading, setIsLoading, setIsIdle } = useLoading('useSignIn');
   const navigate = useNavigate();
@@ -99,29 +98,6 @@ export function useSignIn() {
     [submitMnemonicForm]
   );
 
-  const onChange = useCallback(
-    (
-      event: ChangeEvent<HTMLInputElement>,
-      handleFormChange: (e: ChangeEvent<HTMLInputElement>) => void
-    ) => {
-      const { value } = event.target;
-      setSanitizedSecretKey(previousSanitizedKey => {
-        // if value is shorter than sanitized secret key, remove characters
-        // from sanitized secret key
-        if (value.length < previousSanitizedKey.length) {
-          const removedChars = previousSanitizedKey.slice(value.length);
-          return previousSanitizedKey.slice(0, -removedChars.length);
-        } else {
-          // append new characters if value is longer than sanitized secret key
-          const newChars = value.slice(previousSanitizedKey.length);
-          return previousSanitizedKey + newChars;
-        }
-      });
-      handleFormChange(event);
-    },
-    []
-  );
-
   const toggleKeyMask = useCallback(() => {
     setIsKeyMasked(prev => !prev);
   }, []);
@@ -142,9 +118,7 @@ export function useSignIn() {
     ref: textAreaRef,
     error,
     isLoading,
-    onChange,
     toggleKeyMask,
     isKeyMasked,
-    sanitizedSecretKey,
   };
 }
