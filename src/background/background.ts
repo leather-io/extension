@@ -31,6 +31,12 @@ chrome.runtime.onInstalled.addListener(async details => {
   }
 });
 
+// https://bugs.chromium.org/p/chromium/issues/detail?id=1271154#c108
+chrome.runtime.onStartup.addListener(() =>
+  // eslint-disable-next-line no-console
+  console.log('Service Worker startup')
+);
+
 //
 // Listen for connection to the content-script - port for two-way communication
 chrome.runtime.onConnect.addListener(port => {
