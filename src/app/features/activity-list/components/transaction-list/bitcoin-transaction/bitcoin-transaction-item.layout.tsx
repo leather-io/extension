@@ -23,15 +23,8 @@ export function BitcoinTransactionItemLayout({
   const [component, bind] = usePressable(true);
 
   return (
-    <Box position="relative" cursor="pointer" {...bind} {...rest}>
-      <Stack
-        alignItems="center"
-        isInline
-        onClick={openTxLink}
-        position="relative"
-        spacing="base-loose"
-        zIndex={2}
-      >
+    <Box position="relative" cursor="pointer" onClick={openTxLink} {...bind} {...rest}>
+      <Stack alignItems="center" isInline position="relative" spacing="base-loose" zIndex={2}>
         {txIcon}
         <Flex flexDirection="column" flexGrow={1} minWidth="0px">
           <SpaceBetween spacing="extra-loose">
