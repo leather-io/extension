@@ -1,9 +1,9 @@
-import { ChangeEvent } from 'react';
 import { FiEye, FiEyeOff } from 'react-icons/fi';
 import { useNavigate } from 'react-router-dom';
 
 import YourSecretKey from '@assets/images/onboarding/your-secret-key.png';
-import { Box, Input, Stack, Text, color, useClipboard, useMediaQuery } from '@stacks/ui';
+import { css } from '@emotion/react';
+import { Box, Input, Stack, Text, color, useMediaQuery } from '@stacks/ui';
 import { OnboardingSelectors } from '@tests/selectors/onboarding.selectors';
 import { Form, Formik } from 'formik';
 
@@ -24,19 +24,9 @@ import { Title } from '@app/components/typography';
 import { useSignIn } from '@app/pages/onboarding/sign-in/hooks/use-sign-in';
 
 export function SignIn() {
-  const {
-    onPaste,
-    submitMnemonicForm,
-    error,
-    isLoading,
-    ref,
-    onChange,
-    toggleKeyMask,
-    isKeyMasked,
-    sanitizedSecretKey,
-  } = useSignIn();
+  const { onPaste, submitMnemonicForm, error, isLoading, ref, toggleKeyMask, isKeyMasked } =
+    useSignIn();
   const navigate = useNavigate();
-  const { onCopy } = useClipboard(sanitizedSecretKey);
 
   const [desktopViewport] = useMediaQuery(`(min-width: ${DESKTOP_VIEWPORT_MIN_WIDTH})`);
 
@@ -46,7 +36,7 @@ export function SignIn() {
     <CenteredPageContainer>
       <Formik
         initialValues={{ secretKey: '' }}
-        onSubmit={_values => submitMnemonicForm(sanitizedSecretKey)}
+        onSubmit={values => submitMnemonicForm(values.secretKey)}
       >
         {form => (
           <Form>
@@ -72,27 +62,27 @@ export function SignIn() {
               <Stack spacing="base-tight">
                 <Input
                   data-testid={OnboardingSelectors.SecretKeyInput}
-                  name="secretKey"
+                  css={
+                    isKeyMasked &&
+                    css`
+                      color: transparent;
+                      ${form.values.secretKey && 'text-shadow: 0 0 8px rgba(0, 0, 0, 0.8)'};
+                    `
+                  }
                   as="textarea"
                   autoCapitalize="off"
                   autoFocus
                   borderRadius="10px"
                   fontSize="16px"
                   minHeight="168px"
-                  onChange={event => {
-                    onChange(event as ChangeEvent<HTMLInputElement>, form.handleChange);
-                  }}
                   onKeyDown={e => e.key === 'Enter' && form.submitForm()}
                   onPaste={onPaste}
-                  onCopy={onCopy}
                   placeholder="Paste or type your Secret Key"
                   ref={ref as any}
                   spellCheck={false}
                   style={{ resize: 'none' }}
-                  value={
-                    isKeyMasked ? form.values.secretKey.replace(/[^ ]/g, '*') : sanitizedSecretKey
-                  }
                   width="100%"
+                  {...form.getFieldProps('secretKey')}
                 />
                 {error && (
                   <ErrorLabel>
