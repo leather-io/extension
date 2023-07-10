@@ -66,6 +66,7 @@ export function SignIn() {
                     isKeyMasked &&
                     css`
                       color: transparent;
+                      caret-color: ${color('text-body')};
                       ${form.values.secretKey && 'text-shadow: 0 0 8px rgba(0, 0, 0, 0.8)'};
                     `
                   }
