@@ -1,10 +1,3 @@
-import { QueryKey, hashQueryKey } from '@tanstack/react-query';
-import hash from 'object-hash';
-
-export function makeLocalDataKey(params: QueryKey): string {
-  return hash(hashQueryKey([params, VERSION]));
-}
-
 // LocalStorage keys kept across sign-in/signout sessions
 const PERSISTENT_LOCAL_DATA: string[] = [];
 
