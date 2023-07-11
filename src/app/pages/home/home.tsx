@@ -51,7 +51,7 @@ function HomeContainer({ account }: HomeContainerProps) {
       <HomeTabs>
         <Routes>
           <Route path={RouteUrls.Balances} element={<BalancesList address={account.address} />} />
-          <Route index path="/" element={<BalancesList address={account.address} />} />
+          {/* <Route index path="*" element={<BalancesList address={account.address} />} /> */}
           <Route path={RouteUrls.Activities} element={<ActivityList />} />
         </Routes>
       </HomeTabs>

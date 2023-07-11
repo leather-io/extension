@@ -67,6 +67,8 @@ export enum RouteUrls {
   SendCryptoAssetFormRecipientAccounts = 'recipient-accounts',
   SendCryptoAssetFormRecipientBns = 'recipient-bns',
   SendBtcChooseFee = '/send/btc/choose-fee',
+  SendBtcChooseFeeRecommended = '/send/btc/choose-fee/recommended',
+  SendBtcChooseFeeCustom = '/send/btc/choose-fee/custom',
   SendBtcConfirmation = '/send/btc/confirm',
   SendBtcDisabled = '/send/btc/disabled',
   SendStxConfirmation = '/send/stx/confirm',

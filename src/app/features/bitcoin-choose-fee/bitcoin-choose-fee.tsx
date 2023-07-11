@@ -1,9 +1,11 @@
 import { useState } from 'react';
+import { Route, Routes } from 'react-router-dom';
 
 import { Box, Stack, Text, color } from '@stacks/ui';
 
 import { BtcFeeType } from '@shared/models/fees/bitcoin-fees.model';
 import { Money } from '@shared/models/money.model';
+import { RouteUrls } from '@shared/route-urls';
 
 import { formatMoney } from '@app/common/money/format-money';
 import { AvailableBalance } from '@app/components/available-balance';
@@ -59,22 +61,28 @@ export function BitcoinChooseFee({
         ) : (
           <ChooseFeeSubtitle isSendingMax={isSendingMax} />
         )}
-        <ChooseFeeTabs
-          customFee={
-            <BitcoinCustomFee
-              amount={amount.amount.toNumber()}
-              customFeeInitialValue={customFeeInitialValue}
-              hasInsufficientBalanceError={showError}
-              isSendingMax={isSendingMax}
-              onChooseFee={onChooseFee}
-              onSetSelectedFeeType={onSetSelectedFeeType}
-              onValidateBitcoinSpend={onValidateBitcoinSpend}
-              recipient={recipient}
-              setCustomFeeInitialValue={setCustomFeeInitialValue}
+        <ChooseFeeTabs>
+          <Routes>
+            <Route path={RouteUrls.SendBtcChooseFeeRecommended} element={feesList} />
+            <Route index path={RouteUrls.SendBtcChooseFee} element={feesList} />
+            <Route
+              path={RouteUrls.SendBtcChooseFeeCustom}
+              element={
+                <BitcoinCustomFee
+                  amount={amount.amount.toNumber()}
+                  customFeeInitialValue={customFeeInitialValue}
+                  hasInsufficientBalanceError={showError}
+                  isSendingMax={isSendingMax}
+                  onChooseFee={onChooseFee}
+                  onSetSelectedFeeType={onSetSelectedFeeType}
+                  onValidateBitcoinSpend={onValidateBitcoinSpend}
+                  recipient={recipient}
+                  setCustomFeeInitialValue={setCustomFeeInitialValue}
+                />
+              }
             />
-          }
-          feesList={feesList}
-        />
+          </Routes>
+        </ChooseFeeTabs>
         <Box mt="loose" width="100%">
           <AvailableBalance balance={btcBalance.balance} />
         </Box>
