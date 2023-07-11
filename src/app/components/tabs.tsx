@@ -11,6 +11,7 @@ function TabButton({ isActive, label, ...rest }: { isActive?: boolean; label: st
       borderRadius="10px"
       color={isActive ? color('text-title') : color('text-caption')}
       fontSize={1}
+      textTransform="capitalize"
       fontWeight={isActive ? 500 : 400}
       as="button"
       _hover={!isActive ? { color: color('text-title') } : undefined}
@@ -69,7 +70,7 @@ export function Tabs({
         {tabs.map((tab, index) => (
           <TabButton
             onClick={() => onTabClick(index)}
-            data-testid={`tab-${tab.slug}`}
+            data-testid={`tab-${tab.label}`}
             isActive={activeTab === index}
             key={tab.slug}
             label={tab.label}

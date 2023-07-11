@@ -7,7 +7,6 @@ import { truncateMiddle } from '@stacks/ui-utils';
 import { RouteUrls } from '@shared/route-urls';
 
 import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
-import { useHomeTabs } from '@app/common/hooks/use-home-tabs';
 import { formatMoneyPadded } from '@app/common/money/format-money';
 import { delay } from '@app/common/utils';
 import { FormAddressDisplayer } from '@app/components/address-displayer/form-address-displayer';
@@ -25,7 +24,6 @@ import { useGenerateRetrieveTaprootFundsTx } from './use-generate-retrieve-tapro
 
 export function RetrieveTaprootToNativeSegwit() {
   const navigate = useNavigate();
-  const { setActiveTabActivity } = useHomeTabs();
   const balance = useCurrentTaprootAccountBalance();
   const recipient = useCurrentAccountNativeSegwitAddressIndexZero();
   const uninscribedUtxos = useCurrentTaprootAccountUninscribedUtxos();
@@ -41,8 +39,7 @@ export function RetrieveTaprootToNativeSegwit() {
         await delay(1200);
         toast.success('Transaction broadcasted succesfully');
         await delay(700);
-        navigate(RouteUrls.Home);
-        setActiveTabActivity();
+        navigate(RouteUrls.Activity);
         void analytics.track('broadcast_retrieve_taproot_to_native_segwit');
       },
       onError(e) {
