@@ -25,7 +25,9 @@ export enum RouteUrls {
 
   // Active wallet routes
   Home = '/',
+  Activities = '/activities',
   AddNetwork = '/add-network',
+  Balances = '/balances',
   ChooseAccount = '/choose-account',
   Fund = '/fund',
   FundReceive = '/fund/receive',

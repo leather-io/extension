@@ -24,6 +24,7 @@ export function ChooseFeeTabs(props: ChooseFeeTabsProps) {
     setActiveTab(index);
   };
 
+  // PETE refactor this so it works without state also and with new tabs
   return (
     <Stack flexGrow={1} mt="tight" spacing="base" width="100%" {...rest}>
       <Tabs

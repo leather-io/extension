@@ -1,65 +1,56 @@
-import { Suspense } from 'react';
+import { Suspense, useCallback, useMemo } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 import { Box, Flex, SlideFade, Stack } from '@stacks/ui';
 import type { StackProps } from '@stacks/ui';
 
-import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
-import { useHomeTabs } from '@app/common/hooks/use-home-tabs';
+import { RouteUrls } from '@shared/route-urls';
+
 import { LoadingSpinner } from '@app/components/loading-spinner';
 import { Tabs } from '@app/components/tabs';
 
 interface HomeTabsProps extends StackProps {
-  balances: React.JSX.Element;
-  activity: React.JSX.Element;
+  children: React.JSX.Element;
 }
 
-const ANALYTICS_PATH = ['/balances', '/activity'];
-
 export function HomeTabs(props: HomeTabsProps) {
-  const { balances, activity, ...rest } = props;
-  const analytics = useAnalytics();
+  //  It's unclear if ...rest is even needed here
+  const { children, ...rest } = props;
+  const navigate = useNavigate();
+  const { pathname } = useLocation();
 
-  const { activeTab, setActiveTab } = useHomeTabs();
+  const tabs = useMemo(
+    () => [
+      { slug: RouteUrls.Balances, label: 'Balances' },
+      { slug: RouteUrls.Activities, label: 'Activity' },
+    ],
+    []
+  );
 
-  const setActiveTabTracked = (index: number) => {
-    void analytics.page('view', ANALYTICS_PATH[index]);
-    setActiveTab(index);
-  };
+  const getActiveTab = useCallback(
+    () => (pathname !== '/' ? tabs.findIndex(tab => tab.slug === pathname) : 0),
+    [tabs, pathname]
+  );
 
   return (
+    // it's unclear if ...rest is even needed here also and it gets passed all the way along
     <Stack flexGrow={1} mt="loose" spacing="extra-loose" {...rest}>
       <Tabs
-        tabs={[
-          { slug: 'balances', label: 'Balances' },
-          { slug: 'activity', label: 'Activity' },
-        ]}
-        activeTab={activeTab}
-        onTabClick={setActiveTabTracked}
+        tabs={tabs}
+        activeTab={getActiveTab()}
+        onTabClick={navigate}
         width={['100%', '193px']}
       />
       <Flex position="relative" flexGrow={1}>
-        {activeTab === 0 && (
-          <Suspense fallback={<LoadingSpinner pb="72px" />}>
-            <SlideFade in={activeTab === 0}>
-              {styles => (
-                <Box style={styles} width="100%">
-                  {balances}
-                </Box>
-              )}
-            </SlideFade>
-          </Suspense>
-        )}
-        {activeTab === 1 && (
-          <Suspense fallback={<LoadingSpinner pb="72px" />}>
-            <SlideFade in={activeTab === 1}>
-              {styles => (
-                <Box width="100%" style={styles}>
-                  {activity}
-                </Box>
-              )}
-            </SlideFade>
-          </Suspense>
-        )}
+        <Suspense fallback={<LoadingSpinner pb="72px" />}>
+          <SlideFade in={true}>
+            {styles => (
+              <Box style={styles} width="100%">
+                {children}
+              </Box>
+            )}
+          </SlideFade>
+        </Suspense>
       </Flex>
     </Stack>
   );

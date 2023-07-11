@@ -1,4 +1,4 @@
-import { Outlet, useNavigate } from 'react-router-dom';
+import { Route, Routes, useNavigate } from 'react-router-dom';
 
 import { RouteUrls } from '@shared/route-urls';
 
@@ -48,8 +48,13 @@ function HomeContainer({ account }: HomeContainerProps) {
       currentAccount={<CurrentAccount />}
       actions={<HomeActions />}
     >
-      <HomeTabs balances={<BalancesList address={account.address} />} activity={<ActivityList />} />
-      <Outlet />
+      <HomeTabs>
+        <Routes>
+          <Route path={RouteUrls.Balances} element={<BalancesList address={account.address} />} />
+          <Route index path="/" element={<BalancesList address={account.address} />} />
+          <Route path={RouteUrls.Activities} element={<ActivityList />} />
+        </Routes>
+      </HomeTabs>
     </HomeLayout>
   );
 }

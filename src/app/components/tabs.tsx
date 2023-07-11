@@ -53,7 +53,7 @@ export function Tabs({
 }: {
   tabs: Tabs[];
   activeTab: number;
-  onTabClick: (index: number) => void;
+  onTabClick: (slug: string) => void;
 } & StackProps) {
   return (
     <Stack
@@ -68,7 +68,7 @@ export function Tabs({
       <>
         {tabs.map((tab, index) => (
           <TabButton
-            onClick={() => onTabClick(index)}
+            onClick={() => onTabClick(tab.slug)}
             data-testid={`tab-${tab.slug}`}
             isActive={activeTab === index}
             key={tab.slug}
