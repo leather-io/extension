@@ -10,7 +10,7 @@ export const buildEnterKeyEvent = (onClick: () => void) => {
   };
 };
 
-export function Link(props: BoxProps): JSX.Element {
+export function Link(props: BoxProps): React.JSX.Element {
   const { _hover = {}, children, fontSize = '12px', onClick, ...rest } = props;
   return (
     <Text

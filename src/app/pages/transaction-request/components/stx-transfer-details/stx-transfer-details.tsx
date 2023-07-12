@@ -6,7 +6,7 @@ import { AttachmentRow } from '@app/pages/transaction-request/components/attachm
 import { Row } from '@app/pages/transaction-request/components/row';
 import { useTransactionRequestState } from '@app/store/transactions/requests.hooks';
 
-export function StxTransferDetails(): JSX.Element | null {
+export function StxTransferDetails(): React.JSX.Element | null {
   const pendingTransaction = useTransactionRequestState();
 
   if (!pendingTransaction || pendingTransaction.txType !== 'token_transfer') {

@@ -5,7 +5,7 @@ import { Box, ButtonProps, Text } from '@stacks/ui';
 interface HomeActionButtonProps extends ButtonProps {
   icon: any;
   label: string;
-  buttonComponent(props: ButtonProps): JSX.Element;
+  buttonComponent(props: ButtonProps): React.JSX.Element;
 }
 export const HomeActionButton = memo((props: HomeActionButtonProps) => {
   const { icon, label, buttonComponent: Button, ...rest } = props;

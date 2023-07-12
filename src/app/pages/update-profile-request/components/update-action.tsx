@@ -57,7 +57,7 @@ export function UpdateAction({
   profileUpdaterPayload,
 }: {
   profileUpdaterPayload: ProfileUpdatePayload;
-}): JSX.Element | null {
+}): React.JSX.Element | null {
   const { profile: publicProfile } = profileUpdaterPayload;
 
   const { tabId, requestToken } = useProfileUpdateRequestSearchParams();

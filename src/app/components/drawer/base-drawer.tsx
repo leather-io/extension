@@ -32,7 +32,7 @@ function useDrawer(isShowing: boolean, onClose: () => void, pause?: boolean) {
 interface BaseDrawerProps extends Omit<FlexProps, 'title'> {
   children?: ReactNode;
   enableGoBack?: boolean;
-  icon?: JSX.Element;
+  icon?: React.JSX.Element;
   isShowing: boolean;
   isWaitingOnPerformedAction?: boolean;
   onClose?(): void;

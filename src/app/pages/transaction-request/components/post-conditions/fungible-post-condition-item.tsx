@@ -27,7 +27,7 @@ interface FungiblePostConditionItemProps {
 
 function FungiblePostConditionItemSuspense(
   props: FungiblePostConditionItemProps
-): JSX.Element | null {
+): React.JSX.Element | null {
   const { isLast, pc } = props;
   const currentAccount = useCurrentStacksAccount();
   const pendingTransaction = useTransactionRequestState();
@@ -84,7 +84,9 @@ function FungiblePostConditionItemSuspense(
   );
 }
 
-export function FungiblePostConditionItem(props: FungiblePostConditionItemProps): JSX.Element {
+export function FungiblePostConditionItem(
+  props: FungiblePostConditionItemProps
+): React.JSX.Element {
   return (
     <Suspense fallback={<LoadingSpinner height="190px" />}>
       <FungiblePostConditionItemSuspense {...props} />

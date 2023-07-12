@@ -5,7 +5,7 @@ import { color } from '@stacks/ui-utils';
 
 import { Body } from '@app/components/typography';
 
-export function NoPostConditions(): JSX.Element {
+export function NoPostConditions(): React.JSX.Element {
   return (
     <Stack alignItems="center" spacing="base" p="base-loose" isInline>
       <Circle bg={color('bg-4')} flexShrink={0}>

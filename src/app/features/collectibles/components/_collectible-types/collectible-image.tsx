@@ -5,7 +5,7 @@ import { ImageUnavailable } from '../image-unavailable';
 
 interface CollectibleImageProps extends Omit<CollectibleItemLayoutProps, 'children'> {
   alt?: string;
-  icon: JSX.Element;
+  icon: React.JSX.Element;
   src: string;
 }
 export function CollectibleImage(props: CollectibleImageProps) {

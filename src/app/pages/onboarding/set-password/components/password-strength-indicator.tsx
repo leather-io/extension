@@ -8,7 +8,7 @@ import { ValidatedPassword } from '@app/common/validation/validate-password';
 import { defaultColor } from './password-field.utils';
 
 function fillArray(amount: number) {
-  return (item: (i: number) => JSX.Element) =>
+  return (item: (i: number) => React.JSX.Element) =>
     createNullArrayOfLength(amount).map((_, i) => item(i));
 }
 

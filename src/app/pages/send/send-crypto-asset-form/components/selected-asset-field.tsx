@@ -5,7 +5,7 @@ import { useOnMount } from '@app/common/hooks/use-on-mount';
 import { SpaceBetween } from '@app/components/layout/space-between';
 
 interface SelectedAssetFieldProps {
-  icon: JSX.Element;
+  icon: React.JSX.Element;
   name: string;
   symbol: string;
 }

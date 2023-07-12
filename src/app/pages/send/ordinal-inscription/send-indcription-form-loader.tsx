@@ -3,7 +3,7 @@ import { Stack } from '@stacks/ui';
 import { LoadingSpinner } from '@app/components/loading-spinner';
 
 interface SendInscriptionFormLoaderProps {
-  children: JSX.Element;
+  children: React.JSX.Element;
   isLoading: boolean;
 }
 

@@ -5,7 +5,7 @@ import { useTransactionPostConditions } from '@app/store/transactions/transactio
 import { FungiblePostConditionItem } from './fungible-post-condition-item';
 import { PostConditionItem } from './post-condition-item';
 
-export function PostConditionsList(): JSX.Element {
+export function PostConditionsList(): React.JSX.Element {
   const postConditions = useTransactionPostConditions();
 
   return (

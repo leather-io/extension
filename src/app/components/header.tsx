@@ -16,7 +16,7 @@ import { NetworkModeBadge } from '@app/components/network-mode-badge';
 import { Title } from '@app/components/typography';
 
 interface HeaderProps extends FlexProps {
-  actionButton?: JSX.Element;
+  actionButton?: React.JSX.Element;
   hideActions?: boolean;
   onClose?(): void;
   title?: string;

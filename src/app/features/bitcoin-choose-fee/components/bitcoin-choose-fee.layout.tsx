@@ -3,7 +3,7 @@ import { Flex } from '@stacks/ui';
 import { LoadingSpinner } from '@app/components/loading-spinner';
 
 interface BitcoinChooseFeeLayoutProps {
-  children: JSX.Element;
+  children: React.JSX.Element;
   isLoading: boolean;
 }
 

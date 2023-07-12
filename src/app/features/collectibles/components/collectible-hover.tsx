@@ -4,7 +4,7 @@ import { figmaTheme } from '@app/common/utils/figma-theme';
 import { ArrowIcon } from '@app/components/icons/arrow-icon';
 
 interface CollectibleHoverProps {
-  collectibleTypeIcon?: JSX.Element;
+  collectibleTypeIcon?: React.JSX.Element;
   isHovered: boolean;
   onClickCallToAction?(): void;
 }

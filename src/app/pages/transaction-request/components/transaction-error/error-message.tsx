@@ -7,8 +7,8 @@ import { Caption, Text } from '@app/components/typography';
 
 interface ErrorMessageProps extends StackProps {
   title: string;
-  body: string | JSX.Element;
-  actions?: JSX.Element;
+  body: string | React.JSX.Element;
+  actions?: React.JSX.Element;
 }
 export const ErrorMessage = memo(({ title, body, actions, ...rest }: ErrorMessageProps) => {
   return (

@@ -4,7 +4,7 @@ import {
 } from '@app/query/bitcoin/ordinals/brc20/brc20-tokens.query';
 
 interface Brc20TokensLoaderProps {
-  children(brc20Tokens: Brc20Token[]): JSX.Element;
+  children(brc20Tokens: Brc20Token[]): React.JSX.Element;
 }
 export function Brc20TokensLoader({ children }: Brc20TokensLoaderProps) {
   const { data: allBrc20TokensResponse } = useBrc20TokensQuery();

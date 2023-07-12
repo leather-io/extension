@@ -16,7 +16,7 @@ export interface CollectibleItemLayoutProps {
   onClickCallToAction?(): void;
   onClickLayout?(): void;
   onClickSend?(): void;
-  collectibleTypeIcon?: JSX.Element;
+  collectibleTypeIcon?: React.JSX.Element;
   subtitle: string;
   title: string;
 }

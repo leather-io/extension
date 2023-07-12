@@ -39,7 +39,7 @@ interface LedgerSignMsgData {
   unsignedMessage: UnsignedMessage;
 }
 interface LedgerSignMsgDataProps {
-  children({ account, unsignedMessage }: LedgerSignMsgData): JSX.Element;
+  children({ account, unsignedMessage }: LedgerSignMsgData): React.JSX.Element;
 }
 function LedgerSignMsgData({ children }: LedgerSignMsgDataProps) {
   const account = useCurrentStacksAccount();

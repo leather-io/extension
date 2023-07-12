@@ -2,7 +2,7 @@ import { FiAlertCircle } from 'react-icons/fi';
 
 import { Box, Stack, Text, color } from '@stacks/ui';
 
-export function SponsoredLabel(): JSX.Element {
+export function SponsoredLabel(): React.JSX.Element {
   return (
     <Stack width="100%">
       <Stack

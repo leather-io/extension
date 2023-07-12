@@ -10,7 +10,7 @@ interface IconBaseProps extends SVGAttributes<SVGElement> {
   color?: string;
   title?: string;
 }
-type IconType = (props: IconBaseProps) => JSX.Element;
+type IconType = (props: IconBaseProps) => React.JSX.Element;
 
 interface HeaderActionButtonProps {
   icon?: IconType;

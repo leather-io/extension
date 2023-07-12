@@ -9,7 +9,7 @@ import { createUtxoFromInscription } from './create-utxo-from-inscription';
 import { SendInscriptionContextState } from './send-inscription-container';
 
 interface SendInscriptionLoaderProps {
-  children(data: Partial<SendInscriptionContextState>): JSX.Element;
+  children(data: Partial<SendInscriptionContextState>): React.JSX.Element;
 }
 export function SendInscriptionLoader({ children }: SendInscriptionLoaderProps) {
   const { inscription } = useSendInscriptionRouteState();

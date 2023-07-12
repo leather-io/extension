@@ -29,8 +29,8 @@ interface StacksCommonSendFormProps {
   ): Promise<void>;
   initialValues: StacksSendFormValues;
   validationSchema: ObjectSchema<any>;
-  amountField: JSX.Element;
-  selectedAssetField: JSX.Element;
+  amountField: React.JSX.Element;
+  selectedAssetField: React.JSX.Element;
   availableTokenBalance: Money;
   fees?: Fees;
 }

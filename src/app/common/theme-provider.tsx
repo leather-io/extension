@@ -44,7 +44,7 @@ function setUserSelectedTheme(theme: UserSelectedTheme) {
 }
 
 interface ThemeSwitcherProviderProps {
-  children: JSX.Element | JSX.Element[];
+  children: React.JSX.Element | React.JSX.Element[];
 }
 export function ThemeSwitcherProvider({ children }: ThemeSwitcherProviderProps) {
   const userSelectedTheme = useUserSelectedTheme();

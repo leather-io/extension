@@ -27,7 +27,7 @@ function ItemHover({
 
 export function usePressable(
   isPressable?: boolean
-): [JSX.Element | null, any, { isHovered: boolean; isFocused: boolean }] {
+): [React.JSX.Element | null, any, { isHovered: boolean; isFocused: boolean }] {
   const [isHovered, bind] = useHover();
   const [isFocused, focusBind] = useFocus();
 

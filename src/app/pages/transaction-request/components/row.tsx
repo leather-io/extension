@@ -6,12 +6,12 @@ import { Caption } from '@app/components/typography';
 import { PrincipalValue } from './principal-value';
 
 interface RowProps extends StackProps {
-  name?: string | JSX.Element | null;
+  name?: string | React.JSX.Element | null;
   type?: string;
   value: string;
 }
 
-export function Row(props: RowProps): JSX.Element {
+export function Row(props: RowProps): React.JSX.Element {
   const { name, type, value, ...rest } = props;
 
   return (

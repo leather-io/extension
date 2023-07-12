@@ -12,7 +12,7 @@ import { useDrawers } from '@app/common/hooks/use-drawers';
 import { LoadingKeys, useLoading } from '@app/common/hooks/use-loading';
 import { useTransactionError } from '@app/pages/transaction-request/hooks/use-transaction-error';
 
-function BaseConfirmButton(props: ButtonProps): JSX.Element {
+function BaseConfirmButton(props: ButtonProps): React.JSX.Element {
   return (
     <Button borderRadius="10px" mt="base" py="base" type="submit" width="100%" {...props}>
       Confirm

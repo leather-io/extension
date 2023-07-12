@@ -1,8 +1,8 @@
 import { Flex, color } from '@stacks/ui';
 
 interface ContainerLayoutProps {
-  children: JSX.Element | JSX.Element[];
-  header: JSX.Element | null;
+  children: React.JSX.Element | React.JSX.Element[];
+  header: React.JSX.Element | null;
 }
 export function ContainerLayout(props: ContainerLayoutProps) {
   const { children, header } = props;
