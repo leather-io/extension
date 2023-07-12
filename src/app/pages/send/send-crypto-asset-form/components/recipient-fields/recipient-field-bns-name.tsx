@@ -15,7 +15,7 @@ interface RecipientFieldBnsNameProps {
   isSelectVisible: boolean;
   onClickLabelAction(): void;
   selectedRecipientField: number;
-  topInputOverlay: JSX.Element;
+  topInputOverlay: React.JSX.Element;
 }
 export function RecipientFieldBnsName({
   fetchFn,

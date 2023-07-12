@@ -3,7 +3,7 @@ import { useTransactionRequestState } from '@app/store/transactions/requests.hoo
 
 import { Row } from './row';
 
-export function AttachmentRow(): JSX.Element | null {
+export function AttachmentRow(): React.JSX.Element | null {
   const pendingTransaction = useTransactionRequestState();
   return pendingTransaction?.attachment ? (
     <Row name="Attachment" value={hexToHumanReadable(pendingTransaction.attachment)} />

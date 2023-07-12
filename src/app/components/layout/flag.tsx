@@ -14,7 +14,7 @@ interface FlagProps extends FlexProps {
   spacing?: Spacing;
   align?: 'top' | 'middle' | 'bottom';
   children: React.ReactNode;
-  img: JSX.Element;
+  img: React.JSX.Element;
 }
 /**
  * Implementation of flag object

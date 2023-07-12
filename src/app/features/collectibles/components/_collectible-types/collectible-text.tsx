@@ -2,7 +2,7 @@ import { CollectibleItemLayout, CollectibleItemLayoutProps } from '../collectibl
 import { CollectibleTextLayout } from './collectible-text.layout';
 
 interface CollectibleTextProps extends Omit<CollectibleItemLayoutProps, 'children'> {
-  icon: JSX.Element;
+  icon: React.JSX.Element;
   content: string;
 }
 export function CollectibleText(props: CollectibleTextProps) {

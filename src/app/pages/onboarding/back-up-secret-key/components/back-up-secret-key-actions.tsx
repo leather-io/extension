@@ -9,7 +9,7 @@ import { Caption } from '@app/components/typography';
 interface BackUpSecretKeyLayoutProps {
   onBackedUpSecretKey(): void;
 }
-export function BackUpSecretKeyActions(props: BackUpSecretKeyLayoutProps): JSX.Element {
+export function BackUpSecretKeyActions(props: BackUpSecretKeyLayoutProps): React.JSX.Element {
   const { onBackedUpSecretKey } = props;
 
   return (

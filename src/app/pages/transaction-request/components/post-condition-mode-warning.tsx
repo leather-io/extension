@@ -5,7 +5,7 @@ import { Box, Flex, Text, color } from '@stacks/ui';
 
 import { usePostConditionModeState } from '@app/store/transactions/post-conditions.hooks';
 
-export function PostConditionModeWarning(): JSX.Element | null {
+export function PostConditionModeWarning(): React.JSX.Element | null {
   const mode = usePostConditionModeState();
 
   if (mode !== PostConditionMode.Allow) return null;

@@ -5,7 +5,7 @@ import { stacksValue } from '@app/common/stacks-utils';
 import { EventCard } from '@app/components/event-card';
 import { useTransactionRequestState } from '@app/store/transactions/requests.hooks';
 
-export function StxPostCondition(): JSX.Element | null {
+export function StxPostCondition(): React.JSX.Element | null {
   const pendingTransaction = useTransactionRequestState();
 
   if (!pendingTransaction || pendingTransaction.txType !== TransactionTypes.STXTransfer)

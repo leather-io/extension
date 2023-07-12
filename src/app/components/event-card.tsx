@@ -18,7 +18,7 @@ interface EventCardProps {
   ticker: string;
   title: string;
 }
-export function EventCard(props: EventCardProps): JSX.Element {
+export function EventCard(props: EventCardProps): React.JSX.Element {
   const { actions, amount, icon, isLast, left, message, right, ticker, title } = props;
 
   return (

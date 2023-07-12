@@ -13,13 +13,13 @@ import { CryptoCurrencyAssetItemLayout } from './crypto-currency-asset-item.layo
 
 interface CryptoCurrencyAssetItemProps extends StackProps {
   assetBalance: AllCryptoCurrencyAssetBalances;
-  icon: JSX.Element;
+  icon: React.JSX.Element;
   usdBalance?: string;
   address?: string;
   isPressable?: boolean;
   canCopy?: boolean;
-  additionalBalanceInfo?: JSX.Element;
-  additionalUsdBalanceInfo?: JSX.Element;
+  additionalBalanceInfo?: React.JSX.Element;
+  additionalUsdBalanceInfo?: React.JSX.Element;
 }
 export const CryptoCurrencyAssetItem = forwardRefWithAs(
   (props: CryptoCurrencyAssetItemProps, ref) => {

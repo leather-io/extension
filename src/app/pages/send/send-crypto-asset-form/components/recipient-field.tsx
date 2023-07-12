@@ -1,4 +1,4 @@
-import { JSX, useEffect } from 'react';
+import { useEffect } from 'react';
 
 import { SendCryptoAssetSelectors } from '@tests/selectors/send.selectors';
 import { useField, useFormikContext } from 'formik';
@@ -15,7 +15,7 @@ interface RecipientFieldProps {
   onBlur?(): void;
   onClickLabelAction?(): void;
   placeholder: string;
-  topInputOverlay?: JSX.Element;
+  topInputOverlay?: React.JSX.Element;
 }
 export function RecipientField({
   isDisabled,

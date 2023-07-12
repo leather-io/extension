@@ -4,7 +4,7 @@ import { SpaceBetween } from '@app/components/layout/space-between';
 import { Text } from '@app/components/typography';
 
 interface CollectibleAssetProps {
-  icon: JSX.Element;
+  icon: React.JSX.Element;
   name: string;
   symbol?: string;
 }

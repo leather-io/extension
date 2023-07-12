@@ -9,7 +9,7 @@ import { NetworkModeBadge } from '@app/components/network-mode-badge';
 import { Title } from '@app/components/typography';
 
 interface ModalHeaderProps extends FlexProps {
-  actionButton?: JSX.Element;
+  actionButton?: React.JSX.Element;
   closeIcon?: boolean;
   hideActions?: boolean;
   onClose?(): void;

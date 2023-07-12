@@ -9,7 +9,7 @@ import {
   TupleNodeValueDisplayer,
 } from './nested-tuple-displayer';
 
-function wrapText(text: string): JSX.Element {
+function wrapText(text: string): React.JSX.Element {
   return <>{text}</>;
 }
 

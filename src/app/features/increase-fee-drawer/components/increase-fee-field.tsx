@@ -11,7 +11,7 @@ import { FeeMultiplier } from './fee-multiplier';
 interface IncreaseFeeFieldProps {
   currentFee: number;
 }
-export function IncreaseFeeField(props: IncreaseFeeFieldProps): JSX.Element {
+export function IncreaseFeeField(props: IncreaseFeeFieldProps): React.JSX.Element {
   const { currentFee } = props;
   const [field, meta, helpers] = useField('fee');
   const [modified, setModified] = useState(false);

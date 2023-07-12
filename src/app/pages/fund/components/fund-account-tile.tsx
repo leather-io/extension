@@ -4,11 +4,11 @@ import { FundPageSelectors } from '@tests-legacy/page-objects/fund.selectors';
 import { Caption, Title } from '@app/components/typography';
 
 interface FundAccountTileProps {
-  attributes?: JSX.Element;
+  attributes?: React.JSX.Element;
   description: string;
   icon: string;
   onClickTile(): void;
-  receiveStxIcon?: JSX.Element;
+  receiveStxIcon?: React.JSX.Element;
   testId: string;
   title?: string;
 }

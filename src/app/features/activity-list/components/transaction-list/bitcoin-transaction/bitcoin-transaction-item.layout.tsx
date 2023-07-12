@@ -5,11 +5,11 @@ import { SpaceBetween } from '@app/components/layout/space-between';
 
 interface BitcoinTransactionItemLayoutProps {
   openTxLink(): void;
-  txCaption: JSX.Element;
-  txIcon: JSX.Element;
-  txStatus: JSX.Element;
-  txTitle: JSX.Element;
-  txValue: JSX.Element;
+  txCaption: React.JSX.Element;
+  txIcon: React.JSX.Element;
+  txStatus: React.JSX.Element;
+  txTitle: React.JSX.Element;
+  txValue: React.JSX.Element;
 }
 export function BitcoinTransactionItemLayout({
   openTxLink,

@@ -4,7 +4,7 @@ interface RecipientFieldAddressProps {
   isSelectVisible: boolean;
   onClickLabelAction(): void;
   selectedRecipientField: number;
-  topInputOverlay: JSX.Element;
+  topInputOverlay: React.JSX.Element;
 }
 export function RecipientFieldAddress({
   isSelectVisible,

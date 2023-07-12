@@ -8,7 +8,7 @@ import { useTransactionRequestState } from '@app/store/transactions/requests.hoo
 
 import { FunctionArgumentItem } from './function-argument-item';
 
-function FunctionArgumentsListBase(props: StackProps): JSX.Element | null {
+function FunctionArgumentsListBase(props: StackProps): React.JSX.Element | null {
   const transactionRequest = useTransactionRequestState();
 
   if (!transactionRequest || transactionRequest.txType !== 'contract_call') {

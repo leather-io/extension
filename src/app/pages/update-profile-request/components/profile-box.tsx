@@ -44,7 +44,7 @@ function Properties({ p }: { p: any }) {
   );
 }
 
-export function ProfileBox({ profile }: { profile: Profile }): JSX.Element | null {
+export function ProfileBox({ profile }: { profile: Profile }): React.JSX.Element | null {
   return (
     <Box minHeight={'260px'}>
       <Stack

@@ -8,7 +8,7 @@ interface FunctionArgumentProps {
   index: number;
 }
 
-export function FunctionArgumentItem(props: FunctionArgumentProps): JSX.Element {
+export function FunctionArgumentItem(props: FunctionArgumentProps): React.JSX.Element {
   const { arg, index, ...rest } = props;
   const contractFunction = useContractFunction();
   const argCV = deserializeCV(Buffer.from(arg, 'hex'));

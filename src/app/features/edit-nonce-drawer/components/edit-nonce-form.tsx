@@ -7,7 +7,7 @@ interface EditNonceFormProps {
   onClose(): void;
   onSubmit(): void;
 }
-export function EditNonceForm(props: EditNonceFormProps): JSX.Element {
+export function EditNonceForm(props: EditNonceFormProps): React.JSX.Element {
   const { onBlur, onClose, onSubmit } = props;
 
   return (

@@ -22,7 +22,7 @@ interface PostConditionItemProps {
   pc: STXPostCondition | NonFungiblePostCondition;
 }
 
-function PostConditionItemSuspense(props: PostConditionItemProps): JSX.Element | null {
+function PostConditionItemSuspense(props: PostConditionItemProps): React.JSX.Element | null {
   const { pc, isLast } = props;
   const currentAccount = useCurrentStacksAccount();
   const pendingTransaction = useTransactionRequestState();
@@ -70,7 +70,7 @@ function PostConditionItemSuspense(props: PostConditionItemProps): JSX.Element |
   );
 }
 
-export function PostConditionItem(props: PostConditionItemProps): JSX.Element {
+export function PostConditionItem(props: PostConditionItemProps): React.JSX.Element {
   return (
     <Suspense fallback={<LoadingSpinner height="190px" />}>
       <PostConditionItemSuspense {...props} />
