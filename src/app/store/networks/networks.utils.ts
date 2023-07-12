@@ -64,11 +64,12 @@ export function transformNetworkStateToMultichainStucture(
               },
               bitcoin: {
                 blockchain: 'bitcoin',
-                network: ChainID[chainId].toLowerCase(),
-                url: whenStacksChainId(chainId)({
-                  [ChainID.Mainnet]: BITCOIN_API_BASE_URL_MAINNET,
-                  [ChainID.Testnet]: BITCOIN_API_BASE_URL_TESTNET,
-                }),
+                network: ChainID[chainId] ? ChainID[chainId].toLowerCase() : 'testnet',
+                url:
+                  whenStacksChainId(chainId)({
+                    [ChainID.Mainnet]: BITCOIN_API_BASE_URL_MAINNET,
+                    [ChainID.Testnet]: BITCOIN_API_BASE_URL_TESTNET,
+                  }) || BITCOIN_API_BASE_URL_TESTNET,
               },
             },
           },
