@@ -72,7 +72,7 @@ const selectStacksWalletState = createSelector(
 
 const softwareAccountsState = atom<SoftwareStacksAccount[] | undefined>(get => {
   const store = get(storeAtom);
-  const addressVersion = get(addressNetworkVersionState);
+  const addressVersion = get(addressNetworkVersionState) || AddressVersion.TestnetSingleSig;
   const accounts = selectStacksWalletState(store);
   if (!accounts) return undefined;
   return accounts.map(account => {

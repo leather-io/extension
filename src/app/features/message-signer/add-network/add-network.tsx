@@ -31,8 +31,8 @@ interface AddNetworkFormValues {
 const addNetworkFormValues: AddNetworkFormValues = { key: '', name: '', url: '' };
 
 enum NetworkID {
-  Testnet = 0x17000000,
-  Mainnet = 0xff000000,
+  Testnet = 0xff000000,
+  Mainnet = 0x17000000,
 }
 
 export function AddNetwork() {
