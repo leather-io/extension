@@ -30,6 +30,11 @@ interface AddNetworkFormValues {
 }
 const addNetworkFormValues: AddNetworkFormValues = { key: '', name: '', url: '' };
 
+enum NetworkID {
+  Testnet = 0x17000000,
+  Mainnet = 0xff000000,
+}
+
 export function AddNetwork() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
@@ -60,8 +65,16 @@ export function AddNetwork() {
             const path = removeTrailingSlash(new URL(url).href);
             const response = await network.fetchFn(`${path}/v2/info`);
             const chainInfo = await response.json();
-            const networkId = chainInfo?.network_id && parseInt(chainInfo?.network_id);
-            if (networkId === ChainID.Mainnet || networkId === ChainID.Testnet) {
+            if (!chainInfo) throw new Error('Unable to fetch info from node');
+
+            const { parent_network_id: parentNetworkId, network_id: networkId } = chainInfo;
+
+            const isSubnet = typeof chainInfo.l1_subnet_governing_contract === 'string';
+            const isValidSubnet =
+              isSubnet &&
+              (parentNetworkId === NetworkID.Mainnet || parentNetworkId === NetworkID.Testnet);
+
+            if (networkId === ChainID.Mainnet || networkId === ChainID.Testnet || isValidSubnet) {
               networksActions.addNetwork({
                 chainId: networkId,
                 id: key as DefaultNetworkConfigurations,
