@@ -29,6 +29,12 @@ interface BitcoinChooseFeeProps {
   recommendedFeeRate: string;
   showError: boolean;
 }
+
+type saveRateProps = {
+  saveRateForFuture: boolean;
+  savedRate: string;
+};
+
 export function BitcoinChooseFee({
   amount,
   feesList,
@@ -44,7 +50,18 @@ export function BitcoinChooseFee({
   const nativeSegwitSigner = useCurrentAccountNativeSegwitIndexZeroSigner();
   const btcBalance = useNativeSegwitBalance(nativeSegwitSigner.address);
   const hasAmount = amount.amount.isGreaterThan(0);
-  const [customFeeInitialValue, setCustomFeeInitialValue] = useState(recommendedFeeRate);
+
+  const savedRateDetails: saveRateProps = JSON.parse(
+    localStorage.getItem(nativeSegwitSigner.address.toString()) || '{}'
+  );
+
+  const [saveRateForFuture, setSaveRateForFuture] = useState(
+    Object.keys(savedRateDetails).length === 0 ? false : savedRateDetails.saveRateForFuture
+  );
+
+  const [customFeeInitialValue, setCustomFeeInitialValue] = useState(
+    Object.keys(savedRateDetails).length === 0 ? recommendedFeeRate : savedRateDetails.savedRate
+  );
 
   return (
     <BitcoinChooseFeeLayout isLoading={isLoading}>
@@ -71,6 +88,9 @@ export function BitcoinChooseFee({
               onValidateBitcoinSpend={onValidateBitcoinSpend}
               recipient={recipient}
               setCustomFeeInitialValue={setCustomFeeInitialValue}
+              nativeSegwitSigner={nativeSegwitSigner.address}
+              saveRateForFuture={saveRateForFuture}
+              setSaveRateForFuture={setSaveRateForFuture}
             />
           }
           feesList={feesList}

@@ -1,6 +1,6 @@
 import { Dispatch, SetStateAction, useCallback, useRef } from 'react';
 
-import { Stack, Text } from '@stacks/ui';
+import { Box, Flex, Stack, Text } from '@stacks/ui';
 import { Form, Formik } from 'formik';
 import * as yup from 'yup';
 
@@ -9,6 +9,7 @@ import { BtcFeeType } from '@shared/models/fees/bitcoin-fees.model';
 import { openInNewTab } from '@app/common/utils/open-in-new-tab';
 import { Link } from '@app/components/link';
 import { PreviewButton } from '@app/components/preview-button';
+import { Caption } from '@app/components/typography';
 
 import { OnChooseFeeArgs } from '../../../components/bitcoin-fees-list/bitcoin-fees-list';
 import { TextInputField } from '../../../components/text-input-field';
@@ -27,6 +28,9 @@ interface BitcoinCustomFeeProps {
   onValidateBitcoinSpend(value: number): boolean;
   recipient: string;
   setCustomFeeInitialValue: Dispatch<SetStateAction<string>>;
+  nativeSegwitSigner: number;
+  saveRateForFuture: boolean;
+  setSaveRateForFuture: Dispatch<SetStateAction<boolean>>;
 }
 export function BitcoinCustomFee({
   amount,
@@ -38,6 +42,9 @@ export function BitcoinCustomFee({
   onValidateBitcoinSpend,
   recipient,
   setCustomFeeInitialValue,
+  nativeSegwitSigner,
+  saveRateForFuture,
+  setSaveRateForFuture,
 }: BitcoinCustomFeeProps) {
   const feeInputRef = useRef<HTMLInputElement | null>(null);
   const getCustomFeeValues = useBitcoinCustomFee({ amount, isSendingMax, recipient });
@@ -94,6 +101,15 @@ export function BitcoinCustomFee({
                     }}
                     onChange={e => {
                       setCustomFeeInitialValue((e.target as HTMLInputElement).value);
+                      if (saveRateForFuture) {
+                        localStorage.setItem(
+                          nativeSegwitSigner.toString(),
+                          JSON.stringify({
+                            saveRateForFuture: saveRateForFuture,
+                            savedRate: (e.target as HTMLInputElement).value,
+                          })
+                        );
+                      }
                     }}
                     inputRef={feeInputRef}
                   />
@@ -104,6 +120,31 @@ export function BitcoinCustomFee({
                   />
                 </Stack>
               </Stack>
+
+              <Flex mt="loose">
+                <Box mr="tight">
+                  <input
+                    type="checkbox"
+                    name="saveCustomFeeRate"
+                    defaultChecked={saveRateForFuture}
+                    onChange={e => {
+                      setSaveRateForFuture(e.target.checked);
+                      if (e.target.checked) {
+                        localStorage.setItem(
+                          nativeSegwitSigner.toString(),
+                          JSON.stringify({
+                            saveRateForFuture: e.target.checked,
+                            savedRate: customFeeInitialValue,
+                          })
+                        );
+                      } else {
+                        localStorage.removeItem(nativeSegwitSigner.toString());
+                      }
+                    }}
+                  />
+                </Box>
+                <Caption userSelect="none">Save rate for future transactions</Caption>
+              </Flex>
 
               <PreviewButton isDisabled={!props.values.feeRate} text="Use custom fee" />
             </Stack>
