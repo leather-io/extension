@@ -56,9 +56,9 @@ export function useStacksClientAnchored() {
 }
 
 export function useTokenMetadataClient() {
-  const network = useCurrentNetworkState();
+  const currentNetwork = useCurrentNetworkState();
 
-  const basePath = whenStacksChainId(network.chain.stacks.chainId)({
+  const basePath = whenStacksChainId(currentNetwork.chain.stacks.chainId)({
     [ChainID.Mainnet]: HIRO_API_BASE_URL_MAINNET,
     [ChainID.Testnet]: HIRO_API_BASE_URL_TESTNET,
   });
