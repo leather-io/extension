@@ -23,20 +23,20 @@ export function prepareTxDetailsForBroadcast(tx: StacksTransaction) {
 }
 
 export const transactionNetworkVersionState = atom(get => {
-  const chainId = get(currentNetworkAtom)?.chain.stacks.chainId;
+  const currentNetwork = get(currentNetworkAtom);
 
-  const defaultChainId = TransactionVersion.Testnet;
-  if (!chainId) return defaultChainId;
+  if (!currentNetwork.chain.stacks.chainId) return TransactionVersion.Testnet; // default to testnet
 
-  return whenStacksChainId(chainId)({
+  return whenStacksChainId(currentNetwork.chain.stacks.chainId)({
     [ChainID.Mainnet]: TransactionVersion.Mainnet,
     [ChainID.Testnet]: TransactionVersion.Testnet,
   });
 });
 
 export const addressNetworkVersionState = atom(get => {
-  const chainId = get(currentNetworkAtom)?.chain.stacks.chainId;
-  return whenStacksChainId(chainId)({
+  const currentNetwork = get(currentNetworkAtom);
+
+  return whenStacksChainId(currentNetwork.chain.stacks.chainId)({
     [ChainID.Mainnet]: AddressVersion.MainnetSingleSig,
     [ChainID.Testnet]: AddressVersion.TestnetSingleSig,
   });

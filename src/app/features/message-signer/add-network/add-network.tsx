@@ -23,17 +23,21 @@ import {
   useNetworksActions,
 } from '@app/store/networks/networks.hooks';
 
+/**
+ * The **peer** network ID.
+ * Not used in signing, but needed to determine the parent of a subnet.
+ */
+enum NetworkID {
+  Mainnet = 0x17000000,
+  Testnet = 0xff000000,
+}
+
 interface AddNetworkFormValues {
   key: string;
   name: string;
   url: string;
 }
 const addNetworkFormValues: AddNetworkFormValues = { key: '', name: '', url: '' };
-
-enum NetworkID {
-  Testnet = 0xff000000,
-  Mainnet = 0x17000000,
-}
 
 export function AddNetwork() {
   const [loading, setLoading] = useState(false);
@@ -61,22 +65,31 @@ export function AddNetwork() {
 
           setLoading(true);
           setError('');
+
           try {
             const path = removeTrailingSlash(new URL(url).href);
             const response = await network.fetchFn(`${path}/v2/info`);
             const chainInfo = await response.json();
             if (!chainInfo) throw new Error('Unable to fetch info from node');
 
-            const { parent_network_id: parentNetworkId, network_id: networkId } = chainInfo;
+            // Attention:
+            // For mainnet/testnet the v2/info response `.network_id` refers to the chain ID
+            // For subnets the v2/info response `.network_id` refers to the network ID and the chain ID (they are the same for subnets)
+            // The `.parent_network_id` refers to the actual peer network ID in both cases
+            const { network_id: chainId, parent_network_id: parentNetworkId } = chainInfo;
 
             const isSubnet = typeof chainInfo.l1_subnet_governing_contract === 'string';
-            const isValidSubnet =
+            const isFirstLevelSubnet =
               isSubnet &&
               (parentNetworkId === NetworkID.Mainnet || parentNetworkId === NetworkID.Testnet);
 
-            if (networkId === ChainID.Mainnet || networkId === ChainID.Testnet || isValidSubnet) {
+            // Currently, only subnets of mainnet and testnet are supported in the wallet
+            if (isFirstLevelSubnet) {
+              const parentChainId =
+                parentNetworkId === NetworkID.Mainnet ? ChainID.Mainnet : ChainID.Testnet;
               networksActions.addNetwork({
-                chainId: networkId,
+                chainId: parentChainId, // Used for differentiating control flow in the wallet
+                subnetChainId: chainId, // Used for signing transactions (via the network object, not to be confused with the NetworkConfigurations)
                 id: key as DefaultNetworkConfigurations,
                 name,
                 url: path,
@@ -84,6 +97,18 @@ export function AddNetwork() {
               navigate(RouteUrls.Home);
               return;
             }
+
+            if (chainId === ChainID.Mainnet || chainId === ChainID.Testnet) {
+              networksActions.addNetwork({
+                chainId,
+                id: key as DefaultNetworkConfigurations,
+                name,
+                url: path,
+              });
+              navigate(RouteUrls.Home);
+              return;
+            }
+
             setError('Unable to determine chainID from node.');
           } catch (error) {
             setError('Unable to fetch info from node.');

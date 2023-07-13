@@ -1,8 +1,8 @@
 import { useMemo } from 'react';
 import { useSelector } from 'react-redux';
 
-import { StacksMainnet, StacksNetwork, StacksTestnet } from '@stacks/network';
-import { ChainID } from '@stacks/transactions';
+import { StacksNetwork } from '@stacks/network';
+import { ChainID, TransactionVersion } from '@stacks/transactions';
 
 import { NetworkModes } from '@shared/constants';
 
@@ -29,10 +29,16 @@ export function useCurrentStacksNetworkState(): StacksNetwork {
   return useMemo(() => {
     if (!currentNetwork) throw new Error('No current network');
 
-    const stacksNetwork = whenStacksChainId(currentNetwork.chain.stacks.chainId)({
-      [ChainID.Mainnet]: new StacksMainnet({ url: currentNetwork.chain.stacks.url }),
-      [ChainID.Testnet]: new StacksTestnet({ url: currentNetwork.chain.stacks.url }),
+    // todo: these params could be added to the constructor in stacks.js
+    const stacksNetwork = new StacksNetwork({ url: currentNetwork.chain.stacks.url });
+    stacksNetwork.version = whenStacksChainId(currentNetwork.chain.stacks.chainId)({
+      [ChainID.Mainnet]: TransactionVersion.Mainnet,
+      [ChainID.Testnet]: TransactionVersion.Testnet,
     });
+
+    // Use actual chainId on network object, since it's used for signing
+    stacksNetwork.chainId =
+      currentNetwork.chain.stacks.subnetChainId ?? currentNetwork.chain.stacks.chainId;
 
     stacksNetwork.bnsLookupUrl = currentNetwork.chain.stacks.url || '';
     return stacksNetwork;
