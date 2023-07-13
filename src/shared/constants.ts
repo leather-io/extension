@@ -59,7 +59,10 @@ interface BitcoinChainConfig extends BaseChainConfig {
 interface StacksChainConfig extends BaseChainConfig {
   blockchain: 'stacks';
   url: string;
+  /** The chainId of the network (or parent network if this is a subnet) */
   chainId: ChainID;
+  /** An additional chainId for subnets. Indicated a subnet if defined and is mainly used for signing */
+  subnetChainId?: ChainID;
 }
 
 export interface NetworkConfiguration {

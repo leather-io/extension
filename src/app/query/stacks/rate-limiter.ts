@@ -15,9 +15,9 @@ const hiroStacksTestnetApiLimiter = new RateLimiter({
 });
 
 export function useHiroApiRateLimiter() {
-  const network = useCurrentNetworkState();
+  const currentNetwork = useCurrentNetworkState();
 
-  return whenStacksChainId(network.chain.stacks.chainId)({
+  return whenStacksChainId(currentNetwork.chain.stacks.chainId)({
     [ChainID.Mainnet]: hiroStacksMainnetApiLimiter,
     [ChainID.Testnet]: hiroStacksTestnetApiLimiter,
   });
