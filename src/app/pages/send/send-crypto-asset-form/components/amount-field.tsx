@@ -1,3 +1,4 @@
+import type { ChangeEvent } from 'react';
 import { useCallback, useEffect, useState } from 'react';
 
 import { Box, Flex, Input, Stack, Text, color } from '@stacks/ui';
@@ -52,6 +53,7 @@ export function AmountField({
   tokenSymbol,
 }: AmountFieldProps) {
   const [field, meta, helpers] = useField('amount');
+
   const showError = useShowFieldError('amount');
   const [fontSize, setFontSize] = useState(maxFontSize);
   const [previousTextLength, setPreviousTextLength] = useState(1);
@@ -62,19 +64,30 @@ export function AmountField({
   const fontSizeModifier = (maxFontSize - minFontSize) / maxLength;
   const subtractedLengthToPositionPrefix = 0.5;
 
+  const onChange = (event: ChangeEvent<HTMLInputElement>) => {
+    const value = event.currentTarget.value;
+
+    if (value.length <= symbol.length) {
+      setFontSize(maxFontSize);
+    } else if (previousTextLength > value.length) {
+      const textSize = Math.ceil(fontSize + fontSizeModifier);
+      if (fontSize < maxFontSize) {
+        setFontSize(textSize);
+      }
+    } else if (previousTextLength < value.length) {
+      const textSize = Math.ceil(fontSize - fontSizeModifier);
+      if (fontSize > minFontSize) {
+        setFontSize(textSize);
+      }
+    }
+
+    field.onChange(event);
+  };
+
   useEffect(() => {
     // case, when e.g token doesn't have symbol
     if (symbol.length > 4) setFontSize(minFontSize);
 
-    // Typing
-    if (field.value.length === symbol.length) setFontSize(maxFontSize);
-    if (field.value.length > symbol.length && previousTextLength > field.value.length) {
-      const textSize = Math.ceil(fontSize + fontSizeModifier);
-      fontSize < maxFontSize && setFontSize(textSize);
-    } else if (field.value.length > symbol.length && previousTextLength < field.value.length) {
-      const textSize = Math.ceil(fontSize - fontSizeModifier);
-      fontSize > minFontSize && setFontSize(textSize);
-    }
     // Copy/paste
     if (field.value.length > symbol.length && field.value.length > previousTextLength + 2) {
       const modifiedFontSize = getAmountModifiedFontSize({
@@ -139,6 +152,7 @@ export function AmountField({
             fontWeight={500}
             autoComplete={autoComplete}
             {...field}
+            onChange={onChange}
           />
           <Text fontSize={fontSize + 'px'} pl="tight">
             {symbol.toUpperCase()}
