@@ -20,6 +20,7 @@ function currencyPrecisionValidatorFactory(precision: number, errorMessage: stri
     .typeError(FormErrorMessages.MustBeNumber)
     .test({
       message: errorMessage,
+      skipAbsent: true,
       test(value: unknown) {
         if (!isNumber(value)) return false;
         return countDecimals(value) <= precision;

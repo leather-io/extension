@@ -47,6 +47,7 @@ export function btcInsufficientBalanceValidator({
     .typeError(FormErrorMessages.MustBeNumber)
     .test({
       message: FormErrorMessages.InsufficientFunds,
+      skipAbsent: true,
       test(value) {
         if (!value) return false;
         const maxSpend = calcMaxSpend(recipient, utxos);
@@ -64,6 +65,7 @@ export function btcMinimumSpendValidator() {
     .typeError(FormErrorMessages.MustBeNumber)
     .test({
       message: `Minimum is ${satToBtc(minSpendAmountInSats)}`,
+      skipAbsent: true,
       test(value) {
         if (!value) return false;
         const desiredSpend = btcToSat(value);
