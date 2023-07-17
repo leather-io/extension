@@ -6,7 +6,6 @@ import { CONTENT_SCRIPT_PORT } from '@shared/message-types';
 import type { LegacyMessageFromContentScript } from '@shared/message-types';
 import { RouteUrls } from '@shared/route-urls';
 import { WalletRequests } from '@shared/rpc/rpc-methods';
-import { initSentry } from '@shared/utils/analytics';
 import { warnUsersAboutDevToolsDangers } from '@shared/utils/dev-tools-warning-log';
 
 import { initContextMenuActions } from './init-context-menus';
@@ -17,7 +16,6 @@ import {
 } from './messaging/legacy/legacy-external-message-handler';
 import { rpcMessageHandler } from './messaging/rpc-message-handler';
 
-initSentry();
 initContextMenuActions();
 warnUsersAboutDevToolsDangers();
 
@@ -72,35 +70,3 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
   // Listener fn must return `true` to indicate the response will be async
   return true;
 });
-
-// const storageArea = chrome.storage.local as chrome.storage.LocalStorageArea;
-
-// const testIntervalMs = 10000;
-// const storageWaitTimeMs = 100;
-
-// @see https://bugs.chromium.org/p/chromium/issues/detail?id=1316588
-// async function hasChromiumIssue1316588() {
-//   return new Promise(resolve => {
-//     let dispatched = false;
-//     const testEventDispatching = () => {
-//       storageArea.onChanged.removeListener(testEventDispatching);
-//       dispatched = true;
-//     };
-//     storageArea.onChanged.addListener(testEventDispatching);
-//     void storageArea.set({ testEventDispatching: Math.random() });
-//     setTimeout(() => resolve(!dispatched), storageWaitTimeMs);
-//   });
-// }
-
-// function fixChromiumIssue1316588() {
-//   void hasChromiumIssue1316588().then(hasIssue => {
-//     if (hasIssue) {
-//       chrome.runtime.reload();
-//       return;
-//     }
-
-//     setTimeout(fixChromiumIssue1316588, testIntervalMs);
-//   });
-// }
-
-// fixChromiumIssue1316588();
