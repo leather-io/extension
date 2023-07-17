@@ -13,16 +13,11 @@ import { useCreateAccount } from '@app/common/hooks/account/use-create-account';
 import { useOnboardingState } from '@app/common/hooks/auth/use-onboarding-state';
 import { useWalletType } from '@app/common/use-wallet-type';
 import { slugify } from '@app/common/utils';
+import { AccountTotalBalance } from '@app/components/account-total-balance';
 import { AccountAvatar } from '@app/components/account/account-avatar/account-avatar';
-import {
-  AccountBalanceCaption,
-  AccountBalanceLoading,
-} from '@app/components/account/account-balance-caption';
 import { AccountListItemLayout } from '@app/components/account/account-list-item-layout';
 import { usePressable } from '@app/components/item-hover';
 import { Title } from '@app/components/typography';
-import { useCryptoCurrencyMarketData } from '@app/query/common/market-data/market-data.hooks';
-import { useAnchoredStacksAccountBalances } from '@app/query/stacks/balance/stx-balance.hooks';
 import { useHasCreatedAccount } from '@app/store/accounts/account';
 import { useNativeSegwitAccountIndexAddressIndexZero } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
 import { useStacksAccounts } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
@@ -66,11 +61,7 @@ const ChooseAccountItem = memo((props: ChooseAccountItemProps) => {
   const [component, bind] = usePressable(true);
   const { decodedAuthRequest } = useOnboardingState();
   const name = useAccountDisplayName(account);
-  const { data: balances, isLoading: isBalanceLoading } = useAnchoredStacksAccountBalances(
-    account.address
-  );
   const btcAddress = useNativeSegwitAccountIndexAddressIndexZero(account.index);
-  const stxMarketData = useCryptoCurrencyMarketData('STX');
 
   const showLoadingProps = !!selectedAddress || !decodedAuthRequest;
 
@@ -100,16 +91,7 @@ const ChooseAccountItem = memo((props: ChooseAccountItemProps) => {
             flexGrow={0}
           />
         }
-        balanceLabel={
-          isBalanceLoading ? (
-            <AccountBalanceLoading />
-          ) : balances ? (
-            <AccountBalanceCaption
-              availableBalance={balances.stx.unlockedStx}
-              marketData={stxMarketData}
-            />
-          ) : null
-        }
+        balanceLabel={<AccountTotalBalance stxAddress={account.address} btcAddress={btcAddress} />}
         isLoading={isLoading}
         onSelectAccount={() => onSelectAccount(account.index)}
         data-testid={`account-${accountSlug}-${account.index}`}

@@ -1,4 +1,6 @@
-import { Box, Stack, StackProps, Text } from '@stacks/ui';
+import { useOutletContext } from 'react-router-dom';
+
+import { Box, Stack, Text } from '@stacks/ui';
 import { HomePageSelectorsLegacy } from '@tests-legacy/page-objects/home.selectors';
 
 import { useBtcAssetBalance } from '@app/common/hooks/balance/btc/use-btc-balance';
@@ -20,11 +22,12 @@ import { PendingBrc20TransferList } from '../pending-brc-20-transfers/pending-br
 import { BitcoinFungibleTokenAssetList } from './components/bitcoin-fungible-tokens-asset-list';
 import { StacksFungibleTokenAssetList } from './components/stacks-fungible-token-asset-list';
 
-interface BalancesListProps extends StackProps {
+interface BalancesListContextState {
   address: string;
 }
 
-export function BalancesList({ address, ...props }: BalancesListProps) {
+export function BalancesList(): React.JSX.Element {
+  const { address } = useOutletContext<BalancesListContextState>();
   const stacksFtAssetBalances = useStacksFungibleTokenAssetBalancesAnchoredWithMetadata(address);
   const isBitcoinEnabled = useConfigBitcoinEnabled();
   const btcAddress = useCurrentAccountNativeSegwitAddressIndexZero();
@@ -50,12 +53,7 @@ export function BalancesList({ address, ...props }: BalancesListProps) {
   ) : undefined;
 
   return (
-    <Stack
-      pb="extra-loose"
-      spacing="loose"
-      data-testid={HomePageSelectorsLegacy.BalancesList}
-      {...props}
-    >
+    <Stack pb="extra-loose" spacing="loose" data-testid={HomePageSelectorsLegacy.BalancesList}>
       {isBitcoinEnabled && (
         <CryptoCurrencyAssetItem
           assetBalance={btcAvailableAssetBalance}
@@ -70,7 +68,7 @@ export function BalancesList({ address, ...props }: BalancesListProps) {
         address={address}
         additionalBalanceInfo={stxAdditionalBalanceInfo}
         additionalUsdBalanceInfo={stxAdditionalUsdBalanceInfo}
-        icon={<StxAvatar {...props} />}
+        icon={<StxAvatar />}
       />
       <StacksFungibleTokenAssetList assetBalances={stacksFtAssetBalances} />
       {whenWallet({
