@@ -7,6 +7,7 @@ import { Formik } from 'formik';
 import * as yup from 'yup';
 
 import { useRefreshAllAccountData } from '@app/common/hooks/account/use-refresh-all-account-data';
+import { useStxBalance } from '@app/common/hooks/balance/stx/use-stx-balance';
 import { microStxToStx, stxToMicroStx } from '@app/common/money/unit-conversion';
 import { stacksValue } from '@app/common/stacks-utils';
 import { useWalletType } from '@app/common/use-wallet-type';
@@ -31,6 +32,7 @@ export function IncreaseFeeForm() {
   const [, setTxId] = useRawTxIdState();
   const replaceByFee = useReplaceByFeeSoftwareWalletSubmitCallBack();
   const { data: balances } = useCurrentStacksAccountAnchoredBalances();
+  const { availableBalance } = useStxBalance();
   const submittedTransactionsActions = useSubmittedTransactionsActions();
   const rawTx = useRawDeserializedTxState();
   const { whenWallet } = useWalletType();
@@ -74,6 +76,8 @@ export function IncreaseFeeForm() {
 
   if (!tx || !fee) return <LoadingSpinner />;
 
+  const validationSchema = yup.object({ fee: stxFeeValidator(availableBalance) });
+
   return (
     <Formik
       initialValues={{ fee: new BigNumber(microStxToStx(fee)).toNumber() }}
@@ -81,7 +85,7 @@ export function IncreaseFeeForm() {
       validateOnChange={false}
       validateOnBlur={false}
       validateOnMount={false}
-      validationSchema={yup.object({ fee: stxFeeValidator(balances?.stx.unlockedStx) })}
+      validationSchema={validationSchema}
     >
       {() => (
         <Stack spacing="extra-loose">
@@ -90,8 +94,7 @@ export function IncreaseFeeForm() {
             <IncreaseFeeField currentFee={fee} />
             {balances?.stx.unlockedStx.amount && (
               <Caption>
-                Balance:{' '}
-                {stacksValue({ value: balances?.stx.unlockedStx.amount, fixedDecimals: true })}
+                Balance: {stacksValue({ value: availableBalance.amount, fixedDecimals: true })}
               </Caption>
             )}
           </Stack>
