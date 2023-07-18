@@ -1,14 +1,14 @@
 name: Playwright Tests
 
-on:
-  push:
-    branches: [dev, main]
-  pull_request:
-    branches: [dev, main]
-
 env:
   CI: true
   WALLET_ENVIRONMENT: testing
+
+on:
+  push:
+    branches: [dev]
+  pull_request:
+    branches: [dev]
 
 jobs:
   test:
@@ -42,14 +42,17 @@ jobs:
         env:
           PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD: 1
         run: yarn --frozen-lockfile
-        shell: bash
 
       - name: Cache playwright binaries
         uses: actions/cache@v3
         id: playwright-cache
         with:
           path: ~/.cache/ms-playwright
-          key: ${{ runner.os }}-playwright-${{ env.PLAYWRIGHT_VERSION }}-force
+          key: ${{ runner.os }}-playwright-cache-${{ env.PLAYWRIGHT_VERSION }}
+
+      - name: Install Playwright browsers
+        run: yarn playwright install chrome chromium
+        if: steps.playwright-cache.outputs.cache-hit != 'true'
 
       - name: Install Playwright deps
         run: yarn playwright install --with-deps
@@ -58,7 +61,6 @@ jobs:
       - name: Build extension in test mode
         run: yarn build:test
 
-      - name: Run Playwright tests
         # Playwright can only test extensions in headed mode, see
         # https://playwright.dev/docs/chrome-extensions. To run a browser in
         # headed mode, a display server is necessary. However, this job runs on
@@ -69,6 +71,7 @@ jobs:
         # provides a virtual X display server to the process it runs, allowing
         # processes that require a display server to run in environments where
         # one is not available.
+      - name: Run Playwright tests
         run: xvfb-run yarn playwright test tests/specs --shard=${{ matrix.shardIndex }}/${{ matrix.shardTotal }} --workers=1
 
       - uses: actions/upload-artifact@v3

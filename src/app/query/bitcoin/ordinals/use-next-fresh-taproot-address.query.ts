@@ -14,7 +14,7 @@ import { useCurrentNetwork } from '@app/store/networks/networks.selectors';
 export function useNextFreshTaprootAddressQuery(accIndex?: number) {
   const network = useCurrentNetwork();
   const currentAccountIndex = useCurrentAccountIndex();
-  const keychain = useTaprootAccountKeychain(accIndex ?? currentAccountIndex);
+  const account = useTaprootAccountKeychain(accIndex ?? currentAccountIndex);
   const client = useBitcoinClient();
 
   const [highestKnownAccountActivity, setHighestKnownAccountActivity] = useState(0);
@@ -22,12 +22,12 @@ export function useNextFreshTaprootAddressQuery(accIndex?: number) {
   return useQuery(
     ['next-taproot-address', currentAccountIndex, network.id] as const,
     async () => {
-      if (!keychain) throw new Error('Expected keychain to be provided');
+      if (!account) throw new Error('Expected keychain to be provided');
 
       async function taprootAddressIndexActivity(index: number) {
         const address = getTaprootAddress({
           index,
-          keychain,
+          keychain: account?.keychain,
           network: network.chain.bitcoin.network,
         });
         const utxos = await client.addressApi.getUtxosByAddress(address);

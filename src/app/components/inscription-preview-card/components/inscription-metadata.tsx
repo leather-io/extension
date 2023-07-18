@@ -5,7 +5,7 @@ import { Text } from '@app/components/typography';
 interface InscriptionMetadataProps {
   action?(): void;
   actionLabel?: string;
-  icon?: JSX.Element;
+  icon?: React.JSX.Element;
   subtitle: string;
   title: string;
 }

@@ -2,10 +2,10 @@ import { useState } from 'react';
 
 import { Money, createMoney } from '@shared/models/money.model';
 
-import { sumMoney } from '@app/common/money/calculate-money';
+import { subtractMoney, sumMoney } from '@app/common/money/calculate-money';
 import { useCurrentNativeSegwitAddressBalance } from '@app/query/bitcoin/balance/bitcoin-balances.query';
 
-export function useValidateBitcoinSpend(amount?: Money) {
+export function useValidateBitcoinSpend(amount?: Money, isSendingMax?: boolean) {
   const [showInsufficientBalanceError, setShowInsufficientBalanceError] = useState(false);
   const balance = useCurrentNativeSegwitAddressBalance();
 
@@ -27,7 +27,10 @@ export function useValidateBitcoinSpend(amount?: Money) {
         throw new Error('Amount should be defined to validate total spend');
       }
 
-      const totalSpend = sumMoney([amount, feeAsMoney]);
+      const totalSpend = isSendingMax
+        ? subtractMoney(balance, feeAsMoney)
+        : sumMoney([amount, feeAsMoney]);
+
       if (totalSpend.amount.isGreaterThan(balance.amount)) {
         setShowInsufficientBalanceError(true);
         return false;

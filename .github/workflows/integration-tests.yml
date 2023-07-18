@@ -10,50 +10,54 @@ jobs:
   directories:
     runs-on: ubuntu-latest
     outputs:
-      dir: ${{ steps.set-dirs.outputs.dir }}
+      dir: ${{ steps.set-dirs.outputs.TEST_DIRECTORIES }}
     steps:
       - uses: actions/checkout@v3
       - id: set-dirs
         working-directory: ./tests-legacy/integration
-        run: echo "::set-output name=dir::$( ls -d */ | xargs -0 | sed 's/\///' | jq -R -s -c 'split("\n")[:-2]')"
+        run: echo "TEST_DIRECTORIES=$( ls -d */ | xargs -0 | sed 's/\///' | jq -R -s -c 'split("\n")[:-2]')" >> $GITHUB_OUTPUT
 
   test-integration:
     runs-on: ubuntu-latest
     needs: [directories]
     strategy:
+      fail-fast: false
       matrix:
         dir: ${{ fromJson(needs.directories.outputs.dir) }}
     steps:
       - name: Check out Git repository
         uses: actions/checkout@v3
 
-      - run: echo ${{ fromJson(needs.directories.outputs.dir) }}
-      - run: echo ${{ matrix.dir }}
+      - name: Get installed Playwright version
+        id: playwright-version
+        run: echo "PLAYWRIGHT_VERSION=$(node -e "console.log(require('./package.json').devDependencies['@playwright/test'])")" >> $GITHUB_ENV
 
-      - uses: actions/cache@v2
-        name: Cache node_modules
-        id: cache-node-modules
+      - uses: actions/cache@v3
+        id: cache
         with:
           path: '**/node_modules'
-          key: ${{ runner.os }}-modules-${{ hashFiles('**/yarn.lock') }}-${{ hashFiles('**/package.json') }}
+          key: ${{ runner.os }}-${{ hashFiles('**/yarn.lock') }}-${{ hashFiles('**/package.json') }}-${{ env.PLAYWRIGHT_VERSION }}
 
-      - uses: actions/cache@v2
-        name: Cache playwright
-        id: cache-playwright-browsers
+      - name: Install dependencies
+        if: steps.cache.outputs.cache-hit != 'true'
+        env:
+          PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD: 1
+        run: yarn --frozen-lockfile
+
+      - name: Cache playwright binaries
+        uses: actions/cache@v3
+        id: playwright-cache
         with:
-          path: '~/.cache/ms-playwright'
-          key: ${{ runner.os }}-playwright-browser
+          path: ~/.cache/ms-playwright
+          key: ${{ runner.os }}-playwright-cache-${{ env.PLAYWRIGHT_VERSION }}
 
-      - uses: actions/setup-node@v2
-        with:
-          node-version: 16.x
+      - name: Install Playwright browsers
+        run: yarn playwright install chrome chromium
+        if: steps.playwright-cache.outputs.cache-hit != 'true'
 
-      - name: Install packages
-        uses: ./.github/actions/provision
-        if: steps.cache-node-modules.outputs.cache-hit != 'true'
-
-      - name: Install Playwright dependencies
-        run: npx playwright install
+      - name: Install Playwright deps
+        run: yarn playwright install-deps
+        if: steps.playwright-cache.outputs.cache-hit != 'true'
 
       - name: Build assets
         run: yarn build:test
@@ -72,7 +76,7 @@ jobs:
               --testPathPattern=./tests-legacy/integration/${{ matrix.dir }}/*
 
       - name: Upload traces
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         if: always()
         with:
           name: traces-${{ matrix.dir }}-${{ steps.date.outputs.date }}

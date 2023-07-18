@@ -9,7 +9,7 @@ import { HeaderActionButton } from './header-action-button';
 
 interface DrawerHeaderProps {
   enableGoBack?: boolean;
-  icon?: JSX.Element;
+  icon?: React.JSX.Element;
   isWaitingOnPerformedAction?: boolean;
   onClose?(): void;
   onGoBack(): void;

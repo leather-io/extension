@@ -16,7 +16,7 @@ interface ChooseFeeTabsProps extends StackProps {
 export function ChooseFeeTabs(props: ChooseFeeTabsProps) {
   const { feesList, customFee, ...rest } = props;
   const analytics = useAnalytics();
-
+  // TODO #4013: Refactor this to use routes for tabs like home-tabs
   const [activeTab, setActiveTab] = useState(0);
 
   const setActiveTabTracked = (index: number) => {

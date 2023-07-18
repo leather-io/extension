@@ -13,6 +13,6 @@ export function useSendBitcoinAssetContextState() {
 }
 
 export function SendBitcoinAssetContainer() {
-  const [selectedFeeType, setSelectedFeeType] = useState(null);
+  const [selectedFeeType, setSelectedFeeType] = useState<BtcFeeType | null>(BtcFeeType.Standard);
   return <Outlet context={{ selectedFeeType, setSelectedFeeType }} />;
 }

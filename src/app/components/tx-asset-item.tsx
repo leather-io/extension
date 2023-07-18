@@ -11,7 +11,7 @@ interface AssetItemProps extends StackProps {
   ticker: string;
 }
 
-export function TxAssetItem(props: AssetItemProps): JSX.Element {
+export function TxAssetItem(props: AssetItemProps): React.JSX.Element {
   const { iconString, amount, ticker, ...rest } = props;
   const imageCanonicalUri = isValidUrl(iconString) ? iconString : undefined;
 

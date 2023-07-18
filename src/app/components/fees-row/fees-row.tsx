@@ -23,7 +23,7 @@ interface FeeRowProps extends StackProps {
   allowCustom?: boolean;
   isSponsored: boolean;
 }
-export function FeesRow(props: FeeRowProps): JSX.Element {
+export function FeesRow(props: FeeRowProps): React.JSX.Element {
   const { fees, isSponsored, allowCustom = true, ...rest } = props;
   const [feeField, _, feeHelper] = useField('fee');
   const [feeCurrencyField] = useField('feeCurrency');

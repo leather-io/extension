@@ -14,7 +14,7 @@ import {
 } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
 import { useTransactionRequestState } from '@app/store/transactions/requests.hooks';
 
-function ContractCodeSection(): JSX.Element | null {
+function ContractCodeSection(): React.JSX.Element | null {
   const transactionRequest = useTransactionRequestState();
 
   const currentAccount = useCurrentStacksAccount();
@@ -47,7 +47,7 @@ interface TabButtonProps extends BoxProps {
   isActive: boolean;
 }
 
-function TabButton(props: TabButtonProps): JSX.Element {
+function TabButton(props: TabButtonProps): React.JSX.Element {
   const { isActive, ...rest } = props;
 
   return (
@@ -64,7 +64,7 @@ function TabButton(props: TabButtonProps): JSX.Element {
   );
 }
 
-export function ContractDeployDetails(): JSX.Element | null {
+export function ContractDeployDetails(): React.JSX.Element | null {
   const transactionRequest = useTransactionRequestState();
   const currentAccount = useCurrentStacksAccount();
   const currentAccountStxAddress = useCurrentAccountStxAddressState();

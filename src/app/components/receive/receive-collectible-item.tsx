@@ -8,7 +8,7 @@ import { Caption } from '../typography';
 
 interface ReceiveCollectibleItemProps extends ButtonProps {
   address: string;
-  icon: JSX.Element;
+  icon: React.JSX.Element;
   onCopyAddress(): void;
   title: string;
 }

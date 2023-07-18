@@ -1,15 +1,13 @@
 import { createRoot } from 'react-dom/client';
 
-import { InternalMethods } from '@shared/message-types';
 import { initSentry } from '@shared/utils/analytics';
 import { warnUsersAboutDevToolsDangers } from '@shared/utils/dev-tools-warning-log';
 
 import { persistAndRenderApp } from '@app/common/persistence';
+import { restoreWalletSession } from '@app/store/session-restore';
 
 import { App } from './app';
 import { setDebugOnGlobal } from './debug';
-import { store } from './store';
-import { inMemoryKeyActions } from './store/in-memory-key/in-memory-key.actions';
 
 initSentry();
 warnUsersAboutDevToolsDangers();
@@ -23,18 +21,8 @@ declare global {
 
 window.__APP_VERSION__ = VERSION;
 
-async function checkForInMemoryKeys() {
-  return new Promise(resolve =>
-    chrome.runtime.sendMessage({ method: InternalMethods.RequestInMemoryKeys }, resp => {
-      if (Object.keys(resp).length === 0) return resolve(true);
-      store.dispatch(inMemoryKeyActions.setKeysInMemory(resp));
-      resolve(true);
-    })
-  );
-}
-
 async function renderApp() {
-  await checkForInMemoryKeys();
+  await restoreWalletSession();
   const container = document.getElementById('app');
   return createRoot(container!).render(<App />);
 }

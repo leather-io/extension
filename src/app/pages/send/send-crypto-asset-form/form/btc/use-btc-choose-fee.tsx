@@ -1,6 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 
 import { logger } from '@shared/logger';
+import { BtcFeeType } from '@shared/models/fees/bitcoin-fees.model';
 import { createMoney } from '@shared/models/money.model';
 import { noop } from '@shared/utils';
 
@@ -29,7 +30,7 @@ export function useBtcChooseFee() {
   return {
     amountAsMoney,
     onGoBack() {
-      setSelectedFeeType(null);
+      setSelectedFeeType(BtcFeeType.Standard);
       navigate(-1);
     },
 
@@ -37,10 +38,7 @@ export function useBtcChooseFee() {
       const resp = generateTx(
         {
           amount: isSendingMax
-            ? createMoney(
-                btcToSat(calcMaxSpend(txValues.recipient, utxos, feeRate).spendableBitcoin),
-                'BTC'
-              )
+            ? calcMaxSpend(txValues.recipient, utxos, feeRate).amount
             : amountAsMoney,
           recipient: txValues.recipient,
         },

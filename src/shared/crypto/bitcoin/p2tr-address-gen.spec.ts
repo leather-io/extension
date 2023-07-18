@@ -3,10 +3,7 @@ import { mnemonicToSeedSync } from '@scure/bip39';
 import { SECRET_KEY } from '@tests-legacy/mocks';
 
 import { deriveAddressIndexKeychainFromAccount } from './bitcoin.utils';
-import {
-  deriveTaprootAccountFromRootKeychain,
-  getTaprootPaymentFromAddressIndex,
-} from './p2tr-address-gen';
+import { deriveTaprootAccount, getTaprootPaymentFromAddressIndex } from './p2tr-address-gen';
 
 // Source:
 // generated in Sparrow with same secret key used in tests
@@ -23,13 +20,13 @@ describe('taproot address gen', () => {
   test.each(addresses)('should generate taproot addresses', address => {
     const keychain = HDKey.fromMasterSeed(mnemonicToSeedSync(SECRET_KEY));
     const index = addresses.indexOf(address);
-    const accountZeroKeychain = deriveTaprootAccountFromRootKeychain(keychain, 'testnet')(0);
+    const accountZero = deriveTaprootAccount(keychain, 'testnet')(0);
 
     const addressIndexDetails = getTaprootPaymentFromAddressIndex(
-      deriveAddressIndexKeychainFromAccount(accountZeroKeychain)(index),
+      deriveAddressIndexKeychainFromAccount(accountZero.keychain)(index),
       'testnet'
     );
-    if (!accountZeroKeychain.privateKey) throw new Error('No private key found');
+    if (!accountZero.keychain.privateKey) throw new Error('No private key found');
 
     expect(addressIndexDetails.address).toEqual(address);
   });

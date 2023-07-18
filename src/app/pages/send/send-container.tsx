@@ -1,19 +1,14 @@
-import { Outlet, useNavigate } from 'react-router-dom';
+import { Outlet } from 'react-router-dom';
 
 import { Flex } from '@stacks/ui';
 
 import { useRouteHeader } from '@app/common/hooks/use-route-header';
 import { whenPageMode } from '@app/common/utils';
 import { CENTERED_FULL_PAGE_MAX_WIDTH } from '@app/components/global-styles/full-page-styles';
-import { Header } from '@app/components/header';
+import { ModalHeader } from '@app/components/modal-header';
 
 export function SendContainer() {
-  const navigate = useNavigate();
-
-  useRouteHeader(
-    <Header hideActions onClose={() => navigate('..', { relative: 'path' })} title="Send" />,
-    true
-  );
+  useRouteHeader(<ModalHeader hideActions defaultGoBack title="Send" />, true);
 
   return whenPageMode({
     full: (

@@ -8,31 +8,14 @@ type BackgroundMessage<Msg extends ExtensionMethods, Payload = undefined> = Omit
   'source'
 >;
 
-export type RequestDerivedStxAccounts = BackgroundMessage<
-  InternalMethods.RequestDerivedStxAccounts,
-  { secretKey: string; highestAccountIndex: number }
->;
-
-type GetActiveFormState = BackgroundMessage<InternalMethods.GetActiveFormState, { tabId: number }>;
-
-type SetActiveFormState = BackgroundMessage<
-  InternalMethods.SetActiveFormState,
-  { tabId: number; symbol: string; amount?: string; recipient?: string }
->;
-
-type ClearActiveFormState = BackgroundMessage<
-  InternalMethods.ClearActiveFormState,
-  { tabId: number }
->;
-
-type ShareInMemoryKeyToBackground = BackgroundMessage<
+type FirefoxShareInMemoryKeyToBackground = BackgroundMessage<
   InternalMethods.ShareInMemoryKeyToBackground,
   { secretKey: string; keyId: string }
 >;
 
-type RequestInMemoryKeys = BackgroundMessage<InternalMethods.RequestInMemoryKeys>;
+type FirefoxRequestInMemoryKeys = BackgroundMessage<InternalMethods.RequestInMemoryKeys>;
 
-type RemoveInMemoryKeys = BackgroundMessage<InternalMethods.RemoveInMemoryKeys>;
+type FirefoxRemoveInMemoryKeys = BackgroundMessage<InternalMethods.RemoveInMemoryKeys>;
 
 type OriginatingTabClosed = BackgroundMessage<
   InternalMethods.OriginatingTabClosed,
@@ -40,13 +23,9 @@ type OriginatingTabClosed = BackgroundMessage<
 >;
 
 export type BackgroundMessages =
-  | RequestDerivedStxAccounts
-  | GetActiveFormState
-  | SetActiveFormState
-  | ClearActiveFormState
-  | ShareInMemoryKeyToBackground
-  | RequestInMemoryKeys
-  | RemoveInMemoryKeys
+  | FirefoxShareInMemoryKeyToBackground
+  | FirefoxRequestInMemoryKeys
+  | FirefoxRemoveInMemoryKeys
   | OriginatingTabClosed;
 
 export function sendMessage(message: BackgroundMessages) {

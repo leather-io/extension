@@ -4,7 +4,7 @@ interface FeeMultiplierButtonProps extends ButtonProps {
   multiplier: number;
 }
 
-export function FeeMultiplierButton(props: FeeMultiplierButtonProps): JSX.Element {
+export function FeeMultiplierButton(props: FeeMultiplierButtonProps): React.JSX.Element {
   const { multiplier, ...rest } = props;
 
   return (

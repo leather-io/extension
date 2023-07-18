@@ -37,7 +37,7 @@ interface WelcomeLayoutProps {
   onStartOnboarding(): void;
   onRestoreWallet(): void;
 }
-export function WelcomeLayout(props: WelcomeLayoutProps): JSX.Element {
+export function WelcomeLayout(props: WelcomeLayoutProps): React.JSX.Element {
   const { isGeneratingWallet, onStartOnboarding, onSelectConnectLedger, onRestoreWallet } = props;
 
   return (

@@ -14,7 +14,7 @@ import { NoPostConditions } from './no-post-conditions';
 import { PostConditionsList } from './post-conditions-list';
 import { StxPostCondition } from './stx-post-condition';
 
-function PostConditionsSuspense(): JSX.Element | null {
+function PostConditionsSuspense(): React.JSX.Element | null {
   const postConditions = useTransactionPostConditions();
   const mode = usePostConditionModeState();
   const pendingTransaction = useTransactionRequestState();
@@ -48,7 +48,7 @@ function PostConditionsSuspense(): JSX.Element | null {
   );
 }
 
-export function PostConditions(): JSX.Element {
+export function PostConditions(): React.JSX.Element {
   return (
     <Suspense fallback={<></>}>
       <PostConditionsSuspense />

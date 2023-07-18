@@ -1,13 +1,5 @@
 import { atom } from 'jotai';
-import { atomFamily, atomWithStorage } from 'jotai/utils';
-
-import { makeLocalDataKey } from '@app/common/store-utils';
-
-export const tabState = atomFamily(param => {
-  const anAtom = atomWithStorage<number>(makeLocalDataKey(['HOME_TABS', param]), 0);
-  anAtom.debugLabel = `TABS__${param}`;
-  return anAtom;
-});
+import { atomFamily } from 'jotai/utils';
 
 type LoadingState = 'idle' | 'loading';
 
@@ -28,4 +20,4 @@ export const showTxSettingsCallback = atom<(() => Promise<void>) | undefined>(un
 
 export const errorStackTraceState = atom<string | null>(null);
 
-export const routeHeaderState = atom<JSX.Element | null>(null);
+export const routeHeaderState = atom<React.JSX.Element | null>(null);

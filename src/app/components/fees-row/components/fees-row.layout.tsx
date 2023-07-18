@@ -7,10 +7,10 @@ import { Caption } from '@app/components/typography';
 import { WarningLabel } from '@app/components/warning-label';
 
 interface FeesRowLayoutProps extends StackProps {
-  feeField: JSX.Element;
+  feeField: React.JSX.Element;
   fieldWarning?: string;
   isSponsored: boolean;
-  selectInput: JSX.Element;
+  selectInput: React.JSX.Element;
 }
 export function FeesRowLayout(props: FeesRowLayoutProps) {
   const { feeField, fieldWarning, isSponsored, selectInput, ...rest } = props;

@@ -14,7 +14,7 @@ export interface SendInscriptionContextState {
   feeRates: AverageBitcoinFeeRates;
   inscription: SupportedInscription;
   selectedFeeType: BtcFeeType;
-  setSelectedFeeType(value: BtcFeeType): void;
+  setSelectedFeeType(value: BtcFeeType | null): void;
   utxo: TaprootUtxo;
 }
 export function useSendInscriptionState() {
@@ -24,7 +24,7 @@ export function useSendInscriptionState() {
 }
 
 export function SendInscriptionContainer() {
-  const [selectedFeeType, setSelectedFeeType] = useState(null);
+  const [selectedFeeType, setSelectedFeeType] = useState<BtcFeeType | null>(BtcFeeType.Standard);
 
   return (
     <SendInscriptionLoader>

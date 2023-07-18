@@ -13,10 +13,10 @@ import { Text } from '@app/components/typography';
 import { BackUpSecretKeyActions } from './components/back-up-secret-key-actions';
 
 interface BackUpSecretKeyLayoutProps {
-  secretKeyDisplay: JSX.Element;
+  secretKeyDisplay: React.JSX.Element;
   onBackedUpSecretKey(): void;
 }
-export function BackUpSecretKeyLayout(props: BackUpSecretKeyLayoutProps): JSX.Element {
+export function BackUpSecretKeyLayout(props: BackUpSecretKeyLayoutProps): React.JSX.Element {
   const { secretKeyDisplay, onBackedUpSecretKey } = props;
 
   const [desktopViewport] = useMediaQuery(`(min-width: ${DESKTOP_VIEWPORT_MIN_WIDTH})`);

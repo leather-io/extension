@@ -4,6 +4,8 @@ import { Stack, Text } from '@stacks/ui';
 import { Form, Formik } from 'formik';
 import * as yup from 'yup';
 
+import { BtcFeeType } from '@shared/models/fees/bitcoin-fees.model';
+
 import { openInNewTab } from '@app/common/utils/open-in-new-tab';
 import { Link } from '@app/components/link';
 import { PreviewButton } from '@app/components/preview-button';
@@ -16,34 +18,39 @@ import { useBitcoinCustomFee } from './hooks/use-bitcoin-custom-fee';
 const feeInputLabel = 'sats/vB';
 
 interface BitcoinCustomFeeProps {
+  amount: number;
+  customFeeInitialValue: string;
+  hasInsufficientBalanceError: boolean;
+  isSendingMax: boolean;
   onChooseFee({ feeRate, feeValue, time, isCustomFee }: OnChooseFeeArgs): Promise<void>;
+  onSetSelectedFeeType(value: BtcFeeType | null): void;
   onValidateBitcoinSpend(value: number): boolean;
   recipient: string;
-  amount: number;
-  hasInsufficientBalanceError: boolean;
-  customFeeInitialValue: string;
   setCustomFeeInitialValue: Dispatch<SetStateAction<string>>;
 }
 export function BitcoinCustomFee({
-  onChooseFee,
-  recipient,
   amount,
-  hasInsufficientBalanceError,
-  onValidateBitcoinSpend,
   customFeeInitialValue,
+  hasInsufficientBalanceError,
+  isSendingMax,
+  onChooseFee,
+  onSetSelectedFeeType,
+  onValidateBitcoinSpend,
+  recipient,
   setCustomFeeInitialValue,
 }: BitcoinCustomFeeProps) {
   const feeInputRef = useRef<HTMLInputElement | null>(null);
-  const getCustomFeeValues = useBitcoinCustomFee({ amount, recipient });
+  const getCustomFeeValues = useBitcoinCustomFee({ amount, isSendingMax, recipient });
 
   const onChooseCustomBtcFee = useCallback(
     async ({ feeRate }: { feeRate: string }) => {
+      onSetSelectedFeeType(null);
       const { fee: feeValue } = getCustomFeeValues(Number(feeRate));
       const isValid = onValidateBitcoinSpend(feeValue);
       if (!isValid) return;
       await onChooseFee({ feeRate: Number(feeRate), feeValue, time: '', isCustomFee: true });
     },
-    [getCustomFeeValues, onValidateBitcoinSpend, onChooseFee]
+    [onSetSelectedFeeType, getCustomFeeValues, onValidateBitcoinSpend, onChooseFee]
   );
 
   const validationSchema = yup.object({
@@ -90,7 +97,11 @@ export function BitcoinCustomFee({
                     }}
                     inputRef={feeInputRef}
                   />
-                  <BitcoinCustomFeeFiat recipient={recipient} amount={amount} />
+                  <BitcoinCustomFeeFiat
+                    amount={amount}
+                    isSendingMax={isSendingMax}
+                    recipient={recipient}
+                  />
                 </Stack>
               </Stack>
 

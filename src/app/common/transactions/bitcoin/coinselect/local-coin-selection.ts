@@ -31,6 +31,7 @@ export function determineUtxosForSpendAll({
     [addressInfo.type + '_output_count']: 1,
   });
 
+  // Fee has already been deducted from the amount with send all
   const outputs = [{ value: BigInt(amount), address: recipient }];
 
   const fee = Math.ceil(sizeInfo.txVBytes * feeRate);

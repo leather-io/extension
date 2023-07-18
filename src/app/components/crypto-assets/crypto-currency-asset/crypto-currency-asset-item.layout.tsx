@@ -17,8 +17,8 @@ import { Caption, Text } from '@app/components/typography';
 interface CryptoCurrencyAssetItemLayoutProps extends StackProps {
   balance: Money;
   caption: string;
-  icon: JSX.Element;
-  copyIcon?: JSX.Element;
+  icon: React.JSX.Element;
+  copyIcon?: React.JSX.Element;
   isPressable?: boolean;
   title: string;
   usdBalance?: string;
@@ -26,8 +26,8 @@ interface CryptoCurrencyAssetItemLayoutProps extends StackProps {
   canCopy?: boolean;
   isHovered?: boolean;
   currency?: CryptoCurrencies;
-  additionalBalanceInfo?: JSX.Element;
-  additionalUsdBalanceInfo?: JSX.Element;
+  additionalBalanceInfo?: React.JSX.Element;
+  additionalUsdBalanceInfo?: React.JSX.Element;
 }
 export const CryptoCurrencyAssetItemLayout = forwardRefWithAs(
   (props: CryptoCurrencyAssetItemLayoutProps, ref) => {

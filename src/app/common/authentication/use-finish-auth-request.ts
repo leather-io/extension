@@ -18,16 +18,20 @@ import { useKeyActions } from '@app/common/hooks/use-key-actions';
 import { useWalletType } from '@app/common/use-wallet-type';
 import { useNativeSegwitNetworkSigners } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
 import { useTaprootNetworkSigners } from '@app/store/accounts/blockchain/bitcoin/taproot-account.hooks';
-import { useStacksAccounts } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
-import { useStacksWallet } from '@app/store/accounts/blockchain/stacks/stacks-keychain';
+import {
+  useLegacyStacksWallet,
+  useStacksAccounts,
+} from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
 
 export function useFinishAuthRequest() {
-  const { decodedAuthRequest, authRequest, appName, appIcon } = useOnboardingState();
+  const { decodedAuthRequest, authRequest, appIcon, appName } = useOnboardingState();
   const keyActions = useKeyActions();
-  const wallet = useStacksWallet();
+  const stacksAccounts = useStacksAccounts();
   const { walletType } = useWalletType();
   const accounts = useStacksAccounts();
   const { origin, tabId } = useAuthRequestParams();
+
+  const wallet = useLegacyStacksWallet();
 
   // TODO: It would be good to separate out finishing auth by the wallet vs an app
   // so that the additional data we provide apps can be removed from our onboarding.
@@ -39,17 +43,7 @@ export function useFinishAuthRequest() {
     async (accountIndex: number) => {
       const account = accounts?.[accountIndex];
 
-      const legacyAccount = wallet?.accounts[accountIndex];
-
-      if (
-        !decodedAuthRequest ||
-        !authRequest ||
-        !account ||
-        !legacyAccount ||
-        !wallet ||
-        !origin ||
-        !tabId
-      ) {
+      if (!decodedAuthRequest || !authRequest || !account || !stacksAccounts || !origin || !tabId) {
         logger.error('Uh oh! Finished onboarding without auth info.');
         return;
       }
@@ -58,7 +52,9 @@ export function useFinishAuthRequest() {
 
       // We can't perform any of this logic for non-software wallets
       // as they require the key to be available in the JS context
-      if (walletType === 'software') {
+      if (walletType === 'software' && account.type === 'software') {
+        if (!wallet) return;
+
         const gaiaHubConfig = await createWalletGaiaConfig({ gaiaHubUrl: gaiaUrl, wallet });
         const walletConfig = await getOrCreateWalletConfig({
           wallet,
@@ -69,7 +65,7 @@ export function useFinishAuthRequest() {
           wallet,
           walletConfig,
           gaiaHubConfig,
-          account: legacyAccount,
+          account,
           app: {
             origin: appURL.origin,
             lastLoginAt: new Date().getTime(),
@@ -87,7 +83,7 @@ export function useFinishAuthRequest() {
           appDomain: appURL.origin,
           transitPublicKey: decodedAuthRequest.public_keys[0],
           scopes: decodedAuthRequest.scopes,
-          account: legacyAccount,
+          account: account,
           additionalData: {
             btcAddress: {
               p2tr: {
@@ -118,12 +114,13 @@ export function useFinishAuthRequest() {
     },
     [
       accounts,
-      wallet,
       decodedAuthRequest,
       authRequest,
+      stacksAccounts,
       origin,
       tabId,
       walletType,
+      wallet,
       appIcon,
       appName,
       deriveAllTaprootNetworkSigners,

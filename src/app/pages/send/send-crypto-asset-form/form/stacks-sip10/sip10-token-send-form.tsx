@@ -16,7 +16,7 @@ export function Sip10TokenSendForm() {
 }
 
 interface Sip10TokenSendFormLoaderProps {
-  children: (data: { symbol: string; contractId: string }) => JSX.Element;
+  children: (data: { symbol: string; contractId: string }) => React.JSX.Element;
 }
 
 function Sip10TokenSendFormLoader({ children }: Sip10TokenSendFormLoaderProps) {

@@ -38,9 +38,8 @@ export const test = base.extend<TestFixtures>({
     await context.close();
   },
   extensionId: async ({ context }, use) => {
-    let [background] = context.backgroundPages();
-    if (!background) background = await context.waitForEvent('backgroundpage');
-
+    let [background] = context.serviceWorkers();
+    if (!background) background = await context.waitForEvent('serviceworker');
     const extensionId = background.url().split('/')[2];
     await use(extensionId);
   },

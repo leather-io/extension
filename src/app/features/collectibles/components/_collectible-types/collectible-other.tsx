@@ -3,7 +3,7 @@ import { Box } from '@stacks/ui';
 import { CollectibleItemLayout, CollectibleItemLayoutProps } from '../collectible-item.layout';
 
 interface CollectibleOtherProps extends Omit<CollectibleItemLayoutProps, 'children'> {
-  children: JSX.Element;
+  children: React.JSX.Element;
 }
 export function CollectibleOther({ children, ...props }: CollectibleOtherProps) {
   return (

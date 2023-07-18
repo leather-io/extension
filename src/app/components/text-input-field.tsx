@@ -21,7 +21,7 @@ interface TextInputFieldProps extends FlexProps {
   onClickLabelAction?(): void;
   placeholder?: string;
   inputRef?: Ref<HTMLInputElement>;
-  topInputOverlay?: JSX.Element;
+  topInputOverlay?: React.JSX.Element;
   hasError?: boolean;
 }
 export function TextInputField({

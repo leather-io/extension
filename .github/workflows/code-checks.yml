@@ -33,23 +33,15 @@ jobs:
       - name: File name checker
         run: yarn lint:filename
 
-  audit:
+  lint-commit:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - uses: ./.github/actions/provision
+        with:
+          fetch-depth: 0
 
-      - name: Audit
-        run: yarn audit-ci --high --skip-dev
-
-  typecheck:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-      - uses: ./.github/actions/provision
-
-      - name: Typecheck
-        run: yarn typecheck
+      - name: Lint commit message
+        uses: wagoid/commitlint-github-action@v4
 
   lint-deps:
     runs-on: ubuntu-latest
@@ -59,27 +51,6 @@ jobs:
 
       - name: Lint dependency rules
         run: yarn lint:deps
-
-  locked-versions:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-      - uses: ./.github/actions/provision
-
-      - name: Check exact versions
-        uses: ./.github/actions/check-version-lock
-
-  test-unit:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-      - uses: ./.github/actions/provision
-
-      - name: Build
-        run: yarn build
-
-      - name: Test
-        run: yarn test:unit
 
   lint-message-schema:
     runs-on: ubuntu-latest
@@ -108,10 +79,38 @@ jobs:
       - run: yarn build
         env:
           MINIFY_PRODUCTION_BUILD: true
+          TARGET_BROWSER: firefox
 
       - run: yarn web-ext lint
 
-  build:
+  locked-versions:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: ./.github/actions/provision
+
+      - name: Check exact versions
+        uses: ./.github/actions/check-version-lock
+
+  audit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: ./.github/actions/provision
+
+      - name: Audit
+        run: yarn audit-ci --high --skip-dev
+
+  typecheck:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: ./.github/actions/provision
+
+      - name: Typecheck
+        run: yarn typecheck
+
+  test-unit:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -120,6 +119,18 @@ jobs:
       - name: Build
         run: yarn build
 
-      - name: Build extension
+      - name: Test
+        run: yarn test:unit
+
+  test-build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: ./.github/actions/provision
+
+      - name: Build
+        run: yarn build
+
+      - name: Package extension
         run: sh build-ext.sh
         shell: bash

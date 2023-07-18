@@ -3,7 +3,7 @@ import { useLocation } from 'react-router-dom';
 
 import { useRouteHeaderState } from '@app/store/ui/ui.hooks';
 
-export function useRouteHeader(header: JSX.Element, isParentRoute?: boolean) {
+export function useRouteHeader(header: React.JSX.Element, isParentRoute?: boolean) {
   const location = useLocation();
   const [_, setRouteHeader] = useRouteHeaderState();
   useEffect(() => {

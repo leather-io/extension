@@ -3,9 +3,7 @@ import { useMemo } from 'react';
 import { generateSecretKey } from '@stacks/wallet-sdk';
 
 import { logger } from '@shared/logger';
-import { InternalMethods } from '@shared/message-types';
-import { sendMessage } from '@shared/messages';
-import { clearChromeStorage } from '@shared/storage';
+import { clearChromeStorage } from '@shared/storage/redux-pesist';
 
 import { queryClient } from '@app/common/persistence';
 import { partiallyClearLocalStorage } from '@app/common/store-utils';
@@ -15,6 +13,7 @@ import { useBitcoinClient, useStacksClientAnchored } from '@app/store/common/api
 import { inMemoryKeyActions } from '@app/store/in-memory-key/in-memory-key.actions';
 import { keyActions } from '@app/store/keys/key.actions';
 import { useCurrentKeyDetails } from '@app/store/keys/key.selectors';
+import { clearWalletSession } from '@app/store/session-restore';
 
 import { useAnalytics } from './analytics/use-analytics';
 
@@ -37,10 +36,6 @@ export function useKeyActions() {
           return;
         }
         const secretKey = generateSecretKey(256);
-        sendMessage({
-          method: InternalMethods.ShareInMemoryKeyToBackground,
-          payload: { secretKey, keyId: 'default' },
-        });
         return dispatch(inMemoryKeyActions.generateWalletKey(secretKey));
       },
 
@@ -57,7 +52,7 @@ export function useKeyActions() {
       },
 
       async signOut() {
-        sendMessage({ method: InternalMethods.RemoveInMemoryKeys, payload: undefined });
+        await clearWalletSession();
         dispatch(keyActions.signOut());
         await clearChromeStorage();
         partiallyClearLocalStorage();
@@ -65,8 +60,8 @@ export function useKeyActions() {
         queryClient.clear();
       },
 
-      lockWallet() {
-        sendMessage({ method: InternalMethods.RemoveInMemoryKeys, payload: undefined });
+      async lockWallet() {
+        await clearWalletSession();
         return dispatch(inMemoryKeyActions.lockWallet());
       },
     }),

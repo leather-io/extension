@@ -40,15 +40,13 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
-      - uses: actions/cache@v2
+      - uses: actions/cache@v3
         id: cache-node-modules
         with:
           path: '**/node_modules'
           key: ${{ runner.os }}-modules-${{ hashFiles('**/yarn.lock') }}-${{ hashFiles('**/package.json') }}
 
-      - uses: actions/setup-node@v2
-        with:
-          node-version: 14.x
+      - uses: actions/setup-node@v3
 
       - name: Install packages
         uses: ./.github/actions/provision
@@ -60,7 +58,7 @@ jobs:
       - name: Build extension
         run: sh build-ext.sh
 
-      - uses: actions/upload-artifact@v2
+      - uses: actions/upload-artifact@v3
         name: Upload Chrome Extension Zip
         with:
           name: stacks-wallet-chromium
@@ -82,12 +80,10 @@ jobs:
           ref: ${{ github.event.pull_request.head.ref }}
 
       - name: Set Node Version
-        uses: actions/setup-node@v2-beta
-        with:
-          node-version: 14.x
+        uses: actions/setup-node@v3
 
       - name: Restore cache
-        uses: actions/cache@v2
+        uses: actions/cache@v3
         with:
           path: |
             node_modules
@@ -109,7 +105,7 @@ jobs:
           WEB_EXT_API_KEY: ${{ secrets.WEB_EXT_API_KEY }}
           WEB_EXT_API_SECRET: ${{ secrets.WEB_EXT_API_SECRET }}
 
-      - uses: actions/upload-artifact@v2
+      - uses: actions/upload-artifact@v3
         name: Upload Firefox Add-On XPI
         with:
           name: connect-addon

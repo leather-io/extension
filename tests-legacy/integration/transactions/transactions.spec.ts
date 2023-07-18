@@ -29,9 +29,7 @@ describe(`Transaction signing`, () => {
 
   afterEach(async () => {
     try {
-      await browser.context.tracing.stop({
-        path: `trace-${getCurrentTestName()}.trace.zip`,
-      });
+      await browser.context.tracing.stop({ path: `trace-${getCurrentTestName()}.trace.zip` });
       await browser.context.close();
     } catch (error) {
       console.log(error);

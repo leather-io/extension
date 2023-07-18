@@ -17,7 +17,7 @@ interface ReceiveTokensLayoutProps {
   accountName?: string;
   onCopyAddressToClipboard(address: string): void;
   title: string;
-  warning?: JSX.Element;
+  warning?: React.JSX.Element;
   hasSubtitle?: boolean;
 }
 export function ReceiveTokensLayout(props: ReceiveTokensLayoutProps) {

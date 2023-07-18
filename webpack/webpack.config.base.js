@@ -104,8 +104,12 @@ const config = {
       path: false,
     },
   },
+  externals: {
+    'cross-fetch': 'fetch',
+  },
   optimization: {
     minimize: false,
+    usedExports: true,
     splitChunks: {
       chunks: 'all',
       name: 'common',

@@ -3,8 +3,9 @@ import { inMemoryKeyActions } from '@app/store/in-memory-key/in-memory-key.actio
 
 export function useOnWalletLock(handler: () => void) {
   useOnMount(() => {
-    chrome.runtime.onMessage.addListener(message => {
+    chrome.runtime.onMessage.addListener((message, _sender, sendResponse) => {
       if (message?.method === inMemoryKeyActions.lockWallet.type) handler();
+      sendResponse();
     });
   });
 }

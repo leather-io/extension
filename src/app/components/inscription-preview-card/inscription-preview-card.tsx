@@ -7,8 +7,8 @@ interface InscriptionPreviewCardProps {
   action?(): void;
   actionLabel?: string;
   hideBorder?: boolean;
-  icon?: JSX.Element;
-  image: JSX.Element;
+  icon?: React.JSX.Element;
+  image: React.JSX.Element;
   subtitle: string;
   title: string;
 }

@@ -20,8 +20,10 @@ import { Divider } from '@app/components/layout/divider';
 import { Overlay } from '@app/components/overlay';
 import { Caption } from '@app/components/typography';
 import { useHasCreatedAccount } from '@app/store/accounts/account';
-import { useCurrentStacksAccount } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
-import { useStacksWallet } from '@app/store/accounts/blockchain/stacks/stacks-keychain';
+import {
+  useCurrentStacksAccount,
+  useStacksAccounts,
+} from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
 import { useCurrentKeyDetails } from '@app/store/keys/key.selectors';
 import { useCurrentNetworkId } from '@app/store/networks/networks.selectors';
 
@@ -34,7 +36,7 @@ import { MenuWrapper } from './components/settings-menu-wrapper';
 export function SettingsDropdown() {
   const ref = useRef<HTMLDivElement | null>(null);
   const hasGeneratedWallet = !!useCurrentStacksAccount();
-  const wallet = useStacksWallet();
+  const stacksAccounts = useStacksAccounts();
   const { lockWallet } = useKeyActions();
   const [hasCreatedAccount] = useHasCreatedAccount();
   const { setIsShowingSettings, isShowingSettings, setIsShowingSwitchAccountsState } = useDrawers();
@@ -69,7 +71,7 @@ export function SettingsDropdown() {
             {key && key.type === 'ledger' && (
               <LedgerDeviceItemRow deviceType={extractDeviceNameFromKnownTargetIds(key.targetId)} />
             )}
-            {wallet && (
+            {stacksAccounts && (
               <MenuItem
                 data-testid={SettingsMenuSelectors.SwitchAccountMenuItem}
                 onClick={wrappedCloseCallback(() => setIsShowingSwitchAccountsState(true))}

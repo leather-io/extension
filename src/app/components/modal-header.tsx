@@ -9,7 +9,7 @@ import { NetworkModeBadge } from '@app/components/network-mode-badge';
 import { Title } from '@app/components/typography';
 
 interface ModalHeaderProps extends FlexProps {
-  actionButton?: JSX.Element;
+  actionButton?: React.JSX.Element;
   closeIcon?: boolean;
   hideActions?: boolean;
   onClose?(): void;
@@ -38,6 +38,8 @@ export function ModalHeader({
   function defaultGoBackAction() {
     navigate(-1);
   }
+
+  const hasCloseIcon = onClose || defaultClose;
 
   return (
     <Flex
@@ -69,8 +71,8 @@ export function ModalHeader({
       </Flex>
 
       <Flex alignItems="center" flexBasis="20%" justifyContent="flex-end" position="relative">
-        <NetworkModeBadge position="absolute" right="35px" />
-        {(onClose || defaultClose) && (
+        <NetworkModeBadge position="absolute" right={hasCloseIcon ? '35px' : '15px'} />
+        {hasCloseIcon && (
           <IconButton
             onClick={onClose || defaultCloseAction}
             alignSelf="center"

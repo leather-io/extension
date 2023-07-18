@@ -8,7 +8,6 @@ import {
   showSettingsStore,
   showSwitchAccountsState,
   showTxSettingsCallback,
-  tabState,
 } from './ui';
 
 export function useShowHighFeeConfirmationState() {
@@ -29,10 +28,6 @@ export function useShowTxSettingsCallback() {
 
 export function useLoadingState(key: string) {
   return useAtom(loadingState(key));
-}
-
-export function useTabState(key: string) {
-  return useAtom(tabState(key));
 }
 
 export function useErrorStackTraceState() {

@@ -18,7 +18,7 @@ export interface FtTransfer {
 
 export interface TxTransferDetails {
   caption: string;
-  icon: JSX.Element;
+  icon: React.JSX.Element;
   link: string;
   title: string;
   value: number | string | null;

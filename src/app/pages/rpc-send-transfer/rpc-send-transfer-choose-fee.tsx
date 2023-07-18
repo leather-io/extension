@@ -76,21 +76,22 @@ export function RpcSendTransferChooseFee() {
   return (
     <BitcoinChooseFee
       amount={amountAsMoney}
-      isLoading={isLoading}
       feesList={
         <BitcoinFeesList
           feesList={feesList}
           onChooseFee={previewTransfer}
           onValidateBitcoinSpend={onValidateBitcoinFeeSpend}
-          onSetSelectedFeeType={(value: BtcFeeType) => setSelectedFeeType(value)}
+          onSetSelectedFeeType={(value: BtcFeeType | null) => setSelectedFeeType(value)}
           selectedFeeType={selectedFeeType}
         />
       }
-      recommendedFeeRate={recommendedFeeRate}
+      isLoading={isLoading}
+      isSendingMax={false}
+      onChooseFee={previewTransfer}
+      onSetSelectedFeeType={(value: BtcFeeType | null) => setSelectedFeeType(value)}
       onValidateBitcoinSpend={onValidateBitcoinFeeSpend}
       recipient={address}
-      onChooseFee={previewTransfer}
-      isSendingMax={false}
+      recommendedFeeRate={recommendedFeeRate}
       showError={showInsufficientBalanceError}
     />
   );

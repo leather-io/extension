@@ -5,7 +5,7 @@ import { BaseDrawer } from './base-drawer';
 interface ControlledDrawerProps {
   children?: ReactNode;
   enableGoBack?: boolean;
-  icon?: JSX.Element;
+  icon?: React.JSX.Element;
   isShowing: boolean;
   onClose(): void;
   pauseOnClickOutside?: boolean;

@@ -1,15 +1,15 @@
 import {
   FtMetadataResponse,
   NftMetadataResponse,
-  TokenNotFoundResponse,
+  NotFoundErrorResponse,
 } from '@hirosystems/token-metadata-api-client';
 
-export type FtAssetResponse = FtMetadataResponse | TokenNotFoundResponse;
-export type NftAssetResponse = NftMetadataResponse | TokenNotFoundResponse;
+export type FtAssetResponse = FtMetadataResponse | NotFoundErrorResponse;
+export type NftAssetResponse = NftMetadataResponse | NotFoundErrorResponse;
 
 function isAssetMetadataNotFoundResponse(
   resp: FtAssetResponse | NftAssetResponse
-): resp is TokenNotFoundResponse {
+): resp is NotFoundErrorResponse {
   return 'error' in resp;
 }
 

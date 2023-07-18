@@ -1,8 +1,8 @@
-import { formatAuthResponse } from '@shared/actions/finalize-auth-response';
-import { formatMessageSigningResponse } from '@shared/actions/finalize-message-signature';
+import { formatAuthResponse } from '@shared/actions/finalize-auth-reaponse-format';
+import { formatMessageSigningResponse } from '@shared/actions/finalize-message-signature-format';
 import { formatProfileUpdateResponse } from '@shared/actions/finalize-profile-update';
 import { formatPsbtResponse } from '@shared/actions/finalize-psbt';
-import { formatTxSignatureResponse } from '@shared/actions/finalize-tx-signature';
+import { formatTxSignatureResponse } from '@shared/actions/finalize-tx-signature-format';
 import { ExternalMethods, LegacyMessageFromContentScript } from '@shared/message-types';
 import { RouteUrls } from '@shared/route-urls';
 import { getCoreApiUrl, getPayloadFromToken } from '@shared/utils/requests';

@@ -11,7 +11,7 @@ import { useRpcSendTransfer } from './use-rpc-send-transfer';
 
 interface RpcSendTransferContextState {
   selectedFeeType: BtcFeeType;
-  setSelectedFeeType(value: BtcFeeType): void;
+  setSelectedFeeType(value: BtcFeeType | null): void;
 }
 export function useRpcSendTransferState() {
   const context = useOutletContext<RpcSendTransferContextState>();
@@ -19,7 +19,7 @@ export function useRpcSendTransferState() {
 }
 
 export function RpcSendTransferContainer() {
-  const [selectedFeeType, setSelectedFeeType] = useState(BtcFeeType.Low);
+  const [selectedFeeType, setSelectedFeeType] = useState<BtcFeeType | null>(BtcFeeType.Standard);
   const { origin } = useRpcSendTransfer();
 
   useRouteHeader(<PopupHeader displayAddresssBalanceOf="all" />);

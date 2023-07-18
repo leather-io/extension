@@ -1,29 +1,9 @@
 import { logger } from '@shared/logger';
-import {
-  ExternalMethods,
-  MESSAGE_SOURCE,
-  TransactionResponseMessage,
-  TxResult,
-} from '@shared/message-types';
+import { TxResult } from '@shared/message-types';
 import { analytics } from '@shared/utils/analytics';
 
-interface FormatTxSignatureResponseArgs {
-  payload: string;
-  response: TxResult | 'cancel';
-}
-export function formatTxSignatureResponse({
-  payload,
-  response,
-}: FormatTxSignatureResponseArgs): TransactionResponseMessage {
-  return {
-    source: MESSAGE_SOURCE,
-    method: ExternalMethods.transactionResponse,
-    payload: {
-      transactionRequest: payload,
-      transactionResponse: response,
-    },
-  };
-}
+import { formatTxSignatureResponse } from './finalize-tx-signature-format';
+
 interface FinalizeTxSignatureArgs {
   requestPayload: string;
   data: TxResult | 'cancel';
