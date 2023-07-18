@@ -1,3 +1,44 @@
+## [4.36.0](https://github.com/hirosystems/wallet/compare/v4.35.0...v4.36.0) (2023-07-18)
+
+
+### Features
+
+* change arrow icon in send flow ([2b4a2a9](https://github.com/hirosystems/wallet/commit/2b4a2a9b94507d4a0f7ae9b46ecfe0a335c9e2f8))
+* change caret color in seed phrase input ([8fc248c](https://github.com/hirosystems/wallet/commit/8fc248cf0c1d9339354cfcc7c6267affa23d5a8a))
+
+
+### Bug Fixes
+
+* add module type ([227ea75](https://github.com/hirosystems/wallet/commit/227ea753f34d32032c73d2ecf876ae145f2e8140))
+* choose acc total balance, closes [#3989](https://github.com/hirosystems/wallet/issues/3989) ([6e4bedf](https://github.com/hirosystems/wallet/commit/6e4bedf9bdcf980d34fd853b333fa7eea4ceeb15))
+* disable sentry in service worker ([d5e8f26](https://github.com/hirosystems/wallet/commit/d5e8f2620824b0f183f93618cbad98279b5ce745))
+* entire activity item is clickable ([167429b](https://github.com/hirosystems/wallet/commit/167429b068bfee90250f52ce2e6887cff5850b73))
+* exceed amount in rbf, closes [#3921](https://github.com/hirosystems/wallet/issues/3921) ([0d8e72f](https://github.com/hirosystems/wallet/commit/0d8e72ff9691867fce6fc8fac557e735dff52229))
+* form restore ([c48fc22](https://github.com/hirosystems/wallet/commit/c48fc22827ce9863736114747179fb19e346bc9e))
+* go to RequestDiagnostics after fresh installation to avoid flash redirect, fixes [#2330](https://github.com/hirosystems/wallet/issues/2330) ([bef7e08](https://github.com/hirosystems/wallet/commit/bef7e080f833637373ce4e9178db2c93b9f56235))
+* port disconnecting ([da3a2f5](https://github.com/hirosystems/wallet/commit/da3a2f54065e9f2d13dfed1b546ba8db3025da45))
+* prevent secret key showing before blurred ([6929ada](https://github.com/hirosystems/wallet/commit/6929ada83f16ebc51dfcfc7a3bee0417021a0bc6))
+* refactor JSX namespace to React.JSX ([4a07bcb](https://github.com/hirosystems/wallet/commit/4a07bcba8181883a52569c6adaa499b62959a17b))
+* retore form state, chromium ([be3204d](https://github.com/hirosystems/wallet/commit/be3204d7e773248329570e5f2a5c0259d97437b5))
+* secret key input, closes [#3954](https://github.com/hirosystems/wallet/issues/3954) ([5f000ba](https://github.com/hirosystems/wallet/commit/5f000ba115b9f90895769e08c07f433631eb3d23))
+* stacks nfts loading key not unique, closes [#3789](https://github.com/hirosystems/wallet/issues/3789) ([dad5d6e](https://github.com/hirosystems/wallet/commit/dad5d6e04273ad7147445ac9ec3d83e6ee48bd56))
+* upgrade packages ([74f6d25](https://github.com/hirosystems/wallet/commit/74f6d253928e61ac11aafc38bb8fc9d8d78f1d25))
+* use routes over state for home tabs, closes [#3518](https://github.com/hirosystems/wallet/issues/3518) ([cb2f317](https://github.com/hirosystems/wallet/commit/cb2f317636395b24636d55fc8bb054475c6d1256))
+* use windows friendly syntax so that yarn dev will launch on windows machines ([56b6778](https://github.com/hirosystems/wallet/commit/56b6778542ce5f45ebf4e515bdf61b24ae7404f7))
+
+
+### Internal
+
+* keychain ([c5d4761](https://github.com/hirosystems/wallet/commit/c5d476176ae587be6b1d6ae06a866545122f1d3b))
+* migrate to manifest version 3 ([03dbb1e](https://github.com/hirosystems/wallet/commit/03dbb1eb944d33dbb0d7754d4ed68ee348632c15))
+* mv3 fix ([0f54a1f](https://github.com/hirosystems/wallet/commit/0f54a1fd52889b262118d90ad1b978576bbe9a18))
+* restore gaia functionality ([bf136dc](https://github.com/hirosystems/wallet/commit/bf136dcc7b3de3f2d001ff1873f91d7a714b279a))
+* sending max fees, closes [#3871](https://github.com/hirosystems/wallet/issues/3871) ([90c1c31](https://github.com/hirosystems/wallet/commit/90c1c316a87257c146a87000d348a5a5f4d37ae1))
+* stacks keychain logic ([846132b](https://github.com/hirosystems/wallet/commit/846132be9111d558afff4a7286a9bedab6178ba7))
+* upgrade packages ([d3978f0](https://github.com/hirosystems/wallet/commit/d3978f0115a3cbcfb08d01201eec1b994b8e94be))
+* upgrade packages, p1 ([cb7da02](https://github.com/hirosystems/wallet/commit/cb7da02fb4de852810b95e422d16013f739f6139))
+* upgrade packages, p2 ([51b7da0](https://github.com/hirosystems/wallet/commit/51b7da0a849fa2eabe1c96a9cb888e305c354331))
+
 ## [4.35.0](https://github.com/hirosystems/wallet/compare/v4.34.0...v4.35.0) (2023-07-03)
 
 
