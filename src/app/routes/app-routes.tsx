@@ -55,6 +55,7 @@ import { SendInscriptionSummary } from '@app/pages/send/ordinal-inscription/sent
 import { sendCryptoAssetFormRoutes } from '@app/pages/send/send-crypto-asset-form/send-crypto-asset-form.routes';
 import { SignOutConfirmDrawer } from '@app/pages/sign-out-confirm/sign-out-confirm';
 import { StacksMessageSigningRequest } from '@app/pages/stacks-message-signing-request/stacks-message-signing-request';
+import { swapRoutes } from '@app/pages/swap';
 import { TransactionRequest } from '@app/pages/transaction-request/transaction-request';
 import { UnauthorizedRequest } from '@app/pages/unauthorized-request/unauthorized-request';
 import { Unlock } from '@app/pages/unlock';
@@ -352,6 +353,18 @@ function useAppRoutes() {
             </AccountGate>
           }
         />
+
+        <Route
+          path={RouteUrls.RpcSignBip322Message}
+          lazy={async () => {
+            const { RpcSignBip322MessageRoute } = await import(
+              '@app/pages/rpc-sign-bip322-message/rpc-sign-bip322-message'
+            );
+            return { Component: RpcSignBip322MessageRoute };
+          }}
+        />
+
+        {swapRoutes}
 
         {/* Catch-all route redirects to onboarding */}
         <Route path="*" element={<Navigate replace to={RouteUrls.Onboarding} />} />

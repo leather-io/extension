@@ -106,4 +106,7 @@ export enum RouteUrls {
   // Shared legacy and rpc request routes
   RequestError = '/request-error',
   UnauthorizedRequest = '/unauthorized-request',
+
+  // Swap routes
+  Swap = '/swap',
 }
