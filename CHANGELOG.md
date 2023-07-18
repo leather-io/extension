@@ -1,3 +1,15 @@
+## [5.0.0](https://github.com/hirosystems/wallet/compare/v4.36.0...v5.0.0) (2023-07-18)
+
+
+### ⚠ BREAKING CHANGES
+
+* this change is sufficient enough to warrant a major
+bump
+
+### Features
+
+* manifest v3 release trigger ([d0c8b3a](https://github.com/hirosystems/wallet/commit/d0c8b3a781165ab1342de4699213b2998b25e988))
+
 ## [4.36.0](https://github.com/hirosystems/wallet/compare/v4.35.0...v4.36.0) (2023-07-18)
 
 
