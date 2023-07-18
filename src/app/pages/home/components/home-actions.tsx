@@ -5,6 +5,7 @@ import { Stack, StackProps } from '@stacks/ui';
 import { BuyButton } from './buy-button';
 import { ReceiveButton } from './receive-button';
 import { SendButton } from './send-button';
+import { SwapButton } from './swap-button';
 
 export function HomeActions(props: StackProps) {
   return (
@@ -13,6 +14,7 @@ export function HomeActions(props: StackProps) {
         <SendButton />
         <ReceiveButton />
         <BuyButton />
+        <SwapButton />
       </Stack>
     </Suspense>
   );

@@ -93,4 +93,7 @@ export enum RouteUrls {
   RpcSendTransferConfirmation = '/send-transfer/confirm',
   RpcSendTransferSummary = '/send-transfer/summary',
   RpcSignBip322Message = '/sign-bip322-message',
+
+  // Swap routes
+  Swap = '/swap',
 }
