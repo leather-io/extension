@@ -2,7 +2,7 @@
 const config = require('./webpack.config.base');
 const packageJson = require('../package.json');
 const { EsbuildPlugin } = require('esbuild-loader');
-const SentryWebpackPlugin = require('@sentry/webpack-plugin');
+const { sentryWebpackPlugin } = require('@sentry/webpack-plugin');
 const webpack = require('webpack');
 
 const shouldMinify = JSON.parse(process.env.MINIFY_PRODUCTION_BUILD || false);
@@ -49,7 +49,7 @@ config.plugins = [
   }),
   ...(sentryAuthToken
     ? [
-        new SentryWebpackPlugin({
+        sentryWebpackPlugin({
           org: 'trust-machines',
           project: 'hiro-wallet',
 

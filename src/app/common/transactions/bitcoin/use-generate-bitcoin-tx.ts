@@ -52,7 +52,7 @@ export function useGenerateSignedNativeSegwitTx() {
           ? determineUtxosForSpendAll(determineUtxosArgs)
           : determineUtxosForSpend(determineUtxosArgs);
 
-        logger.info('coinselect', { inputs, outputs, fee });
+        logger.info('Coin selection', { inputs, outputs, fee });
 
         if (!inputs.length) throw new Error('No inputs to sign');
         if (!outputs.length) throw new Error('No outputs to sign');
