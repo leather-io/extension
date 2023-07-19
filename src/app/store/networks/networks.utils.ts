@@ -50,7 +50,7 @@ export function transformNetworkStateToMultichainStucture(
     Object.entries(state)
       .map(([key, network]) => {
         if (!network) return ['', null];
-        const { id, name, chainId, url } = network;
+        const { id, name, chainId, subnetChainId, url } = network;
         return [
           key,
           {
@@ -61,6 +61,7 @@ export function transformNetworkStateToMultichainStucture(
                 blockchain: 'stacks',
                 url,
                 chainId,
+                subnetChainId,
               },
               bitcoin: {
                 blockchain: 'bitcoin',
