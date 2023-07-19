@@ -42,7 +42,6 @@ export function BtcSendForm() {
     utxos,
     validationSchema,
   } = useBtcSendForm();
-
   return (
     <Box width="100%" pb="base">
       <Formik
@@ -50,7 +49,7 @@ export function BtcSendForm() {
           ...routeState,
           recipientBnsName: '',
         })}
-        onSubmit={chooseTransactionFee}
+        onSubmit={async values => await chooseTransactionFee(values)}
         validationSchema={validationSchema}
         innerRef={formRef}
         {...defaultSendFormFormikProps}

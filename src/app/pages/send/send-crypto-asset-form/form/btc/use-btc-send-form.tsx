@@ -83,12 +83,12 @@ export function useBtcSendForm() {
     }),
 
     async chooseTransactionFee(
-      values: BitcoinSendFormValues,
-      formikHelpers: FormikHelpers<BitcoinSendFormValues>
+      values: BitcoinSendFormValues
+      // formikHelpers: FormikHelpers<BitcoinSendFormValues>
     ) {
       logger.debug('btc form values', values);
       // Validate and check high fee warning first
-      await formikHelpers.validateForm();
+      // await formikHelpers.validateForm();
 
       whenWallet({
         software: () => sendFormNavigate.toChooseTransactionFee(isSendingMax, utxos, values),
