@@ -1,9 +1,9 @@
-import { BitcoinTransaction } from '@shared/models/transactions/bitcoin-transaction.model';
+import { BitcoinTx } from '@shared/models/transactions/bitcoin-transaction.model';
 
 import { PendingLabel } from '@app/components/transaction/pending-label';
 
 interface BitcoinTransactionStatusProps {
-  transaction: BitcoinTransaction;
+  transaction: BitcoinTx;
 }
 const pendingWaitingMessage =
   'This transaction is waiting to be confirmed. The average (median) confirmation time on Bitcoin is 5-10 minutes';

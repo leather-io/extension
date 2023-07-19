@@ -1,10 +1,13 @@
 import { useCallback, useEffect } from 'react';
 import { toast } from 'react-hot-toast';
+import { useNavigate } from 'react-router-dom';
 
 import { Stack } from '@stacks/ui';
 import BigNumber from 'bignumber.js';
 import { Formik } from 'formik';
 import * as yup from 'yup';
+
+import { RouteUrls } from '@shared/route-urls';
 
 import { useRefreshAllAccountData } from '@app/common/hooks/account/use-refresh-all-account-data';
 import { useStxBalance } from '@app/common/hooks/balance/stx/use-stx-balance';
@@ -26,9 +29,10 @@ import { useSelectedTx } from '../hooks/use-selected-tx';
 import { IncreaseFeeActions } from './increase-fee-actions';
 import { IncreaseFeeField } from './increase-fee-field';
 
-export function IncreaseFeeForm() {
+export function IncreaseStxFeeForm() {
   const refreshAccountData = useRefreshAllAccountData();
   const tx = useSelectedTx();
+  const navigate = useNavigate();
   const [, setTxId] = useRawTxIdState();
   const replaceByFee = useReplaceByFeeSoftwareWalletSubmitCallBack();
   const { data: balances } = useCurrentStacksAccountAnchoredBalances();
@@ -87,7 +91,7 @@ export function IncreaseFeeForm() {
       validateOnMount={false}
       validationSchema={validationSchema}
     >
-      {() => (
+      {props => (
         <Stack spacing="extra-loose">
           {tx && <StacksTransactionItem position="relative" transaction={tx} zIndex={99} />}
           <Stack spacing="base">
@@ -98,7 +102,13 @@ export function IncreaseFeeForm() {
               </Caption>
             )}
           </Stack>
-          <IncreaseFeeActions currentFee={fee} />
+          <IncreaseFeeActions
+            onCancel={() => {
+              setTxId(null);
+              navigate(RouteUrls.Home);
+            }}
+            isDisabled={fee === stxToMicroStx(props.values.fee).toNumber()}
+          />
         </Stack>
       )}
     </Formik>

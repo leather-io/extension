@@ -93,6 +93,7 @@ export function RpcSendTransferChooseFee() {
       recipient={address}
       recommendedFeeRate={recommendedFeeRate}
       showError={showInsufficientBalanceError}
+      maxRecommendedFeeRate={feesList[0]?.feeRate}
     />
   );
 }
