@@ -64,7 +64,7 @@ export function useBitcoinContracts() {
     const currentAccountIndex = bitcoinAccountDetails.addressIndex;
 
     const currentAddressPrivateKey = deriveAddressIndexKeychainFromAccount(
-      nativeSegwitPrivateKeychain
+      nativeSegwitPrivateKeychain.keychain
     )(currentAccountIndex).privateKey;
 
     if (!currentAddressPrivateKey) return;
