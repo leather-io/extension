@@ -27,7 +27,7 @@ import {
  * The **peer** network ID.
  * Not used in signing, but needed to determine the parent of a subnet.
  */
-enum NetworkID {
+enum PeerNetworkID {
   Mainnet = 0x17000000,
   Testnet = 0xff000000,
 }
@@ -81,12 +81,13 @@ export function AddNetwork() {
             const isSubnet = typeof chainInfo.l1_subnet_governing_contract === 'string';
             const isFirstLevelSubnet =
               isSubnet &&
-              (parentNetworkId === NetworkID.Mainnet || parentNetworkId === NetworkID.Testnet);
+              (parentNetworkId === PeerNetworkID.Mainnet ||
+                parentNetworkId === PeerNetworkID.Testnet);
 
             // Currently, only subnets of mainnet and testnet are supported in the wallet
             if (isFirstLevelSubnet) {
               const parentChainId =
-                parentNetworkId === NetworkID.Mainnet ? ChainID.Mainnet : ChainID.Testnet;
+                parentNetworkId === PeerNetworkID.Mainnet ? ChainID.Mainnet : ChainID.Testnet;
               networksActions.addNetwork({
                 chainId: parentChainId, // Used for differentiating control flow in the wallet
                 subnetChainId: chainId, // Used for signing transactions (via the network object, not to be confused with the NetworkConfigurations)
