@@ -93,8 +93,9 @@ const manifest = {
   content_scripts: [
     {
       js: ['content-script.js'],
-      matches: ['*://*/*'],
+      matches: ["file://*/*", "http://*/*", "https://*/*"],
       all_frames: true,
+      run_at: "document_start",
     },
   ],
 };

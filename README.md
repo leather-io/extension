@@ -48,6 +48,8 @@ supports Chromium and Firefox browsers. When you run `yarn dev`, it will compile
 - [Chrome instructions](https://developer.chrome.com/docs/extensions/mv3/faq/#faq-dev-01)
 - [Firefox instructions](https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/Your_first_WebExtension#trying_it_out)
 
+Note that to build for 'firefox' you will need to set the `.env` flag `TARGET_BROWSER` in `generate-manifest`
+
 ## Testing
 
 Several testing scripts are available in [`package.json`](./package.json).
