@@ -52,7 +52,7 @@ const selectNativeSegwitActiveNetworkAccountPrivateKeychain = createSelector(
     })
 );
 
-function useNativeSegwitActiveNetworkAccountPrivateKeychain() {
+export function useNativeSegwitActiveNetworkAccountPrivateKeychain() {
   return useSelector(selectNativeSegwitActiveNetworkAccountPrivateKeychain);
 }
 

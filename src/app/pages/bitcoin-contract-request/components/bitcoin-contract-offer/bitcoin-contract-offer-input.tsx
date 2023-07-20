@@ -1,4 +1,4 @@
-import { Stack, Text, transition } from '@stacks/ui';
+import { Stack, Text } from '@stacks/ui';
 import { truncateMiddle } from '@stacks/ui-utils';
 
 import { createMoneyFromDecimal } from '@shared/models/money.model';
