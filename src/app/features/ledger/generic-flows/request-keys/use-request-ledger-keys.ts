@@ -80,8 +80,6 @@ export function useRequestLedgerKeys<App extends AppClient | StacksApp>({
           tap(() => onSuccess?.()),
           catchError(e => {
             setAwaitingDeviceConnection(false);
-            // eslint-disable-next-line no-console
-            console.log({ name: e.name, msg: e.message });
             if (
               e.name === 'LockedDeviceError' ||
               e.message.includes('LockedDeviceError') ||
