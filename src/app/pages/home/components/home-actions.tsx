@@ -6,15 +6,18 @@ import { BuyButton } from './buy-button';
 import { ReceiveButton } from './receive-button';
 import { SendButton } from './send-button';
 import { SwapButton } from './swap-button';
+import { useSwapFeature } from '@app/features/swap';
 
 export function HomeActions(props: StackProps) {
+  const { swapIsEnabled } = useSwapFeature();
+
   return (
     <Suspense fallback={<></>}>
       <Stack isInline mt={['base', 'base', 'unset']} spacing="base-tight" {...props}>
         <SendButton />
         <ReceiveButton />
         <BuyButton />
-        <SwapButton />
+        {swapIsEnabled && <SwapButton />}
       </Stack>
     </Suspense>
   );

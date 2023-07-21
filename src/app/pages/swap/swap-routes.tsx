@@ -17,4 +17,4 @@ export const swapRoutes = (
       }
     />
   </Route>
-)
+);

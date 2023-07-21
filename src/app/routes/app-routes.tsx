@@ -53,7 +53,7 @@ import { StacksMessageSigningRequest } from '@app/pages/stacks-message-signing-r
 import { TransactionRequest } from '@app/pages/transaction-request/transaction-request';
 import { UnauthorizedRequest } from '@app/pages/unauthorized-request/unauthorized-request';
 import { Unlock } from '@app/pages/unlock';
-import { Swap, swapRoutes } from '@app/pages/swap';
+import { swapRoutes } from '@app/pages/swap';
 import { ProfileUpdateRequest } from '@app/pages/update-profile-request/update-profile-request';
 import { ViewSecretKey } from '@app/pages/view-secret-key/view-secret-key';
 import { AccountGate } from '@app/routes/account-gate';
