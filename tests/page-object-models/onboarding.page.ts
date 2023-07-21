@@ -21,6 +21,12 @@ export const testSoftwareAccountDefaultWalletState = {
       },
     },
   },
+  ledger: {
+    bitcoin: {
+      entities: {},
+      ids: [],
+    },
+  },
   networks: { ids: [], entities: {}, currentNetworkId: 'mainnet' },
   onboarding: {
     hideSteps: true,
