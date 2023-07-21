@@ -8,6 +8,7 @@ import { Money } from '@shared/models/money.model';
 import { formatMoney } from '@app/common/money/format-money';
 import { AvailableBalance } from '@app/components/available-balance';
 import { BitcoinCustomFee } from '@app/components/bitcoin-custom-fee/bitcoin-custom-fee';
+import { MAX_FEE_RATE_MULTIPLIER } from '@app/components/bitcoin-custom-fee/hooks/use-bitcoin-custom-fee';
 import { OnChooseFeeArgs } from '@app/components/bitcoin-fees-list/bitcoin-fees-list';
 import { useNativeSegwitBalance } from '@app/query/bitcoin/balance/bitcoin-balances.query';
 import { useCurrentAccountNativeSegwitIndexZeroSigner } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
@@ -73,7 +74,7 @@ export function BitcoinChooseFee({
               onValidateBitcoinSpend={onValidateBitcoinSpend}
               recipient={recipient}
               setCustomFeeInitialValue={setCustomFeeInitialValue}
-              maxCustomFeeRate={maxRecommendedFeeRate * 50}
+              maxCustomFeeRate={maxRecommendedFeeRate * MAX_FEE_RATE_MULTIPLIER}
             />
           }
           feesList={feesList}
