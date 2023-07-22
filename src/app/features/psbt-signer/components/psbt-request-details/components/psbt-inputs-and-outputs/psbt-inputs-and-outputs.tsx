@@ -9,18 +9,10 @@ import { PsbtInputList } from './components/psbt-input-list/psbt-input-list';
 import { PsbtOutputList } from './components/psbt-output-list/psbt-output-list';
 
 interface PsbtInputsAndOutputsProps {
-  addressNativeSegwit: string;
-  addressTaproot: string;
   inputs: PsbtInput[];
   outputs: PsbtOutput[];
 }
-
-export function PsbtInputsAndOutputs({
-  addressNativeSegwit,
-  addressTaproot,
-  outputs,
-  inputs,
-}: PsbtInputsAndOutputsProps) {
+export function PsbtInputsAndOutputs({ outputs, inputs }: PsbtInputsAndOutputsProps) {
   const [showDetails, setShowDetails] = useState(false);
 
   if (!inputs.length || !outputs.length) return null;
@@ -37,11 +29,7 @@ export function PsbtInputsAndOutputs({
         <>
           <PsbtInputList inputs={inputs} />
           <PsbtRequestDetailsSectionHeader title="Outputs" />
-          <PsbtOutputList
-            addressNativeSegwit={addressNativeSegwit}
-            addressTaproot={addressTaproot}
-            outputs={outputs}
-          />
+          <PsbtOutputList outputs={outputs} />
         </>
       ) : null}
     </PsbtRequestDetailsSectionLayout>

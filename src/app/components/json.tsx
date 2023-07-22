@@ -2,10 +2,10 @@ import { css } from '@emotion/react';
 import { bytesToHex } from '@stacks/common';
 import { Box } from '@stacks/ui';
 
-import { isTypedArray } from '@shared/utils';
+import { isBigInt, isTypedArray } from '@shared/utils';
 
 function parseJsonReadable(value: any) {
-  if (typeof value === 'bigint') return value.toString();
+  if (isBigInt(value)) return value.toString();
   if (isTypedArray(value)) return bytesToHex(value);
   return value;
 }

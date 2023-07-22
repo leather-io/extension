@@ -12,8 +12,7 @@ interface PsbtInputOutputItemLayoutProps {
   address: string;
   addressHoverLabel?: string;
   amount: string;
-  pillHoverLabel?: string;
-  pillLabel?: React.JSX.Element;
+  label?: React.JSX.Element;
   txId?: string;
   txIdHoverLabel?: string;
 }
@@ -21,8 +20,7 @@ export function PsbtInputOutputItemLayout({
   address,
   addressHoverLabel,
   amount,
-  pillHoverLabel,
-  pillLabel,
+  label,
   txId,
   txIdHoverLabel,
 }: PsbtInputOutputItemLayoutProps) {
@@ -54,21 +52,7 @@ export function PsbtInputOutputItemLayout({
               {addressHoverLabel ? <FiCopy size="16px" /> : null}
             </Box>
           </Tooltip>
-          {pillLabel ? (
-            <Tooltip label={pillHoverLabel} maxWidth="200px" placement="bottom">
-              <Box
-                border="1px solid #DCDDE2"
-                borderRadius="24px"
-                lineHeight="16px"
-                ml="base-tight"
-                px="tight"
-              >
-                <Text color={color('text-caption')} fontSize={0}>
-                  {pillLabel}
-                </Text>
-              </Box>
-            </Tooltip>
-          ) : null}
+          {label}
         </Flex>
         <Text color={color('text-caption')} fontSize={1}>
           {amount}

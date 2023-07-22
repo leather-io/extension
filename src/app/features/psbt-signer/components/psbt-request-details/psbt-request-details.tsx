@@ -13,42 +13,22 @@ import { PsbtRequestDetailsLayout } from './components/psbt-request-details.layo
 import { PsbtRequestFee } from './components/psbt-request-fee';
 import { PsbtRequestRaw } from './components/psbt-request-raw';
 
-function getPsbtTxInputs(psbtTx: btc.Transaction) {
-  const inputsLength = psbtTx.inputsLength;
-  const inputs: btc.TransactionInput[] = [];
-  if (inputsLength === 0) return inputs;
-  for (let i = 0; i < inputsLength; i++) {
-    inputs.push(psbtTx.getInput(i));
-  }
-  return inputs;
-}
-
-function getPsbtTxOutputs(psbtTx: btc.Transaction) {
-  const outputsLength = psbtTx.outputsLength;
-  const outputs: btc.TransactionOutput[] = [];
-  if (outputsLength === 0) return outputs;
-  for (let i = 0; i < outputsLength; i++) {
-    outputs.push(psbtTx.getOutput(i));
-  }
-  return outputs;
-}
-
-interface PsbtDecodedRequestProps {
-  allowedSighashes?: btc.SignatureHash[];
-  inputsToSign?: number | number[];
-  psbtRaw: RawPsbt;
-  psbtTx: btc.Transaction;
+interface PsbtRequestDetailsProps {
+  allowedSighash?: btc.SignatureHash[];
+  indexesToSign?: number[];
+  psbtRaw?: RawPsbt;
+  psbtTxInputs: btc.TransactionInput[];
+  psbtTxOutputs: btc.TransactionOutput[];
 }
 export function PsbtRequestDetails({
-  allowedSighashes,
-  inputsToSign,
+  allowedSighash,
+  indexesToSign,
   psbtRaw,
-  psbtTx,
-}: PsbtDecodedRequestProps) {
+  psbtTxInputs,
+  psbtTxOutputs,
+}: PsbtRequestDetailsProps) {
   const nativeSegwitSigner = useCurrentAccountNativeSegwitIndexZeroSigner();
   const { address: bitcoinAddressTaproot } = useCurrentAccountTaprootIndexZeroSigner();
-  const inputs = getPsbtTxInputs(psbtTx);
-  const outputs = getPsbtTxOutputs(psbtTx);
 
   const {
     accountInscriptionsBeingTransferred,
@@ -60,8 +40,13 @@ export function PsbtRequestDetails({
     psbtInputs,
     psbtOutputs,
     shouldDefaultToAdvancedView,
-  } = useParsedPsbt({ allowedSighashes, inputs, inputsToSign, outputs });
-  if (shouldDefaultToAdvancedView) return <PsbtRequestRaw psbt={psbtRaw} />;
+  } = useParsedPsbt({
+    allowedSighash,
+    inputs: psbtTxInputs,
+    indexesToSign,
+    outputs: psbtTxOutputs,
+  });
+  if (shouldDefaultToAdvancedView && psbtRaw) return <PsbtRequestRaw psbt={psbtRaw} />;
 
   return (
     <PsbtRequestDetailsLayout>
@@ -75,13 +60,8 @@ export function PsbtRequestDetails({
         addressNativeSegwitTotal={addressNativeSegwitTotal}
         addressTaprootTotal={addressTaprootTotal}
       />
-      <PsbtInputsAndOutputs
-        addressNativeSegwit={nativeSegwitSigner.address}
-        addressTaproot={bitcoinAddressTaproot}
-        inputs={psbtInputs}
-        outputs={psbtOutputs}
-      />
-      <PsbtRequestRaw psbt={psbtRaw} />
+      <PsbtInputsAndOutputs inputs={psbtInputs} outputs={psbtOutputs} />
+      {psbtRaw ? <PsbtRequestRaw psbt={psbtRaw} /> : null}
       <PsbtRequestFee fee={fee} />
     </PsbtRequestDetailsLayout>
   );

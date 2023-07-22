@@ -19,8 +19,8 @@ export interface PsbtInput {
   address: string;
   index?: number;
   inscription?: string;
-  mutable: boolean;
-  sign: boolean;
+  isMutable: boolean;
+  toSign: boolean;
   txid: string;
   value: number;
 }
@@ -44,17 +44,17 @@ function getInputValue(index: number, input: btc.TransactionInput) {
 }
 
 interface UseParsedInputsArgs {
-  allowedSighashes?: btc.SignatureHash[];
+  allowedSighash?: btc.SignatureHash[];
   inputs: btc.TransactionInput[];
-  inputsToSign?: number | number[];
+  indexesToSign?: number[];
 }
-export function useParsedInputs({ allowedSighashes, inputs, inputsToSign }: UseParsedInputsArgs) {
+export function useParsedInputs({ allowedSighash, inputs, indexesToSign }: UseParsedInputsArgs) {
   const network = useCurrentNetwork();
   const bitcoinNetwork = getBtcSignerLibNetworkConfigByMode(network.chain.bitcoin.network);
   const bitcoinAddressNativeSegwit = useCurrentAccountNativeSegwitIndexZeroSigner().address;
   const { address: bitcoinAddressTaproot } = useCurrentAccountTaprootIndexZeroSigner();
   const utxosWithInscriptions = useOrdinalsAwareUtxoQueries(inputs).map(query => query.data);
-  const signAll = isUndefined(inputsToSign);
+  const signAll = isUndefined(indexesToSign);
 
   const psbtInputs = useMemo(
     () =>
@@ -70,38 +70,37 @@ export function useParsedInputs({ allowedSighashes, inputs, inputsToSign }: UseP
           !(!input.sighashType || input.sighashType === 0 || input.sighashType === 1);
         // Checks if the sighashType is allowed by the PSBT
         const isAllowedToSign =
-          isUndefined(allowedSighashes) ||
-          ensureArray(allowedSighashes).some(
+          isUndefined(allowedSighash) ||
+          ensureArray(allowedSighash).some(
             type => !input.sighashType || type === input.sighashType
           );
         // Should we check the sighashType here before it gets to the signing lib?
         const toSignAll = isCurrentAddress && signAll;
-        const toSignIndex =
-          isCurrentAddress && ensureArray(inputsToSign).some(inputIndex => inputIndex === i);
+        const toSignIndex = isCurrentAddress && !signAll && indexesToSign.includes(i);
 
         return {
           address: inputAddress,
           index: input.index,
           inscription: utxosWithInscriptions[i]?.inscriptions,
-          mutable: canChange,
-          sign: isAllowedToSign && (toSignAll || toSignIndex),
+          isMutable: canChange,
+          toSign: isAllowedToSign && (toSignAll || toSignIndex),
           txid: input.txid ? bytesToHex(input.txid) : '',
           value: isDefined(input.index) ? getInputValue(input.index, input) : 0,
         };
       }),
     [
-      allowedSighashes,
+      allowedSighash,
       bitcoinAddressNativeSegwit,
       bitcoinAddressTaproot,
       bitcoinNetwork,
+      indexesToSign,
       inputs,
-      inputsToSign,
       signAll,
       utxosWithInscriptions,
     ]
   );
 
-  const isPsbtMutable = useMemo(() => psbtInputs.some(input => input.mutable), [psbtInputs]);
+  const isPsbtMutable = useMemo(() => psbtInputs.some(input => input.isMutable), [psbtInputs]);
 
   return { isPsbtMutable, parsedInputs: psbtInputs };
 }

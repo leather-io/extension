@@ -1,50 +1,30 @@
 import { useMemo, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 
-import { bytesToHex, hexToBytes } from '@noble/hashes/utils';
+import { bytesToHex } from '@noble/hashes/utils';
+import * as btc from '@scure/btc-signer';
 
 import { finalizePsbt } from '@shared/actions/finalize-psbt';
-import { RouteUrls } from '@shared/route-urls';
-import { ensureArray, isUndefined } from '@shared/utils';
 
 import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
-import { getPsbtPayloadFromToken } from '@app/common/psbt/requests';
 import { usePsbtRequestSearchParams } from '@app/common/psbt/use-psbt-request-params';
 import { usePsbtSigner } from '@app/features/psbt-signer/hooks/use-psbt-signer';
 
 export function usePsbtRequest() {
   const [isLoading, setIsLoading] = useState(false);
-  const navigate = useNavigate();
-  const { origin, requestToken, tabId } = usePsbtRequestSearchParams();
-
-  const { signPsbt, signPsbtAtIndex, getDecodedPsbt, getPsbtAsTransaction } = usePsbtSigner();
-
   const analytics = useAnalytics();
+  const { allowedSighash, appName, origin, payload, requestToken, signAtIndex, tabId } =
+    usePsbtRequestSearchParams();
+  const { signPsbt, getRawPsbt, getPsbtAsTransaction } = usePsbtSigner();
 
   return useMemo(() => {
-    if (!requestToken) throw new Error('Cannot decode psbt without request token');
-
-    const payload = getPsbtPayloadFromToken(requestToken);
-    const payloadTxBytes = hexToBytes(payload.hex);
-    const appName = payload?.appDetails?.name;
-
     return {
       appName,
+      allowedSighash,
+      indexesToSign: signAtIndex,
       isLoading,
-      getDecodedPsbt,
+      getRawPsbt,
       origin,
-      psbtPayload: payload,
-      get decodedPsbt() {
-        try {
-          return getDecodedPsbt(payload.hex);
-        } catch (e) {
-          return navigate(RouteUrls.RequestError, {
-            state: { message: e instanceof Error ? e.message : '', title: 'Failed request' },
-          });
-        }
-      },
-      tx: getPsbtAsTransaction(payload.hex),
-      payloadTxBytes,
+      psbtHex: payload.hex,
       onDenyPsbtSigning() {
         void analytics.track('request_psbt_cancel');
         finalizePsbt({
@@ -53,26 +33,13 @@ export function usePsbtRequest() {
           tabId,
         });
       },
-      onSignPsbt() {
+      onSignPsbt(inputs: btc.TransactionInput[]) {
         setIsLoading(true);
         void analytics.track('request_sign_psbt_submit');
 
         const tx = getPsbtAsTransaction(payload.hex);
 
-        const indexOrIndexes = payload?.signAtIndex;
-        const allowedSighash = payload?.allowedSighash;
-
-        try {
-          if (!isUndefined(indexOrIndexes)) {
-            ensureArray(indexOrIndexes).forEach(idx => signPsbtAtIndex(idx, tx, allowedSighash));
-          } else {
-            signPsbt(tx);
-          }
-        } catch (e) {
-          return navigate(RouteUrls.RequestError, {
-            state: { message: e instanceof Error ? e.message : '', title: 'Failed to sign' },
-          });
-        }
+        signPsbt({ allowedSighash, indexesToSign: signAtIndex, inputs, tx });
 
         const psbt = tx.toPSBT();
 
@@ -86,15 +53,17 @@ export function usePsbtRequest() {
       },
     };
   }, [
+    allowedSighash,
     analytics,
-    getDecodedPsbt,
+    appName,
+    getRawPsbt,
     getPsbtAsTransaction,
     isLoading,
-    navigate,
     origin,
+    payload.hex,
     requestToken,
+    signAtIndex,
     signPsbt,
-    signPsbtAtIndex,
     tabId,
   ]);
 }

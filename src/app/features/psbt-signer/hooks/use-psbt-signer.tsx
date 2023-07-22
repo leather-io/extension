@@ -1,17 +1,27 @@
 import { useMemo } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 import { hexToBytes } from '@noble/hashes/utils';
 import * as btc from '@scure/btc-signer';
 
 import { logger } from '@shared/logger';
-import { isString } from '@shared/utils';
+import { RouteUrls } from '@shared/route-urls';
+import { isString, isUndefined } from '@shared/utils';
 
 import { useCurrentAccountNativeSegwitSigner } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
 import { useCurrentAccountTaprootSigner } from '@app/store/accounts/blockchain/bitcoin/taproot-account.hooks';
 
 export type RawPsbt = ReturnType<typeof btc.RawPSBTV0.decode>;
 
+interface SignPsbtArgs {
+  allowedSighash?: btc.SignatureHash[];
+  inputs: btc.TransactionInput[];
+  indexesToSign?: number[];
+  tx: btc.Transaction;
+}
+
 export function usePsbtSigner() {
+  const navigate = useNavigate();
   const createNativeSegwitSigner = useCurrentAccountNativeSegwitSigner();
   const createTaprootSigner = useCurrentAccountTaprootSigner();
 
@@ -20,34 +30,43 @@ export function usePsbtSigner() {
 
   return useMemo(
     () => ({
-      signPsbtAtIndex(idx: number, tx: btc.Transaction, allowedSighash?: btc.SignatureHash[]) {
+      signPsbt({ allowedSighash, inputs, indexesToSign, tx }: SignPsbtArgs) {
         try {
-          nativeSegwitSigner?.signIndex(tx, idx, allowedSighash);
-        } catch (e1) {
-          try {
-            taprootSigner?.signIndex(tx, idx, allowedSighash);
-          } catch (e2) {
-            throw new Error(`Unable to sign PSBT at provided index, ${e1 ?? e2}`);
-          }
+          inputs.forEach((input, idx) => {
+            const isSigning = isUndefined(indexesToSign) || indexesToSign.includes(idx);
+
+            if (!isSigning) return;
+
+            const witnessOutputScript =
+              input.witnessUtxo?.script && btc.OutScript.decode(input.witnessUtxo.script);
+
+            // If type taproot, and the tapInternalKey is missing, assume it should
+            // be the account publicKey
+            if (taprootSigner && witnessOutputScript?.type === 'tr' && !input.tapInternalKey) {
+              input.tapInternalKey = taprootSigner.payment.tapInternalKey;
+            }
+
+            try {
+              nativeSegwitSigner?.signIndex(tx, idx, allowedSighash);
+            } catch (e1) {
+              try {
+                taprootSigner?.signIndex(tx, idx, allowedSighash);
+              } catch (e2) {
+                throw new Error(`Unable to sign PSBT at index, ${e1 ?? e2}`);
+              }
+            }
+          });
+        } catch (e) {
+          return navigate(RouteUrls.RequestError, {
+            state: { message: e instanceof Error ? e.message : '', title: 'Failed to sign' },
+          });
         }
-      },
-      signPsbt(tx: btc.Transaction) {
-        try {
-          nativeSegwitSigner?.sign(tx);
-        } catch (e1) {
-          try {
-            taprootSigner?.sign(tx);
-          } catch (e2) {
-            throw new Error(`Unable to sign PSBT, ${e1 ?? e2}`);
-          }
-        }
-        return;
       },
       getPsbtAsTransaction(psbt: string | Uint8Array) {
         const bytes = isString(psbt) ? hexToBytes(psbt) : psbt;
         return btc.Transaction.fromPSBT(bytes);
       },
-      getDecodedPsbt(psbt: string | Uint8Array) {
+      getRawPsbt(psbt: string | Uint8Array) {
         const bytes = isString(psbt) ? hexToBytes(psbt) : psbt;
         try {
           return btc.RawPSBTV0.decode(bytes);
@@ -61,6 +80,6 @@ export function usePsbtSigner() {
         }
       },
     }),
-    [nativeSegwitSigner, taprootSigner]
+    [nativeSegwitSigner, navigate, taprootSigner]
   );
 }
