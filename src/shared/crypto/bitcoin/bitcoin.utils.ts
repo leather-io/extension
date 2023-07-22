@@ -55,7 +55,7 @@ export function ecdsaPublicKeyToSchnorr(pubKey: Uint8Array) {
 }
 
 // Basically same as above, to remove
-export const toXOnly = (pubKey: Buffer) => (pubKey.length === 32 ? pubKey : pubKey.slice(1, 33));
+export const toXOnly = (pubKey: Buffer) => (pubKey.length === 32 ? pubKey : pubKey.subarray(1, 33));
 
 export function decodeBitcoinTx(tx: string) {
   return btc.RawTx.decode(hexToBytes(tx));

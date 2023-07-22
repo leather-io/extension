@@ -13,8 +13,8 @@ import { useCurrentAccountTaprootIndexZeroSigner } from '@app/store/accounts/blo
 
 export interface PsbtOutput {
   address: string;
-  mutable: boolean;
-  sign: boolean;
+  isMutable: boolean;
+  toSign: boolean;
   value: number;
 }
 
@@ -43,8 +43,8 @@ export function useParsedOutputs({ isPsbtMutable, outputs, network }: UseParsedO
 
           return {
             address: outputAddress,
-            mutable: isPsbtMutable,
-            sign: isCurrentAddress,
+            isMutable: isPsbtMutable,
+            toSign: isCurrentAddress,
             value: Number(output.amount),
           };
         })

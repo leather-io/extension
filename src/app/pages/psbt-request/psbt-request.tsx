@@ -5,28 +5,27 @@ import { usePsbtRequest } from './use-psbt-request';
 
 export function PsbtRequest() {
   const {
+    allowedSighash,
     appName,
+    indexesToSign,
     isLoading,
-    decodedPsbt,
     onSignPsbt,
     onDenyPsbtSigning,
     origin,
-    psbtPayload,
-    tx,
+    psbtHex,
   } = usePsbtRequest();
 
-  if (isLoading || !decodedPsbt) return <LoadingSpinner height="600px" />;
+  if (isLoading) return <LoadingSpinner height="600px" />;
 
   return (
     <PsbtSigner
-      allowedSighashes={psbtPayload.allowedSighash}
+      allowedSighash={allowedSighash}
       name={appName ?? ''}
-      inputsToSign={psbtPayload.signAtIndex}
+      indexesToSign={indexesToSign}
       origin={origin ?? ''}
       onSignPsbt={onSignPsbt}
       onCancel={onDenyPsbtSigning}
-      psbtRaw={decodedPsbt}
-      psbtTx={tx}
+      psbtHex={psbtHex}
     />
   );
 }

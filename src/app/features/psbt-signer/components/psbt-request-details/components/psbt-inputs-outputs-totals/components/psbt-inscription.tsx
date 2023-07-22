@@ -1,11 +1,8 @@
-import { Box } from '@stacks/ui';
-
 import { isUndefined } from '@shared/utils';
 
 import { openInNewTab } from '@app/common/utils/open-in-new-tab';
 import { OrdinalIcon } from '@app/components/icons/ordinal-icon';
 import { InscriptionPreview } from '@app/components/inscription-preview-card/components/inscription-preview';
-import { LoadingSpinner } from '@app/components/loading-spinner';
 import { useInscription } from '@app/query/bitcoin/ordinals/inscription.hooks';
 
 import { PsbtAddressTotalItem } from './psbt-address-total-item';
@@ -20,12 +17,7 @@ export function PsbtInscription({ path }: PsbtInscriptionProps) {
     data: inscription,
   } = useInscription(path.replace('/inscription/', ''));
 
-  if (isLoading)
-    return (
-      <Box my="loose">
-        <LoadingSpinner />
-      </Box>
-    );
+  if (isLoading) return null;
   if (isError || isUndefined(inscription))
     return (
       <PsbtAddressTotalItem

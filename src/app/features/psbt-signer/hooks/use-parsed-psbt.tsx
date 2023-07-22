@@ -13,24 +13,24 @@ import { usePsbtInscriptions } from './use-psbt-inscriptions';
 import { usePsbtTotals } from './use-psbt-totals';
 
 interface UseParsedPsbtArgs {
-  allowedSighashes?: btc.SignatureHash[];
+  allowedSighash?: btc.SignatureHash[];
   inputs: btc.TransactionInput[];
-  inputsToSign?: number | number[];
+  indexesToSign?: number[];
   outputs: btc.TransactionOutput[];
 }
 export function useParsedPsbt({
-  allowedSighashes,
+  allowedSighash,
   inputs,
-  inputsToSign,
+  indexesToSign,
   outputs,
 }: UseParsedPsbtArgs) {
   const network = useCurrentNetwork();
   const bitcoinAddressNativeSegwit = useCurrentAccountNativeSegwitIndexZeroSigner().address;
   const { address: bitcoinAddressTaproot } = useCurrentAccountTaprootIndexZeroSigner();
   const { isPsbtMutable, parsedInputs } = useParsedInputs({
-    allowedSighashes,
+    allowedSighash,
     inputs,
-    inputsToSign,
+    indexesToSign,
   });
   const parsedOutputs = useParsedOutputs({ isPsbtMutable, outputs, network });
 

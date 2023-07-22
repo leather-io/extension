@@ -20,7 +20,7 @@ export function PsbtRequestDetailsHeader(props: { isPsbtMutable: boolean }) {
         Transaction
       </Title>
       <Tooltip
-        label={isPsbtMutable ? immutableLabel : uncertainLabel}
+        label={isPsbtMutable ? uncertainLabel : immutableLabel}
         maxWidth="230px"
         placement="bottom"
       >
