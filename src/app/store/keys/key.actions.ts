@@ -2,9 +2,11 @@ import { AddressVersion } from '@stacks/transactions';
 
 import { decryptMnemonic, encryptMnemonic } from '@shared/crypto/mnemonic-encryption';
 import { logger } from '@shared/logger';
+import { identifyUser } from '@shared/utils/analytics';
 
 import { recurseAccountsForActivity } from '@app/common/account-restoration/account-restore';
 import { checkForLegacyGaiaConfigWithKnownGeneratedAccountIndex } from '@app/common/account-restoration/legacy-gaia-config-lookup';
+import { mnemonicToRootNode } from '@app/common/keychain/keychain';
 import { BitcoinClient } from '@app/query/bitcoin/bitcoin-client';
 import { fetchNamesForAddress } from '@app/query/stacks/bns/bns.utils';
 import { StacksClient } from '@app/query/stacks/stacks-client';
@@ -100,8 +102,12 @@ function unlockWalletAction(password: string): AppThunk {
     if (!currentKey) return;
     if (currentKey.type !== 'software') return;
     const { secretKey, encryptionKey } = await decryptMnemonic({ password, ...currentKey });
-
     await initalizeWalletSession(encryptionKey, secretKey);
+
+    const rootKey = mnemonicToRootNode(secretKey);
+    if (!rootKey.publicKey) throw new Error('Could not derive root key from mnemonic');
+    void identifyUser(rootKey.publicKey);
+
     dispatch(inMemoryKeySlice.actions.setKeysInMemory({ default: secretKey }));
   };
 }
