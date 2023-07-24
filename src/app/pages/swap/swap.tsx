@@ -5,13 +5,13 @@ export function Swap() {
   return (
     <Flex
       alignItems={['left', 'center']}
-      flexGrow={1}
+      maxHeight={['unset', '85vh']}
       flexDirection="column"
       justifyContent="start"
-      maxHeight={['unset', '85vh']}
       overflowY="auto"
+      flexGrow={1}
     >
-      <Text>Hello world!</Text>
+      <Text marginTop="15px" marginBottom="15px">Coming soon!</Text>
     </Flex>
   );
 }

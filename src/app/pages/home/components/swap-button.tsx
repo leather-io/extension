@@ -15,10 +15,10 @@ export function SwapButton(props: ButtonProps) {
 
   return (
     <HomeActionButton
+      label="Swap"
+      icon={FiRefreshCw}
       buttonComponent={PrimaryButton}
       data-testid={HomePageSelectors.SwapBtn}
-      icon={FiRefreshCw}
-      label="Swap"
       onClick={() => navigate(RouteUrls.Swap)}
       {...props}
     />
