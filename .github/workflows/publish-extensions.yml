@@ -90,8 +90,7 @@ jobs:
       MINIFY_PRODUCTION_BUILD: false
       TARGET_BROWSER: chromium
     steps:
-      - name: Check out Git repository
-        uses: actions/checkout@v3
+      - uses: actions/checkout@v3
 
       - uses: actions/cache@v3
         id: cache-node-modules
@@ -100,8 +99,6 @@ jobs:
           key: ${{ runner.os }}-modules-${{ hashFiles('**/yarn.lock') }}-${{ hashFiles('**/package.json') }}
 
       - uses: actions/setup-node@v3
-        with:
-          node-version: 16
 
       - name: Install packages
         uses: ./.github/actions/provision
@@ -152,8 +149,6 @@ jobs:
           key: ${{ runner.os }}-modules-${{ hashFiles('**/yarn.lock') }}-${{ hashFiles('**/package.json') }}
 
       - uses: actions/setup-node@v3
-        with:
-          node-version: 16
 
       - name: Install packages
         uses: ./.github/actions/provision

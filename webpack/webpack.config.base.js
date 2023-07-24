@@ -117,6 +117,7 @@ const config = {
     runtimeChunk: false,
   },
   module: {
+    noParse: /argon2\.wasm$/,
     rules: [
       {
         test: /\.(ts|tsx)$/,
@@ -158,7 +159,7 @@ const config = {
         ],
       },
       {
-        test: /\.wasm$/,
+        test: /argon2\.wasm$/,
         // Tells WebPack that this module should be included as
         // base64-encoded binary file and not as code
         loader: 'base64-loader',
@@ -167,6 +168,13 @@ const config = {
         //
         // Error: WebAssembly module is included in initial chunk.
         type: 'javascript/auto',
+      },
+      {
+        test: /cfddlcjs_wasm\.wasm/,
+        type: 'asset/resource',
+        generator: {
+          filename: '[name].wasm',
+        },
       },
     ].filter(Boolean),
   },
@@ -227,15 +235,16 @@ const config = {
     new webpack.DefinePlugin({
       VERSION: JSON.stringify(VERSION),
     }),
-
     new webpack.ProvidePlugin({
-      process: 'process/browser.js',
+      process: 'process/browser',
       Buffer: ['buffer', 'Buffer'],
-      fetch: 'cross-fetch',
     }),
 
     new ProgressBarPlugin(),
   ],
+  experiments: {
+    asyncWebAssembly: true,
+  },
 };
 
 module.exports = config;

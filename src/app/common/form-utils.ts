@@ -9,6 +9,10 @@ export function useShowFieldError(name: string) {
   const form = useFormikContext();
   const [_, meta] = useField(name);
   const isDirty = useIsFieldDirty(name);
+  const isFieldInFocus = document.activeElement?.getAttribute('name') === name;
 
-  return (form.submitCount > 0 && meta.error) || (meta.touched && isDirty && meta.error);
+  return (
+    (form.submitCount > 0 && meta.error) ||
+    (!isFieldInFocus && meta.touched && isDirty && meta.error)
+  );
 }

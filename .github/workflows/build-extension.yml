@@ -37,8 +37,7 @@ jobs:
     needs:
       - pre_run
     steps:
-      - name: Checkout
-        uses: actions/checkout@v3
+      - uses: actions/checkout@v3
 
       - uses: actions/cache@v3
         id: cache-node-modules

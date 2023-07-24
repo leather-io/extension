@@ -11,16 +11,18 @@ export function BroadcastError() {
   const { state } = useLocation();
   const analytics = useAnalytics();
   const msg = get(state, 'error.message', 'Unknown error response');
+  const title = get(state, 'title', 'There was an error broadcasting your transaction');
+  const body = get(state, 'body', 'Unable to broadcast transaction');
 
-  useOnMount(() => void analytics.track('bitcoin_broadcast_tx_error', { msg }));
+  useOnMount(() => void analytics.track('bitcoin_contract_error', { msg }));
 
   return (
     <BroadcastErrorLayout
       my="loose"
       textAlign="center"
       errorPayload={msg}
-      title="There was an error broadcasting your transaction"
-      body="Unable to broadcast transaction"
+      title={title}
+      body={body}
     />
   );
 }

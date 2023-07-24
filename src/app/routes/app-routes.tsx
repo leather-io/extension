@@ -24,6 +24,7 @@ import { AddNetwork } from '@app/features/message-signer/add-network/add-network
 import { RetrieveTaprootToNativeSegwit } from '@app/features/retrieve-taproot-to-native-segwit/retrieve-taproot-to-native-segwit';
 import { ThemesDrawer } from '@app/features/theme-drawer/theme-drawer';
 import { AllowDiagnosticsPage } from '@app/pages/allow-diagnostics/allow-diagnostics';
+import { BitcoinContractRequest } from '@app/pages/bitcoin-contract-request/bitcoin-contract-request';
 import { ChooseAccount } from '@app/pages/choose-account/choose-account';
 import { FundPage } from '@app/pages/fund/fund';
 import { Home } from '@app/pages/home/home';
@@ -42,6 +43,7 @@ import { rpcSendTransferRoutes } from '@app/pages/rpc-send-transfer/rpc-send-tra
 import { RpcSignPsbt } from '@app/pages/rpc-sign-psbt/rpc-sign-psbt';
 import { SelectNetwork } from '@app/pages/select-network/select-network';
 import { BroadcastError } from '@app/pages/send/broadcast-error/broadcast-error';
+import { LockBitcoinSummary } from '@app/pages/send/locked-bitcoin-summary/locked-bitcoin-summary';
 import { SendInscriptionContainer } from '@app/pages/send/ordinal-inscription/components/send-inscription-container';
 import { SendInscriptionChooseFee } from '@app/pages/send/ordinal-inscription/send-inscription-choose-fee';
 import { SendInscriptionForm } from '@app/pages/send/ordinal-inscription/send-inscription-form';
@@ -136,6 +138,18 @@ function useAppRoutes() {
           {settingsModalRoutes}
           {ledgerStacksTxSigningRoutes}
         </Route>
+        <Route
+          path={RouteUrls.RpcReceiveBitcoinContractOffer}
+          element={
+            <AccountGate>
+              <Suspense fallback={<LoadingSpinner height="600px" />}>
+                <BitcoinContractRequest />
+              </Suspense>
+            </AccountGate>
+          }
+        ></Route>
+        <Route path={RouteUrls.BitcoinContractLockSuccess} element={<LockBitcoinSummary />} />
+        <Route path={RouteUrls.BitcoinContractLockError} element={<BroadcastError />} />
         <Route
           path={RouteUrls.Onboarding}
           element={
