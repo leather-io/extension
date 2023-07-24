@@ -19,7 +19,10 @@ import { selectCurrentAccountIndex } from '@app/store/keys/key.selectors';
 import { selectCurrentNetwork } from '@app/store/networks/networks.selectors';
 
 import { useCurrentAccountIndex } from '../../account';
-import { bitcoinAccountBuilderFactory } from './bitcoin-keychain';
+import {
+  bitcoinAccountBuilderFactory,
+  useBitcoinExtendedPublicKeyVersions,
+} from './bitcoin-keychain';
 import {
   bitcoinAddressIndexSignerFactory,
   useMakeBitcoinNetworkSignersForPaymentType,
@@ -65,6 +68,7 @@ export function useNativeSegwitNetworkSigners() {
 
 function useNativeSegwitSigner(accountIndex: number) {
   const account = useNativeSegwitAccountBuilder()(accountIndex);
+  const extendedPublicKeyVersions = useBitcoinExtendedPublicKeyVersions();
 
   return useMemo(() => {
     if (!account) return;
@@ -73,8 +77,9 @@ function useNativeSegwitSigner(accountIndex: number) {
       accountKeychain: account.keychain,
       paymentFn: getNativeSegWitPaymentFromAddressIndex,
       network: account.network,
+      extendedPublicKeyVersions,
     });
-  }, [accountIndex, account]);
+  }, [account, accountIndex, extendedPublicKeyVersions]);
 }
 
 export function useCurrentAccountNativeSegwitSigner() {
