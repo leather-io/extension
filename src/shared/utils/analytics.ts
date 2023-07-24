@@ -1,3 +1,6 @@
+import { ripemd160 } from '@noble/hashes/ripemd160';
+import { sha256 } from '@noble/hashes/sha256';
+import { base58 } from '@scure/base';
 import { AnalyticsBrowser } from '@segment/analytics-next';
 import * as Sentry from '@sentry/react';
 import { getStoredState } from 'redux-persist';
@@ -31,6 +34,16 @@ export function initAnalytics() {
       },
     }
   );
+}
+
+// Used to create a unique identifier for a user's key in base58.
+// K = ripemd160(sha256(publicKey))[:8]
+export function deriveAnalyticsIdentifier(publicKey: Uint8Array) {
+  return base58.encode(ripemd160(sha256(publicKey)).slice(0, 8));
+}
+
+export async function identifyUser(publicKey: Uint8Array) {
+  return analytics.identify(deriveAnalyticsIdentifier(publicKey));
 }
 
 export function initSentry() {
