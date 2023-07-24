@@ -14,6 +14,7 @@ import { microStxToStx } from '@app/common/money/unit-conversion';
 import { useTransactionsById } from '@app/query/stacks/transactions/transactions-by-id.query';
 import { useCurrentAccountStxAddressState } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
 
+import { useStacksConfirmedTransactions } from '../transactions/transactions-with-transfers.hooks';
 import { useAccountMempoolQuery } from './mempool.query';
 
 const droppedCache = new Map();
@@ -65,10 +66,14 @@ export function useCurrentAccountMempool() {
 export function useCurrentAccountMempoolTransactionsBalance() {
   const address = useCurrentAccountStxAddressState();
   const { transactions: pendingTransactions } = useStacksPendingTransactions();
+  const confirmedTxs = useStacksConfirmedTransactions();
 
-  const pendingOutboundTxs = pendingTransactions.filter(
-    tx => tx.tx_type === 'token_transfer' && tx.sender_address === address
-  ) as unknown as MempoolTokenTransferTransaction[];
+  const pendingOutboundTxs = pendingTransactions.filter(tx => {
+    if (confirmedTxs.some(confirmedTx => confirmedTx.nonce === tx.nonce)) {
+      return false;
+    }
+    return tx.tx_type === 'token_transfer' && tx.sender_address === address;
+  }) as unknown as MempoolTokenTransferTransaction[];
 
   const tokenTransferTxsBalance = pendingOutboundTxs.reduce(
     (acc, tx) => acc.plus(tx.token_transfer.amount),

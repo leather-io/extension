@@ -11,18 +11,18 @@ export const MESSAGE_SOURCE = 'stacks-wallet' as const;
 export const CONTENT_SCRIPT_PORT = 'content-script' as const;
 
 export enum ExternalMethods {
-  transactionRequest = 'transactionRequest',
-  transactionResponse = 'transactionResponse',
-  authenticationRequest = 'authenticationRequest',
-  authenticationResponse = 'authenticationResponse',
-  signatureRequest = 'signatureRequest',
-  signatureResponse = 'signatureResponse',
-  structuredDataSignatureRequest = 'structuredDataSignatureRequest',
-  structuredDataSignatureResponse = 'structuredDataSignatureResponse',
-  profileUpdateRequest = 'profileUpdateRequest',
-  profileUpdateResponse = 'profileUpdateResponse',
-  psbtRequest = 'psbtRequest',
-  psbtResponse = 'psbtResponse',
+  transactionRequest = 'hiroWalletTransactionRequest',
+  transactionResponse = 'hiroWalletTransactionResponse',
+  authenticationRequest = 'hiroWalletAuthenticationRequest',
+  authenticationResponse = 'hiroWalletAuthenticationResponse',
+  signatureRequest = 'hiroWalletSignatureRequest',
+  signatureResponse = 'hiroWalletSignatureResponse',
+  structuredDataSignatureRequest = 'hiroWalletStructuredDataSignatureRequest',
+  structuredDataSignatureResponse = 'hiroWalletStructuredDataSignatureResponse',
+  profileUpdateRequest = 'hiroWalletProfileUpdateRequest',
+  profileUpdateResponse = 'hiroWalletProfileUpdateResponse',
+  psbtRequest = 'hiroWalletPsbtRequest',
+  psbtResponse = 'hiroWalletPsbtResponse',
 }
 
 export enum InternalMethods {

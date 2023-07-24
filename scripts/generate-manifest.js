@@ -54,6 +54,7 @@ const browserSpecificConfig = {
   chromium: {
     background: {
       service_worker: 'background.js',
+      type: 'module',
     },
   },
 };

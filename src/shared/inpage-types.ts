@@ -3,12 +3,12 @@
  */
 export enum DomEventName {
   request = 'request',
-  authenticationRequest = 'stacksAuthenticationRequest',
-  signatureRequest = 'signatureRequest',
-  structuredDataSignatureRequest = 'structuredDataSignatureRequest',
-  transactionRequest = 'stacksTransactionRequest',
-  profileUpdateRequest = 'profileUpdateRequest',
-  psbtRequest = 'psbtRequest',
+  authenticationRequest = 'hiroWalletStacksAuthenticationRequest',
+  signatureRequest = 'hiroWalletSignatureRequest',
+  structuredDataSignatureRequest = 'hiroWalletStructuredDataSignatureRequest',
+  transactionRequest = 'hiroWalletStacksTransactionRequest',
+  profileUpdateRequest = 'hiroWalletProfileUpdateRequest',
+  psbtRequest = 'hiroWalletPsbtRequest',
 }
 
 export interface AuthenticationRequestEventDetails {
