@@ -23,7 +23,7 @@ export function LedgerConnectInstructionTitle({
 }: LedgerConnectInstructionTitleProps) {
   return (
     <LedgerTitle {...props}>
-      Plug in your Ledger, open the <Capitalize>(chain)</Capitalize> app and click connect
+      Plug in your Ledger, open the <Capitalize>{chain}</Capitalize> app and click connect
     </LedgerTitle>
   );
 }

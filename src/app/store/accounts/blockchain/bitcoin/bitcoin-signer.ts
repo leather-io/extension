@@ -1,14 +1,12 @@
 import { useCallback } from 'react';
 
-import { HDKey } from '@scure/bip32';
+import { HDKey, Versions } from '@scure/bip32';
 import * as btc from '@scure/btc-signer';
 
 import { BitcoinNetworkModes } from '@shared/constants';
 import {
   BitcoinAccount,
-  bitcoinNetworkModeToCoreNetworkMode,
   deriveAddressIndexKeychainFromAccount,
-  getHdKeyVersionsFromNetwork,
   whenPaymentType,
 } from '@shared/crypto/bitcoin/bitcoin.utils';
 import { getTaprootAddressIndexDerivationPath } from '@shared/crypto/bitcoin/p2tr-address-gen';
@@ -59,11 +57,12 @@ interface BitcoinAddressIndexSignerFactoryArgs {
   accountKeychain: HDKey;
   paymentFn(keychain: HDKey, network: BitcoinNetworkModes): any;
   network: BitcoinNetworkModes;
+  extendedPublicKeyVersions?: Versions;
 }
 export function bitcoinAddressIndexSignerFactory<T extends BitcoinAddressIndexSignerFactoryArgs>(
   args: T
 ) {
-  const { accountIndex, network, paymentFn, accountKeychain } = args;
+  const { accountIndex, network, paymentFn, accountKeychain, extendedPublicKeyVersions } = args;
   return (addressIndex: number): Signer<ReturnType<T['paymentFn']>> => {
     const addressIndexKeychain =
       deriveAddressIndexKeychainFromAccount(accountKeychain)(addressIndex);
@@ -73,7 +72,7 @@ export function bitcoinAddressIndexSignerFactory<T extends BitcoinAddressIndexSi
     return makeBitcoinSigner({
       keychain: HDKey.fromExtendedKey(
         addressIndexKeychain.publicExtendedKey,
-        getHdKeyVersionsFromNetwork(bitcoinNetworkModeToCoreNetworkMode(network))
+        extendedPublicKeyVersions
       ),
       network,
       derivationPath: whenPaymentType(payment.type)({

@@ -18,7 +18,10 @@ import { selectCurrentAccountIndex } from '@app/store/keys/key.selectors';
 import { selectCurrentNetwork, useCurrentNetwork } from '@app/store/networks/networks.selectors';
 
 import { useCurrentAccountIndex } from '../../account';
-import { bitcoinAccountBuilderFactory } from './bitcoin-keychain';
+import {
+  bitcoinAccountBuilderFactory,
+  useBitcoinExtendedPublicKeyVersions,
+} from './bitcoin-keychain';
 import {
   bitcoinAddressIndexSignerFactory,
   useMakeBitcoinNetworkSignersForPaymentType,
@@ -66,6 +69,7 @@ export function useTaprootNetworkSigners() {
 
 function useTaprootSigner(accountIndex: number, network: BitcoinNetworkModes) {
   const account = useTaprootAccount(accountIndex);
+  const extendedPublicKeyVersions = useBitcoinExtendedPublicKeyVersions();
 
   return useMemo(() => {
     if (!account) return; // TODO: Revisit this return early
@@ -74,8 +78,9 @@ function useTaprootSigner(accountIndex: number, network: BitcoinNetworkModes) {
       accountKeychain: account.keychain,
       paymentFn: getTaprootPaymentFromAddressIndex,
       network,
+      extendedPublicKeyVersions,
     });
-  }, [account, accountIndex, network]);
+  }, [account, accountIndex, extendedPublicKeyVersions, network]);
 }
 
 export function useCurrentAccountTaprootIndexZeroSigner() {
