@@ -1,4 +1,5 @@
 import { Dispatch, SetStateAction, useCallback, useRef } from 'react';
+import { useDispatch } from 'react-redux';
 
 import { Box, Flex, Stack, Text } from '@stacks/ui';
 import { Form, Formik } from 'formik';
@@ -10,6 +11,10 @@ import { openInNewTab } from '@app/common/utils/open-in-new-tab';
 import { Link } from '@app/components/link';
 import { PreviewButton } from '@app/components/preview-button';
 import { Caption } from '@app/components/typography';
+import {
+  removePreferenceFromStorage,
+  savePreferenceToStorage,
+} from '@app/store/preferences/preference.actions';
 
 import { OnChooseFeeArgs } from '../../../components/bitcoin-fees-list/bitcoin-fees-list';
 import { TextInputField } from '../../../components/text-input-field';
@@ -48,6 +53,7 @@ export function BitcoinCustomFee({
 }: BitcoinCustomFeeProps) {
   const feeInputRef = useRef<HTMLInputElement | null>(null);
   const getCustomFeeValues = useBitcoinCustomFee({ amount, isSendingMax, recipient });
+  const dispatch = useDispatch();
 
   const onChooseCustomBtcFee = useCallback(
     async ({ feeRate }: { feeRate: string }) => {
@@ -102,9 +108,8 @@ export function BitcoinCustomFee({
                     onChange={e => {
                       setCustomFeeInitialValue((e.target as HTMLInputElement).value);
                       if (saveRateForFuture) {
-                        localStorage.setItem(
-                          nativeSegwitSigner.toString(),
-                          JSON.stringify({
+                        dispatch(
+                          savePreferenceToStorage(nativeSegwitSigner.toString(), {
                             saveRateForFuture: saveRateForFuture,
                             savedRate: (e.target as HTMLInputElement).value,
                           })
@@ -130,15 +135,14 @@ export function BitcoinCustomFee({
                     onChange={e => {
                       setSaveRateForFuture(e.target.checked);
                       if (e.target.checked) {
-                        localStorage.setItem(
-                          nativeSegwitSigner.toString(),
-                          JSON.stringify({
+                        dispatch(
+                          savePreferenceToStorage(nativeSegwitSigner.toString(), {
                             saveRateForFuture: e.target.checked,
                             savedRate: customFeeInitialValue,
                           })
                         );
                       } else {
-                        localStorage.removeItem(nativeSegwitSigner.toString());
+                        dispatch(removePreferenceFromStorage(nativeSegwitSigner.toString()));
                       }
                     }}
                   />

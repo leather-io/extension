@@ -18,6 +18,8 @@ import { PersistPartial } from 'redux-persist/es/persistReducer';
 import { IS_DEV_ENV } from '@shared/environment';
 import { persistConfig } from '@shared/storage/redux-pesist';
 
+import { setInitialPreferenceData } from '@app/store/preferences/preference.actions';
+
 import { analyticsSlice } from './analytics/analytics.slice';
 import { appPermissionsSlice } from './app-permissions/app-permissions.slice';
 import { stxChainSlice } from './chains/stx-chain.slice';
@@ -26,6 +28,7 @@ import { keySlice } from './keys/key.slice';
 import { networksSlice } from './networks/networks.slice';
 import { onboardingSlice } from './onboarding/onboarding.slice';
 import { ordinalsSlice } from './ordinals/ordinals.slice';
+import { preferenceSlice } from './preferences/preference.slice';
 import { settingsSlice } from './settings/settings.slice';
 import { submittedTransactionsSlice } from './submitted-transactions/submitted-transactions.slice';
 import { broadcastActionTypeToOtherFramesMiddleware } from './utils/broadcast-action-types';
@@ -43,6 +46,7 @@ export interface RootState {
   onboarding: ReturnType<typeof onboardingSlice.reducer>;
   submittedTransactions: ReturnType<typeof submittedTransactionsSlice.reducer>;
   settings: ReturnType<typeof settingsSlice.reducer>;
+  preferences: ReturnType<typeof preferenceSlice.reducer>;
 }
 
 const appReducer = combineReducers({
@@ -58,6 +62,7 @@ const appReducer = combineReducers({
   onboarding: onboardingSlice.reducer,
   submittedTransactions: submittedTransactionsSlice.reducer,
   settings: settingsSlice.reducer,
+  preferences: preferenceSlice.reducer,
 });
 
 function rootReducer(state: RootState | undefined, action: Action) {
@@ -90,6 +95,8 @@ export const store = configureStore({
 });
 
 export const persistor = persistStore(store);
+
+store.dispatch(setInitialPreferenceData());
 
 export type AppThunk<ReturnType = void> = ThunkAction<ReturnType, RootState, unknown, AnyAction>;
 
