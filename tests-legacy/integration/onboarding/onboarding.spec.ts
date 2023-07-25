@@ -1,6 +1,6 @@
 import { RouteUrls } from '@shared/route-urls';
 
-import { MAGIC_RECOVERY_KEY, MAGIC_RECOVERY_PASSWORD, SECRET_KEY } from '../../mocks';
+import { SECRET_KEY } from '../../mocks';
 import { WalletPage } from '../../page-objects/wallet.page';
 import { SettingsSelectors } from '../settings.selectors';
 import { BrowserDriver, createTestSelector, setupBrowser } from '../utils';
@@ -69,23 +69,6 @@ describe(`Onboarding integration tests`, () => {
     await wallet.waitForHiroWalletLogo();
     await wallet.page.click(wallet.$hiroWalletLogo);
     await wallet.waitForEnterPasswordInput();
-  });
-
-  it('should be able to login from Magic Recovery Code', async () => {
-    await wallet.clickDenyAnalytics();
-    await wallet.clickSignIn();
-    await wallet.enterSecretKey(MAGIC_RECOVERY_KEY);
-    await wallet.waitForMagicRecoveryMessage();
-    const magicRecoveryElement = await wallet.page.$$(wallet.$magicRecoveryMessage);
-    const magicRecoveryMessage = await magicRecoveryElement[0].innerText();
-    expect(magicRecoveryMessage).toEqual(
-      'You entered a Magic Recovery Code. Enter the password you set when you first created your Blockstack ID.'
-    );
-    await wallet.decryptRecoveryCode(MAGIC_RECOVERY_PASSWORD);
-    await wallet.enterNewPassword('lksjdflksjlfkjsdlfjsldf');
-    await wallet.waitForHomePage();
-    const homePageVisible = await wallet.page.isVisible(wallet.$homePageContainer);
-    expect(homePageVisible).toBeTruthy();
   });
 
   it('should show onboarding steps for a new wallet with only one account', async () => {
