@@ -9,7 +9,7 @@ export function Favicon({ origin }: FaviconProps) {
   if (hasError) return null;
   return (
     <img
-      src={`http://www.google.com/s2/favicons?domain=${origin}`}
+      src={`https://www.google.com/s2/favicons?domain=${origin}`}
       onError={() => setHasError(true)}
     />
   );
