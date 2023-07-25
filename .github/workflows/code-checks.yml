@@ -1,6 +1,7 @@
 name: Code checks
 
 on:
+  merge_group:
   push:
     branches:
       - '**'
