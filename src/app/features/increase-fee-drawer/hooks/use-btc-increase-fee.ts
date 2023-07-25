@@ -31,7 +31,7 @@ export function useBtcIncreaseFee(btcTx: BitcoinTx) {
   const {
     address: currentBitcoinAddress,
     sign,
-    publicKeychain: currentAddressIndexKeychain,
+    publicKey,
   } = useCurrentAccountNativeSegwitIndexZeroSigner();
   const { data: utxos = [], refetch } = useCurrentNativeSegwitUtxos();
   const { broadcastTx, isBroadcasting } = useBitcoinBroadcastTransaction();
@@ -54,7 +54,7 @@ export function useBtcIncreaseFee(btcTx: BitcoinTx) {
   function generateTx(payload: { feeRate: string; tx: BitcoinTx }) {
     const newTx = new btc.Transaction();
     const { vin, vout, fee: prevFee } = payload.tx;
-    const p2wpkh = btc.p2wpkh(currentAddressIndexKeychain.publicKey!, networkMode);
+    const p2wpkh = btc.p2wpkh(publicKey, networkMode);
 
     vin.forEach(input => {
       newTx.addInput({
