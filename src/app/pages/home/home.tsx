@@ -1,4 +1,3 @@
-import { useDispatch } from 'react-redux';
 import { Outlet, useNavigate } from 'react-router-dom';
 
 import { RouteUrls } from '@shared/route-urls';
@@ -11,27 +10,18 @@ import { Header } from '@app/components/header';
 import { InAppMessages } from '@app/features/hiro-messages/in-app-messages';
 import { SuggestedFirstSteps } from '@app/features/suggested-first-steps/suggested-first-steps';
 import { HomeActions } from '@app/pages/home/components/home-actions';
-import { StacksAccount } from '@app/store/accounts/blockchain/stacks/stacks-account.models';
-import { keyActions } from '@app/store/keys/key.actions';
+import { useCurrentStacksAccount } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
 
 import { CurrentAccount } from './components/account-area';
 import { HomeTabs } from './components/home-tabs';
 import { HomeLayout } from './components/home.layout';
-import { HomeLoader } from './home.loader';
 
 export function Home() {
-  return <HomeLoader>{account => <HomeContainer account={account} />}</HomeLoader>;
-}
-
-interface HomeContainerProps {
-  account: StacksAccount;
-}
-function HomeContainer({ account }: HomeContainerProps) {
   const { decodedAuthRequest } = useOnboardingState();
+
+  const stacksAccount = useCurrentStacksAccount();
   const navigate = useNavigate();
   useTrackFirstDeposit();
-
-  const dispatch = useDispatch();
 
   useRouteHeader(
     <>
@@ -51,8 +41,7 @@ function HomeContainer({ account }: HomeContainerProps) {
       actions={<HomeActions />}
     >
       <HomeTabs>
-        <button onClick={() => dispatch(keyActions.debugKillStacks())}>kill stacks</button>
-        <Outlet context={{ address: account?.address }} />
+        <Outlet context={{ address: stacksAccount?.address }} />
       </HomeTabs>
     </HomeLayout>
   );

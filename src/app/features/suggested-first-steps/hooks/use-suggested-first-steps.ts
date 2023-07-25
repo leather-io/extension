@@ -34,10 +34,10 @@ export function useSuggestedFirstSteps() {
   const stepsStatus = useSuggestedFirstStepsStatus();
 
   const { data: nonFungibleTokenHoldings } = useGetNonFungibleTokenHoldingsQuery(
-    currentAccount?.address
+    currentAccount?.address!
   );
 
-  const firstFiveAccounts = accounts?.slice(0, 5);
+  const firstFiveAccounts = accounts?.slice(0, 5) ?? [];
   const accountsAvailableStxBalance = useAllAccountsAvailableStxBalance(firstFiveAccounts);
   const accountsNonFungibleTokenHoldings =
     useAllAccountsNonFungibleTokenHoldingsTotal(firstFiveAccounts);
