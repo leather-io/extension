@@ -31,7 +31,6 @@ export function CollectibleItemLayout({
   title,
 }: CollectibleItemLayoutProps) {
   const [isHovered, bind] = useHover();
-
   return (
     <Box>
       <Box
@@ -95,6 +94,12 @@ export function CollectibleItemLayout({
         </Stack>
 
         {onClickSend ? (
+          // PETE could this use Link instead?
+          // then we could pass preserve scroll to the link?
+          // will still unmount component below though
+          // -> need portals
+
+          // https://reactrouter.com/en/main/components/scroll-restoration
           <Box padding="8px">
             <Button
               mode="tertiary"

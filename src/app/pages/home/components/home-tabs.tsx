@@ -35,11 +35,13 @@ export function HomeTabs({ children }: HomeTabsProps) {
     [navigate, tabs]
   );
 
+  console.info('getActiveTab', getActiveTab());
+  const activeTab = getActiveTab();
   return (
     <Stack flexGrow={1} mt="loose" spacing="extra-loose">
       <Tabs
         tabs={tabs}
-        activeTab={getActiveTab()}
+        activeTab={activeTab === -1 ? 0 : activeTab}
         onTabClick={setActiveTab}
         width={['100%', '193px']}
       />

@@ -1,4 +1,4 @@
-import { Outlet, useNavigate } from 'react-router-dom';
+import { Outlet, Route, Routes, useLocation, useNavigate } from 'react-router-dom';
 
 import { RouteUrls } from '@shared/route-urls';
 
@@ -27,6 +27,9 @@ interface HomeContainerProps {
 function HomeContainer({ account }: HomeContainerProps) {
   const { decodedAuthRequest } = useOnboardingState();
   const navigate = useNavigate();
+
+  const location = useLocation();
+  const previousLocation = location.state?.previousLocation;
   useTrackFirstDeposit();
 
   useRouteHeader(
@@ -47,7 +50,18 @@ function HomeContainer({ account }: HomeContainerProps) {
       actions={<HomeActions />}
     >
       <HomeTabs>
-        <Outlet context={{ address: account.address }} />
+        <>
+          <Routes location={previousLocation || location}>
+            <Route index path={RouteUrls.Home} element={<p>BalancesList </p>} />
+            <Route path={RouteUrls.Activity} element={<p>ActivityList </p>} />
+          </Routes>
+          {previousLocation && (
+            <Routes>
+              <Route path="/pete" element={<p>Pete</p>} />
+            </Routes>
+          )}
+          <Outlet context={{ address: account.address, background: location }} />
+        </>
       </HomeTabs>
     </HomeLayout>
   );

@@ -15,9 +15,11 @@ import { SettingsDropdown } from '../settings-dropdown/settings-dropdown';
 import { SwitchAccountDrawer } from '../switch-account-drawer/switch-account-drawer';
 import { ContainerLayout } from './container.layout';
 
-export function Container() {
+export function Container({ setLocation }: { setLocation: (location: any) => void }) {
   const [routeHeader] = useRouteHeaderState();
-  const { pathname } = useLocation();
+  // const { pathname, state } = useLocation();
+  const location = useLocation();
+  const pathname = location.pathname;
   const analytics = useAnalytics();
   const hasStateRehydrated = useHasStateRehydrated();
 
@@ -30,7 +32,11 @@ export function Container() {
 
   useEffect(() => void analytics.page('view', `${pathname}`), [analytics, pathname]);
 
+  useEffect(() => setLocation(location), [location, setLocation]);
   if (!hasStateRehydrated) return <LoadingSpinner />;
+  // console.info('location state', location);
+  // if (location) {
+  // }
 
   return (
     <>

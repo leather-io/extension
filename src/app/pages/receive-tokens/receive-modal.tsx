@@ -1,3 +1,4 @@
+import { createPortal } from 'react-dom';
 import toast from 'react-hot-toast';
 import { FiCopy } from 'react-icons/fi';
 import { useNavigate } from 'react-router-dom';
@@ -19,6 +20,8 @@ import { Caption } from '@app/components/typography';
 import { useCurrentAccountNativeSegwitAddressIndexZero } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
 import { useCurrentAccountStxAddressState } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
 
+// import Portal from '../../Portal';
+
 export function ReceiveModal() {
   const analytics = useAnalytics();
   const navigate = useNavigate();
@@ -31,7 +34,13 @@ export function ReceiveModal() {
     toast.success('Copied to clipboard!');
     copyHandler();
   }
-  return (
+
+  const newElement = document.createElement('div');
+  newElement.id = 'portal';
+  document.body.appendChild(newElement);
+  const portal = document.getElementById('portal');
+  // this works almost
+  return createPortal(
     <BaseDrawer title="Select asset to receive" isShowing onClose={() => navigate('../')}>
       <Box mx="extra-loose">
         <Caption style={{ fontSize: '14px' }}>Tokens</Caption>
@@ -94,6 +103,7 @@ export function ReceiveModal() {
 
         <ReceiveCollectible />
       </Box>
-    </BaseDrawer>
-  );
+    </BaseDrawer>,
+    portal!
+  ) as React.JSX.Element;
 }
