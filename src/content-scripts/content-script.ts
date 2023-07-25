@@ -128,8 +128,9 @@ document.addEventListener(DomEventName.psbtRequest, ((event: PsbtRequestEvent) =
   });
 }) as EventListener);
 
-// Inject inpage script (Stacks Provider)
-const inpage = document.createElement('script');
-inpage.src = chrome.runtime.getURL('inpage.js');
-inpage.id = 'stacks-wallet-provider';
-document.body.appendChild(inpage);
+window.addEventListener('load', () => {
+  const inpage = document.createElement('script');
+  inpage.src = chrome.runtime.getURL('inpage.js');
+  inpage.id = 'stacks-wallet-provider';
+  document.body.appendChild(inpage);
+});
