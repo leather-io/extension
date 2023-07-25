@@ -6,6 +6,7 @@ import { useQueryClient } from '@tanstack/react-query';
 import { RouteUrls } from '@shared/route-urls';
 
 import { useWalletType } from '@app/common/use-wallet-type';
+import { CurrentStacksAccountLoader } from '@app/components/stacks-account-loader';
 import { useConfigNftMetadataEnabled } from '@app/query/common/remote-config/remote-config.query';
 
 import { AddCollectible } from './components/add-collectible';
@@ -44,7 +45,11 @@ export function Collectibles() {
         ledger: null,
       })}
 
-      {isNftMetadataEnabled ? <StacksCryptoAssets /> : null}
+      {isNftMetadataEnabled && (
+        <CurrentStacksAccountLoader>
+          {account => <StacksCryptoAssets account={account} />}
+        </CurrentStacksAccountLoader>
+      )}
 
       {whenWallet({
         software: (

@@ -29,7 +29,7 @@ interface StacksBalanceViewerProps {
   account: StacksAccount;
 }
 
-export function StacksBalanceViewer({ account }: StacksBalanceViewerProps) {
+function StacksBalanceViewer({ account }: StacksBalanceViewerProps) {
   const stacksFtAssetBalances = useStacksFungibleTokenAssetBalancesAnchoredWithMetadata(
     account.address
   );
