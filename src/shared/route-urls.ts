@@ -23,9 +23,11 @@ export enum RouteUrls {
   LedgerBroadcastError = 'transaction-broadcast-error',
   LedgerAddMoreKeys = 'add-more-keys',
 
-  // Active wallet routes
+  // Active wallet routes - home
   Home = '/',
-  Activity = '/activity',
+  // Tab nested relative paths
+  Activity = 'activity',
+  // Active wallet routes
   AddNetwork = '/add-network',
   ChooseAccount = '/choose-account',
   Fund = '/fund',
@@ -35,11 +37,11 @@ export enum RouteUrls {
   IncreaseStxFee = '/increase-fee/stx',
   IncreaseBtcFee = '/increase-fee/btc',
   IncreaseFeeSent = '/increase-fee/sent',
-  Receive = '/receive',
-  ReceiveCollectible = '/receive/collectible',
-  ReceiveCollectibleOrdinal = '/receive/collectible/ordinal',
-  ReceiveStx = '/receive/stx',
-  ReceiveBtc = '/receive/btc',
+  Receive = 'receive',
+  ReceiveStx = 'stx',
+  ReceiveBtc = 'btc',
+  ReceiveCollectible = 'collectible',
+  ReceiveCollectibleOrdinal = 'collectible/ordinal',
   Send = '/send-transaction',
   ViewSecretKey = '/view-secret-key',
 
@@ -77,12 +79,12 @@ export enum RouteUrls {
   SentBrc20Summary = '/send/brc20/:ticker/summary',
 
   // Send ordinal inscriptions
-  SendOrdinalInscription = '/send/ordinal-inscription',
-  SendOrdinalInscriptionChooseFee = '/send/ordinal-inscription/choose-fee',
-  SendOrdinalInscriptionReview = '/send/ordinal-inscription/review',
-  SendOrdinalInscriptionSummary = '/send/ordinal-inscription/',
-  SendOrdinalInscriptionSent = '/send/ordinal-inscription/sent',
-  SendOrdinalInscriptionError = '/send/ordinal-inscription/error',
+  SendOrdinalInscription = 'send/ordinal-inscription',
+  SendOrdinalInscriptionChooseFee = 'send/ordinal-inscription/choose-fee',
+  SendOrdinalInscriptionReview = 'send/ordinal-inscription/review',
+  SendOrdinalInscriptionSummary = 'send/ordinal-inscription/',
+  SendOrdinalInscriptionSent = 'send/ordinal-inscription/sent',
+  SendOrdinalInscriptionError = 'send/ordinal-inscription/error',
 
   // Legacy request routes
   ProfileUpdateRequest = '/update-profile',

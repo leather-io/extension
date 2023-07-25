@@ -62,6 +62,8 @@ export function SettingsDropdown() {
 
   useOnClickOutside(ref, isShowing ? handleClose : null);
 
+  console.info('settings, location', location);
+
   return (
     <>
       {hasCreatedAccount && <Overlay />}
@@ -95,7 +97,9 @@ export function SettingsDropdown() {
               data-testid={SettingsSelectors.ToggleTheme}
               onClick={wrappedCloseCallback(() => {
                 void analytics.track('click_change_theme_menu_item');
-                navigate(RouteUrls.ChangeTheme, { relative: 'path' });
+                navigate(RouteUrls.ChangeTheme, {
+                  state: { backgroundLocation: location },
+                });
               })}
             >
               Change theme
@@ -147,7 +151,9 @@ export function SettingsDropdown() {
               data-testid={SettingsSelectors.ChangeNetworkAction}
               onClick={wrappedCloseCallback(() => {
                 void analytics.track('click_change_network_menu_item');
-                navigate(RouteUrls.SelectNetwork, { relative: 'path' });
+                navigate(RouteUrls.SelectNetwork, {
+                  state: { backgroundLocation: location },
+                });
               })}
             >
               <Flex width="100%" alignItems="center" justifyContent="space-between">
@@ -155,7 +161,6 @@ export function SettingsDropdown() {
                 <Caption data-testid={SettingsSelectors.CurrentNetwork}>{currentNetworkId}</Caption>
               </Flex>
             </MenuItem>
-
             <Divider />
             {showAdvancedMenuOptions && (
               <AdvancedMenuItems
@@ -178,7 +183,9 @@ export function SettingsDropdown() {
             <MenuItem
               color={color('feedback-error')}
               onClick={wrappedCloseCallback(() =>
-                navigate(RouteUrls.SignOutConfirm, { relative: 'path' })
+                navigate(RouteUrls.SignOutConfirm, {
+                  state: { backgroundLocation: location },
+                })
               )}
               data-testid="settings-sign-out"
             >

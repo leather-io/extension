@@ -7,6 +7,8 @@ import { isUndefined } from '@shared/utils';
 
 export function useLocationState(propName: string): string | undefined;
 export function useLocationState(propName: string, defaultValue: string): string;
+export function useLocationState(propName: 'accountIndex'): number;
+export function useLocationState(propName: 'backgroundLocation'): Location;
 export function useLocationState(propName: string, defaultValue?: string) {
   const location = useLocation();
   return get(location, `state.${propName}`, defaultValue);

@@ -1,4 +1,4 @@
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 import { Box } from '@stacks/ui';
 
@@ -25,13 +25,18 @@ const backgroundProps = {
 export function AddCollectible() {
   const navigate = useNavigate();
   const analytics = useAnalytics();
+  const location = useLocation();
 
   return (
     <CollectibleItemLayout
       backgroundElementProps={backgroundProps}
       onClickLayout={() => {
         void analytics.track('select_add_new_collectible');
-        navigate(RouteUrls.ReceiveCollectible);
+        navigate(`${RouteUrls.Receive}/${RouteUrls.ReceiveCollectible}`, {
+          state: {
+            backgroundLocation: location,
+          },
+        });
       }}
       subtitle="Collectible"
       title="Add new"
