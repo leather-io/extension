@@ -8,7 +8,6 @@ import { useTokenMetadataClient } from '@app/store/common/api-clients.hooks';
 import { RateLimiter, useHiroApiRateLimiter } from '../../rate-limiter';
 import { TokenMetadataClient } from '../../token-metadata-client';
 import { NftAssetResponse } from '../token-metadata.utils';
-import { useAccountNonFungibleTokenHoldings } from './non-fungible-token-holdings.hooks';
 
 const queryOptions = {
   refetchOnWindowFocus: true,

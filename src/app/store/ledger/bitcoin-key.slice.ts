@@ -11,8 +11,8 @@ interface PersistedBitcoinKeys extends BitcoinLedgerAccountDetails {
 
 const bitcoinKeyAdapter = createEntityAdapter<PersistedBitcoinKeys>();
 
-export const bitcoinKeySlice = createSlice({
-  name: 'bitcoinKeys',
+export const bitcoinKeysSlice = createSlice({
+  name: 'bitcoinsKeys',
   initialState: bitcoinKeyAdapter.getInitialState(),
   reducers: {
     addBitcoinKeys(state, { payload }: PayloadAction<BitcoinLedgerAccountDetails[]>) {
