@@ -1,12 +1,12 @@
-import { FullPageLoadingSpinner } from '@app/components/loading-spinner';
 import { useCurrentStacksAccount } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
 import { StacksAccount } from '@app/store/accounts/blockchain/stacks/stacks-account.models';
 
-interface HomeLoaderProps {
-  children(data?: StacksAccount): React.JSX.Element;
+interface CurrentStacksAccountLoaderProps {
+  children(data: StacksAccount): React.ReactNode;
 }
-export function HomeLoader({ children }: HomeLoaderProps) {
+
+export function CurrentStacksAccountLoader({ children }: CurrentStacksAccountLoaderProps) {
   const currentAccount = useCurrentStacksAccount();
-  // if (!currentAccount) return <FullPageLoadingSpinner />;
+  if (!currentAccount) return null;
   return children(currentAccount);
 }

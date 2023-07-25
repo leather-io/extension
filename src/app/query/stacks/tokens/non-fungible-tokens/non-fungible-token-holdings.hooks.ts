@@ -32,12 +32,12 @@ interface NonFungibleTokenHoldingListResult {
   tx_id: string;
 }
 
-export function useAccountNonFungibleTokenHoldings() {
-  const currentAccount = useCurrentStacksAccount();
+// export function useAccountNonFungibleTokenHoldings() {
+//   const currentAccount = useCurrentStacksAccount();
 
-  const { data: nonFungibleTokenHoldings } = useGetNonFungibleTokenHoldingsQuery(
-    currentAccount?.address
-  );
+//   const { data: nonFungibleTokenHoldings } = useGetNonFungibleTokenHoldingsQuery(
+//     currentAccount?.address
+//   );
 
-  return (nonFungibleTokenHoldings?.results as NonFungibleTokenHoldingListResult[]) ?? [];
-}
+//   return (nonFungibleTokenHoldings?.results as NonFungibleTokenHoldingListResult[]) ?? [];
+// }

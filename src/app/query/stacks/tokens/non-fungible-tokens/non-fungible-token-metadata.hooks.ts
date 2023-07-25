@@ -3,7 +3,7 @@ import { useMemo } from 'react';
 import { isNftAsset } from '../token-metadata.utils';
 import { useGetNonFungibleTokenMetadataListQuery } from './non-fungible-token-metadata.query';
 
-export function useNonFungibleTokensMetadata() {
+export function useStacksNonFungibleTokensMetadata() {
   const respList = useGetNonFungibleTokenMetadataListQuery();
 
   return useMemo(

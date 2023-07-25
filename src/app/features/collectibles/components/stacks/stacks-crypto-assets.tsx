@@ -3,14 +3,17 @@ import { useEffect } from 'react';
 import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
 import { parseIfValidPunycode } from '@app/common/utils';
 import { useCurrentAccountNames } from '@app/query/stacks/bns/bns.hooks';
-import { useNonFungibleTokensMetadata } from '@app/query/stacks/tokens/non-fungible-tokens/non-fungible-token-metadata.hooks';
+import { useStacksNonFungibleTokensMetadata } from '@app/query/stacks/tokens/non-fungible-tokens/non-fungible-token-metadata.hooks';
+import { useCurrentStacksAccount } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
 
 import { StacksBnsName } from './stacks-bns-name';
 import { StacksNonFungibleTokens } from './stacks-non-fungible-tokens';
 
 export function StacksCryptoAssets() {
+  const currentAccount = useCurrentStacksAccount();
+
   const { data: names = [] } = useCurrentAccountNames();
-  const stacksNftsMetadataResp = useNonFungibleTokensMetadata();
+  const stacksNftsMetadataResp = useStacksNonFungibleTokensMetadata();
   const analytics = useAnalytics();
 
   useEffect(() => {

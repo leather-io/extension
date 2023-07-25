@@ -1,4 +1,3 @@
-import { NonFungibleTokenHoldingsList } from '@stacks/blockchain-api-client';
 import { useQueries, useQuery } from '@tanstack/react-query';
 
 import { AppUseQueryConfig } from '@app/query/query-config';
@@ -23,7 +22,7 @@ function fetchNonFungibleTokenHoldings(client: StacksClient, limiter: RateLimite
     return client.nonFungibleTokensApi.getNftHoldings({
       principal: address,
       limit: 50,
-    }) as Promise<NonFungibleTokenHoldingsList>;
+    });
   };
 }
 
