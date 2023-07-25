@@ -2,26 +2,25 @@ import { FiArrowDown as IconArrowDown, FiArrowUp as IconArrowUp } from 'react-ic
 
 import { Box, BoxProps, Circle, ColorsStringLiteral, Flex, color } from '@stacks/ui';
 
-import { BitcoinTransaction } from '@shared/models/transactions/bitcoin-transaction.model';
+import { BitcoinTx } from '@shared/models/transactions/bitcoin-transaction.model';
 
+import { isBitcoinTxInbound } from '@app/common/transactions/bitcoin/utils';
 import { BtcIcon } from '@app/components/icons/btc-icon';
 
-import { isBitcoinTxInbound } from './bitcoin-transaction.utils';
-
 interface TransactionIconProps extends BoxProps {
-  transaction: BitcoinTransaction;
+  transaction: BitcoinTx;
   btcAddress: string;
 }
 
 type BtcTxStatus = 'pending' | 'success';
 type BtcStatusColorMap = Record<BtcTxStatus, ColorsStringLiteral>;
 
-const statusFromTx = (tx: BitcoinTransaction): BtcTxStatus => {
+const statusFromTx = (tx: BitcoinTx): BtcTxStatus => {
   if (tx.status.confirmed) return 'success';
   return 'pending';
 };
 
-const colorFromTx = (tx: BitcoinTransaction): ColorsStringLiteral => {
+const colorFromTx = (tx: BitcoinTx): ColorsStringLiteral => {
   const colorMap: BtcStatusColorMap = {
     pending: 'feedback-alert',
     success: 'brand',
@@ -30,7 +29,7 @@ const colorFromTx = (tx: BitcoinTransaction): ColorsStringLiteral => {
   return colorMap[statusFromTx(tx)] ?? 'feedback-error';
 };
 
-function IconForTx(address: string, tx: BitcoinTransaction) {
+function IconForTx(address: string, tx: BitcoinTx) {
   if (isBitcoinTxInbound(address, tx)) return IconArrowDown;
   return IconArrowUp;
 }

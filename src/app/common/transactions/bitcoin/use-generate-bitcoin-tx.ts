@@ -65,6 +65,7 @@ export function useGenerateSignedNativeSegwitTx() {
           tx.addInput({
             txid: input.txid,
             index: input.vout,
+            sequence: 0,
             witnessUtxo: {
               // script = 0014 + pubKeyHash
               script: p2wpkh.script,

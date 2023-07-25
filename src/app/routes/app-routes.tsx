@@ -15,7 +15,9 @@ import { ActivityList } from '@app/features/activity-list/activity-list';
 import { BalancesList } from '@app/features/balances-list/balances-list';
 import { Container } from '@app/features/container/container';
 import { EditNonceDrawer } from '@app/features/edit-nonce-drawer/edit-nonce-drawer';
-import { IncreaseFeeDrawer } from '@app/features/increase-fee-drawer/increase-fee-drawer';
+import { IncreaseBtcFeeDrawer } from '@app/features/increase-fee-drawer/increase-btc-fee-drawer';
+import { IncreaseFeeSentDrawer } from '@app/features/increase-fee-drawer/increase-fee-sent-drawer';
+import { IncreaseStxFeeDrawer } from '@app/features/increase-fee-drawer/increase-stx-fee-drawer';
 import { ledgerJwtSigningRoutes } from '@app/features/ledger/flows/jwt-signing/ledger-sign-jwt.routes';
 import { ledgerStacksMessageSigningRoutes } from '@app/features/ledger/flows/stacks-message-signing/ledger-stacks-sign-msg.routes';
 import { ledgerRequestStacksKeysRoutes } from '@app/features/ledger/flows/stacks-request-keys/ledger-request-keys.routes';
@@ -104,9 +106,12 @@ function useAppRoutes() {
 
           <Route path={RouteUrls.RetriveTaprootFunds} element={<RetrieveTaprootToNativeSegwit />} />
 
-          <Route path={RouteUrls.IncreaseFee} element={<IncreaseFeeDrawer />}>
+          <Route path={RouteUrls.IncreaseStxFee} element={<IncreaseStxFeeDrawer />}>
             {ledgerStacksTxSigningRoutes}
           </Route>
+          <Route path={RouteUrls.IncreaseBtcFee} element={<IncreaseBtcFeeDrawer />} />
+          <Route path={RouteUrls.IncreaseFeeSent} element={<IncreaseFeeSentDrawer />} />
+
           <Route path={RouteUrls.Receive} element={<ReceiveModal />} />
           <Route path={RouteUrls.ReceiveCollectible} element={<ReceiveCollectibleModal />} />
           <Route

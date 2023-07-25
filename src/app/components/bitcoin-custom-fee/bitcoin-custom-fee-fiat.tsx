@@ -28,6 +28,9 @@ export function BitcoinCustomFeeFiat({
     return { fiatFeeValue, feeInBtc };
   }, [getCustomFeeValues, field.value]);
 
+  const canShow = !feeData.feeInBtc.includes('e') && Number(field.value) > 0;
+  if (!canShow) return null;
+
   return (
     <Flex justifyContent="space-between" color="#74777D" fontSize="14px">
       <Text>{feeData.fiatFeeValue}</Text>

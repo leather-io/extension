@@ -1,7 +1,7 @@
 import { useCallback } from 'react';
 
 import { createMoney } from '@shared/models/money.model';
-import { BitcoinTransaction } from '@shared/models/transactions/bitcoin-transaction.model';
+import { BitcoinTx } from '@shared/models/transactions/bitcoin-transaction.model';
 
 import { sumNumbers } from '@app/common/math/helpers';
 
@@ -10,7 +10,7 @@ import { useGetBitcoinTransactionsByAddressQuery } from './transactions-by-addre
 import { useAllSpendableNativeSegwitUtxos } from './utxos-by-address.hooks';
 
 function useFilterAddressPendingTransactions() {
-  return useCallback((txs: BitcoinTransaction[]) => {
+  return useCallback((txs: BitcoinTx[]) => {
     return txs.filter(tx => !tx.status.confirmed);
   }, []);
 }
@@ -35,10 +35,7 @@ export function useBitcoinPendingTransactionsInputs(address: string) {
   });
 }
 
-export function calculateOutboundPendingTxsValue(
-  pendingTxs: BitcoinTransaction[],
-  address: string
-) {
+export function calculateOutboundPendingTxsValue(pendingTxs: BitcoinTx[], address: string) {
   // sum all inputs
   const sumInputs = sumNumbers(pendingTxs.flatMap(tx => tx.vin.map(input => input.prevout.value)));
 
@@ -56,7 +53,7 @@ export function calculateOutboundPendingTxsValue(
 
 // filter out pending txs that have inputs that are not in the utxos list to prevent double extraction
 function filterMissingUtxosPendingTxs(
-  pendingTxs: BitcoinTransaction[],
+  pendingTxs: BitcoinTx[],
   utxos: UtxoResponseItem[],
   address: string
 ) {

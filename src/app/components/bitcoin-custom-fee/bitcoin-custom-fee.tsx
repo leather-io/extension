@@ -10,8 +10,8 @@ import { openInNewTab } from '@app/common/utils/open-in-new-tab';
 import { Link } from '@app/components/link';
 import { PreviewButton } from '@app/components/preview-button';
 
-import { OnChooseFeeArgs } from '../../../components/bitcoin-fees-list/bitcoin-fees-list';
-import { TextInputField } from '../../../components/text-input-field';
+import { OnChooseFeeArgs } from '../bitcoin-fees-list/bitcoin-fees-list';
+import { TextInputField } from '../text-input-field';
 import { BitcoinCustomFeeFiat } from './bitcoin-custom-fee-fiat';
 import { useBitcoinCustomFee } from './hooks/use-bitcoin-custom-fee';
 
@@ -27,6 +27,7 @@ interface BitcoinCustomFeeProps {
   onValidateBitcoinSpend(value: number): boolean;
   recipient: string;
   setCustomFeeInitialValue: Dispatch<SetStateAction<string>>;
+  maxCustomFeeRate: number;
 }
 export function BitcoinCustomFee({
   amount,
@@ -38,6 +39,7 @@ export function BitcoinCustomFee({
   onValidateBitcoinSpend,
   recipient,
   setCustomFeeInitialValue,
+  maxCustomFeeRate,
 }: BitcoinCustomFeeProps) {
   const feeInputRef = useRef<HTMLInputElement | null>(null);
   const getCustomFeeValues = useBitcoinCustomFee({ amount, isSendingMax, recipient });
@@ -54,7 +56,16 @@ export function BitcoinCustomFee({
   );
 
   const validationSchema = yup.object({
-    feeRate: yup.string().required('Fee is required'),
+    feeRate: yup
+      .number()
+      .required('Fee is required')
+      .integer('Fee must be a whole number')
+      .test({
+        message: 'Fee is too high',
+        test: value => {
+          return value <= maxCustomFeeRate;
+        },
+      }),
   });
 
   return (
