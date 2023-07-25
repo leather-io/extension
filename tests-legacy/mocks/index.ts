@@ -64,10 +64,3 @@ export const STX_TRANSFER_DECODED = {
 
 export const SECRET_KEY_2 =
   'derive plug aerobic cook until crucial school fine cushion panda ready crew photo typical nuclear ride steel indicate cupboard potato ignore bamboo script galaxy';
-
-export const MAGIC_RECOVERY_KEY =
-  'KDR6O8gKXGmstxj4d2oQqCi806M/Cmrbiatc6g7MkQQLVreRA95IoPtvrI3N230jTTGb2XWT5joRFKPfY/2YlmRz1brxoaDJCNS4z18Iw5Y=';
-
-export const MAGIC_RECOVERY_PASSWORD = 'test202020';
-
-// export const APINetworkRecipientAddress = 'SPJ2XRD8PNGVAMX9GFJSP00A7Y0H9Z5WE39NE5XP';

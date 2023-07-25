@@ -30,7 +30,6 @@ import { ChooseAccount } from '@app/pages/choose-account/choose-account';
 import { FundPage } from '@app/pages/fund/fund';
 import { Home } from '@app/pages/home/home';
 import { BackUpSecretKeyPage } from '@app/pages/onboarding/back-up-secret-key/back-up-secret-key';
-import { MagicRecoveryCode } from '@app/pages/onboarding/magic-recovery-code/magic-recovery-code';
 import { SignIn } from '@app/pages/onboarding/sign-in/sign-in';
 import { WelcomePage } from '@app/pages/onboarding/welcome/welcome';
 import { PsbtRequest } from '@app/pages/psbt-request/psbt-request';
@@ -190,7 +189,6 @@ function useAppRoutes() {
             </OnboardingGate>
           }
         />
-        <Route path={RouteUrls.MagicRecoveryCode} element={<MagicRecoveryCode />} />
         <Route
           path={RouteUrls.AddNetwork}
           element={

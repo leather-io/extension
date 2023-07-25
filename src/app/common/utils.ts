@@ -47,25 +47,6 @@ export function extractPhraseFromPasteEvent(event: ClipboardEvent) {
   return extractPhraseFromString(pasted);
 }
 
-export function validateAndCleanRecoveryInput(value: string) {
-  const cleaned = value.trim();
-  // Base64 encoded encrypted phrase
-  let cleanedEncrypted = cleaned.replace(/\s/gm, '');
-  const isPossibleRecoveryKey = /^[a-zA-Z0-9\+\/]+=?$/.test(cleanedEncrypted);
-
-  if (isPossibleRecoveryKey && cleanedEncrypted.slice(-1) !== '=') {
-    // Append possibly missing equals sign padding
-    cleanedEncrypted = `${cleanedEncrypted}=`;
-  }
-  if (cleanedEncrypted.length >= 108) {
-    return {
-      isValid: true,
-      value: cleanedEncrypted,
-    };
-  }
-  return { isValid: false, value };
-}
-
 interface MakeTxExplorerLinkArgs {
   blockchain: Blockchains;
   mode: BitcoinNetworkModes;
