@@ -1,4 +1,4 @@
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 import { ButtonProps } from '@stacks/ui';
 import { HomePageSelectors } from '@tests/selectors/home.selectors';
@@ -13,7 +13,9 @@ import { HomeActionButton } from './tx-button';
 
 export function ReceiveButton(props: ButtonProps) {
   const navigate = useNavigate();
+  const location = useLocation();
   const isBitcoinEnabled = useConfigBitcoinEnabled();
+  const receivePath = isBitcoinEnabled ? RouteUrls.Receive : RouteUrls.ReceiveStx;
 
   return (
     <HomeActionButton
@@ -21,7 +23,11 @@ export function ReceiveButton(props: ButtonProps) {
       data-testid={HomePageSelectors.ReceiveCryptoAssetBtn}
       icon={QrCodeIcon}
       label="Receive"
-      onClick={() => navigate(isBitcoinEnabled ? RouteUrls.Receive : RouteUrls.ReceiveStx)}
+      onClick={() =>
+        navigate(receivePath, {
+          state: { backgroundLocation: location },
+        })
+      }
       {...props}
     />
   );

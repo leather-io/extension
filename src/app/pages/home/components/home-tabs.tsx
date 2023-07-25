@@ -6,6 +6,7 @@ import type { StackProps } from '@stacks/ui';
 
 import { RouteUrls } from '@shared/route-urls';
 
+import { useLocationState } from '@app/common/hooks/use-location-state';
 import { LoadingSpinner } from '@app/components/loading-spinner';
 import { Tabs } from '@app/components/tabs';
 
@@ -16,6 +17,7 @@ interface HomeTabsProps extends StackProps {
 export function HomeTabs({ children }: HomeTabsProps) {
   const navigate = useNavigate();
   const { pathname } = useLocation();
+  const backgroundLocation = useLocationState('backgroundLocation');
 
   const tabs = useMemo(
     () => [
@@ -25,16 +27,14 @@ export function HomeTabs({ children }: HomeTabsProps) {
     []
   );
 
-  const getActiveTab = useCallback(
-    () => tabs.findIndex(tab => tab.slug === pathname),
-    [tabs, pathname]
-  );
+  const path = backgroundLocation ? backgroundLocation.pathname : pathname;
+
+  const getActiveTab = useCallback(() => tabs.findIndex(tab => tab.slug === path), [tabs, path]);
 
   const setActiveTab = useCallback(
     (index: number) => navigate(tabs[index]?.slug),
     [navigate, tabs]
   );
-
   return (
     <Stack flexGrow={1} mt="loose" spacing="extra-loose">
       <Tabs

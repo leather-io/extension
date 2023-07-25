@@ -11,6 +11,7 @@ import { RouteUrls } from '@shared/route-urls';
 import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
 import { useDrawers } from '@app/common/hooks/use-drawers';
 import { useKeyActions } from '@app/common/hooks/use-key-actions';
+import { useLocationState } from '@app/common/hooks/use-location-state';
 import { useModifierKey } from '@app/common/hooks/use-modifier-key';
 import { useOnClickOutside } from '@app/common/hooks/use-onclickoutside';
 import { useWalletType } from '@app/common/use-wallet-type';
@@ -47,6 +48,7 @@ export function SettingsDropdown() {
   const key = useCurrentKeyDetails();
   const { isPressed: showAdvancedMenuOptions } = useModifierKey('alt', 120);
   const location = useLocation();
+  const backgroundLocation = useLocationState('backgroundLocation');
 
   const handleClose = useCallback(() => setIsShowingSettings(false), [setIsShowingSettings]);
 
@@ -95,7 +97,10 @@ export function SettingsDropdown() {
               data-testid={SettingsSelectors.ToggleTheme}
               onClick={wrappedCloseCallback(() => {
                 void analytics.track('click_change_theme_menu_item');
-                navigate(RouteUrls.ChangeTheme, { relative: 'path' });
+                navigate(RouteUrls.ChangeTheme, {
+                  relative: 'path',
+                  state: { backgroundLocation },
+                });
               })}
             >
               Change theme
@@ -147,7 +152,10 @@ export function SettingsDropdown() {
               data-testid={SettingsSelectors.ChangeNetworkAction}
               onClick={wrappedCloseCallback(() => {
                 void analytics.track('click_change_network_menu_item');
-                navigate(RouteUrls.SelectNetwork, { relative: 'path' });
+                navigate(RouteUrls.SelectNetwork, {
+                  relative: 'path',
+                  state: { backgroundLocation },
+                });
               })}
             >
               <Flex width="100%" alignItems="center" justifyContent="space-between">
@@ -178,7 +186,10 @@ export function SettingsDropdown() {
             <MenuItem
               color={color('feedback-error')}
               onClick={wrappedCloseCallback(() =>
-                navigate(RouteUrls.SignOutConfirm, { relative: 'path' })
+                navigate(RouteUrls.SignOutConfirm, {
+                  relative: 'path',
+                  state: { backgroundLocation },
+                })
               )}
               data-testid="settings-sign-out"
             >

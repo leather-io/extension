@@ -9,6 +9,7 @@ import { HomePageSelectors } from '@tests/selectors/home.selectors';
 import { RouteUrls } from '@shared/route-urls';
 
 import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
+import { useLocationState } from '@app/common/hooks/use-location-state';
 import { StxAvatar } from '@app/components/crypto-assets/stacks/components/stx-avatar';
 import { BaseDrawer } from '@app/components/drawer/base-drawer';
 import { BtcIcon } from '@app/components/icons/btc-icon';
@@ -22,6 +23,7 @@ import { useCurrentAccountStxAddressState } from '@app/store/accounts/blockchain
 export function ReceiveModal() {
   const analytics = useAnalytics();
   const navigate = useNavigate();
+  const backgroundLocation = useLocationState('backgroundLocation');
   const btcAddress = useCurrentAccountNativeSegwitAddressIndexZero();
   const stxAddress = useCurrentAccountStxAddressState();
   const { onCopy: onCopyStacks } = useClipboard(stxAddress);
@@ -31,8 +33,13 @@ export function ReceiveModal() {
     toast.success('Copied to clipboard!');
     copyHandler();
   }
+
   return (
-    <BaseDrawer title="Select asset to receive" isShowing onClose={() => navigate('../')}>
+    <BaseDrawer
+      title="Select asset to receive"
+      isShowing
+      onClose={() => navigate(backgroundLocation?.pathname)}
+    >
       <Box mx="extra-loose">
         <Caption style={{ fontSize: '14px' }}>Tokens</Caption>
 
@@ -49,7 +56,11 @@ export function ReceiveModal() {
                     borderRadius="10px"
                     data-testid={HomePageSelectors.ReceiveBtcNativeSegwitQrCodeBtn}
                     mode="tertiary"
-                    onClick={() => navigate(RouteUrls.ReceiveBtc)}
+                    onClick={() =>
+                      navigate(RouteUrls.ReceiveBtc, {
+                        state: { backgroundLocation },
+                      })
+                    }
                   >
                     <Box color={color('text-caption')} size="14px">
                       <QrCodeIcon />
@@ -79,7 +90,11 @@ export function ReceiveModal() {
                     borderRadius="10px"
                     data-testid={HomePageSelectors.ReceiveStxQrCodeBtn}
                     mode="tertiary"
-                    onClick={() => navigate(RouteUrls.ReceiveStx)}
+                    onClick={() =>
+                      navigate(RouteUrls.ReceiveStx, {
+                        state: { backgroundLocation },
+                      })
+                    }
                   >
                     <Box color={color('text-caption')} size="14px">
                       <QrCodeIcon />

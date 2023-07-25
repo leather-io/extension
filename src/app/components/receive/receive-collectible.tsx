@@ -1,14 +1,14 @@
 import toast from 'react-hot-toast';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 import BitcoinStampImg from '@assets/images/bitcoin-stamp.png';
 import { Box, Stack, useClipboard } from '@stacks/ui';
 import { HomePageSelectors } from '@tests/selectors/home.selectors';
-import get from 'lodash.get';
 
 import { RouteUrls } from '@shared/route-urls';
 
 import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
+import { useLocationState } from '@app/common/hooks/use-location-state';
 import { StxAvatar } from '@app/components/crypto-assets/stacks/components/stx-avatar';
 import { OrdinalIcon } from '@app/components/icons/ordinal-icon';
 import { useZeroIndexTaprootAddress } from '@app/query/bitcoin/ordinals/use-zero-index-taproot-address';
@@ -19,9 +19,9 @@ import { ReceiveCollectibleItem } from './receive-collectible-item';
 
 export function ReceiveCollectible() {
   const analytics = useAnalytics();
-  const location = useLocation();
+  const backgroundLocation = useLocationState('backgroundLocation');
+  const accountIndex = useLocationState('accountIndex');
   const navigate = useNavigate();
-  const accountIndex = get(location.state, 'accountIndex', undefined);
   const btcAddressNativeSegwit = useCurrentAccountNativeSegwitAddressIndexZero();
   const btcAddressTaproot = useZeroIndexTaprootAddress(accountIndex);
 
@@ -54,7 +54,9 @@ export function ReceiveCollectible() {
         data-testid={HomePageSelectors.ReceiveBtcTaprootQrCodeBtn}
         onCopyAddress={() => {
           void analytics.track('select_inscription_to_add_new_collectible');
-          navigate(RouteUrls.ReceiveCollectibleOrdinal, { state: { btcAddressTaproot } });
+          navigate(RouteUrls.ReceiveCollectibleOrdinal, {
+            state: { btcAddressTaproot, backgroundLocation },
+          });
         }}
         title="Ordinal inscription"
       />

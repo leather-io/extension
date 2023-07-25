@@ -187,8 +187,9 @@ function useAppRoutes() {
           }
         >
           <Route index element={<AssetsList />} />
-          <Route path={RouteUrls.Activity} element={<ActivityList />} />
-
+          <Route path={RouteUrls.Activity} element={<ActivityList />}>
+            {settingsModalRoutes}
+          </Route>
           {requestBitcoinKeysRoutes}
           {requestStacksKeysRoutes}
           <Route path={RouteUrls.RetriveTaprootFunds} element={<RetrieveTaprootToNativeSegwit />} />
