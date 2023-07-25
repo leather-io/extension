@@ -2,7 +2,7 @@ import * as btc from '@scure/btc-signer';
 import { bytesToHex } from '@stacks/common';
 import { UseQueryResult, useQueries, useQuery } from '@tanstack/react-query';
 
-import { BitcoinTransaction } from '@shared/models/transactions/bitcoin-transaction.model';
+import { BitcoinTx } from '@shared/models/transactions/bitcoin-transaction.model';
 
 import { AppUseQueryConfig } from '@app/query/query-config';
 import { useBitcoinClient } from '@app/store/common/api-clients.hooks';
@@ -42,7 +42,7 @@ const queryOptions = {
 
 export function useGetBitcoinTransactionQueries(
   inputs: btc.TransactionInputRequired[]
-): UseQueryResult<BitcoinTransaction>[] {
+): UseQueryResult<BitcoinTx>[] {
   const client = useBitcoinClient();
 
   return useQueries({

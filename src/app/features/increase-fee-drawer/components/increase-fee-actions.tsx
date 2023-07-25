@@ -1,35 +1,21 @@
-import { useNavigate } from 'react-router-dom';
-
 import { Button, Stack } from '@stacks/ui';
-import { useField, useFormikContext } from 'formik';
-
-import { RouteUrls } from '@shared/route-urls';
+import { useFormikContext } from 'formik';
 
 import { LoadingKeys, useLoading } from '@app/common/hooks/use-loading';
-import { stxToMicroStx } from '@app/common/money/unit-conversion';
 import { useWalletType } from '@app/common/use-wallet-type';
-import { useRawTxIdState } from '@app/store/transactions/raw.hooks';
 
 interface IncreaseFeeActionsProps {
-  currentFee: number;
+  isDisabled: boolean;
+  onCancel: () => void;
 }
 export function IncreaseFeeActions(props: IncreaseFeeActionsProps) {
-  const { currentFee } = props;
-  const [field] = useField('fee');
+  const { onCancel, isDisabled } = props;
+
   const { handleSubmit } = useFormikContext();
   const { isLoading } = useLoading(LoadingKeys.INCREASE_FEE_DRAWER);
-  const [, setRawTxId] = useRawTxIdState();
   const { whenWallet } = useWalletType();
-  const navigate = useNavigate();
 
-  const newFee = field.value;
-  const isSame = currentFee === stxToMicroStx(newFee).toNumber();
   const actionText = whenWallet({ ledger: 'Confirm on Ledger', software: 'Submit' });
-
-  const onCancel = () => {
-    setRawTxId(null);
-    navigate(RouteUrls.Home);
-  };
 
   return (
     <Stack isInline>
@@ -42,7 +28,7 @@ export function IncreaseFeeActions(props: IncreaseFeeActionsProps) {
         onClick={handleSubmit}
         isLoading={isLoading}
         borderRadius="10px"
-        isDisabled={isSame}
+        isDisabled={isDisabled}
       >
         {actionText}
       </Button>

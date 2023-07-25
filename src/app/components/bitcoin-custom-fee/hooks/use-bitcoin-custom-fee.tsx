@@ -12,6 +12,8 @@ import { useSpendableCurrentNativeSegwitAccountUtxos } from '@app/query/bitcoin/
 import { useCurrentNativeSegwitAddressBalance } from '@app/query/bitcoin/balance/bitcoin-balances.query';
 import { useCryptoCurrencyMarketData } from '@app/query/common/market-data/market-data.hooks';
 
+export const MAX_FEE_RATE_MULTIPLIER = 50;
+
 interface UseBitcoinCustomFeeArgs {
   amount: number;
   isSendingMax: boolean;

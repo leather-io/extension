@@ -19,7 +19,7 @@ export function useRpcSendTransferState() {
 }
 
 export function RpcSendTransferContainer() {
-  const [selectedFeeType, setSelectedFeeType] = useState<BtcFeeType | null>(BtcFeeType.Standard);
+  const [selectedFeeType, setSelectedFeeType] = useState<BtcFeeType | null>(null);
   const { origin } = useRpcSendTransfer();
 
   useRouteHeader(<PopupHeader displayAddresssBalanceOf="all" />);
