@@ -1,9 +1,11 @@
 import { Text } from "@app/components/typography";
 import { Flex } from "@stacks/ui";
+import { SwapCryptoAssetSelectors } from "@tests/selectors/swap.selectors";
 
 export function Swap() {
   return (
     <Flex
+      data-testid={SwapCryptoAssetSelectors.SwapPageReady}
       alignItems={['left', 'center']}
       maxHeight={['unset', '85vh']}
       flexDirection="column"
