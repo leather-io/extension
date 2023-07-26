@@ -4,6 +4,7 @@ import { hexToBytes } from '@noble/hashes/utils';
 import * as btc from '@scure/btc-signer';
 
 import { logger } from '@shared/logger';
+import { AllowedSighashTypes } from '@shared/rpc/methods/sign-psbt';
 import { isString, isUndefined } from '@shared/utils';
 
 import { useCurrentAccountNativeSegwitSigner } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
@@ -12,7 +13,7 @@ import { useCurrentAccountTaprootSigner } from '@app/store/accounts/blockchain/b
 export type RawPsbt = ReturnType<typeof btc.RawPSBTV0.decode>;
 
 interface SignPsbtArgs {
-  allowedSighash?: btc.SignatureHash[];
+  allowedSighash?: AllowedSighashTypes[];
   inputs: btc.TransactionInput[];
   indexesToSign?: number[];
   tx: btc.Transaction;

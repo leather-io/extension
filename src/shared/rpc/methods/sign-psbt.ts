@@ -1,4 +1,5 @@
-import { DefineRpcMethod, RpcRequest, RpcResponse } from '@btckit/types';
+import { DefineRpcMethod, RpcRequest, RpcResponse, SignatureHash } from '@btckit/types';
+import * as btc from '@scure/btc-signer';
 import * as yup from 'yup';
 
 import { WalletDefaultNetworkConfigurationIds } from '@shared/constants';
@@ -11,11 +12,21 @@ import {
   validateRpcParams,
 } from './validation.utils';
 
-const sigHashTypes = [0x01, 0x02, 0x03, 0x80, 0x81, 0x82, 0x83];
+// TODO: Revisit allowedSighash type if/when fixed in btc-signer
+export type AllowedSighashTypes = SignatureHash | btc.SignatureHash;
 
 const rpcSignPsbtParamsSchema = yup.object().shape({
   account: accountSchema,
-  allowedSighash: yup.array().of(yup.mixed().oneOf(Object.values(sigHashTypes))),
+  allowedSighash: yup
+    .array()
+    .of(
+      yup
+        .mixed()
+        .oneOf([
+          ...Object.values(SignatureHash).filter(Number.isInteger),
+          ...Object.values(btc.SignatureHash).filter(Number.isInteger),
+        ])
+    ),
   hex: yup.string().required(),
   network: yup.string().oneOf(Object.values(WalletDefaultNetworkConfigurationIds)),
   signAtIndex: yup.mixed<number | number[]>().test(testIsNumberOrArrayOfNumbers),
