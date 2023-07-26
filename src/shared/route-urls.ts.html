@@ -25,7 +25,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>82/82</span>
+                <span class='fraction'>86/86</span>
             </div>
         
             
@@ -46,7 +46,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>81/81</span>
+                <span class='fraction'>85/85</span>
             </div>
         
             
@@ -165,7 +165,13 @@
 <a name='L100'></a><a href='#L100'>100</a>
 <a name='L101'></a><a href='#L101'>101</a>
 <a name='L102'></a><a href='#L102'>102</a>
-<a name='L103'></a><a href='#L103'>103</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">2x</span>
+<a name='L103'></a><a href='#L103'>103</a>
+<a name='L104'></a><a href='#L104'>104</a>
+<a name='L105'></a><a href='#L105'>105</a>
+<a name='L106'></a><a href='#L106'>106</a>
+<a name='L107'></a><a href='#L107'>107</a>
+<a name='L108'></a><a href='#L108'>108</a>
+<a name='L109'></a><a href='#L109'>109</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -189,26 +195,21 @@
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
@@ -263,7 +264,18 @@
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -291,6 +303,7 @@
   LedgerUnsupportedBrowser = 'unsupported-browser',
   LedgerOutdatedAppWarning = 'outdated-app-warning',
   LedgerBroadcastError = 'transaction-broadcast-error',
+  LedgerAddMoreKeys = 'add-more-keys',
 &nbsp;
   // Active wallet routes
   Home = '/',
@@ -301,7 +314,9 @@
   FundReceive = '/fund/receive',
   FundReceiveStx = '/fund/receive/stx',
   FundReceiveBtc = '/fund/receive/btc',
-  IncreaseFee = '/increase-fee',
+  IncreaseStxFee = '/increase-fee/stx',
+  IncreaseBtcFee = '/increase-fee/btc',
+  IncreaseFeeSent = '/increase-fee/sent',
   Receive = '/receive',
   ReceiveCollectible = '/receive/collectible',
   ReceiveCollectibleOrdinal = '/receive/collectible/ordinal',
@@ -309,14 +324,6 @@
   ReceiveBtc = '/receive/btc',
   Send = '/send-transaction',
   ViewSecretKey = '/view-secret-key',
-&nbsp;
-  // App requests (legacy)
-  ProfileUpdateRequest = '/update-profile',
-  PsbtRequest = '/psbt',
-  SignatureRequest = '/signature',
-  TransactionRequest = '/transaction',
-  TransactionBroadcastError = 'broadcast-error',
-  UnauthorizedRequest = '/unauthorized-request',
 &nbsp;
   // Locked wallet route
   Unlock = '/unlock',
@@ -359,7 +366,14 @@
   SendOrdinalInscriptionSent = '/send/ordinal-inscription/sent',
   SendOrdinalInscriptionError = '/send/ordinal-inscription/error',
 &nbsp;
-  // Request routes
+  // Legacy request routes
+  ProfileUpdateRequest = '/update-profile',
+  PsbtRequest = '/psbt',
+  SignatureRequest = '/signature',
+  TransactionRequest = '/transaction',
+  TransactionBroadcastError = 'broadcast-error',
+&nbsp;
+  // Rpc request routes
   RpcGetAddresses = '/get-addresses',
   RpcSignPsbt = '/sign-psbt',
   RpcSendTransfer = '/send-transfer',
@@ -368,6 +382,10 @@
   RpcSendTransferSummary = '/send-transfer/summary',
   RpcReceiveBitcoinContractOffer = '/bitcoin-contract-offer/:bitcoinContractOffer/:counterpartyWalletURL',
   RpcSignBip322Message = '/sign-bip322-message',
+&nbsp;
+  // Shared legacy and rpc request routes
+  RequestError = '/request-error',
+  UnauthorizedRequest = '/unauthorized-request',
 }
 &nbsp;</pre></td></tr></table></pre>
 
@@ -376,7 +394,7 @@
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2023-07-25T13:46:37.289Z
+                at 2023-07-26T11:45:21.192Z
             </div>
         <script src="../../prettify.js"></script>
         <script>

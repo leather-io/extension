@@ -25,14 +25,14 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/21</span>
+                <span class='fraction'>0/23</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/6</span>
+                <span class='fraction'>0/8</span>
             </div>
         
             
@@ -46,7 +46,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/20</span>
+                <span class='fraction'>0/22</span>
             </div>
         
             
@@ -128,7 +128,13 @@
 <a name='L63'></a><a href='#L63'>63</a>
 <a name='L64'></a><a href='#L64'>64</a>
 <a name='L65'></a><a href='#L65'>65</a>
-<a name='L66'></a><a href='#L66'>66</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L66'></a><a href='#L66'>66</a>
+<a name='L67'></a><a href='#L67'>67</a>
+<a name='L68'></a><a href='#L68'>68</a>
+<a name='L69'></a><a href='#L69'>69</a>
+<a name='L70'></a><a href='#L70'>70</a>
+<a name='L71'></a><a href='#L71'>71</a>
+<a name='L72'></a><a href='#L72'>72</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -159,9 +165,15 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -196,8 +208,8 @@
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { useMemo } from 'react';
 import { useSelector } from 'react-redux';
 &nbsp;
-import { StacksMainnet, StacksNetwork, StacksTestnet } from '@stacks/network';
-import { ChainID } from '@stacks/transactions';
+import { StacksNetwork } from '@stacks/network';
+import { ChainID, TransactionVersion } from '@stacks/transactions';
 &nbsp;
 import { NetworkModes } from '@shared/constants';
 &nbsp;
@@ -224,10 +236,16 @@ export function <span class="fstat-no" title="function not covered" >useCurrentS
 <span class="cstat-no" title="statement not covered" >  return useMemo(<span class="fstat-no" title="function not covered" >() =&gt; {</span></span>
 <span class="cstat-no" title="statement not covered" >    if (!currentNetwork) <span class="cstat-no" title="statement not covered" >throw new Error('No current network');</span></span>
 &nbsp;
-    const stacksNetwork = <span class="cstat-no" title="statement not covered" >whenStacksChainId(currentNetwork.chain.stacks.chainId)({</span>
-      [ChainID.Mainnet]: new StacksMainnet({ url: currentNetwork.chain.stacks.url }),
-      [ChainID.Testnet]: new StacksTestnet({ url: currentNetwork.chain.stacks.url }),
+    // todo: these params could be added to the constructor in stacks.js
+    const stacksNetwork = <span class="cstat-no" title="statement not covered" >new StacksNetwork({ url: currentNetwork.chain.stacks.url });</span>
+<span class="cstat-no" title="statement not covered" >    stacksNetwork.version = whenStacksChainId(currentNetwork.chain.stacks.chainId)({</span>
+      [ChainID.Mainnet]: TransactionVersion.Mainnet,
+      [ChainID.Testnet]: TransactionVersion.Testnet,
     });
+&nbsp;
+    // Use actual chainId on network object, since it's used for signing
+<span class="cstat-no" title="statement not covered" >    stacksNetwork.chainId =</span>
+      currentNetwork.chain.stacks.subnetChainId ?? currentNetwork.chain.stacks.chainId;
 &nbsp;
 <span class="cstat-no" title="statement not covered" >    stacksNetwork.bnsLookupUrl = currentNetwork.chain.stacks.url || '';</span>
 <span class="cstat-no" title="statement not covered" >    return stacksNetwork;</span>
@@ -239,8 +257,8 @@ export function <span class="fstat-no" title="function not covered" >useNetworks
 &nbsp;
 <span class="cstat-no" title="statement not covered" >  return useMemo(</span>
 <span class="fstat-no" title="function not covered" >    () =&gt; (<span class="cstat-no" title="statement not covered" >{</span></span>
-<span class="fstat-no" title="function not covered" >      addNetwork({</span> chainId, id, name, url }: PersistedNetworkConfiguration) {
-<span class="cstat-no" title="statement not covered" >        dispatch(networksActions.addNetwork({ chainId, id, name, url }));</span>
+<span class="fstat-no" title="function not covered" >      addNetwork({</span> chainId, subnetChainId, id, name, url }: PersistedNetworkConfiguration) {
+<span class="cstat-no" title="statement not covered" >        dispatch(networksActions.addNetwork({ chainId, subnetChainId, id, name, url }));</span>
 <span class="cstat-no" title="statement not covered" >        dispatch(networksActions.changeNetwork(id));</span>
 <span class="cstat-no" title="statement not covered" >        return;</span>
       },
@@ -265,7 +283,7 @@ export function <span class="fstat-no" title="function not covered" >useAppReque
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2023-07-25T13:46:37.289Z
+                at 2023-07-26T11:45:21.192Z
             </div>
         <script src="../../../../prettify.js"></script>
         <script>
