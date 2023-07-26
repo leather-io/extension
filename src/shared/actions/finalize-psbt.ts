@@ -21,11 +21,11 @@ export function formatPsbtResponse({
 }
 
 interface FinalizePsbtArgs {
+  data: PsbtData | string;
   requestPayload: string;
   tabId: number;
-  data: PsbtData | string;
 }
-export function finalizePsbt({ requestPayload, data, tabId }: FinalizePsbtArgs) {
+export function finalizePsbt({ data, requestPayload, tabId }: FinalizePsbtArgs) {
   const responseMessage = formatPsbtResponse({ request: requestPayload, response: data });
   chrome.tabs.sendMessage(tabId, responseMessage);
   window.close();

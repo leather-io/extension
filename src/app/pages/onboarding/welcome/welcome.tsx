@@ -41,7 +41,7 @@ export const WelcomePage = memo(() => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const pageModeRoutingAction = (url: RouteUrls) =>
+  const pageModeRoutingAction = (url: string) =>
     whenPageMode({
       full() {
         navigate(url);
@@ -51,7 +51,7 @@ export const WelcomePage = memo(() => {
       },
     });
 
-  const supportsWebUsbAction = pageModeRoutingAction(RouteUrls.ConnectLedger);
+  const supportsWebUsbAction = pageModeRoutingAction('stacks/' + RouteUrls.ConnectLedger);
   const doesNotSupportWebUsbAction = pageModeRoutingAction(RouteUrls.LedgerUnsupportedBrowser);
 
   return (

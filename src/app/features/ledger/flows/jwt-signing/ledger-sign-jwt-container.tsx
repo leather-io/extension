@@ -107,7 +107,7 @@ export function LedgerSignJwtContainer() {
     }
 
     try {
-      ledgerNavigate.toConnectionSuccessStep();
+      ledgerNavigate.toConnectionSuccessStep('stacks');
       await delay(1000);
 
       const authResponsePayload = await makeLedgerCompatibleUnsignedAuthResponsePayload({

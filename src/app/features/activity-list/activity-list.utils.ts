@@ -1,13 +1,13 @@
 import { AddressTransactionWithTransfers } from '@stacks/stacks-blockchain-api-types';
 
-import { BitcoinTransaction } from '@shared/models/transactions/bitcoin-transaction.model';
+import { BitcoinTx } from '@shared/models/transactions/bitcoin-transaction.model';
 
 import {
   TransactionListBitcoinTx,
   TransactionListStacksTx,
 } from './components/transaction-list/transaction-list.model';
 
-function createBitcoinTxTypeWrapper(tx: BitcoinTransaction): TransactionListBitcoinTx {
+function createBitcoinTxTypeWrapper(tx: BitcoinTx): TransactionListBitcoinTx {
   return {
     blockchain: 'bitcoin',
     transaction: tx,
@@ -21,7 +21,7 @@ function createStacksTxTypeWrapper(tx: AddressTransactionWithTransfers): Transac
   };
 }
 
-export function convertBitcoinTxsToListType(txs?: BitcoinTransaction[]) {
+export function convertBitcoinTxsToListType(txs?: BitcoinTx[]) {
   if (!txs) return [];
   const confirmedTxs = txs.filter(tx => tx.status.confirmed);
   return confirmedTxs.map(tx => createBitcoinTxTypeWrapper(tx));

@@ -64,6 +64,7 @@ export function BtcChooseFee() {
       recipient={txValues.recipient}
       recommendedFeeRate={recommendedFeeRate}
       showError={showInsufficientBalanceError}
+      maxRecommendedFeeRate={feesList[0]?.feeRate}
     />
   );
 }

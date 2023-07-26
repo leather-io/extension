@@ -12,6 +12,7 @@ interface KeyConfigSoftware {
   encryptedSecretKey: string;
   salt: string;
 }
+
 interface KeyConfigLedger {
   type: 'ledger';
   id: string;

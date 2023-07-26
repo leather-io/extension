@@ -1,7 +1,10 @@
 import { useOutletContext } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 import { Box, Stack, Text } from '@stacks/ui';
 import { HomePageSelectorsLegacy } from '@tests-legacy/page-objects/home.selectors';
+
+import { LEDGER_BITCOIN_ENABLED } from '@shared/environment';
 
 import { useBtcAssetBalance } from '@app/common/hooks/balance/btc/use-btc-balance';
 import { useStxBalance } from '@app/common/hooks/balance/stx/use-stx-balance';
@@ -13,7 +16,6 @@ import { StxAvatar } from '@app/components/crypto-assets/stacks/components/stx-a
 import { BtcIcon } from '@app/components/icons/btc-icon';
 import { LoadingSpinner } from '@app/components/loading-spinner';
 import { Caption } from '@app/components/typography';
-import { useConfigBitcoinEnabled } from '@app/query/common/remote-config/remote-config.query';
 import { useStacksFungibleTokenAssetBalancesAnchoredWithMetadata } from '@app/query/stacks/balance/stacks-ft-balances.hooks';
 import { useCurrentAccountNativeSegwitAddressIndexZero } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
 
@@ -29,7 +31,6 @@ interface BalancesListContextState {
 export function BalancesList(): React.JSX.Element {
   const { address } = useOutletContext<BalancesListContextState>();
   const stacksFtAssetBalances = useStacksFungibleTokenAssetBalancesAnchoredWithMetadata(address);
-  const isBitcoinEnabled = useConfigBitcoinEnabled();
   const btcAddress = useCurrentAccountNativeSegwitAddressIndexZero();
   const {
     stxEffectiveBalance,
@@ -40,6 +41,7 @@ export function BalancesList(): React.JSX.Element {
   } = useStxBalance();
   const { btcAvailableAssetBalance, btcAvailableUsdBalance } = useBtcAssetBalance(btcAddress);
   const { whenWallet } = useWalletType();
+  const navigate = useNavigate();
 
   // Better handle loading state
   if (isLoading) return <LoadingSpinner />;
@@ -54,14 +56,28 @@ export function BalancesList(): React.JSX.Element {
 
   return (
     <Stack pb="extra-loose" spacing="loose" data-testid={HomePageSelectorsLegacy.BalancesList}>
-      {isBitcoinEnabled && (
-        <CryptoCurrencyAssetItem
-          assetBalance={btcAvailableAssetBalance}
-          usdBalance={btcAvailableUsdBalance}
-          icon={<Box as={BtcIcon} />}
-          address={btcAddress}
-        />
-      )}
+      {/* Temporary duplication during Ledger Bitcoin feature dev */}
+      {whenWallet({
+        software: (
+          <CryptoCurrencyAssetItem
+            assetBalance={btcAvailableAssetBalance}
+            usdBalance={btcAvailableUsdBalance}
+            icon={<Box as={BtcIcon} />}
+            address={btcAddress}
+          />
+        ),
+        ledger: LEDGER_BITCOIN_ENABLED ? (
+          <CryptoCurrencyAssetItem
+            assetBalance={btcAvailableAssetBalance}
+            usdBalance={btcAvailableUsdBalance}
+            icon={<Box as={BtcIcon} />}
+            address={btcAddress}
+            // add conditionally if not bitcoin keys
+            isPressable={!btcAddress}
+            onClick={!btcAddress ? () => navigate('bitcoin/connect-your-ledger') : undefined}
+          />
+        ) : null,
+      })}
       <CryptoCurrencyAssetItem
         assetBalance={stxEffectiveBalance}
         usdBalance={stxEffectiveUsdBalance}
@@ -79,9 +95,7 @@ export function BalancesList(): React.JSX.Element {
         ),
         ledger: null,
       })}
-
       <PendingBrc20TransferList />
-
       <Collectibles />
     </Stack>
   );

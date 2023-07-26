@@ -15,10 +15,13 @@ import { ActivityList } from '@app/features/activity-list/activity-list';
 import { BalancesList } from '@app/features/balances-list/balances-list';
 import { Container } from '@app/features/container/container';
 import { EditNonceDrawer } from '@app/features/edit-nonce-drawer/edit-nonce-drawer';
-import { IncreaseFeeDrawer } from '@app/features/increase-fee-drawer/increase-fee-drawer';
+import { IncreaseBtcFeeDrawer } from '@app/features/increase-fee-drawer/increase-btc-fee-drawer';
+import { IncreaseFeeSentDrawer } from '@app/features/increase-fee-drawer/increase-fee-sent-drawer';
+import { IncreaseStxFeeDrawer } from '@app/features/increase-fee-drawer/increase-stx-fee-drawer';
 import { ledgerJwtSigningRoutes } from '@app/features/ledger/flows/jwt-signing/ledger-sign-jwt.routes';
+import { requestBitcoinKeysRoutes } from '@app/features/ledger/flows/request-bitcoin-keys/ledger-request-bitcoin-keys';
+import { requestStacksKeysRoutes } from '@app/features/ledger/flows/request-stacks-keys/ledger-request-stacks-keys';
 import { ledgerStacksMessageSigningRoutes } from '@app/features/ledger/flows/stacks-message-signing/ledger-stacks-sign-msg.routes';
-import { ledgerRequestStacksKeysRoutes } from '@app/features/ledger/flows/stacks-request-keys/ledger-request-keys.routes';
 import { ledgerStacksTxSigningRoutes } from '@app/features/ledger/flows/stacks-tx-signing/ledger-sign-tx.routes';
 import { AddNetwork } from '@app/features/message-signer/add-network/add-network';
 import { RetrieveTaprootToNativeSegwit } from '@app/features/retrieve-taproot-to-native-segwit/retrieve-taproot-to-native-segwit';
@@ -29,7 +32,6 @@ import { ChooseAccount } from '@app/pages/choose-account/choose-account';
 import { FundPage } from '@app/pages/fund/fund';
 import { Home } from '@app/pages/home/home';
 import { BackUpSecretKeyPage } from '@app/pages/onboarding/back-up-secret-key/back-up-secret-key';
-import { MagicRecoveryCode } from '@app/pages/onboarding/magic-recovery-code/magic-recovery-code';
 import { SignIn } from '@app/pages/onboarding/sign-in/sign-in';
 import { WelcomePage } from '@app/pages/onboarding/welcome/welcome';
 import { PsbtRequest } from '@app/pages/psbt-request/psbt-request';
@@ -38,6 +40,7 @@ import { ReceiveModal } from '@app/pages/receive-tokens/receive-modal';
 import { ReceiveStxModal } from '@app/pages/receive-tokens/receive-stx';
 import { ReceiveCollectibleModal } from '@app/pages/receive/receive-collectible/receive-collectible-modal';
 import { ReceiveCollectibleOrdinal } from '@app/pages/receive/receive-collectible/receive-collectible-oridinal';
+import { RequestError } from '@app/pages/request-error/request-error';
 import { RpcGetAddresses } from '@app/pages/rpc-get-addresses/rpc-get-addresses';
 import { rpcSendTransferRoutes } from '@app/pages/rpc-send-transfer/rpc-send-transfer.routes';
 import { RpcSignPsbt } from '@app/pages/rpc-sign-psbt/rpc-sign-psbt';
@@ -88,6 +91,88 @@ function useAppRoutes() {
     </Route>
   );
 
+  const legacyRequestRoutes = (
+    <>
+      <Route
+        path={RouteUrls.TransactionRequest}
+        element={
+          <AccountGate>
+            <Suspense fallback={<LoadingSpinner height="600px" />}>
+              <TransactionRequest />
+            </Suspense>
+          </AccountGate>
+        }
+      >
+        {ledgerStacksTxSigningRoutes}
+        <Route path={RouteUrls.EditNonce} element={<EditNonceDrawer />} />
+        <Route path={RouteUrls.TransactionBroadcastError} element={<BroadcastErrorDrawer />} />
+      </Route>
+      <Route
+        path={RouteUrls.SignatureRequest}
+        element={
+          <AccountGate>
+            <Suspense fallback={<LoadingSpinner height="600px" />}>
+              <StacksMessageSigningRequest />
+            </Suspense>
+          </AccountGate>
+        }
+      >
+        {ledgerStacksMessageSigningRoutes}
+      </Route>
+      <Route
+        path={RouteUrls.ProfileUpdateRequest}
+        element={
+          <AccountGate>
+            <Suspense fallback={<LoadingSpinner height="600px" />}>
+              <ProfileUpdateRequest />
+            </Suspense>
+          </AccountGate>
+        }
+      />
+      <Route
+        path={RouteUrls.PsbtRequest}
+        element={
+          <AccountGate>
+            <Suspense fallback={<LoadingSpinner height="600px" />}>
+              <PsbtRequest />
+            </Suspense>
+          </AccountGate>
+        }
+      />
+    </>
+  );
+
+  const rpcRequestRoutes = (
+    <>
+      <Route
+        path={RouteUrls.RpcGetAddresses}
+        element={
+          <AccountGate>
+            <RpcGetAddresses />
+          </AccountGate>
+        }
+      />
+      {rpcSendTransferRoutes}
+      <Route
+        path={RouteUrls.RpcSignBip322Message}
+        lazy={async () => {
+          const { RpcSignBip322MessageRoute } = await import(
+            '@app/pages/rpc-sign-bip322-message/rpc-sign-bip322-message'
+          );
+          return { Component: RpcSignBip322MessageRoute };
+        }}
+      />
+      <Route
+        path={RouteUrls.RpcSignPsbt}
+        element={
+          <AccountGate>
+            <RpcSignPsbt />
+          </AccountGate>
+        }
+      />
+    </>
+  );
+
   return createHashRouter(
     createRoutesFromElements(
       <Route path={RouteUrls.Container} element={<Container />}>
@@ -104,11 +189,16 @@ function useAppRoutes() {
           <Route index element={<BalancesList />} />
           <Route path={RouteUrls.Activity} element={<ActivityList />} />
 
+          {requestBitcoinKeysRoutes}
+          {requestStacksKeysRoutes}
           <Route path={RouteUrls.RetriveTaprootFunds} element={<RetrieveTaprootToNativeSegwit />} />
 
-          <Route path={RouteUrls.IncreaseFee} element={<IncreaseFeeDrawer />}>
+          <Route path={RouteUrls.IncreaseStxFee} element={<IncreaseStxFeeDrawer />}>
             {ledgerStacksTxSigningRoutes}
           </Route>
+          <Route path={RouteUrls.IncreaseBtcFee} element={<IncreaseBtcFeeDrawer />} />
+          <Route path={RouteUrls.IncreaseFeeSent} element={<IncreaseFeeSentDrawer />} />
+
           <Route path={RouteUrls.Receive} element={<ReceiveModal />} />
           <Route path={RouteUrls.ReceiveCollectible} element={<ReceiveCollectibleModal />} />
           <Route
@@ -158,7 +248,8 @@ function useAppRoutes() {
             </OnboardingGate>
           }
         >
-          {ledgerRequestStacksKeysRoutes}
+          {requestBitcoinKeysRoutes}
+          {requestStacksKeysRoutes}
         </Route>
         <Route
           path={RouteUrls.BackUpSecretKey}
@@ -186,7 +277,6 @@ function useAppRoutes() {
             </OnboardingGate>
           }
         />
-        <Route path={RouteUrls.MagicRecoveryCode} element={<MagicRecoveryCode />} />
         <Route
           path={RouteUrls.AddNetwork}
           element={
@@ -222,55 +312,6 @@ function useAppRoutes() {
         {sendCryptoAssetFormRoutes}
 
         <Route
-          path={RouteUrls.TransactionRequest}
-          element={
-            <AccountGate>
-              <Suspense fallback={<LoadingSpinner height="600px" />}>
-                <TransactionRequest />
-              </Suspense>
-            </AccountGate>
-          }
-        >
-          {ledgerStacksTxSigningRoutes}
-          <Route path={RouteUrls.EditNonce} element={<EditNonceDrawer />} />
-          <Route path={RouteUrls.TransactionBroadcastError} element={<BroadcastErrorDrawer />} />
-        </Route>
-        <Route path={RouteUrls.UnauthorizedRequest} element={<UnauthorizedRequest />} />
-
-        <Route
-          path={RouteUrls.SignatureRequest}
-          element={
-            <AccountGate>
-              <Suspense fallback={<LoadingSpinner height="600px" />}>
-                <StacksMessageSigningRequest />
-              </Suspense>
-            </AccountGate>
-          }
-        >
-          {ledgerStacksMessageSigningRoutes}
-        </Route>
-
-        <Route
-          path={RouteUrls.ProfileUpdateRequest}
-          element={
-            <AccountGate>
-              <Suspense fallback={<LoadingSpinner height="600px" />}>
-                <ProfileUpdateRequest />
-              </Suspense>
-            </AccountGate>
-          }
-        />
-        <Route
-          path={RouteUrls.PsbtRequest}
-          element={
-            <AccountGate>
-              <Suspense fallback={<LoadingSpinner height="600px" />}>
-                <PsbtRequest />
-              </Suspense>
-            </AccountGate>
-          }
-        />
-        <Route
           path={RouteUrls.ViewSecretKey}
           element={
             <AccountGate>
@@ -284,33 +325,16 @@ function useAppRoutes() {
           {settingsModalRoutes}
         </Route>
 
+        {legacyRequestRoutes}
+        {rpcRequestRoutes}
+        <Route path={RouteUrls.UnauthorizedRequest} element={<UnauthorizedRequest />} />
         <Route
-          path={RouteUrls.RpcGetAddresses}
+          path={RouteUrls.RequestError}
           element={
             <AccountGate>
-              <RpcGetAddresses />
+              <RequestError />
             </AccountGate>
           }
-        />
-        {rpcSendTransferRoutes}
-
-        <Route
-          path={RouteUrls.RpcSignPsbt}
-          element={
-            <AccountGate>
-              <RpcSignPsbt />
-            </AccountGate>
-          }
-        />
-
-        <Route
-          path={RouteUrls.RpcSignBip322Message}
-          lazy={async () => {
-            const { RpcSignBip322MessageRoute } = await import(
-              '@app/pages/rpc-sign-bip322-message/rpc-sign-bip322-message'
-            );
-            return { Component: RpcSignBip322MessageRoute };
-          }}
         />
 
         {/* Catch-all route redirects to onboarding */}

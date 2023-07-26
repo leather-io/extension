@@ -14,10 +14,10 @@ function isSoftwareWallet(walletType: WalletType) {
 
 type WalletTypeMap<T> = Record<WalletType, T>;
 
-function whenWalletFactory(walletType: WalletType) {
-  return <T>(walletTypeMap: WalletTypeMap<T>): T => {
-    if (isLedgerWallet(walletType)) return walletTypeMap.ledger;
-    if (isSoftwareWallet(walletType)) return walletTypeMap.software;
+function whenWallet(walletType: WalletType) {
+  return <T extends WalletTypeMap<unknown>>(walletTypeMap: T) => {
+    if (isLedgerWallet(walletType)) return walletTypeMap.ledger as T['ledger'];
+    if (isSoftwareWallet(walletType)) return walletTypeMap.software as T['software'];
     throw new Error('Wallet is neither of type `ledger` nor `software`');
   };
 }
@@ -29,7 +29,7 @@ export function useWalletType() {
       walletType: wallet?.type,
       // Coercing type here allows use within app without handling undefined
       // case will error when use within onboarding
-      whenWallet: whenWalletFactory(wallet?.type as any),
+      whenWallet: whenWallet(wallet?.type as any),
     }),
     [wallet]
   );

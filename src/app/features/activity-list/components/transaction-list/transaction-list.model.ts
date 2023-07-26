@@ -1,11 +1,11 @@
 import { AddressTransactionWithTransfers } from '@stacks/stacks-blockchain-api-types';
 
 import type { Blockchains } from '@shared/models/blockchain.model';
-import type { BitcoinTransaction } from '@shared/models/transactions/bitcoin-transaction.model';
+import type { BitcoinTx } from '@shared/models/transactions/bitcoin-transaction.model';
 
 export interface TransactionListBitcoinTx {
   blockchain: Extract<Blockchains, 'bitcoin'>;
-  transaction: BitcoinTransaction;
+  transaction: BitcoinTx;
 }
 
 export interface TransactionListStacksTx {

@@ -6,6 +6,7 @@ import { useBitcoinClient } from '@app/store/common/api-clients.hooks';
 
 interface BroadcastCallbackArgs {
   tx: string;
+  delayTime?: number;
   onSuccess?(txid: string): void;
   onError?(error: Error): void;
   onFinally?(): void;
@@ -17,12 +18,12 @@ export function useBitcoinBroadcastTransaction() {
   const analytics = useAnalytics();
 
   const broadcastTx = useCallback(
-    async ({ tx, onSuccess, onError, onFinally }: BroadcastCallbackArgs) => {
+    async ({ tx, onSuccess, onError, onFinally, delayTime = 700 }: BroadcastCallbackArgs) => {
       try {
         setIsBroadcasting(true);
         const resp = await client.transactionsApi.broadcastTransaction(tx);
         // simulate slower broadcast time to allow mempool refresh
-        await delay(700);
+        await delay(delayTime);
         if (!resp.ok) throw new Error(await resp.text());
         const txid = await resp.text();
         onSuccess?.(txid);

@@ -1,9 +1,9 @@
-import { BitcoinTransaction } from '@shared/models/transactions/bitcoin-transaction.model';
+import { BitcoinTx } from '@shared/models/transactions/bitcoin-transaction.model';
 
 export const mockAddress = 'tb1qxy5r9rlmpcxgwp92x2594q3gg026y4kdv2rsl8';
 
 // multiple inputs and outputs
-export const mockPendingTxs1: BitcoinTransaction[] = [
+export const mockPendingTxs1: BitcoinTx[] = [
   {
     txid: '7438bd24579108a85fbf77756e7b9c87238b947dd0f858f6e30bad4f4d6d557a',
     version: 2,
@@ -74,7 +74,7 @@ export const mockPendingTxs1: BitcoinTransaction[] = [
 ];
 
 // multiple transactions
-export const mockPendingTxs2: BitcoinTransaction[] = [
+export const mockPendingTxs2: BitcoinTx[] = [
   {
     txid: '7438bd24579108a85fbf77756e7b9c87238b947dd0f858f6e30bad4f4d6d557a',
     version: 2,
@@ -212,7 +212,7 @@ export const mockPendingTxs2: BitcoinTransaction[] = [
 ];
 
 // one input and many outputs
-export const mockPendingTxs3: BitcoinTransaction[] = [
+export const mockPendingTxs3: BitcoinTx[] = [
   {
     txid: '7438bd24579108a85fbf77756e7b9c87238b947dd0f858f6e30bad4f4d6d557a',
     version: 2,

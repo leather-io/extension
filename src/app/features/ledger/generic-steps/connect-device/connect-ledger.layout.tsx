@@ -2,9 +2,12 @@ import { Suspense, lazy } from 'react';
 
 import { Box } from '@stacks/ui';
 
+import { SupportedBlockchains } from '@shared/constants';
+
 import { ExternalLink } from '@app/components/external-link';
 import { Divider } from '@app/components/layout/divider';
 import { PrimaryButton } from '@app/components/primary-button';
+import { Capitalize } from '@app/components/text/capitalize';
 import { Caption } from '@app/components/typography';
 
 import { LedgerConnectInstructionTitle } from '../../components/ledger-title';
@@ -15,13 +18,14 @@ const PluggingInLedgerCableAnimation = lazy(
 );
 
 interface ConnectLedgerLayoutProps {
+  chain: SupportedBlockchains;
   awaitingLedgerConnection: boolean;
   warning: React.ReactNode;
   showInstructions: boolean;
   onConnectLedger(): void;
 }
 export function ConnectLedgerLayout(props: ConnectLedgerLayoutProps) {
-  const { onConnectLedger, warning, showInstructions, awaitingLedgerConnection } = props;
+  const { chain, onConnectLedger, warning, showInstructions, awaitingLedgerConnection } = props;
 
   return (
     <LedgerWrapper>
@@ -30,8 +34,7 @@ export function ConnectLedgerLayout(props: ConnectLedgerLayoutProps) {
           <PluggingInLedgerCableAnimation position="absolute" top="-80px" />
         </Suspense>
       </Box>
-      {/* <img src={ConnectLedger} width="299" height="97" /> */}
-      <LedgerConnectInstructionTitle mt="extra-loose" mx="50px" />
+      <LedgerConnectInstructionTitle chain={chain} mt="extra-loose" mx="50px" />
       <PrimaryButton
         height="40px"
         my="base"
@@ -53,7 +56,7 @@ export function ConnectLedgerLayout(props: ConnectLedgerLayoutProps) {
             href="https://www.hiro.so/wallet-faq/how-can-i-use-my-ledger-device-with-hiro-wallet"
             fontSize={1}
           >
-            See how to download the Stacks app
+            See how to download the <Capitalize>{chain}</Capitalize> app
           </ExternalLink>
         </Box>
       ) : null}

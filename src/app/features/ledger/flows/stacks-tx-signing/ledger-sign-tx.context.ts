@@ -6,7 +6,7 @@ import { noop } from '@shared/utils';
 
 import { createWaitableAction } from '@app/common/utils/create-waitable-action';
 
-import { BaseLedgerOperationContext } from '../../utils/stacks-ledger-utils';
+import { BaseLedgerOperationContext } from '../../utils/generic-ledger-utils';
 
 export function createWaitForUserToSeeWarningScreen() {
   return createWaitableAction<'ignored-warning' | 'cancelled-operation'>();

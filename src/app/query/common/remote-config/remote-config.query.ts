@@ -2,11 +2,17 @@ import { useQuery } from '@tanstack/react-query';
 import get from 'lodash.get';
 
 import { GITHUB_ORG, GITHUB_REPO } from '@shared/constants';
-import { BRANCH_NAME, IS_DEV_ENV, WALLET_ENVIRONMENT } from '@shared/environment';
+import {
+  BRANCH_NAME,
+  IS_DEV_ENV,
+  LEDGER_BITCOIN_ENABLED,
+  WALLET_ENVIRONMENT,
+} from '@shared/environment';
 import { createMoney } from '@shared/models/money.model';
 import { isUndefined } from '@shared/utils';
 
 import { useWalletType } from '@app/common/use-wallet-type';
+import { useHasCurrentBitcoinAccount } from '@app/store/accounts/blockchain/bitcoin/bitcoin.hooks';
 
 import localConfig from '../../../../../config/wallet-config.json';
 
@@ -107,8 +113,9 @@ export function useHasFiatProviders() {
 export function useConfigBitcoinEnabled() {
   const { whenWallet } = useWalletType();
   const config = useRemoteConfig();
+  const hasBitcoinAccount = useHasCurrentBitcoinAccount();
   return whenWallet({
-    ledger: false,
+    ledger: config?.bitcoinEnabled && LEDGER_BITCOIN_ENABLED && hasBitcoinAccount,
     software: config?.bitcoinEnabled ?? true,
   });
 }
@@ -116,8 +123,9 @@ export function useConfigBitcoinEnabled() {
 export function useConfigBitcoinSendEnabled() {
   const { whenWallet } = useWalletType();
   const config = useRemoteConfig();
+  const hasBitcoinAccount = useHasCurrentBitcoinAccount();
   return whenWallet({
-    ledger: false,
+    ledger: config?.bitcoinEnabled && hasBitcoinAccount,
     software: config?.bitcoinSendEnabled ?? true,
   });
 }
