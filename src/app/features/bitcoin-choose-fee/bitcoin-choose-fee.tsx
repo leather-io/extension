@@ -11,7 +11,7 @@ import { OnChooseFeeArgs } from '@app/components/bitcoin-fees-list/bitcoin-fees-
 import { BitcoinCustomFee } from '@app/features/bitcoin-choose-fee/bitcoin-custom-fee/bitcoin-custom-fee';
 import { useNativeSegwitBalance } from '@app/query/bitcoin/balance/bitcoin-balances.query';
 import { useCurrentAccountNativeSegwitIndexZeroSigner } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
-import { useDefaultPreferences } from '@app/store/preferences/preference.selectors';
+import { useDefaultPreferences } from '@app/store/settings/settings.selectors';
 
 import { BitcoinChooseFeeLayout } from './components/bitcoin-choose-fee.layout';
 import { ChooseFeeSubtitle } from './components/choose-fee-subtitle';
@@ -31,7 +31,7 @@ interface BitcoinChooseFeeProps {
   showError: boolean;
 }
 
-interface saveRateProps {
+interface SaveRateProps {
   saveRateForFuture: boolean;
   savedRate: string;
 }
@@ -54,9 +54,9 @@ export function BitcoinChooseFee({
 
   const preferenceData = useDefaultPreferences();
 
-  const savedRateDetails: saveRateProps = preferenceData.preference[nativeSegwitSigner.address];
+  const savedRateDetails: SaveRateProps = preferenceData[nativeSegwitSigner.address];
 
-  const [saveRateForFuture, setSaveRateForFuture] = useState(
+  const [onSaveCustomFeeRate, setOnSaveCustomFeeRate] = useState(
     savedRateDetails === undefined ? false : savedRateDetails.saveRateForFuture
   );
 
@@ -90,8 +90,8 @@ export function BitcoinChooseFee({
               recipient={recipient}
               setCustomFeeInitialValue={setCustomFeeInitialValue}
               nativeSegwitSigner={nativeSegwitSigner.address}
-              saveRateForFuture={saveRateForFuture}
-              setSaveRateForFuture={setSaveRateForFuture}
+              onSaveCustomFeeRate={onSaveCustomFeeRate}
+              setOnSaveCustomFeeRate={setOnSaveCustomFeeRate}
             />
           }
           feesList={feesList}

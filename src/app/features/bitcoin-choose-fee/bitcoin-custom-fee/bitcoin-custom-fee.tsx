@@ -14,7 +14,7 @@ import { Caption } from '@app/components/typography';
 import {
   removePreferenceFromStorage,
   savePreferenceToStorage,
-} from '@app/store/preferences/preference.actions';
+} from '@app/store/settings/settings.actions';
 
 import { OnChooseFeeArgs } from '../../../components/bitcoin-fees-list/bitcoin-fees-list';
 import { TextInputField } from '../../../components/text-input-field';
@@ -34,8 +34,8 @@ interface BitcoinCustomFeeProps {
   recipient: string;
   setCustomFeeInitialValue: Dispatch<SetStateAction<string>>;
   nativeSegwitSigner: number;
-  saveRateForFuture: boolean;
-  setSaveRateForFuture: Dispatch<SetStateAction<boolean>>;
+  onSaveCustomFeeRate: boolean;
+  setOnSaveCustomFeeRate: Dispatch<SetStateAction<boolean>>;
 }
 export function BitcoinCustomFee({
   amount,
@@ -48,8 +48,8 @@ export function BitcoinCustomFee({
   recipient,
   setCustomFeeInitialValue,
   nativeSegwitSigner,
-  saveRateForFuture,
-  setSaveRateForFuture,
+  onSaveCustomFeeRate,
+  setOnSaveCustomFeeRate,
 }: BitcoinCustomFeeProps) {
   const feeInputRef = useRef<HTMLInputElement | null>(null);
   const getCustomFeeValues = useBitcoinCustomFee({ amount, isSendingMax, recipient });
@@ -107,10 +107,10 @@ export function BitcoinCustomFee({
                     }}
                     onChange={e => {
                       setCustomFeeInitialValue((e.target as HTMLInputElement).value);
-                      if (saveRateForFuture) {
+                      if (onSaveCustomFeeRate) {
                         dispatch(
                           savePreferenceToStorage(nativeSegwitSigner.toString(), {
-                            saveRateForFuture: saveRateForFuture,
+                            saveRateForFuture: onSaveCustomFeeRate,
                             savedRate: (e.target as HTMLInputElement).value,
                           })
                         );
@@ -131,9 +131,9 @@ export function BitcoinCustomFee({
                   <input
                     type="checkbox"
                     name="saveCustomFeeRate"
-                    defaultChecked={saveRateForFuture}
+                    defaultChecked={onSaveCustomFeeRate}
                     onChange={e => {
-                      setSaveRateForFuture(e.target.checked);
+                      setOnSaveCustomFeeRate(e.target.checked);
                       if (e.target.checked) {
                         dispatch(
                           savePreferenceToStorage(nativeSegwitSigner.toString(), {

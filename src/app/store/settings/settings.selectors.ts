@@ -38,3 +38,9 @@ const selectDismissedMessageIds = createSelector(
 export function useDismissedMessageIds() {
   return useSelector(selectDismissedMessageIds);
 }
+
+const selectDefaultPreferences = createSelector(selectSettings, state => state.preference ?? {});
+
+export function useDefaultPreferences() {
+  return useSelector(selectDefaultPreferences);
+}
