@@ -12,7 +12,7 @@ import { RouteUrls } from '@shared/route-urls';
 import { BroadcastErrorDrawer } from '@app/components/broadcast-error-drawer/broadcast-error-drawer';
 import { LoadingSpinner } from '@app/components/loading-spinner';
 import { ActivityList } from '@app/features/activity-list/activity-list';
-import { BalancesList } from '@app/features/balances-list/balances-list';
+import { AssetsList } from '@app/features/asset-list/asset-list';
 import { Container } from '@app/features/container/container';
 import { EditNonceDrawer } from '@app/features/edit-nonce-drawer/edit-nonce-drawer';
 import { IncreaseBtcFeeDrawer } from '@app/features/increase-fee-drawer/increase-btc-fee-drawer';
@@ -186,7 +186,7 @@ function useAppRoutes() {
             </AccountGate>
           }
         >
-          <Route index element={<BalancesList />} />
+          <Route index element={<AssetsList />} />
           <Route path={RouteUrls.Activity} element={<ActivityList />} />
 
           {requestBitcoinKeysRoutes}
