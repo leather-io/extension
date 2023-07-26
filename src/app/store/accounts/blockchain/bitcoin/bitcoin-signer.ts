@@ -11,6 +11,7 @@ import {
 } from '@shared/crypto/bitcoin/bitcoin.utils';
 import { getTaprootAddressIndexDerivationPath } from '@shared/crypto/bitcoin/p2tr-address-gen';
 import { getNativeSegwitAddressIndexDerivationPath } from '@shared/crypto/bitcoin/p2wpkh-address-gen';
+import { AllowedSighashTypes } from '@shared/rpc/methods/sign-psbt';
 
 interface Signer<Payment> {
   network: BitcoinNetworkModes;
@@ -20,7 +21,7 @@ interface Signer<Payment> {
   address: string;
   publicKey: Uint8Array;
   sign(tx: btc.Transaction): void;
-  signIndex(tx: btc.Transaction, index: number, allowedSighash?: btc.SignatureHash[]): void;
+  signIndex(tx: btc.Transaction, index: number, allowedSighash?: AllowedSighashTypes[]): void;
 }
 
 interface MakeBitcoinSignerArgs {
@@ -29,7 +30,7 @@ interface MakeBitcoinSignerArgs {
   derivationPath: string;
   paymentFn(keychain: HDKey, network: BitcoinNetworkModes): any;
   signFn(tx: btc.Transaction): void;
-  signAtIndexFn(tx: btc.Transaction, index: number, allowedSighash?: btc.SignatureHash[]): void;
+  signAtIndexFn(tx: btc.Transaction, index: number, allowedSighash?: AllowedSighashTypes[]): void;
 }
 function makeBitcoinSigner<T extends MakeBitcoinSignerArgs>(args: T) {
   const { derivationPath, keychain, network, paymentFn, signFn, signAtIndexFn } = args;
@@ -89,7 +90,8 @@ export function bitcoinAddressIndexSignerFactory<T extends BitcoinAddressIndexSi
 
         tx.sign(addressIndexKeychain.privateKey);
       },
-      signAtIndexFn(tx: btc.Transaction, index: number, allowedSighash?: btc.SignatureHash[]) {
+      // TODO: Revisit allowedSighash type if/when fixed in btc-signer
+      signAtIndexFn(tx: btc.Transaction, index: number, allowedSighash?: number[]) {
         if (!addressIndexKeychain.privateKey)
           throw new Error('Unable to sign transaction, no private key found');
 
