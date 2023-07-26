@@ -9,7 +9,7 @@ import { useTokenMetadataClient } from '@app/store/common/api-clients.hooks';
 import { RateLimiter, useHiroApiRateLimiter } from '../../rate-limiter';
 import { TokenMetadataClient } from '../../token-metadata-client';
 import { NftAssetResponse } from '../token-metadata.utils';
-import { useGetNonFungibleTokenHoldingsQuery } from './non-fungible-token-holdings.query';
+import useGetNonFungibleTokenHoldingsQuery from './non-fungible-token-holdings.query';
 
 const queryOptions = {
   refetchOnWindowFocus: true,
