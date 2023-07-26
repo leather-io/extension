@@ -4,7 +4,7 @@ import { RouteUrls } from '@shared/route-urls';
 
 import {
   ConnectLedgerError,
-  ConnectLedgerSuccessLayout,
+  ConnectLedgerSuccess,
   DeviceBusy,
   LedgerDisconnected,
   OperationRejected,
@@ -17,7 +17,7 @@ export const ledgerJwtSigningRoutes = (
   <Route element={<LedgerSignJwtContainer />}>
     <Route path={RouteUrls.ConnectLedger} element={<ConnectLedgerSignJwt />} />
     <Route path={RouteUrls.ConnectLedgerError} element={<ConnectLedgerError />} />
-    <Route path={RouteUrls.ConnectLedgerSuccess} element={<ConnectLedgerSuccessLayout />} />
+    <Route path={RouteUrls.ConnectLedgerSuccess} element={<ConnectLedgerSuccess />} />
     <Route path={RouteUrls.LedgerOperationRejected} element={<OperationRejected />} />
     <Route path={RouteUrls.DeviceBusy} element={<DeviceBusy />} />
     <Route path={RouteUrls.AwaitingDeviceUserAction} element={<SignJwtHash />} />

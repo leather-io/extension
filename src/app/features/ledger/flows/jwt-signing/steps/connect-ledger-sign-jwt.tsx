@@ -10,8 +10,14 @@ export function ConnectLedgerSignJwt() {
 
   return (
     <ConnectLedgerLayout
+      chain="stacks"
       awaitingLedgerConnection={awaitingDeviceConnection}
-      warning={<CommonLedgerDeviceInlineWarnings latestDeviceResponse={latestDeviceResponse} />}
+      warning={
+        <CommonLedgerDeviceInlineWarnings
+          chain="stacks"
+          latestDeviceResponse={latestDeviceResponse}
+        />
+      }
       onConnectLedger={signJwtPayload}
       showInstructions={false}
     />

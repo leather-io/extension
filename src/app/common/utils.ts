@@ -9,7 +9,7 @@ import {
 } from '@stacks/transactions';
 import { toUnicode } from 'punycode';
 
-import { BitcoinNetworkModes, KEBAB_REGEX, NetworkModes } from '@shared/constants';
+import { BitcoinNetworkModes, KEBAB_REGEX } from '@shared/constants';
 import { logger } from '@shared/logger';
 import type { Blockchains } from '@shared/models/blockchain.model';
 
@@ -45,25 +45,6 @@ export function extractPhraseFromString(value: string) {
 export function extractPhraseFromPasteEvent(event: ClipboardEvent) {
   const pasted = event.clipboardData.getData('Text');
   return extractPhraseFromString(pasted);
-}
-
-export function validateAndCleanRecoveryInput(value: string) {
-  const cleaned = value.trim();
-  // Base64 encoded encrypted phrase
-  let cleanedEncrypted = cleaned.replace(/\s/gm, '');
-  const isPossibleRecoveryKey = /^[a-zA-Z0-9\+\/]+=?$/.test(cleanedEncrypted);
-
-  if (isPossibleRecoveryKey && cleanedEncrypted.slice(-1) !== '=') {
-    // Append possibly missing equals sign padding
-    cleanedEncrypted = `${cleanedEncrypted}=`;
-  }
-  if (cleanedEncrypted.length >= 108) {
-    return {
-      isValid: true,
-      value: cleanedEncrypted,
-    };
-  }
-  return { isValid: false, value };
 }
 
 interface MakeTxExplorerLinkArgs {
@@ -284,11 +265,6 @@ interface WhenStacksChainIdMap<T> {
 }
 export function whenStacksChainId(chainId: ChainID) {
   return <T>(chainIdMap: WhenStacksChainIdMap<T>): T => chainIdMap[chainId];
-}
-
-type NetworkMap<T> = Record<NetworkModes, T>;
-export function whenNetwork(mode: NetworkModes) {
-  return <T>(networkMap: NetworkMap<T>): T => networkMap[mode];
 }
 
 export function whenBitcoinNetwork(mode: BitcoinNetworkModes) {

@@ -52,7 +52,7 @@ interface BitcoinTransactionVectorInput {
   witness: string[];
 }
 
-export interface BitcoinTransaction {
+export interface BitcoinTx {
   fee: number;
   locktime: number;
   size: number;

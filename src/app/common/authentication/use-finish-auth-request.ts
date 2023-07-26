@@ -96,8 +96,8 @@ export function useFinishAuthRequest() {
               },
             },
             btcPublicKey: {
-              p2tr: bytesToHex(taprootAccount.mainnet.publicKeychain.publicKey!),
-              p2wpkh: bytesToHex(nativeSegwitAccount.mainnet.publicKeychain.publicKey!),
+              p2tr: bytesToHex(taprootAccount.mainnet.keychain.publicKey!),
+              p2wpkh: bytesToHex(nativeSegwitAccount.mainnet.keychain.publicKey!),
             },
             walletProvider: 'hiro-wallet',
           },

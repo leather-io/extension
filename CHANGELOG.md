@@ -1,3 +1,72 @@
+## [6.1.0](https://github.com/hirosystems/wallet/compare/v6.0.0...v6.1.0) (2023-07-26)
+
+
+### Features
+
+* implement increase btc pending tx fee, closes [#3416](https://github.com/hirosystems/wallet/issues/3416) ([11614ad](https://github.com/hirosystems/wallet/commit/11614ad15ee7b2c2b0bd065212244a93cdf2ccf0))
+* validate subnet network id ([53bc4f5](https://github.com/hirosystems/wallet/commit/53bc4f5b327b94b97613bf1b0298654ae9022dd7))
+
+
+### Bug Fixes
+
+* csp img-src allowed urls ([361b79e](https://github.com/hirosystems/wallet/commit/361b79e7aadb3383db287063fd880c46e6edc2b0))
+* propagate subnet chain id in selector ([0ebcbc2](https://github.com/hirosystems/wallet/commit/0ebcbc2dbbc25841c105e862d257f34d2d7ba068))
+* propagate subnet chain id to networks actions ([c981fdb](https://github.com/hirosystems/wallet/commit/c981fdb1fa6453f698397bf3cdd09b2011debf94))
+* public key type error ([26485c8](https://github.com/hirosystems/wallet/commit/26485c891a80eaa5808d676994de2e73302a7582))
+* remove magic recovery code, closes [#2955](https://github.com/hirosystems/wallet/issues/2955) ([fa9d13b](https://github.com/hirosystems/wallet/commit/fa9d13bf51ef20add04833ffd9e9cb0594804c6c))
+* signPsbt error routing ([1e58c56](https://github.com/hirosystems/wallet/commit/1e58c562309071c95c6f5a76ddcca77cf41e1f1d))
+* xpub version mismatch in software mode ([89d77df](https://github.com/hirosystems/wallet/commit/89d77df751c53e62cad84a0e8e6aa8dda53f45dc))
+
+
+### Internal
+
+* add subnet chain id to the network configuration ([2d93f5a](https://github.com/hirosystems/wallet/commit/2d93f5ad05a7bd4bd31e86bbe2cbe85706fa6697))
+* ledger ([1e8d229](https://github.com/hirosystems/wallet/commit/1e8d229967de44fa46df406f7362faa2a6ca5634))
+* psbt error handling, closes [#3804](https://github.com/hirosystems/wallet/issues/3804) ([848e0fc](https://github.com/hirosystems/wallet/commit/848e0fcb4625514fdd8c5a68b81a7fb578e6e493))
+* psbt signing with default tapInternalKey, closes [#4007](https://github.com/hirosystems/wallet/issues/4007) ([75d8760](https://github.com/hirosystems/wallet/commit/75d87606fe4f787d268bf62210f1e999228d0b9d))
+* psbt uxui, closes [#3849](https://github.com/hirosystems/wallet/issues/3849) ([e48726e](https://github.com/hirosystems/wallet/commit/e48726e6a587f0dfcc66df4e909eabe05a58eb81))
+* remove unused address regeneration code, ref [#2894](https://github.com/hirosystems/wallet/issues/2894) ([47239e6](https://github.com/hirosystems/wallet/commit/47239e66cdcaa42a18552a1cd8df03667a455f47))
+* rename peer network id ([09812ac](https://github.com/hirosystems/wallet/commit/09812ac63129d8faaa1e07b31f956c8b41dc73f9))
+
+## [6.0.0](https://github.com/hirosystems/wallet/compare/v5.0.0...v6.0.0) (2023-07-25)
+
+
+### ⚠ BREAKING CHANGES
+
+* this change is sufficient enough to warrant a major
+bump
+
+### Features
+
+* added bitcoin contract request page ([83cf049](https://github.com/hirosystems/wallet/commit/83cf0491e44f3c7ac23cd3363ed753f25419f427))
+* added use-bitcoin-contract hook and additional functions and configs ([626ef0b](https://github.com/hirosystems/wallet/commit/626ef0beeb37fd7e6d10bd103972cdcf8c2adf51))
+* extended rpcmethods with bitcoin contract related case, added routes and success/failure pages ([f0ff7af](https://github.com/hirosystems/wallet/commit/f0ff7afba16a875e7ed791fdfd93ad1e7aed0180))
+* manifest v3 release trigger ([80615ca](https://github.com/hirosystems/wallet/commit/80615cac1351cc7e46182449f1a3f9eac26715a7))
+
+
+### Bug Fixes
+
+* added back dlc-wasm-wallet package ([ba27aaf](https://github.com/hirosystems/wallet/commit/ba27aaf4a288dd27c93af057ec9f81daca22eede))
+* added working package.json ([e8067d0](https://github.com/hirosystems/wallet/commit/e8067d0c9943e86116e5e961fb9b627ba9efd5e6))
+* cross install tracking ([3bc59ac](https://github.com/hirosystems/wallet/commit/3bc59ac5dce90e0d13aa68c0e643bb83f54c875b))
+* fixed frozen lockfile ([536aeec](https://github.com/hirosystems/wallet/commit/536aeec5f60d1e4b6cfef68b63bc498097edee00))
+* made requested css and const changes ([8846e0e](https://github.com/hirosystems/wallet/commit/8846e0e7d906c40d821da5de3add3db8bef8b3a5))
+* modified bitcoin contract request ui (width, size, weight) ([36d7c80](https://github.com/hirosystems/wallet/commit/36d7c8004f833545fee94fd5a1faf89ac5f0430e))
+* modified yarn lock file ([52b1d14](https://github.com/hirosystems/wallet/commit/52b1d14632c8c56f7183fffc6df1926bd5936548))
+* multi extension loading ([03465c0](https://github.com/hirosystems/wallet/commit/03465c06fe27adf134758e93c9a9d3909c684c7e))
+* only show errors when field not in focus, closes [#3766](https://github.com/hirosystems/wallet/issues/3766) ([abffd71](https://github.com/hirosystems/wallet/commit/abffd71765c20eff775286eaf6b94f0bc64ae2c4))
+* ran prettier formatting ([16ca959](https://github.com/hirosystems/wallet/commit/16ca959526eee368a849ef1afbd15663ff160785))
+* ran prettier formatting ([515b1e5](https://github.com/hirosystems/wallet/commit/515b1e506a5d48f602191d29d43a895b766067f6))
+* remove warning banner ([b3427bf](https://github.com/hirosystems/wallet/commit/b3427bfcbf1efae8a5a04a73cd32d8f3c391ecc0))
+* type errors ([a2598a9](https://github.com/hirosystems/wallet/commit/a2598a94981366fc326ef3cd5fe5ebe75108e24c))
+* unprocessable pending txs balance subtraction, closes [#3921](https://github.com/hirosystems/wallet/issues/3921) ([2d284db](https://github.com/hirosystems/wallet/commit/2d284db49357de1d72c61ac4f2601ee8557ee1f1))
+
+
+### Internal
+
+* **release:** 4.36.0 ([8184b75](https://github.com/hirosystems/wallet/commit/8184b75b898ead72f7b1203ff9b60346acbe7f53)), closes [#3989](https://github.com/hirosystems/wallet/issues/3989) [#3921](https://github.com/hirosystems/wallet/issues/3921) [#2330](https://github.com/hirosystems/wallet/issues/2330) [#3954](https://github.com/hirosystems/wallet/issues/3954) [#3789](https://github.com/hirosystems/wallet/issues/3789) [#3518](https://github.com/hirosystems/wallet/issues/3518) [#3871](https://github.com/hirosystems/wallet/issues/3871)
+* **release:** 5.0.0 ([0e73a1e](https://github.com/hirosystems/wallet/commit/0e73a1e44c4781387246b9225320583566173012))
+
 ## [5.0.0](https://github.com/hirosystems/wallet/compare/v4.36.0...v5.0.0) (2023-07-18)
 
 

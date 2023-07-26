@@ -33,6 +33,8 @@ export function GenericErrorLayout(props: GenericErrorProps) {
         lineHeight="1.6"
         mt="base"
         textAlign="center"
+        width="100%"
+        wordWrap="break-word"
       >
         {body}
       </Text>

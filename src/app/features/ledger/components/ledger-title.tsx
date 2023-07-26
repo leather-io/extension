@@ -1,5 +1,8 @@
 import { BoxProps } from '@stacks/ui';
 
+import { SupportedBlockchains } from '@shared/constants';
+
+import { Capitalize } from '@app/components/text/capitalize';
 import { Title } from '@app/components/typography';
 
 export function LedgerTitle(props: BoxProps) {
@@ -11,8 +14,16 @@ export function LedgerTitle(props: BoxProps) {
   );
 }
 
-export function LedgerConnectInstructionTitle(props: BoxProps) {
+interface LedgerConnectInstructionTitleProps extends BoxProps {
+  chain: SupportedBlockchains;
+}
+export function LedgerConnectInstructionTitle({
+  chain,
+  ...props
+}: LedgerConnectInstructionTitleProps) {
   return (
-    <LedgerTitle {...props}>Plug in your Ledger, open the Stacks app and click connect</LedgerTitle>
+    <LedgerTitle {...props}>
+      Plug in your Ledger, open the <Capitalize>{chain}</Capitalize> app and click connect
+    </LedgerTitle>
   );
 }

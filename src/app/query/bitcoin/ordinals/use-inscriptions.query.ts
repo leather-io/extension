@@ -8,7 +8,7 @@ import { ensureArray } from '@shared/utils';
 import { createNumArrayOfRange } from '@app/common/utils';
 import { QueryPrefixes } from '@app/query/query-prefixes';
 import { useCurrentAccountNativeSegwitIndexZeroSigner } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
-import { useTaprootCurrentPrivateAccount } from '@app/store/accounts/blockchain/bitcoin/taproot-account.hooks';
+import { useCurrentTaprootAccount } from '@app/store/accounts/blockchain/bitcoin/taproot-account.hooks';
 import { useCurrentNetwork } from '@app/store/networks/networks.selectors';
 
 import { getTaprootAddress } from './utils';
@@ -52,7 +52,7 @@ async function fetchInscriptions(addresses: string | string[], offset = 0, limit
  */
 export function useTaprootInscriptionsInfiniteQuery() {
   const network = useCurrentNetwork();
-  const account = useTaprootCurrentPrivateAccount();
+  const account = useCurrentTaprootAccount();
   const nativeSegwitSigner = useCurrentAccountNativeSegwitIndexZeroSigner();
   const currentBitcoinAddress = nativeSegwitSigner.address;
 

@@ -23,7 +23,7 @@ export function CryptoAssetListItem(props: CryptoAssetListItemProps) {
   const isBitcoinSendEnabled = useConfigBitcoinSendEnabled();
 
   function navigateToSendForm({ isFtToken = false }: { isFtToken: boolean }) {
-    if (blockchain === 'bitcoin' && !isBitcoinSendEnabled) {
+    if (!isBitcoinSendEnabled) {
       return navigate(RouteUrls.SendBtcDisabled);
     }
     const symbol = asset.symbol === '' ? asset.contractAssetName : asset.symbol.toLowerCase();

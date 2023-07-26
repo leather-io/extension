@@ -59,6 +59,7 @@ export function SendInscriptionChooseFee() {
         recipient={recipient}
         recommendedFeeRate={recommendedFeeRate}
         showError={showInsufficientBalanceError}
+        maxRecommendedFeeRate={feesList[0]?.feeRate}
       />
     </BaseDrawer>
   );

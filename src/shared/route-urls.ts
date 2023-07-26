@@ -22,6 +22,7 @@ export enum RouteUrls {
   LedgerUnsupportedBrowser = 'unsupported-browser',
   LedgerOutdatedAppWarning = 'outdated-app-warning',
   LedgerBroadcastError = 'transaction-broadcast-error',
+  LedgerAddMoreKeys = 'add-more-keys',
 
   // Active wallet routes
   Home = '/',
@@ -32,7 +33,9 @@ export enum RouteUrls {
   FundReceive = '/fund/receive',
   FundReceiveStx = '/fund/receive/stx',
   FundReceiveBtc = '/fund/receive/btc',
-  IncreaseFee = '/increase-fee',
+  IncreaseStxFee = '/increase-fee/stx',
+  IncreaseBtcFee = '/increase-fee/btc',
+  IncreaseFeeSent = '/increase-fee/sent',
   Receive = '/receive',
   ReceiveCollectible = '/receive/collectible',
   ReceiveCollectibleOrdinal = '/receive/collectible/ordinal',
@@ -41,16 +44,13 @@ export enum RouteUrls {
   Send = '/send-transaction',
   ViewSecretKey = '/view-secret-key',
 
-  // App requests (legacy)
-  ProfileUpdateRequest = '/update-profile',
-  PsbtRequest = '/psbt',
-  SignatureRequest = '/signature',
-  TransactionRequest = '/transaction',
-  TransactionBroadcastError = 'broadcast-error',
-  UnauthorizedRequest = '/unauthorized-request',
-
   // Locked wallet route
   Unlock = '/unlock',
+
+  // Bitcoin Contract routes
+  BitcoinContractLockSuccess = '/bitcoin-contract-lock-success',
+  BitcoinContractLockError = '/bitcoin-contract-lock-error',
+  BitcoinContractList = '/bitcoin-contract-list',
 
   // Modal routes
   ChangeTheme = 'change-theme',
@@ -85,15 +85,27 @@ export enum RouteUrls {
   SendOrdinalInscriptionSent = '/send/ordinal-inscription/sent',
   SendOrdinalInscriptionError = '/send/ordinal-inscription/error',
 
-  // Request routes
+  // Legacy request routes
+  ProfileUpdateRequest = '/update-profile',
+  PsbtRequest = '/psbt',
+  SignatureRequest = '/signature',
+  TransactionRequest = '/transaction',
+  TransactionBroadcastError = 'broadcast-error',
+
+  // Rpc request routes
   RpcGetAddresses = '/get-addresses',
   RpcSignPsbt = '/sign-psbt',
   RpcSendTransfer = '/send-transfer',
   RpcSendTransferChooseFee = '/send-transfer/choose-fee',
   RpcSendTransferConfirmation = '/send-transfer/confirm',
   RpcSendTransferSummary = '/send-transfer/summary',
+  RpcReceiveBitcoinContractOffer = '/bitcoin-contract-offer/:bitcoinContractOffer/:counterpartyWalletURL',
   RpcSignBip322Message = '/sign-bip322-message',
 
   // Swap routes
   Swap = '/swap',
+
+  // Shared legacy and rpc request routes
+  RequestError = '/request-error',
+  UnauthorizedRequest = '/unauthorized-request',
 }

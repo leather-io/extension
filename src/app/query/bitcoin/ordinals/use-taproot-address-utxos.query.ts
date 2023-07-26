@@ -2,7 +2,7 @@ import { useQuery } from '@tanstack/react-query';
 
 import { createCounter } from '@app/common/utils/counter';
 import { useCurrentAccountIndex } from '@app/store/accounts/account';
-import { useTaprootCurrentPrivateAccount } from '@app/store/accounts/blockchain/bitcoin/taproot-account.hooks';
+import { useCurrentTaprootAccount } from '@app/store/accounts/blockchain/bitcoin/taproot-account.hooks';
 import { useBitcoinClient } from '@app/store/common/api-clients.hooks';
 import { useCurrentNetwork } from '@app/store/networks/networks.selectors';
 
@@ -22,7 +22,7 @@ export interface TaprootUtxo extends UtxoResponseItem {
  */
 export function useTaprootAccountUtxosQuery() {
   const network = useCurrentNetwork();
-  const account = useTaprootCurrentPrivateAccount();
+  const account = useCurrentTaprootAccount();
   const client = useBitcoinClient();
 
   const currentAccountIndex = useCurrentAccountIndex();
