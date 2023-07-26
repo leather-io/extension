@@ -1,10 +1,10 @@
 import { useQueries, useQuery } from '@tanstack/react-query';
 
+import { logger } from '@shared/logger';
 import { Paginated } from '@shared/models/api-types';
 
-import { AppUseQueryConfig } from '@app/query/query-config';
+import { QueryPrefixes } from '@app/query/query-prefixes';
 import { StacksClient } from '@app/query/stacks/stacks-client';
-import { StacksAccount } from '@app/store/accounts/blockchain/stacks/stacks-account.models';
 import { useStacksClientUnanchored } from '@app/store/common/api-clients.hooks';
 import { useCurrentNetworkState } from '@app/store/networks/networks.hooks';
 
@@ -22,7 +22,7 @@ interface NonFungibleTokenHoldingListResult {
   tx_id: string;
 }
 
-const queryOptions = { cacheTime: staleTime, staleTime } as const;
+const queryOptions = { cacheTime: staleTime, staleTime, refetchhOnFocus: false } as const;
 
 type FetchNonFungibleTokenHoldingsResp = Paginated<NonFungibleTokenHoldingListResult[]>;
 
@@ -37,35 +37,39 @@ function fetchNonFungibleTokenHoldings(client: StacksClient, limiter: RateLimite
   };
 }
 
-export function useGetNonFungibleTokenHoldingsQuery<
-  T extends unknown = FetchNonFungibleTokenHoldingsResp
->(address: string, options?: AppUseQueryConfig<FetchNonFungibleTokenHoldingsResp, T>) {
+function makeNonFungibleTokenHoldingsQuery(
+  address: string,
+  network: string,
+  client: StacksClient,
+  limiter: RateLimiter
+) {
+  if (address === '') logger.warn('No address passed to ' + QueryPrefixes.GetNftHoldings);
+  return {
+    enabled: !!address,
+    queryKey: [QueryPrefixes.GetNftHoldings, address, network],
+    queryFn: () => fetchNonFungibleTokenHoldings(client, limiter)(address),
+    ...queryOptions,
+  };
+}
+
+export default function useGetNonFungibleTokenHoldingsQuery(address: string) {
   const client = useStacksClientUnanchored();
   const network = useCurrentNetworkState();
   const limiter = useHiroApiRateLimiter();
 
-  return useQuery({
-    enabled: !!address,
-    queryKey: ['get-nft-holdings', address, network.chain.stacks.url],
-    queryFn: () => fetchNonFungibleTokenHoldings(client, limiter)(address) as any,
-    ...queryOptions,
-    ...options,
-  });
+  return useQuery(
+    makeNonFungibleTokenHoldingsQuery(address, network.chain.stacks.url, client, limiter)
+  );
 }
 
-export function useGetNonFungibleTokenHoldingsListQuery<
-  T extends unknown = FetchNonFungibleTokenHoldingsResp
->(accounts: StacksAccount[], options?: AppUseQueryConfig<FetchNonFungibleTokenHoldingsResp, T>) {
+export function useGetNonFungibleTokenHoldingsListQuery(addresses: string[]) {
   const client = useStacksClientUnanchored();
   const network = useCurrentNetworkState();
   const limiter = useHiroApiRateLimiter();
 
   return useQueries({
-    queries: accounts.map(account => ({
-      queryKey: ['get-nft-holdings', account.address, network.chain.stacks.url],
-      queryFn: () => fetchNonFungibleTokenHoldings(client, limiter)(account.address) as any,
-      ...queryOptions,
-      ...options,
-    })),
+    queries: addresses.map(address =>
+      makeNonFungibleTokenHoldingsQuery(address, network.chain.stacks.url, client, limiter)
+    ),
   });
 }

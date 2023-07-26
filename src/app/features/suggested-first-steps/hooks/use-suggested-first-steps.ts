@@ -6,7 +6,7 @@ import { SuggestedFirstStepStatus, SuggestedFirstSteps } from '@shared/models/on
 
 import { useGetAnchoredAccountBalanceListQuery } from '@app/query/stacks/balance/stx-balance.query';
 import { useAllAccountsNonFungibleTokenHoldingsTotal } from '@app/query/stacks/tokens/non-fungible-tokens/non-fungible-token-holdings.hooks';
-import { useGetNonFungibleTokenHoldingsQuery } from '@app/query/stacks/tokens/non-fungible-tokens/non-fungible-token-holdings.query';
+import useGetNonFungibleTokenHoldingsQuery from '@app/query/stacks/tokens/non-fungible-tokens/non-fungible-token-holdings.query';
 import {
   useCurrentStacksAccount,
   useStacksAccounts,
