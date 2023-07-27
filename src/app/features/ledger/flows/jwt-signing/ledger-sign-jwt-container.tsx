@@ -8,6 +8,7 @@ import get from 'lodash.get';
 import { finalizeAuthResponse } from '@shared/actions/finalize-auth-response';
 import { logger } from '@shared/logger';
 
+import { useGetLegacyAuthBitcoinAddresses } from '@app/common/authentication/use-legacy-auth-bitcoin-addresses';
 import { useOnboardingState } from '@app/common/hooks/auth/use-onboarding-state';
 import { useDefaultRequestParams } from '@app/common/hooks/use-default-request-search-params';
 import { useKeyActions } from '@app/common/hooks/use-key-actions';
@@ -41,6 +42,8 @@ export function LedgerSignJwtContainer() {
 
   const activeAccount = useCurrentStacksAccount();
   const accounts = useStacksAccounts();
+
+  const getBitcoinAddressesLegacyFormat = useGetLegacyAuthBitcoinAddresses();
 
   const keyActions = useKeyActions();
   const canUserCancelAction = useActionCancellableByUser();
@@ -106,6 +109,14 @@ export function LedgerSignJwtContainer() {
       return;
     }
 
+    // TODO: #4566 Low-grade code. This is to be removed when deprecating legacy APIs
+    let legacyAddressObj = {};
+    try {
+      legacyAddressObj = getBitcoinAddressesLegacyFormat(accountIndex);
+    } catch (e) {
+      logger.error('Error while generating bitcoin addresses to return', e);
+    }
+
     try {
       ledgerNavigate.toConnectionSuccessStep('stacks');
       await delay(1000);
@@ -117,6 +128,7 @@ export function LedgerSignJwtContainer() {
             testnet: getAddressFromPublicKey(account.stxPublicKey, TransactionVersion.Testnet),
             mainnet: getAddressFromPublicKey(account.stxPublicKey, TransactionVersion.Mainnet),
           },
+          ...legacyAddressObj,
         },
       });
 
@@ -135,6 +147,7 @@ export function LedgerSignJwtContainer() {
       const authResponse = addSignatureToAuthResponseJwt(authResponsePayload, resp.signatureDER);
       await delay(600);
       keyActions.switchAccount(accountIndex);
+
       finalizeAuthResponse({
         decodedAuthRequest,
         authRequest,
@@ -142,10 +155,10 @@ export function LedgerSignJwtContainer() {
         requestingOrigin: origin,
         tabId,
       });
-
-      await stacks.transport.close();
     } catch (e) {
       ledgerNavigate.toDeviceDisconnectStep();
+    } finally {
+      await stacks.transport.close();
     }
   };
 

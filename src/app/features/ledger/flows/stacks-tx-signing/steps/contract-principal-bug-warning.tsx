@@ -1,5 +1,3 @@
-import { useContext } from 'react';
-
 import GenericErrorImg from '@assets/images/generic-error.png';
 import { Box, HStack, styled } from 'leather-styles/jsx';
 
@@ -9,11 +7,12 @@ import { LedgerTitle } from '@app/features/ledger/components/ledger-title';
 import { LedgerWrapper } from '@app/features/ledger/components/ledger-wrapper';
 import { LeatherButton } from '@app/ui/components/button';
 
-import { ledgerTxSigningContext } from '../ledger-sign-tx.context';
+import { useLedgerTxSigningContext } from '../../../generic-flows/tx-signing/ledger-sign-tx.context';
 
 export function ContractPrincipalBugWarning() {
-  const { hasUserSkippedBuggyAppWarning } = useContext(ledgerTxSigningContext);
+  const context = useLedgerTxSigningContext();
   const { isLoading, setIsLoading, setIsIdle } = useLoading('temp-spinner-deep-link');
+  if (context.chain !== 'stacks') return null;
   return (
     <LedgerWrapper>
       <Box mx="space.02">
@@ -40,7 +39,7 @@ export function ContractPrincipalBugWarning() {
           Open Ledger Live ↗
         </styled.a>
         <LeatherButton
-          onClick={() => hasUserSkippedBuggyAppWarning.done('ignored-warning')}
+          onClick={() => context.hasUserSkippedBuggyAppWarning.done('ignored-warning')}
           variant="outline"
         >
           Continue anyway

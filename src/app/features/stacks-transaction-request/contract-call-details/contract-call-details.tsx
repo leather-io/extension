@@ -35,7 +35,7 @@ function ContractCallDetailsSuspense() {
         onClick={() =>
           handleOpenTxLink({
             blockchain: 'stacks',
-            txId: formatContractId(contractAddress, contractName),
+            txid: formatContractId(contractAddress, contractName),
           })
         }
         contractAddress={contractAddress}

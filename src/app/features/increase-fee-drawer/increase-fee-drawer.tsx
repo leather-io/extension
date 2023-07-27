@@ -12,7 +12,6 @@ interface IncreaseFeeDrawerProps {
   onClose: () => void;
   isShowing: boolean;
 }
-
 export function IncreaseFeeDrawer({ feeForm, onClose, isShowing }: IncreaseFeeDrawerProps) {
   return (
     <>

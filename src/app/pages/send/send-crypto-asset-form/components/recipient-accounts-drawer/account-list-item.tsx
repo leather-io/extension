@@ -8,39 +8,46 @@ import { useAccountDisplayName } from '@app/common/hooks/account/use-account-nam
 import { AccountTotalBalance } from '@app/components/account-total-balance';
 import { AccountAvatarItem } from '@app/components/account/account-avatar-item';
 import { AccountListItemLayout } from '@app/components/account/account-list-item-layout';
-import { AccountName } from '@app/components/account/account-name';
+import { AccountNameLayout } from '@app/components/account/account-name';
 import { usePressable } from '@app/components/item-hover';
-import { useNativeSegwitAccountIndexAddressIndexZero } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
+import { useNativeSegwitSigner } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
 import { StacksAccount } from '@app/store/accounts/blockchain/stacks/stacks-account.models';
 
 interface AccountListItemProps {
-  account: StacksAccount;
+  stacksAccount: StacksAccount;
+  index: number;
   onClose(): void;
 }
-export const AccountListItem = memo(({ account, onClose }: AccountListItemProps) => {
+export const AccountListItem = memo(({ index, stacksAccount, onClose }: AccountListItemProps) => {
   const { setFieldValue, values, setFieldTouched } = useFormikContext<
     BitcoinSendFormValues | StacksSendFormValues
   >();
   const [component, bind] = usePressable(true);
-  const name = useAccountDisplayName(account);
+  const stacksAddress = stacksAccount?.address || '';
+  const name = useAccountDisplayName({ address: stacksAddress, index });
 
-  const btcAddress = useNativeSegwitAccountIndexAddressIndexZero(account.index);
+  const bitcoinSigner = useNativeSegwitSigner(index);
+  const bitcoinAddress = bitcoinSigner?.(0).address || '';
 
   const onSelectAccount = () => {
     const isBitcoin = values.symbol === 'BTC';
-    void setFieldValue('recipient', isBitcoin ? btcAddress : account.address, false);
-    setFieldTouched('recipient', false);
+    void setFieldValue('recipient', isBitcoin ? bitcoinAddress : stacksAddress, false);
+    void setFieldTouched('recipient', false);
     onClose();
   };
 
   return (
     <AccountListItemLayout
-      accountName={<AccountName account={account} />}
+      accountName={<AccountNameLayout>{name}</AccountNameLayout>}
       avatar={
-        <AccountAvatarItem index={account.index} publicKey={account.stxPublicKey} name={name} />
+        <AccountAvatarItem
+          index={index}
+          publicKey={stacksAccount?.stxPublicKey || ''}
+          name={name}
+        />
       }
-      balanceLabel={<AccountTotalBalance stxAddress={account.address} btcAddress={btcAddress} />}
-      index={account.index}
+      balanceLabel={<AccountTotalBalance stxAddress={stacksAddress} btcAddress={bitcoinAddress} />}
+      index={index}
       isActive={false}
       isLoading={false}
       mt="space.05"

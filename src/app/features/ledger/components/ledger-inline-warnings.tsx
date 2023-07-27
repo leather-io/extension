@@ -7,11 +7,44 @@ import { Capitalize } from '@app/ui/utils/capitalize';
 
 import { isStacksLedgerAppClosed } from '../utils/stacks-ledger-utils';
 
-interface CommonLedgerInlineWarningsProps {
+interface RequiresChainProp {
   chain: SupportedBlockchains;
+}
+
+interface CommonLedgerInlineWarningsProps extends RequiresChainProp {
   latestDeviceResponse: any | null;
   outdatedLedgerAppWarning?: boolean;
 }
+
+function OutdatedLedgerAppWarning({ chain }: RequiresChainProp) {
+  return (
+    <WarningLabel fontSize="14px" textAlign="left">
+      Latest version of <Capitalize>{chain} app</Capitalize> required
+      <styled.a href="ledgerlive://manager" textDecoration="underline">
+        Update on Ledger Live to continue
+      </styled.a>
+    </WarningLabel>
+  );
+}
+
+function LedgerDeviceLockedWarning({ chain }: RequiresChainProp) {
+  return (
+    <WarningLabel fontSize="14px" textAlign="left">
+      Your Ledger is locked. Unlock it and open the {''}
+      <Capitalize>{chain}</Capitalize>
+      {''} app to continue.
+    </WarningLabel>
+  );
+}
+
+function LedgerAppClosedWarning({ chain }: RequiresChainProp) {
+  return (
+    <WarningLabel fontSize="14px" textAlign="left">
+      The <Capitalize>{chain}</Capitalize> app appears to be closed on Ledger. Open it to continue.
+    </WarningLabel>
+  );
+}
+
 export function CommonLedgerDeviceInlineWarnings({
   chain,
   latestDeviceResponse,
@@ -20,29 +53,10 @@ export function CommonLedgerDeviceInlineWarnings({
   if (!latestDeviceResponse) return null;
 
   if (outdatedLedgerAppWarning) {
-    return (
-      <WarningLabel fontSize="14px" textAlign="left">
-        Latest version of <Capitalize>{chain} app</Capitalize> required
-        <styled.a href="ledgerlive://manager" textDecoration="underline">
-          Update on Ledger Live to continue
-        </styled.a>
-      </WarningLabel>
-    );
+    return <OutdatedLedgerAppWarning chain={chain} />;
   }
-  if (latestDeviceResponse.deviceLocked)
-    return (
-      <WarningLabel fontSize="14px" textAlign="left">
-        Your Ledger is locked. Unlock it and open the {''}
-        <Capitalize>{chain}</Capitalize>
-        {''} app to continue.
-      </WarningLabel>
-    );
+  if (latestDeviceResponse.deviceLocked) return <LedgerDeviceLockedWarning chain={chain} />;
   if (isStacksLedgerAppClosed(latestDeviceResponse))
-    return (
-      <WarningLabel fontSize="14px" textAlign="left">
-        The <Capitalize>{chain}</Capitalize> app appears to be closed on Ledger. Open it to
-        continue.
-      </WarningLabel>
-    );
+    return <LedgerAppClosedWarning chain={chain} />;
   return null;
 }

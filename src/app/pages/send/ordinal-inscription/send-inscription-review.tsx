@@ -1,5 +1,6 @@
 import { useLocation, useNavigate } from 'react-router-dom';
 
+import { bytesToHex } from '@noble/hashes/utils';
 import { Box, Stack } from 'leather-styles/jsx';
 import get from 'lodash.get';
 
@@ -23,7 +24,7 @@ function useSendInscriptionReviewState() {
   const location = useLocation();
   return {
     arrivesIn: get(location.state, 'time') as string,
-    signedTx: get(location.state, 'tx') as string,
+    signedTx: get(location.state, 'signedTx') as Uint8Array,
     recipient: get(location.state, 'recipient', '') as string,
     feeRowValue: get(location.state, 'feeRowValue') as string,
   };
@@ -41,8 +42,8 @@ export function SendInscriptionReview() {
 
   async function sendInscription() {
     await broadcastTx({
-      tx: signedTx,
-      async onSuccess(txId: string) {
+      tx: bytesToHex(signedTx),
+      async onSuccess(txid: string) {
         void analytics.track('broadcast_ordinal_transaction');
         await refetch();
         // Might be a BRC-20 transfer, so we want to remove it from the pending
@@ -52,7 +53,7 @@ export function SendInscriptionReview() {
             inscription,
             recipient,
             arrivesIn,
-            txId,
+            txid,
             feeRowValue,
           },
         });

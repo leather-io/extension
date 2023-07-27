@@ -5,7 +5,7 @@ import get from 'lodash.get';
 
 import { isUndefined } from '@shared/utils';
 
-type LocationState = string | undefined | number | Location;
+type LocationState = string | boolean | undefined | number | Location;
 
 export function useLocationState<T extends LocationState>(propName: string): T;
 export function useLocationState<T extends LocationState>(

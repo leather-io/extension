@@ -27,7 +27,6 @@ interface BroadcastSignedPsbtTxArgs {
   fee: Money;
   tx: string;
 }
-
 export function useRpcSignPsbt() {
   const analytics = useAnalytics();
   const navigate = useNavigate();
@@ -38,7 +37,7 @@ export function useRpcSignPsbt() {
   const btcMarketData = useCryptoCurrencyMarketData('BTC');
   const calculateBitcoinFiatValue = useCalculateBitcoinFiatValue();
 
-  if (!requestId || !psbtHex || !origin) throw new Error('Invalid params');
+  if (!requestId || !psbtHex || !origin) throw new Error('Invalid params in useRpcSignPsbt');
 
   async function broadcastSignedPsbtTx({
     addressNativeSegwitTotal,
@@ -87,45 +86,48 @@ export function useRpcSignPsbt() {
     isBroadcasting,
     origin,
     psbtHex,
-    async onSignPsbt({ addressNativeSegwitTotal, addressTaprootTotal, fee, inputs }: SignPsbtArgs) {
+    async onSignPsbt({ addressNativeSegwitTotal, addressTaprootTotal, fee }: SignPsbtArgs) {
       const tx = getPsbtAsTransaction(psbtHex);
 
       try {
-        signPsbt({ indexesToSign: signAtIndex, inputs, tx });
+        const signedTx = await signPsbt({ tx, indexesToSign: signAtIndex });
+
+        const psbt = signedTx.toPSBT();
+
+        chrome.tabs.sendMessage(
+          tabId,
+          makeRpcSuccessResponse('signPsbt', { id: requestId, result: { hex: bytesToHex(psbt) } })
+        );
+
+        // Optional args are handled here bc we support two request apis,
+        // but we only support broadcasting using the rpc request method
+        if (broadcast && addressNativeSegwitTotal && addressTaprootTotal && fee) {
+          try {
+            tx.finalize();
+          } catch (e) {
+            return navigate(RouteUrls.RequestError, {
+              state: {
+                message: e instanceof Error ? e.message : '',
+                title: 'Failed to finalize tx',
+              },
+            });
+          }
+
+          await broadcastSignedPsbtTx({
+            addressNativeSegwitTotal,
+            addressTaprootTotal,
+            fee,
+            tx: signedTx.hex,
+          });
+          return;
+        }
+
+        closeWindow();
       } catch (e) {
         return navigate(RouteUrls.RequestError, {
           state: { message: e instanceof Error ? e.message : '', title: 'Failed to sign' },
         });
       }
-
-      const psbt = tx.toPSBT();
-
-      chrome.tabs.sendMessage(
-        tabId,
-        makeRpcSuccessResponse('signPsbt', { id: requestId, result: { hex: bytesToHex(psbt) } })
-      );
-
-      // Optional args are handled here bc we support two request apis,
-      // but we only support broadcasting using the rpc request method
-      if (broadcast && addressNativeSegwitTotal && addressTaprootTotal && fee) {
-        try {
-          tx.finalize();
-        } catch (e) {
-          return navigate(RouteUrls.RequestError, {
-            state: { message: e instanceof Error ? e.message : '', title: 'Failed to finalize tx' },
-          });
-        }
-
-        await broadcastSignedPsbtTx({
-          addressNativeSegwitTotal,
-          addressTaprootTotal,
-          fee,
-          tx: tx.hex,
-        });
-        return;
-      }
-
-      closeWindow();
     },
     onCancel() {
       chrome.tabs.sendMessage(

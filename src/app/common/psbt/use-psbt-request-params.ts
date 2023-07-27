@@ -1,17 +1,14 @@
 import { useMemo } from 'react';
-import { useSearchParams } from 'react-router-dom';
 
 import { ensureArray, undefinedIfLengthZero } from '@shared/utils';
 
-import { useRejectIfLedgerWallet } from '@app/common/rpc-helpers';
-
 import { useDefaultRequestParams } from '../hooks/use-default-request-search-params';
+import { initialSearchParams } from '../initial-search-params';
 import { getPsbtPayloadFromToken } from './requests';
 
 export function usePsbtRequestSearchParams() {
-  const [searchParams] = useSearchParams();
   const { origin, tabId } = useDefaultRequestParams();
-  const requestToken = searchParams.get('request');
+  const requestToken = initialSearchParams.get('request');
 
   if (!requestToken) throw new Error('Cannot decode psbt without request token');
 
@@ -33,23 +30,21 @@ export function usePsbtRequestSearchParams() {
 }
 
 export function useRpcSignPsbtParams() {
-  useRejectIfLedgerWallet('signPsbt');
-
-  const [searchParams] = useSearchParams();
   const { origin, tabId } = useDefaultRequestParams();
-  const broadcast = searchParams.get('broadcast');
-  const psbtHex = searchParams.get('hex');
-  const requestId = searchParams.get('requestId');
-  const signAtIndex = searchParams.getAll('signAtIndex');
+  const broadcast = initialSearchParams.get('broadcast');
+  const psbtHex = initialSearchParams.get('hex');
+  const requestId = initialSearchParams.get('requestId');
+  const signAtIndex = initialSearchParams.getAll('signAtIndex');
 
-  return useMemo(() => {
-    return {
+  return useMemo(
+    () => ({
       broadcast: broadcast === 'true',
       origin,
       psbtHex,
       requestId,
       signAtIndex: undefinedIfLengthZero(ensureArray(signAtIndex).map(h => Number(h))),
       tabId: tabId ?? 0,
-    };
-  }, [broadcast, origin, psbtHex, requestId, signAtIndex, tabId]);
+    }),
+    [broadcast, origin, psbtHex, requestId, signAtIndex, tabId]
+  );
 }

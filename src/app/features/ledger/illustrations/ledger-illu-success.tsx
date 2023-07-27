@@ -7,7 +7,7 @@ export function ConnectLedgerSuccess() {
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
     >
-      <path d="M7.5 50.5H35.9998V55.5H7.5" stroke="currentColor" />
+      <path d="M7.5 50.5H31.5V55.5H7.5" stroke="currentColor" />
       <path d="M2.5 50.5H5" stroke="currentColor" />
       <path d="M0.538086 55.5H5" stroke="currentColor" />
       <path
@@ -18,7 +18,7 @@ export function ConnectLedgerSuccess() {
         d="M50.0847 34.5H76.9153C80.012 34.5 82.5 36.9427 82.5 39.9286V66.0714C82.5 69.0574 80.012 71.5 76.9153 71.5H50.0847C46.988 71.5 44.5 69.0574 44.5 66.0714V39.9286C44.5 36.9427 46.988 34.5 50.0847 34.5Z"
         stroke="currentColor"
       />
-      <path d="M82.5 42.5H85.5V63.5H82.5V42.5Z" stroke="currentColor" />
+      <path d="M82.5 63.5V42.5H85.5V63.5H82.5Z" stroke="currentColor" />
       <path
         d="M41.9276 61.3217C42.4897 60.3941 43.048 59.2411 43.5 57.8377V63.5H40.2873C40.7583 63.001 41.344 62.2846 41.9276 61.3217Z"
         fill="currentColor"
