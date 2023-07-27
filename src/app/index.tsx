@@ -1,5 +1,8 @@
 import { createRoot } from 'react-dom/client';
 
+import ecc from '@bitcoinerlab/secp256k1';
+import * as bitcoin from 'bitcoinjs-lib';
+
 import { initSentry } from '@shared/utils/analytics';
 import { warnUsersAboutDevToolsDangers } from '@shared/utils/dev-tools-warning-log';
 
@@ -8,6 +11,8 @@ import { restoreWalletSession } from '@app/store/session-restore';
 
 import { App } from './app';
 import { setDebugOnGlobal } from './debug';
+
+bitcoin.initEccLib(ecc);
 
 initSentry();
 warnUsersAboutDevToolsDangers();

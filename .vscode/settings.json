@@ -1,6 +1,5 @@
 {
   "prettier.documentSelectors": ["src/**/*.{ts,tsx}", "*.{js,json}"],
   "vitest.include": ["src/**/*.spec.ts"],
-  "githubPullRequests.ignoredPullRequestBranches": ["dev"],
-  "editor.folding": false
+  "githubPullRequests.ignoredPullRequestBranches": ["dev"]
 }

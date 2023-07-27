@@ -14,7 +14,6 @@ import {
   getBitcoinTxValue,
   isBitcoinTxInbound,
 } from '@app/common/transactions/bitcoin/utils';
-import { useWalletType } from '@app/common/use-wallet-type';
 import { openInNewTab } from '@app/common/utils/open-in-new-tab';
 import { usePressable } from '@app/components/item-hover';
 import { IncreaseFeeButton } from '@app/components/stacks-transaction-item/increase-fee-button';
@@ -41,7 +40,6 @@ export function BitcoinTransactionItem({ transaction, ...rest }: BitcoinTransact
   const [component, bind, { isHovered }] = usePressable(true);
   const { pathname } = useLocation();
   const navigate = useNavigate();
-  const { whenWallet } = useWalletType();
 
   const { data: inscriptionData } = useGetInscriptionsByOutputQuery(transaction, {
     select(data) {
@@ -63,12 +61,7 @@ export function BitcoinTransactionItem({ transaction, ...rest }: BitcoinTransact
   if (!transaction) return null;
 
   const onIncreaseFee = () => {
-    whenWallet({
-      ledger: () => {
-        // TO-DO when implement BTC in Ledger
-      },
-      software: () => navigate(RouteUrls.IncreaseBtcFee, { state: { btcTx: transaction } }),
-    })();
+    navigate(RouteUrls.IncreaseBtcFee, { state: { btcTx: transaction } });
   };
 
   const openTxLink = () => {
@@ -77,10 +70,7 @@ export function BitcoinTransactionItem({ transaction, ...rest }: BitcoinTransact
       openInNewTab(createInscriptionInfoUrl(inscriptionData.id));
       return;
     }
-    handleOpenTxLink({
-      blockchain: 'bitcoin',
-      txId: transaction?.txid || '',
-    });
+    handleOpenTxLink({ blockchain: 'bitcoin', txid: transaction?.txid || '' });
   };
 
   const isOriginator = !isBitcoinTxInbound(bitcoinAddress, transaction);

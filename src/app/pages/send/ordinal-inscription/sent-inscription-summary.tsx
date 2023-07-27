@@ -29,7 +29,7 @@ import { InscriptionPreviewCard } from '../../../components/inscription-preview-
 function useSendInscriptionSummaryState() {
   const location = useLocation();
   return {
-    txId: get(location.state, 'txId') as string,
+    txid: get(location.state, 'txid') as string,
     recipient: get(location.state, 'recipient', '') as string,
     arrivesIn: get(location.state, 'arrivesIn') as string,
     inscription: get(location.state, 'inscription') as SupportedInscription,
@@ -38,15 +38,15 @@ function useSendInscriptionSummaryState() {
 }
 
 export function SendInscriptionSummary() {
-  const { txId, recipient, arrivesIn, inscription, feeRowValue } = useSendInscriptionSummaryState();
+  const { txid, recipient, arrivesIn, inscription, feeRowValue } = useSendInscriptionSummaryState();
 
   const navigate = useNavigate();
   const txLink = {
     blockchain: 'bitcoin' as Blockchains,
-    txId,
+    txid,
   };
 
-  const { onCopy } = useClipboard(txId || '');
+  const { onCopy } = useClipboard(txid || '');
   const { handleOpenTxLink } = useExplorerLink();
   const analytics = useAnalytics();
 

@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from 'react';
-import { Outlet, useLocation, useNavigate } from 'react-router-dom';
+import { Outlet, Route, useLocation, useNavigate } from 'react-router-dom';
 
 import { deserializeTransaction } from '@stacks/transactions';
 import { LedgerError } from '@zondax/ledger-stacks';
@@ -16,23 +16,32 @@ import {
   LedgerTxSigningContext,
   LedgerTxSigningProvider,
   createWaitForUserToSeeWarningScreen,
-} from '@app/features/ledger/flows/stacks-tx-signing/ledger-sign-tx.context';
+} from '@app/features/ledger/generic-flows/tx-signing/ledger-sign-tx.context';
 import {
   getStacksAppVersion,
   isVersionOfLedgerStacksAppWithContractPrincipalBug,
   prepareLedgerDeviceStacksAppConnection,
-  signLedgerTransaction,
-  signTransactionWithSignature,
+  signLedgerStacksTransaction,
+  signStacksTransactionWithSignature,
   useActionCancellableByUser,
 } from '@app/features/ledger/utils/stacks-ledger-utils';
 import { useCurrentStacksAccount } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
 
+import { ledgerSignTxRoutes } from '../../generic-flows/tx-signing/ledger-sign-tx-route-generator';
 import { useLedgerAnalytics } from '../../hooks/use-ledger-analytics.hook';
 import { useLedgerNavigate } from '../../hooks/use-ledger-navigate';
 import { useVerifyMatchingLedgerStacksPublicKey } from '../../hooks/use-verify-matching-stacks-public-key';
 import { useLedgerResponseState } from '../../utils/generic-ledger-utils';
+import { ApproveSignLedgerStacksTx } from './steps/approve-sign-stacks-ledger-tx';
 
-export function LedgerSignStacksTxContainer() {
+export const ledgerStacksTxSigningRoutes = ledgerSignTxRoutes({
+  component: <LedgerSignStacksTxContainer />,
+  customRoutes: (
+    <Route path={RouteUrls.AwaitingDeviceUserAction} element={<ApproveSignLedgerStacksTx />} />
+  ),
+});
+
+function LedgerSignStacksTxContainer() {
   const location = useLocation();
   const navigate = useNavigate();
   const ledgerNavigate = useLedgerNavigate();
@@ -100,7 +109,7 @@ export function LedgerSignStacksTxContainer() {
 
       ledgerNavigate.toAwaitingDeviceOperation({ hasApprovedOperation: false });
 
-      const resp = await signLedgerTransaction(stacksApp)(
+      const resp = await signLedgerStacksTransaction(stacksApp)(
         Buffer.from(unsignedTx, 'hex'),
         account.index
       );
@@ -126,7 +135,7 @@ export function LedgerSignStacksTxContainer() {
 
       await delay(1000);
 
-      const signedTx = signTransactionWithSignature(unsignedTx, resp.signatureVRS);
+      const signedTx = signStacksTransactionWithSignature(unsignedTx, resp.signatureVRS);
       ledgerAnalytics.transactionSignedOnLedgerSuccessfully();
 
       try {
@@ -153,6 +162,7 @@ export function LedgerSignStacksTxContainer() {
   }
 
   const ledgerContextValue: LedgerTxSigningContext = {
+    chain: 'stacks',
     transaction: unsignedTx ? deserializeTransaction(unsignedTx) : null,
     signTransaction,
     latestDeviceResponse,

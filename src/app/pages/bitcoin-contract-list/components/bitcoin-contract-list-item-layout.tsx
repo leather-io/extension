@@ -17,13 +17,13 @@ interface BitcoinContractListItemLayoutProps {
   id: string;
   state: string;
   collateralAmount: string;
-  txId: string;
+  txid: string;
 }
 export function BitcoinContractListItemLayout({
   id,
   state,
   collateralAmount,
-  txId,
+  txid,
 }: BitcoinContractListItemLayoutProps) {
   const { handleOpenTxLink } = useExplorerLink();
   const bitcoinMarketData = useCryptoCurrencyMarketData('BTC');
@@ -43,7 +43,7 @@ export function BitcoinContractListItemLayout({
         handleOpenTxLink({
           blockchain: 'bitcoin',
           suffix: `&submitted=true`,
-          txId,
+          txid,
         })
       }
     >

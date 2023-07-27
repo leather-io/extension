@@ -21,6 +21,7 @@ import { useBitcoinFeesList } from '@app/components/bitcoin-fees-list/use-bitcoi
 import { useCurrentNativeSegwitUtxos } from '@app/query/bitcoin/address/utxos-by-address.hooks';
 import { useBitcoinBroadcastTransaction } from '@app/query/bitcoin/transaction/use-bitcoin-broadcast-transaction';
 import { useBitcoinScureLibNetworkConfig } from '@app/store/accounts/blockchain/bitcoin/bitcoin-keychain';
+import { useSignBitcoinTx } from '@app/store/accounts/blockchain/bitcoin/bitcoin.hooks';
 import { useCurrentAccountNativeSegwitIndexZeroSigner } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
 
 export function useBtcIncreaseFee(btcTx: BitcoinTx) {
@@ -28,12 +29,10 @@ export function useBtcIncreaseFee(btcTx: BitcoinTx) {
   const networkMode = useBitcoinScureLibNetworkConfig();
   const analytics = useAnalytics();
 
-  const {
-    address: currentBitcoinAddress,
-    sign,
-    publicKey,
-  } = useCurrentAccountNativeSegwitIndexZeroSigner();
+  const { address: currentBitcoinAddress, publicKey } =
+    useCurrentAccountNativeSegwitIndexZeroSigner();
   const { data: utxos = [], refetch } = useCurrentNativeSegwitUtxos();
+  const signTransaction = useSignBitcoinTx();
   const { broadcastTx, isBroadcasting } = useBitcoinBroadcastTransaction();
   const recipient = getRecipientAddressFromOutput(btcTx.vout, currentBitcoinAddress) || '';
   const sizeInfo = getSizeInfo({
@@ -51,7 +50,7 @@ export function useBtcIncreaseFee(btcTx: BitcoinTx) {
     utxos,
   });
 
-  function generateTx(payload: { feeRate: string; tx: BitcoinTx }) {
+  function generateUnsignedTx(payload: { feeRate: string; tx: BitcoinTx }) {
     const newTx = new btc.Transaction();
     const { vin, vout, fee: prevFee } = payload.tx;
     const p2wpkh = btc.p2wpkh(publicKey, networkMode);
@@ -89,15 +88,14 @@ export function useBtcIncreaseFee(btcTx: BitcoinTx) {
       newTx.addOutputAddress(recipient, BigInt(output.value), networkMode);
     });
 
-    sign(newTx);
-    newTx.finalize();
-
-    return { hex: newTx.hex };
+    return newTx;
   }
 
-  async function initiateTransaction(tx: string) {
+  async function initiateTransaction(unsignedTx: btc.Transaction) {
+    const tx = await signTransaction(unsignedTx.toPSBT());
+    tx.finalize();
     await broadcastTx({
-      tx,
+      tx: tx.hex,
       async onSuccess(txid) {
         navigate(RouteUrls.IncreaseFeeSent);
         void analytics.track('increase_fee_transaction', {
@@ -114,8 +112,8 @@ export function useBtcIncreaseFee(btcTx: BitcoinTx) {
 
   async function onSubmit(values: { feeRate: string }) {
     try {
-      const { hex } = generateTx({ feeRate: values.feeRate, tx: btcTx });
-      await initiateTransaction(hex);
+      const tx = generateUnsignedTx({ feeRate: values.feeRate, tx: btcTx });
+      await initiateTransaction(tx);
     } catch (e) {
       onError(e);
     }
@@ -161,7 +159,7 @@ export function useBtcIncreaseFee(btcTx: BitcoinTx) {
   });
 
   return {
-    generateTx,
+    generateTx: generateUnsignedTx,
     initiateTransaction,
     isBroadcasting,
     sizeInfo,

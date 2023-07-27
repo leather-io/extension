@@ -50,7 +50,7 @@ export function StacksTransactionItem({
     void analytics.track('view_transaction');
     handleOpenTxLink({
       blockchain: 'stacks',
-      txId: transaction?.tx_id || transferDetails?.link || '',
+      txid: transaction?.tx_id || transferDetails?.link || '',
     });
   };
 

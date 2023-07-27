@@ -63,7 +63,7 @@ export function IncreaseStxFeeForm() {
           await replaceByFee(rawTx);
         },
         ledger: () => {
-          ledgerNavigate.toConnectAndSignTransactionStep(rawTx);
+          ledgerNavigate.toConnectAndSignStacksTransactionStep(rawTx);
         },
       })();
     },

@@ -7,7 +7,6 @@ import { finalizePsbt } from '@shared/actions/finalize-psbt';
 import { RouteUrls } from '@shared/route-urls';
 
 import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
-import { SignPsbtArgs } from '@app/common/psbt/requests';
 import { usePsbtRequestSearchParams } from '@app/common/psbt/use-psbt-request-params';
 import { usePsbtSigner } from '@app/features/psbt-signer/hooks/use-psbt-signer';
 
@@ -35,14 +34,14 @@ export function usePsbtRequest() {
           tabId,
         });
       },
-      onSignPsbt({ inputs }: SignPsbtArgs) {
+      async onSignPsbt() {
         setIsLoading(true);
         void analytics.track('request_sign_psbt_submit');
 
         const tx = getPsbtAsTransaction(payload.hex);
 
         try {
-          signPsbt({ indexesToSign: signAtIndex, inputs, tx });
+          await signPsbt({ indexesToSign: signAtIndex, tx });
         } catch (e) {
           return navigate(RouteUrls.RequestError, {
             state: { message: e instanceof Error ? e.message : '', title: 'Failed to sign' },

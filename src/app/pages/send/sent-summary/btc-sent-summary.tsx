@@ -45,7 +45,7 @@ export function BtcSentSummary() {
 
   function onClickLink() {
     void analytics.track('view_transaction_confirmation', { symbol: 'BTC' });
-    handleOpenTxLink({ blockchain: txLink.blockchain, txId: txLink.txid });
+    handleOpenTxLink({ blockchain: txLink.blockchain, txid: txLink.txid });
   }
 
   function onClickCopy() {
