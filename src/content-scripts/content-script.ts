@@ -128,9 +128,12 @@ document.addEventListener(DomEventName.psbtRequest, ((event: PsbtRequestEvent) =
   });
 }) as EventListener);
 
-window.addEventListener('load', () => {
+function addHiroWalletToPage() {
   const inpage = document.createElement('script');
   inpage.src = chrome.runtime.getURL('inpage.js');
-  inpage.id = 'stacks-wallet-provider';
+  inpage.id = 'hiro-wallet-provider';
   document.body.appendChild(inpage);
-});
+}
+
+// Don't block thread to add Hiro Wallet to page
+requestAnimationFrame(() => addHiroWalletToPage());
