@@ -14,6 +14,7 @@ import { BitcoinChooseFee } from '@app/features/bitcoin-choose-fee/bitcoin-choos
 import { useValidateBitcoinSpend } from '@app/features/bitcoin-choose-fee/hooks/use-validate-bitcoin-spend';
 
 import { useSendInscriptionState } from './components/send-inscription-container';
+import { useSignOrdinalsSoftwareWalletTx } from './hooks/use-generate-ordinal-tx';
 import { useSendInscriptionFeesList } from './hooks/use-send-inscription-fees-list';
 import { useSendInscriptionForm } from './hooks/use-send-inscription-form';
 

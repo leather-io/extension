@@ -6,7 +6,6 @@ import * as yup from 'yup';
 import { logger } from '@shared/logger';
 import { OrdinalSendFormValues } from '@shared/models/form.model';
 import { RouteUrls } from '@shared/route-urls';
-import { noop } from '@shared/utils';
 
 import { FormErrorMessages } from '@app/common/error-messages';
 import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
@@ -21,7 +20,7 @@ import { useCurrentNetwork } from '@app/store/networks/networks.selectors';
 
 import { useSendInscriptionState } from '../components/send-inscription-container';
 import { recipeintFieldName } from '../send-inscription-form';
-import { useGenerateSignedOrdinalTx } from './use-generate-ordinal-tx';
+import { useGenerateUnsignedOrdinalTx } from './use-generate-ordinal-tx';
 
 export function useSendInscriptionForm() {
   const [currentError, setShowError] = useState<null | string>(null);
@@ -32,8 +31,8 @@ export function useSendInscriptionForm() {
   const { inscription, utxo } = useSendInscriptionState();
   const currentNetwork = useCurrentNetwork();
 
-  const { coverFeeFromAdditionalUtxos } = useGenerateSignedOrdinalTx(utxo);
   const getNumberOfInscriptionOnUtxo = useNumberOfInscriptionsOnUtxo();
+  const { coverFeeFromAdditionalUtxos } = useGenerateUnsignedOrdinalTx(utxo);
 
   return {
     currentError,

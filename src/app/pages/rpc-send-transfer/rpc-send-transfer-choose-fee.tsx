@@ -51,7 +51,7 @@ export function RpcSendTransferChooseFee() {
   const { showInsufficientBalanceError, onValidateBitcoinFeeSpend } = useValidateBitcoinSpend();
 
   async function previewTransfer({ feeRate, feeValue, time, isCustomFee }: OnChooseFeeArgs) {
-    const resp = generateTx({ amount: amountAsMoney, recipient: address }, feeRate, utxos);
+    const resp = await generateTx({ amount: amountAsMoney, recipient: address }, feeRate, utxos);
 
     if (!resp) return logger.error('Attempted to generate raw tx, but no tx exists');
 

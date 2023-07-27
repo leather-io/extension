@@ -70,3 +70,14 @@ export function closeWindow() {
   // eslint-disable-next-line no-restricted-properties
   window.close();
 }
+
+export function reverseBytes(bytes: Buffer): Buffer;
+export function reverseBytes(bytes: Uint8Array): Uint8Array;
+export function reverseBytes(bytes: Buffer | Uint8Array) {
+  if (Buffer.isBuffer(bytes)) return Buffer.from(bytes).reverse();
+  return new Uint8Array(bytes.slice().reverse());
+}
+
+export function makeNumberRange(num: number) {
+  return [...Array(num).keys()];
+}

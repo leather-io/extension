@@ -23,7 +23,7 @@ export function useGenerateSignedNativeSegwitTx() {
   const networkMode = useBitcoinScureLibNetworkConfig();
 
   return useCallback(
-    (
+    async (
       values: GenerateNativeSegwitTxValues,
       feeRate: number,
       utxos: UtxoResponseItem[],
@@ -56,8 +56,9 @@ export function useGenerateSignedNativeSegwitTx() {
         if (outputs.length > 2)
           throw new Error('Address reuse mode: wallet should have max 2 outputs');
 
-        inputs.forEach(input => {
-          const p2wpkh = btc.p2wpkh(signer.publicKey, networkMode);
+        const p2wpkh = btc.p2wpkh(signer.publicKey, networkMode);
+
+        for (const input of inputs) {
           tx.addInput({
             txid: input.txid,
             index: input.vout,
@@ -68,7 +69,8 @@ export function useGenerateSignedNativeSegwitTx() {
               amount: BigInt(input.value),
             },
           });
-        });
+        }
+
         outputs.forEach(output => {
           // When coin selection returns output with no address we assume it is
           // a change output
@@ -78,16 +80,14 @@ export function useGenerateSignedNativeSegwitTx() {
           }
           tx.addOutputAddress(values.recipient, BigInt(output.value), networkMode);
         });
-        signer.sign(tx);
-        tx.finalize();
 
-        return { hex: tx.hex, fee };
+        return { hex: tx.hex, fee, psbt: tx.toPSBT() };
       } catch (e) {
         // eslint-disable-next-line no-console
         console.log('Error signing bitcoin transaction', e);
         return null;
       }
     },
-    [networkMode, signer]
+    [networkMode, signer.address, signer.publicKey]
   );
 }

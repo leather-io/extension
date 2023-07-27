@@ -51,6 +51,7 @@ export function useSubmitTransactionCallback({ loadingKey }: UseSubmitTransactio
               txId: safelyFormatHexTxid(response.txid),
             });
             toast.success('Transaction submitted!');
+
             void analytics.track('broadcast_transaction', { symbol: 'stx' });
             onSuccess(safelyFormatHexTxid(response.txid));
             setIsIdle();

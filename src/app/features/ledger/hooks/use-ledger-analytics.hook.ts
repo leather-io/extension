@@ -2,13 +2,11 @@ import { useMemo } from 'react';
 
 import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
 
-import { getStacksAppVersion } from '../utils/stacks-ledger-utils';
-
 export function useLedgerAnalytics() {
   const analytics = useAnalytics();
   return useMemo(
     () => ({
-      trackDeviceVersionInfo(info: Awaited<ReturnType<typeof getStacksAppVersion>>) {
+      trackDeviceVersionInfo(info: object) {
         void analytics.track('ledger_app_version_info', info);
       },
       transactionSignedOnLedgerSuccessfully() {

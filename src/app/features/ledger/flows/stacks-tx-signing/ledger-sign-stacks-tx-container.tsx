@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from 'react';
-import { Outlet, useLocation, useNavigate } from 'react-router-dom';
+import { Outlet, Route, useLocation, useNavigate } from 'react-router-dom';
 
 import { deserializeTransaction } from '@stacks/transactions';
 import { LedgerError } from '@zondax/ledger-stacks';
@@ -16,21 +16,52 @@ import {
   LedgerTxSigningContext,
   LedgerTxSigningProvider,
   createWaitForUserToSeeWarningScreen,
-} from '@app/features/ledger/flows/stacks-tx-signing/ledger-sign-tx.context';
+} from '@app/features/ledger/generic-flows/tx-signing/ledger-sign-tx.context';
 import {
   getStacksAppVersion,
   isVersionOfLedgerStacksAppWithContractPrincipalBug,
   prepareLedgerDeviceStacksAppConnection,
-  signLedgerTransaction,
-  signTransactionWithSignature,
+  signLedgerStacksTransaction,
+  signStacksTransactionWithSignature,
   useActionCancellableByUser,
 } from '@app/features/ledger/utils/stacks-ledger-utils';
 import { useCurrentStacksAccount } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
 
+import { ConnectLedgerSignTx } from '../../generic-flows/tx-signing/steps/connect-ledger-sign-tx';
+import {
+  ConnectLedgerError,
+  ConnectLedgerSuccess,
+  DeviceBusy,
+  LedgerDeviceInvalidPayload,
+  LedgerDisconnected,
+  LedgerPublicKeyMismatch,
+  OperationRejected,
+  UnsupportedBrowserLayout,
+} from '../../generic-steps';
+import { LedgerBroadcastError } from '../../generic-steps/broadcast-error/broadcast-error';
 import { useLedgerAnalytics } from '../../hooks/use-ledger-analytics.hook';
 import { useLedgerNavigate } from '../../hooks/use-ledger-navigate';
 import { useVerifyMatchingLedgerStacksPublicKey } from '../../hooks/use-verify-matching-stacks-public-key';
 import { useLedgerResponseState } from '../../utils/generic-ledger-utils';
+import { ApproveSignLedgerTx } from './steps/approve-sign-stacks-ledger-tx';
+import { ContractPrincipalBugWarning } from './steps/contract-principal-bug-warning';
+
+export const ledgerStacksTxSigningRoutes = (
+  <Route element={<LedgerSignStacksTxContainer />}>
+    <Route path={RouteUrls.ConnectLedger} element={<ConnectLedgerSignTx />} />
+    <Route path={RouteUrls.DeviceBusy} element={<DeviceBusy />} />
+    <Route path={RouteUrls.ConnectLedgerError} element={<ConnectLedgerError />} />
+    <Route path={RouteUrls.LedgerUnsupportedBrowser} element={<UnsupportedBrowserLayout />} />
+    <Route path={RouteUrls.ConnectLedgerSuccess} element={<ConnectLedgerSuccess />} />
+    <Route path={RouteUrls.AwaitingDeviceUserAction} element={<ApproveSignLedgerTx />} />
+    <Route path={RouteUrls.LedgerDisconnected} element={<LedgerDisconnected />} />
+    <Route path={RouteUrls.LedgerOperationRejected} element={<OperationRejected />} />
+    <Route path={RouteUrls.LedgerPublicKeyMismatch} element={<LedgerPublicKeyMismatch />} />
+    <Route path={RouteUrls.LedgerDevicePayloadInvalid} element={<LedgerDeviceInvalidPayload />} />
+    <Route path={RouteUrls.LedgerOutdatedAppWarning} element={<ContractPrincipalBugWarning />} />
+    <Route path={RouteUrls.LedgerBroadcastError} element={<LedgerBroadcastError />} />
+  </Route>
+);
 
 export function LedgerSignStacksTxContainer() {
   const location = useLocation();
@@ -100,7 +131,7 @@ export function LedgerSignStacksTxContainer() {
 
       ledgerNavigate.toAwaitingDeviceOperation({ hasApprovedOperation: false });
 
-      const resp = await signLedgerTransaction(stacksApp)(
+      const resp = await signLedgerStacksTransaction(stacksApp)(
         Buffer.from(unsignedTx, 'hex'),
         account.index
       );
@@ -126,7 +157,7 @@ export function LedgerSignStacksTxContainer() {
 
       await delay(1000);
 
-      const signedTx = signTransactionWithSignature(unsignedTx, resp.signatureVRS);
+      const signedTx = signStacksTransactionWithSignature(unsignedTx, resp.signatureVRS);
       ledgerAnalytics.transactionSignedOnLedgerSuccessfully();
 
       try {
@@ -153,6 +184,7 @@ export function LedgerSignStacksTxContainer() {
   }
 
   const ledgerContextValue: LedgerTxSigningContext = {
+    chain: 'stacks',
     transaction: unsignedTx ? deserializeTransaction(unsignedTx) : null,
     signTransaction,
     latestDeviceResponse,

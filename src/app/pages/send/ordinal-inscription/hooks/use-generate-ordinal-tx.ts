@@ -1,6 +1,11 @@
-import * as btc from '@scure/btc-signer';
-import { AddressType, getAddressInfo } from 'bitcoin-address-validation';
+import { useCallback } from 'react';
 
+import * as btc from '@scure/btc-signer';
+import { bytesToHex } from '@stacks/common';
+import { AddressType, getAddressInfo } from 'bitcoin-address-validation';
+import { Psbt } from 'bitcoinjs-lib';
+
+import { getBitcoinJsLibNetworkConfigByMode } from '@shared/crypto/bitcoin/bitcoin.network';
 import { logger } from '@shared/logger';
 import { OrdinalSendFormValues } from '@shared/models/form.model';
 
@@ -10,14 +15,16 @@ import { NativeSegwitUtxo, TaprootUtxo } from '@app/query/bitcoin/bitcoin-client
 import { useBitcoinScureLibNetworkConfig } from '@app/store/accounts/blockchain/bitcoin/bitcoin-keychain';
 import { useCurrentAccountNativeSegwitSigner } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
 import { useCurrentAccountTaprootSigner } from '@app/store/accounts/blockchain/bitcoin/taproot-account.hooks';
+import { useCurrentNetwork } from '@app/store/networks/networks.selectors';
 
 import { selectInscriptionTransferCoins } from '../coinselect/select-inscription-coins';
 
-export function useGenerateSignedOrdinalTx(inscriptionUtxo: TaprootUtxo | NativeSegwitUtxo) {
-  const createTapRootSigner = useCurrentAccountTaprootSigner();
+export function useGenerateUnsignedOrdinalTx(trInput: TaprootUtxo) {
+  const createTaprootSigner = useCurrentAccountTaprootSigner();
   const createNativeSegwitSigner = useCurrentAccountNativeSegwitSigner();
   const networkMode = useBitcoinScureLibNetworkConfig();
   const { data: nativeSegwitUtxos } = useCurrentNativeSegwitUtxos();
+  const network = useCurrentNetwork();
 
   function coverFeeFromAdditionalUtxos(values: OrdinalSendFormValues) {
     if (getAddressInfo(values.inscription.address).type === AddressType.p2wpkh) {
@@ -28,8 +35,8 @@ export function useGenerateSignedOrdinalTx(inscriptionUtxo: TaprootUtxo | Native
   }
 
   function formTrOrdinalTx(values: OrdinalSendFormValues) {
-    const inscriptionInput = inscriptionUtxo as TaprootUtxo;
-    const trSigner = createTapRootSigner?.(inscriptionInput.addressIndex);
+    const inscriptionInput = trInput;
+    const trSigner = createTaprootSigner?.(inscriptionInput.addressIndex);
     const nativeSegwitSigner = createNativeSegwitSigner?.(0);
 
     if (!trSigner || !nativeSegwitSigner || !nativeSegwitUtxos || !values.feeRate) return;
@@ -48,17 +55,33 @@ export function useGenerateSignedOrdinalTx(inscriptionUtxo: TaprootUtxo | Native
 
     try {
       const tx = new btc.Transaction();
+      const psbt = new Psbt({
+        network: getBitcoinJsLibNetworkConfigByMode(network.chain.bitcoin.network),
+      });
+
+      psbt.addInput({
+        hash: trInput.txid,
+        index: trInput.vout,
+        tapInternalKey: Buffer.from(trSigner.payment.tapInternalKey),
+        sequence: 0,
+        witnessUtxo: {
+          script: Buffer.from(trSigner.payment.script),
+          value: Number(trInput.value),
+        },
+        tapBip32Derivation: [],
+      });
 
       // Inscription input
       tx.addInput({
-        txid: inscriptionUtxo.txid,
-        index: inscriptionUtxo.vout,
+        txid: trInput.txid,
+        index: trInput.vout,
         tapInternalKey: trSigner.payment.tapInternalKey,
         sequence: 0,
         witnessUtxo: {
           script: trSigner.payment.script,
-          amount: BigInt(inscriptionUtxo.value),
+          amount: BigInt(trInput.value),
         },
+        // bip32Derivation: [0, { '0': trSigner.payment.tapInternalKey }],
       });
 
       // Fee-covering Native Segwit inputs
@@ -78,16 +101,19 @@ export function useGenerateSignedOrdinalTx(inscriptionUtxo: TaprootUtxo | Native
       outputs.forEach(output => tx.addOutputAddress(output.address, output.value, networkMode));
 
       // We know the first is TR and the rest are native segwit
-      for (let i = 0; i < tx.inputsLength; i++) {
-        if (i === 0) {
-          trSigner.signIndex(tx, i);
-          continue;
-        }
-        nativeSegwitSigner.signIndex(tx, i);
-      }
+      // for (let i = 0; i < tx.inputsLength; i++) {
+      //   if (i === 0) {
+      //     trSigner.signIndex(tx, i);
+      //     continue;
+      //   }
+      //   nativeSegwitSigner.signIndex(tx, i);
+      // }
 
-      tx.finalize();
-      return { hex: tx.hex };
+      // tx.finalize();
+
+      tx.toPSBT();
+
+      return { hex: bytesToHex(tx.toPSBT()) };
     } catch (e) {
       logger.error('Unable to sign transaction');
       return null;
@@ -112,7 +138,7 @@ export function useGenerateSignedOrdinalTx(inscriptionUtxo: TaprootUtxo | Native
       const tx = new btc.Transaction();
 
       // Fee-covering Native Segwit inputs
-      [inscriptionUtxo, ...inputs].forEach(input =>
+      [trInput, ...inputs].forEach(input =>
         tx.addInput({
           txid: input.txid,
           index: input.vout,
@@ -125,7 +151,7 @@ export function useGenerateSignedOrdinalTx(inscriptionUtxo: TaprootUtxo | Native
       );
 
       // Inscription output
-      tx.addOutputAddress(values.recipient, BigInt(inscriptionUtxo.value), networkMode);
+      tx.addOutputAddress(values.recipient, BigInt(trInput.value), networkMode);
 
       // Recipient and change outputs
       outputs.forEach(output => {
@@ -149,4 +175,28 @@ export function useGenerateSignedOrdinalTx(inscriptionUtxo: TaprootUtxo | Native
   }
 
   return { coverFeeFromAdditionalUtxos };
+}
+
+export function useSignOrdinalsSoftwareWalletTx(trAddressInput: number) {
+  const createTaprootSigner = useCurrentAccountTaprootSigner();
+  const createNativeSegwitSigner = useCurrentAccountNativeSegwitSigner();
+
+  return useCallback(
+    (tx: btc.Transaction) => {
+      const trSigner = createTaprootSigner?.(trAddressInput);
+      const nativeSegwitSigner = createNativeSegwitSigner?.(0);
+
+      if (!trSigner || !nativeSegwitSigner) return;
+
+      // We know the first is TR and the rest are native segwit
+      for (let i = 0; i < tx.inputsLength; i++) {
+        if (i === 0) {
+          trSigner.signIndex(tx, i);
+          continue;
+        }
+        nativeSegwitSigner.signIndex(tx, i);
+      }
+    },
+    [createNativeSegwitSigner, createTaprootSigner, trAddressInput]
+  );
 }

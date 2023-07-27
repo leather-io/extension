@@ -76,12 +76,28 @@ export enum RouteUrls {
   SentBrc20Summary = '/send/brc20/:ticker/summary',
 
   // Send ordinal inscriptions
+<<<<<<< HEAD
   SendOrdinalInscription = 'send/ordinal-inscription',
   SendOrdinalInscriptionChooseFee = 'choose-fee',
   SendOrdinalInscriptionReview = 'review',
   SendOrdinalInscriptionSummary = 'send/ordinal-inscription/',
   SendOrdinalInscriptionSent = 'sent',
   SendOrdinalInscriptionError = 'error',
+||||||| parent of 1f7ba983f4 (refactor: current inscription send progres)
+  SendOrdinalInscription = '/send/ordinal-inscription',
+  SendOrdinalInscriptionChooseFee = '/send/ordinal-inscription/choose-fee',
+  SendOrdinalInscriptionReview = '/send/ordinal-inscription/review',
+  SendOrdinalInscriptionSummary = '/send/ordinal-inscription/',
+  SendOrdinalInscriptionSent = '/send/ordinal-inscription/sent',
+  SendOrdinalInscriptionError = '/send/ordinal-inscription/error',
+=======
+  SendOrdinalInscription = '/send/ordinal-inscription',
+  SendOrdinalInscriptionChooseFee = '/send/ordinal-inscription/choose-fee',
+  SendOrdinalInscriptionReview = '/send/ordinal-inscription/review',
+  SendOrdinalInscriptionSummary = '/send/ordinal-inscription-summary',
+  SendOrdinalInscriptionSent = '/send/ordinal-inscription/sent',
+  SendOrdinalInscriptionError = '/send/ordinal-inscription/error',
+>>>>>>> 1f7ba983f4 (refactor: current inscription send progres)
 
   // Swap routes
   Swap = '/swap',

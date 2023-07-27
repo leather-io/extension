@@ -1,9 +1,11 @@
 import { useNavigate } from 'react-router-dom';
 
+import { bytesToHex } from '@noble/hashes/utils';
+
 import { logger } from '@shared/logger';
 import { BtcFeeType } from '@shared/models/fees/bitcoin-fees.model';
 import { createMoney } from '@shared/models/money.model';
-import { noop } from '@shared/utils';
+import { RouteUrls } from '@shared/route-urls';
 
 import { btcToSat } from '@app/common/money/unit-conversion';
 import { formFeeRowValue } from '@app/common/send/utils';
@@ -24,6 +26,7 @@ export function useBtcChooseFee() {
   const generateTx = useGenerateSignedNativeSegwitTx();
   const { setSelectedFeeType } = useSendBitcoinAssetContextState();
   const calcMaxSpend = useCalculateMaxBitcoinSpend();
+  // const signLedger = useSignNativeSegwitLedgerTx();
 
   const amountAsMoney = createMoney(btcToSat(txValues.amount).toNumber(), 'BTC');
 
@@ -35,7 +38,7 @@ export function useBtcChooseFee() {
     },
 
     async previewTransaction({ feeRate, feeValue, time, isCustomFee }: OnChooseFeeArgs) {
-      const resp = generateTx(
+      const resp = await generateTx(
         {
           amount: isSendingMax
             ? calcMaxSpend(txValues.recipient, utxos, feeRate).amount
@@ -46,21 +49,33 @@ export function useBtcChooseFee() {
         utxos,
         isSendingMax
       );
-
+      const feeRowValue = formFeeRowValue(feeRate, isCustomFee);
       if (!resp) return logger.error('Attempted to generate raw tx, but no tx exists');
 
-      const { hex } = resp;
-      const feeRowValue = formFeeRowValue(feeRate, isCustomFee);
-      whenWallet({
-        software: () =>
+      void whenWallet({
+        software: async () => {
           sendFormNavigate.toConfirmAndSignBtcTransaction({
-            tx: hex,
+            tx: resp.hex,
             recipient: txValues.recipient,
             fee: feeValue,
             feeRowValue,
             time,
-          }),
-        ledger: noop,
+          });
+        },
+        ledger: async () => {
+          console.log('opening route with', resp.hex);
+          // const app = await connectLedgerBitcoinApp();
+          navigate(RouteUrls.ConnectLedger, {
+            replace: true,
+            state: {
+              tx: bytesToHex(resp.psbt),
+              recipient: txValues.recipient,
+              fee: feeValue,
+              feeRowValue,
+              time,
+            },
+          });
+        },
       })();
     },
   };

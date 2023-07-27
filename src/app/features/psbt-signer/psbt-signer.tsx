@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 
 import * as btc from '@scure/btc-signer';
 
+import { getPsbtTxInputs, getPsbtTxOutputs } from '@shared/crypto/bitcoin/bitcoin.utils';
 import { RouteUrls } from '@shared/route-urls';
 import { closeWindow } from '@shared/utils';
 
@@ -26,26 +27,6 @@ import { PsbtSignerLayout } from './components/psbt-signer.layout';
 import { useParsedPsbt } from './hooks/use-parsed-psbt';
 import { usePsbtSigner } from './hooks/use-psbt-signer';
 import { PsbtSignerContext, PsbtSignerProvider } from './psbt-signer.context';
-
-function getPsbtTxInputs(psbtTx: btc.Transaction) {
-  const inputsLength = psbtTx.inputsLength;
-  const inputs: btc.TransactionInput[] = [];
-  if (inputsLength === 0) return inputs;
-  for (let i = 0; i < inputsLength; i++) {
-    inputs.push(psbtTx.getInput(i));
-  }
-  return inputs;
-}
-
-function getPsbtTxOutputs(psbtTx: btc.Transaction) {
-  const outputsLength = psbtTx.outputsLength;
-  const outputs: btc.TransactionOutput[] = [];
-  if (outputsLength === 0) return outputs;
-  for (let i = 0; i < outputsLength; i++) {
-    outputs.push(psbtTx.getOutput(i));
-  }
-  return outputs;
-}
 
 interface PsbtSignerProps {
   indexesToSign?: number[];

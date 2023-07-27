@@ -1,5 +1,7 @@
 import Transport from '@ledgerhq/hw-transport-webusb';
+import { Psbt } from 'bitcoinjs-lib';
 import BitcoinApp, { DefaultWalletPolicy } from 'ledger-bitcoin';
+import { PartialSignature } from 'ledger-bitcoin/build/main/lib/appClient';
 
 import { BitcoinNetworkModes } from '@shared/constants';
 import { getTaprootAccountDerivationPath } from '@shared/crypto/bitcoin/p2tr-address-gen';
@@ -49,5 +51,21 @@ export function createTaprootDefaultWalletPolicy(policyDetails: WalletPolicyDeta
   return new DefaultWalletPolicy(
     'tr(@0/**)',
     derivationPathToWalletPolicy(getTaprootAccountDerivationPath)(policyDetails)
+  );
+}
+
+export function addNativeSegwitSignaturesToPsbt(
+  psbt: Psbt,
+  signatures: [number, PartialSignature][]
+) {
+  signatures.forEach(([index, signature]) => psbt.updateInput(index, { partialSig: [signature] }));
+}
+
+export function addTaprootInputSignaturesToPsbt(
+  psbt: Psbt,
+  signatures: [number, PartialSignature][]
+) {
+  signatures.forEach(([index, signature]) =>
+    psbt.updateInput(index, { tapKeySig: signature.signature })
   );
 }
