@@ -35,32 +35,34 @@ export function useBtcChooseFee() {
     },
 
     async previewTransaction({ feeRate, feeValue, time, isCustomFee }: OnChooseFeeArgs) {
-      const resp = generateTx(
-        {
-          amount: isSendingMax
-            ? calcMaxSpend(txValues.recipient, utxos, feeRate).amount
-            : amountAsMoney,
-          recipient: txValues.recipient,
-        },
-        feeRate,
-        utxos,
-        isSendingMax
-      );
-
-      if (!resp) return logger.error('Attempted to generate raw tx, but no tx exists');
-
-      const { hex } = resp;
-      const feeRowValue = formFeeRowValue(feeRate, isCustomFee);
       whenWallet({
-        software: () =>
+        software: () => {
+          const resp = generateTx(
+            {
+              amount: isSendingMax
+                ? calcMaxSpend(txValues.recipient, utxos, feeRate).amount
+                : amountAsMoney,
+              recipient: txValues.recipient,
+            },
+            feeRate,
+            utxos,
+            isSendingMax
+          );
+
+          if (!resp) return logger.error('Attempted to generate raw tx, but no tx exists');
+
+          const feeRowValue = formFeeRowValue(feeRate, isCustomFee);
           sendFormNavigate.toConfirmAndSignBtcTransaction({
-            tx: hex,
+            tx: resp.hex,
             recipient: txValues.recipient,
             fee: feeValue,
             feeRowValue,
             time,
-          }),
-        ledger: noop,
+          });
+        },
+        ledger: () => {
+          console.log('sdlkfsldkjf');
+        },
       })();
     },
   };

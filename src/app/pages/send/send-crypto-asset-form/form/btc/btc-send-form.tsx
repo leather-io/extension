@@ -76,9 +76,7 @@ export function BtcSendForm() {
                   }
                   onSetIsSendingMax={onSetIsSendingMax}
                   isSendingMax={isSendingMax}
-                  switchableAmount={
-                    <SendFiatValue marketData={btcMarketData} assetSymbol={'BTC'} />
-                  }
+                  switchableAmount={<SendFiatValue marketData={btcMarketData} assetSymbol="BTC" />}
                 />
                 <SelectedAssetField icon={<BtcIcon />} name={btcBalance.asset.name} symbol="BTC" />
                 <BitcoinRecipientField />

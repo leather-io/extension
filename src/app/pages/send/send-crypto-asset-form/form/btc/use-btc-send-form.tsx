@@ -1,8 +1,13 @@
 import { useRef, useState } from 'react';
 
 import { FormikHelpers, FormikProps } from 'formik';
+import { DefaultWalletPolicy } from 'ledger-bitcoin';
 import * as yup from 'yup';
 
+import {
+  extractAccountIndexFromPath,
+  getBitcoinCoinTypeIndexByNetwork,
+} from '@shared/crypto/bitcoin/bitcoin.utils';
 import { logger } from '@shared/logger';
 import { BitcoinSendFormValues } from '@shared/models/form.model';
 import { noop } from '@shared/utils';
@@ -23,6 +28,7 @@ import {
   btcAmountPrecisionValidator,
   currencyAmountValidator,
 } from '@app/common/validation/forms/currency-validators';
+import { connectLedgerBitcoinApp } from '@app/features/ledger/utils/bitcoin-ledger-utils';
 import { useUpdatePersistedSendFormValues } from '@app/features/popup-send-form-restoration/use-update-persisted-send-form-values';
 import { useSpendableCurrentNativeSegwitAccountUtxos } from '@app/query/bitcoin/address/utxos-by-address.hooks';
 import { useNativeSegwitBalance } from '@app/query/bitcoin/balance/bitcoin-balances.query';
@@ -86,14 +92,35 @@ export function useBtcSendForm() {
       values: BitcoinSendFormValues,
       formikHelpers: FormikHelpers<BitcoinSendFormValues>
     ) {
-      logger.debug('btc form values', values);
       // Validate and check high fee warning first
-      await formikHelpers.validateForm();
+      logger.debug('btc form values', values);
 
-      whenWallet({
-        software: () => sendFormNavigate.toChooseTransactionFee(isSendingMax, utxos, values),
-        ledger: noop,
-      })();
+      await formikHelpers.validateForm();
+      sendFormNavigate.toChooseTransactionFee(isSendingMax, utxos, values);
     },
   };
 }
+
+// console.log('sending bitcoin amount with ledger', values);
+// const app = await connectLedgerBitcoinApp();
+
+// const masterFingerPrint = await app.getMasterFingerprint();
+// const extendedPublicKey = await app.getExtendedPubkey(
+//   `m/84'/${getBitcoinCoinTypeIndexByNetwork(
+//     currentNetwork.chain.bitcoin.network
+//   )}'/${extractAccountIndexFromPath(nativeSegwitSigner.derivationPath)}'`
+// );
+
+// const accountPolicy = new DefaultWalletPolicy(
+//   'wpkh(@0/**)',
+//   `[${masterFingerPrint}/84'/${getBitcoinCoinTypeIndexByNetwork(
+//     currentNetwork.chain.bitcoin.network
+//   )}'/0']${extendedPublicKey}`
+// );
+
+// console.log('account policy', accountPolicy);
+
+// console.log(app);
+// // app.signPsbt();
+// await app.transport.close();
+// console.log('transport closed');
