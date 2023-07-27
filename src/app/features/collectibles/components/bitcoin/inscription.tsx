@@ -1,9 +1,8 @@
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 import { Inscription as InscriptionType } from '@shared/models/inscription.model';
 import { RouteUrls } from '@shared/route-urls';
 
-import { useLocationState } from '@app/common/hooks/use-location-state';
 import { openInNewTab } from '@app/common/utils/open-in-new-tab';
 import { OrdinalIconFull } from '@app/components/icons/ordinal-icon-full';
 import { OrdinalMinimalIcon } from '@app/components/icons/ordinal-minimal-icon';
@@ -19,11 +18,11 @@ interface InscriptionProps {
 export function Inscription({ rawInscription }: InscriptionProps) {
   const inscription = convertInscriptionToSupportedInscriptionType(rawInscription);
   const navigate = useNavigate();
-  const backgroundLocation = useLocationState('backgroundLocation');
+  const location = useLocation();
 
   function openSendInscriptionModal() {
     navigate(RouteUrls.SendOrdinalInscription, {
-      state: { inscription, backgroundLocation },
+      state: { inscription, backgroundLocation: location },
     });
   }
 

@@ -11,7 +11,6 @@ import { RouteUrls } from '@shared/route-urls';
 import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
 import { useDrawers } from '@app/common/hooks/use-drawers';
 import { useKeyActions } from '@app/common/hooks/use-key-actions';
-import { useLocationState } from '@app/common/hooks/use-location-state';
 import { useModifierKey } from '@app/common/hooks/use-modifier-key';
 import { useOnClickOutside } from '@app/common/hooks/use-onclickoutside';
 import { useWalletType } from '@app/common/use-wallet-type';
@@ -48,7 +47,6 @@ export function SettingsDropdown() {
   const key = useCurrentKeyDetails();
   const { isPressed: showAdvancedMenuOptions } = useModifierKey('alt', 120);
   const location = useLocation();
-  // const backgroundLocation = useLocationState('backgroundLocation');
 
   const handleClose = useCallback(() => setIsShowingSettings(false), [setIsShowingSettings]);
 
