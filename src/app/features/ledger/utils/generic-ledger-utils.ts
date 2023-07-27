@@ -4,7 +4,7 @@ import { safeAwait } from '@stacks/ui';
 
 import { delay } from '@app/common/utils';
 
-import { LedgerTxSigningContext } from '../flows/stacks-tx-signing/ledger-sign-tx.context';
+import { LedgerTxSigningContext } from '../generic-flows/tx-signing/ledger-sign-tx.context';
 import { getStacksAppVersion } from './stacks-ledger-utils';
 
 export interface BaseLedgerOperationContext {

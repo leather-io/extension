@@ -11,7 +11,7 @@ import { BitcoinContractEntryPoint } from '@app/components/bitcoin-contract-entr
 import { Brc20TokensLoader } from '@app/components/brc20-tokens-loader';
 import { CryptoCurrencyAssetItem } from '@app/components/crypto-assets/crypto-currency-asset/crypto-currency-asset-item';
 import { BtcIcon } from '@app/components/icons/btc-icon';
-import { CurrentStacksAccountLoader } from '@app/components/stacks-account-loader';
+import { CurrentStacksAccountLoader } from '@app/components/loaders/stacks-account-loader';
 import { useHasBitcoinLedgerKeychain } from '@app/store/accounts/blockchain/bitcoin/bitcoin.ledger';
 import { useCurrentAccountNativeSegwitAddressIndexZero } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
 import { useCurrentNetwork } from '@app/store/networks/networks.selectors';

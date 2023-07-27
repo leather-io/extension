@@ -1,3 +1,4 @@
+import type { Transaction } from '@scure/btc-signer';
 import type { StacksTransaction } from '@stacks/transactions';
 
 type PubTypeFn<E> = <Key extends string & keyof E>(
@@ -19,7 +20,7 @@ interface PubSubType<E> {
   subscribe: SubTypeFn<E>;
   unsubscribe: SubTypeFn<E>;
 }
-function PublishSubscribe<E>(): PubSubType<E> {
+function createPublishSubscribe<E>(): PubSubType<E> {
   const handlers: { [key: string]: MessageFn<any>[] } = {};
 
   return {
@@ -42,7 +43,7 @@ function PublishSubscribe<E>(): PubSubType<E> {
 }
 
 // Global app events. Only add events if your feature isn't capable of
-//communicating internally.
+// communicating internally.
 export interface GlobalAppEvents {
   ledgerStacksTxSigned: {
     unsignedTx: string;
@@ -51,6 +52,13 @@ export interface GlobalAppEvents {
   ledgerStacksTxSigningCancelled: {
     unsignedTx: string;
   };
+  ledgerBitcoinTxSigned: {
+    unsignedPsbt: string;
+    signedPsbt: Transaction;
+  };
+  ledgerBitcoinTxSigningCancelled: {
+    unsignedPsbt: string;
+  };
 }
 
-export const appEvents = PublishSubscribe<GlobalAppEvents>();
+export const appEvents = createPublishSubscribe<GlobalAppEvents>();

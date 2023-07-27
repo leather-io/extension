@@ -2,6 +2,7 @@ import { Route } from 'react-router-dom';
 
 import { RouteUrls } from '@shared/route-urls';
 
+import { ledgerBitcoinTxSigningRoutes } from '@app/features/ledger/flows/bitcoin-tx-signing/ledger-bitcoin-sign-tx-container';
 import { RpcGetAddresses } from '@app/pages/rpc-get-addresses/rpc-get-addresses';
 import { rpcSendTransferRoutes } from '@app/pages/rpc-send-transfer/rpc-send-transfer.routes';
 import { RpcSignPsbt } from '@app/pages/rpc-sign-psbt/rpc-sign-psbt';
@@ -35,7 +36,9 @@ export const rpcRequestRoutes = (
           <RpcSignPsbt />
         </AccountGate>
       }
-    />
+    >
+      {ledgerBitcoinTxSigningRoutes}
+    </Route>
     <Route
       path={RouteUrls.RpcSignPsbtSummary}
       element={

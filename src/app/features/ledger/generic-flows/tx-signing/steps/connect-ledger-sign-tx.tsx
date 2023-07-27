@@ -1,23 +1,24 @@
-import { useContext } from 'react';
-
 import { CommonLedgerDeviceInlineWarnings } from '@app/features/ledger/components/ledger-inline-warnings';
-import { ledgerTxSigningContext } from '@app/features/ledger/flows/stacks-tx-signing/ledger-sign-tx.context';
-import { ConnectLedger } from '@app/features/ledger/generic-steps/connect-device/connect-ledger';
+import { ConnectLedger } from '@app/features/ledger/generic-steps';
 import { useWhenReattemptingLedgerConnection } from '@app/features/ledger/hooks/use-when-reattempt-ledger-connection';
 
+import { useLedgerTxSigningContext } from '../ledger-sign-tx.context';
+
 export function ConnectLedgerSignTx() {
-  const { signTransaction, latestDeviceResponse, awaitingDeviceConnection } =
-    useContext(ledgerTxSigningContext);
+  const { chain, signTransaction, latestDeviceResponse, awaitingDeviceConnection } =
+    useLedgerTxSigningContext();
+
+  console.log('rendering ConnectLedgerSignTx');
 
   useWhenReattemptingLedgerConnection(() => signTransaction());
 
   return (
     <ConnectLedger
-      chain="stacks"
+      chain={chain}
       awaitingLedgerConnection={awaitingDeviceConnection}
       warning={
         <CommonLedgerDeviceInlineWarnings
-          chain="stacks"
+          chain={chain}
           latestDeviceResponse={latestDeviceResponse}
         />
       }

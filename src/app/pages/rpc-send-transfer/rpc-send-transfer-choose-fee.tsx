@@ -8,7 +8,7 @@ import { createMoney } from '@shared/models/money.model';
 import { RouteUrls } from '@shared/route-urls';
 import { noop } from '@shared/utils';
 
-import { useGenerateSignedNativeSegwitTx } from '@app/common/transactions/bitcoin/use-generate-bitcoin-tx';
+import { useGenerateUnsignedNativeSegwitSingleRecipientTx } from '@app/common/transactions/bitcoin/use-generate-bitcoin-tx';
 import { useWalletType } from '@app/common/use-wallet-type';
 import {
   BitcoinFeesList,
@@ -40,7 +40,7 @@ export function RpcSendTransferChooseFee() {
   const { address, amountAsMoney, utxos } = useRpcSendTransferFeeState();
   const navigate = useNavigate();
   const { whenWallet } = useWalletType();
-  const generateTx = useGenerateSignedNativeSegwitTx();
+  const generateTx = useGenerateUnsignedNativeSegwitSingleRecipientTx();
   const { feesList, isLoading } = useBitcoinFeesList({
     amount: Number(amountAsMoney.amount),
     recipient: address,
@@ -51,7 +51,7 @@ export function RpcSendTransferChooseFee() {
   const { showInsufficientBalanceError, onValidateBitcoinFeeSpend } = useValidateBitcoinSpend();
 
   async function previewTransfer({ feeRate, feeValue, time, isCustomFee }: OnChooseFeeArgs) {
-    const resp = generateTx({ amount: amountAsMoney, recipient: address }, feeRate, utxos);
+    const resp = await generateTx({ amount: amountAsMoney, recipient: address }, feeRate, utxos);
 
     if (!resp) return logger.error('Attempted to generate raw tx, but no tx exists');
 

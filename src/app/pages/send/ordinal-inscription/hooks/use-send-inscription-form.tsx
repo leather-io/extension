@@ -1,39 +1,40 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
+import { bytesToHex } from '@noble/hashes/utils';
+import { Psbt } from 'bitcoinjs-lib';
 import * as yup from 'yup';
 
 import { logger } from '@shared/logger';
 import { OrdinalSendFormValues } from '@shared/models/form.model';
 import { RouteUrls } from '@shared/route-urls';
-import { noop } from '@shared/utils';
 
 import { FormErrorMessages } from '@app/common/error-messages';
 import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
 import { formFeeRowValue } from '@app/common/send/utils';
-import { useWalletType } from '@app/common/use-wallet-type';
 import {
   btcAddressNetworkValidator,
   btcAddressValidator,
 } from '@app/common/validation/forms/address-validators';
 import { useNumberOfInscriptionsOnUtxo } from '@app/query/bitcoin/ordinals/inscriptions.hooks';
+import { useSignBitcoinTx } from '@app/store/accounts/blockchain/bitcoin/bitcoin.hooks';
 import { useCurrentNetwork } from '@app/store/networks/networks.selectors';
 
 import { useSendInscriptionState } from '../components/send-inscription-container';
 import { recipeintFieldName } from '../send-inscription-form';
-import { useGenerateSignedOrdinalTx } from './use-generate-ordinal-tx';
+import { useGenerateUnsignedOrdinalTx } from './use-generate-ordinal-tx';
 
 export function useSendInscriptionForm() {
   const [currentError, setShowError] = useState<null | string>(null);
   const [isCheckingFees, setIsCheckingFees] = useState(false);
   const analytics = useAnalytics();
   const navigate = useNavigate();
-  const { whenWallet } = useWalletType();
+  const sign = useSignBitcoinTx();
   const { inscription, utxo } = useSendInscriptionState();
   const currentNetwork = useCurrentNetwork();
 
-  const { coverFeeFromAdditionalUtxos } = useGenerateSignedOrdinalTx(utxo);
   const getNumberOfInscriptionOnUtxo = useNumberOfInscriptionsOnUtxo();
+  const { coverFeeFromAdditionalUtxos } = useGenerateUnsignedOrdinalTx(utxo);
 
   return {
     currentError,
@@ -75,16 +76,10 @@ export function useSendInscriptionForm() {
         setIsCheckingFees(false);
       }
 
-      whenWallet({
-        software: () =>
-          navigate(
-            `/${RouteUrls.SendOrdinalInscription}/${RouteUrls.SendOrdinalInscriptionChooseFee}`,
-            {
-              state: { inscription, recipient: values.recipient, utxo },
-            }
-          ),
-        ledger: noop,
-      })();
+      navigate(
+        `/${RouteUrls.SendOrdinalInscription}/${RouteUrls.SendOrdinalInscriptionChooseFee}`,
+        { state: { inscription, recipient: values.recipient, utxo } }
+      );
     },
 
     async reviewTransaction(
@@ -101,22 +96,32 @@ export function useSendInscriptionForm() {
         return;
       }
 
-      const { hex } = resp;
+      console.log('unsigned sending psbt ', bytesToHex(resp.psbt));
+
+      const signedTx = await sign(resp.psbt);
+
+      if (!signedTx) {
+        logger.error('No signed transaction returned');
+        return;
+      }
+
+      const bitcoinJsPsbt = Psbt.fromBuffer(Buffer.from(signedTx.toPSBT()));
+
+      console.log('bitcoinJsPsbt', bitcoinJsPsbt.toHex());
+      // bitcoinJsPsbt.finalizeAllInputs();
+
       const feeRowValue = formFeeRowValue(values.feeRate, isCustomFee);
-      return navigate(
-        `/${RouteUrls.SendOrdinalInscription}/${RouteUrls.SendOrdinalInscriptionReview}`,
-        {
-          state: {
-            fee: feeValue,
-            inscription,
-            utxo,
-            recipient: values.recipient,
-            time,
-            feeRowValue,
-            tx: hex,
-          },
-        }
-      );
+      navigate(`/${RouteUrls.SendOrdinalInscription}/${RouteUrls.SendOrdinalInscriptionReview}`, {
+        state: {
+          fee: feeValue,
+          inscription,
+          utxo,
+          recipient: values.recipient,
+          time,
+          feeRowValue,
+          signedTx: bitcoinJsPsbt.extractTransaction().toBuffer(),
+        },
+      });
     },
 
     validationSchema: yup.object({

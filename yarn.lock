@@ -702,9 +702,9 @@
     to-fast-properties "^2.0.0"
 
 "@bitcoinerlab/descriptors@^1.0.2":
-  version "1.1.1"
-  resolved "https://registry.yarnpkg.com/@bitcoinerlab/descriptors/-/descriptors-1.1.1.tgz#0d1a828cea66c51ebc9863d3e5c43c4ffcde2fe5"
-  integrity sha512-AMFkbBBg9T1iWtEmWB23oADk7zaOQix6wUPLXalhTyFDjhkFXDd6pCRfto/HAdaPg/ccM4GMTVgYLee9WdYFyQ==
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/@bitcoinerlab/descriptors/-/descriptors-1.0.2.tgz#684e5755afcc7171b73a263612e00dc7dc407dcc"
+  integrity sha512-q/0NuNlIof5Hb+ll/diU6Ib7GJ1MLwYUDTE6s/Ui4//r28LtxRPjI12/tYaMLWgTmpfuxcEnZI7+6aNFeS1EXg==
   dependencies:
     "@bitcoinerlab/miniscript" "^1.2.1"
     "@bitcoinerlab/secp256k1" "^1.0.5"
@@ -713,9 +713,9 @@
     ecpair "^2.1.0"
 
 "@bitcoinerlab/miniscript@^1.2.1":
-  version "1.4.0"
-  resolved "https://registry.yarnpkg.com/@bitcoinerlab/miniscript/-/miniscript-1.4.0.tgz#9beda21d4dadb1cb806de6f846470927cfd96f6c"
-  integrity sha512-BsG3dmwQmgKHnRZecDgUsPjwcpnf1wgaZbolcMTByS10k1zYzIx97W51LzG7GvokRJ+wnzTX/GhC8Y3L2X0CQA==
+  version "1.2.1"
+  resolved "https://registry.yarnpkg.com/@bitcoinerlab/miniscript/-/miniscript-1.2.1.tgz#63983d2f5d43faf132f2b0ce90cbc88737275c2b"
+  integrity sha512-2Pkan4Vvq7afQNeveakFM/Np9D+DhlPtKITO/hTgKjPsPnLWqdOVyja1u/Qhr7Voi2bW9Tor6hLOYTw84QQKQQ==
   dependencies:
     bip68 "^1.0.4"
 

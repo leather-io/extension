@@ -1,5 +1,7 @@
 import { useLocation, useNavigate } from 'react-router-dom';
 
+import { hexToBytes } from '@noble/hashes/utils';
+import * as btc from '@scure/btc-signer';
 import { Stack } from '@stacks/ui';
 import { SendCryptoAssetSelectors } from '@tests/selectors/send.selectors';
 import get from 'lodash.get';
@@ -47,16 +49,20 @@ function useBtcSendFormConfirmationState() {
 export function BtcSendFormConfirmation() {
   const navigate = useNavigate();
   const { tx, recipient, fee, arrivesIn, feeRowValue } = useBtcSendFormConfirmationState();
+
   const { refetch } = useCurrentNativeSegwitUtxos();
   const analytics = useAnalytics();
 
   const btcMarketData = useCryptoCurrencyMarketData('BTC');
   const { broadcastTx, isBroadcasting } = useBitcoinBroadcastTransaction();
-  const psbt = decodeBitcoinTx(tx);
+
+  const transaction = btc.Transaction.fromRaw(hexToBytes(tx));
+
+  const decodedTx = decodeBitcoinTx(transaction.hex);
 
   const nav = useSendFormNavigate();
 
-  const transferAmount = satToBtc(psbt.outputs[0].amount.toString()).toString();
+  const transferAmount = satToBtc(decodedTx.outputs[0].amount.toString()).toString();
   const txFiatValue = i18nFormatCurrency(
     baseCurrencyAmountInQuote(createMoneyFromDecimal(Number(transferAmount), symbol), btcMarketData)
   );
@@ -71,14 +77,14 @@ export function BtcSendFormConfirmation() {
 
   async function initiateTransaction() {
     await broadcastTx({
-      tx,
+      tx: transaction.hex,
       async onSuccess(txid) {
         void analytics.track('broadcast_transaction', {
           symbol: 'btc',
           amount: transferAmount,
           fee,
-          inputs: psbt.inputs.length,
-          outputs: psbt.inputs.length,
+          inputs: decodedTx.inputs.length,
+          outputs: decodedTx.inputs.length,
         });
         await refetch();
         navigate(RouteUrls.SentBtcTxSummary.replace(':txId', `${txid}`), {
@@ -86,9 +92,10 @@ export function BtcSendFormConfirmation() {
         });
 
         // invalidate txs query after some time to ensure that the new tx will be shown in the list
-        setTimeout(() => {
-          void queryClient.invalidateQueries({ queryKey: ['btc-txs-by-address'] });
-        }, 2000);
+        setTimeout(
+          () => void queryClient.invalidateQueries({ queryKey: ['btc-txs-by-address'] }),
+          2000
+        );
       },
       onError(e) {
         nav.toErrorPage(e);

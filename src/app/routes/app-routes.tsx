@@ -17,10 +17,11 @@ import { IncreaseBtcFeeDrawer } from '@app/features/increase-fee-drawer/increase
 import { IncreaseFeeSentDrawer } from '@app/features/increase-fee-drawer/increase-fee-sent-drawer';
 import { IncreaseStxFeeDrawer } from '@app/features/increase-fee-drawer/increase-stx-fee-drawer';
 import { leatherIntroDialogRoutes } from '@app/features/leather-intro-dialog/leather-intro-dialog';
+import { ledgerBitcoinTxSigningRoutes } from '@app/features/ledger/flows/bitcoin-tx-signing/ledger-bitcoin-sign-tx-container';
 import { ledgerJwtSigningRoutes } from '@app/features/ledger/flows/jwt-signing/ledger-sign-jwt.routes';
 import { requestBitcoinKeysRoutes } from '@app/features/ledger/flows/request-bitcoin-keys/ledger-request-bitcoin-keys';
 import { requestStacksKeysRoutes } from '@app/features/ledger/flows/request-stacks-keys/ledger-request-stacks-keys';
-import { ledgerStacksTxSigningRoutes } from '@app/features/ledger/flows/stacks-tx-signing/ledger-sign-tx.routes';
+import { ledgerStacksTxSigningRoutes } from '@app/features/ledger/flows/stacks-tx-signing/ledger-sign-stacks-tx-container';
 import { UnsupportedBrowserLayout } from '@app/features/ledger/generic-steps';
 import { ConnectLedgerStart } from '@app/features/ledger/generic-steps/connect-device/connect-ledger-start';
 import { RetrieveTaprootToNativeSegwit } from '@app/features/retrieve-taproot-to-native-segwit/retrieve-taproot-to-native-segwit';
@@ -38,13 +39,13 @@ import { RequestError } from '@app/pages/request-error/request-error';
 import { RpcSignStacksTransaction } from '@app/pages/rpc-sign-stacks-transaction/rpc-sign-stacks-transaction';
 import { BroadcastError } from '@app/pages/send/broadcast-error/broadcast-error';
 import { LockBitcoinSummary } from '@app/pages/send/locked-bitcoin-summary/locked-bitcoin-summary';
+import { sendOrdinalRoutes } from '@app/pages/send/ordinal-inscription/ordinal-routes';
 import { sendCryptoAssetFormRoutes } from '@app/pages/send/send-crypto-asset-form/send-crypto-asset-form.routes';
 import { alexSwapRoutes } from '@app/pages/swap/alex-swap-container';
 import { UnauthorizedRequest } from '@app/pages/unauthorized-request/unauthorized-request';
 import { Unlock } from '@app/pages/unlock';
 import { ViewSecretKey } from '@app/pages/view-secret-key/view-secret-key';
 import { AccountGate } from '@app/routes/account-gate';
-import { sendOrdinalRoutes } from '@app/routes/ordinal-routes';
 import { receiveRoutes } from '@app/routes/receive-routes';
 import { legacyRequestRoutes } from '@app/routes/request-routes';
 import { rpcRequestRoutes } from '@app/routes/rpc-routes';
@@ -63,10 +64,11 @@ export function AppRoutes() {
 
 export const homePageModalRoutes = (
   <>
+    {sendOrdinalRoutes}
     {settingsRoutes}
     {receiveRoutes}
     {ledgerStacksTxSigningRoutes}
-    {sendOrdinalRoutes}
+    {ledgerBitcoinTxSigningRoutes}
     {requestBitcoinKeysRoutes}
     {requestStacksKeysRoutes}
   </>
@@ -77,7 +79,7 @@ function useAppRoutes() {
     createRoutesFromElements(
       <Route element={<Container />}>
         <Route
-          path={`${RouteUrls.Home}*`}
+          path="/*"
           element={
             <AccountGate>
               <Home />
@@ -105,7 +107,7 @@ function useAppRoutes() {
               </Suspense>
             </AccountGate>
           }
-        ></Route>
+        />
         <Route path={RouteUrls.BitcoinContractLockSuccess} element={<LockBitcoinSummary />} />
         <Route path={RouteUrls.BitcoinContractLockError} element={<BroadcastError />} />
         <Route path={RouteUrls.BitcoinContractList} element={<BitcoinContractList />} />

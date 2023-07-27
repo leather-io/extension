@@ -1,5 +1,6 @@
 import { useLocation, useNavigate } from 'react-router-dom';
 
+import { bytesToHex } from '@noble/hashes/utils';
 import { Box, Stack } from '@stacks/ui';
 import get from 'lodash.get';
 
@@ -23,7 +24,7 @@ function useSendInscriptionReviewState() {
   const location = useLocation();
   return {
     arrivesIn: get(location.state, 'time') as string,
-    signedTx: get(location.state, 'tx') as string,
+    signedTx: get(location.state, 'signedTx') as Uint8Array,
     recipient: get(location.state, 'recipient', '') as string,
     feeRowValue: get(location.state, 'feeRowValue') as string,
   };
@@ -40,8 +41,9 @@ export function SendInscriptionReview() {
   const { broadcastTx, isBroadcasting } = useBitcoinBroadcastTransaction();
 
   async function sendInscription() {
+    console.log('sendInscription thats being broadcast', signedTx);
     await broadcastTx({
-      tx: signedTx,
+      tx: bytesToHex(signedTx),
       async onSuccess(txId: string) {
         void analytics.track('broadcast_ordinal_transaction');
         await refetch();

@@ -115,6 +115,13 @@ class TransactionsApi {
     return fetch(`${this.configuration.baseUrl}/tx/${txid}`).then(res => res.json());
   }
 
+  async getBitcoinTransactionHex(txid: string) {
+    return fetch(`${this.configuration.baseUrl}/tx/${txid}/hex`).then(res => {
+      if (!res.ok) throw new Error('No transaction hex fetched');
+      return res.text();
+    });
+  }
+
   async broadcastTransaction(tx: string) {
     return fetch(`${this.configuration.baseUrl}/tx`, {
       method: 'POST',
