@@ -12,7 +12,7 @@ import { RouteUrls } from '@shared/route-urls';
 
 import { useRouteHeader } from '@app/common/hooks/use-route-header';
 import { formFeeRowValue } from '@app/common/send/utils';
-import { useGenerateSignedNativeSegwitTx } from '@app/common/transactions/bitcoin/use-generate-bitcoin-tx';
+import { useGenerateUnsignedNativeSegwitTx } from '@app/common/transactions/bitcoin/use-generate-bitcoin-tx';
 import {
   BitcoinFeesList,
   OnChooseFeeArgs,
@@ -40,7 +40,7 @@ function useBrc20ChooseFeeState() {
 export function BrcChooseFee() {
   const navigate = useNavigate();
   const { amount, recipient, tick, utxos } = useBrc20ChooseFeeState();
-  const generateTx = useGenerateSignedNativeSegwitTx();
+  const { generateTx, sign } = useGenerateUnsignedNativeSegwitTx();
   const { selectedFeeType, setSelectedFeeType } = useSendBitcoinAssetContextState();
   const { initiateTransfer } = useBrc20Transfers();
   const { feesList, isLoading } = useBitcoinFeesList({
@@ -70,7 +70,7 @@ export function BrcChooseFee() {
 
       const serviceFeeAsMoney = createMoney(serviceFee, 'BTC');
 
-      const resp = generateTx(
+      const txResp = generateTx(
         {
           amount: serviceFeeAsMoney,
           recipient: serviceFeeRecipient,
@@ -79,13 +79,12 @@ export function BrcChooseFee() {
         utxos
       );
 
-      if (!resp) return logger.error('Attempted to generate raw tx, but no tx exists');
-
-      const { hex } = resp;
+      if (!txResp) return logger.error('Attempted to generate raw tx, but no tx exists');
+      sign(txResp.tx);
       const feeRowValue = formFeeRowValue(feeRate, isCustomFee);
       navigate(RouteUrls.SendBrc20Confirmation.replace(':ticker', tick), {
         state: {
-          tx: hex,
+          tx: txResp.tx.hex,
           orderId: id,
           fee: feeValue,
           serviceFee: charge.amount,

@@ -1,4 +1,4 @@
-import { useCallback } from 'react';
+import { useMemo } from 'react';
 
 import * as btc from '@scure/btc-signer';
 
@@ -9,6 +9,7 @@ import {
   determineUtxosForSpend,
   determineUtxosForSpendAll,
 } from '@app/common/transactions/bitcoin/coinselect/local-coin-selection';
+import { useWalletType } from '@app/common/use-wallet-type';
 import { UtxoResponseItem } from '@app/query/bitcoin/bitcoin-client';
 import { useBitcoinScureLibNetworkConfig } from '@app/store/accounts/blockchain/bitcoin/bitcoin-keychain';
 import { useCurrentAccountNativeSegwitIndexZeroSigner } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
@@ -17,22 +18,35 @@ interface GenerateNativeSegwitTxValues {
   amount: Money;
   recipient: string;
 }
-export function useGenerateSignedNativeSegwitTx() {
+export function useGenerateUnsignedNativeSegwitTx() {
   const signer = useCurrentAccountNativeSegwitIndexZeroSigner();
-
   const networkMode = useBitcoinScureLibNetworkConfig();
 
-  return useCallback(
-    (
-      values: GenerateNativeSegwitTxValues,
-      feeRate: number,
-      utxos: UtxoResponseItem[],
-      isSendingMax?: boolean
-    ) => {
-      if (!utxos.length) return;
-      if (!feeRate) return;
+  const { whenWallet } = useWalletType();
 
-      try {
+  return useMemo(
+    () => ({
+      sign(tx: btc.Transaction) {
+        whenWallet({
+          ledger() {
+            logger.info('Signing tx with ledger', tx);
+          },
+          software() {
+            signer.sign(tx);
+            tx.finalize();
+            return tx;
+          },
+        })();
+      },
+      generateTx: (
+        values: GenerateNativeSegwitTxValues,
+        feeRate: number,
+        utxos: UtxoResponseItem[],
+        isSendingMax?: boolean
+      ) => {
+        if (!utxos.length) return;
+        if (!feeRate) return;
+
         const tx = new btc.Transaction();
 
         const amountAsNumber = values.amount.amount.toNumber();
@@ -78,16 +92,10 @@ export function useGenerateSignedNativeSegwitTx() {
           }
           tx.addOutputAddress(values.recipient, BigInt(output.value), networkMode);
         });
-        signer.sign(tx);
-        tx.finalize();
 
-        return { hex: tx.hex, fee };
-      } catch (e) {
-        // eslint-disable-next-line no-console
-        console.log('Error signing bitcoin transaction', e);
-        return null;
-      }
-    },
-    [networkMode, signer]
+        return { tx, fee };
+      },
+    }),
+    [signer, networkMode, whenWallet]
   );
 }

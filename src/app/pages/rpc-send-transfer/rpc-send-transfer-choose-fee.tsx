@@ -6,10 +6,8 @@ import { logger } from '@shared/logger';
 import { BtcFeeType } from '@shared/models/fees/bitcoin-fees.model';
 import { createMoney } from '@shared/models/money.model';
 import { RouteUrls } from '@shared/route-urls';
-import { noop } from '@shared/utils';
 
-import { useGenerateSignedNativeSegwitTx } from '@app/common/transactions/bitcoin/use-generate-bitcoin-tx';
-import { useWalletType } from '@app/common/use-wallet-type';
+import { useGenerateUnsignedNativeSegwitTx } from '@app/common/transactions/bitcoin/use-generate-bitcoin-tx';
 import {
   BitcoinFeesList,
   OnChooseFeeArgs,
@@ -39,8 +37,7 @@ export function RpcSendTransferChooseFee() {
   const { selectedFeeType, setSelectedFeeType } = useRpcSendTransferState();
   const { address, amountAsMoney, utxos } = useRpcSendTransferFeeState();
   const navigate = useNavigate();
-  const { whenWallet } = useWalletType();
-  const generateTx = useGenerateSignedNativeSegwitTx();
+  const { generateTx, sign } = useGenerateUnsignedNativeSegwitTx();
   const { feesList, isLoading } = useBitcoinFeesList({
     amount: Number(amountAsMoney.amount),
     recipient: address,
@@ -51,26 +48,22 @@ export function RpcSendTransferChooseFee() {
   const { showInsufficientBalanceError, onValidateBitcoinFeeSpend } = useValidateBitcoinSpend();
 
   async function previewTransfer({ feeRate, feeValue, time, isCustomFee }: OnChooseFeeArgs) {
-    const resp = generateTx({ amount: amountAsMoney, recipient: address }, feeRate, utxos);
+    const txResp = generateTx({ amount: amountAsMoney, recipient: address }, feeRate, utxos);
 
-    if (!resp) return logger.error('Attempted to generate raw tx, but no tx exists');
-
-    const { hex } = resp;
+    if (!txResp) return logger.error('Attempted to generate raw tx, but no tx exists');
 
     const feeRowValue = formFeeRowValue(feeRate, isCustomFee);
-    whenWallet({
-      software: () =>
-        navigate(RouteUrls.RpcSendTransferConfirmation, {
-          state: {
-            fee: feeValue,
-            recipient: address,
-            time,
-            tx: hex,
-            feeRowValue,
-          },
-        }),
-      ledger: noop,
-    })();
+
+    sign(txResp.tx);
+    navigate(RouteUrls.RpcSendTransferConfirmation, {
+      state: {
+        fee: feeValue,
+        recipient: address,
+        time,
+        tx: txResp.tx.hex,
+        feeRowValue,
+      },
+    });
   }
 
   return (
