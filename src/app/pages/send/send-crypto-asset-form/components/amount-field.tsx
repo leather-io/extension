@@ -32,6 +32,17 @@ function getAmountModifiedFontSize(props: GetAmountModifiedFontSize) {
     : maxFontSize;
 }
 
+interface Lerp {
+  start: number;
+  end: number;
+  t: number;
+}
+
+// Linear Interpolation
+function lerp({ start, end, t }: Lerp) {
+  return (1 - t) * start + t * end;
+}
+
 interface AmountFieldProps {
   autoComplete?: 'on' | 'off';
   autofocus?: boolean;
@@ -65,20 +76,13 @@ export function AmountField({
   const subtractedLengthToPositionPrefix = 0.5;
 
   const onChange = (event: ChangeEvent<HTMLInputElement>) => {
-    const value = event.currentTarget.value;
+    if (symbol.length <= 4) {
+      const value = event.currentTarget.value;
 
-    if (value.length <= symbol.length) {
-      setFontSize(maxFontSize);
-    } else if (previousTextLength > value.length) {
-      const textSize = Math.ceil(fontSize + fontSizeModifier);
-      if (fontSize < maxFontSize) {
-        setFontSize(textSize);
-      }
-    } else if (previousTextLength < value.length) {
-      const textSize = Math.ceil(fontSize - fontSizeModifier);
-      if (fontSize > minFontSize) {
-        setFontSize(textSize);
-      }
+      const t = value.length / (symbol.length + maxLength);
+
+      const newFontSize = lerp({ start: maxFontSize, end: minFontSize, t });
+      setFontSize(newFontSize);
     }
 
     field.onChange(event);
