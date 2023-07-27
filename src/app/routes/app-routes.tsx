@@ -69,6 +69,35 @@ export function AppRoutes() {
   const routes = useAppRoutes();
   return <RouterProvider router={routes} />;
 }
+const settingsModalRoutes = (
+  <Route>
+    <Route path={RouteUrls.SignOutConfirm} element={<SignOutConfirmDrawer />} />
+    <Route path={RouteUrls.ChangeTheme} element={<ThemesDrawer />} />
+    <Route path={RouteUrls.SelectNetwork} element={<SelectNetwork />} />
+  </Route>
+);
+
+const sendOrdinalRoutes = (
+  <Route path={RouteUrls.SendOrdinalInscription} element={<SendInscriptionContainer />}>
+    <Route index element={<SendInscriptionForm />} />
+    <Route
+      path={RouteUrls.SendOrdinalInscriptionChooseFee}
+      element={<SendInscriptionChooseFee />}
+    />
+    <Route path={RouteUrls.SendOrdinalInscriptionReview} element={<SendInscriptionReview />} />
+    <Route path={RouteUrls.SendOrdinalInscriptionSent} element={<SendInscriptionSummary />} />
+    <Route path={RouteUrls.SendOrdinalInscriptionError} element={<BroadcastError />} />
+  </Route>
+);
+
+export const homeModalRoutes = (
+  <Route>
+    <Route path={RouteUrls.Receive} element={<ReceiveModal />} />
+    <Route path={RouteUrls.ReceiveCollectibleOrdinal} element={<ReceiveCollectibleOrdinal />} />
+    {sendOrdinalRoutes}
+    {settingsModalRoutes}
+  </Route>
+);
 
 function useAppRoutes() {
   const userHasNotConsentedToDiagnostics = useHasUserRespondedToAnalyticsConsent();
@@ -82,14 +111,6 @@ function useAppRoutes() {
         </Route>
       )
     );
-
-  const settingsModalRoutes = (
-    <Route>
-      <Route path={RouteUrls.SignOutConfirm} element={<SignOutConfirmDrawer />} />
-      <Route path={RouteUrls.ChangeTheme} element={<ThemesDrawer />} />
-      <Route path={RouteUrls.SelectNetwork} element={<SelectNetwork />} />
-    </Route>
-  );
 
   const legacyRequestRoutes = (
     <>
@@ -187,9 +208,8 @@ function useAppRoutes() {
           }
         >
           <Route index element={<AssetsList />} />
-          <Route path={RouteUrls.Activity} element={<ActivityList />}>
-            {settingsModalRoutes}
-          </Route>
+          <Route path={RouteUrls.Activity} element={<ActivityList />} />
+
           {requestBitcoinKeysRoutes}
           {requestStacksKeysRoutes}
           <Route path={RouteUrls.RetriveTaprootFunds} element={<RetrieveTaprootToNativeSegwit />} />
@@ -199,34 +219,13 @@ function useAppRoutes() {
           </Route>
           <Route path={RouteUrls.IncreaseBtcFee} element={<IncreaseBtcFeeDrawer />} />
           <Route path={RouteUrls.IncreaseFeeSent} element={<IncreaseFeeSentDrawer />} />
-
-          <Route path={RouteUrls.Receive} element={<ReceiveModal />} />
           <Route path={RouteUrls.ReceiveCollectible} element={<ReceiveCollectibleModal />} />
-          <Route
-            path={RouteUrls.ReceiveCollectibleOrdinal}
-            element={<ReceiveCollectibleOrdinal />}
-          />
+
           <Route path={RouteUrls.ReceiveStx} element={<ReceiveStxModal />} />
           <Route path={RouteUrls.ReceiveBtc} element={<ReceiveBtcModal />} />
+          {homeModalRoutes}
+          {sendOrdinalRoutes}
 
-          <Route path={RouteUrls.SendOrdinalInscription} element={<SendInscriptionContainer />}>
-            <Route index element={<SendInscriptionForm />} />
-            <Route
-              path={RouteUrls.SendOrdinalInscriptionChooseFee}
-              element={<SendInscriptionChooseFee />}
-            />
-            <Route
-              path={RouteUrls.SendOrdinalInscriptionReview}
-              element={<SendInscriptionReview />}
-            />
-            <Route
-              path={RouteUrls.SendOrdinalInscriptionSent}
-              element={<SendInscriptionSummary />}
-            />
-            <Route path={RouteUrls.SendOrdinalInscriptionError} element={<BroadcastError />} />
-          </Route>
-
-          {settingsModalRoutes}
           {ledgerStacksTxSigningRoutes}
         </Route>
         <Route

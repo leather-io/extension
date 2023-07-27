@@ -16,7 +16,7 @@ interface HomeTabsProps extends StackProps {
 // TODO #4013: Abstract this to generic RouteTab once choose-fee-tab updated
 export function HomeTabs({ children }: HomeTabsProps) {
   const navigate = useNavigate();
-  const { pathname } = useLocation();
+  const location = useLocation();
   const backgroundLocation = useLocationState('backgroundLocation');
 
   const tabs = useMemo(
@@ -27,9 +27,20 @@ export function HomeTabs({ children }: HomeTabsProps) {
     []
   );
 
-  const path = backgroundLocation ? backgroundLocation.pathname : pathname;
+  // if(pathname === 'receive' && !backgroundLocation){
 
-  const getActiveTab = useCallback(() => tabs.findIndex(tab => tab.slug === path), [tabs, path]);
+  // }
+  // const path = backgroundLocation ? backgroundLocation.pathname : location?.pathname;
+
+  // console.info('home-tabs bg location', backgroundLocation);
+  // console.info('home-tabs location', location);
+
+  // if open new tab and cannot find location then set tab to be first
+  const getActiveTab = useCallback(() => {
+    const path = backgroundLocation ? backgroundLocation.pathname : location?.pathname;
+    const activeTab = tabs.findIndex(tab => tab.slug === path);
+    return activeTab === -1 ? 0 : activeTab;
+  }, [tabs, backgroundLocation, location]);
 
   const setActiveTab = useCallback(
     (index: number) => navigate(tabs[index]?.slug),

@@ -19,8 +19,16 @@ export function ReceiveCollectibleOrdinal() {
   const navigate = useNavigate();
   const analytics = useAnalytics();
   const { state } = useLocation();
-  const { pathname } = useLocationState('backgroundLocation');
-  const { onCopy } = useClipboard(state.btcAddressTaproot);
+  const backgroundLocation = useLocationState('backgroundLocation');
+
+  // if this is opened in a new tab it has no btcAddress so we cannot do anything
+  if (!state) {
+    // TODO implement this more gracefull to simply not load this component at all if no state.btcAdressTaproot
+    navigate('..');
+    console.log('state.btcAddressTaproot', state);
+  }
+
+  const { onCopy } = useClipboard(state?.btcAddressTaproot);
 
   function copyToClipboard() {
     void analytics.track('copy_address_to_add_new_inscription');
@@ -29,7 +37,7 @@ export function ReceiveCollectibleOrdinal() {
   }
 
   return (
-    <BaseDrawer isShowing onClose={() => navigate(pathname)}>
+    <BaseDrawer isShowing onClose={() => navigate(backgroundLocation?.pathname || '..')}>
       <Box mx="extra-loose">
         <Stack alignItems="center" px={['unset', 'base']} spacing="loose" textAlign="center">
           <OrdinalIcon />
@@ -84,7 +92,7 @@ export function ReceiveCollectibleOrdinal() {
             difficulty retrieving it
           </Text>
           <Flex sx={{ maxWidth: '100%', flexWrap: 'wrap', justifyContent: 'center' }}>
-            <Caption mt="2px">{truncateMiddle(state.btcAddressTaproot, 6)}</Caption>
+            <Caption mt="2px">{truncateMiddle(state?.btcAddressTaproot, 6)}</Caption>
           </Flex>
         </Stack>
         <PrimaryButton flexGrow={1} my="extra-loose" onClick={copyToClipboard} width="100%">

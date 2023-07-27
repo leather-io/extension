@@ -1,4 +1,4 @@
-import { Navigate, Outlet, Route, Routes, useLocation, useNavigate } from 'react-router-dom';
+import { Outlet, Route, Routes, useLocation, useNavigate } from 'react-router-dom';
 
 import { RouteUrls } from '@shared/route-urls';
 
@@ -13,6 +13,7 @@ import { AssetsList } from '@app/features/asset-list/asset-list';
 import { InAppMessages } from '@app/features/hiro-messages/in-app-messages';
 import { SuggestedFirstSteps } from '@app/features/suggested-first-steps/suggested-first-steps';
 import { HomeActions } from '@app/pages/home/components/home-actions';
+import { homeModalRoutes } from '@app/routes/app-routes';
 
 import { CurrentAccount } from './components/account-area';
 import { HomeTabs } from './components/home-tabs';
@@ -37,7 +38,6 @@ export function Home() {
   useOnMount(() => {
     if (decodedAuthRequest) navigate(RouteUrls.ChooseAccount);
   });
-
   return (
     <HomeLayout
       suggestedFirstSteps={<SuggestedFirstSteps />}
@@ -49,8 +49,7 @@ export function Home() {
           <Routes location={backgroundLocation || location}>
             <Route path={RouteUrls.Home} element={<AssetsList />} />
             <Route path={RouteUrls.Activity} element={<ActivityList />} />
-            {/* If we have an unmatched route go back home e.g. if a new tab is opened */}
-            <Route path="*" element={<Navigate replace to={RouteUrls.Home} />} />
+            {homeModalRoutes}
           </Routes>
           {backgroundLocation && <Outlet />}
         </>
