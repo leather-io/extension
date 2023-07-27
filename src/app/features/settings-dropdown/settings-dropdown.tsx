@@ -48,7 +48,7 @@ export function SettingsDropdown() {
   const key = useCurrentKeyDetails();
   const { isPressed: showAdvancedMenuOptions } = useModifierKey('alt', 120);
   const location = useLocation();
-  const backgroundLocation = useLocationState('backgroundLocation');
+  // const backgroundLocation = useLocationState('backgroundLocation');
 
   const handleClose = useCallback(() => setIsShowingSettings(false), [setIsShowingSettings]);
 
@@ -99,7 +99,7 @@ export function SettingsDropdown() {
                 void analytics.track('click_change_theme_menu_item');
                 navigate(RouteUrls.ChangeTheme, {
                   relative: 'path',
-                  state: { backgroundLocation },
+                  state: { backgroundLocation: location },
                 });
               })}
             >
@@ -154,7 +154,7 @@ export function SettingsDropdown() {
                 void analytics.track('click_change_network_menu_item');
                 navigate(RouteUrls.SelectNetwork, {
                   relative: 'path',
-                  state: { backgroundLocation },
+                  state: { backgroundLocation: location },
                 });
               })}
             >
@@ -188,7 +188,7 @@ export function SettingsDropdown() {
               onClick={wrappedCloseCallback(() =>
                 navigate(RouteUrls.SignOutConfirm, {
                   relative: 'path',
-                  state: { backgroundLocation },
+                  state: { backgroundLocation: location },
                 })
               )}
               data-testid="settings-sign-out"

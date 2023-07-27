@@ -6,6 +6,7 @@ import { Box, Flex, Stack, color, useClipboard } from '@stacks/ui';
 import { truncateMiddle } from '@stacks/ui-utils';
 
 import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
+import { useLocationState } from '@app/common/hooks/use-location-state';
 import { openInNewTab } from '@app/common/utils/open-in-new-tab';
 import { BaseDrawer } from '@app/components/drawer/base-drawer';
 import { ErrorLabel } from '@app/components/error-label';
@@ -18,6 +19,7 @@ export function ReceiveCollectibleOrdinal() {
   const navigate = useNavigate();
   const analytics = useAnalytics();
   const { state } = useLocation();
+  const { pathname } = useLocationState('backgroundLocation');
   const { onCopy } = useClipboard(state.btcAddressTaproot);
 
   function copyToClipboard() {
@@ -27,7 +29,7 @@ export function ReceiveCollectibleOrdinal() {
   }
 
   return (
-    <BaseDrawer isShowing onClose={() => navigate('../')}>
+    <BaseDrawer isShowing onClose={() => navigate(pathname)}>
       <Box mx="extra-loose">
         <Stack alignItems="center" px={['unset', 'base']} spacing="loose" textAlign="center">
           <OrdinalIcon />
