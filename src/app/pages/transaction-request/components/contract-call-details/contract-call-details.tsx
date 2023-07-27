@@ -28,6 +28,7 @@ function ContractCallDetailsSuspense() {
       px="base-loose"
       py="extra-loose"
       spacing="loose"
+      width="100%"
     >
       <Title as="h2" fontWeight="500">
         Function and arguments
