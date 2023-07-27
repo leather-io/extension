@@ -70,14 +70,6 @@ export function AppRoutes() {
   return <RouterProvider router={routes} />;
 }
 
-export const settingsModalRoutes = (
-  <Route>
-    <Route path={RouteUrls.SignOutConfirm} element={<SignOutConfirmDrawer />} />
-    <Route path={RouteUrls.ChangeTheme} element={<ThemesDrawer />} />
-    <Route path={RouteUrls.SelectNetwork} element={<SelectNetwork />} />
-  </Route>
-);
-
 function useAppRoutes() {
   const userHasNotConsentedToDiagnostics = useHasUserRespondedToAnalyticsConsent();
 
@@ -90,6 +82,14 @@ function useAppRoutes() {
         </Route>
       )
     );
+
+  const settingsModalRoutes = (
+    <Route>
+      <Route path={RouteUrls.SignOutConfirm} element={<SignOutConfirmDrawer />} />
+      <Route path={RouteUrls.ChangeTheme} element={<ThemesDrawer />} />
+      <Route path={RouteUrls.SelectNetwork} element={<SelectNetwork />} />
+    </Route>
+  );
 
   const legacyRequestRoutes = (
     <>

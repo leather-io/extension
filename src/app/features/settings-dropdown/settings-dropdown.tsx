@@ -96,7 +96,6 @@ export function SettingsDropdown() {
               onClick={wrappedCloseCallback(() => {
                 void analytics.track('click_change_theme_menu_item');
                 navigate(RouteUrls.ChangeTheme, {
-                  relative: 'path',
                   state: { backgroundLocation: location },
                 });
               })}
@@ -151,7 +150,6 @@ export function SettingsDropdown() {
               onClick={wrappedCloseCallback(() => {
                 void analytics.track('click_change_network_menu_item');
                 navigate(RouteUrls.SelectNetwork, {
-                  relative: 'path',
                   state: { backgroundLocation: location },
                 });
               })}
@@ -185,7 +183,6 @@ export function SettingsDropdown() {
               color={color('feedback-error')}
               onClick={wrappedCloseCallback(() =>
                 navigate(RouteUrls.SignOutConfirm, {
-                  relative: 'path',
                   state: { backgroundLocation: location },
                 })
               )}

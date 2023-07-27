@@ -38,7 +38,8 @@ export function ReceiveModal() {
     <BaseDrawer
       title="Select asset to receive"
       isShowing
-      onClose={() => navigate(backgroundLocation?.pathname)}
+      // if open in new tab - backgroundLocation?.pathname can be lost
+      onClose={() => navigate(backgroundLocation?.pathname || '..')}
     >
       <Box mx="extra-loose">
         <Caption style={{ fontSize: '14px' }}>Tokens</Caption>

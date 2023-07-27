@@ -4,6 +4,7 @@ import { WalletDefaultNetworkConfigurationIds } from '@shared/constants';
 import { RouteUrls } from '@shared/route-urls';
 
 import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
+import { useLocationState } from '@app/common/hooks/use-location-state';
 import { BaseDrawer } from '@app/components/drawer/base-drawer';
 import { NetworkListLayout } from '@app/pages/select-network/components/network-list.layout';
 import { NetworkListItem } from '@app/pages/select-network/network-list-item';
@@ -20,6 +21,7 @@ export function SelectNetwork() {
   const analytics = useAnalytics();
   const networksActions = useNetworksActions();
   const currentNetwork = useCurrentNetworkState();
+  const backgroundLocation = useLocationState('backgroundLocation');
 
   function addNetwork() {
     void analytics.track('add_network');
@@ -38,7 +40,7 @@ export function SelectNetwork() {
   }
 
   function closeNetworkModal() {
-    navigate('..');
+    navigate(backgroundLocation || '..');
   }
 
   return (
