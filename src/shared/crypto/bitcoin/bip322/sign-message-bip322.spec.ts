@@ -36,8 +36,9 @@ describe(signBip322MessageSimple.name, () => {
     const nativeSegwitAddress = btc.getAddress('wpkh', testVectorKey);
     const payment = btc.p2wpkh(secp.getPublicKey(testVectorKey, true));
 
-    function signPsbt(psbt: bitcoin.Psbt) {
+    async function signPsbt(psbt: bitcoin.Psbt) {
       psbt.signAllInputs(createNativeSegwitBitcoinJsSigner(Buffer.from(testVectorKey)));
+      return btc.Transaction.fromPSBT(psbt.toBuffer());
     }
 
     if (!nativeSegwitAddress) throw new Error('nativeSegwitAddress is undefined');
@@ -47,16 +48,16 @@ describe(signBip322MessageSimple.name, () => {
       expect(payment.address).toEqual('bc1q9vza2e8x573nczrlzms0wvx3gsqjx7vavgkx0l');
     });
 
-    test('Signature: "" (empty string)', () => {
+    test('Signature: "" (empty string)', async () => {
       const {
         virtualToSpend: emptyStringToSpend,
         virtualToSign: emptyStringToSign,
         signature: emptyStringSig,
-      } = signBip322MessageSimple({
+      } = await signBip322MessageSimple({
         address: nativeSegwitAddress,
         message: '',
-        signPsbt,
         network: 'mainnet',
+        signPsbt,
       });
       expect(emptyStringToSpend.getId()).toEqual(
         'c5680aa69bb8d860bf82d4e9cd3504b55dde018de765a91bb566283c545a99a7'
@@ -74,13 +75,14 @@ describe(signBip322MessageSimple.name, () => {
     });
 
     const helloWorld = 'Hello World';
-    test(`Signature: "${helloWorld}"`, () => {
-      const { virtualToSpend, virtualToSign, unencodedSig, signature } = signBip322MessageSimple({
-        address: nativeSegwitAddress,
-        message: helloWorld,
-        signPsbt,
-        network: 'mainnet',
-      });
+    test(`Signature: "${helloWorld}"`, async () => {
+      const { virtualToSpend, virtualToSign, unencodedSig, signature } =
+        await signBip322MessageSimple({
+          address: nativeSegwitAddress,
+          message: helloWorld,
+          network: 'mainnet',
+          signPsbt,
+        });
 
       // section 3
       expect(virtualToSpend.getId()).toEqual(
@@ -120,11 +122,12 @@ describe(signBip322MessageSimple.name, () => {
       ecdsaPublicKeyToSchnorr(secp.getPublicKey(Buffer.from(testVectorKey), true))
     );
 
-    function signPsbt(psbt: bitcoin.Psbt) {
+    async function signPsbt(psbt: bitcoin.Psbt) {
       psbt.data.inputs.forEach(
         input => (input.tapInternalKey = Buffer.from(payment.tapInternalKey))
       );
       psbt.signAllInputs(createTaprootBitcoinJsSigner(Buffer.from(testVectorKey)));
+      return btc.Transaction.fromPSBT(psbt.toBuffer());
     }
 
     test('Addresses against taproot test vectors', () => {
@@ -137,8 +140,8 @@ describe(signBip322MessageSimple.name, () => {
     });
 
     // Taproot signatures verified with verifymessage request to node
-    test('Signature: "" (empty string)', () => {
-      const { signature } = signBip322MessageSimple({
+    test('Signature: "" (empty string)', async () => {
+      const { signature } = await signBip322MessageSimple({
         address: taprootAddress,
         message: '',
         network: 'mainnet',
@@ -150,8 +153,8 @@ describe(signBip322MessageSimple.name, () => {
       );
     });
 
-    test('Signature: "HiroWalletIsTheBest"', () => {
-      const { signature } = signBip322MessageSimple({
+    test('Signature: "HiroWalletIsTheBest"', async () => {
+      const { signature } = await signBip322MessageSimple({
         address: taprootAddress,
         message: 'HiroWalletIsTheBest',
         network: 'mainnet',

@@ -3,7 +3,6 @@ import { Suspense, lazy, useMemo } from 'react';
 import { Box, HStack, Stack, styled } from 'leather-styles/jsx';
 
 import { SupportedBlockchains } from '@shared/constants';
-import { LEDGER_BITCOIN_ENABLED } from '@shared/environment';
 
 import { ExternalLink } from '@app/components/external-link';
 import { Divider } from '@app/components/layout/divider';
@@ -39,9 +38,6 @@ export function ConnectLedger(props: ConnectLedgerProps) {
   } = props;
 
   const showBitcoinConnectButton = useMemo(() => {
-    if (!LEDGER_BITCOIN_ENABLED) {
-      return false;
-    }
     return chain === 'bitcoin' || !!connectBitcoin;
   }, [chain, connectBitcoin]);
 
@@ -49,14 +45,16 @@ export function ConnectLedger(props: ConnectLedgerProps) {
     return chain === 'stacks' || !!connectStacks;
   }, [chain, connectStacks]);
 
-  const instructions = useMemo(
-    () => [
+  const instructions = useMemo(() => {
+    const showBothBtns = showBitcoinConnectButton && showStacksConnectButton;
+    return [
       '1. Connect & unlock your Ledger',
-      `2. Open${showBitcoinConnectButton ? ' Bitcoin or' : ''} Stacks app`,
+      `2. Open${showBitcoinConnectButton ? ' Bitcoin' : ''} ${showBothBtns ? 'or' : ''} ${
+        showStacksConnectButton ? 'Stacks' : ''
+      } app`,
       '3. Click the button below',
-    ],
-    [showBitcoinConnectButton]
-  );
+    ];
+  }, [showBitcoinConnectButton, showStacksConnectButton]);
 
   return (
     <LedgerWrapper>

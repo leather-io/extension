@@ -25,7 +25,6 @@ const feeInputLabel = 'sats/vB';
 interface IncreaseBtcFeeFormProps {
   btcTx: BitcoinTx;
 }
-
 export function IncreaseBtcFeeForm({ btcTx }: IncreaseBtcFeeFormProps) {
   const nativeSegwitSigner = useCurrentAccountNativeSegwitIndexZeroSigner();
   const navigate = useNavigate();
@@ -39,6 +38,7 @@ export function IncreaseBtcFeeForm({ btcTx }: IncreaseBtcFeeFormProps) {
   if (isBroadcasting) {
     return <LoadingSpinner />;
   }
+
   const initialFeeRate = `${(btcTx.fee / sizeInfo.txVBytes).toFixed(0)}`;
   return (
     <Formik
@@ -65,12 +65,7 @@ export function IncreaseBtcFeeForm({ btcTx }: IncreaseBtcFeeFormProps) {
 
           {btcAvailableAssetBalance && <Caption>Balance: {balance}</Caption>}
         </Stack>
-        <IncreaseFeeActions
-          isDisabled={false}
-          onCancel={() => {
-            navigate(RouteUrls.Home);
-          }}
-        />
+        <IncreaseFeeActions isDisabled={false} onCancel={() => navigate(RouteUrls.Home)} />
       </Stack>
     </Formik>
   );

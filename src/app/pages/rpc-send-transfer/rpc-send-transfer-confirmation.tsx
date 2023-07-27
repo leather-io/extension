@@ -113,7 +113,6 @@ export function RpcSendTransferConfirmation() {
       },
       onError(e) {
         logger.error('Error broadcasting tx', e);
-        // TODO: Error page
       },
     });
   }

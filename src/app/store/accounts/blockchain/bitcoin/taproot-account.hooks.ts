@@ -2,14 +2,19 @@ import { useMemo } from 'react';
 import { useSelector } from 'react-redux';
 
 import { createSelector } from '@reduxjs/toolkit';
+import { Psbt } from 'bitcoinjs-lib';
 
 import { BitcoinNetworkModes } from '@shared/constants';
-import { lookUpLedgerKeysByPath } from '@shared/crypto/bitcoin/bitcoin.utils';
+import {
+  ecdsaPublicKeyToSchnorr,
+  lookUpLedgerKeysByPath,
+} from '@shared/crypto/bitcoin/bitcoin.utils';
 import {
   deriveTaprootAccount,
   getTaprootAccountDerivationPath,
   getTaprootPaymentFromAddressIndex,
 } from '@shared/crypto/bitcoin/p2tr-address-gen';
+import { makeNumberRange } from '@shared/utils';
 
 import { selectCurrentNetwork, useCurrentNetwork } from '@app/store/networks/networks.selectors';
 import { selectCurrentAccountIndex } from '@app/store/software-keys/software-key.selectors';
@@ -91,4 +96,26 @@ export function useCurrentAccountTaprootSigner() {
   const currentAccountIndex = useCurrentAccountIndex();
   const network = useCurrentNetwork();
   return useTaprootSigner(currentAccountIndex, network.chain.bitcoin.bitcoinNetwork);
+}
+
+export function useUpdateLedgerSpecificTaprootInputPropsForAdddressIndexZero() {
+  const taprootSigner = useCurrentAccountTaprootIndexZeroSigner();
+
+  return async (tx: Psbt, fingerprint: string, inputsToUpdate: number[] = []) => {
+    const inputsToSign =
+      inputsToUpdate.length > 0 ? inputsToUpdate : makeNumberRange(tx.inputCount);
+
+    inputsToSign.forEach(inputIndex => {
+      tx.updateInput(inputIndex, {
+        tapBip32Derivation: [
+          {
+            masterFingerprint: Buffer.from(fingerprint, 'hex'),
+            pubkey: Buffer.from(ecdsaPublicKeyToSchnorr(taprootSigner.publicKey)),
+            path: taprootSigner.derivationPath,
+            leafHashes: [],
+          },
+        ],
+      });
+    });
+  };
 }

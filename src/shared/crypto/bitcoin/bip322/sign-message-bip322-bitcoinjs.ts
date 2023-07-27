@@ -1,4 +1,5 @@
 import { base64 } from '@scure/base';
+import * as btc from '@scure/btc-signer';
 import * as bitcoin from 'bitcoinjs-lib';
 
 import { BitcoinNetworkModes } from '@shared/constants';
@@ -44,7 +45,7 @@ function createToSignTx(toSpendTxHex: Buffer, script: Buffer, network: BitcoinNe
   virtualToSign.setVersion(0);
   const prevTxHash = toSpendTxHex;
   const prevOutIndex = 0;
-  const toSignScriptSig = bitcoin.script.compile([106]);
+  const toSignScriptSig = bitcoin.script.compile([bitcoin.script.OPS.OP_RETURN]);
 
   virtualToSign.addInput({
     hash: prevTxHash,
@@ -61,23 +62,25 @@ interface SignBip322MessageSimple {
   address: string;
   message: string;
   network: BitcoinNetworkModes;
-  signPsbt(psbt: bitcoin.Psbt): void;
+  signPsbt(psbt: bitcoin.Psbt): Promise<btc.Transaction>;
 }
-export function signBip322MessageSimple(args: SignBip322MessageSimple) {
+export async function signBip322MessageSimple(args: SignBip322MessageSimple) {
   const { address, message, network, signPsbt } = args;
 
   const { virtualToSpend, script } = createToSpendTx(address, message, network);
 
   const virtualToSign = createToSignTx(virtualToSpend.getHash(), script, network);
 
-  signPsbt(virtualToSign);
+  const signedTx = await signPsbt(virtualToSign);
 
-  virtualToSign.finalizeInput(0);
+  const asBitcoinJsTransaction = bitcoin.Psbt.fromBuffer(Buffer.from(signedTx.toPSBT()));
+
+  asBitcoinJsTransaction.finalizeInput(0);
 
   // sign the tx
   // section 5.1
   // github.com/LegReq/bip0322-signatures/blob/master/BIP0322_signing.ipynb
-  const toSignTx = virtualToSign.extractTransaction();
+  const toSignTx = asBitcoinJsTransaction.extractTransaction();
 
   const result = encodeMessageWitnessData(toSignTx.ins[0].witness);
 

@@ -12,7 +12,7 @@ import { RouteUrls } from '@shared/route-urls';
 
 import { useRouteHeader } from '@app/common/hooks/use-route-header';
 import { formFeeRowValue } from '@app/common/send/utils';
-import { useGenerateSignedNativeSegwitTx } from '@app/common/transactions/bitcoin/use-generate-bitcoin-tx';
+import { useGenerateUnsignedNativeSegwitSingleRecipientTx } from '@app/common/transactions/bitcoin/use-generate-bitcoin-tx';
 import {
   BitcoinFeesList,
   OnChooseFeeArgs,
@@ -40,7 +40,7 @@ function useBrc20ChooseFeeState() {
 export function BrcChooseFee() {
   const navigate = useNavigate();
   const { amount, recipient, tick, utxos } = useBrc20ChooseFeeState();
-  const generateTx = useGenerateSignedNativeSegwitTx();
+  const generateTx = useGenerateUnsignedNativeSegwitSingleRecipientTx();
   const { selectedFeeType, setSelectedFeeType } = useSendBitcoinAssetContextState();
   const { initiateTransfer } = useBrc20Transfers();
   const { feesList, isLoading } = useBitcoinFeesList({
@@ -70,7 +70,7 @@ export function BrcChooseFee() {
 
       const serviceFeeAsMoney = createMoney(serviceFee, 'BTC');
 
-      const resp = generateTx(
+      const resp = await generateTx(
         {
           amount: serviceFeeAsMoney,
           recipient: serviceFeeRecipient,

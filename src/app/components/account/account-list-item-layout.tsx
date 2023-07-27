@@ -8,7 +8,7 @@ import { truncateMiddle } from '@app/ui/utils/truncate-middle';
 
 import { CaptionDotSeparator } from '../caption-dot-separator';
 import { Flag } from '../layout/flag';
-import { StacksAccountLoader } from '../stacks-account-loader';
+import { StacksAccountLoader } from '../loaders/stacks-account-loader';
 import { BitcoinNativeSegwitAccountLoader } from './bitcoin-account-loader';
 
 interface AccountListItemLayoutProps extends StackProps {

@@ -1,17 +1,16 @@
 import { useLocation, useNavigate } from 'react-router-dom';
 
-import get from 'lodash.get';
-
 import { BitcoinTx } from '@shared/models/transactions/bitcoin-transaction.model';
 import { RouteUrls } from '@shared/route-urls';
+
+import { useLocationStateWithCache } from '@app/common/hooks/use-location-state';
 
 import { IncreaseBtcFeeForm } from './components/increase-btc-fee-form';
 import { IncreaseFeeDrawer } from './increase-fee-drawer';
 
 function useIncreaseBtcFeeDrawerState() {
-  const location = useLocation();
   return {
-    tx: get(location.state, 'btcTx') as BitcoinTx,
+    tx: useLocationStateWithCache('btcTx') as BitcoinTx,
   };
 }
 
@@ -24,13 +23,13 @@ export function IncreaseBtcFeeDrawer() {
     navigate(RouteUrls.Home);
   };
 
+  if (!tx) return null;
+
   return (
-    tx && (
-      <IncreaseFeeDrawer
-        feeForm={<IncreaseBtcFeeForm btcTx={tx} />}
-        onClose={onClose}
-        isShowing={location.pathname === RouteUrls.IncreaseBtcFee}
-      />
-    )
+    <IncreaseFeeDrawer
+      feeForm={<IncreaseBtcFeeForm btcTx={tx} />}
+      onClose={onClose}
+      isShowing={location.pathname === RouteUrls.IncreaseBtcFee}
+    />
   );
 }

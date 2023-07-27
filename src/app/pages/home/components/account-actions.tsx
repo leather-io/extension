@@ -7,6 +7,7 @@ import { RouteUrls } from '@shared/route-urls';
 
 import { useWalletType } from '@app/common/use-wallet-type';
 import { useConfigBitcoinEnabled } from '@app/query/common/remote-config/remote-config.query';
+import { useCurrentStacksAccount } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
 import { ArrowDownIcon } from '@app/ui/components/icons/arrow-down-icon';
 import { PlusIcon } from '@app/ui/components/icons/plus-icon';
 import { SwapIcon } from '@app/ui/components/icons/swap-icon';
@@ -19,6 +20,7 @@ export function AccountActions(props: FlexProps) {
   const location = useLocation();
   const isBitcoinEnabled = useConfigBitcoinEnabled();
   const { whenWallet } = useWalletType();
+  const stacksAccount = useCurrentStacksAccount();
 
   const receivePath = isBitcoinEnabled
     ? RouteUrls.Receive
@@ -33,12 +35,16 @@ export function AccountActions(props: FlexProps) {
         label="Receive"
         onClick={() => navigate(receivePath, { state: { backgroundLocation: location } })}
       />
-      <ActionButton
-        data-testid={HomePageSelectors.FundAccountBtn}
-        icon={<PlusIcon />}
-        label="Buy"
-        onClick={() => navigate(RouteUrls.Fund)}
-      />
+
+      {!!stacksAccount && (
+        <ActionButton
+          data-testid={HomePageSelectors.FundAccountBtn}
+          icon={<PlusIcon />}
+          label="Buy"
+          onClick={() => navigate(RouteUrls.Fund)}
+        />
+      )}
+
       {whenWallet({
         software: (
           <ActionButton icon={<SwapIcon />} label="Swap" onClick={() => navigate(RouteUrls.Swap)} />

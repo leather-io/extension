@@ -131,7 +131,7 @@ document.addEventListener(DomEventName.psbtRequest, ((event: PsbtRequestEvent) =
 function addLeatherToPage() {
   const inpage = document.createElement('script');
   inpage.src = chrome.runtime.getURL('inpage.js');
-  inpage.id = 'hiro-wallet-provider';
+  inpage.id = 'leather-provider';
   document.body.appendChild(inpage);
 }
 

@@ -16,8 +16,8 @@ import { BaseDrawer } from '@app/components/drawer/base-drawer';
 import {
   getStacksAppVersion,
   prepareLedgerDeviceStacksAppConnection,
-  signLedgerStructuredMessage,
-  signLedgerUtf8Message,
+  signLedgerStacksStructuredMessage,
+  signLedgerStacksUtf8Message,
   useActionCancellableByUser,
 } from '@app/features/ledger/utils/stacks-ledger-utils';
 import { useCurrentStacksAccount } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
@@ -94,10 +94,10 @@ function LedgerSignStacksMsg({ account, unsignedMessage }: LedgerSignMsgProps) {
 
       const resp = await whenSignableMessageOfType(unsignedMessage)({
         async utf8(msg) {
-          return signLedgerUtf8Message(stacksApp)(msg, account.index);
+          return signLedgerStacksUtf8Message(stacksApp)(msg, account.index);
         },
         async structured(domain, msg) {
-          return signLedgerStructuredMessage(stacksApp)(
+          return signLedgerStacksStructuredMessage(stacksApp)(
             bytesToHex(serializeCV(domain)),
             bytesToHex(serializeCV(msg)),
             account.index

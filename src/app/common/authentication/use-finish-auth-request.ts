@@ -1,6 +1,5 @@
 import { useCallback } from 'react';
 
-import { bytesToHex } from '@stacks/common';
 import {
   createWalletGaiaConfig,
   getOrCreateWalletConfig,
@@ -16,12 +15,12 @@ import { useAuthRequestParams } from '@app/common/hooks/auth/use-auth-request-pa
 import { useOnboardingState } from '@app/common/hooks/auth/use-onboarding-state';
 import { useKeyActions } from '@app/common/hooks/use-key-actions';
 import { useWalletType } from '@app/common/use-wallet-type';
-import { useNativeSegwitNetworkSigners } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
-import { useTaprootNetworkSigners } from '@app/store/accounts/blockchain/bitcoin/taproot-account.hooks';
 import {
   useLegacyStacksWallet,
   useStacksAccounts,
 } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
+
+import { useGetLegacyAuthBitcoinAddresses } from './use-legacy-auth-bitcoin-addresses';
 
 export function useFinishAuthRequest() {
   const { decodedAuthRequest, authRequest, appIcon, appName } = useOnboardingState();
@@ -36,8 +35,7 @@ export function useFinishAuthRequest() {
   // TODO: It would be good to separate out finishing auth by the wallet vs an app
   // so that the additional data we provide apps can be removed from our onboarding.
   // Currently, these create errors unless early returns are used in the keychain code.
-  const deriveAllNativeSegWitNetworkSigners = useNativeSegwitNetworkSigners();
-  const deriveAllTaprootNetworkSigners = useTaprootNetworkSigners();
+  const getLegacyAuthBitcoinData = useGetLegacyAuthBitcoinAddresses();
 
   return useCallback(
     async (accountIndex: number) => {
@@ -75,9 +73,6 @@ export function useFinishAuthRequest() {
           },
         });
 
-        const taprootAccount = deriveAllTaprootNetworkSigners(accountIndex);
-        const nativeSegwitAccount = deriveAllNativeSegWitNetworkSigners(accountIndex);
-
         const authResponse = await makeAuthResponse({
           gaiaHubUrl: gaiaUrl,
           appDomain: appURL.origin,
@@ -85,25 +80,8 @@ export function useFinishAuthRequest() {
           scopes: decodedAuthRequest.scopes,
           account: account,
           additionalData: {
-            btcAddress: {
-              p2tr: {
-                mainnet: taprootAccount.mainnet.payment.address,
-                testnet: taprootAccount.testnet.payment.address,
-                regtest: taprootAccount.regtest.payment.address,
-                signet: taprootAccount.signet.payment.address,
-              },
-              p2wpkh: {
-                mainnet: nativeSegwitAccount.mainnet.payment.address,
-                testnet: nativeSegwitAccount.testnet.payment.address,
-                regtest: nativeSegwitAccount.regtest.payment.address,
-                signet: nativeSegwitAccount.signet.payment.address,
-              },
-            },
-            btcPublicKey: {
-              p2tr: bytesToHex(taprootAccount.mainnet.keychain.publicKey!),
-              p2wpkh: bytesToHex(nativeSegwitAccount.mainnet.keychain.publicKey!),
-            },
-            walletProvider: 'hiro-wallet',
+            ...getLegacyAuthBitcoinData(accountIndex),
+            walletProvider: 'leather',
           },
         });
         keyActions.switchAccount(accountIndex);
@@ -127,8 +105,7 @@ export function useFinishAuthRequest() {
       wallet,
       appIcon,
       appName,
-      deriveAllTaprootNetworkSigners,
-      deriveAllNativeSegWitNetworkSigners,
+      getLegacyAuthBitcoinData,
       keyActions,
     ]
   );

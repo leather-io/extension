@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { delay } from '@app/common/utils';
 import { safeAwait } from '@app/common/utils/safe-await';
 
-import { LedgerTxSigningContext } from '../flows/stacks-tx-signing/ledger-sign-tx.context';
+import { LedgerTxSigningContext } from '../generic-flows/tx-signing/ledger-sign-tx.context';
 import { getStacksAppVersion } from './stacks-ledger-utils';
 
 export interface BaseLedgerOperationContext {

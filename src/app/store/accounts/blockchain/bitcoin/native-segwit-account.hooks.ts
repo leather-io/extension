@@ -2,6 +2,7 @@ import { useMemo } from 'react';
 import { useSelector } from 'react-redux';
 
 import { createSelector } from '@reduxjs/toolkit';
+import { Psbt } from 'bitcoinjs-lib';
 
 import {
   deriveAddressIndexZeroFromAccount,
@@ -12,8 +13,10 @@ import {
   getNativeSegWitPaymentFromAddressIndex,
   getNativeSegwitAccountDerivationPath,
 } from '@shared/crypto/bitcoin/p2wpkh-address-gen';
+import { makeNumberRange, reverseBytes } from '@shared/utils';
 
 import { mnemonicToRootNode } from '@app/common/keychain/keychain';
+import { useBitcoinClient } from '@app/store/common/api-clients.hooks';
 import { selectCurrentNetwork } from '@app/store/networks/networks.selectors';
 import { selectCurrentAccountIndex } from '@app/store/software-keys/software-key.selectors';
 
@@ -117,5 +120,49 @@ export function getNativeSegwitMainnetAddressFromMnemonic(secretKey: string) {
       deriveAddressIndexZeroFromAccount(account.keychain),
       'mainnet'
     );
+  };
+}
+
+export function useUpdateLedgerSpecificNativeSegwitUtxoHexForAdddressIndexZero() {
+  const bitcoinClient = useBitcoinClient();
+
+  return async (tx: Psbt, inputsToUpdate: number[] = []) => {
+    const inputsTxHex = await Promise.all(
+      tx.txInputs.map(input =>
+        bitcoinClient.transactionsApi.getBitcoinTransactionHex(
+          // txids are encoded onchain in reverse byte order
+          reverseBytes(input.hash).toString('hex')
+        )
+      )
+    );
+
+    const inputsToSign =
+      inputsToUpdate.length > 0 ? inputsToUpdate : makeNumberRange(tx.inputCount);
+
+    inputsToSign.forEach(inputIndex => {
+      tx.updateInput(inputIndex, {
+        nonWitnessUtxo: Buffer.from(inputsTxHex[inputIndex], 'hex'),
+      });
+    });
+  };
+}
+export function useUpdateLedgerSpecificNativeSegwitBip32DerivationForAdddressIndexZero() {
+  const nativeSegwitSigner = useCurrentAccountNativeSegwitIndexZeroSigner();
+
+  return async (tx: Psbt, fingerprint: string, inputsToUpdate: number[] = []) => {
+    const inputsToSign =
+      inputsToUpdate.length > 0 ? inputsToUpdate : makeNumberRange(tx.inputCount);
+
+    inputsToSign.forEach(inputIndex => {
+      tx.updateInput(inputIndex, {
+        bip32Derivation: [
+          {
+            masterFingerprint: Buffer.from(fingerprint, 'hex'),
+            pubkey: Buffer.from(nativeSegwitSigner.publicKey),
+            path: nativeSegwitSigner.derivationPath,
+          },
+        ],
+      });
+    });
   };
 }

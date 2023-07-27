@@ -43,19 +43,19 @@ interface MakeTxExplorerLinkArgs {
   blockchain: Blockchains;
   mode: BitcoinNetworkModes;
   suffix?: string;
-  txId: string;
+  txid: string;
 }
 export function makeTxExplorerLink({
   blockchain,
   mode,
   suffix = '',
-  txId,
+  txid,
 }: MakeTxExplorerLinkArgs) {
   switch (blockchain) {
     case 'bitcoin':
-      return `https://mempool.space/${mode !== 'mainnet' ? mode + '/' : ''}tx/${txId}`;
+      return `https://mempool.space/${mode !== 'mainnet' ? mode + '/' : ''}tx/${txid}`;
     case 'stacks':
-      return `https://explorer.hiro.so/txid/${txId}?chain=${mode}${suffix}`;
+      return `https://explorer.hiro.so/txid/${txid}?chain=${mode}${suffix}`;
     default:
       return '';
   }

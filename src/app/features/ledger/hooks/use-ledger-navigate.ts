@@ -22,11 +22,19 @@ export function useLedgerNavigate() {
         });
       },
 
-      toConnectAndSignTransactionStep(transaction: StacksTransaction) {
+      toConnectAndSignStacksTransactionStep(transaction: StacksTransaction) {
         return navigate(RouteUrls.ConnectLedger, {
           replace: true,
           relative: 'path',
           state: { tx: bytesToHex(transaction.serialize()) },
+        });
+      },
+
+      toConnectAndSignBitcoinTransactionStep(psbt: Uint8Array, inputsToSign?: number[]) {
+        return navigate(RouteUrls.ConnectLedger, {
+          replace: true,
+          relative: 'route',
+          state: { tx: bytesToHex(psbt), inputsToSign },
         });
       },
 

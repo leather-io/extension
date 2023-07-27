@@ -207,7 +207,7 @@ export function useSignStacksTransaction() {
   return (tx: StacksTransaction) =>
     whenWallet({
       async ledger(tx: StacksTransaction) {
-        ledgerNavigate.toConnectAndSignTransactionStep(tx);
+        ledgerNavigate.toConnectAndSignStacksTransactionStep(tx);
         return listenForStacksTxLedgerSigning(bytesToHex(tx.serialize()));
       },
       async software(tx: StacksTransaction) {

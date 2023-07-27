@@ -50,7 +50,7 @@ export function BitcoinContractList() {
               key={bitcoinContract.id}
               id={truncateMiddle(bitcoinContract.id)}
               collateralAmount={bitcoinContract.acceptorCollateral}
-              txId={bitcoinContract.txId}
+              txid={bitcoinContract.txId}
               state={bitcoinContract.state}
             />
           );

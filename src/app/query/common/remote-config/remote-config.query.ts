@@ -3,13 +3,7 @@ import axios from 'axios';
 import get from 'lodash.get';
 
 import { GITHUB_ORG, GITHUB_REPO } from '@shared/constants';
-import {
-  BRANCH_NAME,
-  IS_DEV_ENV,
-  IS_TEST_ENV,
-  LEDGER_BITCOIN_ENABLED,
-  WALLET_ENVIRONMENT,
-} from '@shared/environment';
+import { BRANCH_NAME, IS_DEV_ENV, IS_TEST_ENV, WALLET_ENVIRONMENT } from '@shared/environment';
 import { createMoney } from '@shared/models/money.model';
 import { isUndefined } from '@shared/utils';
 
@@ -119,7 +113,7 @@ export function useConfigBitcoinEnabled() {
   const config = useRemoteConfig();
   const hasBitcoinAccount = useHasCurrentBitcoinAccount();
   return whenWallet({
-    ledger: (config?.bitcoinEnabled ?? true) && LEDGER_BITCOIN_ENABLED && hasBitcoinAccount,
+    ledger: (config?.bitcoinEnabled ?? true) && hasBitcoinAccount,
     software: config?.bitcoinEnabled ?? true,
   });
 }

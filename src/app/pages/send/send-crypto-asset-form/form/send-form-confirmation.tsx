@@ -29,7 +29,6 @@ interface SendFormConfirmationProps {
   feeWarningTooltip?: React.ReactNode;
   onBroadcastTransaction: () => void;
 }
-
 export function SendFormConfirmation({
   txValue,
   txFiatValue,

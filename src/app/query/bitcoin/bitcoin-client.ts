@@ -18,10 +18,6 @@ export interface UtxoResponseItem {
   value: number;
 }
 
-export interface NativeSegwitUtxo extends UtxoResponseItem {
-  addressIndex: number;
-}
-
 export interface TaprootUtxo extends UtxoResponseItem {
   addressIndex: number;
 }
@@ -115,6 +111,13 @@ class TransactionsApi {
 
   async getBitcoinTransaction(txid: string) {
     const resp = await axios.get(`${this.configuration.baseUrl}/tx/${txid}`);
+    return resp.data;
+  }
+
+  async getBitcoinTransactionHex(txid: string) {
+    const resp = await axios.get(`${this.configuration.baseUrl}/tx/${txid}/hex`, {
+      responseType: 'text',
+    });
     return resp.data;
   }
 
