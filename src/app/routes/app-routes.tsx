@@ -1,14 +1,9 @@
 import { Suspense } from 'react';
-import {
-  Navigate,
-  Route,
-  RouterProvider,
-  createHashRouter,
-  createRoutesFromElements,
-} from 'react-router-dom';
+import { Navigate, Outlet, Route, Routes, useLocation } from 'react-router-dom';
 
 import { RouteUrls } from '@shared/route-urls';
 
+// import { useLocationState } from '@app/common/hooks/use-location-state';
 import { BroadcastErrorDrawer } from '@app/components/broadcast-error-drawer/broadcast-error-drawer';
 import { LoadingSpinner } from '@app/components/loading-spinner';
 import { ActivityList } from '@app/features/activity-list/activity-list';
@@ -66,8 +61,174 @@ import { useHasUserRespondedToAnalyticsConsent } from '@app/store/settings/setti
 import { OnboardingGate } from './onboarding-gate';
 
 export function AppRoutes() {
-  const routes = useAppRoutes();
-  return <RouterProvider router={routes} />;
+  // const location = useLocation();
+  // const backgroundLocation = useLocationState('backgroundLocation');
+  const userHasNotConsentedToDiagnostics = useHasUserRespondedToAnalyticsConsent();
+  // console.info(backgroundLocation, location);
+  if (!userHasNotConsentedToDiagnostics)
+    return (
+      <>
+        <Route>
+          <Route path={RouteUrls.RequestDiagnostics} element={<AllowDiagnosticsPage />} />
+          <Route path="*" element={<Navigate replace to={RouteUrls.RequestDiagnostics} />} />
+        </Route>
+      </>
+    );
+
+  return (
+    <>
+      {/* <Routes location={backgroundLocation || location}> */}
+      <Routes>
+        <Route path={RouteUrls.Container} element={<Container />}>
+          <Route path={RouteUrls.RequestDiagnostics} element={<AllowDiagnosticsPage />} />
+
+          <Route
+            path={RouteUrls.Home}
+            element={
+              <AccountGate>
+                <Home />
+              </AccountGate>
+            }
+          >
+            <Route index element={<AssetsList />} />
+            <Route path={RouteUrls.Activity} element={<ActivityList />} />
+
+            {requestBitcoinKeysRoutes}
+            {requestStacksKeysRoutes}
+            <Route
+              path={RouteUrls.RetriveTaprootFunds}
+              element={<RetrieveTaprootToNativeSegwit />}
+            />
+
+            <Route path={RouteUrls.IncreaseStxFee} element={<IncreaseStxFeeDrawer />}>
+              {ledgerStacksTxSigningRoutes}
+            </Route>
+            <Route path={RouteUrls.IncreaseBtcFee} element={<IncreaseBtcFeeDrawer />} />
+            <Route path={RouteUrls.IncreaseFeeSent} element={<IncreaseFeeSentDrawer />} />
+            <Route path={RouteUrls.ReceiveCollectible} element={<ReceiveCollectibleModal />} />
+
+            {homeModalRoutes}
+            {sendOrdinalRoutes}
+
+            {ledgerStacksTxSigningRoutes}
+          </Route>
+          <Route
+            path={RouteUrls.RpcReceiveBitcoinContractOffer}
+            element={
+              <AccountGate>
+                <Suspense fallback={<LoadingSpinner height="600px" />}>
+                  <BitcoinContractRequest />
+                </Suspense>
+              </AccountGate>
+            }
+          ></Route>
+          <Route path={RouteUrls.BitcoinContractLockSuccess} element={<LockBitcoinSummary />} />
+          <Route path={RouteUrls.BitcoinContractLockError} element={<BroadcastError />} />
+          <Route
+            path={RouteUrls.Onboarding}
+            element={
+              <OnboardingGate>
+                <WelcomePage />
+              </OnboardingGate>
+            }
+          >
+            {requestBitcoinKeysRoutes}
+            {requestStacksKeysRoutes}
+          </Route>
+          <Route
+            path={RouteUrls.BackUpSecretKey}
+            element={
+              <OnboardingGate>
+                <BackUpSecretKeyPage />
+              </OnboardingGate>
+            }
+          />
+          <Route
+            path={RouteUrls.SetPassword}
+            lazy={async () => {
+              const { SetPasswordRoute } = await import(
+                '@app/pages/onboarding/set-password/set-password'
+              );
+              return { Component: SetPasswordRoute };
+            }}
+          />
+
+          <Route
+            path={RouteUrls.SignIn}
+            element={
+              <OnboardingGate>
+                <SignIn />
+              </OnboardingGate>
+            }
+          />
+          <Route
+            path={RouteUrls.AddNetwork}
+            element={
+              <AccountGate>
+                <AddNetwork />
+              </AccountGate>
+            }
+          />
+          <Route
+            path={RouteUrls.ChooseAccount}
+            element={
+              <AccountGate>
+                <ChooseAccount />
+              </AccountGate>
+            }
+          >
+            {ledgerJwtSigningRoutes}
+          </Route>
+          <Route
+            path={RouteUrls.Fund}
+            element={
+              <AccountGate>
+                <FundPage />
+              </AccountGate>
+            }
+          >
+            <Route path={RouteUrls.FundReceive} element={<ReceiveModal />} />
+            <Route path={RouteUrls.FundReceiveStx} element={<ReceiveStxModal />} />
+            <Route path={RouteUrls.FundReceiveBtc} element={<ReceiveBtcModal />} />
+            {settingsModalRoutes}
+          </Route>
+
+          {sendCryptoAssetFormRoutes}
+
+          <Route
+            path={RouteUrls.ViewSecretKey}
+            element={
+              <AccountGate>
+                <ViewSecretKey />
+              </AccountGate>
+            }
+          >
+            {settingsModalRoutes}
+          </Route>
+          <Route path={RouteUrls.Unlock} element={<Unlock />}>
+            {settingsModalRoutes}
+          </Route>
+
+          {legacyRequestRoutes}
+          {rpcRequestRoutes}
+          <Route path={RouteUrls.UnauthorizedRequest} element={<UnauthorizedRequest />} />
+          <Route
+            path={RouteUrls.RequestError}
+            element={
+              <AccountGate>
+                <RequestError />
+              </AccountGate>
+            }
+          />
+
+          {/* Catch-all route redirects to onboarding */}
+          <Route path="*" element={<Navigate replace to={RouteUrls.Onboarding} />} />
+        </Route>
+      </Routes>
+
+      {/* {backgroundLocation && <Outlet />} */}
+    </>
+  );
 }
 const settingsModalRoutes = (
   <Route>
@@ -101,245 +262,84 @@ export const homeModalRoutes = (
   </Route>
 );
 
-function useAppRoutes() {
-  const userHasNotConsentedToDiagnostics = useHasUserRespondedToAnalyticsConsent();
+const legacyRequestRoutes = (
+  <>
+    <Route
+      path={RouteUrls.TransactionRequest}
+      element={
+        <AccountGate>
+          <Suspense fallback={<LoadingSpinner height="600px" />}>
+            <TransactionRequest />
+          </Suspense>
+        </AccountGate>
+      }
+    >
+      {ledgerStacksTxSigningRoutes}
+      <Route path={RouteUrls.EditNonce} element={<EditNonceDrawer />} />
+      <Route path={RouteUrls.TransactionBroadcastError} element={<BroadcastErrorDrawer />} />
+    </Route>
+    <Route
+      path={RouteUrls.SignatureRequest}
+      element={
+        <AccountGate>
+          <Suspense fallback={<LoadingSpinner height="600px" />}>
+            <StacksMessageSigningRequest />
+          </Suspense>
+        </AccountGate>
+      }
+    >
+      {ledgerStacksMessageSigningRoutes}
+    </Route>
+    <Route
+      path={RouteUrls.ProfileUpdateRequest}
+      element={
+        <AccountGate>
+          <Suspense fallback={<LoadingSpinner height="600px" />}>
+            <ProfileUpdateRequest />
+          </Suspense>
+        </AccountGate>
+      }
+    />
+    <Route
+      path={RouteUrls.PsbtRequest}
+      element={
+        <AccountGate>
+          <Suspense fallback={<LoadingSpinner height="600px" />}>
+            <PsbtRequest />
+          </Suspense>
+        </AccountGate>
+      }
+    />
+  </>
+);
 
-  if (!userHasNotConsentedToDiagnostics)
-    return createHashRouter(
-      createRoutesFromElements(
-        <Route>
-          <Route path={RouteUrls.RequestDiagnostics} element={<AllowDiagnosticsPage />} />
-          <Route path="*" element={<Navigate replace to={RouteUrls.RequestDiagnostics} />} />
-        </Route>
-      )
-    );
-
-  const legacyRequestRoutes = (
-    <>
-      <Route
-        path={RouteUrls.TransactionRequest}
-        element={
-          <AccountGate>
-            <Suspense fallback={<LoadingSpinner height="600px" />}>
-              <TransactionRequest />
-            </Suspense>
-          </AccountGate>
-        }
-      >
-        {ledgerStacksTxSigningRoutes}
-        <Route path={RouteUrls.EditNonce} element={<EditNonceDrawer />} />
-        <Route path={RouteUrls.TransactionBroadcastError} element={<BroadcastErrorDrawer />} />
-      </Route>
-      <Route
-        path={RouteUrls.SignatureRequest}
-        element={
-          <AccountGate>
-            <Suspense fallback={<LoadingSpinner height="600px" />}>
-              <StacksMessageSigningRequest />
-            </Suspense>
-          </AccountGate>
-        }
-      >
-        {ledgerStacksMessageSigningRoutes}
-      </Route>
-      <Route
-        path={RouteUrls.ProfileUpdateRequest}
-        element={
-          <AccountGate>
-            <Suspense fallback={<LoadingSpinner height="600px" />}>
-              <ProfileUpdateRequest />
-            </Suspense>
-          </AccountGate>
-        }
-      />
-      <Route
-        path={RouteUrls.PsbtRequest}
-        element={
-          <AccountGate>
-            <Suspense fallback={<LoadingSpinner height="600px" />}>
-              <PsbtRequest />
-            </Suspense>
-          </AccountGate>
-        }
-      />
-    </>
-  );
-
-  const rpcRequestRoutes = (
-    <>
-      <Route
-        path={RouteUrls.RpcGetAddresses}
-        element={
-          <AccountGate>
-            <RpcGetAddresses />
-          </AccountGate>
-        }
-      />
-      {rpcSendTransferRoutes}
-      <Route
-        path={RouteUrls.RpcSignBip322Message}
-        lazy={async () => {
-          const { RpcSignBip322MessageRoute } = await import(
-            '@app/pages/rpc-sign-bip322-message/rpc-sign-bip322-message'
-          );
-          return { Component: RpcSignBip322MessageRoute };
-        }}
-      />
-      <Route
-        path={RouteUrls.RpcSignPsbt}
-        element={
-          <AccountGate>
-            <RpcSignPsbt />
-          </AccountGate>
-        }
-      />
-    </>
-  );
-
-  return createHashRouter(
-    createRoutesFromElements(
-      <Route path={RouteUrls.Container} element={<Container />}>
-        <Route path={RouteUrls.RequestDiagnostics} element={<AllowDiagnosticsPage />} />
-
-        <Route
-          path={RouteUrls.Home}
-          element={
-            <AccountGate>
-              <Home />
-            </AccountGate>
-          }
-        >
-          <Route index element={<AssetsList />} />
-          <Route path={RouteUrls.Activity} element={<ActivityList />} />
-
-          {requestBitcoinKeysRoutes}
-          {requestStacksKeysRoutes}
-          <Route path={RouteUrls.RetriveTaprootFunds} element={<RetrieveTaprootToNativeSegwit />} />
-
-          <Route path={RouteUrls.IncreaseStxFee} element={<IncreaseStxFeeDrawer />}>
-            {ledgerStacksTxSigningRoutes}
-          </Route>
-          <Route path={RouteUrls.IncreaseBtcFee} element={<IncreaseBtcFeeDrawer />} />
-          <Route path={RouteUrls.IncreaseFeeSent} element={<IncreaseFeeSentDrawer />} />
-          <Route path={RouteUrls.ReceiveCollectible} element={<ReceiveCollectibleModal />} />
-
-          {homeModalRoutes}
-          {sendOrdinalRoutes}
-
-          {ledgerStacksTxSigningRoutes}
-        </Route>
-        <Route
-          path={RouteUrls.RpcReceiveBitcoinContractOffer}
-          element={
-            <AccountGate>
-              <Suspense fallback={<LoadingSpinner height="600px" />}>
-                <BitcoinContractRequest />
-              </Suspense>
-            </AccountGate>
-          }
-        ></Route>
-        <Route path={RouteUrls.BitcoinContractLockSuccess} element={<LockBitcoinSummary />} />
-        <Route path={RouteUrls.BitcoinContractLockError} element={<BroadcastError />} />
-        <Route
-          path={RouteUrls.Onboarding}
-          element={
-            <OnboardingGate>
-              <WelcomePage />
-            </OnboardingGate>
-          }
-        >
-          {requestBitcoinKeysRoutes}
-          {requestStacksKeysRoutes}
-        </Route>
-        <Route
-          path={RouteUrls.BackUpSecretKey}
-          element={
-            <OnboardingGate>
-              <BackUpSecretKeyPage />
-            </OnboardingGate>
-          }
-        />
-        <Route
-          path={RouteUrls.SetPassword}
-          lazy={async () => {
-            const { SetPasswordRoute } = await import(
-              '@app/pages/onboarding/set-password/set-password'
-            );
-            return { Component: SetPasswordRoute };
-          }}
-        />
-
-        <Route
-          path={RouteUrls.SignIn}
-          element={
-            <OnboardingGate>
-              <SignIn />
-            </OnboardingGate>
-          }
-        />
-        <Route
-          path={RouteUrls.AddNetwork}
-          element={
-            <AccountGate>
-              <AddNetwork />
-            </AccountGate>
-          }
-        />
-        <Route
-          path={RouteUrls.ChooseAccount}
-          element={
-            <AccountGate>
-              <ChooseAccount />
-            </AccountGate>
-          }
-        >
-          {ledgerJwtSigningRoutes}
-        </Route>
-        <Route
-          path={RouteUrls.Fund}
-          element={
-            <AccountGate>
-              <FundPage />
-            </AccountGate>
-          }
-        >
-          <Route path={RouteUrls.FundReceive} element={<ReceiveModal />} />
-          <Route path={RouteUrls.FundReceiveStx} element={<ReceiveStxModal />} />
-          <Route path={RouteUrls.FundReceiveBtc} element={<ReceiveBtcModal />} />
-          {settingsModalRoutes}
-        </Route>
-
-        {sendCryptoAssetFormRoutes}
-
-        <Route
-          path={RouteUrls.ViewSecretKey}
-          element={
-            <AccountGate>
-              <ViewSecretKey />
-            </AccountGate>
-          }
-        >
-          {settingsModalRoutes}
-        </Route>
-        <Route path={RouteUrls.Unlock} element={<Unlock />}>
-          {settingsModalRoutes}
-        </Route>
-
-        {legacyRequestRoutes}
-        {rpcRequestRoutes}
-        <Route path={RouteUrls.UnauthorizedRequest} element={<UnauthorizedRequest />} />
-        <Route
-          path={RouteUrls.RequestError}
-          element={
-            <AccountGate>
-              <RequestError />
-            </AccountGate>
-          }
-        />
-
-        {/* Catch-all route redirects to onboarding */}
-        <Route path="*" element={<Navigate replace to={RouteUrls.Onboarding} />} />
-      </Route>
-    )
-  );
-}
+const rpcRequestRoutes = (
+  <>
+    <Route
+      path={RouteUrls.RpcGetAddresses}
+      element={
+        <AccountGate>
+          <RpcGetAddresses />
+        </AccountGate>
+      }
+    />
+    {rpcSendTransferRoutes}
+    <Route
+      path={RouteUrls.RpcSignBip322Message}
+      lazy={async () => {
+        const { RpcSignBip322MessageRoute } = await import(
+          '@app/pages/rpc-sign-bip322-message/rpc-sign-bip322-message'
+        );
+        return { Component: RpcSignBip322MessageRoute };
+      }}
+    />
+    <Route
+      path={RouteUrls.RpcSignPsbt}
+      element={
+        <AccountGate>
+          <RpcSignPsbt />
+        </AccountGate>
+      }
+    />
+  </>
+);

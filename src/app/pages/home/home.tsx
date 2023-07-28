@@ -24,8 +24,8 @@ export function Home() {
 
   const navigate = useNavigate();
 
-  const location = useLocation();
-  const backgroundLocation = useLocationState('backgroundLocation');
+  // const location = useLocation();
+  // const backgroundLocation = useLocationState('backgroundLocation');
   useTrackFirstDeposit();
 
   useRouteHeader(
@@ -45,14 +45,17 @@ export function Home() {
       actions={<HomeActions />}
     >
       <HomeTabs>
-        <>
+        {/* <Route index element={<AssetsList />} />
+        <Route path={RouteUrls.Activity} element={<ActivityList />} /> */}
+        {/* <>
           <Routes location={backgroundLocation || location}>
-            <Route path={RouteUrls.Home} element={<AssetsList />} />
+            <Route index element={<AssetsList />} />
             <Route path={RouteUrls.Activity} element={<ActivityList />} />
             {homeModalRoutes}
           </Routes>
           {backgroundLocation && <Outlet />}
-        </>
+        </> */}
+        <Outlet />
       </HomeTabs>
     </HomeLayout>
   );

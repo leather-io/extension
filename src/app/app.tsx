@@ -1,10 +1,12 @@
 import { Suspense } from 'react';
 import { Provider as ReduxProvider } from 'react-redux';
+import { HashRouter, Outlet, Routes, useLocation } from 'react-router-dom';
 
 import { ColorModeProvider as ColorModeProviderLegacy, ThemeProvider } from '@stacks/ui';
 import { QueryClientProvider } from '@tanstack/react-query';
 import { PersistGate } from 'redux-persist/integration/react';
 
+import { useLocationState } from '@app/common/hooks/use-location-state';
 import { queryClient } from '@app/common/persistence';
 import { theme } from '@app/common/theme';
 import { GlobalStyles } from '@app/components/global-styles/global-styles';
@@ -21,6 +23,8 @@ const reactQueryDevToolsEnabled = process.env.REACT_QUERY_DEVTOOLS_ENABLED === '
 const ColorModeProvider = ColorModeProviderLegacy as any;
 
 export function App() {
+  const location = useLocation();
+  const backgroundLocation = useLocationState('backgroundLocation');
   return (
     <ReduxProvider store={store}>
       <PersistGate loading={<FullPageLoadingSpinner />} persistor={persistor}>
@@ -31,7 +35,13 @@ export function App() {
               <ColorModeProvider defaultMode="light">
                 <Suspense fallback={<NewAccountLoadingSpinner />}>
                   <AppErrorBoundary>
-                    <AppRoutes />
+                    <HashRouter>
+                      <Routes location={backgroundLocation || location}>
+                        <AppRoutes />
+
+                        {backgroundLocation && <Outlet />}
+                      </Routes>
+                    </HashRouter>
                   </AppErrorBoundary>
                   {reactQueryDevToolsEnabled && <Devtools />}
                 </Suspense>
