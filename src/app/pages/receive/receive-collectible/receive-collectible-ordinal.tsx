@@ -1,3 +1,4 @@
+import { useCallback } from 'react';
 import toast from 'react-hot-toast';
 import { FiArrowUpRight } from 'react-icons/fi';
 import { useLocation, useNavigate } from 'react-router-dom';
@@ -6,6 +7,7 @@ import { Box, Flex, Stack, color, useClipboard } from '@stacks/ui';
 import { truncateMiddle } from '@stacks/ui-utils';
 
 import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
+import { useBackgroundLocationRedirect } from '@app/common/hooks/use-background-location-redirect';
 import { useLocationState } from '@app/common/hooks/use-location-state';
 import { openInNewTab } from '@app/common/utils/open-in-new-tab';
 import { BaseDrawer } from '@app/components/drawer/base-drawer';
@@ -16,28 +18,22 @@ import { PrimaryButton } from '@app/components/primary-button';
 import { Caption, Text, Title } from '@app/components/typography';
 
 export function ReceiveCollectibleOrdinal() {
+  useBackgroundLocationRedirect();
   const navigate = useNavigate();
   const analytics = useAnalytics();
   const { state } = useLocation();
   const backgroundLocation = useLocationState('backgroundLocation');
 
-  // if this is opened in a new tab it has no btcAddress so we cannot do anything
-  if (!state) {
-    // TODO implement this more gracefull to simply not load this component at all if no state.btcAdressTaproot
-    navigate('..');
-    console.log('state.btcAddressTaproot', state);
-  }
-
   const { onCopy } = useClipboard(state?.btcAddressTaproot);
 
-  function copyToClipboard() {
+  const copyToClipboard = useCallback(() => {
     void analytics.track('copy_address_to_add_new_inscription');
     toast.success('Copied to clipboard!');
     onCopy();
-  }
+  }, [analytics, onCopy]);
 
   return (
-    <BaseDrawer isShowing onClose={() => navigate(backgroundLocation?.pathname || '..')}>
+    <BaseDrawer isShowing onClose={() => navigate(backgroundLocation.pathname)}>
       <Box mx="extra-loose">
         <Stack alignItems="center" px={['unset', 'base']} spacing="loose" textAlign="center">
           <OrdinalIcon />

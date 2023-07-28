@@ -9,6 +9,7 @@ import { HomePageSelectors } from '@tests/selectors/home.selectors';
 import { RouteUrls } from '@shared/route-urls';
 
 import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
+import { useBackgroundLocationRedirect } from '@app/common/hooks/use-background-location-redirect';
 import { useLocationState } from '@app/common/hooks/use-location-state';
 import { StxAvatar } from '@app/components/crypto-assets/stacks/components/stx-avatar';
 import { BaseDrawer } from '@app/components/drawer/base-drawer';
@@ -21,6 +22,7 @@ import { useCurrentAccountNativeSegwitAddressIndexZero } from '@app/store/accoun
 import { useCurrentAccountStxAddressState } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
 
 export function ReceiveModal() {
+  useBackgroundLocationRedirect();
   const analytics = useAnalytics();
   const navigate = useNavigate();
   const backgroundLocation = useLocationState('backgroundLocation');
@@ -38,8 +40,7 @@ export function ReceiveModal() {
     <BaseDrawer
       title="Select asset to receive"
       isShowing
-      // if open in new tab - backgroundLocation?.pathname can be lost
-      onClose={() => navigate(backgroundLocation?.pathname || '..')}
+      onClose={() => navigate(backgroundLocation?.pathname)}
     >
       <Box mx="extra-loose">
         <Caption style={{ fontSize: '14px' }}>Tokens</Caption>

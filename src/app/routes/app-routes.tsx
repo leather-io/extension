@@ -39,7 +39,7 @@ import { ReceiveBtcModal } from '@app/pages/receive-tokens/receive-btc';
 import { ReceiveModal } from '@app/pages/receive-tokens/receive-modal';
 import { ReceiveStxModal } from '@app/pages/receive-tokens/receive-stx';
 import { ReceiveCollectibleModal } from '@app/pages/receive/receive-collectible/receive-collectible-modal';
-import { ReceiveCollectibleOrdinal } from '@app/pages/receive/receive-collectible/receive-collectible-oridinal';
+import { ReceiveCollectibleOrdinal } from '@app/pages/receive/receive-collectible/receive-collectible-ordinal';
 import { RequestError } from '@app/pages/request-error/request-error';
 import { RpcGetAddresses } from '@app/pages/rpc-get-addresses/rpc-get-addresses';
 import { rpcSendTransferRoutes } from '@app/pages/rpc-send-transfer/rpc-send-transfer.routes';
@@ -94,6 +94,8 @@ export const homeModalRoutes = (
   <Route>
     <Route path={RouteUrls.Receive} element={<ReceiveModal />} />
     <Route path={RouteUrls.ReceiveCollectibleOrdinal} element={<ReceiveCollectibleOrdinal />} />
+    <Route path={RouteUrls.ReceiveStx} element={<ReceiveStxModal />} />
+    <Route path={RouteUrls.ReceiveBtc} element={<ReceiveBtcModal />} />
     {sendOrdinalRoutes}
     {settingsModalRoutes}
   </Route>
@@ -221,8 +223,6 @@ function useAppRoutes() {
           <Route path={RouteUrls.IncreaseFeeSent} element={<IncreaseFeeSentDrawer />} />
           <Route path={RouteUrls.ReceiveCollectible} element={<ReceiveCollectibleModal />} />
 
-          <Route path={RouteUrls.ReceiveStx} element={<ReceiveStxModal />} />
-          <Route path={RouteUrls.ReceiveBtc} element={<ReceiveBtcModal />} />
           {homeModalRoutes}
           {sendOrdinalRoutes}
 

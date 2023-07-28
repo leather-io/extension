@@ -26,20 +26,9 @@ export function HomeTabs({ children }: HomeTabsProps) {
     ],
     []
   );
-
-  // if(pathname === 'receive' && !backgroundLocation){
-
-  // }
-  // const path = backgroundLocation ? backgroundLocation.pathname : location?.pathname;
-
-  // console.info('home-tabs bg location', backgroundLocation);
-  // console.info('home-tabs location', location);
-
-  // if open new tab and cannot find location then set tab to be first
   const getActiveTab = useCallback(() => {
     const path = backgroundLocation ? backgroundLocation.pathname : location?.pathname;
-    const activeTab = tabs.findIndex(tab => tab.slug === path);
-    return activeTab === -1 ? 0 : activeTab;
+    return tabs.findIndex(tab => tab.slug === path);
   }, [tabs, backgroundLocation, location]);
 
   const setActiveTab = useCallback(

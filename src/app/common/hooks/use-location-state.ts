@@ -5,7 +5,6 @@ import get from 'lodash.get';
 
 import { isUndefined } from '@shared/utils';
 
-
 export function useLocationState(propName: string): string | undefined;
 export function useLocationState(propName: string, defaultValue: string): string;
 export function useLocationState(propName: 'accountIndex'): number;

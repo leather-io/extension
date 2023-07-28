@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { Box, Button, Flex, Text, color } from '@stacks/ui';
 import { SharedComponentsSelectors } from '@tests/selectors/shared-component.selectors';
 
+import { useBackgroundLocationRedirect } from '@app/common/hooks/use-background-location-redirect';
 import { useLocationState } from '@app/common/hooks/use-location-state';
 import { AddressDisplayer } from '@app/components/address-displayer/address-displayer';
 import { BaseDrawer } from '@app/components/drawer/base-drawer';
@@ -20,12 +21,13 @@ interface ReceiveTokensLayoutProps {
   hasSubtitle?: boolean;
 }
 export function ReceiveTokensLayout(props: ReceiveTokensLayoutProps) {
+  useBackgroundLocationRedirect();
   const { address, accountName, onCopyAddressToClipboard, title, warning, hasSubtitle } = props;
   const navigate = useNavigate();
-  const { pathname } = useLocationState('backgroundLocation');
+  const backgroundLocation = useLocationState('backgroundLocation');
 
   return (
-    <BaseDrawer title={title} isShowing onClose={() => navigate(pathname)}>
+    <BaseDrawer title={title} isShowing onClose={() => navigate(backgroundLocation?.pathname)}>
       <Flex alignItems="center" flexDirection="column" pb={['loose', '48px']} px="loose">
         {hasSubtitle && (
           <Text color={color('text-caption')} mb="tight" textAlign="left">
