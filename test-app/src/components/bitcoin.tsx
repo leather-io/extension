@@ -139,6 +139,7 @@ function buildTestTaprootPsbtRequestWithIndex(pubKey: Uint8Array): PsbtRequestOp
   tx.addInput({
     index: 0,
     txid: '4f4cc7cb40b04978bd7704798dc1adf55b58196cef616b0fac8181965abc4726',
+    // tapInternalKey: payment.tapInternalKey,
     witnessUtxo: {
       amount: BigInt(1000),
       script: payment.script,

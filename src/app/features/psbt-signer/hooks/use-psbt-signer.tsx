@@ -40,7 +40,7 @@ export function usePsbtSigner() {
           // If type taproot, and the tapInternalKey is missing, assume it should
           // be the account publicKey
           if (taprootSigner && witnessOutputScript?.type === 'tr' && !input.tapInternalKey) {
-            input.tapInternalKey = taprootSigner.payment.tapInternalKey;
+            tx.updateInput(idx, { ...input, tapInternalKey: taprootSigner.payment.tapInternalKey });
           }
 
           try {
