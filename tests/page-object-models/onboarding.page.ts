@@ -41,7 +41,12 @@ export const testSoftwareAccountDefaultWalletState = {
     entities: {},
     ids: [],
   },
-  settings: { userSelectedTheme: 'system', hasAllowedAnalytics: false, dismissedMessages: [] },
+  settings: {
+    userSelectedTheme: 'system',
+    hasAllowedAnalytics: false,
+    dismissedMessages: [],
+    preference: {},
+  },
   _persist: { version: 1, rehydrated: true },
 };
 
