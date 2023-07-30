@@ -18,6 +18,7 @@ import { BitcoinChooseFeeLayout } from './components/bitcoin-choose-fee.layout';
 import { ChooseFeeSubtitle } from './components/choose-fee-subtitle';
 import { ChooseFeeTabs } from './components/choose-fee-tabs';
 import { InsufficientBalanceError } from './components/insufficient-balance-error';
+import { useCurrentStacksAccount } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
 
 interface BitcoinChooseFeeProps {
   amount: Money;
@@ -54,10 +55,11 @@ export function BitcoinChooseFee({
   const nativeSegwitSigner = useCurrentAccountNativeSegwitIndexZeroSigner();
   const btcBalance = useNativeSegwitBalance(nativeSegwitSigner.address);
   const hasAmount = amount.amount.isGreaterThan(0);
+  const currentAccountAddress = useCurrentStacksAccount()?.address || '0';
 
   const preferenceData = useDefaultPreferences();
 
-  const savedRateDetails: SaveRateProps = preferenceData[nativeSegwitSigner.address];
+  const savedRateDetails: SaveRateProps = preferenceData[currentAccountAddress];
 
   const [onSaveCustomFeeRate, setOnSaveCustomFeeRate] = useState(
     savedRateDetails === undefined ? false : savedRateDetails.saveRateForFuture
@@ -92,7 +94,6 @@ export function BitcoinChooseFee({
               onValidateBitcoinSpend={onValidateBitcoinSpend}
               recipient={recipient}
               setCustomFeeInitialValue={setCustomFeeInitialValue}
-              nativeSegwitSigner={nativeSegwitSigner.address}
               onSaveCustomFeeRate={onSaveCustomFeeRate}
               setOnSaveCustomFeeRate={setOnSaveCustomFeeRate}
               maxCustomFeeRate={maxRecommendedFeeRate * MAX_FEE_RATE_MULTIPLIER}

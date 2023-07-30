@@ -1,6 +1,7 @@
 import { Dispatch, SetStateAction, useCallback, useRef } from 'react';
+import { useDispatch } from 'react-redux';
 
-import { Stack, Text } from '@stacks/ui';
+import { Box, Flex, Stack, Text } from '@stacks/ui';
 import { Form, Formik } from 'formik';
 import * as yup from 'yup';
 
@@ -9,6 +10,12 @@ import { BtcFeeType } from '@shared/models/fees/bitcoin-fees.model';
 import { openInNewTab } from '@app/common/utils/open-in-new-tab';
 import { Link } from '@app/components/link';
 import { PreviewButton } from '@app/components/preview-button';
+import { Caption } from '@app/components/typography';
+import { useCurrentStacksAccount } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
+import {
+  removePreferenceFromStorage,
+  savePreferenceToStorage,
+} from '@app/store/settings/settings.actions';
 
 import { OnChooseFeeArgs } from '../bitcoin-fees-list/bitcoin-fees-list';
 import { TextInputField } from '../text-input-field';
@@ -27,6 +34,8 @@ interface BitcoinCustomFeeProps {
   onValidateBitcoinSpend(value: number): boolean;
   recipient: string;
   setCustomFeeInitialValue: Dispatch<SetStateAction<string>>;
+  onSaveCustomFeeRate: boolean;
+  setOnSaveCustomFeeRate: Dispatch<SetStateAction<boolean>>;
   maxCustomFeeRate: number;
 }
 export function BitcoinCustomFee({
@@ -39,11 +48,15 @@ export function BitcoinCustomFee({
   onValidateBitcoinSpend,
   recipient,
   setCustomFeeInitialValue,
+  onSaveCustomFeeRate,
+  setOnSaveCustomFeeRate,
   maxCustomFeeRate,
 }: BitcoinCustomFeeProps) {
   const feeInputRef = useRef<HTMLInputElement | null>(null);
   const getCustomFeeValues = useBitcoinCustomFee({ amount, isSendingMax, recipient });
-
+  const dispatch = useDispatch();
+  const currentAccountAddress = useCurrentStacksAccount()?.address || '0';
+    console.log(useCurrentStacksAccount())
   const onChooseCustomBtcFee = useCallback(
     async ({ feeRate }: { feeRate: string }) => {
       onSetSelectedFeeType(null);
@@ -105,6 +118,14 @@ export function BitcoinCustomFee({
                     }}
                     onChange={e => {
                       setCustomFeeInitialValue((e.target as HTMLInputElement).value);
+                      if (onSaveCustomFeeRate) {
+                        dispatch(
+                          savePreferenceToStorage(currentAccountAddress, {
+                            saveRateForFuture: onSaveCustomFeeRate,
+                            savedRate: (e.target as HTMLInputElement).value,
+                          })
+                        );
+                      }
                     }}
                     inputRef={feeInputRef}
                   />
@@ -115,6 +136,30 @@ export function BitcoinCustomFee({
                   />
                 </Stack>
               </Stack>
+
+              <Flex mt="loose">
+                <Box mr="tight">
+                  <input
+                    type="checkbox"
+                    name="saveCustomFeeRate"
+                    defaultChecked={onSaveCustomFeeRate}
+                    onChange={e => {
+                      setOnSaveCustomFeeRate(e.target.checked);
+                      if (e.target.checked) {
+                        dispatch(
+                          savePreferenceToStorage(currentAccountAddress, {
+                            saveRateForFuture: e.target.checked,
+                            savedRate: customFeeInitialValue,
+                          })
+                        );
+                      } else {
+                        dispatch(removePreferenceFromStorage(currentAccountAddress));
+                      }
+                    }}
+                  />
+                </Box>
+                <Caption userSelect="none">Save rate for future transactions</Caption>
+              </Flex>
 
               <PreviewButton isDisabled={!props.values.feeRate} text="Use custom fee" />
             </Stack>
