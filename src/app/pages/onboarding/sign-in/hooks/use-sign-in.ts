@@ -1,5 +1,4 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
-import toast from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
 
 import { validateMnemonic } from 'bip39';
@@ -8,11 +7,7 @@ import { RouteUrls } from '@shared/route-urls';
 
 import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
 import { useLoading } from '@app/common/hooks/use-loading';
-import {
-  delay,
-  extractPhraseFromPasteEvent,
-  validateAndCleanRecoveryInput,
-} from '@app/common/utils';
+import { delay, extractPhraseFromPasteEvent } from '@app/common/utils';
 import { useAppDispatch } from '@app/store';
 import { inMemoryKeyActions } from '@app/store/in-memory-key/in-memory-key.actions';
 import { onboardingActions } from '@app/store/onboarding/onboarding.actions';
@@ -54,24 +49,6 @@ export function useSignIn() {
       // empty?
       if (parsedKeyInput.length === 0) {
         handleSetError('Entering your Secret Key is required.');
-      }
-
-      // recovery key?
-      if (parsedKeyInput.split(' ').length <= 1) {
-        const result = validateAndCleanRecoveryInput(parsedKeyInput);
-        if (result.isValid) {
-          toast.success('Magic recovery code detected');
-          await simulateShortDelayToAvoidImmediateNavigation();
-          dispatch(onboardingActions.hideSuggestedFirstSteps(true));
-          navigate({
-            pathname: RouteUrls.MagicRecoveryCode,
-            search: `?magicRecoveryCode=${parsedKeyInput}`,
-          });
-          return;
-        } else {
-          // single word and not a valid recovery key
-          handleSetError();
-        }
       }
 
       if (!validateMnemonic(parsedKeyInput)) {

@@ -22,8 +22,8 @@ export function getTaprootAddress({ index, keychain, network }: GetTaprootAddres
 
   const addressIndex = deriveAddressIndexKeychainFromAccount(keychain)(index);
 
-  if (!addressIndex.privateKey) {
-    throw new Error('Expected privateKey to be defined');
+  if (!addressIndex.publicKey) {
+    throw new Error('Expected publicKey to be defined');
   }
 
   const payment = getTaprootPayment(addressIndex.publicKey!, network);

@@ -6,7 +6,7 @@ import { SuggestedFirstStepStatus, SuggestedFirstSteps } from '@shared/models/on
 
 import { useGetAnchoredAccountBalanceListQuery } from '@app/query/stacks/balance/stx-balance.query';
 import { useAllAccountsNonFungibleTokenHoldingsTotal } from '@app/query/stacks/tokens/non-fungible-tokens/non-fungible-token-holdings.hooks';
-import { useGetNonFungibleTokenHoldingsQuery } from '@app/query/stacks/tokens/non-fungible-tokens/non-fungible-token-holdings.query';
+import useGetNonFungibleTokenHoldingsQuery from '@app/query/stacks/tokens/non-fungible-tokens/non-fungible-token-holdings.query';
 import {
   useCurrentStacksAccount,
   useStacksAccounts,
@@ -34,10 +34,10 @@ export function useSuggestedFirstSteps() {
   const stepsStatus = useSuggestedFirstStepsStatus();
 
   const { data: nonFungibleTokenHoldings } = useGetNonFungibleTokenHoldingsQuery(
-    currentAccount?.address
+    currentAccount?.address!
   );
 
-  const firstFiveAccounts = accounts?.slice(0, 5);
+  const firstFiveAccounts = accounts?.slice(0, 5) ?? [];
   const accountsAvailableStxBalance = useAllAccountsAvailableStxBalance(firstFiveAccounts);
   const accountsNonFungibleTokenHoldings =
     useAllAccountsNonFungibleTokenHoldingsTotal(firstFiveAccounts);

@@ -2,7 +2,7 @@ import * as btc from '@scure/btc-signer';
 import { bytesToHex } from '@stacks/common';
 import { UseQueryResult, useQueries, useQuery } from '@tanstack/react-query';
 
-import { BitcoinTransaction } from '@shared/models/transactions/bitcoin-transaction.model';
+import { BitcoinTx } from '@shared/models/transactions/bitcoin-transaction.model';
 
 import { AppUseQueryConfig } from '@app/query/query-config';
 import { useBitcoinClient } from '@app/store/common/api-clients.hooks';
@@ -40,14 +40,15 @@ const queryOptions = {
   refetchOnWindowFocus: false,
 } as const;
 
+// ts-unused-exports:disable-next-line
 export function useGetBitcoinTransactionQueries(
-  inputs: btc.TransactionInputRequired[]
-): UseQueryResult<BitcoinTransaction>[] {
+  inputs: btc.TransactionInput[]
+): UseQueryResult<BitcoinTx>[] {
   const client = useBitcoinClient();
 
   return useQueries({
     queries: inputs.map(input => {
-      const txId = bytesToHex(input.txid);
+      const txId = input.txid ? bytesToHex(input.txid) : '';
       return {
         queryKey: ['bitcoin-transaction', txId],
         queryFn: () => fetchBitcoinTransaction(client)(txId),

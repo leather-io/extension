@@ -29,7 +29,7 @@ export const useReplaceByFeeSoftwareWalletSubmitCallBack = () => {
       await submitTransaction({
         onSuccess() {
           setTxId(null);
-          navigate(RouteUrls.Home);
+          navigate(RouteUrls.IncreaseFeeSent);
         },
         onError() {
           logger.error('Error submitting transaction');

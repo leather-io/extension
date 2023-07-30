@@ -12,6 +12,7 @@ interface KeyConfigSoftware {
   encryptedSecretKey: string;
   salt: string;
 }
+
 interface KeyConfigLedger {
   type: 'ledger';
   id: string;
@@ -38,6 +39,11 @@ export const keySlice = createSlice({
 
     signOut(state) {
       keyAdapter.removeOne(state, defaultKeyId);
+    },
+
+    debugKillStacks(state) {
+      if (state.entities.default?.type !== 'ledger') return;
+      state.entities.default.publicKeys = [];
     },
   },
 });

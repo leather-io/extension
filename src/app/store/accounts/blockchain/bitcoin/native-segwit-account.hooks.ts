@@ -6,85 +6,80 @@ import { createSelector } from '@reduxjs/toolkit';
 import {
   bitcoinNetworkModeToCoreNetworkMode,
   deriveAddressIndexZeroFromAccount,
+  lookUpLedgerKeysByPath,
 } from '@shared/crypto/bitcoin/bitcoin.utils';
 import {
-  deriveNativeSegwitAccount,
+  deriveNativeSegwitAccountFromRootKeychain,
   getNativeSegWitPaymentFromAddressIndex,
+  getNativeSegwitAccountDerivationPath,
 } from '@shared/crypto/bitcoin/p2wpkh-address-gen';
 
 import { mnemonicToRootNode } from '@app/common/keychain/keychain';
-import { whenNetwork } from '@app/common/utils';
-import { RootState } from '@app/store';
+import { selectCurrentAccountIndex } from '@app/store/keys/key.selectors';
 import { selectCurrentNetwork } from '@app/store/networks/networks.selectors';
 
 import { useCurrentAccountIndex } from '../../account';
-import { bitcoinKeychainSelectorFactory } from './bitcoin-keychain';
-import { bitcoinSignerFactory, useMakeBitcoinNetworkSignersForPaymentType } from './bitcoin-signer';
+import {
+  bitcoinAccountBuilderFactory,
+  useBitcoinExtendedPublicKeyVersions,
+} from './bitcoin-keychain';
+import {
+  bitcoinAddressIndexSignerFactory,
+  useMakeBitcoinNetworkSignersForPaymentType,
+} from './bitcoin-signer';
 
-export function getNativeSegwitMainnetAddressFromMnemonic(secretKey: string) {
-  return (accountIndex: number) => {
-    const rootNode = mnemonicToRootNode(secretKey);
-    const account = deriveNativeSegwitAccount(rootNode, 'mainnet')(accountIndex);
-    return getNativeSegWitPaymentFromAddressIndex(
-      deriveAddressIndexZeroFromAccount(account.keychain),
-      'mainnet'
-    );
-  };
-}
-
-const selectMainnetNativeSegwitAccount = bitcoinKeychainSelectorFactory(
-  deriveNativeSegwitAccount,
-  'mainnet'
+const selectNativeSegwitAccountBuilder = bitcoinAccountBuilderFactory(
+  deriveNativeSegwitAccountFromRootKeychain,
+  lookUpLedgerKeysByPath(getNativeSegwitAccountDerivationPath)
 );
 
-const selectTestnetNativeSegwitAccount = bitcoinKeychainSelectorFactory(
-  deriveNativeSegwitAccount,
-  'testnet'
-);
-
-const selectNativeSegwitActiveNetworkAccountPrivateKeychain = createSelector(
-  (state: RootState) => state,
+const selectCurrentNetworkNativeSegwitAccountBuilder = createSelector(
+  selectNativeSegwitAccountBuilder,
   selectCurrentNetwork,
-  (rootState, network) =>
-    whenNetwork(bitcoinNetworkModeToCoreNetworkMode(network.chain.bitcoin.network))({
-      mainnet: selectMainnetNativeSegwitAccount(rootState),
-      testnet: selectTestnetNativeSegwitAccount(rootState),
-    })
+  (nativeSegwitKeychain, network) =>
+    nativeSegwitKeychain[bitcoinNetworkModeToCoreNetworkMode(network.chain.bitcoin.network)]
 );
 
-export function useNativeSegwitActiveNetworkAccountPrivateKeychain() {
-  return useSelector(selectNativeSegwitActiveNetworkAccountPrivateKeychain);
+export function useNativeSegwitAccountBuilder() {
+  return useSelector(selectCurrentNetworkNativeSegwitAccountBuilder);
 }
 
-export function useNativeSegwitCurrentAccountPrivateKeychain() {
-  const keychain = useNativeSegwitActiveNetworkAccountPrivateKeychain();
-  const currentAccountIndex = useCurrentAccountIndex();
-  return useMemo(() => keychain?.(currentAccountIndex), [currentAccountIndex, keychain]);
+const selectCurrentNativeSegwitAccount = createSelector(
+  selectCurrentNetworkNativeSegwitAccountBuilder,
+  selectCurrentAccountIndex,
+  (generateAccount, accountIndex) => generateAccount(accountIndex)
+);
+
+export function useCurrentNativeSegwitAccount() {
+  return useSelector(selectCurrentNativeSegwitAccount);
 }
 
 export function useNativeSegwitNetworkSigners() {
-  const mainnetKeychainFn = useSelector(selectMainnetNativeSegwitAccount);
-  const testnetKeychainFn = useSelector(selectTestnetNativeSegwitAccount);
+  const { mainnet: mainnetKeychain, testnet: testnetKeychain } = useSelector(
+    selectNativeSegwitAccountBuilder
+  );
 
   return useMakeBitcoinNetworkSignersForPaymentType(
-    mainnetKeychainFn,
-    testnetKeychainFn,
+    mainnetKeychain,
+    testnetKeychain,
     getNativeSegWitPaymentFromAddressIndex
   );
 }
 
 function useNativeSegwitSigner(accountIndex: number) {
-  const account = useNativeSegwitActiveNetworkAccountPrivateKeychain()?.(accountIndex);
+  const account = useNativeSegwitAccountBuilder()(accountIndex);
+  const extendedPublicKeyVersions = useBitcoinExtendedPublicKeyVersions();
 
   return useMemo(() => {
     if (!account) return;
-    return bitcoinSignerFactory({
+    return bitcoinAddressIndexSignerFactory({
       accountIndex,
       accountKeychain: account.keychain,
       paymentFn: getNativeSegWitPaymentFromAddressIndex,
       network: account.network,
+      extendedPublicKeyVersions,
     });
-  }, [accountIndex, account]);
+  }, [account, accountIndex, extendedPublicKeyVersions]);
 }
 
 export function useCurrentAccountNativeSegwitSigner() {
@@ -114,4 +109,15 @@ export function useCurrentAccountNativeSegwitAddressIndexZero() {
 export function useNativeSegwitAccountIndexAddressIndexZero(accountIndex: number) {
   const signer = useNativeSegwitSigner(accountIndex)?.(0);
   return signer?.payment.address as string;
+}
+
+export function getNativeSegwitMainnetAddressFromMnemonic(secretKey: string) {
+  return (accountIndex: number) => {
+    const rootNode = mnemonicToRootNode(secretKey);
+    const account = deriveNativeSegwitAccountFromRootKeychain(rootNode, 'mainnet')(accountIndex);
+    return getNativeSegWitPaymentFromAddressIndex(
+      deriveAddressIndexZeroFromAccount(account.keychain),
+      'mainnet'
+    );
+  };
 }

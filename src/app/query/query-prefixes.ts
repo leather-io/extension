@@ -13,6 +13,7 @@ export enum QueryPrefixes {
   InscriptionFromTxid = 'inscription-from-txid',
   InscriptionsFromApiInfiniteQuery = 'inscriptions-from-api-infinite-query',
   GetNftMetadata = 'get-nft-metadata',
+  GetNftHoldings = 'get-nft-holdings',
 
   StampCollection = 'stamp-collection',
   StampsByAddress = 'stamps-by-address',

@@ -72,7 +72,7 @@ const selectStacksWalletState = createSelector(
 
 const softwareAccountsState = atom<SoftwareStacksAccount[] | undefined>(get => {
   const store = get(storeAtom);
-  const addressVersion = get(addressNetworkVersionState);
+  const addressVersion = get(addressNetworkVersionState) || AddressVersion.TestnetSingleSig;
   const accounts = selectStacksWalletState(store);
   if (!accounts) return undefined;
   return accounts.map(account => {
@@ -108,6 +108,15 @@ export const stacksAccountState = atom<StacksAccount[] | undefined>(get => {
   return ledgerAccounts ?? softwareAccounts;
 });
 
+/**
+ * @deprecated
+ * This method mocks the `Wallet` type from `@stacks/wallet-sdk`. Internally,
+ * this library makes assumptions about how we want to use it. Such as
+ * requesting BNS names (1 request per account). If you have many accounts, this
+ * adds a huge loading time and stalls the wallet. Some parts of the code rely
+ * on the `Wallet` type still, so here we mock it by manipulating it directly
+ * (sans unwanted http requests).
+ */
 export const legacyStackWallet = atom(async get => {
   const store = get(storeAtom);
   const secretKey = selectDefaultWalletKey(store);

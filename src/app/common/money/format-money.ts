@@ -6,10 +6,6 @@ export function formatMoney({ amount, symbol, decimals }: Money) {
   return `${amount.shiftedBy(-decimals).toString()} ${symbol}`;
 }
 
-export function formatMoneyWithoutSymbol({ amount, decimals }: Money) {
-  return `${amount.shiftedBy(-decimals).toString()}`;
-}
-
 export function formatMoneyPadded({ amount, symbol, decimals }: Money) {
   return `${amount.shiftedBy(-decimals).toFormat(decimals)} ${symbol}`;
 }

@@ -1,6 +1,6 @@
 import { useCallback } from 'react';
 
-import { HDKey } from '@scure/bip32';
+import { HDKey, Versions } from '@scure/bip32';
 import * as btc from '@scure/btc-signer';
 
 import { BitcoinNetworkModes } from '@shared/constants';
@@ -12,27 +12,69 @@ import {
 import { getTaprootAddressIndexDerivationPath } from '@shared/crypto/bitcoin/p2tr-address-gen';
 import { getNativeSegwitAddressIndexDerivationPath } from '@shared/crypto/bitcoin/p2wpkh-address-gen';
 
-interface BitcoinSignerFactoryArgs {
+interface Signer<Payment> {
+  network: BitcoinNetworkModes;
+  payment: Payment;
+  keychain: HDKey;
+  derivationPath: string;
+  address: string;
+  publicKey: Uint8Array;
+  sign(tx: btc.Transaction): void;
+  signIndex(tx: btc.Transaction, index: number, allowedSighash?: btc.SignatureHash[]): void;
+}
+
+interface MakeBitcoinSignerArgs {
+  keychain: HDKey;
+  network: BitcoinNetworkModes;
+  derivationPath: string;
+  paymentFn(keychain: HDKey, network: BitcoinNetworkModes): any;
+  signFn(tx: btc.Transaction): void;
+  signAtIndexFn(tx: btc.Transaction, index: number, allowedSighash?: btc.SignatureHash[]): void;
+}
+function makeBitcoinSigner<T extends MakeBitcoinSignerArgs>(args: T) {
+  const { derivationPath, keychain, network, paymentFn, signFn, signAtIndexFn } = args;
+  const payment = paymentFn(keychain, network) as ReturnType<T['paymentFn']>;
+  return {
+    network,
+    payment,
+    derivationPath,
+    keychain,
+    get address() {
+      if (!payment.address) throw new Error('Unable to get address from payment');
+      return payment.address;
+    },
+    get publicKey() {
+      if (!keychain.publicKey) throw new Error('Unable to get publicKey from keychain');
+      return keychain.publicKey;
+    },
+    sign: signFn as T['signFn'],
+    signIndex: signAtIndexFn as T['signAtIndexFn'],
+  };
+}
+
+interface BitcoinAddressIndexSignerFactoryArgs {
   accountIndex: number;
   accountKeychain: HDKey;
   paymentFn(keychain: HDKey, network: BitcoinNetworkModes): any;
   network: BitcoinNetworkModes;
+  extendedPublicKeyVersions?: Versions;
 }
-export function bitcoinSignerFactory<T extends BitcoinSignerFactoryArgs>(args: T) {
-  const { accountIndex, network, paymentFn, accountKeychain } = args;
-  return (addressIndex: number) => {
+export function bitcoinAddressIndexSignerFactory<T extends BitcoinAddressIndexSignerFactoryArgs>(
+  args: T
+) {
+  const { accountIndex, network, paymentFn, accountKeychain, extendedPublicKeyVersions } = args;
+  return (addressIndex: number): Signer<ReturnType<T['paymentFn']>> => {
     const addressIndexKeychain =
       deriveAddressIndexKeychainFromAccount(accountKeychain)(addressIndex);
 
-    const payment = paymentFn(addressIndexKeychain, network) as ReturnType<T['paymentFn']>;
+    const payment = paymentFn(addressIndexKeychain, network);
 
-    const publicKeychain = HDKey.fromExtendedKey(addressIndexKeychain.publicExtendedKey);
-
-    return {
+    return makeBitcoinSigner({
+      keychain: HDKey.fromExtendedKey(
+        addressIndexKeychain.publicExtendedKey,
+        extendedPublicKeyVersions
+      ),
       network,
-      payment,
-      addressIndex,
-      publicKeychain,
       derivationPath: whenPaymentType(payment.type)({
         p2wpkh: getNativeSegwitAddressIndexDerivationPath(network, accountIndex, addressIndex),
         p2tr: getTaprootAddressIndexDerivationPath(network, accountIndex, addressIndex),
@@ -40,34 +82,27 @@ export function bitcoinSignerFactory<T extends BitcoinSignerFactoryArgs>(args: T
         p2pkh: 'Not supported',
         p2sh: 'Not supported',
       }),
-      get address() {
-        if (!payment.address) throw new Error('Unable to get address from payment');
-        return payment.address;
-      },
-      get publicKey() {
-        if (!publicKeychain.publicKey) throw new Error('Unable to get publicKey from keychain');
-        return publicKeychain.publicKey;
-      },
-      sign(tx: btc.Transaction) {
+      paymentFn,
+      signFn(tx: btc.Transaction) {
         if (!addressIndexKeychain.privateKey)
-          throw new Error('Unable to sign taproot transaction, no private key found');
+          throw new Error('Unable to sign transaction, no private key found');
 
         tx.sign(addressIndexKeychain.privateKey);
       },
-      signIndex(tx: btc.Transaction, index: number, allowedSighash?: btc.SignatureHash[]) {
+      signAtIndexFn(tx: btc.Transaction, index: number, allowedSighash?: btc.SignatureHash[]) {
         if (!addressIndexKeychain.privateKey)
-          throw new Error('Unable to sign taproot transaction, no private key found');
+          throw new Error('Unable to sign transaction, no private key found');
 
         tx.signIdx(addressIndexKeychain.privateKey, index, allowedSighash);
       },
-    };
+    });
   };
 }
 
 interface CreateSignersForAllNetworkTypesArgs {
-  mainnetKeychainFn: (accountIndex: number) => BitcoinAccount;
-  testnetKeychainFn: (accountIndex: number) => BitcoinAccount;
   paymentFn: (keychain: HDKey, network: BitcoinNetworkModes) => unknown;
+  mainnetKeychainFn: (accountIndex: number) => BitcoinAccount | undefined;
+  testnetKeychainFn: (accountIndex: number) => BitcoinAccount | undefined;
 }
 function createSignersForAllNetworkTypes<T extends CreateSignersForAllNetworkTypesArgs>({
   mainnetKeychainFn,
@@ -78,8 +113,10 @@ function createSignersForAllNetworkTypes<T extends CreateSignersForAllNetworkTyp
     const mainnetAccount = mainnetKeychainFn(accountIndex);
     const testnetAccount = testnetKeychainFn(accountIndex);
 
+    if (!mainnetAccount || !testnetAccount) throw new Error('No account found');
+
     function makeNetworkSigner(keychain: HDKey, network: BitcoinNetworkModes) {
-      return bitcoinSignerFactory({
+      return bitcoinAddressIndexSignerFactory({
         accountIndex,
         accountKeychain: keychain,
         paymentFn: paymentFn as T['paymentFn'],
@@ -97,15 +134,12 @@ function createSignersForAllNetworkTypes<T extends CreateSignersForAllNetworkTyp
 }
 
 export function useMakeBitcoinNetworkSignersForPaymentType<T>(
-  mainnetKeychainFn: ((index: number) => BitcoinAccount) | undefined,
-  testnetKeychainFn: ((index: number) => BitcoinAccount) | undefined,
+  mainnetKeychainFn: (index: number) => BitcoinAccount | undefined,
+  testnetKeychainFn: (index: number) => BitcoinAccount | undefined,
   paymentFn: (keychain: HDKey, network: BitcoinNetworkModes) => T
 ) {
   return useCallback(
     (accountIndex: number) => {
-      if (!mainnetKeychainFn || !testnetKeychainFn)
-        throw new Error('Cannot derive addresses in non-software mode');
-
       const zeroIndex = 0;
 
       return createSignersForAllNetworkTypes({

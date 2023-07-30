@@ -13,6 +13,7 @@ import { useRouteHeader } from '@app/common/hooks/use-route-header';
 import { baseCurrencyAmountInQuote } from '@app/common/money/calculate-money';
 import { formatMoneyPadded, i18nFormatCurrency } from '@app/common/money/format-money';
 import { satToBtc } from '@app/common/money/unit-conversion';
+import { queryClient } from '@app/common/persistence';
 import { FormAddressDisplayer } from '@app/components/address-displayer/form-address-displayer';
 import {
   InfoCard,
@@ -82,6 +83,11 @@ export function BtcSendFormConfirmation() {
         navigate(RouteUrls.SentBtcTxSummary.replace(':txId', `${txid}`), {
           state: formBtcTxSummaryState(txid),
         });
+
+        // invalidate txs query after some time to ensure that the new tx will be shown in the list
+        setTimeout(() => {
+          void queryClient.invalidateQueries({ queryKey: ['btc-txs-by-address'] });
+        }, 2000);
       },
       onError(e) {
         nav.toErrorPage(e);

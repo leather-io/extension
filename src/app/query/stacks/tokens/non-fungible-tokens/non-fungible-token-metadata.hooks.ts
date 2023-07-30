@@ -1,10 +1,12 @@
 import { useMemo } from 'react';
 
+import { StacksAccount } from '@app/store/accounts/blockchain/stacks/stacks-account.models';
+
 import { isNftAsset } from '../token-metadata.utils';
 import { useGetNonFungibleTokenMetadataListQuery } from './non-fungible-token-metadata.query';
 
-export function useNonFungibleTokensMetadata() {
-  const respList = useGetNonFungibleTokenMetadataListQuery();
+export function useStacksNonFungibleTokensMetadata(account: StacksAccount) {
+  const respList = useGetNonFungibleTokenMetadataListQuery(account);
 
   return useMemo(
     () =>

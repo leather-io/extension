@@ -144,6 +144,7 @@ export function BrcChooseFee() {
       recommendedFeeRate={recommendedFeeRate}
       recipient={recipient}
       showError={showInsufficientBalanceError}
+      maxRecommendedFeeRate={feesList[0]?.feeRate}
     />
   );
 }

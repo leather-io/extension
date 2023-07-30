@@ -1,6 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
 
-import { BitcoinTransaction } from '@shared/models/transactions/bitcoin-transaction.model';
+import { BitcoinTx } from '@shared/models/transactions/bitcoin-transaction.model';
 
 import { AppUseQueryConfig } from '@app/query/query-config';
 import { useBitcoinClient } from '@app/store/common/api-clients.hooks';
@@ -9,9 +9,9 @@ const staleTime = 5 * 1000;
 
 const queryOptions = { staleTime, refetchInterval: staleTime };
 
-export function useGetBitcoinTransactionsByAddressQuery<T extends unknown = BitcoinTransaction[]>(
+export function useGetBitcoinTransactionsByAddressQuery<T extends unknown = BitcoinTx[]>(
   address: string,
-  options?: AppUseQueryConfig<BitcoinTransaction[], T>
+  options?: AppUseQueryConfig<BitcoinTx[], T>
 ) {
   const client = useBitcoinClient();
 

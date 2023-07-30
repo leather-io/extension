@@ -11,7 +11,10 @@ import {
   getBitcoinCoinTypeIndexByNetwork,
 } from './bitcoin.utils';
 
-function getTaprootAccountDerivationPath(network: BitcoinNetworkModes, accountIndex: number) {
+export function getTaprootAccountDerivationPath(
+  network: BitcoinNetworkModes,
+  accountIndex: number
+) {
   return `m/86'/${getBitcoinCoinTypeIndexByNetwork(network)}'/${accountIndex}'`;
 }
 
@@ -28,6 +31,7 @@ export function deriveTaprootAccount(keychain: HDKey, network: BitcoinNetworkMod
     throw new Error('Keychain passed is not an account');
 
   return (accountIndex: number): BitcoinAccount => ({
+    type: 'p2tr',
     network,
     accountIndex,
     derivationPath: getTaprootAccountDerivationPath(network, accountIndex),

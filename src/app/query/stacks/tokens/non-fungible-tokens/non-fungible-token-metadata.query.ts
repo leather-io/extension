@@ -3,12 +3,13 @@ import { UseQueryResult, useQueries } from '@tanstack/react-query';
 
 import { pullContractIdFromIdentity } from '@app/common/utils';
 import { QueryPrefixes } from '@app/query/query-prefixes';
+import { StacksAccount } from '@app/store/accounts/blockchain/stacks/stacks-account.models';
 import { useTokenMetadataClient } from '@app/store/common/api-clients.hooks';
 
 import { RateLimiter, useHiroApiRateLimiter } from '../../rate-limiter';
 import { TokenMetadataClient } from '../../token-metadata-client';
 import { NftAssetResponse } from '../token-metadata.utils';
-import { useAccountNonFungibleTokenHoldings } from './non-fungible-token-holdings.hooks';
+import useGetNonFungibleTokenHoldingsQuery from './non-fungible-token-holdings.query';
 
 const queryOptions = {
   refetchOnWindowFocus: true,
@@ -28,13 +29,15 @@ function fetchNonFungibleTokenMetadata(client: TokenMetadataClient, limiter: Rat
   };
 }
 
-export function useGetNonFungibleTokenMetadataListQuery(): UseQueryResult<NftAssetResponse>[] {
+export function useGetNonFungibleTokenMetadataListQuery(
+  account: StacksAccount
+): UseQueryResult<NftAssetResponse>[] {
   const client = useTokenMetadataClient();
   const limiter = useHiroApiRateLimiter();
-  const nftHoldings = useAccountNonFungibleTokenHoldings();
+  const nftHoldings = useGetNonFungibleTokenHoldingsQuery(account.address);
 
   return useQueries({
-    queries: nftHoldings.map(nft => {
+    queries: (nftHoldings.data?.results ?? []).map(nft => {
       const principal = pullContractIdFromIdentity(nft.asset_identifier);
       const tokenId = getTokenId(nft.value.hex);
 

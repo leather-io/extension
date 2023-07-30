@@ -95,7 +95,7 @@ export function LedgerSignStacksTxContainer() {
     await verifyLedgerPublicKey(stacksApp);
 
     try {
-      ledgerNavigate.toConnectionSuccessStep();
+      ledgerNavigate.toConnectionSuccessStep('stacks');
       await delay(1000);
       if (!unsignedTransaction) throw new Error('No unsigned tx');
 
