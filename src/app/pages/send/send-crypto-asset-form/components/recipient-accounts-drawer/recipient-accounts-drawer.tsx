@@ -6,7 +6,10 @@ import { Box } from '@stacks/ui';
 
 import { useWalletType } from '@app/common/use-wallet-type';
 import { BaseDrawer } from '@app/components/drawer/base-drawer';
-import { useStacksAccounts } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
+import {
+  useCurrentStacksAccount,
+  useStacksAccounts,
+} from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
 
 import { AccountListItem } from './account-list-item';
 
@@ -15,11 +18,14 @@ const smallNumberOfAccountsToRenderWholeList = 10;
 export const RecipientAccountsDrawer = memo(() => {
   const { whenWallet } = useWalletType();
   const accounts = useStacksAccounts();
+  const currentAccount = useCurrentStacksAccount();
   const navigate = useNavigate();
 
   const onGoBack = useCallback(() => navigate('..', { replace: true }), [navigate]);
 
   if (!accounts) return null;
+
+  accounts.splice(currentAccount?.index || 0, 1);
 
   return (
     <BaseDrawer title="My accounts" isShowing onClose={onGoBack}>
