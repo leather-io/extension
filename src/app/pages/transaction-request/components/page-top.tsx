@@ -30,6 +30,7 @@ function PageTopBase() {
       data-testid={TransactionSigningSelectors.TxSigningPageContainer}
       mb="loose"
       spacing="base"
+      width="100%"
     >
       <Title as="h1" fontWeight="bold">
         {pageTitle}
