@@ -56,7 +56,7 @@ export function BitcoinCustomFee({
   const getCustomFeeValues = useBitcoinCustomFee({ amount, isSendingMax, recipient });
   const dispatch = useDispatch();
   const currentAccountAddress = useCurrentStacksAccount()?.address || '0';
-    console.log(useCurrentStacksAccount())
+  
   const onChooseCustomBtcFee = useCallback(
     async ({ feeRate }: { feeRate: string }) => {
       onSetSelectedFeeType(null);
