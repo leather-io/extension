@@ -8,7 +8,7 @@ export function PsbtSignerLayout({ children }: PsbtSignerLayoutProps) {
     <Stack
       alignItems="center"
       maxHeight="calc(100vh - 72px)"
-      overflowY="scroll"
+      overflowY="auto"
       pb="120px"
       px="loose"
       spacing="base-loose"
