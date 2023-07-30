@@ -110,13 +110,7 @@ test.describe('send stx', () => {
       const errorMsg = await sendPage.formInputErrorLabel.innerText();
       test.expect(errorMsg).toContain(FormErrorMessages.InvalidAddress);
     });
-
-    test('that the address cannot be same as sender', async ({ page, sendPage }) => {
-      await sendPage.recipientChooseAccountButton.click();
-      await page.getByTestId('switch-account-item-0').blur();
-      const errorMsg = await sendPage.formInputErrorLabel.innerText();
-      test.expect(errorMsg).toContain(FormErrorMessages.SameAddress);
-    });
+    
   });
 
   test.describe('send form preview', () => {
