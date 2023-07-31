@@ -37,13 +37,12 @@ const BRANCH = getBranch();
 
 const SRC_ROOT_PATH = path.join(__dirname, '../', 'src');
 const DIST_ROOT_PATH = path.join(__dirname, '../', 'dist');
-const NODE_ENV = process.env.NODE_ENV || 'development';
+const WALLET_ENVIRONMENT = process.env.WALLET_ENVIRONMENT || 'development';
 const WEB_BROWSER = process.env.WEB_BROWSER ? process.env.WEB_BROWSER : 'chrome';
-const IS_DEV = NODE_ENV === 'development';
+const IS_DEV = WALLET_ENVIRONMENT === 'development';
 const IS_PROD = !IS_DEV;
 
 const ANALYZE_BUNDLE = process.env.ANALYZE === 'true';
-const EXT_ENV = process.env.EXT_ENV || 'web';
 
 const speedMeasurePlugin = new SpeedMeasurePlugin({
   disable: !ANALYZE_BUNDLE,
@@ -90,7 +89,7 @@ const config = {
     path: DIST_ROOT_PATH,
     chunkFilename: !IS_DEV ? '[name].[contenthash:8].chunk.js' : IS_DEV && '[name].chunk.js',
     filename: () => {
-      if (EXT_ENV === 'prod' || IS_DEV) {
+      if (WALLET_ENVIRONMENT === 'production' || IS_DEV) {
         return '[name].js';
       }
       return '[name].[contenthash:8].js';
@@ -172,7 +171,7 @@ const config = {
       ],
     }),
     new webpack.DefinePlugin({
-      NODE_ENV: JSON.stringify(NODE_ENV),
+      WALLET_ENVIRONMENT: JSON.stringify(WALLET_ENVIRONMENT),
       WEB_BROWSER: JSON.stringify(WEB_BROWSER),
       VERSION: JSON.stringify(VERSION),
       COMMIT_SHA: JSON.stringify(COMMIT_SHA),

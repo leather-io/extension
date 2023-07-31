@@ -8,6 +8,7 @@ import {
   getBtcSignerLibNetworkConfigByMode,
 } from '@shared/crypto/bitcoin/bitcoin.network';
 import { getAddressFromOutScript } from '@shared/crypto/bitcoin/bitcoin.utils';
+import { AllowedSighashTypes } from '@shared/rpc/methods/sign-psbt';
 import { ensureArray, isDefined, isUndefined } from '@shared/utils';
 
 import { useOrdinalsAwareUtxoQueries } from '@app/query/bitcoin/ordinals/ordinals-aware-utxo.query';
@@ -44,7 +45,7 @@ function getInputValue(index: number, input: btc.TransactionInput) {
 }
 
 interface UseParsedInputsArgs {
-  allowedSighash?: btc.SignatureHash[];
+  allowedSighash?: AllowedSighashTypes[];
   inputs: btc.TransactionInput[];
   indexesToSign?: number[];
 }

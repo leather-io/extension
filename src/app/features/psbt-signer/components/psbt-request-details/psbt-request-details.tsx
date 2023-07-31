@@ -1,5 +1,7 @@
 import * as btc from '@scure/btc-signer';
 
+import { AllowedSighashTypes } from '@shared/rpc/methods/sign-psbt';
+
 import { useCurrentAccountNativeSegwitIndexZeroSigner } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
 import { useCurrentAccountTaprootIndexZeroSigner } from '@app/store/accounts/blockchain/bitcoin/taproot-account.hooks';
 
@@ -14,7 +16,7 @@ import { PsbtRequestFee } from './components/psbt-request-fee';
 import { PsbtRequestRaw } from './components/psbt-request-raw';
 
 interface PsbtRequestDetailsProps {
-  allowedSighash?: btc.SignatureHash[];
+  allowedSighash?: AllowedSighashTypes[];
   indexesToSign?: number[];
   psbtRaw?: RawPsbt;
   psbtTxInputs: btc.TransactionInput[];
