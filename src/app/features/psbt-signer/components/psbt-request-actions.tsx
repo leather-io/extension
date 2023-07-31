@@ -3,7 +3,7 @@ import { Box, Button, Stack, color } from '@stacks/ui';
 import { PrimaryButton } from '@app/components/primary-button';
 
 interface PsbtRequestActionsProps {
-  isLoading: boolean;
+  isLoading?: boolean;
   onCancel(): void;
   onSignPsbt(): void;
 }

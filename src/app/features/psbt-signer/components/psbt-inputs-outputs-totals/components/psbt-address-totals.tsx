@@ -1,33 +1,28 @@
 import { truncateMiddle } from '@stacks/ui-utils';
 
-import { Money } from '@shared/models/money.model';
-
 import { formatMoney, i18nFormatCurrency } from '@app/common/money/format-money';
+import { usePsbtSignerContext } from '@app/features/psbt-signer/psbt-signer.context';
 import { useCalculateBitcoinFiatValue } from '@app/query/common/market-data/market-data.hooks';
 
 import { PsbtAddressTotalItem } from './psbt-address-total-item';
 import { PsbtInscription } from './psbt-inscription';
 
 interface PsbtAddressTotalsProps {
-  accountInscriptionsBeingTransferred?: string[];
-  accountInscriptionsBeingReceived?: string[];
-  addressNativeSegwit: string;
-  addressTaproot: string;
-  addressNativeSegwitTotal: Money;
-  addressTaprootTotal: Money;
   showNativeSegwitTotal: boolean;
   showTaprootTotal: boolean;
 }
 export function PsbtAddressTotals({
-  accountInscriptionsBeingTransferred,
-  accountInscriptionsBeingReceived,
-  addressNativeSegwit,
-  addressTaproot,
-  addressNativeSegwitTotal,
-  addressTaprootTotal,
   showNativeSegwitTotal,
   showTaprootTotal,
 }: PsbtAddressTotalsProps) {
+  const {
+    accountInscriptionsBeingTransferred,
+    accountInscriptionsBeingReceived,
+    addressNativeSegwit,
+    addressTaproot,
+    addressNativeSegwitTotal,
+    addressTaprootTotal,
+  } = usePsbtSignerContext();
   const calculateBitcoinFiatValue = useCalculateBitcoinFiatValue();
 
   const isTransferringInscriptions = accountInscriptionsBeingTransferred?.length;

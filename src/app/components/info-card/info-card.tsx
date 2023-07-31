@@ -65,7 +65,7 @@ interface InfoCardAssetValueProps extends StackProps {
   value: number;
   fiatValue?: string;
   fiatSymbol?: string;
-  symbol: string;
+  symbol?: string;
   icon?: React.FC;
 }
 
