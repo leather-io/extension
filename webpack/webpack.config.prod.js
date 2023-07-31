@@ -15,16 +15,18 @@ config.optimization = {
   ...config.optimization,
   minimize: shouldMinify,
   moduleIds: 'deterministic',
-  splitChunks: {
-    chunks(chunk) {
-      // Only enable code splitting on main bundle
-      return chunk.name === 'index';
-    },
-    hidePathInfo: false,
-    minSize: 10000,
-    maxAsyncRequests: Infinity,
-    maxInitialRequests: Infinity,
-  },
+  splitChunks: shouldMinify
+    ? {
+        chunks(chunk) {
+          // Only enable code splitting on main bundle
+          return chunk.name === 'index';
+        },
+        hidePathInfo: false,
+        minSize: 10000,
+        maxAsyncRequests: Infinity,
+        maxInitialRequests: Infinity,
+      }
+    : false,
   ...(shouldMinify
     ? {
         minimizer: [

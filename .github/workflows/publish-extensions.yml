@@ -87,7 +87,7 @@ jobs:
     outputs:
       publish_status: ${{ steps.publish-chrome.outputs.publish_status }}
     env:
-      MINIFY_PRODUCTION_BUILD: false
+      MINIFY_PRODUCTION_BUILD: true
       TARGET_BROWSER: chromium
     steps:
       - uses: actions/checkout@v3

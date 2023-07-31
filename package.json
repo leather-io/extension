@@ -7,8 +7,8 @@
   "scripts": {
     "dev": "cross-env WALLET_ENVIRONMENT=development concurrently --raw \"node webpack/dev-server.js\" \"redux-devtools --hostname=localhost --port=8000\"",
     "dev:test-app": "webpack serve --config test-app/webpack/webpack.config.dev.js",
-    "build": "cross-env WALLET_ENVIRONMENT=production webpack --config webpack/webpack.config.prod.js",
-    "build:analyze": "cross-env ANALYZE=true WALLET_ENVIRONMENT=production webpack --config webpack/webpack.config.prod.js",
+    "build": "cross-env WALLET_ENVIRONMENT=production MINIFY_PRODUCTION_BUILD=true webpack --config webpack/webpack.config.prod.js",
+    "build:analyze": "cross-env ANALYZE=true WALLET_ENVIRONMENT=production MINIFY_PRODUCTION_BUILD=true webpack --config webpack/webpack.config.prod.js",
     "build:dev": "cross-env WALLET_ENVIRONMENT=development webpack --config webpack/webpack.config.dev.js",
     "build:ext:test": "cross-env WALLET_ENVIRONMENT=production TEST_ENV=true webpack --config webpack/webpack.config.prod.js",
     "build:ext:test:watch": "cross-env WALLET_ENVIRONMENT=production TEST_ENV=true webpack --config webpack/webpack.config.prod.js --watch",
