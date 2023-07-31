@@ -7,7 +7,7 @@ config.optimization = {
   ...config.optimization,
   flagIncludedChunks: false,
   concatenateModules: false,
-  minimize: process.env.NODE_ENV !== 'test',
+  minimize: process.env.WALLET_ENVIRONMENT !== 'testing',
   moduleIds: 'deterministic',
   splitChunks: {
     hidePathInfo: false,

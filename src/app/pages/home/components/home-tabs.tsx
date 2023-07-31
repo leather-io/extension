@@ -10,7 +10,7 @@ import { LoadingSpinner } from '@app/components/loading-spinner';
 import { Tabs } from '@app/components/tabs';
 
 interface HomeTabsProps extends StackProps {
-  children: React.JSX.Element;
+  children: React.ReactNode;
 }
 // TODO #4013: Abstract this to generic RouteTab once choose-fee-tab updated
 export function HomeTabs({ children }: HomeTabsProps) {

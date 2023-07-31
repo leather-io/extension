@@ -1,13 +1,17 @@
+import { useNavigate } from 'react-router-dom';
+
 import { RpcErrorCode } from '@btckit/types';
 import * as btc from '@scure/btc-signer';
 import { bytesToHex } from '@stacks/common';
 
+import { RouteUrls } from '@shared/route-urls';
 import { makeRpcErrorResponse, makeRpcSuccessResponse } from '@shared/rpc/rpc-methods';
 
 import { useRpcSignPsbtParams } from '@app/common/psbt/use-psbt-request-params';
 import { usePsbtSigner } from '@app/features/psbt-signer/hooks/use-psbt-signer';
 
 export function useRpcSignPsbt() {
+  const navigate = useNavigate();
   const { origin, tabId, requestId, psbtHex, allowedSighash, signAtIndex } = useRpcSignPsbtParams();
   const { signPsbt, getPsbtAsTransaction } = usePsbtSigner();
 
@@ -21,7 +25,13 @@ export function useRpcSignPsbt() {
     onSignPsbt(inputs: btc.TransactionInput[]) {
       const tx = getPsbtAsTransaction(psbtHex);
 
-      signPsbt({ allowedSighash, indexesToSign: signAtIndex, inputs, tx });
+      try {
+        signPsbt({ allowedSighash, indexesToSign: signAtIndex, inputs, tx });
+      } catch (e) {
+        return navigate(RouteUrls.RequestError, {
+          state: { message: e instanceof Error ? e.message : '', title: 'Failed to sign' },
+        });
+      }
 
       const psbt = tx.toPSBT();
 

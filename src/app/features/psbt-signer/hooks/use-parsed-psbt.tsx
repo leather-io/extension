@@ -2,6 +2,8 @@ import { useCallback } from 'react';
 
 import * as btc from '@scure/btc-signer';
 
+import { AllowedSighashTypes } from '@shared/rpc/methods/sign-psbt';
+
 import { subtractMoney } from '@app/common/money/calculate-money';
 import { useCurrentAccountNativeSegwitIndexZeroSigner } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
 import { useCurrentAccountTaprootIndexZeroSigner } from '@app/store/accounts/blockchain/bitcoin/taproot-account.hooks';
@@ -13,7 +15,7 @@ import { usePsbtInscriptions } from './use-psbt-inscriptions';
 import { usePsbtTotals } from './use-psbt-totals';
 
 interface UseParsedPsbtArgs {
-  allowedSighash?: btc.SignatureHash[];
+  allowedSighash?: AllowedSighashTypes[];
   inputs: btc.TransactionInput[];
   indexesToSign?: number[];
   outputs: btc.TransactionOutput[];
