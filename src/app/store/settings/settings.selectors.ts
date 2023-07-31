@@ -39,8 +39,8 @@ export function useDismissedMessageIds() {
   return useSelector(selectDismissedMessageIds);
 }
 
-const selectDefaultPreferences = createSelector(selectSettings, state => state.preference ?? {});
+const selectDefaultFeeValues = createSelector(selectSettings, state => state.savedFeeValue ?? {});
 
-export function useDefaultPreferences() {
-  return useSelector(selectDefaultPreferences);
+export function useDefaultSavedFeeValue() {
+  return useSelector(selectDefaultFeeValues);
 }

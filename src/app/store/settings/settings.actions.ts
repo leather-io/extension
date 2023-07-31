@@ -4,7 +4,7 @@ import { Dispatch } from '@reduxjs/toolkit';
 
 import { settingsSlice } from './settings.slice';
 
-interface Values {
+interface savedFeeValueDetails {
   saveRateForFuture: boolean;
   savedRate: string;
 }
@@ -16,10 +16,10 @@ export function useDismissMessage() {
   return (messageId: string) => dispatch(settingsActions.messageDismissed(messageId));
 }
 
-export const savePreferenceToStorage = (key: string, value: Values): any => {
-  return (dispatch: Dispatch) => dispatch(settingsActions.setPreference({ key, value }));
+export const saveFeeValueToStorage = (key: string, value: savedFeeValueDetails): any => {
+  return (dispatch: Dispatch) => dispatch(settingsActions.setFeeValue({ key, value }));
 };
 
-export const removePreferenceFromStorage = (key: string): any => {
-  return (dispatch: Dispatch) => dispatch(settingsActions.removePreference(key));
+export const removeFeeValueFromStorage = (key: string): any => {
+  return (dispatch: Dispatch) => dispatch(settingsActions.removeFeeValue(key));
 };

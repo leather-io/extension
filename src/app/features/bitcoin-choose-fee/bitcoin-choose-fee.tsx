@@ -12,7 +12,7 @@ import { MAX_FEE_RATE_MULTIPLIER } from '@app/components/bitcoin-custom-fee/hook
 import { OnChooseFeeArgs } from '@app/components/bitcoin-fees-list/bitcoin-fees-list';
 import { useNativeSegwitBalance } from '@app/query/bitcoin/balance/bitcoin-balances.query';
 import { useCurrentAccountNativeSegwitIndexZeroSigner } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
-import { useDefaultPreferences } from '@app/store/settings/settings.selectors';
+import { useDefaultSavedFeeValue } from '@app/store/settings/settings.selectors';
 
 import { BitcoinChooseFeeLayout } from './components/bitcoin-choose-fee.layout';
 import { ChooseFeeSubtitle } from './components/choose-fee-subtitle';
@@ -57,9 +57,9 @@ export function BitcoinChooseFee({
   const hasAmount = amount.amount.isGreaterThan(0);
   const currentAccountAddress = useCurrentStacksAccount()?.address || '0';
 
-  const preferenceData = useDefaultPreferences();
+  const savedFeeValueData = useDefaultSavedFeeValue();
 
-  const savedRateDetails: SaveRateProps = preferenceData[currentAccountAddress];
+  const savedRateDetails: SaveRateProps = savedFeeValueData[currentAccountAddress];
 
   const [onSaveCustomFeeRate, setOnSaveCustomFeeRate] = useState(
     savedRateDetails === undefined ? false : savedRateDetails.saveRateForFuture

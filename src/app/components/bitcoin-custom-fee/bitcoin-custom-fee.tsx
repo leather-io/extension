@@ -13,8 +13,8 @@ import { PreviewButton } from '@app/components/preview-button';
 import { Caption } from '@app/components/typography';
 import { useCurrentStacksAccount } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
 import {
-  removePreferenceFromStorage,
-  savePreferenceToStorage,
+  removeFeeValueFromStorage,
+  saveFeeValueToStorage,
 } from '@app/store/settings/settings.actions';
 
 import { OnChooseFeeArgs } from '../bitcoin-fees-list/bitcoin-fees-list';
@@ -120,7 +120,7 @@ export function BitcoinCustomFee({
                       setCustomFeeInitialValue((e.target as HTMLInputElement).value);
                       if (onSaveCustomFeeRate) {
                         dispatch(
-                          savePreferenceToStorage(currentAccountAddress, {
+                          saveFeeValueToStorage(currentAccountAddress, {
                             saveRateForFuture: onSaveCustomFeeRate,
                             savedRate: (e.target as HTMLInputElement).value,
                           })
@@ -147,13 +147,13 @@ export function BitcoinCustomFee({
                       setOnSaveCustomFeeRate(e.target.checked);
                       if (e.target.checked) {
                         dispatch(
-                          savePreferenceToStorage(currentAccountAddress, {
+                          saveFeeValueToStorage(currentAccountAddress, {
                             saveRateForFuture: e.target.checked,
                             savedRate: customFeeInitialValue,
                           })
                         );
                       } else {
-                        dispatch(removePreferenceFromStorage(currentAccountAddress));
+                        dispatch(removeFeeValueFromStorage(currentAccountAddress));
                       }
                     }}
                   />

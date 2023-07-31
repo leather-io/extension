@@ -45,7 +45,7 @@ export const testSoftwareAccountDefaultWalletState = {
     userSelectedTheme: 'system',
     hasAllowedAnalytics: false,
     dismissedMessages: [],
-    preference: {},
+    savedFeeValue: {},
   },
   _persist: { version: 1, rehydrated: true },
 };

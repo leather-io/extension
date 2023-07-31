@@ -13,14 +13,14 @@ interface InitialState {
   userSelectedTheme: UserSelectedTheme;
   hasAllowedAnalytics: HasAcceptedAnalytics;
   dismissedMessages: string[];
-  preference: Record<string, Values>;
+  savedFeeValue: Record<string, Values>;
 }
 
 const initialState: InitialState = {
   userSelectedTheme: 'system',
   hasAllowedAnalytics: null,
   dismissedMessages: [],
-  preference: {},
+  savedFeeValue: {},
 };
 
 export const settingsSlice = createSlice({
@@ -40,18 +40,18 @@ export const settingsSlice = createSlice({
     resetMessages(state) {
       state.dismissedMessages = [];
     },
-    setPreference(state, action: PayloadAction<{ key: string; value: Values }>) {
+    setFeeValue(state, action: PayloadAction<{ key: string; value: Values }>) {
       const { key, value } = action.payload;
       return {
         ...state,
-        preference: {
-          ...state.preference,
+        savedFeeValue: {
+          ...state.savedFeeValue,
           [key]: value,
         },
       };
     },
-    removePreference(state, action: PayloadAction<string>) {
-      delete state.preference[action.payload];
+    removeFeeValue(state, action: PayloadAction<string>) {
+      delete state.savedFeeValue[action.payload];
     },
   },
 });
