@@ -3,7 +3,7 @@ const WebpackDevServer = require('webpack-dev-server');
 const webpack = require('webpack');
 const path = require('path');
 
-const NODE_ENV = process.env.NODE_ENV;
+const WALLET_ENVIRONMENT = process.env.WALLET_ENVIRONMENT;
 
 const HOST = 'localhost';
 const PORT = process.env.PORT || '8080';
@@ -53,7 +53,7 @@ const server = new WebpackDevServer(
   compiler
 );
 
-if (NODE_ENV === 'development' && module.hot) {
+if (WALLET_ENVIRONMENT === 'development' && module.hot) {
   module.hot.accept();
 }
 

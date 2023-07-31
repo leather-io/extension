@@ -6,7 +6,6 @@ declare module '*.svg' {
   export default src;
 }
 
-declare const EXT_ENV: string;
 declare const VERSION: string;
 
 interface QrOptions {

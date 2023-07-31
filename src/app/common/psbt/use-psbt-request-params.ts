@@ -1,8 +1,7 @@
 import { useMemo } from 'react';
 import { useSearchParams } from 'react-router-dom';
 
-import * as btc from '@scure/btc-signer';
-
+import { AllowedSighashTypes } from '@shared/rpc/methods/sign-psbt';
 import { ensureArray, undefinedIfLengthZero } from '@shared/utils';
 
 import { useRejectIfLedgerWallet } from '@app/common/rpc-helpers';
@@ -23,7 +22,7 @@ export function usePsbtRequestSearchParams() {
     () => ({
       appName: payload?.appDetails?.name,
       allowedSighash: payload?.allowedSighash
-        ? undefinedIfLengthZero(payload.allowedSighash.map(h => Number(h)) as btc.SignatureHash[])
+        ? undefinedIfLengthZero(payload.allowedSighash.map(h => Number(h)) as AllowedSighashTypes[])
         : undefined,
       origin,
       payload,
@@ -54,7 +53,7 @@ export function useRpcSignPsbtParams() {
       requestId,
       psbtHex,
       allowedSighash: undefinedIfLengthZero(
-        allowedSighash.map(h => Number(h)) as btc.SignatureHash[]
+        allowedSighash.map(h => Number(h)) as AllowedSighashTypes[]
       ),
       signAtIndex: undefinedIfLengthZero(ensureArray(signAtIndex).map(h => Number(h))),
     };

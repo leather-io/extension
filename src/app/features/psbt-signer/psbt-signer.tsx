@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import * as btc from '@scure/btc-signer';
 
 import { RouteUrls } from '@shared/route-urls';
+import { AllowedSighashTypes } from '@shared/rpc/methods/sign-psbt';
 
 import { useRouteHeader } from '@app/common/hooks/use-route-header';
 import { PopupHeader } from '@app/features/current-account/popup-header';
@@ -36,7 +37,7 @@ function getPsbtTxOutputs(psbtTx: btc.Transaction) {
 }
 
 interface PsbtSignerProps {
-  allowedSighash?: btc.SignatureHash[];
+  allowedSighash?: AllowedSighashTypes[];
   indexesToSign?: number[];
   name?: string;
   origin: string;

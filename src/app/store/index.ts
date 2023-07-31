@@ -15,7 +15,6 @@ import {
 } from 'redux-persist';
 import { PersistPartial } from 'redux-persist/es/persistReducer';
 
-import { IS_DEV_ENV } from '@shared/environment';
 import { persistConfig } from '@shared/storage/redux-pesist';
 
 import { analyticsSlice } from './analytics/analytics.slice';
@@ -84,16 +83,17 @@ export const store = configureStore({
     }),
     broadcastActionTypeToOtherFramesMiddleware,
   ],
-  enhancers: IS_DEV_ENV
-    ? [
-        devToolsEnhancer({
-          hostname: 'localhost',
-          port: 8000,
-          realtime: true,
-          suppressConnectErrors: false,
-        }),
-      ]
-    : undefined,
+  enhancers:
+    process.env.WALLET_ENVIRONMENT === 'development'
+      ? [
+          devToolsEnhancer({
+            hostname: 'localhost',
+            port: 8000,
+            realtime: true,
+            suppressConnectErrors: false,
+          }),
+        ]
+      : undefined,
 });
 
 export const persistor = persistStore(store);
