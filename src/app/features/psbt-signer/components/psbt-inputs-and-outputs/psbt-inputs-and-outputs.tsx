@@ -1,21 +1,17 @@
 import { useState } from 'react';
 
-import { PsbtInput } from '@app/features/psbt-signer/hooks/use-parsed-inputs';
-import { PsbtOutput } from '@app/features/psbt-signer/hooks/use-parsed-outputs';
+import { usePsbtSignerContext } from '@app/features/psbt-signer/psbt-signer.context';
 
 import { PsbtRequestDetailsSectionHeader } from '../psbt-request-details-section-header';
 import { PsbtRequestDetailsSectionLayout } from '../psbt-request-details-section.layout';
 import { PsbtInputList } from './components/psbt-input-list/psbt-input-list';
 import { PsbtOutputList } from './components/psbt-output-list/psbt-output-list';
 
-interface PsbtInputsAndOutputsProps {
-  inputs: PsbtInput[];
-  outputs: PsbtOutput[];
-}
-export function PsbtInputsAndOutputs({ outputs, inputs }: PsbtInputsAndOutputsProps) {
+export function PsbtInputsAndOutputs() {
+  const { psbtInputs, psbtOutputs } = usePsbtSignerContext();
   const [showDetails, setShowDetails] = useState(false);
 
-  if (!inputs.length || !outputs.length) return null;
+  if (!psbtInputs.length || !psbtOutputs.length) return null;
 
   return (
     <PsbtRequestDetailsSectionLayout>
@@ -27,9 +23,9 @@ export function PsbtInputsAndOutputs({ outputs, inputs }: PsbtInputsAndOutputsPr
       />
       {showDetails ? (
         <>
-          <PsbtInputList inputs={inputs} />
+          <PsbtInputList inputs={psbtInputs} />
           <PsbtRequestDetailsSectionHeader title="Outputs" />
-          <PsbtOutputList outputs={outputs} />
+          <PsbtOutputList outputs={psbtOutputs} />
         </>
       ) : null}
     </PsbtRequestDetailsSectionLayout>

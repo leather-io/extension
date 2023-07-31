@@ -1,9 +1,8 @@
 import { Stack } from '@stacks/ui';
 
-interface PsbtSignerLayoutProps {
-  children: React.ReactNode;
-}
-export function PsbtSignerLayout({ children }: PsbtSignerLayoutProps) {
+import { HasChildren } from '@app/common/has-children';
+
+export function PsbtSignerLayout({ children }: HasChildren) {
   return (
     <Stack
       alignItems="center"
