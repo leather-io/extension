@@ -24,9 +24,13 @@ export enum RouteUrls {
   LedgerBroadcastError = 'transaction-broadcast-error',
   LedgerAddMoreKeys = 'add-more-keys',
 
+  // Active wallet routes - home
+  Home = '/home',
+  // Tab nested relative paths
+  Activity = 'activity',
+  Assets = 'assets',
+
   // Active wallet routes
-  Home = '/',
-  Activity = '/activity',
   AddNetwork = '/add-network',
   ChooseAccount = '/choose-account',
   Fund = '/fund',

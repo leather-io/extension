@@ -1,4 +1,4 @@
-import { Outlet, Route, Routes, useLocation, useNavigate } from 'react-router-dom';
+import { Navigate, Outlet, Route, Routes, useLocation, useNavigate } from 'react-router-dom';
 
 import { RouteUrls } from '@shared/route-urls';
 
@@ -47,8 +47,9 @@ export function Home() {
       <HomeTabs>
         <>
           <Routes location={backgroundLocation || location}>
-            <Route path={RouteUrls.Home} element={<AssetsList />} />
+            <Route path={RouteUrls.Assets} element={<AssetsList />} />
             <Route path={RouteUrls.Activity} element={<ActivityList />} />
+            <Route path="*" element={<Navigate replace to={RouteUrls.Assets} />} />
             {homeModalRoutes}
           </Routes>
           {backgroundLocation && <Outlet />}

@@ -21,8 +21,8 @@ export function HomeTabs({ children }: HomeTabsProps) {
 
   const tabs = useMemo(
     () => [
-      { slug: RouteUrls.Home, label: 'balances' },
-      { slug: RouteUrls.Activity, label: 'activity' },
+      { slug: `${RouteUrls.Home}/${RouteUrls.Assets}`, label: 'balances' },
+      { slug: `${RouteUrls.Home}/${RouteUrls.Activity}`, label: 'activity' },
     ],
     []
   );

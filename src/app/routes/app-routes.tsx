@@ -202,32 +202,29 @@ function useAppRoutes() {
         <Route path={RouteUrls.RequestDiagnostics} element={<AllowDiagnosticsPage />} />
 
         <Route
-          path={RouteUrls.Home}
+          path={`${RouteUrls.Home}/*`}
           element={
             <AccountGate>
               <Home />
             </AccountGate>
           }
-        >
-          <Route index element={<AssetsList />} />
-          <Route path={RouteUrls.Activity} element={<ActivityList />} />
+        />
 
-          {requestBitcoinKeysRoutes}
-          {requestStacksKeysRoutes}
-          <Route path={RouteUrls.RetriveTaprootFunds} element={<RetrieveTaprootToNativeSegwit />} />
+        {requestBitcoinKeysRoutes}
+        {requestStacksKeysRoutes}
+        <Route path={RouteUrls.RetriveTaprootFunds} element={<RetrieveTaprootToNativeSegwit />} />
 
-          <Route path={RouteUrls.IncreaseStxFee} element={<IncreaseStxFeeDrawer />}>
-            {ledgerStacksTxSigningRoutes}
-          </Route>
-          <Route path={RouteUrls.IncreaseBtcFee} element={<IncreaseBtcFeeDrawer />} />
-          <Route path={RouteUrls.IncreaseFeeSent} element={<IncreaseFeeSentDrawer />} />
-          <Route path={RouteUrls.ReceiveCollectible} element={<ReceiveCollectibleModal />} />
-
-          {homeModalRoutes}
-          {sendOrdinalRoutes}
-
+        <Route path={RouteUrls.IncreaseStxFee} element={<IncreaseStxFeeDrawer />}>
           {ledgerStacksTxSigningRoutes}
         </Route>
+        <Route path={RouteUrls.IncreaseBtcFee} element={<IncreaseBtcFeeDrawer />} />
+        <Route path={RouteUrls.IncreaseFeeSent} element={<IncreaseFeeSentDrawer />} />
+        <Route path={RouteUrls.ReceiveCollectible} element={<ReceiveCollectibleModal />} />
+
+        {homeModalRoutes}
+        {sendOrdinalRoutes}
+
+        {ledgerStacksTxSigningRoutes}
         <Route
           path={RouteUrls.RpcReceiveBitcoinContractOffer}
           element={
@@ -268,7 +265,6 @@ function useAppRoutes() {
             return { Component: SetPasswordRoute };
           }}
         />
-
         <Route
           path={RouteUrls.SignIn}
           element={
@@ -308,9 +304,7 @@ function useAppRoutes() {
           <Route path={RouteUrls.FundReceiveBtc} element={<ReceiveBtcModal />} />
           {settingsModalRoutes}
         </Route>
-
         {sendCryptoAssetFormRoutes}
-
         <Route
           path={RouteUrls.ViewSecretKey}
           element={
@@ -324,7 +318,6 @@ function useAppRoutes() {
         <Route path={RouteUrls.Unlock} element={<Unlock />}>
           {settingsModalRoutes}
         </Route>
-
         {legacyRequestRoutes}
         {rpcRequestRoutes}
         <Route path={RouteUrls.UnauthorizedRequest} element={<UnauthorizedRequest />} />
@@ -336,7 +329,6 @@ function useAppRoutes() {
             </AccountGate>
           }
         />
-
         {/* Catch-all route redirects to onboarding */}
         <Route path="*" element={<Navigate replace to={RouteUrls.Onboarding} />} />
       </Route>
