@@ -23,6 +23,7 @@ import { useRejectIfLedgerWallet } from '@app/common/rpc-helpers';
 import { StacksTransactionProvider } from '@app/features/stacks-transaction-request/components/stacks-transaction.context';
 import { StacksTransactionSigner } from '@app/features/stacks-transaction-request/stacks-transaction-signer';
 import { useSignTransactionSoftwareWallet } from '@app/store/transactions/transaction.hooks';
+import { bytesToHex } from '@stacks/common';
 
 const MEMO_DESERIALIZATION_STUB = '\u0000';
 
@@ -138,7 +139,7 @@ function useRpcSignStacksTransaction() {
         makeRpcSuccessResponse('signStacksTransaction', {
           id: requestId,
           result: {
-            transactionHex: Buffer.from(signedTransaction.serialize()).toString('hex'),
+            transactionHex: bytesToHex(signedTransaction.serialize()),
           },
         })
       );
