@@ -115,7 +115,7 @@ export function useConfigBitcoinEnabled() {
   const config = useRemoteConfig();
   const hasBitcoinAccount = useHasCurrentBitcoinAccount();
   return whenWallet({
-    ledger: config?.bitcoinEnabled && LEDGER_BITCOIN_ENABLED && hasBitcoinAccount,
+    ledger: (config?.bitcoinEnabled ?? true) && LEDGER_BITCOIN_ENABLED && hasBitcoinAccount,
     software: config?.bitcoinEnabled ?? true,
   });
 }
@@ -125,7 +125,7 @@ export function useConfigBitcoinSendEnabled() {
   const config = useRemoteConfig();
   const hasBitcoinAccount = useHasCurrentBitcoinAccount();
   return whenWallet({
-    ledger: config?.bitcoinEnabled && hasBitcoinAccount,
+    ledger: config?.bitcoinSendEnabled && hasBitcoinAccount,
     software: config?.bitcoinSendEnabled ?? true,
   });
 }

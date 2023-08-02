@@ -19,5 +19,6 @@ test.describe('App with Ledger', () => {
     const noActivityText = homePage.page.getByText('No activity yet');
     // Account has activity to make sure we don't see label
     await test.expect(noActivityText).not.toBeVisible();
+    test.expect(homePage.page.url()).toContain('/activity');
   });
 });
