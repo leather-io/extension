@@ -70,7 +70,7 @@ export function BrcChooseFee() {
 
       const serviceFeeAsMoney = createMoney(serviceFee, 'BTC');
 
-      const resp = generateTx(
+      const resp = await generateTx(
         {
           amount: serviceFeeAsMoney,
           recipient: serviceFeeRecipient,

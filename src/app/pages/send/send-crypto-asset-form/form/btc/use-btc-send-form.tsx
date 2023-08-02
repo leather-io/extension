@@ -1,20 +1,13 @@
 import { useRef, useState } from 'react';
 
 import { FormikHelpers, FormikProps } from 'formik';
-import { DefaultWalletPolicy } from 'ledger-bitcoin';
 import * as yup from 'yup';
 
-import {
-  extractAccountIndexFromPath,
-  getBitcoinCoinTypeIndexByNetwork,
-} from '@shared/crypto/bitcoin/bitcoin.utils';
 import { logger } from '@shared/logger';
 import { BitcoinSendFormValues } from '@shared/models/form.model';
-import { noop } from '@shared/utils';
 
 import { formatPrecisionError } from '@app/common/error-formatters';
 import { useOnMount } from '@app/common/hooks/use-on-mount';
-import { useWalletType } from '@app/common/use-wallet-type';
 import {
   btcAddressNetworkValidator,
   btcAddressValidator,
@@ -28,7 +21,6 @@ import {
   btcAmountPrecisionValidator,
   currencyAmountValidator,
 } from '@app/common/validation/forms/currency-validators';
-import { connectLedgerBitcoinApp } from '@app/features/ledger/utils/bitcoin-ledger-utils';
 import { useUpdatePersistedSendFormValues } from '@app/features/popup-send-form-restoration/use-update-persisted-send-form-values';
 import { useSpendableCurrentNativeSegwitAccountUtxos } from '@app/query/bitcoin/address/utxos-by-address.hooks';
 import { useNativeSegwitBalance } from '@app/query/bitcoin/balance/bitcoin-balances.query';
@@ -45,7 +37,6 @@ export function useBtcSendForm() {
   const nativeSegwitSigner = useCurrentAccountNativeSegwitIndexZeroSigner();
   const { data: utxos = [], refetch } = useSpendableCurrentNativeSegwitAccountUtxos();
   const btcCryptoCurrencyAssetBalance = useNativeSegwitBalance(nativeSegwitSigner.address);
-  const { whenWallet } = useWalletType();
   const sendFormNavigate = useSendFormNavigate();
   const calcMaxSpend = useCalculateMaxBitcoinSpend();
   const { onFormStateChange } = useUpdatePersistedSendFormValues();
@@ -100,27 +91,3 @@ export function useBtcSendForm() {
     },
   };
 }
-
-// console.log('sending bitcoin amount with ledger', values);
-// const app = await connectLedgerBitcoinApp();
-
-// const masterFingerPrint = await app.getMasterFingerprint();
-// const extendedPublicKey = await app.getExtendedPubkey(
-//   `m/84'/${getBitcoinCoinTypeIndexByNetwork(
-//     currentNetwork.chain.bitcoin.network
-//   )}'/${extractAccountIndexFromPath(nativeSegwitSigner.derivationPath)}'`
-// );
-
-// const accountPolicy = new DefaultWalletPolicy(
-//   'wpkh(@0/**)',
-//   `[${masterFingerPrint}/84'/${getBitcoinCoinTypeIndexByNetwork(
-//     currentNetwork.chain.bitcoin.network
-//   )}'/0']${extendedPublicKey}`
-// );
-
-// console.log('account policy', accountPolicy);
-
-// console.log(app);
-// // app.signPsbt();
-// await app.transport.close();
-// console.log('transport closed');

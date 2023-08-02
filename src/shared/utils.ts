@@ -51,3 +51,10 @@ type NetworkMap<T> = Record<NetworkModes, T>;
 export function whenNetwork(mode: NetworkModes) {
   return <T extends NetworkMap<unknown>>(networkMap: T) => networkMap[mode] as T[NetworkModes];
 }
+
+export function reverseBytes(bytes: Buffer): Buffer;
+export function reverseBytes(bytes: Uint8Array): Uint8Array;
+export function reverseBytes(bytes: Buffer | Uint8Array) {
+  if (Buffer.isBuffer(bytes)) return Buffer.from(bytes).reverse();
+  return new Uint8Array(bytes.slice().reverse());
+}

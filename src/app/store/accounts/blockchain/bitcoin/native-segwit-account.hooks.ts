@@ -2,6 +2,7 @@ import { useMemo } from 'react';
 import { useSelector } from 'react-redux';
 
 import { createSelector } from '@reduxjs/toolkit';
+import { Psbt, networks } from 'bitcoinjs-lib';
 
 import {
   bitcoinNetworkModeToCoreNetworkMode,
@@ -13,10 +14,17 @@ import {
   getNativeSegWitPaymentFromAddressIndex,
   getNativeSegwitAccountDerivationPath,
 } from '@shared/crypto/bitcoin/p2wpkh-address-gen';
+import { reverseBytes } from '@shared/utils';
 
 import { mnemonicToRootNode } from '@app/common/keychain/keychain';
+import {
+  addSignatureToPsbt,
+  connectLedgerBitcoinApp,
+  createNativeSegwitDefaultWalletPolicy,
+} from '@app/features/ledger/utils/bitcoin-ledger-utils';
+import { useBitcoinClient } from '@app/store/common/api-clients.hooks';
 import { selectCurrentAccountIndex } from '@app/store/keys/key.selectors';
-import { selectCurrentNetwork } from '@app/store/networks/networks.selectors';
+import { selectCurrentNetwork, useCurrentNetwork } from '@app/store/networks/networks.selectors';
 
 import { useCurrentAccountIndex } from '../../account';
 import {
@@ -119,5 +127,73 @@ export function getNativeSegwitMainnetAddressFromMnemonic(secretKey: string) {
       deriveAddressIndexZeroFromAccount(account.keychain),
       'mainnet'
     );
+  };
+}
+
+export function useSignNativeSegwitLedgerTx() {
+  const accountIndex = useCurrentAccountIndex();
+  const network = useCurrentNetwork();
+  const signer = useCurrentAccountNativeSegwitIndexZeroSigner();
+  const bitcoinClient = useBitcoinClient();
+
+  return async (rawPsbt: Uint8Array) => {
+    const app = await connectLedgerBitcoinApp();
+    const fingerprint = await app.getMasterFingerprint();
+
+    const extendedPublicKey = await app.getExtendedPubkey(
+      getNativeSegwitAccountDerivationPath(network.chain.bitcoin.network, accountIndex)
+    );
+
+    // BtcSigner not compatible with Ledger. Encoded format returns more terse
+    // version. BitcoinJsLib works.
+    const psbt = Psbt.fromBuffer(Buffer.from(rawPsbt), { network: networks.testnet });
+
+    const inputTxIds = await Promise.all(
+      psbt.txInputs.map(input =>
+        bitcoinClient.transactionsApi.getBitcoinTransactionHex(
+          // txids are encoded onchain in reverse byte order
+          reverseBytes(input.hash).toString('hex')
+        )
+      )
+    );
+
+    for (let i = 0; i < psbt.inputCount; i++) {
+      psbt.updateInput(i, {
+        // On device warning if we don't add this
+        nonWitnessUtxo: Buffer.from(inputTxIds[i], 'hex'),
+        // Required for Ledger signing
+        bip32Derivation: [
+          {
+            masterFingerprint: Buffer.from(fingerprint, 'hex'),
+            pubkey: Buffer.from(signer.publicKey),
+            path: signer.derivationPath,
+          },
+        ],
+      });
+    }
+
+    const policy = createNativeSegwitDefaultWalletPolicy({
+      fingerprint,
+      accountIndex,
+      network: network.chain.bitcoin.network,
+      xpub: extendedPublicKey,
+    });
+
+    try {
+      const signatures = await app.signPsbt(psbt.toBase64(), policy, null);
+
+      addSignatureToPsbt(psbt, signatures);
+
+      psbt.finalizeAllInputs();
+
+      return psbt.extractTransaction();
+    } catch (e) {
+      // eslint-disable-next-line no-console
+      console.log(e);
+    } finally {
+      await app.transport.close();
+    }
+
+    return null;
   };
 }

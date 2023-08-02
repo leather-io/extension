@@ -3,13 +3,13 @@ import { useNavigate } from 'react-router-dom';
 import { logger } from '@shared/logger';
 import { BtcFeeType } from '@shared/models/fees/bitcoin-fees.model';
 import { createMoney } from '@shared/models/money.model';
-import { noop } from '@shared/utils';
 
 import { btcToSat } from '@app/common/money/unit-conversion';
 import { formFeeRowValue } from '@app/common/send/utils';
 import { useGenerateSignedNativeSegwitTx } from '@app/common/transactions/bitcoin/use-generate-bitcoin-tx';
 import { useWalletType } from '@app/common/use-wallet-type';
 import { OnChooseFeeArgs } from '@app/components/bitcoin-fees-list/bitcoin-fees-list';
+import { useSignNativeSegwitLedgerTx } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
 
 import { useSendBitcoinAssetContextState } from '../../family/bitcoin/components/send-bitcoin-asset-container';
 import { useCalculateMaxBitcoinSpend } from '../../family/bitcoin/hooks/use-calculate-max-spend';
@@ -24,6 +24,7 @@ export function useBtcChooseFee() {
   const generateTx = useGenerateSignedNativeSegwitTx();
   const { setSelectedFeeType } = useSendBitcoinAssetContextState();
   const calcMaxSpend = useCalculateMaxBitcoinSpend();
+  const signLedger = useSignNativeSegwitLedgerTx();
 
   const amountAsMoney = createMoney(btcToSat(txValues.amount).toNumber(), 'BTC');
 
@@ -35,23 +36,22 @@ export function useBtcChooseFee() {
     },
 
     async previewTransaction({ feeRate, feeValue, time, isCustomFee }: OnChooseFeeArgs) {
-      whenWallet({
-        software: () => {
-          const resp = generateTx(
-            {
-              amount: isSendingMax
-                ? calcMaxSpend(txValues.recipient, utxos, feeRate).amount
-                : amountAsMoney,
-              recipient: txValues.recipient,
-            },
-            feeRate,
-            utxos,
-            isSendingMax
-          );
+      const resp = await generateTx(
+        {
+          amount: isSendingMax
+            ? calcMaxSpend(txValues.recipient, utxos, feeRate).amount
+            : amountAsMoney,
+          recipient: txValues.recipient,
+        },
+        feeRate,
+        utxos,
+        isSendingMax
+      );
+      const feeRowValue = formFeeRowValue(feeRate, isCustomFee);
+      if (!resp) return logger.error('Attempted to generate raw tx, but no tx exists');
 
-          if (!resp) return logger.error('Attempted to generate raw tx, but no tx exists');
-
-          const feeRowValue = formFeeRowValue(feeRate, isCustomFee);
+      void whenWallet({
+        software: async () => {
           sendFormNavigate.toConfirmAndSignBtcTransaction({
             tx: resp.hex,
             recipient: txValues.recipient,
@@ -60,8 +60,8 @@ export function useBtcChooseFee() {
             time,
           });
         },
-        ledger: () => {
-          console.log('sdlkfsldkjf');
+        ledger: async () => {
+          await signLedger(resp.psbt);
         },
       })();
     },
