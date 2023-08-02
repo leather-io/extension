@@ -1,3 +1,28 @@
+## [6.2.0](https://github.com/hirosystems/wallet/compare/v6.1.0...v6.2.0) (2023-07-31)
+
+
+### Features
+
+* remove redux devtools from final bundle ([66cd1f6](https://github.com/hirosystems/wallet/commit/66cd1f6080b9841a3842ea4eaf9c0001c92e85c9))
+
+
+### Bug Fixes
+
+* add StacksAccountLoader ([aa5d904](https://github.com/hirosystems/wallet/commit/aa5d9048d413cd1be24769a7147e0884b244224a))
+* add update input for tapInternalKey ([e085927](https://github.com/hirosystems/wallet/commit/e085927a5dc48ec3e5abb0b9ae3df450288970f0))
+* catch rpc sign psbt error ([0519dcf](https://github.com/hirosystems/wallet/commit/0519dcf556e7cd99709868aee7e499788dfaed42))
+* firefox manually loaded extension ([95b8553](https://github.com/hirosystems/wallet/commit/95b85534ccb2a05dbaeeae42426ad14af009e9ca))
+* Fix max width on Stacks contract UI , closes [#3966](https://github.com/hirosystems/wallet/issues/3966) ([4ad34c8](https://github.com/hirosystems/wallet/commit/4ad34c8b081e7e12f0b4b9c8fec08d1df69656d0))
+* full sighash types ([84236fa](https://github.com/hirosystems/wallet/commit/84236fa23fcd12c297eb20c20067bdf1128da4f9))
+* track sighash type changes thru code ([62b479c](https://github.com/hirosystems/wallet/commit/62b479c1fcc657735327134407abb4de91342f2e))
+
+
+### Internal
+
+* nft hooks ([559fba6](https://github.com/hirosystems/wallet/commit/559fba678bcb67cb0218f7862a44c629d9fe47cf))
+* nft queries ([ac24e3e](https://github.com/hirosystems/wallet/commit/ac24e3eb96b695b0ec3b6d1658284a7331598ef1))
+* rename BalanceList to AssetList ([1d33b07](https://github.com/hirosystems/wallet/commit/1d33b0782516e46df674161862700c668012a369))
+
 ## [6.1.0](https://github.com/hirosystems/wallet/compare/v6.0.0...v6.1.0) (2023-07-26)
 
 
