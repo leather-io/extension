@@ -18,9 +18,9 @@ import {
   triggerRequestWindowOpen,
 } from '../messaging-utils';
 
-function validateStacksTransaction(transactionHex: string) {
+function validateStacksTransaction(txHex: string) {
   try {
-    deserializeTransaction(transactionHex);
+    deserializeTransaction(txHex);
     return true;
   } catch (e) {
     return false;
@@ -56,7 +56,7 @@ export async function rpcSignStacksTransaction(
     return;
   }
 
-  if (!validateStacksTransaction(message.params.transactionHex!)) {
+  if (!validateStacksTransaction(message.params.txHex!)) {
     chrome.tabs.sendMessage(
       getTabIdFromPort(port),
       makeRpcErrorResponse('signStacksTransaction', {
@@ -69,7 +69,7 @@ export async function rpcSignStacksTransaction(
 
   const requestParams = [
     ['stxAddress', message.params.stxAddress],
-    ['transactionHex', message.params.transactionHex],
+    ['txHex', message.params.txHex],
     ['requestId', message.id],
   ] as RequestParams;
 

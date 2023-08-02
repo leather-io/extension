@@ -41,7 +41,6 @@ interface StacksTransactionSignerProps {
   stacksTransaction: StacksTransaction;
   disableFeeSelection?: boolean;
   disableNonceSelection?: boolean;
-
   onCancel(): void;
   onSignStacksTransaction(fee: number, nonce: number): void;
 }

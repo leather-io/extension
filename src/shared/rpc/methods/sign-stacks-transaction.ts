@@ -6,7 +6,7 @@ import { formatValidationErrors, getRpcParamErrors, validateRpcParams } from './
 
 const rpcSignStacksTransactionParamsSchema = yup.object().shape({
   stxAddress: yup.string().required(),
-  transactionHex: yup.string().required(),
+  txHex: yup.string().required(),
   attachment: yup.string(),
   network: yup.string().oneOf(StacksNetworks),
 });
@@ -28,7 +28,7 @@ export type SignStacksTransactionRequest = RpcRequest<
   SignStacksTransactionRequestParams
 >;
 
-type SignStacksTransactionResponse = RpcResponse<{ transactionHex: string }>;
+type SignStacksTransactionResponse = RpcResponse<{ txHex: string }>;
 
 export type SignStacksTransaction = DefineRpcMethod<
   SignStacksTransactionRequest,
