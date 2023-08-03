@@ -1,3 +1,10 @@
+## [6.2.1](https://github.com/hirosystems/wallet/compare/v6.2.0...v6.2.1) (2023-08-03)
+
+
+### Bug Fixes
+
+* only route to error when asset is bitcoin, closes [#4083](https://github.com/hirosystems/wallet/issues/4083) ([099f96d](https://github.com/hirosystems/wallet/commit/099f96d32bbe68fb8ea807413c2605d3f98e85f5))
+
 ## [6.2.0](https://github.com/hirosystems/wallet/compare/v6.1.0...v6.2.0) (2023-07-31)
 
 
