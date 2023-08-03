@@ -27,3 +27,7 @@ export function IconForTx(address: string, tx: BitcoinTx) {
   if (isBitcoinTxInbound(address, tx)) return IconArrowDown;
   return IconArrowUp;
 }
+
+export function containsTaprootInput(tx: BitcoinTx) {
+  return tx.vin.some(input => input.prevout.scriptpubkey_type === 'v1_p2tr');
+}

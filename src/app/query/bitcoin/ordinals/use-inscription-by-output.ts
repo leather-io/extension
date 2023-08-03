@@ -6,8 +6,10 @@ import { useGetInscriptionByParamQuery } from './use-inscription-by-param.query'
 export function useInscriptionByOutput(transaction: BitcoinTx) {
   const inputsLength = transaction.vin.length;
   const index = inputsLength === 1 ? 0 : inputsLength - 2;
+  const isPending = !transaction.status.confirmed;
+  const id = isPending ? transaction.vin[index].txid : transaction.txid;
 
-  return useGetInscriptionByParamQuery(`output=${transaction.txid}:${index}`, {
+  return useGetInscriptionByParamQuery(`output=${id}:${index}`, {
     select(data) {
       const inscription = data.results[0];
       if (!inscription) return;
