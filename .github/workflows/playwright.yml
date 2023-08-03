@@ -11,10 +11,27 @@ on:
     branches: [dev]
 
 jobs:
+  build-extension:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: ./.github/actions/provision
+
+      - name: Build project
+        run: yarn build:test
+
+      - uses: actions/upload-artifact@v3
+        name: Upload build artifact
+        with:
+          name: dist
+          path: dist
+
   test:
     name: Shard ${{ matrix.shardIndex }} of ${{ matrix.shardTotal }}
-    timeout-minutes: 30
+    timeout-minutes: 20
     runs-on: ubuntu-latest
+    needs:
+      - build-extension
     strategy:
       fail-fast: false
       matrix:
@@ -26,6 +43,17 @@ jobs:
       - uses: actions/setup-node@v3
         with:
           node-version: 18
+
+      - name: Download extension build
+        uses: actions/download-artifact@v3
+        with:
+          name: dist
+          path: dist
+
+      - run: ls -la .
+
+      - run: ls -la dist
+        continue-on-error: true
 
       - name: Get installed Playwright version
         id: playwright-version
@@ -57,9 +85,6 @@ jobs:
       - name: Install Playwright deps
         run: yarn playwright install --with-deps
         if: steps.playwright-cache.outputs.cache-hit != 'true'
-
-      - name: Build extension in test mode
-        run: yarn build:test
 
         # Playwright can only test extensions in headed mode, see
         # https://playwright.dev/docs/chrome-extensions. To run a browser in

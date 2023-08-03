@@ -185,11 +185,6 @@ const config = {
   ],
 };
 
-if (IS_PROD) {
-  config.plugins.push(
-    new CleanWebpackPlugin({ verbose: true, dry: false, cleanStaleWebpackAssets: false })
-  );
-}
 if (ANALYZE_BUNDLE) {
   config.plugins.push(new BundleAnalyzerPlugin());
 }
