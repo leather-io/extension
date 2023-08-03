@@ -14,25 +14,31 @@ import {
   isBitcoinTxInbound,
 } from '@app/common/transactions/bitcoin/utils';
 import { useWalletType } from '@app/common/use-wallet-type';
+import { openInNewTab } from '@app/common/utils/open-in-new-tab';
 import { usePressable } from '@app/components/item-hover';
 import { IncreaseFeeButton } from '@app/components/stacks-transaction-item/increase-fee-button';
 import { TransactionTitle } from '@app/components/transaction/transaction-title';
+import { createInscriptionInfoUrl } from '@app/query/bitcoin/ordinals/inscription.hooks';
+import { useInscriptionByOutput } from '@app/query/bitcoin/ordinals/use-inscription-by-output';
 import { useCurrentAccountNativeSegwitAddressIndexZero } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
 
 import { TransactionItemLayout } from '../transaction-item/transaction-item.layout';
 import { BitcoinTransactionCaption } from './bitcoin-transaction-caption';
 import { BitcoinTransactionIcon } from './bitcoin-transaction-icon';
+import { BitcoinTransactionInscriptionIcon } from './bitcoin-transaction-inscription-icon';
 import { BitcoinTransactionStatus } from './bitcoin-transaction-status';
 import { BitcoinTransactionValue } from './bitcoin-transaction-value';
 
 interface BitcoinTransactionItemProps extends BoxProps {
-  transaction?: BitcoinTx;
+  transaction: BitcoinTx;
 }
 export function BitcoinTransactionItem({ transaction, ...rest }: BitcoinTransactionItemProps) {
   const [component, bind, { isHovered }] = usePressable(true);
   const { pathname } = useLocation();
   const navigate = useNavigate();
   const { whenWallet } = useWalletType();
+
+  const { data: inscriptionData } = useInscriptionByOutput(transaction);
 
   const bitcoinAddress = useCurrentAccountNativeSegwitAddressIndexZero();
   const { handleOpenTxLink } = useExplorerLink();
@@ -56,6 +62,10 @@ export function BitcoinTransactionItem({ transaction, ...rest }: BitcoinTransact
 
   const openTxLink = () => {
     void analytics.track('view_bitcoin_transaction');
+    if (inscriptionData) {
+      openInNewTab(createInscriptionInfoUrl(inscriptionData.id));
+      return;
+    }
     handleOpenTxLink({
       blockchain: 'bitcoin',
       txid: transaction?.txid || '',
@@ -67,7 +77,16 @@ export function BitcoinTransactionItem({ transaction, ...rest }: BitcoinTransact
 
   const txCaption = <BitcoinTransactionCaption>{caption}</BitcoinTransactionCaption>;
   const txValue = <BitcoinTransactionValue>{value}</BitcoinTransactionValue>;
-
+  const txIcon = inscriptionData ? (
+    <BitcoinTransactionInscriptionIcon
+      inscription={inscriptionData}
+      transaction={transaction}
+      btcAddress={bitcoinAddress}
+    />
+  ) : (
+    <BitcoinTransactionIcon transaction={transaction} btcAddress={bitcoinAddress} />
+  );
+  const title = inscriptionData ? 'Ordinal inscription' : 'Bitcoin';
   const increaseFeeButton = (
     <IncreaseFeeButton
       isEnabled={isEnabled}
@@ -76,13 +95,14 @@ export function BitcoinTransactionItem({ transaction, ...rest }: BitcoinTransact
       onIncreaseFee={onIncreaseFee}
     />
   );
+
   return (
     <TransactionItemLayout
       openTxLink={openTxLink}
       txCaption={txCaption}
-      txIcon={<BitcoinTransactionIcon transaction={transaction} btcAddress={bitcoinAddress} />}
+      txIcon={txIcon}
       txStatus={<BitcoinTransactionStatus transaction={transaction} />}
-      txTitle={<TransactionTitle title="Bitcoin" />}
+      txTitle={<TransactionTitle title={title} />}
       txValue={txValue}
       belowCaptionEl={increaseFeeButton}
       {...bind}
