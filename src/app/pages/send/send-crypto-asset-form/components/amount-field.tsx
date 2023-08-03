@@ -5,10 +5,11 @@ import { Box, Flex, Input, Stack, Text, color } from '@stacks/ui';
 import { SendCryptoAssetSelectors } from '@tests/selectors/send.selectors';
 import { useField } from 'formik';
 
-import { STX_DECIMALS } from '@shared/constants';
+import { STX_DECIMALS, TOKEN_NAME_LENGTH } from '@shared/constants';
 import { Money } from '@shared/models/money.model';
 
 import { useShowFieldError } from '@app/common/form-utils';
+import { linearInterpolation } from '@app/common/utils';
 import { figmaTheme } from '@app/common/utils/figma-theme';
 import { ErrorLabel } from '@app/components/error-label';
 
@@ -30,17 +31,6 @@ function getAmountModifiedFontSize(props: GetAmountModifiedFontSize) {
   return amount.length > symbol.length
     ? Math.ceil(fontSize - convertedAmountFontSize)
     : maxFontSize;
-}
-
-interface Lerp {
-  start: number;
-  end: number;
-  t: number;
-}
-
-// Linear Interpolation
-function lerp({ start, end, t }: Lerp) {
-  return (1 - t) * start + t * end;
 }
 
 interface AmountFieldProps {
@@ -76,12 +66,12 @@ export function AmountField({
   const subtractedLengthToPositionPrefix = 0.5;
 
   const onChange = (event: ChangeEvent<HTMLInputElement>) => {
-    if (symbol.length <= 4) {
+    if (symbol.length <= TOKEN_NAME_LENGTH) {
       const value = event.currentTarget.value;
 
       const t = value.length / (symbol.length + maxLength);
 
-      const newFontSize = lerp({ start: maxFontSize, end: minFontSize, t });
+      const newFontSize = linearInterpolation({ start: maxFontSize, end: minFontSize, t });
       setFontSize(newFontSize);
     }
 
@@ -90,7 +80,7 @@ export function AmountField({
 
   useEffect(() => {
     // case, when e.g token doesn't have symbol
-    if (symbol.length > 4) setFontSize(minFontSize);
+    if (symbol.length > TOKEN_NAME_LENGTH) setFontSize(minFontSize);
 
     // Copy/paste
     if (field.value.length > symbol.length && field.value.length > previousTextLength + 2) {
