@@ -50,7 +50,7 @@ export function ActivityList() {
     trBitcoinAddress,
   ]);
   const bitcoinPendingTxs = useMemo(
-    () => [...nsPendingTxs, ...trPendingTxs],
+    () => uniqby([...nsPendingTxs, ...trPendingTxs], 'txid'),
     [nsPendingTxs, trPendingTxs]
   );
 

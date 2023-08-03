@@ -22,12 +22,14 @@ import { createInscriptionInfoUrl } from '@app/query/bitcoin/ordinals/inscriptio
 import { useInscriptionByOutput } from '@app/query/bitcoin/ordinals/use-inscription-by-output';
 import { useCurrentAccountNativeSegwitAddressIndexZero } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
 
+import { CaptionDotSeparator } from '../caption-dot-separator';
 import { TransactionItemLayout } from '../transaction-item/transaction-item.layout';
 import { BitcoinTransactionCaption } from './bitcoin-transaction-caption';
 import { BitcoinTransactionIcon } from './bitcoin-transaction-icon';
 import { BitcoinTransactionInscriptionIcon } from './bitcoin-transaction-inscription-icon';
 import { BitcoinTransactionStatus } from './bitcoin-transaction-status';
 import { BitcoinTransactionValue } from './bitcoin-transaction-value';
+import { containsTaprootInput } from './utils';
 
 interface BitcoinTransactionItemProps extends BoxProps {
   transaction: BitcoinTx;
@@ -73,9 +75,17 @@ export function BitcoinTransactionItem({ transaction, ...rest }: BitcoinTransact
   };
 
   const isOriginator = !isBitcoinTxInbound(bitcoinAddress, transaction);
-  const isEnabled = isOriginator && !transaction.status.confirmed;
+  const isEnabled =
+    isOriginator && !transaction.status.confirmed && !containsTaprootInput(transaction);
 
-  const txCaption = <BitcoinTransactionCaption>{caption}</BitcoinTransactionCaption>;
+  const txCaption = (
+    <CaptionDotSeparator>
+      <BitcoinTransactionCaption>{caption}</BitcoinTransactionCaption>
+      {inscriptionData ? (
+        <BitcoinTransactionCaption>{inscriptionData.mime_type}</BitcoinTransactionCaption>
+      ) : null}
+    </CaptionDotSeparator>
+  );
   const txValue = <BitcoinTransactionValue>{value}</BitcoinTransactionValue>;
   const txIcon = inscriptionData ? (
     <BitcoinTransactionInscriptionIcon
@@ -86,7 +96,7 @@ export function BitcoinTransactionItem({ transaction, ...rest }: BitcoinTransact
   ) : (
     <BitcoinTransactionIcon transaction={transaction} btcAddress={bitcoinAddress} />
   );
-  const title = inscriptionData ? 'Ordinal inscription' : 'Bitcoin';
+  const title = inscriptionData ? `Ordinal inscription #${inscriptionData.number}` : 'Bitcoin';
   const increaseFeeButton = (
     <IncreaseFeeButton
       isEnabled={isEnabled}
