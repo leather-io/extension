@@ -4,6 +4,8 @@ import {
   whenInscriptionType,
 } from '@shared/models/inscription.model';
 
+import { HIRO_INSCRIPTIONS_API_URL } from '@app/query/query-config';
+
 import { useGetInscriptionQuery } from './inscription.query';
 
 export function createInscriptionInfoUrl(id: string) {
@@ -15,13 +17,13 @@ export function convertInscriptionToSupportedInscriptionType(inscription: Inscri
   return whenInscriptionType<SupportedInscription>(inscription.content_type, {
     image: () => ({
       infoUrl: createInscriptionInfoUrl(inscription.id),
-      src: `https://api.hiro.so/ordinals/v1/inscriptions/${inscription.id}/content`,
+      src: `${HIRO_INSCRIPTIONS_API_URL}/${inscription.id}/content`,
       type: 'image',
       title,
       ...inscription,
     }),
     text: () => ({
-      contentSrc: `https://api.hiro.so/ordinals/v1/inscriptions/${inscription.id}/content`,
+      contentSrc: `${HIRO_INSCRIPTIONS_API_URL}/${inscription.id}/content`,
       infoUrl: createInscriptionInfoUrl(inscription.id),
       type: 'text',
       title,
