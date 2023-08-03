@@ -1,4 +1,4 @@
-import { useQuery } from '@tanstack/react-query';
+import { useQueries, useQuery } from '@tanstack/react-query';
 
 import { BitcoinTx } from '@shared/models/transactions/bitcoin-transaction.model';
 
@@ -21,5 +21,24 @@ export function useGetBitcoinTransactionsByAddressQuery<T extends unknown = Bitc
     queryFn: () => client.addressApi.getTransactionsByAddress(address),
     ...queryOptions,
     ...options,
+  });
+}
+
+export function useGetBitcoinTransactionsByAddressesQuery<T extends unknown = BitcoinTx[]>(
+  addresses: string[],
+  options?: AppUseQueryConfig<BitcoinTx[], T>
+) {
+  const client = useBitcoinClient();
+
+  return useQueries({
+    queries: addresses.map(address => {
+      return {
+        enabled: !!address,
+        queryKey: ['btc-txs-by-addresses', address],
+        queryFn: () => client.addressApi.getTransactionsByAddress(address),
+        ...queryOptions,
+        ...options,
+      };
+    }),
   });
 }

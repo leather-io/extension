@@ -43,6 +43,7 @@ export function useGenerateSignedOrdinalTx(trInput: TaprootUtxo) {
         txid: trInput.txid,
         index: trInput.vout,
         tapInternalKey: trSigner.payment.tapInternalKey,
+        sequence: 0,
         witnessUtxo: {
           script: trSigner.payment.script,
           amount: BigInt(trInput.value),
@@ -54,6 +55,7 @@ export function useGenerateSignedOrdinalTx(trInput: TaprootUtxo) {
         tx.addInput({
           txid: input.txid,
           index: input.vout,
+          sequence: 0,
           witnessUtxo: {
             amount: BigInt(input.value),
             script: nativeSegwitSigner.payment.script,
