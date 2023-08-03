@@ -295,3 +295,14 @@ export function isFulfilled<T>(p: PromiseSettledResult<T>): p is PromiseFulfille
 export function isRejected<T>(p: PromiseSettledResult<T>): p is PromiseRejectedResult {
   return p.status === 'rejected';
 }
+
+interface LinearInterpolation {
+  start: number;
+  end: number;
+  t: number;
+}
+
+// Linear Interpolation
+export function linearInterpolation({ start, end, t }: LinearInterpolation) {
+  return (1 - t) * start + t * end;
+}
