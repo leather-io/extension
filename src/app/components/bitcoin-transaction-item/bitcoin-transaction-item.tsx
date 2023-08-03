@@ -18,8 +18,11 @@ import { openInNewTab } from '@app/common/utils/open-in-new-tab';
 import { usePressable } from '@app/components/item-hover';
 import { IncreaseFeeButton } from '@app/components/stacks-transaction-item/increase-fee-button';
 import { TransactionTitle } from '@app/components/transaction/transaction-title';
-import { createInscriptionInfoUrl } from '@app/query/bitcoin/ordinals/inscription.hooks';
-import { useInscriptionByOutput } from '@app/query/bitcoin/ordinals/use-inscription-by-output';
+import {
+  convertInscriptionToSupportedInscriptionType,
+  createInscriptionInfoUrl,
+} from '@app/query/bitcoin/ordinals/inscription.hooks';
+import { useGetInscriptionsByOutputQuery } from '@app/query/bitcoin/ordinals/use-inscription-by-output.query';
 import { useCurrentAccountNativeSegwitAddressIndexZero } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
 
 import { CaptionDotSeparator } from '../caption-dot-separator';
@@ -40,7 +43,13 @@ export function BitcoinTransactionItem({ transaction, ...rest }: BitcoinTransact
   const navigate = useNavigate();
   const { whenWallet } = useWalletType();
 
-  const { data: inscriptionData } = useInscriptionByOutput(transaction);
+  const { data: inscriptionData } = useGetInscriptionsByOutputQuery(transaction, {
+    select(data) {
+      const inscription = data.results[0];
+      if (!inscription) return;
+      return convertInscriptionToSupportedInscriptionType(inscription);
+    },
+  });
 
   const bitcoinAddress = useCurrentAccountNativeSegwitAddressIndexZero();
   const { handleOpenTxLink } = useExplorerLink();
