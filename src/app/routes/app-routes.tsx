@@ -60,6 +60,7 @@ import { Unlock } from '@app/pages/unlock';
 import { ProfileUpdateRequest } from '@app/pages/update-profile-request/update-profile-request';
 import { ViewSecretKey } from '@app/pages/view-secret-key/view-secret-key';
 import { AccountGate } from '@app/routes/account-gate';
+import { ReceiveRoutes, receiveRoutesArray } from '@app/routes/pages/legacy-request-routes';
 import { useHasUserRespondedToAnalyticsConsent } from '@app/store/settings/settings.selectors';
 
 import { OnboardingGate } from './onboarding-gate';
@@ -220,7 +221,12 @@ function useAppRoutes() {
         >
           {/* Modal routes overlaid on home need to be nested here with relative paths to open in new tabs */}
 
-          {receiveRoutes}
+          {/* {receiveRoutes} */}
+          {/* {receiveRoutesArray} */}
+          {receiveRoutesArray.map((route, i) => (
+            <Route key={i} {...route} />
+          ))}
+
           {settingsModalRoutes}
           {sendOrdinalRoutes}
         </Route>

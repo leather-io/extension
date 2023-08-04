@@ -14,6 +14,8 @@ import { InAppMessages } from '@app/features/hiro-messages/in-app-messages';
 import { SuggestedFirstSteps } from '@app/features/suggested-first-steps/suggested-first-steps';
 import { HomeActions } from '@app/pages/home/components/home-actions';
 import { receiveRoutes, settingsModalRoutes } from '@app/routes/app-routes';
+// import { receiveRoutes } from '@app/routes/pages/legacy-request-routes';
+import { ReceiveRoutes, receiveRoutesArray } from '@app/routes/pages/legacy-request-routes';
 
 import { CurrentAccount } from './components/account-area';
 import { HomeTabs } from './components/home-tabs';
@@ -52,7 +54,11 @@ export function Home() {
             <Route path={RouteUrls.Activity} element={<ActivityList />} />
             {/* Routes also need to be declared to work when opened in new tab */}
             {/* TODO- refactor this again so it's just one import */}
-            {receiveRoutes}
+            {/* {receiveRoutes} */}
+
+            {receiveRoutesArray.map((route, i) => (
+              <Route key={i} {...route} />
+            ))}
             {settingsModalRoutes}
             <Route path="*" element={<Navigate replace to={RouteUrls.Home} />} />
           </Routes>
