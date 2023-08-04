@@ -9,7 +9,7 @@ import { ThemeList } from './theme-list';
 export function ThemesDrawer() {
   useBackgroundLocationRedirect();
   const navigate = useNavigate();
-  const backgroundLocation = useLocationState('backgroundLocation');
+  const backgroundLocation = useLocationState<Location>('backgroundLocation');
   return (
     <BaseDrawer title="Select Theme" isShowing onClose={() => navigate(backgroundLocation)}>
       <ThemeList />

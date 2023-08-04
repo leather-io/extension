@@ -23,7 +23,7 @@ export function SelectNetwork() {
   const analytics = useAnalytics();
   const networksActions = useNetworksActions();
   const currentNetwork = useCurrentNetworkState();
-  const backgroundLocation = useLocationState('backgroundLocation');
+  const backgroundLocation = useLocationState<Location>('backgroundLocation');
 
   function addNetwork() {
     void analytics.track('add_network');

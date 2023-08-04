@@ -17,7 +17,7 @@ interface HomeTabsProps extends StackProps {
 export function HomeTabs({ children }: HomeTabsProps) {
   const navigate = useNavigate();
   const location = useLocation();
-  const backgroundLocation = useLocationState('backgroundLocation');
+  const backgroundLocation = useLocationState<Location>('backgroundLocation');
 
   const tabs = useMemo(
     () => [

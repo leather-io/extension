@@ -5,10 +5,10 @@ import get from 'lodash.get';
 
 import { isUndefined } from '@shared/utils';
 
-export function useLocationState(propName: string): string | undefined;
-export function useLocationState(propName: string, defaultValue: string): string;
-export function useLocationState(propName: 'accountIndex'): number;
-export function useLocationState(propName: 'backgroundLocation'): Location;
+type LocationState = string | undefined | number | Location;
+
+export function useLocationState<T extends LocationState>(propName: string): T;
+export function useLocationState<T extends LocationState>(propName: string, defaultValue: string): T;
 export function useLocationState(propName: string, defaultValue?: string) {
   const location = useLocation();
   return get(location, `state.${propName}`, defaultValue);

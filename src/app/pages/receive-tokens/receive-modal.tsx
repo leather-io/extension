@@ -25,7 +25,7 @@ export function ReceiveModal() {
   useBackgroundLocationRedirect();
   const analytics = useAnalytics();
   const navigate = useNavigate();
-  const backgroundLocation = useLocationState('backgroundLocation');
+  const backgroundLocation = useLocationState<Location>('backgroundLocation');
   const btcAddress = useCurrentAccountNativeSegwitAddressIndexZero();
   const stxAddress = useCurrentAccountStxAddressState();
   const { onCopy: onCopyStacks } = useClipboard(stxAddress);
@@ -41,7 +41,7 @@ export function ReceiveModal() {
       <BaseDrawer
         title="Select asset to receive"
         isShowing
-        onClose={() => navigate(backgroundLocation?.pathname)}
+        onClose={() => navigate(backgroundLocation.pathname)}
       >
         <Box mx="extra-loose">
           <Caption style={{ fontSize: '14px' }}>Tokens</Caption>
@@ -61,7 +61,6 @@ export function ReceiveModal() {
                       mode="tertiary"
                       onClick={() =>
                         navigate(RouteUrls.ReceiveBtc, {
-                          // relative: 'path'
                           state: { backgroundLocation },
                         })
                       }

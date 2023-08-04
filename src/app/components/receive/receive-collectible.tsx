@@ -19,8 +19,8 @@ import { ReceiveCollectibleItem } from './receive-collectible-item';
 
 export function ReceiveCollectible() {
   const analytics = useAnalytics();
-  const backgroundLocation = useLocationState('backgroundLocation');
-  const accountIndex = useLocationState('accountIndex');
+  const backgroundLocation = useLocationState<Location>('backgroundLocation');
+  const accountIndex = useLocationState<number>('accountIndex');
   const navigate = useNavigate();
   const btcAddressNativeSegwit = useCurrentAccountNativeSegwitAddressIndexZero();
   const btcAddressTaproot = useZeroIndexTaprootAddress(accountIndex);

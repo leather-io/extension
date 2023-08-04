@@ -12,7 +12,7 @@ export function SignOutConfirmDrawer() {
   useBackgroundLocationRedirect();
   const { signOut } = useKeyActions();
   const navigate = useNavigate();
-  const backgroundLocation = useLocationState('backgroundLocation');
+  const backgroundLocation = useLocationState<Location>('backgroundLocation');
 
   return (
     <SignOutConfirmLayout

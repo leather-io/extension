@@ -26,7 +26,7 @@ export function Home() {
 
   const location = useLocation();
 
-  const backgroundLocation = useLocationState('backgroundLocation');
+  const backgroundLocation = useLocationState<Location>('backgroundLocation');
   useTrackFirstDeposit();
 
   useRouteHeader(
