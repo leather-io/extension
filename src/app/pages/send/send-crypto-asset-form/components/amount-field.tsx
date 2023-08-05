@@ -1,5 +1,5 @@
 import type { ChangeEvent } from 'react';
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 
 import { Box, Flex, Input, Stack, Text, color } from '@stacks/ui';
 import { SendCryptoAssetSelectors } from '@tests/selectors/send.selectors';
@@ -57,7 +57,9 @@ export function AmountField({
 
   const showError = useShowFieldError('amount');
   const [fontSize, setFontSize] = useState(maxFontSize);
+  const [textSizeInPx, setTextSizeInPx] = useState(0);
   const [previousTextLength, setPreviousTextLength] = useState(1);
+  const fieldRef = useRef<HTMLSpanElement>(null);
 
   const { decimals } = balance;
   const symbol = tokenSymbol || balance.symbol;
@@ -66,9 +68,16 @@ export function AmountField({
   const subtractedLengthToPositionPrefix = 0.5;
 
   const onChange = (event: ChangeEvent<HTMLInputElement>) => {
-    if (symbol.length <= TOKEN_NAME_LENGTH) {
-      const value = event.currentTarget.value;
+    const value = event.currentTarget.value;
 
+    /*
+     * If the symbol is not a token (has more than 4 chars) we don't want to
+     * modify the size since we will always use minFontSize to be avoid overflowing.
+     * Since we are using lerp, as soon as we type 1 character we get a new font size
+     * which makes content jump if we type 0 and placeholder is 0. That's why we only update the size
+     * if we have none or more than 1 characters.
+     */
+    if (symbol.length <= TOKEN_NAME_LENGTH && value.length !== 1) {
       const t = value.length / (symbol.length + maxLength);
 
       const newFontSize = linearInterpolation({ start: maxFontSize, end: minFontSize, t });
@@ -98,6 +107,24 @@ export function AmountField({
     );
   }, [field.value, fontSize, fontSizeModifier, isSendingMax, previousTextLength, symbol]);
 
+  useEffect(() => {
+    const resizeObserver = new ResizeObserver(entries => {
+      const [text] = entries;
+      const [size] = text?.contentBoxSize;
+      if (size) {
+        const { inlineSize } = size;
+        setTextSizeInPx(inlineSize);
+      }
+    });
+
+    const sizeReference = fieldRef.current;
+
+    if (sizeReference) {
+      resizeObserver.observe(sizeReference);
+    }
+    () => resizeObserver.disconnect();
+  }, []);
+
   // TODO: could be implemented with html using padded label element
   const onClickFocusInput = useCallback(() => {
     if (isSendingMax) {
@@ -125,6 +152,7 @@ export function AmountField({
           justifyContent="center"
           fontWeight={500}
           color={figmaTheme.text}
+          position="relative"
         >
           {isSendingMax ? <Text fontSize={fontSize + 'px'}>~</Text> : null}
           <Input
@@ -141,13 +169,39 @@ export function AmountField({
             placeholder="0"
             px="none"
             textAlign="right"
-            width={!field.value.length ? '1ch' : previousTextLength + 'ch'}
+            /*
+             * We are adding an extra 25px to the variable since there's a transition for width
+             * which makes the content cut momentarily while the width is updated. The 25px serve
+             * as extra space so users don't experience that text cutting.
+             * We are correcting for that extra space with a negative margin so the content is perfectly
+             * centered
+             */
+            width={!field.value?.length ? '1ch' : textSizeInPx + 25 + 'px'}
+            marginInlineStart={!field.value?.length ? 0 : -25 + 'px'}
             autoFocus={autofocus}
             fontWeight={500}
             autoComplete={autoComplete}
             {...field}
             onChange={onChange}
           />
+          {/*
+           * This is what we use to measure the size of the input, it's hidden
+           * and with no pointer events so users can't interact with it
+           */}
+          <Text
+            position="absolute"
+            ref={fieldRef}
+            visibility="hidden"
+            pointerEvents="none"
+            top={0}
+            left={0}
+            letterSpacing={-0.3 + 'px'}
+            fontWeight={500}
+            fontSize={fontSize + 'px'}
+            minWidth={1 + 'ch'}
+          >
+            {field.value}
+          </Text>
           <Text fontSize={fontSize + 'px'} pl="tight">
             {symbol.toUpperCase()}
           </Text>
