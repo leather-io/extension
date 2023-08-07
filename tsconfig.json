@@ -30,14 +30,20 @@
       "@app/*": ["app/*"],
       "@tests/*": ["../tests/*"],
       "@tests-legacy/*": ["../tests-legacy/*"],
-      "@styled-system/*": ["../styled-system/*"],
-
+      "leaf-styles/*": ["../leaf-styles/*"]
     },
     "allowSyntheticDefaultImports": true,
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
-    "types": ["jest", "vitest/globals", "chrome", "@emotion/react/types/css-prop"]
+    "types": ["jest", "vitest/globals", "chrome"]
   },
-  "include": ["./src/**/*", "./tests/**/*", "./tests-legacy/**/*", "./scripts-ts/**/*", "./styled-system/**/*"],
+  "include": [
+    "./src/**/*",
+    "./tests/**/*",
+    "./tests-legacy/**/*",
+    "./scripts-ts/**/*",
+    "leaf-styles",
+    "theme"
+  ],
   "exclude": ["test-app"]
 }

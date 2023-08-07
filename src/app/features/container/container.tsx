@@ -4,6 +4,7 @@ import { Outlet, useLocation } from 'react-router-dom';
 
 import { useInitalizeAnalytics } from '@app/common/hooks/analytics/use-analytics';
 import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
+import { useThemeSwitcher } from '@app/common/theme-provider';
 import { LoadingSpinner } from '@app/components/loading-spinner';
 import { useOnSignOut } from '@app/routes/hooks/use-on-sign-out';
 import { useOnWalletLock } from '@app/routes/hooks/use-on-wallet-lock';
@@ -16,6 +17,7 @@ import { SwitchAccountDrawer } from '../switch-account-drawer/switch-account-dra
 import { ContainerLayout } from './container.layout';
 
 export function Container() {
+  const { theme } = useThemeSwitcher();
   const [routeHeader] = useRouteHeaderState();
   const { pathname } = useLocation();
   const analytics = useAnalytics();
@@ -33,13 +35,13 @@ export function Container() {
   if (!hasStateRehydrated) return <LoadingSpinner />;
 
   return (
-    <>
+    <main className={theme}>
       <SwitchAccountDrawer />
       <SettingsDropdown />
       <Toaster position="bottom-center" toastOptions={{ style: { fontSize: '14px' } }} />
       <ContainerLayout header={routeHeader}>
         <Outlet />
       </ContainerLayout>
-    </>
+    </main>
   );
 }

@@ -1,7 +1,7 @@
-import { css } from '@emotion/react';
+import { css } from 'leaf-styles/css';
 
-export const hideScrollbarStyle = css`
-  &::-webkit-scrollbar {
-    display: none;
-  }
-`;
+export const hideScrollbarStyle = css({
+  '&::-webkit-scrollbar': {
+    display: 'none',
+  },
+});

@@ -1,5 +1,9 @@
 import { defineConfig } from '@pandacss/dev';
 
+import { keyframes } from './theme/keyframes';
+import { semanticTokens } from './theme/semantic-tokens';
+import { tokens } from './theme/tokens';
+
 export default defineConfig({
   // Whether to use css reset
   preflight: true,
@@ -10,20 +14,17 @@ export default defineConfig({
   // Files to exclude
   exclude: [],
 
+  jsxFramework: 'react',
+
   // Useful for theme customization
   theme: {
-    // 👇🏻 Define your tokens here
-    tokens: {
-      colors: {
-        primary: { value: 'red' },
-        secondary: { value: '#EE0F0F' }
-      },
-      fonts: {
-        body: { value: 'system-ui, sans-serif' }
-      }
-    }
+    extend: {
+      semanticTokens,
+      tokens,
+      keyframes,
+    },
   },
   // The output directory for your css system
-  outdir: 'styled-system',
+  outdir: 'leaf-styles',
   outExtension: 'js',
 });
