@@ -6,10 +6,9 @@ import { HomePageSelectors } from '@tests/selectors/home.selectors';
 import { RouteUrls } from '@shared/route-urls';
 
 import { PrimaryButton } from '@app/components/primary-button';
-import { QrCodeIcon } from '@app/components/qr-code-icon';
 import { useConfigBitcoinEnabled } from '@app/query/common/remote-config/remote-config.query';
 
-import { HomeActionButton } from './tx-button';
+import { HomeActionButton } from './home-action-button';
 
 export function ReceiveButton(props: ButtonProps) {
   const navigate = useNavigate();
@@ -19,7 +18,6 @@ export function ReceiveButton(props: ButtonProps) {
     <HomeActionButton
       buttonComponent={PrimaryButton}
       data-testid={HomePageSelectors.ReceiveCryptoAssetBtn}
-      icon={QrCodeIcon}
       label="Receive"
       onClick={() => navigate(isBitcoinEnabled ? RouteUrls.Receive : RouteUrls.ReceiveStx)}
       {...props}

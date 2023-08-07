@@ -85,6 +85,9 @@ export enum RouteUrls {
   SendOrdinalInscriptionSent = '/send/ordinal-inscription/sent',
   SendOrdinalInscriptionError = '/send/ordinal-inscription/error',
 
+  // Swap routes
+  Swap = '/swap',
+
   // Legacy request routes
   ProfileUpdateRequest = '/update-profile',
   PsbtRequest = '/psbt',
@@ -106,7 +109,4 @@ export enum RouteUrls {
   // Shared legacy and rpc request routes
   RequestError = '/request-error',
   UnauthorizedRequest = '/unauthorized-request',
-
-  // Swap routes
-  Swap = '/swap',
 }

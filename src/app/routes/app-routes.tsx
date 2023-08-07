@@ -55,7 +55,7 @@ import { SendInscriptionSummary } from '@app/pages/send/ordinal-inscription/sent
 import { sendCryptoAssetFormRoutes } from '@app/pages/send/send-crypto-asset-form/send-crypto-asset-form.routes';
 import { SignOutConfirmDrawer } from '@app/pages/sign-out-confirm/sign-out-confirm';
 import { StacksMessageSigningRequest } from '@app/pages/stacks-message-signing-request/stacks-message-signing-request';
-import { swapRoutes } from '@app/pages/swap';
+import { swapRoutes } from '@app/pages/swap/swap.routes';
 import { TransactionRequest } from '@app/pages/transaction-request/transaction-request';
 import { UnauthorizedRequest } from '@app/pages/unauthorized-request/unauthorized-request';
 import { Unlock } from '@app/pages/unlock';
