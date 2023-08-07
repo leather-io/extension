@@ -7,11 +7,12 @@ import { Body } from '@app/components/typography';
 import { LedgerTitle } from '@app/features/ledger/components/ledger-title';
 import { LedgerWrapper } from '@app/features/ledger/components/ledger-wrapper';
 
-import { useLedgerTxSigningContext } from '../ledger-sign-tx.context';
+import { useLedgerTxSigningContext } from '../../../generic-flows/tx-signing/ledger-sign-tx.context';
 
 export function ContractPrincipalBugWarning() {
-  const { hasUserSkippedBuggyAppWarning } = useLedgerTxSigningContext();
+  const context = useLedgerTxSigningContext();
   const { isLoading, setIsLoading, setIsIdle } = useLoading('temp-spinner-deep-link');
+  if (context.chain !== 'stacks') return null;
   return (
     <LedgerWrapper>
       <Box mb="tight" mt="tight">
@@ -40,7 +41,7 @@ export function ContractPrincipalBugWarning() {
         </Button>
         <Button
           mode="tertiary"
-          onClick={() => hasUserSkippedBuggyAppWarning.done('ignored-warning')}
+          onClick={() => context.hasUserSkippedBuggyAppWarning.done('ignored-warning')}
         >
           Continue anyway
         </Button>

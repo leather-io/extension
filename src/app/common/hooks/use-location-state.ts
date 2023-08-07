@@ -23,5 +23,5 @@ export function useLocationStateWithCache<T = string>(propName: string, defaultV
     if (!isUndefined(stateVal)) setValue(stateVal);
   }, [location, propName]);
 
-  return value ?? defaultValue;
+  return get(location, `state.${propName}`) ?? value ?? defaultValue;
 }

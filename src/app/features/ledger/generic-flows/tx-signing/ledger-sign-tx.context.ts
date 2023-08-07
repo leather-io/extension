@@ -1,6 +1,9 @@
 import { createContext, useContext } from 'react';
 
+import * as btc from '@scure/btc-signer';
 import { StacksTransaction } from '@stacks/transactions';
+
+import { SupportedBlockchains } from '@shared/constants';
 
 import { createWaitableAction } from '@app/common/utils/create-waitable-action';
 
@@ -10,11 +13,23 @@ export function createWaitForUserToSeeWarningScreen() {
   return createWaitableAction<'ignored-warning' | 'cancelled-operation'>();
 }
 
-export interface LedgerTxSigningContext extends BaseLedgerOperationContext {
-  transaction: StacksTransaction | null;
+export interface BaseLedgerTxSigningContext extends BaseLedgerOperationContext {
+  chain: SupportedBlockchains;
   signTransaction(): Promise<void> | void;
+}
+
+interface BitcoinLedgerSigningContext extends BaseLedgerTxSigningContext {
+  chain: 'bitcoin';
+  transaction: btc.Transaction | null;
+}
+
+interface StacksLedgerSigningContext extends BaseLedgerTxSigningContext {
+  chain: 'stacks';
+  transaction: StacksTransaction | null;
   hasUserSkippedBuggyAppWarning: ReturnType<typeof createWaitForUserToSeeWarningScreen>;
 }
+
+export type LedgerTxSigningContext = BitcoinLedgerSigningContext | StacksLedgerSigningContext;
 
 export const ledgerTxSigningContext = createContext<LedgerTxSigningContext | null>(null);
 

@@ -6,7 +6,8 @@ import { RouteUrls } from '@shared/route-urls';
 import { BroadcastErrorDrawer } from '@app/components/broadcast-error-drawer/broadcast-error-drawer';
 import { FullPageWithHeaderLoadingSpinner } from '@app/components/loading-spinner';
 import { EditNonceDrawer } from '@app/features/edit-nonce-drawer/edit-nonce-drawer';
-import { ledgerStacksTxSigningRoutes } from '@app/features/ledger/flows/stacks-tx-signing/ledger-sign-tx-container';
+import { ledgerBicointTxSigningRoutes } from '@app/features/ledger/flows/bitcoin-tx-signing/ledger-bitcoin-sign-tx-container';
+import { ledgerStacksTxSigningRoutes } from '@app/features/ledger/flows/stacks-tx-signing/ledger-sign-stacks-tx-container';
 import { AccountGate } from '@app/routes/account-gate';
 
 import { BroadcastError } from '../broadcast-error/broadcast-error';
@@ -58,18 +59,21 @@ export const sendCryptoAssetFormRoutes = (
         path={RouteUrls.SendCryptoAssetForm.replace(':symbol', 'btc')}
         element={<BtcSendForm />}
       >
+        {ledgerBicointTxSigningRoutes}
         {recipientAccountsDrawerRoute}
       </Route>
       <Route path="/send/btc/disabled" element={<SendBtcDisabled />} />
       <Route path="/send/btc/error" element={<BroadcastError />} />
       <Route path="/send/btc/confirm" element={<BtcSendFormConfirmation />} />
-      <Route path={RouteUrls.SendBtcChooseFee} element={<BtcChooseFee />} />
+      <Route path={RouteUrls.SendBtcChooseFee} element={<BtcChooseFee />}>
+        {ledgerBicointTxSigningRoutes}
+      </Route>
       <Route path={RouteUrls.SentBtcTxSummary} element={<BtcSentSummary />} />
 
       <Route path={RouteUrls.SendBrc20SendForm} element={<Brc20SendForm />} />
       <Route path={RouteUrls.SendBrc20ChooseFee} element={<BrcChooseFee />} />
       <Route path={RouteUrls.SendBrc20Confirmation} element={<Brc20SendFormConfirmation />} />
-      <Route path={RouteUrls.SentBrc20Summary} element={<Brc20SentSummary />}></Route>
+      <Route path={RouteUrls.SentBrc20Summary} element={<Brc20SentSummary />} />
     </Route>
 
     <Route path={RouteUrls.SendCryptoAssetForm.replace(':symbol', 'stx')} element={<StxSendForm />}>

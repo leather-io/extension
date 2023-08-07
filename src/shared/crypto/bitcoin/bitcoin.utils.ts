@@ -198,3 +198,23 @@ function initBitcoinAccount(derivationPath: string, policy: string): BitcoinAcco
     accountIndex: extractAccountIndexFromPath(derivationPath),
   };
 }
+
+export function getPsbtTxInputs(psbtTx: btc.Transaction) {
+  const inputsLength = psbtTx.inputsLength;
+  const inputs: btc.TransactionInput[] = [];
+  if (inputsLength === 0) return inputs;
+  for (let i = 0; i < inputsLength; i++) {
+    inputs.push(psbtTx.getInput(i));
+  }
+  return inputs;
+}
+
+export function getPsbtTxOutputs(psbtTx: btc.Transaction) {
+  const outputsLength = psbtTx.outputsLength;
+  const outputs: btc.TransactionOutput[] = [];
+  if (outputsLength === 0) return outputs;
+  for (let i = 0; i < outputsLength; i++) {
+    outputs.push(psbtTx.getOutput(i));
+  }
+  return outputs;
+}

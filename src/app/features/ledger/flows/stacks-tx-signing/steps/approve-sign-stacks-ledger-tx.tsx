@@ -5,7 +5,7 @@ import { BigNumber } from 'bignumber.js';
 
 import { microStxToStx } from '@app/common/money/unit-conversion';
 import { isSip10Transfer } from '@app/common/transactions/stacks/is-sip-10-transfer';
-import { useLedgerTxSigningContext } from '@app/features/ledger/flows/stacks-tx-signing/ledger-sign-tx.context';
+import { useLedgerTxSigningContext } from '@app/features/ledger/generic-flows/tx-signing/ledger-sign-tx.context';
 import { ApproveLedgerOperationLayout } from '@app/features/ledger/generic-steps/approve-ledger-operation/approve-ledger-operation.layout';
 import { useHasApprovedOperation } from '@app/features/ledger/hooks/use-has-approved-transaction';
 import { useCurrentStacksAccount } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
@@ -22,12 +22,12 @@ function formatTooltipLabel(amount: bigint) {
 }
 
 export function ApproveSignLedgerTx() {
-  const { transaction } = useLedgerTxSigningContext();
+  const { transaction, chain } = useLedgerTxSigningContext();
   const currentAccount = useCurrentStacksAccount();
   const hasApprovedOperation = useHasApprovedOperation();
 
   const transactionDetails: [string, string, string?][] = useMemo(() => {
-    if (!transaction) return [];
+    if (!transaction || chain !== 'stacks') return [];
 
     if (transaction.payload.payloadType === PayloadType.TokenTransfer) {
       return [
@@ -62,7 +62,7 @@ export function ApproveSignLedgerTx() {
         .map((value, index) => [`Argument ${index + 0}`, value]);
 
     return [];
-  }, [currentAccount, transaction]);
+  }, [chain, currentAccount?.address, transaction]);
 
   return (
     <ApproveLedgerOperationLayout

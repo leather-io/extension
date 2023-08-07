@@ -5,18 +5,18 @@ import { useWhenReattemptingLedgerConnection } from '@app/features/ledger/hooks/
 import { useLedgerTxSigningContext } from '../ledger-sign-tx.context';
 
 export function ConnectLedgerSignTx() {
-  const { signTransaction, latestDeviceResponse, awaitingDeviceConnection } =
+  const { chain, signTransaction, latestDeviceResponse, awaitingDeviceConnection } =
     useLedgerTxSigningContext();
 
   useWhenReattemptingLedgerConnection(() => signTransaction());
 
   return (
     <ConnectLedgerLayout
-      chain="stacks"
+      chain={chain}
       awaitingLedgerConnection={awaitingDeviceConnection}
       warning={
         <CommonLedgerDeviceInlineWarnings
-          chain="stacks"
+          chain={chain}
           latestDeviceResponse={latestDeviceResponse}
         />
       }

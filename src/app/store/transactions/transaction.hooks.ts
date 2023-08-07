@@ -110,7 +110,7 @@ export function useSignTransactionSoftwareWallet() {
   );
 }
 
-export function useTransactionBroadcast() {
+export function useStacksTransactionBroadcast() {
   const submittedTransactionsActions = useSubmittedTransactionsActions();
   const { tabId } = useDefaultRequestParams();
   const requestToken = useTransactionRequest();
@@ -155,7 +155,7 @@ export function useSoftwareWalletTransactionRequestBroadcast() {
   const { tabId } = useDefaultRequestParams();
   const requestToken = useTransactionRequest();
   const account = useCurrentStacksAccount();
-  const txBroadcast = useTransactionBroadcast();
+  const txBroadcast = useStacksTransactionBroadcast();
 
   return async (values: StacksTransactionFormValues) => {
     if (!stacksTxBaseState) return;

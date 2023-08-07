@@ -66,22 +66,22 @@ export const prepareLedgerDeviceStacksAppConnection = prepareLedgerDeviceForAppF
   // Casting type here as factory function reads it was a double Promise
 ) as (args: PrepareLedgerDeviceConnectionArgs) => Promise<StacksApp>;
 
-export function signLedgerTransaction(app: StacksApp) {
+export function signLedgerStacksTransaction(app: StacksApp) {
   return async (payload: Buffer, accountIndex: number) =>
     app.sign(stxDerivationWithAccount.replace('{account}', accountIndex.toString()), payload);
 }
 
-export function signLedgerUtf8Message(app: StacksApp) {
+export function signLedgerStacksUtf8Message(app: StacksApp) {
   return async (payload: string, accountIndex: number): Promise<ResponseSign> =>
     app.sign_msg(getStxDerivationPath(accountIndex), payload);
 }
 
-export function signLedgerStructuredMessage(app: StacksApp) {
+export function signLedgerStacksStructuredMessage(app: StacksApp) {
   return async (domain: string, payload: string, accountIndex: number): Promise<ResponseSign> =>
     app.sign_structured_msg(getStxDerivationPath(accountIndex), domain, payload);
 }
 
-export function signTransactionWithSignature(transaction: string, signatureVRS: Buffer) {
+export function signStacksTransactionWithSignature(transaction: string, signatureVRS: Buffer) {
   const deserialzedTx = deserializeTransaction(transaction);
   const spendingCondition = createMessageSignature(signatureVRS.toString('hex'));
   (deserialzedTx.auth.spendingCondition as SingleSigSpendingCondition).signature =
