@@ -2,6 +2,7 @@ import { Suspense } from 'react';
 
 import { Stack, StackProps } from '@stacks/ui';
 
+import { SpaceBetween } from '@app/components/layout/space-between';
 import { useSwapFeature } from '@app/features/swap';
 
 import { BuyButton } from './buy-button';
@@ -14,12 +15,12 @@ export function HomeActions(props: StackProps) {
 
   return (
     <Suspense fallback={<></>}>
-      <Stack isInline mt={['base', 'base', 'unset']} spacing="base-tight" {...props}>
+      <SpaceBetween isInline mt={['base', 'base', 'unset']} width="100%" {...props}>
         <SendButton />
         <ReceiveButton />
         <BuyButton />
         {swapIsEnabled && <SwapButton />}
-      </Stack>
+      </SpaceBetween>
     </Suspense>
   );
 }

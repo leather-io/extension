@@ -5,10 +5,9 @@ import { HomePageSelectors } from '@tests/selectors/home.selectors';
 
 import { RouteUrls } from '@shared/route-urls';
 
-import { PrimaryButton } from '@app/components/primary-button';
+import { SecondaryButton } from '@app/components/secondary-button';
 
-import { HomeActionButton } from './tx-button';
-import { FiRefreshCw } from 'react-icons/fi';
+import { HomeActionButton } from './home-action-button';
 
 export function SwapButton(props: ButtonProps) {
   const navigate = useNavigate();
@@ -16,8 +15,7 @@ export function SwapButton(props: ButtonProps) {
   return (
     <HomeActionButton
       label="Swap"
-      icon={FiRefreshCw}
-      buttonComponent={PrimaryButton}
+      buttonComponent={SecondaryButton}
       data-testid={HomePageSelectors.SwapBtn}
       onClick={() => navigate(RouteUrls.Swap)}
       {...props}
