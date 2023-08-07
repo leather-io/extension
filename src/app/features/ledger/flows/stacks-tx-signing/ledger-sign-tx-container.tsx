@@ -27,10 +27,15 @@ import {
 import { useCurrentStacksAccount } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
 import { useTransactionBroadcast } from '@app/store/transactions/transaction.hooks';
 
+import { ledgerSignTxRoutes } from '../../generic-flows/tx-signing/ledger-sign-tx-route-generator';
 import { useLedgerAnalytics } from '../../hooks/use-ledger-analytics.hook';
 import { useLedgerNavigate } from '../../hooks/use-ledger-navigate';
 import { useVerifyMatchingLedgerStacksPublicKey } from '../../hooks/use-verify-matching-stacks-public-key';
 import { useLedgerResponseState } from '../../utils/generic-ledger-utils';
+
+export const ledgerStacksTxSigningRoutes = ledgerSignTxRoutes({
+  component: <LedgerSignStacksTxContainer />,
+});
 
 export function LedgerSignStacksTxContainer() {
   const location = useLocation();
@@ -132,7 +137,7 @@ export function LedgerSignStacksTxContainer() {
 
       try {
         await hwWalletTxBroadcast({ signedTx });
-        navigate(RouteUrls.Home);
+        navigate(RouteUrls.Activity);
       } catch (e) {
         ledgerNavigate.toBroadcastErrorStep(e instanceof Error ? e.message : 'Unknown error');
         return;

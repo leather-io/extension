@@ -1,8 +1,6 @@
-import { createContext } from 'react';
+import { createContext, useContext } from 'react';
 
 import { StacksTransaction } from '@stacks/transactions';
-
-import { noop } from '@shared/utils';
 
 import { createWaitableAction } from '@app/common/utils/create-waitable-action';
 
@@ -18,12 +16,12 @@ export interface LedgerTxSigningContext extends BaseLedgerOperationContext {
   hasUserSkippedBuggyAppWarning: ReturnType<typeof createWaitForUserToSeeWarningScreen>;
 }
 
-export const ledgerTxSigningContext = createContext<LedgerTxSigningContext>({
-  transaction: null,
-  latestDeviceResponse: null,
-  awaitingDeviceConnection: false,
-  signTransaction: noop,
-  hasUserSkippedBuggyAppWarning: createWaitForUserToSeeWarningScreen(),
-});
+export const ledgerTxSigningContext = createContext<LedgerTxSigningContext | null>(null);
+
+export function useLedgerTxSigningContext() {
+  const context = useContext(ledgerTxSigningContext);
+  if (!context) throw new Error('ledgerTxSigningContext is undefined');
+  return context;
+}
 
 export const LedgerTxSigningProvider = ledgerTxSigningContext.Provider;

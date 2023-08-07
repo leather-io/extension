@@ -6,7 +6,7 @@ import { RouteUrls } from '@shared/route-urls';
 import { BroadcastErrorDrawer } from '@app/components/broadcast-error-drawer/broadcast-error-drawer';
 import { FullPageWithHeaderLoadingSpinner } from '@app/components/loading-spinner';
 import { EditNonceDrawer } from '@app/features/edit-nonce-drawer/edit-nonce-drawer';
-import { ledgerStacksTxSigningRoutes } from '@app/features/ledger/flows/stacks-tx-signing/ledger-sign-tx.routes';
+import { ledgerStacksTxSigningRoutes } from '@app/features/ledger/flows/stacks-tx-signing/ledger-sign-tx-container';
 import { AccountGate } from '@app/routes/account-gate';
 
 import { BroadcastError } from '../broadcast-error/broadcast-error';

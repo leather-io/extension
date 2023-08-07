@@ -1,5 +1,3 @@
-import { useContext } from 'react';
-
 import GenericErrorImg from '@assets/images/generic-error.png';
 import { Box, Button, Stack } from '@stacks/ui';
 
@@ -9,10 +7,10 @@ import { Body } from '@app/components/typography';
 import { LedgerTitle } from '@app/features/ledger/components/ledger-title';
 import { LedgerWrapper } from '@app/features/ledger/components/ledger-wrapper';
 
-import { ledgerTxSigningContext } from '../ledger-sign-tx.context';
+import { useLedgerTxSigningContext } from '../ledger-sign-tx.context';
 
 export function ContractPrincipalBugWarning() {
-  const { hasUserSkippedBuggyAppWarning } = useContext(ledgerTxSigningContext);
+  const { hasUserSkippedBuggyAppWarning } = useLedgerTxSigningContext();
   const { isLoading, setIsLoading, setIsIdle } = useLoading('temp-spinner-deep-link');
   return (
     <LedgerWrapper>

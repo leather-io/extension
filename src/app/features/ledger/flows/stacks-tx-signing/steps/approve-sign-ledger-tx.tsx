@@ -1,11 +1,11 @@
-import { useContext, useMemo } from 'react';
+import { useMemo } from 'react';
 
 import { PayloadType, cvToString } from '@stacks/transactions';
 import { BigNumber } from 'bignumber.js';
 
 import { microStxToStx } from '@app/common/money/unit-conversion';
 import { isSip10Transfer } from '@app/common/transactions/stacks/is-sip-10-transfer';
-import { ledgerTxSigningContext } from '@app/features/ledger/flows/stacks-tx-signing/ledger-sign-tx.context';
+import { useLedgerTxSigningContext } from '@app/features/ledger/flows/stacks-tx-signing/ledger-sign-tx.context';
 import { ApproveLedgerOperationLayout } from '@app/features/ledger/generic-steps/approve-ledger-operation/approve-ledger-operation.layout';
 import { useHasApprovedOperation } from '@app/features/ledger/hooks/use-has-approved-transaction';
 import { useCurrentStacksAccount } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
@@ -22,7 +22,7 @@ function formatTooltipLabel(amount: bigint) {
 }
 
 export function ApproveSignLedgerTx() {
-  const { transaction } = useContext(ledgerTxSigningContext);
+  const { transaction } = useLedgerTxSigningContext();
   const currentAccount = useCurrentStacksAccount();
   const hasApprovedOperation = useHasApprovedOperation();
 
