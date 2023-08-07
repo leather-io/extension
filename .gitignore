@@ -21,6 +21,6 @@ trace*
 /test-results/
 /playwright-report/
 /playwright/.cache/
-
+styled-system/chunks
 # Local Netlify folder
 .netlify
