@@ -11,6 +11,7 @@ type HomeLayoutProps = Record<
 >;
 export function HomeLayout(props: HomeLayoutProps) {
   const { suggestedFirstSteps, currentAccount, actions, children } = props;
+
   return (
     <Stack alignItems="center" width="100%" spacing="extra-tight">
       {suggestedFirstSteps}

@@ -1,0 +1,36 @@
+import { defineTokens } from '@pandacss/dev';
+
+export const colors = defineTokens.colors({
+  current: { value: 'currentColor' },
+  dark: { value: '#111' },
+  black: { value: '#000' },
+  white: { value: '#fff' },
+  lightModeBrown: {
+    1: { value: '#FFFFFF' },
+    2: { value: '#F5F1ED' },
+    3: { value: '#EAE5E0' },
+    4: { value: '#E4DDD6' },
+    5: { value: '#DED6CD' },
+    6: { value: '#D8CEC4' },
+    7: { value: '#C6B9AD' },
+    8: { value: '#948677' },
+    9: { value: '#12100F' },
+    10: { value: '#4A423B' },
+    11: { value: '#4A423B' },
+    12: { value: '#12100F' },
+  },
+  darkModeBrown: {
+    1: { value: '#12100F' },
+    2: { value: '#2C2A24' },
+    3: { value: '#4A423B' },
+    4: { value: '#34312A' },
+    5: { value: '#12100F' },
+    6: { value: '#716A60' },
+    7: { value: '#8F887D' },
+    8: { value: '#C6B9AD' },
+    9: { value: '#F5F1ED' },
+    10: { value: '#DED6CD' },
+    11: { value: '#DED6CD' },
+    12: { value: '#F5F1ED' },
+  },
+});

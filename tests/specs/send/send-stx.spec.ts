@@ -147,7 +147,8 @@ test.describe('send stx', () => {
       test.expect(details).toBeTruthy();
     });
 
-    test('that asset value, recipient, memo and fees on preview match input', async ({
+    // TODO: this test relies on mainnet funds, to migrate to a testnet account
+    test.skip('that asset value, recipient, memo and fees on preview match input', async ({
       page,
       sendPage,
     }) => {
@@ -183,7 +184,10 @@ test.describe('send stx', () => {
       test.expect(confirmationMemo).toEqual(memo);
     });
 
-    test('that empty memo on preview matches default empty value', async ({ page, sendPage }) => {
+    test.skip('that empty memo on preview matches default empty value', async ({
+      page,
+      sendPage,
+    }) => {
       const amount = '0.000001';
       const emptyMemoPreviewValue = 'No memo';
 
