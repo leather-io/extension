@@ -15,9 +15,12 @@ import {
   deserializeTransaction,
   serializeCV,
 } from '@stacks/transactions';
+import { VersionedSmartContractPayload } from '@stacks/transactions/src/payload';
+import { STX_DECIMALS } from '@shared/constants';
 import { makeRpcErrorResponse, makeRpcSuccessResponse } from '@shared/rpc/rpc-methods';
 import { useDefaultRequestParams } from '@app/common/hooks/use-default-request-search-params';
 import { useRejectIfLedgerWallet } from '@app/common/rpc-helpers';
+import { ftDecimals } from '@app/common/stacks-utils';
 import { useSignTransactionSoftwareWallet } from '@app/store/transactions/transaction.hooks';
 
 const MEMO_DESERIALIZATION_STUB = '\u0000';
@@ -45,7 +48,10 @@ export const transactionPayloadToTransactionRequest = (
     case PayloadType.TokenTransfer:
       transactionRequest.txType = TransactionTypes.STXTransfer;
       transactionRequest.recipient = cvToValue<string>(stacksTransaction.payload.recipient, true);
-      transactionRequest.amount = Number(stacksTransaction.payload.amount);
+      transactionRequest.amount = ftDecimals(
+        Number(stacksTransaction.payload.amount),
+        STX_DECIMALS
+      );
       transactionRequest.memo = cleanMemoString(stacksTransaction.payload.memo.content);
       break;
     case PayloadType.ContractCall:
@@ -60,9 +66,13 @@ export const transactionPayloadToTransactionRequest = (
       transactionRequest.functionName = stacksTransaction.payload.functionName.content;
       break;
     case PayloadType.SmartContract:
+    case PayloadType.VersionedSmartContract:
       transactionRequest.txType = TransactionTypes.ContractDeploy;
       transactionRequest.contractName = stacksTransaction.payload.contractName.content;
       transactionRequest.codeBody = stacksTransaction.payload.codeBody.content;
+      transactionRequest.clarityVersion = (
+        stacksTransaction.payload as VersionedSmartContractPayload
+      ).clarityVersion;
       break;
     default:
       throw new Error('Unsupported tx type');

@@ -51,10 +51,16 @@ export function FeesRow(props: FeeRowProps): React.JSX.Element {
   useEffect(() => {
     if (props.defaultFeeValue) {
       feeHelper.setValue(
-        convertAmountToBaseUnit(new BigNumber(Number(props.defaultFeeValue)), STX_DECIMALS)
+        convertAmountToBaseUnit(
+          new BigNumber(Number(props.defaultFeeValue)),
+          STX_DECIMALS
+        ).toString()
       );
       feeTypeHelper.setValue(FeeTypes[FeeTypes.Custom]);
     }
+  }, [feeHelper, props.defaultFeeValue, feeTypeHelper]);
+
+  useEffect(() => {
     if (!props.defaultFeeValue && hasFeeEstimates && !feeField.value && !isCustom) {
       feeHelper.setValue(convertAmountToBaseUnit(fees.estimates[FeeTypes.Middle].fee).toString());
       feeTypeHelper.setValue(FeeTypes[FeeTypes.Middle]);
