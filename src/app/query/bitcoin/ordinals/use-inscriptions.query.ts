@@ -93,16 +93,18 @@ export function useTaprootInscriptionsInfiniteQuery() {
       let offset = pageParam?.offset || 0;
       // Loop through addresses until we reach the limit, or until we find an address with many inscriptions
       while (addressesWithoutOrdinalsNum < stopSearchAfterNumberAddressesWithoutOrdinals) {
-        const response = await fetchInscriptions(
-          Object.keys(addressesData),
-          offset,
-          inscriptionsLazyLoadLimit
-        );
+        const addresses = Object.keys(addressesData);
+
+        // add native segwit address to 1 chunk of addresses
+        if (fromIndex === 0) {
+          addresses.unshift(currentBitcoinAddress);
+        }
+        const response = await fetchInscriptions(addresses, offset, inscriptionsLazyLoadLimit);
 
         responsesArr.push(response);
 
         // stop loop to dynamically fetch inscriptions from 1 address if there are many inscriptions
-        if (response.total > inscriptionsLazyLoadLimit) {
+        if (response.total > inscriptionsLazyLoadLimit && response.results.length > 0) {
           addressesWithoutOrdinalsNum = 0;
           break;
         }
