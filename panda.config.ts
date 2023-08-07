@@ -1,5 +1,8 @@
 import { defineConfig } from '@pandacss/dev';
 
+import { semanticTokens } from './theme/semantic-tokens';
+import { tokens } from './theme/tokens';
+
 export default defineConfig({
   // Whether to use css reset
   preflight: true,
@@ -12,16 +15,10 @@ export default defineConfig({
 
   // Useful for theme customization
   theme: {
-    // 👇🏻 Define your tokens here
-    tokens: {
-      colors: {
-        primary: { value: 'red' },
-        secondary: { value: '#EE0F0F' }
-      },
-      fonts: {
-        body: { value: 'system-ui, sans-serif' }
-      }
-    }
+    extend: {
+      semanticTokens,
+      tokens,
+    },
   },
   // The output directory for your css system
   outdir: 'styled-system',

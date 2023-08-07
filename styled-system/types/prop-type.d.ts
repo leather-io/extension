@@ -198,7 +198,7 @@ type PropertyValueTypes  = {
 	stroke: Tokens["colors"];
 	srOnly: boolean;
 	debug: boolean;
-	colorPalette: string;
+	colorPalette: "rose" | "pink" | "fuchsia" | "purple" | "violet" | "indigo" | "sky" | "cyan" | "teal" | "emerald" | "green" | "lime" | "amber" | "stone" | "zinc" | "slate" | "primary" | "gray" | "neutral" | "red" | "orange" | "yellow" | "blue" | "blackAlpha" | "whiteAlpha" | "bg" | "text";
 	textStyle: "xs" | "sm" | "md" | "lg" | "xl" | "2xl" | "3xl" | "4xl" | "5xl" | "6xl" | "7xl" | "8xl" | "9xl";
 }
 

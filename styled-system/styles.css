@@ -58,7 +58,7 @@
     }
 
   .ml_1 {
-    margin-left: var(--spacing-1)
+    margin-left: 1px
     }
 
   .placement_right-end {
@@ -66,7 +66,7 @@
     }
 
   .ml_1 {
-    margin-left: 1px
+    margin-left: var(--spacing-1)
     }
 
   .bg_invert {
@@ -183,8 +183,8 @@
     }
 
   .right_2 {
-    right: var(--spacing-2);
-    right: 2px
+    right: 2px;
+    right: var(--spacing-2)
     }
 
   .pr_38px {
@@ -900,8 +900,8 @@
     }
 
   .font_normal {
-    font-weight: var(--font-weights-normal);
-    font-weight: normal
+    font-weight: normal;
+    font-weight: var(--font-weights-normal)
     }
 
   .z_2 {
@@ -1181,7 +1181,7 @@
     }
 
   .right_0 {
-    right: var(--spacing-0)
+    right: 0
     }
 
   .h_200px {
@@ -1193,7 +1193,7 @@
     }
 
   .right_0 {
-    right: 0
+    right: var(--spacing-0)
     }
 
   .overflow-wrap_break-word {
@@ -1253,7 +1253,7 @@
     }
 
   .h_0 {
-    height: var(--sizes-0)
+    height: 0
     }
 
   .font_Fira_Code {
@@ -1273,7 +1273,7 @@
     }
 
   .h_0 {
-    height: 0
+    height: var(--sizes-0)
     }
 
   .vis_visible {
@@ -1445,7 +1445,7 @@
     }
 
   .gap_3 {
-    gap: var(--spacing-3)
+    gap: 3px
     }
 
   .w_32px {
@@ -1457,7 +1457,7 @@
     }
 
   .gap_3 {
-    gap: 3px
+    gap: var(--spacing-3)
     }
 
   .mt_base-tight {
@@ -1781,8 +1781,8 @@
     }
 
   .mb_0 {
-    margin-bottom: var(--spacing-0);
-    margin-bottom: 0
+    margin-bottom: 0;
+    margin-bottom: var(--spacing-0)
     }
 
   .text_blue {
@@ -1922,7 +1922,7 @@
     }
 
   .font_mono {
-    font-family: var(--fonts-mono)
+    font-family: mono
     }
 
   .fs_16px {
@@ -1938,7 +1938,7 @@
     }
 
   .font_mono {
-    font-family: mono
+    font-family: var(--fonts-mono)
     }
 
   .fs_3 {
@@ -2031,11 +2031,11 @@
     }
 
   .border_none {
-    border: var(--borders-none)
+    border: none
     }
 
   .border_none {
-    border: none
+    border: var(--borders-none)
     }
 
   .h_100\% {
@@ -2079,7 +2079,7 @@
     }
 
   .mb_8 {
-    margin-bottom: var(--spacing-8)
+    margin-bottom: 8px
     }
 
   .mx_base-loose {
@@ -2087,7 +2087,7 @@
     }
 
   .mb_8 {
-    margin-bottom: 8px
+    margin-bottom: var(--spacing-8)
     }
 
   .min-h_76px {
@@ -2300,7 +2300,7 @@
     }
 
   .bg_white {
-    background: var(--colors-white)
+    background: white
     }
 
   .overflow-x_scroll {
@@ -2308,7 +2308,7 @@
     }
 
   .bg_white {
-    background: white
+    background: var(--colors-white)
     }
 
   .fs_14px {
@@ -2328,7 +2328,7 @@
     }
 
   .bg_transparent {
-    background: var(--colors-transparent)
+    background: transparent
     }
 
   .font_600 {
@@ -2348,7 +2348,7 @@
     }
 
   .bg_transparent {
-    background: transparent
+    background: var(--colors-transparent)
     }
 
   .size_42px {
@@ -2452,11 +2452,11 @@
     }
 
   .left_0 {
-    left: var(--spacing-0)
+    left: 0
     }
 
   .top_0 {
-    top: var(--spacing-0)
+    top: 0
     }
 
   .border_1px_solid {
@@ -2496,11 +2496,11 @@
     }
 
   .left_0 {
-    left: 0
+    left: var(--spacing-0)
     }
 
   .top_0 {
-    top: 0
+    top: var(--spacing-0)
     }
 
   .bg_rgba\(0\,0\,0\,0\.35\) {
@@ -2554,7 +2554,7 @@
     }
 
   .bg_white {
-    background-color: var(--colors-white)
+    background-color: white
     }
 
   .min-h_260px {
@@ -2570,7 +2570,7 @@
     }
 
   .bg_white {
-    background-color: white
+    background-color: var(--colors-white)
     }
 
   .border_4px_solid {
@@ -2654,11 +2654,11 @@
     }
 
   .max-w_8xl {
-    max-width: var(--sizes-8xl)
+    max-width: 8xl
     }
 
   .px_4 {
-    padding-inline: var(--spacing-4)
+    padding-inline: 4
     }
 
   .pos_relative {
@@ -2666,7 +2666,7 @@
     }
 
   .max-w_8xl {
-    max-width: 8xl
+    max-width: var(--sizes-8xl)
     }
 
   .mx_auto {
@@ -2674,7 +2674,7 @@
     }
 
   .px_4 {
-    padding-inline: 4
+    padding-inline: var(--spacing-4)
     }
 
   .focusWithin\:opacity_inherit:focus-within {
@@ -2723,11 +2723,11 @@
         }
 
   .focus\:bg_transparent:is(:focus, [data-focus]) {
-    background: var(--colors-transparent)
+    background: transparent
         }
 
   .focus\:bg_transparent:is(:focus, [data-focus]) {
-    background: transparent
+    background: var(--colors-transparent)
         }
 
   .focus\:shadow_none:is(:focus, [data-focus]) {
@@ -2735,11 +2735,11 @@
         }
 
   .focus\:border_none:is(:focus, [data-focus]) {
-    border: var(--borders-none)
+    border: none
         }
 
   .focus\:border_none:is(:focus, [data-focus]) {
-    border: none
+    border: var(--borders-none)
         }
 
   .\ \:has\(\:focus\)\:\:before\:border_2px_solid_\#bfc6ff {
@@ -2767,11 +2767,11 @@
         }
 
   .hover\:bg_transparent:is(:hover, [data-hover]) {
-    background: var(--colors-transparent)
+    background: transparent
         }
 
   .hover\:bg_transparent:is(:hover, [data-hover]) {
-    background: transparent
+    background: var(--colors-transparent)
         }
 
   .hover\:shadow_none:is(:hover, [data-hover]) {
@@ -2824,7 +2824,7 @@
     }
 
     .sm\:top_0 {
-      top: var(--spacing-0)
+      top: 0
     }
 
     .sm\:mr_base {
@@ -2836,7 +2836,7 @@
     }
 
     .sm\:top_0 {
-      top: 0
+      top: var(--spacing-0)
     }
         }
 
@@ -2878,7 +2878,7 @@
     }
 
     .sm\:gap_5 {
-      gap: var(--spacing-5)
+      gap: 5px
     }
 
     .sm\:fs_2 {
@@ -2894,7 +2894,7 @@
     }
 
     .sm\:gap_5 {
-      gap: 5px
+      gap: var(--spacing-5)
     }
         }
 
@@ -3272,13 +3272,13 @@
 
   @media screen and (min-width: 768px) {
     .md\:px_6 {
-      padding-inline: var(--spacing-6)
+      padding-inline: 6
     }
         }
 
   @media screen and (min-width: 768px) {
     .md\:px_6 {
-      padding-inline: 6
+      padding-inline: var(--spacing-6)
     }
         }
 
@@ -3312,13 +3312,13 @@
 
   @media screen and (min-width: 1024px) {
     .lg\:px_8 {
-      padding-inline: var(--spacing-8)
+      padding-inline: 8
     }
         }
 
   @media screen and (min-width: 1024px) {
     .lg\:px_8 {
-      padding-inline: 8
+      padding-inline: var(--spacing-8)
     }
         }
 }
