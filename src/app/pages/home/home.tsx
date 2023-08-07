@@ -1,5 +1,6 @@
 import { Outlet, useNavigate } from 'react-router-dom';
 
+import { setNewAppIcon, userApprovedNewAppIcon } from '@shared/new-theme/update-app-icon';
 import { RouteUrls } from '@shared/route-urls';
 
 import { useTrackFirstDeposit } from '@app/common/hooks/analytics/transactions-analytics.hooks';
@@ -40,6 +41,23 @@ export function Home() {
       currentAccount={<CurrentAccount />}
       actions={<HomeActions />}
     >
+      <button
+        onClick={async () => {
+          await userApprovedNewAppIcon();
+          await setNewAppIcon();
+        }}
+      >
+        change icon
+      </button>
+      <button
+        onClick={async () => {
+          const { hasApprovedAppIcon } = await chrome.storage.local.get('hasApprovedAppIcon');
+          // eslint-disable-next-line no-console
+          console.log(!!hasApprovedAppIcon);
+        }}
+      >
+        has updated icon?
+      </button>
       <HomeTabs>
         <Outlet context={{ address: stacksAccount?.address }} />
       </HomeTabs>

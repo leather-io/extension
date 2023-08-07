@@ -8,6 +8,7 @@ import { RouteUrls } from '@shared/route-urls';
 import { WalletRequests } from '@shared/rpc/rpc-methods';
 import { warnUsersAboutDevToolsDangers } from '@shared/utils/dev-tools-warning-log';
 
+import { setNewAppIcon, userHasApprovedAppIcon } from '../shared/new-theme/update-app-icon';
 import { initContextMenuActions } from './init-context-menus';
 import { internalBackgroundMessageHandler } from './messaging/internal-methods/message-handler';
 import {
@@ -29,11 +30,9 @@ chrome.runtime.onInstalled.addListener(async details => {
   }
 });
 
-// https://bugs.chromium.org/p/chromium/issues/detail?id=1271154#c108
-chrome.runtime.onStartup.addListener(() =>
-  // eslint-disable-next-line no-console
-  console.log('Service Worker startup')
-);
+chrome.runtime.onStartup.addListener(async () => {
+  if (await userHasApprovedAppIcon()) await setNewAppIcon();
+});
 
 //
 // Listen for connection to the content-script - port for two-way communication
