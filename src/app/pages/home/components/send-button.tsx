@@ -17,19 +17,7 @@ import {
 } from '@app/query/stacks/balance/stacks-ft-balances.hooks';
 import { useCurrentStacksAccount } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
 
-import { HomeActionButton } from './tx-button';
-
-function SendTxButton(props: ButtonProps) {
-  return (
-    <HomeActionButton
-      data-testid={HomePageSelectors.SendCryptoAssetBtn}
-      icon={<FiArrowUp />}
-      label="Send"
-      buttonComponent={PrimaryButton}
-      {...props}
-    />
-  );
-}
+import { HomeActionButton } from './HomeActionButton';
 
 function SendButtonSuspense() {
   const navigate = useNavigate();
@@ -40,7 +28,10 @@ function SendButtonSuspense() {
   const isDisabled = !stxAssetBalance && ftAssets?.length === 0;
 
   return (
-    <SendTxButton
+    <HomeActionButton
+      data-testid={HomePageSelectors.SendCryptoAssetBtn}
+      icon={<FiArrowUp />}
+      label="Send"
       onClick={() =>
         whenWallet({
           ledger: () =>
@@ -56,7 +47,15 @@ function SendButtonSuspense() {
   );
 }
 
-const SendButtonFallback = memo(() => <SendTxButton isDisabled />);
+const SendButtonFallback = memo(() => (
+  <HomeActionButton
+    data-testid={HomePageSelectors.SendCryptoAssetBtn}
+    icon={<FiArrowUp />}
+    label="Send"
+    isDisabled
+    onClick={() => null}
+  />
+));
 
 export function SendButton() {
   return (

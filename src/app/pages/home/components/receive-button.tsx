@@ -5,27 +5,9 @@ import { HomePageSelectors } from '@tests/selectors/home.selectors';
 
 import { RouteUrls } from '@shared/route-urls';
 
-import { PrimaryButton } from '@app/components/primary-button';
-import { QrCodeIcon } from '@app/components/qr-code-icon';
 import { useConfigBitcoinEnabled } from '@app/query/common/remote-config/remote-config.query';
 
-import { HomeActionButton } from './tx-button';
-
-export function ReceiveButton(props: ButtonProps) {
-  const navigate = useNavigate();
-  const isBitcoinEnabled = useConfigBitcoinEnabled();
-
-  return (
-    <HomeActionButton
-      buttonComponent={PrimaryButton}
-      data-testid={HomePageSelectors.ReceiveCryptoAssetBtn}
-      icon={<QrCodeIconSvg />}
-      label="Receive"
-      onClick={() => navigate(isBitcoinEnabled ? RouteUrls.Receive : RouteUrls.ReceiveStx)}
-      {...props}
-    />
-  );
-}
+import { HomeActionButton } from './HomeActionButton';
 
 function QrCodeIconSvg({ strokeWidth = 1.5, color = 'white' }) {
   return (
@@ -86,5 +68,19 @@ function QrCodeIconSvg({ strokeWidth = 1.5, color = 'white' }) {
         strokeLinejoin="round"
       />
     </svg>
+  );
+}
+
+export function ReceiveButton() {
+  const navigate = useNavigate();
+  const isBitcoinEnabled = useConfigBitcoinEnabled();
+
+  return (
+    <HomeActionButton
+      data-testid={HomePageSelectors.ReceiveCryptoAssetBtn}
+      icon={<QrCodeIconSvg />}
+      label="Receive"
+      onClick={() => navigate(isBitcoinEnabled ? RouteUrls.Receive : RouteUrls.ReceiveStx)}
+    />
   );
 }

@@ -3,8 +3,10 @@ import { ReactNode } from 'react';
 import { Button, ButtonStylesParams, MantineProvider } from '@mantine/core';
 
 interface MantineButtonProps {
+  disabled: boolean;
   icon: ReactNode;
   label: string;
+  onClick: () => void;
 }
 
 enum PaddingToken {
@@ -16,7 +18,7 @@ enum BorderRadius {
   md = '10px',
 }
 
-export function MantineButton({ icon, label }: MantineButtonProps) {
+export function MantineButton({ disabled, icon, label, onClick }: MantineButtonProps) {
   return (
     <MantineProvider
       theme={{
@@ -43,7 +45,7 @@ export function MantineButton({ icon, label }: MantineButtonProps) {
         },
       }}
     >
-      <Button leftIcon={icon} variant="filled">
+      <Button leftIcon={icon} variant="filled" onClick={onClick} disabled={disabled}>
         {label}
       </Button>
     </MantineProvider>

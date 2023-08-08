@@ -1,32 +1,16 @@
-import { Suspense, memo } from 'react';
+import { Suspense } from 'react';
 import { FiPlus } from 'react-icons/fi';
 import { useNavigate } from 'react-router-dom';
 
 import { ChainID } from '@stacks/transactions';
-import { ButtonProps } from '@stacks/ui';
 import { HomePageSelectorsLegacy } from '@tests-legacy/page-objects/home.selectors';
 
 import { RouteUrls } from '@shared/route-urls';
 
-import { SecondaryButton } from '@app/components/secondary-button';
 import { useHasFiatProviders } from '@app/query/common/remote-config/remote-config.query';
 import { useCurrentNetworkState } from '@app/store/networks/networks.hooks';
 
-import { HomeActionButton } from './tx-button';
-
-function BuyTxButton(props: ButtonProps) {
-  return (
-    <HomeActionButton
-      data-testid={HomePageSelectorsLegacy.BtnFundAccount}
-      icon={<FiPlus />}
-      label="Buy"
-      buttonComponent={SecondaryButton}
-      {...props}
-    />
-  );
-}
-
-const BuyButtonFallback = memo(() => <BuyTxButton isDisabled />);
+import { HomeActionButton } from './HomeActionButton';
 
 export function BuyButton() {
   const navigate = useNavigate();
@@ -36,8 +20,22 @@ export function BuyButton() {
   if (currentNetwork.chain.stacks.chainId !== ChainID.Mainnet) return null;
 
   return (
-    <Suspense fallback={<BuyButtonFallback />}>
-      <BuyTxButton onClick={() => navigate(RouteUrls.Fund)} />
+    <Suspense
+      fallback={
+        <HomeActionButton
+          data-testid={HomePageSelectorsLegacy.BtnFundAccount}
+          icon={<FiPlus />}
+          label="Buy"
+          isDisabled
+        />
+      }
+    >
+      <HomeActionButton
+        data-testid={HomePageSelectorsLegacy.BtnFundAccount}
+        icon={<FiPlus />}
+        label="Buy"
+        onClick={() => navigate(RouteUrls.Fund)}
+      />
     </Suspense>
   );
 }
