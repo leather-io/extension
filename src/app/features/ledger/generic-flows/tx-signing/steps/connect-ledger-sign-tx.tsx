@@ -8,6 +8,8 @@ export function ConnectLedgerSignTx() {
   const { chain, signTransaction, latestDeviceResponse, awaitingDeviceConnection } =
     useLedgerTxSigningContext();
 
+  console.log('rendering ConnectLedgerSignTx');
+
   useWhenReattemptingLedgerConnection(() => signTransaction());
 
   return (

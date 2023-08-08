@@ -18,6 +18,7 @@ import { EditNonceDrawer } from '@app/features/edit-nonce-drawer/edit-nonce-draw
 import { IncreaseBtcFeeDrawer } from '@app/features/increase-fee-drawer/increase-btc-fee-drawer';
 import { IncreaseFeeSentDrawer } from '@app/features/increase-fee-drawer/increase-fee-sent-drawer';
 import { IncreaseStxFeeDrawer } from '@app/features/increase-fee-drawer/increase-stx-fee-drawer';
+import { ledgerBitcoinTxSigningRoutes } from '@app/features/ledger/flows/bitcoin-tx-signing/ledger-bitcoin-sign-tx-container';
 import { ledgerJwtSigningRoutes } from '@app/features/ledger/flows/jwt-signing/ledger-sign-jwt.routes';
 import { requestBitcoinKeysRoutes } from '@app/features/ledger/flows/request-bitcoin-keys/ledger-request-bitcoin-keys';
 import { requestStacksKeysRoutes } from '@app/features/ledger/flows/request-stacks-keys/ledger-request-stacks-keys';
@@ -226,7 +227,9 @@ function useAppRoutes() {
             <Route
               path={RouteUrls.SendOrdinalInscriptionChooseFee}
               element={<SendInscriptionChooseFee />}
-            />
+            >
+              {ledgerBitcoinTxSigningRoutes}
+            </Route>
             <Route
               path={RouteUrls.SendOrdinalInscriptionReview}
               element={<SendInscriptionReview />}

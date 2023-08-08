@@ -12,13 +12,13 @@ import { useCurrentAccountTaprootSigner } from '@app/store/accounts/blockchain/b
 import { selectInscriptionTransferCoins } from '../coinselect/select-inscription-coins';
 
 export function useGenerateSignedOrdinalTx(trInput: TaprootUtxo) {
-  const createTapRootSigner = useCurrentAccountTaprootSigner();
+  const createTaprootSigner = useCurrentAccountTaprootSigner();
   const createNativeSegwitSigner = useCurrentAccountNativeSegwitSigner();
   const networkMode = useBitcoinScureLibNetworkConfig();
   const { data: nativeSegwitUtxos } = useCurrentNativeSegwitUtxos();
 
   function coverFeeFromAdditionalUtxos(values: OrdinalSendFormValues) {
-    const trSigner = createTapRootSigner?.(trInput.addressIndex);
+    const trSigner = createTaprootSigner?.(trInput.addressIndex);
     const nativeSegwitSigner = createNativeSegwitSigner?.(0);
 
     if (!trSigner || !nativeSegwitSigner || !nativeSegwitUtxos || !values.feeRate) return;
@@ -67,15 +67,15 @@ export function useGenerateSignedOrdinalTx(trInput: TaprootUtxo) {
       outputs.forEach(output => tx.addOutputAddress(output.address, output.value, networkMode));
 
       // We know the first is TR and the rest are native segwit
-      for (let i = 0; i < tx.inputsLength; i++) {
-        if (i === 0) {
-          trSigner.signIndex(tx, i);
-          continue;
-        }
-        nativeSegwitSigner.signIndex(tx, i);
-      }
+      // for (let i = 0; i < tx.inputsLength; i++) {
+      //   if (i === 0) {
+      //     trSigner.signIndex(tx, i);
+      //     continue;
+      //   }
+      //   nativeSegwitSigner.signIndex(tx, i);
+      // }
 
-      tx.finalize();
+      // tx.finalize();
       return { hex: tx.hex };
     } catch (e) {
       logger.error('Unable to sign transaction');

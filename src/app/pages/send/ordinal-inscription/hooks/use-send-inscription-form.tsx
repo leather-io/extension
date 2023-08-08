@@ -69,13 +69,9 @@ export function useSendInscriptionForm() {
         setIsCheckingFees(false);
       }
 
-      whenWallet({
-        software: () =>
-          navigate(RouteUrls.SendOrdinalInscriptionChooseFee, {
-            state: { inscription, recipient: values.recipient, utxo },
-          }),
-        ledger: noop,
-      })();
+      navigate(RouteUrls.SendOrdinalInscriptionChooseFee, {
+        state: { inscription, recipient: values.recipient, utxo },
+      });
     },
 
     async reviewTransaction(
@@ -94,17 +90,33 @@ export function useSendInscriptionForm() {
 
       const { hex } = resp;
       const feeRowValue = formFeeRowValue(values.feeRate, isCustomFee);
-      return navigate(RouteUrls.SendOrdinalInscriptionReview, {
-        state: {
-          fee: feeValue,
-          inscription,
-          utxo,
-          recipient: values.recipient,
-          time,
-          feeRowValue,
-          tx: hex,
+      whenWallet({
+        ledger() {
+          navigate(RouteUrls.ConnectLedger, {
+            replace: true,
+            state: {
+              tx: hex,
+              recipient: values.recipient,
+              fee: feeValue,
+              feeRowValue,
+              time,
+            },
+          });
         },
-      });
+        software() {
+          navigate(RouteUrls.SendOrdinalInscriptionReview, {
+            state: {
+              fee: feeValue,
+              inscription,
+              utxo,
+              recipient: values.recipient,
+              time,
+              feeRowValue,
+              tx: hex,
+            },
+          });
+        },
+      })();
     },
 
     validationSchema: yup.object({

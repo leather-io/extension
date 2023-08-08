@@ -38,7 +38,7 @@ import { connectLedgerBitcoinApp, getBitcoinAppVersion } from '../../utils/bitco
 import { useLedgerResponseState } from '../../utils/generic-ledger-utils';
 import { ApproveBitcoinSignLedgerTx } from './steps/approve-bitcoin-sign-ledger-tx';
 
-export const ledgerBicointTxSigningRoutes = (
+export const ledgerBitcoinTxSigningRoutes = (
   <Route element={<LedgerSignBitcoinTxContainer />}>
     {/* TODO: find way to refactor common routes */}
     <Route path={RouteUrls.ConnectLedger} element={<ConnectLedgerSignTx />} />

@@ -60,3 +60,4 @@ export function Collectibles() {
     </CollectiblesLayout>
   );
 }
+// bc1pluzurxum49p49rmfq7pzahpk5cye7v5fyjk9ugmsjyly4xpnq78sq99rsy
