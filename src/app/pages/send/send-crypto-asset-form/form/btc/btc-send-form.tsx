@@ -14,7 +14,7 @@ import { useCurrentAccountNativeSegwitIndexZeroSigner } from '@app/store/account
 
 import { AmountField } from '../../components/amount-field';
 import { FormFooter } from '../../components/form-footer';
-import { SelectedAssetField } from '../../components/selected-asset-field';
+import { SelectedAsset } from '../../components/selected-asset';
 import { SendCryptoAssetFormLayout } from '../../components/send-crypto-asset-form.layout';
 import { SendFiatValue } from '../../components/send-fiat-value';
 import { BitcoinRecipientField } from '../../family/bitcoin/components/bitcoin-recipient-field';
@@ -24,9 +24,11 @@ import { useSendFormRouteState } from '../../hooks/use-send-form-route-state';
 import { createDefaultInitialFormValues, defaultSendFormFormikProps } from '../../send-form.utils';
 import { useBtcSendForm } from './use-btc-send-form';
 
+const symbol = 'BTC';
+
 export function BtcSendForm() {
   const routeState = useSendFormRouteState();
-  const btcMarketData = useCryptoCurrencyMarketData('BTC');
+  const btcMarketData = useCryptoCurrencyMarketData(symbol);
 
   const nativeSegwitSigner = useCurrentAccountNativeSegwitIndexZeroSigner();
   const btcBalance = useNativeSegwitBalance(nativeSegwitSigner.address);
@@ -49,6 +51,7 @@ export function BtcSendForm() {
         initialValues={createDefaultInitialFormValues({
           ...routeState,
           recipientBnsName: '',
+          symbol,
         })}
         onSubmit={chooseTransactionFee}
         validationSchema={validationSchema}
@@ -77,10 +80,10 @@ export function BtcSendForm() {
                   onSetIsSendingMax={onSetIsSendingMax}
                   isSendingMax={isSendingMax}
                   switchableAmount={
-                    <SendFiatValue marketData={btcMarketData} assetSymbol={'BTC'} />
+                    <SendFiatValue marketData={btcMarketData} assetSymbol={symbol} />
                   }
                 />
-                <SelectedAssetField icon={<BtcIcon />} name={btcBalance.asset.name} symbol="BTC" />
+                <SelectedAsset icon={<BtcIcon />} name={btcBalance.asset.name} symbol={symbol} />
                 <BitcoinRecipientField />
                 {currentNetwork.chain.bitcoin.network === 'testnet' && <TestnetBtcMessage />}
               </SendCryptoAssetFormLayout>

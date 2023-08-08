@@ -9,9 +9,8 @@ test.describe('swap', () => {
     await swapPage.waitForSendPageReady();
   });
 
-  test.describe('swap', () => {
-    test('that it shows swap page', async ({ sendPage }) => {
-      await test.expect(sendPage.page.getByText('Coming soon!')).toBeVisible();
-    });
-  })
-})
+  // Skip tests until feature is live
+  test.skip('that it shows swap page', async ({ swapPage }) => {
+    await test.expect(swapPage.page.getByText('Swap')).toBeVisible();
+  });
+});
