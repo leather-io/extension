@@ -58,3 +58,7 @@ export function reverseBytes(bytes: Buffer | Uint8Array) {
   if (Buffer.isBuffer(bytes)) return Buffer.from(bytes).reverse();
   return new Uint8Array(bytes.slice().reverse());
 }
+
+export function makeNumberRange(num: number) {
+  return [...Array(num).keys()];
+}

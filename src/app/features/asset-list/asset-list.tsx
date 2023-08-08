@@ -11,7 +11,7 @@ import { useWalletType } from '@app/common/use-wallet-type';
 import { Brc20TokensLoader } from '@app/components/brc20-tokens-loader';
 import { CryptoCurrencyAssetItem } from '@app/components/crypto-assets/crypto-currency-asset/crypto-currency-asset-item';
 import { BtcIcon } from '@app/components/icons/btc-icon';
-import { CurrentStacksAccountLoader } from '@app/components/stacks-account-loader';
+import { CurrentStacksAccountLoader } from '@app/components/loaders/stacks-account-loader';
 import { useCurrentAccountNativeSegwitAddressIndexZero } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
 
 import { Collectibles } from '../collectibles/collectibles';

@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux';
 
 import { createSelector } from '@reduxjs/toolkit';
 import * as btc from '@scure/btc-signer';
-import { Psbt, networks } from 'bitcoinjs-lib';
+import { Psbt } from 'bitcoinjs-lib';
 import AppClient from 'ledger-bitcoin';
 
 import { getBitcoinJsLibNetworkConfigByMode } from '@shared/crypto/bitcoin/bitcoin.network';
@@ -18,7 +18,7 @@ import {
   getNativeSegwitAccountDerivationPath,
 } from '@shared/crypto/bitcoin/p2wpkh-address-gen';
 import { logger } from '@shared/logger';
-import { reverseBytes } from '@shared/utils';
+import { makeNumberRange, reverseBytes } from '@shared/utils';
 
 import { mnemonicToRootNode } from '@app/common/keychain/keychain';
 import {
@@ -136,10 +136,11 @@ export function getNativeSegwitMainnetAddressFromMnemonic(secretKey: string) {
 export function useSignNativeSegwitLedgerTx() {
   const accountIndex = useCurrentAccountIndex();
   const network = useCurrentNetwork();
-  const signer = useCurrentAccountNativeSegwitIndexZeroSigner();
+  const nativeSegwitSigner = useCurrentAccountNativeSegwitIndexZeroSigner();
+  // const taprootSigner = useCurrentAccountTaprootIndexZeroSigner();
   const bitcoinClient = useBitcoinClient();
 
-  return async (app: AppClient, rawPsbt: Uint8Array) => {
+  return async (app: AppClient, rawPsbt: Uint8Array, indexesToSign?: number[]) => {
     const fingerprint = await app.getMasterFingerprint();
 
     const extendedPublicKey = await app.getExtendedPubkey(
@@ -161,20 +162,22 @@ export function useSignNativeSegwitLedgerTx() {
       )
     );
 
-    for (let i = 0; i < psbt.inputCount; i++) {
-      psbt.updateInput(i, {
+    const inputsToSign = indexesToSign ? indexesToSign : makeNumberRange(psbt.inputCount);
+
+    inputsToSign.forEach(inputIndex => {
+      psbt.updateInput(inputIndex, {
         // On device warning if we don't add this
-        nonWitnessUtxo: Buffer.from(inputsTxHex[i], 'hex'),
+        nonWitnessUtxo: Buffer.from(inputsTxHex[inputIndex], 'hex'),
         // Required for Ledger signing
         bip32Derivation: [
           {
             masterFingerprint: Buffer.from(fingerprint, 'hex'),
-            pubkey: Buffer.from(signer.publicKey),
-            path: signer.derivationPath,
+            pubkey: Buffer.from(nativeSegwitSigner.publicKey),
+            path: nativeSegwitSigner.derivationPath,
           },
         ],
       });
-    }
+    });
 
     const policy = createNativeSegwitDefaultWalletPolicy({
       fingerprint,
@@ -188,9 +191,7 @@ export function useSignNativeSegwitLedgerTx() {
 
       addSignatureToPsbt(psbt, signatures);
 
-      // Ledger doesn't sign PSBTs coming from signer lib. So, we're using
-      // BitcoinJs to create PSBT to sign, then we turn it back into a BtcSigner
-      // PSBT type.
+      // Turn back into BtcSigner lib format
       const btcSignerPsbt = btc.Transaction.fromPSBT(psbt.toBuffer());
       btcSignerPsbt.finalize();
 

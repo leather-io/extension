@@ -6,7 +6,8 @@ import { useQueryClient } from '@tanstack/react-query';
 import { RouteUrls } from '@shared/route-urls';
 
 import { useWalletType } from '@app/common/use-wallet-type';
-import { CurrentStacksAccountLoader } from '@app/components/stacks-account-loader';
+import { CurrentBitcoinAccountLoader } from '@app/components/loaders/bitcoin-account-loader';
+import { CurrentStacksAccountLoader } from '@app/components/loaders/stacks-account-loader';
 import { useConfigNftMetadataEnabled } from '@app/query/common/remote-config/remote-config.query';
 
 import { AddCollectible } from './components/add-collectible';
@@ -40,10 +41,7 @@ export function Collectibles() {
       isLoadingMore={isLoadingMore}
       onRefresh={() => void queryClient.refetchQueries({ type: 'active' })}
     >
-      {whenWallet({
-        software: <AddCollectible />,
-        ledger: null,
-      })}
+      <CurrentBitcoinAccountLoader>{() => <AddCollectible />}</CurrentBitcoinAccountLoader>
 
       {isNftMetadataEnabled && (
         <CurrentStacksAccountLoader>
@@ -51,15 +49,14 @@ export function Collectibles() {
         </CurrentStacksAccountLoader>
       )}
 
-      {whenWallet({
-        software: (
+      <CurrentBitcoinAccountLoader>
+        {() => (
           <>
             <Stamps />
             <Ordinals setIsLoadingMore={setIsLoadingMore} />
           </>
-        ),
-        ledger: null,
-      })}
+        )}
+      </CurrentBitcoinAccountLoader>
     </CollectiblesLayout>
   );
 }
