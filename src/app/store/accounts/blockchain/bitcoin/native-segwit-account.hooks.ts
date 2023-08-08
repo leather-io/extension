@@ -6,6 +6,7 @@ import * as btc from '@scure/btc-signer';
 import { Psbt, networks } from 'bitcoinjs-lib';
 import AppClient from 'ledger-bitcoin';
 
+import { getBitcoinJsLibNetworkConfigByMode } from '@shared/crypto/bitcoin/bitcoin.network';
 import {
   bitcoinNetworkModeToCoreNetworkMode,
   deriveAddressIndexZeroFromAccount,
@@ -147,7 +148,9 @@ export function useSignNativeSegwitLedgerTx() {
 
     // BtcSigner not compatible with Ledger. Encoded format returns more terse
     // version. BitcoinJsLib works.
-    const psbt = Psbt.fromBuffer(Buffer.from(rawPsbt), { network: networks.testnet });
+    const psbt = Psbt.fromBuffer(Buffer.from(rawPsbt), {
+      network: getBitcoinJsLibNetworkConfigByMode(network.chain.bitcoin.network),
+    });
 
     const inputsTxHex = await Promise.all(
       psbt.txInputs.map(input =>

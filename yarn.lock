@@ -894,10 +894,36 @@
   resolved "https://registry.yarnpkg.com/@bcoe/v8-coverage/-/v8-coverage-0.2.3.tgz#75a2e8b51cb758a7553d6804a5932d7aace75c39"
   integrity sha512-0hYQ8SB4Db5zvZB4axdMHGwEaQjkZzFjQiN9LVYvIFB2nSUHW9tYpxWriPrWDASIxiaXax83REcLxuSdnGPZtw==
 
+"@bitcoinerlab/descriptors@^1.0.2":
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/@bitcoinerlab/descriptors/-/descriptors-1.0.2.tgz#684e5755afcc7171b73a263612e00dc7dc407dcc"
+  integrity sha512-q/0NuNlIof5Hb+ll/diU6Ib7GJ1MLwYUDTE6s/Ui4//r28LtxRPjI12/tYaMLWgTmpfuxcEnZI7+6aNFeS1EXg==
+  dependencies:
+    "@bitcoinerlab/miniscript" "^1.2.1"
+    "@bitcoinerlab/secp256k1" "^1.0.5"
+    bip32 "^4.0.0"
+    bitcoinjs-lib "^6.1.3"
+    ecpair "^2.1.0"
+
+"@bitcoinerlab/miniscript@^1.2.1":
+  version "1.2.1"
+  resolved "https://registry.yarnpkg.com/@bitcoinerlab/miniscript/-/miniscript-1.2.1.tgz#63983d2f5d43faf132f2b0ce90cbc88737275c2b"
+  integrity sha512-2Pkan4Vvq7afQNeveakFM/Np9D+DhlPtKITO/hTgKjPsPnLWqdOVyja1u/Qhr7Voi2bW9Tor6hLOYTw84QQKQQ==
+  dependencies:
+    bip68 "^1.0.4"
+
 "@bitcoinerlab/secp256k1@1.0.2":
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/@bitcoinerlab/secp256k1/-/secp256k1-1.0.2.tgz#39dbbb9132c98026adaa08dbdc22e1b952facc89"
   integrity sha512-zXhJNdnd9pkmBx3nJc1SjdNco49Fi1EPlj6d4JN5M4YjlFlVZyoD27hu6IWJQOaWwwagd6tsoKIQQEf+t+SvWw==
+  dependencies:
+    "@noble/hashes" "^1.1.5"
+    "@noble/secp256k1" "^1.7.1"
+
+"@bitcoinerlab/secp256k1@^1.0.5":
+  version "1.0.5"
+  resolved "https://registry.yarnpkg.com/@bitcoinerlab/secp256k1/-/secp256k1-1.0.5.tgz#4643ba73619c24c7c455cc63c6338c69c2cf187c"
+  integrity sha512-8gT+ukTCFN2rTxn4hD9Jq3k+UJwcprgYjfK/SQUSLgznXoIgsBnlPuARMkyyuEjycQK9VvnPiejKdszVTflh+w==
   dependencies:
     "@noble/hashes" "^1.1.5"
     "@noble/secp256k1" "^1.7.1"
@@ -7863,7 +7889,7 @@ bip32-path@^0.4.2:
   resolved "https://registry.yarnpkg.com/bip32-path/-/bip32-path-0.4.2.tgz#5db0416ad6822712f077836e2557b8697c0c7c99"
   integrity sha512-ZBMCELjJfcNMkz5bDuJ1WrYvjlhEF5k6mQ8vUr4N7MbVRsXei7ZOg8VhhwMfNiW68NWmLkgkc6WvTickrLGprQ==
 
-bip32@4.0.0:
+bip32@4.0.0, bip32@^4.0.0:
   version "4.0.0"
   resolved "https://registry.yarnpkg.com/bip32/-/bip32-4.0.0.tgz#7fac3c05072188d2d355a4d6596b37188f06aa2f"
   integrity sha512-aOGy88DDlVUhspIXJN+dVEtclhIsfAUppD43V0j40cPTld3pv/0X/MlrZSZ6jowIaQQzFwP8M6rFU2z2mVYjDQ==
@@ -7880,6 +7906,11 @@ bip39@3.1.0:
   dependencies:
     "@noble/hashes" "^1.2.0"
 
+bip68@^1.0.4:
+  version "1.0.4"
+  resolved "https://registry.yarnpkg.com/bip68/-/bip68-1.0.4.tgz#78a95c7a43fad183957995cc2e08d79b0c372c4d"
+  integrity sha512-O1htyufFTYy3EO0JkHg2CLykdXEtV2ssqw47Gq9A0WByp662xpJnMEB9m43LZjsSDjIAOozWRExlFQk2hlV1XQ==
+
 bitcoin-address-validation@2.2.1:
   version "2.2.1"
   resolved "https://registry.yarnpkg.com/bitcoin-address-validation/-/bitcoin-address-validation-2.2.1.tgz#049b5bc54687e4a28a5b7f599968986c5a9f98cb"
@@ -7889,7 +7920,7 @@ bitcoin-address-validation@2.2.1:
     bech32 "^2.0.0"
     sha256-uint8array "^0.10.3"
 
-bitcoinjs-lib@6.1.3, bitcoinjs-lib@^6.0.1:
+bitcoinjs-lib@6.1.3, bitcoinjs-lib@^6.1.3:
   version "6.1.3"
   resolved "https://registry.yarnpkg.com/bitcoinjs-lib/-/bitcoinjs-lib-6.1.3.tgz#88aed5a8d052e9faa04c6402d3f0865441f928d7"
   integrity sha512-TYXs/Qf+GNk2nnsB9HrXWqzFuEgCg0Gx+v3UW3B8VuceFHXVvhT+7hRnTSvwkX0i8rz2rtujeU6gFaDcFqYFDw==
@@ -9983,7 +10014,7 @@ ecdsa-sig-formatter@1.0.11:
   dependencies:
     safe-buffer "^5.0.1"
 
-ecpair@2.1.0:
+ecpair@2.1.0, ecpair@^2.1.0:
   version "2.1.0"
   resolved "https://registry.yarnpkg.com/ecpair/-/ecpair-2.1.0.tgz#673f826b1d80d5eb091b8e2010c6b588e8d2cb45"
   integrity sha512-cL/mh3MtJutFOvFc27GPZE2pWL3a3k4YvzUWEOvilnfZVlH3Jwgx/7d6tlD7/75tNk8TG2m+7Kgtz0SI1tWcqw==
@@ -13544,14 +13575,16 @@ lcid@^3.0.0:
   dependencies:
     invert-kv "^3.0.0"
 
-ledger-bitcoin@0.2.2:
-  version "0.2.2"
-  resolved "https://registry.yarnpkg.com/ledger-bitcoin/-/ledger-bitcoin-0.2.2.tgz#7fb0d0dd11fbe2b61e2fb7d89dcd66f3e0efc7e1"
-  integrity sha512-iZDuY+3tVmtEkJH6NbxCf8RElixKSEA8wt09c7IRvQj3SdJGc9g9oFUe/3bJotog0Ntzq69gDAKYJ4+srLpgHQ==
+ledger-bitcoin@0.2.3:
+  version "0.2.3"
+  resolved "https://registry.yarnpkg.com/ledger-bitcoin/-/ledger-bitcoin-0.2.3.tgz#9954f4464f1f439e393d228ae477ad86573d023b"
+  integrity sha512-sWdvMTR5CkebNlM0Mam9ROdpsD7Y4087kj4cbIaCCq8IXShCQ44vE3j0wTmt+sHp13eETgY63OWN1rkuIfMfuQ==
   dependencies:
+    "@bitcoinerlab/descriptors" "^1.0.2"
+    "@bitcoinerlab/secp256k1" "^1.0.5"
     "@ledgerhq/hw-transport" "^6.20.0"
     bip32-path "^0.4.2"
-    bitcoinjs-lib "^6.0.1"
+    bitcoinjs-lib "^6.1.3"
 
 leven@^3.1.0:
   version "3.1.0"

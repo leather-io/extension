@@ -193,7 +193,7 @@
     "jotai": "2.2.1",
     "jotai-redux": "0.2.1",
     "jsontokens": "4.0.1",
-    "ledger-bitcoin": "0.2.2",
+    "ledger-bitcoin": "0.2.3",
     "limiter": "2.1.0",
     "lodash.get": "4.4.2",
     "lodash.uniqby": "4.7.0",
