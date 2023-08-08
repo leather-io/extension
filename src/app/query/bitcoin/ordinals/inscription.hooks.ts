@@ -4,9 +4,11 @@ import {
   whenInscriptionType,
 } from '@shared/models/inscription.model';
 
+import { HIRO_INSCRIPTIONS_API_URL } from '@app/query/query-config';
+
 import { useGetInscriptionQuery } from './inscription.query';
 
-function createInfoUrl(id: string) {
+export function createInscriptionInfoUrl(id: string) {
   return `https://ordinals.hiro.so/inscription/${id}`;
 }
 
@@ -14,21 +16,21 @@ export function convertInscriptionToSupportedInscriptionType(inscription: Inscri
   const title = `Inscription ${inscription.number}`;
   return whenInscriptionType<SupportedInscription>(inscription.content_type, {
     image: () => ({
-      infoUrl: createInfoUrl(inscription.id),
-      src: `https://api.hiro.so/ordinals/v1/inscriptions/${inscription.id}/content`,
+      infoUrl: createInscriptionInfoUrl(inscription.id),
+      src: `${HIRO_INSCRIPTIONS_API_URL}/${inscription.id}/content`,
       type: 'image',
       title,
       ...inscription,
     }),
     text: () => ({
-      contentSrc: `https://api.hiro.so/ordinals/v1/inscriptions/${inscription.id}/content`,
-      infoUrl: createInfoUrl(inscription.id),
+      contentSrc: `${HIRO_INSCRIPTIONS_API_URL}/${inscription.id}/content`,
+      infoUrl: createInscriptionInfoUrl(inscription.id),
       type: 'text',
       title,
       ...inscription,
     }),
     other: () => ({
-      infoUrl: createInfoUrl(inscription.id),
+      infoUrl: createInscriptionInfoUrl(inscription.id),
       type: 'other',
       title,
       ...inscription,

@@ -44,6 +44,7 @@ import { RequestError } from '@app/pages/request-error/request-error';
 import { RpcGetAddresses } from '@app/pages/rpc-get-addresses/rpc-get-addresses';
 import { rpcSendTransferRoutes } from '@app/pages/rpc-send-transfer/rpc-send-transfer.routes';
 import { RpcSignPsbt } from '@app/pages/rpc-sign-psbt/rpc-sign-psbt';
+import { RpcSignPsbtSummary } from '@app/pages/rpc-sign-psbt/rpc-sign-psbt-summary';
 import { SelectNetwork } from '@app/pages/select-network/select-network';
 import { BroadcastError } from '@app/pages/send/broadcast-error/broadcast-error';
 import { LockBitcoinSummary } from '@app/pages/send/locked-bitcoin-summary/locked-bitcoin-summary';
@@ -64,6 +65,10 @@ import { AccountGate } from '@app/routes/account-gate';
 import { useHasUserRespondedToAnalyticsConsent } from '@app/store/settings/settings.selectors';
 
 import { OnboardingGate } from './onboarding-gate';
+
+function SuspenseLoadingSpinner() {
+  return <LoadingSpinner height="600px" />;
+}
 
 export function AppRoutes() {
   const routes = useAppRoutes();
@@ -97,7 +102,7 @@ function useAppRoutes() {
         path={RouteUrls.TransactionRequest}
         element={
           <AccountGate>
-            <Suspense fallback={<LoadingSpinner height="600px" />}>
+            <Suspense fallback={<SuspenseLoadingSpinner />}>
               <TransactionRequest />
             </Suspense>
           </AccountGate>
@@ -111,7 +116,7 @@ function useAppRoutes() {
         path={RouteUrls.SignatureRequest}
         element={
           <AccountGate>
-            <Suspense fallback={<LoadingSpinner height="600px" />}>
+            <Suspense fallback={<SuspenseLoadingSpinner />}>
               <StacksMessageSigningRequest />
             </Suspense>
           </AccountGate>
@@ -123,7 +128,7 @@ function useAppRoutes() {
         path={RouteUrls.ProfileUpdateRequest}
         element={
           <AccountGate>
-            <Suspense fallback={<LoadingSpinner height="600px" />}>
+            <Suspense fallback={<SuspenseLoadingSpinner />}>
               <ProfileUpdateRequest />
             </Suspense>
           </AccountGate>
@@ -133,7 +138,7 @@ function useAppRoutes() {
         path={RouteUrls.PsbtRequest}
         element={
           <AccountGate>
-            <Suspense fallback={<LoadingSpinner height="600px" />}>
+            <Suspense fallback={<SuspenseLoadingSpinner />}>
               <PsbtRequest />
             </Suspense>
           </AccountGate>
@@ -167,6 +172,14 @@ function useAppRoutes() {
         element={
           <AccountGate>
             <RpcSignPsbt />
+          </AccountGate>
+        }
+      />
+      <Route
+        path={RouteUrls.RpcSignPsbtSummary}
+        element={
+          <AccountGate>
+            <RpcSignPsbtSummary />
           </AccountGate>
         }
       />
@@ -232,7 +245,7 @@ function useAppRoutes() {
           path={RouteUrls.RpcReceiveBitcoinContractOffer}
           element={
             <AccountGate>
-              <Suspense fallback={<LoadingSpinner height="600px" />}>
+              <Suspense fallback={<SuspenseLoadingSpinner />}>
                 <BitcoinContractRequest />
               </Suspense>
             </AccountGate>

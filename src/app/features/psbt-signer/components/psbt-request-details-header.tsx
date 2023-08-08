@@ -4,14 +4,15 @@ import { Box, Stack, Text, color } from '@stacks/ui';
 
 import { Tooltip } from '@app/components/tooltip';
 import { Title } from '@app/components/typography';
+import { usePsbtSignerContext } from '@app/features/psbt-signer/psbt-signer.context';
 
 const immutableLabel =
   'Any modification to the transaction, including the fee amount or other inputs/outputs, will invalidate the signature.';
 const uncertainLabel =
   'The transaction details can be altered by other participants. This means the final outcome of the transaction might be different than initially agreed upon.';
 
-export function PsbtRequestDetailsHeader(props: { isPsbtMutable: boolean }) {
-  const { isPsbtMutable } = props;
+export function PsbtRequestDetailsHeader() {
+  const { isPsbtMutable } = usePsbtSignerContext();
   const labelColor = isPsbtMutable ? color('feedback-alert') : color('text-caption');
 
   return (

@@ -1,8 +1,11 @@
 import { useMemo } from 'react';
 
+import uniqby from 'lodash.uniqby';
+
 import { LoadingSpinner } from '@app/components/loading-spinner';
 import { useBitcoinPendingTransactions } from '@app/query/bitcoin/address/transactions-by-address.hooks';
-import { useGetBitcoinTransactionsByAddressQuery } from '@app/query/bitcoin/address/transactions-by-address.query';
+import { useGetBitcoinTransactionsByAddressesQuery } from '@app/query/bitcoin/address/transactions-by-address.query';
+import { useZeroIndexTaprootAddress } from '@app/query/bitcoin/ordinals/use-zero-index-taproot-address';
 import { useConfigBitcoinEnabled } from '@app/query/common/remote-config/remote-config.query';
 import { useStacksPendingTransactions } from '@app/query/stacks/mempool/mempool.hooks';
 import { useGetAccountTransactionsWithTransfersQuery } from '@app/query/stacks/transactions/transactions-with-transfers.query';
@@ -17,7 +20,7 @@ import { TransactionList } from './components/transaction-list/transaction-list'
 
 // TODO: temporary really ugly fix while we address conditional data problem of
 // bitcoin sometimes being undefined
-function useBitcoinAddress() {
+function useNsBitcoinAddress() {
   try {
     return useCurrentAccountNativeSegwitIndexZeroSigner().address;
   } catch (e) {
@@ -25,11 +28,32 @@ function useBitcoinAddress() {
   }
 }
 
+function useTrBitcoinAddress() {
+  try {
+    return useZeroIndexTaprootAddress();
+  } catch (e) {
+    return '';
+  }
+}
+
 export function ActivityList() {
-  const bitcoinAddress = useBitcoinAddress();
-  const { isInitialLoading: isInitialLoadingBitcoinTransactions, data: bitcoinTransactions } =
-    useGetBitcoinTransactionsByAddressQuery(bitcoinAddress);
-  const { data: bitcoinPendingTxs = [] } = useBitcoinPendingTransactions(bitcoinAddress);
+  const nsBitcoinAddress = useNsBitcoinAddress();
+  const trBitcoinAddress = useTrBitcoinAddress();
+
+  const [
+    { isInitialLoading: isInitialLoadingNsBitcoinTransactions, data: nsBitcoinTransactions = [] },
+    { isInitialLoading: isInitialLoadingTrBitcoinTransactions, data: trBitcoinTransactions = [] },
+  ] = useGetBitcoinTransactionsByAddressesQuery([nsBitcoinAddress, trBitcoinAddress]);
+
+  const [{ data: nsPendingTxs = [] }, { data: trPendingTxs = [] }] = useBitcoinPendingTransactions([
+    nsBitcoinAddress,
+    trBitcoinAddress,
+  ]);
+  const bitcoinPendingTxs = useMemo(
+    () => uniqby([...nsPendingTxs, ...trPendingTxs], 'txid'),
+    [nsPendingTxs, trPendingTxs]
+  );
+
   const {
     isInitialLoading: isInitialLoadingStacksTransactions,
     data: stacksTransactionsWithTransfers,
@@ -42,14 +66,16 @@ export function ActivityList() {
   const isBitcoinEnabled = useConfigBitcoinEnabled();
 
   const isInitialLoading =
-    isInitialLoadingBitcoinTransactions ||
+    isInitialLoadingNsBitcoinTransactions ||
+    isInitialLoadingTrBitcoinTransactions ||
     isInitialLoadingStacksTransactions ||
     isInitialLoadingStacksPendingTransactions;
 
-  const transactionListBitcoinTxs = useMemo(
-    () => convertBitcoinTxsToListType(bitcoinTransactions),
-    [bitcoinTransactions]
-  );
+  const transactionListBitcoinTxs = useMemo(() => {
+    return convertBitcoinTxsToListType(
+      uniqby([...nsBitcoinTransactions, ...trBitcoinTransactions], 'txid')
+    );
+  }, [nsBitcoinTransactions, trBitcoinTransactions]);
 
   const pendingTransactionIds = stacksPendingTransactions.map(tx => tx.tx_id);
   const transactionListStacksTxs = useMemo(
@@ -85,6 +111,7 @@ export function ActivityList() {
         <TransactionList
           bitcoinTxs={isBitcoinEnabled ? transactionListBitcoinTxs : []}
           stacksTxs={transactionListStacksTxs}
+          currentBitcoinAddress={nsBitcoinAddress}
         />
       )}
     </>
