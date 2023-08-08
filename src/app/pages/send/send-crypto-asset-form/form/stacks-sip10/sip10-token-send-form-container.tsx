@@ -2,7 +2,7 @@ import { StacksAssetAvatar } from '@app/components/crypto-assets/stacks/componen
 import { StxAvatar } from '@app/components/crypto-assets/stacks/components/stx-avatar';
 
 import { AmountField } from '../../components/amount-field';
-import { SelectedAssetField } from '../../components/selected-asset-field';
+import { SelectedAsset } from '../../components/selected-asset';
 import { SendMaxButton } from '../../components/send-max-button';
 import { StacksCommonSendForm } from '../stacks/stacks-common-send-form';
 import { useSip10SendForm } from './use-sip10-send-form';
@@ -37,7 +37,7 @@ export function Sip10TokenSendFormContainer({
     />
   );
   const selectedAssetField = (
-    <SelectedAssetField
+    <SelectedAsset
       icon={
         avatar ? (
           <StacksAssetAvatar
@@ -49,7 +49,7 @@ export function Sip10TokenSendFormContainer({
         )
       }
       name={symbol}
-      symbol={symbol}
+      symbol={symbol.toUpperCase()}
     />
   );
 

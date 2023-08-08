@@ -1,5 +1,5 @@
 export function useSwapFeature() {
   return {
-    swapIsEnabled: !!process.env.SWAP_ENABLED
+    swapIsEnabled: !!process.env.SWAP_ENABLED,
   };
 }

@@ -1,11 +1,9 @@
 import { BrowserContext, test as base, chromium } from '@playwright/test';
-
 import { GlobalPage } from '@tests/page-object-models/global.page';
 import { HomePage } from '@tests/page-object-models/home.page';
 import { OnboardingPage } from '@tests/page-object-models/onboarding.page';
 import { SendPage } from '@tests/page-object-models/send.page';
 import { SwapPage } from '@tests/page-object-models/swap.page';
-
 import path from 'path';
 
 interface TestFixtures {
@@ -15,7 +13,7 @@ interface TestFixtures {
   homePage: HomePage;
   onboardingPage: OnboardingPage;
   sendPage: SendPage;
-  swapPage: SwapPage
+  swapPage: SwapPage;
 }
 
 /**
@@ -61,5 +59,5 @@ export const test = base.extend<TestFixtures>({
   },
   swapPage: async ({ page }, use) => {
     await use(new SwapPage(page));
-  }
+  },
 });

@@ -1,6 +1,6 @@
 import { Suspense } from 'react';
 
-import { Stack, StackProps } from '@stacks/ui';
+import { StackProps } from '@stacks/ui';
 
 import { SpaceBetween } from '@app/components/layout/space-between';
 import { useSwapFeature } from '@app/features/swap';
@@ -15,7 +15,7 @@ export function HomeActions(props: StackProps) {
 
   return (
     <Suspense fallback={<></>}>
-      <SpaceBetween isInline mt={['base', 'base', 'unset']} width="100%" {...props}>
+      <SpaceBetween isInline mt={['base', 'base', 'unset']} width={['100%', 'unset']} {...props}>
         <SendButton />
         <ReceiveButton />
         <BuyButton />

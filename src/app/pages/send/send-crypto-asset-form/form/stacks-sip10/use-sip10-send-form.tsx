@@ -45,7 +45,7 @@ export function useSip10SendForm({ symbol, contractId }: UseSip10SendFormArgs) {
   );
 
   const { initialValues, checkFormValidation, recipient, memo, nonce } = useStacksCommonSendForm({
-    symbol: symbol,
+    symbol,
     availableTokenBalance,
   });
 
