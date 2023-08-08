@@ -18,7 +18,7 @@ function BuyTxButton(props: ButtonProps) {
   return (
     <HomeActionButton
       data-testid={HomePageSelectorsLegacy.BtnFundAccount}
-      icon={FiPlus}
+      icon={<FiPlus />}
       label="Buy"
       buttonComponent={SecondaryButton}
       {...props}

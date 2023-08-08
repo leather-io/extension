@@ -23,7 +23,7 @@ function SendTxButton(props: ButtonProps) {
   return (
     <HomeActionButton
       data-testid={HomePageSelectors.SendCryptoAssetBtn}
-      icon={FiArrowUp}
+      icon={<FiArrowUp />}
       label="Send"
       buttonComponent={PrimaryButton}
       {...props}
