@@ -45,9 +45,15 @@ interface StacksTransactionSignerProps {
   onSignStacksTransaction(fee: number, nonce: number): void;
 }
 
-export function StacksTransactionSigner(props: StacksTransactionSignerProps) {
+export function StacksTransactionSigner({
+  stacksTransaction,
+  disableFeeSelection,
+  disableNonceSelection,
+  onCancel,
+  onSignStacksTransaction,
+}: StacksTransactionSignerProps) {
   const transactionRequest = useTransactionRequestState();
-  const { data: stxFees } = useCalculateStacksTxFees(props.stacksTransaction);
+  const { data: stxFees } = useCalculateStacksTxFees(stacksTransaction);
   const analytics = useAnalytics();
   const { data: stacksBalances } = useCurrentStacksAccountAnchoredBalances();
   const navigate = useNavigate();
@@ -61,13 +67,13 @@ export function StacksTransactionSigner(props: StacksTransactionSignerProps) {
   });
 
   const onSubmit = async (values: StacksTransactionFormValues) => {
-    props.onSignStacksTransaction(stxToMicroStx(values.fee).toNumber(), Number(values.nonce));
+    onSignStacksTransaction(stxToMicroStx(values.fee).toNumber(), Number(values.nonce));
   };
 
   if (!transactionRequest) return null;
 
   const validationSchema =
-    !transactionRequest.sponsored && !props.disableFeeSelection
+    !transactionRequest.sponsored && !disableFeeSelection
       ? yup.object({
           fee: stxFeeValidator(stacksBalances?.stx.unlockedStx),
           nonce: nonceValidator,
@@ -107,9 +113,9 @@ export function StacksTransactionSigner(props: StacksTransactionSignerProps) {
             <FeeForm
               fees={stxFees}
               defaultFeeValue={transactionRequest?.fee}
-              disableFeeSelection={props.disableFeeSelection}
+              disableFeeSelection={disableFeeSelection}
             />
-            {!props.disableNonceSelection && (
+            {!disableNonceSelection && (
               <EditNonceButton
                 alignSelf="flex-end"
                 my="base"

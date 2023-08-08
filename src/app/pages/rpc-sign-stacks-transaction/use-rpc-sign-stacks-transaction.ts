@@ -1,5 +1,6 @@
 import { useMemo } from 'react';
 import { useSearchParams } from 'react-router-dom';
+
 import { RpcErrorCode } from '@btckit/types';
 import { bytesToHex } from '@stacks/common';
 import { TransactionTypes } from '@stacks/connect';
@@ -16,8 +17,10 @@ import {
   serializeCV,
 } from '@stacks/transactions';
 import { VersionedSmartContractPayload } from '@stacks/transactions/src/payload';
+
 import { STX_DECIMALS } from '@shared/constants';
 import { makeRpcErrorResponse, makeRpcSuccessResponse } from '@shared/rpc/rpc-methods';
+
 import { useDefaultRequestParams } from '@app/common/hooks/use-default-request-search-params';
 import { useRejectIfLedgerWallet } from '@app/common/rpc-helpers';
 import { ftDecimals } from '@app/common/stacks-utils';
