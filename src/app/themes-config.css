@@ -1,0 +1,18 @@
+/* theme-config.css */
+.radix-themes {
+    --default-font-size: 18px;
+    --brown-1: hsl(30, 40.0%, 99.1%);
+    --brown-2: hsl(30, 50.0%, 97.6%);
+    --brown-3: hsl(30, 52.5%, 94.6%);
+    --brown-4: hsl(30, 53.0%, 91.2%);
+    --brown-5: hsl(29, 52.9%, 86.8%);
+    --brown-6: hsl(29, 52.5%, 80.9%);
+    --brown-7: hsl(29, 51.5%, 72.8%);
+    --brown-8: hsl(28, 50.0%, 63.1%);
+    --brown-9: hsl(28, 34.0%, 51.0%);
+    --brown-10: hsl(26, 31.7%, 46.9%);
+    --brown-11: hsl(25, 30.0%, 39.0%);
+    --brown-12: hsl(20, 15.0%, 21.0%);
+
+    --primary: var(--brown-9);
+}
