@@ -14,7 +14,7 @@ test.describe('send btc', () => {
     await homePage.enableTestMode();
     await homePage.sendButton.click();
     await sendPage.selectBtcAndGoToSendForm();
-    await sendPage.waitForSendPageReady();
+    await sendPage.waitForBtcSendPageReady();
   });
 
   test.describe('btc send form', () => {

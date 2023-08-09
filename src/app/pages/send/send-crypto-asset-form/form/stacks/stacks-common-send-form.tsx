@@ -1,6 +1,7 @@
 import { Outlet, useNavigate } from 'react-router-dom';
 
 import { Box } from '@stacks/ui';
+import { SendCryptoAssetSelectors } from '@tests/selectors/send.selectors';
 import { Form, Formik, FormikHelpers } from 'formik';
 import { ObjectSchema } from 'yup';
 
@@ -75,6 +76,8 @@ export function StacksCommonSendForm({
                 <FormFooter balance={availableTokenBalance} />
                 <HighFeeDrawer learnMoreUrl={HIGH_FEE_WARNING_LEARN_MORE_URL_STX} />
                 <Outlet />
+                {/* This is for testing purposes only, to make sure the form is ready to be submitted */}
+                {fees ? <Box data-testid={SendCryptoAssetSelectors.SendPageReady}></Box> : null}
               </Form>
             </NonceSetter>
           );

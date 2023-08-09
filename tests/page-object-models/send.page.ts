@@ -76,7 +76,13 @@ export class SendPage {
     await this.page.getByTestId(SendCryptoAssetSelectors.SendForm).waitFor();
   }
 
-  async waitForSendPageReady() {
+  async waitForBtcSendPageReady() {
+    await this.page.waitForSelector(createTestSelector(SendCryptoAssetSelectors.SendPageReady), {
+      state: 'attached',
+    });
+  }
+
+  async waitForStxSendPageReady() {
     await this.page.waitForSelector(createTestSelector(SendCryptoAssetSelectors.SendPageReady), {
       state: 'attached',
     });
