@@ -1,5 +1,3 @@
-import type { ClipboardEvent } from 'react';
-
 import { hexToBytes } from '@stacks/common';
 import {
   BytesReader,
@@ -40,11 +38,6 @@ export function extractPhraseFromString(value: string) {
   } else {
     return clean;
   }
-}
-
-export function extractPhraseFromPasteEvent(event: ClipboardEvent) {
-  const pasted = event.clipboardData.getData('Text');
-  return extractPhraseFromString(pasted);
 }
 
 interface MakeTxExplorerLinkArgs {
