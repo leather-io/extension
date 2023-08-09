@@ -7,7 +7,7 @@ import { RouteUrls } from '@shared/route-urls';
 
 import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
 import { useLoading } from '@app/common/hooks/use-loading';
-import { delay, extractPhraseFromPasteEvent } from '@app/common/utils';
+import { delay } from '@app/common/utils';
 import { useAppDispatch } from '@app/store';
 import { inMemoryKeyActions } from '@app/store/in-memory-key/in-memory-key.actions';
 import { onboardingActions } from '@app/store/onboarding/onboarding.actions';
@@ -67,14 +67,6 @@ export function useSignIn() {
     [setIsLoading, dispatch, analytics, navigate, setIsIdle, handleSetError]
   );
 
-  const onPaste = useCallback(
-    async (event: React.ClipboardEvent) => {
-      const value = extractPhraseFromPasteEvent(event);
-      await submitMnemonicForm(value);
-    },
-    [submitMnemonicForm]
-  );
-
   const toggleKeyMask = useCallback(() => {
     setIsKeyMasked(prev => !prev);
   }, []);
@@ -90,7 +82,6 @@ export function useSignIn() {
   );
 
   return {
-    onPaste,
     submitMnemonicForm,
     ref: textAreaRef,
     error,

@@ -6,7 +6,6 @@ export enum RouteUrls {
   BackUpSecretKey = '/back-up-secret-key',
   SetPassword = '/set-password',
   SignIn = '/sign-in',
-  MagicRecoveryCode = '/recovery-code',
   RequestDiagnostics = '/request-diagnostics',
 
   // Ledger routes
