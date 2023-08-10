@@ -26,15 +26,17 @@ export function AccInfoCard() {
   return (
     <Box p="5" style={{ background: 'var(--brown-3)', borderRadius: 'var(--radius-5)' }}>
       <Container size="1">
-        <Flex direction="column" gap="2">
-          <LButton color="gray" highContrast variant="ghost" asChild>
-            <Flex align="center" justify="between">
+        <Flex direction="column" gap="4">
+          <LButton color="gray" highContrast variant="ghost">
+            <Flex align="center" justify="between" grow="1">
               <Text size="3" weight="medium">
                 {name}
               </Text>
-              <AccessibleIcon label="account">
-                <FiArrowRight />
-              </AccessibleIcon>
+              <Box>
+                <AccessibleIcon label="account">
+                  <FiArrowRight />
+                </AccessibleIcon>
+              </Box>
             </Flex>
           </LButton>
 
