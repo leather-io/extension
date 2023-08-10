@@ -162,6 +162,7 @@
     "@stacks/ui-theme": "7.5.0",
     "@stacks/ui-utils": "7.5.0",
     "@stacks/wallet-sdk": "6.5.4",
+    "@stitches/react": "^1.2.8",
     "@styled-system/theme-get": "5.1.2",
     "@tanstack/query-sync-storage-persister": "4.32.0",
     "@tanstack/react-query": "4.32.0",
