@@ -24,39 +24,41 @@ export function AccInfoCard() {
     { label: 'Swap', icon: <FiArrowRightCircle /> },
   ];
   return (
-    <Box p="5" style={{ background: 'var(--brown-3)', borderRadius: 'var(--radius-5)' }}>
-      <Container size="1">
-        <Flex direction="column" gap="4">
-          <LButton color="gray" highContrast variant="ghost">
-            <Flex align="center" justify="between" grow="1">
-              <Text size="3" weight="medium">
-                {name}
-              </Text>
-              <Box>
-                <AccessibleIcon label="account">
-                  <FiArrowRight />
-                </AccessibleIcon>
-              </Box>
-            </Flex>
-          </LButton>
-
-          <Text size="8" weight="bold">
-            {totalBalance?.totalUsdBalance}
-          </Text>
-          <Separator my="4" size="4" />
-
-          <Flex justify="between" gap="5">
-            {actions.map(action => (
-              <LButton variant="ghost" color="gray" highContrast key={action.label}>
-                <Flex gap="2" direction="column" align="center">
-                  <AccessibleIcon label={action.label}>{action.icon}</AccessibleIcon>
-                  <Text weight="medium">{action.label}</Text>
-                </Flex>
-              </LButton>
-            ))}
+    <Container
+      size="1"
+      p="5"
+      style={{ background: 'var(--brown-3)', borderRadius: 'var(--radius-5)' }}
+    >
+      <Flex direction="column" gap="4">
+        <LButton color="gray" highContrast variant="ghost">
+          <Flex align="center" justify="between" grow="1">
+            <Text size="3" weight="medium">
+              {name}
+            </Text>
+            <Box>
+              <AccessibleIcon label="account">
+                <FiArrowRight />
+              </AccessibleIcon>
+            </Box>
           </Flex>
+        </LButton>
+
+        <Text size="8" weight="bold">
+          {totalBalance?.totalUsdBalance}
+        </Text>
+        <Separator my="4" size="4" />
+
+        <Flex justify="between" gap="5">
+          {actions.map(action => (
+            <LButton variant="ghost" color="gray" highContrast key={action.label}>
+              <Flex gap="2" direction="column" align="center">
+                <AccessibleIcon label={action.label}>{action.icon}</AccessibleIcon>
+                <Text weight="medium">{action.label}</Text>
+              </Flex>
+            </LButton>
+          ))}
         </Flex>
-      </Container>
-    </Box>
+      </Flex>
+    </Container>
   );
 }
