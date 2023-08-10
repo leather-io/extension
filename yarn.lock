@@ -9763,10 +9763,10 @@ dir-glob@^3.0.1:
   dependencies:
     path-type "^4.0.0"
 
-dlc-wasm-wallet@0.4.3:
-  version "0.4.3"
-  resolved "https://registry.yarnpkg.com/dlc-wasm-wallet/-/dlc-wasm-wallet-0.4.3.tgz#1070e3a79edb2330ef912a0e182741b37ce49615"
-  integrity sha512-y8eZu1thQKYgU0EFYTqY0YswYJDenqR4tjMaBymp6vh//YTtsXSyK1LLRSz3oSL60Y1ZwBD9JBWDm1JnQigxlg==
+dlc-wasm-wallet@0.4.7:
+  version "0.4.7"
+  resolved "https://registry.yarnpkg.com/dlc-wasm-wallet/-/dlc-wasm-wallet-0.4.7.tgz#5c726ab83bf549d09e4ae8c7827ca63a9cff5060"
+  integrity sha512-Q5ZW3jknqFf99/pNFPE/ETK/Kvoo3M98mACkZJ+s8XVQ4rxRjmNw+9m9HumItdGDLGBNFzCsew1joNrwfkl9Ow==
 
 dlv@^1.1.3:
   version "1.1.3"
