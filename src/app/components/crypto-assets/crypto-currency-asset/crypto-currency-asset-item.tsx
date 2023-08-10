@@ -7,6 +7,7 @@ import { forwardRefWithAs } from '@stacks/ui-core';
 import type { AllCryptoCurrencyAssetBalances } from '@shared/models/crypto-asset-balance.model';
 
 import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
+import { spamFilter } from '@app/common/utils/spam-filter';
 
 import { AssetItemCopyIcon } from './asset-copy-icon';
 import { CryptoCurrencyAssetItemLayout } from './crypto-currency-asset-item.layout';
@@ -70,7 +71,7 @@ export const CryptoCurrencyAssetItem = forwardRefWithAs(
         copyIcon={canCopy ? <AssetItemCopyIcon hasCopied={hasCopied} /> : undefined}
         isPressable={isPressable}
         ref={ref}
-        title={asset.name}
+        title={spamFilter(asset.name)}
         isHovered={isHovered}
         address={address}
         usdBalance={usdBalance}

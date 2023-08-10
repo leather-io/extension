@@ -1,124 +1,187 @@
-import { FiEye, FiEyeOff } from 'react-icons/fi';
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import YourSecretKey from '@assets/images/onboarding/your-secret-key.png';
-import { css } from '@emotion/react';
-import { Box, Input, Stack, Text, color, useMediaQuery } from '@stacks/ui';
+import { Box, Button, Flex, Grid, Input, Stack, Text, color, useMediaQuery } from '@stacks/ui';
 import { OnboardingSelectors } from '@tests/selectors/onboarding.selectors';
-import { Form, Formik } from 'formik';
+import { useFocus } from 'use-events';
 
 import { RouteUrls } from '@shared/route-urls';
 
 import { useRouteHeader } from '@app/common/hooks/use-route-header';
+import { createNullArrayOfLength, extractPhraseFromString } from '@app/common/utils';
 import { CenteredPageContainer } from '@app/components/centered-page-container';
 import { ErrorLabel } from '@app/components/error-label';
-import {
-  CENTERED_FULL_PAGE_MAX_WIDTH,
-  DESKTOP_VIEWPORT_MIN_WIDTH,
-} from '@app/components/global-styles/full-page-styles';
+import { DESKTOP_VIEWPORT_MIN_WIDTH } from '@app/components/global-styles/full-page-styles';
 import { Header } from '@app/components/header';
-import { Link } from '@app/components/link';
 import { PageTitle } from '@app/components/page-title';
 import { PrimaryButton } from '@app/components/primary-button';
-import { Title } from '@app/components/typography';
+import { Caption, Title } from '@app/components/typography';
 import { useSignIn } from '@app/pages/onboarding/sign-in/hooks/use-sign-in';
 
+interface MnemonicWordInputProps {
+  index: number;
+  value: string;
+  onUpdateWord(word: string): void;
+  onPasteEntireKey(word: string): void;
+}
+function MnemonicWordInput({
+  index,
+  value,
+  onUpdateWord,
+  onPasteEntireKey,
+}: MnemonicWordInputProps) {
+  const [isFocused, bind] = useFocus();
+
+  return (
+    <Box
+      position="relative"
+      _after={{
+        content: `"${index + 1}."`,
+        textAlign: 'right',
+        position: 'absolute',
+        top: 0,
+        left: '-22px',
+        lineHeight: '48px',
+        color: color('text-caption'),
+        fontSize: '12px',
+        width: '18px',
+      }}
+    >
+      <Input
+        type={isFocused ? 'text' : 'password'}
+        value={value}
+        autoCapitalize="off"
+        spellCheck={false}
+        autoComplete="off"
+        data-testid={`mnemonic-input-${index}`}
+        onPaste={e => {
+          const pasteValue = extractPhraseFromString(e.clipboardData.getData('text'));
+          if (pasteValue.includes(' ')) {
+            e.preventDefault();
+            //assume its a full key
+            onPasteEntireKey(pasteValue);
+          }
+        }}
+        onChange={(e: any) => {
+          e.preventDefault();
+          onUpdateWord(e.target.value);
+        }}
+        {...bind}
+      />
+    </Box>
+  );
+}
+
 export function SignIn() {
-  const { onPaste, submitMnemonicForm, error, isLoading, ref, toggleKeyMask, isKeyMasked } =
-    useSignIn();
+  const { submitMnemonicForm, error, isLoading } = useSignIn();
   const navigate = useNavigate();
+
+  const [twentyFourWordMode, setTwentyFourWordMode] = useState(true);
 
   const [desktopViewport] = useMediaQuery(`(min-width: ${DESKTOP_VIEWPORT_MIN_WIDTH})`);
 
   useRouteHeader(<Header onClose={() => navigate(RouteUrls.Onboarding)} hideActions />);
 
+  const [mnemonic, setMnemonic] = useState<(string | null)[]>(() => createNullArrayOfLength(24));
+
+  function mnemonicWordUpdate(index: number, word: string) {
+    const newMnemonic = [...mnemonic];
+    newMnemonic[index] = word;
+    setMnemonic(newMnemonic);
+  }
+
+  function updateEntireKey(key: string) {
+    const newKey = key.split(' ');
+    setMnemonic(newKey);
+    void submitMnemonicForm(key);
+  }
+
   return (
     <CenteredPageContainer>
-      <Formik
-        initialValues={{ secretKey: '' }}
-        onSubmit={values => submitMnemonicForm(values.secretKey)}
+      <Stack
+        as="form"
+        onSubmit={e => {
+          e.preventDefault();
+          void submitMnemonicForm(mnemonic.join(' '));
+        }}
+        px={['loose', 'base-loose']}
+        spacing={['loose', 'extra-loose']}
+        textAlign={['left', 'center']}
       >
-        {form => (
-          <Form>
-            <Stack
-              maxWidth={CENTERED_FULL_PAGE_MAX_WIDTH}
-              px={['loose', 'base-loose']}
-              spacing={['loose', 'extra-loose']}
-              textAlign={['left', 'center']}
-            >
-              <Box alignSelf={['start', 'center']} width={['81px', '101px']}>
-                <img src={YourSecretKey} />
-              </Box>
-              {desktopViewport ? (
-                <PageTitle>Sign in with your Secret Key</PageTitle>
-              ) : (
-                <>
-                  <Title as="h1">Sign in with Secret Key</Title>
-                  <Text color={color('text-caption')}>
-                    Enter your 12- or 24-word Secret Key to sign in with an existing wallet
-                  </Text>
-                </>
-              )}
-              <Stack spacing="base-tight">
-                <Input
-                  data-testid={OnboardingSelectors.SecretKeyInput}
-                  css={
-                    isKeyMasked &&
-                    css`
-                      color: transparent;
-                      caret-color: ${color('text-body')};
-                      ${form.values.secretKey && 'text-shadow: 0 0 8px rgba(0, 0, 0, 0.8)'};
-                    `
-                  }
-                  as="textarea"
-                  autoCapitalize="off"
-                  autoFocus
-                  borderRadius="10px"
-                  fontSize="16px"
-                  minHeight="168px"
-                  onKeyDown={e => e.key === 'Enter' && form.submitForm()}
-                  onPaste={onPaste}
-                  placeholder="Paste or type your Secret Key"
-                  ref={ref as any}
-                  spellCheck={false}
-                  style={{ resize: 'none' }}
-                  width="100%"
-                  {...form.getFieldProps('secretKey')}
-                />
-                {error && (
-                  <ErrorLabel>
-                    <Text
-                      data-testid="sign-in-seed-error"
-                      color={color('feedback-error')}
-                      maxWidth="340px"
-                      pr="extra-loose"
-                      textAlign="left"
-                      textStyle="caption"
-                    >
-                      {error}
-                    </Text>
-                  </ErrorLabel>
-                )}
-                <Stack alignItems="center">
-                  <Link fontSize="14px" _hover={{ textDecoration: 'none' }} onClick={toggleKeyMask}>
-                    <Stack alignItems="center" isInline spacing="tight">
-                      {isKeyMasked ? <FiEye /> : <FiEyeOff />}
-                      <Text>{isKeyMasked ? 'Show' : 'Hide'} Secret Key</Text>
-                    </Stack>
-                  </Link>
-                </Stack>
-              </Stack>
-              <PrimaryButton
-                data-testid={OnboardingSelectors.SignInBtn}
-                isDisabled={isLoading}
-                isLoading={isLoading}
-              >
-                Continue
-              </PrimaryButton>
-            </Stack>
-          </Form>
+        <Box alignSelf={['start', 'center']} width={['81px', '101px']}>
+          <img src={YourSecretKey} />
+        </Box>
+        {desktopViewport ? (
+          <PageTitle>Sign in with your Secret Key</PageTitle>
+        ) : (
+          <>
+            <Title as="h1">Sign in with Secret Key</Title>
+          </>
         )}
-      </Formik>
+        <Box>
+          <Text color={color('text-caption')}>
+            Enter your Secret Key to sign in with an existing wallet
+          </Text>
+          <Caption mt="base-tight">Tip: You can paste in your entire Secret Key at once</Caption>
+        </Box>
+        <Stack spacing="base-tight">
+          <Grid
+            mx="base"
+            templateColumns={['repeat(2, minmax(30%, 1fr))', 'repeat(3, minmax(120px, 1fr))']}
+            rowGap="30px"
+            columnGap="30px"
+          >
+            {createNullArrayOfLength(twentyFourWordMode ? 24 : 12).map((_, i) => (
+              <MnemonicWordInput
+                index={i}
+                key={i}
+                value={mnemonic[i] ?? ''}
+                onPasteEntireKey={key => {
+                  (document.activeElement as HTMLInputElement).blur();
+                  updateEntireKey(key);
+                }}
+                onUpdateWord={w => mnemonicWordUpdate(i, w)}
+              />
+            ))}
+          </Grid>
+        </Stack>
+        <Flex flexDirection="column" justifyContent="center" alignItems="center">
+          {error && (
+            <ErrorLabel mb="loose" alignItems="center">
+              <Text
+                data-testid="sign-in-seed-error"
+                color={color('feedback-error')}
+                pr="extra-loose"
+                textStyle="caption"
+              >
+                {error}
+              </Text>
+            </ErrorLabel>
+          )}
+          <PrimaryButton
+            data-testid={OnboardingSelectors.SignInBtn}
+            isDisabled={isLoading}
+            isLoading={isLoading}
+            width="320px"
+          >
+            Continue
+          </PrimaryButton>
+          <Button
+            mt="loose"
+            variant="link"
+            textStyle="caption"
+            color={color('text-caption')}
+            type="button"
+            onClick={() => {
+              setTwentyFourWordMode(!twentyFourWordMode);
+              setMnemonic(createNullArrayOfLength(twentyFourWordMode ? 24 : 12));
+            }}
+          >
+            {twentyFourWordMode ? 'Have a 12-word Secret Key?' : 'Use 24 word Secret Key'}
+          </Button>
+        </Flex>
+      </Stack>
     </CenteredPageContainer>
   );
 }

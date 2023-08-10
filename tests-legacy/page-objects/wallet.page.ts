@@ -51,7 +51,6 @@ export class WalletPage {
   $signOutDeleteWalletBtn = createTestSelector(SettingsSelectors.BtnSignOutActuallyDeleteWallet);
   $enterPasswordInput = createTestSelector(SettingsSelectors.EnterPasswordInput);
   $unlockWalletBtn = createTestSelector(SettingsSelectors.UnlockWalletBtn);
-  $magicRecoveryMessage = createTestSelector(WalletPageSelectors.MagicRecoveryMessage);
   $hideStepsBtn = createTestSelector(OnboardingSelectors.HideStepsBtn);
   $suggestedStepsList = createTestSelector(OnboardingSelectors.StepsList);
   $suggestedStepStartBtn = createTestSelector(OnboardingSelectors.StepItemStart);
@@ -149,8 +148,10 @@ export class WalletPage {
   }
 
   async enterSecretKey(secretKey: string) {
-    await this.page.waitForSelector('textarea');
-    await this.page.fill('textarea', secretKey);
+    const key = secretKey.split(' ');
+    for (let i = 0; i < key.length; i++) {
+      await this.page.getByTestId(`mnemonic-input-${i}`).fill(key[i]);
+    }
     await this.page.click(this.$buttonSignInKeyContinue);
   }
 
@@ -203,10 +204,6 @@ export class WalletPage {
 
   async goToFundPage() {
     await this.page.click(this.$fundAccountBtn);
-  }
-
-  async waitForMagicRecoveryMessage() {
-    await this.page.waitForSelector(this.$magicRecoveryMessage, { timeout: 30000 });
   }
 
   async waitForSendButton() {

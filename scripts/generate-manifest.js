@@ -82,7 +82,7 @@ const manifest = {
   },
   web_accessible_resources: [{ resources: ['inpage.js'], matches: ['*://*/*'] }],
   action: {
-    default_title: 'Stacks',
+    default_title: 'Hiro Wallet',
     default_popup: 'popup.html',
     default_icon: defaultIconEnvironment[WALLET_ENVIRONMENT],
   },
