@@ -1,3 +1,16 @@
+## [6.3.1](https://github.com/hirosystems/wallet/compare/v6.3.0...v6.3.1) (2023-08-10)
+
+
+### Bug Fixes
+
+* filter out urls and spam words from token names, closes [#4017](https://github.com/hirosystems/wallet/issues/4017) ([dc07b46](https://github.com/hirosystems/wallet/commit/dc07b4607a0c7d4c28f1190795d70602628fd232))
+* update manifest default_title to change extension tooltip text, closes [#4078](https://github.com/hirosystems/wallet/issues/4078) ([5f61753](https://github.com/hirosystems/wallet/commit/5f61753c0b36074b0f74e402627e031ff45ed132))
+
+
+### Internal
+
+* improve secret key ux ([108fdf8](https://github.com/hirosystems/wallet/commit/108fdf865e00b545f29f8fca15e7a7869a8da097))
+
 ## [6.3.0](https://github.com/hirosystems/wallet/compare/v6.2.1...v6.3.0) (2023-08-08)
 
 
