@@ -5,6 +5,8 @@ import { HomePageSelectors } from '@tests/selectors/home.selectors';
 
 import { HOME_FULL_PAGE_MAX_WIDTH } from '@app/components/global-styles/full-page-styles';
 
+import { AccInfoCard } from './acc-info-card';
+
 type HomeLayoutProps = Record<
   'suggestedFirstSteps' | 'currentAccount' | 'actions' | 'children',
   React.ReactNode
@@ -28,8 +30,10 @@ export function HomeLayout(props: HomeLayoutProps) {
           justifyContent={['unset', 'space-between']}
         >
           {currentAccount}
-          {actions}
+          {/* {actions} */}
         </Flex>
+        <AccInfoCard />
+
         {children}
       </Stack>
     </Stack>

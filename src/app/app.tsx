@@ -29,7 +29,7 @@ export function App() {
       <PersistGate loading={<FullPageLoadingSpinner />} persistor={persistor}>
         <ThemeProvider theme={theme}>
           <ThemeSwitcherProvider>
-            <RadixTheme appearance='light'>
+            <RadixTheme appearance="light">
               <GlobalStyles />
               <QueryClientProvider client={queryClient}>
                 <ColorModeProvider defaultMode="light">
