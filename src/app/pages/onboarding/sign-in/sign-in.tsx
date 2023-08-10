@@ -138,7 +138,7 @@ export function SignIn() {
                 key={i}
                 value={mnemonic[i] ?? ''}
                 onPasteEntireKey={key => {
-                  (document.activeElement as any)?.blur();
+                  (document.activeElement as HTMLInputElement).blur();
                   updateEntireKey(key);
                 }}
                 onUpdateWord={w => mnemonicWordUpdate(i, w)}
