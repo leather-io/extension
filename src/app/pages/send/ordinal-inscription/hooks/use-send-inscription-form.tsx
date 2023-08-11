@@ -21,7 +21,7 @@ import { useCurrentNetwork } from '@app/store/networks/networks.selectors';
 
 import { useSendInscriptionState } from '../components/send-inscription-container';
 import { recipeintFieldName } from '../send-inscription-form';
-import { useGenerateSignedOrdinalTx } from './use-generate-ordinal-tx';
+import { useGenerateUnsignedOrdinalTx } from './use-generate-ordinal-tx';
 
 export function useSendInscriptionForm() {
   const [currentError, setShowError] = useState<null | string>(null);
@@ -32,7 +32,7 @@ export function useSendInscriptionForm() {
   const { inscription, utxo } = useSendInscriptionState();
   const currentNetwork = useCurrentNetwork();
 
-  const { coverFeeFromAdditionalUtxos } = useGenerateSignedOrdinalTx(utxo);
+  const { coverFeeFromAdditionalUtxos } = useGenerateUnsignedOrdinalTx(utxo);
 
   return {
     currentError,
@@ -92,8 +92,7 @@ export function useSendInscriptionForm() {
       const feeRowValue = formFeeRowValue(values.feeRate, isCustomFee);
       whenWallet({
         ledger() {
-          navigate(RouteUrls.ConnectLedger, {
-            replace: true,
+          navigate('../' + RouteUrls.ConnectLedger, {
             state: {
               tx: hex,
               recipient: values.recipient,

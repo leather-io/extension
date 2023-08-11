@@ -1,4 +1,5 @@
 import * as btc from '@scure/btc-signer';
+import { bytesToHex } from '@stacks/common';
 
 import { logger } from '@shared/logger';
 import { OrdinalSendFormValues } from '@shared/models/form.model';
@@ -11,7 +12,7 @@ import { useCurrentAccountTaprootSigner } from '@app/store/accounts/blockchain/b
 
 import { selectInscriptionTransferCoins } from '../coinselect/select-inscription-coins';
 
-export function useGenerateSignedOrdinalTx(trInput: TaprootUtxo) {
+export function useGenerateUnsignedOrdinalTx(trInput: TaprootUtxo) {
   const createTaprootSigner = useCurrentAccountTaprootSigner();
   const createNativeSegwitSigner = useCurrentAccountNativeSegwitSigner();
   const networkMode = useBitcoinScureLibNetworkConfig();
@@ -76,7 +77,10 @@ export function useGenerateSignedOrdinalTx(trInput: TaprootUtxo) {
       // }
 
       // tx.finalize();
-      return { hex: tx.hex };
+
+      tx.toPSBT();
+
+      return { hex: bytesToHex(tx.toPSBT()) };
     } catch (e) {
       logger.error('Unable to sign transaction');
       return null;

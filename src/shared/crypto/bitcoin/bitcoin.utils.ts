@@ -156,6 +156,10 @@ function extractExtendedPublicKeyFromPolicy(policy: string) {
   return policy.split(']')[1];
 }
 
+export function extractFingerprintFromPolicy(policy: string) {
+  return policy.substring(1, 8);
+}
+
 export function createWalletIdDecoratedPath(policy: string, walletId: string) {
   return policy.split(']')[0].replace('[', '').replace('m', walletId);
 }
