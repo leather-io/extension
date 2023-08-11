@@ -1,6 +1,7 @@
 import { useMemo } from 'react';
 import { useSelector } from 'react-redux';
 
+import { PaymentTypes } from '@btckit/types';
 import { createSelector } from '@reduxjs/toolkit';
 import * as btc from '@scure/btc-signer';
 import { Psbt } from 'bitcoinjs-lib';
@@ -10,8 +11,10 @@ import { getBitcoinJsLibNetworkConfigByMode } from '@shared/crypto/bitcoin/bitco
 import {
   bitcoinNetworkModeToCoreNetworkMode,
   deriveAddressIndexZeroFromAccount,
+  getInputPaymentType,
   lookUpLedgerKeysByPath,
 } from '@shared/crypto/bitcoin/bitcoin.utils';
+import { getTaprootAccountDerivationPath } from '@shared/crypto/bitcoin/p2tr-address-gen';
 import {
   deriveNativeSegwitAccountFromRootKeychain,
   getNativeSegWitPaymentFromAddressIndex,
@@ -24,6 +27,7 @@ import { mnemonicToRootNode } from '@app/common/keychain/keychain';
 import {
   addSignatureToPsbt,
   createNativeSegwitDefaultWalletPolicy,
+  createTaprootDefaultWalletPolicy,
 } from '@app/features/ledger/utils/bitcoin-ledger-utils';
 import { useBitcoinClient } from '@app/store/common/api-clients.hooks';
 import { selectCurrentAccountIndex } from '@app/store/keys/key.selectors';
@@ -38,7 +42,6 @@ import {
   bitcoinAddressIndexSignerFactory,
   useMakeBitcoinNetworkSignersForPaymentType,
 } from './bitcoin-signer';
-import { useCurrentAccountTaprootIndexZeroSigner } from './taproot-account.hooks';
 
 const selectNativeSegwitAccountBuilder = bitcoinAccountBuilderFactory(
   deriveNativeSegwitAccountFromRootKeychain,
@@ -134,44 +137,45 @@ export function getNativeSegwitMainnetAddressFromMnemonic(secretKey: string) {
   };
 }
 
-// export function useUpdateLedgerSpecificTaprootInputPropsForAdddressIndexZero() {
-//   const taprootSigner = useCurrentAccountNativeSegwitIndexZeroSigner();
-//   const bitcoinClient = useBitcoinClient();
+export function useUpdateLedgerSpecificTaprootInputPropsForAdddressIndexZero() {
+  const taprootSigner = useCurrentAccountNativeSegwitIndexZeroSigner();
+  const bitcoinClient = useBitcoinClient();
 
-//   return async (tx: Psbt, fingerprint: string, inputsToUpdate: number[] = []) => {
-//     const inputsTxHex = await Promise.all(
-//       tx.txInputs.map(input =>
-//         bitcoinClient.transactionsApi.getBitcoinTransactionHex(
-//           // txids are encoded onchain in reverse byte order
-//           reverseBytes(input.hash).toString('hex')
-//         )
-//       )
-//     );
+  return async (tx: Psbt, fingerprint: string, inputsToUpdate: number[] = []) => {
+    const inputsTxHex = await Promise.all(
+      tx.txInputs.map(input =>
+        bitcoinClient.transactionsApi.getBitcoinTransactionHex(
+          // txids are encoded onchain in reverse byte order
+          reverseBytes(input.hash).toString('hex')
+        )
+      )
+    );
 
-//     const inputsToSign = inputsToUpdate.length > 0 ? inputsToUpdate : makeNumberRange(tx.inputCount);
-//     inputsToSign.forEach(inputIndex => {
-//       tx.updateInput(inputIndex, {
-//         nonWitnessUtxo: Buffer.from(inputsTxHex[inputIndex], 'hex'),
-//         // On device warning if we don't add this
-//         // Required for Ledger signing
-//         bip32Derivation: [
-//           {
-//             masterFingerprint: Buffer.from(fingerprint, 'hex'),
-//             pubkey: Buffer.from(taprootSigner.publicKey),
-//             path: taprootSigner.derivationPath,
-//           },
-//         ],
-//       });
-//     });
-//   };
-// }
+    const inputsToSign =
+      inputsToUpdate.length > 0 ? inputsToUpdate : makeNumberRange(tx.inputCount);
+    inputsToSign.forEach(inputIndex => {
+      tx.updateInput(inputIndex, {
+        nonWitnessUtxo: Buffer.from(inputsTxHex[inputIndex], 'hex'),
+        // On device warning if we don't add this
+        // Required for Ledger signing
+        bip32Derivation: [
+          {
+            masterFingerprint: Buffer.from(fingerprint, 'hex'),
+            pubkey: Buffer.from(taprootSigner.publicKey),
+            path: taprootSigner.derivationPath,
+          },
+        ],
+      });
+    });
+  };
+}
 
 export function useUpdateLedgerSpecificNativeSegwitInputPropsForAdddressIndexZero() {
   const nativeSegwitSigner = useCurrentAccountNativeSegwitIndexZeroSigner();
   const bitcoinClient = useBitcoinClient();
 
   return async (tx: Psbt, fingerprint: string, inputsToUpdate: number[] = []) => {
-    console.log({ tx, fingerprint, inputsToUpdate });
+    console.log('native segwit', { tx, fingerprint, inputsToUpdate });
 
     const inputsTxHex = await Promise.all(
       tx.txInputs.map(input =>
@@ -208,11 +212,11 @@ export function useUpdateLedgerSpecificNativeSegwitInputPropsForAdddressIndexZer
 export function useSignNativeSegwitLedgerTx() {
   const accountIndex = useCurrentAccountIndex();
   const network = useCurrentNetwork();
-  const nativeSegwitSigner = useCurrentAccountNativeSegwitIndexZeroSigner();
-  const taprootSigner = useCurrentAccountTaprootIndexZeroSigner();
-  const bitcoinClient = useBitcoinClient();
+
   const updateNativeSegwitLedgerProps =
     useUpdateLedgerSpecificNativeSegwitInputPropsForAdddressIndexZero();
+
+  const updateTaprootLedgerInputs = useUpdateLedgerSpecificTaprootInputPropsForAdddressIndexZero();
 
   return async (app: AppClient, rawPsbt: Uint8Array, indexesToSign?: number[]) => {
     // debugger;
@@ -220,11 +224,11 @@ export function useSignNativeSegwitLedgerTx() {
 
     console.log('fpnt', fingerprint, network.chain.bitcoin.network, accountIndex);
 
-    const extendedPublicKey = await app.getExtendedPubkey(
+    const nativeSegwitExtendedPublicKey = await app.getExtendedPubkey(
       getNativeSegwitAccountDerivationPath(network.chain.bitcoin.network, accountIndex)
     );
 
-    console.log({ extendedPublicKey });
+    console.log({ extendedPublicKey: nativeSegwitExtendedPublicKey });
 
     // BtcSigner not compatible with Ledger. Encoded format returns more terse
     // version. BitcoinJsLib works.
@@ -232,57 +236,66 @@ export function useSignNativeSegwitLedgerTx() {
       network: getBitcoinJsLibNetworkConfigByMode(network.chain.bitcoin.network),
     });
 
-    await updateNativeSegwitLedgerProps(psbt, fingerprint);
+    const btcSignerPsbtTest = btc.Transaction.fromPSBT(psbt.toBuffer());
 
-    // const inputsTxHex = await Promise.all(
-    //   psbt.txInputs.map(input =>
-    //     bitcoinClient.transactionsApi.getBitcoinTransactionHex(
-    //       // txids are encoded onchain in reverse byte order
-    //       reverseBytes(input.hash).toString('hex')
-    //     )
-    //   )
-    // );
+    const inputByPaymentType = makeNumberRange(btcSignerPsbtTest.inputsLength).map(index => [
+      index,
+      getInputPaymentType(index, btcSignerPsbtTest.getInput(index), network.chain.bitcoin.network),
+    ]) as readonly [number, PaymentTypes][];
 
-    // const inputsToSign = indexesToSign ? indexesToSign : makeNumberRange(psbt.inputCount);
+    const nativeSegwitInputsToSign = inputByPaymentType
+      .filter(([_, paymentType]) => paymentType === 'p2wpkh')
+      .map(([index]) => index);
 
-    // inputsToSign.forEach(inputIndex => {
-    //   psbt.updateInput(inputIndex, {
-    //     // On device warning if we don't add this
-    //     nonWitnessUtxo: Buffer.from(inputsTxHex[inputIndex], 'hex'),
-    //     // Required for Ledger signing
-    //     bip32Derivation: [
-    //       {
-    //         masterFingerprint: Buffer.from(fingerprint, 'hex'),
-    //         pubkey: Buffer.from(nativeSegwitSigner.publicKey),
-    //         path: nativeSegwitSigner.derivationPath,
-    //       },
-    //     ],
-    //   });
-    // });
+    // console.log({ nativeSegwitInputsToSign, taprootInputsToSign });
 
-    const policy = createNativeSegwitDefaultWalletPolicy({
+    await updateNativeSegwitLedgerProps(psbt, fingerprint, nativeSegwitInputsToSign);
+
+    const nativeSegwitPolicy = createNativeSegwitDefaultWalletPolicy({
       fingerprint,
       accountIndex,
       network: network.chain.bitcoin.network,
-      xpub: extendedPublicKey,
+      xpub: nativeSegwitExtendedPublicKey,
     });
 
-    try {
-      const signatures = await app.signPsbt(psbt.toBase64(), policy, null);
-      logger.debug('Ledger signatures', signatures);
-      addSignatureToPsbt(psbt, signatures);
+    // try {
+    const nativeSegwitSignatures = await app.signPsbt(psbt.toBase64(), nativeSegwitPolicy, null);
+    logger.debug('Native Segwit signatures', nativeSegwitSignatures);
+    // addSignatureToPsbt(psbt, nativeSegwitSignatures);
 
-      // Turn back into BtcSigner lib format
-      const btcSignerPsbt = btc.Transaction.fromPSBT(psbt.toBuffer());
-      btcSignerPsbt.finalize();
+    const taprootInputsToSign = inputByPaymentType
+      .filter(([_, paymentType]) => paymentType === 'p2tr')
+      .map(([index]) => index);
 
-      return btcSignerPsbt;
-    } catch (e) {
-      logger.error('Failed signing BTC transaction on Ledger', e);
-    } finally {
-      await app.transport.close();
-    }
+    await updateTaprootLedgerInputs(psbt, fingerprint, taprootInputsToSign);
 
-    return null;
+    const taprootExtendedPublicKey = await app.getExtendedPubkey(
+      getTaprootAccountDerivationPath(network.chain.bitcoin.network, accountIndex)
+    );
+
+    const taprootPolicy = createTaprootDefaultWalletPolicy({
+      fingerprint,
+      accountIndex,
+      network: network.chain.bitcoin.network,
+      xpub: taprootExtendedPublicKey,
+    });
+
+    const taprootSigs = await app.signPsbt(psbt.toBase64(), taprootPolicy, null);
+    console.log({ taprootSigs });
+
+    // addSignatureToPsbt(psbt, taprootSigs);
+
+    // Turn back into BtcSigner lib format
+    const btcSignerPsbt = btc.Transaction.fromPSBT(psbt.toBuffer());
+
+    btcSignerPsbt.finalize();
+    return btcSignerPsbt;
+    // } catch (e) {
+    //   logger.error('Failed signing BTC transaction on Ledger', e);
+    // }
+
+    // if (app.transport) await app.transport.close();
+
+    // return null;
   };
 }

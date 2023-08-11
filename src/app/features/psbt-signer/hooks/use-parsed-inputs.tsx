@@ -7,7 +7,11 @@ import {
   BtcSignerNetwork,
   getBtcSignerLibNetworkConfigByMode,
 } from '@shared/crypto/bitcoin/bitcoin.network';
-import { getAddressFromOutScript } from '@shared/crypto/bitcoin/bitcoin.utils';
+import {
+  getAddressFromOutScript,
+  getBitcoinInputAddress,
+  getBitcoinInputValue,
+} from '@shared/crypto/bitcoin/bitcoin.utils';
 import { AllowedSighashTypes } from '@shared/rpc/methods/sign-psbt';
 import { ensureArray, isDefined, isUndefined } from '@shared/utils';
 
@@ -24,24 +28,6 @@ export interface PsbtInput {
   toSign: boolean;
   txid: string;
   value: number;
-}
-
-function getInputAddress(
-  index: number,
-  input: btc.TransactionInput,
-  bitcoinNetwork: BtcSignerNetwork
-) {
-  if (isDefined(input.witnessUtxo))
-    return getAddressFromOutScript(input.witnessUtxo.script, bitcoinNetwork);
-  if (isDefined(input.nonWitnessUtxo))
-    return getAddressFromOutScript(input.nonWitnessUtxo.outputs[index]?.script, bitcoinNetwork);
-  return '';
-}
-
-function getInputValue(index: number, input: btc.TransactionInput) {
-  if (isDefined(input.witnessUtxo)) return Number(input.witnessUtxo.amount);
-  if (isDefined(input.nonWitnessUtxo)) return Number(input.nonWitnessUtxo.outputs[index]?.amount);
-  return 0;
 }
 
 interface UseParsedInputsArgs {
@@ -61,7 +47,7 @@ export function useParsedInputs({ allowedSighash, inputs, indexesToSign }: UsePa
     () =>
       inputs.map((input, i) => {
         const inputAddress = isDefined(input.index)
-          ? getInputAddress(input.index, input, bitcoinNetwork)
+          ? getBitcoinInputAddress(input.index, input, bitcoinNetwork)
           : '';
         const isCurrentAddress =
           inputAddress === bitcoinAddressNativeSegwit || inputAddress === bitcoinAddressTaproot;
@@ -86,7 +72,7 @@ export function useParsedInputs({ allowedSighash, inputs, indexesToSign }: UsePa
           isMutable: canChange,
           toSign: isAllowedToSign && (toSignAll || toSignIndex),
           txid: input.txid ? bytesToHex(input.txid) : '',
-          value: isDefined(input.index) ? getInputValue(input.index, input) : 0,
+          value: isDefined(input.index) ? getBitcoinInputValue(input.index, input) : 0,
         };
       }),
     [

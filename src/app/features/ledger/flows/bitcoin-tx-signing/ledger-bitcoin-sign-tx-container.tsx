@@ -103,17 +103,17 @@ export function LedgerSignBitcoinTxContainer() {
       ledgerNavigate.toAwaitingDeviceOperation({ hasApprovedOperation: true });
       await delay(1000);
 
-      await broadcastTx({
-        tx: resp.hex,
-        onSuccess(txid) {
-          console.log(txid);
-          toast.success('Tx broadcast');
-          navigate('/activity', { replace: true });
-        },
-        onError(e) {
-          console.log(e);
-        },
-      });
+      // await broadcastTx({
+      //   tx: resp.hex,
+      //   onSuccess(txid) {
+      //     console.log(txid);
+      //     toast.success('Tx broadcast');
+      //     navigate('/activity', { replace: true });
+      //   },
+      //   onError(e) {
+      //     console.log(e);
+      //   },
+      // });
       navigate('/activity', { replace: true });
       // sendFormNavigate.toConfirmAndSignBtcTransaction({
       //   fee: 1000,
