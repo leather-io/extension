@@ -35,11 +35,10 @@ import { BackUpSecretKeyPage } from '@app/pages/onboarding/back-up-secret-key/ba
 import { SignIn } from '@app/pages/onboarding/sign-in/sign-in';
 import { WelcomePage } from '@app/pages/onboarding/welcome/welcome';
 import { PsbtRequest } from '@app/pages/psbt-request/psbt-request';
-import { ReceiveBtcModal } from '@app/pages/receive-tokens/receive-btc';
-import { ReceiveModal } from '@app/pages/receive-tokens/receive-modal';
-import { ReceiveStxModal } from '@app/pages/receive-tokens/receive-stx';
-import { ReceiveCollectibleModal } from '@app/pages/receive/receive-collectible/receive-collectible-modal';
-import { ReceiveCollectibleOrdinal } from '@app/pages/receive/receive-collectible/receive-collectible-oridinal';
+import { ReceiveBtcModal } from '@app/pages/receive/receive-btc';
+import { ReceiveCollectibleOrdinal } from '@app/pages/receive/receive-collectible-oridinal';
+import { ReceiveModal } from '@app/pages/receive/receive-modal';
+import { ReceiveStxModal } from '@app/pages/receive/receive-stx';
 import { RequestError } from '@app/pages/request-error/request-error';
 import { RpcGetAddresses } from '@app/pages/rpc-get-addresses/rpc-get-addresses';
 import { rpcSendTransferRoutes } from '@app/pages/rpc-send-transfer/rpc-send-transfer.routes';
@@ -213,7 +212,10 @@ function useAppRoutes() {
           <Route path={RouteUrls.IncreaseFeeSent} element={<IncreaseFeeSentDrawer />} />
 
           <Route path={RouteUrls.Receive} element={<ReceiveModal />} />
-          <Route path={RouteUrls.ReceiveCollectible} element={<ReceiveCollectibleModal />} />
+          <Route
+            path={RouteUrls.ReceiveCollectible}
+            element={<ReceiveModal type="collectible" />}
+          />
           <Route
             path={RouteUrls.ReceiveCollectibleOrdinal}
             element={<ReceiveCollectibleOrdinal />}
