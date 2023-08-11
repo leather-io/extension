@@ -24,6 +24,7 @@ export function ReceiveModal() {
   const navigate = useNavigate();
   const btcAddress = useCurrentAccountNativeSegwitAddressIndexZero();
   const stxAddress = useCurrentAccountStxAddressState();
+  const { onCopy: onCopyBtc } = useClipboard(btcAddress);
   const { onCopy: onCopyStacks } = useClipboard(stxAddress);
 
   function copyToClipboard(copyHandler: () => void) {
@@ -47,8 +48,16 @@ export function ReceiveModal() {
                 <Box>
                   <Button
                     borderRadius="10px"
+                    mode="tertiary"
+                    onClick={() => copyToClipboard(onCopyBtc)}
+                  >
+                    <FiCopy />
+                  </Button>
+                  <Button
+                    borderRadius="10px"
                     data-testid={HomePageSelectors.ReceiveBtcNativeSegwitQrCodeBtn}
                     mode="tertiary"
+                    ml="tight"
                     onClick={() => navigate(RouteUrls.ReceiveBtc)}
                   >
                     <Box color={color('text-caption')} size="14px">
@@ -70,7 +79,6 @@ export function ReceiveModal() {
                   <Button
                     borderRadius="10px"
                     mode="tertiary"
-                    mr="tight"
                     onClick={() => copyToClipboard(onCopyStacks)}
                   >
                     <FiCopy />
@@ -79,6 +87,7 @@ export function ReceiveModal() {
                     borderRadius="10px"
                     data-testid={HomePageSelectors.ReceiveStxQrCodeBtn}
                     mode="tertiary"
+                    ml="tight"
                     onClick={() => navigate(RouteUrls.ReceiveStx)}
                   >
                     <Box color={color('text-caption')} size="14px">

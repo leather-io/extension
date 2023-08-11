@@ -1,21 +1,27 @@
 import { FiCopy } from 'react-icons/fi';
 
 import { Box, Button, ButtonProps, Flex, Stack } from '@stacks/ui';
-import { truncateMiddle } from '@stacks/ui-utils';
+import { color, truncateMiddle } from '@stacks/ui-utils';
+
+import { QrCodeIcon } from '@app/components/qr-code-icon';
 
 import { Flag } from '../layout/flag';
 import { Caption } from '../typography';
 
 interface ReceiveCollectibleItemProps extends ButtonProps {
   address: string;
+  dataTestId?: string;
   icon: React.JSX.Element;
   onCopyAddress(): void;
+  onClickQrCode?(): void;
   title: string;
 }
 export function ReceiveCollectibleItem({
   address,
+  dataTestId,
   icon,
   onCopyAddress,
+  onClickQrCode,
   title,
   ...rest
 }: ReceiveCollectibleItemProps) {
@@ -31,6 +37,19 @@ export function ReceiveCollectibleItem({
             <Button borderRadius="10px" mode="tertiary" onClick={onCopyAddress} {...rest}>
               <FiCopy />
             </Button>
+            {onClickQrCode && (
+              <Button
+                borderRadius="10px"
+                data-testid={dataTestId}
+                mode="tertiary"
+                ml="tight"
+                onClick={onClickQrCode}
+              >
+                <Box color={color('text-caption')} size="14px">
+                  <QrCodeIcon />
+                </Box>
+              </Button>
+            )}
           </Box>
         </Stack>
       </Flex>

@@ -29,6 +29,7 @@ export function ReceiveCollectible() {
   // const { isLoading, isError, data: btcAddress } = useNextFreshTaprootAddressQuery(accountIndex);
 
   const stxAddress = useCurrentAccountStxAddressState();
+  const { onCopy: onCopyOrdinal } = useClipboard(btcAddressTaproot);
   const { onCopy: onCopyBitcoin } = useClipboard(btcAddressNativeSegwit);
   const { onCopy: onCopyStacks } = useClipboard(stxAddress);
 
@@ -51,8 +52,9 @@ export function ReceiveCollectible() {
       <ReceiveCollectibleItem
         address={btcAddressTaproot}
         icon={<OrdinalIcon />}
-        data-testid={HomePageSelectors.ReceiveBtcTaprootQrCodeBtn}
-        onCopyAddress={() => {
+        dataTestId={HomePageSelectors.ReceiveBtcTaprootQrCodeBtn}
+        onCopyAddress={() => copyBitcoinAddressToClipboard(onCopyOrdinal)}
+        onClickQrCode={() => {
           void analytics.track('select_inscription_to_add_new_collectible');
           navigate(RouteUrls.ReceiveCollectibleOrdinal, { state: { btcAddressTaproot } });
         }}
@@ -71,7 +73,9 @@ export function ReceiveCollectible() {
       <ReceiveCollectibleItem
         address={stxAddress}
         icon={<StxAvatar />}
+        dataTestId={HomePageSelectors.ReceiveStxQrCodeBtn}
         onCopyAddress={() => copyStacksAddressToClipboard(onCopyStacks)}
+        onClickQrCode={() => navigate(RouteUrls.ReceiveStx)}
         title="Stacks NFT"
       />
     </Stack>
