@@ -51,6 +51,18 @@ export function createTaprootDefaultWalletPolicy(policyDetails: WalletPolicyDeta
   );
 }
 
-export function addSignatureToPsbt(psbt: Psbt, signatures: [number, PartialSignature][]) {
+export function addNativeSegwitSignaturesToPsbt(
+  psbt: Psbt,
+  signatures: [number, PartialSignature][]
+) {
   signatures.forEach(([index, signature]) => psbt.updateInput(index, { partialSig: [signature] }));
+}
+
+export function addTaprootInputSignaturesToPsbt(
+  psbt: Psbt,
+  signatures: [number, PartialSignature][]
+) {
+  signatures.forEach(([index, signature]) =>
+    psbt.updateInput(index, { tapKeySig: signature.signature })
+  );
 }

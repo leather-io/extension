@@ -18,7 +18,7 @@ import {
 import { useActionCancellableByUser } from '@app/features/ledger/utils/stacks-ledger-utils';
 import { useSendFormNavigate } from '@app/pages/send/send-crypto-asset-form/hooks/use-send-form-navigate';
 import { useBitcoinBroadcastTransaction } from '@app/query/bitcoin/transaction/use-bitcoin-broadcast-transaction';
-import { useSignNativeSegwitLedgerTx } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
+import { useSignLedgerTx } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
 
 import { ConnectLedgerSignTx } from '../../generic-flows/tx-signing/steps/connect-ledger-sign-tx';
 import {
@@ -65,7 +65,7 @@ export function LedgerSignBitcoinTxContainer() {
   const { broadcastTx } = useBitcoinBroadcastTransaction();
   const canUserCancelAction = useActionCancellableByUser();
   const [unsignedTransaction, setUnsignedTransaction] = useState<null | btc.Transaction>(null);
-  const signLedger = useSignNativeSegwitLedgerTx();
+  const signLedger = useSignLedgerTx();
   const sendFormNavigate = useSendFormNavigate();
 
   useEffect(() => {
@@ -103,17 +103,17 @@ export function LedgerSignBitcoinTxContainer() {
       ledgerNavigate.toAwaitingDeviceOperation({ hasApprovedOperation: true });
       await delay(1000);
 
-      // await broadcastTx({
-      //   tx: resp.hex,
-      //   onSuccess(txid) {
-      //     console.log(txid);
-      //     toast.success('Tx broadcast');
-      //     navigate('/activity', { replace: true });
-      //   },
-      //   onError(e) {
-      //     console.log(e);
-      //   },
-      // });
+      await broadcastTx({
+        tx: resp.hex,
+        onSuccess(txid) {
+          console.log(txid);
+          toast.success('Tx broadcast');
+          navigate('/activity', { replace: true });
+        },
+        onError(e) {
+          console.log(e);
+        },
+      });
       navigate('/activity', { replace: true });
       // sendFormNavigate.toConfirmAndSignBtcTransaction({
       //   fee: 1000,
