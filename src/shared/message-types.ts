@@ -27,9 +27,6 @@ export enum ExternalMethods {
 
 export enum InternalMethods {
   RequestDerivedStxAccounts = 'RequestDerivedStxAccounts',
-  ShareInMemoryKeyToBackground = 'ShareInMemoryKeyToBackground',
-  RequestInMemoryKeys = 'RequestInMemoryKeys',
-  RemoveInMemoryKeys = 'RemoveInMemoryKeys',
   OriginatingTabClosed = 'OriginatingTabClosed',
 }
 
