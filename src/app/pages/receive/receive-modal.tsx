@@ -87,6 +87,7 @@ export function ReceiveModal({ type = 'full' }: ReceiveModalProps) {
           <ReceiveItem
             address={btcAddressNativeSegwit}
             icon={<BtcStampsIcon />}
+            onClickQrCode={() => navigate(RouteUrls.ReceiveBtcStamp)}
             onCopyAddress={() => copyToClipboard(onCopyBtc, 'select_stamp_to_add_new_collectible')}
             title="Bitcoin Stamp"
           />

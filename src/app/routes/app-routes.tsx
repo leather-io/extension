@@ -222,6 +222,7 @@ function useAppRoutes() {
           />
           <Route path={RouteUrls.ReceiveStx} element={<ReceiveStxModal />} />
           <Route path={RouteUrls.ReceiveBtc} element={<ReceiveBtcModal />} />
+          <Route path={RouteUrls.ReceiveBtcStamp} element={<ReceiveBtcModal type="btc-stamp" />} />
 
           <Route path={RouteUrls.SendOrdinalInscription} element={<SendInscriptionContainer />}>
             <Route index element={<SendInscriptionForm />} />
