@@ -11,7 +11,11 @@ import { useNativeSegwitAccountIndexAddressIndexZero } from '@app/store/accounts
 import { ReceiveBtcModalWarning } from './components/receive-btc-warning';
 import { ReceiveTokensLayout } from './components/receive-tokens.layout';
 
-export function ReceiveBtcModal() {
+interface ReceiveBtcModalType {
+  type?: 'btc' | 'btc-stamp';
+}
+
+export function ReceiveBtcModal({ type = 'btc' }: ReceiveBtcModalType) {
   const analytics = useAnalytics();
   const { state } = useLocation();
 
@@ -33,7 +37,7 @@ export function ReceiveBtcModal() {
     <ReceiveTokensLayout
       address={btcAddress}
       onCopyAddressToClipboard={copyToClipboard}
-      title="Bitcoin address"
+      title={type === 'btc-stamp' ? 'Bitcoin Stamps address' : 'Bitcoin address'}
       warning={<ReceiveBtcModalWarning accountIndex={accountIndex} />}
       hasSubtitle={false}
     />

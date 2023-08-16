@@ -2,6 +2,7 @@ import { RpcErrorCode } from '@btckit/types';
 
 import { RouteUrls } from '@shared/route-urls';
 import { BitcoinContractRequest } from '@shared/rpc/methods/accept-bitcoin-contract';
+import { BitcoinContractResponseStatus } from '@shared/rpc/methods/accept-bitcoin-contract';
 import { makeRpcErrorResponse } from '@shared/rpc/rpc-methods';
 
 import {
@@ -16,12 +17,20 @@ export async function rpcAcceptBitcoinContractOffer(
   message: BitcoinContractRequest,
   port: chrome.runtime.Port
 ) {
-  if (!message.params) {
+  if (
+    !message.params ||
+    !message.params.bitcoinContractOffer ||
+    !message.params.attestorURLs ||
+    !message.params.counterpartyWalletDetails
+  ) {
     chrome.tabs.sendMessage(
       getTabIdFromPort(port),
       makeRpcErrorResponse('acceptBitcoinContractOffer', {
         id: message.id,
-        error: { code: RpcErrorCode.INVALID_PARAMS, message: 'Invalid parameters' },
+        error: {
+          code: RpcErrorCode.INVALID_PARAMS,
+          message: 'The provided parameters are not valid.',
+        },
       })
     );
     return;
@@ -29,25 +38,10 @@ export async function rpcAcceptBitcoinContractOffer(
 
   const params: RequestParams = [
     ['bitcoinContractOffer', message.params.bitcoinContractOffer],
-    ['counterpartyWalletURL', message.params.counterpartyWalletURL],
-    ['counterpartyWalletName', message.params.counterpartyWalletName],
-    ['counterpartyWalletIcon', message.params.counterpartyWalletIcon],
+    ['attestorURLs', message.params.attestorURLs],
+    ['counterpartyWalletDetails', message.params.counterpartyWalletDetails],
     ['requestId', message.id],
   ];
-
-  if (message.params.bitcoinContractOffer.includes('Invalid state: Not enough fund in utxos')) {
-    chrome.tabs.sendMessage(
-      getTabIdFromPort(port),
-      makeRpcErrorResponse('acceptBitcoinContractOffer', {
-        id: message.id,
-        error: {
-          code: RpcErrorCode.INVALID_REQUEST,
-          message: 'The counterparty does not have enough funds to complete the offer',
-        },
-      })
-    );
-    return;
-  }
 
   const { urlParams, tabId } = makeSearchParamsWithDefaults(port, params);
 
@@ -63,7 +57,7 @@ export async function rpcAcceptBitcoinContractOffer(
       id: message.id,
       error: {
         code: RpcErrorCode.USER_REJECTION,
-        message: 'User rejected the offer',
+        message: BitcoinContractResponseStatus.REJECTED,
       },
     }),
   });
