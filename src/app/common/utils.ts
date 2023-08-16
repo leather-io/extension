@@ -1,5 +1,3 @@
-import type { ClipboardEvent } from 'react';
-
 import { hexToBytes } from '@stacks/common';
 import {
   BytesReader,
@@ -40,11 +38,6 @@ export function extractPhraseFromString(value: string) {
   } else {
     return clean;
   }
-}
-
-export function extractPhraseFromPasteEvent(event: ClipboardEvent) {
-  const pasted = event.clipboardData.getData('Text');
-  return extractPhraseFromString(pasted);
 }
 
 interface MakeTxExplorerLinkArgs {
@@ -294,4 +287,15 @@ export function isFulfilled<T>(p: PromiseSettledResult<T>): p is PromiseFulfille
 
 export function isRejected<T>(p: PromiseSettledResult<T>): p is PromiseRejectedResult {
   return p.status === 'rejected';
+}
+
+interface LinearInterpolation {
+  start: number;
+  end: number;
+  t: number;
+}
+
+// Linear Interpolation
+export function linearInterpolation({ start, end, t }: LinearInterpolation) {
+  return (1 - t) * start + t * end;
 }

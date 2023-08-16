@@ -132,7 +132,12 @@ export class OnboardingPage {
   async signInExistingUser() {
     await this.denyAnalytics();
     await this.page.getByTestId(OnboardingSelectors.SignInLink).click();
-    await this.page.getByTestId(OnboardingSelectors.SecretKeyInput).fill(TEST_SECRET_KEY);
+
+    const key = TEST_SECRET_KEY.split(' ');
+    for (let i = 0; i < key.length; i++) {
+      await this.page.getByTestId(`mnemonic-input-${i}`).fill(key[i]);
+    }
+
     await this.page.getByTestId(OnboardingSelectors.SignInBtn).click();
     await this.setPassword();
     await this.page.waitForURL('**' + RouteUrls.Home);

@@ -35,15 +35,15 @@ import { BackUpSecretKeyPage } from '@app/pages/onboarding/back-up-secret-key/ba
 import { SignIn } from '@app/pages/onboarding/sign-in/sign-in';
 import { WelcomePage } from '@app/pages/onboarding/welcome/welcome';
 import { PsbtRequest } from '@app/pages/psbt-request/psbt-request';
-import { ReceiveBtcModal } from '@app/pages/receive-tokens/receive-btc';
-import { ReceiveModal } from '@app/pages/receive-tokens/receive-modal';
-import { ReceiveStxModal } from '@app/pages/receive-tokens/receive-stx';
-import { ReceiveCollectibleModal } from '@app/pages/receive/receive-collectible/receive-collectible-modal';
-import { ReceiveCollectibleOrdinal } from '@app/pages/receive/receive-collectible/receive-collectible-oridinal';
+import { ReceiveBtcModal } from '@app/pages/receive/receive-btc';
+import { ReceiveCollectibleOrdinal } from '@app/pages/receive/receive-collectible-oridinal';
+import { ReceiveModal } from '@app/pages/receive/receive-modal';
+import { ReceiveStxModal } from '@app/pages/receive/receive-stx';
 import { RequestError } from '@app/pages/request-error/request-error';
 import { RpcGetAddresses } from '@app/pages/rpc-get-addresses/rpc-get-addresses';
 import { rpcSendTransferRoutes } from '@app/pages/rpc-send-transfer/rpc-send-transfer.routes';
 import { RpcSignPsbt } from '@app/pages/rpc-sign-psbt/rpc-sign-psbt';
+import { RpcSignPsbtSummary } from '@app/pages/rpc-sign-psbt/rpc-sign-psbt-summary';
 import { SelectNetwork } from '@app/pages/select-network/select-network';
 import { BroadcastError } from '@app/pages/send/broadcast-error/broadcast-error';
 import { LockBitcoinSummary } from '@app/pages/send/locked-bitcoin-summary/locked-bitcoin-summary';
@@ -64,6 +64,10 @@ import { AccountGate } from '@app/routes/account-gate';
 import { useHasUserRespondedToAnalyticsConsent } from '@app/store/settings/settings.selectors';
 
 import { OnboardingGate } from './onboarding-gate';
+
+function SuspenseLoadingSpinner() {
+  return <LoadingSpinner height="600px" />;
+}
 
 export function AppRoutes() {
   const routes = useAppRoutes();
@@ -97,7 +101,7 @@ function useAppRoutes() {
         path={RouteUrls.TransactionRequest}
         element={
           <AccountGate>
-            <Suspense fallback={<LoadingSpinner height="600px" />}>
+            <Suspense fallback={<SuspenseLoadingSpinner />}>
               <TransactionRequest />
             </Suspense>
           </AccountGate>
@@ -111,7 +115,7 @@ function useAppRoutes() {
         path={RouteUrls.SignatureRequest}
         element={
           <AccountGate>
-            <Suspense fallback={<LoadingSpinner height="600px" />}>
+            <Suspense fallback={<SuspenseLoadingSpinner />}>
               <StacksMessageSigningRequest />
             </Suspense>
           </AccountGate>
@@ -123,7 +127,7 @@ function useAppRoutes() {
         path={RouteUrls.ProfileUpdateRequest}
         element={
           <AccountGate>
-            <Suspense fallback={<LoadingSpinner height="600px" />}>
+            <Suspense fallback={<SuspenseLoadingSpinner />}>
               <ProfileUpdateRequest />
             </Suspense>
           </AccountGate>
@@ -133,7 +137,7 @@ function useAppRoutes() {
         path={RouteUrls.PsbtRequest}
         element={
           <AccountGate>
-            <Suspense fallback={<LoadingSpinner height="600px" />}>
+            <Suspense fallback={<SuspenseLoadingSpinner />}>
               <PsbtRequest />
             </Suspense>
           </AccountGate>
@@ -170,6 +174,14 @@ function useAppRoutes() {
           </AccountGate>
         }
       />
+      <Route
+        path={RouteUrls.RpcSignPsbtSummary}
+        element={
+          <AccountGate>
+            <RpcSignPsbtSummary />
+          </AccountGate>
+        }
+      />
     </>
   );
 
@@ -200,13 +212,17 @@ function useAppRoutes() {
           <Route path={RouteUrls.IncreaseFeeSent} element={<IncreaseFeeSentDrawer />} />
 
           <Route path={RouteUrls.Receive} element={<ReceiveModal />} />
-          <Route path={RouteUrls.ReceiveCollectible} element={<ReceiveCollectibleModal />} />
+          <Route
+            path={RouteUrls.ReceiveCollectible}
+            element={<ReceiveModal type="collectible" />}
+          />
           <Route
             path={RouteUrls.ReceiveCollectibleOrdinal}
             element={<ReceiveCollectibleOrdinal />}
           />
           <Route path={RouteUrls.ReceiveStx} element={<ReceiveStxModal />} />
           <Route path={RouteUrls.ReceiveBtc} element={<ReceiveBtcModal />} />
+          <Route path={RouteUrls.ReceiveBtcStamp} element={<ReceiveBtcModal type="btc-stamp" />} />
 
           <Route path={RouteUrls.SendOrdinalInscription} element={<SendInscriptionContainer />}>
             <Route index element={<SendInscriptionForm />} />
@@ -232,7 +248,7 @@ function useAppRoutes() {
           path={RouteUrls.RpcReceiveBitcoinContractOffer}
           element={
             <AccountGate>
-              <Suspense fallback={<LoadingSpinner height="600px" />}>
+              <Suspense fallback={<SuspenseLoadingSpinner />}>
                 <BitcoinContractRequest />
               </Suspense>
             </AccountGate>

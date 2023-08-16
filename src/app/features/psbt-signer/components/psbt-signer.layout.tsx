@@ -1,14 +1,13 @@
 import { Stack } from '@stacks/ui';
 
-interface PsbtSignerLayoutProps {
-  children: React.ReactNode;
-}
-export function PsbtSignerLayout({ children }: PsbtSignerLayoutProps) {
+import { HasChildren } from '@app/common/has-children';
+
+export function PsbtSignerLayout({ children }: HasChildren) {
   return (
     <Stack
       alignItems="center"
       maxHeight="calc(100vh - 72px)"
-      overflowY="scroll"
+      overflowY="auto"
       pb="120px"
       px="loose"
       spacing="base-loose"

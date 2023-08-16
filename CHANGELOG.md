@@ -1,3 +1,46 @@
+## [6.3.1](https://github.com/hirosystems/wallet/compare/v6.3.0...v6.3.1) (2023-08-10)
+
+
+### Bug Fixes
+
+* filter out urls and spam words from token names, closes [#4017](https://github.com/hirosystems/wallet/issues/4017) ([dc07b46](https://github.com/hirosystems/wallet/commit/dc07b4607a0c7d4c28f1190795d70602628fd232))
+* update manifest default_title to change extension tooltip text, closes [#4078](https://github.com/hirosystems/wallet/issues/4078) ([5f61753](https://github.com/hirosystems/wallet/commit/5f61753c0b36074b0f74e402627e031ff45ed132))
+
+
+### Internal
+
+* improve secret key ux ([108fdf8](https://github.com/hirosystems/wallet/commit/108fdf865e00b545f29f8fca15e7a7869a8da097))
+
+## [6.3.0](https://github.com/hirosystems/wallet/compare/v6.2.1...v6.3.0) (2023-08-08)
+
+
+### Features
+
+* add option to broadcast rpc psbt, closes [#3895](https://github.com/hirosystems/wallet/issues/3895) ([da7b51b](https://github.com/hirosystems/wallet/commit/da7b51ba97dbb1c9b86596b2d90e33c9f6473e53))
+* add taproot txs in activity list, closes [#3249](https://github.com/hirosystems/wallet/issues/3249) ([d4b1065](https://github.com/hirosystems/wallet/commit/d4b1065b0bda71e971ce6694b43399069804e123))
+* fetch inscription by output in separate query ([281e138](https://github.com/hirosystems/wallet/commit/281e1386a06dd47a8d49bc598f77b853e071810e))
+* hide increase fee for txs with taproot input ([a01071f](https://github.com/hirosystems/wallet/commit/a01071fa1f1e97db9d718a4630f680429aeaad00))
+
+
+### Bug Fixes
+
+* change logic to upscale amount in input field ([086c329](https://github.com/hirosystems/wallet/commit/086c3297835867f8eb0df941ba46ab9f5de01fcb))
+* handle case when there's no ticker of < 4 chars ([ce3c7c9](https://github.com/hirosystems/wallet/commit/ce3c7c95e50ad5788ba078654643647be6e9670e))
+* make input text perfectly centered ([0b23519](https://github.com/hirosystems/wallet/commit/0b235195e9b44c823caaaecd4ce9db8a6bd6f396))
+* only route to error when asset is bitcoin, closes [#4083](https://github.com/hirosystems/wallet/issues/4083) ([bed3820](https://github.com/hirosystems/wallet/commit/bed3820fa7dcb914eeb337d542fb9ab082e6f38a))
+
+
+### Internal
+
+* move fn to utils, use constant and provide more descriptive fn name ([5356069](https://github.com/hirosystems/wallet/commit/5356069f96a30d603d8fd428d4a4125df3551341))
+
+## [6.2.1](https://github.com/hirosystems/wallet/compare/v6.2.0...v6.2.1) (2023-08-03)
+
+
+### Bug Fixes
+
+* only route to error when asset is bitcoin, closes [#4083](https://github.com/hirosystems/wallet/issues/4083) ([099f96d](https://github.com/hirosystems/wallet/commit/099f96d32bbe68fb8ea807413c2605d3f98e85f5))
+
 ## [6.2.0](https://github.com/hirosystems/wallet/compare/v6.1.0...v6.2.0) (2023-07-31)
 
 

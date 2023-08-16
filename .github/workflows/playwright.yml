@@ -13,7 +13,7 @@ on:
 jobs:
   test:
     name: Shard ${{ matrix.shardIndex }} of ${{ matrix.shardTotal }}
-    timeout-minutes: 5
+    timeout-minutes: 30
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
@@ -79,4 +79,4 @@ jobs:
         with:
           name: playwright-report
           path: playwright-report/
-          retention-days: 30
+          retention-days: 10

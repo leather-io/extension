@@ -166,3 +166,5 @@ export const defaultNetworksKeyedById: Record<
 };
 
 export const DEFAULT_LIST_LIMIT = 50;
+
+export const TOKEN_NAME_LENGTH = 4;
