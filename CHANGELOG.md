@@ -1,3 +1,24 @@
+## [6.4.0](https://github.com/hirosystems/wallet/compare/v6.3.1...v6.4.0) (2023-08-16)
+
+
+### Features
+
+* updated bitcoin contract api, modified responses, added error handling ([3a77bfc](https://github.com/hirosystems/wallet/commit/3a77bfce5b91371cae5ad5a30c6a8ae14617f280))
+
+
+### Bug Fixes
+
+* add copy and qr options to receive modal, closes [#3307](https://github.com/hirosystems/wallet/issues/3307) ([efa14d0](https://github.com/hirosystems/wallet/commit/efa14d094a190ab69faa4fd238b237d3de984065))
+* **firefox:** short session duration, closes [#4030](https://github.com/hirosystems/wallet/issues/4030) ([5a09c43](https://github.com/hirosystems/wallet/commit/5a09c43846b94fd73edf38d6a74053c78f1fcc7a))
+* header indentation for Stacks transaction signing [#3881](https://github.com/hirosystems/wallet/issues/3881) ([8bfcf60](https://github.com/hirosystems/wallet/commit/8bfcf6001fa8802dd890868322088af3b028fb21))
+
+
+### Internal
+
+* add modal for BTC Stamps QR receive ([fc33210](https://github.com/hirosystems/wallet/commit/fc33210a969b8fffb8b0bcc877fdbe06d70f390e))
+* inscription sends, closes [#4111](https://github.com/hirosystems/wallet/issues/4111) ([b2f0690](https://github.com/hirosystems/wallet/commit/b2f06903e635c54935e8d51f869ee7b0107c1f16))
+* refactor receive modal to share code better ([77d8704](https://github.com/hirosystems/wallet/commit/77d8704d677eb063634b6a23ade8ac7d5c0b29a4))
+
 ## [6.3.1](https://github.com/hirosystems/wallet/compare/v6.3.0...v6.3.1) (2023-08-10)
 
 
