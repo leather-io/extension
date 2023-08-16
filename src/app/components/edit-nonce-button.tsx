@@ -1,4 +1,5 @@
-import { BoxProps, color } from '@stacks/ui';
+import { BoxProps } from '@stacks/ui';
+import { token } from 'leaf-styles/tokens';
 
 import { Caption } from '@app/components/typography';
 
@@ -10,7 +11,7 @@ export function EditNonceButton({ onEditNonce, ...props }: EditNonceButtonProps)
     <Caption
       _hover={{ cursor: 'pointer', textDecoration: 'underline' }}
       as="button"
-      color={color('brand')}
+      color={token('colors.brown.12')}
       onClick={onEditNonce}
       type="button"
       {...props}

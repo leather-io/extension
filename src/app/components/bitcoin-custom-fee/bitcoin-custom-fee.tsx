@@ -1,13 +1,14 @@
 import { Dispatch, SetStateAction, useCallback, useRef } from 'react';
 
-import { Stack, Text } from '@stacks/ui';
+import { Link } from '@radix-ui/themes';
+import { Stack } from '@stacks/ui';
 import { Form, Formik } from 'formik';
+import { styled } from 'leaf-styles/jsx';
 import * as yup from 'yup';
 
 import { BtcFeeType } from '@shared/models/fees/bitcoin-fees.model';
 
 import { openInNewTab } from '@app/common/utils/open-in-new-tab';
-import { Link } from '@app/components/link';
 import { PreviewButton } from '@app/components/preview-button';
 
 import { OnChooseFeeArgs } from '../bitcoin-fees-list/bitcoin-fees-list';
@@ -82,17 +83,16 @@ export function BitcoinCustomFee({
           <Form>
             <Stack spacing="extra-loose" mt="8px">
               <Stack spacing="loose">
-                <Text fontSize="14px" lineHeight="20px" color="#74777D">
-                  Higher fee rates typically lead to faster confirmation times.{' '}
+                <styled.span textStyle="body.02" maxWidth="21.5rem">
+                  {'Higher fee rates typically lead to faster confirmation times. '}
                   <Link
-                    _hover={{ textDecoration: 'none' }}
-                    fontSize="14px"
-                    mr="4px !important"
+                    color="brown"
+                    underline="always"
                     onClick={() => openInNewTab('https://buybitcoinworldwide.com/fee-calculator/')}
                   >
                     View fee calculator
                   </Link>
-                </Text>
+                </styled.span>
                 <Stack spacing="extra-tight">
                   <TextInputField
                     hasError={hasInsufficientBalanceError}

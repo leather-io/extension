@@ -1,9 +1,10 @@
-import { FiArrowLeft, FiX as IconX } from 'react-icons/fi';
-
 import { Box, Flex } from '@stacks/ui';
+import { styled } from 'leaf-styles/jsx';
 import { useHover } from 'use-events';
 
-import { Caption, Title } from '@app/components/typography';
+import { ArrowLeftIcon } from '@app/components/icons/arrow-left-icon';
+import { CloseIcon } from '@app/components/icons/close-icon';
+import { Caption } from '@app/components/typography';
 
 import { HeaderActionButton } from './header-action-button';
 
@@ -38,7 +39,7 @@ export function DrawerHeader({
     >
       {enableGoBack ? (
         <HeaderActionButton
-          icon={FiArrowLeft}
+          icon={<ArrowLeftIcon />}
           isWaitingOnPerformedAction={isWaitingOnPerformedAction}
           onAction={onGoBack}
         />
@@ -46,11 +47,7 @@ export function DrawerHeader({
         <Box size="36px" />
       )}
       {icon && icon}
-      {title && (
-        <Title fontSize="20px" lineHeight="28px">
-          {title}
-        </Title>
-      )}
+      {title && <styled.h1 textStyle="heading.05">{title}</styled.h1>}
       {isHovered && isWaitingOnPerformedAction && (
         <Caption fontSize="14px" fontWeight={500}>
           {waitingOnPerformedActionMessage}
@@ -58,7 +55,7 @@ export function DrawerHeader({
       )}
       {onClose && (
         <HeaderActionButton
-          icon={IconX}
+          icon={<CloseIcon />}
           isWaitingOnPerformedAction={isWaitingOnPerformedAction}
           onAction={onClose}
         />

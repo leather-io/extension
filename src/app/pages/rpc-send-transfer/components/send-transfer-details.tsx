@@ -1,5 +1,6 @@
-import { Stack, Text, color } from '@stacks/ui';
+import { Stack, color } from '@stacks/ui';
 import { truncateMiddle } from '@stacks/ui-utils';
+import { styled } from 'leaf-styles/jsx';
 
 import { SpaceBetween } from '@app/components/layout/space-between';
 
@@ -19,16 +20,16 @@ export function SendTransferDetails({ address, amount, currentAddress }: SendTra
       width="100%"
     >
       <SpaceBetween spacing="base">
-        <Text color={color('text-caption')}>From</Text>
-        <Text>{truncateMiddle(currentAddress)}</Text>
+        <styled.span textStyle="caption.01">From</styled.span>
+        <styled.span textStyle="label.01">{truncateMiddle(currentAddress)}</styled.span>
       </SpaceBetween>
       <SpaceBetween spacing="base">
-        <Text color={color('text-caption')}>To</Text>
-        <Text>{truncateMiddle(address)}</Text>
+        <styled.span textStyle="caption.01">To</styled.span>
+        <styled.span textStyle="label.01">{truncateMiddle(address)}</styled.span>
       </SpaceBetween>
       <SpaceBetween spacing="base">
-        <Text color={color('text-caption')}>Amount</Text>
-        <Text>{amount}</Text>
+        <styled.span textStyle="caption.01">Amount</styled.span>
+        <styled.span textStyle="label.01">{amount}</styled.span>
       </SpaceBetween>
     </Stack>
   );

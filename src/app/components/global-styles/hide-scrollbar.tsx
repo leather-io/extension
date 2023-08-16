@@ -1,6 +1,6 @@
 import { css } from 'leaf-styles/css';
 
-export const hideScrollbarStyle = css({
+export const hideScrollbarClassName = css({
   '&::-webkit-scrollbar': {
     display: 'none',
   },

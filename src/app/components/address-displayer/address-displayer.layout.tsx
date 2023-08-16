@@ -1,6 +1,4 @@
-import { Box } from '@stacks/ui';
-
-import { figmaTheme } from '@app/common/utils/figma-theme';
+import { styled } from 'leaf-styles/jsx';
 
 interface AddressDisplayerLayoutProps {
   isEven: boolean;
@@ -8,9 +6,8 @@ interface AddressDisplayerLayoutProps {
 }
 export function AddressDisplayerLayout({ isEven, ...props }: AddressDisplayerLayoutProps) {
   return (
-    <Box
-      as="span"
-      color={isEven ? figmaTheme.textSubdued : figmaTheme.text}
+    <styled.span
+      color={isEven ? 'accent.text-primary' : 'accent.border-hover'}
       fontFamily="Fira Code"
       mr="tight"
       lineHeight="24px"

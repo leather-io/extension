@@ -1,9 +1,9 @@
 import { memo } from 'react';
-import { FiAlertTriangle } from 'react-icons/fi';
 
-import { Box, Stack, StackProps, color } from '@stacks/ui';
+import { Stack, StackProps, color } from '@stacks/ui';
+import { styled } from 'leaf-styles/jsx';
 
-import { Caption, Text } from '@app/components/typography';
+import { ErrorIcon } from '@app/components/icons/error-icon';
 
 interface ErrorMessageProps extends StackProps {
   title: string;
@@ -16,18 +16,17 @@ export const ErrorMessage = memo(({ title, body, actions, ...rest }: ErrorMessag
       bg={color('bg')}
       border="4px solid #FCEEED"
       borderRadius="12px"
-      color={color('feedback-error')}
       spacing="extra-loose"
       mb="loose"
       p="loose"
       {...rest}
     >
       <Stack spacing="base-loose">
-        <Stack alignItems="center" isInline>
-          <Box strokeWidth={2} as={FiAlertTriangle} />
-          <Text color="currentColor">{title}</Text>
+        <Stack alignItems="center" color={color('feedback-error')} isInline>
+          <ErrorIcon />
+          <styled.h1 textStyle="label.01">{title}</styled.h1>
         </Stack>
-        <Caption color={color('text-body')}>{body}</Caption>
+        <styled.span textStyle="caption.01">{body}</styled.span>
       </Stack>
       {actions && <Stack spacing="base-tight">{actions}</Stack>}
     </Stack>

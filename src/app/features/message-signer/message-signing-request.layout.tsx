@@ -1,11 +1,11 @@
-import { Stack } from '@stacks/ui';
+import { Stack } from 'leaf-styles/jsx';
 
 interface MessageSigningRequestLayoutProps {
   children: React.ReactNode;
 }
 export function MessageSigningRequestLayout({ children }: MessageSigningRequestLayoutProps) {
   return (
-    <Stack px={['loose', 'unset']} spacing="loose" width="100%">
+    <Stack px={['space.05', 'space.05', 'unset']} gap="space.05" width="100%">
       {children}
     </Stack>
   );

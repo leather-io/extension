@@ -8,16 +8,10 @@ import { selectCurrentAccountIndex } from '../keys/key.selectors';
 // the user switches accounts during the signing process
 export const hasSwitchedAccountsState = atom(false);
 
-const hasCreatedAccountState = atom<boolean>(false);
-
 export function useCurrentAccountIndex() {
   return useSelector(selectCurrentAccountIndex);
 }
 
 export function useHasSwitchedAccounts() {
   return useAtom(hasSwitchedAccountsState);
-}
-
-export function useHasCreatedAccount() {
-  return useAtom(hasCreatedAccountState);
 }

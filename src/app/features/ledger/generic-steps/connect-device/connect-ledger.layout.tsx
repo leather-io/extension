@@ -4,9 +4,9 @@ import { Box } from '@stacks/ui';
 
 import { SupportedBlockchains } from '@shared/constants';
 
+import { LeatherButton } from '@app/components/button/button';
 import { ExternalLink } from '@app/components/external-link';
 import { Divider } from '@app/components/layout/divider';
-import { PrimaryButton } from '@app/components/primary-button';
 import { Capitalize } from '@app/components/text/capitalize';
 import { Caption } from '@app/components/typography';
 
@@ -35,14 +35,9 @@ export function ConnectLedgerLayout(props: ConnectLedgerLayoutProps) {
         </Suspense>
       </Box>
       <LedgerConnectInstructionTitle chain={chain} mt="extra-loose" mx="50px" />
-      <PrimaryButton
-        height="40px"
-        my="base"
-        onClick={onConnectLedger}
-        isLoading={awaitingLedgerConnection}
-      >
+      <LeatherButton my="base" onClick={onConnectLedger} aria-busy={awaitingLedgerConnection}>
         Connect
-      </PrimaryButton>
+      </LeatherButton>
       <Box mb="base" mx="extra-loose">
         {warning}
       </Box>

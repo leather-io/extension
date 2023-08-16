@@ -1,43 +1,32 @@
-import { Flex, Text } from '@stacks/ui';
+import { Flex, styled } from 'leaf-styles/jsx';
 
-import { addPortSuffix, getUrlHostname } from '@app/common/utils';
 import { Favicon } from '@app/components/favicon';
 import { Flag } from '@app/components/layout/flag';
-import { Caption, Title } from '@app/components/typography';
-import { useCurrentNetworkState } from '@app/store/networks/networks.hooks';
 
 interface PsbtRequestHeaderProps {
   name?: string;
   origin: string;
 }
 export function PsbtRequestHeader({ name, origin }: PsbtRequestHeaderProps) {
-  const { chain, isTestnet } = useCurrentNetworkState();
-
-  const originAddition = origin ? ` (${getUrlHostname(origin)})` : '';
-  const testnetAddition = isTestnet
-    ? ` using ${getUrlHostname(chain.stacks.url)}${addPortSuffix(chain.stacks.url)}`
-    : '';
-
   const displayName = name ?? origin;
-
-  const caption = displayName
-    ? `Requested by ${displayName}${originAddition}${testnetAddition}`
-    : null;
+  const caption = displayName ? `Requested by ${displayName}` : null;
 
   return (
-    <Flex flexDirection="column" my="loose" width="100%">
-      <Title fontSize={4} fontWeight={500} mb="base">
-        Approve transaction
-      </Title>
-      <Text lineHeight="24px" mb="base">
+    <Flex flexDirection="column" my="space.05" width="100%">
+      <styled.h1 mb="space.04" textStyle="heading.03">
+        Approve
+        <br />
+        transaction
+      </styled.h1>
+      <styled.p mb="space.04" textStyle="label.01">
         Please review the recipient address, amount, and associated fees. Authorize only
         transactions you fully understand.
-      </Text>
+      </styled.p>
       {caption && (
-        <Flag align="top" img={<Favicon origin={origin} />} pl="tight">
-          <Caption wordBreak="break-word" lineHeight={1.3}>
+        <Flag align="middle" img={<Favicon origin={origin} />} pl="tight">
+          <styled.span textStyle="label.02" wordBreak="break-word">
             {caption}
-          </Caption>
+          </styled.span>
         </Flag>
       )}
     </Flex>

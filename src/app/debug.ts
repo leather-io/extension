@@ -34,6 +34,9 @@ const debug = {
   resetMessages() {
     store.dispatch(settingsSlice.actions.resetMessages());
   },
+  resetHasApprovedNewBrand() {
+    store.dispatch(settingsSlice.actions.resetHasApprovedNewBrand());
+  },
 };
 
 export function setDebugOnGlobal() {

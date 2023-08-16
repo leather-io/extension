@@ -1,8 +1,6 @@
 import { useState } from 'react';
-import { FiAlertCircle } from 'react-icons/fi';
 
-import { Box, Flex, Text, color } from '@stacks/ui';
-
+import { WarningLabel } from '@app/components/warning-label';
 import { useOnOriginTabClose } from '@app/routes/hooks/use-on-tab-closed';
 
 export function RequestingTabClosedWarningMessage() {
@@ -16,25 +14,8 @@ export function RequestingTabClosedWarningMessage() {
   if (!hasTabClosed) return null;
 
   return (
-    <Box background={color('bg-alt')} borderRadius="10px" mb="loose" px="base-loose" py="base">
-      <Flex>
-        <Box mr="base-tight" mt="2px">
-          <FiAlertCircle color={color('feedback-alert')} />
-        </Box>
-        <Box>
-          <Text textStyle="body.small.medium" fontWeight={500}>
-            Requesting window closed
-          </Text>
-          <Text
-            textStyle="body.small"
-            color={color('text-caption')}
-            lineHeight="22px"
-            mt="extra-tight"
-          >
-            The window making this request closed, but you can still broadcast the transaction
-          </Text>
-        </Box>
-      </Flex>
-    </Box>
+    <WarningLabel mb="loose" title="Requesting window closed" width="100%">
+      The window making this request closed, but you can still broadcast the transaction
+    </WarningLabel>
   );
 }

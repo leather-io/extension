@@ -1,5 +1,7 @@
 import { createContext, useContext, useEffect, useState } from 'react';
 
+import { Theme as RadixTheme } from '@radix-ui/themes';
+
 import { noop } from '@shared/utils';
 
 import { store } from '@app/store';
@@ -35,7 +37,6 @@ const getSystemTheme = () =>
 
 function getComputedTheme(userSelectedTheme: UserSelectedTheme): ComputedTheme {
   if (userSelectedTheme === 'system') return getSystemTheme();
-
   return userSelectedTheme;
 }
 
@@ -79,7 +80,7 @@ export function ThemeSwitcherProvider({ children }: ThemeSwitcherProviderProps) 
 
   return (
     <ThemeContext.Provider value={{ theme, userSelectedTheme, setUserSelectedTheme }}>
-      {children}
+      <RadixTheme appearance={theme}>{children}</RadixTheme>
     </ThemeContext.Provider>
   );
 }

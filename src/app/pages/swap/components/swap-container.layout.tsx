@@ -1,7 +1,6 @@
-import { Flex } from '@stacks/ui';
+import { Flex } from 'leaf-styles/jsx';
 
 import { HasChildren } from '@app/common/has-children';
-import { CENTERED_FULL_PAGE_MAX_WIDTH } from '@app/components/global-styles/full-page-styles';
 
 export function SwapContainerLayout({ children }: HasChildren) {
   return (
@@ -10,8 +9,8 @@ export function SwapContainerLayout({ children }: HasChildren) {
       border={['unset', '1px solid']}
       borderRadius={['unset', '16px']}
       borderColor={['unset', '#DCDDE2']}
-      maxWidth={['100%', CENTERED_FULL_PAGE_MAX_WIDTH]}
-      minWidth={['100%', CENTERED_FULL_PAGE_MAX_WIDTH]}
+      maxWidth={['100%', 'centredPageFullWidth']}
+      minWidth={['100%', 'centredPageFullWidth']}
     >
       {children}
     </Flex>

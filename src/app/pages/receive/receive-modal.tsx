@@ -1,8 +1,9 @@
 import toast from 'react-hot-toast';
 import { useLocation, useNavigate } from 'react-router-dom';
 
-import { Box, useClipboard } from '@stacks/ui';
+import { useClipboard } from '@stacks/ui';
 import { HomePageSelectors } from '@tests/selectors/home.selectors';
+import { Box, styled } from 'leaf-styles/jsx';
 import get from 'lodash.get';
 
 import { RouteUrls } from '@shared/route-urls';
@@ -45,11 +46,27 @@ export function ReceiveModal({ type = 'full' }: ReceiveModalProps) {
     copyHandler();
   }
 
-  const title = type === 'full' ? 'Select asset to receive' : 'Add collectible';
+  const title =
+    type === 'full' ? (
+      <>
+        Choose asset
+        <br />
+        to receive
+      </>
+    ) : (
+      <>
+        Receive
+        <br />
+        collectible
+      </>
+    );
 
   return (
-    <BaseDrawer title={title} isShowing onClose={() => navigate('../')}>
-      <Box mx="extra-loose">
+    <BaseDrawer title="" isShowing onClose={() => navigate('../')}>
+      <Box mx="space.06">
+        <styled.h1 mb="space.05" textStyle="heading.03">
+          {title}
+        </styled.h1>
         {type === 'full' && (
           <ReceiveItemList title="Tokens">
             <ReceiveItem

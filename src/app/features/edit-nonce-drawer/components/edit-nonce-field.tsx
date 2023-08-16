@@ -1,7 +1,8 @@
 import { FormEvent, memo } from 'react';
 
-import { Input, Stack, StackProps, Text } from '@stacks/ui';
+import { Input } from '@stacks/ui';
 import { useField } from 'formik';
+import { Stack, StackProps, styled } from 'leaf-styles/jsx';
 
 import { ErrorLabel } from '@app/components/error-label';
 
@@ -19,8 +20,8 @@ export const EditNonceField = memo((props: EditNonceFieldProps) => {
         display="block"
         name="nonce"
         onBlur={onBlur}
-        onChange={(evt: FormEvent<HTMLInputElement>) => {
-          helpers.setValue(evt.currentTarget.value);
+        onChange={async (evt: FormEvent<HTMLInputElement>) => {
+          await helpers.setValue(evt.currentTarget.value);
         }}
         placeholder="Enter a custom nonce"
         type="number"
@@ -29,7 +30,7 @@ export const EditNonceField = memo((props: EditNonceFieldProps) => {
       />
       {meta.error && (
         <ErrorLabel>
-          <Text textStyle="caption">{meta.error}</Text>
+          <styled.span textStyle="caption.02">{meta.error}</styled.span>
         </ErrorLabel>
       )}
     </Stack>

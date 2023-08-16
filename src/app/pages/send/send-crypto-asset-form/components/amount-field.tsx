@@ -4,13 +4,13 @@ import { useCallback, useEffect, useRef, useState } from 'react';
 import { Box, Flex, Input, Stack, Text, color } from '@stacks/ui';
 import { SendCryptoAssetSelectors } from '@tests/selectors/send.selectors';
 import { useField } from 'formik';
+import { token } from 'leaf-styles/tokens';
 
 import { STX_DECIMALS, TOKEN_NAME_LENGTH } from '@shared/constants';
 import { Money } from '@shared/models/money.model';
 
 import { useShowFieldError } from '@app/common/form-utils';
 import { linearInterpolation } from '@app/common/utils';
-import { figmaTheme } from '@app/common/utils/figma-theme';
 import { ErrorLabel } from '@app/components/error-label';
 
 const amountInputId = 'amount-input';
@@ -151,15 +151,18 @@ export function AmountField({
           height="55px"
           justifyContent="center"
           fontWeight={500}
-          color={figmaTheme.text}
           position="relative"
+          fontFamily="Marche"
         >
           {isSendingMax ? <Text fontSize={fontSize + 'px'}>~</Text> : null}
           <Input
             _disabled={{ bg: color('bg') }}
-            _focus={{ border: 'none' }}
+            _focus={{
+              border: 'none',
+              color: token('colors.accent.text-primary'),
+            }}
+            bg="transparent"
             border="none"
-            caretColor={color('accent')}
             data-testid={SendCryptoAssetSelectors.AmountFieldInput}
             fontSize={fontSize + 'px'}
             height="100%"
@@ -169,6 +172,7 @@ export function AmountField({
             placeholder="0"
             px="none"
             textAlign="right"
+            letterSpacing="0.64px"
             /*
              * We are adding an extra 25px to the variable since there's a transition for width
              * which makes the content cut momentarily while the width is updated. The 25px serve
@@ -202,7 +206,13 @@ export function AmountField({
           >
             {field.value}
           </Text>
-          <Text fontSize={fontSize + 'px'} pl="tight">
+          <Text
+            fontFamily="Marche"
+            color={token('colors.accent.text-primary')}
+            fontSize={fontSize + 'px'}
+            letterSpacing="0.64px"
+            pl="tight"
+          >
             {symbol.toUpperCase()}
           </Text>
         </Flex>

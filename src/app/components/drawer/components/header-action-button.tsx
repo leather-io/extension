@@ -1,35 +1,24 @@
-import { SVGAttributes } from 'react';
-
-import { Box, Grid, color, transition } from '@stacks/ui';
+import { Box, Grid, transition } from '@stacks/ui';
 import { HomePageSelectors } from '@tests/selectors/home.selectors';
-import { useHover } from 'use-events';
-
-interface IconBaseProps extends SVGAttributes<SVGElement> {
-  children?: React.ReactNode;
-  size?: string | number;
-  color?: string;
-  title?: string;
-}
-type IconType = (props: IconBaseProps) => React.JSX.Element;
+import { token } from 'leaf-styles/tokens';
 
 interface HeaderActionButtonProps {
-  icon?: IconType;
+  icon?: React.JSX.Element;
   isWaitingOnPerformedAction?: boolean;
   onAction?(): void;
 }
 export function HeaderActionButton(props: HeaderActionButtonProps) {
   const { icon, isWaitingOnPerformedAction, onAction } = props;
-  const [isHovered, bind] = useHover();
 
   return (
     <Grid
       _hover={{
-        color: color('text-title'),
+        bg: isWaitingOnPerformedAction ? 'unset' : token('colors.brown.3'),
         cursor: isWaitingOnPerformedAction ? 'unset' : 'pointer',
       }}
       data-testid={HomePageSelectors.DrawerHeaderActionBtn}
-      borderRadius="100%"
-      color={color('text-caption')}
+      borderRadius="8px"
+      color={token('colors.brown.12')}
       onClick={isWaitingOnPerformedAction ? undefined : onAction}
       opacity={isWaitingOnPerformedAction ? '0.3' : 'unset'}
       placeItems="center"
@@ -38,19 +27,8 @@ export function HeaderActionButton(props: HeaderActionButtonProps) {
       transition={transition}
       userSelect="none"
       zIndex={9}
-      {...bind}
     >
-      <Box as={icon} size="20px" color={color('text-caption')} />
-      <Box
-        bg={color('invert')}
-        borderRadius="100%"
-        left={0}
-        opacity={isHovered && !isWaitingOnPerformedAction ? 0.12 : 0}
-        position="absolute"
-        size="100%"
-        top={0}
-        transition={transition}
-      />
+      <Box>{icon}</Box>
     </Grid>
   );
 }

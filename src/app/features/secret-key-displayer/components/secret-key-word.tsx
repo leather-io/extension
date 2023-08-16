@@ -1,17 +1,17 @@
-import { Box, color } from '@stacks/ui';
 import { OnboardingSelectors } from '@tests/selectors/onboarding.selectors';
+import { Flex, FlexProps, styled } from 'leaf-styles/jsx';
 
-import { Text } from '@app/components/typography';
-
-interface SecretKeyWordProps {
+interface SecretKeyWordProps extends FlexProps {
   word: string;
+  num: number;
 }
-export function SecretKeyWord(props: SecretKeyWordProps) {
-  const { word } = props;
-
+export function SecretKeyWord({ word, num, ...rest }: SecretKeyWordProps) {
   return (
-    <Box border="1px solid" borderColor={color('border')} borderRadius="8px" p="tight">
-      <Text data-testid={OnboardingSelectors.SecretKey}>{word}</Text>
-    </Box>
+    <Flex textStyle="label.02" px="space.04" py="space.03" flex="1" alignItems="end" {...rest}>
+      <styled.span mr="space.01">{num}.</styled.span>
+      <styled.span verticalAlign="baseline" data-testid={OnboardingSelectors.SecretKey}>
+        {word}
+      </styled.span>
+    </Flex>
   );
 }

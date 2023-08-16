@@ -37,9 +37,8 @@ export function ReceiveBtcModal({ type = 'btc' }: ReceiveBtcModalType) {
     <ReceiveTokensLayout
       address={btcAddress}
       onCopyAddressToClipboard={copyToClipboard}
-      title={type === 'btc-stamp' ? 'Bitcoin Stamps address' : 'Bitcoin address'}
-      warning={<ReceiveBtcModalWarning accountIndex={accountIndex} />}
-      hasSubtitle={false}
+      title={type === 'btc-stamp' ? 'BITCOIN STAMP' : 'BTC'}
+      warning={<ReceiveBtcModalWarning message="Do not deposit Ordinal inscriptions here" />}
     />
   );
 }

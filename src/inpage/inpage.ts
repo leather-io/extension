@@ -253,6 +253,7 @@ const provider: HiroWalletProviderOverrides = {
 };
 
 window.StacksProvider = provider;
+(window as any).LeatherProvider = provider;
 
 (window as any).HiroWalletProvider = provider;
 

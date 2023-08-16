@@ -1,12 +1,13 @@
 import { FiTrash2 } from 'react-icons/fi';
 
-import { Box, BoxProps, Button, Flex, Stack, color } from '@stacks/ui';
+import { Box, BoxProps, Button, Flex, Stack } from '@stacks/ui';
 import { SettingsSelectors } from '@tests-legacy/integration/settings.selectors';
+import { styled } from 'leaf-styles/jsx';
+import { token } from 'leaf-styles/tokens';
 
 import { NetworkConfiguration } from '@shared/constants';
 
 import { getUrlHostname } from '@app/common/utils';
-import { Caption, Title } from '@app/components/typography';
 
 import { NetworkStatusIndicator } from './network-status-indicator';
 
@@ -39,7 +40,7 @@ export function NetworkListItemLayout(props: NetworkListItemLayoutProps) {
         !isOnline || isActive
           ? undefined
           : {
-              backgroundColor: color('bg-4'),
+              backgroundColor: token('colors.brown.2'),
             }
       }
       px="loose"
@@ -59,17 +60,13 @@ export function NetworkListItemLayout(props: NetworkListItemLayoutProps) {
           disabled={!isOnline}
           data-testid={network.id}
         >
-          <Stack alignItems="flex-start" flex={1}>
-            <Title
-              fontWeight={400}
-              lineHeight="1rem"
-              fontSize={2}
-              display="block"
-              fontFamily="'Inter'"
-            >
+          <Stack alignItems="flex-start" flex={1} spacing="tight">
+            <styled.span mb="space.01" textStyle="label.01">
               {network.name}
-            </Title>
-            <Caption>{getUrlHostname(network.chain.stacks.url)}</Caption>
+            </styled.span>
+            <styled.span textStyle="caption.01">
+              {getUrlHostname(network.chain.stacks.url)}
+            </styled.span>
           </Stack>
           <NetworkStatusIndicator isActive={isActive} isOnline={isOnline} />
         </Flex>

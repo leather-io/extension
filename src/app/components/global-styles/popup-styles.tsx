@@ -1,13 +1,10 @@
 import { css } from '@emotion/react';
 
-import { hideScrollbarStyle } from './hide-scrollbar';
-
 const maxWidth = '392px';
 const maxHeight = '600px';
 
 export const popupStyles = css`
   .mode__popup {
-    &,
     html,
     body {
       min-width: ${maxWidth};
@@ -21,7 +18,10 @@ export const popupStyles = css`
         overflow-y: scroll;
       }
 
-      ${hideScrollbarStyle}
+      ::-webkit-scrollbar {
+        display: 'none';
+        width: 0;
+      }
     }
   }
 `;

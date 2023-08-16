@@ -1,7 +1,7 @@
 import { Box, Stack, color, transition } from '@stacks/ui';
 import { FundPageSelectors } from '@tests-legacy/page-objects/fund.selectors';
-
-import { Caption, Title } from '@app/components/typography';
+import { styled } from 'leaf-styles/jsx';
+import { token } from 'leaf-styles/tokens';
 
 interface FundAccountTileProps {
   attributes?: React.JSX.Element;
@@ -30,6 +30,7 @@ export function FundAccountTile(props: FundAccountTileProps) {
       as="button"
       border="1px solid"
       borderColor={color('border')}
+      backgroundColor={token('colors.accent.background-primary')}
       borderRadius="16px"
       boxShadow="0px 1px 2px rgba(0, 0, 0, 0.04)"
       transition={transition}
@@ -37,8 +38,14 @@ export function FundAccountTile(props: FundAccountTileProps) {
       display="flex"
       onClick={onClickTile}
       textAlign="left"
+      width="17.5rem"
+      height="11.3rem"
     >
-      <Stack alignItems="flex-start" p="loose" spacing="base">
+      <Stack
+        alignItems="flex-start"
+        p={token('spacing.space.05')}
+        spacing={token('spacing.space.05')}
+      >
         <Stack alignItems="center" isInline spacing={receiveStxIcon ? 'tight' : 'base'}>
           {receiveStxIcon}
           <Box
@@ -53,9 +60,23 @@ export function FundAccountTile(props: FundAccountTileProps) {
           >
             <img src={icon} width="24px" />
           </Box>
-          <Title data-testid={FundPageSelectors.FiatProviderName}>{title}</Title>
+
+          <styled.span
+            textStyle="label.02"
+            data-testid={FundPageSelectors.FiatProviderName}
+            color="accent.text-primary"
+          >
+            {title}
+          </styled.span>
         </Stack>
-        <Caption>{description}</Caption>
+        <styled.span
+          textStyle="body.02"
+          data-testid={FundPageSelectors.FiatProviderName}
+          color="accent.text-subdued"
+          mb="0.75rem"
+        >
+          {description}
+        </styled.span>
         <Stack isInline spacing="tight">
           {attributes}
         </Stack>

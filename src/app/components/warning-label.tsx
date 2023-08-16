@@ -1,27 +1,11 @@
 import { ReactNode } from 'react';
-import { FiAlertCircle } from 'react-icons/fi';
 
-import { Box, BoxProps, Text, color } from '@stacks/ui';
+import { Box, BoxProps } from '@stacks/ui';
+import { styled } from 'leaf-styles/jsx';
+import { token } from 'leaf-styles/tokens';
 
-import { figmaTheme } from '@app/common/utils/figma-theme';
-
+import { AlertIcon } from './icons/alert-icon';
 import { Flag } from './layout/flag';
-import { Caption } from './typography';
-
-function WarningIcon() {
-  return (
-    <Box
-      _hover={{ cursor: 'pointer' }}
-      as={FiAlertCircle}
-      color={color('feedback-alert')}
-      size="16px"
-      minWidth="min-content"
-      alignSelf="flex-start"
-      position="relative"
-      top="2px"
-    />
-  );
-}
 
 interface WarningLabelProps extends BoxProps {
   children: ReactNode | undefined;
@@ -31,26 +15,22 @@ export function WarningLabel({ children, title, ...props }: WarningLabelProps) {
   return (
     <Box {...props}>
       <Flag
-        bg="#FFF5EB"
+        bg={token('colors.accent.warning')}
         borderRadius="10px"
-        img={<WarningIcon />}
+        img={<AlertIcon color={token('colors.yellow.600')} />}
         minHeight="48px"
         px="base"
         py="base-tight"
         width="100%"
       >
         {title ? (
-          <Text
-            color={figmaTheme.text}
-            fontSize={1}
-            fontWeight={500}
-            lineHeight="1.5"
-            mb="extra-tight"
-          >
+          <styled.h1 mb="space.01" textStyle="label.02" color="accent.notification-text">
             {title}
-          </Text>
+          </styled.h1>
         ) : null}
-        <Caption lineHeight="1.5">{children}</Caption>
+        <styled.span mb="space.01" textStyle="caption.02" color="accent.notification-text">
+          {children}
+        </styled.span>
       </Flag>
     </Box>
   );

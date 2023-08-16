@@ -1,8 +1,9 @@
-import { FiCopy } from 'react-icons/fi';
+import { useClipboard } from '@stacks/ui';
+import { Box, HStack, styled } from 'leaf-styles/jsx';
 
-import { Box, Text, color, useClipboard } from '@stacks/ui';
-
+import { LeatherButton } from '@app/components/button/button';
 import { BtcIcon } from '@app/components/icons/btc-icon';
+import { CopyIcon } from '@app/components/icons/copy-icon';
 import { Flag } from '@app/components/layout/flag';
 import { SpaceBetween } from '@app/components/layout/space-between';
 import { Tooltip } from '@app/components/tooltip';
@@ -30,43 +31,41 @@ export function PsbtAddressTotalItem({
   return (
     <Flag align="middle" img={image ? image : <BtcIcon />} mt="loose" spacing="base">
       <SpaceBetween>
-        <Text fontSize={2} fontWeight="500">
-          {title ? title : 'Bitcoin'}
-        </Text>
-        <Box as="button" onClick={valueAction} type="button">
-          <Text color={valueAction ? color('accent') : 'unset'} fontSize={2} fontWeight={500}>
+        <styled.span textStyle="label.01">{title ? title : 'Bitcoin'}</styled.span>
+        {valueAction ? (
+          <LeatherButton onClick={valueAction} variant="link">
             {value}
-          </Text>
-        </Box>
+          </LeatherButton>
+        ) : (
+          <styled.span textStyle="label.01">{value}</styled.span>
+        )}
       </SpaceBetween>
       <SpaceBetween mt="tight">
         {subtitle ? (
-          <Tooltip
-            disabled={!hoverLabel}
-            hideOnClick={false}
-            label={hasCopied ? 'Copied!' : hoverLabel}
-            labelProps={{ wordWrap: 'break-word' }}
-            maxWidth="230px"
-            placement="bottom"
-          >
-            <Box
-              as="button"
-              color={color('text-caption')}
-              display="flex"
-              onClick={onCopy}
-              type="button"
+          <HStack gap="space.01">
+            <styled.span mr="space.01" textStyle="caption.01">
+              {subtitle}
+            </styled.span>
+            <Tooltip
+              disabled={!hoverLabel}
+              hideOnClick={false}
+              label={hasCopied ? 'Copied!' : hoverLabel}
+              labelProps={{ wordWrap: 'break-word' }}
+              maxWidth="230px"
+              placement="bottom"
             >
-              <Text color={color('text-caption')} fontSize={1} mr="extra-tight">
-                {subtitle}
-              </Text>
-              {hoverLabel ? <FiCopy size="14px" /> : null}
-            </Box>
-          </Tooltip>
+              <Box display="flex" height="16px">
+                <LeatherButton onClick={onCopy} variant="text">
+                  {hoverLabel ? <CopyIcon /> : null}
+                </LeatherButton>
+              </Box>
+            </Tooltip>
+          </HStack>
         ) : null}
         {subValue ? (
-          <Text color={color('text-caption')} fontSize={1}>
+          <styled.span mr="space.01" textStyle="caption.01">
             {subValue}
-          </Text>
+          </styled.span>
         ) : null}
       </SpaceBetween>
     </Flag>

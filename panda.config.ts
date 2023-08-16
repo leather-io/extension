@@ -1,30 +1,40 @@
 import { defineConfig } from '@pandacss/dev';
 
+import { breakpoints } from './theme/breakpoints';
 import { keyframes } from './theme/keyframes';
+import { buttonRecipe } from './theme/recipes/button';
 import { semanticTokens } from './theme/semantic-tokens';
 import { tokens } from './theme/tokens';
+import { textStyles } from './theme/typography';
 
 export default defineConfig({
-  // Whether to use css reset
   preflight: true,
 
-  // Where to look for your css declarations
   include: ['./src/**/*.{js,jsx,ts,tsx}'],
 
-  // Files to exclude
   exclude: [],
+
+  prefix: 'leather',
+
+  presets: [],
+
+  studio: { logo: '💼' },
 
   jsxFramework: 'react',
 
-  // Useful for theme customization
+  strictTokens: false,
+
   theme: {
     extend: {
       semanticTokens,
       tokens,
       keyframes,
+      textStyles,
+      breakpoints,
+      recipes: { button: buttonRecipe },
     },
   },
-  // The output directory for your css system
   outdir: 'leaf-styles',
   outExtension: 'js',
+  minify: true,
 });

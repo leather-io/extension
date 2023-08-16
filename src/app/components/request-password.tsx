@@ -1,18 +1,18 @@
 import { FormEvent, useCallback, useState } from 'react';
 
-import UnlockSession from '@assets/images/unlock-session.png';
-import { Box, Input, Stack, color } from '@stacks/ui';
+import { Box, Input, Stack } from '@stacks/ui';
 import { SettingsSelectors } from '@tests-legacy/integration/settings.selectors';
+import { styled } from 'leaf-styles/jsx';
+import { token } from 'leaf-styles/tokens';
 
 import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
 import { useKeyActions } from '@app/common/hooks/use-key-actions';
 import { WaitingMessages, useWaitingMessage } from '@app/common/utils/use-waiting-message';
-import { PageTitle } from '@app/components/page-title';
+import { LeatherButton } from '@app/components/button/button';
 import { Text } from '@app/components/typography';
 
 import { ErrorLabel } from './error-label';
 import { buildEnterKeyEvent } from './link';
-import { PrimaryButton } from './primary-button';
 
 const waitingMessages: WaitingMessages = {
   '2': 'Verifying password…',
@@ -53,14 +53,12 @@ export function RequestPassword({ title, caption, onSuccess }: RequestPasswordPr
 
   return (
     <>
-      <Box alignSelf={['start', 'center']} mt={['base', 'unset']} width={['97px', '115px']}>
-        <img src={UnlockSession} />
-      </Box>
-      <PageTitle fontSize={[4, 7]}>{title}</PageTitle>
-      <Text color={color('text-caption')}>{(isRunning && waitingMessage) || caption}</Text>
+      <styled.h1 textStyle="heading.02">{title}</styled.h1>
+      <styled.p textStyle="body.02">{(isRunning && waitingMessage) || caption}</styled.p>
       <Stack spacing="base">
         <Input
           autoFocus
+          _focus={{ border: `2px solid ${token('colors.brown.12')}` }}
           borderRadius="10px"
           data-testid={SettingsSelectors.EnterPasswordInput}
           height="64px"
@@ -83,14 +81,14 @@ export function RequestPassword({ title, caption, onSuccess }: RequestPasswordPr
           </Box>
         )}
       </Stack>
-      <PrimaryButton
+      <LeatherButton
         data-testid={SettingsSelectors.UnlockWalletBtn}
-        isDisabled={isRunning || !!error}
-        isLoading={isRunning}
+        disabled={isRunning || !!error}
+        aria-busy={isRunning}
         onClick={submit}
       >
         Continue
-      </PrimaryButton>
+      </LeatherButton>
     </>
   );
 }

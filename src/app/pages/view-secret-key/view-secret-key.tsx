@@ -1,19 +1,18 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import { Stack, color } from '@stacks/ui';
+import { Stack } from '@stacks/ui';
+import { styled } from 'leaf-styles/jsx';
+import { token } from 'leaf-styles/tokens';
 
 import { RouteUrls } from '@shared/route-urls';
 
 import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
 import { useRouteHeader } from '@app/common/hooks/use-route-header';
+import { LeatherButton } from '@app/components/button/button';
 import { CenteredPageContainer } from '@app/components/centered-page-container';
-import { CENTERED_FULL_PAGE_MAX_WIDTH } from '@app/components/global-styles/full-page-styles';
 import { Header } from '@app/components/header';
-import { PageTitle } from '@app/components/page-title';
-import { PrimaryButton } from '@app/components/primary-button';
 import { RequestPassword } from '@app/components/request-password';
-import { Text } from '@app/components/typography';
 import { SecretKeyDisplayer } from '@app/features/secret-key-displayer/secret-key-displayer';
 import { useDefaultWalletSecretKey } from '@app/store/in-memory-key/in-memory-key.selectors';
 
@@ -32,7 +31,7 @@ export function ViewSecretKey() {
   return (
     <CenteredPageContainer>
       <Stack
-        maxWidth={CENTERED_FULL_PAGE_MAX_WIDTH}
+        maxWidth={token('sizes.centredPageFullWidth')}
         pb={['loose', 'unset']}
         px={['loose', 'base-loose']}
         spacing="loose"
@@ -47,16 +46,18 @@ export function ViewSecretKey() {
           />
         ) : (
           <>
-            <PageTitle fontSize={[4, 7]}>Your Secret Key</PageTitle>
-            <Text color={color('text-caption')}>
+            <styled.h1 textStyle="heading.02">Your Secret Key</styled.h1>
+            <styled.span textStyle="body.02">
               These 24 words are your Secret Key. They create your account, and you sign in on
-              different devices with them. Make sure to save these somewhere safe.{' '}
-              <Text display="inline" fontWeight={500}>
-                If you lose these words, you lose your account.
-              </Text>
-            </Text>
+              different devices with them. Make sure to save these somewhere safe.
+            </styled.span>
+
+            <styled.span textStyle="body.02">
+              If you lose these words, you lose your account.
+            </styled.span>
+
             <SecretKeyDisplayer secretKey={defaultWalletSecretKey ?? ''} />
-            <PrimaryButton onClick={() => navigate(RouteUrls.Home)}>I've saved it</PrimaryButton>
+            <LeatherButton onClick={() => navigate(RouteUrls.Home)}>I've saved it</LeatherButton>
           </>
         )}
       </Stack>

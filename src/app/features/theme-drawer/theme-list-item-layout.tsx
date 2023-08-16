@@ -1,4 +1,5 @@
-import { Box, BoxProps, Flex, color } from '@stacks/ui';
+import { Box, BoxProps, Flex } from '@stacks/ui';
+import { token } from 'leaf-styles/tokens';
 
 import { CheckmarkIcon } from '@app/components/icons/checkmark-icon';
 import { Title } from '@app/components/typography';
@@ -22,7 +23,7 @@ export function ThemeListItemLayout({
         isActive
           ? undefined
           : {
-              backgroundColor: color('bg-4'),
+              backgroundColor: token('colors.brown.2'),
             }
       }
       px="loose"
@@ -32,7 +33,7 @@ export function ThemeListItemLayout({
       {...props}
     >
       <Flex width="100%" justifyContent="space-between" alignItems="center" height="20px">
-        <Title fontWeight={400} lineHeight="1rem" fontSize={2} display="block" fontFamily="'Inter'">
+        <Title fontWeight={400} lineHeight="1rem" display="block" fontFamily="Diatype">
           {themeLabel}
         </Title>
         {isActive && <CheckmarkIcon />}

@@ -1,16 +1,14 @@
-import { FiCopy } from 'react-icons/fi';
-
-import { Box, Flex, Spinner, Stack, StackProps, color, useMediaQuery } from '@stacks/ui';
+import { Flex, Spinner, Stack, StackProps, color, useMediaQuery } from '@stacks/ui';
 import { truncateMiddle } from '@stacks/ui-utils';
-import { UserAreaSelectors } from '@tests-legacy/integration/user-area.selectors';
 import { SettingsMenuSelectors } from '@tests/selectors/settings.selectors';
+import { styled } from 'leaf-styles/jsx';
 
-import { Tooltip } from '@app/components/tooltip';
-import { Caption } from '@app/components/typography';
 import { useConfigBitcoinEnabled } from '@app/query/common/remote-config/remote-config.query';
 
 import { CaptionDotSeparator } from '../caption-dot-separator';
-import { AccountActiveCheckmark } from './account-active-checkmark';
+import { CheckmarkIcon } from '../icons/checkmark-icon';
+import { Flag } from '../layout/flag';
+import { SpaceBetween } from '../layout/space-between';
 
 interface AccountListItemLayoutProps extends StackProps {
   isLoading: boolean;
@@ -19,7 +17,7 @@ interface AccountListItemLayoutProps extends StackProps {
   stxAddress: string;
   btcAddress: string;
   accountName: React.ReactNode;
-  avatar: React.ReactNode;
+  avatar: React.JSX.Element;
   balanceLabel: React.ReactNode;
   hasCopied?: boolean;
   onCopyToClipboard?(e: React.MouseEvent): void;
@@ -57,70 +55,37 @@ export function AccountListItemLayout(props: AccountListItemLayoutProps) {
       onClick={onSelectAccount}
       {...rest}
     >
-      <Stack isInline alignItems="center" spacing="base">
-        {avatar}
-        <Stack spacing="base-tight">
-          <Flex>
-            {accountName}
-            {isActive && isNarrowViewport && <AccountActiveCheckmark index={index} ml="tight" />}
-          </Flex>
+      <Flag align="middle" img={avatar} spacing="base" width="100%">
+        <Stack spacing="extra-tight">
+          <SpaceBetween>
+            <Stack alignItems="center" isInline space="tight">
+              {accountName}
+              {isActive && <CheckmarkIcon />}
+            </Stack>
+            {isLoading ? (
+              <Spinner
+                position="absolute"
+                right={0}
+                top="calc(50% - 8px)"
+                color={color('text-caption')}
+                size="18px"
+              />
+            ) : (
+              balanceLabel
+            )}
+          </SpaceBetween>
           <Stack alignItems="center" spacing="6px" isInline whiteSpace="nowrap">
             <CaptionDotSeparator>
-              <Flex>
-                <Caption>{truncateMiddle(stxAddress, isNarrowViewport ? 3 : 4)}</Caption>
-                {onCopyToClipboard && (
-                  <Tooltip
-                    placement="right"
-                    label={hasCopied ? 'Copied!' : 'Copy Stacks address'}
-                    hideOnClick={false}
-                  >
-                    <Box
-                      as="button"
-                      onClick={e => onCopyToClipboard?.(e)}
-                      color={color('text-caption')}
-                      data-testid={UserAreaSelectors.AccountCopyAddress}
-                      mt="2px"
-                      ml="4px"
-                    >
-                      <FiCopy size="12px" />
-                    </Box>
-                  </Tooltip>
-                )}
-              </Flex>
+              <styled.span textStyle="caption.02">
+                {truncateMiddle(stxAddress, isNarrowViewport ? 3 : 4)}
+              </styled.span>
               {isBitcoinEnabled && (
-                <Flex>
-                  <Caption>{truncateMiddle(btcAddress, 5)}</Caption>
-                  {onClickBtcCopyIcon && (
-                    <Box
-                      as="button"
-                      onClick={e => onClickBtcCopyIcon?.(e)}
-                      color={color('text-caption')}
-                      data-testid={UserAreaSelectors.AccountCopyAddress}
-                      mt="2px"
-                      ml="4px"
-                    >
-                      <FiCopy size="12px" />
-                    </Box>
-                  )}
-                </Flex>
+                <styled.span textStyle="caption.02">{truncateMiddle(btcAddress, 5)}</styled.span>
               )}
-              {balanceLabel}
             </CaptionDotSeparator>
           </Stack>
         </Stack>
-      </Stack>
-      {isLoading && (
-        <Spinner
-          position="absolute"
-          right={0}
-          top="calc(50% - 8px)"
-          color={color('text-caption')}
-          size="18px"
-        />
-      )}
-      {isActive && !isNarrowViewport && (
-        <AccountActiveCheckmark index={index} position="absolute" right={0} top="calc(50% - 8px)" />
-      )}
+      </Flag>
       {children}
     </Flex>
   );

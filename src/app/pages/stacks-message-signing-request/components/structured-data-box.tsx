@@ -1,10 +1,12 @@
 import { useEffect, useState } from 'react';
 
 import { ClarityValue } from '@stacks/transactions';
-import { Box, Stack, Text, color } from '@stacks/ui';
+import { Stack, color } from '@stacks/ui';
+import { Box, Divider, styled } from 'leaf-styles/jsx';
 
 import { StructuredMessageDataDomain } from '@shared/signature/signature-types';
 
+import { SpaceBetween } from '@app/components/layout/space-between';
 import {
   chainIdToDisplay,
   cvToDisplay,
@@ -46,15 +48,15 @@ export function StructuredDataBox(props: {
         borderRadius="20px"
         backgroundColor={color('border')}
       >
-        <Box overflowX="scroll" py="loose" borderRadius="16px" background="white">
-          <Box fontSize="14px" lineHeight="1.7" px="loose">
-            <h2>
-              <strong>{domainName}</strong>{' '}
-              <Text color={color('text-caption')}>
+        <Box background="white" borderRadius="16px" overflowX="scroll" py="space.05">
+          <Box fontSize="14px" lineHeight="1.7" px="space.05">
+            <SpaceBetween>
+              <styled.h2 textStyle="label.01">{domainName}</styled.h2>
+              <styled.span lineHeight="1.5" textStyle="caption.02">
                 {domainVersion} {domainChainName}
-              </Text>
-            </h2>
-            <hr style={{ marginTop: '5px', marginBottom: '5px' }} />
+              </styled.span>
+            </SpaceBetween>
+            <Divider py="space.01" />
             <Box>
               <ClarityValueListDisplayer val={message} encoding={'tryAscii'} />
             </Box>

@@ -4,9 +4,9 @@ import ConnectLedgerError from '@assets/images/ledger/connect-ledger-error.png';
 import { Box, Flex, Stack, color } from '@stacks/ui';
 
 import { openInNewTab } from '@app/common/utils/open-in-new-tab';
+import { LeatherButton } from '@app/components/button/button';
 import { ErrorLabel } from '@app/components/error-label';
 import { Link } from '@app/components/link';
-import { PrimaryButton } from '@app/components/primary-button';
 import { Caption } from '@app/components/typography';
 import { WarningLabel } from '@app/components/warning-label';
 
@@ -69,9 +69,7 @@ export function ConnectLedgerErrorLayout(props: ConnectLedgerErrorLayoutProps) {
         <PossibleReasonUnableToConnect text="Verify the Stacks app is installed and open" />
         <PossibleReasonUnableToConnect text="Check you've approved the browser USB pop up" />
       </Stack>
-      <PrimaryButton height="40px" onClick={onTryAgain}>
-        Try again
-      </PrimaryButton>
+      <LeatherButton onClick={onTryAgain}>Try again</LeatherButton>
       <Caption mt="loose">
         If the problem persists, check our{' '}
         <Link

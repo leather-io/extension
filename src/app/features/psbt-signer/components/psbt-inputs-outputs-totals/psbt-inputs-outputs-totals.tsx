@@ -1,12 +1,13 @@
-import { Box } from '@stacks/ui';
 import { color } from '@stacks/ui-utils';
+import { Box } from 'leaf-styles/jsx';
 
 import { Hr } from '@app/components/hr';
 import { usePsbtSignerContext } from '@app/features/psbt-signer/psbt-signer.context';
 
 import { PsbtRequestDetailsSectionHeader } from '../psbt-request-details-section-header';
 import { PsbtRequestDetailsSectionLayout } from '../psbt-request-details-section.layout';
-import { PsbtAddressTotals } from './components/psbt-address-totals';
+import { PsbtAddressReceiveTotals } from './components/psbt-address-receive-totals';
+import { PsbtAddressTransferTotals } from './components/psbt-address-transfer-totals';
 
 export function PsbtInputsOutputsTotals() {
   const { addressNativeSegwitTotal, addressTaprootTotal } = usePsbtSignerContext();
@@ -28,22 +29,16 @@ export function PsbtInputsOutputsTotals() {
   return (
     <PsbtRequestDetailsSectionLayout p="unset">
       {isTransferring ? (
-        <Box p="loose">
+        <Box p="space.05">
           <PsbtRequestDetailsSectionHeader title="You'll transfer" />
-          <PsbtAddressTotals
-            showNativeSegwitTotal={isNativeSegwitTotalGreaterThanZero}
-            showTaprootTotal={isTaprootTotalGreaterThanZero}
-          />
+          <PsbtAddressTransferTotals showNativeSegwitTotal={isNativeSegwitTotalGreaterThanZero} />
         </Box>
       ) : null}
       {showDivider ? <Hr backgroundColor={color('border')} height="3px" /> : null}
       {isReceiving ? (
-        <Box p="loose">
+        <Box p="space.05">
           <PsbtRequestDetailsSectionHeader title="You'll receive" />
-          <PsbtAddressTotals
-            showNativeSegwitTotal={isNativeSegwitTotalLessThanZero}
-            showTaprootTotal={isTaprootTotalLessThanZero}
-          />
+          <PsbtAddressReceiveTotals showTaprootTotal={isTaprootTotalLessThanZero} />
         </Box>
       ) : null}
     </PsbtRequestDetailsSectionLayout>

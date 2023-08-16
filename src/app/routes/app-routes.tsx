@@ -12,32 +12,33 @@ import { RouteUrls } from '@shared/route-urls';
 import { BroadcastErrorDrawer } from '@app/components/broadcast-error-drawer/broadcast-error-drawer';
 import { LoadingSpinner } from '@app/components/loading-spinner';
 import { ActivityList } from '@app/features/activity-list/activity-list';
+import { AddNetwork } from '@app/features/add-network/add-network';
 import { AssetsList } from '@app/features/asset-list/asset-list';
 import { Container } from '@app/features/container/container';
 import { EditNonceDrawer } from '@app/features/edit-nonce-drawer/edit-nonce-drawer';
 import { IncreaseBtcFeeDrawer } from '@app/features/increase-fee-drawer/increase-btc-fee-drawer';
 import { IncreaseFeeSentDrawer } from '@app/features/increase-fee-drawer/increase-fee-sent-drawer';
 import { IncreaseStxFeeDrawer } from '@app/features/increase-fee-drawer/increase-stx-fee-drawer';
+import { leatherIntroDialogRoutes } from '@app/features/leather-intro-dialog/leather-intro-dialog';
 import { ledgerJwtSigningRoutes } from '@app/features/ledger/flows/jwt-signing/ledger-sign-jwt.routes';
 import { requestBitcoinKeysRoutes } from '@app/features/ledger/flows/request-bitcoin-keys/ledger-request-bitcoin-keys';
 import { requestStacksKeysRoutes } from '@app/features/ledger/flows/request-stacks-keys/ledger-request-stacks-keys';
 import { ledgerStacksMessageSigningRoutes } from '@app/features/ledger/flows/stacks-message-signing/ledger-stacks-sign-msg.routes';
 import { ledgerStacksTxSigningRoutes } from '@app/features/ledger/flows/stacks-tx-signing/ledger-sign-tx.routes';
-import { AddNetwork } from '@app/features/message-signer/add-network/add-network';
 import { RetrieveTaprootToNativeSegwit } from '@app/features/retrieve-taproot-to-native-segwit/retrieve-taproot-to-native-segwit';
 import { ThemesDrawer } from '@app/features/theme-drawer/theme-drawer';
-import { AllowDiagnosticsPage } from '@app/pages/allow-diagnostics/allow-diagnostics';
 import { BitcoinContractRequest } from '@app/pages/bitcoin-contract-request/bitcoin-contract-request';
 import { ChooseAccount } from '@app/pages/choose-account/choose-account';
 import { FundPage } from '@app/pages/fund/fund';
 import { Home } from '@app/pages/home/home';
+import { AllowDiagnosticsModal } from '@app/pages/onboarding/allow-diagnostics/allow-diagnostics';
 import { BackUpSecretKeyPage } from '@app/pages/onboarding/back-up-secret-key/back-up-secret-key';
 import { SignIn } from '@app/pages/onboarding/sign-in/sign-in';
 import { WelcomePage } from '@app/pages/onboarding/welcome/welcome';
 import { PsbtRequest } from '@app/pages/psbt-request/psbt-request';
 import { ReceiveBtcModal } from '@app/pages/receive/receive-btc';
-import { ReceiveCollectibleOrdinal } from '@app/pages/receive/receive-collectible-oridinal';
 import { ReceiveModal } from '@app/pages/receive/receive-modal';
+import { ReceiveOrdinalModal } from '@app/pages/receive/receive-ordinal';
 import { ReceiveStxModal } from '@app/pages/receive/receive-stx';
 import { RequestError } from '@app/pages/request-error/request-error';
 import { RpcGetAddresses } from '@app/pages/rpc-get-addresses/rpc-get-addresses';
@@ -62,7 +63,6 @@ import { Unlock } from '@app/pages/unlock';
 import { ProfileUpdateRequest } from '@app/pages/update-profile-request/update-profile-request';
 import { ViewSecretKey } from '@app/pages/view-secret-key/view-secret-key';
 import { AccountGate } from '@app/routes/account-gate';
-import { useHasUserRespondedToAnalyticsConsent } from '@app/store/settings/settings.selectors';
 
 import { OnboardingGate } from './onboarding-gate';
 
@@ -76,18 +76,6 @@ export function AppRoutes() {
 }
 
 function useAppRoutes() {
-  const userHasNotConsentedToDiagnostics = useHasUserRespondedToAnalyticsConsent();
-
-  if (!userHasNotConsentedToDiagnostics)
-    return createHashRouter(
-      createRoutesFromElements(
-        <Route>
-          <Route path={RouteUrls.RequestDiagnostics} element={<AllowDiagnosticsPage />} />
-          <Route path="*" element={<Navigate replace to={RouteUrls.RequestDiagnostics} />} />
-        </Route>
-      )
-    );
-
   const settingsModalRoutes = (
     <Route>
       <Route path={RouteUrls.SignOutConfirm} element={<SignOutConfirmDrawer />} />
@@ -189,8 +177,6 @@ function useAppRoutes() {
   return createHashRouter(
     createRoutesFromElements(
       <Route path={RouteUrls.Container} element={<Container />}>
-        <Route path={RouteUrls.RequestDiagnostics} element={<AllowDiagnosticsPage />} />
-
         <Route
           path={RouteUrls.Home}
           element={
@@ -201,6 +187,8 @@ function useAppRoutes() {
         >
           <Route index element={<AssetsList />} />
           <Route path={RouteUrls.Activity} element={<ActivityList />} />
+
+          {leatherIntroDialogRoutes}
 
           {requestBitcoinKeysRoutes}
           {requestStacksKeysRoutes}
@@ -217,10 +205,7 @@ function useAppRoutes() {
             path={RouteUrls.ReceiveCollectible}
             element={<ReceiveModal type="collectible" />}
           />
-          <Route
-            path={RouteUrls.ReceiveCollectibleOrdinal}
-            element={<ReceiveCollectibleOrdinal />}
-          />
+          <Route path={RouteUrls.ReceiveCollectibleOrdinal} element={<ReceiveOrdinalModal />} />
           <Route path={RouteUrls.ReceiveStx} element={<ReceiveStxModal />} />
           <Route path={RouteUrls.ReceiveBtc} element={<ReceiveBtcModal />} />
           <Route path={RouteUrls.ReceiveBtcStamp} element={<ReceiveBtcModal type="btc-stamp" />} />
@@ -265,6 +250,8 @@ function useAppRoutes() {
             </OnboardingGate>
           }
         >
+          <Route path={RouteUrls.RequestDiagnostics} element={<AllowDiagnosticsModal />} />
+
           {requestBitcoinKeysRoutes}
           {requestStacksKeysRoutes}
         </Route>
@@ -340,6 +327,7 @@ function useAppRoutes() {
         </Route>
         <Route path={RouteUrls.Unlock} element={<Unlock />}>
           {settingsModalRoutes}
+          {leatherIntroDialogRoutes}
         </Route>
 
         {legacyRequestRoutes}

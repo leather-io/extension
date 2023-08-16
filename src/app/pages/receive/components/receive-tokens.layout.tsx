@@ -1,14 +1,13 @@
-import { FiCopy } from 'react-icons/fi';
 import { useNavigate } from 'react-router-dom';
 
-import { Box, Button, Flex, Text, color } from '@stacks/ui';
 import { SharedComponentsSelectors } from '@tests/selectors/shared-component.selectors';
+import { Box, Flex, styled } from 'leaf-styles/jsx';
 
 import { RouteUrls } from '@shared/route-urls';
 
 import { AddressDisplayer } from '@app/components/address-displayer/address-displayer';
+import { LeatherButton } from '@app/components/button/button';
 import { BaseDrawer } from '@app/components/drawer/base-drawer';
-import { Title } from '@app/components/typography';
 
 import { QrCode } from './address-qr-code';
 
@@ -18,30 +17,26 @@ interface ReceiveTokensLayoutProps {
   onCopyAddressToClipboard(address: string): void;
   title: string;
   warning?: React.JSX.Element;
-  hasSubtitle?: boolean;
 }
 export function ReceiveTokensLayout(props: ReceiveTokensLayoutProps) {
-  const { address, accountName, onCopyAddressToClipboard, title, warning, hasSubtitle } = props;
+  const { address, accountName, onCopyAddressToClipboard, title, warning } = props;
   const navigate = useNavigate();
 
   return (
-    <BaseDrawer title={title} isShowing onClose={() => navigate(RouteUrls.Home)}>
-      <Flex alignItems="center" flexDirection="column" pb={['loose', '48px']} px="loose">
-        {hasSubtitle && (
-          <Text color={color('text-caption')} mb="tight" textAlign="left">
-            Share your account's unique address to receive tokens or collectibles. Including a memo
-            is not required.
-          </Text>
-        )}
-        {warning && warning}
-        <Box mt="extra-loose" mx="auto">
+    <BaseDrawer title="Receive" isShowing onClose={() => navigate(RouteUrls.Home)}>
+      {warning && warning}
+      <Flex alignItems="center" flexDirection="column" pb={['space.05', 'space.08']} px="space.05">
+        <styled.h2 mt="space.05" textStyle="heading.03">
+          {title}
+        </styled.h2>
+        <Box mt="space.06" mx="auto">
           <QrCode principal={address} />
         </Box>
         <Flex alignItems="center" flexDirection="column">
           {accountName && (
-            <Title fontSize={3} lineHeight="1rem" mt="loose">
+            <styled.span mt="space.05" textStyle="label.01">
               {accountName}
-            </Title>
+            </styled.span>
           )}
           <Flex
             data-testid={SharedComponentsSelectors.AddressDisplayer}
@@ -49,21 +44,14 @@ export function ReceiveTokensLayout(props: ReceiveTokensLayoutProps) {
             justifyContent="center"
             lineHeight={1.8}
             maxWidth="280px"
-            mt="base"
+            mt="space.04"
           >
             <AddressDisplayer address={address} />
           </Flex>
-          <Button
-            borderRadius="10px"
-            height="40px"
-            mode="tertiary"
-            onClick={() => onCopyAddressToClipboard(address)}
-            mt="base"
-          >
-            <FiCopy />
-            <Text ml="tight">Copy address</Text>
-          </Button>
         </Flex>
+        <LeatherButton fullWidth mt="space.05" onClick={() => onCopyAddressToClipboard(address)}>
+          Copy address
+        </LeatherButton>
       </Flex>
     </BaseDrawer>
   );

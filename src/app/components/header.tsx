@@ -1,19 +1,22 @@
 import { memo, useMemo } from 'react';
-import { FiArrowLeft, FiMoreHorizontal } from 'react-icons/fi';
+import { FiArrowLeft } from 'react-icons/fi';
 import { useLocation, useNavigate } from 'react-router-dom';
 
-import { Box, Flex, FlexProps, IconButton, Stack, Text, color, useMediaQuery } from '@stacks/ui';
+import { Box, Flex, FlexProps, IconButton, Stack, Text, useMediaQuery } from '@stacks/ui';
 import { OnboardingSelectors } from '@tests/selectors/onboarding.selectors';
 import { SettingsMenuSelectors } from '@tests/selectors/settings.selectors';
+import { token } from 'leaf-styles/tokens';
 
 import { BRANCH_NAME, COMMIT_SHA } from '@shared/environment';
 import { RouteUrls } from '@shared/route-urls';
 
 import { useDrawers } from '@app/common/hooks/use-drawers';
-import { DESKTOP_VIEWPORT_MIN_WIDTH } from '@app/components/global-styles/full-page-styles';
 import { HiroWalletLogo } from '@app/components/hiro-wallet-logo';
 import { NetworkModeBadge } from '@app/components/network-mode-badge';
 import { Title } from '@app/components/typography';
+
+import { LeatherButton } from './button/button';
+import { HamburgerIcon } from './icons/hamburger-icon';
 
 interface HeaderProps extends FlexProps {
   actionButton?: React.JSX.Element;
@@ -27,7 +30,8 @@ export const Header: React.FC<HeaderProps> = memo(props => {
   const { pathname } = useLocation();
   const navigate = useNavigate();
 
-  const [desktopViewport] = useMediaQuery(`(min-width: ${DESKTOP_VIEWPORT_MIN_WIDTH})`);
+  const [desktopViewport] = useMediaQuery(`(min-width: ${token('sizes.desktopViewportMinWidth')})`);
+  const [isNarrowViewport] = useMediaQuery('(max-width: 640px)');
 
   const hiroWalletLogoIsClickable = useMemo(() => {
     return (
@@ -57,7 +61,9 @@ export const Header: React.FC<HeaderProps> = memo(props => {
       alignItems={hideActions ? 'center' : 'flex-start'}
       justifyContent="space-between"
       p="base"
+      minHeight={['', '80px']}
       position="relative"
+      background={isNarrowViewport ? token('colors.brown.1') : token('colors.brown.2')}
       {...rest}
     >
       {onClose ? (
@@ -79,14 +85,13 @@ export const Header: React.FC<HeaderProps> = memo(props => {
               onClick={hiroWalletLogoIsClickable ? () => navigate(RouteUrls.Home) : undefined}
             />
             <Text
-              color={color('text-caption')}
               display={!version ? 'none' : 'unset'}
               fontFamily="mono"
               fontSize="10px"
-              lineHeight="10px"
               marginRight="10px"
-              mb="2px"
+              mb="-3px"
               ml="tight"
+              opacity={0.5}
             >
               {version}
             </Text>
@@ -106,17 +111,16 @@ export const Header: React.FC<HeaderProps> = memo(props => {
         </Title>
       )}
       <Stack alignItems="center" flexBasis="20%" isInline justifyContent="flex-end">
-        <NetworkModeBadge top="4px" />
+        <NetworkModeBadge />
         {!hideActions && (
-          <IconButton
-            _hover={{ color: color('text-title') }}
-            color={color('text-caption')}
+          <LeatherButton
             data-testid={SettingsMenuSelectors.SettingsMenuBtn}
-            iconSize="16px"
-            icon={FiMoreHorizontal}
             onMouseUp={isShowingSettings ? undefined : () => setIsShowingSettings(true)}
             pointerEvents={isShowingSettings ? 'none' : 'all'}
-          />
+            variant="ghost"
+          >
+            <HamburgerIcon />
+          </LeatherButton>
         )}
         {actionButton ? actionButton : null}
       </Stack>

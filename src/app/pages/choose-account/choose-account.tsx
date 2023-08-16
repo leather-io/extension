@@ -1,22 +1,22 @@
 import { memo, useEffect } from 'react';
 import { Outlet } from 'react-router-dom';
 
-import { Flex, Stack, Text } from '@stacks/ui';
+import { Flex, Stack, styled } from 'leaf-styles/jsx';
 
 import { useCancelAuthRequest } from '@app/common/authentication/use-cancel-auth-request';
 import { useAppDetails } from '@app/common/hooks/auth/use-app-details';
 import { useRouteHeader } from '@app/common/hooks/use-route-header';
-import { AppIcon } from '@app/components/app-icon';
-import { Header } from '@app/components/header';
-import { Title } from '@app/components/typography';
+import { LeatherIcon } from '@app/components/icons/leather-icon';
+import { RequesterFlag } from '@app/components/requester-flag';
 import { ChooseAccountsList } from '@app/pages/choose-account/components/accounts';
 import { useOnOriginTabClose } from '@app/routes/hooks/use-on-tab-closed';
 
 export const ChooseAccount = memo(() => {
-  const { name: appName } = useAppDetails();
+  const { url } = useAppDetails();
+
   const cancelAuthentication = useCancelAuthRequest();
 
-  useRouteHeader(<Header hideActions />);
+  useRouteHeader(<></>);
   useOnOriginTabClose(() => window.close());
 
   const handleUnmount = async () => cancelAuthentication();
@@ -29,12 +29,12 @@ export const ChooseAccount = memo(() => {
 
   return (
     <>
-      <Flex alignItems="center" flexDirection="column" px="loose" width="100%">
-        <Stack spacing="loose" textAlign="center">
-          <AppIcon mt="extra-loose" mb="loose" size="72px" />
-          <Stack spacing="base">
-            <Title fontSize={4}>Choose an account</Title>
-            <Text textStyle="caption">to connect to {appName}</Text>
+      <Flex alignItems="center" flexDirection="column" px="space.06" pt="space.07" width="100%">
+        <Stack gap="loose" textAlign="center" alignItems="center">
+          {url && <RequesterFlag requester={url.toString()} />}
+          <LeatherIcon width="248px" height="58px" />
+          <Stack gap="base">
+            <styled.h1 textStyle="heading.05">Choose an account to connect</styled.h1>
           </Stack>
         </Stack>
         <ChooseAccountsList />

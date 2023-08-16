@@ -1,6 +1,7 @@
 import LedgerWithRedOutline from '@assets/images/ledger/ledger-red-outline.png';
-import { Box, Button, Flex, Text, color } from '@stacks/ui';
+import { Box, Flex, Text, color } from '@stacks/ui';
 
+import { LeatherButton } from '@app/components/button/button';
 import { Title } from '@app/components/typography';
 
 import { LedgerWrapper } from '../../components/ledger-wrapper';
@@ -21,9 +22,9 @@ export function LedgerDeviceInvalidPayloadLayout({
         Your Ledger device has rejected the payload stating it is invalid
       </Text>
       <Flex mt="base-loose">
-        <Button mode="tertiary" mr="base-tight" onClick={onClose}>
+        <LeatherButton variant="ghost" mr="base-tight" onClick={onClose}>
           Close
-        </Button>
+        </LeatherButton>
       </Flex>
     </LedgerWrapper>
   );

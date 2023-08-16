@@ -1,11 +1,13 @@
 import { ReactNode } from 'react';
-import { FiExternalLink } from 'react-icons/fi';
 
 import GenericError from '@assets/images/generic-error.png';
-import { Box, Button, Flex, FlexProps, Stack, Text, color } from '@stacks/ui';
+import { Box, Text, color } from '@stacks/ui';
+import { Flex, FlexProps, HStack, styled } from 'leaf-styles/jsx';
 
 import { openInNewTab } from '@app/common/utils/open-in-new-tab';
-import { Title } from '@app/components/typography';
+
+import { LeatherButton } from '../button/button';
+import { ExternalLinkIcon } from '../icons/external-link-icon';
 
 const supportUrl =
   'https://wallet.hiro.so/wallet-faq/where-can-i-find-support-for-the-stacks-wallet';
@@ -20,24 +22,22 @@ export function GenericErrorLayout(props: GenericErrorProps) {
   const { body, helpTextList, onClose, title, ...rest } = props;
 
   return (
-    <Flex alignItems="center" flexDirection="column" px={['loose', 'unset']} width="100%" {...rest}>
+    <Flex
+      alignItems="center"
+      flexDirection="column"
+      px={['space.05', 'space.05', 'unset']}
+      width="100%"
+      {...rest}
+    >
       <Box mt="loose">
         <img src={GenericError} width="106px" />
       </Box>
-      <Title fontSize={4} mt="loose">
+      <styled.h1 mt="space.05" textStyle="heading.04">
         {title}
-      </Title>
-      <Text
-        color={color('text-caption')}
-        fontSize="16px"
-        lineHeight="1.6"
-        mt="base"
-        textAlign="center"
-        width="100%"
-        wordWrap="break-word"
-      >
+      </styled.h1>
+      <styled.h2 mt="space.04" textAlign="center" textStyle="label.02" wordWrap="break-word">
         {body}
-      </Text>
+      </styled.h2>
       <Box
         as="ul"
         border="2px solid #EFEFF2"
@@ -45,6 +45,7 @@ export function GenericErrorLayout(props: GenericErrorProps) {
         color={color('text-caption')}
         fontSize="14px"
         lineHeight="1.6"
+        listStyleType="circle"
         mt="extra-loose"
         pb="loose"
         pl="40px"
@@ -55,17 +56,17 @@ export function GenericErrorLayout(props: GenericErrorProps) {
       >
         {helpTextList}
         <Box as="li" mt="base" textAlign="left">
-          <Stack alignItems="center" isInline>
+          <HStack alignItems="center">
             <Text>Reach out to our support team</Text>
             <Box as="button" onClick={() => openInNewTab(supportUrl)}>
-              <FiExternalLink />
+              <ExternalLinkIcon />
             </Box>
-          </Stack>
+          </HStack>
         </Box>
       </Box>
-      <Button fontSize="14px" mt="base-tight" onClick={onClose} p="base" variant="link">
+      <LeatherButton fontSize="14px" mt="space.05" onClick={onClose} variant="link">
         Close window
-      </Button>
+      </LeatherButton>
     </Flex>
   );
 }

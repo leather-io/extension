@@ -2,6 +2,7 @@ import { Flex, StackProps } from '@stacks/ui';
 import { forwardRefWithAs } from '@stacks/ui-core';
 import { truncateMiddle } from '@stacks/ui-utils';
 import { CryptoAssetSelectors } from '@tests/selectors/crypto-asset.selectors';
+import { styled } from 'leaf-styles/jsx';
 
 import { CryptoCurrencies } from '@shared/models/currencies.model';
 import { Money } from '@shared/models/money.model';
@@ -12,7 +13,6 @@ import { usePressable } from '@app/components/item-hover';
 import { Flag } from '@app/components/layout/flag';
 import { SpaceBetween } from '@app/components/layout/space-between';
 import { Tooltip } from '@app/components/tooltip';
-import { Caption, Text } from '@app/components/typography';
 
 interface CryptoCurrencyAssetItemLayoutProps extends StackProps {
   balance: Money;
@@ -65,22 +65,31 @@ export const CryptoCurrencyAssetItemLayout = forwardRefWithAs(
         {...rest}
         {...bind}
       >
-        <Flag img={isHovered && copyIcon ? copyIcon : icon} align="middle" width="100%">
+        <Flag
+          align="middle"
+          img={isHovered && copyIcon ? copyIcon : icon}
+          spacing="base"
+          width="100%"
+        >
           <SpaceBetween width="100%">
-            <Text>{isHovered ? truncateMiddle(address, 6) : title}</Text>
+            <styled.span textStyle="label.01">
+              {isHovered ? truncateMiddle(address, 6) : title}
+            </styled.span>
             <Tooltip
               label={formattedBalance.isAbbreviated ? balance.amount.toString() : undefined}
               placement="left-start"
             >
-              <Text data-testid={title} fontVariantNumeric="tabular-nums" textAlign="right">
+              <styled.span data-testid={title} textStyle="label.01">
                 {formattedBalance.value} {additionalBalanceInfo}
-              </Text>
+              </styled.span>
             </Tooltip>
           </SpaceBetween>
           <SpaceBetween height="1.25rem" width="100%">
-            <Caption>{caption}</Caption>
+            <styled.span textStyle="caption.02">{caption}</styled.span>
             <Flex>
-              {balance.amount.toNumber() > 0 && address ? <Caption>{usdBalance}</Caption> : null}
+              {balance.amount.toNumber() > 0 && address ? (
+                <styled.span textStyle="caption.02">{usdBalance}</styled.span>
+              ) : null}
               {additionalUsdBalanceInfo}
             </Flex>
           </SpaceBetween>

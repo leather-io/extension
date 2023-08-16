@@ -1,6 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 
 import { Box } from '@stacks/ui';
+import { token } from 'leaf-styles/tokens';
 
 import { RouteUrls } from '@shared/route-urls';
 
@@ -10,7 +11,7 @@ import { Plus } from '@app/components/icons/plus';
 import { CollectibleItemLayout } from './collectible-item.layout';
 
 const backgroundProps = {
-  backgroundColor: 'white',
+  backgroundColor: token('colors.brown.1'),
   border: '2px dashed #DCDDE2',
   borderRadius: '16px',
   _hover: {

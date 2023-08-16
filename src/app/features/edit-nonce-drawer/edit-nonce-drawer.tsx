@@ -1,16 +1,15 @@
 import { useCallback, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import { Stack } from '@stacks/ui';
 import { useFormikContext } from 'formik';
+import { Stack, styled } from 'leaf-styles/jsx';
 
 import { StacksSendFormValues, StacksTransactionFormValues } from '@shared/models/form.model';
 
 import { useOnMount } from '@app/common/hooks/use-on-mount';
 import { openInNewTab } from '@app/common/utils/open-in-new-tab';
+import { LeatherButton } from '@app/components/button/button';
 import { BaseDrawer } from '@app/components/drawer/base-drawer';
-import { Link } from '@app/components/link';
-import { Caption } from '@app/components/typography';
 
 import { EditNonceForm } from './components/edit-nonce-form';
 
@@ -18,12 +17,12 @@ const url = 'https://www.hiro.so/questions/transactions-advanced-settings';
 
 function CustomFeeMessaging() {
   return (
-    <Caption>
-      If your transaction has been pending for a long time, its nonce might not be correct.{' '}
-      <Link fontSize="14px" onClick={() => openInNewTab(url)}>
+    <styled.span textStyle="caption.01">
+      If your transaction has been pending for a long time, its nonce might not be correct.
+      <LeatherButton fontSize="14px" ml="space.01" onClick={() => openInNewTab(url)} variant="link">
         Learn more.
-      </Link>
-    </Caption>
+      </LeatherButton>
+    </styled.span>
   );
 }
 
@@ -46,16 +45,16 @@ export function EditNonceDrawer() {
     if (!errors.nonce) onGoBack();
   }, [errors.nonce, onGoBack, validateField]);
 
-  const onClose = useCallback(() => {
-    if (!values.nonce) setFieldValue('nonce', undefined);
+  const onClose = useCallback(async () => {
+    if (!values.nonce) await setFieldValue('nonce', undefined);
     setFieldError('nonce', '');
-    setFieldValue('nonce', loadedNextNonce);
+    await setFieldValue('nonce', loadedNextNonce);
     onGoBack();
   }, [loadedNextNonce, onGoBack, setFieldError, setFieldValue, values.nonce]);
 
   return (
     <BaseDrawer isShowing onClose={onClose} pauseOnClickOutside title="Edit nonce">
-      <Stack pb="extra-loose" px="loose" spacing="loose">
+      <Stack gap="space.05" pb="space.06" px="loose">
         <CustomFeeMessaging />
         <EditNonceForm onBlur={onBlur} onClose={onClose} onSubmit={onSubmit} />
       </Stack>

@@ -1,9 +1,9 @@
 import { memo } from 'react';
 
 import { Stack, StackProps, color } from '@stacks/ui';
+import { token } from 'leaf-styles/tokens';
 
-import { HiroIcon } from './icons/hiro-icon';
-import { HiroWalletText } from './icons/hiro-wallet-text';
+import { LeatherIcon } from './icons/leather-icon';
 
 interface HiroWalletLogoProps extends StackProps {
   isClickable: boolean;
@@ -13,15 +13,14 @@ export const HiroWalletLogo = memo((props: HiroWalletLogoProps) => {
 
   return (
     <Stack
-      _hover={{ color: color('brand') }}
+      _hover={{ color: token('colors.brown.11') }}
       alignItems="center"
       color={color('text-title')}
       cursor={isClickable ? 'pointer' : 'unset'}
       isInline
       {...rest}
     >
-      <HiroIcon width="28px" height="20px" />
-      <HiroWalletText width="82px" height="14px" />
+      <LeatherIcon />
     </Stack>
   );
 });
