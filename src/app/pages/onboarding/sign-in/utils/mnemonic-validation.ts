@@ -1,8 +1,8 @@
-import { getDefaultWordlist, wordlists } from 'bip39';
+import { wordlist } from '@scure/bip39/wordlists/english';
 import * as yup from 'yup';
 
 function isValidMnemonic(word: string): boolean {
-  return wordlists[getDefaultWordlist()].includes(word);
+  return wordlist.includes(word);
 }
 
 // YUP validation of dynamic field names => https://github.com/jquense/yup/issues/130

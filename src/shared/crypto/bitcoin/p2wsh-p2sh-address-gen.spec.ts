@@ -6,6 +6,7 @@ import { base58check } from '@scure/base';
 import { HDKey } from '@scure/bip32';
 import { hashP2WPKH } from '@stacks/transactions';
 import { BIP32Factory } from 'bip32';
+// FIXME - refactor this to use @scure/bip39 and remove dependancy on bip39
 import * as bip39 from 'bip39';
 import * as bitcoin from 'bitcoinjs-lib';
 
