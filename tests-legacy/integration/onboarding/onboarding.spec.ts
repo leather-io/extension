@@ -39,7 +39,7 @@ describe(`Onboarding integration tests`, () => {
     expect(secretKey).not.toBeFalsy();
     expect(secretKey.split(' ').length).toEqual(24);
   });
-
+  // this fails
   it('should be able to login from welcome page then logout', async () => {
     await wallet.clickDenyAnalytics();
     await wallet.clickSignIn();
@@ -79,6 +79,7 @@ describe(`Onboarding integration tests`, () => {
     await wallet.waitForHideOnboardingsStepsButton();
   });
 
+  // this fails
   it('should hide onboarding steps when signing in with an existing secret key', async () => {
     await wallet.clickDenyAnalytics();
     await wallet.clickSignIn();
