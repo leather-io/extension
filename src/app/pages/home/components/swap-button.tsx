@@ -14,9 +14,9 @@ export function SwapButton(props: ButtonProps) {
 
   return (
     <HomeActionButton
-      label="Swap"
       buttonComponent={SecondaryButton}
       data-testid={HomePageSelectors.SwapBtn}
+      label="Swap"
       onClick={() => navigate(RouteUrls.Swap)}
       {...props}
     />

@@ -11,7 +11,7 @@ import { Link } from '@app/components/link';
 
 import { AmountField } from '../../components/amount-field';
 import { FormFooter } from '../../components/form-footer';
-import { SelectedAsset } from '../../components/selected-asset';
+import { SelectedAssetField } from '../../components/selected-asset-field';
 import { SendCryptoAssetFormLayout } from '../../components/send-crypto-asset-form.layout';
 import { SendMaxButton } from '../../components/send-max-button';
 import { defaultSendFormFormikProps } from '../../send-form.utils';
@@ -61,7 +61,7 @@ export function Brc20SendForm() {
                   }
                   autoComplete="off"
                 />
-                <SelectedAsset icon={<Brc20TokenIcon />} name={tick} symbol={tick} />
+                <SelectedAssetField icon={<Brc20TokenIcon />} name={tick} symbol={tick} />
                 <InfoLabel title="Sending BRC-20 tokens requires two steps">
                   {'1. Create transfer inscription with amount to send'}
                   <br />

@@ -1,21 +1,14 @@
-import { Text } from '@stacks/ui';
-
-import { SwapDetail } from './swap-detail';
+import { SwapDetailLayout } from './swap-detail.layout';
 import { SwapDetailsLayout } from './swap-details.layout';
 
 // TODO: Replace with live data
 export function SwapDetails() {
   return (
-    <>
-      <Text alignSelf="flex-start" fontWeight={500} pt="tight" my="base">
-        Swap details
-      </Text>
-      <SwapDetailsLayout>
-        <SwapDetail title="Placeholder" tooltipLabel="Tooltip info" value="0" />
-        <SwapDetail title="Placeholder" value="0" />
-        <SwapDetail title="Placeholder" value="0" />
-        <SwapDetail title="Placeholder" value="0" />
-      </SwapDetailsLayout>
-    </>
+    <SwapDetailsLayout>
+      <SwapDetailLayout title="Placeholder" tooltipLabel="Tooltip info" value="0" />
+      <SwapDetailLayout title="Placeholder" value="0" />
+      <SwapDetailLayout title="Placeholder" value="0" />
+      <SwapDetailLayout title="Placeholder" value="0" />
+    </SwapDetailsLayout>
   );
 }

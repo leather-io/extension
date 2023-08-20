@@ -1,8 +1,12 @@
-import { Stack, color } from '@stacks/ui';
+import { FiArrowDown } from 'react-icons/fi';
 
-import { HasChildren } from '@app/common/has-children';
+import { Box, Stack, color } from '@stacks/ui';
 
-export function SwapAssetsPairLayout({ children }: HasChildren) {
+interface SwapAssetsPairLayoutProps {
+  swapAssetFrom: React.JSX.Element;
+  swapAssetTo: React.JSX.Element;
+}
+export function SwapAssetsPairLayout({ swapAssetFrom, swapAssetTo }: SwapAssetsPairLayoutProps) {
   return (
     <Stack
       border="4px solid"
@@ -14,7 +18,11 @@ export function SwapAssetsPairLayout({ children }: HasChildren) {
       spacing="extra-tight"
       width="100%"
     >
-      {children}
+      {swapAssetFrom}
+      <Box p="tight" size="32px">
+        <FiArrowDown size="20px" />
+      </Box>
+      {swapAssetTo}
     </Stack>
   );
 }

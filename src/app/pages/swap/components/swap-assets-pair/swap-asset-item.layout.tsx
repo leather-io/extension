@@ -4,12 +4,12 @@ import { Flag } from '@app/components/layout/flag';
 import { SpaceBetween } from '@app/components/layout/space-between';
 import { Title } from '@app/components/typography';
 
-interface SwapAssetItemProps {
+interface SwapAssetItemLayoutProps {
   icon: string;
   symbol: string;
   value: string;
 }
-export function SwapAssetItem({ icon, symbol, value }: SwapAssetItemProps) {
+export function SwapAssetItemLayout({ icon, symbol, value }: SwapAssetItemLayoutProps) {
   return (
     <Flag
       align="middle"

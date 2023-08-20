@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import { useFormikContext } from 'formik';
@@ -10,13 +9,11 @@ import { SwapFormValues } from '../hooks/use-swap';
 import { SwapSelectedAssetFrom } from './swap-selected-asset-from';
 import { SwapSelectedAssetPlaceholder } from './swap-selected-asset-placeholder';
 import { SwapSelectedAssetTo } from './swap-selected-asset-to';
-import { SwapToggleButton } from './swap-toggle-button';
 
-const from = 'Convert';
-const to = 'To';
+const titleFrom = 'Convert';
+const titleTo = 'To';
 
 export function SwapSelectedAssets() {
-  const [isSendingMax, setIsSendingMax] = useState(false);
   const { values } = useFormikContext<SwapFormValues>();
   const navigate = useNavigate();
 
@@ -28,27 +25,17 @@ export function SwapSelectedAssets() {
     navigate(RouteUrls.SwapChooseAsset, { state: { swap: 'to' } });
   }
 
-  function onSetIsSendingMax(value: boolean) {
-    setIsSendingMax(value);
-  }
-
   return (
     <>
       {isUndefined(values.swapAssetFrom) ? (
-        <SwapSelectedAssetPlaceholder onChooseAsset={onChooseAssetFrom} title={from} />
+        <SwapSelectedAssetPlaceholder onChooseAsset={onChooseAssetFrom} title={titleFrom} />
       ) : (
-        <SwapSelectedAssetFrom
-          isSendingMax={isSendingMax}
-          onChooseAsset={onChooseAssetFrom}
-          onSetIsSendingMax={onSetIsSendingMax}
-          title={from}
-        />
+        <SwapSelectedAssetFrom onChooseAsset={onChooseAssetFrom} title={titleFrom} />
       )}
-      <SwapToggleButton onSetIsSendingMax={onSetIsSendingMax} />
       {isUndefined(values.swapAssetTo) ? (
-        <SwapSelectedAssetPlaceholder onChooseAsset={onChooseAssetTo} title={to} />
+        <SwapSelectedAssetPlaceholder onChooseAsset={onChooseAssetTo} showToggle title={titleTo} />
       ) : (
-        <SwapSelectedAssetTo onChooseAsset={onChooseAssetTo} title={to} />
+        <SwapSelectedAssetTo onChooseAsset={onChooseAssetTo} title={titleTo} />
       )}
     </>
   );
