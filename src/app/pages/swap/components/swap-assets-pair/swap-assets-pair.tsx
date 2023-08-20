@@ -1,25 +1,37 @@
-import { FiArrowDown } from 'react-icons/fi';
+import { useFormikContext } from 'formik';
 
-import { Box } from '@stacks/ui';
+import { logger } from '@shared/logger';
+import { isUndefined } from '@shared/utils';
 
-import { SwapAsset } from '../../hooks/use-swap';
-import { SwapAssetItem } from './swap-asset-item';
+import { SwapFormValues } from '../../hooks/use-swap';
+import { SwapAssetItemLayout } from './swap-asset-item.layout';
 import { SwapAssetsPairLayout } from './swap-assets-pair.layout';
 
-interface SwapAssetsPairProps {
-  amountFrom: string;
-  amountTo: string;
-  assetFrom: SwapAsset;
-  assetTo: SwapAsset;
-}
-export function SwapAssetsPair({ amountFrom, amountTo, assetFrom, assetTo }: SwapAssetsPairProps) {
+export function SwapAssetsPair() {
+  const { values } = useFormikContext<SwapFormValues>();
+  const { swapAmountFrom, swapAmountTo, swapAssetFrom, swapAssetTo } = values;
+
+  if (isUndefined(swapAssetFrom) || isUndefined(swapAssetTo)) {
+    logger.error('No asset selected to swap');
+    return null;
+  }
+
   return (
-    <SwapAssetsPairLayout>
-      <SwapAssetItem icon={assetFrom.icon} symbol={assetFrom.balance.symbol} value={amountFrom} />
-      <Box p="tight" size="32px">
-        <FiArrowDown size="20px" />
-      </Box>
-      <SwapAssetItem icon={assetTo.icon} symbol={assetTo.balance.symbol} value={amountTo} />
-    </SwapAssetsPairLayout>
+    <SwapAssetsPairLayout
+      swapAssetFrom={
+        <SwapAssetItemLayout
+          icon={swapAssetFrom.icon}
+          symbol={swapAssetFrom.balance.symbol}
+          value={swapAmountFrom}
+        />
+      }
+      swapAssetTo={
+        <SwapAssetItemLayout
+          icon={swapAssetTo.icon}
+          symbol={swapAssetTo.balance.symbol}
+          value={swapAmountTo}
+        />
+      }
+    ></SwapAssetsPairLayout>
   );
 }

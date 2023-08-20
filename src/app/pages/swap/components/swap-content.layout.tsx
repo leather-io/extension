@@ -3,7 +3,7 @@ import { SwapCryptoAssetSelectors } from '@tests/selectors/swap.selectors';
 
 import { HasChildren } from '@app/common/has-children';
 
-export function SwapLayout({ children }: HasChildren) {
+export function SwapContentLayout({ children }: HasChildren) {
   return (
     <Flex
       alignItems="center"

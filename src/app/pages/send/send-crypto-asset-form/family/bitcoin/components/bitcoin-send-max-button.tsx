@@ -52,7 +52,6 @@ export function BitcoinSendMaxButton({
         fontSize={0}
         height="32px"
         onClick={() => onSendMax()}
-        mb="loose"
         mode="tertiary"
         px="base-tight"
         type="button"

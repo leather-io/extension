@@ -1,4 +1,3 @@
-// import BigNumber from 'bignumber.js';
 import * as yup from 'yup';
 
 import { Money } from '@shared/models/money.model';

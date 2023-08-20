@@ -1,4 +1,6 @@
-export type CryptoCurrencies = 'BTC' | 'STX' | string;
+import { LiteralUnion } from '@shared/utils/type-utils';
+
+export type CryptoCurrencies = LiteralUnion<'BTC' | 'STX', string>;
 
 export type FiatCurrencies = 'USD' | string;
 

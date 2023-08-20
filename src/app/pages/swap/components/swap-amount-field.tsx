@@ -7,7 +7,7 @@ import { useShowFieldError } from '@app/common/form-utils';
 import { Caption } from '@app/components/typography';
 
 import { SwapFormValues } from '../hooks/use-swap';
-import { tempExchangeRate } from '../hooks/use-swappable-assets';
+import { useSwapContext } from '../swap.context';
 
 interface SwapAmountFieldProps {
   amountAsFiat: string;
@@ -15,21 +15,23 @@ interface SwapAmountFieldProps {
   name: string;
 }
 export function SwapAmountField({ amountAsFiat, isDisabled, name }: SwapAmountFieldProps) {
+  const { exchangeRate, onSetIsSendingMax } = useSwapContext();
   const { setFieldValue } = useFormikContext<SwapFormValues>();
   const [field] = useField(name);
   const showError = useShowFieldError(name);
 
   async function onChange(event: ChangeEvent<HTMLInputElement>) {
+    onSetIsSendingMax(false);
     const value = event.currentTarget.value;
-
-    // TODO: Need exchange rate here from asset
-    await setFieldValue('swapAmountTo', Number(value) * tempExchangeRate);
-
+    await setFieldValue('swapAmountTo', Number(value) * exchangeRate);
     field.onChange(event);
   }
 
   return (
     <Stack alignItems="flex-end" spacing="extra-tight">
+      <Caption as="label" hidden htmlFor={name}>
+        {name}
+      </Caption>
       <Input
         _disabled={{ border: 'none', color: color('text-caption') }}
         _focus={{ border: 'none' }}

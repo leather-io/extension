@@ -18,17 +18,17 @@ export function SwapSummaryTabs(props: SwapSummaryTabsProps) {
   const analytics = useAnalytics();
   const [activeTab, setActiveTab] = useState(0);
 
-  const setActiveTabTracked = (index: number) => {
+  function setActiveTabTracked(index: number) {
     void analytics.page('view', analyticsPath[index]);
     setActiveTab(index);
-  };
+  }
 
   return (
     <Stack flexGrow={1} mt="tight" spacing="base" width="100%" {...rest}>
       <Tabs
         tabs={[
           { slug: 'status', label: 'Status' },
-          { slug: 'details', label: 'Swap Details' },
+          { slug: 'details', label: 'Swap details' },
         ]}
         activeTab={activeTab}
         onTabClick={setActiveTabTracked}

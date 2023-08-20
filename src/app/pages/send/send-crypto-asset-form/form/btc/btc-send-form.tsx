@@ -5,6 +5,7 @@ import { SendCryptoAssetSelectors } from '@tests/selectors/send.selectors';
 import { Form, Formik } from 'formik';
 
 import { HIGH_FEE_WARNING_LEARN_MORE_URL_BTC } from '@shared/constants';
+import { CryptoCurrencies } from '@shared/models/currencies.model';
 
 import { BtcIcon } from '@app/components/icons/btc-icon';
 import { HighFeeDrawer } from '@app/features/high-fee-drawer/high-fee-drawer';
@@ -14,7 +15,7 @@ import { useCurrentAccountNativeSegwitIndexZeroSigner } from '@app/store/account
 
 import { AmountField } from '../../components/amount-field';
 import { FormFooter } from '../../components/form-footer';
-import { SelectedAsset } from '../../components/selected-asset';
+import { SelectedAssetField } from '../../components/selected-asset-field';
 import { SendCryptoAssetFormLayout } from '../../components/send-crypto-asset-form.layout';
 import { SendFiatValue } from '../../components/send-fiat-value';
 import { BitcoinRecipientField } from '../../family/bitcoin/components/bitcoin-recipient-field';
@@ -24,7 +25,7 @@ import { useSendFormRouteState } from '../../hooks/use-send-form-route-state';
 import { createDefaultInitialFormValues, defaultSendFormFormikProps } from '../../send-form.utils';
 import { useBtcSendForm } from './use-btc-send-form';
 
-const symbol = 'BTC';
+const symbol: CryptoCurrencies = 'BTC';
 
 export function BtcSendForm() {
   const routeState = useSendFormRouteState();
@@ -83,7 +84,11 @@ export function BtcSendForm() {
                     <SendFiatValue marketData={btcMarketData} assetSymbol={symbol} />
                   }
                 />
-                <SelectedAsset icon={<BtcIcon />} name={btcBalance.asset.name} symbol={symbol} />
+                <SelectedAssetField
+                  icon={<BtcIcon />}
+                  name={btcBalance.asset.name}
+                  symbol={symbol}
+                />
                 <BitcoinRecipientField />
                 {currentNetwork.chain.bitcoin.network === 'testnet' && <TestnetBtcMessage />}
               </SendCryptoAssetFormLayout>

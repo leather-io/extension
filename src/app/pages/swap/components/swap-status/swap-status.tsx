@@ -4,7 +4,7 @@ import { Box } from '@stacks/ui';
 
 import { Hr } from '@app/components/hr';
 
-import { SwapStatusItem } from './swap-status-item';
+import { SwapStatusItemLayout } from './swap-status-item.layout';
 import { SwapStatusLayout } from './swap-status.layout';
 
 function PendingDot() {
@@ -19,21 +19,21 @@ function SuccessCheck() {
 export function SwapStatus() {
   return (
     <SwapStatusLayout>
-      <SwapStatusItem
+      <SwapStatusItemLayout
         icon={<SuccessCheck />}
         text="You set up your swap"
-        timeStamp="Today at 10:14 PM"
+        timestamp="Today at 10:14 PM"
       />
       <Hr />
-      <SwapStatusItem
+      <SwapStatusItemLayout
         icon={<SuccessCheck />}
         text="We received your BTC"
-        timeStamp="Today at 10:14 PM"
+        timestamp="Today at 10:14 PM"
       />
       <Hr />
-      <SwapStatusItem icon={<PendingDot />} text="We escrow your transaction" />
+      <SwapStatusItemLayout icon={<PendingDot />} text="We escrow your transaction" />
       <Hr />
-      <SwapStatusItem icon={<PendingDot />} text="We add your xBTC to your balance" />
+      <SwapStatusItemLayout icon={<PendingDot />} text="We add your xBTC to your balance" />
     </SwapStatusLayout>
   );
 }

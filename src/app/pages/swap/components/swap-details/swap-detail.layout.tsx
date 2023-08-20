@@ -4,12 +4,12 @@ import { Box, Stack, Text, Tooltip, color } from '@stacks/ui';
 
 import { SpaceBetween } from '@app/components/layout/space-between';
 
-interface SwapDetail {
+interface SwapDetailLayoutProps {
   title: string;
   tooltipLabel?: string;
   value: string;
 }
-export function SwapDetail({ title, tooltipLabel, value }: SwapDetail) {
+export function SwapDetailLayout({ title, tooltipLabel, value }: SwapDetailLayoutProps) {
   return (
     <SpaceBetween ml="base" width="100%">
       <Stack alignItems="center" isInline spacing="extra-tight">
