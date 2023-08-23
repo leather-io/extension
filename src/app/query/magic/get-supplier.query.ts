@@ -13,14 +13,17 @@ export function useGetSupplierQuery<TResponse = MagicSupplier>(
   id: number,
   options?: AppUseQueryConfig<MagicSupplier | undefined, TResponse | undefined>
 ) {
-  const client = useMagicClient();
+  const magicClient = useMagicClient();
   const network = useCurrentNetworkState();
 
-  const contracts = getMagicContracts(network.id);
+  const context = {
+    magicClient,
+    magicContracts: getMagicContracts(network.id),
+  };
 
   return useQuery({
     queryKey: [MagicQueryKeys.GetSupplier, id],
-    queryFn: () => fetchSupplier(id, client, contracts),
+    queryFn: () => fetchSupplier(id, context),
     ...options,
   });
 }

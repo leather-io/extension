@@ -1,3 +1,5 @@
+import { networks as BitcoinNetworks } from 'bitcoinjs-lib';
+
 import {
   HIRO_MAINNET_DEFAULT,
   HIRO_MOCKNET_DEFAULT,
@@ -7,7 +9,7 @@ import {
   StacksTestnet,
 } from 'micro-stacks/network';
 
-import { DefaultNetworkConfigurations } from '@shared/constants';
+import type { DefaultNetworkConfigurations } from '@shared/constants';
 
 export function getStacksNetwork(network: DefaultNetworkConfigurations = 'testnet') {
   switch (network) {
@@ -25,5 +27,18 @@ export function getStacksNetwork(network: DefaultNetworkConfigurations = 'testne
       return new StacksMocknet({
         url: HIRO_MOCKNET_DEFAULT,
       });
+  }
+}
+
+export function getBitcoinNetwork(network: DefaultNetworkConfigurations = 'testnet') {
+  switch (network) {
+    case 'mainnet':
+      return BitcoinNetworks.bitcoin;
+
+    case 'testnet':
+      return BitcoinNetworks.testnet;
+
+    default:
+      return BitcoinNetworks.regtest;
   }
 }

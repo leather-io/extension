@@ -1,13 +1,15 @@
-import { ClarigenClient } from '@clarigen/core';
 import { bytesToHex } from '@stacks/common';
 
-import { MagicContracts } from '..';
-import { MagicSupplier } from '../models';
+import type { MagicSupplier } from '../models';
+import type { MagicFetchContext } from './constants';
 
-export async function fetchSupplier(id: number, client: ClarigenClient, contracts: MagicContracts) {
+export async function fetchSupplier(
+  id: number,
+  { magicClient: clarigen, magicContracts: magic }: MagicFetchContext
+) {
   const [supplier, funds] = await Promise.all([
-    client.ro(contracts.bridge.getSupplier(id)),
-    client.ro(contracts.bridge.getFunds(id)),
+    clarigen.ro(magic.bridge.getSupplier(id)),
+    clarigen.ro(magic.bridge.getFunds(id)),
   ]);
 
   if (supplier && funds !== null) {
@@ -23,5 +25,5 @@ export async function fetchSupplier(id: number, client: ClarigenClient, contract
     } as MagicSupplier;
   }
 
-  return undefined;
+  throw new Error(`Supplier with ID ${id} could not be found.`);
 }

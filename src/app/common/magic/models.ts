@@ -9,6 +9,8 @@ export interface MagicSupplier {
   id: number;
 }
 
+export type MagicSupplierWithCapacity = MagicSupplier & { btc: string; btcAddress: string };
+
 export interface MagicInboundSwap {
   expiration: bigint;
   hash: Uint8Array;
