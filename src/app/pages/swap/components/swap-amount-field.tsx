@@ -15,16 +15,19 @@ interface SwapAmountFieldProps {
   name: string;
 }
 export function SwapAmountField({ amountAsFiat, isDisabled, name }: SwapAmountFieldProps) {
-  const { exchangeRate, onSetIsSendingMax } = useSwapContext();
-  const { setFieldValue } = useFormikContext<SwapFormValues>();
+  const { fetchToAmount } = useSwapContext();
+  const { setFieldValue, values } = useFormikContext<SwapFormValues>();
   const [field] = useField(name);
   const showError = useShowFieldError(name);
 
   async function onChange(event: ChangeEvent<HTMLInputElement>) {
-    onSetIsSendingMax(false);
-    const value = event.currentTarget.value;
-    await setFieldValue('swapAmountTo', Number(value) * exchangeRate);
     field.onChange(event);
+    const value = event.currentTarget.value;
+    const { swapAssetFrom, swapAssetTo } = values;
+    if (swapAssetFrom != null && swapAssetTo && !isNaN(Number(value))) {
+      const toAmount = await fetchToAmount(swapAssetFrom, swapAssetTo, value);
+      await setFieldValue('swapAmountTo', toAmount);
+    }
   }
 
   return (
