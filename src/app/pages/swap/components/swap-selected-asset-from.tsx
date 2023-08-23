@@ -1,3 +1,5 @@
+import { useRef } from 'react';
+
 import { useField, useFormikContext } from 'formik';
 
 import { isUndefined } from '@shared/utils';
@@ -25,7 +27,7 @@ interface SwapSelectedAssetFromProps {
   title: string;
 }
 export function SwapSelectedAssetFrom({ onChooseAsset, title }: SwapSelectedAssetFromProps) {
-  const { exchangeRate, isSendingMax, onSetIsSendingMax } = useSwapContext();
+  const { fetchToAmount } = useSwapContext();
   const { setFieldValue, validateForm, values } = useFormikContext<SwapFormValues>();
   const [amountField, amountFieldMeta, amountFieldHelpers] = useField('swapAmountFrom');
   const showError = useShowFieldError('swapAmountFrom');
@@ -35,13 +37,24 @@ export function SwapSelectedAssetFrom({ onChooseAsset, title }: SwapSelectedAsse
 
   const formattedBalance = formatMoneyWithoutSymbol(assetField.value.balance);
 
+  const isSendingMax = formattedBalance === values.swapAmountFrom;
+
+  const previousFromValue = useRef<string>('');
+
   async function onSetMaxBalanceAsAmountToSwap() {
-    if (isUndefined(values.swapAssetTo)) return;
-    onSetIsSendingMax(!isSendingMax);
-    const value = isSendingMax ? '' : formattedBalance;
-    await amountFieldHelpers.setValue(value);
-    await setFieldValue('swapAmountTo', Number(value) * exchangeRate);
-    await validateForm();
+    if (isSendingMax) {
+      amountFieldHelpers.setValue(previousFromValue.current);
+    } else {
+      previousFromValue.current = values.swapAmountFrom;
+      amountFieldHelpers.setValue(formattedBalance);
+    }
+    const { swapAssetFrom, swapAssetTo } = values;
+    if (swapAssetTo != null && swapAssetFrom != null) {
+      await setFieldValue('swapAmountTo', '');
+      const toAmount = await fetchToAmount(swapAssetFrom, swapAssetTo, formattedBalance);
+      await setFieldValue('swapAmountTo', toAmount);
+      await validateForm();
+    }
   }
 
   return (
