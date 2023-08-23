@@ -5,11 +5,17 @@ import { DefaultNetworkConfigurations } from '@shared/constants';
 
 import { MagicContracts } from '..';
 
+/**
+ * Contains context for a Magic fetch operation.
+ */
 export interface MagicFetchContext {
   magicClient: ClarigenClient;
   magicContracts: MagicContracts;
 }
 
+/**
+ * Contains context for a Magic fetch operation using Electrum.
+ */
 export interface MagicFetchElectrumContext {
   network: DefaultNetworkConfigurations;
   electrumClient: ElectrumClient;

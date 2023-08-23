@@ -6,7 +6,13 @@ import { getBitcoinNetwork } from '../network';
 
 import type { MagicFetchElectrumContext } from './constants';
 
-export async function fetchBtcBalance(
+/**
+ * Fetches the balance of a Bitcoin address.
+ *
+ * @param address The Bitcoin address.
+ * @param context The context.
+ */
+export async function fetchBitcoinAddressBalance(
   address: string,
   { electrumClient, network }: MagicFetchElectrumContext
 ) {

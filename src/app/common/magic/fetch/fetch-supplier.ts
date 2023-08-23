@@ -3,6 +3,12 @@ import { bytesToHex } from '@stacks/common';
 import type { MagicSupplier } from '../models';
 import type { MagicFetchContext } from './constants';
 
+/**
+ * Fetches a supplier with balance and fees from the Magic contracts.
+ *
+ * @param id      The supplier ID.
+ * @param context The context.
+ */
 export async function fetchSupplier(
   id: number,
   { magicClient: clarigen, magicContracts: magic }: MagicFetchContext
