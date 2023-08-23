@@ -1,3 +1,4 @@
+import { Currency } from 'alex-sdk';
 import * as yup from 'yup';
 
 import { Money } from '@shared/models/money.model';
@@ -7,6 +8,7 @@ import { FormErrorMessages } from '@app/common/error-messages';
 import { currencyAmountValidator } from '@app/common/validation/forms/currency-validators';
 
 export interface SwapAsset {
+  currency: Currency;
   balance: Money;
   icon: string;
   name: string;

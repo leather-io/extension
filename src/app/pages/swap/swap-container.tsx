@@ -1,65 +1,148 @@
-import { useState } from 'react';
+import { useCallback, useMemo, useState } from 'react';
 import { Outlet, useNavigate } from 'react-router-dom';
 
-import BtcIcon from '@assets/images/btc-icon.png';
-import XBtcIcon from '@assets/images/xbtc-icon.png';
+import { bytesToHex } from '@stacks/common';
+import { ContractCallPayload, TransactionTypes } from '@stacks/connect';
+import {
+  AnchorMode,
+  PostConditionMode,
+  serializeCV,
+  serializePostCondition,
+} from '@stacks/transactions';
+import { useQuery } from '@tanstack/react-query';
+import { AlexSDK, Currency, TokenInfo } from 'alex-sdk';
 import BigNumber from 'bignumber.js';
 
 import { createMoney } from '@shared/models/money.model';
 import { RouteUrls } from '@shared/route-urls';
 
-import { useNativeSegwitBalance } from '@app/query/bitcoin/balance/btc-native-segwit-balance.hooks';
-import { useCurrentAccountNativeSegwitIndexZeroSigner } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
+import { useAllTransferableCryptoAssetBalances } from '@app/common/hooks/use-transferable-asset-balances.hooks';
+import { useCurrentStacksAccount } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
 
 import { SwapContainerLayout } from './components/swap-container.layout';
 import { SwapForm } from './components/swap-form';
 import { SwapAsset, SwapFormValues } from './hooks/use-swap';
-import { SwapContext, SwapProvider } from './swap.context';
+import { SwapContext, SwapProvider, SwapSubmissionData } from './swap.context';
 
-// TODO: Remove and set to initial state to 0 with live data
-const tempExchangeRate = 0.5;
+const oneHundredMillion = 100_000_000;
 
 export function SwapContainer() {
-  const [exchangeRate, setExchangeRate] = useState(tempExchangeRate);
-  const [isSendingMax, setIsSendingMax] = useState(false);
+  const alexSDK = useState(() => new AlexSDK())[0];
+  const { data: supportedCurrencies = [] } = useQuery(['alex-supported-swap-currencies'], async () =>
+    alexSDK.fetchSwappableCurrency()
+  );
+
   const navigate = useNavigate();
-  const { address } = useCurrentAccountNativeSegwitIndexZeroSigner();
-  const { balance: btcBalance } = useNativeSegwitBalance(address);
-  // TODO: Filter these assets for list to swap, not sure if need?
-  // const allTransferableCryptoAssetBalances = useAllTransferableCryptoAssetBalances();
 
-  // TODO: Replace with live asset list
-  const tempSwapAssetFrom: SwapAsset = {
-    balance: btcBalance,
-    icon: BtcIcon,
-    name: 'Bitcoin',
-  };
+  const allTransferableCryptoAssetBalances = useAllTransferableCryptoAssetBalances();
+  const getAssetFromAlexCurrency = useCallback(
+    (tokenInfo: TokenInfo): SwapAsset => {
+      const currency = tokenInfo.id as Currency;
+      if (currency === Currency.STX) {
+        const balance = allTransferableCryptoAssetBalances.find(
+          x => x.type === 'crypto-currency' && x.blockchain === 'stacks' && x.asset.symbol === 'STX'
+        )!.balance;
+        return { currency, icon: tokenInfo.icon, name: tokenInfo.name, balance };
+      }
+      const balance = allTransferableCryptoAssetBalances.find(
+        x => x.type === 'fungible-token' && alexSDK.getAddressFrom(currency) === x.asset.contractId
+      )?.balance;
+      return {
+        currency,
+        icon: tokenInfo.icon,
+        name: tokenInfo.name,
+        balance: balance ?? createMoney(0, tokenInfo.name, tokenInfo.decimals),
+      };
+    },
+    [allTransferableCryptoAssetBalances]
+  );
 
-  const tempSwapAssetTo: SwapAsset = {
-    balance: createMoney(new BigNumber(0), 'xBTC', 0),
-    icon: XBtcIcon,
-    name: 'Wrapped Bitcoin',
-  };
+  const swappableAssets: SwapAsset[] = useMemo(
+    () => supportedCurrencies.map(getAssetFromAlexCurrency),
+    [getAssetFromAlexCurrency, supportedCurrencies]
+  );
 
-  function onSubmitSwapForReview(values: SwapFormValues) {
-    navigate(RouteUrls.SwapReview, {
-      state: { ...values },
+  const [swapSubmissionData, setSwapSubmissionData] = useState<SwapSubmissionData>();
+  const [slippage, _setSlippage] = useState(0.04);
+
+  async function onSubmitSwapForReview(values: SwapFormValues) {
+    if (values.swapAssetFrom == null || values.swapAssetTo == null) {
+      return;
+    }
+    const [router, lpFee] = await Promise.all([
+      alexSDK.getRouter(values.swapAssetFrom.currency, values.swapAssetTo.currency),
+      alexSDK.getFeeRate(values.swapAssetFrom.currency, values.swapAssetTo.currency),
+    ]);
+    setSwapSubmissionData({
+      swapAmountFrom: values.swapAmountFrom,
+      swapAmountTo: values.swapAmountTo,
+      swapAssetFrom: values.swapAssetFrom,
+      swapAssetTo: values.swapAssetTo,
+      router: router.map(x => getAssetFromAlexCurrency(supportedCurrencies.find(y => y.id === x)!)),
+      liquidityFee: new BigNumber(Number(lpFee)).dividedBy(oneHundredMillion).toNumber(),
+      slippage,
     });
+    navigate(RouteUrls.SwapReview);
   }
 
-  // TODO: Generate/broadcast transaction > pass real tx data
-  function onSubmitSwap() {
-    navigate(RouteUrls.SwapSummary);
+  const { stxPublicKey, address } = useCurrentStacksAccount()!;
+  async function onSubmitSwap() {
+    if (swapSubmissionData == null) {
+      return;
+    }
+    const fromAmount = BigInt(
+      new BigNumber(swapSubmissionData.swapAmountFrom)
+        .multipliedBy(oneHundredMillion)
+        .dp(0)
+        .toString()
+    );
+    const minToAmount = BigInt(
+      new BigNumber(swapSubmissionData.swapAmountTo)
+        .multipliedBy(oneHundredMillion)
+        .multipliedBy(1 - slippage)
+        .dp(0)
+        .toString()
+    );
+    const tx = alexSDK.runSwap(
+      address,
+      swapSubmissionData.swapAssetFrom.currency,
+      swapSubmissionData.swapAssetTo.currency,
+      fromAmount,
+      minToAmount,
+      swapSubmissionData.router.map(x => x.currency)
+    );
+    const payload: ContractCallPayload = {
+      publicKey: stxPublicKey,
+      txType: TransactionTypes.ContractCall,
+      anchorMode: AnchorMode.Any,
+      postConditionMode: PostConditionMode.Deny,
+      postConditions: tx.postConditions.map(pc => bytesToHex(serializePostCondition(pc))),
+      contractAddress: tx.contractAddress,
+      contractName: tx.contractName,
+      functionName: tx.functionName,
+      functionArgs: tx.functionArgs.map(x => bytesToHex(serializeCV(x))),
+    };
+    navigate(RouteUrls.TransactionRequest, { state: payload });
   }
 
+  async function fetchToAmount(
+    from: SwapAsset,
+    to: SwapAsset,
+    fromAmount: string
+  ): Promise<string> {
+    const result = await alexSDK.getAmountTo(
+      from.currency,
+      BigInt(new BigNumber(fromAmount).multipliedBy(oneHundredMillion).dp(0).toString()),
+      to.currency
+    );
+    return new BigNumber(Number(result)).dividedBy(oneHundredMillion).toString();
+  }
   const swapContextValue: SwapContext = {
-    exchangeRate,
-    isSendingMax,
-    onSetExchangeRate: value => setExchangeRate(value),
-    onSetIsSendingMax: value => setIsSendingMax(value),
+    swapSubmissionData,
+    fetchToAmount,
     onSubmitSwapForReview,
     onSubmitSwap,
-    swappableAssets: [tempSwapAssetFrom, tempSwapAssetTo],
+    swappableAssets: swappableAssets,
   };
 
   return (
