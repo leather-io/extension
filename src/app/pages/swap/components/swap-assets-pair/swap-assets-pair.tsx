@@ -32,6 +32,6 @@ export function SwapAssetsPair() {
           value={swapAmountTo}
         />
       }
-    ></SwapAssetsPairLayout>
+    />
   );
 }
