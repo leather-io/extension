@@ -3,10 +3,7 @@ import { createContext, useContext } from 'react';
 import { SwapAsset, SwapFormValues } from './hooks/use-swap';
 
 export interface SwapContext {
-  exchangeRate: number;
-  isSendingMax: boolean;
-  onSetExchangeRate(value: number): void;
-  onSetIsSendingMax(value: boolean): void;
+  fetchToAmount(from: SwapAsset, to: SwapAsset, fromAmount: string): Promise<string>;
   onSubmitSwapForReview(values: SwapFormValues): Promise<void> | void;
   onSubmitSwap(): Promise<void> | void;
   swappableAssets: SwapAsset[];

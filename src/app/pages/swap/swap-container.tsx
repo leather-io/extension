@@ -1,46 +1,59 @@
-import { useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import { Outlet, useNavigate } from 'react-router-dom';
 
-import BtcIcon from '@assets/images/btc-icon.png';
-import XBtcIcon from '@assets/images/xbtc-icon.png';
+import { AlexSDK, Currency, TokenInfo } from 'alex-sdk';
 import BigNumber from 'bignumber.js';
 
 import { createMoney } from '@shared/models/money.model';
 import { RouteUrls } from '@shared/route-urls';
 
+import { useAllTransferableCryptoAssetBalances } from '@app/common/hooks/use-transferable-asset-balances.hooks';
 import { whenPageMode } from '@app/common/utils';
-import { useNativeSegwitBalance } from '@app/query/bitcoin/balance/bitcoin-balances.query';
-import { useCurrentAccountNativeSegwitIndexZeroSigner } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
 
 import { SwapContainerLayout } from './components/swap-container.layout';
 import { SwapForm } from './components/swap-form';
 import { SwapAsset, SwapFormValues } from './hooks/use-swap';
 import { SwapContext, SwapProvider } from './swap.context';
 
-// TODO: Remove and set to initial state to 0 with live data
-const tempExchangeRate = 0.5;
-
 export function SwapContainer() {
-  const [exchangeRate, setExchangeRate] = useState(tempExchangeRate);
-  const [isSendingMax, setIsSendingMax] = useState(false);
+  const alexSDK = useState(() => new AlexSDK())[0];
+  const [supportedCurrencies, setSupportedCurrencies] = useState<TokenInfo[]>([]);
+
+  useEffect(() => {
+    alexSDK.fetchTokenList().then(tokenList => {
+      setSupportedCurrencies(tokenList.filter(t => t.availableInSwap));
+    });
+  }, []);
+
   const navigate = useNavigate();
-  const { address } = useCurrentAccountNativeSegwitIndexZeroSigner();
-  const { balance: btcBalance } = useNativeSegwitBalance(address);
-  // TODO: Filter these assets for list to swap, not sure if need?
-  // const allTransferableCryptoAssetBalances = useAllTransferableCryptoAssetBalances();
 
-  // TODO: Replace with live asset list
-  const tempSwapAssetFrom: SwapAsset = {
-    balance: btcBalance,
-    icon: BtcIcon,
-    name: 'Bitcoin',
-  };
+  const allTransferableCryptoAssetBalances = useAllTransferableCryptoAssetBalances();
+  const getAssetFromAlexCurrency = useCallback(
+    (tokenInfo: TokenInfo): SwapAsset => {
+      const currency = tokenInfo.id as Currency;
+      if (currency === Currency.STX) {
+        const balance = allTransferableCryptoAssetBalances.find(
+          x => x.type === 'crypto-currency' && x.blockchain === 'stacks' && x.asset.symbol === 'STX'
+        )!.balance;
+        return { currency, icon: tokenInfo.icon, name: tokenInfo.name, balance };
+      }
+      const balance = allTransferableCryptoAssetBalances.find(
+        x => x.type === 'fungible-token' && alexSDK.getAddressFrom(currency) === x.asset.contractId
+      )?.balance;
+      return {
+        currency,
+        icon: tokenInfo.icon,
+        name: tokenInfo.name,
+        balance: balance ?? createMoney(0, tokenInfo.name, tokenInfo.decimals),
+      };
+    },
+    [allTransferableCryptoAssetBalances]
+  );
 
-  const tempSwapAssetTo: SwapAsset = {
-    balance: createMoney(new BigNumber(0), 'xBTC', 0),
-    icon: XBtcIcon,
-    name: 'Wrapped Bitcoin',
-  };
+  const swappableAssets: SwapAsset[] = useMemo(
+    () => supportedCurrencies.map(getAssetFromAlexCurrency),
+    [getAssetFromAlexCurrency, supportedCurrencies]
+  );
 
   function onSubmitSwapForReview(values: SwapFormValues) {
     navigate(RouteUrls.SwapReview, {
@@ -54,13 +67,17 @@ export function SwapContainer() {
   }
 
   const swapContextValue: SwapContext = {
-    exchangeRate,
-    isSendingMax,
-    onSetExchangeRate: value => setExchangeRate(value),
-    onSetIsSendingMax: value => setIsSendingMax(value),
+    async fetchToAmount(from: SwapAsset, to: SwapAsset, fromAmount: string): Promise<string> {
+      const result = await alexSDK.getAmountTo(
+        from.currency,
+        BigInt(new BigNumber(fromAmount).multipliedBy(1e8).dp(0).toString()),
+        to.currency
+      );
+      return new BigNumber(Number(result)).dividedBy(1e8).toString();
+    },
     onSubmitSwapForReview,
     onSubmitSwap,
-    swappableAssets: [tempSwapAssetFrom, tempSwapAssetTo],
+    swappableAssets: swappableAssets,
   };
 
   return (

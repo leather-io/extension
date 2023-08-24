@@ -18,14 +18,12 @@ const maxAvailableCaption = 'Max available in your balance';
 const maxAvailableTooltip =
   'Amount of funds that is immediately available for use, after taking into account any pending transactions or holds placed on your account by the protocol.';
 
-const sendAnyValue = 'Send any value';
-
 interface SwapSelectedAssetFromProps {
   onChooseAsset(): void;
   title: string;
 }
 export function SwapSelectedAssetFrom({ onChooseAsset, title }: SwapSelectedAssetFromProps) {
-  const { exchangeRate, isSendingMax, onSetIsSendingMax } = useSwapContext();
+  const { fetchToAmount } = useSwapContext();
   const { setFieldValue, validateForm, values } = useFormikContext<SwapFormValues>();
   const [amountField, amountFieldMeta, amountFieldHelpers] = useField('swapAmountFrom');
   const showError = useShowFieldError('swapAmountFrom');
@@ -36,13 +34,16 @@ export function SwapSelectedAssetFrom({ onChooseAsset, title }: SwapSelectedAsse
   const formattedBalance = formatMoneyWithoutSymbol(assetField.value.balance);
 
   async function onSetMaxBalanceAsAmountToSwap() {
-    if (isUndefined(values.swapAssetTo)) return;
-    onSetIsSendingMax(!isSendingMax);
-    const value = isSendingMax ? '' : formattedBalance;
-    amountFieldHelpers.setValue(value);
-    await setFieldValue('swapAmountTo', Number(value) * exchangeRate);
-    await validateForm();
+    amountFieldHelpers.setValue(formattedBalance);
+    const { swapAssetFrom, swapAssetTo } = values;
+    if (swapAssetTo != null && swapAssetFrom != null) {
+      const toAmount = await fetchToAmount(swapAssetFrom, swapAssetTo, formattedBalance);
+      await setFieldValue('swapAmountTo', toAmount);
+      await validateForm();
+    }
   }
+
+  const isSendingMax = formattedBalance === values.swapAmountFrom;
 
   return (
     <SwapSelectedAssetLayout
@@ -63,7 +64,7 @@ export function SwapSelectedAssetFrom({ onChooseAsset, title }: SwapSelectedAsse
       symbol={assetField.value.balance.symbol}
       title={title}
       tooltipLabel={isSendingMax ? sendingMaxTooltip : maxAvailableTooltip}
-      value={isSendingMax ? sendAnyValue : formattedBalance}
+      value={isSendingMax ? '' : formattedBalance}
     />
   );
 }
