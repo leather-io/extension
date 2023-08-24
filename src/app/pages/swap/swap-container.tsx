@@ -12,7 +12,7 @@ import { useAllTransferableCryptoAssetBalances } from '@app/common/hooks/use-tra
 import { SwapContainerLayout } from './components/swap-container.layout';
 import { SwapForm } from './components/swap-form';
 import { SwapAsset, SwapFormValues } from './hooks/use-swap';
-import { SwapContext, SwapProvider } from './swap.context';
+import { SwapContext, SwapProvider, SwapSubmissionData } from './swap.context';
 
 export function SwapContainer() {
   const alexSDK = useState(() => new AlexSDK())[0];
@@ -54,26 +54,71 @@ export function SwapContainer() {
     [getAssetFromAlexCurrency, supportedCurrencies]
   );
 
-  function onSubmitSwapForReview(values: SwapFormValues) {
-    navigate(RouteUrls.SwapReview, {
-      state: { ...values },
+  const [swapSubmissionData, setSwapSubmissionData] = useState<SwapSubmissionData>();
+  const [slippage, _setSlippage] = useState(0.04);
+
+  async function onSubmitSwapForReview(values: SwapFormValues) {
+    if (values.swapAssetFrom == null || values.swapAssetTo == null) {
+      return;
+    }
+    const [router, lpFee] = await Promise.all([
+      alexSDK.getRouter(values.swapAssetFrom.currency, values.swapAssetTo.currency),
+      alexSDK.getFeeRate(values.swapAssetFrom.currency, values.swapAssetTo.currency),
+    ]);
+    setSwapSubmissionData({
+      swapAmountFrom: values.swapAmountFrom,
+      swapAmountTo: values.swapAmountTo,
+      swapAssetFrom: values.swapAssetFrom,
+      swapAssetTo: values.swapAssetTo,
+      router: router.map(x => getAssetFromAlexCurrency(supportedCurrencies.find(y => y.id === x)!)),
+      liquidityFee: new BigNumber(Number(lpFee)).dividedBy(1e8).toNumber(),
+      slippage,
     });
+    navigate(RouteUrls.SwapReview);
   }
 
-  // TODO: Generate/broadcast transaction > pass real tx data
   function onSubmitSwap() {
+    if (swapSubmissionData == null) {
+      return;
+    }
+    const fromAmount = BigInt(
+      new BigNumber(swapSubmissionData.swapAmountFrom).multipliedBy(1e8).dp(0).toString()
+    );
+    const minToAmount = BigInt(
+      new BigNumber(swapSubmissionData.swapAmountTo)
+        .multipliedBy(1e8)
+        .multipliedBy(1 - slippage)
+        .dp(0)
+        .toString()
+    );
+    const txToBroadcast = alexSDK.runSwap(
+      '', // TODO: current user's stxAddress
+      swapSubmissionData.swapAssetFrom.currency,
+      swapSubmissionData.swapAssetTo.currency,
+      fromAmount,
+      minToAmount,
+      swapSubmissionData.router.map(x => x.currency)
+    );
+    // TODO: broadcast the tx
+    console.log(txToBroadcast);
     navigate(RouteUrls.SwapSummary);
   }
 
+  async function fetchToAmount(
+    from: SwapAsset,
+    to: SwapAsset,
+    fromAmount: string
+  ): Promise<string> {
+    const result = await alexSDK.getAmountTo(
+      from.currency,
+      BigInt(new BigNumber(fromAmount).multipliedBy(1e8).dp(0).toString()),
+      to.currency
+    );
+    return new BigNumber(Number(result)).dividedBy(1e8).toString();
+  }
   const swapContextValue: SwapContext = {
-    async fetchToAmount(from: SwapAsset, to: SwapAsset, fromAmount: string): Promise<string> {
-      const result = await alexSDK.getAmountTo(
-        from.currency,
-        BigInt(new BigNumber(fromAmount).multipliedBy(1e8).dp(0).toString()),
-        to.currency
-      );
-      return new BigNumber(Number(result)).dividedBy(1e8).toString();
-    },
+    swapSubmissionData,
+    fetchToAmount,
     onSubmitSwapForReview,
     onSubmitSwap,
     swappableAssets: swappableAssets,
