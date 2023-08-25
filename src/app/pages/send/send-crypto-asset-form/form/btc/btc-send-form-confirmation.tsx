@@ -5,6 +5,7 @@ import { SendCryptoAssetSelectors } from '@tests/selectors/send.selectors';
 import get from 'lodash.get';
 
 import { decodeBitcoinTx } from '@shared/crypto/bitcoin/bitcoin.utils';
+import { CryptoCurrencies } from '@shared/models/currencies.model';
 import { createMoney, createMoneyFromDecimal } from '@shared/models/money.model';
 import { RouteUrls } from '@shared/route-urls';
 
@@ -30,7 +31,7 @@ import { useCryptoCurrencyMarketData } from '@app/query/common/market-data/marke
 
 import { useSendFormNavigate } from '../../hooks/use-send-form-navigate';
 
-const symbol = 'BTC';
+const symbol: CryptoCurrencies = 'BTC';
 
 function useBtcSendFormConfirmationState() {
   const location = useLocation();

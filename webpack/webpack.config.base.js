@@ -3,7 +3,6 @@ const path = require('path');
 const webpack = require('webpack');
 const { version: _version } = require('../package.json');
 const generateManifest = require('../scripts/generate-manifest');
-
 const Dotenv = require('dotenv-webpack');
 const GenerateJsonPlugin = require('generate-json-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
@@ -13,7 +12,6 @@ const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin');
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 const SpeedMeasurePlugin = require('speed-measure-webpack-plugin');
 const ProgressBarPlugin = require('progress-bar-webpack-plugin');
-
 const SRC_ROOT_PATH = path.join(__dirname, '../', 'src');
 const DIST_ROOT_PATH = path.join(__dirname, '../', 'dist');
 
@@ -75,6 +73,7 @@ const aliases = {
   '@stacks/transactions': '@stacks/transactions/dist/esm',
   '@stacks/wallet-sdk': '@stacks/wallet-sdk/dist/esm',
   'lottie-web': path.resolve('node_modules/lottie-web/build/player/lottie_light.js'),
+  'leaf-styles': path.resolve('leaf-styles'),
 };
 
 const config = {
@@ -121,6 +120,21 @@ const config = {
   module: {
     noParse: /argon2\.wasm$/,
     rules: [
+      {
+        test: /\.css$/i,
+        use: [
+          'style-loader',
+          'css-loader',
+          {
+            loader: 'postcss-loader',
+            options: {
+              postcssOptions: {
+                plugins: ['postcss-preset-env', '@pandacss/dev/postcss'],
+              },
+            },
+          },
+        ],
+      },
       {
         test: /\.(ts|tsx)$/,
         exclude: /node_modules/,

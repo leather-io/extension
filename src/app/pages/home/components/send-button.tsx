@@ -1,5 +1,4 @@
 import { Suspense, memo } from 'react';
-import { FiArrowUp } from 'react-icons/fi';
 import { useNavigate } from 'react-router-dom';
 
 import { ButtonProps } from '@stacks/ui';
@@ -17,13 +16,12 @@ import {
 } from '@app/query/stacks/balance/stacks-ft-balances.hooks';
 import { useCurrentStacksAccount } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
 
-import { HomeActionButton } from './tx-button';
+import { HomeActionButton } from './home-action-button';
 
 function SendTxButton(props: ButtonProps) {
   return (
     <HomeActionButton
       data-testid={HomePageSelectors.SendCryptoAssetBtn}
-      icon={FiArrowUp}
       label="Send"
       buttonComponent={PrimaryButton}
       {...props}

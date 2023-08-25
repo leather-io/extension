@@ -1,19 +1,25 @@
 import { Suspense } from 'react';
 
-import { Stack, StackProps } from '@stacks/ui';
+import { StackProps } from '@stacks/ui';
+
+import { SWAP_ENABLED } from '@shared/environment';
+
+import { SpaceBetween } from '@app/components/layout/space-between';
 
 import { BuyButton } from './buy-button';
 import { ReceiveButton } from './receive-button';
 import { SendButton } from './send-button';
+import { SwapButton } from './swap-button';
 
 export function HomeActions(props: StackProps) {
   return (
     <Suspense fallback={<></>}>
-      <Stack isInline mt={['base', 'base', 'unset']} spacing="base-tight" {...props}>
+      <SpaceBetween isInline mt={['base', 'base', 'unset']} width={['100%', 'unset']} {...props}>
         <SendButton />
         <ReceiveButton />
         <BuyButton />
-      </Stack>
+        {SWAP_ENABLED && <SwapButton />}
+      </SpaceBetween>
     </Suspense>
   );
 }

@@ -20,3 +20,7 @@ runs:
         PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD: 1
       run: yarn --frozen-lockfile
       shell: bash
+
+    - name: Pandacodegen
+      run: yarn panda codegen
+      shell: bash

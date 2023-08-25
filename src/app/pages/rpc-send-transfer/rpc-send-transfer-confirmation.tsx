@@ -5,6 +5,7 @@ import get from 'lodash.get';
 
 import { decodeBitcoinTx } from '@shared/crypto/bitcoin/bitcoin.utils';
 import { logger } from '@shared/logger';
+import { CryptoCurrencies } from '@shared/models/currencies.model';
 import { createMoney, createMoneyFromDecimal } from '@shared/models/money.model';
 import { RouteUrls } from '@shared/route-urls';
 import { makeRpcSuccessResponse } from '@shared/rpc/rpc-methods';
@@ -22,7 +23,7 @@ import { SendTransferActions } from './components/send-transfer-actions';
 import { SendTransferConfirmationDetails } from './components/send-transfer-confirmation-details';
 import { useRpcSendTransferRequestParams } from './use-rpc-send-transfer';
 
-const symbol = 'BTC';
+const symbol: CryptoCurrencies = 'BTC';
 
 function useRpcSendTransferConfirmationState() {
   const location = useLocation();
