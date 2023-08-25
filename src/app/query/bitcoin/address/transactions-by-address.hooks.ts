@@ -6,7 +6,10 @@ import { BitcoinTx } from '@shared/models/transactions/bitcoin-transaction.model
 import { sumNumbers } from '@app/common/math/helpers';
 
 import { UtxoResponseItem } from '../bitcoin-client';
-import { useGetBitcoinTransactionsByAddressQuery } from './transactions-by-address.query';
+import {
+  useGetBitcoinTransactionsByAddressQuery,
+  useGetBitcoinTransactionsByAddressesQuery,
+} from './transactions-by-address.query';
 import { useAllSpendableNativeSegwitUtxos } from './utxos-by-address.hooks';
 
 function useFilterAddressPendingTransactions() {
@@ -15,10 +18,10 @@ function useFilterAddressPendingTransactions() {
   }, []);
 }
 
-export function useBitcoinPendingTransactions(address: string) {
+export function useBitcoinPendingTransactions(addresses: string[]) {
   const filterPendingTransactions = useFilterAddressPendingTransactions();
 
-  return useGetBitcoinTransactionsByAddressQuery(address, {
+  return useGetBitcoinTransactionsByAddressesQuery(addresses, {
     select(txs) {
       return filterPendingTransactions(txs);
     },

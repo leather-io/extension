@@ -3,9 +3,8 @@ import { Box, color } from '@stacks/ui';
 import { Money } from '@shared/models/money.model';
 
 import { whenPageMode } from '@app/common/utils';
-
-import { AvailableBalance } from '../../../../components/available-balance';
-import { PreviewButton } from '../../../../components/preview-button';
+import { AvailableBalance } from '@app/components/available-balance';
+import { PreviewButton } from '@app/components/preview-button';
 
 export function FormFooter(props: { balance: Money; balanceTooltipLabel?: string }) {
   const { balance, balanceTooltipLabel } = props;

@@ -37,7 +37,7 @@ function setWalletEncryptionPassword(args: {
       password,
     });
 
-    await initalizeWalletSession(encryptionKey, secretKey);
+    await initalizeWalletSession(encryptionKey);
 
     const legacyAccountActivityLookup =
       await checkForLegacyGaiaConfigWithKnownGeneratedAccountIndex(secretKey);
@@ -102,7 +102,7 @@ function unlockWalletAction(password: string): AppThunk {
     if (!currentKey) return;
     if (currentKey.type !== 'software') return;
     const { secretKey, encryptionKey } = await decryptMnemonic({ password, ...currentKey });
-    await initalizeWalletSession(encryptionKey, secretKey);
+    await initalizeWalletSession(encryptionKey);
 
     const rootKey = mnemonicToRootNode(secretKey);
     if (!rootKey.publicKey) throw new Error('Could not derive root key from mnemonic');

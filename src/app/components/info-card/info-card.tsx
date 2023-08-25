@@ -65,7 +65,7 @@ interface InfoCardAssetValueProps extends StackProps {
   value: number;
   fiatValue?: string;
   fiatSymbol?: string;
-  symbol: string;
+  symbol?: string;
   icon?: React.FC;
 }
 
@@ -126,10 +126,10 @@ export function InfoCardBtn({ icon, label, onClick }: InfoCardBtnProps) {
       py="base-loose"
       flexGrow="1"
     >
-      <Text fontSize="14px" mr="10px" fontWeight="500">
+      <Text fontSize="14px" mr="tight" fontWeight="500">
         {label}
       </Text>
-      <Box as={icon} mr="tight" size="14px" />
+      <Box as={icon} size="14px" />
     </Button>
   );
 }
@@ -152,8 +152,7 @@ export function InfoCardFooter({ children }: InfoCardFooterProps) {
       alignItems="center"
       justifyContent="center"
       zIndex="999"
-      py="loose"
-      px="extra-loose"
+      p="loose"
       position={whenPageMode({
         full: 'unset',
         popup: 'fixed',

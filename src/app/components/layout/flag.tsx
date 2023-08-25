@@ -1,5 +1,7 @@
 import { Box, Flex, FlexProps, Spacing } from '@stacks/ui';
 
+import { SpaceBetween } from './space-between';
+
 function alignToFlexProp(alignment: FlagAlignment) {
   return {
     top: 'start',
@@ -29,5 +31,25 @@ export function Flag({ spacing = 'tight', align = 'top', img, children, ...props
       <Box mr={spacing}>{img}</Box>
       <Box flex={1}>{children}</Box>
     </Flex>
+  );
+}
+
+interface FlagWithSpaceBetweenContentProps {
+  contentLeft: React.JSX.Element;
+  contentRight: React.JSX.Element;
+}
+export function FlagWithSpaceBetweenContent({
+  contentLeft,
+  contentRight,
+  img,
+  spacing,
+}: FlagWithSpaceBetweenContentProps & Omit<FlagProps, 'children'>) {
+  return (
+    <Flag align="middle" img={img} spacing={spacing}>
+      <SpaceBetween>
+        {contentLeft}
+        {contentRight}
+      </SpaceBetween>
+    </Flag>
   );
 }

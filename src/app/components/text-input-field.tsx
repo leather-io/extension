@@ -1,9 +1,9 @@
 import { Ref, useRef } from 'react';
 
-import { css } from '@emotion/react';
 import { Box, Flex, FlexProps, Input, Text, color } from '@stacks/ui';
 import { SendCryptoAssetSelectors } from '@tests/selectors/send.selectors';
 import { useField } from 'formik';
+import { css } from 'leaf-styles/css';
 
 import { useShowFieldError } from '@app/common/form-utils';
 import { capitalize } from '@app/common/utils';
@@ -59,11 +59,11 @@ export function TextInputField({
         as="label"
         border="1px solid #DCDDE2"
         borderRadius="10px"
-        css={css`
-          :has(:focus)::before {
-            border: 2px solid #bfc6ff;
-          }
-        `}
+        className={css({
+          '& :has(:focus)::before': {
+            border: '2px solid #bfc6ff',
+          },
+        })}
         flexDirection="column"
         htmlFor={name}
         justifyContent="center"

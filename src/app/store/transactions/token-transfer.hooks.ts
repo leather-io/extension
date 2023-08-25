@@ -111,7 +111,6 @@ export function useGenerateFtTokenTransferUnsignedTx(
   return useCallback(
     async (values?: StacksSendFormValues | StacksTransactionFormValues) => {
       if (!assetTransferState || !account) return;
-
       const {
         assetBalance,
         network,

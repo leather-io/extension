@@ -2,12 +2,12 @@ import { useMemo, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import { bytesToHex } from '@noble/hashes/utils';
-import * as btc from '@scure/btc-signer';
 
 import { finalizePsbt } from '@shared/actions/finalize-psbt';
 import { RouteUrls } from '@shared/route-urls';
 
 import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
+import { SignPsbtArgs } from '@app/common/psbt/requests';
 import { usePsbtRequestSearchParams } from '@app/common/psbt/use-psbt-request-params';
 import { usePsbtSigner } from '@app/features/psbt-signer/hooks/use-psbt-signer';
 
@@ -36,7 +36,7 @@ export function usePsbtRequest() {
           tabId,
         });
       },
-      onSignPsbt(inputs: btc.TransactionInput[]) {
+      onSignPsbt({ inputs }: SignPsbtArgs) {
         setIsLoading(true);
         void analytics.track('request_sign_psbt_submit');
 

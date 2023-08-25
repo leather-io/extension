@@ -31,7 +31,7 @@ export function useRecipientBnsName() {
         if (owner) {
           setBnsAddress(owner);
           setFieldError('recipient', undefined);
-          setFieldValue('recipient', owner);
+          await setFieldValue('recipient', owner);
         } else {
           setFieldError('recipientBnsName', FormErrorMessages.BnsAddressNotFound);
         }

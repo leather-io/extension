@@ -28,6 +28,8 @@ jobs:
       - name: Check out Git repository
         uses: actions/checkout@v3
 
+      - uses: ./.github/actions/provision
+
       - name: Get installed Playwright version
         id: playwright-version
         run: echo "PLAYWRIGHT_VERSION=$(node -e "console.log(require('./package.json').devDependencies['@playwright/test'])")" >> $GITHUB_ENV

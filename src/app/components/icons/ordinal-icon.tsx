@@ -1,19 +1,29 @@
 export function OrdinalIcon() {
   return (
     <svg width="36" height="36" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <circle cx="18" cy="18" r="18" fill="#0C0C0D" />
-      <circle cx="18" cy="18" r="12.375" fill="white" />
-      <rect x="7.32143" y="7.32143" width="21.3571" height="21.3571" rx="10.6786" fill="white" />
-      <circle cx="18.0001" cy="18" r="4.57143" fill="#0C0C0D" />
-      <rect
-        x="7.32143"
-        y="7.32143"
-        width="21.3571"
-        height="21.3571"
-        rx="10.6786"
-        stroke="#0C0C0D"
-        strokeWidth="1.14286"
-      />
+      <g clipPath="url(#clip0_1_5)">
+        <path
+          d="M18 36C27.9411 36 36 27.9411 36 18C36 8.05888 27.9411 0 18 0C8.05888 0 0 8.05888 0 18C0 27.9411 8.05888 36 18 36Z"
+          fill="#0C0C0D"
+        />
+        <path
+          d="M18 31.5C25.4558 31.5 31.5 25.4558 31.5 18C31.5 10.5442 25.4558 4.5 18 4.5C10.5442 4.5 4.5 10.5442 4.5 18C4.5 25.4558 10.5442 31.5 18 31.5Z"
+          fill="white"
+        />
+        <path
+          d="M18 24.75C21.7279 24.75 24.75 21.7279 24.75 18C24.75 14.2721 21.7279 11.25 18 11.25C14.2721 11.25 11.25 14.2721 11.25 18C11.25 21.7279 14.2721 24.75 18 24.75Z"
+          fill="#0C0C0D"
+        />
+        <path
+          d="M36 18C36 8.05888 27.9411 0 18 0C8.05888 0 0 8.05888 0 18C0 27.9411 8.05888 36 18 36C27.9411 36 36 27.9411 36 18Z"
+          stroke="white"
+        />
+      </g>
+      <defs>
+        <clipPath id="clip0_1_5">
+          <rect width="36" height="36" fill="white" />
+        </clipPath>
+      </defs>
     </svg>
   );
 }

@@ -1,4 +1,8 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+
+import { RouteUrls } from '@shared/route-urls';
+import { BitcoinContractResponseStatus } from '@shared/rpc/methods/accept-bitcoin-contract';
 
 import { useBitcoinContracts } from '@app/common/hooks/use-bitcoin-contracts';
 import { BitcoinContractOfferDetails } from '@app/common/hooks/use-bitcoin-contracts';
@@ -14,48 +18,68 @@ import { BitcoinContractRequestWarningLabel } from './components/bitcoin-contrac
 
 export function BitcoinContractRequest() {
   const getNativeSegwitSigner = useCurrentAccountNativeSegwitSigner();
+  const navigate = useNavigate();
 
-  const { handleOffer, handleAccept, handleReject } = useBitcoinContracts();
+  const { handleOffer, handleAccept, handleReject, sendRpcResponse } = useBitcoinContracts();
 
   const [bitcoinContractJSON, setBitcoinContractJSON] = useState<string>();
   const [bitcoinContractOfferDetails, setBitcoinContractOfferDetails] =
     useState<BitcoinContractOfferDetails>();
   const [bitcoinAddress, setBitcoinAddress] = useState<string>();
+  const [attestorURLs, setAttestorURLs] = useState<string[]>([]);
 
   const [isLoading, setLoading] = useState(true);
+  const [isProcessing, setProcessing] = useState(false);
 
   const handleAcceptClick = async () => {
     if (!bitcoinContractJSON || !bitcoinContractOfferDetails) return;
-
-    await handleAccept(bitcoinContractJSON, bitcoinContractOfferDetails.counterpartyWalletDetails);
+    setProcessing(true);
+    await handleAccept(
+      bitcoinContractJSON,
+      bitcoinContractOfferDetails.counterpartyWalletDetails,
+      attestorURLs
+    );
+    setProcessing(false);
   };
 
   const handleRejectClick = async () => {
     if (!bitcoinContractOfferDetails) return;
-
-    await handleReject(bitcoinContractOfferDetails.simplifiedBitcoinContract.bitcoinContractId);
+    handleReject();
   };
 
   useOnMount(() => {
     const bitcoinContractOfferJSON = initialSearchParams.get('bitcoinContractOffer');
-    const counterpartyWalletURL = initialSearchParams.get('counterpartyWalletURL');
-    const counterpartyWalletName = initialSearchParams.get('counterpartyWalletName');
-    const counterpartyWalletIcon = initialSearchParams.get('counterpartyWalletIcon');
+    const counterpartyWalletDetailsJSON = initialSearchParams.get('counterpartyWalletDetails');
+    const attestorURLs = initialSearchParams.get('attestorURLs');
+
+    const bitcoinAccountDetails = getNativeSegwitSigner?.(0);
+
+    if (!bitcoinAccountDetails) return;
+
+    const currentBitcoinNetwork = bitcoinAccountDetails.network;
+
+    if (currentBitcoinNetwork !== 'testnet') {
+      navigate(RouteUrls.BitcoinContractLockError, {
+        state: {
+          error: new Error('Invalid Network'),
+          title: "Network doesn't support Bitcoin Contracts",
+          body: "The wallet's current selected network doesn't support Bitcoin Contracts",
+        },
+      });
+      sendRpcResponse(BitcoinContractResponseStatus.NETWORK_ERROR);
+    }
 
     if (
       !getNativeSegwitSigner ||
       !bitcoinContractOfferJSON ||
-      !counterpartyWalletURL ||
-      !counterpartyWalletName ||
-      !counterpartyWalletIcon
+      !counterpartyWalletDetailsJSON ||
+      !attestorURLs
     )
       return;
 
     const currentBitcoinContractOfferDetails = handleOffer(
       bitcoinContractOfferJSON,
-      counterpartyWalletURL,
-      counterpartyWalletName,
-      counterpartyWalletIcon
+      counterpartyWalletDetailsJSON
     );
 
     const currentAddress = getNativeSegwitSigner(0).address;
@@ -63,6 +87,7 @@ export function BitcoinContractRequest() {
     setBitcoinContractJSON(bitcoinContractOfferJSON);
     setBitcoinContractOfferDetails(currentBitcoinContractOfferDetails);
     setBitcoinAddress(currentAddress);
+    setAttestorURLs(JSON.parse(attestorURLs));
     setLoading(false);
   });
 
@@ -82,7 +107,7 @@ export function BitcoinContractRequest() {
             appName={bitcoinContractOfferDetails.counterpartyWalletDetails.counterpartyWalletName}
           />
           <BitcoinContractRequestActions
-            isLoading={isLoading}
+            isLoading={isProcessing}
             bitcoinAddress={bitcoinAddress}
             requiredAmount={
               bitcoinContractOfferDetails.simplifiedBitcoinContract.bitcoinContractCollateralAmount

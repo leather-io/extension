@@ -6,7 +6,6 @@ export enum RouteUrls {
   BackUpSecretKey = '/back-up-secret-key',
   SetPassword = '/set-password',
   SignIn = '/sign-in',
-  MagicRecoveryCode = '/recovery-code',
   RequestDiagnostics = '/request-diagnostics',
 
   // Ledger routes
@@ -41,6 +40,7 @@ export enum RouteUrls {
   ReceiveCollectibleOrdinal = '/receive/collectible/ordinal',
   ReceiveStx = '/receive/stx',
   ReceiveBtc = '/receive/btc',
+  ReceiveBtcStamp = '/receive/btc-stamp',
   Send = '/send-transaction',
   ViewSecretKey = '/view-secret-key',
 
@@ -85,6 +85,12 @@ export enum RouteUrls {
   SendOrdinalInscriptionSent = '/send/ordinal-inscription/sent',
   SendOrdinalInscriptionError = '/send/ordinal-inscription/error',
 
+  // Swap routes
+  Swap = '/swap',
+  SwapChooseAsset = '/swap/choose-asset',
+  SwapReview = '/swap/review',
+  SwapSummary = '/swap/summary',
+
   // Legacy request routes
   ProfileUpdateRequest = '/update-profile',
   PsbtRequest = '/psbt',
@@ -95,6 +101,7 @@ export enum RouteUrls {
   // Rpc request routes
   RpcGetAddresses = '/get-addresses',
   RpcSignPsbt = '/sign-psbt',
+  RpcSignPsbtSummary = '/sign-psbt/summary',
   RpcSendTransfer = '/send-transfer',
   RpcSendTransferChooseFee = '/send-transfer/choose-fee',
   RpcSendTransferConfirmation = '/send-transfer/confirm',

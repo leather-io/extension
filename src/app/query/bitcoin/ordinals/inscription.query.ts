@@ -2,7 +2,7 @@ import { useQueries, useQuery } from '@tanstack/react-query';
 
 import { Inscription } from '@shared/models/inscription.model';
 
-import { AppUseQueryConfig } from '@app/query/query-config';
+import { AppUseQueryConfig, HIRO_INSCRIPTIONS_API_URL } from '@app/query/query-config';
 import { QueryPrefixes } from '@app/query/query-prefixes';
 
 const inscriptionQueryOptions = {
@@ -15,7 +15,7 @@ const inscriptionQueryOptions = {
  */
 export function fetchInscription() {
   return async (id: string) => {
-    const res = await fetch(`https://api.hiro.so/ordinals/v1/inscriptions/${id}`);
+    const res = await fetch(`${HIRO_INSCRIPTIONS_API_URL}/${id}`);
     if (!res.ok) throw new Error('Error retrieving inscription metadata');
     const data = await res.json();
     return data as Inscription;
