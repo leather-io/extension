@@ -25,23 +25,30 @@ export const RecipientAccountsDrawer = memo(() => {
 
   if (!accounts) return null;
 
-  accounts.splice(currentAccount?.index || 0, 1);
+  const accountsExcludingCurrentAccount = accounts.filter(
+    acc => acc?.index !== currentAccount?.index
+  );
 
   return (
     <BaseDrawer title="My accounts" isShowing onClose={onGoBack}>
       <Box mb="loose" mx={['base-loose', 'extra-loose']}>
-        {accounts.length <= smallNumberOfAccountsToRenderWholeList ? (
+        {accountsExcludingCurrentAccount.length <= smallNumberOfAccountsToRenderWholeList ? (
           <Box marginBottom={8} mb={whenWallet({ ledger: 'base', software: '' })}>
-            {accounts.map(item => (
+            {accountsExcludingCurrentAccount.map(item => (
               <AccountListItem account={item} key={item.address} onClose={onGoBack} />
             ))}
           </Box>
         ) : (
           <Virtuoso
             height="72px"
-            itemContent={index => <AccountListItem account={accounts[index]} onClose={onGoBack} />}
+            itemContent={index => (
+              <AccountListItem
+                account={accountsExcludingCurrentAccount[index]}
+                onClose={onGoBack}
+              />
+            )}
             style={{ paddingTop: '24px', height: '70vh' }}
-            totalCount={accounts.length}
+            totalCount={accountsExcludingCurrentAccount.length}
           />
         )}
       </Box>
