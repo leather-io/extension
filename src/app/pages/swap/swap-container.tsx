@@ -18,7 +18,6 @@ import { RouteUrls } from '@shared/route-urls';
 import { useAllTransferableCryptoAssetBalances } from '@app/common/hooks/use-transferable-asset-balances.hooks';
 import { whenPageMode } from '@app/common/utils';
 import { useCurrentStacksAccount } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
-import { useTransactionBroadcast } from '@app/store/transactions/transaction.hooks';
 
 import { SwapContainerLayout } from './components/swap-container.layout';
 import { SwapForm } from './components/swap-form';
@@ -89,7 +88,6 @@ export function SwapContainer() {
   }
 
   const { stxPublicKey, address } = useCurrentStacksAccount()!;
-  useTransactionBroadcast();
   async function onSubmitSwap() {
     if (swapSubmissionData == null) {
       return;
