@@ -1,10 +1,9 @@
 import { hexToBytes } from 'micro-stacks/common';
 
 import { pubKeyToBtcAddress } from '../utils';
+import type { MagicFetchContextWithElectrum } from './constants';
 import { fetchBitcoinAddressBalanceForPublicKey } from './fetch-bitcoin-address-balance-for-public-key';
 import { fetchSupplier } from './fetch-supplier';
-
-import type { MagicFetchContextWithElectrum } from './constants';
 
 /**
  * Fetches a supplier with balance, fees, and capacity from the Magic contracts.

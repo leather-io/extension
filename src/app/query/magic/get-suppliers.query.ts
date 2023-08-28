@@ -1,16 +1,14 @@
 import { useQuery } from '@tanstack/react-query';
 
-import { getMagicContracts } from '@app/common/magic';
-import { useMagicClient } from '@app/common/magic/hooks';
 import { useElectrumClient } from '@app/common/electrum/hooks';
+import { getMagicContracts } from '@app/common/magic';
 import { fetchSupplierWithCapacity } from '@app/common/magic/fetch';
+import { useMagicClient } from '@app/common/magic/hooks';
+import type { MagicSupplierWithCapacity } from '@app/common/magic/models';
 import { useCurrentNetworkState } from '@app/store/networks/networks.hooks';
 
-import { MagicQueryKeys } from './constants';
-
-import type { MagicSupplierWithCapacity } from '@app/common/magic/models';
-
 import type { AppUseQueryConfig } from '../query-config';
+import { MagicQueryKeys } from './constants';
 
 export function useGetSuppliersQuery<TResponse = MagicSupplierWithCapacity[]>(
   options?: AppUseQueryConfig<MagicSupplierWithCapacity[], TResponse>

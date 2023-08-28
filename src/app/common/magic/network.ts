@@ -1,5 +1,4 @@
 import { networks as BitcoinNetworks } from 'bitcoinjs-lib';
-
 import {
   HIRO_MAINNET_DEFAULT,
   HIRO_MOCKNET_DEFAULT,

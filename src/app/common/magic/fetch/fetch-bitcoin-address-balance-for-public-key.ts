@@ -1,7 +1,6 @@
 import { pubKeyToBtcAddress } from '../utils';
-import { fetchBitcoinAddressBalance } from './fetch-bitcoin-address-balance';
-
 import type { MagicFetchElectrumContext } from './constants';
+import { fetchBitcoinAddressBalance } from './fetch-bitcoin-address-balance';
 
 /**
  * Fetches the balance of a Bitcoin address by the public key.

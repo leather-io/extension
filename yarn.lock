@@ -1149,7 +1149,7 @@
   resolved "https://registry.yarnpkg.com/@btckit/types/-/types-0.0.19.tgz#8454326b669d3b029094d3d20026fdc6e6c72319"
   integrity sha512-APoOfYSg9SRR4CMXL606IDtpgh+ZD3kS/+iY0BkUALD6HvXo2pVw20L5YYIc+HrgMcF6WN0TH7TXdVs+Vu+kww==
 
-"@clarigen/core@^1.0.15":
+"@clarigen/core@1.0.15":
   version "1.0.15"
   resolved "https://registry.yarnpkg.com/@clarigen/core/-/core-1.0.15.tgz#c2d1019720d21ab127e6b5d26c4fcbb1a0fe6261"
   integrity sha512-PMzAnppfmkpybkkOFdNZo4iLpm1UxTOgzNqwkAmdKTrFbNHgQbBwKvNP6kqkI4MJoQo2gOvJfFDA8utBUyhFRg==
@@ -11963,7 +11963,7 @@ electron@^22.0.0:
     "@types/node" "^16.11.26"
     extract-zip "^2.0.1"
 
-electrum-client-sl@^0.1.4:
+electrum-client-sl@0.1.4:
   version "0.1.4"
   resolved "https://registry.yarnpkg.com/electrum-client-sl/-/electrum-client-sl-0.1.4.tgz#efc84c12c33565925dca02fc3833239233a6fc8f"
   integrity sha512-tnBNbMvIJ6uCglby93i0JIOfWyr7Ch/MYXtCX4X4me+axS85fBwX8L4AKhLRslaAw4fUwnL0IE8fdLPhKABKQQ==
@@ -16528,7 +16528,7 @@ micro-packed@0.3.2, micro-packed@~0.3.2:
   dependencies:
     "@scure/base" "~1.1.1"
 
-micro-stacks@^1.1.4, micro-stacks@^1.2.1:
+micro-stacks@1.2.1, micro-stacks@^1.1.4:
   version "1.2.1"
   resolved "https://registry.yarnpkg.com/micro-stacks/-/micro-stacks-1.2.1.tgz#58ef75728635c77bf9522353b47f39aaf03896ce"
   integrity sha512-CmFAH34GfgW9vMwnINflxH1COUWUg2kSYnPVfToZXPEJwHMGo8b3syte7s5zJ2rR/RSjpquQduiDNRAgF2Hh0w==
