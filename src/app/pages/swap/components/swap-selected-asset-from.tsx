@@ -1,3 +1,5 @@
+import { useRef } from 'react';
+
 import { useField, useFormikContext } from 'formik';
 
 import { isUndefined } from '@shared/utils';
@@ -18,6 +20,8 @@ const maxAvailableCaption = 'Max available in your balance';
 const maxAvailableTooltip =
   'Amount of funds that is immediately available for use, after taking into account any pending transactions or holds placed on your account by the protocol.';
 
+const sendAnyValue = 'Send any value';
+
 interface SwapSelectedAssetFromProps {
   onChooseAsset(): void;
   title: string;
@@ -33,8 +37,17 @@ export function SwapSelectedAssetFrom({ onChooseAsset, title }: SwapSelectedAsse
 
   const formattedBalance = formatMoneyWithoutSymbol(assetField.value.balance);
 
+  const isSendingMax = formattedBalance === values.swapAmountFrom;
+
+  const previousFromValue = useRef<string>('');
+
   async function onSetMaxBalanceAsAmountToSwap() {
-    amountFieldHelpers.setValue(formattedBalance);
+    if (isSendingMax) {
+      amountFieldHelpers.setValue(previousFromValue.current);
+    } else {
+      previousFromValue.current = values.swapAmountFrom;
+      amountFieldHelpers.setValue(formattedBalance);
+    }
     const { swapAssetFrom, swapAssetTo } = values;
     if (swapAssetTo != null && swapAssetFrom != null) {
       const toAmount = await fetchToAmount(swapAssetFrom, swapAssetTo, formattedBalance);
@@ -42,8 +55,6 @@ export function SwapSelectedAssetFrom({ onChooseAsset, title }: SwapSelectedAsse
       await validateForm();
     }
   }
-
-  const isSendingMax = formattedBalance === values.swapAmountFrom;
 
   return (
     <SwapSelectedAssetLayout
@@ -64,7 +75,7 @@ export function SwapSelectedAssetFrom({ onChooseAsset, title }: SwapSelectedAsse
       symbol={assetField.value.balance.symbol}
       title={title}
       tooltipLabel={isSendingMax ? sendingMaxTooltip : maxAvailableTooltip}
-      value={isSendingMax ? '' : formattedBalance}
+      value={isSendingMax ? sendAnyValue : formattedBalance}
     />
   );
 }

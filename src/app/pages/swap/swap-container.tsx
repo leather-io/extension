@@ -9,6 +9,8 @@ import { RouteUrls } from '@shared/route-urls';
 
 import { useAllTransferableCryptoAssetBalances } from '@app/common/hooks/use-transferable-asset-balances.hooks';
 import { whenPageMode } from '@app/common/utils';
+import { useCurrentAccountStxAddressState } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
+import { useTransactionBroadcast } from '@app/store/transactions/transaction.hooks';
 
 import { SwapContainerLayout } from './components/swap-container.layout';
 import { SwapForm } from './components/swap-form';
@@ -78,6 +80,8 @@ export function SwapContainer() {
     navigate(RouteUrls.SwapReview);
   }
 
+  const stxAddress = useCurrentAccountStxAddressState();
+  useTransactionBroadcast();
   function onSubmitSwap() {
     if (swapSubmissionData == null) {
       return;
@@ -93,7 +97,7 @@ export function SwapContainer() {
         .toString()
     );
     const txToBroadcast = alexSDK.runSwap(
-      '', // TODO: current user's stxAddress
+      stxAddress,
       swapSubmissionData.swapAssetFrom.currency,
       swapSubmissionData.swapAssetTo.currency,
       fromAmount,
