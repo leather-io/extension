@@ -2,10 +2,11 @@ import { useSwapContext } from '@app/pages/swap/swap.context';
 
 import { SwapDetailLayout } from './swap-detail.layout';
 import { SwapDetailsLayout } from './swap-details.layout';
+import {isDefined} from "@shared/utils";
 
 export function SwapDetails() {
   const { swapSubmissionData } = useSwapContext();
-  if (swapSubmissionData == null) {
+  if (!isDefined(swapSubmissionData)) {
     return null;
   }
   return (
