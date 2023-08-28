@@ -1,6 +1,14 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { Outlet, useNavigate } from 'react-router-dom';
 
+import { bytesToHex } from '@stacks/common';
+import { ContractCallPayload, TransactionTypes } from '@stacks/connect';
+import {
+  AnchorMode,
+  PostConditionMode,
+  serializeCV,
+  serializePostCondition,
+} from '@stacks/transactions';
 import { AlexSDK, Currency, TokenInfo } from 'alex-sdk';
 import BigNumber from 'bignumber.js';
 
@@ -8,7 +16,7 @@ import { createMoney } from '@shared/models/money.model';
 import { RouteUrls } from '@shared/route-urls';
 
 import { useAllTransferableCryptoAssetBalances } from '@app/common/hooks/use-transferable-asset-balances.hooks';
-import { useCurrentAccountStxAddressState } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
+import { useCurrentStacksAccount } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
 import { useTransactionBroadcast } from '@app/store/transactions/transaction.hooks';
 
 import { SwapContainerLayout } from './components/swap-container.layout';
@@ -79,9 +87,9 @@ export function SwapContainer() {
     navigate(RouteUrls.SwapReview);
   }
 
-  const stxAddress = useCurrentAccountStxAddressState();
+  const { stxPublicKey, address } = useCurrentStacksAccount()!;
   useTransactionBroadcast();
-  function onSubmitSwap() {
+  async function onSubmitSwap() {
     if (swapSubmissionData == null) {
       return;
     }
@@ -95,17 +103,26 @@ export function SwapContainer() {
         .dp(0)
         .toString()
     );
-    const txToBroadcast = alexSDK.runSwap(
-      stxAddress,
+    const tx = alexSDK.runSwap(
+      address,
       swapSubmissionData.swapAssetFrom.currency,
       swapSubmissionData.swapAssetTo.currency,
       fromAmount,
       minToAmount,
       swapSubmissionData.router.map(x => x.currency)
     );
-    // TODO: broadcast the tx
-    console.log(txToBroadcast);
-    navigate(RouteUrls.SwapSummary);
+    const payload: ContractCallPayload = {
+      publicKey: stxPublicKey,
+      txType: TransactionTypes.ContractCall,
+      anchorMode: AnchorMode.Any,
+      postConditionMode: PostConditionMode.Deny,
+      postConditions: tx.postConditions.map(pc => bytesToHex(serializePostCondition(pc))),
+      contractAddress: tx.contractAddress,
+      contractName: tx.contractName,
+      functionName: tx.functionName,
+      functionArgs: tx.functionArgs.map(x => bytesToHex(serializeCV(x))),
+    };
+    navigate(RouteUrls.TransactionRequest, { state: payload });
   }
 
   async function fetchToAmount(
