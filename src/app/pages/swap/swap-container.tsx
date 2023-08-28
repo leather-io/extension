@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useCallback, useMemo, useState } from 'react';
 import { Outlet, useNavigate } from 'react-router-dom';
 
 import { bytesToHex } from '@stacks/common';
@@ -9,6 +9,7 @@ import {
   serializeCV,
   serializePostCondition,
 } from '@stacks/transactions';
+import { useQuery } from '@tanstack/react-query';
 import { AlexSDK, Currency, TokenInfo } from 'alex-sdk';
 import BigNumber from 'bignumber.js';
 
@@ -26,13 +27,9 @@ import { SwapContext, SwapProvider, SwapSubmissionData } from './swap.context';
 
 export function SwapContainer() {
   const alexSDK = useState(() => new AlexSDK())[0];
-  const [supportedCurrencies, setSupportedCurrencies] = useState<TokenInfo[]>([]);
-
-  useEffect(() => {
-    alexSDK.fetchTokenList().then(tokenList => {
-      setSupportedCurrencies(tokenList.filter(t => t.availableInSwap));
-    });
-  }, []);
+  const { data: supportedCurrencies = [] } = useQuery(['alex-supported-currencies'], async () =>
+    alexSDK.fetchTokenList().then(tokenList => tokenList.filter(t => t.availableInSwap))
+  );
 
   const navigate = useNavigate();
 
