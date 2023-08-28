@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useCallback, useMemo, useState } from 'react';
 import { Outlet, useNavigate } from 'react-router-dom';
 
 import { bytesToHex } from '@stacks/common';
@@ -9,6 +9,7 @@ import {
   serializeCV,
   serializePostCondition,
 } from '@stacks/transactions';
+import { useQuery } from '@tanstack/react-query';
 import { AlexSDK, Currency, TokenInfo } from 'alex-sdk';
 import BigNumber from 'bignumber.js';
 
@@ -17,22 +18,19 @@ import { RouteUrls } from '@shared/route-urls';
 
 import { useAllTransferableCryptoAssetBalances } from '@app/common/hooks/use-transferable-asset-balances.hooks';
 import { useCurrentStacksAccount } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
-import { useTransactionBroadcast } from '@app/store/transactions/transaction.hooks';
 
 import { SwapContainerLayout } from './components/swap-container.layout';
 import { SwapForm } from './components/swap-form';
 import { SwapAsset, SwapFormValues } from './hooks/use-swap';
 import { SwapContext, SwapProvider, SwapSubmissionData } from './swap.context';
 
+const oneHundredMillion = 100_000_000;
+
 export function SwapContainer() {
   const alexSDK = useState(() => new AlexSDK())[0];
-  const [supportedCurrencies, setSupportedCurrencies] = useState<TokenInfo[]>([]);
-
-  useEffect(() => {
-    alexSDK.fetchTokenList().then(tokenList => {
-      setSupportedCurrencies(tokenList.filter(t => t.availableInSwap));
-    });
-  }, []);
+  const { data: supportedCurrencies = [] } = useQuery(['alex-supported-currencies'], async () =>
+    alexSDK.fetchTokenList().then(tokenList => tokenList.filter(t => t.availableInSwap))
+  );
 
   const navigate = useNavigate();
 
@@ -81,24 +79,26 @@ export function SwapContainer() {
       swapAssetFrom: values.swapAssetFrom,
       swapAssetTo: values.swapAssetTo,
       router: router.map(x => getAssetFromAlexCurrency(supportedCurrencies.find(y => y.id === x)!)),
-      liquidityFee: new BigNumber(Number(lpFee)).dividedBy(1e8).toNumber(),
+      liquidityFee: new BigNumber(Number(lpFee)).dividedBy(oneHundredMillion).toNumber(),
       slippage,
     });
     navigate(RouteUrls.SwapReview);
   }
 
   const { stxPublicKey, address } = useCurrentStacksAccount()!;
-  useTransactionBroadcast();
   async function onSubmitSwap() {
     if (swapSubmissionData == null) {
       return;
     }
     const fromAmount = BigInt(
-      new BigNumber(swapSubmissionData.swapAmountFrom).multipliedBy(1e8).dp(0).toString()
+      new BigNumber(swapSubmissionData.swapAmountFrom)
+        .multipliedBy(oneHundredMillion)
+        .dp(0)
+        .toString()
     );
     const minToAmount = BigInt(
       new BigNumber(swapSubmissionData.swapAmountTo)
-        .multipliedBy(1e8)
+        .multipliedBy(oneHundredMillion)
         .multipliedBy(1 - slippage)
         .dp(0)
         .toString()
@@ -132,10 +132,10 @@ export function SwapContainer() {
   ): Promise<string> {
     const result = await alexSDK.getAmountTo(
       from.currency,
-      BigInt(new BigNumber(fromAmount).multipliedBy(1e8).dp(0).toString()),
+      BigInt(new BigNumber(fromAmount).multipliedBy(oneHundredMillion).dp(0).toString()),
       to.currency
     );
-    return new BigNumber(Number(result)).dividedBy(1e8).toString();
+    return new BigNumber(Number(result)).dividedBy(oneHundredMillion).toString();
   }
   const swapContextValue: SwapContext = {
     swapSubmissionData,
