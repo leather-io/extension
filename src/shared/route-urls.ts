@@ -85,6 +85,12 @@ export enum RouteUrls {
   SendOrdinalInscriptionSent = '/send/ordinal-inscription/sent',
   SendOrdinalInscriptionError = '/send/ordinal-inscription/error',
 
+  // Swap routes
+  Swap = '/swap',
+  SwapChooseAsset = '/swap/choose-asset',
+  SwapReview = '/swap/review',
+  SwapSummary = '/swap/summary',
+
   // Legacy request routes
   ProfileUpdateRequest = '/update-profile',
   PsbtRequest = '/psbt',

@@ -1,5 +1,4 @@
 import { Suspense, memo } from 'react';
-import { FiPlus } from 'react-icons/fi';
 import { useNavigate } from 'react-router-dom';
 
 import { ChainID } from '@stacks/transactions';
@@ -12,13 +11,12 @@ import { SecondaryButton } from '@app/components/secondary-button';
 import { useHasFiatProviders } from '@app/query/common/remote-config/remote-config.query';
 import { useCurrentNetworkState } from '@app/store/networks/networks.hooks';
 
-import { HomeActionButton } from './tx-button';
+import { HomeActionButton } from './home-action-button';
 
 function BuyTxButton(props: ButtonProps) {
   return (
     <HomeActionButton
       data-testid={HomePageSelectorsLegacy.BtnFundAccount}
-      icon={FiPlus}
       label="Buy"
       buttonComponent={SecondaryButton}
       {...props}

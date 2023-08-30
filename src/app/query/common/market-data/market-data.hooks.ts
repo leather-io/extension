@@ -47,9 +47,9 @@ export function useCryptoCurrencyMarketData(currency: CryptoCurrencies): MarketD
       { result: coincap, selector: selectCoincapUsdPrice },
       { result: binance, selector: selectBinanceUsdPrice },
     ]);
-    const meanStxPrice = calculateMeanAverage(priceData);
+    const meanPrice = calculateMeanAverage(priceData);
 
-    return createMarketData(createMarketPair(currency, 'USD'), createMoney(meanStxPrice, 'USD'));
+    return createMarketData(createMarketPair(currency, 'USD'), createMoney(meanPrice, 'USD'));
   }, [binance, coincap, coingecko, currency]);
 }
 

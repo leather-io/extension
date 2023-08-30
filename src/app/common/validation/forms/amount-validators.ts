@@ -121,7 +121,7 @@ export function stacksFungibleTokenAmountValidator(balance: Money) {
     });
 }
 
-export function brc20TokenAmountValidator(balance: Money) {
+export function tokenAmountValidator(balance: Money) {
   const { amount } = balance;
   return amountValidator().test({
     message: formatInsufficientBalanceError(balance, sum => sum.amount.toString()),

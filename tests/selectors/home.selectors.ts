@@ -8,4 +8,5 @@ export enum HomePageSelectors {
   SendCryptoAssetBtn = 'send-crypto-asset-btn',
   ActivityTabBtn = 'tab-activity',
   BalancesTabBtn = 'tab-balances',
+  SwapBtn = 'swap-btn',
 }

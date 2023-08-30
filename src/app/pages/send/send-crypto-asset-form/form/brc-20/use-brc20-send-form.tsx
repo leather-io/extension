@@ -17,7 +17,7 @@ import {
   btcAddressNetworkValidator,
   btcAddressValidator,
 } from '@app/common/validation/forms/address-validators';
-import { brc20TokenAmountValidator } from '@app/common/validation/forms/amount-validators';
+import { tokenAmountValidator } from '@app/common/validation/forms/amount-validators';
 import { currencyAmountValidator } from '@app/common/validation/forms/currency-validators';
 import { useUpdatePersistedSendFormValues } from '@app/features/popup-send-form-restoration/use-update-persisted-send-form-values';
 import { useSpendableCurrentNativeSegwitAccountUtxos } from '@app/query/bitcoin/address/utxos-by-address.hooks';
@@ -60,7 +60,7 @@ export function useBrc20SendForm({ balance, tick, decimals }: UseBrc20SendFormAr
     amount: yup
       .number()
       .concat(currencyAmountValidator())
-      .concat(brc20TokenAmountValidator(createMoney(new BigNumber(balance), tick, 0))),
+      .concat(tokenAmountValidator(createMoney(new BigNumber(balance), tick, 0))),
     recipient: yup
       .string()
       .concat(btcAddressValidator())

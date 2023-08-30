@@ -12,6 +12,8 @@ export class HomePage {
   readonly drawerActionButton: Locator;
   readonly receiveButton: Locator;
   readonly sendButton: Locator;
+  readonly swapButton: Locator;
+
   readonly testNetworkSelector: string = createTestSelector(
     WalletDefaultNetworkConfigurationIds.testnet
   );
@@ -21,10 +23,15 @@ export class HomePage {
     this.drawerActionButton = page.getByTestId(HomePageSelectors.DrawerHeaderActionBtn);
     this.receiveButton = page.getByTestId(HomePageSelectors.ReceiveCryptoAssetBtn);
     this.sendButton = page.getByTestId(HomePageSelectors.SendCryptoAssetBtn);
+    this.swapButton = page.getByTestId(HomePageSelectors.SwapBtn);
   }
 
   async goToReceiveModal() {
     await this.page.getByTestId(HomePageSelectors.ReceiveCryptoAssetBtn).click();
+  }
+
+  async goToSwapPage() {
+    await this.page.getByTestId(HomePageSelectors.SwapBtn).click();
   }
 
   // Open issue with Playwright's ability to copyToClipboard from legacy tests:
