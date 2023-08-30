@@ -13,9 +13,9 @@ import { useCurrentStacksAccount } from '@app/store/accounts/blockchain/stacks/s
 function AccountNameTitle({ children, ...props }: HasChildren & BoxProps) {
   return (
     <Box {...props}>
-      <styled.h1 data-testid={SettingsSelectors.CurrentAccountDisplayName} textStyle="label.01">
+      <styled.span data-testid={SettingsSelectors.CurrentAccountDisplayName} textStyle="label.01">
         {children}
-      </styled.h1>
+      </styled.span>
     </Box>
   );
 }
