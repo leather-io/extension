@@ -1,3 +1,24 @@
+## [6.5.0](https://github.com/hirosystems/wallet/compare/v6.4.0...v6.5.0) (2023-08-30)
+
+
+### Features
+
+* add base swap page and routing ([6e59bdd](https://github.com/hirosystems/wallet/commit/6e59bddd0b825ca4edfe341f82047385b59a0338))
+* panda poc ([59654ec](https://github.com/hirosystems/wallet/commit/59654ece1c6934e97eadfdccf05f62e594f3bd98))
+* swap flow ([e54aa2e](https://github.com/hirosystems/wallet/commit/e54aa2e46a10e6926dd8c4f6eaaeab5ac00c9064))
+
+
+### Bug Fixes
+
+* add panda ([29b2be9](https://github.com/hirosystems/wallet/commit/29b2be99ec72400d6408d143a2ba5468a9202ae0))
+* remove error message ([1e69362](https://github.com/hirosystems/wallet/commit/1e693628944dcfbebd5d4c0cda75dd3b2efc5453))
+
+
+### Internal
+
+* home action buttons ([225182d](https://github.com/hirosystems/wallet/commit/225182d3dbebc595c87f95c6677ca3e2361f4bf2))
+* use swap context ([99539d9](https://github.com/hirosystems/wallet/commit/99539d9af0e4c162802fe5efd3f741fcd893422b))
+
 ## [6.4.0](https://github.com/hirosystems/wallet/compare/v6.3.1...v6.4.0) (2023-08-16)
 
 
