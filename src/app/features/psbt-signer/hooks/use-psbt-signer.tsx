@@ -4,7 +4,7 @@ import { hexToBytes } from '@noble/hashes/utils';
 import * as btc from '@scure/btc-signer';
 
 import { logger } from '@shared/logger';
-import { AllowedSighashTypes } from '@shared/rpc/methods/sign-psbt';
+import { allSighashTypes } from '@shared/rpc/methods/sign-psbt';
 import { isString, isUndefined } from '@shared/utils';
 
 import { useCurrentAccountNativeSegwitSigner } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
@@ -13,7 +13,6 @@ import { useCurrentAccountTaprootSigner } from '@app/store/accounts/blockchain/b
 export type RawPsbt = ReturnType<typeof btc.RawPSBTV0.decode>;
 
 interface SignPsbtArgs {
-  allowedSighash?: AllowedSighashTypes[];
   inputs: btc.TransactionInput[];
   indexesToSign?: number[];
   tx: btc.Transaction;
@@ -28,7 +27,7 @@ export function usePsbtSigner() {
 
   return useMemo(
     () => ({
-      signPsbt({ allowedSighash, inputs, indexesToSign, tx }: SignPsbtArgs) {
+      signPsbt({ inputs, indexesToSign, tx }: SignPsbtArgs) {
         inputs.forEach((input, idx) => {
           const isSigning = isUndefined(indexesToSign) || indexesToSign.includes(idx);
 
@@ -44,10 +43,10 @@ export function usePsbtSigner() {
           }
 
           try {
-            nativeSegwitSigner?.signIndex(tx, idx, allowedSighash);
+            nativeSegwitSigner?.signIndex(tx, idx, allSighashTypes);
           } catch (e1) {
             try {
-              taprootSigner?.signIndex(tx, idx, allowedSighash);
+              taprootSigner?.signIndex(tx, idx, allSighashTypes);
             } catch (e2) {
               throw new Error(`Unable to sign PSBT at index, ${e1 ?? e2}`);
             }

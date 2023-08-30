@@ -14,19 +14,21 @@ import {
 
 // TODO: Revisit allowedSighash type if/when fixed in btc-signer
 export type AllowedSighashTypes = SignatureHash | btc.SignatureHash;
+// Pass all sighashTypes through as allowed to btc-signer
+export const allSighashTypes = [
+  btc.SignatureHash.DEFAULT,
+  SignatureHash.ALL,
+  SignatureHash.NONE,
+  SignatureHash.SINGLE,
+  btc.SignatureHash.ANYONECANPAY,
+  SignatureHash.ALL_ANYONECANPAY,
+  SignatureHash.NONE_ANYONECANPAY,
+  SignatureHash.SINGLE_ANYONECANPAY,
+];
 
 const rpcSignPsbtParamsSchema = yup.object().shape({
   account: accountSchema,
-  allowedSighash: yup
-    .array()
-    .of(
-      yup
-        .mixed()
-        .oneOf([
-          ...Object.values(SignatureHash).filter(Number.isInteger),
-          ...Object.values(btc.SignatureHash).filter(Number.isInteger),
-        ])
-    ),
+  allowedSighash: yup.array(),
   broadcast: yup.boolean(),
   hex: yup.string().required(),
   network: yup.string().oneOf(Object.values(WalletDefaultNetworkConfigurationIds)),
