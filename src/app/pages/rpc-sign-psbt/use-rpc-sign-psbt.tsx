@@ -30,8 +30,7 @@ interface BroadcastSignedPsbtTxArgs {
 export function useRpcSignPsbt() {
   const analytics = useAnalytics();
   const navigate = useNavigate();
-  const { allowedSighash, broadcast, origin, psbtHex, requestId, signAtIndex, tabId } =
-    useRpcSignPsbtParams();
+  const { broadcast, origin, psbtHex, requestId, signAtIndex, tabId } = useRpcSignPsbtParams();
   const { signPsbt, getPsbtAsTransaction } = usePsbtSigner();
   const { broadcastTx, isBroadcasting } = useBitcoinBroadcastTransaction();
   const { refetch } = useCurrentNativeSegwitUtxos();
@@ -83,7 +82,6 @@ export function useRpcSignPsbt() {
   }
 
   return {
-    allowedSighash,
     indexesToSign: signAtIndex,
     isBroadcasting,
     origin,
@@ -92,7 +90,7 @@ export function useRpcSignPsbt() {
       const tx = getPsbtAsTransaction(psbtHex);
 
       try {
-        signPsbt({ allowedSighash, indexesToSign: signAtIndex, inputs, tx });
+        signPsbt({ indexesToSign: signAtIndex, inputs, tx });
       } catch (e) {
         return navigate(RouteUrls.RequestError, {
           state: { message: e instanceof Error ? e.message : '', title: 'Failed to sign' },
