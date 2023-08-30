@@ -35,7 +35,13 @@ export function GenericErrorLayout(props: GenericErrorProps) {
       <styled.h1 mt="space.05" textStyle="heading.04">
         {title}
       </styled.h1>
-      <styled.h2 mt="space.04" textAlign="center" textStyle="label.02" wordWrap="break-word">
+      <styled.h2
+        mt="space.04"
+        textAlign="center"
+        textStyle="label.02"
+        width="100%"
+        wordWrap="break-word"
+      >
         {body}
       </styled.h2>
       <Box
