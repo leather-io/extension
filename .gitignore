@@ -9,7 +9,7 @@ tests/screenshots/*
 .DS_Store
 .vercel
 yarn-error.log
-stacks-wallet-chromium.zip
+leather-chromium.zip
 packages
 web-ext-artifacts/
 .yalc/

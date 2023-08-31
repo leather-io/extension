@@ -44,7 +44,7 @@ jobs:
       - uses: actions/upload-artifact@v3
         name: Upload build artifact
         with:
-          name: hiro-wallet
+          name: leather-wallet
           path: dist
 
   create-github-release:
@@ -67,7 +67,7 @@ jobs:
       - run: ls -R
 
       - name: Zip release build
-        run: zip -r hiro-wallet.v${{ needs.build-extension.outputs.new_version }}.zip hiro-wallet/
+        run: zip -r leather-wallet.v${{ needs.build-extension.outputs.new_version }}.zip leather-wallet/
 
       - name: Release
         uses: softprops/action-gh-release@v1
@@ -75,7 +75,7 @@ jobs:
           prerelease: false
           tag_name: v${{ needs.build-extension.outputs.new_version }}
           body_path: release-notes.txt
-          files: hiro-wallet.v${{ needs.build-extension.outputs.new_version }}.zip
+          files: leather-wallet.v${{ needs.build-extension.outputs.new_version }}.zip
 
   publish_chrome_extension:
     name: Publish Chrome extension
@@ -118,7 +118,7 @@ jobs:
         continue-on-error: true
         id: publish-chrome
         run: |
-          yarn chrome-webstore-upload upload --source stacks-wallet-chromium.zip
+          yarn chrome-webstore-upload upload --source leather-chromium.zip
           echo "::set-output name=publish_status::${?}"
         env:
           EXTENSION_ID: ${{ secrets.CHROME_APP_ID }}

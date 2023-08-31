@@ -80,7 +80,7 @@ Run the following from within this repository's root directory if you've pulled 
 yarn && yarn build && sh build-ext.sh
 ```
 
-The extension is packaged as `stacks-wallet-chromium.zip`.
+The extension is packaged as `leather-chromium.zip`.
 
 ## Security
 
