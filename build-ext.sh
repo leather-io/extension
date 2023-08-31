@@ -14,7 +14,7 @@ find -print | while read file; do
       exit 2
     fi
 done
-DEFAULT_DEST="../stacks-wallet-chromium.zip"
+DEFAULT_DEST="../leather-chromium.zip"
 DEST=${1:-$DEFAULT_DEST}
 zip -Xro $DEST *
 if [ ! -f $DEST ]; then
