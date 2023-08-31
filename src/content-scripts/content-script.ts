@@ -135,5 +135,5 @@ function addHiroWalletToPage() {
   document.body.appendChild(inpage);
 }
 
-// Don't block thread to add Hiro Wallet to page
+// Don't block thread to add Leather to page
 requestAnimationFrame(() => addHiroWalletToPage());

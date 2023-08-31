@@ -45,7 +45,7 @@ export function ConnectLedgerLayout(props: ConnectLedgerLayoutProps) {
         <Box width="100%">
           <Divider />
           <Caption mb="tight" mt="loose">
-            First time using Ledger on Hiro Wallet?
+            First time using Ledger on Leather?
           </Caption>
           <ExternalLink
             href="https://www.hiro.so/wallet-faq/how-can-i-use-my-ledger-device-with-hiro-wallet"

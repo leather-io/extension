@@ -49,7 +49,7 @@ export async function rpcMessageHandler(message: WalletRequests, port: chrome.ru
           id: message.id,
           error: {
             code: RpcErrorCode.METHOD_NOT_FOUND,
-            message: `"${message.method}" is not supported. Try running \`.request('supportedMethods')\` to see what Hiro Wallet can do, or check out our developer documentation at https://hirowallet.gitbook.io/developers`,
+            message: `"${message.method}" is not supported. Try running \`.request('supportedMethods')\` to see what Leather can do, or check out our developer documentation at https://hirowallet.gitbook.io/developers`,
           },
         })
       );

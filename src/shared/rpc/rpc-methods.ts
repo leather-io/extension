@@ -6,7 +6,7 @@ import { AcceptBitcoinContract } from './methods/accept-bitcoin-contract';
 import { SignPsbt } from './methods/sign-psbt';
 import { SupportedMethods } from './methods/supported-methods';
 
-// Supports BtcKit methods, as well as custom Hiro Wallet methods
+// Supports BtcKit methods, as well as custom Leather methods
 export type WalletMethodMap = BtcKitMethodMap & SupportedMethods & SignPsbt & AcceptBitcoinContract;
 
 export type WalletRequests = ValueOf<WalletMethodMap>['request'];
