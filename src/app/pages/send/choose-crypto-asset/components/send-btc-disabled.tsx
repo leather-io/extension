@@ -12,8 +12,8 @@ const body = 'Sending bitcoin is temporarily disabled';
 const helpTextList = [
   <Box as="li" mt="base" key={1}>
     <Stack alignItems="center" isInline>
-      <Text>Learm more on Twitter at @hirowallet</Text>
-      <Box as="button" onClick={() => openInNewTab('https://mobile.twitter.com/hirowallet')}>
+      <Text>Learm more on Twitter at @LeatherBTC</Text>
+      <Box as="button" onClick={() => openInNewTab('https://twitter.com/leatherbtc')}>
         <FiExternalLink />
       </Box>
     </Stack>

@@ -57,7 +57,7 @@ function LeatherIntroDialogContainer() {
 
   function onRejectAndUninstall() {
     void analytics.track('new_brand_reject_terms');
-    openInNewTab('https://hirowallet.gitbook.io/guides/troubleshooting/uninstalling-the-wallet');
+    openInNewTab('https://leather.gitbook.io/guides/troubleshooting/uninstall-wallet');
   }
 
   return (

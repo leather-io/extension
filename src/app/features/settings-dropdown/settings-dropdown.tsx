@@ -105,9 +105,7 @@ export function SettingsDropdown() {
             data-testid={SettingsMenuSelectors.GetSupportMenuItem}
             onClick={wrappedCloseCallback(() => {
               void analytics.track('click_get_support_menu_item');
-              openInNewTab(
-                'https://wallet.hiro.so/wallet-faq/where-can-i-find-support-for-the-stacks-wallet'
-              );
+              openInNewTab('https://leather.gitbook.io/guides/installing/contact-support');
             })}
           >
             <Stack isInline>

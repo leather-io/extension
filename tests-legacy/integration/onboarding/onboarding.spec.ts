@@ -66,8 +66,8 @@ describe(`Onboarding integration tests`, () => {
     await wallet.waitForHomePage();
     await wallet.clickSettingsButton();
     await wallet.page.click(createTestSelector(SettingsSelectors.LockListItem));
-    await wallet.waitForHiroWalletLogo();
-    await wallet.page.click(wallet.$hiroWalletLogo);
+    await wallet.waitForLeatherLogo();
+    await wallet.page.click(wallet.$leatherLogo);
     await wallet.waitForEnterPasswordInput();
   });
 

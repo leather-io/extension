@@ -65,7 +65,7 @@ export function Brc20SentSummary() {
             fontWeight={500}
             lineHeight="1.6"
             onClick={() => {
-              openInNewTab('https://hirowallet.gitbook.io/guides/bitcoin/sending-brc-20-tokens');
+              openInNewTab('https://leather.gitbook.io/guides/bitcoin/sending-brc-20-tokens');
             }}
           >
             {'Learn more'}
