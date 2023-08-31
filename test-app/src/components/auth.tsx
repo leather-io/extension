@@ -9,7 +9,7 @@ export const Auth: React.FC = () => {
   return (
     <Box>
       <Text display="block" textStyle="body.large">
-        Sign in with your Hiro Wallet to try out a demo of the Stacks 2.0 blockchain.
+        Sign in with your Leather to try out a demo of the Stacks 2.0 blockchain.
       </Text>
       <ButtonGroup spacing={'base'} mt={'base-loose'}>
         <Button

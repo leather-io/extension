@@ -55,7 +55,7 @@ export async function rpcSignMessage(message: SignMessageRequest, port: chrome.r
         error: {
           code: RpcErrorCode.INVALID_PARAMS,
           message:
-            'Unsupported payment type. Hiro Wallet only supports signing messages for Native Segwit (p2wpkh) and Taproot (p2tr) addresses.',
+            'Unsupported payment type. Leather only supports signing messages for Native Segwit (p2wpkh) and Taproot (p2tr) addresses.',
         },
       })
     );

@@ -65,7 +65,7 @@ export function ConnectLedgerErrorLayout(props: ConnectLedgerErrorLayoutProps) {
         p="extra-loose"
       >
         <PossibleReasonUnableToConnect text="Check if Ledger Live is open. Close it and try again" />
-        <PossibleReasonUnableToConnect text="Ensure you only have one instance of the Hiro Wallet open" />
+        <PossibleReasonUnableToConnect text="Ensure you only have one instance of Leather open" />
         <PossibleReasonUnableToConnect text="Verify the Stacks app is installed and open" />
         <PossibleReasonUnableToConnect text="Check you've approved the browser USB pop up" />
       </Stack>

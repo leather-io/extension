@@ -28,7 +28,7 @@ jobs:
     steps:
       - uses: kyranjamie/pull-request-fixed-header@v1.0.1
         with:
-          header: '> Try out this version of the Hiro Wallet - download [extension builds](https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}).'
+          header: '> Try out this version of the Leather — download [extension builds](https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}).'
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
   build_chrome_extension:
@@ -57,7 +57,7 @@ jobs:
         name: Upload Chrome Extension Zip
         with:
           name: stacks-wallet-chromium
-          path: stacks-wallet-chromium.zip
+          path: leather-chromium.zip
 
   build_firefox:
     name: Build debug Firefox extension
@@ -88,9 +88,9 @@ jobs:
         run: sh build-ext.sh
 
       - name: Rename file
-        run: mv stacks-wallet-chromium.zip stacks-wallet-firefox.zip
+        run: mv leather-chromium.zip leather-firefox.zip
 
       - uses: actions/upload-artifact@v3
         with:
           name: stacks-wallet-firefox
-          path: stacks-wallet-firefox.zip
+          path: leather-firefox.zip
