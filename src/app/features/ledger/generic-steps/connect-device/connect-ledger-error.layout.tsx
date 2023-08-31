@@ -77,7 +77,7 @@ export function ConnectLedgerErrorLayout(props: ConnectLedgerErrorLayoutProps) {
           fontSize={1}
           onClick={() =>
             openInNewTab(
-              'https://hirowallet.gitbook.io/guides/securing-the-wallet/using-ledger-with-hiro'
+              'https://leather.gitbook.io/guides/securing-the-wallet/using-ledger-with-leather'
             )
           }
         >

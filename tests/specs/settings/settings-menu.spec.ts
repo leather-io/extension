@@ -18,6 +18,6 @@ test.describe('settings menu', () => {
 
     await test
       .expect(supportPage)
-      .toHaveURL('https://hirowallet.gitbook.io/guides/installing/contact-support');
+      .toHaveURL('https://leather.gitbook.io/guides/installing/contact-support');
   });
 });

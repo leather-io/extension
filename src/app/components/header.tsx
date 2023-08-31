@@ -11,7 +11,7 @@ import { BRANCH_NAME, COMMIT_SHA } from '@shared/environment';
 import { RouteUrls } from '@shared/route-urls';
 
 import { useDrawers } from '@app/common/hooks/use-drawers';
-import { HiroWalletLogo } from '@app/components/hiro-wallet-logo';
+import { LeatherLogo } from '@app/components/leather-logo';
 import { NetworkModeBadge } from '@app/components/network-mode-badge';
 import { Title } from '@app/components/typography';
 
@@ -33,7 +33,7 @@ export const Header: React.FC<HeaderProps> = memo(props => {
   const [desktopViewport] = useMediaQuery(`(min-width: ${token('sizes.desktopViewportMinWidth')})`);
   const [isNarrowViewport] = useMediaQuery('(max-width: 640px)');
 
-  const hiroWalletLogoIsClickable = useMemo(() => {
+  const leatherLogoIsClickable = useMemo(() => {
     return (
       pathname !== RouteUrls.RequestDiagnostics &&
       pathname !== RouteUrls.Onboarding &&
@@ -79,10 +79,10 @@ export const Header: React.FC<HeaderProps> = memo(props => {
           justifyContent={onClose ? 'center' : 'unset'}
         >
           <Flex alignItems="flex-end">
-            <HiroWalletLogo
-              data-testid={OnboardingSelectors.HiroWalletLogoRouteToHome}
-              isClickable={hiroWalletLogoIsClickable}
-              onClick={hiroWalletLogoIsClickable ? () => navigate(RouteUrls.Home) : undefined}
+            <LeatherLogo
+              data-testid={OnboardingSelectors.LeatherLogoRouteToHome}
+              isClickable={leatherLogoIsClickable}
+              onClick={leatherLogoIsClickable ? () => navigate(RouteUrls.Home) : undefined}
             />
             <Text
               display={!version ? 'none' : 'unset'}
