@@ -13,7 +13,7 @@ export function migrateVaultReducerStoreToNewStateStructure(initialState: typeof
 
   if (salt && encryptedSecretKey) {
     logger.debug(
-      'VaultReducer generated Hiro Wallet detected. Running migration to keys store structure'
+      'VaultReducer generated Leather detected. Running migration to keys store structure'
     );
     const migratedState = {
       ids: ['default'],

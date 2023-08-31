@@ -215,7 +215,7 @@ const config = {
     new HtmlWebpackPlugin({
       template: path.join(SRC_ROOT_PATH, '../', 'public', 'html', 'debug.html'),
       filename: 'debug.html',
-      title: 'Hiro Wallet—Debugger',
+      title: 'Leather—Debugger',
       chunks: ['debug'],
     }),
     new GenerateJsonPlugin(

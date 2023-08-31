@@ -1,6 +1,6 @@
-# Hiro Wallet messages
+# Leather messages
 
-All Hiro Wallet instances make HTTP requests to the file located in `config/wallet-config.json`. If there are messages, either global or pinned to a matching version, they will be displayed on the wallet's home screen.
+All Leather instances make HTTP requests to the file located in `config/wallet-config.json`. If there are messages, either global or pinned to a matching version, they will be displayed on the wallet's home screen.
 
 If there are no messages, the object should be empty: `{}`
 

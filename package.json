@@ -1,6 +1,6 @@
 {
   "name": "@stacks/wallet-web",
-  "description": "The Hiro Wallet is browser extension for interacting with Stacks apps",
+  "description": "Leather is browser extension for interacting with Stacks apps",
   "private": true,
   "version": "6.4.0",
   "author": "Hiro Systems PBC",

@@ -25,8 +25,8 @@ export function RetrieveTaprootToNativeSegwitLayout(
           Retrieve Bitcoin deposited to <br /> Taproot addresses
         </Title>
         <Body mt="loose">
-          Taproot addresses are used by Hiro Wallet for Ordinal inscriptions, but they can also
-          contain bitcoin.
+          Taproot addresses are used by Leather for Ordinal inscriptions, but they can also contain
+          bitcoin.
         </Body>
         <Body mt="base">
           As we don't support tranferring from Taproot addresses yet, you can retrieve funds to your
