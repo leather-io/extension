@@ -1,4 +1,4 @@
-import { Flex } from '@radix-ui/themes';
+import { Flex } from 'leaf-styles/jsx';
 
 import { LeatherButton } from '@app/components/button/button';
 
@@ -7,7 +7,7 @@ interface CreateAccountActionProps {
 }
 export function CreateAccountAction({ onCreateAccount }: CreateAccountActionProps) {
   return (
-    <Flex pt="5" pb="5" px="5" grow="1">
+    <Flex py="space.05" px="space.05" flexGrow="1">
       <LeatherButton fullWidth onClick={() => onCreateAccount()}>
         Create new account
       </LeatherButton>

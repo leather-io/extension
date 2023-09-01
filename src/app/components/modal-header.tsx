@@ -2,8 +2,7 @@ import { FiArrowLeft, FiX } from 'react-icons/fi';
 import { useNavigate } from 'react-router-dom';
 
 import { Box, IconButton } from '@stacks/ui';
-import { styled } from 'leaf-styles/jsx';
-import { Flex } from 'leaf-styles/jsx';
+import { Flex, styled } from 'leaf-styles/jsx';
 import { token } from 'leaf-styles/tokens';
 
 import { RouteUrls } from '@shared/route-urls';

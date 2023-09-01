@@ -97,6 +97,11 @@ module.exports = {
                 importNames: ['useSelector'],
                 message: 'Selectors must be expored from the store via a hook',
               },
+              {
+                name: '@radix-ui/themes',
+                importNames: ['Flex'],
+                message: 'Layout components should be imported from leaf-styles/jsx',
+              },
             ],
           },
         ],

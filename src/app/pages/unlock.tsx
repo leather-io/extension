@@ -6,6 +6,7 @@ import { Box } from 'leaf-styles/jsx';
 import { token } from 'leaf-styles/tokens';
 
 import { WALLET_ENVIRONMENT } from '@shared/environment';
+import { RouteUrls } from '@shared/route-urls';
 
 import { useRouteHeader } from '@app/common/hooks/use-route-header';
 import { isFullPageMode, isPopupMode } from '@app/common/utils';
@@ -32,10 +33,7 @@ export function Unlock() {
     }
   }, [hasApprovedNewBrand, navigate]);
 
-  // Users land on unlock page as they've been directed here from `<AccountGate/>`.
-  // On successful unlock, we can navigate back to the previous page, now
-  // with account details.
-  const handleSuccess = () => navigate(-1);
+  const handleSuccess = () => navigate(RouteUrls.Home);
 
   return (
     <CenteredPageContainer>
