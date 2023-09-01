@@ -1,8 +1,9 @@
-import { Button, Stack } from '@stacks/ui';
 import { useFormikContext } from 'formik';
+import { Flex } from 'leaf-styles/jsx';
 
 import { LoadingKeys, useLoading } from '@app/common/hooks/use-loading';
 import { useWalletType } from '@app/common/use-wallet-type';
+import { LeatherButton } from '@app/components/button/button';
 
 interface IncreaseFeeActionsProps {
   isDisabled: boolean;
@@ -18,20 +19,20 @@ export function IncreaseFeeActions(props: IncreaseFeeActionsProps) {
   const actionText = whenWallet({ ledger: 'Confirm on Ledger', software: 'Submit' });
 
   return (
-    <Stack isInline>
-      <Button onClick={onCancel} flexGrow={1} borderRadius="10px" mode="tertiary">
+    <Flex gap="space.02">
+      <LeatherButton onClick={onCancel} variant="outline" flex="1">
         Cancel
-      </Button>
-      <Button
+      </LeatherButton>
+      <LeatherButton
         type="submit"
-        flexGrow={1}
-        onClick={handleSubmit}
-        isLoading={isLoading}
+        flex="1"
+        onClick={handleSubmit as any}
+        aria-busy={isLoading}
         borderRadius="10px"
-        isDisabled={isDisabled}
+        aria-disabled={isDisabled}
       >
         {actionText}
-      </Button>
-    </Stack>
+      </LeatherButton>
+    </Flex>
   );
 }
