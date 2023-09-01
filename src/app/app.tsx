@@ -15,6 +15,8 @@ import { AppRoutes } from '@app/routes/app-routes';
 import { persistor, store } from '@app/store';
 
 import { ThemeSwitcherProvider } from './common/theme-provider';
+import { ElectrumClientProvider } from './common/electrum/provider';
+
 import './index.css';
 
 const reactQueryDevToolsEnabled = process.env.REACT_QUERY_DEVTOOLS_ENABLED === 'true';
@@ -29,14 +31,16 @@ export function App() {
           <ThemeSwitcherProvider>
             <GlobalStyles />
             <QueryClientProvider client={queryClient}>
-              <ColorModeProvider defaultMode="light">
-                <Suspense fallback={<NewAccountLoadingSpinner />}>
-                  <AppErrorBoundary>
-                    <AppRoutes />
-                  </AppErrorBoundary>
-                  {reactQueryDevToolsEnabled && <Devtools />}
-                </Suspense>
-              </ColorModeProvider>
+              <ElectrumClientProvider>
+                <ColorModeProvider defaultMode="light">
+                  <Suspense fallback={<NewAccountLoadingSpinner />}>
+                    <AppErrorBoundary>
+                      <AppRoutes />
+                    </AppErrorBoundary>
+                    {reactQueryDevToolsEnabled && <Devtools />}
+                  </Suspense>
+                </ColorModeProvider>
+              </ElectrumClientProvider>
             </QueryClientProvider>
           </ThemeSwitcherProvider>
         </ThemeProvider>

@@ -29,6 +29,7 @@ import { ordinalsSlice } from './ordinals/ordinals.slice';
 import { settingsSlice } from './settings/settings.slice';
 import { submittedTransactionsSlice } from './submitted-transactions/submitted-transactions.slice';
 import { broadcastActionTypeToOtherFramesMiddleware } from './utils/broadcast-action-types';
+import { swapsSlice } from './swap';
 
 export interface RootState {
   analytics: ReturnType<typeof analyticsSlice.reducer>;
@@ -46,6 +47,7 @@ export interface RootState {
   onboarding: ReturnType<typeof onboardingSlice.reducer>;
   submittedTransactions: ReturnType<typeof submittedTransactionsSlice.reducer>;
   settings: ReturnType<typeof settingsSlice.reducer>;
+  swaps: ReturnType<typeof swapsSlice.reducer>;
 }
 
 const appReducer = combineReducers({
@@ -64,6 +66,7 @@ const appReducer = combineReducers({
   onboarding: onboardingSlice.reducer,
   submittedTransactions: submittedTransactionsSlice.reducer,
   settings: settingsSlice.reducer,
+  swaps: swapsSlice.reducer,
 });
 
 function rootReducer(state: RootState | undefined, action: Action) {

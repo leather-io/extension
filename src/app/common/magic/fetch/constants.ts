@@ -17,8 +17,8 @@ export interface MagicFetchContext {
  * Contains context for a Magic fetch operation using Electrum.
  */
 export interface MagicFetchElectrumContext {
-  network: DefaultNetworkConfigurations;
   electrumClient: ElectrumClient;
+  network: DefaultNetworkConfigurations;
 }
 
 export type MagicFetchContextWithElectrum = MagicFetchContext & MagicFetchElectrumContext;

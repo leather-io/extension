@@ -12,9 +12,26 @@ export interface MagicSupplier {
 export type MagicSupplierWithCapacity = MagicSupplier & { btc: string; btcAddress: string };
 
 export interface MagicInboundSwap {
-  expiration: bigint;
-  hash: Uint8Array;
-  supplier: bigint;
-  swapper: bigint;
-  xbtc: bigint;
+  id: string;
+  secret: string;
+  createdAt: number;
+  swapperId: number | undefined;
+  supplier: MagicSupplier;
+  expiration: number;
+  publicKey: string;
+  amount: string;
+
+  // expiration: bigint;
+  // hash: Uint8Array;
+  // supplier: bigint;
+  // swapper: bigint;
+  // xbtc: bigint;
 }
+
+export interface MagicOutboundSwap {
+  test: string;
+}
+
+export type MagicSwap =
+  | ({ direction: 'inbound' } & MagicInboundSwap)
+  | ({ direction: 'outbound' } & MagicInboundSwap);
