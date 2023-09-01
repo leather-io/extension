@@ -11,6 +11,10 @@ import { PsbtInputOutputItemLayout } from '../../psbt-input-output-item.layout';
 const pillHoverLabel = 'Value you’ll receive after this transaction is complete.';
 
 export function PsbtOutputItem({ output }: { output: PsbtOutput }) {
+  const isUnknownAddress = output.address === 'unknown';
+
+  if (isUnknownAddress) return null;
+
   return (
     <PsbtInputOutputItemLayout
       address={truncateMiddle(output.address)}
