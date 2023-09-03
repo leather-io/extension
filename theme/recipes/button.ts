@@ -1,5 +1,5 @@
 import { defineRecipe } from '@pandacss/dev';
-import { ColorToken } from 'leaf-styles/tokens';
+import { ColorToken } from 'leather-styles/tokens';
 
 const basePesudoOutlineProps = {
   content: '""',

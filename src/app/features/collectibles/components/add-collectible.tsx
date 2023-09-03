@@ -1,7 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 
 import { Box } from '@stacks/ui';
-import { token } from 'leaf-styles/tokens';
+import { token } from 'leather-styles/tokens';
 
 import { RouteUrls } from '@shared/route-urls';
 

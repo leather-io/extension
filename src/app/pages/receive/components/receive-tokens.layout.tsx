@@ -1,7 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 
 import { SharedComponentsSelectors } from '@tests/selectors/shared-component.selectors';
-import { Box, Flex, styled } from 'leaf-styles/jsx';
+import { Box, Flex, styled } from 'leather-styles/jsx';
 
 import { RouteUrls } from '@shared/route-urls';
 

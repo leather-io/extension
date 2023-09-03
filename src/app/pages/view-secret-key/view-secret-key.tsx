@@ -2,8 +2,8 @@ import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import { Stack } from '@stacks/ui';
-import { styled } from 'leaf-styles/jsx';
-import { token } from 'leaf-styles/tokens';
+import { styled } from 'leather-styles/jsx';
+import { token } from 'leather-styles/tokens';
 
 import { RouteUrls } from '@shared/route-urls';
 

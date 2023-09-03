@@ -34,7 +34,7 @@ export default defineConfig({
       recipes: { button: buttonRecipe },
     },
   },
-  outdir: 'leaf-styles',
+  outdir: 'leather-styles',
   outExtension: 'js',
   minify: true,
 });

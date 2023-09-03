@@ -3,7 +3,7 @@ import { memo } from 'react';
 import { Global, css } from '@emotion/react';
 import { radixBaseCSS } from '@radix-ui/themes/styles.css';
 import { CSSReset } from '@stacks/ui';
-import { token } from 'leaf-styles/tokens';
+import { token } from 'leather-styles/tokens';
 
 import { fullPageStyles } from './full-page-styles';
 import { popupCenterStyles } from './popup-center-styles';

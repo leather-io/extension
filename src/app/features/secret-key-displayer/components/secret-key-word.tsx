@@ -1,5 +1,5 @@
 import { OnboardingSelectors } from '@tests/selectors/onboarding.selectors';
-import { Flex, FlexProps, styled } from 'leaf-styles/jsx';
+import { Flex, FlexProps, styled } from 'leather-styles/jsx';
 
 interface SecretKeyWordProps extends FlexProps {
   word: string;

@@ -1,7 +1,7 @@
 import { memo } from 'react';
 
 import { Stack, StackProps, color } from '@stacks/ui';
-import { token } from 'leaf-styles/tokens';
+import { token } from 'leather-styles/tokens';
 
 import { LeatherIcon } from './icons/leather-icon';
 

@@ -1,4 +1,4 @@
-import { HStack } from 'leaf-styles/jsx';
+import { HStack } from 'leather-styles/jsx';
 
 import { useWalletType } from '@app/common/use-wallet-type';
 import { LeatherButton } from '@app/components/button/button';

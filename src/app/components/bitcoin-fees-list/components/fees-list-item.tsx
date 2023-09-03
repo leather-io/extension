@@ -1,6 +1,6 @@
 import { Box, Flex, Text, color, transition } from '@stacks/ui';
 import { SharedComponentsSelectors } from '@tests/selectors/shared-component.selectors';
-import { token } from 'leaf-styles/tokens';
+import { token } from 'leather-styles/tokens';
 
 interface FeesListItemProps {
   arrivesIn: string;

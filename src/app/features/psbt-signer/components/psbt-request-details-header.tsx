@@ -1,6 +1,6 @@
 import { Box, Stack } from '@stacks/ui';
-import { styled } from 'leaf-styles/jsx';
-import { token } from 'leaf-styles/tokens';
+import { styled } from 'leather-styles/jsx';
+import { token } from 'leather-styles/tokens';
 
 import { LockIcon } from '@app/components/icons/lock-icon';
 import { UnlockIcon } from '@app/components/icons/unlock-icon';

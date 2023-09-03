@@ -2,8 +2,8 @@ import { useEffect } from 'react';
 import { Outlet, useNavigate } from 'react-router-dom';
 
 import { Stack } from '@stacks/ui';
-import { Box } from 'leaf-styles/jsx';
-import { token } from 'leaf-styles/tokens';
+import { Box } from 'leather-styles/jsx';
+import { token } from 'leather-styles/tokens';
 
 import { WALLET_ENVIRONMENT } from '@shared/environment';
 import { RouteUrls } from '@shared/route-urls';

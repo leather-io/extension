@@ -1,5 +1,5 @@
 import { BoxProps } from '@stacks/ui';
-import { token } from 'leaf-styles/tokens';
+import { token } from 'leather-styles/tokens';
 
 import { Caption } from '@app/components/typography';
 

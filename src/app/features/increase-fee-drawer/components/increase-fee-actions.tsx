@@ -1,5 +1,5 @@
 import { useFormikContext } from 'formik';
-import { Flex } from 'leaf-styles/jsx';
+import { Flex } from 'leather-styles/jsx';
 
 import { LoadingKeys, useLoading } from '@app/common/hooks/use-loading';
 import { useWalletType } from '@app/common/use-wallet-type';

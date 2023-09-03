@@ -1,4 +1,4 @@
-import { Stack, styled } from 'leaf-styles/jsx';
+import { Stack, styled } from 'leather-styles/jsx';
 
 import { Money } from '@shared/models/money.model';
 

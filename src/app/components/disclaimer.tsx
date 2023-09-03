@@ -1,4 +1,4 @@
-import { Box, BoxProps, styled } from 'leaf-styles/jsx';
+import { Box, BoxProps, styled } from 'leather-styles/jsx';
 
 import { openInNewTab } from '@app/common/utils/open-in-new-tab';
 

@@ -21,7 +21,7 @@ module.exports = {
     'plugin:react/jsx-runtime',
     'plugin:react-hooks/recommended',
   ],
-  ignorePatterns: ['./leaf-styles'],
+  ignorePatterns: ['./leather-styles'],
   plugins: ['react', 'react-hooks', '@typescript-eslint', 'deprecation'],
   rules: {
     // This rule helps highlight areas of the code that use deprecated
@@ -100,7 +100,7 @@ module.exports = {
               {
                 name: '@radix-ui/themes',
                 importNames: ['Flex'],
-                message: 'Layout components should be imported from leaf-styles/jsx',
+                message: 'Layout components should be imported from leather-styles/jsx',
               },
             ],
           },

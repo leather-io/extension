@@ -2,7 +2,7 @@ import { FiEyeOff, FiLock, FiRotateCcw } from 'react-icons/fi';
 
 import { Box, Stack } from '@stacks/ui';
 import { OnboardingSelectors } from '@tests/selectors/onboarding.selectors';
-import { styled } from 'leaf-styles/jsx';
+import { styled } from 'leather-styles/jsx';
 
 import { LeatherButton } from '@app/components/button/button';
 

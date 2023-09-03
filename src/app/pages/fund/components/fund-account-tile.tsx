@@ -1,7 +1,7 @@
 import { Box, Stack, color, transition } from '@stacks/ui';
 import { FundPageSelectors } from '@tests-legacy/page-objects/fund.selectors';
-import { styled } from 'leaf-styles/jsx';
-import { token } from 'leaf-styles/tokens';
+import { styled } from 'leather-styles/jsx';
+import { token } from 'leather-styles/tokens';
 
 interface FundAccountTileProps {
   attributes?: React.JSX.Element;

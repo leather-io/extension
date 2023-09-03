@@ -1,4 +1,4 @@
-import { Stack } from 'leaf-styles/jsx';
+import { Stack } from 'leather-styles/jsx';
 
 import { HasChildren } from '@app/common/has-children';
 

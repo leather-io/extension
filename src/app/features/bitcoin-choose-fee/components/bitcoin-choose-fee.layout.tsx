@@ -1,4 +1,4 @@
-import { Flex } from 'leaf-styles/jsx';
+import { Flex } from 'leather-styles/jsx';
 
 import { LoadingSpinner } from '@app/components/loading-spinner';
 

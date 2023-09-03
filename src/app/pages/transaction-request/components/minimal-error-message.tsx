@@ -2,7 +2,7 @@ import { Suspense, memo } from 'react';
 
 import { Stack, StackProps, color } from '@stacks/ui';
 import { TransactionSigningSelectors } from '@tests-legacy/page-objects/transaction-signing.selectors';
-import { styled } from 'leaf-styles/jsx';
+import { styled } from 'leather-styles/jsx';
 
 import { ErrorIcon } from '@app/components/icons/error-icon';
 import { TransactionErrorReason } from '@app/pages/transaction-request/components/transaction-error/transaction-error';

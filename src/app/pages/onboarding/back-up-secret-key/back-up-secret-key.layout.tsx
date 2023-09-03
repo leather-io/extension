@@ -1,6 +1,6 @@
 import { useMediaQuery } from '@stacks/ui';
-import { Box, Flex, Stack, styled } from 'leaf-styles/jsx';
-import { token } from 'leaf-styles/tokens';
+import { Box, Flex, Stack, styled } from 'leather-styles/jsx';
+import { token } from 'leather-styles/tokens';
 
 import { BackUpSecretKeyActions } from './components/back-up-secret-key-actions';
 

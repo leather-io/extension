@@ -1,7 +1,7 @@
 import { memo, useEffect } from 'react';
 import { Outlet } from 'react-router-dom';
 
-import { Flex, Stack, styled } from 'leaf-styles/jsx';
+import { Flex, Stack, styled } from 'leather-styles/jsx';
 
 import { useCancelAuthRequest } from '@app/common/authentication/use-cancel-auth-request';
 import { useAppDetails } from '@app/common/hooks/auth/use-app-details';

@@ -1,4 +1,4 @@
-import { Box, Flex, styled } from 'leaf-styles/jsx';
+import { Box, Flex, styled } from 'leather-styles/jsx';
 
 import { LeatherButton } from '@app/components/button/button';
 import { LIcon } from '@app/components/icons/l-icon';

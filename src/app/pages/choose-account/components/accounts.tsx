@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { Virtuoso } from 'react-virtuoso';
 
 import { Box, BoxProps, FlexProps, Stack, Text } from '@stacks/ui';
-import { styled } from 'leaf-styles/jsx';
+import { styled } from 'leather-styles/jsx';
 
 import { RouteUrls } from '@shared/route-urls';
 
