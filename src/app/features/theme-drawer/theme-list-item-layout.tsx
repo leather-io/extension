@@ -1,5 +1,5 @@
 import { Box, BoxProps, Flex } from '@stacks/ui';
-import { token } from 'leaf-styles/tokens';
+import { token } from 'leather-styles/tokens';
 
 import { CheckmarkIcon } from '@app/components/icons/checkmark-icon';
 import { Title } from '@app/components/typography';

@@ -1,4 +1,4 @@
-import { CssKeyframes } from 'leaf-styles/types/system-types';
+import { CssKeyframes } from 'leather-styles/types/system-types';
 
 // ts-unused-exports:disable-next-line
 export const keyframes: CssKeyframes = {

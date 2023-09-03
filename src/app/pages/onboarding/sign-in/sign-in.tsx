@@ -3,8 +3,8 @@ import { useNavigate } from 'react-router-dom';
 
 import { Grid, Input } from '@stacks/ui';
 import { OnboardingSelectors } from '@tests/selectors/onboarding.selectors';
-import { Box, Flex, Stack, styled } from 'leaf-styles/jsx';
-import { token } from 'leaf-styles/tokens';
+import { Box, Flex, Stack, styled } from 'leather-styles/jsx';
+import { token } from 'leather-styles/tokens';
 import { useFocus } from 'use-events';
 
 import { RouteUrls } from '@shared/route-urls';

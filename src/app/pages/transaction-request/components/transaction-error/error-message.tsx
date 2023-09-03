@@ -1,7 +1,7 @@
 import { memo } from 'react';
 
 import { Stack, StackProps, color } from '@stacks/ui';
-import { styled } from 'leaf-styles/jsx';
+import { styled } from 'leather-styles/jsx';
 
 import { ErrorIcon } from '@app/components/icons/error-icon';
 

@@ -1,7 +1,7 @@
 import { useState } from 'react';
 
 import { SettingsSelectors } from '@tests-legacy/integration/settings.selectors';
-import { Box, Flex, Stack, styled } from 'leaf-styles/jsx';
+import { Box, Flex, Stack, styled } from 'leather-styles/jsx';
 
 import { LeatherButton } from '@app/components/button/button';
 

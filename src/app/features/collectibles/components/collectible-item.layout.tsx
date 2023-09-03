@@ -2,7 +2,7 @@ import { ReactNode } from 'react';
 
 import { Box, Button, Stack, Text } from '@stacks/ui';
 import type { BoxProps } from '@stacks/ui';
-import { token } from 'leaf-styles/tokens';
+import { token } from 'leather-styles/tokens';
 import { useHover } from 'use-events';
 
 import { figmaTheme } from '@app/common/utils/figma-theme';

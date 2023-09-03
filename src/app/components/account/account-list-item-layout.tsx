@@ -1,7 +1,7 @@
 import { Flex, Spinner, Stack, StackProps, color, useMediaQuery } from '@stacks/ui';
 import { truncateMiddle } from '@stacks/ui-utils';
 import { SettingsMenuSelectors } from '@tests/selectors/settings.selectors';
-import { styled } from 'leaf-styles/jsx';
+import { styled } from 'leather-styles/jsx';
 
 import { useConfigBitcoinEnabled } from '@app/query/common/remote-config/remote-config.query';
 

@@ -70,7 +70,7 @@ const aliases = {
   '@stacks/transactions': '@stacks/transactions/dist/esm',
   '@stacks/wallet-sdk': '@stacks/wallet-sdk/dist/esm',
   'lottie-web': path.resolve('node_modules/lottie-web/build/player/lottie_light.js'),
-  'leaf-styles': path.resolve('leaf-styles'),
+  'leather-styles': path.resolve('leather-styles'),
 };
 
 const config = {

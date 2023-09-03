@@ -1,5 +1,5 @@
 import { color } from '@stacks/ui-utils';
-import { Box } from 'leaf-styles/jsx';
+import { Box } from 'leather-styles/jsx';
 
 import { Hr } from '@app/components/hr';
 import { usePsbtSignerContext } from '@app/features/psbt-signer/psbt-signer.context';

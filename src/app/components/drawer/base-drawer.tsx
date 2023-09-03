@@ -2,8 +2,8 @@ import { ReactNode, Suspense, memo, useCallback, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import { Box, Flex, FlexProps, transition, useEventListener } from '@stacks/ui';
-import { css } from 'leaf-styles/css';
-import { token } from 'leaf-styles/tokens';
+import { css } from 'leather-styles/css';
+import { token } from 'leather-styles/tokens';
 
 import { noop } from '@shared/utils';
 

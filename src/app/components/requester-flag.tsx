@@ -1,4 +1,4 @@
-import { styled } from 'leaf-styles/jsx';
+import { styled } from 'leather-styles/jsx';
 
 import { Favicon } from './favicon';
 import { Flag } from './layout/flag';

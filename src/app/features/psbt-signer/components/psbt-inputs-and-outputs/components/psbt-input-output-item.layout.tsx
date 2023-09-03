@@ -1,5 +1,5 @@
 import { useClipboard } from '@stacks/ui';
-import { Box, Flex, styled } from 'leaf-styles/jsx';
+import { Box, Flex, styled } from 'leather-styles/jsx';
 
 import { useExplorerLink } from '@app/common/hooks/use-explorer-link';
 import { LeatherButton } from '@app/components/button/button';

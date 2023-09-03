@@ -2,7 +2,7 @@ import { Flex, StackProps } from '@stacks/ui';
 import { forwardRefWithAs } from '@stacks/ui-core';
 import { truncateMiddle } from '@stacks/ui-utils';
 import { CryptoAssetSelectors } from '@tests/selectors/crypto-asset.selectors';
-import { styled } from 'leaf-styles/jsx';
+import { styled } from 'leather-styles/jsx';
 
 import { CryptoCurrencies } from '@shared/models/currencies.model';
 import { Money } from '@shared/models/money.model';

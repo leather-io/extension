@@ -1,8 +1,8 @@
 import { Flex } from '@stacks/ui';
 import { SettingsSelectors } from '@tests-legacy/integration/settings.selectors';
 import { useFormik } from 'formik';
-import { Box, HStack, styled } from 'leaf-styles/jsx';
-import { token } from 'leaf-styles/tokens';
+import { Box, HStack, styled } from 'leather-styles/jsx';
+import { token } from 'leather-styles/tokens';
 
 import { useWalletType } from '@app/common/use-wallet-type';
 import { LeatherButton } from '@app/components/button/button';

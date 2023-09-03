@@ -1,6 +1,6 @@
 import { Box, Flex, FlexProps, Stack, StackProps } from '@stacks/ui';
 import { SharedComponentsSelectors } from '@tests/selectors/shared-component.selectors';
-import { styled } from 'leaf-styles/jsx';
+import { styled } from 'leather-styles/jsx';
 
 import { isString } from '@shared/utils';
 

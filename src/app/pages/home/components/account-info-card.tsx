@@ -1,6 +1,6 @@
 import { useMediaQuery } from '@stacks/ui';
 import { SettingsSelectors } from '@tests-legacy/integration/settings.selectors';
-import { Box, Divider, Flex, styled } from 'leaf-styles/jsx';
+import { Box, Divider, Flex, styled } from 'leather-styles/jsx';
 
 import { useCurrentAccountDisplayName } from '@app/common/hooks/account/use-account-names';
 import { useTotalBalance } from '@app/common/hooks/balance/use-total-balance';

@@ -1,5 +1,5 @@
 import { SendCryptoAssetSelectors } from '@tests/selectors/send.selectors';
-import { Box } from 'leaf-styles/jsx';
+import { Box } from 'leather-styles/jsx';
 
 import { Money } from '@shared/models/money.model';
 

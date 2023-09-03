@@ -2,7 +2,7 @@ import { useNavigate } from 'react-router-dom';
 
 import { HomePageSelectorsLegacy } from '@tests-legacy/page-objects/home.selectors';
 import { HomePageSelectors } from '@tests/selectors/home.selectors';
-import { Flex, FlexProps } from 'leaf-styles/jsx';
+import { Flex, FlexProps } from 'leather-styles/jsx';
 
 import { RouteUrls } from '@shared/route-urls';
 

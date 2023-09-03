@@ -1,6 +1,6 @@
 import { Box, Grid, transition } from '@stacks/ui';
 import { HomePageSelectors } from '@tests/selectors/home.selectors';
-import { token } from 'leaf-styles/tokens';
+import { token } from 'leather-styles/tokens';
 
 interface HeaderActionButtonProps {
   icon?: React.JSX.Element;

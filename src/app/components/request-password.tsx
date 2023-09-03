@@ -2,8 +2,8 @@ import { FormEvent, useCallback, useState } from 'react';
 
 import { Box, Input, Stack } from '@stacks/ui';
 import { SettingsSelectors } from '@tests-legacy/integration/settings.selectors';
-import { styled } from 'leaf-styles/jsx';
-import { token } from 'leaf-styles/tokens';
+import { styled } from 'leather-styles/jsx';
+import { token } from 'leather-styles/tokens';
 
 import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
 import { useKeyActions } from '@app/common/hooks/use-key-actions';

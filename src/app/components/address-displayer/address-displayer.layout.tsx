@@ -1,4 +1,4 @@
-import { styled } from 'leaf-styles/jsx';
+import { styled } from 'leather-styles/jsx';
 
 interface AddressDisplayerLayoutProps {
   isEven: boolean;

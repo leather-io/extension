@@ -2,7 +2,7 @@ import { useCallback, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import { useFormikContext } from 'formik';
-import { Stack, styled } from 'leaf-styles/jsx';
+import { Stack, styled } from 'leather-styles/jsx';
 
 import { StacksSendFormValues, StacksTransactionFormValues } from '@shared/models/form.model';
 

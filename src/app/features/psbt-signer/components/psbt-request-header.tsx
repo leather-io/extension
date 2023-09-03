@@ -1,4 +1,4 @@
-import { Flex, styled } from 'leaf-styles/jsx';
+import { Flex, styled } from 'leather-styles/jsx';
 
 import { Favicon } from '@app/components/favicon';
 import { Flag } from '@app/components/layout/flag';

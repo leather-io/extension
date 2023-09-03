@@ -2,7 +2,7 @@ import { FiCheck } from 'react-icons/fi';
 
 import { Dialog } from '@radix-ui/themes';
 import { OnboardingSelectors } from '@tests/selectors/onboarding.selectors';
-import { Box, Flex, HStack, Stack, styled } from 'leaf-styles/jsx';
+import { Box, Flex, HStack, Stack, styled } from 'leather-styles/jsx';
 
 import { LeatherButton } from '@app/components/button/button';
 import { LeatherIcon } from '@app/components/icons/leather-icon';

@@ -1,5 +1,5 @@
 import { css } from '@emotion/react';
-import { token } from 'leaf-styles/tokens';
+import { token } from 'leather-styles/tokens';
 
 export const radixStyles = css`
   .radix-themes {

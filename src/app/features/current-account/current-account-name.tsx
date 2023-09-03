@@ -2,7 +2,7 @@ import { Suspense, memo } from 'react';
 
 import { memoWithAs } from '@stacks/ui-core';
 import { SettingsSelectors } from '@tests-legacy/integration/settings.selectors';
-import { Box, BoxProps, styled } from 'leaf-styles/jsx';
+import { Box, BoxProps, styled } from 'leather-styles/jsx';
 
 import { HasChildren } from '@app/common/has-children';
 import { useCurrentAccountDisplayName } from '@app/common/hooks/account/use-account-names';

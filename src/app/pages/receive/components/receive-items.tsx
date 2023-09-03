@@ -1,4 +1,4 @@
-import { Divider, Stack, styled } from 'leaf-styles/jsx';
+import { Divider, Stack, styled } from 'leather-styles/jsx';
 
 interface ReceiveItemListProps {
   children: React.ReactNode;

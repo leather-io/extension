@@ -5,7 +5,7 @@ import { ChainID } from '@stacks/transactions';
 import { Input, Stack } from '@stacks/ui';
 import { NetworkSelectors } from '@tests-legacy/integration/network.selectors';
 import { Formik } from 'formik';
-import { token } from 'leaf-styles/tokens';
+import { token } from 'leather-styles/tokens';
 
 import { DefaultNetworkConfigurations } from '@shared/constants';
 import { RouteUrls } from '@shared/route-urls';

@@ -1,4 +1,4 @@
-import { css } from 'leaf-styles/css';
+import { css } from 'leather-styles/css';
 
 export const hideScrollbarClassName = css({
   '&::-webkit-scrollbar': {

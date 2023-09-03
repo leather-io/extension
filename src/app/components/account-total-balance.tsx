@@ -1,6 +1,6 @@
 import { memo } from 'react';
 
-import { styled } from 'leaf-styles/jsx';
+import { styled } from 'leather-styles/jsx';
 
 import { useTotalBalance } from '@app/common/hooks/balance/use-total-balance';
 

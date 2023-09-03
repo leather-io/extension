@@ -1,4 +1,4 @@
-import { Stack } from 'leaf-styles/jsx';
+import { Stack } from 'leather-styles/jsx';
 
 interface MessageSigningRequestLayoutProps {
   children: React.ReactNode;

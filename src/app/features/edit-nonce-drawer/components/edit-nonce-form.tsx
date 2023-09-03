@@ -1,4 +1,4 @@
-import { HStack } from 'leaf-styles/jsx';
+import { HStack } from 'leather-styles/jsx';
 
 import { LeatherButton } from '@app/components/button/button';
 

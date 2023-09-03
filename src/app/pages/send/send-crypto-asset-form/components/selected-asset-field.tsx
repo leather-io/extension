@@ -1,7 +1,7 @@
 import { Flex } from '@stacks/ui';
 import { Field, useField } from 'formik';
-import { styled } from 'leaf-styles/jsx';
-import { token } from 'leaf-styles/tokens';
+import { styled } from 'leather-styles/jsx';
+import { token } from 'leather-styles/tokens';
 
 import { useOnMount } from '@app/common/hooks/use-on-mount';
 import { Flag } from '@app/components/layout/flag';

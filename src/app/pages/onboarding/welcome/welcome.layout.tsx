@@ -1,5 +1,5 @@
 import { OnboardingSelectors } from '@tests/selectors/onboarding.selectors';
-import { Flex, styled } from 'leaf-styles/jsx';
+import { Flex, styled } from 'leather-styles/jsx';
 
 import { useViewportMinWidth } from '@app/common/hooks/use-media-query';
 import { LeatherButton } from '@app/components/button/button';

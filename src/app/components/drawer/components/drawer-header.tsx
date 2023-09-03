@@ -1,5 +1,5 @@
 import { Box, Flex } from '@stacks/ui';
-import { styled } from 'leaf-styles/jsx';
+import { styled } from 'leather-styles/jsx';
 import { useHover } from 'use-events';
 
 import { ArrowLeftIcon } from '@app/components/icons/arrow-left-icon';

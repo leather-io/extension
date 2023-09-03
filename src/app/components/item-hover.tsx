@@ -1,5 +1,5 @@
 import { Box, BoxProps, transition } from '@stacks/ui';
-import { token } from 'leaf-styles/tokens';
+import { token } from 'leather-styles/tokens';
 import { useFocus, useHover } from 'use-events';
 
 function ItemHover({

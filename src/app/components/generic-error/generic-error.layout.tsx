@@ -2,7 +2,7 @@ import { ReactNode } from 'react';
 
 import GenericError from '@assets/images/generic-error.png';
 import { Box, Text, color } from '@stacks/ui';
-import { Flex, FlexProps, HStack, styled } from 'leaf-styles/jsx';
+import { Flex, FlexProps, HStack, styled } from 'leather-styles/jsx';
 
 import { openInNewTab } from '@app/common/utils/open-in-new-tab';
 

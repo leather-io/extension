@@ -1,7 +1,7 @@
 import { FiChevronDown } from 'react-icons/fi';
 
 import { Box, Text, color } from '@stacks/ui';
-import { token } from 'leaf-styles/tokens';
+import { token } from 'leather-styles/tokens';
 
 const labels = ['Address', 'BNS Name'];
 const testLabels = ['address', 'bns-name'];

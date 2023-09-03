@@ -2,7 +2,7 @@ import { memo } from 'react';
 
 import { Stack } from '@stacks/ui';
 import { TransactionSigningSelectors } from '@tests-legacy/page-objects/transaction-signing.selectors';
-import { styled } from 'leaf-styles/jsx';
+import { styled } from 'leather-styles/jsx';
 
 import { useDefaultRequestParams } from '@app/common/hooks/use-default-request-search-params';
 import { addPortSuffix, getUrlHostname } from '@app/common/utils';
