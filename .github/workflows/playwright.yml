@@ -22,7 +22,7 @@ jobs:
         shardTotal: [8]
 
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - uses: ./.github/actions/provision
 
       - name: Get installed Playwright version
