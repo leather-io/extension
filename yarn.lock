@@ -5683,7 +5683,7 @@
     camelcase "^6.0.0"
     micro-memoize "^4.0.9"
 
-"@stacks/ui-theme@7.5.0", "@stacks/ui-theme@^7.5.0":
+"@stacks/ui-theme@^7.5.0":
   version "7.5.0"
   resolved "https://registry.yarnpkg.com/@stacks/ui-theme/-/ui-theme-7.5.0.tgz#39949295935f37ab0694e1f16067679c268a3d51"
   integrity sha512-lS83ApLE5lwizR59RgUoqeXNu3yolSwOjVO5p8ySTAU3M2bhOk5FCroSXYRpMuz20bRRdqyaOWCYJt+xP1sNUA==
