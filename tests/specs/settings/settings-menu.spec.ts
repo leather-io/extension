@@ -2,7 +2,7 @@ import { SettingsMenuSelectors } from '@tests/selectors/settings.selectors';
 
 import { test } from '../../fixtures/fixtures';
 
-test.describe('settings menu', () => {
+test.describe('Settings menu', () => {
   test.beforeEach(async ({ extensionId, globalPage, onboardingPage }) => {
     await globalPage.setupAndUseApiCalls(extensionId);
     await onboardingPage.signInWithTestAccount(extensionId);

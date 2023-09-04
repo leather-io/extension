@@ -1,7 +1,7 @@
 import { Suspense, memo } from 'react';
 
 import { Stack, StackProps, color } from '@stacks/ui';
-import { TransactionSigningSelectors } from '@tests-legacy/page-objects/transaction-signing.selectors';
+import { TransactionRequestSelectors } from '@tests/selectors/requests.selectors';
 import { styled } from 'leather-styles/jsx';
 
 import { ErrorIcon } from '@app/components/icons/error-icon';
@@ -38,14 +38,15 @@ function MinimalErrorMessageSuspense(props: StackProps) {
       bg="#FCEEED"
       borderRadius="12px"
       color={color('feedback-error')}
-      data-testid={TransactionSigningSelectors.TransactionErrorMessage}
       isInline
       p="base"
       width="100%"
       {...props}
     >
       <ErrorIcon />
-      <styled.span textStyle="caption.01">{getTitle()}</styled.span>
+      <styled.span data-testid={TransactionRequestSelectors.ErrorMessage} textStyle="caption.01">
+        {getTitle()}
+      </styled.span>
     </Stack>
   );
 }
