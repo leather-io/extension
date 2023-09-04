@@ -10,7 +10,6 @@ import { noop } from '@shared/utils';
 import { useOnClickOutside } from '@app/common/hooks/use-onclickoutside';
 import { useThemeSwitcher } from '@app/common/theme-provider';
 
-import { hideScrollbarClassName } from '../global-styles/hide-scrollbar';
 import { DrawerHeader } from './components/drawer-header';
 
 function useDrawer(isShowing: boolean, onClose: () => void, pause?: boolean) {
@@ -104,12 +103,13 @@ export const BaseDrawer = memo((props: BaseDrawerProps) => {
         maxHeight={['calc(100vh - 24px)', 'calc(100vh - 96px)']}
       >
         <Box
-          className={[
-            css({
-              overflowY: 'scroll',
-            }),
-            hideScrollbarClassName,
-          ].join(' ')}
+          css={css({
+            overflowY: 'scroll',
+
+            '&::-webkit-scrollbar': {
+              display: 'none',
+            },
+          })}
         >
           <DrawerHeader
             enableGoBack={enableGoBack}

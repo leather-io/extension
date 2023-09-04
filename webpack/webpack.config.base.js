@@ -135,6 +135,7 @@ const config = {
       {
         test: /\.(ts|tsx)$/,
         exclude: /node_modules/,
+        // #4164 TODO investigate removing babel
         use: {
           loader: 'babel-loader',
           options: {
@@ -144,11 +145,9 @@ const config = {
                 '@babel/preset-react',
                 {
                   runtime: 'automatic',
-                  importSource: '@emotion/react',
                 },
               ],
             ],
-            plugins: ['@emotion', IS_DEV && require.resolve('react-refresh/babel')].filter(Boolean),
           },
         },
       },
