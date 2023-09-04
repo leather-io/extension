@@ -116,7 +116,7 @@ export function SettingsDropdown() {
           <MenuItem
             onClick={wrappedCloseCallback(() => {
               void analytics.track('click_request_feature_menu_item');
-              openInNewTab('https://hirowallet.canny.io/feature-requests');
+              openInNewTab('https://leather.canny.io/feature-requests');
             })}
           >
             <Stack isInline>
