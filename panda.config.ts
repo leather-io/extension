@@ -1,5 +1,6 @@
 import { defineConfig } from '@pandacss/dev';
 
+import { leatherCss } from './src/app/components/global-styles/global-styles';
 import { breakpoints } from './theme/breakpoints';
 import { globalCss } from './theme/global/global';
 import { keyframes } from './theme/keyframes';
