@@ -1,10 +1,29 @@
 import { FiArrowDown as IconArrowDown, FiArrowUp as IconArrowUp } from 'react-icons/fi';
 
-import { ColorsStringLiteral } from '@stacks/ui-theme';
-
 import { BitcoinTx } from '@shared/models/transactions/bitcoin-transaction.model';
 
 import { isBitcoinTxInbound } from '@app/common/transactions/bitcoin/utils';
+
+type ColorsStringLiteral =
+  | 'accent'
+  | 'brand'
+  | 'bg'
+  | 'bg-2'
+  | 'bg-3'
+  | 'bg-4'
+  | 'bg-alt'
+  | 'bg-light'
+  | 'invert'
+  | 'text-hover'
+  | 'text-title'
+  | 'text-caption'
+  | 'text-body'
+  | 'icon'
+  | 'input-placeholder'
+  | 'border'
+  | 'feedback-alert'
+  | 'feedback-error'
+  | 'feedback-success';
 
 type BtcTxStatus = 'pending' | 'success';
 type BtcStatusColorMap = Record<BtcTxStatus, ColorsStringLiteral>;

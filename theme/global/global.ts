@@ -6,8 +6,7 @@ import { popupStyles } from './popup-styles';
 import { radixStyles, radixTabStyles } from './radix-styles';
 import { tippyStyles } from './tippy-styles';
 
-// ts-unused-exports:disable-next-line
-export const globalCss = defineGlobalStyles({
+export const leatherCss = defineGlobalStyles({
   'html, body': {
     backgroundColor: 'accent.background-secondary',
   },
