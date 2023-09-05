@@ -1,7 +1,9 @@
-import { useAppDispatch } from "@app/store";
-import { useMemo } from "react";
-import { Swap } from "../swaps";
-import { swapsActions } from "@app/store/swap";
+import { useMemo } from 'react';
+
+import { useAppDispatch } from '@app/store';
+import { swapsActions } from '@app/store/swap';
+
+import { Swap } from '../swaps';
 
 export function useSwapActions() {
   const dispatch = useAppDispatch();
@@ -10,8 +12,8 @@ export function useSwapActions() {
     () => ({
       createSwap(swap: Swap) {
         return dispatch(swapsActions.createSwap(swap));
-      }
+      },
     }),
     [dispatch]
-  )
+  );
 }

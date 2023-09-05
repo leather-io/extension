@@ -14,9 +14,8 @@ import { AppErrorBoundary } from '@app/features/errors/app-error-boundary';
 import { AppRoutes } from '@app/routes/app-routes';
 import { persistor, store } from '@app/store';
 
-import { ThemeSwitcherProvider } from './common/theme-provider';
 import { ElectrumClientProvider } from './common/electrum/provider';
-
+import { ThemeSwitcherProvider } from './common/theme-provider';
 import './index.css';
 
 const reactQueryDevToolsEnabled = process.env.REACT_QUERY_DEVTOOLS_ENABLED === 'true';

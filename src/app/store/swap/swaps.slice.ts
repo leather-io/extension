@@ -1,5 +1,6 @@
-import { Swap } from "@app/common/swaps";
-import { PayloadAction, createEntityAdapter, createSlice } from "@reduxjs/toolkit";
+import { PayloadAction, createEntityAdapter, createSlice } from '@reduxjs/toolkit';
+
+import { Swap } from '@app/common/swaps';
 
 const swapsAdapter = createEntityAdapter<Swap>();
 
@@ -11,6 +12,6 @@ export const swapsSlice = createSlice({
   reducers: {
     createSwap(state, action: PayloadAction<Swap>) {
       swapsAdapter.addOne(state, action.payload);
-    }
-  }
+    },
+  },
 });

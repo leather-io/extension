@@ -61,12 +61,12 @@ export function ElectrumClientProvider({ children }: ElectrumClientProviderProps
     void connectElectrumClient();
 
     return () => {
-      void electrumClient.close()
+      void electrumClient.close();
     };
   }, [electrumClient]);
 
   return (
-    <ElectrumClientContext.Provider value={{electrumClient}}>
+    <ElectrumClientContext.Provider value={{ electrumClient }}>
       {children}
     </ElectrumClientContext.Provider>
   );

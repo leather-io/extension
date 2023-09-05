@@ -1,5 +1,3 @@
-import { MagicSwap } from "../magic/models";
+import { MagicSwap } from '../magic/models';
 
-export type Swap =
-  | ({ type: 'magic' } & MagicSwap)
-  | ({ type: 'other', test: string });
+export type Swap = ({ type: 'magic' } & MagicSwap) | { type: 'other'; test: string };

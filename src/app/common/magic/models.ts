@@ -20,12 +20,6 @@ export interface MagicInboundSwap {
   expiration: number;
   publicKey: string;
   amount: string;
-
-  // expiration: bigint;
-  // hash: Uint8Array;
-  // supplier: bigint;
-  // swapper: bigint;
-  // xbtc: bigint;
 }
 
 export interface MagicOutboundSwap {

@@ -28,8 +28,8 @@ import { onboardingSlice } from './onboarding/onboarding.slice';
 import { ordinalsSlice } from './ordinals/ordinals.slice';
 import { settingsSlice } from './settings/settings.slice';
 import { submittedTransactionsSlice } from './submitted-transactions/submitted-transactions.slice';
-import { broadcastActionTypeToOtherFramesMiddleware } from './utils/broadcast-action-types';
 import { swapsSlice } from './swap';
+import { broadcastActionTypeToOtherFramesMiddleware } from './utils/broadcast-action-types';
 
 export interface RootState {
   analytics: ReturnType<typeof analyticsSlice.reducer>;

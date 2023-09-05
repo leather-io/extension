@@ -1,31 +1,16 @@
-import { useCurrentNetworkState } from '@app/store/networks/networks.hooks';
-
-import { getMagicContracts, initMagicClient } from '.';
-import { useCurrentStacksAccount } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
-import { fetchSwapperId, fetchSuppliers } from './fetch';
-import { MagicFetchContextWithElectrum } from './fetch/constants';
-import { MagicSupplier } from './models';
-import { convertBtcToSats } from './utils';
 import { bytesToHex, intToBigInt } from '@stacks/common';
-import { useElectrumClient } from '../electrum/provider';
 import { randomBytes } from '@stacks/encryption';
-import { useSwapActions } from '../hooks/use-swap-actions';
 
-export function useMagicClient() {
-  const network = useCurrentNetworkState();
-  const client = initMagicClient({ network: network.id });
-
-  return client;
-}
-
-export function useMagicSwap() {
-  const { createInboundSwap } = useInboundMagicSwap();
-
-  return {
-    createInboundSwap,
-    createOutboundSwap: () => { return; }
-  }
-}
+import { useCurrentStacksAccount } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
+import { useCurrentNetworkState } from '@app/store/networks/networks.hooks';
+import { useElectrumClient } from '@app/common/electrum/provider';
+import { useSwapActions } from '@app/common/hooks/use-swap-actions';
+import { getMagicContracts } from '../client';
+import { fetchSuppliers, fetchSwapperId } from '../fetch';
+import { MagicFetchContextWithElectrum } from '../fetch/constants';
+import { MagicSupplier } from '../models';
+import { convertBtcToSats } from '../utils';
+import { useMagicClient } from './use-magic-client.hooks';
 
 export function useInboundMagicSwap() {
   const { createSwap } = useSwapActions();
@@ -42,7 +27,7 @@ export function useInboundMagicSwap() {
     electrumClient,
     magicContracts,
     magicClient,
-  }
+  };
 
   async function createInboundSwap(btcAmount: number) {
     const suppliers = await fetchSuppliers(fetchContext);
@@ -82,7 +67,7 @@ export function useInboundMagicSwap() {
 
   return {
     createInboundSwap,
-  }
+  };
 }
 
 function getSwapFees(supplier: MagicSupplier, isOutbound: boolean) {
@@ -124,7 +109,11 @@ function getSwapAmount(amount: bigint, feeRate: number, baseFee: number | null) 
   return withBps;
 }
 
-async function getBestSupplier(btcAmount: number, isOutbound: boolean, context: MagicFetchContextWithElectrum) {
+async function getBestSupplier(
+  btcAmount: number,
+  isOutbound: boolean,
+  context: MagicFetchContextWithElectrum
+) {
   const suppliers = await getSuppliers(isOutbound, context);
   const [defaultSupplier] = suppliers;
 
@@ -149,5 +138,4 @@ async function getBestSupplier(btcAmount: number, isOutbound: boolean, context: 
   });
 
   return sortedFee[0];
-
 }
