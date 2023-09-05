@@ -8,8 +8,6 @@ import { useOnMount } from '@app/common/hooks/use-on-mount';
 import { useRouteHeader } from '@app/common/hooks/use-route-header';
 import { Header } from '@app/components/header';
 import { InAppMessages } from '@app/features/hiro-messages/in-app-messages';
-import { SuggestedFirstSteps } from '@app/features/suggested-first-steps/suggested-first-steps';
-import { HomeActions } from '@app/pages/home/components/home-actions';
 import { useCurrentStacksAccount } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
 
 import { CurrentAccount } from './components/account-area';
@@ -35,11 +33,7 @@ export function Home() {
   });
 
   return (
-    <HomeLayout
-      suggestedFirstSteps={<SuggestedFirstSteps />}
-      currentAccount={<CurrentAccount />}
-      actions={<HomeActions />}
-    >
+    <HomeLayout currentAccount={<CurrentAccount />}>
       <HomeTabs>
         <Outlet context={{ address: stacksAccount?.address }} />
       </HomeTabs>

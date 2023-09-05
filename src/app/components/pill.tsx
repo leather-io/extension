@@ -1,4 +1,4 @@
-import { Box, BoxProps, Text, color } from '@stacks/ui';
+import { Box, BoxProps, styled } from 'leather-styles/jsx';
 
 import { Tooltip } from './tooltip';
 
@@ -18,9 +18,7 @@ export function Pill({ hoverLabel, label, ...props }: PillProps) {
         px="tight"
         {...props}
       >
-        <Text color={color('text-caption')} fontSize={0} {...props}>
-          {label}
-        </Text>
+        <styled.span textStyle="caption.02">{label}</styled.span>
       </Box>
     </Tooltip>
   );

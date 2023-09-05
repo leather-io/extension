@@ -20,6 +20,13 @@ config.optimization = {
       // Only enable code splitting on main bundle
       return chunk.name === 'index';
     },
+    cacheGroups: {
+      radixUI: {
+        test: /[\\/]node_modules[\\/]@radix-ui[\\/]/,
+        name: 'radix-ui',
+        chunks: 'all',
+      },
+    },
     hidePathInfo: false,
     minSize: 10000,
     maxAsyncRequests: Infinity,

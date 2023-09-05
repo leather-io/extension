@@ -19,8 +19,8 @@ export function HomeTabs({ children }: HomeTabsProps) {
 
   const tabs = useMemo(
     () => [
-      { slug: RouteUrls.Home, label: 'Balances' },
-      { slug: RouteUrls.Activity, label: 'Activity' },
+      { slug: RouteUrls.Home, label: 'assets' },
+      { slug: RouteUrls.Activity, label: 'activity' },
     ],
     []
   );
@@ -37,12 +37,7 @@ export function HomeTabs({ children }: HomeTabsProps) {
 
   return (
     <Stack flexGrow={1} mt="loose" spacing="extra-loose">
-      <Tabs
-        tabs={tabs}
-        activeTab={getActiveTab()}
-        onTabClick={setActiveTab}
-        width={['100%', '193px']}
-      />
+      <Tabs tabs={tabs} activeTab={getActiveTab()} onTabClick={setActiveTab} />
       <Suspense fallback={<LoadingSpinner pb="72px" />}>
         <Box width="100%">{children}</Box>
       </Suspense>

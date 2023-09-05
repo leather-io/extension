@@ -7,7 +7,7 @@ test.describe('Message signing', () =>
     test.beforeEach(async ({ extensionId, globalPage, onboardingPage, page }) => {
       await globalPage.setupAndUseApiCalls(extensionId);
       await onboardingPage.signInWithTestAccount(extensionId);
-      await page.goto('https://wallet.hiro.so');
+      await page.goto('https://leather.io');
     });
 
     function clickActionButton(context: BrowserContext) {

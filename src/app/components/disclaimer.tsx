@@ -1,8 +1,8 @@
-import { Box, BoxProps } from '@stacks/ui';
+import { Box, BoxProps, styled } from 'leather-styles/jsx';
 
 import { openInNewTab } from '@app/common/utils/open-in-new-tab';
-import { Link } from '@app/components/link';
-import { Caption } from '@app/components/typography';
+
+import { LeatherButton } from './button/button';
 
 interface DisclaimerProps extends BoxProps {
   disclaimerText: string;
@@ -11,16 +11,21 @@ interface DisclaimerProps extends BoxProps {
 export function Disclaimer({ disclaimerText, learnMoreUrl, ...props }: DisclaimerProps) {
   return (
     <Box lineHeight="1.4" {...props}>
-      <Caption>
+      <styled.span textStyle="caption.02">
         {disclaimerText}
         {learnMoreUrl ? (
-          <Link display="inline" fontSize="14px" onClick={() => openInNewTab(learnMoreUrl)}>
+          <LeatherButton
+            display="inline"
+            fontSize="14px"
+            onClick={() => openInNewTab(learnMoreUrl)}
+            variant="link"
+          >
             {' '}
             Learn more
-          </Link>
+          </LeatherButton>
         ) : null}
         {learnMoreUrl ? '.' : null}
-      </Caption>
+      </styled.span>
     </Box>
   );
 }

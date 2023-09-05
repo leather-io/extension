@@ -1,11 +1,12 @@
-import { Box, Button, Flex, FlexProps, Stack, StackProps, Text } from '@stacks/ui';
+import { Box, Flex, FlexProps, Stack, StackProps } from '@stacks/ui';
 import { SharedComponentsSelectors } from '@tests/selectors/shared-component.selectors';
+import { styled } from 'leather-styles/jsx';
 
 import { isString } from '@shared/utils';
 
 import { whenPageMode } from '@app/common/utils';
-import { figmaTheme } from '@app/common/utils/figma-theme';
 
+import { LeatherButton } from '../button/button';
 import { SpaceBetween } from '../layout/space-between';
 
 // InfoCard
@@ -22,7 +23,7 @@ export function InfoCard({ children, ...props }: InfoCardProps) {
 
 // InfoCardRow
 interface InfoCardRowProps {
-  title: string;
+  title?: string;
   value: React.ReactNode;
   titleAdditionalElement?: React.ReactNode;
 }
@@ -31,19 +32,20 @@ export function InfoCardRow({ title, value, titleAdditionalElement, ...props }: 
   return (
     <SpaceBetween fontSize="14px" alignItems="start" {...props}>
       <Flex alignItems="center">
-        <Text color={figmaTheme.textSubdued}>{title}</Text>
+        <styled.span textStyle="body.02" color="accent.text-subdued">
+          {title}
+        </styled.span>
         {titleAdditionalElement && titleAdditionalElement}
       </Flex>
       {isString(value) ? (
-        <Text
-          color={figmaTheme.text}
-          fontWeight="500"
-          data-testid={SharedComponentsSelectors.InfoCardRowValue}
+        <styled.span
+          color="accent.text-primary"
+          textStyle="label.02"
           fontVariant="tabular-nums"
-          letterSpacing="-0.01em"
+          data-testid={SharedComponentsSelectors.InfoCardRowValue}
         >
           {value}
-        </Text>
+        </styled.span>
       ) : (
         value
       )}
@@ -53,11 +55,7 @@ export function InfoCardRow({ title, value, titleAdditionalElement, ...props }: 
 
 // InfoCardSeparator
 export function InfoCardSeparator() {
-  return (
-    <Box py="16px">
-      <hr />
-    </Box>
-  );
+  return <styled.hr my="space.04" border="1px dashed" borderColor="accent.border-default" />;
 }
 
 // InfoCardAssetValue
@@ -79,29 +77,21 @@ export function InfoCardAssetValue({
 }: InfoCardAssetValueProps) {
   return (
     <Box width="100%" {...props}>
-      <Stack
-        width="100%"
-        alignItems="center"
-        backgroundColor="#F9F9FA"
-        py="24px"
-        border="1px solid #EFEFF2"
-        borderRadius="10px"
-      >
+      <Stack width="100%" alignItems="center" py="24px">
         {icon && <Box as={icon} size="32px" />}
 
         <Flex flexDirection="column" alignItems="center">
-          <Text
-            fontSize="24px"
-            fontWeight="500"
-            lineHeight="36px"
+          <styled.h1
             data-testid={SharedComponentsSelectors.InfoCardAssetValue}
+            textStyle="heading.03"
+            mb="space.01"
           >
             {value} {symbol}
-          </Text>
+          </styled.h1>
           {fiatValue && (
-            <Text fontSize="12px" mt="4px">
+            <styled.span textStyle="label.01">
               ~ {fiatValue} {fiatSymbol}
-            </Text>
+            </styled.span>
           )}
         </Flex>
       </Stack>
@@ -118,19 +108,14 @@ interface InfoCardBtnProps {
 
 export function InfoCardBtn({ icon, label, onClick }: InfoCardBtnProps) {
   return (
-    <Button
-      onClick={onClick}
-      mode="tertiary"
-      height="36px"
-      px="base-tight"
-      py="base-loose"
-      flexGrow="1"
-    >
-      <Text fontSize="14px" mr="tight" fontWeight="500">
-        {label}
-      </Text>
-      <Box as={icon} size="14px" />
-    </Button>
+    <LeatherButton onClick={onClick} flexGrow="1">
+      <Flex alignItems="center" justifyContent="center">
+        <styled.span mr="space.02" textStyle="label.02">
+          {label}
+        </styled.span>
+        <Box as={icon} mr="tight" size="14px" />
+      </Flex>
+    </LeatherButton>
   );
 }
 
@@ -148,7 +133,6 @@ export function InfoCardFooter({ children }: InfoCardFooterProps) {
         full: '',
         popup: '#fff',
       })}
-      borderTop="1px solid #EFEFF2"
       alignItems="center"
       justifyContent="center"
       zIndex="999"

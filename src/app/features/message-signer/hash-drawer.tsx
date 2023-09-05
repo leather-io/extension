@@ -1,16 +1,18 @@
 import { useState } from 'react';
-import { FiChevronDown, FiChevronUp } from 'react-icons/fi';
 
-import { Box, Flex, Text } from '@stacks/ui';
+import { Flex } from '@stacks/ui';
+import { Box, styled } from 'leather-styles/jsx';
+import { token } from 'leather-styles/tokens';
 
-import { figmaTheme } from '@app/common/utils/figma-theme';
+import { ChevronDownIcon } from '@app/components/icons/chevron-down-icon';
+import { ChevronUpIcon } from '@app/components/icons/chevron-up-icon';
 
 interface ShowHashButtonProps {
   expanded: boolean;
 }
 function ShowHashButton(props: ShowHashButtonProps) {
   const { expanded } = props;
-  return <Box as={expanded ? FiChevronUp : FiChevronDown} size="16px" />;
+  return expanded ? <ChevronUpIcon /> : <ChevronDownIcon />;
 }
 
 interface HashDrawerProps {
@@ -21,7 +23,7 @@ export function HashDrawer(props: HashDrawerProps) {
   const [showHash, setShowHash] = useState(false);
   const [displayHash, setDisplayHash] = useState(hash);
   return (
-    <Box px="loose">
+    <Box px="space.05">
       <Flex
         as="button"
         width="100%"
@@ -32,9 +34,9 @@ export function HashDrawer(props: HashDrawerProps) {
           setShowHash(!showHash);
         }}
       >
-        <Text display="block" fontSize={1} py="tight">
+        <styled.span py="space.02" textStyle="caption.01">
           {showHash ? 'Hide hash' : 'Show hash'}
-        </Text>
+        </styled.span>
         <Box marginLeft="auto" marginTop="auto" marginBottom="auto">
           <ShowHashButton expanded={showHash} />
         </Box>
@@ -44,16 +46,14 @@ export function HashDrawer(props: HashDrawerProps) {
         height={showHash ? '100%' : '0'}
         visibility={showHash ? 'visible' : 'hidden'}
       >
-        <Text
-          display="block"
-          color={figmaTheme.textSubdued}
-          fontSize={1}
+        <styled.span
+          color={token('colors.accent.text-subdued')}
           lineHeight="1.6"
           wordBreak="break-all"
-          fontFamily="Fira Code"
+          textStyle="caption.02"
         >
           {displayHash}
-        </Text>
+        </styled.span>
       </Box>
     </Box>
   );

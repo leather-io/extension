@@ -1,8 +1,10 @@
-import { Flex, Text } from '@stacks/ui';
+import { Flex } from '@stacks/ui';
 import { Field, useField } from 'formik';
+import { styled } from 'leather-styles/jsx';
+import { token } from 'leather-styles/tokens';
 
 import { useOnMount } from '@app/common/hooks/use-on-mount';
-import { SpaceBetween } from '@app/components/layout/space-between';
+import { Flag } from '@app/components/layout/flag';
 
 interface SelectedAssetFieldProps {
   icon: React.JSX.Element;
@@ -17,24 +19,18 @@ export function SelectedAssetField({ icon, name, symbol }: SelectedAssetFieldPro
   return (
     <Flex
       alignItems="center"
-      border="1px solid #DCDDE2"
+      border={`1px solid ${token('colors.accent.border-default')}`}
       borderRadius="10px"
       minHeight="64px"
       mb="base"
-      mt="loose"
+      mt="extra-loose"
       px="base"
       width="100%"
     >
       <Field as="div" name="symbol">
-        <SpaceBetween>
-          <Flex alignItems="center">
-            {icon}
-            <Text ml="tight" mr="extra-tight">
-              {name}
-            </Text>
-            <Text>({symbol.toUpperCase()})</Text>
-          </Flex>
-        </SpaceBetween>
+        <Flag align="middle" img={icon} spacing="base-tight">
+          <styled.span textStyle="label.01">{name}</styled.span>
+        </Flag>
       </Field>
     </Flex>
   );

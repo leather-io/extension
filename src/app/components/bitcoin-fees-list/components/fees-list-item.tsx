@@ -1,7 +1,6 @@
 import { Box, Flex, Text, color, transition } from '@stacks/ui';
 import { SharedComponentsSelectors } from '@tests/selectors/shared-component.selectors';
-
-import { figmaTheme } from '@app/common/utils/figma-theme';
+import { token } from 'leather-styles/tokens';
 
 interface FeesListItemProps {
   arrivesIn: string;
@@ -26,7 +25,7 @@ export function FeesListItem({
       _hover={{ background: '#F9F9FA' }}
       as="button"
       border={isSelected ? '4px solid' : '1px solid'}
-      borderColor={isSelected ? figmaTheme.borderFocused : color('border')}
+      borderColor={isSelected ? token('colors.brown.12') : token('colors.ink.7')}
       borderRadius="16px"
       boxShadow="0px 1px 2px rgba(0, 0, 0, 0.04)"
       data-testid={SharedComponentsSelectors.FeesListItem}

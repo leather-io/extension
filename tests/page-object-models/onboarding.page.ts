@@ -28,20 +28,16 @@ export const testSoftwareAccountDefaultWalletState = {
     },
   },
   networks: { ids: [], entities: {}, currentNetworkId: 'mainnet' },
-  onboarding: {
-    hideSteps: true,
-    stepsStatus: {
-      'Back up secret key': 1,
-      'Add some funds': 0,
-      'Explore apps': 0,
-      'Buy an NFT': 0,
-    },
-  },
   ordinals: {
     entities: {},
     ids: [],
   },
-  settings: { userSelectedTheme: 'system', hasAllowedAnalytics: false, dismissedMessages: [] },
+  settings: {
+    userSelectedTheme: 'system',
+    hasAllowedAnalytics: false,
+    dismissedMessages: [],
+    hasApprovedNewBrand: true,
+  },
   _persist: { version: 1, rehydrated: true },
 };
 

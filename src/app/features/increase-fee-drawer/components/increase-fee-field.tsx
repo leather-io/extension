@@ -56,6 +56,7 @@ export function IncreaseFeeField(props: IncreaseFeeFieldProps): React.JSX.Elemen
             width="100%"
             placeholder="Enter a custom fee"
             autoComplete="off"
+            bg="transparent"
             {...field}
           />
         </InputGroup>

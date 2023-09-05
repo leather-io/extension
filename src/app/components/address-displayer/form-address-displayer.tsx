@@ -1,13 +1,13 @@
-import { Box } from '@stacks/ui';
+import { Box, BoxProps } from '@stacks/ui';
 import { SharedComponentsSelectors } from '@tests/selectors/shared-component.selectors';
 
 import { AddressDisplayer } from './address-displayer';
 
-interface FormAddressDisplayerProps {
+interface FormAddressDisplayerProps extends BoxProps {
   address: string;
 }
 
-export function FormAddressDisplayer({ address }: FormAddressDisplayerProps) {
+export function FormAddressDisplayer({ address, ...rest }: FormAddressDisplayerProps) {
   return (
     <Box
       maxWidth="300px"
@@ -17,6 +17,7 @@ export function FormAddressDisplayer({ address }: FormAddressDisplayerProps) {
       mr="-8px"
       fontSize="16px"
       data-testid={SharedComponentsSelectors.AddressDisplayer}
+      {...rest}
     >
       <AddressDisplayer address={address} />
     </Box>

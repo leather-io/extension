@@ -32,6 +32,8 @@ export function useRpcSendTransfer() {
   // Forcing a refetch to ensure UTXOs are fresh
   useOnMount(() => refetch());
 
+  if (!origin) throw new Error('Invalid params');
+
   return {
     address,
     amount,

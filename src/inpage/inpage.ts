@@ -219,7 +219,7 @@ const provider: HiroWalletProviderOverrides = {
   getProductInfo() {
     return {
       version: VERSION,
-      name: 'Hiro Wallet',
+      name: 'Leather',
       meta: {
         tag: BRANCH,
         commit: COMMIT_SHA,
@@ -253,6 +253,7 @@ const provider: HiroWalletProviderOverrides = {
 };
 
 window.StacksProvider = provider;
+(window as any).LeatherProvider = provider;
 
 (window as any).HiroWalletProvider = provider;
 

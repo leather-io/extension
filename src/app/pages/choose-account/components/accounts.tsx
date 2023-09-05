@@ -3,7 +3,8 @@ import { FiPlusCircle } from 'react-icons/fi';
 import { useNavigate } from 'react-router-dom';
 import { Virtuoso } from 'react-virtuoso';
 
-import { Box, BoxProps, FlexProps, Stack, Text, color } from '@stacks/ui';
+import { Box, BoxProps, FlexProps, Stack, Text } from '@stacks/ui';
+import { styled } from 'leather-styles/jsx';
 
 import { RouteUrls } from '@shared/route-urls';
 
@@ -18,7 +19,6 @@ import { AccountAvatar } from '@app/components/account/account-avatar/account-av
 import { AccountListItemLayout } from '@app/components/account/account-list-item-layout';
 import { usePressable } from '@app/components/item-hover';
 import { Title } from '@app/components/typography';
-import { useHasCreatedAccount } from '@app/store/accounts/account';
 import { useNativeSegwitAccountIndexAddressIndexZero } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
 import { useStacksAccounts } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
 import { StacksAccount } from '@app/store/accounts/blockchain/stacks/stacks-account.models';
@@ -38,16 +38,12 @@ function AccountTitlePlaceholder({ account, ...rest }: AccountTitlePlaceholderPr
   );
 }
 
-interface AccountTitleProps extends BoxProps {
+interface AccountTitleProps {
   account: StacksAccount;
   name: string;
 }
-function AccountTitle({ account, name, ...rest }: AccountTitleProps) {
-  return (
-    <Title fontSize={2} lineHeight="1rem" fontWeight="400" {...rest}>
-      {name}
-    </Title>
-  );
+function AccountTitle({ name }: AccountTitleProps) {
+  return <styled.span textStyle="label.01">{name}</styled.span>;
 }
 
 interface ChooseAccountItemProps extends FlexProps {
@@ -58,6 +54,7 @@ interface ChooseAccountItemProps extends FlexProps {
 }
 const ChooseAccountItem = memo((props: ChooseAccountItemProps) => {
   const { selectedAddress, account, isLoading, onSelectAccount, ...rest } = props;
+
   const [component, bind] = usePressable(true);
   const { decodedAuthRequest } = useOnboardingState();
   const name = useAccountDisplayName(account);
@@ -72,8 +69,10 @@ const ChooseAccountItem = memo((props: ChooseAccountItemProps) => {
     // virtualised list library
     <Box pb="loose">
       <AccountListItemLayout
+        index={account.index}
         stxAddress={account.address}
         btcAddress={btcAddress}
+        isActive={false}
         accountName={
           <Suspense
             fallback={
@@ -107,17 +106,15 @@ const ChooseAccountItem = memo((props: ChooseAccountItemProps) => {
 const AddAccountAction = memo(() => {
   const [component, bind] = usePressable(true);
   const createAccount = useCreateAccount();
-  const [, setHasCreatedAccount] = useHasCreatedAccount();
 
   const onCreateAccount = () => {
     createAccount();
-    setHasCreatedAccount(true);
   };
 
   return (
     <Box mb="loose" px="base-tight" py="tight" onClick={onCreateAccount} {...bind}>
-      <Stack isInline alignItems="center" color={color('text-body')}>
-        <Box size="16px" as={FiPlusCircle} color={color('brand')} />
+      <Stack isInline alignItems="center">
+        <Box size="16px" as={FiPlusCircle} />
         <Text color="currentColor">Generate new account</Text>
       </Stack>
       {component}

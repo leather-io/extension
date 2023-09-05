@@ -1,12 +1,9 @@
 import { useState } from 'react';
-import { FiCopy, FiEye, FiEyeOff } from 'react-icons/fi';
 
-import YourSecretKey from '@assets/images/onboarding/your-secret-key.png';
-import { Box, Stack, color } from '@stacks/ui';
 import { SettingsSelectors } from '@tests-legacy/integration/settings.selectors';
+import { Box, Flex, Stack, styled } from 'leather-styles/jsx';
 
-import { Link } from '@app/components/link';
-import { Text, Title } from '@app/components/typography';
+import { LeatherButton } from '@app/components/button/button';
 
 import { SecretKeyWord } from './components/secret-key-word';
 
@@ -21,53 +18,48 @@ export function SecretKeyDisplayerLayout(props: SecretKeyDisplayerLayoutProps) {
   const [showSecretKey, setShowSecretKey] = useState(false);
 
   return (
-    <Box border="1px solid" borderColor={color('border')} borderRadius="16px">
+    <Box backgroundColor="brown.1" border={['1px solid var(--brown-2)', '0px']} borderRadius="16px">
       <Stack
         alignItems="center"
-        p={['base-loose', 'extra-loose']}
-        ml={['tight', 'extra-tight']}
-        spacing="loose"
+        px={['space.02', 'space.05']}
+        pt={['space.02', 'space.07']}
+        pb={['space.02', 'space.05']}
+        gap="space.07"
       >
         {showTitleAndIllustration ? (
-          <>
-            <Box width={['87px', '101px']}>
-              <img src={YourSecretKey} />
-            </Box>
-            <Title fontSize="20px">Your Secret Key</Title>
-          </>
+          <styled.h1 hideBelow="sm" textStyle="heading.03">
+            Your Secret Key
+          </styled.h1>
         ) : null}
 
-        <Stack isInline justifyContent="center" rowGap="tight" wrap="wrap">
-          {secretKeyWords?.map(word => (
-            <SecretKeyWord key={word} word={showSecretKey ? word : '*'.repeat(word.length)} />
+        <Flex justifyContent="center" rowGap="tight" flexWrap="wrap" gap="space.01">
+          {secretKeyWords?.map((word, index) => (
+            <SecretKeyWord
+              key={word}
+              flex={['0 40%', '1 0 21%']}
+              word={showSecretKey ? word : '*'.repeat(word.length)}
+              num={index + 1}
+            />
           ))}
-        </Stack>
-        <Stack alignItems="center" isInline>
-          <Link
-            _hover={{ textDecoration: 'none' }}
+        </Flex>
+        <Flex gap="space.02" alignItems="center" width="100%">
+          <LeatherButton
+            variant="outline"
+            flex="1"
             data-testid={SettingsSelectors.ShowSecretKeyBtn}
-            fontSize="14px"
             onClick={() => setShowSecretKey(!showSecretKey)}
           >
-            <Stack alignItems="center" isInline spacing="tight">
-              {showSecretKey ? <FiEyeOff /> : <FiEye />}
-              <Text color={color('accent')} whiteSpace="nowrap">
-                {showSecretKey ? 'Hide key' : 'Show key'}
-              </Text>
-            </Stack>
-          </Link>
-        </Stack>
-        <Link
-          data-testid={SettingsSelectors.CopyKeyToClipboardBtn}
-          _hover={{ textDecoration: 'none' }}
-          fontSize="14px"
-          onClick={!hasCopied ? onCopyToClipboard : undefined}
-        >
-          <Stack alignItems="center" isInline>
-            {!hasCopied && <FiCopy />}
-            <Text color={color('accent')}>{!hasCopied ? ' Copy to clipboard' : 'Copied!'}</Text>
-          </Stack>
-        </Link>
+            <styled.p textStyle="body.02">{showSecretKey ? 'Hide key' : 'Show key'}</styled.p>
+          </LeatherButton>
+          <LeatherButton
+            variant="outline"
+            flex="1"
+            data-testid={SettingsSelectors.CopyKeyToClipboardBtn}
+            onClick={!hasCopied ? onCopyToClipboard : undefined}
+          >
+            <styled.p textStyle="body.02">{!hasCopied ? ' Copy to clipboard' : 'Copied!'}</styled.p>
+          </LeatherButton>
+        </Flex>
       </Stack>
     </Box>
   );

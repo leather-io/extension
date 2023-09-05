@@ -2,10 +2,12 @@ import { memo } from 'react';
 
 import { Stack } from '@stacks/ui';
 import { TransactionSigningSelectors } from '@tests-legacy/page-objects/transaction-signing.selectors';
+import { styled } from 'leather-styles/jsx';
 
 import { useDefaultRequestParams } from '@app/common/hooks/use-default-request-search-params';
 import { addPortSuffix, getUrlHostname } from '@app/common/utils';
-import { Caption, Title } from '@app/components/typography';
+import { Favicon } from '@app/components/favicon';
+import { Flag } from '@app/components/layout/flag';
 import { usePageTitle } from '@app/pages/transaction-request/hooks/use-page-title';
 import { useCurrentNetworkState } from '@app/store/networks/networks.hooks';
 import { useTransactionRequestState } from '@app/store/transactions/requests.hooks';
@@ -32,10 +34,16 @@ function PageTopBase() {
       spacing="base"
       width="100%"
     >
-      <Title as="h1" fontWeight="bold">
+      <styled.h1 mb="space.04" textStyle="heading.03">
         {pageTitle}
-      </Title>
-      {caption && <Caption wordBreak="break-word">{caption}</Caption>}
+      </styled.h1>
+      {caption && (
+        <Flag align="middle" img={<Favicon origin={origin ?? ''} />} pl="tight">
+          <styled.span textStyle="label.02" wordBreak="break-word">
+            {caption}
+          </styled.span>
+        </Flag>
+      )}
     </Stack>
   );
 }

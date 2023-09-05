@@ -34,7 +34,7 @@ export function SubmittedTransactionItem(props: SubmittedTransactionItemProps) {
   const { caption, title, value } = submittedTransactionDetails;
 
   return (
-    <Box cursor="pointer" position="relative" {...bind} {...rest}>
+    <Box {...bind} {...rest}>
       <Stack
         alignItems="center"
         isInline

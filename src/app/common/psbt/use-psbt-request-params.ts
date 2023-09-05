@@ -52,7 +52,7 @@ export function useRpcSignPsbtParams() {
       allowedSighash: undefinedIfLengthZero(
         allowedSighash.map(h => Number(h)) as AllowedSighashTypes[]
       ),
-      broadcast,
+      broadcast: broadcast === 'true',
       origin,
       psbtHex,
       requestId,

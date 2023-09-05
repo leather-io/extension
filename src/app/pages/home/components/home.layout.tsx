@@ -1,36 +1,26 @@
 import React from 'react';
 
-import { Flex, Stack } from '@stacks/ui';
+import { useMediaQuery } from '@stacks/ui';
 import { HomePageSelectors } from '@tests/selectors/home.selectors';
+import { Stack } from 'leather-styles/jsx';
 
-import { HOME_FULL_PAGE_MAX_WIDTH } from '@app/components/global-styles/full-page-styles';
+import { AccountInfoCard } from './account-info-card';
 
-type HomeLayoutProps = Record<
-  'suggestedFirstSteps' | 'currentAccount' | 'actions' | 'children',
-  React.ReactNode
->;
-export function HomeLayout(props: HomeLayoutProps) {
-  const { suggestedFirstSteps, currentAccount, actions, children } = props;
+type HomeLayoutProps = Record<'currentAccount' | 'children', React.ReactNode>;
+export function HomeLayout({ children }: HomeLayoutProps) {
+  const [isNarrowViewport] = useMediaQuery('(max-width: 600px)');
 
   return (
-    <Stack alignItems="center" width="100%" spacing="extra-tight">
-      {suggestedFirstSteps}
+    <Stack alignItems="center" width="100%" mx={['', 'space.04']}>
       <Stack
         data-testid={HomePageSelectors.HomePageContainer}
-        maxWidth={['unset', HOME_FULL_PAGE_MAX_WIDTH]}
-        mt="extra-loose"
-        px={['base-loose', 'base-loose', 'base-loose', 'unset']}
-        spacing="loose"
+        maxWidth={['unset', '882px']}
+        px={['base-loose', 'base-loose', 'base-loose', 'space.08']}
         width="100%"
+        backgroundColor="brown.1"
+        borderRadius={isNarrowViewport ? '0' : '8px'}
       >
-        <Flex
-          flexDirection={['column', 'column', 'unset']}
-          alignItems={['start', 'start', 'center']}
-          justifyContent={['unset', 'space-between']}
-        >
-          {currentAccount}
-          {actions}
-        </Flex>
+        <AccountInfoCard />
         {children}
       </Stack>
     </Stack>

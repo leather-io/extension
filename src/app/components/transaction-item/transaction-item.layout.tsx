@@ -38,7 +38,7 @@ export function TransactionItemLayout({
           <SpaceBetween spacing="extra-loose">
             {txTitle} {txValue}
           </SpaceBetween>
-          <Stack alignItems="center" isInline mt="4px">
+          <Stack alignItems="center" isInline>
             {txCaption} {txStatus && txStatus}
             {belowCaptionEl ? belowCaptionEl : null}
           </Stack>

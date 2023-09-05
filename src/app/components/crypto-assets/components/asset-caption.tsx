@@ -1,8 +1,7 @@
 import { FiInfo } from 'react-icons/fi';
 
 import { Box, Flex, Stack, Tooltip, color } from '@stacks/ui';
-
-import { Caption } from '@app/components/typography';
+import { styled } from 'leather-styles/jsx';
 
 interface AssetCaptionProps {
   caption: string;
@@ -11,10 +10,12 @@ interface AssetCaptionProps {
 export function AssetCaption({ caption, isUnanchored }: AssetCaptionProps) {
   return (
     <Flex flexDirection="row">
-      <Caption lineHeight="1.5">{caption}</Caption>{' '}
+      <styled.span textStyle="caption.02">{caption}</styled.span>{' '}
       {isUnanchored ? (
         <>
-          <Caption ml={1}> • Microblock </Caption>
+          <styled.span mx="space.01" textStyle="caption.02">
+            • Microblock
+          </styled.span>
           <Tooltip placement="right-end" label={'Learn more about microblocks'}>
             <Stack isInline>
               <a

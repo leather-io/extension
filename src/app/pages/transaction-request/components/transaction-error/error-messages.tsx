@@ -11,9 +11,8 @@ import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
 import { useDrawers } from '@app/common/hooks/use-drawers';
 import { useScrollLock } from '@app/common/hooks/use-scroll-lock';
 import { stacksValue } from '@app/common/stacks-utils';
+import { LeatherButton } from '@app/components/button/button';
 import { SpaceBetween } from '@app/components/layout/space-between';
-import { PrimaryButton } from '@app/components/primary-button';
-import { SecondaryButton } from '@app/components/secondary-button';
 import { Caption } from '@app/components/typography';
 import { ErrorMessage } from '@app/pages/transaction-request/components/transaction-error/error-message';
 import { useCurrentStacksAccountAnchoredBalances } from '@app/query/stacks/balance/stx-balance.hooks';
@@ -35,10 +34,10 @@ function InsufficientFundsActionButtons({ eventName }: InsufficientFundsActionBu
 
   return (
     <>
-      <PrimaryButton onClick={onGetStx}>Get STX</PrimaryButton>
-      <SecondaryButton onClick={() => setIsShowingSwitchAccountsState(true)}>
+      <LeatherButton onClick={onGetStx}>Get STX</LeatherButton>
+      <LeatherButton onClick={() => setIsShowingSwitchAccountsState(true)} variant="outline">
         Switch account
-      </SecondaryButton>
+      </LeatherButton>
     </>
   );
 }

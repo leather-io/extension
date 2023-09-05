@@ -1,11 +1,11 @@
-import { FiCopy } from 'react-icons/fi';
-
-import { Box, Flex, Text, color, useClipboard } from '@stacks/ui';
+import { useClipboard } from '@stacks/ui';
+import { Box, Flex, styled } from 'leather-styles/jsx';
 
 import { useExplorerLink } from '@app/common/hooks/use-explorer-link';
+import { LeatherButton } from '@app/components/button/button';
+import { CopyIcon } from '@app/components/icons/copy-icon';
 import { Flag } from '@app/components/layout/flag';
 import { SpaceBetween } from '@app/components/layout/space-between';
-import { Link } from '@app/components/link';
 import { Tooltip } from '@app/components/tooltip';
 
 interface PsbtInputOutputItemLayoutProps {
@@ -31,9 +31,9 @@ export function PsbtInputOutputItemLayout({
     <Flag align="middle" img={<></>} mt="loose" spacing="base">
       <SpaceBetween>
         <Flex alignItems="center">
-          <Text color={color('text-caption')} fontSize={1} mr="extra-tight">
+          <styled.span mr="space.02" textStyle="caption.01">
             {address}
-          </Text>
+          </styled.span>
           <Tooltip
             disabled={!addressHoverLabel}
             hideOnClick={false}
@@ -42,34 +42,26 @@ export function PsbtInputOutputItemLayout({
             maxWidth="230px"
             placement="bottom"
           >
-            <Box
-              as="button"
-              color={color('text-caption')}
-              display="flex"
-              onClick={onCopy}
-              type="button"
-            >
-              {addressHoverLabel ? <FiCopy size="16px" /> : null}
+            <Box display="flex" height="16px">
+              <LeatherButton onClick={onCopy} variant="text">
+                {addressHoverLabel ? <CopyIcon /> : null}
+              </LeatherButton>
             </Box>
           </Tooltip>
           {label}
         </Flex>
-        <Text color={color('text-caption')} fontSize={1}>
-          {amount}
-        </Text>
+        <styled.span textStyle="caption.01">{amount}</styled.span>
       </SpaceBetween>
-      <Box mt="tight">
+      <Box mt="space.01">
         {txId && txIdHoverLabel ? (
-          <Link
-            _hover={{ textDecoration: 'none' }}
-            fontSize="14px"
-            mr="4px !important"
+          <LeatherButton
             onClick={() =>
               handleOpenTxLink({
                 blockchain: 'bitcoin',
                 txid: txIdHoverLabel ?? '',
               })
             }
+            variant="text"
           >
             <Tooltip
               disabled={!txIdHoverLabel}
@@ -79,11 +71,9 @@ export function PsbtInputOutputItemLayout({
               maxWidth="230px"
               placement="bottom"
             >
-              <Text color={color('brand')} fontSize={1} mr="extra-tight">
-                {txId}
-              </Text>
+              <styled.span textStyle="caption.02">{txId}</styled.span>
             </Tooltip>
-          </Link>
+          </LeatherButton>
         ) : null}
       </Box>
     </Flag>

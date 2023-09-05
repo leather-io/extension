@@ -4,6 +4,7 @@ import { FiEye, FiEyeOff } from 'react-icons/fi';
 import { Box, Button, Flex, Input, color } from '@stacks/ui';
 import { OnboardingSelectors } from '@tests/selectors/onboarding.selectors';
 import { useField } from 'formik';
+import { token } from 'leather-styles/tokens';
 
 import { ValidatedPassword } from '@app/common/validation/validate-password';
 import { Caption } from '@app/components/typography';
@@ -25,7 +26,7 @@ export function PasswordField({ strengthResult, isDisabled }: PasswordFieldProps
     <>
       <Box position="relative">
         <Input
-          _focus={{ border: '2px solid #5546FF' }}
+          _focus={{ border: `2px solid ${token('colors.brown.12')}` }}
           autoFocus
           border="2px solid"
           data-testid={OnboardingSelectors.NewPasswordInput}

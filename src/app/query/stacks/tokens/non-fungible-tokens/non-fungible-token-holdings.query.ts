@@ -1,4 +1,4 @@
-import { useQueries, useQuery } from '@tanstack/react-query';
+import { useQuery } from '@tanstack/react-query';
 
 import { logger } from '@shared/logger';
 import { Paginated } from '@shared/models/api-types';
@@ -60,16 +60,4 @@ export default function useGetNonFungibleTokenHoldingsQuery(address: string) {
   return useQuery(
     makeNonFungibleTokenHoldingsQuery(address, network.chain.stacks.url, client, limiter)
   );
-}
-
-export function useGetNonFungibleTokenHoldingsListQuery(addresses: string[]) {
-  const client = useStacksClientUnanchored();
-  const network = useCurrentNetworkState();
-  const limiter = useHiroApiRateLimiter();
-
-  return useQueries({
-    queries: addresses.map(address =>
-      makeNonFungibleTokenHoldingsQuery(address, network.chain.stacks.url, client, limiter)
-    ),
-  });
 }

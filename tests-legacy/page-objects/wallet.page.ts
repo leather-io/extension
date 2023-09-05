@@ -41,7 +41,7 @@ export class WalletPage {
   $settingsViewSecretKey = createTestSelector(SettingsSelectors.ViewSecretKeyListItem);
   $homePageBalancesList = createTestSelector(HomePageSelectorsLegacy.BalancesList);
   $statusMessage = createTestSelector(WalletPageSelectors.StatusMessage);
-  $hiroWalletLogo = createTestSelector(OnboardingSelectors.HiroWalletLogoRouteToHome);
+  $leatherLogo = createTestSelector(OnboardingSelectors.LeatherLogoRouteToHome);
   $signOutConfirmHasBackupCheckbox = createTestSelector(
     SettingsSelectors.SignOutConfirmHasBackupCheckbox
   );
@@ -51,10 +51,6 @@ export class WalletPage {
   $signOutDeleteWalletBtn = createTestSelector(SettingsSelectors.BtnSignOutActuallyDeleteWallet);
   $enterPasswordInput = createTestSelector(SettingsSelectors.EnterPasswordInput);
   $unlockWalletBtn = createTestSelector(SettingsSelectors.UnlockWalletBtn);
-  $hideStepsBtn = createTestSelector(OnboardingSelectors.HideStepsBtn);
-  $suggestedStepsList = createTestSelector(OnboardingSelectors.StepsList);
-  $suggestedStepStartBtn = createTestSelector(OnboardingSelectors.StepItemStart);
-  $suggestedStepDoneBadge = createTestSelector(OnboardingSelectors.StepItemDone);
   $noAssetsFundAccountLink = createTestSelector(OnboardingSelectors.NoAssetsFundAccountLink);
 
   page: Page;
@@ -102,10 +98,6 @@ export class WalletPage {
     await this.page.click(this.$contractCallButton);
   }
 
-  async clickHideSteps() {
-    await this.page.click(this.$hideStepsBtn);
-  }
-
   async waitForSettingsButton() {
     await this.page.waitForSelector(this.$settingsButton, { timeout: 30000 });
   }
@@ -122,8 +114,8 @@ export class WalletPage {
     await this.page.waitForSelector(this.$enterPasswordInput, { timeout: 30000 });
   }
 
-  async waitForHiroWalletLogo() {
-    await this.page.waitForSelector(this.$hiroWalletLogo, { timeout: 3000 });
+  async waitForLeatherLogo() {
+    await this.page.waitForSelector(this.$leatherLogo, { timeout: 3000 });
   }
 
   async waitForWelcomePage() {
@@ -132,14 +124,6 @@ export class WalletPage {
 
   async waitForStatusMessage() {
     await this.page.waitForSelector(this.$statusMessage, { timeout: 20000 });
-  }
-
-  async waitForHideOnboardingsStepsButton() {
-    await this.page.waitForSelector(this.$hideStepsBtn, { timeout: 30000 });
-  }
-
-  async waitForsuggestedStepsList() {
-    await this.page.waitForSelector(this.$suggestedStepsList, { timeout: 30000 });
   }
 
   async loginWithPreviousSecretKey(secretKey: string) {

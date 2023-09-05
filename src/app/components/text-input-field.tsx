@@ -3,7 +3,8 @@ import { Ref, useRef } from 'react';
 import { Box, Flex, FlexProps, Input, Text, color } from '@stacks/ui';
 import { SendCryptoAssetSelectors } from '@tests/selectors/send.selectors';
 import { useField } from 'formik';
-import { css } from 'leaf-styles/css';
+import { css } from 'leather-styles/css';
+import { token } from 'leather-styles/tokens';
 
 import { useShowFieldError } from '@app/common/form-utils';
 import { capitalize } from '@app/common/utils';
@@ -57,7 +58,7 @@ export function TextInputField({
           bottom: '-1px',
         }}
         as="label"
-        border="1px solid #DCDDE2"
+        border={`1px solid ${token('colors.accent.border-default')}`}
         borderRadius="10px"
         className={css({
           '& :has(:focus)::before': {
@@ -79,7 +80,7 @@ export function TextInputField({
           <Flex alignItems="center">
             {label && field.value ? (
               <Text
-                color={showError ? '#C83532' : color('accent')}
+                color={showError ? token('colors.error') : token('colors.ink.11')}
                 fontSize={1}
                 fontWeight={500}
                 mr="tight"
@@ -94,7 +95,7 @@ export function TextInputField({
               _hover={{ cursor: 'pointer', textDecoration: 'underline' }}
               data-testid={SendCryptoAssetSelectors.RecipientChooseAccountButton}
               as="button"
-              color={color('accent')}
+              color={token('colors.brown.12')}
               fontSize={1}
               fontWeight={500}
               // Prevents focusing underlying input
@@ -131,6 +132,7 @@ export function TextInputField({
           spellCheck="false"
           type="input"
           width="100%"
+          bg="transparent"
           {...field}
           onBlur={e => {
             onBlur?.();

@@ -1,7 +1,7 @@
-import { FiArrowUp } from 'react-icons/fi';
+import { HStack, styled } from 'leather-styles/jsx';
 
-import { Stack, Text } from '@stacks/ui';
-
+import { LeatherButton } from '@app/components/button/button';
+import { ArrowUpIcon } from '@app/components/icons/arrow-up-icon';
 import { SpaceBetween } from '@app/components/layout/space-between';
 
 interface PsbtRequestDetailsSectionHeaderProps {
@@ -18,20 +18,17 @@ export function PsbtRequestDetailsSectionHeader({
 }: PsbtRequestDetailsSectionHeaderProps) {
   return (
     <SpaceBetween>
-      <Text fontWeight={500}>{title}</Text>
+      <styled.span textStyle="label.01">{title}</styled.span>
       {hasDetails && onSetShowDetails ? (
-        <Stack alignItems="center" isInline spacing="extra-tight">
-          <Text
-            as="button"
-            fontSize={2}
-            fontWeight={500}
-            onClick={() => onSetShowDetails(!showDetails)}
-            type="button"
-          >
-            {showDetails ? 'See less' : 'See details'}
-          </Text>
-          {showDetails ? <FiArrowUp /> : <></>}
-        </Stack>
+        <LeatherButton onClick={() => onSetShowDetails(!showDetails)} variant="text">
+          {showDetails ? (
+            <HStack gap="space.01">
+              See less <ArrowUpIcon />
+            </HStack>
+          ) : (
+            'See details'
+          )}
+        </LeatherButton>
       ) : null}
     </SpaceBetween>
   );

@@ -1,8 +1,8 @@
 import { Flex } from '@stacks/ui';
 
+import { LeatherButton } from '@app/components/button/button';
 import { BaseDrawer } from '@app/components/drawer/base-drawer';
 import { BtcIcon } from '@app/components/icons/btc-icon';
-import { PrimaryButton } from '@app/components/primary-button';
 import { Body, Title } from '@app/components/typography';
 import { WarningLabel } from '@app/components/warning-label';
 
@@ -25,8 +25,8 @@ export function RetrieveTaprootToNativeSegwitLayout(
           Retrieve Bitcoin deposited to <br /> Taproot addresses
         </Title>
         <Body mt="loose">
-          Taproot addresses are used by Hiro Wallet for Ordinal inscriptions, but they can also
-          contain bitcoin.
+          Taproot addresses are used by Leather for Ordinal inscriptions, but they can also contain
+          bitcoin.
         </Body>
         <Body mt="base">
           As we don't support tranferring from Taproot addresses yet, you can retrieve funds to your
@@ -37,16 +37,16 @@ export function RetrieveTaprootToNativeSegwitLayout(
         <WarningLabel mt="loose">
           We recommend you check the URL for each "Uninscribed UTXO" listed above to ensure it
           displays no inscription. If it does display one, do not proceed with retrieval or you may
-          loose it!
+          lose it!
         </WarningLabel>
-        <PrimaryButton
+        <LeatherButton
           onClick={onApproveTransaction}
-          isLoading={isBroadcasting}
+          aria-busy={isBroadcasting}
           width="100%"
           my="loose"
         >
           Retrieve bitcoin
-        </PrimaryButton>
+        </LeatherButton>
       </Flex>
     </BaseDrawer>
   );

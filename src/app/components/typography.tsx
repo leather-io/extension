@@ -8,39 +8,6 @@ const interMetrics = {
   lineGap: 0,
   unitsPerEm: 2816,
 };
-const openSauceMetrics = {
-  capHeight: 1563,
-  ascent: 2105,
-  descent: -525,
-  lineGap: 0,
-  unitsPerEm: 2048,
-};
-
-const h1 = {
-  fontMetrics: openSauceMetrics,
-  fontSize: 24,
-};
-
-// B2
-const h2 = {
-  fontMetrics: openSauceMetrics,
-  fontSize: 18,
-};
-// B3
-const h3 = {
-  fontMetrics: openSauceMetrics,
-  fontSize: 16,
-};
-// C1
-const h4 = {
-  fontMetrics: openSauceMetrics,
-  fontSize: 14,
-};
-// C2
-const h5 = {
-  fontMetrics: openSauceMetrics,
-  fontSize: 12,
-};
 
 const c1 = {
   fontMetrics: interMetrics,
@@ -70,47 +37,20 @@ const captionStyles = (variant?: 'c1' | 'c2' | 'c3') => {
 
 type Headings = 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'span';
 
-const titleStyles = (as: Headings) => {
-  switch (as) {
-    case 'h1':
-      return h1;
-    case 'h2':
-      return h2;
-    case 'h3':
-      return h3;
-    case 'h4':
-      return h4;
-    case 'h5':
-    case 'h6':
-      return h5;
-    default:
-      return undefined;
-  }
-};
-
 export const Title = forwardRefWithAs<BoxProps, Headings>((props, ref) => (
   <BaseText
     userSelect="none"
     letterSpacing="-0.01em"
-    fontFamily="'Open Sauce One'"
+    fontFamily="Diatype"
     fontWeight="500"
-    color={color('text-title')}
     ref={ref}
     display="block"
-    css={titleStyles(props.as)}
     {...props}
   />
 ));
 
 export const Text = forwardRefWithAs<BoxProps, 'span'>((props, ref) => (
-  <BaseText
-    letterSpacing="-0.01em"
-    color={color('text-body')}
-    display="block"
-    lineHeight="1.5"
-    ref={ref}
-    {...props}
-  />
+  <BaseText letterSpacing="-0.01em" display="block" lineHeight="1.5" ref={ref} {...props} />
 ));
 
 export function Body(props: BoxProps) {

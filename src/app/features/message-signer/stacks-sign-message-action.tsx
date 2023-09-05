@@ -1,6 +1,7 @@
-import { Button, Stack } from '@stacks/ui';
+import { HStack } from 'leather-styles/jsx';
 
 import { useWalletType } from '@app/common/use-wallet-type';
+import { LeatherButton } from '@app/components/button/button';
 
 interface StacksSignMessageActionsProps {
   onSignMessage(): void;
@@ -12,19 +13,13 @@ export function SignMessageActions(props: StacksSignMessageActionsProps) {
   const { whenWallet } = useWalletType();
 
   return (
-    <Stack isInline>
-      <Button onClick={onSignMessageCancel} flexGrow={1} borderRadius="10px" mode="tertiary">
+    <HStack gap="space.04">
+      <LeatherButton onClick={onSignMessageCancel} variant="outline" width="50%">
         Cancel
-      </Button>
-      <Button
-        type="button"
-        flexGrow={1}
-        borderRadius="10px"
-        onClick={onSignMessage}
-        isLoading={isLoading}
-      >
+      </LeatherButton>
+      <LeatherButton aria-busy={isLoading} onClick={onSignMessage} width="50%">
         {whenWallet({ software: 'Sign', ledger: 'Sign on Ledger' })}
-      </Button>
-    </Stack>
+      </LeatherButton>
+    </HStack>
   );
 }

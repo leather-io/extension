@@ -2,7 +2,7 @@ import { ReactNode } from 'react';
 
 import { Box, Button, Stack, Text } from '@stacks/ui';
 import type { BoxProps } from '@stacks/ui';
-import { color } from '@stacks/ui-utils';
+import { token } from 'leather-styles/tokens';
 import { useHover } from 'use-events';
 
 import { figmaTheme } from '@app/common/utils/figma-theme';
@@ -36,12 +36,10 @@ export function CollectibleItemLayout({
     <Box>
       <Box
         _focus={{
-          outline: `4px solid ${figmaTheme.borderFocused}`,
+          outline: `4px solid ${token('colors.accent.background-secondary')}`,
           outlineOffset: '-4px',
         }}
-        _hover={{
-          backgroundColor: figmaTheme.surfaceHovered,
-        }}
+        _hover={{ backgroundColor: token('colors.accent.background-secondary') }}
         as={onClickLayout ? 'button' : 'div'}
         borderRadius="20px"
         onClick={onClickLayout}
@@ -80,7 +78,7 @@ export function CollectibleItemLayout({
         </Box>
         <Stack mt="base" pl="tight" spacing="extra-tight" textAlign="left">
           <Text
-            color={color('text-body')}
+            color={token('colors.accent.text-primary')}
             fontWeight="500"
             overflow="hidden"
             textOverflow="ellipsis"
@@ -89,7 +87,7 @@ export function CollectibleItemLayout({
           >
             {title}
           </Text>
-          <Text color={color('text-caption')} fontSize={1}>
+          <Text color={token('colors.accent.text-subdued')} fontSize={1}>
             {subtitle}
           </Text>
         </Stack>

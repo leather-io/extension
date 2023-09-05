@@ -5,7 +5,7 @@ import { Box } from '@stacks/ui';
 import { useCreateAccount } from '@app/common/hooks/account/use-create-account';
 import { useWalletType } from '@app/common/use-wallet-type';
 import { ControlledDrawer } from '@app/components/drawer/controlled-drawer';
-import { useCurrentAccountIndex, useHasCreatedAccount } from '@app/store/accounts/account';
+import { useCurrentAccountIndex } from '@app/store/accounts/account';
 import { useStacksAccounts } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
 import { useShowSwitchAccountsState } from '@app/store/ui/ui.hooks';
 
@@ -18,14 +18,12 @@ export const SwitchAccountDrawer = memo(() => {
   const accounts = useStacksAccounts();
   const currentAccountIndex = useCurrentAccountIndex();
   const createAccount = useCreateAccount();
-  const [, setHasCreatedAccount] = useHasCreatedAccount();
   const { whenWallet } = useWalletType();
 
   const onClose = () => setShowSwitchAccountsState(false);
 
   const onCreateAccount = () => {
     createAccount();
-    setHasCreatedAccount(true);
     setShowSwitchAccountsState(false);
   };
 
@@ -34,7 +32,7 @@ export const SwitchAccountDrawer = memo(() => {
   }
 
   return isShowing && accounts ? (
-    <ControlledDrawer title="Switch account" isShowing={isShowing} onClose={onClose}>
+    <ControlledDrawer title="Select account" isShowing={isShowing} onClose={onClose}>
       <Box mb={whenWallet({ ledger: 'base', software: '' })}>
         <SwitchAccountList
           accounts={accounts}

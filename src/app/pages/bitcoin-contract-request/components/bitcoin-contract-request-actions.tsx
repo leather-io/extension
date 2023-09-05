@@ -1,7 +1,7 @@
 import { Box, Button, Stack, color } from '@stacks/ui';
 
 import { useBtcAssetBalance } from '@app/common/hooks/balance/btc/use-btc-balance';
-import { PrimaryButton } from '@app/components/primary-button';
+import { LeatherButton } from '@app/components/button/button';
 
 interface BitcoinContractRequestActionsProps {
   isLoading: boolean;
@@ -40,15 +40,15 @@ export function BitcoinContractRequestActions({
         >
           Reject
         </Button>
-        <PrimaryButton
+        <LeatherButton
           borderRadius="10px"
           flexGrow={1}
-          isLoading={isLoading}
-          isDisabled={!canAccept}
+          aria-busy={isLoading}
+          disabled={!canAccept}
           onClick={onAcceptBitcoinContractOffer}
         >
           Accept
-        </PrimaryButton>
+        </LeatherButton>
       </Stack>
     </Box>
   );

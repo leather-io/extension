@@ -1,7 +1,7 @@
 import LedgerDisconnected from '@assets/images/ledger/ledger-disconnected.png';
 import { Box, Button, Stack } from '@stacks/ui';
 
-import { PrimaryButton } from '@app/components/primary-button';
+import { LeatherButton } from '@app/components/button/button';
 
 import { LedgerTitle } from '../../components/ledger-title';
 import { LedgerWrapper } from '../../components/ledger-wrapper';
@@ -24,9 +24,9 @@ export function LedgerDisconnectedLayout(props: LedgerDisconnectedLayoutProps) {
         <Button borderRadius="10px" mode="tertiary" onClick={onClose}>
           Close
         </Button>
-        <PrimaryButton height="40px" onClick={onConnectAgain}>
+        <LeatherButton height="40px" onClick={onConnectAgain}>
           Connect again
-        </PrimaryButton>
+        </LeatherButton>
       </Stack>
     </LedgerWrapper>
   );

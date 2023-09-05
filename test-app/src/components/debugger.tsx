@@ -449,6 +449,7 @@ export const Debugger = () => {
           </Button>
 
           <Button
+            mt={3}
             onClick={() => {
               console.log('requesting');
               window.btc

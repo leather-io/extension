@@ -19,11 +19,11 @@ RUN apt-get update -y \
     && chmod +x build-ext.sh \
     && yarn \
     && yarn build \
-    && ./build-ext.sh /stacks-wallet-chromium.zip
+    && ./build-ext.sh /leather-chromium.zip
 
 
 FROM alpine:3.16
-COPY --from=builder /stacks-wallet-chromium.zip .
+COPY --from=builder /leather-chromium.zip .
 
 # Wait for extension.zip to be copied into local
 CMD sleep 30

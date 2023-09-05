@@ -2,7 +2,9 @@ import { useSelector } from 'react-redux';
 
 import { createSelector } from '@reduxjs/toolkit';
 
-import { RootState } from '@app/store';
+import { RootState, useAppDispatch } from '@app/store';
+
+import { settingsSlice } from './settings.slice';
 
 const selectSettings = (state: RootState) => state.settings;
 
@@ -37,4 +39,20 @@ const selectDismissedMessageIds = createSelector(
 
 export function useDismissedMessageIds() {
   return useSelector(selectDismissedMessageIds);
+}
+
+const selectHasApprovedNewBrand = createSelector(
+  selectSettings,
+  state => !!state.hasApprovedNewBrand
+);
+
+export function useNewBrandApprover() {
+  const hasApprovedNewBrand = useSelector(selectHasApprovedNewBrand);
+  const dispatch = useAppDispatch();
+  return {
+    hasApprovedNewBrand,
+    userApprovedNewBrand() {
+      dispatch(settingsSlice.actions.setHasApprovedNewBrand());
+    },
+  };
 }
