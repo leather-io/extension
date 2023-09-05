@@ -1,7 +1,7 @@
 import { DynamicColorCircle, Stack, StackProps, color } from '@stacks/ui';
-import { truncateMiddle } from '@stacks/ui-utils';
 
 import { formatContractId } from '@app/common/utils';
+import { truncateMiddle } from '@app/common/utils/stacks-ui';
 import { Caption, Title } from '@app/components/typography';
 
 interface ContractPreviewLayoutProps extends StackProps {

@@ -1,6 +1,5 @@
 import { useLocation, useNavigate } from 'react-router-dom';
 
-import { truncateMiddle } from '@stacks/ui-utils';
 import get from 'lodash.get';
 
 import { decodeBitcoinTx } from '@shared/crypto/bitcoin/bitcoin.utils';
@@ -14,6 +13,7 @@ import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
 import { baseCurrencyAmountInQuote } from '@app/common/money/calculate-money';
 import { formatMoney, formatMoneyPadded, i18nFormatCurrency } from '@app/common/money/format-money';
 import { satToBtc } from '@app/common/money/unit-conversion';
+import { truncateMiddle } from '@app/common/utils/stacks-ui';
 import { useCurrentNativeSegwitUtxos } from '@app/query/bitcoin/address/utxos-by-address.hooks';
 import { useBitcoinBroadcastTransaction } from '@app/query/bitcoin/transaction/use-bitcoin-broadcast-transaction';
 import { useCryptoCurrencyMarketData } from '@app/query/common/market-data/market-data.hooks';

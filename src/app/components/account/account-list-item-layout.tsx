@@ -1,8 +1,8 @@
 import { Flex, Spinner, Stack, StackProps, color, useMediaQuery } from '@stacks/ui';
-import { truncateMiddle } from '@stacks/ui-utils';
 import { SettingsSelectors } from '@tests/selectors/settings.selectors';
 import { styled } from 'leather-styles/jsx';
 
+import { truncateMiddle } from '@app/common/utils/stacks-ui';
 import { useConfigBitcoinEnabled } from '@app/query/common/remote-config/remote-config.query';
 
 import { CaptionDotSeparator } from '../caption-dot-separator';

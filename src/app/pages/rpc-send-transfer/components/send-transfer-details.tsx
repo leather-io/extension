@@ -1,7 +1,7 @@
 import { Stack, color } from '@stacks/ui';
-import { truncateMiddle } from '@stacks/ui-utils';
 import { styled } from 'leather-styles/jsx';
 
+import { truncateMiddle } from '@app/common/utils/stacks-ui';
 import { SpaceBetween } from '@app/components/layout/space-between';
 
 interface SendTransferDetailsProps {

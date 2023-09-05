@@ -1,7 +1,6 @@
-import { truncateMiddle } from '@stacks/ui-utils';
-
 import { useRouteHeader } from '@app/common/hooks/use-route-header';
 import { useRejectIfLedgerWallet } from '@app/common/rpc-helpers';
+import { truncateMiddle } from '@app/common/utils/stacks-ui';
 import { Disclaimer } from '@app/components/disclaimer';
 import { NoFeesWarningRow } from '@app/components/no-fees-warning-row';
 import { PopupHeader } from '@app/features/current-account/popup-header';

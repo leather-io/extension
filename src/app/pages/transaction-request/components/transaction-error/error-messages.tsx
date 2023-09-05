@@ -3,7 +3,6 @@ import { Navigate } from 'react-router-dom';
 
 import { STXTransferPayload, TransactionTypes } from '@stacks/connect';
 import { Fade, Flex, Stack, color } from '@stacks/ui';
-import { truncateMiddle } from '@stacks/ui-utils';
 
 import { RouteUrls } from '@shared/route-urls';
 
@@ -11,6 +10,7 @@ import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
 import { useDrawers } from '@app/common/hooks/use-drawers';
 import { useScrollLock } from '@app/common/hooks/use-scroll-lock';
 import { stacksValue } from '@app/common/stacks-utils';
+import { truncateMiddle } from '@app/common/utils/stacks-ui';
 import { LeatherButton } from '@app/components/button/button';
 import { SpaceBetween } from '@app/components/layout/space-between';
 import { Caption } from '@app/components/typography';
