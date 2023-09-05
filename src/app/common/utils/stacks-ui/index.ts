@@ -16,11 +16,7 @@ function truncateHex(hex, offset) {
 
   return hex.substring(0, offset + 2) + '\u2026' + hex.substring(hex.length - offset);
 }
-function truncateMiddle(input, offset) {
-  if (offset === void 0) {
-    offset = 5;
-  }
-
+function truncateMiddle(input, offset = 5) {
   if (!input) return '';
 
   if (input.startsWith('0x')) {
