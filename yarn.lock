@@ -16528,7 +16528,7 @@ micro-packed@0.3.2, micro-packed@~0.3.2:
   dependencies:
     "@scure/base" "~1.1.1"
 
-micro-stacks@1.2.1, micro-stacks@^1.1.4:
+micro-stacks@^1.1.4:
   version "1.2.1"
   resolved "https://registry.yarnpkg.com/micro-stacks/-/micro-stacks-1.2.1.tgz#58ef75728635c77bf9522353b47f39aaf03896ce"
   integrity sha512-CmFAH34GfgW9vMwnINflxH1COUWUg2kSYnPVfToZXPEJwHMGo8b3syte7s5zJ2rR/RSjpquQduiDNRAgF2Hh0w==

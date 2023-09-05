@@ -1,5 +1,5 @@
-import { utf8ToBytes } from 'micro-stacks/common';
-import { hashSha256 } from 'micro-stacks/crypto-sha';
+import { sha256 } from '@noble/hashes/sha256';
+import { utf8ToBytes } from '@stacks/common';
 
 export type BufferType = Buffer | Uint8Array;
 
@@ -21,7 +21,7 @@ export function reverseBuffer(buffer: BufferType): Uint8Array {
 
 export function getScriptHash(output: BufferType): Uint8Array {
   const uintOutput = Uint8Array.from(output);
-  const hash = hashSha256(uintOutput);
+  const hash = sha256(uintOutput);
   const reversed = reverseBuffer(Buffer.from(hash));
 
   return reversed;
@@ -33,5 +33,5 @@ export function hexPadded(hex: string) {
 
 export function secretToHash(secret: string) {
   const bytes = utf8ToBytes(secret);
-  return hashSha256(bytes);
+  return sha256(bytes);
 }
