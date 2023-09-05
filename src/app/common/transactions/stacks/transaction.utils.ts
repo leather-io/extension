@@ -13,12 +13,12 @@ import {
   addressHashModeToVersion,
   addressToString,
 } from '@stacks/transactions';
-import { getContractName, truncateMiddle } from '@stacks/ui-utils';
 import { BigNumber } from 'bignumber.js';
 
 import { StacksTx, StacksTxStatus } from '@shared/models/transactions/stacks-transaction.model';
 
 import { stacksValue } from '@app/common/stacks-utils';
+import { getContractName, truncateMiddle } from '@app/common/utils/stacks-ui';
 
 export const statusFromTx = (tx: StacksTx): StacksTxStatus => {
   const { tx_status } = tx;
