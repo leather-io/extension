@@ -1,16 +1,17 @@
+import { ripemd160 } from '@noble/hashes/ripemd160';
+import { sha256 } from '@noble/hashes/sha256';
 import BigNumber from 'bignumber.js';
-import { base58checkEncode, hashRipemd160 } from 'micro-stacks/crypto';
-import { hashSha256 } from 'micro-stacks/crypto-sha';
+import { toBase58Check } from 'bitcoinjs-lib/src/address';
 
 import { DefaultNetworkConfigurations } from '@shared/constants';
 
 import { getBitcoinNetwork } from './network';
 
 export function pubKeyToBtcAddress(publicKey: Uint8Array, network: DefaultNetworkConfigurations) {
-  const sha256 = hashSha256(publicKey);
-  const hash160 = hashRipemd160(sha256);
+  const publicKeySha256 = sha256(publicKey);
+  const publicKeyRipemd160 = ripemd160(publicKeySha256);
 
-  return base58checkEncode(hash160, getBitcoinNetwork(network).pubKeyHash);
+  return toBase58Check(Buffer.from(publicKeyRipemd160), getBitcoinNetwork(network).pubKeyHash);
 }
 
 export function convertBtcToSats(btc: number) {

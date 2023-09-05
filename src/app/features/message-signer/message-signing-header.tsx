@@ -1,7 +1,8 @@
-import { Stack } from '@stacks/ui';
+import { Stack, styled } from 'leather-styles/jsx';
 
 import { addPortSuffix, getUrlHostname } from '@app/common/utils';
-import { Caption, Title } from '@app/components/typography';
+import { Favicon } from '@app/components/favicon';
+import { Flag } from '@app/components/layout/flag';
 import { useCurrentNetworkState } from '@app/store/networks/networks.hooks';
 
 interface MessageSigningHeaderProps {
@@ -28,15 +29,15 @@ export function MessageSigningHeader({
     : null;
 
   return (
-    <Stack pt="extra-loose" spacing="base">
-      <Title fontWeight="bold" as="h1">
-        Sign Message
-      </Title>
+    <Stack gap="space.04" pt="space.05">
+      <styled.h1 textStyle="heading.03">Sign message</styled.h1>
       {caption && (
-        <Caption wordBreak="break-word" lineHeight={1.5}>
-          {caption}
-          {additionalText}
-        </Caption>
+        <Flag align="middle" img={<Favicon origin={origin ?? ''} />} pl="tight">
+          <styled.span textStyle="label.02" wordBreak="break-word">
+            {caption}
+            {additionalText}
+          </styled.span>
+        </Flag>
       )}
     </Stack>
   );

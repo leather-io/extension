@@ -1,5 +1,5 @@
 import { toast } from 'react-hot-toast';
-import { FiCheck, FiCopy, FiExternalLink } from 'react-icons/fi';
+import { FiCopy, FiExternalLink } from 'react-icons/fi';
 import { useLocation } from 'react-router-dom';
 
 import { Stack, useClipboard } from '@stacks/ui';
@@ -17,6 +17,8 @@ import {
   InfoCardSeparator,
 } from '@app/components/info-card/info-card';
 import { ModalHeader } from '@app/components/modal-header';
+
+import { TxDone } from '../send-crypto-asset-form/components/tx-done';
 
 export function StxSentSummary() {
   const { state } = useLocation();
@@ -53,13 +55,13 @@ export function StxSentSummary() {
 
   return (
     <InfoCard>
+      <TxDone />
+
       <InfoCardAssetValue
         value={txValue}
         fiatValue={txFiatValue}
         fiatSymbol={txFiatValueSymbol}
         symbol={symbol}
-        icon={FiCheck}
-        my="loose"
         px="loose"
       />
 

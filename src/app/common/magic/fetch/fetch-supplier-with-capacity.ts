@@ -1,4 +1,4 @@
-import { hexToBytes } from 'micro-stacks/common';
+import { hexToBytes } from '@stacks/common';
 
 import { pubKeyToBtcAddress } from '../utils';
 import type { MagicFetchContextWithElectrum } from './constants';

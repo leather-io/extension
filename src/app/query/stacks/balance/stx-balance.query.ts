@@ -1,10 +1,9 @@
-import { useQueries, useQuery } from '@tanstack/react-query';
+import { useQuery } from '@tanstack/react-query';
 
 import { AddressBalanceResponse } from '@shared/models/account.model';
 
 import { AppUseQueryConfig } from '@app/query/query-config';
 import { StacksClient } from '@app/query/stacks/stacks-client';
-import { StacksAccount } from '@app/store/accounts/blockchain/stacks/stacks-account.models';
 import {
   useStacksClientAnchored,
   useStacksClientUnanchored,
@@ -61,18 +60,5 @@ export function useAnchoredStacksAccountBalanceQuery<T extends unknown = FetchAc
     queryFn: () => fetchAccountBalance(client, limiter)(address),
     ...balanceQueryOptions,
     ...options,
-  });
-}
-
-export function useGetAnchoredAccountBalanceListQuery(accounts?: StacksAccount[]) {
-  const client = useStacksClientAnchored();
-  const limiter = useHiroApiRateLimiter();
-
-  return useQueries({
-    queries: (accounts ?? []).map(account => ({
-      queryKey: ['get-address-anchored-stx-balance', account.address],
-      queryFn: () => fetchAccountBalance(client, limiter)(account.address),
-      ...balanceQueryOptions,
-    })),
   });
 }

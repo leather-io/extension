@@ -1,4 +1,4 @@
-# Sends a notification to Discord whenever a new version of the Hiro Wallet is available in FireFox or Chrome stores
+# Sends a notification to Discord whenever a new version of the Leather is available in FireFox or Chrome stores
 
 name: Notify on Release
 on:
@@ -50,11 +50,11 @@ jobs:
           DISCORD_AVATAR: 'https://i.imgur.com/z9Iy6ug.png'
           DISCORD_EMBEDS: |
             [{
-              "title": "Hiro Wallet for Firefox",
+              "title": "Leather for Firefox",
               "url": "https://addons.mozilla.org/en-US/firefox/addon/hiro-wallet/"
             }]
         with:
-          args: ':rocket: A new version (${{ steps.firefox.outputs.new_version }}) of the Hiro Wallet is available on the Firefox Web Store!'
+          args: ':rocket: A new version (${{ steps.firefox.outputs.new_version }}) of the Leather is available on the Firefox Web Store!'
 
       - name: Firefox Discord notification - userx-notifs
         if: steps.firefox.outputs.is_new
@@ -65,11 +65,11 @@ jobs:
           DISCORD_AVATAR: 'https://i.imgur.com/z9Iy6ug.png'
           DISCORD_EMBEDS: |
             [{
-              "title": "Hiro Wallet for Firefox",
+              "title": "Leather for Firefox",
               "url": "https://addons.mozilla.org/en-US/firefox/addon/hiro-wallet/"
             }]
         with:
-          args: ':rocket: A new version (${{ steps.firefox.outputs.new_version }}) of the Hiro Wallet is available on the Firefox Web Store!'
+          args: ':rocket: A new version (${{ steps.firefox.outputs.new_version }}) of the Leather is available on the Firefox Web Store!'
 
   chrome-notify:
     runs-on: ubuntu-latest
@@ -127,11 +127,11 @@ jobs:
           DISCORD_AVATAR: 'https://i.imgur.com/z9Iy6ug.png'
           DISCORD_EMBEDS: |
             [{
-              "title": "Hiro Wallet for Chrome",
+              "title": "Leather for Chrome",
               "url": "https://chrome.google.com/webstore/detail/hiro-wallet/ldinpeekobnhjjdofggfgjlcehhmanlj"
             }]
         with:
-          args: ':rocket: A new version (${{ steps.chrome.outputs.new_version }}) of the Hiro Wallet is available on the Chrome Web Store!'
+          args: ':rocket: A new version (${{ steps.chrome.outputs.new_version }}) of the Leather is available on the Chrome Web Store!'
 
       - name: Chrome Discord notification - userx-notifs
         if: steps.chrome.outputs.is_new
@@ -142,8 +142,8 @@ jobs:
           DISCORD_AVATAR: 'https://i.imgur.com/z9Iy6ug.png'
           DISCORD_EMBEDS: |
             [{
-              "title": "Hiro Wallet for Chrome",
+              "title": "Leather for Chrome",
               "url": "https://chrome.google.com/webstore/detail/hiro-wallet/ldinpeekobnhjjdofggfgjlcehhmanlj"
             }]
         with:
-          args: ':rocket: A new version (${{ steps.chrome.outputs.new_version }}) of the Hiro Wallet is available on the Chrome Web Store!'
+          args: ':rocket: A new version (${{ steps.chrome.outputs.new_version }}) of the Leather is available on the Chrome Web Store!'

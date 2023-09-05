@@ -1,4 +1,4 @@
-import { Flex } from '@stacks/ui';
+import { Flex } from 'leather-styles/jsx';
 
 import { LoadingSpinner } from '@app/components/loading-spinner';
 
@@ -16,7 +16,15 @@ export function BitcoinChooseFeeLayout({ children, isLoading }: BitcoinChooseFee
     );
   }
   return (
-    <Flex alignItems="center" p="extra-loose" spacing="base" width="100%">
+    <Flex
+      px="space.05"
+      py="space.06"
+      flexDirection="column"
+      justifyContent="space-between"
+      alignItems="center"
+      flex="1 0 0"
+      alignSelf="stretch"
+    >
       {children}
     </Flex>
   );

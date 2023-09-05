@@ -18,8 +18,6 @@ describe(`Settings integration tests`, () => {
     browser = await setupBrowser();
     wallet = await WalletPage.init(browser, RouteUrls.Onboarding);
     await wallet.signUp();
-    await wallet.waitForHideOnboardingsStepsButton();
-    await wallet.clickHideSteps();
     await delay(500);
   });
 

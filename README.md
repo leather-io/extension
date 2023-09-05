@@ -1,15 +1,15 @@
-# Hiro Wallet—Web
+# Leather
 
 [![Chrome Web Store](https://img.shields.io/chrome-web-store/stars/ldinpeekobnhjjdofggfgjlcehhmanlj?label=Chrome%20Web%20Store)](https://chrome.google.com/webstore/detail/stacks-wallet/ldinpeekobnhjjdofggfgjlcehhmanlj)
 [![Mozilla Add-on](https://img.shields.io/amo/stars/hiro-wallet?label=Firefox%20Add-on)](https://addons.mozilla.org/en-US/firefox/addon/hiro-wallet/)
 [![coverage](https://raw.githubusercontent.com/hirosystems/wallet/gh-pages/badge.svg)](https://hirosystems.github.io/wallet/)
 [![semantic-release](https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg)](https://github.com/semantic-release/semantic-release)
 
-Hiro Wallet is the most popular and trusted wallet for apps built on Bitcoin. Connect to apps and manage assets secured by Bitcoin and Bitcoin L2s with battle-tested wallet for the Stacks blockchain.
+Leather is the most popular and trusted wallet for apps built on Bitcoin. Connect to apps and manage assets secured by Bitcoin and Bitcoin L2s with battle-tested wallet for the Stacks blockchain.
 
 To integrate this wallet into your app, we recommend [@stacks/connect](https://github.com/hirosystems/connect).
 
-[📚 See Hiro Wallet Developer Documentation →](https://hirowallet.gitbook.io/developers)
+[📚 See Leather Developer Documentation →](https://leather.gitbook.io/developers/home/welcome)
 
 [📩 Join the mailing list for updates →](https://forms.gle/sdZPu2jbX1AeQ8Fi9)
 
@@ -42,7 +42,7 @@ yarn dev:test-app
 
 ### Loading extension in your browser
 
-You'll need to add it to your browser of choice. Hiro Wallet only
+You'll need to add it to your browser of choice. Leather only
 supports Chromium and Firefox browsers. When you run `yarn dev`, it will compile the application to the `/dist` folder
 
 - [Chrome instructions](https://developer.chrome.com/docs/extensions/mv3/faq/#faq-dev-01)
@@ -80,7 +80,7 @@ Run the following from within this repository's root directory if you've pulled 
 yarn && yarn build && sh build-ext.sh
 ```
 
-The extension is packaged as `stacks-wallet-chromium.zip`.
+The extension is packaged as `leather-chromium.zip`.
 
 ## Security
 
@@ -95,6 +95,6 @@ Please note this email is strictly for reporting security vulnerabilities. For s
 
 ### Audit Report
 
-In Q1 2021, Hiro partnered with [Least Authority](https://leastauthority.com/), a leading security consultancy with experience in the crypto space, to audit Hiro Wallet for Web. On April 29th 2021, after addressing the major concerns described in the initial findings, as well as a concluding sign off from the Least Authority team, a final report was delivered.
+In Q1 2021, Hiro partnered with [Least Authority](https://leastauthority.com/), a leading security consultancy with experience in the crypto space, to audit Leather. On April 29th 2021, after addressing the major concerns described in the initial findings, as well as a concluding sign off from the Least Authority team, a final report was delivered.
 
 [Download and read the full report here](https://github.com/hirosystems/wallet/blob/main/public/docs/least-authority-security-audit-report.pdf)

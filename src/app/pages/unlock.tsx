@@ -1,27 +1,48 @@
+import { useEffect } from 'react';
 import { Outlet, useNavigate } from 'react-router-dom';
 
 import { Stack } from '@stacks/ui';
+import { Box } from 'leather-styles/jsx';
+import { token } from 'leather-styles/tokens';
+
+import { WALLET_ENVIRONMENT } from '@shared/environment';
+import { RouteUrls } from '@shared/route-urls';
 
 import { useRouteHeader } from '@app/common/hooks/use-route-header';
+import { isFullPageMode, isPopupMode } from '@app/common/utils';
+import { openIndexPageInNewTab } from '@app/common/utils/open-in-new-tab';
 import { CenteredPageContainer } from '@app/components/centered-page-container';
-import { CENTERED_FULL_PAGE_MAX_WIDTH } from '@app/components/global-styles/full-page-styles';
 import { Header } from '@app/components/header';
 import { RequestPassword } from '@app/components/request-password';
+import { useNewBrandApprover } from '@app/store/settings/settings.selectors';
 
 export function Unlock() {
   const navigate = useNavigate();
 
   useRouteHeader(<Header />);
 
-  // Users land on unlock page as they've been directed here from `<AccountGate/>`.
-  // On successful unlock, we can navigate back to the previous page, now
-  // with account details.
-  const handleSuccess = () => navigate(-1);
+  const { hasApprovedNewBrand } = useNewBrandApprover();
+
+  useEffect(() => {
+    if (!hasApprovedNewBrand && isPopupMode() && WALLET_ENVIRONMENT !== 'testing') {
+      openIndexPageInNewTab('/unlock/we-have-a-new-name');
+      window.close();
+    }
+    if (!hasApprovedNewBrand && isFullPageMode()) {
+      navigate('./we-have-a-new-name');
+    }
+  }, [hasApprovedNewBrand, navigate]);
+
+  const handleSuccess = () => navigate(RouteUrls.Home);
 
   return (
     <CenteredPageContainer>
+      {/* Hide the logo when user hasn't consented yet */}
+      {!hasApprovedNewBrand && (
+        <Box position="fixed" w="200px" h="60px" background="brown.2" top={0} left={0} />
+      )}
       <Stack
-        maxWidth={CENTERED_FULL_PAGE_MAX_WIDTH}
+        maxWidth={token('sizes.centredPageFullWidth')}
         px={['loose', 'base-loose']}
         spacing="loose"
         textAlign={['left', 'center']}
@@ -32,13 +53,6 @@ export function Unlock() {
           caption="Enter the password you set on this device"
           onSuccess={handleSuccess}
         />
-        {/* TODO: Add this back when check for matching secret key is ready */}
-        {/* <Caption textAlign="left">
-          Forgot your password? Unlock your account by{' '}
-          <Link display="inline" fontSize={-1} onClick={() => navigate(RouteUrls.SignIn)}>
-            entering your Secret Key.
-          </Link>
-        </Caption> */}
       </Stack>
       <Outlet />
     </CenteredPageContainer>

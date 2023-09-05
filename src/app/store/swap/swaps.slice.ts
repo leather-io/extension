@@ -1,7 +1,7 @@
 import { PayloadAction, createEntityAdapter, createSlice } from '@reduxjs/toolkit';
 
-import { Swap } from '@app/common/swaps';
 import { MagicInboundSwap } from '@app/common/magic/models';
+import { Swap } from '@app/common/swaps';
 
 const swapsAdapter = createEntityAdapter<Swap>();
 
@@ -15,7 +15,7 @@ export const swapsSlice = createSlice({
       swapsAdapter.addOne(state, {
         type: 'magic',
         direction: 'inbound',
-        ...action.payload
+        ...action.payload,
       });
     },
   },

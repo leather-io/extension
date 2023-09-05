@@ -1,5 +1,5 @@
+import { bytesToHex } from '@stacks/common';
 import { address as bitcoinAddress } from 'bitcoinjs-lib';
-import { bytesToHex } from 'micro-stacks/common';
 
 import { getScriptHash } from '../htlc';
 import { getBitcoinNetwork } from '../network';

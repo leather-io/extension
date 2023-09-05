@@ -1,6 +1,7 @@
 import { FiChevronDown } from 'react-icons/fi';
 
 import { Box, Text, color } from '@stacks/ui';
+import { token } from 'leather-styles/tokens';
 
 const labels = ['Address', 'BNS Name'];
 const testLabels = ['address', 'bns-name'];
@@ -18,7 +19,6 @@ export function RecipientDropdownItem(props: RecipientDropdownItemProps) {
       _hover={{ bg: isVisible ? color('bg-alt') : 'none', borderRadius: '8px' }}
       alignItems="center"
       as="button"
-      bg={color('bg')}
       data-testid={`recipient-select-field-${testLabels[index]}`}
       display="flex"
       height="32px"
@@ -29,7 +29,7 @@ export function RecipientDropdownItem(props: RecipientDropdownItemProps) {
       type="button"
     >
       <Text
-        color={isVisible ? color('text-body') : color('accent')}
+        color={isVisible ? color('text-body') : token('colors.brown.12')}
         fontSize={1}
         fontWeight={isVisible ? 400 : 500}
         ml="2px"
@@ -37,7 +37,7 @@ export function RecipientDropdownItem(props: RecipientDropdownItemProps) {
       >
         {labels[index]}
       </Text>
-      {isVisible ? <></> : <FiChevronDown color={color('accent')} />}
+      {isVisible ? <></> : <FiChevronDown color={token('colors.brown.12')} />}
     </Box>
   );
 }

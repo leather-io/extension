@@ -1,27 +1,29 @@
 import { memo } from 'react';
 
 import { Global, css } from '@emotion/react';
+import { radixBaseCSS } from '@radix-ui/themes/styles.css';
 import { CSSReset } from '@stacks/ui';
-
-import { useThemeSwitcher } from '@app/common/theme-provider';
+import { token } from 'leather-styles/tokens';
 
 import { fullPageStyles } from './full-page-styles';
 import { popupCenterStyles } from './popup-center-styles';
 import { popupStyles } from './popup-styles';
+import { radixStyles } from './radix-styles';
 import { tippyStyles } from './tippy-styles';
 
 export const GlobalStyles = memo(() => {
-  const { theme } = useThemeSwitcher();
-
+  // use important here to override stacks ui styles
   const styles = css`
-    :root {
-      ${theme === 'dark' ? 'filter: invert(1) hue-rotate(180deg)' : ''};
+    html,
+    body {
+      background-color: ${token('colors.brown.1')}!important;
     }
-
-    img {
-      ${theme === 'dark' ? 'filter: invert(1) hue-rotate(-180deg)' : ''};
+    @media (min-width: 600px) {
+      html,
+      body {
+        background-color: ${token('colors.brown.2')}!important;
+      }
     }
-
     body {
       &.no-scroll,
       &.no-scroll .main-content {
@@ -32,6 +34,8 @@ export const GlobalStyles = memo(() => {
     ${popupStyles};
     ${popupCenterStyles};
     ${tippyStyles}
+    ${radixBaseCSS}
+    ${radixStyles}
   `;
 
   return (

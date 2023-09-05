@@ -20,7 +20,7 @@
     },
     "transak": {
       "availableRegions": "global",
-      "enabled": true,
+      "enabled": false,
       "hasFastCheckoutProcess": true,
       "hasTradingFees": true,
       "name": "Transak"

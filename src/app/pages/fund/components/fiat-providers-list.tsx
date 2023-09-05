@@ -35,13 +35,14 @@ export function FiatProvidersList(props: FiatProvidersProps) {
 
   return (
     <Grid
-      columnGap="base-loose"
+      columnGap="auto"
       justifyContent="center"
       mt={['base', '48px']}
-      px={['loose', 'loose', '48px']}
-      rowGap="loose"
+      p="0 3rem"
+      rowGap="1.5rem"
       templateColumns="repeat(auto-fill, minmax(270px, 1fr))"
       width="100%"
+      maxWidth={['100%', '80rem']}
     >
       <ReceiveStxItem onReceiveStx={() => navigate(RouteUrls.FundReceiveStx)} />
       {Object.entries(activeProviders).map(([providerKey, providerValue]) => {

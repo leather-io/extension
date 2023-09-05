@@ -66,51 +66,9 @@ describe(`Onboarding integration tests`, () => {
     await wallet.waitForHomePage();
     await wallet.clickSettingsButton();
     await wallet.page.click(createTestSelector(SettingsSelectors.LockListItem));
-    await wallet.waitForHiroWalletLogo();
-    await wallet.page.click(wallet.$hiroWalletLogo);
+    await wallet.waitForLeatherLogo();
+    await wallet.page.click(wallet.$leatherLogo);
     await wallet.waitForEnterPasswordInput();
-  });
-
-  it('should show onboarding steps for a new wallet with only one account', async () => {
-    await wallet.clickDenyAnalytics();
-    await wallet.clickSignUp();
-    await wallet.backUpKeyAndSetPassword();
-    await wallet.waitForHomePage();
-    await wallet.waitForHideOnboardingsStepsButton();
-  });
-
-  it('should hide onboarding steps when signing in with an existing secret key', async () => {
-    await wallet.clickDenyAnalytics();
-    await wallet.clickSignIn();
-    await wallet.loginWithPreviousSecretKey(SECRET_KEY);
-    await wallet.waitForHomePage();
-    const onboardingStepsVisible = await wallet.page.isVisible(wallet.$suggestedStepsList);
-    expect(onboardingStepsVisible).toBeFalsy();
-  });
-
-  it('should hide onboarding steps if user clicks the button to hide them', async () => {
-    await wallet.clickDenyAnalytics();
-    await wallet.clickSignUp();
-    await wallet.backUpKeyAndSetPassword();
-    await wallet.waitForHomePage();
-    await wallet.waitForHideOnboardingsStepsButton();
-    await wallet.clickHideSteps();
-  });
-
-  it('should be able to start and complete an onboarding step in the list', async () => {
-    await wallet.clickDenyAnalytics();
-    await wallet.clickSignUp();
-    await wallet.backUpKeyAndSetPassword();
-    await wallet.waitForHomePage();
-    await wallet.waitForsuggestedStepsList();
-    const stepsToStartBtns = await wallet.page.$$(wallet.$suggestedStepStartBtn);
-    const [newPage] = await Promise.all([
-      browser.context.waitForEvent('page'),
-      stepsToStartBtns[1].click(),
-    ]);
-    await newPage.waitForLoadState();
-    const stepsDone = await wallet.page.$$(wallet.$suggestedStepDoneBadge);
-    expect(stepsDone.length).toEqual(2);
   });
 
   it('should be able to use the link to add funds if balances list has no assets', async () => {
@@ -118,7 +76,6 @@ describe(`Onboarding integration tests`, () => {
     await wallet.clickSignUp();
     await wallet.backUpKeyAndSetPassword();
     await wallet.waitForHomePage();
-    await wallet.waitForsuggestedStepsList();
     const noAssetsFundAccountLink = await wallet.page.$(wallet.$noAssetsFundAccountLink);
     await noAssetsFundAccountLink?.click();
   });

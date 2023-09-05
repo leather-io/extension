@@ -1,11 +1,9 @@
-import ConnectionIllustration from '@assets/images/connect-arrows-facing-each-other.svg';
-import HiroLogoInBox from '@assets/images/hiro-logo-white-box.png';
-import { Box, Button, Flex, Text } from '@stacks/ui';
+import { Box, Flex, styled } from 'leather-styles/jsx';
 
-import { figmaTheme } from '@app/common/utils/figma-theme';
-import { Favicon } from '@app/components/favicon';
-import { Flag } from '@app/components/layout/flag';
-import { Caption } from '@app/components/typography';
+import { LeatherButton } from '@app/components/button/button';
+import { LIcon } from '@app/components/icons/l-icon';
+import { LeatherIcon } from '@app/components/icons/leather-icon';
+import { RequesterFlag } from '@app/components/requester-flag';
 
 interface GetAddressesLayoutProps {
   requester: string;
@@ -13,44 +11,46 @@ interface GetAddressesLayoutProps {
 }
 export function GetAddressesLayout(props: GetAddressesLayoutProps) {
   const { requester, onUserApproveGetAddresses } = props;
+
   return (
     <Flex flexDirection="column" height="100vh" width="100%">
       <Flex
         flex={1}
         flexDirection="column"
-        justifyContent="center"
         textAlign="center"
         alignItems="center"
-        mx="extra-loose"
+        p="space.06"
+        gap="space.06"
       >
-        <Box mt="extra-loose">
-          <img src={ConnectionIllustration} width="132" />
+        <Box mb="space.08" mt="space.11">
+          <LeatherIcon width="248px" height="58px" />
         </Box>
-        <Text as="h1" mt="base" fontSize="24px" fontWeight={500} lineHeight="36px">
-          Connect your account to {requester}
-        </Text>
-        <Flag img={<Favicon origin={requester} />} mt="base">
-          <Caption>{requester}</Caption>
-        </Flag>
+        <styled.p textStyle="heading.03">Connect your account to</styled.p>
 
-        <Button mt="extra-loose" onClick={() => onUserApproveGetAddresses()} width="100%">
-          <Flag align="middle" img={<img src={HiroLogoInBox} width="16px" />}>
-            Connect to Hiro Wallet
-          </Flag>
-        </Button>
+        <RequesterFlag requester={requester} />
+        <Box width="100%" display="flex">
+          <LeatherButton onClick={() => onUserApproveGetAddresses()} fullWidth>
+            <Flex justifyContent="center" alignItems="center">
+              <Box mr="space.02">
+                <LIcon />
+              </Box>
+              <styled.span textStyle="label.02">Connect Leather</styled.span>
+            </Flex>
+          </LeatherButton>
+        </Box>
       </Flex>
       <Flex
-        backgroundColor={figmaTheme.backgroundSubdued}
-        px="loose"
-        py="base"
+        px="space.05"
+        py="space.03"
         lineHeight="20px"
         textAlign="center"
         alignSelf="bottom"
+        bg="accent.background-secondary"
       >
-        <Text fontSize="14px" color={figmaTheme.textSubdued}>
+        <styled.p textStyle="caption.02">
           By connecting you give permission to {requester} to see all addresses linked to this
           account
-        </Text>
+        </styled.p>
       </Flex>
     </Flex>
   );

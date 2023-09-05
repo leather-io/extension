@@ -24,7 +24,6 @@ import { inMemoryKeySlice } from './in-memory-key/in-memory-key.slice';
 import { keySlice } from './keys/key.slice';
 import { bitcoinKeysSlice } from './ledger/bitcoin-key.slice';
 import { networksSlice } from './networks/networks.slice';
-import { onboardingSlice } from './onboarding/onboarding.slice';
 import { ordinalsSlice } from './ordinals/ordinals.slice';
 import { settingsSlice } from './settings/settings.slice';
 import { submittedTransactionsSlice } from './submitted-transactions/submitted-transactions.slice';
@@ -44,7 +43,6 @@ export interface RootState {
   inMemoryKeys: ReturnType<typeof inMemoryKeySlice.reducer>;
   keys: ReturnType<typeof keySlice.reducer>;
   networks: ReturnType<typeof networksSlice.reducer>;
-  onboarding: ReturnType<typeof onboardingSlice.reducer>;
   submittedTransactions: ReturnType<typeof submittedTransactionsSlice.reducer>;
   settings: ReturnType<typeof settingsSlice.reducer>;
   swaps: ReturnType<typeof swapsSlice.reducer>;
@@ -63,7 +61,6 @@ const appReducer = combineReducers({
   inMemoryKeys: inMemoryKeySlice.reducer,
   keys: keySlice.reducer,
   networks: networksSlice.reducer,
-  onboarding: onboardingSlice.reducer,
   submittedTransactions: submittedTransactionsSlice.reducer,
   settings: settingsSlice.reducer,
   swaps: swapsSlice.reducer,

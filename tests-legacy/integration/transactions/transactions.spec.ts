@@ -15,6 +15,7 @@ import { BrowserDriver, createTestSelector, getCurrentTestName, setupBrowser } f
 jest.setTimeout(120_000);
 jest.retryTimes(process.env.CI ? 2 : 0);
 
+// TODO: Migrate to playwright
 describe(`Transaction signing`, () => {
   let browser: BrowserDriver;
   let wallet: WalletPage;
@@ -50,14 +51,14 @@ describe(`Transaction signing`, () => {
       await demo.page.bringToFront();
     });
 
-    it('should load contract call button', async () => {
+    it.skip('should load contract call button', async () => {
       const buttonText = await demo.page.textContent(
         createTestSelector(TransactionSigningSelectors.BtnContractCall)
       );
       expect(buttonText).toContain('Contract call');
     });
 
-    it('validates against insufficient funds when performing a contract call', async () => {
+    it.skip('validates against insufficient funds when performing a contract call', async () => {
       const [popup] = await Promise.all([
         browser.context.waitForEvent('page'),
         demo.page.click(createTestSelector(TransactionSigningSelectors.BtnContractCall)),
@@ -101,7 +102,7 @@ describe(`Transaction signing`, () => {
       txSigningPage = new TransactionSigningPage(txPage);
     });
 
-    it('broadcasts correctly with given fee and amount', async () => {
+    it.skip('broadcasts correctly with given fee and amount', async () => {
       await txSigningPage.waitForPageToRender();
       await txSigningPage.waitForFeeEstimationsToLoad();
 

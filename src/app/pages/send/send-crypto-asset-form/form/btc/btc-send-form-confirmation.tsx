@@ -16,6 +16,7 @@ import { formatMoneyPadded, i18nFormatCurrency } from '@app/common/money/format-
 import { satToBtc } from '@app/common/money/unit-conversion';
 import { queryClient } from '@app/common/persistence';
 import { FormAddressDisplayer } from '@app/components/address-displayer/form-address-displayer';
+import { LeatherButton } from '@app/components/button/button';
 import {
   InfoCard,
   InfoCardAssetValue,
@@ -24,7 +25,6 @@ import {
   InfoCardSeparator,
 } from '@app/components/info-card/info-card';
 import { ModalHeader } from '@app/components/modal-header';
-import { PrimaryButton } from '@app/components/primary-button';
 import { useCurrentNativeSegwitUtxos } from '@app/query/bitcoin/address/utxos-by-address.hooks';
 import { useBitcoinBroadcastTransaction } from '@app/query/bitcoin/transaction/use-bitcoin-broadcast-transaction';
 import { useCryptoCurrencyMarketData } from '@app/query/common/market-data/market-data.hooks';
@@ -150,9 +150,9 @@ export function BtcSendFormConfirmation() {
       </Stack>
 
       <InfoCardFooter>
-        <PrimaryButton isLoading={isBroadcasting} width="100%" onClick={initiateTransaction}>
+        <LeatherButton aria-busy={isBroadcasting} width="100%" onClick={initiateTransaction}>
           Confirm and send transaction
-        </PrimaryButton>
+        </LeatherButton>
       </InfoCardFooter>
     </InfoCard>
   );

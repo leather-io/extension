@@ -3,6 +3,7 @@ import { SendCryptoAssetSelectors } from '@tests/selectors/send.selectors';
 
 import { whenPageMode } from '@app/common/utils';
 import { FormAddressDisplayer } from '@app/components/address-displayer/form-address-displayer';
+import { LeatherButton } from '@app/components/button/button';
 import {
   InfoCard,
   InfoCardAssetValue,
@@ -11,7 +12,6 @@ import {
   InfoCardSeparator,
 } from '@app/components/info-card/info-card';
 import { InfoLabel } from '@app/components/info-label';
-import { PrimaryButton } from '@app/components/primary-button';
 
 interface SendFormConfirmationProps {
   recipient: string;
@@ -93,14 +93,14 @@ export function SendFormConfirmation({
       </Stack>
 
       <InfoCardFooter>
-        <PrimaryButton
+        <LeatherButton
           data-testid={SendCryptoAssetSelectors.ConfirmSendTxBtn}
           width="100%"
-          isLoading={isLoading}
+          aria-busy={isLoading}
           onClick={onBroadcastTransaction}
         >
           Confirm and send transaction
-        </PrimaryButton>
+        </LeatherButton>
       </InfoCardFooter>
     </InfoCard>
   );

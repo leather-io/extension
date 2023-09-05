@@ -1,3 +1,4 @@
+import { sha256 } from '@noble/hashes/sha256';
 import { bytesToHex, hexToBytes, intToBigInt } from '@stacks/common';
 import { randomBytes } from '@stacks/encryption';
 
@@ -9,12 +10,11 @@ import { useCurrentNetworkState } from '@app/store/networks/networks.hooks';
 import { getMagicContracts } from '../client';
 import { fetchSuppliers, fetchSwapperId } from '../fetch';
 import { MagicFetchContextWithElectrum } from '../fetch/constants';
+import { generateHTLCAddress } from '../htlc';
 import { MagicSupplier } from '../models';
 import { convertBtcToSats } from '../utils';
-import { useMagicClient } from './use-magic-client.hooks';
 import { useBitcoinNetwork } from './use-bitcoin-network.hooks';
-import { generateHTLCAddress } from '../htlc';
-import { sha256 } from '@noble/hashes/sha256';
+import { useMagicClient } from './use-magic-client.hooks';
 
 export function useInboundMagicSwap() {
   const { createInboundMagicSwap } = useSwapActions();
@@ -52,28 +52,29 @@ export function useInboundMagicSwap() {
 
     const createdAt = new Date().getTime();
 
-    const swap =
-      createInboundMagicSwap({
-        id: createdAt.toString(),
-        secret: bytesToHex(secret),
-        amount: convertBtcToSats(btcAmount).toString(),
-        expiration,
-        createdAt,
-        publicKey,
-        swapperId,
-        supplier,
-      })
-      .payload;
+    const swap = createInboundMagicSwap({
+      id: createdAt.toString(),
+      secret: bytesToHex(secret),
+      amount: convertBtcToSats(btcAmount).toString(),
+      expiration,
+      createdAt,
+      publicKey,
+      swapperId,
+      supplier,
+    }).payload;
 
     const hash = sha256(hexToBytes(swap.secret));
 
-    const payment = generateHTLCAddress({
-      senderPublicKey: Buffer.from(publicKey, 'hex'),
-      recipientPublicKey: Buffer.from(supplier.publicKey, 'hex'),
-      swapper: swapperId,
-      hash: Buffer.from(hash),
-      expiration: swap.expiration,
-    }, bitcoinNetwork);
+    const payment = generateHTLCAddress(
+      {
+        senderPublicKey: Buffer.from(publicKey, 'hex'),
+        recipientPublicKey: Buffer.from(supplier.publicKey, 'hex'),
+        swapper: swapperId,
+        hash: Buffer.from(hash),
+        expiration: swap.expiration,
+      },
+      bitcoinNetwork
+    );
 
     return {
       ...swap,

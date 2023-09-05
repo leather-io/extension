@@ -4,9 +4,9 @@ import ConnectLedgerError from '@assets/images/ledger/connect-ledger-error.png';
 import { Box, Flex, Stack, color } from '@stacks/ui';
 
 import { openInNewTab } from '@app/common/utils/open-in-new-tab';
+import { LeatherButton } from '@app/components/button/button';
 import { ErrorLabel } from '@app/components/error-label';
 import { Link } from '@app/components/link';
-import { PrimaryButton } from '@app/components/primary-button';
 import { Caption } from '@app/components/typography';
 import { WarningLabel } from '@app/components/warning-label';
 
@@ -65,13 +65,11 @@ export function ConnectLedgerErrorLayout(props: ConnectLedgerErrorLayoutProps) {
         p="extra-loose"
       >
         <PossibleReasonUnableToConnect text="Check if Ledger Live is open. Close it and try again" />
-        <PossibleReasonUnableToConnect text="Ensure you only have one instance of the Hiro Wallet open" />
+        <PossibleReasonUnableToConnect text="Ensure you only have one instance of Leather open" />
         <PossibleReasonUnableToConnect text="Verify the Stacks app is installed and open" />
         <PossibleReasonUnableToConnect text="Check you've approved the browser USB pop up" />
       </Stack>
-      <PrimaryButton height="40px" onClick={onTryAgain}>
-        Try again
-      </PrimaryButton>
+      <LeatherButton onClick={onTryAgain}>Try again</LeatherButton>
       <Caption mt="loose">
         If the problem persists, check our{' '}
         <Link
@@ -79,7 +77,7 @@ export function ConnectLedgerErrorLayout(props: ConnectLedgerErrorLayoutProps) {
           fontSize={1}
           onClick={() =>
             openInNewTab(
-              'https://hirowallet.gitbook.io/guides/securing-the-wallet/using-ledger-with-hiro'
+              'https://leather.gitbook.io/guides/securing-the-wallet/using-ledger-with-leather'
             )
           }
         >

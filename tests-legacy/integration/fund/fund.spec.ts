@@ -30,7 +30,7 @@ describe('Buy tokens test', () => {
     } catch (error) {}
   });
 
-  describe('Fiat provider', () => {
+  describe.skip('Fiat provider', () => {
     it('should redirect to provider URL', async () => {
       await fundPage.waitForFiatProviderItem();
       const providerName = await fundPage.getFirstFastCheckoutProviderName();

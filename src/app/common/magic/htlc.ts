@@ -1,7 +1,7 @@
+import { sha256 } from '@noble/hashes/sha256';
+import { IntegerType, bytesToHex, hexToBytes, intToHex, utf8ToBytes } from '@stacks/common';
 import { payments, script } from 'bitcoinjs-lib';
 import type { networks as BitcoinNetworks } from 'bitcoinjs-lib';
-import { IntegerType, bytesToHex, hexToBytes, intToHex, utf8ToBytes } from '@stacks/common'
-import { sha256 } from '@noble/hashes/sha256';
 
 export interface HTLC {
   hash: Uint8Array;

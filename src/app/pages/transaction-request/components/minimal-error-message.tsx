@@ -1,10 +1,10 @@
 import { Suspense, memo } from 'react';
-import { FiAlertTriangle } from 'react-icons/fi';
 
-import { Box, Stack, StackProps, color } from '@stacks/ui';
+import { Stack, StackProps, color } from '@stacks/ui';
 import { TransactionSigningSelectors } from '@tests-legacy/page-objects/transaction-signing.selectors';
+import { styled } from 'leather-styles/jsx';
 
-import { Caption } from '@app/components/typography';
+import { ErrorIcon } from '@app/components/icons/error-icon';
 import { TransactionErrorReason } from '@app/pages/transaction-request/components/transaction-error/transaction-error';
 import { useTransactionError } from '@app/pages/transaction-request/hooks/use-transaction-error';
 
@@ -37,14 +37,15 @@ function MinimalErrorMessageSuspense(props: StackProps) {
       alignItems="center"
       bg="#FCEEED"
       borderRadius="12px"
+      color={color('feedback-error')}
       data-testid={TransactionSigningSelectors.TransactionErrorMessage}
       isInline
       p="base"
       width="100%"
       {...props}
     >
-      <Box color={color('feedback-error')} strokeWidth={2} as={FiAlertTriangle} />
-      <Caption color={color('feedback-error')}>{getTitle()}</Caption>
+      <ErrorIcon />
+      <styled.span textStyle="caption.01">{getTitle()}</styled.span>
     </Stack>
   );
 }

@@ -27,8 +27,7 @@ export function ReceiveStxModal() {
       address={currentAccount.address}
       accountName={accountName}
       onCopyAddressToClipboard={copyToClipboard}
-      title="Stacks address"
-      hasSubtitle
+      title="STX"
     />
   );
 }

@@ -1,16 +1,16 @@
 import { useCallback } from 'react';
 import toast from 'react-hot-toast';
 
-import { Box, Button } from '@stacks/ui';
-import { ButtonProps } from '@stacks/ui';
+import { Box } from '@stacks/ui';
 import { SendCryptoAssetSelectors } from '@tests/selectors/send.selectors';
 import { useField } from 'formik';
 
 import { Money } from '@shared/models/money.model';
 
 import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
+import { LeatherButton } from '@app/components/button/button';
 
-interface SendMaxButtonProps extends ButtonProps {
+interface SendMaxButtonProps {
   balance: Money;
   sendMaxBalance: string;
 }
@@ -30,19 +30,13 @@ export function SendMaxButton({ balance, sendMaxBalance, ...props }: SendMaxButt
   if (sendMaxBalance === '0') return <Box height="32px" />;
 
   return (
-    <Button
-      borderRadius="10px"
+    <LeatherButton
       data-testid={SendCryptoAssetSelectors.SendMaxBtn}
-      fontSize={0}
-      height="32px"
       onClick={onSendMax}
-      mode="tertiary"
-      px="base-tight"
-      type="button"
-      width="fit-content"
+      variant="link"
       {...props}
     >
       Send max
-    </Button>
+    </LeatherButton>
   );
 }

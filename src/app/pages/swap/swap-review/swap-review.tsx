@@ -1,6 +1,6 @@
 import { useRouteHeader } from '@app/common/hooks/use-route-header';
+import { LeatherButton } from '@app/components/button/button';
 import { ModalHeader } from '@app/components/modal-header';
-import { PrimaryButton } from '@app/components/primary-button';
 
 import { SwapAssetsPair } from '../components/swap-assets-pair/swap-assets-pair';
 import { SwapContentLayout } from '../components/swap-content.layout';
@@ -21,9 +21,9 @@ export function SwapReview() {
         <SwapDetails />
       </SwapContentLayout>
       <SwapFooterLayout>
-        <PrimaryButton isLoading={false} onClick={onSubmitSwap} width="100%">
+        <LeatherButton onClick={onSubmitSwap} width="100%">
           Swap
-        </PrimaryButton>
+        </LeatherButton>
       </SwapFooterLayout>
     </SwapReviewLayout>
   );

@@ -1,24 +1,22 @@
 import { Suspense, memo } from 'react';
 
-import { BoxProps } from '@stacks/ui';
 import { memoWithAs } from '@stacks/ui-core';
 import { SettingsSelectors } from '@tests-legacy/integration/settings.selectors';
+import { Box, BoxProps, styled } from 'leather-styles/jsx';
 
+import { HasChildren } from '@app/common/has-children';
 import { useCurrentAccountDisplayName } from '@app/common/hooks/account/use-account-names';
 import { truncateString } from '@app/common/utils';
 import { Tooltip } from '@app/components/tooltip';
-import { Title } from '@app/components/typography';
 import { useCurrentStacksAccount } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
 
-function AccountNameTitle(props: BoxProps) {
+function AccountNameTitle({ children, ...props }: HasChildren & BoxProps) {
   return (
-    <Title
-      as="h1"
-      data-testid={SettingsSelectors.CurrentAccountDisplayName}
-      fontSize={4}
-      fontWeight={500}
-      {...props}
-    />
+    <Box {...props}>
+      <styled.span data-testid={SettingsSelectors.CurrentAccountDisplayName} textStyle="label.01">
+        {children}
+      </styled.span>
+    </Box>
   );
 }
 
@@ -31,11 +29,9 @@ const AccountNameSuspense = memo((props: BoxProps) => {
   const isLong = name.length > nameCharLimit;
   const displayName = truncateString(name, nameCharLimit);
   return (
-    <AccountNameTitle {...props}>
-      <Tooltip label={isLong ? name : undefined}>
-        <div>{displayName}</div>
-      </Tooltip>
-    </AccountNameTitle>
+    <Tooltip label={isLong ? name : undefined}>
+      <AccountNameTitle {...props}>{displayName}</AccountNameTitle>
+    </Tooltip>
   );
 });
 
