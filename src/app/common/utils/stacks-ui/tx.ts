@@ -2,6 +2,7 @@
 // taken from ui-core './tx.esm.js';
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-nocheck
+// FIXME - refactor this function to use TS + pass esLint
 import { truncateMiddle } from './strings.ts';
 import { toHumanReadableStx } from './units.ts';
 
@@ -118,6 +119,7 @@ var txTypeNamesMap =
 function getTxTypeName(tx) {
   return txTypeNamesMap[tx.tx_type];
 }
+// TODO - use this for issue 2695  - Show memo for transactions
 var getMemoString = function getMemoString(string) {
   return string
     ? Buffer.from(string.replace('0x', '').replace(/^(0{2})+|(0{2})+$/g, ''), 'hex').toString(

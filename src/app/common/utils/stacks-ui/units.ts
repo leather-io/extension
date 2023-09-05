@@ -2,6 +2,7 @@
 // taken from ui-core './units.esm.js';
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-nocheck
+// FIXME - refactor this function to use TS + pass esLint
 import { withSTX } from './strings';
 
 var MICROSTACKS_IN_STACKS = 1e6;
@@ -21,4 +22,3 @@ function stxToMicroStx(amountInStacks) {
 }
 
 export { microStxToStx, stxToMicroStx, toHumanReadableStx };
-//# sourceMappingURL=units.esm.js.map
