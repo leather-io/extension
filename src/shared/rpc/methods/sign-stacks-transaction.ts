@@ -5,7 +5,7 @@ import * as yup from 'yup';
 import { formatValidationErrors, getRpcParamErrors, validateRpcParams } from './validation.utils';
 
 const rpcSignStacksTransactionParamsSchema = yup.object().shape({
-  stxAddress: yup.string().required(),
+  stxAddress: yup.string(),
   txHex: yup.string().required(),
   attachment: yup.string(),
   network: yup.string().oneOf(StacksNetworks),

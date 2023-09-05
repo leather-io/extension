@@ -18,7 +18,7 @@ export function useCurrentNetworkState() {
 
   return useMemo(() => {
     const isTestnet = currentNetwork.chain.stacks.chainId === ChainID.Testnet;
-    const mode = (isTestnet ? 'testnet' : 'mainnet') as NetworkModes;
+    const mode = isTestnet ? 'testnet' : 'mainnet';
     return { ...currentNetwork, isTestnet, mode };
   }, [currentNetwork]);
 }

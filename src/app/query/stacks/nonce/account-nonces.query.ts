@@ -21,7 +21,7 @@ function fetchAccountNonces(client: StacksClient, limiter: RateLimiter) {
     await limiter.removeTokens(1);
     return client.accountsApi.getAccountNonces({
       principal,
-    }) as Promise<AddressNonces>;
+    });
   };
 }
 

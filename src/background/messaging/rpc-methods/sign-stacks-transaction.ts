@@ -1,6 +1,24 @@
 import { RpcErrorCode } from '@btckit/types';
-import { deserializeTransaction } from '@stacks/transactions';
+import { bytesToHex } from '@stacks/common';
+import { TransactionTypes } from '@stacks/connect';
+import {
+  AddressHashMode,
+  AuthType,
+  MultiSigHashMode,
+  PayloadType,
+  PostCondition,
+  StacksTransaction,
+  addressToString,
+  cvToValue,
+  deserializeTransaction,
+  serializeCV,
+  serializePostCondition,
+} from '@stacks/transactions';
+import { VersionedSmartContractPayload } from '@stacks/transactions/src/payload';
+import BigNumber from 'bignumber.js';
+import { createUnsecuredToken } from 'jsontokens';
 
+import { STX_DECIMALS } from '@shared/constants';
 import { RouteUrls } from '@shared/route-urls';
 import {
   SignStacksTransactionRequest,
@@ -17,6 +35,69 @@ import {
   makeSearchParamsWithDefaults,
   triggerRequestWindowOpen,
 } from '../messaging-utils';
+
+const MEMO_DESERIALIZATION_STUB = '\u0000';
+
+const cleanMemoString = (memo: string): string => {
+  return memo.replaceAll(MEMO_DESERIALIZATION_STUB, '');
+};
+
+function encodePostConditions(postConditions: PostCondition[]) {
+  return postConditions.map(pc => bytesToHex(serializePostCondition(pc)));
+}
+
+export const transactionPayloadToTransactionRequest = (
+  stacksTransaction: StacksTransaction,
+  stxAddress?: string,
+  attachment?: string
+) => {
+  const transactionRequest = {
+    attachment,
+    stxAddress,
+    sponsored: stacksTransaction.auth.authType === AuthType.Sponsored,
+    nonce: Number(stacksTransaction.auth.spendingCondition.nonce),
+    fee: Number(stacksTransaction.auth.spendingCondition.fee),
+    postConditions: encodePostConditions(stacksTransaction.postConditions.values as any[]),
+    postConditionMode: stacksTransaction.postConditionMode,
+    anchorMode: stacksTransaction.anchorMode,
+  } as any;
+
+  switch (stacksTransaction.payload.payloadType) {
+    case PayloadType.TokenTransfer:
+      transactionRequest.txType = TransactionTypes.STXTransfer;
+      transactionRequest.recipient = cvToValue<string>(stacksTransaction.payload.recipient, true);
+      transactionRequest.amount = new BigNumber(Number(stacksTransaction.payload.amount))
+        .shiftedBy(-STX_DECIMALS)
+        .toNumber()
+        .toLocaleString('en-US', { maximumFractionDigits: STX_DECIMALS });
+      transactionRequest.memo = cleanMemoString(stacksTransaction.payload.memo.content);
+      break;
+    case PayloadType.ContractCall:
+      transactionRequest.txType = TransactionTypes.ContractCall;
+      transactionRequest.contractName = stacksTransaction.payload.contractName.content;
+      transactionRequest.contractAddress = addressToString(
+        stacksTransaction.payload.contractAddress
+      );
+      transactionRequest.functionArgs = stacksTransaction.payload.functionArgs.map(arg =>
+        Buffer.from(serializeCV(arg)).toString('hex')
+      );
+      transactionRequest.functionName = stacksTransaction.payload.functionName.content;
+      break;
+    case PayloadType.SmartContract:
+    case PayloadType.VersionedSmartContract:
+      transactionRequest.txType = TransactionTypes.ContractDeploy;
+      transactionRequest.contractName = stacksTransaction.payload.contractName.content;
+      transactionRequest.codeBody = stacksTransaction.payload.codeBody.content;
+      transactionRequest.clarityVersion = (
+        stacksTransaction.payload as VersionedSmartContractPayload
+      ).clarityVersion;
+      break;
+    default:
+      throw new Error('Unsupported tx type');
+  }
+
+  return transactionRequest;
+};
 
 function validateStacksTransaction(txHex: string) {
   try {
@@ -67,15 +148,23 @@ export async function rpcSignStacksTransaction(
     return;
   }
 
+  const stacksTransaction = deserializeTransaction(message.params.txHex!);
+  const request = transactionPayloadToTransactionRequest(
+    stacksTransaction,
+    message.params.stxAddress,
+    message.params.attachment
+  );
+
+  const hashMode = stacksTransaction.auth.spendingCondition.hashMode as MultiSigHashMode;
+  const isMultisig =
+    hashMode === AddressHashMode.SerializeP2SH || hashMode === AddressHashMode.SerializeP2WSH;
+
   const requestParams = [
-    ['stxAddress', message.params.stxAddress],
     ['txHex', message.params.txHex],
     ['requestId', message.id],
+    ['request', createUnsecuredToken(request)],
+    ['isMultisig', isMultisig],
   ] as RequestParams;
-
-  if (isDefined(message.params.attachment)) {
-    requestParams.push(['attachment', message.params.attachment]);
-  }
 
   if (isDefined(message.params.network)) {
     requestParams.push(['network', message.params.network]);
