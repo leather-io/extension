@@ -1,8 +1,8 @@
 import { FiLock } from 'react-icons/fi';
 
 import { Box, Circle, Stack } from '@stacks/ui';
-import { color } from '@stacks/ui-utils';
 
+import { color } from '@app/common/utils/stacks-ui';
 import { Body } from '@app/components/typography';
 
 export function NoPostConditions(): React.JSX.Element {

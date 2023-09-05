@@ -2,7 +2,6 @@ import { createSearchParams, useLocation, useNavigate } from 'react-router-dom';
 
 import type { MempoolTransaction } from '@stacks/stacks-blockchain-api-types';
 import { BoxProps, Text, color } from '@stacks/ui';
-import { isPendingTx } from '@stacks/ui-utils';
 
 import { StacksTx, TxTransferDetails } from '@shared/models/transactions/stacks-transaction.model';
 import { RouteUrls } from '@shared/route-urls';
@@ -17,6 +16,7 @@ import {
 import { useWalletType } from '@app/common/use-wallet-type';
 import { whenPageMode } from '@app/common/utils';
 import { openIndexPageInNewTab } from '@app/common/utils/open-in-new-tab';
+import { isPendingTx } from '@app/common/utils/stacks-ui';
 import { usePressable } from '@app/components/item-hover';
 import { TransactionTitle } from '@app/components/transaction/transaction-title';
 import { Title } from '@app/components/typography';

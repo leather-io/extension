@@ -5707,7 +5707,7 @@
     type-fest "^0.21.3"
     typescript "^4.1.2"
 
-"@stacks/ui-utils@7.5.0", "@stacks/ui-utils@^7.5.0":
+"@stacks/ui-utils@^7.5.0":
   version "7.5.0"
   resolved "https://registry.yarnpkg.com/@stacks/ui-utils/-/ui-utils-7.5.0.tgz#1a1753a02f2a62e732b0d9f31897665a89c7a6f6"
   integrity sha512-g2DaH1h3/nd+Cx99S5l37nv3Fuzbbc0NGlD4zY/XSzbfH2lpXwCfZDwj2Vz74H9vjPuGGiJ8Y48+0BxScKWPSw==

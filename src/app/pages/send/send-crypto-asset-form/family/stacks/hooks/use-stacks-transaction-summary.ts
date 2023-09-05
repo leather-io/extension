@@ -6,7 +6,6 @@ import {
   addressToString,
   cvToString,
 } from '@stacks/transactions';
-import { microStxToStx } from '@stacks/ui-utils';
 import BigNumber from 'bignumber.js';
 
 import { CryptoCurrencies } from '@shared/models/currencies.model';
@@ -14,6 +13,7 @@ import { createMoney } from '@shared/models/money.model';
 
 import { baseCurrencyAmountInQuote } from '@app/common/money/calculate-money';
 import { formatMoney, i18nFormatCurrency } from '@app/common/money/format-money';
+import { microStxToStx } from '@app/common/utils/stacks-ui';
 import { useCryptoCurrencyMarketData } from '@app/query/common/market-data/market-data.hooks';
 import { useStacksBlockTime } from '@app/query/stacks/info/info.hooks';
 import { useCurrentNetworkState } from '@app/store/networks/networks.hooks';

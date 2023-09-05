@@ -158,7 +158,6 @@
     "@stacks/transactions": "6.5.4",
     "@stacks/ui": "7.10.0",
     "@stacks/ui-core": "7.3.0",
-    "@stacks/ui-utils": "7.5.0",
     "@stacks/wallet-sdk": "6.5.4",
     "@stitches/react": "1.2.8",
     "@styled-system/theme-get": "5.1.2",

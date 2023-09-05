@@ -1,9 +1,9 @@
 import type { MempoolTransaction } from '@stacks/stacks-blockchain-api-types';
 import { Text, color } from '@stacks/ui';
-import { isPendingTx } from '@stacks/ui-utils';
 
 import { StacksTx } from '@shared/models/transactions/stacks-transaction.model';
 
+import { isPendingTx } from '@app/common/utils/stacks-ui';
 import { Tooltip } from '@app/components/tooltip';
 
 import { MicroblockLabel } from '../transaction/microblock-label';

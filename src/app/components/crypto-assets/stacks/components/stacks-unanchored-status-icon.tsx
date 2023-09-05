@@ -1,5 +1,4 @@
-import { color } from '@stacks/ui-utils';
-
+import { color } from '@app/common/utils/stacks-ui';
 import { MicroblockIcon } from '@app/components/icons/microblock';
 import { TransactionTypeIconWrapper } from '@app/components/transaction/transaction-type-icon-wrapper';
 

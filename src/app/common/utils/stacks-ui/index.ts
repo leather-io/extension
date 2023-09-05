@@ -1,5 +1,5 @@
 // export { hasAssetBalance } from './accounts.esm.js';
-// export { color, generateHash, hashValue, moduloRange, stringToHslColor } from './colors.esm.js';
+export { color, generateHash, hashValue, moduloRange, stringToHslColor } from './colors';
 // export { getTxErrorMessage } from './errors.esm.js';
 export {
   //   addSepBetweenStrings,
@@ -11,8 +11,8 @@ export {
 } from './strings';
 export { microStxToStx, stxToMicroStx, toHumanReadableStx } from './units';
 export {
-  //   getAssetName,
-  //   getAssetStringParts,
+  getAssetName,
+  getAssetStringParts,
   getContractName,
   //   getFunctionName,
   //   getMemoString,
@@ -20,7 +20,7 @@ export {
   //   getTxTitle,
   //   getTxTypeName,
   //   hasMemo,
-  //   isPendingTx,
+  isPendingTx,
   //   txTypeNamesMap,
 } from './tx';
 // export { validateContractId, validateHex, validateStacksAddress } from './validation.esm.js';

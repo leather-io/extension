@@ -1,5 +1,4 @@
 import { FtMetadataResponse } from '@hirosystems/token-metadata-api-client';
-import { getAssetStringParts } from '@stacks/ui-utils';
 import BigNumber from 'bignumber.js';
 
 import { STX_DECIMALS } from '@shared/constants';
@@ -12,6 +11,7 @@ import type {
 import { createMoney } from '@shared/models/money.model';
 
 import { isTransferableStacksFungibleTokenAsset } from '@app/common/crypto-assets/stacks-crypto-asset.utils';
+import { getAssetStringParts } from '@app/common/utils/stacks-ui';
 
 export function createStacksCryptoCurrencyAssetTypeWrapper(
   balance: BigNumber
