@@ -1,21 +1,26 @@
-import { bytesToHex, intToBigInt } from '@stacks/common';
+import { bytesToHex, hexToBytes, intToBigInt } from '@stacks/common';
 import { randomBytes } from '@stacks/encryption';
 
-import { useCurrentStacksAccount } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
-import { useCurrentNetworkState } from '@app/store/networks/networks.hooks';
 import { useElectrumClient } from '@app/common/electrum/provider';
 import { useSwapActions } from '@app/common/hooks/use-swap-actions';
+import { useCurrentStacksAccount } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
+import { useCurrentNetworkState } from '@app/store/networks/networks.hooks';
+
 import { getMagicContracts } from '../client';
 import { fetchSuppliers, fetchSwapperId } from '../fetch';
 import { MagicFetchContextWithElectrum } from '../fetch/constants';
 import { MagicSupplier } from '../models';
 import { convertBtcToSats } from '../utils';
 import { useMagicClient } from './use-magic-client.hooks';
+import { useBitcoinNetwork } from './use-bitcoin-network.hooks';
+import { generateHTLCAddress } from '../htlc';
+import { sha256 } from '@noble/hashes/sha256';
 
 export function useInboundMagicSwap() {
-  const { createSwap } = useSwapActions();
+  const { createInboundMagicSwap } = useSwapActions();
   const account = useCurrentStacksAccount();
   const network = useCurrentNetworkState();
+  const bitcoinNetwork = useBitcoinNetwork();
 
   const magicClient = useMagicClient();
   const electrumClient = useElectrumClient();
@@ -37,7 +42,7 @@ export function useInboundMagicSwap() {
 
     const supplier = suppliers.find(s => s.id === bestSupplier.id);
 
-    if (!account || !supplier) {
+    if (!account || !supplier || !swapperId) {
       throw new Error('Invalid user state.');
     }
 
@@ -47,22 +52,34 @@ export function useInboundMagicSwap() {
 
     const createdAt = new Date().getTime();
 
-    const swap = createSwap({
-      type: 'magic',
-      direction: 'inbound',
-      id: createdAt.toString(),
-      secret: bytesToHex(secret),
-      amount: convertBtcToSats(btcAmount).toString(),
-      expiration,
-      createdAt,
-      publicKey,
+    const swap =
+      createInboundMagicSwap({
+        id: createdAt.toString(),
+        secret: bytesToHex(secret),
+        amount: convertBtcToSats(btcAmount).toString(),
+        expiration,
+        createdAt,
+        publicKey,
+        swapperId,
+        supplier,
+      })
+      .payload;
+
+    const hash = sha256(hexToBytes(swap.secret));
+
+    const payment = generateHTLCAddress({
+      senderPublicKey: Buffer.from(publicKey, 'hex'),
+      recipientPublicKey: Buffer.from(supplier.publicKey, 'hex'),
+      swapper: swapperId,
+      hash: Buffer.from(hash),
+      expiration: swap.expiration,
+    }, bitcoinNetwork);
+
+    return {
+      ...swap,
+      address: payment.address,
       swapperId,
-      supplier,
-    });
-
-    // Generate HTLC address ..
-
-    return swap.payload;
+    };
   }
 
   return {
