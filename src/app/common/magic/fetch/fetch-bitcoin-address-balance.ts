@@ -1,9 +1,9 @@
+import { bytesToHex } from '@stacks/common';
 import { address as bitcoinAddress } from 'bitcoinjs-lib';
 
 import { getScriptHash } from '../htlc';
 import { getBitcoinNetwork } from '../network';
 import type { MagicFetchElectrumContext } from './constants';
-import { bytesToHex } from '@stacks/common';
 
 /**
  * Fetches the balance of a Bitcoin address.

@@ -1,9 +1,10 @@
+import { ripemd160 } from '@noble/hashes/ripemd160';
+import { sha256 } from '@noble/hashes/sha256';
+import { toBase58Check } from 'bitcoinjs-lib/src/address';
+
 import { DefaultNetworkConfigurations } from '@shared/constants';
 
 import { getBitcoinNetwork } from './network';
-import { sha256 } from '@noble/hashes/sha256';
-import { ripemd160 } from '@noble/hashes/ripemd160';
-import { toBase58Check } from 'bitcoinjs-lib/src/address';
 
 export function pubKeyToBtcAddress(publicKey: Uint8Array, network: DefaultNetworkConfigurations) {
   const publicKeySha256 = sha256(publicKey);
