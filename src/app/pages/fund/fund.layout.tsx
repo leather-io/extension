@@ -35,7 +35,7 @@ export function FundLayout(props: FundLayoutProps) {
         <PageTitle
           fontSize={['24px', '32px', '48px']}
           lineHeight={['150%', '125%']}
-          maxWidth={['unset', 'unset', token('sizes.centredPageFullWidth')]}
+          maxWidth={['unset', 'unset', token('sizes.centeredPageFullWidth')]}
           px={['unset', 'loose']}
           textAlign={['left', 'center']}
         >

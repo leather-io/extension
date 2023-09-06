@@ -42,7 +42,7 @@ export function Unlock() {
         <Box position="fixed" w="200px" h="60px" background="brown.2" top={0} left={0} />
       )}
       <Stack
-        maxWidth={token('sizes.centredPageFullWidth')}
+        maxWidth={token('sizes.centeredPageFullWidth')}
         px={['loose', 'base-loose']}
         spacing="loose"
         textAlign={['left', 'center']}

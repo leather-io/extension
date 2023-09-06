@@ -120,7 +120,7 @@ export function AddNetwork() {
         {({ handleSubmit, values, handleChange }) => (
           <form onSubmit={handleSubmit}>
             <Stack
-              maxWidth={token('sizes.centredPageFullWidth')}
+              maxWidth={token('sizes.centeredPageFullWidth')}
               px={['loose', 'base-loose']}
               spacing="loose"
               textAlign={['left', 'center']}

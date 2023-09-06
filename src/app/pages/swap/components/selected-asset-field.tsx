@@ -1,5 +1,5 @@
-import { Box, Flex } from '@stacks/ui';
 import { Field } from 'formik';
+import { Box, Flex, styled } from 'leather-styles/jsx';
 
 import { FlagWithSpaceBetweenContent } from '@app/components/layout/flag';
 
@@ -18,7 +18,8 @@ export function SelectedAssetField({
   return (
     <Flex
       alignItems="center"
-      border="1px solid #DCDDE2"
+      border="1px solid"
+      borderColor="accent.border-default !important"
       borderRadius="10px"
       height="76px"
       mb="tight"
@@ -32,7 +33,9 @@ export function SelectedAssetField({
             align="middle"
             contentLeft={contentLeft}
             contentRight={contentRight}
-            img={icon ? <Box as="img" src={icon} width="24px" /> : <></>}
+            img={
+              icon ? <styled.img src={icon} width="24px" height="24px" alt="Swap asset" /> : <></>
+            }
             spacing="tight"
           />
         </Field>

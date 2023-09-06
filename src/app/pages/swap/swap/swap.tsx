@@ -1,6 +1,5 @@
 import { Outlet } from 'react-router-dom';
 
-import { Box } from '@stacks/ui';
 import { useFormikContext } from 'formik';
 
 import { useRouteHeader } from '@app/common/hooks/use-route-header';
@@ -20,7 +19,7 @@ export function Swap() {
   useRouteHeader(<ModalHeader defaultGoBack hideActions title="Swap" />, true);
 
   return (
-    <Box width="100%">
+    <>
       <SwapContentLayout>
         <SwapSelectedAssets />
       </SwapContentLayout>
@@ -37,6 +36,6 @@ export function Swap() {
         </LeatherButton>
       </SwapFooterLayout>
       <Outlet />
-    </Box>
+    </>
   );
 }

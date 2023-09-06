@@ -39,7 +39,7 @@ export function SwapSelectedAssetFrom({ onChooseAsset, title }: SwapSelectedAsse
     if (isUndefined(values.swapAssetTo)) return;
     onSetIsSendingMax(!isSendingMax);
     const value = isSendingMax ? '' : formattedBalance;
-    amountFieldHelpers.setValue(value);
+    await amountFieldHelpers.setValue(value);
     await setFieldValue('swapAmountTo', Number(value) * exchangeRate);
     await validateForm();
   }

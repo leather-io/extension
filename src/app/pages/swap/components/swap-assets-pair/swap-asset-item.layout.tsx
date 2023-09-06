@@ -1,8 +1,7 @@
-import { Box } from '@stacks/ui';
+import { styled } from 'leather-styles/jsx';
 
 import { Flag } from '@app/components/layout/flag';
 import { SpaceBetween } from '@app/components/layout/space-between';
-import { Title } from '@app/components/typography';
 
 interface SwapAssetItemLayoutProps {
   icon: string;
@@ -13,13 +12,13 @@ export function SwapAssetItemLayout({ icon, symbol, value }: SwapAssetItemLayout
   return (
     <Flag
       align="middle"
-      img={<Box as="img" src={icon} width="32px" />}
+      img={<styled.img src={icon} width="32px" height="32px" alt="Swap asset" />}
       spacing="tight"
       width="100%"
     >
       <SpaceBetween>
-        <Title fontSize={3}>{symbol}</Title>
-        <Title fontSize={3}>{value}</Title>
+        <styled.span textStyle="heading.05">{symbol}</styled.span>
+        <styled.span textStyle="heading.05">{value}</styled.span>
       </SpaceBetween>
     </Flag>
   );
