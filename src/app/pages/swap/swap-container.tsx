@@ -30,7 +30,7 @@ const oneHundredMillion = 100_000_000;
 export function SwapContainer() {
   const alexSDK = useState(() => new AlexSDK())[0];
   const { data: supportedCurrencies = [] } = useQuery(['alex-supported-currencies'], async () =>
-    alexSDK.fetchTokenList().then(tokenList => tokenList.filter(t => t.availableInSwap))
+    alexSDK.fetchSwappableCurrency()
   );
 
   const navigate = useNavigate();
