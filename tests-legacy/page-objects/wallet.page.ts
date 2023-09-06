@@ -1,9 +1,8 @@
 import { Page } from '@playwright/test';
-import { SettingsSelectors } from '@tests-legacy/integration/settings.selectors';
 import { HomePageSelectorsLegacy } from '@tests-legacy/page-objects/home.selectors';
 import { HomePageSelectors } from '@tests/selectors/home.selectors';
 import { OnboardingSelectors } from '@tests/selectors/onboarding.selectors';
-import { SettingsMenuSelectors } from '@tests/selectors/settings.selectors';
+import { SettingsSelectors } from '@tests/selectors/settings.selectors';
 
 import { RouteUrls } from '@shared/route-urls';
 
@@ -36,7 +35,7 @@ export class WalletPage {
   $fundAccountBtn = createTestSelector(HomePageSelectorsLegacy.BtnFundAccount);
   $confirmBackedUpSecretKey = createTestSelector(OnboardingSelectors.BackUpSecretKeyBtn);
   $password = 'mysecretreallylongpassword';
-  $settingsButton = createTestSelector(SettingsMenuSelectors.SettingsMenuBtn);
+  $settingsButton = createTestSelector(SettingsSelectors.SettingsMenuBtn);
   $contractCallButton = createTestSelector('btn-contract-call');
   $settingsViewSecretKey = createTestSelector(SettingsSelectors.ViewSecretKeyListItem);
   $homePageBalancesList = createTestSelector(HomePageSelectorsLegacy.BalancesList);
