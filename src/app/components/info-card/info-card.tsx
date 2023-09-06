@@ -7,6 +7,7 @@ import { isString } from '@shared/utils';
 import { whenPageMode } from '@app/common/utils';
 
 import { LeatherButton } from '../button/button';
+import { DashedHr } from '../hr';
 import { SpaceBetween } from '../layout/space-between';
 
 // InfoCard
@@ -55,7 +56,7 @@ export function InfoCardRow({ title, value, titleAdditionalElement, ...props }: 
 
 // InfoCardSeparator
 export function InfoCardSeparator() {
-  return <styled.hr my="space.04" border="1px dashed" borderColor="accent.border-default" />;
+  return <DashedHr my="space.04" />;
 }
 
 // InfoCardAssetValue

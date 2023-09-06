@@ -1,5 +1,5 @@
-import { Box } from '@stacks/ui';
 import { useFormikContext } from 'formik';
+import { styled } from 'leather-styles/jsx';
 
 import { SwapIcon } from '@app/components/icons/swap-icon';
 
@@ -24,8 +24,8 @@ export function SwapToggleButton() {
   }
 
   return (
-    <Box alignSelf="flex-start" as="button" onClick={onToggleSwapAssets} size="24px" type="button">
-      <SwapIcon />
-    </Box>
+    <styled.button alignSelf="flex-start" onClick={onToggleSwapAssets}>
+      <SwapIcon transform="rotate(90)" />
+    </styled.button>
   );
 }

@@ -31,7 +31,7 @@ export function ViewSecretKey() {
   return (
     <CenteredPageContainer>
       <Stack
-        maxWidth={token('sizes.centredPageFullWidth')}
+        maxWidth={token('sizes.centeredPageFullWidth')}
         pb={['loose', 'unset']}
         px={['loose', 'base-loose']}
         spacing="loose"

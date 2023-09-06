@@ -5,7 +5,7 @@ import { colors } from './colors';
 // ts-unused-exports:disable-next-line
 export const tokens = defineTokens({
   sizes: {
-    centredPageFullWidth: { value: '500px' },
+    centeredPageFullWidth: { value: '500px' },
     desktopViewportMinWidth: { value: '480px' },
   },
   radii: {

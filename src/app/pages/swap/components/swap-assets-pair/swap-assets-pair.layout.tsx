@@ -1,6 +1,6 @@
-import { FiArrowDown } from 'react-icons/fi';
+import { Box, Stack } from 'leather-styles/jsx';
 
-import { Box, Stack, color } from '@stacks/ui';
+import { ArrowDownIcon } from '@app/components/icons/arrow-down-icon';
 
 interface SwapAssetsPairLayoutProps {
   swapAssetFrom: React.JSX.Element;
@@ -9,18 +9,18 @@ interface SwapAssetsPairLayoutProps {
 export function SwapAssetsPairLayout({ swapAssetFrom, swapAssetTo }: SwapAssetsPairLayoutProps) {
   return (
     <Stack
-      border="4px solid"
-      borderColor={color('border')}
-      borderRadius="16px"
-      mb="loose"
-      mt="base"
-      p="loose"
-      spacing="extra-tight"
+      border="1px solid"
+      borderColor="accent.border-default !important"
+      borderRadius="10px"
+      gap="space.01"
+      mb="space.05"
+      mt="space.04"
+      p="space.05"
       width="100%"
     >
       {swapAssetFrom}
-      <Box p="tight" size="32px">
-        <FiArrowDown size="20px" />
+      <Box p="space.02">
+        <ArrowDownIcon />
       </Box>
       {swapAssetTo}
     </Stack>
