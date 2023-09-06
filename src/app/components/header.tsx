@@ -31,7 +31,6 @@ export const Header: React.FC<HeaderProps> = memo(props => {
   const navigate = useNavigate();
 
   const [desktopViewport] = useMediaQuery(`(min-width: ${token('sizes.desktopViewportMinWidth')})`);
-  const [isNarrowViewport] = useMediaQuery('(max-width: 640px)');
 
   const leatherLogoIsClickable = useMemo(() => {
     return (
@@ -63,7 +62,6 @@ export const Header: React.FC<HeaderProps> = memo(props => {
       p="base"
       minHeight={['', '80px']}
       position="relative"
-      background={isNarrowViewport ? token('colors.brown.1') : token('colors.brown.2')}
       {...rest}
     >
       {onClose ? (

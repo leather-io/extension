@@ -1,4 +1,5 @@
 import { Flex } from '@stacks/ui';
+import { token } from 'leather-styles/tokens';
 
 import { SpaceBetween } from '@app/components/layout/space-between';
 import { Text } from '@app/components/typography';
@@ -12,7 +13,7 @@ export function CollectibleAsset({ icon, name, symbol }: CollectibleAssetProps) 
   return (
     <Flex
       alignItems="center"
-      border="1px solid #DCDDE2"
+      border={`1px solid ${token('colors.accent.border-default')}`}
       borderRadius="10px"
       minHeight="64px"
       mb="base"
