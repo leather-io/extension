@@ -25,6 +25,7 @@ export function SwapAmountField({ amountAsFiat, isDisabled, name }: SwapAmountFi
     const value = event.currentTarget.value;
     const { swapAssetFrom, swapAssetTo } = values;
     if (swapAssetFrom != null && swapAssetTo && !isNaN(Number(value))) {
+      await setFieldValue('swapAmountTo', '');
       const toAmount = await fetchToAmount(swapAssetFrom, swapAssetTo, value);
       await setFieldValue('swapAmountTo', toAmount);
     }

@@ -50,6 +50,7 @@ export function SwapSelectedAssetFrom({ onChooseAsset, title }: SwapSelectedAsse
     }
     const { swapAssetFrom, swapAssetTo } = values;
     if (swapAssetTo != null && swapAssetFrom != null) {
+      await setFieldValue('swapAmountTo', '');
       const toAmount = await fetchToAmount(swapAssetFrom, swapAssetTo, formattedBalance);
       await setFieldValue('swapAmountTo', toAmount);
       await validateForm();
