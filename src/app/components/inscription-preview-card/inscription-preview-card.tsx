@@ -1,4 +1,4 @@
-import { figmaTheme } from '@app/common/utils/figma-theme';
+import { token } from 'leather-styles/tokens';
 
 import { Flag } from '../layout/flag';
 import { InscriptionMetadata } from './components/inscription-metadata';
@@ -25,7 +25,7 @@ export function InscriptionPreviewCard({
     <Flag
       align="middle"
       border={hideBorder ? 'unset' : '1px solid'}
-      borderColor={hideBorder ? 'unset' : figmaTheme.border}
+      borderColor={hideBorder ? 'unset' : token('colors.accent.border-default')}
       borderRadius={hideBorder ? 'unset' : '10px'}
       img={image}
       p={hideBorder ? 'unset' : 'base'}
