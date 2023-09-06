@@ -1,7 +1,6 @@
 import { Locator, Page } from '@playwright/test';
-import { SettingsSelectors } from '@tests-legacy/integration/settings.selectors';
 import { HomePageSelectors } from '@tests/selectors/home.selectors';
-import { SettingsMenuSelectors } from '@tests/selectors/settings.selectors';
+import { SettingsSelectors } from '@tests/selectors/settings.selectors';
 import { SharedComponentsSelectors } from '@tests/selectors/shared-component.selectors';
 import { createTestSelector } from '@tests/utils';
 
@@ -13,6 +12,13 @@ export class HomePage {
   readonly receiveButton: Locator;
   readonly sendButton: Locator;
   readonly swapButton: Locator;
+  readonly settingsButton: Locator;
+  readonly settingsViewSecretKey: Locator;
+  readonly signOutConfirmHasBackupCheckbox: Locator;
+  readonly signOutConfirmPasswordDisable: Locator;
+  readonly signOutDeleteWalletBtn: Locator;
+  readonly signOutSettingsListItem: Locator;
+  readonly lockSettingsListItem: Locator;
 
   readonly testNetworkSelector: string = createTestSelector(
     WalletDefaultNetworkConfigurationIds.testnet
@@ -24,6 +30,19 @@ export class HomePage {
     this.receiveButton = page.getByTestId(HomePageSelectors.ReceiveCryptoAssetBtn);
     this.sendButton = page.getByTestId(HomePageSelectors.SendCryptoAssetBtn);
     this.swapButton = page.getByTestId(HomePageSelectors.SwapBtn);
+    this.settingsButton = page.getByTestId(SettingsSelectors.SettingsMenuBtn);
+    this.settingsViewSecretKey = page.getByTestId(SettingsSelectors.ViewSecretKeyListItem);
+    this.signOutConfirmHasBackupCheckbox = page.getByTestId(
+      SettingsSelectors.SignOutConfirmHasBackupCheckbox
+    );
+    this.signOutConfirmPasswordDisable = page.getByTestId(
+      SettingsSelectors.SignOutConfirmPasswordDisable
+    );
+    this.signOutDeleteWalletBtn = page.getByTestId(
+      SettingsSelectors.BtnSignOutActuallyDeleteWallet
+    );
+    this.signOutSettingsListItem = page.getByTestId(SettingsSelectors.SignOutListItem);
+    this.lockSettingsListItem = page.getByTestId(SettingsSelectors.LockListItem);
   }
 
   async goToReceiveModal() {
@@ -68,7 +87,7 @@ export class HomePage {
   }
 
   async enableTestMode() {
-    await this.page.getByTestId(SettingsMenuSelectors.SettingsMenuBtn).click();
+    await this.page.getByTestId(SettingsSelectors.SettingsMenuBtn).click();
     await this.page.getByTestId(SettingsSelectors.ChangeNetworkAction).click();
     await (
       await this.page.waitForSelector(this.testNetworkSelector, { timeout: 30000 })
@@ -78,5 +97,27 @@ export class HomePage {
 
   async clickActivityTab() {
     await this.page.getByTestId(HomePageSelectors.ActivityTabBtn).click();
+  }
+
+  async clickSettingsButton() {
+    await this.settingsButton.click();
+  }
+
+  async goToSecretKey() {
+    await this.clickSettingsButton();
+    await this.settingsViewSecretKey.click();
+  }
+
+  async signOut() {
+    await this.clickSettingsButton();
+    await this.signOutSettingsListItem.click();
+    await this.signOutConfirmHasBackupCheckbox.click();
+    await this.signOutConfirmPasswordDisable.click();
+    await this.signOutDeleteWalletBtn.click();
+  }
+
+  async lock() {
+    await this.clickSettingsButton();
+    await this.lockSettingsListItem.click();
   }
 }

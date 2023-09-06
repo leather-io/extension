@@ -1,4 +1,4 @@
-import { SettingsMenuSelectors } from '@tests/selectors/settings.selectors';
+import { SettingsSelectors } from '@tests/selectors/settings.selectors';
 
 import { test } from '../../fixtures/fixtures';
 
@@ -9,11 +9,11 @@ test.describe('Settings menu', () => {
   });
 
   test('that menu item takes user to support page', async ({ page }) => {
-    await page.getByTestId(SettingsMenuSelectors.SettingsMenuBtn).click();
+    await page.getByTestId(SettingsSelectors.SettingsMenuBtn).click();
 
     const [supportPage] = await Promise.all([
       page.waitForEvent('popup'),
-      page.getByTestId(SettingsMenuSelectors.GetSupportMenuItem).click(),
+      page.getByTestId(SettingsSelectors.GetSupportMenuItem).click(),
     ]);
 
     await test

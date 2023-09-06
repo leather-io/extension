@@ -4,7 +4,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 
 import { Box, Flex, FlexProps, IconButton, Stack, Text, useMediaQuery } from '@stacks/ui';
 import { OnboardingSelectors } from '@tests/selectors/onboarding.selectors';
-import { SettingsMenuSelectors } from '@tests/selectors/settings.selectors';
+import { SettingsSelectors } from '@tests/selectors/settings.selectors';
 import { token } from 'leather-styles/tokens';
 
 import { BRANCH_NAME, COMMIT_SHA } from '@shared/environment';
@@ -112,7 +112,7 @@ export const Header: React.FC<HeaderProps> = memo(props => {
         <NetworkModeBadge />
         {!hideActions && (
           <LeatherButton
-            data-testid={SettingsMenuSelectors.SettingsMenuBtn}
+            data-testid={SettingsSelectors.SettingsMenuBtn}
             onMouseUp={isShowingSettings ? undefined : () => setIsShowingSettings(true)}
             pointerEvents={isShowingSettings ? 'none' : 'all'}
             variant="ghost"
