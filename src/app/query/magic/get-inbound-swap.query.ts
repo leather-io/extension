@@ -1,7 +1,7 @@
 import { hexToBytes } from '@stacks/common';
 import { useQuery } from '@tanstack/react-query';
 
-import { getMagicContracts } from '@app/common/magic';
+import { getMagicContracts } from '@app/common/magic/client';
 import { useMagicClient } from '@app/common/magic/hooks';
 import { MagicInboundSwap } from '@app/common/magic/models';
 import { useCurrentNetworkState } from '@app/store/networks/networks.hooks';

@@ -2,19 +2,19 @@ import { sha256 } from '@noble/hashes/sha256';
 import { bytesToHex, hexToBytes, intToBigInt } from '@stacks/common';
 import { randomBytes } from '@stacks/encryption';
 
-import { useElectrumClient } from '@app/common/electrum/provider';
 import { useSwapActions } from '@app/common/hooks/use-swap-actions';
 import { useCurrentStacksAccount } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
 import { useCurrentNetworkState } from '@app/store/networks/networks.hooks';
 
 import { getMagicContracts } from '../client';
 import { fetchSuppliers, fetchSwapperId } from '../fetch';
-import { MagicFetchContextWithElectrum } from '../fetch/constants';
+import { MagicFetchContextWithBitcoin } from '../fetch/constants';
 import { generateHTLCAddress } from '../htlc';
 import { MagicSupplier } from '../models';
 import { convertBtcToSats } from '../utils';
 import { useBitcoinNetwork } from './use-bitcoin-network.hooks';
 import { useMagicClient } from './use-magic-client.hooks';
+import { useBitcoinClient } from '@app/store/common/api-clients.hooks';
 
 export function useInboundMagicSwap() {
   const { createInboundMagicSwap } = useSwapActions();
@@ -23,13 +23,13 @@ export function useInboundMagicSwap() {
   const bitcoinNetwork = useBitcoinNetwork();
 
   const magicClient = useMagicClient();
-  const electrumClient = useElectrumClient();
+  const bitcoinClient = useBitcoinClient();
 
   const magicContracts = getMagicContracts(network.id);
 
   const fetchContext = {
     network: network.id,
-    electrumClient,
+    bitcoinClient,
     magicContracts,
     magicClient,
   };
@@ -98,7 +98,7 @@ function getSwapFees(supplier: MagicSupplier, isOutbound: boolean) {
   };
 }
 
-async function getSuppliers(isOutbound: boolean, context: MagicFetchContextWithElectrum) {
+async function getSuppliers(isOutbound: boolean, context: MagicFetchContextWithBitcoin) {
   const suppliers = await fetchSuppliers(context);
 
   return suppliers
@@ -130,7 +130,7 @@ function getSwapAmount(amount: bigint, feeRate: number, baseFee: number | null) 
 async function getBestSupplier(
   btcAmount: number,
   isOutbound: boolean,
-  context: MagicFetchContextWithElectrum
+  context: MagicFetchContextWithBitcoin
 ) {
   const suppliers = await getSuppliers(isOutbound, context);
   const [defaultSupplier] = suppliers;

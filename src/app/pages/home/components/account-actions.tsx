@@ -13,6 +13,7 @@ import { useConfigBitcoinEnabled } from '@app/query/common/remote-config/remote-
 
 import { ActionButton } from './action-button';
 import { SendButton } from './send-button';
+import { SwapIcon } from '@app/components/icons/swap-icon';
 
 export function AccountActions(props: FlexProps) {
   const navigate = useNavigate();
@@ -35,12 +36,12 @@ export function AccountActions(props: FlexProps) {
         onClick={() => navigate(RouteUrls.Fund)}
       />
       {/* TODO: Use with feature flag */}
-      {/* <ActionButton
+      <ActionButton
         data-testid={''}
         icon={<SwapIcon />}
         label="Swap"
-        onClick={() => navigate(RouteUrls.Receive)}
-      /> */}
+        onClick={() => navigate(RouteUrls.Swap)}
+      />
     </Flex>
   );
 }

@@ -1,7 +1,7 @@
 import { hexToBytes } from '@stacks/common';
 
 import { pubKeyToBtcAddress } from '../utils';
-import type { MagicFetchContextWithElectrum } from './constants';
+import type { MagicFetchContextWithBitcoin } from './constants';
 import { fetchBitcoinAddressBalanceForPublicKey } from './fetch-bitcoin-address-balance-for-public-key';
 import { fetchSupplier } from './fetch-supplier';
 
@@ -13,7 +13,7 @@ import { fetchSupplier } from './fetch-supplier';
  */
 export async function fetchSupplierWithCapacity(
   id: number,
-  context: MagicFetchContextWithElectrum
+  context: MagicFetchContextWithBitcoin
 ) {
   const supplier = await fetchSupplier(id, context);
 

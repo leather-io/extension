@@ -1,9 +1,9 @@
 import type { ClarigenClient } from '@clarigen/core';
-import type ElectrumClient from 'electrum-client-sl';
 
 import { DefaultNetworkConfigurations } from '@shared/constants';
 
-import { MagicContracts } from '..';
+import { MagicContracts } from '../client';
+import { BitcoinClient } from '@app/query/bitcoin/bitcoin-client';
 
 /**
  * Contains context for a Magic fetch operation.
@@ -16,9 +16,9 @@ export interface MagicFetchContext {
 /**
  * Contains context for a Magic fetch operation using Electrum.
  */
-export interface MagicFetchElectrumContext {
-  electrumClient: ElectrumClient;
+export interface MagicFetchBitcoinContext {
+  bitcoinClient: BitcoinClient;
   network: DefaultNetworkConfigurations;
 }
 
-export type MagicFetchContextWithElectrum = MagicFetchContext & MagicFetchElectrumContext;
+export type MagicFetchContextWithBitcoin = MagicFetchContext & MagicFetchBitcoinContext;

@@ -197,7 +197,6 @@
     "downshift": "6.1.7",
     "ecdsa-sig-formatter": "1.0.11",
     "ecpair": "2.1.0",
-    "electrum-client-sl": "0.1.4",
     "formik": "2.4.3",
     "jotai": "2.2.1",
     "jotai-redux": "0.2.1",

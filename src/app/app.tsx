@@ -14,7 +14,6 @@ import { AppErrorBoundary } from '@app/features/errors/app-error-boundary';
 import { AppRoutes } from '@app/routes/app-routes';
 import { persistor, store } from '@app/store';
 
-import { ElectrumClientProvider } from './common/electrum/provider';
 import { ThemeSwitcherProvider } from './common/theme-provider';
 import { HeadProvider } from './features/html-head/head-provider';
 import './index.css';
@@ -30,14 +29,12 @@ export function App() {
           <ThemeSwitcherProvider>
             <GlobalStyles />
             <QueryClientProvider client={queryClient}>
-              <ElectrumClientProvider>
-                <Suspense fallback={<FullPageLoadingSpinner />}>
-                  <AppErrorBoundary>
-                    <AppRoutes />
-                  </AppErrorBoundary>
-                  {reactQueryDevToolsEnabled && <Devtools />}
-                </Suspense>
-              </ElectrumClientProvider>
+              <Suspense fallback={<FullPageLoadingSpinner />}>
+                <AppErrorBoundary>
+                  <AppRoutes />
+                </AppErrorBoundary>
+                {reactQueryDevToolsEnabled && <Devtools />}
+              </Suspense>
             </QueryClientProvider>
           </ThemeSwitcherProvider>
         </ThemeProvider>

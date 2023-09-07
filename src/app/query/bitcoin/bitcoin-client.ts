@@ -16,6 +16,24 @@ export interface UtxoResponseItem {
   value: number;
 }
 
+export interface AddressDetailsResponse {
+  address: string;
+  chain_stats: {
+    funded_txo_count: number;
+    funded_txo_sum: number;
+    "spent_txo_count": number;
+    "spent_txo_sum": number;
+    "tx_count": number;
+  };
+  mempool_stats: {
+    funded_txo_count: number;
+    funded_txo_sum: number;
+    "spent_txo_count": number;
+    "spent_txo_sum": number;
+    "tx_count": number;
+  };
+}
+
 class AddressApi {
   constructor(public configuration: Configuration) {}
 
@@ -34,6 +52,13 @@ class AddressApi {
       // Sort by vout as blockstream API returns them inconsistently
       utxos.sort((a, b) => a.vout - b.vout)
     );
+  }
+
+  async getAddressDetails(address: string): Promise<AddressDetailsResponse> {
+    return fetchData({
+      errorMsg: 'No balance fetched',
+      url: `${this.configuration.baseUrl}/address/${address}`
+    });
   }
 }
 

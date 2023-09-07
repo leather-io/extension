@@ -11,15 +11,29 @@ export interface MagicSupplier {
 
 export type MagicSupplierWithCapacity = MagicSupplier & { btc: string; btcAddress: string };
 
+export enum MagicInboundSwapStatus {
+  CREATED = 'created',
+  FUNDS_CONFIRMING = 'funds-confirming',
+  FUNDS_CONFIRMED = 'funds-confirmed',
+  FUNDS_CONFIRM_FAILED = 'funds-confirm-failed',
+  FUNDS_FINALIZING = 'funds-finalizing',
+  FUNDS_FINALIZED = 'funds-finalized',
+  FUNDS_FINALIZE_FAILED = 'funds-finalize-failed',
+}
+
 export interface MagicInboundSwap {
   id: string;
   secret: string;
-  createdAt: number;
-  swapperId: number | undefined;
-  supplier: MagicSupplier;
-  expiration: number;
-  publicKey: string;
   amount: string;
+  createdAt: number;
+  publicKey: string;
+  expiration: number;
+  supplier: MagicSupplier;
+  escrowTransactionId?: string;
+  swapperId: number | undefined;
+  status: MagicInboundSwapStatus;
+  recoveryTransactionId?: string;
+  finalizeTransactionStatus?: string;
 }
 
 export interface MagicOutboundSwap {
