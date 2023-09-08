@@ -6,11 +6,11 @@ import { useRouteHeader } from '@app/common/hooks/use-route-header';
 import { LeatherButton } from '@app/components/button/button';
 import { ModalHeader } from '@app/components/modal-header';
 
-import { SwapContentLayout } from '../components/swap-content.layout';
-import { SwapFooterLayout } from '../components/swap-footer.layout';
-import { SwapSelectedAssets } from '../components/swap-selected-assets';
-import { SwapFormValues } from '../hooks/use-swap';
-import { useSwapContext } from '../swap.context';
+import { SwapContentLayout } from './components/swap-content.layout';
+import { SwapFooterLayout } from './components/swap-footer.layout';
+import { SwapSelectedAssets } from './components/swap-selected-assets';
+import { SwapFormValues } from './hooks/use-swap';
+import { useSwapContext } from './swap.context';
 
 export function Swap() {
   const { onSubmitSwapForReview } = useSwapContext();

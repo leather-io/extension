@@ -41,7 +41,7 @@ export function SendInscriptionSummary() {
   const navigate = useNavigate();
   const txLink = {
     blockchain: 'bitcoin' as Blockchains,
-    txid: txId || '',
+    txId,
   };
 
   const { onCopy } = useClipboard(txId || '');

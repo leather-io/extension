@@ -6,11 +6,11 @@ import { AccountGate } from '@app/routes/account-gate';
 
 import { SwapDetails } from './components/swap-details/swap-details';
 import { SwapStatus } from './components/swap-status/swap-status';
+import { Swap } from './swap';
 import { SwapChooseAsset } from './swap-choose-asset/swap-choose-asset';
 import { SwapContainer } from './swap-container';
 import { SwapReview } from './swap-review/swap-review';
 import { SwapSummary } from './swap-summary/swap-summary';
-import { Swap } from './swap/swap';
 
 export const swapRoutes = (
   <Route

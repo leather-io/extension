@@ -2,6 +2,7 @@ import { bytesToHex } from '@stacks/common';
 import { TransactionTypes } from '@stacks/connect';
 import {
   CoinbaseTransaction,
+  NetworkBlockTimesResponse,
   TransactionEventFungibleAsset,
 } from '@stacks/stacks-blockchain-api-types';
 import {
@@ -125,4 +126,17 @@ export function getTxSenderAddress(tx: StacksTransaction): string | undefined {
     tx.version
   );
   return txSender;
+}
+
+export function getEstimatedConfirmationTime(
+  isTestnet: boolean,
+  blockTime?: NetworkBlockTimesResponse
+) {
+  const arrivesIn = isTestnet
+    ? blockTime?.testnet.target_block_time
+    : blockTime?.mainnet.target_block_time;
+
+  if (!arrivesIn) return '~10 – 20 min';
+
+  return `~${arrivesIn / 60} min`;
 }

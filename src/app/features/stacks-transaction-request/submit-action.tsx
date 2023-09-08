@@ -21,7 +21,7 @@ function BaseConfirmButton(props: ButtonProps): React.JSX.Element {
 export function SubmitAction() {
   const { handleSubmit, values, validateForm } = useFormikContext<StacksTransactionFormValues>();
   const { isShowingHighFeeConfirmation, setIsShowingHighFeeConfirmation } = useDrawers();
-  const { isLoading } = useLoading(LoadingKeys.SUBMIT_TRANSACTION);
+  const { isLoading } = useLoading(LoadingKeys.SUBMIT_TRANSACTION_REQUEST);
   const error = useTransactionError();
 
   const isDisabled = !!error || Number(values.fee) < 0;
