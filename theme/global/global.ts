@@ -14,9 +14,6 @@ export const globalCss = defineGlobalStyles({
   button: {
     cursor: 'pointer',
   },
-  button: {
-    cursor: 'pointer',
-  },
   '@media (min-width: 600px)': {
     'html, body': {
       backgroundColor: 'accent.background-secondary',
