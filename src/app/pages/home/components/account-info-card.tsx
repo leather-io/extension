@@ -1,5 +1,5 @@
 import { useMediaQuery } from '@stacks/ui';
-import { SettingsSelectors } from '@tests-legacy/integration/settings.selectors';
+import { SettingsSelectors } from '@tests/selectors/settings.selectors';
 import { Box, Divider, Flex, styled } from 'leather-styles/jsx';
 
 import { useCurrentAccountDisplayName } from '@app/common/hooks/account/use-account-names';

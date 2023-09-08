@@ -1,7 +1,7 @@
 import { Suspense, memo } from 'react';
 
 import { memoWithAs } from '@stacks/ui-core';
-import { SettingsSelectors } from '@tests-legacy/integration/settings.selectors';
+import { SettingsSelectors } from '@tests/selectors/settings.selectors';
 import { Box, BoxProps, styled } from 'leather-styles/jsx';
 
 import { HasChildren } from '@app/common/has-children';

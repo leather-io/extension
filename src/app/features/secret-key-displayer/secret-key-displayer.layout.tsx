@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-import { SettingsSelectors } from '@tests-legacy/integration/settings.selectors';
+import { SettingsSelectors } from '@tests/selectors/settings.selectors';
 import { Box, Flex, Stack, styled } from 'leather-styles/jsx';
 
 import { LeatherButton } from '@app/components/button/button';

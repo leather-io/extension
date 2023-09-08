@@ -1,5 +1,5 @@
 import { Flex } from '@stacks/ui';
-import { SettingsSelectors } from '@tests-legacy/integration/settings.selectors';
+import { SettingsSelectors } from '@tests/selectors/settings.selectors';
 import { useFormik } from 'formik';
 import { Box, HStack, styled } from 'leather-styles/jsx';
 import { token } from 'leather-styles/tokens';
