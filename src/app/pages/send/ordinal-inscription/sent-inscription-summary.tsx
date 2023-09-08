@@ -2,7 +2,8 @@ import { toast } from 'react-hot-toast';
 import { FiCheck, FiCopy, FiExternalLink } from 'react-icons/fi';
 import { useLocation, useNavigate } from 'react-router-dom';
 
-import { Box, Stack, useClipboard } from '@stacks/ui';
+import { useClipboard } from '@stacks/ui';
+import { Box, HStack, Stack } from 'leather-styles/jsx';
 import get from 'lodash.get';
 
 import { Blockchains } from '@shared/models/blockchain.model';
@@ -59,16 +60,16 @@ export function SendInscriptionSummary() {
 
   return (
     <BaseDrawer title="Sent" isShowing onClose={() => navigate(RouteUrls.Home)}>
-      <Box px="extra-loose" mt="extra-loose">
+      <Box px="space.06" mt="space.06">
         <InscriptionPreviewCard
-          icon={<Box size="32px" as={FiCheck} mt="2px" />}
+          icon={<FiCheck size="32px" style={{ marginTop: '2px' }} />}
           image={<InscriptionPreview inscription={inscription} />}
           subtitle="Ordinal inscription"
           title={inscription.title}
         />
       </Box>
 
-      <InfoCard pt="extra-loose" pb="extra-loose" px="extra-loose">
+      <InfoCard pt="space.06" pb="space.06" px="space.06">
         <Stack width="100%" mb="36px">
           <InfoCardRow title="To" value={<FormAddressDisplayer address={recipient} />} />
           <InfoCardSeparator />
@@ -76,10 +77,10 @@ export function SendInscriptionSummary() {
           <InfoCardRow title="Fee" value={feeRowValue} />
         </Stack>
 
-        <Stack spacing="base" isInline width="100%">
-          <InfoCardBtn onClick={onClickLink} icon={FiExternalLink} label="View Details" />
-          <InfoCardBtn onClick={onClickCopy} icon={FiCopy} label="Copy ID" />
-        </Stack>
+        <HStack gap="space.04" width="100%">
+          <InfoCardBtn onClick={onClickLink} icon={<FiExternalLink />} label="View Details" />
+          <InfoCardBtn onClick={onClickCopy} icon={<FiCopy />} label="Copy ID" />
+        </HStack>
       </InfoCard>
     </BaseDrawer>
   );

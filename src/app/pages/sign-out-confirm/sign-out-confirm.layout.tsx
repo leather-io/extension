@@ -1,7 +1,6 @@
-import { Flex } from '@stacks/ui';
 import { SettingsSelectors } from '@tests/selectors/settings.selectors';
 import { useFormik } from 'formik';
-import { Box, HStack, styled } from 'leather-styles/jsx';
+import { Box, Flex, HStack, styled } from 'leather-styles/jsx';
 import { token } from 'leather-styles/tokens';
 
 import { useWalletType } from '@app/common/use-wallet-type';
@@ -43,7 +42,7 @@ export function SignOutConfirmLayout(props: SignOutConfirmLayoutProps) {
           <styled.p mt="space.05" textStyle="label.02">
             {whenWallet({
               software: (
-                <Flag align="middle" img={<ErrorIcon />} spacing="tight">
+                <Flag align="middle" img={<ErrorIcon />} spacing="space.02">
                   If you haven't backed up your Secret Key, you will lose all your funds.
                 </Flag>
               ),
@@ -51,9 +50,9 @@ export function SignOutConfirmLayout(props: SignOutConfirmLayoutProps) {
             })}
           </styled.p>
           <Flex
-            as="label"
+            // as="label"
             alignItems="center"
-            mt="loose"
+            mt="space.05"
             display={walletType === 'software' ? 'flex' : 'none'}
           >
             <Box mr="space.03">
@@ -68,10 +67,9 @@ export function SignOutConfirmLayout(props: SignOutConfirmLayoutProps) {
               I've backed up my Secret Key
             </styled.p>
           </Flex>
-          <Flex
-            as="label"
+          <styled.label
             alignItems="center"
-            mt="tight"
+            mt="space.02"
             display={walletType === 'software' ? 'flex' : 'none'}
           >
             <Box mr="space.03">
@@ -85,7 +83,7 @@ export function SignOutConfirmLayout(props: SignOutConfirmLayoutProps) {
             <styled.p textStyle="caption.01" userSelect="none">
               I understand my password will no longer work for accessing my wallet upon signing out
             </styled.p>
-          </Flex>
+          </styled.label>
           <HStack gap="space.04" mt="space.06">
             <LeatherButton
               color="gray"

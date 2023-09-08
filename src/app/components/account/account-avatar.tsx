@@ -1,6 +1,6 @@
 import { memo } from 'react';
 
-import { BoxProps } from '@stacks/ui';
+import { BoxProps } from 'leather-styles/jsx';
 
 import { AccountAvatar } from '@app/components/account/account-avatar/account-avatar';
 

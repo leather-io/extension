@@ -1,6 +1,9 @@
 import { ReactNode, useRef } from 'react';
 
-import { Box, Fade, Stack, color } from '@stacks/ui';
+// #4164 FIXME migrate Fade
+import { Fade } from '@stacks/ui';
+import { Box, Stack } from 'leather-styles/jsx';
+import { token } from 'leather-styles/tokens';
 
 import { useOnClickOutside } from '@app/common/hooks/use-onclickoutside';
 
@@ -24,13 +27,13 @@ export function RecipientDropdownLayout(props: RecipientDropdownLayoutProps) {
       <Fade in={isVisible}>
         {styles => (
           <Stack
-            bg={color('bg')}
+            bg={token('colors.accent.background-primary')}
             borderRadius="8px"
             boxShadow="high"
             flexDirection="column"
             minWidth="100px"
             overflow="hidden"
-            p="extra-tight"
+            p="space.01"
             position="absolute"
             ref={ref}
             style={styles}

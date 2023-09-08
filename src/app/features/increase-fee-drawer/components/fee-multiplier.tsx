@@ -1,10 +1,10 @@
-import { Stack, StackProps } from '@stacks/ui';
+import { HStack, HstackProps } from 'leather-styles/jsx';
 
 import { FeeMultiplierButton } from './fee-multiplier-button';
 
 const multipliers = [2, 5, 10];
 
-interface FeeMultiplierProps extends StackProps {
+interface FeeMultiplierProps extends HstackProps {
   onSelectMultiplier(multiplier: number): void;
   showReset?: boolean;
 }
@@ -13,7 +13,7 @@ export function FeeMultiplier(props: FeeMultiplierProps): React.JSX.Element {
   const { onSelectMultiplier, showReset, ...rest } = props;
 
   return (
-    <Stack alignItems="center" isInline {...rest}>
+    <HStack alignItems="center" {...rest}>
       {showReset && (
         <FeeMultiplierButton
           multiplier={1}
@@ -28,6 +28,6 @@ export function FeeMultiplier(props: FeeMultiplierProps): React.JSX.Element {
           key={`multiply-${multiplier}`}
         />
       ))}
-    </Stack>
+    </HStack>
   );
 }

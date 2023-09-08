@@ -2,20 +2,21 @@ import { memo, useMemo } from 'react';
 import { FiArrowLeft } from 'react-icons/fi';
 import { useLocation, useNavigate } from 'react-router-dom';
 
-import { Box, Flex, FlexProps, IconButton, Stack, Text, useMediaQuery } from '@stacks/ui';
+// #4164 FIXME migrate  IconButton, useMediaQuery
+import { IconButton, useMediaQuery } from '@stacks/ui';
 import { OnboardingSelectors } from '@tests/selectors/onboarding.selectors';
 import { SettingsSelectors } from '@tests/selectors/settings.selectors';
+import { Flex, FlexProps, HStack, styled } from 'leather-styles/jsx';
 import { token } from 'leather-styles/tokens';
 
 import { BRANCH_NAME, COMMIT_SHA } from '@shared/environment';
 import { RouteUrls } from '@shared/route-urls';
 
 import { useDrawers } from '@app/common/hooks/use-drawers';
+import { LeatherButton } from '@app/components/button/button';
 import { LeatherLogo } from '@app/components/leather-logo';
 import { NetworkModeBadge } from '@app/components/network-mode-badge';
-import { Title } from '@app/components/typography';
 
-import { LeatherButton } from './button/button';
 import { HamburgerIcon } from './icons/hamburger-icon';
 
 interface HeaderProps extends FlexProps {
@@ -59,7 +60,7 @@ export const Header: React.FC<HeaderProps> = memo(props => {
     <Flex
       alignItems={hideActions ? 'center' : 'flex-start'}
       justifyContent="space-between"
-      p="base"
+      p="space.04"
       minHeight={['', '80px']}
       backgroundColor={[
         token('colors.accent.background-primary'),
@@ -69,9 +70,9 @@ export const Header: React.FC<HeaderProps> = memo(props => {
       {...rest}
     >
       {onClose ? (
-        <Box flexBasis="20%" onClick={onClose} as="button">
+        <styled.button flexBasis="20%" onClick={onClose}>
           <IconButton alignSelf="center" icon={FiArrowLeft} iconSize="16px" />
-        </Box>
+        </styled.button>
       ) : null}
       {!title && (!onClose || desktopViewport) ? (
         <Flex
@@ -86,33 +87,34 @@ export const Header: React.FC<HeaderProps> = memo(props => {
               isClickable={leatherLogoIsClickable}
               onClick={leatherLogoIsClickable ? () => navigate(RouteUrls.Home) : undefined}
             />
-            <Text
+            <styled.span
               display={!version ? 'none' : 'unset'}
               fontFamily="mono"
               fontSize="10px"
               marginRight="10px"
               mb="-3px"
-              ml="tight"
+              ml="space.02"
               opacity={0.5}
             >
               {version}
-            </Text>
+            </styled.span>
           </Flex>
         </Flex>
       ) : (
-        <Title
+        <styled.span
           alignSelf="center"
           flexBasis="60%"
           fontSize="16px"
           fontWeight={500}
+          textStyle="label.02"
           lineHeight="24px"
           textAlign="center"
-          {...rest}
         >
           {title}
-        </Title>
+          {/*  #4164 TODO check this looks OK, then migrate remaining style */}
+        </styled.span>
       )}
-      <Stack alignItems="center" flexBasis="20%" isInline justifyContent="flex-end">
+      <HStack alignItems="center" flexBasis="20%" justifyContent="flex-end">
         <NetworkModeBadge />
         {!hideActions && (
           <LeatherButton
@@ -125,7 +127,7 @@ export const Header: React.FC<HeaderProps> = memo(props => {
           </LeatherButton>
         )}
         {actionButton ? actionButton : null}
-      </Stack>
+      </HStack>
     </Flex>
   );
 });

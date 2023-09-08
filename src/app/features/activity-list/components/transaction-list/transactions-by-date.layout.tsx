@@ -1,6 +1,7 @@
 import { ReactNode } from 'react';
 
-import { Box, Stack, Text, color } from '@stacks/ui';
+import { Box, Stack, styled } from 'leather-styles/jsx';
+import { token } from 'leather-styles/tokens';
 
 interface TransactionByDateLayoutProps {
   children: ReactNode;
@@ -14,10 +15,10 @@ export function TransactionsByDateLayout({
 }: TransactionByDateLayoutProps) {
   return (
     <Box key={date}>
-      <Text textStyle="body.small" color={color('text-caption')}>
+      <styled.span textStyle="body.small" color={token('colors.accent.text-subdued')}>
         {displayDate}
-      </Text>
-      <Stack mt="base-loose" spacing="loose">
+      </styled.span>
+      <Stack mt="base-loose" gap="space.05">
         {children}
       </Stack>
     </Box>

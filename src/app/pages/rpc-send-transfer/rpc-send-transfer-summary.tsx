@@ -2,7 +2,79 @@ import toast from 'react-hot-toast';
 import { FiCheck, FiCopy, FiExternalLink } from 'react-icons/fi';
 import { useLocation } from 'react-router-dom';
 
-import { Stack, useClipboard } from '@stacks/ui';
+import { useClipboard } from '@stacks/ui';
+// FIXME migrate useClipboard hook
+
+/**
+ * interface UiClipboard {
+    value: string;
+    onCopy: () => void;
+    hasCopied: boolean;
+}
+export declare function useClipboard(value: string): UiClipboard;
+export {};
+ * 
+ * 
+ * 
+ * import { useState, useRef, useEffect } from 'react';
+
+var copyToClipboard = function copyToClipboard(value) {
+  var el = document.createElement("textarea");
+  el.value = value;
+  el.setAttribute("readonly", "");
+  el.style.position = "absolute";
+  el.style.left = "-9999px";
+  document.body.appendChild(el);
+  var curSelection = document.getSelection();
+  var selected = curSelection && curSelection.rangeCount > 0 ? curSelection.getRangeAt(0) : false;
+  el.select();
+  document.execCommand("copy");
+  document.body.removeChild(el);
+
+  if (selected) {
+    var _document$getSelectio, _document$getSelectio2;
+
+    (_document$getSelectio = document.getSelection()) == null ? void 0 : _document$getSelectio.removeAllRanges();
+    (_document$getSelectio2 = document.getSelection()) == null ? void 0 : _document$getSelectio2.addRange(selected);
+  }
+};
+
+function useClipboard(value) {
+  var _useState = useState(false),
+      hasCopied = _useState[0],
+      setHasCopied = _useState[1];
+
+  var timers = useRef([]);
+
+  var onCopy = function onCopy() {
+    copyToClipboard(value);
+    setHasCopied(true);
+    timers.current.push(setTimeout(function () {
+      return setHasCopied(false);
+    }, 1250));
+  };
+
+  useEffect(function () {
+    return function () {
+      return timers.current.forEach(function (timer) {
+        return clearTimeout(timer);
+      });
+    };
+  }, []);
+  return {
+    value: value,
+    onCopy: onCopy,
+    hasCopied: hasCopied
+  };
+}
+
+export { useClipboard };
+//# sourceMappingURL=use-clipboard.esm.js.map
+
+ * 
+ * 
+ */
+import { HStack, Stack } from 'leather-styles/jsx';
 
 import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
 import { useExplorerLink } from '@app/common/hooks/use-explorer-link';
@@ -60,10 +132,10 @@ export function RpcSendTransferSummary() {
           fiatValue={txFiatValue}
           fiatSymbol={txFiatValueSymbol}
           symbol={symbol}
-          icon={FiCheck}
-          mb="loose"
+          icon={<FiCheck />}
+          mb="space.05 "
         />
-        <Stack pb="extra-loose" width="100%">
+        <Stack pb="space.06" width="100%">
           <InfoCardRow title="To" value={<FormAddressDisplayer address={recipient} />} />
           <InfoCardSeparator />
           <InfoCardRow title="Total spend" value={totalSpend} />
@@ -72,10 +144,10 @@ export function RpcSendTransferSummary() {
           {arrivesIn && <InfoCardRow title="Estimated confirmation time" value={arrivesIn} />}
         </Stack>
         <InfoCardFooter>
-          <Stack isInline spacing="base" width="100%">
-            <InfoCardBtn icon={FiExternalLink} label="View Details" onClick={onClickLink} />
-            <InfoCardBtn icon={FiCopy} label="Copy ID" onClick={onClickCopy} />
-          </Stack>
+          <HStack gap="space.04" width="100%">
+            <InfoCardBtn icon={<FiExternalLink />} label="View Details" onClick={onClickLink} />
+            <InfoCardBtn icon={<FiCopy />} label="Copy ID" onClick={onClickCopy} />
+          </HStack>
         </InfoCardFooter>
       </InfoCard>
     </>

@@ -1,7 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 
-import { Box, Flex } from '@stacks/ui';
 import { Form, Formik } from 'formik';
+import { Box, Flex } from 'leather-styles/jsx';
 
 import { RouteUrls } from '@shared/route-urls';
 
@@ -39,14 +39,14 @@ export function SendInscriptionForm() {
       <Form>
         <BaseDrawer title="Send" enableGoBack isShowing onClose={() => navigate(RouteUrls.Home)}>
           <SendInscriptionFormLoader isLoading={isCheckingFees}>
-            <Box display="flex" flexDirection="column" px="extra-loose" pb="base">
+            <Box display="flex" flexDirection="column" px="space.06" pb="space.04">
               <InscriptionPreviewCard
                 image={<InscriptionPreview inscription={inscription} />}
                 subtitle="Ordinal inscription"
                 title={inscription.title}
               />
-              <Box mt={['base', 'extra-loose', '100px']}>
-                <Flex flexDirection="column" mt="loose" width="100%">
+              <Box mt={['space.04', 'space.06', '100px']}>
+                <Flex flexDirection="column" mt="space.05" width="100%">
                   <CollectibleAsset icon={<OrdinalIcon />} name="Ordinal inscription" />
                   <RecipientField
                     name={recipeintFieldName}

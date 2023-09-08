@@ -1,5 +1,6 @@
 import { StacksTransaction } from '@stacks/transactions';
-import { Box, BoxProps, Stack, color } from '@stacks/ui';
+import { Box, BoxProps, HStack, Stack } from 'leather-styles/jsx';
+import { token } from 'leather-styles/tokens';
 
 import { useExplorerLink } from '@app/common/hooks/use-explorer-link';
 import { getTxSenderAddress } from '@app/common/transactions/stacks/transaction.utils';
@@ -35,9 +36,8 @@ export function SubmittedTransactionItem(props: SubmittedTransactionItemProps) {
 
   return (
     <Box {...bind} {...rest}>
-      <Stack
+      <HStack
         alignItems="center"
-        isInline
         onClick={() =>
           handleOpenTxLink({
             blockchain: 'stacks',
@@ -46,24 +46,25 @@ export function SubmittedTransactionItem(props: SubmittedTransactionItemProps) {
           })
         }
         position="relative"
-        spacing="base-loose"
+        gap="base-loose"
         zIndex={2}
       >
         <SubmittedTransactionIcon transaction={transaction} />
         <SpaceBetween flexGrow={1}>
-          <Stack minWidth="0px" spacing="base-tight">
+          <Stack minWidth="0px" gap="space.03">
             <TransactionTitle title={title} />
-            <Stack isInline flexWrap="wrap">
+            <HStack flexWrap="wrap">
               <Caption variant="c2">{caption}</Caption>
               <Tooltip
                 placement="bottom"
                 label={'Transaction broadcasted, but not yet in the mempool'}
               >
-                <Caption variant="c2" color={color('text-caption')}>
+                {/* #4164 FIXME migrate - check text color */}
+                <Caption variant="c2" color={token('colors.accent.text-primary')}>
                   Submitted
                 </Caption>
               </Tooltip>
-            </Stack>
+            </HStack>
           </Stack>
           <Box alignItems="flex-end">
             {value && (
@@ -73,7 +74,7 @@ export function SubmittedTransactionItem(props: SubmittedTransactionItemProps) {
             )}
           </Box>
         </SpaceBetween>
-      </Stack>
+      </HStack>
       {component}
     </Box>
   );

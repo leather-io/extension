@@ -1,7 +1,7 @@
 import { SendCryptoAssetSelectors } from '@tests/selectors/send.selectors';
 import { useFormikContext } from 'formik';
 
-import { LeatherButton } from './button/button';
+import { LeatherButton } from '@app/components/button/button';
 
 interface PreviewButtonProps {
   text?: string;

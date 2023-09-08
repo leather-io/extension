@@ -1,8 +1,10 @@
 import { ReactNode, Suspense, memo, useCallback, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import { Box, Flex, FlexProps, transition, useEventListener } from '@stacks/ui';
+// #4164 FIXME migrate transition, useEventListener
+import { transition, useEventListener } from '@stacks/ui';
 import { css } from 'leather-styles/css';
+import { Box, Flex, FlexProps } from 'leather-styles/jsx';
 import { token } from 'leather-styles/tokens';
 
 import { noop } from '@shared/utils';
@@ -69,7 +71,7 @@ export const BaseDrawer = memo((props: BaseDrawerProps) => {
       top={0}
       left={0}
       height="100%"
-      pt="loose"
+      pt="space.05"
       width="100%"
       alignItems={['flex-end', 'center', 'center']}
       justifyContent="center"

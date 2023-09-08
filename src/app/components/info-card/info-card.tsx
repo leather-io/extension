@@ -1,5 +1,5 @@
-import { Box, Flex, FlexProps, Stack, StackProps } from '@stacks/ui';
 import { SharedComponentsSelectors } from '@tests/selectors/shared-component.selectors';
+import { Box, Flex, FlexProps, Stack, StackProps } from 'leather-styles/jsx';
 import { styled } from 'leather-styles/jsx';
 
 import { isString } from '@shared/utils';
@@ -65,7 +65,7 @@ interface InfoCardAssetValueProps extends StackProps {
   fiatValue?: string;
   fiatSymbol?: string;
   symbol?: string;
-  icon?: React.FC;
+  icon?: React.JSX.Element;
 }
 
 export function InfoCardAssetValue({
@@ -77,10 +77,10 @@ export function InfoCardAssetValue({
   ...props
 }: InfoCardAssetValueProps) {
   return (
-    <Box width="100%" {...props}>
+    // #4164 FIXME refactor this Box. Passing these props directly to keep TS happy
+    <Box width="100%" mb={props.mb} mt={props.mt} my={props.my} px={props.px}>
       <Stack width="100%" alignItems="center" py="24px">
-        {icon && <Box as={icon} size="32px" />}
-
+        {icon && icon}
         <Flex flexDirection="column" alignItems="center">
           <styled.h1
             data-testid={SharedComponentsSelectors.InfoCardAssetValue}
@@ -102,7 +102,7 @@ export function InfoCardAssetValue({
 
 // InfoCardBtn
 interface InfoCardBtnProps {
-  icon: React.FC;
+  icon: React.JSX.Element;
   label: string;
   onClick: () => void;
 }
@@ -114,7 +114,10 @@ export function InfoCardBtn({ icon, label, onClick }: InfoCardBtnProps) {
         <styled.span mr="space.02" textStyle="label.02">
           {label}
         </styled.span>
-        <Box as={icon} mr="tight" size="14px" />
+        {/* // #4164 FIXME check and refactor this */}
+        <Box mr="space.02" width="14px" height="14px">
+          {icon}
+        </Box>
       </Flex>
     </LeatherButton>
   );
@@ -137,7 +140,7 @@ export function InfoCardFooter({ children }: InfoCardFooterProps) {
       alignItems="center"
       justifyContent="center"
       zIndex="999"
-      p="loose"
+      p="space.05"
       position={whenPageMode({
         full: 'unset',
         popup: 'fixed',

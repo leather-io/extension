@@ -1,6 +1,7 @@
 import { Outlet } from 'react-router-dom';
 
 import { useFormikContext } from 'formik';
+import { Box } from 'leather-styles/jsx';
 
 import { useRouteHeader } from '@app/common/hooks/use-route-header';
 import { LeatherButton } from '@app/components/button/button';

@@ -1,5 +1,5 @@
-import { Box, BoxProps } from '@stacks/ui';
 import { SharedComponentsSelectors } from '@tests/selectors/shared-component.selectors';
+import { Box, BoxProps } from 'leather-styles/jsx';
 
 import { AddressDisplayer } from './address-displayer';
 

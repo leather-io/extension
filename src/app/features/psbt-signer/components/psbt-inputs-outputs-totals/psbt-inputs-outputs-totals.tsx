@@ -1,4 +1,3 @@
-import { color } from '@stacks/ui-utils';
 import { Box } from 'leather-styles/jsx';
 
 import { Hr } from '@app/components/hr';
@@ -34,7 +33,7 @@ export function PsbtInputsOutputsTotals() {
           <PsbtAddressTransferTotals showNativeSegwitTotal={isNativeSegwitTotalGreaterThanZero} />
         </Box>
       ) : null}
-      {showDivider ? <Hr backgroundColor={color('border')} height="3px" /> : null}
+      {showDivider ? <Hr height="3px" /> : null}
       {isReceiving ? (
         <Box p="space.05">
           <PsbtRequestDetailsSectionHeader title="You'll receive" />

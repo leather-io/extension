@@ -1,5 +1,5 @@
-import { Stack } from '@stacks/ui';
 import { SendCryptoAssetSelectors } from '@tests/selectors/send.selectors';
+import { Stack } from 'leather-styles/jsx';
 
 import { whenPageMode } from '@app/common/utils';
 import { FormAddressDisplayer } from '@app/components/address-displayer/form-address-displayer';
@@ -60,15 +60,15 @@ export function SendFormConfirmation({
         fiatSymbol={txFiatValueSymbol}
         symbol={symbol}
         data-testid={SendCryptoAssetSelectors.ConfirmationDetailsAssetValue}
-        my="loose"
-        px="loose"
+        my="space.05"
+        px="space.05"
       />
 
-      <InfoLabel px="loose" mb="loose" title="Sending to an exchange?">
+      <InfoLabel px="space.05" mb="space.05" title="Sending to an exchange?">
         {`Make sure you include the memo so the exchange can credit the ${symbol} to your account`}
       </InfoLabel>
 
-      <Stack width="100%" px="extra-loose" pb="extra-loose">
+      <Stack width="100%" px="space.06" pb="space.06">
         <InfoCardRow
           title="To"
           value={<FormAddressDisplayer address={recipient} />}

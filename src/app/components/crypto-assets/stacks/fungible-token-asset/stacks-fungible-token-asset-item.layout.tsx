@@ -1,5 +1,5 @@
-import { BoxProps } from '@stacks/ui';
 import { forwardRefWithAs } from '@stacks/ui-core';
+import { BoxProps } from 'leather-styles/jsx';
 import { Flex, styled } from 'leather-styles/jsx';
 
 import type { Money } from '@shared/models/money.model';
@@ -46,7 +46,7 @@ export const StacksFungibleTokenAssetItemLayout = forwardRefWithAs(
               {title[0]}
             </StacksAssetAvatar>
           }
-          spacing="base"
+          spacing="space.04"
           width="100%"
         >
           <SpaceBetween width="100%">

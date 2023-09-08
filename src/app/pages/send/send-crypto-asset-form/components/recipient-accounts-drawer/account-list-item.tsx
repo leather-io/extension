@@ -44,7 +44,7 @@ export const AccountListItem = memo(({ account, onClose }: AccountListItemProps)
       index={account.index}
       isActive={false}
       isLoading={false}
-      mt="loose"
+      mt="space.05"
       onSelectAccount={onSelectAccount}
       stxAddress={account.address}
       {...bind}

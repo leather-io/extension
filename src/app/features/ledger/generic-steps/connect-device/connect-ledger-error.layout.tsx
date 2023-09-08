@@ -1,7 +1,8 @@
 import { FiCircle } from 'react-icons/fi';
 
 import ConnectLedgerError from '@assets/images/ledger/connect-ledger-error.png';
-import { Box, Flex, Stack, color } from '@stacks/ui';
+import { Box, Flex, Stack } from 'leather-styles/jsx';
+import { token } from 'leather-styles/tokens';
 
 import { openInNewTab } from '@app/common/utils/open-in-new-tab';
 import { LeatherButton } from '@app/components/button/button';
@@ -21,8 +22,8 @@ function PossibleReasonUnableToConnect(props: PossibleReasonUnableToConnectProps
 
   return (
     <Flex>
-      <Box mr="tight" mt="3px">
-        <FiCircle fill={color('text-caption')} size="4px" />
+      <Box mr="space.02" mt="3px">
+        <FiCircle fill={token('colors.accent.text-subdued')} size="4px" />
       </Box>
       <Caption>{text}</Caption>
     </Flex>
@@ -39,30 +40,30 @@ export function ConnectLedgerErrorLayout(props: ConnectLedgerErrorLayoutProps) {
 
   return (
     <LedgerWrapper>
-      <Box mt="tight">
+      <Box mt="space.02">
         <img src={ConnectLedgerError} width="247px" />
       </Box>
       <LedgerTitle mt="45px" mx="50px">
         We're unable to connect to your Ledger device
       </LedgerTitle>
       {warningText ? (
-        <WarningLabel mt="base" px="extra-loose" fontSize="14px">
+        <WarningLabel mt="space.04" px="space.06" fontSize="14px">
           {warningText}
         </WarningLabel>
       ) : (
-        <ErrorLabel fontSize={1} lineHeight={1.4} mt="base">
+        <ErrorLabel fontSize={1} lineHeight={1.4} mt="space.04">
           Unable to connect
         </ErrorLabel>
       )}
       <Stack
         border="2px solid"
-        borderColor={color('border')}
+        borderColor={token('colors.accent.background-primary')}
         borderRadius="12px"
-        my="loose"
-        mx="base"
-        spacing="base"
+        my="space.05"
+        mx="space.04"
+        gap="space.04"
         textAlign="left"
-        p="extra-loose"
+        p="space.06"
       >
         <PossibleReasonUnableToConnect text="Check if Ledger Live is open. Close it and try again" />
         <PossibleReasonUnableToConnect text="Ensure you only have one instance of Leather open" />
@@ -70,7 +71,7 @@ export function ConnectLedgerErrorLayout(props: ConnectLedgerErrorLayoutProps) {
         <PossibleReasonUnableToConnect text="Check you've approved the browser USB pop up" />
       </Stack>
       <LeatherButton onClick={onTryAgain}>Try again</LeatherButton>
-      <Caption mt="loose">
+      <Caption mt="space.05">
         If the problem persists, check our{' '}
         <Link
           display="inline"

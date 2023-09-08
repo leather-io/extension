@@ -16,8 +16,8 @@ export function DeviceBusyLayout(props: DeviceBusyLayoutProps) {
   return (
     <LedgerWrapper>
       <img src={ConnectLedgerSuccess} width="267px" height="55px" />
-      <LedgerConnectInstructionTitle chain={chain} mt="loose" mx="50px" />
-      <LookingForLedgerLabel my="extra-loose">{activityDescription}</LookingForLedgerLabel>
+      <LedgerConnectInstructionTitle chain={chain} mt="space.05" mx="50px" />
+      <LookingForLedgerLabel my="space.06">{activityDescription}</LookingForLedgerLabel>
     </LedgerWrapper>
   );
 }

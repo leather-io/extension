@@ -2,9 +2,11 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import { ChainID } from '@stacks/transactions';
-import { Input, Stack } from '@stacks/ui';
+// #4164 FIXME migrate Input
+import { Input } from '@stacks/ui';
 import { NetworkSelectors } from '@tests-legacy/integration/network.selectors';
 import { Formik } from 'formik';
+import { Stack, styled } from 'leather-styles/jsx';
 import { token } from 'leather-styles/tokens';
 
 import { DefaultNetworkConfigurations } from '@shared/constants';
@@ -17,7 +19,6 @@ import { LeatherButton } from '@app/components/button/button';
 import { CenteredPageContainer } from '@app/components/centered-page-container';
 import { ErrorLabel } from '@app/components/error-label';
 import { Header } from '@app/components/header';
-import { Text } from '@app/components/typography';
 import {
   useCurrentStacksNetworkState,
   useNetworksActions,
@@ -122,10 +123,10 @@ export function AddNetwork() {
             <Stack
               maxWidth={token('sizes.centeredPageFullWidth')}
               px={['loose', 'base-loose']}
-              spacing="loose"
+              gap="space.05"
               textAlign={['left', 'center']}
             >
-              <Text>
+              <styled.span>
                 Use this form to add a new instance of the{' '}
                 <a
                   href="https://github.com/blockstack/stacks-blockchain-api"
@@ -135,7 +136,7 @@ export function AddNetwork() {
                   Stacks Blockchain API
                 </a>
                 . Make sure you review and trust the host before you add it.
-              </Text>
+              </styled.span>
               <Input
                 autoFocus
                 borderRadius="10px"
@@ -169,9 +170,9 @@ export function AddNetwork() {
               />
               {error ? (
                 <ErrorLabel>
-                  <Text textStyle="caption" data-testid={NetworkSelectors.ErrorText}>
+                  <styled.span textStyle="caption" data-testid={NetworkSelectors.ErrorText}>
                     {error}
-                  </Text>
+                  </styled.span>
                 </ErrorLabel>
               ) : null}
               <LeatherButton

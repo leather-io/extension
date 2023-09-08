@@ -1,8 +1,9 @@
 import { createSearchParams, useLocation, useNavigate } from 'react-router-dom';
 
 import type { MempoolTransaction } from '@stacks/stacks-blockchain-api-types';
-import { BoxProps, Text, color } from '@stacks/ui';
 import { isPendingTx } from '@stacks/ui-utils';
+import { BoxProps, styled } from 'leather-styles/jsx';
+import { token } from 'leather-styles/tokens';
 
 import { StacksTx, TxTransferDetails } from '@shared/models/transactions/stacks-transaction.model';
 import { RouteUrls } from '@shared/route-urls';
@@ -93,9 +94,9 @@ export function StacksTransactionItem({
   );
   const txStatus = transaction && <StacksTransactionStatus transaction={transaction} />;
   const txCaption = (
-    <Text color={color('text-caption')} fontSize={0} whiteSpace="nowrap">
+    <styled.span color={token('colors.accent.text-subdued')} fontSize={0} whiteSpace="nowrap">
       {caption}
-    </Text>
+    </styled.span>
   );
   const txValue = <Title fontWeight="normal">{value}</Title>;
 

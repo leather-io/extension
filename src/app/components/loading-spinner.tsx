@@ -1,9 +1,12 @@
-import { Flex, FlexProps, Spinner, color } from '@stacks/ui';
+// #4164 FIXME migrate Spinner - check Radix UI
+import { Spinner } from '@stacks/ui';
+import { Flex, FlexProps } from 'leather-styles/jsx';
+import { token } from 'leather-styles/tokens';
 
 export function LoadingSpinner(props: FlexProps) {
   return (
     <Flex alignItems="center" flexGrow={1} justifyContent="center" width="100%" {...props}>
-      <Spinner color={color('text-caption')} opacity={0.5} size="lg" />
+      <Spinner color={token('colors.accent.text-subdued')} opacity={0.5} size="lg" />
     </Flex>
   );
 }

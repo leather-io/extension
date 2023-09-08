@@ -1,8 +1,20 @@
-import { ButtonProps } from '@stacks/ui';
 import { SettingsSelectors } from '@tests/selectors/settings.selectors';
-import { Flex } from 'leather-styles/jsx';
+import { BoxProps, Flex } from 'leather-styles/jsx';
 
 import { LeatherButton } from '@app/components/button/button';
+
+// FIXME move this into tokens
+export declare type ButtonSizes = 'sm' | 'md' | 'lg';
+export declare type ButtonVariants = 'link' | 'solid';
+export declare type ButtonModes = 'primary' | 'secondary' | 'tertiary';
+export interface ButtonProps extends Omit<BoxProps, 'size'> {
+  variant?: ButtonVariants;
+  mode?: ButtonModes;
+  isDisabled?: boolean;
+  loadingText?: string;
+  isLoading?: boolean;
+  size?: ButtonSizes;
+}
 
 interface AddNetworkButtonProps extends ButtonProps {
   onAddNetwork(): void;

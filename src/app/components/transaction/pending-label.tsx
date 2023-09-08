@@ -1,6 +1,8 @@
+// #4164 FIXME this is almost identical to MicroblockLabel
 import { FiInfo } from 'react-icons/fi';
 
-import { Box, Flex, Stack, Text, color } from '@stacks/ui';
+import { Flex, Stack, styled } from 'leather-styles/jsx';
+import { token } from 'leather-styles/tokens';
 
 import { Tooltip } from '@app/components/tooltip';
 
@@ -16,16 +18,16 @@ export function PendingLabel({
 }: PendingLabelProps) {
   return (
     <Flex alignItems="center">
-      <Text color={color('feedback-alert')} fontSize={0} mr="2px">
+      <styled.span color={token('colors.accent.warning')} fontSize={0} mr="2px">
         Pending
-      </Text>
+      </styled.span>
       <Tooltip label={pendingWaitingMessage} placement="bottom">
-        <Stack>
-          <Box
-            _hover={{ cursor: 'pointer' }}
-            as={FiInfo}
-            color={color('feedback-alert')}
-            ml="2px"
+        <Stack _hover={{ cursor: 'pointer' }}>
+          <FiInfo
+            // #4164 FIXME migrate feedback-alert
+            // color('feedback-alert')
+            color={token('colors.accent.warning')}
+            style={{ marginLeft: '2px' }}
             size="10px"
           />
         </Stack>

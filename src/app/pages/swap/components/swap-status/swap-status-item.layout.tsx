@@ -11,11 +11,11 @@ interface SwapStatusItemLayoutProps {
 }
 export function SwapStatusItemLayout({ icon, text, timestamp }: SwapStatusItemLayoutProps) {
   return (
-    <Flag align="middle" img={icon} py="tight" spacing="base">
+    <Flag align="middle" img={icon} py="space.02" spacing="space.04">
       <SpaceBetween>
         <Stack gap="space.01">
-          {timestamp ? <styled.span textStyle="label.01">{timestamp}</styled.span> : null}
-          <styled.span textStyle="caption.01">{text}</styled.span>
+          {timestamp ? <styled.span fontWeight={500}>{timestamp}</styled.span> : null}
+          <styled.span>{text}</styled.span>
         </Stack>
         <ArrowUpIcon transform="rotate(45)" />
       </SpaceBetween>

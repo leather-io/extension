@@ -32,7 +32,7 @@ export function SecretKeyDisplayerLayout(props: SecretKeyDisplayerLayoutProps) {
           </styled.h1>
         ) : null}
 
-        <Flex justifyContent="center" rowGap="tight" flexWrap="wrap" gap="space.01">
+        <Flex justifyContent="center" rowGap="space.02" flexWrap="wrap" gap="space.01">
           {secretKeyWords?.map((word, index) => (
             <SecretKeyWord
               key={word}

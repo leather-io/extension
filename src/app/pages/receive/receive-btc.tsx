@@ -1,6 +1,7 @@
 import toast from 'react-hot-toast';
 import { useLocation } from 'react-router-dom';
 
+// #4164 FIXME migrate useClipboard
 import { useClipboard } from '@stacks/ui';
 import get from 'lodash.get';
 

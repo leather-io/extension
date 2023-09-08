@@ -2,6 +2,7 @@ import toast from 'react-hot-toast';
 import { Outlet } from 'react-router-dom';
 
 import WaxSeal from '@assets/illustrations/wax-seal.png';
+// #4164 FIXME migrate useClipboard
 import { useClipboard } from '@stacks/ui';
 import { useFormikContext } from 'formik';
 import { HStack, styled } from 'leather-styles/jsx';
@@ -10,7 +11,6 @@ import { logger } from '@shared/logger';
 import { isUndefined } from '@shared/utils';
 
 import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
-// import { useExplorerLink } from '@app/common/hooks/use-explorer-link';
 import { useRouteHeader } from '@app/common/hooks/use-route-header';
 import { CopyIcon } from '@app/components/icons/copy-icon';
 import { ExternalLinkIcon } from '@app/components/icons/external-link-icon';

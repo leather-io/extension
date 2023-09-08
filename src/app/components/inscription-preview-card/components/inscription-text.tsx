@@ -1,5 +1,7 @@
-import { Box, Spinner, Text } from '@stacks/ui';
+// #4164 FIXME migrate - check if there is a radix spinner
+import { Spinner } from '@stacks/ui';
 import { sanitize } from 'dompurify';
+import { Box, styled } from 'leather-styles/jsx';
 
 import { figmaTheme } from '@app/common/utils/figma-theme';
 import { useTextInscriptionContentQuery } from '@app/query/bitcoin/ordinals/use-text-ordinal-content.query';
@@ -19,7 +21,7 @@ export function InscriptionText(props: InscriptionTextProps) {
       height="100%"
       color="white"
       p="20px"
-      sx={{
+      style={{
         position: 'relative',
         overflow: 'hidden',
         textAlign: 'left',
@@ -34,7 +36,7 @@ export function InscriptionText(props: InscriptionTextProps) {
         backgroundImage: 'linear-gradient(rgba(0,0,0,0), rgba(0,0,0,1))',
       }}
     >
-      <Text>{sanitize(query.data)}</Text>
+      <styled.span>{sanitize(query.data)}</styled.span>
     </Box>
   );
 }

@@ -1,5 +1,7 @@
 import { ChainID } from '@stacks/common';
 
+import { StructuredMessageDataDomain } from '@shared/signature/signature-types';
+
 import { getStructuredDataPayloadFromToken } from '@app/common/signature/requests';
 import { NoFeesWarningRow } from '@app/components/no-fees-warning-row';
 import { SignMessageActions } from '@app/features/message-signer/stacks-sign-message-action';
@@ -20,11 +22,14 @@ export function SignatureRequestStructuredDataContent({
   const appName = signatureRequest.appDetails?.name;
   return (
     <>
-      <StructuredDataBox message={message} domain={domain} />
+      <StructuredDataBox message={message} domain={domain as StructuredMessageDataDomain} />
       <NoFeesWarningRow chainId={network?.chainId ?? ChainID.Testnet} />
       <SignMessageActions
         isLoading={isLoading}
         onSignMessageCancel={cancelMessageSigning}
+        // #4164 FIXME fix type error on domain below
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-ignore
         onSignMessage={() => signMessage({ messageType: 'structured', message, domain })}
       />
       <hr />

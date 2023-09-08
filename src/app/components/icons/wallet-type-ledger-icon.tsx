@@ -1,13 +1,13 @@
-import { Box, BoxProps } from '@stacks/ui';
+import { styled } from 'leather-styles/jsx';
 
-export function WalletTypeLedgerIcon(props: BoxProps) {
+// #4164 FIXME migrate - do we even need these wrappers?
+export function WalletTypeLedgerIcon() {
   return (
-    <Box
-      as="img"
+    <styled.img
       src="assets/images/wallet-type-ledger.svg"
       width="24px"
       height="24px"
-      {...props}
+      mr="space.03"
     />
   );
 }

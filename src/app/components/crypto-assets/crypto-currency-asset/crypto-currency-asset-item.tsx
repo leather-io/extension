@@ -1,8 +1,10 @@
 import { useState } from 'react';
 import { toast } from 'react-hot-toast';
 
-import { StackProps, useClipboard } from '@stacks/ui';
+// #4164 FIXME migrate useClipboard
+import { useClipboard } from '@stacks/ui';
 import { forwardRefWithAs } from '@stacks/ui-core';
+import { StackProps } from 'leather-styles/jsx';
 
 import type { AllCryptoCurrencyAssetBalances } from '@shared/models/crypto-asset-balance.model';
 

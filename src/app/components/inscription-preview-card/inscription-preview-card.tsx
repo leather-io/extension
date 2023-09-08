@@ -28,8 +28,8 @@ export function InscriptionPreviewCard({
       borderColor={hideBorder ? 'unset' : token('colors.accent.border-default')}
       borderRadius={hideBorder ? 'unset' : '10px'}
       img={image}
-      p={hideBorder ? 'unset' : 'base'}
-      spacing="base"
+      p={hideBorder ? 'unset' : 'space.04'}
+      spacing="space.04"
     >
       <InscriptionMetadata
         action={action}

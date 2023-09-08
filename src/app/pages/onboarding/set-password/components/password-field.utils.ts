@@ -1,4 +1,4 @@
-import { color } from '@stacks/ui';
+import { token } from 'leather-styles/tokens';
 
 import { PasswordStrength, ValidatedPassword } from '@app/common/validation/validate-password';
 
@@ -6,15 +6,15 @@ export const defaultColor = '#EFEFF2';
 
 const strengthStyles = {
   [PasswordStrength.NoScore]: {
-    strengthColor: color('feedback-error'),
+    strengthColor: token('colors.error'),
     strengthText: 'Poor',
   },
   [PasswordStrength.PoorScore]: {
-    strengthColor: color('feedback-error'),
+    strengthColor: token('colors.error'),
     strengthText: 'Poor',
   },
   [PasswordStrength.WeakScore]: {
-    strengthColor: color('feedback-alert'),
+    strengthColor: token('colors.yellow.100'), // feedback-alert // #4164 FIXME replace need to fix this and check
     strengthText: 'Weak',
   },
   [PasswordStrength.AverageScore]: {
@@ -26,7 +26,7 @@ const strengthStyles = {
     strengthText: 'Average',
   },
   [PasswordStrength.MeetsAllRequirements]: {
-    strengthColor: color('feedback-success'),
+    strengthColor: token('colors.green.100'), // feedback-success  // #4164 FIXME replace need to fix this and check
     strengthText: 'Strong',
   },
 };

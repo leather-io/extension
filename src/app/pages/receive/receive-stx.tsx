@@ -1,5 +1,6 @@
 import toast from 'react-hot-toast';
 
+// #4164 FIXME migrate useClipboard
 import { useClipboard } from '@stacks/ui';
 
 import { useCurrentAccountDisplayName } from '@app/common/hooks/account/use-account-names';

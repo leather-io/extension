@@ -2,7 +2,6 @@ import { CommonSignaturePayload, SignaturePayload } from '@stacks/connect';
 import { deserializeCV } from '@stacks/transactions';
 import { TokenInterface, decodeToken } from 'jsontokens';
 
-import { StructuredMessageDataDomain } from '@shared/signature/signature-types';
 import { isString } from '@shared/utils';
 
 export function getGenericSignaturePayloadFromToken(requestToken: string): CommonSignaturePayload {
@@ -27,6 +26,6 @@ export function getStructuredDataPayloadFromToken(requestToken: string) {
   return {
     ...(result as unknown as CommonSignaturePayload),
     message: deserializeCV(Buffer.from(result.message, 'hex')),
-    domain: deserializeCV(Buffer.from(result.domain, 'hex')) as StructuredMessageDataDomain,
+    domain: deserializeCV(Buffer.from(result.domain, 'hex')),
   };
 }

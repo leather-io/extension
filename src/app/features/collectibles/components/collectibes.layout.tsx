@@ -1,4 +1,7 @@
-import { Flex, Grid, Spinner, color } from '@stacks/ui';
+// #4164 FIXME migrate Spinner
+import { Spinner } from '@stacks/ui';
+import { Flex, Grid } from 'leather-styles/jsx';
+import { token } from 'leather-styles/tokens';
 
 import { RefreshIcon } from '@app/components/icons/refresh-icon';
 import { LoadingSpinner } from '@app/components/loading-spinner';
@@ -20,7 +23,7 @@ export function CollectiblesLayout(props: CollectiblesLayoutProps) {
         <Flex columnGap="8px">
           <Caption>{title}</Caption>
           {isLoading ? (
-            <Spinner color={color('text-caption')} opacity={0.5} size="16px" />
+            <Spinner color={token('colors.accent.text-subdued')} opacity={0.5} size="16px" />
           ) : (
             <RefreshIcon cursor="pointer" onClick={() => onRefresh()} />
           )}
@@ -28,9 +31,9 @@ export function CollectiblesLayout(props: CollectiblesLayoutProps) {
         {subHeader}
       </Flex>
       <Grid
-        gap="base"
-        rowGap="extra-loose"
-        templateColumns={[
+        gap="space.04"
+        rowGap="space.06"
+        gridTemplateColumns={[
           'repeat(auto-fill, minmax(164px, 1fr))',
           'repeat(auto-fill, minmax(184px, 1fr))',
         ]}

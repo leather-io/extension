@@ -1,6 +1,9 @@
 import { FiInfo } from 'react-icons/fi';
 
-import { Box, Flex, Stack, color } from '@stacks/ui';
+// PETE - start with Flex / Box and work from there
+// - see whats the easiest to move to panda first //stacks/ui'
+import { Flex, Stack, styled } from 'leather-styles/jsx';
+import { token } from 'leather-styles/tokens';
 
 import { Money } from '@shared/models/money.model';
 
@@ -18,15 +21,13 @@ export function AvailableBalance(props: { balance: Money; balanceTooltipLabel?: 
   return (
     <SpaceBetween>
       <Flex alignItems="center">
-        <Caption mr="tight">Available balance</Caption>
+        <Caption mr="space.02">Available balance</Caption>
         <Tooltip placement="top" label={balanceTooltipLabel}>
           <Stack>
-            <Box
-              _hover={{ cursor: 'pointer' }}
-              as={FiInfo}
-              color={color('text-caption')}
-              size="14px"
-            />
+            {/* TODO: refactor this to be a generic icon wrapper */}
+            <styled.span textStyle="caption.01" _hover={{ cursor: 'pointer' }}>
+              <FiInfo color={token('colors.brown.12')} size="14px" />
+            </styled.span>
           </Stack>
         </Tooltip>
       </Flex>

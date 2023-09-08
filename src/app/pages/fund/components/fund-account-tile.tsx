@@ -1,5 +1,5 @@
-import { Box, Stack, color, transition } from '@stacks/ui';
 import { FundPageSelectors } from '@tests/selectors/fund.selectors';
+import { Box, Stack } from 'leather-styles/jsx';
 import { styled } from 'leather-styles/jsx';
 import { token } from 'leather-styles/tokens';
 
@@ -16,7 +16,7 @@ export function FundAccountTile(props: FundAccountTileProps) {
   const { attributes, description, icon, onClickTile, receiveStxIcon, testId, title } = props;
 
   return (
-    <Box
+    <styled.button
       _focus={{
         border: '3px solid',
         borderColor: '#5546FF',
@@ -27,9 +27,8 @@ export function FundAccountTile(props: FundAccountTileProps) {
         boxShadow: '0px 8px 16px rgba(0, 0, 0, 0.08)',
         cursor: 'pointer',
       }}
-      as="button"
       border="1px solid"
-      borderColor={color('border')}
+      borderColor={token('colors.accent.background-primary')}
       backgroundColor={token('colors.accent.background-primary')}
       borderRadius="16px"
       boxShadow="0px 1px 2px rgba(0, 0, 0, 0.04)"
@@ -41,12 +40,8 @@ export function FundAccountTile(props: FundAccountTileProps) {
       width="17.5rem"
       height="11.3rem"
     >
-      <Stack
-        alignItems="flex-start"
-        p={token('spacing.space.05')}
-        spacing={token('spacing.space.05')}
-      >
-        <Stack alignItems="center" isInline spacing={receiveStxIcon ? 'tight' : 'base'}>
+      <Stack alignItems="flex-start" p={token('spacing.space.05')} gap={token('spacing.space.05')}>
+        <HStack alignItems="center" gap={receiveStxIcon ? 'space.02' : 'space.04'}>
           {receiveStxIcon}
           <Box
             alignItems="center"
@@ -68,7 +63,7 @@ export function FundAccountTile(props: FundAccountTileProps) {
           >
             {title}
           </styled.span>
-        </Stack>
+        </HStack>
         <styled.span
           textStyle="body.02"
           data-testid={FundPageSelectors.FiatProviderName}
@@ -77,10 +72,8 @@ export function FundAccountTile(props: FundAccountTileProps) {
         >
           {description}
         </styled.span>
-        <Stack isInline spacing="tight">
-          {attributes}
-        </Stack>
+        <HStack gap="space.02">{attributes}</HStack>
       </Stack>
-    </Box>
+    </styled.button>
   );
 }

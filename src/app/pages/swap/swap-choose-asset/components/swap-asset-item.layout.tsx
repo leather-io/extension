@@ -5,7 +5,7 @@ import { Flag } from '@app/components/layout/flag';
 
 export function SwapAssetItemLayout({ children, icon }: HasChildren & { icon: React.JSX.Element }) {
   return (
-    <Flag align="middle" img={icon} spacing="base">
+    <Flag align="middle" img={icon} spacing="space.04">
       <Stack gap="none">{children}</Stack>
     </Flag>
   );

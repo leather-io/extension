@@ -1,5 +1,6 @@
 import { useState } from 'react';
 
+// #4164 FIXME migrate safeAwait
 import { safeAwait } from '@stacks/ui';
 
 import { delay } from '@app/common/utils';

@@ -128,7 +128,7 @@ function SetPasswordPage() {
           <Flex
             flexDirection={['column', 'column', 'column', 'row']}
             mt={['space.05', 'space.06']}
-            pb="loose"
+            pb="space.05"
             px={['space.05', 'space.05', 'space.11']}
             width="100%"
             gap={['space.05', 'space.05', 'space.05', 'space.09']}
@@ -162,7 +162,7 @@ function SetPasswordPage() {
                 data-testid={OnboardingSelectors.SetPasswordBtn}
                 disabled={loading || !(dirty && isValid)}
                 aria-busy={loading || isSubmitting}
-                mt="tight"
+                mt="space.02"
               >
                 Continue
               </LeatherButton>

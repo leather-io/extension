@@ -2,7 +2,9 @@ import toast from 'react-hot-toast';
 import { FiCheck, FiCopy, FiExternalLink } from 'react-icons/fi';
 import { useLocation } from 'react-router-dom';
 
-import { Flex, Stack, useClipboard } from '@stacks/ui';
+// #4164 FIXME migrate useClipboard
+import { useClipboard } from '@stacks/ui';
+import { Flex, HStack, Stack } from 'leather-styles/jsx';
 
 import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
 import { useExplorerLink } from '@app/common/hooks/use-explorer-link';
@@ -40,25 +42,25 @@ export function RpcSignPsbtSummary() {
   }
 
   return (
-    <Flex alignItems="center" flexDirection="column" p="loose" width="100%">
+    <Flex alignItems="center" flexDirection="column" p="space.05" width="100%">
       <InfoCard>
         <InfoCardAssetValue
           value={txValue}
           fiatValue={txFiatValue}
           fiatSymbol={txFiatValueSymbol}
-          icon={FiCheck}
-          mb="loose"
+          icon={<FiCheck size="32px" />}
+          mb="space.05"
         />
-        <Stack pb="extra-loose" width="100%">
+        <Stack pb="space.06" width="100%">
           <InfoCardRow title="Total spend" value={totalSpend} />
           <InfoCardRow title="Sending" value={sendingValue} />
           <InfoCardRow title="Fee" value={fee} />
         </Stack>
         <InfoCardFooter>
-          <Stack isInline spacing="base" width="100%">
-            <InfoCardBtn icon={FiExternalLink} label="View Details" onClick={onClickLink} />
-            <InfoCardBtn icon={FiCopy} label="Copy ID" onClick={onClickCopy} />
-          </Stack>
+          <HStack gap="space.04" width="100%">
+            <InfoCardBtn icon={<FiExternalLink />} label="View Details" onClick={onClickLink} />
+            <InfoCardBtn icon={<FiCopy />} label="Copy ID" onClick={onClickCopy} />
+          </HStack>
         </InfoCardFooter>
       </InfoCard>
     </Flex>

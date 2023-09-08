@@ -1,16 +1,16 @@
-import { Box, Flex, Stack } from '@stacks/ui';
+import { Box, Flex, HStack } from 'leather-styles/jsx';
 
 import { SpaceBetween } from '@app/components/layout/space-between';
 
 interface TransactionItemLayoutProps {
   openTxLink(): void;
-  txCaption: JSX.Element;
-  txTitle: JSX.Element;
-  txValue: JSX.Element;
-  txIcon?: JSX.Element;
-  txStatus?: JSX.Element;
-  belowCaptionEl?: JSX.Element;
-  children?: JSX.Element;
+  txCaption: React.JSX.Element;
+  txTitle: React.JSX.Element;
+  txValue: React.JSX.Element;
+  txIcon?: React.JSX.Element;
+  txStatus?: React.JSX.Element;
+  belowCaptionEl?: React.JSX.Element;
+  children?: React.JSX.Element;
 }
 export function TransactionItemLayout({
   openTxLink,
@@ -25,25 +25,24 @@ export function TransactionItemLayout({
 }: TransactionItemLayoutProps) {
   return (
     <Box position="relative" cursor="pointer" {...rest}>
-      <Stack
+      <HStack
         alignItems="center"
-        isInline
         onClick={openTxLink}
         position="relative"
-        spacing="base-loose"
+        gap="base-loose"
         zIndex={2}
       >
         {txIcon && txIcon}
         <Flex flexDirection="column" justifyContent="space-between" flexGrow={1} minWidth="0px">
-          <SpaceBetween spacing="extra-loose">
+          <SpaceBetween spacing="space.06">
             {txTitle} {txValue}
           </SpaceBetween>
-          <Stack alignItems="center" isInline>
+          <HStack alignItems="center">
             {txCaption} {txStatus && txStatus}
             {belowCaptionEl ? belowCaptionEl : null}
-          </Stack>
+          </HStack>
         </Flex>
-      </Stack>
+      </HStack>
       {children}
     </Box>
   );

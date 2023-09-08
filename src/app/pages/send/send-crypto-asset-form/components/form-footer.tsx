@@ -1,4 +1,4 @@
-import { Box } from '@stacks/ui';
+import { Box } from 'leather-styles/jsx';
 import { Flex } from 'leather-styles/jsx';
 import { token } from 'leather-styles/tokens';
 

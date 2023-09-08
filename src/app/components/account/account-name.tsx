@@ -1,6 +1,6 @@
 import { memo } from 'react';
 
-import { BoxProps } from '@stacks/ui';
+import { BoxProps } from 'leather-styles/jsx';
 import { styled } from 'leather-styles/jsx';
 
 import { useAccountDisplayName } from '@app/common/hooks/account/use-account-names';

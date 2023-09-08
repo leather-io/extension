@@ -1,7 +1,10 @@
-import { Flex, Spinner, Stack, StackProps, color, useMediaQuery } from '@stacks/ui';
+// #4164 FIXME migrate useMediaQuery
+import { Spinner, useMediaQuery } from '@stacks/ui';
 import { truncateMiddle } from '@stacks/ui-utils';
 import { SettingsSelectors } from '@tests/selectors/settings.selectors';
+import { Flex, HStack, Stack, StackProps } from 'leather-styles/jsx';
 import { styled } from 'leather-styles/jsx';
+import { token } from 'leather-styles/tokens';
 
 import { useConfigBitcoinEnabled } from '@app/query/common/remote-config/remote-config.query';
 
@@ -55,10 +58,10 @@ export function AccountListItemLayout(props: AccountListItemLayoutProps) {
       onClick={onSelectAccount}
       {...rest}
     >
-      <Flag align="middle" img={avatar} spacing="base" width="100%">
-        <Stack spacing="extra-tight">
+      <Flag align="middle" img={avatar} spacing="space.04" width="100%">
+        <HStack gap="space.01">
           <SpaceBetween>
-            <Stack alignItems="center" isInline space="tight">
+            <Stack alignItems="center" gap="space.02">
               {accountName}
               {isActive && <CheckmarkIcon />}
             </Stack>
@@ -67,14 +70,14 @@ export function AccountListItemLayout(props: AccountListItemLayoutProps) {
                 position="absolute"
                 right={0}
                 top="calc(50% - 8px)"
-                color={color('text-caption')}
+                color={token('colors.accent.text-subdued')}
                 size="18px"
               />
             ) : (
               balanceLabel
             )}
           </SpaceBetween>
-          <Stack alignItems="center" spacing="6px" isInline whiteSpace="nowrap">
+          <HStack alignItems="center" gap="6px" whiteSpace="nowrap">
             <CaptionDotSeparator>
               <styled.span textStyle="caption.02">
                 {truncateMiddle(stxAddress, isNarrowViewport ? 3 : 4)}
@@ -83,8 +86,8 @@ export function AccountListItemLayout(props: AccountListItemLayoutProps) {
                 <styled.span textStyle="caption.02">{truncateMiddle(btcAddress, 5)}</styled.span>
               )}
             </CaptionDotSeparator>
-          </Stack>
-        </Stack>
+          </HStack>
+        </HStack>
       </Flag>
       {children}
     </Flex>

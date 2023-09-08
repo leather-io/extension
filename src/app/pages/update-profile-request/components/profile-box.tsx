@@ -1,5 +1,6 @@
 import { Profile } from '@stacks/profile';
-import { Box, Stack, color } from '@stacks/ui';
+import { Box, Stack } from 'leather-styles/jsx';
+import { token } from 'leather-styles/tokens';
 
 function Value({ v }: { v: any }) {
   if (typeof v === 'string' || typeof v === 'number' || typeof v === 'boolean') {
@@ -35,8 +36,10 @@ function Properties({ p }: { p: any }) {
         .filter(k => !k.startsWith('@'))
         .map(k => {
           return (
-            <Box key={k} textIndent="-1em" ml="loose">
-              <span style={{ color: color('text-caption') }}>{k}:</span> <Value v={p[k]} />
+            <Box key={k} textIndent="-1em" ml="space.05">
+              {/* TODO check color - text caption, mabe replace with styled.span variant */}
+              <span style={{ color: token('colors.accent.text-primary') }}>{k}:</span>{' '}
+              <Value v={p[k]} />
             </Box>
           );
         })}
@@ -50,12 +53,18 @@ export function ProfileBox({ profile }: { profile: Profile }): React.JSX.Element
       <Stack
         border="4px solid"
         paddingBottom={'8px'}
-        borderColor={color('border')}
+        borderColor={token('colors.accent.border-default')}
         borderRadius="20px"
-        backgroundColor={color('border')}
+        backgroundColor={token('colors.accent.border-default')}
       >
-        <Box py="loose" px="loose" spacing="loose" borderRadius="16px" backgroundColor={'white'}>
-          <Box spacing="base-tight">
+        <Box
+          py="space.05"
+          px="space.05"
+          gap="space.05"
+          borderRadius="16px"
+          backgroundColor={'white'}
+        >
+          <Box gap="space.03">
             <Properties p={profile._profile} />
           </Box>
         </Box>

@@ -1,4 +1,4 @@
-import { Box, BoxProps, Flex } from '@stacks/ui';
+import { Box, BoxProps, Flex } from 'leather-styles/jsx';
 
 import { SupportedInscription } from '@shared/models/inscription.model';
 

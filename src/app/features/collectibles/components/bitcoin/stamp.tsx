@@ -1,5 +1,5 @@
 import BitcoinStampImg from '@assets/images/bitcoin-stamp.png';
-import { Box } from '@stacks/ui';
+import { Box } from 'leather-styles/jsx';
 
 import { openInNewTab } from '@app/common/utils/open-in-new-tab';
 import { Stamp as BitcoinStamp } from '@app/query/bitcoin/stamps/stamps-by-address.query';

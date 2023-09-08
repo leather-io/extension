@@ -1,5 +1,5 @@
-import { Box } from '@stacks/ui';
 import { sanitize } from 'dompurify';
+import { Box } from 'leather-styles/jsx';
 
 interface CollectibleTextLayoutProps {
   children: string;
@@ -20,11 +20,12 @@ export function CollectibleTextLayout({ children }: CollectibleTextLayoutProps) 
       color="white"
       height="100%"
       p="20px"
-      sx={{
-        position: 'relative',
-        overflow: 'hidden',
-        textAlign: 'left',
-      }}
+      // FIXME - figure out what sx is and update
+      // sx={{
+      //   position: 'relative',
+      //   overflow: 'hidden',
+      //   textAlign: 'left',
+      // }}
       width="100%"
     >
       <pre>{sanitize(children)}</pre>

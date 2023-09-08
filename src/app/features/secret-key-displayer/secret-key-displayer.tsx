@@ -1,6 +1,7 @@
 import { memo, useMemo } from 'react';
 import { Outlet, useLocation } from 'react-router-dom';
 
+// #4164 FIXME migrate useClipboard
 import { useClipboard } from '@stacks/ui';
 
 import { RouteUrls } from '@shared/route-urls';

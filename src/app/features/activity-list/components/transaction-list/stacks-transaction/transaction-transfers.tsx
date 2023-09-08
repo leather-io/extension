@@ -1,5 +1,5 @@
 import { AddressTransactionWithTransfers } from '@stacks/stacks-blockchain-api-types';
-import { BoxProps } from '@stacks/ui';
+import { BoxProps } from 'leather-styles/jsx';
 
 import { FtTransferItem } from './ft-transfer-item';
 import { StxTransferItem } from './stx-transfer-item';

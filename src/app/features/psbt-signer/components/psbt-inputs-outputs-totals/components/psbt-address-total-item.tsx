@@ -1,3 +1,4 @@
+// #4164 FIXME migrate useClipboard
 import { useClipboard } from '@stacks/ui';
 import { Box, HStack, styled } from 'leather-styles/jsx';
 
@@ -29,7 +30,7 @@ export function PsbtAddressTotalItem({
   const { onCopy, hasCopied } = useClipboard(hoverLabel ?? '');
 
   return (
-    <Flag align="middle" img={image ? image : <BtcIcon />} mt="loose" spacing="base">
+    <Flag align="middle" img={image ? image : <BtcIcon />} mt="space.05" spacing="space.04">
       <SpaceBetween>
         <styled.span textStyle="label.01">{title ? title : 'Bitcoin'}</styled.span>
         {valueAction ? (
@@ -40,7 +41,7 @@ export function PsbtAddressTotalItem({
           <styled.span textStyle="label.01">{value}</styled.span>
         )}
       </SpaceBetween>
-      <SpaceBetween mt="tight">
+      <SpaceBetween mt="space.02">
         {subtitle ? (
           <HStack gap="space.01">
             <styled.span mr="space.01" textStyle="caption.01">

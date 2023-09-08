@@ -4,20 +4,25 @@ import {
   FiCode as IconCode,
   FiPlus as IconPlus,
 } from 'react-icons/fi';
+// #4164 FIXME migrate - ask design about this icon - do we have a new one
+import { FiZap } from 'react-icons/fi';
 
-import { BoxProps, ColorsStringLiteral, color } from '@stacks/ui';
+// // #4164 FIXME migrate ColorsStringLiteral
+import { ColorsStringLiteral } from '@stacks/ui';
+import { BoxProps, styled } from 'leather-styles/jsx';
+import { token } from 'leather-styles/tokens';
 import FunctionIcon from 'mdi-react/FunctionIcon';
 
 import { StacksTx, StacksTxStatus } from '@shared/models/transactions/stacks-transaction.model';
 
 import { statusFromTx } from '@app/common/transactions/stacks/transaction.utils';
-import { MicroblockIcon } from '@app/components/icons/microblock';
 import { useCurrentAccountStxAddressState } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
 
 import { TransactionTypeIconWrapper } from './transaction-type-icon-wrapper';
 
 type StatusColorMap = Record<StacksTxStatus, ColorsStringLiteral>;
 
+// #4164 FIXME migrate color
 const colorFromTx = (tx: StacksTx): ColorsStringLiteral => {
   const colorMap: StatusColorMap = {
     pending: 'feedback-alert',
@@ -35,12 +40,13 @@ function IconForTx(tx: StacksTx, currentAccountStxAddress: string | undefined) {
   const tokenTransferIcon = (tx: StacksTx) => {
     return 'is_unanchored' in tx && tx.is_unanchored
       ? () => (
-          <MicroblockIcon
-            size="13px"
-            fill={color('bg')}
-            borderColor={color('invert')}
-            bg={color(colorFromTx(tx))}
-          />
+          <styled.div
+            // bg={color(colorFromTx(tx))} #4164 FIXME migrate colorFromTx
+            bg={token('colors.accent.background-secondary')} // #4164 FIXME migrate color invert'
+            borderColor={token('colors.accent.background-secondary')}
+          >
+            <FiZap width="13px" height="13px" fill={token('colors.accent.background-primary')} />
+          </styled.div>
         )
       : isSent
       ? IconArrowUp

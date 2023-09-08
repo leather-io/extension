@@ -1,5 +1,7 @@
-import { Box, Grid, transition } from '@stacks/ui';
+// #4164 FIXME migrate transition
+import { transition } from '@stacks/ui';
 import { HomePageSelectors } from '@tests/selectors/home.selectors';
+import { Box, Grid } from 'leather-styles/jsx';
 import { token } from 'leather-styles/tokens';
 
 interface HeaderActionButtonProps {
@@ -23,7 +25,9 @@ export function HeaderActionButton(props: HeaderActionButtonProps) {
       opacity={isWaitingOnPerformedAction ? '0.3' : 'unset'}
       placeItems="center"
       position="relative"
-      size="36px"
+      // #4164 FIXME  check the UI for this size / gap swap
+      // size="36px"
+      gap="36px"
       transition={transition}
       userSelect="none"
       zIndex={9}

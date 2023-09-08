@@ -1,4 +1,4 @@
-import { Stack } from '@stacks/ui';
+import { Stack } from 'leather-styles/jsx';
 
 import type { StacksFungibleTokenAssetBalance } from '@shared/models/crypto-asset-balance.model';
 
@@ -9,7 +9,7 @@ interface StacksFungibleTokenAssetListProps {
 }
 export function StacksFungibleTokenAssetList({ assetBalances }: StacksFungibleTokenAssetListProps) {
   return (
-    <Stack spacing="loose">
+    <Stack gap="space.05">
       {assetBalances.map(assetBalance => (
         <StacksFungibleTokenAssetItem
           assetBalance={assetBalance}

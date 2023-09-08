@@ -1,5 +1,5 @@
 import LedgerDisconnected from '@assets/images/ledger/ledger-disconnected.png';
-import { Box, Button, Stack } from '@stacks/ui';
+import { Box, HStack } from 'leather-styles/jsx';
 
 import { LeatherButton } from '@app/components/button/button';
 
@@ -14,20 +14,21 @@ export function LedgerDisconnectedLayout(props: LedgerDisconnectedLayoutProps) {
   const { onConnectAgain, onClose } = props;
   return (
     <LedgerWrapper>
-      <Box mb="loose" mt="tight">
+      <Box mb="space.05" mt="space.02">
         <img src={LedgerDisconnected} width="242px" />
       </Box>
-      <LedgerTitle mb="loose" mt="loose" mx="40px">
+      <LedgerTitle mb="space.05" mt="space.05" mx="40px">
         Your Ledger has disconnected
       </LedgerTitle>
-      <Stack isInline mb="loose">
-        <Button borderRadius="10px" mode="tertiary" onClick={onClose}>
+      <HStack mb="space.05">
+        {/* // #4164 FIXME migrate tertiary */}
+        <LeatherButton borderRadius="10px" variant="ghost" onClick={onClose}>
           Close
-        </Button>
+        </LeatherButton>
         <LeatherButton height="40px" onClick={onConnectAgain}>
           Connect again
         </LeatherButton>
-      </Stack>
+      </HStack>
     </LedgerWrapper>
   );
 }

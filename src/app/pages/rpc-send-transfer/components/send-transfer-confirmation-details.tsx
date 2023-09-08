@@ -1,4 +1,5 @@
-import { Stack, Text, color } from '@stacks/ui';
+import { Stack, styled } from 'leather-styles/jsx';
+import { token } from 'leather-styles/tokens';
 
 import { SpaceBetween } from '@app/components/layout/space-between';
 
@@ -19,32 +20,32 @@ export function SendTransferConfirmationDetails({
   return (
     <Stack
       border="4px solid"
-      borderColor={color('border')}
+      borderColor={token('colors.accent.background-primary')}
       borderRadius="16px"
-      p="loose"
-      spacing="base"
+      p="space.05"
+      gap="space.04"
       width="100%"
     >
-      <SpaceBetween spacing="base">
-        <Text color={color('text-caption')}>From</Text>
-        <Text>{currentAddress}</Text>
+      <SpaceBetween spacing="space.04">
+        <styled.span color={token('colors.accent.text-subdued')}>From</styled.span>
+        <styled.span>{currentAddress}</styled.span>
       </SpaceBetween>
-      <SpaceBetween spacing="base">
-        <Text color={color('text-caption')}>To</Text>
-        <Text>{recipient}</Text>
+      <SpaceBetween spacing="space.04">
+        <styled.span color={token('colors.accent.text-subdued')}>To</styled.span>
+        <styled.span>{recipient}</styled.span>
       </SpaceBetween>
-      <SpaceBetween spacing="base">
-        <Text color={color('text-caption')}>Fee</Text>
-        <Text>{feeRowValue}</Text>
+      <SpaceBetween spacing="space.04">
+        <styled.span color={token('colors.accent.text-subdued')}>Fee</styled.span>
+        <styled.span>{feeRowValue}</styled.span>
       </SpaceBetween>
-      <SpaceBetween spacing="base">
-        <Text color={color('text-caption')}>Total</Text>
-        <Text>{total}</Text>
+      <SpaceBetween spacing="space.04">
+        <styled.span color={token('colors.accent.text-subdued')}>Total</styled.span>
+        <styled.span>{total}</styled.span>
       </SpaceBetween>
       {time && (
-        <SpaceBetween spacing="base">
-          <Text color={color('text-caption')}>Estimated Time</Text>
-          <Text>{time}</Text>
+        <SpaceBetween spacing="space.04">
+          <styled.span color={token('colors.accent.text-subdued')}>Estimated Time</styled.span>
+          <styled.span>{time}</styled.span>
         </SpaceBetween>
       )}
     </Stack>

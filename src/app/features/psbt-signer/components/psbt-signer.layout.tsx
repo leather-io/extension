@@ -1,4 +1,4 @@
-import { Stack } from '@stacks/ui';
+import { Stack } from 'leather-styles/jsx';
 
 import { HasChildren } from '@app/common/has-children';
 
@@ -9,8 +9,8 @@ export function PsbtSignerLayout({ children }: HasChildren) {
       maxHeight="calc(100vh - 72px)"
       overflowY="auto"
       pb="120px"
-      px="loose"
-      spacing="base-loose"
+      px="space.05"
+      gap="base-loose"
       width="100%"
     >
       {children}

@@ -1,4 +1,5 @@
-import { Box, BoxProps, Circle, color } from '@stacks/ui';
+import { BoxProps, Circle } from 'leather-styles/jsx';
+import { token } from 'leather-styles/tokens';
 
 import { StacksTx } from '@shared/models/transactions/stacks-transaction.model';
 
@@ -15,14 +16,15 @@ export function TransactionIconWrapper({
 }: TransactionIconWrapperProps) {
   return (
     <Circle
-      bg={color('accent')}
-      color={color('bg')}
+      // #4164 FIXME migrate accent
+      // bg={color('accent')}
+      color={token('colors.accent.background-primary')}
       flexShrink={0}
       position="relative"
       size="36px"
       {...rest}
     >
-      <Box as={Icon} />
+      <Icon />
       <TransactionTypeIcon transaction={transaction} />
     </Circle>
   );

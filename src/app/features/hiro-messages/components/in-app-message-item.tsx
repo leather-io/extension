@@ -1,6 +1,6 @@
 import { FiX } from 'react-icons/fi';
 
-import { Box, Flex, Text } from '@stacks/ui';
+import { Box, Flex, styled } from 'leather-styles/jsx';
 
 import { HiroMessage } from '@app/query/common/remote-config/remote-config.query';
 
@@ -19,16 +19,15 @@ export function HiroMessageItem(props: HiroMessageItemProps) {
       alignItems={[null, null, 'center']}
       justifyContent="center"
       position="relative"
-      p="base"
+      p="space.04"
     >
       {dismissible && (
-        <Box
-          as="button"
+        <styled.button
           position="absolute"
-          p="tight"
+          p="space.02"
           top={[0, 0, '50%']}
-          mr={['tight']}
-          mt={['tight', null, 'unset']}
+          mr={['space.02']}
+          mt={['space.02', null, 'unset']}
           transform={[null, null, 'translateY(-50%)']}
           right={0}
           borderRadius="50%"
@@ -36,31 +35,31 @@ export function HiroMessageItem(props: HiroMessageItemProps) {
           onClick={() => onDismiss(id)}
         >
           <FiX />
-        </Box>
+        </styled.button>
       )}
       {img && (
-        <Box mb={['base-tight', null, 'unset']}>
+        <Box mb={['space.03', null, 'unset']}>
           <img width={imgWidth} src={img} />
         </Box>
       )}
       <Box fontSize="13px" lineHeight="20px">
         {title && (
-          <Text display="block" lineHeight="inherit">
+          <styled.span display="block" lineHeight="inherit">
             {title}
-          </Text>
+          </styled.span>
         )}
-        <Text
+        <styled.span
           display="inline"
           fontSize="inherit"
-          ml={[null, null, 'base']}
-          mr={['tight', 'base']}
+          ml={[null, null, 'space.04']}
+          mr={['space.02', 'space.04']}
           lineHeight="inherit"
         >
           {text}
-        </Text>
+        </styled.span>
+        {/* #4164 FIXME use ExternalLink */}
         {learnMoreUrl && (
-          <Text
-            as="a"
+          <styled.a
             display="inline-block"
             textDecoration="underline"
             href={learnMoreUrl}
@@ -68,7 +67,7 @@ export function HiroMessageItem(props: HiroMessageItemProps) {
             target="_blank"
           >
             {learnMoreText ? learnMoreText : 'Learn more ↗'}
-          </Text>
+          </styled.a>
         )}
       </Box>
     </Flex>

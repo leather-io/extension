@@ -1,13 +1,15 @@
-import { Suspense } from 'react';
+import React, { Suspense } from 'react';
 import { Outlet } from 'react-router-dom';
 
-import { Flex, Spinner, Stack } from '@stacks/ui';
+// #4164 FIXME migrate Spinner
+import { Spinner } from '@stacks/ui';
+import { Flex, Stack } from 'leather-styles/jsx';
 
 import { BaseDrawer } from '@app/components/drawer/base-drawer';
 import { Caption } from '@app/components/typography';
 
 interface IncreaseFeeDrawerProps {
-  feeForm: JSX.Element;
+  feeForm: React.JSX.Element;
   onClose: () => void;
   isShowing: boolean;
 }
@@ -16,10 +18,10 @@ export function IncreaseFeeDrawer({ feeForm, onClose, isShowing }: IncreaseFeeDr
   return (
     <>
       <BaseDrawer isShowing={isShowing} onClose={onClose} title="Increase transaction fee">
-        <Stack px="loose" spacing="loose" pb="extra-loose">
+        <Stack px="space.05" gap="space.05" pb="space.06">
           <Suspense
             fallback={
-              <Flex alignItems="center" justifyContent="center" p="extra-loose">
+              <Flex alignItems="center" justifyContent="center" p="space.06">
                 <Spinner />
               </Flex>
             }

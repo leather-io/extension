@@ -1,7 +1,10 @@
 import { FiInfo } from 'react-icons/fi';
 import { useLocation, useParams } from 'react-router-dom';
 
-import { Box, Stack, Tooltip, color } from '@stacks/ui';
+// #4164 FIXME replace with radix tooltip
+import { Tooltip } from '@stacks/ui';
+import { Stack } from 'leather-styles/jsx';
+import { token } from 'leather-styles/tokens';
 import get from 'lodash.get';
 
 import { CryptoCurrencies } from '@shared/models/currencies.model';
@@ -55,12 +58,10 @@ export function StacksSendFormConfirmation() {
       placement="bottom"
     >
       <Stack>
-        <Box
-          _hover={{ cursor: 'pointer' }}
-          as={FiInfo}
-          color={color('text-caption')}
+        <FiInfo
+          color={token('colors.accent.text-subdued')}
           size="14px"
-          ml="4px"
+          style={{ marginLeft: token('spacing.-space.01') }}
         />
       </Stack>
     </Tooltip>

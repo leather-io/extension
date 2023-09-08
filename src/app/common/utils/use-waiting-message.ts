@@ -6,7 +6,7 @@ import { useInterval } from './use-interval';
 export type WaitingMessages = Record<number, string>;
 
 function messageForSecondsPassed(waitingMessages: WaitingMessages, seconds: number) {
-  return waitingMessages[seconds as keyof typeof waitingMessages];
+  return waitingMessages[seconds ];
 }
 
 export const useWaitingMessage = (

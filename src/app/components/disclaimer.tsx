@@ -1,8 +1,7 @@
 import { Box, BoxProps, styled } from 'leather-styles/jsx';
 
 import { openInNewTab } from '@app/common/utils/open-in-new-tab';
-
-import { LeatherButton } from './button/button';
+import { LeatherButton } from '@app/components/button/button';
 
 interface DisclaimerProps extends BoxProps {
   disclaimerText: string;

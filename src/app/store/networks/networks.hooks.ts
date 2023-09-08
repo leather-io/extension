@@ -4,7 +4,7 @@ import { useSelector } from 'react-redux';
 import { StacksNetwork } from '@stacks/network';
 import { ChainID, TransactionVersion } from '@stacks/transactions';
 
-import { NetworkModes } from '@shared/constants';
+import { BitcoinNetworkModes } from '@shared/constants';
 
 import { whenStacksChainId } from '@app/common/utils';
 import { useAppDispatch } from '@app/store';
@@ -18,7 +18,7 @@ export function useCurrentNetworkState() {
 
   return useMemo(() => {
     const isTestnet = currentNetwork.chain.stacks.chainId === ChainID.Testnet;
-    const mode = (isTestnet ? 'testnet' : 'mainnet') as NetworkModes;
+    const mode = isTestnet ? 'testnet' : ('mainnet' as BitcoinNetworkModes);
     return { ...currentNetwork, isTestnet, mode };
   }, [currentNetwork]);
 }

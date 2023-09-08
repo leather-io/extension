@@ -1,6 +1,8 @@
 import { FiFastForward } from 'react-icons/fi';
 
-import { Box, Button, color } from '@stacks/ui';
+import { token } from 'leather-styles/tokens';
+
+import { LeatherButton } from '../button/button';
 
 interface IncreaseFeeButtonProps {
   isEnabled?: boolean;
@@ -13,26 +15,30 @@ export function IncreaseFeeButton(props: IncreaseFeeButtonProps) {
   const isActive = isEnabled && isHovered && !isSelected;
 
   return (
-    <Button
+    <LeatherButton
       _hover={{
-        color: color('text-title'),
+        color: token('colors.accent.action-primary-default'),
       }}
-      color={color('text-body')}
+      color={token('colors.accent.text-primary')}
       fontSize={0}
       minWidth="105px"
       ml="auto"
-      mode="tertiary"
+      variant="ghost"
+      // #4164 FIXME migrate tertiary buttons
+      // mode="tertiary"
       onClick={e => {
         onIncreaseFee();
         e.stopPropagation();
       }}
       opacity={!isActive ? 0 : 1}
       pointerEvents={!isActive ? 'none' : 'all'}
-      size="sm"
+      // FIXME fix this size
+      //size="sm"
       zIndex={999}
     >
-      <Box mr="3px" as={FiFastForward} color={color('accent')} />
+      {/* // #4164 FIXME migrate accent colour + chheck this icon*/}
+      <FiFastForward color={token('colors.accent.text-primary')} style={{ marginRight: '3px' }} />
       Increase fee
-    </Button>
+    </LeatherButton>
   );
 }

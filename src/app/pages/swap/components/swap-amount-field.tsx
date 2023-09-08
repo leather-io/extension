@@ -1,7 +1,10 @@
 import { ChangeEvent } from 'react';
 
-import { Input, Stack, color } from '@stacks/ui';
+// #4164 FIXME migrate Input
+import { Input } from '@stacks/ui';
 import { useField, useFormikContext } from 'formik';
+import { Stack } from 'leather-styles/jsx';
+import { token } from 'leather-styles/tokens';
 
 import { useShowFieldError } from '@app/common/form-utils';
 import { Caption } from '@app/components/typography';
@@ -28,16 +31,16 @@ export function SwapAmountField({ amountAsFiat, isDisabled, name }: SwapAmountFi
   }
 
   return (
-    <Stack alignItems="flex-end" spacing="extra-tight">
+    <Stack alignItems="flex-end" gap="space.01">
       <Caption as="label" hidden htmlFor={name}>
         {name}
       </Caption>
       <Input
-        _disabled={{ border: 'none', color: color('text-caption') }}
+        _disabled={{ border: 'none', color: token('colors.accent.text-subdued') }}
         _focus={{ border: 'none' }}
         autoComplete="off"
         border="none"
-        color={showError ? color('feedback-error') : 'unset'}
+        color={showError ? token('colors.error') : 'unset'}
         display="block"
         fontSize="20px"
         height="28px"
@@ -50,7 +53,7 @@ export function SwapAmountField({ amountAsFiat, isDisabled, name }: SwapAmountFi
         {...field}
         onChange={onChange}
       />
-      <Caption color={showError ? color('feedback-error') : color('text-caption')}>
+      <Caption color={showError ? token('colors.error') : token('colors.accent.text-subdued')}>
         {amountAsFiat}
       </Caption>
     </Stack>

@@ -1,8 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import { Stack } from '@stacks/ui';
-import { styled } from 'leather-styles/jsx';
+import { Stack, styled } from 'leather-styles/jsx';
 import { token } from 'leather-styles/tokens';
 
 import { RouteUrls } from '@shared/route-urls';
@@ -31,10 +30,10 @@ export function ViewSecretKey() {
   return (
     <CenteredPageContainer>
       <Stack
-        maxWidth={token('sizes.centeredPageFullWidth')}
-        pb={['loose', 'unset']}
-        px={['loose', 'base-loose']}
-        spacing="loose"
+        maxWidth={token('sizes.centredPageFullWidth')}
+        pb={['space.05', 'unset']}
+        px={['space.05', 'base-loose']}
+        gap="space.05" // TODO - make sure spacing maps to gap
         textAlign={['left', 'center']}
         width="100%"
       >

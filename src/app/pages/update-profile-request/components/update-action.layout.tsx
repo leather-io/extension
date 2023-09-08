@@ -1,32 +1,36 @@
-import { Button, Stack } from '@stacks/ui';
 import { UpdateProfileRequestSelectors } from '@tests/selectors/requests.selectors';
+import { HStack } from 'leather-styles/jsx';
+
+import { LeatherButton } from '@app/components/button/button';
 
 interface UpdateActionProfileProps {
   onUpdateProfile: () => Promise<void>;
   onCancel: () => void;
-  isLoading: boolean;
+  // isLoading: boolean;
 }
 
 export function UpdateActionLayout({
   onUpdateProfile,
   onCancel,
-  isLoading,
-}: UpdateActionProfileProps) {
+}: // isLoading,
+UpdateActionProfileProps) {
   return (
-    <Stack isInline>
-      <Button onClick={onCancel} flexGrow={1} borderRadius="10px" mode="tertiary">
+    <HStack>
+      {/* FIXME - figure out tertiary variant of LeatherButton */}
+      <LeatherButton onClick={onCancel} flexGrow={1} borderRadius="10px" variant="ghost">
         Cancel
-      </Button>
-      <Button
+      </LeatherButton>
+      <LeatherButton
         data-testid={UpdateProfileRequestSelectors.BtnUpdateProfile}
         type="submit"
         flexGrow={1}
         borderRadius="10px"
         onClick={onUpdateProfile}
-        isLoading={isLoading}
+        // #4164 FIXME migrate - add isLoading variant to button if needed
+        // isLoading={isLoading}
       >
         Update
-      </Button>
-    </Stack>
+      </LeatherButton>
+    </HStack>
   );
 }

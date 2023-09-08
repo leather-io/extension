@@ -1,9 +1,11 @@
 import type { ChangeEvent } from 'react';
 import { useCallback, useEffect, useRef, useState } from 'react';
 
-import { Box, Flex, Input, Stack, Text, color } from '@stacks/ui';
+// #4164 FIXME migrate Input
+import { Input } from '@stacks/ui';
 import { SendCryptoAssetSelectors } from '@tests/selectors/send.selectors';
 import { useField } from 'formik';
+import { Box, Flex, Stack, styled } from 'leather-styles/jsx';
 import { token } from 'leather-styles/tokens';
 
 import { STX_DECIMALS, TOKEN_NAME_LENGTH } from '@shared/constants';
@@ -141,8 +143,8 @@ export function AmountField({
   return (
     <Stack
       alignItems="center"
-      px="extra-loose"
-      spacing={['base', showError ? 'base' : '48px']}
+      px="space.06"
+      gap={['space.04', showError ? 'space.04' : '48px']}
       width="100%"
     >
       <Flex alignItems="center" flexDirection="column" onClick={onClickFocusInput}>
@@ -154,9 +156,9 @@ export function AmountField({
           position="relative"
           fontFamily="Marche"
         >
-          {isSendingMax ? <Text fontSize={fontSize + 'px'}>~</Text> : null}
+          {isSendingMax ? <styled.span fontSize={fontSize + 'px'}>~</styled.span> : null}
           <Input
-            _disabled={{ bg: color('bg') }}
+            _disabled={{ bg: token('colors.accent.background-primary') }}
             _focus={{
               border: 'none',
               color: token('colors.accent.text-primary'),
@@ -192,7 +194,7 @@ export function AmountField({
            * This is what we use to measure the size of the input, it's hidden
            * and with no pointer events so users can't interact with it
            */}
-          <Text
+          <styled.span
             position="absolute"
             ref={fieldRef}
             visibility="hidden"
@@ -205,16 +207,16 @@ export function AmountField({
             minWidth={1 + 'ch'}
           >
             {field.value}
-          </Text>
-          <Text
+          </styled.span>
+          <styled.span
             fontFamily="Marche"
             color={token('colors.accent.text-primary')}
             fontSize={fontSize + 'px'}
             letterSpacing="0.64px"
-            pl="tight"
+            pl="space.02"
           >
             {symbol.toUpperCase()}
-          </Text>
+          </styled.span>
         </Flex>
         <Box mt="12px">{switchableAmount && switchableAmount}</Box>
       </Flex>

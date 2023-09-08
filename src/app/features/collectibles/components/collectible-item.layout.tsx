@@ -1,11 +1,11 @@
 import { ReactNode } from 'react';
 
-import { Box, Button, Stack, Text } from '@stacks/ui';
-import type { BoxProps } from '@stacks/ui';
+import { Box, BoxProps, Stack, styled } from 'leather-styles/jsx';
 import { token } from 'leather-styles/tokens';
 import { useHover } from 'use-events';
 
 import { figmaTheme } from '@app/common/utils/figma-theme';
+import { LeatherButton } from '@app/components/button/button';
 
 import { CollectibleHover } from './collectible-hover';
 
@@ -40,11 +40,12 @@ export function CollectibleItemLayout({
           outlineOffset: '-4px',
         }}
         _hover={{ backgroundColor: token('colors.accent.background-secondary') }}
-        as={onClickLayout ? 'button' : 'div'}
+        // // #4164 FIXME migrate - not sure if this 'as' matters - if so refactor
+        // as={onClickLayout ? 'button' : 'div'}
         borderRadius="20px"
         onClick={onClickLayout}
         padding="4px"
-        sx={{
+        style={{
           // Buttons have had styles applied that center their children text
           // nodes, which is undesirable in this case. A button is being used more
           // for its actionability (focus, onclick) & accessibility rather than
@@ -76,8 +77,8 @@ export function CollectibleItemLayout({
             {children}
           </Box>
         </Box>
-        <Stack mt="base" pl="tight" spacing="extra-tight" textAlign="left">
-          <Text
+        <Stack mt="space.04" pl="space.02" gap="space.01" textAlign="left">
+          <styled.span
             color={token('colors.accent.text-primary')}
             fontWeight="500"
             overflow="hidden"
@@ -86,18 +87,20 @@ export function CollectibleItemLayout({
             width="95%"
           >
             {title}
-          </Text>
-          <Text color={token('colors.accent.text-subdued')} fontSize={1}>
+          </styled.span>
+          <styled.span color={token('colors.accent.text-subdued')} fontSize={1}>
             {subtitle}
-          </Text>
+          </styled.span>
         </Stack>
 
         {onClickSend ? (
           <Box padding="8px">
-            <Button
-              mode="tertiary"
+            <LeatherButton
+              variant="ghost"
+              // #4164 FIXME migrate - check tertiary buttons
+              // mode="tertiary"
               p="6px 12px"
-              sx={{
+              style={{
                 clipPath: isHovered ? 'none' : 'circle(0%)',
               }}
               onClick={e => {
@@ -107,7 +110,7 @@ export function CollectibleItemLayout({
               _focus={{ clipPath: 'none', outline: `4px solid ${figmaTheme.borderFocused}` }}
             >
               Send
-            </Button>
+            </LeatherButton>
           </Box>
         ) : (
           <Box padding="4px" />

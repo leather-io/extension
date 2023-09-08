@@ -1,6 +1,7 @@
 import { FiCheck } from 'react-icons/fi';
 
-import { Flex, FlexProps, color } from '@stacks/ui';
+import { Flex, FlexProps } from 'leather-styles/jsx';
+import { token } from 'leather-styles/tokens';
 
 import { Caption } from '@app/components/typography';
 
@@ -9,9 +10,10 @@ interface LedgerSuccessLabelProps extends FlexProps {
 }
 export function LedgerSuccessLabel({ children, ...props }: LedgerSuccessLabelProps) {
   return (
-    <Flex alignItems="center" color={color('feedback-success')} flexDirection="row" {...props}>
+    // #4164 FIXME migrate color success
+    <Flex alignItems="center" color={token('colors.green.100')} flexDirection="row" {...props}>
       <FiCheck />
-      <Caption color="inherited" ml="tight">
+      <Caption color="inherited" ml="space.02">
         {children}
       </Caption>
     </Flex>

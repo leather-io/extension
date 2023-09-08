@@ -1,6 +1,7 @@
 import toast from 'react-hot-toast';
 import { useLocation, useNavigate } from 'react-router-dom';
 
+// #4164 FIXME migrate useClipboard
 import { useClipboard } from '@stacks/ui';
 import { HomePageSelectors } from '@tests/selectors/home.selectors';
 import { Box, styled } from 'leather-styles/jsx';

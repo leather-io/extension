@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { toast } from 'react-hot-toast';
 import { useLocation, useNavigate } from 'react-router-dom';
 
-import { Stack } from '@stacks/ui';
+import { Stack } from 'leather-styles/jsx';
 import get from 'lodash.get';
 
 import { logger } from '@shared/logger';
@@ -118,8 +118,8 @@ export function BrcChooseFee() {
     <Stack
       alignItems="center"
       minHeight={['unset', '630px']}
-      p="extra-loose"
-      spacing="base"
+      p="space.06"
+      gap="space.04"
       width="100%"
     >
       <LoadingSpinner />

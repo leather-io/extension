@@ -1,6 +1,8 @@
 import { styled } from 'leather-styles/jsx';
 import { type ButtonVariantProps, button as buttonRecipe } from 'leather-styles/recipes';
 
+// #4164 FIXME migrate - maybe we need an isLoading state here?
+
 const StyledButton = styled('button');
 
 export type ButtonProps = Omit<

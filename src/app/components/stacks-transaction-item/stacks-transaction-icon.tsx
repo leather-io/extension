@@ -1,6 +1,8 @@
 import { FiAlertOctagon, FiList } from 'react-icons/fi';
 
-import { BoxProps, DynamicColorCircle } from '@stacks/ui';
+// #4164 FIXME migrate DynamicColorCircle
+import { DynamicColorCircle } from '@stacks/ui';
+import { BoxProps } from 'leather-styles/jsx';
 
 import { StacksTx } from '@shared/models/transactions/stacks-transaction.model';
 
@@ -23,7 +25,6 @@ export function StacksTransactionIcon({ transaction, ...rest }: TransactionIconP
           string={`${transaction.smart_contract.contract_id}`}
           backgroundSize="200%"
           size="36px"
-          {...rest}
         >
           <TransactionTypeIcon transaction={transaction} />
         </DynamicColorCircle>
@@ -35,7 +36,6 @@ export function StacksTransactionIcon({ transaction, ...rest }: TransactionIconP
           string={`${transaction.contract_call.contract_id}::${transaction.contract_call.function_name}`}
           backgroundSize="200%"
           size="36px"
-          {...rest}
         >
           <TransactionTypeIcon transaction={transaction} />
         </DynamicColorCircle>

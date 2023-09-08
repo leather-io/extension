@@ -1,4 +1,5 @@
-import { BoxProps } from '@stacks/ui';
+// FIXME  - refactor <Caption and then rip out BoxProps
+import { BoxProps } from 'leather-styles/jsx';
 import { token } from 'leather-styles/tokens';
 
 import { Caption } from '@app/components/typography';

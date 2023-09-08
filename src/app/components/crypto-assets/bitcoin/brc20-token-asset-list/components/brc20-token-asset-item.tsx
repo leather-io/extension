@@ -1,5 +1,5 @@
-import { BoxProps } from '@stacks/ui';
 import { forwardRefWithAs } from '@stacks/ui-core';
+import { BoxProps } from 'leather-styles/jsx';
 
 import { createMoney } from '@shared/models/money.model';
 

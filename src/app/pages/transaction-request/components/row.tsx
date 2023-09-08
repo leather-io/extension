@@ -1,4 +1,4 @@
-import { Stack, StackProps, Text } from '@stacks/ui';
+import { Stack, StackProps, styled } from 'leather-styles/jsx';
 
 import { SpaceBetween } from '@app/components/layout/space-between';
 import { Caption } from '@app/components/typography';
@@ -15,7 +15,7 @@ export function Row(props: RowProps): React.JSX.Element {
   const { name, type, value, ...rest } = props;
 
   return (
-    <Stack spacing="base-tight" {...rest}>
+    <Stack gap="space.03" {...rest}>
       <SpaceBetween flexShrink={0}>
         {name && <Caption>{name}</Caption>}
         {type && <Caption>{type}</Caption>}
@@ -24,9 +24,15 @@ export function Row(props: RowProps): React.JSX.Element {
       {type?.toLowerCase() === 'principal' ? (
         <PrincipalValue address={value} />
       ) : (
-        <Text display="block" fontSize={2} fontWeight={500} lineHeight="1.6" wordBreak="break-all">
+        <styled.span
+          display="block"
+          fontSize={2}
+          fontWeight={500}
+          lineHeight="1.6"
+          wordBreak="break-all"
+        >
           {value}
-        </Text>
+        </styled.span>
       )}
     </Stack>
   );

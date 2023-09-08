@@ -1,6 +1,6 @@
 import { useCallback } from 'react';
 
-import { BoxProps } from '@stacks/ui';
+import { BoxProps } from 'leather-styles/jsx';
 
 import { UserSelectedTheme, getThemeLabel } from '@app/common/theme-provider';
 

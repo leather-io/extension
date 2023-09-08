@@ -1,8 +1,7 @@
 import { memo } from 'react';
 
-import { Stack } from '@stacks/ui';
 import { TransactionRequestSelectors } from '@tests/selectors/requests.selectors';
-import { styled } from 'leather-styles/jsx';
+import { Stack, styled } from 'leather-styles/jsx';
 
 import { useDefaultRequestParams } from '@app/common/hooks/use-default-request-search-params';
 import { addPortSuffix, getUrlHostname } from '@app/common/utils';
@@ -30,15 +29,15 @@ function PageTopBase() {
   return (
     <Stack
       data-testid={TransactionRequestSelectors.TransactionRequestPage}
-      mb="loose"
-      spacing="base"
+      mb="space.05"
+      gap="space.04"
       width="100%"
     >
       <styled.h1 mb="space.04" textStyle="heading.03">
         {pageTitle}
       </styled.h1>
       {caption && (
-        <Flag align="middle" img={<Favicon origin={origin ?? ''} />} pl="tight">
+        <Flag align="middle" img={<Favicon origin={origin ?? ''} />} pl="space.02">
           <styled.span textStyle="label.02" wordBreak="break-word">
             {caption}
           </styled.span>

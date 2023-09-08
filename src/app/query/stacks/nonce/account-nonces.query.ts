@@ -1,4 +1,3 @@
-import type { AddressNonces } from '@stacks/blockchain-api-client/lib/generated';
 import { useQuery } from '@tanstack/react-query';
 
 import { AppUseQueryConfig } from '@app/query/query-config';
@@ -21,7 +20,7 @@ function fetchAccountNonces(client: StacksClient, limiter: RateLimiter) {
     await limiter.removeTokens(1);
     return client.accountsApi.getAccountNonces({
       principal,
-    }) as Promise<AddressNonces>;
+    });
   };
 }
 

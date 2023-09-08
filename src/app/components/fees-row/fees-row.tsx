@@ -1,9 +1,9 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
 
-import { Box, StackProps } from '@stacks/ui';
 import { SharedComponentsSelectors } from '@tests/selectors/shared-component.selectors';
 import BigNumber from 'bignumber.js';
 import { useField } from 'formik';
+import { StackProps, styled } from 'leather-styles/jsx';
 
 import { FeeTypes, Fees } from '@shared/models/fees/fees.model';
 import { createMoney } from '@shared/models/money.model';
@@ -74,8 +74,8 @@ export function FeesRow(props: FeeRowProps): React.JSX.Element {
     },
     [feeTypeHelper, feeHelper, fees]
   );
-
-  if (!hasFeeEstimates) return <LoadingRectangle height="32px" width="100%" {...rest} />;
+  // #4164 FIXME migrate - check this and if it can be updated
+  if (!hasFeeEstimates) return <LoadingRectangle height="32px" width="100%" /*{...rest}*/ />;
 
   return (
     <FeesRowLayout
@@ -88,13 +88,13 @@ export function FeesRow(props: FeeRowProps): React.JSX.Element {
             setFieldWarning={(value: string) => setFieldWarning(value)}
           />
         ) : (
-          <Box as="button" onClick={() => handleSelectFeeEstimateOrCustomField(FeeTypes.Custom)}>
+          <styled.button onClick={() => handleSelectFeeEstimateOrCustomField(FeeTypes.Custom)}>
             <TransactionFee
               fee={feeField.value}
               feeCurrencySymbol={feeCurrencySymbol}
               usdAmount={feeInUsd}
             />
-          </Box>
+          </styled.button>
         )
       }
       fieldWarning={fieldWarning}

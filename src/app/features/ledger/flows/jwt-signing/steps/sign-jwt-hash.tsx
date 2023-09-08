@@ -1,7 +1,8 @@
 import { useContext } from 'react';
 
 import SignLedgerTransaction from '@assets/images/ledger/sign-ledger-transaction.png';
-import { Box, Flex, color } from '@stacks/ui';
+import { Box, Flex } from 'leather-styles/jsx';
+import { token } from 'leather-styles/tokens';
 
 import { DeviceOperationApprovalStatus } from '@app/features/ledger/components/device-approval-status';
 import { LedgerScreenDetail } from '@app/features/ledger/components/ledger-screen-detail';
@@ -16,22 +17,22 @@ export function SignJwtHash() {
 
   return (
     <LedgerWrapper>
-      <Box mt="tight">
+      <Box mt="space.02">
         <img src={SignLedgerTransaction} width="228px" />
       </Box>
-      <LedgerTitle mt="loose" mx="50px">
+      <LedgerTitle mt="space.05" mx="50px">
         Approve the JWT hash on your device
       </LedgerTitle>
       <DeviceOperationApprovalStatus
         status={hasApprovedOperation ? 'approved' : 'awaiting-approval'}
       />
       <Flex
-        bg={color('bg-4')}
+        bg={token('colors.accent.background-secondary')}
         borderRadius="16px"
         flexDirection="column"
         textAlign="left"
-        px="extra-loose"
-        py="extra-loose"
+        px="space.06"
+        py="space.06"
         width="100%"
       >
         <LedgerScreenDetail

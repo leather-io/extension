@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { FiAlertTriangle } from 'react-icons/fi';
 
-import { Box, color } from '@stacks/ui';
+import { token } from 'leather-styles/tokens';
 
 import { useDrawers } from '@app/common/hooks/use-drawers';
 import { ControlledDrawer } from '@app/components/drawer/controlled-drawer';
@@ -20,7 +20,7 @@ export function HighFeeDrawer(props: { learnMoreUrl: string }) {
 
   return (
     <ControlledDrawer
-      icon={<Box as={FiAlertTriangle} color={color('feedback-error')} size="36px" />}
+      icon={<FiAlertTriangle color={token('colors.error')} size="36px" />}
       isShowing={isShowingHighFeeConfirmation}
       onClose={() => setIsShowingHighFeeConfirmation(false)}
     >

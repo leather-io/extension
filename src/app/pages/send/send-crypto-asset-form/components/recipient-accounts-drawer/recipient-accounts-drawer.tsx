@@ -2,7 +2,7 @@ import { memo, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Virtuoso } from 'react-virtuoso';
 
-import { Box } from '@stacks/ui';
+import { Box } from 'leather-styles/jsx';
 
 import { useWalletType } from '@app/common/use-wallet-type';
 import { BaseDrawer } from '@app/components/drawer/base-drawer';
@@ -23,9 +23,9 @@ export const RecipientAccountsDrawer = memo(() => {
 
   return (
     <BaseDrawer title="My accounts" isShowing onClose={onGoBack}>
-      <Box mb="loose" mx={['base-loose', 'extra-loose']}>
+      <Box mb="space.05" mx={['base-loose', 'space.06']}>
         {accounts.length <= smallNumberOfAccountsToRenderWholeList ? (
-          <Box marginBottom={8} mb={whenWallet({ ledger: 'base', software: '' })}>
+          <Box marginBottom={8} mb={whenWallet({ ledger: 'space.04', software: '' })}>
             {accounts.map(item => (
               <AccountListItem account={item} key={item.address} onClose={onGoBack} />
             ))}

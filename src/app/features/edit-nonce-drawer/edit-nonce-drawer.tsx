@@ -54,7 +54,7 @@ export function EditNonceDrawer() {
 
   return (
     <BaseDrawer isShowing onClose={onClose} pauseOnClickOutside title="Edit nonce">
-      <Stack gap="space.05" pb="space.06" px="loose">
+      <Stack gap="space.05" pb="space.06" px="space.05">
         <CustomFeeMessaging />
         <EditNonceForm onBlur={onBlur} onClose={onClose} onSubmit={onSubmit} />
       </Stack>

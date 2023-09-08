@@ -1,22 +1,27 @@
-import { Button, ButtonProps } from '@stacks/ui';
+// #4164 FIXME migrate - need to check thos properly, could be an icon
+// probably don't need this component
+import { LeatherButton } from '@app/components/button/button';
 
-interface FeeMultiplierButtonProps extends ButtonProps {
+interface FeeMultiplierButtonProps {
   multiplier: number;
+  onClick: () => void;
 }
 
-export function FeeMultiplierButton(props: FeeMultiplierButtonProps): React.JSX.Element {
-  const { multiplier, ...rest } = props;
-
+export function FeeMultiplierButton({
+  multiplier,
+  onClick,
+}: FeeMultiplierButtonProps): React.JSX.Element {
   return (
-    <Button
+    <LeatherButton
       type="button"
-      size="sm"
-      mode="tertiary"
+      // size="sm"
+      // #4164 FIXME migrate  tertiary
+      variant="ghost"
       borderRadius="6px"
       key={`multiply-${multiplier}`}
-      {...rest}
+      onClick={onClick}
     >
       {multiplier}x
-    </Button>
+    </LeatherButton>
   );
 }

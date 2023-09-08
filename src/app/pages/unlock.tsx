@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { Outlet, useNavigate } from 'react-router-dom';
 
-import { Stack } from '@stacks/ui';
+import { Stack } from 'leather-styles/jsx';
 import { Box } from 'leather-styles/jsx';
 import { token } from 'leather-styles/tokens';
 
@@ -44,7 +44,7 @@ export function Unlock() {
       <Stack
         maxWidth={token('sizes.centeredPageFullWidth')}
         px={['loose', 'base-loose']}
-        spacing="loose"
+        gap="space.05"
         textAlign={['left', 'center']}
         width="100%"
       >

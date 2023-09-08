@@ -1,6 +1,6 @@
 import { useEffect, useRef } from 'react';
 
-import { Box } from '@stacks/ui';
+import { Box } from 'leather-styles/jsx';
 
 import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
 import { useIntersectionObserver } from '@app/common/hooks/use-intersection-observer';

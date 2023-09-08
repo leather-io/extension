@@ -1,4 +1,6 @@
-import { Box, Flex, FlexProps, Spacing } from '@stacks/ui';
+import { Spacing } from '@stacks/ui';
+// #4164 FIXME migrate this spacing type and update
+import { Box, Flex, FlexProps } from 'leather-styles/jsx';
 
 import { SpaceBetween } from './space-between';
 
@@ -25,7 +27,7 @@ interface FlagProps extends FlexProps {
  *   1st. Image content
  *   2nd. Body content
  */
-export function Flag({ spacing = 'tight', align = 'top', img, children, ...props }: FlagProps) {
+export function Flag({ spacing = 'space.02', align = 'top', img, children, ...props }: FlagProps) {
   return (
     <Flex flexDirection="row" align={alignToFlexProp(align)} {...props}>
       <Box mr={spacing}>{img}</Box>

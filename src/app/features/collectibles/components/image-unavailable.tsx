@@ -1,5 +1,5 @@
-import { Box, Flex } from '@stacks/ui';
-import { Text } from '@stacks/ui';
+import { Box, Flex } from 'leather-styles/jsx';
+import { styled } from 'leather-styles/jsx';
 
 import { figmaTheme } from '@app/common/utils/figma-theme';
 import { EyeSlashIcon } from '@app/components/icons/eye-slash-icon';
@@ -18,12 +18,12 @@ export function ImageUnavailable() {
       <Box pb="12px">
         <EyeSlashIcon />
       </Box>
-      <Text fontSize="12px" lineHeight="16px">
+      <styled.span fontSize="12px" lineHeight="16px">
         Image currently
-      </Text>
-      <Text fontSize="12px" lineHeight="16px">
+      </styled.span>
+      <styled.span fontSize="12px" lineHeight="16px">
         unavailable
-      </Text>
+      </styled.span>
     </Flex>
   );
 }

@@ -1,7 +1,9 @@
+// #4164 FIXME replace with radix tooltip
+// not sure why we have 2 types of tooltip
 import { memo, useMemo } from 'react';
 
-import { Box, BoxProps } from '@stacks/ui';
 import Tippy, { TippyProps } from '@tippyjs/react';
+import { BoxProps, styled } from 'leather-styles/jsx';
 
 interface TooltipProps extends TippyProps {
   hideOnClick?: boolean;
@@ -12,9 +14,9 @@ export const Tooltip = memo(
   ({ children, hideOnClick, label, labelProps = {}, ...rest }: TooltipProps) => {
     const content = useMemo(
       () => (
-        <Box as="span" display="block" fontSize={0} {...labelProps}>
+        <styled.span display="block" fontSize={0} {...labelProps}>
           {label}
-        </Box>
+        </styled.span>
       ),
       [labelProps, label]
     );

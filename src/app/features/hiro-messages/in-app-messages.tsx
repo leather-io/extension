@@ -1,4 +1,4 @@
-import { Flex, FlexProps } from '@stacks/ui';
+import { Flex, FlexProps } from 'leather-styles/jsx';
 
 import { useRemoteHiroMessages } from '@app/query/common/remote-config/remote-config.query';
 import { useCurrentNetworkState } from '@app/store/networks/networks.hooks';

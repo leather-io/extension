@@ -1,6 +1,7 @@
 import { FiAlertTriangle } from 'react-icons/fi';
 
-import { Box, Stack, color } from '@stacks/ui';
+import { HStack, styled } from 'leather-styles/jsx';
+import { token } from 'leather-styles/tokens';
 
 import { Caption } from '@app/components/typography';
 
@@ -12,9 +13,12 @@ export function ErrorMessage(props: ErrorMessageProps) {
   if (!errorMessage) return null;
 
   return (
-    <Stack alignItems="center" bg="#FCEEED" p="base" borderRadius="12px" isInline>
-      <Box color={color('feedback-error')} strokeWidth={2} as={FiAlertTriangle} />
-      <Caption color={color('feedback-error')}>{errorMessage}</Caption>
-    </Stack>
+    // // #4164 FIXME migrate bg="#FCEEED"
+    <HStack alignItems="center" bg="#FCEEED" p="space.04" borderRadius="12px">
+      <styled.span>
+        <FiAlertTriangle color={token('colors.error')} strokeWidth={2} />
+      </styled.span>
+      <Caption color={token('colors.error')}>{errorMessage}</Caption>
+    </HStack>
   );
 }

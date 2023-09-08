@@ -1,4 +1,4 @@
-import { Box, Flex } from '@stacks/ui';
+import { Box, Flex } from 'leather-styles/jsx';
 import { styled } from 'leather-styles/jsx';
 import { useHover } from 'use-events';
 
@@ -30,11 +30,11 @@ export function DrawerHeader({
 
   return (
     <Flex
-      pb="base"
+      pb="space.04"
       justifyContent="space-between"
       alignItems="center"
-      pt="loose"
-      px="loose"
+      pt="space.05"
+      px="space.05"
       {...bind}
     >
       {enableGoBack ? (
@@ -44,7 +44,8 @@ export function DrawerHeader({
           onAction={onGoBack}
         />
       ) : (
-        <Box size="36px" />
+        // #4164 FIXME migrate check and refactor if this is needed
+        <Box width="36px" height="36px" />
       )}
       {icon && icon}
       {title && <styled.h1 textStyle="heading.05">{title}</styled.h1>}

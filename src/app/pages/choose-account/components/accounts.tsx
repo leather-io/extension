@@ -3,7 +3,7 @@ import { FiPlusCircle } from 'react-icons/fi';
 import { useNavigate } from 'react-router-dom';
 import { Virtuoso } from 'react-virtuoso';
 
-import { Box, BoxProps, FlexProps, Stack, Text } from '@stacks/ui';
+import { Box, BoxProps, FlexProps, HStack } from 'leather-styles/jsx';
 import { styled } from 'leather-styles/jsx';
 
 import { RouteUrls } from '@shared/route-urls';
@@ -67,7 +67,7 @@ const ChooseAccountItem = memo((props: ChooseAccountItemProps) => {
   return (
     // Padding required on outer element to prevent jumpy list behaviours in
     // virtualised list library
-    <Box pb="loose">
+    <Box pb="space.05">
       <AccountListItemLayout
         index={account.index}
         stxAddress={account.address}
@@ -112,11 +112,11 @@ const AddAccountAction = memo(() => {
   };
 
   return (
-    <Box mb="loose" px="base-tight" py="tight" onClick={onCreateAccount} {...bind}>
-      <Stack isInline alignItems="center">
-        <Box size="16px" as={FiPlusCircle} />
-        <Text color="currentColor">Generate new account</Text>
-      </Stack>
+    <Box mb="space.05" px="space.03" py="space.02" onClick={onCreateAccount} {...bind}>
+      <HStack alignItems="center">
+        <FiPlusCircle width="16px" height="16px" />
+        <styled.span color="currentColor">Generate new account</styled.span>
+      </HStack>
       {component}
     </Box>
   );
@@ -144,7 +144,7 @@ export const ChooseAccountsList = memo(() => {
   if (!accounts) return null;
 
   return (
-    <Box mt="loose" width="100%">
+    <Box mt="space.05" width="100%">
       {whenWallet({ software: <AddAccountAction />, ledger: <></> })}
       <Virtuoso
         useWindowScroll

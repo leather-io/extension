@@ -1,11 +1,12 @@
-import { Box, BoxProps, Text, color } from '@stacks/ui';
+import { Box, BoxProps, styled } from 'leather-styles/jsx';
+import { token } from 'leather-styles/tokens';
 
 export function InsufficientBalanceError(props: BoxProps) {
   return (
     <Box display="flex" alignItems="center" minHeight="40px" {...props}>
-      <Text color={color('feedback-error')} fontSize={1} textAlign="center">
+      <styled.span color={token('colors.error')} fontSize={1} textAlign="center">
         Fee is too expensive for available bitcoin balance
-      </Text>
+      </styled.span>
     </Box>
   );
 }

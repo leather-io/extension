@@ -1,10 +1,11 @@
 import { Suspense } from 'react';
 
-import { Stack, color } from '@stacks/ui';
+import { Stack } from 'leather-styles/jsx';
+import { divider } from 'leather-styles/patterns';
+import { token } from 'leather-styles/tokens';
 
 import { useExplorerLink } from '@app/common/hooks/use-explorer-link';
 import { formatContractId } from '@app/common/utils';
-import { Divider } from '@app/components/layout/divider';
 import { Title } from '@app/components/typography';
 import { AttachmentRow } from '@app/pages/transaction-request/components/attachment-row';
 import { ContractPreviewLayout } from '@app/pages/transaction-request/components/contract-preview';
@@ -22,12 +23,12 @@ function ContractCallDetailsSuspense() {
   return (
     <Stack
       border="4px solid"
-      borderColor={color('border')}
+      borderColor={token('colors.accent.border-default')}
       borderRadius="12px"
-      mb="loose"
+      mb="space.05"
       px="base-loose"
-      py="extra-loose"
-      spacing="loose"
+      py="space.06"
+      gap="space.05"
       width="100%"
     >
       <Title as="h2" fontWeight="500">
@@ -45,7 +46,15 @@ function ContractCallDetailsSuspense() {
         contractName={contractName}
         functionName={functionName}
       />
-      <Stack divider={<Divider />} spacing="base">
+      {/* TODO - make sure this looks OK then come up with a better way of sharing this logic - new component <DividedStack  */}
+      <Stack
+        gap="space.04"
+        className={divider({
+          orientation: 'horizontal',
+          thickness: '1px',
+          color: token('colors.accent.border-default'),
+        })}
+      >
         <FunctionArgumentsList />
         {attachment && <AttachmentRow />}
       </Stack>

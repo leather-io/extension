@@ -26,7 +26,7 @@ export function getTaprootAddress({ index, keychain, network }: GetTaprootAddres
     throw new Error('Expected publicKey to be defined');
   }
 
-  const payment = getTaprootPayment(addressIndex.publicKey!, network);
+  const payment = getTaprootPayment(addressIndex.publicKey, network);
 
   if (!payment.address) throw new Error('Expected address to be defined');
 

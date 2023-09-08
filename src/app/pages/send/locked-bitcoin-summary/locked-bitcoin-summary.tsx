@@ -2,8 +2,10 @@ import { toast } from 'react-hot-toast';
 import { FiCheck, FiCopy, FiExternalLink } from 'react-icons/fi';
 import { useLocation } from 'react-router-dom';
 
-import { Stack, useClipboard } from '@stacks/ui';
-import { Text } from '@stacks/ui';
+// #4164 FIXME migrate useClipboard
+import { useClipboard } from '@stacks/ui';
+import { HStack } from 'leather-styles/jsx';
+import { styled } from 'leather-styles/jsx';
 
 import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
 import { useExplorerLink } from '@app/common/hooks/use-explorer-link';
@@ -45,20 +47,20 @@ export function LockBitcoinSummary() {
         fiatValue={txFiatValue}
         fiatSymbol={txFiatValueSymbol}
         symbol={symbol}
-        icon={FiCheck}
-        my="loose"
-        px="loose"
+        icon={<FiCheck size="32px" />}
+        my="space.05"
+        px="space.05"
       />
-      <Text fontSize={2} fontWeight={200} padding={'25px'} textAlign={'justify'}>
+      <styled.span fontSize={2} fontWeight={200} padding={'25px'} textAlign={'justify'}>
         <span style={{ fontWeight: 500 }}>Success!</span> Your bitcoin has been locked securely. All
         that's left is for it to be confirmed on the blockchain. After confirmation, you can proceed
         with borrowing against it.
-      </Text>
+      </styled.span>
       <InfoCardFooter>
-        <Stack spacing="base" isInline width="100%">
-          <InfoCardBtn onClick={onClickLink} icon={FiExternalLink} label="View Details" />
-          <InfoCardBtn onClick={onClickCopy} icon={FiCopy} label="Copy ID" />
-        </Stack>
+        <HStack gap="space.04" width="100%">
+          <InfoCardBtn onClick={onClickLink} icon={<FiExternalLink />} label="View Details" />
+          <InfoCardBtn onClick={onClickCopy} icon={<FiCopy />} label="Copy ID" />
+        </HStack>
       </InfoCardFooter>
     </InfoCard>
   );

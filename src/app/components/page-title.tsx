@@ -1,6 +1,6 @@
 import { ReactNode } from 'react';
 
-import { BoxProps } from '@stacks/ui';
+import { BoxProps } from 'leather-styles/jsx';
 
 import { Title } from '@app/components/typography';
 

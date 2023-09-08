@@ -2,7 +2,9 @@ import { toast } from 'react-hot-toast';
 import { FiCopy, FiExternalLink } from 'react-icons/fi';
 import { useLocation } from 'react-router-dom';
 
-import { Stack, useClipboard } from '@stacks/ui';
+// #4164 FIXME migrate useClipboard
+import { useClipboard } from '@stacks/ui';
+import { HStack, Stack } from 'leather-styles/jsx';
 
 import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
 import { useExplorerLink } from '@app/common/hooks/use-explorer-link';
@@ -61,10 +63,10 @@ export function BtcSentSummary() {
         fiatValue={txFiatValue}
         fiatSymbol={txFiatValueSymbol}
         symbol={symbol}
-        px="loose"
+        px="space.05"
       />
 
-      <Stack width="100%" px="extra-loose" pb="extra-loose">
+      <Stack width="100%" px="space.06" pb="space.06">
         <InfoCardRow title="To" value={<FormAddressDisplayer address={recipient} />} />
         <InfoCardSeparator />
         <InfoCardRow title="Total spend" value={totalSpend} />
@@ -75,10 +77,10 @@ export function BtcSentSummary() {
       </Stack>
 
       <InfoCardFooter>
-        <Stack spacing="base" isInline width="100%">
-          <InfoCardBtn onClick={onClickLink} icon={FiExternalLink} label="View Details" />
-          <InfoCardBtn onClick={onClickCopy} icon={FiCopy} label="Copy ID" />
-        </Stack>
+        <HStack gap="space.04" width="100%">
+          <InfoCardBtn onClick={onClickLink} icon={<FiExternalLink />} label="View Details" />
+          <InfoCardBtn onClick={onClickCopy} icon={<FiCopy />} label="Copy ID" />
+        </HStack>
       </InfoCardFooter>
     </InfoCard>
   );

@@ -1,5 +1,7 @@
 import { PayloadType, StacksTransaction, addressToString } from '@stacks/transactions';
-import { BoxProps, DynamicColorCircle } from '@stacks/ui';
+// #4164 FIXME migrate DynamicColorCircle
+import { DynamicColorCircle } from '@stacks/ui';
+import { BoxProps } from 'leather-styles/jsx';
 
 import { StacksTx } from '@shared/models/transactions/stacks-transaction.model';
 
@@ -20,7 +22,6 @@ export function SubmittedTransactionIcon({ transaction, ...rest }: SubmittedTran
           string={`${getTxSenderAddress(transaction)}.${transaction.payload.contractName.content}`}
           backgroundSize="200%"
           size="36px"
-          {...rest}
         >
           <TransactionTypeIcon
             transaction={
@@ -41,7 +42,6 @@ export function SubmittedTransactionIcon({ transaction, ...rest }: SubmittedTran
           }::${transaction.payload.functionName.content}`}
           backgroundSize="200%"
           size="36px"
-          {...rest}
         >
           <TransactionTypeIcon
             transaction={

@@ -1,7 +1,9 @@
 import { FormEvent, useCallback, useState } from 'react';
 
-import { Box, Input, Stack } from '@stacks/ui';
+// #4164 FIXME migrate Input - not sure if we even need it
+import { Input } from '@stacks/ui';
 import { SettingsSelectors } from '@tests/selectors/settings.selectors';
+import { Box, Stack } from 'leather-styles/jsx';
 import { styled } from 'leather-styles/jsx';
 import { token } from 'leather-styles/tokens';
 
@@ -9,7 +11,6 @@ import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
 import { useKeyActions } from '@app/common/hooks/use-key-actions';
 import { WaitingMessages, useWaitingMessage } from '@app/common/utils/use-waiting-message';
 import { LeatherButton } from '@app/components/button/button';
-import { Text } from '@app/components/typography';
 
 import { ErrorLabel } from './error-label';
 import { buildEnterKeyEvent } from './link';
@@ -55,7 +56,7 @@ export function RequestPassword({ title, caption, onSuccess }: RequestPasswordPr
     <>
       <styled.h1 textStyle="heading.02">{title}</styled.h1>
       <styled.p textStyle="body.02">{(isRunning && waitingMessage) || caption}</styled.p>
-      <Stack spacing="base">
+      <Stack gap="space.04">
         <Input
           autoFocus
           _focus={{ border: `2px solid ${token('colors.brown.12')}` }}
@@ -76,7 +77,7 @@ export function RequestPassword({ title, caption, onSuccess }: RequestPasswordPr
         {error && (
           <Box>
             <ErrorLabel>
-              <Text textStyle="caption">{error}</Text>
+              <styled.span textStyle="caption">{error}</styled.span>
             </ErrorLabel>
           </Box>
         )}

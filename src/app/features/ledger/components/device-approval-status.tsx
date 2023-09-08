@@ -6,9 +6,7 @@ interface DeviceOperationApprovalStatusProps {
 }
 export function DeviceOperationApprovalStatus({ status }: DeviceOperationApprovalStatusProps) {
   if (status === 'awaiting-approval')
-    return (
-      <LookingForLedgerLabel my="extra-loose">Waiting for your approval</LookingForLedgerLabel>
-    );
+    return <LookingForLedgerLabel my="space.06">Waiting for your approval</LookingForLedgerLabel>;
 
-  return <LedgerSuccessLabel my="extra-loose">Approved</LedgerSuccessLabel>;
+  return <LedgerSuccessLabel my="space.06">Approved</LedgerSuccessLabel>;
 }

@@ -1,5 +1,5 @@
-import { BoxProps, Flex } from '@stacks/ui';
 import { forwardRefWithAs } from '@stacks/ui-core';
+import { BoxProps, Flex } from 'leather-styles/jsx';
 import { styled } from 'leather-styles/jsx';
 
 import type { Money } from '@shared/models/money.model';
@@ -27,7 +27,7 @@ export const Brc20TokenAssetItemLayout = forwardRefWithAs(
 
     return (
       <Flex as={isPressable ? 'button' : 'div'} outline={0} ref={ref} {...rest} {...(bind as any)}>
-        <Flag align="middle" img={<Brc20TokenIcon />} spacing="base" width="100%">
+        <Flag align="middle" img={<Brc20TokenIcon />} gap="space.04" width="100%">
           <SpaceBetween width="100%">
             <styled.span
               maxWidth="150px"

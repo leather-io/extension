@@ -1,4 +1,4 @@
-import { Flex, FlexProps } from '@stacks/ui';
+import { Flex, FlexProps } from 'leather-styles/jsx';
 
 export function CenteredPageContainer(props: FlexProps) {
   return (
@@ -8,7 +8,7 @@ export function CenteredPageContainer(props: FlexProps) {
       flexDirection="column"
       minHeight={['70vh', '90vh']}
       justifyContent={['start', 'center', 'center']}
-      mb="loose"
+      mb="space.05"
       {...props}
     />
   );

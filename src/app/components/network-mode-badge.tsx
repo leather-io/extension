@@ -2,7 +2,7 @@ import { memo, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import { ChainID } from '@stacks/transactions';
-import { Flex, FlexProps, Text } from '@stacks/ui';
+import { Flex, FlexProps, styled } from 'leather-styles/jsx';
 import { token } from 'leather-styles/tokens';
 
 import { RouteUrls } from '@shared/route-urls';
@@ -34,9 +34,9 @@ export const NetworkModeBadge = memo((props: FlexProps) => {
       onClick={() => navigate(RouteUrls.SelectNetwork, { relative: 'path' })}
       {...props}
     >
-      <Text color={token('colors.accent.non-interactive')} fontSize="13px" fontWeight="500">
+      <styled.span color={token('colors.accent.non-interactive')} fontSize="13px" fontWeight="500">
         {name}
-      </Text>
+      </styled.span>
     </Flex>
   );
 });

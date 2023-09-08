@@ -1,6 +1,5 @@
 import { useNavigate } from 'react-router-dom';
 
-import { Box } from '@stacks/ui';
 import { token } from 'leather-styles/tokens';
 
 import { RouteUrls } from '@shared/route-urls';
@@ -37,7 +36,8 @@ export function AddCollectible() {
       subtitle="Collectible"
       title="Add new"
     >
-      <Box as={Plus} width="40px" />
+      {/* // #4164 FIXME check this icon */}
+      <Plus width="40px" />
     </CollectibleItemLayout>
   );
 }

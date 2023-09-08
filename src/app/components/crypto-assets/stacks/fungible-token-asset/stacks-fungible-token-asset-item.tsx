@@ -1,7 +1,7 @@
-import { BoxProps } from '@stacks/ui';
 import { forwardRefWithAs } from '@stacks/ui-core';
 import { getAssetName } from '@stacks/ui-utils';
 import { CryptoAssetSelectors } from '@tests/selectors/crypto-asset.selectors';
+import { BoxProps } from 'leather-styles/jsx';
 
 import type { StacksFungibleTokenAssetBalance } from '@shared/models/crypto-asset-balance.model';
 import { Money } from '@shared/models/money.model';

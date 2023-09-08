@@ -1,4 +1,5 @@
-import { useCallback, useState } from 'react';
+// import { useCallback, useState } from 'react';
+import { useCallback } from 'react';
 
 import { ProfileUpdatePayload } from '@stacks/connect';
 import { createFetchFn } from '@stacks/network';
@@ -62,16 +63,16 @@ export function UpdateAction({
 
   const { tabId, requestToken } = useProfileUpdateRequestSearchParams();
   const updateProfileSofwareWallet = useUpdateProfileSoftwareWallet();
-  const [isLoading, setIsLoading] = useState(false);
+  // const [isLoading, setIsLoading] = useState(false);
   const analytics = useAnalytics();
 
   if (!requestToken || !tabId) return null;
 
   const onUpdateProfile = async () => {
-    setIsLoading(true);
+    // setIsLoading(true);
     void analytics.track('request_update_profile_submit');
     const result = await updateProfileSofwareWallet(publicProfile);
-    setIsLoading(false);
+    // setIsLoading(false);
 
     finalizeProfileUpdate({
       requestPayload: requestToken,
@@ -84,12 +85,12 @@ export function UpdateAction({
     void analytics.track('request_update_profile_cancel');
     finalizeProfileUpdate({ requestPayload: requestToken, tabId, data: 'cancel' });
   };
-
+  // #4164 FIXME figure out this is loading
   return (
     <UpdateActionLayout
       onUpdateProfile={onUpdateProfile}
       onCancel={onCancel}
-      isLoading={isLoading}
+      // isLoading={isLoading}
     />
   );
 }

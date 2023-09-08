@@ -1,6 +1,6 @@
 import { memo } from 'react';
 
-import { BoxProps } from '@stacks/ui';
+import { BoxProps } from 'leather-styles/jsx';
 
 import { useCurrentAccountDisplayName } from '@app/common/hooks/account/use-account-names';
 import { useDrawers } from '@app/common/hooks/use-drawers';

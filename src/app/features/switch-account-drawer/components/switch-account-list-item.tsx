@@ -1,6 +1,7 @@
 import { memo } from 'react';
 import { useNavigate } from 'react-router-dom';
 
+// #4164 FIXME migrate useClipboard
 import { useClipboard } from '@stacks/ui';
 
 import { RouteUrls } from '@shared/route-urls';
@@ -73,7 +74,7 @@ export const SwitchAccountListItem = memo(
         hasCopied={hasCopied}
         onCopyToClipboard={onCopyToClipboard}
         onClickBtcCopyIcon={onClickBtcCopyIcon}
-        mt="loose"
+        mt="space.05"
         {...bind}
       >
         {component}

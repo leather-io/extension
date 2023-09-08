@@ -1,7 +1,10 @@
 import { useMemo } from 'react';
-import { FiCheck, FiChevronDown } from 'react-icons/fi';
+import { FiCheck } from 'react-icons/fi';
 
-import { Stack, Text, color } from '@stacks/ui';
+import { HStack, styled } from 'leather-styles/jsx';
+import { token } from 'leather-styles/tokens';
+
+import { ChevronDownIcon } from '@app/components/icons/chevron-down-icon';
 
 const labels = ['Low', 'Standard', 'High', 'Custom'];
 const testLabels = labels.map(label => label.toLowerCase());
@@ -17,25 +20,27 @@ export function FeeEstimateItem(props: FeeEstimateItemProps) {
 
   const selectedIcon = useMemo(() => {
     const isSelected = index === selectedItem;
-    return isSelected ? <FiCheck color={color('accent')} size="14px" /> : <></>;
+    return isSelected ? <FiCheck size="14px" /> : <></>;
   }, [index, selectedItem]);
 
   return (
-    <Stack
+    <HStack
       alignItems="center"
       data-testid={`${testLabels[index]}-fee`}
-      _hover={{ bg: isVisible ? color('bg-alt') : 'none', borderRadius: '8px' }}
+      _hover={{
+        bg: isVisible ? token('colors.accent.background-secondary') : 'none',
+        borderRadius: '8px',
+      }}
       height="32px"
-      isInline
       mb="0px !important"
       minWidth="100px"
       onClick={() => onSelectItem(index)}
-      p="tight"
+      p="space.02"
     >
-      <Text fontSize={1} fontWeight={500} ml="2px">
+      <styled.span fontSize={1} fontWeight={500} ml="2px">
         {labels[index]}
-      </Text>
-      {isVisible ? selectedIcon : <FiChevronDown />}
-    </Stack>
+      </styled.span>
+      {isVisible ? selectedIcon : <ChevronDownIcon />}
+    </HStack>
   );
 }

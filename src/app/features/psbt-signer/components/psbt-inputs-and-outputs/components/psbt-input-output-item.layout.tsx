@@ -1,3 +1,4 @@
+// #4164 FIXME migrate useClipboard
 import { useClipboard } from '@stacks/ui';
 import { Box, Flex, styled } from 'leather-styles/jsx';
 
@@ -28,7 +29,7 @@ export function PsbtInputOutputItemLayout({
   const { handleOpenTxLink } = useExplorerLink();
 
   return (
-    <Flag align="middle" img={<></>} mt="loose" spacing="base">
+    <Flag align="middle" img={<></>} mt="space.05" spacing="space.04">
       <SpaceBetween>
         <Flex alignItems="center">
           <styled.span mr="space.02" textStyle="caption.01">

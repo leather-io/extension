@@ -1,6 +1,6 @@
 import { ReactNode } from 'react';
 
-import { Box, BoxProps } from '@stacks/ui';
+import { Box, BoxProps } from 'leather-styles/jsx';
 import { styled } from 'leather-styles/jsx';
 import { token } from 'leather-styles/tokens';
 
@@ -19,8 +19,8 @@ export function WarningLabel({ children, title, ...props }: WarningLabelProps) {
         borderRadius="10px"
         img={<AlertIcon color={token('colors.yellow.600')} />}
         minHeight="48px"
-        px="base"
-        py="base-tight"
+        px="space.04"
+        py="space.03"
         width="100%"
       >
         {title ? (

@@ -22,9 +22,9 @@ export function SelectedAssetField({
       borderColor="accent.border-default !important"
       borderRadius="10px"
       height="76px"
-      mb="tight"
+      mb="space.02"
       minHeight="64px"
-      px="base"
+      px="space.04"
       width="100%"
     >
       <Box width="100%">

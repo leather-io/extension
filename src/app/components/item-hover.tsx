@@ -1,4 +1,6 @@
-import { Box, BoxProps, transition } from '@stacks/ui';
+// #4164 FIXME migrate transition
+import { transition } from '@stacks/ui';
+import { Box, BoxProps } from 'leather-styles/jsx';
 import { token } from 'leather-styles/tokens';
 import { useFocus, useHover } from 'use-events';
 
@@ -16,7 +18,10 @@ function ItemHover({
       transition={transition}
       borderRadius="16px"
       position="absolute"
-      size="calc(100% + 24px)"
+      // #4164 FIXME check this
+      width="calc(100% + 24px)"
+      height="calc(100% + 24px)"
+      // size="calc(100% + 24px)"
       left="-12px"
       top="-12px"
       bg={token('colors.brown.2')}

@@ -1,8 +1,11 @@
 import { FormEvent, useCallback } from 'react';
 
-import { Input, InputGroup, Stack, StackProps, color } from '@stacks/ui';
+// #4164 FIXME migrate Input, InputGroup
+import { Input, InputGroup } from '@stacks/ui';
 import { SharedComponentsSelectors } from '@tests/selectors/shared-component.selectors';
 import { useField } from 'formik';
+import { Stack, StackProps } from 'leather-styles/jsx';
+import { token } from 'leather-styles/tokens';
 
 import { CryptoCurrencies } from '@shared/models/currencies.model';
 import { StacksFeeEstimate } from '@shared/models/fees/stacks-fees.model';
@@ -47,7 +50,7 @@ export function CustomFeeField(props: CustomFeeFieldProps) {
         <Input
           autoComplete="off"
           borderRadius="8px"
-          color={color('text-caption')}
+          color={token('colors.accent.text-subdued')}
           data-testid={SharedComponentsSelectors.CustomFeeFieldInput}
           display="block"
           height="32px"

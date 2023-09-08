@@ -9,7 +9,7 @@ export function AddressDisplayerLayout({ isEven, ...props }: AddressDisplayerLay
     <styled.span
       color={isEven ? 'accent.text-primary' : 'accent.border-hover'}
       fontFamily="Fira Code"
-      mr="tight"
+      mr="space.02"
       lineHeight="24px"
       {...props}
     />

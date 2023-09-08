@@ -1,6 +1,6 @@
 import LottieRaw, { Options } from 'react-lottie';
 
-import { Box, BoxProps } from '@stacks/ui';
+import { Box, BoxProps } from 'leather-styles/jsx';
 
 import * as animationData from './plugging-in-cable.lottie.json';
 

@@ -1,6 +1,5 @@
-import { Flex, color } from '@stacks/ui';
-
-import { Text } from '@app/components/typography';
+import { Flex, styled } from 'leather-styles/jsx';
+import { token } from 'leather-styles/tokens';
 
 interface InscriptionMetadataProps {
   action?(): void;
@@ -19,23 +18,20 @@ export function InscriptionMetadata({
   return (
     <Flex alignItems="flex-start" flexDirection="column" justifyContent="center">
       {icon && icon}
-      <Text fontSize={2} fontWeight="500">
-        {title}
-      </Text>
-      <Text color={color('text-caption')} fontSize={1}>
+      <styled.span textStyle="label.01">{title}</styled.span>
+      <styled.span color={token('colors.accent.text-subdued')} fontSize={1}>
         {subtitle}
-      </Text>
+      </styled.span>
       {action ? (
-        <Text
+        <styled.button
           _hover={{ cursor: 'pointer', textDecoration: 'underline' }}
-          as="button"
-          color={color('accent')}
+          color={token('colors.accent.action-primary-default')}
           fontSize={1}
           onClick={() => action()}
           type="button"
         >
           {actionLabel}
-        </Text>
+        </styled.button>
       ) : null}
     </Flex>
   );

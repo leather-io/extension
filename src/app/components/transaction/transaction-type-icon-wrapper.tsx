@@ -1,4 +1,5 @@
-import { Box, BoxProps, Circle, color } from '@stacks/ui';
+import { BoxProps, Circle } from 'leather-styles/jsx';
+import { token } from 'leather-styles/tokens';
 
 interface TransactionTypeIconWrapperProps extends BoxProps {
   icon: React.FC;
@@ -15,13 +16,16 @@ export function TransactionTypeIconWrapper({
       right="-9px"
       position="absolute"
       size="21px"
-      bg={color(bg)}
-      color={color('bg')}
+      // #4164 FIXME migrate this bg needs a refactor
+      bg={token(bg)}
+      color={token('colors.accent.background-primary')}
       border="2px solid"
-      borderColor={color('bg')}
+      borderColor={token('colors.accent.background-primary')}
       {...rest}
     >
-      <Box size="13px" as={Icon} />
+      {/* // #4164 FIXME migrate this bg needs a refactor */}
+      {/* <Box size="13px" as={Icon} /> */}
+      <Icon />
     </Circle>
   );
 }

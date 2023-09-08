@@ -60,7 +60,7 @@ function RpcSignBip322Message() {
       <hr />
       <Disclaimer
         disclaimerText="By signing this message, you prove that you own this address"
-        mb="loose"
+        mb="space.05"
       />
     </MessageSigningRequestLayout>
   );

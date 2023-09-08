@@ -1,8 +1,9 @@
 import { useEffect, useState } from 'react';
 
 import { ClarityValue } from '@stacks/transactions';
-import { Stack, color } from '@stacks/ui';
+import { Stack } from 'leather-styles/jsx';
 import { Box, Divider, styled } from 'leather-styles/jsx';
+import { token } from 'leather-styles/tokens';
 
 import { StructuredMessageDataDomain } from '@shared/signature/signature-types';
 
@@ -44,9 +45,9 @@ export function StructuredDataBox(props: {
       <Stack
         border="4px solid"
         paddingBottom={'8px'}
-        borderColor={color('border')}
+        borderColor={token('colors.accent.border-default')}
         borderRadius="20px"
-        backgroundColor={color('border')}
+        backgroundColor={token('colors.accent.border-default')}
       >
         <Box background="white" borderRadius="16px" overflowX="scroll" py="space.05">
           <Box fontSize="14px" lineHeight="1.7" px="space.05">

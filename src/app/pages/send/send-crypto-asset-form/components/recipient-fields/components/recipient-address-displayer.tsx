@@ -1,8 +1,11 @@
 import { useCallback } from 'react';
 import { FiCopy } from 'react-icons/fi';
 
-import { Box, Text, color, useClipboard } from '@stacks/ui';
+// #4164 FIXME migrate useClipboard
+import { useClipboard } from '@stacks/ui';
 import { SendCryptoAssetSelectors } from '@tests/selectors/send.selectors';
+import { styled } from 'leather-styles/jsx';
+import { token } from 'leather-styles/tokens';
 
 import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
 import { SpaceBetween } from '@app/components/layout/space-between';
@@ -21,25 +24,24 @@ export function RecipientAddressDisplayer({ address }: RecipientAddressDisplayer
   }, [analytics, onCopy]);
 
   return (
-    <SpaceBetween mb="base" width="100%">
-      <Text
-        color={color('text-caption')}
+    <SpaceBetween mb="space.04" width="100%">
+      <styled.span
+        color={token('colors.accent.text-subdued')}
         data-testid={SendCryptoAssetSelectors.RecipientBnsAddressLabel}
         fontSize={0}
       >
         {address}
-      </Text>
+      </styled.span>
       <Tooltip hideOnClick={false} label={hasCopied ? 'Copied!' : 'Copy address'} placement="right">
-        <Box
+        <styled.button
           _hover={{ cursor: 'pointer' }}
-          as="button"
-          color={color('text-caption')}
+          color={token('colors.accent.text-subdued')}
           data-testid={SendCryptoAssetSelectors.RecipientBnsAddressCopyToClipboard}
           onClick={copyToClipboard}
           type="button"
         >
           <FiCopy size="16px" />
-        </Box>
+        </styled.button>
       </Tooltip>
     </SpaceBetween>
   );

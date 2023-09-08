@@ -1,8 +1,12 @@
-import { Box, Button, CodeBlock, Stack, color } from '@stacks/ui';
+// #4164 FIXME migrate CodeBlock
+import { CodeBlock } from '@stacks/ui';
+import { Box, Stack } from 'leather-styles/jsx';
+import { token } from 'leather-styles/tokens';
 
 import { Prism } from '@app/common/clarity-prism';
 import { HasChildren } from '@app/common/has-children';
 import { useRouteHeader } from '@app/common/hooks/use-route-header';
+import { LeatherButton } from '@app/components/button/button';
 import { Header } from '@app/components/header';
 import { Title } from '@app/components/typography';
 import { ErrorBoundary, FallbackProps, useErrorHandler } from '@app/features/errors/error-boundary';
@@ -15,7 +19,7 @@ function ErrorFallback({ error, resetErrorBoundary }: FallbackProps) {
   useRouteHeader(<Header />);
 
   return (
-    <Stack spacing="extra-loose" flexGrow={1}>
+    <Stack gap="space.06" flexGrow={1}>
       <Title fontSize={3}>Something went wrong</Title>
       <Box className="error-codeblock" maxWidth="100vw" overflow="hidden">
         {value && (
@@ -25,24 +29,26 @@ function ErrorFallback({ error, resetErrorBoundary }: FallbackProps) {
             overflow="auto"
             maxHeight="305px"
             border="4px solid"
-            borderColor={color('border')}
+            borderColor={token('colors.accent.background-primary')}
             borderRadius="12px"
             backgroundColor="ink.1000"
             width="100%"
-            code={value as string}
+            code={value}
             language="bash"
             Prism={Prism as any}
           />
         )}
       </Box>
-      <Stack mt="auto" spacing="base">
-        <Button onClick={resetErrorBoundary}>Reload extension</Button>
-        <Button
-          mode="tertiary"
+      <Stack mt="auto" gap="space.04">
+        <LeatherButton onClick={resetErrorBoundary}>Reload extension</LeatherButton>
+        <LeatherButton
+          // // #4164 FIXME tertiary
+          // mode="tertiary"
+          variant="ghost"
           onClick={() => openGithubIssue({ message: error.message, stackTrace: value })}
         >
           Report issue on GitHub
-        </Button>
+        </LeatherButton>
       </Stack>
     </Stack>
   );

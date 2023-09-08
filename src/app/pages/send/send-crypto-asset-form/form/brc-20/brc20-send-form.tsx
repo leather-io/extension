@@ -1,7 +1,7 @@
 import { Form, Outlet, useLocation } from 'react-router-dom';
 
-import { Box } from '@stacks/ui';
 import { Formik } from 'formik';
+import { Box } from 'leather-styles/jsx';
 import get from 'lodash.get';
 
 import { openInNewTab } from '@app/common/utils/open-in-new-tab';
@@ -38,7 +38,7 @@ export function Brc20SendForm() {
   } = useBrc20SendForm({ balance, tick, decimals });
 
   return (
-    <Box width="100%" pb="base">
+    <Box width="100%" pb="space.04">
       <Formik
         initialValues={initialValues}
         onSubmit={chooseTransactionFee}

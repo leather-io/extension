@@ -1,13 +1,14 @@
 import { FiTrash2 } from 'react-icons/fi';
 
-import { Box, BoxProps, Button, Flex, Stack } from '@stacks/ui';
 import { SettingsSelectors } from '@tests/selectors/settings.selectors';
+import { Box, BoxProps, Flex, Stack } from 'leather-styles/jsx';
 import { styled } from 'leather-styles/jsx';
 import { token } from 'leather-styles/tokens';
 
 import { NetworkConfiguration } from '@shared/constants';
 
 import { getUrlHostname } from '@app/common/utils';
+import { LeatherButton } from '@app/components/button/button';
 
 import { NetworkStatusIndicator } from './network-status-indicator';
 
@@ -43,8 +44,8 @@ export function NetworkListItemLayout(props: NetworkListItemLayoutProps) {
               backgroundColor: token('colors.brown.2'),
             }
       }
-      px="loose"
-      py="base"
+      px="space.05"
+      py="space.04"
       onClick={!isOnline || isActive ? undefined : onSelectNetwork}
       cursor={!isOnline ? 'not-allowed' : isActive ? 'default' : 'pointer'}
       opacity={!isOnline ? 0.5 : 1}
@@ -52,15 +53,16 @@ export function NetworkListItemLayout(props: NetworkListItemLayoutProps) {
       {...rest}
     >
       <Flex>
-        <Flex
+        {/* // FIXME this should just be a button or leather button */}
+        <styled.button
           width="100%"
-          as="button"
+          // as="button"
           justifyContent="space-between"
           alignItems="center"
           disabled={!isOnline}
           data-testid={network.id}
         >
-          <Stack alignItems="flex-start" flex={1} spacing="tight">
+          <Stack alignItems="flex-start" flex={1} gap="space.02">
             <styled.span mb="space.01" textStyle="label.01">
               {network.name}
             </styled.span>
@@ -69,19 +71,20 @@ export function NetworkListItemLayout(props: NetworkListItemLayoutProps) {
             </styled.span>
           </Stack>
           <NetworkStatusIndicator isActive={isActive} isOnline={isOnline} />
-        </Flex>
+        </styled.button>
         {isCustom && (
-          <Button
+          <LeatherButton
             type="button"
-            mode="tertiary"
-            ml="base"
-            onClick={e => {
+            // #4164 FIXME migrate tertiary
+            variant="ghost"
+            ml="space.04"
+            onClick={(e: React.MouseEvent<HTMLElement>) => {
               e.stopPropagation();
               onRemoveNetwork(network.id);
             }}
           >
             <FiTrash2 size="14px" />
-          </Button>
+          </LeatherButton>
         )}
       </Flex>
     </Box>

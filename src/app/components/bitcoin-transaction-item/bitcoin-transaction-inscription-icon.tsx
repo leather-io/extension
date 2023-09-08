@@ -1,10 +1,16 @@
-import { Box, Circle, Flex, color } from '@stacks/ui';
+import { FiArrowDown, FiArrowUp } from 'react-icons/fi';
+
+import { Circle, Flex } from 'leather-styles/jsx';
+import { token } from 'leather-styles/tokens';
 
 import { SupportedInscription } from '@shared/models/inscription.model';
 import { BitcoinTx } from '@shared/models/transactions/bitcoin-transaction.model';
 
+import { isBitcoinTxInbound } from '@app/common/transactions/bitcoin/utils';
+
 import { OrdinalIcon } from '../icons/ordinal-icon';
-import { IconForTx, colorFromTx } from './utils';
+
+// import {  colorFromTx } from './utils';
 
 interface BitcoinTransactionInscriptionIconProps {
   inscription: SupportedInscription;
@@ -17,8 +23,9 @@ function InscriptionIcon({ inscription, ...rest }: { inscription: SupportedInscr
     case 'image':
       return (
         <Circle
-          bg={color('accent')}
-          color={color('bg')}
+          // #4164 FIXME migrate color accent
+          bg={token('colors.accent.background-secondary')}
+          color={token('colors.accent.background-primary')}
           flexShrink={0}
           position="relative"
           size="36px"
@@ -55,13 +62,18 @@ export function BitcoinTransactionInscriptionIcon({
         right="-9px"
         position="absolute"
         size="21px"
-        bg={color(colorFromTx(transaction))}
-        color={color('bg')}
+        // #4164 FIXME migrate to semantic
+        // bg={color(colorFromTx(transaction))}
+        color={token('colors.accent.background-primary')}
         border="2px solid"
-        borderColor={color('bg')}
+        borderColor={token('colors.accent.background-primary')}
         {...rest}
       >
-        <Box size="13px" as={IconForTx(btcAddress, transaction)} />
+        {isBitcoinTxInbound(btcAddress, transaction) ? (
+          <FiArrowDown size="13px" />
+        ) : (
+          <FiArrowUp size="13px" />
+        )}
       </Circle>
     </Flex>
   );

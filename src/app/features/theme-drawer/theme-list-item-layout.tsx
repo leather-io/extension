@@ -1,4 +1,4 @@
-import { Box, BoxProps, Flex } from '@stacks/ui';
+import { Box, BoxProps, Flex } from 'leather-styles/jsx';
 import { token } from 'leather-styles/tokens';
 
 import { CheckmarkIcon } from '@app/components/icons/checkmark-icon';
@@ -26,8 +26,8 @@ export function ThemeListItemLayout({
               backgroundColor: token('colors.brown.2'),
             }
       }
-      px="loose"
-      py="base"
+      px="space.05"
+      py="space.04"
       onClick={isActive ? undefined : onThemeItemSelect}
       cursor={isActive ? 'default' : 'pointer'}
       {...props}

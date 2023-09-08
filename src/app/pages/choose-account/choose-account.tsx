@@ -30,10 +30,10 @@ export const ChooseAccount = memo(() => {
   return (
     <>
       <Flex alignItems="center" flexDirection="column" px="space.06" pt="space.07" width="100%">
-        <Stack gap="loose" textAlign="center" alignItems="center">
+        <Stack gap="space.05" textAlign="center" alignItems="center">
           {url && <RequesterFlag requester={url.toString()} />}
           <LeatherIcon width="248px" height="58px" />
-          <Stack gap="base">
+          <Stack gap="space.04">
             <styled.h1 textStyle="heading.05">Choose an account to connect</styled.h1>
           </Stack>
         </Stack>

@@ -1,6 +1,6 @@
 import { memo } from 'react';
 
-import { Box } from '@stacks/ui';
+import { Box } from 'leather-styles/jsx';
 
 import { useCreateAccount } from '@app/common/hooks/account/use-create-account';
 import { useWalletType } from '@app/common/use-wallet-type';
@@ -33,7 +33,7 @@ export const SwitchAccountDrawer = memo(() => {
 
   return isShowing && accounts ? (
     <ControlledDrawer title="Select account" isShowing={isShowing} onClose={onClose}>
-      <Box mb={whenWallet({ ledger: 'base', software: '' })}>
+      <Box mb={whenWallet({ ledger: 'space.04', software: '' })}>
         <SwitchAccountList
           accounts={accounts}
           currentAccountIndex={currentAccountIndex}

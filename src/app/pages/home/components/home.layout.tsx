@@ -1,5 +1,6 @@
 import React from 'react';
 
+// #4164 FIXME migrate useMediaQuery
 import { useMediaQuery } from '@stacks/ui';
 import { HomePageSelectors } from '@tests/selectors/home.selectors';
 import { Stack } from 'leather-styles/jsx';

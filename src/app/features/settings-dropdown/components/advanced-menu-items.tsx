@@ -2,6 +2,8 @@ import { useMemo } from 'react';
 import { useAsync } from 'react-async-hook';
 import toast from 'react-hot-toast';
 
+import { Divider } from 'leather-styles/jsx';
+
 import {
   clearBrowserStorageLogs,
   copyLogsToClipboard,
@@ -9,7 +11,6 @@ import {
 } from '@shared/logger-storage';
 import { isNumber } from '@shared/utils';
 
-import { Divider } from '@app/components/layout/divider';
 import { Caption } from '@app/components/typography';
 
 import { SettingsMenuItem as MenuItem } from './settings-menu-item';
@@ -46,7 +47,7 @@ export function AdvancedMenuItems({ closeHandler, settingsShown }: AdvancedMenuI
         })}
       >
         Copy diagnostics to clipboard
-        <Caption mt="extra-tight" fontSize="12px !important">
+        <Caption mt="space.01" fontSize="12px !important">
           Contains private wallet usage activity
         </Caption>
       </MenuItem>
@@ -57,7 +58,7 @@ export function AdvancedMenuItems({ closeHandler, settingsShown }: AdvancedMenuI
         })}
       >
         Clear diagnostic information
-        <Caption mt="extra-tight" fontSize="12px !important">
+        <Caption mt="space.01" fontSize="12px !important">
           {diagnosticLogText}
         </Caption>
       </MenuItem>

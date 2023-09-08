@@ -1,4 +1,4 @@
-import { BoxProps } from '@stacks/ui';
+import { BoxProps } from 'leather-styles/jsx';
 
 import { SupportedBlockchains } from '@shared/constants';
 
