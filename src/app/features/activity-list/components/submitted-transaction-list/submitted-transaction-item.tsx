@@ -42,7 +42,7 @@ export function SubmittedTransactionItem(props: SubmittedTransactionItemProps) {
           handleOpenTxLink({
             blockchain: 'stacks',
             suffix: `&submitted=true`,
-            txid: txId,
+            txId,
           })
         }
         position="relative"

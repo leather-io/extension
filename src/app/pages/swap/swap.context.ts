@@ -2,12 +2,9 @@ import { createContext, useContext } from 'react';
 
 import { SwapAsset, SwapFormValues } from './hooks/use-swap';
 
-export interface SwapSubmissionData {
-  swapAmountFrom: string;
-  swapAmountTo: string;
-  swapAssetFrom: SwapAsset;
-  swapAssetTo: SwapAsset;
+export interface SwapSubmissionData extends SwapFormValues {
   liquidityFee: number;
+  protocol: string;
   router: SwapAsset[];
   slippage: number;
 }

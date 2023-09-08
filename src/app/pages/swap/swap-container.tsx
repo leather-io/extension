@@ -1,4 +1,4 @@
-import { useCallback, useMemo, useState } from 'react';
+import { useMemo } from 'react';
 import { Outlet, useNavigate } from 'react-router-dom';
 
 import { bytesToHex } from '@stacks/common';
@@ -9,93 +9,98 @@ import {
   serializeCV,
   serializePostCondition,
 } from '@stacks/transactions';
-import { useQuery } from '@tanstack/react-query';
-import { AlexSDK, Currency, TokenInfo } from 'alex-sdk';
 import BigNumber from 'bignumber.js';
+import get from 'lodash.get';
 
-import { createMoney } from '@shared/models/money.model';
+import { logger } from '@shared/logger';
 import { RouteUrls } from '@shared/route-urls';
+import { isDefined, isUndefined } from '@shared/utils';
 
-import { useAllTransferableCryptoAssetBalances } from '@app/common/hooks/use-transferable-asset-balances.hooks';
+import { stxToMicroStx } from '@app/common/money/unit-conversion';
 import { useCurrentStacksAccount } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
+import { useGenerateStacksContractCallUnsignedTx } from '@app/store/transactions/contract-call.hooks';
 
 import { SwapContainerLayout } from './components/swap-container.layout';
 import { SwapForm } from './components/swap-form';
+import { oneHundredMillion, useAlexSwap } from './hooks/use-alex-swap';
+import { useStacksBroadcastSwap } from './hooks/use-stacks-broadcast-swap';
 import { SwapAsset, SwapFormValues } from './hooks/use-swap';
-import { SwapContext, SwapProvider, SwapSubmissionData } from './swap.context';
-
-const oneHundredMillion = 100_000_000;
+import { SwapContext, SwapProvider } from './swap.context';
 
 export function SwapContainer() {
-  const alexSDK = useState(() => new AlexSDK())[0];
-  const { data: supportedCurrencies = [] } = useQuery(['alex-supported-swap-currencies'], async () =>
-    alexSDK.fetchSwappableCurrency()
-  );
-
   const navigate = useNavigate();
+  const currentAccount = useCurrentStacksAccount();
+  // TODO: Refactor to review the unsigned tx?
+  const generateUnsignedTx = useGenerateStacksContractCallUnsignedTx();
+  const signAndBroadcastSwap = useStacksBroadcastSwap();
 
-  const allTransferableCryptoAssetBalances = useAllTransferableCryptoAssetBalances();
-  const getAssetFromAlexCurrency = useCallback(
-    (tokenInfo: TokenInfo): SwapAsset => {
-      const currency = tokenInfo.id as Currency;
-      if (currency === Currency.STX) {
-        const balance = allTransferableCryptoAssetBalances.find(
-          x => x.type === 'crypto-currency' && x.blockchain === 'stacks' && x.asset.symbol === 'STX'
-        )!.balance;
-        return { currency, icon: tokenInfo.icon, name: tokenInfo.name, balance };
-      }
-      const balance = allTransferableCryptoAssetBalances.find(
-        x => x.type === 'fungible-token' && alexSDK.getAddressFrom(currency) === x.asset.contractId
-      )?.balance;
-      return {
-        currency,
-        icon: tokenInfo.icon,
-        name: tokenInfo.name,
-        balance: balance ?? createMoney(0, tokenInfo.name, tokenInfo.decimals),
-      };
-    },
-    [allTransferableCryptoAssetBalances]
-  );
+  const {
+    alexSDK,
+    fetchToAmount,
+    getAssetFromAlexCurrency,
+    onSetSwapSubmissionData,
+    slippage,
+    supportedCurrencies,
+    swapSubmissionData,
+  } = useAlexSwap();
 
   const swappableAssets: SwapAsset[] = useMemo(
-    () => supportedCurrencies.map(getAssetFromAlexCurrency),
+    () => supportedCurrencies.map(getAssetFromAlexCurrency).filter(isDefined),
     [getAssetFromAlexCurrency, supportedCurrencies]
   );
 
-  const [swapSubmissionData, setSwapSubmissionData] = useState<SwapSubmissionData>();
-  const [slippage, _setSlippage] = useState(0.04);
-
   async function onSubmitSwapForReview(values: SwapFormValues) {
-    if (values.swapAssetFrom == null || values.swapAssetTo == null) {
+    if (isUndefined(values.swapAssetFrom) || isUndefined(values.swapAssetTo)) {
+      logger.error('Error submitting swap for review');
       return;
     }
+
     const [router, lpFee] = await Promise.all([
       alexSDK.getRouter(values.swapAssetFrom.currency, values.swapAssetTo.currency),
       alexSDK.getFeeRate(values.swapAssetFrom.currency, values.swapAssetTo.currency),
     ]);
-    setSwapSubmissionData({
+
+    onSetSwapSubmissionData({
+      // Default to low fee for now
+      fee: stxToMicroStx('0.0025').toString(),
+      feeCurrency: values.feeCurrency,
+      feeType: values.feeType,
+      liquidityFee: new BigNumber(Number(lpFee)).dividedBy(oneHundredMillion).toNumber(),
+      protocol: 'ALEX',
+      router: router
+        .map(x => getAssetFromAlexCurrency(supportedCurrencies.find(y => y.id === x)))
+        .filter(isDefined),
+      slippage,
       swapAmountFrom: values.swapAmountFrom,
       swapAmountTo: values.swapAmountTo,
       swapAssetFrom: values.swapAssetFrom,
       swapAssetTo: values.swapAssetTo,
-      router: router.map(x => getAssetFromAlexCurrency(supportedCurrencies.find(y => y.id === x)!)),
-      liquidityFee: new BigNumber(Number(lpFee)).dividedBy(oneHundredMillion).toNumber(),
-      slippage,
     });
+
     navigate(RouteUrls.SwapReview);
   }
 
-  const { stxPublicKey, address } = useCurrentStacksAccount()!;
   async function onSubmitSwap() {
-    if (swapSubmissionData == null) {
+    if (isUndefined(currentAccount) || isUndefined(swapSubmissionData)) {
+      logger.error('Error submitting swap data to sign');
       return;
     }
+
+    if (
+      isUndefined(swapSubmissionData.swapAssetFrom) ||
+      isUndefined(swapSubmissionData.swapAssetTo)
+    ) {
+      logger.error('No assets selected to perform swap');
+      return;
+    }
+
     const fromAmount = BigInt(
       new BigNumber(swapSubmissionData.swapAmountFrom)
         .multipliedBy(oneHundredMillion)
         .dp(0)
         .toString()
     );
+
     const minToAmount = BigInt(
       new BigNumber(swapSubmissionData.swapAmountTo)
         .multipliedBy(oneHundredMillion)
@@ -103,40 +108,48 @@ export function SwapContainer() {
         .dp(0)
         .toString()
     );
+
     const tx = alexSDK.runSwap(
-      address,
+      currentAccount?.address,
       swapSubmissionData.swapAssetFrom.currency,
       swapSubmissionData.swapAssetTo.currency,
       fromAmount,
       minToAmount,
       swapSubmissionData.router.map(x => x.currency)
     );
+
+    // TODO: Add choose fee step for swaps
+    const tempFormValues = {
+      fee: swapSubmissionData.fee,
+      feeCurrency: swapSubmissionData.feeCurrency,
+      feeType: swapSubmissionData.feeType,
+    };
+
     const payload: ContractCallPayload = {
-      publicKey: stxPublicKey,
-      txType: TransactionTypes.ContractCall,
       anchorMode: AnchorMode.Any,
-      postConditionMode: PostConditionMode.Deny,
-      postConditions: tx.postConditions.map(pc => bytesToHex(serializePostCondition(pc))),
       contractAddress: tx.contractAddress,
       contractName: tx.contractName,
       functionName: tx.functionName,
       functionArgs: tx.functionArgs.map(x => bytesToHex(serializeCV(x))),
+      postConditionMode: PostConditionMode.Deny,
+      postConditions: tx.postConditions.map(pc => bytesToHex(serializePostCondition(pc))),
+      publicKey: currentAccount?.stxPublicKey,
+      txType: TransactionTypes.ContractCall,
     };
-    navigate(RouteUrls.TransactionRequest, { state: payload });
+
+    const unsignedTx = await generateUnsignedTx(payload, tempFormValues);
+    if (!unsignedTx) return logger.error('Attempted to generate unsigned tx, but tx is undefined');
+    console.log(unsignedTx);
+    const { stacksBroadcastTransaction } = signAndBroadcastSwap(unsignedTx);
+
+    try {
+      await stacksBroadcastTransaction();
+    } catch (e) {
+      navigate(RouteUrls.TransactionBroadcastError, { state: { message: get(e, 'message') } });
+      return;
+    }
   }
 
-  async function fetchToAmount(
-    from: SwapAsset,
-    to: SwapAsset,
-    fromAmount: string
-  ): Promise<string> {
-    const result = await alexSDK.getAmountTo(
-      from.currency,
-      BigInt(new BigNumber(fromAmount).multipliedBy(oneHundredMillion).dp(0).toString()),
-      to.currency
-    );
-    return new BigNumber(Number(result)).dividedBy(oneHundredMillion).toString();
-  }
   const swapContextValue: SwapContext = {
     swapSubmissionData,
     fetchToAmount,
