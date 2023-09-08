@@ -43,10 +43,10 @@ export function SwapSelectedAssetFrom({ onChooseAsset, title }: SwapSelectedAsse
 
   async function onSetMaxBalanceAsAmountToSwap() {
     if (isSendingMax) {
-      amountFieldHelpers.setValue(previousFromValue.current);
+      await amountFieldHelpers.setValue(previousFromValue.current);
     } else {
       previousFromValue.current = values.swapAmountFrom;
-      amountFieldHelpers.setValue(formattedBalance);
+      await amountFieldHelpers.setValue(formattedBalance);
     }
     const { swapAssetFrom, swapAssetTo } = values;
     if (swapAssetTo != null && swapAssetFrom != null) {
