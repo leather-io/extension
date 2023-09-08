@@ -19,6 +19,7 @@ export class HomePage {
   readonly signOutDeleteWalletBtn: Locator;
   readonly signOutSettingsListItem: Locator;
   readonly lockSettingsListItem: Locator;
+  readonly fundAccountBtn: Locator;
 
   readonly testNetworkSelector: string = createTestSelector(
     WalletDefaultNetworkConfigurationIds.testnet
@@ -43,6 +44,7 @@ export class HomePage {
     );
     this.signOutSettingsListItem = page.getByTestId(SettingsSelectors.SignOutListItem);
     this.lockSettingsListItem = page.getByTestId(SettingsSelectors.LockListItem);
+    this.fundAccountBtn = page.getByTestId(HomePageSelectors.BtnFundAccount);
   }
 
   async goToReceiveModal() {
@@ -119,5 +121,9 @@ export class HomePage {
   async lock() {
     await this.clickSettingsButton();
     await this.lockSettingsListItem.click();
+  }
+
+  async goToFundPage() {
+    await this.fundAccountBtn.click();
   }
 }

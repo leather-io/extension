@@ -9,4 +9,5 @@ export enum HomePageSelectors {
   ActivityTabBtn = 'tab-activity',
   BalancesTabBtn = 'tab-balances',
   SwapBtn = 'swap-btn',
+  BtnFundAccount = 'btn-fund-account',
 }
