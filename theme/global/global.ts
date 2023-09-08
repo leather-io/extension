@@ -6,7 +6,7 @@ import { popupStyles } from './popup-styles';
 import { radixStyles, radixTabStyles } from './radix-styles';
 import { tippyStyles } from './tippy-styles';
 
-export const leatherCss = defineGlobalStyles({
+export const globalCss = defineGlobalStyles({
   'html, body': {
     backgroundColor: 'accent.background-secondary',
   },
