@@ -1,16 +1,16 @@
 import toast from 'react-hot-toast';
-import { Outlet } from 'react-router-dom';
+import { Outlet, useLocation } from 'react-router-dom';
 
 import WaxSeal from '@assets/illustrations/wax-seal.png';
 import { useClipboard } from '@stacks/ui';
-import { useFormikContext } from 'formik';
 import { HStack, styled } from 'leather-styles/jsx';
+import get from 'lodash.get';
 
 import { logger } from '@shared/logger';
 import { isUndefined } from '@shared/utils';
 
 import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
-// import { useExplorerLink } from '@app/common/hooks/use-explorer-link';
+import { useExplorerLink } from '@app/common/hooks/use-explorer-link';
 import { useRouteHeader } from '@app/common/hooks/use-route-header';
 import { CopyIcon } from '@app/components/icons/copy-icon';
 import { ExternalLinkIcon } from '@app/components/icons/external-link-icon';
@@ -20,22 +20,31 @@ import { SwapAssetsPair } from '../components/swap-assets-pair/swap-assets-pair'
 import { SwapContentLayout } from '../components/swap-content.layout';
 import { SwapFooterLayout } from '../components/swap-footer.layout';
 import { useAmountAsFiat } from '../hooks/use-amount-as-fiat';
-import { SwapFormValues } from '../hooks/use-swap';
+import { useSwapContext } from '../swap.context';
 import { SwapSummaryActionButton } from './swap-summary-action-button';
 import { SwapSummaryTabs } from './swap-summary-tabs';
 import { SwapSummaryLayout } from './swap-summary.layout';
 
-// TODO: Pass/replace state with tx data where needed and handle click events
-// Commented code left here to use with tx data
+function useSwapSummaryState() {
+  const location = useLocation();
+  return {
+    txId: get(location.state, 'txId') as string,
+  };
+}
+
 export function SwapSummary() {
-  const { values } = useFormikContext<SwapFormValues>();
+  const { swapSubmissionData } = useSwapContext();
+  const { txId } = useSwapSummaryState();
   const analytics = useAnalytics();
   const { onCopy } = useClipboard('');
-  // const { handleOpenTxLink } = useExplorerLink();
+  const { handleOpenTxLink } = useExplorerLink();
 
   useRouteHeader(<ModalHeader defaultClose hideActions title="Submitted" />, true);
 
-  const amountAsFiat = useAmountAsFiat(values.swapAmountTo, values.swapAssetTo?.balance);
+  const amountAsFiat = useAmountAsFiat(
+    swapSubmissionData?.swapAssetTo?.balance,
+    swapSubmissionData?.swapAmountTo
+  );
 
   function onClickCopy() {
     onCopy();
@@ -44,13 +53,16 @@ export function SwapSummary() {
 
   function onClickLink() {
     void analytics.track('view_swap_transaction_confirmation', {
-      swapSymbolFrom: values.swapAssetFrom?.balance.symbol,
-      swapSymbolTo: values.swapAssetTo?.balance.symbol,
+      swapSymbolFrom: swapSubmissionData?.swapAssetFrom?.balance.symbol,
+      swapSymbolTo: swapSubmissionData?.swapAssetTo?.balance.symbol,
     });
-    // handleOpenTxLink(txLink);
+    handleOpenTxLink({
+      blockchain: 'stacks',
+      txId,
+    });
   }
 
-  if (isUndefined(values.swapAssetTo)) {
+  if (isUndefined(swapSubmissionData?.swapAssetTo)) {
     logger.error('No asset selected for swap');
     return null;
   }
@@ -63,7 +75,7 @@ export function SwapSummary() {
           All done
         </styled.h1>
         <styled.h2 mb="space.01" textStyle="heading.03">
-          {values.swapAmountTo} {values.swapAssetTo.balance.symbol}
+          {swapSubmissionData?.swapAmountTo} {swapSubmissionData?.swapAssetTo.balance.symbol}
         </styled.h2>
         <styled.span mb="space.05" textStyle="label.01">
           {amountAsFiat ? `~ ${amountAsFiat}` : '~ 0'}

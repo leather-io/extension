@@ -5,10 +5,10 @@ import { useConvertCryptoCurrencyToFiatAmount } from '@app/common/hooks/use-conv
 import { i18nFormatCurrency } from '@app/common/money/format-money';
 import { unitToFractionalUnit } from '@app/common/money/unit-conversion';
 
-export function useAmountAsFiat(value: string, balance?: Money) {
+export function useAmountAsFiat(balance?: Money, value?: string) {
   const convertCryptoCurrencyToUsd = useConvertCryptoCurrencyToFiatAmount(balance?.symbol ?? '');
 
-  if (isUndefined(balance)) return '';
+  if (isUndefined(balance) || isUndefined(value)) return '';
 
   const convertedAmountAsMoney = convertCryptoCurrencyToUsd(
     createMoney(unitToFractionalUnit(balance.decimals)(value), balance.symbol, balance.decimals)

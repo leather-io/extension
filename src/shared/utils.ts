@@ -47,7 +47,9 @@ export function ensureArray<T>(value: T | T[]): T[] {
 export function undefinedIfLengthZero<T extends any[]>(arr: T) {
   return arr.length ? arr : undefined;
 }
+
 type NetworkMap<T> = Record<NetworkModes, T>;
+
 export function whenNetwork(mode: NetworkModes) {
   return <T extends NetworkMap<unknown>>(networkMap: T) => networkMap[mode] as T[NetworkModes];
 }
@@ -57,3 +59,7 @@ export function isEmptyArray(data: unknown[]) {
 }
 
 export const defaultWalletKeyId = 'default' as const;
+
+export function removeTrailingNullCharacters(s: string) {
+  return s.replace(/\0*$/g, '');
+}
