@@ -14,7 +14,7 @@ export function SwapSelectedAssetTo({ onChooseAsset, title }: SwapSelectedAssetT
   const [amountField] = useField('swapAmountTo');
   const [assetField] = useField('swapAssetTo');
 
-  const amountAsFiat = useAmountAsFiat(amountField.value, assetField.value.balance);
+  const amountAsFiat = useAmountAsFiat(assetField.value.balance, amountField.value);
 
   return (
     <SwapSelectedAssetLayout

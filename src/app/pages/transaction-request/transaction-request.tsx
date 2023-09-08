@@ -46,7 +46,7 @@ import {
 
 function TransactionRequestBase() {
   const transactionRequest = useTransactionRequestState();
-  const { setIsLoading, setIsIdle } = useLoading(LoadingKeys.SUBMIT_TRANSACTION);
+  const { setIsLoading, setIsIdle } = useLoading(LoadingKeys.SUBMIT_TRANSACTION_REQUEST);
   const handleBroadcastTransaction = useSoftwareWalletTransactionRequestBroadcast();
   const unsignedTx = useUnsignedStacksTransactionBaseState();
   const { data: stxFees } = useCalculateStacksTxFees(unsignedTx.transaction);

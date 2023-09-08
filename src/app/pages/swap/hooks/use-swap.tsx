@@ -1,6 +1,8 @@
 import { Currency } from 'alex-sdk';
 import * as yup from 'yup';
 
+import { FeeTypes } from '@shared/models/fees/fees.model';
+import { StacksTransactionFormValues } from '@shared/models/form.model';
 import { Money } from '@shared/models/money.model';
 
 import { FormErrorMessages } from '@app/common/error-messages';
@@ -8,13 +10,13 @@ import { FormErrorMessages } from '@app/common/error-messages';
 import { currencyAmountValidator } from '@app/common/validation/forms/currency-validators';
 
 export interface SwapAsset {
-  currency: Currency;
   balance: Money;
+  currency: Currency;
   icon: string;
   name: string;
 }
 
-export interface SwapFormValues {
+export interface SwapFormValues extends StacksTransactionFormValues {
   swapAmountFrom: string;
   swapAmountTo: string;
   swapAssetFrom?: SwapAsset;
@@ -23,6 +25,9 @@ export interface SwapFormValues {
 
 export function useSwap() {
   const initialValues: SwapFormValues = {
+    fee: '0',
+    feeCurrency: 'STX',
+    feeType: FeeTypes[FeeTypes.Middle],
     swapAmountFrom: '',
     swapAmountTo: '',
     swapAssetFrom: undefined,
