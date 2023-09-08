@@ -1,7 +1,7 @@
 import { useCallback } from 'react';
 
 import { Flex, FlexProps } from '@stacks/ui';
-import { SettingsSelectors } from '@tests-legacy/integration/settings.selectors';
+import { SettingsSelectors } from '@tests/selectors/settings.selectors';
 
 import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
 import { UserSelectedTheme, themeLabelMap, useThemeSwitcher } from '@app/common/theme-provider';
