@@ -26,7 +26,7 @@ export function useStacksBroadcastTransaction(
   const navigate = useNavigate();
 
   const broadcastTransactionFn = useSubmitTransactionCallback({
-    loadingKey: LoadingKeys.CONFIRM_DRAWER,
+    loadingKey: LoadingKeys.SUBMIT_SEND_FORM_TRANSACTION,
   });
 
   return useMemo(() => {

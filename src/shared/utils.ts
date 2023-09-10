@@ -51,3 +51,7 @@ type NetworkMap<T> = Record<NetworkModes, T>;
 export function whenNetwork(mode: NetworkModes) {
   return <T extends NetworkMap<unknown>>(networkMap: T) => networkMap[mode] as T[NetworkModes];
 }
+
+export function removeTrailingNullCharacters(s: string) {
+  return s.replace(/\0*$/g, '');
+}

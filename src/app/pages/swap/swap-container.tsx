@@ -13,10 +13,10 @@ import BigNumber from 'bignumber.js';
 import get from 'lodash.get';
 
 import { logger } from '@shared/logger';
-import { FeeTypes } from '@shared/models/fees/fees.model';
 import { RouteUrls } from '@shared/route-urls';
 import { isDefined, isUndefined } from '@shared/utils';
 
+import { stxToMicroStx } from '@app/common/money/unit-conversion';
 import { useCurrentStacksAccount } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
 import { useGenerateStacksContractCallUnsignedTx } from '@app/store/transactions/contract-call.hooks';
 
@@ -61,15 +61,20 @@ export function SwapContainer() {
     ]);
 
     onSetSwapSubmissionData({
+      // Default to low fee for now
+      fee: stxToMicroStx('0.0025').toString(),
+      feeCurrency: values.feeCurrency,
+      feeType: values.feeType,
+      liquidityFee: new BigNumber(Number(lpFee)).dividedBy(oneHundredMillion).toNumber(),
+      protocol: 'ALEX',
+      router: router
+        .map(x => getAssetFromAlexCurrency(supportedCurrencies.find(y => y.id === x)))
+        .filter(isDefined),
+      slippage,
       swapAmountFrom: values.swapAmountFrom,
       swapAmountTo: values.swapAmountTo,
       swapAssetFrom: values.swapAssetFrom,
       swapAssetTo: values.swapAssetTo,
-      router: router
-        .map(x => getAssetFromAlexCurrency(supportedCurrencies.find(y => y.id === x)))
-        .filter(isDefined),
-      liquidityFee: new BigNumber(Number(lpFee)).dividedBy(oneHundredMillion).toNumber(),
-      slippage,
     });
 
     navigate(RouteUrls.SwapReview);
@@ -77,7 +82,15 @@ export function SwapContainer() {
 
   async function onSubmitSwap() {
     if (isUndefined(currentAccount) || isUndefined(swapSubmissionData)) {
-      logger.error('Error submitting swap to sign');
+      logger.error('Error submitting swap data to sign');
+      return;
+    }
+
+    if (
+      isUndefined(swapSubmissionData.swapAssetFrom) ||
+      isUndefined(swapSubmissionData.swapAssetTo)
+    ) {
+      logger.error('No assets selected to perform swap');
       return;
     }
 
@@ -107,9 +120,9 @@ export function SwapContainer() {
 
     // TODO: Add choose fee step for swaps
     const tempFormValues = {
-      fee: '0.0025',
-      feeCurrency: 'STX',
-      feeType: FeeTypes[FeeTypes.Middle],
+      fee: swapSubmissionData.fee,
+      feeCurrency: swapSubmissionData.feeCurrency,
+      feeType: swapSubmissionData.feeType,
     };
 
     const payload: ContractCallPayload = {
@@ -126,7 +139,7 @@ export function SwapContainer() {
 
     const unsignedTx = await generateUnsignedTx(payload, tempFormValues);
     if (!unsignedTx) return logger.error('Attempted to generate unsigned tx, but tx is undefined');
-
+    console.log(unsignedTx);
     const { stacksBroadcastTransaction } = signAndBroadcastSwap(unsignedTx);
 
     try {

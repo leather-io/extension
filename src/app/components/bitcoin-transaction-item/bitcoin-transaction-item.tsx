@@ -79,7 +79,7 @@ export function BitcoinTransactionItem({ transaction, ...rest }: BitcoinTransact
     }
     handleOpenTxLink({
       blockchain: 'bitcoin',
-      txid: transaction?.txid || '',
+      txId: transaction?.txid || '',
     });
   };
 

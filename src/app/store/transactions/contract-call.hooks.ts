@@ -1,7 +1,6 @@
 import { useCallback } from 'react';
 
 import { ContractCallPayload } from '@stacks/connect';
-import { stxToMicroStx } from '@stacks/ui-utils';
 
 import { StacksTransactionFormValues } from '@shared/models/form.model';
 
@@ -20,13 +19,13 @@ export function useGenerateStacksContractCallUnsignedTx() {
   const account = useCurrentStacksAccount();
 
   return useCallback(
-    async (payload: ContractCallPayload, values?: StacksTransactionFormValues) => {
+    async (payload: ContractCallPayload, values: StacksTransactionFormValues) => {
       if (!account) return;
 
       const options: GenerateUnsignedTransactionOptions = {
         publicKey: account.stxPublicKey,
         nonce: nextNonce?.nonce,
-        fee: stxToMicroStx(values?.fee || 0),
+        fee: values.fee ?? 0,
         txData: { ...payload, network },
       };
       return generateUnsignedTransaction(options);
