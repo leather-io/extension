@@ -61,6 +61,10 @@ export const Header: React.FC<HeaderProps> = memo(props => {
       justifyContent="space-between"
       p="base"
       minHeight={['', '80px']}
+      backgroundColor={[
+        token('colors.accent.background-primary'),
+        token('colors.accent.background-secondary'),
+      ]}
       position="relative"
       {...rest}
     >
