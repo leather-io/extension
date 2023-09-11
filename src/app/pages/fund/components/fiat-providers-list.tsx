@@ -1,6 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 
-import { Grid } from '@stacks/ui';
+import { Grid } from 'leather-styles/jsx';
 
 import { RouteUrls } from '@shared/route-urls';
 
@@ -35,12 +35,20 @@ export function FiatProvidersList(props: FiatProvidersProps) {
 
   return (
     <Grid
-      columnGap="auto"
+      columnGap="space.05"
       justifyContent="center"
-      mt={['base', '48px']}
-      p="0 3rem"
+      mt={['space.04', 'space.08']}
+      py="0"
+      px="space.08"
       rowGap="1.5rem"
-      templateColumns="repeat(auto-fill, minmax(270px, 1fr))"
+      placeItems="center"
+      gridTemplateColumns={[
+        'repeat(1, 1fr)',
+        'repeat(1, 1fr)',
+        'repeat(2, 1fr)',
+        'repeat(3, 1fr)',
+        'repeat(4, 1fr)',
+      ]}
       width="100%"
       maxWidth={['100%', '80rem']}
     >

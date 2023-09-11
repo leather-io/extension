@@ -1,8 +1,10 @@
-import { Flex, Spinner, Stack, StackProps, color, useMediaQuery } from '@stacks/ui';
+import { Spinner } from '@stacks/ui';
 import { truncateMiddle } from '@stacks/ui-utils';
 import { SettingsSelectors } from '@tests/selectors/settings.selectors';
-import { HStack, styled } from 'leather-styles/jsx';
+import { Flex, HStack, Stack, StackProps, styled } from 'leather-styles/jsx';
+import { token } from 'leather-styles/tokens';
 
+import { useViewportMinWidth } from '@app/common/hooks/use-media-query';
 import { useConfigBitcoinEnabled } from '@app/query/common/remote-config/remote-config.query';
 
 import { CaptionDotSeparator } from '../caption-dot-separator';
@@ -41,7 +43,7 @@ export function AccountListItemLayout(props: AccountListItemLayoutProps) {
     ...rest
   } = props;
 
-  const [isNarrowViewport] = useMediaQuery('(max-width: 400px)');
+  const isBreakpointSm = useViewportMinWidth('sm');
   const isBitcoinEnabled = useConfigBitcoinEnabled();
 
   return (
@@ -54,35 +56,35 @@ export function AccountListItemLayout(props: AccountListItemLayoutProps) {
       onClick={onSelectAccount}
       {...rest}
     >
-      <Flag align="middle" img={avatar} spacing="base" width="100%">
-        <Stack spacing="extra-tight">
+      <Flag align="middle" img={avatar} spacing="space.04" width="100%" mr="space.04">
+        <Stack gap="space.01">
           <HStack alignItems="center" justifyContent="space-between">
-            <Stack alignItems="center" isInline space="tight">
+            <HStack alignItems="center" gap="space.02">
               {accountName}
               {isActive && <CheckmarkIcon />}
-            </Stack>
+            </HStack>
             {isLoading ? (
               <Spinner
                 position="absolute"
                 right={0}
                 top="calc(50% - 8px)"
-                color={color('text-caption')}
+                color={token('colors.accent.text-subdued')}
                 size="18px"
               />
             ) : (
               balanceLabel
             )}
           </HStack>
-          <Stack alignItems="center" spacing="6px" isInline whiteSpace="nowrap">
+          <HStack alignItems="center" gap="space.02" whiteSpace="nowrap">
             <CaptionDotSeparator>
               <styled.span textStyle="caption.02">
-                {truncateMiddle(stxAddress, isNarrowViewport ? 3 : 4)}
+                {truncateMiddle(stxAddress, isBreakpointSm ? 4 : 3)}
               </styled.span>
               {isBitcoinEnabled && (
                 <styled.span textStyle="caption.02">{truncateMiddle(btcAddress, 5)}</styled.span>
               )}
             </CaptionDotSeparator>
-          </Stack>
+          </HStack>
         </Stack>
       </Flag>
       {children}

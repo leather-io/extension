@@ -52,56 +52,57 @@ interface ChooseAccountItemProps extends FlexProps {
   account: StacksAccount;
   onSelectAccount(index: number): void;
 }
-const ChooseAccountItem = memo((props: ChooseAccountItemProps) => {
-  const { selectedAddress, account, isLoading, onSelectAccount, ...rest } = props;
+const ChooseAccountItem = memo(
+  ({ selectedAddress, account, isLoading, onSelectAccount }: ChooseAccountItemProps) => {
+    const [component, bind] = usePressable(true);
+    const { decodedAuthRequest } = useOnboardingState();
+    const name = useAccountDisplayName(account);
+    const btcAddress = useNativeSegwitAccountIndexAddressIndexZero(account.index);
 
-  const [component, bind] = usePressable(true);
-  const { decodedAuthRequest } = useOnboardingState();
-  const name = useAccountDisplayName(account);
-  const btcAddress = useNativeSegwitAccountIndexAddressIndexZero(account.index);
+    const showLoadingProps = !!selectedAddress || !decodedAuthRequest;
 
-  const showLoadingProps = !!selectedAddress || !decodedAuthRequest;
+    const accountSlug = useMemo(() => slugify(`Account ${account?.index + 1}`), [account?.index]);
 
-  const accountSlug = useMemo(() => slugify(`Account ${account?.index + 1}`), [account?.index]);
-
-  return (
-    // Padding required on outer element to prevent jumpy list behaviours in
-    // virtualised list library
-    <Box pb="loose">
-      <AccountListItemLayout
-        index={account.index}
-        stxAddress={account.address}
-        btcAddress={btcAddress}
-        isActive={false}
-        accountName={
-          <Suspense
-            fallback={
-              <AccountTitlePlaceholder {...getLoadingProps(showLoadingProps)} account={account} />
-            }
-          >
-            <AccountTitle name={name} {...getLoadingProps(showLoadingProps)} account={account} />
-          </Suspense>
-        }
-        avatar={
-          <AccountAvatar
-            index={account.index}
-            publicKey={account.stxPublicKey}
-            name={name}
-            flexGrow={0}
-          />
-        }
-        balanceLabel={<AccountTotalBalance stxAddress={account.address} btcAddress={btcAddress} />}
-        isLoading={isLoading}
-        onSelectAccount={() => onSelectAccount(account.index)}
-        data-testid={`account-${accountSlug}-${account.index}`}
-        {...bind}
-        {...rest}
-      >
-        {component}
-      </AccountListItemLayout>
-    </Box>
-  );
-});
+    return (
+      // Padding required on outer element to prevent jumpy list behaviours in
+      // virtualised list library
+      <Box pb="loose">
+        <AccountListItemLayout
+          index={account.index}
+          stxAddress={account.address}
+          btcAddress={btcAddress}
+          isActive={false}
+          accountName={
+            <Suspense
+              fallback={
+                <AccountTitlePlaceholder {...getLoadingProps(showLoadingProps)} account={account} />
+              }
+            >
+              <AccountTitle name={name} {...getLoadingProps(showLoadingProps)} account={account} />
+            </Suspense>
+          }
+          avatar={
+            <AccountAvatar
+              index={account.index}
+              publicKey={account.stxPublicKey}
+              name={name}
+              flexGrow={0}
+            />
+          }
+          balanceLabel={
+            <AccountTotalBalance stxAddress={account.address} btcAddress={btcAddress} />
+          }
+          isLoading={isLoading}
+          onSelectAccount={() => onSelectAccount(account.index)}
+          data-testid={`account-${accountSlug}-${account.index}`}
+          {...bind}
+        >
+          {component}
+        </AccountListItemLayout>
+      </Box>
+    );
+  }
+);
 
 const AddAccountAction = memo(() => {
   const [component, bind] = usePressable(true);
