@@ -4,6 +4,7 @@ import { randomBytes } from '@stacks/encryption';
 
 import { useSwapActions } from '@app/common/hooks/use-swap-actions';
 import { useCurrentStacksAccount } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
+import { useBitcoinClient } from '@app/store/common/api-clients.hooks';
 import { useCurrentNetworkState } from '@app/store/networks/networks.hooks';
 
 import { getMagicContracts } from '../client';
@@ -14,7 +15,6 @@ import { MagicSupplier } from '../models';
 import { convertBtcToSats } from '../utils';
 import { useBitcoinNetwork } from './use-bitcoin-network.hooks';
 import { useMagicClient } from './use-magic-client.hooks';
-import { useBitcoinClient } from '@app/store/common/api-clients.hooks';
 
 export function useInboundMagicSwap() {
   const { createInboundMagicSwap } = useSwapActions();
@@ -36,13 +36,11 @@ export function useInboundMagicSwap() {
 
   async function createInboundSwap(btcAmount: number) {
     const suppliers = await fetchSuppliers(fetchContext);
-    const swapperId = await fetchSwapperId(account?.address || '', fetchContext);
 
     const bestSupplier = await getBestSupplier(btcAmount, false, fetchContext);
-
     const supplier = suppliers.find(s => s.id === bestSupplier.id);
 
-    if (!account || !supplier || !swapperId) {
+    if (!account || !supplier) {
       throw new Error('Invalid user state.');
     }
 
@@ -56,31 +54,27 @@ export function useInboundMagicSwap() {
       id: createdAt.toString(),
       secret: bytesToHex(secret),
       amount: convertBtcToSats(btcAmount).toString(),
+      address: account.address,
       expiration,
       createdAt,
       publicKey,
-      swapperId,
       supplier,
     }).payload;
 
-    const hash = sha256(hexToBytes(swap.secret));
+    // const hash = sha256(hexToBytes(swap.secret));
 
-    const payment = generateHTLCAddress(
-      {
-        senderPublicKey: Buffer.from(publicKey, 'hex'),
-        recipientPublicKey: Buffer.from(supplier.publicKey, 'hex'),
-        swapper: swapperId,
-        hash: Buffer.from(hash),
-        expiration: swap.expiration,
-      },
-      bitcoinNetwork
-    );
+    // const payment = generateHTLCAddress(
+    //   {
+    //     senderPublicKey: Buffer.from(publicKey, 'hex'),
+    //     recipientPublicKey: Buffer.from(supplier.publicKey, 'hex'),
+    //     swapper: swapperId,
+    //     hash: Buffer.from(hash),
+    //     expiration: swap.expiration,
+    //   },
+    //   bitcoinNetwork
+    // );
 
-    return {
-      ...swap,
-      address: payment.address,
-      swapperId,
-    };
+    return swap;
   }
 
   return {

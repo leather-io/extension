@@ -1,5 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
 
+import { getMagicContracts } from '@app/common/magic/client';
 import { fetchSupplier } from '@app/common/magic/fetch/fetch-supplier';
 import { useMagicClient } from '@app/common/magic/hooks';
 import { MagicSupplier } from '@app/common/magic/models';
@@ -7,7 +8,6 @@ import { useCurrentNetworkState } from '@app/store/networks/networks.hooks';
 
 import { AppUseQueryConfig } from '../query-config';
 import { MagicQueryKeys } from './constants';
-import { getMagicContracts } from '@app/common/magic/client';
 
 export function useGetSupplierQuery<TResponse = MagicSupplier>(
   id: number,

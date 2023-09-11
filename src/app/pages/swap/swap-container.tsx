@@ -8,6 +8,7 @@ import BigNumber from 'bignumber.js';
 import { createMoney } from '@shared/models/money.model';
 import { RouteUrls } from '@shared/route-urls';
 
+import { useMagicSwap } from '@app/common/magic/hooks';
 import { whenPageMode } from '@app/common/utils';
 import { useNativeSegwitBalance } from '@app/query/bitcoin/balance/bitcoin-balances.query';
 import { useCurrentAccountNativeSegwitIndexZeroSigner } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
@@ -21,6 +22,7 @@ import { SwapContext, SwapProvider } from './swap.context';
 const tempExchangeRate = 0.5;
 
 export function SwapContainer() {
+  const { createInboundSwap } = useMagicSwap();
   const [exchangeRate, setExchangeRate] = useState(tempExchangeRate);
   const [isSendingMax, setIsSendingMax] = useState(false);
   const navigate = useNavigate();
@@ -49,8 +51,9 @@ export function SwapContainer() {
   }
 
   // TODO: Generate/broadcast transaction > pass real tx data
-  function onSubmitSwap() {
-    navigate(RouteUrls.SwapSummary);
+  async function onSubmitSwap() {
+    await createInboundSwap(0.001);
+    // navigate(RouteUrls.SwapSummary);
   }
 
   const swapContextValue: SwapContext = {

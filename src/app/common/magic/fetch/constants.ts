@@ -2,8 +2,9 @@ import type { ClarigenClient } from '@clarigen/core';
 
 import { DefaultNetworkConfigurations } from '@shared/constants';
 
-import { MagicContracts } from '../client';
 import { BitcoinClient } from '@app/query/bitcoin/bitcoin-client';
+
+import { MagicContracts } from '../client';
 
 /**
  * Contains context for a Magic fetch operation.

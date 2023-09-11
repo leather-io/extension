@@ -11,10 +11,12 @@ export function useSwapActions() {
   return useMemo(
     () => ({
       createInboundMagicSwap(swap: Omit<MagicInboundSwap, 'status'>) {
-        return dispatch(swapsActions.createInboundMagicSwap({
-          status: MagicInboundSwapStatus.CREATED,
-          ...swap,
-        }));
+        return dispatch(
+          swapsActions.createInboundMagicSwap({
+            status: MagicInboundSwapStatus.CREATED,
+            ...swap,
+          })
+        );
       },
     }),
     [dispatch]

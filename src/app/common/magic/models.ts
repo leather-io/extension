@@ -25,12 +25,13 @@ export interface MagicInboundSwap {
   id: string;
   secret: string;
   amount: string;
+  address: string;
   createdAt: number;
   publicKey: string;
   expiration: number;
   supplier: MagicSupplier;
+  paymentAddress?: string;
   escrowTransactionId?: string;
-  swapperId: number | undefined;
   status: MagicInboundSwapStatus;
   recoveryTransactionId?: string;
   finalizeTransactionStatus?: string;

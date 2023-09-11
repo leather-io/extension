@@ -9,15 +9,17 @@ import type { MagicFetchContextWithBitcoin } from './constants';
  */
 export async function fetchBitcoinAddressBalanceForPublicKey(
   publicKey: Uint8Array,
-  { network, bitcoinClient}: MagicFetchContextWithBitcoin
+  { network, bitcoinClient }: MagicFetchContextWithBitcoin
 ) {
   const address = pubKeyToBtcAddress(publicKey, network);
   const addressDetails = await bitcoinClient.addressApi.getAddressDetails(address);
 
-  const confirmedBalance = addressDetails.chain_stats.funded_txo_sum - addressDetails.chain_stats.spent_txo_sum;
-  const unconfirmedBalance = addressDetails.mempool_stats.funded_txo_sum - addressDetails.mempool_stats.spent_txo_sum;
+  const confirmedBalance =
+    addressDetails.chain_stats.funded_txo_sum - addressDetails.chain_stats.spent_txo_sum;
+  const unconfirmedBalance =
+    addressDetails.mempool_stats.funded_txo_sum - addressDetails.mempool_stats.spent_txo_sum;
 
-  const totalBalance = (confirmedBalance + unconfirmedBalance);
+  const totalBalance = confirmedBalance + unconfirmedBalance;
 
   return totalBalance;
 }

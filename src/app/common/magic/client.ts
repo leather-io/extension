@@ -6,11 +6,11 @@ import { DefaultNetworkConfigurations } from '@shared/constants';
 import { project } from './contracts';
 
 const networkUrl = {
-  mainnet: 'https://stacks-node-api.mainnet.stacks.co',
-  testnet: 'https://stacks-node-api.testnet.stacks.co',
+  mainnet: 'https://api.hiro.so',
+  testnet: 'https://api.testnet.hiro.so',
   signet: 'http://localhost:3999',
   devnet: 'http://localhost:3999',
-}
+};
 
 export interface MagicClientOptions {
   network: DefaultNetworkConfigurations;

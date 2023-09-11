@@ -8,12 +8,12 @@ import { RouteUrls } from '@shared/route-urls';
 
 import { ArrowDown } from '@app/components/icons/arrow-down';
 import { Plus2 } from '@app/components/icons/plus2';
+import { SwapIcon } from '@app/components/icons/swap-icon';
 // import { SwapIcon } from '@app/components/icons/swap';
 import { useConfigBitcoinEnabled } from '@app/query/common/remote-config/remote-config.query';
 
 import { ActionButton } from './action-button';
 import { SendButton } from './send-button';
-import { SwapIcon } from '@app/components/icons/swap-icon';
 
 export function AccountActions(props: FlexProps) {
   const navigate = useNavigate();

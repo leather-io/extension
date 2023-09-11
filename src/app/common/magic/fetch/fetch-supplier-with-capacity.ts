@@ -11,10 +11,7 @@ import { fetchSupplier } from './fetch-supplier';
  * @param id      The supplier ID.
  * @param context The context.
  */
-export async function fetchSupplierWithCapacity(
-  id: number,
-  context: MagicFetchContextWithBitcoin
-) {
+export async function fetchSupplierWithCapacity(id: number, context: MagicFetchContextWithBitcoin) {
   const supplier = await fetchSupplier(id, context);
 
   const publicKey = hexToBytes(supplier.publicKey);

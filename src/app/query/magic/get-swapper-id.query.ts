@@ -1,11 +1,11 @@
 import { useQuery } from '@tanstack/react-query';
 
+import { getMagicContracts } from '@app/common/magic/client';
 import { useMagicClient } from '@app/common/magic/hooks';
 import { useCurrentNetworkState } from '@app/store/networks/networks.hooks';
 
 import { AppUseQueryConfig } from '../query-config';
 import { MagicQueryKeys } from './constants';
-import { getMagicContracts } from '@app/common/magic/client';
 
 export function useGetSwapperIdQuery<TResponse>(
   address: string,
