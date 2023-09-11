@@ -44,7 +44,7 @@ export class HomePage {
     );
     this.signOutSettingsListItem = page.getByTestId(SettingsSelectors.SignOutListItem);
     this.lockSettingsListItem = page.getByTestId(SettingsSelectors.LockListItem);
-    this.fundAccountBtn = page.getByTestId(HomePageSelectors.BtnFundAccount);
+    this.fundAccountBtn = page.getByTestId(HomePageSelectors.FundAccountBtn);
   }
 
   async goToReceiveModal() {

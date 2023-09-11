@@ -1,4 +1,4 @@
-import { FundPageSelectors } from '@tests-legacy/page-objects/fund.selectors';
+import { FundPageSelectors } from '@tests/selectors/fund.selectors';
 
 import { AvailableRegions } from '@app/query/common/remote-config/remote-config.query';
 
