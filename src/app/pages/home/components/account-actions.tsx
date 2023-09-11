@@ -1,6 +1,5 @@
 import { useNavigate } from 'react-router-dom';
 
-import { HomePageSelectorsLegacy } from '@tests-legacy/page-objects/home.selectors';
 import { HomePageSelectors } from '@tests/selectors/home.selectors';
 import { Flex, FlexProps } from 'leather-styles/jsx';
 
@@ -30,7 +29,7 @@ export function AccountActions(props: FlexProps) {
         onClick={() => navigate(isBitcoinEnabled ? RouteUrls.Receive : RouteUrls.ReceiveStx)}
       />
       <ActionButton
-        data-testid={HomePageSelectorsLegacy.BtnFundAccount}
+        data-testid={HomePageSelectors.FundAccountBtn}
         icon={<Plus2 />}
         label="Buy"
         onClick={() => navigate(RouteUrls.Fund)}
