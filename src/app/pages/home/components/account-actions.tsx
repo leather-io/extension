@@ -14,10 +14,12 @@ import { useConfigBitcoinEnabled } from '@app/query/common/remote-config/remote-
 
 import { ActionButton } from './action-button';
 import { SendButton } from './send-button';
+import { useSwapFeature } from '@app/common/swaps/hooks';
 
 export function AccountActions(props: FlexProps) {
   const navigate = useNavigate();
   const isBitcoinEnabled = useConfigBitcoinEnabled();
+  const { isSwapEnabled } = useSwapFeature();
 
   return (
     <Flex justify="space-between" {...props}>
@@ -35,13 +37,12 @@ export function AccountActions(props: FlexProps) {
         label="Buy"
         onClick={() => navigate(RouteUrls.Fund)}
       />
-      {/* TODO: Use with feature flag */}
-      <ActionButton
+      {isSwapEnabled && <ActionButton
         data-testid={''}
         icon={<SwapIcon />}
         label="Swap"
         onClick={() => navigate(RouteUrls.Swap)}
-      />
+      />}
     </Flex>
   );
 }
