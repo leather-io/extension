@@ -10,8 +10,11 @@ export function useTransactionRequest() {
 
 export function useTransactionRequestState() {
   const requestToken = useTransactionRequest();
+
   return useMemo(() => {
-    if (!requestToken) return null;
+    if (!requestToken) {
+      return null;
+    }
     return getPayloadFromToken(requestToken);
   }, [requestToken]);
 }

@@ -97,7 +97,7 @@ export enum RouteUrls {
   TransactionRequest = '/transaction',
   TransactionBroadcastError = 'broadcast-error',
 
-  // Rpc request routes
+  // Request routes bitcoin
   RpcGetAddresses = '/get-addresses',
   RpcSignPsbt = '/sign-psbt',
   RpcSignPsbtSummary = '/sign-psbt/summary',
@@ -111,4 +111,7 @@ export enum RouteUrls {
   // Shared legacy and rpc request routes
   RequestError = '/request-error',
   UnauthorizedRequest = '/unauthorized-request',
+
+  // Request routes stacks
+  RpcSignStacksTransaction = '/sign-stacks-transaction',
 }

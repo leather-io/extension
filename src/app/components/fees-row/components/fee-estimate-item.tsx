@@ -11,9 +11,10 @@ interface FeeEstimateItemProps {
   isVisible?: boolean;
   onSelectItem(index: number): void;
   selectedItem: number;
+  disableFeeSelection?: boolean;
 }
 export function FeeEstimateItem(props: FeeEstimateItemProps) {
-  const { index, isVisible, onSelectItem, selectedItem } = props;
+  const { index, isVisible, onSelectItem, selectedItem, disableFeeSelection } = props;
 
   const selectedIcon = useMemo(() => {
     const isSelected = index === selectedItem;
@@ -29,13 +30,13 @@ export function FeeEstimateItem(props: FeeEstimateItemProps) {
       isInline
       mb="0px !important"
       minWidth="100px"
-      onClick={() => onSelectItem(index)}
+      onClick={() => !disableFeeSelection && onSelectItem(index)}
       p="tight"
     >
       <Text fontSize={1} fontWeight={500} ml="2px">
         {labels[index]}
       </Text>
-      {isVisible ? selectedIcon : <FiChevronDown />}
+      {!disableFeeSelection && (isVisible ? selectedIcon : <FiChevronDown />)}
     </Stack>
   );
 }
