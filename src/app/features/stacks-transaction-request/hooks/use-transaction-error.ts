@@ -13,7 +13,7 @@ import { useContractInterface } from '@app/query/stacks/contract/contract.hooks'
 import { useCurrentStacksAccount } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
 import { useTransactionRequestState } from '@app/store/transactions/requests.hooks';
 
-export function getIsMultisig() {
+function getIsMultisig() {
   return initialSearchParams.get('isMultisig') === 'true';
 }
 

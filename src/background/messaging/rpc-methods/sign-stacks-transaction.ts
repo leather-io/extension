@@ -46,7 +46,7 @@ function encodePostConditions(postConditions: PostCondition[]) {
   return postConditions.map(pc => bytesToHex(serializePostCondition(pc)));
 }
 
-export const transactionPayloadToTransactionRequest = (
+const transactionPayloadToTransactionRequest = (
   stacksTransaction: StacksTransaction,
   stxAddress?: string,
   attachment?: string
