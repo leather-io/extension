@@ -49,7 +49,6 @@ export function StacksTransactionSigner({
   stacksTransaction,
   disableFeeSelection,
   disableNonceSelection,
-  onCancel,
   onSignStacksTransaction,
 }: StacksTransactionSignerProps) {
   const transactionRequest = useTransactionRequestState();
@@ -112,7 +111,7 @@ export function StacksTransactionSigner({
             {!isNonceAlreadySet && <NonceSetter />}
             <FeeForm
               fees={stxFees}
-              defaultFeeValue={transactionRequest?.fee}
+              defaultFeeValue={Number(transactionRequest?.fee || 0)}
               disableFeeSelection={disableFeeSelection}
             />
             {!disableNonceSelection && (

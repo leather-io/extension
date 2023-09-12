@@ -2,7 +2,6 @@ import { CommonSignaturePayload, SignaturePayload } from '@stacks/connect';
 import { deserializeCV } from '@stacks/transactions';
 import { TokenInterface, decodeToken } from 'jsontokens';
 
-import { StructuredMessageDataDomain } from '@shared/signature/signature-types';
 import { isString } from '@shared/utils';
 
 export function getGenericSignaturePayloadFromToken(requestToken: string): CommonSignaturePayload {

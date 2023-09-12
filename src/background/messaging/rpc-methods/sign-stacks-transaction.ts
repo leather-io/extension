@@ -65,7 +65,7 @@ export const transactionPayloadToTransactionRequest = (
   switch (stacksTransaction.payload.payloadType) {
     case PayloadType.TokenTransfer:
       transactionRequest.txType = TransactionTypes.STXTransfer;
-      transactionRequest.recipient = cvToValue<string>(stacksTransaction.payload.recipient, true);
+      transactionRequest.recipient = cvToValue(stacksTransaction.payload.recipient, true);
       transactionRequest.amount = new BigNumber(Number(stacksTransaction.payload.amount))
         .shiftedBy(-STX_DECIMALS)
         .toNumber()

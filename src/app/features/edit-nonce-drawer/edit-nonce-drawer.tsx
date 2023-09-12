@@ -37,7 +37,7 @@ export function EditNonceDrawer() {
 
   useOnMount(() => setLoadedNextNonce(values.nonce));
 
-  const onGoBack = useCallback(() => navigate('..' + search), [navigate]);
+  const onGoBack = useCallback(() => navigate('..' + search), [navigate, search]);
 
   const onBlur = useCallback(() => validateField('nonce'), [validateField]);
 

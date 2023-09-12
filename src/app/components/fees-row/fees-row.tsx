@@ -69,6 +69,7 @@ export function FeesRow(props: FeeRowProps): React.JSX.Element {
       feeHelper.setValue(0);
     }
   }, [
+    props.defaultFeeValue,
     feeField.value,
     feeHelper,
     feeTypeHelper,
@@ -92,7 +93,7 @@ export function FeesRow(props: FeeRowProps): React.JSX.Element {
       setFieldWarning('');
       setIsSelectVisible(false);
     },
-    [feeTypeHelper, feeHelper, fees]
+    [feeTypeHelper, feeHelper, fees, props.defaultFeeValue]
   );
 
   if (!hasFeeEstimates) return <LoadingRectangle height="32px" width="100%" {...rest} />;

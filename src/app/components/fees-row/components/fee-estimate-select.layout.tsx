@@ -20,7 +20,7 @@ interface FeeEstimateSelectLayoutProps {
   isVisible: boolean;
   onSetIsSelectVisible(value: boolean): void;
   selectedItem: number;
-  disableFeeSelection: boolean;
+  disableFeeSelection?: boolean;
 }
 export function FeeEstimateSelectLayout(props: FeeEstimateSelectLayoutProps) {
   const { children, isVisible, onSetIsSelectVisible, selectedItem, disableFeeSelection } = props;

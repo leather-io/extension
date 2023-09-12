@@ -15,7 +15,7 @@ interface CustomFeeFieldProps extends StackProps {
   feeCurrencySymbol: CryptoCurrencies;
   lowFeeEstimate: StacksFeeEstimate;
   setFieldWarning(value: string): void;
-  disableFeeSelection?: number;
+  disableFeeSelection?: boolean;
 }
 export function CustomFeeField(props: CustomFeeFieldProps) {
   const { feeCurrencySymbol, lowFeeEstimate, setFieldWarning, disableFeeSelection, ...rest } =
