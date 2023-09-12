@@ -2,8 +2,8 @@ import { Stack, color } from '@stacks/ui';
 
 import { Divider } from '@app/components/layout/divider';
 import { Title } from '@app/components/typography';
-import { AttachmentRow } from '@app/features/stacks-transaction-request/components/attachment-row';
-import { Row } from '@app/features/stacks-transaction-request/components/row';
+import { AttachmentRow } from '@app/features/stacks-transaction-request/attachment-row';
+import { Row } from '@app/features/stacks-transaction-request/row';
 import { useTransactionRequestState } from '@app/store/transactions/requests.hooks';
 
 export function StxTransferDetails(): React.JSX.Element | null {

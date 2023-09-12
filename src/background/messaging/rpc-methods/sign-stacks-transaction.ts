@@ -13,8 +13,8 @@ import {
   deserializeTransaction,
   serializeCV,
   serializePostCondition,
+  VersionedSmartContractPayload
 } from '@stacks/transactions';
-import { VersionedSmartContractPayload } from '@stacks/transactions/src/payload';
 import BigNumber from 'bignumber.js';
 import { createUnsecuredToken } from 'jsontokens';
 

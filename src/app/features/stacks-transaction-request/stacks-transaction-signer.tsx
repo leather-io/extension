@@ -21,21 +21,21 @@ import { NonceSetter } from '@app/components/nonce-setter';
 import { PopupHeader } from '@app/features/current-account/popup-header';
 import { RequestingTabClosedWarningMessage } from '@app/features/errors/requesting-tab-closed-error-msg';
 import { HighFeeDrawer } from '@app/features/high-fee-drawer/high-fee-drawer';
-import { ContractCallDetails } from '@app/features/stacks-transaction-request/components/contract-call-details/contract-call-details';
-import { ContractDeployDetails } from '@app/features/stacks-transaction-request/components/contract-deploy-details/contract-deploy-details';
-import { PageTop } from '@app/features/stacks-transaction-request/components/page-top';
-import { PostConditionModeWarning } from '@app/features/stacks-transaction-request/components/post-condition-mode-warning';
-import { PostConditions } from '@app/features/stacks-transaction-request/components/post-conditions/post-conditions';
-import { StxTransferDetails } from '@app/features/stacks-transaction-request/components/stx-transfer-details/stx-transfer-details';
-import { TransactionError } from '@app/features/stacks-transaction-request/components/transaction-error/transaction-error';
+import { ContractCallDetails } from '@app/features/stacks-transaction-request/contract-call-details/contract-call-details';
+import { ContractDeployDetails } from '@app/features/stacks-transaction-request/contract-deploy-details/contract-deploy-details';
+import { PageTop } from '@app/features/stacks-transaction-request/page-top';
+import { PostConditionModeWarning } from '@app/features/stacks-transaction-request/post-condition-mode-warning';
+import { PostConditions } from '@app/features/stacks-transaction-request/post-conditions/post-conditions';
+import { StxTransferDetails } from '@app/features/stacks-transaction-request/stx-transfer-details/stx-transfer-details';
+import { TransactionError } from '@app/features/stacks-transaction-request/transaction-error/transaction-error';
 import { useCurrentStacksAccountAnchoredBalances } from '@app/query/stacks/balance/stx-balance.hooks';
 import { useCalculateStacksTxFees } from '@app/query/stacks/fees/fees.hooks';
 import { useNextNonce } from '@app/query/stacks/nonce/account-nonces.hooks';
 import { useTransactionRequestState } from '@app/store/transactions/requests.hooks';
 
-import { FeeForm } from './components/fee-form';
-import { MinimalErrorMessage } from './components/minimal-error-message';
-import { SubmitAction } from './components/submit-action';
+import { FeeForm } from './fee-form';
+import { MinimalErrorMessage } from './minimal-error-message';
+import { SubmitAction } from './submit-action';
 
 interface StacksTransactionSignerProps {
   stacksTransaction: StacksTransaction;
