@@ -8,7 +8,7 @@ export interface SwapContext {
   onSetExchangeRate(value: number): void;
   onSetIsSendingMax(value: boolean): void;
   onSubmitSwapForReview(values: SwapFormValues): Promise<void> | void;
-  onSubmitSwap(): Promise<void> | void;
+  onSubmitSwap(values: SwapFormValues): Promise<void> | void;
   swappableAssets: SwapAsset[];
 }
 

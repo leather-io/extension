@@ -1,5 +1,4 @@
-import { sha256 } from '@noble/hashes/sha256';
-import { bytesToHex, hexToBytes, intToBigInt } from '@stacks/common';
+import { bytesToHex, intToBigInt } from '@stacks/common';
 import { randomBytes } from '@stacks/encryption';
 
 import { useSwapActions } from '@app/common/hooks/use-swap-actions';
@@ -8,19 +7,16 @@ import { useBitcoinClient } from '@app/store/common/api-clients.hooks';
 import { useCurrentNetworkState } from '@app/store/networks/networks.hooks';
 
 import { getMagicContracts } from '../client';
-import { fetchSuppliers, fetchSwapperId } from '../fetch';
+import { fetchSuppliers } from '../fetch';
 import { MagicFetchContextWithBitcoin } from '../fetch/constants';
-import { generateHTLCAddress } from '../htlc';
 import { MagicSupplier } from '../models';
 import { convertBtcToSats } from '../utils';
-import { useBitcoinNetwork } from './use-bitcoin-network.hooks';
 import { useMagicClient } from './use-magic-client.hooks';
 
 export function useInboundMagicSwap() {
   const { createInboundMagicSwap } = useSwapActions();
   const account = useCurrentStacksAccount();
   const network = useCurrentNetworkState();
-  const bitcoinNetwork = useBitcoinNetwork();
 
   const magicClient = useMagicClient();
   const bitcoinClient = useBitcoinClient();

@@ -17,17 +17,19 @@ import { SwapContainerLayout } from './components/swap-container.layout';
 import { SwapForm } from './components/swap-form';
 import { SwapAsset, SwapFormValues } from './hooks/use-swap';
 import { SwapContext, SwapProvider } from './swap.context';
+import { SwapType, getSwapType } from './swap.utils';
 
 // TODO: Remove and set to initial state to 0 with live data
 const tempExchangeRate = 0.5;
 
 export function SwapContainer() {
+  const navigate = useNavigate();
   const { createInboundSwap } = useMagicSwap();
   const [exchangeRate, setExchangeRate] = useState(tempExchangeRate);
   const [isSendingMax, setIsSendingMax] = useState(false);
-  const navigate = useNavigate();
   const { address } = useCurrentAccountNativeSegwitIndexZeroSigner();
   const { balance: btcBalance } = useNativeSegwitBalance(address);
+
   // TODO: Filter these assets for list to swap, not sure if need?
   // const allTransferableCryptoAssetBalances = useAllTransferableCryptoAssetBalances();
 
@@ -51,9 +53,19 @@ export function SwapContainer() {
   }
 
   // TODO: Generate/broadcast transaction > pass real tx data
-  async function onSubmitSwap() {
-    await createInboundSwap(0.001);
-    // navigate(RouteUrls.SwapSummary);
+  async function onSubmitSwap(swapFormValues: SwapFormValues) {
+    const swapType = getSwapType(swapFormValues);
+
+    switch (swapType) {
+      case SwapType.MagicSwapInbound:
+        await createInboundSwap(Number(swapFormValues.swapAmountFrom));
+        break;
+
+      default:
+        throw new Error(`Swapping from ${swapFormValues.swapAssetFrom?.balance.symbol} to ${swapFormValues.swapAssetTo?.balance.symbol}`)
+    }
+
+    navigate(RouteUrls.SwapSummary);
   }
 
   const swapContextValue: SwapContext = {

@@ -119,5 +119,6 @@ export const persistConfig: PersistConfig<RootState> & UntypedDeserializeOption 
     'networks',
     'onboarding',
     'settings',
+    'swaps',
   ],
 };

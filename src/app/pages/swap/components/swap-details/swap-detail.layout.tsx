@@ -7,7 +7,7 @@ import { SpaceBetween } from '@app/components/layout/space-between';
 interface SwapDetailLayoutProps {
   title: string;
   tooltipLabel?: string;
-  value: string;
+  value?: string;
 }
 export function SwapDetailLayout({ title, tooltipLabel, value }: SwapDetailLayoutProps) {
   return (
@@ -28,7 +28,7 @@ export function SwapDetailLayout({ title, tooltipLabel, value }: SwapDetailLayou
           </Tooltip>
         ) : null}
       </Stack>
-      <Text fontWeight={500}>{value}</Text>
+      {value && <Text fontWeight={500}>{value}</Text>}
     </SpaceBetween>
   );
 }

@@ -8,11 +8,18 @@ import { SwapDetails } from '../components/swap-details/swap-details';
 import { SwapFooterLayout } from '../components/swap-footer.layout';
 import { useSwapContext } from '../swap.context';
 import { SwapReviewLayout } from './swap-review.layout';
+import { useFormikContext } from 'formik';
+import { SwapFormValues } from '../hooks/use-swap';
 
 export function SwapReview() {
+  const { values: swapFormValues } = useFormikContext<SwapFormValues>();
   const { onSubmitSwap } = useSwapContext();
 
   useRouteHeader(<ModalHeader defaultGoBack hideActions title="Review" />, true);
+
+  function submitSwap() {
+    void onSubmitSwap(swapFormValues);
+  }
 
   return (
     <SwapReviewLayout>
@@ -21,7 +28,7 @@ export function SwapReview() {
         <SwapDetails />
       </SwapContentLayout>
       <SwapFooterLayout>
-        <LeatherButton onClick={onSubmitSwap} width="100%">
+        <LeatherButton onClick={submitSwap} width="100%">
           Swap
         </LeatherButton>
       </SwapFooterLayout>
