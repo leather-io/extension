@@ -189,6 +189,7 @@
     "dayjs": "1.11.8",
     "dlc-wasm-wallet": "0.4.7",
     "dompurify": "3.0.4",
+    "dotenv": "16.3.1",
     "downshift": "6.1.7",
     "ecdsa-sig-formatter": "1.0.11",
     "ecpair": "2.1.0",
