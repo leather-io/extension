@@ -6,8 +6,8 @@ import { useExplorerLink } from '@app/common/hooks/use-explorer-link';
 import { formatContractId } from '@app/common/utils';
 import { Divider } from '@app/components/layout/divider';
 import { Title } from '@app/components/typography';
-import { AttachmentRow } from '@app/pages/transaction-request/components/attachment-row';
-import { ContractPreviewLayout } from '@app/pages/transaction-request/components/contract-preview';
+import { AttachmentRow } from '@app/features/stacks-transaction-request/components/attachment-row';
+import { ContractPreviewLayout } from '@app/features/stacks-transaction-request/components/contract-preview';
 import { useTransactionRequestState } from '@app/store/transactions/requests.hooks';
 
 import { FunctionArgumentsList } from './function-arguments-list';

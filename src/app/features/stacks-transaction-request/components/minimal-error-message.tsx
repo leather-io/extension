@@ -5,8 +5,8 @@ import { TransactionRequestSelectors } from '@tests/selectors/requests.selectors
 import { styled } from 'leather-styles/jsx';
 
 import { ErrorIcon } from '@app/components/icons/error-icon';
-import { TransactionErrorReason } from '@app/pages/transaction-request/components/transaction-error/transaction-error';
-import { useTransactionError } from '@app/pages/transaction-request/hooks/use-transaction-error';
+import { TransactionErrorReason } from '@app/features/stacks-transaction-request/components/transaction-error/transaction-error';
+import { useTransactionError } from '@app/features/stacks-transaction-request/hooks/use-transaction-error';
 
 function MinimalErrorMessageSuspense(props: StackProps) {
   const error = useTransactionError();

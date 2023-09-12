@@ -5,6 +5,7 @@ import { SharedComponentsSelectors } from '@tests/selectors/shared-component.sel
 import BigNumber from 'bignumber.js';
 import { useField } from 'formik';
 
+import { STX_DECIMALS } from '@shared/constants';
 import { FeeTypes, Fees } from '@shared/models/fees/fees.model';
 import { createMoney } from '@shared/models/money.model';
 import { isNumber, isString } from '@shared/utils';
@@ -22,6 +23,8 @@ interface FeeRowProps extends StackProps {
   fees?: Fees;
   allowCustom?: boolean;
   isSponsored: boolean;
+  defaultFeeValue?: number;
+  disableFeeSelection?: boolean;
 }
 export function FeesRow(props: FeeRowProps): React.JSX.Element {
   const { fees, isSponsored, allowCustom = true, ...rest } = props;
@@ -46,7 +49,12 @@ export function FeesRow(props: FeeRowProps): React.JSX.Element {
   }, [convertCryptoCurrencyToUsd, feeCurrencySymbol, feeField.value]);
 
   useEffect(() => {
-    if (hasFeeEstimates && !feeField.value && !isCustom) {
+    if (props.defaultFeeValue) {
+      feeHelper.setValue(
+        convertAmountToBaseUnit(new BigNumber(Number(props.defaultFeeValue)), STX_DECIMALS)
+      );
+      feeTypeHelper.setValue(FeeTypes[FeeTypes.Custom]);
+    } else if (hasFeeEstimates && !feeField.value && !isCustom) {
       feeHelper.setValue(convertAmountToBaseUnit(fees.estimates[FeeTypes.Middle].fee).toString());
       feeTypeHelper.setValue(FeeTypes[FeeTypes.Middle]);
     }
@@ -66,7 +74,12 @@ export function FeesRow(props: FeeRowProps): React.JSX.Element {
   const handleSelectFeeEstimateOrCustomField = useCallback(
     (index: number) => {
       feeTypeHelper.setValue(FeeTypes[index]);
-      if (index === FeeTypes.Custom) feeHelper.setValue('');
+      if (index === FeeTypes.Custom)
+        feeHelper.setValue(
+          props.defaultFeeValue
+            ? convertAmountToBaseUnit(new BigNumber(Number(props.defaultFeeValue)), STX_DECIMALS)
+            : ''
+        );
       else
         fees && feeHelper.setValue(convertAmountToBaseUnit(fees.estimates[index].fee).toString());
       setFieldWarning('');
@@ -83,6 +96,7 @@ export function FeesRow(props: FeeRowProps): React.JSX.Element {
       feeField={
         isCustom ? (
           <CustomFeeField
+            disableFeeSelection={props.disableFeeSelection}
             feeCurrencySymbol={feeCurrencySymbol}
             lowFeeEstimate={fees.estimates[FeeTypes.Low]}
             setFieldWarning={(value: string) => setFieldWarning(value)}
@@ -101,6 +115,7 @@ export function FeesRow(props: FeeRowProps): React.JSX.Element {
       isSponsored={isSponsored}
       selectInput={
         <FeeEstimateSelect
+          disableFeeSelection={props.disableFeeSelection}
           allowCustom={allowCustom}
           isVisible={isSelectVisible}
           estimate={fees.estimates}

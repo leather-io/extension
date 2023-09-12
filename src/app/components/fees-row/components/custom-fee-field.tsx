@@ -15,9 +15,11 @@ interface CustomFeeFieldProps extends StackProps {
   feeCurrencySymbol: CryptoCurrencies;
   lowFeeEstimate: StacksFeeEstimate;
   setFieldWarning(value: string): void;
+  disableFeeSelection?: number;
 }
 export function CustomFeeField(props: CustomFeeFieldProps) {
-  const { feeCurrencySymbol, lowFeeEstimate, setFieldWarning, ...rest } = props;
+  const { feeCurrencySymbol, lowFeeEstimate, setFieldWarning, disableFeeSelection, ...rest } =
+    props;
   const [field, meta, helpers] = useField('fee');
 
   const checkFieldWarning = useCallback(
@@ -52,6 +54,7 @@ export function CustomFeeField(props: CustomFeeFieldProps) {
           display="block"
           height="32px"
           name="fee"
+          isDisabled={disableFeeSelection}
           onChange={(evt: FormEvent<HTMLInputElement>) => {
             helpers.setValue(evt.currentTarget.value);
             // Separating warning check from field validations

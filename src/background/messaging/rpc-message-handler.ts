@@ -2,6 +2,8 @@ import { RpcErrorCode } from '@btckit/types';
 
 import { WalletRequests, makeRpcErrorResponse } from '@shared/rpc/rpc-methods';
 
+import { rpcSignStacksTransaction } from '@background/messaging/rpc-methods/sign-stacks-transaction';
+
 import { getTabIdFromPort } from './messaging-utils';
 import { rpcAcceptBitcoinContractOffer } from './rpc-methods/accept-bitcoin-contract';
 import { rpcGetAddresses } from './rpc-methods/get-addresses';
@@ -29,6 +31,11 @@ export async function rpcMessageHandler(message: WalletRequests, port: chrome.ru
 
     case 'signPsbt': {
       await rpcSignPsbt(message, port);
+      break;
+    }
+
+    case 'signStacksTransaction': {
+      await rpcSignStacksTransaction(message, port);
       break;
     }
 

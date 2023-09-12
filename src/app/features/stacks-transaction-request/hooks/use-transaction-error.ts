@@ -6,7 +6,7 @@ import BigNumber from 'bignumber.js';
 import { useDefaultRequestParams } from '@app/common/hooks/use-default-request-search-params';
 import { microStxToStx } from '@app/common/money/unit-conversion';
 import { validateStacksAddress } from '@app/common/stacks-utils';
-import { TransactionErrorReason } from '@app/pages/transaction-request/components/transaction-error/transaction-error';
+import { TransactionErrorReason } from '@app/features/stacks-transaction-request/components/transaction-error/transaction-error';
 import { useCurrentStacksAccountAnchoredBalances } from '@app/query/stacks/balance/stx-balance.hooks';
 import { useContractInterface } from '@app/query/stacks/contract/contract.hooks';
 import { useCurrentStacksAccount } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';

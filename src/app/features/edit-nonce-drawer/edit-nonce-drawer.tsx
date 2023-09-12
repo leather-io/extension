@@ -1,5 +1,5 @@
 import { useCallback, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 import { useFormikContext } from 'formik';
 import { Stack, styled } from 'leather-styles/jsx';
@@ -33,10 +33,11 @@ export function EditNonceDrawer() {
   const [loadedNextNonce, setLoadedNextNonce] = useState<number | string>();
 
   const navigate = useNavigate();
+  const { search } = useLocation();
 
   useOnMount(() => setLoadedNextNonce(values.nonce));
 
-  const onGoBack = useCallback(() => navigate('..'), [navigate]);
+  const onGoBack = useCallback(() => navigate('..' + search), [navigate]);
 
   const onBlur = useCallback(() => validateField('nonce'), [validateField]);
 

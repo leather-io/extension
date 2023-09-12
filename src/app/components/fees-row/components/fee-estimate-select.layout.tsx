@@ -20,17 +20,19 @@ interface FeeEstimateSelectLayoutProps {
   isVisible: boolean;
   onSetIsSelectVisible(value: boolean): void;
   selectedItem: number;
+  disableFeeSelection: boolean;
 }
 export function FeeEstimateSelectLayout(props: FeeEstimateSelectLayoutProps) {
-  const { children, isVisible, onSetIsSelectVisible, selectedItem } = props;
+  const { children, isVisible, onSetIsSelectVisible, selectedItem, disableFeeSelection } = props;
   const ref = useRef<HTMLDivElement | null>(null);
 
   useOnClickOutside(ref, () => onSetIsSelectVisible(false));
 
   return (
     <>
-      <Stack _hover={{ cursor: 'pointer' }}>
+      <Stack _hover={{ cursor: disableFeeSelection ? 'default' : 'pointer' }}>
         <FeeEstimateItem
+          disableFeeSelection={disableFeeSelection}
           index={selectedItem}
           onSelectItem={() => onSetIsSelectVisible(true)}
           selectedItem={FeeTypes.Middle}

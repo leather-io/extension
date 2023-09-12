@@ -5,9 +5,9 @@ import { BoxProps, CodeBlock, Stack, color } from '@stacks/ui';
 import { Prism } from '@app/common/clarity-prism';
 import { Divider } from '@app/components/layout/divider';
 import { Caption, Title } from '@app/components/typography';
-import { AttachmentRow } from '@app/pages/transaction-request/components/attachment-row';
-import { ContractPreviewLayout } from '@app/pages/transaction-request/components/contract-preview';
-import { Row } from '@app/pages/transaction-request/components/row';
+import { AttachmentRow } from '@app/features/stacks-transaction-request/components/attachment-row';
+import { ContractPreviewLayout } from '@app/features/stacks-transaction-request/components/contract-preview';
+import { Row } from '@app/features/stacks-transaction-request/components/row';
 import {
   useCurrentAccountStxAddressState,
   useCurrentStacksAccount,
