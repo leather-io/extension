@@ -1,4 +1,6 @@
 import { Locator } from '@playwright/test';
+import { bytesToHex } from '@stacks/common';
+import { AnchorMode, makeUnsignedSTXTokenTransfer } from '@stacks/transactions';
 
 import { SharedComponentsSelectors } from './selectors/shared-component.selectors';
 
@@ -19,4 +21,46 @@ export async function getDisplayerAddress(locator: Locator) {
     .innerText();
 
   return displayerAddress.replaceAll('\n', '');
+}
+
+export async function generateUnsignedStxTransfer(
+  recipient: string,
+  amount: number,
+  network: any,
+  publicKey: string,
+  anchorMode?: AnchorMode,
+  memo?: string
+) {
+  const options = {
+    recipient,
+    memo,
+    publicKey,
+    anchorMode: anchorMode ?? AnchorMode.Any,
+    amount,
+    network,
+  };
+  return bytesToHex((await makeUnsignedSTXTokenTransfer(options)).serialize());
+}
+
+export async function generateMultisigUnsignedStxTransfer(
+  recipient: string,
+  amount: number,
+  network: any,
+  publicKeys: string[],
+  threshold: number,
+  nonce: number,
+  anchorMode?: AnchorMode,
+  memo?: string
+) {
+  const options = {
+    recipient,
+    memo,
+    publicKeys,
+    nonce,
+    numSignatures: threshold,
+    anchorMode: anchorMode ?? AnchorMode.Any,
+    amount,
+    network,
+  };
+  return bytesToHex((await makeUnsignedSTXTokenTransfer(options)).serialize());
 }

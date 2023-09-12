@@ -10,9 +10,11 @@ import { useUnsignedPrepareTransactionDetails } from '@app/store/transactions/tr
 
 interface FeeFormProps {
   fees?: Fees;
+  disableFeeSelection?: boolean;
+  defaultFeeValue?: number;
 }
 
-export function FeeForm({ fees }: FeeFormProps) {
+export function FeeForm({ fees, disableFeeSelection, defaultFeeValue }: FeeFormProps) {
   const { values } = useFormikContext<StacksTransactionFormValues>();
   const transaction = useUnsignedPrepareTransactionDetails(values);
 
@@ -21,7 +23,12 @@ export function FeeForm({ fees }: FeeFormProps) {
   return (
     <>
       {fees?.estimates.length ? (
-        <FeesRow allowCustom fees={fees} isSponsored={isSponsored} />
+        <FeesRow
+          disableFeeSelection={disableFeeSelection}
+          defaultFeeValue={defaultFeeValue}
+          fees={fees}
+          isSponsored={isSponsored}
+        />
       ) : (
         <LoadingRectangle height="32px" width="100%" />
       )}

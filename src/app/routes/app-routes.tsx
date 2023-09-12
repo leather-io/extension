@@ -45,6 +45,7 @@ import { RpcGetAddresses } from '@app/pages/rpc-get-addresses/rpc-get-addresses'
 import { rpcSendTransferRoutes } from '@app/pages/rpc-send-transfer/rpc-send-transfer.routes';
 import { RpcSignPsbt } from '@app/pages/rpc-sign-psbt/rpc-sign-psbt';
 import { RpcSignPsbtSummary } from '@app/pages/rpc-sign-psbt/rpc-sign-psbt-summary';
+import { RpcSignStacksTransaction } from '@app/pages/rpc-sign-stacks-transaction/rpc-sign-stacks-transaction';
 import { SelectNetwork } from '@app/pages/select-network/select-network';
 import { BroadcastError } from '@app/pages/send/broadcast-error/broadcast-error';
 import { LockBitcoinSummary } from '@app/pages/send/locked-bitcoin-summary/locked-bitcoin-summary';
@@ -341,6 +342,17 @@ function useAppRoutes() {
             </AccountGate>
           }
         />
+
+        <Route
+          path={RouteUrls.RpcSignStacksTransaction}
+          element={
+            <AccountGate>
+              <RpcSignStacksTransaction />
+            </AccountGate>
+          }
+        >
+          <Route path={RouteUrls.EditNonce} element={<EditNonceDrawer />} />
+        </Route>
 
         <Route
           path={RouteUrls.RpcSignBip322Message}

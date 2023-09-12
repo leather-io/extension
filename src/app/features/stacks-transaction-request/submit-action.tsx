@@ -10,7 +10,7 @@ import { isEmpty } from '@shared/utils';
 import { useDrawers } from '@app/common/hooks/use-drawers';
 import { LoadingKeys, useLoading } from '@app/common/hooks/use-loading';
 import { ButtonProps, LeatherButton } from '@app/components/button/button';
-import { useTransactionError } from '@app/pages/transaction-request/hooks/use-transaction-error';
+import { useTransactionError } from '@app/features/stacks-transaction-request/hooks/use-transaction-error';
 
 function BaseConfirmButton(props: ButtonProps): React.JSX.Element {
   return (
