@@ -9,7 +9,7 @@ import { tippyStyles } from './tippy-styles';
 // ts-unused-exports:disable-next-line
 export const globalCss = defineGlobalStyles({
   'html, body': {
-    backgroundColor: 'accent.background-secondary',
+    backgroundColor: 'accent.background-primary',
   },
   button: {
     cursor: 'pointer',
