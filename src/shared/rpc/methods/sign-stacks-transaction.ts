@@ -24,7 +24,7 @@ type SignStacksTransactionRequestParams = yup.InferType<
 >;
 
 export type SignStacksTransactionRequest = RpcRequest<
-  'signStacksTransaction',
+  'stx_signTransaction',
   SignStacksTransactionRequestParams
 >;
 

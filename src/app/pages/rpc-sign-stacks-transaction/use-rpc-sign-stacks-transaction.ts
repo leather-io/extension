@@ -12,7 +12,7 @@ import { useRejectIfLedgerWallet } from '@app/common/rpc-helpers';
 import { useSignTransactionSoftwareWallet } from '@app/store/transactions/transaction.hooks';
 
 function useRpcSignStacksTransactionParams() {
-  useRejectIfLedgerWallet('signStacksTransaction');
+  useRejectIfLedgerWallet('stx_signTransaction');
 
   const [searchParams] = useSearchParams();
   const { origin, tabId } = useDefaultRequestParams();
@@ -59,7 +59,7 @@ export function useRpcSignStacksTransaction() {
 
       chrome.tabs.sendMessage(
         tabId,
-        makeRpcSuccessResponse('signStacksTransaction', {
+        makeRpcSuccessResponse('stx_signTransaction', {
           id: requestId,
           result: {
             txHex: bytesToHex(signedTransaction.serialize()),
@@ -71,7 +71,7 @@ export function useRpcSignStacksTransaction() {
     onCancel() {
       chrome.tabs.sendMessage(
         tabId,
-        makeRpcErrorResponse('signStacksTransaction', {
+        makeRpcErrorResponse('stx_signTransaction', {
           id: requestId,
           error: {
             message: 'User denied signing stacks transaction',

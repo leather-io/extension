@@ -34,7 +34,7 @@ export async function rpcMessageHandler(message: WalletRequests, port: chrome.ru
       break;
     }
 
-    case 'signStacksTransaction': {
+    case 'stx_signTransaction': {
       await rpcSignStacksTransaction(message, port);
       break;
     }

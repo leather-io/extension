@@ -115,7 +115,7 @@ export async function rpcSignStacksTransaction(
   if (isUndefined(message.params)) {
     chrome.tabs.sendMessage(
       getTabIdFromPort(port),
-      makeRpcErrorResponse('signStacksTransaction', {
+      makeRpcErrorResponse('stx_signTransaction', {
         id: message.id,
         error: { code: RpcErrorCode.INVALID_REQUEST, message: 'Parameters undefined' },
       })
@@ -126,7 +126,7 @@ export async function rpcSignStacksTransaction(
   if (!validateRpcSignStacksTransactionParams(message.params)) {
     chrome.tabs.sendMessage(
       getTabIdFromPort(port),
-      makeRpcErrorResponse('signStacksTransaction', {
+      makeRpcErrorResponse('stx_signTransaction', {
         id: message.id,
         error: {
           code: RpcErrorCode.INVALID_PARAMS,
@@ -140,7 +140,7 @@ export async function rpcSignStacksTransaction(
   if (!validateStacksTransaction(message.params.txHex!)) {
     chrome.tabs.sendMessage(
       getTabIdFromPort(port),
-      makeRpcErrorResponse('signStacksTransaction', {
+      makeRpcErrorResponse('stx_signTransaction', {
         id: message.id,
         error: { code: RpcErrorCode.INVALID_PARAMS, message: 'Invalid Stacks transaction hex' },
       })
@@ -177,7 +177,7 @@ export async function rpcSignStacksTransaction(
   listenForPopupClose({
     tabId,
     id,
-    response: makeRpcErrorResponse('signStacksTransaction', {
+    response: makeRpcErrorResponse('stx_signTransaction', {
       id: message.id,
       error: {
         code: RpcErrorCode.USER_REJECTION,
