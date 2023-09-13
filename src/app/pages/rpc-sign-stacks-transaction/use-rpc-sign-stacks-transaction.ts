@@ -47,6 +47,7 @@ export function useRpcSignStacksTransaction() {
     disableFeeSelection: wasSignedByOtherOwners,
     disableNonceSelection: wasSignedByOtherOwners,
     stacksTransaction,
+    isMultisig,
     onSignStacksTransaction(fee: number, nonce: number) {
       stacksTransaction.setFee(fee);
       stacksTransaction.setNonce(nonce);

@@ -8,12 +8,14 @@ export function RpcSignStacksTransaction() {
     disableFeeSelection,
     stacksTransaction,
     disableNonceSelection,
+    isMultisig,
   } = useRpcSignStacksTransaction();
 
   return (
     <StacksTransactionSigner
       onSignStacksTransaction={onSignStacksTransaction}
       onCancel={onCancel}
+      isMultisig={isMultisig}
       stacksTransaction={stacksTransaction}
       disableFeeSelection={disableFeeSelection}
       disableNonceSelection={disableNonceSelection}

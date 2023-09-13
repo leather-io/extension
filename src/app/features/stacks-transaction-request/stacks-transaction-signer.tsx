@@ -41,7 +41,10 @@ interface StacksTransactionSignerProps {
   stacksTransaction: StacksTransaction;
   disableFeeSelection?: boolean;
   disableNonceSelection?: boolean;
+  isMultisig: boolean;
+
   onCancel(): void;
+
   onSignStacksTransaction(fee: number, nonce: number): void;
 }
 
@@ -50,6 +53,7 @@ export function StacksTransactionSigner({
   disableFeeSelection,
   disableNonceSelection,
   onSignStacksTransaction,
+  isMultisig,
 }: StacksTransactionSignerProps) {
   const transactionRequest = useTransactionRequestState();
   const { data: stxFees } = useCalculateStacksTxFees(stacksTransaction);
@@ -72,12 +76,14 @@ export function StacksTransactionSigner({
   if (!transactionRequest) return null;
 
   const validationSchema =
-    !transactionRequest.sponsored && !disableFeeSelection
+    !transactionRequest.sponsored && !disableFeeSelection && !isMultisig
       ? yup.object({
           fee: stxFeeValidator(stacksBalances?.stx.unlockedStx),
           nonce: nonceValidator,
         })
-      : null;
+      : yup.object({
+          nonce: nonceValidator,
+        });
 
   const isNonceAlreadySet = !Number.isNaN(transactionRequest.nonce);
 
