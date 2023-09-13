@@ -1,9 +1,9 @@
 import { FiTrash2 } from 'react-icons/fi';
 
 import { Box, BoxProps, Button, Flex, Stack } from '@stacks/ui';
-import { SettingsSelectors } from '@tests-legacy/integration/settings.selectors';
-import { styled } from 'leaf-styles/jsx';
-import { token } from 'leaf-styles/tokens';
+import { SettingsSelectors } from '@tests/selectors/settings.selectors';
+import { styled } from 'leather-styles/jsx';
+import { token } from 'leather-styles/tokens';
 
 import { NetworkConfiguration } from '@shared/constants';
 

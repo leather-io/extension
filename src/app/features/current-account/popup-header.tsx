@@ -1,7 +1,7 @@
 import { Suspense } from 'react';
 
 import { Box, Stack, color } from '@stacks/ui';
-import { token } from 'leaf-styles/tokens';
+import { token } from 'leather-styles/tokens';
 
 import { BtcBalance } from '@app/components/balance-btc';
 import { StxBalance } from '@app/components/balance-stx';

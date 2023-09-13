@@ -1,5 +1,5 @@
 import { Flex } from '@stacks/ui';
-import { styled } from 'leaf-styles/jsx';
+import { styled } from 'leather-styles/jsx';
 
 import { Favicon } from '@app/components/favicon';
 import { Flag } from '@app/components/layout/flag';

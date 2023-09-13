@@ -1,4 +1,4 @@
-import { Box, Text, color } from '@stacks/ui';
+import { styled } from 'leather-styles/jsx';
 
 import { formatMoneyWithoutSymbol } from '@app/common/money/format-money';
 import { SpaceBetween } from '@app/components/layout/space-between';
@@ -11,14 +11,14 @@ interface SwapAssetItemProps {
 }
 export function SwapAssetItem({ asset }: SwapAssetItemProps) {
   return (
-    <SwapAssetItemLayout icon={<Box as="img" src={asset.icon} width="40px" />}>
+    <SwapAssetItemLayout
+      icon={<styled.img src={asset.icon} width="40px" height="40px" alt="Swap asset" />}
+    >
       <SpaceBetween>
-        <Text fontWeight={500}>{asset.name}</Text>
-        <Text fontWeight={500}>{formatMoneyWithoutSymbol(asset.balance)}</Text>
+        <styled.span textStyle="label.01">{asset.name}</styled.span>
+        <styled.span textStyle="label.01">{formatMoneyWithoutSymbol(asset.balance)}</styled.span>
       </SpaceBetween>
-      <Text color={color('text-caption')} fontSize={0}>
-        {asset.balance.symbol}
-      </Text>
+      <styled.span textStyle="caption.01">{asset.balance.symbol}</styled.span>
     </SwapAssetItemLayout>
   );
 }

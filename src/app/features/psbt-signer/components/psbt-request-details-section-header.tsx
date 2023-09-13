@@ -1,4 +1,4 @@
-import { HStack, styled } from 'leaf-styles/jsx';
+import { HStack, styled } from 'leather-styles/jsx';
 
 import { LeatherButton } from '@app/components/button/button';
 import { ArrowUpIcon } from '@app/components/icons/arrow-up-icon';

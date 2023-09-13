@@ -3,7 +3,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 
 import { useClipboard } from '@stacks/ui';
 import { HomePageSelectors } from '@tests/selectors/home.selectors';
-import { Box, styled } from 'leaf-styles/jsx';
+import { Box, styled } from 'leather-styles/jsx';
 import get from 'lodash.get';
 
 import { RouteUrls } from '@shared/route-urls';

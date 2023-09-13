@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 
 import { ChainID } from '@stacks/transactions';
 import { Flex, FlexProps, Text } from '@stacks/ui';
-import { token } from 'leaf-styles/tokens';
+import { token } from 'leather-styles/tokens';
 
 import { RouteUrls } from '@shared/route-urls';
 

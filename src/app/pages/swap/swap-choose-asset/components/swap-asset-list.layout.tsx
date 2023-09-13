@@ -1,8 +1,8 @@
-import { Stack, StackProps } from '@stacks/ui';
+import { Stack, StackProps } from 'leather-styles/jsx';
 
 export function SwapAssetListLayout({ children }: StackProps) {
   return (
-    <Stack p="extra-loose" spacing="extra-loose" width="100%">
+    <Stack gap="space.06" p="space.06" width="100%">
       {children}
     </Stack>
   );

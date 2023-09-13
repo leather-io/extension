@@ -1,8 +1,8 @@
-import { FiInfo } from 'react-icons/fi';
+import { Box, HStack, styled } from 'leather-styles/jsx';
 
-import { Box, Stack, Text, Tooltip, color } from '@stacks/ui';
-
+import { InfoIcon } from '@app/components/icons/info-icon';
 import { SpaceBetween } from '@app/components/layout/space-between';
+import { Tooltip } from '@app/components/tooltip';
 
 interface SwapDetailLayoutProps {
   title: string;
@@ -12,23 +12,17 @@ interface SwapDetailLayoutProps {
 export function SwapDetailLayout({ title, tooltipLabel, value }: SwapDetailLayoutProps) {
   return (
     <SpaceBetween ml="base" width="100%">
-      <Stack alignItems="center" isInline spacing="extra-tight">
-        <Text color={color('text-caption')}>{title}</Text>
+      <HStack alignItems="center" gap="space.01">
+        <styled.span textStyle="caption.01">{title}</styled.span>
         {tooltipLabel ? (
           <Tooltip label={tooltipLabel} maxWidth="160px" placement="bottom">
-            <Stack>
-              <Box
-                _hover={{ cursor: 'pointer' }}
-                as={FiInfo}
-                color={color('text-caption')}
-                ml="2px"
-                size="16px"
-              />
-            </Stack>
+            <Box _hover={{ cursor: 'pointer' }} color="accent.text-subdued" ml="space.01">
+              <InfoIcon />
+            </Box>
           </Tooltip>
         ) : null}
-      </Stack>
-      <Text fontWeight={500}>{value}</Text>
+      </HStack>
+      <styled.span textStyle="label.01">{value}</styled.span>
     </SpaceBetween>
   );
 }

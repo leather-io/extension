@@ -1,8 +1,8 @@
 import { useState } from 'react';
 
 import { Flex } from '@stacks/ui';
-import { Box, styled } from 'leaf-styles/jsx';
-import { token } from 'leaf-styles/tokens';
+import { Box, styled } from 'leather-styles/jsx';
+import { token } from 'leather-styles/tokens';
 
 import { ChevronDownIcon } from '@app/components/icons/chevron-down-icon';
 import { ChevronUpIcon } from '@app/components/icons/chevron-up-icon';

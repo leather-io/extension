@@ -1,4 +1,4 @@
-import { Box, BoxProps, styled } from 'leaf-styles/jsx';
+import { Box, BoxProps, styled } from 'leather-styles/jsx';
 
 import { Tooltip } from './tooltip';
 

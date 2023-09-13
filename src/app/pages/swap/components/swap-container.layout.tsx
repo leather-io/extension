@@ -1,18 +1,25 @@
-import { Flex } from 'leaf-styles/jsx';
+import { Flex } from 'leather-styles/jsx';
 
 import { HasChildren } from '@app/common/has-children';
+import { whenPageMode } from '@app/common/utils';
 
 export function SwapContainerLayout({ children }: HasChildren) {
-  return (
-    <Flex
-      maxHeight="90vh"
-      border={['unset', '1px solid']}
-      borderRadius={['unset', '16px']}
-      borderColor={['unset', '#DCDDE2']}
-      maxWidth={['100%', 'centredPageFullWidth']}
-      minWidth={['100%', 'centredPageFullWidth']}
-    >
-      {children}
-    </Flex>
-  );
+  return whenPageMode({
+    full: (
+      <Flex
+        borderRadius={['unset', '16px']}
+        maxHeight="90vh"
+        maxWidth={['100%', 'centeredPageFullWidth']}
+        minWidth={['100%', 'centeredPageFullWidth']}
+        background="accent.background-primary"
+      >
+        {children}
+      </Flex>
+    ),
+    popup: (
+      <Flex background="accent.background-primary" width="100%">
+        {children}
+      </Flex>
+    ),
+  });
 }

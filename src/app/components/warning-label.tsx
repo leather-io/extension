@@ -1,8 +1,8 @@
 import { ReactNode } from 'react';
 
 import { Box, BoxProps } from '@stacks/ui';
-import { styled } from 'leaf-styles/jsx';
-import { token } from 'leaf-styles/tokens';
+import { styled } from 'leather-styles/jsx';
+import { token } from 'leather-styles/tokens';
 
 import { AlertIcon } from './icons/alert-icon';
 import { Flag } from './layout/flag';

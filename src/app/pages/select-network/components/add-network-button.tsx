@@ -1,6 +1,6 @@
-import { Flex } from '@radix-ui/themes';
 import { ButtonProps } from '@stacks/ui';
-import { SettingsSelectors } from '@tests-legacy/integration/settings.selectors';
+import { SettingsSelectors } from '@tests/selectors/settings.selectors';
+import { Flex } from 'leather-styles/jsx';
 
 import { LeatherButton } from '@app/components/button/button';
 
@@ -9,7 +9,7 @@ interface AddNetworkButtonProps extends ButtonProps {
 }
 export function AddNetworkButton({ onAddNetwork }: AddNetworkButtonProps) {
   return (
-    <Flex pt="5" pb="5" px="5" grow="1">
+    <Flex py="space.05" px="space.05" flexGrow="1">
       <LeatherButton data-testid={SettingsSelectors.BtnAddNetwork} fullWidth onClick={onAddNetwork}>
         Add a network
       </LeatherButton>

@@ -21,7 +21,7 @@ jobs:
   update-pull-request-body:
     name: Add links to built extensions
     # Don't run on forks
-    if: github.repository == 'hirosystems/wallet' || github.repository == 'hirosystems/wallet-private'
+    if: github.repository == 'leather-wallet/extension'
     runs-on: ubuntu-latest
     needs:
       - pre-run

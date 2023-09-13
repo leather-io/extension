@@ -1,6 +1,7 @@
 import { defineConfig } from '@pandacss/dev';
 
 import { breakpoints } from './theme/breakpoints';
+import { globalCss } from './theme/global/global';
 import { keyframes } from './theme/keyframes';
 import { buttonRecipe } from './theme/recipes/button';
 import { semanticTokens } from './theme/semantic-tokens';
@@ -34,7 +35,8 @@ export default defineConfig({
       recipes: { button: buttonRecipe },
     },
   },
-  outdir: 'leaf-styles',
+  outdir: 'leather-styles',
   outExtension: 'js',
   minify: true,
+  globalCss,
 });

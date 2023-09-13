@@ -1,12 +1,13 @@
 import { Box, Flex, FlexProps, Stack, StackProps } from '@stacks/ui';
 import { SharedComponentsSelectors } from '@tests/selectors/shared-component.selectors';
-import { styled } from 'leaf-styles/jsx';
+import { styled } from 'leather-styles/jsx';
 
 import { isString } from '@shared/utils';
 
 import { whenPageMode } from '@app/common/utils';
 
 import { LeatherButton } from '../button/button';
+import { DashedHr } from '../hr';
 import { SpaceBetween } from '../layout/space-between';
 
 // InfoCard
@@ -55,7 +56,7 @@ export function InfoCardRow({ title, value, titleAdditionalElement, ...props }: 
 
 // InfoCardSeparator
 export function InfoCardSeparator() {
-  return <styled.hr my="space.04" border="1px dashed" borderColor="accent.border-default" />;
+  return <DashedHr my="space.04" />;
 }
 
 // InfoCardAssetValue

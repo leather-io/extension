@@ -1,4 +1,4 @@
-import { Stack, styled } from 'leaf-styles/jsx';
+import { Stack, styled } from 'leather-styles/jsx';
 
 import { addPortSuffix, getUrlHostname } from '@app/common/utils';
 import { Favicon } from '@app/components/favicon';

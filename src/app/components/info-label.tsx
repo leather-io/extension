@@ -1,6 +1,6 @@
 import { ReactNode } from 'react';
 
-import { Flex, FlexProps, Stack, styled } from 'leaf-styles/jsx';
+import { Flex, FlexProps, Stack, styled } from 'leather-styles/jsx';
 
 interface InfoLabelProps extends FlexProps {
   children: ReactNode | undefined;

@@ -1,4 +1,4 @@
-import { Flex } from '@stacks/ui';
+import { Flex } from 'leather-styles/jsx';
 
 import { HasChildren } from '@app/common/has-children';
 

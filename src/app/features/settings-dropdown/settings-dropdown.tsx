@@ -3,8 +3,7 @@ import { FiExternalLink } from 'react-icons/fi';
 import { useLocation, useNavigate } from 'react-router-dom';
 
 import { Box, Flex, SlideFade, Stack, color } from '@stacks/ui';
-import { SettingsSelectors } from '@tests-legacy/integration/settings.selectors';
-import { SettingsMenuSelectors } from '@tests/selectors/settings.selectors';
+import { SettingsSelectors } from '@tests/selectors/settings.selectors';
 
 import { RouteUrls } from '@shared/route-urls';
 
@@ -88,7 +87,7 @@ export function SettingsDropdown() {
             full: null,
             popup: (
               <MenuItem
-                data-testid={SettingsMenuSelectors.OpenWalletInNewTab}
+                data-testid={SettingsSelectors.OpenWalletInNewTab}
                 onClick={() => {
                   void analytics.track('click_open_in_new_tab_menu_item');
                   openIndexPageInNewTab(location.pathname);
@@ -102,12 +101,10 @@ export function SettingsDropdown() {
             ),
           })}
           <MenuItem
-            data-testid={SettingsMenuSelectors.GetSupportMenuItem}
+            data-testid={SettingsSelectors.GetSupportMenuItem}
             onClick={wrappedCloseCallback(() => {
               void analytics.track('click_get_support_menu_item');
-              openInNewTab(
-                'https://wallet.hiro.so/wallet-faq/where-can-i-find-support-for-the-stacks-wallet'
-              );
+              openInNewTab('https://leather.gitbook.io/guides/installing/contact-support');
             })}
           >
             <Stack isInline>
@@ -118,7 +115,7 @@ export function SettingsDropdown() {
           <MenuItem
             onClick={wrappedCloseCallback(() => {
               void analytics.track('click_request_feature_menu_item');
-              openInNewTab('https://hirowallet.canny.io/feature-requests');
+              openInNewTab('https://leather.canny.io/feature-requests');
             })}
           >
             <Stack isInline>

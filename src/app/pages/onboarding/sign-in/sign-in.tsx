@@ -3,8 +3,8 @@ import { useNavigate } from 'react-router-dom';
 
 import { Grid, Input } from '@stacks/ui';
 import { OnboardingSelectors } from '@tests/selectors/onboarding.selectors';
-import { Box, Flex, Stack, styled } from 'leaf-styles/jsx';
-import { token } from 'leaf-styles/tokens';
+import { Box, Flex, Stack, styled } from 'leather-styles/jsx';
+import { token } from 'leather-styles/tokens';
 import { useFocus } from 'use-events';
 
 import { RouteUrls } from '@shared/route-urls';
@@ -91,6 +91,7 @@ export function SignIn() {
       px={['space.05', 'space.05', 'space.11']}
       width="100%"
       gap={['space.03', 'space.09']}
+      height="fit-content"
     >
       <Stack flex="1" gap="space.06">
         <styled.h1 textStyle={['heading.03', 'display.02']}>Sign in with your Secret Key</styled.h1>

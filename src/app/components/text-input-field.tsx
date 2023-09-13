@@ -3,8 +3,8 @@ import { Ref, useRef } from 'react';
 import { Box, Flex, FlexProps, Input, Text, color } from '@stacks/ui';
 import { SendCryptoAssetSelectors } from '@tests/selectors/send.selectors';
 import { useField } from 'formik';
-import { css } from 'leaf-styles/css';
-import { token } from 'leaf-styles/tokens';
+import { css } from 'leather-styles/css';
+import { token } from 'leather-styles/tokens';
 
 import { useShowFieldError } from '@app/common/form-utils';
 import { capitalize } from '@app/common/utils';

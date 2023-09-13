@@ -1,7 +1,7 @@
 import { useLocation, useNavigate } from 'react-router-dom';
 
-import { Box } from '@stacks/ui';
 import { useFormikContext } from 'formik';
+import { styled } from 'leather-styles/jsx';
 import get from 'lodash.get';
 
 import { SwapAsset, SwapFormValues } from '../../hooks/use-swap';
@@ -25,15 +25,13 @@ export function SwapAssetList({ assets }: SwapAssetList) {
   return (
     <SwapAssetListLayout>
       {assets.map(asset => (
-        <Box
-          as="button"
+        <styled.button
           key={asset.balance.symbol}
           onClick={() => onChooseAsset(asset)}
           textAlign="left"
-          type="button"
         >
           <SwapAssetItem asset={asset} />
-        </Box>
+        </styled.button>
       ))}
     </SwapAssetListLayout>
   );

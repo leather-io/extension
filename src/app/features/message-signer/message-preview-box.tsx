@@ -1,5 +1,5 @@
 import { Stack, color } from '@stacks/ui';
-import { styled } from 'leaf-styles/jsx';
+import { styled } from 'leather-styles/jsx';
 
 import { HashDrawer } from './hash-drawer';
 

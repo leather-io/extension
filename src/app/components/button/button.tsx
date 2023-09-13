@@ -1,5 +1,5 @@
-import { styled } from 'leaf-styles/jsx';
-import { type ButtonVariantProps, button as buttonRecipe } from 'leaf-styles/recipes';
+import { styled } from 'leather-styles/jsx';
+import { type ButtonVariantProps, button as buttonRecipe } from 'leather-styles/recipes';
 
 const StyledButton = styled('button');
 

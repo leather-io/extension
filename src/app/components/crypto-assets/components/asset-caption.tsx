@@ -1,7 +1,7 @@
 import { FiInfo } from 'react-icons/fi';
 
 import { Box, Flex, Stack, Tooltip, color } from '@stacks/ui';
-import { styled } from 'leaf-styles/jsx';
+import { styled } from 'leather-styles/jsx';
 
 interface AssetCaptionProps {
   caption: string;

@@ -1,7 +1,7 @@
 import { memo } from 'react';
 
 import { BoxProps, Text, color } from '@stacks/ui';
-import { token } from 'leaf-styles/tokens';
+import { token } from 'leather-styles/tokens';
 
 export const SettingsMenuItem = memo((props: BoxProps) => {
   const { onClick, children, ...rest } = props;

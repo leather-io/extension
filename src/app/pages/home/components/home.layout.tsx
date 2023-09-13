@@ -2,7 +2,7 @@ import React from 'react';
 
 import { useMediaQuery } from '@stacks/ui';
 import { HomePageSelectors } from '@tests/selectors/home.selectors';
-import { Stack } from 'leaf-styles/jsx';
+import { Stack } from 'leather-styles/jsx';
 
 import { AccountInfoCard } from './account-info-card';
 

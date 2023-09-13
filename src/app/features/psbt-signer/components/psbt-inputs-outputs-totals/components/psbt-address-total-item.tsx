@@ -1,5 +1,5 @@
 import { useClipboard } from '@stacks/ui';
-import { Box, HStack, styled } from 'leaf-styles/jsx';
+import { Box, HStack, styled } from 'leather-styles/jsx';
 
 import { LeatherButton } from '@app/components/button/button';
 import { BtcIcon } from '@app/components/icons/btc-icon';

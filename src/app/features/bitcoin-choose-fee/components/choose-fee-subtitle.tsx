@@ -1,4 +1,4 @@
-import { styled } from 'leaf-styles/jsx';
+import { styled } from 'leather-styles/jsx';
 
 export function ChooseFeeSubtitle({ isSendingMax }: { isSendingMax: boolean }) {
   const subtitle = isSendingMax ? (

@@ -1,5 +1,5 @@
 import { Box as RBox, Tabs as RTabs } from '@radix-ui/themes';
-import { styled } from 'leaf-styles/jsx';
+import { styled } from 'leather-styles/jsx';
 
 import { capitalize } from '@app/common/utils';
 

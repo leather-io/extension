@@ -70,7 +70,7 @@ const aliases = {
   '@stacks/transactions': '@stacks/transactions/dist/esm',
   '@stacks/wallet-sdk': '@stacks/wallet-sdk/dist/esm',
   'lottie-web': path.resolve('node_modules/lottie-web/build/player/lottie_light.js'),
-  'leaf-styles': path.resolve('leaf-styles'),
+  'leather-styles': path.resolve('leather-styles'),
 };
 
 const config = {
@@ -135,6 +135,7 @@ const config = {
       {
         test: /\.(ts|tsx)$/,
         exclude: /node_modules/,
+        // #4164 TODO investigate removing babel
         use: {
           loader: 'babel-loader',
           options: {
@@ -144,11 +145,9 @@ const config = {
                 '@babel/preset-react',
                 {
                   runtime: 'automatic',
-                  importSource: '@emotion/react',
                 },
               ],
             ],
-            plugins: ['@emotion', IS_DEV && require.resolve('react-refresh/babel')].filter(Boolean),
           },
         },
       },

@@ -1,6 +1,6 @@
 import { Box } from '@stacks/ui';
-import { Flex } from 'leaf-styles/jsx';
-import { token } from 'leaf-styles/tokens';
+import { Flex } from 'leather-styles/jsx';
+import { token } from 'leather-styles/tokens';
 
 import { Money } from '@shared/models/money.model';
 

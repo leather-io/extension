@@ -2,10 +2,11 @@ import { useEffect } from 'react';
 import { Outlet, useNavigate } from 'react-router-dom';
 
 import { Stack } from '@stacks/ui';
-import { Box } from 'leaf-styles/jsx';
-import { token } from 'leaf-styles/tokens';
+import { Box } from 'leather-styles/jsx';
+import { token } from 'leather-styles/tokens';
 
 import { WALLET_ENVIRONMENT } from '@shared/environment';
+import { RouteUrls } from '@shared/route-urls';
 
 import { useRouteHeader } from '@app/common/hooks/use-route-header';
 import { isFullPageMode, isPopupMode } from '@app/common/utils';
@@ -32,10 +33,7 @@ export function Unlock() {
     }
   }, [hasApprovedNewBrand, navigate]);
 
-  // Users land on unlock page as they've been directed here from `<AccountGate/>`.
-  // On successful unlock, we can navigate back to the previous page, now
-  // with account details.
-  const handleSuccess = () => navigate(-1);
+  const handleSuccess = () => navigate(RouteUrls.Home);
 
   return (
     <CenteredPageContainer>
@@ -44,7 +42,7 @@ export function Unlock() {
         <Box position="fixed" w="200px" h="60px" background="brown.2" top={0} left={0} />
       )}
       <Stack
-        maxWidth={token('sizes.centredPageFullWidth')}
+        maxWidth={token('sizes.centeredPageFullWidth')}
         px={['loose', 'base-loose']}
         spacing="loose"
         textAlign={['left', 'center']}

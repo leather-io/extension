@@ -3,7 +3,7 @@ import Confetti from 'react-dom-confetti';
 
 import { Dialog } from '@radix-ui/themes';
 import { Inset } from '@radix-ui/themes';
-import { Box, Flex, Stack, styled } from 'leaf-styles/jsx';
+import { Box, Flex, Stack, styled } from 'leather-styles/jsx';
 
 import { HasChildren } from '@app/common/has-children';
 import { openInNewTab } from '@app/common/utils/open-in-new-tab';

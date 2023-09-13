@@ -21,6 +21,6 @@ trace*
 /test-results/
 /playwright-report/
 /playwright/.cache/
-leaf-styles
+leather-styles
 .netlify
 ./.vscode/settings.json

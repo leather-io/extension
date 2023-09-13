@@ -1,7 +1,7 @@
 import { Outlet } from 'react-router-dom';
 
 import { Flex } from '@stacks/ui';
-import { token } from 'leaf-styles/tokens';
+import { token } from 'leather-styles/tokens';
 
 import { useRouteHeader } from '@app/common/hooks/use-route-header';
 import { whenPageMode } from '@app/common/utils';
@@ -15,8 +15,8 @@ export function SendContainer() {
       <Flex
         borderRadius={['unset', '16px']}
         height="fit-content"
-        maxWidth={['100%', token('sizes.centredPageFullWidth')]}
-        minWidth={['100%', token('sizes.centredPageFullWidth')]}
+        maxWidth={['100%', token('sizes.centeredPageFullWidth')]}
+        minWidth={['100%', token('sizes.centeredPageFullWidth')]}
         background={token('colors.accent.background-primary')}
       >
         <Outlet />

@@ -3,8 +3,8 @@ import { useNavigate } from 'react-router-dom';
 
 import { OnboardingSelectors } from '@tests/selectors/onboarding.selectors';
 import { Form, Formik } from 'formik';
-import { Flex, Stack, styled } from 'leaf-styles/jsx';
-import { token } from 'leaf-styles/tokens';
+import { Flex, Stack, styled } from 'leather-styles/jsx';
+import { token } from 'leather-styles/tokens';
 import { debounce } from 'ts-debounce';
 import * as yup from 'yup';
 
@@ -133,7 +133,7 @@ function SetPasswordPage() {
             width="100%"
             gap={['space.05', 'space.05', 'space.05', 'space.09']}
           >
-            <Stack maxWidth={token('sizes.centredPageFullWidth')} gap="space.06" flex="1">
+            <Stack maxWidth={token('sizes.centeredPageFullWidth')} gap="space.06" flex="1">
               <styled.h1 textStyle={['heading.03', 'display.02']}>Set a password</styled.h1>
               <styled.p textStyle={['label.01', 'heading.05']}>
                 Your password protects your Secret Key on this device only.

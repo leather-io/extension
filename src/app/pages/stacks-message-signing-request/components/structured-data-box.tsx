@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 
 import { ClarityValue } from '@stacks/transactions';
 import { Stack, color } from '@stacks/ui';
-import { Box, Divider, styled } from 'leaf-styles/jsx';
+import { Box, Divider, styled } from 'leather-styles/jsx';
 
 import { StructuredMessageDataDomain } from '@shared/signature/signature-types';
 

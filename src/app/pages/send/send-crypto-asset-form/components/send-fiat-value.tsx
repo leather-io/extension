@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 
 import { useField } from 'formik';
-import { styled } from 'leaf-styles/jsx';
+import { styled } from 'leather-styles/jsx';
 
 import { MarketData } from '@shared/models/market.model';
 import { Money, createMoneyFromDecimal } from '@shared/models/money.model';

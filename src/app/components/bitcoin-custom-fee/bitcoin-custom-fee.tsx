@@ -3,7 +3,7 @@ import { Dispatch, SetStateAction, useCallback, useRef } from 'react';
 import { Link } from '@radix-ui/themes';
 import { Stack } from '@stacks/ui';
 import { Form, Formik } from 'formik';
-import { styled } from 'leaf-styles/jsx';
+import { styled } from 'leather-styles/jsx';
 import * as yup from 'yup';
 
 import { BtcFeeType } from '@shared/models/fees/bitcoin-fees.model';

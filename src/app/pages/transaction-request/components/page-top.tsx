@@ -1,8 +1,8 @@
 import { memo } from 'react';
 
 import { Stack } from '@stacks/ui';
-import { TransactionSigningSelectors } from '@tests-legacy/page-objects/transaction-signing.selectors';
-import { styled } from 'leaf-styles/jsx';
+import { TransactionRequestSelectors } from '@tests/selectors/requests.selectors';
+import { styled } from 'leather-styles/jsx';
 
 import { useDefaultRequestParams } from '@app/common/hooks/use-default-request-search-params';
 import { addPortSuffix, getUrlHostname } from '@app/common/utils';
@@ -29,7 +29,7 @@ function PageTopBase() {
 
   return (
     <Stack
-      data-testid={TransactionSigningSelectors.TxSigningPageContainer}
+      data-testid={TransactionRequestSelectors.TransactionRequestPage}
       mb="loose"
       spacing="base"
       width="100%"

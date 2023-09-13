@@ -4,14 +4,14 @@ import { useLocation, useNavigate } from 'react-router-dom';
 
 import { Box, Flex, FlexProps, IconButton, Stack, Text, useMediaQuery } from '@stacks/ui';
 import { OnboardingSelectors } from '@tests/selectors/onboarding.selectors';
-import { SettingsMenuSelectors } from '@tests/selectors/settings.selectors';
-import { token } from 'leaf-styles/tokens';
+import { SettingsSelectors } from '@tests/selectors/settings.selectors';
+import { token } from 'leather-styles/tokens';
 
 import { BRANCH_NAME, COMMIT_SHA } from '@shared/environment';
 import { RouteUrls } from '@shared/route-urls';
 
 import { useDrawers } from '@app/common/hooks/use-drawers';
-import { HiroWalletLogo } from '@app/components/hiro-wallet-logo';
+import { LeatherLogo } from '@app/components/leather-logo';
 import { NetworkModeBadge } from '@app/components/network-mode-badge';
 import { Title } from '@app/components/typography';
 
@@ -31,9 +31,8 @@ export const Header: React.FC<HeaderProps> = memo(props => {
   const navigate = useNavigate();
 
   const [desktopViewport] = useMediaQuery(`(min-width: ${token('sizes.desktopViewportMinWidth')})`);
-  const [isNarrowViewport] = useMediaQuery('(max-width: 640px)');
 
-  const hiroWalletLogoIsClickable = useMemo(() => {
+  const leatherLogoIsClickable = useMemo(() => {
     return (
       pathname !== RouteUrls.RequestDiagnostics &&
       pathname !== RouteUrls.Onboarding &&
@@ -62,8 +61,11 @@ export const Header: React.FC<HeaderProps> = memo(props => {
       justifyContent="space-between"
       p="base"
       minHeight={['', '80px']}
+      backgroundColor={[
+        token('colors.accent.background-primary'),
+        token('colors.accent.background-secondary'),
+      ]}
       position="relative"
-      background={isNarrowViewport ? token('colors.brown.1') : token('colors.brown.2')}
       {...rest}
     >
       {onClose ? (
@@ -79,10 +81,10 @@ export const Header: React.FC<HeaderProps> = memo(props => {
           justifyContent={onClose ? 'center' : 'unset'}
         >
           <Flex alignItems="flex-end">
-            <HiroWalletLogo
-              data-testid={OnboardingSelectors.HiroWalletLogoRouteToHome}
-              isClickable={hiroWalletLogoIsClickable}
-              onClick={hiroWalletLogoIsClickable ? () => navigate(RouteUrls.Home) : undefined}
+            <LeatherLogo
+              data-testid={OnboardingSelectors.LeatherLogoRouteToHome}
+              isClickable={leatherLogoIsClickable}
+              onClick={leatherLogoIsClickable ? () => navigate(RouteUrls.Home) : undefined}
             />
             <Text
               display={!version ? 'none' : 'unset'}
@@ -114,7 +116,7 @@ export const Header: React.FC<HeaderProps> = memo(props => {
         <NetworkModeBadge />
         {!hideActions && (
           <LeatherButton
-            data-testid={SettingsMenuSelectors.SettingsMenuBtn}
+            data-testid={SettingsSelectors.SettingsMenuBtn}
             onMouseUp={isShowingSettings ? undefined : () => setIsShowingSettings(true)}
             pointerEvents={isShowingSettings ? 'none' : 'all'}
             variant="ghost"

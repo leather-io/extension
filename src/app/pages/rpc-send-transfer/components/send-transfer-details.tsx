@@ -1,6 +1,6 @@
 import { Stack, color } from '@stacks/ui';
 import { truncateMiddle } from '@stacks/ui-utils';
-import { styled } from 'leaf-styles/jsx';
+import { styled } from 'leather-styles/jsx';
 
 import { SpaceBetween } from '@app/components/layout/space-between';
 

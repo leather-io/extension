@@ -4,7 +4,7 @@ import { useCallback, useEffect, useRef, useState } from 'react';
 import { Box, Flex, Input, Stack, Text, color } from '@stacks/ui';
 import { SendCryptoAssetSelectors } from '@tests/selectors/send.selectors';
 import { useField } from 'formik';
-import { token } from 'leaf-styles/tokens';
+import { token } from 'leather-styles/tokens';
 
 import { STX_DECIMALS, TOKEN_NAME_LENGTH } from '@shared/constants';
 import { Money } from '@shared/models/money.model';

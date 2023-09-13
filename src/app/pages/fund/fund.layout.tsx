@@ -1,6 +1,6 @@
 import { Flex, Stack, useMediaQuery } from '@stacks/ui';
-import { styled } from 'leaf-styles/jsx';
-import { token } from 'leaf-styles/tokens';
+import { styled } from 'leather-styles/jsx';
+import { token } from 'leather-styles/tokens';
 
 import { PageTitle } from '@app/components/page-title';
 import { Text } from '@app/components/typography';
@@ -35,7 +35,7 @@ export function FundLayout(props: FundLayoutProps) {
         <PageTitle
           fontSize={['24px', '32px', '48px']}
           lineHeight={['150%', '125%']}
-          maxWidth={['unset', 'unset', token('sizes.centredPageFullWidth')]}
+          maxWidth={['unset', 'unset', token('sizes.centeredPageFullWidth')]}
           px={['unset', 'loose']}
           textAlign={['left', 'center']}
         >

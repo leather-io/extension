@@ -1,14 +1,14 @@
 import { memo } from 'react';
 
 import { Stack, StackProps, color } from '@stacks/ui';
-import { token } from 'leaf-styles/tokens';
+import { token } from 'leather-styles/tokens';
 
 import { LeatherIcon } from './icons/leather-icon';
 
-interface HiroWalletLogoProps extends StackProps {
+interface LeatherLogoProps extends StackProps {
   isClickable: boolean;
 }
-export const HiroWalletLogo = memo((props: HiroWalletLogoProps) => {
+export const LeatherLogo = memo((props: LeatherLogoProps) => {
   const { isClickable, ...rest } = props;
 
   return (

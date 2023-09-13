@@ -1,14 +1,14 @@
 import { useNavigate } from 'react-router-dom';
 
-import { HomePageSelectorsLegacy } from '@tests-legacy/page-objects/home.selectors';
 import { HomePageSelectors } from '@tests/selectors/home.selectors';
-import { Flex, FlexProps } from 'leaf-styles/jsx';
+import { Flex, FlexProps } from 'leather-styles/jsx';
 
+import { SWAP_ENABLED } from '@shared/environment';
 import { RouteUrls } from '@shared/route-urls';
 
 import { ArrowDown } from '@app/components/icons/arrow-down';
 import { Plus2 } from '@app/components/icons/plus2';
-// import { SwapIcon } from '@app/components/icons/swap';
+import { SwapIcon } from '@app/components/icons/swap-icon';
 import { useConfigBitcoinEnabled } from '@app/query/common/remote-config/remote-config.query';
 
 import { ActionButton } from './action-button';
@@ -29,18 +29,19 @@ export function AccountActions(props: FlexProps) {
         onClick={() => navigate(isBitcoinEnabled ? RouteUrls.Receive : RouteUrls.ReceiveStx)}
       />
       <ActionButton
-        data-testid={HomePageSelectorsLegacy.BtnFundAccount}
+        data-testid={HomePageSelectors.FundAccountBtn}
         icon={<Plus2 />}
         label="Buy"
         onClick={() => navigate(RouteUrls.Fund)}
       />
-      {/* TODO: Use with feature flag */}
-      {/* <ActionButton
-        data-testid={''}
-        icon={<SwapIcon />}
-        label="Swap"
-        onClick={() => navigate(RouteUrls.Receive)}
-      /> */}
+      {SWAP_ENABLED ? (
+        <ActionButton
+          data-testid={''}
+          icon={<SwapIcon />}
+          label="Swap"
+          onClick={() => navigate(RouteUrls.Swap)}
+        />
+      ) : null}
     </Flex>
   );
 }

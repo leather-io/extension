@@ -1,4 +1,5 @@
 import { Form, Formik } from 'formik';
+import { Box } from 'leather-styles/jsx';
 
 import { noop } from '@shared/utils';
 
@@ -17,7 +18,9 @@ export function SwapForm({ children }: HasChildren) {
       validateOnMount={false}
       validationSchema={validationSchema}
     >
-      <Form>{children}</Form>
+      <Box width="100%">
+        <Form>{children}</Form>
+      </Box>
     </Formik>
   );
 }

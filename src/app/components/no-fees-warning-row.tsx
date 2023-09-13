@@ -1,5 +1,5 @@
 import { ChainID } from '@stacks/transactions';
-import { styled } from 'leaf-styles/jsx';
+import { styled } from 'leather-styles/jsx';
 
 import { whenStacksChainId } from '@app/common/utils';
 import { SpaceBetween } from '@app/components/layout/space-between';
