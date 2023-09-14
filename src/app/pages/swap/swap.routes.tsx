@@ -9,6 +9,7 @@ import { SwapStatus } from './components/swap-status/swap-status';
 import { Swap } from './swap';
 import { SwapChooseAsset } from './swap-choose-asset/swap-choose-asset';
 import { SwapContainer } from './swap-container';
+import { SwapError } from './swap-error/swap-error';
 import { SwapReview } from './swap-review/swap-review';
 import { SwapSummary } from './swap-summary/swap-summary';
 
@@ -23,6 +24,7 @@ export const swapRoutes = (
     <Route path={RouteUrls.Swap} element={<Swap />}>
       <Route path={RouteUrls.SwapChooseAsset} element={<SwapChooseAsset />} />
     </Route>
+    <Route path={RouteUrls.SwapError} element={<SwapError />} />
     <Route path={RouteUrls.SwapReview} element={<SwapReview />} />
     <Route path={RouteUrls.SwapSummary} element={<SwapSummary />}>
       <Route index element={<SwapStatus />} />

@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { HomePageSelectors } from '@tests/selectors/home.selectors';
 import { Flex, FlexProps } from 'leather-styles/jsx';
 
-import { SWAP_ENABLED } from '@shared/environment';
+// import { SWAP_ENABLED } from '@shared/environment';
 import { RouteUrls } from '@shared/route-urls';
 
 import { ArrowDown } from '@app/components/icons/arrow-down';
@@ -34,14 +34,14 @@ export function AccountActions(props: FlexProps) {
         label="Buy"
         onClick={() => navigate(RouteUrls.Fund)}
       />
-      {SWAP_ENABLED ? (
-        <ActionButton
-          data-testid={''}
-          icon={<SwapIcon />}
-          label="Swap"
-          onClick={() => navigate(RouteUrls.Swap)}
-        />
-      ) : null}
+      {/* !!!IMPORTANT!!! */}
+      {/* TODO: Hide swap button before merging, use SWAP_ENABLED flag */}
+      <ActionButton
+        data-testid={''}
+        icon={<SwapIcon />}
+        label="Swap"
+        onClick={() => navigate(RouteUrls.Swap)}
+      />
     </Flex>
   );
 }

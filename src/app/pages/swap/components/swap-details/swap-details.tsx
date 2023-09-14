@@ -1,8 +1,8 @@
 import { isUndefined } from '@shared/utils';
 
+import { convertToMoneyTypeWithDefaultOfZero } from '@app/common/money/calculate-money';
 import { formatMoney } from '@app/common/money/format-money';
 import { getEstimatedConfirmationTime } from '@app/common/transactions/stacks/transaction.utils';
-import { convertToMoneyTypeWithDefaultOfZero } from '@app/pages/send/send-crypto-asset-form/components/confirmation/send-form-confirmation.utils';
 import { useSwapContext } from '@app/pages/swap/swap.context';
 import { useStacksBlockTime } from '@app/query/stacks/info/info.hooks';
 import { useCurrentNetworkState } from '@app/store/networks/networks.hooks';
