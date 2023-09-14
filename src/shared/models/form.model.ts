@@ -1,3 +1,5 @@
+import { SupportedInscription } from './inscription.model';
+
 export interface BitcoinSendFormValues {
   amount: number | string;
   fee: number | string;
@@ -12,6 +14,7 @@ export interface BitcoinSendFormValues {
 export interface OrdinalSendFormValues {
   feeRate: number;
   recipient: string;
+  inscription: SupportedInscription;
 }
 
 // TODO: Remove assetId and optional symbol with legacy send form

@@ -15,6 +15,11 @@ export interface TaprootUtxo extends UtxoResponseItem {
   addressIndex: number;
 }
 
+export interface NativeSegwitUtxo extends UtxoResponseItem {
+  // not sure if this is right, but noticed that this is always undefined for ns
+  addressIndex: undefined;
+}
+
 /**
  * Returns all utxos for the user's current taproot account. The search for
  * utxos iterates through all addresses until a sufficiently large number of

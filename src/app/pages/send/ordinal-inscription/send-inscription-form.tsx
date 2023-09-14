@@ -60,7 +60,7 @@ export function SendInscriptionForm() {
                   {currentError}
                 </ErrorLabel>
               )}
-              <LeatherButton>Continue</LeatherButton>
+              <LeatherButton type="submit">Continue</LeatherButton>
             </Box>
           </SendInscriptionFormLoader>
         </BaseDrawer>
