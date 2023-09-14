@@ -1,3 +1,4 @@
+// ts-unused-exports:disable-next-line
 export function DotIcon(props: React.SVGProps<SVGSVGElement>) {
   return (
     <svg

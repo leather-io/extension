@@ -32,7 +32,7 @@ export function SwapAmountField({ amountAsFiat, isDisabled, name }: SwapAmountFi
   }
 
   return (
-    <Stack alignItems="flex-end" spacing="extra-tight">
+    <Stack alignItems="flex-end" spacing="extra-tight" width="50%">
       <Caption as="label" hidden htmlFor={name}>
         {name}
       </Caption>
