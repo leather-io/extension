@@ -1,3 +1,18 @@
+## [6.5.1](https://github.com/hirosystems/wallet/compare/v6.5.0...v6.5.1) (2023-08-31)
+
+
+### Bug Fixes
+
+* check broadcast param as string ([887e9d9](https://github.com/hirosystems/wallet/commit/887e9d92c0c6ae89c8f76b7f31d53f3fcea4e017))
+* reenable firefox ([0ccd7c7](https://github.com/hirosystems/wallet/commit/0ccd7c777524ff9814176d641c55aae40f9b2ca0))
+* rename brand ([dbfda8d](https://github.com/hirosystems/wallet/commit/dbfda8dc2f36992a4c01414280fcbe4dd1ee039d))
+* update build assets ([47e72b4](https://github.com/hirosystems/wallet/commit/47e72b4e9d608b851275fa17fcc0c416538ba48f))
+
+
+### Internal
+
+* **release:** 6.5.0 ([3b7bc46](https://github.com/hirosystems/wallet/commit/3b7bc460905e0a9a1d7ce30867e8470de2e0d453))
+
 ## [6.5.0](https://github.com/hirosystems/wallet/compare/v6.4.0...v6.5.0) (2023-08-30)
 
 

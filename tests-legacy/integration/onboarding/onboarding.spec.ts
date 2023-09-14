@@ -1,8 +1,9 @@
+import { SettingsSelectors } from '@tests/selectors/settings.selectors';
+
 import { RouteUrls } from '@shared/route-urls';
 
 import { SECRET_KEY } from '../../mocks';
 import { WalletPage } from '../../page-objects/wallet.page';
-import { SettingsSelectors } from '../settings.selectors';
 import { BrowserDriver, createTestSelector, setupBrowser } from '../utils';
 
 jest.setTimeout(30_000);

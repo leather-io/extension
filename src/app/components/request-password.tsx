@@ -1,7 +1,7 @@
 import { FormEvent, useCallback, useState } from 'react';
 
 import { Box, Input, Stack } from '@stacks/ui';
-import { SettingsSelectors } from '@tests-legacy/integration/settings.selectors';
+import { SettingsSelectors } from '@tests/selectors/settings.selectors';
 import { styled } from 'leather-styles/jsx';
 import { token } from 'leather-styles/tokens';
 

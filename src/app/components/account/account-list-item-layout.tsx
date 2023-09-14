@@ -1,6 +1,6 @@
 import { Flex, Spinner, Stack, StackProps, color, useMediaQuery } from '@stacks/ui';
 import { truncateMiddle } from '@stacks/ui-utils';
-import { SettingsMenuSelectors } from '@tests/selectors/settings.selectors';
+import { SettingsSelectors } from '@tests/selectors/settings.selectors';
 import { styled } from 'leather-styles/jsx';
 
 import { useConfigBitcoinEnabled } from '@app/query/common/remote-config/remote-config.query';
@@ -49,7 +49,7 @@ export function AccountListItemLayout(props: AccountListItemLayoutProps) {
     <Flex
       width="100%"
       key={`account-${index}`}
-      data-testid={SettingsMenuSelectors.SwitchAccountItemIndex.replace('[index]', `${index}`)}
+      data-testid={SettingsSelectors.SwitchAccountItemIndex.replace('[index]', `${index}`)}
       cursor="pointer"
       position="relative"
       onClick={onSelectAccount}

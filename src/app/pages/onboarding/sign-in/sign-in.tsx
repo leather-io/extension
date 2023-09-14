@@ -91,6 +91,7 @@ export function SignIn() {
       px={['space.05', 'space.05', 'space.11']}
       width="100%"
       gap={['space.03', 'space.09']}
+      height="fit-content"
     >
       <Stack flex="1" gap="space.06">
         <styled.h1 textStyle={['heading.03', 'display.02']}>Sign in with your Secret Key</styled.h1>

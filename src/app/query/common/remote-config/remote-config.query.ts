@@ -5,6 +5,7 @@ import { GITHUB_ORG, GITHUB_REPO } from '@shared/constants';
 import {
   BRANCH_NAME,
   IS_DEV_ENV,
+  IS_TEST_ENV,
   LEDGER_BITCOIN_ENABLED,
   WALLET_ENVIRONMENT,
 } from '@shared/environment';
@@ -73,7 +74,8 @@ const githubWalletConfigRawUrl = `https://raw.githubusercontent.com/${GITHUB_ORG
 }/config/wallet-config.json`;
 
 async function fetchHiroMessages(): Promise<RemoteConfig> {
-  if (!BRANCH_NAME && WALLET_ENVIRONMENT !== 'production') return localConfig as RemoteConfig;
+  if ((!BRANCH_NAME && WALLET_ENVIRONMENT !== 'production') || IS_TEST_ENV)
+    return localConfig as RemoteConfig;
   return fetch(githubWalletConfigRawUrl).then(msg => msg.json());
 }
 

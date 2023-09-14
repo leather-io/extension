@@ -1,4 +1,4 @@
-import { Flex } from '@stacks/ui';
+import { Flex } from 'leather-styles/jsx';
 
 import { HasChildren } from '@app/common/has-children';
 import { whenPageMode } from '@app/common/utils';
@@ -9,12 +9,11 @@ export function SwapFooterLayout({ children }: HasChildren) {
       alignItems="center"
       bg={whenPageMode({
         full: '',
-        popup: '#fff',
+        popup: 'accent.background-primary',
       })}
       bottom="0"
-      borderTop="1px solid #EFEFF2"
       justifyContent="center"
-      p="loose"
+      p="space.05"
       position={whenPageMode({
         full: 'unset',
         popup: 'fixed',

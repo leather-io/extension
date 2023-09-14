@@ -9,7 +9,6 @@ import { createMoney } from '@shared/models/money.model';
 import { RouteUrls } from '@shared/route-urls';
 
 import { useMagicSwap } from '@app/common/magic/hooks';
-import { whenPageMode } from '@app/common/utils';
 import { useNativeSegwitBalance } from '@app/query/bitcoin/balance/bitcoin-balances.query';
 import { useCurrentAccountNativeSegwitIndexZeroSigner } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
 
@@ -80,16 +79,11 @@ export function SwapContainer() {
 
   return (
     <SwapProvider value={swapContextValue}>
-      <SwapForm>
-        {whenPageMode({
-          full: (
-            <SwapContainerLayout>
-              <Outlet />
-            </SwapContainerLayout>
-          ),
-          popup: <Outlet />,
-        })}
-      </SwapForm>
+      <SwapContainerLayout>
+        <SwapForm>
+          <Outlet />
+        </SwapForm>
+      </SwapContainerLayout>
     </SwapProvider>
   );
 }

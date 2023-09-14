@@ -61,6 +61,3 @@ export const STX_TRANSFER_DECODED = {
   txType: 'token_transfer',
   appDetails: { name: 'Testing App', icon: '/assets/messenger-app-icon.png' },
 } as const;
-
-export const SECRET_KEY_2 =
-  'derive plug aerobic cook until crucial school fine cushion panda ready crew photo typical nuclear ride steel indicate cupboard potato ignore bamboo script galaxy';

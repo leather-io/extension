@@ -1,6 +1,6 @@
 import { Suspense } from 'react';
 
-import { TransactionSigningSelectors } from '@tests-legacy/page-objects/transaction-signing.selectors';
+import { TransactionRequestSelectors } from '@tests/selectors/requests.selectors';
 import { useFormikContext } from 'formik';
 
 import { HIGH_FEE_AMOUNT_STX } from '@shared/constants';
@@ -41,7 +41,7 @@ export function SubmitAction() {
     <Suspense fallback={<BaseConfirmButton aria-busy={isLoading} disabled={isDisabled} />}>
       <BaseConfirmButton
         aria-busy={isLoading}
-        data-testid={TransactionSigningSelectors.BtnConfirmTransaction}
+        data-testid={TransactionRequestSelectors.BtnConfirmTransaction}
         disabled={isDisabled}
         onClick={onConfirmTransaction}
       >

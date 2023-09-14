@@ -1,5 +1,5 @@
 import { Box, Stack, color, transition } from '@stacks/ui';
-import { FundPageSelectors } from '@tests-legacy/page-objects/fund.selectors';
+import { FundPageSelectors } from '@tests/selectors/fund.selectors';
 import { styled } from 'leather-styles/jsx';
 import { token } from 'leather-styles/tokens';
 

@@ -23,7 +23,7 @@ export function BackUpSecretKeyLayout(props: BackUpSecretKeyLayoutProps): React.
       gap={['space.03', 'space.09']}
     >
       <Flex alignItems="start" flexGrow={1} flex="1" justifyContent="center" mt={['base', 'unset']}>
-        <Stack maxWidth={token('sizes.centredPageFullWidth')} gap="space.06">
+        <Stack maxWidth={token('sizes.centeredPageFullWidth')} gap="space.06">
           <styled.h1 textStyle={['heading.03', 'display.02']}>Back up your Secret Key</styled.h1>
           <styled.p textStyle={['label.02', 'heading.05']}>
             Here's your Secret Key: 24 words that give you access to your new wallet.

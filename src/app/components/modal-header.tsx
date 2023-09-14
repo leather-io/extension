@@ -1,13 +1,16 @@
-import { FiArrowLeft, FiX } from 'react-icons/fi';
 import { useNavigate } from 'react-router-dom';
 
-import { Box, IconButton } from '@stacks/ui';
+import { Box } from '@stacks/ui';
 import { Flex, styled } from 'leather-styles/jsx';
 import { token } from 'leather-styles/tokens';
 
 import { RouteUrls } from '@shared/route-urls';
 
 import { NetworkModeBadge } from '@app/components/network-mode-badge';
+
+import { LeatherButton } from './button/button';
+import { ArrowLeftIcon } from './icons/arrow-left-icon';
+import { CloseIcon } from './icons/close-icon';
 
 interface ModalHeaderProps {
   actionButton?: React.JSX.Element;
@@ -51,28 +54,31 @@ export function ModalHeader({
       {...rest}
     >
       {onGoBack || defaultGoBack ? (
-        <Box flexBasis="20%" onClick={onGoBack || defaultGoBackAction} as="button">
-          <IconButton alignSelf="center" icon={FiArrowLeft} iconSize="24px" />
+        <Box flexBasis="32.5%">
+          <LeatherButton
+            alignSelf="center"
+            onClick={onGoBack || defaultGoBackAction}
+            variant="ghost"
+          >
+            <ArrowLeftIcon />
+          </LeatherButton>
         </Box>
       ) : (
-        <Box flexBasis="20%" />
+        <Box flexBasis="32.5%" />
       )}
 
-      <Flex alignItems="center" flex="60%" justifyContent="center">
+      <Flex alignItems="center" flexBasis="35%" justifyContent="center">
         <styled.h5 textStyle="heading.05" color={token('colors.accent.background-secondary')}>
           {title}
         </styled.h5>
       </Flex>
 
-      <Flex alignItems="center" flexBasis="20%" justifyContent="flex-end" position="relative">
-        <NetworkModeBadge position="absolute" right={hasCloseIcon ? '35px' : '15px'} />
+      <Flex alignItems="center" flexBasis="32.5%" justifyContent="flex-end" position="relative">
+        <NetworkModeBadge />
         {hasCloseIcon && (
-          <IconButton
-            onClick={onClose || defaultCloseAction}
-            alignSelf="center"
-            icon={FiX}
-            iconSize="24px"
-          />
+          <LeatherButton ml="space.02" onClick={onClose || defaultCloseAction} variant="ghost">
+            <CloseIcon />
+          </LeatherButton>
         )}
       </Flex>
     </Flex>

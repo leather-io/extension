@@ -1,9 +1,10 @@
-import { FiChevronDown, FiInfo } from 'react-icons/fi';
-
-import { Box, Stack, Text, color } from '@stacks/ui';
+import { Box, HStack, styled } from 'leather-styles/jsx';
 
 import { noop } from '@shared/utils';
 
+import { LeatherButton } from '@app/components/button/button';
+import { ChevronDownIcon } from '@app/components/icons/chevron-down-icon';
+import { InfoIcon } from '@app/components/icons/info-icon';
 import { SpaceBetween } from '@app/components/layout/space-between';
 import { Tooltip } from '@app/components/tooltip';
 
@@ -11,9 +12,9 @@ import { SelectedAssetField } from './selected-asset-field';
 import { SwapToggleButton } from './swap-toggle-button';
 
 function getTextColor(showError?: boolean, onClickHandler?: boolean) {
-  if (showError) return color('feedback-error');
-  if (onClickHandler) return color('accent');
-  return color('text-caption');
+  if (showError) return 'error';
+  if (onClickHandler) return 'accent.text-primary';
+  return 'accent.text-subdued';
 }
 
 interface SwapSelectedAssetLayoutProps {
@@ -51,23 +52,17 @@ export function SwapSelectedAssetLayout({
   return (
     <Box width="100%">
       <SpaceBetween mb="tight" mt="base">
-        <Text fontWeight={500}>{title}</Text>
+        <styled.span textStyle="label.01">{title}</styled.span>
         {showToggle && <SwapToggleButton />}
       </SpaceBetween>
       <SelectedAssetField
         contentLeft={
-          <Stack
-            alignItems="center"
-            as="button"
-            isInline
-            onClick={onChooseAsset}
-            spacing="tight"
-            type="button"
-            width="50%"
-          >
-            <Text>{symbol}</Text>
-            <FiChevronDown />
-          </Stack>
+          <styled.button onClick={onChooseAsset}>
+            <HStack>
+              <styled.span textStyle="label.01">{symbol}</styled.span>
+              <ChevronDownIcon />
+            </HStack>
+          </styled.button>
         }
         contentRight={swapAmountInput}
         icon={icon}
@@ -75,34 +70,26 @@ export function SwapSelectedAssetLayout({
       />
       {caption ? (
         <SpaceBetween>
-          <Stack alignItems="center" isInline spacing="extra-tight">
-            <Text color={captionTextColor} fontSize={0}>
+          <HStack alignItems="center" gap="space.01">
+            <styled.span color={captionTextColor} textStyle="caption.02">
               {error ?? caption}
-            </Text>
+            </styled.span>
             {tooltipLabel ? (
               <Tooltip label={tooltipLabel} maxWidth="160px" placement="bottom">
-                <Stack>
-                  <Box
-                    _hover={{ cursor: 'pointer' }}
-                    as={FiInfo}
-                    color={captionTextColor}
-                    ml="2px"
-                    size="14px"
-                  />
-                </Stack>
+                <Box _hover={{ cursor: 'pointer' }} color={captionTextColor} ml="space.01">
+                  <InfoIcon />
+                </Box>
               </Tooltip>
             ) : null}
-          </Stack>
-          <Text
-            as="button"
-            color={getTextColor(showError, !!onClickHandler)}
-            fontSize={0}
-            fontWeight={500}
+          </HStack>
+          <LeatherButton
             onClick={!showError && onClickHandler ? onClickHandler : noop}
-            type="button"
+            variant="text"
           >
-            {value}
-          </Text>
+            <styled.span color={captionTextColor} textStyle="caption.02">
+              {value}
+            </styled.span>
+          </LeatherButton>
         </SpaceBetween>
       ) : null}
     </Box>

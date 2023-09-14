@@ -71,7 +71,8 @@ jobs:
         # one is not available.
       - name: Run Playwright tests
         run: xvfb-run yarn playwright test tests/specs --shard=${{ matrix.shardIndex }}/${{ matrix.shardTotal }} --workers=1
-
+        env: 
+          TEST_ACCOUNT_SECRET_KEY: ${{ secrets.TEST_ACCOUNT_SECRET_KEY }}
       - uses: actions/upload-artifact@v3
         if: always()
         with:

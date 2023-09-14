@@ -133,7 +133,7 @@ function SetPasswordPage() {
             width="100%"
             gap={['space.05', 'space.05', 'space.05', 'space.09']}
           >
-            <Stack maxWidth={token('sizes.centredPageFullWidth')} gap="space.06" flex="1">
+            <Stack maxWidth={token('sizes.centeredPageFullWidth')} gap="space.06" flex="1">
               <styled.h1 textStyle={['heading.03', 'display.02']}>Set a password</styled.h1>
               <styled.p textStyle={['label.01', 'heading.05']}>
                 Your password protects your Secret Key on this device only.

@@ -1,5 +1,5 @@
 import { ButtonProps } from '@stacks/ui';
-import { SettingsSelectors } from '@tests-legacy/integration/settings.selectors';
+import { SettingsSelectors } from '@tests/selectors/settings.selectors';
 import { Flex } from 'leather-styles/jsx';
 
 import { LeatherButton } from '@app/components/button/button';
