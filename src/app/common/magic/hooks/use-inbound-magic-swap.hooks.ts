@@ -1,7 +1,7 @@
 import { bytesToHex, intToBigInt } from '@stacks/common';
 import { randomBytes } from '@stacks/encryption';
 
-import { useSwapActions } from '@app/common/hooks/use-swap-actions';
+import { useSwapActions } from '@app/common/swaps';
 import { useCurrentStacksAccount } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
 import { useBitcoinClient } from '@app/store/common/api-clients.hooks';
 import { useCurrentNetworkState } from '@app/store/networks/networks.hooks';
