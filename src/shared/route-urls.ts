@@ -88,6 +88,7 @@ export enum RouteUrls {
   // Swap routes
   Swap = '/swap',
   SwapChooseAsset = '/swap/choose-asset',
+  SwapError = '/swap/error',
   SwapReview = '/swap/review',
   SwapSummary = '/swap/summary',
   SwapSummaryDetails = '/swap/summary/details',
