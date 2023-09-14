@@ -7,6 +7,7 @@ export interface SwapSubmissionData extends SwapFormValues {
   protocol: string;
   router: SwapAsset[];
   slippage: number;
+  timestamp: string;
 }
 
 export interface SwapContext {

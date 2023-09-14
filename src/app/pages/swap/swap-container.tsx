@@ -9,30 +9,31 @@ import {
   serializeCV,
   serializePostCondition,
 } from '@stacks/transactions';
+import { SponsoredTxError } from 'alex-sdk';
 import BigNumber from 'bignumber.js';
-import get from 'lodash.get';
 
 import { logger } from '@shared/logger';
 import { RouteUrls } from '@shared/route-urls';
 import { isDefined, isUndefined } from '@shared/utils';
 
+import { LoadingKeys, useLoading } from '@app/common/hooks/use-loading';
 import { stxToMicroStx } from '@app/common/money/unit-conversion';
 import { useCurrentStacksAccount } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
 import { useGenerateStacksContractCallUnsignedTx } from '@app/store/transactions/contract-call.hooks';
+import { useSignTransactionSoftwareWallet } from '@app/store/transactions/transaction.hooks';
 
 import { SwapContainerLayout } from './components/swap-container.layout';
 import { SwapForm } from './components/swap-form';
 import { oneHundredMillion, useAlexSwap } from './hooks/use-alex-swap';
-import { useStacksBroadcastSwap } from './hooks/use-stacks-broadcast-swap';
 import { SwapAsset, SwapFormValues } from './hooks/use-swap';
 import { SwapContext, SwapProvider } from './swap.context';
 
 export function SwapContainer() {
   const navigate = useNavigate();
+  const { setIsLoading, setIsIdle } = useLoading(LoadingKeys.SUBMIT_SWAP_TRANSACTION);
   const currentAccount = useCurrentStacksAccount();
-  // TODO: Refactor to review the unsigned tx?
   const generateUnsignedTx = useGenerateStacksContractCallUnsignedTx();
-  const signAndBroadcastSwap = useStacksBroadcastSwap();
+  const signSoftwareWalletTx = useSignTransactionSoftwareWallet();
 
   const {
     alexSDK,
@@ -75,6 +76,7 @@ export function SwapContainer() {
       swapAmountTo: values.swapAmountTo,
       swapAssetFrom: values.swapAssetFrom,
       swapAssetTo: values.swapAssetTo,
+      timestamp: new Date().toISOString(),
     });
 
     navigate(RouteUrls.SwapReview);
@@ -93,6 +95,8 @@ export function SwapContainer() {
       logger.error('No assets selected to perform swap');
       return;
     }
+
+    setIsLoading();
 
     const fromAmount = BigInt(
       new BigNumber(swapSubmissionData.swapAmountFrom)
@@ -134,19 +138,29 @@ export function SwapContainer() {
       postConditionMode: PostConditionMode.Deny,
       postConditions: tx.postConditions.map(pc => bytesToHex(serializePostCondition(pc))),
       publicKey: currentAccount?.stxPublicKey,
+      sponsored: true,
       txType: TransactionTypes.ContractCall,
     };
 
     const unsignedTx = await generateUnsignedTx(payload, tempFormValues);
     if (!unsignedTx) return logger.error('Attempted to generate unsigned tx, but tx is undefined');
-    console.log(unsignedTx);
-    const { stacksBroadcastTransaction } = signAndBroadcastSwap(unsignedTx);
+
+    const signedTx = signSoftwareWalletTx(unsignedTx);
+    if (!signedTx) return logger.error('Attempted to generate raw tx, but signed tx is undefined');
+    const txRaw = bytesToHex(signedTx.serialize());
 
     try {
-      await stacksBroadcastTransaction();
+      const txId = await alexSDK.broadcastSponsoredTx(txRaw);
+      setIsIdle();
+      navigate(RouteUrls.SwapSummary, { state: { txId } });
     } catch (e) {
-      navigate(RouteUrls.TransactionBroadcastError, { state: { message: get(e, 'message') } });
-      return;
+      setIsIdle();
+      navigate(RouteUrls.SwapError, {
+        state: {
+          message: e instanceof (Error || SponsoredTxError) ? e.message : 'Unknown error',
+          title: 'Failed to broadcast',
+        },
+      });
     }
   }
 

@@ -1,8 +1,8 @@
 import { BigNumber } from 'bignumber.js';
 
 import { MarketData, formatMarketPair } from '@shared/models/market.model';
-import { Money, createMoney } from '@shared/models/money.model';
-import { isNumber } from '@shared/utils';
+import { Money, NumType, createMoney } from '@shared/models/money.model';
+import { isBigInt, isNumber } from '@shared/utils';
 
 import { sumNumbers } from '../math/helpers';
 import { formatMoney } from './format-money';
@@ -29,6 +29,18 @@ export function convertAmountToFractionalUnit(num: Money | BigNumber, decimals?:
   if (isMoney(num)) return num.amount.shiftedBy(num.decimals);
   if (!isNumber(decimals)) throw new Error('Must define decimal of given currency');
   return num.shiftedBy(decimals);
+}
+
+export function convertToMoneyTypeWithDefaultOfZero(
+  symbol: string,
+  num?: NumType,
+  decimals?: number
+) {
+  return createMoney(
+    isBigInt(num) ? new BigNumber(num.toString()) : new BigNumber(num ?? 0),
+    symbol.toUpperCase(),
+    decimals
+  );
 }
 
 // ts-unused-exports:disable-next-line

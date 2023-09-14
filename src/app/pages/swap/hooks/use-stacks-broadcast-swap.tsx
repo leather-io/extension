@@ -12,6 +12,8 @@ import { LoadingKeys } from '@app/common/hooks/use-loading';
 import { useSubmitTransactionCallback } from '@app/common/hooks/use-submit-stx-transaction';
 import { useSignTransactionSoftwareWallet } from '@app/store/transactions/transaction.hooks';
 
+// TODO: Remove if end up not needing
+// ts-unused-exports:disable-next-line
 export function useStacksBroadcastSwap() {
   const signSoftwareWalletTx = useSignTransactionSoftwareWallet();
   const [isBroadcasting, setIsBroadcasting] = useState(false);
