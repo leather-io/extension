@@ -28,7 +28,7 @@ jobs:
     outputs:
       new_version: ${{ steps.extract_version.outputs.version }}
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - uses: ./.github/actions/provision
 
       - name: Extract version
@@ -90,7 +90,7 @@ jobs:
       MINIFY_PRODUCTION_BUILD: false
       TARGET_BROWSER: chromium
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
 
       - uses: actions/cache@v3
         id: cache-node-modules
@@ -140,7 +140,7 @@ jobs:
       publish_status: ${{ steps.publish-firefox.outputs.publish_status }}
     steps:
       - name: Check out Git repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - uses: actions/cache@v3
         id: cache-node-modules

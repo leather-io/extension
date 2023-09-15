@@ -22,7 +22,7 @@ jobs:
         shardTotal: [8]
 
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - uses: ./.github/actions/provision
 
       - name: Get installed Playwright version
@@ -71,7 +71,7 @@ jobs:
         # one is not available.
       - name: Run Playwright tests
         run: xvfb-run yarn playwright test tests/specs --shard=${{ matrix.shardIndex }}/${{ matrix.shardTotal }} --workers=1
-        env: 
+        env:
           TEST_ACCOUNT_SECRET_KEY: ${{ secrets.TEST_ACCOUNT_SECRET_KEY }}
       - uses: actions/upload-artifact@v3
         if: always()
