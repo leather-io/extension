@@ -141,10 +141,16 @@ export function useTaprootInscriptionsInfiniteQuery() {
         offset,
         total,
         stopNextFetch: addressesWithoutOrdinalsNum >= stopSearchAfterNumberAddressesWithoutOrdinals,
-        inscriptions: results.map(inscription => ({
-          addressIndex: addressesMap[inscription.address],
-          ...inscription,
-        })),
+        inscriptions: results.map(inscription => {
+          let addressIndex = addressesMap[inscription.address];
+          if (inscription.address === currentBitcoinAddress) {
+            addressIndex = 0;
+          }
+          return {
+            addressIndex,
+            ...inscription,
+          };
+        }),
         fromIndex,
         addressesWithoutOrdinalsNum,
         addressesMap,
