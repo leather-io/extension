@@ -25,9 +25,6 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
-        with:
-          token: ${{ secrets.GH_TOKEN }}
-          persist-credentials: false
 
       - uses: ./.github/actions/provision
 
@@ -39,8 +36,7 @@ jobs:
         uses: cycjimmy/semantic-release-action@v3.4.2
         id: semantic
         if: github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name == github.repository
-        env:
-          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
+
         with:
           extra_plugins: |
             @semantic-release/changelog
