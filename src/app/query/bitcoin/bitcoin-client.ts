@@ -16,6 +16,10 @@ export interface UtxoResponseItem {
   value: number;
 }
 
+export interface NativeSegwitUtxo extends UtxoResponseItem {
+  addressIndex: number;
+}
+
 class AddressApi {
   constructor(public configuration: Configuration) {}
 
