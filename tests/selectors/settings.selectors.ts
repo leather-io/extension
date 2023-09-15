@@ -19,8 +19,6 @@ export enum SettingsSelectors {
   UnlockWalletBtn = 'unlock-wallet-btn',
   BtnAddNetwork = 'btn-add-network',
   ShowSecretKeyBtn = 'show-secret-key-btn',
-
-  // settings menu
   GetSupportMenuItem = 'get-support-menu-item',
   SettingsMenuBtn = 'settings-menu-btn',
   SwitchAccountMenuItem = 'switch-account-menu-item',

@@ -74,11 +74,6 @@ export async function rpcSignPsbt(message: SignPsbtRequest, port: chrome.runtime
     requestParams.push(['accountIndex', message.params.account.toString()]);
   }
 
-  if (isDefined(message.params.allowedSighash) && message.params.allowedSighash.length)
-    message.params.allowedSighash.forEach((hash: any) =>
-      requestParams.push(['allowedSighash', hash.toString()])
-    );
-
   if (isDefined(message.params.broadcast)) {
     requestParams.push(['broadcast', message.params.broadcast.toString()]);
   }

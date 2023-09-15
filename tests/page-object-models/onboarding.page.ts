@@ -1,14 +1,15 @@
 import { Page } from '@playwright/test';
-import { TEST_PASSWORD, TEST_SECRET_KEY } from '@tests/mocks/constants';
+import { TEST_PASSWORD } from '@tests/mocks/constants';
 import { HomePageSelectors } from '@tests/selectors/home.selectors';
 import { OnboardingSelectors } from '@tests/selectors/onboarding.selectors';
 
+import { TEST_ACCOUNT_SECRET_KEY } from '@shared/environment';
 import { RouteUrls } from '@shared/route-urls';
 
 // If default wallet state changes, we'll need to update this
 export const testSoftwareAccountDefaultWalletState = {
-  analytics: { hasStxDeposits: { '1': true, '2147483648': true } },
-  chains: { stx: { default: { highestAccountIndex: 16, currentAccountIndex: 0 } } },
+  analytics: { hasStxDeposits: { '1': false, '2147483648': true } },
+  chains: { stx: { default: { highestAccountIndex: 0, currentAccountIndex: 0 } } },
   keys: {
     ids: ['default'],
     entities: {
@@ -124,7 +125,7 @@ export class OnboardingPage {
     await this.denyAnalytics();
     await this.page.getByTestId(OnboardingSelectors.SignInLink).click();
 
-    const key = TEST_SECRET_KEY.split(' ');
+    const key = TEST_ACCOUNT_SECRET_KEY.split(' ');
     for (let i = 0; i < key.length; i++) {
       await this.page.getByTestId(`mnemonic-input-${i}`).fill(key[i]);
     }

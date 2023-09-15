@@ -4,7 +4,6 @@ import { useNavigate } from 'react-router-dom';
 import * as btc from '@scure/btc-signer';
 
 import { RouteUrls } from '@shared/route-urls';
-import { AllowedSighashTypes } from '@shared/rpc/methods/sign-psbt';
 
 import { useRouteHeader } from '@app/common/hooks/use-route-header';
 import { SignPsbtArgs } from '@app/common/psbt/requests';
@@ -48,7 +47,6 @@ function getPsbtTxOutputs(psbtTx: btc.Transaction) {
 }
 
 interface PsbtSignerProps {
-  allowedSighash?: AllowedSighashTypes[];
   indexesToSign?: number[];
   isBroadcasting?: boolean;
   name?: string;
@@ -58,16 +56,7 @@ interface PsbtSignerProps {
   psbtHex: string;
 }
 export function PsbtSigner(props: PsbtSignerProps) {
-  const {
-    allowedSighash,
-    indexesToSign,
-    isBroadcasting,
-    name,
-    origin,
-    onCancel,
-    onSignPsbt,
-    psbtHex,
-  } = props;
+  const { indexesToSign, isBroadcasting, name, origin, onCancel, onSignPsbt, psbtHex } = props;
   const navigate = useNavigate();
   const { address: addressNativeSegwit } = useCurrentAccountNativeSegwitIndexZeroSigner();
   const { address: addressTaproot } = useCurrentAccountTaprootIndexZeroSigner();
@@ -103,7 +92,6 @@ export function PsbtSigner(props: PsbtSignerProps) {
     psbtOutputs,
     shouldDefaultToAdvancedView,
   } = useParsedPsbt({
-    allowedSighash,
     inputs: psbtTxInputs,
     indexesToSign,
     outputs: psbtTxOutputs,

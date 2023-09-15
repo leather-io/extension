@@ -20,6 +20,9 @@ function generateImageAssetUrlsWithSuffix(suffix = '') {
 }
 
 const environmentIcons = {
+  testing: {
+    icons: generateImageAssetUrlsWithSuffix(PREVIEW_RELEASE ? '-preview' : ''),
+  },
   development: {
     icons: generateImageAssetUrlsWithSuffix('-dev'),
   },
@@ -29,12 +32,14 @@ const environmentIcons = {
 };
 
 const contentSecurityPolicyEnvironment = {
+  testing: `default-src 'none'; connect-src *; style-src 'unsafe-inline'; img-src 'self' data: https:; script-src 'self' 'wasm-unsafe-eval'; object-src 'none'; frame-src 'none'; frame-ancestors 'none';`,
   development:
     "script-src 'self' 'wasm-unsafe-eval'; object-src 'self'; frame-src 'none'; frame-ancestors 'none';",
   production: `default-src 'none'; connect-src *; style-src 'unsafe-inline'; img-src 'self' data: https:; script-src 'self' 'wasm-unsafe-eval'; object-src 'none'; frame-src 'none'; frame-ancestors 'none';`,
 };
 
 const defaultIconEnvironment = {
+  testing: 'assets/connect-logo/Stacks128w.png',
   development: 'assets/connect-logo/Stacks128w-dev.png',
   production: 'assets/connect-logo/Stacks128w.png',
 };

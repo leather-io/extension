@@ -8,8 +8,7 @@ import {
   getBtcSignerLibNetworkConfigByMode,
 } from '@shared/crypto/bitcoin/bitcoin.network';
 import { getAddressFromOutScript } from '@shared/crypto/bitcoin/bitcoin.utils';
-import { AllowedSighashTypes } from '@shared/rpc/methods/sign-psbt';
-import { ensureArray, isDefined, isUndefined } from '@shared/utils';
+import { isDefined, isUndefined } from '@shared/utils';
 
 import { useOrdinalsAwareUtxoQueries } from '@app/query/bitcoin/ordinals/ordinals-aware-utxo.query';
 import { useCurrentAccountNativeSegwitIndexZeroSigner } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
@@ -45,11 +44,10 @@ function getInputValue(index: number, input: btc.TransactionInput) {
 }
 
 interface UseParsedInputsArgs {
-  allowedSighash?: AllowedSighashTypes[];
   inputs: btc.TransactionInput[];
   indexesToSign?: number[];
 }
-export function useParsedInputs({ allowedSighash, inputs, indexesToSign }: UseParsedInputsArgs) {
+export function useParsedInputs({ inputs, indexesToSign }: UseParsedInputsArgs) {
   const network = useCurrentNetwork();
   const bitcoinNetwork = getBtcSignerLibNetworkConfigByMode(network.chain.bitcoin.network);
   const bitcoinAddressNativeSegwit = useCurrentAccountNativeSegwitIndexZeroSigner().address;
@@ -69,12 +67,6 @@ export function useParsedInputs({ allowedSighash, inputs, indexesToSign }: UsePa
         const canChange =
           isCurrentAddress &&
           !(!input.sighashType || input.sighashType === 0 || input.sighashType === 1);
-        // Checks if the sighashType is allowed by the PSBT
-        const isAllowedToSign =
-          isUndefined(allowedSighash) ||
-          ensureArray(allowedSighash).some(
-            type => !input.sighashType || type === input.sighashType
-          );
         // Should we check the sighashType here before it gets to the signing lib?
         const toSignAll = isCurrentAddress && signAll;
         const toSignIndex = isCurrentAddress && !signAll && indexesToSign.includes(i);
@@ -84,13 +76,12 @@ export function useParsedInputs({ allowedSighash, inputs, indexesToSign }: UsePa
           index: input.index,
           inscription: utxosWithInscriptions[i]?.inscriptions,
           isMutable: canChange,
-          toSign: isAllowedToSign && (toSignAll || toSignIndex),
+          toSign: toSignAll || toSignIndex,
           txid: input.txid ? bytesToHex(input.txid) : '',
           value: isDefined(input.index) ? getInputValue(input.index, input) : 0,
         };
       }),
     [
-      allowedSighash,
       bitcoinAddressNativeSegwit,
       bitcoinAddressTaproot,
       bitcoinNetwork,

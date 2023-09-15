@@ -15,14 +15,13 @@ export function usePsbtRequest() {
   const [isLoading, setIsLoading] = useState(false);
   const analytics = useAnalytics();
   const navigate = useNavigate();
-  const { allowedSighash, appName, origin, payload, requestToken, signAtIndex, tabId } =
+  const { appName, origin, payload, requestToken, signAtIndex, tabId } =
     usePsbtRequestSearchParams();
   const { signPsbt, getRawPsbt, getPsbtAsTransaction } = usePsbtSigner();
 
   return useMemo(() => {
     return {
       appName,
-      allowedSighash,
       indexesToSign: signAtIndex,
       isLoading,
       getRawPsbt,
@@ -43,7 +42,7 @@ export function usePsbtRequest() {
         const tx = getPsbtAsTransaction(payload.hex);
 
         try {
-          signPsbt({ allowedSighash, indexesToSign: signAtIndex, inputs, tx });
+          signPsbt({ indexesToSign: signAtIndex, inputs, tx });
         } catch (e) {
           return navigate(RouteUrls.RequestError, {
             state: { message: e instanceof Error ? e.message : '', title: 'Failed to sign' },
@@ -63,7 +62,6 @@ export function usePsbtRequest() {
     };
   }, [
     appName,
-    allowedSighash,
     signAtIndex,
     isLoading,
     getRawPsbt,
