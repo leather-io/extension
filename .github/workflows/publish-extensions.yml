@@ -114,7 +114,7 @@ jobs:
         continue-on-error: true
         id: publish-chrome
         run: |
-          yarn chrome-webstore-upload upload --source leather-chromium.zip
+          yarn chrome-webstore-upload upload --auto-publish --source leather-chromium.zip
           echo "::set-output name=publish_status::${?}"
         env:
           EXTENSION_ID: ${{ secrets.CHROME_APP_ID }}
@@ -159,7 +159,7 @@ jobs:
         continue-on-error: true
         id: publish-firefox
         run: |
-          yarn web-ext-submit --channel=listed --source-dir=src
+          yarn web-ext-submit --channel=listed -source-dir=dist
           echo "::set-output name=publish_status::${?}"
         env:
           WEB_EXT_API_KEY: ${{ secrets.FIREFOX_API_KEY }}
