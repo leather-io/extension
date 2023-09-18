@@ -13,6 +13,6 @@ export function useAmountAsFiat(balance?: Money, value?: string) {
   const convertedAmountAsMoney = convertCryptoCurrencyToUsd(
     createMoney(unitToFractionalUnit(balance.decimals)(value), balance.symbol, balance.decimals)
   );
-  // TODO: Remove this when using live data bc amounts won't be null?
+
   return convertedAmountAsMoney.amount.isNaN() ? '' : i18nFormatCurrency(convertedAmountAsMoney);
 }

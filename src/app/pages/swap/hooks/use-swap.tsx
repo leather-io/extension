@@ -7,7 +7,7 @@ import { Money } from '@shared/models/money.model';
 
 import { FormErrorMessages } from '@app/common/error-messages';
 // import { tokenAmountValidator } from '@app/common/validation/forms/amount-validators';
-import { currencyAmountValidator } from '@app/common/validation/forms/currency-validators';
+import { useNextNonce } from '@app/query/stacks/nonce/account-nonces.hooks';
 
 export interface SwapAsset {
   balance: Money;
@@ -24,10 +24,13 @@ export interface SwapFormValues extends StacksTransactionFormValues {
 }
 
 export function useSwap() {
+  const { data: nextNonce } = useNextNonce();
+
   const initialValues: SwapFormValues = {
     fee: '0',
     feeCurrency: 'STX',
     feeType: FeeTypes[FeeTypes.Middle],
+    nonce: nextNonce?.nonce,
     swapAmountFrom: '',
     swapAmountTo: '',
     swapAssetFrom: undefined,
@@ -40,12 +43,14 @@ export function useSwap() {
     swapAmountFrom: yup
       .number()
       .required(FormErrorMessages.AmountRequired)
-      .concat(currencyAmountValidator()),
+      .typeError(FormErrorMessages.MustBeNumber)
+      .positive(FormErrorMessages.MustBePositive),
     // .concat(tokenAmountValidator(balance)),
     swapAmountTo: yup
       .number()
       .required(FormErrorMessages.AmountRequired)
-      .concat(currencyAmountValidator()),
+      .typeError(FormErrorMessages.MustBeNumber)
+      .positive(FormErrorMessages.MustBePositive),
     // .concat(tokenAmountValidator(balance)),
     swapAssetFrom: yup.object<SwapAsset>().required(),
     swapAssetTo: yup.object<SwapAsset>().required(),

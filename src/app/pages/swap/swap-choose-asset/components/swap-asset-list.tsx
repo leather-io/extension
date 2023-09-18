@@ -19,21 +19,29 @@ export function SwapAssetList({ assets }: SwapAssetList) {
   const location = useLocation();
   const navigate = useNavigate();
 
+  const isFromList = get(location.state, 'swap') === 'from';
+  const isToList = get(location.state, 'swap') === 'to';
+
+  const selectableAssets = assets.filter(
+    asset =>
+      (isFromList && asset.name !== values.swapAssetTo?.name) ||
+      (isToList && asset.name !== values.swapAssetFrom?.name)
+  );
+
   async function onChooseAsset(asset: SwapAsset) {
     let from: SwapAsset | undefined;
     let to: SwapAsset | undefined;
-    if (get(location.state, 'swap') === 'from') {
+    if (isFromList) {
       from = asset;
       to = values.swapAssetTo;
       await setFieldValue('swapAssetFrom', asset);
-    } else if (get(location.state, 'swap') === 'to') {
+    } else if (isToList) {
       from = values.swapAssetFrom;
       to = asset;
       await setFieldValue('swapAssetTo', asset);
     }
     navigate(-1);
-    if (values.swapAmountFrom && from && to) {
-      await setFieldValue('swapAmountTo', '');
+    if (from && to && values.swapAmountFrom) {
       const toAmount = await fetchToAmount(from, to, values.swapAmountFrom);
       await setFieldValue('swapAmountTo', toAmount);
     }
@@ -41,11 +49,12 @@ export function SwapAssetList({ assets }: SwapAssetList) {
 
   return (
     <SwapAssetListLayout>
-      {assets.map(asset => (
+      {selectableAssets.map(asset => (
         <styled.button
           key={asset.balance.symbol}
           onClick={() => onChooseAsset(asset)}
           textAlign="left"
+          type="button"
         >
           <SwapAssetItem asset={asset} />
         </styled.button>

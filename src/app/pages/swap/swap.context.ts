@@ -11,11 +11,13 @@ export interface SwapSubmissionData extends SwapFormValues {
 }
 
 export interface SwapContext {
-  swapSubmissionData?: SwapSubmissionData;
   fetchToAmount(from: SwapAsset, to: SwapAsset, fromAmount: string): Promise<string>;
+  isSendingMax: boolean;
+  onSetIsSendingMax(value: boolean): void;
   onSubmitSwapForReview(values: SwapFormValues): Promise<void> | void;
   onSubmitSwap(): Promise<void> | void;
   swappableAssets: SwapAsset[];
+  swapSubmissionData?: SwapSubmissionData;
 }
 
 const swapContext = createContext<SwapContext | null>(null);

@@ -1,7 +1,5 @@
 import { isUndefined } from '@shared/utils';
 
-import { convertToMoneyTypeWithDefaultOfZero } from '@app/common/money/calculate-money';
-import { formatMoney } from '@app/common/money/format-money';
 import { getEstimatedConfirmationTime } from '@app/common/transactions/stacks/transaction.utils';
 import { useSwapContext } from '@app/pages/swap/swap.context';
 import { useStacksBlockTime } from '@app/query/stacks/info/info.hooks';
@@ -24,37 +22,33 @@ export function SwapDetails() {
 
   return (
     <SwapDetailsLayout>
+      <SwapDetailLayout title="Protocol" value={swapSubmissionData.protocol} />
       <SwapDetailLayout
         title="Route"
         value={swapSubmissionData.router.map(x => x.name).join(' > ')}
       />
-      <SwapDetailLayout
-        title="Transaction fees"
-        value={formatMoney(
-          convertToMoneyTypeWithDefaultOfZero('STX', Number(swapSubmissionData.fee))
-        )}
-      />
-      <SwapDetailLayout
-        title="Estimated confirmation time"
-        value={getEstimatedConfirmationTime(isTestnet, blockTime)}
-      />
-      <SwapDetailLayout
-        title="Slippage Tolerance"
-        value={`${swapSubmissionData.slippage * 100}%`}
-      />
-      <SwapDetailLayout title="Protocol" value={swapSubmissionData.protocol} />
-      <SwapDetailLayout
-        title="Liquidity Provider Fee"
-        tooltipLabel="To receive a share of these fees, become a Liquidity Provider through 'Pool'"
-        value={`${swapSubmissionData.liquidityFee} ${swapSubmissionData.swapAssetFrom.name}`}
-      />
-
       <SwapDetailLayout
         title="Minimum Received"
         value={`${Number(swapSubmissionData.swapAmountTo) * (1 - swapSubmissionData.slippage)} ${
           swapSubmissionData.swapAssetTo.name
         }`}
       />
+      <SwapDetailLayout
+        title="Slippage Tolerance"
+        value={`${swapSubmissionData.slippage * 100}%`}
+      />
+      <SwapDetailLayout
+        title="Liquidity Provider Fee"
+        tooltipLabel="To receive a share of these fees, become a Liquidity Provider through 'Pool'"
+        value={`${swapSubmissionData.liquidityFee} ${swapSubmissionData.swapAssetFrom.name}`}
+      />
+      {/* Alex transactions are sponsored */}
+      <SwapDetailLayout title="Transaction fees" value="Sponsored" />
+      <SwapDetailLayout
+        title="Estimated confirmation time"
+        value={getEstimatedConfirmationTime(isTestnet, blockTime)}
+      />
+      <SwapDetailLayout title="Nonce" value={swapSubmissionData.nonce?.toString() ?? 'Unknown'} />
     </SwapDetailsLayout>
   );
 }

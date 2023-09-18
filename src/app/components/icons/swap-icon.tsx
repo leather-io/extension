@@ -11,7 +11,7 @@ export function SwapIcon(props: React.SVGProps<SVGSVGElement>) {
       <g clipPath="url(#clip0_5842_83269)">
         <path
           d="M1.94727 4.50229H13.2596M10.7086 7.59746L13.7987 4.50229L10.7086 1.41211M13.9934 11.4964H2.756M5.30702 8.4012L2.21185 11.4964L5.30702 14.5865"
-          stroke="#12100F"
+          stroke="currentColor"
           strokeWidth="2"
           strokeMiterlimit="10"
         />

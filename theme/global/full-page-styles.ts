@@ -1,6 +1,6 @@
 export const fullPageStyles = {
   '.mode__full-page': {
-    '&, body, #app, main,.radix-themes': {
+    '&, body, main, .radix-themes': {
       height: '100%',
       maxHeight: 'unset',
       width: '100%',

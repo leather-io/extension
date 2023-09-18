@@ -1,16 +1,16 @@
 import toast from 'react-hot-toast';
-import { Outlet, useLocation } from 'react-router-dom';
+import { Outlet, useLocation, useNavigate } from 'react-router-dom';
 
 import WaxSeal from '@assets/illustrations/wax-seal.png';
 import { useClipboard } from '@stacks/ui';
 import { HStack, styled } from 'leather-styles/jsx';
 import get from 'lodash.get';
 
-import { logger } from '@shared/logger';
+import { RouteUrls } from '@shared/route-urls';
 import { isUndefined } from '@shared/utils';
 
 import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
-import { useExplorerLink } from '@app/common/hooks/use-explorer-link';
+import { HandleOpenTxLinkArgs, useExplorerLink } from '@app/common/hooks/use-explorer-link';
 import { useRouteHeader } from '@app/common/hooks/use-route-header';
 import { CopyIcon } from '@app/components/icons/copy-icon';
 import { ExternalLinkIcon } from '@app/components/icons/external-link-icon';
@@ -28,14 +28,15 @@ import { SwapSummaryLayout } from './swap-summary.layout';
 function useSwapSummaryState() {
   const location = useLocation();
   return {
-    txId: get(location.state, 'txId') as string,
+    txLink: get(location.state, 'txLink') as HandleOpenTxLinkArgs,
   };
 }
 
 export function SwapSummary() {
   const { swapSubmissionData } = useSwapContext();
-  const { txId } = useSwapSummaryState();
+  const { txLink } = useSwapSummaryState();
   const analytics = useAnalytics();
+  const navigate = useNavigate();
   const { onCopy } = useClipboard('');
   const { handleOpenTxLink } = useExplorerLink();
 
@@ -56,14 +57,11 @@ export function SwapSummary() {
       swapSymbolFrom: swapSubmissionData?.swapAssetFrom?.balance.symbol,
       swapSymbolTo: swapSubmissionData?.swapAssetTo?.balance.symbol,
     });
-    handleOpenTxLink({
-      blockchain: 'stacks',
-      txId,
-    });
+    handleOpenTxLink(txLink);
   }
 
-  if (isUndefined(swapSubmissionData?.swapAssetTo)) {
-    logger.error('No asset selected for swap');
+  if (isUndefined(swapSubmissionData) || isUndefined(swapSubmissionData.swapAssetTo)) {
+    navigate(RouteUrls.Swap, { replace: true });
     return null;
   }
 

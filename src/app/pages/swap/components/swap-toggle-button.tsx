@@ -1,16 +1,20 @@
 import { useFormikContext } from 'formik';
 import { styled } from 'leather-styles/jsx';
 
+import { isDefined } from '@shared/utils';
+
 import { SwapIcon } from '@app/components/icons/swap-icon';
 
 import { SwapFormValues } from '../hooks/use-swap';
 import { useSwapContext } from '../swap.context';
 
 export function SwapToggleButton() {
-  const { fetchToAmount } = useSwapContext();
+  const { fetchToAmount, onSetIsSendingMax } = useSwapContext();
   const { setFieldValue, values } = useFormikContext<SwapFormValues>();
 
   async function onToggleSwapAssets() {
+    onSetIsSendingMax(false);
+
     const prevAmountFrom = values.swapAmountFrom;
     const prevAmountTo = values.swapAmountTo;
     const prevAssetFrom = values.swapAssetFrom;
@@ -19,9 +23,10 @@ export function SwapToggleButton() {
     await setFieldValue('swapAssetFrom', prevAssetTo);
     await setFieldValue('swapAssetTo', prevAssetFrom);
     await setFieldValue('swapAmountFrom', prevAmountTo);
-    if (prevAssetFrom != null && prevAssetTo != null && !isNaN(Number(prevAmountTo))) {
-      const to = await fetchToAmount(prevAssetTo, prevAssetFrom, prevAmountTo);
-      await setFieldValue('swapAmountTo', to);
+
+    if (isDefined(prevAssetFrom) && isDefined(prevAssetTo)) {
+      const toAmount = await fetchToAmount(prevAssetTo, prevAssetFrom, prevAmountTo);
+      await setFieldValue('swapAmountTo', toAmount);
     } else {
       await setFieldValue('swapAmountTo', prevAmountFrom);
     }

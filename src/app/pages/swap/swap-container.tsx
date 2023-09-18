@@ -1,4 +1,4 @@
-import { useMemo } from 'react';
+import { useMemo, useState } from 'react';
 import { Outlet, useNavigate } from 'react-router-dom';
 
 import { bytesToHex } from '@stacks/common';
@@ -17,7 +17,8 @@ import { RouteUrls } from '@shared/route-urls';
 import { isDefined, isUndefined } from '@shared/utils';
 
 import { LoadingKeys, useLoading } from '@app/common/hooks/use-loading';
-import { stxToMicroStx } from '@app/common/money/unit-conversion';
+import { delay } from '@app/common/utils';
+import { NonceSetter } from '@app/components/nonce-setter';
 import { useCurrentStacksAccount } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
 import { useGenerateStacksContractCallUnsignedTx } from '@app/store/transactions/contract-call.hooks';
 import { useSignTransactionSoftwareWallet } from '@app/store/transactions/transaction.hooks';
@@ -29,6 +30,7 @@ import { SwapAsset, SwapFormValues } from './hooks/use-swap';
 import { SwapContext, SwapProvider } from './swap.context';
 
 export function SwapContainer() {
+  const [isSendingMax, setIsSendingMax] = useState(false);
   const navigate = useNavigate();
   const { setIsLoading, setIsIdle } = useLoading(LoadingKeys.SUBMIT_SWAP_TRANSACTION);
   const currentAccount = useCurrentStacksAccount();
@@ -62,11 +64,11 @@ export function SwapContainer() {
     ]);
 
     onSetSwapSubmissionData({
-      // Default to low fee for now
-      fee: stxToMicroStx('0.0025').toString(),
+      fee: '0', // Alex transactions are sponsored
       feeCurrency: values.feeCurrency,
       feeType: values.feeType,
       liquidityFee: new BigNumber(Number(lpFee)).dividedBy(oneHundredMillion).toNumber(),
+      nonce: values.nonce,
       protocol: 'ALEX',
       router: router
         .map(x => getAssetFromAlexCurrency(supportedCurrencies.find(y => y.id === x)))
@@ -127,6 +129,7 @@ export function SwapContainer() {
       fee: swapSubmissionData.fee,
       feeCurrency: swapSubmissionData.feeCurrency,
       feeType: swapSubmissionData.feeType,
+      nonce: swapSubmissionData.nonce,
     };
 
     const payload: ContractCallPayload = {
@@ -152,7 +155,8 @@ export function SwapContainer() {
     try {
       const txId = await alexSDK.broadcastSponsoredTx(txRaw);
       setIsIdle();
-      navigate(RouteUrls.SwapSummary, { state: { txId } });
+      await delay(1000);
+      navigate(RouteUrls.SwapSummary, { state: { txLink: { blockchain: 'stacks', txId } } });
     } catch (e) {
       setIsIdle();
       navigate(RouteUrls.SwapError, {
@@ -165,18 +169,22 @@ export function SwapContainer() {
   }
 
   const swapContextValue: SwapContext = {
-    swapSubmissionData,
     fetchToAmount,
+    isSendingMax,
+    onSetIsSendingMax: value => setIsSendingMax(value),
     onSubmitSwapForReview,
     onSubmitSwap,
     swappableAssets: swappableAssets,
+    swapSubmissionData,
   };
 
   return (
     <SwapProvider value={swapContextValue}>
       <SwapContainerLayout>
         <SwapForm>
-          <Outlet />
+          <NonceSetter>
+            <Outlet />
+          </NonceSetter>
         </SwapForm>
       </SwapContainerLayout>
     </SwapProvider>

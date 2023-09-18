@@ -1,10 +1,11 @@
 import { ChangeEvent } from 'react';
 
-import { Input, Stack, color } from '@stacks/ui';
 import { useField, useFormikContext } from 'formik';
+import { Stack, styled } from 'leather-styles/jsx';
+
+import { isUndefined } from '@shared/utils';
 
 import { useShowFieldError } from '@app/common/form-utils';
-import { Caption } from '@app/components/typography';
 
 import { SwapFormValues } from '../hooks/use-swap';
 import { useSwapContext } from '../swap.context';
@@ -15,48 +16,52 @@ interface SwapAmountFieldProps {
   name: string;
 }
 export function SwapAmountField({ amountAsFiat, isDisabled, name }: SwapAmountFieldProps) {
-  const { fetchToAmount } = useSwapContext();
+  const { fetchToAmount, onSetIsSendingMax } = useSwapContext();
   const { setFieldValue, values } = useFormikContext<SwapFormValues>();
   const [field] = useField(name);
-  const showError = useShowFieldError(name);
+  const showError = useShowFieldError(name) && name === 'swapAmountFrom' && values.swapAssetTo;
 
   async function onChange(event: ChangeEvent<HTMLInputElement>) {
-    field.onChange(event);
-    const value = event.currentTarget.value;
     const { swapAssetFrom, swapAssetTo } = values;
-    if (swapAssetFrom != null && swapAssetTo && !isNaN(Number(value))) {
-      await setFieldValue('swapAmountTo', '');
-      const toAmount = await fetchToAmount(swapAssetFrom, swapAssetTo, value);
-      await setFieldValue('swapAmountTo', toAmount);
-    }
+    if (isUndefined(swapAssetFrom) || isUndefined(swapAssetTo)) return;
+    onSetIsSendingMax(false);
+    const value = event.currentTarget.value;
+    const toAmount = await fetchToAmount(swapAssetFrom, swapAssetTo, value);
+    await setFieldValue('swapAmountTo', toAmount);
+    field.onChange(event);
   }
 
   return (
-    <Stack alignItems="flex-end" spacing="extra-tight" width="50%">
-      <Caption as="label" hidden htmlFor={name}>
+    <Stack alignItems="flex-end" gap="space.01" width="50%">
+      <styled.label hidden htmlFor={name}>
         {name}
-      </Caption>
-      <Input
-        _disabled={{ border: 'none', color: color('text-caption') }}
-        _focus={{ border: 'none' }}
+      </styled.label>
+      <styled.input
+        _disabled={{
+          bg: 'transparent',
+          border: 'none',
+          color: 'accent.text-subdued',
+        }}
         autoComplete="off"
         border="none"
-        color={showError ? color('feedback-error') : 'unset'}
+        color={showError ? 'error' : 'accent.text-primary'}
         display="block"
-        fontSize="20px"
-        height="28px"
-        isDisabled={isDisabled}
+        disabled={isDisabled}
         p="0px"
         placeholder="0"
+        ring="none"
         textAlign="right"
+        textStyle="heading.05"
         type="number"
         width="100%"
         {...field}
         onChange={onChange}
       />
-      <Caption color={showError ? color('feedback-error') : color('text-caption')}>
-        {amountAsFiat}
-      </Caption>
+      {amountAsFiat ? (
+        <styled.span color={showError ? 'error' : 'accent.text-subdued'} textStyle="caption.02">
+          {amountAsFiat}
+        </styled.span>
+      ) : null}
     </Stack>
   );
 }

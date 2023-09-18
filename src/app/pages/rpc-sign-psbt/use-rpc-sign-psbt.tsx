@@ -64,7 +64,7 @@ export function useRpcSignPsbt() {
           txId: txid,
           txLink: {
             blockchain: 'bitcoin',
-            txid: txid || '',
+            txId: txid || '',
           },
           txValue: formatMoney(transferTotalAsMoney),
         };

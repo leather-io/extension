@@ -14,9 +14,9 @@ export function SwapSelectedAssetPlaceholder({
   return (
     <SwapSelectedAssetLayout
       onChooseAsset={onChooseAsset}
-      name=""
+      name="placeholder"
       showToggle={showToggle}
-      swapAmountInput={<SwapAmountField amountAsFiat="" isDisabled name="" />}
+      swapAmountInput={<SwapAmountField amountAsFiat="" isDisabled name="placeholder" />}
       symbol="Select asset"
       title={title}
       value="0"

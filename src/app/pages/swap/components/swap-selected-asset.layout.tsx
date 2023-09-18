@@ -51,13 +51,13 @@ export function SwapSelectedAssetLayout({
 
   return (
     <Box width="100%">
-      <SpaceBetween mb="tight" mt="base">
+      <SpaceBetween mb="tight" mt={showToggle ? 'extra-loose' : 'base'}>
         <styled.span textStyle="label.01">{title}</styled.span>
         {showToggle && <SwapToggleButton />}
       </SpaceBetween>
       <SelectedAssetField
         contentLeft={
-          <styled.button onClick={onChooseAsset}>
+          <styled.button onClick={onChooseAsset} type="button">
             <HStack>
               <styled.span textStyle="label.01">{symbol}</styled.span>
               <ChevronDownIcon />
@@ -76,7 +76,7 @@ export function SwapSelectedAssetLayout({
             </styled.span>
             {tooltipLabel ? (
               <Tooltip label={tooltipLabel} maxWidth="160px" placement="bottom">
-                <Box _hover={{ cursor: 'pointer' }} color={captionTextColor} ml="space.01">
+                <Box _hover={{ cursor: 'pointer' }} color={captionTextColor}>
                   <InfoIcon />
                 </Box>
               </Tooltip>
@@ -84,7 +84,7 @@ export function SwapSelectedAssetLayout({
           </HStack>
           <LeatherButton
             onClick={!showError && onClickHandler ? onClickHandler : noop}
-            variant="text"
+            variant={onClickHandler ? 'link' : 'text'}
           >
             <styled.span color={captionTextColor} textStyle="caption.02">
               {value}

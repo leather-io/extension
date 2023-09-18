@@ -8,7 +8,7 @@
     *
     * (c) 2023 Colophon Foundry
     *
-    * Licenced to Trustmachines, 
+    * Licenced to Trustmachines,
 */
 
 @font-face {
@@ -216,7 +216,9 @@ textarea {
 
 [type='number']::-webkit-inner-spin-button,
 [type='number']::-webkit-outer-spin-button {
+  -webkit-appearance: none;
   height: auto;
+  margin: 0;
 }
 
 [type='search'] {
