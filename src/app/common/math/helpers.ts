@@ -1,7 +1,10 @@
 import BigNumber from 'bignumber.js';
 
-export function initBigNumber(num: string | number | BigNumber) {
-  return BigNumber.isBigNumber(num) ? num : new BigNumber(num);
+import { isBigInt } from '@shared/utils';
+
+export function initBigNumber(num: string | number | BigNumber | bigint) {
+  if (BigNumber.isBigNumber(num)) return num;
+  return isBigInt(num) ? new BigNumber(num.toString()) : new BigNumber(num);
 }
 
 export function sumNumbers(nums: number[]) {

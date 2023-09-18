@@ -5,13 +5,14 @@ import { useFormikContext } from 'formik';
 import { RouteUrls } from '@shared/route-urls';
 import { isUndefined } from '@shared/utils';
 
-import { SwapFormValues } from '../hooks/use-swap';
+import { LoadingSpinner } from '@app/components/loading-spinner';
+
+import { SwapFormValues } from '../hooks/use-swap-form';
 import { SwapSelectedAssetFrom } from './swap-selected-asset-from';
-import { SwapSelectedAssetPlaceholder } from './swap-selected-asset-placeholder';
 import { SwapSelectedAssetTo } from './swap-selected-asset-to';
 
-const titleFrom = 'Convert';
-const titleTo = 'To';
+const titleFrom = 'You pay';
+const titleTo = 'You receive';
 
 export function SwapSelectedAssets() {
   const { values } = useFormikContext<SwapFormValues>();
@@ -25,18 +26,12 @@ export function SwapSelectedAssets() {
     navigate(RouteUrls.SwapChooseAsset, { state: { swap: 'to' } });
   }
 
+  if (isUndefined(values.swapAssetFrom)) return <LoadingSpinner height="300px" />;
+
   return (
     <>
-      {isUndefined(values.swapAssetFrom) ? (
-        <SwapSelectedAssetPlaceholder onChooseAsset={onChooseAssetFrom} title={titleFrom} />
-      ) : (
-        <SwapSelectedAssetFrom onChooseAsset={onChooseAssetFrom} title={titleFrom} />
-      )}
-      {isUndefined(values.swapAssetTo) ? (
-        <SwapSelectedAssetPlaceholder onChooseAsset={onChooseAssetTo} showToggle title={titleTo} />
-      ) : (
-        <SwapSelectedAssetTo onChooseAsset={onChooseAssetTo} title={titleTo} />
-      )}
+      <SwapSelectedAssetFrom onChooseAsset={onChooseAssetFrom} title={titleFrom} />
+      <SwapSelectedAssetTo onChooseAsset={onChooseAssetTo} title={titleTo} />
     </>
   );
 }

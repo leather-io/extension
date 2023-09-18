@@ -31,11 +31,6 @@ export function displayDate(txDate: string): string {
   return date.format('MMM Do, YYYY');
 }
 
-export function displayTime(txDate: string) {
-  const date = dayjs(txDate);
-  return date.format('h:mm A');
-}
-
 export function isoDateToLocalDateSafe(isoDate: string) {
   try {
     return isoDateToLocalDate(isoDate);

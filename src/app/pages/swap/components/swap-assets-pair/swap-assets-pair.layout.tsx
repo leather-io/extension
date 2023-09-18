@@ -11,15 +11,15 @@ export function SwapAssetsPairLayout({ swapAssetFrom, swapAssetTo }: SwapAssetsP
     <Stack
       border="1px solid"
       borderColor="accent.border-default !important"
-      borderRadius="10px"
+      borderRadius="12px"
       gap="space.01"
       mb="space.05"
       mt="space.04"
-      p="space.05"
+      p="space.04"
       width="100%"
     >
       {swapAssetFrom}
-      <Box p="space.02">
+      <Box height="24px" px="space.04" py="space.01" width="48px">
         <ArrowDownIcon />
       </Box>
       {swapAssetTo}

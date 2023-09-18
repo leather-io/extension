@@ -8401,7 +8401,7 @@ ajv@^6.12.2, ajv@^6.12.3, ajv@^6.12.4, ajv@^6.12.5, ajv@^6.7.0:
     json-schema-traverse "^0.4.1"
     uri-js "^4.2.2"
 
-alex-sdk@^0.1.22:
+alex-sdk@0.1.22:
   version "0.1.22"
   resolved "https://registry.yarnpkg.com/alex-sdk/-/alex-sdk-0.1.22.tgz#ea94f2ebbb962c402ee485e10c5de5b5b66240af"
   integrity sha512-g8sQN5Cs8mbkbOb0sHFN//lYVlJq6jG452LGOtNSOeoP7I5WNWgkwn0OrW8jqxjanbQCgoouP4xutXky1JDIGQ==

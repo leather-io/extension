@@ -37,7 +37,7 @@ export const semanticTokens = defineSemanticTokens({
         value: { base: '{colors.lightModeBrown.12}', _dark: '{colors.darkModeBrown.12}' },
       },
       'text-subdued': {
-        value: { base: '{colors.lightModeBrown.11}', _dark: '{colors.darkModeBrown.11}' },
+        value: { base: '{colors.lightModeBrown.8}', _dark: '{colors.darkModeBrown.8}' },
       },
       'action-primary-hover': {
         value: { base: '{colors.lightModeBrown.10}', _dark: '{colors.darkModeBrown.10}' },
@@ -71,6 +71,9 @@ export const semanticTokens = defineSemanticTokens({
       },
       disabled: {
         value: { base: '{colors.blue.100}', _dark: '{colors.blue.100}' },
+      },
+      focused: {
+        value: { base: '{colors.blue.500}', _dark: '{colors.blue.500}' },
       },
       warning: {
         value: { base: '{colors.yellow.100}', _dark: '{colors.yellow.100}' },
