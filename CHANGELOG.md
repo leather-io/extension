@@ -1,3 +1,10 @@
+## [6.6.1](https://github.com/leather-wallet/extension/compare/v6.6.0...v6.6.1) (2023-09-18)
+
+
+### Bug Fixes
+
+* firefox ci build ([51a7390](https://github.com/leather-wallet/extension/commit/51a739028914e68fb779572575a8aa330cbc1cb2))
+
 ## [6.6.0](https://github.com/leather-wallet/extension/compare/v6.5.1...v6.6.0) (2023-09-18)
 
 
