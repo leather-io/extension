@@ -44,7 +44,7 @@
   "main": "index.js",
   "repository": {
     "type": "git",
-    "url": "git@github.com:hirosystems/wallet.git"
+    "url": "git@github.com:leather-wallet/extension.git"
   },
   "webExt": {
     "sourceDir": "dist/"
