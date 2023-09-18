@@ -38,6 +38,7 @@ jobs:
         if: github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name == github.repository
 
         with:
+          semantic_version: 22.0.0
           extra_plugins: |
             @semantic-release/changelog
             @semantic-release/git
