@@ -25,7 +25,8 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
-
+        with:
+          token: ${{ secrets.SEMANTIC_RELEASE_TOKEN }}
       - uses: ./.github/actions/provision
 
       - uses: actions/setup-node@v3
