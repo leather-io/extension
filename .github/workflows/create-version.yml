@@ -30,7 +30,7 @@ jobs:
 
       - uses: actions/setup-node@v3
         with:
-          node-version: 14
+          node-version: 20
 
       - name: Semantic Release
         uses: cycjimmy/semantic-release-action@v3.4.2
