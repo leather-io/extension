@@ -1,5 +1,5 @@
 /**
- * Inpage Script (StacksProvider) <-> Content Script
+ * Inpage Script (LeatherProvider) <-> Content Script
  */
 export enum DomEventName {
   request = 'request',
