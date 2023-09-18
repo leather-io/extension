@@ -25,7 +25,7 @@ export function App() {
     <ReduxProvider store={store}>
       <PersistGate loading={<FullPageLoadingSpinner />} persistor={persistor}>
         <HeadProvider />
-        {/* TODO - this works but investigate importing radixBaseCSS in panda layer config */}
+        {/* TODO: this works but investigate importing radixBaseCSS in panda layer config */}
         <ThemeProvider theme={theme} css={radixBaseCSS}>
           <ThemeSwitcherProvider>
             <QueryClientProvider client={queryClient}>

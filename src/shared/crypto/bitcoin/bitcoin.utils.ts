@@ -84,10 +84,7 @@ export function getAddressFromOutScript(script: Uint8Array, bitcoinNetwork: BtcS
     });
   }
   if (outputScript.type === 'unknown') {
-    return btc.Address(bitcoinNetwork).encode({
-      type: outputScript.type,
-      script,
-    });
+    return 'unknown';
   }
   return btc.Address(bitcoinNetwork).encode({
     type: outputScript.type,
