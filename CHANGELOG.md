@@ -1,3 +1,10 @@
+## [6.8.0](https://github.com/leather-wallet/extension/compare/v6.7.0...v6.8.0) (2023-09-18)
+
+
+### Features
+
+* trigger release ([eb35e12](https://github.com/leather-wallet/extension/commit/eb35e126f6f20b1e4a7600d259d6c5cb1edf8980))
+
 ## [6.7.0](https://github.com/leather-wallet/extension/compare/v6.6.1...v6.7.0) (2023-09-18)
 
 
