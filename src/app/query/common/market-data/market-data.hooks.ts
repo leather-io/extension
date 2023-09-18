@@ -53,6 +53,12 @@ export function useCryptoCurrencyMarketData(currency: CryptoCurrencies): MarketD
   }, [binance, coincap, coingecko, currency]);
 }
 
+export function useAlexMarketData(currency: CryptoCurrencies, price: Money): MarketData {
+  return useMemo(() => {
+    return createMarketData(createMarketPair(currency, 'USD'), price);
+  }, [currency, price]);
+}
+
 export function useCalculateBitcoinFiatValue() {
   const btcMarketData = useCryptoCurrencyMarketData('BTC');
 

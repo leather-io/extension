@@ -1,4 +1,4 @@
-import { useMemo } from 'react';
+import { useMemo, useState } from 'react';
 import { Outlet, useNavigate } from 'react-router-dom';
 
 import { bytesToHex } from '@stacks/common';
@@ -9,7 +9,6 @@ import {
   serializeCV,
   serializePostCondition,
 } from '@stacks/transactions';
-import { SponsoredTxError } from 'alex-sdk';
 import BigNumber from 'bignumber.js';
 
 import { logger } from '@shared/logger';
@@ -17,23 +16,58 @@ import { RouteUrls } from '@shared/route-urls';
 import { isDefined, isUndefined } from '@shared/utils';
 
 import { LoadingKeys, useLoading } from '@app/common/hooks/use-loading';
-import { stxToMicroStx } from '@app/common/money/unit-conversion';
+import { NonceSetter } from '@app/components/nonce-setter';
+import { defaultFeesMinValues } from '@app/query/stacks/fees/fees.hooks';
+import { useStacksPendingTransactions } from '@app/query/stacks/mempool/mempool.hooks';
 import { useCurrentStacksAccount } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
 import { useGenerateStacksContractCallUnsignedTx } from '@app/store/transactions/contract-call.hooks';
 import { useSignTransactionSoftwareWallet } from '@app/store/transactions/transaction.hooks';
 
 import { SwapContainerLayout } from './components/swap-container.layout';
 import { SwapForm } from './components/swap-form';
+import { useAlexBroadcastSwap } from './hooks/use-alex-broadcast-swap';
 import { oneHundredMillion, useAlexSwap } from './hooks/use-alex-swap';
-import { SwapAsset, SwapFormValues } from './hooks/use-swap';
+import { useStacksBroadcastSwap } from './hooks/use-stacks-broadcast-swap';
+import { SwapAsset, SwapFormValues } from './hooks/use-swap-form';
 import { SwapContext, SwapProvider } from './swap.context';
 
+function sortSwappableAssetsBySymbol(swappableAssets: SwapAsset[]) {
+  return swappableAssets
+    .sort((a, b) => {
+      if (a.name < b.name) return -1;
+      if (a.name > b.name) return 1;
+      return 0;
+    })
+    .sort((a, b) => {
+      if (a.name === 'STX') return -1;
+      if (b.name !== 'STX') return 1;
+      return 0;
+    })
+    .sort((a, b) => {
+      if (a.name === 'BTC') return -1;
+      if (b.name !== 'BTC') return 1;
+      return 0;
+    });
+}
+
+function migratePositiveBalancesToTop(swappableAssets: SwapAsset[]) {
+  const assetsWithPositiveBalance = swappableAssets.filter(asset =>
+    asset.balance.amount.isGreaterThan(0)
+  );
+  const assetsWithZeroBalance = swappableAssets.filter(asset => asset.balance.amount.isEqualTo(0));
+  return [...assetsWithPositiveBalance, ...assetsWithZeroBalance];
+}
+
 export function SwapContainer() {
+  const [isSendingMax, setIsSendingMax] = useState(false);
   const navigate = useNavigate();
-  const { setIsLoading, setIsIdle } = useLoading(LoadingKeys.SUBMIT_SWAP_TRANSACTION);
+  const { setIsLoading } = useLoading(LoadingKeys.SUBMIT_SWAP_TRANSACTION);
   const currentAccount = useCurrentStacksAccount();
   const generateUnsignedTx = useGenerateStacksContractCallUnsignedTx();
   const signSoftwareWalletTx = useSignTransactionSoftwareWallet();
+  const { transactions: pendingTransactions } = useStacksPendingTransactions();
+
+  const isSponsoredByAlex = !pendingTransactions.length;
 
   const {
     alexSDK,
@@ -45,8 +79,14 @@ export function SwapContainer() {
     swapSubmissionData,
   } = useAlexSwap();
 
+  const broadcastAlexSwap = useAlexBroadcastSwap(alexSDK);
+  const broadcastStacksSwap = useStacksBroadcastSwap();
+
   const swappableAssets: SwapAsset[] = useMemo(
-    () => supportedCurrencies.map(getAssetFromAlexCurrency).filter(isDefined),
+    () =>
+      sortSwappableAssetsBySymbol(
+        supportedCurrencies.map(getAssetFromAlexCurrency).filter(isDefined)
+      ),
     [getAssetFromAlexCurrency, supportedCurrencies]
   );
 
@@ -62,16 +102,17 @@ export function SwapContainer() {
     ]);
 
     onSetSwapSubmissionData({
-      // Default to low fee for now
-      fee: stxToMicroStx('0.0025').toString(),
+      fee: isSponsoredByAlex ? '0' : defaultFeesMinValues[1].amount.toString(),
       feeCurrency: values.feeCurrency,
       feeType: values.feeType,
       liquidityFee: new BigNumber(Number(lpFee)).dividedBy(oneHundredMillion).toNumber(),
+      nonce: values.nonce,
       protocol: 'ALEX',
       router: router
         .map(x => getAssetFromAlexCurrency(supportedCurrencies.find(y => y.id === x)))
         .filter(isDefined),
       slippage,
+      sponsored: isSponsoredByAlex,
       swapAmountFrom: values.swapAmountFrom,
       swapAmountTo: values.swapAmountTo,
       swapAssetFrom: values.swapAssetFrom,
@@ -127,6 +168,7 @@ export function SwapContainer() {
       fee: swapSubmissionData.fee,
       feeCurrency: swapSubmissionData.feeCurrency,
       feeType: swapSubmissionData.feeType,
+      nonce: swapSubmissionData.nonce,
     };
 
     const payload: ContractCallPayload = {
@@ -138,7 +180,7 @@ export function SwapContainer() {
       postConditionMode: PostConditionMode.Deny,
       postConditions: tx.postConditions.map(pc => bytesToHex(serializePostCondition(pc))),
       publicKey: currentAccount?.stxPublicKey,
-      sponsored: true,
+      sponsored: swapSubmissionData.sponsored,
       txType: TransactionTypes.ContractCall,
     };
 
@@ -149,33 +191,28 @@ export function SwapContainer() {
     if (!signedTx) return logger.error('Attempted to generate raw tx, but signed tx is undefined');
     const txRaw = bytesToHex(signedTx.serialize());
 
-    try {
-      const txId = await alexSDK.broadcastSponsoredTx(txRaw);
-      setIsIdle();
-      navigate(RouteUrls.SwapSummary, { state: { txId } });
-    } catch (e) {
-      setIsIdle();
-      navigate(RouteUrls.SwapError, {
-        state: {
-          message: e instanceof (Error || SponsoredTxError) ? e.message : 'Unknown error',
-          title: 'Failed to broadcast',
-        },
-      });
+    if (isSponsoredByAlex) {
+      return await broadcastAlexSwap(txRaw);
     }
+    return await broadcastStacksSwap(unsignedTx);
   }
 
   const swapContextValue: SwapContext = {
-    swapSubmissionData,
     fetchToAmount,
+    isSendingMax,
+    onSetIsSendingMax: value => setIsSendingMax(value),
     onSubmitSwapForReview,
     onSubmitSwap,
-    swappableAssets: swappableAssets,
+    swappableAssetsFrom: migratePositiveBalancesToTop(swappableAssets),
+    swappableAssetsTo: swappableAssets,
+    swapSubmissionData,
   };
 
   return (
     <SwapProvider value={swapContextValue}>
       <SwapContainerLayout>
         <SwapForm>
+          <NonceSetter />
           <Outlet />
         </SwapForm>
       </SwapContainerLayout>

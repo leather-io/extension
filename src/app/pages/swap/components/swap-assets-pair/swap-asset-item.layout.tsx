@@ -3,18 +3,22 @@ import { HStack, styled } from 'leather-styles/jsx';
 import { Flag } from '@app/components/layout/flag';
 
 interface SwapAssetItemLayoutProps {
+  caption: string;
   icon: string;
   symbol: string;
   value: string;
 }
-export function SwapAssetItemLayout({ icon, symbol, value }: SwapAssetItemLayoutProps) {
+export function SwapAssetItemLayout({ caption, icon, symbol, value }: SwapAssetItemLayoutProps) {
   return (
     <Flag
       align="middle"
-      img={<styled.img src={icon} width="32px" height="32px" alt="Swap asset" />}
-      spacing="tight"
+      img={<styled.img src={icon} width="48px" height="48px" alt="Swap asset" />}
+      spacing="space.03"
       width="100%"
     >
+      <styled.span color="accent.text-subdued" textStyle="caption.02">
+        {caption}
+      </styled.span>
       <HStack alignItems="center" justifyContent="space-between">
         <styled.span textStyle="heading.05">{symbol}</styled.span>
         <styled.span textStyle="heading.05">{value}</styled.span>
