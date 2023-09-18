@@ -92,17 +92,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - uses: actions/cache@v3
-        id: cache-node-modules
-        with:
-          path: '**/node_modules'
-          key: ${{ runner.os }}-modules-${{ hashFiles('**/yarn.lock') }}-${{ hashFiles('**/package.json') }}
-
-      - uses: actions/setup-node@v3
-
-      - name: Install packages
-        uses: ./.github/actions/provision
-        if: steps.cache-node-modules.outputs.cache-hit != 'true'
+      - uses: ./.github/actions/provision
 
       - name: Build project
         env:
@@ -110,6 +100,12 @@ jobs:
           # create a duplicate release during the ff build
           SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
         run: yarn build
+
+      - uses: actions/upload-artifact@v3
+        name: Upload build artifact
+        with:
+          name: leather-wallet-chrome
+          path: dist
 
       - name: Build extension
         run: sh build-ext.sh
@@ -139,24 +135,22 @@ jobs:
     outputs:
       publish_status: ${{ steps.publish-firefox.outputs.publish_status }}
     steps:
-      - name: Check out Git repository
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
-      - uses: actions/cache@v3
-        id: cache-node-modules
-        with:
-          path: '**/node_modules'
-          key: ${{ runner.os }}-modules-${{ hashFiles('**/yarn.lock') }}-${{ hashFiles('**/package.json') }}
-
-      - uses: actions/setup-node@v3
-
-      - name: Install packages
-        uses: ./.github/actions/provision
-        if: steps.cache-node-modules.outputs.cache-hit != 'true'
+      - uses: ./.github/actions/provision
 
       - name: Build project
 
         run: yarn build
+
+      - uses: actions/upload-artifact@v3
+        name: Upload build artifact
+        with:
+          name: leather-wallet-firefox
+          path: dist
+
+      - name: Put generated manifest.json in ./src
+        run: cp dist/manifest.json src/manifest.json
 
       - name: Build extension
         run: sh build-ext.sh
@@ -179,5 +173,5 @@ jobs:
     steps:
       - name: Publish Statuses
         run: |
-          # echo "::warning::Firefox Publish Status: $([[ "${{ needs.publish_firefox_extension.outputs.publish_status }}" = "0" ]] && echo 'SUCCESS' || echo 'FAILED')"
+          echo "::warning::Firefox Publish Status: $([[ "${{ needs.publish_firefox_extension.outputs.publish_status }}" = "0" ]] && echo 'SUCCESS' || echo 'FAILED')"
           echo "::warning::Chrome Publish Status: $([[ "${{ needs.publish_chrome_extension.outputs.publish_status }}" = "0" ]] && echo 'SUCCESS' || echo 'FAILED')"
