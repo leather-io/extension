@@ -90,7 +90,7 @@ export function getPostConditionCodeMessage(
  * the signing process. One can assume that if the post
  * condition has the principal set to the same value as the
  * `stxAddress` value, it should be updated when they switch
- * accounts
+ * accounts.
  */
 export function handlePostConditions(
   postConditions: (PostCondition | string)[],

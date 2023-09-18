@@ -36,7 +36,8 @@ jobs:
         uses: cycjimmy/semantic-release-action@v4.0.0
         id: semantic
         if: github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name == github.repository
-
+        env:
+          GITHUB_TOKEN: ${{ secrets.SEMANTIC_RELEASE_TOKEN }}
         with:
           extra_plugins: |
             @semantic-release/changelog
