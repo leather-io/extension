@@ -159,7 +159,7 @@ jobs:
         continue-on-error: true
         id: publish-firefox
         run: |
-          yarn web-ext-submit --channel=listed -source-dir=dist
+          yarn web-ext-submit --channel=listed --source-dir=dist
           echo "::set-output name=publish_status::${?}"
         env:
           WEB_EXT_API_KEY: ${{ secrets.FIREFOX_API_KEY }}
