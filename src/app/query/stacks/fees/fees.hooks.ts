@@ -27,7 +27,7 @@ const defaultFeesMaxValues = [
   createMoney(750000, 'STX'),
   createMoney(2000000, 'STX'),
 ];
-const defaultFeesMinValues = [
+export const defaultFeesMinValues = [
   createMoney(2500, 'STX'),
   createMoney(3000, 'STX'),
   createMoney(3500, 'STX'),

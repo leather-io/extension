@@ -42,7 +42,7 @@ export function EditNonceDrawer() {
   const onBlur = useCallback(() => validateField('nonce'), [validateField]);
 
   const onSubmit = useCallback(async () => {
-    validateField('nonce');
+    await validateField('nonce');
     if (!errors.nonce) onGoBack();
   }, [errors.nonce, onGoBack, validateField]);
 

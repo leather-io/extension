@@ -11,8 +11,8 @@ export function SwapContentLayout({ children }: HasChildren) {
       flexDirection="column"
       maxHeight={['calc(100vh - 116px)', 'calc(85vh - 116px)']}
       overflowY="auto"
-      pb={['120px', '48px']}
-      pt={['space.04', '48px']}
+      pb={['60px', 'unset']}
+      pt="space.02"
       px="space.05"
       width="100%"
     >

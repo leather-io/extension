@@ -97,7 +97,10 @@ export function parseAccountNoncesResponse({
   const lastConfirmedTxNonceIncremented = confirmedTxsNonces.length && confirmedTxsNonces[0] + 1;
   const lastPendingTxNonceIncremented = lastPendingTxNonce + 1;
   const pendingTxsNoncesIncludesApiPossibleNextNonce = pendingTxsNonces.includes(possibleNextNonce);
-  const pendingTxsMissingNonces = findAnyMissingPendingTxsNonces(pendingTxsNonces);
+  // Make sure any pending tx nonces are not already confirmed
+  const pendingTxsMissingNonces = findAnyMissingPendingTxsNonces(pendingTxsNonces).filter(
+    nonce => !confirmedTxsNonces.includes(nonce)
+  );
   const firstPendingMissingNonce = pendingTxsMissingNonces.sort()[0];
 
   const hasApiMissingNonces = detectedMissingNonces?.length > 0;
