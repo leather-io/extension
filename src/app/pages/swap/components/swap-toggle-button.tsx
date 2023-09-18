@@ -1,16 +1,20 @@
 import { useFormikContext } from 'formik';
 import { styled } from 'leather-styles/jsx';
 
+import { isDefined, isUndefined } from '@shared/utils';
+
 import { SwapIcon } from '@app/components/icons/swap-icon';
 
-import { SwapFormValues } from '../hooks/use-swap';
+import { SwapFormValues } from '../hooks/use-swap-form';
 import { useSwapContext } from '../swap.context';
 
 export function SwapToggleButton() {
-  const { fetchToAmount } = useSwapContext();
-  const { setFieldValue, values } = useFormikContext<SwapFormValues>();
+  const { fetchToAmount, onSetIsSendingMax } = useSwapContext();
+  const { setFieldValue, validateForm, values } = useFormikContext<SwapFormValues>();
 
   async function onToggleSwapAssets() {
+    onSetIsSendingMax(false);
+
     const prevAmountFrom = values.swapAmountFrom;
     const prevAmountTo = values.swapAmountTo;
     const prevAssetFrom = values.swapAssetFrom;
@@ -19,16 +23,22 @@ export function SwapToggleButton() {
     await setFieldValue('swapAssetFrom', prevAssetTo);
     await setFieldValue('swapAssetTo', prevAssetFrom);
     await setFieldValue('swapAmountFrom', prevAmountTo);
-    if (prevAssetFrom != null && prevAssetTo != null && !isNaN(Number(prevAmountTo))) {
-      const to = await fetchToAmount(prevAssetTo, prevAssetFrom, prevAmountTo);
-      await setFieldValue('swapAmountTo', to);
+
+    if (isDefined(prevAssetFrom) && isDefined(prevAssetTo)) {
+      const toAmount = await fetchToAmount(prevAssetTo, prevAssetFrom, prevAmountTo);
+      await setFieldValue('swapAmountTo', Number(toAmount));
     } else {
-      await setFieldValue('swapAmountTo', prevAmountFrom);
+      await setFieldValue('swapAmountTo', Number(prevAmountFrom));
     }
+    await validateForm();
   }
 
   return (
-    <styled.button alignSelf="flex-start" onClick={onToggleSwapAssets}>
+    <styled.button
+      alignSelf="flex-start"
+      disabled={isUndefined(values.swapAssetTo)}
+      onClick={onToggleSwapAssets}
+    >
       <SwapIcon transform="rotate(90)" />
     </styled.button>
   );

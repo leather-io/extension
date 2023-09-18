@@ -24,7 +24,7 @@ export function useGenerateStacksContractCallUnsignedTx() {
 
       const options: GenerateUnsignedTransactionOptions = {
         publicKey: account.stxPublicKey,
-        nonce: nextNonce?.nonce,
+        nonce: Number(values?.nonce) ?? nextNonce?.nonce,
         fee: values.fee ?? 0,
         txData: { ...payload, network },
       };
