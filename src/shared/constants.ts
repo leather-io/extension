@@ -65,7 +65,7 @@ interface StacksChainConfig extends BaseChainConfig {
   url: string;
   /** The chainId of the network (or parent network if this is a subnet) */
   chainId: ChainID;
-  /** An additional chainId for subnets. Indicated a subnet if defined and is mainly used for signing */
+  /** An additional chainId for subnets. Indicated a subnet if defined and is mainly used for signing. */
   subnetChainId?: ChainID;
 }
 
