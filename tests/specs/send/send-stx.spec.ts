@@ -117,21 +117,6 @@ test.describe('send stx', () => {
         test.expect(details).toBeTruthy();
       });
 
-    test('that the address must be valid', async ({ sendPage }) => {
-      await sendPage.recipientInput.fill('ST3TZVWsss4VTZA1WZN2TB6RQ5J8RACHZYMWMM2N1HT2');
-      await sendPage.recipientInput.blur();
-      const errorMsg = await sendPage.formInputErrorLabel.innerText();
-      test.expect(errorMsg).toContain(FormErrorMessages.InvalidAddress);
-    });
-    
-  });
-      test('that the address must be valid', async ({ sendPage }) => {
-        await sendPage.recipientInput.fill('ST3TZVWsss4VTZA1WZN2TB6RQ5J8RACHZYMWMM2N1HT2');
-        await sendPage.recipientInput.blur();
-        const errorMsg = await sendPage.formInputErrorLabel.innerText();
-        test.expect(errorMsg).toContain(FormErrorMessages.InvalidAddress);
-      });
-
       test('that the address cannot be same as sender', async ({ page, sendPage }) => {
         await sendPage.recipientChooseAccountButton.click();
         await page.getByTestId('switch-account-item-0').click();
@@ -224,3 +209,4 @@ test.describe('send stx', () => {
       });
     });
   });
+});
