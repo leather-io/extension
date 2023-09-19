@@ -17,7 +17,7 @@ export function PublicKeyMismatchLayout({ onClose, onTryAgain }: PublicKeyMismat
       </Box>
       <Title mt="extra-loose">Public key does not match</Title>
       <Text mt="base-tight" lineHeight="24px" color={color('text-caption')}>
-        Ensure you're using the same Ledger you used when setting up the Leather
+        Ensure you're using the same Ledger you used when setting up Leather
       </Text>
       <Flex mt="base-loose">
         <Button mode="tertiary" mr="base-tight" onClick={onClose}>
