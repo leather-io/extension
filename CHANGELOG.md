@@ -1,3 +1,11 @@
+## [6.8.1](https://github.com/leather-wallet/extension/compare/v6.8.0...v6.8.1) (2023-09-19)
+
+
+### Bug Fixes
+
+* leading the from Hiro Wallet days ([86df840](https://github.com/leather-wallet/extension/commit/86df840338f4639e6899c2b0202e18caa9c582fc))
+* trigger release ([44f981e](https://github.com/leather-wallet/extension/commit/44f981e789162a67d5ea196e1c350d03504ce43d))
+
 ## [6.8.0](https://github.com/leather-wallet/extension/compare/v6.7.0...v6.8.0) (2023-09-18)
 
 
