@@ -40,7 +40,7 @@ export function SignOutConfirmLayout(props: SignOutConfirmLayoutProps) {
               ledger: ` you'll need to reconnect your Ledger to sign back into your wallet.`,
             })}
           </styled.p>
-          <styled.p mt="space.05" textStyle="label.02">
+          <styled.div mt="space.05" textStyle="label.02">
             {whenWallet({
               software: (
                 <Flag align="middle" img={<ErrorIcon />} spacing="tight">
@@ -49,7 +49,7 @@ export function SignOutConfirmLayout(props: SignOutConfirmLayoutProps) {
               ),
               ledger: <></>,
             })}
-          </styled.p>
+          </styled.div>
           <Flex
             as="label"
             alignItems="center"

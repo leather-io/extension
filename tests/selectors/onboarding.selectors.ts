@@ -14,4 +14,5 @@ export enum OnboardingSelectors {
   StepItemDone = 'step-item-done',
   StepItemStart = 'step-item-start',
   StepsList = 'steps-list',
+  SignInSeedError = 'sign-in-seed-error',
 }

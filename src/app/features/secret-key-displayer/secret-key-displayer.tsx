@@ -1,5 +1,5 @@
 import { memo, useMemo } from 'react';
-import { Outlet, useLocation } from 'react-router-dom';
+import { Outlet, useLocation, useNavigate } from 'react-router-dom';
 
 import { useClipboard } from '@stacks/ui';
 
@@ -16,6 +16,7 @@ export const SecretKeyDisplayer = memo(({ secretKey }: SecretKeyDisplayerProps) 
   const { onCopy, hasCopied } = useClipboard(secretKey || '');
   const { pathname } = useLocation();
   const analytics = useAnalytics();
+  const navigate = useNavigate();
 
   const copyToClipboard = () => {
     void analytics.track('copy_secret_key_to_clipboard');
@@ -32,6 +33,7 @@ export const SecretKeyDisplayer = memo(({ secretKey }: SecretKeyDisplayerProps) 
         onCopyToClipboard={copyToClipboard}
         secretKeyWords={secretKeyWords}
         showTitleAndIllustration={showTitleAndIllustration}
+        onBackedUpSecretKey={() => navigate(RouteUrls.SetPassword)}
       />
       <Outlet />
     </>
