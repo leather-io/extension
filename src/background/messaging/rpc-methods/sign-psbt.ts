@@ -67,7 +67,6 @@ export async function rpcSignPsbt(message: SignPsbtRequest, port: chrome.runtime
 
   const requestParams: RequestParams = [
     ['hex', message.params.hex],
-    ['network', message.params.network ?? 'mainnet'],
     ['requestId', message.id],
   ];
 
@@ -75,13 +74,12 @@ export async function rpcSignPsbt(message: SignPsbtRequest, port: chrome.runtime
     requestParams.push(['accountIndex', message.params.account.toString()]);
   }
 
-  if (isDefined(message.params.allowedSighash) && message.params.allowedSighash.length)
-    message.params.allowedSighash.forEach((hash: any) =>
-      requestParams.push(['allowedSighash', hash.toString()])
-    );
-
   if (isDefined(message.params.broadcast)) {
     requestParams.push(['broadcast', message.params.broadcast.toString()]);
+  }
+
+  if (isDefined(message.params.network)) {
+    requestParams.push(['network', message.params.network.toString()]);
   }
 
   if (isDefined(message.params.signAtIndex))

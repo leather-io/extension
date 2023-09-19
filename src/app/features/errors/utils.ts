@@ -33,7 +33,7 @@ export const openGithubIssue = ({
   describes the bug.
 -->
 
-An error occurred while using Hiro Wallet for Web (\`${VERSION}\`).
+An error occurred while using Leather for Web (\`${VERSION}\`).
 
 ### Error
 > ${message}

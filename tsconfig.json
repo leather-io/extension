@@ -30,7 +30,7 @@
       "@app/*": ["app/*"],
       "@tests/*": ["../tests/*"],
       "@tests-legacy/*": ["../tests-legacy/*"],
-      "leaf-styles/*": ["../leaf-styles/*"]
+      "leather-styles/*": ["../leather-styles/*"]
     },
     "allowSyntheticDefaultImports": true,
     "esModuleInterop": true,
@@ -42,7 +42,7 @@
     "./tests/**/*",
     "./tests-legacy/**/*",
     "./scripts-ts/**/*",
-    "leaf-styles",
+    "leather-styles",
     "theme"
   ],
   "exclude": ["test-app"]

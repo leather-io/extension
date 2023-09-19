@@ -2,11 +2,11 @@ export enum RouteUrls {
   Container = '/',
 
   // Onboarding routes
+  RequestDiagnostics = '/get-started/request-diagnostics',
   Onboarding = '/get-started',
   BackUpSecretKey = '/back-up-secret-key',
   SetPassword = '/set-password',
   SignIn = '/sign-in',
-  RequestDiagnostics = '/request-diagnostics',
 
   // Ledger routes
   ConnectLedger = 'connect-your-ledger',
@@ -90,6 +90,7 @@ export enum RouteUrls {
   SwapChooseAsset = '/swap/choose-asset',
   SwapReview = '/swap/review',
   SwapSummary = '/swap/summary',
+  SwapSummaryDetails = '/swap/summary/details',
 
   // Legacy request routes
   ProfileUpdateRequest = '/update-profile',

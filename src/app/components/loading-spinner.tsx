@@ -1,8 +1,4 @@
-import { useEffect } from 'react';
-
 import { Flex, FlexProps, Spinner, color } from '@stacks/ui';
-
-import { useHasCreatedAccount } from '@app/store/accounts/account';
 
 export function LoadingSpinner(props: FlexProps) {
   return (
@@ -26,15 +22,4 @@ export function FullPageWithHeaderLoadingSpinner(props: FlexProps) {
       <LoadingSpinner />
     </Flex>
   );
-}
-
-export function NewAccountLoadingSpinner() {
-  const [hasCreatedAccount, setHasCreatedAccount] = useHasCreatedAccount();
-
-  useEffect(() => {
-    hasCreatedAccount && setHasCreatedAccount(false);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
-  return <FullPageLoadingSpinner />;
 }

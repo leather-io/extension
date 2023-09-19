@@ -1,24 +1,21 @@
-import { Box, Button, Text } from '@stacks/ui';
+import { Box, Flex, styled } from 'leather-styles/jsx';
+
+import { LeatherButton } from '@app/components/button/button';
 
 interface SwapSummaryActionButtonProps {
-  icon: React.FC;
+  icon: React.JSX.Element;
   label: string;
   onClick: () => void;
 }
 export function SwapSummaryActionButton({ icon, label, onClick }: SwapSummaryActionButtonProps) {
   return (
-    <Button
-      flexGrow={1}
-      height="36px"
-      onClick={onClick}
-      mode="tertiary"
-      px="base-tight"
-      py="base-loose"
-    >
-      <Text fontSize="14px" fontWeight={500} mr="tight">
-        {label}
-      </Text>
-      <Box as={icon} size="14px" />
-    </Button>
+    <LeatherButton onClick={onClick} width="50%">
+      <Flex alignItems="center" justifyContent="center">
+        <styled.span mr="space.02" textStyle="label.02">
+          {label}
+        </styled.span>
+        <Box mr="space.01">{icon}</Box>
+      </Flex>
+    </LeatherButton>
   );
 }

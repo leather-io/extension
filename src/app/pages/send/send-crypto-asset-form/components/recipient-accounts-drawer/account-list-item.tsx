@@ -35,7 +35,6 @@ export const AccountListItem = memo(({ account, onClose }: AccountListItemProps)
 
   return (
     <AccountListItemLayout
-      account={account}
       accountName={<AccountName account={account} />}
       avatar={
         <AccountAvatarItem index={account.index} publicKey={account.stxPublicKey} name={name} />

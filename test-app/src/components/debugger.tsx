@@ -35,8 +35,8 @@ import {
   uintCV,
 } from '@stacks/transactions';
 import { Box, Button, ButtonGroup, Text } from '@stacks/ui';
-import { TransactionSigningSelectors } from '@tests-legacy/page-objects/transaction-signing.selectors';
 import { WalletPageSelectors } from '@tests-legacy/page-objects/wallet.selectors';
+import { TestAppSelectors } from '@tests/selectors/test-app.selectors';
 import BN from 'bn.js';
 
 import { ExplorerLink } from './explorer-link';
@@ -373,35 +373,27 @@ export const Debugger = () => {
 
       <Box>
         <ButtonGroup spacing={4} my="base">
-          <Button
-            data-testid={TransactionSigningSelectors.BtnContractCall}
-            mt={3}
-            onClick={() => callFaker(stacksTestnetNetwork, PostConditionMode.Allow)}
-          >
+          <Button mt={3} onClick={() => callFaker(stacksTestnetNetwork, PostConditionMode.Allow)}>
             Contract call (ALLOW mode)
           </Button>
-          <Button
-            data-testid={TransactionSigningSelectors.BtnContractCall}
-            mt={3}
-            onClick={() => callFaker(stacksTestnetNetwork)}
-          >
+          <Button mt={3} onClick={() => callFaker(stacksTestnetNetwork)}>
             Contract call (Testnet)
           </Button>
           <Button
-            data-testid={TransactionSigningSelectors.BtnContractCall}
+            data-testid={TestAppSelectors.BtnContractCall}
             mt={3}
             onClick={() => callFaker(stacksMainnetNetwork)}
           >
             Contract call (StacksMainnet)
           </Button>
-          <Button
-            data-testid={TransactionSigningSelectors.BtnContractCall}
-            mt={3}
-            onClick={() => callFaker(stacksLocalhostNetwork)}
-          >
+          <Button mt={3} onClick={() => callFaker(stacksLocalhostNetwork)}>
             Contract call (Localhost)
           </Button>
-          <Button mt={3} onClick={() => stxTransfer('102')}>
+          <Button
+            data-testid={TestAppSelectors.BtnStxTransfer}
+            mt={3}
+            onClick={() => stxTransfer('102')}
+          >
             STX transfer
           </Button>
           <Button mt={3} onClick={callBnsTransfer}>
@@ -449,6 +441,7 @@ export const Debugger = () => {
           </Button>
 
           <Button
+            mt={3}
             onClick={() => {
               console.log('requesting');
               window.btc

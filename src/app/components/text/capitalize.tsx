@@ -1,5 +1,7 @@
-import styled from '@emotion/styled';
+import { ReactNode } from 'react';
 
-export const Capitalize = styled.span`
-  text-transform: capitalize;
-`;
+import { styled } from 'leather-styles/jsx';
+
+export function Capitalize({ children }: { children: ReactNode }) {
+  return <styled.span textTransform="capitalize">{children}</styled.span>;
+}

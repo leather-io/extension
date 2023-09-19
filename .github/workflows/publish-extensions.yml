@@ -28,7 +28,7 @@ jobs:
     outputs:
       new_version: ${{ steps.extract_version.outputs.version }}
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - uses: ./.github/actions/provision
 
       - name: Extract version
@@ -44,7 +44,7 @@ jobs:
       - uses: actions/upload-artifact@v3
         name: Upload build artifact
         with:
-          name: hiro-wallet
+          name: leather-wallet
           path: dist
 
   create-github-release:
@@ -67,7 +67,7 @@ jobs:
       - run: ls -R
 
       - name: Zip release build
-        run: zip -r hiro-wallet.v${{ needs.build-extension.outputs.new_version }}.zip hiro-wallet/
+        run: zip -r leather-wallet.v${{ needs.build-extension.outputs.new_version }}.zip leather-wallet/
 
       - name: Release
         uses: softprops/action-gh-release@v1
@@ -75,7 +75,7 @@ jobs:
           prerelease: false
           tag_name: v${{ needs.build-extension.outputs.new_version }}
           body_path: release-notes.txt
-          files: hiro-wallet.v${{ needs.build-extension.outputs.new_version }}.zip
+          files: leather-wallet.v${{ needs.build-extension.outputs.new_version }}.zip
 
   publish_chrome_extension:
     name: Publish Chrome extension
@@ -87,22 +87,11 @@ jobs:
     outputs:
       publish_status: ${{ steps.publish-chrome.outputs.publish_status }}
     env:
-      MINIFY_PRODUCTION_BUILD: false
       TARGET_BROWSER: chromium
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
 
-      - uses: actions/cache@v3
-        id: cache-node-modules
-        with:
-          path: '**/node_modules'
-          key: ${{ runner.os }}-modules-${{ hashFiles('**/yarn.lock') }}-${{ hashFiles('**/package.json') }}
-
-      - uses: actions/setup-node@v3
-
-      - name: Install packages
-        uses: ./.github/actions/provision
-        if: steps.cache-node-modules.outputs.cache-hit != 'true'
+      - uses: ./.github/actions/provision
 
       - name: Build project
         env:
@@ -111,6 +100,12 @@ jobs:
           SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
         run: yarn build
 
+      - uses: actions/upload-artifact@v3
+        name: Upload build artifact
+        with:
+          name: leather-wallet-chrome
+          path: dist
+
       - name: Build extension
         run: sh build-ext.sh
 
@@ -118,7 +113,7 @@ jobs:
         continue-on-error: true
         id: publish-chrome
         run: |
-          yarn chrome-webstore-upload upload --auto-publish --source stacks-wallet-chromium.zip
+          yarn chrome-webstore-upload upload --auto-publish --source leather-chromium.zip
           echo "::set-output name=publish_status::${?}"
         env:
           EXTENSION_ID: ${{ secrets.CHROME_APP_ID }}
@@ -129,34 +124,28 @@ jobs:
   publish_firefox_extension:
     name: Publish Firefox extension
     runs-on: ubuntu-latest
-    env:
-      MINIFY_PRODUCTION_BUILD: true
-      TARGET_BROWSER: firefox
     if: startsWith(github.ref, 'refs/tags/v')
+    env:
+      TARGET_BROWSER: firefox
     needs:
       - pre-run
       - create-github-release
     outputs:
       publish_status: ${{ steps.publish-firefox.outputs.publish_status }}
     steps:
-      - name: Check out Git repository
-        uses: actions/checkout@v3
+      - uses: actions/checkout@v4
 
-      - uses: actions/cache@v3
-        id: cache-node-modules
-        with:
-          path: '**/node_modules'
-          key: ${{ runner.os }}-modules-${{ hashFiles('**/yarn.lock') }}-${{ hashFiles('**/package.json') }}
-
-      - uses: actions/setup-node@v3
-
-      - name: Install packages
-        uses: ./.github/actions/provision
-        if: steps.cache-node-modules.outputs.cache-hit != 'true'
+      - uses: ./.github/actions/provision
 
       - name: Build project
 
         run: yarn build
+
+      - uses: actions/upload-artifact@v3
+        name: Upload build artifact
+        with:
+          name: leather-wallet-firefox
+          path: dist
 
       - name: Build extension
         run: sh build-ext.sh
@@ -165,7 +154,7 @@ jobs:
         continue-on-error: true
         id: publish-firefox
         run: |
-          yarn web-ext-submit --channel=listed
+          yarn web-ext-submit --channel=listed --source-dir=dist
           echo "::set-output name=publish_status::${?}"
         env:
           WEB_EXT_API_KEY: ${{ secrets.FIREFOX_API_KEY }}

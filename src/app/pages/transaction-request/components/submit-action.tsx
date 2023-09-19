@@ -1,7 +1,6 @@
 import { Suspense } from 'react';
 
-import { Button, ButtonProps } from '@stacks/ui';
-import { TransactionSigningSelectors } from '@tests-legacy/page-objects/transaction-signing.selectors';
+import { TransactionRequestSelectors } from '@tests/selectors/requests.selectors';
 import { useFormikContext } from 'formik';
 
 import { HIGH_FEE_AMOUNT_STX } from '@shared/constants';
@@ -10,13 +9,14 @@ import { isEmpty } from '@shared/utils';
 
 import { useDrawers } from '@app/common/hooks/use-drawers';
 import { LoadingKeys, useLoading } from '@app/common/hooks/use-loading';
+import { ButtonProps, LeatherButton } from '@app/components/button/button';
 import { useTransactionError } from '@app/pages/transaction-request/hooks/use-transaction-error';
 
 function BaseConfirmButton(props: ButtonProps): React.JSX.Element {
   return (
-    <Button borderRadius="10px" mt="base" py="base" type="submit" width="100%" {...props}>
+    <LeatherButton fullWidth mt="space.04" type="submit" {...props}>
       Confirm
-    </Button>
+    </LeatherButton>
   );
 }
 
@@ -38,11 +38,11 @@ export function SubmitAction() {
   };
 
   return (
-    <Suspense fallback={<BaseConfirmButton isLoading isDisabled />}>
+    <Suspense fallback={<BaseConfirmButton aria-busy={isLoading} disabled={isDisabled} />}>
       <BaseConfirmButton
-        data-testid={TransactionSigningSelectors.BtnConfirmTransaction}
-        isDisabled={isDisabled}
-        isLoading={isLoading}
+        aria-busy={isLoading}
+        data-testid={TransactionRequestSelectors.BtnConfirmTransaction}
+        disabled={isDisabled}
         onClick={onConfirmTransaction}
       >
         Confirm

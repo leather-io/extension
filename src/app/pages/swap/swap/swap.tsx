@@ -1,11 +1,10 @@
 import { Outlet } from 'react-router-dom';
 
-import { Box } from '@stacks/ui';
 import { useFormikContext } from 'formik';
 
 import { useRouteHeader } from '@app/common/hooks/use-route-header';
+import { LeatherButton } from '@app/components/button/button';
 import { ModalHeader } from '@app/components/modal-header';
-import { PrimaryButton } from '@app/components/primary-button';
 
 import { SwapContentLayout } from '../components/swap-content.layout';
 import { SwapFooterLayout } from '../components/swap-footer.layout';
@@ -20,23 +19,23 @@ export function Swap() {
   useRouteHeader(<ModalHeader defaultGoBack hideActions title="Swap" />, true);
 
   return (
-    <Box width="100%">
+    <>
       <SwapContentLayout>
         <SwapSelectedAssets />
       </SwapContentLayout>
       <SwapFooterLayout>
-        <PrimaryButton
-          isDisabled={!(dirty && isValid)}
-          onClick={async e => {
+        <LeatherButton
+          disabled={!(dirty && isValid)}
+          onClick={async (e: any) => {
             handleSubmit(e);
             await onSubmitSwapForReview(values);
           }}
           width="100%"
         >
           Review and swap
-        </PrimaryButton>
+        </LeatherButton>
       </SwapFooterLayout>
       <Outlet />
-    </Box>
+    </>
   );
 }

@@ -1,39 +1,40 @@
 import { FiEyeOff, FiLock, FiRotateCcw } from 'react-icons/fi';
 
-import { Box, Stack, color } from '@stacks/ui';
+import { Box, Stack } from '@stacks/ui';
 import { OnboardingSelectors } from '@tests/selectors/onboarding.selectors';
+import { styled } from 'leather-styles/jsx';
 
-import { PrimaryButton } from '@app/components/primary-button';
-import { Caption } from '@app/components/typography';
+import { LeatherButton } from '@app/components/button/button';
 
 interface BackUpSecretKeyLayoutProps {
   onBackedUpSecretKey(): void;
 }
+
 export function BackUpSecretKeyActions(props: BackUpSecretKeyLayoutProps): React.JSX.Element {
   const { onBackedUpSecretKey } = props;
 
   return (
     <>
       <Stack alignItems="center" isInline>
-        <Box as={FiRotateCcw} color={color('text-caption')} size="12px" />
-        <Caption>Your Secret Key gives access to your account</Caption>
+        <Box as={FiRotateCcw} size="12px" />
+        <styled.span textStyle="body.02">Your Secret Key gives access to your wallet</styled.span>
       </Stack>
       <Stack alignItems="center" isInline>
-        <Box as={FiEyeOff} color={color('text-caption')} size="12px" />
-        <Caption>Never share your Secret Key</Caption>
+        <Box as={FiEyeOff} size="12px" />
+        <styled.span textStyle="body.02">Never share your Secret Key with anyone</styled.span>
       </Stack>
-      <Stack alignItems="center" isInline>
-        <Box as={FiLock} color={color('text-caption')} size="12px" />
-        <Caption>Put it somewhere private and secure</Caption>
+      <Stack alignItems="center" isInline mb="loose">
+        <Box as={FiLock} size="12px" />
+        <styled.span textStyle="body.02">Store it somewhere 100% private and secure</styled.span>
       </Stack>
 
-      <PrimaryButton
+      <LeatherButton
+        width="fit-content"
         data-testid={OnboardingSelectors.BackUpSecretKeyBtn}
         onClick={onBackedUpSecretKey}
-        width="170px"
       >
         I've backed it up
-      </PrimaryButton>
+      </LeatherButton>
     </>
   );
 }

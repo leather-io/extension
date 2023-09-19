@@ -1,107 +1,100 @@
-import { Outlet } from 'react-router-dom';
-
-import ExploreStacks from '@assets/images/onboarding/explore-stacks.png';
-import { Box, Flex, color } from '@stacks/ui';
 import { OnboardingSelectors } from '@tests/selectors/onboarding.selectors';
+import { Flex, styled } from 'leather-styles/jsx';
 
-import { CenteredPageContainer } from '@app/components/centered-page-container';
-import { ONBOARDING_PAGE_MAX_WIDTH } from '@app/components/global-styles/full-page-styles';
-import { Link } from '@app/components/link';
-import { PageTitle } from '@app/components/page-title';
-import { PrimaryButton } from '@app/components/primary-button';
-import { Caption, Text } from '@app/components/typography';
-
-function WelcomeIllustration() {
-  return (
-    <Box
-      aria-label="Abstract illustration highlighting crypto symbology"
-      backgroundColor={color('border')}
-      backgroundImage={`url(${ExploreStacks})`}
-      backgroundPosition={[null, null, 'center']}
-      backgroundPositionY={['-137px', '-187px', 'center']}
-      backgroundRepeat="no-repeat"
-      backgroundSize={['cover', null, null, '80%']}
-      borderRadius="16px"
-      height={['155px', '220px', '675px']}
-      maxHeight="675px"
-      maxWidth={['auto', 'auto', '518px']}
-      overflow="hidden"
-      width="100%"
-    />
-  );
-}
+import { useViewportMinWidth } from '@app/common/hooks/use-media-query';
+import { LeatherButton } from '@app/components/button/button';
+import { LeatherIcon } from '@app/components/icons/leather-icon';
+import { LeatherLettermark } from '@app/components/icons/leather-lettermark';
 
 interface WelcomeLayoutProps {
+  tagline: React.ReactNode;
+  subheader: React.ReactNode;
   isGeneratingWallet: boolean;
   onSelectConnectLedger(): void;
   onStartOnboarding(): void;
   onRestoreWallet(): void;
 }
 export function WelcomeLayout(props: WelcomeLayoutProps): React.JSX.Element {
-  const { isGeneratingWallet, onStartOnboarding, onSelectConnectLedger, onRestoreWallet } = props;
+  const {
+    tagline,
+    subheader,
+    isGeneratingWallet,
+    onStartOnboarding,
+    onSelectConnectLedger,
+    onRestoreWallet,
+  } = props;
+
+  const isAtleastBreakpointMd = useViewportMinWidth('md');
 
   return (
-    <CenteredPageContainer>
-      <Flex
-        justifyContent="start"
-        flexDirection={['column', 'column', 'row-reverse']}
-        maxWidth={ONBOARDING_PAGE_MAX_WIDTH}
-        mt="tight"
-        px="loose"
-        width="100%"
-      >
-        <Flex flexGrow={1} justifyContent={['left', 'left', 'right']}>
-          <WelcomeIllustration />
-        </Flex>
+    <Flex flexDir={['column-reverse', '', 'row']} minW="100vw" minH="100vh">
+      <Flex flexDir="column" bg={['brown.2', '', 'brown.12']} flex={[1, 2]} p="space.05">
         <Flex
-          alignItems="left"
-          flexDirection="column"
-          flexGrow="2"
-          justifyContent="center"
-          maxWidth="574px"
-          mt={['base', 'unset']}
+          flexDir="column"
+          flex={[1, 1, 0]}
+          justifyContent={['center', '', 'flex-start']}
+          color={['brown.12', '', 'brown.2']}
         >
-          <PageTitle isHeadline maxWidth={['75%', '85%', '90%']} mt={['tight', 'base', 'loose']}>
-            Your gateway to Web3 on Bitcoin
-          </PageTitle>
-          <Text
-            maxWidth={['unset', '90%']}
-            mt={['base', null, null, 'extra-loose']}
-            pr={['unset', '80px']}
+          <styled.h1 textStyle={['heading.03', '', 'display.02', 'display.01']}>
+            {tagline}
+          </styled.h1>
+          <styled.h2
+            textStyle={['label.01', '', 'heading.04']}
+            mt={['space.02', '', 'space.07']}
+            maxW="556px"
           >
-            Connect to apps and manage your assets secured by Bitcoin with the most popular wallet
-            for the Stacks blockchain
-          </Text>
-          <Box>
-            <PrimaryButton
-              data-testid={OnboardingSelectors.SignUpBtn}
-              isLoading={isGeneratingWallet}
-              mt={['base', null, 'loose']}
-              onClick={onStartOnboarding}
+            {subheader}
+          </styled.h2>
+        </Flex>
+        <Flex flexDir="column" alignItems={['normal', '', 'flex-start']}>
+          <LeatherButton
+            invert={isAtleastBreakpointMd}
+            mt={[0, 0, 'space.07']}
+            onClick={onStartOnboarding}
+            data-testid={OnboardingSelectors.SignUpBtn}
+            aria-busy={isGeneratingWallet}
+          >
+            Create new wallet
+          </LeatherButton>
+          <Flex
+            flexDir={['row', '', 'column']}
+            gap="space.03"
+            mt="space.04"
+            alignItems="flex-start"
+          >
+            <LeatherButton
+              variant={isAtleastBreakpointMd ? 'link' : 'outline'}
+              invert={isAtleastBreakpointMd}
+              flex={1}
+              mt={[0, 0, 'space.05']}
+              data-testid={OnboardingSelectors.SignInLink}
+              onClick={onRestoreWallet}
             >
-              Create new wallet
-            </PrimaryButton>
-          </Box>
-
-          <Flex flexDirection="column" mt={['base', 'base-loose', 'extra-loose']} fontSize="14px">
-            <Caption>Already have a wallet?</Caption>
-            <Box mt="tight">
-              <Link
-                fontSize="inherit"
-                data-testid={OnboardingSelectors.SignInLink}
-                onClick={onRestoreWallet}
-              >
-                Sign in with Secret Key
-              </Link>{' '}
-              or{' '}
-              <Link fontSize="inherit" onClick={onSelectConnectLedger}>
-                connect your Ledger
-              </Link>
-            </Box>
+              Use existing key
+            </LeatherButton>
+            <LeatherButton
+              variant={isAtleastBreakpointMd ? 'link' : 'outline'}
+              invert={isAtleastBreakpointMd}
+              flex={1}
+              mt={[0, 0, 'space.05']}
+              onClick={onSelectConnectLedger}
+            >
+              Use Ledger
+            </LeatherButton>
           </Flex>
         </Flex>
       </Flex>
-      <Outlet />
-    </CenteredPageContainer>
+      <Flex
+        p="space.05"
+        bg="brown.2"
+        color="brown.12"
+        flexDir="column"
+        justifyContent="space-between"
+        flex={['', '', 1]}
+      >
+        <LeatherIcon width="150px" height="34px" />
+        <LeatherLettermark display={['none', '', 'block']} width="100%" />
+      </Flex>
+    </Flex>
   );
 }

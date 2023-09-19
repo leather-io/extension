@@ -73,7 +73,7 @@ export function Brc20SendForm() {
                     lineHeight="1.6"
                     onClick={() => {
                       openInNewTab(
-                        'https://hirowallet.gitbook.io/guides/bitcoin/sending-brc-20-tokens'
+                        'https://leather.gitbook.io/guides/bitcoin/sending-brc-20-tokens'
                       );
                     }}
                   >

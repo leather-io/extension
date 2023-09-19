@@ -10,7 +10,7 @@ jobs:
   lint-prettier:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - uses: ./.github/actions/provision
 
       - name: Lint
@@ -19,7 +19,7 @@ jobs:
   lint-eslint:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - uses: ./.github/actions/provision
 
       - name: Lint
@@ -28,7 +28,7 @@ jobs:
   lint-filename:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - uses: ./.github/actions/provision
 
       - name: File name checker
@@ -37,7 +37,7 @@ jobs:
   lint-commit:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
         with:
           fetch-depth: 0
 
@@ -47,7 +47,7 @@ jobs:
   lint-deps:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - uses: ./.github/actions/provision
 
       - name: Lint dependency rules
@@ -56,7 +56,7 @@ jobs:
   lint-message-schema:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - uses: ./.github/actions/provision
 
       - name: Validate message schema
@@ -65,7 +65,7 @@ jobs:
   lint-unused-exports:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - uses: ./.github/actions/provision
 
       - name: Lint unused TypeScript exports
@@ -74,12 +74,11 @@ jobs:
   lint-firefox-build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - uses: ./.github/actions/provision
 
       - run: yarn build
         env:
-          MINIFY_PRODUCTION_BUILD: true
           TARGET_BROWSER: firefox
 
       - run: yarn web-ext lint
@@ -87,7 +86,7 @@ jobs:
   locked-versions:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - uses: ./.github/actions/provision
 
       - name: Check exact versions
@@ -96,7 +95,7 @@ jobs:
   audit:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - uses: ./.github/actions/provision
 
       - name: Audit
@@ -105,7 +104,7 @@ jobs:
   typecheck:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - uses: ./.github/actions/provision
 
       - name: Typecheck
@@ -114,7 +113,7 @@ jobs:
   test-unit:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - uses: ./.github/actions/provision
 
       - name: Build
@@ -126,7 +125,7 @@ jobs:
   test-build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - uses: ./.github/actions/provision
 
       - name: Build

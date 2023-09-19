@@ -23,7 +23,6 @@ export function FeeEstimateItem(props: FeeEstimateItemProps) {
   return (
     <Stack
       alignItems="center"
-      bg={color('bg')}
       data-testid={`${testLabels[index]}-fee`}
       _hover={{ bg: isVisible ? color('bg-alt') : 'none', borderRadius: '8px' }}
       height="32px"

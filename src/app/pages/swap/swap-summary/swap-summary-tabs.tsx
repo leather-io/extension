@@ -1,62 +1,42 @@
-import { Suspense, useState } from 'react';
+import { Suspense, useCallback, useMemo } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
 
-import { Box, Flex, SlideFade, Stack } from '@stacks/ui';
-import type { StackProps } from '@stacks/ui';
+import { Box, Stack } from 'leather-styles/jsx';
 
-import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
+import { RouteUrls } from '@shared/route-urls';
+
+import { HasChildren } from '@app/common/has-children';
 import { LoadingSpinner } from '@app/components/loading-spinner';
 import { Tabs } from '@app/components/tabs';
 
-const analyticsPath = ['/recommended', '/custom'];
+export function SwapSummaryTabs({ children }: HasChildren) {
+  const navigate = useNavigate();
+  const { pathname } = useLocation();
 
-interface SwapSummaryTabsProps extends StackProps {
-  details: React.JSX.Element;
-  status: React.JSX.Element;
-}
-export function SwapSummaryTabs(props: SwapSummaryTabsProps) {
-  const { details, status, ...rest } = props;
-  const analytics = useAnalytics();
-  const [activeTab, setActiveTab] = useState(0);
+  const tabs = useMemo(
+    () => [
+      { slug: RouteUrls.SwapSummary, label: 'Status' },
+      { slug: RouteUrls.SwapSummaryDetails, label: 'Swap details' },
+    ],
+    []
+  );
 
-  function setActiveTabTracked(index: number) {
-    void analytics.page('view', analyticsPath[index]);
-    setActiveTab(index);
-  }
+  const getActiveTab = useCallback(
+    () => tabs.findIndex(tab => tab.slug === pathname),
+    [tabs, pathname]
+  );
+
+  const setActiveTab = useCallback(
+    (index: number) => navigate(tabs[index]?.slug),
+    [navigate, tabs]
+  );
 
   return (
-    <Stack flexGrow={1} mt="tight" spacing="base" width="100%" {...rest}>
-      <Tabs
-        tabs={[
-          { slug: 'status', label: 'Status' },
-          { slug: 'details', label: 'Swap details' },
-        ]}
-        activeTab={activeTab}
-        onTabClick={setActiveTabTracked}
-      />
-      <Flex position="relative" flexGrow={1}>
-        {activeTab === 0 && (
-          <Suspense fallback={<LoadingSpinner pb="72px" />}>
-            <SlideFade in={true}>
-              {styles => (
-                <Box style={styles} width="100%">
-                  {status}
-                </Box>
-              )}
-            </SlideFade>
-          </Suspense>
-        )}
-        {activeTab === 1 && (
-          <Suspense fallback={<LoadingSpinner pb="72px" />}>
-            <SlideFade in={true}>
-              {styles => (
-                <Box width="100%" style={styles}>
-                  {details}
-                </Box>
-              )}
-            </SlideFade>
-          </Suspense>
-        )}
-      </Flex>
+    <Stack flexGrow={1} gap="space.04" mt="space.01" width="100%">
+      <Tabs tabs={tabs} activeTab={getActiveTab()} onTabClick={setActiveTab} />
+      <Suspense fallback={<LoadingSpinner />}>
+        <Box width="100%">{children}</Box>
+      </Suspense>
     </Stack>
   );
 }

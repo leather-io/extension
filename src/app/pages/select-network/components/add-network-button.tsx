@@ -1,21 +1,18 @@
-import { Button, ButtonProps } from '@stacks/ui';
-import { SettingsSelectors } from '@tests-legacy/integration/settings.selectors';
+import { ButtonProps } from '@stacks/ui';
+import { SettingsSelectors } from '@tests/selectors/settings.selectors';
+import { Flex } from 'leather-styles/jsx';
+
+import { LeatherButton } from '@app/components/button/button';
 
 interface AddNetworkButtonProps extends ButtonProps {
   onAddNetwork(): void;
 }
 export function AddNetworkButton({ onAddNetwork }: AddNetworkButtonProps) {
   return (
-    <Button
-      alignSelf="flex-start"
-      mt="base"
-      mb="loose"
-      mx="loose"
-      borderRadius="10px"
-      onClick={onAddNetwork}
-      data-testid={SettingsSelectors.BtnAddNetwork}
-    >
-      Add a network
-    </Button>
+    <Flex py="space.05" px="space.05" flexGrow="1">
+      <LeatherButton data-testid={SettingsSelectors.BtnAddNetwork} fullWidth onClick={onAddNetwork}>
+        Add a network
+      </LeatherButton>
+    </Flex>
   );
 }

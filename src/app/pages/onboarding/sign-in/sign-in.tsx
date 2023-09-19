@@ -1,22 +1,19 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import YourSecretKey from '@assets/images/onboarding/your-secret-key.png';
-import { Box, Button, Flex, Grid, Input, Stack, Text, color, useMediaQuery } from '@stacks/ui';
+import { Grid, Input } from '@stacks/ui';
 import { OnboardingSelectors } from '@tests/selectors/onboarding.selectors';
+import { Box, Flex, Stack, styled } from 'leather-styles/jsx';
+import { token } from 'leather-styles/tokens';
 import { useFocus } from 'use-events';
 
 import { RouteUrls } from '@shared/route-urls';
 
 import { useRouteHeader } from '@app/common/hooks/use-route-header';
 import { createNullArrayOfLength, extractPhraseFromString } from '@app/common/utils';
-import { CenteredPageContainer } from '@app/components/centered-page-container';
+import { LeatherButton } from '@app/components/button/button';
 import { ErrorLabel } from '@app/components/error-label';
-import { DESKTOP_VIEWPORT_MIN_WIDTH } from '@app/components/global-styles/full-page-styles';
 import { Header } from '@app/components/header';
-import { PageTitle } from '@app/components/page-title';
-import { PrimaryButton } from '@app/components/primary-button';
-import { Caption, Title } from '@app/components/typography';
 import { useSignIn } from '@app/pages/onboarding/sign-in/hooks/use-sign-in';
 
 interface MnemonicWordInputProps {
@@ -34,22 +31,13 @@ function MnemonicWordInput({
   const [isFocused, bind] = useFocus();
 
   return (
-    <Box
-      position="relative"
-      _after={{
-        content: `"${index + 1}."`,
-        textAlign: 'right',
-        position: 'absolute',
-        top: 0,
-        left: '-22px',
-        lineHeight: '48px',
-        color: color('text-caption'),
-        fontSize: '12px',
-        width: '18px',
-      }}
-    >
+    <Flex alignItems="center">
+      <styled.span textStyle="label.02" mr="space.02">
+        {index + 1}.
+      </styled.span>
       <Input
         type={isFocused ? 'text' : 'password'}
+        _focus={{ border: `1px solid ${token('colors.brown.12')}` }}
         value={value}
         autoCapitalize="off"
         spellCheck={false}
@@ -69,7 +57,7 @@ function MnemonicWordInput({
         }}
         {...bind}
       />
-    </Box>
+    </Flex>
   );
 }
 
@@ -78,8 +66,6 @@ export function SignIn() {
   const navigate = useNavigate();
 
   const [twentyFourWordMode, setTwentyFourWordMode] = useState(true);
-
-  const [desktopViewport] = useMediaQuery(`(min-width: ${DESKTOP_VIEWPORT_MIN_WIDTH})`);
 
   useRouteHeader(<Header onClose={() => navigate(RouteUrls.Onboarding)} hideActions />);
 
@@ -98,39 +84,58 @@ export function SignIn() {
   }
 
   return (
-    <CenteredPageContainer>
-      <Stack
-        as="form"
-        onSubmit={e => {
-          e.preventDefault();
-          void submitMnemonicForm(mnemonic.join(' '));
-        }}
-        px={['loose', 'base-loose']}
-        spacing={['loose', 'extra-loose']}
-        textAlign={['left', 'center']}
-      >
-        <Box alignSelf={['start', 'center']} width={['81px', '101px']}>
-          <img src={YourSecretKey} />
-        </Box>
-        {desktopViewport ? (
-          <PageTitle>Sign in with your Secret Key</PageTitle>
-        ) : (
-          <>
-            <Title as="h1">Sign in with Secret Key</Title>
-          </>
-        )}
+    <Flex
+      flexDirection={['column', 'column', 'column', 'row']}
+      mt={['space.05', 'space.06']}
+      pb="loose"
+      px={['space.05', 'space.05', 'space.11']}
+      width="100%"
+      gap={['space.03', 'space.09']}
+      height="fit-content"
+    >
+      <Stack flex="1" gap="space.06">
+        <styled.h1 textStyle={['heading.03', 'display.02']}>Sign in with your Secret Key</styled.h1>
         <Box>
-          <Text color={color('text-caption')}>
+          <styled.p textStyle={['label.01', 'heading.05']} mb="space.02">
             Enter your Secret Key to sign in with an existing wallet
-          </Text>
-          <Caption mt="base-tight">Tip: You can paste in your entire Secret Key at once</Caption>
+          </styled.p>
+
+          <styled.span textStyle="body.02">
+            Tip: You can paste in your entire Secret Key at once
+          </styled.span>
         </Box>
-        <Stack spacing="base-tight">
+        <LeatherButton
+          mt="space.03"
+          variant="link"
+          textStyle="caption.01"
+          width="fit-content"
+          onClick={() => {
+            setTwentyFourWordMode(!twentyFourWordMode);
+            setMnemonic(createNullArrayOfLength(twentyFourWordMode ? 24 : 12));
+          }}
+        >
+          {twentyFourWordMode ? 'Have a 12-word Secret Key?' : 'Use 24 word Secret Key'}
+        </LeatherButton>
+      </Stack>
+      <Stack
+        borderRadius="16px"
+        backgroundColor="brown.1"
+        px={['', 'space.05']}
+        pt={['space.02', 'space.07']}
+        pb={['space.02', 'space.05']}
+        flex="1"
+        gap="space.04"
+        width="100%"
+      >
+        <styled.h2 textStyle="heading.03" mb="space.04" hideBelow="sm" textAlign="center">
+          Your Secret Key
+        </styled.h2>
+        <Stack gap="base-tight" mb="space.05">
           <Grid
             mx="base"
             templateColumns={['repeat(2, minmax(30%, 1fr))', 'repeat(3, minmax(120px, 1fr))']}
-            rowGap="30px"
-            columnGap="30px"
+            rowGap="15px"
+            columnGap="15px"
           >
             {createNullArrayOfLength(twentyFourWordMode ? 24 : 12).map((_, i) => (
               <MnemonicWordInput
@@ -149,39 +154,25 @@ export function SignIn() {
         <Flex flexDirection="column" justifyContent="center" alignItems="center">
           {error && (
             <ErrorLabel mb="loose" alignItems="center">
-              <Text
-                data-testid="sign-in-seed-error"
-                color={color('feedback-error')}
-                pr="extra-loose"
-                textStyle="caption"
-              >
+              <styled.p data-testid="sign-in-seed-error" pr="extra-loose" textStyle="caption">
                 {error}
-              </Text>
+              </styled.p>
             </ErrorLabel>
           )}
-          <PrimaryButton
+          <LeatherButton
             data-testid={OnboardingSelectors.SignInBtn}
-            isDisabled={isLoading}
-            isLoading={isLoading}
-            width="320px"
-          >
-            Continue
-          </PrimaryButton>
-          <Button
-            mt="loose"
-            variant="link"
-            textStyle="caption"
-            color={color('text-caption')}
-            type="button"
-            onClick={() => {
-              setTwentyFourWordMode(!twentyFourWordMode);
-              setMnemonic(createNullArrayOfLength(twentyFourWordMode ? 24 : 12));
+            aria-disabled={isLoading}
+            aria-busy={isLoading}
+            width="100%"
+            onClick={e => {
+              e.preventDefault();
+              void submitMnemonicForm(mnemonic.join(' '));
             }}
           >
-            {twentyFourWordMode ? 'Have a 12-word Secret Key?' : 'Use 24 word Secret Key'}
-          </Button>
+            Continue
+          </LeatherButton>
         </Flex>
       </Stack>
-    </CenteredPageContainer>
+    </Flex>
   );
 }

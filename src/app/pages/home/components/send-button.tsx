@@ -1,7 +1,7 @@
 import { Suspense, memo } from 'react';
+import { FiArrowUp } from 'react-icons/fi';
 import { useNavigate } from 'react-router-dom';
 
-import { ButtonProps } from '@stacks/ui';
 import { HomePageSelectors } from '@tests/selectors/home.selectors';
 
 import { RouteUrls } from '@shared/route-urls';
@@ -9,25 +9,14 @@ import { RouteUrls } from '@shared/route-urls';
 import { useWalletType } from '@app/common/use-wallet-type';
 import { whenPageMode } from '@app/common/utils';
 import { openIndexPageInNewTab } from '@app/common/utils/open-in-new-tab';
-import { PrimaryButton } from '@app/components/primary-button';
+import { ArrowUpIcon } from '@app/components/icons/arrow-up-icon';
 import {
   useStacksAnchoredCryptoCurrencyAssetBalance,
   useTransferableStacksFungibleTokenAssetBalances,
 } from '@app/query/stacks/balance/stacks-ft-balances.hooks';
 import { useCurrentStacksAccount } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
 
-import { HomeActionButton } from './home-action-button';
-
-function SendTxButton(props: ButtonProps) {
-  return (
-    <HomeActionButton
-      data-testid={HomePageSelectors.SendCryptoAssetBtn}
-      label="Send"
-      buttonComponent={PrimaryButton}
-      {...props}
-    />
-  );
-}
+import { ActionButton } from './action-button';
 
 function SendButtonSuspense() {
   const navigate = useNavigate();
@@ -38,7 +27,10 @@ function SendButtonSuspense() {
   const isDisabled = !stxAssetBalance && ftAssets?.length === 0;
 
   return (
-    <SendTxButton
+    <ActionButton
+      data-testid={HomePageSelectors.SendCryptoAssetBtn}
+      label="Send"
+      icon={<ArrowUpIcon />}
       onClick={() =>
         whenWallet({
           ledger: () =>
@@ -49,12 +41,12 @@ function SendButtonSuspense() {
           software: () => navigate(RouteUrls.SendCryptoAsset, { state: { hasHeaderTitle: true } }),
         })()
       }
-      isDisabled={isDisabled}
+      disabled={isDisabled}
     />
   );
 }
 
-const SendButtonFallback = memo(() => <SendTxButton isDisabled />);
+const SendButtonFallback = memo(() => <ActionButton label="Send" icon={<FiArrowUp />} disabled />);
 
 export function SendButton() {
   return (

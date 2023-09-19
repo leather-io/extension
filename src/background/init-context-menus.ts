@@ -7,7 +7,7 @@ export function initContextMenuActions() {
 
   chrome.contextMenus.create({
     id: 'open_in_new_tab',
-    title: 'Open Hiro Wallet in a new tab',
+    title: 'Open in a new tab',
     contexts: ['action'],
   });
 }

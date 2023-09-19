@@ -1,7 +1,6 @@
 import { useMemo } from 'react';
 import { useSearchParams } from 'react-router-dom';
 
-import { AllowedSighashTypes } from '@shared/rpc/methods/sign-psbt';
 import { ensureArray, undefinedIfLengthZero } from '@shared/utils';
 
 import { useRejectIfLedgerWallet } from '@app/common/rpc-helpers';
@@ -21,9 +20,6 @@ export function usePsbtRequestSearchParams() {
   return useMemo(
     () => ({
       appName: payload?.appDetails?.name,
-      allowedSighash: payload?.allowedSighash
-        ? undefinedIfLengthZero(payload.allowedSighash.map(h => Number(h)) as AllowedSighashTypes[])
-        : undefined,
       origin,
       payload,
       requestToken,
@@ -41,7 +37,6 @@ export function useRpcSignPsbtParams() {
 
   const [searchParams] = useSearchParams();
   const { origin, tabId } = useDefaultRequestParams();
-  const allowedSighash = searchParams.getAll('allowedSighash');
   const broadcast = searchParams.get('broadcast');
   const psbtHex = searchParams.get('hex');
   const requestId = searchParams.get('requestId');
@@ -49,15 +44,12 @@ export function useRpcSignPsbtParams() {
 
   return useMemo(() => {
     return {
-      allowedSighash: undefinedIfLengthZero(
-        allowedSighash.map(h => Number(h)) as AllowedSighashTypes[]
-      ),
-      broadcast,
+      broadcast: broadcast === 'true',
       origin,
       psbtHex,
       requestId,
       signAtIndex: undefinedIfLengthZero(ensureArray(signAtIndex).map(h => Number(h))),
       tabId: tabId ?? 0,
     };
-  }, [allowedSighash, broadcast, origin, psbtHex, requestId, signAtIndex, tabId]);
+  }, [broadcast, origin, psbtHex, requestId, signAtIndex, tabId]);
 }

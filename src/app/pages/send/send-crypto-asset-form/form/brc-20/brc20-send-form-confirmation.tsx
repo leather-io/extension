@@ -12,6 +12,7 @@ import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
 import { useRouteHeader } from '@app/common/hooks/use-route-header';
 import { sumMoney } from '@app/common/money/calculate-money';
 import { formatMoney, formatMoneyPadded } from '@app/common/money/format-money';
+import { LeatherButton } from '@app/components/button/button';
 import {
   InfoCard,
   InfoCardAssetValue,
@@ -20,7 +21,6 @@ import {
   InfoCardSeparator,
 } from '@app/components/info-card/info-card';
 import { ModalHeader } from '@app/components/modal-header';
-import { PrimaryButton } from '@app/components/primary-button';
 import { useCurrentNativeSegwitUtxos } from '@app/query/bitcoin/address/utxos-by-address.hooks';
 import { useBrc20Transfers } from '@app/query/bitcoin/ordinals/brc20/use-brc-20';
 import { useBitcoinBroadcastTransaction } from '@app/query/bitcoin/transaction/use-bitcoin-broadcast-transaction';
@@ -130,9 +130,9 @@ export function Brc20SendFormConfirmation() {
       </Stack>
 
       <InfoCardFooter>
-        <PrimaryButton isLoading={isBroadcasting} width="100%" onClick={initiateTransaction}>
+        <LeatherButton aria-busy={isBroadcasting} width="100%" onClick={initiateTransaction}>
           Create transfer inscription
-        </PrimaryButton>
+        </LeatherButton>
       </InfoCardFooter>
     </InfoCard>
   );

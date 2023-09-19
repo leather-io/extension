@@ -4,6 +4,7 @@
 import { logger } from '@shared/logger';
 import { CONTENT_SCRIPT_PORT } from '@shared/message-types';
 import type { LegacyMessageFromContentScript } from '@shared/message-types';
+import { setNewAppIcon, userHasApprovedAppIcon } from '@shared/new-theme/update-app-icon';
 import { RouteUrls } from '@shared/route-urls';
 import { WalletRequests } from '@shared/rpc/rpc-methods';
 import { warnUsersAboutDevToolsDangers } from '@shared/utils/dev-tools-warning-log';
@@ -23,19 +24,17 @@ const IS_TEST_ENV = process.env.TEST_ENV === 'true';
 
 chrome.runtime.onInstalled.addListener(async details => {
   if (details.reason === 'install' && !IS_TEST_ENV) {
+    await setNewAppIcon();
     await chrome.tabs.create({
       url: chrome.runtime.getURL(`index.html#${RouteUrls.RequestDiagnostics}`),
     });
   }
 });
 
-// https://bugs.chromium.org/p/chromium/issues/detail?id=1271154#c108
-chrome.runtime.onStartup.addListener(() =>
-  // eslint-disable-next-line no-console
-  console.log('Service Worker startup')
-);
+chrome.runtime.onStartup.addListener(async () => {
+  if (await userHasApprovedAppIcon()) await setNewAppIcon();
+});
 
-//
 // Listen for connection to the content-script - port for two-way communication
 chrome.runtime.onConnect.addListener(port => {
   if (port.name !== CONTENT_SCRIPT_PORT) return;

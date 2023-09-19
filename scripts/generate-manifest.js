@@ -20,6 +20,9 @@ function generateImageAssetUrlsWithSuffix(suffix = '') {
 }
 
 const environmentIcons = {
+  testing: {
+    icons: generateImageAssetUrlsWithSuffix(PREVIEW_RELEASE ? '-preview' : ''),
+  },
   development: {
     icons: generateImageAssetUrlsWithSuffix('-dev'),
   },
@@ -29,12 +32,14 @@ const environmentIcons = {
 };
 
 const contentSecurityPolicyEnvironment = {
+  testing: `default-src 'none'; connect-src *; style-src 'unsafe-inline'; img-src 'self' data: https:; script-src 'self' 'wasm-unsafe-eval'; object-src 'none'; frame-src 'none'; frame-ancestors 'none';`,
   development:
     "script-src 'self' 'wasm-unsafe-eval'; object-src 'self'; frame-src 'none'; frame-ancestors 'none';",
   production: `default-src 'none'; connect-src *; style-src 'unsafe-inline'; img-src 'self' data: https:; script-src 'self' 'wasm-unsafe-eval'; object-src 'none'; frame-src 'none'; frame-ancestors 'none';`,
 };
 
 const defaultIconEnvironment = {
+  testing: 'assets/connect-logo/Stacks128w.png',
   development: 'assets/connect-logo/Stacks128w-dev.png',
   production: 'assets/connect-logo/Stacks128w.png',
 };
@@ -63,9 +68,9 @@ const browserSpecificConfig = {
  */
 const manifest = {
   manifest_version: 3,
-  author: 'Hiro PBC',
+  author: 'Leather Wallet, LLC',
   description:
-    'Hiro Wallet is a safe way to manage your STX, sign into apps, and protect your funds while interacting with Clarity smart contracts.',
+    'Leather is the only Bitcoin wallet you need to tap into the emerging Bitcoin economy.',
   permissions: ['contextMenus', 'storage'],
   commands: {
     _execute_browser_action: {
@@ -82,7 +87,7 @@ const manifest = {
   },
   web_accessible_resources: [{ resources: ['inpage.js'], matches: ['*://*/*'] }],
   action: {
-    default_title: 'Hiro Wallet',
+    default_title: 'Leather',
     default_popup: 'popup.html',
     default_icon: defaultIconEnvironment[WALLET_ENVIRONMENT],
   },
@@ -100,10 +105,10 @@ const manifest = {
 };
 
 const devManifest = {
-  name: 'Hiro Wallet Dev',
+  name: 'Leather Dev',
 };
 
-const name = PREVIEW_RELEASE ? 'Hiro Wallet Preview' : 'Hiro Wallet';
+const name = PREVIEW_RELEASE ? 'Leather Preview' : 'Leather';
 
 const prodManifest = {
   name,

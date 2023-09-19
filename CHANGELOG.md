@@ -1,3 +1,125 @@
+## [6.8.2](https://github.com/leather-wallet/extension/compare/v6.8.1...v6.8.2) (2023-09-19)
+
+
+### Bug Fixes
+
+* enable ff code splitting ([4a4eb4a](https://github.com/leather-wallet/extension/commit/4a4eb4ad3f635e56fc921e407bdda9142960a292))
+* trigger release ([4b5ec7e](https://github.com/leather-wallet/extension/commit/4b5ec7edf380c7a0a88060e25ba143fb360a651b))
+
+## [6.8.1](https://github.com/leather-wallet/extension/compare/v6.8.0...v6.8.1) (2023-09-19)
+
+
+### Bug Fixes
+
+* leading the from Hiro Wallet days ([86df840](https://github.com/leather-wallet/extension/commit/86df840338f4639e6899c2b0202e18caa9c582fc))
+* trigger release ([44f981e](https://github.com/leather-wallet/extension/commit/44f981e789162a67d5ea196e1c350d03504ce43d))
+
+## [6.8.0](https://github.com/leather-wallet/extension/compare/v6.7.0...v6.8.0) (2023-09-18)
+
+
+### Features
+
+* trigger release ([eb35e12](https://github.com/leather-wallet/extension/commit/eb35e126f6f20b1e4a7600d259d6c5cb1edf8980))
+
+## [6.7.0](https://github.com/leather-wallet/extension/compare/v6.6.1...v6.7.0) (2023-09-18)
+
+
+### Features
+
+* trigger release ([5fc164a](https://github.com/leather-wallet/extension/commit/5fc164a30f2aad5ab836266025254471be6ea388))
+
+## [6.6.1](https://github.com/leather-wallet/extension/compare/v6.6.0...v6.6.1) (2023-09-18)
+
+
+### Bug Fixes
+
+* firefox ci build ([51a7390](https://github.com/leather-wallet/extension/commit/51a739028914e68fb779572575a8aa330cbc1cb2))
+
+## [6.6.0](https://github.com/leather-wallet/extension/compare/v6.5.1...v6.6.0) (2023-09-18)
+
+
+### Features
+
+* create new test acc ([f14e3f1](https://github.com/leather-wallet/extension/commit/f14e3f1a017170e235e73848cca1658f1c64fd33))
+* increase fee actions ([7a9298b](https://github.com/leather-wallet/extension/commit/7a9298b814d9f4e17cfdf8db327b2d01a2eba9d9))
+* ui changes in inscription flow ([23ab7f0](https://github.com/leather-wallet/extension/commit/23ab7f000bec6ccfaeec58a68cf79af535b91a55))
+* update panda, node ([ddde3b1](https://github.com/leather-wallet/extension/commit/ddde3b1462e3266f147618f669c118f2d9b25294))
+
+
+### Bug Fixes
+
+* add fill=currentColor to refresh icon for dark mode, closes [#4195](https://github.com/leather-wallet/extension/issues/4195) ([25476e7](https://github.com/leather-wallet/extension/commit/25476e7e548a997d13ffe8d86b673f41ee620fef))
+* adjust header background colour based on screen context, [#4164](https://github.com/leather-wallet/extension/issues/4164) ([015c4e1](https://github.com/leather-wallet/extension/commit/015c4e1741766db499fa36e5c768de99d4f8e725))
+* discord webhook, new org secret ([fbc1c57](https://github.com/leather-wallet/extension/commit/fbc1c57e27d7f9eebe38acb705fb6f384afbdf96))
+* firefox publish issue ([e143172](https://github.com/leather-wallet/extension/commit/e1431725f30fb57fc92c8ebb2f3c0addd7f631e3))
+* fix fund test try ([2a5d421](https://github.com/leather-wallet/extension/commit/2a5d421791bc09b6fecd99edc2886c8573fe33a2))
+* flaky settings test ([51c460e](https://github.com/leather-wallet/extension/commit/51c460ee24e6d310c5d3a575cad469947375185e))
+* global bg style ([d639c8f](https://github.com/leather-wallet/extension/commit/d639c8fa4bd9f4451fd5f01b86f91055f04429cd))
+* pr ext build link ([126b1e7](https://github.com/leather-wallet/extension/commit/126b1e79e37710da81afea3f5b296c56b9f4651d))
+* remove radix layout components ([029e6b9](https://github.com/leather-wallet/extension/commit/029e6b98bb58c3b218e09f7bf6cde288b922cccf))
+* remove undefined tokens ([e1b431f](https://github.com/leather-wallet/extension/commit/e1b431f3e3e6c900158956bcd0bf372e5593be54))
+* script type unknown ([2e344ec](https://github.com/leather-wallet/extension/commit/2e344ec8cd0836ceae65c2d44cae335cc94d3447))
+* stop sign in panel stretching too much, closes [#4212](https://github.com/leather-wallet/extension/issues/4212) ([1804f49](https://github.com/leather-wallet/extension/commit/1804f49daa88521391567ebe837670fc4dc79142))
+* triger release ([483f0ae](https://github.com/leather-wallet/extension/commit/483f0aef9dc59a347303f055351fbf7f9a531430))
+* triger release ([5cb9193](https://github.com/leather-wallet/extension/commit/5cb9193d685f875677c7c08a63b62838a330f115))
+* trigger release ([108e74e](https://github.com/leather-wallet/extension/commit/108e74e612760ee258fc5d4ff9d427bc7722d335))
+* trigger release ([cefd605](https://github.com/leather-wallet/extension/commit/cefd6059e296e81a710e59112a21479a10c88494))
+* trigger release ([8d596ae](https://github.com/leather-wallet/extension/commit/8d596ae72f9e111e12cf15ea3a2d45fffeeb32cc))
+* trigger release ([316c67a](https://github.com/leather-wallet/extension/commit/316c67ae2b7288085d403eaab1048e965567c365))
+
+
+### Internal
+
+* fund test migrate, closes [#4187](https://github.com/leather-wallet/extension/issues/4187) ([1375cd5](https://github.com/leather-wallet/extension/commit/1375cd5337366a7508fdae62ec23e07add78dc5b))
+* migrate network tests, closes [#3707](https://github.com/leather-wallet/extension/issues/3707) ([8ed7553](https://github.com/leather-wallet/extension/commit/8ed75537a0864dc2796bbc059c51c8fb7abd6606))
+* migrate tx requests tests to playwright, closes [#4151](https://github.com/leather-wallet/extension/issues/4151) ([c15b223](https://github.com/leather-wallet/extension/commit/c15b223685d28f220eafc4b59ab4404853594b09))
+* pass all sighashTypes to signer ([fdb06cf](https://github.com/leather-wallet/extension/commit/fdb06cfe35a22b7bb5382fdcf61a05e1eef6b2a7))
+* remove emotion, configure panda to load css globally, ditch stacks-ui base, [#4164](https://github.com/leather-wallet/extension/issues/4164) ([d8655c1](https://github.com/leather-wallet/extension/commit/d8655c10bf1056957420e2ac9e85ea24b82e4e7e))
+* remove legacy fund selectors ([92a495c](https://github.com/leather-wallet/extension/commit/92a495cd9d6fd2e8c5a33a54ddf6b57926cef98d))
+* remove legacy settings selectors ([e6eecb6](https://github.com/leather-wallet/extension/commit/e6eecb6e60bbb113a0437f45925cca17e3a54230))
+* remove test env ([61634d4](https://github.com/leather-wallet/extension/commit/61634d44aa3b0f47274649051bba2eb8e420891e))
+* rename leaf to leather ([66d159e](https://github.com/leather-wallet/extension/commit/66d159eba66b84f474112bbeb6b0c98ebb847c6c))
+* request feature link ([4e6c09d](https://github.com/leather-wallet/extension/commit/4e6c09d68693112dedcf30b0a4d0e6e1649eae3d))
+* settings legacy test ([068d3cd](https://github.com/leather-wallet/extension/commit/068d3cd465e1a642a763fecfa0e3ce5e94b07286))
+* swaps ui with leather-styles ([4884fc5](https://github.com/leather-wallet/extension/commit/4884fc5ac5c806b2a227f9708940bb43b3f8783e))
+* update to leather url paths ([203fad5](https://github.com/leather-wallet/extension/commit/203fad511e855ed2f59fc8307f3ac45784bea20d))
+
+## [6.5.1](https://github.com/hirosystems/wallet/compare/v6.5.0...v6.5.1) (2023-08-31)
+
+
+### Bug Fixes
+
+* check broadcast param as string ([887e9d9](https://github.com/hirosystems/wallet/commit/887e9d92c0c6ae89c8f76b7f31d53f3fcea4e017))
+* reenable firefox ([0ccd7c7](https://github.com/hirosystems/wallet/commit/0ccd7c777524ff9814176d641c55aae40f9b2ca0))
+* rename brand ([dbfda8d](https://github.com/hirosystems/wallet/commit/dbfda8dc2f36992a4c01414280fcbe4dd1ee039d))
+* update build assets ([47e72b4](https://github.com/hirosystems/wallet/commit/47e72b4e9d608b851275fa17fcc0c416538ba48f))
+
+
+### Internal
+
+* **release:** 6.5.0 ([3b7bc46](https://github.com/hirosystems/wallet/commit/3b7bc460905e0a9a1d7ce30867e8470de2e0d453))
+
+## [6.5.0](https://github.com/hirosystems/wallet/compare/v6.4.0...v6.5.0) (2023-08-30)
+
+
+### Features
+
+* add base swap page and routing ([6e59bdd](https://github.com/hirosystems/wallet/commit/6e59bddd0b825ca4edfe341f82047385b59a0338))
+* panda poc ([59654ec](https://github.com/hirosystems/wallet/commit/59654ece1c6934e97eadfdccf05f62e594f3bd98))
+* swap flow ([e54aa2e](https://github.com/hirosystems/wallet/commit/e54aa2e46a10e6926dd8c4f6eaaeab5ac00c9064))
+
+
+### Bug Fixes
+
+* add panda ([29b2be9](https://github.com/hirosystems/wallet/commit/29b2be99ec72400d6408d143a2ba5468a9202ae0))
+* remove error message ([1e69362](https://github.com/hirosystems/wallet/commit/1e693628944dcfbebd5d4c0cda75dd3b2efc5453))
+
+
+### Internal
+
+* home action buttons ([225182d](https://github.com/hirosystems/wallet/commit/225182d3dbebc595c87f95c6677ca3e2361f4bf2))
+* use swap context ([99539d9](https://github.com/hirosystems/wallet/commit/99539d9af0e4c162802fe5efd3f741fcd893422b))
+
 ## [6.4.0](https://github.com/hirosystems/wallet/compare/v6.3.1...v6.4.0) (2023-08-16)
 
 

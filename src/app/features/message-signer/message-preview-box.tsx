@@ -1,4 +1,5 @@
-import { Stack, Text, color } from '@stacks/ui';
+import { Stack, color } from '@stacks/ui';
+import { styled } from 'leather-styles/jsx';
 
 import { HashDrawer } from './hash-drawer';
 
@@ -26,7 +27,9 @@ export function MessagePreviewBox({ message, hash }: MessageBoxProps) {
         overflowX="auto"
       >
         {message.split(/\r?\n/).map(line => (
-          <Text key={line}>{line}</Text>
+          <styled.span key={line} textStyle="label.01">
+            {line}
+          </styled.span>
         ))}
       </Stack>
       {hash ? <HashDrawer hash={hash} /> : null}

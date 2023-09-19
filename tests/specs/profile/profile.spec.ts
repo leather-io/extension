@@ -1,12 +1,14 @@
 import { Page } from '@playwright/test';
-import { ProfileUpdatingPage } from '@tests/page-object-models/profile-updating.page';
 import { TestAppPage } from '@tests/page-object-models/test-app.page';
+import { UpdateProfileRequestPage } from '@tests/page-object-models/update-profile-request.page';
 
 import { test } from '../../fixtures/fixtures';
 
 test.describe.configure({ mode: 'serial' });
 
 test.describe('Profile updating', () => {
+  let testAppPage: TestAppPage;
+
   function interceptGaiaRequest(page: Page): Promise<Buffer> {
     return new Promise(resolve => {
       page.on('request', request => {
@@ -19,7 +21,7 @@ test.describe('Profile updating', () => {
       });
     });
   }
-  let testAppPage: TestAppPage;
+
   test.beforeEach(async ({ extensionId, globalPage, onboardingPage, context }) => {
     await globalPage.setupAndUseApiCalls(extensionId);
     await onboardingPage.signInWithTestAccount(extensionId);
@@ -37,7 +39,7 @@ test.describe('Profile updating', () => {
 
   test('should show profile details', async ({ context }) => {
     await testAppPage.clickUpdateProfileButton();
-    const profileUpdatingPage = new ProfileUpdatingPage(await context.waitForEvent('page'));
+    const profileUpdatingPage = new UpdateProfileRequestPage(await context.waitForEvent('page'));
     const name = profileUpdatingPage.page.getByText('twitter');
     const nameText = await name.innerText();
 
@@ -46,8 +48,8 @@ test.describe('Profile updating', () => {
 
   test('should show an error for invalid profile', async ({ context }) => {
     await testAppPage.clickUpdateInvalidProfileButton();
-    const profileUpdatingPage = new ProfileUpdatingPage(await context.waitForEvent('page'));
-    const error = await profileUpdatingPage.waitForError(
+    const profileUpdatingPage = new UpdateProfileRequestPage(await context.waitForEvent('page'));
+    const error = await profileUpdatingPage.waitForUpdateProfileRequestError(
       'Invalid profile update request (Profile must follow Person schema).'
     );
 
@@ -56,7 +58,7 @@ test.describe('Profile updating', () => {
 
   test('should send a signed profile token to gaia', async ({ context }) => {
     await testAppPage.clickUpdateProfileButton();
-    const profileUpdatingPage = new ProfileUpdatingPage(await context.waitForEvent('page'));
+    const profileUpdatingPage = new UpdateProfileRequestPage(await context.waitForEvent('page'));
 
     const [gaiaRequestBody] = await Promise.all([
       interceptGaiaRequest(profileUpdatingPage.page),

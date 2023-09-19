@@ -1,6 +1,7 @@
-import { Box, Button, Stack, color } from '@stacks/ui';
+import { Box, color } from '@stacks/ui';
+import { HStack } from 'leather-styles/jsx';
 
-import { PrimaryButton } from '@app/components/primary-button';
+import { LeatherButton } from '@app/components/button/button';
 
 interface PsbtRequestActionsProps {
   isLoading?: boolean;
@@ -19,14 +20,14 @@ export function PsbtRequestActions({ isLoading, onCancel, onSignPsbt }: PsbtRequ
       width="100%"
       zIndex={999}
     >
-      <Stack isInline mt="loose" spacing="base">
-        <Button borderRadius="10px" flexGrow={1} mode="tertiary" onClick={onCancel}>
+      <HStack gap="space.04" mt="space.05">
+        <LeatherButton flexGrow={1} onClick={onCancel} variant="outline">
           Cancel
-        </Button>
-        <PrimaryButton borderRadius="10px" flexGrow={1} isLoading={isLoading} onClick={onSignPsbt}>
+        </LeatherButton>
+        <LeatherButton flexGrow={1} aria-busy={isLoading} onClick={onSignPsbt}>
           Confirm
-        </PrimaryButton>
-      </Stack>
+        </LeatherButton>
+      </HStack>
     </Box>
   );
 }

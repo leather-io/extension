@@ -1,14 +1,16 @@
-import { Box, Button } from '@stacks/ui';
+import { Flex } from 'leather-styles/jsx';
+
+import { LeatherButton } from '@app/components/button/button';
 
 interface CreateAccountActionProps {
   onCreateAccount(): void;
 }
 export function CreateAccountAction({ onCreateAccount }: CreateAccountActionProps) {
   return (
-    <Box pt="base" pb="loose" px="loose">
-      <Button borderRadius="10px" onClick={() => onCreateAccount()}>
-        Create an account
-      </Button>
-    </Box>
+    <Flex py="space.05" px="space.05" flexGrow="1">
+      <LeatherButton fullWidth onClick={() => onCreateAccount()}>
+        Create new account
+      </LeatherButton>
+    </Flex>
   );
 }

@@ -1,6 +1,7 @@
 import { useState } from 'react';
 
-import { Box, Stack, Text, color } from '@stacks/ui';
+import { Box, Stack } from '@stacks/ui';
+import { styled } from 'leather-styles/jsx';
 
 import { BtcFeeType } from '@shared/models/fees/bitcoin-fees.model';
 import { Money } from '@shared/models/money.model';
@@ -51,12 +52,12 @@ export function BitcoinChooseFee({
 
   return (
     <BitcoinChooseFeeLayout isLoading={isLoading}>
-      <Stack alignItems="center" spacing="base" width="100%">
-        {hasAmount ? (
-          <Text color={showError ? color('feedback-error') : 'unset'} fontSize={6} fontWeight={500}>
+      <Stack alignItems="center" width="100%">
+        {hasAmount && (
+          <styled.h3 textStyle="heading.03" color={showError ? 'error' : 'unset'}>
             {formatMoney(amount)}
-          </Text>
-        ) : null}
+          </styled.h3>
+        )}
         {showError ? (
           <InsufficientBalanceError pb={hasAmount ? '0px' : '16px'} />
         ) : (

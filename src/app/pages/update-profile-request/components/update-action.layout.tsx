@@ -1,5 +1,5 @@
 import { Button, Stack } from '@stacks/ui';
-import { TestAppSelectors } from '@tests/selectors/test-app.selectors';
+import { UpdateProfileRequestSelectors } from '@tests/selectors/requests.selectors';
 
 interface UpdateActionProfileProps {
   onUpdateProfile: () => Promise<void>;
@@ -18,7 +18,7 @@ export function UpdateActionLayout({
         Cancel
       </Button>
       <Button
-        data-testid={TestAppSelectors.BtnUpdateProfile}
+        data-testid={UpdateProfileRequestSelectors.BtnUpdateProfile}
         type="submit"
         flexGrow={1}
         borderRadius="10px"

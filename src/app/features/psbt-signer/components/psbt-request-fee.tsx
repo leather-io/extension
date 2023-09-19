@@ -1,4 +1,4 @@
-import { Stack, Text, color } from '@stacks/ui';
+import { Stack, styled } from 'leather-styles/jsx';
 
 import { Money } from '@shared/models/money.model';
 
@@ -15,16 +15,12 @@ export function PsbtRequestFee(props: { fee: Money }) {
   return (
     <PsbtRequestDetailsSectionLayout>
       <SpaceBetween>
-        <Text fontSize={2} fontWeight="500">
-          Transaction fee
-        </Text>
-        <Stack alignItems="flex-end" spacing="extra-tight">
-          <Text fontSize={2} fontWeight="500">
-            {formatMoney(fee)}
-          </Text>
-          <Text color={color('text-caption')} fontSize={1}>
+        <styled.span textStyle="label.01">Transaction fee</styled.span>
+        <Stack alignItems="flex-end" gap="space.01">
+          <styled.span textStyle="label.01">{formatMoney(fee)}</styled.span>
+          <styled.span textStyle="caption.02">
             {i18nFormatCurrency(calculateBitcoinFiatValue(fee))}
-          </Text>
+          </styled.span>
         </Stack>
       </SpaceBetween>
     </PsbtRequestDetailsSectionLayout>

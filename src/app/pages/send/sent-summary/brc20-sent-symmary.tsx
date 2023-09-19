@@ -1,4 +1,4 @@
-import { FiCheck, FiExternalLink } from 'react-icons/fi';
+import { FiExternalLink } from 'react-icons/fi';
 import { useLocation, useNavigate } from 'react-router-dom';
 
 import { Stack } from '@stacks/ui';
@@ -21,6 +21,8 @@ import {
 import { InfoLabel } from '@app/components/info-label';
 import { Link } from '@app/components/link';
 import { ModalHeader } from '@app/components/modal-header';
+
+import { TxDone } from '../send-crypto-asset-form/components/tx-done';
 
 function useBrc20SentSummaryState() {
   const location = useLocation();
@@ -49,13 +51,9 @@ export function Brc20SentSummary() {
 
   return (
     <InfoCard>
-      <InfoCardAssetValue
-        value={Number(amount)}
-        symbol={tick}
-        icon={FiCheck}
-        my="loose"
-        px="loose"
-      />
+      <TxDone />
+
+      <InfoCardAssetValue value={Number(amount)} symbol={tick} px="loose" />
 
       <Stack width="100%" px="extra-loose" pb="extra-loose">
         <InfoLabel mb="loose" title="One more step is required to send tokens">
@@ -67,7 +65,7 @@ export function Brc20SentSummary() {
             fontWeight={500}
             lineHeight="1.6"
             onClick={() => {
-              openInNewTab('https://hirowallet.gitbook.io/guides/bitcoin/sending-brc-20-tokens');
+              openInNewTab('https://leather.gitbook.io/guides/bitcoin/sending-brc-20-tokens');
             }}
           >
             {'Learn more'}

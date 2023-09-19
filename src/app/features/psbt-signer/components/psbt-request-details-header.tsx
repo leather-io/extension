@@ -1,9 +1,10 @@
-import { FiAlertCircle, FiLock } from 'react-icons/fi';
+import { Box, Stack } from '@stacks/ui';
+import { styled } from 'leather-styles/jsx';
+import { token } from 'leather-styles/tokens';
 
-import { Box, Stack, Text, color } from '@stacks/ui';
-
+import { LockIcon } from '@app/components/icons/lock-icon';
+import { UnlockIcon } from '@app/components/icons/unlock-icon';
 import { Tooltip } from '@app/components/tooltip';
-import { Title } from '@app/components/typography';
 import { usePsbtSignerContext } from '@app/features/psbt-signer/psbt-signer.context';
 
 const immutableLabel =
@@ -13,13 +14,11 @@ const uncertainLabel =
 
 export function PsbtRequestDetailsHeader() {
   const { isPsbtMutable } = usePsbtSignerContext();
-  const labelColor = isPsbtMutable ? color('feedback-alert') : color('text-caption');
+  const labelColor = isPsbtMutable ? token('colors.red.600') : token('colors.accent.text-subdued');
 
   return (
     <Stack alignItems="center" isInline spacing="tight">
-      <Title fontSize={3} fontWeight={500}>
-        Transaction
-      </Title>
+      <styled.h2 textStyle="heading.05">Transaction</styled.h2>
       <Tooltip
         label={isPsbtMutable ? uncertainLabel : immutableLabel}
         maxWidth="230px"
@@ -37,14 +36,14 @@ export function PsbtRequestDetailsHeader() {
         >
           <Box size="12px">
             {isPsbtMutable ? (
-              <FiAlertCircle color={labelColor} size="12px" />
+              <UnlockIcon color={labelColor} height="12px" width="12px" />
             ) : (
-              <FiLock color={labelColor} size="12px" />
+              <LockIcon color={labelColor} height="12px" width="12px" />
             )}
           </Box>
-          <Text color={labelColor} fontSize={0}>
+          <styled.span color={labelColor} textStyle="caption.02">
             {isPsbtMutable ? 'Uncertain' : 'Certain'}
-          </Text>
+          </styled.span>
         </Stack>
       </Tooltip>
     </Stack>

@@ -7,6 +7,8 @@ export class TestAppPage {
   static readonly url = 'http://localhost:3000';
   page: Page;
   readonly signInBtnSelector = createTestSelector(OnboardingSelectors.SignUpBtn);
+  readonly contractCallBtnSelector = createTestSelector(TestAppSelectors.BtnContractCall);
+  readonly stxTransferBtnSelector = createTestSelector(TestAppSelectors.BtnStxTransfer);
   readonly updateProfileBtnSelector = createTestSelector(TestAppSelectors.BtnUpdateValidProfile);
   readonly updateInvalidProfileBtnSelector = createTestSelector(
     TestAppSelectors.BtnUpdateInvalidProfile
@@ -24,6 +26,14 @@ export class TestAppPage {
 
   async signIn() {
     return this.page.click(this.signInBtnSelector, { timeout: 10000 });
+  }
+
+  async clickContractCallButton() {
+    return this.page.click(this.contractCallBtnSelector);
+  }
+
+  async clickStxTransferButton() {
+    return this.page.click(this.stxTransferBtnSelector);
   }
 
   async clickUpdateProfileButton() {

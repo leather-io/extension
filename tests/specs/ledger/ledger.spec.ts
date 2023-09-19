@@ -6,8 +6,11 @@ test.describe('App with Ledger', () => {
     await onboardingPage.signInWithLedgerAccount(extensionId);
   });
 
-  test('that homepage renders correctly', async ({ homePage }) =>
-    test.expect(homePage.page.locator('text="Next steps for you"')).toBeVisible());
+  test('that homepage renders correctly', async ({ homePage }) => {
+    await test.expect(homePage.page.locator('text="Send"').first()).toBeVisible();
+    await test.expect(homePage.page.locator('text="Receive"').first()).toBeVisible();
+    await test.expect(homePage.page.locator('text="Buy"').first()).toBeVisible();
+  });
 
   test('that receive modal opens', async ({ homePage }) => {
     const address = await homePage.getReceiveStxAddress();

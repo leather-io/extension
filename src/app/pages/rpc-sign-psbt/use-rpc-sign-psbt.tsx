@@ -30,9 +30,7 @@ interface BroadcastSignedPsbtTxArgs {
 export function useRpcSignPsbt() {
   const analytics = useAnalytics();
   const navigate = useNavigate();
-  // const { addressNativeSegwitTotal, addressTaprootTotal, fee } = usePsbtSignerContext();
-  const { allowedSighash, broadcast, origin, psbtHex, requestId, signAtIndex, tabId } =
-    useRpcSignPsbtParams();
+  const { broadcast, origin, psbtHex, requestId, signAtIndex, tabId } = useRpcSignPsbtParams();
   const { signPsbt, getPsbtAsTransaction } = usePsbtSigner();
   const { broadcastTx, isBroadcasting } = useBitcoinBroadcastTransaction();
   const { refetch } = useCurrentNativeSegwitUtxos();
@@ -84,7 +82,6 @@ export function useRpcSignPsbt() {
   }
 
   return {
-    allowedSighash,
     indexesToSign: signAtIndex,
     isBroadcasting,
     origin,
@@ -93,7 +90,7 @@ export function useRpcSignPsbt() {
       const tx = getPsbtAsTransaction(psbtHex);
 
       try {
-        signPsbt({ allowedSighash, indexesToSign: signAtIndex, inputs, tx });
+        signPsbt({ indexesToSign: signAtIndex, inputs, tx });
       } catch (e) {
         return navigate(RouteUrls.RequestError, {
           state: { message: e instanceof Error ? e.message : '', title: 'Failed to sign' },
@@ -107,10 +104,17 @@ export function useRpcSignPsbt() {
         makeRpcSuccessResponse('signPsbt', { id: requestId, result: { hex: bytesToHex(psbt) } })
       );
 
-      // Optional args are handle bc we support two request apis,
-      // but only support broadcasting using the rpc request method
+      // Optional args are handled here bc we support two request apis,
+      // but we only support broadcasting using the rpc request method
       if (broadcast && addressNativeSegwitTotal && addressTaprootTotal && fee) {
-        tx.finalize();
+        try {
+          tx.finalize();
+        } catch (e) {
+          return navigate(RouteUrls.RequestError, {
+            state: { message: e instanceof Error ? e.message : '', title: 'Failed to finalize tx' },
+          });
+        }
+
         await broadcastSignedPsbtTx({
           addressNativeSegwitTotal,
           addressTaprootTotal,

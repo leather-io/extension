@@ -2,7 +2,6 @@ FROM debian:buster-slim as builder
 LABEL maintainer="ux@blockstack.com"
 
 ARG NODE_VERSION=12
-ENV MINIFY_PRODUCTION_BUILD=true
 ENV WALLET_ENVIRONMENT="production"
 ENV NODE_VERSION=${NODE_VERSION}
 WORKDIR /src
@@ -19,11 +18,11 @@ RUN apt-get update -y \
     && chmod +x build-ext.sh \
     && yarn \
     && yarn build \
-    && ./build-ext.sh /stacks-wallet-chromium.zip
+    && ./build-ext.sh /leather-chromium.zip
 
 
 FROM alpine:3.16
-COPY --from=builder /stacks-wallet-chromium.zip .
+COPY --from=builder /leather-chromium.zip .
 
 # Wait for extension.zip to be copied into local
 CMD sleep 30

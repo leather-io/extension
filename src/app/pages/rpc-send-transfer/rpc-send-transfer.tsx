@@ -18,11 +18,10 @@ export function RpcSendTransfer() {
   const { address, amount, onChooseTransferFee, origin } = useRpcSendTransfer();
   const amountAsMoney = createMoney(new BigNumber(amount), 'BTC');
   const formattedMoney = formatMoneyPadded(amountAsMoney);
-  const requester = new URL(origin ?? '').host;
 
   return (
     <>
-      <SendTransferHeader amount={formattedMoney} requester={requester} />
+      <SendTransferHeader amount={formattedMoney} origin={origin} />
       <SendTransferDetails
         address={address}
         amount={formattedMoney}

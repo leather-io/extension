@@ -1,10 +1,11 @@
 import { useNavigate } from 'react-router-dom';
 
-import { Box, Button, Flex } from '@stacks/ui';
+import { Box, Flex } from '@stacks/ui';
 import { Form, Formik } from 'formik';
 
 import { RouteUrls } from '@shared/route-urls';
 
+import { LeatherButton } from '@app/components/button/button';
 import { BaseDrawer } from '@app/components/drawer/base-drawer';
 import { ErrorLabel } from '@app/components/error-label';
 import { OrdinalIcon } from '@app/components/icons/ordinal-icon';
@@ -38,7 +39,7 @@ export function SendInscriptionForm() {
       <Form>
         <BaseDrawer title="Send" enableGoBack isShowing onClose={() => navigate(RouteUrls.Home)}>
           <SendInscriptionFormLoader isLoading={isCheckingFees}>
-            <Box mt="extra-loose" px="extra-loose">
+            <Box display="flex" flexDirection="column" px="extra-loose" pb="base">
               <InscriptionPreviewCard
                 image={<InscriptionPreview inscription={inscription} />}
                 subtitle="Ordinal inscription"
@@ -59,16 +60,7 @@ export function SendInscriptionForm() {
                   {currentError}
                 </ErrorLabel>
               )}
-              <Button
-                borderRadius="10px"
-                height="48px"
-                mb="extra-loose"
-                mt="tight"
-                type="submit"
-                width="100%"
-              >
-                Continue
-              </Button>
+              <LeatherButton>Continue</LeatherButton>
             </Box>
           </SendInscriptionFormLoader>
         </BaseDrawer>

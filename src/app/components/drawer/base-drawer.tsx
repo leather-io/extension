@@ -2,12 +2,13 @@ import { ReactNode, Suspense, memo, useCallback, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import { Box, Flex, FlexProps, transition, useEventListener } from '@stacks/ui';
-import { css } from 'leaf-styles/css';
+import { css } from 'leather-styles/css';
+import { token } from 'leather-styles/tokens';
 
 import { noop } from '@shared/utils';
 
 import { useOnClickOutside } from '@app/common/hooks/use-onclickoutside';
-import { hideScrollbarStyle } from '@app/components/global-styles/hide-scrollbar';
+import { useThemeSwitcher } from '@app/common/theme-provider';
 
 import { DrawerHeader } from './components/drawer-header';
 
@@ -55,6 +56,7 @@ export const BaseDrawer = memo((props: BaseDrawerProps) => {
   } = props;
   const ref = useDrawer(isShowing, onClose ? onClose : noop, pauseOnClickOutside);
   const navigate = useNavigate();
+  const { theme } = useThemeSwitcher();
 
   const onGoBack = () => navigate(-1);
 
@@ -91,7 +93,7 @@ export const BaseDrawer = memo((props: BaseDrawerProps) => {
         willChange="transform, opacity"
         width="100%"
         maxWidth="472px"
-        bg="white"
+        bg={theme === 'dark' ? token('colors.black') : token('colors.white')}
         borderTopLeftRadius="16px"
         borderTopRightRadius="16px"
         borderBottomLeftRadius={[0, '16px', '16px', '16px']}
@@ -101,13 +103,13 @@ export const BaseDrawer = memo((props: BaseDrawerProps) => {
         maxHeight={['calc(100vh - 24px)', 'calc(100vh - 96px)']}
       >
         <Box
-          className={
-            css({
-              overflowY: 'scroll',
-            }) +
-            ' ' +
-            hideScrollbarStyle
-          }
+          css={css({
+            overflowY: 'scroll',
+
+            '&::-webkit-scrollbar': {
+              display: 'none',
+            },
+          })}
         >
           <DrawerHeader
             enableGoBack={enableGoBack}
