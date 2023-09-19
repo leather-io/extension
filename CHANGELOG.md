@@ -1,3 +1,11 @@
+## [6.8.2](https://github.com/leather-wallet/extension/compare/v6.8.1...v6.8.2) (2023-09-19)
+
+
+### Bug Fixes
+
+* enable ff code splitting ([4a4eb4a](https://github.com/leather-wallet/extension/commit/4a4eb4ad3f635e56fc921e407bdda9142960a292))
+* trigger release ([4b5ec7e](https://github.com/leather-wallet/extension/commit/4b5ec7edf380c7a0a88060e25ba143fb360a651b))
+
 ## [6.8.1](https://github.com/leather-wallet/extension/compare/v6.8.0...v6.8.1) (2023-09-19)
 
 
