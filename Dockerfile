@@ -2,7 +2,6 @@ FROM debian:buster-slim as builder
 LABEL maintainer="ux@blockstack.com"
 
 ARG NODE_VERSION=12
-ENV MINIFY_PRODUCTION_BUILD=true
 ENV WALLET_ENVIRONMENT="production"
 ENV NODE_VERSION=${NODE_VERSION}
 WORKDIR /src
