@@ -1,4 +1,4 @@
-# Sends a notification to Discord whenever a new version of the Leather is available in FireFox or Chrome stores
+# Sends a notification to Discord whenever a new version of Leather is available in FireFox or Chrome stores
 
 name: Notify on Release
 on:
@@ -54,7 +54,7 @@ jobs:
               "url": "https://addons.mozilla.org/en-US/firefox/addon/hiro-wallet/"
             }]
         with:
-          args: ':rocket: A new version (${{ steps.firefox.outputs.new_version }}) of the Leather is available on the Firefox Web Store!'
+          args: ':rocket: A new version (${{ steps.firefox.outputs.new_version }}) of Leather is available on the Firefox Web Store!'
 
   chrome-notify:
     runs-on: ubuntu-latest
@@ -116,4 +116,4 @@ jobs:
               "url": "https://chrome.google.com/webstore/detail/leather/ldinpeekobnhjjdofggfgjlcehhmanlj"
             }]
         with:
-          args: ':rocket: A new version (${{ steps.chrome.outputs.new_version }}) of the Leather is available on the Chrome Web Store!'
+          args: ':rocket: A new version (${{ steps.chrome.outputs.new_version }}) of Leather is available on the Chrome Web Store!'

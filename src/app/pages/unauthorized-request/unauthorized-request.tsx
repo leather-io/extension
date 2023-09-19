@@ -6,7 +6,7 @@ const body = `The transaction request was not properly authorized by any of your
 const helpTextList = [
   <Box as="li" mt="base" key={1}>
     Sign out of the app and sign back in to re-authenticate into the application. This should help
-    you successfully sign your transaction with the Leather.
+    you successfully sign your transaction with Leather.
   </Box>,
 ];
 const title = 'Unauthorized request';

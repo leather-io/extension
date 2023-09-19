@@ -22,7 +22,7 @@ export function UnsupportedBrowserLayout() {
         mx="extra-loose"
         color={figmaTheme.textSubdued}
       >
-        To connect your Ledger with the Leather try{' '}
+        To connect your Ledger with Leather try{' '}
         <ExternalLink href="https://www.google.com/chrome/">Chrome</ExternalLink> or{' '}
         <ExternalLink href="https://brave.com/download/">Brave</ExternalLink>.
       </Text>

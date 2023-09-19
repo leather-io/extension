@@ -6,7 +6,7 @@ import { decodeToken } from 'jsontokens';
 // to `@stacks/network` had some undesired consequence.
 // As `StacksNetwork` is a class instance, this is auto
 // serialized when being passed across `postMessage`,
-// from the developer's app, to the Leather.
+// from the developer's app, to Leather.
 // `coreApiUrl` now uses a getter, rather than a prop,
 // and `_coreApiUrl` is a private value.
 // To support both `@stacks/network` versions a dev may be using
