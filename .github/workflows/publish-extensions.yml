@@ -87,7 +87,6 @@ jobs:
     outputs:
       publish_status: ${{ steps.publish-chrome.outputs.publish_status }}
     env:
-      MINIFY_PRODUCTION_BUILD: false
       TARGET_BROWSER: chromium
     steps:
       - uses: actions/checkout@v4
@@ -127,7 +126,6 @@ jobs:
     runs-on: ubuntu-latest
     if: startsWith(github.ref, 'refs/tags/v')
     env:
-      MINIFY_PRODUCTION_BUILD: true
       TARGET_BROWSER: firefox
     needs:
       - pre-run
@@ -148,9 +146,6 @@ jobs:
         with:
           name: leather-wallet-firefox
           path: dist
-
-      - name: Put generated manifest.json in ./src
-        run: cp dist/manifest.json src/manifest.json
 
       - name: Build extension
         run: sh build-ext.sh

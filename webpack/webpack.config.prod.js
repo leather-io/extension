@@ -1,11 +1,9 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
 const config = require('./webpack.config.base');
 const packageJson = require('../package.json');
-const { EsbuildPlugin } = require('esbuild-loader');
 const { sentryWebpackPlugin } = require('@sentry/webpack-plugin');
 const webpack = require('webpack');
 
-const shouldMinify = JSON.parse(process.env.MINIFY_PRODUCTION_BUILD || false);
 const sentryAuthToken = process.env.SENTRY_AUTH_TOKEN;
 
 config.mode = 'production';
@@ -13,34 +11,18 @@ config.mode = 'production';
 // Basically, disable any code splitting stuff
 config.optimization = {
   ...config.optimization,
-  minimize: shouldMinify,
+  minimize: false,
   moduleIds: 'deterministic',
   splitChunks: {
+    maxSize: process.env.TARGET_BROWSER === 'firefox' ? 3500000 : undefined,
     chunks(chunk) {
-      // Only enable code splitting on main bundle
       return chunk.name === 'index';
-    },
-    cacheGroups: {
-      radixUI: {
-        test: /[\\/]node_modules[\\/]@radix-ui[\\/]/,
-        name: 'radix-ui',
-        chunks: 'all',
-      },
     },
     hidePathInfo: false,
     minSize: 10000,
     maxAsyncRequests: Infinity,
     maxInitialRequests: Infinity,
   },
-  ...(shouldMinify
-    ? {
-        minimizer: [
-          new EsbuildPlugin({
-            target: 'esnext',
-          }),
-        ],
-      }
-    : {}),
 };
 
 config.plugins = [

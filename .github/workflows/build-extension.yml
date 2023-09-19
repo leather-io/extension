@@ -65,7 +65,6 @@ jobs:
     needs:
       - pre-run
     env:
-      MINIFY_PRODUCTION_BUILD: true
       TARGET_BROWSER: firefox
     steps:
       - name: Checkout

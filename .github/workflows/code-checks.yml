@@ -79,7 +79,6 @@ jobs:
 
       - run: yarn build
         env:
-          MINIFY_PRODUCTION_BUILD: true
           TARGET_BROWSER: firefox
 
       - run: yarn web-ext lint
