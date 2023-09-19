@@ -117,23 +117,34 @@ export class OnboardingPage {
     await this.page.getByTestId(OnboardingSelectors.BackUpSecretKeyBtn).click();
     await this.setPassword();
   }
+  async initiateSignIn() {
+    await this.denyAnalytics();
+    await this.page.getByTestId(OnboardingSelectors.SignInLink).click();
+  }
 
   /**
    * Use this to test the onboarding flow by going through step-by-step
    */
-  async signInExistingUser() {
-    await this.denyAnalytics();
-    await this.page.getByTestId(OnboardingSelectors.SignInLink).click();
-
-    const key = TEST_ACCOUNT_SECRET_KEY.split(' ');
-    for (let i = 0; i < key.length; i++) {
-      await this.page.getByTestId(`mnemonic-input-${i}`).fill(key[i]);
-    }
-
+  async signInExistingUser(secretKey = TEST_ACCOUNT_SECRET_KEY) {
+    await this.initiateSignIn();
+    await this.enterMnemonicKey(secretKey);
     await this.page.getByTestId(OnboardingSelectors.SignInBtn).click();
     await this.setPassword();
     await this.page.waitForURL('**' + RouteUrls.Home);
     await this.page.getByTestId(HomePageSelectors.HomePageContainer).waitFor();
+  }
+
+  async signInMnemonicKey(secretKey = TEST_ACCOUNT_SECRET_KEY) {
+    await this.initiateSignIn();
+    await this.enterMnemonicKey(secretKey);
+  }
+  async enterMnemonicKey(secretKey: string) {
+    // NOTE: TEST_ACCOUNT_SECRET_KEY needs to be obtained and set in .env
+    if (!secretKey) throw new Error('No key found');
+    const key = secretKey.split(' ');
+    for (let i = 0; i < key.length; i++) {
+      await this.page.getByTestId(`mnemonic-input-${i + 1}`).fill(key[i]);
+    }
   }
 
   /**

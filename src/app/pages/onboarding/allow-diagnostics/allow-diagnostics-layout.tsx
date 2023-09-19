@@ -2,8 +2,8 @@ import { FiCheck } from 'react-icons/fi';
 
 import { Dialog } from '@radix-ui/themes';
 import { OnboardingSelectors } from '@tests/selectors/onboarding.selectors';
+import { css } from 'leather-styles/css';
 import { Box, Flex, HStack, Stack, styled } from 'leather-styles/jsx';
-import { token } from 'leather-styles/tokens';
 
 import { LeatherButton } from '@app/components/button/button';
 import { LeatherIcon } from '@app/components/icons/leather-icon';
@@ -31,12 +31,11 @@ export function AllowDiagnosticsLayout(props: AllowDiagnosticsLayoutProps) {
   return (
     <Dialog.Root open>
       <Dialog.Content
-        style={{
+        className={css({
           width: '500px',
-          marginLeft: token('spacing.space.03'),
-          marginRight: token('spacing.space.03'),
-          backgroundColor: token('colors.accent.background-primary'),
-        }}
+          marginY: 'space.03',
+          backgroundColor: 'accent.background-primary',
+        })}
       >
         <LeatherIcon />
         <styled.h1 textStyle="heading.03" mt={['space.05', 'space.08']}>

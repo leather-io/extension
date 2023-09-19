@@ -4,6 +4,7 @@ import {
   TEST_ACCOUNT_1_TAPROOT_ADDRESS,
 } from '@tests/mocks/constants';
 import { testSoftwareAccountDefaultWalletState } from '@tests/page-object-models/onboarding.page';
+import { OnboardingSelectors } from '@tests/selectors/onboarding.selectors';
 
 import { test } from '../../fixtures/fixtures';
 
@@ -29,6 +30,37 @@ test.describe('Onboarding an existing user', () => {
     delete (testSoftwareAccountDefaultWalletState as any).keys.entities.default.salt;
 
     test.expect(walletState).toEqual(testSoftwareAccountDefaultWalletState);
+  });
+
+  test('mnemonic key validation: should show error for invalid mnemonic key words', async ({
+    extensionId,
+    globalPage,
+    onboardingPage,
+  }) => {
+    await globalPage.setupAndUseApiCalls(extensionId);
+    // enter some invalid key
+    const invalidKey = 'some incorrect data';
+    await onboardingPage.signInMnemonicKey(invalidKey);
+    const signInButton = await onboardingPage.page.getByTestId(OnboardingSelectors.SignInBtn);
+    const error = onboardingPage.page.getByText('Words 1 and 2 are incorrect or misspelled');
+    await test.expect(error).toBeVisible();
+    await test.expect(signInButton).toBeDisabled();
+  });
+  test('mnemonic key validation: should not show error  for valid mnemonic key words', async ({
+    extensionId,
+    globalPage,
+    onboardingPage,
+  }) => {
+    await globalPage.setupAndUseApiCalls(extensionId);
+    // enter some key partial
+    const validPartialKey = 'shoulder any pencil';
+    await onboardingPage.signInMnemonicKey(validPartialKey);
+    const signInButton = await onboardingPage.page.getByTestId(OnboardingSelectors.SignInBtn);
+    const signInSeedError = await onboardingPage.page.getByTestId(
+      OnboardingSelectors.SignInSeedError
+    );
+    await test.expect(signInSeedError).not.toBeVisible();
+    await test.expect(signInButton).toBeDisabled();
   });
 
   test('Activity tab', async ({ extensionId, globalPage, onboardingPage, homePage }) => {
