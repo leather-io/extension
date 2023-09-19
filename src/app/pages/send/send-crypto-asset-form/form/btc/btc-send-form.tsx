@@ -96,7 +96,7 @@ export function BtcSendForm() {
               <HighFeeDrawer learnMoreUrl={HIGH_FEE_WARNING_LEARN_MORE_URL_BTC} />
               <Outlet />
 
-              {/* This is for testing purposes only, to make sure the form is ready to be submitted */}
+              {/* This is for testing purposes only, to make sure the form is ready to be submitted. */}
               {calcMaxSpend(props.values.recipient, utxos).spendableBitcoin.toNumber() > 0 ? (
                 <Box data-testid={SendCryptoAssetSelectors.SendPageReady}></Box>
               ) : null}
