@@ -224,4 +224,3 @@ test.describe('send stx', () => {
       });
     });
   });
-});
