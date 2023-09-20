@@ -35,7 +35,7 @@ export function AllowDiagnosticsLayout(props: AllowDiagnosticsLayoutProps) {
           width: '500px',
           marginLeft: '12px',
           marginRight: '12px',
-          // backgroundColor: token('colors.accent.background-primary'),
+          backgroundColor: token('colors.accent.background-primary'),
         }}
       >
         <LeatherIcon />
