@@ -33,9 +33,9 @@ export function AllowDiagnosticsLayout(props: AllowDiagnosticsLayoutProps) {
       <Dialog.Content
         style={{
           width: '500px',
-          marginLeft: token('spacing.space.03'),
-          marginRight: token('spacing.space.03'),
-          backgroundColor: token('colors.accent.background-primary'),
+          marginLeft: '12px',
+          marginRight: '12px',
+          // backgroundColor: token('colors.accent.background-primary'),
         }}
       >
         <LeatherIcon />
