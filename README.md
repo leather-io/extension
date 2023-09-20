@@ -91,7 +91,7 @@ If you discover a security vulnerability, please use one of the following means 
 - Report the security issue to our [HackerOne program](https://hackerone.com/hiro)
 - Report the security issue directly at [security@hiro.so](mailto:security@hiro.so)
 
-Please note this email is strictly for reporting security vulnerabilities. For support queries, contact [wallet@hiro.so](mailto:wallet@hiro.so). Your efforts to responsibly disclose your findings are sincerely appreciated and will be taken into account to acknowledge your contributions.
+Please note this email is strictly for reporting security vulnerabilities. For support queries, contact [contact@leather.io](mailto:contact@leather.io). Your efforts to responsibly disclose your findings are sincerely appreciated and will be taken into account to acknowledge your contributions.
 
 ### Audit Report
 
