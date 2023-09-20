@@ -1,8 +1,8 @@
 import { ReactNode, Suspense, memo, useCallback, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import { Box, Flex, FlexProps, transition, useEventListener } from '@stacks/ui';
-import { css } from 'leather-styles/css';
+import { Flex, FlexProps, transition, useEventListener } from '@stacks/ui';
+import { Box } from 'leather-styles/jsx';
 import { token } from 'leather-styles/tokens';
 
 import { noop } from '@shared/utils';
@@ -103,13 +103,13 @@ export const BaseDrawer = memo((props: BaseDrawerProps) => {
         maxHeight={['calc(100vh - 24px)', 'calc(100vh - 96px)']}
       >
         <Box
-          css={css({
+          css={{
             overflowY: 'scroll',
 
             '&::-webkit-scrollbar': {
               display: 'none',
             },
-          })}
+          }}
         >
           <DrawerHeader
             enableGoBack={enableGoBack}
