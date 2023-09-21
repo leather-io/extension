@@ -48,9 +48,43 @@ export function SwapContainer() {
   } = useAlexSwap();
 
   const swappableAssets: SwapAsset[] = useMemo(
-    () => supportedCurrencies.map(getAssetFromAlexCurrency).filter(isDefined),
+    () =>
+      supportedCurrencies
+        .map(getAssetFromAlexCurrency)
+        .filter(isDefined)
+        .sort((a, b) => {
+          if (a.name < b.name) return -1;
+          if (a.name > b.name) return 1;
+          return 0;
+        })
+        .sort((a, b) => {
+          if (a.name === 'STX') return -1;
+          if (b.name !== 'STX') return 1;
+          return 0;
+        })
+        .sort((a, b) => {
+          if (a.name === 'BTC') return -1;
+          if (b.name !== 'BTC') return 1;
+          return 0;
+        }),
     [getAssetFromAlexCurrency, supportedCurrencies]
   );
+
+  function migratePositiveBalancesToTop() {
+    const assetsWithPositiveBalance = swappableAssets.filter(asset =>
+      asset.balance.amount.isGreaterThan(0)
+    );
+    const assetsWithZeroBalance = swappableAssets.filter(asset =>
+      asset.balance.amount.isEqualTo(0)
+    );
+    return [...assetsWithPositiveBalance, ...assetsWithZeroBalance];
+  }
+
+  // const swappableAssetsFrom = swappableAssets.sort((a, b) => {
+  //   if (a.balance.amount.isGreaterThan(0)) return -1;
+  //   if (b.balance.amount.isEqualTo(0)) return 1;
+  //   return 0;
+  // });
 
   async function onSubmitSwapForReview(values: SwapFormValues) {
     if (isUndefined(values.swapAssetFrom) || isUndefined(values.swapAssetTo)) {
@@ -174,7 +208,8 @@ export function SwapContainer() {
     onSetIsSendingMax: value => setIsSendingMax(value),
     onSubmitSwapForReview,
     onSubmitSwap,
-    swappableAssets: swappableAssets,
+    swappableAssetsFrom: migratePositiveBalancesToTop(),
+    swappableAssetsTo: swappableAssets,
     swapSubmissionData,
   };
 

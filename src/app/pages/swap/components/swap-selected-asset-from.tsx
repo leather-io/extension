@@ -26,7 +26,7 @@ interface SwapSelectedAssetFromProps {
 }
 export function SwapSelectedAssetFrom({ onChooseAsset, title }: SwapSelectedAssetFromProps) {
   const { fetchToAmount, isSendingMax, onSetIsSendingMax } = useSwapContext();
-  const { setFieldValue, validateForm, values } = useFormikContext<SwapFormValues>();
+  const { setFieldValue, setFieldError, values } = useFormikContext<SwapFormValues>();
   const [amountField, amountFieldMeta, amountFieldHelpers] = useField('swapAmountFrom');
   const showError = useShowFieldError('swapAmountFrom');
   const [assetField] = useField('swapAssetFrom');
@@ -40,10 +40,11 @@ export function SwapSelectedAssetFrom({ onChooseAsset, title }: SwapSelectedAsse
     const { swapAssetFrom, swapAssetTo } = values;
     if (isUndefined(swapAssetFrom) || isUndefined(swapAssetTo)) return;
     onSetIsSendingMax(!isSendingMax);
-    await amountFieldHelpers.setValue(formattedBalance);
+    await amountFieldHelpers.setValue(Number(formattedBalance));
+    await amountFieldHelpers.setTouched(true);
     const toAmount = await fetchToAmount(swapAssetFrom, swapAssetTo, formattedBalance);
-    await setFieldValue('swapAmountTo', toAmount);
-    await validateForm();
+    await setFieldValue('swapAmountTo', Number(toAmount));
+    setFieldError('swapAmountTo', undefined);
   }
 
   return (
@@ -58,7 +59,7 @@ export function SwapSelectedAssetFrom({ onChooseAsset, title }: SwapSelectedAsse
       swapAmountInput={
         <SwapAmountField
           amountAsFiat={amountAsFiat}
-          isDisabled={!isSwapAssetFromBalanceGreaterThanZero || isSendingMax}
+          isDisabled={!isSwapAssetFromBalanceGreaterThanZero}
           name="swapAmountFrom"
         />
       }

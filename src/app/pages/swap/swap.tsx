@@ -14,7 +14,7 @@ import { useSwapContext } from './swap.context';
 
 export function Swap() {
   const { onSubmitSwapForReview } = useSwapContext();
-  const { dirty, handleSubmit, isValid, values } = useFormikContext<SwapFormValues>();
+  const { handleSubmit, isValid, values } = useFormikContext<SwapFormValues>();
 
   useRouteHeader(<ModalHeader defaultGoBack hideActions title="Swap" />, true);
 
@@ -25,7 +25,7 @@ export function Swap() {
       </SwapContentLayout>
       <SwapFooterLayout>
         <LeatherButton
-          disabled={!(dirty && isValid)}
+          disabled={!isValid}
           onClick={async (e: any) => {
             handleSubmit(e);
             await onSubmitSwapForReview(values);

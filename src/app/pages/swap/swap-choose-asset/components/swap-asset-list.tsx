@@ -1,12 +1,12 @@
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 import { useFormikContext } from 'formik';
 import { styled } from 'leather-styles/jsx';
-import get from 'lodash.get';
 
 import { useSwapContext } from '@app/pages/swap/swap.context';
 
 import { SwapAsset, SwapFormValues } from '../../hooks/use-swap';
+import { useSwapChooseAssetState } from '../swap-choose-asset';
 import { SwapAssetItem } from './swap-asset-item';
 import { SwapAssetListLayout } from './swap-asset-list.layout';
 
@@ -15,12 +15,12 @@ interface SwapAssetList {
 }
 export function SwapAssetList({ assets }: SwapAssetList) {
   const { fetchToAmount } = useSwapContext();
-  const { setFieldValue, values } = useFormikContext<SwapFormValues>();
-  const location = useLocation();
+  const { swapListType } = useSwapChooseAssetState();
+  const { setFieldError, setFieldValue, values } = useFormikContext<SwapFormValues>();
   const navigate = useNavigate();
 
-  const isFromList = get(location.state, 'swap') === 'from';
-  const isToList = get(location.state, 'swap') === 'to';
+  const isFromList = swapListType === 'from';
+  const isToList = swapListType === 'to';
 
   const selectableAssets = assets.filter(
     asset =>
@@ -39,11 +39,13 @@ export function SwapAssetList({ assets }: SwapAssetList) {
       from = values.swapAssetFrom;
       to = asset;
       await setFieldValue('swapAssetTo', asset);
+      setFieldError('swapAssetTo', undefined);
     }
     navigate(-1);
     if (from && to && values.swapAmountFrom) {
       const toAmount = await fetchToAmount(from, to, values.swapAmountFrom);
-      await setFieldValue('swapAmountTo', toAmount);
+      await setFieldValue('swapAmountTo', Number(toAmount));
+      setFieldError('swapAmountTo', undefined);
     }
   }
 

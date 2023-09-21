@@ -26,9 +26,9 @@ export function SwapToggleButton() {
 
     if (isDefined(prevAssetFrom) && isDefined(prevAssetTo)) {
       const toAmount = await fetchToAmount(prevAssetTo, prevAssetFrom, prevAmountTo);
-      await setFieldValue('swapAmountTo', toAmount);
+      await setFieldValue('swapAmountTo', Number(toAmount));
     } else {
-      await setFieldValue('swapAmountTo', prevAmountFrom);
+      await setFieldValue('swapAmountTo', Number(prevAmountFrom));
     }
   }
 

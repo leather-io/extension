@@ -27,7 +27,7 @@ export function SwapAmountField({ amountAsFiat, isDisabled, name }: SwapAmountFi
     onSetIsSendingMax(false);
     const value = event.currentTarget.value;
     const toAmount = await fetchToAmount(swapAssetFrom, swapAssetTo, value);
-    await setFieldValue('swapAmountTo', toAmount);
+    await setFieldValue('swapAmountTo', Number(toAmount));
     field.onChange(event);
   }
 

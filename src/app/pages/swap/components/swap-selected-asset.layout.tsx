@@ -57,7 +57,7 @@ export function SwapSelectedAssetLayout({
       </SpaceBetween>
       <SelectedAssetField
         contentLeft={
-          <styled.button onClick={onChooseAsset} type="button">
+          <styled.button onClick={onChooseAsset} pr="space.02" py="space.02" type="button">
             <HStack>
               <styled.span textStyle="label.01">{symbol}</styled.span>
               <ChevronDownIcon />
