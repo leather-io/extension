@@ -1,6 +1,5 @@
-import { Box, Flex, FlexProps, Spacing } from '@stacks/ui';
-
-import { SpaceBetween } from './space-between';
+import { Box, Flex, FlexProps } from 'leather-styles/jsx';
+import { SpacingToken } from 'leather-styles/tokens';
 
 function alignToFlexProp(alignment: FlagAlignment) {
   return {
@@ -13,11 +12,12 @@ function alignToFlexProp(alignment: FlagAlignment) {
 type FlagAlignment = 'top' | 'middle' | 'bottom';
 
 interface FlagProps extends FlexProps {
-  spacing?: Spacing;
+  spacing?: SpacingToken;
   align?: 'top' | 'middle' | 'bottom';
   children: React.ReactNode;
-  img: React.JSX.Element;
+  img: React.ReactNode;
 }
+
 /**
  * Implementation of flag object
  * https://csswizardry.com/2013/05/the-flag-object/
@@ -25,31 +25,11 @@ interface FlagProps extends FlexProps {
  *   1st. Image content
  *   2nd. Body content
  */
-export function Flag({ spacing = 'tight', align = 'top', img, children, ...props }: FlagProps) {
+export function Flag({ spacing = 'space.02', align = 'top', img, children, ...props }: FlagProps) {
   return (
-    <Flex flexDirection="row" align={alignToFlexProp(align)} {...props}>
+    <Flex flexDirection="row" align={alignToFlexProp(align)} width="100%" {...props}>
       <Box mr={spacing}>{img}</Box>
       <Box flex={1}>{children}</Box>
     </Flex>
-  );
-}
-
-interface FlagWithSpaceBetweenContentProps {
-  contentLeft: React.JSX.Element;
-  contentRight: React.JSX.Element;
-}
-export function FlagWithSpaceBetweenContent({
-  contentLeft,
-  contentRight,
-  img,
-  spacing,
-}: FlagWithSpaceBetweenContentProps & Omit<FlagProps, 'children'>) {
-  return (
-    <Flag align="middle" img={img} spacing={spacing}>
-      <SpaceBetween>
-        {contentLeft}
-        {contentRight}
-      </SpaceBetween>
-    </Flag>
   );
 }
