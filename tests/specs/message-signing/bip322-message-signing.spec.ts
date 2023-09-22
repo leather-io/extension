@@ -43,8 +43,8 @@ test.describe('Message signing', () =>
         jsonrpc: '2.0',
         result: {
           signature:
-            'AkcwRAIgdvIlzioQtCWH+p3yLgHcBOIcHCzK2FysW1sZ6IuS2foCIGZUMUUg8emDxtsE5XZh4CDsVM64jL8SssFMpq0kIaqJASEDYBnHwvCycDDBY1EklpMD4+R6Z+KBIwYMwApNNhWs220=',
-          address: 'bc1qhdykvr9eafepm9cf6aryk0stmmwpv4wws9raj5',
+            'AkcwRAIgBt6EMsCmR5Wy3NL1mDhviAddDFFSVK7EMNV4Z6fOfsECIGsXBBT2x8sMtBJFvjQwuf5BFMQqbFqGZzQRWy0/V2IhASEDA0e+UAqLJwegDnV2wMUnokfN3G6DY+5RFHuOQ7WQuqk=',
+          address: 'bc1q530dz4h80kwlzywlhx2qn0k6vdtftd93c499yq',
           message: 'test',
         },
       });

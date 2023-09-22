@@ -24,6 +24,7 @@ export class SendPage {
   readonly feesRow: Locator;
   readonly memoRow: Locator;
   readonly feesListItem: Locator;
+  readonly feeToBePaid: Locator;
 
   constructor(page: Page) {
     this.page = page;
@@ -56,6 +57,7 @@ export class SendPage {
 
     this.sendMaxButton = page.getByTestId(SendCryptoAssetSelectors.SendMaxBtn);
     this.feesListItem = page.getByTestId(SharedComponentsSelectors.FeesListItem);
+    this.feeToBePaid = page.getByTestId(SharedComponentsSelectors.FeeToBePaidLabel);
   }
 
   async selectBtcAndGoToSendForm() {
@@ -80,5 +82,9 @@ export class SendPage {
     await this.page.waitForSelector(createTestSelector(SendCryptoAssetSelectors.SendPageReady), {
       state: 'attached',
     });
+  }
+
+  async goBack() {
+    await this.page.getByTestId(SharedComponentsSelectors.ModalHeaderBackBtn).click();
   }
 }
