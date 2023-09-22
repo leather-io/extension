@@ -1,8 +1,8 @@
 import { useNavigate } from 'react-router-dom';
 
 import { RpcErrorCode } from '@btckit/types';
+import { JsDLCInterface } from '@dlc-link/dlc-tools';
 import { bytesToHex } from '@stacks/common';
-import { JsDLCInterface } from 'dlc-wasm-wallet';
 
 import { BITCOIN_API_BASE_URL_MAINNET, BITCOIN_API_BASE_URL_TESTNET } from '@shared/constants';
 import {
