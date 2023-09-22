@@ -51,7 +51,7 @@ export function SwapSelectedAssetLayout({
 
   return (
     <Box width="100%">
-      <SpaceBetween mb="tight" mt="base">
+      <SpaceBetween mb="space.02" mt="space.04">
         <styled.span textStyle="label.01">{title}</styled.span>
         {showToggle && <SwapToggleButton />}
       </SpaceBetween>

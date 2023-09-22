@@ -40,7 +40,7 @@ export function PsbtAddressTotalItem({
           <styled.span textStyle="label.01">{value}</styled.span>
         )}
       </SpaceBetween>
-      <SpaceBetween mt="tight">
+      <SpaceBetween mt="space.02">
         {subtitle ? (
           <HStack gap="space.01">
             <styled.span mr="space.01" textStyle="caption.01">

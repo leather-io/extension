@@ -11,7 +11,7 @@ interface SwapDetailLayoutProps {
 }
 export function SwapDetailLayout({ title, tooltipLabel, value }: SwapDetailLayoutProps) {
   return (
-    <SpaceBetween ml="base" width="100%">
+    <SpaceBetween ml="space.04" width="100%">
       <HStack alignItems="center" gap="space.01">
         <styled.span textStyle="caption.01">{title}</styled.span>
         {tooltipLabel ? (

@@ -1,6 +1,5 @@
-import { Stack, StackProps } from '@stacks/ui';
-import { forwardRefWithAs } from '@stacks/ui-core';
+import { HStack, HstackProps } from 'leather-styles/jsx';
 
-export const SpaceBetween = forwardRefWithAs<StackProps, 'div'>((props, ref) => (
-  <Stack isInline alignItems="center" justifyContent="space-between" {...props} ref={ref} />
-));
+export function SpaceBetween(props: HstackProps) {
+  return <HStack alignItems="center" justifyContent="space-between" {...props} />;
+}

@@ -31,7 +31,7 @@ interface InfoCardRowProps {
 
 export function InfoCardRow({ title, value, titleAdditionalElement, ...props }: InfoCardRowProps) {
   return (
-    <SpaceBetween fontSize="14px" alignItems="start" {...props}>
+    <SpaceBetween alignItems="start" fontSize="14px" {...props}>
       <Flex alignItems="center">
         <styled.span textStyle="body.02" color="accent.text-subdued">
           {title}
