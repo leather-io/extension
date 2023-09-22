@@ -76,7 +76,7 @@ export function TextInputField({
         width="100%"
         {...props}
       >
-        <SpaceBetween maxHeight="20px" mb="extra-tight">
+        <SpaceBetween maxHeight="20px" mb="space.01">
           <Flex alignItems="center">
             {label && field.value ? (
               <Text
