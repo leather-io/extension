@@ -8,7 +8,6 @@ import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
 import { useCurrentAccountIndex } from '@app/store/accounts/account';
 import { useNativeSegwitAccountIndexAddressIndexZero } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
 
-import { ReceiveBtcModalWarning } from './components/receive-btc-warning';
 import { ReceiveTokensLayout } from './components/receive-tokens.layout';
 
 interface ReceiveBtcModalType {
@@ -38,7 +37,6 @@ export function ReceiveBtcModal({ type = 'btc' }: ReceiveBtcModalType) {
       address={btcAddress}
       onCopyAddressToClipboard={copyToClipboard}
       title={type === 'btc-stamp' ? 'BITCOIN STAMP' : 'BTC'}
-      warning={<ReceiveBtcModalWarning message="Do not deposit Ordinal inscriptions here" />}
     />
   );
 }
