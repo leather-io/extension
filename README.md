@@ -77,10 +77,10 @@ Alternatively, the following steps can be taken by _technical_ users with the la
 Run the following from within this repository's root directory if you've pulled it with Git:
 
 ```bash
-yarn && yarn build && sh build-ext.sh
+yarn && yarn prepare && yarn build
 ```
 
-The extension is packaged as `leather-chromium.zip`.
+The extension is now built in the `./dist` folder.
 
 ## Security
 
