@@ -1,11 +1,10 @@
 import { useClipboard } from '@stacks/ui';
-import { Box, Flex, styled } from 'leather-styles/jsx';
+import { Box, Flex, HStack, styled } from 'leather-styles/jsx';
 
 import { useExplorerLink } from '@app/common/hooks/use-explorer-link';
 import { LeatherButton } from '@app/components/button/button';
 import { CopyIcon } from '@app/components/icons/copy-icon';
 import { Flag } from '@app/components/layout/flag';
-import { SpaceBetween } from '@app/components/layout/space-between';
 import { Tooltip } from '@app/components/tooltip';
 
 interface PsbtInputOutputItemLayoutProps {
@@ -29,7 +28,7 @@ export function PsbtInputOutputItemLayout({
 
   return (
     <Flag align="middle" img={<></>} mt="loose" spacing="base">
-      <SpaceBetween>
+      <HStack alignItems="center" justifyContent="space-between">
         <Flex alignItems="center">
           <styled.span mr="space.02" textStyle="caption.01">
             {address}
@@ -51,7 +50,7 @@ export function PsbtInputOutputItemLayout({
           {label}
         </Flex>
         <styled.span textStyle="caption.01">{amount}</styled.span>
-      </SpaceBetween>
+      </HStack>
       <Box mt="space.01">
         {txId && txIdHoverLabel ? (
           <LeatherButton

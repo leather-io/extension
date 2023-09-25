@@ -1,14 +1,13 @@
 import { Flex, Spinner, Stack, StackProps, color, useMediaQuery } from '@stacks/ui';
 import { truncateMiddle } from '@stacks/ui-utils';
 import { SettingsSelectors } from '@tests/selectors/settings.selectors';
-import { styled } from 'leather-styles/jsx';
+import { HStack, styled } from 'leather-styles/jsx';
 
 import { useConfigBitcoinEnabled } from '@app/query/common/remote-config/remote-config.query';
 
 import { CaptionDotSeparator } from '../caption-dot-separator';
 import { CheckmarkIcon } from '../icons/checkmark-icon';
 import { Flag } from '../layout/flag';
-import { SpaceBetween } from '../layout/space-between';
 
 interface AccountListItemLayoutProps extends StackProps {
   isLoading: boolean;
@@ -57,7 +56,7 @@ export function AccountListItemLayout(props: AccountListItemLayoutProps) {
     >
       <Flag align="middle" img={avatar} spacing="base" width="100%">
         <Stack spacing="extra-tight">
-          <SpaceBetween>
+          <HStack alignItems="center" justifyContent="space-between">
             <Stack alignItems="center" isInline space="tight">
               {accountName}
               {isActive && <CheckmarkIcon />}
@@ -73,7 +72,7 @@ export function AccountListItemLayout(props: AccountListItemLayoutProps) {
             ) : (
               balanceLabel
             )}
-          </SpaceBetween>
+          </HStack>
           <Stack alignItems="center" spacing="6px" isInline whiteSpace="nowrap">
             <CaptionDotSeparator>
               <styled.span textStyle="caption.02">

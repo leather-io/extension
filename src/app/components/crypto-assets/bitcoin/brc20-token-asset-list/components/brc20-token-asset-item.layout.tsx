@@ -1,6 +1,6 @@
 import { BoxProps, Flex } from '@stacks/ui';
 import { forwardRefWithAs } from '@stacks/ui-core';
-import { styled } from 'leather-styles/jsx';
+import { HStack, styled } from 'leather-styles/jsx';
 
 import type { Money } from '@shared/models/money.model';
 
@@ -9,7 +9,6 @@ import { AssetCaption } from '@app/components/crypto-assets/components/asset-cap
 import { Brc20TokenIcon } from '@app/components/icons/brc20-token-icon';
 import { usePressable } from '@app/components/item-hover';
 import { Flag } from '@app/components/layout/flag';
-import { SpaceBetween } from '@app/components/layout/space-between';
 import { Tooltip } from '@app/components/tooltip';
 
 interface Brc20TokenAssetItemLayoutProps extends BoxProps {
@@ -28,7 +27,7 @@ export const Brc20TokenAssetItemLayout = forwardRefWithAs(
     return (
       <Flex as={isPressable ? 'button' : 'div'} outline={0} ref={ref} {...rest} {...(bind as any)}>
         <Flag align="middle" img={<Brc20TokenIcon />} spacing="base" width="100%">
-          <SpaceBetween width="100%">
+          <HStack alignItems="center" justifyContent="space-between" width="100%">
             <styled.span
               maxWidth="150px"
               overflow="hidden"
@@ -47,10 +46,10 @@ export const Brc20TokenAssetItemLayout = forwardRefWithAs(
                 {formattedBalance.value}
               </styled.span>
             </Tooltip>
-          </SpaceBetween>
-          <SpaceBetween height="1.25rem" width="100%">
+          </HStack>
+          <HStack alignItems="center" justifyContent="space-between" height="1.25rem" width="100%">
             <AssetCaption caption={caption} />
-          </SpaceBetween>
+          </HStack>
           {component}
         </Flag>
       </Flex>

@@ -1,7 +1,6 @@
-import { styled } from 'leather-styles/jsx';
+import { HStack, styled } from 'leather-styles/jsx';
 
 import { Flag } from '@app/components/layout/flag';
-import { SpaceBetween } from '@app/components/layout/space-between';
 
 interface SwapAssetItemLayoutProps {
   icon: string;
@@ -16,10 +15,10 @@ export function SwapAssetItemLayout({ icon, symbol, value }: SwapAssetItemLayout
       spacing="tight"
       width="100%"
     >
-      <SpaceBetween>
+      <HStack alignItems="center" justifyContent="space-between">
         <styled.span textStyle="heading.05">{symbol}</styled.span>
         <styled.span textStyle="heading.05">{value}</styled.span>
-      </SpaceBetween>
+      </HStack>
     </Flag>
   );
 }

@@ -4,6 +4,7 @@ import { Navigate } from 'react-router-dom';
 import { STXTransferPayload, TransactionTypes } from '@stacks/connect';
 import { Fade, Flex, Stack, color } from '@stacks/ui';
 import { truncateMiddle } from '@stacks/ui-utils';
+import { HStack } from 'leather-styles/jsx';
 
 import { RouteUrls } from '@shared/route-urls';
 
@@ -12,7 +13,6 @@ import { useDrawers } from '@app/common/hooks/use-drawers';
 import { useScrollLock } from '@app/common/hooks/use-scroll-lock';
 import { stacksValue } from '@app/common/stacks-utils';
 import { LeatherButton } from '@app/components/button/button';
-import { SpaceBetween } from '@app/components/layout/space-between';
 import { Caption } from '@app/components/typography';
 import { ErrorMessage } from '@app/pages/transaction-request/components/transaction-error/error-message';
 import { useCurrentStacksAccountAnchoredBalances } from '@app/query/stacks/balance/stx-balance.hooks';
@@ -67,7 +67,7 @@ export const StxTransferInsufficientFundsErrorMessage = memo(props => {
             switch to another account.
           </Caption>
           <Stack spacing="base" justifyContent="flex-end" textAlign="right">
-            <SpaceBetween>
+            <HStack alignItems="center" justifyContent="space-between">
               <Caption>Current balance</Caption>
               <Caption>
                 {balance
@@ -77,8 +77,8 @@ export const StxTransferInsufficientFundsErrorMessage = memo(props => {
                     })
                   : '--'}
               </Caption>
-            </SpaceBetween>
-            <SpaceBetween>
+            </HStack>
+            <HStack alignItems="center" justifyContent="space-between">
               <Caption>Transfer amount</Caption>
               <Caption>
                 {stacksValue({
@@ -86,7 +86,7 @@ export const StxTransferInsufficientFundsErrorMessage = memo(props => {
                   withTicker: true,
                 })}
               </Caption>
-            </SpaceBetween>
+            </HStack>
           </Stack>
         </Stack>
       }
