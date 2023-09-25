@@ -1,15 +1,14 @@
 import { ChainID } from '@stacks/transactions';
-import { styled } from 'leather-styles/jsx';
+import { HStack, styled } from 'leather-styles/jsx';
 
 import { whenStacksChainId } from '@app/common/utils';
-import { SpaceBetween } from '@app/components/layout/space-between';
 
 interface NoFeesWarningRowProps {
   chainId: ChainID;
 }
 export function NoFeesWarningRow({ chainId }: NoFeesWarningRowProps) {
   return (
-    <SpaceBetween>
+    <HStack alignItems="center" justifyContent="space-between">
       <styled.span textStyle="caption.02">No fees are incurred</styled.span>
       <styled.span textStyle="caption.02">
         {whenStacksChainId(chainId)({
@@ -17,6 +16,6 @@ export function NoFeesWarningRow({ chainId }: NoFeesWarningRowProps) {
           [ChainID.Mainnet]: 'Mainnet',
         })}
       </styled.span>
-    </SpaceBetween>
+    </HStack>
   );
 }

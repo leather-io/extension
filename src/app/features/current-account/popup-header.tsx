@@ -1,12 +1,12 @@
 import { Suspense } from 'react';
 
 import { Box, Stack, color } from '@stacks/ui';
+import { HStack } from 'leather-styles/jsx';
 import { token } from 'leather-styles/tokens';
 
 import { BtcBalance } from '@app/components/balance-btc';
 import { StxBalance } from '@app/components/balance-stx';
 import { Flag } from '@app/components/layout/flag';
-import { SpaceBetween } from '@app/components/layout/space-between';
 import { LoadingRectangle } from '@app/components/loading-rectangle';
 import { NetworkModeBadge } from '@app/components/network-mode-badge';
 import { CurrentAccountAvatar } from '@app/features/current-account/current-account-avatar';
@@ -44,7 +44,7 @@ function PopupHeaderSuspense({ displayAddresssBalanceOf = 'stx' }: PopupHeaderPr
           />
         }
       >
-        <SpaceBetween>
+        <HStack alignItems="center" justifyContent="space-between">
           <CurrentAccountName as="h3" />
           <Stack isInline alignItems="center" justifyContent="right">
             <NetworkModeBadge />
@@ -53,7 +53,7 @@ function PopupHeaderSuspense({ displayAddresssBalanceOf = 'stx' }: PopupHeaderPr
             )}
             {isBitcoinEnabled && displayAddresssBalanceOf === 'all' && <BtcBalance />}
           </Stack>
-        </SpaceBetween>
+        </HStack>
       </Flag>
     </PopupHeaderLayout>
   );

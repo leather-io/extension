@@ -4,7 +4,6 @@ import { HStack, HstackProps } from 'leather-styles/jsx';
 import { isValidUrl } from '@shared/utils/validate-url';
 
 import { StacksAssetAvatar } from '@app/components/crypto-assets/stacks/components/stacks-asset-avatar';
-import { SpaceBetween } from '@app/components/layout/space-between';
 
 interface TxAssetItemProps extends HstackProps {
   iconString: string;
@@ -16,7 +15,7 @@ export function TxAssetItem(props: TxAssetItemProps) {
   const imageCanonicalUri = isValidUrl(iconString) ? iconString : undefined;
 
   return (
-    <SpaceBetween flexGrow={1} width="100%" {...rest}>
+    <HStack alignItems="center" flexGrow={1} justifyContent="space-between" width="100%" {...rest}>
       <HStack>
         <StacksAssetAvatar
           gradientString={iconString}
@@ -31,6 +30,6 @@ export function TxAssetItem(props: TxAssetItemProps) {
       <Text fontWeight="500" fontSize={4}>
         {amount}
       </Text>
-    </SpaceBetween>
+    </HStack>
   );
 }

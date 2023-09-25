@@ -1,8 +1,7 @@
 import { Field } from 'formik';
-import { Box, Flex, styled } from 'leather-styles/jsx';
+import { Box, Flex, HStack, styled } from 'leather-styles/jsx';
 
 import { Flag } from '@app/components/layout/flag';
-import { SpaceBetween } from '@app/components/layout/space-between';
 
 interface SelectedAssetFieldProps {
   contentLeft: React.JSX.Element;
@@ -37,10 +36,10 @@ export function SelectedAssetField({
             }
             spacing="tight"
           >
-            <SpaceBetween>
+            <HStack alignItems="center" justifyContent="space-between">
               {contentLeft}
               {contentRight}
-            </SpaceBetween>
+            </HStack>
           </Flag>
         </Field>
       </Box>

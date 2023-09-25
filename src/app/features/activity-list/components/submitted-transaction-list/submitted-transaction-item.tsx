@@ -1,10 +1,10 @@
 import { StacksTransaction } from '@stacks/transactions';
 import { Box, BoxProps, Stack, color } from '@stacks/ui';
+import { HStack } from 'leather-styles/jsx';
 
 import { useExplorerLink } from '@app/common/hooks/use-explorer-link';
 import { getTxSenderAddress } from '@app/common/transactions/stacks/transaction.utils';
 import { usePressable } from '@app/components/item-hover';
-import { SpaceBetween } from '@app/components/layout/space-between';
 import { Tooltip } from '@app/components/tooltip';
 import { TransactionTitle } from '@app/components/transaction/transaction-title';
 import { Caption, Title } from '@app/components/typography';
@@ -50,7 +50,7 @@ export function SubmittedTransactionItem(props: SubmittedTransactionItemProps) {
         zIndex={2}
       >
         <SubmittedTransactionIcon transaction={transaction} />
-        <SpaceBetween flexGrow={1}>
+        <HStack alignItems="center" flexGrow={1} justifyContent="space-between">
           <Stack minWidth="0px" spacing="base-tight">
             <TransactionTitle title={title} />
             <Stack isInline flexWrap="wrap">
@@ -72,7 +72,7 @@ export function SubmittedTransactionItem(props: SubmittedTransactionItemProps) {
               </Title>
             )}
           </Box>
-        </SpaceBetween>
+        </HStack>
       </Stack>
       {component}
     </Box>

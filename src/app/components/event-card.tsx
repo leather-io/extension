@@ -1,8 +1,8 @@
 import { FiMoreHorizontal } from 'react-icons/fi';
 
 import { Box, IconButton, Stack, Text, color } from '@stacks/ui';
+import { HStack } from 'leather-styles/jsx';
 
-import { SpaceBetween } from '@app/components/layout/space-between';
 import { Caption } from '@app/components/typography';
 
 import { TxAssetItem } from './tx-asset-item';
@@ -24,20 +24,20 @@ export function EventCard(props: EventCardProps): React.JSX.Element {
   return (
     <>
       <Stack p="base-loose" spacing="base-loose">
-        <SpaceBetween position="relative">
+        <HStack alignItems="center" justifyContent="space-between" position="relative">
           <Text fontSize={2} fontWeight={500}>
             {title}
           </Text>
           {actions && (
             <IconButton size="24px" icon={FiMoreHorizontal} position="absolute" right={0} />
           )}
-        </SpaceBetween>
+        </HStack>
         <TxAssetItem iconString={icon} amount={amount} ticker={ticker} />
         {left || right ? (
-          <SpaceBetween>
+          <HStack alignItems="center" justifyContent="space-between">
             {left ? <Caption>{left}</Caption> : <Box />}
             {right && <Caption>{right}</Caption>}
-          </SpaceBetween>
+          </HStack>
         ) : null}
       </Stack>
       {message && (

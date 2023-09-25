@@ -2,7 +2,7 @@ import { Flex, StackProps } from '@stacks/ui';
 import { forwardRefWithAs } from '@stacks/ui-core';
 import { truncateMiddle } from '@stacks/ui-utils';
 import { CryptoAssetSelectors } from '@tests/selectors/crypto-asset.selectors';
-import { styled } from 'leather-styles/jsx';
+import { HStack, styled } from 'leather-styles/jsx';
 
 import { CryptoCurrencies } from '@shared/models/currencies.model';
 import { Money } from '@shared/models/money.model';
@@ -11,7 +11,6 @@ import { formatBalance } from '@app/common/format-balance';
 import { ftDecimals } from '@app/common/stacks-utils';
 import { usePressable } from '@app/components/item-hover';
 import { Flag } from '@app/components/layout/flag';
-import { SpaceBetween } from '@app/components/layout/space-between';
 import { Tooltip } from '@app/components/tooltip';
 
 interface CryptoCurrencyAssetItemLayoutProps extends StackProps {
@@ -71,7 +70,7 @@ export const CryptoCurrencyAssetItemLayout = forwardRefWithAs(
           spacing="base"
           width="100%"
         >
-          <SpaceBetween width="100%">
+          <HStack alignItems="center" justifyContent="space-between" width="100%">
             <styled.span textStyle="label.01">
               {isHovered ? truncateMiddle(address, 6) : title}
             </styled.span>
@@ -83,8 +82,8 @@ export const CryptoCurrencyAssetItemLayout = forwardRefWithAs(
                 {formattedBalance.value} {additionalBalanceInfo}
               </styled.span>
             </Tooltip>
-          </SpaceBetween>
-          <SpaceBetween height="1.25rem" width="100%">
+          </HStack>
+          <HStack alignItems="center" justifyContent="space-between" height="1.25rem" width="100%">
             <styled.span textStyle="caption.02">{caption}</styled.span>
             <Flex>
               {balance.amount.toNumber() > 0 && address ? (
@@ -92,7 +91,7 @@ export const CryptoCurrencyAssetItemLayout = forwardRefWithAs(
               ) : null}
               {additionalUsdBalanceInfo}
             </Flex>
-          </SpaceBetween>
+          </HStack>
         </Flag>
         {component}
       </Flex>
