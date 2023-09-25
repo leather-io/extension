@@ -27,7 +27,7 @@ jobs:
     steps:
       - uses: kyranjamie/pull-request-fixed-header@v1.0.1
         with:
-          header: '> Try out this version of Leather — download [extension builds](https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}).'
+          header: '> Try out this version of Leather — [download extension builds](https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}).'
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
   build_chrome_extension:
