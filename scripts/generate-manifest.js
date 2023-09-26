@@ -31,11 +31,15 @@ const environmentIcons = {
   },
 };
 
+const devCsp =
+  "script-src 'self' 'wasm-unsafe-eval'; object-src 'self'; frame-src *; frame-ancestors 'none';";
+
+const prodCsp = `default-src 'none'; connect-src *; style-src 'unsafe-inline'; img-src 'self' data: https:; script-src 'self' 'wasm-unsafe-eval'; object-src 'none'; frame-src *; frame-ancestors 'none';`;
+
 const contentSecurityPolicyEnvironment = {
-  testing: `default-src 'none'; connect-src *; style-src 'unsafe-inline'; img-src 'self' data: https:; script-src 'self' 'wasm-unsafe-eval'; object-src 'none'; frame-src 'none'; frame-ancestors 'none';`,
-  development:
-    "script-src 'self' 'wasm-unsafe-eval'; object-src 'self'; frame-src 'none'; frame-ancestors 'none';",
-  production: `default-src 'none'; connect-src *; style-src 'unsafe-inline'; img-src 'self' data: https:; script-src 'self' 'wasm-unsafe-eval'; object-src 'none'; frame-src 'none'; frame-ancestors 'none';`,
+  testing: prodCsp,
+  development: devCsp,
+  production: prodCsp,
 };
 
 const defaultIconEnvironment = {

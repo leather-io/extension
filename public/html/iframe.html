@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+  </head>
+  <body>
+    <div id="app">
+      <button onclick="console.log('test me')">test</button>
+    </div>
+    <script>
+      window.addEventListener('message', e => {
+        console.log('listening in child WARNING', e);
+      });
+      window.parent.addEventListener('message', e => {
+        console.log('listening in child WARNING', e);
+      });
+
+      setInterval(() => {
+        window.parent.alert('test');
+        window.postMessage('from dodgy frame');
+      }, 1000);
+    </script>
+  </body>
+</html>
