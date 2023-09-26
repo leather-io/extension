@@ -127,7 +127,7 @@
   "dependencies": {
     "@bitcoinerlab/secp256k1": "1.0.2",
     "@coinbase/cbpay-js": "1.0.2",
-    "@dlc-link/dlc-tools": "1.0.1",
+    "@dlc-link/dlc-tools": "1.0.2",
     "@fungible-systems/zone-file": "2.0.0",
     "@hirosystems/token-metadata-api-client": "1.1.0",
     "@ledgerhq/hw-transport-webusb": "6.27.16",
