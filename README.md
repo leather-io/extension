@@ -82,6 +82,16 @@ yarn && yarn prepare && yarn build
 
 The extension is now built in the `./dist` folder.
 
+### Firefox reviewers
+
+To build the extension in Firefox mode, the `TARGET_BROWSER=firefox` variable needs to be set.
+
+```bash
+yarn && yarn prepare && yarn build
+```
+
+Note that when building in a clean environment, some code may vary between this and the submitted build. This is because some variables are set within the scope of the production build's CI.
+
 ## Security
 
 We consider the security of our systems a top priority. But no matter how much effort we put into system security, there can still be vulnerabilities present.
