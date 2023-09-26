@@ -23,16 +23,16 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">4.61% </span>
+                <span class="strong">4.22% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>3/65</span>
+                <span class='fraction'>3/71</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/27</span>
+                <span class='fraction'>0/33</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">5% </span>
+                <span class="strong">4.54% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>3/60</span>
+                <span class='fraction'>3/66</span>
             </div>
         
             
@@ -267,7 +267,15 @@
 <a name='L202'></a><a href='#L202'>202</a>
 <a name='L203'></a><a href='#L203'>203</a>
 <a name='L204'></a><a href='#L204'>204</a>
-<a name='L205'></a><a href='#L205'>205</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L205'></a><a href='#L205'>205</a>
+<a name='L206'></a><a href='#L206'>206</a>
+<a name='L207'></a><a href='#L207'>207</a>
+<a name='L208'></a><a href='#L208'>208</a>
+<a name='L209'></a><a href='#L209'>209</a>
+<a name='L210'></a><a href='#L210'>210</a>
+<a name='L211'></a><a href='#L211'>211</a>
+<a name='L212'></a><a href='#L212'>212</a>
+<a name='L213'></a><a href='#L213'>213</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -365,8 +373,10 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -408,7 +418,13 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -566,16 +582,18 @@ export function <span class="fstat-no" title="function not covered" >useTaprootI
       let offset = <span class="cstat-no" title="statement not covered" >pageParam?.offset || 0;</span>
       // Loop through addresses until we reach the limit, or until we find an address with many inscriptions
 <span class="cstat-no" title="statement not covered" >      while (addressesWithoutOrdinalsNum &lt; stopSearchAfterNumberAddressesWithoutOrdinals) {</span>
-        const response = <span class="cstat-no" title="statement not covered" >await fetchInscriptions(</span>
-          Object.keys(addressesData),
-          offset,
-          inscriptionsLazyLoadLimit
-        );
+        const addresses = <span class="cstat-no" title="statement not covered" >Object.keys(addressesData);</span>
+&nbsp;
+        // add native segwit address to 1 chunk of addresses
+<span class="cstat-no" title="statement not covered" >        if (fromIndex === 0) {</span>
+<span class="cstat-no" title="statement not covered" >          addresses.unshift(currentBitcoinAddress);</span>
+        }
+        const response = <span class="cstat-no" title="statement not covered" >await fetchInscriptions(addresses, offset, inscriptionsLazyLoadLimit);</span>
 &nbsp;
 <span class="cstat-no" title="statement not covered" >        responsesArr.push(response);</span>
 &nbsp;
         // stop loop to dynamically fetch inscriptions from 1 address if there are many inscriptions
-<span class="cstat-no" title="statement not covered" >        if (response.total &gt; inscriptionsLazyLoadLimit) {</span>
+<span class="cstat-no" title="statement not covered" >        if (response.total &gt; inscriptionsLazyLoadLimit &amp;&amp; response.results.length &gt; 0) {</span>
 <span class="cstat-no" title="statement not covered" >          addressesWithoutOrdinalsNum = 0;</span>
 <span class="cstat-no" title="statement not covered" >          break;</span>
         }
@@ -612,10 +630,16 @@ export function <span class="fstat-no" title="function not covered" >useTaprootI
         offset,
         total,
         stopNextFetch: addressesWithoutOrdinalsNum &gt;= stopSearchAfterNumberAddressesWithoutOrdinals,
-        inscriptions: results.map(<span class="fstat-no" title="function not covered" >inscription =&gt; (<span class="cstat-no" title="statement not covered" >{</span></span>
-          addressIndex: addressesMap[inscription.address],
-          ...inscription,
-        })),
+        inscriptions: results.map(<span class="fstat-no" title="function not covered" >inscription =&gt; {</span>
+          let addressIndex = <span class="cstat-no" title="statement not covered" >addressesMap[inscription.address];</span>
+<span class="cstat-no" title="statement not covered" >          if (inscription.address === currentBitcoinAddress) {</span>
+<span class="cstat-no" title="statement not covered" >            addressIndex = 0;</span>
+          }
+<span class="cstat-no" title="statement not covered" >          return {</span>
+            addressIndex,
+            ...inscription,
+          };
+        }),
         fromIndex,
         addressesWithoutOrdinalsNum,
         addressesMap,
@@ -682,7 +706,7 @@ export function <span class="fstat-no" title="function not covered" >useInscript
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2023-09-19T09:19:36.780Z
+                at 2023-09-26T15:35:03.059Z
             </div>
         <script src="../../../../../prettify.js"></script>
         <script>
