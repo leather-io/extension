@@ -8,9 +8,10 @@ import {
   getBtcSignerLibNetworkConfigByMode,
 } from '@shared/crypto/bitcoin/bitcoin.network';
 import { getAddressFromOutScript } from '@shared/crypto/bitcoin/bitcoin.utils';
+import { Inscription } from '@shared/models/inscription.model';
 import { isDefined, isUndefined } from '@shared/utils';
 
-import { useOrdinalsAwareUtxoQueries } from '@app/query/bitcoin/ordinals/ordinals-aware-utxo.query';
+import { useGetInscriptionsByOutputQueries } from '@app/query/bitcoin/ordinals/inscriptions-by-param.query';
 import { useCurrentAccountNativeSegwitIndexZeroSigner } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
 import { useCurrentAccountTaprootIndexZeroSigner } from '@app/store/accounts/blockchain/bitcoin/taproot-account.hooks';
 import { useCurrentNetwork } from '@app/store/networks/networks.selectors';
@@ -18,7 +19,7 @@ import { useCurrentNetwork } from '@app/store/networks/networks.selectors';
 export interface PsbtInput {
   address: string;
   index?: number;
-  inscription?: string;
+  inscription?: Inscription;
   isMutable: boolean;
   toSign: boolean;
   txid: string;
@@ -52,7 +53,9 @@ export function useParsedInputs({ inputs, indexesToSign }: UseParsedInputsArgs) 
   const bitcoinNetwork = getBtcSignerLibNetworkConfigByMode(network.chain.bitcoin.network);
   const bitcoinAddressNativeSegwit = useCurrentAccountNativeSegwitIndexZeroSigner().address;
   const { address: bitcoinAddressTaproot } = useCurrentAccountTaprootIndexZeroSigner();
-  const utxosWithInscriptions = useOrdinalsAwareUtxoQueries(inputs).map(query => query.data);
+  const inscriptions = useGetInscriptionsByOutputQueries(inputs).map(query => {
+    return query.data?.results[0];
+  });
   const signAll = isUndefined(indexesToSign);
 
   const psbtInputs = useMemo(
@@ -74,7 +77,7 @@ export function useParsedInputs({ inputs, indexesToSign }: UseParsedInputsArgs) 
         return {
           address: inputAddress,
           index: input.index,
-          inscription: utxosWithInscriptions[i]?.inscriptions,
+          inscription: inscriptions[i],
           isMutable: canChange,
           toSign: toSignAll || toSignIndex,
           txid: input.txid ? bytesToHex(input.txid) : '',
@@ -87,8 +90,8 @@ export function useParsedInputs({ inputs, indexesToSign }: UseParsedInputsArgs) 
       bitcoinNetwork,
       indexesToSign,
       inputs,
+      inscriptions,
       signAll,
-      utxosWithInscriptions,
     ]
   );
 

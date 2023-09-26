@@ -8,6 +8,7 @@ import { whenNetwork } from '@shared/utils';
 
 import { DerivationPathDepth } from '../derivation-path.utils';
 import { BtcSignerNetwork } from './bitcoin.network';
+import { getTaprootPayment } from './p2tr-address-gen';
 
 export interface BitcoinAccount {
   type: PaymentTypes;
@@ -194,4 +195,28 @@ function initBitcoinAccount(derivationPath: string, policy: string): BitcoinAcco
     type: inferPaymentTypeFromPath(derivationPath),
     accountIndex: extractAccountIndexFromPath(derivationPath),
   };
+}
+
+interface GetTaprootAddressArgs {
+  index: number;
+  keychain?: HDKey;
+  network: BitcoinNetworkModes;
+}
+export function getTaprootAddress({ index, keychain, network }: GetTaprootAddressArgs) {
+  if (!keychain) throw new Error('Expected keychain to be provided');
+
+  if (keychain.depth !== DerivationPathDepth.Account)
+    throw new Error('Expects keychain to be on the account index');
+
+  const addressIndex = deriveAddressIndexKeychainFromAccount(keychain)(index);
+
+  if (!addressIndex.publicKey) {
+    throw new Error('Expected publicKey to be defined');
+  }
+
+  const payment = getTaprootPayment(addressIndex.publicKey!, network);
+
+  if (!payment.address) throw new Error('Expected address to be defined');
+
+  return payment.address;
 }

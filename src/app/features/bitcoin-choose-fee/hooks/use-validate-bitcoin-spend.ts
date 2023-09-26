@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { Money, createMoney } from '@shared/models/money.model';
 
 import { subtractMoney, sumMoney } from '@app/common/money/calculate-money';
-import { useCurrentNativeSegwitAddressBalance } from '@app/query/bitcoin/balance/bitcoin-balances.query';
+import { useCurrentNativeSegwitAddressBalance } from '@app/query/bitcoin/balance/btc-native-segwit-balance.hooks';
 
 export function useValidateBitcoinSpend(amount?: Money, isSendingMax?: boolean) {
   const [showInsufficientBalanceError, setShowInsufficientBalanceError] = useState(false);

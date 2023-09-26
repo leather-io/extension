@@ -1,13 +1,11 @@
 import BigNumber from 'bignumber.js';
 
-import { Inscription } from '@shared/models/inscription.model';
 import { isDefined } from '@shared/utils';
 
 import { PsbtInput } from './use-parsed-inputs';
 import { PsbtOutput } from './use-parsed-outputs';
 
 interface FindOutputsReceivingInscriptionsArgs {
-  inscriptions: Inscription[];
   psbtInputs: PsbtInput[];
   psbtOutputs: PsbtOutput[];
 }
@@ -15,7 +13,6 @@ interface FindOutputsReceivingInscriptionsArgs {
 // up from total input sats position to total output sats position. By doing this,
 // we can predict where the inscription will be sent.
 export function findOutputsReceivingInscriptions({
-  inscriptions,
   psbtInputs,
   psbtOutputs,
 }: FindOutputsReceivingInscriptionsArgs) {
@@ -23,13 +20,9 @@ export function findOutputsReceivingInscriptions({
 
   return psbtInputs
     .flatMap(input => {
-      if (input.inscription) {
-        const inscription = inscriptions.find(
-          inscription => input.inscription?.includes(inscription.id)
-        );
-
+      if (isDefined(input.inscription)) {
         // Offset is zero indexed, so 1 is added here to match the sats total
-        const inscriptionTotalOffset = inputsSatsTotal.plus(Number(inscription?.offset) + 1);
+        const inscriptionTotalOffset = inputsSatsTotal.plus(Number(input.inscription.offset) + 1);
 
         let outputsSatsTotal = new BigNumber(0);
 

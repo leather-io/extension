@@ -6,8 +6,7 @@ import { OrdinalSendFormValues } from '@shared/models/form.model';
 
 import { determineUtxosForSpend } from '@app/common/transactions/bitcoin/coinselect/local-coin-selection';
 import { useCurrentNativeSegwitUtxos } from '@app/query/bitcoin/address/utxos-by-address.hooks';
-import { NativeSegwitUtxo } from '@app/query/bitcoin/bitcoin-client';
-import { TaprootUtxo } from '@app/query/bitcoin/ordinals/use-taproot-address-utxos.query';
+import { NativeSegwitUtxo, TaprootUtxo } from '@app/query/bitcoin/bitcoin-client';
 import { useBitcoinScureLibNetworkConfig } from '@app/store/accounts/blockchain/bitcoin/bitcoin-keychain';
 import { useCurrentAccountNativeSegwitSigner } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
 import { useCurrentAccountTaprootSigner } from '@app/store/accounts/blockchain/bitcoin/taproot-account.hooks';

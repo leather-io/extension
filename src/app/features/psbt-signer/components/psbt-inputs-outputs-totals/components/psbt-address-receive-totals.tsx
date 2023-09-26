@@ -28,7 +28,9 @@ export function PsbtAddressReceiveTotals({ showTaprootTotal }: PsbtAddressTotals
         />
       ) : null}
       {isReceivingInscriptions
-        ? accountInscriptionsBeingReceived.map(path => <PsbtInscription key={path} path={path} />)
+        ? accountInscriptionsBeingReceived.map(inscription => (
+            <PsbtInscription key={inscription.id} inscription={inscription} />
+          ))
         : null}
     </>
   );

@@ -1,6 +1,6 @@
 import { BitcoinTx } from '@shared/models/transactions/bitcoin-transaction.model';
 
-export const mockAddress = 'tb1qxy5r9rlmpcxgwp92x2594q3gg026y4kdv2rsl8';
+export const mockBitcoinTestnetAddress = 'tb1qxy5r9rlmpcxgwp92x2594q3gg026y4kdv2rsl8';
 
 // multiple inputs and outputs
 export const mockPendingTxs1: BitcoinTx[] = [

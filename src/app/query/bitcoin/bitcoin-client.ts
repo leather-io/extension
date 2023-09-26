@@ -20,6 +20,10 @@ export interface NativeSegwitUtxo extends UtxoResponseItem {
   addressIndex: number;
 }
 
+export interface TaprootUtxo extends UtxoResponseItem {
+  addressIndex: number;
+}
+
 class AddressApi {
   constructor(public configuration: Configuration) {}
 
