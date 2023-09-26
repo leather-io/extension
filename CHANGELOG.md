@@ -1,3 +1,31 @@
+## [6.9.0](https://github.com/leather-wallet/extension/compare/v6.8.2...v6.9.0) (2023-09-26)
+
+
+### Features
+
+* add address index for ns inscriptions ([6317dce](https://github.com/leather-wallet/extension/commit/6317dced546e0361e9fcce90f472f7b24a5ef088))
+* add ns inscription send, closes [#4019](https://github.com/leather-wallet/extension/issues/4019) ([92774e8](https://github.com/leather-wallet/extension/commit/92774e8cbb15cb8ca41f10606db3dde5fe273240))
+* display inscriptions from native segwit address, closes [#4018](https://github.com/leather-wallet/extension/issues/4018) ([4a01fae](https://github.com/leather-wallet/extension/commit/4a01fae8f30ade4add328fb1e7f842d9463e02df))
+* enable stx tests ([e99e88c](https://github.com/leather-wallet/extension/commit/e99e88c6868d5ee2489c0fead9cb26146b2fc38a))
+* remove ns address inscription warning ([ad1e940](https://github.com/leather-wallet/extension/commit/ad1e940d281f75c98650daadaf1443bebd9f34ad))
+* replaced dlc-wasm-wallet with @dlc-link/dlc-tools ([0364e26](https://github.com/leather-wallet/extension/commit/0364e26f92090c1179a68b0b77f52a6fed219f56))
+
+
+### Bug Fixes
+
+* minor css bugs ([a514265](https://github.com/leather-wallet/extension/commit/a5142655e318b0c4ed18cd70f11102e06173dd1a))
+* more explicit build instructions ([11fea38](https://github.com/leather-wallet/extension/commit/11fea384b1533979b357be4ab4937e4dc8448e08))
+* set onboarding modal background color to fix transparency in dark mode ([93a3a0f](https://github.com/leather-wallet/extension/commit/93a3a0f313efcc9f7e8bbb9b75150027fa767518))
+* styles of acc info card ([64bd214](https://github.com/leather-wallet/extension/commit/64bd21424b8422b3ca7c4e6747eedeafce43c728))
+* update leather contact email address ([5330d18](https://github.com/leather-wallet/extension/commit/5330d182f6ce4251ecadaeb66b97bfad0f2507de))
+
+
+### Internal
+
+* flag to use panda, closes [#4255](https://github.com/leather-wallet/extension/issues/4255) ([5f0306e](https://github.com/leather-wallet/extension/commit/5f0306e94a6c35ddadde2259b138c2f05d6bf889))
+* remove space between component ([2fe2b60](https://github.com/leather-wallet/extension/commit/2fe2b606add564e61f712cf1ed68f4dc7c13cb5c))
+* space between, closes [#4256](https://github.com/leather-wallet/extension/issues/4256) ([963faab](https://github.com/leather-wallet/extension/commit/963faabdffbe16317fcec9bbb519e73be665b3ff))
+
 ## [6.8.2](https://github.com/leather-wallet/extension/compare/v6.8.1...v6.8.2) (2023-09-19)
 
 
