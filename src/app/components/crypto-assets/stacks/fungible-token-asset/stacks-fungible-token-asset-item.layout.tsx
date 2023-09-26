@@ -1,6 +1,6 @@
 import { BoxProps } from '@stacks/ui';
 import { forwardRefWithAs } from '@stacks/ui-core';
-import { Flex, styled } from 'leather-styles/jsx';
+import { Flex, HStack, styled } from 'leather-styles/jsx';
 
 import type { Money } from '@shared/models/money.model';
 
@@ -9,7 +9,6 @@ import { ftDecimals } from '@app/common/stacks-utils';
 import { StacksAssetAvatar } from '@app/components/crypto-assets/stacks/components/stacks-asset-avatar';
 import { usePressable } from '@app/components/item-hover';
 import { Flag } from '@app/components/layout/flag';
-import { SpaceBetween } from '@app/components/layout/space-between';
 import { Tooltip } from '@app/components/tooltip';
 
 import { AssetCaption } from '../../components/asset-caption';
@@ -49,7 +48,7 @@ export const StacksFungibleTokenAssetItemLayout = forwardRefWithAs(
           spacing="base"
           width="100%"
         >
-          <SpaceBetween width="100%">
+          <HStack alignItems="center" justifyContent="space-between" width="100%">
             <styled.span
               maxWidth="150px"
               overflow="hidden"
@@ -68,10 +67,10 @@ export const StacksFungibleTokenAssetItemLayout = forwardRefWithAs(
                 {formattedBalance.value}
               </styled.span>
             </Tooltip>
-          </SpaceBetween>
-          <SpaceBetween height="1.25rem" width="100%">
+          </HStack>
+          <HStack alignItems="center" justifyContent="space-between" height="1.25rem" width="100%">
             <AssetCaption caption={caption} />
-          </SpaceBetween>
+          </HStack>
           {component}
         </Flag>
       </Flex>

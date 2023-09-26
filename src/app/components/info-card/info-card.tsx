@@ -1,6 +1,6 @@
 import { Box, Flex, FlexProps, Stack, StackProps } from '@stacks/ui';
 import { SharedComponentsSelectors } from '@tests/selectors/shared-component.selectors';
-import { styled } from 'leather-styles/jsx';
+import { HStack, styled } from 'leather-styles/jsx';
 
 import { isString } from '@shared/utils';
 
@@ -8,7 +8,6 @@ import { whenPageMode } from '@app/common/utils';
 
 import { LeatherButton } from '../button/button';
 import { DashedHr } from '../hr';
-import { SpaceBetween } from '../layout/space-between';
 
 // InfoCard
 interface InfoCardProps extends FlexProps {
@@ -31,7 +30,7 @@ interface InfoCardRowProps {
 
 export function InfoCardRow({ title, value, titleAdditionalElement, ...props }: InfoCardRowProps) {
   return (
-    <SpaceBetween fontSize="14px" alignItems="start" {...props}>
+    <HStack alignItems="start" fontSize="14px" justifyContent="space-between" {...props}>
       <Flex alignItems="center">
         <styled.span textStyle="body.02" color="accent.text-subdued">
           {title}
@@ -50,7 +49,7 @@ export function InfoCardRow({ title, value, titleAdditionalElement, ...props }: 
       ) : (
         value
       )}
-    </SpaceBetween>
+    </HStack>
   );
 }
 

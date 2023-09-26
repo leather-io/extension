@@ -3,9 +3,9 @@ import { FiCopy } from 'react-icons/fi';
 
 import { Box, Text, color, useClipboard } from '@stacks/ui';
 import { SendCryptoAssetSelectors } from '@tests/selectors/send.selectors';
+import { HStack } from 'leather-styles/jsx';
 
 import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
-import { SpaceBetween } from '@app/components/layout/space-between';
 import { Tooltip } from '@app/components/tooltip';
 
 interface RecipientAddressDisplayerProps {
@@ -21,7 +21,7 @@ export function RecipientAddressDisplayer({ address }: RecipientAddressDisplayer
   }, [analytics, onCopy]);
 
   return (
-    <SpaceBetween mb="base" width="100%">
+    <HStack alignItems="center" justifyContent="space-between" mb="space.04" width="100%">
       <Text
         color={color('text-caption')}
         data-testid={SendCryptoAssetSelectors.RecipientBnsAddressLabel}
@@ -41,6 +41,6 @@ export function RecipientAddressDisplayer({ address }: RecipientAddressDisplayer
           <FiCopy size="16px" />
         </Box>
       </Tooltip>
-    </SpaceBetween>
+    </HStack>
   );
 }

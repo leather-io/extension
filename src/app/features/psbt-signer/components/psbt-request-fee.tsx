@@ -1,9 +1,8 @@
-import { Stack, styled } from 'leather-styles/jsx';
+import { HStack, Stack, styled } from 'leather-styles/jsx';
 
 import { Money } from '@shared/models/money.model';
 
 import { formatMoney, i18nFormatCurrency } from '@app/common/money/format-money';
-import { SpaceBetween } from '@app/components/layout/space-between';
 import { useCalculateBitcoinFiatValue } from '@app/query/common/market-data/market-data.hooks';
 
 import { PsbtRequestDetailsSectionLayout } from './psbt-request-details-section.layout';
@@ -14,7 +13,7 @@ export function PsbtRequestFee(props: { fee: Money }) {
 
   return (
     <PsbtRequestDetailsSectionLayout>
-      <SpaceBetween>
+      <HStack alignItems="center" justifyContent="space-between">
         <styled.span textStyle="label.01">Transaction fee</styled.span>
         <Stack alignItems="flex-end" gap="space.01">
           <styled.span textStyle="label.01">{formatMoney(fee)}</styled.span>
@@ -22,7 +21,7 @@ export function PsbtRequestFee(props: { fee: Money }) {
             {i18nFormatCurrency(calculateBitcoinFiatValue(fee))}
           </styled.span>
         </Stack>
-      </SpaceBetween>
+      </HStack>
     </PsbtRequestDetailsSectionLayout>
   );
 }

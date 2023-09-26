@@ -1,6 +1,5 @@
 import { Box, Flex, Stack } from '@stacks/ui';
-
-import { SpaceBetween } from '@app/components/layout/space-between';
+import { HStack } from 'leather-styles/jsx';
 
 interface TransactionItemLayoutProps {
   openTxLink(): void;
@@ -35,9 +34,9 @@ export function TransactionItemLayout({
       >
         {txIcon && txIcon}
         <Flex flexDirection="column" justifyContent="space-between" flexGrow={1} minWidth="0px">
-          <SpaceBetween spacing="extra-loose">
+          <HStack alignItems="center" gap="space.06" justifyContent="space-between">
             {txTitle} {txValue}
-          </SpaceBetween>
+          </HStack>
           <Stack alignItems="center" isInline>
             {txCaption} {txStatus && txStatus}
             {belowCaptionEl ? belowCaptionEl : null}

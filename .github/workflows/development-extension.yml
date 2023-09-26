@@ -1,0 +1,40 @@
+name: Development Extension
+on:
+  push:
+    branches:
+      - dev
+  workflow_dispatch:
+
+env:
+  # NO SENTRY CURRENTLY
+  COINBASE_APP_ID: ${{ secrets.COINBASE_APP_ID }}
+  MOONPAY_API_KEY: ${{ secrets.MOONPAY_API_KEY }}
+  SEGMENT_WRITE_KEY: ${{ secrets.SEGMENT_WRITE_KEY_STAGING }}
+  TRANSAK_API_KEY: ${{ secrets.TRANSAK_API_KEY }}
+  PREVIEW_RELEASE: true
+  WALLET_ENVIRONMENT: preview
+
+jobs:
+  build-extension:
+    runs-on: ubuntu-latest
+    environment: development
+    outputs:
+      new_version: ${{ steps.extract_version.outputs.version }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: ./.github/actions/provision
+
+      - name: Extract version
+        id: extract_version
+        uses: Saionaro/extract-package-version@v1.1.1
+
+      - name: Build project
+        env:
+          IS_PUBLISHING: true
+        run: yarn build
+
+      - uses: actions/upload-artifact@v3
+        name: Upload build artifact
+        with:
+          name: leather-wallet
+          path: dist

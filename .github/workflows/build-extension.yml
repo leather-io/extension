@@ -20,8 +20,7 @@ jobs:
 
   update-pull-request-body:
     name: Add links to built extensions
-    # Don't run on forks
-    if: github.repository == 'leather-wallet/extension'
+    if: github.repository == 'leather-wallet/extension' && github.actor != 'dependabot[bot]'
     runs-on: ubuntu-latest
     needs:
       - pre-run

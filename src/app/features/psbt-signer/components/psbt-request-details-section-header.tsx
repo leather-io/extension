@@ -2,7 +2,6 @@ import { HStack, styled } from 'leather-styles/jsx';
 
 import { LeatherButton } from '@app/components/button/button';
 import { ArrowUpIcon } from '@app/components/icons/arrow-up-icon';
-import { SpaceBetween } from '@app/components/layout/space-between';
 
 interface PsbtRequestDetailsSectionHeaderProps {
   hasDetails?: boolean;
@@ -17,7 +16,7 @@ export function PsbtRequestDetailsSectionHeader({
   title,
 }: PsbtRequestDetailsSectionHeaderProps) {
   return (
-    <SpaceBetween>
+    <HStack alignItems="center" justifyContent="space-between">
       <styled.span textStyle="label.01">{title}</styled.span>
       {hasDetails && onSetShowDetails ? (
         <LeatherButton onClick={() => onSetShowDetails(!showDetails)} variant="text">
@@ -30,6 +29,6 @@ export function PsbtRequestDetailsSectionHeader({
           )}
         </LeatherButton>
       ) : null}
-    </SpaceBetween>
+    </HStack>
   );
 }

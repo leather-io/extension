@@ -1,7 +1,7 @@
 import { Stack, StackProps } from '@stacks/ui';
 import { useField } from 'formik';
+import { HStack } from 'leather-styles/jsx';
 
-import { SpaceBetween } from '@app/components/layout/space-between';
 import { SponsoredLabel } from '@app/components/sponsored-label';
 import { Caption } from '@app/components/typography';
 import { WarningLabel } from '@app/components/warning-label';
@@ -18,13 +18,13 @@ export function FeesRowLayout(props: FeesRowLayoutProps) {
 
   return (
     <Stack spacing="base" width="100%" {...rest}>
-      <SpaceBetween position="relative">
+      <HStack alignItems="center" justifyContent="space-between" position="relative">
         <Stack alignItems="center" isInline>
           <Caption>Fee</Caption>
           {!isSponsored ? selectInput : null}
         </Stack>
         {feeField}
-      </SpaceBetween>
+      </HStack>
       {isSponsored && <SponsoredLabel />}
       {!meta.error && fieldWarning && <WarningLabel>{fieldWarning}</WarningLabel>}
     </Stack>

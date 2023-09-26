@@ -1,9 +1,9 @@
-import { useEffect, useRef } from 'react';
+import { useEffect } from 'react';
+import { useInView } from 'react-intersection-observer';
 
 import { Box } from '@stacks/ui';
 
 import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
-import { useIntersectionObserver } from '@app/common/hooks/use-intersection-observer';
 import { useTaprootInscriptionsInfiniteQuery } from '@app/query/bitcoin/ordinals/use-inscriptions.query';
 
 import { Inscription } from './inscription';
@@ -16,30 +16,28 @@ export function Ordinals({ setIsLoadingMore }: OrdinalsProps) {
   const query = useTaprootInscriptionsInfiniteQuery();
   const pages = query.data?.pages;
   const analytics = useAnalytics();
+  const { ref: intersectionSentinel, inView } = useInView({
+    rootMargin: '0% 0% 20% 0%',
+  });
 
-  const intersectionSentinel = useRef<HTMLDivElement | null>(null);
-
-  async function fetchNextPage() {
-    if (!query.hasNextPage || query.isLoading || query.isFetchingNextPage) return;
-    try {
-      setIsLoadingMore(true);
-      await query.fetchNextPage();
-    } catch (e) {
-      // TO-DO: handle error
-      // console.log(e);
-    } finally {
-      setIsLoadingMore(false);
-    }
-  }
-  const callback = (entries: IntersectionObserverEntry[]): void => {
-    entries.forEach(async entry => {
-      if (entry.isIntersecting) {
-        await fetchNextPage();
+  useEffect(() => {
+    async function fetchNextPage() {
+      if (!query.hasNextPage || query.isLoading || query.isFetchingNextPage) return;
+      try {
+        setIsLoadingMore(true);
+        await query.fetchNextPage();
+      } catch (e) {
+        // TO-DO: handle error
+        // console.log(e);
+      } finally {
+        setIsLoadingMore(false);
       }
-    });
-  };
+    }
+    if (inView) {
+      void fetchNextPage();
+    }
+  }, [inView, query, setIsLoadingMore]);
 
-  useIntersectionObserver(intersectionSentinel, callback, {});
   useEffect(() => {
     const inscriptionsLength = pages?.reduce((acc, page) => acc + page.inscriptions.length, 0) || 0;
     if (inscriptionsLength > 0) {

@@ -11,7 +11,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Get latest Firefox version
-        run: curl -s https://addons.mozilla.org/api/v5/addons/addon/hiro-wallet/versions/ | jq -r '.results[0].version' > firefox_version
+        run: curl -s https://addons.mozilla.org/api/v5/addons/addon/leather-wallet/versions/ | jq -r '.results[0].version' > firefox_version
 
       - name: Upload latest Firefox version info
         uses: actions/upload-artifact@v3
@@ -51,7 +51,7 @@ jobs:
           DISCORD_EMBEDS: |
             [{
               "title": "Leather for Firefox",
-              "url": "https://addons.mozilla.org/en-US/firefox/addon/hiro-wallet/"
+              "url": "https://addons.mozilla.org/en-US/firefox/addon/leather-wallet/"
             }]
         with:
           args: ':rocket: A new version (${{ steps.firefox.outputs.new_version }}) of Leather is available on the Firefox Web Store!'

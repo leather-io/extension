@@ -1,7 +1,6 @@
 import { Box, HStack, styled } from 'leather-styles/jsx';
 
 import { InfoIcon } from '@app/components/icons/info-icon';
-import { SpaceBetween } from '@app/components/layout/space-between';
 import { Tooltip } from '@app/components/tooltip';
 
 interface SwapDetailLayoutProps {
@@ -11,7 +10,7 @@ interface SwapDetailLayoutProps {
 }
 export function SwapDetailLayout({ title, tooltipLabel, value }: SwapDetailLayoutProps) {
   return (
-    <SpaceBetween ml="base" width="100%">
+    <HStack alignItems="center" justifyContent="space-between" ml="space.04" width="100%">
       <HStack alignItems="center" gap="space.01">
         <styled.span textStyle="caption.01">{title}</styled.span>
         {tooltipLabel ? (
@@ -23,6 +22,6 @@ export function SwapDetailLayout({ title, tooltipLabel, value }: SwapDetailLayou
         ) : null}
       </HStack>
       <styled.span textStyle="label.01">{value}</styled.span>
-    </SpaceBetween>
+    </HStack>
   );
 }

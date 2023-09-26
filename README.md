@@ -77,10 +77,20 @@ Alternatively, the following steps can be taken by _technical_ users with the la
 Run the following from within this repository's root directory if you've pulled it with Git:
 
 ```bash
-yarn && yarn build && sh build-ext.sh
+yarn && yarn prepare && yarn build
 ```
 
-The extension is packaged as `leather-chromium.zip`.
+The extension is now built in the `./dist` folder.
+
+### Firefox reviewers
+
+To build the extension in Firefox mode, the `TARGET_BROWSER=firefox` variable needs to be set.
+
+```bash
+yarn && yarn prepare && yarn build
+```
+
+Note that when building in a clean environment, some code may vary between this and the submitted build. This is because some variables are set within the scope of the production build's CI.
 
 ## Security
 
@@ -91,7 +101,7 @@ If you discover a security vulnerability, please use one of the following means 
 - Report the security issue to our [HackerOne program](https://hackerone.com/hiro)
 - Report the security issue directly at [security@hiro.so](mailto:security@hiro.so)
 
-Please note this email is strictly for reporting security vulnerabilities. For support queries, contact [wallet@hiro.so](mailto:wallet@hiro.so). Your efforts to responsibly disclose your findings are sincerely appreciated and will be taken into account to acknowledge your contributions.
+Please note this email is strictly for reporting security vulnerabilities. For support queries, contact [contact@leather.io](mailto:contact@leather.io). Your efforts to responsibly disclose your findings are sincerely appreciated and will be taken into account to acknowledge your contributions.
 
 ### Audit Report
 

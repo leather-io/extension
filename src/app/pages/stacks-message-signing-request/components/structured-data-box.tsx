@@ -2,11 +2,10 @@ import { useEffect, useState } from 'react';
 
 import { ClarityValue } from '@stacks/transactions';
 import { Stack, color } from '@stacks/ui';
-import { Box, Divider, styled } from 'leather-styles/jsx';
+import { Box, Divider, HStack, styled } from 'leather-styles/jsx';
 
 import { StructuredMessageDataDomain } from '@shared/signature/signature-types';
 
-import { SpaceBetween } from '@app/components/layout/space-between';
 import {
   chainIdToDisplay,
   cvToDisplay,
@@ -50,12 +49,12 @@ export function StructuredDataBox(props: {
       >
         <Box background="white" borderRadius="16px" overflowX="scroll" py="space.05">
           <Box fontSize="14px" lineHeight="1.7" px="space.05">
-            <SpaceBetween>
+            <HStack alignItems="center" justifyContent="space-between">
               <styled.h2 textStyle="label.01">{domainName}</styled.h2>
               <styled.span lineHeight="1.5" textStyle="caption.02">
                 {domainVersion} {domainChainName}
               </styled.span>
-            </SpaceBetween>
+            </HStack>
             <Divider py="space.01" />
             <Box>
               <ClarityValueListDisplayer val={message} encoding={'tryAscii'} />

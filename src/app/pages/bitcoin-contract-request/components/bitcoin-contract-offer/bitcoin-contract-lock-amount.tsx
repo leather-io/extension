@@ -1,10 +1,10 @@
 import { FiArrowUpRight, FiCopy } from 'react-icons/fi';
 
 import { Box, Stack, Text, color, useClipboard } from '@stacks/ui';
+import { HStack } from 'leather-styles/jsx';
 
 import { BtcIcon } from '@app/components/icons/btc-icon';
 import { Flag } from '@app/components/layout/flag';
-import { SpaceBetween } from '@app/components/layout/space-between';
 import { Tooltip } from '@app/components/tooltip';
 
 interface BitcoinContractLockAmountProps {
@@ -29,15 +29,15 @@ export function BitcoinContractLockAmount({
 
   return (
     <Flag img={image || <BtcIcon />} align="middle" width="100%">
-      <SpaceBetween>
+      <HStack alignItems="center" justifyContent="space-between">
         <Text fontSize={2} fontWeight="500">
           {title ? title : 'BTC'}
         </Text>
         <Text fontSize={2} fontWeight="500">
           {value}
         </Text>
-      </SpaceBetween>
-      <SpaceBetween mt="tight">
+      </HStack>
+      <HStack alignItems="center" justifyContent="space-between" mt="space.02">
         {subtitle ? (
           <Tooltip
             disabled={!hoverLabel}
@@ -70,7 +70,7 @@ export function BitcoinContractLockAmount({
             {subValueAction ? <FiArrowUpRight color={color('accent')} /> : null}
           </Stack>
         ) : null}
-      </SpaceBetween>
+      </HStack>
     </Flag>
   );
 }

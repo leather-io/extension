@@ -1,6 +1,6 @@
 import { Stack, StackProps, Text } from '@stacks/ui';
+import { HStack } from 'leather-styles/jsx';
 
-import { SpaceBetween } from '@app/components/layout/space-between';
 import { Caption } from '@app/components/typography';
 
 import { PrincipalValue } from './principal-value';
@@ -16,10 +16,10 @@ export function Row(props: RowProps): React.JSX.Element {
 
   return (
     <Stack spacing="base-tight" {...rest}>
-      <SpaceBetween flexShrink={0}>
+      <HStack alignItems="center" justifyContent="space-between" flexShrink={0}>
         {name && <Caption>{name}</Caption>}
         {type && <Caption>{type}</Caption>}
-      </SpaceBetween>
+      </HStack>
 
       {type?.toLowerCase() === 'principal' ? (
         <PrincipalValue address={value} />

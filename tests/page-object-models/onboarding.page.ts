@@ -8,17 +8,17 @@ import { RouteUrls } from '@shared/route-urls';
 
 // If default wallet state changes, we'll need to update this
 export const testSoftwareAccountDefaultWalletState = {
-  analytics: { hasStxDeposits: { '1': false, '2147483648': true } },
-  chains: { stx: { default: { highestAccountIndex: 0, currentAccountIndex: 0 } } },
+  analytics: { hasStxDeposits: { '1': true, '2147483648': true } },
+  chains: { stx: { default: { highestAccountIndex: 1, currentAccountIndex: 0 } } },
   keys: {
     ids: ['default'],
     entities: {
       default: {
         type: 'software',
         id: 'default',
-        salt: 'b71b4553596cc9d27da47d71e07fd979',
+        salt: 'a086b877fc757a4daa7c6343d2861c05',
         encryptedSecretKey:
-          '2d1cf9fa81f73274c802f0cdc38548530660f5998a8ab7b77229366cd18a38953f393561985953eff554a8fd5d37120cb57b8850d3b898dc7f8f0d54fd087f7dfb42f642a9cd9fc3b6185bff370d0918dac70766db8827066578629462fc8b18',
+          'ff735c244c72e1c7f7dc411b240ce6e30f87a43106cd1c87a77d3a6f80679176558ce2e73d1a089d6a83d8764b31d9d9043a6f79ca1104fb8238a6ae4f1e063bc1f1c3ba99c4c4e8b38d871963a7e3d8a0a4ed5e6525ec6702d9074dd9ee376c',
       },
     },
   },

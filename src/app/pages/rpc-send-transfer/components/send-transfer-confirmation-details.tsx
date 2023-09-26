@@ -1,6 +1,5 @@
 import { Stack, Text, color } from '@stacks/ui';
-
-import { SpaceBetween } from '@app/components/layout/space-between';
+import { HStack } from 'leather-styles/jsx';
 
 interface SendTransferConfirmationDetailsProps {
   currentAddress: string;
@@ -25,27 +24,27 @@ export function SendTransferConfirmationDetails({
       spacing="base"
       width="100%"
     >
-      <SpaceBetween spacing="base">
+      <HStack alignItems="center" gap="space.04" justifyContent="space-between">
         <Text color={color('text-caption')}>From</Text>
         <Text>{currentAddress}</Text>
-      </SpaceBetween>
-      <SpaceBetween spacing="base">
+      </HStack>
+      <HStack alignItems="center" gap="space.04" justifyContent="space-between">
         <Text color={color('text-caption')}>To</Text>
         <Text>{recipient}</Text>
-      </SpaceBetween>
-      <SpaceBetween spacing="base">
+      </HStack>
+      <HStack alignItems="center" gap="space.04" justifyContent="space-between">
         <Text color={color('text-caption')}>Fee</Text>
         <Text>{feeRowValue}</Text>
-      </SpaceBetween>
-      <SpaceBetween spacing="base">
+      </HStack>
+      <HStack alignItems="center" gap="space.04" justifyContent="space-between">
         <Text color={color('text-caption')}>Total</Text>
         <Text>{total}</Text>
-      </SpaceBetween>
+      </HStack>
       {time && (
-        <SpaceBetween spacing="base">
+        <HStack alignItems="center" gap="space.04" justifyContent="space-between">
           <Text color={color('text-caption')}>Estimated Time</Text>
           <Text>{time}</Text>
-        </SpaceBetween>
+        </HStack>
       )}
     </Stack>
   );

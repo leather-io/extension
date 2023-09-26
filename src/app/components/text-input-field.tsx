@@ -4,11 +4,11 @@ import { Box, Flex, FlexProps, Input, Text, color } from '@stacks/ui';
 import { SendCryptoAssetSelectors } from '@tests/selectors/send.selectors';
 import { useField } from 'formik';
 import { css } from 'leather-styles/css';
+import { HStack } from 'leather-styles/jsx';
 import { token } from 'leather-styles/tokens';
 
 import { useShowFieldError } from '@app/common/form-utils';
 import { capitalize } from '@app/common/utils';
-import { SpaceBetween } from '@app/components/layout/space-between';
 
 import { TextInputFieldError } from './field-error';
 
@@ -76,7 +76,7 @@ export function TextInputField({
         width="100%"
         {...props}
       >
-        <SpaceBetween maxHeight="20px" mb="extra-tight">
+        <HStack alignItems="center" justifyContent="space-between" maxHeight="20px" mb="space.01">
           <Flex alignItems="center">
             {label && field.value ? (
               <Text
@@ -114,7 +114,7 @@ export function TextInputField({
               {labelAction}
             </Text>
           ) : null}
-        </SpaceBetween>
+        </HStack>
         <Input
           ref={inputRef || ref}
           _disabled={{ bg: color('bg') }}

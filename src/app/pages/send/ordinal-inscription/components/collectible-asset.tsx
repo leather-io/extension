@@ -1,7 +1,7 @@
 import { Flex } from '@stacks/ui';
+import { HStack } from 'leather-styles/jsx';
 import { token } from 'leather-styles/tokens';
 
-import { SpaceBetween } from '@app/components/layout/space-between';
 import { Text } from '@app/components/typography';
 
 interface CollectibleAssetProps {
@@ -21,7 +21,7 @@ export function CollectibleAsset({ icon, name, symbol }: CollectibleAssetProps) 
       px="base"
       width="100%"
     >
-      <SpaceBetween>
+      <HStack alignItems="center" justifyContent="space-between">
         <Flex alignItems="center">
           {icon}
           <Text ml="tight" mr="extra-tight">
@@ -29,7 +29,7 @@ export function CollectibleAsset({ icon, name, symbol }: CollectibleAssetProps) 
           </Text>
           {symbol && <Text>({symbol.toUpperCase()})</Text>}
         </Flex>
-      </SpaceBetween>
+      </HStack>
     </Flex>
   );
 }

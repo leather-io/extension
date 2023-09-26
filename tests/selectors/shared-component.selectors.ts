@@ -17,4 +17,7 @@ export enum SharedComponentsSelectors {
   MiddleFeeEstimateItem = 'standard-fee',
   FeesListItem = 'fee-list-item',
   FeesListItemFeeValue = 'fee-list-item-fee-value',
+
+  // Modal Header
+  ModalHeaderBackBtn = 'modal-header-back-button',
 }

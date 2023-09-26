@@ -1,11 +1,11 @@
 import { FiInfo } from 'react-icons/fi';
 
 import { Box, Flex, Stack, color } from '@stacks/ui';
+import { HStack } from 'leather-styles/jsx';
 
 import { Money } from '@shared/models/money.model';
 
 import { formatMoney } from '@app/common/money/format-money';
-import { SpaceBetween } from '@app/components/layout/space-between';
 import { Tooltip } from '@app/components/tooltip';
 import { Caption } from '@app/components/typography';
 
@@ -16,7 +16,7 @@ export function AvailableBalance(props: { balance: Money; balanceTooltipLabel?: 
   } = props;
 
   return (
-    <SpaceBetween>
+    <HStack alignItems="center" justifyContent="space-between">
       <Flex alignItems="center">
         <Caption mr="tight">Available balance</Caption>
         <Tooltip placement="top" label={balanceTooltipLabel}>
@@ -31,6 +31,6 @@ export function AvailableBalance(props: { balance: Money; balanceTooltipLabel?: 
         </Tooltip>
       </Flex>
       <Caption>{formatMoney(balance)}</Caption>
-    </SpaceBetween>
+    </HStack>
   );
 }

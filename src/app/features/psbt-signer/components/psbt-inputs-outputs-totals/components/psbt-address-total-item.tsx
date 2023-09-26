@@ -5,7 +5,6 @@ import { LeatherButton } from '@app/components/button/button';
 import { BtcIcon } from '@app/components/icons/btc-icon';
 import { CopyIcon } from '@app/components/icons/copy-icon';
 import { Flag } from '@app/components/layout/flag';
-import { SpaceBetween } from '@app/components/layout/space-between';
 import { Tooltip } from '@app/components/tooltip';
 
 interface PsbtAddressTotalItemProps {
@@ -30,7 +29,7 @@ export function PsbtAddressTotalItem({
 
   return (
     <Flag align="middle" img={image ? image : <BtcIcon />} mt="loose" spacing="base">
-      <SpaceBetween>
+      <HStack alignItems="center" justifyContent="space-between">
         <styled.span textStyle="label.01">{title ? title : 'Bitcoin'}</styled.span>
         {valueAction ? (
           <LeatherButton onClick={valueAction} variant="link">
@@ -39,8 +38,8 @@ export function PsbtAddressTotalItem({
         ) : (
           <styled.span textStyle="label.01">{value}</styled.span>
         )}
-      </SpaceBetween>
-      <SpaceBetween mt="tight">
+      </HStack>
+      <HStack alignItems="center" justifyContent="space-between" mt="space.02">
         {subtitle ? (
           <HStack gap="space.01">
             <styled.span mr="space.01" textStyle="caption.01">
@@ -67,7 +66,7 @@ export function PsbtAddressTotalItem({
             {subValue}
           </styled.span>
         ) : null}
-      </SpaceBetween>
+      </HStack>
     </Flag>
   );
 }

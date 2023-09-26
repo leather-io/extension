@@ -5,7 +5,6 @@ import { noop } from '@shared/utils';
 import { LeatherButton } from '@app/components/button/button';
 import { ChevronDownIcon } from '@app/components/icons/chevron-down-icon';
 import { InfoIcon } from '@app/components/icons/info-icon';
-import { SpaceBetween } from '@app/components/layout/space-between';
 import { Tooltip } from '@app/components/tooltip';
 
 import { SelectedAssetField } from './selected-asset-field';
@@ -51,10 +50,10 @@ export function SwapSelectedAssetLayout({
 
   return (
     <Box width="100%">
-      <SpaceBetween mb="tight" mt="base">
+      <HStack alignItems="center" justifyContent="space-between" mb="space.02" mt="space.04">
         <styled.span textStyle="label.01">{title}</styled.span>
         {showToggle && <SwapToggleButton />}
-      </SpaceBetween>
+      </HStack>
       <SelectedAssetField
         contentLeft={
           <styled.button onClick={onChooseAsset}>
@@ -69,7 +68,7 @@ export function SwapSelectedAssetLayout({
         name={name}
       />
       {caption ? (
-        <SpaceBetween>
+        <HStack alignItems="center" justifyContent="space-between">
           <HStack alignItems="center" gap="space.01">
             <styled.span color={captionTextColor} textStyle="caption.02">
               {error ?? caption}
@@ -90,7 +89,7 @@ export function SwapSelectedAssetLayout({
               {value}
             </styled.span>
           </LeatherButton>
-        </SpaceBetween>
+        </HStack>
       ) : null}
     </Box>
   );
