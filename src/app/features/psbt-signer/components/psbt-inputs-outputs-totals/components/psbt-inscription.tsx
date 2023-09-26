@@ -1,24 +1,24 @@
+import { Inscription } from '@shared/models/inscription.model';
 import { isUndefined } from '@shared/utils';
 
 import { openInNewTab } from '@app/common/utils/open-in-new-tab';
 import { OrdinalIcon } from '@app/components/icons/ordinal-icon';
 import { InscriptionPreview } from '@app/components/inscription-preview-card/components/inscription-preview';
-import { useInscription } from '@app/query/bitcoin/ordinals/inscription.hooks';
+import {
+  createInscriptionInfoUrl,
+  useInscription,
+} from '@app/query/bitcoin/ordinals/inscription.hooks';
 
 import { PsbtAddressTotalItem } from './psbt-address-total-item';
 
 interface PsbtInscriptionProps {
-  path: string;
+  inscription: Inscription;
 }
-export function PsbtInscription({ path }: PsbtInscriptionProps) {
-  const {
-    isLoading,
-    isError,
-    data: inscription,
-  } = useInscription(path.replace('/inscription/', ''));
+export function PsbtInscription({ inscription }: PsbtInscriptionProps) {
+  const { isLoading, isError, data: supportedInscription } = useInscription(inscription?.id ?? '');
 
   if (isLoading) return null;
-  if (isError || isUndefined(inscription))
+  if (isError || isUndefined(supportedInscription))
     return (
       <PsbtAddressTotalItem
         image={<OrdinalIcon />}
@@ -27,12 +27,13 @@ export function PsbtInscription({ path }: PsbtInscriptionProps) {
       />
     );
 
+  //
   return (
     <PsbtAddressTotalItem
-      image={<InscriptionPreview inscription={inscription} height="40px" width="40px" />}
+      image={<InscriptionPreview inscription={supportedInscription} height="40px" width="40px" />}
       title="Inscription"
-      value={`#${inscription.number}`}
-      valueAction={() => openInNewTab(inscription.infoUrl)}
+      value={`#${inscription?.number}`}
+      valueAction={() => openInNewTab(createInscriptionInfoUrl(inscription?.id))}
     />
   );
 }

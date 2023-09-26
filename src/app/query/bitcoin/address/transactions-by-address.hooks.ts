@@ -10,7 +10,7 @@ import {
   useGetBitcoinTransactionsByAddressQuery,
   useGetBitcoinTransactionsByAddressesQuery,
 } from './transactions-by-address.query';
-import { useAllSpendableNativeSegwitUtxos } from './utxos-by-address.hooks';
+import { useAllSpendableUtxosByAddress } from './utxos-by-address.hooks';
 
 function useFilterAddressPendingTransactions() {
   return useCallback((txs: BitcoinTx[]) => {
@@ -72,7 +72,7 @@ function filterMissingUtxosPendingTxs(
 
 export function useBitcoinPendingTransactionsBalance(address: string) {
   const filterPendingTransactions = useFilterAddressPendingTransactions();
-  const { data: utxos } = useAllSpendableNativeSegwitUtxos(address);
+  const { data: utxos } = useAllSpendableUtxosByAddress(address);
 
   return useGetBitcoinTransactionsByAddressQuery(address, {
     select(txs) {

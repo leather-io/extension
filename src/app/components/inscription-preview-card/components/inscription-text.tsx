@@ -2,13 +2,13 @@ import { Box, Spinner, Text } from '@stacks/ui';
 import { sanitize } from 'dompurify';
 
 import { figmaTheme } from '@app/common/utils/figma-theme';
-import { useTextInscriptionContentQuery } from '@app/query/bitcoin/ordinals/use-text-ordinal-content.query';
+import { useInscriptionTextContentQuery } from '@app/query/bitcoin/ordinals/inscription-text-content.query';
 
 interface InscriptionTextProps {
   contentSrc: string;
 }
 export function InscriptionText(props: InscriptionTextProps) {
-  const query = useTextInscriptionContentQuery(props.contentSrc);
+  const query = useInscriptionTextContentQuery(props.contentSrc);
 
   if (query.isLoading) return <Spinner color={figmaTheme.icon} size="16px" />;
 

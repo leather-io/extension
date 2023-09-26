@@ -4,8 +4,7 @@ import { isDefined } from '@shared/utils';
 import { sumNumbers } from '@app/common/math/helpers';
 import { BtcSizeFeeEstimator } from '@app/common/transactions/bitcoin/fees/btc-size-fee-estimator';
 import { createCounter } from '@app/common/utils/counter';
-import { UtxoResponseItem } from '@app/query/bitcoin/bitcoin-client';
-import { TaprootUtxo } from '@app/query/bitcoin/ordinals/use-taproot-address-utxos.query';
+import { TaprootUtxo, UtxoResponseItem } from '@app/query/bitcoin/bitcoin-client';
 
 const idealInscriptionValue = 10_000;
 

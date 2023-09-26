@@ -15,7 +15,7 @@ import { InfoCard, InfoCardRow, InfoCardSeparator } from '@app/components/info-c
 import {
   useCurrentTaprootAccountBalance,
   useCurrentTaprootAccountUninscribedUtxos,
-} from '@app/query/bitcoin/balance/bitcoin-balances.query';
+} from '@app/query/bitcoin/balance/btc-taproot-balance.hooks';
 import { useBitcoinBroadcastTransaction } from '@app/query/bitcoin/transaction/use-bitcoin-broadcast-transaction';
 import { useCurrentAccountNativeSegwitAddressIndexZero } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
 

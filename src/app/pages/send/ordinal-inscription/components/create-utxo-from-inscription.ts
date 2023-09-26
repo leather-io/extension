@@ -1,6 +1,6 @@
 import { Inscription } from '@shared/models/inscription.model';
 
-import { TaprootUtxo } from '@app/query/bitcoin/ordinals/use-taproot-address-utxos.query';
+import { TaprootUtxo } from '@app/query/bitcoin/bitcoin-client';
 
 export function createUtxoFromInscription(inscription: Inscription): TaprootUtxo {
   const { genesis_block_hash, genesis_timestamp, genesis_block_height, value, addressIndex } =

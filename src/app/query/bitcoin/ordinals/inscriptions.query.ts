@@ -2,30 +2,22 @@ import { useCallback, useEffect } from 'react';
 
 import { useInfiniteQuery } from '@tanstack/react-query';
 
+import { HIRO_INSCRIPTIONS_API_URL } from '@shared/constants';
+import { getTaprootAddress } from '@shared/crypto/bitcoin/bitcoin.utils';
 import { InscriptionResponseItem } from '@shared/models/inscription.model';
 import { ensureArray } from '@shared/utils';
 
 import { createNumArrayOfRange } from '@app/common/utils';
-import { HIRO_INSCRIPTIONS_API_URL } from '@app/query/query-config';
 import { QueryPrefixes } from '@app/query/query-prefixes';
 import { useCurrentAccountNativeSegwitIndexZeroSigner } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
 import { useCurrentTaprootAccount } from '@app/store/accounts/blockchain/bitcoin/taproot-account.hooks';
 import { useCurrentNetwork } from '@app/store/networks/networks.selectors';
 
-import { getTaprootAddress } from './utils';
-
 const stopSearchAfterNumberAddressesWithoutOrdinals = 20;
 const addressesSimultaneousFetchLimit = 5;
 
-// max limit value in Hiro API - 60
+// Hiro API max limit = 60
 const inscriptionsLazyLoadLimit = 20;
-
-interface InscriptionsQueryResponse {
-  results: InscriptionResponseItem[];
-  limit: number;
-  offset: number;
-  total: number;
-}
 
 interface InfiniteQueryPageParam {
   pageParam?: {
@@ -34,6 +26,13 @@ interface InfiniteQueryPageParam {
     addressesWithoutOrdinalsNum: number;
     addressesMap: Record<string, number>;
   };
+}
+
+interface InscriptionsQueryResponse {
+  results: InscriptionResponseItem[];
+  limit: number;
+  offset: number;
+  total: number;
 }
 
 async function fetchInscriptions(addresses: string | string[], offset = 0, limit = 60) {
@@ -49,9 +48,9 @@ async function fetchInscriptions(addresses: string | string[], offset = 0, limit
 }
 
 /**
- * Returns all inscriptions for the user's current taproot account
+ * Returns all inscriptions for the user's current account
  */
-export function useTaprootInscriptionsInfiniteQuery() {
+export function useGetInscriptionsInfiniteQuery() {
   const network = useCurrentNetwork();
   const account = useCurrentTaprootAccount();
   const nativeSegwitSigner = useCurrentAccountNativeSegwitIndexZeroSigner();
@@ -185,7 +184,7 @@ export function useTaprootInscriptionsInfiniteQuery() {
   return query;
 }
 
-export function useInscriptionByAddressQuery(address: string) {
+export function useInscriptionsByAddressQuery(address: string) {
   const network = useCurrentNetwork();
 
   const query = useInfiniteQuery({
@@ -193,9 +192,9 @@ export function useInscriptionByAddressQuery(address: string) {
     async queryFn({ pageParam = 0 }) {
       return fetchInscriptions(address, pageParam);
     },
-    getNextPageParam(prevInscriptionQuery) {
-      if (prevInscriptionQuery.offset >= prevInscriptionQuery.total) return undefined;
-      return prevInscriptionQuery.offset + 60;
+    getNextPageParam(prevInscriptionsQuery) {
+      if (prevInscriptionsQuery.offset >= prevInscriptionsQuery.total) return undefined;
+      return prevInscriptionsQuery.offset + 60;
     },
     refetchOnMount: false,
     refetchOnReconnect: false,

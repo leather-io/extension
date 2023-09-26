@@ -16,7 +16,7 @@ import {
   btcAddressNetworkValidator,
   btcAddressValidator,
 } from '@app/common/validation/forms/address-validators';
-import { getNumberOfInscriptionOnUtxo } from '@app/query/bitcoin/ordinals/ordinals-aware-utxo.query';
+import { useNumberOfInscriptionsOnUtxo } from '@app/query/bitcoin/ordinals/inscriptions.hooks';
 import { useCurrentNetwork } from '@app/store/networks/networks.selectors';
 
 import { useSendInscriptionState } from '../components/send-inscription-container';
@@ -33,6 +33,7 @@ export function useSendInscriptionForm() {
   const currentNetwork = useCurrentNetwork();
 
   const { coverFeeFromAdditionalUtxos } = useGenerateSignedOrdinalTx(utxo);
+  const getNumberOfInscriptionOnUtxo = useNumberOfInscriptionsOnUtxo();
 
   return {
     currentError,
@@ -57,7 +58,7 @@ export function useSendInscriptionForm() {
           return;
         }
 
-        const numInscriptionsOnUtxo = await getNumberOfInscriptionOnUtxo(utxo.txid, utxo.vout);
+        const numInscriptionsOnUtxo = getNumberOfInscriptionOnUtxo(utxo.txid, utxo.vout);
         if (numInscriptionsOnUtxo > 1) {
           setShowError('Sending inscription from utxo with multiple inscriptions is unsupported');
           return;

@@ -5,7 +5,7 @@ import { noop } from '@shared/utils';
 
 import { Brc20TokenAssetItem } from '@app/components/crypto-assets/bitcoin/brc20-token-asset-list/components/brc20-token-asset-item';
 import { Tooltip } from '@app/components/tooltip';
-import { useNativeSegwitBalance } from '@app/query/bitcoin/balance/bitcoin-balances.query';
+import { useNativeSegwitBalance } from '@app/query/bitcoin/balance/btc-native-segwit-balance.hooks';
 import { Brc20Token } from '@app/query/bitcoin/ordinals/brc20/brc20-tokens.query';
 import { useCurrentAccountNativeSegwitAddressIndexZero } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
 

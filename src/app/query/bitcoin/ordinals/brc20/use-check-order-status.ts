@@ -9,7 +9,7 @@ import {
 } from '@app/store/ordinals/ordinals.slice';
 
 import { useOrdinalsbotClient } from '../../ordinalsbot-client';
-import { fetchInscripionById } from '../use-inscription-by-id';
+import { fetchInscripionById } from '../inscription-by-id.query';
 
 export function useCheckOrderStatuses(ids: string[]) {
   const ordinalsbotClient = useOrdinalsbotClient();

@@ -1,7 +1,5 @@
-import { color } from '@stacks/ui-utils';
-import { Box } from 'leather-styles/jsx';
+import { Box, styled } from 'leather-styles/jsx';
 
-import { Hr } from '@app/components/hr';
 import { usePsbtSignerContext } from '@app/features/psbt-signer/psbt-signer.context';
 
 import { PsbtRequestDetailsSectionHeader } from '../psbt-request-details-section-header';
@@ -34,7 +32,9 @@ export function PsbtInputsOutputsTotals() {
           <PsbtAddressTransferTotals showNativeSegwitTotal={isNativeSegwitTotalGreaterThanZero} />
         </Box>
       ) : null}
-      {showDivider ? <Hr backgroundColor={color('border')} height="3px" /> : null}
+      {showDivider ? (
+        <styled.hr border="1px solid" borderColor="accent.border-default !important" />
+      ) : null}
       {isReceiving ? (
         <Box p="space.05">
           <PsbtRequestDetailsSectionHeader title="You'll receive" />

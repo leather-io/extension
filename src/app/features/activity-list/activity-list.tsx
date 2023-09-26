@@ -5,10 +5,10 @@ import uniqby from 'lodash.uniqby';
 import { LoadingSpinner } from '@app/components/loading-spinner';
 import { useBitcoinPendingTransactions } from '@app/query/bitcoin/address/transactions-by-address.hooks';
 import { useGetBitcoinTransactionsByAddressesQuery } from '@app/query/bitcoin/address/transactions-by-address.query';
-import { useZeroIndexTaprootAddress } from '@app/query/bitcoin/ordinals/use-zero-index-taproot-address';
 import { useConfigBitcoinEnabled } from '@app/query/common/remote-config/remote-config.query';
 import { useStacksPendingTransactions } from '@app/query/stacks/mempool/mempool.hooks';
 import { useGetAccountTransactionsWithTransfersQuery } from '@app/query/stacks/transactions/transactions-with-transfers.query';
+import { useZeroIndexTaprootAddress } from '@app/store/accounts/blockchain/bitcoin/bitcoin.hooks';
 import { useCurrentAccountNativeSegwitIndexZeroSigner } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
 import { useSubmittedTransactions } from '@app/store/submitted-transactions/submitted-transactions.selectors';
 

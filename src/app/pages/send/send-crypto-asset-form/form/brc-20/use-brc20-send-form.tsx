@@ -20,7 +20,7 @@ import {
 import { tokenAmountValidator } from '@app/common/validation/forms/amount-validators';
 import { currencyAmountValidator } from '@app/common/validation/forms/currency-validators';
 import { useUpdatePersistedSendFormValues } from '@app/features/popup-send-form-restoration/use-update-persisted-send-form-values';
-import { useSpendableCurrentNativeSegwitAccountUtxos } from '@app/query/bitcoin/address/utxos-by-address.hooks';
+import { useCurrentNativeSegwitAccountSpendableUtxos } from '@app/query/bitcoin/address/utxos-by-address.hooks';
 import { useCurrentAccountNativeSegwitIndexZeroSigner } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
 import { useCurrentNetwork } from '@app/store/networks/networks.selectors';
 
@@ -44,7 +44,7 @@ export function useBrc20SendForm({ balance, tick, decimals }: UseBrc20SendFormAr
   const navigate = useNavigate();
   const currentNetwork = useCurrentNetwork();
   const nativeSegwitSigner = useCurrentAccountNativeSegwitIndexZeroSigner();
-  const { data: utxos = [], refetch } = useSpendableCurrentNativeSegwitAccountUtxos();
+  const { data: utxos = [], refetch } = useCurrentNativeSegwitAccountSpendableUtxos();
 
   // Forcing a refetch to ensure UTXOs are fresh
   useOnMount(() => refetch());

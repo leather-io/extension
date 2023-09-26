@@ -1,27 +1,41 @@
 import { useCallback } from 'react';
 
+import { InscriptionResponseItem } from '@shared/models/inscription.model';
+
 import { useCurrentAccountNativeSegwitIndexZeroSigner } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
 
-import { UtxoResponseItem } from '../bitcoin-client';
-import { useInscriptionByAddressQuery } from '../ordinals/use-inscriptions.query';
+import { TaprootUtxo, UtxoResponseItem } from '../bitcoin-client';
+import { useInscriptionsByAddressQuery } from '../ordinals/inscriptions.query';
 import { useBitcoinPendingTransactionsInputs } from './transactions-by-address.hooks';
 import { useGetUtxosByAddressQuery } from './utxos-by-address.query';
 
+export function filterUtxosWithInscriptions(
+  inscriptions: InscriptionResponseItem[],
+  utxos: TaprootUtxo[] | UtxoResponseItem[]
+) {
+  return utxos.filter(
+    utxo =>
+      !inscriptions?.some(
+        inscription => `${utxo.txid}:${utxo.vout.toString()}` === inscription.output
+      )
+  );
+}
+
 /**
  * Warning: ⚠️ These are **all** UTXOs, including Stamped and Inscribed UTXOs.
- * You should probably use `useSpendableCurrentNativeSegwitAccountUtxos` instead.
+ * You should probably use `useCurrentNativeSegwitAccountSpendableUtxos` instead.
  */
 export function useCurrentNativeSegwitUtxos() {
   const nativeSegwitSigner = useCurrentAccountNativeSegwitIndexZeroSigner();
   return useGetUtxosByAddressQuery(nativeSegwitSigner.address);
 }
 
-function useFilterAddressNativeSegwitInscriptions(address: string) {
+function useFilterInscriptionsByAddress(address: string) {
   const {
-    data: inscriptions,
+    data: inscriptionsList,
     hasNextPage: hasMoreInscriptionsToLoad,
     isLoading: isLoadingInscriptions,
-  } = useInscriptionByAddressQuery(address);
+  } = useInscriptionsByAddressQuery(address);
 
   return useCallback(
     (utxos: UtxoResponseItem[]) => {
@@ -29,20 +43,15 @@ function useFilterAddressNativeSegwitInscriptions(address: string) {
       // are loading, assume nothing is spendable
       if (hasMoreInscriptionsToLoad || isLoadingInscriptions) return [];
 
-      const inscribedUtxos = inscriptions?.pages.flatMap(page => page.results) ?? [];
-      return utxos.filter(
-        utxo =>
-          !inscribedUtxos.some(
-            inscription =>
-              utxo.txid === inscription.tx_id && utxo.vout === Number(inscription.offset)
-          )
-      );
+      const inscriptions = inscriptionsList?.pages.flatMap(page => page.results) ?? [];
+
+      return filterUtxosWithInscriptions(inscriptions, utxos);
     },
-    [hasMoreInscriptionsToLoad, inscriptions?.pages, isLoadingInscriptions]
+    [hasMoreInscriptionsToLoad, inscriptionsList?.pages, isLoadingInscriptions]
   );
 }
 
-function useFilterAddressNativeSegwitPendingTxsUtxos(address: string) {
+function useFilterPendingUtxosByAddress(address: string) {
   const { data: pendingInputs = [] } = useBitcoinPendingTransactionsInputs(address);
 
   return useCallback(
@@ -58,8 +67,8 @@ function useFilterAddressNativeSegwitPendingTxsUtxos(address: string) {
   );
 }
 
-export function useAllSpendableNativeSegwitUtxos(address: string) {
-  const filterOutInscriptions = useFilterAddressNativeSegwitInscriptions(address);
+export function useAllSpendableUtxosByAddress(address: string) {
+  const filterOutInscriptions = useFilterInscriptionsByAddress(address);
   return useGetUtxosByAddressQuery(address, {
     select(utxos) {
       return filterOutInscriptions(utxos);
@@ -67,9 +76,9 @@ export function useAllSpendableNativeSegwitUtxos(address: string) {
   });
 }
 
-function useSpendableAndNotPendingNativeSegwitUtxos(address: string) {
-  const filterOutInscriptions = useFilterAddressNativeSegwitInscriptions(address);
-  const filterOutPendingTxsUtxos = useFilterAddressNativeSegwitPendingTxsUtxos(address);
+function useSpendableAndNotPendingUtxosByAddress(address: string) {
+  const filterOutInscriptions = useFilterInscriptionsByAddress(address);
+  const filterOutPendingTxsUtxos = useFilterPendingUtxosByAddress(address);
 
   return useGetUtxosByAddressQuery(address, {
     select(utxos) {
@@ -78,7 +87,7 @@ function useSpendableAndNotPendingNativeSegwitUtxos(address: string) {
   });
 }
 
-export function useSpendableCurrentNativeSegwitAccountUtxos() {
+export function useCurrentNativeSegwitAccountSpendableUtxos() {
   const nativeSegwitSigner = useCurrentAccountNativeSegwitIndexZeroSigner();
-  return useSpendableAndNotPendingNativeSegwitUtxos(nativeSegwitSigner.address);
+  return useSpendableAndNotPendingUtxosByAddress(nativeSegwitSigner.address);
 }

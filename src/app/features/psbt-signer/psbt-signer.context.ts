@@ -1,13 +1,14 @@
 import { createContext, useContext } from 'react';
 
+import { Inscription } from '@shared/models/inscription.model';
 import { Money } from '@shared/models/money.model';
 
 import { PsbtInput } from './hooks/use-parsed-inputs';
 import { PsbtOutput } from './hooks/use-parsed-outputs';
 
 export interface PsbtSignerContext {
-  accountInscriptionsBeingTransferred: string[];
-  accountInscriptionsBeingReceived: string[];
+  accountInscriptionsBeingTransferred: Inscription[];
+  accountInscriptionsBeingReceived: Inscription[];
   addressNativeSegwit: string;
   addressTaproot: string;
   addressNativeSegwitTotal: Money;
