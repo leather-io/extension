@@ -1,4 +1,4 @@
-import { StacksTransaction } from '@stacks/transactions';
+import { ContractCallPayload, StacksTransaction } from '@stacks/transactions';
 
 export function isSip10Transfer(tx: StacksTransaction) {
   if (!tx.payload || !('functionName' in tx.payload)) return false;
