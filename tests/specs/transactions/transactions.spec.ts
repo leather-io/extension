@@ -1,4 +1,3 @@
-import { Page } from '@playwright/test';
 import { TokenTransferPayload, deserializeTransaction } from '@stacks/transactions';
 import { TestAppPage } from '@tests/page-object-models/test-app.page';
 import { TransactionRequestPage } from '@tests/page-object-models/transaction-request.page';
@@ -9,18 +8,6 @@ import { test } from '../../fixtures/fixtures';
 
 test.describe('Transaction signing', () => {
   let testAppPage: TestAppPage;
-
-  function interceptTransactionBroadcast(page: Page): Promise<Buffer> {
-    return new Promise(resolve => {
-      page.on('request', request => {
-        if (request.url().endsWith('/v2/transactions')) {
-          const requestBody = request.postDataBuffer();
-          if (requestBody === null) return;
-          resolve(requestBody);
-        }
-      });
-    });
-  }
 
   test.beforeEach(async ({ extensionId, globalPage, onboardingPage, context }) => {
     await globalPage.setupAndUseApiCalls(extensionId);
@@ -52,7 +39,7 @@ test.describe('Transaction signing', () => {
   });
 
   test.describe('App initiated STX transfer', () => {
-    test.skip('this it broadcasts correctly with given fee and amount', async ({ context }) => {
+    test('that it broadcasts correctly with given fee and amount', async ({ context }) => {
       await testAppPage.clickStxTransferButton();
       const transactionRequestPage = new TransactionRequestPage(await context.waitForEvent('page'));
 
@@ -63,19 +50,25 @@ test.describe('Transaction signing', () => {
 
       if (!displayedFee) throw new Error('Cannot pull fee from UI');
 
-      const [_, requestBody] = await Promise.all([
-        transactionRequestPage.clickConfirmTransactionButton(),
-        interceptTransactionBroadcast(transactionRequestPage.page),
-      ]);
+      const requestPromise = transactionRequestPage.page.waitForRequest('*/**/v2/transactions');
+
+      await transactionRequestPage.page.route('*/**/v2/transactions', async route => {
+        await route.abort();
+      });
+
+      await transactionRequestPage.clickConfirmTransactionButton();
+
+      const request = await requestPromise;
+      const requestBody = request.postDataBuffer();
+      if (!requestBody) return;
 
       const deserialisedTx = deserializeTransaction(requestBody);
       const payload = deserialisedTx.payload as TokenTransferPayload;
       const amount = Number(payload.amount);
       const fee = Number(deserialisedTx.auth.spendingCondition?.fee);
-
       const parsedDisplayedFee = parseFloat(displayedFee.replace(' STX', ''));
-      test.expect(fee).toEqual(stxToMicroStx(parsedDisplayedFee).toNumber());
 
+      test.expect(fee).toEqual(stxToMicroStx(parsedDisplayedFee).toNumber());
       test.expect(amount).toEqual(102);
     });
   });
