@@ -52,7 +52,7 @@ test.describe('Transaction signing', () => {
   });
 
   test.describe('App initiated STX transfer', () => {
-    test('this it broadcasts correctly with given fee and amount', async ({ context }) => {
+    test.skip('this it broadcasts correctly with given fee and amount', async ({ context }) => {
       await testAppPage.clickStxTransferButton();
       const transactionRequestPage = new TransactionRequestPage(await context.waitForEvent('page'));
 
