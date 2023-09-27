@@ -65,6 +65,7 @@ module.exports = {
     // This rule is off until we can enable tsconfig noUncheckedIndexedAccess
     '@typescript-eslint/no-unnecessary-condition': 'off',
     '@typescript-eslint/consistent-type-definitions': ['error', 'interface'],
+    '@typescript-eslint/array-type': ['error'],
     'no-warning-comments': [0],
 
     'react-hooks/rules-of-hooks': 'error',
