@@ -4,6 +4,8 @@ import { useSelector } from 'react-redux';
 import { StacksNetwork } from '@stacks/network';
 import { ChainID, TransactionVersion } from '@stacks/transactions';
 
+import { NetworkModes } from '@shared/constants';
+
 import { whenStacksChainId } from '@app/common/utils';
 import { useAppDispatch } from '@app/store';
 

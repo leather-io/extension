@@ -41,7 +41,9 @@ async function fetchBnsxName(client: StacksClient, address: string): Promise<str
     });
     if (!res.okay || !res.result) return null;
     const { result } = res;
-    const cv = deserializeCV(result);
+    const cv = deserializeCV(result) as OptionalCV<
+      TupleCV<{ name: BufferCV; namespace: BufferCV }>
+    >;
     if (cv.type === ClarityType.OptionalNone) return null;
     const { name, namespace } = cv.value.data;
     const fullName = `${bytesToAscii(name.buffer)}.${bytesToAscii(namespace.buffer)}`;
@@ -81,7 +83,7 @@ async function fetchBnsxOwner(client: StacksClient, fqn: string): Promise<string
 
   if (!res.okay || !res.result) return null;
   const { result } = res;
-  const cv = deserializeCV(result);
+  const cv = deserializeCV(result) as OptionalCV<TupleCV<{ owner: PrincipalCV; id: UIntCV }>>;
   if (cv.type === ClarityType.OptionalNone) return null;
   const ownerCV = cv.value.data.owner;
   return principalToString(ownerCV);

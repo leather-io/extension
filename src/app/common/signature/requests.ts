@@ -27,6 +27,6 @@ export function getStructuredDataPayloadFromToken(requestToken: string) {
   return {
     ...(result as unknown as CommonSignaturePayload),
     message: deserializeCV(Buffer.from(result.message, 'hex')),
-    domain: deserializeCV(Buffer.from(result.domain, 'hex')),
+    domain: deserializeCV(Buffer.from(result.domain, 'hex')) as StructuredMessageDataDomain,
   };
 }
