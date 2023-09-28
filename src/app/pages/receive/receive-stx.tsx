@@ -16,7 +16,7 @@ export function ReceiveStxModal() {
 
   function copyToClipboard() {
     void analytics.track('copy_stx_address_to_clipboard');
-    toast.success('Copied to clipboard!');
+    toast.success('Copied to clipboard');
     onCopy();
   }
 
