@@ -7,7 +7,7 @@ import { BaseDrawer } from '@app/components/drawer/base-drawer';
 import { Caption } from '@app/components/typography';
 
 interface IncreaseFeeDrawerProps {
-  feeForm: JSX.Element;
+  feeForm: React.JSX.Element;
   onClose: () => void;
   isShowing: boolean;
 }

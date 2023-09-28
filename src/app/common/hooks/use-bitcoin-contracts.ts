@@ -150,9 +150,8 @@ export function useBitcoinContracts() {
     await bitcoinContractInterface.get_wallet_balance();
 
     try {
-      const acceptedBitcoinContract = await bitcoinContractInterface.accept_offer(
-        bitcoinContractJSON
-      );
+      const acceptedBitcoinContract =
+        await bitcoinContractInterface.accept_offer(bitcoinContractJSON);
 
       const signedBitcoinContract = await sendAcceptedBitcoinContractOfferToProtocolWallet(
         acceptedBitcoinContract,

@@ -1,4 +1,3 @@
-// @vitest-environment jsdom
 import { PostConditionMode } from '@stacks/transactions';
 import { generateContractCallToken } from '@tests-legacy/utils/transation-test-utils';
 import { decodeToken } from 'jsontokens';

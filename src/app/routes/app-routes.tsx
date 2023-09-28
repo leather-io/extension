@@ -176,7 +176,7 @@ function useAppRoutes() {
 
   return createHashRouter(
     createRoutesFromElements(
-      <Route path={RouteUrls.Container} element={<Container />}>
+      <Route element={<Container />}>
         <Route
           path={RouteUrls.Home}
           element={

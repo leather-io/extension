@@ -18,7 +18,7 @@ type FetchAllBitcoinFeeEstimatesResp = Awaited<
 >;
 
 export function useGetAllBitcoinFeeEstimatesQuery<
-  T extends unknown = FetchAllBitcoinFeeEstimatesResp
+  T extends unknown = FetchAllBitcoinFeeEstimatesResp,
 >(options?: AppUseQueryConfig<FetchAllBitcoinFeeEstimatesResp, T>) {
   const client = useBitcoinClient();
   return useQuery({

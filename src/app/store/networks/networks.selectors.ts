@@ -28,7 +28,7 @@ export const selectNetworks = createSelector(
     ({
       ...defaultNetworksKeyedById,
       ...transformNetworkStateToMultichainStucture(state),
-    } as Dictionary<NetworkConfiguration>)
+    }) as Dictionary<NetworkConfiguration>
 );
 
 export const selectCurrentNetworkId = createSelector(
