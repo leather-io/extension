@@ -10,7 +10,6 @@ const CopyWebpackPlugin = require('copy-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin');
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
-const SpeedMeasurePlugin = require('speed-measure-webpack-plugin');
 
 const getBranch = () => {
   const branch = execSync(`git rev-parse --abbrev-ref HEAD`, { encoding: 'utf8' }).trim();
@@ -43,11 +42,6 @@ const IS_DEV = WALLET_ENVIRONMENT === 'development';
 const IS_PROD = !IS_DEV;
 
 const ANALYZE_BUNDLE = process.env.ANALYZE === 'true';
-
-const speedMeasurePlugin = new SpeedMeasurePlugin({
-  disable: !ANALYZE_BUNDLE,
-  granularLoaderData: true,
-});
 
 const APP_TITLE = 'Stacks test app';
 
@@ -194,4 +188,4 @@ if (ANALYZE_BUNDLE) {
   config.plugins.push(new BundleAnalyzerPlugin());
 }
 
-module.exports = speedMeasurePlugin.wrap(config);
+module.exports = config;

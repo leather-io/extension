@@ -1,5 +1,5 @@
 import { RpcRequest } from '@btckit/types';
-import { StacksProvider, getStacksProvider } from '@stacks/connect';
+import type { StacksProvider } from '@stacks/connect';
 
 import { BRANCH, COMMIT_SHA } from '@shared/environment';
 import {
@@ -259,7 +259,7 @@ window.StacksProvider = provider;
 
 if (typeof window.btc === 'undefined') {
   (window as any).btc = {
-    request: getStacksProvider()?.request,
+    request: (window as any).StacksProvider?.request,
     listen(event: 'accountChange', callback: (arg: any) => void) {
       function handler(e: MessageEvent) {
         if (!e.data) return;

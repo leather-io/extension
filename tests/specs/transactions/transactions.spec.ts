@@ -24,6 +24,9 @@ test.describe('Transaction signing', () => {
     await accountsPage.close();
   });
 
+  // These tests often break if ran in parallel
+  test.describe.configure({ mode: 'serial' });
+
   test.describe('Contract calls', () => {
     test('that it validates against insufficient funds when performing a contract call', async ({
       context,

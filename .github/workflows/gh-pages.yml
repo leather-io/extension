@@ -16,9 +16,6 @@ jobs:
       - name: Build prod
         run: yarn build
 
-      - name: Run jest
-        run: yarn test:unit --coverage
-
       - name: Make badge maker
         run: npx make-coverage-badge
 

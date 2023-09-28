@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 
 import { ChainID } from '@stacks/transactions';
 import { Input, Stack } from '@stacks/ui';
-import { NetworkSelectors } from '@tests-legacy/integration/network.selectors';
+import { NetworkSelectors } from '@tests/selectors/network.selectors';
 import { Formik } from 'formik';
 import { token } from 'leather-styles/tokens';
 

@@ -20,10 +20,8 @@ import { rpcMessageHandler } from './messaging/rpc-message-handler';
 initContextMenuActions();
 warnUsersAboutDevToolsDangers();
 
-const IS_TEST_ENV = process.env.TEST_ENV === 'true';
-
 chrome.runtime.onInstalled.addListener(async details => {
-  if (details.reason === 'install' && !IS_TEST_ENV) {
+  if (details.reason === 'install' && process.env.WALLET_ENVIRONMENT !== 'testing') {
     await setNewAppIcon();
     await chrome.tabs.create({
       url: chrome.runtime.getURL(`index.html#${RouteUrls.RequestDiagnostics}`),

@@ -13,7 +13,7 @@ const inscriptionQueryOptions = {
 /**
  * @param path - inscription/:inscription_id
  */
-export function fetchInscription() {
+function fetchInscription() {
   return async (id: string) => {
     const res = await fetch(`${HIRO_INSCRIPTIONS_API_URL}/${id}`);
     if (!res.ok) throw new Error('Error retrieving inscription metadata');

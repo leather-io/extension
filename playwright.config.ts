@@ -4,12 +4,10 @@ import { defineConfig, devices } from '@playwright/test';
  * See https://playwright.dev/docs/test-configuration
  */
 export default defineConfig({
-  globalSetup: './global-playwright-setup.js',
+  globalSetup: './tests/global-playwright-setup.js',
   testDir: './tests',
   timeout: 30 * 1000,
-  expect: {
-    timeout: 5000,
-  },
+  expect: { timeout: 5000 },
   fullyParallel: true,
   forbidOnly: !!process.env.CI,
   retries: process.env.CI ? 2 : 0,

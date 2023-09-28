@@ -1,7 +1,5 @@
 import { HIRO_API_BASE_URL_MAINNET, HIRO_API_BASE_URL_TESTNET } from '@shared/constants';
 
-export { setupMocks } from './playwright-mocks';
-
 export const SECRET_KEY =
   'invite helmet save lion indicate chuckle world pride afford hard broom draft';
 
