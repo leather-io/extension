@@ -2,7 +2,7 @@ import { Outlet } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 
 import { Box, Stack } from '@stacks/ui';
-import { HomePageSelectorsLegacy } from '@tests-legacy/page-objects/home.selectors';
+import { HomePageSelectors } from '@tests/selectors/home.selectors';
 
 import { LEDGER_BITCOIN_ENABLED } from '@shared/environment';
 
@@ -27,7 +27,7 @@ export function AssetsList() {
   const navigate = useNavigate();
 
   return (
-    <Stack pb="extra-loose" spacing="loose" data-testid={HomePageSelectorsLegacy.BalancesList}>
+    <Stack pb="extra-loose" spacing="loose" data-testid={HomePageSelectors.BalancesList}>
       {/* Temporary duplication during Ledger Bitcoin feature dev */}
       {whenWallet({
         software: (

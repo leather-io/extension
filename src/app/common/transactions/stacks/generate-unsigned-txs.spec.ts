@@ -1,5 +1,5 @@
 import { PostConditionMode } from '@stacks/transactions';
-import { generateContractCallToken } from '@tests-legacy/utils/transation-test-utils';
+import { generateContractCallToken } from '@tests/transation-test-utils';
 import { decodeToken } from 'jsontokens';
 
 import { generateUnsignedTransaction } from './generate-unsigned-txs';

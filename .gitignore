@@ -15,7 +15,6 @@ web-ext-artifacts/
 .yalc/
 yalc.lock
 coverage
-.jest-cache
 release_body.md
 trace*
 /test-results/

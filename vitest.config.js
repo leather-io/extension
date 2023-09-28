@@ -11,7 +11,7 @@ export default defineConfig({
     },
     globals: true,
     environment: 'node',
-    setupFiles: './tests-legacy/unit-test.setup.js',
+    setupFiles: './tests/unit/unit-test.setup.js',
     deps: { interopDefault: true },
     silent: false,
   },
@@ -23,7 +23,6 @@ export default defineConfig({
       '@inpage': path.resolve('./src/inpage'),
       '@app': path.resolve('./src/app'),
       '@tests': path.resolve('./tests'),
-      '@tests-legacy': path.resolve('./tests-legacy'),
     },
   },
 });

@@ -8,7 +8,6 @@ const sentryAuthToken = process.env.SENTRY_AUTH_TOKEN;
 
 config.mode = 'production';
 
-// Basically, disable any code splitting stuff
 config.optimization = {
   ...config.optimization,
   minimize: false,

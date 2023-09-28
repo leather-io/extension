@@ -25,15 +25,12 @@ test.describe('Profile updating', () => {
   test.beforeEach(async ({ extensionId, globalPage, onboardingPage, context }) => {
     await globalPage.setupAndUseApiCalls(extensionId);
     await onboardingPage.signInWithTestAccount(extensionId);
-
     testAppPage = await TestAppPage.openDemoPage(context);
     await testAppPage.signIn();
     const accountsPage = await context.waitForEvent('page');
     await accountsPage.locator('text="Account 1"').click();
     await testAppPage.page.bringToFront();
-    await testAppPage.page.click('text=Profile', {
-      timeout: 30000,
-    });
+    await testAppPage.page.click('text=Profile');
     await accountsPage.close();
   });
 

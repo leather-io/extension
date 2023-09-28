@@ -25,6 +25,14 @@ export class HomePage {
     WalletDefaultNetworkConfigurationIds.testnet
   );
 
+  $signOutConfirmHasBackupCheckbox = createTestSelector(
+    SettingsSelectors.SignOutConfirmHasBackupCheckbox
+  );
+  $signOutConfirmPasswordDisable = createTestSelector(
+    SettingsSelectors.SignOutConfirmPasswordDisable
+  );
+  $signOutDeleteWalletBtn = createTestSelector(SettingsSelectors.BtnSignOutActuallyDeleteWallet);
+
   constructor(page: Page) {
     this.page = page;
     this.drawerActionButton = page.getByTestId(HomePageSelectors.DrawerHeaderActionBtn);

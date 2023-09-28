@@ -1,6 +1,6 @@
 import { HDKey } from '@scure/bip32';
 import { mnemonicToSeedSync } from '@scure/bip39';
-import { SECRET_KEY } from '@tests-legacy/mocks';
+import { SECRET_KEY } from '@tests/mocks';
 
 import { deriveAddressIndexKeychainFromAccount } from './bitcoin.utils';
 import { deriveTaprootAccount, getTaprootPaymentFromAddressIndex } from './p2tr-address-gen';
