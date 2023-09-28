@@ -1,6 +1,4 @@
 export enum RouteUrls {
-  Container = '/',
-
   // Onboarding routes
   RequestDiagnostics = '/get-started/request-diagnostics',
   Onboarding = '/get-started',

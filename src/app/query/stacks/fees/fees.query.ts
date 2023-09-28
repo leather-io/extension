@@ -29,7 +29,7 @@ type FetchTransactionFeeEstimationResp = Awaited<
 >;
 
 export function useGetStacksTransactionFeeEstimationQuery<
-  T extends unknown = FetchTransactionFeeEstimationResp
+  T extends unknown = FetchTransactionFeeEstimationResp,
 >(
   estimatedLen: number | null,
   transactionPayload: string,

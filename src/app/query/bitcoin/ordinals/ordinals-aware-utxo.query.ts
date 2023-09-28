@@ -73,7 +73,7 @@ export function useOrdinalsAwareUtxoQueries(utxos: TaprootUtxo[] | btc.Transacti
         queryKey: makeOrdinalsAwareUtxoQueryKey(txId, txIndex),
         queryFn: () => fetchOrdinalsAwareUtxo(txId, txIndex),
         select: (resp: OrdApiInscriptionTxOutput) =>
-          ({ ...utxo, ...resp } as TaprootUtxo & OrdApiInscriptionTxOutput),
+          ({ ...utxo, ...resp }) as TaprootUtxo & OrdApiInscriptionTxOutput,
         ...queryOptions,
       };
     }),
