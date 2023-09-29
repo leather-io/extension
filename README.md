@@ -87,7 +87,7 @@ The extension is now built in the `./dist` folder.
 To build the extension in Firefox mode, the `TARGET_BROWSER=firefox` variable needs to be set.
 
 ```bash
-yarn && yarn prepare && yarn build
+yarn && yarn prepare && TARGET_BROWSER=firefox yarn build
 ```
 
 Note that when building in a clean environment, some code may vary between this and the submitted build. This is because some variables are set within the scope of the production build's CI.
