@@ -53,12 +53,11 @@ export function RequestPassword({ title, caption, onSuccess }: RequestPasswordPr
 
   return (
     <Stack
-      maxWidth={['100%', 'centeredPageFullWidth']}
       pb={['space.05', 'unset']}
       px={['space.05', 'space.04']}
       gap="space.05"
       textAlign={['center', 'center']}
-      width="100%"
+      margin="auto"
     >
       <styled.h1 textStyle={['heading.03', 'heading.02']}>{title}</styled.h1>
       <styled.p textStyle="body.02">{(isRunning && waitingMessage) || caption}</styled.p>
