@@ -39,23 +39,24 @@ export function useSendInscriptionForm() {
     isCheckingFees,
     async chooseTransactionFee(values: OrdinalSendFormValues) {
       setIsCheckingFees(true);
-      // Check tx with lowest fee for errors before routing and
-      // generating the final transaction with the chosen fee to send
-      const resp = coverFeeFromAdditionalUtxos(values);
-
-      if (!resp) {
-        setShowError(
-          'Insufficient funds to cover fee. Deposit some BTC to your Native Segwit address.'
-        );
-        return;
-      }
-
-      if (Number(inscription.offset) !== 0) {
-        setShowError('Sending inscriptions at non-zero offsets is unsupported');
-        return;
-      }
 
       try {
+        // Check tx with lowest fee for errors before routing and
+        // generating the final transaction with the chosen fee to send
+        const resp = coverFeeFromAdditionalUtxos(values);
+
+        if (!resp) {
+          setShowError(
+            'Insufficient funds to cover fee. Deposit some BTC to your Native Segwit address.'
+          );
+          return;
+        }
+
+        if (Number(inscription.offset) !== 0) {
+          setShowError('Sending inscriptions at non-zero offsets is unsupported');
+          return;
+        }
+
         const numInscriptionsOnUtxo = await getNumberOfInscriptionOnUtxo(utxo.txid, utxo.vout);
         if (numInscriptionsOnUtxo > 1) {
           setShowError('Sending inscription from utxo with multiple inscriptions is unsupported');
@@ -63,8 +64,12 @@ export function useSendInscriptionForm() {
         }
       } catch (error) {
         void analytics.track('ordinals_dot_com_unavailable', { error });
-        setShowError('Unable to establish if utxo has multiple inscriptions');
-        return;
+
+        let message = 'Unable to establish if utxo has multiple inscriptions';
+        if (error instanceof Error) {
+          message = error.message;
+        }
+        setShowError(message);
       } finally {
         setIsCheckingFees(false);
       }
