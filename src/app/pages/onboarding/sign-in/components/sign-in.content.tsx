@@ -15,11 +15,8 @@ export function SignInContent({
         Sign in with your Secret Key
       </styled.h1>
       <styled.p textStyle={['label.01', 'heading.05']} mb="space.02">
-        Enter your Secret Key to sign in with an existing wallet
+        Speed things up by pasting your entire Secret Key in one go.
       </styled.p>
-      <styled.span textStyle="body.02">
-        Tip: You can paste in your entire Secret Key at once
-      </styled.span>
       <LeatherButton
         mt="space.03"
         variant="link"

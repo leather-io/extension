@@ -14,6 +14,7 @@ export function TwoColumnLayout({
       flexDirection={['column', 'column', 'column', 'row']}
       paddingTop="space.06"
       px={['space.05', 'space.00']}
+      mx={['auto', 'space.03', 'space.06']}
       gap="space.05"
       width={['100%', 'unset']}
     >
@@ -23,8 +24,7 @@ export function TwoColumnLayout({
         flexDirection="column"
         padding="space.00"
         gap="space.07"
-        width={['100%', 'centeredPageFullWidth']}
-        mx={['auto', 'auto', 'auto', 'unset']}
+        mx={['auto', 'space.03', 'space.03', 'space.03']}
       >
         <styled.div maxWidth="440px">{leftColumn}</styled.div>
       </Flex>
@@ -33,7 +33,7 @@ export function TwoColumnLayout({
         gap="space.05"
         alignItems={['center', 'center', 'center', 'flex-start']}
         flexDirection="column"
-        px={['space.00', 'space.08', 'space.08', 'space.02']}
+        px={['space.00', 'space.10', 'space.10', 'space.02']}
         width={['100%', '600px']}
       >
         <Stack

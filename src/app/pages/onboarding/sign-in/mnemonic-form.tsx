@@ -19,15 +19,12 @@ import {
 } from '../../../components/secret-key/mnemonic-key/utils/error-handling';
 import { validationSchema } from '../../../components/secret-key/mnemonic-key/utils/validation';
 
-export function MnemonicForm({
-  mnemonic,
-  setMnemonic,
-  twentyFourWordMode,
-}: {
+interface MnemonicFormProps {
   mnemonic: (string | null)[];
   setMnemonic: (mnemonic: (string | null)[]) => void;
   twentyFourWordMode: boolean;
-}): React.JSX.Element {
+}
+export function MnemonicForm({ mnemonic, setMnemonic, twentyFourWordMode }: MnemonicFormProps) {
   const { submitMnemonicForm, error, isLoading } = useSignIn();
 
   function mnemonicWordUpdate(index: number, word: string) {

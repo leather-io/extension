@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 
 import { OnboardingSelectors } from '@tests/selectors/onboarding.selectors';
 import { Form, Formik } from 'formik';
-import { Stack, styled } from 'leather-styles/jsx';
+import { styled } from 'leather-styles/jsx';
 import { debounce } from 'ts-debounce';
 import * as yup from 'yup';
 
@@ -126,8 +126,11 @@ function SetPasswordPage() {
         <Form>
           <TwoColumnLayout
             leftColumn={
-              <Stack maxWidth="440px" gap="space.06" flex="1">
-                <styled.h1 textStyle={['heading.03', 'display.02']} mt="space.00">
+              <>
+                <styled.h1
+                  textStyle={['heading.03', 'heading.03', 'heading.03', 'display.02']}
+                  mt="space.00"
+                >
                   Set a password
                 </styled.h1>
                 <styled.p textStyle={['label.01', 'heading.05']}>
@@ -137,7 +140,7 @@ function SetPasswordPage() {
                   You'll need just your Secret Key to access your wallet on another device, or this
                   one if you lose your password.
                 </styled.p>
-              </Stack>
+              </>
             }
             rightColumn={
               <>

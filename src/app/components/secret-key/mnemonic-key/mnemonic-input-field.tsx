@@ -1,9 +1,8 @@
-import { useCallback, useState } from 'react';
-
 import { TextField } from '@radix-ui/themes';
 import { useField } from 'formik';
 import { css } from 'leather-styles/css';
 import { FlexProps, styled } from 'leather-styles/jsx';
+import { useFocus } from 'use-events';
 
 import { useIsFieldDirty } from '@app/common/form-utils';
 
@@ -18,19 +17,8 @@ interface InputFieldProps extends FlexProps {
 }
 export function InputField({ dataTestId, name, onPaste, onChange, value }: InputFieldProps) {
   const [field, meta] = useField(name);
-  const [isFocused, setIsFocused] = useState(false);
+  const [isFocused, focusBind] = useFocus();
   const isDirty = useIsFieldDirty(name);
-
-  const getBorderColour = useCallback(() => {
-    if (isDirty && meta.error) {
-      // FIXME #4130: show a red border on error - couldn't get it working
-      return 'colors.error';
-    }
-    if (isFocused) {
-      return 'accent.text-primary';
-    }
-    return 'none';
-  }, [isDirty, isFocused, meta.error]);
 
   return (
     <TextField.Root
@@ -42,6 +30,7 @@ export function InputField({ dataTestId, name, onPaste, onChange, value }: Input
        * then focus border can be controlled more easily
        */
       color="brown"
+      data-state={isDirty && meta.error && 'error'}
       className={css({
         display: 'flex',
         alignSelf: 'stretch',
@@ -49,9 +38,11 @@ export function InputField({ dataTestId, name, onPaste, onChange, value }: Input
         width: '176px',
         gap: 'space.01',
         px: 'space.03',
-        border: '2px solid',
-        borderColor: getBorderColour(),
+        _focusWithin: {
+          border: `2px solid currentColor`,
+        },
         borderRadius: '4px',
+        '&[data-state=error]': { border: '2px solid', borderColor: 'error !important' }, // !important needed
       })}
     >
       <TextField.Slot>
@@ -72,13 +63,12 @@ export function InputField({ dataTestId, name, onPaste, onChange, value }: Input
         id={name}
         spellCheck="false"
         type={isFocused ? 'text' : 'password'}
-        onFocus={() => setIsFocused(!isFocused)}
         {...field}
         value={value || field.value || ''}
-        // using onChangeCapture + onBlurCapture keep Formik validation
+        // using onChangeCapture to keep Formik validation
         onChangeCapture={onChange}
-        onBlurCapture={() => setIsFocused(!isFocused)}
         onPaste={onPaste}
+        {...focusBind}
       />
     </TextField.Root>
   );
