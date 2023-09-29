@@ -4,9 +4,9 @@ import ecc from '@bitcoinerlab/secp256k1';
 import { sha256 } from '@noble/hashes/sha256';
 import { base58check } from '@scure/base';
 import { HDKey } from '@scure/bip32';
+import { mnemonicToSeedSync } from '@scure/bip39';
 import { hashP2WPKH } from '@stacks/transactions';
 import { BIP32Factory } from 'bip32';
-import * as bip39 from 'bip39';
 import * as bitcoin from 'bitcoinjs-lib';
 
 import {
@@ -22,35 +22,6 @@ import {
 
 describe('Bitcoin SegWit (P2WPKH-P2SH) address generation', () => {
   const bip32 = BIP32Factory(ecc);
-  //
-  // https://github.com/bitcoinjs/bitcoinjs-lib/blob/master/test/integration/bip32.spec.ts
-  describe('Sanity check tests copied from `bitcoinjs-lib` vs other libs', () => {
-    test('can create a BIP49, bitcoin testnet, account 0, external address', async () => {
-      const mnemonic =
-        'abandon abandon abandon abandon abandon abandon abandon abandon abandon abandon abandon about';
-      const seed = bip39.mnemonicToSeedSync(mnemonic);
-      expect(seed).toEqual(Buffer.from(await deriveBtcBip49SeedFromMnemonic(mnemonic)));
-
-      const root = bip32.fromSeed(seed);
-      const keychain = deriveRootBtcKeychain(seed);
-      expect(root.privateKey?.toString('hex')).toEqual(
-        Buffer.from(keychain.privateKey!).toString('hex')
-      );
-
-      const path = "m/49'/1'/0'/0/0";
-      const child = root.derivePath(path);
-
-      const bitcoinPayment = bitcoin.payments.p2sh({
-        redeem: bitcoin.payments.p2wpkh({
-          pubkey: child.publicKey,
-          network: bitcoin.networks.testnet,
-        }),
-        network: bitcoin.networks.testnet,
-      });
-
-      expect(bitcoinPayment.address).toEqual('2Mww8dCYPUpKHofjgcXcBCEGmniw9CoaiD2');
-    });
-  });
 
   const phrase =
     'above view guide write long gift chimney own guide mirror word ski code monster gauge bracket until stem feed scale smart truth toy limb';
@@ -110,8 +81,8 @@ describe('Bitcoin SegWit (P2WPKH-P2SH) address generation', () => {
     ] as const;
 
     describe.each(keys)('Core libraries: bip32, bip39, bitcoinjs-lib', key => {
-      const seed = bip39.mnemonicToSeedSync(phrase);
-      const root = bip32.fromSeed(seed);
+      const seed = mnemonicToSeedSync(phrase);
+      const root = bip32.fromSeed(Buffer.from(seed));
       const child = root.derivePath(key.path);
 
       describe(key.path, () => {

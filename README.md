@@ -66,6 +66,29 @@ yarn playwright install --with-deps
 
 Note that the installed browsers are tied to the version of Playwright being used, and it may be necessary to run the above command again in some situations, such as when upgrading Playwright or switching branches. [Read the documentation for more information](https://playwright.dev/docs/cli#install-system-dependencies).
 
+### Integration tests
+
+All integration tests can be run using:
+
+```bash
+yarn test:integration
+```
+
+To run a suite of tests you can use:
+
+```bash
+yarn playwright test specs/TEST.spec.ts
+yarn playwright test tests/specs --shard=3/8
+```
+
+### Unit tests
+
+Unit tests can be run with vitest using:
+
+```bash
+yarn test:unit
+```
+
 ## Production
 
 [See instructions on Hiro.so for installing from source for production usage.](https://www.hiro.so/wallet/install-web-source)
