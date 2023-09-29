@@ -1,7 +1,8 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import { validateMnemonic } from 'bip39';
+import { validateMnemonic } from '@scure/bip39';
+import { wordlist } from '@scure/bip39/wordlists/english';
 
 import { RouteUrls } from '@shared/route-urls';
 
@@ -50,7 +51,7 @@ export function useSignIn() {
         handleSetError('Entering your Secret Key is required.');
       }
 
-      if (!validateMnemonic(parsedKeyInput)) {
+      if (!validateMnemonic(parsedKeyInput, wordlist)) {
         handleSetError();
         return;
       }
