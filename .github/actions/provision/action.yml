@@ -24,7 +24,5 @@ runs:
         command: yarn --frozen-lockfile
 
     - name: Pandacodegen
-      # Panda runs in yarn `preprepre`, so only run if there's a catch hit
-      if: steps.cache.outputs.cache-hit == 'true'
       run: yarn panda codegen
       shell: bash
