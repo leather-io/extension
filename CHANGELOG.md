@@ -1,3 +1,24 @@
+## [6.9.1](https://github.com/leather-wallet/extension/compare/v6.9.0...v6.9.1) (2023-10-02)
+
+
+### Bug Fixes
+
+* add array notation lint ([481b28d](https://github.com/leather-wallet/extension/commit/481b28d7c1a6ddbf8c1619887b7b71390e64b425))
+* add spam filtering to fungible token assets, closes [#4252](https://github.com/leather-wallet/extension/issues/4252) ([b56c27b](https://github.com/leather-wallet/extension/commit/b56c27ba5e5f8da85a9582340671aef0ba1c584f))
+* reenable transak, closes [#4267](https://github.com/leather-wallet/extension/issues/4267) ([b2fd8c3](https://github.com/leather-wallet/extension/commit/b2fd8c3ce0b503b53bc10843d4d217741a133eba))
+* send inscription error processing, closes [#4286](https://github.com/leather-wallet/extension/issues/4286) ([f73f3a4](https://github.com/leather-wallet/extension/commit/f73f3a44979aa3147537806217a2954a38acedc9))
+* set background colour of dialog for dark mode, closes [#4282](https://github.com/leather-wallet/extension/issues/4282) ([b4e9b75](https://github.com/leather-wallet/extension/commit/b4e9b75cd2b75a072a4d6517d94175de21c03d5c))
+* stx transfer test ([da669d1](https://github.com/leather-wallet/extension/commit/da669d1761d56807760da8e32f5c0704011316c5))
+* temporarily disable test ([a149517](https://github.com/leather-wallet/extension/commit/a1495171ee7509e8e52cd9db70901460918eba5b))
+
+
+### Internal
+
+* missing env var ([7f7c7c5](https://github.com/leather-wallet/extension/commit/7f7c7c526f0fa28a1c9cfb07db9f2e1a291a3316))
+* remove legacy integration tests ([6c507c2](https://github.com/leather-wallet/extension/commit/6c507c24013c7c920f4bcca36f6d824dc9e38768))
+* ugprade packages ([41ec75c](https://github.com/leather-wallet/extension/commit/41ec75c6d3ecedb694ff53eec6e907d6c4fd7fef))
+* upgrade scure/noble pkgs ([949311a](https://github.com/leather-wallet/extension/commit/949311aaaf0ab6f91e03eabbe8214ee305a0b4cb))
+
 ## [6.9.0](https://github.com/leather-wallet/extension/compare/v6.8.2...v6.9.0) (2023-09-26)
 
 
