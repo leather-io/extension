@@ -13,8 +13,8 @@ jobs:
 
       - uses: ./.github/actions/provision
 
-      - name: Build prod
-        run: yarn build
+      - name: Build
+        run: yarn test:coverage
 
       - name: Make badge maker
         run: npx make-coverage-badge
