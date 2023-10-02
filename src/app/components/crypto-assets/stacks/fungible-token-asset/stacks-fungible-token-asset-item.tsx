@@ -8,6 +8,7 @@ import { Money } from '@shared/models/money.model';
 
 import { getImageCanonicalUri } from '@app/common/crypto-assets/stacks-crypto-asset.utils';
 import { formatContractId, getTicker } from '@app/common/utils';
+import { spamFilter } from '@app/common/utils/spam-filter';
 
 import { StacksFungibleTokenAssetItemLayout } from './stacks-fungible-token-asset-item.layout';
 
@@ -30,16 +31,15 @@ export const StacksFungibleTokenAssetItem = forwardRefWithAs(
       (contractAssetName.includes('::') ? getAssetName(contractAssetName) : contractAssetName);
     const imageCanonicalUri = getImageCanonicalUri(asset.imageCanonicalUri, asset.name);
     const caption = symbol || getTicker(friendlyName);
-
     return (
       <StacksFungibleTokenAssetItemLayout
         avatar={avatar}
         balance={balance}
-        caption={caption}
+        caption={spamFilter(caption)}
         data-testid={dataTestId}
         imageCanonicalUri={imageCanonicalUri}
         ref={ref}
-        title={friendlyName}
+        title={spamFilter(friendlyName)}
         {...rest}
       />
     );
