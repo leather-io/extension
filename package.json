@@ -31,8 +31,7 @@
     "prod:analyze": "cross-env WALLET_ENVIRONMENT=production ANALYZE=true webpack -p",
     "test:integration": "playwright test",
     "test:unit": "vitest run",
-    "test:coverage": "WALLET_ENVIRONMENT=testing jest --collect-coverage",
-    "test:watch": "WALLET_ENVIRONMENT=testing jest --watch",
+    "test:coverage": "vitest run --coverage",
     "typecheck": "tsc --noEmit",
     "prepare": "panda codegen"
   },
