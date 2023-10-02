@@ -1,7 +1,6 @@
 import { FiCheck, FiCopy } from 'react-icons/fi';
 
 import { Box, Flex, color } from '@stacks/ui';
-import { UserAreaSelectors } from '@tests-legacy/integration/user-area.selectors';
 
 interface AssetItemCopyIconProps {
   hasCopied: boolean;
@@ -13,7 +12,7 @@ export function AssetItemCopyIcon({ hasCopied }: AssetItemCopyIconProps) {
       <Box
         size="16px"
         color={color('text-caption')}
-        data-testid={UserAreaSelectors.AccountCopyAddress}
+        data-testid="account-copy-address"
         as={hasCopied ? FiCheck : FiCopy}
         mt="2px"
       />

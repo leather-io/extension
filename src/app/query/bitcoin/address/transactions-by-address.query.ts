@@ -5,7 +5,7 @@ import { BitcoinTx } from '@shared/models/transactions/bitcoin-transaction.model
 import { AppUseQueryConfig } from '@app/query/query-config';
 import { useBitcoinClient } from '@app/store/common/api-clients.hooks';
 
-const staleTime = 5 * 1000;
+const staleTime = 10 * 1000;
 
 const queryOptions = { staleTime, refetchInterval: staleTime };
 
@@ -34,7 +34,7 @@ export function useGetBitcoinTransactionsByAddressesQuery<T extends unknown = Bi
     queries: addresses.map(address => {
       return {
         enabled: !!address,
-        queryKey: ['btc-txs-by-addresses', address],
+        queryKey: ['btc-txs-by-address', address],
         queryFn: () => client.addressApi.getTransactionsByAddress(address),
         ...queryOptions,
         ...options,

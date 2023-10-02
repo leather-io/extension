@@ -6,7 +6,7 @@ runs:
     - name: Set up node
       uses: actions/setup-node@v3
       with:
-        node-version: 16
+        node-version: 18
 
     - uses: actions/cache@v3
       id: cache
@@ -14,12 +14,14 @@ runs:
         path: '**/node_modules'
         key: ${{ runner.os }}-${{ hashFiles('**/yarn.lock') }}-${{ hashFiles('**/package.json') }}
 
-    - name: Install dependencies
+    - uses: nick-fields/retry@v2
       if: steps.cache.outputs.cache-hit != 'true'
       env:
         PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD: 1
-      run: yarn --frozen-lockfile
-      shell: bash
+      with:
+        timeout_minutes: 5
+        max_attempts: 3
+        command: yarn --frozen-lockfile
 
     - name: Pandacodegen
       run: yarn panda codegen

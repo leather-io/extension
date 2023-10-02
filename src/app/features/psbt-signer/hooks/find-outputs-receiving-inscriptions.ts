@@ -24,8 +24,8 @@ export function findOutputsReceivingInscriptions({
   return psbtInputs
     .flatMap(input => {
       if (input.inscription) {
-        const inscription = inscriptions.find(inscription =>
-          input.inscription?.includes(inscription.id)
+        const inscription = inscriptions.find(
+          inscription => input.inscription?.includes(inscription.id)
         );
 
         // Offset is zero indexed, so 1 is added here to match the sats total

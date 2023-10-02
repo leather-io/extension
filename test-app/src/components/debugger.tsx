@@ -35,7 +35,6 @@ import {
   uintCV,
 } from '@stacks/transactions';
 import { Box, Button, ButtonGroup, Text } from '@stacks/ui';
-import { WalletPageSelectors } from '@tests-legacy/page-objects/wallet.selectors';
 import { TestAppSelectors } from '@tests/selectors/test-app.selectors';
 import BN from 'bn.js';
 
@@ -364,7 +363,7 @@ export const Debugger = () => {
       </Text>
       {txId && (
         <Text textStyle="body.large" display="block" my={'base'}>
-          <Text color="green" fontSize={1} data-testid={WalletPageSelectors.StatusMessage}>
+          <Text color="green" fontSize={1} data-testid="status-message">
             Successfully broadcasted &quot;{txType}&quot;
           </Text>
           <ExplorerLink txId={txId} />

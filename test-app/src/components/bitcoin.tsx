@@ -20,7 +20,7 @@ const bitcoinTestnet: BitcoinNetwork = {
   bech32: 'tb',
   pubKeyHash: 0x6f,
   scriptHash: 0xc4,
-  wif: 0xef,
+  wif: 0xef,  
 };
 
 // For testing sBTC w/ OP_RETURN in script

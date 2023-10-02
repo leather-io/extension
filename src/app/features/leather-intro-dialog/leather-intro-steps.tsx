@@ -3,6 +3,7 @@ import Confetti from 'react-dom-confetti';
 
 import { Dialog } from '@radix-ui/themes';
 import { Inset } from '@radix-ui/themes';
+import { css } from 'leather-styles/css';
 import { Box, Flex, Stack, styled } from 'leather-styles/jsx';
 
 import { HasChildren } from '@app/common/has-children';
@@ -19,7 +20,7 @@ export function LeatherIntroDialog({ children }: HasChildren) {
         // Prevent immediate closing, force interation
         onEscapeKeyDown={e => e.preventDefault()}
         onInteractOutside={e => e.preventDefault()}
-        style={{ maxWidth: '500px' }}
+        className={css({ maxWidth: '500px', backgroundColor: 'accent.background-primary' })}
       >
         {children}
       </Dialog.Content>

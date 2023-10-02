@@ -29,21 +29,14 @@
       "@inpage/*": ["inpage/*"],
       "@app/*": ["app/*"],
       "@tests/*": ["../tests/*"],
-      "@tests-legacy/*": ["../tests-legacy/*"],
+
       "leather-styles/*": ["../leather-styles/*"]
     },
     "allowSyntheticDefaultImports": true,
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
-    "types": ["jest", "vitest/globals", "chrome"]
+    "types": ["vitest/globals", "chrome"]
   },
-  "include": [
-    "./src/**/*",
-    "./tests/**/*",
-    "./tests-legacy/**/*",
-    "./scripts-ts/**/*",
-    "leather-styles",
-    "theme"
-  ],
+  "include": ["./src/**/*", "./tests/**/*", "./scripts-ts/**/*", "leather-styles", "theme"],
   "exclude": ["test-app"]
 }
