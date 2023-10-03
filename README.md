@@ -91,7 +91,7 @@ yarn test:unit
 
 ## Production
 
-[See instructions on Hiro.so for installing from source for production usage.](https://www.hiro.so/wallet/install-web-source)
+[See instructions on Leather.io to install from source](https://leather.io/install-extension)
 
 Alternatively, the following steps can be taken by _technical_ users with the latest version of node installed on their machines.
 
@@ -121,13 +121,13 @@ We consider the security of our systems a top priority. But no matter how much e
 
 If you discover a security vulnerability, please use one of the following means of communications to report it to us:
 
-- Report the security issue to our [HackerOne program](https://hackerone.com/hiro)
-- Report the security issue directly at [security@hiro.so](mailto:security@hiro.so)
+- Report the security issue to our [HackerOne program](https://hackerone.com/leather_wallet)
+- Report the security issue directly at [security@leather.io](mailto:security@leather.io)
 
 Please note this email is strictly for reporting security vulnerabilities. For support queries, contact [contact@leather.io](mailto:contact@leather.io). Your efforts to responsibly disclose your findings are sincerely appreciated and will be taken into account to acknowledge your contributions.
 
 ### Audit Report
 
-In Q1 2021, Hiro partnered with [Least Authority](https://leastauthority.com/), a leading security consultancy with experience in the crypto space, to audit Leather. On April 29th 2021, after addressing the major concerns described in the initial findings, as well as a concluding sign off from the Least Authority team, a final report was delivered.
+In Q1 2021, Leather partnered with [Least Authority](https://leastauthority.com/), a leading security consultancy with experience in the crypto space, to audit Leather. On April 29th 2021, after addressing the major concerns described in the initial findings, as well as a concluding sign off from the Least Authority team, a final report was delivered.
 
-[Download and read the full report here](https://github.com/hirosystems/wallet/blob/main/public/docs/least-authority-security-audit-report.pdf)
+[Download and read the full report here](https://github.com/leather-wallet/extension/blob/main/public/docs/least-authority-security-audit-report.pdf)
