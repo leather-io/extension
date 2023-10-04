@@ -1,10 +1,14 @@
 import { useState } from 'react';
+import { FiEye, FiEyeOff } from 'react-icons/fi';
 
+import { OnboardingSelectors } from '@tests/selectors/onboarding.selectors';
 import { SettingsSelectors } from '@tests/selectors/settings.selectors';
-import { Box, Flex, Stack, styled } from 'leather-styles/jsx';
+import { Flex, styled } from 'leather-styles/jsx';
 
 import { LeatherButton } from '@app/components/button/button';
+import { CopyIcon } from '@app/components/icons/copy-icon';
 
+import { SecretKeyGrid } from '../../components/secret-key/secret-key-grid';
 import { SecretKeyWord } from './components/secret-key-word';
 
 interface SecretKeyDisplayerLayoutProps {
@@ -12,55 +16,62 @@ interface SecretKeyDisplayerLayoutProps {
   onCopyToClipboard(): void;
   secretKeyWords: string[] | undefined;
   showTitleAndIllustration: boolean;
+  onBackedUpSecretKey(): void;
 }
 export function SecretKeyDisplayerLayout(props: SecretKeyDisplayerLayoutProps) {
-  const { hasCopied, onCopyToClipboard, secretKeyWords, showTitleAndIllustration } = props;
+  const { hasCopied, onCopyToClipboard, onBackedUpSecretKey, secretKeyWords } = props;
   const [showSecretKey, setShowSecretKey] = useState(false);
 
   return (
-    <Box backgroundColor="brown.1" border={['1px solid var(--brown-2)', '0px']} borderRadius="16px">
-      <Stack
-        alignItems="center"
-        px={['space.02', 'space.05']}
-        pt={['space.02', 'space.07']}
-        pb={['space.02', 'space.05']}
-        gap="space.07"
+    <>
+      <SecretKeyGrid>
+        {secretKeyWords?.map((word, index) => (
+          <SecretKeyWord
+            key={word}
+            word={showSecretKey ? word : '*'.repeat(word.length)}
+            num={index + 1}
+          />
+        ))}
+      </SecretKeyGrid>
+      <Flex gap="space.02" alignItems="center" width="100%">
+        <LeatherButton
+          variant="outline"
+          flex="1"
+          display="flex"
+          px="space.04"
+          py="space.03"
+          justifyContent="center"
+          alignItems="center"
+          gap="space.02"
+          data-testid={SettingsSelectors.ShowSecretKeyBtn}
+          onClick={() => setShowSecretKey(!showSecretKey)}
+        >
+          {showSecretKey ? <FiEyeOff size="20px" /> : <FiEye size="20px" />}
+          <styled.p textStyle="body.02">{showSecretKey ? 'Hide key' : 'Show key'}</styled.p>
+        </LeatherButton>
+        <LeatherButton
+          variant="outline"
+          flex="1"
+          display="flex"
+          px="space.04"
+          py="space.03"
+          justifyContent="center"
+          alignItems="center"
+          gap="space.02"
+          data-testid={SettingsSelectors.CopyKeyToClipboardBtn}
+          onClick={!hasCopied ? onCopyToClipboard : undefined}
+        >
+          <CopyIcon />
+          <styled.p textStyle="body.02">{!hasCopied ? ' Copy' : 'Copied!'}</styled.p>
+        </LeatherButton>
+      </Flex>
+      <LeatherButton
+        width="100%"
+        data-testid={OnboardingSelectors.BackUpSecretKeyBtn}
+        onClick={onBackedUpSecretKey}
       >
-        {showTitleAndIllustration ? (
-          <styled.h1 hideBelow="sm" textStyle="heading.03">
-            Your Secret Key
-          </styled.h1>
-        ) : null}
-
-        <Flex justifyContent="center" rowGap="tight" flexWrap="wrap" gap="space.01">
-          {secretKeyWords?.map((word, index) => (
-            <SecretKeyWord
-              key={word}
-              flex={['0 40%', '1 0 21%']}
-              word={showSecretKey ? word : '*'.repeat(word.length)}
-              num={index + 1}
-            />
-          ))}
-        </Flex>
-        <Flex gap="space.02" alignItems="center" width="100%">
-          <LeatherButton
-            variant="outline"
-            flex="1"
-            data-testid={SettingsSelectors.ShowSecretKeyBtn}
-            onClick={() => setShowSecretKey(!showSecretKey)}
-          >
-            <styled.p textStyle="body.02">{showSecretKey ? 'Hide key' : 'Show key'}</styled.p>
-          </LeatherButton>
-          <LeatherButton
-            variant="outline"
-            flex="1"
-            data-testid={SettingsSelectors.CopyKeyToClipboardBtn}
-            onClick={!hasCopied ? onCopyToClipboard : undefined}
-          >
-            <styled.p textStyle="body.02">{!hasCopied ? ' Copy to clipboard' : 'Copied!'}</styled.p>
-          </LeatherButton>
-        </Flex>
-      </Stack>
-    </Box>
+        I've backed it up
+      </LeatherButton>
+    </>
   );
 }

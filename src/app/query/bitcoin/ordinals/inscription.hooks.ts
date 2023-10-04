@@ -1,10 +1,9 @@
+import { HIRO_INSCRIPTIONS_API_URL } from '@shared/constants';
 import {
   Inscription,
   SupportedInscription,
   whenInscriptionType,
 } from '@shared/models/inscription.model';
-
-import { HIRO_INSCRIPTIONS_API_URL } from '@app/query/query-config';
 
 import { useGetInscriptionQuery } from './inscription.query';
 

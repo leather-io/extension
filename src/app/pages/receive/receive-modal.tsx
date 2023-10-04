@@ -14,7 +14,7 @@ import { BaseDrawer } from '@app/components/drawer/base-drawer';
 import { BtcIcon } from '@app/components/icons/btc-icon';
 import { BtcStampsIcon } from '@app/components/icons/btc-stamps-icon';
 import { OrdinalIcon } from '@app/components/icons/ordinal-icon';
-import { useZeroIndexTaprootAddress } from '@app/query/bitcoin/ordinals/use-zero-index-taproot-address';
+import { useZeroIndexTaprootAddress } from '@app/store/accounts/blockchain/bitcoin/bitcoin.hooks';
 import { useCurrentAccountNativeSegwitAddressIndexZero } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
 import { useCurrentAccountStxAddressState } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
 

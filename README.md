@@ -1,8 +1,8 @@
 # Leather
 
 [![Chrome Web Store](https://img.shields.io/chrome-web-store/stars/ldinpeekobnhjjdofggfgjlcehhmanlj?label=Chrome%20Web%20Store)](https://chrome.google.com/webstore/detail/stacks-wallet/ldinpeekobnhjjdofggfgjlcehhmanlj)
-[![Mozilla Add-on](https://img.shields.io/amo/stars/hiro-wallet?label=Firefox%20Add-on)](https://addons.mozilla.org/en-US/firefox/addon/hiro-wallet/)
-[![coverage](https://raw.githubusercontent.com/hirosystems/wallet/gh-pages/badge.svg)](https://hirosystems.github.io/wallet/)
+[![Mozilla Add-on](https://img.shields.io/amo/stars/leather-wallet?label=Firefox%20Add-on)](https://addons.mozilla.org/en-US/firefox/addon/leather-wallet/)
+[![coverage](https://raw.githubusercontent.com/leather-wallet/extension/gh-pages/badge.svg)](https://leather-wallet.github.io/extension/)
 [![semantic-release](https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg)](https://github.com/semantic-release/semantic-release)
 
 Leather is the most popular and trusted wallet for apps built on Bitcoin. Connect to apps and manage assets secured by Bitcoin and Bitcoin L2s with battle-tested wallet for the Stacks blockchain.
@@ -66,9 +66,32 @@ yarn playwright install --with-deps
 
 Note that the installed browsers are tied to the version of Playwright being used, and it may be necessary to run the above command again in some situations, such as when upgrading Playwright or switching branches. [Read the documentation for more information](https://playwright.dev/docs/cli#install-system-dependencies).
 
+### Integration tests
+
+All integration tests can be run using:
+
+```bash
+yarn test:integration
+```
+
+To run a suite of tests you can use:
+
+```bash
+yarn playwright test specs/TEST.spec.ts
+yarn playwright test tests/specs --shard=3/8
+```
+
+### Unit tests
+
+Unit tests can be run with vitest using:
+
+```bash
+yarn test:unit
+```
+
 ## Production
 
-[See instructions on Hiro.so for installing from source for production usage.](https://www.hiro.so/wallet/install-web-source)
+[See instructions on Leather.io to install from source](https://leather.io/install-extension)
 
 Alternatively, the following steps can be taken by _technical_ users with the latest version of node installed on their machines.
 
@@ -98,13 +121,13 @@ We consider the security of our systems a top priority. But no matter how much e
 
 If you discover a security vulnerability, please use one of the following means of communications to report it to us:
 
-- Report the security issue to our [HackerOne program](https://hackerone.com/hiro)
-- Report the security issue directly at [security@hiro.so](mailto:security@hiro.so)
+- Report the security issue to our [HackerOne program](https://hackerone.com/leather_wallet)
+- Report the security issue directly at [security@leather.io](mailto:security@leather.io)
 
 Please note this email is strictly for reporting security vulnerabilities. For support queries, contact [contact@leather.io](mailto:contact@leather.io). Your efforts to responsibly disclose your findings are sincerely appreciated and will be taken into account to acknowledge your contributions.
 
 ### Audit Report
 
-In Q1 2021, Hiro partnered with [Least Authority](https://leastauthority.com/), a leading security consultancy with experience in the crypto space, to audit Leather. On April 29th 2021, after addressing the major concerns described in the initial findings, as well as a concluding sign off from the Least Authority team, a final report was delivered.
+In Q1 2021, Leather partnered with [Least Authority](https://leastauthority.com/), a leading security consultancy with experience in the crypto space, to audit Leather. On April 29th 2021, after addressing the major concerns described in the initial findings, as well as a concluding sign off from the Least Authority team, a final report was delivered.
 
-[Download and read the full report here](https://github.com/hirosystems/wallet/blob/main/public/docs/least-authority-security-audit-report.pdf)
+[Download and read the full report here](https://github.com/leather-wallet/extension/blob/main/public/docs/least-authority-security-audit-report.pdf)

@@ -8,7 +8,7 @@ import { baseCurrencyAmountInQuote, subtractMoney } from '@app/common/money/calc
 import { i18nFormatCurrency } from '@app/common/money/format-money';
 import { createBitcoinCryptoCurrencyAssetTypeWrapper } from '@app/query/bitcoin/address/address.utils';
 import { useBitcoinPendingTransactionsBalance } from '@app/query/bitcoin/address/transactions-by-address.hooks';
-import { useNativeSegwitBalance } from '@app/query/bitcoin/balance/bitcoin-balances.query';
+import { useNativeSegwitBalance } from '@app/query/bitcoin/balance/btc-native-segwit-balance.hooks';
 import { useCryptoCurrencyMarketData } from '@app/query/common/market-data/market-data.hooks';
 
 export function useBtcAssetBalance(btcAddress: string) {

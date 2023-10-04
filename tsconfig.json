@@ -29,7 +29,6 @@
       "@inpage/*": ["inpage/*"],
       "@app/*": ["app/*"],
       "@tests/*": ["../tests/*"],
-
       "leather-styles/*": ["../leather-styles/*"]
     },
     "allowSyntheticDefaultImports": true,

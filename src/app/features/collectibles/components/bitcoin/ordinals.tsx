@@ -4,7 +4,7 @@ import { useInView } from 'react-intersection-observer';
 import { Box } from '@stacks/ui';
 
 import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
-import { useTaprootInscriptionsInfiniteQuery } from '@app/query/bitcoin/ordinals/use-inscriptions.query';
+import { useGetInscriptionsInfiniteQuery } from '@app/query/bitcoin/ordinals/inscriptions.query';
 
 import { Inscription } from './inscription';
 
@@ -13,7 +13,7 @@ interface OrdinalsProps {
 }
 
 export function Ordinals({ setIsLoadingMore }: OrdinalsProps) {
-  const query = useTaprootInscriptionsInfiniteQuery();
+  const query = useGetInscriptionsInfiniteQuery();
   const pages = query.data?.pages;
   const analytics = useAnalytics();
   const { ref: intersectionSentinel, inView } = useInView({

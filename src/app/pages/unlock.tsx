@@ -1,9 +1,7 @@
 import { useEffect } from 'react';
 import { Outlet, useNavigate } from 'react-router-dom';
 
-import { Stack } from '@stacks/ui';
 import { Box } from 'leather-styles/jsx';
-import { token } from 'leather-styles/tokens';
 
 import { WALLET_ENVIRONMENT } from '@shared/environment';
 import { RouteUrls } from '@shared/route-urls';
@@ -41,19 +39,12 @@ export function Unlock() {
       {!hasApprovedNewBrand && (
         <Box position="fixed" w="200px" h="60px" background="brown.2" top={0} left={0} />
       )}
-      <Stack
-        maxWidth={token('sizes.centeredPageFullWidth')}
-        px={['loose', 'base-loose']}
-        spacing="loose"
-        textAlign={['left', 'center']}
-        width="100%"
-      >
-        <RequestPassword
-          title="Your session is locked"
-          caption="Enter the password you set on this device"
-          onSuccess={handleSuccess}
-        />
-      </Stack>
+
+      <RequestPassword
+        title="Your session is locked"
+        caption="Enter the password you set on this device"
+        onSuccess={handleSuccess}
+      />
       <Outlet />
     </CenteredPageContainer>
   );

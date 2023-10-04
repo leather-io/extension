@@ -7,7 +7,7 @@ import { AverageBitcoinFeeRates, BtcFeeType } from '@shared/models/fees/bitcoin-
 import { SupportedInscription } from '@shared/models/inscription.model';
 
 import { useOnMount } from '@app/common/hooks/use-on-mount';
-import { TaprootUtxo } from '@app/query/bitcoin/ordinals/use-taproot-address-utxos.query';
+import { TaprootUtxo } from '@app/query/bitcoin/bitcoin-client';
 
 import { useSendInscriptionRouteState } from '../hooks/use-send-inscription-route-state';
 import { createUtxoFromInscription } from './create-utxo-from-inscription';

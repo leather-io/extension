@@ -11,13 +11,8 @@ interface PsbtAddressTotalsProps {
   showNativeSegwitTotal: boolean;
 }
 export function PsbtAddressTransferTotals({ showNativeSegwitTotal }: PsbtAddressTotalsProps) {
-  const {
-    accountInscriptionsBeingTransferred,
-
-    addressNativeSegwit,
-
-    addressNativeSegwitTotal,
-  } = usePsbtSignerContext();
+  const { accountInscriptionsBeingTransferred, addressNativeSegwit, addressNativeSegwitTotal } =
+    usePsbtSignerContext();
   const calculateBitcoinFiatValue = useCalculateBitcoinFiatValue();
 
   const isTransferringInscriptions = accountInscriptionsBeingTransferred?.length;
@@ -33,8 +28,8 @@ export function PsbtAddressTransferTotals({ showNativeSegwitTotal }: PsbtAddress
         />
       ) : null}
       {isTransferringInscriptions
-        ? accountInscriptionsBeingTransferred.map(path => (
-            <PsbtInscription key={path} path={path} />
+        ? accountInscriptionsBeingTransferred.map(inscription => (
+            <PsbtInscription key={inscription.id} inscription={inscription} />
           ))
         : null}
     </>

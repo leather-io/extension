@@ -6,9 +6,9 @@ import { Money, createMoney } from '@shared/models/money.model';
 
 import { sumNumbers } from '@app/common/math/helpers';
 import { BtcSizeFeeEstimator } from '@app/common/transactions/bitcoin/fees/btc-size-fee-estimator';
-import { useCurrentTaprootAccountUninscribedUtxos } from '@app/query/bitcoin/balance/bitcoin-balances.query';
+import { useCurrentTaprootAccountUninscribedUtxos } from '@app/query/bitcoin/balance/btc-taproot-balance.hooks';
 import { useAverageBitcoinFeeRates } from '@app/query/bitcoin/fees/fee-estimates.hooks';
-import { getNumberOfInscriptionOnUtxo } from '@app/query/bitcoin/ordinals/ordinals-aware-utxo.query';
+import { useNumberOfInscriptionsOnUtxo } from '@app/query/bitcoin/ordinals/inscriptions.hooks';
 import { useBitcoinScureLibNetworkConfig } from '@app/store/accounts/blockchain/bitcoin/bitcoin-keychain';
 import { useCurrentAccountTaprootSigner } from '@app/store/accounts/blockchain/bitcoin/taproot-account.hooks';
 
@@ -17,6 +17,7 @@ export function useGenerateRetrieveTaprootFundsTx() {
   const uninscribedUtxos = useCurrentTaprootAccountUninscribedUtxos();
   const createSigner = useCurrentAccountTaprootSigner();
   const { data: feeRates } = useAverageBitcoinFeeRates();
+  const getNumberOfInscriptionOnUtxo = useNumberOfInscriptionsOnUtxo();
 
   const fee = useMemo(() => {
     if (!feeRates) return createMoney(0, 'BTC');
@@ -65,7 +66,7 @@ export function useGenerateRetrieveTaprootFundsTx() {
       tx.finalize();
       return tx.hex;
     },
-    [createSigner, networkMode, uninscribedUtxos]
+    [createSigner, getNumberOfInscriptionOnUtxo, networkMode, uninscribedUtxos]
   );
 
   return { generateRetrieveTaprootFundsTx, fee };

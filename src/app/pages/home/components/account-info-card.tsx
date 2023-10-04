@@ -1,4 +1,3 @@
-import { useMediaQuery } from '@stacks/ui';
 import { SettingsSelectors } from '@tests/selectors/settings.selectors';
 import { Box, Divider, Flex, styled } from 'leather-styles/jsx';
 
@@ -14,7 +13,6 @@ import { AccountActions } from './account-actions';
 
 export function AccountInfoCard() {
   const name = useCurrentAccountDisplayName();
-  const [isNarrowViewport] = useMediaQuery('(max-width: 600px)');
 
   const account = useCurrentStacksAccount();
   const btcAddress = useCurrentAccountNativeSegwitAddressIndexZero();
@@ -40,7 +38,7 @@ export function AccountInfoCard() {
           <styled.p
             data-testid={SettingsSelectors.CurrentAccountDisplayName}
             textStyle="label.01"
-            mr={isNarrowViewport ? '0' : '3'}
+            mr={['space.00', 'space.02']}
           >
             {name}
           </styled.p>

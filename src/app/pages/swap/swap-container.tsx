@@ -8,7 +8,7 @@ import BigNumber from 'bignumber.js';
 import { createMoney } from '@shared/models/money.model';
 import { RouteUrls } from '@shared/route-urls';
 
-import { useNativeSegwitBalance } from '@app/query/bitcoin/balance/bitcoin-balances.query';
+import { useNativeSegwitBalance } from '@app/query/bitcoin/balance/btc-native-segwit-balance.hooks';
 import { useCurrentAccountNativeSegwitIndexZeroSigner } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
 
 import { SwapContainerLayout } from './components/swap-container.layout';

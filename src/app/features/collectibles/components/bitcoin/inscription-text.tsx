@@ -1,5 +1,5 @@
 import { OrdinalMinimalIcon } from '@app/components/icons/ordinal-minimal-icon';
-import { useTextInscriptionContentQuery } from '@app/query/bitcoin/ordinals/use-text-ordinal-content.query';
+import { useInscriptionTextContentQuery } from '@app/query/bitcoin/ordinals/inscription-text-content.query';
 
 import { CollectibleText } from '../_collectible-types/collectible-text';
 
@@ -23,7 +23,7 @@ export function InscriptionText({
   onClickCallToAction,
   onClickSend,
 }: InscriptionTextProps) {
-  const query = useTextInscriptionContentQuery(contentSrc);
+  const query = useInscriptionTextContentQuery(contentSrc);
 
   if (query.isLoading || query.isError) return null;
 

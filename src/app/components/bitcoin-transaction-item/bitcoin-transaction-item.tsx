@@ -22,7 +22,7 @@ import {
   convertInscriptionToSupportedInscriptionType,
   createInscriptionInfoUrl,
 } from '@app/query/bitcoin/ordinals/inscription.hooks';
-import { useGetInscriptionsByOutputQuery } from '@app/query/bitcoin/ordinals/use-inscription-by-output.query';
+import { useGetInscriptionsByOutputQuery } from '@app/query/bitcoin/ordinals/inscriptions-by-param.query';
 import { useCurrentAccountNativeSegwitAddressIndexZero } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
 
 import { CaptionDotSeparator } from '../caption-dot-separator';

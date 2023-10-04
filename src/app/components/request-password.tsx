@@ -1,8 +1,8 @@
 import { FormEvent, useCallback, useState } from 'react';
 
-import { Box, Input, Stack } from '@stacks/ui';
+import { Input } from '@stacks/ui';
 import { SettingsSelectors } from '@tests/selectors/settings.selectors';
-import { styled } from 'leather-styles/jsx';
+import { Box, Stack, styled } from 'leather-styles/jsx';
 import { token } from 'leather-styles/tokens';
 
 import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
@@ -52,13 +52,19 @@ export function RequestPassword({ title, caption, onSuccess }: RequestPasswordPr
   }, [analytics, startWaitingMessage, stopWaitingMessage, unlockWallet, password, onSuccess]);
 
   return (
-    <>
-      <styled.h1 textStyle="heading.02">{title}</styled.h1>
+    <Stack
+      pb={['space.05', 'unset']}
+      px={['space.05', 'space.04']}
+      gap="space.05"
+      textAlign={['center', 'center']}
+      margin="auto"
+    >
+      <styled.h1 textStyle={['heading.03', 'heading.02']}>{title}</styled.h1>
       <styled.p textStyle="body.02">{(isRunning && waitingMessage) || caption}</styled.p>
-      <Stack spacing="base">
+      <Stack gap="space.04">
         <Input
           autoFocus
-          _focus={{ border: `2px solid ${token('colors.brown.12')}` }}
+          _focus={{ border: `2px solid ${token('colors.accent.text-primary')}` }}
           borderRadius="10px"
           data-testid={SettingsSelectors.EnterPasswordInput}
           height="64px"
@@ -89,6 +95,6 @@ export function RequestPassword({ title, caption, onSuccess }: RequestPasswordPr
       >
         Continue
       </LeatherButton>
-    </>
+    </Stack>
   );
 }
