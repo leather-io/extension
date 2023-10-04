@@ -1,4 +1,5 @@
 import { useMemo } from 'react';
+import { Outlet } from 'react-router-dom';
 
 import uniqby from 'lodash.uniqby';
 
@@ -114,6 +115,7 @@ export function ActivityList() {
           currentBitcoinAddress={nsBitcoinAddress}
         />
       )}
+      <Outlet />
     </>
   );
 }

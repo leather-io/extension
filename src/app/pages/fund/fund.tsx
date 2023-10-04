@@ -12,13 +12,13 @@ import { FundLayout } from './fund.layout';
 
 export function FundPage() {
   const navigate = useNavigate();
+
   const currentAccount = useCurrentStacksAccount();
   const { data: balances } = useCurrentStacksAccountAnchoredBalances();
 
   useRouteHeader(<Header onClose={() => navigate(RouteUrls.Home)} title=" " />);
 
   if (!currentAccount || !balances) return <FullPageLoadingSpinner />;
-
   return (
     <>
       <FundLayout address={currentAccount.address} />

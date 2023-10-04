@@ -1,4 +1,4 @@
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 import { Inscription as InscriptionType } from '@shared/models/inscription.model';
 import { RouteUrls } from '@shared/route-urls';
@@ -18,10 +18,11 @@ interface InscriptionProps {
 export function Inscription({ rawInscription }: InscriptionProps) {
   const inscription = convertInscriptionToSupportedInscriptionType(rawInscription);
   const navigate = useNavigate();
+  const location = useLocation();
 
   function openSendInscriptionModal() {
     navigate(RouteUrls.SendOrdinalInscription, {
-      state: { inscription },
+      state: { inscription, backgroundLocation: location },
     });
   }
 
