@@ -78,7 +78,10 @@ export function SettingsDropdown() {
             data-testid={SettingsSelectors.ToggleTheme}
             onClick={wrappedCloseCallback(() => {
               void analytics.track('click_change_theme_menu_item');
-              navigate(RouteUrls.ChangeTheme, { relative: 'path' });
+              navigate(RouteUrls.ChangeTheme, {
+                relative: 'path',
+                state: { backgroundLocation: location },
+              });
             })}
           >
             Change theme
@@ -128,7 +131,10 @@ export function SettingsDropdown() {
             data-testid={SettingsSelectors.ChangeNetworkAction}
             onClick={wrappedCloseCallback(() => {
               void analytics.track('click_change_network_menu_item');
-              navigate(RouteUrls.SelectNetwork, { relative: 'path' });
+              navigate(RouteUrls.SelectNetwork, {
+                relative: 'path',
+                state: { backgroundLocation: location },
+              });
             })}
           >
             <Flex width="100%" alignItems="center" justifyContent="space-between">
@@ -159,7 +165,10 @@ export function SettingsDropdown() {
           <MenuItem
             color={color('feedback-error')}
             onClick={wrappedCloseCallback(() =>
-              navigate(RouteUrls.SignOutConfirm, { relative: 'path' })
+              navigate(RouteUrls.SignOutConfirm, {
+                relative: 'path',
+                state: { backgroundLocation: location },
+              })
             )}
             data-testid={SettingsSelectors.SignOutListItem}
           >

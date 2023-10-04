@@ -4,7 +4,10 @@ import { useLedgerNavigate } from '@app/features/ledger/hooks/use-ledger-navigat
 
 export function OperationRejected() {
   const ledgerNavigate = useLedgerNavigate();
-  const description = useLocationState('description', 'The operation on device was rejected');
+  const description = useLocationState<string>(
+    'description',
+    'The operation on device was rejected'
+  );
   return (
     <LedgerOperationRejectedLayout
       description={description}

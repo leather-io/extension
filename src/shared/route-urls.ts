@@ -23,22 +23,27 @@ export enum RouteUrls {
 
   // Active wallet routes
   Home = '/',
-  Activity = '/activity',
+  // Tab nested relative paths
+  Activity = 'activity',
+  // Active wallet routes
   AddNetwork = '/add-network',
   ChooseAccount = '/choose-account',
   Fund = '/fund',
+  // TODO investigate deprecating fund routes
   FundReceive = '/fund/receive',
   FundReceiveStx = '/fund/receive/stx',
   FundReceiveBtc = '/fund/receive/btc',
   IncreaseStxFee = '/increase-fee/stx',
   IncreaseBtcFee = '/increase-fee/btc',
   IncreaseFeeSent = '/increase-fee/sent',
-  Receive = '/receive',
-  ReceiveCollectible = '/receive/collectible',
-  ReceiveCollectibleOrdinal = '/receive/collectible/ordinal',
-  ReceiveStx = '/receive/stx',
-  ReceiveBtc = '/receive/btc',
-  ReceiveBtcStamp = '/receive/btc-stamp',
+  // nested routes must have relative paths
+  Receive = 'receive',
+  // TODO -  investigate un-nesting stx and btc as it may make for cleaner re-directs elsewhere - manybe pass prop?
+  ReceiveStx = 'stx',
+  ReceiveBtc = 'btc',
+  ReceiveBtcStamp = 'btc-stamp',
+  ReceiveCollectible = 'collectible',
+  ReceiveCollectibleOrdinal = 'collectible/ordinal',
   Send = '/send-transaction',
   ViewSecretKey = '/view-secret-key',
 
@@ -55,7 +60,7 @@ export enum RouteUrls {
   EditNonce = 'edit-nonce',
   SelectNetwork = 'choose-network',
   SignOutConfirm = 'sign-out',
-  RetriveTaprootFunds = 'retrive-taproot-funds',
+  RetrieveTaprootFunds = 'retrieve-taproot-funds',
 
   // Send crypto asset routes
   SendCryptoAsset = '/send',
@@ -76,12 +81,12 @@ export enum RouteUrls {
   SentBrc20Summary = '/send/brc20/:ticker/summary',
 
   // Send ordinal inscriptions
-  SendOrdinalInscription = '/send/ordinal-inscription',
-  SendOrdinalInscriptionChooseFee = '/send/ordinal-inscription/choose-fee',
-  SendOrdinalInscriptionReview = '/send/ordinal-inscription/review',
-  SendOrdinalInscriptionSummary = '/send/ordinal-inscription/',
-  SendOrdinalInscriptionSent = '/send/ordinal-inscription/sent',
-  SendOrdinalInscriptionError = '/send/ordinal-inscription/error',
+  SendOrdinalInscription = 'send/ordinal-inscription',
+  SendOrdinalInscriptionChooseFee = 'send/ordinal-inscription/choose-fee',
+  SendOrdinalInscriptionReview = 'send/ordinal-inscription/review',
+  SendOrdinalInscriptionSummary = 'send/ordinal-inscription/',
+  SendOrdinalInscriptionSent = 'send/ordinal-inscription/sent',
+  SendOrdinalInscriptionError = 'send/ordinal-inscription/error',
 
   // Swap routes
   Swap = '/swap',
