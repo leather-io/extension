@@ -1,3 +1,5 @@
+import { useState } from 'react';
+
 import { TextField } from '@radix-ui/themes';
 import { useField } from 'formik';
 import { css } from 'leather-styles/css';
@@ -31,7 +33,8 @@ const psuedoBorderStyles = {
 
 export function InputField({ dataTestId, name, onPaste, onChange, value }: InputFieldProps) {
   const [field, meta] = useField(name);
-  const [isFocused, focusBind] = useFocus();
+  // const [isFocused, focusBind] = useFocus();
+  const [isFocused, setIsFocused] = useState(false);
   const isDirty = useIsFieldDirty(name);
 
   return (
@@ -84,12 +87,13 @@ export function InputField({ dataTestId, name, onPaste, onChange, value }: Input
         id={name}
         spellCheck="false"
         type={isFocused ? 'text' : 'password'}
+        onFocus={() => setIsFocused(!isFocused)}
         {...field}
         value={value || field.value || ''}
-        // using onChangeCapture to keep Formik validation
+        // using onChangeCapture + onBlurCapture to keep Formik validation
         onChangeCapture={onChange}
+        onBlurCapture={() => setIsFocused(!isFocused)}
         onPaste={onPaste}
-        {...focusBind}
       />
     </TextField.Root>
   );

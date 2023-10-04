@@ -107,7 +107,7 @@ export function MnemonicForm({ mnemonic, setMnemonic, twentyFourWordMode }: Mnem
               <LeatherButton
                 data-testid={OnboardingSelectors.SignInBtn}
                 aria-disabled={isLoading || showMnemonicErrors}
-                disabled={!isValid}
+                disabled={isEmpty(touched) || !isValid}
                 aria-busy={isLoading}
                 width="100%"
                 type="submit"
