@@ -12,4 +12,3 @@ export const WALLET_ENVIRONMENT = process.env.WALLET_ENVIRONMENT ?? 'unknown';
 export const LEDGER_BITCOIN_ENABLED = process.env.LEDGER_BITCOIN_ENABLED === 'true';
 // ts-unused-exports:disable-next-line
 export const SWAP_ENABLED = process.env.SWAP_ENABLED === 'true';
-export const TEST_ACCOUNT_SECRET_KEY = process.env.TEST_ACCOUNT_SECRET_KEY ?? '';
