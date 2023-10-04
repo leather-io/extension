@@ -67,7 +67,7 @@ export function InputField({ dataTestId, name, onPaste, onChange, value }: Input
         },
       })}
     >
-      <TextField.Slot>
+      <TextField.Slot className={css({ padding: 'space.00', marginRight: 'space.01' })}>
         {/* // FIXME #4130: - update this color when available in design system */}
         <styled.span textStyle="label.01" color="GrayText">{`${name}.`}</styled.span>
       </TextField.Slot>
