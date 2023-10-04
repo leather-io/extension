@@ -68,6 +68,7 @@ export function MnemonicForm({ mnemonic, setMnemonic, twentyFourWordMode }: Mnem
         const showMnemonicErrors = !isEmpty(mnemonicErrorFields) && hasFormValues;
         const mnemonicErrorMessage = getMnemonicErrorMessage(mnemonicErrorFields);
 
+        console.log('log', isValid, isEmpty(touched));
         return (
           <Form>
             <styled.h2 textStyle="heading.03" mt="space.02" mb="space.04" textAlign="center">
@@ -107,7 +108,7 @@ export function MnemonicForm({ mnemonic, setMnemonic, twentyFourWordMode }: Mnem
               <LeatherButton
                 data-testid={OnboardingSelectors.SignInBtn}
                 aria-disabled={isLoading || showMnemonicErrors}
-                disabled={isEmpty(touched) || !isValid}
+                disabled={!isValid}
                 aria-busy={isLoading}
                 width="100%"
                 type="submit"
