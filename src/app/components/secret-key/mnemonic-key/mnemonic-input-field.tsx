@@ -15,6 +15,20 @@ interface InputFieldProps extends FlexProps {
   hasError?: boolean;
   wordlist: string[];
 }
+
+const psuedoBorderStyles = {
+  content: '""',
+  zIndex: 999999,
+  top: 0,
+  right: 0,
+  bottom: 0,
+  left: 0,
+  background: 'transparent',
+  position: 'absolute',
+  border: '1px solid',
+  borderRadius: '4px',
+};
+
 export function InputField({ dataTestId, name, onPaste, onChange, value }: InputFieldProps) {
   const [field, meta] = useField(name);
   const [isFocused, focusBind] = useFocus();
@@ -30,7 +44,7 @@ export function InputField({ dataTestId, name, onPaste, onChange, value }: Input
        * then focus border can be controlled more easily
        */
       color="brown"
-      data-state={isDirty && meta.error && 'error'}
+      data-state={isDirty && meta.error ? 'error' : undefined}
       className={css({
         display: 'flex',
         alignSelf: 'stretch',
@@ -39,10 +53,17 @@ export function InputField({ dataTestId, name, onPaste, onChange, value }: Input
         gap: 'space.01',
         px: 'space.03',
         _focusWithin: {
-          border: `2px solid currentColor`,
+          _before: {
+            ...psuedoBorderStyles,
+            borderColor: 'currentColor',
+          },
         },
-        borderRadius: '4px',
-        '&[data-state=error]': { border: '2px solid', borderColor: 'error !important' }, // !important needed
+        '&[data-state=error]': {
+          _before: {
+            ...psuedoBorderStyles,
+            borderColor: 'error',
+          },
+        },
       })}
     >
       <TextField.Slot>

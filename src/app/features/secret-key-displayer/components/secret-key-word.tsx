@@ -13,6 +13,7 @@ export function SecretKeyWord({ word, num }: SecretKeyWordProps) {
       gap="space.01"
       px="space.03"
       backgroundColor="accent.component-background-default"
+      borderRadius= '8px'
     >
       {/*  FIXME #4130: need to fix this color color: var(--color-grey-light-8, #BBB); */}
       <styled.span display="flex" alignItems="center" mr="space.01" color="accent.text-subdued">
