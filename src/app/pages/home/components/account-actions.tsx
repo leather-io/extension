@@ -1,4 +1,4 @@
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 import { HomePageSelectors } from '@tests/selectors/home.selectors';
 import { Flex, FlexProps } from 'leather-styles/jsx';
@@ -16,7 +16,11 @@ import { SendButton } from './send-button';
 
 export function AccountActions(props: FlexProps) {
   const navigate = useNavigate();
+  const location = useLocation();
   const isBitcoinEnabled = useConfigBitcoinEnabled();
+  const receivePath = isBitcoinEnabled
+    ? RouteUrls.Receive
+    : `${RouteUrls.Receive}/${RouteUrls.ReceiveStx}`;
 
   return (
     <Flex justify="space-between" {...props}>
@@ -26,7 +30,13 @@ export function AccountActions(props: FlexProps) {
         data-testid={HomePageSelectors.ReceiveCryptoAssetBtn}
         icon={<ArrowDown />}
         label="Receive"
-        onClick={() => navigate(isBitcoinEnabled ? RouteUrls.Receive : RouteUrls.ReceiveStx)}
+        onClick={() =>
+          navigate(receivePath, {
+            state: {
+              backgroundLocation: location,
+            },
+          })
+        }
       />
       <ActionButton
         data-testid={HomePageSelectors.FundAccountBtn}
