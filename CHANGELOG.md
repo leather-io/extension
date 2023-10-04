@@ -1,3 +1,28 @@
+## [6.9.2](https://github.com/leather-wallet/extension/compare/v6.9.1...v6.9.2) (2023-10-04)
+
+
+### Bug Fixes
+
+* add mnemonic field validation, closes [#4130](https://github.com/leather-wallet/extension/issues/4130) ([b7970d5](https://github.com/leather-wallet/extension/commit/b7970d5f9285388d03374ccdacf046945574b1ad))
+* adjust padding of numerical slot, closes [#4243](https://github.com/leather-wallet/extension/issues/4243) ([55019df](https://github.com/leather-wallet/extension/commit/55019dff89495dafce60d632c10ac4e2446851d0))
+* do not disable button using dirty flag ([1a31a7b](https://github.com/leather-wallet/extension/commit/1a31a7b6d134e04c8f59f5be9ac847aff0add57e))
+* filter spam transactions from activity, closes [#4017](https://github.com/leather-wallet/extension/issues/4017) ([b1bf006](https://github.com/leather-wallet/extension/commit/b1bf0061c993e09576fa1d0e12fcf846378a66d7))
+* fix prettier ([0775186](https://github.com/leather-wallet/extension/commit/0775186bda024388133f5fa278c0582575c2fbef))
+* fix responsive style of funding page, closes [#66](https://github.com/leather-wallet/extension/issues/66) ([361c970](https://github.com/leather-wallet/extension/commit/361c9709c93e7fb7f2402567af52f6a992019bfc))
+* fix spacing between content ([31850ba](https://github.com/leather-wallet/extension/commit/31850ba953820614dc36b51b503c790d0407bea0))
+* reduce zIndex so that onClick works consistently without needing to double click ([5f44d5a](https://github.com/leather-wallet/extension/commit/5f44d5a2de8dd0b0ac917766732d12fdb7862371))
+* remove legacy bip 39 library, closes [#4130](https://github.com/leather-wallet/extension/issues/4130) ([4a4185a](https://github.com/leather-wallet/extension/commit/4a4185a1eab0e550662d8f1cf93cb37fa5d98c49))
+* roll back use of useFocus as it prevents formik validation from properly indicating isTouched ([0f629b0](https://github.com/leather-wallet/extension/commit/0f629b0177d41ad326112b5957042e26af416c9d))
+* use psuedo-elements to specify borders ([586af95](https://github.com/leather-wallet/extension/commit/586af95683b45b860de2b298f02fe3696ab5f4d5))
+
+
+### Internal
+
+* apply requested changes from pr feedback ([027025f](https://github.com/leather-wallet/extension/commit/027025f0630df440318a5be89a81151d99dacce6))
+* fix readme ([4d03eb5](https://github.com/leather-wallet/extension/commit/4d03eb5f4c7430372af3715d0a1155832a68437c))
+* ordinal aware utxo query, closes [#4163](https://github.com/leather-wallet/extension/issues/4163) ([9f8291f](https://github.com/leather-wallet/extension/commit/9f8291f78b98ac48d25267bc72a236252c818f51))
+* upgrade panda & other deps ([1489864](https://github.com/leather-wallet/extension/commit/148986456e3c75bb0f82a4f629ccd58a525dcb9e))
+
 ## [6.9.1](https://github.com/leather-wallet/extension/compare/v6.9.0...v6.9.1) (2023-10-02)
 
 
