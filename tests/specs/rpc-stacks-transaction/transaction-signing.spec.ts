@@ -20,10 +20,10 @@ test.describe('Transaction signing', () => {
   function checkVisibleContent(context: BrowserContext) {
     return async (buttonToPress: 'Cancel' | 'Confirm') => {
       const popup = await context.waitForEvent('page');
-      const btn = popup.locator('text="Confirm"');
       await popup.waitForSelector('text="' + TEST_ACCOUNT_2_STX_ADDRESS + '"');
       await popup.waitForSelector(`text="${500 * 0.000001}"`);
       await popup.waitForTimeout(500);
+      const btn = popup.locator('text="Confirm"');
 
       if (buttonToPress === 'Confirm') {
         await btn.click();
