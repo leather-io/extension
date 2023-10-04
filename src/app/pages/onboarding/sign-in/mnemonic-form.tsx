@@ -68,7 +68,6 @@ export function MnemonicForm({ mnemonic, setMnemonic, twentyFourWordMode }: Mnem
         const showMnemonicErrors = !isEmpty(mnemonicErrorFields) && hasFormValues;
         const mnemonicErrorMessage = getMnemonicErrorMessage(mnemonicErrorFields);
 
-        console.log('log', isValid, isEmpty(touched));
         return (
           <Form>
             <styled.h2 textStyle="heading.03" mt="space.02" mb="space.04" textAlign="center">

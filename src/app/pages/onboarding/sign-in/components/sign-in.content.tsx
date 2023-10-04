@@ -12,7 +12,8 @@ export function SignInContent({
   return (
     <>
       <styled.h1 textStyle={['heading.03', 'heading.03', 'heading.03', 'display.02']} mt="space.00">
-        Sign in with your Secret Key
+        Sign in <br /> with your <br />
+        Secret Key
       </styled.h1>
       <styled.p textStyle={['label.01', 'heading.05']} mb="space.02">
         Speed things up by pasting your entire Secret Key in one go.

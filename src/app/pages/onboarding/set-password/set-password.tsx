@@ -130,10 +130,11 @@ function SetPasswordPage() {
                 <styled.h1
                   textStyle={['heading.03', 'heading.03', 'heading.03', 'display.02']}
                   mt="space.00"
+                  mb="space.06"
                 >
                   Set a password
                 </styled.h1>
-                <styled.p textStyle={['label.01', 'heading.05']}>
+                <styled.p textStyle={['label.01', 'heading.05']} mb="space.06">
                   Your password protects your Secret Key on this device only.
                 </styled.p>
                 <styled.p textStyle="body.02" color="brown.10">
