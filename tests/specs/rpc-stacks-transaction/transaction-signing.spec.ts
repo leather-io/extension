@@ -38,7 +38,6 @@ test.describe('Transaction signing', () => {
       page.evaluate(
         async txHex =>
           (window as any).HiroWalletProvider.request('stx_signTransaction', {
-            stxAddress: 'SP297VG59W96DPGBT13SGD542QE1XS954X78Z75G0',
             txHex,
             network: 'mainnet',
           }).catch((e: unknown) => e),
