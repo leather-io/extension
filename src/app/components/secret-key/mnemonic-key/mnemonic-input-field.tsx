@@ -4,7 +4,6 @@ import { TextField } from '@radix-ui/themes';
 import { useField } from 'formik';
 import { css } from 'leather-styles/css';
 import { FlexProps, styled } from 'leather-styles/jsx';
-import { useFocus } from 'use-events';
 
 import { useIsFieldDirty } from '@app/common/form-utils';
 
@@ -20,7 +19,7 @@ interface InputFieldProps extends FlexProps {
 
 const psuedoBorderStyles = {
   content: '""',
-  zIndex: 999999,
+  zIndex: 1,
   top: 0,
   right: 0,
   bottom: 0,
@@ -33,7 +32,6 @@ const psuedoBorderStyles = {
 
 export function InputField({ dataTestId, name, onPaste, onChange, value }: InputFieldProps) {
   const [field, meta] = useField(name);
-  // const [isFocused, focusBind] = useFocus();
   const [isFocused, setIsFocused] = useState(false);
   const isDirty = useIsFieldDirty(name);
 
