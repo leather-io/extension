@@ -1,6 +1,7 @@
 import { useRef, useState } from 'react';
 
 import { useOnResizeListener } from '@app/common/hooks/use-on-resize-listener';
+import { spamFilter } from '@app/common/utils/spam-filter';
 import { Tooltip } from '@app/components/tooltip';
 import { Title } from '@app/components/typography';
 
@@ -27,7 +28,7 @@ export function TransactionTitle(props: TransactionTitleProps) {
         textOverflow="ellipsis"
         whiteSpace="nowrap"
       >
-        {title}
+        {spamFilter(title)}
       </Title>
     </Tooltip>
   );
