@@ -3,6 +3,7 @@ import { Route } from 'react-router-dom';
 
 import { RouteUrls } from '@shared/route-urls';
 
+import { AnimatedRoute } from '@app/components/animated-route';
 import { BroadcastErrorDrawer } from '@app/components/broadcast-error-drawer/broadcast-error-drawer';
 import { FullPageWithHeaderLoadingSpinner } from '@app/components/loading-spinner';
 import { EditNonceDrawer } from '@app/features/edit-nonce-drawer/edit-nonce-drawer';
@@ -47,13 +48,20 @@ export const sendCryptoAssetFormRoutes = (
       element={
         <AccountGate>
           <Suspense fallback={<FullPageWithHeaderLoadingSpinner />}>
-            <ChooseCryptoAsset />
+            <AnimatedRoute>
+              <ChooseCryptoAsset />
+            </AnimatedRoute>
           </Suspense>
         </AccountGate>
       }
     />
-
-    <Route element={<SendBitcoinAssetContainer />}>
+    <Route
+      element={
+        <AnimatedRoute>
+          <SendBitcoinAssetContainer />
+        </AnimatedRoute>
+      }
+    >
       <Route
         path={RouteUrls.SendCryptoAssetForm.replace(':symbol', 'btc')}
         element={<BtcSendForm />}
@@ -62,8 +70,22 @@ export const sendCryptoAssetFormRoutes = (
       </Route>
       <Route path="/send/btc/disabled" element={<SendBtcDisabled />} />
       <Route path="/send/btc/error" element={<BroadcastError />} />
-      <Route path="/send/btc/confirm" element={<BtcSendFormConfirmation />} />
-      <Route path={RouteUrls.SendBtcChooseFee} element={<BtcChooseFee />} />
+      <Route
+        path="/send/btc/confirm"
+        element={
+          <AnimatedRoute>
+            <BtcSendFormConfirmation />
+          </AnimatedRoute>
+        }
+      />
+      <Route
+        path={RouteUrls.SendBtcChooseFee}
+        element={
+          <AnimatedRoute>
+            <BtcChooseFee />
+          </AnimatedRoute>
+        }
+      />
       <Route path={RouteUrls.SentBtcTxSummary} element={<BtcSentSummary />} />
 
       <Route path={RouteUrls.SendBrc20SendForm} element={<Brc20SendForm />} />
@@ -72,13 +94,27 @@ export const sendCryptoAssetFormRoutes = (
       <Route path={RouteUrls.SentBrc20Summary} element={<Brc20SentSummary />}></Route>
     </Route>
 
-    <Route path={RouteUrls.SendCryptoAssetForm.replace(':symbol', 'stx')} element={<StxSendForm />}>
+    <Route
+      path={RouteUrls.SendCryptoAssetForm.replace(':symbol', 'stx')}
+      element={
+        <AnimatedRoute>
+          <StxSendForm />
+        </AnimatedRoute>
+      }
+    >
       {broadcastErrorDrawerRoute}
       {editNonceDrawerRoute}
       {ledgerStacksTxSigningRoutes}
       {recipientAccountsDrawerRoute}
     </Route>
-    <Route path="/send/stx/confirm" element={<StacksSendFormConfirmation />} />
+    <Route
+      path="/send/stx/confirm"
+      element={
+        <AnimatedRoute>
+          <StacksSendFormConfirmation />
+        </AnimatedRoute>
+      }
+    />
 
     <Route path={RouteUrls.SendSip10Form} element={<Sip10TokenSendForm />}>
       {broadcastErrorDrawerRoute}

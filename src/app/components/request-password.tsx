@@ -2,6 +2,7 @@ import { FormEvent, useCallback, useState } from 'react';
 
 import { Box, Input, Stack } from '@stacks/ui';
 import { SettingsSelectors } from '@tests/selectors/settings.selectors';
+import { motion } from 'framer-motion';
 import { styled } from 'leather-styles/jsx';
 import { token } from 'leather-styles/tokens';
 
@@ -55,10 +56,17 @@ export function RequestPassword({ title, caption, onSuccess }: RequestPasswordPr
     <>
       <styled.h1 textStyle="heading.02">{title}</styled.h1>
       <styled.p textStyle="body.02">{(isRunning && waitingMessage) || caption}</styled.p>
-      <Stack spacing="base">
+      <Stack
+        spacing="base"
+        position="relative"
+        as={motion.div}
+        whileTap={{ scale: '0.96' }}
+        transition={{ type: 'spring', mass: 0.1, stiffness: 500, damping: 20 }}
+      >
         <Input
           autoFocus
           _focus={{ border: `2px solid ${token('colors.brown.12')}` }}
+          transition={'all 0.1s'}
           borderRadius="10px"
           data-testid={SettingsSelectors.EnterPasswordInput}
           height="64px"

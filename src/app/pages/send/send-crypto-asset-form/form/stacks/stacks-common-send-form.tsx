@@ -2,6 +2,7 @@ import { Outlet, useNavigate } from 'react-router-dom';
 
 import { Box } from '@stacks/ui';
 import { Form, Formik, FormikHelpers } from 'formik';
+import { motion } from 'framer-motion';
 import { ObjectSchema } from 'yup';
 
 import { HIGH_FEE_WARNING_LEARN_MORE_URL_STX } from '@shared/constants';
@@ -48,7 +49,7 @@ export function StacksCommonSendForm({
   const { onFormStateChange } = useUpdatePersistedSendFormValues();
 
   return (
-    <Box width="100%" pb="base">
+    <Box as={motion.div} width="100%" pb="base">
       <Formik
         initialValues={initialValues}
         onSubmit={onSubmit}

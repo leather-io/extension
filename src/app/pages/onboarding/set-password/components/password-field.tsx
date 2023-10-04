@@ -4,6 +4,7 @@ import { FiEye, FiEyeOff } from 'react-icons/fi';
 import { Box, Button, Flex, Input, color } from '@stacks/ui';
 import { OnboardingSelectors } from '@tests/selectors/onboarding.selectors';
 import { useField } from 'formik';
+import { motion } from 'framer-motion';
 import { token } from 'leather-styles/tokens';
 
 import { ValidatedPassword } from '@app/common/validation/validate-password';
@@ -24,7 +25,12 @@ export function PasswordField({ strengthResult, isDisabled }: PasswordFieldProps
 
   return (
     <>
-      <Box position="relative">
+      <Box
+        position="relative"
+        as={motion.div}
+        whileTap={{ scale: '0.96' }}
+        transition={{ type: 'spring', mass: 0.1, stiffness: 500, damping: 20 }}
+      >
         <Input
           _focus={{ border: `2px solid ${token('colors.brown.12')}` }}
           autoFocus
