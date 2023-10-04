@@ -29,7 +29,7 @@ function ErrorFallback({ error, resetErrorBoundary }: FallbackProps) {
             borderRadius="12px"
             backgroundColor="ink.1000"
             width="100%"
-            code={value}
+            code={value as string}
             language="bash"
             Prism={Prism as any}
           />
