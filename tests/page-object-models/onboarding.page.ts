@@ -3,8 +3,9 @@ import { TEST_PASSWORD } from '@tests/mocks/constants';
 import { HomePageSelectors } from '@tests/selectors/home.selectors';
 import { OnboardingSelectors } from '@tests/selectors/onboarding.selectors';
 
-import { TEST_ACCOUNT_SECRET_KEY } from '@shared/environment';
 import { RouteUrls } from '@shared/route-urls';
+
+const TEST_ACCOUNT_SECRET_KEY = process.env.TEST_ACCOUNT_SECRET_KEY ?? '';
 
 // If default wallet state changes, we'll need to update this
 export const testSoftwareAccountDefaultWalletState = {
