@@ -1,7 +1,8 @@
 import { LocalStorageMock } from '@tests/unit/local-storage-mock';
 import { vi } from 'vitest';
 
-import { defaultKeyId } from '../keys/key.slice';
+import { defaultWalletKeyId } from '@shared/utils';
+
 import { migrateVaultReducerStoreToNewStateStructure } from './vault-reducer-migration';
 
 (globalThis as any).localStorage = new LocalStorageMock();
@@ -32,11 +33,11 @@ describe(migrateVaultReducerStoreToNewStateStructure.name, () => {
     test('that it returns a migrated state object when wallet values are detected', () => {
       const returnedValue = migrateVaultReducerStoreToNewStateStructure({} as any);
       expect(returnedValue).toEqual({
-        ids: [defaultKeyId],
+        ids: [defaultWalletKeyId],
         entities: {
-          [defaultKeyId]: {
+          [defaultWalletKeyId]: {
             type: 'software',
-            id: defaultKeyId,
+            id: defaultWalletKeyId,
             encryptedSecretKey: 'test-encrypted-key',
             salt: 'test-salt',
           },

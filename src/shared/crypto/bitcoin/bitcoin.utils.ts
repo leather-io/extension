@@ -5,6 +5,7 @@ import * as btc from '@scure/btc-signer';
 
 import { BitcoinNetworkModes, NetworkModes } from '@shared/constants';
 import { whenNetwork } from '@shared/utils';
+import { defaultWalletKeyId } from '@shared/utils';
 
 import { DerivationPathDepth } from '../derivation-path.utils';
 import { BtcSignerNetwork } from './bitcoin.network';
@@ -173,13 +174,16 @@ export function getHdKeyVersionsFromNetwork(network: NetworkModes) {
 // Ledger wallets are keyed by their derivation path. To reuse the look up logic
 // between payment types, this factory fn accepts a fn that generates the path
 export function lookUpLedgerKeysByPath(
-  derivationPathFn: (network: BitcoinNetworkModes, accountIndex: number) => string
+  getDerivationPath: (network: BitcoinNetworkModes, accountIndex: number) => string
 ) {
-  return (keyMap: Record<string, { policy: string } | undefined>, network: NetworkModes) =>
+  return (
+      ledgerKeyMap: Record<string, { policy: string } | undefined>,
+      network: BitcoinNetworkModes
+    ) =>
     (accountIndex: number) => {
-      const path = derivationPathFn(network, accountIndex);
+      const path = getDerivationPath(network, accountIndex);
       // Single wallet mode, hardcoded default walletId
-      const account = keyMap[path.replace('m', 'default')];
+      const account = ledgerKeyMap[path.replace('m', defaultWalletKeyId)];
       if (!account) return;
       return initBitcoinAccount(path, account.policy);
     };

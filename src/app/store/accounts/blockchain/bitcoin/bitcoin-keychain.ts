@@ -3,7 +3,7 @@ import { useMemo } from 'react';
 import { createSelector } from '@reduxjs/toolkit';
 import { HDKey, Versions } from '@scure/bip32';
 
-import { NetworkModes } from '@shared/constants';
+import { BitcoinNetworkModes } from '@shared/constants';
 import { getBtcSignerLibNetworkConfigByMode } from '@shared/crypto/bitcoin/bitcoin.network';
 import {
   BitcoinAccount,
@@ -25,11 +25,11 @@ import { useCurrentNetwork } from '@app/store/networks/networks.selectors';
 export function bitcoinAccountBuilderFactory(
   softwareKeychainDerivationFn: (
     key: HDKey,
-    network: NetworkModes
+    network: BitcoinNetworkModes
   ) => (accountIndex: number) => BitcoinAccount,
   ledgerKeychainLookupFn: (
     keyMap: Record<string, { policy: string } | undefined>,
-    network: NetworkModes
+    network: BitcoinNetworkModes
   ) => (accountIndex: number) => BitcoinAccount | undefined
 ) {
   return createSelector(
@@ -42,12 +42,16 @@ export function bitcoinAccountBuilderFactory(
         return {
           mainnet: ledgerKeychainLookupFn(bitcoinLedgerKeys, 'mainnet'),
           testnet: ledgerKeychainLookupFn(bitcoinLedgerKeys, 'testnet'),
+          signet: ledgerKeychainLookupFn(bitcoinLedgerKeys, 'signet'),
+          regtest: ledgerKeychainLookupFn(bitcoinLedgerKeys, 'regtest'),
         };
       }
       if (!rootKeychain) throw new Error('No in-memory key found');
       return {
         mainnet: softwareKeychainDerivationFn(rootKeychain, 'mainnet'),
         testnet: softwareKeychainDerivationFn(rootKeychain, 'testnet'),
+        signet: softwareKeychainDerivationFn(rootKeychain, 'signet'),
+        regtest: softwareKeychainDerivationFn(rootKeychain, 'regtest'),
       };
     }
   );

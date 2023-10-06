@@ -1,8 +1,9 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 
 import { logger } from '@shared/logger';
+import { defaultWalletKeyId } from '@shared/utils';
 
-import { defaultKeyId, keySlice } from '../keys/key.slice';
+import { keySlice } from '../keys/key.slice';
 
 interface InMemoryKeyState {
   hasRestoredKeys: boolean;
@@ -20,15 +21,15 @@ export const inMemoryKeySlice = createSlice({
 
   reducers: {
     generateWalletKey(state, action: PayloadAction<string>) {
-      if (state.keys[defaultKeyId]) {
+      if (state.keys[defaultWalletKeyId]) {
         logger.warn('Not generating another wallet, already exists.');
         return;
       }
-      state.keys[defaultKeyId] = action.payload;
+      state.keys[defaultWalletKeyId] = action.payload;
     },
 
     saveUsersSecretKeyToBeRestored(state, action: PayloadAction<string>) {
-      state.keys[defaultKeyId] = action.payload;
+      state.keys[defaultWalletKeyId] = action.payload;
     },
 
     setKeysInMemory(state, action: PayloadAction<Record<string, string>>) {

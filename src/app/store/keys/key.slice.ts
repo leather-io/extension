@@ -1,10 +1,10 @@
 import { PayloadAction, createEntityAdapter, createSlice } from '@reduxjs/toolkit';
 
+import { defaultWalletKeyId } from '@shared/utils';
+
 import { StxAndIdentityPublicKeys } from '@app/features/ledger/utils/stacks-ledger-utils';
 
 import { migrateVaultReducerStoreToNewStateStructure } from '../utils/vault-reducer-migration';
-
-export const defaultKeyId = 'default' as const;
 
 interface KeyConfigSoftware {
   type: 'software';
@@ -38,7 +38,7 @@ export const keySlice = createSlice({
     },
 
     signOut(state) {
-      keyAdapter.removeOne(state, defaultKeyId);
+      keyAdapter.removeOne(state, defaultWalletKeyId);
     },
 
     debugKillStacks(state) {
