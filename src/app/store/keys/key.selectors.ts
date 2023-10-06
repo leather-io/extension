@@ -2,18 +2,19 @@ import { useSelector } from 'react-redux';
 
 import { createSelector } from '@reduxjs/toolkit';
 
+import { defaultWalletKeyId } from '@shared/utils';
+
 import { initialSearchParams } from '@app/common/initial-search-params';
 import { initBigNumber } from '@app/common/math/helpers';
 import { RootState } from '@app/store';
 
 import { selectStacksChain } from '../chains/stx-chain.selectors';
-import { defaultKeyId } from './key.slice';
 
 const selectKeysSlice = (state: RootState) => state.keys;
 
 export const selectCurrentKey = createSelector(
   selectKeysSlice,
-  state => state.entities[defaultKeyId]
+  state => state.entities[defaultWalletKeyId]
 );
 
 export function useCurrentKeyDetails() {
@@ -25,7 +26,7 @@ export const selectCurrentAccountIndex = createSelector(selectStacksChain, state
   if (customAccountIndex && initBigNumber(customAccountIndex).isInteger()) {
     return initBigNumber(customAccountIndex).toNumber();
   }
-  return state[defaultKeyId].currentAccountIndex;
+  return state[defaultWalletKeyId].currentAccountIndex;
 });
 
 export const selectLedgerKey = createSelector(selectKeysSlice, keys => {

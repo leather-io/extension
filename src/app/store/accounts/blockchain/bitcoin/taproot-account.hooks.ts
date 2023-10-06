@@ -4,10 +4,7 @@ import { useSelector } from 'react-redux';
 import { createSelector } from '@reduxjs/toolkit';
 
 import { BitcoinNetworkModes } from '@shared/constants';
-import {
-  bitcoinNetworkModeToCoreNetworkMode,
-  lookUpLedgerKeysByPath,
-} from '@shared/crypto/bitcoin/bitcoin.utils';
+import { lookUpLedgerKeysByPath } from '@shared/crypto/bitcoin/bitcoin.utils';
 import {
   deriveTaprootAccount,
   getTaprootAccountDerivationPath,
@@ -35,8 +32,7 @@ const selectTaprootAccountBuilder = bitcoinAccountBuilderFactory(
 const selectCurrentNetworkTaprootAccountBuilder = createSelector(
   selectTaprootAccountBuilder,
   selectCurrentNetwork,
-  (taprootKeychain, network) =>
-    taprootKeychain[bitcoinNetworkModeToCoreNetworkMode(network.chain.bitcoin.network)]
+  (taprootKeychains, network) => taprootKeychains[network.chain.bitcoin.network]
 );
 const selectCurrentTaprootAccount = createSelector(
   selectCurrentNetworkTaprootAccountBuilder,

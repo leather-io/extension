@@ -4,7 +4,6 @@ import { useSelector } from 'react-redux';
 import { createSelector } from '@reduxjs/toolkit';
 
 import {
-  bitcoinNetworkModeToCoreNetworkMode,
   deriveAddressIndexZeroFromAccount,
   lookUpLedgerKeysByPath,
 } from '@shared/crypto/bitcoin/bitcoin.utils';
@@ -36,8 +35,7 @@ const selectNativeSegwitAccountBuilder = bitcoinAccountBuilderFactory(
 const selectCurrentNetworkNativeSegwitAccountBuilder = createSelector(
   selectNativeSegwitAccountBuilder,
   selectCurrentNetwork,
-  (nativeSegwitKeychain, network) =>
-    nativeSegwitKeychain[bitcoinNetworkModeToCoreNetworkMode(network.chain.bitcoin.network)]
+  (nativeSegwitKeychains, network) => nativeSegwitKeychains[network.chain.bitcoin.network]
 );
 
 export function useNativeSegwitAccountBuilder() {
