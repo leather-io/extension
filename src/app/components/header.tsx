@@ -14,6 +14,7 @@ import { useDrawers } from '@app/common/hooks/use-drawers';
 import { LeatherLogo } from '@app/components/leather-logo';
 import { NetworkModeBadge } from '@app/components/network-mode-badge';
 import { Title } from '@app/components/typography';
+import { useIsOutdatedPrQuery } from '@app/query/common/outdated-pr/outdated-pr.query';
 
 import { LeatherButton } from './button/button';
 import { HamburgerIcon } from './icons/hamburger-icon';
@@ -30,6 +31,9 @@ export const Header: React.FC<HeaderProps> = memo(props => {
   const { pathname } = useLocation();
   const navigate = useNavigate();
 
+  const { data } = useIsOutdatedPrQuery();
+  console.log({ data });
+
   const [desktopViewport] = useMediaQuery(`(min-width: ${token('sizes.desktopViewportMinWidth')})`);
 
   const leatherLogoIsClickable = useMemo(() => {
@@ -43,13 +47,13 @@ export const Header: React.FC<HeaderProps> = memo(props => {
 
   const version = useMemo(() => {
     switch (process.env.WALLET_ENVIRONMENT) {
-      case 'production':
-      case 'preview':
-        return `v${VERSION}`;
       case 'feature':
         return `${BRANCH_NAME}#${COMMIT_SHA?.slice(0, 8)}`;
       case 'development':
         return 'dev';
+      case 'production':
+      case 'preview':
+        return `v${VERSION}`;
       default:
         return null;
     }
@@ -93,7 +97,8 @@ export const Header: React.FC<HeaderProps> = memo(props => {
               marginRight="10px"
               mb="-3px"
               ml="tight"
-              opacity={0.5}
+              // opacity={0.5}
+              color={data ? 'green' : 'red'}
             >
               {version}
             </Text>

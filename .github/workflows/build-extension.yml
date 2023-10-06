@@ -7,6 +7,7 @@ env:
   SENTRY_DSN: ${{ secrets.SENTRY_DSN }}
   SEGMENT_WRITE_KEY: ${{ secrets.SEGMENT_WRITE_KEY_STAGING }}
   TRANSAK_API_KEY: ${{ secrets.TRANSAK_API_KEY }}
+  PR_NUMBER: ${{ github.event.number }}
   WALLET_ENVIRONMENT: feature
 
 jobs:
@@ -55,7 +56,7 @@ jobs:
       - uses: actions/upload-artifact@v3
         name: Upload Chrome Extension Zip
         with:
-          name: stacks-wallet-chromium
+          name: leather-chromium
           path: leather-chromium.zip
 
   build_firefox:
@@ -90,5 +91,5 @@ jobs:
 
       - uses: actions/upload-artifact@v3
         with:
-          name: stacks-wallet-firefox
+          name: leather-firefox
           path: leather-firefox.zip

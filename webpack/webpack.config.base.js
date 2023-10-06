@@ -10,31 +10,34 @@ const CopyWebpackPlugin = require('copy-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin');
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
-const SpeedMeasurePlugin = require('speed-measure-webpack-plugin');
 const ProgressBarPlugin = require('progress-bar-webpack-plugin');
 const SRC_ROOT_PATH = path.join(__dirname, '../', 'src');
 const DIST_ROOT_PATH = path.join(__dirname, '../', 'dist');
+const { execSync } = require('child_process');
 
-const WALLET_ENVIRONMENT = process.env.WALLET_ENVIRONMENT || 'development';
+const WALLET_ENVIRONMENT = process.env.WALLET_ENVIRONMENT ?? 'development';
 const ANALYZE_BUNDLE = process.env.ANALYZE === 'true';
 const IS_PUBLISHING = !!process.env.IS_PUBLISHING;
-const BRANCH = process.env.GITHUB_REF;
 
 const IS_DEV = WALLET_ENVIRONMENT === 'development';
 const IS_PROD = !IS_DEV;
 const MAIN_BRANCH = 'refs/heads/main';
+
+function executeGitCommand(command) {
+  return execSync(command)
+    .toString('utf8')
+    .replace(/[\n\r\s]+$/, '');
+}
+
+const BRANCH_NAME = executeGitCommand('git rev-parse --abbrev-ref HEAD');
+const COMMIT_SHA = executeGitCommand('git rev-parse HEAD');
 
 // For non main branch builds, add a random number
 const getVersionWithRandomSuffix = ref => {
   if (ref === MAIN_BRANCH || !ref || IS_PUBLISHING) return _version;
   return `${_version}.${Math.floor(Math.floor(Math.random() * 1000))}`;
 };
-const VERSION = getVersionWithRandomSuffix(BRANCH);
-
-const smp = new SpeedMeasurePlugin({
-  disable: !ANALYZE_BUNDLE,
-  granularLoaderData: true,
-});
+const VERSION = getVersionWithRandomSuffix(BRANCH_NAME);
 
 const HTML_OPTIONS = {
   inject: 'body',
@@ -246,6 +249,11 @@ const config = {
 
     new webpack.DefinePlugin({
       VERSION: JSON.stringify(VERSION),
+    }),
+
+    new webpack.EnvironmentPlugin({
+      BRANCH_NAME: BRANCH_NAME,
+      COMMIT_SHA: COMMIT_SHA,
     }),
     new webpack.ProvidePlugin({
       process: 'process/browser',
