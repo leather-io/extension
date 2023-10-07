@@ -19,6 +19,21 @@ module.exports = {
         path: '^(domain|constants|sys|_linklist|_stream_wrap)$',
       },
     },
+    // Overriding from recommended set
+    {
+      name: 'not-to-unresolvable',
+      comment:
+        "This module depends on a module that cannot be found ('resolved to disk'). " +
+        "If it's an npm module: add it to your package.json. In all other cases you " +
+        'likely already know what to do.',
+      severity: 'error',
+      from: {},
+      to: {
+        // Depcruiser fails on some legitimate type imports, so allowing them there
+        dependencyTypesNot: ['type-only'],
+        couldNotResolve: true,
+      },
+    },
     {
       name: 'no-orphans',
       severity: 'error',
