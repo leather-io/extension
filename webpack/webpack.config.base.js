@@ -30,7 +30,13 @@ function executeGitCommand(command) {
 }
 
 const BRANCH_NAME = executeGitCommand('git rev-parse --abbrev-ref HEAD');
-const COMMIT_SHA = executeGitCommand('git rev-parse HEAD');
+const COMMIT_SHA = process.env.COMMIT_SHA ?? executeGitCommand('git rev-parse HEAD');
+
+console.log({
+  BRANCH_NAME,
+  envSha: process.env.COMMIT_SHA,
+  locallyExe: executeGitCommand('git rev-parse HEAD'),
+});
 
 // For non main branch builds, add a random number
 const getVersionWithRandomSuffix = ref => {

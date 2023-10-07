@@ -8,6 +8,7 @@ env:
   SEGMENT_WRITE_KEY: ${{ secrets.SEGMENT_WRITE_KEY_STAGING }}
   TRANSAK_API_KEY: ${{ secrets.TRANSAK_API_KEY }}
   PR_NUMBER: ${{ github.event.number }}
+  COMMIT_SHA: ${{ github.event.pull_request.head.sha }}
   WALLET_ENVIRONMENT: feature
 
 jobs:
@@ -38,6 +39,8 @@ jobs:
       - pre-run
     steps:
       - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
 
       - uses: actions/cache@v3
         id: cache-node-modules
@@ -46,6 +49,8 @@ jobs:
           key: ${{ runner.os }}-modules-${{ hashFiles('**/yarn.lock') }}-${{ hashFiles('**/package.json') }}
 
       - uses: ./.github/actions/provision
+
+      - run: echo ${{ github.event.pull_request.head.sha }}
 
       - name: Build project
         run: yarn build
@@ -70,7 +75,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
         with:
-          ref: ${{ github.event.pull_request.head.ref }}
+          ref: ${{ github.event.pull_request.head.sha }}
 
       - uses: actions/cache@v3
         id: cache-node-modules

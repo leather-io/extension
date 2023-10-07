@@ -1,4 +1,4 @@
-import { Endpoints } from '@octokit/types';
+import type { Endpoints } from '@octokit/types';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 
@@ -6,21 +6,35 @@ import { GITHUB_ORG, GITHUB_REPO } from '@shared/constants';
 import { COMMIT_SHA, PR_NUMBER } from '@shared/environment';
 import { isDefined } from '@shared/utils';
 
-type PrInfoResp = Endpoints['GET /repos/{owner}/{repo}/pulls/{pull_number}']['response'];
+type PrDetailsResp = Endpoints['GET /repos/{owner}/{repo}/pulls/{pull_number}']['response']['data'];
 
-async function getPullRequestDetails(pr: string): Promise<PrInfoResp> {
-  return axios.get(`https://api.github.com/repos/${GITHUB_ORG}/${GITHUB_REPO}/pulls/${pr}`);
+async function getPullRequestDetails(pr: string): Promise<PrDetailsResp> {
+  const resp = await axios.get(
+    `https://api.github.com/repos/${GITHUB_ORG}/${GITHUB_REPO}/pulls/${pr}`
+  );
+
+  return resp.data;
 }
 
-export function useIsOutdatedPrQuery() {
+function usePullRequestDetailsQuery() {
   return useQuery({
     enabled: isDefined(PR_NUMBER) && isDefined(COMMIT_SHA),
-    queryKey: ['outdated-pr-', PR_NUMBER],
+    queryKey: ['pull-request-details', PR_NUMBER],
     async queryFn() {
       return getPullRequestDetails(PR_NUMBER ?? '');
     },
-    select(resp) {
-      return resp.data.head.sha.startsWith(COMMIT_SHA ?? '');
-    },
   });
+}
+
+export function useIsLatestPullRequestBuild() {
+  const { data: pullRequest } = usePullRequestDetailsQuery();
+  if (!pullRequest) return { isLatestBuild: true };
+  // eslint-disable-next-line no-console
+  console.log('debug info', { fromGithubApi: pullRequest.head.sha, fromEnv: COMMIT_SHA });
+  return {
+    // If the latest commit SHA on the PR is not the same one used for this build,
+    // we can assume it's outdated
+    isLatestBuild: pullRequest.head.sha.startsWith(COMMIT_SHA ?? ''),
+    pullRequestLink: pullRequest.html_url,
+  };
 }
