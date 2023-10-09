@@ -12,7 +12,6 @@ async function getPullRequestDetails(pr: string): Promise<PrDetailsResp> {
   const resp = await axios.get(
     `https://api.github.com/repos/${GITHUB_ORG}/${GITHUB_REPO}/pulls/${pr}`
   );
-
   return resp.data;
 }
 
@@ -29,8 +28,6 @@ function usePullRequestDetailsQuery() {
 export function useIsLatestPullRequestBuild() {
   const { data: pullRequest } = usePullRequestDetailsQuery();
   if (!pullRequest) return { isLatestBuild: true };
-  // eslint-disable-next-line no-console
-  console.log('debug info', { fromGithubApi: pullRequest.head.sha, fromEnv: COMMIT_SHA });
   return {
     // If the latest commit SHA on the PR is not the same one used for this build,
     // we can assume it's outdated
