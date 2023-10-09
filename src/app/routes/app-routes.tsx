@@ -70,7 +70,7 @@ function useAppRoutes() {
             </AccountGate>
           }
         >
-          {/* Need to declare this here so settings fire on activity */}
+          {/* #4028: Needed so settings modals open on /activity */}
           <Route path={RouteUrls.Activity} element={<ActivityList />}>
             {settingsRoutes}
           </Route>
@@ -85,7 +85,7 @@ function useAppRoutes() {
 
         {requestBitcoinKeysRoutes}
         {requestStacksKeysRoutes}
-        <Route path={RouteUrls.RetrieveTaprootFunds} element={<RetrieveTaprootToNativeSegwit />} />
+        <Route path={RouteUrls.RetriveTaprootFunds} element={<RetrieveTaprootToNativeSegwit />} />
         <Route path={RouteUrls.IncreaseStxFee} element={<IncreaseStxFeeDrawer />}>
           {ledgerStacksTxSigningRoutes}
         </Route>

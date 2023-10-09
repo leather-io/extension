@@ -29,7 +29,6 @@ export enum RouteUrls {
   AddNetwork = '/add-network',
   ChooseAccount = '/choose-account',
   Fund = '/fund',
-  // TODO investigate deprecating fund routes
   FundReceive = '/fund/receive',
   FundReceiveStx = '/fund/receive/stx',
   FundReceiveBtc = '/fund/receive/btc',
@@ -38,7 +37,6 @@ export enum RouteUrls {
   IncreaseFeeSent = '/increase-fee/sent',
   // nested routes must have relative paths
   Receive = 'receive',
-  // TODO -  investigate un-nesting stx and btc as it may make for cleaner re-directs elsewhere - manybe pass prop?
   ReceiveStx = 'stx',
   ReceiveBtc = 'btc',
   ReceiveBtcStamp = 'btc-stamp',
@@ -60,7 +58,7 @@ export enum RouteUrls {
   EditNonce = 'edit-nonce',
   SelectNetwork = 'choose-network',
   SignOutConfirm = 'sign-out',
-  RetrieveTaprootFunds = 'retrieve-taproot-funds',
+  RetriveTaprootFunds = 'retrive-taproot-funds',
 
   // Send crypto asset routes
   SendCryptoAsset = '/send',
