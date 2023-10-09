@@ -10,8 +10,6 @@ import { useIsLatestPullRequestBuild } from '@app/query/common/outdated-pr/outda
 
 import { Tooltip } from './tooltip';
 
-// Now I change the code and push so that the PR build is outdated
-
 interface AppVersionLabelProps extends HTMLStyledProps<'span'> {
   isLatestVersion: boolean;
 }
@@ -37,8 +35,6 @@ export function AppVersion() {
   const { pullRequestLink, isLatestBuild } = useIsLatestPullRequestBuild();
 
   const version = useMemo(() => {
-    // eslint-disable-next-line no-console
-    console.log('process.env.WALLET_ENVIRONMENT', process.env.WALLET_ENVIRONMENT);
     switch (process.env.WALLET_ENVIRONMENT) {
       case 'development':
         return `dev@${BRANCH_NAME}`;
