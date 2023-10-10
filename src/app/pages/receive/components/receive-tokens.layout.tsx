@@ -1,4 +1,4 @@
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 import { SharedComponentsSelectors } from '@tests/selectors/shared-component.selectors';
 import { Box, Flex, styled } from 'leather-styles/jsx';
@@ -26,11 +26,7 @@ export function ReceiveTokensLayout(props: ReceiveTokensLayoutProps) {
   const backgroundLocation = useLocationState<Location>('backgroundLocation');
 
   return (
-    <BaseDrawer
-      title="Receive"
-      isShowing
-      onClose={() => navigate(backgroundLocation.pathname ?? '..')}
-    >
+    <BaseDrawer title="Receive" isShowing onClose={() => navigate(backgroundLocation ?? '..')}>
       {warning && warning}
       <Flex alignItems="center" flexDirection="column" pb={['space.05', 'space.08']} px="space.05">
         <styled.h2 mt="space.05" textStyle="heading.03">

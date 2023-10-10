@@ -40,7 +40,7 @@ export function SelectNetwork() {
   }
 
   function closeNetworkModal() {
-    navigate(backgroundLocation.pathname ?? '..');
+    navigate(backgroundLocation ?? '..');
   }
 
   return (

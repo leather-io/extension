@@ -31,6 +31,7 @@ import { AllowDiagnosticsModal } from '@app/pages/onboarding/allow-diagnostics/a
 import { BackUpSecretKeyPage } from '@app/pages/onboarding/back-up-secret-key/back-up-secret-key';
 import { SignIn } from '@app/pages/onboarding/sign-in/sign-in';
 import { WelcomePage } from '@app/pages/onboarding/welcome/welcome';
+import { ReceiveStxModal } from '@app/pages/receive/receive-stx';
 import { RequestError } from '@app/pages/request-error/request-error';
 import { RpcSignStacksTransaction } from '@app/pages/rpc-sign-stacks-transaction/rpc-sign-stacks-transaction';
 import { BroadcastError } from '@app/pages/send/broadcast-error/broadcast-error';
@@ -172,7 +173,8 @@ function useAppRoutes() {
             </AccountGate>
           }
         >
-          {receiveRoutes}
+          {/* FundReceiveStx is opened independantly so Recieve doesn't open behind */}
+          <Route path={RouteUrls.FundReceiveStx} element={<ReceiveStxModal />} />
           {settingsRoutes}
         </Route>
 
