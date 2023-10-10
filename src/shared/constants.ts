@@ -33,6 +33,7 @@ export enum WalletDefaultNetworkConfigurationIds {
   mainnet = 'mainnet',
   testnet = 'testnet',
   signet = 'signet',
+  sbtcDevenv = 'sbtcDevenv',
   devnet = 'devnet',
 }
 
@@ -137,6 +138,23 @@ const networkSignet: NetworkConfiguration = {
   },
 };
 
+const networkSbtcDevenv: NetworkConfiguration = {
+  id: WalletDefaultNetworkConfigurationIds.sbtcDevenv,
+  name: 'sBTC Devenv',
+  chain: {
+    stacks: {
+      blockchain: 'stacks',
+      chainId: ChainID.Testnet,
+      url: 'localhost:3999',
+    },
+    bitcoin: {
+      blockchain: 'bitcoin',
+      network: 'regtest',
+      url: 'localhost:8999/api',
+    },
+  },
+};
+
 const networkDevnet: NetworkConfiguration = {
   id: WalletDefaultNetworkConfigurationIds.devnet,
   name: 'Devnet',
@@ -163,6 +181,7 @@ export const defaultNetworksKeyedById: Record<
   [WalletDefaultNetworkConfigurationIds.mainnet]: networkMainnet,
   [WalletDefaultNetworkConfigurationIds.testnet]: networkTestnet,
   [WalletDefaultNetworkConfigurationIds.signet]: networkSignet,
+  [WalletDefaultNetworkConfigurationIds.sbtcDevenv]: networkSbtcDevenv,
   [WalletDefaultNetworkConfigurationIds.devnet]: networkDevnet,
 };
 
