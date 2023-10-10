@@ -78,7 +78,7 @@ export function ReceiveModal({ type = 'full' }: ReceiveModalProps) {
       <BaseDrawer
         title=""
         isShowing={isShowing}
-        onClose={() => navigate(backgroundLocation.pathname ?? '..')}
+        onClose={() => navigate(backgroundLocation ?? '..')}
       >
         <Box mx="space.06">
           <styled.h1 mb="space.05" textStyle="heading.03">

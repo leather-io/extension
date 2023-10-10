@@ -18,7 +18,7 @@ export function SignOutConfirmDrawer() {
         navigate(RouteUrls.Onboarding);
         void signOut();
       }}
-      onUserSafelyReturnToHomepage={() => navigate(backgroundLocation.pathname ?? '..')}
+      onUserSafelyReturnToHomepage={() => navigate(backgroundLocation ?? '..')}
     />
   );
 }
