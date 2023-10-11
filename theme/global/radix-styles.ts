@@ -91,6 +91,9 @@ export const radixTabStyles = {
   },
   '.rt-TabsTrigger': {
     flex: 1,
+    '& :hover::before': {
+      backgroundColor: 'accent.component-background-hover',
+    },
   },
   '.rt-TabsTriggerInner': {
     width: '100%',
