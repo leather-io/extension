@@ -119,6 +119,7 @@ export function TextInputField({
           ref={inputRef || ref}
           _disabled={{ bg: color('bg') }}
           _focus={{ border: 'none' }}
+          _placeholder={{ color: 'colors.accent.text-subdued' }}
           autoComplete="off"
           border="none"
           data-testid={dataTestId}
