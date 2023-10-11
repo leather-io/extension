@@ -1,3 +1,23 @@
+## [6.10.0](https://github.com/leather-wallet/extension/compare/v6.9.2...v6.10.0) (2023-10-11)
+
+
+### Features
+
+* stacks multisig support, closes [#3889](https://github.com/leather-wallet/extension/issues/3889) ([9dabfc2](https://github.com/leather-wallet/extension/commit/9dabfc28f5c0273bfcee6130ad48209cb1621d36))
+
+
+### Bug Fixes
+
+* outdated version warning ([d56b52c](https://github.com/leather-wallet/extension/commit/d56b52cd5df7f03c281b59ca0f84fad561a95ff2))
+* outdated version warning ([c0e859c](https://github.com/leather-wallet/extension/commit/c0e859c2d3bbf024766662890a9345fe1c24739d))
+* regtest addresses, closes [#4223](https://github.com/leather-wallet/extension/issues/4223) ([eedbed5](https://github.com/leather-wallet/extension/commit/eedbed51d723aa4f1cbcb9aef883e94a0a3c18b2))
+
+
+### Internal
+
+* build job ([917a00b](https://github.com/leather-wallet/extension/commit/917a00b99127a166eb9d0a5e604a9ef00a723be7))
+* improve pr-time messaging ([f26c5fe](https://github.com/leather-wallet/extension/commit/f26c5fe336c67dfd9760274215d12861b70cdf9c))
+
 ## [6.9.2](https://github.com/leather-wallet/extension/compare/v6.9.1...v6.9.2) (2023-10-04)
 
 
