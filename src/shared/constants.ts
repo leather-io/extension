@@ -145,12 +145,12 @@ const networkSbtcDevenv: NetworkConfiguration = {
     stacks: {
       blockchain: 'stacks',
       chainId: ChainID.Testnet,
-      url: 'localhost:3999',
+      url: 'http://localhost:3999',
     },
     bitcoin: {
       blockchain: 'bitcoin',
       network: 'regtest',
-      url: 'localhost:8999/api',
+      url: 'http://localhost:8999/api',
     },
   },
 };
