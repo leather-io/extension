@@ -2016,6 +2016,18 @@
     mkdirp "^1.0.4"
     rimraf "^3.0.2"
 
+"@octokit/openapi-types@^19.0.0":
+  version "19.0.0"
+  resolved "https://registry.yarnpkg.com/@octokit/openapi-types/-/openapi-types-19.0.0.tgz#0101bf62ab14c1946149a0f8385440963e1253c4"
+  integrity sha512-PclQ6JGMTE9iUStpzMkwLCISFn/wDeRjkZFIKALpvJQNBGwDoYYi2fFvuHwssoQ1rXI5mfh6jgTgWuddeUzfWw==
+
+"@octokit/types@12.0.0":
+  version "12.0.0"
+  resolved "https://registry.yarnpkg.com/@octokit/types/-/types-12.0.0.tgz#6b34309288b6f5ac9761d2589e3165cde1b95fee"
+  integrity sha512-EzD434aHTFifGudYAygnFlS1Tl6KhbTynEWELQXIbTY8Msvb5nEqTZIm7sbPEt4mQYLZwu3zPKVdeIrw0g7ovg==
+  dependencies:
+    "@octokit/openapi-types" "^19.0.0"
+
 "@pandacss/config@0.15.4", "@pandacss/config@^0.15.4":
   version "0.15.4"
   resolved "https://registry.yarnpkg.com/@pandacss/config/-/config-0.15.4.tgz#3300288a182e02d5f6e1f2907948b396f62b760f"
@@ -10755,10 +10767,10 @@ depd@~1.1.2:
   resolved "https://registry.yarnpkg.com/depd/-/depd-1.1.2.tgz#9bcd52e14c097763e749b274c4346ed2e560b5a9"
   integrity sha512-7emPTl6Dpo6JRXOXjLRxck+FlLRX5847cLKEn00PLAgc3g2hTZZgr+e4c2v6QpSmLeFP3n5yUo7ft6avBK/5jQ==
 
-dependency-cruiser@14.1.0:
-  version "14.1.0"
-  resolved "https://registry.yarnpkg.com/dependency-cruiser/-/dependency-cruiser-14.1.0.tgz#7312f17e905f6183e3e47298ed2019b20534b217"
-  integrity sha512-JF7F0SFG4K5vXmUMvgYHKQnMuU2JzO18/+r/hTuaGEr3KTlMYkR16WNc+WDqS0y5fjq8khDy/WKO4bR5xhw2sQ==
+dependency-cruiser@14.1.1:
+  version "14.1.1"
+  resolved "https://registry.yarnpkg.com/dependency-cruiser/-/dependency-cruiser-14.1.1.tgz#8d466ebe69af7c85af3670ba947c7b196d23260d"
+  integrity sha512-npNLWv11pMH9BW4GBLuA5p6KYOXA9UjVDKQ4DzorEhAac5BS1J23K5I2WpEfkJMpwl9PKMsF4T/GDLSq3pogTw==
   dependencies:
     acorn "8.10.0"
     acorn-jsx "5.3.2"
@@ -10784,7 +10796,7 @@ dependency-cruiser@14.1.0:
     semver-try-require "6.2.3"
     teamcity-service-messages "0.1.14"
     tsconfig-paths-webpack-plugin "4.1.0"
-    watskeburt "1.0.1"
+    watskeburt "2.0.0"
     wrap-ansi "8.1.0"
 
 dequal@^2.0.0:
@@ -20195,10 +20207,10 @@ watchpack@2.4.0, watchpack@^2.4.0:
     glob-to-regexp "^0.4.1"
     graceful-fs "^4.1.2"
 
-watskeburt@1.0.1:
-  version "1.0.1"
-  resolved "https://registry.yarnpkg.com/watskeburt/-/watskeburt-1.0.1.tgz#157e87319cedac222c2524e138136fad70ba253e"
-  integrity sha512-MOvC8vf3hAVo1HPF/pkba7065mt6A/P9unLlFvYhZ7Yyuht16tmfCYi/LqHABG4hIRMZCbvY8eDWHPy81eSADA==
+watskeburt@2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/watskeburt/-/watskeburt-2.0.0.tgz#9599978fdf3c994354390bac7ca368726b6771ac"
+  integrity sha512-RJ961Bcw9sfHr1NqZwvcFBYWo6bN9xE1CeBy6LigLqpzzrdnvsMT5HFg2JhOe4ioDOrCndjNa3tsErIVZtCc3g==
 
 wbuf@^1.1.0, wbuf@^1.7.3:
   version "1.7.3"

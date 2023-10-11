@@ -1,13 +1,12 @@
-import { memo, useMemo } from 'react';
+import { useMemo } from 'react';
 import { FiArrowLeft } from 'react-icons/fi';
 import { useLocation, useNavigate } from 'react-router-dom';
 
-import { Box, Flex, FlexProps, IconButton, Stack, Text, useMediaQuery } from '@stacks/ui';
+import { Box, Flex, FlexProps, IconButton, Stack, useMediaQuery } from '@stacks/ui';
 import { OnboardingSelectors } from '@tests/selectors/onboarding.selectors';
 import { SettingsSelectors } from '@tests/selectors/settings.selectors';
 import { token } from 'leather-styles/tokens';
 
-import { BRANCH_NAME, COMMIT_SHA } from '@shared/environment';
 import { RouteUrls } from '@shared/route-urls';
 
 import { useDrawers } from '@app/common/hooks/use-drawers';
@@ -15,6 +14,7 @@ import { LeatherLogo } from '@app/components/leather-logo';
 import { NetworkModeBadge } from '@app/components/network-mode-badge';
 import { Title } from '@app/components/typography';
 
+import { AppVersion } from './app-version';
 import { LeatherButton } from './button/button';
 import { HamburgerIcon } from './icons/hamburger-icon';
 
@@ -24,7 +24,7 @@ interface HeaderProps extends FlexProps {
   onClose?(): void;
   title?: string;
 }
-export const Header: React.FC<HeaderProps> = memo(props => {
+export function Header(props: HeaderProps) {
   const { actionButton, hideActions, onClose, title, ...rest } = props;
   const { isShowingSettings, setIsShowingSettings } = useDrawers();
   const { pathname } = useLocation();
@@ -40,20 +40,6 @@ export const Header: React.FC<HeaderProps> = memo(props => {
       pathname !== RouteUrls.SetPassword
     );
   }, [pathname]);
-
-  const version = useMemo(() => {
-    switch (process.env.WALLET_ENVIRONMENT) {
-      case 'production':
-      case 'preview':
-        return `v${VERSION}`;
-      case 'feature':
-        return `${BRANCH_NAME}#${COMMIT_SHA?.slice(0, 8)}`;
-      case 'development':
-        return 'dev';
-      default:
-        return null;
-    }
-  }, []);
 
   return (
     <Flex
@@ -86,17 +72,7 @@ export const Header: React.FC<HeaderProps> = memo(props => {
               isClickable={leatherLogoIsClickable}
               onClick={leatherLogoIsClickable ? () => navigate(RouteUrls.Home) : undefined}
             />
-            <Text
-              display={!version ? 'none' : 'unset'}
-              fontFamily="mono"
-              fontSize="10px"
-              marginRight="10px"
-              mb="-3px"
-              ml="tight"
-              opacity={0.5}
-            >
-              {version}
-            </Text>
+            <AppVersion />
           </Flex>
         </Flex>
       ) : (
@@ -128,4 +104,4 @@ export const Header: React.FC<HeaderProps> = memo(props => {
       </Stack>
     </Flex>
   );
-});
+}

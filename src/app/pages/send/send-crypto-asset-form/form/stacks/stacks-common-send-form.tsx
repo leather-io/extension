@@ -58,7 +58,8 @@ export function StacksCommonSendForm({
         {props => {
           onFormStateChange(props.values);
           return (
-            <NonceSetter>
+            <>
+              <NonceSetter />
               <Form>
                 <SendCryptoAssetFormLayout>
                   {amountField}
@@ -76,7 +77,7 @@ export function StacksCommonSendForm({
                 <HighFeeDrawer learnMoreUrl={HIGH_FEE_WARNING_LEARN_MORE_URL_STX} />
                 <Outlet />
               </Form>
-            </NonceSetter>
+            </>
           );
         }}
       </Formik>

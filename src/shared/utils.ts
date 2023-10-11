@@ -55,3 +55,5 @@ export function whenNetwork(mode: NetworkModes) {
 export function isEmptyArray(data: unknown[]) {
   return data.length === 0;
 }
+
+export const defaultWalletKeyId = 'default' as const;

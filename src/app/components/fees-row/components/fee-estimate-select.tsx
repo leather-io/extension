@@ -11,13 +11,22 @@ interface FeeEstimateSelectProps {
   onSetIsSelectVisible(value: boolean): void;
   selectedItem: number;
   allowCustom: boolean;
+  disableFeeSelection?: boolean;
 }
 export function FeeEstimateSelect(props: FeeEstimateSelectProps) {
-  const { isVisible, estimate, onSelectItem, onSetIsSelectVisible, selectedItem, allowCustom } =
-    props;
+  const {
+    isVisible,
+    estimate,
+    onSelectItem,
+    onSetIsSelectVisible,
+    selectedItem,
+    allowCustom,
+    disableFeeSelection,
+  } = props;
 
   return (
     <FeeEstimateSelectLayout
+      disableFeeSelection={disableFeeSelection}
       isVisible={isVisible}
       onSetIsSelectVisible={onSetIsSelectVisible}
       selectedItem={selectedItem}

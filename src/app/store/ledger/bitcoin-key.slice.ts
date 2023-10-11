@@ -1,9 +1,10 @@
 import { PayloadAction, createEntityAdapter, createSlice } from '@reduxjs/toolkit';
 
+import { defaultWalletKeyId } from '@shared/utils';
+
 import { BitcoinLedgerAccountDetails } from '@app/features/ledger/utils/bitcoin-ledger-utils';
 
 import { RootState } from '..';
-import { defaultKeyId } from '../keys/key.slice';
 
 interface PersistedBitcoinKeys extends BitcoinLedgerAccountDetails {
   walletId: string;
@@ -19,7 +20,7 @@ export const bitcoinKeysSlice = createSlice({
       bitcoinKeyAdapter.addMany(
         state,
         // While we only support a single wallet, we default to the `default` walletId
-        payload.map(key => ({ ...key, walletId: defaultKeyId }))
+        payload.map(key => ({ ...key, walletId: defaultWalletKeyId }))
       );
     },
   },

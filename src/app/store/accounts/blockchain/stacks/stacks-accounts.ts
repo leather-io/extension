@@ -13,6 +13,7 @@ import { deriveStxPrivateKey, generateWallet } from '@stacks/wallet-sdk';
 import { atom } from 'jotai';
 
 import { DATA_DERIVATION_PATH, deriveStacksSalt } from '@shared/crypto/stacks/stacks-address-gen';
+import { defaultWalletKeyId } from '@shared/utils';
 
 import { derivePublicKey } from '@app/common/keychain/keychain';
 import { createNullArrayOfLength } from '@app/common/utils';
@@ -25,7 +26,6 @@ import {
 import { selectLedgerKey } from '@app/store/keys/key.selectors';
 import { addressNetworkVersionState } from '@app/store/transactions/transaction';
 
-import { defaultKeyId } from '../../../keys/key.slice';
 import {
   HardwareStacksAccount,
   SoftwareStacksAccount,
@@ -62,7 +62,7 @@ const selectStacksWalletState = createSelector(
   selectStacksChain,
   (keychain, chain) => {
     if (!keychain) return;
-    const { highestAccountIndex, currentAccountIndex } = chain[defaultKeyId];
+    const { highestAccountIndex, currentAccountIndex } = chain[defaultWalletKeyId];
     const numberOfAccountsToDerive = Math.max(highestAccountIndex, currentAccountIndex) + 1;
     return createNullArrayOfLength(numberOfAccountsToDerive).map((_, index) =>
       initalizeStacksAccount(keychain, index)

@@ -1,7 +1,7 @@
 import { HDKey } from '@scure/bip32';
 import * as btc from '@scure/btc-signer';
 
-import { BitcoinNetworkModes, NetworkModes } from '@shared/constants';
+import { BitcoinNetworkModes } from '@shared/constants';
 
 import { DerivationPathDepth } from '../derivation-path.utils';
 import { getBtcSignerLibNetworkConfigByMode } from './bitcoin.network';
@@ -26,7 +26,10 @@ export function getNativeSegwitAddressIndexDerivationPath(
   return getNativeSegwitAccountDerivationPath(network, accountIndex) + `/0/${addressIndex}`;
 }
 
-export function deriveNativeSegwitAccountFromRootKeychain(keychain: HDKey, network: NetworkModes) {
+export function deriveNativeSegwitAccountFromRootKeychain(
+  keychain: HDKey,
+  network: BitcoinNetworkModes
+) {
   if (keychain.depth !== DerivationPathDepth.Root) throw new Error('Keychain passed is not a root');
   return (accountIndex: number): BitcoinAccount => ({
     type: 'p2wpkh',

@@ -2,6 +2,7 @@ import { AddressVersion } from '@stacks/transactions';
 
 import { decryptMnemonic, encryptMnemonic } from '@shared/crypto/mnemonic-encryption';
 import { logger } from '@shared/logger';
+import { defaultWalletKeyId } from '@shared/utils';
 import { identifyUser } from '@shared/utils/analytics';
 
 import { recurseAccountsForActivity } from '@app/common/account-restoration/account-restore';
@@ -19,7 +20,7 @@ import { stxChainSlice } from '../chains/stx-chain.slice';
 import { selectDefaultWalletKey } from '../in-memory-key/in-memory-key.selectors';
 import { inMemoryKeySlice } from '../in-memory-key/in-memory-key.slice';
 import { selectCurrentKey } from './key.selectors';
-import { defaultKeyId, keySlice } from './key.slice';
+import { keySlice } from './key.slice';
 
 function setWalletEncryptionPassword(args: {
   password: string;
@@ -86,7 +87,7 @@ function setWalletEncryptionPassword(args: {
     dispatch(
       keySlice.actions.createStacksSoftwareWalletComplete({
         type: 'software',
-        id: defaultKeyId,
+        id: defaultWalletKeyId,
         salt,
         encryptedSecretKey,
       })

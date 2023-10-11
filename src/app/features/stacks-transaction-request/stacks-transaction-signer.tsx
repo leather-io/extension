@@ -1,9 +1,8 @@
-import { memo } from 'react';
-import { Outlet, useNavigate } from 'react-router-dom';
+import { Outlet, useLocation, useNavigate } from 'react-router-dom';
 
+import { StacksTransaction } from '@stacks/transactions';
 import { Flex } from '@stacks/ui';
 import { Formik } from 'formik';
-import get from 'lodash.get';
 import * as yup from 'yup';
 
 import { HIGH_FEE_WARNING_LEARN_MORE_URL_STX } from '@shared/constants';
@@ -12,10 +11,9 @@ import { StacksTransactionFormValues } from '@shared/models/form.model';
 import { RouteUrls } from '@shared/route-urls';
 
 import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
-import { LoadingKeys, useLoading } from '@app/common/hooks/use-loading';
 import { useOnMount } from '@app/common/hooks/use-on-mount';
 import { useRouteHeader } from '@app/common/hooks/use-route-header';
-import { useWalletType } from '@app/common/use-wallet-type';
+import { stxToMicroStx } from '@app/common/money/unit-conversion';
 import { stxFeeValidator } from '@app/common/validation/forms/fee-validators';
 import { nonceValidator } from '@app/common/validation/nonce-validators';
 import { EditNonceButton } from '@app/components/edit-nonce-button';
@@ -23,40 +21,47 @@ import { NonceSetter } from '@app/components/nonce-setter';
 import { PopupHeader } from '@app/features/current-account/popup-header';
 import { RequestingTabClosedWarningMessage } from '@app/features/errors/requesting-tab-closed-error-msg';
 import { HighFeeDrawer } from '@app/features/high-fee-drawer/high-fee-drawer';
-import { useLedgerNavigate } from '@app/features/ledger/hooks/use-ledger-navigate';
 import { ContractCallDetails } from '@app/features/stacks-transaction-request/contract-call-details/contract-call-details';
 import { ContractDeployDetails } from '@app/features/stacks-transaction-request/contract-deploy-details/contract-deploy-details';
-import { FeeForm } from '@app/features/stacks-transaction-request/fee-form';
-import { MinimalErrorMessage } from '@app/features/stacks-transaction-request/minimal-error-message';
 import { PageTop } from '@app/features/stacks-transaction-request/page-top';
 import { PostConditionModeWarning } from '@app/features/stacks-transaction-request/post-condition-mode-warning';
 import { PostConditions } from '@app/features/stacks-transaction-request/post-conditions/post-conditions';
 import { StxTransferDetails } from '@app/features/stacks-transaction-request/stx-transfer-details/stx-transfer-details';
-import { SubmitAction } from '@app/features/stacks-transaction-request/submit-action';
 import { TransactionError } from '@app/features/stacks-transaction-request/transaction-error/transaction-error';
 import { useCurrentStacksAccountAnchoredBalances } from '@app/query/stacks/balance/stx-balance.hooks';
 import { useCalculateStacksTxFees } from '@app/query/stacks/fees/fees.hooks';
 import { useNextNonce } from '@app/query/stacks/nonce/account-nonces.hooks';
 import { useTransactionRequestState } from '@app/store/transactions/requests.hooks';
-import {
-  useGenerateUnsignedStacksTransaction,
-  useSoftwareWalletTransactionRequestBroadcast,
-  useUnsignedStacksTransactionBaseState,
-} from '@app/store/transactions/transaction.hooks';
 
-function TransactionRequestBase() {
+import { FeeForm } from './fee-form';
+import { MinimalErrorMessage } from './minimal-error-message';
+import { SubmitAction } from './submit-action';
+
+interface StacksTransactionSignerProps {
+  stacksTransaction: StacksTransaction;
+  disableFeeSelection?: boolean;
+  disableNonceSelection?: boolean;
+  isMultisig: boolean;
+
+  onCancel(): void;
+
+  onSignStacksTransaction(fee: number, nonce: number): void;
+}
+
+export function StacksTransactionSigner({
+  stacksTransaction,
+  disableFeeSelection,
+  disableNonceSelection,
+  onSignStacksTransaction,
+  isMultisig,
+}: StacksTransactionSignerProps) {
   const transactionRequest = useTransactionRequestState();
-  const { setIsLoading, setIsIdle } = useLoading(LoadingKeys.SUBMIT_TRANSACTION);
-  const handleBroadcastTransaction = useSoftwareWalletTransactionRequestBroadcast();
-  const unsignedTx = useUnsignedStacksTransactionBaseState();
-  const { data: stxFees } = useCalculateStacksTxFees(unsignedTx.transaction);
+  const { data: stxFees } = useCalculateStacksTxFees(stacksTransaction);
   const analytics = useAnalytics();
-  const { walletType } = useWalletType();
-  const generateUnsignedTx = useGenerateUnsignedStacksTransaction();
   const { data: stacksBalances } = useCurrentStacksAccountAnchoredBalances();
-  const ledgerNavigate = useLedgerNavigate();
-  const { data: nextNonce } = useNextNonce();
   const navigate = useNavigate();
+  const { data: nextNonce } = useNextNonce();
+  const { search } = useLocation();
 
   useRouteHeader(<PopupHeader />);
 
@@ -65,43 +70,28 @@ function TransactionRequestBase() {
   });
 
   const onSubmit = async (values: StacksTransactionFormValues) => {
-    if (walletType === 'ledger') {
-      const tx = await generateUnsignedTx(values);
-      if (!tx) return;
-      ledgerNavigate.toConnectAndSignTransactionStep(tx);
-      return;
-    }
-    setIsLoading();
-
-    try {
-      await handleBroadcastTransaction(values);
-      setIsIdle();
-    } catch (e) {
-      navigate(RouteUrls.TransactionBroadcastError, { state: { message: get(e, 'message') } });
-      return;
-    }
-
-    void analytics.track('submit_fee_for_transaction', {
-      calculation: stxFees?.calculation,
-      fee: values.fee,
-      type: values.feeType,
-    });
+    onSignStacksTransaction(stxToMicroStx(values.fee).toNumber(), Number(values.nonce));
   };
 
   if (!transactionRequest) return null;
 
-  const validationSchema = !transactionRequest.sponsored
-    ? yup.object({
-        fee: stxFeeValidator(stacksBalances?.stx.unlockedStx),
-        nonce: nonceValidator,
-      })
-    : null;
+  const validationSchema =
+    !transactionRequest.sponsored && !disableFeeSelection && !isMultisig
+      ? yup.object({
+          fee: stxFeeValidator(stacksBalances?.stx.unlockedStx),
+          nonce: nonceValidator,
+        })
+      : yup.object({
+          nonce: nonceValidator,
+        });
+
+  const isNonceAlreadySet = !Number.isNaN(transactionRequest.nonce);
 
   const initialValues: StacksTransactionFormValues = {
     fee: '',
     feeCurrency: 'STX',
     feeType: FeeTypes[FeeTypes.Middle],
-    nonce: nextNonce?.nonce,
+    nonce: isNonceAlreadySet ? transactionRequest.nonce : nextNonce?.nonce,
   };
 
   return (
@@ -124,13 +114,19 @@ function TransactionRequestBase() {
       >
         {() => (
           <>
-            <NonceSetter />
-            <FeeForm fees={stxFees} />
-            <EditNonceButton
-              alignSelf="flex-end"
-              my="base"
-              onEditNonce={() => navigate(RouteUrls.EditNonce)}
+            {!isNonceAlreadySet && <NonceSetter />}
+            <FeeForm
+              fees={stxFees}
+              defaultFeeValue={Number(transactionRequest?.fee || 0)}
+              disableFeeSelection={disableFeeSelection}
             />
+            {!disableNonceSelection && (
+              <EditNonceButton
+                alignSelf="flex-end"
+                my="base"
+                onEditNonce={() => navigate(RouteUrls.EditNonce + search)}
+              />
+            )}
             <MinimalErrorMessage />
             <SubmitAction />
             <HighFeeDrawer learnMoreUrl={HIGH_FEE_WARNING_LEARN_MORE_URL_STX} />
@@ -141,5 +137,3 @@ function TransactionRequestBase() {
     </Flex>
   );
 }
-
-export const TransactionRequest = memo(TransactionRequestBase);
