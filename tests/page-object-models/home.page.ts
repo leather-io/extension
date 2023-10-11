@@ -56,6 +56,7 @@ export class HomePage {
   }
 
   async goToReceiveModal() {
+    PETE check this
     await this.page.getByTestId(HomePageSelectors.ReceiveCryptoAssetBtn).click();
   }
 
@@ -89,7 +90,10 @@ export class HomePage {
     await this.goToReceiveModal();
     // In Ledger mode, this element isn't visible, so clicking is conditional
     const qrCodeBtn = this.page.getByTestId(HomePageSelectors.ReceiveStxQrCodeBtn);
-    if (await qrCodeBtn.isVisible()) await qrCodeBtn.click();
+    debugger;
+
+    // THIS seems to run no matter whattttttt! maybe its goToReceiveModal crashing
+    if (false) await qrCodeBtn.click();
     const displayerAddress = await this.page
       .getByTestId(SharedComponentsSelectors.AddressDisplayer)
       .innerText();
