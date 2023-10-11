@@ -54,7 +54,7 @@ export function ReceiveModal({ type = 'full' }: ReceiveModalProps) {
   function navigateToQrCodeRoute(route: RouteUrls) {
     setIsShowing(false);
     navigate(route, {
-      state: { backgroundLocation },
+      state: { backgroundLocation, ...location.state },
     });
   }
 
@@ -99,7 +99,14 @@ export function ReceiveModal({ type = 'full' }: ReceiveModalProps) {
                 icon={<StxAvatar />}
                 dataTestId={HomePageSelectors.ReceiveStxQrCodeBtn}
                 onCopyAddress={() => copyToClipboard(onCopyStx)}
-                onClickQrCode={() => navigateToQrCodeRoute(RouteUrls.ReceiveStx)}
+                onClickQrCode={
+                  () =>
+                    navigate(RouteUrls.ReceiveStx, {
+                      relative: 'route',
+                      state: { backgroundLocation, btcAddressTaproot },
+                    })
+                  // navigate(RouteUrls.ReceiveStx)
+                }
                 title="Stacks"
               />
             </ReceiveItemList>
