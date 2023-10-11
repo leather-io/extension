@@ -19,12 +19,13 @@ export function useZeroIndexTaprootAddress(accIndex?: number) {
   const network = useCurrentNetwork();
   const currentAccountIndex = useCurrentAccountIndex();
   const account = useTaprootAccount(accIndex ?? currentAccountIndex);
+  // THIS ERROR BEING THROWN WHEN VIEWING STACKS ADDRESS IN LEDGER MODE
 
-  if (!account) throw new Error('Expected keychain to be provided');
+  // if (!account) throw new Error('Expected keychain to be provided');
 
   const address = getTaprootAddress({
     index: 0,
-    keychain: account.keychain,
+    keychain: account?.keychain,
     network: network.chain.bitcoin.network,
   });
 
