@@ -1,5 +1,6 @@
 import { useMemo } from 'react';
 
+// eslint-disable-next-line no-restricted-imports
 import { isUndefined } from '@shared/utils';
 
 import { useHasBitcoinLedgerKeychain } from '@app/store/accounts/blockchain/bitcoin/bitcoin.ledger';
@@ -36,11 +37,11 @@ export function useWalletType() {
 
   return useMemo(
     () => ({
-      walletType: wallet?.type,
+      walletType,
       // Coercing type here allows use within app without handling undefined
       // case will error when use within onboarding
       whenWallet: whenWallet(walletType as any),
     }),
-    [wallet, walletType]
+    [walletType]
   );
 }

@@ -12,13 +12,13 @@ import { selectStacksChain } from '../chains/stx-chain.selectors';
 
 const selectKeysSlice = (state: RootState) => state.keys;
 
-export const selectCurrentKey = createSelector(
+export const selectDefaultSoftwareKey = createSelector(
   selectKeysSlice,
   state => state.entities[defaultWalletKeyId]
 );
 
 export function useCurrentKeyDetails() {
-  return useSelector(selectCurrentKey);
+  return useSelector(selectDefaultSoftwareKey);
 }
 
 export const selectCurrentAccountIndex = createSelector(selectStacksChain, state => {

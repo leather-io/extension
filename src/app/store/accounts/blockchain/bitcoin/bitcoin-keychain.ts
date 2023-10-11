@@ -13,8 +13,8 @@ import {
 
 import { useWalletType } from '@app/common/use-wallet-type';
 import { selectRootKeychain } from '@app/store/in-memory-key/in-memory-key.selectors';
-import { selectCurrentKey } from '@app/store/keys/key.selectors';
-import { selectDefaultWalletBitcoinKeyEntities } from '@app/store/ledger/bitcoin-key.slice';
+import { selectDefaultSoftwareKey } from '@app/store/keys/key.selectors';
+import { selectDefaultWalletBitcoinKeyEntities } from '@app/store/ledger/bitcoin/bitcoin-key.slice';
 import { useCurrentNetwork } from '@app/store/networks/networks.selectors';
 
 // This factory selector extends from the wallet root keychain to derive child
@@ -33,7 +33,7 @@ export function bitcoinAccountBuilderFactory(
   ) => (accountIndex: number) => BitcoinAccount | undefined
 ) {
   return createSelector(
-    selectCurrentKey,
+    selectDefaultSoftwareKey,
     selectRootKeychain,
     selectDefaultWalletBitcoinKeyEntities,
     (_, rootKeychain, bitcoinLedgerKeys) => {

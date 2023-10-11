@@ -22,7 +22,8 @@ import { appPermissionsSlice } from './app-permissions/app-permissions.slice';
 import { stxChainSlice } from './chains/stx-chain.slice';
 import { inMemoryKeySlice } from './in-memory-key/in-memory-key.slice';
 import { keySlice } from './keys/key.slice';
-import { bitcoinKeysSlice } from './ledger/bitcoin-key.slice';
+import { bitcoinKeysSlice } from './ledger/bitcoin/bitcoin-key.slice';
+import { stacksKeysSlice } from './ledger/bitcoin/stacks-key.slice';
 import { networksSlice } from './networks/networks.slice';
 import { ordinalsSlice } from './ordinals/ordinals.slice';
 import { settingsSlice } from './settings/settings.slice';
@@ -37,6 +38,7 @@ export interface RootState {
   };
   ledger: {
     bitcoin: ReturnType<typeof bitcoinKeysSlice.reducer>;
+    stacks: ReturnType<typeof stacksKeysSlice.reducer>;
   };
   ordinals: ReturnType<typeof ordinalsSlice.reducer>;
   inMemoryKeys: ReturnType<typeof inMemoryKeySlice.reducer>;
@@ -54,6 +56,7 @@ const appReducer = combineReducers({
   }),
   ledger: combineReducers({
     bitcoin: bitcoinKeysSlice.reducer,
+    stacks: stacksKeysSlice.reducer,
   }),
   ordinals: ordinalsSlice.reducer,
   inMemoryKeys: inMemoryKeySlice.reducer,
