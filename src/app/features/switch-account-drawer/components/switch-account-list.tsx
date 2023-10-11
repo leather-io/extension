@@ -1,7 +1,7 @@
 import { memo } from 'react';
 import { Virtuoso } from 'react-virtuoso';
 
-import { Box } from '@stacks/ui';
+import { Box } from 'leather-styles/jsx';
 
 import { StacksAccount } from '@app/store/accounts/blockchain/stacks/stacks-account.models';
 
@@ -21,7 +21,7 @@ export const SwitchAccountList = memo(
         style={{ paddingTop: '24px', height: '70vh' }}
         totalCount={accounts.length}
         itemContent={index => (
-          <Box mx={['base-loose', 'extra-loose']} key={accounts[index].address ?? index}>
+          <Box mx={['space.05', 'space.06']} key={accounts[index].address ?? index}>
             <SwitchAccountListItem handleClose={handleClose} account={accounts[index]} />
           </Box>
         )}
