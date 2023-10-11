@@ -1,11 +1,11 @@
 import NoActivity from '@assets/images/no-activity.png';
-import { Stack } from '@stacks/ui';
+import { Stack } from 'leather-styles/jsx';
 
 import { Caption } from '@app/components/typography';
 
 export function NoAccountActivity() {
   return (
-    <Stack py="extra-loose" spacing="extra-loose" justifyContent="center" alignItems="center">
+    <Stack gap="space.06" justifyContent="center" alignItems="center">
       <img src={NoActivity} width="120px" />
       <Caption maxWidth="23ch" textAlign="center">
         No activity yet

@@ -1,8 +1,8 @@
 import { Outlet } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 
-import { Box, Stack } from '@stacks/ui';
 import { HomePageSelectors } from '@tests/selectors/home.selectors';
+import { Stack } from 'leather-styles/jsx';
 
 import { LEDGER_BITCOIN_ENABLED } from '@shared/environment';
 
@@ -27,14 +27,14 @@ export function AssetsList() {
   const navigate = useNavigate();
 
   return (
-    <Stack pb="extra-loose" spacing="loose" data-testid={HomePageSelectors.BalancesList}>
+    <Stack pb="space.06" gap="space.05" data-testid={HomePageSelectors.BalancesList}>
       {/* Temporary duplication during Ledger Bitcoin feature dev */}
       {whenWallet({
         software: (
           <CryptoCurrencyAssetItem
             assetBalance={btcAvailableAssetBalance}
             usdBalance={btcAvailableUsdBalance}
-            icon={<Box as={BtcIcon} />}
+            icon={<BtcIcon />}
             address={btcAddress}
           />
         ),
@@ -42,7 +42,7 @@ export function AssetsList() {
           <CryptoCurrencyAssetItem
             assetBalance={btcAvailableAssetBalance}
             usdBalance={btcAvailableUsdBalance}
-            icon={<Box as={BtcIcon} />}
+            icon={<BtcIcon />}
             address={btcAddress}
             // add conditionally if not bitcoin keys
             isPressable={!btcAddress}
