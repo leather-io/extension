@@ -1,10 +1,4 @@
-import {
-  AddressVersion,
-  AuthType,
-  ChainID,
-  StacksTransaction,
-  TransactionVersion,
-} from '@stacks/transactions';
+import { AuthType, ChainID, StacksTransaction, TransactionVersion } from '@stacks/transactions';
 import { atom } from 'jotai';
 
 import { stacksTransactionToHex } from '@app/common/transactions/stacks/transaction.utils';
@@ -30,14 +24,5 @@ export const transactionNetworkVersionState = atom(get => {
   return whenStacksChainId(currentNetwork.chain.stacks.chainId)({
     [ChainID.Mainnet]: TransactionVersion.Mainnet,
     [ChainID.Testnet]: TransactionVersion.Testnet,
-  });
-});
-
-export const addressNetworkVersionState = atom(get => {
-  const currentNetwork = get(currentNetworkAtom);
-
-  return whenStacksChainId(currentNetwork.chain.stacks.chainId)({
-    [ChainID.Mainnet]: AddressVersion.MainnetSingleSig,
-    [ChainID.Testnet]: AddressVersion.TestnetSingleSig,
   });
 });

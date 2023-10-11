@@ -6,7 +6,7 @@ import { bitcoinNetworkModeToCoreNetworkMode } from '@shared/crypto/bitcoin/bitc
 import { LedgerRequestKeysContext } from '@app/features/ledger/generic-flows/request-keys/ledger-request-keys.context';
 import { useLedgerNavigate } from '@app/features/ledger/hooks/use-ledger-navigate';
 import { useActionCancellableByUser } from '@app/features/ledger/utils/stacks-ledger-utils';
-import { bitcoinKeysSlice } from '@app/store/ledger/bitcoin-key.slice';
+import { bitcoinKeysSlice } from '@app/store/ledger/bitcoin/bitcoin-key.slice';
 import { useCurrentNetwork } from '@app/store/networks/networks.selectors';
 
 import { ledgerRequestKeysRoutes } from '../../generic-flows/request-keys/ledger-request-keys-route-generator';
@@ -46,7 +46,7 @@ function LedgerRequestBitcoinKeys() {
           ledgerNavigate.toDeviceBusyStep(`Requesting Bitcoin Taproot address (${index - 4}…5)`);
         },
       });
-      dispatch(bitcoinKeysSlice.actions.addBitcoinKeys(keys));
+      dispatch(bitcoinKeysSlice.actions.addKeys(keys));
     },
   });
 
