@@ -27,7 +27,8 @@ function getAccountIndexFromDerivationPathFactory(derivationPath: string) {
   return (account: number) => derivationPath.replace('{account}', account.toString());
 }
 
-const getStxDerivationPath = getAccountIndexFromDerivationPathFactory(stxDerivationWithAccount);
+export const getStxDerivationPath =
+  getAccountIndexFromDerivationPathFactory(stxDerivationWithAccount);
 
 export const getIdentityDerivationPath = getAccountIndexFromDerivationPathFactory(
   stxIdentityDerivationWithAccount
@@ -43,7 +44,8 @@ export function requestPublicKeyForStxAccount(app: StacksApp) {
     );
 }
 
-export interface StxAndIdentityPublicKeys {
+export interface StacksAppKeysResponseItem {
+  path: string;
   stxPublicKey: string;
   dataPublicKey: string;
 }

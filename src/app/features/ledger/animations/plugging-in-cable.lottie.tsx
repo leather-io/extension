@@ -6,6 +6,8 @@ import { useThemeSwitcher } from '@app/common/theme-provider';
 
 import * as animationDataBright from './plugged-in-cable-bright.lottie.json';
 
+const Lottie = LottieRaw as any;
+
 const options: Options = {
   loop: true,
   autoplay: true,
@@ -14,8 +16,6 @@ const options: Options = {
     preserveAspectRatio: 'xMidYMid slice',
   },
 };
-
-const Lottie = LottieRaw as any;
 
 // Required for interop with `React.lazy`
 // ts-unused-exports:disable-next-line
