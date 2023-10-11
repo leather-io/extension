@@ -1,8 +1,9 @@
-import { Flex, Grid, Spinner, color } from '@stacks/ui';
+import { Spinner } from '@stacks/ui';
+import { Flex, Grid, HStack, styled } from 'leather-styles/jsx';
+import { token } from 'leather-styles/tokens';
 
 import { RefreshIcon } from '@app/components/icons/refresh-icon';
 import { LoadingSpinner } from '@app/components/loading-spinner';
-import { Caption } from '@app/components/typography';
 
 interface CollectiblesLayoutProps {
   title: string;
@@ -17,20 +18,20 @@ export function CollectiblesLayout(props: CollectiblesLayoutProps) {
   return (
     <>
       <Flex flexDirection="row" justifyContent="space-between" flex={1}>
-        <Flex columnGap="8px">
-          <Caption>{title}</Caption>
+        <HStack columnGap="space.02">
+          <styled.span textStyle="label.01">{title}</styled.span>
           {isLoading ? (
-            <Spinner color={color('text-caption')} opacity={0.5} size="16px" />
+            <Spinner color={token('colors.accent.text-primary')} opacity={0.5} size="16px" />
           ) : (
             <RefreshIcon cursor="pointer" onClick={() => onRefresh()} />
           )}
-        </Flex>
+        </HStack>
         {subHeader}
       </Flex>
       <Grid
-        gap="base"
-        rowGap="extra-loose"
-        templateColumns={[
+        gap="space.04"
+        rowGap="space.06"
+        gridTemplateColumns={[
           'repeat(auto-fill, minmax(164px, 1fr))',
           'repeat(auto-fill, minmax(184px, 1fr))',
         ]}
