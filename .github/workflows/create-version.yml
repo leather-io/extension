@@ -66,3 +66,12 @@ jobs:
         with:
           name: release-notes
           path: release-notes.txt
+
+      - name: Merge main -> dev
+        uses: devmasx/merge-branch@master
+        continue-on-error: true
+        with:
+          type: now
+          from_branch: main
+          target_branch: dev
+          github_token: ${{ secrets.SEMANTIC_RELEASE_TOKEN }}
