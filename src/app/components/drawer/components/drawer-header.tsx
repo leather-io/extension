@@ -28,7 +28,7 @@ export function DrawerHeader({
   const [isHovered, bind] = useHover();
 
   return (
-    <Flex justifyContent="space-between" alignItems="center" py="space.04" px="space.04" {...bind}>
+    <Flex justifyContent="space-between" alignItems="center" p="space.04" {...bind}>
       {enableGoBack ? (
         <HeaderActionButton
           icon={<ArrowLeftIcon />}
