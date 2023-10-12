@@ -54,7 +54,7 @@ export function BitcoinContractRequest() {
 
     const currentBitcoinNetwork = bitcoinAccountDetails.network;
 
-    if (currentBitcoinNetwork !== 'testnet') {
+    if (!['testnet', 'regtest'].includes(currentBitcoinNetwork)) {
       navigate(RouteUrls.BitcoinContractLockError, {
         state: {
           error: new Error('Invalid Network'),

@@ -50,7 +50,7 @@ interface UseParsedInputsArgs {
 }
 export function useParsedInputs({ inputs, indexesToSign }: UseParsedInputsArgs) {
   const network = useCurrentNetwork();
-  const bitcoinNetwork = getBtcSignerLibNetworkConfigByMode(network.chain.bitcoin.network);
+  const bitcoinNetwork = getBtcSignerLibNetworkConfigByMode(network.chain.bitcoin.bitcoinNetwork);
   const bitcoinAddressNativeSegwit = useCurrentAccountNativeSegwitIndexZeroSigner().address;
   const { address: bitcoinAddressTaproot } = useCurrentAccountTaprootIndexZeroSigner();
   const inscriptions = useGetInscriptionsByOutputQueries(inputs).map(query => {

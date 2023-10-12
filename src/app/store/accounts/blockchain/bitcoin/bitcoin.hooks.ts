@@ -25,7 +25,7 @@ export function useZeroIndexTaprootAddress(accIndex?: number) {
   const address = getTaprootAddress({
     index: 0,
     keychain: account.keychain,
-    network: network.chain.bitcoin.network,
+    network: network.chain.bitcoin.bitcoinNetwork,
   });
 
   return address;

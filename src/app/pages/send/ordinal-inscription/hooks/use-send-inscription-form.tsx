@@ -124,7 +124,7 @@ export function useSendInscriptionForm() {
         .string()
         .required(FormErrorMessages.AddressRequired)
         .concat(btcAddressValidator())
-        .concat(btcAddressNetworkValidator(currentNetwork.chain.bitcoin.network)),
+        .concat(btcAddressNetworkValidator(currentNetwork.chain.bitcoin.bitcoinNetwork)),
     }),
   };
 }

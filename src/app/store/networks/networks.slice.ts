@@ -11,6 +11,7 @@ export type PersistedNetworkConfiguration = Omit<
   Pick<NetworkConfiguration, 'chain'>['chain']['stacks'],
   'blockchain'
 > &
+  Omit<Pick<NetworkConfiguration, 'chain'>['chain']['bitcoin'], 'blockchain'> &
   Pick<NetworkConfiguration, 'id' | 'name'>;
 
 export const networksAdapter = createEntityAdapter<PersistedNetworkConfiguration>();

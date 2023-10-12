@@ -1,13 +1,7 @@
 import { Dictionary } from '@reduxjs/toolkit';
 import { ChainID } from '@stacks/transactions';
 
-import {
-  BITCOIN_API_BASE_URL_MAINNET,
-  BITCOIN_API_BASE_URL_TESTNET,
-  NetworkConfiguration,
-} from '@shared/constants';
-
-import { whenStacksChainId } from '@app/common/utils';
+import { NetworkConfiguration } from '@shared/constants';
 
 import { PersistedNetworkConfiguration } from './networks.slice';
 
@@ -50,7 +44,8 @@ export function transformNetworkStateToMultichainStucture(
     Object.entries(state)
       .map(([key, network]) => {
         if (!network) return ['', null];
-        const { id, name, chainId, subnetChainId, url } = network;
+        const { id, name, chainId, subnetChainId, url, bitcoinNetwork, bitcoinUrl } = network;
+
         return [
           key,
           {
@@ -59,18 +54,14 @@ export function transformNetworkStateToMultichainStucture(
             chain: {
               stacks: {
                 blockchain: 'stacks',
-                url,
+                url: url,
                 chainId,
                 subnetChainId,
               },
               bitcoin: {
                 blockchain: 'bitcoin',
-                network: ChainID[chainId] ? ChainID[chainId].toLowerCase() : 'testnet',
-                url:
-                  whenStacksChainId(chainId)({
-                    [ChainID.Mainnet]: BITCOIN_API_BASE_URL_MAINNET,
-                    [ChainID.Testnet]: BITCOIN_API_BASE_URL_TESTNET,
-                  }) || BITCOIN_API_BASE_URL_TESTNET,
+                bitcoinNetwork,
+                bitcoinUrl,
               },
             },
           },
