@@ -50,8 +50,26 @@ export function useNetworksActions() {
 
   return useMemo(
     () => ({
-      addNetwork({ chainId, subnetChainId, id, name, url }: PersistedNetworkConfiguration) {
-        dispatch(networksActions.addNetwork({ chainId, subnetChainId, id, name, url }));
+      addNetwork({
+        id,
+        name,
+        chainId,
+        subnetChainId,
+        url,
+        bitcoinNetwork,
+        bitcoinUrl,
+      }: PersistedNetworkConfiguration) {
+        dispatch(
+          networksActions.addNetwork({
+            id,
+            name,
+            chainId,
+            subnetChainId,
+            url,
+            bitcoinNetwork,
+            bitcoinUrl,
+          })
+        );
         dispatch(networksActions.changeNetwork(id));
         return;
       },

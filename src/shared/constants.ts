@@ -57,8 +57,8 @@ interface BaseChainConfig {
 
 interface BitcoinChainConfig extends BaseChainConfig {
   blockchain: 'bitcoin';
-  url: string;
-  network: BitcoinNetworkModes;
+  bitcoinUrl: string;
+  bitcoinNetwork: BitcoinNetworkModes;
 }
 
 interface StacksChainConfig extends BaseChainConfig {
@@ -83,8 +83,8 @@ export const HIRO_API_BASE_URL_MAINNET = 'https://api.hiro.so';
 export const HIRO_API_BASE_URL_TESTNET = 'https://api.testnet.hiro.so';
 export const HIRO_INSCRIPTIONS_API_URL = 'https://api.hiro.so/ordinals/v1/inscriptions';
 
-export const BITCOIN_API_BASE_URL_MAINNET = 'https://blockstream.info/api';
-export const BITCOIN_API_BASE_URL_TESTNET = 'https://blockstream.info/testnet/api';
+const BITCOIN_API_BASE_URL_MAINNET = 'https://blockstream.info/api';
+const BITCOIN_API_BASE_URL_TESTNET = 'https://blockstream.info/testnet/api';
 const BITCOIN_API_BASE_URL_SIGNET = 'https://mempool.space/signet/api';
 
 const networkMainnet: NetworkConfiguration = {
@@ -98,8 +98,8 @@ const networkMainnet: NetworkConfiguration = {
     },
     bitcoin: {
       blockchain: 'bitcoin',
-      network: 'mainnet',
-      url: BITCOIN_API_BASE_URL_MAINNET,
+      bitcoinNetwork: 'mainnet',
+      bitcoinUrl: BITCOIN_API_BASE_URL_MAINNET,
     },
   },
 };
@@ -115,8 +115,8 @@ const networkTestnet: NetworkConfiguration = {
     },
     bitcoin: {
       blockchain: 'bitcoin',
-      network: 'testnet',
-      url: BITCOIN_API_BASE_URL_TESTNET,
+      bitcoinNetwork: 'testnet',
+      bitcoinUrl: BITCOIN_API_BASE_URL_TESTNET,
     },
   },
 };
@@ -132,8 +132,8 @@ const networkSignet: NetworkConfiguration = {
     },
     bitcoin: {
       blockchain: 'bitcoin',
-      network: 'signet',
-      url: BITCOIN_API_BASE_URL_SIGNET,
+      bitcoinNetwork: 'signet',
+      bitcoinUrl: BITCOIN_API_BASE_URL_SIGNET,
     },
   },
 };
@@ -149,8 +149,8 @@ const networkSbtcDevenv: NetworkConfiguration = {
     },
     bitcoin: {
       blockchain: 'bitcoin',
-      network: 'regtest',
-      url: 'http://localhost:3002',
+      bitcoinNetwork: 'regtest',
+      bitcoinUrl: 'http://localhost:8999/api',
     },
   },
 };
@@ -166,8 +166,8 @@ const networkDevnet: NetworkConfiguration = {
     },
     bitcoin: {
       blockchain: 'bitcoin',
-      network: 'regtest',
-      url: 'http://localhost:18443',
+      bitcoinNetwork: 'regtest',
+      bitcoinUrl: 'http://localhost:18443',
     },
   },
 };

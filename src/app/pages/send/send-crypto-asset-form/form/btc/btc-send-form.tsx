@@ -90,7 +90,7 @@ export function BtcSendForm() {
                   symbol={symbol}
                 />
                 <BitcoinRecipientField />
-                {currentNetwork.chain.bitcoin.network === 'testnet' && <TestnetBtcMessage />}
+                {currentNetwork.chain.bitcoin.bitcoinNetwork === 'testnet' && <TestnetBtcMessage />}
               </SendCryptoAssetFormLayout>
               <FormFooter balance={btcBalance.balance} />
               <HighFeeDrawer learnMoreUrl={HIGH_FEE_WARNING_LEARN_MORE_URL_BTC} />

@@ -34,11 +34,8 @@ function LedgerRequestBitcoinKeys() {
       navigate('/', { replace: true });
     },
     async pullKeysFromDevice(app) {
-      const { keys } = await pullBitcoinKeysFromLedgerDevice(
-        app,
-        latestDeviceResponse?.targetId
-      )({
-        network: bitcoinNetworkModeToCoreNetworkMode(network.chain.bitcoin.network),
+      const { keys } = await pullBitcoinKeysFromLedgerDevice(app)({
+        network: bitcoinNetworkModeToCoreNetworkMode(network.chain.bitcoin.bitcoinNetwork),
         onRequestKey(index) {
           if (index <= 4) {
             ledgerNavigate.toDeviceBusyStep(

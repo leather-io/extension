@@ -35,7 +35,7 @@ export function AssetsList() {
   return (
     <Stack pb="space.06" gap="space.05" data-testid={HomePageSelectors.BalancesList}>
       {/* Temporary duplication during Ledger Bitcoin feature dev */}
-      {network.chain.bitcoin.network === 'testnet' &&
+      {network.chain.bitcoin.bitcoinNetwork === 'testnet' &&
         whenWallet({
           software: <BitcoinContractEntryPoint btcAddress={btcAddress} />,
           ledger: null,

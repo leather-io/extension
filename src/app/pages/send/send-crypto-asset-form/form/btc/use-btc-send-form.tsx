@@ -77,7 +77,7 @@ export function useBtcSendForm() {
       recipient: yup
         .string()
         .concat(btcAddressValidator())
-        .concat(btcAddressNetworkValidator(currentNetwork.chain.bitcoin.network))
+        .concat(btcAddressNetworkValidator(currentNetwork.chain.bitcoin.bitcoinNetwork))
         .concat(notCurrentAddressValidator(nativeSegwitSigner.address || ''))
         .required('Enter a bitcoin address'),
     }),
