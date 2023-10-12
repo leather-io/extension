@@ -1,4 +1,4 @@
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 import { SharedComponentsSelectors } from '@tests/selectors/shared-component.selectors';
 import { Box, Flex, styled } from 'leather-styles/jsx';
