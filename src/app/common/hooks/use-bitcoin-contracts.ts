@@ -80,8 +80,8 @@ export function useBitcoinContracts() {
     const bitcoinContractInterface = await JsDLCInterface.new(
       bytesToHex(currentAddressPrivateKey),
       currentAddress,
-      currentBitcoinNetwork.chain.bitcoin.network,
-      currentBitcoinNetwork.chain.bitcoin.url
+      currentBitcoinNetwork.chain.bitcoin.bitcoinNetwork,
+      currentBitcoinNetwork.chain.bitcoin.bitcoinUrl
     );
 
     return bitcoinContractInterface;

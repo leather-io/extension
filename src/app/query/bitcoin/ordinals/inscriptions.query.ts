@@ -64,7 +64,7 @@ export function useGetInscriptionsInfiniteQuery() {
           const address = getTaprootAddress({
             index: i,
             keychain: account?.keychain,
-            network: network.chain.bitcoin.network,
+            network: network.chain.bitcoin.bitcoinNetwork,
           });
           acc[address] = i;
           return acc;
@@ -72,7 +72,7 @@ export function useGetInscriptionsInfiniteQuery() {
         {}
       );
     },
-    [account, network.chain.bitcoin.network]
+    [account, network.chain.bitcoin.bitcoinNetwork]
   );
 
   const query = useInfiniteQuery({

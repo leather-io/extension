@@ -142,7 +142,8 @@ function useOrdinalsbotApiUrl() {
   const currentNetwork = useCurrentNetwork();
   const ordinalsbotConfig = useConfigOrdinalsbot();
 
-  if (currentNetwork.chain.bitcoin.network === 'mainnet') return ordinalsbotConfig.mainnetApiUrl;
+  if (currentNetwork.chain.bitcoin.bitcoinNetwork === 'mainnet')
+    return ordinalsbotConfig.mainnetApiUrl;
   return ordinalsbotConfig.signetApiUrl;
 }
 
