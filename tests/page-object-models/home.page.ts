@@ -89,7 +89,6 @@ export class HomePage {
     await this.goToReceiveModal();
     // In Ledger mode, this element isn't visible, so clicking is conditional
     const qrCodeBtn = this.page.getByTestId(HomePageSelectors.ReceiveStxQrCodeBtn);
-
     if (await qrCodeBtn.isVisible()) await qrCodeBtn.click();
     const displayerAddress = await this.page
       .getByTestId(SharedComponentsSelectors.AddressDisplayer)
