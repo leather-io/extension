@@ -12,7 +12,6 @@ import { FundLayout } from './fund.layout';
 
 export function FundPage() {
   const navigate = useNavigate();
-
   const currentAccount = useCurrentStacksAccount();
   const { data: balances } = useCurrentStacksAccountAnchoredBalances();
 

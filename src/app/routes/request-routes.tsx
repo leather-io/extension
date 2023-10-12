@@ -14,7 +14,6 @@ import { ProfileUpdateRequest } from '@app/pages/update-profile-request/update-p
 import { AccountGate } from '@app/routes/account-gate';
 import { SuspenseLoadingSpinner } from '@app/routes/app-routes';
 
-// #4028: TODO These are labelled legacy, maybe we can just remove them?
 export const legacyRequestRoutes = (
   <>
     <Route

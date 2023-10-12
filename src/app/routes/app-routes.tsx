@@ -63,22 +63,6 @@ function useAppRoutes() {
   return createHashRouter(
     createRoutesFromElements(
       <Route element={<Container />}>
-        {/* 
-// going direct to /receive/stx doesn't work and thats what happens in Ledger mode
-Adding this here makes it work going direct but then the BG isn't right 
-Review nesting of recieve as using these relative paths is stopping direct access
-
-BUT we need to have relative paths from '/' if we want to overlay the modal
-
-Direct access to ALL links actually doesn't work. Only through click! 
-
-FFS - /change-theme even doesn't work when pasted in. 
-Need to catch all these routes and set a BG location. 
-This will probably help fix things in new tabs also
-
-The way it is now is shit as typing in URLs stops working
-
-*/}
         <Route
           path={`/${RouteUrls.Receive}/${RouteUrls.ReceiveStx}`}
           element={<ReceiveStxModal />}
