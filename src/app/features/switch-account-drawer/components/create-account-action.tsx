@@ -16,7 +16,7 @@ export function CreateAccountAction({ onCreateAccount }: CreateAccountActionProp
       bottom={0}
       width="100%"
     >
-      <LeatherButton data-testId="create-account" fullWidth onClick={() => onCreateAccount()}>
+      <LeatherButton fullWidth onClick={() => onCreateAccount()}>
         Create new account
       </LeatherButton>
     </Flex>
