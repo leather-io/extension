@@ -12,6 +12,7 @@ import { RouteUrls } from '@shared/route-urls';
 import { LoadingSpinner } from '@app/components/loading-spinner';
 import { ActivityList } from '@app/features/activity-list/activity-list';
 import { AddNetwork } from '@app/features/add-network/add-network';
+import { AssetsList } from '@app/features/asset-list/asset-list';
 import { Container } from '@app/features/container/container';
 import { EditNonceDrawer } from '@app/features/edit-nonce-drawer/edit-nonce-drawer';
 import { IncreaseBtcFeeDrawer } from '@app/features/increase-fee-drawer/increase-btc-fee-drawer';
@@ -59,37 +60,38 @@ export function AppRoutes() {
   return <RouterProvider router={routes} />;
 }
 
+const homePageModalRoutes = (
+  <>
+    {settingsRoutes}
+    {receiveRoutes}
+    {ledgerStacksTxSigningRoutes}
+    {sendOrdinalRoutes}
+    {requestBitcoinKeysRoutes}
+    {requestStacksKeysRoutes}
+  </>
+);
+
 function useAppRoutes() {
   return createHashRouter(
     createRoutesFromElements(
       <Route element={<Container />}>
         <Route
-          path={`/${RouteUrls.Receive}/${RouteUrls.ReceiveStx}`}
-          element={<ReceiveStxModal />}
-        />
-        <Route
-          path={`${RouteUrls.Home}*`}
+          path="/"
           element={
             <AccountGate>
               <Home />
             </AccountGate>
           }
         >
-          {/* #4028: Needed so settings modals open on /activity */}
-          <Route path={RouteUrls.Activity} element={<ActivityList />}>
-            {settingsRoutes}
+          <Route path="/" element={<AssetsList />}>
+            {homePageModalRoutes}
           </Route>
 
-          {/* Modal routes overlaid on home need to be nested here 
-              with relative paths to open in new tabs */}
-          {receiveRoutes}
-          {settingsRoutes}
-          {ledgerStacksTxSigningRoutes}
-          {sendOrdinalRoutes}
+          <Route path={RouteUrls.Activity} element={<ActivityList />}>
+            {homePageModalRoutes}
+          </Route>
         </Route>
 
-        {requestBitcoinKeysRoutes}
-        {requestStacksKeysRoutes}
         <Route path={RouteUrls.RetriveTaprootFunds} element={<RetrieveTaprootToNativeSegwit />} />
         <Route path={RouteUrls.IncreaseStxFee} element={<IncreaseStxFeeDrawer />}>
           {ledgerStacksTxSigningRoutes}
@@ -235,6 +237,7 @@ function useAppRoutes() {
         {swapRoutes}
 
         {/* Catch-all route redirects to onboarding */}
+
         <Route path="*" element={<Navigate replace to={RouteUrls.Onboarding} />} />
       </Route>
     )

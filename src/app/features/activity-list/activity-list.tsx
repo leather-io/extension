@@ -100,6 +100,7 @@ export function ActivityList() {
     return (
       <ActivityListTabWrapper padContent>
         <LoadingSpinner />
+        <Outlet />
       </ActivityListTabWrapper>
     );
 
@@ -107,6 +108,7 @@ export function ActivityList() {
     return (
       <ActivityListTabWrapper padContent>
         <NoAccountActivity />
+        <Outlet />
       </ActivityListTabWrapper>
     );
 
