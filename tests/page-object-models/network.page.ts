@@ -4,7 +4,10 @@ import { createTestSelector } from '@tests/utils';
 
 export class NetworkPage {
   readonly networkNameSelector = createTestSelector(NetworkSelectors.NetworkName);
-  readonly networkAddressSelector = createTestSelector(NetworkSelectors.NetworkAddress);
+  readonly networkStacksAddressSelector = createTestSelector(NetworkSelectors.NetworkStacksAddress);
+  readonly networkBitcoinAddressSelector = createTestSelector(
+    NetworkSelectors.NetworkBitcoinAddress
+  );
   readonly networkKeySelector = createTestSelector(NetworkSelectors.NetworkKey);
   readonly btnAddNetworkSelector = createTestSelector(NetworkSelectors.BtnAddNetwork);
   readonly errorTextSelector = createTestSelector(NetworkSelectors.ErrorText);
@@ -16,8 +19,13 @@ export class NetworkPage {
     await field?.type(input);
   }
 
-  async inputNetworkAddressField(input: string) {
-    const field = this.page.locator(this.networkAddressSelector);
+  async inputNetworkStacksAddressField(input: string) {
+    const field = this.page.locator(this.networkStacksAddressSelector);
+    await field?.type(input);
+  }
+
+  async inputNetworkBitcoinAddressField(input: string) {
+    const field = this.page.locator(this.networkBitcoinAddressSelector);
     await field?.type(input);
   }
 

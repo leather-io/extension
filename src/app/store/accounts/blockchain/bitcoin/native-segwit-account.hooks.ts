@@ -35,7 +35,7 @@ const selectNativeSegwitAccountBuilder = bitcoinAccountBuilderFactory(
 const selectCurrentNetworkNativeSegwitAccountBuilder = createSelector(
   selectNativeSegwitAccountBuilder,
   selectCurrentNetwork,
-  (nativeSegwitKeychains, network) => nativeSegwitKeychains[network.chain.bitcoin.network]
+  (nativeSegwitKeychains, network) => nativeSegwitKeychains[network.chain.bitcoin.bitcoinNetwork]
 );
 
 export function useNativeSegwitAccountBuilder() {

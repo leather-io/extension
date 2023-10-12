@@ -25,6 +25,7 @@ import {
   useCurrentAccountNativeSegwitSigner,
   useNativeSegwitAccountBuilder,
 } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
+import { useCurrentNetwork } from '@app/store/networks/networks.selectors';
 
 import { initialSearchParams } from '../initial-search-params';
 import { i18nFormatCurrency } from '../money/format-money';
@@ -57,6 +58,7 @@ export function useBitcoinContracts() {
   const getNativeSegwitSigner = useCurrentAccountNativeSegwitSigner();
   const currentIndex = useCurrentAccountIndex();
   const nativeSegwitPrivateKeychain = useNativeSegwitAccountBuilder()?.(currentIndex);
+  const currentNetwork = useCurrentNetwork();
 
   async function getBitcoinContractInterface(
     attestorURLs: string[]
@@ -78,7 +80,7 @@ export function useBitcoinContracts() {
     const blockchainAPI = whenBitcoinNetwork(currentBitcoinNetwork)({
       mainnet: BITCOIN_API_BASE_URL_MAINNET,
       testnet: BITCOIN_API_BASE_URL_TESTNET,
-      regtest: BITCOIN_API_BASE_URL_TESTNET,
+      regtest: currentNetwork.chain.bitcoin.bitcoinUrl,
       signet: BITCOIN_API_BASE_URL_TESTNET,
     });
 

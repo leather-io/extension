@@ -22,7 +22,7 @@ test.describe('Networks tests', () => {
   });
 
   test('unable to fetch info from node', async ({ networkPage }) => {
-    await networkPage.inputNetworkAddressField('https://www.google.com/');
+    await networkPage.inputNetworkStacksAddressField('https://www.google.com/');
     await networkPage.inputNetworkKeyField('test-network');
     await networkPage.clickAddNetwork();
     await networkPage.waitForErrorMessage();

@@ -25,10 +25,10 @@ import { useCurrentNetworkState } from '../networks/networks.hooks';
 export function useBitcoinClient() {
   const network = useCurrentNetworkState();
 
-  const baseUrl = whenBitcoinNetwork(network.chain.bitcoin.network)({
+  const baseUrl = whenBitcoinNetwork(network.chain.bitcoin.bitcoinNetwork)({
     mainnet: BITCOIN_API_BASE_URL_MAINNET,
     testnet: BITCOIN_API_BASE_URL_TESTNET,
-    regtest: BITCOIN_API_BASE_URL_TESTNET,
+    regtest: network.chain.bitcoin.bitcoinUrl,
     signet: BITCOIN_API_BASE_URL_SIGNET,
   });
 

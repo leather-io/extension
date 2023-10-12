@@ -1,6 +1,7 @@
 export enum NetworkSelectors {
   NetworkName = 'network-name',
-  NetworkAddress = 'network-address',
+  NetworkStacksAddress = 'network-stacks-address',
+  NetworkBitcoinAddress = 'network-bitcoin-address',
   NetworkKey = 'network-key',
   BtnAddNetwork = 'btn-add-network',
   ErrorText = 'error-text',

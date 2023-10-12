@@ -32,7 +32,7 @@ const selectTaprootAccountBuilder = bitcoinAccountBuilderFactory(
 const selectCurrentNetworkTaprootAccountBuilder = createSelector(
   selectTaprootAccountBuilder,
   selectCurrentNetwork,
-  (taprootKeychains, network) => taprootKeychains[network.chain.bitcoin.network]
+  (taprootKeychains, network) => taprootKeychains[network.chain.bitcoin.bitcoinNetwork]
 );
 const selectCurrentTaprootAccount = createSelector(
   selectCurrentNetworkTaprootAccountBuilder,
@@ -90,5 +90,5 @@ export function useCurrentAccountTaprootIndexZeroSigner() {
 export function useCurrentAccountTaprootSigner() {
   const currentAccountIndex = useCurrentAccountIndex();
   const network = useCurrentNetwork();
-  return useTaprootSigner(currentAccountIndex, network.chain.bitcoin.network);
+  return useTaprootSigner(currentAccountIndex, network.chain.bitcoin.bitcoinNetwork);
 }

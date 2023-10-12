@@ -20,8 +20,8 @@ export function useBrc20FeatureFlag() {
   }
 
   const supportedNetwork =
-    currentNetwork.chain.bitcoin.network === 'mainnet' ||
-    currentNetwork.chain.bitcoin.network === 'signet';
+    currentNetwork.chain.bitcoin.bitcoinNetwork === 'mainnet' ||
+    currentNetwork.chain.bitcoin.bitcoinNetwork === 'signet';
 
   if (!supportedNetwork) return { enabled: false, reason: 'Unsupported network' } as const;
 
