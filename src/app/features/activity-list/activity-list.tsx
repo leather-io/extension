@@ -95,9 +95,21 @@ export function ActivityList() {
 
   const hasTxs = hasSubmittedTransactions || hasPendingTransactions || hasTransactions;
 
-  if (isInitialLoading) return <LoadingSpinner />;
+  if (isInitialLoading)
+    return (
+      <>
+        <LoadingSpinner />
+        <Outlet />
+      </>
+    );
 
-  if (!hasTxs) return <NoAccountActivity />;
+  if (!hasTxs)
+    return (
+      <>
+        <NoAccountActivity />
+        <Outlet />
+      </>
+    );
 
   return (
     <>
