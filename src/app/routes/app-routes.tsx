@@ -10,9 +10,7 @@ import {
 import { RouteUrls } from '@shared/route-urls';
 
 import { LoadingSpinner } from '@app/components/loading-spinner';
-import { ActivityList } from '@app/features/activity-list/activity-list';
 import { AddNetwork } from '@app/features/add-network/add-network';
-import { AssetsList } from '@app/features/asset-list/asset-list';
 import { Container } from '@app/features/container/container';
 import { EditNonceDrawer } from '@app/features/edit-nonce-drawer/edit-nonce-drawer';
 import { IncreaseBtcFeeDrawer } from '@app/features/increase-fee-drawer/increase-btc-fee-drawer';
@@ -60,7 +58,7 @@ export function AppRoutes() {
   return <RouterProvider router={routes} />;
 }
 
-const homePageModalRoutes = (
+export const homePageModalRoutes = (
   <>
     {settingsRoutes}
     {receiveRoutes}
@@ -76,20 +74,14 @@ function useAppRoutes() {
     createRoutesFromElements(
       <Route element={<Container />}>
         <Route
-          path="/"
+          path={`${RouteUrls.Home}*`}
           element={
             <AccountGate>
               <Home />
             </AccountGate>
           }
         >
-          <Route path="/" element={<AssetsList />}>
-            {homePageModalRoutes}
-          </Route>
-
-          <Route path={RouteUrls.Activity} element={<ActivityList />}>
-            {homePageModalRoutes}
-          </Route>
+          {homePageModalRoutes}
         </Route>
 
         <Route path={RouteUrls.RetriveTaprootFunds} element={<RetrieveTaprootToNativeSegwit />} />
