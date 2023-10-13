@@ -167,7 +167,10 @@ function useAppRoutes() {
           path={`${RouteUrls.Fund}/*`}
           element={
             <AccountGate>
-              <FundPage />
+              <FundPage>
+                <Route path={RouteUrls.ReceiveStx} element={<ReceiveStxModal />} />
+                {settingsRoutes}
+              </FundPage>
             </AccountGate>
           }
         >
