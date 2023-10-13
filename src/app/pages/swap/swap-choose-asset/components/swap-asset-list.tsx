@@ -1,8 +1,13 @@
 import { useNavigate } from 'react-router-dom';
 
+import BigNumber from 'bignumber.js';
 import { useFormikContext } from 'formik';
 import { styled } from 'leather-styles/jsx';
 
+import { createMoney } from '@shared/models/money.model';
+
+import { convertAmountToFractionalUnit } from '@app/common/money/calculate-money';
+import { formatMoneyWithoutSymbol } from '@app/common/money/format-money';
 import { useSwapContext } from '@app/pages/swap/swap.context';
 
 import { SwapAsset, SwapFormValues } from '../../hooks/use-swap-form';
@@ -44,7 +49,12 @@ export function SwapAssetList({ assets }: SwapAssetList) {
     navigate(-1);
     if (from && to && values.swapAmountFrom) {
       const toAmount = await fetchToAmount(from, to, values.swapAmountFrom);
-      await setFieldValue('swapAmountTo', Number(toAmount));
+      const toAmountAsMoney = createMoney(
+        convertAmountToFractionalUnit(new BigNumber(toAmount), to?.balance.decimals),
+        to?.balance.symbol ?? '',
+        to?.balance.decimals
+      );
+      await setFieldValue('swapAmountTo', formatMoneyWithoutSymbol(toAmountAsMoney));
       setFieldError('swapAmountTo', undefined);
     }
   }

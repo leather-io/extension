@@ -1,13 +1,13 @@
-import { useEffect } from 'react';
+import { useAsync } from 'react-async-hook';
 import { Outlet } from 'react-router-dom';
 
 import { useFormikContext } from 'formik';
 
-import { logger } from '@shared/logger';
 import { isUndefined } from '@shared/utils';
 
 import { useRouteHeader } from '@app/common/hooks/use-route-header';
 import { LeatherButton } from '@app/components/button/button';
+import { LoadingSpinner } from '@app/components/loading-spinner';
 import { ModalHeader } from '@app/components/modal-header';
 
 import { SwapContentLayout } from './components/swap-content.layout';
@@ -23,12 +23,13 @@ export function Swap() {
 
   useRouteHeader(<ModalHeader defaultGoBack hideActions title="Swap" />, true);
 
-  useEffect(() => {
-    const setDefaultAsset = async () =>
-      await setFieldValue('swapAssetFrom', swappableAssetsFrom[0]);
+  useAsync(async () => {
+    if (isUndefined(values.swapAssetFrom))
+      return await setFieldValue('swapAssetFrom', swappableAssetsFrom[0]);
+    return;
+  }, [swappableAssetsFrom, values.swapAssetFrom]);
 
-    if (isUndefined(values.swapAssetFrom)) setDefaultAsset().catch(e => logger.error(e));
-  }, [setFieldValue, swappableAssetsFrom, values.swapAssetFrom]);
+  if (isUndefined(values.swapAssetFrom)) return <LoadingSpinner height="300px" />;
 
   return (
     <>

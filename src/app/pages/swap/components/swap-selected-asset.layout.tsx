@@ -62,13 +62,14 @@ export function SwapSelectedAssetLayout({
         contentLeft={
           <LeatherButton
             onClick={onChooseAsset}
-            pr="space.02"
-            py="space.02"
+            p="space.02"
+            // pr="space.02"
+            // py="space.02"
             type="button"
             variant="ghost"
           >
             <HStack>
-              {icon && <styled.img src={icon} width="24px" height="24px" alt="Swap asset" />}
+              {icon && <styled.img src={icon} width="32px" height="32px" alt="Swap asset" />}
               <styled.span textStyle="label.01">{symbol}</styled.span>
               <ChevronDownIcon />
             </HStack>

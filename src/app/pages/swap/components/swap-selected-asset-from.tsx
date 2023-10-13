@@ -1,11 +1,14 @@
+import BigNumber from 'bignumber.js';
 import { useField, useFormikContext } from 'formik';
 
+import { createMoney } from '@shared/models/money.model';
 import { isUndefined } from '@shared/utils';
 
 import { useShowFieldError } from '@app/common/form-utils';
+import { convertAmountToFractionalUnit } from '@app/common/money/calculate-money';
 import { formatMoneyWithoutSymbol } from '@app/common/money/format-money';
 
-import { useAmountAsFiat } from '../hooks/use-fiat-price';
+import { useAlexSdkAmountAsFiat } from '../hooks/use-alex-sdk-fiat-price';
 import { SwapFormValues } from '../hooks/use-swap-form';
 import { useSwapContext } from '../swap.context';
 import { SwapAmountField } from './swap-amount-field';
@@ -13,7 +16,7 @@ import { SwapSelectedAssetLayout } from './swap-selected-asset.layout';
 
 const availableBalanceCaption = 'Available balance';
 const maxAvailableTooltip =
-  'Amount of funds that is immediately available for use, after taking into account any pending transactions or holds placed on your account by the protocol.';
+  'Amount of funds that are immediately available for use, after taking into account any pending transactions or holds placed on your account by the protocol.';
 const sendingMaxTooltip = 'When sending max, this amount is affected by the fee you choose.';
 interface SwapSelectedAssetFromProps {
   onChooseAsset(): void;
@@ -26,7 +29,7 @@ export function SwapSelectedAssetFrom({ onChooseAsset, title }: SwapSelectedAsse
   const showError = useShowFieldError('swapAmountFrom');
   const [assetField] = useField('swapAssetFrom');
 
-  const amountAsFiat = useAmountAsFiat(
+  const amountAsFiat = useAlexSdkAmountAsFiat(
     assetField.value.balance,
     assetField.value.price,
     amountField.value
@@ -43,7 +46,12 @@ export function SwapSelectedAssetFrom({ onChooseAsset, title }: SwapSelectedAsse
     await amountFieldHelpers.setTouched(true);
     if (isUndefined(swapAssetTo)) return;
     const toAmount = await fetchToAmount(swapAssetFrom, swapAssetTo, formattedBalance);
-    await setFieldValue('swapAmountTo', Number(toAmount));
+    const toAmountAsMoney = createMoney(
+      convertAmountToFractionalUnit(new BigNumber(toAmount), values.swapAssetTo?.balance.decimals),
+      values.swapAssetTo?.balance.symbol ?? '',
+      values.swapAssetTo?.balance.decimals
+    );
+    await setFieldValue('swapAmountTo', formatMoneyWithoutSymbol(toAmountAsMoney));
     setFieldError('swapAmountTo', undefined);
   }
 

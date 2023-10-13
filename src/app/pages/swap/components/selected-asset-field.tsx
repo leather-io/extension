@@ -1,5 +1,5 @@
 import { Field } from 'formik';
-import { Box, Flex, HStack } from 'leather-styles/jsx';
+import { Box, HStack, styled } from 'leather-styles/jsx';
 
 interface SelectedAssetFieldProps {
   contentLeft: React.JSX.Element;
@@ -14,17 +14,14 @@ export function SelectedAssetField({
   showError,
 }: SelectedAssetFieldProps) {
   return (
-    <Flex
+    <styled.label
+      _focusWithin={{ border: 'action-primary-default' }}
       alignItems="center"
       border={showError ? 'error' : 'default'}
       borderRadius="10px"
-      css={{
-        '&:focus-within': {
-          border: '1px solid',
-          borderColor: `${showError ? 'error' : 'action-primary-default'}`,
-        },
-      }}
+      display="flex"
       height="76px"
+      htmlFor={name}
       mb="space.02"
       minHeight="64px"
       px="space.04"
@@ -38,6 +35,6 @@ export function SelectedAssetField({
           </HStack>
         </Field>
       </Box>
-    </Flex>
+    </styled.label>
   );
 }

@@ -1,12 +1,10 @@
-import { useCallback } from 'react';
+import { useCallback, useMemo } from 'react';
 
 import { CryptoCurrencies } from '@shared/models/currencies.model';
+import { createMarketData, createMarketPair } from '@shared/models/market.model';
 import type { Money } from '@shared/models/money.model';
 
-import {
-  useAlexMarketData,
-  useCryptoCurrencyMarketData,
-} from '@app/query/common/market-data/market-data.hooks';
+import { useCryptoCurrencyMarketData } from '@app/query/common/market-data/market-data.hooks';
 
 import { baseCurrencyAmountInQuote } from '../money/calculate-money';
 
@@ -19,8 +17,11 @@ export function useConvertCryptoCurrencyToFiatAmount(currency: CryptoCurrencies)
   );
 }
 
-export function useConvertAlexSwapCurrencyToFiatAmount(currency: CryptoCurrencies, price: Money) {
-  const alexCurrencyMarketData = useAlexMarketData(currency, price);
+export function useConvertAlexSdkCurrencyToFiatAmount(currency: CryptoCurrencies, price: Money) {
+  const alexCurrencyMarketData = useMemo(
+    () => createMarketData(createMarketPair(currency, 'USD'), price),
+    [currency, price]
+  );
 
   return useCallback(
     (value: Money) => baseCurrencyAmountInQuote(value, alexCurrencyMarketData),

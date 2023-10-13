@@ -3,7 +3,7 @@ import { HStack, styled } from 'leather-styles/jsx';
 import { formatMoneyWithoutSymbol } from '@app/common/money/format-money';
 import { usePressable } from '@app/components/item-hover';
 
-import { useBalanceAsFiat } from '../../hooks/use-fiat-price';
+import { useAlexSdkBalanceAsFiat } from '../../hooks/use-alex-sdk-fiat-price';
 import { SwapAsset } from '../../hooks/use-swap-form';
 import { SwapAssetItemLayout } from './swap-asset-item.layout';
 
@@ -12,7 +12,7 @@ interface SwapAssetItemProps {
 }
 export function SwapAssetItem({ asset }: SwapAssetItemProps) {
   const [component, bind] = usePressable(true);
-  const balanceAsFiat = useBalanceAsFiat(asset.balance, asset.price);
+  const balanceAsFiat = useAlexSdkBalanceAsFiat(asset.balance, asset.price);
 
   return (
     <SwapAssetItemLayout
