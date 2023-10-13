@@ -33,7 +33,7 @@ export function AddCollectible() {
       backgroundElementProps={backgroundProps}
       onClickLayout={() => {
         void analytics.track('select_add_new_collectible');
-        navigate(`${RouteUrls.Receive}/${RouteUrls.ReceiveCollectible}`, {
+        navigate(`${RouteUrls.Home}${RouteUrls.ReceiveCollectible}`, {
           state: {
             backgroundLocation: location,
           },

@@ -35,11 +35,11 @@ export enum RouteUrls {
   IncreaseFeeSent = '/increase-fee/sent',
   // nested routes must have relative paths
   Receive = 'receive',
-  ReceiveStx = 'stx',
-  ReceiveBtc = 'btc',
-  ReceiveBtcStamp = 'btc-stamp',
-  ReceiveCollectible = 'collectible',
-  ReceiveCollectibleOrdinal = 'collectible/ordinal',
+  ReceiveStx = 'receive/stx',
+  ReceiveBtc = 'receive/btc',
+  ReceiveBtcStamp = 'receive/btc-stamp',
+  ReceiveCollectible = 'receive/collectible',
+  ReceiveCollectibleOrdinal = 'receive/collectible/ordinal',
   Send = '/send-transaction',
   ViewSecretKey = '/view-secret-key',
 
