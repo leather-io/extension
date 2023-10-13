@@ -36,8 +36,7 @@ export function GenericErrorLayout(props: GenericErrorProps) {
         {body}
       </styled.h2>
       <styled.ul
-        border="1px solid"
-        borderColor="accent.border-default !important"
+        border="default"
         borderRadius="10px"
         fontSize="14px"
         lineHeight="1.6"
