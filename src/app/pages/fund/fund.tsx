@@ -27,9 +27,7 @@ export function FundPage({ children }: FundPageProps) {
   return (
     <>
       <FundLayout address={currentAccount.address} />
-      <>
-        <ModalBackgroundWrapper>{children}</ModalBackgroundWrapper>
-      </>
+      <ModalBackgroundWrapper>{children}</ModalBackgroundWrapper>
     </>
   );
 }

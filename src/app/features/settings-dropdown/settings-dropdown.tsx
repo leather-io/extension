@@ -78,7 +78,6 @@ export function SettingsDropdown() {
               </MenuItem>
             </>
           )}
-          {/* // more importantly I broke tests again for direct access to receive I think  */}
           <MenuItem
             data-testid={SettingsSelectors.ToggleTheme}
             onClick={wrappedCloseCallback(() => {

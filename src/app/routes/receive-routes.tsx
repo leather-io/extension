@@ -13,11 +13,6 @@ export const receiveRoutes = (
     <Route path={RouteUrls.ReceiveStx} element={<ReceiveStxModal />} />
     <Route path={RouteUrls.ReceiveBtc} element={<ReceiveBtcModal />} />
     <Route path={RouteUrls.ReceiveBtcStamp} element={<ReceiveBtcModal type="btc-stamp" />} />
-    {/* Needed to show receive ordinal in Receive flow */}
-
-    <Route path={RouteUrls.ReceiveCollectibleOrdinal} element={<ReceiveOrdinalModal />} />
-
-    {/* Needed to show receive ordinal in Add flow */}
     <Route path={RouteUrls.ReceiveCollectible} element={<ReceiveModal type="collectible" />} />
     <Route path={RouteUrls.ReceiveCollectibleOrdinal} element={<ReceiveOrdinalModal />} />
   </Route>

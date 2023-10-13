@@ -13,14 +13,14 @@ export function ReceiveOrdinalModal() {
   useBackgroundLocationRedirect();
   const analytics = useAnalytics();
   const { state } = useLocation();
-  const { onCopy } = useClipboard(state?.btcAddressTaproot);
+  const { onCopy } = useClipboard(state.btcAddressTaproot);
 
   function copyToClipboard() {
     void analytics.track('copy_address_to_add_new_inscription');
     toast.success('Copied to clipboard!');
     onCopy();
   }
-
+  // #4028 FIXME - this doesn't open in new tab as it loses btcAddressTaproot amd crashes btcStamp and Stx are OK?
   return (
     <ReceiveTokensLayout
       address={state.btcAddressTaproot}
