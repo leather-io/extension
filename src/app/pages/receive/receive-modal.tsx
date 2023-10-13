@@ -10,7 +10,7 @@ import get from 'lodash.get';
 import { RouteUrls } from '@shared/route-urls';
 
 import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
-// import { useBackgroundLocationRedirect } from '@app/common/hooks/use-background-location-redirect';
+import { useBackgroundLocationRedirect } from '@app/common/hooks/use-background-location-redirect';
 import { useLocationState } from '@app/common/hooks/use-location-state';
 import { StxAvatar } from '@app/components/crypto-assets/stacks/components/stx-avatar';
 import { BaseDrawer } from '@app/components/drawer/base-drawer';
@@ -31,7 +31,7 @@ interface ReceiveModalProps {
 }
 
 export function ReceiveModal({ type = 'full' }: ReceiveModalProps) {
-  // useBackgroundLocationRedirect();
+  useBackgroundLocationRedirect();
   const analytics = useAnalytics();
   const backgroundLocation = useLocationState<Location>('backgroundLocation');
   const navigate = useNavigate();
