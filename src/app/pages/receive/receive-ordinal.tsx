@@ -4,7 +4,7 @@ import { useLocation } from 'react-router-dom';
 import { useClipboard } from '@stacks/ui';
 
 import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
-import { useBackgroundLocationRedirect } from '@app/common/hooks/use-background-location-redirect';
+import { useBackgroundLocationRedirect } from '@app/routes/hooks/use-background-location-redirect';
 
 import { ReceiveBtcModalWarning } from './components/receive-btc-warning';
 import { ReceiveTokensLayout } from './components/receive-tokens.layout';

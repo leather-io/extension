@@ -26,7 +26,6 @@ export function FiatProvidersList(props: FiatProvidersProps) {
   const hasProviders = useHasFiatProviders();
   const analytics = useAnalytics();
   const location = useLocation();
-  // const backgroundLocation = useLocationState<Location>('backgroundLocation');
 
   const goToProviderExternalWebsite = (provider: string, providerUrl: string) => {
     void analytics.track('select_buy_option', { provider });
@@ -56,7 +55,9 @@ export function FiatProvidersList(props: FiatProvidersProps) {
     >
       <ReceiveStxItem
         onReceiveStx={() =>
-          navigate(RouteUrls.FundReceiveStx, { state: { backgroundLocation: location } })
+          navigate(`${RouteUrls.ReceiveStx}`, {
+            state: { backgroundLocation: location },
+          })
         }
       />
       {Object.entries(activeProviders).map(([providerKey, providerValue]) => {

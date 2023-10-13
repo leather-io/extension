@@ -23,25 +23,23 @@ export enum RouteUrls {
 
   // Active wallet routes
   Home = '/',
-  // Tab nested relative paths
-  Activity = 'activity',
-  // Active wallet routes
   AddNetwork = '/add-network',
   ChooseAccount = '/choose-account',
   Fund = '/fund',
-  FundReceiveStx = '/fund/receive/stx',
   IncreaseStxFee = '/increase-fee/stx',
   IncreaseBtcFee = '/increase-fee/btc',
   IncreaseFeeSent = '/increase-fee/sent',
+  Send = '/send-transaction',
+  ViewSecretKey = '/view-secret-key',
+
   // nested routes must have relative paths
+  Activity = 'activity',
   Receive = 'receive',
   ReceiveStx = 'receive/stx',
   ReceiveBtc = 'receive/btc',
   ReceiveBtcStamp = 'receive/btc-stamp',
   ReceiveCollectible = 'receive/collectible',
   ReceiveCollectibleOrdinal = 'receive/collectible/ordinal',
-  Send = '/send-transaction',
-  ViewSecretKey = '/view-secret-key',
 
   // Locked wallet route
   Unlock = '/unlock',

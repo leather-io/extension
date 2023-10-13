@@ -4,11 +4,11 @@ import { WalletDefaultNetworkConfigurationIds } from '@shared/constants';
 import { RouteUrls } from '@shared/route-urls';
 
 import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
-import { useBackgroundLocationRedirect } from '@app/common/hooks/use-background-location-redirect';
 import { useLocationState } from '@app/common/hooks/use-location-state';
 import { BaseDrawer } from '@app/components/drawer/base-drawer';
 import { NetworkListLayout } from '@app/pages/select-network/components/network-list.layout';
 import { NetworkListItem } from '@app/pages/select-network/network-list-item';
+import { useBackgroundLocationRedirect } from '@app/routes/hooks/use-background-location-redirect';
 import { useCurrentNetworkState, useNetworksActions } from '@app/store/networks/networks.hooks';
 import { useNetworks } from '@app/store/networks/networks.selectors';
 

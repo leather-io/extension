@@ -3,11 +3,11 @@ import { useNavigate } from 'react-router-dom';
 import { SharedComponentsSelectors } from '@tests/selectors/shared-component.selectors';
 import { Box, Flex, styled } from 'leather-styles/jsx';
 
-import { useBackgroundLocationRedirect } from '@app/common/hooks/use-background-location-redirect';
 import { useLocationState } from '@app/common/hooks/use-location-state';
 import { AddressDisplayer } from '@app/components/address-displayer/address-displayer';
 import { LeatherButton } from '@app/components/button/button';
 import { BaseDrawer } from '@app/components/drawer/base-drawer';
+import { useBackgroundLocationRedirect } from '@app/routes/hooks/use-background-location-redirect';
 
 import { QrCode } from './address-qr-code';
 
