@@ -16,15 +16,12 @@ export function SelectedAssetField({
   return (
     <Flex
       alignItems="center"
-      border="1px solid"
-      borderColor={showError ? 'error !important' : 'accent.border-default !important'}
+      border={showError ? 'error' : 'default'}
       borderRadius="10px"
       css={{
         '&:focus-within': {
           border: '1px solid',
-          borderColor: `${
-            showError ? 'error !important' : 'accent.action-primary-default !important'
-          }`,
+          borderColor: `${showError ? 'error' : 'action-primary-default'}`,
         },
       }}
       height="76px"
