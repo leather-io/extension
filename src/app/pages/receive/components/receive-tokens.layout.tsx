@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { SharedComponentsSelectors } from '@tests/selectors/shared-component.selectors';
 import { Box, Flex, styled } from 'leather-styles/jsx';
 
-// import { useBackgroundLocationRedirect } from '@app/common/hooks/use-background-location-redirect';
+import { useBackgroundLocationRedirect } from '@app/common/hooks/use-background-location-redirect';
 import { useLocationState } from '@app/common/hooks/use-location-state';
 import { AddressDisplayer } from '@app/components/address-displayer/address-displayer';
 import { LeatherButton } from '@app/components/button/button';
@@ -19,7 +19,7 @@ interface ReceiveTokensLayoutProps {
   warning?: React.JSX.Element;
 }
 export function ReceiveTokensLayout(props: ReceiveTokensLayoutProps) {
-  // useBackgroundLocationRedirect();
+  useBackgroundLocationRedirect();
 
   const { address, accountName, onCopyAddressToClipboard, title, warning } = props;
   const navigate = useNavigate();
