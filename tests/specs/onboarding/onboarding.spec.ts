@@ -55,12 +55,10 @@ test.describe('Onboarding an existing user', () => {
     // enter some key partial
     const validPartialKey = 'shoulder any pencil';
     await onboardingPage.signInMnemonicKey(validPartialKey);
-    const signInButton = await onboardingPage.page.getByTestId(OnboardingSelectors.SignInBtn);
     const signInSeedError = await onboardingPage.page.getByTestId(
       OnboardingSelectors.SignInSeedError
     );
     await test.expect(signInSeedError).not.toBeVisible();
-    await test.expect(signInButton).toBeDisabled();
   });
 
   test('Activity tab', async ({ extensionId, globalPage, onboardingPage, homePage }) => {

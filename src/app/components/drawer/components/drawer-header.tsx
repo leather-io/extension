@@ -1,5 +1,4 @@
-import { Box, Flex } from '@stacks/ui';
-import { styled } from 'leather-styles/jsx';
+import { Box, Flex, styled } from 'leather-styles/jsx';
 import { useHover } from 'use-events';
 
 import { ArrowLeftIcon } from '@app/components/icons/arrow-left-icon';
@@ -29,14 +28,7 @@ export function DrawerHeader({
   const [isHovered, bind] = useHover();
 
   return (
-    <Flex
-      pb="base"
-      justifyContent="space-between"
-      alignItems="center"
-      pt="loose"
-      px="loose"
-      {...bind}
-    >
+    <Flex justifyContent="space-between" alignItems="center" p="space.04" {...bind}>
       {enableGoBack ? (
         <HeaderActionButton
           icon={<ArrowLeftIcon />}
@@ -44,7 +36,7 @@ export function DrawerHeader({
           onAction={onGoBack}
         />
       ) : (
-        <Box size="36px" />
+        <Box width="36px" height="36px" />
       )}
       {icon && icon}
       {title && <styled.h1 textStyle="heading.05">{title}</styled.h1>}

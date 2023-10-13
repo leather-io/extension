@@ -66,6 +66,6 @@ test.describe('Settings menu', () => {
     await page.getByTestId(SettingsSelectors.ChangeNetworkAction).click();
     await page.waitForTimeout(850);
     const networkListItems = await page.getByTestId(SettingsSelectors.NetworkListItem).all();
-    test.expect(networkListItems).toHaveLength(4);
+    test.expect(networkListItems).toHaveLength(5);
   });
 });

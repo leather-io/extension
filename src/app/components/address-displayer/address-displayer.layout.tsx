@@ -7,7 +7,7 @@ interface AddressDisplayerLayoutProps {
 export function AddressDisplayerLayout({ isEven, ...props }: AddressDisplayerLayoutProps) {
   return (
     <styled.span
-      color={isEven ? 'accent.text-primary' : 'accent.border-hover'}
+      color={isEven ? 'accent.text-primary' : 'accent.text-subdued'}
       fontFamily="Fira Code"
       mr="tight"
       lineHeight="24px"
