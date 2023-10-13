@@ -1,3 +1,29 @@
+## [6.11.0](https://github.com/leather-wallet/extension/compare/v6.10.0...v6.11.0) (2023-10-13)
+
+
+### Features
+
+* sBTC devenv network ([1eb34b8](https://github.com/leather-wallet/extension/commit/1eb34b8324cb09e73f4dabe0768c37301d5c7c2f))
+
+
+### Bug Fixes
+
+* alter position of receive modal in extension view,  [#4165](https://github.com/leather-wallet/extension/issues/4165) ([07989ae](https://github.com/leather-wallet/extension/commit/07989ae39e199000e0abf9cb420dc5eabea3e5eb))
+* change tab hover bg colour, closes [#4249](https://github.com/leather-wallet/extension/issues/4249) ([1f8e863](https://github.com/leather-wallet/extension/commit/1f8e8631d1c57df81895ae64df820a1dc066fd6c))
+* give activity screen a min height to stop it jumping when empty, closes [#4249](https://github.com/leather-wallet/extension/issues/4249) ([75466bd](https://github.com/leather-wallet/extension/commit/75466bdb20af9d5443b31ec3fa4708b75f707ff4))
+* improve display of select account in extension mode, [#4165](https://github.com/leather-wallet/extension/issues/4165) ([f09aec3](https://github.com/leather-wallet/extension/commit/f09aec34ab1e395f04424a8357f3ed3f0ab352a7))
+* make adjustments based on PR review feedback ([29c5d59](https://github.com/leather-wallet/extension/commit/29c5d59c34b562097478971fa5230bb13d5218d6))
+* name wrapper more specifically ([230fe46](https://github.com/leather-wallet/extension/commit/230fe46abafafd71e3434779bdb7c4b591736c0b))
+* properly switch between 12 and 24 word inputs, closes [#4250](https://github.com/leather-wallet/extension/issues/4250) ([1a86b85](https://github.com/leather-wallet/extension/commit/1a86b85a4bede129c2b880cdbbff1be2f6cce504))
+* stop create account button disappearing at smaller heights, [#4165](https://github.com/leather-wallet/extension/issues/4165) ([f166a31](https://github.com/leather-wallet/extension/commit/f166a31e50aed555c6a54495caf742e704c19461))
+* update address displayer to use text-subdued for odd, closes [#4249](https://github.com/leather-wallet/extension/issues/4249) ([a9562c6](https://github.com/leather-wallet/extension/commit/a9562c616166fa6e44760a587c798d21c125d593))
+* update collectible header font and align icon, closes [#4290](https://github.com/leather-wallet/extension/issues/4290) ([e88a18b](https://github.com/leather-wallet/extension/commit/e88a18bdf70ce719aa98f0a9e29da1dad5856082))
+
+
+### Internal
+
+* fix missing protocol ([ba1a712](https://github.com/leather-wallet/extension/commit/ba1a712cda14574ef0a24ee66fc4328d83fbc956))
+
 ## [6.10.0](https://github.com/leather-wallet/extension/compare/v6.9.2...v6.10.0) (2023-10-11)
 
 
