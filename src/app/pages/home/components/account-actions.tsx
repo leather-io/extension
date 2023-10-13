@@ -20,7 +20,7 @@ export function AccountActions(props: FlexProps) {
   const isBitcoinEnabled = useConfigBitcoinEnabled();
   const receivePath = isBitcoinEnabled
     ? RouteUrls.Receive
-    : `${RouteUrls.Receive}/${RouteUrls.ReceiveStx}`;
+    : `${RouteUrls.Home}${RouteUrls.ReceiveStx}`;
 
   return (
     <Flex justify="space-between" {...props}>
