@@ -88,8 +88,7 @@ export function ReceiveModal({ type = 'full' }: ReceiveModalProps) {
                 onCopyAddress={() => copyToClipboard(onCopyBtc)}
                 onClickQrCode={() =>
                   navigate(`${RouteUrls.Home}${RouteUrls.ReceiveBtc}`, {
-                    // see if i need ...location.state
-                    state: { backgroundLocation, ...location.state },
+                    state: { backgroundLocation },
                   })
                 }
                 title="Bitcoin"
@@ -132,7 +131,7 @@ export function ReceiveModal({ type = 'full' }: ReceiveModalProps) {
               icon={<BtcStampsIcon />}
               onClickQrCode={() =>
                 navigate(`${RouteUrls.Home}${RouteUrls.ReceiveBtcStamp}`, {
-                  state: { backgroundLocation, ...location.state },
+                  state: { backgroundLocation },
                 })
               }
               onCopyAddress={() =>
@@ -146,7 +145,7 @@ export function ReceiveModal({ type = 'full' }: ReceiveModalProps) {
               onCopyAddress={() => copyToClipboard(onCopyStx, 'select_nft_to_add_new_collectible')}
               onClickQrCode={() =>
                 navigate(`${RouteUrls.Home}${RouteUrls.ReceiveStx}`, {
-                  state: { backgroundLocation, ...location.state },
+                  state: { backgroundLocation },
                 })
               }
               title="Stacks NFT"
@@ -154,9 +153,6 @@ export function ReceiveModal({ type = 'full' }: ReceiveModalProps) {
           </ReceiveItemList>
         </Box>
       </BaseDrawer>
-
-      {/* Outlet here for nested token routes */}
-      <Outlet />
     </>
   );
 }
