@@ -16,7 +16,7 @@ import { convertBitcoinTxsToListType, convertStacksTxsToListType } from './activ
 import { NoAccountActivity } from './components/no-account-activity';
 import { PendingTransactionList } from './components/pending-transaction-list/pending-transaction-list';
 import { SubmittedTransactionList } from './components/submitted-transaction-list/submitted-transaction-list';
-import { TabWrapper } from './components/tab-wrapper';
+import { ActivityListTabWrapper } from './components/tab-wrapper';
 import { TransactionList } from './components/transaction-list/transaction-list';
 
 // TODO: temporary really ugly fix while we address conditional data problem of
@@ -97,20 +97,20 @@ export function ActivityList() {
 
   if (isInitialLoading)
     return (
-      <TabWrapper padContent>
+      <ActivityListTabWrapper padContent>
         <LoadingSpinner />
-      </TabWrapper>
+      </ActivityListTabWrapper>
     );
 
   if (!hasTxs)
     return (
-      <TabWrapper padContent>
+      <ActivityListTabWrapper padContent>
         <NoAccountActivity />
-      </TabWrapper>
+      </ActivityListTabWrapper>
     );
 
   return (
-    <TabWrapper>
+    <ActivityListTabWrapper>
       {hasSubmittedTransactions && <SubmittedTransactionList txs={submittedTransactions} />}
       {hasPendingTransactions && (
         <PendingTransactionList
@@ -125,6 +125,6 @@ export function ActivityList() {
           currentBitcoinAddress={nsBitcoinAddress}
         />
       )}
-    </TabWrapper>
+    </ActivityListTabWrapper>
   );
 }
