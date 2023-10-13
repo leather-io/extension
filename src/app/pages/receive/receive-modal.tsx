@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import toast from 'react-hot-toast';
 import { Outlet, useLocation, useNavigate } from 'react-router-dom';
 
@@ -11,6 +10,7 @@ import get from 'lodash.get';
 import { RouteUrls } from '@shared/route-urls';
 
 import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
+// import { useBackgroundLocationRedirect } from '@app/common/hooks/use-background-location-redirect';
 import { useLocationState } from '@app/common/hooks/use-location-state';
 import { StxAvatar } from '@app/components/crypto-assets/stacks/components/stx-avatar';
 import { BaseDrawer } from '@app/components/drawer/base-drawer';
@@ -31,6 +31,7 @@ interface ReceiveModalProps {
 }
 
 export function ReceiveModal({ type = 'full' }: ReceiveModalProps) {
+  // useBackgroundLocationRedirect();
   const analytics = useAnalytics();
   const backgroundLocation = useLocationState<Location>('backgroundLocation');
   const navigate = useNavigate();
@@ -48,15 +49,6 @@ export function ReceiveModal({ type = 'full' }: ReceiveModalProps) {
     void analytics.track(tracker);
     toast.success('Copied to clipboard!');
     copyHandler();
-  }
-
-  const [isShowing, setIsShowing] = useState(true);
-
-  function navigateToQrCodeRoute(route: RouteUrls) {
-    setIsShowing(false);
-    navigate(route, {
-      state: { backgroundLocation, ...location.state },
-    });
   }
 
   const title =
@@ -81,7 +73,7 @@ export function ReceiveModal({ type = 'full' }: ReceiveModalProps) {
         top={[token('spacing.space.07'), 0]}
         title=""
         isShowing
-        onClose={() => navigate(backgroundLocation.pathname ?? '..')}
+        onClose={() => navigate(backgroundLocation ?? '..')}
       >
         <Box mx="space.06">
           <styled.h1 mb="space.05" textStyle="heading.03">
@@ -94,7 +86,11 @@ export function ReceiveModal({ type = 'full' }: ReceiveModalProps) {
                 icon={<BtcIcon />}
                 dataTestId={HomePageSelectors.ReceiveBtcNativeSegwitQrCodeBtn}
                 onCopyAddress={() => copyToClipboard(onCopyBtc)}
-                onClickQrCode={() => navigateToQrCodeRoute(RouteUrls.ReceiveBtc)}
+                onClickQrCode={() =>
+                  navigate(`${RouteUrls.Home}${RouteUrls.ReceiveBtc}`, {
+                    state: { backgroundLocation, ...location.state },
+                  })
+                }
                 title="Bitcoin"
               />
               <ReceiveItem
@@ -102,13 +98,10 @@ export function ReceiveModal({ type = 'full' }: ReceiveModalProps) {
                 icon={<StxAvatar />}
                 dataTestId={HomePageSelectors.ReceiveStxQrCodeBtn}
                 onCopyAddress={() => copyToClipboard(onCopyStx)}
-                onClickQrCode={
-                  () =>
-                    navigate(RouteUrls.ReceiveStx, {
-                      relative: 'route',
-                      state: { backgroundLocation, btcAddressTaproot },
-                    })
-                  // navigate(RouteUrls.ReceiveStx)
+                onClickQrCode={() =>
+                  navigate(`${RouteUrls.Home}${RouteUrls.ReceiveStx}`, {
+                    state: { backgroundLocation, btcAddressTaproot },
+                  })
                 }
                 title="Stacks"
               />
@@ -124,8 +117,7 @@ export function ReceiveModal({ type = 'full' }: ReceiveModalProps) {
               }
               onClickQrCode={() => {
                 void analytics.track('select_inscription_to_add_new_collectible');
-                setIsShowing(false);
-                navigate(`/${RouteUrls.Receive}/${RouteUrls.ReceiveCollectibleOrdinal}`, {
+                navigate(`${RouteUrls.Home}${RouteUrls.ReceiveCollectibleOrdinal}`, {
                   state: {
                     btcAddressTaproot,
                     backgroundLocation,
@@ -138,9 +130,9 @@ export function ReceiveModal({ type = 'full' }: ReceiveModalProps) {
               address={btcAddressNativeSegwit}
               icon={<BtcStampsIcon />}
               onClickQrCode={() =>
-                navigateToQrCodeRoute(
-                  `/${RouteUrls.Receive}/${RouteUrls.ReceiveBtcStamp}` as RouteUrls
-                )
+                navigate(`${RouteUrls.Home}${RouteUrls.ReceiveBtcStamp}`, {
+                  state: { backgroundLocation, ...location.state },
+                })
               }
               onCopyAddress={() =>
                 copyToClipboard(onCopyBtc, 'select_stamp_to_add_new_collectible')
@@ -152,7 +144,9 @@ export function ReceiveModal({ type = 'full' }: ReceiveModalProps) {
               icon={<StxAvatar />}
               onCopyAddress={() => copyToClipboard(onCopyStx, 'select_nft_to_add_new_collectible')}
               onClickQrCode={() =>
-                navigateToQrCodeRoute(`/${RouteUrls.Receive}/${RouteUrls.ReceiveStx}` as RouteUrls)
+                navigate(`${RouteUrls.Home}${RouteUrls.ReceiveStx}`, {
+                  state: { backgroundLocation, ...location.state },
+                })
               }
               title="Stacks NFT"
             />
