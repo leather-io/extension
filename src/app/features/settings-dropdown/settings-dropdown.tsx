@@ -55,6 +55,10 @@ export function SettingsDropdown() {
 
   useOnClickOutside(ref, isShowing ? handleClose : null);
 
+  // RouteUrls.Activity is nested off / so we need to use a link relative to the route
+  const linkRelativeType =
+    location.pathname === `${RouteUrls.Home}${RouteUrls.Activity}` ? 'route' : 'path';
+
   return (
     <SlideFade initialOffset="-20px" timeout={150} in={isShowing}>
       {styles => (
@@ -74,11 +78,13 @@ export function SettingsDropdown() {
               </MenuItem>
             </>
           )}
+          {/* // more importantly I broke tests again for direct access to receive I think  */}
           <MenuItem
             data-testid={SettingsSelectors.ToggleTheme}
             onClick={wrappedCloseCallback(() => {
               void analytics.track('click_change_theme_menu_item');
               navigate(RouteUrls.ChangeTheme, {
+                relative: linkRelativeType,
                 state: { backgroundLocation: location },
               });
             })}
@@ -131,6 +137,7 @@ export function SettingsDropdown() {
             onClick={wrappedCloseCallback(() => {
               void analytics.track('click_change_network_menu_item');
               navigate(RouteUrls.SelectNetwork, {
+                relative: linkRelativeType,
                 state: { backgroundLocation: location },
               });
             })}
@@ -164,6 +171,7 @@ export function SettingsDropdown() {
             color={color('feedback-error')}
             onClick={wrappedCloseCallback(() =>
               navigate(RouteUrls.SignOutConfirm, {
+                relative: linkRelativeType,
                 state: { backgroundLocation: location },
               })
             )}

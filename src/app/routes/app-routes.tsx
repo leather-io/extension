@@ -164,16 +164,16 @@ function useAppRoutes() {
         </Route>
 
         <Route
-          path={RouteUrls.Fund}
+          path={`${RouteUrls.Fund}/*`}
           element={
             <AccountGate>
               <FundPage />
             </AccountGate>
           }
         >
-          {/* FundReceiveStx is opened independantly so Recieve doesn't open behind */}
-          <Route path={RouteUrls.FundReceiveStx} element={<ReceiveStxModal />} />
           {settingsRoutes}
+
+          <Route path={RouteUrls.ReceiveStx} element={<ReceiveStxModal />} />
         </Route>
 
         {sendCryptoAssetFormRoutes}

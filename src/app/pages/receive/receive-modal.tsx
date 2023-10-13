@@ -10,13 +10,13 @@ import get from 'lodash.get';
 import { RouteUrls } from '@shared/route-urls';
 
 import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
-import { useBackgroundLocationRedirect } from '@app/common/hooks/use-background-location-redirect';
 import { useLocationState } from '@app/common/hooks/use-location-state';
 import { StxAvatar } from '@app/components/crypto-assets/stacks/components/stx-avatar';
 import { BaseDrawer } from '@app/components/drawer/base-drawer';
 import { BtcIcon } from '@app/components/icons/btc-icon';
 import { BtcStampsIcon } from '@app/components/icons/btc-stamps-icon';
 import { OrdinalIcon } from '@app/components/icons/ordinal-icon';
+import { useBackgroundLocationRedirect } from '@app/routes/hooks/use-background-location-redirect';
 import { useZeroIndexTaprootAddress } from '@app/store/accounts/blockchain/bitcoin/bitcoin.hooks';
 import { useCurrentAccountNativeSegwitAddressIndexZero } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
 import { useCurrentAccountStxAddressState } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
@@ -88,6 +88,7 @@ export function ReceiveModal({ type = 'full' }: ReceiveModalProps) {
                 onCopyAddress={() => copyToClipboard(onCopyBtc)}
                 onClickQrCode={() =>
                   navigate(`${RouteUrls.Home}${RouteUrls.ReceiveBtc}`, {
+                    // see if i need ...location.state
                     state: { backgroundLocation, ...location.state },
                   })
                 }
