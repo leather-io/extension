@@ -9,8 +9,7 @@ interface SwapAssetsPairLayoutProps {
 export function SwapAssetsPairLayout({ swapAssetFrom, swapAssetTo }: SwapAssetsPairLayoutProps) {
   return (
     <Stack
-      border="1px solid"
-      borderColor="accent.border-default !important"
+      border="default"
       borderRadius="12px"
       gap="space.01"
       mb="space.05"
