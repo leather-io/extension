@@ -7,9 +7,11 @@ import BigNumber from 'bignumber.js';
 import { logger } from '@shared/logger';
 import { createMoney } from '@shared/models/money.model';
 
-import { useAllTransferableCryptoAssetBalances } from '@app/common/hooks/use-transferable-asset-balances.hooks';
+import { useStxBalance } from '@app/common/hooks/balance/stx/use-stx-balance';
 import { convertAmountToFractionalUnit } from '@app/common/money/calculate-money';
 import { useSwappableCurrencyQuery } from '@app/query/common/alex-swaps/swappable-currency.query';
+import { useTransferableStacksFungibleTokenAssetBalances } from '@app/query/stacks/balance/stacks-ft-balances.hooks';
+import { useCurrentStacksAccount } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
 
 import { SwapSubmissionData } from '../swap.context';
 import { SwapAsset } from './use-swap-form';
@@ -20,11 +22,15 @@ export function useAlexSwap() {
   const alexSDK = useState(() => new AlexSDK())[0];
   const [swapSubmissionData, setSwapSubmissionData] = useState<SwapSubmissionData>();
   const [slippage, _setSlippage] = useState(0.04);
-  const allTransferableCryptoAssetBalances = useAllTransferableCryptoAssetBalances();
   const { data: supportedCurrencies = [] } = useSwappableCurrencyQuery(alexSDK);
   const { result: prices } = useAsync(async () => await alexSDK.getLatestPrices(), [alexSDK]);
+  const { availableBalance: availableStxBalance } = useStxBalance();
+  const account = useCurrentStacksAccount();
+  const stacksFtAssetBalances = useTransferableStacksFungibleTokenAssetBalances(
+    account?.address ?? ''
+  );
 
-  const getAssetFromAlexCurrency = useCallback(
+  const createSwapAssetFromAlexCurrency = useCallback(
     (tokenInfo?: TokenInfo) => {
       if (!prices) return;
       if (!tokenInfo) {
@@ -34,38 +40,30 @@ export function useAlexSwap() {
 
       const currency = tokenInfo.id as Currency;
       const price = convertAmountToFractionalUnit(new BigNumber(prices[currency] ?? 0), 2);
-
-      if (currency === Currency.STX) {
-        const balance =
-          allTransferableCryptoAssetBalances.find(
-            x =>
-              x.type === 'crypto-currency' && x.blockchain === 'stacks' && x.asset.symbol === 'STX'
-          )?.balance ?? createMoney(0, tokenInfo.name, tokenInfo.decimals);
-
-        return {
-          balance: balance,
-          currency,
-          icon: tokenInfo.icon,
-          name: tokenInfo.name,
-          price: createMoney(price, 'USD'),
-        };
-      }
-
-      const balance =
-        allTransferableCryptoAssetBalances.find(
-          x =>
-            x.type === 'fungible-token' && alexSDK.getAddressFrom(currency) === x.asset.contractId
-        )?.balance ?? createMoney(0, tokenInfo.name, tokenInfo.decimals);
-
-      return {
-        balance: balance,
+      const swapAsset = {
         currency,
         icon: tokenInfo.icon,
         name: tokenInfo.name,
         price: createMoney(price, 'USD'),
       };
+
+      if (currency === Currency.STX) {
+        return {
+          ...swapAsset,
+          balance: availableStxBalance,
+        };
+      }
+
+      const fungibleTokenBalance =
+        stacksFtAssetBalances.find(x => alexSDK.getAddressFrom(currency) === x.asset.contractId)
+          ?.balance ?? createMoney(0, tokenInfo.name, tokenInfo.decimals);
+
+      return {
+        ...swapAsset,
+        balance: fungibleTokenBalance,
+      };
     },
-    [alexSDK, allTransferableCryptoAssetBalances, prices]
+    [alexSDK, availableStxBalance, prices, stacksFtAssetBalances]
   );
 
   async function fetchToAmount(
@@ -82,7 +80,7 @@ export function useAlexSwap() {
   return {
     alexSDK,
     fetchToAmount,
-    getAssetFromAlexCurrency,
+    createSwapAssetFromAlexCurrency,
     onSetSwapSubmissionData: (value: SwapSubmissionData) => setSwapSubmissionData(value),
     slippage,
     supportedCurrencies,

@@ -45,7 +45,7 @@ export function BitcoinContractListItemLayout({
         handleOpenTxLink({
           blockchain: 'bitcoin',
           suffix: `&submitted=true`,
-          txid: txId,
+          txId,
         })
       }
     >

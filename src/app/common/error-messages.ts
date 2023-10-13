@@ -13,7 +13,7 @@ export enum FormErrorMessages {
   InsufficientFunds = 'Insufficient funds',
   MemoExceedsLimit = 'Memo must be less than 34-bytes',
   MustBeNumber = 'Amount must be a number',
-  MustBePositive = 'Amount must be positive',
+  MustBePositive = 'Amount must be greater than zero',
   MustSelectAsset = 'Select a valid token to transfer',
   SameAddress = 'Cannot send to yourself',
   TooMuchPrecision = 'Token can only have {decimals} decimals',

@@ -30,33 +30,7 @@ import { oneHundredMillion, useAlexSwap } from './hooks/use-alex-swap';
 import { useStacksBroadcastSwap } from './hooks/use-stacks-broadcast-swap';
 import { SwapAsset, SwapFormValues } from './hooks/use-swap-form';
 import { SwapContext, SwapProvider } from './swap.context';
-
-function sortSwappableAssetsBySymbol(swappableAssets: SwapAsset[]) {
-  return swappableAssets
-    .sort((a, b) => {
-      if (a.name < b.name) return -1;
-      if (a.name > b.name) return 1;
-      return 0;
-    })
-    .sort((a, b) => {
-      if (a.name === 'STX') return -1;
-      if (b.name !== 'STX') return 1;
-      return 0;
-    })
-    .sort((a, b) => {
-      if (a.name === 'BTC') return -1;
-      if (b.name !== 'BTC') return 1;
-      return 0;
-    });
-}
-
-function migratePositiveBalancesToTop(swappableAssets: SwapAsset[]) {
-  const assetsWithPositiveBalance = swappableAssets.filter(asset =>
-    asset.balance.amount.isGreaterThan(0)
-  );
-  const assetsWithZeroBalance = swappableAssets.filter(asset => asset.balance.amount.isEqualTo(0));
-  return [...assetsWithPositiveBalance, ...assetsWithZeroBalance];
-}
+import { migratePositiveBalancesToTop, sortSwappableAssetsBySymbol } from './swap.utils';
 
 export function SwapContainer() {
   const [isSendingMax, setIsSendingMax] = useState(false);
@@ -72,7 +46,7 @@ export function SwapContainer() {
   const {
     alexSDK,
     fetchToAmount,
-    getAssetFromAlexCurrency,
+    createSwapAssetFromAlexCurrency,
     onSetSwapSubmissionData,
     slippage,
     supportedCurrencies,
@@ -85,9 +59,9 @@ export function SwapContainer() {
   const swappableAssets: SwapAsset[] = useMemo(
     () =>
       sortSwappableAssetsBySymbol(
-        supportedCurrencies.map(getAssetFromAlexCurrency).filter(isDefined)
+        supportedCurrencies.map(createSwapAssetFromAlexCurrency).filter(isDefined)
       ),
-    [getAssetFromAlexCurrency, supportedCurrencies]
+    [createSwapAssetFromAlexCurrency, supportedCurrencies]
   );
 
   async function onSubmitSwapForReview(values: SwapFormValues) {
@@ -109,7 +83,7 @@ export function SwapContainer() {
       nonce: values.nonce,
       protocol: 'ALEX',
       router: router
-        .map(x => getAssetFromAlexCurrency(supportedCurrencies.find(y => y.id === x)))
+        .map(x => createSwapAssetFromAlexCurrency(supportedCurrencies.find(y => y.id === x)))
         .filter(isDefined),
       slippage,
       sponsored: isSponsoredByAlex,

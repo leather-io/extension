@@ -2,7 +2,7 @@ import { useField } from 'formik';
 
 import { formatMoneyWithoutSymbol } from '@app/common/money/format-money';
 
-import { useAmountAsFiat } from '../hooks/use-fiat-price';
+import { useAlexSdkAmountAsFiat } from '../hooks/use-alex-sdk-fiat-price';
 import { SwapAmountField } from './swap-amount-field';
 import { SwapSelectedAssetLayout } from './swap-selected-asset.layout';
 
@@ -14,7 +14,7 @@ export function SwapSelectedAssetTo({ onChooseAsset, title }: SwapSelectedAssetT
   const [amountField] = useField('swapAmountTo');
   const [assetField] = useField('swapAssetTo');
 
-  const amountAsFiat = useAmountAsFiat(
+  const amountAsFiat = useAlexSdkAmountAsFiat(
     assetField.value?.balance,
     assetField.value?.price,
     amountField.value

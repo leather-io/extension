@@ -1,16 +1,31 @@
+import BigNumber from 'bignumber.js';
 import { HStack, styled } from 'leather-styles/jsx';
 
-import { isUndefined } from '@shared/utils';
+import { createMoney } from '@shared/models/money.model';
+import { isDefined, isUndefined } from '@shared/utils';
 
+import { formatMoneyPadded } from '@app/common/money/format-money';
 import { microStxToStx } from '@app/common/money/unit-conversion';
 import { getEstimatedConfirmationTime } from '@app/common/transactions/stacks/transaction.utils';
 import { ChevronUpIcon } from '@app/components/icons/chevron-up-icon';
-import { useSwapContext } from '@app/pages/swap/swap.context';
+import { SwapSubmissionData, useSwapContext } from '@app/pages/swap/swap.context';
 import { useStacksBlockTime } from '@app/query/stacks/info/info.hooks';
 import { useCurrentNetworkState } from '@app/store/networks/networks.hooks';
 
 import { SwapDetailLayout } from './swap-detail.layout';
 import { SwapDetailsLayout } from './swap-details.layout';
+
+function RouteNames(props: { swapSubmissionData: SwapSubmissionData }) {
+  return props.swapSubmissionData.router.map((route, i) => {
+    const insertIcon = isDefined(props.swapSubmissionData.router[i + 1]);
+    return (
+      <>
+        <styled.span>{route.name}</styled.span>
+        {insertIcon && <ChevronUpIcon transform="rotate(90)" />}
+      </>
+    );
+  });
+}
 
 export function SwapDetails() {
   const { swapSubmissionData } = useSwapContext();
@@ -24,6 +39,14 @@ export function SwapDetails() {
   )
     return null;
 
+  const formattedMinToReceive = formatMoneyPadded(
+    createMoney(
+      new BigNumber(swapSubmissionData.swapAmountTo).times(1 - swapSubmissionData.slippage),
+      swapSubmissionData.swapAssetTo.balance.symbol,
+      swapSubmissionData.swapAssetTo.balance.decimals
+    )
+  );
+
   return (
     <SwapDetailsLayout>
       <SwapDetailLayout title="Protocol" value={swapSubmissionData.protocol} />
@@ -31,29 +54,23 @@ export function SwapDetails() {
         title="Route"
         value={
           <HStack gap="space.01">
-            <styled.span>{swapSubmissionData.router[0].name}</styled.span>
-            <ChevronUpIcon transform="rotate(90)" />
-            <styled.span>{swapSubmissionData.router[1].name}</styled.span>
+            <RouteNames swapSubmissionData={swapSubmissionData} />
           </HStack>
         }
       />
+      <SwapDetailLayout title="Min to receive" value={formattedMinToReceive} />
       <SwapDetailLayout
-        title="Minimum Received"
-        value={`${Number(swapSubmissionData.swapAmountTo) * (1 - swapSubmissionData.slippage)} ${
-          swapSubmissionData.swapAssetTo.name
-        }`}
-      />
-      <SwapDetailLayout
-        title="Slippage Tolerance"
+        title="Slippage tolerance"
         value={`${swapSubmissionData.slippage * 100}%`}
       />
       <SwapDetailLayout
-        title="Liquidity Provider Fee"
-        tooltipLabel="To receive a share of these fees, become a Liquidity Provider through 'Pool'."
+        title="Liquidity provider fee"
+        tooltipLabel="To receive a share of these fees, become a Liquidity Provider on app.alexlab.co."
         value={`${swapSubmissionData.liquidityFee} ${swapSubmissionData.swapAssetFrom.name}`}
       />
       <SwapDetailLayout
         title="Transaction fees"
+        tooltipLabel="Swap transactions are sponsored by default. However, this sponsorship may not apply when you have pending transactions. In such cases, if you choose to proceed, the associated costs will be deducted from your balance."
         value={
           swapSubmissionData.sponsored
             ? 'Sponsored'
