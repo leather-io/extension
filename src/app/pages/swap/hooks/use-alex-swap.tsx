@@ -73,6 +73,7 @@ export function useAlexSwap() {
     to: SwapAsset,
     fromAmount: string
   ): Promise<string> {
+    console.log('fetchToAmount', from, to, fromAmount);
     const amount = new BigNumber(fromAmount).multipliedBy(oneHundredMillion).dp(0).toString();
     const amountAsBigInt = isNaN(Number(amount)) ? BigInt(0) : BigInt(amount);
     const result = await alexSDK.getAmountTo(from.currency, amountAsBigInt, to.currency);

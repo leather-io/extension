@@ -6,6 +6,8 @@ import { Stack, styled } from 'leather-styles/jsx';
 import { isDefined, isUndefined } from '@shared/utils';
 
 import { useShowFieldError } from '@app/common/form-utils';
+import { delay } from '@app/common/utils';
+import { createCounter } from '@app/common/utils/counter';
 
 import { SwapFormValues } from '../hooks/use-swap-form';
 import { useSwapContext } from '../swap.context';
@@ -21,6 +23,8 @@ interface SwapAmountFieldProps {
   isDisabled?: boolean;
   name: string;
 }
+const count = createCounter(0);
+
 export function SwapAmountField({ amountAsFiat, isDisabled, name }: SwapAmountFieldProps) {
   const { fetchToAmount, onSetIsSendingMax } = useSwapContext();
   const { setErrors, setFieldValue, values } = useFormikContext<SwapFormValues>();
@@ -28,14 +32,20 @@ export function SwapAmountField({ amountAsFiat, isDisabled, name }: SwapAmountFi
   const showError = useShowFieldError(name) && name === 'swapAmountFrom' && values.swapAssetTo;
 
   async function onChange(event: ChangeEvent<HTMLInputElement>) {
-    const { swapAssetFrom, swapAssetTo } = values;
-    if (isUndefined(swapAssetFrom) || isUndefined(swapAssetTo)) return;
-    onSetIsSendingMax(false);
-    const value = event.currentTarget.value;
-    const toAmount = await fetchToAmount(swapAssetFrom, swapAssetTo, value);
-    await setFieldValue('swapAmountTo', Number(toAmount));
+    console.log('count', count.getValue());
+    await setFieldValue('swapAmountTo', count.getValue() * 2);
     field.onChange(event);
     setErrors({});
+    count.increment();
+
+    if (count.getValue() === 3) {
+      await delay(3000);
+      await setFieldValue('swapAmountTo', 9999999);
+      field.onChange(event);
+      setErrors({});
+      count.increment();
+      return;
+    }
   }
 
   return (
