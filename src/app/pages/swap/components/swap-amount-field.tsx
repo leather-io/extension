@@ -1,11 +1,15 @@
 import { ChangeEvent } from 'react';
 
+import BigNumber from 'bignumber.js';
 import { useField, useFormikContext } from 'formik';
 import { Stack, styled } from 'leather-styles/jsx';
 
+import { createMoney } from '@shared/models/money.model';
 import { isDefined, isUndefined } from '@shared/utils';
 
 import { useShowFieldError } from '@app/common/form-utils';
+import { convertAmountToFractionalUnit } from '@app/common/money/calculate-money';
+import { formatMoneyWithoutSymbol } from '@app/common/money/format-money';
 
 import { SwapFormValues } from '../hooks/use-swap-form';
 import { useSwapContext } from '../swap.context';
@@ -33,27 +37,30 @@ export function SwapAmountField({ amountAsFiat, isDisabled, name }: SwapAmountFi
     onSetIsSendingMax(false);
     const value = event.currentTarget.value;
     const toAmount = await fetchToAmount(swapAssetFrom, swapAssetTo, value);
-    await setFieldValue('swapAmountTo', Number(toAmount));
+    const toAmountAsMoney = createMoney(
+      convertAmountToFractionalUnit(new BigNumber(toAmount), values.swapAssetTo?.balance.decimals),
+      values.swapAssetTo?.balance.symbol ?? '',
+      values.swapAssetTo?.balance.decimals
+    );
+    await setFieldValue('swapAmountTo', formatMoneyWithoutSymbol(toAmountAsMoney));
     field.onChange(event);
     setErrors({});
   }
 
   return (
-    <Stack alignItems="flex-end" gap="space.01" width="65%">
-      <styled.label hidden htmlFor={name}>
-        {name}
-      </styled.label>
+    <Stack alignItems="flex-end" gap="space.01" width={['50%', '60%']}>
       <styled.input
         _disabled={{
-          bg: 'transparent',
-          border: 'none',
           color: 'accent.text-subdued',
         }}
         autoComplete="off"
+        bg="accent.background-primary"
         border="none"
         color={showError ? 'error' : 'accent.text-primary'}
         display="block"
         disabled={isDisabled}
+        id={name}
+        maxLength={15}
         p="0px"
         placeholder={getPlaceholderValue(name, values)}
         ring="none"
