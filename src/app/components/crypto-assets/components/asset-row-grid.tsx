@@ -9,11 +9,11 @@ interface AssetRowGridProps {
 export function AssetRowGrid({ title, balance, caption, usdBalance }: AssetRowGridProps) {
   return (
     <Grid columns={2} gridTemplateColumns="2fr 1fr" gridTemplateRows={2} gap={0}>
-      <GridItem whiteSpace="nowrap" overflow="hidden" textOverflow="ellipsis">
+      <GridItem textAlign="left" whiteSpace="nowrap" overflow="hidden" textOverflow="ellipsis">
         {title}
       </GridItem>
       <GridItem textAlign="right">{balance}</GridItem>
-      <GridItem>{caption}</GridItem>
+      <GridItem textAlign="left">{caption}</GridItem>
       {usdBalance && <GridItem>{usdBalance}</GridItem>}
     </Grid>
   );
