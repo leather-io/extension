@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import { SelectContent, SelectItem, SelectRoot, SelectTrigger } from '@radix-ui/themes';
@@ -66,98 +67,40 @@ export function AddNetwork() {
     setBitcoinApi(newValue);
   };
 
+  const setStacksUrl = useCallback(
+    (value: string) => {
+      formikProps.setFieldValue('stacksUrl', value);
+    },
+    [formikProps]
+  );
+
+  const setBitcoinUrl = useCallback(
+    (value: string) => {
+      formikProps.setFieldValue('bitcoinUrl', value);
+    },
+    [formikProps]
+  );
+
   useEffect(() => {
     switch (bitcoinApi) {
       case 'mainnet':
-        formikProps.setFieldValue('stacksUrl', 'https://api.hiro.so');
-        formikProps.setFieldValue('bitcoinUrl', 'https://blockstream.info/api');
+        setStacksUrl('https://api.hiro.so');
+        setBitcoinUrl('https://blockstream.info/api');
         break;
       case 'testnet':
-        formikProps.setFieldValue('stacksUrl', 'https://api.testnet.hiro.so');
-        formikProps.setFieldValue('bitcoinUrl', 'https://blockstream.info/testnet/api');
+        setStacksUrl('https://api.testnet.hiro.so');
+        setBitcoinUrl('https://blockstream.info/testnet/api');
         break;
       case 'signet':
-        formikProps.setFieldValue('stacksUrl', 'https://api.testnet.hiro.so');
-        formikProps.setFieldValue('bitcoinUrl', 'https://mempool.space/signet/api');
+        setStacksUrl('https://api.testnet.hiro.so');
+        setBitcoinUrl('https://mempool.space/signet/api');
         break;
       case 'regtest':
-        formikProps.setFieldValue('stacksUrl', 'https://api.testnet.hiro.so');
-        formikProps.setFieldValue('bitcoinUrl', 'https://mempool.space/testnet/api');
+        setStacksUrl('https://api.testnet.hiro.so');
+        setBitcoinUrl('https://mempool.space/testnet/api');
         break;
     }
-  }, [bitcoinApi]);
-
-  const setCustomNetwork = async (values: AddNetworkFormValues) => {
-    const { name, key, stacksUrl, bitcoinUrl } = values;
-    setError('');
-
-    if (!isValidUrl(stacksUrl) || !isValidUrl(bitcoinUrl)) {
-      setError('Enter a valid URL');
-      return;
-    }
-
-    const bitcoinPath = removeTrailingSlash(new URL(bitcoinUrl).href);
-    const bitcoinResponse = await network.fetchFn(`${bitcoinPath}/mempool/recent`);
-    const bitcoinResponseJSON = await bitcoinResponse.json();
-    if (!Array.isArray(bitcoinResponseJSON)) {
-      setError('Unable to fetch info from node.');
-      throw new Error('Unable to fetch info from node');
-    }
-
-    const stacksPath = removeTrailingSlash(new URL(stacksUrl).href);
-    const stacksResponse = await network.fetchFn(`${stacksPath}/v2/info`);
-    const stacksChainInfo = await stacksResponse.json();
-    if (!stacksChainInfo) {
-      setError('Unable to fetch info from node.');
-      throw new Error('Unable to fetch info from node');
-    }
-
-    if (!key) {
-      setError('Enter a unique key');
-      return;
-    }
-
-    // Attention:
-    // For mainnet/testnet the v2/info response `.network_id` refers to the chain ID
-    // For subnets the v2/info response `.network_id` refers to the network ID and the chain ID (they are the same for subnets)
-    // The `.parent_network_id` refers to the actual peer network ID in both cases
-    const { network_id: chainId, parent_network_id: parentNetworkId } = stacksChainInfo;
-
-    const isSubnet = typeof stacksChainInfo.l1_subnet_governing_contract === 'string';
-    const isFirstLevelSubnet =
-      isSubnet &&
-      (parentNetworkId === PeerNetworkID.Mainnet || parentNetworkId === PeerNetworkID.Testnet);
-
-    // Currently, only subnets of mainnet and testnet are supported in the wallet
-    if (isFirstLevelSubnet) {
-      const parentChainId =
-        parentNetworkId === PeerNetworkID.Mainnet ? ChainID.Mainnet : ChainID.Testnet;
-      networksActions.addNetwork({
-        id: key as DefaultNetworkConfigurations,
-        name,
-        chainId: parentChainId, // Used for differentiating control flow in the wallet
-        subnetChainId: chainId, // Used for signing transactions (via the network object, not to be confused with the NetworkConfigurations)
-        url: stacksPath,
-        bitcoinNetwork: bitcoinApi,
-        bitcoinUrl: bitcoinPath,
-      });
-      navigate(RouteUrls.Home);
-      return;
-    }
-
-    if (chainId === ChainID.Mainnet || chainId === ChainID.Testnet) {
-      networksActions.addNetwork({
-        id: key as DefaultNetworkConfigurations,
-        name,
-        chainId: chainId,
-        url: stacksPath,
-        bitcoinNetwork: bitcoinApi,
-        bitcoinUrl: bitcoinPath,
-      });
-      navigate(RouteUrls.Home);
-      return;
-    }
-  };
+  }, [bitcoinApi, setStacksUrl, setBitcoinUrl]);
 
   return (
     <CenteredPageContainer>
@@ -187,13 +130,91 @@ export function AddNetwork() {
       <Formik
         initialValues={addNetworkFormValues}
         onSubmit={async () => {
+          const { name, stacksUrl, bitcoinUrl, key } = formikProps.values;
+
+          if (!isValidUrl(stacksUrl)) {
+            setError('Enter a valid Stacks API URL');
+            return;
+          }
+
+          if (!isValidUrl(bitcoinUrl)) {
+            setError('Enter a valid Bitcoin API URL');
+            return;
+          }
+
+          if (!key) {
+            setError('Enter a unique key');
+            return;
+          }
+
           setLoading(true);
           setError('');
 
-          setCustomNetwork(formikProps.values).catch(e => {
-            setError(e.message);
-          });
+          const stacksPath = removeTrailingSlash(new URL(formikProps.values.stacksUrl).href);
+          const bitcoinPath = removeTrailingSlash(new URL(formikProps.values.bitcoinUrl).href);
 
+          try {
+            const bitcoinResponse = await network.fetchFn(`${bitcoinPath}/mempool/recent`);
+            if (!bitcoinResponse.ok) throw new Error('Unable to fetch mempool from bitcoin node');
+            const bitcoinMempool = await bitcoinResponse.json();
+            if (!Array.isArray(bitcoinMempool))
+              throw new Error('Unable to fetch mempool from bitcoin node');
+          } catch (error) {
+            setError('Unable to fetch mempool from bitcoin node');
+            setLoading(false);
+            return;
+          }
+
+          let stacksChainInfo: any;
+          try {
+            const stacksResponse = await network.fetchFn(`${stacksPath}/v2/info`);
+            stacksChainInfo = await stacksResponse.json();
+            if (!stacksChainInfo) throw new Error('Unable to fetch info from stacks node');
+          } catch (error) {
+            setError('Unable to fetch info from stacks node');
+            setLoading(false);
+            return;
+          }
+
+          // Attention:
+          // For mainnet/testnet the v2/info response `.network_id` refers to the chain ID
+          // For subnets the v2/info response `.network_id` refers to the network ID and the chain ID (they are the same for subnets)
+          // The `.parent_network_id` refers to the actual peer network ID in both cases
+          const { network_id: chainId, parent_network_id: parentNetworkId } = stacksChainInfo;
+
+          const isSubnet = typeof stacksChainInfo.l1_subnet_governing_contract === 'string';
+          const isFirstLevelSubnet =
+            isSubnet &&
+            (parentNetworkId === PeerNetworkID.Mainnet ||
+              parentNetworkId === PeerNetworkID.Testnet);
+
+          // Currently, only subnets of mainnet and testnet are supported in the wallet
+          if (isFirstLevelSubnet) {
+            const parentChainId =
+              parentNetworkId === PeerNetworkID.Mainnet ? ChainID.Mainnet : ChainID.Testnet;
+            networksActions.addNetwork({
+              id: key as DefaultNetworkConfigurations,
+              name: name,
+              chainId: parentChainId, // Used for differentiating control flow in the wallet
+              subnetChainId: chainId, // Used for signing transactions (via the network object, not to be confused with the NetworkConfigurations)
+              url: stacksPath,
+              bitcoinNetwork: bitcoinApi,
+              bitcoinUrl: bitcoinPath,
+            });
+            navigate(RouteUrls.Home);
+          } else if (chainId === ChainID.Mainnet || chainId === ChainID.Testnet) {
+            networksActions.addNetwork({
+              id: key as DefaultNetworkConfigurations,
+              name: name,
+              chainId: chainId,
+              url: stacksPath,
+              bitcoinNetwork: bitcoinApi,
+              bitcoinUrl: bitcoinPath,
+            });
+            navigate(RouteUrls.Home);
+          } else {
+            setError('Unable to determine chainID from node.');
+          }
           setLoading(false);
         }}
       >
@@ -247,7 +268,7 @@ export function AddNetwork() {
                   </SelectItem>
                 </SelectContent>
               </SelectRoot>
-              <Title as={'h3'}>Stacks Address</Title>
+              <Title as={'h3'}>Stacks API URL</Title>
               <Input
                 borderRadius="10px"
                 height="64px"
@@ -258,7 +279,7 @@ export function AddNetwork() {
                 width="100%"
                 data-testid={NetworkSelectors.NetworkStacksAddress}
               />
-              <Title as={'h3'}>Bitcoin Address</Title>
+              <Title as={'h3'}>Bitcoin API URL</Title>
               <Input
                 borderRadius="10px"
                 height="64px"

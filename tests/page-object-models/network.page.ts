@@ -16,22 +16,22 @@ export class NetworkPage {
 
   async inputNetworkNameField(input: string) {
     const field = this.page.locator(this.networkNameSelector);
-    await field?.type(input);
+    await field?.fill(input);
   }
 
   async inputNetworkStacksAddressField(input: string) {
     const field = this.page.locator(this.networkStacksAddressSelector);
-    await field?.type(input);
+    await field?.fill(input);
   }
 
   async inputNetworkBitcoinAddressField(input: string) {
     const field = this.page.locator(this.networkBitcoinAddressSelector);
-    await field?.type(input);
+    await field?.fill(input);
   }
 
   async inputNetworkKeyField(input: string) {
     const field = this.page.locator(this.networkKeySelector);
-    await field?.type(input);
+    await field?.fill(input);
   }
 
   async waitForErrorMessage() {
