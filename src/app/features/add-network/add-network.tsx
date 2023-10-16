@@ -61,6 +61,8 @@ export function AddNetwork() {
     onSubmit: () => {},
   });
 
+  const { setFieldValue } = formikProps;
+
   useRouteHeader(<Header title="Add a network" onClose={() => navigate(RouteUrls.Home)} />);
 
   const handleApiChange = (newValue: BitcoinNetworkModes) => {
@@ -69,16 +71,16 @@ export function AddNetwork() {
 
   const setStacksUrl = useCallback(
     (value: string) => {
-      formikProps.setFieldValue('stacksUrl', value);
+      setFieldValue('stacksUrl', value);
     },
-    [formikProps]
+    [setFieldValue]
   );
 
   const setBitcoinUrl = useCallback(
     (value: string) => {
-      formikProps.setFieldValue('bitcoinUrl', value);
+      setFieldValue('bitcoinUrl', value);
     },
-    [formikProps]
+    [setFieldValue]
   );
 
   useEffect(() => {
