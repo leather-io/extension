@@ -2,7 +2,7 @@ import { Flex, StackProps } from '@stacks/ui';
 import { forwardRefWithAs } from '@stacks/ui-core';
 import { truncateMiddle } from '@stacks/ui-utils';
 import { CryptoAssetSelectors } from '@tests/selectors/crypto-asset.selectors';
-import { HStack, styled } from 'leather-styles/jsx';
+import { styled } from 'leather-styles/jsx';
 
 import { CryptoCurrencies } from '@shared/models/currencies.model';
 import { Money } from '@shared/models/money.model';
@@ -12,6 +12,8 @@ import { ftDecimals } from '@app/common/stacks-utils';
 import { usePressable } from '@app/components/item-hover';
 import { Flag } from '@app/components/layout/flag';
 import { Tooltip } from '@app/components/tooltip';
+
+import { AssetRowGrid } from '../components/asset-row-grid';
 
 interface CryptoCurrencyAssetItemLayoutProps extends StackProps {
   balance: Money;
@@ -67,31 +69,35 @@ export const CryptoCurrencyAssetItemLayout = forwardRefWithAs(
         <Flag
           align="middle"
           img={isHovered && copyIcon ? copyIcon : icon}
-          spacing="base"
+          spacing="space.04"
           width="100%"
         >
-          <HStack alignItems="center" justifyContent="space-between" width="100%">
-            <styled.span textStyle="label.01">
-              {isHovered ? truncateMiddle(address, 6) : title}
-            </styled.span>
-            <Tooltip
-              label={formattedBalance.isAbbreviated ? balance.amount.toString() : undefined}
-              placement="left-start"
-            >
-              <styled.span data-testid={title} textStyle="label.01">
-                {formattedBalance.value} {additionalBalanceInfo}
+          <AssetRowGrid
+            title={
+              <styled.span textStyle="label.01">
+                {isHovered ? truncateMiddle(address, 6) : title}
               </styled.span>
-            </Tooltip>
-          </HStack>
-          <HStack alignItems="center" justifyContent="space-between" height="1.25rem" width="100%">
-            <styled.span textStyle="caption.02">{caption}</styled.span>
-            <Flex>
-              {balance.amount.toNumber() > 0 && address ? (
-                <styled.span textStyle="caption.02">{usdBalance}</styled.span>
-              ) : null}
-              {additionalUsdBalanceInfo}
-            </Flex>
-          </HStack>
+            }
+            balance={
+              <Tooltip
+                label={formattedBalance.isAbbreviated ? balance.amount.toString() : undefined}
+                placement="left-start"
+              >
+                <styled.span data-testid={title} textStyle="label.01">
+                  {formattedBalance.value} {additionalBalanceInfo}
+                </styled.span>
+              </Tooltip>
+            }
+            caption={<styled.span textStyle="caption.02">{caption}</styled.span>}
+            usdBalance={
+              <Flex justifyContent="flex-end">
+                {balance.amount.toNumber() > 0 && address ? (
+                  <styled.span textStyle="caption.02">{usdBalance}</styled.span>
+                ) : null}
+                {additionalUsdBalanceInfo}
+              </Flex>
+            }
+          />
         </Flag>
         {component}
       </Flex>
