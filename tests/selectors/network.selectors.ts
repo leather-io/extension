@@ -7,7 +7,7 @@ export enum NetworkSelectors {
   ErrorText = 'error-text',
   EmptyStacksAddressError = 'Enter a valid Stacks API URL',
   EmptyBitcoinURLError = 'Enter a valid Bitcoin API URL',
-  EmptyKeyError = 'Enter a valid key',
+  EmptyKeyError = 'Enter a unique key',
   NoStacksNodeFetch = 'Unable to fetch info from stacks node',
   NoBitcoinNodeFetch = 'Unable to fetch mempool from bitcoin node',
 }
