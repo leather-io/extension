@@ -80,7 +80,7 @@ export function ConnectLedger(props: ConnectLedgerProps) {
           {showBitcoinConnectButton && (
             <LeatherButton
               onClick={onConnectLedger || connectBitcoin}
-              disabled={awaitingLedgerConnection}
+              aria-busy={awaitingLedgerConnection}
               display="flex"
               alignItems="center"
             >
@@ -93,7 +93,7 @@ export function ConnectLedger(props: ConnectLedgerProps) {
           {showStacksConnectButton && (
             <LeatherButton
               onClick={onConnectLedger || connectStacks}
-              disabled={awaitingLedgerConnection}
+              aria-busy={awaitingLedgerConnection}
               display="flex"
               alignItems="center"
             >
