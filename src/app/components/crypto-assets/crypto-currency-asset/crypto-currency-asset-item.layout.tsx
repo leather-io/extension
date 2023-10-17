@@ -99,6 +99,7 @@ export const CryptoCurrencyAssetItemLayout = forwardRefWithAs(
                 {additionalUsdBalanceInfo}
               </Flex>
             }
+            connectBtn={connectBtn}
           />
         </Flag>
         {component}
