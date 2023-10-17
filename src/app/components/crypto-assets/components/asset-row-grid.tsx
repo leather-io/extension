@@ -5,18 +5,18 @@ interface AssetRowGridProps {
   balance: React.ReactNode;
   caption: React.ReactNode;
   usdBalance?: React.ReactNode;
-  connectBtn?: React.ReactNode;
+  rightElement?: React.ReactNode;
 }
 export function AssetRowGrid({
   title,
   balance,
   caption,
   usdBalance,
-  connectBtn,
+  rightElement,
 }: AssetRowGridProps) {
-  const balanceItem = connectBtn ? (
+  const balanceItem = rightElement ? (
     <GridItem rowSpan={2} display="flex" justifyContent="end">
-      {connectBtn}
+      {rightElement}
     </GridItem>
   ) : (
     <GridItem textAlign="right">{balance}</GridItem>

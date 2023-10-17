@@ -21,6 +21,7 @@ import { ledgerJwtSigningRoutes } from '@app/features/ledger/flows/jwt-signing/l
 import { requestBitcoinKeysRoutes } from '@app/features/ledger/flows/request-bitcoin-keys/ledger-request-bitcoin-keys';
 import { requestStacksKeysRoutes } from '@app/features/ledger/flows/request-stacks-keys/ledger-request-stacks-keys';
 import { ledgerStacksTxSigningRoutes } from '@app/features/ledger/flows/stacks-tx-signing/ledger-sign-tx.routes';
+import { UnsupportedBrowserLayout } from '@app/features/ledger/generic-steps';
 import { ConnectLedgerStart } from '@app/features/ledger/generic-steps/connect-device/connect-ledger-start';
 import { RetrieveTaprootToNativeSegwit } from '@app/features/retrieve-taproot-to-native-segwit/retrieve-taproot-to-native-segwit';
 import { BitcoinContractRequest } from '@app/pages/bitcoin-contract-request/bitcoin-contract-request';
@@ -116,6 +117,7 @@ function useAppRoutes() {
         >
           <Route path={RouteUrls.RequestDiagnostics} element={<AllowDiagnosticsModal />} />
           <Route path={RouteUrls.ConnectLedgerStart} element={<ConnectLedgerStart />} />
+          <Route path={RouteUrls.LedgerUnsupportedBrowser} element={<UnsupportedBrowserLayout />} />
 
           {requestBitcoinKeysRoutes}
           {requestStacksKeysRoutes}
