@@ -57,7 +57,7 @@ export function WelcomePage() {
     });
 
   const supportsWebUsbAction = pageModeRoutingAction(
-    RouteUrls.Onboarding + '/stacks/' + RouteUrls.ConnectLedger
+    RouteUrls.Onboarding + '/' + RouteUrls.ConnectLedgerStart
   );
   const doesNotSupportWebUsbAction = pageModeRoutingAction(
     RouteUrls.Onboarding + '/' + RouteUrls.LedgerUnsupportedBrowser

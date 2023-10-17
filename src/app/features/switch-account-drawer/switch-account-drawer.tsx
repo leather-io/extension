@@ -6,6 +6,7 @@ import { useCreateAccount } from '@app/common/hooks/account/use-create-account';
 import { useWalletType } from '@app/common/use-wallet-type';
 import { ControlledDrawer } from '@app/components/drawer/controlled-drawer';
 import { useCurrentAccountIndex } from '@app/store/accounts/account';
+import { useBtcAccounts } from '@app/store/accounts/blockchain/bitcoin/bitcoin-accounts.hooks';
 import { useStacksAccounts } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
 import { useShowSwitchAccountsState } from '@app/store/ui/ui.hooks';
 
@@ -15,7 +16,9 @@ import { SwitchAccountList } from './components/switch-account-list';
 
 export const SwitchAccountDrawer = memo(() => {
   const [isShowing, setShowSwitchAccountsState] = useShowSwitchAccountsState();
-  const accounts = useStacksAccounts();
+  const stacksAccounts = useStacksAccounts();
+  const bitcoinAccounts = useBtcAccounts();
+
   const currentAccountIndex = useCurrentAccountIndex();
   const createAccount = useCreateAccount();
   const { whenWallet } = useWalletType();
@@ -27,11 +30,11 @@ export const SwitchAccountDrawer = memo(() => {
     setShowSwitchAccountsState(false);
   };
 
-  if (isShowing && !accounts) {
+  if (isShowing && stacksAccounts.length === 0 && bitcoinAccounts.length === 0) {
     return <AccountListUnavailable />;
   }
 
-  return isShowing && accounts ? (
+  return isShowing ? (
     <ControlledDrawer title="Select account" isShowing={isShowing} onClose={onClose}>
       <Box
         mb={whenWallet({ ledger: 'base', software: '' })}
@@ -39,7 +42,8 @@ export const SwitchAccountDrawer = memo(() => {
         maxHeight={['110vh', 'inherit']}
       >
         <SwitchAccountList
-          accounts={accounts}
+          stacksAccounts={stacksAccounts}
+          bitcoinAccounts={bitcoinAccounts}
           currentAccountIndex={currentAccountIndex}
           handleClose={onClose}
         />

@@ -3,7 +3,7 @@ export * from './connect-device/connect-ledger-error';
 export * from './connect-device/connect-ledger-error.layout';
 export * from './connect-device/connect-ledger-success.layout';
 export * from './connect-device/connect-ledger-success';
-export * from './connect-device/connect-ledger.layout';
+export * from './connect-device/connect-ledger';
 export * from './device-busy/device-busy';
 export * from './device-busy/device-busy.layout';
 export * from './invalid-payload/device-invalid-payload';

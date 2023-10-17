@@ -5,18 +5,17 @@ import { Flex, HStack, Stack, StackProps, styled } from 'leather-styles/jsx';
 import { token } from 'leather-styles/tokens';
 
 import { useViewportMinWidth } from '@app/common/hooks/use-media-query';
-import { useConfigBitcoinEnabled } from '@app/query/common/remote-config/remote-config.query';
 
 import { CaptionDotSeparator } from '../caption-dot-separator';
 import { CheckmarkIcon } from '../icons/checkmark-icon';
 import { Flag } from '../layout/flag';
+import { StacksAccountLoader } from '../stacks-account-loader';
+import { BitcoinNativeSegwitAccountLoader } from './bitcoin-account-loader';
 
 interface AccountListItemLayoutProps extends StackProps {
   isLoading: boolean;
   isActive: boolean;
   index: number;
-  stxAddress: string;
-  btcAddress: string;
   accountName: React.ReactNode;
   avatar: React.JSX.Element;
   balanceLabel: React.ReactNode;
@@ -30,8 +29,6 @@ export function AccountListItemLayout(props: AccountListItemLayoutProps) {
     index,
     isLoading,
     isActive,
-    stxAddress,
-    btcAddress,
     accountName,
     avatar,
     balanceLabel,
@@ -44,7 +41,6 @@ export function AccountListItemLayout(props: AccountListItemLayoutProps) {
   } = props;
 
   const isBreakpointSm = useViewportMinWidth('sm');
-  const isBitcoinEnabled = useConfigBitcoinEnabled();
 
   return (
     <Flex
@@ -77,12 +73,21 @@ export function AccountListItemLayout(props: AccountListItemLayoutProps) {
           </HStack>
           <HStack alignItems="center" gap="space.02" whiteSpace="nowrap">
             <CaptionDotSeparator>
-              <styled.span textStyle="caption.02">
-                {truncateMiddle(stxAddress, isBreakpointSm ? 4 : 3)}
-              </styled.span>
-              {isBitcoinEnabled && (
-                <styled.span textStyle="caption.02">{truncateMiddle(btcAddress, 5)}</styled.span>
-              )}
+              <StacksAccountLoader index={index}>
+                {account => (
+                  <styled.span textStyle="caption.02">
+                    {truncateMiddle(account.address, isBreakpointSm ? 4 : 3)}
+                  </styled.span>
+                )}
+              </StacksAccountLoader>
+
+              <BitcoinNativeSegwitAccountLoader index={index}>
+                {signer => (
+                  <styled.span textStyle="caption.02">
+                    {truncateMiddle(signer.address, 5)}
+                  </styled.span>
+                )}
+              </BitcoinNativeSegwitAccountLoader>
             </CaptionDotSeparator>
           </HStack>
         </Stack>

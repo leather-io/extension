@@ -20,6 +20,7 @@ export enum RouteUrls {
   LedgerOutdatedAppWarning = 'outdated-app-warning',
   LedgerBroadcastError = 'transaction-broadcast-error',
   LedgerAddMoreKeys = 'add-more-keys',
+  ConnectLedgerStart = 'connect-ledger',
 
   // Active wallet routes
   Home = '/',

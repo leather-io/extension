@@ -1,5 +1,7 @@
 import { useMemo } from 'react';
 
+import { createMoney } from '@shared/models/money.model';
+
 import { baseCurrencyAmountInQuote } from '@app/common/money/calculate-money';
 import { i18nFormatCurrency } from '@app/common/money/format-money';
 import { useCryptoCurrencyMarketData } from '@app/query/common/market-data/market-data.hooks';
@@ -19,15 +21,14 @@ export function useTotalBalance({ btcAddress, stxAddress }: UseTotalBalanceArgs)
 
   // get stx balance
   const { data: balances, isLoading } = useAnchoredStacksAccountBalances(stxAddress);
+  const stxBalance = balances ? balances.stx.balance : createMoney(0, 'STX');
 
   // get btc balance
   const btcBalance = useBtcAssetBalance(btcAddress);
 
   return useMemo(() => {
-    if (!balances) return null;
-
     // calculate total balance
-    const stxUsdAmount = baseCurrencyAmountInQuote(balances.stx.balance, stxMarketData);
+    const stxUsdAmount = baseCurrencyAmountInQuote(stxBalance, stxMarketData);
     const btcUsdAmount = baseCurrencyAmountInQuote(
       btcBalance.btcAvailableAssetBalance.balance,
       btcMarketData
@@ -39,5 +40,5 @@ export function useTotalBalance({ btcAddress, stxAddress }: UseTotalBalanceArgs)
       totalUsdBalance: i18nFormatCurrency(totalBalance),
       isLoading,
     };
-  }, [btcBalance, balances, btcMarketData, stxMarketData, isLoading]);
+  }, [btcBalance, btcMarketData, stxMarketData, isLoading, stxBalance]);
 }

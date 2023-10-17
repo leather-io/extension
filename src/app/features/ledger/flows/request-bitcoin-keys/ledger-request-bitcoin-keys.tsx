@@ -31,7 +31,7 @@ function LedgerRequestBitcoinKeys() {
       return name === 'Bitcoin' || name === 'Bitcoin Test';
     },
     onSuccess() {
-      navigate('/');
+      navigate('/', { replace: true });
     },
     async pullKeysFromDevice(app) {
       const { keys } = await pullBitcoinKeysFromLedgerDevice(app)({

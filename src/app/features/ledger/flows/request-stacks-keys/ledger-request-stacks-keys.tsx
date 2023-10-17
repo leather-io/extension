@@ -1,8 +1,5 @@
 import { useNavigate } from 'react-router-dom';
 
-import { LEDGER_BITCOIN_ENABLED } from '@shared/environment';
-import { RouteUrls } from '@shared/route-urls';
-
 import { LedgerRequestKeysContext } from '@app/features/ledger/generic-flows/request-keys/ledger-request-keys.context';
 import { useLedgerNavigate } from '@app/features/ledger/hooks/use-ledger-navigate';
 import {
@@ -35,12 +32,6 @@ function LedgerRequestStacksKeys() {
         return !isStacksLedgerAppClosed(resp);
       },
       onSuccess() {
-        if (LEDGER_BITCOIN_ENABLED) {
-          navigate('/get-started/stacks/' + RouteUrls.LedgerAddMoreKeys, {
-            replace: true,
-          });
-          return;
-        }
         navigate('/', { replace: true });
       },
       async pullKeysFromDevice(app) {

@@ -7,7 +7,7 @@ import { QrCodeIcon } from '@app/components/icons/qr-code-icon';
 import { Flag } from '@app/components/layout/flag';
 
 interface ReceiveItemProps {
-  address: string;
+  address?: string;
   dataTestId?: string;
   icon: React.JSX.Element;
   onCopyAddress(): void;
@@ -22,6 +22,7 @@ export function ReceiveItem({
   onClickQrCode,
   title,
 }: ReceiveItemProps) {
+  if (!address) return null;
   return (
     <Flag align="middle" img={icon} spacing="base">
       <Flex justifyContent="space-between">
