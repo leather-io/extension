@@ -53,7 +53,7 @@ export function AssetsList() {
             usdBalance={btcAvailableUsdBalance}
             icon={<BtcIcon />}
             address={btcAddress}
-            connectBtn={hasBitcoinKeys ? undefined : <ConnectLedgerAssetBtn chain="bitcoin" />}
+            rightElement={hasBitcoinKeys ? undefined : <ConnectLedgerAssetBtn chain="bitcoin" />}
           />
         ) : null,
       })}
@@ -70,7 +70,7 @@ export function AssetsList() {
             usdBalance={stxEffectiveUsdBalance}
             icon={<StxAvatar />}
             address={currentAccount?.address || ''}
-            connectBtn={hasStacksKeys ? undefined : <ConnectLedgerAssetBtn chain="stacks" />}
+            rightElement={hasStacksKeys ? undefined : <ConnectLedgerAssetBtn chain="stacks" />}
           />
         ),
       })}

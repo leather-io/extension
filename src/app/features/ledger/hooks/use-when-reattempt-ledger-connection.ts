@@ -14,6 +14,5 @@ export function useWhenReattemptingLedgerConnection(fn: () => void) {
       // hack to call function on mount
       setTimeout(fn);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   });
 }

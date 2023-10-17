@@ -18,8 +18,8 @@ import { AssetRowGrid } from '../components/asset-row-grid';
 interface CryptoCurrencyAssetItemLayoutProps extends StackProps {
   balance: Money;
   caption: string;
-  icon: React.JSX.Element;
-  copyIcon?: React.JSX.Element;
+  icon: React.ReactNode;
+  copyIcon?: React.ReactNode;
   isPressable?: boolean;
   title: string;
   usdBalance?: string;
@@ -27,9 +27,9 @@ interface CryptoCurrencyAssetItemLayoutProps extends StackProps {
   canCopy?: boolean;
   isHovered?: boolean;
   currency?: CryptoCurrencies;
-  additionalBalanceInfo?: React.JSX.Element;
-  additionalUsdBalanceInfo?: React.JSX.Element;
-  connectBtn?: React.JSX.Element;
+  additionalBalanceInfo?: React.ReactNode;
+  additionalUsdBalanceInfo?: React.ReactNode;
+  rightElement?: React.ReactNode;
 }
 export const CryptoCurrencyAssetItemLayout = forwardRefWithAs(
   (props: CryptoCurrencyAssetItemLayoutProps, ref) => {
@@ -45,7 +45,7 @@ export const CryptoCurrencyAssetItemLayout = forwardRefWithAs(
       isHovered = false,
       additionalBalanceInfo,
       additionalUsdBalanceInfo,
-      connectBtn,
+      rightElement,
       ...rest
     } = props;
     const [component, bind] = usePressable(isPressable);
@@ -99,7 +99,7 @@ export const CryptoCurrencyAssetItemLayout = forwardRefWithAs(
                 {additionalUsdBalanceInfo}
               </Flex>
             }
-            connectBtn={connectBtn}
+            rightElement={rightElement}
           />
         </Flag>
         {component}

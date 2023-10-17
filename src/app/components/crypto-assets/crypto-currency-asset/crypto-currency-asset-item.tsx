@@ -14,14 +14,14 @@ import { CryptoCurrencyAssetItemLayout } from './crypto-currency-asset-item.layo
 
 interface CryptoCurrencyAssetItemProps extends StackProps {
   assetBalance: AllCryptoCurrencyAssetBalances;
-  icon: React.JSX.Element;
+  icon: React.ReactNode;
   usdBalance?: string;
   address?: string;
   isPressable?: boolean;
   canCopy?: boolean;
-  additionalBalanceInfo?: React.JSX.Element;
-  additionalUsdBalanceInfo?: React.JSX.Element;
-  connectBtn?: React.JSX.Element;
+  additionalBalanceInfo?: React.ReactNode;
+  additionalUsdBalanceInfo?: React.ReactNode;
+  rightElement?: React.ReactNode;
 }
 export const CryptoCurrencyAssetItem = forwardRefWithAs(
   (props: CryptoCurrencyAssetItemProps, ref) => {
@@ -34,7 +34,7 @@ export const CryptoCurrencyAssetItem = forwardRefWithAs(
       usdBalance,
       additionalBalanceInfo,
       additionalUsdBalanceInfo,
-      connectBtn,
+      rightElement,
       ...rest
     } = props;
     const { balance, asset } = assetBalance;
@@ -82,7 +82,7 @@ export const CryptoCurrencyAssetItem = forwardRefWithAs(
         onMouseOut={onBlur}
         additionalBalanceInfo={additionalBalanceInfo}
         additionalUsdBalanceInfo={additionalUsdBalanceInfo}
-        connectBtn={connectBtn}
+        rightElement={rightElement}
         {...rest}
       />
     );
