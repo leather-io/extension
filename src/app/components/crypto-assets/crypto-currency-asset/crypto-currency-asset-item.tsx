@@ -21,6 +21,7 @@ interface CryptoCurrencyAssetItemProps extends StackProps {
   canCopy?: boolean;
   additionalBalanceInfo?: React.JSX.Element;
   additionalUsdBalanceInfo?: React.JSX.Element;
+  connectBtn?: React.JSX.Element;
 }
 export const CryptoCurrencyAssetItem = forwardRefWithAs(
   (props: CryptoCurrencyAssetItemProps, ref) => {
@@ -33,6 +34,7 @@ export const CryptoCurrencyAssetItem = forwardRefWithAs(
       usdBalance,
       additionalBalanceInfo,
       additionalUsdBalanceInfo,
+      connectBtn,
       ...rest
     } = props;
     const { balance, asset } = assetBalance;
@@ -80,6 +82,7 @@ export const CryptoCurrencyAssetItem = forwardRefWithAs(
         onMouseOut={onBlur}
         additionalBalanceInfo={additionalBalanceInfo}
         additionalUsdBalanceInfo={additionalUsdBalanceInfo}
+        connectBtn={connectBtn}
         {...rest}
       />
     );

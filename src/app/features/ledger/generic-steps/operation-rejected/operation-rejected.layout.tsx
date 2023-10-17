@@ -1,7 +1,10 @@
-import LedgerTxRejected from '@assets/images/ledger/transaction-rejected.png';
-import { Box, Button, Flex, Text, color } from '@stacks/ui';
+import { Box } from 'leather-styles/jsx';
+
+import { LeatherButton } from '@app/components/button/button';
+import { LedgerTxRejected } from '@app/features/ledger/illustrations/ledger-illu-transaction-rejected';
 
 import { LedgerTitle } from '../../components/ledger-title';
+import { LedgerWrapper } from '../../components/ledger-wrapper';
 
 interface LedgerOperationRejectedLayoutProps {
   description: string;
@@ -12,17 +15,14 @@ export function LedgerOperationRejectedLayout({
   description,
 }: LedgerOperationRejectedLayoutProps) {
   return (
-    <Flex alignItems="center" flexDirection="column" pb="extra-loose" px="loose" textAlign="center">
+    <LedgerWrapper>
       <Box>
-        <img src={LedgerTxRejected} width="227px" height="63px" />
+        <LedgerTxRejected />
       </Box>
-      <LedgerTitle mt="extra-loose" mx="40px" lineHeight="1.6">
-        {description}
-      </LedgerTitle>
-      <Text mt="base-tight" lineHeight="24px" color={color('text-caption')}></Text>
-      <Button mode="tertiary" mt="base" mr="base-tight" mb="tight" onClick={onClose}>
+      <LedgerTitle my="space.05">{description}</LedgerTitle>
+      <LeatherButton width="100%" variant="outline" mb="space.01" onClick={onClose}>
         Close
-      </Button>
-    </Flex>
+      </LeatherButton>
+    </LedgerWrapper>
   );
 }

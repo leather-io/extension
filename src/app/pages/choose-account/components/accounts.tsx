@@ -69,8 +69,6 @@ const ChooseAccountItem = memo(
       <Box pb="loose">
         <AccountListItemLayout
           index={account.index}
-          stxAddress={account.address}
-          btcAddress={btcAddress}
           isActive={false}
           accountName={
             <Suspense

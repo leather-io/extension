@@ -1,7 +1,7 @@
-import SignLedgerTransaction from '@assets/images/ledger/sign-ledger-transaction.png';
 import { Box, Flex, color } from '@stacks/ui';
 
 import { DividerSeparator } from '@app/components/layout/divider-separator';
+import { SignLedgerTransaction } from '@app/features/ledger/illustrations/ledger-illu-sign-ledger-transaction';
 
 import { DeviceOperationApprovalStatus } from '../../components/device-approval-status';
 import { LedgerScreenDetail } from '../../components/ledger-screen-detail';
@@ -18,7 +18,7 @@ export function ApproveLedgerOperationLayout(props: ApproveLedgerOperationLayout
   return (
     <LedgerWrapper>
       <Box mt="tight">
-        <img src={SignLedgerTransaction} width="228px" />
+        <SignLedgerTransaction />
       </Box>
       <LedgerTitle mt="loose" mx="50px">
         {description}

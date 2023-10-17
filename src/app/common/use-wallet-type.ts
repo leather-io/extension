@@ -14,7 +14,7 @@ function isSoftwareWallet(walletType: WalletType) {
 
 type WalletTypeMap<T> = Record<WalletType, T>;
 
-function whenWallet(walletType: WalletType) {
+function whenWallet(walletType: WalletType = 'ledger') {
   return <T extends WalletTypeMap<unknown>>(walletTypeMap: T) => {
     if (isLedgerWallet(walletType)) return walletTypeMap.ledger as T['ledger'];
     if (isSoftwareWallet(walletType)) return walletTypeMap.software as T['software'];

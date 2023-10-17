@@ -40,13 +40,11 @@ export const AccountListItem = memo(({ account, onClose }: AccountListItemProps)
         <AccountAvatarItem index={account.index} publicKey={account.stxPublicKey} name={name} />
       }
       balanceLabel={<AccountTotalBalance stxAddress={account.address} btcAddress={btcAddress} />}
-      btcAddress={btcAddress}
       index={account.index}
       isActive={false}
       isLoading={false}
       mt="loose"
       onSelectAccount={onSelectAccount}
-      stxAddress={account.address}
       {...bind}
     >
       {component}

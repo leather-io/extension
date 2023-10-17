@@ -1,8 +1,8 @@
-import LedgerWithRedOutline from '@assets/images/ledger/ledger-red-outline.png';
 import { Box, Flex, Text, color } from '@stacks/ui';
 
 import { LeatherButton } from '@app/components/button/button';
 import { Title } from '@app/components/typography';
+import { ConnectLedgerErr } from '@app/features/ledger/illustrations/ledger-illu-connect-ledger-error';
 
 import { LedgerWrapper } from '../../components/ledger-wrapper';
 
@@ -15,7 +15,7 @@ export function LedgerDeviceInvalidPayloadLayout({
   return (
     <LedgerWrapper>
       <Box>
-        <img src={LedgerWithRedOutline} width="247px" height="55px" />
+        <ConnectLedgerErr />
       </Box>
       <Title mt="extra-loose">Data Invalid</Title>
       <Text mt="base-tight" lineHeight="24px" color={color('text-caption')}>

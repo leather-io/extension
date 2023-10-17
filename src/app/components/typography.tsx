@@ -1,5 +1,6 @@
 import { Text as BaseText, BoxProps, color } from '@stacks/ui';
 import { forwardRefWithAs } from '@stacks/ui-core';
+import { BoxProps as LeatherBoxProps, styled } from 'leather-styles/jsx';
 
 const interMetrics = {
   capHeight: 2048,
@@ -69,6 +70,12 @@ export const Caption = forwardRefWithAs<{ variant?: 'c1' | 'c2' | 'c3' } & BoxPr
     />
   )
 );
+
+export const LCaption = forwardRefWithAs<LeatherBoxProps, 'span'>(({ children, ...props }, ref) => (
+  <styled.span ref={ref} textStyle="label.03" color="accent.text-subdued" {...props}>
+    {children}
+  </styled.span>
+));
 
 export function CaptionSeparatorDot(props: BoxProps) {
   return (

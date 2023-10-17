@@ -29,6 +29,7 @@ interface CryptoCurrencyAssetItemLayoutProps extends StackProps {
   currency?: CryptoCurrencies;
   additionalBalanceInfo?: React.JSX.Element;
   additionalUsdBalanceInfo?: React.JSX.Element;
+  connectBtn?: React.JSX.Element;
 }
 export const CryptoCurrencyAssetItemLayout = forwardRefWithAs(
   (props: CryptoCurrencyAssetItemLayoutProps, ref) => {
@@ -44,6 +45,7 @@ export const CryptoCurrencyAssetItemLayout = forwardRefWithAs(
       isHovered = false,
       additionalBalanceInfo,
       additionalUsdBalanceInfo,
+      connectBtn,
       ...rest
     } = props;
     const [component, bind] = usePressable(isPressable);

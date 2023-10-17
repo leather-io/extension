@@ -1,6 +1,6 @@
-import ConnectLedgerSuccess from '@assets/images/ledger/connect-ledger-success.png';
-
 import { SupportedBlockchains } from '@shared/constants';
+
+import { ConnectLedgerSuccess } from '@app/features/ledger/illustrations/ledger-illu-success';
 
 import { LedgerConnectInstructionTitle } from '../../components/ledger-title';
 import { LedgerWrapper } from '../../components/ledger-wrapper';
@@ -12,7 +12,7 @@ interface ConnectLedgerSuccessLayoutProps {
 export function ConnectLedgerSuccessLayout({ chain }: ConnectLedgerSuccessLayoutProps) {
   return (
     <LedgerWrapper>
-      <img src={ConnectLedgerSuccess} width="267px" height="55px" />
+      <ConnectLedgerSuccess />
       <LedgerConnectInstructionTitle chain={chain} mt="loose" mx="50px" />
       <LedgerSuccessLabel my="extra-loose">Connected!</LedgerSuccessLabel>
     </LedgerWrapper>
