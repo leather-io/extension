@@ -85,7 +85,7 @@ export const HIRO_INSCRIPTIONS_API_URL = 'https://api.hiro.so/ordinals/v1/inscri
 
 export const BITCOIN_API_BASE_URL_MAINNET = 'https://blockstream.info/api';
 export const BITCOIN_API_BASE_URL_TESTNET = 'https://blockstream.info/testnet/api';
-export const BITCOIN_API_BASE_URL_SIGNET = 'https://mempool.space/signet/api';
+const BITCOIN_API_BASE_URL_SIGNET = 'https://mempool.space/signet/api';
 
 const networkMainnet: NetworkConfiguration = {
   id: WalletDefaultNetworkConfigurationIds.mainnet,
@@ -150,7 +150,7 @@ const networkSbtcDevenv: NetworkConfiguration = {
     bitcoin: {
       blockchain: 'bitcoin',
       network: 'regtest',
-      url: 'http://localhost:8999/api',
+      url: 'http://localhost:3002',
     },
   },
 };
