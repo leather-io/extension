@@ -55,6 +55,10 @@ export function SettingsDropdown() {
 
   useOnClickOutside(ref, isShowing ? handleClose : null);
 
+  // RouteUrls.Activity is nested off / so we need to use a link relative to the route
+  const linkRelativeType =
+    location.pathname === `${RouteUrls.Home}${RouteUrls.Activity}` ? 'route' : 'path';
+
   return (
     <SlideFade initialOffset="-20px" timeout={150} in={isShowing}>
       {styles => (
@@ -78,7 +82,10 @@ export function SettingsDropdown() {
             data-testid={SettingsSelectors.ToggleTheme}
             onClick={wrappedCloseCallback(() => {
               void analytics.track('click_change_theme_menu_item');
-              navigate(RouteUrls.ChangeTheme, { relative: 'path' });
+              navigate(RouteUrls.ChangeTheme, {
+                relative: linkRelativeType,
+                state: { backgroundLocation: location },
+              });
             })}
           >
             Change theme
@@ -128,7 +135,10 @@ export function SettingsDropdown() {
             data-testid={SettingsSelectors.ChangeNetworkAction}
             onClick={wrappedCloseCallback(() => {
               void analytics.track('click_change_network_menu_item');
-              navigate(RouteUrls.SelectNetwork, { relative: 'path' });
+              navigate(RouteUrls.SelectNetwork, {
+                relative: linkRelativeType,
+                state: { backgroundLocation: location },
+              });
             })}
           >
             <Flex width="100%" alignItems="center" justifyContent="space-between">
@@ -159,7 +169,10 @@ export function SettingsDropdown() {
           <MenuItem
             color={color('feedback-error')}
             onClick={wrappedCloseCallback(() =>
-              navigate(RouteUrls.SignOutConfirm, { relative: 'path' })
+              navigate(RouteUrls.SignOutConfirm, {
+                relative: linkRelativeType,
+                state: { backgroundLocation: location },
+              })
             )}
             data-testid={SettingsSelectors.SignOutListItem}
           >

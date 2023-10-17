@@ -3,11 +3,11 @@ import { useNavigate } from 'react-router-dom';
 import { SharedComponentsSelectors } from '@tests/selectors/shared-component.selectors';
 import { Box, Flex, styled } from 'leather-styles/jsx';
 
-import { RouteUrls } from '@shared/route-urls';
-
+import { useLocationState } from '@app/common/hooks/use-location-state';
 import { AddressDisplayer } from '@app/components/address-displayer/address-displayer';
 import { LeatherButton } from '@app/components/button/button';
 import { BaseDrawer } from '@app/components/drawer/base-drawer';
+import { useBackgroundLocationRedirect } from '@app/routes/hooks/use-background-location-redirect';
 
 import { QrCode } from './address-qr-code';
 
@@ -19,11 +19,14 @@ interface ReceiveTokensLayoutProps {
   warning?: React.JSX.Element;
 }
 export function ReceiveTokensLayout(props: ReceiveTokensLayoutProps) {
+  useBackgroundLocationRedirect();
+
   const { address, accountName, onCopyAddressToClipboard, title, warning } = props;
   const navigate = useNavigate();
+  const backgroundLocation = useLocationState<Location>('backgroundLocation');
 
   return (
-    <BaseDrawer title="Receive" isShowing onClose={() => navigate(RouteUrls.Home)}>
+    <BaseDrawer title="Receive" isShowing onClose={() => navigate(backgroundLocation ?? '..')}>
       {warning && warning}
       <Flex alignItems="center" flexDirection="column" pb={['space.05', 'space.08']} px="space.05">
         <styled.h2 mt="space.05" textStyle="heading.03">
