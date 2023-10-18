@@ -1,7 +1,6 @@
 import toast from 'react-hot-toast';
 import { useLocation, useNavigate } from 'react-router-dom';
 
-import { useClipboard } from '@stacks/ui';
 import { HomePageSelectors } from '@tests/selectors/home.selectors';
 import { Box, styled } from 'leather-styles/jsx';
 import { token } from 'leather-styles/tokens';
@@ -10,6 +9,7 @@ import get from 'lodash.get';
 import { RouteUrls } from '@shared/route-urls';
 
 import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
+import { useClipboard } from '@app/common/hooks/use-copy-to-clipboard';
 import { useLocationState } from '@app/common/hooks/use-location-state';
 import { StxAvatar } from '@app/components/crypto-assets/stacks/components/stx-avatar';
 import { BaseDrawer } from '@app/components/drawer/base-drawer';

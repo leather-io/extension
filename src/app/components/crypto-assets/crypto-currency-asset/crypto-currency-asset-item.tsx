@@ -1,12 +1,13 @@
 import { useState } from 'react';
 import { toast } from 'react-hot-toast';
 
-import { StackProps, useClipboard } from '@stacks/ui';
+import { StackProps } from '@stacks/ui';
 import { forwardRefWithAs } from '@stacks/ui-core';
 
 import type { AllCryptoCurrencyAssetBalances } from '@shared/models/crypto-asset-balance.model';
 
 import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
+import { useClipboard } from '@app/common/hooks/use-copy-to-clipboard';
 import { spamFilter } from '@app/common/utils/spam-filter';
 
 import { AssetItemCopyIcon } from './asset-copy-icon';

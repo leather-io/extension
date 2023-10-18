@@ -1,10 +1,10 @@
 import toast from 'react-hot-toast';
 import { useLocation } from 'react-router-dom';
 
-import { useClipboard } from '@stacks/ui';
 import get from 'lodash.get';
 
 import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
+import { useClipboard } from '@app/common/hooks/use-copy-to-clipboard';
 import { useBackgroundLocationRedirect } from '@app/routes/hooks/use-background-location-redirect';
 import { useCurrentAccountIndex } from '@app/store/accounts/account';
 import { useNativeSegwitAccountIndexAddressIndexZero } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';

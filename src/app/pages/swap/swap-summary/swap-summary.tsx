@@ -2,7 +2,6 @@ import toast from 'react-hot-toast';
 import { Outlet } from 'react-router-dom';
 
 import WaxSeal from '@assets/illustrations/wax-seal.png';
-import { useClipboard } from '@stacks/ui';
 import { useFormikContext } from 'formik';
 import { HStack, styled } from 'leather-styles/jsx';
 
@@ -10,6 +9,7 @@ import { logger } from '@shared/logger';
 import { isUndefined } from '@shared/utils';
 
 import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
+import { useClipboard } from '@app/common/hooks/use-copy-to-clipboard';
 // import { useExplorerLink } from '@app/common/hooks/use-explorer-link';
 import { useRouteHeader } from '@app/common/hooks/use-route-header';
 import { CopyIcon } from '@app/components/icons/copy-icon';

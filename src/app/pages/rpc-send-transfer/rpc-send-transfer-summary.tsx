@@ -2,9 +2,10 @@ import toast from 'react-hot-toast';
 import { FiCheck, FiCopy, FiExternalLink } from 'react-icons/fi';
 import { useLocation } from 'react-router-dom';
 
-import { Stack, useClipboard } from '@stacks/ui';
+import { Stack } from '@stacks/ui';
 
 import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
+import { useClipboard } from '@app/common/hooks/use-copy-to-clipboard';
 import { useExplorerLink } from '@app/common/hooks/use-explorer-link';
 import { FormAddressDisplayer } from '@app/components/address-displayer/form-address-displayer';
 import {
