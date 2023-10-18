@@ -1,11 +1,10 @@
 import { memo, useMemo } from 'react';
 import { Outlet, useLocation, useNavigate } from 'react-router-dom';
 
-import { useClipboard } from '@stacks/ui';
-
 import { RouteUrls } from '@shared/route-urls';
 
 import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
+import { useClipboard } from '@app/common/hooks/use-copy-to-clipboard';
 
 import { SecretKeyDisplayerLayout } from './secret-key-displayer.layout';
 

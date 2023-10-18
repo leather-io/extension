@@ -1,9 +1,8 @@
 import toast from 'react-hot-toast';
 
-import { useClipboard } from '@stacks/ui';
-
 import { useCurrentAccountDisplayName } from '@app/common/hooks/account/use-account-names';
 import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
+import { useClipboard } from '@app/common/hooks/use-copy-to-clipboard';
 import { useBackgroundLocationRedirect } from '@app/routes/hooks/use-background-location-redirect';
 import { useCurrentStacksAccount } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
 

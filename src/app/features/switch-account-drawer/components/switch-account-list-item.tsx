@@ -1,13 +1,12 @@
 import { memo } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import { useClipboard } from '@stacks/ui';
-
 import { RouteUrls } from '@shared/route-urls';
 
 import { useAccountDisplayName } from '@app/common/hooks/account/use-account-names';
 import { useSwitchAccount } from '@app/common/hooks/account/use-switch-account';
 import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
+import { useClipboard } from '@app/common/hooks/use-copy-to-clipboard';
 import { useDrawers } from '@app/common/hooks/use-drawers';
 import { useLoading } from '@app/common/hooks/use-loading';
 import { AccountTotalBalance } from '@app/components/account-total-balance';

@@ -1,8 +1,9 @@
 import { FiArrowUpRight, FiCopy } from 'react-icons/fi';
 
-import { Box, Stack, Text, color, useClipboard } from '@stacks/ui';
+import { Box, Stack, Text, color } from '@stacks/ui';
 import { HStack } from 'leather-styles/jsx';
 
+import { useClipboard } from '@app/common/hooks/use-copy-to-clipboard';
 import { BtcIcon } from '@app/components/icons/btc-icon';
 import { Flag } from '@app/components/layout/flag';
 import { Tooltip } from '@app/components/tooltip';
