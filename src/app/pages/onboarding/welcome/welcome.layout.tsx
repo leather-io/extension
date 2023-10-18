@@ -1,5 +1,5 @@
 import { OnboardingSelectors } from '@tests/selectors/onboarding.selectors';
-import { Flex, styled } from 'leather-styles/jsx';
+import { Box, Flex, styled } from 'leather-styles/jsx';
 
 import { useViewportMinWidth } from '@app/common/hooks/use-media-query';
 import { LeatherButton } from '@app/components/button/button';
@@ -35,16 +35,18 @@ export function WelcomeLayout(props: WelcomeLayoutProps): React.JSX.Element {
           justifyContent={['center', '', 'flex-start']}
           color={['brown.12', '', 'brown.2']}
         >
-          <styled.h1 textStyle={['heading.03', '', 'display.02', 'display.01']}>
-            {tagline}
-          </styled.h1>
-          <styled.h2
-            textStyle={['label.01', '', 'heading.04']}
-            mt={['space.02', '', 'space.07']}
-            maxW="556px"
-          >
-            {subheader}
-          </styled.h2>
+          <Box>
+            <styled.h1 textStyle={['heading.03', '', 'display.02', 'display.01']}>
+              {tagline}
+            </styled.h1>
+            <styled.h2
+              textStyle={['label.01', '', 'heading.04']}
+              mt={['space.02', '', 'space.07']}
+              maxW="556px"
+            >
+              {subheader}
+            </styled.h2>
+          </Box>
         </Flex>
         <Flex flexDir="column" alignItems={['normal', '', 'flex-start']}>
           <LeatherButton

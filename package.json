@@ -239,7 +239,7 @@
     "@babel/preset-typescript": "7.23.0",
     "@btckit/types": "0.0.19",
     "@ls-lint/ls-lint": "2.1.0",
-    "@pandacss/dev": "0.15.4",
+    "@pandacss/dev": "0.16.0",
     "@playwright/test": "1.38.1",
     "@pmmmwh/react-refresh-webpack-plugin": "0.5.11",
     "@redux-devtools/cli": "3.0.2",

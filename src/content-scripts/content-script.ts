@@ -128,7 +128,7 @@ document.addEventListener(DomEventName.psbtRequest, ((event: PsbtRequestEvent) =
   });
 }) as EventListener);
 
-function addHiroWalletToPage() {
+function addLeatherToPage() {
   const inpage = document.createElement('script');
   inpage.src = chrome.runtime.getURL('inpage.js');
   inpage.id = 'hiro-wallet-provider';
@@ -136,4 +136,4 @@ function addHiroWalletToPage() {
 }
 
 // Don't block thread to add Leather to page
-requestAnimationFrame(() => addHiroWalletToPage());
+requestAnimationFrame(() => addLeatherToPage());
