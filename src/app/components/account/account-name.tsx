@@ -4,7 +4,6 @@ import { BoxProps } from '@stacks/ui';
 import { styled } from 'leather-styles/jsx';
 
 import { useAccountDisplayName } from '@app/common/hooks/account/use-account-names';
-import { BtcAccount } from '@app/store/accounts/blockchain/bitcoin/bitcoin-accounts.hooks';
 import { StacksAccount } from '@app/store/accounts/blockchain/stacks/stacks-account.models';
 
 interface AccountNameLayoutProps {
@@ -15,7 +14,7 @@ export const AccountNameLayout = memo(({ children }: AccountNameLayoutProps) => 
 ));
 
 interface AccountNameProps extends BoxProps {
-  account: StacksAccount | BtcAccount;
+  account: StacksAccount;
 }
 export const AccountName = memo(({ account }: AccountNameProps) => {
   const name = useAccountDisplayName(account);
