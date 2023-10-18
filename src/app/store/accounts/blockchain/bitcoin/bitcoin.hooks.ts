@@ -1,6 +1,5 @@
 import { getTaprootAddress } from '@shared/crypto/bitcoin/bitcoin.utils';
 
-import { store } from '@app/store';
 import { useCurrentAccountIndex } from '@app/store/accounts/account';
 import { useTaprootAccount } from '@app/store/accounts/blockchain/bitcoin/taproot-account.hooks';
 import { useCurrentNetwork } from '@app/store/networks/networks.selectors';
@@ -30,8 +29,4 @@ export function useZeroIndexTaprootAddress(accIndex?: number) {
   });
 
   return address;
-}
-
-export function useHasBitcoinKeychain() {
-  return Object.keys(store.getState().ledger.bitcoin.entities).length > 0;
 }

@@ -13,7 +13,7 @@ import { CryptoCurrencyAssetItem } from '@app/components/crypto-assets/crypto-cu
 import { StxAvatar } from '@app/components/crypto-assets/stacks/components/stx-avatar';
 import { BtcIcon } from '@app/components/icons/btc-icon';
 import { CurrentStacksAccountLoader } from '@app/components/stacks-account-loader';
-import { useHasBitcoinKeychain } from '@app/store/accounts/blockchain/bitcoin/bitcoin.hooks';
+import { useHasBitcoinLedgerKeychain } from '@app/store/accounts/blockchain/bitcoin/bitcoin.ledger';
 import { useCurrentAccountNativeSegwitAddressIndexZero } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
 import { useCurrentStacksAccount } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
 import { useHasStacksKeychain } from '@app/store/accounts/blockchain/stacks/stacks.hooks';
@@ -26,7 +26,7 @@ import { StacksBalanceItem } from './components/stacks-balance-item';
 
 export function AssetsList() {
   const hasStacksKeys = useHasStacksKeychain();
-  const hasBitcoinKeys = useHasBitcoinKeychain();
+  const hasBitcoinKeys = useHasBitcoinLedgerKeychain();
   const btcAddress = useCurrentAccountNativeSegwitAddressIndexZero();
   const currentAccount = useCurrentStacksAccount();
 
