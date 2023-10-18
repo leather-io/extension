@@ -24,6 +24,7 @@ import { ledgerStacksTxSigningRoutes } from '@app/features/ledger/flows/stacks-t
 import { UnsupportedBrowserLayout } from '@app/features/ledger/generic-steps';
 import { ConnectLedgerStart } from '@app/features/ledger/generic-steps/connect-device/connect-ledger-start';
 import { RetrieveTaprootToNativeSegwit } from '@app/features/retrieve-taproot-to-native-segwit/retrieve-taproot-to-native-segwit';
+import { BitcoinContractList } from '@app/pages/bitcoin-contract-list/bitcoin-contract-list';
 import { BitcoinContractRequest } from '@app/pages/bitcoin-contract-request/bitcoin-contract-request';
 import { ChooseAccount } from '@app/pages/choose-account/choose-account';
 import { FundPage } from '@app/pages/fund/fund';
@@ -107,6 +108,7 @@ function useAppRoutes() {
         ></Route>
         <Route path={RouteUrls.BitcoinContractLockSuccess} element={<LockBitcoinSummary />} />
         <Route path={RouteUrls.BitcoinContractLockError} element={<BroadcastError />} />
+        <Route path={RouteUrls.BitcoinContractList} element={<BitcoinContractList />} />
         <Route
           path={RouteUrls.Onboarding}
           element={
