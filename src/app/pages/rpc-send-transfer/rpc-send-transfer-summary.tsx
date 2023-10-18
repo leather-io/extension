@@ -37,11 +37,6 @@ export function RpcSendTransferSummary() {
 
   const { onCopy } = useClipboard(txId);
 
-  // TODO: Force close window?
-  // useOnMount(() => {
-  //   setTimeout(() => window.close(), timeOut);
-  // });
-
   function onClickLink() {
     void analytics.track('view_rpc_send_transfer_confirmation', { symbol: 'BTC' });
     handleOpenTxLink(txLink);

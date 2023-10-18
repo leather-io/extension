@@ -3,6 +3,8 @@ import { Outlet } from 'react-router-dom';
 
 import { Flex, Stack, styled } from 'leather-styles/jsx';
 
+import { closeWindow } from '@shared/utils';
+
 import { useCancelAuthRequest } from '@app/common/authentication/use-cancel-auth-request';
 import { useAppDetails } from '@app/common/hooks/auth/use-app-details';
 import { useRouteHeader } from '@app/common/hooks/use-route-header';
@@ -17,7 +19,7 @@ export const ChooseAccount = memo(() => {
   const cancelAuthentication = useCancelAuthRequest();
 
   useRouteHeader(<></>);
-  useOnOriginTabClose(() => window.close());
+  useOnOriginTabClose(() => closeWindow());
 
   const handleUnmount = async () => cancelAuthentication();
 

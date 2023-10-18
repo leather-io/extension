@@ -1,4 +1,5 @@
 import { DecodedAuthRequest } from '@shared/models/decoded-auth-request';
+import { closeWindow } from '@shared/utils';
 import { analytics } from '@shared/utils/analytics';
 import { isValidUrl } from '@shared/utils/validate-url';
 
@@ -41,5 +42,5 @@ export function finalizeAuthResponse({
 
   const responseMessage = formatAuthResponse({ request: authRequest, response: authResponse });
   chrome.tabs.sendMessage(tabId, responseMessage);
-  window.close();
+  closeWindow();
 }

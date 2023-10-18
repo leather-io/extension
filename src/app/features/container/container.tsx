@@ -2,6 +2,8 @@ import { useEffect } from 'react';
 import { Toaster } from 'react-hot-toast';
 import { Outlet, useLocation } from 'react-router-dom';
 
+import { closeWindow } from '@shared/utils';
+
 import { useInitalizeAnalytics } from '@app/common/hooks/analytics/use-analytics';
 import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
 import { LoadingSpinner } from '@app/components/loading-spinner';
@@ -21,8 +23,8 @@ export function Container() {
   const analytics = useAnalytics();
   const hasStateRehydrated = useHasStateRehydrated();
 
-  useOnWalletLock(() => window.close());
-  useOnSignOut(() => window.close());
+  useOnWalletLock(() => closeWindow());
+  useOnSignOut(() => closeWindow());
 
   useRestoreFormState();
 

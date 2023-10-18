@@ -5,6 +5,7 @@ import {
   isStructuredMessageType,
   isUtf8MessageType,
 } from '@shared/signature/signature-types';
+import { closeWindow } from '@shared/utils';
 
 import { useRouteHeader } from '@app/common/hooks/use-route-header';
 import { PopupHeader } from '@app/features/current-account/popup-header';
@@ -18,7 +19,7 @@ import { SignatureRequestStructuredDataContent } from './components/structured-d
 
 export function StacksMessageSigningRequest() {
   useRouteHeader(<PopupHeader />);
-  useOnOriginTabClose(() => window.close());
+  useOnOriginTabClose(() => closeWindow());
 
   const { requestToken, messageType, tabId, origin } = useSignatureRequestSearchParams();
 

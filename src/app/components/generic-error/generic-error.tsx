@@ -1,5 +1,7 @@
 import { ReactNode } from 'react';
 
+import { closeWindow } from '@shared/utils';
+
 import { useRouteHeader } from '@app/common/hooks/use-route-header';
 import { Header } from '@app/components/header';
 
@@ -12,7 +14,7 @@ interface GenericErrorProps {
   title: string;
 }
 export function GenericError(props: GenericErrorProps) {
-  const { body, helpTextList, onClose = () => window.close(), title } = props;
+  const { body, helpTextList, onClose = () => closeWindow(), title } = props;
 
   useRouteHeader(<Header hideActions />);
 

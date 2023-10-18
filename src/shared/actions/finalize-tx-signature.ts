@@ -1,5 +1,6 @@
 import { logger } from '@shared/logger';
 import { TxResult } from '@shared/message-types';
+import { closeWindow } from '@shared/utils';
 import { analytics } from '@shared/utils/analytics';
 
 import { formatTxSignatureResponse } from './finalize-tx-signature-format';
@@ -14,7 +15,7 @@ export function finalizeTxSignature({ requestPayload, data, tabId }: FinalizeTxS
   try {
     const responseMessage = formatTxSignatureResponse({ payload: requestPayload, response: data });
     chrome.tabs.sendMessage(tabId, responseMessage);
-    window.close();
+    closeWindow();
   } catch (e) {
     // EXPERIMENT:
     // My own testing shows that `sendMessage` doesn't throw yet users have

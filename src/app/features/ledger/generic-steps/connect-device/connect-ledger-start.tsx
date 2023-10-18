@@ -1,6 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 
 import { RouteUrls } from '@shared/route-urls';
+import { closeWindow } from '@shared/utils';
 
 import { doesBrowserSupportWebUsbApi, whenPageMode } from '@app/common/utils';
 import { openIndexPageInNewTab } from '@app/common/utils/open-in-new-tab';
@@ -18,7 +19,7 @@ export function ConnectLedgerStart() {
       },
       popup() {
         void openIndexPageInNewTab(url);
-        window.close();
+        closeWindow();
       },
     });
 

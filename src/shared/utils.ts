@@ -1,4 +1,5 @@
 import { NetworkModes } from './constants';
+import { logger } from './logger';
 
 export function isNumber(value: unknown): value is number {
   return typeof value === 'number';
@@ -57,3 +58,13 @@ export function isEmptyArray(data: unknown[]) {
 }
 
 export const defaultWalletKeyId = 'default' as const;
+
+export function closeWindow() {
+  if (process.env.DEBUG_PREVENT_WINDOW_CLOSE === 'true') {
+    logger.warn('Prevented window close with flag DEBUG_PREVENT_WINDOW_CLOSE');
+    return;
+  }
+  // We prevent `window.close()` directly as to allow for debugging helper
+  // eslint-disable-next-line no-restricted-properties
+  window.close();
+}

@@ -1,6 +1,6 @@
 import { memo } from 'react';
 
-import { isUndefined } from '@shared/utils';
+import { closeWindow, isUndefined } from '@shared/utils';
 
 import { useRouteHeader } from '@app/common/hooks/use-route-header';
 import { PopupHeader } from '@app/features/current-account/popup-header';
@@ -20,7 +20,7 @@ function ProfileUpdateRequestBase() {
 
   useRouteHeader(<PopupHeader />);
 
-  useOnOriginTabClose(() => window.close());
+  useOnOriginTabClose(() => closeWindow());
   if (isUndefined(validProfileUpdateRequest) || !validProfileUpdateRequest || !requestToken)
     return (
       <ProfileUpdateRequestLayout>

@@ -7,6 +7,7 @@ import { truncateMiddle } from '@stacks/ui-utils';
 import { HStack } from 'leather-styles/jsx';
 
 import { RouteUrls } from '@shared/route-urls';
+import { closeWindow } from '@shared/utils';
 
 import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
 import { useDrawers } from '@app/common/hooks/use-drawers';
@@ -28,7 +29,7 @@ function InsufficientFundsActionButtons({ eventName }: InsufficientFundsActionBu
 
   const onGetStx = () => {
     void analytics.track(eventName);
-    window.close();
+    closeWindow();
     void chrome.tabs.create({ url: 'index.html#/fund' });
   };
 

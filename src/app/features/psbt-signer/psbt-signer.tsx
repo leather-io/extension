@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import * as btc from '@scure/btc-signer';
 
 import { RouteUrls } from '@shared/route-urls';
+import { closeWindow } from '@shared/utils';
 
 import { useRouteHeader } from '@app/common/hooks/use-route-header';
 import { SignPsbtArgs } from '@app/common/psbt/requests';
@@ -64,7 +65,7 @@ export function PsbtSigner(props: PsbtSignerProps) {
 
   useRouteHeader(<PopupHeader displayAddresssBalanceOf="all" />);
 
-  useOnOriginTabClose(() => window.close());
+  useOnOriginTabClose(() => closeWindow());
 
   const psbtRaw = useMemo(() => {
     try {

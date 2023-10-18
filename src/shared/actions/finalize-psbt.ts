@@ -1,6 +1,7 @@
 import { PsbtData } from '@stacks/connect';
 
 import { ExternalMethods, MESSAGE_SOURCE, PsbtResponseMessage } from '@shared/message-types';
+import { closeWindow } from '@shared/utils';
 
 interface FormatPsbtResponseArgs {
   request: string;
@@ -28,5 +29,5 @@ interface FinalizePsbtArgs {
 export function finalizePsbt({ data, requestPayload, tabId }: FinalizePsbtArgs) {
   const responseMessage = formatPsbtResponse({ request: requestPayload, response: data });
   chrome.tabs.sendMessage(tabId, responseMessage);
-  window.close();
+  closeWindow();
 }
