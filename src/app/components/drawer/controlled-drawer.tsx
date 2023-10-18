@@ -17,9 +17,6 @@ export function ControlledDrawer(props: ControlledDrawerProps) {
 
   return (
     <BaseDrawer
-      height="100vh"
-      position={['absolute', 'fixed']}
-      top={['-24px', 0]}
       enableGoBack={enableGoBack}
       icon={icon}
       isShowing={isShowing}

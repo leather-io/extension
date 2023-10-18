@@ -4,7 +4,6 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { useClipboard } from '@stacks/ui';
 import { HomePageSelectors } from '@tests/selectors/home.selectors';
 import { Box, styled } from 'leather-styles/jsx';
-import { token } from 'leather-styles/tokens';
 import get from 'lodash.get';
 
 import { RouteUrls } from '@shared/route-urls';
@@ -68,13 +67,7 @@ export function ReceiveModal({ type = 'full' }: ReceiveModalProps) {
 
   return (
     <>
-      <BaseDrawer
-        position={['absolute', 'fixed']}
-        top={[token('spacing.space.07'), 0]}
-        title=""
-        isShowing
-        onClose={() => navigate(backgroundLocation ?? '..')}
-      >
+      <BaseDrawer title="" isShowing onClose={() => navigate(backgroundLocation ?? '..')}>
         <Box mx="space.06">
           <styled.h1 mb="space.05" textStyle="heading.03">
             {title}
