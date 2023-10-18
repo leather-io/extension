@@ -26,8 +26,16 @@ interface FeeRowProps extends StackProps {
   defaultFeeValue?: number;
   disableFeeSelection?: boolean;
 }
-export function FeesRow(props: FeeRowProps): React.JSX.Element {
-  const { fees, isSponsored, allowCustom = true, ...rest } = props;
+export function FeesRow(props: FeeRowProps) {
+  const {
+    fees,
+    isSponsored,
+    allowCustom = true,
+    defaultFeeValue,
+    disableFeeSelection,
+    ...rest
+  } = props;
+
   const [feeField, _, feeHelper] = useField('fee');
   const [feeCurrencyField] = useField('feeCurrency');
   const [feeTypeField, __, feeTypeHelper] = useField('feeType');
@@ -49,27 +57,26 @@ export function FeesRow(props: FeeRowProps): React.JSX.Element {
   }, [convertCryptoCurrencyToUsd, feeCurrencySymbol, feeField.value]);
 
   useEffect(() => {
-    if (props.defaultFeeValue) {
-      feeHelper.setValue(
-        convertAmountToBaseUnit(
-          new BigNumber(Number(props.defaultFeeValue)),
-          STX_DECIMALS
-        ).toString()
+    if (defaultFeeValue) {
+      void feeHelper.setValue(
+        convertAmountToBaseUnit(new BigNumber(Number(defaultFeeValue)), STX_DECIMALS).toString()
       );
-      feeTypeHelper.setValue(FeeTypes[FeeTypes.Custom]);
+      void feeTypeHelper.setValue(FeeTypes[FeeTypes.Custom]);
     }
-  }, [feeHelper, props.defaultFeeValue, feeTypeHelper]);
+  }, [feeHelper, defaultFeeValue, feeTypeHelper]);
 
   useEffect(() => {
-    if (!props.defaultFeeValue && hasFeeEstimates && !feeField.value && !isCustom) {
-      feeHelper.setValue(convertAmountToBaseUnit(fees.estimates[FeeTypes.Middle].fee).toString());
-      feeTypeHelper.setValue(FeeTypes[FeeTypes.Middle]);
+    if (!defaultFeeValue && hasFeeEstimates && !feeField.value && !isCustom) {
+      void feeHelper.setValue(
+        convertAmountToBaseUnit(fees.estimates[FeeTypes.Middle].fee).toString()
+      );
+      void feeTypeHelper.setValue(FeeTypes[FeeTypes.Middle]);
     }
     if (isSponsored) {
-      feeHelper.setValue(0);
+      void feeHelper.setValue(0);
     }
   }, [
-    props.defaultFeeValue,
+    defaultFeeValue,
     feeField.value,
     feeHelper,
     feeTypeHelper,
@@ -81,19 +88,20 @@ export function FeesRow(props: FeeRowProps): React.JSX.Element {
 
   const handleSelectFeeEstimateOrCustomField = useCallback(
     (index: number) => {
-      feeTypeHelper.setValue(FeeTypes[index]);
+      void feeTypeHelper.setValue(FeeTypes[index]);
       if (index === FeeTypes.Custom)
-        feeHelper.setValue(
-          props.defaultFeeValue
-            ? convertAmountToBaseUnit(new BigNumber(Number(props.defaultFeeValue)), STX_DECIMALS)
+        void feeHelper.setValue(
+          defaultFeeValue
+            ? convertAmountToBaseUnit(new BigNumber(Number(defaultFeeValue)), STX_DECIMALS)
             : ''
         );
       else
-        fees && feeHelper.setValue(convertAmountToBaseUnit(fees.estimates[index].fee).toString());
+        fees &&
+          void feeHelper.setValue(convertAmountToBaseUnit(fees.estimates[index].fee).toString());
       setFieldWarning('');
       setIsSelectVisible(false);
     },
-    [feeTypeHelper, feeHelper, fees, props.defaultFeeValue]
+    [feeTypeHelper, feeHelper, fees, defaultFeeValue]
   );
 
   if (!hasFeeEstimates) return <LoadingRectangle height="32px" width="100%" {...rest} />;
@@ -104,7 +112,7 @@ export function FeesRow(props: FeeRowProps): React.JSX.Element {
       feeField={
         isCustom ? (
           <CustomFeeField
-            disableFeeSelection={props.disableFeeSelection}
+            disableFeeSelection={disableFeeSelection}
             feeCurrencySymbol={feeCurrencySymbol}
             lowFeeEstimate={fees.estimates[FeeTypes.Low]}
             setFieldWarning={(value: string) => setFieldWarning(value)}
@@ -123,7 +131,7 @@ export function FeesRow(props: FeeRowProps): React.JSX.Element {
       isSponsored={isSponsored}
       selectInput={
         <FeeEstimateSelect
-          disableFeeSelection={props.disableFeeSelection}
+          disableFeeSelection={disableFeeSelection}
           allowCustom={allowCustom}
           isVisible={isSelectVisible}
           estimate={fees.estimates}
