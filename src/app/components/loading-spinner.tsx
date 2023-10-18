@@ -8,6 +8,14 @@ export function LoadingSpinner(props: FlexProps) {
   );
 }
 
+export function SmallLoadingSpinner(props: FlexProps) {
+  return (
+    <Flex alignItems="center" flexGrow={1} justifyContent="center" width="100%" {...props}>
+      <Spinner color={color('text-caption')} opacity={0.5} size="sm" />
+    </Flex>
+  );
+}
+
 export function FullPageLoadingSpinner(props: FlexProps) {
   return (
     <Flex height="100vh" width="100%" {...props}>
