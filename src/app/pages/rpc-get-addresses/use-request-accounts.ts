@@ -4,6 +4,7 @@ import { bytesToHex } from '@stacks/common';
 import { ecdsaPublicKeyToSchnorr } from '@shared/crypto/bitcoin/bitcoin.utils';
 import { logger } from '@shared/logger';
 import { makeRpcSuccessResponse } from '@shared/rpc/rpc-methods';
+import { closeWindow } from '@shared/utils';
 
 import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
 import { useRpcRequestParams } from '@app/common/rpc-helpers';
@@ -67,7 +68,7 @@ export function useGetAddresses() {
           },
         })
       );
-      window.close();
+      closeWindow();
     },
   };
 }

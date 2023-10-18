@@ -5,6 +5,7 @@ import { Box } from 'leather-styles/jsx';
 
 import { WALLET_ENVIRONMENT } from '@shared/environment';
 import { RouteUrls } from '@shared/route-urls';
+import { closeWindow } from '@shared/utils';
 
 import { useRouteHeader } from '@app/common/hooks/use-route-header';
 import { isFullPageMode, isPopupMode } from '@app/common/utils';
@@ -24,7 +25,7 @@ export function Unlock() {
   useEffect(() => {
     if (!hasApprovedNewBrand && isPopupMode() && WALLET_ENVIRONMENT !== 'testing') {
       openIndexPageInNewTab('/unlock/we-have-a-new-name');
-      window.close();
+      closeWindow();
     }
     if (!hasApprovedNewBrand && isFullPageMode()) {
       navigate('./we-have-a-new-name');

@@ -6,6 +6,7 @@ import { bytesToHex } from '@stacks/common';
 import { MultiSigSpendingCondition, deserializeTransaction } from '@stacks/transactions';
 
 import { makeRpcErrorResponse, makeRpcSuccessResponse } from '@shared/rpc/rpc-methods';
+import { closeWindow } from '@shared/utils';
 
 import { useDefaultRequestParams } from '@app/common/hooks/use-default-request-search-params';
 import { useRejectIfLedgerWallet } from '@app/common/rpc-helpers';
@@ -66,7 +67,7 @@ export function useRpcSignStacksTransaction() {
           },
         })
       );
-      window.close();
+      closeWindow();
     },
     onCancel() {
       chrome.tabs.sendMessage(

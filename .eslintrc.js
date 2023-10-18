@@ -47,6 +47,11 @@ module.exports = {
         property: 'open',
         message: avoidWindowOpenMsg,
       },
+      {
+        object: 'window',
+        property: 'close',
+        message: 'Use `closeWindow` utility helper',
+      },
     ],
     '@typescript-eslint/no-floating-promises': ['warn'],
     '@typescript-eslint/no-unnecessary-type-assertion': ['warn'],

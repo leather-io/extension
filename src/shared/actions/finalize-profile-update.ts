@@ -5,6 +5,7 @@ import {
   MESSAGE_SOURCE,
   ProfileUpdateResponseMessage,
 } from '@shared/message-types';
+import { closeWindow } from '@shared/utils';
 
 interface FormatProfileUpdateResponseArgs {
   request: string;
@@ -32,5 +33,5 @@ interface FinalizeProfileUpdateArgs {
 export function finalizeProfileUpdate({ requestPayload, data, tabId }: FinalizeProfileUpdateArgs) {
   const responseMessage = formatProfileUpdateResponse({ request: requestPayload, response: data });
   chrome.tabs.sendMessage(tabId, responseMessage);
-  window.close();
+  closeWindow();
 }

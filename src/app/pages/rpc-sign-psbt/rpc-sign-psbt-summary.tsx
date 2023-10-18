@@ -24,11 +24,6 @@ export function RpcSignPsbtSummary() {
 
   const { onCopy } = useClipboard(txId);
 
-  // TODO: Force close window?
-  // useOnMount(() => {
-  //   setTimeout(() => window.close(), timeOut);
-  // });
-
   function onClickLink() {
     void analytics.track('view_rpc_sign_and_broadcast_psbt_confirmation', { symbol: 'BTC' });
     handleOpenTxLink(txLink);

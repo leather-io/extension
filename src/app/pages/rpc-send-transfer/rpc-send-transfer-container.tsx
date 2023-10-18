@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { Outlet, useOutletContext } from 'react-router-dom';
 
 import { BtcFeeType } from '@shared/models/fees/bitcoin-fees.model';
+import { closeWindow } from '@shared/utils';
 
 import { useRouteHeader } from '@app/common/hooks/use-route-header';
 import { PopupHeader } from '@app/features/current-account/popup-header';
@@ -25,7 +26,7 @@ export function RpcSendTransferContainer() {
   useRouteHeader(<PopupHeader displayAddresssBalanceOf="all" />);
 
   if (origin === null) {
-    window.close();
+    closeWindow();
     throw new Error('Origin is null');
   }
 

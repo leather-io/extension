@@ -2,6 +2,7 @@ import { useCallback, useEffect, useState } from 'react';
 import { Outlet, useNavigate } from 'react-router-dom';
 
 import { RouteUrls } from '@shared/route-urls';
+import { closeWindow } from '@shared/utils';
 
 import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
 import { useOnboardingState } from '@app/common/hooks/auth/use-onboarding-state';
@@ -27,7 +28,7 @@ export function WelcomePage() {
   const startOnboarding = useCallback(async () => {
     if (isPopupMode()) {
       openIndexPageInNewTab(RouteUrls.Onboarding);
-      window.close();
+      closeWindow();
       return;
     }
     setIsGeneratingWallet(true);
@@ -52,7 +53,7 @@ export function WelcomePage() {
       },
       popup() {
         void openIndexPageInNewTab(url);
-        window.close();
+        closeWindow();
       },
     });
 
