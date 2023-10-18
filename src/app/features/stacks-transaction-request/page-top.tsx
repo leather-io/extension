@@ -8,14 +8,14 @@ import { useDefaultRequestParams } from '@app/common/hooks/use-default-request-s
 import { addPortSuffix, getUrlHostname } from '@app/common/utils';
 import { Favicon } from '@app/components/favicon';
 import { Flag } from '@app/components/layout/flag';
-import { usePageTitle } from '@app/features/stacks-transaction-request/hooks/use-page-title';
+import { useStacksTxPageTitle } from '@app/features/stacks-transaction-request/hooks/use-stacks-tx-page-title';
 import { useCurrentNetworkState } from '@app/store/networks/networks.hooks';
 import { useTransactionRequestState } from '@app/store/transactions/requests.hooks';
 
 function PageTopBase() {
   const transactionRequest = useTransactionRequestState();
   const { origin } = useDefaultRequestParams();
-  const pageTitle = usePageTitle();
+  const pageTitle = useStacksTxPageTitle();
   const { isTestnet, chain } = useCurrentNetworkState();
 
   if (!transactionRequest) return null;

@@ -1,5 +1,3 @@
-import { Suspense } from 'react';
-
 import { TransactionRequestSelectors } from '@tests/selectors/requests.selectors';
 import { useFormikContext } from 'formik';
 
@@ -38,15 +36,13 @@ export function SubmitAction() {
   };
 
   return (
-    <Suspense fallback={<BaseConfirmButton aria-busy={isLoading} disabled={isDisabled} />}>
-      <BaseConfirmButton
-        aria-busy={isLoading}
-        data-testid={TransactionRequestSelectors.BtnConfirmTransaction}
-        disabled={isDisabled}
-        onClick={onConfirmTransaction}
-      >
-        Confirm
-      </BaseConfirmButton>
-    </Suspense>
+    <BaseConfirmButton
+      aria-busy={isLoading}
+      data-testid={TransactionRequestSelectors.BtnConfirmTransaction}
+      disabled={isDisabled}
+      onClick={onConfirmTransaction}
+    >
+      Confirm
+    </BaseConfirmButton>
   );
 }
