@@ -1,8 +1,7 @@
 import { memo } from 'react';
 
-import { Stack } from '@stacks/ui';
 import { TransactionRequestSelectors } from '@tests/selectors/requests.selectors';
-import { styled } from 'leather-styles/jsx';
+import { Stack, styled } from 'leather-styles/jsx';
 
 import { useDefaultRequestParams } from '@app/common/hooks/use-default-request-search-params';
 import { addPortSuffix, getUrlHostname } from '@app/common/utils';
@@ -31,7 +30,7 @@ function PageTopBase() {
     <Stack
       data-testid={TransactionRequestSelectors.TransactionRequestPage}
       mb="loose"
-      spacing="base"
+      gap="space.04"
       width="100%"
     >
       <styled.h1 mb="space.04" textStyle="heading.03">
