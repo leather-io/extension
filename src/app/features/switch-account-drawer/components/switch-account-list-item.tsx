@@ -42,7 +42,7 @@ export const SwitchAccountListItem = memo(
     const handleClick = async () => {
       setIsLoading();
       setTimeout(async () => {
-        await handleSwitchAccount(currentAccountIndex);
+        await handleSwitchAccount(index);
         setIsIdle();
       }, 80);
     };
