@@ -1,4 +1,5 @@
 import { Flex } from '@stacks/ui';
+import { BitcoinContractRequestSelectors } from '@tests/selectors/bitcoin-contract-request.selectors';
 
 import { Text } from '@app/components/typography';
 
@@ -13,7 +14,12 @@ export function BitcoinContractExpirationDate({
       <Text fontSize={2} fontWeight="bold">
         Expiration Date
       </Text>
-      <Text fontSize={2}>{expirationDate}</Text>
+      <Text
+        fontSize={2}
+        data-testid={BitcoinContractRequestSelectors.BitcoinContractExpirationDate}
+      >
+        {expirationDate}
+      </Text>
     </Flex>
   );
 }

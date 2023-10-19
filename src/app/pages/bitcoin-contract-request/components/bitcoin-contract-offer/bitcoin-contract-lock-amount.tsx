@@ -1,6 +1,7 @@
 import { FiArrowUpRight, FiCopy } from 'react-icons/fi';
 
 import { Box, Stack, Text, color } from '@stacks/ui';
+import { BitcoinContractRequestSelectors } from '@tests/selectors/bitcoin-contract-request.selectors';
 import { HStack } from 'leather-styles/jsx';
 
 import { useClipboard } from '@app/common/hooks/use-copy-to-clipboard';
@@ -34,7 +35,11 @@ export function BitcoinContractLockAmount({
         <Text fontSize={2} fontWeight="500">
           {title ? title : 'BTC'}
         </Text>
-        <Text fontSize={2} fontWeight="500">
+        <Text
+          fontSize={2}
+          fontWeight="500"
+          data-testid={BitcoinContractRequestSelectors.BitcoinContractLockAmount}
+        >
           {value}
         </Text>
       </HStack>
