@@ -1,7 +1,6 @@
 import { useCallback } from 'react';
 
-import { Box, Flex } from '@stacks/ui';
-import { HStack } from 'leather-styles/jsx';
+import { Box, Flex, HStack } from 'leather-styles/jsx';
 
 import { createMoneyFromDecimal } from '@shared/models/money.model';
 
@@ -36,6 +35,7 @@ export function BitcoinContractListItemLayout({
       ),
     [bitcoinMarketData]
   );
+  // FIXME
 
   return (
     <Flex
@@ -49,7 +49,7 @@ export function BitcoinContractListItemLayout({
         })
       }
     >
-      <Flag img={<Box as={BitcoinContractIcon} />} align="middle" spacing="base" width="100%">
+      <Flag img={<BitcoinContractIcon />} align="middle" spacing="base" width="100%">
         <HStack alignItems="center" justifyContent="space-between" width="100%">
           <Text>{id}</Text>
           <Text fontVariantNumeric="tabular-nums" textAlign="right">
