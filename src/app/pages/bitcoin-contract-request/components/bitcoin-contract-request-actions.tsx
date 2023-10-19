@@ -1,4 +1,5 @@
 import { Box, Button, Stack, color } from '@stacks/ui';
+import { BitcoinContractRequestSelectors } from '@tests/selectors/bitcoin-contract-request.selectors';
 
 import { useBtcAssetBalance } from '@app/common/hooks/balance/btc/use-btc-balance';
 import { LeatherButton } from '@app/components/button/button';
@@ -36,6 +37,7 @@ export function BitcoinContractRequestActions({
           borderRadius="10px"
           flexGrow={1}
           mode="tertiary"
+          data-testid={BitcoinContractRequestSelectors.BitcoinContractRejectButton}
           onClick={onRejectBitcoinContractOffer}
         >
           Reject
@@ -45,6 +47,7 @@ export function BitcoinContractRequestActions({
           flexGrow={1}
           aria-busy={isLoading}
           disabled={!canAccept}
+          data-testid={BitcoinContractRequestSelectors.BitcoinContractAcceptButton}
           onClick={onAcceptBitcoinContractOffer}
         >
           Accept
