@@ -15,9 +15,9 @@ const TARGET_BROWSER = process.env.TARGET_BROWSER ?? 'chromium';
 
 function generateImageAssetUrlsWithSuffix(suffix = '') {
   return {
-    128: `assets/connect-logo/Stacks128w${suffix}.png`,
-    256: `assets/connect-logo/Stacks256w${suffix}.png`,
-    512: `assets/connect-logo/Stacks512w${suffix}.png`,
+    128: `assets/icons/leather-icon-128${suffix}.png`,
+    256: `assets/icons/leather-icon-256${suffix}.png`,
+    512: `assets/icons/leather-icon-512${suffix}.png`,
   };
 }
 
@@ -37,8 +37,8 @@ const contentSecurityPolicyEnvironment = {
 };
 
 const defaultIconEnvironment = {
-  development: 'assets/connect-logo/Stacks128w-dev.png',
-  production: 'assets/connect-logo/Stacks128w.png',
+  development: 'assets/icons/leather-icon-128-dev.png',
+  production: 'assets/icons/leather-icon-128.png',
 };
 
 const browserSpecificConfig = {
