@@ -14,8 +14,8 @@ import {
 } from '@shared/crypto/bitcoin/p2wpkh-address-gen';
 
 import { mnemonicToRootNode } from '@app/common/keychain/keychain';
-import { selectCurrentAccountIndex } from '@app/store/keys/key.selectors';
 import { selectCurrentNetwork } from '@app/store/networks/networks.selectors';
+import { selectCurrentAccountIndex } from '@app/store/software-keys/software-key.selectors';
 
 import { useCurrentAccountIndex } from '../../account';
 import {

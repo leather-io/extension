@@ -17,7 +17,7 @@ import { CurrentStacksAccountLoader } from '@app/components/stacks-account-loade
 import { useHasBitcoinLedgerKeychain } from '@app/store/accounts/blockchain/bitcoin/bitcoin.ledger';
 import { useCurrentAccountNativeSegwitAddressIndexZero } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
 import { useCurrentStacksAccount } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
-import { useHasStacksKeychain } from '@app/store/accounts/blockchain/stacks/stacks.hooks';
+import { useHasStacksLedgerKeychain } from '@app/store/accounts/blockchain/stacks/stacks.hooks';
 import { useCurrentNetwork } from '@app/store/networks/networks.selectors';
 
 import { Collectibles } from '../collectibles/collectibles';
@@ -27,8 +27,8 @@ import { ConnectLedgerAssetBtn } from './components/connect-ledger-asset-button'
 import { StacksBalanceItem } from './components/stacks-balance-item';
 
 export function AssetsList() {
-  const hasStacksKeys = useHasStacksKeychain();
-  const hasBitcoinKeys = useHasBitcoinLedgerKeychain();
+  const hasStacksKeys = useHasStacksLedgerKeychain();
+  const hasBitcoinLedgerKeys = useHasBitcoinLedgerKeychain();
   const btcAddress = useCurrentAccountNativeSegwitAddressIndexZero();
   const network = useCurrentNetwork();
   const currentAccount = useCurrentStacksAccount();
@@ -61,7 +61,9 @@ export function AssetsList() {
             usdBalance={btcAvailableUsdBalance}
             icon={<BtcIcon />}
             address={btcAddress}
-            rightElement={hasBitcoinKeys ? undefined : <ConnectLedgerAssetBtn chain="bitcoin" />}
+            rightElement={
+              hasBitcoinLedgerKeys ? undefined : <ConnectLedgerAssetBtn chain="bitcoin" />
+            }
           />
         ) : null,
       })}

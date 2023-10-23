@@ -24,7 +24,7 @@ import {
   selectDefaultWalletKey,
   selectRootKeychain,
 } from '@app/store/in-memory-key/in-memory-key.selectors';
-import { selectDefaultWalletStacksKeys } from '@app/store/ledger/bitcoin/stacks-key.slice';
+import { selectDefaultWalletStacksKeys } from '@app/store/ledger/stacks/stacks-key.slice';
 import { currentNetworkAtom } from '@app/store/networks/networks';
 
 import {
@@ -116,7 +116,12 @@ const ledgerAccountsState = atom<HardwareStacksAccount[] | undefined>(get => {
 export const stacksAccountState = atom<StacksAccount[]>(get => {
   const ledgerAccounts = get(ledgerAccountsState);
   const softwareAccounts = get(softwareAccountsState);
-  return ledgerAccounts ?? softwareAccounts ?? [];
+
+  if (ledgerAccounts?.length) {
+    return ledgerAccounts;
+  }
+
+  return softwareAccounts ?? [];
 });
 
 /**

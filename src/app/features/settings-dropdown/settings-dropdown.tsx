@@ -18,7 +18,7 @@ import { openInNewTab, openIndexPageInNewTab } from '@app/common/utils/open-in-n
 import { Divider } from '@app/components/layout/divider';
 import { Caption } from '@app/components/typography';
 import { useCurrentStacksAccount } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
-import { useCurrentKeyDetails } from '@app/store/keys/key.selectors';
+import { useHasLedgerKeys, useLedgerDeviceTargetId } from '@app/store/ledger/ledger.selectors';
 import { useCurrentNetworkId } from '@app/store/networks/networks.selectors';
 
 import { extractDeviceNameFromKnownTargetIds } from '../ledger/utils/generic-ledger-utils';
@@ -37,7 +37,8 @@ export function SettingsDropdown() {
   const navigate = useNavigate();
   const analytics = useAnalytics();
   const { walletType } = useWalletType();
-  const key = useCurrentKeyDetails();
+  const targetId = useLedgerDeviceTargetId();
+
   const { isPressed: showAdvancedMenuOptions } = useModifierKey('alt', 120);
   const location = useLocation();
 
@@ -52,6 +53,7 @@ export function SettingsDropdown() {
   );
 
   const isShowing = isShowingSettings;
+  const isLedger = useHasLedgerKeys();
 
   useOnClickOutside(ref, isShowing ? handleClose : null);
 
@@ -63,8 +65,8 @@ export function SettingsDropdown() {
     <SlideFade initialOffset="-20px" timeout={150} in={isShowing}>
       {styles => (
         <MenuWrapper ref={ref} style={styles} pointerEvents={!isShowing ? 'none' : 'all'}>
-          {key && key.type === 'ledger' && (
-            <LedgerDeviceItemRow deviceType={extractDeviceNameFromKnownTargetIds(key.targetId)} />
+          {isLedger && targetId && (
+            <LedgerDeviceItemRow deviceType={extractDeviceNameFromKnownTargetIds(targetId)} />
           )}
           {hasGeneratedWallet && walletType === 'software' && (
             <>

@@ -6,7 +6,7 @@ import { useWalletType } from '@app/common/use-wallet-type';
 import { Brc20TokensLoader } from '@app/components/brc20-tokens-loader';
 import { ModalHeader } from '@app/components/modal-header';
 import { useHasCurrentBitcoinAccount } from '@app/store/accounts/blockchain/bitcoin/bitcoin.hooks';
-import { useHasStacksKeychain } from '@app/store/accounts/blockchain/stacks/stacks.hooks';
+import { useHasStacksLedgerKeychain } from '@app/store/accounts/blockchain/stacks/stacks.hooks';
 
 import { Brc20TokenAssetList } from '../../../components/crypto-assets/bitcoin/brc20-token-asset-list/brc20-token-asset-list';
 import { ChooseCryptoAssetLayout } from './components/choose-crypto-asset.layout';
@@ -17,7 +17,7 @@ export function ChooseCryptoAsset() {
 
   const { whenWallet } = useWalletType();
   const hasBitcoinLedgerKeys = useHasCurrentBitcoinAccount();
-  const hasStacksLedgerKeys = useHasStacksKeychain();
+  const hasStacksLedgerKeys = useHasStacksLedgerKeychain();
 
   const chechKeychainAvailable = useCallback(
     (symbol: string) => {

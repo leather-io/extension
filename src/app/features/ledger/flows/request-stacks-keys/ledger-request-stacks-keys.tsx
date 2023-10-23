@@ -12,7 +12,7 @@ import {
   isStacksLedgerAppClosed,
   useActionCancellableByUser,
 } from '@app/features/ledger/utils/stacks-ledger-utils';
-import { stacksKeysSlice } from '@app/store/ledger/bitcoin/stacks-key.slice';
+import { stacksKeysSlice } from '@app/store/ledger/stacks/stacks-key.slice';
 
 import { ledgerRequestKeysRoutes } from '../../generic-flows/request-keys/ledger-request-keys-route-generator';
 import { RequestKeysFlow } from '../../generic-flows/request-keys/request-keys-flow';
@@ -57,6 +57,15 @@ function LedgerRequestStacksKeys() {
             }))
           )
         );
+        const targetId = latestDeviceResponse?.targetId;
+
+        if (targetId) {
+          dispatch(
+            stacksKeysSlice.actions.addTargetId({
+              targetId,
+            })
+          );
+        }
       },
     });
 

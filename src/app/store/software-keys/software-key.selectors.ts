@@ -10,7 +10,7 @@ import { RootState } from '@app/store';
 
 import { selectStacksChain } from '../chains/stx-chain.selectors';
 
-const selectKeysSlice = (state: RootState) => state.keys;
+const selectKeysSlice = (state: RootState) => state['software-keys'];
 
 export const selectDefaultSoftwareKey = createSelector(
   selectKeysSlice,
@@ -27,10 +27,4 @@ export const selectCurrentAccountIndex = createSelector(selectStacksChain, state
     return initBigNumber(customAccountIndex).toNumber();
   }
   return state[defaultWalletKeyId].currentAccountIndex;
-});
-
-export const selectLedgerKey = createSelector(selectKeysSlice, keys => {
-  if (!keys.entities.default) return;
-  if (keys.entities.default.type !== 'ledger') return;
-  return keys.entities.default;
 });
