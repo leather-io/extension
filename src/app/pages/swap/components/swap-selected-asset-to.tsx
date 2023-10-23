@@ -1,8 +1,10 @@
 import { useField } from 'formik';
 
 import { formatMoneyWithoutSymbol } from '@app/common/money/format-money';
+import { LoadingSpinner } from '@app/components/loading-spinner';
 
 import { useAlexSdkAmountAsFiat } from '../hooks/use-alex-sdk-fiat-price';
+import { useSwapContext } from '../swap.context';
 import { SwapAmountField } from './swap-amount-field';
 import { SwapSelectedAssetLayout } from './swap-selected-asset.layout';
 
@@ -11,6 +13,7 @@ interface SwapSelectedAssetToProps {
   title: string;
 }
 export function SwapSelectedAssetTo({ onChooseAsset, title }: SwapSelectedAssetToProps) {
+  const { isFetchingExchangeRate } = useSwapContext();
   const [amountField] = useField('swapAmountTo');
   const [assetField] = useField('swapAssetTo');
 
@@ -28,7 +31,11 @@ export function SwapSelectedAssetTo({ onChooseAsset, title }: SwapSelectedAssetT
       onChooseAsset={onChooseAsset}
       showToggle
       swapAmountInput={
-        <SwapAmountField amountAsFiat={amountAsFiat} isDisabled name="swapAmountTo" />
+        isFetchingExchangeRate ? (
+          <LoadingSpinner justifyContent="flex-end" size="sm" />
+        ) : (
+          <SwapAmountField amountAsFiat={amountAsFiat} isDisabled name="swapAmountTo" />
+        )
       }
       symbol={assetField.value?.balance.symbol ?? 'Select asset'}
       title={title}

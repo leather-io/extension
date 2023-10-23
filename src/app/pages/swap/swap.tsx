@@ -17,7 +17,7 @@ import { SwapFormValues } from './hooks/use-swap-form';
 import { useSwapContext } from './swap.context';
 
 export function Swap() {
-  const { onSubmitSwapForReview, swappableAssetsFrom } = useSwapContext();
+  const { isFetchingExchangeRate, onSubmitSwapForReview, swappableAssetsFrom } = useSwapContext();
   const { dirty, handleSubmit, isValid, setFieldValue, values } =
     useFormikContext<SwapFormValues>();
 
@@ -38,7 +38,7 @@ export function Swap() {
       </SwapContentLayout>
       <SwapFooterLayout>
         <LeatherButton
-          disabled={!(dirty && isValid)}
+          disabled={!(dirty && isValid) || isFetchingExchangeRate}
           onClick={async () => {
             handleSubmit();
             await onSubmitSwapForReview(values);

@@ -15,6 +15,7 @@ export function SwapForm({ children }: HasChildren) {
       initialValues={initialValues}
       onSubmit={noop}
       validateOnChange={false}
+      validateOnMount={true}
       validationSchema={validationSchema}
     >
       <Box width="100%">

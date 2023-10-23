@@ -60,14 +60,7 @@ export function SwapSelectedAssetLayout({
       </HStack>
       <SelectedAssetField
         contentLeft={
-          <LeatherButton
-            onClick={onChooseAsset}
-            p="space.02"
-            // pr="space.02"
-            // py="space.02"
-            type="button"
-            variant="ghost"
-          >
+          <LeatherButton onClick={onChooseAsset} p="space.02" type="button" variant="ghost">
             <HStack>
               {icon && <styled.img src={icon} width="32px" height="32px" alt="Swap asset" />}
               <styled.span textStyle="label.01">{symbol}</styled.span>

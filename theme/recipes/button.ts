@@ -64,6 +64,13 @@ export const buttonRecipe = defineRecipe({
         color: 'brown.1',
         _hover: { bg: 'brown.10' },
         _active: { bg: 'brown.12' },
+        _disabled: {
+          _hover: {
+            bg: 'brown.6',
+          },
+          bg: 'brown.6',
+          color: 'white',
+        },
         ...focusStyles,
         ...loadingStyles('brown.2'),
       },
