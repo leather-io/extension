@@ -46,13 +46,13 @@ test.describe('Store migrations', () => {
 
       // Assert that old values are present in unserialized format
       test
-        .expect((result.keys.entities['default'] as any).encryptedSecretKey)
+        .expect(result['software-keys'].entities['default']?.encryptedSecretKey)
         .toEqual(
           'b7f516798e7160eca15c50b62e588698937f8ecf3930efc42baa690ddc0c7a51b74e3e4b129859274ed272652bc47651c6b6effbddf4d72a3eb9d2ea657b64a833c9bdccb562e45d94f0cc1366154072f12d35290566a99a6f952cd234ca9259'
         );
 
       test
-        .expect((result.keys.entities['default'] as any).salt)
+        .expect(result['software-keys'].entities['default']?.salt)
         .toEqual('c4cccf33166051f7704cd877a2f03f93');
     });
   });

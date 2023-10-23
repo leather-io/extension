@@ -2,7 +2,7 @@ import deepMerge from 'deepmerge';
 
 import { logger } from '@shared/logger';
 
-import type { initialKeysState } from '../keys/key.slice';
+import type { initialKeysState } from '../software-keys/software-key.slice';
 
 const hiroWalletSalt = 'stacks-wallet-salt';
 const hiroWalletEncryptionKey = 'stacks-wallet-encrypted-key';

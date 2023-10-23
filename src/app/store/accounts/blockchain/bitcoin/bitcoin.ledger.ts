@@ -1,6 +1,6 @@
 import { useSelector } from 'react-redux';
 
-import { selectDefaultWalletBitcoinKeyEntities } from '@app/store/ledger/bitcoin-key.slice';
+import { selectDefaultWalletBitcoinKeyEntities } from '@app/store/ledger/bitcoin/bitcoin-key.slice';
 
 export function useHasBitcoinLedgerKeychain() {
   const bitcoinEntities = useSelector(selectDefaultWalletBitcoinKeyEntities);

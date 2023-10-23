@@ -1,5 +1,5 @@
 import { store } from '@app/store';
 
-export function useHasStacksKeychain() {
-  return Object.keys(store.getState().keys.entities).length > 0;
+export function useHasStacksLedgerKeychain() {
+  return Object.keys(store.getState().ledger.stacks.entities).length > 0;
 }

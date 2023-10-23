@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux';
 import { PayloadAction, createEntityAdapter, createSelector, createSlice } from '@reduxjs/toolkit';
 
 import { RootState } from '..';
-import { selectCurrentAccountIndex } from '../keys/key.selectors';
+import { selectCurrentAccountIndex } from '../software-keys/software-key.selectors';
 
 export type OrdinalsbotInscriptionStatus = 'pending' | 'paid' | 'waiting-for-indexer' | 'ready';
 
