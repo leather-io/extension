@@ -26,25 +26,28 @@ interface SwapAmountFieldProps {
   name: string;
 }
 export function SwapAmountField({ amountAsFiat, isDisabled, name }: SwapAmountFieldProps) {
-  const { fetchToAmount, onSetIsSendingMax } = useSwapContext();
-  const { setErrors, setFieldValue, values } = useFormikContext<SwapFormValues>();
+  const { fetchToAmount, isFetchingExchangeRate, onSetIsSendingMax } = useSwapContext();
+  const { setFieldError, setFieldValue, values } = useFormikContext<SwapFormValues>();
   const [field] = useField(name);
   const showError = useShowFieldError(name) && name === 'swapAmountFrom' && values.swapAssetTo;
 
-  async function onChange(event: ChangeEvent<HTMLInputElement>) {
+  async function onBlur(event: ChangeEvent<HTMLInputElement>) {
     const { swapAssetFrom, swapAssetTo } = values;
     if (isUndefined(swapAssetFrom) || isUndefined(swapAssetTo)) return;
     onSetIsSendingMax(false);
     const value = event.currentTarget.value;
     const toAmount = await fetchToAmount(swapAssetFrom, swapAssetTo, value);
+    if (isUndefined(toAmount)) {
+      await setFieldValue('swapAmountTo', '');
+      return;
+    }
     const toAmountAsMoney = createMoney(
       convertAmountToFractionalUnit(new BigNumber(toAmount), values.swapAssetTo?.balance.decimals),
       values.swapAssetTo?.balance.symbol ?? '',
       values.swapAssetTo?.balance.decimals
     );
     await setFieldValue('swapAmountTo', formatMoneyWithoutSymbol(toAmountAsMoney));
-    field.onChange(event);
-    setErrors({});
+    setFieldError('swapAmountTo', undefined);
   }
 
   return (
@@ -58,7 +61,7 @@ export function SwapAmountField({ amountAsFiat, isDisabled, name }: SwapAmountFi
         border="none"
         color={showError ? 'error' : 'accent.text-primary'}
         display="block"
-        disabled={isDisabled}
+        disabled={isDisabled || isFetchingExchangeRate}
         id={name}
         maxLength={15}
         p="0px"
@@ -68,7 +71,7 @@ export function SwapAmountField({ amountAsFiat, isDisabled, name }: SwapAmountFi
         textStyle="heading.05"
         width="100%"
         {...field}
-        onChange={onChange}
+        onBlur={onBlur}
       />
       {amountAsFiat ? (
         <styled.span color={showError ? 'error' : 'accent.text-subdued'} textStyle="caption.02">
