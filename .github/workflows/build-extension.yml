@@ -13,12 +13,13 @@ jobs:
   set-in-progress-message:
     if: github.repository == 'leather-wallet/extension' && github.actor != 'dependabot[bot]'
     runs-on: ubuntu-latest
-    needs:
-      - pre-run
     steps:
+      - name: Make short commit SHA
+        run: echo "SHORT_SHA=`echo ${{ github.event.pull_request.head.sha }} | cut -c1-7`" >> $GITHUB_ENV
+
       - uses: kyranjamie/pull-request-fixed-header@v1.0.1
         with:
-          header: '> _Building Leather…_'
+          header: '> _Building Leather at commit `${{ env.SHORT_SHA }}`_'
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
   build:
@@ -29,16 +30,6 @@ jobs:
     strategy:
       matrix:
         target: [chromium, firefox]
-    env:
-      WALLET_ENVIRONMENT: feature
-      TARGET_BROWSER: ${{ matrix.target }}
-      COINBASE_APP_ID: ${{ secrets.COINBASE_APP_ID }}
-      MOONPAY_API_KEY: ${{ secrets.MOONPAY_API_KEY }}
-      SENTRY_DSN: ${{ secrets.SENTRY_DSN }}
-      SEGMENT_WRITE_KEY: ${{ secrets.SEGMENT_WRITE_KEY_STAGING }}
-      TRANSAK_API_KEY: ${{ secrets.TRANSAK_API_KEY }}
-      PR_NUMBER: ${{ github.event.number }}
-      COMMIT_SHA: ${{ github.event.pull_request.head.sha }}
     steps:
       - uses: actions/checkout@v4
         with:
@@ -46,11 +37,20 @@ jobs:
 
       - uses: ./.github/actions/provision
 
-      - name: Add SHORT_SHA env property with commit short sha
-        run: echo "SHORT_SHA=`echo ${GITHUB_SHA} | cut -c1-8`" >> $GITHUB_ENV
+      - run: echo "SHORT_SHA=`echo ${{ github.event.pull_request.head.sha }} | cut -c1-7`" >> $GITHUB_ENV
 
       - name: Build project
         run: yarn build
+        env:
+          WALLET_ENVIRONMENT: feature
+          TARGET_BROWSER: ${{ matrix.target }}
+          COINBASE_APP_ID: ${{ secrets.COINBASE_APP_ID }}
+          MOONPAY_API_KEY: ${{ secrets.MOONPAY_API_KEY }}
+          SENTRY_DSN: ${{ secrets.SENTRY_DSN }}
+          SEGMENT_WRITE_KEY: ${{ secrets.SEGMENT_WRITE_KEY_STAGING }}
+          TRANSAK_API_KEY: ${{ secrets.TRANSAK_API_KEY }}
+          PR_NUMBER: ${{ github.event.number }}
+          COMMIT_SHA: ${{ env.SHORT_SHA }}
 
       - uses: actions/upload-artifact@v3
         name: Upload ${{ matrix.target }} Extension Zip
