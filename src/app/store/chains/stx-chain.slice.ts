@@ -2,7 +2,7 @@ import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 
 import { defaultWalletKeyId } from '@shared/utils';
 
-import { keySlice } from '../keys/key.slice';
+import { keySlice } from '../software-keys/software-key.slice';
 
 interface StxChainKeyState {
   highestAccountIndex: number;

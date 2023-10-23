@@ -16,7 +16,7 @@ const keyAdapter = createEntityAdapter<KeyConfig>();
 export const initialKeysState = keyAdapter.getInitialState();
 
 export const keySlice = createSlice({
-  name: 'keys',
+  name: 'software-keys',
   initialState: migrateVaultReducerStoreToNewStateStructure(initialKeysState),
   reducers: {
     createSoftwareWalletComplete(state, action: PayloadAction<KeyConfig>) {

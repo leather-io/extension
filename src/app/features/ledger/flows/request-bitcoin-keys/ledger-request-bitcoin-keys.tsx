@@ -47,6 +47,15 @@ function LedgerRequestBitcoinKeys() {
         },
       });
       dispatch(bitcoinKeysSlice.actions.addKeys(keys));
+      const targetId = latestDeviceResponse?.targetId;
+
+      if (targetId) {
+        dispatch(
+          bitcoinKeysSlice.actions.addTargetId({
+            targetId,
+          })
+        );
+      }
     },
   });
 

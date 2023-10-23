@@ -11,8 +11,8 @@ import {
   getTaprootPaymentFromAddressIndex,
 } from '@shared/crypto/bitcoin/p2tr-address-gen';
 
-import { selectCurrentAccountIndex } from '@app/store/keys/key.selectors';
 import { selectCurrentNetwork, useCurrentNetwork } from '@app/store/networks/networks.selectors';
+import { selectCurrentAccountIndex } from '@app/store/software-keys/software-key.selectors';
 
 import { useCurrentAccountIndex } from '../../account';
 import {

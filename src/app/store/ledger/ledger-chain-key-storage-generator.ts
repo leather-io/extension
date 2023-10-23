@@ -11,7 +11,7 @@ export function generateLedgerChainKeyStorageSlice<KeyDetails extends RequiresId
 
   const adapter = createEntityAdapter<KeyDetailsWithWalletId>();
 
-  const initialState = adapter.getInitialState();
+  const initialState = { targetId: '', ...adapter.getInitialState() };
 
   const slice = createSlice({
     name: name + 'Keys',
@@ -23,6 +23,12 @@ export function generateLedgerChainKeyStorageSlice<KeyDetails extends RequiresId
           // While we only support a single wallet, we default to the `default` walletId
           payload.map(key => ({ ...key, walletId: defaultWalletKeyId }))
         );
+      },
+      addTargetId(state, { payload }: PayloadAction<{ targetId: string }>) {
+        return { ...state, targetId: payload.targetId };
+      },
+      signOut(state) {
+        adapter.removeAll(state as any);
       },
     },
   });

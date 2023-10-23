@@ -11,7 +11,7 @@ import { ExternalLink } from '@app/components/external-link';
 import { BtcLedgerIcon } from '@app/components/icons/btc-ledger-icon';
 import { StxLedgerIcon } from '@app/components/icons/stx-ledger-icon';
 import { Divider } from '@app/components/layout/divider';
-import { useHasBitcoinKeychain } from '@app/store/accounts/blockchain/bitcoin/bitcoin.hooks';
+import { useHasBitcoinLedgerKeychain } from '@app/store/accounts/blockchain/bitcoin/bitcoin.ledger';
 
 import { LedgerWrapper } from '../../components/ledger-wrapper';
 
@@ -38,7 +38,7 @@ export function ConnectLedgerLayout(props: ConnectLedgerLayoutProps) {
     showInstructions,
     awaitingLedgerConnection,
   } = props;
-  const hasBitcoinAccount = useHasBitcoinKeychain();
+  const hasBitcoinAccount = useHasBitcoinLedgerKeychain();
 
   const showBitcoinConnectButton = useMemo(() => {
     return LEDGER_BITCOIN_ENABLED && !hasBitcoinAccount;

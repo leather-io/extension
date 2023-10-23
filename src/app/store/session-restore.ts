@@ -4,7 +4,7 @@ import { logger } from '@shared/logger';
 
 import { store } from '@app/store';
 import { inMemoryKeyActions } from '@app/store/in-memory-key/in-memory-key.actions';
-import { selectDefaultSoftwareKey } from '@app/store/keys/key.selectors';
+import { selectDefaultSoftwareKey } from '@app/store/software-keys/software-key.selectors';
 
 export async function initalizeWalletSession(encryptionKey: string) {
   return chrome.storage.session.set({ encryptionKey });

@@ -15,3 +15,13 @@ const selectNumberOfLedgerKeysPersisted = createSelector(selectLedger, ledger =>
 export function useNumberOfLedgerKeysPersisted() {
   return useSelector(selectNumberOfLedgerKeysPersisted);
 }
+
+export function useHasLedgerKeys() {
+  return useNumberOfLedgerKeysPersisted().isGreaterThan(0);
+}
+
+export function useLedgerDeviceTargetId() {
+  return useSelector(
+    (state: RootState) => state.ledger.stacks.targetId || state.ledger.bitcoin.targetId
+  );
+}
