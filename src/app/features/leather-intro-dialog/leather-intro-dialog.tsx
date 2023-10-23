@@ -1,8 +1,6 @@
 import { createContext, useContext } from 'react';
 import { Outlet, Route, useNavigate } from 'react-router-dom';
 
-import { setNewAppIcon } from '@shared/new-theme/update-app-icon';
-
 import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
 import { delay } from '@app/common/utils';
 import { openInNewTab } from '@app/common/utils/open-in-new-tab';
@@ -51,7 +49,6 @@ function LeatherIntroDialogContainer() {
   async function onAcceptTerms() {
     void analytics.track('new_brand_accept_terms');
     dispatch(settingsActions.setHasApprovedNewBrand());
-    await setNewAppIcon();
     navigate('../', { replace: true });
   }
 

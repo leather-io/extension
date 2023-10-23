@@ -25,7 +25,7 @@ function HiroMetaTags() {
   return (
     <>
       <Title>Hiro Wallet</Title>
-      <Link rel="icon" href="/assets/connect-logo/Stacks128w.png" />
+      <Link rel="icon" href="/assets/icons/leather-icon-128.png" />
     </>
   );
 }
