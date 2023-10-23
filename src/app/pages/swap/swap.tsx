@@ -17,9 +17,8 @@ import { SwapFormValues } from './hooks/use-swap-form';
 import { useSwapContext } from './swap.context';
 
 export function Swap() {
-  const { onSubmitSwapForReview, swappableAssetsFrom } = useSwapContext();
-  const { dirty, handleSubmit, isValid, setFieldValue, values } =
-    useFormikContext<SwapFormValues>();
+  const { isFetchingExchangeRate, swappableAssetsFrom } = useSwapContext();
+  const { dirty, isValid, setFieldValue, values } = useFormikContext<SwapFormValues>();
 
   useRouteHeader(<ModalHeader defaultGoBack hideActions title="Swap" />, true);
 
@@ -37,14 +36,7 @@ export function Swap() {
         <SwapSelectedAssets />
       </SwapContentLayout>
       <SwapFooterLayout>
-        <LeatherButton
-          disabled={!(dirty && isValid)}
-          onClick={async () => {
-            handleSubmit();
-            await onSubmitSwapForReview(values);
-          }}
-          width="100%"
-        >
+        <LeatherButton disabled={!(dirty && isValid) || isFetchingExchangeRate} width="100%">
           Review and swap
         </LeatherButton>
       </SwapFooterLayout>

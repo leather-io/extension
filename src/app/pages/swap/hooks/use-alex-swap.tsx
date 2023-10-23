@@ -22,6 +22,7 @@ export function useAlexSwap() {
   const alexSDK = useState(() => new AlexSDK())[0];
   const [swapSubmissionData, setSwapSubmissionData] = useState<SwapSubmissionData>();
   const [slippage, _setSlippage] = useState(0.04);
+  const [isFetchingExchangeRate, setIsFetchingExchangeRate] = useState(false);
   const { data: supportedCurrencies = [] } = useSwappableCurrencyQuery(alexSDK);
   const { result: prices } = useAsync(async () => await alexSDK.getLatestPrices(), [alexSDK]);
   const { availableBalance: availableStxBalance } = useStxBalance();
@@ -70,17 +71,27 @@ export function useAlexSwap() {
     from: SwapAsset,
     to: SwapAsset,
     fromAmount: string
-  ): Promise<string> {
+  ): Promise<string | undefined> {
     const amount = new BigNumber(fromAmount).multipliedBy(oneHundredMillion).dp(0).toString();
     const amountAsBigInt = isNaN(Number(amount)) ? BigInt(0) : BigInt(amount);
-    const result = await alexSDK.getAmountTo(from.currency, amountAsBigInt, to.currency);
-    return new BigNumber(Number(result)).dividedBy(oneHundredMillion).toString();
+    try {
+      setIsFetchingExchangeRate(true);
+      const result = await alexSDK.getAmountTo(from.currency, amountAsBigInt, to.currency);
+      setIsFetchingExchangeRate(false);
+      return new BigNumber(Number(result)).dividedBy(oneHundredMillion).toString();
+    } catch (e) {
+      logger.error('Error fetching exchange rate from ALEX', e);
+      setIsFetchingExchangeRate(false);
+      return;
+    }
   }
 
   return {
     alexSDK,
     fetchToAmount,
     createSwapAssetFromAlexCurrency,
+    isFetchingExchangeRate,
+    onSetIsFetchingExchangeRate: (value: boolean) => setIsFetchingExchangeRate(value),
     onSetSwapSubmissionData: (value: SwapSubmissionData) => setSwapSubmissionData(value),
     slippage,
     supportedCurrencies,

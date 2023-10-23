@@ -47,6 +47,8 @@ export function SwapContainer() {
     alexSDK,
     fetchToAmount,
     createSwapAssetFromAlexCurrency,
+    isFetchingExchangeRate,
+    onSetIsFetchingExchangeRate,
     onSetSwapSubmissionData,
     slippage,
     supportedCurrencies,
@@ -137,7 +139,7 @@ export function SwapContainer() {
       swapSubmissionData.router.map(x => x.currency)
     );
 
-    // TODO: Add choose fee step for swaps
+    // TODO: Add choose fee step
     const tempFormValues = {
       fee: swapSubmissionData.fee,
       feeCurrency: swapSubmissionData.feeCurrency,
@@ -173,7 +175,9 @@ export function SwapContainer() {
 
   const swapContextValue: SwapContext = {
     fetchToAmount,
+    isFetchingExchangeRate,
     isSendingMax,
+    onSetIsFetchingExchangeRate,
     onSetIsSendingMax: value => setIsSendingMax(value),
     onSubmitSwapForReview,
     onSubmitSwap,

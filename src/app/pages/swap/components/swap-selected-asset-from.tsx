@@ -23,7 +23,8 @@ interface SwapSelectedAssetFromProps {
   title: string;
 }
 export function SwapSelectedAssetFrom({ onChooseAsset, title }: SwapSelectedAssetFromProps) {
-  const { fetchToAmount, isSendingMax, onSetIsSendingMax } = useSwapContext();
+  const { fetchToAmount, isFetchingExchangeRate, isSendingMax, onSetIsSendingMax } =
+    useSwapContext();
   const { setFieldValue, setFieldError, values } = useFormikContext<SwapFormValues>();
   const [amountField, amountFieldMeta, amountFieldHelpers] = useField('swapAmountFrom');
   const showError = useShowFieldError('swapAmountFrom');
@@ -40,12 +41,16 @@ export function SwapSelectedAssetFrom({ onChooseAsset, title }: SwapSelectedAsse
 
   async function onSetMaxBalanceAsAmountToSwap() {
     const { swapAssetFrom, swapAssetTo } = values;
-    if (isUndefined(swapAssetFrom)) return;
+    if (isFetchingExchangeRate || isUndefined(swapAssetFrom)) return;
     onSetIsSendingMax(!isSendingMax);
     await amountFieldHelpers.setValue(Number(formattedBalance));
     await amountFieldHelpers.setTouched(true);
     if (isUndefined(swapAssetTo)) return;
     const toAmount = await fetchToAmount(swapAssetFrom, swapAssetTo, formattedBalance);
+    if (isUndefined(toAmount)) {
+      await setFieldValue('swapAmountTo', '');
+      return;
+    }
     const toAmountAsMoney = createMoney(
       convertAmountToFractionalUnit(new BigNumber(toAmount), values.swapAssetTo?.balance.decimals),
       values.swapAssetTo?.balance.symbol ?? '',
@@ -71,7 +76,7 @@ export function SwapSelectedAssetFrom({ onChooseAsset, title }: SwapSelectedAsse
           name="swapAmountFrom"
         />
       }
-      symbol={assetField.value.balance.symbol}
+      symbol={assetField.value.name}
       title={title}
       tooltipLabel={isSendingMax ? sendingMaxTooltip : maxAvailableTooltip}
       value={formattedBalance}

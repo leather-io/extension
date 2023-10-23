@@ -1,17 +1,12 @@
-import { Flex, FlexProps, Spinner, color } from '@stacks/ui';
+import { Spinner, SpinnerSize } from '@stacks/ui';
+import { Flex, FlexProps } from 'leather-styles/jsx';
+import { token } from 'leather-styles/tokens';
 
-export function LoadingSpinner(props: FlexProps) {
+export function LoadingSpinner(props: { size?: SpinnerSize } & FlexProps) {
+  const { size = 'lg' } = props;
   return (
     <Flex alignItems="center" flexGrow={1} justifyContent="center" width="100%" {...props}>
-      <Spinner color={color('text-caption')} opacity={0.5} size="lg" />
-    </Flex>
-  );
-}
-
-export function SmallLoadingSpinner(props: FlexProps) {
-  return (
-    <Flex alignItems="center" flexGrow={1} justifyContent="center" width="100%" {...props}>
-      <Spinner color={color('text-caption')} opacity={0.5} size="sm" />
+      <Spinner color={token('colors.accent.text-subdued')} size={size} />
     </Flex>
   );
 }

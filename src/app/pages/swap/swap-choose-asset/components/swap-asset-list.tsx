@@ -5,6 +5,7 @@ import { useFormikContext } from 'formik';
 import { styled } from 'leather-styles/jsx';
 
 import { createMoney } from '@shared/models/money.model';
+import { isUndefined } from '@shared/utils';
 
 import { convertAmountToFractionalUnit } from '@app/common/money/calculate-money';
 import { formatMoneyWithoutSymbol } from '@app/common/money/format-money';
@@ -49,6 +50,10 @@ export function SwapAssetList({ assets }: SwapAssetList) {
     navigate(-1);
     if (from && to && values.swapAmountFrom) {
       const toAmount = await fetchToAmount(from, to, values.swapAmountFrom);
+      if (isUndefined(toAmount)) {
+        await setFieldValue('swapAmountTo', '');
+        return;
+      }
       const toAmountAsMoney = createMoney(
         convertAmountToFractionalUnit(new BigNumber(toAmount), to?.balance.decimals),
         to?.balance.symbol ?? '',

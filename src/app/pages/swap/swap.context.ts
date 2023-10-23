@@ -12,8 +12,10 @@ export interface SwapSubmissionData extends SwapFormValues {
 }
 
 export interface SwapContext {
-  fetchToAmount(from: SwapAsset, to: SwapAsset, fromAmount: string): Promise<string>;
+  fetchToAmount(from: SwapAsset, to: SwapAsset, fromAmount: string): Promise<string | undefined>;
+  isFetchingExchangeRate: boolean;
   isSendingMax: boolean;
+  onSetIsFetchingExchangeRate(value: boolean): void;
   onSetIsSendingMax(value: boolean): void;
   onSubmitSwapForReview(values: SwapFormValues): Promise<void> | void;
   onSubmitSwap(): Promise<void> | void;

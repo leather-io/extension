@@ -49,7 +49,7 @@ export function SwapDetails() {
 
   return (
     <SwapDetailsLayout>
-      <SwapDetailLayout title="Protocol" value={swapSubmissionData.protocol} />
+      <SwapDetailLayout title="Powered by" value={swapSubmissionData.protocol} />
       <SwapDetailLayout
         title="Route"
         value={

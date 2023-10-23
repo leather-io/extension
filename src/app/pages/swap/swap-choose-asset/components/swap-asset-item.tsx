@@ -24,7 +24,7 @@ export function SwapAssetItem({ asset }: SwapAssetItemProps) {
         <styled.span textStyle="label.01">{formatMoneyWithoutSymbol(asset.balance)}</styled.span>
       </HStack>
       <HStack alignItems="center" justifyContent="space-between">
-        <styled.span textStyle="caption.01">{asset.balance.symbol}</styled.span>
+        <styled.span textStyle="caption.01">{asset.name}</styled.span>
         <styled.span color="accent.text-subdued" textStyle="caption.01">
           {balanceAsFiat}
         </styled.span>

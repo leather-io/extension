@@ -9,7 +9,7 @@ import { SwapFormValues } from '../hooks/use-swap-form';
 import { useSwapContext } from '../swap.context';
 
 export function SwapToggleButton() {
-  const { fetchToAmount, onSetIsSendingMax } = useSwapContext();
+  const { fetchToAmount, isFetchingExchangeRate, onSetIsSendingMax } = useSwapContext();
   const { setFieldValue, validateForm, values } = useFormikContext<SwapFormValues>();
 
   async function onToggleSwapAssets() {
@@ -26,6 +26,10 @@ export function SwapToggleButton() {
 
     if (isDefined(prevAssetFrom) && isDefined(prevAssetTo)) {
       const toAmount = await fetchToAmount(prevAssetTo, prevAssetFrom, prevAmountTo);
+      if (isUndefined(toAmount)) {
+        await setFieldValue('swapAmountTo', '');
+        return;
+      }
       await setFieldValue('swapAmountTo', Number(toAmount));
     } else {
       await setFieldValue('swapAmountTo', Number(prevAmountFrom));
@@ -36,7 +40,7 @@ export function SwapToggleButton() {
   return (
     <styled.button
       alignSelf="flex-start"
-      disabled={isUndefined(values.swapAssetTo)}
+      disabled={isUndefined(values.swapAssetTo) || isFetchingExchangeRate}
       onClick={onToggleSwapAssets}
     >
       <SwapIcon transform="rotate(90)" />
