@@ -7,11 +7,11 @@ function selectStacksKeysSlice(state: RootState) {
   return state.ledger.stacks;
 }
 
+// ts-unused-exports:disable-next-line
 export const { slice: stacksKeysSlice, adapter } = generateLedgerChainKeyStorageSlice<
   StacksAppKeysResponseItem & { id: string }
 >('stacks');
 
 const selectors = adapter.getSelectors(selectStacksKeysSlice);
 
-export const selectDefaultWalletStacksKeyEntities = selectors.selectEntities;
 export const selectDefaultWalletStacksKeys = selectors.selectAll;
