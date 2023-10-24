@@ -1,3 +1,52 @@
+## [6.12.0](https://github.com/leather-wallet/extension/compare/v6.11.0...v6.12.0) (2023-10-24)
+
+
+### Features
+
+* add connect btn ([3903ba1](https://github.com/leather-wallet/extension/commit/3903ba17f208cde8eeb1f13dd30c66eb7b2e3b64))
+* add unsupported browsers modal ([2febd49](https://github.com/leather-wallet/extension/commit/2febd494ce016dbbed1690105c7d019ed69d8fb7))
+* added bitcoin contract list page and entry point ([a28678d](https://github.com/leather-wallet/extension/commit/a28678d32b73de0444e9154b727d07c5d8d668c0))
+* added tests for bitcoin contract request ([157f97e](https://github.com/leather-wallet/extension/commit/157f97e9c5ff4ec0788adfc1076c4dd5745bf035))
+* return addresses of regtest and signet ([a0717e3](https://github.com/leather-wallet/extension/commit/a0717e38887e30ed32eb9d08f7be81a2dec105a9))
+* rework onboarding ledger flow, closes [#4281](https://github.com/leather-wallet/extension/issues/4281) ([47aa2e2](https://github.com/leather-wallet/extension/commit/47aa2e2598bbcdd8230f8ef6701bbe252a811bb4))
+
+
+### Bug Fixes
+
+* align text and caption left so it appears correctly in extension view ([bd25751](https://github.com/leather-wallet/extension/commit/bd25751a97dbabbd6cf41a90680e519adbe91ef8))
+* allow direct access to /receive/stx ([e7c8d8d](https://github.com/leather-wallet/extension/commit/e7c8d8decf577e85d57abc2cb8de49a894b42690))
+* change acc bug ([ce13789](https://github.com/leather-wallet/extension/commit/ce1378926dd30d7b7ff92d539942830bfc1ec80f))
+* clean code ([77a4822](https://github.com/leather-wallet/extension/commit/77a4822075b66ac168952802dc4193c1dbd4d89b))
+* clean code, add note re ordinals modal ([a06aa39](https://github.com/leather-wallet/extension/commit/a06aa39eaca8312b7215055308892a307e82d194))
+* clean code, add note re ordinals modal ([993df34](https://github.com/leather-wallet/extension/commit/993df34892f2bbc5fc7d10ab2c47c49aff211c46))
+* close original recieve modal before opening qr code modal to prevent double modal ([10b7246](https://github.com/leather-wallet/extension/commit/10b72461f6af2958c0408d6265fc10aa68eb46ed))
+* code spanning past viewport width ([db35a49](https://github.com/leather-wallet/extension/commit/db35a4932e1034e28c2f54c97d88b5c7bdccffd0))
+* do not nest recieve sub routes to prevent double overlay of modal and maintain direct access ([1477c96](https://github.com/leather-wallet/extension/commit/1477c96270495898b90e6ef8c8c38075df66fa6e))
+* enable bg redirect to overlay modal in new tab ([36c969f](https://github.com/leather-wallet/extension/commit/36c969f2f009b785958866720567204fcd0b21c9))
+* get build passing ([5826143](https://github.com/leather-wallet/extension/commit/5826143c95a360c1696a1f6fd41c2023a7f67e5d))
+* improve type loading ([d79ee62](https://github.com/leather-wallet/extension/commit/d79ee626f994d05922427d066669529798be4ebf))
+* ledger tx sign error process ([618923f](https://github.com/leather-wallet/extension/commit/618923fc0cc964b5c9e0534e343a30ca0d58dbd1))
+* pass child routes as children to appease dep cruiser ([200907a](https://github.com/leather-wallet/extension/commit/200907abda5dcdbe3b51f69ebb9c7fcb10f320d0))
+* re-introduce bg location for hometabs so modals overlay on top of activity ([12571b0](https://github.com/leather-wallet/extension/commit/12571b020b35e2fd943c138fb0f10ad0df510a24))
+* refactor modals to overlay on top of backgroundLocation consistently, closes [#4028](https://github.com/leather-wallet/extension/issues/4028) ([c006894](https://github.com/leather-wallet/extension/commit/c006894e14f6ad26e9f3f4c978a73999fbc6b834))
+* revert drawer changes from brand audit, closes [#4249](https://github.com/leather-wallet/extension/issues/4249) ([e437710](https://github.com/leather-wallet/extension/commit/e437710d3dc6ab7bbe7dfae4eaadef25c33ba2a3))
+* update path to receive stx to fix test ([2c897ab](https://github.com/leather-wallet/extension/commit/2c897abaff7dd17c7b63b6daaf98acf32282086d))
+* use bg location to open in new tab. share modal bg logic ([07c5c98](https://github.com/leather-wallet/extension/commit/07c5c98100d6a81399d6b3f402f7d569b385a5b8))
+* use grid for asset rows to stop overflow while allowing width, closes [#4171](https://github.com/leather-wallet/extension/issues/4171) ([529c03d](https://github.com/leather-wallet/extension/commit/529c03d9b1c9cdf9473c5343c0593f615ac4b7f2))
+* use independant route for FundReceiveStx ([e4bfd24](https://github.com/leather-wallet/extension/commit/e4bfd24a61350d28d99a53864f2572ff74b9d934))
+* use network.chain.bitcoin.url in api hooks, closes [#4330](https://github.com/leather-wallet/extension/issues/4330) ([ceaf228](https://github.com/leather-wallet/extension/commit/ceaf228cf9052032e26d6deb107c3ec6f5ad7672))
+* wallet type definition ([ddc91e3](https://github.com/leather-wallet/extension/commit/ddc91e36669a44d60ea886acbf661063b09ef066))
+* welcome page header padding, closes [#4374](https://github.com/leather-wallet/extension/issues/4374) ([0817a5e](https://github.com/leather-wallet/extension/commit/0817a5ed4599d6b94663e38a603ff92470ffaf69))
+
+
+### Internal
+
+* debug window close util ([77056e7](https://github.com/leather-wallet/extension/commit/77056e7fcc947ba15542f66f59fc4200187fb099))
+* deprecate unused routes ([a3710c5](https://github.com/leather-wallet/extension/commit/a3710c5d53e1fc7ec813810ad132fec5bd4b1f1b))
+* explore routing issues ([0dbbdcf](https://github.com/leather-wallet/extension/commit/0dbbdcf3d9029f5a02c74fa0dfcccaa813ea8139))
+* local copyToClipboard hook ([017fa3a](https://github.com/leather-wallet/extension/commit/017fa3a56b6374fcc9241f02ea06b142f989c14c))
+* psbt stackui layout ([e71e457](https://github.com/leather-wallet/extension/commit/e71e4576714abecfabdc4ea5f56ed15cebd743b6))
+
 ## [6.11.0](https://github.com/leather-wallet/extension/compare/v6.10.0...v6.11.0) (2023-10-13)
 
 
