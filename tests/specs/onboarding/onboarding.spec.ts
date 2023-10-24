@@ -24,10 +24,11 @@ test.describe('Onboarding an existing user', () => {
     );
 
     // Deleting values that are known to differ at random
-    delete (walletState as any).keys.entities.default.encryptedSecretKey;
-    delete (walletState as any).keys.entities.default.salt;
-    delete (testSoftwareAccountDefaultWalletState as any).keys.entities.default.encryptedSecretKey;
-    delete (testSoftwareAccountDefaultWalletState as any).keys.entities.default.salt;
+    delete (walletState as any)['software-keys'].entities.default.encryptedSecretKey;
+    delete (walletState as any)['software-keys'].entities.default.salt;
+    delete (testSoftwareAccountDefaultWalletState as any)['software-keys'].entities.default
+      .encryptedSecretKey;
+    delete (testSoftwareAccountDefaultWalletState as any)['software-keys'].entities.default.salt;
 
     test.expect(walletState).toEqual(testSoftwareAccountDefaultWalletState);
   });
