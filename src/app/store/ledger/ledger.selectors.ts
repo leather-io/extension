@@ -12,7 +12,7 @@ const selectNumberOfLedgerKeysPersisted = createSelector(selectLedger, ledger =>
   sumNumbers(Object.values(ledger).map(chain => Object.keys(chain.entities).length))
 );
 
-export function useNumberOfLedgerKeysPersisted() {
+function useNumberOfLedgerKeysPersisted() {
   return useSelector(selectNumberOfLedgerKeysPersisted);
 }
 
