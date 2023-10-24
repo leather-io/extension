@@ -264,10 +264,6 @@ export function whenStacksChainId(chainId: ChainID) {
   return <T>(chainIdMap: WhenStacksChainIdMap<T>): T => chainIdMap[chainId];
 }
 
-export function whenBitcoinNetwork(mode: BitcoinNetworkModes) {
-  return <T>(networkMap: Record<BitcoinNetworkModes, T>): T => networkMap[mode];
-}
-
 export function logAndThrow(msg: string, args: any[] = []) {
   logger.error(msg, ...args);
   throw new Error(msg);

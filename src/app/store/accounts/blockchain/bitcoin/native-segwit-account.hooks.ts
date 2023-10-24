@@ -64,7 +64,7 @@ export function useNativeSegwitNetworkSigners() {
   );
 }
 
-function useNativeSegwitSigner(accountIndex: number) {
+export function useNativeSegwitSigner(accountIndex: number) {
   const account = useNativeSegwitAccountBuilder()(accountIndex);
   const extendedPublicKeyVersions = useBitcoinExtendedPublicKeyVersions();
 

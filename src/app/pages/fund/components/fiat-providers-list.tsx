@@ -1,4 +1,4 @@
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 import { Grid } from 'leather-styles/jsx';
 
@@ -25,6 +25,7 @@ export function FiatProvidersList(props: FiatProvidersProps) {
   const activeProviders = useActiveFiatProviders();
   const hasProviders = useHasFiatProviders();
   const analytics = useAnalytics();
+  const location = useLocation();
 
   const goToProviderExternalWebsite = (provider: string, providerUrl: string) => {
     void analytics.track('select_buy_option', { provider });
@@ -52,7 +53,13 @@ export function FiatProvidersList(props: FiatProvidersProps) {
       width="100%"
       maxWidth={['100%', '80rem']}
     >
-      <ReceiveStxItem onReceiveStx={() => navigate(RouteUrls.FundReceiveStx)} />
+      <ReceiveStxItem
+        onReceiveStx={() =>
+          navigate(`${RouteUrls.ReceiveStx}`, {
+            state: { backgroundLocation: location },
+          })
+        }
+      />
       {Object.entries(activeProviders).map(([providerKey, providerValue]) => {
         const providerUrl = getProviderUrl({
           address,

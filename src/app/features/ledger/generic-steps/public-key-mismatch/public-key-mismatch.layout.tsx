@@ -1,7 +1,7 @@
-import LedgerWithRedOutline from '@assets/images/ledger/ledger-red-outline.png';
 import { Box, Button, Flex, Text, color } from '@stacks/ui';
 
 import { Title } from '@app/components/typography';
+import { ConnectLedgerErr } from '@app/features/ledger/illustrations/ledger-illu-connect-ledger-error';
 
 import { LedgerWrapper } from '../../components/ledger-wrapper';
 
@@ -13,7 +13,7 @@ export function PublicKeyMismatchLayout({ onClose, onTryAgain }: PublicKeyMismat
   return (
     <LedgerWrapper>
       <Box>
-        <img src={LedgerWithRedOutline} width="247px" height="55px" />
+        <ConnectLedgerErr />
       </Box>
       <Title mt="extra-loose">Public key does not match</Title>
       <Text mt="base-tight" lineHeight="24px" color={color('text-caption')}>

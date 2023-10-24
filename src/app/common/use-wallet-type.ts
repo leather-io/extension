@@ -1,5 +1,8 @@
 import { useMemo } from 'react';
 
+import { isUndefined } from '@shared/utils';
+
+import { useHasBitcoinLedgerKeychain } from '@app/store/accounts/blockchain/bitcoin/bitcoin.ledger';
 import { useCurrentKeyDetails } from '@app/store/keys/key.selectors';
 
 type WalletType = 'ledger' | 'software';
@@ -24,13 +27,20 @@ function whenWallet(walletType: WalletType) {
 
 export function useWalletType() {
   const wallet = useCurrentKeyDetails();
+  const hasBitcoinLedgerKeychain = useHasBitcoinLedgerKeychain();
+  let walletType = wallet?.type;
+
+  if (isUndefined(walletType) && hasBitcoinLedgerKeychain) {
+    walletType = 'ledger';
+  }
+
   return useMemo(
     () => ({
       walletType: wallet?.type,
       // Coercing type here allows use within app without handling undefined
       // case will error when use within onboarding
-      whenWallet: whenWallet(wallet?.type as any),
+      whenWallet: whenWallet(walletType as any),
     }),
-    [wallet]
+    [wallet, walletType]
   );
 }

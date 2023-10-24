@@ -2,7 +2,7 @@ import { toast } from 'react-hot-toast';
 import { FiCheck, FiCopy, FiExternalLink } from 'react-icons/fi';
 import { useLocation, useNavigate } from 'react-router-dom';
 
-import { Box, Stack, useClipboard } from '@stacks/ui';
+import { Box, Stack } from '@stacks/ui';
 import get from 'lodash.get';
 
 import { Blockchains } from '@shared/models/blockchain.model';
@@ -10,6 +10,7 @@ import { SupportedInscription } from '@shared/models/inscription.model';
 import { RouteUrls } from '@shared/route-urls';
 
 import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
+import { useClipboard } from '@app/common/hooks/use-copy-to-clipboard';
 import { useExplorerLink } from '@app/common/hooks/use-explorer-link';
 import { FormAddressDisplayer } from '@app/components/address-displayer/form-address-displayer';
 import { BaseDrawer } from '@app/components/drawer/base-drawer';

@@ -28,7 +28,7 @@ export function useSwitchAccount(callback?: () => void) {
       switchAccount(index);
       if (callback) setTimeout(() => callback(), TIMEOUT);
       if (!accounts) return;
-      void trackSwitchAccount(accounts[index].address, index);
+      void trackSwitchAccount(accounts[index]?.address, index);
     },
     [setHasSwitched, switchAccount, callback, accounts, trackSwitchAccount]
   );

@@ -1,5 +1,7 @@
 import { truncateMiddle } from '@stacks/ui-utils';
 
+import { closeWindow } from '@shared/utils';
+
 import { useRouteHeader } from '@app/common/hooks/use-route-header';
 import { useRejectIfLedgerWallet } from '@app/common/rpc-helpers';
 import { Disclaimer } from '@app/components/disclaimer';
@@ -40,7 +42,7 @@ function RpcSignBip322Message() {
   const { chain } = useCurrentNetwork();
 
   if (origin === null) {
-    window.close();
+    closeWindow();
     throw new Error('Origin is null');
   }
 

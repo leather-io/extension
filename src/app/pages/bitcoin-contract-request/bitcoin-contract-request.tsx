@@ -1,6 +1,8 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
+import { Stack } from '@stacks/ui';
+
 import { RouteUrls } from '@shared/route-urls';
 import { BitcoinContractResponseStatus } from '@shared/rpc/methods/accept-bitcoin-contract';
 
@@ -103,9 +105,11 @@ export function BitcoinContractRequest() {
               bitcoinContractOfferDetails.counterpartyWalletDetails.counterpartyWalletIcon
             }
           />
-          <BitcoinContractRequestWarningLabel
-            appName={bitcoinContractOfferDetails.counterpartyWalletDetails.counterpartyWalletName}
-          />
+          <Stack spacing="base" backgroundColor="white" borderRadius="lg">
+            <BitcoinContractRequestWarningLabel
+              appName={bitcoinContractOfferDetails.counterpartyWalletDetails.counterpartyWalletName}
+            />
+          </Stack>
           <BitcoinContractRequestActions
             isLoading={isProcessing}
             bitcoinAddress={bitcoinAddress}

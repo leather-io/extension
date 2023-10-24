@@ -12,6 +12,7 @@ import {
 import { deriveAddressIndexZeroFromAccount } from '@shared/crypto/bitcoin/bitcoin.utils';
 import { logger } from '@shared/logger';
 import { makeRpcErrorResponse, makeRpcSuccessResponse } from '@shared/rpc/rpc-methods';
+import { closeWindow } from '@shared/utils';
 
 import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
 import { useDefaultRequestParams } from '@app/common/hooks/use-default-request-search-params';
@@ -75,7 +76,7 @@ function useSignBip322MessageFactory({ address, signPsbt }: SignBip322MessageFac
           },
         })
       );
-      window.close();
+      closeWindow();
     },
     async onUserApproveBip322MessageSigningRequest() {
       setIsLoading(true);
@@ -106,7 +107,7 @@ function useSignBip322MessageFactory({ address, signPsbt }: SignBip322MessageFac
       void analytics.track('user_approved_message_signing', { origin });
 
       await allowTimeForUserToReadToast();
-      window.close();
+      closeWindow();
     },
   };
 }

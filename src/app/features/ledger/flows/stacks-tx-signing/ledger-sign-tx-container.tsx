@@ -67,34 +67,34 @@ export function LedgerSignStacksTxContainer() {
       },
     });
 
-    const versionInfo = await getStacksAppVersion(stacksApp);
-    ledgerAnalytics.trackDeviceVersionInfo(versionInfo);
-    setLatestDeviceResponse(versionInfo);
+    try {
+      const versionInfo = await getStacksAppVersion(stacksApp);
+      ledgerAnalytics.trackDeviceVersionInfo(versionInfo);
+      setLatestDeviceResponse(versionInfo);
 
-    if (versionInfo.deviceLocked) {
-      setAwaitingDeviceConnection(false);
-      return;
-    }
-
-    if (versionInfo.returnCode !== LedgerError.NoErrors) {
-      logger.error('Return code from device has error', versionInfo);
-      return;
-    }
-
-    if (isVersionOfLedgerStacksAppWithContractPrincipalBug(versionInfo)) {
-      navigate(RouteUrls.LedgerOutdatedAppWarning);
-      const response = await hasUserSkippedBuggyAppWarning.wait();
-
-      if (response === 'cancelled-operation') {
-        ledgerNavigate.cancelLedgerAction();
+      if (versionInfo.deviceLocked) {
+        setAwaitingDeviceConnection(false);
         return;
       }
-    }
 
-    ledgerNavigate.toDeviceBusyStep('Verifying public key on Ledger…');
-    await verifyLedgerPublicKey(stacksApp);
+      if (versionInfo.returnCode !== LedgerError.NoErrors) {
+        logger.error('Return code from device has error', versionInfo);
+        return;
+      }
 
-    try {
+      if (isVersionOfLedgerStacksAppWithContractPrincipalBug(versionInfo)) {
+        navigate(RouteUrls.LedgerOutdatedAppWarning);
+        const response = await hasUserSkippedBuggyAppWarning.wait();
+
+        if (response === 'cancelled-operation') {
+          ledgerNavigate.cancelLedgerAction();
+          return;
+        }
+      }
+
+      ledgerNavigate.toDeviceBusyStep('Verifying public key on Ledger…');
+      await verifyLedgerPublicKey(stacksApp);
+
       ledgerNavigate.toConnectionSuccessStep('stacks');
       await delay(1000);
       if (!unsignedTransaction) throw new Error('No unsigned tx');

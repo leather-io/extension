@@ -42,12 +42,9 @@ interface StacksTransactionSignerProps {
   disableFeeSelection?: boolean;
   disableNonceSelection?: boolean;
   isMultisig: boolean;
-
   onCancel(): void;
-
   onSignStacksTransaction(fee: number, nonce: number): void;
 }
-
 export function StacksTransactionSigner({
   stacksTransaction,
   disableFeeSelection,

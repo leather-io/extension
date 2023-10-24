@@ -1,5 +1,7 @@
 import { SignatureData } from '@stacks/connect';
 
+import { closeWindow } from '@shared/utils';
+
 import { formatMessageSigningResponse } from './finalize-message-signature-format';
 
 interface FinalizeMessageSignatureArgs {
@@ -14,5 +16,5 @@ export function finalizeMessageSignature({
 }: FinalizeMessageSignatureArgs) {
   const responseMessage = formatMessageSigningResponse({ request: requestPayload, response: data });
   chrome.tabs.sendMessage(tabId, responseMessage);
-  window.close();
+  closeWindow();
 }

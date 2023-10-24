@@ -8,6 +8,7 @@ import { RouteUrls } from '@shared/route-urls';
 import { useWalletType } from '@app/common/use-wallet-type';
 import { CurrentStacksAccountLoader } from '@app/components/stacks-account-loader';
 import { useConfigNftMetadataEnabled } from '@app/query/common/remote-config/remote-config.query';
+import { useHasBitcoinLedgerKeychain } from '@app/store/accounts/blockchain/bitcoin/bitcoin.ledger';
 
 import { AddCollectible } from './components/add-collectible';
 import { Ordinals } from './components/bitcoin/ordinals';
@@ -24,6 +25,7 @@ export function Collectibles() {
   const queryClient = useQueryClient();
   const isFetching = useIsFetchingCollectiblesRelatedQuery();
   const [isLoadingMore, setIsLoadingMore] = useState(false);
+  const hasBitcoinKeychain = useHasBitcoinLedgerKeychain();
 
   return (
     <CollectiblesLayout
@@ -42,7 +44,7 @@ export function Collectibles() {
     >
       {whenWallet({
         software: <AddCollectible />,
-        ledger: null,
+        ledger: hasBitcoinKeychain ? <AddCollectible /> : null,
       })}
 
       {isNftMetadataEnabled && (
@@ -58,7 +60,12 @@ export function Collectibles() {
             <Ordinals setIsLoadingMore={setIsLoadingMore} />
           </>
         ),
-        ledger: null,
+        ledger: hasBitcoinKeychain ? (
+          <>
+            <Stamps />
+            <Ordinals setIsLoadingMore={setIsLoadingMore} />
+          </>
+        ) : null,
       })}
     </CollectiblesLayout>
   );

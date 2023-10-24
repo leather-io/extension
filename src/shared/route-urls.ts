@@ -20,27 +20,27 @@ export enum RouteUrls {
   LedgerOutdatedAppWarning = 'outdated-app-warning',
   LedgerBroadcastError = 'transaction-broadcast-error',
   LedgerAddMoreKeys = 'add-more-keys',
+  ConnectLedgerStart = 'connect-ledger',
 
   // Active wallet routes
   Home = '/',
-  Activity = '/activity',
   AddNetwork = '/add-network',
   ChooseAccount = '/choose-account',
   Fund = '/fund',
-  FundReceive = '/fund/receive',
-  FundReceiveStx = '/fund/receive/stx',
-  FundReceiveBtc = '/fund/receive/btc',
   IncreaseStxFee = '/increase-fee/stx',
   IncreaseBtcFee = '/increase-fee/btc',
   IncreaseFeeSent = '/increase-fee/sent',
-  Receive = '/receive',
-  ReceiveCollectible = '/receive/collectible',
-  ReceiveCollectibleOrdinal = '/receive/collectible/ordinal',
-  ReceiveStx = '/receive/stx',
-  ReceiveBtc = '/receive/btc',
-  ReceiveBtcStamp = '/receive/btc-stamp',
   Send = '/send-transaction',
   ViewSecretKey = '/view-secret-key',
+
+  // nested routes must have relative paths
+  Activity = 'activity',
+  Receive = 'receive',
+  ReceiveStx = 'receive/stx',
+  ReceiveBtc = 'receive/btc',
+  ReceiveBtcStamp = 'receive/btc-stamp',
+  ReceiveCollectible = 'receive/collectible',
+  ReceiveCollectibleOrdinal = 'receive/collectible/ordinal',
 
   // Locked wallet route
   Unlock = '/unlock',
@@ -76,12 +76,12 @@ export enum RouteUrls {
   SentBrc20Summary = '/send/brc20/:ticker/summary',
 
   // Send ordinal inscriptions
-  SendOrdinalInscription = '/send/ordinal-inscription',
-  SendOrdinalInscriptionChooseFee = '/send/ordinal-inscription/choose-fee',
-  SendOrdinalInscriptionReview = '/send/ordinal-inscription/review',
-  SendOrdinalInscriptionSummary = '/send/ordinal-inscription/',
-  SendOrdinalInscriptionSent = '/send/ordinal-inscription/sent',
-  SendOrdinalInscriptionError = '/send/ordinal-inscription/error',
+  SendOrdinalInscription = 'send/ordinal-inscription',
+  SendOrdinalInscriptionChooseFee = 'send/ordinal-inscription/choose-fee',
+  SendOrdinalInscriptionReview = 'send/ordinal-inscription/review',
+  SendOrdinalInscriptionSummary = 'send/ordinal-inscription/',
+  SendOrdinalInscriptionSent = 'send/ordinal-inscription/sent',
+  SendOrdinalInscriptionError = 'send/ordinal-inscription/error',
 
   // Swap routes
   Swap = '/swap',

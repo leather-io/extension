@@ -32,7 +32,9 @@ export function CommonLedgerDeviceInlineWarnings({
   if (latestDeviceResponse.deviceLocked)
     return (
       <WarningLabel fontSize="14px" textAlign="left">
-        Your Ledger is locked. Unlock it and open the Stacks app to continue.
+        Your Ledger is locked. Unlock it and open the {''}
+        <Capitalize>{chain}</Capitalize>
+        {''} app to continue.
       </WarningLabel>
     );
   if (isStacksLedgerAppClosed(latestDeviceResponse))

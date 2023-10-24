@@ -1,6 +1,7 @@
 import { memo } from 'react';
 
 import { Flex } from '@stacks/ui';
+import { BitcoinContractRequestSelectors } from '@tests/selectors/bitcoin-contract-request.selectors';
 
 import { Flag } from '@app/components/layout/flag';
 import { Caption, Title } from '@app/components/typography';
@@ -27,7 +28,9 @@ function BitcoinContractRequestHeaderBase({
           img={<img src={counterpartyWalletIcon} height="32px" width="32px" />}
           pl="tight"
         >
-          <Caption>{caption}</Caption>
+          <Caption data-testid={BitcoinContractRequestSelectors.BitcoinContractOfferorText}>
+            {caption}
+          </Caption>
         </Flag>
       )}
     </Flex>

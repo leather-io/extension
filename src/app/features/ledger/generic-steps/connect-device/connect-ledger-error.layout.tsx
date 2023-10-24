@@ -1,17 +1,18 @@
 import { FiCircle } from 'react-icons/fi';
 
-import ConnectLedgerError from '@assets/images/ledger/connect-ledger-error.png';
-import { Box, Flex, Stack, color } from '@stacks/ui';
+import { Box, Flex, Stack, styled } from 'leather-styles/jsx';
 
-import { openInNewTab } from '@app/common/utils/open-in-new-tab';
+import { capitalize } from '@app/common/utils';
 import { LeatherButton } from '@app/components/button/button';
 import { ErrorLabel } from '@app/components/error-label';
-import { Link } from '@app/components/link';
-import { Caption } from '@app/components/typography';
+import { ExternalLink } from '@app/components/external-link';
+import { LCaption } from '@app/components/typography';
 import { WarningLabel } from '@app/components/warning-label';
+import { ConnectLedgerErr } from '@app/features/ledger/illustrations/ledger-illu-connect-ledger-error';
 
 import { LedgerTitle } from '../../components/ledger-title';
 import { LedgerWrapper } from '../../components/ledger-wrapper';
+import { useLedgerRequestKeysContext } from '../../generic-flows/request-keys/ledger-request-keys.context';
 
 interface PossibleReasonUnableToConnectProps {
   text: string;
@@ -20,11 +21,11 @@ function PossibleReasonUnableToConnect(props: PossibleReasonUnableToConnectProps
   const { text } = props;
 
   return (
-    <Flex>
-      <Box mr="tight" mt="3px">
-        <FiCircle fill={color('text-caption')} size="4px" />
+    <Flex alignItems="center">
+      <Box mr="tight">
+        <FiCircle fill="accent.text-primary" size="4px" />
       </Box>
-      <Caption>{text}</Caption>
+      <styled.span textStyle="body.02">{text}</styled.span>
     </Flex>
   );
 }
@@ -36,15 +37,14 @@ interface ConnectLedgerErrorLayoutProps {
 }
 export function ConnectLedgerErrorLayout(props: ConnectLedgerErrorLayoutProps) {
   const { warningText, onTryAgain } = props;
+  const { chain } = useLedgerRequestKeysContext();
 
   return (
-    <LedgerWrapper>
+    <LedgerWrapper px="space.07">
       <Box mt="tight">
-        <img src={ConnectLedgerError} width="247px" />
+        <ConnectLedgerErr />
       </Box>
-      <LedgerTitle mt="45px" mx="50px">
-        We're unable to connect to your Ledger device
-      </LedgerTitle>
+      <LedgerTitle mt="space.07">We're unable to connect to your Ledger device</LedgerTitle>
       {warningText ? (
         <WarningLabel mt="base" px="extra-loose" fontSize="14px">
           {warningText}
@@ -54,36 +54,26 @@ export function ConnectLedgerErrorLayout(props: ConnectLedgerErrorLayoutProps) {
           Unable to connect
         </ErrorLabel>
       )}
-      <Stack
-        border="2px solid"
-        borderColor={color('border')}
-        borderRadius="12px"
-        my="loose"
-        mx="base"
-        spacing="base"
-        textAlign="left"
-        p="extra-loose"
-      >
+      <Stack borderRadius="12px" gap="space.01" textAlign="left" py="space.05">
         <PossibleReasonUnableToConnect text="Check if Ledger Live is open. Close it and try again" />
         <PossibleReasonUnableToConnect text="Ensure you only have one instance of Leather open" />
-        <PossibleReasonUnableToConnect text="Verify the Stacks app is installed and open" />
+        <PossibleReasonUnableToConnect
+          text={`Verify the ${capitalize(chain)} app is installed and open`}
+        />
         <PossibleReasonUnableToConnect text="Check you've approved the browser USB pop up" />
       </Stack>
-      <LeatherButton onClick={onTryAgain}>Try again</LeatherButton>
-      <Caption mt="loose">
+      <LeatherButton width="100%" onClick={onTryAgain}>
+        Try again
+      </LeatherButton>
+      <LCaption mt="loose">
         If the problem persists, check our{' '}
-        <Link
-          display="inline"
-          fontSize={1}
-          onClick={() =>
-            openInNewTab(
-              'https://leather.gitbook.io/guides/securing-the-wallet/using-ledger-with-leather'
-            )
-          }
+        <ExternalLink
+          textDecoration="underline"
+          href="https://leather.gitbook.io/guides/securing-the-wallet/using-ledger-with-leather"
         >
           Support Page
-        </Link>
-      </Caption>
+        </ExternalLink>
+      </LCaption>
     </LedgerWrapper>
   );
 }

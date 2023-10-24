@@ -13,7 +13,7 @@ import { getTaprootAddressIndexDerivationPath } from '@shared/crypto/bitcoin/p2t
 import { getNativeSegwitAddressIndexDerivationPath } from '@shared/crypto/bitcoin/p2wpkh-address-gen';
 import { AllowedSighashTypes } from '@shared/rpc/methods/sign-psbt';
 
-interface Signer<Payment> {
+export interface Signer<Payment> {
   network: BitcoinNetworkModes;
   payment: Payment;
   keychain: HDKey;

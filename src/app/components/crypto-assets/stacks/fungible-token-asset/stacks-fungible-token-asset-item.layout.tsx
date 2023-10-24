@@ -1,6 +1,6 @@
 import { BoxProps } from '@stacks/ui';
 import { forwardRefWithAs } from '@stacks/ui-core';
-import { Flex, HStack, styled } from 'leather-styles/jsx';
+import { Flex, styled } from 'leather-styles/jsx';
 
 import type { Money } from '@shared/models/money.model';
 
@@ -12,6 +12,7 @@ import { Flag } from '@app/components/layout/flag';
 import { Tooltip } from '@app/components/tooltip';
 
 import { AssetCaption } from '../../components/asset-caption';
+import { AssetRowGrid } from '../../components/asset-row-grid';
 
 interface StacksFungibleTokenAssetItemLayoutProps extends BoxProps {
   avatar: string;
@@ -45,32 +46,23 @@ export const StacksFungibleTokenAssetItemLayout = forwardRefWithAs(
               {title[0]}
             </StacksAssetAvatar>
           }
-          spacing="base"
+          spacing="space.04"
           width="100%"
         >
-          <HStack alignItems="center" justifyContent="space-between" width="100%">
-            <styled.span
-              maxWidth="150px"
-              overflow="hidden"
-              textAlign="left"
-              textOverflow="ellipsis"
-              textStyle="label.01"
-              whiteSpace="nowrap"
-            >
-              {title}
-            </styled.span>
-            <Tooltip
-              label={formattedBalance.isAbbreviated ? amount : undefined}
-              placement="left-start"
-            >
-              <styled.span data-testid={title} textStyle="label.01">
-                {formattedBalance.value}
-              </styled.span>
-            </Tooltip>
-          </HStack>
-          <HStack alignItems="center" justifyContent="space-between" height="1.25rem" width="100%">
-            <AssetCaption caption={caption} />
-          </HStack>
+          <AssetRowGrid
+            title={<styled.span textStyle="label.01">{title}</styled.span>}
+            balance={
+              <Tooltip
+                label={formattedBalance.isAbbreviated ? amount : undefined}
+                placement="left-start"
+              >
+                <styled.span data-testid={title} textStyle="label.01">
+                  {formattedBalance.value}
+                </styled.span>
+              </Tooltip>
+            }
+            caption={<AssetCaption caption={caption} />}
+          />
           {component}
         </Flag>
       </Flex>

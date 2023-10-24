@@ -1,15 +1,18 @@
 import React from 'react';
 
-import { BoxProps, Text, color } from '@stacks/ui';
+import { styled } from 'leather-styles/jsx';
 
-interface ExternalLinkProps extends BoxProps {
+const StyledA = styled('a');
+
+interface ExternalLinkProps extends React.ComponentProps<typeof StyledA> {
   href: string;
   children: React.ReactNode;
 }
-export function ExternalLink(props: ExternalLinkProps) {
+
+export function ExternalLink({ href, children, ...rest }: ExternalLinkProps) {
   return (
-    <Text as="a" color={color('accent')} target="_blank" {...props}>
-      {props.children}
-    </Text>
+    <styled.a target="_blank" cursor="pointer" href={href} {...rest}>
+      {children}
+    </styled.a>
   );
 }

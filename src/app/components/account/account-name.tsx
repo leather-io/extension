@@ -9,7 +9,7 @@ import { StacksAccount } from '@app/store/accounts/blockchain/stacks/stacks-acco
 interface AccountNameLayoutProps {
   children: React.ReactNode;
 }
-const AccountNameLayout = memo(({ children }: AccountNameLayoutProps) => (
+export const AccountNameLayout = memo(({ children }: AccountNameLayoutProps) => (
   <styled.p textStyle="label.01">{children}</styled.p>
 ));
 

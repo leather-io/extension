@@ -3,26 +3,32 @@ import { Virtuoso } from 'react-virtuoso';
 
 import { Box } from 'leather-styles/jsx';
 
-import { StacksAccount } from '@app/store/accounts/blockchain/stacks/stacks-account.models';
+import { useWalletType } from '@app/common/use-wallet-type';
 
 import { SwitchAccountListItem } from './switch-account-list-item';
 
 interface SwitchAccountListProps {
   handleClose: () => void;
-  accounts: StacksAccount[];
   currentAccountIndex: number;
+  addressesNum: number;
 }
 export const SwitchAccountList = memo(
-  ({ accounts, currentAccountIndex, handleClose }: SwitchAccountListProps) => {
+  ({ currentAccountIndex, handleClose, addressesNum }: SwitchAccountListProps) => {
+    const { whenWallet } = useWalletType();
+
     return (
       <Virtuoso
-        initialTopMostItemIndex={currentAccountIndex}
+        initialTopMostItemIndex={whenWallet({ ledger: 0, software: currentAccountIndex })}
         height="72px"
         style={{ paddingTop: '24px', height: '70vh' }}
-        totalCount={accounts.length}
+        totalCount={addressesNum}
         itemContent={index => (
-          <Box mx={['space.05', 'space.06']} key={accounts[index].address ?? index}>
-            <SwitchAccountListItem handleClose={handleClose} account={accounts[index]} />
+          <Box mx={['space.05', 'space.06']} key={index}>
+            <SwitchAccountListItem
+              handleClose={handleClose}
+              currentAccountIndex={currentAccountIndex}
+              index={index}
+            />
           </Box>
         )}
       />

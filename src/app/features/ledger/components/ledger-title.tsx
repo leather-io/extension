@@ -1,16 +1,15 @@
-import { BoxProps } from '@stacks/ui';
+import { BoxProps, styled } from 'leather-styles/jsx';
 
 import { SupportedBlockchains } from '@shared/constants';
 
 import { Capitalize } from '@app/components/text/capitalize';
-import { Title } from '@app/components/typography';
 
 export function LedgerTitle(props: BoxProps) {
   const { children, ...rest } = props;
   return (
-    <Title fontSize={3} lineHeight={1.4} {...rest}>
+    <styled.span textStyle="heading.05" {...rest}>
       {children}
-    </Title>
+    </styled.span>
   );
 }
 

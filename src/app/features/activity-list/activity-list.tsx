@@ -1,4 +1,5 @@
 import { useMemo } from 'react';
+import { Outlet } from 'react-router-dom';
 
 import uniqby from 'lodash.uniqby';
 
@@ -99,6 +100,7 @@ export function ActivityList() {
     return (
       <ActivityListTabWrapper padContent>
         <LoadingSpinner />
+        <Outlet />
       </ActivityListTabWrapper>
     );
 
@@ -106,25 +108,29 @@ export function ActivityList() {
     return (
       <ActivityListTabWrapper padContent>
         <NoAccountActivity />
+        <Outlet />
       </ActivityListTabWrapper>
     );
 
   return (
-    <ActivityListTabWrapper>
-      {hasSubmittedTransactions && <SubmittedTransactionList txs={submittedTransactions} />}
-      {hasPendingTransactions && (
-        <PendingTransactionList
-          bitcoinTxs={isBitcoinEnabled ? bitcoinPendingTxs : []}
-          stacksTxs={stacksPendingTransactions}
-        />
-      )}
-      {hasTransactions && (
-        <TransactionList
-          bitcoinTxs={isBitcoinEnabled ? transactionListBitcoinTxs : []}
-          stacksTxs={transactionListStacksTxs}
-          currentBitcoinAddress={nsBitcoinAddress}
-        />
-      )}
-    </ActivityListTabWrapper>
+    <>
+      <ActivityListTabWrapper>
+        {hasSubmittedTransactions && <SubmittedTransactionList txs={submittedTransactions} />}
+        {hasPendingTransactions && (
+          <PendingTransactionList
+            bitcoinTxs={isBitcoinEnabled ? bitcoinPendingTxs : []}
+            stacksTxs={stacksPendingTransactions}
+          />
+        )}
+        {hasTransactions && (
+          <TransactionList
+            bitcoinTxs={isBitcoinEnabled ? transactionListBitcoinTxs : []}
+            stacksTxs={transactionListStacksTxs}
+            currentBitcoinAddress={nsBitcoinAddress}
+          />
+        )}
+      </ActivityListTabWrapper>
+      <Outlet />
+    </>
   );
 }

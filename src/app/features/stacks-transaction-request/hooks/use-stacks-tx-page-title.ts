@@ -4,7 +4,7 @@ import { TransactionTypes } from '@stacks/connect';
 
 import { useTransactionRequestState } from '@app/store/transactions/requests.hooks';
 
-export function usePageTitle(): string {
+export function useStacksTxPageTitle() {
   const transactionRequest = useTransactionRequestState();
   const txType = transactionRequest?.txType;
   return useMemo(() => {

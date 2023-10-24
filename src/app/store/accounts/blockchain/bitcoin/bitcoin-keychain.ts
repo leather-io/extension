@@ -36,9 +36,9 @@ export function bitcoinAccountBuilderFactory(
     selectCurrentKey,
     selectRootKeychain,
     selectDefaultWalletBitcoinKeyEntities,
-    (currentKey, rootKeychain, bitcoinLedgerKeys) => {
+    (_, rootKeychain, bitcoinLedgerKeys) => {
       // Mocking types so it's always an object of fns
-      if (currentKey?.type === 'ledger') {
+      if (Object.keys(bitcoinLedgerKeys).length > 0 || !rootKeychain) {
         return {
           mainnet: ledgerKeychainLookupFn(bitcoinLedgerKeys, 'mainnet'),
           testnet: ledgerKeychainLookupFn(bitcoinLedgerKeys, 'testnet'),
@@ -46,7 +46,6 @@ export function bitcoinAccountBuilderFactory(
           regtest: ledgerKeychainLookupFn(bitcoinLedgerKeys, 'regtest'),
         };
       }
-      if (!rootKeychain) throw new Error('No in-memory key found');
       return {
         mainnet: softwareKeychainDerivationFn(rootKeychain, 'mainnet'),
         testnet: softwareKeychainDerivationFn(rootKeychain, 'testnet'),

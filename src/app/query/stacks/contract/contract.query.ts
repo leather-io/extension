@@ -23,7 +23,7 @@ export function useGetContractInterface(transactionRequest: ContractCallPayload 
   }
 
   return useQuery({
-    enabled: !!transactionRequest,
+    enabled: transactionRequest?.txType === TransactionTypes.ContractCall && !!transactionRequest,
     queryKey: [
       'contract-interface',
       transactionRequest?.contractName,

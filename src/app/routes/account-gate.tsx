@@ -3,6 +3,7 @@ import { Navigate } from 'react-router-dom';
 
 import { RouteUrls } from '@shared/route-urls';
 
+import { useHasBitcoinLedgerKeychain } from '@app/store/accounts/blockchain/bitcoin/bitcoin.ledger';
 import { useDefaultWalletSecretKey } from '@app/store/in-memory-key/in-memory-key.selectors';
 import { useCurrentKeyDetails } from '@app/store/keys/key.selectors';
 
@@ -20,11 +21,8 @@ interface AccountGateProps {
 export function AccountGate({ children }: AccountGateProps) {
   const currentKeyDetails = useCurrentKeyDetails();
   const currentInMemorySecretKey = useDefaultWalletSecretKey();
-
-  // console.log('currentKeyDetails', currentKeyDetails);
-  // console.log('currentInMemorySecretKey', currentInMemorySecretKey);
-
-  if (currentKeyDetails?.type === 'ledger') return <>{children}</>;
+  const hasBitcoinKeychain = useHasBitcoinLedgerKeychain();
+  if (currentKeyDetails?.type === 'ledger' || hasBitcoinKeychain) return <>{children}</>;
 
   if (shouldNavigateToOnboardingStartPage(currentKeyDetails))
     return <Navigate to={RouteUrls.Onboarding} />;

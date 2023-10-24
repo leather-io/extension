@@ -5,6 +5,13 @@ import get from 'lodash.get';
 
 import { isUndefined } from '@shared/utils';
 
+type LocationState = string | undefined | number | Location;
+
+export function useLocationState<T extends LocationState>(propName: string): T;
+export function useLocationState<T extends LocationState>(
+  propName: string,
+  defaultValue: string
+): T;
 export function useLocationState(propName: string): string | undefined;
 export function useLocationState(propName: string, defaultValue: string): string;
 export function useLocationState(propName: string, defaultValue?: string) {

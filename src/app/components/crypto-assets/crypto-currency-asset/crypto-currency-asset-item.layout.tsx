@@ -2,7 +2,7 @@ import { Flex, StackProps } from '@stacks/ui';
 import { forwardRefWithAs } from '@stacks/ui-core';
 import { truncateMiddle } from '@stacks/ui-utils';
 import { CryptoAssetSelectors } from '@tests/selectors/crypto-asset.selectors';
-import { HStack, styled } from 'leather-styles/jsx';
+import { styled } from 'leather-styles/jsx';
 
 import { CryptoCurrencies } from '@shared/models/currencies.model';
 import { Money } from '@shared/models/money.model';
@@ -13,11 +13,13 @@ import { usePressable } from '@app/components/item-hover';
 import { Flag } from '@app/components/layout/flag';
 import { Tooltip } from '@app/components/tooltip';
 
+import { AssetRowGrid } from '../components/asset-row-grid';
+
 interface CryptoCurrencyAssetItemLayoutProps extends StackProps {
   balance: Money;
   caption: string;
-  icon: React.JSX.Element;
-  copyIcon?: React.JSX.Element;
+  icon: React.ReactNode;
+  copyIcon?: React.ReactNode;
   isPressable?: boolean;
   title: string;
   usdBalance?: string;
@@ -25,8 +27,9 @@ interface CryptoCurrencyAssetItemLayoutProps extends StackProps {
   canCopy?: boolean;
   isHovered?: boolean;
   currency?: CryptoCurrencies;
-  additionalBalanceInfo?: React.JSX.Element;
-  additionalUsdBalanceInfo?: React.JSX.Element;
+  additionalBalanceInfo?: React.ReactNode;
+  additionalUsdBalanceInfo?: React.ReactNode;
+  rightElement?: React.ReactNode;
 }
 export const CryptoCurrencyAssetItemLayout = forwardRefWithAs(
   (props: CryptoCurrencyAssetItemLayoutProps, ref) => {
@@ -42,6 +45,7 @@ export const CryptoCurrencyAssetItemLayout = forwardRefWithAs(
       isHovered = false,
       additionalBalanceInfo,
       additionalUsdBalanceInfo,
+      rightElement,
       ...rest
     } = props;
     const [component, bind] = usePressable(isPressable);
@@ -67,31 +71,36 @@ export const CryptoCurrencyAssetItemLayout = forwardRefWithAs(
         <Flag
           align="middle"
           img={isHovered && copyIcon ? copyIcon : icon}
-          spacing="base"
+          spacing="space.04"
           width="100%"
         >
-          <HStack alignItems="center" justifyContent="space-between" width="100%">
-            <styled.span textStyle="label.01">
-              {isHovered ? truncateMiddle(address, 6) : title}
-            </styled.span>
-            <Tooltip
-              label={formattedBalance.isAbbreviated ? balance.amount.toString() : undefined}
-              placement="left-start"
-            >
-              <styled.span data-testid={title} textStyle="label.01">
-                {formattedBalance.value} {additionalBalanceInfo}
+          <AssetRowGrid
+            title={
+              <styled.span textStyle="label.01">
+                {isHovered ? truncateMiddle(address, 6) : title}
               </styled.span>
-            </Tooltip>
-          </HStack>
-          <HStack alignItems="center" justifyContent="space-between" height="1.25rem" width="100%">
-            <styled.span textStyle="caption.02">{caption}</styled.span>
-            <Flex>
-              {balance.amount.toNumber() > 0 && address ? (
-                <styled.span textStyle="caption.02">{usdBalance}</styled.span>
-              ) : null}
-              {additionalUsdBalanceInfo}
-            </Flex>
-          </HStack>
+            }
+            balance={
+              <Tooltip
+                label={formattedBalance.isAbbreviated ? balance.amount.toString() : undefined}
+                placement="left-start"
+              >
+                <styled.span data-testid={title} textStyle="label.01">
+                  {formattedBalance.value} {additionalBalanceInfo}
+                </styled.span>
+              </Tooltip>
+            }
+            caption={<styled.span textStyle="caption.02">{caption}</styled.span>}
+            usdBalance={
+              <Flex justifyContent="flex-end">
+                {balance.amount.toNumber() > 0 && address ? (
+                  <styled.span textStyle="caption.02">{usdBalance}</styled.span>
+                ) : null}
+                {additionalUsdBalanceInfo}
+              </Flex>
+            }
+            rightElement={rightElement}
+          />
         </Flag>
         {component}
       </Flex>

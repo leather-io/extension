@@ -102,10 +102,10 @@ const ledgerAccountsState = atom<HardwareStacksAccount[] | undefined>(get => {
   });
 });
 
-export const stacksAccountState = atom<StacksAccount[] | undefined>(get => {
+export const stacksAccountState = atom<StacksAccount[]>(get => {
   const ledgerAccounts = get(ledgerAccountsState);
   const softwareAccounts = get(softwareAccountsState);
-  return ledgerAccounts ?? softwareAccounts;
+  return ledgerAccounts ?? softwareAccounts ?? [];
 });
 
 /**

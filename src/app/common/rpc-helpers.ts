@@ -3,6 +3,7 @@ import { useMemo } from 'react';
 import { RpcErrorCode } from '@btckit/types';
 
 import { WalletMethodMap, makeRpcErrorResponse } from '@shared/rpc/rpc-methods';
+import { closeWindow } from '@shared/utils';
 
 import { useDefaultRequestParams } from './hooks/use-default-request-search-params';
 import { initialSearchParams } from './initial-search-params';
@@ -33,5 +34,5 @@ export function useRejectIfLedgerWallet(request: keyof WalletMethodMap) {
       },
     })
   );
-  window.close();
+  closeWindow();
 }

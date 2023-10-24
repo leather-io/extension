@@ -1,21 +1,20 @@
 import { memo } from 'react';
 
-import { Stack } from '@stacks/ui';
 import { TransactionRequestSelectors } from '@tests/selectors/requests.selectors';
-import { styled } from 'leather-styles/jsx';
+import { Stack, styled } from 'leather-styles/jsx';
 
 import { useDefaultRequestParams } from '@app/common/hooks/use-default-request-search-params';
 import { addPortSuffix, getUrlHostname } from '@app/common/utils';
 import { Favicon } from '@app/components/favicon';
 import { Flag } from '@app/components/layout/flag';
-import { usePageTitle } from '@app/features/stacks-transaction-request/hooks/use-page-title';
+import { useStacksTxPageTitle } from '@app/features/stacks-transaction-request/hooks/use-stacks-tx-page-title';
 import { useCurrentNetworkState } from '@app/store/networks/networks.hooks';
 import { useTransactionRequestState } from '@app/store/transactions/requests.hooks';
 
 function PageTopBase() {
   const transactionRequest = useTransactionRequestState();
   const { origin } = useDefaultRequestParams();
-  const pageTitle = usePageTitle();
+  const pageTitle = useStacksTxPageTitle();
   const { isTestnet, chain } = useCurrentNetworkState();
 
   if (!transactionRequest) return null;
@@ -31,7 +30,7 @@ function PageTopBase() {
     <Stack
       data-testid={TransactionRequestSelectors.TransactionRequestPage}
       mb="loose"
-      spacing="base"
+      gap="space.04"
       width="100%"
     >
       <styled.h1 mb="space.04" textStyle="heading.03">

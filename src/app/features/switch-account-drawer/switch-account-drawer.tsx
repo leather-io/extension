@@ -5,6 +5,7 @@ import { Box } from '@stacks/ui';
 import { useCreateAccount } from '@app/common/hooks/account/use-create-account';
 import { useWalletType } from '@app/common/use-wallet-type';
 import { ControlledDrawer } from '@app/components/drawer/controlled-drawer';
+import { store } from '@app/store';
 import { useCurrentAccountIndex } from '@app/store/accounts/account';
 import { useStacksAccounts } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
 import { useShowSwitchAccountsState } from '@app/store/ui/ui.hooks';
@@ -15,10 +16,14 @@ import { SwitchAccountList } from './components/switch-account-list';
 
 export const SwitchAccountDrawer = memo(() => {
   const [isShowing, setShowSwitchAccountsState] = useShowSwitchAccountsState();
-  const accounts = useStacksAccounts();
+
   const currentAccountIndex = useCurrentAccountIndex();
   const createAccount = useCreateAccount();
   const { whenWallet } = useWalletType();
+
+  const stacksAccounts = useStacksAccounts();
+  const btcAddressesNum = Object.keys(store.getState().ledger.bitcoin.entities).length / 2;
+  const stacksAddressesNum = stacksAccounts.length;
 
   const onClose = () => setShowSwitchAccountsState(false);
 
@@ -27,21 +32,17 @@ export const SwitchAccountDrawer = memo(() => {
     setShowSwitchAccountsState(false);
   };
 
-  if (isShowing && !accounts) {
+  if (isShowing && stacksAddressesNum === 0 && btcAddressesNum === 0) {
     return <AccountListUnavailable />;
   }
 
-  return isShowing && accounts ? (
+  return isShowing ? (
     <ControlledDrawer title="Select account" isShowing={isShowing} onClose={onClose}>
-      <Box
-        mb={whenWallet({ ledger: 'base', software: '' })}
-        height={['100vh', '100%']}
-        maxHeight={['110vh', 'inherit']}
-      >
+      <Box mb={whenWallet({ ledger: 'base', software: '' })}>
         <SwitchAccountList
-          accounts={accounts}
           currentAccountIndex={currentAccountIndex}
           handleClose={onClose}
+          addressesNum={stacksAddressesNum || btcAddressesNum}
         />
         {whenWallet({
           software: <CreateAccountAction onCreateAccount={onCreateAccount} />,

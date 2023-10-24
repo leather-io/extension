@@ -1,3 +1,5 @@
+import { closeWindow } from '@shared/utils';
+
 import { GetAddressesLayout } from './components/get-addresses.layout';
 import { useGetAddresses } from './use-request-accounts';
 
@@ -5,7 +7,7 @@ export function RpcGetAddresses() {
   const { origin, onUserApproveGetAddresses } = useGetAddresses();
 
   if (origin === null) {
-    window.close();
+    closeWindow();
     throw new Error('Origin is null');
   }
 
