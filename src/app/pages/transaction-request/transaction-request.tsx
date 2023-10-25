@@ -106,14 +106,6 @@ function TransactionRequestBase() {
 
   return (
     <Flex alignItems="center" flexDirection="column" p="loose" width="100%">
-      <PageTop />
-      <RequestingTabClosedWarningMessage />
-      <PostConditionModeWarning />
-      <TransactionError />
-      <PostConditions />
-      {transactionRequest.txType === 'contract_call' && <ContractCallDetails />}
-      {transactionRequest.txType === 'token_transfer' && <StxTransferDetails />}
-      {transactionRequest.txType === 'smart_contract' && <ContractDeployDetails />}
       <Formik
         initialValues={initialValues}
         onSubmit={onSubmit}
@@ -124,6 +116,15 @@ function TransactionRequestBase() {
       >
         {() => (
           <>
+            <PageTop />
+            <RequestingTabClosedWarningMessage />
+            <PostConditionModeWarning />
+            <TransactionError />
+            <PostConditions />
+            {transactionRequest.txType === 'contract_call' && <ContractCallDetails />}
+            {transactionRequest.txType === 'token_transfer' && <StxTransferDetails />}
+            {transactionRequest.txType === 'smart_contract' && <ContractDeployDetails />}
+
             <NonceSetter />
             <FeeForm fees={stxFees} />
             <EditNonceButton

@@ -93,14 +93,6 @@ export function StacksTransactionSigner({
 
   return (
     <Flex alignItems="center" flexDirection="column" p="loose" width="100%">
-      <PageTop />
-      <RequestingTabClosedWarningMessage />
-      <PostConditionModeWarning />
-      <TransactionError />
-      <PostConditions />
-      {transactionRequest.txType === 'contract_call' && <ContractCallDetails />}
-      {transactionRequest.txType === 'token_transfer' && <StxTransferDetails />}
-      {transactionRequest.txType === 'smart_contract' && <ContractDeployDetails />}
       <Formik
         initialValues={initialValues}
         onSubmit={onSubmit}
@@ -111,6 +103,15 @@ export function StacksTransactionSigner({
       >
         {() => (
           <>
+            <PageTop />
+            <RequestingTabClosedWarningMessage />
+            <PostConditionModeWarning />
+            <TransactionError />
+            <PostConditions />
+            {transactionRequest.txType === 'contract_call' && <ContractCallDetails />}
+            {transactionRequest.txType === 'token_transfer' && <StxTransferDetails />}
+            {transactionRequest.txType === 'smart_contract' && <ContractDeployDetails />}
+
             {!isNonceAlreadySet && <NonceSetter />}
             <FeeForm
               fees={stxFees}
