@@ -10,7 +10,7 @@ import { closeWindow } from '@shared/utils';
 
 import { useDefaultRequestParams } from '@app/common/hooks/use-default-request-search-params';
 import { useRejectIfLedgerWallet } from '@app/common/rpc-helpers';
-import { useSignTransactionSoftwareWallet } from '@app/store/transactions/transaction.hooks';
+import { useSignStacksTransaction } from '@app/store/transactions/transaction.hooks';
 
 function useRpcSignStacksTransactionParams() {
   useRejectIfLedgerWallet('stx_signTransaction');
@@ -38,7 +38,7 @@ function useRpcSignStacksTransactionParams() {
 export function useRpcSignStacksTransaction() {
   const { origin, requestId, tabId, stacksTransaction, isMultisig } =
     useRpcSignStacksTransactionParams();
-  const signSoftwareWalletTx = useSignTransactionSoftwareWallet();
+  const signStacksTx = useSignStacksTransaction();
   const wasSignedByOtherOwners =
     isMultisig &&
     (stacksTransaction.auth.spendingCondition as MultiSigSpendingCondition).fields?.length > 0;
@@ -49,11 +49,11 @@ export function useRpcSignStacksTransaction() {
     disableNonceSelection: wasSignedByOtherOwners,
     stacksTransaction,
     isMultisig,
-    onSignStacksTransaction(fee: number, nonce: number) {
+    async onSignStacksTransaction(fee: number, nonce: number) {
       stacksTransaction.setFee(fee);
       stacksTransaction.setNonce(nonce);
 
-      const signedTransaction = signSoftwareWalletTx(stacksTransaction);
+      const signedTransaction = await signStacksTx(stacksTransaction);
       if (!signedTransaction) {
         throw new Error('Error signing stacks transaction');
       }
