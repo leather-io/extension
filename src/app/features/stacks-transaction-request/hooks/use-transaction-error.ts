@@ -2,10 +2,13 @@ import { useMemo } from 'react';
 
 import { ContractCallPayload, TransactionTypes } from '@stacks/connect';
 import BigNumber from 'bignumber.js';
+import { useFormikContext } from 'formik';
+
+import { StacksTransactionFormValues } from '@shared/models/form.model';
 
 import { useDefaultRequestParams } from '@app/common/hooks/use-default-request-search-params';
 import { initialSearchParams } from '@app/common/initial-search-params';
-import { microStxToStx } from '@app/common/money/unit-conversion';
+import { stxToMicroStx } from '@app/common/money/unit-conversion';
 import { validateStacksAddress } from '@app/common/stacks-utils';
 import { TransactionErrorReason } from '@app/features/stacks-transaction-request/transaction-error/transaction-error';
 import { useCurrentStacksAccountAnchoredBalances } from '@app/query/stacks/balance/stx-balance.hooks';
@@ -21,6 +24,7 @@ export function useTransactionError() {
   const transactionRequest = useTransactionRequestState();
   const contractInterface = useContractInterface(transactionRequest as ContractCallPayload);
   const { origin } = useDefaultRequestParams();
+  const { values } = useFormikContext<StacksTransactionFormValues>();
 
   const currentAccount = useCurrentStacksAccount();
   const { data: balances } = useCurrentStacksAccountAnchoredBalances();
@@ -52,13 +56,11 @@ export function useTransactionError() {
       if (!transactionRequest.sponsored) {
         if (zeroBalance) return TransactionErrorReason.FeeInsufficientFunds;
 
-        if (transactionRequest.fee) {
-          const feeValue = microStxToStx(transactionRequest.fee);
-          if (feeValue.gte(balances?.stx.unlockedStx.amount))
-            return TransactionErrorReason.FeeInsufficientFunds;
-        }
+        const feeValue = stxToMicroStx(values.fee);
+        if (feeValue.gte(balances?.stx.unlockedStx.amount))
+          return TransactionErrorReason.FeeInsufficientFunds;
       }
     }
     return;
-  }, [contractInterface, balances, currentAccount, transactionRequest, origin]);
+  }, [origin, transactionRequest, balances, currentAccount, contractInterface, values.fee]);
 }
