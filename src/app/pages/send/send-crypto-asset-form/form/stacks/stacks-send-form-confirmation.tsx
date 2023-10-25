@@ -1,11 +1,11 @@
 import { FiInfo } from 'react-icons/fi';
-import { useLocation, useParams } from 'react-router-dom';
+import { Outlet, useNavigate, useParams } from 'react-router-dom';
 
 import { Box, Stack, Tooltip, color } from '@stacks/ui';
-import get from 'lodash.get';
 
 import { CryptoCurrencies } from '@shared/models/currencies.model';
 
+import { useLocationStateWithCache } from '@app/common/hooks/use-location-state';
 import { useRouteHeader } from '@app/common/hooks/use-route-header';
 import { ModalHeader } from '@app/components/modal-header';
 
@@ -14,17 +14,17 @@ import { useStacksTransactionSummary } from '../../family/stacks/hooks/use-stack
 import { SendFormConfirmation } from '../send-form-confirmation';
 
 function useStacksSendFormConfirmationState() {
-  const location = useLocation();
   return {
-    tx: get(location.state, 'tx') as string,
-    decimals: get(location.state, 'decimals') as number,
-    showFeeChangeWarning: get(location.state, 'showFeeChangeWarning') as boolean,
+    tx: useLocationStateWithCache('tx') as string,
+    decimals: useLocationStateWithCache('decimals') as number,
+    showFeeChangeWarning: useLocationStateWithCache('showFeeChangeWarning') as boolean,
   };
 }
 
 export function StacksSendFormConfirmation() {
   const { tx, decimals, showFeeChangeWarning } = useStacksSendFormConfirmationState();
   const { symbol = 'STX' } = useParams();
+  const navigate = useNavigate();
 
   const { stacksDeserializedTransaction, stacksBroadcastTransaction, isBroadcasting } =
     useStacksBroadcastTransaction(tx, symbol.toUpperCase() as CryptoCurrencies, decimals);
@@ -45,7 +45,14 @@ export function StacksSendFormConfirmation() {
     memoDisplayText,
   } = formReviewTxSummary(stacksDeserializedTransaction, symbol, decimals);
 
-  useRouteHeader(<ModalHeader hideActions defaultClose defaultGoBack title="Review" />);
+  useRouteHeader(
+    <ModalHeader
+      hideActions
+      defaultClose
+      onGoBack={() => navigate('../', { relative: 'path' })}
+      title="Review"
+    />
+  );
 
   const feeWarningTooltip = showFeeChangeWarning ? (
     <Tooltip
@@ -67,21 +74,24 @@ export function StacksSendFormConfirmation() {
   ) : null;
 
   return (
-    <SendFormConfirmation
-      txValue={txValue}
-      txFiatValue={txFiatValue}
-      txFiatValueSymbol={txFiatValueSymbol}
-      recipient={recipient}
-      fee={fee}
-      totalSpend={totalSpend}
-      sendingValue={sendingValue}
-      arrivesIn={arrivesIn}
-      nonce={nonce}
-      memoDisplayText={memoDisplayText}
-      symbol={symbol.toUpperCase()}
-      isLoading={isBroadcasting}
-      feeWarningTooltip={feeWarningTooltip}
-      onBroadcastTransaction={() => stacksBroadcastTransaction(stacksDeserializedTransaction)}
-    />
+    <>
+      <Outlet />
+      <SendFormConfirmation
+        txValue={txValue}
+        txFiatValue={txFiatValue}
+        txFiatValueSymbol={txFiatValueSymbol}
+        recipient={recipient}
+        fee={fee}
+        totalSpend={totalSpend}
+        sendingValue={sendingValue}
+        arrivesIn={arrivesIn}
+        nonce={nonce}
+        memoDisplayText={memoDisplayText}
+        symbol={symbol.toUpperCase()}
+        isLoading={isBroadcasting}
+        feeWarningTooltip={feeWarningTooltip}
+        onBroadcastTransaction={() => stacksBroadcastTransaction(stacksDeserializedTransaction)}
+      />
+    </>
   );
 }
