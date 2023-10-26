@@ -15,7 +15,7 @@ export function PsbtAddressTransferTotals({ showNativeSegwitTotal }: PsbtAddress
     usePsbtSignerContext();
   const calculateBitcoinFiatValue = useCalculateBitcoinFiatValue();
 
-  const isTransferringInscriptions = accountInscriptionsBeingTransferred?.length;
+  const isTransferringInscriptions = accountInscriptionsBeingTransferred?.length > 0;
 
   return (
     <>

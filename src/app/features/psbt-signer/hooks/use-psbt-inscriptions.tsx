@@ -22,24 +22,33 @@ export function usePsbtInscriptions(psbtInputs: PsbtInput[], psbtOutputs: PsbtOu
     [psbtInputs, psbtOutputs]
   );
 
-  return useMemo(
-    () => ({
-      accountInscriptionsBeingTransferred: psbtInputs
-        .filter(
-          input =>
-            input.address === bitcoinAddressNativeSegwit || input.address === bitcoinAddressTaproot
-        )
-        .map(input => input.inscription)
-        .filter(isDefined),
-      accountInscriptionsBeingReceived: outputsReceivingInscriptions
-        .filter(
-          outputWithInscription =>
-            outputWithInscription.address === bitcoinAddressNativeSegwit ||
-            outputWithInscription.address === bitcoinAddressTaproot
-        )
-        .map(input => input.inscription)
-        .filter(isDefined),
-    }),
-    [bitcoinAddressNativeSegwit, bitcoinAddressTaproot, outputsReceivingInscriptions, psbtInputs]
-  );
+  return useMemo(() => {
+    const accountInscriptionsBeingTransferred = psbtInputs
+      .filter(
+        input =>
+          input.address === bitcoinAddressNativeSegwit || input.address === bitcoinAddressTaproot
+      )
+      .map(input => input.inscription)
+      .filter(isDefined);
+
+    const accountInscriptionsBeingReceived = outputsReceivingInscriptions
+      .filter(
+        outputWithInscription =>
+          outputWithInscription.address === bitcoinAddressNativeSegwit ||
+          outputWithInscription.address === bitcoinAddressTaproot
+      )
+      .map(input => input.inscription)
+      .filter(
+        inscription =>
+          !accountInscriptionsBeingTransferred.find(
+            transferInscription => inscription.id === transferInscription.id
+          )
+      )
+      .filter(isDefined);
+
+    return {
+      accountInscriptionsBeingTransferred,
+      accountInscriptionsBeingReceived,
+    };
+  }, [bitcoinAddressNativeSegwit, bitcoinAddressTaproot, outputsReceivingInscriptions, psbtInputs]);
 }
