@@ -71,7 +71,10 @@ export function SwapAmountField({ amountAsFiat, isDisabled, name }: SwapAmountFi
         textStyle="heading.05"
         width="100%"
         {...field}
-        onBlur={onBlur}
+        onBlur={async e => {
+          field.onBlur(e);
+          await onBlur(e);
+        }}
       />
       {amountAsFiat ? (
         <styled.span color={showError ? 'error' : 'accent.text-subdued'} textStyle="caption.02">

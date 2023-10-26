@@ -19,10 +19,10 @@ function RouteNames(props: { swapSubmissionData: SwapSubmissionData }) {
   return props.swapSubmissionData.router.map((route, i) => {
     const insertIcon = isDefined(props.swapSubmissionData.router[i + 1]);
     return (
-      <>
+      <HStack gap="space.01" key={route.name}>
         <styled.span>{route.name}</styled.span>
         {insertIcon && <ChevronUpIcon transform="rotate(90)" />}
-      </>
+      </HStack>
     );
   });
 }
