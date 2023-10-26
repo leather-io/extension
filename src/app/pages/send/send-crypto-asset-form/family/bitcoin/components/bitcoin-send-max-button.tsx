@@ -46,7 +46,6 @@ export function BitcoinSendMaxButton({
     >
       <Box>
         <LeatherButton
-          type="button"
           data-testid={SendCryptoAssetSelectors.SendMaxBtn}
           onClick={() => onSendMax()}
           variant="link"

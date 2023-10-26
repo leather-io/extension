@@ -60,7 +60,7 @@ export function SwapSelectedAssetLayout({
       </HStack>
       <SelectedAssetField
         contentLeft={
-          <LeatherButton onClick={onChooseAsset} p="space.02" type="button" variant="ghost">
+          <LeatherButton onClick={onChooseAsset} p="space.02" variant="ghost">
             <HStack>
               {icon && <styled.img src={icon} width="32px" height="32px" alt="Swap asset" />}
               <styled.span textStyle="label.01">{symbol}</styled.span>
@@ -87,7 +87,6 @@ export function SwapSelectedAssetLayout({
             _focus={{ _before: { color: 'unset' } }}
             cursor={onClickHandler ? 'pointer' : 'unset'}
             onClick={onClickHandler ? onClickHandler : noop}
-            type="button"
             variant={onClickHandler ? 'link' : 'text'}
           >
             <styled.span textStyle="caption.02">{value}</styled.span>
