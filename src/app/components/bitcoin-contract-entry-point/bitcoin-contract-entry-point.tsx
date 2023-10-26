@@ -44,11 +44,11 @@ export function BitcoinContractEntryPoint({ btcAddress }: BitcoinContractEntryPo
   return (
     <BitcoinContractEntryPointLayout
       isLoading={isLoading}
-      cursor={'pointer'}
       balance={bitcoinContractSum}
       caption={bitcoinContractSum.symbol}
       icon={<Box as={BitcoinContractIcon} />}
       usdBalance={i18nFormatCurrency(calculateFiatValue(bitcoinContractSum))}
+      cursor={'pointer'}
       onClick={onClick}
     />
   );
