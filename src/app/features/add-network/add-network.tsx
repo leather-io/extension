@@ -178,6 +178,7 @@ export function AddNetwork() {
                 disabled={loading}
                 aria-busy={loading}
                 data-testid={NetworkSelectors.BtnAddNetwork}
+                type="submit"
               >
                 Add network
               </LeatherButton>

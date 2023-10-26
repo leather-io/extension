@@ -15,6 +15,7 @@ export function PreviewButton({ text = 'Continue', isDisabled, ...props }: Previ
       data-testid={SendCryptoAssetSelectors.PreviewSendTxBtn}
       disabled={isDisabled}
       onClick={() => handleSubmit()}
+      type="submit"
       {...props}
     >
       {text}

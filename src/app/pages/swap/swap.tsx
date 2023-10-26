@@ -36,7 +36,11 @@ export function Swap() {
         <SwapSelectedAssets />
       </SwapContentLayout>
       <SwapFooterLayout>
-        <LeatherButton disabled={!(dirty && isValid) || isFetchingExchangeRate} width="100%">
+        <LeatherButton
+          disabled={!(dirty && isValid) || isFetchingExchangeRate}
+          type="submit"
+          width="100%"
+        >
           Review and swap
         </LeatherButton>
       </SwapFooterLayout>
