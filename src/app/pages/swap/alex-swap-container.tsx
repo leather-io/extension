@@ -21,10 +21,11 @@ import { defaultFeesMinValues } from '@app/query/stacks/fees/fees.hooks';
 import { useStacksPendingTransactions } from '@app/query/stacks/mempool/mempool.hooks';
 import { useCurrentStacksAccount } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
 import { useGenerateStacksContractCallUnsignedTx } from '@app/store/transactions/contract-call.hooks';
-import { useSignTransactionSoftwareWallet } from '@app/store/transactions/transaction.hooks';
+import { useSignStacksTransaction } from '@app/store/transactions/transaction.hooks';
 
 import { SwapContainerLayout } from './components/swap-container.layout';
 import { SwapForm } from './components/swap-form';
+import { generateSwapRoutes } from './generate-swap-routes';
 import { useAlexBroadcastSwap } from './hooks/use-alex-broadcast-swap';
 import { oneHundredMillion, useAlexSwap } from './hooks/use-alex-swap';
 import { useStacksBroadcastSwap } from './hooks/use-stacks-broadcast-swap';
@@ -32,13 +33,15 @@ import { SwapAsset, SwapFormValues } from './hooks/use-swap-form';
 import { SwapContext, SwapProvider } from './swap.context';
 import { migratePositiveBalancesToTop, sortSwappableAssetsBySymbol } from './swap.utils';
 
-export function SwapContainer() {
+export const alexSwapRoutes = generateSwapRoutes(<AlexSwapContainer />);
+
+function AlexSwapContainer() {
   const [isSendingMax, setIsSendingMax] = useState(false);
   const navigate = useNavigate();
   const { setIsLoading } = useLoading(LoadingKeys.SUBMIT_SWAP_TRANSACTION);
   const currentAccount = useCurrentStacksAccount();
   const generateUnsignedTx = useGenerateStacksContractCallUnsignedTx();
-  const signSoftwareWalletTx = useSignTransactionSoftwareWallet();
+  const signTx = useSignStacksTransaction();
   const { transactions: pendingTransactions } = useStacksPendingTransactions();
 
   const isSponsoredByAlex = !pendingTransactions.length;
@@ -125,7 +128,7 @@ export function SwapContainer() {
     const minToAmount = BigInt(
       new BigNumber(swapSubmissionData.swapAmountTo)
         .multipliedBy(oneHundredMillion)
-        .multipliedBy(1 - slippage)
+        .multipliedBy(new BigNumber(1).minus(slippage))
         .dp(0)
         .toString()
     );
@@ -163,14 +166,17 @@ export function SwapContainer() {
     const unsignedTx = await generateUnsignedTx(payload, tempFormValues);
     if (!unsignedTx) return logger.error('Attempted to generate unsigned tx, but tx is undefined');
 
-    const signedTx = signSoftwareWalletTx(unsignedTx);
-    if (!signedTx) return logger.error('Attempted to generate raw tx, but signed tx is undefined');
-    const txRaw = bytesToHex(signedTx.serialize());
+    try {
+      const signedTx = await signTx(unsignedTx);
+      if (!signedTx)
+        return logger.error('Attempted to generate raw tx, but signed tx is undefined');
+      const txRaw = bytesToHex(signedTx.serialize());
 
-    if (isSponsoredByAlex) {
-      return await broadcastAlexSwap(txRaw);
-    }
-    return await broadcastStacksSwap(unsignedTx);
+      if (isSponsoredByAlex) {
+        return await broadcastAlexSwap(txRaw);
+      }
+      return await broadcastStacksSwap(unsignedTx);
+    } catch (error) {}
   }
 
   const swapContextValue: SwapContext = {

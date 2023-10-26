@@ -1,3 +1,5 @@
+import { Outlet } from 'react-router-dom';
+
 import { LoadingKeys, useLoading } from '@app/common/hooks/use-loading';
 import { useRouteHeader } from '@app/common/hooks/use-route-header';
 import { LeatherButton } from '@app/components/button/button';
@@ -17,16 +19,19 @@ export function SwapReview() {
   useRouteHeader(<ModalHeader defaultGoBack hideActions title="Review" />, true);
 
   return (
-    <SwapReviewLayout>
-      <SwapContentLayout>
-        <SwapAssetsPair />
-        <SwapDetails />
-      </SwapContentLayout>
-      <SwapFooterLayout>
-        <LeatherButton aria-busy={isLoading} onClick={onSubmitSwap} width="100%">
-          Swap
-        </LeatherButton>
-      </SwapFooterLayout>
-    </SwapReviewLayout>
+    <>
+      <SwapReviewLayout>
+        <SwapContentLayout>
+          <SwapAssetsPair />
+          <SwapDetails />
+        </SwapContentLayout>
+        <SwapFooterLayout>
+          <LeatherButton aria-busy={isLoading} type="button" onClick={onSubmitSwap} fullWidth>
+            Swap
+          </LeatherButton>
+        </SwapFooterLayout>
+      </SwapReviewLayout>
+      <Outlet />
+    </>
   );
 }

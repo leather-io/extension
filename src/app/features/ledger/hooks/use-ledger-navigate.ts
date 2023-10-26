@@ -25,6 +25,7 @@ export function useLedgerNavigate() {
       toConnectAndSignTransactionStep(transaction: StacksTransaction) {
         return navigate(RouteUrls.ConnectLedger, {
           replace: true,
+          relative: 'path',
           state: { tx: bytesToHex(transaction.serialize()) },
         });
       },
