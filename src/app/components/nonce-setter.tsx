@@ -13,8 +13,9 @@ export function NonceSetter() {
   const { data: nextNonce } = useNextNonce();
 
   useAsync(async () => {
-    if (nextNonce?.nonce && !touched.nonce && values.nonce !== nextNonce.nonce)
+    if (nextNonce?.nonce && !touched.nonce && values.nonce !== nextNonce.nonce) {
       return await setFieldValue('nonce', nextNonce?.nonce);
+    }
     return;
   }, [nextNonce?.nonce]);
 

@@ -77,7 +77,10 @@ export const sendCryptoAssetFormRoutes = (
       {editNonceDrawerRoute}
       {recipientAccountsDrawerRoute}
     </Route>
-    <Route path="/send/stx/confirm" element={<StacksSendFormConfirmation />}>
+    <Route
+      path={`${RouteUrls.SendCryptoAssetForm.replace(':symbol', 'stx')}/confirm`}
+      element={<StacksSendFormConfirmation />}
+    >
       {ledgerStacksTxSigningRoutes}
     </Route>
 
