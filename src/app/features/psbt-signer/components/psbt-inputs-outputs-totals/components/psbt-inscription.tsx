@@ -27,7 +27,6 @@ export function PsbtInscription({ inscription }: PsbtInscriptionProps) {
       />
     );
 
-  //
   return (
     <PsbtAddressTotalItem
       image={<InscriptionPreview inscription={supportedInscription} height="40px" width="40px" />}
