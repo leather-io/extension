@@ -4,7 +4,6 @@ import { noop } from '@shared/utils';
 
 import { LeatherButton } from '@app/components/button/button';
 import { ChevronDownIcon } from '@app/components/icons/chevron-down-icon';
-import { InfoIcon } from '@app/components/icons/info-icon';
 import { Tooltip } from '@app/components/tooltip';
 
 import { SelectedAssetField } from './selected-asset-field';
@@ -50,44 +49,48 @@ export function SwapSelectedAssetLayout({
 
   return (
     <Box width="100%">
-      <HStack alignItems="center" justifyContent="space-between" mb="space.02" mt="space.04">
+      <HStack
+        alignItems="center"
+        justifyContent="space-between"
+        mb="space.02"
+        mt={showToggle ? 'space.06' : 'space.04'}
+      >
         <styled.span textStyle="label.01">{title}</styled.span>
         {showToggle && <SwapToggleButton />}
       </HStack>
       <SelectedAssetField
         contentLeft={
-          <styled.button onClick={onChooseAsset}>
+          <LeatherButton onClick={onChooseAsset} p="space.02" type="button" variant="ghost">
             <HStack>
+              {icon && <styled.img src={icon} width="32px" height="32px" alt="Swap asset" />}
               <styled.span textStyle="label.01">{symbol}</styled.span>
               <ChevronDownIcon />
             </HStack>
-          </styled.button>
+          </LeatherButton>
         }
         contentRight={swapAmountInput}
-        icon={icon}
         name={name}
+        showError={showError}
       />
       {caption ? (
         <HStack alignItems="center" justifyContent="space-between">
-          <HStack alignItems="center" gap="space.01">
-            <styled.span color={captionTextColor} textStyle="caption.02">
-              {error ?? caption}
+          <Tooltip label={tooltipLabel} maxWidth="160px" placement="bottom">
+            <styled.span
+              color={captionTextColor}
+              cursor={tooltipLabel ? 'pointer' : 'unset'}
+              textStyle="caption.02"
+            >
+              {showError ? error : caption}
             </styled.span>
-            {tooltipLabel ? (
-              <Tooltip label={tooltipLabel} maxWidth="160px" placement="bottom">
-                <Box _hover={{ cursor: 'pointer' }} color={captionTextColor} ml="space.01">
-                  <InfoIcon />
-                </Box>
-              </Tooltip>
-            ) : null}
-          </HStack>
+          </Tooltip>
           <LeatherButton
-            onClick={!showError && onClickHandler ? onClickHandler : noop}
-            variant="text"
+            _focus={{ _before: { color: 'unset' } }}
+            cursor={onClickHandler ? 'pointer' : 'unset'}
+            onClick={onClickHandler ? onClickHandler : noop}
+            type="button"
+            variant={onClickHandler ? 'link' : 'text'}
           >
-            <styled.span color={captionTextColor} textStyle="caption.02">
-              {value}
-            </styled.span>
+            <styled.span textStyle="caption.02">{value}</styled.span>
           </LeatherButton>
         </HStack>
       ) : null}

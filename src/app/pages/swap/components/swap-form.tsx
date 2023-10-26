@@ -1,21 +1,21 @@
 import { Form, Formik } from 'formik';
 import { Box } from 'leather-styles/jsx';
 
-import { noop } from '@shared/utils';
-
 import { HasChildren } from '@app/common/has-children';
 
-import { useSwap } from '../hooks/use-swap';
+import { useSwapForm } from '../hooks/use-swap-form';
+import { useSwapContext } from '../swap.context';
 
 export function SwapForm({ children }: HasChildren) {
-  const { initialValues, validationSchema } = useSwap();
+  const { initialValues, validationSchema } = useSwapForm();
+  const { onSubmitSwapForReview } = useSwapContext();
 
   return (
     <Formik
       initialValues={initialValues}
-      onSubmit={noop}
+      onSubmit={onSubmitSwapForReview}
       validateOnChange={false}
-      validateOnMount={false}
+      validateOnMount
       validationSchema={validationSchema}
     >
       <Box width="100%">

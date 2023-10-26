@@ -10,13 +10,13 @@ import { openInNewTab } from '../utils/open-in-new-tab';
 export interface HandleOpenTxLinkArgs {
   blockchain: Blockchains;
   suffix?: string;
-  txid: string;
+  txId: string;
 }
 export function useExplorerLink() {
   const { mode } = useCurrentNetworkState();
   const handleOpenTxLink = useCallback(
-    ({ blockchain, suffix, txid }: HandleOpenTxLinkArgs) =>
-      openInNewTab(makeTxExplorerLink({ blockchain, mode, suffix, txid })),
+    ({ blockchain, suffix, txId }: HandleOpenTxLinkArgs) =>
+      openInNewTab(makeTxExplorerLink({ blockchain, mode, suffix, txId })),
     [mode]
   );
 

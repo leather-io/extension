@@ -11,7 +11,7 @@ import { Flag } from '@app/components/layout/flag';
 import { Tooltip } from '@app/components/tooltip';
 import { Caption, Text } from '@app/components/typography';
 
-import { SmallLoadingSpinner } from '../loading-spinner';
+import { LoadingSpinner } from '../loading-spinner';
 
 interface BitcoinContractEntryPointLayoutProps extends StackProps {
   balance: Money;
@@ -48,7 +48,7 @@ export const BitcoinContractEntryPointLayout = forwardRefWithAs(
                 fontVariantNumeric="tabular-nums"
                 textAlign="right"
               >
-                {isLoading ? <SmallLoadingSpinner /> : formattedBalance.value}
+                {isLoading ? <LoadingSpinner size="sm" /> : formattedBalance.value}
               </Text>
             </Tooltip>
           </HStack>

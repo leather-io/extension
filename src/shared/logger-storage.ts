@@ -6,7 +6,9 @@ const maxLogLength = 2_000;
 
 const logStorageKey = 'logs';
 
-const storageAdapter = chrome.storage.local;
+function getStorageAdapter() {
+  return chrome.storage.local;
+}
 
 function truncateLogToMaxSize(logs: LogItem[]) {
   if (logs.length <= maxLogLength) return logs;
@@ -15,17 +17,17 @@ function truncateLogToMaxSize(logs: LogItem[]) {
 
 export async function getLogSizeInBytes(): Promise<number> {
   return new Promise(resolve =>
-    storageAdapter.getBytesInUse([logStorageKey], bytes => resolve(bytes))
+    getStorageAdapter().getBytesInUse([logStorageKey], bytes => resolve(bytes))
   );
 }
 
 export async function clearBrowserStorageLogs(): Promise<void> {
-  return new Promise(resolve => storageAdapter.set({ [logStorageKey]: [] }, () => resolve()));
+  return new Promise(resolve => getStorageAdapter().set({ [logStorageKey]: [] }, () => resolve()));
 }
 
 export async function getLogsFromBrowserStorage(): Promise<LogItem[]> {
   return new Promise(resolve =>
-    storageAdapter.get([logStorageKey], ({ logs }) => resolve(Array.isArray(logs) ? logs : []))
+    getStorageAdapter().get([logStorageKey], ({ logs }) => resolve(Array.isArray(logs) ? logs : []))
   );
 }
 
@@ -39,8 +41,9 @@ export async function appendLogToBrowserStorage(logEvent: pino.LogEvent): Promis
   const { ts, level, messages } = logEvent;
   const formattedLogItem = [new Date(ts).toISOString(), level.label, ...messages] as LogItem;
   return new Promise(resolve =>
-    storageAdapter.set({ [logStorageKey]: truncateLogToMaxSize([formattedLogItem, ...logs]) }, () =>
-      resolve(formattedLogItem)
+    getStorageAdapter().set(
+      { [logStorageKey]: truncateLogToMaxSize([formattedLogItem, ...logs]) },
+      () => resolve(formattedLogItem)
     )
   );
 }

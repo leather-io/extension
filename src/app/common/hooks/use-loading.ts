@@ -1,10 +1,10 @@
 import { useLoadingState } from '@app/store/ui/ui.hooks';
 
 export enum LoadingKeys {
-  CONFIRM_DRAWER = 'loading/CONFIRM_DRAWER',
   INCREASE_FEE_DRAWER = 'loading/INCREASE_FEE_DRAWER',
-  SUBMIT_TRANSACTION = 'loading/SUBMIT_TRANSACTION',
-  SUBMIT_SIGNATURE = 'loading/SUBMIT_SIGNATURE',
+  SUBMIT_SEND_FORM_TRANSACTION = 'loading/SUBMIT_SEND_FORM_TRANSACTION',
+  SUBMIT_SWAP_TRANSACTION = 'loading/SUBMIT_SWAP_TRANSACTION',
+  SUBMIT_TRANSACTION_REQUEST = 'loading/SUBMIT_TRANSACTION_REQUEST',
 }
 
 export function useLoading(key: string) {

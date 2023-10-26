@@ -40,4 +40,9 @@ export const tokens = defineTokens({
     'extra-loose': { value: '32px' },
   },
   colors,
+  borders: {
+    default: { value: '1px solid {colors.accent.border-default}' },
+    error: { value: '1px solid {colors.error}' },
+    'action-primary-default': { value: '1px solid {colors.accent.action-primary-default}' },
+  },
 });

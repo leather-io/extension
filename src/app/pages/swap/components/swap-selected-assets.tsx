@@ -1,20 +1,14 @@
 import { useNavigate } from 'react-router-dom';
 
-import { useFormikContext } from 'formik';
-
 import { RouteUrls } from '@shared/route-urls';
-import { isUndefined } from '@shared/utils';
 
-import { SwapFormValues } from '../hooks/use-swap';
 import { SwapSelectedAssetFrom } from './swap-selected-asset-from';
-import { SwapSelectedAssetPlaceholder } from './swap-selected-asset-placeholder';
 import { SwapSelectedAssetTo } from './swap-selected-asset-to';
 
-const titleFrom = 'Convert';
-const titleTo = 'To';
+const titleFrom = 'You pay';
+const titleTo = 'You receive';
 
 export function SwapSelectedAssets() {
-  const { values } = useFormikContext<SwapFormValues>();
   const navigate = useNavigate();
 
   function onChooseAssetFrom() {
@@ -27,16 +21,8 @@ export function SwapSelectedAssets() {
 
   return (
     <>
-      {isUndefined(values.swapAssetFrom) ? (
-        <SwapSelectedAssetPlaceholder onChooseAsset={onChooseAssetFrom} title={titleFrom} />
-      ) : (
-        <SwapSelectedAssetFrom onChooseAsset={onChooseAssetFrom} title={titleFrom} />
-      )}
-      {isUndefined(values.swapAssetTo) ? (
-        <SwapSelectedAssetPlaceholder onChooseAsset={onChooseAssetTo} showToggle title={titleTo} />
-      ) : (
-        <SwapSelectedAssetTo onChooseAsset={onChooseAssetTo} title={titleTo} />
-      )}
+      <SwapSelectedAssetFrom onChooseAsset={onChooseAssetFrom} title={titleFrom} />
+      <SwapSelectedAssetTo onChooseAsset={onChooseAssetTo} title={titleTo} />
     </>
   );
 }

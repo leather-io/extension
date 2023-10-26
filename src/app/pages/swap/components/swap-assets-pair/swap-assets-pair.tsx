@@ -1,18 +1,21 @@
+import { useNavigate } from 'react-router-dom';
+
 import { useFormikContext } from 'formik';
 
-import { logger } from '@shared/logger';
+import { RouteUrls } from '@shared/route-urls';
 import { isUndefined } from '@shared/utils';
 
-import { SwapFormValues } from '../../hooks/use-swap';
+import { SwapFormValues } from '../../hooks/use-swap-form';
 import { SwapAssetItemLayout } from './swap-asset-item.layout';
 import { SwapAssetsPairLayout } from './swap-assets-pair.layout';
 
 export function SwapAssetsPair() {
   const { values } = useFormikContext<SwapFormValues>();
   const { swapAmountFrom, swapAmountTo, swapAssetFrom, swapAssetTo } = values;
+  const navigate = useNavigate();
 
   if (isUndefined(swapAssetFrom) || isUndefined(swapAssetTo)) {
-    logger.error('No asset selected to swap');
+    navigate(RouteUrls.Swap, { replace: true });
     return null;
   }
 
@@ -20,6 +23,7 @@ export function SwapAssetsPair() {
     <SwapAssetsPairLayout
       swapAssetFrom={
         <SwapAssetItemLayout
+          caption="You will swap"
           icon={swapAssetFrom.icon}
           symbol={swapAssetFrom.balance.symbol}
           value={swapAmountFrom}
@@ -27,11 +31,12 @@ export function SwapAssetsPair() {
       }
       swapAssetTo={
         <SwapAssetItemLayout
+          caption="You will receive"
           icon={swapAssetTo.icon}
           symbol={swapAssetTo.balance.symbol}
           value={swapAmountTo}
         />
       }
-    ></SwapAssetsPairLayout>
+    />
   );
 }

@@ -1,15 +1,27 @@
 import { createContext, useContext } from 'react';
 
-import { SwapAsset, SwapFormValues } from './hooks/use-swap';
+import { SwapAsset, SwapFormValues } from './hooks/use-swap-form';
+
+export interface SwapSubmissionData extends SwapFormValues {
+  liquidityFee: number;
+  protocol: string;
+  router: SwapAsset[];
+  slippage: number;
+  sponsored: boolean;
+  timestamp: string;
+}
 
 export interface SwapContext {
-  exchangeRate: number;
+  fetchToAmount(from: SwapAsset, to: SwapAsset, fromAmount: string): Promise<string | undefined>;
+  isFetchingExchangeRate: boolean;
   isSendingMax: boolean;
-  onSetExchangeRate(value: number): void;
+  onSetIsFetchingExchangeRate(value: boolean): void;
   onSetIsSendingMax(value: boolean): void;
   onSubmitSwapForReview(values: SwapFormValues): Promise<void> | void;
   onSubmitSwap(): Promise<void> | void;
-  swappableAssets: SwapAsset[];
+  swappableAssetsFrom: SwapAsset[];
+  swappableAssetsTo: SwapAsset[];
+  swapSubmissionData?: SwapSubmissionData;
 }
 
 const swapContext = createContext<SwapContext | null>(null);

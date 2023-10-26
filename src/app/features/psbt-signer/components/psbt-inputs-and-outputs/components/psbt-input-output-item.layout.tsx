@@ -57,7 +57,7 @@ export function PsbtInputOutputItemLayout({
             onClick={() =>
               handleOpenTxLink({
                 blockchain: 'bitcoin',
-                txid: txIdHoverLabel ?? '',
+                txId: txIdHoverLabel ?? '',
               })
             }
             variant="text"

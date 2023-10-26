@@ -11,14 +11,17 @@ import BigNumber from 'bignumber.js';
 
 import { CryptoCurrencies } from '@shared/models/currencies.model';
 import { createMoney } from '@shared/models/money.model';
+import { removeTrailingNullCharacters } from '@shared/utils';
 
-import { baseCurrencyAmountInQuote } from '@app/common/money/calculate-money';
+import {
+  baseCurrencyAmountInQuote,
+  convertToMoneyTypeWithDefaultOfZero,
+} from '@app/common/money/calculate-money';
 import { formatMoney, i18nFormatCurrency } from '@app/common/money/format-money';
+import { getEstimatedConfirmationTime } from '@app/common/transactions/stacks/transaction.utils';
 import { useCryptoCurrencyMarketData } from '@app/query/common/market-data/market-data.hooks';
 import { useStacksBlockTime } from '@app/query/stacks/info/info.hooks';
 import { useCurrentNetworkState } from '@app/store/networks/networks.hooks';
-
-import { convertToMoneyTypeWithDefaultOfZero } from '../../../components/confirmation/send-form-confirmation.utils';
 
 export function useStacksTransactionSummary(token: CryptoCurrencies) {
   const tokenMarketData = useCryptoCurrencyMarketData(token);
@@ -54,7 +57,7 @@ export function useStacksTransactionSummary(token: CryptoCurrencies) {
       recipient: addressToString(payload.recipient.address),
       fee: formatMoney(convertToMoneyTypeWithDefaultOfZero('STX', Number(fee))),
       totalSpend: formatMoney(convertToMoneyTypeWithDefaultOfZero('STX', Number(txValue + fee))),
-      arrivesIn: getArrivesInTime(),
+      arrivesIn: getEstimatedConfirmationTime(isTestnet, blockTime),
       symbol: 'STX',
       txValue: microStxToStx(Number(txValue)),
       sendingValue: formatMoney(convertToMoneyTypeWithDefaultOfZero('STX', Number(txValue))),
@@ -91,7 +94,7 @@ export function useStacksTransactionSummary(token: CryptoCurrencies) {
 
     return {
       recipient: cvToString(payload.functionArgs[2]),
-      arrivesIn: getArrivesInTime(),
+      arrivesIn: getEstimatedConfirmationTime(isTestnet, blockTime),
       txValue: new BigNumber(txValue).shiftedBy(-decimals).toString(),
       nonce: String(tx.auth.spendingCondition.nonce),
       fee: feeValue,
@@ -102,22 +105,6 @@ export function useStacksTransactionSummary(token: CryptoCurrencies) {
       memoDisplayText,
       symbol,
     };
-  }
-
-  function getArrivesInTime() {
-    let arrivesIn = isTestnet
-      ? blockTime?.testnet.target_block_time
-      : blockTime?.mainnet.target_block_time;
-    if (!arrivesIn) {
-      return '~10 – 20 min';
-    }
-
-    arrivesIn = arrivesIn / 60;
-    return `~${arrivesIn} min`;
-  }
-
-  function removeTrailingNullCharacters(s: string) {
-    return s.replace(/\0*$/g, '');
   }
 
   return {

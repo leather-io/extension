@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useAsync } from 'react-async-hook';
 
 import { useFormikContext } from 'formik';
 
@@ -12,10 +12,10 @@ export function NonceSetter() {
   >();
   const { data: nextNonce } = useNextNonce();
 
-  useEffect(() => {
-    if (nextNonce && !touched.nonce && values.nonce !== nextNonce.nonce)
-      setFieldValue('nonce', nextNonce.nonce);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+  useAsync(async () => {
+    if (nextNonce?.nonce && !touched.nonce && values.nonce !== nextNonce.nonce)
+      return await setFieldValue('nonce', nextNonce?.nonce);
+    return;
   }, [nextNonce?.nonce]);
 
   return <></>;

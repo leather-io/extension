@@ -1,7 +1,6 @@
 import { ReactNode } from 'react';
 
 import GenericError from '@assets/images/generic-error.png';
-import { Box, Text, color } from '@stacks/ui';
 import { Flex, FlexProps, HStack, styled } from 'leather-styles/jsx';
 
 import { openInNewTab } from '@app/common/utils/open-in-new-tab';
@@ -22,16 +21,8 @@ export function GenericErrorLayout(props: GenericErrorProps) {
   const { body, helpTextList, onClose, title, ...rest } = props;
 
   return (
-    <Flex
-      alignItems="center"
-      flexDirection="column"
-      px={['space.05', 'space.05', 'unset']}
-      width="100%"
-      {...rest}
-    >
-      <Box mt="loose">
-        <img src={GenericError} width="106px" />
-      </Box>
+    <Flex alignItems="center" flexDirection="column" px="space.05" width="100%" {...rest}>
+      <styled.img src={GenericError} width="106px" height="72px" alt="Error" mt="space.06" />
       <styled.h1 mt="space.05" textStyle="heading.04">
         {title}
       </styled.h1>
@@ -44,32 +35,30 @@ export function GenericErrorLayout(props: GenericErrorProps) {
       >
         {body}
       </styled.h2>
-      <Box
-        as="ul"
-        border="2px solid #EFEFF2"
-        borderRadius="12px"
-        color={color('text-caption')}
+      <styled.ul
+        border="default"
+        borderRadius="10px"
         fontSize="14px"
         lineHeight="1.6"
         listStyleType="circle"
-        mt="extra-loose"
-        pb="loose"
+        mt="space.06"
+        pb="space.05"
         pl="40px"
-        pr="loose"
-        pt="tight"
+        pr="space.05"
+        pt="space.02"
         textAlign="left"
         width="100%"
       >
         {helpTextList}
-        <Box as="li" mt="base" textAlign="left">
+        <styled.li mt="space.04" textAlign="left">
           <HStack alignItems="center">
-            <Text>Reach out to our support team</Text>
-            <Box as="button" onClick={() => openInNewTab(supportUrl)}>
+            <styled.span textStyle="label.02">Reach out to our support team</styled.span>
+            <styled.button onClick={() => openInNewTab(supportUrl)}>
               <ExternalLinkIcon />
-            </Box>
+            </styled.button>
           </HStack>
-        </Box>
-      </Box>
+        </styled.li>
+      </styled.ul>
       <LeatherButton fontSize="14px" mt="space.05" onClick={onClose} variant="link">
         Close window
       </LeatherButton>

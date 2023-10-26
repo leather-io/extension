@@ -3,9 +3,9 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { HomePageSelectors } from '@tests/selectors/home.selectors';
 import { Flex, FlexProps } from 'leather-styles/jsx';
 
-import { SWAP_ENABLED } from '@shared/environment';
 import { RouteUrls } from '@shared/route-urls';
 
+import { useWalletType } from '@app/common/use-wallet-type';
 import { ArrowDown } from '@app/components/icons/arrow-down';
 import { Plus2 } from '@app/components/icons/plus2';
 import { SwapIcon } from '@app/components/icons/swap-icon';
@@ -18,6 +18,8 @@ export function AccountActions(props: FlexProps) {
   const navigate = useNavigate();
   const location = useLocation();
   const isBitcoinEnabled = useConfigBitcoinEnabled();
+  const { whenWallet } = useWalletType();
+
   const receivePath = isBitcoinEnabled
     ? RouteUrls.Receive
     : `${RouteUrls.Home}${RouteUrls.ReceiveStx}`;
@@ -44,14 +46,17 @@ export function AccountActions(props: FlexProps) {
         label="Buy"
         onClick={() => navigate(RouteUrls.Fund)}
       />
-      {SWAP_ENABLED ? (
-        <ActionButton
-          data-testid={''}
-          icon={<SwapIcon />}
-          label="Swap"
-          onClick={() => navigate(RouteUrls.Swap)}
-        />
-      ) : null}
+      {whenWallet({
+        software: (
+          <ActionButton
+            data-testid={''}
+            icon={<SwapIcon />}
+            label="Swap"
+            onClick={() => navigate(RouteUrls.Swap)}
+          />
+        ),
+        ledger: null,
+      })}
     </Flex>
   );
 }

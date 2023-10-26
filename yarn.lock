@@ -4793,7 +4793,7 @@
     "@blockstack/stacks-transactions" "0.7.0"
     cross-fetch "^3.0.4"
 
-"@stacks/stacks-blockchain-api-types@*":
+"@stacks/stacks-blockchain-api-types@*", "@stacks/stacks-blockchain-api-types@^7.1.10":
   version "7.3.2"
   resolved "https://registry.yarnpkg.com/@stacks/stacks-blockchain-api-types/-/stacks-blockchain-api-types-7.3.2.tgz#33838e96312c2be1df93dce1c76e6d584b966a39"
   integrity sha512-1r0+eqEWOOo7UYrFq9HGbc02DVME3NVCW/45sNKPN31PkOMMaK59DHragPJ2QbxPFiutVDUCS924+48+o3+0Tw==
@@ -8259,6 +8259,13 @@ ajv@^6.12.2, ajv@^6.12.3, ajv@^6.12.4, ajv@^6.12.5, ajv@^6.7.0:
     json-schema-traverse "^0.4.1"
     uri-js "^4.2.2"
 
+alex-sdk@0.1.22:
+  version "0.1.22"
+  resolved "https://registry.yarnpkg.com/alex-sdk/-/alex-sdk-0.1.22.tgz#ea94f2ebbb962c402ee485e10c5de5b5b66240af"
+  integrity sha512-g8sQN5Cs8mbkbOb0sHFN//lYVlJq6jG452LGOtNSOeoP7I5WNWgkwn0OrW8jqxjanbQCgoouP4xutXky1JDIGQ==
+  dependencies:
+    clarity-codegen "^0.2.6"
+
 anser@^2.1.1:
   version "2.1.1"
   resolved "https://registry.yarnpkg.com/anser/-/anser-2.1.1.tgz#8afae28d345424c82de89cc0e4d1348eb0c5af7c"
@@ -8712,7 +8719,7 @@ aws4@^1.8.0:
   resolved "https://registry.yarnpkg.com/aws4/-/aws4-1.12.0.tgz#ce1c9d143389679e253b314241ea9aa5cec980d3"
   integrity sha512-NmWvPnx0F1SfrQbYwOi7OeaNGokp9XhzNioJ/CSBs8Qa4vxug81mhJEAVZwxXuBmYB5KDRfMq/F3RR0BIU7sWg==
 
-axios@1.5.1:
+axios@1.5.1, axios@^1.5.0:
   version "1.5.1"
   resolved "https://registry.yarnpkg.com/axios/-/axios-1.5.1.tgz#11fbaa11fc35f431193a9564109c88c1f27b585f"
   integrity sha512-Q28iYCWzNHjAm+yEAot5QaAMxhMghWLFVf7rRdwhUI+c2jix2DUXjAHXVi+s1ibs3mjPO/cCgbA++3BjD0vP/A==
@@ -9573,6 +9580,17 @@ cipher-base@^1.0.0, cipher-base@^1.0.1, cipher-base@^1.0.3:
   dependencies:
     inherits "^2.0.1"
     safe-buffer "^5.0.1"
+
+clarity-codegen@^0.2.6:
+  version "0.2.6"
+  resolved "https://registry.yarnpkg.com/clarity-codegen/-/clarity-codegen-0.2.6.tgz#897bfdc0374279c3a6dceebbe83bb6b553d6184b"
+  integrity sha512-1ZZoPO4VcqPkOaOPaj0OxgVeAJAjpga2nbbMTVynrYBEwN77hrWIwYfnICR0K3XFoyeW+mzxnYw9CpOvEA9eWQ==
+  dependencies:
+    "@stacks/stacks-blockchain-api-types" "^7.1.10"
+    axios "^1.5.0"
+    lodash "^4.17.21"
+    yargs "^17.7.2"
+    yqueue "^1.0.1"
 
 classnames@^2.3.2:
   version "2.3.2"
@@ -20812,7 +20830,7 @@ yargs@17.7.1:
     y18n "^5.0.5"
     yargs-parser "^21.1.1"
 
-yargs@17.7.2, yargs@^17.0.0, yargs@^17.7.1:
+yargs@17.7.2, yargs@^17.0.0, yargs@^17.7.1, yargs@^17.7.2:
   version "17.7.2"
   resolved "https://registry.yarnpkg.com/yargs/-/yargs-17.7.2.tgz#991df39aca675a192b816e1e0363f9d75d2aa269"
   integrity sha512-7dSzzRQ++CKnNI/krKnYRV7JKKPUXMEh61soaHKg9mrWEhzFWhFnxPxGl+69cD1Ou63C13NUPCnmIcrvqCuM6w==
@@ -20859,6 +20877,11 @@ yocto-queue@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/yocto-queue/-/yocto-queue-1.0.0.tgz#7f816433fb2cbc511ec8bf7d263c3b58a1a3c251"
   integrity sha512-9bnSc/HEW2uRy67wc+T8UwauLuPJVn28jb+GtJY16iiKWyvmYJRXVT4UamsAEGQfPohgr2q4Tq0sQbQlxTfi1g==
+
+yqueue@^1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/yqueue/-/yqueue-1.0.1.tgz#3b4f17344f2481350577f0fd29146556439f542b"
+  integrity sha512-DBxJZBRafFLA/tCc5uO8ZTGFr+sQgn1FRJkZ4cVrIQIk6bv2bInraE3mbpLAJw9z93JGrLkqDoyTLrrZaCNq5w==
 
 yup@1.3.2:
   version "1.3.2"

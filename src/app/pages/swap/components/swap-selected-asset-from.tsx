@@ -1,69 +1,85 @@
+import BigNumber from 'bignumber.js';
 import { useField, useFormikContext } from 'formik';
 
+import { createMoney } from '@shared/models/money.model';
 import { isUndefined } from '@shared/utils';
 
 import { useShowFieldError } from '@app/common/form-utils';
+import { convertAmountToFractionalUnit } from '@app/common/money/calculate-money';
 import { formatMoneyWithoutSymbol } from '@app/common/money/format-money';
 
-import { useAmountAsFiat } from '../hooks/use-amount-as-fiat';
-import { SwapFormValues } from '../hooks/use-swap';
+import { useAlexSdkAmountAsFiat } from '../hooks/use-alex-sdk-fiat-price';
+import { SwapFormValues } from '../hooks/use-swap-form';
 import { useSwapContext } from '../swap.context';
 import { SwapAmountField } from './swap-amount-field';
 import { SwapSelectedAssetLayout } from './swap-selected-asset.layout';
 
-const sendingMaxCaption = 'Using max available';
-const sendingMaxTooltip = 'When sending max, this amount is affected by the fee you choose.';
-
-const maxAvailableCaption = 'Max available in your balance';
+const availableBalanceCaption = 'Available balance';
 const maxAvailableTooltip =
-  'Amount of funds that is immediately available for use, after taking into account any pending transactions or holds placed on your account by the protocol.';
-
-const sendAnyValue = 'Send any value';
-
+  'Amount of funds that are immediately available for use, after taking into account any pending transactions or holds placed on your account by the protocol.';
+const sendingMaxTooltip = 'When sending max, this amount is affected by the fee you choose.';
 interface SwapSelectedAssetFromProps {
   onChooseAsset(): void;
   title: string;
 }
 export function SwapSelectedAssetFrom({ onChooseAsset, title }: SwapSelectedAssetFromProps) {
-  const { exchangeRate, isSendingMax, onSetIsSendingMax } = useSwapContext();
-  const { setFieldValue, validateForm, values } = useFormikContext<SwapFormValues>();
+  const { fetchToAmount, isFetchingExchangeRate, isSendingMax, onSetIsSendingMax } =
+    useSwapContext();
+  const { setFieldValue, setFieldError, values } = useFormikContext<SwapFormValues>();
   const [amountField, amountFieldMeta, amountFieldHelpers] = useField('swapAmountFrom');
   const showError = useShowFieldError('swapAmountFrom');
   const [assetField] = useField('swapAssetFrom');
 
-  const amountAsFiat = useAmountAsFiat(amountField.value, assetField.value.balance);
-
+  const amountAsFiat = useAlexSdkAmountAsFiat(
+    assetField.value.balance,
+    assetField.value.price,
+    amountField.value
+  );
   const formattedBalance = formatMoneyWithoutSymbol(assetField.value.balance);
+  const isSwapAssetFromBalanceGreaterThanZero =
+    values.swapAssetFrom?.balance.amount.isGreaterThan(0);
 
   async function onSetMaxBalanceAsAmountToSwap() {
-    if (isUndefined(values.swapAssetTo)) return;
+    const { swapAssetFrom, swapAssetTo } = values;
+    if (isFetchingExchangeRate || isUndefined(swapAssetFrom)) return;
     onSetIsSendingMax(!isSendingMax);
-    const value = isSendingMax ? '' : formattedBalance;
-    await amountFieldHelpers.setValue(value);
-    await setFieldValue('swapAmountTo', Number(value) * exchangeRate);
-    await validateForm();
+    await amountFieldHelpers.setValue(Number(formattedBalance));
+    await amountFieldHelpers.setTouched(true);
+    if (isUndefined(swapAssetTo)) return;
+    const toAmount = await fetchToAmount(swapAssetFrom, swapAssetTo, formattedBalance);
+    if (isUndefined(toAmount)) {
+      await setFieldValue('swapAmountTo', '');
+      return;
+    }
+    const toAmountAsMoney = createMoney(
+      convertAmountToFractionalUnit(new BigNumber(toAmount), values.swapAssetTo?.balance.decimals),
+      values.swapAssetTo?.balance.symbol ?? '',
+      values.swapAssetTo?.balance.decimals
+    );
+    await setFieldValue('swapAmountTo', formatMoneyWithoutSymbol(toAmountAsMoney));
+    setFieldError('swapAmountTo', undefined);
   }
 
   return (
     <SwapSelectedAssetLayout
-      caption={isSendingMax ? sendingMaxCaption : maxAvailableCaption}
+      caption={availableBalanceCaption}
       error={amountFieldMeta.error}
       icon={assetField.value.icon}
       name="swapAmountFrom"
       onChooseAsset={onChooseAsset}
       onClickHandler={onSetMaxBalanceAsAmountToSwap}
-      showError={!!showError}
+      showError={!!(showError && values.swapAssetTo)}
       swapAmountInput={
         <SwapAmountField
           amountAsFiat={amountAsFiat}
-          isDisabled={isUndefined(values.swapAssetTo)}
+          isDisabled={!isSwapAssetFromBalanceGreaterThanZero}
           name="swapAmountFrom"
         />
       }
-      symbol={assetField.value.balance.symbol}
+      symbol={assetField.value.name}
       title={title}
       tooltipLabel={isSendingMax ? sendingMaxTooltip : maxAvailableTooltip}
-      value={isSendingMax ? sendAnyValue : formattedBalance}
+      value={formattedBalance}
     />
   );
 }

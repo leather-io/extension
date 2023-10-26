@@ -1,3 +1,4 @@
+import { LoadingKeys, useLoading } from '@app/common/hooks/use-loading';
 import { useRouteHeader } from '@app/common/hooks/use-route-header';
 import { LeatherButton } from '@app/components/button/button';
 import { ModalHeader } from '@app/components/modal-header';
@@ -11,6 +12,7 @@ import { SwapReviewLayout } from './swap-review.layout';
 
 export function SwapReview() {
   const { onSubmitSwap } = useSwapContext();
+  const { isLoading } = useLoading(LoadingKeys.SUBMIT_SWAP_TRANSACTION);
 
   useRouteHeader(<ModalHeader defaultGoBack hideActions title="Review" />, true);
 
@@ -21,7 +23,7 @@ export function SwapReview() {
         <SwapDetails />
       </SwapContentLayout>
       <SwapFooterLayout>
-        <LeatherButton onClick={onSubmitSwap} width="100%">
+        <LeatherButton aria-busy={isLoading} onClick={onSubmitSwap} width="100%">
           Swap
         </LeatherButton>
       </SwapFooterLayout>
