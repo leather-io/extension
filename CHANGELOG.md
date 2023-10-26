@@ -1,3 +1,27 @@
+## [6.13.0](https://github.com/leather-wallet/extension/compare/v6.12.0...v6.13.0) (2023-10-26)
+
+
+### Features
+
+* add alex-sdk and alex integreation ([6aabb24](https://github.com/leather-wallet/extension/commit/6aabb241779372dfb7ae656606acd10d733e502c))
+* broadcast swap tx ([d33c074](https://github.com/leather-wallet/extension/commit/d33c0742bf75b7e6d51501ad648ec997ba54214f))
+* implement alex sponsored txs ([2c790f8](https://github.com/leather-wallet/extension/commit/2c790f81fc1504a8f11e199829b5383204815c77))
+
+
+### Bug Fixes
+
+* add border tokens ([82f4cad](https://github.com/leather-wallet/extension/commit/82f4cad191545a96c116cce987bd68121e0af24b))
+* async fetch for exchange rate ([c7c5c3e](https://github.com/leather-wallet/extension/commit/c7c5c3e5a884e936ddda82a9d14b5005acc325bc))
+* temp hide swaps for ledger ([08b0e9c](https://github.com/leather-wallet/extension/commit/08b0e9c3f79b40e31ca3b27a06590df97a645ba5))
+
+
+### Internal
+
+* make getter fn for chrome.storage ([d9bd157](https://github.com/leather-wallet/extension/commit/d9bd15707a2d6c04ade9e58462cd2777069e1ca0))
+* more swap qa changes ([59cb91e](https://github.com/leather-wallet/extension/commit/59cb91e6e34a4b33170f23a45a784ab6dfa2953d))
+* post-release merge back ([7afc103](https://github.com/leather-wallet/extension/commit/7afc103fac240fb8404ad9807d39d9a5c91df304))
+* swap qa changes ([641df65](https://github.com/leather-wallet/extension/commit/641df65ff11ff6bfa1d735be290910661aa82270))
+
 ## [6.12.0](https://github.com/leather-wallet/extension/compare/v6.11.0...v6.12.0) (2023-10-24)
 
 
