@@ -70,11 +70,3 @@ export function closeWindow() {
   // eslint-disable-next-line no-restricted-properties
   window.close();
 }
-
-export function removeTrailingNullCharacters(s: string) {
-  return s.replace(/\0*$/g, '');
-}
-
-export function removeMinusSign(value: string) {
-  return value.replace('-', '');
-}
