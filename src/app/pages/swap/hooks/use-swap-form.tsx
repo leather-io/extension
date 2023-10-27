@@ -13,9 +13,11 @@ import { useNextNonce } from '@app/query/stacks/nonce/account-nonces.hooks';
 export interface SwapAsset {
   balance: Money;
   currency: Currency;
+  displayName?: string;
   icon: string;
   name: string;
   price: Money;
+  principal: string;
 }
 
 export interface SwapFormValues extends StacksTransactionFormValues {

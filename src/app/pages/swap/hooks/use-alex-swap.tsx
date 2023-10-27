@@ -9,6 +9,7 @@ import { createMoney } from '@shared/models/money.model';
 
 import { useStxBalance } from '@app/common/hooks/balance/stx/use-stx-balance';
 import { convertAmountToFractionalUnit } from '@app/common/money/calculate-money';
+import { pullContractIdFromIdentity } from '@app/common/utils';
 import { useSwappableCurrencyQuery } from '@app/query/common/alex-swaps/swappable-currency.query';
 import { useTransferableStacksFungibleTokenAssetBalances } from '@app/query/stacks/balance/stacks-ft-balances.hooks';
 import { useCurrentStacksAccount } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
@@ -46,17 +47,19 @@ export function useAlexSwap() {
         icon: tokenInfo.icon,
         name: tokenInfo.name,
         price: createMoney(price, 'USD'),
+        principal: pullContractIdFromIdentity(tokenInfo.contractAddress),
       };
 
       if (currency === Currency.STX) {
         return {
           ...swapAsset,
           balance: availableStxBalance,
+          displayName: 'Stacks',
         };
       }
 
       const fungibleTokenBalance =
-        stacksFtAssetBalances.find(x => alexSDK.getAddressFrom(currency) === x.asset.contractId)
+        stacksFtAssetBalances.find(x => tokenInfo.contractAddress === x.asset.contractId)
           ?.balance ?? createMoney(0, tokenInfo.name, tokenInfo.decimals);
 
       return {
@@ -64,7 +67,7 @@ export function useAlexSwap() {
         balance: fungibleTokenBalance,
       };
     },
-    [alexSDK, availableStxBalance, prices, stacksFtAssetBalances]
+    [availableStxBalance, prices, stacksFtAssetBalances]
   );
 
   async function fetchToAmount(
