@@ -77,9 +77,12 @@ export function useSendInscriptionForm() {
 
       whenWallet({
         software: () =>
-          navigate(RouteUrls.SendOrdinalInscriptionChooseFee, {
-            state: { inscription, recipient: values.recipient, utxo },
-          }),
+          navigate(
+            `/${RouteUrls.SendOrdinalInscription}/${RouteUrls.SendOrdinalInscriptionChooseFee}`,
+            {
+              state: { inscription, recipient: values.recipient, utxo },
+            }
+          ),
         ledger: noop,
       })();
     },
@@ -100,17 +103,20 @@ export function useSendInscriptionForm() {
 
       const { hex } = resp;
       const feeRowValue = formFeeRowValue(values.feeRate, isCustomFee);
-      return navigate(RouteUrls.SendOrdinalInscriptionReview, {
-        state: {
-          fee: feeValue,
-          inscription,
-          utxo,
-          recipient: values.recipient,
-          time,
-          feeRowValue,
-          tx: hex,
-        },
-      });
+      return navigate(
+        `/${RouteUrls.SendOrdinalInscription}/${RouteUrls.SendOrdinalInscriptionReview}`,
+        {
+          state: {
+            fee: feeValue,
+            inscription,
+            utxo,
+            recipient: values.recipient,
+            time,
+            feeRowValue,
+            tx: hex,
+          },
+        }
+      );
     },
 
     validationSchema: yup.object({

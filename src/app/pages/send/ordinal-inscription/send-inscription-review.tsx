@@ -47,7 +47,7 @@ export function SendInscriptionReview() {
         await refetch();
         // Might be a BRC-20 transfer, so we want to remove it from the pending
         dispatch(inscriptionSent({ inscriptionId: inscription.id }));
-        navigate(RouteUrls.SendOrdinalInscriptionSent, {
+        navigate(`/${RouteUrls.SendOrdinalInscription}/${RouteUrls.SendOrdinalInscriptionSent}`, {
           state: {
             inscription,
             recipient,
@@ -58,7 +58,7 @@ export function SendInscriptionReview() {
         });
       },
       onError() {
-        navigate(RouteUrls.SendOrdinalInscriptionError);
+        navigate(`/${RouteUrls.SendOrdinalInscription}/${RouteUrls.SendOrdinalInscriptionError}`);
       },
     });
   }
