@@ -77,11 +77,11 @@ export enum RouteUrls {
 
   // Send ordinal inscriptions
   SendOrdinalInscription = 'send/ordinal-inscription',
-  SendOrdinalInscriptionChooseFee = 'send/ordinal-inscription/choose-fee',
-  SendOrdinalInscriptionReview = 'send/ordinal-inscription/review',
+  SendOrdinalInscriptionChooseFee = 'choose-fee',
+  SendOrdinalInscriptionReview = 'review',
   SendOrdinalInscriptionSummary = 'send/ordinal-inscription/',
-  SendOrdinalInscriptionSent = 'send/ordinal-inscription/sent',
-  SendOrdinalInscriptionError = 'send/ordinal-inscription/error',
+  SendOrdinalInscriptionSent = 'sent',
+  SendOrdinalInscriptionError = 'error',
 
   // Swap routes
   Swap = '/swap',
