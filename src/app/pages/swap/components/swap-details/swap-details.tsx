@@ -1,7 +1,7 @@
 import BigNumber from 'bignumber.js';
 import { HStack, styled } from 'leather-styles/jsx';
 
-import { createMoney } from '@shared/models/money.model';
+import { createMoneyFromDecimal } from '@shared/models/money.model';
 import { isDefined, isUndefined } from '@shared/utils';
 
 import { formatMoneyPadded } from '@app/common/money/format-money';
@@ -40,7 +40,7 @@ export function SwapDetails() {
     return null;
 
   const formattedMinToReceive = formatMoneyPadded(
-    createMoney(
+    createMoneyFromDecimal(
       new BigNumber(swapSubmissionData.swapAmountTo).times(1 - swapSubmissionData.slippage),
       swapSubmissionData.swapAssetTo.balance.symbol,
       swapSubmissionData.swapAssetTo.balance.decimals
