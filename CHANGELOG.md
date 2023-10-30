@@ -1,3 +1,29 @@
+## [6.14.0](https://github.com/leather-wallet/extension/compare/v6.13.0...v6.14.0) (2023-10-30)
+
+
+### Features
+
+* removed stacks/ui types and unnecessary data-testids ([5c85448](https://github.com/leather-wallet/extension/commit/5c85448cde2cf955efd1f841630ef0bc028c02a2))
+
+
+### Bug Fixes
+
+* add default type to button, closes [#4333](https://github.com/leather-wallet/extension/issues/4333) ([433216f](https://github.com/leather-wallet/extension/commit/433216f067c893eb46418fa908913e133ed4eb0c))
+* incorrect ui with psbt listing tx, closes [#4428](https://github.com/leather-wallet/extension/issues/4428) ([e83db28](https://github.com/leather-wallet/extension/commit/e83db28f97a9c98d9aedf928002bdad882ca2263))
+* remove query options from btc fees, closes [#4198](https://github.com/leather-wallet/extension/issues/4198) ([c7d80eb](https://github.com/leather-wallet/extension/commit/c7d80ebae1f385a93a1d4e30719835bd06b91d3b))
+* removed unnecessary forwardwithrefs ([fc69b0f](https://github.com/leather-wallet/extension/commit/fc69b0f07f8fbbf68124a56332cb8e38a5a715b2))
+* send ordinal routes, closes [#4444](https://github.com/leather-wallet/extension/issues/4444) ([dc209c2](https://github.com/leather-wallet/extension/commit/dc209c2d25f68abe832e581b49fd01c0fa03f2bc))
+* swap console logs, closes [#4438](https://github.com/leather-wallet/extension/issues/4438) ([e8fa72f](https://github.com/leather-wallet/extension/commit/e8fa72ffc441b390512e4fcd126e92a94dc2404c))
+* swaps min to receive format, closes [#4442](https://github.com/leather-wallet/extension/issues/4442) ([c5cf61c](https://github.com/leather-wallet/extension/commit/c5cf61c9e80018f75c35df8aa81ecfb908d071f5))
+* tx req fee error, closes [#4231](https://github.com/leather-wallet/extension/issues/4231) ([190868a](https://github.com/leather-wallet/extension/commit/190868a3f3e95ad22354188c18d92e7dc8f83076))
+
+
+### Internal
+
+* import prettier config from monorepo, closes [#4268](https://github.com/leather-wallet/extension/issues/4268) ([733e503](https://github.com/leather-wallet/extension/commit/733e503944a9b51c5f3f8798f59022c60c51c649))
+* post-release merge back ([efee04f](https://github.com/leather-wallet/extension/commit/efee04f2b6921f0bd34e73c3aaccf2c252a24282))
+* remove icon transition, closes [#4332](https://github.com/leather-wallet/extension/issues/4332) ([b75b20a](https://github.com/leather-wallet/extension/commit/b75b20a302539d8f66d998c2d4bc6c36cd5066d4))
+
 ## [6.13.0](https://github.com/leather-wallet/extension/compare/v6.12.0...v6.13.0) (2023-10-26)
 
 
