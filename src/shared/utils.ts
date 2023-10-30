@@ -74,3 +74,7 @@ export function closeWindow() {
 export function removeTrailingNullCharacters(s: string) {
   return s.replace(/\0*$/g, '');
 }
+
+export function removeMinusSign(value: string) {
+  return value.replace('-', '');
+}

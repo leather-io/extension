@@ -1,6 +1,8 @@
-import { useCallback } from 'react';
+import { useCallback, useMemo } from 'react';
 
 import * as btc from '@scure/btc-signer';
+
+import { createMoney } from '@shared/models/money.model';
 
 import { subtractMoney } from '@app/common/money/calculate-money';
 import { useCurrentAccountNativeSegwitIndexZeroSigner } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
@@ -50,12 +52,18 @@ export function useParsedPsbt({ inputs, indexesToSign, outputs }: UseParsedPsbtA
     return noInputs || noOutputs;
   }, [inputs.length, outputs.length]);
 
+  const fee = useMemo(() => {
+    if (psbtInputsTotal.amount.isGreaterThan(psbtOutputsTotal.amount))
+      return subtractMoney(psbtInputsTotal, psbtOutputsTotal);
+    return createMoney(0, 'BTC');
+  }, [psbtInputsTotal, psbtOutputsTotal]);
+
   return {
     accountInscriptionsBeingTransferred,
     accountInscriptionsBeingReceived,
     addressNativeSegwitTotal: subtractMoney(inputsTotalNativeSegwit, outputsTotalNativeSegwit),
     addressTaprootTotal: subtractMoney(inputsTotalTaproot, outputsTotalTaproot),
-    fee: subtractMoney(psbtInputsTotal, psbtOutputsTotal),
+    fee,
     isPsbtMutable,
     psbtInputs: parsedInputs,
     psbtOutputs: parsedOutputs,

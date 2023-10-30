@@ -3,10 +3,10 @@ import { Box, HStack, styled } from 'leather-styles/jsx';
 import { noop } from '@shared/utils';
 
 import { LeatherButton } from '@app/components/button/button';
-import { ChevronDownIcon } from '@app/components/icons/chevron-down-icon';
 import { Tooltip } from '@app/components/tooltip';
 
-import { SelectedAssetField } from './selected-asset-field';
+import { SelectAssetTriggerButton } from './select-asset-trigger-button';
+import { SelectedAsset } from './selected-asset';
 import { SwapToggleButton } from './swap-toggle-button';
 
 function getTextColor(showError?: boolean, onClickHandler?: boolean) {
@@ -58,15 +58,14 @@ export function SwapSelectedAssetLayout({
         <styled.span textStyle="label.01">{title}</styled.span>
         {showToggle && <SwapToggleButton />}
       </HStack>
-      <SelectedAssetField
+      <SelectedAsset
         contentLeft={
-          <LeatherButton onClick={onChooseAsset} p="space.02" type="button" variant="ghost">
-            <HStack>
-              {icon && <styled.img src={icon} width="32px" height="32px" alt="Swap asset" />}
-              <styled.span textStyle="label.01">{symbol}</styled.span>
-              <ChevronDownIcon />
-            </HStack>
-          </LeatherButton>
+          <SelectAssetTriggerButton
+            icon={icon}
+            name={name}
+            onChooseAsset={onChooseAsset}
+            symbol={symbol}
+          />
         }
         contentRight={swapAmountInput}
         name={name}
@@ -87,7 +86,6 @@ export function SwapSelectedAssetLayout({
             _focus={{ _before: { color: 'unset' } }}
             cursor={onClickHandler ? 'pointer' : 'unset'}
             onClick={onClickHandler ? onClickHandler : noop}
-            type="button"
             variant={onClickHandler ? 'link' : 'text'}
           >
             <styled.span textStyle="caption.02">{value}</styled.span>

@@ -1,18 +1,12 @@
-import { Field } from 'formik';
 import { Box, HStack, styled } from 'leather-styles/jsx';
 
-interface SelectedAssetFieldProps {
+interface SelectedAssetProps {
   contentLeft: React.JSX.Element;
   contentRight: React.JSX.Element;
   name: string;
   showError?: boolean;
 }
-export function SelectedAssetField({
-  contentLeft,
-  contentRight,
-  name,
-  showError,
-}: SelectedAssetFieldProps) {
+export function SelectedAsset({ contentLeft, contentRight, name, showError }: SelectedAssetProps) {
   return (
     <styled.label
       _focusWithin={{ border: 'action-primary-default' }}
@@ -28,12 +22,10 @@ export function SelectedAssetField({
       width="100%"
     >
       <Box width="100%">
-        <Field as="div" name={name}>
-          <HStack alignItems="center" justifyContent="space-between">
-            {contentLeft}
-            {contentRight}
-          </HStack>
-        </Field>
+        <HStack alignItems="center" justifyContent="space-between">
+          {contentLeft}
+          {contentRight}
+        </HStack>
       </Box>
     </styled.label>
   );

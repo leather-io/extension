@@ -36,7 +36,10 @@ export function PsbtInputsOutputsTotals() {
       {isReceiving ? (
         <Box p="space.05">
           <PsbtRequestDetailsSectionHeader title="You'll receive" />
-          <PsbtAddressReceiveTotals showTaprootTotal={isTaprootTotalLessThanZero} />
+          <PsbtAddressReceiveTotals
+            showNativeSegwitTotal={isNativeSegwitTotalLessThanZero}
+            showTaprootTotal={isTaprootTotalLessThanZero}
+          />
         </Box>
       ) : null}
     </PsbtRequestDetailsSectionLayout>

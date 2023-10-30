@@ -1,7 +1,7 @@
 import BigNumber from 'bignumber.js';
 import { HStack, styled } from 'leather-styles/jsx';
 
-import { createMoney } from '@shared/models/money.model';
+import { createMoneyFromDecimal } from '@shared/models/money.model';
 import { isDefined, isUndefined } from '@shared/utils';
 
 import { formatMoneyPadded } from '@app/common/money/format-money';
@@ -19,10 +19,10 @@ function RouteNames(props: { swapSubmissionData: SwapSubmissionData }) {
   return props.swapSubmissionData.router.map((route, i) => {
     const insertIcon = isDefined(props.swapSubmissionData.router[i + 1]);
     return (
-      <>
+      <HStack gap="space.01" key={route.name}>
         <styled.span>{route.name}</styled.span>
         {insertIcon && <ChevronUpIcon transform="rotate(90)" />}
-      </>
+      </HStack>
     );
   });
 }
@@ -40,7 +40,7 @@ export function SwapDetails() {
     return null;
 
   const formattedMinToReceive = formatMoneyPadded(
-    createMoney(
+    createMoneyFromDecimal(
       new BigNumber(swapSubmissionData.swapAmountTo).times(1 - swapSubmissionData.slippage),
       swapSubmissionData.swapAssetTo.balance.symbol,
       swapSubmissionData.swapAssetTo.balance.decimals
