@@ -93,8 +93,12 @@ export const textStyles = defineTextStyles({
     value: { ...commonDiatypeStyles, fontSize: '0.8125rem', lineHeight: '1.25rem' },
   },
 
-  mono: {
-    description: 'mono',
-    value: { fontFamily: firaCode },
+  'mono.01': {
+    description: 'mono.01',
+    value: { fontFamily: firaCode, fontSize: '1.0625rem', lineHeight: '1.75rem' },
+  },
+  'mono.02': {
+    description: 'mono.02',
+    value: { fontFamily: firaCode, fontSize: '0.6rem', lineHeight: '1rem' },
   },
 });

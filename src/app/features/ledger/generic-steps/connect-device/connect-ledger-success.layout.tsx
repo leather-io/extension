@@ -13,8 +13,8 @@ export function ConnectLedgerSuccessLayout({ chain }: ConnectLedgerSuccessLayout
   return (
     <LedgerWrapper>
       <ConnectLedgerSuccess />
-      <LedgerConnectInstructionTitle chain={chain} mt="loose" mx="50px" />
-      <LedgerSuccessLabel my="extra-loose">Connected!</LedgerSuccessLabel>
+      <LedgerConnectInstructionTitle chain={chain} mt="space.05" mx="50px" />
+      <LedgerSuccessLabel my="space.06">Connected!</LedgerSuccessLabel>
     </LedgerWrapper>
   );
 }

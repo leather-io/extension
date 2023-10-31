@@ -1,8 +1,8 @@
-import { Box, Button, Stack, color } from '@stacks/ui';
 import { BitcoinContractRequestSelectors } from '@tests/selectors/bitcoin-contract-request.selectors';
+import { Box, HStack } from 'leather-styles/jsx';
 
 import { useBtcAssetBalance } from '@app/common/hooks/balance/btc/use-btc-balance';
-import { LeatherButton } from '@app/components/button/button';
+import { LeatherButton } from '@app/ui/components/button';
 
 interface BitcoinContractRequestActionsProps {
   isLoading: boolean;
@@ -23,36 +23,34 @@ export function BitcoinContractRequestActions({
 
   return (
     <Box
-      bg={color('bg')}
-      borderTop="1px solid #DCDDE2"
+      bg="accent.background-primary"
+      borderTop="default"
       bottom="0px"
       height="96px"
       position="fixed"
-      px="loose"
+      px="space.05"
       width="100%"
       zIndex={999}
     >
-      <Stack isInline mt="loose" spacing="base">
-        <Button
-          borderRadius="10px"
-          flexGrow={1}
-          mode="tertiary"
+      <HStack mt="space.05" gap="space.04">
+        <LeatherButton
           data-testid={BitcoinContractRequestSelectors.BitcoinContractRejectButton}
+          flexGrow={1}
           onClick={onRejectBitcoinContractOffer}
+          variant="outline"
         >
           Reject
-        </Button>
+        </LeatherButton>
         <LeatherButton
-          borderRadius="10px"
-          flexGrow={1}
           aria-busy={isLoading}
-          disabled={!canAccept}
           data-testid={BitcoinContractRequestSelectors.BitcoinContractAcceptButton}
+          flexGrow={1}
+          disabled={!canAccept}
           onClick={onAcceptBitcoinContractOffer}
         >
           Accept
         </LeatherButton>
-      </Stack>
+      </HStack>
     </Box>
   );
 }

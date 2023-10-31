@@ -1,13 +1,14 @@
-import { Box, Button, CodeBlock, Stack, color } from '@stacks/ui';
+import { Box, Stack, styled } from 'leather-styles/jsx';
 
 import { Prism } from '@app/common/clarity-prism';
 import { HasChildren } from '@app/common/has-children';
 import { useRouteHeader } from '@app/common/hooks/use-route-header';
 import { Header } from '@app/components/header';
-import { Title } from '@app/components/typography';
 import { ErrorBoundary, FallbackProps, useErrorHandler } from '@app/features/errors/error-boundary';
 import { openGithubIssue } from '@app/features/errors/utils';
 import { useErrorStackTraceState } from '@app/store/ui/ui.hooks';
+import { CodeBlock } from '@app/ui/components/codeblock';
+import { Title } from '@app/ui/components/typography/title';
 
 function ErrorFallback({ error, resetErrorBoundary }: FallbackProps) {
   const [value] = useErrorStackTraceState();
@@ -15,34 +16,33 @@ function ErrorFallback({ error, resetErrorBoundary }: FallbackProps) {
   useRouteHeader(<Header />);
 
   return (
-    <Stack spacing="extra-loose" flexGrow={1}>
-      <Title fontSize={3}>Something went wrong</Title>
+    <Stack gap="space.06" flexGrow={1}>
+      <Title>Something went wrong</Title>
       <Box className="error-codeblock" maxWidth="100vw" overflow="hidden">
         {value && (
           <CodeBlock
-            maxWidth="100%"
+            border="default"
+            code={value}
             flexShrink={1}
             overflow="auto"
-            maxHeight="305px"
-            border="4px solid"
-            borderColor={color('border')}
-            borderRadius="12px"
-            backgroundColor="ink.1000"
-            width="100%"
-            code={value as string}
             language="bash"
-            Prism={Prism as any}
+            maxHeight="305px"
+            maxWidth="100%"
+            prism={Prism as any}
+            width="100%"
           />
         )}
       </Box>
-      <Stack mt="auto" spacing="base">
-        <Button onClick={resetErrorBoundary}>Reload extension</Button>
-        <Button
-          mode="tertiary"
+      <Stack mt="auto" gap="space.04">
+        <styled.button onClick={resetErrorBoundary} type="button">
+          Reload extension
+        </styled.button>
+        <styled.button
           onClick={() => openGithubIssue({ message: error.message, stackTrace: value })}
+          type="button"
         >
           Report issue on GitHub
-        </Button>
+        </styled.button>
       </Stack>
     </Stack>
   );

@@ -1,7 +1,9 @@
 import React from 'react';
-import { useConnect } from '@stacks/connect-react';
+
 import { SampleContracts } from '@common/contracts';
-import { Box, Button, Text } from '@stacks/ui';
+import { useConnect } from '@stacks/connect-react';
+import { Box, styled } from 'leather-styles/jsx';
+
 import { ExplorerLink } from './explorer-link';
 
 export const Deploy = () => {
@@ -19,15 +21,15 @@ export const Deploy = () => {
     });
   return (
     <Box mb={6} maxWidth="600px" mt={6}>
-      <Text as="h2" fontSize={5} mt={6}>
+      <styled.h2 fontSize={5} mt={6}>
         Contract Deploy
-      </Text>
-      <Text display="block" my={4} textStyle="caption.medium">
+      </styled.h2>
+      <styled.span display="block" my={4}>
         Deploy a Clarity smart contract. To keep things simple, we'll provide a contract for you.
-      </Text>
+      </styled.span>
       {tx && <ExplorerLink txId={tx} />}
       <Box mt={4}>
-        <Button onClick={handleSubmit}>Deploy</Button>
+        <styled.button onClick={handleSubmit}>Deploy</styled.button>
       </Box>
     </Box>
   );

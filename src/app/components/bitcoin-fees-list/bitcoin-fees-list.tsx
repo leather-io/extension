@@ -1,6 +1,6 @@
 import { useCallback } from 'react';
 
-import { Stack } from '@stacks/ui';
+import { Stack } from 'leather-styles/jsx';
 
 import { BtcFeeType } from '@shared/models/fees/bitcoin-fees.model';
 
@@ -52,7 +52,7 @@ export function BitcoinFeesList({
   if (!feesList.length) return <FeesListError />;
 
   return (
-    <Stack mt="tight" spacing="base" width="100%">
+    <Stack gap="space.04" mt="space.02" width="100%">
       {feesList.map(({ label, value, btcValue, fiatValue, time, feeRate }) => (
         <FeesListItem
           arrivesIn={time}

@@ -1,17 +1,20 @@
-import { FiArrowUpRight, FiCopy } from 'react-icons/fi';
+import { ReactNode } from 'react';
 
-import { Box, Stack, Text, color } from '@stacks/ui';
 import { BitcoinContractRequestSelectors } from '@tests/selectors/bitcoin-contract-request.selectors';
-import { HStack } from 'leather-styles/jsx';
+import { HStack, styled } from 'leather-styles/jsx';
+import { token } from 'leather-styles/tokens';
 
 import { useClipboard } from '@app/common/hooks/use-copy-to-clipboard';
-import { BtcIcon } from '@app/components/icons/btc-icon';
 import { Flag } from '@app/components/layout/flag';
 import { Tooltip } from '@app/components/tooltip';
+import { LeatherButton } from '@app/ui/components/button';
+import { ArrowUpIcon } from '@app/ui/components/icons/arrow-up-icon';
+import { BtcIcon } from '@app/ui/components/icons/btc-icon';
+import { CopyIcon } from '@app/ui/components/icons/copy-icon';
 
 interface BitcoinContractLockAmountProps {
   hoverLabel?: string;
-  image?: JSX.Element;
+  image?: ReactNode;
   subtitle?: string;
   subValue?: string;
   subValueAction?(): void;
@@ -30,18 +33,15 @@ export function BitcoinContractLockAmount({
   const { onCopy, hasCopied } = useClipboard(hoverLabel ?? '');
 
   return (
-    <Flag img={image || <BtcIcon />} align="middle" width="100%">
+    <Flag align="middle" img={image || <BtcIcon />} width="100%">
       <HStack alignItems="center" justifyContent="space-between">
-        <Text fontSize={2} fontWeight="500">
-          {title ? title : 'BTC'}
-        </Text>
-        <Text
-          fontSize={2}
-          fontWeight="500"
+        <styled.span textStyle="label.01">{title ? title : 'BTC'}</styled.span>
+        <styled.span
           data-testid={BitcoinContractRequestSelectors.BitcoinContractLockAmount}
+          textStyle="label.01"
         >
           {value}
-        </Text>
+        </styled.span>
       </HStack>
       <HStack alignItems="center" justifyContent="space-between" mt="space.02">
         {subtitle ? (
@@ -53,28 +53,31 @@ export function BitcoinContractLockAmount({
             maxWidth="230px"
             placement="bottom"
           >
-            <Box
+            <styled.button
               _hover={{ cursor: 'pointer' }}
-              as="button"
-              color={color('text-caption')}
+              color="accent.text-subdued"
               display="flex"
               onClick={onCopy}
               type="button"
             >
-              <Text color={color('text-caption')} fontSize={1} mr="extra-tight">
+              <styled.span color="accent.text-subdued" mr="space.01" textStyle="caption.01">
                 {subtitle}
-              </Text>
-              {hoverLabel ? <FiCopy size="14px" /> : null}
-            </Box>
+              </styled.span>
+              {hoverLabel ? <CopyIcon size="14px" /> : null}
+            </styled.button>
           </Tooltip>
         ) : null}
         {subValue ? (
-          <Stack as="button" isInline onClick={subValueAction} spacing="extra-tight" type="button">
-            <Text color={subValueAction ? color('accent') : color('text-caption')} fontSize={1}>
-              {subValue}
-            </Text>
-            {subValueAction ? <FiArrowUpRight color={color('accent')} /> : null}
-          </Stack>
+          <LeatherButton onClick={subValueAction} variant="text">
+            <HStack gap="space.01">
+              <styled.span color={subValueAction ? 'stacks' : 'accent.text-subdued'}>
+                {subValue}
+              </styled.span>
+              {subValueAction ? (
+                <ArrowUpIcon color={token('colors.stacks')} transform="rotate(45deg)" />
+              ) : null}
+            </HStack>
+          </LeatherButton>
         ) : null}
       </HStack>
     </Flag>

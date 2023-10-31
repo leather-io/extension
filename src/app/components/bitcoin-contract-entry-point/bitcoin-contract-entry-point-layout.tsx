@@ -1,5 +1,4 @@
-import { Flex, HStack } from 'leather-styles/jsx';
-import { StackProperties } from 'leather-styles/patterns';
+import { Flex, HStack, styled } from 'leather-styles/jsx';
 
 import { Money } from '@shared/models/money.model';
 
@@ -7,11 +6,10 @@ import { formatBalance } from '@app/common/format-balance';
 import { ftDecimals } from '@app/common/stacks-utils';
 import { Flag } from '@app/components/layout/flag';
 import { Tooltip } from '@app/components/tooltip';
-import { Caption, Text } from '@app/components/typography';
 
 import { LoadingSpinner } from '../loading-spinner';
 
-interface BitcoinContractEntryPointLayoutProps extends StackProperties {
+interface BitcoinContractEntryPointLayoutProps {
   balance: Money;
   caption: string;
   icon: React.JSX.Element;
@@ -30,21 +28,23 @@ export function BitcoinContractEntryPointLayout(props: BitcoinContractEntryPoint
 
   return (
     <Flex cursor={cursor} onClick={onClick} outline={0}>
-      <Flag img={icon} align="middle" spacing="base" width="100%">
+      <Flag align="middle" img={icon} spacing="space.04" width="100%">
         <HStack alignItems="center" justifyContent="space-between" width="100%">
-          <Text>{'Bitcoin Contracts'}</Text>
+          <styled.span textStyle="label.01">Bitcoin Contracts</styled.span>
           <Tooltip
             label={formattedBalance.isAbbreviated ? balance.amount.toString() : undefined}
             placement="left-start"
           >
-            <Text fontVariantNumeric="tabular-nums" textAlign="right">
+            <styled.span textStyle="label.01">
               {isLoading ? <LoadingSpinner size="sm" /> : formattedBalance.value}
-            </Text>
+            </styled.span>
           </Tooltip>
         </HStack>
-        <HStack height="1.25rem" alignItems="center" justifyContent="space-between" width="100%">
-          <Caption>{caption}</Caption>
-          <Flex>{isLoading ? '' : <Caption>{usdBalance}</Caption>}</Flex>
+        <HStack alignItems="center" justifyContent="space-between" width="100%">
+          <styled.span textStyle="caption.02">{caption}</styled.span>
+          <Flex>
+            {isLoading ? '' : <styled.span textStyle="caption.02">{usdBalance}</styled.span>}
+          </Flex>
         </HStack>
       </Flag>
     </Flex>

@@ -1,16 +1,16 @@
 import { memo, useMemo } from 'react';
 
-import { Box, Flex, FlexProps, color } from '@stacks/ui';
 import { createQR } from '@vkontakte/vk-qr';
+import { Box, Flex } from 'leather-styles/jsx';
 
-export const QrCode = memo(({ principal, ...rest }: { principal: string } & FlexProps) => {
+export const QrCode = memo(({ principal, ...rest }: { principal: string }) => {
   const qrSvg = useMemo(
     () =>
       createQR(principal, {
         ecc: 0,
         qrSize: 180,
-        backgroundColor: color('text-body'),
-        foregroundColor: color('invert'),
+        backgroundColor: 'accent.text-primary',
+        foregroundColor: 'invert',
       }),
     [principal]
   );
@@ -21,12 +21,12 @@ export const QrCode = memo(({ principal, ...rest }: { principal: string } & Flex
     <Flex
       alignItems="center"
       border="1px solid"
-      borderColor={color('border')}
+      borderColor="accent.border-default"
       borderRadius="18px"
       boxShadow="low"
       justifyContent="center"
       mx="auto"
-      p="loose"
+      p="space.05"
       position="relative"
       {...rest}
     >

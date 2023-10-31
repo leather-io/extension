@@ -1,7 +1,7 @@
 import { Box } from 'leather-styles/jsx';
 
-import { LeatherButton } from '@app/components/button/button';
 import { LedgerTxRejected } from '@app/features/ledger/illustrations/ledger-illu-transaction-rejected';
+import { LeatherButton } from '@app/ui/components/button';
 
 import { LedgerTitle } from '../../components/ledger-title';
 import { LedgerWrapper } from '../../components/ledger-wrapper';
@@ -20,7 +20,7 @@ export function LedgerOperationRejectedLayout({
         <LedgerTxRejected />
       </Box>
       <LedgerTitle my="space.05">{description}</LedgerTitle>
-      <LeatherButton width="100%" variant="outline" mb="space.01" onClick={onClose}>
+      <LeatherButton fullWidth mb="space.01" onClick={onClose} variant="outline">
         Close
       </LeatherButton>
     </LedgerWrapper>

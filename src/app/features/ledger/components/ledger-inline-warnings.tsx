@@ -1,9 +1,9 @@
-import { Text } from '@stacks/ui';
+import { styled } from 'leather-styles/jsx';
 
 import { SupportedBlockchains } from '@shared/constants';
 
-import { Capitalize } from '@app/components/text/capitalize';
 import { WarningLabel } from '@app/components/warning-label';
+import { Capitalize } from '@app/ui/utils/capitalize';
 
 import { isStacksLedgerAppClosed } from '../utils/stacks-ledger-utils';
 
@@ -23,9 +23,9 @@ export function CommonLedgerDeviceInlineWarnings({
     return (
       <WarningLabel fontSize="14px" textAlign="left">
         Latest version of <Capitalize>{chain} app</Capitalize> required
-        <Text as="a" textDecoration="underline" href="ledgerlive://manager">
+        <styled.a href="ledgerlive://manager" textDecoration="underline">
           Update on Ledger Live to continue
-        </Text>
+        </styled.a>
       </WarningLabel>
     );
   }

@@ -5,12 +5,13 @@ import get from 'lodash.get';
 
 import { RouteUrls } from '@shared/route-urls';
 
-import { GenericError } from '@app/components/generic-error/generic-error';
+import { GenericError, GenericErrorListItem } from '@app/components/generic-error/generic-error';
 
 const helpTextList = [
-  <styled.li key={1} mt="space.04">
-    <styled.span textStyle="label.02">Please report issue to swap protocol</styled.span>
-  </styled.li>,
+  <GenericErrorListItem
+    key={1}
+    text={<styled.span textStyle="label.02">Please report issue to swap protocol</styled.span>}
+  />,
 ];
 
 export function SwapError() {

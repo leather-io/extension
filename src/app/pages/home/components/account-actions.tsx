@@ -6,10 +6,10 @@ import { Flex, FlexProps } from 'leather-styles/jsx';
 import { RouteUrls } from '@shared/route-urls';
 
 import { useWalletType } from '@app/common/use-wallet-type';
-import { ArrowDown } from '@app/components/icons/arrow-down';
-import { Plus2 } from '@app/components/icons/plus2';
-import { SwapIcon } from '@app/components/icons/swap-icon';
 import { useConfigBitcoinEnabled } from '@app/query/common/remote-config/remote-config.query';
+import { ArrowDownIcon } from '@app/ui/components/icons/arrow-down-icon';
+import { PlusIcon } from '@app/ui/components/icons/plus-icon';
+import { SwapIcon } from '@app/ui/components/icons/swap-icon';
 
 import { ActionButton } from './action-button';
 import { SendButton } from './send-button';
@@ -29,24 +29,19 @@ export function AccountActions(props: FlexProps) {
       <SendButton />
       <ActionButton
         data-testid={HomePageSelectors.ReceiveCryptoAssetBtn}
-        icon={<ArrowDown />}
+        icon={<ArrowDownIcon />}
         label="Receive"
         onClick={() => navigate(receivePath, { state: { backgroundLocation: location } })}
       />
       <ActionButton
         data-testid={HomePageSelectors.FundAccountBtn}
-        icon={<Plus2 />}
+        icon={<PlusIcon />}
         label="Buy"
         onClick={() => navigate(RouteUrls.Fund)}
       />
       {whenWallet({
         software: (
-          <ActionButton
-            data-testid={''}
-            icon={<SwapIcon />}
-            label="Swap"
-            onClick={() => navigate(RouteUrls.Swap)}
-          />
+          <ActionButton icon={<SwapIcon />} label="Swap" onClick={() => navigate(RouteUrls.Swap)} />
         ),
         ledger: null,
       })}

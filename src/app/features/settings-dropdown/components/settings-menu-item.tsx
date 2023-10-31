@@ -1,25 +1,29 @@
-import { memo } from 'react';
+import { ReactNode } from 'react';
 
-import { BoxProps, Text, color } from '@stacks/ui';
-import { token } from 'leather-styles/tokens';
+import { ButtonProps, LeatherButton } from '@app/ui/components/button';
 
-export const SettingsMenuItem = memo((props: BoxProps) => {
-  const { onClick, children, ...rest } = props;
+interface SettingsMenuItemProps extends ButtonProps {
+  color?: string;
+  onClick: (e: React.MouseEvent) => void;
+  children: ReactNode;
+}
+export function SettingsMenuItem({ color, onClick, children, ...props }: SettingsMenuItemProps) {
   return (
-    <Text
-      width="100%"
-      px="base"
-      py="base"
-      cursor="pointer"
-      color={color('text-title')}
-      _hover={{ backgroundColor: token('colors.brown.2') }}
+    <LeatherButton
+      _hover={{ bg: 'accent.component-background-hover' }}
+      borderRadius="0px"
+      color={color ? color : 'accent.text-primary'}
+      px="space.04"
+      py="space.04"
       onClick={e => {
         onClick?.(e);
       }}
-      fontSize={1}
-      {...rest}
+      textStyle="label.02"
+      variant="text"
+      width="100%"
+      {...props}
     >
       {children}
-    </Text>
+    </LeatherButton>
   );
-});
+}

@@ -2,7 +2,7 @@ import { BoxProps, styled } from 'leather-styles/jsx';
 
 import { SupportedBlockchains } from '@shared/constants';
 
-import { Capitalize } from '@app/components/text/capitalize';
+import { Capitalize } from '@app/ui/utils/capitalize';
 
 export function LedgerTitle(props: BoxProps) {
   const { children, ...rest } = props;

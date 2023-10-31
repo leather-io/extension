@@ -1,9 +1,7 @@
-import { FiMoreHorizontal } from 'react-icons/fi';
+import { Box, HStack, Stack, styled } from 'leather-styles/jsx';
 
-import { Box, IconButton, Stack, Text, color } from '@stacks/ui';
-import { HStack } from 'leather-styles/jsx';
-
-import { Caption } from '@app/components/typography';
+import { EllipsesHorizontalIcon } from '@app/ui/components/icons/ellipses-h-icon';
+import { Caption } from '@app/ui/components/typography/caption';
 
 import { TxAssetItem } from './tx-asset-item';
 
@@ -23,13 +21,14 @@ export function EventCard(props: EventCardProps): React.JSX.Element {
 
   return (
     <>
-      <Stack p="base-loose" spacing="base-loose">
+      <Stack gap="space.05" p="space.05">
         <HStack alignItems="center" justifyContent="space-between" position="relative">
-          <Text fontSize={2} fontWeight={500}>
-            {title}
-          </Text>
+          <styled.span textStyle="label.01">{title}</styled.span>
+          {/* TODO: What does this do? */}
           {actions && (
-            <IconButton size="24px" icon={FiMoreHorizontal} position="absolute" right={0} />
+            <styled.button width="24px" position="absolute" right={0} type="button">
+              <EllipsesHorizontalIcon />
+            </styled.button>
           )}
         </HStack>
         <TxAssetItem iconString={icon} amount={amount} ticker={ticker} />
@@ -42,11 +41,11 @@ export function EventCard(props: EventCardProps): React.JSX.Element {
       </Stack>
       {message && (
         <Box
-          p="base-loose"
+          p="space.05"
           borderTop="1px solid"
-          borderColor={color('border')}
+          borderColor="accent.border-default"
           borderBottom={!isLast ? '4px solid' : 'unset'}
-          borderBottomColor={color('border')}
+          borderBottomColor="accent.border-default"
         >
           <Caption>{message}</Caption>
         </Box>

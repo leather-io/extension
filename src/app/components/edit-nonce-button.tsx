@@ -1,22 +1,12 @@
-import { BoxProps } from '@stacks/ui';
-import { token } from 'leather-styles/tokens';
+import { ButtonProps, LeatherButton } from '@app/ui/components/button';
 
-import { Caption } from '@app/components/typography';
-
-interface EditNonceButtonProps extends BoxProps {
+interface EditNonceButtonProps extends ButtonProps {
   onEditNonce(): void;
 }
 export function EditNonceButton({ onEditNonce, ...props }: EditNonceButtonProps) {
   return (
-    <Caption
-      _hover={{ cursor: 'pointer', textDecoration: 'underline' }}
-      as="button"
-      color={token('colors.brown.12')}
-      onClick={onEditNonce}
-      type="button"
-      {...props}
-    >
+    <LeatherButton onClick={onEditNonce} textStyle="label.02" variant="link" {...props}>
       Edit nonce
-    </Caption>
+    </LeatherButton>
   );
 }

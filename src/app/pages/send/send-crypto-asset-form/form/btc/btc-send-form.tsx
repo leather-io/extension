@@ -1,17 +1,17 @@
 import { Outlet } from 'react-router-dom';
 
-import { Box } from '@stacks/ui';
 import { SendCryptoAssetSelectors } from '@tests/selectors/send.selectors';
 import { Form, Formik } from 'formik';
+import { Box } from 'leather-styles/jsx';
 
 import { HIGH_FEE_WARNING_LEARN_MORE_URL_BTC } from '@shared/constants';
 import { CryptoCurrencies } from '@shared/models/currencies.model';
 
-import { BtcIcon } from '@app/components/icons/btc-icon';
 import { HighFeeDrawer } from '@app/features/high-fee-drawer/high-fee-drawer';
 import { useNativeSegwitBalance } from '@app/query/bitcoin/balance/btc-native-segwit-balance.hooks';
 import { useCryptoCurrencyMarketData } from '@app/query/common/market-data/market-data.hooks';
 import { useCurrentAccountNativeSegwitIndexZeroSigner } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
+import { BtcIcon } from '@app/ui/components/icons/btc-icon';
 
 import { AmountField } from '../../components/amount-field';
 import { FormFooter } from '../../components/form-footer';
@@ -47,7 +47,7 @@ export function BtcSendForm() {
   } = useBtcSendForm();
 
   return (
-    <Box width="100%" pb="base">
+    <Box width="100%" pb="space.04">
       <Formik
         initialValues={createDefaultInitialFormValues({
           ...routeState,

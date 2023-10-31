@@ -1,7 +1,6 @@
 import { memo } from 'react';
 
-import { BoxProps } from '@stacks/ui';
-import { styled } from 'leather-styles/jsx';
+import { BoxProps, styled } from 'leather-styles/jsx';
 
 import { useAccountDisplayName } from '@app/common/hooks/account/use-account-names';
 import { StacksAccount } from '@app/store/accounts/blockchain/stacks/stacks-account.models';

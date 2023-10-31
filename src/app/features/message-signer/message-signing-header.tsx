@@ -32,7 +32,7 @@ export function MessageSigningHeader({
     <Stack gap="space.04" pt="space.05">
       <styled.h1 textStyle="heading.03">Sign message</styled.h1>
       {caption && (
-        <Flag align="middle" img={<Favicon origin={origin ?? ''} />} pl="tight">
+        <Flag align="middle" img={<Favicon origin={origin ?? ''} />} pl="space.02">
           <styled.span textStyle="label.02" wordBreak="break-word">
             {caption}
             {additionalText}

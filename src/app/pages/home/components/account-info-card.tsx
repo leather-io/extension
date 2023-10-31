@@ -4,10 +4,10 @@ import { Box, Divider, Flex, styled } from 'leather-styles/jsx';
 import { useCurrentAccountDisplayName } from '@app/common/hooks/account/use-account-names';
 import { useTotalBalance } from '@app/common/hooks/balance/use-total-balance';
 import { useDrawers } from '@app/common/hooks/use-drawers';
-import { LeatherButton } from '@app/components/button/button';
-import { ChevronDownIcon } from '@app/components/icons/chevron-down-icon';
 import { useCurrentAccountNativeSegwitAddressIndexZero } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
 import { useCurrentStacksAccount } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
+import { LeatherButton } from '@app/ui/components/button';
+import { ChevronDownIcon } from '@app/ui/components/icons/chevron-down-icon';
 
 import { AccountActions } from './account-actions';
 
@@ -26,8 +26,8 @@ export function AccountInfoCard() {
       bgColor={{ base: 'brown.2', sm: 'unset' }}
       rounded="10px"
       px={{ base: 'space.05', sm: '0' }}
-      pt={{ base: 'space.05', sm: 'space.07' }}
-      pb={{ base: 'space.02', sm: 'space.07' }}
+      pt={{ base: 'space.05', sm: 'space.06' }}
+      pb={{ base: 'space.02', sm: 'space.06' }}
     >
       <LeatherButton
         onClick={() => setIsShowingSwitchAccountsState(true)}
@@ -35,11 +35,7 @@ export function AccountInfoCard() {
         _before={{ bg: 'transparent' }}
       >
         <Flex>
-          <styled.p
-            data-testid={SettingsSelectors.CurrentAccountDisplayName}
-            textStyle="label.01"
-            mr={['space.00', 'space.02']}
-          >
+          <styled.p data-testid={SettingsSelectors.CurrentAccountDisplayName} textStyle="label.01">
             {name}
           </styled.p>
           <Box mt="space.01" ml="space.02">
@@ -47,7 +43,11 @@ export function AccountInfoCard() {
           </Box>
         </Flex>
       </LeatherButton>
-      <Flex flexDir={['column', 'row']} justify="space-between" alignItems={['', 'center']}>
+      <Flex
+        flexDir={['column', 'column', 'row']}
+        justify="space-between"
+        alignItems={['', 'center']}
+      >
         <styled.h1 textStyle="heading.02" mb="space.05" mt="space.04">
           {totalBalance?.totalUsdBalance}
         </styled.h1>

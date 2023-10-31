@@ -25,18 +25,18 @@ export function useRecipientSelectFields() {
   }, [navigate]);
 
   // Formik does not provide a field reset
-  const resetAllRecipientFields = useCallback(() => {
+  const resetAllRecipientFields = useCallback(async () => {
     void setFieldValue('recipient', '');
     setFieldError('recipient', undefined);
-    setFieldTouched('recipient', false);
+    await setFieldTouched('recipient', false);
     void setFieldValue('recipientBnsName', '');
     setFieldError('recipientBnsName', undefined);
-    setFieldTouched('recipientBnsName', false);
+    await setFieldTouched('recipientBnsName', false);
   }, [setFieldError, setFieldTouched, setFieldValue]);
 
   const onSelectRecipientFieldType = useCallback(
-    (index: number) => {
-      resetAllRecipientFields();
+    async (index: number) => {
+      await resetAllRecipientFields();
       setBnsAddress('');
       setSelectedRecipientField(index);
       setIsSelectVisible(false);
@@ -45,8 +45,8 @@ export function useRecipientSelectFields() {
   );
 
   const onSetIsSelectVisible = useCallback(
-    (value: boolean) => {
-      resetAllRecipientFields();
+    async (value: boolean) => {
+      await resetAllRecipientFields();
       setIsSelectVisible(value);
     },
     [resetAllRecipientFields]

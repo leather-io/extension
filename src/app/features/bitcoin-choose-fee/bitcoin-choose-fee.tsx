@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-import { Box, Stack } from '@stacks/ui';
+import { Box, Stack } from 'leather-styles/jsx';
 import { styled } from 'leather-styles/jsx';
 
 import { BtcFeeType } from '@shared/models/fees/bitcoin-fees.model';
@@ -54,7 +54,7 @@ export function BitcoinChooseFee({
     <BitcoinChooseFeeLayout isLoading={isLoading}>
       <Stack alignItems="center" width="100%">
         {hasAmount && (
-          <styled.h3 textStyle="heading.03" color={showError ? 'error' : 'unset'}>
+          <styled.h3 textStyle="heading.03" color={showError ? 'error.label' : 'unset'}>
             {formatMoney(amount)}
           </styled.h3>
         )}
@@ -80,7 +80,7 @@ export function BitcoinChooseFee({
           }
           feesList={feesList}
         />
-        <Box mt="loose" width="100%">
+        <Box mt="space.05" width="100%">
           <AvailableBalance balance={btcBalance.balance} />
         </Box>
       </Stack>

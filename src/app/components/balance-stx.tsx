@@ -1,8 +1,8 @@
 import { useMemo } from 'react';
 
 import { stacksValue } from '@app/common/stacks-utils';
-import { Caption } from '@app/components/typography';
 import { useAnchoredStacksAccountBalances } from '@app/query/stacks/balance/stx-balance.hooks';
+import { Caption } from '@app/ui/components/typography/caption';
 
 interface BalanceProps {
   address: string;
@@ -20,5 +20,5 @@ export function StxBalance(props: BalanceProps) {
     [balances]
   );
 
-  return <Caption variant="c2">{balance}</Caption>;
+  return <Caption>{balance}</Caption>;
 }

@@ -29,6 +29,7 @@ export function RecipientField({
 }: RecipientFieldProps) {
   const [field] = useField(name);
   const { setFieldValue } = useFormikContext<BitcoinSendFormValues | StacksSendFormValues>();
+
   useEffect(() => {
     void setFieldValue(name, field.value.trim());
   }, [name, field.value, setFieldValue]);

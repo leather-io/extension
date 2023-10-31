@@ -61,7 +61,7 @@ export const colors = defineTokens.colors({
     5: { value: '#E4DDD6' },
     6: { value: '#DED6CD' },
     7: { value: '#D8CEC4' },
-    8: { value: '#C6B9AD' },
+    8: { value: '#948677' },
     9: { value: '#948677' },
     10: { value: '#64594D' },
     11: { value: '#4A423B' },
@@ -75,7 +75,7 @@ export const colors = defineTokens.colors({
     5: { value: '#12100F' },
     6: { value: '#716A60' },
     7: { value: '#8F887D' },
-    8: { value: '#C6B9AD' },
+    8: { value: '#948677' },
     9: { value: '#F5F1ED' },
     10: { value: '#DED6CD' },
     11: { value: '#DED6CD' },
@@ -108,5 +108,8 @@ export const colors = defineTokens.colors({
     10: { value: '#818181' },
     11: { value: '#B1B1B1' },
     12: { value: '#EEEEEE' },
-  }
+  },
+  lightModeStacks: { value: '#5546FF' },
+  darkModeStacks: { value: '#7F80FF' },
+  overlay: { value: 'rgba(0,0,0,0.4)' },
 });

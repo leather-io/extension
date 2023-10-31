@@ -1,8 +1,7 @@
 import { useState } from 'react';
 
-import { safeAwait } from '@stacks/ui';
-
 import { delay } from '@app/common/utils';
+import { safeAwait } from '@app/common/utils/safe-await';
 
 import { LedgerTxSigningContext } from '../flows/stacks-tx-signing/ledger-sign-tx.context';
 import { getStacksAppVersion } from './stacks-ledger-utils';

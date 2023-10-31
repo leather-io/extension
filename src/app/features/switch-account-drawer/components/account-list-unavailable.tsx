@@ -1,23 +1,21 @@
 import { memo } from 'react';
 
-import { Box, Flex } from '@stacks/ui';
-
-import { Body, Title } from '@app/components/typography';
+import { Box, Flex, styled } from 'leather-styles/jsx';
 
 export const AccountListUnavailable = memo(() => (
   <Flex
     flexDirection="column"
     justifyContent="center"
-    px="loose"
     minHeight="120px"
-    mb="extra-loose"
+    mb="space.06"
+    px="space.05"
   >
     <Box>
-      <Title>Unable to load account information</Title>
-      <Body mt="base-tight">
+      <styled.span textStyle="label.01">Unable to load account information</styled.span>
+      <styled.span mt="space.03" textStyle="body.02">
         We're unable to load information about your accounts. This may be a problem with the
         wallet's API. If this problem persists, contact support.
-      </Body>
+      </styled.span>
     </Box>
   </Flex>
 ));

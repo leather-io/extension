@@ -37,7 +37,13 @@ export function ViewSecretKey() {
   return (
     <>
       <RequestPassword
-        title="View Secret Key"
+        title={
+          <>
+            View
+            <br />
+            Secret Key
+          </>
+        }
         caption="Enter the password you set on this device"
         onSuccess={() => setShowSecretKey(true)}
       />

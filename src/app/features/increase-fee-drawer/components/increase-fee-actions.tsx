@@ -3,7 +3,7 @@ import { Flex } from 'leather-styles/jsx';
 
 import { LoadingKeys, useLoading } from '@app/common/hooks/use-loading';
 import { useWalletType } from '@app/common/use-wallet-type';
-import { LeatherButton } from '@app/components/button/button';
+import { LeatherButton } from '@app/ui/components/button';
 
 interface IncreaseFeeActionsProps {
   isDisabled: boolean;

@@ -1,6 +1,6 @@
-import { Flex, color } from '@stacks/ui';
+import { Flex, styled } from 'leather-styles/jsx';
 
-import { Text } from '@app/components/typography';
+import { LeatherButton } from '@app/ui/components/button';
 
 interface InscriptionMetadataProps {
   action?(): void;
@@ -19,23 +19,17 @@ export function InscriptionMetadata({
   return (
     <Flex alignItems="flex-start" flexDirection="column" justifyContent="center">
       {icon && icon}
-      <Text fontSize={2} fontWeight="500">
-        {title}
-      </Text>
-      <Text color={color('text-caption')} fontSize={1}>
-        {subtitle}
-      </Text>
+      <styled.span textStyle="label.01">{title}</styled.span>
+      <styled.span textStyle="caption.02">{subtitle}</styled.span>
       {action ? (
-        <Text
-          _hover={{ cursor: 'pointer', textDecoration: 'underline' }}
-          as="button"
-          color={color('accent')}
-          fontSize={1}
+        <LeatherButton
+          color="stacks"
           onClick={() => action()}
-          type="button"
+          textStyle="caption.02"
+          variant="text"
         >
           {actionLabel}
-        </Text>
+        </LeatherButton>
       ) : null}
     </Flex>
   );

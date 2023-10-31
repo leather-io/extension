@@ -3,7 +3,7 @@ import { useRef, useState } from 'react';
 import { useOnResizeListener } from '@app/common/hooks/use-on-resize-listener';
 import { spamFilter } from '@app/common/utils/spam-filter';
 import { Tooltip } from '@app/components/tooltip';
-import { Title } from '@app/components/typography';
+import { Title } from '@app/ui/components/typography/title';
 
 interface TransactionTitleProps {
   title: string;

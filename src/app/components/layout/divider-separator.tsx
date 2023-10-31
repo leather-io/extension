@@ -1,11 +1,9 @@
-import React, { cloneElement, isValidElement } from 'react';
+import { ReactNode, cloneElement, isValidElement } from 'react';
 
-import { BoxProps } from '@stacks/ui';
+import { Hr, HrProps } from '@app/ui/components/hr';
 
-import { Hr } from '../hr';
-
-interface DividerSeparatorProps extends BoxProps {
-  children: React.ReactNode;
+interface DividerSeparatorProps extends HrProps {
+  children: ReactNode;
 }
 export function DividerSeparator({ children, ...props }: DividerSeparatorProps) {
   const parsedChildren = Array.isArray(children) ? children : [children];
@@ -19,7 +17,7 @@ export function DividerSeparator({ children, ...props }: DividerSeparatorProps) 
             cloneElement(child, {
               key: index,
             }),
-            <Hr {...props} key={index.toString() + '-hr'} />,
+            <Hr key={index.toString() + '-hr'} {...props} />,
           ];
         })
         .filter((_value, index, array) => index !== array.length - 1)}

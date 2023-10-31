@@ -1,7 +1,6 @@
 import { Suspense } from 'react';
 
-import { Box, Stack, color } from '@stacks/ui';
-import { HStack } from 'leather-styles/jsx';
+import { Box, HStack, styled } from 'leather-styles/jsx';
 import { token } from 'leather-styles/tokens';
 
 import { BtcBalance } from '@app/components/balance-btc';
@@ -19,7 +18,7 @@ interface PopupHeaderLayoutProps {
 }
 function PopupHeaderLayout({ children }: PopupHeaderLayoutProps) {
   return (
-    <Box p="base-loose" width="100%" borderBottom="1px solid" borderColor={color('border')}>
+    <Box p="space.04" width="100%" borderBottom="borders.default">
       {children}
     </Box>
   );
@@ -45,14 +44,17 @@ function PopupHeaderSuspense({ displayAddresssBalanceOf = 'stx' }: PopupHeaderPr
         }
       >
         <HStack alignItems="center" justifyContent="space-between">
-          <CurrentAccountName as="h3" />
-          <Stack isInline alignItems="center" justifyContent="right">
+          <styled.h3>
+            <CurrentAccountName />
+          </styled.h3>
+
+          <HStack alignItems="center" justifyContent="right">
             <NetworkModeBadge />
             {account && displayAddresssBalanceOf === 'stx' && (
               <StxBalance address={account.address} />
             )}
             {isBitcoinEnabled && displayAddresssBalanceOf === 'all' && <BtcBalance />}
-          </Stack>
+          </HStack>
         </HStack>
       </Flag>
     </PopupHeaderLayout>
