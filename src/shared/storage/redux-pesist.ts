@@ -1,4 +1,5 @@
 import { PersistConfig, createMigrate, getStoredState } from 'redux-persist';
+import autoMergeLevel2 from 'redux-persist/lib/stateReconciler/autoMergeLevel2';
 
 import type { RootState } from '@app/store';
 
@@ -76,7 +77,7 @@ const legacyPersistConfig: PersistConfig<RootState> = {
   version: 1,
   storage,
   serialize: true,
-  whitelist: ['analytics', 'chains', 'software-keys', 'networks', 'onboarding', 'settings'],
+  whitelist: ['analytics', 'chains', 'keys', 'networks', 'onboarding', 'settings'],
 };
 
 async function migrateToUsingNoSerialization() {
@@ -96,11 +97,54 @@ async function migrateToUsingNoSerialization() {
   return storage;
 }
 
+async function migrateToRenameKeysStoreModule(state: Promise<any>) {
+  const resolvedState = await Promise.resolve(state);
+
+  const newStore = JSON.parse(
+    JSON.stringify({
+      ...resolvedState,
+      softwareKeys: resolvedState.keys,
+      ledger: {
+        ...resolvedState.ledger,
+      },
+    })
+  );
+
+  // add stacks ledger keys to new place
+  if (resolvedState.keys.entities.default.type === 'ledger') {
+    newStore.ledger = { ...resolvedState.ledger, stacks: resolvedState.keys };
+  }
+
+  // add default bitcoin ledger state
+  if (!newStore.ledger.bitcoin) {
+    newStore.ledger.bitcoin = {
+      ids: [],
+      entities: {},
+      targetId: '',
+    };
+  }
+
+  // add default stacks ledger state
+  if (!newStore.ledger.stacks) {
+    newStore.ledger.stacks = {
+      ids: [],
+      entities: {},
+      targetId: '',
+    };
+  }
+
+  // remove old keys store
+  Reflect.deleteProperty(newStore, 'keys');
+
+  return newStore;
+}
+
 interface UntypedDeserializeOption {
   deserialize?: boolean;
 }
 export const persistConfig: PersistConfig<RootState> & UntypedDeserializeOption = {
   key: 'root',
+  stateReconciler: autoMergeLevel2,
   version: 1,
   storage,
   serialize: false,
@@ -108,13 +152,17 @@ export const persistConfig: PersistConfig<RootState> & UntypedDeserializeOption 
     0: async () => {
       return migrateToUsingNoSerialization();
     },
+    1: async (state: any) => {
+      return migrateToRenameKeysStoreModule(state);
+    },
+    debug: true,
   } as any),
   deserialize: false,
   whitelist: [
     'analytics',
     'chains',
     'ordinals',
-    'software-keys',
+    'softwareKeys',
     'ledger',
     'networks',
     'onboarding',

@@ -10,7 +10,7 @@ import { RootState } from '@app/store';
 
 import { selectStacksChain } from '../chains/stx-chain.selectors';
 
-const selectKeysSlice = (state: RootState) => state['software-keys'];
+const selectKeysSlice = (state: RootState) => state['softwareKeys'];
 
 export const selectDefaultSoftwareKey = createSelector(
   selectKeysSlice,
