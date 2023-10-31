@@ -2,7 +2,7 @@ import { FiStar } from 'react-icons/fi';
 
 import { Stack, color } from '@stacks/ui';
 
-import { Caption } from '@app/components/typography';
+import { Caption } from '@app/ui/components/typography/caption';
 
 export function ZeroPercentFeesBadge() {
   return (
@@ -20,7 +20,7 @@ export function ZeroPercentFeesBadge() {
       spacing="extra-tight"
     >
       <FiStar color="#F59300" size="12px" strokeWidth="2.5px" />
-      <Caption color="#FFA953" fontWeight={500} variant="c2">
+      <Caption color="#FFA953" fontWeight={500}>
         0% Fees
       </Caption>
     </Stack>

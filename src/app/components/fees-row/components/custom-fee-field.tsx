@@ -3,13 +3,14 @@ import { FormEvent, useCallback } from 'react';
 import { Input, InputGroup, Stack, StackProps, color } from '@stacks/ui';
 import { SharedComponentsSelectors } from '@tests/selectors/shared-component.selectors';
 import { useField } from 'formik';
+import { styled } from 'leather-styles/jsx';
 
 import { CryptoCurrencies } from '@shared/models/currencies.model';
 import { StacksFeeEstimate } from '@shared/models/fees/stacks-fees.model';
 
 import { stxToMicroStx } from '@app/common/money/unit-conversion';
 import { SendFormWarningMessages } from '@app/common/warning-messages';
-import { Caption } from '@app/components/typography';
+import { Caption } from '@app/ui/components/typography/caption';
 
 interface CustomFeeFieldProps extends StackProps {
   feeCurrencySymbol: CryptoCurrencies;
@@ -43,9 +44,9 @@ export function CustomFeeField(props: CustomFeeFieldProps) {
         position="relative"
         width="130px"
       >
-        <Caption as="label" htmlFor="fee" position="absolute" right={2} zIndex={999}>
-          {feeCurrencySymbol}
-        </Caption>
+        <styled.label htmlFor="fee" position="absolute" right={2} zIndex={999}>
+          <Caption>{feeCurrencySymbol}</Caption>
+        </styled.label>
         <Input
           autoComplete="off"
           borderRadius="8px"

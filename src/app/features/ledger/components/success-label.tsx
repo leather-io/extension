@@ -2,7 +2,7 @@ import { FiCheck } from 'react-icons/fi';
 
 import { Flex, FlexProps, color } from '@stacks/ui';
 
-import { Caption } from '@app/components/typography';
+import { Caption } from '@app/ui/components/typography/caption';
 
 interface LedgerSuccessLabelProps extends FlexProps {
   children: React.ReactNode;

@@ -1,17 +1,15 @@
 import { FormEvent, useCallback, useState } from 'react';
 
-import { Input } from '@stacks/ui';
 import { SettingsSelectors } from '@tests/selectors/settings.selectors';
 import { Stack, styled } from 'leather-styles/jsx';
-import { token } from 'leather-styles/tokens';
 
 import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
 import { useKeyActions } from '@app/common/hooks/use-key-actions';
+import { buildEnterKeyEvent } from '@app/common/hooks/use-modifier-key';
 import { WaitingMessages, useWaitingMessage } from '@app/common/utils/use-waiting-message';
 import { LeatherButton } from '@app/components/button/button';
 
 import { ErrorLabel } from './error-label';
-import { buildEnterKeyEvent } from './link';
 import { TwoColumnLayout } from './secret-key/two-column.layout';
 
 const waitingMessages: WaitingMessages = {
@@ -80,20 +78,26 @@ export function RequestPassword({ title, caption, onSuccess }: RequestPasswordPr
               Your password
             </styled.h2>
             <Stack gap="space.04" alignItems="center">
-              <Input
+              <styled.input
+                _focus={{ border: 'focus' }}
+                autoCapitalize="off"
+                autoComplete="off"
                 autoFocus
-                _focus={{ border: `2px solid ${token('colors.accent.text-primary')}` }}
+                border="active"
                 borderRadius="10px"
                 data-testid={SettingsSelectors.EnterPasswordInput}
+                disabled={isRunning}
                 height="64px"
-                isDisabled={isRunning}
                 onChange={(e: FormEvent<HTMLInputElement>) => {
                   setError('');
                   setPassword(e.currentTarget.value);
                 }}
                 onKeyUp={buildEnterKeyEvent(submit)}
+                p="space.04"
                 placeholder="Enter your password"
+                ring="none"
                 type="password"
+                textStyle="body.02"
                 value={password}
                 width="100%"
               />
@@ -104,7 +108,7 @@ export function RequestPassword({ title, caption, onSuccess }: RequestPasswordPr
               disabled={isRunning || !!error}
               aria-busy={isRunning}
               onClick={submit}
-              mt="space.08"
+              mt="space.05"
             >
               Continue
             </LeatherButton>

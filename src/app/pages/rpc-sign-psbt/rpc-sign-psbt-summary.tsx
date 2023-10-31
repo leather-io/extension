@@ -1,8 +1,7 @@
 import toast from 'react-hot-toast';
-import { FiCheck, FiCopy, FiExternalLink } from 'react-icons/fi';
 import { useLocation } from 'react-router-dom';
 
-import { Flex, Stack } from '@stacks/ui';
+import { Flex, HStack, Stack } from 'leather-styles/jsx';
 
 import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
 import { useClipboard } from '@app/common/hooks/use-copy-to-clipboard';
@@ -14,6 +13,9 @@ import {
   InfoCardFooter,
   InfoCardRow,
 } from '@app/components/info-card/info-card';
+import { CheckmarkIcon } from '@app/ui/components/icons/checkmark-icon';
+import { CopyIcon } from '@app/ui/components/icons/copy-icon';
+import { ExternalLinkIcon } from '@app/ui/components/icons/external-link-icon';
 
 export function RpcSignPsbtSummary() {
   const { state } = useLocation();
@@ -36,25 +38,29 @@ export function RpcSignPsbtSummary() {
   }
 
   return (
-    <Flex alignItems="center" flexDirection="column" p="loose" width="100%">
+    <Flex alignItems="center" flexDirection="column" p="space.05" width="100%">
       <InfoCard>
         <InfoCardAssetValue
-          value={txValue}
-          fiatValue={txFiatValue}
           fiatSymbol={txFiatValueSymbol}
-          icon={FiCheck}
-          mb="loose"
+          fiatValue={txFiatValue}
+          icon={<CheckmarkIcon size="32px" />}
+          mb="space.05"
+          value={txValue}
         />
-        <Stack pb="extra-loose" width="100%">
+        <Stack pb="space.06" width="100%">
           <InfoCardRow title="Total spend" value={totalSpend} />
           <InfoCardRow title="Sending" value={sendingValue} />
           <InfoCardRow title="Fee" value={fee} />
         </Stack>
         <InfoCardFooter>
-          <Stack isInline spacing="base" width="100%">
-            <InfoCardBtn icon={FiExternalLink} label="View Details" onClick={onClickLink} />
-            <InfoCardBtn icon={FiCopy} label="Copy ID" onClick={onClickCopy} />
-          </Stack>
+          <HStack gap="space.04" width="100%">
+            <InfoCardBtn
+              icon={<ExternalLinkIcon size="14px" />}
+              label="View details"
+              onClick={onClickLink}
+            />
+            <InfoCardBtn icon={<CopyIcon size="14px" />} label="Copy ID" onClick={onClickCopy} />
+          </HStack>
         </InfoCardFooter>
       </InfoCard>
     </Flex>

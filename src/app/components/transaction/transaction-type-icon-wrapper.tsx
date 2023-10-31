@@ -1,27 +1,26 @@
-import { Box, BoxProps, Circle, color } from '@stacks/ui';
+import { Circle, CircleProps } from 'leather-styles/jsx';
 
-interface TransactionTypeIconWrapperProps extends BoxProps {
-  icon: React.FC;
-  bg: any;
+interface TransactionTypeIconWrapperProps extends CircleProps {
+  bg?: any;
+  icon: React.JSX.Element;
 }
 export function TransactionTypeIconWrapper({
   bg,
-  icon: Icon,
-  ...rest
+  icon,
+  ...props
 }: TransactionTypeIconWrapperProps) {
   return (
     <Circle
+      bg="stacks"
+      border="background"
       bottom="-2px"
-      right="-9px"
+      color="accent.background-primary"
       position="absolute"
+      right="-9px"
       size="21px"
-      bg={color(bg)}
-      color={color('bg')}
-      border="2px solid"
-      borderColor={color('bg')}
-      {...rest}
+      {...props}
     >
-      <Box size="13px" as={Icon} />
+      {icon}
     </Circle>
   );
 }

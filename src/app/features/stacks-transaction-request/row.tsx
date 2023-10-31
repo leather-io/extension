@@ -1,7 +1,7 @@
 import { Stack, StackProps, Text } from '@stacks/ui';
 import { HStack } from 'leather-styles/jsx';
 
-import { Caption } from '@app/components/typography';
+import { Caption } from '@app/ui/components/typography/caption';
 
 import { PrincipalValue } from './principal-value';
 

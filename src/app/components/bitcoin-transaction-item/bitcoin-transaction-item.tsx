@@ -1,7 +1,7 @@
 import { useMemo } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 
-import { BoxProps } from '@stacks/ui';
+import { BoxProps } from 'leather-styles/jsx';
 
 import { BitcoinTx } from '@shared/models/transactions/bitcoin-transaction.model';
 import { RouteUrls } from '@shared/route-urls';
@@ -9,6 +9,7 @@ import { RouteUrls } from '@shared/route-urls';
 import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
 import { useExplorerLink } from '@app/common/hooks/use-explorer-link';
 import {
+  containsTaprootInput,
   getBitcoinTxCaption,
   getBitcoinTxValue,
   isBitcoinTxInbound,
@@ -32,7 +33,6 @@ import { BitcoinTransactionIcon } from './bitcoin-transaction-icon';
 import { BitcoinTransactionInscriptionIcon } from './bitcoin-transaction-inscription-icon';
 import { BitcoinTransactionStatus } from './bitcoin-transaction-status';
 import { BitcoinTransactionValue } from './bitcoin-transaction-value';
-import { containsTaprootInput } from './utils';
 
 interface BitcoinTransactionItemProps extends BoxProps {
   transaction: BitcoinTx;

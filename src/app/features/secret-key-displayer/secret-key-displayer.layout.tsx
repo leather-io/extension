@@ -6,7 +6,7 @@ import { SettingsSelectors } from '@tests/selectors/settings.selectors';
 import { Flex, styled } from 'leather-styles/jsx';
 
 import { LeatherButton } from '@app/components/button/button';
-import { CopyIcon } from '@app/components/icons/copy-icon';
+import { CopyIcon } from '@app/ui/components/icons/copy-icon';
 
 import { SecretKeyGrid } from '../../components/secret-key/secret-key-grid';
 import { SecretKeyWord } from './components/secret-key-word';

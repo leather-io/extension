@@ -4,8 +4,8 @@ import { Flex } from '@stacks/ui';
 import { Box, styled } from 'leather-styles/jsx';
 import { token } from 'leather-styles/tokens';
 
-import { ChevronDownIcon } from '@app/components/icons/chevron-down-icon';
-import { ChevronUpIcon } from '@app/components/icons/chevron-up-icon';
+import { ChevronDownIcon } from '@app/ui/components/icons/chevron-down-icon';
+import { ChevronUpIcon } from '@app/ui/components/icons/chevron-up-icon';
 
 interface ShowHashButtonProps {
   expanded: boolean;
@@ -42,7 +42,7 @@ export function HashDrawer(props: HashDrawerProps) {
         </Box>
       </Flex>
       <Box
-        transition="all 0.65s cubic-bezier(0.23, 1, 0.32, 1)"
+        transition="transition"
         height={showHash ? '100%' : '0'}
         visibility={showHash ? 'visible' : 'hidden'}
       >

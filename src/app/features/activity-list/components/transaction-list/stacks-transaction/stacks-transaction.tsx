@@ -1,5 +1,5 @@
 import { AddressTransactionWithTransfers } from '@stacks/stacks-blockchain-api-types';
-import { BoxProps } from '@stacks/ui';
+import { BoxProps } from 'leather-styles/jsx';
 
 import { StacksTransactionItem } from '@app/components/stacks-transaction-item/stacks-transaction-item';
 import { TransactionTransfers } from '@app/features/activity-list/components/transaction-list/stacks-transaction/transaction-transfers';

@@ -14,11 +14,11 @@ import { useDrawers } from '@app/common/hooks/use-drawers';
 import { useScrollLock } from '@app/common/hooks/use-scroll-lock';
 import { stacksValue } from '@app/common/stacks-utils';
 import { LeatherButton } from '@app/components/button/button';
-import { Caption } from '@app/components/typography';
 import { ErrorMessage } from '@app/features/stacks-transaction-request/transaction-error/error-message';
 import { useCurrentStacksAccountAnchoredBalances } from '@app/query/stacks/balance/stx-balance.hooks';
 import { useCurrentNetworkState } from '@app/store/networks/networks.hooks';
 import { useTransactionRequestState } from '@app/store/transactions/requests.hooks';
+import { Caption } from '@app/ui/components/typography/caption';
 
 interface InsufficientFundsActionButtonsProps {
   eventName: string;
@@ -63,7 +63,7 @@ export const StxTransferInsufficientFundsErrorMessage = memo(props => {
       title="Insufficient balance"
       body={
         <Stack spacing="loose">
-          <Caption color={color('text-body')}>
+          <Caption color="accent.text-primary">
             You don't have enough STX to make this transfer. Send some STX to this address, or
             switch to another account.
           </Caption>

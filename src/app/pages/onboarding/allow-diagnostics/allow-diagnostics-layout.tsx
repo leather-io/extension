@@ -6,7 +6,7 @@ import { css } from 'leather-styles/css';
 import { Box, Flex, HStack, Stack, styled } from 'leather-styles/jsx';
 
 import { LeatherButton } from '@app/components/button/button';
-import { LeatherIcon } from '@app/components/icons/leather-icon';
+import { LeatherIcon } from '@app/ui/components/icons/leather-icon';
 
 interface ReasonToAllowDiagnosticsProps {
   text: string;

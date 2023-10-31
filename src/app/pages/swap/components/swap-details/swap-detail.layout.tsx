@@ -2,8 +2,8 @@ import { ReactNode } from 'react';
 
 import { Box, HStack, styled } from 'leather-styles/jsx';
 
-import { InfoIcon } from '@app/components/icons/info-icon';
 import { Tooltip } from '@app/components/tooltip';
+import { InfoIcon } from '@app/ui/components/icons/info-icon';
 
 interface SwapDetailLayoutProps {
   title: string;

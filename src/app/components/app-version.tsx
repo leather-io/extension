@@ -17,8 +17,7 @@ const AppVersionLabel = forwardRef<HTMLSpanElement, AppVersionLabelProps>(
   ({ children, isLatestVersion, ...props }: AppVersionLabelProps, ref) => (
     <styled.span
       ref={ref}
-      textStyle="mono"
-      fontSize="10px"
+      textStyle="mono.02"
       marginRight="10px"
       mb="-4px"
       ml="tight"

@@ -2,7 +2,7 @@ import { FiAlertTriangle } from 'react-icons/fi';
 
 import { Box, Stack, color } from '@stacks/ui';
 
-import { Caption } from '@app/components/typography';
+import { Caption } from '@app/ui/components/typography/caption';
 
 interface ErrorMessageProps {
   errorMessage: string;

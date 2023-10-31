@@ -2,8 +2,7 @@ import { ReactNode } from 'react';
 
 import BroadcastError from '@assets/images/unhappy-face-ui.png';
 import { Box, Flex, FlexProps, Text, color } from '@stacks/ui';
-
-import { Title } from '@app/components/typography';
+import { styled } from 'leather-styles/jsx';
 
 interface BroadcastErrorProps extends FlexProps {
   title: string;
@@ -19,9 +18,9 @@ export function BroadcastErrorLayout(props: BroadcastErrorProps) {
       <Box mt="loose">
         <img src={BroadcastError} alt="Unhappy user interface cloud" width="106px" />
       </Box>
-      <Title fontSize={4} mx="loose" mt="base-loose" lineHeight={1.5}>
+      <styled.span mx="space.05" mt="space.05" textStyle="heading.05">
         {title}
-      </Title>
+      </styled.span>
       <Text
         color={color('text-caption')}
         fontSize="16px"

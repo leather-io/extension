@@ -1,12 +1,11 @@
 import { useLocation, useNavigate } from 'react-router-dom';
 
-import { Box } from '@stacks/ui';
 import { token } from 'leather-styles/tokens';
 
 import { RouteUrls } from '@shared/route-urls';
 
 import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
-import { Plus } from '@app/components/icons/plus';
+import { PlusIcon } from '@app/ui/components/icons/plus-icon';
 
 import { CollectibleItemLayout } from './collectible-item.layout';
 
@@ -42,7 +41,7 @@ export function AddCollectible() {
       subtitle="Collectible"
       title="Add new"
     >
-      <Box as={Plus} width="40px" />
+      <PlusIcon size={token('icons.icon.lg')} />
     </CollectibleItemLayout>
   );
 }

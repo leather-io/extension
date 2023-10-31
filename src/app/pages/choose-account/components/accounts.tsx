@@ -3,8 +3,8 @@ import { FiPlusCircle } from 'react-icons/fi';
 import { useNavigate } from 'react-router-dom';
 import { Virtuoso } from 'react-virtuoso';
 
-import { Box, BoxProps, FlexProps, Stack, Text } from '@stacks/ui';
-import { styled } from 'leather-styles/jsx';
+import { Box, FlexProps, Stack, Text } from '@stacks/ui';
+import { BoxProps, styled } from 'leather-styles/jsx';
 
 import { RouteUrls } from '@shared/route-urls';
 
@@ -18,10 +18,10 @@ import { AccountTotalBalance } from '@app/components/account-total-balance';
 import { AccountAvatar } from '@app/components/account/account-avatar/account-avatar';
 import { AccountListItemLayout } from '@app/components/account/account-list-item-layout';
 import { usePressable } from '@app/components/item-hover';
-import { Title } from '@app/components/typography';
 import { useNativeSegwitAccountIndexAddressIndexZero } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
 import { useStacksAccounts } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
 import { StacksAccount } from '@app/store/accounts/blockchain/stacks/stacks-account.models';
+import { Title } from '@app/ui/components/typography/title';
 
 const loadingProps = { color: '#A1A7B3' };
 const getLoadingProps = (loading: boolean) => (loading ? loadingProps : {});
@@ -31,11 +31,7 @@ interface AccountTitlePlaceholderProps extends BoxProps {
 }
 function AccountTitlePlaceholder({ account, ...rest }: AccountTitlePlaceholderProps) {
   const name = `Account ${account?.index + 1}`;
-  return (
-    <Title fontSize={2} lineHeight="1rem" fontWeight="400" {...rest}>
-      {name}
-    </Title>
-  );
+  return <Title {...rest}>{name}</Title>;
 }
 
 interface AccountTitleProps {

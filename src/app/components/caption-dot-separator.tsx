@@ -1,6 +1,14 @@
 import { cloneElement, isValidElement } from 'react';
 
-import { CaptionSeparatorDot } from './typography';
+import { BoxProps, styled } from 'leather-styles/jsx';
+
+function CaptionSeparatorDot(props: BoxProps) {
+  return (
+    <styled.span color="accent.text-subdued" fontSize="10px" {...props}>
+      •
+    </styled.span>
+  );
+}
 
 interface CaptionDotSeparatorProps {
   children: React.ReactNode;

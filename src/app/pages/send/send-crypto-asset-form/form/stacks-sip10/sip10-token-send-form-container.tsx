@@ -11,7 +11,6 @@ interface Sip10TokenSendFormContainerProps {
   symbol: string;
   contractId: string;
 }
-
 export function Sip10TokenSendFormContainer({
   symbol,
   contractId,

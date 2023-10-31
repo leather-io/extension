@@ -2,7 +2,8 @@ import { DynamicColorCircle, Stack, StackProps, color } from '@stacks/ui';
 import { truncateMiddle } from '@stacks/ui-utils';
 
 import { formatContractId } from '@app/common/utils';
-import { Caption, Title } from '@app/components/typography';
+import { Caption } from '@app/ui/components/typography/caption';
+import { Title } from '@app/ui/components/typography/title';
 
 interface ContractPreviewLayoutProps extends StackProps {
   contractAddress: string;
@@ -40,9 +41,7 @@ export function ContractPreviewLayout(props: ContractPreviewLayoutProps) {
         backgroundSize="100%"
       />
       <Stack spacing="base-tight">
-        <Title as="h3" fontWeight="500">
-          {functionName || contractName}
-        </Title>
+        <Title>{functionName || contractName}</Title>
         <Caption>
           {truncateMiddle(contractAddress, functionName ? 4 : 6)}
           {functionName ? `.${contractName}` : ''}

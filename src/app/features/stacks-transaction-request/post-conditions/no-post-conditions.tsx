@@ -2,8 +2,7 @@ import { FiLock } from 'react-icons/fi';
 
 import { Box, Circle, Stack } from '@stacks/ui';
 import { color } from '@stacks/ui-utils';
-
-import { Body } from '@app/components/typography';
+import { styled } from 'leather-styles/jsx';
 
 export function NoPostConditions(): React.JSX.Element {
   return (
@@ -12,9 +11,9 @@ export function NoPostConditions(): React.JSX.Element {
         <FiLock />
       </Circle>
       <Box flexGrow={1}>
-        <Body>
+        <styled.span textStyle="body.02">
           No transfers (besides fees) will be made from your account or the transaction will abort.
-        </Body>
+        </styled.span>
       </Box>
     </Stack>
   );

@@ -3,8 +3,8 @@ import { Suspense, memo } from 'react';
 import { Stack, StackProps } from '@stacks/ui';
 
 import { Divider } from '@app/components/layout/divider';
-import { Caption } from '@app/components/typography';
 import { useTransactionRequestState } from '@app/store/transactions/requests.hooks';
+import { Caption } from '@app/ui/components/typography/caption';
 
 import { FunctionArgumentItem } from './function-argument-item';
 

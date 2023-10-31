@@ -3,9 +3,9 @@ import { Box, Flex, HStack, styled } from 'leather-styles/jsx';
 import { useClipboard } from '@app/common/hooks/use-copy-to-clipboard';
 import { useExplorerLink } from '@app/common/hooks/use-explorer-link';
 import { LeatherButton } from '@app/components/button/button';
-import { CopyIcon } from '@app/components/icons/copy-icon';
 import { Flag } from '@app/components/layout/flag';
 import { Tooltip } from '@app/components/tooltip';
+import { CopyIcon } from '@app/ui/components/icons/copy-icon';
 
 interface PsbtInputOutputItemLayoutProps {
   address: string;

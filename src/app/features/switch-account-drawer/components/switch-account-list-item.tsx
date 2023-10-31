@@ -73,8 +73,8 @@ export const SwitchAccountListItem = memo(
         avatar={
           <AccountAvatarItem
             index={currentAccountIndex}
-            publicKey={stacksAccounts[currentAccountIndex]?.stxPublicKey || ''}
             name={name}
+            publicKey={stacksAccounts[currentAccountIndex]?.stxPublicKey || ''}
           />
         }
         onSelectAccount={handleClick}

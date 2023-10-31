@@ -7,7 +7,7 @@ import { useField } from 'formik';
 import { token } from 'leather-styles/tokens';
 
 import { ValidatedPassword } from '@app/common/validation/validate-password';
-import { Caption } from '@app/components/typography';
+import { Caption } from '@app/ui/components/typography/caption';
 
 import { getIndicatorsOfPasswordStrength } from './password-field.utils';
 import { PasswordStrengthIndicator } from './password-strength-indicator';

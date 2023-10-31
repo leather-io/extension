@@ -108,5 +108,8 @@ export const colors = defineTokens.colors({
     10: { value: '#818181' },
     11: { value: '#B1B1B1' },
     12: { value: '#EEEEEE' },
-  }
+  },
+  lightModeStacks: { value: '#5546FF' },
+  darkModeStacks: { value: '#7F80FF' },
+  overlay: { value: 'rgba(0,0,0,0.4)' },
 });

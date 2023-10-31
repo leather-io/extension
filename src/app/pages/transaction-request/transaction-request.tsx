@@ -130,7 +130,7 @@ function TransactionRequestBase() {
             <FeeForm fees={stxFees} />
             <EditNonceButton
               alignSelf="flex-end"
-              my="base"
+              my="space.04"
               onEditNonce={() => navigate(RouteUrls.EditNonce)}
             />
             <MinimalErrorMessage />

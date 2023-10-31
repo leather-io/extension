@@ -1,7 +1,5 @@
-import { Box, Stack, color, transition } from '@stacks/ui';
 import { FundPageSelectors } from '@tests/selectors/fund.selectors';
-import { styled } from 'leather-styles/jsx';
-import { token } from 'leather-styles/tokens';
+import { Box, HStack, Stack, styled } from 'leather-styles/jsx';
 
 interface FundAccountTileProps {
   attributes?: React.JSX.Element;
@@ -16,10 +14,9 @@ export function FundAccountTile(props: FundAccountTileProps) {
   const { attributes, description, icon, onClickTile, receiveStxIcon, testId, title } = props;
 
   return (
-    <Box
+    <styled.button
       _focus={{
-        border: '3px solid',
-        borderColor: '#5546FF',
+        border: 'focus',
         boxShadow: '0px 8px 16px rgba(0, 0, 0, 0.08)',
         margin: '-2px',
       }}
@@ -27,13 +24,11 @@ export function FundAccountTile(props: FundAccountTileProps) {
         boxShadow: '0px 8px 16px rgba(0, 0, 0, 0.08)',
         cursor: 'pointer',
       }}
-      as="button"
-      border="1px solid"
-      borderColor={color('border')}
-      backgroundColor={token('colors.accent.background-primary')}
-      borderRadius="16px"
+      border="default"
+      backgroundColor="accent.background-primary"
+      borderRadius="lg"
       boxShadow="0px 1px 2px rgba(0, 0, 0, 0.04)"
-      transition={transition}
+      transition="transition"
       data-testid={testId}
       display="flex"
       onClick={onClickTile}
@@ -41,18 +36,13 @@ export function FundAccountTile(props: FundAccountTileProps) {
       width={['100%', '17.5rem']}
       height="11.3rem"
     >
-      <Stack
-        alignItems="flex-start"
-        p={token('spacing.space.05')}
-        spacing={token('spacing.space.05')}
-      >
-        <Stack alignItems="center" isInline spacing={receiveStxIcon ? 'tight' : 'base'}>
+      <Stack alignItems="flex-start" gap="space.03" p="space.05">
+        <HStack alignItems="center" gap={receiveStxIcon ? 'space.02' : 'space.04'}>
           {receiveStxIcon}
           <Box
             alignItems="center"
-            border="1px solid"
-            borderColor="#DCDDE2"
-            borderRadius="10px"
+            border="default"
+            borderRadius="sm"
             display="inline-flex"
             height="40px"
             justifyContent="center"
@@ -68,19 +58,17 @@ export function FundAccountTile(props: FundAccountTileProps) {
           >
             {title}
           </styled.span>
-        </Stack>
+        </HStack>
         <styled.span
-          textStyle="body.02"
           data-testid={FundPageSelectors.FiatProviderName}
           color="accent.text-subdued"
-          mb="0.75rem"
+          minHeight="50px"
+          textStyle="body.02"
         >
           {description}
         </styled.span>
-        <Stack isInline spacing="tight">
-          {attributes}
-        </Stack>
+        <HStack gap="space.02">{attributes}</HStack>
       </Stack>
-    </Box>
+    </styled.button>
   );
 }

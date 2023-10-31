@@ -1,7 +1,7 @@
 import { memo, useMemo } from 'react';
 
-import { Box, BoxProps } from '@stacks/ui';
 import Tippy, { TippyProps } from '@tippyjs/react';
+import { BoxProps, styled } from 'leather-styles/jsx';
 
 interface TooltipProps extends TippyProps {
   hideOnClick?: boolean;
@@ -12,13 +12,15 @@ export const Tooltip = memo(
   ({ children, hideOnClick, label, labelProps = {}, ...rest }: TooltipProps) => {
     const content = useMemo(
       () => (
-        <Box as="span" display="block" fontSize={0} {...labelProps}>
+        <styled.span display="block" textStyle="label.03" {...labelProps}>
           {label}
-        </Box>
+        </styled.span>
       ),
       [labelProps, label]
     );
+
     if (!label) return <>{children}</>;
+
     return (
       <Tippy content={content} hideOnClick={hideOnClick} trigger="mouseenter" {...rest}>
         {children}

@@ -1,13 +1,13 @@
 import { Outlet, useLocation } from 'react-router-dom';
 
-import { Box } from '@stacks/ui';
 import { Form, Formik } from 'formik';
+import { Box } from 'leather-styles/jsx';
 import get from 'lodash.get';
 
 import { openInNewTab } from '@app/common/utils/open-in-new-tab';
-import { Brc20TokenIcon } from '@app/components/icons/brc20-token-icon';
+import { LeatherButton } from '@app/components/button/button';
 import { InfoLabel } from '@app/components/info-label';
-import { Link } from '@app/components/link';
+import { Brc20TokenIcon } from '@app/ui/components/icons/brc20-token-icon';
 
 import { AmountField } from '../../components/amount-field';
 import { FormFooter } from '../../components/form-footer';
@@ -38,7 +38,7 @@ export function Brc20SendForm() {
   } = useBrc20SendForm({ balance, tick, decimals });
 
   return (
-    <Box width="100%" pb="base">
+    <Box pb="space.04" width="100%">
       <Formik
         initialValues={initialValues}
         onSubmit={chooseTransactionFee}
@@ -67,18 +67,19 @@ export function Brc20SendForm() {
                   <br />
                   {'2. Send transfer inscription to recipient of choice'}
                   <br /> <br />
-                  <Link
-                    fontSize={1}
-                    fontWeight={500}
-                    lineHeight="1.6"
+                  <LeatherButton
                     onClick={() => {
                       openInNewTab(
                         'https://leather.gitbook.io/guides/bitcoin/sending-brc-20-tokens'
                       );
                     }}
+                    fontSize={1}
+                    fontWeight={500}
+                    lineHeight="1.6"
+                    variant="link"
                   >
                     {'Learn more'}
-                  </Link>
+                  </LeatherButton>
                 </InfoLabel>
               </SendCryptoAssetFormLayout>
 

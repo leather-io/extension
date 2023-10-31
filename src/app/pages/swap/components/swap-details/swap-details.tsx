@@ -7,10 +7,10 @@ import { isDefined, isUndefined } from '@shared/utils';
 import { formatMoneyPadded } from '@app/common/money/format-money';
 import { microStxToStx } from '@app/common/money/unit-conversion';
 import { getEstimatedConfirmationTime } from '@app/common/transactions/stacks/transaction.utils';
-import { ChevronUpIcon } from '@app/components/icons/chevron-up-icon';
 import { SwapSubmissionData, useSwapContext } from '@app/pages/swap/swap.context';
 import { useStacksBlockTime } from '@app/query/stacks/info/info.hooks';
 import { useCurrentNetworkState } from '@app/store/networks/networks.hooks';
+import { ChevronUpIcon } from '@app/ui/components/icons/chevron-up-icon';
 
 import { SwapDetailLayout } from './swap-detail.layout';
 import { SwapDetailsLayout } from './swap-details.layout';

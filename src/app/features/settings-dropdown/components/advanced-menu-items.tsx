@@ -10,7 +10,7 @@ import {
 import { isNumber } from '@shared/utils';
 
 import { Divider } from '@app/components/layout/divider';
-import { Caption } from '@app/components/typography';
+import { Caption } from '@app/ui/components/typography/caption';
 
 import { SettingsMenuItem as MenuItem } from './settings-menu-item';
 

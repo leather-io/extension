@@ -1,5 +1,4 @@
 import { Suspense, memo } from 'react';
-import { FiArrowUp } from 'react-icons/fi';
 import { useNavigate } from 'react-router-dom';
 
 import { HomePageSelectors } from '@tests/selectors/home.selectors';
@@ -9,12 +8,12 @@ import { RouteUrls } from '@shared/route-urls';
 import { useWalletType } from '@app/common/use-wallet-type';
 import { whenPageMode } from '@app/common/utils';
 import { openIndexPageInNewTab } from '@app/common/utils/open-in-new-tab';
-import { ArrowUpIcon } from '@app/components/icons/arrow-up-icon';
 import {
   useStacksAnchoredCryptoCurrencyAssetBalance,
   useTransferableStacksFungibleTokenAssetBalances,
 } from '@app/query/stacks/balance/stacks-ft-balances.hooks';
 import { useCurrentStacksAccount } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
+import { ArrowUpIcon } from '@app/ui/components/icons/arrow-up-icon';
 
 import { ActionButton } from './action-button';
 
@@ -46,7 +45,9 @@ function SendButtonSuspense() {
   );
 }
 
-const SendButtonFallback = memo(() => <ActionButton label="Send" icon={<FiArrowUp />} disabled />);
+const SendButtonFallback = memo(() => (
+  <ActionButton label="Send" icon={<ArrowUpIcon />} disabled />
+));
 
 export function SendButton() {
   return (

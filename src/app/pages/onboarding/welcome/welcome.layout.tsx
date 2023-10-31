@@ -3,8 +3,8 @@ import { Box, Flex, styled } from 'leather-styles/jsx';
 
 import { useViewportMinWidth } from '@app/common/hooks/use-media-query';
 import { LeatherButton } from '@app/components/button/button';
-import { LeatherIcon } from '@app/components/icons/leather-icon';
-import { LeatherLettermark } from '@app/components/icons/leather-lettermark';
+import { LeatherIcon } from '@app/ui/components/icons/leather-icon';
+import { LeatherLettermarkIcon } from '@app/ui/components/icons/leather-lettermark-icon';
 
 interface WelcomeLayoutProps {
   tagline: React.ReactNode;
@@ -95,7 +95,7 @@ export function WelcomeLayout(props: WelcomeLayoutProps): React.JSX.Element {
         flex={['', '', 1]}
       >
         <LeatherIcon width="150px" height="34px" />
-        <LeatherLettermark display={['none', '', 'block']} width="100%" />
+        <LeatherLettermarkIcon display={['none', '', 'block']} width="100%" />
       </Flex>
     </Flex>
   );

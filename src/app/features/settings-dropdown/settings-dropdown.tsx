@@ -16,10 +16,10 @@ import { useWalletType } from '@app/common/use-wallet-type';
 import { whenPageMode } from '@app/common/utils';
 import { openInNewTab, openIndexPageInNewTab } from '@app/common/utils/open-in-new-tab';
 import { Divider } from '@app/components/layout/divider';
-import { Caption } from '@app/components/typography';
 import { useCurrentStacksAccount } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
 import { useHasLedgerKeys, useLedgerDeviceTargetId } from '@app/store/ledger/ledger.selectors';
 import { useCurrentNetworkId } from '@app/store/networks/networks.selectors';
+import { Caption } from '@app/ui/components/typography/caption';
 
 import { extractDeviceNameFromKnownTargetIds } from '../ledger/utils/generic-ledger-utils';
 import { AdvancedMenuItems } from './components/advanced-menu-items';

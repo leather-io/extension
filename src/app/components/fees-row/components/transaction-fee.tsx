@@ -5,7 +5,7 @@ import { CryptoCurrencies } from '@shared/models/currencies.model';
 import { Money } from '@shared/models/money.model';
 
 import { formatDustUsdAmounts, i18nFormatCurrency } from '@app/common/money/format-money';
-import { Caption } from '@app/components/typography';
+import { Caption } from '@app/ui/components/typography/caption';
 
 interface TransactionFeeProps {
   fee: string | number;

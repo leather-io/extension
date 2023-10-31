@@ -104,7 +104,7 @@ export function FeesRow(props: FeeRowProps) {
     [feeTypeHelper, feeHelper, fees, defaultFeeValue]
   );
 
-  if (!hasFeeEstimates) return <LoadingRectangle height="32px" width="100%" {...rest} />;
+  if (!hasFeeEstimates) return <LoadingRectangle height="32px" width="100%" />;
 
   return (
     <FeesRowLayout

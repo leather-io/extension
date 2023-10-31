@@ -3,7 +3,7 @@ import { memo } from 'react';
 import { Stack, StackProps, color } from '@stacks/ui';
 import { styled } from 'leather-styles/jsx';
 
-import { ErrorIcon } from '@app/components/icons/error-icon';
+import { ErrorIcon } from '@app/ui/components/icons/error-icon';
 
 interface ErrorMessageProps extends StackProps {
   title: string;
