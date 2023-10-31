@@ -2,9 +2,9 @@ import { useCallback, useEffect } from 'react';
 import { toast } from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
 
-import { Stack } from '@stacks/ui';
 import BigNumber from 'bignumber.js';
 import { Formik } from 'formik';
+import { Stack } from 'leather-styles/jsx';
 import * as yup from 'yup';
 
 import { RouteUrls } from '@shared/route-urls';
@@ -18,12 +18,12 @@ import { safelyFormatHexTxid } from '@app/common/utils/safe-handle-txid';
 import { stxFeeValidator } from '@app/common/validation/forms/fee-validators';
 import { LoadingSpinner } from '@app/components/loading-spinner';
 import { StacksTransactionItem } from '@app/components/stacks-transaction-item/stacks-transaction-item';
-import { Caption } from '@app/components/typography';
 import { useLedgerNavigate } from '@app/features/ledger/hooks/use-ledger-navigate';
 import { useCurrentStacksAccountAnchoredBalances } from '@app/query/stacks/balance/stx-balance.hooks';
 import { useSubmittedTransactionsActions } from '@app/store/submitted-transactions/submitted-transactions.hooks';
 import { useReplaceByFeeSoftwareWalletSubmitCallBack } from '@app/store/transactions/fees.hooks';
 import { useRawDeserializedTxState, useRawTxIdState } from '@app/store/transactions/raw.hooks';
+import { Caption } from '@app/ui/components/typography/caption';
 
 import { useSelectedTx } from '../hooks/use-selected-tx';
 import { IncreaseFeeActions } from './increase-fee-actions';
@@ -58,7 +58,7 @@ export function IncreaseStxFeeForm() {
       const txId = tx.tx_id || safelyFormatHexTxid(rawTx.txid());
       await refreshAccountData();
       submittedTransactionsActions.transactionReplacedByFee(txId);
-      whenWallet({
+      await whenWallet({
         software: async () => {
           await replaceByFee(rawTx);
         },
@@ -92,9 +92,9 @@ export function IncreaseStxFeeForm() {
       validationSchema={validationSchema}
     >
       {props => (
-        <Stack spacing="extra-loose">
+        <Stack gap="space.06">
           {tx && <StacksTransactionItem position="relative" transaction={tx} zIndex={99} />}
-          <Stack spacing="base">
+          <Stack gap="space.04">
             <IncreaseFeeField currentFee={fee} />
             {balances?.stx.unlockedStx.amount && (
               <Caption>

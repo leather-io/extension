@@ -1,9 +1,8 @@
 import GenericError from '@assets/images/generic-error.png';
-import { Box, Button, Flex } from '@stacks/ui';
+import { Flex, styled } from 'leather-styles/jsx';
 
 import { BaseDrawer } from '@app/components/drawer/base-drawer';
-
-import { Body, Title } from '../typography';
+import { LeatherButton } from '@app/ui/components/button';
 
 interface BroadcastErrorDrawerLayoutProps {
   message: string;
@@ -15,20 +14,22 @@ export function BroadcastErrorDrawerLayout({ message, onClose }: BroadcastErrorD
       <Flex
         flexDirection="column"
         justifyContent="center"
-        mx="extra-loose"
-        mb="tight"
+        mx="space.06"
+        mb="space.02"
         position="relative"
         top="-24px"
       >
-        <Box as="img" src={GenericError} width="106px" height="72px" m="0 auto" />
-        <Title mt="base-loose">Unable to broadcast transaction</Title>
-        <Body mt="base-tight" px="base">
+        <styled.img src={GenericError} width="106px" height="72px" m="0 auto" />
+        <styled.h1 mt="space.05" textStyle="heading.05">
+          Unable to broadcast transaction
+        </styled.h1>
+        <styled.span mt="space.03" px="space.04" textStyle="body.01">
           Your transaction failed to broadcast{' '}
           {message && <>because of the error: {message.toLowerCase()}</>}
-        </Body>
-        <Button alignSelf="center" mt="loose" mode="tertiary" onClick={onClose}>
+        </styled.span>
+        <LeatherButton fullWidth onClick={onClose} mt="space.05">
           Close
-        </Button>
+        </LeatherButton>
       </Flex>
     </BaseDrawer>
   );

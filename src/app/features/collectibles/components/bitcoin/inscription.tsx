@@ -1,12 +1,13 @@
 import { useLocation, useNavigate } from 'react-router-dom';
 
+import { token } from 'leather-styles/tokens';
+
 import { Inscription as InscriptionType } from '@shared/models/inscription.model';
 import { RouteUrls } from '@shared/route-urls';
 
 import { openInNewTab } from '@app/common/utils/open-in-new-tab';
-import { OrdinalIconFull } from '@app/components/icons/ordinal-icon-full';
-import { OrdinalMinimalIcon } from '@app/components/icons/ordinal-minimal-icon';
 import { convertInscriptionToSupportedInscriptionType } from '@app/query/bitcoin/ordinals/inscription.hooks';
+import { OrdinalIcon } from '@app/ui/components/icons/ordinal-icon';
 
 import { CollectibleImage } from '../_collectible-types/collectible-image';
 import { CollectibleOther } from '../_collectible-types/collectible-other';
@@ -30,7 +31,7 @@ export function Inscription({ rawInscription }: InscriptionProps) {
     case 'image': {
       return (
         <CollectibleImage
-          icon={<OrdinalMinimalIcon />}
+          icon={<OrdinalIcon size={token('icons.icon.lg')} />}
           key={inscription.title}
           onClickCallToAction={() => openInNewTab(inscription.infoUrl)}
           onClickSend={() => openSendInscriptionModal()}
@@ -59,7 +60,7 @@ export function Inscription({ rawInscription }: InscriptionProps) {
           subtitle="Ordinal inscription"
           title={`# ${inscription.number}`}
         >
-          <OrdinalIconFull />
+          <OrdinalIcon />
         </CollectibleOther>
       );
     }

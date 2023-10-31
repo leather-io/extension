@@ -2,9 +2,7 @@ import { memo } from 'react';
 import { Navigate } from 'react-router-dom';
 
 import { STXTransferPayload, TransactionTypes } from '@stacks/connect';
-import { Fade, Flex, Stack, color } from '@stacks/ui';
-import { truncateMiddle } from '@stacks/ui-utils';
-import { HStack } from 'leather-styles/jsx';
+import { Flex, HStack, Stack } from 'leather-styles/jsx';
 
 import { RouteUrls } from '@shared/route-urls';
 import { closeWindow } from '@shared/utils';
@@ -13,12 +11,13 @@ import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
 import { useDrawers } from '@app/common/hooks/use-drawers';
 import { useScrollLock } from '@app/common/hooks/use-scroll-lock';
 import { stacksValue } from '@app/common/stacks-utils';
-import { LeatherButton } from '@app/components/button/button';
-import { Caption } from '@app/components/typography';
 import { ErrorMessage } from '@app/features/stacks-transaction-request/transaction-error/error-message';
 import { useCurrentStacksAccountAnchoredBalances } from '@app/query/stacks/balance/stx-balance.hooks';
 import { useCurrentNetworkState } from '@app/store/networks/networks.hooks';
 import { useTransactionRequestState } from '@app/store/transactions/requests.hooks';
+import { LeatherButton } from '@app/ui/components/button';
+import { Caption } from '@app/ui/components/typography/caption';
+import { truncateMiddle } from '@app/ui/utils/truncate-middle';
 
 interface InsufficientFundsActionButtonsProps {
   eventName: string;
@@ -62,12 +61,12 @@ export const StxTransferInsufficientFundsErrorMessage = memo(props => {
     <ErrorMessage
       title="Insufficient balance"
       body={
-        <Stack spacing="loose">
-          <Caption color={color('text-body')}>
+        <Stack gap="space.05">
+          <Caption color="accent.text-primary">
             You don't have enough STX to make this transfer. Send some STX to this address, or
             switch to another account.
           </Caption>
-          <Stack spacing="base" justifyContent="flex-end" textAlign="right">
+          <Stack gap="space.04" justifyContent="flex-end" textAlign="right">
             <HStack alignItems="center" justifyContent="space-between">
               <Caption>Current balance</Caption>
               <Caption>
@@ -135,40 +134,38 @@ export const UnauthorizedRequestRedirect = memo(() => {
 });
 
 // TODO: Change this to new Error component?
+// #4476 TODO: maybe we can do the above now?
 export const ExpiredRequestErrorMessage = memo(props => {
   useScrollLock(true);
   return (
-    <Fade in>
-      {styles => (
-        <Flex
-          position="fixed"
-          width="100%"
-          height="100vh"
-          zIndex={99}
-          left={0}
-          top={0}
-          alignItems="center"
-          justifyContent="center"
-          p="loose"
-          bg="rgba(0,0,0,0.35)"
-          backdropFilter="blur(10px)"
-          style={styles}
-        >
-          <ErrorMessage
-            title="Expired request"
-            body="This transaction request has expired or cannot be validated, try to re-initiate this transaction request from the original app."
-            border={'1px solid'}
-            borderColor={color('border')}
-            boxShadow="high"
-            css={{
-              '& > *': {
-                pointerEvents: 'all',
-              },
-            }}
-            {...props}
-          />
-        </Flex>
-      )}
-    </Fade>
+    <Flex
+      position="fixed"
+      width="100%"
+      height="100vh"
+      zIndex={99}
+      left={0}
+      top={0}
+      alignItems="center"
+      justifyContent="center"
+      p="space.05"
+      bg="rgba(0,0,0,0.35)"
+      backdropFilter="blur(10px)"
+    >
+      <ErrorMessage
+        title="Expired request"
+        body="This transaction request has expired or cannot be validated, try to re-initiate this transaction request from the original app."
+        border="1px solid"
+        borderColor="accent.border-default"
+        // #4476 TODO - move this to new error component
+        // #4476 TODO check this is OK to remove boxShadow="high"
+        // boxShadow="high"
+        // css={{
+        //   '& > *': {
+        //     pointerEvents: 'all',
+        //   },
+        // }}
+        {...props}
+      />
+    </Flex>
   );
 });

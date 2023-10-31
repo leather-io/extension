@@ -1,6 +1,6 @@
 import { HStack } from 'leather-styles/jsx';
 
-import { LeatherButton } from '@app/components/button/button';
+import { LeatherButton } from '@app/ui/components/button';
 
 import { EditNonceField } from './edit-nonce-field';
 

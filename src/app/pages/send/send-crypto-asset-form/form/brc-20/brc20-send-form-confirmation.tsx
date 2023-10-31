@@ -1,7 +1,7 @@
 import { useLocation, useNavigate } from 'react-router-dom';
 
-import { Stack } from '@stacks/ui';
 import { SendCryptoAssetSelectors } from '@tests/selectors/send.selectors';
+import { Stack } from 'leather-styles/jsx';
 import get from 'lodash.get';
 
 import { decodeBitcoinTx } from '@shared/crypto/bitcoin/bitcoin.utils';
@@ -12,7 +12,6 @@ import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
 import { useRouteHeader } from '@app/common/hooks/use-route-header';
 import { sumMoney } from '@app/common/money/calculate-money';
 import { formatMoney, formatMoneyPadded } from '@app/common/money/format-money';
-import { LeatherButton } from '@app/components/button/button';
 import {
   InfoCard,
   InfoCardAssetValue,
@@ -24,6 +23,7 @@ import { ModalHeader } from '@app/components/modal-header';
 import { useCurrentNativeSegwitUtxos } from '@app/query/bitcoin/address/utxos-by-address.hooks';
 import { useBrc20Transfers } from '@app/query/bitcoin/ordinals/brc20/use-brc-20';
 import { useBitcoinBroadcastTransaction } from '@app/query/bitcoin/transaction/use-bitcoin-broadcast-transaction';
+import { LeatherButton } from '@app/ui/components/button';
 
 import { useSendFormNavigate } from '../../hooks/use-send-form-navigate';
 
@@ -108,15 +108,15 @@ export function Brc20SendFormConfirmation() {
   return (
     <InfoCard data-testid={SendCryptoAssetSelectors.ConfirmationDetails}>
       <InfoCardAssetValue
-        value={Number(amount)}
-        symbol={tick}
         data-testid={SendCryptoAssetSelectors.ConfirmationDetailsAssetValue}
-        mt="loose"
-        mb="extra-loose"
-        px="loose"
+        mb="space.06"
+        mt="space.05"
+        px="space.05"
+        symbol={tick}
+        value={Number(amount)}
       />
 
-      <Stack width="100%" px="extra-loose" pb="extra-loose">
+      <Stack pb="space.06" px="space.06" width="100%">
         <InfoCardRow title="Sending" value={amountFormatted} />
         <InfoCardRow title="Inscription service fee" value={serviceFeeFormatted} />
         <InfoCardRow
@@ -130,7 +130,7 @@ export function Brc20SendFormConfirmation() {
       </Stack>
 
       <InfoCardFooter>
-        <LeatherButton aria-busy={isBroadcasting} width="100%" onClick={initiateTransaction}>
+        <LeatherButton aria-busy={isBroadcasting} onClick={initiateTransaction} width="100%">
           Create transfer inscription
         </LeatherButton>
       </InfoCardFooter>

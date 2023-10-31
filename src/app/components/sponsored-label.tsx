@@ -1,28 +1,24 @@
-import { FiAlertCircle } from 'react-icons/fi';
+import { HStack, Stack, styled } from 'leather-styles/jsx';
 
-import { Box, Stack, Text, color } from '@stacks/ui';
+import { ErrorCircleIcon } from '@app/ui/components/icons/error-circle-icon';
 
+// #4476 TODO - visually inspect this
 export function SponsoredLabel(): React.JSX.Element {
   return (
     <Stack width="100%">
-      <Stack
+      <HStack
         alignItems="center"
-        bg={color('bg-4')}
+        bg="accent.component-background-hover"
         borderRadius="10px"
         height="48px"
-        isInline
-        pl="base"
+        pl="space.04"
       >
-        <Box
-          _hover={{ cursor: 'pointer' }}
-          as={FiAlertCircle}
-          color={color('accent')}
-          size="16px"
-        />
-        <Text color={color('text-title')} fontSize="12px" fontWeight="500">
+        <ErrorCircleIcon color="stacks" size="icon.sm" />
+
+        <styled.span color="accent.text-primary">
           This transaction is sponsored, so no fee is charged
-        </Text>
-      </Stack>
+        </styled.span>
+      </HStack>
     </Stack>
   );
 }

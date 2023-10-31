@@ -1,5 +1,4 @@
-import { Flex, StackProps } from '@stacks/ui';
-import { Box, styled } from 'leather-styles/jsx';
+import { Box, Flex, StackProps, styled } from 'leather-styles/jsx';
 
 export function ChooseCryptoAssetLayout({ children }: StackProps) {
   return (
@@ -10,6 +9,7 @@ export function ChooseCryptoAssetLayout({ children }: StackProps) {
       justifyContent="start"
       maxHeight={['unset', '85vh']}
       overflowY="auto"
+      pb="space.05"
     >
       <Box pb="space.05" pt={['unset', 'space.05']} px="space.05">
         <styled.h1 textStyle="heading.03">

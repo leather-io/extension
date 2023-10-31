@@ -1,4 +1,4 @@
-import { Flex } from '@stacks/ui';
+import { Flex } from 'leather-styles/jsx';
 
 interface ContainerLayoutProps {
   children: React.JSX.Element | React.JSX.Element[];

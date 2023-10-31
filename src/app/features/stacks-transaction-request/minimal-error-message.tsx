@@ -1,14 +1,13 @@
 import { Suspense, memo } from 'react';
 
-import { Stack, StackProps, color } from '@stacks/ui';
 import { TransactionRequestSelectors } from '@tests/selectors/requests.selectors';
-import { styled } from 'leather-styles/jsx';
+import { HStack, HstackProps, styled } from 'leather-styles/jsx';
 
-import { ErrorIcon } from '@app/components/icons/error-icon';
 import { useTransactionError } from '@app/features/stacks-transaction-request/hooks/use-transaction-error';
 import { TransactionErrorReason } from '@app/features/stacks-transaction-request/transaction-error/transaction-error';
+import { ErrorIcon } from '@app/ui/components/icons/error-icon';
 
-function MinimalErrorMessageSuspense(props: StackProps) {
+function MinimalErrorMessageSuspense(props: HstackProps) {
   const error = useTransactionError();
 
   if (!error) return null;
@@ -33,13 +32,13 @@ function MinimalErrorMessageSuspense(props: StackProps) {
   };
 
   return (
-    <Stack
+    <HStack
       alignItems="center"
+      // #4476 TODO change this colour
       bg="#FCEEED"
       borderRadius="12px"
-      color={color('feedback-error')}
-      isInline
-      p="base"
+      color="error.label"
+      p="space.04"
       width="100%"
       {...props}
     >
@@ -47,11 +46,11 @@ function MinimalErrorMessageSuspense(props: StackProps) {
       <styled.span data-testid={TransactionRequestSelectors.ErrorMessage} textStyle="caption.01">
         {getTitle()}
       </styled.span>
-    </Stack>
+    </HStack>
   );
 }
 
-function MinimalErrorMessageBase(props: StackProps) {
+function MinimalErrorMessageBase(props: HstackProps) {
   return (
     <Suspense fallback={<></>}>
       <MinimalErrorMessageSuspense {...props} />

@@ -1,4 +1,3 @@
-import { truncateMiddle } from '@stacks/ui-utils';
 import { getAddressInfo } from 'bitcoin-address-validation';
 
 import { BitcoinTransactionVectorOutput } from '@shared/models/transactions/bitcoin-transaction.model';
@@ -6,8 +5,30 @@ import { BitcoinTx } from '@shared/models/transactions/bitcoin-transaction.model
 
 import { sumNumbers } from '@app/common/math/helpers';
 import { satToBtc } from '@app/common/money/unit-conversion';
+import { truncateMiddle } from '@app/ui/utils/truncate-middle';
 
 import { BtcSizeFeeEstimator } from './fees/btc-size-fee-estimator';
+
+type BtcTxStatus = 'pending' | 'success';
+type BtcStatusColorMap = Record<BtcTxStatus, string>;
+
+const statusFromBitcoinTx = (tx: BitcoinTx): BtcTxStatus => {
+  if (tx.status.confirmed) return 'success';
+  return 'pending';
+};
+
+export const getColorFromBitcoinTx = (tx: BitcoinTx) => {
+  const colorMap: BtcStatusColorMap = {
+    pending: 'warning.label',
+    success: 'stacks',
+  };
+
+  return colorMap[statusFromBitcoinTx(tx)] ?? 'feedback-error';
+};
+
+export function containsTaprootInput(tx: BitcoinTx) {
+  return tx.vin.some(input => input.prevout.scriptpubkey_type === 'v1_p2tr');
+}
 
 export function getSizeInfo(payload: {
   inputLength: number;

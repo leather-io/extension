@@ -1,5 +1,3 @@
-import { token } from 'leather-styles/tokens';
-
 import { Flag } from '../layout/flag';
 import { InscriptionMetadata } from './components/inscription-metadata';
 
@@ -24,12 +22,11 @@ export function InscriptionPreviewCard({
   return (
     <Flag
       align="middle"
-      border={hideBorder ? 'unset' : '1px solid'}
-      borderColor={hideBorder ? 'unset' : token('colors.accent.border-default')}
+      border={hideBorder ? 'unset' : 'default'}
       borderRadius={hideBorder ? 'unset' : '10px'}
       img={image}
-      p={hideBorder ? 'unset' : 'base'}
-      spacing="base"
+      p={hideBorder ? 'unset' : 'space.04'}
+      spacing="space.04"
     >
       <InscriptionMetadata
         action={action}

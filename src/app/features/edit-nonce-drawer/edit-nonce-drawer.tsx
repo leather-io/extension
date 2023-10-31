@@ -8,8 +8,8 @@ import { StacksSendFormValues, StacksTransactionFormValues } from '@shared/model
 
 import { useOnMount } from '@app/common/hooks/use-on-mount';
 import { openInNewTab } from '@app/common/utils/open-in-new-tab';
-import { LeatherButton } from '@app/components/button/button';
 import { BaseDrawer } from '@app/components/drawer/base-drawer';
+import { LeatherButton } from '@app/ui/components/button';
 
 import { EditNonceForm } from './components/edit-nonce-form';
 
@@ -60,7 +60,7 @@ export function EditNonceDrawer() {
 
   return (
     <BaseDrawer isShowing onClose={onClose} pauseOnClickOutside title="Edit nonce">
-      <Stack gap="space.05" pb="space.06" px="loose">
+      <Stack gap="space.05" pb="space.06" px="space.05">
         <CustomFeeMessaging />
         <EditNonceForm onBlur={onBlur} onClose={onClose} onSubmit={onSubmit} />
       </Stack>

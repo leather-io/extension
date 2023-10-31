@@ -1,6 +1,5 @@
 import { Suspense, memo } from 'react';
 
-import { memoWithAs } from '@stacks/ui-core';
 import { SettingsSelectors } from '@tests/selectors/settings.selectors';
 import { Box, BoxProps, styled } from 'leather-styles/jsx';
 
@@ -35,12 +34,12 @@ const AccountNameSuspense = memo((props: BoxProps) => {
   );
 });
 
-export const CurrentAccountName = memoWithAs((props: BoxProps) => {
+export function CurrentAccountName() {
   const defaultName = useCurrentAccountDisplayName();
-  const fallback = <AccountNameTitle {...props}>{defaultName}</AccountNameTitle>;
+  const fallback = <AccountNameTitle>{defaultName}</AccountNameTitle>;
   return (
     <Suspense fallback={fallback}>
-      <AccountNameSuspense {...props} />
+      <AccountNameSuspense />
     </Suspense>
   );
-});
+}

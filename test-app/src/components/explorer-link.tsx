@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { Link } from '@components/link';
-import { Box } from '@stacks/ui';
+import { Box } from 'leather-styles/jsx';
 
 interface LinkProps {
   txId: string;

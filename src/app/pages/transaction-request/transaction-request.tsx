@@ -1,8 +1,8 @@
 import { memo } from 'react';
 import { Outlet, useNavigate } from 'react-router-dom';
 
-import { Flex } from '@stacks/ui';
 import { Formik } from 'formik';
+import { Flex } from 'leather-styles/jsx';
 import get from 'lodash.get';
 import * as yup from 'yup';
 
@@ -106,7 +106,7 @@ function TransactionRequestBase() {
   };
 
   return (
-    <Flex alignItems="center" flexDirection="column" p="loose" width="100%">
+    <Flex alignItems="center" flexDirection="column" p="space.05" width="100%">
       <Formik
         initialValues={initialValues}
         onSubmit={onSubmit}
@@ -130,7 +130,7 @@ function TransactionRequestBase() {
             <FeeForm fees={stxFees} />
             <EditNonceButton
               alignSelf="flex-end"
-              my="base"
+              my="space.04"
               onEditNonce={() => navigate(RouteUrls.EditNonce)}
             />
             <MinimalErrorMessage />

@@ -1,7 +1,7 @@
 import { useLocation, useNavigate } from 'react-router-dom';
 
-import { Stack } from '@stacks/ui';
 import { SendCryptoAssetSelectors } from '@tests/selectors/send.selectors';
+import { Stack } from 'leather-styles/jsx';
 import get from 'lodash.get';
 
 import { decodeBitcoinTx } from '@shared/crypto/bitcoin/bitcoin.utils';
@@ -16,7 +16,6 @@ import { formatMoneyPadded, i18nFormatCurrency } from '@app/common/money/format-
 import { satToBtc } from '@app/common/money/unit-conversion';
 import { queryClient } from '@app/common/persistence';
 import { FormAddressDisplayer } from '@app/components/address-displayer/form-address-displayer';
-import { LeatherButton } from '@app/components/button/button';
 import {
   InfoCard,
   InfoCardAssetValue,
@@ -28,6 +27,7 @@ import { ModalHeader } from '@app/components/modal-header';
 import { useCurrentNativeSegwitUtxos } from '@app/query/bitcoin/address/utxos-by-address.hooks';
 import { useBitcoinBroadcastTransaction } from '@app/query/bitcoin/transaction/use-bitcoin-broadcast-transaction';
 import { useCryptoCurrencyMarketData } from '@app/query/common/market-data/market-data.hooks';
+import { LeatherButton } from '@app/ui/components/button';
 
 import { useSendFormNavigate } from '../../hooks/use-send-form-navigate';
 
@@ -122,17 +122,17 @@ export function BtcSendFormConfirmation() {
   return (
     <InfoCard data-testid={SendCryptoAssetSelectors.ConfirmationDetails}>
       <InfoCardAssetValue
-        value={Number(transferAmount)}
-        fiatValue={txFiatValue}
-        fiatSymbol={txFiatValueSymbol}
-        symbol={symbol}
         data-testid={SendCryptoAssetSelectors.ConfirmationDetailsAssetValue}
-        mt="loose"
-        mb="extra-loose"
-        px="loose"
+        fiatSymbol={txFiatValueSymbol}
+        fiatValue={txFiatValue}
+        mb="space.06"
+        mt="space.05"
+        px="space.05"
+        symbol={symbol}
+        value={Number(transferAmount)}
       />
 
-      <Stack width="100%" px="extra-loose" pb="extra-loose">
+      <Stack pb="space.06" px="space.06" width="100%">
         <InfoCardRow
           title="To"
           value={<FormAddressDisplayer address={recipient} />}
@@ -150,7 +150,7 @@ export function BtcSendFormConfirmation() {
       </Stack>
 
       <InfoCardFooter>
-        <LeatherButton aria-busy={isBroadcasting} width="100%" onClick={initiateTransaction}>
+        <LeatherButton aria-busy={isBroadcasting} onClick={initiateTransaction} width="100%">
           Confirm and send transaction
         </LeatherButton>
       </InfoCardFooter>

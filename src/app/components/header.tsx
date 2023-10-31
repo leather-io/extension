@@ -1,22 +1,21 @@
 import { useMemo } from 'react';
-import { FiArrowLeft } from 'react-icons/fi';
 import { useLocation, useNavigate } from 'react-router-dom';
 
-import { Box, Flex, FlexProps, IconButton, Stack, useMediaQuery } from '@stacks/ui';
 import { OnboardingSelectors } from '@tests/selectors/onboarding.selectors';
 import { SettingsSelectors } from '@tests/selectors/settings.selectors';
-import { token } from 'leather-styles/tokens';
+import { Flex, FlexProps, HStack, styled } from 'leather-styles/jsx';
 
 import { RouteUrls } from '@shared/route-urls';
 
 import { useDrawers } from '@app/common/hooks/use-drawers';
+import { useViewportMinWidth } from '@app/common/hooks/use-media-query';
 import { LeatherLogo } from '@app/components/leather-logo';
 import { NetworkModeBadge } from '@app/components/network-mode-badge';
-import { Title } from '@app/components/typography';
+import { LeatherButton } from '@app/ui/components/button';
+import { ArrowLeftIcon } from '@app/ui/components/icons/arrow-left-icon';
+import { HamburgerIcon } from '@app/ui/components/icons/hamburger-icon';
 
 import { AppVersion } from './app-version';
-import { LeatherButton } from './button/button';
-import { HamburgerIcon } from './icons/hamburger-icon';
 
 interface HeaderProps extends FlexProps {
   actionButton?: React.JSX.Element;
@@ -30,78 +29,71 @@ export function Header(props: HeaderProps) {
   const { pathname } = useLocation();
   const navigate = useNavigate();
 
-  const [desktopViewport] = useMediaQuery(`(min-width: ${token('sizes.desktopViewportMinWidth')})`);
+  const isBreakpointSm = useViewportMinWidth('sm');
 
   const leatherLogoIsClickable = useMemo(() => {
     return (
       pathname !== RouteUrls.RequestDiagnostics &&
       pathname !== RouteUrls.Onboarding &&
       pathname !== RouteUrls.BackUpSecretKey &&
-      pathname !== RouteUrls.SetPassword
+      pathname !== RouteUrls.SetPassword &&
+      pathname !== RouteUrls.SignIn &&
+      pathname !== RouteUrls.Home
     );
   }, [pathname]);
 
   return (
     <Flex
       alignItems={hideActions ? 'center' : 'flex-start'}
+      backgroundColor={['accent.background-primary', 'accent.background-secondary']}
       justifyContent="space-between"
-      p="base"
-      minHeight={['', '80px']}
-      backgroundColor={[
-        token('colors.accent.background-primary'),
-        token('colors.accent.background-secondary'),
-      ]}
+      minHeight={['unset', '80px']}
+      p="space.04"
       position="relative"
       {...rest}
     >
       {onClose ? (
-        <Box flexBasis="20%" onClick={onClose} as="button">
-          <IconButton alignSelf="center" icon={FiArrowLeft} iconSize="16px" />
-        </Box>
+        <Flex flexBasis="20%">
+          <LeatherButton onClick={onClose} variant="ghost">
+            <ArrowLeftIcon />
+          </LeatherButton>
+        </Flex>
       ) : null}
-      {!title && (!onClose || desktopViewport) ? (
+      {!title && (!onClose || isBreakpointSm) ? (
         <Flex
           alignItems="center"
           flexBasis="60%"
-          height="36px"
+          height="32px"
           justifyContent={onClose ? 'center' : 'unset'}
+          width="100%"
         >
-          <Flex alignItems="flex-end">
+          <HStack alignItems="flex-end" gap="space.01">
             <LeatherLogo
               data-testid={OnboardingSelectors.LeatherLogoRouteToHome}
               isClickable={leatherLogoIsClickable}
               onClick={leatherLogoIsClickable ? () => navigate(RouteUrls.Home) : undefined}
             />
             <AppVersion />
-          </Flex>
+          </HStack>
         </Flex>
       ) : (
-        <Title
-          alignSelf="center"
-          flexBasis="60%"
-          fontSize="16px"
-          fontWeight={500}
-          lineHeight="24px"
-          textAlign="center"
-          {...rest}
-        >
+        <styled.span alignSelf="center" flexBasis="60%" textAlign="center" textStyle="heading.05">
           {title}
-        </Title>
+        </styled.span>
       )}
-      <Stack alignItems="center" flexBasis="20%" isInline justifyContent="flex-end">
+      <HStack alignItems="center" flexBasis="20%" justifyContent="flex-end">
         <NetworkModeBadge />
         {!hideActions && (
           <LeatherButton
             data-testid={SettingsSelectors.SettingsMenuBtn}
-            onMouseUp={isShowingSettings ? undefined : () => setIsShowingSettings(true)}
-            pointerEvents={isShowingSettings ? 'none' : 'all'}
+            onClick={() => setIsShowingSettings(!isShowingSettings)}
             variant="ghost"
           >
             <HamburgerIcon />
           </LeatherButton>
         )}
         {actionButton ? actionButton : null}
-      </Stack>
+      </HStack>
     </Flex>
   );
 }

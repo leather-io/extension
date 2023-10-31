@@ -1,7 +1,6 @@
 import { Suspense, useState } from 'react';
 
-import { Box, Flex, SlideFade, Stack } from '@stacks/ui';
-import type { StackProps } from '@stacks/ui';
+import { Box, Flex, Stack, StackProps } from 'leather-styles/jsx';
 
 import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
 import { LoadingSpinner } from '@app/components/loading-spinner';
@@ -25,7 +24,7 @@ export function ChooseFeeTabs(props: ChooseFeeTabsProps) {
   };
 
   return (
-    <Stack flexGrow={1} mt="tight" spacing="base" width="100%" {...rest}>
+    <Stack flexGrow={1} gap="space.04" mt="space.02" width="100%" {...rest}>
       <Tabs
         tabs={[
           { slug: 'recommended', label: 'Recommended' },
@@ -34,27 +33,19 @@ export function ChooseFeeTabs(props: ChooseFeeTabsProps) {
         activeTab={activeTab}
         onTabClick={setActiveTabTracked}
       />
-      <Flex position="relative" flexGrow={1}>
+      <Flex flexGrow={1} position="relative">
         {activeTab === 0 && (
-          <Suspense fallback={<LoadingSpinner pb="72px" />}>
-            <SlideFade in={true}>
-              {styles => (
-                <Box style={styles} width="100%">
-                  {feesList}
-                </Box>
-              )}
-            </SlideFade>
+          <Suspense fallback={<LoadingSpinner pb="space.10" />}>
+            <Box animation="fadein" transition="transition" width="100%">
+              {feesList}
+            </Box>
           </Suspense>
         )}
         {activeTab === 1 && (
           <Suspense fallback={<LoadingSpinner pb="72px" />}>
-            <SlideFade in={true}>
-              {styles => (
-                <Box width="100%" style={styles}>
-                  {customFee}
-                </Box>
-              )}
-            </SlideFade>
+            <Box animation="fadein" transition="transition" width="100%">
+              {customFee}
+            </Box>
           </Suspense>
         )}
       </Flex>

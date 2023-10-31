@@ -1,8 +1,8 @@
 import { memo } from 'react';
 
-import { BoxProps, Circle, color } from '@stacks/ui';
+import { Box, CircleProps } from 'leather-styles/jsx';
 
-import { useAccountGradient } from '@app/common/hooks/account/use-account-gradient';
+import { DynamicColorCircle } from '@app/ui/components/dynamic-color-circle';
 
 const getAvatarText = (name: string, index: number) => {
   // Returns a string with the account's ordinal number.
@@ -25,26 +25,18 @@ const getAvatarText = (name: string, index: number) => {
   return [...new Intl.Segmenter().segment(name)][0].segment.toUpperCase();
 };
 
-interface AccountAvatarProps extends BoxProps {
+interface AccountAvatarProps extends CircleProps {
   name: string;
   publicKey: string;
   index: number;
 }
 export const AccountAvatar = memo(({ name, publicKey, index, ...props }: AccountAvatarProps) => {
-  const gradient = useAccountGradient(publicKey ?? '');
+  const gradient = publicKey + index.toString();
   const text = getAvatarText(name, index);
-  const isFirstGraphemeEmoji = /\p{Extended_Pictographic}/u.test(text);
 
   return (
-    <Circle
-      flexShrink={0}
-      background={isFirstGraphemeEmoji ? '#f4f4f6' : color('bg')}
-      backgroundImage={isFirstGraphemeEmoji ? undefined : gradient}
-      color={color('text-title')}
-      userSelect="none"
-      {...props}
-    >
-      {text}
-    </Circle>
+    <DynamicColorCircle sizeParam="48" value={gradient} {...props}>
+      <Box position="absolute">{text}</Box>
+    </DynamicColorCircle>
   );
 });

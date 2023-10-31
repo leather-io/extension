@@ -2,12 +2,12 @@ import { Inscription } from '@shared/models/inscription.model';
 import { isUndefined } from '@shared/utils';
 
 import { openInNewTab } from '@app/common/utils/open-in-new-tab';
-import { OrdinalIcon } from '@app/components/icons/ordinal-icon';
 import { InscriptionPreview } from '@app/components/inscription-preview-card/components/inscription-preview';
 import {
   createInscriptionInfoUrl,
   useInscription,
 } from '@app/query/bitcoin/ordinals/inscription.hooks';
+import { OrdinalIcon } from '@app/ui/components/icons/ordinal-icon';
 
 import { PsbtAddressTotalItem } from './psbt-address-total-item';
 

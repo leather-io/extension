@@ -1,23 +1,16 @@
 import StacksNftBns from '@assets/images/stacks-nft-bns.png';
+import { token } from 'leather-styles/tokens';
 
-import { figmaTheme } from '@app/common/utils/figma-theme';
-import { StxAvatar } from '@app/components/crypto-assets/stacks/components/stx-avatar';
+import { StxIcon } from '@app/ui/components/icons/stx-icon';
 
 import { CollectibleItemLayout } from '../collectible-item.layout';
-
-const backgroundProps = {
-  backgroundColor: figmaTheme.surfaceSecondary,
-  border: 'transparent',
-  borderRadius: '16px',
-};
 
 export function StacksBnsName(props: { bnsName: string }) {
   const { bnsName } = props;
 
   return (
     <CollectibleItemLayout
-      backgroundElementProps={backgroundProps}
-      collectibleTypeIcon={<StxAvatar size="30px" />}
+      collectibleTypeIcon={<StxIcon size={token('icons.icon.lg')} />}
       subtitle="Bitcoin Naming System"
       title={bnsName}
     >

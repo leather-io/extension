@@ -26,6 +26,8 @@ export function Brc20TokenAssetList(props: { brc20Tokens?: Brc20Token[] }) {
     });
   }
 
+  if (!props.brc20Tokens?.length) return null;
+
   return (
     <Brc20AssetListLayout>
       {props.brc20Tokens?.map(token => (

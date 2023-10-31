@@ -1,19 +1,21 @@
 import React, { useState } from 'react';
-import { Box, Text, Button, Input, Flex } from '@stacks/ui';
-import { ExplorerLink } from './explorer-link';
-import { useConnect } from '@stacks/connect-react';
+
 import {
-  PostConditionMode,
-  standardPrincipalCV,
   BufferCV,
-  deserializeCV,
   ClarityType,
+  PostConditionMode,
   bufferCV,
+  deserializeCV,
+  standardPrincipalCV,
 } from '@blockstack/stacks-transactions';
-import { getRPCClient, stacksTestnetNetwork as network } from '@common/utils';
-import type { ContractCallTransaction } from '@stacks/stacks-blockchain-api-types';
-import { TxCard } from '@components/tx-card';
 import { useSTXAddress } from '@common/use-stx-address';
+import { getRPCClient, stacksTestnetNetwork as network } from '@common/utils';
+import { TxCard } from '@components/tx-card';
+import { useConnect } from '@stacks/connect-react';
+import type { ContractCallTransaction } from '@stacks/stacks-blockchain-api-types';
+import { Box, Flex, styled } from 'leather-styles/jsx';
+
+import { ExplorerLink } from './explorer-link';
 
 export const Status = () => {
   const stxAddress = useSTXAddress();
@@ -92,13 +94,11 @@ export const Status = () => {
 
   return (
     <Box py={6}>
-      <Text as="h2" textStyle="display.small">
-        Status smart contract
-      </Text>
-      <Text textStyle="body.large" display="block" my={'loose'}>
+      <styled.h2 textStyle="display.small">Status smart contract</styled.h2>
+      <styled.span textStyle="body.large" display="block" my="space.05">
         Try a smart contract where anyone can write their public status, like a decentralized
         Twitter. You can read someone else's status by entering their address.
-      </Text>
+      </styled.span>
       <ExplorerLink
         txId="STB44HYPYAT2BB2QE513NSP81HTMYWBJP02HPGK6.status"
         text="View contract in explorer"
@@ -107,9 +107,9 @@ export const Status = () => {
 
       {transactions.length > 0 && (
         <>
-          <Text display="block" my={'base-loose'} textStyle="body.large.medium">
+          <styled.span display="block" my="space.04" textStyle="body.large.medium">
             Latest statuses
-          </Text>
+          </styled.span>
           <Flex flexWrap="wrap" justifyContent="left">
             {transactions.slice(0, 3).map(t => (
               <TxCard tx={t} label={JSON.parse(t.tx_result?.repr || '')} />
@@ -118,12 +118,12 @@ export const Status = () => {
         </>
       )}
 
-      <Text display="block" my={'base-loose'} textStyle="body.large.medium">
+      <styled.span display="block" my="space.04" textStyle="body.large.medium">
         Write a status
-      </Text>
+      </styled.span>
 
       <Box width="100%" mt={3}>
-        <Input
+        <styled.input
           type="text"
           placeholder="Enter your status"
           textStyle="body.small"
@@ -139,22 +139,22 @@ export const Status = () => {
         />
       </Box>
       {txId && <ExplorerLink txId={txId} />}
-      <Button my={'base-loose'} onClick={onSubmitWrite}>
+      <styled.button my="space.04" onClick={onSubmitWrite}>
         Write status
-      </Button>
+      </styled.button>
 
-      <Text display="block" my={'base-loose'} textStyle="body.large.medium">
+      <styled.span display="block" my="space.04" textStyle="body.large.medium">
         Read a status
-      </Text>
+      </styled.span>
 
       {stxAddress && (
-        <Text display="block" my={'base-loose'} textStyle="body.small">
+        <styled.span display="block" my="space.04" textStyle="body.small">
           If you want to read your own status, your address is {stxAddress}.
-        </Text>
+        </styled.span>
       )}
 
       <Box width="100%" mt={3}>
-        <Input
+        <styled.input
           type="text"
           placeholder="Enter an STX address"
           textStyle="body.small"
@@ -171,19 +171,19 @@ export const Status = () => {
       </Box>
 
       {readStatus && (
-        <Text display="block" fontWeight={600} my={3} width="100%">
+        <styled.span display="block" fontWeight={600} my={3} width="100%">
           {readStatus}
-        </Text>
+        </styled.span>
       )}
 
       {error && (
-        <Text display="block" color="red" width="100%" fontSize={1} mt={2}>
+        <styled.span display="block" color="red" width="100%" fontSize={1} mt={2}>
           {error}
-        </Text>
+        </styled.span>
       )}
-      <Button my={'base-loose'} onClick={onSubmitRead} isLoading={loading}>
+      <styled.button my="space.04" onClick={onSubmitRead} disabled={loading}>
         Read status
-      </Button>
+      </styled.button>
     </Box>
   );
 };

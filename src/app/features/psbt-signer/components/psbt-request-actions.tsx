@@ -1,7 +1,6 @@
-import { Box, color } from '@stacks/ui';
-import { HStack } from 'leather-styles/jsx';
+import { Box, HStack } from 'leather-styles/jsx';
 
-import { LeatherButton } from '@app/components/button/button';
+import { LeatherButton } from '@app/ui/components/button';
 
 interface PsbtRequestActionsProps {
   isLoading?: boolean;
@@ -11,12 +10,12 @@ interface PsbtRequestActionsProps {
 export function PsbtRequestActions({ isLoading, onCancel, onSignPsbt }: PsbtRequestActionsProps) {
   return (
     <Box
-      bg={color('bg')}
-      borderTop="1px solid #DCDDE2"
+      bg="accent.background-primary"
+      borderTop="default"
       bottom="0px"
       height="96px"
       position="absolute"
-      px="loose"
+      px="space.05"
       width="100%"
       zIndex={999}
     >

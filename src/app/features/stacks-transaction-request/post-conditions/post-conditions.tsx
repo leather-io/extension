@@ -2,7 +2,7 @@ import { Suspense, useMemo } from 'react';
 
 import { TransactionTypes } from '@stacks/connect';
 import { PostConditionMode } from '@stacks/transactions';
-import { Flex, color } from '@stacks/ui';
+import { Flex } from 'leather-styles/jsx';
 
 import { IS_TEST_ENV } from '@shared/environment';
 
@@ -31,10 +31,10 @@ function PostConditionsSuspense(): React.JSX.Element | null {
   return (
     <Flex
       border="4px solid"
-      borderColor={color('border')}
+      borderColor="accent.border-default"
       borderRadius="12px"
       flexDirection="column"
-      mb="loose"
+      mb="space.05"
       width="100%"
     >
       {hasPostConditions ? (

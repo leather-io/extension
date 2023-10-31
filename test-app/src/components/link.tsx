@@ -1,9 +1,13 @@
-import React from 'react';
-import { Text, Box, BoxProps } from '@stacks/ui';
+import React, { ReactNode } from 'react';
 
-interface LinkProps extends BoxProps {
+import { Box, BoxProps, styled } from 'leather-styles/jsx';
+
+interface LinkProps {
   _hover?: BoxProps;
   onClick: () => void;
+  children: ReactNode;
+  fontSize: string;
+  textStyle: string;
 }
 
 export const buildEnterKeyEvent = (onClick: () => void) => {
@@ -23,13 +27,13 @@ export const Link: React.FC<LinkProps> = ({
   ...rest
 }) => (
   <Box {...rest} onKeyPress={buildEnterKeyEvent(onClick)} onClick={onClick} tabIndex={0}>
-    <Text
+    <styled.span
       _hover={{ textDecoration: 'underline', cursor: 'pointer', ..._hover }}
       fontSize={fontSize}
       textStyle={textStyle}
     >
       {children}
-    </Text>
+    </styled.span>
   </Box>
 );
 

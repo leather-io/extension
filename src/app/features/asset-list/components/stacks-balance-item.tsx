@@ -1,12 +1,10 @@
-import { Text } from '@stacks/ui';
-
 import { useStxBalance } from '@app/common/hooks/balance/stx/use-stx-balance';
 import { ftDecimals } from '@app/common/stacks-utils';
 import { CryptoCurrencyAssetItem } from '@app/components/crypto-assets/crypto-currency-asset/crypto-currency-asset-item';
 import { StxAvatar } from '@app/components/crypto-assets/stacks/components/stx-avatar';
-import { Caption } from '@app/components/typography';
 import { useStacksFungibleTokenAssetBalancesAnchoredWithMetadata } from '@app/query/stacks/balance/stacks-ft-balances.hooks';
 import { StacksAccount } from '@app/store/accounts/blockchain/stacks/stacks-account.models';
+import { Caption } from '@app/ui/components/typography/caption';
 
 import { StacksFungibleTokenAssetList } from './stacks-fungible-token-asset-list';
 
@@ -22,7 +20,7 @@ export function StacksBalanceItem({ account }: StacksBalanceItemProps) {
     useStxBalance();
 
   const stxAdditionalBalanceInfo = stxLockedBalance?.amount.isGreaterThan(0) ? (
-    <Text>({ftDecimals(stxLockedBalance.amount, stxLockedBalance.decimals || 0)} locked)</Text>
+    <>({ftDecimals(stxLockedBalance.amount, stxLockedBalance.decimals || 0)} locked)</>
   ) : undefined;
 
   const stxAdditionalUsdBalanceInfo = stxLockedBalance?.amount.isGreaterThan(0) ? (

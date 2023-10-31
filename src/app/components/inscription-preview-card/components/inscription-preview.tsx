@@ -1,8 +1,8 @@
-import { Box, BoxProps, Flex } from '@stacks/ui';
+import { BoxProps, Flex } from 'leather-styles/jsx';
 
 import { SupportedInscription } from '@shared/models/inscription.model';
 
-import { OrdinalIconFull } from '@app/components/icons/ordinal-icon-full';
+import { OrdinalIcon } from '@app/ui/components/icons/ordinal-icon';
 
 import { InscriptionImage } from './inscription-image';
 import { InscriptionPreviewContainer } from './inscription-preview-container';
@@ -30,10 +30,8 @@ export function InscriptionPreview({ inscription, ...props }: InscriptionPreview
     case 'other': {
       return (
         <InscriptionPreviewContainer {...props}>
-          <Flex justifyContent="center" alignItems="center" height="100%">
-            <Box width="40px">
-              <OrdinalIconFull width={40} height={40} />
-            </Box>
+          <Flex alignItems="center" height="100%" justifyContent="center">
+            <OrdinalIcon size="40px" />
           </Flex>
         </InscriptionPreviewContainer>
       );
