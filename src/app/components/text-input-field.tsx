@@ -1,15 +1,14 @@
 import { Ref, useRef } from 'react';
 
-import { Box, Flex, FlexProps, Input, Text, color } from '@stacks/ui';
 import { SendCryptoAssetSelectors } from '@tests/selectors/send.selectors';
 import { useField } from 'formik';
 import { css } from 'leather-styles/css';
-import { HStack } from 'leather-styles/jsx';
-import { token } from 'leather-styles/tokens';
+import { Box, Flex, FlexProps, HStack, styled } from 'leather-styles/jsx';
 
 import { useShowFieldError } from '@app/common/form-utils';
 import { capitalize } from '@app/common/utils';
 
+import { LeatherButton } from './button/button';
 import { TextInputFieldError } from './field-error';
 
 interface TextInputFieldProps extends FlexProps {
@@ -45,28 +44,27 @@ export function TextInputField({
   const showError = useShowFieldError(name) || hasError;
 
   return (
-    <>
+    <styled.label htmlFor={name} width="100%">
       <Flex
         _before={{
           content: '""',
           position: 'absolute',
-          border: `2px solid ${showError ? '#F7CDCA' : 'transparent'}`,
+          border: showError ? 'error' : 'unset',
           borderRadius: '10px',
           left: '-1px',
           right: '-1px',
           top: '-1px',
           bottom: '-1px',
         }}
-        as="label"
-        border={`1px solid ${token('colors.accent.border-default')}`}
+        border="default"
         borderRadius="10px"
         className={css({
           '& :has(:focus)::before': {
             border: '2px solid #bfc6ff',
           },
         })}
+        cursor="text"
         flexDirection="column"
-        htmlFor={name}
         justifyContent="center"
         mb={showError ? 'tight' : 'base'}
         minHeight="64px"
@@ -79,24 +77,15 @@ export function TextInputField({
         <HStack alignItems="center" justifyContent="space-between" maxHeight="20px" mb="space.01">
           <Flex alignItems="center">
             {label && field.value ? (
-              <Text
-                color={showError ? token('colors.error') : token('colors.ink.11')}
-                fontSize={1}
-                fontWeight={500}
-                mr="tight"
-              >
+              <styled.span color={showError ? 'error.label' : 'accent.text-primary'} mr="tight">
                 {label}
-              </Text>
+              </styled.span>
             ) : null}
             {topInputOverlay ? <Box zIndex={999}>{topInputOverlay}</Box> : null}
           </Flex>
           {labelAction ? (
-            <Text
-              _hover={{ cursor: 'pointer', textDecoration: 'underline' }}
+            <LeatherButton
               data-testid={SendCryptoAssetSelectors.RecipientChooseAccountButton}
-              as="button"
-              color={token('colors.brown.12')}
-              fontSize={1}
               fontWeight={500}
               // Prevents focusing underlying input
               onMouseDown={e => e.preventDefault()}
@@ -108,31 +97,32 @@ export function TextInputField({
                 if (ref.current !== null && ref.current === document.activeElement)
                   ref.current.blur();
               }}
-              type="button"
+              textStyle="label.03"
+              variant="text"
               zIndex={999}
             >
               {labelAction}
-            </Text>
+            </LeatherButton>
           ) : null}
         </HStack>
-        <Input
-          ref={inputRef || ref}
-          _disabled={{ bg: color('bg') }}
+        <styled.input
+          _disabled={{ bg: 'accent.background-primary' }}
           _focus={{ border: 'none' }}
           autoComplete="off"
+          bg="transparent"
           border="none"
           data-testid={dataTestId}
+          disabled={isDisabled}
           display="block"
-          fontSize={1}
           height="24px"
           id={name}
-          isDisabled={isDisabled}
           p="none"
           placeholder={placeholder || capitalize(name)}
+          ref={inputRef || ref}
+          ring="none"
           spellCheck="false"
-          type="input"
+          textStyle="body.02"
           width="100%"
-          bg="transparent"
           {...field}
           onBlur={e => {
             onBlur?.();
@@ -141,6 +131,6 @@ export function TextInputField({
         />
       </Flex>
       <TextInputFieldError name={name} />
-    </>
+    </styled.label>
   );
 }

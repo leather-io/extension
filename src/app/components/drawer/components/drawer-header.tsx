@@ -3,7 +3,6 @@ import { useHover } from 'use-events';
 
 import { ArrowLeftIcon } from '@app/components/icons/arrow-left-icon';
 import { CloseIcon } from '@app/components/icons/close-icon';
-import { Caption } from '@app/components/typography';
 
 import { HeaderActionButton } from './header-action-button';
 
@@ -41,9 +40,9 @@ export function DrawerHeader({
       {icon && icon}
       {title && <styled.h1 textStyle="heading.05">{title}</styled.h1>}
       {isHovered && isWaitingOnPerformedAction && (
-        <Caption fontSize="14px" fontWeight={500}>
+        <styled.span color="accent.text-subdued" textStyle="caption.01">
           {waitingOnPerformedActionMessage}
-        </Caption>
+        </styled.span>
       )}
       {onClose && (
         <HeaderActionButton

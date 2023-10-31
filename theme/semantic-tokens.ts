@@ -69,21 +69,32 @@ export const semanticTokens = defineSemanticTokens({
       'background-primary': {
         value: { base: '{colors.lightModeBrown.1}', _dark: '{colors.darkModeBrown.1}' },
       },
-      disabled: {
-        value: { base: '{colors.lightModeBlue.100}', _dark: '{colors.darkModeBlue.100}' },
-      },
-      focused: {
-        value: { base: '{colors.lightModeBlue.500}', _dark: '{colors.darkModeBlue.500}' },
-      },
       'notification-text': {
         value: { base: '{colors.lightModeBrown.12}', _dark: '{colors.darkModeBrown.12}' },
       },
     },
-    warning: {
-      value: { base: '{colors.lightModeYellow.100}', _dark: '{colors.darkModeYellow.100}' },
+    disabled: {
+      value: { base: '{colors.lightModeBlue.100}', _dark: '{colors.darkModeBlue.100}' },
     },
     error: {
+      background: {
+        value: { base: '{colors.lightModeRed.100}', _dark: '{colors.darkModeRed.100}' },
+      },
       value: { base: '{colors.lightModeRed.600}', _dark: '{colors.darkModeRed.600}' },
+    },
+    invert: {
+      value: { base: '{colors.darkModeBrown.1}', _dark: '{colors.lightModeBrown.1}' },
+    },
+    stacks: {
+      value: { base: '{colors.lightModeStacks}', _dark: '{colors.darkModeStacks}' },
+    },
+    warning: {
+      background: {
+        value: { base: '{colors.lightModeYellow.100}', _dark: '{colors.darkModeYellow.100}' },
+      },
+      label: {
+        value: { base: '{colors.lightModeYellow.600}', _dark: '{colors.darkModeYellow.600}' },
+      },
     },
   },
 });

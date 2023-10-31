@@ -4,9 +4,9 @@ import { Stack } from 'leather-styles/jsx';
 
 import { LeatherButton } from '@app/components/button/button';
 import { Capitalize } from '@app/components/text/capitalize';
-import { Caption } from '@app/components/typography';
 import { LedgerTitle } from '@app/features/ledger/components/ledger-title';
 import { LedgerWrapper } from '@app/features/ledger/components/ledger-wrapper';
+import { Caption } from '@app/ui/components/typography/caption';
 
 import { useLedgerRequestKeysContext } from '../ledger-request-keys.context';
 

@@ -1,6 +1,6 @@
 import { Flex, FlexProps, Spinner, color } from '@stacks/ui';
 
-import { Caption } from '@app/components/typography';
+import { Caption } from '@app/ui/components/typography/caption';
 
 interface LookingForLedgerLabelProps extends FlexProps {
   children: React.ReactNode;

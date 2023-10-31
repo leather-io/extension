@@ -8,10 +8,10 @@ import { closeWindow } from '@shared/utils';
 import { useCancelAuthRequest } from '@app/common/authentication/use-cancel-auth-request';
 import { useAppDetails } from '@app/common/hooks/auth/use-app-details';
 import { useRouteHeader } from '@app/common/hooks/use-route-header';
-import { LeatherIcon } from '@app/components/icons/leather-icon';
 import { RequesterFlag } from '@app/components/requester-flag';
 import { ChooseAccountsList } from '@app/pages/choose-account/components/accounts';
 import { useOnOriginTabClose } from '@app/routes/hooks/use-on-tab-closed';
+import { LeatherIcon } from '@app/ui/components/icons/leather-icon';
 
 export const ChooseAccount = memo(() => {
   const { url } = useAppDetails();

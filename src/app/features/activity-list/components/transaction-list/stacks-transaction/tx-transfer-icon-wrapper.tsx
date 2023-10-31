@@ -1,16 +1,26 @@
-import { Box, Circle, color } from '@stacks/ui';
+import React from 'react';
 
-import { StxIcon } from '@app/components/icons/stx-icon';
+import { Box } from 'leather-styles/jsx';
+
 import { TransactionTypeIconWrapper } from '@app/components/transaction/transaction-type-icon-wrapper';
+import { StxIcon } from '@app/ui/components/icons/stx-icon';
 
 interface TxTransferIconWrapperProps {
-  icon: React.FC;
+  icon: React.JSX.Element;
 }
 export function TxTransferIconWrapper({ icon }: TxTransferIconWrapperProps) {
   return (
-    <Circle bg={color('accent')} color={color('bg')} flexShrink={0} position="relative" size="36px">
-      <Box as={StxIcon} />
-      <TransactionTypeIconWrapper icon={icon} bg={'brand'} />
-    </Circle>
+    <Box
+      bg="stacks"
+      borderRadius="50%"
+      color="accent.background-primary"
+      flexShrink={0}
+      height="36px"
+      position="relative"
+      width="36px"
+    >
+      <StxIcon />
+      <TransactionTypeIconWrapper icon={icon} />
+    </Box>
   );
 }

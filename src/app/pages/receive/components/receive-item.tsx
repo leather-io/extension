@@ -2,9 +2,9 @@ import { truncateMiddle } from '@stacks/ui-utils';
 import { Flex, HStack, Stack, styled } from 'leather-styles/jsx';
 
 import { LeatherButton } from '@app/components/button/button';
-import { CopyIcon } from '@app/components/icons/copy-icon';
 import { QrCodeIcon } from '@app/components/icons/qr-code-icon';
 import { Flag } from '@app/components/layout/flag';
+import { CopyIcon } from '@app/ui/components/icons/copy-icon';
 
 interface ReceiveItemProps {
   address?: string;

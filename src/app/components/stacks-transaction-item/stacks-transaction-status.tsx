@@ -1,9 +1,9 @@
 import type { MempoolTransaction } from '@stacks/stacks-blockchain-api-types';
-import { Text, color } from '@stacks/ui';
-import { isPendingTx } from '@stacks/ui-utils';
+import { styled } from 'leather-styles/jsx';
 
 import { StacksTx } from '@shared/models/transactions/stacks-transaction.model';
 
+import { isPendingTx } from '@app/common/transactions/stacks/transaction.utils';
 import { Tooltip } from '@app/components/tooltip';
 
 import { MicroblockLabel } from '../transaction/microblock-label';
@@ -24,9 +24,9 @@ export function StacksTransactionStatus({ transaction }: TransactionStatusProps)
       {isInMicroblock && <MicroblockLabel />}
       {isFailed && (
         <Tooltip label={transaction.tx_status} placement="bottom">
-          <Text color={color('feedback-error')} fontSize={0}>
+          <styled.span color="error.label" textStyle="label.03">
             Failed
-          </Text>
+          </styled.span>
         </Tooltip>
       )}
     </>

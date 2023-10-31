@@ -1,7 +1,7 @@
 import { useCallback } from 'react';
 
 import { Box, Flex } from '@stacks/ui';
-import { HStack } from 'leather-styles/jsx';
+import { HStack, styled } from 'leather-styles/jsx';
 
 import { createMoneyFromDecimal } from '@shared/models/money.model';
 
@@ -11,8 +11,8 @@ import { i18nFormatCurrency } from '@app/common/money/format-money';
 import { satToBtc } from '@app/common/money/unit-conversion';
 import { BitcoinContractIcon } from '@app/components/icons/bitcoin-contract-icon';
 import { Flag } from '@app/components/layout/flag';
-import { Caption, Text } from '@app/components/typography';
 import { useCryptoCurrencyMarketData } from '@app/query/common/market-data/market-data.hooks';
+import { Caption } from '@app/ui/components/typography/caption';
 
 interface BitcoinContractListItemLayoutProps {
   id: string;
@@ -51,10 +51,10 @@ export function BitcoinContractListItemLayout({
     >
       <Flag img={<Box as={BitcoinContractIcon} />} align="middle" spacing="base" width="100%">
         <HStack alignItems="center" justifyContent="space-between" width="100%">
-          <Text>{id}</Text>
-          <Text fontVariantNumeric="tabular-nums" textAlign="right">
+          <styled.span textStyle="body.01">{id}</styled.span>
+          <styled.span fontVariantNumeric="tabular-nums" textAlign="right" textStyle="body.01">
             {satToBtc(parseInt(collateralAmount)).toString()}
-          </Text>
+          </styled.span>
         </HStack>
         <HStack height="1.25rem" alignItems="center" justifyContent="space-between" width="100%">
           <Caption>{state}</Caption>

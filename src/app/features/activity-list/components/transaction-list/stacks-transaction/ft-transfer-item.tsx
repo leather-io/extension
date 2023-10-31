@@ -1,5 +1,3 @@
-import { FiArrowDown, FiArrowUp } from 'react-icons/fi';
-
 import type { AddressTransactionWithTransfers } from '@stacks/stacks-blockchain-api-types';
 
 import { logger } from '@shared/logger';
@@ -15,6 +13,8 @@ import {
 } from '@app/common/transactions/stacks/transaction.utils';
 import { pullContractIdFromIdentity } from '@app/common/utils';
 import { StacksAssetAvatar } from '@app/components/crypto-assets/stacks/components/stacks-asset-avatar';
+import { ArrowDownIcon } from '@app/components/icons/arrow-down-icon';
+import { ArrowUpIcon } from '@app/components/icons/arrow-up-icon';
 import { StacksTransactionItem } from '@app/components/stacks-transaction-item/stacks-transaction-item';
 import { useGetFungibleTokenMetadataQuery } from '@app/query/stacks/tokens/fungible-tokens/fungible-token-metadata.query';
 import { isFtAsset } from '@app/query/stacks/tokens/token-metadata.utils';
@@ -49,15 +49,14 @@ export function FtTransferItem({ ftTransfer, parentTx }: FtTransferItemProps) {
     assetMetadata.image_canonical_uri &&
     assetMetadata.name &&
     getImageCanonicalUri(assetMetadata.image_canonical_uri, assetMetadata.name);
-  const icon = isOriginator ? FiArrowUp : FiArrowDown;
+  const icon = isOriginator ? <ArrowUpIcon size="13px" /> : <ArrowDownIcon size="13px" />;
   const title = `${assetMetadata.name || 'Token'} Transfer`;
   const value = `${isOriginator ? '-' : ''}${displayAmount.toFormat()}`;
   const transferIcon = ftImageCanonicalUri ? (
     <StacksAssetAvatar
-      size="36px"
-      imageCanonicalUri={ftImageCanonicalUri}
-      color="white"
+      color="accent.background-primary"
       gradientString=""
+      imageCanonicalUri={ftImageCanonicalUri}
     >
       {title}
     </StacksAssetAvatar>

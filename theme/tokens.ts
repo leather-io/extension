@@ -9,6 +9,7 @@ export const tokens = defineTokens({
     desktopViewportMinWidth: { value: '480px' },
   },
   radii: {
+    xs: { value: '8px' },
     sm: { value: '10px' },
     md: { value: '12px' },
     lg: { value: '16px' },
@@ -41,8 +42,19 @@ export const tokens = defineTokens({
   },
   colors,
   borders: {
+    action: { value: '1px solid {colors.accent.action-primary-default}' },
+    active: { value: '2px solid {colors.accent.border-default}' },
+    background: { value: '2px solid {colors.accent.background-primary}' },
     default: { value: '1px solid {colors.accent.border-default}' },
-    error: { value: '1px solid {colors.error}' },
-    'action-primary-default': { value: '1px solid {colors.accent.action-primary-default}' },
+    error: { value: '1px solid {colors.error.label}' },
+    invert: { value: '1px solid {colors.invert}' },
+    subdued: { value: '1px solid {colors.accent.text-subdued}' },
+  },
+  icons: {
+    'icon.xs': { value: '12px', description: '12px' },
+    'icon.sm': { value: '16px', description: '16px' },
+    'icon.md': { value: '32px', description: '32px' },
+    'icon.lg': { value: '36px', description: '36px' },
+    'icon.xl': { value: '48px', description: '48px' },
   },
 });

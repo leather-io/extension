@@ -2,10 +2,10 @@ import { useContext } from 'react';
 
 import GenericErrorImg from '@assets/images/generic-error.png';
 import { Box, Button, Stack } from '@stacks/ui';
+import { styled } from 'leather-styles/jsx';
 
 import { useLoading } from '@app/common/hooks/use-loading';
 import { delay } from '@app/common/utils';
-import { Body } from '@app/components/typography';
 import { LedgerTitle } from '@app/features/ledger/components/ledger-title';
 import { LedgerWrapper } from '@app/features/ledger/components/ledger-wrapper';
 
@@ -20,13 +20,13 @@ export function ContractPrincipalBugWarning() {
         <img src={GenericErrorImg} width="106px" />
       </Box>
       <LedgerTitle mt="base-loose">Stacks Ledger app is outdated</LedgerTitle>
-      <Body mt="base" mx="tight">
+      <styled.span mt="space.04" mx="space.02" textStyle="body.02">
         Some transactions are not compatible with outdated app versions. Update your app in{' '}
         <a href="ledgerlive://manager" style={{ textDecoration: 'underline' }}>
           Ledger Live
         </a>{' '}
         and try again.
-      </Body>
+      </styled.span>
       <Stack isInline mb="loose" mt="extra-loose">
         <Button
           as="a"

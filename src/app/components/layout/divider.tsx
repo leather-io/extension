@@ -1,5 +1,5 @@
-import { Box, BoxProps, color } from '@stacks/ui';
+import { Box, BoxProps } from 'leather-styles/jsx';
 
 export function Divider(props: BoxProps) {
-  return <Box width="100%" height="1px" bg={color('border')} {...props} />;
+  return <Box bg="accent.border-default" height="1px" width="100%" {...props} />;
 }

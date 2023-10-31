@@ -5,10 +5,10 @@ import { Stack, color } from '@stacks/ui';
 import { useExplorerLink } from '@app/common/hooks/use-explorer-link';
 import { formatContractId } from '@app/common/utils';
 import { Divider } from '@app/components/layout/divider';
-import { Title } from '@app/components/typography';
 import { AttachmentRow } from '@app/features/stacks-transaction-request/attachment-row';
 import { ContractPreviewLayout } from '@app/features/stacks-transaction-request/contract-preview';
 import { useTransactionRequestState } from '@app/store/transactions/requests.hooks';
+import { Title } from '@app/ui/components/typography/title';
 
 import { FunctionArgumentsList } from './function-arguments-list';
 
@@ -30,9 +30,7 @@ function ContractCallDetailsSuspense() {
       spacing="loose"
       width="100%"
     >
-      <Title as="h2" fontWeight="500">
-        Function and arguments
-      </Title>
+      <Title>Function and arguments</Title>
 
       <ContractPreviewLayout
         onClick={() =>

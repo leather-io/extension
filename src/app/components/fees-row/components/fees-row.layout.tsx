@@ -3,8 +3,8 @@ import { useField } from 'formik';
 import { HStack } from 'leather-styles/jsx';
 
 import { SponsoredLabel } from '@app/components/sponsored-label';
-import { Caption } from '@app/components/typography';
 import { WarningLabel } from '@app/components/warning-label';
+import { Caption } from '@app/ui/components/typography/caption';
 
 interface FeesRowLayoutProps extends StackProps {
   feeField: React.JSX.Element;

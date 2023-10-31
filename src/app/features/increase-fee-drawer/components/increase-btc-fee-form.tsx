@@ -14,8 +14,8 @@ import { BitcoinCustomFeeFiat } from '@app/components/bitcoin-custom-fee/bitcoin
 import { BitcoinTransactionItem } from '@app/components/bitcoin-transaction-item/bitcoin-transaction-item';
 import { LoadingSpinner } from '@app/components/loading-spinner';
 import { TextInputField } from '@app/components/text-input-field';
-import { Caption } from '@app/components/typography';
 import { useCurrentAccountNativeSegwitIndexZeroSigner } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
+import { Caption } from '@app/ui/components/typography/caption';
 
 import { useBtcIncreaseFee } from '../hooks/use-btc-increase-fee';
 import { IncreaseFeeActions } from './increase-fee-actions';

@@ -1,5 +1,5 @@
 import { StacksTransaction } from '@stacks/transactions';
-import { Box, BoxProps, Stack, color } from '@stacks/ui';
+import { Box, BoxProps, Stack } from '@stacks/ui';
 import { HStack } from 'leather-styles/jsx';
 
 import { useExplorerLink } from '@app/common/hooks/use-explorer-link';
@@ -7,9 +7,10 @@ import { getTxSenderAddress } from '@app/common/transactions/stacks/transaction.
 import { usePressable } from '@app/components/item-hover';
 import { Tooltip } from '@app/components/tooltip';
 import { TransactionTitle } from '@app/components/transaction/transaction-title';
-import { Caption, Title } from '@app/components/typography';
-import { SubmittedTransactionIcon } from '@app/features/activity-list/components/submitted-transaction-list/submitted-transaction-icon';
+import { Caption } from '@app/ui/components/typography/caption';
+import { Title } from '@app/ui/components/typography/title';
 
+import { SubmittedTransactionIcon } from './submitted-transaction-icon';
 import { getSubmittedTransactionDetails } from './submitted-transaction-list.utils';
 
 interface SubmittedTransactionItemProps extends BoxProps {
@@ -54,24 +55,16 @@ export function SubmittedTransactionItem(props: SubmittedTransactionItemProps) {
           <Stack minWidth="0px" spacing="base-tight">
             <TransactionTitle title={title} />
             <Stack isInline flexWrap="wrap">
-              <Caption variant="c2">{caption}</Caption>
+              <Caption>{caption}</Caption>
               <Tooltip
                 placement="bottom"
                 label={'Transaction broadcasted, but not yet in the mempool'}
               >
-                <Caption variant="c2" color={color('text-caption')}>
-                  Submitted
-                </Caption>
+                <Caption>Submitted</Caption>
               </Tooltip>
             </Stack>
           </Stack>
-          <Box alignItems="flex-end">
-            {value && (
-              <Title as="h3" fontWeight="normal">
-                {value}
-              </Title>
-            )}
-          </Box>
+          <Box alignItems="flex-end">{value && <Title fontWeight="normal">{value}</Title>}</Box>
         </HStack>
       </Stack>
       {component}

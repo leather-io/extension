@@ -1,14 +1,13 @@
 import { ReactNode, Suspense, memo, useCallback, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import { Flex, FlexProps, transition, useEventListener } from '@stacks/ui';
-import { Box } from 'leather-styles/jsx';
-import { token } from 'leather-styles/tokens';
+import { Box, Flex, FlexProps } from 'leather-styles/jsx';
 
 import { noop } from '@shared/utils';
 
+import { useEventListener } from '@app/common/hooks/use-event-listener';
 import { useOnClickOutside } from '@app/common/hooks/use-onclickoutside';
-import { useThemeSwitcher } from '@app/common/theme-provider';
+import { transition } from '@app/common/transition';
 
 import { DrawerHeader } from './components/drawer-header';
 
@@ -56,20 +55,19 @@ export const BaseDrawer = memo((props: BaseDrawerProps) => {
   } = props;
   const ref = useDrawer(isShowing, onClose ? onClose : noop, pauseOnClickOutside);
   const navigate = useNavigate();
-  const { theme } = useThemeSwitcher();
 
   const onGoBack = () => navigate(-1);
 
   return (
     <Flex
       display={isShowing ? 'flex' : 'none'}
-      bg={`rgba(0,0,0,0.${isShowing ? 4 : 0})`}
+      bg="overlay"
       transition={transition}
       position="fixed"
       top={0}
       left={0}
       height="100%"
-      pt="loose"
+      pt="space.05"
       width="100%"
       alignItems={['flex-end', 'center', 'center']}
       justifyContent="center"
@@ -93,11 +91,11 @@ export const BaseDrawer = memo((props: BaseDrawerProps) => {
         willChange="transform, opacity"
         width="100%"
         maxWidth="472px"
-        bg={theme === 'dark' ? token('colors.black') : token('colors.white')}
-        borderTopLeftRadius="16px"
-        borderTopRightRadius="16px"
-        borderBottomLeftRadius={[0, '16px', '16px', '16px']}
-        borderBottomRightRadius={[0, '16px', '16px', '16px']}
+        bg="accent.background-primary"
+        borderTopLeftRadius="lg"
+        borderTopRightRadius="lg"
+        borderBottomLeftRadius={[0, 'lg', 'lg', 'lg']}
+        borderBottomRightRadius={[0, 'lg', 'lg', 'lg']}
         position="relative"
         mt={['auto', 'unset', 'unset', 'unset']}
         maxHeight={['calc(100vh - 24px)', 'calc(100vh - 96px)']}

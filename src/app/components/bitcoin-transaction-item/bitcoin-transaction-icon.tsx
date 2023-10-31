@@ -1,32 +1,42 @@
-import { Box, BoxProps, Circle, Flex, color } from '@stacks/ui';
+import { Circle, CircleProps, Flex } from 'leather-styles/jsx';
 
 import { BitcoinTx } from '@shared/models/transactions/bitcoin-transaction.model';
 
-import { BtcIcon } from '@app/components/icons/btc-icon';
+import { getColorFromBitcoinTx, isBitcoinTxInbound } from '@app/common/transactions/bitcoin/utils';
+import { BtcIcon } from '@app/ui/components/icons/btc-icon';
 
-import { IconForTx, colorFromTx } from './utils';
+import { ArrowDownIcon } from '../icons/arrow-down-icon';
+import { ArrowUpIcon } from '../icons/arrow-up-icon';
 
-interface TransactionIconProps extends BoxProps {
+export function TxStatusIcon(props: { address: string; tx: BitcoinTx }) {
+  const { address, tx } = props;
+  if (isBitcoinTxInbound(address, tx)) return <ArrowDownIcon size="13px" />;
+  return <ArrowUpIcon size="13px" />;
+}
+
+interface TransactionIconProps extends CircleProps {
   transaction: BitcoinTx;
   btcAddress: string;
 }
-
-export function BitcoinTransactionIcon({ transaction, btcAddress, ...rest }: TransactionIconProps) {
+export function BitcoinTransactionIcon({
+  transaction,
+  btcAddress,
+  ...props
+}: TransactionIconProps) {
   return (
     <Flex position="relative">
-      <Box as={BtcIcon} />
+      <BtcIcon />
       <Circle
         bottom="-2px"
         right="-9px"
         position="absolute"
         size="21px"
-        bg={color(colorFromTx(transaction))}
-        color={color('bg')}
-        border="2px solid"
-        borderColor={color('bg')}
-        {...rest}
+        bg={getColorFromBitcoinTx(transaction)}
+        color="accent.background-primary"
+        border="background"
+        {...props}
       >
-        <Box size="13px" as={IconForTx(btcAddress, transaction)} />
+        <TxStatusIcon address={btcAddress} tx={transaction} />
       </Circle>
     </Flex>
   );

@@ -1,19 +1,19 @@
-import { ReactElement } from 'react';
+import { Box, BoxProps } from 'leather-styles/jsx';
 
-import { Box, BoxProps } from '@stacks/ui';
+import { HasChildren } from '@app/common/has-children';
 
-export function InscriptionPreviewContainer(props: { children: ReactElement } & BoxProps) {
+export function InscriptionPreviewContainer({ children, ...props }: HasChildren & BoxProps) {
   return (
     <Box
+      bg="black"
+      borderRadius="8px"
       width="100px"
       height="100px"
-      borderRadius="8px"
       overflow="hidden"
-      bg="black"
       position="relative"
       {...props}
     >
-      {props.children}
+      {children}
     </Box>
   );
 }

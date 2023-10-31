@@ -1,5 +1,4 @@
 import { Suspense, memo } from 'react';
-import { FiArrowUp } from 'react-icons/fi';
 import { useNavigate } from 'react-router-dom';
 
 import { HomePageSelectors } from '@tests/selectors/home.selectors';
@@ -46,7 +45,9 @@ function SendButtonSuspense() {
   );
 }
 
-const SendButtonFallback = memo(() => <ActionButton label="Send" icon={<FiArrowUp />} disabled />);
+const SendButtonFallback = memo(() => (
+  <ActionButton label="Send" icon={<ArrowUpIcon />} disabled />
+));
 
 export function SendButton() {
   return (

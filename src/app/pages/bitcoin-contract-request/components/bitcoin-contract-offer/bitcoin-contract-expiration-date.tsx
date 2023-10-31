@@ -1,7 +1,6 @@
 import { Flex } from '@stacks/ui';
 import { BitcoinContractRequestSelectors } from '@tests/selectors/bitcoin-contract-request.selectors';
-
-import { Text } from '@app/components/typography';
+import { styled } from 'leather-styles/jsx';
 
 interface BitcoinContractExpirationDateProps {
   expirationDate: string;
@@ -11,15 +10,15 @@ export function BitcoinContractExpirationDate({
 }: BitcoinContractExpirationDateProps) {
   return (
     <Flex p="loose" spacing="loose" width="100%" justifyContent="space-between">
-      <Text fontSize={2} fontWeight="bold">
+      <styled.span fontWeight="bold" textStyle="body.01">
         Expiration Date
-      </Text>
-      <Text
-        fontSize={2}
+      </styled.span>
+      <styled.span
         data-testid={BitcoinContractRequestSelectors.BitcoinContractExpirationDate}
+        textStyle="body.01"
       >
         {expirationDate}
-      </Text>
+      </styled.span>
     </Flex>
   );
 }

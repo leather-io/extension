@@ -12,13 +12,13 @@ import { useClipboard } from '@app/common/hooks/use-copy-to-clipboard';
 import { useLocationState } from '@app/common/hooks/use-location-state';
 import { StxAvatar } from '@app/components/crypto-assets/stacks/components/stx-avatar';
 import { BaseDrawer } from '@app/components/drawer/base-drawer';
-import { BtcIcon } from '@app/components/icons/btc-icon';
-import { BtcStampsIcon } from '@app/components/icons/btc-stamps-icon';
-import { OrdinalIcon } from '@app/components/icons/ordinal-icon';
 import { useBackgroundLocationRedirect } from '@app/routes/hooks/use-background-location-redirect';
 import { useZeroIndexTaprootAddress } from '@app/store/accounts/blockchain/bitcoin/bitcoin.hooks';
 import { useCurrentAccountNativeSegwitAddressIndexZero } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
 import { useCurrentAccountStxAddressState } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
+import { BtcIcon } from '@app/ui/components/icons/btc-icon';
+import { OrdinalIcon } from '@app/ui/components/icons/ordinal-icon';
+import { StampsIcon } from '@app/ui/components/icons/stamps-icon';
 
 import { ReceiveItem } from './components/receive-item';
 import { ReceiveItemList } from './components/receive-items';
@@ -121,7 +121,7 @@ export function ReceiveModal({ type = 'full' }: ReceiveModalProps) {
             />
             <ReceiveItem
               address={btcAddressNativeSegwit}
-              icon={<BtcStampsIcon />}
+              icon={<StampsIcon />}
               onClickQrCode={() =>
                 navigate(`${RouteUrls.Home}${RouteUrls.ReceiveBtcStamp}`, {
                   state: { backgroundLocation },

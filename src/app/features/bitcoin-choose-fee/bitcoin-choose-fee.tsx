@@ -54,7 +54,7 @@ export function BitcoinChooseFee({
     <BitcoinChooseFeeLayout isLoading={isLoading}>
       <Stack alignItems="center" width="100%">
         {hasAmount && (
-          <styled.h3 textStyle="heading.03" color={showError ? 'error' : 'unset'}>
+          <styled.h3 textStyle="heading.03" color={showError ? 'error.label' : 'unset'}>
             {formatMoney(amount)}
           </styled.h3>
         )}

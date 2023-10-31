@@ -1,8 +1,8 @@
 import { Box, BoxProps, Flex } from '@stacks/ui';
+import { styled } from 'leather-styles/jsx';
 import { token } from 'leather-styles/tokens';
 
-import { CheckmarkIcon } from '@app/components/icons/checkmark-icon';
-import { Title } from '@app/components/typography';
+import { CheckmarkIcon } from '@app/ui/components/icons/checkmark-icon';
 
 interface ThemeListItemProps extends BoxProps {
   themeLabel: string;
@@ -33,9 +33,7 @@ export function ThemeListItemLayout({
       {...props}
     >
       <Flex width="100%" justifyContent="space-between" alignItems="center" height="20px">
-        <Title fontWeight={400} lineHeight="1rem" display="block" fontFamily="Diatype">
-          {themeLabel}
-        </Title>
+        <styled.span textStyle="label.02">{themeLabel}</styled.span>
         {isActive && <CheckmarkIcon />}
       </Flex>
     </Box>

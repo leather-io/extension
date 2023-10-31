@@ -11,7 +11,7 @@ export function InfoLabel({ children, title, ...rest }: InfoLabelProps) {
     <Flex width="100%" {...rest}>
       <Stack
         alignItems="start"
-        bg="accent.disabled"
+        bg="disabled"
         borderRadius="10px"
         minHeight="48px"
         px="base"

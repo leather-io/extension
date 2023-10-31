@@ -2,8 +2,8 @@ import { Box, Flex, styled } from 'leather-styles/jsx';
 
 import { LeatherButton } from '@app/components/button/button';
 import { LIcon } from '@app/components/icons/l-icon';
-import { LeatherIcon } from '@app/components/icons/leather-icon';
 import { RequesterFlag } from '@app/components/requester-flag';
+import { LeatherIcon } from '@app/ui/components/icons/leather-icon';
 
 interface GetAddressesLayoutProps {
   requester: string;

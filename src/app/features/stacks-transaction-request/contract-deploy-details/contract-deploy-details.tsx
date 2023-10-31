@@ -1,10 +1,10 @@
 import { useState } from 'react';
 
-import { BoxProps, CodeBlock, Stack, color } from '@stacks/ui';
+import { CodeBlock, Stack, color } from '@stacks/ui';
+import { HTMLStyledProps, styled } from 'leather-styles/jsx';
 
 import { Prism } from '@app/common/clarity-prism';
 import { Divider } from '@app/components/layout/divider';
-import { Caption, Title } from '@app/components/typography';
 import { AttachmentRow } from '@app/features/stacks-transaction-request/attachment-row';
 import { ContractPreviewLayout } from '@app/features/stacks-transaction-request/contract-preview';
 import { Row } from '@app/features/stacks-transaction-request/row';
@@ -13,6 +13,7 @@ import {
   useCurrentStacksAccount,
 } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
 import { useTransactionRequestState } from '@app/store/transactions/requests.hooks';
+import { Title } from '@app/ui/components/typography/title';
 
 function ContractCodeSection() {
   const transactionRequest = useTransactionRequestState();
@@ -43,7 +44,7 @@ function ContractCodeSection() {
   );
 }
 
-interface TabButtonProps extends BoxProps {
+interface TabButtonProps extends HTMLStyledProps<'button'> {
   isActive: boolean;
 }
 
@@ -51,14 +52,13 @@ function TabButton(props: TabButtonProps) {
   const { isActive, ...rest } = props;
 
   return (
-    <Caption
-      as="button"
+    <styled.button
+      bg={isActive ? 'accent.component-background-hover' : 'transparent'}
       border={0}
       borderRadius="8px"
-      px="base"
-      py="base"
-      bg={isActive ? color('bg-4') : 'transparent'}
       fontWeight={isActive ? 600 : 500}
+      px="space.04"
+      py="space.04"
       {...rest}
     />
   );
@@ -98,9 +98,7 @@ export function ContractDeployDetails() {
           py="extra-loose"
           px="base-loose"
         >
-          <Title as="h2" fontWeight="500">
-            Contract deploy details
-          </Title>
+          <Title>Contract deploy details</Title>
           <ContractPreviewLayout
             contractAddress={currentAccountStxAddress}
             contractName={transactionRequest.contractName}

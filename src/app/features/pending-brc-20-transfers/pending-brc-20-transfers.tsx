@@ -11,7 +11,6 @@ import { Flag } from '@app/components/layout/flag';
 import { StatusPending } from '@app/components/status-pending';
 import { StatusReady } from '@app/components/status-ready';
 import { Tooltip } from '@app/components/tooltip';
-import { Caption } from '@app/components/typography';
 import { useNativeSegwitBalance } from '@app/query/bitcoin/balance/btc-native-segwit-balance.hooks';
 import { useCheckOrderStatuses } from '@app/query/bitcoin/ordinals/brc20/use-check-order-status';
 import { fetchInscripionById } from '@app/query/bitcoin/ordinals/inscription-by-id.query';
@@ -23,6 +22,7 @@ import {
   PendingBrc20Transfer,
   usePendingBrc20Transfers,
 } from '@app/store/ordinals/ordinals.slice';
+import { Caption } from '@app/ui/components/typography/caption';
 
 function StatusIcon({ status }: { status: OrdinalsbotInscriptionStatus }) {
   switch (status) {

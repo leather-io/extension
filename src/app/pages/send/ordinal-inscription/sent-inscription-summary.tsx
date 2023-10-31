@@ -1,8 +1,7 @@
 import { toast } from 'react-hot-toast';
-import { FiCheck, FiCopy, FiExternalLink } from 'react-icons/fi';
 import { useLocation, useNavigate } from 'react-router-dom';
 
-import { Box, Stack } from '@stacks/ui';
+import { Box, Stack } from 'leather-styles/jsx';
 import get from 'lodash.get';
 
 import { Blockchains } from '@shared/models/blockchain.model';
@@ -21,6 +20,9 @@ import {
   InfoCardSeparator,
 } from '@app/components/info-card/info-card';
 import { InscriptionPreview } from '@app/components/inscription-preview-card/components/inscription-preview';
+import { CheckmarkIcon } from '@app/ui/components/icons/checkmark-icon';
+import { CopyIcon } from '@app/ui/components/icons/copy-icon';
+import { ExternalLinkIcon } from '@app/ui/components/icons/external-link-icon';
 
 import { InscriptionPreviewCard } from '../../../components/inscription-preview-card/inscription-preview-card';
 
@@ -60,9 +62,9 @@ export function SendInscriptionSummary() {
 
   return (
     <BaseDrawer title="Sent" isShowing onClose={() => navigate(RouteUrls.Home)}>
-      <Box px="extra-loose" mt="extra-loose">
+      <Box mt="space.06" px="space.06">
         <InscriptionPreviewCard
-          icon={<Box size="32px" as={FiCheck} mt="2px" />}
+          icon={<CheckmarkIcon mt="space.01" size="32px" />}
           image={<InscriptionPreview inscription={inscription} />}
           subtitle="Ordinal inscription"
           title={inscription.title}
@@ -70,16 +72,20 @@ export function SendInscriptionSummary() {
       </Box>
 
       <InfoCard pt="extra-loose" pb="extra-loose" px="extra-loose">
-        <Stack width="100%" mb="36px">
+        <Stack mb="space.06" width="100%">
           <InfoCardRow title="To" value={<FormAddressDisplayer address={recipient} />} />
           <InfoCardSeparator />
           {arrivesIn && <InfoCardRow title="Estimated confirmation time" value={arrivesIn} />}
           <InfoCardRow title="Fee" value={feeRowValue} />
         </Stack>
 
-        <Stack spacing="base" isInline width="100%">
-          <InfoCardBtn onClick={onClickLink} icon={FiExternalLink} label="View Details" />
-          <InfoCardBtn onClick={onClickCopy} icon={FiCopy} label="Copy ID" />
+        <Stack gap="space.04" width="100%">
+          <InfoCardBtn
+            onClick={onClickLink}
+            icon={<ExternalLinkIcon size="14px" />}
+            label="View details"
+          />
+          <InfoCardBtn onClick={onClickCopy} icon={<CopyIcon size="14px" />} label="Copy ID" />
         </Stack>
       </InfoCard>
     </BaseDrawer>
