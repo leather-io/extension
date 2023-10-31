@@ -5,9 +5,9 @@ import { BitcoinContractRequestSelectors } from '@tests/selectors/bitcoin-contra
 import { HStack } from 'leather-styles/jsx';
 
 import { useClipboard } from '@app/common/hooks/use-copy-to-clipboard';
-import { BtcIcon } from '@app/components/icons/btc-icon';
 import { Flag } from '@app/components/layout/flag';
 import { Tooltip } from '@app/components/tooltip';
+import { BtcIcon } from '@app/ui/components/icons/btc-icon';
 
 interface BitcoinContractLockAmountProps {
   hoverLabel?: string;
@@ -30,7 +30,7 @@ export function BitcoinContractLockAmount({
   const { onCopy, hasCopied } = useClipboard(hoverLabel ?? '');
 
   return (
-    <Flag img={image || <BtcIcon />} align="middle" width="100%">
+    <Flag align="middle" img={image || <BtcIcon />} width="100%">
       <HStack alignItems="center" justifyContent="space-between">
         <Text fontSize={2} fontWeight="500">
           {title ? title : 'BTC'}

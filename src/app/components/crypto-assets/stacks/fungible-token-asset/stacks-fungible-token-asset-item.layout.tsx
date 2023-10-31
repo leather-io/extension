@@ -1,6 +1,5 @@
-import { BoxProps } from '@stacks/ui';
 import { forwardRefWithAs } from '@stacks/ui-core';
-import { Flex, styled } from 'leather-styles/jsx';
+import { Flex, FlexProps, styled } from 'leather-styles/jsx';
 
 import type { Money } from '@shared/models/money.model';
 
@@ -14,7 +13,7 @@ import { Tooltip } from '@app/components/tooltip';
 import { AssetCaption } from '../../components/asset-caption';
 import { AssetRowGrid } from '../../components/asset-row-grid';
 
-interface StacksFungibleTokenAssetItemLayoutProps extends BoxProps {
+interface StacksFungibleTokenAssetItemLayoutProps extends FlexProps {
   avatar: string;
   balance: Money;
   caption: string;
@@ -41,7 +40,6 @@ export const StacksFungibleTokenAssetItemLayout = forwardRefWithAs(
               color="white"
               gradientString={avatar}
               imageCanonicalUri={imageCanonicalUri}
-              size="36px"
             >
               {title[0]}
             </StacksAssetAvatar>

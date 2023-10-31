@@ -1,7 +1,8 @@
 import { Box, BoxProps, styled } from 'leather-styles/jsx';
 import { token } from 'leather-styles/tokens';
 
-import { AlertIcon } from './icons/alert-icon';
+import { ErrorCircleIcon } from '@app/ui/components/icons/error-circle-icon';
+
 import { Flag } from './layout/flag';
 
 interface WarningLabelProps extends BoxProps {
@@ -9,16 +10,14 @@ interface WarningLabelProps extends BoxProps {
 }
 export function WarningLabel({ children, title, ...props }: WarningLabelProps) {
   return (
-    <Box {...props}>
+    <Box bg="warning.background" borderRadius="sm" {...props}>
       <Flag
-        bg="accent.warning"
-        borderRadius="10px"
-        img={<AlertIcon color={token('colors.warning')} />}
-        minHeight="48px"
-        px="base"
-        py="base-tight"
-        width="100%"
         color="accent.notification-text"
+        img={<ErrorCircleIcon color={token('colors.warning.label')} />}
+        minHeight="48px"
+        px="space.04"
+        py="space.03"
+        width="100%"
       >
         {title && (
           <styled.h1 mb="space.01" mt={0} textStyle="label.02">

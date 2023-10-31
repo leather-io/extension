@@ -1,7 +1,7 @@
-import { BoxProps } from '@stacks/ui';
 import { forwardRefWithAs } from '@stacks/ui-core';
 import { getAssetName } from '@stacks/ui-utils';
 import { CryptoAssetSelectors } from '@tests/selectors/crypto-asset.selectors';
+import { FlexProps } from 'leather-styles/jsx';
 
 import type { StacksFungibleTokenAssetBalance } from '@shared/models/crypto-asset-balance.model';
 import { Money } from '@shared/models/money.model';
@@ -12,7 +12,7 @@ import { spamFilter } from '@app/common/utils/spam-filter';
 
 import { StacksFungibleTokenAssetItemLayout } from './stacks-fungible-token-asset-item.layout';
 
-interface StacksFungibleTokenAssetItemProps extends BoxProps {
+interface StacksFungibleTokenAssetItemProps extends FlexProps {
   assetBalance: StacksFungibleTokenAssetBalance;
   unanchoredAssetBalance?: Money;
   isPressable?: boolean;

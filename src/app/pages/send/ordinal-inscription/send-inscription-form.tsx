@@ -8,9 +8,9 @@ import { RouteUrls } from '@shared/route-urls';
 import { LeatherButton } from '@app/components/button/button';
 import { BaseDrawer } from '@app/components/drawer/base-drawer';
 import { ErrorLabel } from '@app/components/error-label';
-import { OrdinalIcon } from '@app/components/icons/ordinal-icon';
 import { InscriptionPreview } from '@app/components/inscription-preview-card/components/inscription-preview';
 import { InscriptionPreviewCard } from '@app/components/inscription-preview-card/inscription-preview-card';
+import { OrdinalIcon } from '@app/ui/components/icons/ordinal-icon';
 
 import { RecipientField } from '../send-crypto-asset-form/components/recipient-field';
 import { CollectibleAsset } from './components/collectible-asset';

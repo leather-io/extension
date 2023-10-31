@@ -1,5 +1,5 @@
-import { OrdinalMinimalIcon } from '@app/components/icons/ordinal-minimal-icon';
 import { useInscriptionTextContentQuery } from '@app/query/bitcoin/ordinals/inscription-text-content.query';
+import { OrdinalIcon } from '@app/ui/components/icons/ordinal-icon';
 
 import { CollectibleText } from '../_collectible-types/collectible-text';
 
@@ -29,7 +29,7 @@ export function InscriptionText({
 
   return (
     <CollectibleText
-      icon={<OrdinalMinimalIcon />}
+      icon={<OrdinalIcon size="30px" />}
       key={inscriptionNumber}
       onClickCallToAction={onClickCallToAction}
       onClickSend={onClickSend}

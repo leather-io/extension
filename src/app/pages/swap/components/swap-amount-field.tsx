@@ -59,7 +59,7 @@ export function SwapAmountField({ amountAsFiat, isDisabled, name }: SwapAmountFi
         autoComplete="off"
         bg="accent.background-primary"
         border="none"
-        color={showError ? 'error' : 'accent.text-primary'}
+        color={showError ? 'error.label' : 'accent.text-primary'}
         display="block"
         disabled={isDisabled || isFetchingExchangeRate}
         id={name}

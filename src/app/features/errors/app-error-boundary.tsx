@@ -4,10 +4,10 @@ import { Prism } from '@app/common/clarity-prism';
 import { HasChildren } from '@app/common/has-children';
 import { useRouteHeader } from '@app/common/hooks/use-route-header';
 import { Header } from '@app/components/header';
-import { Title } from '@app/components/typography';
 import { ErrorBoundary, FallbackProps, useErrorHandler } from '@app/features/errors/error-boundary';
 import { openGithubIssue } from '@app/features/errors/utils';
 import { useErrorStackTraceState } from '@app/store/ui/ui.hooks';
+import { Title } from '@app/ui/components/typography/title';
 
 function ErrorFallback({ error, resetErrorBoundary }: FallbackProps) {
   const [value] = useErrorStackTraceState();
@@ -16,7 +16,7 @@ function ErrorFallback({ error, resetErrorBoundary }: FallbackProps) {
 
   return (
     <Stack spacing="extra-loose" flexGrow={1}>
-      <Title fontSize={3}>Something went wrong</Title>
+      <Title>Something went wrong</Title>
       <Box className="error-codeblock" maxWidth="100vw" overflow="hidden">
         {value && (
           <CodeBlock

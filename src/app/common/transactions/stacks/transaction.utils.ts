@@ -140,3 +140,7 @@ export function getEstimatedConfirmationTime(
 
   return `~${arrivesIn / 60} min`;
 }
+
+export function isPendingTx(tx: StacksTx) {
+  return tx.tx_status === 'pending';
+}

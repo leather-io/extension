@@ -1,5 +1,4 @@
-import { Box, BoxProps, transition } from '@stacks/ui';
-import { token } from 'leather-styles/tokens';
+import { Square, SquareProps } from 'leather-styles/jsx';
 import { useFocus, useHover } from 'use-events';
 
 function ItemHover({
@@ -9,17 +8,17 @@ function ItemHover({
 }: {
   isFocused: boolean;
   isHovered: boolean;
-} & BoxProps) {
+} & SquareProps) {
   return (
-    <Box
+    <Square
       opacity={isFocused || isHovered ? 1 : 0}
-      transition={transition}
-      borderRadius="16px"
+      transition="transition"
+      borderRadius="lg"
       position="absolute"
       size="calc(100% + 24px)"
       left="-12px"
       top="-12px"
-      bg={token('colors.brown.2')}
+      bg="accent.component-background-hover"
       zIndex={-1}
       {...rest}
     />
@@ -30,9 +29,10 @@ type HoverBind = ReturnType<typeof useHover>[1];
 type FocusBind = ReturnType<typeof useFocus>[1];
 
 interface DefaultSpreadProps extends HoverBind, FocusBind {
+  bg: 'transparent';
+  cursor: 'pointer' | 'default';
   position: 'relative';
   zIndex: 1;
-  cursor: 'pointer' | 'default';
 }
 
 interface StateReturnProps {
@@ -59,9 +59,10 @@ export function usePressable(isPressable?: boolean): UsePressableReturn {
     {
       ...bind,
       ...focusBind,
+      bg: 'transparent',
+      cursor: isPressable ? 'pointer' : 'default',
       position: 'relative',
       zIndex: 1,
-      cursor: isPressable ? 'pointer' : 'default',
     },
     { isHovered, isFocused },
   ];

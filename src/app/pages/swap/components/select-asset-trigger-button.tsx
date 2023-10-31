@@ -2,7 +2,7 @@ import { useField } from 'formik';
 import { HStack, styled } from 'leather-styles/jsx';
 
 import { LeatherButton } from '@app/components/button/button';
-import { ChevronDownIcon } from '@app/components/icons/chevron-down-icon';
+import { ChevronDownIcon } from '@app/ui/components/icons/chevron-down-icon';
 
 interface SelectAssetTriggerButtonProps {
   icon?: string;

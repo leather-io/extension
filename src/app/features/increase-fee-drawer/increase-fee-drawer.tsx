@@ -4,7 +4,7 @@ import { Outlet } from 'react-router-dom';
 import { Flex, Spinner, Stack } from '@stacks/ui';
 
 import { BaseDrawer } from '@app/components/drawer/base-drawer';
-import { Caption } from '@app/components/typography';
+import { Caption } from '@app/ui/components/typography/caption';
 
 interface IncreaseFeeDrawerProps {
   feeForm: React.JSX.Element;

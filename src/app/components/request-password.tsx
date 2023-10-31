@@ -1,17 +1,15 @@
 import { FormEvent, useCallback, useState } from 'react';
 
-import { Input } from '@stacks/ui';
 import { SettingsSelectors } from '@tests/selectors/settings.selectors';
-import { Stack, styled } from 'leather-styles/jsx';
-import { token } from 'leather-styles/tokens';
+import { Box, Stack, styled } from 'leather-styles/jsx';
 
 import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
 import { useKeyActions } from '@app/common/hooks/use-key-actions';
+import { buildEnterKeyEvent } from '@app/common/hooks/use-modifier-key';
 import { WaitingMessages, useWaitingMessage } from '@app/common/utils/use-waiting-message';
 import { LeatherButton } from '@app/components/button/button';
 
 import { ErrorLabel } from './error-label';
-import { buildEnterKeyEvent } from './link';
 
 const waitingMessages: WaitingMessages = {
   '2': 'Verifying password…',
@@ -61,24 +59,36 @@ export function RequestPassword({ title, caption, onSuccess }: RequestPasswordPr
       <styled.h1 textStyle={['heading.03', 'heading.02']}>{title}</styled.h1>
       <styled.p textStyle="body.02">{(isRunning && waitingMessage) || caption}</styled.p>
       <Stack gap="space.04">
-        <Input
+        <styled.input
+          autoCapitalize="off"
+          autoComplete="off"
           autoFocus
-          _focus={{ border: `2px solid ${token('colors.accent.text-primary')}` }}
+          _focus={{ border: 'focus' }}
+          border="active"
           borderRadius="10px"
           data-testid={SettingsSelectors.EnterPasswordInput}
+          disabled={isRunning}
           height="64px"
-          isDisabled={isRunning}
           onChange={(e: FormEvent<HTMLInputElement>) => {
             setError('');
             setPassword(e.currentTarget.value);
           }}
           onKeyUp={buildEnterKeyEvent(submit)}
+          p="space.04"
           placeholder="Enter your password"
+          ring="none"
           type="password"
+          textStyle="body.02"
           value={password}
           width="100%"
         />
-        {error && <ErrorLabel>{error}</ErrorLabel>}
+        {error && (
+          <Box>
+            <ErrorLabel>
+              <styled.span textStyle="body.02">{error}</styled.span>
+            </ErrorLabel>
+          </Box>
+        )}
       </Stack>
       <LeatherButton
         data-testid={SettingsSelectors.UnlockWalletBtn}

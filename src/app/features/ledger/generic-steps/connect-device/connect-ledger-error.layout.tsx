@@ -6,9 +6,9 @@ import { capitalize } from '@app/common/utils';
 import { LeatherButton } from '@app/components/button/button';
 import { ErrorLabel } from '@app/components/error-label';
 import { ExternalLink } from '@app/components/external-link';
-import { LCaption } from '@app/components/typography';
 import { WarningLabel } from '@app/components/warning-label';
 import { ConnectLedgerErr } from '@app/features/ledger/illustrations/ledger-illu-connect-ledger-error';
+import { Caption } from '@app/ui/components/typography/caption';
 
 import { LedgerTitle } from '../../components/ledger-title';
 import { LedgerWrapper } from '../../components/ledger-wrapper';
@@ -63,7 +63,7 @@ export function ConnectLedgerErrorLayout(props: ConnectLedgerErrorLayoutProps) {
       <LeatherButton width="100%" onClick={onTryAgain}>
         Try again
       </LeatherButton>
-      <LCaption mt="loose">
+      <Caption mt="loose">
         If the problem persists, check our{' '}
         <ExternalLink
           textDecoration="underline"
@@ -71,7 +71,7 @@ export function ConnectLedgerErrorLayout(props: ConnectLedgerErrorLayoutProps) {
         >
           Support Page
         </ExternalLink>
-      </LCaption>
+      </Caption>
     </LedgerWrapper>
   );
 }

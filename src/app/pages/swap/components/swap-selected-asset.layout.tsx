@@ -10,7 +10,7 @@ import { SelectedAsset } from './selected-asset';
 import { SwapToggleButton } from './swap-toggle-button';
 
 function getTextColor(showError?: boolean, onClickHandler?: boolean) {
-  if (showError) return 'error';
+  if (showError) return 'error.label';
   if (onClickHandler) return 'accent.text-primary';
   return 'accent.text-subdued';
 }

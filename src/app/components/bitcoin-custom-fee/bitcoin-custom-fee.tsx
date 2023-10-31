@@ -1,9 +1,7 @@
 import { Dispatch, SetStateAction, useCallback, useRef } from 'react';
 
-import { Link } from '@radix-ui/themes';
-import { Stack } from '@stacks/ui';
 import { Form, Formik } from 'formik';
-import { styled } from 'leather-styles/jsx';
+import { Stack, styled } from 'leather-styles/jsx';
 import * as yup from 'yup';
 
 import { BtcFeeType } from '@shared/models/fees/bitcoin-fees.model';
@@ -12,6 +10,7 @@ import { openInNewTab } from '@app/common/utils/open-in-new-tab';
 import { PreviewButton } from '@app/components/preview-button';
 
 import { OnChooseFeeArgs } from '../bitcoin-fees-list/bitcoin-fees-list';
+import { LeatherButton } from '../button/button';
 import { TextInputField } from '../text-input-field';
 import { BitcoinCustomFeeFiat } from './bitcoin-custom-fee-fiat';
 import { useBitcoinCustomFee } from './hooks/use-bitcoin-custom-fee';
@@ -81,27 +80,27 @@ export function BitcoinCustomFee({
       {props => {
         return (
           <Form>
-            <Stack spacing="extra-loose" mt="8px">
-              <Stack spacing="loose">
-                <styled.span textStyle="body.02" maxWidth="21.5rem">
+            <Stack gap="space.06" mt="8px">
+              <Stack gap="space.05">
+                <styled.span color="accent.text-subdued" textStyle="body.02" maxWidth="21.5rem">
                   {'Higher fee rates typically lead to faster confirmation times. '}
-                  <Link
-                    color="brown"
-                    underline="always"
+                  <LeatherButton
                     onClick={() => openInNewTab('https://buybitcoinworldwide.com/fee-calculator/')}
+                    textStyle="body.02"
+                    variant="link"
                   >
                     View fee calculator
-                  </Link>
+                  </LeatherButton>
                 </styled.span>
-                <Stack spacing="extra-tight">
+                <Stack gap="space.01">
                   <TextInputField
                     hasError={hasInsufficientBalanceError}
                     label={feeInputLabel}
                     name="feeRate"
                     placeholder={feeInputLabel}
-                    onClick={() => {
+                    onClick={async () => {
                       feeInputRef?.current?.focus();
-                      props.setValues({ ...props.values });
+                      await props.setValues({ ...props.values });
                     }}
                     onChange={e => {
                       setCustomFeeInitialValue((e.target as HTMLInputElement).value);

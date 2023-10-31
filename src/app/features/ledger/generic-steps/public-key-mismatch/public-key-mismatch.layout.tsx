@@ -1,6 +1,6 @@
 import { Box, Button, Flex, Text, color } from '@stacks/ui';
+import { styled } from 'leather-styles/jsx';
 
-import { Title } from '@app/components/typography';
 import { ConnectLedgerErr } from '@app/features/ledger/illustrations/ledger-illu-connect-ledger-error';
 
 import { LedgerWrapper } from '../../components/ledger-wrapper';
@@ -15,7 +15,9 @@ export function PublicKeyMismatchLayout({ onClose, onTryAgain }: PublicKeyMismat
       <Box>
         <ConnectLedgerErr />
       </Box>
-      <Title mt="extra-loose">Public key does not match</Title>
+      <styled.span mt="space.06" textStyle="label.01">
+        Public key does not match
+      </styled.span>
       <Text mt="base-tight" lineHeight="24px" color={color('text-caption')}>
         Ensure you're using the same Ledger you used when setting up Leather
       </Text>

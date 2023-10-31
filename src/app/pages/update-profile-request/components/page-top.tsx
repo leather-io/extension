@@ -4,9 +4,10 @@ import { Flex, Stack } from '@stacks/ui';
 
 import { getProfileDataContentFromToken } from '@app/common/profiles/requests';
 import { addPortSuffix, getUrlHostname } from '@app/common/utils';
-import { Caption, Title } from '@app/components/typography';
 import { useCurrentNetworkState } from '@app/store/networks/networks.hooks';
 import { useProfileUpdateRequestSearchParams } from '@app/store/profiles/requests.hooks';
+import { Caption } from '@app/ui/components/typography/caption';
+import { Title } from '@app/ui/components/typography/title';
 
 function PageTopBase() {
   const { isTestnet, chain } = useCurrentNetworkState();
@@ -26,9 +27,7 @@ function PageTopBase() {
   return (
     <Flex justify="space-between" align="center">
       <Stack pt="extra-loose" spacing="base">
-        <Title fontWeight="bold" as="h1">
-          Update Profile
-        </Title>
+        <Title>Update Profile</Title>
         {caption && <Caption wordBreak="break-word">{caption}</Caption>}
       </Stack>
       {avatarUrl && (

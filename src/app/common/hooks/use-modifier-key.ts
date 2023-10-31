@@ -1,5 +1,13 @@
 import { useCallback, useEffect, useState } from 'react';
 
+export function buildEnterKeyEvent(onClick: () => void) {
+  return (event: React.KeyboardEvent<HTMLInputElement>) => {
+    if (event.key === 'Enter' && onClick) {
+      onClick();
+    }
+  };
+}
+
 let timer = 0;
 
 export function useModifierKey(key: 'alt' | 'control', delay = 0) {

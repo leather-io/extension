@@ -2,8 +2,8 @@ import { Spinner } from '@stacks/ui';
 import { Flex, Grid, HStack, styled } from 'leather-styles/jsx';
 import { token } from 'leather-styles/tokens';
 
-import { RefreshIcon } from '@app/components/icons/refresh-icon';
 import { LoadingSpinner } from '@app/components/loading-spinner';
+import { RefreshIcon } from '@app/ui/components/icons/refresh-icon';
 
 interface CollectiblesLayoutProps {
   title: string;

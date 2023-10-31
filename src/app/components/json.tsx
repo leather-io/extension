@@ -1,6 +1,6 @@
 import { bytesToHex } from '@stacks/common';
-import { Box } from '@stacks/ui';
 import { css } from 'leather-styles/css';
+import { Box } from 'leather-styles/jsx';
 
 import { isBigInt, isTypedArray } from '@shared/utils';
 
@@ -20,9 +20,8 @@ export function Json(value: any) {
           wordWrap: 'break-word',
         },
       })}
-      fontSize="14px"
-      lineHeight="1.7"
-      mt="loose"
+      textStyle="caption.01"
+      mt="space.05"
     >
       <pre>{JSON.stringify(value, (_, v) => parseJsonReadable(v), 2)}</pre>
     </Box>

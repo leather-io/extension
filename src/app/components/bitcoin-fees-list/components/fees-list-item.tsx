@@ -1,7 +1,5 @@
-import { Box, transition } from '@stacks/ui';
 import { SharedComponentsSelectors } from '@tests/selectors/shared-component.selectors';
 import { Flex, styled } from 'leather-styles/jsx';
-import { token } from 'leather-styles/tokens';
 
 interface FeesListItemProps {
   arrivesIn: string;
@@ -22,17 +20,16 @@ export function FeesListItem({
   ...props
 }: FeesListItemProps) {
   return (
-    <Box
-      _hover={{ background: token('colors.accent.component-background-hover') }}
-      as="button"
+    <styled.button
+      _hover={{ background: 'accent.component-background-hover' }}
       border={isSelected ? '4px solid' : '1px solid'}
-      borderColor={token('colors.accent.action-primary-default')}
-      borderRadius="16px"
+      borderColor="accent.action-primary-default"
+      borderRadius="lg"
       boxShadow="0px 1px 2px rgba(0, 0, 0, 0.04)"
       data-testid={SharedComponentsSelectors.FeesListItem}
       px="base"
       py="extra-loose"
-      transition={transition}
+      transition="transition"
       width="100%"
       {...props}
     >
@@ -50,6 +47,6 @@ export function FeesListItem({
           {`${feeFiatValue} | ${feeRate} sats/vB | ${feeAmount}`}
         </styled.span>
       </Flex>
-    </Box>
+    </styled.button>
   );
 }

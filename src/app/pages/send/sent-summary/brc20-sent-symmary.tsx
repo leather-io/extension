@@ -1,7 +1,6 @@
-import { FiExternalLink } from 'react-icons/fi';
 import { useLocation, useNavigate } from 'react-router-dom';
 
-import { Stack } from '@stacks/ui';
+import { HStack, Stack } from 'leather-styles/jsx';
 import get from 'lodash.get';
 
 import { createMoney } from '@shared/models/money.model';
@@ -10,6 +9,7 @@ import { HandleOpenTxLinkArgs } from '@app/common/hooks/use-explorer-link';
 import { useRouteHeader } from '@app/common/hooks/use-route-header';
 import { formatMoney } from '@app/common/money/format-money';
 import { openInNewTab } from '@app/common/utils/open-in-new-tab';
+import { LeatherButton } from '@app/components/button/button';
 import {
   InfoCard,
   InfoCardAssetValue,
@@ -19,8 +19,8 @@ import {
   InfoCardSeparator,
 } from '@app/components/info-card/info-card';
 import { InfoLabel } from '@app/components/info-label';
-import { Link } from '@app/components/link';
 import { ModalHeader } from '@app/components/modal-header';
+import { ExternalLinkIcon } from '@app/ui/components/icons/external-link-icon';
 
 import { TxDone } from '../send-crypto-asset-form/components/tx-done';
 
@@ -53,23 +53,24 @@ export function Brc20SentSummary() {
     <InfoCard>
       <TxDone />
 
-      <InfoCardAssetValue value={Number(amount)} symbol={tick} px="loose" />
+      <InfoCardAssetValue px="space.05" symbol={tick} value={Number(amount)} />
 
-      <Stack width="100%" px="extra-loose" pb="extra-loose">
+      <Stack px="space.06" pb="space.06" width="100%">
         <InfoLabel mb="loose" title="One more step is required to send tokens">
           {`You'll need to send the transfer inscription to your recipient of choice from the home screen once its status changes to "Ready to send"`}
           <br />
           <br />
-          <Link
+          <LeatherButton
             fontSize={1}
             fontWeight={500}
             lineHeight="1.6"
             onClick={() => {
               openInNewTab('https://leather.gitbook.io/guides/bitcoin/sending-brc-20-tokens');
             }}
+            variant="link"
           >
             {'Learn more'}
-          </Link>
+          </LeatherButton>
         </InfoLabel>
         <InfoCardSeparator />
 
@@ -81,13 +82,13 @@ export function Brc20SentSummary() {
         <InfoCardRow title="Total fee" value={totalFee} />
       </Stack>
       <InfoCardFooter>
-        <Stack spacing="base" isInline width="100%">
+        <HStack gap="sapce.04" width="100%">
           <InfoCardBtn
-            onClick={onClickLink}
-            icon={FiExternalLink}
+            icon={<ExternalLinkIcon size="14px" />}
             label="Pending BRC-20 transfers"
+            onClick={onClickLink}
           />
-        </Stack>
+        </HStack>
       </InfoCardFooter>
     </InfoCard>
   );

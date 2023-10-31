@@ -1,13 +1,12 @@
-import { Spinner } from '@stacks/ui';
-import { truncateMiddle } from '@stacks/ui-utils';
 import { SettingsSelectors } from '@tests/selectors/settings.selectors';
 import { Flex, HStack, Stack, StackProps, styled } from 'leather-styles/jsx';
-import { token } from 'leather-styles/tokens';
 
 import { useViewportMinWidth } from '@app/common/hooks/use-media-query';
+import { truncateMiddle } from '@app/common/utils';
+import { CheckmarkIcon } from '@app/ui/components/icons/checkmark-icon';
+import { Spinner } from '@app/ui/components/spinner';
 
 import { CaptionDotSeparator } from '../caption-dot-separator';
-import { CheckmarkIcon } from '../icons/checkmark-icon';
 import { Flag } from '../layout/flag';
 import { StacksAccountLoader } from '../stacks-account-loader';
 import { BitcoinNativeSegwitAccountLoader } from './bitcoin-account-loader';
@@ -61,11 +60,11 @@ export function AccountListItemLayout(props: AccountListItemLayoutProps) {
             </HStack>
             {isLoading ? (
               <Spinner
+                color="accent.text-subdued"
                 position="absolute"
                 right={0}
-                top="calc(50% - 8px)"
-                color={token('colors.accent.text-subdued')}
                 size="18px"
+                top="calc(50% - 8px)"
               />
             ) : (
               balanceLabel

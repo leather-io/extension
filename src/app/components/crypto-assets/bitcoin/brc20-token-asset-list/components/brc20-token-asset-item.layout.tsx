@@ -6,10 +6,10 @@ import type { Money } from '@shared/models/money.model';
 
 import { formatBalance } from '@app/common/format-balance';
 import { AssetCaption } from '@app/components/crypto-assets/components/asset-caption';
-import { Brc20TokenIcon } from '@app/components/icons/brc20-token-icon';
 import { usePressable } from '@app/components/item-hover';
 import { Flag } from '@app/components/layout/flag';
 import { Tooltip } from '@app/components/tooltip';
+import { Brc20TokenIcon } from '@app/ui/components/icons/brc20-token-icon';
 
 interface Brc20TokenAssetItemLayoutProps extends BoxProps {
   balance: Money;

@@ -3,7 +3,7 @@ import { FiInfo } from 'react-icons/fi';
 import { Box, Flex, Text, color } from '@stacks/ui';
 
 import { Tooltip } from '@app/components/tooltip';
-import { Caption } from '@app/components/typography';
+import { Caption } from '@app/ui/components/typography/caption';
 
 interface LedgerScreenDetailProps {
   children: React.ReactNode;

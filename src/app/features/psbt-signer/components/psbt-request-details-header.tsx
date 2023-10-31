@@ -2,10 +2,10 @@ import { Box, Stack } from '@stacks/ui';
 import { styled } from 'leather-styles/jsx';
 import { token } from 'leather-styles/tokens';
 
-import { LockIcon } from '@app/components/icons/lock-icon';
-import { UnlockIcon } from '@app/components/icons/unlock-icon';
 import { Tooltip } from '@app/components/tooltip';
 import { usePsbtSignerContext } from '@app/features/psbt-signer/psbt-signer.context';
+import { LockIcon } from '@app/ui/components/icons/lock-icon';
+import { UnlockIcon } from '@app/ui/components/icons/unlock-icon';
 
 const immutableLabel =
   'Any modification to the transaction, including the fee amount or other inputs/outputs, will invalidate the signature.';

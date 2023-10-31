@@ -4,7 +4,8 @@ import { Flex } from '@stacks/ui';
 import { BitcoinContractRequestSelectors } from '@tests/selectors/bitcoin-contract-request.selectors';
 
 import { Flag } from '@app/components/layout/flag';
-import { Caption, Title } from '@app/components/typography';
+import { Caption } from '@app/ui/components/typography/caption';
+import { Title } from '@app/ui/components/typography/title';
 
 interface BitcoinContractRequestHeaderBaseProps {
   counterpartyWalletIcon: string;
@@ -19,9 +20,7 @@ function BitcoinContractRequestHeaderBase({
 
   return (
     <Flex flexDirection="column" my="loose" width="100%">
-      <Title fontSize={4} fontWeight="bold" mb="base">
-        Lock Bitcoin
-      </Title>
+      <Title mb="space.04">Lock Bitcoin</Title>
       {caption && (
         <Flag
           align="middle"

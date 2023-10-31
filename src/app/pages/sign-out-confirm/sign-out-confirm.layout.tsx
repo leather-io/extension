@@ -2,13 +2,12 @@ import { Flex } from '@stacks/ui';
 import { SettingsSelectors } from '@tests/selectors/settings.selectors';
 import { useFormik } from 'formik';
 import { Box, HStack, styled } from 'leather-styles/jsx';
-import { token } from 'leather-styles/tokens';
 
 import { useWalletType } from '@app/common/use-wallet-type';
 import { LeatherButton } from '@app/components/button/button';
 import { BaseDrawer } from '@app/components/drawer/base-drawer';
-import { ErrorIcon } from '@app/components/icons/error-icon';
 import { Flag } from '@app/components/layout/flag';
+import { ErrorIcon } from '@app/ui/components/icons/error-icon';
 
 interface SignOutConfirmLayoutProps {
   onUserDeleteWallet(): void;
@@ -97,8 +96,8 @@ export function SignOutConfirmLayout(props: SignOutConfirmLayoutProps) {
               Cancel
             </LeatherButton>
             <LeatherButton
-              _hover={{ background: token('colors.error') }}
-              background={token('colors.error')}
+              _hover={{ background: 'error.label' }}
+              background="error.label"
               data-testid={SettingsSelectors.BtnSignOutActuallyDeleteWallet}
               flexGrow={1}
               disabled={!(form.values.confirmBackup && form.values.confirmPasswordDisable)}
