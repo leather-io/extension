@@ -30,6 +30,7 @@ export function BitcoinContractEntryPoint({ btcAddress }: BitcoinContractEntryPo
     const getBitcoinContractDataAndSetState = async () => {
       setIsLoading(true);
       const currentBitcoinContractSum = await sumBitcoinContractCollateralAmounts();
+      if (!currentBitcoinContractSum) return;
       setBitcoinContractSum(currentBitcoinContractSum);
       setIsLoading(false);
     };

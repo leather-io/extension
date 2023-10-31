@@ -16,10 +16,16 @@ export function BitcoinContractList() {
   const { getAllSignedBitcoinContracts } = useBitcoinContracts();
   const [bitcoinContracts, setBitcoinContracts] = useState<BitcoinContractListItem[]>([]);
   const [isLoading, setLoading] = useState(true);
+  const [isError, setError] = useState(false);
 
   useOnMount(() => {
     const fetchAndFormatBitcoinContracts = async () => {
       const fetchedBitcoinContracts = await getAllSignedBitcoinContracts();
+      if (!fetchedBitcoinContracts) {
+        setError(true);
+        setLoading(false);
+        return;
+      }
       setBitcoinContracts(fetchedBitcoinContracts);
       setLoading(false);
     };
@@ -30,9 +36,13 @@ export function BitcoinContractList() {
 
   return (
     <BitcoinContractListLayout>
-      {bitcoinContracts.length === 0 ? (
+      {bitcoinContracts.length === 0 || isError ? (
         <Flex width="100%" height="100vh" alignItems="center" justifyContent="center">
-          <Text textAlign="center">You don't have any open Bitcoin Contracts.</Text>
+          <Text textAlign="center">
+            {isError
+              ? 'Bitcoin Contracts are not available currently'
+              : "You don't have any open Bitcoin Contracts."}
+          </Text>
         </Flex>
       ) : (
         bitcoinContracts.map(bitcoinContract => {

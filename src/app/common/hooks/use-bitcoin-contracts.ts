@@ -1,8 +1,8 @@
 import { useNavigate } from 'react-router-dom';
 
 import { RpcErrorCode } from '@btckit/types';
-import { JsDLCInterface } from '@dlc-link/dlc-tools';
 import { bytesToHex } from '@stacks/common';
+import { JsDLCInterface } from 'dlc-tools';
 
 import {
   deriveAddressIndexKeychainFromAccount,
@@ -14,7 +14,6 @@ import { BitcoinContractResponseStatus } from '@shared/rpc/methods/accept-bitcoi
 import { makeRpcSuccessResponse } from '@shared/rpc/rpc-methods';
 import { makeRpcErrorResponse } from '@shared/rpc/rpc-methods';
 
-import { checkDlcLinkAttestorHealth } from '@app/query/bitcoin/contract/check-dlc-link-attestor-health';
 import { sendAcceptedBitcoinContractOfferToProtocolWallet } from '@app/query/bitcoin/contract/send-accepted-bitcoin-contract-offer';
 import {
   useCalculateBitcoinFiatValue,
@@ -66,9 +65,7 @@ export function useBitcoinContracts() {
   const nativeSegwitPrivateKeychain = useNativeSegwitAccountBuilder()?.(currentIndex);
   const currentBitcoinNetwork = useCurrentNetwork();
 
-  async function getBitcoinContractInterface(
-    attestorURLs: string[]
-  ): Promise<JsDLCInterface | undefined> {
+  async function getBitcoinContractInterface(): Promise<JsDLCInterface | undefined> {
     if (!nativeSegwitPrivateKeychain || !bitcoinAccountDetails) return;
 
     const currentAddress = bitcoinAccountDetails.address;
@@ -84,8 +81,7 @@ export function useBitcoinContracts() {
       bytesToHex(currentAddressPrivateKey),
       currentAddress,
       currentBitcoinNetwork.chain.bitcoin.network,
-      currentBitcoinNetwork.chain.bitcoin.url,
-      JSON.stringify(attestorURLs)
+      currentBitcoinNetwork.chain.bitcoin.url
     );
 
     return bitcoinContractInterface;
@@ -121,12 +117,11 @@ export function useBitcoinContracts() {
 
   async function handleAccept(
     bitcoinContractJSON: string,
-    counterpartyWalletDetails: CounterpartyWalletDetails,
-    attestorURLs: string[]
+    counterpartyWalletDetails: CounterpartyWalletDetails
   ) {
     let bitcoinContractInterface: JsDLCInterface | undefined;
     try {
-      bitcoinContractInterface = await getBitcoinContractInterface(attestorURLs);
+      bitcoinContractInterface = await getBitcoinContractInterface();
     } catch (error) {
       navigate(RouteUrls.BitcoinContractLockError, {
         state: {
@@ -145,9 +140,9 @@ export function useBitcoinContracts() {
     const bitcoinContractCollateralAmount =
       bitcoinContractOffer.contractInfo.singleContractInfo.totalCollateral;
 
-    await bitcoinContractInterface.get_wallet_balance();
-
     try {
+      await bitcoinContractInterface.get_wallet_balance();
+
       const acceptedBitcoinContract =
         await bitcoinContractInterface.accept_offer(bitcoinContractJSON);
 
@@ -196,46 +191,8 @@ export function useBitcoinContracts() {
     close();
   }
 
-  async function getHealthyDlcLinkAttestor(): Promise<string> {
-    const dlcLinkAttestorUrls = [
-      'https://devnet.dlc.link/attestor-1/',
-      'https://devnet.dlc.link/attestor-2/',
-      'https://devnet.dlc.link/attestor-3/',
-    ];
-
-    let currentAttestorUrl: string | undefined;
-
-    for (const attestorURL of dlcLinkAttestorUrls) {
-      const isAttestorHealthy = await checkDlcLinkAttestorHealth(attestorURL);
-      if (isAttestorHealthy) {
-        currentAttestorUrl = attestorURL;
-        break;
-      }
-    }
-
-    if (!currentAttestorUrl) {
-      throw new Error('Unable to find a healthy DLC.Link attestor');
-    }
-
-    return currentAttestorUrl;
-  }
-
-  async function getAllSignedBitcoinContracts() {
-    let bitcoinContractInterface: JsDLCInterface | undefined;
-
-    try {
-      const currentAttestorUrl = await getHealthyDlcLinkAttestor();
-      bitcoinContractInterface = await getBitcoinContractInterface([currentAttestorUrl]);
-    } catch (error) {
-      navigate(RouteUrls.BitcoinContractLockError, {
-        state: {
-          error,
-          title: 'There was an error with getting the Bitcoin Contract Interface',
-          body: 'Unable to setup Bitcoin Contract Interface',
-        },
-      });
-      sendRpcResponse(BitcoinContractResponseStatus.INTERFACE_ERROR);
-    }
+  async function getAllSignedBitcoinContracts(): Promise<BitcoinContractListItem[] | undefined> {
+    const bitcoinContractInterface = await getBitcoinContractInterface();
 
     if (!bitcoinContractInterface) return;
 
@@ -264,9 +221,10 @@ export function useBitcoinContracts() {
     };
   }
 
-  async function sumBitcoinContractCollateralAmounts(): Promise<Money> {
+  async function sumBitcoinContractCollateralAmounts(): Promise<Money | undefined> {
     let bitcoinContractsCollateralSum = 0;
     const bitcoinContracts = await getAllSignedBitcoinContracts();
+    if (!bitcoinContracts) return;
     bitcoinContracts.forEach((bitcoinContract: BitcoinContractListItem) => {
       bitcoinContractsCollateralSum += parseInt(bitcoinContract.acceptorCollateral);
     });
