@@ -42,7 +42,7 @@ export interface RootState {
   };
   ordinals: ReturnType<typeof ordinalsSlice.reducer>;
   inMemoryKeys: ReturnType<typeof inMemoryKeySlice.reducer>;
-  'software-keys': ReturnType<typeof keySlice.reducer>;
+  softwareKeys: ReturnType<typeof keySlice.reducer>;
   networks: ReturnType<typeof networksSlice.reducer>;
   submittedTransactions: ReturnType<typeof submittedTransactionsSlice.reducer>;
   settings: ReturnType<typeof settingsSlice.reducer>;
@@ -60,7 +60,7 @@ const appReducer = combineReducers({
   }),
   ordinals: ordinalsSlice.reducer,
   inMemoryKeys: inMemoryKeySlice.reducer,
-  'software-keys': keySlice.reducer,
+  softwareKeys: keySlice.reducer,
   networks: networksSlice.reducer,
   submittedTransactions: submittedTransactionsSlice.reducer,
   settings: settingsSlice.reducer,
