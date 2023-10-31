@@ -111,7 +111,7 @@ const prodManifest = {
   name,
   icons: generateImageAssetUrlsWithSuffix(PREVIEW_RELEASE ? '-preview' : ''),
   action: {
-    default_icon: `assets/connect-logo/Stacks128w${PREVIEW_RELEASE ? '-preview' : ''}.png`,
+    default_icon: `assets/icons/leather-icon-128${PREVIEW_RELEASE ? '-preview' : ''}.png`,
   },
 };
 
