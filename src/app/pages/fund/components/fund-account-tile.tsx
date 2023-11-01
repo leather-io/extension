@@ -38,7 +38,7 @@ export function FundAccountTile(props: FundAccountTileProps) {
       display="flex"
       onClick={onClickTile}
       textAlign="left"
-      width="17.5rem"
+      width={['100%', '17.5rem']}
       height="11.3rem"
     >
       <Stack
