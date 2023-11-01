@@ -5,6 +5,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { Box, Flex, SlideFade, Stack, color } from '@stacks/ui';
 import { SettingsSelectors } from '@tests/selectors/settings.selectors';
 
+import { IS_PROD_ENV } from '@shared/environment';
 import { RouteUrls } from '@shared/route-urls';
 
 import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
@@ -164,6 +165,15 @@ export function SettingsDropdown() {
               data-testid="settings-lock"
             >
               Lock
+            </MenuItem>
+          )}
+          {!IS_PROD_ENV && (
+            <MenuItem
+              onClick={wrappedCloseCallback(() => {
+                navigate(RouteUrls.Sandbox);
+              })}
+            >
+              Sandbox
             </MenuItem>
           )}
           <MenuItem

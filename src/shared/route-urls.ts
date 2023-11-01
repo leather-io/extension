@@ -113,4 +113,9 @@ export enum RouteUrls {
 
   // Request routes stacks
   RpcSignStacksTransaction = '/sign-stacks-transaction',
+
+  // Sandbox routes
+  Sandbox = '/sandbox',
+  SandboxButtons = '/sandbox/buttons',
+  SandboxTypography = '/sandbox/typography',
 }

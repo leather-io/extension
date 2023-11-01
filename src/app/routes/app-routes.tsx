@@ -36,6 +36,7 @@ import { WelcomePage } from '@app/pages/onboarding/welcome/welcome';
 import { ReceiveStxModal } from '@app/pages/receive/receive-stx';
 import { RequestError } from '@app/pages/request-error/request-error';
 import { RpcSignStacksTransaction } from '@app/pages/rpc-sign-stacks-transaction/rpc-sign-stacks-transaction';
+import { sandboxRoutes } from '@app/pages/sandbox/sandbox';
 import { BroadcastError } from '@app/pages/send/broadcast-error/broadcast-error';
 import { LockBitcoinSummary } from '@app/pages/send/locked-bitcoin-summary/locked-bitcoin-summary';
 import { sendCryptoAssetFormRoutes } from '@app/pages/send/send-crypto-asset-form/send-crypto-asset-form.routes';
@@ -186,6 +187,7 @@ function useAppRoutes() {
         </Route>
 
         {sendCryptoAssetFormRoutes}
+        {sandboxRoutes}
 
         <Route
           path={RouteUrls.ViewSecretKey}
