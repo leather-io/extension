@@ -1,8 +1,8 @@
 import { useNavigate } from 'react-router-dom';
 
 import { RpcErrorCode } from '@btckit/types';
+import { JsDLCInterface } from '@dlc-link/dlc-tools';
 import { bytesToHex } from '@stacks/common';
-import { JsDLCInterface } from 'dlc-tools';
 
 import {
   deriveAddressIndexKeychainFromAccount,
