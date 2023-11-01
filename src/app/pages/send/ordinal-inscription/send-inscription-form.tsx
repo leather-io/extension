@@ -55,11 +55,7 @@ export function SendInscriptionForm() {
                   />
                 </Flex>
               </Box>
-              {currentError && (
-                <ErrorLabel textAlign="left" mb="base-loose">
-                  {currentError}
-                </ErrorLabel>
-              )}
+              {currentError && <ErrorLabel>{currentError}</ErrorLabel>}
               <LeatherButton type="submit">Continue</LeatherButton>
             </Box>
           </SendInscriptionFormLoader>
