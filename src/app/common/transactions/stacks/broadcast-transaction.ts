@@ -31,6 +31,9 @@ export async function broadcastStacksTransaction(options: BroadcastTransactionOp
     attachment ? Buffer.from(attachment, 'hex') : undefined
   );
 
+  // eslint-disable-next-line no-console
+  console.log('Tx response: ', response);
+
   if ('error' in response) {
     logger.error(`Error broadcasting raw transaction`, response);
     const message = getErrorMessage(response.reason as any);

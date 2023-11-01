@@ -62,7 +62,7 @@ export function isEmptyArray(data: unknown[]) {
 export const defaultWalletKeyId = 'default' as const;
 
 export function closeWindow() {
-  if (process.env.DEBUG_PREVENT_WINDOW_CLOSE === 'true') {
+  if (true) {
     logger.warn('Prevented window close with flag DEBUG_PREVENT_WINDOW_CLOSE');
     return;
   }
