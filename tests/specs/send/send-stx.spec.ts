@@ -26,11 +26,6 @@ test.describe('send stx', () => {
       sPage = sendPage;
     });
 
-    test.afterEach(async () => {
-      await sPage.page.getByTestId('modal-header-back-button').click();
-      await sPage.selectStxAndGoToSendForm();
-    });
-
     test('that send max button sets available balance minus fee', async () => {
       await sPage.amountInput.fill('.0001');
       await sPage.amountInput.clear();
@@ -38,6 +33,7 @@ test.describe('send stx', () => {
       await sPage.sendMaxButton.click();
       await sPage.amountInput.blur();
       test.expect(await sPage.amountInput.inputValue()).toBeTruthy();
+      await sPage.goBackSelectStx();
     });
 
     test('that empty memo on preview matches default empty value', async () => {
@@ -52,6 +48,7 @@ test.describe('send stx', () => {
         .getByTestId(SharedComponentsSelectors.InfoCardRowValue)
         .innerText();
       test.expect(confirmationMemo).toEqual(emptyMemoPreviewValue);
+      await sPage.goBack();
     });
 
     test('that asset value, recipient, memo and fees on preview match input', async () => {
@@ -84,9 +81,13 @@ test.describe('send stx', () => {
         .getByTestId(SharedComponentsSelectors.InfoCardRowValue)
         .innerText();
       test.expect(confirmationMemo2).toEqual(memo);
+      await sPage.goBack();
     });
 
     test.describe('send form validation', () => {
+      test.afterEach(async () => {
+        await sPage.goBackSelectStx();
+      });
       test('that the amount must be a number', async () => {
         await sPage.amountInput.fill('aaaaaa');
         await sPage.amountInput.blur();
@@ -128,7 +129,6 @@ test.describe('send stx', () => {
         await sPage.previewSendTxButton.click();
         const errorMsg = await sPage.formInputErrorLabel.innerText();
         test.expect(errorMsg).toContain(FormErrorMessages.SameAddress);
-        await sPage.goBack();
       });
 
       test('that valid addresses are accepted', async () => {
@@ -141,6 +141,10 @@ test.describe('send stx', () => {
     });
 
     test.describe('send form preview', () => {
+      test.afterEach(async () => {
+        await sPage.goBack();
+        await sPage.goBackSelectStx();
+      });
       test('that it shows preview of tx details to be confirmed', async () => {
         await sPage.amountInput.fill('0.000001');
         await sPage.recipientInput.fill(TEST_TESTNET_ACCOUNT_2_STX_ADDRESS);

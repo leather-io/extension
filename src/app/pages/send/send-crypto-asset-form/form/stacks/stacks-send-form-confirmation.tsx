@@ -49,7 +49,7 @@ export function StacksSendFormConfirmation() {
     <ModalHeader
       hideActions
       defaultClose
-      onGoBack={() => navigate('../', { relative: 'path' })}
+      onGoBack={() => navigate('../', { relative: 'path', replace: true })}
       title="Review"
     />
   );
