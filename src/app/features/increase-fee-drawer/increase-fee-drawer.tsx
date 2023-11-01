@@ -26,7 +26,7 @@ export function IncreaseFeeDrawer({ feeForm, onClose, isShowing }: IncreaseFeeDr
           >
             <Caption>
               If your transaction is pending for a long time, its fee might not be high enough to be
-              included in a clock. Update the fee for a higher value and try again.
+              included in a block. Update the fee for a higher value and try again.
             </Caption>
             {feeForm && feeForm}
           </Suspense>
