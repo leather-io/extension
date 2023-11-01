@@ -13,20 +13,28 @@ export function FundLayout({ address }: FundLayoutProps) {
       flexDirection="column"
       minHeight={['70vh', '90vh']}
       justifyContent="start"
-      mb="loose"
+      mb="space.05"
     >
       <Stack
         alignItems={['left', 'center']}
-        pb={['space.05', 'unset']}
+        pb={['space.04', 'unset']}
         px={['space.05', 'space.05', 'unset']}
         gap={['space.04', 'space.05']}
-        mt={['space.04', 'unset']}
       >
-        <styled.h1 px={['unset', 'space.05']} textAlign={['left', 'center']} textStyle="heading.02">
+        <styled.h1
+          px={['unset', 'space.05']}
+          textAlign={['left', 'center']}
+          textStyle={['heading.04', 'heading.02']}
+        >
           Let's get funds into your wallet
         </styled.h1>
 
-        <styled.span textStyle="label.02" maxWidth="544px" textAlign={['left', 'center']}>
+        <styled.span
+          textStyle="body.01"
+          color="accent.text-subdued"
+          maxWidth="544px"
+          textAlign={['left', 'center']}
+        >
           Choose an exchange to fund your account with Stacks (STX) or deposit from elsewhere.
           Exchanges with “Fast checkout” make it easier to purchase STX for direct deposit into your
           wallet with a credit card.
