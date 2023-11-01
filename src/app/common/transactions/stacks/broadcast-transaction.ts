@@ -1,4 +1,5 @@
-import { broadcastRawTransaction } from '@stacks/transactions';
+import { bytesToHex } from '@stacks/common';
+import { broadcastRawTransaction, deserializeTransaction } from '@stacks/transactions';
 
 import { logger } from '@shared/logger';
 
@@ -31,8 +32,10 @@ export async function broadcastStacksTransaction(options: BroadcastTransactionOp
     attachment ? Buffer.from(attachment, 'hex') : undefined
   );
 
+  const tx = deserializeTransaction(serialized);
+
   // eslint-disable-next-line no-console
-  console.log('Tx response: ', response);
+  console.log('Tx response: ', { response, tx, serialized: bytesToHex(serialized) });
 
   if ('error' in response) {
     logger.error(`Error broadcasting raw transaction`, response);

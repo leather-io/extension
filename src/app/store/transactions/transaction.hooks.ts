@@ -160,6 +160,12 @@ export function useGenerateUnsignedStacksTransaction() {
     (values: StacksTransactionFormValues) => {
       if (!stacksTxBaseState || isUndefined(nextNonce?.nonce)) return undefined;
       const { options } = stacksTxBaseState as any;
+      // eslint-disable-next-line no-console
+      console.log('Generating STX transaction in `useGenerateUnsignedStacksTransaction`', {
+        ...options,
+        fee: stxToMicroStx(values.fee).toNumber(),
+        nonce: Number(values.nonce) ?? nextNonce?.nonce,
+      });
       return generateUnsignedTransaction({
         ...options,
         fee: stxToMicroStx(values.fee).toNumber(),
@@ -174,6 +180,8 @@ function useUnsignedStacksTransaction(values: StacksTransactionFormValues) {
   const generateTx = useGenerateUnsignedStacksTransaction();
 
   const tx = useAsync(async () => {
+    // eslint-disable-next-line no-console
+    console.log('Generating unsigned Stacks tx in `useUnsignedStacksTransaction`', values);
     return generateTx(values ?? undefined);
   }, [values]);
 

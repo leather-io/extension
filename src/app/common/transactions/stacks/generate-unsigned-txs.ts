@@ -123,6 +123,8 @@ export async function generateUnsignedTransaction(options: GenerateUnsignedTrans
 
   if (!isValid) throw new Error(`Invalid Transaction Type: ${txData.txType}`);
 
+  // eslint-disable-next-line no-console
+  console.log('Stacks tx of type', txData);
   switch (txData.txType) {
     case TransactionTypes.STXTransfer:
       return generateUnsignedStxTransferTx({ txData, publicKey, nonce, fee });
