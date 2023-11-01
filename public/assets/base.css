@@ -1,3 +1,10 @@
+@media (prefers-color-scheme: dark) {
+  body {
+    /* colors darkmode brown 2 */
+    background-color: #2c2a24;
+  }
+}
+
 @font-face {
   font-family: 'Diatype';
   src: url('/assets/fonts/diatype/diatype-regular.woff2') format('woff2');
@@ -29,7 +36,8 @@
 
 @font-face {
   font-family: 'Fira Code';
-  src: url('/assets/fonts/fira-code/woff2/FiraCode-Light.woff2') format('woff2'),
+  src:
+    url('/assets/fonts/fira-code/woff2/FiraCode-Light.woff2') format('woff2'),
     url('/assets/fonts/fira-code/woff/FiraCode-Light.woff') format('woff');
   font-weight: 300;
   font-style: normal;
@@ -37,7 +45,8 @@
 
 @font-face {
   font-family: 'Fira Code';
-  src: url('/assets/fonts/fira-code/woff2/FiraCode-Regular.woff2') format('woff2'),
+  src:
+    url('/assets/fonts/fira-code/woff2/FiraCode-Regular.woff2') format('woff2'),
     url('/assets/fonts/fira-code/woff/FiraCode-Regular.woff') format('woff');
   font-weight: 400;
   font-style: normal;
