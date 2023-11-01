@@ -43,14 +43,15 @@ export function BitcoinContractEntryPoint({ btcAddress }: BitcoinContractEntryPo
   }
 
   return (
-    <BitcoinContractEntryPointLayout
-      isLoading={isLoading}
-      balance={bitcoinContractSum}
-      caption={bitcoinContractSum.symbol}
-      icon={<Box as={BitcoinContractIcon} />}
-      usdBalance={i18nFormatCurrency(calculateFiatValue(bitcoinContractSum))}
-      cursor={'pointer'}
-      onClick={onClick}
-    />
+    !bitcoinContractSum.amount.isZero() && (
+      <BitcoinContractEntryPointLayout
+        isLoading={isLoading}
+        balance={bitcoinContractSum}
+        caption={bitcoinContractSum.symbol}
+        icon={<Box as={BitcoinContractIcon} />}
+        usdBalance={i18nFormatCurrency(calculateFiatValue(bitcoinContractSum))}
+        onClick={onClick}
+      />
+    )
   );
 }

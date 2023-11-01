@@ -1065,6 +1065,11 @@
   resolved "https://registry.yarnpkg.com/@discoveryjs/json-ext/-/json-ext-0.5.7.tgz#1d572bfbbe14b7704e0ba0f39b74815b84870d70"
   integrity sha512-dBVuXR082gk3jsFp7Rd/JI4kytwGHecnCoTtXFb7DB6CNHp4rg5k1bhg0nWdLGLnOV71lmDzGQaLMy8iPLY0pw==
 
+"@dlc-link/dlc-tools@1.0.4":
+  version "1.0.4"
+  resolved "https://registry.yarnpkg.com/@dlc-link/dlc-tools/-/dlc-tools-1.0.4.tgz#0b312a130d1cee4fa3e53e0815968b2fd0bfa91b"
+  integrity sha512-hjwZH2xRmnfIz9zJ7C4EV4cDs8Fu7SOmUcr8aBuzVvwOo23DDu0qYuuCOClICiWHUNUhhWMK+gdQgU8LVdhbuQ==
+
 "@dnd-kit/accessibility@^3.0.0":
   version "3.0.1"
   resolved "https://registry.yarnpkg.com/@dnd-kit/accessibility/-/accessibility-3.0.1.tgz#3ccbefdfca595b0a23a5dc57d3de96bc6935641c"
@@ -10901,9 +10906,6 @@ dir-glob@^3.0.1:
   integrity sha512-WkrWp9GR4KXfKGYzOLmTuGVi1UWFfws377n9cc55/tb6DuqyF6pcQ5AbiHEshaDpY9v6oaSr2XCDidGmMwdzIA==
   dependencies:
     path-type "^4.0.0"
-
-"dlc-tools@file:../new-dlc-stack/wasm-wallet/pkg":
-  version "1.0.3"
 
 dlv@^1.1.3:
   version "1.1.3"
