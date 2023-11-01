@@ -2,14 +2,13 @@ import { FormEvent, useCallback, useState } from 'react';
 
 import { Input } from '@stacks/ui';
 import { SettingsSelectors } from '@tests/selectors/settings.selectors';
-import { Box, Stack, styled } from 'leather-styles/jsx';
+import { Stack, styled } from 'leather-styles/jsx';
 import { token } from 'leather-styles/tokens';
 
 import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
 import { useKeyActions } from '@app/common/hooks/use-key-actions';
 import { WaitingMessages, useWaitingMessage } from '@app/common/utils/use-waiting-message';
 import { LeatherButton } from '@app/components/button/button';
-import { Text } from '@app/components/typography';
 
 import { ErrorLabel } from './error-label';
 import { buildEnterKeyEvent } from './link';
@@ -79,13 +78,7 @@ export function RequestPassword({ title, caption, onSuccess }: RequestPasswordPr
           value={password}
           width="100%"
         />
-        {error && (
-          <Box>
-            <ErrorLabel>
-              <Text textStyle="caption">{error}</Text>
-            </ErrorLabel>
-          </Box>
-        )}
+        {error && <ErrorLabel>{error}</ErrorLabel>}
       </Stack>
       <LeatherButton
         data-testid={SettingsSelectors.UnlockWalletBtn}

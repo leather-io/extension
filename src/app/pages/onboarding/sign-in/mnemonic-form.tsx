@@ -1,6 +1,5 @@
 import { OnboardingSelectors } from '@tests/selectors/onboarding.selectors';
 import { Form, Formik } from 'formik';
-import { css } from 'leather-styles/css';
 import { Flex, styled } from 'leather-styles/jsx';
 
 import { isEmpty } from '@shared/utils';
@@ -89,18 +88,8 @@ export function MnemonicForm({ mnemonic, setMnemonic, twentyFourWordMode }: Mnem
             </SecretKeyGrid>
             <Flex flexDirection="column" justifyContent="center" alignItems="center" gap="space.05">
               {(showMnemonicErrors || error) && (
-                // #4274 TODO migrate ErrorLabel
-                <ErrorLabel
-                  width="100%"
-                  className={css({
-                    '& svg': {
-                      mt: '3px',
-                    },
-                  })}
-                >
-                  <styled.p data-testid={OnboardingSelectors.SignInSeedError} textStyle="caption">
-                    {showMnemonicErrors ? mnemonicErrorMessage : error}
-                  </styled.p>
+                <ErrorLabel data-testid={OnboardingSelectors.SignInSeedError}>
+                  {showMnemonicErrors ? mnemonicErrorMessage : error}
                 </ErrorLabel>
               )}
 
