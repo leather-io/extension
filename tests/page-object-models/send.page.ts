@@ -87,4 +87,9 @@ export class SendPage {
   async goBack() {
     await this.page.getByTestId(SharedComponentsSelectors.ModalHeaderBackBtn).click();
   }
+
+  async goBackSelectStx() {
+    await this.goBack();
+    await this.selectStxAndGoToSendForm();
+  }
 }

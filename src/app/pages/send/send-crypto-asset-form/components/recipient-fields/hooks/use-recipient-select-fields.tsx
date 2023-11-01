@@ -21,7 +21,7 @@ export function useRecipientSelectFields() {
 
   const onClickLabelAction = useCallback(() => {
     setSelectedRecipientField(RecipientFieldType.Address);
-    navigate(RouteUrls.SendCryptoAssetFormRecipientAccounts);
+    navigate(RouteUrls.SendCryptoAssetFormRecipientAccounts, { replace: true });
   }, [navigate]);
 
   // Formik does not provide a field reset
