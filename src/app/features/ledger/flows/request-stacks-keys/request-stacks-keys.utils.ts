@@ -2,12 +2,15 @@ import { bytesToHex } from '@noble/hashes/utils';
 import * as secp from '@noble/secp256k1';
 import StacksApp from '@zondax/ledger-stacks';
 
+import {
+  getIdentityDerivationPath,
+  getStxDerivationPath,
+} from '@shared/crypto/stacks/stacks.utils';
+
 import { delay } from '@app/common/utils';
 
 import {
   StacksAppKeysResponseItem,
-  getIdentityDerivationPath,
-  getStxDerivationPath,
   requestPublicKeyForStxAccount,
 } from '../../utils/stacks-ledger-utils';
 

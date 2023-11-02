@@ -54,11 +54,11 @@ interface PullBitcoinKeysFromLedgerDeviceArgs {
   onRequestKey?(keyIndex: number): void;
   network: NetworkModes;
 }
-export function pullBitcoinKeysFromLedgerDevice(bitcoinApp: BitcoinApp) {
+export function pullBitcoinKeysFromLedgerDevice(bitcoinApp: BitcoinApp, targetId = '') {
   return async ({ onRequestKey, network }: PullBitcoinKeysFromLedgerDeviceArgs) => {
     const amountOfKeysToExtractFromDevice = 5;
     const fingerprint = await bitcoinApp.getMasterFingerprint();
-    const keys: { id: string; path: string; policy: string }[] = [];
+    const keys: { id: string; path: string; policy: string; targetId: string }[] = [];
     for (let accountIndex = 0; accountIndex < amountOfKeysToExtractFromDevice; accountIndex++) {
       onRequestKey?.(accountIndex);
       const { path, policy } = await getNativeSegwitExtendedPublicKey({
@@ -67,7 +67,7 @@ export function pullBitcoinKeysFromLedgerDevice(bitcoinApp: BitcoinApp) {
         network,
         accountIndex,
       });
-      keys.push({ id: createWalletIdDecoratedPath(path, 'default'), path, policy });
+      keys.push({ id: createWalletIdDecoratedPath(path, 'default'), path, policy, targetId });
     }
     for (let accountIndex = 0; accountIndex < amountOfKeysToExtractFromDevice; accountIndex++) {
       onRequestKey?.(accountIndex + 5);
@@ -77,7 +77,7 @@ export function pullBitcoinKeysFromLedgerDevice(bitcoinApp: BitcoinApp) {
         network,
         accountIndex,
       });
-      keys.push({ id: createWalletIdDecoratedPath(path, 'default'), path, policy });
+      keys.push({ id: createWalletIdDecoratedPath(path, 'default'), path, policy, targetId });
     }
     await delay(250);
     return { status: 'success', keys };
