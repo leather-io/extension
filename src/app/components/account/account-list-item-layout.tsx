@@ -9,7 +9,7 @@ import { useViewportMinWidth } from '@app/common/hooks/use-media-query';
 import { CaptionDotSeparator } from '../caption-dot-separator';
 import { CheckmarkIcon } from '../icons/checkmark-icon';
 import { Flag } from '../layout/flag';
-import { StacksAccountLoader } from '../stacks-account-loader';
+import { StacksAccountLoader } from '../loaders/stacks-account-loader';
 import { BitcoinNativeSegwitAccountLoader } from './bitcoin-account-loader';
 
 interface AccountListItemLayoutProps extends StackProps {

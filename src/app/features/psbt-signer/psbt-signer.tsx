@@ -1,8 +1,6 @@
 import { useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import * as btc from '@scure/btc-signer';
-
 import { getPsbtTxInputs, getPsbtTxOutputs } from '@shared/crypto/bitcoin/bitcoin.utils';
 import { RouteUrls } from '@shared/route-urls';
 import { closeWindow } from '@shared/utils';

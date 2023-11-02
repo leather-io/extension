@@ -9,7 +9,6 @@ import { useWalletType } from '@app/common/use-wallet-type';
 import { CurrentBitcoinAccountLoader } from '@app/components/loaders/bitcoin-account-loader';
 import { CurrentStacksAccountLoader } from '@app/components/loaders/stacks-account-loader';
 import { useConfigNftMetadataEnabled } from '@app/query/common/remote-config/remote-config.query';
-import { useHasBitcoinLedgerKeychain } from '@app/store/accounts/blockchain/bitcoin/bitcoin.ledger';
 
 import { AddCollectible } from './components/add-collectible';
 import { Ordinals } from './components/bitcoin/ordinals';
@@ -61,4 +60,3 @@ export function Collectibles() {
     </CollectiblesLayout>
   );
 }
-// bc1pluzurxum49p49rmfq7pzahpk5cye7v5fyjk9ugmsjyly4xpnq78sq99rsy

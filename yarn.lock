@@ -702,24 +702,6 @@
     to-fast-properties "^2.0.0"
 
 "@bitcoinerlab/descriptors@^1.0.2":
-  version "1.1.1"
-  resolved "https://registry.yarnpkg.com/@bitcoinerlab/descriptors/-/descriptors-1.1.1.tgz#0d1a828cea66c51ebc9863d3e5c43c4ffcde2fe5"
-  integrity sha512-AMFkbBBg9T1iWtEmWB23oADk7zaOQix6wUPLXalhTyFDjhkFXDd6pCRfto/HAdaPg/ccM4GMTVgYLee9WdYFyQ==
-  dependencies:
-    "@bitcoinerlab/miniscript" "^1.2.1"
-    "@bitcoinerlab/secp256k1" "^1.0.5"
-    bip32 "^4.0.0"
-    bitcoinjs-lib "^6.1.3"
-    ecpair "^2.1.0"
-
-"@bitcoinerlab/miniscript@^1.2.1":
-  version "1.4.0"
-  resolved "https://registry.yarnpkg.com/@bitcoinerlab/miniscript/-/miniscript-1.4.0.tgz#9beda21d4dadb1cb806de6f846470927cfd96f6c"
-  integrity sha512-BsG3dmwQmgKHnRZecDgUsPjwcpnf1wgaZbolcMTByS10k1zYzIx97W51LzG7GvokRJ+wnzTX/GhC8Y3L2X0CQA==
-  dependencies:
-    bip68 "^1.0.4"
-
-"@bitcoinerlab/descriptors@^1.0.2":
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/@bitcoinerlab/descriptors/-/descriptors-1.0.2.tgz#684e5755afcc7171b73a263612e00dc7dc407dcc"
   integrity sha512-q/0NuNlIof5Hb+ll/diU6Ib7GJ1MLwYUDTE6s/Ui4//r28LtxRPjI12/tYaMLWgTmpfuxcEnZI7+6aNFeS1EXg==
@@ -8923,13 +8905,7 @@ bitcoin-address-validation@2.2.1:
     bech32 "^2.0.0"
     sha256-uint8array "^0.10.3"
 
-<<<<<<< HEAD
 bitcoinjs-lib@6.1.3:
-||||||| parent of 29b831e4e0 (fix: dynamic bitcoinjs network)
-bitcoinjs-lib@6.1.3, bitcoinjs-lib@^6.0.1:
-=======
-bitcoinjs-lib@6.1.3, bitcoinjs-lib@^6.1.3:
->>>>>>> 29b831e4e0 (fix: dynamic bitcoinjs network)
   version "6.1.3"
   resolved "https://registry.yarnpkg.com/bitcoinjs-lib/-/bitcoinjs-lib-6.1.3.tgz#88aed5a8d052e9faa04c6402d3f0865441f928d7"
   integrity sha512-TYXs/Qf+GNk2nnsB9HrXWqzFuEgCg0Gx+v3UW3B8VuceFHXVvhT+7hRnTSvwkX0i8rz2rtujeU6gFaDcFqYFDw==

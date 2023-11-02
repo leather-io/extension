@@ -67,6 +67,7 @@ export const homePageModalRoutes = (
     {settingsRoutes}
     {receiveRoutes}
     {ledgerStacksTxSigningRoutes}
+    {ledgerBitcoinTxSigningRoutes}
     {sendOrdinalRoutes}
     {requestBitcoinKeysRoutes}
     {requestStacksKeysRoutes}
