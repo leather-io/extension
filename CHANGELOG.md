@@ -1,3 +1,29 @@
+## [6.15.0](https://github.com/leather-wallet/extension/compare/v6.14.0...v6.15.0) (2023-11-02)
+
+
+### Features
+
+* temporary fix for notification banners ([e349e0c](https://github.com/leather-wallet/extension/commit/e349e0c5ac19dfef2f083b57091004485cc4259b))
+* updated dlc-tools version, conditional bitcoin contracts entry point rendering ([194d102](https://github.com/leather-wallet/extension/commit/194d10259095d2cdad0492ed6089aceae0db48db))
+
+
+### Bug Fixes
+
+* bug with go back action in send flow, [#4355](https://github.com/leather-wallet/extension/issues/4355) ([92aa04c](https://github.com/leather-wallet/extension/commit/92aa04c223f2ee462e6db0c258ae45f9809386c1))
+* default icon stacks png ([eff18bf](https://github.com/leather-wallet/extension/commit/eff18bfee243a57d145bc4a6da7ae3a0396ed6e0))
+* fee calculation in for btc txs closes [#4455](https://github.com/leather-wallet/extension/issues/4455) ([cc5908b](https://github.com/leather-wallet/extension/commit/cc5908b3090801b1eebbe4d7b5c3a5ae8345c4d3))
+* fix typo in text, closes [#4461](https://github.com/leather-wallet/extension/issues/4461) ([6544d8e](https://github.com/leather-wallet/extension/commit/6544d8efdfbee7a88b2fb5189fd964a0c5f2e733))
+* improve styling of fund page in extension view ([ce31f2c](https://github.com/leather-wallet/extension/commit/ce31f2ce85234832d3641ad4401e1b2ca3a12423))
+* removed attestor checking and argument from the bitcoin contract interface, better error handling ([7a0a2e8](https://github.com/leather-wallet/extension/commit/7a0a2e80469930694d76aef79aec0eb847e3837c))
+
+
+### Internal
+
+* add ledger to swaps, disabled, ref [#4367](https://github.com/leather-wallet/extension/issues/4367) ([5273dd4](https://github.com/leather-wallet/extension/commit/5273dd487b3a836546477cedd0b018b3505e66b0))
+* **ledger:** stacks signing, closes [#4420](https://github.com/leather-wallet/extension/issues/4420) ([6b8919b](https://github.com/leather-wallet/extension/commit/6b8919b2adf1d16cdcda9c88ec4103ac9cd4f2da))
+* post-release merge back ([24a124c](https://github.com/leather-wallet/extension/commit/24a124c91c592522d1732432649f6aedb2220206))
+* swap asset list display name, closes [#4421](https://github.com/leather-wallet/extension/issues/4421) ([7c65fb3](https://github.com/leather-wallet/extension/commit/7c65fb35621a6988ea2d8c34f862640aad28f55e))
+
 ## [6.14.0](https://github.com/leather-wallet/extension/compare/v6.13.0...v6.14.0) (2023-10-30)
 
 
