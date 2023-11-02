@@ -79,7 +79,7 @@ export const semanticTokens = defineSemanticTokens({
         value: { base: '{colors.yellow.100}', _dark: '{colors.yellow.100}' },
       },
       'notification-text': {
-        value: { base: '{colors.lightModeBrown.12}', _dark: '{colors.darkModeBrown.12}' },
+        value: { base: '{colors.lightModeBrown.12}', _dark: '{colors.darkModeBrown.1}' },
       },
     },
     error: {

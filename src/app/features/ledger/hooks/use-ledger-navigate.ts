@@ -1,5 +1,5 @@
 import { useMemo } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 import { bytesToHex } from '@stacks/common';
 import { ClarityValue, StacksTransaction } from '@stacks/transactions';
@@ -11,6 +11,7 @@ import { immediatelyAttemptLedgerConnection } from './use-when-reattempt-ledger-
 
 export function useLedgerNavigate() {
   const navigate = useNavigate();
+  const location = useLocation();
 
   return useMemo(
     () => ({
@@ -24,6 +25,7 @@ export function useLedgerNavigate() {
       toConnectAndSignTransactionStep(transaction: StacksTransaction) {
         return navigate(RouteUrls.ConnectLedger, {
           replace: true,
+          relative: 'path',
           state: { tx: bytesToHex(transaction.serialize()) },
         });
       },
@@ -88,7 +90,7 @@ export function useLedgerNavigate() {
       },
 
       cancelLedgerAction() {
-        return navigate('..', { relative: 'path' });
+        return navigate('..', { relative: 'path', replace: true, state: { ...location.state } });
       },
 
       cancelLedgerActionAndReturnHome() {
@@ -96,6 +98,6 @@ export function useLedgerNavigate() {
       },
     }),
 
-    [navigate]
+    [location.state, navigate]
   );
 }

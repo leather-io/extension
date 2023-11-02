@@ -11,7 +11,7 @@ import { isString } from '@shared/utils';
 
 import { LoadingKeys } from '@app/common/hooks/use-loading';
 import { useSubmitTransactionCallback } from '@app/common/hooks/use-submit-stx-transaction';
-import { useSignTransactionSoftwareWallet } from '@app/store/transactions/transaction.hooks';
+import { useSignStacksTransaction } from '@app/store/transactions/transaction.hooks';
 
 import { useStacksTransactionSummary } from './use-stacks-transaction-summary';
 
@@ -20,7 +20,7 @@ export function useStacksBroadcastTransaction(
   token: CryptoCurrencies,
   decimals?: number
 ) {
-  const signSoftwareWalletTx = useSignTransactionSoftwareWallet();
+  const signStacksTransaction = useSignStacksTransaction();
   const [isBroadcasting, setIsBroadcasting] = useState(false);
   const { formSentSummaryTxState } = useStacksTransactionSummary(token);
   const navigate = useNavigate();
@@ -68,10 +68,12 @@ export function useStacksBroadcastTransaction(
     }
 
     async function broadcastTransaction(unsignedTx: StacksTransaction) {
-      if (!unsignedTx) return;
-      const signedTx = signSoftwareWalletTx(unsignedTx);
-      if (!signedTx) return;
-      await broadcastTransactionAction(signedTx);
+      try {
+        if (!unsignedTx) return;
+        const signedTx = await signStacksTransaction(unsignedTx);
+        if (!signedTx) return;
+        await broadcastTransactionAction(signedTx);
+      } catch (e) {}
     }
 
     const deserializedTransaction = deserializeTransaction(unsignedTx);
@@ -84,7 +86,7 @@ export function useStacksBroadcastTransaction(
   }, [
     broadcastTransactionFn,
     navigate,
-    signSoftwareWalletTx,
+    signStacksTransaction,
     unsignedTx,
     isBroadcasting,
     token,

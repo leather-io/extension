@@ -11,7 +11,6 @@ import BigNumber from 'bignumber.js';
 
 import { CryptoCurrencies } from '@shared/models/currencies.model';
 import { createMoney } from '@shared/models/money.model';
-import { removeTrailingNullCharacters } from '@shared/utils';
 
 import {
   baseCurrencyAmountInQuote,
@@ -19,6 +18,7 @@ import {
 } from '@app/common/money/calculate-money';
 import { formatMoney, i18nFormatCurrency } from '@app/common/money/format-money';
 import { getEstimatedConfirmationTime } from '@app/common/transactions/stacks/transaction.utils';
+import { removeTrailingNullCharacters } from '@app/common/utils';
 import { useCryptoCurrencyMarketData } from '@app/query/common/market-data/market-data.hooks';
 import { useStacksBlockTime } from '@app/query/stacks/info/info.hooks';
 import { useCurrentNetworkState } from '@app/store/networks/networks.hooks';

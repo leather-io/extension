@@ -9,6 +9,7 @@ import { logger } from '@shared/logger';
 import { RouteUrls } from '@shared/route-urls';
 
 import { useScrollLock } from '@app/common/hooks/use-scroll-lock';
+import { appEvents } from '@app/common/publish-subscribe';
 import { delay } from '@app/common/utils';
 import { BaseDrawer } from '@app/components/drawer/base-drawer';
 import {
@@ -25,7 +26,6 @@ import {
   useActionCancellableByUser,
 } from '@app/features/ledger/utils/stacks-ledger-utils';
 import { useCurrentStacksAccount } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
-import { useTransactionBroadcast } from '@app/store/transactions/transaction.hooks';
 
 import { useLedgerAnalytics } from '../../hooks/use-ledger-analytics.hook';
 import { useLedgerNavigate } from '../../hooks/use-ledger-navigate';
@@ -39,19 +39,18 @@ export function LedgerSignStacksTxContainer() {
   const ledgerAnalytics = useLedgerAnalytics();
   useScrollLock(true);
   const account = useCurrentStacksAccount();
-  const hwWalletTxBroadcast = useTransactionBroadcast();
   const canUserCancelAction = useActionCancellableByUser();
   const verifyLedgerPublicKey = useVerifyMatchingLedgerStacksPublicKey();
-  const [unsignedTransaction, setUnsignedTransaction] = useState<null | string>(null);
+  const [unsignedTx, setUnsignedTx] = useState<null | string>(null);
 
   const hasUserSkippedBuggyAppWarning = useMemo(() => createWaitForUserToSeeWarningScreen(), []);
 
   useEffect(() => {
     const tx = get(location.state, 'tx');
-    if (tx) setUnsignedTransaction(tx);
+    if (tx) setUnsignedTx(tx);
   }, [location.state]);
 
-  useEffect(() => () => setUnsignedTransaction(null), []);
+  useEffect(() => () => setUnsignedTx(null), []);
 
   const [latestDeviceResponse, setLatestDeviceResponse] = useLedgerResponseState();
 
@@ -97,12 +96,12 @@ export function LedgerSignStacksTxContainer() {
 
       ledgerNavigate.toConnectionSuccessStep('stacks');
       await delay(1000);
-      if (!unsignedTransaction) throw new Error('No unsigned tx');
+      if (!unsignedTx) throw new Error('No unsigned tx');
 
       ledgerNavigate.toAwaitingDeviceOperation({ hasApprovedOperation: false });
 
       const resp = await signLedgerTransaction(stacksApp)(
-        Buffer.from(unsignedTransaction, 'hex'),
+        Buffer.from(unsignedTx, 'hex'),
         account.index
       );
 
@@ -127,12 +126,14 @@ export function LedgerSignStacksTxContainer() {
 
       await delay(1000);
 
-      const signedTx = signTransactionWithSignature(unsignedTransaction, resp.signatureVRS);
+      const signedTx = signTransactionWithSignature(unsignedTx, resp.signatureVRS);
       ledgerAnalytics.transactionSignedOnLedgerSuccessfully();
 
       try {
-        await hwWalletTxBroadcast({ signedTx });
-        navigate(RouteUrls.Home);
+        appEvents.publish('ledgerStacksTxSigned', {
+          unsignedTx,
+          signedTx,
+        });
       } catch (e) {
         ledgerNavigate.toBroadcastErrorStep(e instanceof Error ? e.message : 'Unknown error');
         return;
@@ -146,8 +147,13 @@ export function LedgerSignStacksTxContainer() {
 
   const allowUserToGoBack = get(location.state, 'goBack');
 
+  function closeAction() {
+    appEvents.publish('ledgerStacksTxSigningCancelled', { unsignedTx: unsignedTx ?? '' });
+    ledgerNavigate.cancelLedgerAction();
+  }
+
   const ledgerContextValue: LedgerTxSigningContext = {
-    transaction: unsignedTransaction ? deserializeTransaction(unsignedTransaction) : null,
+    transaction: unsignedTx ? deserializeTransaction(unsignedTx) : null,
     signTransaction,
     latestDeviceResponse,
     awaitingDeviceConnection,
@@ -160,7 +166,7 @@ export function LedgerSignStacksTxContainer() {
         enableGoBack={allowUserToGoBack}
         isShowing
         isWaitingOnPerformedAction={awaitingDeviceConnection || canUserCancelAction}
-        onClose={ledgerNavigate.cancelLedgerAction}
+        onClose={closeAction}
         pauseOnClickOutside
         waitingOnPerformedActionMessage="Ledger device in use"
       >

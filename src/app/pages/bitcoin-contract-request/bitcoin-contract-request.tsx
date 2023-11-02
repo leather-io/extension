@@ -28,7 +28,6 @@ export function BitcoinContractRequest() {
   const [bitcoinContractOfferDetails, setBitcoinContractOfferDetails] =
     useState<BitcoinContractOfferDetails>();
   const [bitcoinAddress, setBitcoinAddress] = useState<string>();
-  const [attestorURLs, setAttestorURLs] = useState<string[]>([]);
 
   const [isLoading, setLoading] = useState(true);
   const [isProcessing, setProcessing] = useState(false);
@@ -36,11 +35,7 @@ export function BitcoinContractRequest() {
   const handleAcceptClick = async () => {
     if (!bitcoinContractJSON || !bitcoinContractOfferDetails) return;
     setProcessing(true);
-    await handleAccept(
-      bitcoinContractJSON,
-      bitcoinContractOfferDetails.counterpartyWalletDetails,
-      attestorURLs
-    );
+    await handleAccept(bitcoinContractJSON, bitcoinContractOfferDetails.counterpartyWalletDetails);
     setProcessing(false);
   };
 
@@ -52,7 +47,6 @@ export function BitcoinContractRequest() {
   useOnMount(() => {
     const bitcoinContractOfferJSON = initialSearchParams.get('bitcoinContractOffer');
     const counterpartyWalletDetailsJSON = initialSearchParams.get('counterpartyWalletDetails');
-    const attestorURLs = initialSearchParams.get('attestorURLs');
 
     const bitcoinAccountDetails = getNativeSegwitSigner?.(0);
 
@@ -71,12 +65,7 @@ export function BitcoinContractRequest() {
       sendRpcResponse(BitcoinContractResponseStatus.NETWORK_ERROR);
     }
 
-    if (
-      !getNativeSegwitSigner ||
-      !bitcoinContractOfferJSON ||
-      !counterpartyWalletDetailsJSON ||
-      !attestorURLs
-    )
+    if (!getNativeSegwitSigner || !bitcoinContractOfferJSON || !counterpartyWalletDetailsJSON)
       return;
 
     const currentBitcoinContractOfferDetails = handleOffer(
@@ -89,7 +78,6 @@ export function BitcoinContractRequest() {
     setBitcoinContractJSON(bitcoinContractOfferJSON);
     setBitcoinContractOfferDetails(currentBitcoinContractOfferDetails);
     setBitcoinAddress(currentAddress);
-    setAttestorURLs(JSON.parse(attestorURLs));
     setLoading(false);
   });
 

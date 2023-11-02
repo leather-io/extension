@@ -10,11 +10,11 @@ import { LoadingKeys } from '@app/common/hooks/use-loading';
 import { useSubmitTransactionCallback } from '@app/common/hooks/use-submit-stx-transaction';
 import { useRawTxIdState } from '@app/store/transactions/raw.hooks';
 
-import { useSignTransactionSoftwareWallet } from './transaction.hooks';
+import { useSignStacksTransaction } from './transaction.hooks';
 
 export const useReplaceByFeeSoftwareWalletSubmitCallBack = () => {
   const [, setTxId] = useRawTxIdState();
-  const signTx = useSignTransactionSoftwareWallet();
+  const signTx = useSignStacksTransaction();
   const navigate = useNavigate();
 
   const submitTransaction = useSubmitTransactionCallback({
@@ -24,8 +24,11 @@ export const useReplaceByFeeSoftwareWalletSubmitCallBack = () => {
   return useCallback(
     async (rawTx: StacksTransaction) => {
       if (!rawTx) return;
-      const signedTx = signTx(rawTx);
-      if (!signedTx) return;
+      const signedTx = await signTx(rawTx);
+      if (!signedTx) {
+        logger.warn('Error signing transaction when replacing by fee');
+        return;
+      }
       await submitTransaction({
         onSuccess() {
           setTxId(null);

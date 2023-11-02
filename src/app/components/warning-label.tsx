@@ -11,7 +11,7 @@ export function WarningLabel({ children, title, ...props }: WarningLabelProps) {
   return (
     <Box {...props}>
       <Flag
-        bg="colors.accent.warning"
+        bg="accent.warning"
         borderRadius="10px"
         img={<AlertIcon color={token('colors.yellow.600')} />}
         minHeight="48px"

@@ -40,7 +40,7 @@ export function FiatProvidersList(props: FiatProvidersProps) {
       justifyContent="center"
       mt={['space.04', 'space.08']}
       py="0"
-      px="space.08"
+      px={['space.05', 'space.08']}
       rowGap="1.5rem"
       placeItems="center"
       gridTemplateColumns={[

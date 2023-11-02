@@ -9,13 +9,11 @@ import { StacksSendFormValues } from '@shared/models/form.model';
 
 import { useStxBalance } from '@app/common/hooks/balance/stx/use-stx-balance';
 import { convertAmountToBaseUnit } from '@app/common/money/calculate-money';
-import { useWalletType } from '@app/common/use-wallet-type';
 import {
   stxAmountValidator,
   stxAvailableBalanceValidator,
 } from '@app/common/validation/forms/amount-validators';
 import { stxFeeValidator } from '@app/common/validation/forms/fee-validators';
-import { useLedgerNavigate } from '@app/features/ledger/hooks/use-ledger-navigate';
 import { useUpdatePersistedSendFormValues } from '@app/features/popup-send-form-restoration/use-update-persisted-send-form-values';
 import { useCalculateStacksTxFees } from '@app/query/stacks/fees/fees.hooks';
 import { useStacksValidateFeeByNonce } from '@app/query/stacks/mempool/mempool.hooks';
@@ -34,8 +32,6 @@ export function useStxSendForm() {
   const generateTx = useGenerateStxTokenTransferUnsignedTx();
   const { onFormStateChange } = useUpdatePersistedSendFormValues();
 
-  const { whenWallet } = useWalletType();
-  const ledgerNavigate = useLedgerNavigate();
   const sendFormNavigate = useSendFormNavigate();
   const { changeFeeByNonce } = useStacksValidateFeeByNonce();
 
@@ -88,10 +84,7 @@ export function useStxSendForm() {
       const tx = await generateTx(values);
       if (!tx) return logger.error('Attempted to generate unsigned tx, but tx is undefined');
 
-      whenWallet({
-        software: () => sendFormNavigate.toConfirmAndSignStxTransaction(tx, showFeeChangeWarning),
-        ledger: () => ledgerNavigate.toConnectAndSignTransactionStep(tx),
-      })();
+      sendFormNavigate.toConfirmAndSignStxTransaction(tx, showFeeChangeWarning);
     },
   };
 }

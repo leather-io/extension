@@ -3,7 +3,7 @@ import { ReactNode } from 'react';
 import { Flex, FlexProps, Stack, styled } from 'leather-styles/jsx';
 
 interface InfoLabelProps extends FlexProps {
-  children: ReactNode | undefined;
+  children: ReactNode;
   title: string;
 }
 export function InfoLabel({ children, title, ...rest }: InfoLabelProps) {

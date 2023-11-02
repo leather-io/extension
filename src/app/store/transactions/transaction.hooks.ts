@@ -2,6 +2,7 @@ import { useCallback, useMemo } from 'react';
 import { useAsync } from 'react-async-hook';
 import toast from 'react-hot-toast';
 
+import { bytesToHex } from '@noble/hashes/utils';
 import { TransactionTypes } from '@stacks/connect';
 import {
   FungibleConditionCode,
@@ -27,6 +28,9 @@ import {
   GenerateUnsignedTransactionOptions,
   generateUnsignedTransaction,
 } from '@app/common/transactions/stacks/generate-unsigned-txs';
+import { useWalletType } from '@app/common/use-wallet-type';
+import { listenForStacksTxLedgerSigning } from '@app/features/ledger/flows/stacks-tx-signing/stacks-tx-signing-event-listeners';
+import { useLedgerNavigate } from '@app/features/ledger/hooks/use-ledger-navigate';
 import { useNextNonce } from '@app/query/stacks/nonce/account-nonces.hooks';
 import {
   useCurrentAccountStxAddressState,
@@ -91,26 +95,7 @@ export function useUnsignedPrepareTransactionDetails(values: StacksTransactionFo
   return useMemo(() => unsignedStacksTransaction, [unsignedStacksTransaction]);
 }
 
-export function useSignTransactionSoftwareWallet() {
-  const account = useCurrentStacksAccount();
-  return useCallback(
-    (tx: StacksTransaction) => {
-      if (account?.type !== 'software') {
-        [toast.error, logger.error].forEach(fn =>
-          fn('Cannot use this method to sign a non-software wallet transaction')
-        );
-        return;
-      }
-      const signer = new TransactionSigner(tx);
-      if (!account) return null;
-      signer.signOrigin(createStacksPrivateKey(account.stxPrivateKey));
-      return tx;
-    },
-    [account]
-  );
-}
-
-export function useTransactionBroadcast() {
+function useStacksTransactionBroadcast() {
   const submittedTransactionsActions = useSubmittedTransactionsActions();
   const { tabId } = useDefaultRequestParams();
   const requestToken = useTransactionRequest();
@@ -155,7 +140,7 @@ export function useSoftwareWalletTransactionRequestBroadcast() {
   const { tabId } = useDefaultRequestParams();
   const requestToken = useTransactionRequest();
   const account = useCurrentStacksAccount();
-  const txBroadcast = useTransactionBroadcast();
+  const txBroadcast = useStacksTransactionBroadcast();
 
   return async (values: StacksTransactionFormValues) => {
     if (!stacksTxBaseState) return;
@@ -226,4 +211,40 @@ function useUnsignedStacksTransaction(values: StacksTransactionFormValues) {
   }, [values]);
 
   return tx.result;
+}
+
+function useSignTransactionSoftwareWallet() {
+  const account = useCurrentStacksAccount();
+  return useCallback(
+    (tx: StacksTransaction) => {
+      if (account?.type !== 'software') {
+        [toast.error, logger.error].forEach(fn =>
+          fn('Cannot use this method to sign a non-software wallet transaction')
+        );
+        return;
+      }
+      const signer = new TransactionSigner(tx);
+      if (!account) return null;
+      signer.signOrigin(createStacksPrivateKey(account.stxPrivateKey));
+      return tx;
+    },
+    [account]
+  );
+}
+
+export function useSignStacksTransaction() {
+  const { whenWallet } = useWalletType();
+  const ledgerNavigate = useLedgerNavigate();
+  const signSoftwareTx = useSignTransactionSoftwareWallet();
+
+  return (tx: StacksTransaction) =>
+    whenWallet({
+      async ledger(tx: StacksTransaction) {
+        ledgerNavigate.toConnectAndSignTransactionStep(tx);
+        return listenForStacksTxLedgerSigning(bytesToHex(tx.serialize()));
+      },
+      async software(tx: StacksTransaction) {
+        return signSoftwareTx(tx);
+      },
+    })(tx);
 }

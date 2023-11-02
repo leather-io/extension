@@ -39,7 +39,7 @@ import { RpcSignStacksTransaction } from '@app/pages/rpc-sign-stacks-transaction
 import { BroadcastError } from '@app/pages/send/broadcast-error/broadcast-error';
 import { LockBitcoinSummary } from '@app/pages/send/locked-bitcoin-summary/locked-bitcoin-summary';
 import { sendCryptoAssetFormRoutes } from '@app/pages/send/send-crypto-asset-form/send-crypto-asset-form.routes';
-import { swapRoutes } from '@app/pages/swap/swap.routes';
+import { alexSwapRoutes } from '@app/pages/swap/alex-swap-container';
 import { UnauthorizedRequest } from '@app/pages/unauthorized-request/unauthorized-request';
 import { Unlock } from '@app/pages/unlock';
 import { ViewSecretKey } from '@app/pages/view-secret-key/view-secret-key';
@@ -235,7 +235,7 @@ function useAppRoutes() {
           }}
         />
 
-        {swapRoutes}
+        {alexSwapRoutes}
 
         {/* Catch-all route redirects to onboarding */}
 

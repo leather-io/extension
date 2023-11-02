@@ -27,18 +27,11 @@ export function AccountActions(props: FlexProps) {
   return (
     <Flex justify="space-between" {...props}>
       <SendButton />
-
       <ActionButton
         data-testid={HomePageSelectors.ReceiveCryptoAssetBtn}
         icon={<ArrowDown />}
         label="Receive"
-        onClick={() =>
-          navigate(receivePath, {
-            state: {
-              backgroundLocation: location,
-            },
-          })
-        }
+        onClick={() => navigate(receivePath, { state: { backgroundLocation: location } })}
       />
       <ActionButton
         data-testid={HomePageSelectors.FundAccountBtn}

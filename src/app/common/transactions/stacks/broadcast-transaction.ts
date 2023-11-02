@@ -40,8 +40,6 @@ export async function broadcastStacksTransaction(options: BroadcastTransactionOp
     throw new Error('Invalid txid for transaction');
   }
 
-  logger.info('Transaction broadcast', response);
-
   return {
     txId: response.txid,
     txRaw,
