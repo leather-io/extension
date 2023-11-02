@@ -54,18 +54,10 @@ function LedgerRequestStacksKeys() {
             resp.publicKeys.map(keys => ({
               ...keys,
               id: keys.path.replace('m', defaultWalletKeyId),
+              targetId: latestDeviceResponse?.targetId || '',
             }))
           )
         );
-        const targetId = latestDeviceResponse?.targetId;
-
-        if (targetId) {
-          dispatch(
-            stacksKeysSlice.actions.addTargetId({
-              targetId,
-            })
-          );
-        }
       },
     });
 

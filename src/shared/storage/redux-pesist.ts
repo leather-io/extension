@@ -1,6 +1,9 @@
 import { PersistConfig, createMigrate, getStoredState } from 'redux-persist';
 import autoMergeLevel2 from 'redux-persist/lib/stateReconciler/autoMergeLevel2';
 
+import { getStxDerivationPath } from '@shared/crypto/stacks/stacks.utils';
+import { defaultWalletKeyId } from '@shared/utils';
+
 import type { RootState } from '@app/store';
 
 import { analytics } from '../utils/analytics';
@@ -97,22 +100,46 @@ async function migrateToUsingNoSerialization() {
   return storage;
 }
 
+function processStacksLedgerKeys(stacksKeys: any) {
+  const newStacksKeys = stacksKeys.entities.default.publicKeys.reduce(
+    (acc: { ids: string[]; entities: Record<string, any> }, item: any, index: number) => {
+      const path = getStxDerivationPath(index);
+      const id = path.replace('m', defaultWalletKeyId);
+
+      acc.ids.push(id);
+      acc.entities[id] = {
+        ...item,
+        path,
+        id,
+        walletId: 'default',
+        targetId: '',
+      };
+
+      return acc;
+    },
+    { ids: [], entities: {} }
+  );
+
+  return newStacksKeys;
+}
+
 async function migrateToRenameKeysStoreModule(state: Promise<any>) {
   const resolvedState = await Promise.resolve(state);
 
-  const newStore = JSON.parse(
-    JSON.stringify({
-      ...resolvedState,
-      softwareKeys: resolvedState.keys,
-      ledger: {
-        ...resolvedState.ledger,
-      },
-    })
-  );
+  const newStore = {
+    ...resolvedState,
+    softwareKeys: resolvedState.keys,
+    ledger: {
+      ...resolvedState.ledger,
+    },
+  };
 
   // add stacks ledger keys to new place
-  if (resolvedState.keys.entities.default.type === 'ledger') {
-    newStore.ledger = { ...resolvedState.ledger, stacks: resolvedState.keys };
+  if (resolvedState.keys?.entities.default.type === 'ledger') {
+    newStore.ledger = {
+      ...resolvedState.ledger,
+      stacks: processStacksLedgerKeys(resolvedState.keys),
+    };
   }
 
   // add default bitcoin ledger state
@@ -120,7 +147,6 @@ async function migrateToRenameKeysStoreModule(state: Promise<any>) {
     newStore.ledger.bitcoin = {
       ids: [],
       entities: {},
-      targetId: '',
     };
   }
 
@@ -129,7 +155,6 @@ async function migrateToRenameKeysStoreModule(state: Promise<any>) {
     newStore.ledger.stacks = {
       ids: [],
       entities: {},
-      targetId: '',
     };
   }
 
@@ -145,14 +170,14 @@ interface UntypedDeserializeOption {
 export const persistConfig: PersistConfig<RootState> & UntypedDeserializeOption = {
   key: 'root',
   stateReconciler: autoMergeLevel2,
-  version: 1,
+  version: 2,
   storage,
   serialize: false,
   migrate: createMigrate({
     0: async () => {
       return migrateToUsingNoSerialization();
     },
-    1: async (state: any) => {
+    2: async (state: any) => {
       return migrateToRenameKeysStoreModule(state);
     },
     debug: true,

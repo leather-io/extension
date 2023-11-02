@@ -27,12 +27,10 @@ export const testSoftwareAccountDefaultWalletState = {
     bitcoin: {
       entities: {},
       ids: [],
-      targetId: '',
     },
     stacks: {
       entities: {},
       ids: [],
-      targetId: '',
     },
   },
   networks: { ids: [], entities: {}, currentNetworkId: 'mainnet' },
@@ -46,11 +44,11 @@ export const testSoftwareAccountDefaultWalletState = {
     dismissedMessages: [],
     hasApprovedNewBrand: true,
   },
-  _persist: { version: 1, rehydrated: true },
+  _persist: { version: 2, rehydrated: true },
 };
 
 const testLedgerAccountDefaultWalletState = {
-  _persist: { rehydrated: true, version: 1 },
+  _persist: { rehydrated: true, version: 2 },
   analytics: { hasStxDeposits: { '1': false, '2147483648': true } },
   chains: { stx: { default: { currentAccountIndex: 0, highestAccountIndex: 0 } } },
   softwareKeys: {
@@ -66,6 +64,7 @@ const testLedgerAccountDefaultWalletState = {
           policy:
             "[e87a850b/84'/0'/0']xpub6BuKrNqTrGfsy8VAAdUW2KCxbHywuSKjg7hZuAXERXDv7GfuxUgUWdVRKNsgujcwdjEHCjaXWouPKi1m5gMgdWX8JpRcyMkrSxPe4Da3Lx8",
           walletId: 'default',
+          targetId: '',
         },
         "default/84'/0'/1'": {
           id: "default/84'/0'/1'",
@@ -73,6 +72,7 @@ const testLedgerAccountDefaultWalletState = {
           policy:
             "[e87a850b/84'/0'/1']xpub6BuKrNqTrGft1dv2pR3Ey8VsBnSBkVVpehNsro8V8kaWMRGeUNv8yhJpTw62Ldqenm5kuVyC2bQqgc6yrKAruDKyzz18zi83Sg2FTwEHsrF",
           walletId: 'default',
+          targetId: '',
         },
         "default/84'/0'/2'": {
           id: "default/84'/0'/2'",
@@ -80,6 +80,7 @@ const testLedgerAccountDefaultWalletState = {
           policy:
             "[e87a850b/84'/0'/2']xpub6BuKrNqTrGft5UhSiYcXtN1d9Cp8iwj9tBVLjfJtLUqUFYA2xjVmAiB4TbUP6uaX3qwNhrW3baGE1Fz49YNSFcEMTtcd4Uz25juszoCCy8w",
           walletId: 'default',
+          targetId: '',
         },
         "default/84'/0'/3'": {
           id: "default/84'/0'/3'",
@@ -87,6 +88,7 @@ const testLedgerAccountDefaultWalletState = {
           policy:
             "[e87a850b/84'/0'/3']xpub6BuKrNqTrGft7h39ks3qJjcz3KusNtsDtr8t59t2MUneWoCqbGYLcqLeqRaXC5na2tWDDzncBBVNVPT55b6jLM4dT5f6aGvgaXEXV6VniL6",
           walletId: 'default',
+          targetId: '',
         },
         "default/84'/0'/4'": {
           id: "default/84'/0'/4'",
@@ -94,6 +96,7 @@ const testLedgerAccountDefaultWalletState = {
           policy:
             "[e87a850b/84'/0'/4']xpub6BuKrNqTrGftAswPZxdCzxArCp1bsUh3JPizsMymSVanfVJqXR2wjsX7PBnwMXnXttiWU6pMdBgB82mR2BPDtSGcUfjD8QJTNca47iYkGD3",
           walletId: 'default',
+          targetId: '',
         },
         "default/86'/0'/0'": {
           id: "default/86'/0'/0'",
@@ -101,6 +104,7 @@ const testLedgerAccountDefaultWalletState = {
           policy:
             "[e87a850b/86'/0'/0']xpub6C4MQD2bVDTfdnVe5AYKB6gE7BE4yQeKBRgukQ4Hi3phDB5fCYKEAdViQ2n7kZQ1t728QV4wKGgiR5qGigjNNrm5DCGWYUZDRVNWYb8ZWGK",
           walletId: 'default',
+          targetId: '',
         },
         "default/86'/0'/1'": {
           id: "default/86'/0'/1'",
@@ -108,6 +112,7 @@ const testLedgerAccountDefaultWalletState = {
           policy:
             "[e87a850b/86'/0'/1']xpub6C4MQD2bVDTfgjjWZhmPMNDMFHFmrSmGzqJVpuf98XB8F5eNaQus6XmrcrTrTiiL2EscdC4cjztP5LfaW13vZ6eDuDHXXAq71W5KEHeEeKH",
           walletId: 'default',
+          targetId: '',
         },
         "default/86'/0'/2'": {
           id: "default/86'/0'/2'",
@@ -115,6 +120,7 @@ const testLedgerAccountDefaultWalletState = {
           policy:
             "[e87a850b/86'/0'/2']xpub6C4MQD2bVDTfkGnARZXj6dRRF223bcyKAK2qCRKf9xyPQg7k4ZZc4FAHLcXhQ1NCVJCTVGEMd1YoRnBBDdgXKrmt4bm5XmF1ry9ox4Qsx3F",
           walletId: 'default',
+          targetId: '',
         },
         "default/86'/0'/3'": {
           id: "default/86'/0'/3'",
@@ -122,6 +128,7 @@ const testLedgerAccountDefaultWalletState = {
           policy:
             "[e87a850b/86'/0'/3']xpub6C4MQD2bVDTfmbN4ZJfozbNRMqyD1jmMFcQTNRUNyjE2J6tdVggFoQ8KmxUpijsZX1E4iDciY5AmnHbq95BHMVGJAGZ1MAm7iupHkTBV6YE",
           walletId: 'default',
+          targetId: '',
         },
         "default/86'/0'/4'": {
           id: "default/86'/0'/4'",
@@ -129,6 +136,7 @@ const testLedgerAccountDefaultWalletState = {
           policy:
             "[e87a850b/86'/0'/4']xpub6C4MQD2bVDTfq9RLtYxmqJRNsiviyuM51CFE1qqQbE6o8QN9Uix47Kvj4fqKFX5f88DyhxaX93L4H1WdSZChMZUWGUzPm54N9VfvsYJBvi9",
           walletId: 'default',
+          targetId: '',
         },
       },
       ids: [
@@ -143,7 +151,6 @@ const testLedgerAccountDefaultWalletState = {
         "default/86'/0'/3'",
         "default/86'/0'/4'",
       ],
-      targetId: '',
     },
     stacks: {
       entities: {
@@ -154,6 +161,7 @@ const testLedgerAccountDefaultWalletState = {
             '04716759aa2d2ec9066ff699626c3404c5cc7e84e7295af6768a0fce2defcd1c50a9ee4b1fd1e63295abc47c81f602e77c497f4549fa68535c7abbe73854b62df7',
           id: "default/44'/5757'/0'/0/0",
           walletId: 'default',
+          targetId: '',
         },
         "default/44'/5757'/0'/0/1": {
           path: "m/44'/5757'/0'/0/1",
@@ -162,6 +170,7 @@ const testLedgerAccountDefaultWalletState = {
             '04c8fba749c7be4a817c1bee8c24b7464f3be6f7e78f5c9ab43a57710f703155e059ce8b5fcb33e8c8d0ff154e964f99c486eed8b8b19f108cf5137a07275a277f',
           id: "default/44'/5757'/0'/0/1",
           walletId: 'default',
+          targetId: '',
         },
         "default/44'/5757'/0'/0/2": {
           path: "m/44'/5757'/0'/0/2",
@@ -170,6 +179,7 @@ const testLedgerAccountDefaultWalletState = {
             '04614af2cb5b9a07fb9049713a860a09cd97549373e73104e32b814922392a97a3c6d938f2b7f6e771c5e6611be64b762919a435a242fa5796b5bb4b9728eb079e',
           id: "default/44'/5757'/0'/0/2",
           walletId: 'default',
+          targetId: '',
         },
         "default/44'/5757'/0'/0/3": {
           path: "m/44'/5757'/0'/0/3",
@@ -178,6 +188,7 @@ const testLedgerAccountDefaultWalletState = {
             '04e3c33077024159f2a1aa28e4e73811d477fac3303f6395bfb8937994bc61d1a3b762d52ea4a57d0f2ed36523a96ffec74d1f05676e4411601402013f16f16374',
           id: "default/44'/5757'/0'/0/3",
           walletId: 'default',
+          targetId: '',
         },
         "default/44'/5757'/0'/0/4": {
           path: "m/44'/5757'/0'/0/4",
@@ -186,6 +197,7 @@ const testLedgerAccountDefaultWalletState = {
             '04673e21fc8fb98131d843bcb10edb015dd3219bb1f730c81c6de13a9df91d5f1a709099cd0d41d535f45b3119d3458ccdc98614ee4833c99f09c7c62d654350fa',
           id: "default/44'/5757'/0'/0/4",
           walletId: 'default',
+          targetId: '',
         },
       },
       ids: [

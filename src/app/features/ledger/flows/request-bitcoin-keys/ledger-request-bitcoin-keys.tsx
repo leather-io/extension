@@ -34,7 +34,10 @@ function LedgerRequestBitcoinKeys() {
       navigate('/', { replace: true });
     },
     async pullKeysFromDevice(app) {
-      const { keys } = await pullBitcoinKeysFromLedgerDevice(app)({
+      const { keys } = await pullBitcoinKeysFromLedgerDevice(
+        app,
+        latestDeviceResponse?.targetId
+      )({
         network: bitcoinNetworkModeToCoreNetworkMode(network.chain.bitcoin.network),
         onRequestKey(index) {
           if (index <= 4) {
@@ -47,15 +50,6 @@ function LedgerRequestBitcoinKeys() {
         },
       });
       dispatch(bitcoinKeysSlice.actions.addKeys(keys));
-      const targetId = latestDeviceResponse?.targetId;
-
-      if (targetId) {
-        dispatch(
-          bitcoinKeysSlice.actions.addTargetId({
-            targetId,
-          })
-        );
-      }
     },
   });
 

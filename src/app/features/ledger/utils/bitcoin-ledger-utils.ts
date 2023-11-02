@@ -9,6 +9,7 @@ export interface BitcoinLedgerAccountDetails {
   id: string;
   path: string;
   policy: string;
+  targetId: string;
 }
 
 export async function connectLedgerBitcoinApp() {

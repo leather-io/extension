@@ -9,7 +9,7 @@ function selectStacksKeysSlice(state: RootState) {
 
 // ts-unused-exports:disable-next-line
 export const { slice: stacksKeysSlice, adapter } = generateLedgerChainKeyStorageSlice<
-  StacksAppKeysResponseItem & { id: string }
+  StacksAppKeysResponseItem & { id: string; targetId: string }
 >('stacks');
 
 const selectors = adapter.getSelectors(selectStacksKeysSlice);

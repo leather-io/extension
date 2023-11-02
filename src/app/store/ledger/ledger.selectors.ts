@@ -22,6 +22,7 @@ export function useHasLedgerKeys() {
 
 export function useLedgerDeviceTargetId() {
   return useSelector(
-    (state: RootState) => state.ledger.stacks.targetId || state.ledger.bitcoin.targetId
+    (state: RootState) =>
+      state.ledger.stacks.entities[0]?.targetId || state.ledger.bitcoin.entities[0]?.targetId || ''
   );
 }

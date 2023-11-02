@@ -10,6 +10,7 @@ import {
 import StacksApp, { LedgerError, ResponseSign, ResponseVersion } from '@zondax/ledger-stacks';
 import { compare } from 'compare-versions';
 
+import { getStxDerivationPath, stxDerivationWithAccount } from '@shared/crypto/stacks/stacks.utils';
 import { RouteUrls } from '@shared/route-urls';
 
 import {
@@ -18,21 +19,6 @@ import {
   prepareLedgerDeviceForAppFn,
 } from './generic-ledger-utils';
 import { versionObjectToVersionString } from './generic-ledger-utils';
-
-const stxDerivationWithAccount = `m/44'/5757'/0'/0/{account}`;
-
-const stxIdentityDerivationWithAccount = `m/888'/0'/{account}'`;
-
-function getAccountIndexFromDerivationPathFactory(derivationPath: string) {
-  return (account: number) => derivationPath.replace('{account}', account.toString());
-}
-
-export const getStxDerivationPath =
-  getAccountIndexFromDerivationPathFactory(stxDerivationWithAccount);
-
-export const getIdentityDerivationPath = getAccountIndexFromDerivationPathFactory(
-  stxIdentityDerivationWithAccount
-);
 
 export function requestPublicKeyForStxAccount(app: StacksApp) {
   return async (index: number) =>
