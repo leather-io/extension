@@ -8,12 +8,13 @@ interface FungibleTokenAssetItemProps extends BoxProps {
   assetBalance: StacksFungibleTokenAssetBalance;
 }
 export function FungibleTokenAssetItem(props: FungibleTokenAssetItemProps) {
-  const { assetBalance, ...rest } = props;
+  const { assetBalance } = props;
   const { blockchain } = assetBalance;
 
   switch (blockchain) {
     case 'stacks':
-      return <StacksFungibleTokenAssetItem assetBalance={assetBalance} isPressable {...rest} />;
+      // TODO #4383 make sure the parent onClick works
+      return <StacksFungibleTokenAssetItem assetBalance={assetBalance} isPressable />;
     default:
       return null;
   }

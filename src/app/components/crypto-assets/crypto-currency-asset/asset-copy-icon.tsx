@@ -1,16 +1,18 @@
 import { FiCheck, FiCopy } from 'react-icons/fi';
 
-import { Box, Flex, color } from '@stacks/ui';
+import { Box, Flex } from 'leather-styles/jsx';
 
 interface AssetItemCopyIconProps {
   hasCopied: boolean;
 }
 
 export function AssetItemCopyIcon({ hasCopied }: AssetItemCopyIconProps) {
+  // FIXME - refactor this, so many elements for just an icon!
   return (
-    <Flex alignItems="center" justifyContent="center" size="36px">
+    <Flex alignItems="center" justifyContent="center" width="36px" height="36px">
       <Box
-        size="16px"
+        width="36px"
+        height="36px"
         color={color('text-caption')}
         data-testid="account-copy-address"
         as={hasCopied ? FiCheck : FiCopy}

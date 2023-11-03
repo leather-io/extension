@@ -1,6 +1,7 @@
-import { Box, transition } from '@stacks/ui';
+// FIXME grab this from my other PR - add a new folder for migrated UI
+import { transition } from '@stacks/ui';
 import { SharedComponentsSelectors } from '@tests/selectors/shared-component.selectors';
-import { Flex, styled } from 'leather-styles/jsx';
+import { Box, Flex, styled } from 'leather-styles/jsx';
 import { token } from 'leather-styles/tokens';
 
 interface FeesListItemProps {
@@ -24,7 +25,8 @@ export function FeesListItem({
   return (
     <Box
       _hover={{ background: token('colors.accent.component-background-hover') }}
-      as="button"
+      // FIXME Box as button - try remove this as=
+      // as="button"
       border={isSelected ? '4px solid' : '1px solid'}
       borderColor={token('colors.accent.action-primary-default')}
       borderRadius="16px"

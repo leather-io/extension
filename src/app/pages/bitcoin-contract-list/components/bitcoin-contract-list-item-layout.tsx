@@ -1,6 +1,6 @@
 import { useCallback } from 'react';
 
-import { Box, Flex, HStack } from 'leather-styles/jsx';
+import { Flex, HStack } from 'leather-styles/jsx';
 
 import { createMoneyFromDecimal } from '@shared/models/money.model';
 
@@ -35,11 +35,11 @@ export function BitcoinContractListItemLayout({
       ),
     [bitcoinMarketData]
   );
-  // FIXME
 
   return (
     <Flex
-      as={'button'}
+      // FIXME
+      // as={'button'}
       marginBottom="15px"
       onClick={() =>
         handleOpenTxLink({

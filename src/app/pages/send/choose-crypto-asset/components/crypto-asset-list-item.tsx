@@ -54,6 +54,7 @@ export function CryptoAssetListItem(props: CryptoAssetListItemProps) {
       return (
         <FungibleTokenAssetItem
           assetBalance={assetBalance}
+          // TODO #4383 make sure this onClick works
           onClick={() => navigateToSendForm({ isFtToken: true })}
         />
       );

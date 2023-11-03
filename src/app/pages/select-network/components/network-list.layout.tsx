@@ -1,4 +1,4 @@
-import { Flex, FlexProps } from '@stacks/ui';
+import { Flex, FlexProps } from 'leather-styles/jsx';
 
 export function NetworkListLayout({ children, ...props }: FlexProps) {
   return (

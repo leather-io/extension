@@ -1,10 +1,9 @@
-import { ButtonProps } from '@stacks/ui';
 import { SettingsSelectors } from '@tests/selectors/settings.selectors';
 import { Flex } from 'leather-styles/jsx';
 
 import { LeatherButton } from '@app/components/button/button';
 
-interface AddNetworkButtonProps extends ButtonProps {
+interface AddNetworkButtonProps {
   onAddNetwork(): void;
 }
 export function AddNetworkButton({ onAddNetwork }: AddNetworkButtonProps) {

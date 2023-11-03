@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import { toast } from 'react-hot-toast';
 
-import { StackProps } from '@stacks/ui';
 import { forwardRefWithAs } from '@stacks/ui-core';
 
 import type { AllCryptoCurrencyAssetBalances } from '@shared/models/crypto-asset-balance.model';
@@ -13,7 +12,7 @@ import { spamFilter } from '@app/common/utils/spam-filter';
 import { AssetItemCopyIcon } from './asset-copy-icon';
 import { CryptoCurrencyAssetItemLayout } from './crypto-currency-asset-item.layout';
 
-interface CryptoCurrencyAssetItemProps extends StackProps {
+interface CryptoCurrencyAssetItemProps {
   assetBalance: AllCryptoCurrencyAssetBalances;
   icon: React.ReactNode;
   usdBalance?: string;

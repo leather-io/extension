@@ -1,6 +1,5 @@
-import { BoxProps } from '@stacks/ui';
 import { forwardRefWithAs } from '@stacks/ui-core';
-import { Flex, styled } from 'leather-styles/jsx';
+import { BoxProps, Flex, styled } from 'leather-styles/jsx';
 
 import type { Money } from '@shared/models/money.model';
 
