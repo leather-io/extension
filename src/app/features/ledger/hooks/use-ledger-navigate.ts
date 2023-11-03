@@ -3,6 +3,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 
 import { bytesToHex } from '@stacks/common';
 import { ClarityValue, StacksTransaction } from '@stacks/transactions';
+import { Psbt } from 'bitcoinjs-lib';
 
 import { SupportedBlockchains } from '@shared/constants';
 import { RouteUrls } from '@shared/route-urls';
@@ -22,11 +23,19 @@ export function useLedgerNavigate() {
         });
       },
 
-      toConnectAndSignTransactionStep(transaction: StacksTransaction) {
+      toConnectAndSignStacksTransactionStep(transaction: StacksTransaction) {
         return navigate(RouteUrls.ConnectLedger, {
           replace: true,
           relative: 'path',
           state: { tx: bytesToHex(transaction.serialize()) },
+        });
+      },
+
+      toConnectAndSignBitcoinTransactionStep(psbt: Psbt) {
+        return navigate(RouteUrls.ConnectLedger, {
+          replace: true,
+          relative: 'path',
+          state: { tx: psbt.toHex() },
         });
       },
 

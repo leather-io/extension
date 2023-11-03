@@ -268,9 +268,7 @@ export function useSignLedgerTx() {
     }
 
     // Turn back into BtcSigner lib format
-    const btcSignerPsbt = btc.Transaction.fromPSBT(psbt.toBuffer());
-
-    btcSignerPsbt.finalize();
-    return btcSignerPsbt;
+    // REMINDER: this tx is not finalized
+    return btc.Transaction.fromPSBT(psbt.toBuffer());
   };
 }

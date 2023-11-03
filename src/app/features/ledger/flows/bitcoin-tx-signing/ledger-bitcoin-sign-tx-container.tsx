@@ -2,13 +2,16 @@ import { useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
 import { Outlet, Route, useLocation, useNavigate } from 'react-router-dom';
 
+import { bytesToHex } from '@noble/hashes/utils';
 import * as btc from '@scure/btc-signer';
 import { hexToBytes } from '@stacks/common';
+import { Psbt } from 'bitcoinjs-lib';
 import get from 'lodash.get';
 
 import { RouteUrls } from '@shared/route-urls';
 
 import { useScrollLock } from '@app/common/hooks/use-scroll-lock';
+import { appEvents } from '@app/common/publish-subscribe';
 import { delay } from '@app/common/utils';
 import { BaseDrawer } from '@app/components/drawer/base-drawer';
 import {
@@ -62,16 +65,19 @@ export function LedgerSignBitcoinTxContainer() {
   useScrollLock(true);
 
   const navigate = useNavigate();
-  const { broadcastTx } = useBitcoinBroadcastTransaction();
   const canUserCancelAction = useActionCancellableByUser();
+  const [unsignedTransactionRaw, setUnsignedTransactionRaw] = useState<null | string>(null);
   const [unsignedTransaction, setUnsignedTransaction] = useState<null | btc.Transaction>(null);
   const signLedger = useSignLedgerTx();
   const sendFormNavigate = useSendFormNavigate();
 
   useEffect(() => {
     const tx = get(location.state, 'tx');
-    if (tx) console.log({ tx, decoded: btc.Transaction.fromPSBT(hexToBytes(tx)) });
-    if (tx) setUnsignedTransaction(btc.Transaction.fromPSBT(hexToBytes(tx)));
+    if (tx) {
+      setUnsignedTransactionRaw(tx);
+      console.log({ tx, decoded: btc.Transaction.fromPSBT(hexToBytes(tx)) });
+      setUnsignedTransaction(btc.Transaction.fromPSBT(hexToBytes(tx)));
+    }
   }, [location.state]);
 
   useEffect(() => () => setUnsignedTransaction(null), []);
@@ -89,7 +95,6 @@ export function LedgerSignBitcoinTxContainer() {
 
     ledgerNavigate.toDeviceBusyStep('Verifying public key on Ledger…');
 
-    // try {
     ledgerNavigate.toConnectionSuccessStep('bitcoin');
     await delay(1000);
     if (!unsignedTransaction) throw new Error('No unsigned tx');
@@ -97,33 +102,17 @@ export function LedgerSignBitcoinTxContainer() {
     ledgerNavigate.toAwaitingDeviceOperation({ hasApprovedOperation: false });
 
     try {
-      const resp = await signLedger(bitcoinApp, unsignedTransaction.toPSBT());
-      if (!resp) throw new Error('No tx returned');
-      console.log(resp);
+      const btcTx = await signLedger(bitcoinApp, unsignedTransaction.toPSBT());
+      if (!btcTx || !unsignedTransactionRaw) throw new Error('No tx returned');
+      console.log('response from ledger', { resp: btcTx });
       ledgerNavigate.toAwaitingDeviceOperation({ hasApprovedOperation: true });
       await delay(1000);
 
-      await broadcastTx({
-        tx: resp.hex,
-        onSuccess(txid) {
-          console.log(txid);
-          toast.success('Tx broadcast');
-          navigate('/activity', { replace: true });
-        },
-        onError(e) {
-          console.log(e);
-        },
+      appEvents.publish('ledgerBitcoinTxSigned', {
+        signedPsbt: btcTx,
+        unsignedPsbt: unsignedTransactionRaw,
       });
-      navigate('/activity', { replace: true });
-      // sendFormNavigate.toConfirmAndSignBtcTransaction({
-      //   fee: 1000,
-      //   feeRowValue: '1231',
-      //   recipient: 'anslkdjfs',
-      //   time: 'slkdjfslkdf',
-      //   tx: resp?.toHex(),
-      // });
     } catch (e) {
-      console.log('error', e);
       ledgerAnalytics.transactionSignedOnLedgerRejected();
       ledgerNavigate.toOperationRejectedStep();
     }

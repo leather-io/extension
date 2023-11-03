@@ -1,5 +1,10 @@
+import { Psbt } from 'bitcoinjs-lib';
+
 import { getTaprootAddress } from '@shared/crypto/bitcoin/bitcoin.utils';
 
+import { useWalletType } from '@app/common/use-wallet-type';
+import { listenForBitcoinTxLedgerSigning } from '@app/features/ledger/flows/bitcoin-tx-signing/bitcoin-tx-signing-event-listeners';
+import { useLedgerNavigate } from '@app/features/ledger/hooks/use-ledger-navigate';
 import { useCurrentAccountIndex } from '@app/store/accounts/account';
 import { useTaprootAccount } from '@app/store/accounts/blockchain/bitcoin/taproot-account.hooks';
 import { useCurrentNetwork } from '@app/store/networks/networks.selectors';
@@ -29,4 +34,20 @@ export function useZeroIndexTaprootAddress(accIndex?: number) {
   });
 
   return address;
+}
+
+export function useSignBitcoinTx() {
+  const { whenWallet } = useWalletType();
+  const ledgerNavigate = useLedgerNavigate();
+
+  return (tx: Psbt, inputsToSign?: [number, string]) =>
+    whenWallet({
+      async ledger(tx: Psbt) {
+        ledgerNavigate.toConnectAndSignBitcoinTransactionStep(tx);
+        return listenForBitcoinTxLedgerSigning(tx.toHex());
+      },
+      async software(tx: Psbt) {
+        // return signSoftwareTx(tx);
+      },
+    })(tx);
 }

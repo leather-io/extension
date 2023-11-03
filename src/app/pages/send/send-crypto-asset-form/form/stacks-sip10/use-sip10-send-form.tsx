@@ -90,7 +90,7 @@ export function useSip10SendForm({ symbol, contractId }: UseSip10SendFormArgs) {
             name: assetBalance.asset.name,
             tx,
           }),
-        ledger: () => ledgerNavigate.toConnectAndSignTransactionStep(tx),
+        ledger: () => ledgerNavigate.toConnectAndSignStacksTransactionStep(tx),
       })();
     },
   };
