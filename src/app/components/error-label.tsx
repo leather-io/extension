@@ -1,7 +1,7 @@
-import { FiAlertCircle } from 'react-icons/fi';
-
 import { css } from 'leather-styles/css';
 import { HStack, HstackProps } from 'leather-styles/jsx';
+
+import { AlertIcon } from './icons/alert-icon';
 
 export function ErrorLabel({ children, ...rest }: HstackProps) {
   return (
@@ -19,7 +19,7 @@ export function ErrorLabel({ children, ...rest }: HstackProps) {
         },
       })}
     >
-      <FiAlertCircle size="1rem" />
+      <AlertIcon />
       {children}
     </HStack>
   );
