@@ -11,12 +11,26 @@ export const globalCss = defineGlobalStyles({
   'html, body': {
     backgroundColor: 'accent.background-primary',
   },
+  // 'html.light': {
+  //   backgroundColor: 'red !important',
+  // },
+
+  // 'html.dark': {
+  //   backgroundColor: 'blue !important',
+  // },
   button: {
     cursor: 'pointer',
   },
   '@media (min-width: 600px)': {
     'html, body': {
+      // this actually sets the BG
       backgroundColor: 'accent.background-secondary',
+      // '@media (prefers-color-scheme: light)': {
+      //   backgroundColor: 'accent.background-secondary',
+      // },
+      // '@media (prefers-color-scheme: dark)': {
+      //   backgroundColor: 'accent.background-secondary',
+      // },
     },
   },
   body: {

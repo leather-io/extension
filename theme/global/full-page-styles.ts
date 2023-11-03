@@ -11,4 +11,9 @@ export const fullPageStyles = {
       margin: '0 auto',
     },
   },
+  // '.mode__full-page.dark': {
+  //   body: {
+  //     backgroundColor: 'accent.background-secondary',
+  //   },
+  // },
 };
