@@ -1,5 +1,6 @@
 import { defineConfig } from '@pandacss/dev';
 
+import myPreset from './theme/base';
 import { breakpoints } from './theme/breakpoints';
 import { globalCss } from './theme/global/global';
 import { keyframes } from './theme/keyframes';
@@ -23,6 +24,9 @@ export default defineConfig({
 
   jsxFramework: 'react',
 
+  // https://panda-css.com/docs/customization/presets
+  // https://blog.logrocket.com/dark-mode-react-in-depth-guide/#using-system-settings
+
   strictTokens: false,
 
   theme: {
@@ -35,6 +39,12 @@ export default defineConfig({
       recipes: { button: buttonRecipe },
     },
   },
+  // layers: {
+  //   base: myPreset
+  // }
+  // layers: {
+  //   base: 'panda_base',
+  // },
   outdir: 'leather-styles',
   outExtension: 'js',
   minify: true,

@@ -23,7 +23,9 @@ window.__APP_VERSION__ = VERSION;
 
 async function renderApp() {
   await restoreWalletSession();
+  // debugger;
   const container = document.getElementById('app');
+  console.log('render app');
   return createRoot(container!).render(<App />);
 }
 

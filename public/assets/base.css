@@ -1,7 +1,46 @@
+/* @layer base {
+  @media (prefers-color-scheme: dark) {
+    html,
+    body,
+    #app {
+      background-color: #2c2a24;
+    }
+  }
+} */
+
+/* colors darkmode brown 2 */
+/* html,
+body,
+#app {
+  background-color: #2c2a24;
+} */
+/* 
 @media (prefers-color-scheme: dark) {
+    html,
+    body,
+    #app {
+      background-color: #2c2a24;
+    }
+  } */
+
+/* setting here forces it to work on reload 
+ not really though when changing theme
+
+ -> these queries work for when system theme is set
+*/
+
+/* colors darkmode brown 2 */
+@media (prefers-color-scheme: dark) {
+  html,
   body {
-    /* colors darkmode brown 2 */
     background-color: #2c2a24;
+  }
+}
+/* colors colors.lightModeBrown.2 */
+@media (prefers-color-scheme: light) {
+  html,
+  body {
+    background-color: #f5f1ed;
   }
 }
 
