@@ -5,9 +5,10 @@ import {
   FiPlus as IconPlus,
 } from 'react-icons/fi';
 
-import { BoxProps, ColorsStringLiteral, color } from '@stacks/ui';
+import { BoxProps, color } from '@stacks/ui';
 import FunctionIcon from 'mdi-react/FunctionIcon';
 
+import { ColorsStringLiteral } from '@shared/models/color-string-literal.model';
 import { StacksTx, StacksTxStatus } from '@shared/models/transactions/stacks-transaction.model';
 
 import { statusFromTx } from '@app/common/transactions/stacks/transaction.utils';

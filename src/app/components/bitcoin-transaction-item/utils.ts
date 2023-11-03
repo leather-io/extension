@@ -1,7 +1,6 @@
 import { FiArrowDown as IconArrowDown, FiArrowUp as IconArrowUp } from 'react-icons/fi';
 
-import { ColorsStringLiteral } from '@stacks/ui-theme';
-
+import { ColorsStringLiteral } from '@shared/models/color-string-literal.model';
 import { BitcoinTx } from '@shared/models/transactions/bitcoin-transaction.model';
 
 import { isBitcoinTxInbound } from '@app/common/transactions/bitcoin/utils';
