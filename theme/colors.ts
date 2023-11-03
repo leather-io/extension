@@ -5,41 +5,65 @@ export const colors = defineTokens.colors({
   dark: { value: '#111' },
   black: { value: '#000' },
   white: { value: '#fff' },
-  red: {
+  lightModeRed: {
     100: { value: '#FCEEED' },
     300: { value: '#FFABB1' },
     500: { value: '#FF5863' },
     600: { value: '#FF2E3C' },
   },
-  blue: {
+  darkModeRed: {
+    100: { value: '#38191A' },
+    300: { value: '#4F1A1D' },
+    500: { value: '#7C1E24' },
+    600: { value: '#AB1F29' },
+  },
+  lightModeBlue: {
     100: { value: '#E6F2FF' },
     300: { value: '#9BCAFF' },
     500: { value: '#3795FF' },
     600: { value: '#057AFF' },
   },
-  yellow: {
+  darkModeBlue: {
+    100: { value: '#0C2644' },
+    300: { value: '#092F5A' },
+    500: { value: '#053E80' },
+    600: { value: '#004EA6' },
+  },
+  lightModeYellow: {
     100: { value: '#FEF9E6' },
     300: { value: '#FBE699' },
     500: { value: '#F7CD33' },
     600: { value: '#F5C000' },
   },
-  green: {
+  darkModeYellow: {
+    100: { value: '#473D1C' },
+    300: { value: '#5C4F21' },
+    500: { value: '#A98D29' },
+    600: { value: '#D8B021' },
+  },
+  lightModeGreen: {
     100: { value: '#E6F5ED' },
     300: { value: '#99D8B9' },
     500: { value: '#33B172' },
     600: { value: '#009E4F' },
   },
+  darkModeGreen: {
+    100: { value: '#1A3124' },
+    300: { value: '#19422C' },
+    500: { value: '#165C38' },
+    600: { value: '#00753A' },
+  },
   lightModeBrown: {
     1: { value: '#FFFFFF' },
-    2: { value: '#F5F1ED' },
-    3: { value: '#EAE5E0' },
-    4: { value: '#E4DDD6' },
-    5: { value: '#DED6CD' },
-    6: { value: '#D8CEC4' },
-    7: { value: '#C6B9AD' },
-    8: { value: '#948677' },
-    9: { value: '#12100F' },
-    10: { value: '#4A423B' },
+    2: { value: '#F7F5F3' },
+    3: { value: '#F5F1ED' },
+    4: { value: '#EAE5E0' },
+    5: { value: '#E4DDD6' },
+    6: { value: '#DED6CD' },
+    7: { value: '#D8CEC4' },
+    8: { value: '#C6B9AD' },
+    9: { value: '#948677' },
+    10: { value: '#64594D' },
     11: { value: '#4A423B' },
     12: { value: '#12100F' },
   },
@@ -84,5 +108,5 @@ export const colors = defineTokens.colors({
     10: { value: '#818181' },
     11: { value: '#B1B1B1' },
     12: { value: '#EEEEEE' },
-  },
+  }
 });

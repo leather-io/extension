@@ -70,20 +70,20 @@ export const semanticTokens = defineSemanticTokens({
         value: { base: '{colors.lightModeBrown.1}', _dark: '{colors.darkModeBrown.1}' },
       },
       disabled: {
-        value: { base: '{colors.blue.100}', _dark: '{colors.blue.100}' },
+        value: { base: '{colors.lightModeBlue.100}', _dark: '{colors.darkModeBlue.100}' },
       },
       focused: {
-        value: { base: '{colors.blue.500}', _dark: '{colors.blue.500}' },
-      },
-      warning: {
-        value: { base: '{colors.yellow.100}', _dark: '{colors.yellow.100}' },
+        value: { base: '{colors.lightModeBlue.500}', _dark: '{colors.darkModeBlue.500}' },
       },
       'notification-text': {
-        value: { base: '{colors.lightModeBrown.12}', _dark: '{colors.darkModeBrown.1}' },
+        value: { base: '{colors.lightModeBrown.12}', _dark: '{colors.darkModeBrown.12}' },
       },
     },
+    warning: {
+      value: { base: '{colors.lightModeYellow.100}', _dark: '{colors.darkModeYellow.100}' },
+    },
     error: {
-      value: { base: '{colors.red.600}', _dark: '{colors.red.600}' },
+      value: { base: '{colors.lightModeRed.600}', _dark: '{colors.darkModeRed.600}' },
     },
   },
 });
