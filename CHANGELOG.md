@@ -1,3 +1,10 @@
+## [6.15.1](https://github.com/leather-wallet/extension/compare/v6.15.0...v6.15.1) (2023-11-04)
+
+
+### Bug Fixes
+
+* **ledger:** stacks contract call signing, closes [#4478](https://github.com/leather-wallet/extension/issues/4478) ([e7b2b6a](https://github.com/leather-wallet/extension/commit/e7b2b6a07e1f85280508a9269853b2c404d6dd83))
+
 ## [6.15.0](https://github.com/leather-wallet/extension/compare/v6.14.0...v6.15.0) (2023-11-02)
 
 
