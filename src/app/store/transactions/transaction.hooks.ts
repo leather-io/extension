@@ -95,7 +95,7 @@ export function useUnsignedPrepareTransactionDetails(values: StacksTransactionFo
   return useMemo(() => unsignedStacksTransaction, [unsignedStacksTransaction]);
 }
 
-function useStacksTransactionBroadcast() {
+export function useStacksTransactionBroadcast() {
   const submittedTransactionsActions = useSubmittedTransactionsActions();
   const { tabId } = useDefaultRequestParams();
   const requestToken = useTransactionRequest();
@@ -130,39 +130,6 @@ function useStacksTransactionBroadcast() {
     } catch (error) {
       return Promise.reject(error);
     }
-  };
-}
-
-export function useSoftwareWalletTransactionRequestBroadcast() {
-  const { data: nextNonce } = useNextNonce();
-  const signSoftwareWalletTx = useSignTransactionSoftwareWallet();
-  const stacksTxBaseState = useUnsignedStacksTransactionBaseState();
-  const { tabId } = useDefaultRequestParams();
-  const requestToken = useTransactionRequest();
-  const account = useCurrentStacksAccount();
-  const txBroadcast = useStacksTransactionBroadcast();
-
-  return async (values: StacksTransactionFormValues) => {
-    if (!stacksTxBaseState) return;
-    const { options } = stacksTxBaseState as any;
-    const unsignedStacksTransaction = await generateUnsignedTransaction({
-      ...options,
-      fee: stxToMicroStx(values.fee).toNumber(),
-      nonce: Number(values.nonce) ?? nextNonce?.nonce,
-    });
-
-    if (!account || !requestToken || !unsignedStacksTransaction) {
-      return { error: { message: 'No pending transaction' } };
-    }
-
-    if (!tabId) throw new Error('tabId not defined');
-
-    const signedTx = signSoftwareWalletTx(unsignedStacksTransaction);
-    if (!signedTx) {
-      logger.error('Cannot sign transaction, no account in state');
-      return;
-    }
-    return txBroadcast({ signedTx });
   };
 }
 
