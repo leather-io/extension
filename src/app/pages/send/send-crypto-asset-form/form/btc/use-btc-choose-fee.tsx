@@ -24,7 +24,6 @@ export function useBtcChooseFee() {
   const generateTx = useGenerateSignedNativeSegwitTx();
   const { setSelectedFeeType } = useSendBitcoinAssetContextState();
   const calcMaxSpend = useCalculateMaxBitcoinSpend();
-  // const signLedger = useSignNativeSegwitLedgerTx();
   const signTx = useSignBitcoinTx();
   const amountAsMoney = createMoney(btcToSat(txValues.amount).toNumber(), 'BTC');
 

@@ -1,11 +1,8 @@
 import { useEffect, useState } from 'react';
-import toast from 'react-hot-toast';
-import { Outlet, Route, useLocation, useNavigate } from 'react-router-dom';
+import { Outlet, Route, useLocation } from 'react-router-dom';
 
-import { bytesToHex } from '@noble/hashes/utils';
 import * as btc from '@scure/btc-signer';
 import { hexToBytes } from '@stacks/common';
-import { Psbt } from 'bitcoinjs-lib';
 import get from 'lodash.get';
 
 import { RouteUrls } from '@shared/route-urls';
@@ -19,8 +16,6 @@ import {
   LedgerTxSigningProvider,
 } from '@app/features/ledger/generic-flows/tx-signing/ledger-sign-tx.context';
 import { useActionCancellableByUser } from '@app/features/ledger/utils/stacks-ledger-utils';
-import { useSendFormNavigate } from '@app/pages/send/send-crypto-asset-form/hooks/use-send-form-navigate';
-import { useBitcoinBroadcastTransaction } from '@app/query/bitcoin/transaction/use-bitcoin-broadcast-transaction';
 import { useSignLedgerTx } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
 
 import { ConnectLedgerSignTx } from '../../generic-flows/tx-signing/steps/connect-ledger-sign-tx';
@@ -64,12 +59,10 @@ export function LedgerSignBitcoinTxContainer() {
   const ledgerAnalytics = useLedgerAnalytics();
   useScrollLock(true);
 
-  const navigate = useNavigate();
   const canUserCancelAction = useActionCancellableByUser();
   const [unsignedTransactionRaw, setUnsignedTransactionRaw] = useState<null | string>(null);
   const [unsignedTransaction, setUnsignedTransaction] = useState<null | btc.Transaction>(null);
   const signLedger = useSignLedgerTx();
-  const sendFormNavigate = useSendFormNavigate();
 
   useEffect(() => {
     const tx = get(location.state, 'tx');
@@ -104,7 +97,6 @@ export function LedgerSignBitcoinTxContainer() {
     try {
       const btcTx = await signLedger(bitcoinApp, unsignedTransaction.toPSBT());
       if (!btcTx || !unsignedTransactionRaw) throw new Error('No tx returned');
-      console.log('response from ledger', { resp: btcTx });
       ledgerNavigate.toAwaitingDeviceOperation({ hasApprovedOperation: true });
       await delay(1000);
 

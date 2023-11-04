@@ -10,7 +10,6 @@ import AppClient from 'ledger-bitcoin';
 import { getBitcoinJsLibNetworkConfigByMode } from '@shared/crypto/bitcoin/bitcoin.network';
 import {
   deriveAddressIndexZeroFromAccount,
-  ecdsaPublicKeyToSchnorr,
   getInputPaymentType,
   lookUpLedgerKeysByPath,
 } from '@shared/crypto/bitcoin/bitcoin.utils';
@@ -43,7 +42,7 @@ import {
   bitcoinAddressIndexSignerFactory,
   useMakeBitcoinNetworkSignersForPaymentType,
 } from './bitcoin-signer';
-import { useCurrentAccountTaprootIndexZeroSigner } from './taproot-account.hooks';
+import { useUpdateLedgerSpecificTaprootInputPropsForAdddressIndexZero } from './taproot-account.hooks';
 
 const selectNativeSegwitAccountBuilder = bitcoinAccountBuilderFactory(
   deriveNativeSegwitAccountFromRootKeychain,
@@ -135,28 +134,6 @@ export function getNativeSegwitMainnetAddressFromMnemonic(secretKey: string) {
       deriveAddressIndexZeroFromAccount(account.keychain),
       'mainnet'
     );
-  };
-}
-
-export function useUpdateLedgerSpecificTaprootInputPropsForAdddressIndexZero() {
-  const taprootSigner = useCurrentAccountTaprootIndexZeroSigner();
-
-  return async (tx: Psbt, fingerprint: string, inputsToUpdate: number[] = []) => {
-    const inputsToSign =
-      inputsToUpdate.length > 0 ? inputsToUpdate : makeNumberRange(tx.inputCount);
-
-    inputsToSign.forEach(inputIndex => {
-      tx.updateInput(inputIndex, {
-        tapBip32Derivation: [
-          {
-            masterFingerprint: Buffer.from(fingerprint, 'hex'),
-            pubkey: Buffer.from(ecdsaPublicKeyToSchnorr(taprootSigner.publicKey)),
-            path: taprootSigner.derivationPath,
-            leafHashes: [],
-          },
-        ],
-      });
-    });
   };
 }
 

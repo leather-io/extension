@@ -6,17 +6,16 @@ import * as yup from 'yup';
 import { logger } from '@shared/logger';
 import { OrdinalSendFormValues } from '@shared/models/form.model';
 import { RouteUrls } from '@shared/route-urls';
-import { noop } from '@shared/utils';
 
 import { FormErrorMessages } from '@app/common/error-messages';
 import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
 import { formFeeRowValue } from '@app/common/send/utils';
-import { useWalletType } from '@app/common/use-wallet-type';
 import {
   btcAddressNetworkValidator,
   btcAddressValidator,
 } from '@app/common/validation/forms/address-validators';
 import { useNumberOfInscriptionsOnUtxo } from '@app/query/bitcoin/ordinals/inscriptions.hooks';
+import { useSignBitcoinTx } from '@app/store/accounts/blockchain/bitcoin/bitcoin.hooks';
 import { useCurrentNetwork } from '@app/store/networks/networks.selectors';
 
 import { useSendInscriptionState } from '../components/send-inscription-container';
@@ -28,7 +27,7 @@ export function useSendInscriptionForm() {
   const [isCheckingFees, setIsCheckingFees] = useState(false);
   const analytics = useAnalytics();
   const navigate = useNavigate();
-  const { whenWallet } = useWalletType();
+  const sign = useSignBitcoinTx();
   const { inscription, utxo } = useSendInscriptionState();
   const currentNetwork = useCurrentNetwork();
 
@@ -75,16 +74,10 @@ export function useSendInscriptionForm() {
         setIsCheckingFees(false);
       }
 
-      whenWallet({
-        software: () =>
-          navigate(
-            `/${RouteUrls.SendOrdinalInscription}/${RouteUrls.SendOrdinalInscriptionChooseFee}`,
-            {
-              state: { inscription, recipient: values.recipient, utxo },
-            }
-          ),
-        ledger: noop,
-      })();
+      navigate(
+        `/${RouteUrls.SendOrdinalInscription}/${RouteUrls.SendOrdinalInscriptionChooseFee}`,
+        { state: { inscription, recipient: values.recipient, utxo } }
+      );
     },
 
     async reviewTransaction(
@@ -101,22 +94,22 @@ export function useSendInscriptionForm() {
         return;
       }
 
-      const { hex } = resp;
+      const { hex: unsignedTransaction } = resp;
+
+      const signedTx = await sign(unsignedTransaction);
+
       const feeRowValue = formFeeRowValue(values.feeRate, isCustomFee);
-      return navigate(
-        `/${RouteUrls.SendOrdinalInscription}/${RouteUrls.SendOrdinalInscriptionReview}`,
-        {
-          state: {
-            fee: feeValue,
-            inscription,
-            utxo,
-            recipient: values.recipient,
-            time,
-            feeRowValue,
-            tx: hex,
-          },
-        }
-      );
+      navigate(`/${RouteUrls.SendOrdinalInscription}/${RouteUrls.SendOrdinalInscriptionReview}`, {
+        state: {
+          fee: feeValue,
+          inscription,
+          utxo,
+          recipient: values.recipient,
+          time,
+          feeRowValue,
+          tx: hex,
+        },
+      });
     },
 
     validationSchema: yup.object({

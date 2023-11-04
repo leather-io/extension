@@ -49,7 +49,7 @@ function useBtcSendFormConfirmationState() {
 export function BtcSendFormConfirmation() {
   const navigate = useNavigate();
   const { tx, recipient, fee, arrivesIn, feeRowValue } = useBtcSendFormConfirmationState();
-  console.log({ tx });
+
   const { refetch } = useCurrentNativeSegwitUtxos();
   const analytics = useAnalytics();
 
@@ -57,8 +57,6 @@ export function BtcSendFormConfirmation() {
   const { broadcastTx, isBroadcasting } = useBitcoinBroadcastTransaction();
 
   const transaction = btc.Transaction.fromRaw(hexToBytes(tx));
-
-  // const psbt = Psbt.fromHex(transaction.toPSBT());
 
   const decodedTx = decodeBitcoinTx(transaction.hex);
 

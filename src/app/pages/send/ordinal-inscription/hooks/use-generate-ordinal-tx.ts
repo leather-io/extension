@@ -49,6 +49,8 @@ export function useGenerateUnsignedOrdinalTx(trInput: TaprootUtxo) {
       feeRate: values.feeRate,
     });
 
+    console.log('result', result);
+
     if (!result.success) return null;
 
     const { inputs, outputs } = result;
@@ -99,17 +101,6 @@ export function useGenerateUnsignedOrdinalTx(trInput: TaprootUtxo) {
 
       // Recipient and change outputs
       outputs.forEach(output => tx.addOutputAddress(output.address, output.value, networkMode));
-
-      // We know the first is TR and the rest are native segwit
-      // for (let i = 0; i < tx.inputsLength; i++) {
-      //   if (i === 0) {
-      //     trSigner.signIndex(tx, i);
-      //     continue;
-      //   }
-      //   nativeSegwitSigner.signIndex(tx, i);
-      // }
-
-      // tx.finalize();
 
       tx.toPSBT();
 
@@ -163,9 +154,6 @@ export function useGenerateUnsignedOrdinalTx(trInput: TaprootUtxo) {
         }
         tx.addOutputAddress(values.recipient, BigInt(output.value), networkMode);
       });
-
-      nativeSegwitSigner.sign(tx);
-      tx.finalize();
 
       return { hex: tx.hex };
     } catch (e) {
