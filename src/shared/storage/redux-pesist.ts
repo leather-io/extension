@@ -135,7 +135,7 @@ async function migrateToRenameKeysStoreModule(state: Promise<any>) {
   };
 
   // add stacks ledger keys to new place
-  if (resolvedState.keys?.entities.default.type === 'ledger') {
+  if (resolvedState.keys?.entities.default?.type === 'ledger') {
     newStore.ledger = {
       ...resolvedState.ledger,
       stacks: processStacksLedgerKeys(resolvedState.keys),
