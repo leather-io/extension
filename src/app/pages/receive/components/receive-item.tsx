@@ -1,6 +1,6 @@
-import { truncateMiddle } from '@stacks/ui-utils';
 import { Flex, HStack, Stack, styled } from 'leather-styles/jsx';
 
+import { truncateMiddle } from '@app/common/utils/stacks-ui/truncateMiddle';
 import { LeatherButton } from '@app/components/button/button';
 import { CopyIcon } from '@app/components/icons/copy-icon';
 import { QrCodeIcon } from '@app/components/icons/qr-code-icon';

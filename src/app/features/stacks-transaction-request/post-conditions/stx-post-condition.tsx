@@ -1,7 +1,7 @@
 import { TransactionTypes } from '@stacks/connect';
-import { truncateMiddle } from '@stacks/ui-utils';
 
 import { stacksValue } from '@app/common/stacks-utils';
+import { truncateMiddle } from '@app/common/utils/stacks-ui/truncateMiddle';
 import { EventCard } from '@app/components/event-card';
 import { useTransactionRequestState } from '@app/store/transactions/requests.hooks';
 
