@@ -80,21 +80,21 @@ export function LedgerSignBitcoinTxContainer() {
   const [awaitingDeviceConnection, setAwaitingDeviceConnection] = useState(false);
 
   const signTransaction = async () => {
-    const bitcoinApp = await connectLedgerBitcoinApp();
-
-    const versionInfo = await getBitcoinAppVersion(bitcoinApp);
-    ledgerAnalytics.trackDeviceVersionInfo(versionInfo);
-    setLatestDeviceResponse(versionInfo as any);
-
-    ledgerNavigate.toDeviceBusyStep('Verifying public key on Ledger…');
-
-    ledgerNavigate.toConnectionSuccessStep('bitcoin');
-    await delay(1000);
-    if (!unsignedTransaction) throw new Error('No unsigned tx');
-
-    ledgerNavigate.toAwaitingDeviceOperation({ hasApprovedOperation: false });
-
     try {
+      const bitcoinApp = await connectLedgerBitcoinApp();
+
+      const versionInfo = await getBitcoinAppVersion(bitcoinApp);
+      ledgerAnalytics.trackDeviceVersionInfo(versionInfo);
+      setLatestDeviceResponse(versionInfo as any);
+
+      ledgerNavigate.toDeviceBusyStep('Verifying public key on Ledger…');
+
+      ledgerNavigate.toConnectionSuccessStep('bitcoin');
+      await delay(1000);
+      if (!unsignedTransaction) throw new Error('No unsigned tx');
+
+      ledgerNavigate.toAwaitingDeviceOperation({ hasApprovedOperation: false });
+
       const btcTx = await signLedger(bitcoinApp, unsignedTransaction.toPSBT());
       if (!btcTx || !unsignedTransactionRaw) throw new Error('No tx returned');
       ledgerNavigate.toAwaitingDeviceOperation({ hasApprovedOperation: true });

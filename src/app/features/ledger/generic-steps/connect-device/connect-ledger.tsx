@@ -49,14 +49,16 @@ export function ConnectLedger(props: ConnectLedgerProps) {
     return chain === 'stacks' || !!connectStacks;
   }, [chain, connectStacks]);
 
-  const instructions = useMemo(
-    () => [
+  const instructions = useMemo(() => {
+    const showBothBtns = showBitcoinConnectButton && showStacksConnectButton;
+    return [
       '1. Connect & unlock your Ledger',
-      `2. Open${showBitcoinConnectButton ? ' Bitcoin or' : ''} Stacks app`,
+      `2. Open${showBitcoinConnectButton ? ' Bitcoin' : ''} ${showBothBtns ? 'or' : ''} ${
+        showStacksConnectButton ? 'Stacks' : ''
+      } app`,
       '3. Click the button below',
-    ],
-    [showBitcoinConnectButton]
-  );
+    ];
+  }, [showBitcoinConnectButton, showStacksConnectButton]);
 
   return (
     <LedgerWrapper>

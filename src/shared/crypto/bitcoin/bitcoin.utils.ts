@@ -149,7 +149,7 @@ function inferPaymentTypeFromPath(path: string): PaymentTypes {
   throw new Error(`Unable to infer payment type from path=${path}`);
 }
 
-function inferNetworkFromPath(path: string): NetworkModes {
+export function inferNetworkFromPath(path: string): NetworkModes {
   return path.split('/')[2].startsWith('0') ? 'mainnet' : 'testnet';
 }
 
