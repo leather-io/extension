@@ -1,13 +1,13 @@
 import { FiTrash2 } from 'react-icons/fi';
 
-import { Box, BoxProps, Button, Flex, Stack } from '@stacks/ui';
 import { SettingsSelectors } from '@tests/selectors/settings.selectors';
+import { Box, BoxProps, Flex, Stack } from 'leather-styles/jsx';
 import { styled } from 'leather-styles/jsx';
-import { token } from 'leather-styles/tokens';
 
 import { NetworkConfiguration } from '@shared/constants';
 
 import { getUrlHostname } from '@app/common/utils';
+import { LeatherButton } from '@app/components/button/button';
 
 import { NetworkStatusIndicator } from './network-status-indicator';
 
@@ -20,18 +20,17 @@ interface NetworkListItemLayoutProps extends BoxProps {
   onSelectNetwork(): void;
   onRemoveNetwork(id: string): void;
 }
-export function NetworkListItemLayout(props: NetworkListItemLayoutProps) {
-  const {
-    networkId,
-    isOnline,
-    isActive,
-    network,
-    isCustom,
-    onRemoveNetwork,
-    onSelectNetwork,
-    ...rest
-  } = props;
 
+// got rid of ...rest here as we never pass anything extra
+export function NetworkListItemLayout({
+  networkId,
+  isOnline,
+  isActive,
+  network,
+  isCustom,
+  onRemoveNetwork,
+  onSelectNetwork,
+}: NetworkListItemLayoutProps) {
   return (
     <Box
       width="100%"
@@ -40,27 +39,26 @@ export function NetworkListItemLayout(props: NetworkListItemLayoutProps) {
         !isOnline || isActive
           ? undefined
           : {
-              backgroundColor: token('colors.brown.2'),
+              backgroundColor: 'colors.brown.2', // check this
             }
       }
       px="loose"
-      py="base"
+      py="space.04"
       onClick={!isOnline || isActive ? undefined : onSelectNetwork}
       cursor={!isOnline ? 'not-allowed' : isActive ? 'default' : 'pointer'}
       opacity={!isOnline ? 0.5 : 1}
       data-testid={SettingsSelectors.NetworkListItem}
-      {...rest}
     >
       <Flex>
         <Flex
           width="100%"
-          as="button"
+          // as="button" // FIXME - need to sort out all these Flex as button stuff
           justifyContent="space-between"
           alignItems="center"
-          disabled={!isOnline}
+          // disabled={!isOnline} " // FIXME - need to sort out all these Flex as button stuff
           data-testid={network.id}
         >
-          <Stack alignItems="flex-start" flex={1} spacing="tight">
+          <Stack alignItems="flex-start" flex={1} gap="space.02">
             <styled.span mb="space.01" textStyle="label.01">
               {network.name}
             </styled.span>
@@ -71,17 +69,18 @@ export function NetworkListItemLayout(props: NetworkListItemLayoutProps) {
           <NetworkStatusIndicator isActive={isActive} isOnline={isOnline} />
         </Flex>
         {isCustom && (
-          <Button
+          <LeatherButton
             type="button"
-            mode="tertiary"
-            ml="base"
-            onClick={e => {
+            variant="ghost"
+            // mode="tertiary" // TODO - need to check this works and looks OK
+            ml="space.04"
+            onClick={(e: React.MouseEvent<HTMLElement>) => {
               e.stopPropagation();
               onRemoveNetwork(network.id);
             }}
           >
             <FiTrash2 size="14px" />
-          </Button>
+          </LeatherButton>
         )}
       </Flex>
     </Box>

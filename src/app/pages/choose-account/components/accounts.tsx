@@ -3,8 +3,7 @@ import { FiPlusCircle } from 'react-icons/fi';
 import { useNavigate } from 'react-router-dom';
 import { Virtuoso } from 'react-virtuoso';
 
-import { Box, BoxProps, FlexProps, Stack, Text } from '@stacks/ui';
-import { styled } from 'leather-styles/jsx';
+import { Box, FlexProps, HStack, styled } from 'leather-styles/jsx';
 
 import { RouteUrls } from '@shared/route-urls';
 
@@ -18,32 +17,35 @@ import { AccountTotalBalance } from '@app/components/account-total-balance';
 import { AccountAvatar } from '@app/components/account/account-avatar/account-avatar';
 import { AccountListItemLayout } from '@app/components/account/account-list-item-layout';
 import { usePressable } from '@app/components/item-hover';
-import { Title } from '@app/components/typography';
 import { useNativeSegwitAccountIndexAddressIndexZero } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
 import { useStacksAccounts } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
 import { StacksAccount } from '@app/store/accounts/blockchain/stacks/stacks-account.models';
 
-const loadingProps = { color: '#A1A7B3' };
-const getLoadingProps = (loading: boolean) => (loading ? loadingProps : {});
+// I re-wrote this as it was way over complicated but not sure if its needed
+// - changes color based on whether its loading or not
+// const loadingProps = { color: '#A1A7B3' };
+// const getLoadingProps = (loading: boolean) => (loading ? loadingProps : {});
 
-interface AccountTitlePlaceholderProps extends BoxProps {
+interface AccountTitlePlaceholderProps {
   account: StacksAccount;
+  loading?: boolean;
 }
-function AccountTitlePlaceholder({ account, ...rest }: AccountTitlePlaceholderProps) {
+function AccountTitlePlaceholder({ account, loading }: AccountTitlePlaceholderProps) {
   const name = `Account ${account?.index + 1}`;
-  return (
-    <Title fontSize={2} lineHeight="1rem" fontWeight="400" {...rest}>
-      {name}
-    </Title>
-  );
+  return <styled.span color={loading ? '#A1A7B3' : undefined}>{name}</styled.span>;
 }
 
 interface AccountTitleProps {
   account: StacksAccount;
   name: string;
+  loading?: boolean;
 }
-function AccountTitle({ name }: AccountTitleProps) {
-  return <styled.span textStyle="label.01">{name}</styled.span>;
+function AccountTitle({ name, loading }: AccountTitleProps) {
+  return (
+    <styled.span textStyle="label.01" color={loading ? '#A1A7B3' : undefined}>
+      {name}
+    </styled.span>
+  );
 }
 
 interface ChooseAccountItemProps extends FlexProps {
@@ -66,17 +68,15 @@ const ChooseAccountItem = memo(
     return (
       // Padding required on outer element to prevent jumpy list behaviours in
       // virtualised list library
-      <Box pb="loose">
+      <Box pb="space.05">
         <AccountListItemLayout
           index={account.index}
           isActive={false}
           accountName={
             <Suspense
-              fallback={
-                <AccountTitlePlaceholder {...getLoadingProps(showLoadingProps)} account={account} />
-              }
+              fallback={<AccountTitlePlaceholder account={account} loading={showLoadingProps} />}
             >
-              <AccountTitle name={name} {...getLoadingProps(showLoadingProps)} account={account} />
+              <AccountTitle name={name} account={account} loading={showLoadingProps} />
             </Suspense>
           }
           avatar={
@@ -110,12 +110,13 @@ const AddAccountAction = memo(() => {
     createAccount();
   };
 
+  // TODO - check this in the UI - text color - icon etc.
   return (
-    <Box mb="loose" px="base-tight" py="tight" onClick={onCreateAccount} {...bind}>
-      <Stack isInline alignItems="center">
-        <Box size="16px" as={FiPlusCircle} />
-        <Text color="currentColor">Generate new account</Text>
-      </Stack>
+    <Box mb="space.05" px="space.03" py="space.02" onClick={onCreateAccount} {...bind}>
+      <HStack alignItems="center">
+        <FiPlusCircle width="16px" height="16px" />
+        Generate new account
+      </HStack>
       {component}
     </Box>
   );
@@ -143,7 +144,7 @@ export const ChooseAccountsList = memo(() => {
   if (!accounts) return null;
 
   return (
-    <Box mt="loose" width="100%">
+    <Box mt="space.05" width="100%">
       {whenWallet({ software: <AddAccountAction />, ledger: <></> })}
       <Virtuoso
         useWindowScroll

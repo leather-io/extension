@@ -43,7 +43,7 @@ export function StructuredDataBox(props: {
       <Stack
         border="4px solid"
         paddingBottom="space.02"
-        borderColor={color('border')}
+        borderColor={color('border')} // 4383 FIXME colours -
         borderRadius="20px"
         backgroundColor={color('border')}
       >
