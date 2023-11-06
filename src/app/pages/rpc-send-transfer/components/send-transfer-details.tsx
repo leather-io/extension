@@ -1,6 +1,6 @@
 import { HStack, Stack, styled } from 'leather-styles/jsx';
 
-import { truncateMiddle } from '@app/common/utils/stacks-ui/truncateMiddle';
+import { truncateMiddle } from '@app/common/utils/stacks-ui/ui/truncateMiddle';
 
 interface SendTransferDetailsProps {
   address: string;

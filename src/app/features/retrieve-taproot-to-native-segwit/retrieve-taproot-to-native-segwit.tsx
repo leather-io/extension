@@ -8,7 +8,7 @@ import { RouteUrls } from '@shared/route-urls';
 import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
 import { formatMoneyPadded } from '@app/common/money/format-money';
 import { delay } from '@app/common/utils';
-import { truncateMiddle } from '@app/common/utils/stacks-ui/truncateMiddle';
+import { truncateMiddle } from '@app/common/utils/stacks-ui/ui/truncateMiddle';
 import { FormAddressDisplayer } from '@app/components/address-displayer/form-address-displayer';
 import { ExternalLink } from '@app/components/external-link';
 import { InfoCard, InfoCardRow, InfoCardSeparator } from '@app/components/info-card/info-card';

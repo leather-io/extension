@@ -1,5 +1,6 @@
-import { DynamicColorCircle } from '@stacks/ui';
-import { BoxProps } from '@stacks/ui-core';
+import { BoxProps } from 'leather-styles/jsx';
+
+import { DynamicColorCircle } from '@app/common/utils/stacks-ui/ui/dynamic-color-circle';
 
 import { StacksUnanchoredStatusIcon } from './stacks-unanchored-status-icon';
 import { StxAvatar } from './stx-avatar';
@@ -9,6 +10,7 @@ interface StacksAssetAvatarProps extends BoxProps {
   imageCanonicalUri?: string;
   isStx?: boolean;
   isUnanchored?: boolean;
+  size: number;
 }
 export function StacksAssetAvatar({
   children,

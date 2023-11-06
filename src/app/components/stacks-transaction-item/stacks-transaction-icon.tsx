@@ -1,15 +1,14 @@
 import { FiAlertOctagon, FiList } from 'react-icons/fi';
 
-import { BoxProps, DynamicColorCircle } from '@stacks/ui';
-
 import { StacksTx } from '@shared/models/transactions/stacks-transaction.model';
 
+import { DynamicColorCircle } from '@app/common/utils/stacks-ui/ui/dynamic-color-circle';
 import { StxIcon } from '@app/components/icons/stx-icon';
 
 import { TransactionIconWrapper } from '../transaction/transaction-icon-wrapper';
 import { TransactionTypeIcon } from '../transaction/transaction-type-icon';
 
-interface TransactionIconProps extends BoxProps {
+interface TransactionIconProps {
   transaction: StacksTx;
 }
 export function StacksTransactionIcon({ transaction, ...rest }: TransactionIconProps) {

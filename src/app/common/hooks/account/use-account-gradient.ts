@@ -1,7 +1,13 @@
 import { useMemo } from 'react';
 
-import { generateHash, hashValue, moduloRange, stringToHslColor } from '@stacks/ui-utils';
 import chroma from 'chroma-js';
+
+import {
+  generateHash,
+  hashValue,
+  moduloRange,
+  stringToHslColor,
+} from '@app/common/utils/stacks-ui/ui/colors';
 
 function generateGradientType(string: string) {
   const gradientType = `${hashValue(string, ['linear', 'radial'])}-gradient`;

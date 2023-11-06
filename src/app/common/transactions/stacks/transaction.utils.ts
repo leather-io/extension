@@ -19,8 +19,8 @@ import { BigNumber } from 'bignumber.js';
 import { StacksTx, StacksTxStatus } from '@shared/models/transactions/stacks-transaction.model';
 
 import { stacksValue } from '@app/common/stacks-utils';
-import { getContractName } from '@app/common/utils/stacks-ui/getContractName';
-import { truncateMiddle } from '@app/common/utils/stacks-ui/truncateMiddle';
+import { getContractName } from '@app/common/utils/stacks-ui/ui/getContractName';
+import { truncateMiddle } from '@app/common/utils/stacks-ui/ui/truncateMiddle';
 
 export const statusFromTx = (tx: StacksTx): StacksTxStatus => {
   const { tx_status } = tx;

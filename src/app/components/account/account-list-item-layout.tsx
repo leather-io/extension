@@ -4,7 +4,7 @@ import { Flex, HStack, Stack, StackProps, styled } from 'leather-styles/jsx';
 import { token } from 'leather-styles/tokens';
 
 import { useViewportMinWidth } from '@app/common/hooks/use-media-query';
-import { truncateMiddle } from '@app/common/utils/stacks-ui/truncateMiddle';
+import { truncateMiddle } from '@app/common/utils/stacks-ui/ui/truncateMiddle';
 
 import { CaptionDotSeparator } from '../caption-dot-separator';
 import { CheckmarkIcon } from '../icons/checkmark-icon';

@@ -1,6 +1,8 @@
-import { Box, BoxProps, Circle, color } from '@stacks/ui';
+import { BoxProps, Circle } from 'leather-styles/jsx';
 
 import { StacksTx } from '@shared/models/transactions/stacks-transaction.model';
+
+import { color } from '@app/common/utils/stacks-ui/ui/colors';
 
 import { TransactionTypeIcon } from './transaction-type-icon';
 
@@ -22,7 +24,8 @@ export function TransactionIconWrapper({
       size="36px"
       {...rest}
     >
-      <Box as={Icon} />
+      {/* // 4383 FIXME need to test this is working then refactor */}
+      <Icon />
       <TransactionTypeIcon transaction={transaction} />
     </Circle>
   );

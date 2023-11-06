@@ -1,6 +1,9 @@
-import { Text as BaseText, BoxProps, color } from '@stacks/ui';
-import { forwardRefWithAs } from '@stacks/ui-core';
+//  TODO - try banish this file
+import { Text as BaseText, BoxProps } from '@stacks/ui';
 import { BoxProps as LeatherBoxProps, styled } from 'leather-styles/jsx';
+
+import { forwardRefWithAs } from '@app/common/utils/stacks-ui/core/forwardRefWithAs';
+import { color } from '@app/common/utils/stacks-ui/ui/colors';
 
 const interMetrics = {
   capHeight: 2048,

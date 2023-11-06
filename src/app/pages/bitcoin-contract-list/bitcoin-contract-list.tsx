@@ -5,7 +5,7 @@ import { Flex } from 'leather-styles/jsx';
 import { useBitcoinContracts } from '@app/common/hooks/use-bitcoin-contracts';
 import { BitcoinContractListItem } from '@app/common/hooks/use-bitcoin-contracts';
 import { useOnMount } from '@app/common/hooks/use-on-mount';
-import { truncateMiddle } from '@app/common/utils/stacks-ui/truncateMiddle';
+import { truncateMiddle } from '@app/common/utils/stacks-ui/ui/truncateMiddle';
 import { FullPageLoadingSpinner } from '@app/components/loading-spinner';
 import { Text } from '@app/components/typography';
 

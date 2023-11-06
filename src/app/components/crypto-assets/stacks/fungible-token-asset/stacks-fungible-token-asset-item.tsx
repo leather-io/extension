@@ -1,5 +1,3 @@
-import { forwardRefWithAs } from '@stacks/ui-core';
-import { getAssetName } from '@stacks/ui-utils';
 import { CryptoAssetSelectors } from '@tests/selectors/crypto-asset.selectors';
 import { BoxProps } from 'leather-styles/jsx';
 
@@ -9,6 +7,8 @@ import { Money } from '@shared/models/money.model';
 import { getImageCanonicalUri } from '@app/common/crypto-assets/stacks-crypto-asset.utils';
 import { formatContractId, getTicker } from '@app/common/utils';
 import { spamFilter } from '@app/common/utils/spam-filter';
+import { forwardRefWithAs } from '@app/common/utils/stacks-ui/core/forwardRefWithAs';
+import { getAssetName } from '@app/common/utils/stacks-ui/ui/getAssetName';
 
 import { StacksFungibleTokenAssetItemLayout } from './stacks-fungible-token-asset-item.layout';
 

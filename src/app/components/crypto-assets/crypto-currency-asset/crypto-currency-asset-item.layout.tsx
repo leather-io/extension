@@ -1,5 +1,4 @@
 import { Flex } from '@stacks/ui';
-import { forwardRefWithAs } from '@stacks/ui-core';
 import { CryptoAssetSelectors } from '@tests/selectors/crypto-asset.selectors';
 import { styled } from 'leather-styles/jsx';
 
@@ -8,7 +7,8 @@ import { Money } from '@shared/models/money.model';
 
 import { formatBalance } from '@app/common/format-balance';
 import { ftDecimals } from '@app/common/stacks-utils';
-import { truncateMiddle } from '@app/common/utils/stacks-ui/truncateMiddle';
+import { forwardRefWithAs } from '@app/common/utils/stacks-ui/core/forwardRefWithAs';
+import { truncateMiddle } from '@app/common/utils/stacks-ui/ui/truncateMiddle';
 import { usePressable } from '@app/components/item-hover';
 import { Flag } from '@app/components/layout/flag';
 import { Tooltip } from '@app/components/tooltip';

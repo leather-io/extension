@@ -11,7 +11,7 @@ import {
   getPostConditionTitle,
   getSymbolFromPostCondition,
 } from '@app/common/transactions/stacks/post-condition.utils';
-import { truncateMiddle } from '@app/common/utils/stacks-ui/truncateMiddle';
+import { truncateMiddle } from '@app/common/utils/stacks-ui/ui/truncateMiddle';
 import { EventCard } from '@app/components/event-card';
 import { LoadingSpinner } from '@app/components/loading-spinner';
 import { useCurrentStacksAccount } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';

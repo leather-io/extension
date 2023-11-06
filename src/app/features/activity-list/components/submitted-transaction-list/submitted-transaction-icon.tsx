@@ -1,9 +1,10 @@
 import { PayloadType, StacksTransaction, addressToString } from '@stacks/transactions';
-import { BoxProps, DynamicColorCircle } from '@stacks/ui';
+import { BoxProps } from 'leather-styles/jsx';
 
 import { StacksTx } from '@shared/models/transactions/stacks-transaction.model';
 
 import { getTxSenderAddress } from '@app/common/transactions/stacks/transaction.utils';
+import { DynamicColorCircle } from '@app/common/utils/stacks-ui/ui/dynamic-color-circle';
 import { StxIcon } from '@app/components/icons/stx-icon';
 import { TransactionIconWrapper } from '@app/components/transaction/transaction-icon-wrapper';
 import { TransactionTypeIcon } from '@app/components/transaction/transaction-type-icon';

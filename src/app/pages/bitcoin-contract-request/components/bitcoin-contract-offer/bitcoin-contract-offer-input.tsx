@@ -5,7 +5,7 @@ import { createMoneyFromDecimal } from '@shared/models/money.model';
 import { SimplifiedBitcoinContract } from '@app/common/hooks/use-bitcoin-contracts';
 import { formatMoney, i18nFormatCurrency } from '@app/common/money/format-money';
 import { satToBtc } from '@app/common/money/unit-conversion';
-import { truncateMiddle } from '@app/common/utils/stacks-ui/truncateMiddle';
+import { truncateMiddle } from '@app/common/utils/stacks-ui/ui/truncateMiddle';
 import { useCalculateBitcoinFiatValue } from '@app/query/common/market-data/market-data.hooks';
 
 import { BitcoinContractLockAmount } from './bitcoin-contract-lock-amount';

@@ -1,8 +1,9 @@
 import { FiAlertCircle } from 'react-icons/fi';
 
-// FIXME figure out what bg-4 was
-import { color } from '@stacks/ui';
 import { HStack, Stack } from 'leather-styles/jsx';
+
+// FIXME figure out what bg-4 was
+import { color } from '@app/common/utils/stacks-ui/ui/colors';
 
 export function SponsoredLabel(): React.JSX.Element {
   return (

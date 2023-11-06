@@ -1,6 +1,6 @@
 import { formatMoney, i18nFormatCurrency } from '@app/common/money/format-money';
 import { removeMinusSign } from '@app/common/utils';
-import { truncateMiddle } from '@app/common/utils/stacks-ui/truncateMiddle';
+import { truncateMiddle } from '@app/common/utils/stacks-ui/ui/truncateMiddle';
 import { usePsbtSignerContext } from '@app/features/psbt-signer/psbt-signer.context';
 import { useCalculateBitcoinFiatValue } from '@app/query/common/market-data/market-data.hooks';
 

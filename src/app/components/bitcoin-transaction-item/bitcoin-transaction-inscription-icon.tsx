@@ -1,10 +1,15 @@
-import { Box, Circle, Flex, color } from '@stacks/ui';
+import { FiArrowDown as IconArrowDown, FiArrowUp as IconArrowUp } from 'react-icons/fi';
+
+import { Circle, Flex } from 'leather-styles/jsx';
 
 import { SupportedInscription } from '@shared/models/inscription.model';
 import { BitcoinTx } from '@shared/models/transactions/bitcoin-transaction.model';
 
+import { isBitcoinTxInbound } from '@app/common/transactions/bitcoin/utils';
+import { color } from '@app/common/utils/stacks-ui/ui/colors';
+
 import { OrdinalIcon } from '../icons/ordinal-icon';
-import { IconForTx, colorFromTx } from './utils';
+import { colorFromTx } from './utils';
 
 interface BitcoinTransactionInscriptionIconProps {
   inscription: SupportedInscription;
@@ -61,7 +66,7 @@ export function BitcoinTransactionInscriptionIcon({
         borderColor={color('bg')}
         {...rest}
       >
-        <Box size="13px" as={IconForTx(btcAddress, transaction)} />
+        {isBitcoinTxInbound(btcAddress, transaction) ? <IconArrowDown /> : <IconArrowUp />}
       </Circle>
     </Flex>
   );

@@ -1,5 +1,6 @@
-import { BoxProps, Circle, color } from '@stacks/ui';
+import { BoxProps, Circle } from 'leather-styles/jsx';
 
+import { color } from '@app/common/utils/stacks-ui/ui/colors';
 import { StxIcon } from '@app/components/icons/stx-icon';
 
 import { StacksUnanchoredStatusIcon } from './stacks-unanchored-status-icon';

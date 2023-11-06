@@ -1,5 +1,6 @@
 import { Box, color } from '@stacks/ui';
-import { forwardRefWithAs } from '@stacks/ui-core';
+
+import { forwardRefWithAs } from '@app/common/utils/stacks-ui/core/forwardRefWithAs';
 
 export const MenuWrapper = forwardRefWithAs((props, ref) => (
   <Box

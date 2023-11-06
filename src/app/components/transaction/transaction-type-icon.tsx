@@ -8,10 +8,10 @@ import {
 import { BoxProps, color } from '@stacks/ui';
 import FunctionIcon from 'mdi-react/FunctionIcon';
 
-import { ColorsStringLiteral } from '@shared/models/color-string-literal.model';
 import { StacksTx, StacksTxStatus } from '@shared/models/transactions/stacks-transaction.model';
 
 import { statusFromTx } from '@app/common/transactions/stacks/transaction.utils';
+import { ColorsStringLiteral } from '@app/common/utils/stacks-ui/ui/colors';
 import { MicroblockIcon } from '@app/components/icons/microblock';
 import { useCurrentAccountStxAddressState } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
 

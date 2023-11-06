@@ -1,7 +1,9 @@
-import { DynamicColorCircle, Stack, StackProps, color } from '@stacks/ui';
+import { HStack, Stack, StackProps } from 'leather-styles/jsx';
 
 import { formatContractId } from '@app/common/utils';
-import { truncateMiddle } from '@app/common/utils/stacks-ui/truncateMiddle';
+import { color } from '@app/common/utils/stacks-ui/ui/colors';
+import { DynamicColorCircle } from '@app/common/utils/stacks-ui/ui/dynamic-color-circle';
+import { truncateMiddle } from '@app/common/utils/stacks-ui/ui/truncateMiddle';
 import { Caption, Title } from '@app/components/typography';
 
 interface ContractPreviewLayoutProps extends StackProps {
@@ -14,12 +16,11 @@ export function ContractPreviewLayout(props: ContractPreviewLayoutProps) {
   const { contractAddress, contractName, functionName, ...rest } = props;
 
   return (
-    <Stack
+    <HStack
       p="base"
       borderRadius="12px"
-      spacing="base"
+      gap="base"
       alignItems="center"
-      isInline
       border="1px solid"
       borderColor={color('border')}
       _hover={
@@ -29,7 +30,7 @@ export function ContractPreviewLayout(props: ContractPreviewLayoutProps) {
             }
           : undefined
       }
-      {...rest}
+      // {...rest} FIXME - check this ...rest to fix type
     >
       <DynamicColorCircle
         size="42px"
@@ -39,7 +40,7 @@ export function ContractPreviewLayout(props: ContractPreviewLayoutProps) {
         }`}
         backgroundSize="100%"
       />
-      <Stack spacing="base-tight">
+      <Stack gap="base-tight">
         <Title as="h3" fontWeight="500">
           {functionName || contractName}
         </Title>
@@ -48,6 +49,6 @@ export function ContractPreviewLayout(props: ContractPreviewLayoutProps) {
           {functionName ? `.${contractName}` : ''}
         </Caption>
       </Stack>
-    </Stack>
+    </HStack>
   );
 }

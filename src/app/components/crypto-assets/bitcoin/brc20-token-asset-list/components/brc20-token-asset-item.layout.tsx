@@ -1,9 +1,9 @@
-import { forwardRefWithAs } from '@stacks/ui-core';
 import { BoxProps, Flex, HStack, styled } from 'leather-styles/jsx';
 
 import type { Money } from '@shared/models/money.model';
 
 import { formatBalance } from '@app/common/format-balance';
+import { forwardRefWithAs } from '@app/common/utils/stacks-ui/core/forwardRefWithAs';
 import { AssetCaption } from '@app/components/crypto-assets/components/asset-caption';
 import { Brc20TokenIcon } from '@app/components/icons/brc20-token-icon';
 import { usePressable } from '@app/components/item-hover';
