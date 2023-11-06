@@ -6,7 +6,7 @@ import { useCreateAccount } from '@app/common/hooks/account/use-create-account';
 import { useWalletType } from '@app/common/use-wallet-type';
 import { ControlledDrawer } from '@app/components/drawer/controlled-drawer';
 import { useCurrentAccountIndex } from '@app/store/accounts/account';
-import { useFilteredBitcoinEntities } from '@app/store/accounts/blockchain/bitcoin/bitcoin.ledger';
+import { useFilteredBitcoinAccounts } from '@app/store/accounts/blockchain/bitcoin/bitcoin.ledger';
 import { useStacksAccounts } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
 import { useShowSwitchAccountsState } from '@app/store/ui/ui.hooks';
 
@@ -22,8 +22,8 @@ export const SwitchAccountDrawer = memo(() => {
   const { whenWallet } = useWalletType();
 
   const stacksAccounts = useStacksAccounts();
-  const bitcoinEntities = useFilteredBitcoinEntities();
-  const btcAddressesNum = bitcoinEntities.length / 2;
+  const bitcoinAccounts = useFilteredBitcoinAccounts();
+  const btcAddressesNum = bitcoinAccounts.length / 2;
   const stacksAddressesNum = stacksAccounts.length;
 
   const onClose = () => setShowSwitchAccountsState(false);
