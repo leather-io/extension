@@ -1,7 +1,7 @@
-import { Form, Outlet, useLocation } from 'react-router-dom';
+import { Outlet, useLocation } from 'react-router-dom';
 
 import { Box } from '@stacks/ui';
-import { Formik } from 'formik';
+import { Form, Formik } from 'formik';
 import get from 'lodash.get';
 
 import { openInNewTab } from '@app/common/utils/open-in-new-tab';
