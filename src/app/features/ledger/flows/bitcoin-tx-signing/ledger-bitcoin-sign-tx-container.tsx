@@ -99,7 +99,6 @@ export function LedgerSignBitcoinTxContainer() {
       if (!btcTx || !unsignedTransactionRaw) throw new Error('No tx returned');
       ledgerNavigate.toAwaitingDeviceOperation({ hasApprovedOperation: true });
       await delay(1000);
-
       appEvents.publish('ledgerBitcoinTxSigned', {
         signedPsbt: btcTx,
         unsignedPsbt: unsignedTransactionRaw,

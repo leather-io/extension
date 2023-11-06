@@ -23,7 +23,7 @@ function useSendInscriptionReviewState() {
   const location = useLocation();
   return {
     arrivesIn: get(location.state, 'time') as string,
-    signedTx: get(location.state, 'tx') as string,
+    signedTx: get(location.state, 'signedTx') as string,
     recipient: get(location.state, 'recipient', '') as string,
     feeRowValue: get(location.state, 'feeRowValue') as string,
   };

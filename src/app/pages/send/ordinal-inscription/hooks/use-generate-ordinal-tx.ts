@@ -1,7 +1,6 @@
 import { useCallback } from 'react';
 
 import * as btc from '@scure/btc-signer';
-import { bytesToHex } from '@stacks/common';
 import { AddressType, getAddressInfo } from 'bitcoin-address-validation';
 import { Psbt } from 'bitcoinjs-lib';
 
@@ -11,7 +10,7 @@ import { OrdinalSendFormValues } from '@shared/models/form.model';
 
 import { determineUtxosForSpend } from '@app/common/transactions/bitcoin/coinselect/local-coin-selection';
 import { useCurrentNativeSegwitUtxos } from '@app/query/bitcoin/address/utxos-by-address.hooks';
-import { NativeSegwitUtxo, TaprootUtxo } from '@app/query/bitcoin/bitcoin-client';
+import { TaprootUtxo } from '@app/query/bitcoin/bitcoin-client';
 import { useBitcoinScureLibNetworkConfig } from '@app/store/accounts/blockchain/bitcoin/bitcoin-keychain';
 import { useCurrentAccountNativeSegwitSigner } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
 import { useCurrentAccountTaprootSigner } from '@app/store/accounts/blockchain/bitcoin/taproot-account.hooks';
@@ -48,8 +47,6 @@ export function useGenerateUnsignedOrdinalTx(trInput: TaprootUtxo) {
       changeAddress: nativeSegwitSigner.payment.address!,
       feeRate: values.feeRate,
     });
-
-    console.log('result', result);
 
     if (!result.success) return null;
 
@@ -104,7 +101,7 @@ export function useGenerateUnsignedOrdinalTx(trInput: TaprootUtxo) {
 
       tx.toPSBT();
 
-      return { hex: bytesToHex(tx.toPSBT()) };
+      return { hex: tx.hex, psbt: tx.toPSBT() };
     } catch (e) {
       logger.error('Unable to sign transaction');
       return null;
@@ -155,7 +152,7 @@ export function useGenerateUnsignedOrdinalTx(trInput: TaprootUtxo) {
         tx.addOutputAddress(values.recipient, BigInt(output.value), networkMode);
       });
 
-      return { hex: tx.hex };
+      return { hex: tx.hex, psbt: tx.toPSBT() };
     } catch (e) {
       logger.error('Unable to sign transaction');
       return null;

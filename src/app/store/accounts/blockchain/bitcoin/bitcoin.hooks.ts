@@ -1,4 +1,4 @@
-import { Psbt } from 'bitcoinjs-lib';
+import { bytesToHex } from '@noble/hashes/utils';
 
 import { getTaprootAddress } from '@shared/crypto/bitcoin/bitcoin.utils';
 
@@ -40,14 +40,14 @@ export function useSignBitcoinTx() {
   const { whenWallet } = useWalletType();
   const ledgerNavigate = useLedgerNavigate();
 
-  return (tx: Psbt, inputsToSign?: [number, string]) =>
+  return (psbt: Uint8Array, inputsToSign?: Record<number, string>) =>
     whenWallet({
-      async ledger(tx: Psbt) {
-        ledgerNavigate.toConnectAndSignBitcoinTransactionStep(tx);
-        return listenForBitcoinTxLedgerSigning(tx.toHex());
+      async ledger(psbt: Uint8Array) {
+        ledgerNavigate.toConnectAndSignBitcoinTransactionStep(psbt);
+        return listenForBitcoinTxLedgerSigning(bytesToHex(psbt));
       },
-      async software(tx: Psbt) {
+      async software(psbt: Uint8Array) {
         // return signSoftwareTx(tx);
       },
-    })(tx);
+    })(psbt);
 }

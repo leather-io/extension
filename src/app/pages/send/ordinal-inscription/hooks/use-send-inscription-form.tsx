@@ -94,9 +94,12 @@ export function useSendInscriptionForm() {
         return;
       }
 
-      const { hex: unsignedTransaction } = resp;
+      const signedTx = await sign(resp.psbt);
 
-      const signedTx = await sign(unsignedTransaction);
+      if (!signedTx) {
+        logger.error('No signed transaction returned');
+        return;
+      }
 
       const feeRowValue = formFeeRowValue(values.feeRate, isCustomFee);
       navigate(`/${RouteUrls.SendOrdinalInscription}/${RouteUrls.SendOrdinalInscriptionReview}`, {
@@ -107,7 +110,7 @@ export function useSendInscriptionForm() {
           recipient: values.recipient,
           time,
           feeRowValue,
-          tx: hex,
+          signedTx: signedTx.toPSBT(),
         },
       });
     },
