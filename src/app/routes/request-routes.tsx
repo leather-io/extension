@@ -5,6 +5,7 @@ import { RouteUrls } from '@shared/route-urls';
 
 import { BroadcastErrorDrawer } from '@app/components/broadcast-error-drawer/broadcast-error-drawer';
 import { EditNonceDrawer } from '@app/features/edit-nonce-drawer/edit-nonce-drawer';
+import { ledgerBitcoinTxSigningRoutes } from '@app/features/ledger/flows/bitcoin-tx-signing/ledger-bitcoin-sign-tx-container';
 import { ledgerStacksMessageSigningRoutes } from '@app/features/ledger/flows/stacks-message-signing/ledger-stacks-sign-msg.routes';
 import { ledgerStacksTxSigningRoutes } from '@app/features/ledger/flows/stacks-tx-signing/ledger-sign-stacks-tx-container';
 import { PsbtRequest } from '@app/pages/psbt-request/psbt-request';
@@ -61,6 +62,8 @@ export const legacyRequestRoutes = (
           </Suspense>
         </AccountGate>
       }
-    />
+    >
+      {ledgerBitcoinTxSigningRoutes}
+    </Route>
   </>
 );

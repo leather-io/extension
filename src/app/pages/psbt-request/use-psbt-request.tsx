@@ -35,14 +35,14 @@ export function usePsbtRequest() {
           tabId,
         });
       },
-      onSignPsbt({ inputs }: SignPsbtArgs) {
+      async onSignPsbt({ inputs }: SignPsbtArgs) {
         setIsLoading(true);
         void analytics.track('request_sign_psbt_submit');
 
         const tx = getPsbtAsTransaction(payload.hex);
 
         try {
-          signPsbt({ indexesToSign: signAtIndex, inputs, tx });
+          await signPsbt({ indexesToSign: signAtIndex, inputs, tx });
         } catch (e) {
           return navigate(RouteUrls.RequestError, {
             state: { message: e instanceof Error ? e.message : '', title: 'Failed to sign' },

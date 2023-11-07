@@ -7,6 +7,9 @@ import { logger } from '@shared/logger';
 import { allSighashTypes } from '@shared/rpc/methods/sign-psbt';
 import { isString, isUndefined } from '@shared/utils';
 
+import { useWalletType } from '@app/common/use-wallet-type';
+import { delay } from '@app/common/utils';
+import { useSignBitcoinTx } from '@app/store/accounts/blockchain/bitcoin/bitcoin.hooks';
 import { useCurrentAccountNativeSegwitSigner } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
 import { useCurrentAccountTaprootSigner } from '@app/store/accounts/blockchain/bitcoin/taproot-account.hooks';
 
@@ -24,34 +27,50 @@ export function usePsbtSigner() {
 
   const nativeSegwitSigner = createNativeSegwitSigner?.(0);
   const taprootSigner = createTaprootSigner?.(0);
-
+  const { whenWallet } = useWalletType();
+  const sign = useSignBitcoinTx();
   return useMemo(
     () => ({
-      signPsbt({ inputs, indexesToSign, tx }: SignPsbtArgs) {
-        inputs.forEach((input, idx) => {
-          const isSigning = isUndefined(indexesToSign) || indexesToSign.includes(idx);
+      async signPsbt({ inputs, indexesToSign, tx }: SignPsbtArgs) {
+        await whenWallet({
+          software: () => {
+            inputs.forEach((input, idx) => {
+              const isSigning = isUndefined(indexesToSign) || indexesToSign.includes(idx);
 
-          if (!isSigning) return;
+              if (!isSigning) return;
 
-          const witnessOutputScript =
-            input.witnessUtxo?.script && btc.OutScript.decode(input.witnessUtxo.script);
+              const witnessOutputScript =
+                input.witnessUtxo?.script && btc.OutScript.decode(input.witnessUtxo.script);
 
-          // If type taproot, and the tapInternalKey is missing, assume it should
-          // be the account publicKey
-          if (taprootSigner && witnessOutputScript?.type === 'tr' && !input.tapInternalKey) {
-            tx.updateInput(idx, { ...input, tapInternalKey: taprootSigner.payment.tapInternalKey });
-          }
+              // If type taproot, and the tapInternalKey is missing, assume it should
+              // be the account publicKey
+              if (taprootSigner && witnessOutputScript?.type === 'tr' && !input.tapInternalKey) {
+                tx.updateInput(idx, {
+                  ...input,
+                  tapInternalKey: taprootSigner.payment.tapInternalKey,
+                });
+              }
 
-          try {
-            nativeSegwitSigner?.signIndex(tx, idx, allSighashTypes);
-          } catch (e1) {
-            try {
-              taprootSigner?.signIndex(tx, idx, allSighashTypes);
-            } catch (e2) {
-              throw new Error(`Unable to sign PSBT at index, ${e1 ?? e2}`);
-            }
-          }
-        });
+              try {
+                nativeSegwitSigner?.signIndex(tx, idx, allSighashTypes);
+              } catch (e1) {
+                try {
+                  taprootSigner?.signIndex(tx, idx, allSighashTypes);
+                } catch (e2) {
+                  throw new Error(`Unable to sign PSBT at index, ${e1 ?? e2}`);
+                }
+              }
+            });
+          },
+          ledger: async () => {
+            const filteredInputs = inputs.filter(
+              (_, idx) => isUndefined(indexesToSign) || indexesToSign.includes(idx)
+            );
+            console.log('filteredInputs', filteredInputs);
+            const psbt = tx.toPSBT();
+            await sign(psbt);
+          },
+        })();
       },
       getPsbtAsTransaction(psbt: string | Uint8Array) {
         const bytes = isString(psbt) ? hexToBytes(psbt) : psbt;
@@ -71,6 +90,6 @@ export function usePsbtSigner() {
         }
       },
     }),
-    [nativeSegwitSigner, taprootSigner]
+    [nativeSegwitSigner, taprootSigner, whenWallet]
   );
 }

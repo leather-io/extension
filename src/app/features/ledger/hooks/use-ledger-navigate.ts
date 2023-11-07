@@ -1,5 +1,5 @@
 import { useMemo } from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate, useSearchParams } from 'react-router-dom';
 
 import { bytesToHex } from '@stacks/common';
 import { ClarityValue, StacksTransaction } from '@stacks/transactions';
@@ -12,6 +12,7 @@ import { immediatelyAttemptLedgerConnection } from './use-when-reattempt-ledger-
 export function useLedgerNavigate() {
   const navigate = useNavigate();
   const location = useLocation();
+  const [searchParams] = useSearchParams();
 
   return useMemo(
     () => ({
@@ -42,7 +43,14 @@ export function useLedgerNavigate() {
             state: { tx: bytesToHex(psbt) },
           });
         }
-
+        const requestToken = searchParams.get('request');
+        if (requestToken) {
+          return navigate(RouteUrls.ConnectLedger + `?request=${requestToken}`, {
+            replace: true,
+            relative: 'route',
+            state: { tx: bytesToHex(psbt) },
+          });
+        }
         console.log(location.pathname + '/' + RouteUrls.ConnectLedger);
         return navigate(RouteUrls.ConnectLedger, {
           replace: true,
