@@ -31,9 +31,22 @@ export function useLedgerNavigate() {
       },
 
       toConnectAndSignBitcoinTransactionStep(psbt: Uint8Array) {
+        // DO NOT MERGE BEFORE FIXED. Running into very weird routing issue,
+        // recording shared on Slack, where I can't actually get the signing
+        // routes nested under the inscription `choose-fee` route, even thoguh
+        // it has the routes defined and an <Outlet /> present.
+        if (location.pathname.includes('inscription')) {
+          return navigate('../' + RouteUrls.ConnectLedger, {
+            replace: true,
+            relative: 'route',
+            state: { tx: bytesToHex(psbt) },
+          });
+        }
+
+        console.log(location.pathname + '/' + RouteUrls.ConnectLedger);
         return navigate(RouteUrls.ConnectLedger, {
           replace: true,
-          relative: 'path',
+          relative: 'route',
           state: { tx: bytesToHex(psbt) },
         });
       },
@@ -106,6 +119,6 @@ export function useLedgerNavigate() {
       },
     }),
 
-    [location.state, navigate]
+    [location.pathname, location.state, navigate]
   );
 }

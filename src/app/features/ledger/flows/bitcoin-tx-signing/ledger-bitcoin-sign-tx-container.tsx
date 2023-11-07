@@ -16,7 +16,7 @@ import {
   LedgerTxSigningProvider,
 } from '@app/features/ledger/generic-flows/tx-signing/ledger-sign-tx.context';
 import { useActionCancellableByUser } from '@app/features/ledger/utils/stacks-ledger-utils';
-import { useSignLedgerTx } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
+import { useSignLedgerTx } from '@app/store/accounts/blockchain/bitcoin/bitcoin.hooks';
 
 import { ConnectLedgerSignTx } from '../../generic-flows/tx-signing/steps/connect-ledger-sign-tx';
 import {

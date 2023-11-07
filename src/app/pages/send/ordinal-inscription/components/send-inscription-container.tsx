@@ -39,6 +39,8 @@ export function SendInscriptionContainer() {
     setUtxo(createUtxoFromInscription(routeState.inscription));
   });
 
+  console.log({ inscription });
+
   if (!inscription || !utxo) return null;
 
   return (

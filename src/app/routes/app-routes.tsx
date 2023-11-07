@@ -10,7 +10,9 @@ import {
 import { RouteUrls } from '@shared/route-urls';
 
 import { LoadingSpinner } from '@app/components/loading-spinner';
+import { ActivityList } from '@app/features/activity-list/activity-list';
 import { AddNetwork } from '@app/features/add-network/add-network';
+import { AssetsList } from '@app/features/asset-list/asset-list';
 import { Container } from '@app/features/container/container';
 import { EditNonceDrawer } from '@app/features/edit-nonce-drawer/edit-nonce-drawer';
 import { IncreaseBtcFeeDrawer } from '@app/features/increase-fee-drawer/increase-btc-fee-drawer';
@@ -39,13 +41,13 @@ import { RequestError } from '@app/pages/request-error/request-error';
 import { RpcSignStacksTransaction } from '@app/pages/rpc-sign-stacks-transaction/rpc-sign-stacks-transaction';
 import { BroadcastError } from '@app/pages/send/broadcast-error/broadcast-error';
 import { LockBitcoinSummary } from '@app/pages/send/locked-bitcoin-summary/locked-bitcoin-summary';
+import { sendOrdinalRoutes } from '@app/pages/send/ordinal-inscription/ordinal-routes';
 import { sendCryptoAssetFormRoutes } from '@app/pages/send/send-crypto-asset-form/send-crypto-asset-form.routes';
 import { alexSwapRoutes } from '@app/pages/swap/alex-swap-container';
 import { UnauthorizedRequest } from '@app/pages/unauthorized-request/unauthorized-request';
 import { Unlock } from '@app/pages/unlock';
 import { ViewSecretKey } from '@app/pages/view-secret-key/view-secret-key';
 import { AccountGate } from '@app/routes/account-gate';
-import { sendOrdinalRoutes } from '@app/routes/ordinal-routes';
 import { receiveRoutes } from '@app/routes/receive-routes';
 import { legacyRequestRoutes } from '@app/routes/request-routes';
 import { rpcRequestRoutes } from '@app/routes/rpc-routes';
@@ -64,11 +66,11 @@ export function AppRoutes() {
 
 export const homePageModalRoutes = (
   <>
+    {sendOrdinalRoutes}
     {settingsRoutes}
     {receiveRoutes}
     {ledgerStacksTxSigningRoutes}
     {ledgerBitcoinTxSigningRoutes}
-    {sendOrdinalRoutes}
     {requestBitcoinKeysRoutes}
     {requestStacksKeysRoutes}
   </>
@@ -79,13 +81,17 @@ function useAppRoutes() {
     createRoutesFromElements(
       <Route element={<Container />}>
         <Route
-          path={`${RouteUrls.Home}*`}
+          path="/"
           element={
             <AccountGate>
               <Home />
             </AccountGate>
           }
         >
+          <Route index element={<AssetsList />} />
+          <Route path={RouteUrls.Activity} element={<ActivityList />}>
+            {homePageModalRoutes}
+          </Route>
           {homePageModalRoutes}
         </Route>
 
@@ -107,7 +113,7 @@ function useAppRoutes() {
               </Suspense>
             </AccountGate>
           }
-        ></Route>
+        />
         <Route path={RouteUrls.BitcoinContractLockSuccess} element={<LockBitcoinSummary />} />
         <Route path={RouteUrls.BitcoinContractLockError} element={<BroadcastError />} />
         <Route path={RouteUrls.BitcoinContractList} element={<BitcoinContractList />} />

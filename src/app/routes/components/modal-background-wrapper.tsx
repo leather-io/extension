@@ -1,5 +1,4 @@
-import { Route } from 'react-router-dom';
-import { Outlet, Routes, useLocation } from 'react-router-dom';
+import { Outlet, Route, Routes, useLocation } from 'react-router-dom';
 
 import { useLocationState } from '@app/common/hooks/use-location-state';
 
@@ -16,11 +15,11 @@ export function ModalBackgroundWrapper({ children }: ModalBackgroundWrapperProps
 
   return (
     <>
-      <Routes location={backgroundLocation || location}>
+      {/* <Routes location={backgroundLocation || location}>
         {children}
         <Route path="*" element={<Outlet />} />
       </Routes>
-      {backgroundLocation && <Outlet />}
+      {backgroundLocation && <Outlet />} */}
     </>
   );
 }

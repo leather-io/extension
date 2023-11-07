@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
+import { Psbt } from 'bitcoinjs-lib';
 import * as yup from 'yup';
 
 import { logger } from '@shared/logger';
@@ -101,6 +102,9 @@ export function useSendInscriptionForm() {
         return;
       }
 
+      const bitcoinJsPsbt = Psbt.fromBuffer(Buffer.from(signedTx.toPSBT()));
+      bitcoinJsPsbt.finalizeAllInputs();
+
       const feeRowValue = formFeeRowValue(values.feeRate, isCustomFee);
       navigate(`/${RouteUrls.SendOrdinalInscription}/${RouteUrls.SendOrdinalInscriptionReview}`, {
         state: {
@@ -110,7 +114,7 @@ export function useSendInscriptionForm() {
           recipient: values.recipient,
           time,
           feeRowValue,
-          signedTx: signedTx.toPSBT(),
+          signedTx: bitcoinJsPsbt.extractTransaction().toBuffer(),
         },
       });
     },

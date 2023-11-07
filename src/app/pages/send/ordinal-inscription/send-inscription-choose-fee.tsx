@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Outlet, useNavigate } from 'react-router-dom';
 
 import { BtcFeeType } from '@shared/models/fees/bitcoin-fees.model';
 import { createMoney } from '@shared/models/money.model';
@@ -40,28 +40,31 @@ export function SendInscriptionChooseFee() {
   if (isLoadingReview) return <LoadingSpinner />;
 
   return (
-    <BaseDrawer title="Choose fee" isShowing enableGoBack onClose={() => navigate(-1)}>
-      <BitcoinChooseFee
-        amount={createMoney(0, 'BTC')}
-        feesList={
-          <BitcoinFeesList
-            feesList={feesList}
-            onChooseFee={previewTransaction}
-            onValidateBitcoinSpend={onValidateBitcoinFeeSpend}
-            onSetSelectedFeeType={(value: BtcFeeType | null) => setSelectedFeeType(value)}
-            selectedFeeType={selectedFeeType}
-          />
-        }
-        isLoading={isLoading}
-        isSendingMax={false}
-        onChooseFee={previewTransaction}
-        onSetSelectedFeeType={(value: BtcFeeType | null) => setSelectedFeeType(value)}
-        onValidateBitcoinSpend={onValidateBitcoinFeeSpend}
-        recipient={recipient}
-        recommendedFeeRate={recommendedFeeRate}
-        showError={showInsufficientBalanceError}
-        maxRecommendedFeeRate={feesList[0]?.feeRate}
-      />
-    </BaseDrawer>
+    <>
+      <BaseDrawer title="Choose fee" isShowing enableGoBack onClose={() => navigate(-1)}>
+        <BitcoinChooseFee
+          amount={createMoney(0, 'BTC')}
+          feesList={
+            <BitcoinFeesList
+              feesList={feesList}
+              onChooseFee={previewTransaction}
+              onValidateBitcoinSpend={onValidateBitcoinFeeSpend}
+              onSetSelectedFeeType={(value: BtcFeeType | null) => setSelectedFeeType(value)}
+              selectedFeeType={selectedFeeType}
+            />
+          }
+          isLoading={isLoading}
+          isSendingMax={false}
+          onChooseFee={previewTransaction}
+          onSetSelectedFeeType={(value: BtcFeeType | null) => setSelectedFeeType(value)}
+          onValidateBitcoinSpend={onValidateBitcoinFeeSpend}
+          recipient={recipient}
+          recommendedFeeRate={recommendedFeeRate}
+          showError={showInsufficientBalanceError}
+          maxRecommendedFeeRate={feesList[0]?.feeRate}
+        />
+      </BaseDrawer>
+      <Outlet />
+    </>
   );
 }

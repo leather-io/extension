@@ -1,4 +1,4 @@
-import { Route, useNavigate } from 'react-router-dom';
+import { Outlet, useNavigate } from 'react-router-dom';
 
 import { RouteUrls } from '@shared/route-urls';
 
@@ -7,11 +7,7 @@ import { useOnboardingState } from '@app/common/hooks/auth/use-onboarding-state'
 import { useOnMount } from '@app/common/hooks/use-on-mount';
 import { useRouteHeader } from '@app/common/hooks/use-route-header';
 import { Header } from '@app/components/header';
-import { ActivityList } from '@app/features/activity-list/activity-list';
-import { AssetsList } from '@app/features/asset-list/asset-list';
 import { InAppMessages } from '@app/features/hiro-messages/in-app-messages';
-import { homePageModalRoutes } from '@app/routes/app-routes';
-import { ModalBackgroundWrapper } from '@app/routes/components/modal-background-wrapper';
 
 import { CurrentAccount } from './components/account-area';
 import { HomeTabs } from './components/home-tabs';
@@ -38,14 +34,10 @@ export function Home() {
   return (
     <HomeLayout currentAccount={<CurrentAccount />}>
       <HomeTabs>
-        <ModalBackgroundWrapper>
-          <Route index element={<AssetsList />} />
-          <Route path={RouteUrls.Activity} element={<ActivityList />}>
-            {homePageModalRoutes}
-          </Route>
+        <Outlet />
+        {/* <ModalBackgroundWrapper> */}
 
-          {homePageModalRoutes}
-        </ModalBackgroundWrapper>
+        {/* </ModalBackgroundWrapper> */}
       </HomeTabs>
     </HomeLayout>
   );
