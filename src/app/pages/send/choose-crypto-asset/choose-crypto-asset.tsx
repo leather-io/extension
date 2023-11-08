@@ -19,12 +19,12 @@ export function ChooseCryptoAsset() {
   const hasBitcoinLedgerKeys = useHasCurrentBitcoinAccount();
   const hasStacksLedgerKeys = useHasStacksLedgerKeychain();
 
-  const chechKeychainAvailable = useCallback(
+  const checkBlockchainAvailable = useCallback(
     (symbol: string) => {
-      if (symbol === 'BTC') {
+      if (symbol === 'bitcoin') {
         return hasBitcoinLedgerKeys;
       }
-      if (symbol === 'STX') {
+      if (symbol === 'stacks') {
         return hasStacksLedgerKeys;
       }
       return false;
@@ -37,9 +37,9 @@ export function ChooseCryptoAsset() {
   return (
     <ChooseCryptoAssetLayout>
       <CryptoAssetList
-        cryptoAssetBalances={allTransferableCryptoAssetBalances.filter(balance =>
+        cryptoAssetBalances={allTransferableCryptoAssetBalances.filter(asset =>
           whenWallet({
-            ledger: chechKeychainAvailable(balance.asset.symbol),
+            ledger: checkBlockchainAvailable(asset.blockchain),
             software: true,
           })
         )}
