@@ -31,7 +31,7 @@ export function TextInputFieldError(props: { name: string }) {
     <Flex mb="tight" width="100%">
       <AnimateHeight duration={400} easing="ease-out" height={showHide}>
         <Flex height={openHeight + 'px'}>
-          <ErrorLabel data-testid={SendCryptoAssetSelectors.FormFieldInputErrorLabel} fontSize={1}>
+          <ErrorLabel data-testid={SendCryptoAssetSelectors.FormFieldInputErrorLabel}>
             {meta.error}
           </ErrorLabel>
         </Flex>

@@ -1,4 +1,8 @@
+import toast from 'react-hot-toast';
+import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+
+import { defaultWalletKeyId } from '@shared/utils';
 
 import { LedgerRequestKeysContext } from '@app/features/ledger/generic-flows/request-keys/ledger-request-keys.context';
 import { useLedgerNavigate } from '@app/features/ledger/hooks/use-ledger-navigate';
@@ -8,20 +12,19 @@ import {
   isStacksLedgerAppClosed,
   useActionCancellableByUser,
 } from '@app/features/ledger/utils/stacks-ledger-utils';
+import { stacksKeysSlice } from '@app/store/ledger/stacks/stacks-key.slice';
 
 import { ledgerRequestKeysRoutes } from '../../generic-flows/request-keys/ledger-request-keys-route-generator';
 import { RequestKeysFlow } from '../../generic-flows/request-keys/request-keys-flow';
 import { useRequestLedgerKeys } from '../../generic-flows/request-keys/use-request-ledger-keys';
 import { pullStacksKeysFromLedgerDevice } from './request-stacks-keys.utils';
-import { useTriggerLedgerDeviceRequestStacksKeys } from './use-trigger-ledger-request-keys';
 
 function LedgerRequestStacksKeys() {
   const navigate = useNavigate();
   const ledgerNavigate = useLedgerNavigate();
   const canUserCancelAction = useActionCancellableByUser();
 
-  const { completeLedgerDeviceOnboarding, fireErrorMessageToast } =
-    useTriggerLedgerDeviceRequestStacksKeys();
+  const dispatch = useDispatch();
 
   const { requestKeys, latestDeviceResponse, awaitingDeviceConnection, outdatedAppVersionWarning } =
     useRequestLedgerKeys({
@@ -36,17 +39,25 @@ function LedgerRequestStacksKeys() {
       },
       async pullKeysFromDevice(app) {
         const resp = await pullStacksKeysFromLedgerDevice(app)({
-          onRequestKey(index) {
-            ledgerNavigate.toDeviceBusyStep(`Requesting STX addresses (${index + 1}…5)`);
+          onRequestKey(accountIndex) {
+            ledgerNavigate.toDeviceBusyStep(`Requesting STX addresses (${accountIndex + 1}…5)`);
           },
         });
         if (resp.status === 'failure') {
-          fireErrorMessageToast(resp.errorMessage);
+          toast.error(resp.errorMessage);
           ledgerNavigate.toErrorStep(resp.errorMessage);
           return;
         }
         ledgerNavigate.toDeviceBusyStep();
-        completeLedgerDeviceOnboarding(resp.publicKeys, latestDeviceResponse?.targetId!);
+        dispatch(
+          stacksKeysSlice.actions.addKeys(
+            resp.publicKeys.map(keys => ({
+              ...keys,
+              id: keys.path.replace('m', defaultWalletKeyId),
+              targetId: latestDeviceResponse?.targetId || '',
+            }))
+          )
+        );
       },
     });
 

@@ -11,9 +11,11 @@ import { useAppDispatch } from '@app/store';
 import { createNewAccount, stxChainActions } from '@app/store/chains/stx-chain.actions';
 import { useBitcoinClient, useStacksClientAnchored } from '@app/store/common/api-clients.hooks';
 import { inMemoryKeyActions } from '@app/store/in-memory-key/in-memory-key.actions';
-import { keyActions } from '@app/store/keys/key.actions';
-import { useCurrentKeyDetails } from '@app/store/keys/key.selectors';
+import { bitcoinKeysSlice } from '@app/store/ledger/bitcoin/bitcoin-key.slice';
+import { stacksKeysSlice } from '@app/store/ledger/stacks/stacks-key.slice';
 import { clearWalletSession } from '@app/store/session-restore';
+import { keyActions } from '@app/store/software-keys/software-key.actions';
+import { useCurrentKeyDetails } from '@app/store/software-keys/software-key.selectors';
 
 import { useAnalytics } from './analytics/use-analytics';
 
@@ -54,6 +56,8 @@ export function useKeyActions() {
       async signOut() {
         await clearWalletSession();
         dispatch(keyActions.signOut());
+        dispatch(bitcoinKeysSlice.actions.signOut());
+        dispatch(stacksKeysSlice.actions.signOut());
         await clearChromeStorage();
         partiallyClearLocalStorage();
         void analytics.track('sign_out');

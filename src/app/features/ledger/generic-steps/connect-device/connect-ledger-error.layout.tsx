@@ -50,9 +50,7 @@ export function ConnectLedgerErrorLayout(props: ConnectLedgerErrorLayoutProps) {
           {warningText}
         </WarningLabel>
       ) : (
-        <ErrorLabel fontSize={1} lineHeight={1.4} mt="base">
-          Unable to connect
-        </ErrorLabel>
+        <ErrorLabel>Unable to connect</ErrorLabel>
       )}
       <Stack borderRadius="12px" gap="space.01" textAlign="left" py="space.05">
         <PossibleReasonUnableToConnect text="Check if Ledger Live is open. Close it and try again" />

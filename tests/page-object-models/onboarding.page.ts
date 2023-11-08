@@ -11,7 +11,7 @@ const TEST_ACCOUNT_SECRET_KEY = process.env.TEST_ACCOUNT_SECRET_KEY ?? '';
 export const testSoftwareAccountDefaultWalletState = {
   analytics: { hasStxDeposits: { '1': true, '2147483648': true } },
   chains: { stx: { default: { highestAccountIndex: 1, currentAccountIndex: 0 } } },
-  keys: {
+  softwareKeys: {
     ids: ['default'],
     entities: {
       default: {
@@ -28,6 +28,10 @@ export const testSoftwareAccountDefaultWalletState = {
       entities: {},
       ids: [],
     },
+    stacks: {
+      entities: {},
+      ids: [],
+    },
   },
   networks: { ids: [], entities: {}, currentNetworkId: 'mainnet' },
   ordinals: {
@@ -40,48 +44,171 @@ export const testSoftwareAccountDefaultWalletState = {
     dismissedMessages: [],
     hasApprovedNewBrand: true,
   },
-  _persist: { version: 1, rehydrated: true },
+  _persist: { version: 2, rehydrated: true },
 };
 
 const testLedgerAccountDefaultWalletState = {
-  _persist: { rehydrated: true, version: 1 },
+  _persist: { rehydrated: true, version: 2 },
   analytics: { hasStxDeposits: { '1': false, '2147483648': true } },
   chains: { stx: { default: { currentAccountIndex: 0, highestAccountIndex: 0 } } },
-  keys: {
-    entities: {
-      default: {
-        id: 'default',
-        publicKeys: [
-          {
-            dataPublicKey:
-              '044b6fdad95384e953804821151cbc98f0131d08b0595b9da722bf7ca285a1f4fe50e43f881ead4031eb721b4f10cd227d2a9a19bac5b985bf414e598ac9b411d3',
-            stxPublicKey: '021818dd91f5342e3b366abc0734fc5a05a8eb5bf28d43dd122d8d1ffcc664bcea',
-          },
-          {
-            dataPublicKey:
-              '04798cb7cd3eafede5e59d530d574c70a374a15e14a9a1e81a8659cdcac1b2334be67d21275bfb2dcb383b0427999c7091c586786c61e7e3fca5e0118d7eb10f33',
-            stxPublicKey: '03dabcfe8913a49c66e80ddc8994855a5dc30288830f5c444b3fb776e2bb5d4332',
-          },
-          {
-            dataPublicKey:
-              '0405a7f454cbbb2eb56a48048b490d9d2d3e27f9eeec93437b6c16729c4571a9951c3255ba6295bf19fd74d939d70058ae51d4dad76c50ec5ff9e18bd08860a050',
-            stxPublicKey: '0256723bcb20d7628f10108139d1160d5f288b1bc91906fb034bf48007ddf5376e',
-          },
-          {
-            dataPublicKey:
-              '04ead5999a6da792d29b5dcb552284a68175cf8011743241a901655eebee063ffd7285536138dccfa93bcf4245258b0ba79a85c40ab4c3358d326f7535d60efb01',
-            stxPublicKey: '034b1553ecaee148cf191cc7c893da9265865327a15d25655608b2d57e64c45b20',
-          },
-          {
-            dataPublicKey:
-              '0460ca5664c241224586b707c71f8fc0fb6d801926b32baec3ce85b75b920e651dd56949ee348cd8d3afe57e1b65eed150ad1c89b2e465edd1b93767e1cbad699e',
-            stxPublicKey: '020b0c3083f734922997d3224a543fc29b1dcb255e95667868b351ec08b919095c',
-          },
-        ],
-        type: 'ledger',
+  softwareKeys: {
+    entities: {},
+    ids: [],
+  },
+  ledger: {
+    bitcoin: {
+      entities: {
+        "default/84'/0'/0'": {
+          id: "default/84'/0'/0'",
+          path: "m/84'/0'/0'",
+          policy:
+            "[e87a850b/84'/0'/0']xpub6BuKrNqTrGfsy8VAAdUW2KCxbHywuSKjg7hZuAXERXDv7GfuxUgUWdVRKNsgujcwdjEHCjaXWouPKi1m5gMgdWX8JpRcyMkrSxPe4Da3Lx8",
+          walletId: 'default',
+          targetId: '',
+        },
+        "default/84'/0'/1'": {
+          id: "default/84'/0'/1'",
+          path: "m/84'/0'/1'",
+          policy:
+            "[e87a850b/84'/0'/1']xpub6BuKrNqTrGft1dv2pR3Ey8VsBnSBkVVpehNsro8V8kaWMRGeUNv8yhJpTw62Ldqenm5kuVyC2bQqgc6yrKAruDKyzz18zi83Sg2FTwEHsrF",
+          walletId: 'default',
+          targetId: '',
+        },
+        "default/84'/0'/2'": {
+          id: "default/84'/0'/2'",
+          path: "m/84'/0'/2'",
+          policy:
+            "[e87a850b/84'/0'/2']xpub6BuKrNqTrGft5UhSiYcXtN1d9Cp8iwj9tBVLjfJtLUqUFYA2xjVmAiB4TbUP6uaX3qwNhrW3baGE1Fz49YNSFcEMTtcd4Uz25juszoCCy8w",
+          walletId: 'default',
+          targetId: '',
+        },
+        "default/84'/0'/3'": {
+          id: "default/84'/0'/3'",
+          path: "m/84'/0'/3'",
+          policy:
+            "[e87a850b/84'/0'/3']xpub6BuKrNqTrGft7h39ks3qJjcz3KusNtsDtr8t59t2MUneWoCqbGYLcqLeqRaXC5na2tWDDzncBBVNVPT55b6jLM4dT5f6aGvgaXEXV6VniL6",
+          walletId: 'default',
+          targetId: '',
+        },
+        "default/84'/0'/4'": {
+          id: "default/84'/0'/4'",
+          path: "m/84'/0'/4'",
+          policy:
+            "[e87a850b/84'/0'/4']xpub6BuKrNqTrGftAswPZxdCzxArCp1bsUh3JPizsMymSVanfVJqXR2wjsX7PBnwMXnXttiWU6pMdBgB82mR2BPDtSGcUfjD8QJTNca47iYkGD3",
+          walletId: 'default',
+          targetId: '',
+        },
+        "default/86'/0'/0'": {
+          id: "default/86'/0'/0'",
+          path: "m/86'/0'/0'",
+          policy:
+            "[e87a850b/86'/0'/0']xpub6C4MQD2bVDTfdnVe5AYKB6gE7BE4yQeKBRgukQ4Hi3phDB5fCYKEAdViQ2n7kZQ1t728QV4wKGgiR5qGigjNNrm5DCGWYUZDRVNWYb8ZWGK",
+          walletId: 'default',
+          targetId: '',
+        },
+        "default/86'/0'/1'": {
+          id: "default/86'/0'/1'",
+          path: "m/86'/0'/1'",
+          policy:
+            "[e87a850b/86'/0'/1']xpub6C4MQD2bVDTfgjjWZhmPMNDMFHFmrSmGzqJVpuf98XB8F5eNaQus6XmrcrTrTiiL2EscdC4cjztP5LfaW13vZ6eDuDHXXAq71W5KEHeEeKH",
+          walletId: 'default',
+          targetId: '',
+        },
+        "default/86'/0'/2'": {
+          id: "default/86'/0'/2'",
+          path: "m/86'/0'/2'",
+          policy:
+            "[e87a850b/86'/0'/2']xpub6C4MQD2bVDTfkGnARZXj6dRRF223bcyKAK2qCRKf9xyPQg7k4ZZc4FAHLcXhQ1NCVJCTVGEMd1YoRnBBDdgXKrmt4bm5XmF1ry9ox4Qsx3F",
+          walletId: 'default',
+          targetId: '',
+        },
+        "default/86'/0'/3'": {
+          id: "default/86'/0'/3'",
+          path: "m/86'/0'/3'",
+          policy:
+            "[e87a850b/86'/0'/3']xpub6C4MQD2bVDTfmbN4ZJfozbNRMqyD1jmMFcQTNRUNyjE2J6tdVggFoQ8KmxUpijsZX1E4iDciY5AmnHbq95BHMVGJAGZ1MAm7iupHkTBV6YE",
+          walletId: 'default',
+          targetId: '',
+        },
+        "default/86'/0'/4'": {
+          id: "default/86'/0'/4'",
+          path: "m/86'/0'/4'",
+          policy:
+            "[e87a850b/86'/0'/4']xpub6C4MQD2bVDTfq9RLtYxmqJRNsiviyuM51CFE1qqQbE6o8QN9Uix47Kvj4fqKFX5f88DyhxaX93L4H1WdSZChMZUWGUzPm54N9VfvsYJBvi9",
+          walletId: 'default',
+          targetId: '',
+        },
       },
+      ids: [
+        "default/84'/0'/0'",
+        "default/84'/0'/1'",
+        "default/84'/0'/2'",
+        "default/84'/0'/3'",
+        "default/84'/0'/4'",
+        "default/86'/0'/0'",
+        "default/86'/0'/1'",
+        "default/86'/0'/2'",
+        "default/86'/0'/3'",
+        "default/86'/0'/4'",
+      ],
     },
-    ids: ['default'],
+    stacks: {
+      entities: {
+        "default/44'/5757'/0'/0/0": {
+          path: "m/44'/5757'/0'/0/0",
+          stxPublicKey: '0329b076bc20f7b1592b2a1a5cb91dfefe8c966e50e256458e23dd2c5d63f8f1af',
+          dataPublicKey:
+            '04716759aa2d2ec9066ff699626c3404c5cc7e84e7295af6768a0fce2defcd1c50a9ee4b1fd1e63295abc47c81f602e77c497f4549fa68535c7abbe73854b62df7',
+          id: "default/44'/5757'/0'/0/0",
+          walletId: 'default',
+          targetId: '',
+        },
+        "default/44'/5757'/0'/0/1": {
+          path: "m/44'/5757'/0'/0/1",
+          stxPublicKey: '035c63a8042cd820ae59b50cfb225b886d0837c97a5f5daa190037fcadf60a1da6',
+          dataPublicKey:
+            '04c8fba749c7be4a817c1bee8c24b7464f3be6f7e78f5c9ab43a57710f703155e059ce8b5fcb33e8c8d0ff154e964f99c486eed8b8b19f108cf5137a07275a277f',
+          id: "default/44'/5757'/0'/0/1",
+          walletId: 'default',
+          targetId: '',
+        },
+        "default/44'/5757'/0'/0/2": {
+          path: "m/44'/5757'/0'/0/2",
+          stxPublicKey: '02dbcd4e19f13709889eebdb450f84b48195f8ada1673cd8e663ca409a09379740',
+          dataPublicKey:
+            '04614af2cb5b9a07fb9049713a860a09cd97549373e73104e32b814922392a97a3c6d938f2b7f6e771c5e6611be64b762919a435a242fa5796b5bb4b9728eb079e',
+          id: "default/44'/5757'/0'/0/2",
+          walletId: 'default',
+          targetId: '',
+        },
+        "default/44'/5757'/0'/0/3": {
+          path: "m/44'/5757'/0'/0/3",
+          stxPublicKey: '03a9ee7ccb82ecdd9de236b4d1909f79e75d93ba0ae68494f0cf710a5bf1e47837',
+          dataPublicKey:
+            '04e3c33077024159f2a1aa28e4e73811d477fac3303f6395bfb8937994bc61d1a3b762d52ea4a57d0f2ed36523a96ffec74d1f05676e4411601402013f16f16374',
+          id: "default/44'/5757'/0'/0/3",
+          walletId: 'default',
+          targetId: '',
+        },
+        "default/44'/5757'/0'/0/4": {
+          path: "m/44'/5757'/0'/0/4",
+          stxPublicKey: '03e8e4daeece139da8e03d06734712b3dce83175791b94f44185c3fdae9122d264',
+          dataPublicKey:
+            '04673e21fc8fb98131d843bcb10edb015dd3219bb1f730c81c6de13a9df91d5f1a709099cd0d41d535f45b3119d3458ccdc98614ee4833c99f09c7c62d654350fa',
+          id: "default/44'/5757'/0'/0/4",
+          walletId: 'default',
+          targetId: '',
+        },
+      },
+      ids: [
+        "default/44'/5757'/0'/0/0",
+        "default/44'/5757'/0'/0/1",
+        "default/44'/5757'/0'/0/2",
+        "default/44'/5757'/0'/0/3",
+        "default/44'/5757'/0'/0/4",
+      ],
+      targetId: '',
+    },
   },
   networks: { currentNetworkId: 'mainnet', entities: {}, ids: [] },
   onboarding: {
@@ -159,7 +286,7 @@ export class OnboardingPage {
       testSoftwareAccountDefaultWalletState
     );
     await this.page.goto(`chrome-extension://${id}/index.html`);
-    await this.page.getByRole('textbox').type(TEST_PASSWORD);
+    await this.page.getByRole('textbox').fill(TEST_PASSWORD);
     await this.page.getByRole('button', { name: 'Continue' }).click();
     await this.page.waitForURL('**' + RouteUrls.Home);
     await this.page.locator('text="Account 1"').waitFor();

@@ -2,7 +2,7 @@ import { useSelector } from 'react-redux';
 
 import { atom, useAtom } from 'jotai';
 
-import { selectCurrentAccountIndex } from '../keys/key.selectors';
+import { selectCurrentAccountIndex } from '../software-keys/software-key.selectors';
 
 // This is only used when there is a pending transaction request and
 // the user switches accounts during the signing process

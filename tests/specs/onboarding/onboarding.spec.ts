@@ -24,10 +24,11 @@ test.describe('Onboarding an existing user', () => {
     );
 
     // Deleting values that are known to differ at random
-    delete (walletState as any).keys.entities.default.encryptedSecretKey;
-    delete (walletState as any).keys.entities.default.salt;
-    delete (testSoftwareAccountDefaultWalletState as any).keys.entities.default.encryptedSecretKey;
-    delete (testSoftwareAccountDefaultWalletState as any).keys.entities.default.salt;
+    delete (walletState as any).softwareKeys.entities.default.encryptedSecretKey;
+    delete (walletState as any).softwareKeys.entities.default.salt;
+    delete (testSoftwareAccountDefaultWalletState as any).softwareKeys.entities.default
+      .encryptedSecretKey;
+    delete (testSoftwareAccountDefaultWalletState as any).softwareKeys.entities.default.salt;
 
     test.expect(walletState).toEqual(testSoftwareAccountDefaultWalletState);
   });
@@ -41,7 +42,7 @@ test.describe('Onboarding an existing user', () => {
     // enter some invalid key
     const invalidKey = 'some incorrect data';
     await onboardingPage.signInMnemonicKey(invalidKey);
-    const signInButton = await onboardingPage.page.getByTestId(OnboardingSelectors.SignInBtn);
+    const signInButton = onboardingPage.page.getByTestId(OnboardingSelectors.SignInBtn);
     const error = onboardingPage.page.getByText('Words 1 and 2 are incorrect or misspelled');
     await test.expect(error).toBeVisible();
     await test.expect(signInButton).toBeDisabled();

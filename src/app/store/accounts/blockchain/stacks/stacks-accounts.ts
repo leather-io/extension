@@ -1,6 +1,7 @@
 import { bytesToHex } from '@noble/hashes/utils';
 import { createSelector } from '@reduxjs/toolkit';
 import { HARDENED_OFFSET, HDKey } from '@scure/bip32';
+import { ChainID } from '@stacks/common';
 import {
   AddressVersion,
   createStacksPrivateKey,
@@ -16,15 +17,15 @@ import { DATA_DERIVATION_PATH, deriveStacksSalt } from '@shared/crypto/stacks/st
 import { defaultWalletKeyId } from '@shared/utils';
 
 import { derivePublicKey } from '@app/common/keychain/keychain';
-import { createNullArrayOfLength } from '@app/common/utils';
+import { createNullArrayOfLength, whenStacksChainId } from '@app/common/utils';
 import { storeAtom } from '@app/store';
 import { selectStacksChain } from '@app/store/chains/stx-chain.selectors';
 import {
   selectDefaultWalletKey,
   selectRootKeychain,
 } from '@app/store/in-memory-key/in-memory-key.selectors';
-import { selectLedgerKey } from '@app/store/keys/key.selectors';
-import { addressNetworkVersionState } from '@app/store/transactions/transaction';
+import { selectDefaultWalletStacksKeys } from '@app/store/ledger/stacks/stacks-key.slice';
+import { currentNetworkAtom } from '@app/store/networks/networks';
 
 import {
   HardwareStacksAccount,
@@ -57,6 +58,15 @@ function initalizeStacksAccount(rootKeychain: HDKey, index: number) {
   };
 }
 
+const stacksAddressNetworkVersionState = atom(get => {
+  const currentNetwork = get(currentNetworkAtom);
+
+  return whenStacksChainId(currentNetwork.chain.stacks.chainId)({
+    [ChainID.Mainnet]: AddressVersion.MainnetSingleSig,
+    [ChainID.Testnet]: AddressVersion.TestnetSingleSig,
+  });
+});
+
 const selectStacksWalletState = createSelector(
   selectRootKeychain,
   selectStacksChain,
@@ -72,7 +82,7 @@ const selectStacksWalletState = createSelector(
 
 const softwareAccountsState = atom<SoftwareStacksAccount[] | undefined>(get => {
   const store = get(storeAtom);
-  const addressVersion = get(addressNetworkVersionState) || AddressVersion.TestnetSingleSig;
+  const addressVersion = get(stacksAddressNetworkVersionState) || AddressVersion.TestnetSingleSig;
   const accounts = selectStacksWalletState(store);
   if (!accounts) return undefined;
   return accounts.map(account => {
@@ -84,15 +94,16 @@ const softwareAccountsState = atom<SoftwareStacksAccount[] | undefined>(get => {
 });
 
 const ledgerAccountsState = atom<HardwareStacksAccount[] | undefined>(get => {
-  const ledgerWallet = selectLedgerKey(get(storeAtom));
-  const addressVersion = get(addressNetworkVersionState);
-  if (!ledgerWallet) return undefined;
-  return ledgerWallet.publicKeys.map((publicKeys, index) => {
+  const addressVersion = get(stacksAddressNetworkVersionState);
+  const ledgerKeys = selectDefaultWalletStacksKeys(get(storeAtom));
+
+  return ledgerKeys.map((publicKeys, index) => {
     const address = publicKeyToAddress(
       addressVersion,
       createStacksPublicKey(publicKeys.stxPublicKey)
     );
     return {
+      ...publicKeys,
       type: 'ledger',
       address,
       stxPublicKey: publicKeys.stxPublicKey,
@@ -105,7 +116,12 @@ const ledgerAccountsState = atom<HardwareStacksAccount[] | undefined>(get => {
 export const stacksAccountState = atom<StacksAccount[]>(get => {
   const ledgerAccounts = get(ledgerAccountsState);
   const softwareAccounts = get(softwareAccountsState);
-  return ledgerAccounts ?? softwareAccounts ?? [];
+
+  if (ledgerAccounts?.length) {
+    return ledgerAccounts;
+  }
+
+  return softwareAccounts ?? [];
 });
 
 /**

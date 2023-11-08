@@ -21,11 +21,12 @@ import { analyticsSlice } from './analytics/analytics.slice';
 import { appPermissionsSlice } from './app-permissions/app-permissions.slice';
 import { stxChainSlice } from './chains/stx-chain.slice';
 import { inMemoryKeySlice } from './in-memory-key/in-memory-key.slice';
-import { keySlice } from './keys/key.slice';
-import { bitcoinKeysSlice } from './ledger/bitcoin-key.slice';
+import { bitcoinKeysSlice } from './ledger/bitcoin/bitcoin-key.slice';
+import { stacksKeysSlice } from './ledger/stacks/stacks-key.slice';
 import { networksSlice } from './networks/networks.slice';
 import { ordinalsSlice } from './ordinals/ordinals.slice';
 import { settingsSlice } from './settings/settings.slice';
+import { keySlice } from './software-keys/software-key.slice';
 import { submittedTransactionsSlice } from './submitted-transactions/submitted-transactions.slice';
 import { broadcastActionTypeToOtherFramesMiddleware } from './utils/broadcast-action-types';
 
@@ -37,10 +38,11 @@ export interface RootState {
   };
   ledger: {
     bitcoin: ReturnType<typeof bitcoinKeysSlice.reducer>;
+    stacks: ReturnType<typeof stacksKeysSlice.reducer>;
   };
   ordinals: ReturnType<typeof ordinalsSlice.reducer>;
   inMemoryKeys: ReturnType<typeof inMemoryKeySlice.reducer>;
-  keys: ReturnType<typeof keySlice.reducer>;
+  softwareKeys: ReturnType<typeof keySlice.reducer>;
   networks: ReturnType<typeof networksSlice.reducer>;
   submittedTransactions: ReturnType<typeof submittedTransactionsSlice.reducer>;
   settings: ReturnType<typeof settingsSlice.reducer>;
@@ -54,10 +56,11 @@ const appReducer = combineReducers({
   }),
   ledger: combineReducers({
     bitcoin: bitcoinKeysSlice.reducer,
+    stacks: stacksKeysSlice.reducer,
   }),
   ordinals: ordinalsSlice.reducer,
   inMemoryKeys: inMemoryKeySlice.reducer,
-  keys: keySlice.reducer,
+  softwareKeys: keySlice.reducer,
   networks: networksSlice.reducer,
   submittedTransactions: submittedTransactionsSlice.reducer,
   settings: settingsSlice.reducer,

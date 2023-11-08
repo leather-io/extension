@@ -2,11 +2,15 @@ import { bytesToHex } from '@noble/hashes/utils';
 import * as secp from '@noble/secp256k1';
 import StacksApp from '@zondax/ledger-stacks';
 
+import {
+  getIdentityDerivationPath,
+  getStxDerivationPath,
+} from '@shared/crypto/stacks/stacks.utils';
+
 import { delay } from '@app/common/utils';
 
 import {
-  StxAndIdentityPublicKeys,
-  getIdentityDerivationPath,
+  StacksAppKeysResponseItem,
   requestPublicKeyForStxAccount,
 } from '../../utils/stacks-ledger-utils';
 
@@ -21,7 +25,7 @@ function decompressSecp256k1PublicKey(publicKey: string) {
 
 interface PullStacksKeysFromLedgerSuccess {
   status: 'success';
-  publicKeys: StxAndIdentityPublicKeys[];
+  publicKeys: StacksAppKeysResponseItem[];
 }
 
 interface PullStacksKeysFromLedgerFailure {
@@ -52,6 +56,7 @@ export function pullStacksKeysFromLedgerDevice(stacksApp: StacksApp) {
       if (!dataPublicKeyResp.publicKey) return { status: 'failure', ...dataPublicKeyResp };
 
       publicKeys.push({
+        path: getStxDerivationPath(index),
         stxPublicKey: stxPublicKeyResp.publicKey.toString('hex'),
         // We return a decompressed public key, to match the behaviour of
         // @stacks/wallet-sdk. I'm not sure why we return an uncompressed key

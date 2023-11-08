@@ -13,7 +13,7 @@ export function WarningLabel({ children, title, ...props }: WarningLabelProps) {
       <Flag
         bg="accent.warning"
         borderRadius="10px"
-        img={<AlertIcon color={token('colors.yellow.600')} />}
+        img={<AlertIcon color={token('colors.warning')} />}
         minHeight="48px"
         px="base"
         py="base-tight"

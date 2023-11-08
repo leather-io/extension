@@ -3,7 +3,7 @@ import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 import { logger } from '@shared/logger';
 import { defaultWalletKeyId } from '@shared/utils';
 
-import { keySlice } from '../keys/key.slice';
+import { keySlice } from '../software-keys/software-key.slice';
 
 interface InMemoryKeyState {
   hasRestoredKeys: boolean;

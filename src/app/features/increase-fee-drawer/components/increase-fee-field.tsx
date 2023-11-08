@@ -61,13 +61,7 @@ export function IncreaseFeeField(props: IncreaseFeeFieldProps): React.JSX.Elemen
           />
         </InputGroup>
       </Stack>
-      {meta.error && (
-        <ErrorLabel>
-          <Text textStyle="caption" lineHeight="18px">
-            {meta.error}
-          </Text>
-        </ErrorLabel>
-      )}
+      {meta.error && <ErrorLabel>{meta.error}</ErrorLabel>}
     </>
   );
 }

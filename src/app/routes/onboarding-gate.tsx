@@ -4,7 +4,7 @@ import { Navigate } from 'react-router-dom';
 import { RouteUrls } from '@shared/route-urls';
 
 import { useDefaultWalletSecretKey } from '@app/store/in-memory-key/in-memory-key.selectors';
-import { useCurrentKeyDetails } from '@app/store/keys/key.selectors';
+import { useCurrentKeyDetails } from '@app/store/software-keys/software-key.selectors';
 
 function hasAlreadyMadeWalletAndPlaintextKeyInMemory(encryptedKey?: string, inMemoryKey?: string) {
   return !!encryptedKey && !!inMemoryKey;
@@ -28,10 +28,7 @@ export function OnboardingGate({ children }: OnboardingGateProps) {
     return <Navigate to={RouteUrls.Home} />;
   }
 
-  if (
-    keyDetailsExistsWalletAlreadyCreatedSoPreventOnboarding(keyDetails) &&
-    keyDetails?.type !== 'ledger'
-  )
+  if (keyDetailsExistsWalletAlreadyCreatedSoPreventOnboarding(keyDetails))
     return <Navigate to={RouteUrls.Unlock} />;
 
   return <>{children}</>;

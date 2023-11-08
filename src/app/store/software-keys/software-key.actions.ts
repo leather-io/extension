@@ -19,8 +19,8 @@ import { getStacksAddressByIndex } from '../accounts/blockchain/stacks/stacks-ke
 import { stxChainSlice } from '../chains/stx-chain.slice';
 import { selectDefaultWalletKey } from '../in-memory-key/in-memory-key.selectors';
 import { inMemoryKeySlice } from '../in-memory-key/in-memory-key.slice';
-import { selectCurrentKey } from './key.selectors';
-import { keySlice } from './key.slice';
+import { selectDefaultSoftwareKey } from './software-key.selectors';
+import { keySlice } from './software-key.slice';
 
 function setWalletEncryptionPassword(args: {
   password: string;
@@ -85,7 +85,7 @@ function setWalletEncryptionPassword(args: {
     });
 
     dispatch(
-      keySlice.actions.createStacksSoftwareWalletComplete({
+      keySlice.actions.createSoftwareWalletComplete({
         type: 'software',
         id: defaultWalletKeyId,
         salt,
@@ -99,7 +99,7 @@ function setWalletEncryptionPassword(args: {
 
 function unlockWalletAction(password: string): AppThunk {
   return async (dispatch, getState) => {
-    const currentKey = selectCurrentKey(getState());
+    const currentKey = selectDefaultSoftwareKey(getState());
     if (!currentKey) return;
     if (currentKey.type !== 'software') return;
     const { secretKey, encryptionKey } = await decryptMnemonic({ password, ...currentKey });

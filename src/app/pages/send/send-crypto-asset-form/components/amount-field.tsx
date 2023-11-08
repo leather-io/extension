@@ -219,7 +219,10 @@ export function AmountField({
         <Box mt="12px">{switchableAmount && switchableAmount}</Box>
       </Flex>
       {showError && (
-        <ErrorLabel data-testid={SendCryptoAssetSelectors.AmountFieldInputErrorLabel}>
+        <ErrorLabel
+          justifyContent="center"
+          data-testid={SendCryptoAssetSelectors.AmountFieldInputErrorLabel}
+        >
           {meta.error}
         </ErrorLabel>
       )}

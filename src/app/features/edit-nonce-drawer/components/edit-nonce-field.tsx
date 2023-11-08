@@ -2,7 +2,7 @@ import { FormEvent, memo } from 'react';
 
 import { Input } from '@stacks/ui';
 import { useField } from 'formik';
-import { Stack, StackProps, styled } from 'leather-styles/jsx';
+import { Stack, StackProps } from 'leather-styles/jsx';
 
 import { ErrorLabel } from '@app/components/error-label';
 
@@ -28,11 +28,7 @@ export const EditNonceField = memo((props: EditNonceFieldProps) => {
         value={field.value}
         width="100%"
       />
-      {meta.error && (
-        <ErrorLabel>
-          <styled.span textStyle="caption.02">{meta.error}</styled.span>
-        </ErrorLabel>
-      )}
+      {meta.error && <ErrorLabel>{meta.error}</ErrorLabel>}
     </Stack>
   );
 });

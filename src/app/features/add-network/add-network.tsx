@@ -168,11 +168,7 @@ export function AddNetwork() {
                 data-testid={NetworkSelectors.NetworkKey}
               />
               {error ? (
-                <ErrorLabel>
-                  <Text textStyle="caption" data-testid={NetworkSelectors.ErrorText}>
-                    {error}
-                  </Text>
-                </ErrorLabel>
+                <ErrorLabel data-testid={NetworkSelectors.ErrorText}>{error}</ErrorLabel>
               ) : null}
               <LeatherButton
                 disabled={loading}

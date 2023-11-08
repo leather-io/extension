@@ -6,7 +6,10 @@ import { getTaprootAccountDerivationPath } from '@shared/crypto/bitcoin/p2tr-add
 import { getNativeSegwitAccountDerivationPath } from '@shared/crypto/bitcoin/p2wpkh-address-gen';
 
 export interface BitcoinLedgerAccountDetails {
+  id: string;
+  path: string;
   policy: string;
+  targetId: string;
 }
 
 export async function connectLedgerBitcoinApp() {

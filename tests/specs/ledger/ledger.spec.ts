@@ -1,3 +1,5 @@
+import { TEST_ACCOUNT_1_STX_ADDRESS } from '@tests/mocks/constants';
+
 import { test } from '../../fixtures/fixtures';
 
 test.describe('App with Ledger', () => {
@@ -13,8 +15,8 @@ test.describe('App with Ledger', () => {
   });
 
   test('that receive modal opens', async ({ homePage }) => {
-    const address = await homePage.getReceiveStxAddress();
-    test.expect(address).toEqual('SPSDM5RXY2E3V7JTFYKPFNRPDHG1B85788FKG2KN');
+    const stacksAddress = await homePage.getReceiveStxAddress();
+    test.expect(stacksAddress).toEqual(TEST_ACCOUNT_1_STX_ADDRESS);
   });
 
   test('that you can navigate to activity page', async ({ homePage }) => {
