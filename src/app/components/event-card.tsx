@@ -1,8 +1,8 @@
 import { Box, HStack, Stack, styled } from 'leather-styles/jsx';
 
+import { EllipsesHorizontalIcon } from '@app/ui/components/icons/ellipses-h-icon';
 import { Caption } from '@app/ui/components/typography/caption';
 
-import { EllipsesHorizontalIcon } from './icons/ellipses-h-icon';
 import { TxAssetItem } from './tx-asset-item';
 
 interface EventCardProps {

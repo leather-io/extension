@@ -1,8 +1,6 @@
 import { HomePageSelectors } from '@tests/selectors/home.selectors';
 import { Grid } from 'leather-styles/jsx';
 
-import { transition } from '@app/common/transition';
-
 interface HeaderActionButtonProps {
   icon?: React.JSX.Element;
   isWaitingOnPerformedAction?: boolean;
@@ -25,7 +23,7 @@ export function HeaderActionButton(props: HeaderActionButtonProps) {
       opacity={isWaitingOnPerformedAction ? '0.3' : 'unset'}
       placeItems="center"
       position="relative"
-      transition={transition}
+      transition="transition"
       userSelect="none"
       width="36px"
       zIndex={999}

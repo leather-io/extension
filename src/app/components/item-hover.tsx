@@ -1,8 +1,6 @@
 import { Square, SquareProps } from 'leather-styles/jsx';
 import { useFocus, useHover } from 'use-events';
 
-import { transition } from '@app/common/transition';
-
 function ItemHover({
   isFocused,
   isHovered,
@@ -14,7 +12,7 @@ function ItemHover({
   return (
     <Square
       opacity={isFocused || isHovered ? 1 : 0}
-      transition={transition}
+      transition="transition"
       borderRadius="lg"
       position="absolute"
       size="calc(100% + 24px)"

@@ -14,7 +14,6 @@ export function FormAddressDisplayer({ address, ...rest }: FormAddressDisplayerP
       flexWrap="wrap"
       justifyContent="end"
       mr="-8px"
-      fontSize="lg"
       data-testid={SharedComponentsSelectors.AddressDisplayer}
       {...rest}
     >

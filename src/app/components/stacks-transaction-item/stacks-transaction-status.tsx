@@ -1,4 +1,3 @@
-import type { MempoolTransaction } from '@stacks/stacks-blockchain-api-types';
 import { styled } from 'leather-styles/jsx';
 
 import { StacksTx } from '@shared/models/transactions/stacks-transaction.model';
@@ -13,7 +12,7 @@ interface TransactionStatusProps {
   transaction: StacksTx;
 }
 export function StacksTransactionStatus({ transaction }: TransactionStatusProps) {
-  const isPending = isPendingTx(transaction as MempoolTransaction);
+  const isPending = isPendingTx(transaction);
   const isFailed = !isPending && transaction.tx_status !== 'success';
   const isInMicroblock =
     !isPending && transaction.tx_status === 'success' && transaction.is_unanchored;

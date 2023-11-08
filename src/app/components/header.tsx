@@ -11,11 +11,11 @@ import { useDrawers } from '@app/common/hooks/use-drawers';
 import { useViewportMinWidth } from '@app/common/hooks/use-media-query';
 import { LeatherLogo } from '@app/components/leather-logo';
 import { NetworkModeBadge } from '@app/components/network-mode-badge';
+import { ArrowLeftIcon } from '@app/ui/components/icons/arrow-left-icon';
+import { HamburgerIcon } from '@app/ui/components/icons/hamburger-icon';
 
 import { AppVersion } from './app-version';
 import { LeatherButton } from './button/button';
-import { ArrowLeftIcon } from './icons/arrow-left-icon';
-import { HamburgerIcon } from './icons/hamburger-icon';
 
 interface HeaderProps extends FlexProps {
   actionButton?: React.JSX.Element;

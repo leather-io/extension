@@ -1,17 +1,17 @@
 import { Circle, CircleProps, Flex } from 'leather-styles/jsx';
+import { token } from 'leather-styles/tokens';
 
 import { BitcoinTx } from '@shared/models/transactions/bitcoin-transaction.model';
 
 import { getColorFromBitcoinTx, isBitcoinTxInbound } from '@app/common/transactions/bitcoin/utils';
+import { ArrowDownIcon } from '@app/ui/components/icons/arrow-down-icon';
+import { ArrowUpIcon } from '@app/ui/components/icons/arrow-up-icon';
 import { BtcIcon } from '@app/ui/components/icons/btc-icon';
-
-import { ArrowDownIcon } from '../icons/arrow-down-icon';
-import { ArrowUpIcon } from '../icons/arrow-up-icon';
 
 export function TxStatusIcon(props: { address: string; tx: BitcoinTx }) {
   const { address, tx } = props;
-  if (isBitcoinTxInbound(address, tx)) return <ArrowDownIcon size="13px" />;
-  return <ArrowUpIcon size="13px" />;
+  if (isBitcoinTxInbound(address, tx)) return <ArrowDownIcon size={token('icons.icon.xs')} />;
+  return <ArrowUpIcon size={token('icons.icon.xs')} />;
 }
 
 interface TransactionIconProps extends CircleProps {

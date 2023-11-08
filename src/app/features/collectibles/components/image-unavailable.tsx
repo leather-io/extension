@@ -1,8 +1,8 @@
-import { Box, Flex } from '@stacks/ui';
+import { Flex } from '@stacks/ui';
 import { Text } from '@stacks/ui';
 
 import { figmaTheme } from '@app/common/utils/figma-theme';
-import { EyeSlashIcon } from '@app/components/icons/eye-slash-icon';
+import { EyeSlashIcon } from '@app/ui/components/icons/eye-slash-icon';
 
 export function ImageUnavailable() {
   return (
@@ -15,9 +15,7 @@ export function ImageUnavailable() {
       width="100%"
       backgroundColor={figmaTheme.surfaceSecondary}
     >
-      <Box pb="12px">
-        <EyeSlashIcon />
-      </Box>
+      <EyeSlashIcon pb="12px" size="24px" />
       <Text fontSize="12px" lineHeight="16px">
         Image currently
       </Text>

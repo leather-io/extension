@@ -1,16 +1,16 @@
-import React from 'react';
+import { ReactNode } from 'react';
 
 import { Box, Flex, HStack } from 'leather-styles/jsx';
 
 interface TransactionItemLayoutProps {
   openTxLink(): void;
-  txCaption: React.JSX.Element;
-  txTitle: React.JSX.Element;
-  txValue: React.JSX.Element;
-  txIcon?: React.JSX.Element;
-  txStatus?: React.JSX.Element;
-  belowCaptionEl?: React.JSX.Element;
-  children?: React.JSX.Element;
+  txCaption: ReactNode;
+  txTitle: ReactNode;
+  txValue: ReactNode;
+  txIcon?: ReactNode;
+  txStatus?: ReactNode;
+  belowCaptionEl?: ReactNode;
+  children?: ReactNode;
 }
 export function TransactionItemLayout({
   openTxLink,

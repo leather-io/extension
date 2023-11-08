@@ -6,8 +6,8 @@ import { Box, HStack, styled } from 'leather-styles/jsx';
 import { useWalletType } from '@app/common/use-wallet-type';
 import { LeatherButton } from '@app/components/button/button';
 import { BaseDrawer } from '@app/components/drawer/base-drawer';
-import { ErrorIcon } from '@app/components/icons/error-icon';
 import { Flag } from '@app/components/layout/flag';
+import { ErrorIcon } from '@app/ui/components/icons/error-icon';
 
 interface SignOutConfirmLayoutProps {
   onUserDeleteWallet(): void;

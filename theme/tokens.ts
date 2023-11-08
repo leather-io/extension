@@ -47,14 +47,16 @@ export const tokens = defineTokens({
     background: { value: '2px solid {colors.accent.background-primary}' },
     default: { value: '1px solid {colors.accent.border-default}' },
     error: { value: '1px solid {colors.error.label}' },
+    focus: { value: '2px solid {colors.accent.action-primary-default}' },
     invert: { value: '1px solid {colors.invert}' },
     subdued: { value: '1px solid {colors.accent.text-subdued}' },
   },
   icons: {
     'icon.xs': { value: '12px', description: '12px' },
     'icon.sm': { value: '16px', description: '16px' },
-    'icon.md': { value: '32px', description: '32px' },
+    'icon.md': { value: '24px', description: '24px' },
     'icon.lg': { value: '36px', description: '36px' },
     'icon.xl': { value: '48px', description: '48px' },
   },
+  transition: { value: 'all 0.2s cubic-bezier(0.23, 1, 0.32, 1)' },
 });

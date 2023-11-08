@@ -42,13 +42,3 @@
   font-weight: 400;
   font-style: normal;
 }
-
-@keyframes spin {
-  0% {
-    transform: rotate(0deg);
-  }
-
-  100% {
-    transform: rotate(360deg);
-  }
-}

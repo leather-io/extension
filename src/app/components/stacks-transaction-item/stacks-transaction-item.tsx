@@ -1,6 +1,5 @@
 import { createSearchParams, useLocation, useNavigate } from 'react-router-dom';
 
-import type { MempoolTransaction } from '@stacks/stacks-blockchain-api-types';
 import { BoxProps, styled } from 'leather-styles/jsx';
 
 import { StacksTx, TxTransferDetails } from '@shared/models/transactions/stacks-transaction.model';
@@ -72,7 +71,7 @@ export function StacksTransactionItem({
   };
 
   const isOriginator = transaction?.sender_address === currentAccount?.address;
-  const isPending = transaction && isPendingTx(transaction as MempoolTransaction);
+  const isPending = transaction && isPendingTx(transaction);
 
   const caption = transaction ? getTxCaption(transaction) : transferDetails?.caption || '';
   const txIcon = transaction ? (

@@ -55,7 +55,7 @@ function TabButton(props: TabButtonProps) {
     <styled.button
       bg={isActive ? 'accent.component-background-hover' : 'transparent'}
       border={0}
-      borderRadius="8px"
+      borderRadius="xs"
       fontWeight={isActive ? 600 : 500}
       px="space.04"
       py="space.04"
@@ -80,7 +80,7 @@ export function ContractDeployDetails() {
   }
 
   return (
-    <Stack mb="loose" spacing="loose">
+    <Stack mb="loose" spacing="loose" width="100%">
       <Stack spacing="0" isInline>
         <TabButton onClick={() => setTab('details')} isActive={tab === 'details'}>
           Details

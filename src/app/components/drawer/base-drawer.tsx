@@ -7,7 +7,6 @@ import { noop } from '@shared/utils';
 
 import { useEventListener } from '@app/common/hooks/use-event-listener';
 import { useOnClickOutside } from '@app/common/hooks/use-onclickoutside';
-import { transition } from '@app/common/transition';
 
 import { DrawerHeader } from './components/drawer-header';
 
@@ -62,7 +61,7 @@ export const BaseDrawer = memo((props: BaseDrawerProps) => {
     <Flex
       display={isShowing ? 'flex' : 'none'}
       bg="overlay"
-      transition={transition}
+      transition="transition"
       position="fixed"
       top={0}
       left={0}
@@ -86,7 +85,7 @@ export const BaseDrawer = memo((props: BaseDrawerProps) => {
         ref={ref}
         opacity={isShowing ? 1 : 0}
         transform={isShowing ? 'none' : 'translateY(35px)'}
-        transition={isShowing ? transition + ' 0.1s' : transition}
+        transition={isShowing ? 'transition' + ' 0.1s' : 'transition'}
         transitionDuration="0.4s"
         willChange="transform, opacity"
         width="100%"
@@ -94,8 +93,8 @@ export const BaseDrawer = memo((props: BaseDrawerProps) => {
         bg="accent.background-primary"
         borderTopLeftRadius="lg"
         borderTopRightRadius="lg"
-        borderBottomLeftRadius={[0, 'lg', 'lg', 'lg']}
-        borderBottomRightRadius={[0, 'lg', 'lg', 'lg']}
+        borderBottomLeftRadius={[0, 'lg']}
+        borderBottomRightRadius={[0, 'lg']}
         position="relative"
         mt={['auto', 'unset', 'unset', 'unset']}
         maxHeight={['calc(100vh - 24px)', 'calc(100vh - 96px)']}

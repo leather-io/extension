@@ -3,8 +3,8 @@ import { Box, Flex, styled } from 'leather-styles/jsx';
 
 import { useViewportMinWidth } from '@app/common/hooks/use-media-query';
 import { LeatherButton } from '@app/components/button/button';
-import { LeatherLettermarkIcon } from '@app/components/icons/leather-lettermark-icon';
 import { LeatherIcon } from '@app/ui/components/icons/leather-icon';
+import { LeatherLettermarkIcon } from '@app/ui/components/icons/leather-lettermark-icon';
 
 interface WelcomeLayoutProps {
   tagline: React.ReactNode;

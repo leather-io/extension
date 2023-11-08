@@ -1,7 +1,7 @@
 import { Box, Flex, color } from '@stacks/ui';
 
 import { figmaTheme } from '@app/common/utils/figma-theme';
-import { ArrowIcon } from '@app/components/icons/arrow-icon';
+import { ArrowUpIcon } from '@app/ui/components/icons/arrow-up-icon';
 
 interface CollectibleHoverProps {
   collectibleTypeIcon?: React.JSX.Element;
@@ -49,7 +49,7 @@ export function CollectibleHover({
           _hover={{ backgroundColor: figmaTheme.surfaceHovered }}
           _focus={{ outline: `4px solid ${figmaTheme.borderFocused}` }}
         >
-          <ArrowIcon />
+          <ArrowUpIcon transform="rotate(45deg)" />
         </Flex>
       )}
     </Box>

@@ -41,7 +41,7 @@ export function AddCollectible() {
       subtitle="Collectible"
       title="Add new"
     >
-      <PlusIcon size="40px" />
+      <PlusIcon size={token('icons.icon.lg')} />
     </CollectibleItemLayout>
   );
 }

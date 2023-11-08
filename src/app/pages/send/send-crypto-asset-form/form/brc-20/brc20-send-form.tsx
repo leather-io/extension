@@ -6,8 +6,8 @@ import get from 'lodash.get';
 
 import { openInNewTab } from '@app/common/utils/open-in-new-tab';
 import { LeatherButton } from '@app/components/button/button';
-import { Brc20TokenIcon } from '@app/components/icons/brc20-token-icon';
 import { InfoLabel } from '@app/components/info-label';
+import { Brc20TokenIcon } from '@app/ui/components/icons/brc20-token-icon';
 
 import { AmountField } from '../../components/amount-field';
 import { FormFooter } from '../../components/form-footer';

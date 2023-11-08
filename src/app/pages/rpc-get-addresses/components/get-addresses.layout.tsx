@@ -1,9 +1,9 @@
 import { Box, Flex, styled } from 'leather-styles/jsx';
 
 import { LeatherButton } from '@app/components/button/button';
-import { LIcon } from '@app/components/icons/l-icon';
 import { RequesterFlag } from '@app/components/requester-flag';
 import { LeatherIcon } from '@app/ui/components/icons/leather-icon';
+import { LeatherLIcon } from '@app/ui/components/icons/leather-l-icon';
 
 interface GetAddressesLayoutProps {
   requester: string;
@@ -31,9 +31,7 @@ export function GetAddressesLayout(props: GetAddressesLayoutProps) {
         <Box width="100%" display="flex">
           <LeatherButton onClick={() => onUserApproveGetAddresses()} fullWidth>
             <Flex justifyContent="center" alignItems="center">
-              <Box mr="space.02">
-                <LIcon />
-              </Box>
+              <LeatherLIcon mr="space.02" />
               <styled.span textStyle="label.02">Connect Leather</styled.span>
             </Flex>
           </LeatherButton>

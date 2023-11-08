@@ -63,10 +63,7 @@ export function RequestPassword({ title, caption, onSuccess }: RequestPasswordPr
           autoCapitalize="off"
           autoComplete="off"
           autoFocus
-          _focus={{
-            border: '2px solid',
-            borderColor: 'accent.action-primary-default',
-          }}
+          _focus={{ border: 'focus' }}
           border="active"
           borderRadius="10px"
           data-testid={SettingsSelectors.EnterPasswordInput}

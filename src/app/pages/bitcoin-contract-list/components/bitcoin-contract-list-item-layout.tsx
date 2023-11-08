@@ -9,9 +9,9 @@ import { useExplorerLink } from '@app/common/hooks/use-explorer-link';
 import { baseCurrencyAmountInQuote } from '@app/common/money/calculate-money';
 import { i18nFormatCurrency } from '@app/common/money/format-money';
 import { satToBtc } from '@app/common/money/unit-conversion';
-import { BitcoinContractIcon } from '@app/components/icons/bitcoin-contract-icon';
 import { Flag } from '@app/components/layout/flag';
 import { useCryptoCurrencyMarketData } from '@app/query/common/market-data/market-data.hooks';
+import { BitcoinContractIcon } from '@app/ui/components/icons/bitcoin-contract-icon';
 import { Caption } from '@app/ui/components/typography/caption';
 
 interface BitcoinContractListItemLayoutProps {

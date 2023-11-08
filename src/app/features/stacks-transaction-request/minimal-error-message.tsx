@@ -4,9 +4,9 @@ import { Stack, StackProps, color } from '@stacks/ui';
 import { TransactionRequestSelectors } from '@tests/selectors/requests.selectors';
 import { styled } from 'leather-styles/jsx';
 
-import { ErrorIcon } from '@app/components/icons/error-icon';
 import { useTransactionError } from '@app/features/stacks-transaction-request/hooks/use-transaction-error';
 import { TransactionErrorReason } from '@app/features/stacks-transaction-request/transaction-error/transaction-error';
+import { ErrorIcon } from '@app/ui/components/icons/error-icon';
 
 function MinimalErrorMessageSuspense(props: StackProps) {
   const error = useTransactionError();

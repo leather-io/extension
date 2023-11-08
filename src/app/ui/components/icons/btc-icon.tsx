@@ -1,8 +1,9 @@
 import { Square, SquareProps } from 'leather-styles/jsx';
+import { token } from 'leather-styles/tokens';
 
 import { Svg } from '@app/ui/components/svg';
 
-export function BtcIcon({ size = '36px', ...props }: SquareProps) {
+export function BtcIcon({ size = token('icons.icon.lg'), ...props }: SquareProps) {
   return (
     <Square size={size} {...props}>
       <Svg

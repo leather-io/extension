@@ -10,8 +10,8 @@ import { RouteUrls } from '@shared/route-urls';
 import { useBitcoinContracts } from '@app/common/hooks/use-bitcoin-contracts';
 import { i18nFormatCurrency } from '@app/common/money/format-money';
 import { useCalculateBitcoinFiatValue } from '@app/query/common/market-data/market-data.hooks';
+import { BitcoinContractIcon } from '@app/ui/components/icons/bitcoin-contract-icon';
 
-import { BitcoinContractIcon } from '../icons/bitcoin-contract-icon';
 import { BitcoinContractEntryPointLayout } from './bitcoin-contract-entry-point-layout';
 
 interface BitcoinContractEntryPointProps {

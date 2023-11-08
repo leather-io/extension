@@ -1,8 +1,9 @@
 import { Square, SquareProps } from 'leather-styles/jsx';
+import { token } from 'leather-styles/tokens';
 
-import { Svg } from '@app/ui/components/svg';
+import { Svg } from '../svg';
 
-export function ArrowDownIcon({ size = '16px', ...props }: SquareProps) {
+export function ArrowLeftIcon({ size = token('icons.icon.sm'), ...props }: SquareProps) {
   return (
     <Square size={size} {...props}>
       <Svg
@@ -13,7 +14,7 @@ export function ArrowDownIcon({ size = '16px', ...props }: SquareProps) {
         fill="none"
       >
         <path
-          d="M7.99992 3.33325V11.9999M3.33325 7.99992L7.99992 12.6666L12.6666 7.99992"
+          d="M12.6666 7.99992H3.99992M7.99992 3.33325L3.33325 7.99992L7.99992 12.6666"
           stroke="currentColor"
           strokeWidth="1.8"
           strokeLinecap="square"

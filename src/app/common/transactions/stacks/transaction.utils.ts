@@ -2,7 +2,6 @@ import { bytesToHex } from '@stacks/common';
 import { TransactionTypes } from '@stacks/connect';
 import {
   CoinbaseTransaction,
-  MempoolTransaction,
   NetworkBlockTimesResponse,
   TransactionEventFungibleAsset,
 } from '@stacks/stacks-blockchain-api-types';
@@ -142,6 +141,6 @@ export function getEstimatedConfirmationTime(
   return `~${arrivesIn / 60} min`;
 }
 
-export function isPendingTx(tx: MempoolTransaction): boolean {
+export function isPendingTx(tx: StacksTx) {
   return tx.tx_status === 'pending';
 }

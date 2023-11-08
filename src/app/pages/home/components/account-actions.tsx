@@ -6,10 +6,10 @@ import { Flex, FlexProps } from 'leather-styles/jsx';
 import { RouteUrls } from '@shared/route-urls';
 
 import { useWalletType } from '@app/common/use-wallet-type';
-import { ArrowDownIcon } from '@app/components/icons/arrow-down-icon';
-import { SwapIcon } from '@app/components/icons/swap-icon';
 import { useConfigBitcoinEnabled } from '@app/query/common/remote-config/remote-config.query';
+import { ArrowDownIcon } from '@app/ui/components/icons/arrow-down-icon';
 import { PlusIcon } from '@app/ui/components/icons/plus-icon';
+import { SwapIcon } from '@app/ui/components/icons/swap-icon';
 
 import { ActionButton } from './action-button';
 import { SendButton } from './send-button';
