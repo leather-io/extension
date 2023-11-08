@@ -1,3 +1,31 @@
+## [6.16.0](https://github.com/leather-wallet/extension/compare/v6.15.1...v6.16.0) (2023-11-08)
+
+
+### Features
+
+* change default test acc state ([9d00f06](https://github.com/leather-wallet/extension/commit/9d00f0671214c5a931e555277a689a7fdfbf19e7))
+* process stacks ledger keys ([7e71b91](https://github.com/leather-wallet/extension/commit/7e71b910303686caaa66f2baf20fe040207c1613))
+
+
+### Bug Fixes
+
+* brc20 send form bug, closes [#4482](https://github.com/leather-wallet/extension/issues/4482) ([a578e08](https://github.com/leather-wallet/extension/commit/a578e08116b3e2fa2bf1306855acf67042e5df4f))
+* **ledger:** stacks contract call signing, closes [#4478](https://github.com/leather-wallet/extension/issues/4478) ([6b81c01](https://github.com/leather-wallet/extension/commit/6b81c0157cc7876195dc91161bb2b0d439b7962c))
+* map txid to txId to match new format of useExplorerLink, closes [#4446](https://github.com/leather-wallet/extension/issues/4446) ([cbf8814](https://github.com/leather-wallet/extension/commit/cbf88147f8b1b92c55e888382cd064b0cb81cdac))
+* migration redux persist ([bd77be5](https://github.com/leather-wallet/extension/commit/bd77be5407d932a67d75ef3004edceb1e580ecc7))
+* refactor error label to align icon and make text consistent size, closes [#4166](https://github.com/leather-wallet/extension/issues/4166) ([eb69ae9](https://github.com/leather-wallet/extension/commit/eb69ae92f2f14a73068637f4f387b60fe0ed4b82))
+* sip10 tokens ledger send form, closes [#4491](https://github.com/leather-wallet/extension/issues/4491) ([1bd7837](https://github.com/leather-wallet/extension/commit/1bd783737577958e7ae16ed2a93244fc9db0b6dd))
+* themify yellow, red, green, blue ([642e08a](https://github.com/leather-wallet/extension/commit/642e08a2ce0dd91bd4adad7e6cff5e68c419faa9))
+
+
+### Internal
+
+* init ledger store refactor ([19eee1c](https://github.com/leather-wallet/extension/commit/19eee1c21fa96031fb864513cda170c6aa77ace1))
+* ledger store ([d3d86cc](https://github.com/leather-wallet/extension/commit/d3d86cc9c598398820ed544cb5db6305cafa6627))
+* post-release merge back ([43750af](https://github.com/leather-wallet/extension/commit/43750aff804cb3d934aa9432c03ec771bf270917))
+* post-release merge back ([b9e726e](https://github.com/leather-wallet/extension/commit/b9e726e937fe35cb31efe8724cff5b585f27961b))
+* update icon, closes [#4166](https://github.com/leather-wallet/extension/issues/4166) ([b1e934e](https://github.com/leather-wallet/extension/commit/b1e934e229c336064edeaa59455893258dd48bee))
+
 ## [6.15.1](https://github.com/leather-wallet/extension/compare/v6.15.0...v6.15.1) (2023-11-04)
 
 
