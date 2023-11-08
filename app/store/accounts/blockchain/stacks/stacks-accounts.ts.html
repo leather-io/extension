@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">10.2% </span>
+                <span class="strong">11.53% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>5/49</span>
+                <span class='fraction'>6/52</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/17</span>
+                <span class='fraction'>0/16</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/9</span>
+                <span class='fraction'>0/10</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">11.36% </span>
+                <span class="strong">12.5% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>5/44</span>
+                <span class='fraction'>6/48</span>
             </div>
         
             
@@ -191,7 +191,24 @@
 <a name='L126'></a><a href='#L126'>126</a>
 <a name='L127'></a><a href='#L127'>127</a>
 <a name='L128'></a><a href='#L128'>128</a>
-<a name='L129'></a><a href='#L129'>129</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L129'></a><a href='#L129'>129</a>
+<a name='L130'></a><a href='#L130'>130</a>
+<a name='L131'></a><a href='#L131'>131</a>
+<a name='L132'></a><a href='#L132'>132</a>
+<a name='L133'></a><a href='#L133'>133</a>
+<a name='L134'></a><a href='#L134'>134</a>
+<a name='L135'></a><a href='#L135'>135</a>
+<a name='L136'></a><a href='#L136'>136</a>
+<a name='L137'></a><a href='#L137'>137</a>
+<a name='L138'></a><a href='#L138'>138</a>
+<a name='L139'></a><a href='#L139'>139</a>
+<a name='L140'></a><a href='#L140'>140</a>
+<a name='L141'></a><a href='#L141'>141</a>
+<a name='L142'></a><a href='#L142'>142</a>
+<a name='L143'></a><a href='#L143'>143</a>
+<a name='L144'></a><a href='#L144'>144</a>
+<a name='L145'></a><a href='#L145'>145</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -251,6 +268,15 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -279,13 +305,14 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -298,6 +325,11 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -322,6 +354,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { bytesToHex } from '@noble/hashes/utils';
 import { createSelector } from '@reduxjs/toolkit';
 import { HARDENED_OFFSET, HDKey } from '@scure/bip32';
+import { ChainID } from '@stacks/common';
 import {
   AddressVersion,
   createStacksPrivateKey,
@@ -337,15 +370,15 @@ import { DATA_DERIVATION_PATH, deriveStacksSalt } from '@shared/crypto/stacks/st
 import { defaultWalletKeyId } from '@shared/utils';
 &nbsp;
 import { derivePublicKey } from '@app/common/keychain/keychain';
-import { createNullArrayOfLength } from '@app/common/utils';
+import { createNullArrayOfLength, whenStacksChainId } from '@app/common/utils';
 import { storeAtom } from '@app/store';
 import { selectStacksChain } from '@app/store/chains/stx-chain.selectors';
 import {
   selectDefaultWalletKey,
   selectRootKeychain,
 } from '@app/store/in-memory-key/in-memory-key.selectors';
-import { selectLedgerKey } from '@app/store/keys/key.selectors';
-import { addressNetworkVersionState } from '@app/store/transactions/transaction';
+import { selectDefaultWalletStacksKeys } from '@app/store/ledger/stacks/stacks-key.slice';
+import { currentNetworkAtom } from '@app/store/networks/networks';
 &nbsp;
 import {
   HardwareStacksAccount,
@@ -378,6 +411,15 @@ function <span class="fstat-no" title="function not covered" >initalizeStacksAcc
   };
 }
 &nbsp;
+const stacksAddressNetworkVersionState = atom(<span class="fstat-no" title="function not covered" >get =&gt; {</span>
+  const currentNetwork = <span class="cstat-no" title="statement not covered" >get(currentNetworkAtom);</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >  return whenStacksChainId(currentNetwork.chain.stacks.chainId)({</span>
+    [ChainID.Mainnet]: AddressVersion.MainnetSingleSig,
+    [ChainID.Testnet]: AddressVersion.TestnetSingleSig,
+  });
+});
+&nbsp;
 const selectStacksWalletState = createSelector(
   selectRootKeychain,
   selectStacksChain,
@@ -393,7 +435,7 @@ const selectStacksWalletState = createSelector(
 &nbsp;
 const softwareAccountsState = atom&lt;SoftwareStacksAccount[] | undefined&gt;(<span class="fstat-no" title="function not covered" >get =&gt; {</span>
   const store = <span class="cstat-no" title="statement not covered" >get(storeAtom);</span>
-  const addressVersion = <span class="cstat-no" title="statement not covered" >get(addressNetworkVersionState) || AddressVersion.TestnetSingleSig;</span>
+  const addressVersion = <span class="cstat-no" title="statement not covered" >get(stacksAddressNetworkVersionState) || AddressVersion.TestnetSingleSig;</span>
   const accounts = <span class="cstat-no" title="statement not covered" >selectStacksWalletState(store);</span>
 <span class="cstat-no" title="statement not covered" >  if (!accounts) <span class="cstat-no" title="statement not covered" >return undefined;</span></span>
 <span class="cstat-no" title="statement not covered" >  return accounts.map(<span class="fstat-no" title="function not covered" >account =&gt; {</span></span>
@@ -405,15 +447,16 @@ const softwareAccountsState = atom&lt;SoftwareStacksAccount[] | undefined&gt;(<s
 });
 &nbsp;
 const ledgerAccountsState = atom&lt;HardwareStacksAccount[] | undefined&gt;(<span class="fstat-no" title="function not covered" >get =&gt; {</span>
-  const ledgerWallet = <span class="cstat-no" title="statement not covered" >selectLedgerKey(get(storeAtom));</span>
-  const addressVersion = <span class="cstat-no" title="statement not covered" >get(addressNetworkVersionState);</span>
-<span class="cstat-no" title="statement not covered" >  if (!ledgerWallet) <span class="cstat-no" title="statement not covered" >return undefined;</span></span>
-<span class="cstat-no" title="statement not covered" >  return ledgerWallet.publicKeys.map(<span class="fstat-no" title="function not covered" >(p</span>ublicKeys, index) =&gt; {</span>
+  const addressVersion = <span class="cstat-no" title="statement not covered" >get(stacksAddressNetworkVersionState);</span>
+  const ledgerKeys = <span class="cstat-no" title="statement not covered" >selectDefaultWalletStacksKeys(get(storeAtom));</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >  return ledgerKeys.map(<span class="fstat-no" title="function not covered" >(p</span>ublicKeys, index) =&gt; {</span>
     const address = <span class="cstat-no" title="statement not covered" >publicKeyToAddress(</span>
       addressVersion,
       createStacksPublicKey(publicKeys.stxPublicKey)
     );
 <span class="cstat-no" title="statement not covered" >    return {</span>
+      ...publicKeys,
       type: 'ledger',
       address,
       stxPublicKey: publicKeys.stxPublicKey,
@@ -426,7 +469,12 @@ const ledgerAccountsState = atom&lt;HardwareStacksAccount[] | undefined&gt;(<spa
 export const stacksAccountState = atom&lt;StacksAccount[]&gt;(<span class="fstat-no" title="function not covered" >get =&gt; {</span>
   const ledgerAccounts = <span class="cstat-no" title="statement not covered" >get(ledgerAccountsState);</span>
   const softwareAccounts = <span class="cstat-no" title="statement not covered" >get(softwareAccountsState);</span>
-<span class="cstat-no" title="statement not covered" >  return ledgerAccounts ?? softwareAccounts ?? [];</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >  if (ledgerAccounts?.length) {</span>
+<span class="cstat-no" title="statement not covered" >    return ledgerAccounts;</span>
+  }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >  return softwareAccounts ?? [];</span>
 });
 &nbsp;
 /**
@@ -454,7 +502,7 @@ export const legacyStackWallet = atom(<span class="fstat-no" title="function not
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2023-11-04T19:17:05.988Z
+                at 2023-11-08T11:17:24.517Z
             </div>
         <script src="../../../../../prettify.js"></script>
         <script>

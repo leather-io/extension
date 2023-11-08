@@ -3,7 +3,7 @@
 <html lang="en">
 
 <head>
-    <title>Code coverage report for app/store/ledger/bitcoin-key.slice.ts</title>
+    <title>Code coverage report for app/store/software-keys/software-key.selectors.ts</title>
     <meta charset="utf-8" />
     <link rel="stylesheet" href="../../../prettify.css" />
     <link rel="stylesheet" href="../../../base.css" />
@@ -19,34 +19,34 @@
 <body>
 <div class='wrapper'>
     <div class='pad1'>
-        <h1><a href="../../../index.html">All files</a> / <a href="index.html">app/store/ledger</a> bitcoin-key.slice.ts</h1>
+        <h1><a href="../../../index.html">All files</a> / <a href="index.html">app/store/software-keys</a> software-key.selectors.ts</h1>
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">57.14% </span>
+                <span class="strong">30% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>4/7</span>
+                <span class='fraction'>3/10</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
+                <span class="strong">0% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/0</span>
+                <span class='fraction'>0/4</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/3</span>
+                <span class='fraction'>0/4</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">57.14% </span>
+                <span class="strong">33.33% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>4/7</span>
+                <span class='fraction'>3/9</span>
             </div>
         
             
@@ -61,7 +61,7 @@
             </div>
         </template>
     </div>
-    <div class='status-line medium'></div>
+    <div class='status-line low'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -93,12 +93,7 @@
 <a name='L28'></a><a href='#L28'>28</a>
 <a name='L29'></a><a href='#L29'>29</a>
 <a name='L30'></a><a href='#L30'>30</a>
-<a name='L31'></a><a href='#L31'>31</a>
-<a name='L32'></a><a href='#L32'>32</a>
-<a name='L33'></a><a href='#L33'>33</a>
-<a name='L34'></a><a href='#L34'>34</a>
-<a name='L35'></a><a href='#L35'>35</a>
-<a name='L36'></a><a href='#L36'>36</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L31'></a><a href='#L31'>31</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -114,16 +109,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -131,43 +117,42 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">5x</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { PayloadAction, createEntityAdapter, createSlice } from '@reduxjs/toolkit';
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { useSelector } from 'react-redux';
+&nbsp;
+import { createSelector } from '@reduxjs/toolkit';
 &nbsp;
 import { defaultWalletKeyId } from '@shared/utils';
 &nbsp;
-import { BitcoinLedgerAccountDetails } from '@app/features/ledger/utils/bitcoin-ledger-utils';
+import { initialSearchParams } from '@app/common/initial-search-params';
+import { initBigNumber } from '@app/common/math/helpers';
+import { RootState } from '@app/store';
 &nbsp;
-import { RootState } from '..';
+import { selectStacksChain } from '../chains/stx-chain.selectors';
 &nbsp;
-interface PersistedBitcoinKeys extends BitcoinLedgerAccountDetails {
-  walletId: string;
+const selectKeysSlice = <span class="fstat-no" title="function not covered" >(s</span>tate: RootState) =&gt; <span class="cstat-no" title="statement not covered" >state['softwareKeys'];</span>
+&nbsp;
+export const selectDefaultSoftwareKey = createSelector(
+  selectKeysSlice,
+<span class="fstat-no" title="function not covered" >  state =&gt; <span class="cstat-no" title="statement not covered" >s</span>tate.entities[defaultWalletKeyId]</span>
+);
+&nbsp;
+export function <span class="fstat-no" title="function not covered" >useCurrentKeyDetails() {</span>
+<span class="cstat-no" title="statement not covered" >  return useSelector(selectDefaultSoftwareKey);</span>
 }
 &nbsp;
-const bitcoinKeyAdapter = createEntityAdapter&lt;PersistedBitcoinKeys&gt;();
-&nbsp;
-export const bitcoinKeysSlice = createSlice({
-  name: 'bitcoinsKeys',
-  initialState: bitcoinKeyAdapter.getInitialState(),
-  reducers: {
-<span class="fstat-no" title="function not covered" >    addBitcoinKeys(s</span>tate, { payload }: PayloadAction&lt;BitcoinLedgerAccountDetails[]&gt;) {
-<span class="cstat-no" title="statement not covered" >      bitcoinKeyAdapter.addMany(</span>
-        state,
-        // While we only support a single wallet, we default to the `default` walletId
-        payload.map(<span class="fstat-no" title="function not covered" >key =&gt; (<span class="cstat-no" title="statement not covered" >{</span> ...key, walletId: defaultWalletKeyId }))</span>
-      );
-    },
-  },
+export const selectCurrentAccountIndex = createSelector(selectStacksChain, <span class="fstat-no" title="function not covered" >state =&gt; {</span>
+  const customAccountIndex = <span class="cstat-no" title="statement not covered" >initialSearchParams.get('accountIndex');</span>
+<span class="cstat-no" title="statement not covered" >  if (customAccountIndex &amp;&amp; initBigNumber(customAccountIndex).isInteger()) {</span>
+<span class="cstat-no" title="statement not covered" >    return initBigNumber(customAccountIndex).toNumber();</span>
+  }
+<span class="cstat-no" title="statement not covered" >  return state[defaultWalletKeyId].currentAccountIndex;</span>
 });
-&nbsp;
-function <span class="fstat-no" title="function not covered" >selectBitcoinKeysSlice(s</span>tate: RootState) {
-<span class="cstat-no" title="statement not covered" >  return state.ledger.bitcoin;</span>
-}
-&nbsp;
-const selectors = bitcoinKeyAdapter.getSelectors(selectBitcoinKeysSlice);
-&nbsp;
-export const selectDefaultWalletBitcoinKeyEntities = selectors.selectEntities;
 &nbsp;</pre></td></tr></table></pre>
 
                 <div class='push'></div><!-- for sticky footer -->
@@ -175,7 +160,7 @@ export const selectDefaultWalletBitcoinKeyEntities = selectors.selectEntities;
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2023-11-04T19:17:05.988Z
+                at 2023-11-08T11:17:24.517Z
             </div>
         <script src="../../../prettify.js"></script>
         <script>
