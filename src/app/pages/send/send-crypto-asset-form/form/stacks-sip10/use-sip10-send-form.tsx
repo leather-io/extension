@@ -8,10 +8,8 @@ import { StacksSendFormValues } from '@shared/models/form.model';
 
 import { getImageCanonicalUri } from '@app/common/crypto-assets/stacks-crypto-asset.utils';
 import { convertAmountToBaseUnit } from '@app/common/money/calculate-money';
-import { useWalletType } from '@app/common/use-wallet-type';
 import { formatContractId } from '@app/common/utils';
 import { stacksFungibleTokenAmountValidator } from '@app/common/validation/forms/amount-validators';
-import { useLedgerNavigate } from '@app/features/ledger/hooks/use-ledger-navigate';
 import { useStacksFungibleTokenAssetBalance } from '@app/query/stacks/balance/stacks-ft-balances.hooks';
 import { useCalculateStacksTxFees } from '@app/query/stacks/fees/fees.hooks';
 import {
@@ -31,8 +29,6 @@ export function useSip10SendForm({ symbol, contractId }: UseSip10SendFormArgs) {
   const assetBalance = useStacksFungibleTokenAssetBalance(contractId);
   const generateTx = useGenerateFtTokenTransferUnsignedTx(assetBalance);
 
-  const { whenWallet } = useWalletType();
-  const ledgerNavigate = useLedgerNavigate();
   const sendFormNavigate = useSendFormNavigate();
 
   const unsignedTx = useFtTokenTransferUnsignedTx(assetBalance);
@@ -83,15 +79,11 @@ export function useSip10SendForm({ symbol, contractId }: UseSip10SendFormArgs) {
       const tx = await generateTx(values);
       if (!tx) return logger.error('Attempted to generate unsigned tx, but tx is undefined');
 
-      whenWallet({
-        software: () =>
-          sendFormNavigate.toConfirmAndSignStacksSip10Transaction({
-            decimals: assetBalance.balance.decimals,
-            name: assetBalance.asset.name,
-            tx,
-          }),
-        ledger: () => ledgerNavigate.toConnectAndSignTransactionStep(tx),
-      })();
+      sendFormNavigate.toConfirmAndSignStacksSip10Transaction({
+        decimals: assetBalance.balance.decimals,
+        name: assetBalance.asset.name,
+        tx,
+      });
     },
   };
 }
