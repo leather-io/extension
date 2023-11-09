@@ -1,5 +1,5 @@
 import { ClarityType } from '@stacks/transactions';
-import { Box, BoxProps, Flex, FlexProps } from '@stacks/ui';
+import { Box, BoxProps, Flex, FlexProps } from 'leather-styles/jsx';
 
 import { figmaTheme } from '@app/common/utils/figma-theme';
 

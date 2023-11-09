@@ -19,22 +19,24 @@ export function FeesListItem({
   isSelected,
   ...props
 }: FeesListItemProps) {
+  // #4476 TODO visually inspect this
   return (
     <styled.button
       _hover={{ background: 'accent.component-background-hover' }}
       border={isSelected ? '4px solid' : '1px solid'}
       borderColor="accent.action-primary-default"
       borderRadius="lg"
+      // #4476 TODO add tokens for boxShadow
       boxShadow="0px 1px 2px rgba(0, 0, 0, 0.04)"
       data-testid={SharedComponentsSelectors.FeesListItem}
-      px="base"
-      py="extra-loose"
+      px="space.04"
+      py="space.06"
       transition="transition"
       width="100%"
       {...props}
     >
-      <Flex justifyContent="center" mb="base-tight">
-        <styled.span textStyle="label.01" mr="tight">
+      <Flex justifyContent="center" mb="space.03">
+        <styled.span textStyle="label.01" mr="space.02">
           {feeType}
         </styled.span>
         <styled.span textStyle="label.01">{arrivesIn}</styled.span>

@@ -1,17 +1,14 @@
 import { Suspense, memo, useMemo, useState } from 'react';
-import { FiPlusCircle } from 'react-icons/fi';
 import { useNavigate } from 'react-router-dom';
 import { Virtuoso } from 'react-virtuoso';
 
-import { Box, FlexProps, Stack, Text } from '@stacks/ui';
-import { BoxProps, styled } from 'leather-styles/jsx';
+import { Box, FlexProps, HStack, styled } from 'leather-styles/jsx';
 
 import { RouteUrls } from '@shared/route-urls';
 
 import { useFinishAuthRequest } from '@app/common/authentication/use-finish-auth-request';
 import { useAccountDisplayName } from '@app/common/hooks/account/use-account-names';
 import { useCreateAccount } from '@app/common/hooks/account/use-create-account';
-import { useOnboardingState } from '@app/common/hooks/auth/use-onboarding-state';
 import { useWalletType } from '@app/common/use-wallet-type';
 import { slugify } from '@app/common/utils';
 import { AccountTotalBalance } from '@app/components/account-total-balance';
@@ -21,25 +18,14 @@ import { usePressable } from '@app/components/item-hover';
 import { useNativeSegwitAccountIndexAddressIndexZero } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
 import { useStacksAccounts } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
 import { StacksAccount } from '@app/store/accounts/blockchain/stacks/stacks-account.models';
-import { Title } from '@app/ui/components/typography/title';
+import { PlusIcon } from '@app/ui/components/icons/plus-icon';
 
-const loadingProps = { color: '#A1A7B3' };
-const getLoadingProps = (loading: boolean) => (loading ? loadingProps : {});
-
-interface AccountTitlePlaceholderProps extends BoxProps {
+interface AccountTitlePlaceholderProps {
   account: StacksAccount;
 }
-function AccountTitlePlaceholder({ account, ...rest }: AccountTitlePlaceholderProps) {
+function AccountTitlePlaceholder({ account }: AccountTitlePlaceholderProps) {
   const name = `Account ${account?.index + 1}`;
-  return <Title {...rest}>{name}</Title>;
-}
-
-interface AccountTitleProps {
-  account: StacksAccount;
-  name: string;
-}
-function AccountTitle({ name }: AccountTitleProps) {
-  return <styled.span textStyle="label.01">{name}</styled.span>;
+  return <styled.span>{name}</styled.span>;
 }
 
 interface ChooseAccountItemProps extends FlexProps {
@@ -49,30 +35,23 @@ interface ChooseAccountItemProps extends FlexProps {
   onSelectAccount(index: number): void;
 }
 const ChooseAccountItem = memo(
-  ({ selectedAddress, account, isLoading, onSelectAccount }: ChooseAccountItemProps) => {
+  ({ account, isLoading, onSelectAccount }: ChooseAccountItemProps) => {
     const [component, bind] = usePressable(true);
-    const { decodedAuthRequest } = useOnboardingState();
     const name = useAccountDisplayName(account);
     const btcAddress = useNativeSegwitAccountIndexAddressIndexZero(account.index);
-
-    const showLoadingProps = !!selectedAddress || !decodedAuthRequest;
 
     const accountSlug = useMemo(() => slugify(`Account ${account?.index + 1}`), [account?.index]);
 
     return (
       // Padding required on outer element to prevent jumpy list behaviours in
       // virtualised list library
-      <Box pb="loose">
+      <Box pb="space.05">
         <AccountListItemLayout
           index={account.index}
           isActive={false}
           accountName={
-            <Suspense
-              fallback={
-                <AccountTitlePlaceholder {...getLoadingProps(showLoadingProps)} account={account} />
-              }
-            >
-              <AccountTitle name={name} {...getLoadingProps(showLoadingProps)} account={account} />
+            <Suspense fallback={<AccountTitlePlaceholder account={account} />}>
+              <styled.span textStyle="label.01">{name}</styled.span>
             </Suspense>
           }
           avatar={
@@ -108,10 +87,14 @@ const AddAccountAction = memo(() => {
 
   return (
     <Box mb="loose" px="base-tight" py="tight" onClick={onCreateAccount} {...bind}>
-      <Stack isInline alignItems="center">
-        <Box size="16px" as={FiPlusCircle} />
-        <Text color="currentColor">Generate new account</Text>
-      </Stack>
+      <HStack alignItems="center">
+        <PlusIcon size="16px" />
+        {/* 
+        #4476 TODO - test / refactor this - I'm not sure where it is or what it does 
+        We have a button instead for `Create new account'
+        */}
+        Generate new account
+      </HStack>
       {component}
     </Box>
   );

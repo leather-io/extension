@@ -3,6 +3,7 @@ import { memo, useMemo } from 'react';
 import Tippy, { TippyProps } from '@tippyjs/react';
 import { BoxProps, styled } from 'leather-styles/jsx';
 
+// #4506 TODO replace this with Radix tooltip
 interface TooltipProps extends TippyProps {
   hideOnClick?: boolean;
   label?: TippyProps['content'];

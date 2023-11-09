@@ -1,5 +1,5 @@
-import { Flex } from '@stacks/ui';
 import { SendCryptoAssetSelectors } from '@tests/selectors/send.selectors';
+import { Flex } from 'leather-styles/jsx';
 
 interface SendCryptoAssetFormLayoutProps {
   children: React.ReactNode;

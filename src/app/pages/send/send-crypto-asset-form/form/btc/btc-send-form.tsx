@@ -1,8 +1,8 @@
 import { Outlet } from 'react-router-dom';
 
-import { Box } from '@stacks/ui';
 import { SendCryptoAssetSelectors } from '@tests/selectors/send.selectors';
 import { Form, Formik } from 'formik';
+import { Box } from 'leather-styles/jsx';
 
 import { HIGH_FEE_WARNING_LEARN_MORE_URL_BTC } from '@shared/constants';
 import { CryptoCurrencies } from '@shared/models/currencies.model';

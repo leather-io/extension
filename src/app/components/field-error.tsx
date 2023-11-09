@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react';
 import AnimateHeight from 'react-animate-height';
 
-import { Box, Flex } from '@stacks/ui';
 import { SendCryptoAssetSelectors } from '@tests/selectors/send.selectors';
 import { useField } from 'formik';
+import { Box, Flex } from 'leather-styles/jsx';
 
 import { useShowFieldError } from '@app/common/form-utils';
 import { ErrorLabel } from '@app/components/error-label';

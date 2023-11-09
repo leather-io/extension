@@ -1,5 +1,4 @@
-import { Box, Stack } from '@stacks/ui';
-import { styled } from 'leather-styles/jsx';
+import { HStack, styled } from 'leather-styles/jsx';
 import { token } from 'leather-styles/tokens';
 
 import { Tooltip } from '@app/components/tooltip';
@@ -14,38 +13,37 @@ const uncertainLabel =
 
 export function PsbtRequestDetailsHeader() {
   const { isPsbtMutable } = usePsbtSignerContext();
-  const labelColor = isPsbtMutable ? token('colors.error') : token('colors.accent.text-subdued');
+  const labelColor = isPsbtMutable
+    ? token('colors.error.label')
+    : token('colors.accent.text-subdued');
 
   return (
-    <Stack alignItems="center" isInline spacing="tight">
+    <HStack alignItems="center" gap="space.02">
       <styled.h2 textStyle="heading.05">Transaction</styled.h2>
       <Tooltip
         label={isPsbtMutable ? uncertainLabel : immutableLabel}
         maxWidth="230px"
         placement="bottom"
       >
-        <Stack
+        <HStack
           alignItems="center"
           border="1px solid"
           borderColor={labelColor}
           borderRadius="24px"
-          isInline
-          px="tight"
-          py="extra-tight"
-          spacing="extra-tight"
+          px="space.02"
+          py="space.01"
+          gap="space.01"
         >
-          <Box size="12px">
-            {isPsbtMutable ? (
-              <UnlockIcon color={labelColor} height="12px" width="12px" />
-            ) : (
-              <LockIcon color={labelColor} height="12px" width="12px" />
-            )}
-          </Box>
+          {isPsbtMutable ? (
+            <UnlockIcon color={labelColor} size="icon.xs" />
+          ) : (
+            <LockIcon color={labelColor} size="icon.xs" />
+          )}
           <styled.span color={labelColor} textStyle="caption.02">
             {isPsbtMutable ? 'Uncertain' : 'Certain'}
           </styled.span>
-        </Stack>
+        </HStack>
       </Tooltip>
-    </Stack>
+    </HStack>
   );
 }

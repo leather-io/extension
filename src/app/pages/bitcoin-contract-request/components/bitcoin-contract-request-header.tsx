@@ -1,7 +1,7 @@
 import { memo } from 'react';
 
-import { Flex } from '@stacks/ui';
 import { BitcoinContractRequestSelectors } from '@tests/selectors/bitcoin-contract-request.selectors';
+import { Flex } from 'leather-styles/jsx';
 
 import { Flag } from '@app/components/layout/flag';
 import { Caption } from '@app/ui/components/typography/caption';

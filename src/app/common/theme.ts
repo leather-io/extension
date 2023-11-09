@@ -1,3 +1,4 @@
+// #4476 FIXME - we should just remove this but it will change a lot of things
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-nocheck
 import { theme as uiTheme } from '@stacks/ui-theme';

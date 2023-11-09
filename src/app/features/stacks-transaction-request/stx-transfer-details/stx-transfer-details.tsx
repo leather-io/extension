@@ -1,6 +1,5 @@
-import { Stack, color } from '@stacks/ui';
+import { Stack } from 'leather-styles/jsx';
 
-import { Divider } from '@app/components/layout/divider';
 import { AttachmentRow } from '@app/features/stacks-transaction-request/attachment-row';
 import { Row } from '@app/features/stacks-transaction-request/row';
 import { useTransactionRequestState } from '@app/store/transactions/requests.hooks';
@@ -16,15 +15,15 @@ export function StxTransferDetails(): React.JSX.Element | null {
   return (
     <Stack
       border="4px solid"
-      borderColor={color('border')}
+      borderColor="accent.border-default"
       borderRadius="12px"
-      mb="loose"
-      px="base-loose"
-      py="extra-loose"
-      spacing="loose"
+      mb="space.05"
+      px="space.04"
+      py="space.06"
+      gap="space.05"
     >
       <Title>Transfer details</Title>
-      <Stack divider={<Divider />} spacing="base">
+      <Stack gap="base">
         <Row name="Recipient" type="Principal" value={pendingTransaction.recipient} />
         <Row name="Amount" type="uSTX" value={pendingTransaction.amount} />
         {pendingTransaction.memo && (

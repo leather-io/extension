@@ -2,9 +2,9 @@ import { useCallback, useEffect } from 'react';
 import { toast } from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
 
-import { Stack } from '@stacks/ui';
 import BigNumber from 'bignumber.js';
 import { Formik } from 'formik';
+import { Stack } from 'leather-styles/jsx';
 import * as yup from 'yup';
 
 import { RouteUrls } from '@shared/route-urls';
@@ -92,9 +92,9 @@ export function IncreaseStxFeeForm() {
       validationSchema={validationSchema}
     >
       {props => (
-        <Stack spacing="extra-loose">
+        <Stack gap="space.06">
           {tx && <StacksTransactionItem position="relative" transaction={tx} zIndex={99} />}
-          <Stack spacing="base">
+          <Stack gap="space.04">
             <IncreaseFeeField currentFee={fee} />
             {balances?.stx.unlockedStx.amount && (
               <Caption>
