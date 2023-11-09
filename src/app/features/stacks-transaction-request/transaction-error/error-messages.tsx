@@ -2,9 +2,9 @@ import { memo } from 'react';
 import { Navigate } from 'react-router-dom';
 
 import { STXTransferPayload, TransactionTypes } from '@stacks/connect';
-import { Fade, Flex, Stack, color } from '@stacks/ui';
-import { truncateMiddle } from '@stacks/ui-utils';
-import { HStack } from 'leather-styles/jsx';
+// #4476 TODO: ask Fara if we can ditch Fade
+import { Fade } from '@stacks/ui';
+import { Flex, HStack, Stack } from 'leather-styles/jsx';
 
 import { RouteUrls } from '@shared/route-urls';
 import { closeWindow } from '@shared/utils';
@@ -19,6 +19,7 @@ import { useCurrentStacksAccountAnchoredBalances } from '@app/query/stacks/balan
 import { useCurrentNetworkState } from '@app/store/networks/networks.hooks';
 import { useTransactionRequestState } from '@app/store/transactions/requests.hooks';
 import { Caption } from '@app/ui/components/typography/caption';
+import { truncateMiddle } from '@app/ui/utils/truncate-middle';
 
 interface InsufficientFundsActionButtonsProps {
   eventName: string;
@@ -62,12 +63,12 @@ export const StxTransferInsufficientFundsErrorMessage = memo(props => {
     <ErrorMessage
       title="Insufficient balance"
       body={
-        <Stack spacing="loose">
+        <Stack gap="space.05">
           <Caption color="accent.text-primary">
             You don't have enough STX to make this transfer. Send some STX to this address, or
             switch to another account.
           </Caption>
-          <Stack spacing="base" justifyContent="flex-end" textAlign="right">
+          <Stack gap="space.04" justifyContent="flex-end" textAlign="right">
             <HStack alignItems="center" justifyContent="space-between">
               <Caption>Current balance</Caption>
               <Caption>
@@ -135,6 +136,7 @@ export const UnauthorizedRequestRedirect = memo(() => {
 });
 
 // TODO: Change this to new Error component?
+// #4476 TODO: maybe we can do the above now?
 export const ExpiredRequestErrorMessage = memo(props => {
   useScrollLock(true);
   return (
@@ -149,7 +151,7 @@ export const ExpiredRequestErrorMessage = memo(props => {
           top={0}
           alignItems="center"
           justifyContent="center"
-          p="loose"
+          p="space.05"
           bg="rgba(0,0,0,0.35)"
           backdropFilter="blur(10px)"
           style={styles}
@@ -157,9 +159,10 @@ export const ExpiredRequestErrorMessage = memo(props => {
           <ErrorMessage
             title="Expired request"
             body="This transaction request has expired or cannot be validated, try to re-initiate this transaction request from the original app."
-            border={'1px solid'}
-            borderColor={color('border')}
-            boxShadow="high"
+            border="1px solid"
+            borderColor="accent.border-default"
+            // #4476 TODO check this is OK to remove boxShadow="high"
+            // boxShadow="high"
             css={{
               '& > *': {
                 pointerEvents: 'all',

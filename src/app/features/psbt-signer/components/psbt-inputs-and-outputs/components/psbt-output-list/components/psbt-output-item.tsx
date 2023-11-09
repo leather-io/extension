@@ -1,10 +1,9 @@
-import { truncateMiddle } from '@stacks/ui-utils';
-
 import { createMoney } from '@shared/models/money.model';
 
 import { formatMoney } from '@app/common/money/format-money';
 import { Pill } from '@app/components/pill';
 import { PsbtOutput } from '@app/features/psbt-signer/hooks/use-parsed-outputs';
+import { truncateMiddle } from '@app/ui/utils/truncate-middle';
 
 import { PsbtInputOutputItemLayout } from '../../psbt-input-output-item.layout';
 

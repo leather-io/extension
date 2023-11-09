@@ -1,6 +1,5 @@
 import { useState } from 'react';
 
-import { Flex } from '@stacks/ui';
 import { Box, styled } from 'leather-styles/jsx';
 import { token } from 'leather-styles/tokens';
 
@@ -24,8 +23,7 @@ export function HashDrawer(props: HashDrawerProps) {
   const [displayHash, setDisplayHash] = useState(hash);
   return (
     <Box px="space.05">
-      <Flex
-        as="button"
+      <styled.button
         width="100%"
         _hover={{ cursor: 'pointer' }}
         _focus={{ outline: 0, textDecoration: 'underline' }}
@@ -40,7 +38,7 @@ export function HashDrawer(props: HashDrawerProps) {
         <Box marginLeft="auto" marginTop="auto" marginBottom="auto">
           <ShowHashButton expanded={showHash} />
         </Box>
-      </Flex>
+      </styled.button>
       <Box
         transition="transition"
         height={showHash ? '100%' : '0'}

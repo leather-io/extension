@@ -7,6 +7,7 @@ import { QueryClientProvider } from '@tanstack/react-query';
 import { PersistGate } from 'redux-persist/integration/react';
 
 import { queryClient } from '@app/common/persistence';
+// #4476 FIXME - we should just remove this but it will change a lot of things
 import { theme } from '@app/common/theme';
 import { FullPageLoadingSpinner } from '@app/components/loading-spinner';
 import { Devtools } from '@app/features/devtool/devtools';

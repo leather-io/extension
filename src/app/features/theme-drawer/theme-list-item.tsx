@@ -1,17 +1,15 @@
 import { useCallback } from 'react';
 
-import { BoxProps } from '@stacks/ui';
-
 import { UserSelectedTheme, getThemeLabel } from '@app/common/theme-provider';
 
 import { ThemeListItemLayout } from './theme-list-item-layout';
 
-interface ThemeListItemProps extends BoxProps {
+interface ThemeListItemProps {
   theme: UserSelectedTheme;
   onThemeSelected: (theme: UserSelectedTheme) => void;
   isActive: boolean;
 }
-export function ThemeListItem({ theme, onThemeSelected, isActive, ...props }: ThemeListItemProps) {
+export function ThemeListItem({ theme, onThemeSelected, isActive }: ThemeListItemProps) {
   const themeLabel = getThemeLabel(theme);
   const itemSelectHandler = useCallback(() => {
     onThemeSelected(theme);
@@ -22,7 +20,6 @@ export function ThemeListItem({ theme, onThemeSelected, isActive, ...props }: Th
       themeLabel={themeLabel}
       isActive={isActive}
       onThemeItemSelect={itemSelectHandler}
-      {...props}
     />
   );
 }

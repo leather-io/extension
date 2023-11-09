@@ -1,10 +1,10 @@
-import { Tooltip } from '@stacks/ui';
 import { SharedComponentsSelectors } from '@tests/selectors/shared-component.selectors';
 
 import { CryptoCurrencies } from '@shared/models/currencies.model';
 import { Money } from '@shared/models/money.model';
 
 import { formatDustUsdAmounts, i18nFormatCurrency } from '@app/common/money/format-money';
+import { Tooltip } from '@app/components/tooltip';
 import { Caption } from '@app/ui/components/typography/caption';
 
 interface TransactionFeeProps {

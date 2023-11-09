@@ -1,12 +1,12 @@
 import { useState } from 'react';
 
-import { truncateMiddle } from '@stacks/ui-utils';
 import { Flex, styled } from 'leather-styles/jsx';
 
 import { useBitcoinContracts } from '@app/common/hooks/use-bitcoin-contracts';
 import { BitcoinContractListItem } from '@app/common/hooks/use-bitcoin-contracts';
 import { useOnMount } from '@app/common/hooks/use-on-mount';
 import { FullPageLoadingSpinner } from '@app/components/loading-spinner';
+import { truncateMiddle } from '@app/ui/utils/truncate-middle';
 
 import { BitcoinContractListItemLayout } from './components/bitcoin-contract-list-item-layout';
 import { BitcoinContractListLayout } from './components/bitcoin-contract-list-layout';

@@ -2,7 +2,6 @@ import { Suspense } from 'react';
 
 import { TransactionTypes } from '@stacks/connect';
 import { FungiblePostCondition, addressToString } from '@stacks/transactions';
-import { truncateMiddle } from '@stacks/ui-utils';
 
 import { getImageCanonicalUri } from '@app/common/crypto-assets/stacks-crypto-asset.utils';
 import { ftDecimals } from '@app/common/stacks-utils';
@@ -19,6 +18,7 @@ import { LoadingSpinner } from '@app/components/loading-spinner';
 import { useCurrentStacksAccount } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
 import { useAssetFromFungiblePostCondition } from '@app/store/transactions/post-conditions.hooks';
 import { useTransactionRequestState } from '@app/store/transactions/requests.hooks';
+import { truncateMiddle } from '@app/ui/utils/truncate-middle';
 
 interface FungiblePostConditionItemProps {
   isLast?: boolean;

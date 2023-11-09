@@ -1,8 +1,8 @@
 import { memo } from 'react';
 import { Outlet, useNavigate } from 'react-router-dom';
 
-import { Flex } from '@stacks/ui';
 import { Formik } from 'formik';
+import { Flex } from 'leather-styles/jsx';
 import get from 'lodash.get';
 import * as yup from 'yup';
 

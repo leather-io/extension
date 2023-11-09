@@ -1,6 +1,6 @@
 import { useMemo } from 'react';
 
-import { Box, Stack } from '@stacks/ui';
+import { Box, HStack } from 'leather-styles/jsx';
 
 import { createNullArrayOfLength } from '@app/common/utils';
 import { ValidatedPassword } from '@app/common/validation/validate-password';
@@ -45,9 +45,5 @@ export function PasswordStrengthIndicator(props: PasswordStrengthIndicatorProps)
     strengthResult.score,
   ]);
 
-  return (
-    <Stack height="6px" isInline>
-      {bars}
-    </Stack>
-  );
+  return <HStack height="6px">{bars}</HStack>;
 }

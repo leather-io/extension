@@ -1,7 +1,7 @@
 import { Outlet, useNavigate } from 'react-router-dom';
 
-import { Box } from '@stacks/ui';
 import { Form, Formik, FormikHelpers } from 'formik';
+import { Box } from 'leather-styles/jsx';
 import { ObjectSchema } from 'yup';
 
 import { HIGH_FEE_WARNING_LEARN_MORE_URL_STX } from '@shared/constants';
@@ -48,7 +48,7 @@ export function StacksCommonSendForm({
   const { onFormStateChange } = useUpdatePersistedSendFormValues();
 
   return (
-    <Box width="100%" pb="base">
+    <Box width="100%" pb="space.04">
       <Formik
         initialValues={initialValues}
         onSubmit={onSubmit}
@@ -66,10 +66,12 @@ export function StacksCommonSendForm({
                   {selectedAssetField}
                   <StacksRecipientField />
                   <MemoField />
-                  <FeesRow fees={fees} isSponsored={false} mt="base" />
+                  <Box mt="space.04">
+                    <FeesRow fees={fees} isSponsored={false} />
+                  </Box>
                   <EditNonceButton
                     alignSelf="flex-end"
-                    mt="base"
+                    mt="space.04"
                     onEditNonce={() => navigate(RouteUrls.EditNonce)}
                   />
                 </SendCryptoAssetFormLayout>

@@ -1,4 +1,4 @@
-import { Flex } from '@stacks/ui';
+import { Flex } from 'leather-styles/jsx';
 import { HStack, styled } from 'leather-styles/jsx';
 import { token } from 'leather-styles/tokens';
 

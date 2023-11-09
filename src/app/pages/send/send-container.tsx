@@ -1,6 +1,6 @@
 import { Outlet } from 'react-router-dom';
 
-import { Flex } from '@stacks/ui';
+import { Flex } from 'leather-styles/jsx';
 import { token } from 'leather-styles/tokens';
 
 import { useRouteHeader } from '@app/common/hooks/use-route-header';
