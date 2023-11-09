@@ -1,14 +1,14 @@
 import { useLocation } from 'react-router-dom';
 
-import { Box, Text } from '@stacks/ui';
+import { styled } from 'leather-styles/jsx';
 import get from 'lodash.get';
 
 import { GenericError } from '@app/components/generic-error/generic-error';
 
 const helpTextList = [
-  <Box as="li" mt="base" key={1}>
-    <Text>Please report issue to requesting app</Text>
-  </Box>,
+  <styled.li mt="space.04" key={1}>
+    Please report issue to requesting app
+  </styled.li>,
 ];
 
 function useRequestErrorState() {

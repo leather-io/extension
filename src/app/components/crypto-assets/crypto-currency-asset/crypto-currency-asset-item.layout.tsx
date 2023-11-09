@@ -1,7 +1,9 @@
-import { Flex, StackProps } from '@stacks/ui';
+import { Flex } from '@stacks/ui';
 import { forwardRefWithAs } from '@stacks/ui-core';
 import { truncateMiddle } from '@stacks/ui-utils';
 import { CryptoAssetSelectors } from '@tests/selectors/crypto-asset.selectors';
+// #4383 FIXME - need to refactor this flex as=
+// import { Flex } from 'leather-styles/jsx';
 import { styled } from 'leather-styles/jsx';
 
 import { CryptoCurrencies } from '@shared/models/currencies.model';
@@ -15,7 +17,7 @@ import { Tooltip } from '@app/components/tooltip';
 
 import { AssetRowGrid } from '../components/asset-row-grid';
 
-interface CryptoCurrencyAssetItemLayoutProps extends StackProps {
+interface CryptoCurrencyAssetItemLayoutProps {
   balance: Money;
   caption: string;
   icon: React.ReactNode;
@@ -61,6 +63,7 @@ export const CryptoCurrencyAssetItemLayout = forwardRefWithAs(
 
     return (
       <Flex
+        // #4383 FIXME - need to refactor this flex as=
         as={isPressable ? 'button' : 'div'}
         data-testid={dataTestId}
         outline={0}

@@ -1,7 +1,6 @@
 import { useCallback } from 'react';
 
-import { Box, Flex } from '@stacks/ui';
-import { HStack, styled } from 'leather-styles/jsx';
+import { Flex, HStack, styled } from 'leather-styles/jsx';
 
 import { createMoneyFromDecimal } from '@shared/models/money.model';
 
@@ -39,7 +38,7 @@ export function BitcoinContractListItemLayout({
 
   return (
     <Flex
-      as={'button'}
+      //  #4476 TODO check with Fara - don't think as button is needed
       marginBottom="15px"
       onClick={() =>
         handleOpenTxLink({
@@ -49,7 +48,7 @@ export function BitcoinContractListItemLayout({
         })
       }
     >
-      <Flag img={<Box as={BitcoinContractIcon} />} align="middle" spacing="base" width="100%">
+      <Flag img={<BitcoinContractIcon />} align="middle" spacing="space.04" width="100%">
         <HStack alignItems="center" justifyContent="space-between" width="100%">
           <styled.span textStyle="body.01">{id}</styled.span>
           <styled.span fontVariantNumeric="tabular-nums" textAlign="right" textStyle="body.01">
