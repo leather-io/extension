@@ -10,7 +10,6 @@ import { closeWindow } from '@shared/utils';
 import { useRouteHeader } from '@app/common/hooks/use-route-header';
 import { isFullPageMode, isPopupMode } from '@app/common/utils';
 import { openIndexPageInNewTab } from '@app/common/utils/open-in-new-tab';
-import { CenteredPageContainer } from '@app/components/centered-page-container';
 import { Header } from '@app/components/header';
 import { RequestPassword } from '@app/components/request-password';
 import { useNewBrandApprover } from '@app/store/settings/settings.selectors';
@@ -35,7 +34,7 @@ export function Unlock() {
   const handleSuccess = () => navigate(RouteUrls.Home);
 
   return (
-    <CenteredPageContainer>
+    <>
       {/* Hide the logo when user hasn't consented yet */}
       {!hasApprovedNewBrand && (
         <Box position="fixed" w="200px" h="60px" background="brown.2" top={0} left={0} />
@@ -47,6 +46,6 @@ export function Unlock() {
         onSuccess={handleSuccess}
       />
       <Outlet />
-    </CenteredPageContainer>
+    </>
   );
 }
