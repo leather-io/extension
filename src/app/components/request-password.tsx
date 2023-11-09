@@ -12,6 +12,7 @@ import { LeatherButton } from '@app/components/button/button';
 
 import { ErrorLabel } from './error-label';
 import { buildEnterKeyEvent } from './link';
+import { TwoColumnLayout } from './secret-key/two-column.layout';
 
 const waitingMessages: WaitingMessages = {
   '2': 'Verifying password…',
@@ -51,43 +52,65 @@ export function RequestPassword({ title, caption, onSuccess }: RequestPasswordPr
   }, [analytics, startWaitingMessage, stopWaitingMessage, unlockWallet, password, onSuccess]);
 
   return (
-    <Stack
-      pb={['space.05', 'unset']}
-      px={['space.05', 'space.04']}
-      gap="space.05"
-      textAlign={['center', 'center']}
-      margin="auto"
-    >
-      <styled.h1 textStyle={['heading.03', 'heading.02']}>{title}</styled.h1>
-      <styled.p textStyle="body.02">{(isRunning && waitingMessage) || caption}</styled.p>
-      <Stack gap="space.04">
-        <Input
-          autoFocus
-          _focus={{ border: `2px solid ${token('colors.accent.text-primary')}` }}
-          borderRadius="10px"
-          data-testid={SettingsSelectors.EnterPasswordInput}
-          height="64px"
-          isDisabled={isRunning}
-          onChange={(e: FormEvent<HTMLInputElement>) => {
-            setError('');
-            setPassword(e.currentTarget.value);
-          }}
-          onKeyUp={buildEnterKeyEvent(submit)}
-          placeholder="Enter your password"
-          type="password"
-          value={password}
-          width="100%"
-        />
-        {error && <ErrorLabel>{error}</ErrorLabel>}
-      </Stack>
-      <LeatherButton
-        data-testid={SettingsSelectors.UnlockWalletBtn}
-        disabled={isRunning || !!error}
-        aria-busy={isRunning}
-        onClick={submit}
-      >
-        Continue
-      </LeatherButton>
-    </Stack>
+    <>
+      <TwoColumnLayout
+        leftColumn={
+          <>
+            <styled.h1
+              textStyle={['heading.03', 'heading.03', 'heading.03', 'display.02']}
+              mt="space.00"
+              mb="space.06"
+            >
+              {title}
+            </styled.h1>
+            <styled.p textStyle={['label.01', 'heading.05']} mb="space.06">
+              {(isRunning && waitingMessage) || caption}
+            </styled.p>
+          </>
+        }
+        rightColumn={
+          <>
+            <styled.h2
+              textStyle="heading.03"
+              mt="space.02"
+              mb="space.04"
+              hideBelow="sm"
+              textAlign="center"
+            >
+              Your password
+            </styled.h2>
+            <Stack gap="space.04" alignItems="center">
+              <Input
+                autoFocus
+                _focus={{ border: `2px solid ${token('colors.accent.text-primary')}` }}
+                borderRadius="10px"
+                data-testid={SettingsSelectors.EnterPasswordInput}
+                height="64px"
+                isDisabled={isRunning}
+                onChange={(e: FormEvent<HTMLInputElement>) => {
+                  setError('');
+                  setPassword(e.currentTarget.value);
+                }}
+                onKeyUp={buildEnterKeyEvent(submit)}
+                placeholder="Enter your password"
+                type="password"
+                value={password}
+                width="100%"
+              />
+              {error && <ErrorLabel>{error}</ErrorLabel>}
+            </Stack>
+            <LeatherButton
+              data-testid={SettingsSelectors.UnlockWalletBtn}
+              disabled={isRunning || !!error}
+              aria-busy={isRunning}
+              onClick={submit}
+              mt="space.08"
+            >
+              Continue
+            </LeatherButton>
+          </>
+        }
+      />
+    </>
   );
 }
