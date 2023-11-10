@@ -13,7 +13,7 @@ export function WarningLabel({ children, title, ...props }: WarningLabelProps) {
     <Box bg="warning.background" borderRadius="sm" {...props}>
       <Flag
         color="accent.notification-text"
-        img={<ErrorCircleIcon color={token('colors.warning.label')} />}
+        img={<ErrorCircleIcon style={{ color: token('colors.warning.label') }} />}
         minHeight="48px"
         px="space.04"
         py="space.03"

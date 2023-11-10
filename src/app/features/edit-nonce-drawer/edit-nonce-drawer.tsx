@@ -8,8 +8,8 @@ import { StacksSendFormValues, StacksTransactionFormValues } from '@shared/model
 
 import { useOnMount } from '@app/common/hooks/use-on-mount';
 import { openInNewTab } from '@app/common/utils/open-in-new-tab';
-import { LeatherButton } from '@app/components/button/button';
 import { BaseDrawer } from '@app/components/drawer/base-drawer';
+import { LeatherButton } from '@app/ui/components/button';
 
 import { EditNonceForm } from './components/edit-nonce-form';
 

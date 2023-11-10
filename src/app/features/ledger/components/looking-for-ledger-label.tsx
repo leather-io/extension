@@ -1,5 +1,6 @@
-import { Flex, FlexProps, Spinner, color } from '@stacks/ui';
+import { Flex, FlexProps } from 'leather-styles/jsx';
 
+import { Spinner } from '@app/ui/components/spinner';
 import { Caption } from '@app/ui/components/typography/caption';
 
 interface LookingForLedgerLabelProps extends FlexProps {
@@ -8,7 +9,7 @@ interface LookingForLedgerLabelProps extends FlexProps {
 export function LookingForLedgerLabel({ children, ...props }: LookingForLedgerLabelProps) {
   return (
     <Flex alignItems="center" flexDirection="row" {...props}>
-      <Spinner color={color('text-caption')} opacity={0.5} size="sm" />
+      <Spinner opacity={0.5} />
       <Caption ml="tight">{children}</Caption>
     </Flex>
   );

@@ -1,8 +1,7 @@
 import { toast } from 'react-hot-toast';
 import { useLocation } from 'react-router-dom';
 
-import { Text } from '@stacks/ui';
-import { HStack } from 'leather-styles/jsx';
+import { HStack, styled } from 'leather-styles/jsx';
 
 import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
 import { useClipboard } from '@app/common/hooks/use-copy-to-clipboard';
@@ -52,11 +51,11 @@ export function LockBitcoinSummary() {
         symbol={symbol}
         value={Number(satToBtc(txMoney.amount))}
       />
-      <Text fontSize={2} fontWeight={200} padding={'25px'} textAlign={'justify'}>
-        <span style={{ fontWeight: 500 }}>Success!</span> Your bitcoin has been locked securely. All
-        that's left is for it to be confirmed on the blockchain. After confirmation, you can proceed
-        with borrowing against it.
-      </Text>
+      <styled.span fontSize={2} fontWeight={200} p="space.05" textAlign="justify">
+        <styled.span style={{ fontWeight: 500 }}>Success!</styled.span> Your bitcoin has been locked
+        securely. All that's left is for it to be confirmed on the blockchain. After confirmation,
+        you can proceed with borrowing against it.
+      </styled.span>
       <InfoCardFooter>
         <HStack gap="space.04" width="100%">
           <InfoCardBtn

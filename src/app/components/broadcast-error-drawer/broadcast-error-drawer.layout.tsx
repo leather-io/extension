@@ -2,8 +2,7 @@ import GenericError from '@assets/images/generic-error.png';
 import { Flex, styled } from 'leather-styles/jsx';
 
 import { BaseDrawer } from '@app/components/drawer/base-drawer';
-
-import { LeatherButton } from '../button/button';
+import { LeatherButton } from '@app/ui/components/button';
 
 interface BroadcastErrorDrawerLayoutProps {
   message: string;

@@ -1,4 +1,4 @@
-import { ButtonProps, LeatherButton } from './button/button';
+import { ButtonProps, LeatherButton } from '@app/ui/components/button';
 
 interface EditNonceButtonProps extends ButtonProps {
   onEditNonce(): void;

@@ -1,5 +1,4 @@
-import { Flex, StackProps } from '@stacks/ui';
-import { Box, styled } from 'leather-styles/jsx';
+import { Box, Flex, StackProps, styled } from 'leather-styles/jsx';
 
 export function ChooseCryptoAssetLayout({ children }: StackProps) {
   return (

@@ -13,11 +13,11 @@ import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
 import { useDrawers } from '@app/common/hooks/use-drawers';
 import { useScrollLock } from '@app/common/hooks/use-scroll-lock';
 import { stacksValue } from '@app/common/stacks-utils';
-import { LeatherButton } from '@app/components/button/button';
 import { ErrorMessage } from '@app/features/stacks-transaction-request/transaction-error/error-message';
 import { useCurrentStacksAccountAnchoredBalances } from '@app/query/stacks/balance/stx-balance.hooks';
 import { useCurrentNetworkState } from '@app/store/networks/networks.hooks';
 import { useTransactionRequestState } from '@app/store/transactions/requests.hooks';
+import { LeatherButton } from '@app/ui/components/button';
 import { Caption } from '@app/ui/components/typography/caption';
 import { truncateMiddle } from '@app/ui/utils/truncate-middle';
 

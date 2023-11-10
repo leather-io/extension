@@ -90,6 +90,14 @@ export const semanticTokens = defineSemanticTokens({
     stacks: {
       value: { base: '{colors.lightModeStacks}', _dark: '{colors.darkModeStacks}' },
     },
+    success: {
+      background: {
+        value: { base: '{colors.lightModeGreen.100}', _dark: '{colors.lightModeGreen.100}' },
+      },
+      label: {
+        value: { base: '{colors.darkModeGreen.600}', _dark: '{colors.darkModeGreen.600}' },
+      },
+    },
     warning: {
       background: {
         value: { base: '{colors.lightModeYellow.100}', _dark: '{colors.darkModeYellow.100}' },

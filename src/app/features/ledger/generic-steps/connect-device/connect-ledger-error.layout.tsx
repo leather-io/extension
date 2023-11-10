@@ -3,11 +3,11 @@ import { FiCircle } from 'react-icons/fi';
 import { Box, Flex, Stack, styled } from 'leather-styles/jsx';
 
 import { capitalize } from '@app/common/utils';
-import { LeatherButton } from '@app/components/button/button';
 import { ErrorLabel } from '@app/components/error-label';
 import { ExternalLink } from '@app/components/external-link';
 import { WarningLabel } from '@app/components/warning-label';
 import { ConnectLedgerErr } from '@app/features/ledger/illustrations/ledger-illu-connect-ledger-error';
+import { LeatherButton } from '@app/ui/components/button';
 import { Caption } from '@app/ui/components/typography/caption';
 
 import { LedgerTitle } from '../../components/ledger-title';

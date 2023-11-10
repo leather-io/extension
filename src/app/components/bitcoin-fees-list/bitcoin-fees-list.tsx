@@ -52,7 +52,7 @@ export function BitcoinFeesList({
   if (!feesList.length) return <FeesListError />;
 
   return (
-    <Stack mt="space.02" gap="space.04" width="100%">
+    <Stack gap="space.04" mt="space.02" width="100%">
       {feesList.map(({ label, value, btcValue, fiatValue, time, feeRate }) => (
         <FeesListItem
           arrivesIn={time}

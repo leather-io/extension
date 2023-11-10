@@ -1,5 +1,7 @@
 import { useLocation, useNavigate } from 'react-router-dom';
 
+import { token } from 'leather-styles/tokens';
+
 import { Inscription as InscriptionType } from '@shared/models/inscription.model';
 import { RouteUrls } from '@shared/route-urls';
 
@@ -29,7 +31,7 @@ export function Inscription({ rawInscription }: InscriptionProps) {
     case 'image': {
       return (
         <CollectibleImage
-          icon={<OrdinalIcon size="30px" />}
+          icon={<OrdinalIcon size={token('icons.icon.lg')} />}
           key={inscription.title}
           onClickCallToAction={() => openInNewTab(inscription.infoUrl)}
           onClickSend={() => openSendInscriptionModal()}

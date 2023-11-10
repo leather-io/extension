@@ -1,8 +1,7 @@
 import { memo } from 'react';
 
+import { LeatherButton } from '@app/ui/components/button';
 import { LeatherIcon } from '@app/ui/components/icons/leather-icon';
-
-import { LeatherButton } from './button/button';
 
 interface LeatherLogoProps {
   isClickable: boolean;

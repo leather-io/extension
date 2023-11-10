@@ -8,9 +8,9 @@ import { BtcFeeType } from '@shared/models/fees/bitcoin-fees.model';
 
 import { openInNewTab } from '@app/common/utils/open-in-new-tab';
 import { PreviewButton } from '@app/components/preview-button';
+import { LeatherButton } from '@app/ui/components/button';
 
 import { OnChooseFeeArgs } from '../bitcoin-fees-list/bitcoin-fees-list';
-import { LeatherButton } from '../button/button';
 import { TextInputField } from '../text-input-field';
 import { BitcoinCustomFeeFiat } from './bitcoin-custom-fee-fiat';
 import { useBitcoinCustomFee } from './hooks/use-bitcoin-custom-fee';
@@ -80,11 +80,12 @@ export function BitcoinCustomFee({
       {props => {
         return (
           <Form>
-            <Stack gap="space.06" mt="8px">
+            <Stack gap="space.06" mt="space.02">
               <Stack gap="space.05">
                 <styled.span color="accent.text-subdued" textStyle="body.02" maxWidth="21.5rem">
-                  {'Higher fee rates typically lead to faster confirmation times. '}
+                  Higher fee rates typically lead to faster confirmation times.
                   <LeatherButton
+                    ml="space.01"
                     onClick={() => openInNewTab('https://buybitcoinworldwide.com/fee-calculator/')}
                     textStyle="body.02"
                     variant="link"
@@ -114,7 +115,6 @@ export function BitcoinCustomFee({
                   />
                 </Stack>
               </Stack>
-
               <PreviewButton isDisabled={!props.values.feeRate} text="Use custom fee" />
             </Stack>
           </Form>

@@ -10,20 +10,20 @@ interface MessageBoxProps {
 export function MessagePreviewBox({ message, hash }: MessageBoxProps) {
   return (
     <Stack
+      bg="accent.background-primary"
       border="4px solid"
-      paddingBottom={hash ? '8px' : 0}
       borderColor="accent.background-primary"
       borderRadius="20px"
-      backgroundColor="accent.background-primary"
+      paddingBottom={hash ? 'space.02' : 0}
     >
       <Stack
         bg="accent.background-primary"
-        borderRadius="16px"
+        borderRadius="lg"
         fontSize={2}
+        gap="space.02"
         lineHeight="1.6"
         px="space.05"
         py="space.05"
-        gap="space.02"
         overflowX="auto"
       >
         {message.split(/\r?\n/).map(line => (

@@ -2,8 +2,8 @@ import { Box, HStack, styled } from 'leather-styles/jsx';
 
 import { noop } from '@shared/utils';
 
-import { LeatherButton } from '@app/components/button/button';
 import { Tooltip } from '@app/components/tooltip';
+import { LeatherButton } from '@app/ui/components/button';
 
 import { SelectAssetTriggerButton } from './select-asset-trigger-button';
 import { SelectedAsset } from './selected-asset';

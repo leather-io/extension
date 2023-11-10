@@ -7,7 +7,7 @@ import { styled } from 'leather-styles/jsx';
 import { NetworkConfiguration } from '@shared/constants';
 
 import { getUrlHostname } from '@app/common/utils';
-import { LeatherButton } from '@app/components/button/button';
+import { LeatherButton } from '@app/ui/components/button';
 
 import { NetworkStatusIndicator } from './network-status-indicator';
 

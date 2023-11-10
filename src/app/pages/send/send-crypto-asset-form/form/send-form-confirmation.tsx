@@ -3,7 +3,6 @@ import { Stack } from 'leather-styles/jsx';
 
 import { whenPageMode } from '@app/common/utils';
 import { FormAddressDisplayer } from '@app/components/address-displayer/form-address-displayer';
-import { LeatherButton } from '@app/components/button/button';
 import {
   InfoCard,
   InfoCardAssetValue,
@@ -12,6 +11,7 @@ import {
   InfoCardSeparator,
 } from '@app/components/info-card/info-card';
 import { InfoLabel } from '@app/components/info-label';
+import { LeatherButton } from '@app/ui/components/button';
 
 interface SendFormConfirmationProps {
   recipient: string;

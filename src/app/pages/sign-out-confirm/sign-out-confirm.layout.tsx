@@ -3,9 +3,9 @@ import { useFormik } from 'formik';
 import { Box, HStack, styled } from 'leather-styles/jsx';
 
 import { useWalletType } from '@app/common/use-wallet-type';
-import { LeatherButton } from '@app/components/button/button';
 import { BaseDrawer } from '@app/components/drawer/base-drawer';
 import { Flag } from '@app/components/layout/flag';
+import { LeatherButton } from '@app/ui/components/button';
 import { ErrorIcon } from '@app/ui/components/icons/error-icon';
 
 interface SignOutConfirmLayoutProps {

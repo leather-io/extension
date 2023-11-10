@@ -2,7 +2,7 @@ import { BitcoinContractRequestSelectors } from '@tests/selectors/bitcoin-contra
 import { Box, HStack, styled } from 'leather-styles/jsx';
 
 import { useBtcAssetBalance } from '@app/common/hooks/balance/btc/use-btc-balance';
-import { LeatherButton } from '@app/components/button/button';
+import { LeatherButton } from '@app/ui/components/button';
 
 interface BitcoinContractRequestActionsProps {
   isLoading: boolean;

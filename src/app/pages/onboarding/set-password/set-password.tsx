@@ -19,11 +19,11 @@ import {
   blankPasswordValidation,
   validatePassword,
 } from '@app/common/validation/validate-password';
-import { LeatherButton } from '@app/components/button/button';
 import { Header } from '@app/components/header';
 import { TwoColumnLayout } from '@app/components/secret-key/two-column.layout';
 import { OnboardingGate } from '@app/routes/onboarding-gate';
 import { useStacksAccounts } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
+import { LeatherButton } from '@app/ui/components/button';
 
 import { PasswordField } from './components/password-field';
 

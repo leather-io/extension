@@ -5,8 +5,8 @@ import { Box } from 'leather-styles/jsx';
 import get from 'lodash.get';
 
 import { openInNewTab } from '@app/common/utils/open-in-new-tab';
-import { LeatherButton } from '@app/components/button/button';
 import { InfoLabel } from '@app/components/info-label';
+import { LeatherButton } from '@app/ui/components/button';
 import { Brc20TokenIcon } from '@app/ui/components/icons/brc20-token-icon';
 
 import { AmountField } from '../../components/amount-field';

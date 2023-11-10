@@ -7,8 +7,8 @@ import { Box, Flex, FlexProps, HStack, styled } from 'leather-styles/jsx';
 
 import { useShowFieldError } from '@app/common/form-utils';
 import { capitalize } from '@app/common/utils';
+import { LeatherButton } from '@app/ui/components/button';
 
-import { LeatherButton } from './button/button';
 import { TextInputFieldError } from './field-error';
 
 interface TextInputFieldProps extends FlexProps {
