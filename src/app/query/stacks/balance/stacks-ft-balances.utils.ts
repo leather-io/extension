@@ -11,7 +11,7 @@ import type {
 import { createMoney } from '@shared/models/money.model';
 
 import { isTransferableStacksFungibleTokenAsset } from '@app/common/crypto-assets/stacks-crypto-asset.utils';
-import { getAssetStringParts } from '@app/ui/utils/getAssetStringParts';
+import { getAssetStringParts } from '@app/ui/utils/get-asset-string-parts';
 
 export function createStacksCryptoCurrencyAssetTypeWrapper(
   balance: BigNumber

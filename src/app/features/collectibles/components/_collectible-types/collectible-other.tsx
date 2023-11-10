@@ -1,4 +1,4 @@
-import { Box } from '@stacks/ui';
+import { Box } from 'leather-styles/jsx';
 
 import { CollectibleItemLayout, CollectibleItemLayoutProps } from '../collectible-item.layout';
 

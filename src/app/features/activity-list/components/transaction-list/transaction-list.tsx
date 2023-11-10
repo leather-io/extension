@@ -1,6 +1,6 @@
 import { useMemo } from 'react';
 
-import { Box } from '@stacks/ui';
+import { Box } from 'leather-styles/jsx';
 
 import { useTransactionListRender } from './hooks/use-transaction-list-render';
 import { TransactionListItem } from './transaction-list-item';

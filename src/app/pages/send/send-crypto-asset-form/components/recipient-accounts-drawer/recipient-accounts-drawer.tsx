@@ -2,7 +2,7 @@ import { memo, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Virtuoso } from 'react-virtuoso';
 
-import { Box } from '@stacks/ui';
+import { Box } from 'leather-styles/jsx';
 
 import { useWalletType } from '@app/common/use-wallet-type';
 import { BaseDrawer } from '@app/components/drawer/base-drawer';

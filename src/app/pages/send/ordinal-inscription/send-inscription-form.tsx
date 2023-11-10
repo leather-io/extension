@@ -1,7 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 
-import { Box, Flex } from '@stacks/ui';
 import { Form, Formik } from 'formik';
+import { Box, Flex } from 'leather-styles/jsx';
 
 import { RouteUrls } from '@shared/route-urls';
 

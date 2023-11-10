@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import { Stack } from '@stacks/ui';
+import { Stack } from 'leather-styles/jsx';
 
 import { RouteUrls } from '@shared/route-urls';
 import { BitcoinContractResponseStatus } from '@shared/rpc/methods/accept-bitcoin-contract';
@@ -93,7 +93,7 @@ export function BitcoinContractRequest() {
               bitcoinContractOfferDetails.counterpartyWalletDetails.counterpartyWalletIcon
             }
           />
-          <Stack spacing="base" backgroundColor="white" borderRadius="lg">
+          <Stack gap="space.04" backgroundColor="white" borderRadius="lg">
             <BitcoinContractRequestWarningLabel
               appName={bitcoinContractOfferDetails.counterpartyWalletDetails.counterpartyWalletName}
             />

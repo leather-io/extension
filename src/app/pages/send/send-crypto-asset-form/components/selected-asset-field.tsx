@@ -1,5 +1,5 @@
-import { Flex } from '@stacks/ui';
 import { Field, useField } from 'formik';
+import { Flex } from 'leather-styles/jsx';
 import { styled } from 'leather-styles/jsx';
 import { token } from 'leather-styles/tokens';
 

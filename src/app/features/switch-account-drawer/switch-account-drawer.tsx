@@ -1,6 +1,6 @@
 import { memo } from 'react';
 
-import { Box } from '@stacks/ui';
+import { Box } from 'leather-styles/jsx';
 
 import { useCreateAccount } from '@app/common/hooks/account/use-create-account';
 import { useWalletType } from '@app/common/use-wallet-type';

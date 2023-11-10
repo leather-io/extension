@@ -1,34 +1,36 @@
 import { memo } from 'react';
 
-import { Stack, StackProps, color } from '@stacks/ui';
-import { styled } from 'leather-styles/jsx';
+import { HStack, Stack, styled } from 'leather-styles/jsx';
 
 import { ErrorIcon } from '@app/ui/components/icons/error-icon';
 
-interface ErrorMessageProps extends StackProps {
+interface ErrorMessageProps {
   title: string;
   body: string | React.JSX.Element;
   actions?: React.JSX.Element;
+  // #4476 FIXME share borders better colour
+  border?: string;
+  borderColor?: string;
 }
-export const ErrorMessage = memo(({ title, body, actions, ...rest }: ErrorMessageProps) => {
+export const ErrorMessage = memo(({ border, title, body, actions }: ErrorMessageProps) => {
   return (
     <Stack
-      bg={color('bg')}
-      border="4px solid #FCEEED"
+      bg="accent.background-primary"
+      // #4476 TODO change this colour
+      border={border ? border : '4px solid #FCEEED'}
       borderRadius="12px"
-      spacing="extra-loose"
-      mb="loose"
-      p="loose"
-      {...rest}
+      gap="space.06"
+      mb="space.05"
+      p="space.05"
     >
-      <Stack spacing="base-loose">
-        <Stack alignItems="center" color={color('feedback-error')} isInline>
+      <Stack gap="space.04">
+        <HStack alignItems="center" color="error.label">
           <ErrorIcon />
           <styled.h1 textStyle="label.01">{title}</styled.h1>
-        </Stack>
+        </HStack>
         <styled.span textStyle="caption.01">{body}</styled.span>
       </Stack>
-      {actions && <Stack spacing="base-tight">{actions}</Stack>}
+      {actions && <Stack gap="space.03">{actions}</Stack>}
     </Stack>
   );
 });

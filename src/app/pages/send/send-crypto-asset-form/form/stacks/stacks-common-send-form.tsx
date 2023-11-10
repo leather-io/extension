@@ -1,7 +1,7 @@
 import { Outlet, useNavigate } from 'react-router-dom';
 
-import { Box } from '@stacks/ui';
 import { Form, Formik, FormikHelpers } from 'formik';
+import { Box } from 'leather-styles/jsx';
 import { ObjectSchema } from 'yup';
 
 import { HIGH_FEE_WARNING_LEARN_MORE_URL_STX } from '@shared/constants';

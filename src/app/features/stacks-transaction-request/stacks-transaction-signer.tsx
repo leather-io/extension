@@ -1,8 +1,8 @@
 import { Outlet, useLocation, useNavigate } from 'react-router-dom';
 
 import { StacksTransaction } from '@stacks/transactions';
-import { Flex } from '@stacks/ui';
 import { Formik } from 'formik';
+import { Flex } from 'leather-styles/jsx';
 import * as yup from 'yup';
 
 import { HIGH_FEE_WARNING_LEARN_MORE_URL_STX } from '@shared/constants';

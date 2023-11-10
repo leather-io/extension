@@ -1,7 +1,7 @@
 import toast from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
 
-import { Stack } from '@stacks/ui';
+import { Stack } from 'leather-styles/jsx';
 
 import { RouteUrls } from '@shared/route-urls';
 

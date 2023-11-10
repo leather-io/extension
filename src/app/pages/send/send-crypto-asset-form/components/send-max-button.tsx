@@ -1,9 +1,9 @@
 import { useCallback } from 'react';
 import toast from 'react-hot-toast';
 
-import { Box } from '@stacks/ui';
 import { SendCryptoAssetSelectors } from '@tests/selectors/send.selectors';
 import { useField } from 'formik';
+import { Box } from 'leather-styles/jsx';
 
 import { Money } from '@shared/models/money.model';
 

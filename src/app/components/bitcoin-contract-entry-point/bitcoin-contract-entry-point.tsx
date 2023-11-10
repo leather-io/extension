@@ -2,8 +2,6 @@ import { useState } from 'react';
 import { useAsync } from 'react-async-hook';
 import { useNavigate } from 'react-router-dom';
 
-import { Box } from '@stacks/ui';
-
 import { Money, createMoneyFromDecimal } from '@shared/models/money.model';
 import { RouteUrls } from '@shared/route-urls';
 
@@ -44,7 +42,7 @@ export function BitcoinContractEntryPoint({ btcAddress }: BitcoinContractEntryPo
         isLoading={isLoading}
         balance={bitcoinContractSum}
         caption={bitcoinContractSum.symbol}
-        icon={<Box as={BitcoinContractIcon} />}
+        icon={<BitcoinContractIcon />}
         usdBalance={i18nFormatCurrency(calculateFiatValue(bitcoinContractSum))}
         onClick={onClick}
       />

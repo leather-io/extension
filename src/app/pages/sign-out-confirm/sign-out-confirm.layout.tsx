@@ -1,4 +1,3 @@
-import { Flex } from '@stacks/ui';
 import { SettingsSelectors } from '@tests/selectors/settings.selectors';
 import { useFormik } from 'formik';
 import { Box, HStack, styled } from 'leather-styles/jsx';
@@ -49,10 +48,9 @@ export function SignOutConfirmLayout(props: SignOutConfirmLayoutProps) {
               ledger: <></>,
             })}
           </styled.div>
-          <Flex
-            as="label"
+          <styled.label
             alignItems="center"
-            mt="loose"
+            mt="space.05"
             display={walletType === 'software' ? 'flex' : 'none'}
           >
             <Box mr="space.03">
@@ -66,11 +64,10 @@ export function SignOutConfirmLayout(props: SignOutConfirmLayoutProps) {
             <styled.p textStyle="caption.01" userSelect="none">
               I've backed up my Secret Key
             </styled.p>
-          </Flex>
-          <Flex
-            as="label"
+          </styled.label>
+          <styled.label
             alignItems="center"
-            mt="tight"
+            mt="space.02"
             display={walletType === 'software' ? 'flex' : 'none'}
           >
             <Box mr="space.03">
@@ -84,7 +81,7 @@ export function SignOutConfirmLayout(props: SignOutConfirmLayoutProps) {
             <styled.p textStyle="caption.01" userSelect="none">
               I understand my password will no longer work for accessing my wallet upon signing out
             </styled.p>
-          </Flex>
+          </styled.label>
           <HStack gap="space.04" mt="space.06">
             <LeatherButton
               color="gray"

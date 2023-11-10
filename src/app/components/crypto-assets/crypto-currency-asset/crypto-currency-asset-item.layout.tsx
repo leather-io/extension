@@ -1,5 +1,5 @@
-import { Flex } from '@stacks/ui';
 import { CryptoAssetSelectors } from '@tests/selectors/crypto-asset.selectors';
+import { Flex } from 'leather-styles/jsx';
 // #4383 FIXME - need to refactor this flex as=
 // import { Flex } from 'leather-styles/jsx';
 import { styled } from 'leather-styles/jsx';
