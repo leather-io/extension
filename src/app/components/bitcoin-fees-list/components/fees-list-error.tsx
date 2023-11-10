@@ -1,17 +1,13 @@
 import { useNavigate } from 'react-router-dom';
 
-import { Box, styled } from 'leather-styles/jsx';
+import { Box } from 'leather-styles/jsx';
 
 import { RouteUrls } from '@shared/route-urls';
 
-import { GenericError } from '@app/components/generic-error/generic-error';
+import { GenericError, GenericErrorListItem } from '@app/components/generic-error/generic-error';
 
 const body = 'Check balance and try again';
-const helpTextList = [
-  <styled.li mt="space.04" key={1}>
-    Possibly caused by api issues
-  </styled.li>,
-];
+const helpTextList = [<GenericErrorListItem key={1} text="Possibly caused by api issues" />];
 const title = 'Unable to calculate fees';
 
 export function FeesListError() {

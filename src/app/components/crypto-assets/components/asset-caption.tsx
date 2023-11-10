@@ -1,7 +1,5 @@
 import { Flex, HStack, styled } from 'leather-styles/jsx';
 
-// #4476 TODO: test this tooltip + check with Fara
-// maybe we can replace Tippy with radix tooltip eventually
 import { Tooltip } from '@app/components/tooltip';
 import { InfoIcon } from '@app/ui/components/icons/info-icon';
 
@@ -25,7 +23,7 @@ export function AssetCaption({ caption, isUnanchored }: AssetCaptionProps) {
                 target="_blank"
                 rel="noreferrer"
               >
-                <InfoIcon size="12px" ml={1} color="accent.text-subdued" />
+                <InfoIcon size="icon.xs" ml="space.01" color="accent.text-subdued" />
               </a>
             </HStack>
           </Tooltip>

@@ -9,7 +9,6 @@ export const QrCode = memo(({ principal, ...rest }: { principal: string }) => {
       createQR(principal, {
         ecc: 0,
         qrSize: 180,
-        // #4476 TODO check this and ask Fara
         backgroundColor: 'accent.text-primary',
         foregroundColor: 'invert',
       }),

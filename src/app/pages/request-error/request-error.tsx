@@ -1,14 +1,11 @@
 import { useLocation } from 'react-router-dom';
 
-import { styled } from 'leather-styles/jsx';
 import get from 'lodash.get';
 
-import { GenericError } from '@app/components/generic-error/generic-error';
+import { GenericError, GenericErrorListItem } from '@app/components/generic-error/generic-error';
 
 const helpTextList = [
-  <styled.li mt="space.04" key={1}>
-    Please report issue to requesting app
-  </styled.li>,
+  <GenericErrorListItem key={1} text="Please report issue to requesting app" />,
 ];
 
 function useRequestErrorState() {

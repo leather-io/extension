@@ -38,7 +38,6 @@ export function BitcoinContractListItemLayout({
 
   return (
     <Flex
-      //  #4476 TODO check with Fara - don't think as button is needed
       marginBottom="15px"
       onClick={() =>
         handleOpenTxLink({
