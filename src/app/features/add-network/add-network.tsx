@@ -2,11 +2,9 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import { ChainID } from '@stacks/transactions';
-import { Input, Stack } from '@stacks/ui';
 import { NetworkSelectors } from '@tests/selectors/network.selectors';
 import { Formik } from 'formik';
-import { styled } from 'leather-styles/jsx';
-import { token } from 'leather-styles/tokens';
+import { Stack, styled } from 'leather-styles/jsx';
 
 import { DefaultNetworkConfigurations } from '@shared/constants';
 import { RouteUrls } from '@shared/route-urls';
@@ -14,7 +12,6 @@ import { isValidUrl } from '@shared/utils/validate-url';
 
 import { useRouteHeader } from '@app/common/hooks/use-route-header';
 import { removeTrailingSlash } from '@app/common/url-join';
-import { LeatherButton } from '@app/components/button/button';
 import { CenteredPageContainer } from '@app/components/centered-page-container';
 import { ErrorLabel } from '@app/components/error-label';
 import { Header } from '@app/components/header';
@@ -22,6 +19,8 @@ import {
   useCurrentStacksNetworkState,
   useNetworksActions,
 } from '@app/store/networks/networks.hooks';
+import { LeatherButton } from '@app/ui/components/button';
+import { Input } from '@app/ui/components/input';
 
 /**
  * The **peer** network ID.
@@ -120,9 +119,9 @@ export function AddNetwork() {
         {({ handleSubmit, values, handleChange }) => (
           <form onSubmit={handleSubmit}>
             <Stack
-              maxWidth={token('sizes.centeredPageFullWidth')}
+              gap="space.05"
+              maxWidth="centeredPageFullWidth"
               px={['loose', 'base-loose']}
-              spacing="loose"
               textAlign={['left', 'center']}
             >
               <styled.span textStyle="body.02">
@@ -138,34 +137,25 @@ export function AddNetwork() {
               </styled.span>
               <Input
                 autoFocus
-                borderRadius="10px"
-                height="64px"
-                onChange={handleChange}
+                data-testid={NetworkSelectors.NetworkName}
                 name="name"
+                onChange={handleChange}
                 placeholder="Name"
                 value={values.name}
-                width="100%"
-                data-testid={NetworkSelectors.NetworkName}
               />
               <Input
-                borderRadius="10px"
-                height="64px"
-                onChange={handleChange}
+                data-testid={NetworkSelectors.NetworkAddress}
                 name="url"
+                onChange={handleChange}
                 placeholder="Address"
                 value={values.url}
-                width="100%"
-                data-testid={NetworkSelectors.NetworkAddress}
               />
               <Input
-                borderRadius="10px"
-                height="64px"
-                onChange={handleChange}
+                data-testid={NetworkSelectors.NetworkKey}
                 name="key"
+                onChange={handleChange}
                 placeholder="Key"
                 value={values.key}
-                width="100%"
-                data-testid={NetworkSelectors.NetworkKey}
               />
               {error ? (
                 <ErrorLabel data-testid={NetworkSelectors.ErrorText}>{error}</ErrorLabel>

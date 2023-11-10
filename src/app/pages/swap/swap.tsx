@@ -6,9 +6,9 @@ import { useFormikContext } from 'formik';
 import { isUndefined } from '@shared/utils';
 
 import { useRouteHeader } from '@app/common/hooks/use-route-header';
-import { LeatherButton } from '@app/components/button/button';
 import { LoadingSpinner } from '@app/components/loading-spinner';
 import { ModalHeader } from '@app/components/modal-header';
+import { LeatherButton } from '@app/ui/components/button';
 
 import { SwapContentLayout } from './components/swap-content.layout';
 import { SwapFooterLayout } from './components/swap-footer.layout';

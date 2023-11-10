@@ -5,10 +5,10 @@ import { Flex, styled } from 'leather-styles/jsx';
 import { isEmpty } from '@shared/utils';
 
 import { createNullArrayOfLength } from '@app/common/utils';
-import { LeatherButton } from '@app/components/button/button';
 import { ErrorLabel } from '@app/components/error-label';
 import { SecretKeyGrid } from '@app/components/secret-key/secret-key-grid';
 import { useSignIn } from '@app/pages/onboarding/sign-in/hooks/use-sign-in';
+import { LeatherButton } from '@app/ui/components/button';
 
 import { MnemonicWordInput } from '../../../components/secret-key/mnemonic-key/mnemonic-word-input';
 import {

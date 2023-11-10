@@ -1,7 +1,7 @@
 import { useCallback } from 'react';
 
-import { Flex, FlexProps } from '@stacks/ui';
 import { SettingsSelectors } from '@tests/selectors/settings.selectors';
+import { Flex, FlexProps } from 'leather-styles/jsx';
 
 import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
 import { UserSelectedTheme, themeLabelMap, useThemeSwitcher } from '@app/common/theme-provider';
@@ -26,7 +26,7 @@ export function ThemeList(props: FlexProps) {
   const { userSelectedTheme } = useThemeSwitcher();
 
   return (
-    <Flex flexWrap="wrap" flexDirection="column" pb="extra-loose" {...props}>
+    <Flex flexDirection="column" flexWrap="wrap" pb="space.06" {...props}>
       {themes.map(theme => (
         <ThemeListItem
           key={theme}

@@ -6,9 +6,9 @@ export const AccountListUnavailable = memo(() => (
   <Flex
     flexDirection="column"
     justifyContent="center"
-    px="loose"
     minHeight="120px"
-    mb="extra-loose"
+    mb="space.06"
+    px="space.05"
   >
     <Box>
       <styled.span textStyle="label.01">Unable to load account information</styled.span>

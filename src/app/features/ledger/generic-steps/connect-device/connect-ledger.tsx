@@ -5,9 +5,9 @@ import { Box, HStack, Stack, styled } from 'leather-styles/jsx';
 import { SupportedBlockchains } from '@shared/constants';
 import { LEDGER_BITCOIN_ENABLED } from '@shared/environment';
 
-import { LeatherButton } from '@app/components/button/button';
 import { ExternalLink } from '@app/components/external-link';
 import { Divider } from '@app/components/layout/divider';
+import { LeatherButton } from '@app/ui/components/button';
 import { BtcLedgerIcon } from '@app/ui/components/icons/btc-ledger-icon';
 import { StxLedgerIcon } from '@app/ui/components/icons/stx-ledger-icon';
 

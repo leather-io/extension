@@ -1,6 +1,7 @@
 import { Outlet, useLocation, useNavigate } from 'react-router-dom';
 
 import { Flex } from 'leather-styles/jsx';
+import { token } from 'leather-styles/tokens';
 
 import { RouteUrls } from '@shared/route-urls';
 
@@ -15,12 +16,8 @@ export function IncreaseFeeSentDrawer() {
   return (
     <>
       <BaseDrawer isShowing={isShowing} onClose={() => navigate(RouteUrls.Home)} title="Confirmed">
-        <Flex px="loose" pb="extra-loose" justifyContent="center">
-          {/* TODO 
-          - check this as icon was 32px not 24px  
-          - make sure FiCheck =CheckmarkIcon
-           */}
-          <CheckmarkIcon size="icon.lg" mt="2px" />
+        <Flex justifyContent="center" pb="space.06" px="space.05">
+          <CheckmarkIcon mt="2px" size={token('icons.icon.lg')} />
         </Flex>
       </BaseDrawer>
       <Outlet />

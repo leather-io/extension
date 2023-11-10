@@ -1,3 +1,5 @@
+import { token } from 'leather-styles/tokens';
+
 import { openInNewTab } from '@app/common/utils/open-in-new-tab';
 import { Stamp as BitcoinStamp } from '@app/query/bitcoin/stamps/stamps-by-address.query';
 import { StampsIcon } from '@app/ui/components/icons/stamps-icon';
@@ -11,7 +13,7 @@ export function Stamp(props: { bitcoinStamp: BitcoinStamp }) {
 
   return (
     <CollectibleImage
-      icon={<StampsIcon size="30px" />}
+      icon={<StampsIcon size={token('icons.icon.lg')} />}
       key={bitcoinStamp.stamp}
       onClickCallToAction={() => openInNewTab(`${stampChainAssetUrl}${bitcoinStamp.stamp}`)}
       src={bitcoinStamp.stamp_url}

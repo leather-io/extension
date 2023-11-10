@@ -1,8 +1,8 @@
-import { FiInfo } from 'react-icons/fi';
-
-import { Box, Flex, Text, color } from '@stacks/ui';
+import { Flex, styled } from 'leather-styles/jsx';
+import { token } from 'leather-styles/tokens';
 
 import { Tooltip } from '@app/components/tooltip';
+import { InfoIcon } from '@app/ui/components/icons/info-icon';
 import { Caption } from '@app/ui/components/typography/caption';
 
 interface LedgerScreenDetailProps {
@@ -14,18 +14,17 @@ export function LedgerScreenDetail(props: LedgerScreenDetailProps) {
   const { children, title, tooltipLabel } = props;
 
   return (
-    <Flex borderColor="#DCDDE2" flexDirection="column">
+    <Flex borderColor="accent.border-default" flexDirection="column">
       <Caption>
         {tooltipLabel ? (
           <Tooltip label={tooltipLabel} placement="top">
-            <Flex display="inline-flex" cursor="question">
+            <Flex cursor="question" display="inline-flex">
               {title}
-              <Box
-                as={FiInfo}
-                color={color('text-caption')}
-                ml="extra-tight"
-                size="14px"
-                mt="3px"
+              <InfoIcon
+                ml="space.01"
+                mt="space.01"
+                size={token('icons.icon.xs')}
+                style={{ color: token('colors.accent.text-subdued') }}
               />
             </Flex>
           </Tooltip>
@@ -33,10 +32,10 @@ export function LedgerScreenDetail(props: LedgerScreenDetailProps) {
           <>{title}</>
         )}
       </Caption>
-      <Flex alignItems="center" mt="base">
-        <Text overflowWrap="break-word" width="100%">
+      <Flex alignItems="center" mt="space.04">
+        <styled.span overflowWrap="break-word" width="100%">
           {children}
-        </Text>
+        </styled.span>
       </Flex>
     </Flex>
   );

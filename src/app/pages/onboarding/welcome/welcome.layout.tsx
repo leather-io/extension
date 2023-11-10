@@ -2,7 +2,7 @@ import { OnboardingSelectors } from '@tests/selectors/onboarding.selectors';
 import { Box, Flex, styled } from 'leather-styles/jsx';
 
 import { useViewportMinWidth } from '@app/common/hooks/use-media-query';
-import { LeatherButton } from '@app/components/button/button';
+import { LeatherButton } from '@app/ui/components/button';
 import { LeatherIcon } from '@app/ui/components/icons/leather-icon';
 import { LeatherLettermarkIcon } from '@app/ui/components/icons/leather-lettermark-icon';
 

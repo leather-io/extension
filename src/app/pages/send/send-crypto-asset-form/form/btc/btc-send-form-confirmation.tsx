@@ -16,7 +16,6 @@ import { formatMoneyPadded, i18nFormatCurrency } from '@app/common/money/format-
 import { satToBtc } from '@app/common/money/unit-conversion';
 import { queryClient } from '@app/common/persistence';
 import { FormAddressDisplayer } from '@app/components/address-displayer/form-address-displayer';
-import { LeatherButton } from '@app/components/button/button';
 import {
   InfoCard,
   InfoCardAssetValue,
@@ -28,6 +27,7 @@ import { ModalHeader } from '@app/components/modal-header';
 import { useCurrentNativeSegwitUtxos } from '@app/query/bitcoin/address/utxos-by-address.hooks';
 import { useBitcoinBroadcastTransaction } from '@app/query/bitcoin/transaction/use-bitcoin-broadcast-transaction';
 import { useCryptoCurrencyMarketData } from '@app/query/common/market-data/market-data.hooks';
+import { LeatherButton } from '@app/ui/components/button';
 
 import { useSendFormNavigate } from '../../hooks/use-send-form-navigate';
 

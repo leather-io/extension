@@ -9,8 +9,8 @@ export function BitcoinContractExpirationDate({
   expirationDate,
 }: BitcoinContractExpirationDateProps) {
   return (
-    <Flex p="space.05" gap="space.05" width="100%" justifyContent="space-between">
-      <styled.span fontWeight="bold" textStyle="body.01">
+    <Flex gap="space.05" justifyContent="space-between" p="space.05" width="100%">
+      <styled.span fontWeight={500} textStyle="body.01">
         Expiration Date
       </styled.span>
       <styled.span

@@ -4,11 +4,11 @@ import { Stack, StackProps } from 'leather-styles/jsx';
 export function CryptoAssetListLayout({ children }: StackProps) {
   return (
     <Stack
-      width="100%"
       data-testid={CryptoAssetSelectors.CryptoAssetList}
+      gap="space.06"
       pb="space.06"
       px="space.05"
-      gap="space.06"
+      width="100%"
     >
       {children}
     </Stack>

@@ -25,7 +25,7 @@ export function SendBtcDisabled() {
   const navigate = useNavigate();
 
   return (
-    <Box textAlign="center" px={['unset', 'loose']} py="base" width="100%">
+    <Box px={['unset', 'loose']} py="space.04" textAlign="center" width="100%">
       <GenericError
         body={body}
         helpTextList={helpTextList}

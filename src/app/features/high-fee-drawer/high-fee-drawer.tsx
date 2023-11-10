@@ -19,7 +19,7 @@ export function HighFeeDrawer(props: { learnMoreUrl: string }) {
   return (
     <ControlledDrawer
       // #4476 FIXME update this icon
-      icon={<FiAlertTriangle color="error.label" size="icon.lg" />}
+      icon={<FiAlertTriangle color="error.label" size="icon.xl" />}
       isShowing={isShowingHighFeeConfirmation}
       onClose={() => setIsShowingHighFeeConfirmation(false)}
     >

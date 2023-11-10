@@ -1,27 +1,22 @@
-import { Text } from '@stacks/ui';
-import { Flex } from 'leather-styles/jsx';
+import { Flex, styled } from 'leather-styles/jsx';
+import { token } from 'leather-styles/tokens';
 
-import { figmaTheme } from '@app/common/utils/figma-theme';
 import { EyeSlashIcon } from '@app/ui/components/icons/eye-slash-icon';
 
 export function ImageUnavailable() {
   return (
     <Flex
-      flexDirection="column"
-      justifyContent="center"
       alignItems="center"
-      textAlign="center"
+      bg="accent.component-background-default"
+      flexDirection="column"
       height="100%"
+      justifyContent="center"
+      textAlign="center"
       width="100%"
-      backgroundColor={figmaTheme.surfaceSecondary}
     >
-      <EyeSlashIcon pb="12px" size="24px" />
-      <Text fontSize="12px" lineHeight="16px">
-        Image currently
-      </Text>
-      <Text fontSize="12px" lineHeight="16px">
-        unavailable
-      </Text>
+      <EyeSlashIcon pb="12px" size={token('icons.icon.md')} />
+      <styled.span textStyle="label.03">Image currently</styled.span>
+      <styled.span textStyle="label.03">unavailable</styled.span>
     </Flex>
   );
 }

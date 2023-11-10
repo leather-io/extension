@@ -2,6 +2,14 @@ import { CssKeyframes } from 'leather-styles/types/system-types';
 
 // ts-unused-exports:disable-next-line
 export const keyframes: CssKeyframes = {
+  fadein: {
+    '0%': { opacity: '0' },
+    '100%': { opacity: '1' },
+  },
+  fadeout: {
+    '0%': { opacity: '1' },
+    '100%': { opacity: '0' },
+  },
   shine: {
     '0%': {
       backgroundPosition: '-50px',

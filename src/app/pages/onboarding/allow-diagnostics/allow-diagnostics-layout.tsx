@@ -5,7 +5,7 @@ import { OnboardingSelectors } from '@tests/selectors/onboarding.selectors';
 import { css } from 'leather-styles/css';
 import { Box, Flex, HStack, Stack, styled } from 'leather-styles/jsx';
 
-import { LeatherButton } from '@app/components/button/button';
+import { LeatherButton } from '@app/ui/components/button';
 import { LeatherIcon } from '@app/ui/components/icons/leather-icon';
 
 interface ReasonToAllowDiagnosticsProps {

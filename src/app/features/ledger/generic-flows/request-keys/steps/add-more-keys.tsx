@@ -2,11 +2,11 @@ import { useNavigate } from 'react-router-dom';
 
 import { Stack } from 'leather-styles/jsx';
 
-import { LeatherButton } from '@app/components/button/button';
-import { Capitalize } from '@app/components/text/capitalize';
 import { LedgerTitle } from '@app/features/ledger/components/ledger-title';
 import { LedgerWrapper } from '@app/features/ledger/components/ledger-wrapper';
+import { LeatherButton } from '@app/ui/components/button';
 import { Caption } from '@app/ui/components/typography/caption';
+import { Capitalize } from '@app/ui/utils/capitalize';
 
 import { useLedgerRequestKeysContext } from '../ledger-request-keys.context';
 

@@ -9,7 +9,6 @@ import { HandleOpenTxLinkArgs } from '@app/common/hooks/use-explorer-link';
 import { useRouteHeader } from '@app/common/hooks/use-route-header';
 import { formatMoney } from '@app/common/money/format-money';
 import { openInNewTab } from '@app/common/utils/open-in-new-tab';
-import { LeatherButton } from '@app/components/button/button';
 import {
   InfoCard,
   InfoCardAssetValue,
@@ -20,6 +19,7 @@ import {
 } from '@app/components/info-card/info-card';
 import { InfoLabel } from '@app/components/info-label';
 import { ModalHeader } from '@app/components/modal-header';
+import { LeatherButton } from '@app/ui/components/button';
 import { ExternalLinkIcon } from '@app/ui/components/icons/external-link-icon';
 
 import { TxDone } from '../send-crypto-asset-form/components/tx-done';

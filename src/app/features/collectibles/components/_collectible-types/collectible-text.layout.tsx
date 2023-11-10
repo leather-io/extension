@@ -20,12 +20,9 @@ export function CollectibleTextLayout({ children }: CollectibleTextLayoutProps) 
       color="white"
       height="100%"
       p="20px"
-      // #4476 FIXME - get Faras help here
-      // sx={{
-      //   position: 'relative',
-      //   overflow: 'hidden',
-      //   textAlign: 'left',
-      // }}
+      position="relative"
+      overflow="hidden"
+      textAlign="left"
       width="100%"
     >
       <pre>{sanitize(children)}</pre>

@@ -1,7 +1,7 @@
 import { Box, Flex, styled } from 'leather-styles/jsx';
 
-import { LeatherButton } from '@app/components/button/button';
 import { RequesterFlag } from '@app/components/requester-flag';
+import { LeatherButton } from '@app/ui/components/button';
 import { LeatherIcon } from '@app/ui/components/icons/leather-icon';
 import { LeatherLIcon } from '@app/ui/components/icons/leather-l-icon';
 

@@ -7,13 +7,13 @@ import { RouteUrls } from '@shared/route-urls';
 
 import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
 import { FormAddressDisplayer } from '@app/components/address-displayer/form-address-displayer';
-import { LeatherButton } from '@app/components/button/button';
 import { BaseDrawer } from '@app/components/drawer/base-drawer';
 import { InfoCard, InfoCardRow, InfoCardSeparator } from '@app/components/info-card/info-card';
 import { InscriptionPreview } from '@app/components/inscription-preview-card/components/inscription-preview';
 import { useCurrentNativeSegwitUtxos } from '@app/query/bitcoin/address/utxos-by-address.hooks';
 import { useAppDispatch } from '@app/store';
 import { inscriptionSent } from '@app/store/ordinals/ordinals.slice';
+import { LeatherButton } from '@app/ui/components/button';
 
 import { InscriptionPreviewCard } from '../../../components/inscription-preview-card/inscription-preview-card';
 import { useBitcoinBroadcastTransaction } from '../../../query/bitcoin/transaction/use-bitcoin-broadcast-transaction';

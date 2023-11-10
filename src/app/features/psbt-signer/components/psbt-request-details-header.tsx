@@ -1,4 +1,4 @@
-import { HStack, styled } from 'leather-styles/jsx';
+import { Box, HStack, styled } from 'leather-styles/jsx';
 import { token } from 'leather-styles/tokens';
 
 import { Tooltip } from '@app/components/tooltip';
@@ -13,8 +13,8 @@ const uncertainLabel =
 
 export function PsbtRequestDetailsHeader() {
   const { isPsbtMutable } = usePsbtSignerContext();
-  const labelColor = isPsbtMutable
-    ? token('colors.error.label')
+  const tokenLabelColor = isPsbtMutable
+    ? token('colors.warning.label')
     : token('colors.accent.text-subdued');
 
   return (
@@ -27,19 +27,23 @@ export function PsbtRequestDetailsHeader() {
       >
         <HStack
           alignItems="center"
-          border="1px solid"
-          borderColor={labelColor}
+          border={isPsbtMutable ? 'warning' : 'subdued'}
           borderRadius="24px"
+          gap="space.01"
           px="space.02"
           py="space.01"
-          gap="space.01"
         >
-          {isPsbtMutable ? (
-            <UnlockIcon color={labelColor} size="icon.xs" />
-          ) : (
-            <LockIcon color={labelColor} size="icon.xs" />
-          )}
-          <styled.span color={labelColor} textStyle="caption.02">
+          <Box width="12px">
+            {isPsbtMutable ? (
+              <UnlockIcon style={{ color: tokenLabelColor }} size={token('icons.icon.xs')} />
+            ) : (
+              <LockIcon style={{ color: tokenLabelColor }} size={token('icons.icon.xs')} />
+            )}
+          </Box>
+          <styled.span
+            color={isPsbtMutable ? 'warning.label' : 'accent.text-subdued'}
+            textStyle="caption.02"
+          >
             {isPsbtMutable ? 'Uncertain' : 'Certain'}
           </styled.span>
         </HStack>

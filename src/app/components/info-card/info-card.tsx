@@ -6,9 +6,8 @@ import { Box, BoxProps, Flex, FlexProps, HStack, Stack, styled } from 'leather-s
 import { isString } from '@shared/utils';
 
 import { whenPageMode } from '@app/common/utils';
-
-import { DashedHr } from '../../ui/components/hr';
-import { LeatherButton } from '../button/button';
+import { LeatherButton } from '@app/ui/components/button';
+import { DashedHr } from '@app/ui/components/hr';
 
 // InfoCard
 interface InfoCardProps extends FlexProps {

@@ -1,7 +1,7 @@
 import { HStack } from 'leather-styles/jsx';
 
 import { useWalletType } from '@app/common/use-wallet-type';
-import { LeatherButton } from '@app/components/button/button';
+import { LeatherButton } from '@app/ui/components/button';
 
 interface StacksSignMessageActionsProps {
   onSignMessage(): void;

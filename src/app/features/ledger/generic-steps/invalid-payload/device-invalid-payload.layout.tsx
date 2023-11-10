@@ -1,8 +1,7 @@
-import { Box, Flex, Text, color } from '@stacks/ui';
-import { styled } from 'leather-styles/jsx';
+import { Box, Flex, styled } from 'leather-styles/jsx';
 
-import { LeatherButton } from '@app/components/button/button';
 import { ConnectLedgerErr } from '@app/features/ledger/illustrations/ledger-illu-connect-ledger-error';
+import { LeatherButton } from '@app/ui/components/button';
 
 import { LedgerWrapper } from '../../components/ledger-wrapper';
 
@@ -20,11 +19,11 @@ export function LedgerDeviceInvalidPayloadLayout({
       <styled.span mt="space.06" textStyle="label.01">
         Data Invalid
       </styled.span>
-      <Text mt="base-tight" lineHeight="24px" color={color('text-caption')}>
+      <styled.span mt="space.03" lineHeight="24px" textStyle="caption.01">
         Your Ledger device has rejected the payload stating it is invalid
-      </Text>
-      <Flex mt="base-loose">
-        <LeatherButton variant="ghost" mr="base-tight" onClick={onClose}>
+      </styled.span>
+      <Flex mt="space.04">
+        <LeatherButton variant="outline" mr="space.03" onClick={onClose}>
           Close
         </LeatherButton>
       </Flex>

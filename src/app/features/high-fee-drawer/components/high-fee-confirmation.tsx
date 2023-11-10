@@ -9,7 +9,7 @@ import {
 
 import { useDrawers } from '@app/common/hooks/use-drawers';
 import { openInNewTab } from '@app/common/utils/open-in-new-tab';
-import { LeatherButton } from '@app/components/button/button';
+import { LeatherButton } from '@app/ui/components/button';
 import { Caption } from '@app/ui/components/typography/caption';
 import { Title } from '@app/ui/components/typography/title';
 

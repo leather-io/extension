@@ -1,6 +1,6 @@
 import { Box, HStack } from 'leather-styles/jsx';
 
-import { LeatherButton } from '@app/components/button/button';
+import { LeatherButton } from '@app/ui/components/button';
 
 interface PsbtRequestActionsProps {
   isLoading?: boolean;
@@ -11,14 +11,11 @@ export function PsbtRequestActions({ isLoading, onCancel, onSignPsbt }: PsbtRequ
   return (
     <Box
       bg="accent.background-primary"
-      // TODO #4476 check this border colour it was DCDDE2
-      // - can we pass it with shorthand?
-      borderTop="1px solid"
-      borderColor="border-default"
+      borderTop="default"
       bottom="0px"
       height="96px"
       position="absolute"
-      px="loose"
+      px="space.05"
       width="100%"
       zIndex={999}
     >

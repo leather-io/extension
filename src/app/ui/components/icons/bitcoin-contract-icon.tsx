@@ -3,7 +3,7 @@ import { token } from 'leather-styles/tokens';
 
 import { Svg } from '../svg';
 
-export function BitcoinContractIcon({ size = token('icons.icon.lg'), ...props }: SquareProps) {
+export function BitcoinContractIcon({ size = token('icons.icon.xl'), ...props }: SquareProps) {
   return (
     <Square size={size} {...props}>
       <Svg

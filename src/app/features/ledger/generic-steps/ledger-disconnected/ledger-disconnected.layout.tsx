@@ -1,6 +1,6 @@
 import { Box, HStack } from 'leather-styles/jsx';
 
-import { LeatherButton } from '@app/components/button/button';
+import { LeatherButton } from '@app/ui/components/button';
 
 import { LedgerTitle } from '../../components/ledger-title';
 import { LedgerWrapper } from '../../components/ledger-wrapper';

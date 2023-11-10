@@ -1,7 +1,7 @@
 import { formatMoney } from '@app/common/money/format-money';
-import { LeatherButton } from '@app/components/button/button';
 import { Tooltip } from '@app/components/tooltip';
 import { useCurrentTaprootAccountBalance } from '@app/query/bitcoin/balance/btc-taproot-balance.hooks';
+import { LeatherButton } from '@app/ui/components/button';
 
 const taprootSpendNotSupportedYetMsg = `
   Total amount of BTC in your Taproot account addresses. Click to

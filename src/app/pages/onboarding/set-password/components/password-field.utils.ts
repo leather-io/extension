@@ -1,32 +1,30 @@
-import { color } from '@stacks/ui';
-
 import { PasswordStrength, ValidatedPassword } from '@app/common/validation/validate-password';
 
-export const defaultColor = '#EFEFF2';
+export const defaultColor = 'accent.text-subdued';
 
 const strengthStyles = {
   [PasswordStrength.NoScore]: {
-    strengthColor: color('feedback-error'),
+    strengthColor: 'error.label',
     strengthText: 'Poor',
   },
   [PasswordStrength.PoorScore]: {
-    strengthColor: color('feedback-error'),
+    strengthColor: 'error.label',
     strengthText: 'Poor',
   },
   [PasswordStrength.WeakScore]: {
-    strengthColor: color('feedback-alert'),
+    strengthColor: 'warning.label',
     strengthText: 'Weak',
   },
   [PasswordStrength.AverageScore]: {
-    strengthColor: '#F0C000',
+    strengthColor: 'warning.label',
     strengthText: 'Average',
   },
   [PasswordStrength.StrongScore]: {
-    strengthColor: '#F0C000',
+    strengthColor: 'warning.label',
     strengthText: 'Average',
   },
   [PasswordStrength.MeetsAllRequirements]: {
-    strengthColor: color('feedback-success'),
+    strengthColor: 'success.label',
     strengthText: 'Strong',
   },
 };
