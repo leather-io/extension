@@ -80,7 +80,9 @@ export const semanticTokens = defineSemanticTokens({
       background: {
         value: { base: '{colors.lightModeRed.100}', _dark: '{colors.darkModeRed.100}' },
       },
-      value: { base: '{colors.lightModeRed.600}', _dark: '{colors.darkModeRed.600}' },
+      label: {
+        value: { base: '{colors.lightModeRed.600}', _dark: '{colors.darkModeRed.600}' },
+      },
     },
     invert: {
       value: { base: '{colors.darkModeBrown.1}', _dark: '{colors.lightModeBrown.1}' },
