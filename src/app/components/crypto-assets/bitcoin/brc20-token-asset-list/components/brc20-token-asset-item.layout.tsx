@@ -1,4 +1,3 @@
-import { forwardRefWithAs } from '@stacks/ui-core';
 import { BoxProps, Flex, HStack, styled } from 'leather-styles/jsx';
 
 import type { Money } from '@shared/models/money.model';
@@ -16,42 +15,45 @@ interface Brc20TokenAssetItemLayoutProps extends BoxProps {
   isPressable?: boolean;
   title: string;
 }
-export const Brc20TokenAssetItemLayout = forwardRefWithAs(
-  (props: Brc20TokenAssetItemLayoutProps, ref) => {
-    const { balance, caption, isPressable, title, ...rest } = props;
-    const [component, bind] = usePressable(isPressable);
+export function Brc20TokenAssetItemLayout({
+  balance,
+  caption,
+  isPressable,
+  title,
+}: Brc20TokenAssetItemLayoutProps) {
+  const [component, bind] = usePressable(isPressable);
 
-    const formattedBalance = formatBalance(balance.amount.toString());
+  const formattedBalance = formatBalance(balance.amount.toString());
 
-    return (
-      <Flex as={isPressable ? 'button' : 'div'} outline={0} ref={ref} {...rest} {...(bind as any)}>
-        <Flag align="middle" img={<Brc20TokenIcon />} spacing="base" width="100%">
-          <HStack alignItems="center" justifyContent="space-between" width="100%">
-            <styled.span
-              maxWidth="150px"
-              overflow="hidden"
-              textAlign="left"
-              textOverflow="ellipsis"
-              textStyle="label.01"
-              whiteSpace="nowrap"
-            >
-              {title}
+  return (
+    // #4476 TODO not sure why this isn't erroring
+    <Flex as={isPressable ? 'button' : 'div'} outline={0} {...(bind as any)}>
+      <Flag align="middle" img={<Brc20TokenIcon />} spacing="base" width="100%">
+        <HStack alignItems="center" justifyContent="space-between" width="100%">
+          <styled.span
+            maxWidth="150px"
+            overflow="hidden"
+            textAlign="left"
+            textOverflow="ellipsis"
+            textStyle="label.01"
+            whiteSpace="nowrap"
+          >
+            {title}
+          </styled.span>
+          <Tooltip
+            label={formattedBalance.isAbbreviated ? balance.amount.toString() : undefined}
+            placement="left-start"
+          >
+            <styled.span data-testid={title} textStyle="label.01">
+              {formattedBalance.value}
             </styled.span>
-            <Tooltip
-              label={formattedBalance.isAbbreviated ? balance.amount.toString() : undefined}
-              placement="left-start"
-            >
-              <styled.span data-testid={title} textStyle="label.01">
-                {formattedBalance.value}
-              </styled.span>
-            </Tooltip>
-          </HStack>
-          <HStack alignItems="center" justifyContent="space-between" height="1.25rem" width="100%">
-            <AssetCaption caption={caption} />
-          </HStack>
-          {component}
-        </Flag>
-      </Flex>
-    );
-  }
-);
+          </Tooltip>
+        </HStack>
+        <HStack alignItems="center" justifyContent="space-between" height="1.25rem" width="100%">
+          <AssetCaption caption={caption} />
+        </HStack>
+        {component}
+      </Flag>
+    </Flex>
+  );
+}

@@ -1,5 +1,3 @@
-import { forwardRefWithAs } from '@stacks/ui-core';
-
 import { createMoney } from '@shared/models/money.model';
 
 import { Brc20Token } from '@app/query/bitcoin/ordinals/brc20/brc20-tokens.query';
@@ -11,17 +9,14 @@ interface Brc20TokenAssetItemProps {
   isPressable?: boolean;
   onClick?: () => void;
 }
-export const Brc20TokenAssetItem = forwardRefWithAs(
-  ({ token, isPressable, onClick }: Brc20TokenAssetItemProps, ref) => {
-    return (
-      <Brc20TokenAssetItemLayout
-        balance={createMoney(Number(token.overall_balance), token.tick, 0)}
-        caption="BRC-20"
-        ref={ref}
-        title={token.tick}
-        isPressable={isPressable}
-        onClick={onClick} // #4383 TODO - check this works
-      />
-    );
-  }
-);
+export function Brc20TokenAssetItem({ token, isPressable, onClick }: Brc20TokenAssetItemProps) {
+  return (
+    <Brc20TokenAssetItemLayout
+      balance={createMoney(Number(token.overall_balance), token.tick, 0)}
+      caption="BRC-20"
+      title={token.tick}
+      isPressable={isPressable}
+      onClick={onClick} // #4383 TODO - check this works
+    />
+  );
+}
