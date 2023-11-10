@@ -13,7 +13,9 @@ const uncertainLabel =
 
 export function PsbtRequestDetailsHeader() {
   const { isPsbtMutable } = usePsbtSignerContext();
-  const labelColor = isPsbtMutable ? token('colors.error') : token('colors.accent.text-subdued');
+  const labelColor = isPsbtMutable
+    ? token('colors.error.label')
+    : token('colors.accent.text-subdued');
 
   return (
     <HStack alignItems="center" gap="space.02">
