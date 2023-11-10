@@ -1,12 +1,12 @@
-import { Stack, StackProps } from '@stacks/ui';
 import { useField } from 'formik';
+import { HstackProps } from 'leather-styles/jsx';
 import { HStack } from 'leather-styles/jsx';
 
 import { SponsoredLabel } from '@app/components/sponsored-label';
 import { WarningLabel } from '@app/components/warning-label';
 import { Caption } from '@app/ui/components/typography/caption';
 
-interface FeesRowLayoutProps extends StackProps {
+interface FeesRowLayoutProps extends HstackProps {
   feeField: React.JSX.Element;
   fieldWarning?: string;
   isSponsored: boolean;
@@ -17,16 +17,16 @@ export function FeesRowLayout(props: FeesRowLayoutProps) {
   const [_, meta] = useField('fee');
 
   return (
-    <Stack spacing="base" width="100%" {...rest}>
+    <HStack gap="space.04" width="100%" {...rest}>
       <HStack alignItems="center" justifyContent="space-between" position="relative">
-        <Stack alignItems="center" isInline>
+        <HStack alignItems="center">
           <Caption>Fee</Caption>
           {!isSponsored ? selectInput : null}
-        </Stack>
+        </HStack>
         {feeField}
       </HStack>
       {isSponsored && <SponsoredLabel />}
       {!meta.error && fieldWarning && <WarningLabel>{fieldWarning}</WarningLabel>}
-    </Stack>
+    </HStack>
   );
 }

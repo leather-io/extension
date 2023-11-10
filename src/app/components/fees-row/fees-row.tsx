@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
 
-import { Box, StackProps } from '@stacks/ui';
+import { Box } from '@stacks/ui';
 import { SharedComponentsSelectors } from '@tests/selectors/shared-component.selectors';
 import BigNumber from 'bignumber.js';
 import { useField } from 'formik';
@@ -19,23 +19,20 @@ import { FeeEstimateSelect } from './components/fee-estimate-select';
 import { FeesRowLayout } from './components/fees-row.layout';
 import { TransactionFee } from './components/transaction-fee';
 
-interface FeeRowProps extends StackProps {
+interface FeeRowProps {
   fees?: Fees;
   allowCustom?: boolean;
   isSponsored: boolean;
   defaultFeeValue?: number;
   disableFeeSelection?: boolean;
 }
-export function FeesRow(props: FeeRowProps) {
-  const {
-    fees,
-    isSponsored,
-    allowCustom = true,
-    defaultFeeValue,
-    disableFeeSelection,
-    ...rest
-  } = props;
-
+export function FeesRow({
+  fees,
+  isSponsored,
+  allowCustom = true,
+  defaultFeeValue,
+  disableFeeSelection,
+}: FeeRowProps) {
   const [feeField, _, feeHelper] = useField('fee');
   const [feeCurrencyField] = useField('feeCurrency');
   const [feeTypeField, __, feeTypeHelper] = useField('feeType');
@@ -140,7 +137,6 @@ export function FeesRow(props: FeeRowProps) {
           selectedItem={selectedItem}
         />
       }
-      {...rest}
     />
   );
 }
