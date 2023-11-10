@@ -2,7 +2,6 @@ import { Suspense } from 'react';
 
 import { TransactionTypes } from '@stacks/connect';
 import { FungiblePostCondition, addressToString } from '@stacks/transactions';
-import { truncateMiddle } from '@stacks/ui-utils';
 
 import { getImageCanonicalUri } from '@app/common/crypto-assets/stacks-crypto-asset.utils';
 import { ftDecimals } from '@app/common/stacks-utils';
@@ -14,6 +13,7 @@ import {
   getPostConditionTitle,
   getSymbolFromPostCondition,
 } from '@app/common/transactions/stacks/post-condition.utils';
+import { truncateMiddle } from '@app/common/utils';
 import { EventCard } from '@app/components/event-card';
 import { LoadingSpinner } from '@app/components/loading-spinner';
 import { useCurrentStacksAccount } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';

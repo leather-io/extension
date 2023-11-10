@@ -14,12 +14,14 @@ import {
   addressHashModeToVersion,
   addressToString,
 } from '@stacks/transactions';
-import { getContractName, truncateMiddle } from '@stacks/ui-utils';
+// FIXME #4476 we need to move this. I also see '@app/common/stacks-utils'
+import { getContractName } from '@stacks/ui-utils';
 import { BigNumber } from 'bignumber.js';
 
 import { StacksTx, StacksTxStatus } from '@shared/models/transactions/stacks-transaction.model';
 
 import { stacksValue } from '@app/common/stacks-utils';
+import { truncateMiddle } from '@app/common/utils';
 
 export const statusFromTx = (tx: StacksTx): StacksTxStatus => {
   const { tx_status } = tx;

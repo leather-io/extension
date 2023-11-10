@@ -1,4 +1,3 @@
-import { truncateMiddle } from '@stacks/ui-utils';
 import { getAddressInfo } from 'bitcoin-address-validation';
 
 import { BitcoinTransactionVectorOutput } from '@shared/models/transactions/bitcoin-transaction.model';
@@ -6,6 +5,7 @@ import { BitcoinTx } from '@shared/models/transactions/bitcoin-transaction.model
 
 import { sumNumbers } from '@app/common/math/helpers';
 import { satToBtc } from '@app/common/money/unit-conversion';
+import { truncateMiddle } from '@app/common/utils';
 
 import { BtcSizeFeeEstimator } from './fees/btc-size-fee-estimator';
 

@@ -1,6 +1,6 @@
-import { truncateMiddle } from '@stacks/ui-utils';
 import { Flex, HStack, Stack, styled } from 'leather-styles/jsx';
 
+import { truncateMiddle } from '@app/common/utils';
 import { LeatherButton } from '@app/components/button/button';
 import { Flag } from '@app/components/layout/flag';
 import { CopyIcon } from '@app/ui/components/icons/copy-icon';

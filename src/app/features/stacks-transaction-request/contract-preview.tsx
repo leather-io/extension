@@ -1,6 +1,6 @@
 import { DynamicColorCircle, Stack, StackProps, color } from '@stacks/ui';
-import { truncateMiddle } from '@stacks/ui-utils';
 
+import { truncateMiddle } from '@app/common/utils';
 import { formatContractId } from '@app/common/utils';
 import { Caption } from '@app/ui/components/typography/caption';
 import { Title } from '@app/ui/components/typography/title';

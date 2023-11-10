@@ -1,6 +1,5 @@
 import { Flex } from '@stacks/ui';
 import { forwardRefWithAs } from '@stacks/ui-core';
-import { truncateMiddle } from '@stacks/ui-utils';
 import { CryptoAssetSelectors } from '@tests/selectors/crypto-asset.selectors';
 // #4383 FIXME - need to refactor this flex as=
 // import { Flex } from 'leather-styles/jsx';
@@ -11,6 +10,7 @@ import { Money } from '@shared/models/money.model';
 
 import { formatBalance } from '@app/common/format-balance';
 import { ftDecimals } from '@app/common/stacks-utils';
+import { truncateMiddle } from '@app/common/utils';
 import { usePressable } from '@app/components/item-hover';
 import { Flag } from '@app/components/layout/flag';
 import { Tooltip } from '@app/components/tooltip';

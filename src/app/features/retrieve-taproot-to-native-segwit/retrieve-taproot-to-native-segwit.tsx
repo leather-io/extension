@@ -2,12 +2,12 @@ import toast from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
 
 import { Stack } from '@stacks/ui';
-import { truncateMiddle } from '@stacks/ui-utils';
 
 import { RouteUrls } from '@shared/route-urls';
 
 import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
 import { formatMoneyPadded } from '@app/common/money/format-money';
+import { truncateMiddle } from '@app/common/utils';
 import { delay } from '@app/common/utils';
 import { FormAddressDisplayer } from '@app/components/address-displayer/form-address-displayer';
 import { ExternalLink } from '@app/components/external-link';
