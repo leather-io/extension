@@ -1,8 +1,8 @@
 import { formatMoney, i18nFormatCurrency } from '@app/common/money/format-money';
-import { truncateMiddle } from '@app/common/utils';
 import { removeMinusSign } from '@app/common/utils';
 import { usePsbtSignerContext } from '@app/features/psbt-signer/psbt-signer.context';
 import { useCalculateBitcoinFiatValue } from '@app/query/common/market-data/market-data.hooks';
+import { truncateMiddle } from '@app/ui/utils/truncateMiddle';
 
 import { PsbtAddressTotalItem } from './psbt-address-total-item';
 import { PsbtInscription } from './psbt-inscription';

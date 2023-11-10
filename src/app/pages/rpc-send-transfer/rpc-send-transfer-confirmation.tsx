@@ -13,11 +13,11 @@ import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
 import { baseCurrencyAmountInQuote } from '@app/common/money/calculate-money';
 import { formatMoney, formatMoneyPadded, i18nFormatCurrency } from '@app/common/money/format-money';
 import { satToBtc } from '@app/common/money/unit-conversion';
-import { truncateMiddle } from '@app/common/utils';
 import { useCurrentNativeSegwitUtxos } from '@app/query/bitcoin/address/utxos-by-address.hooks';
 import { useBitcoinBroadcastTransaction } from '@app/query/bitcoin/transaction/use-bitcoin-broadcast-transaction';
 import { useCryptoCurrencyMarketData } from '@app/query/common/market-data/market-data.hooks';
 import { useCurrentAccountNativeSegwitAddressIndexZero } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
+import { truncateMiddle } from '@app/ui/utils/truncateMiddle';
 
 import { SendTransferActions } from './components/send-transfer-actions';
 import { SendTransferConfirmationDetails } from './components/send-transfer-confirmation-details';

@@ -1,9 +1,9 @@
 import { TransactionTypes } from '@stacks/connect';
 
 import { stacksValue } from '@app/common/stacks-utils';
-import { truncateMiddle } from '@app/common/utils';
 import { EventCard } from '@app/components/event-card';
 import { useTransactionRequestState } from '@app/store/transactions/requests.hooks';
+import { truncateMiddle } from '@app/ui/utils/truncateMiddle';
 
 export function StxPostCondition(): React.JSX.Element | null {
   const pendingTransaction = useTransactionRequestState();

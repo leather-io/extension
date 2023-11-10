@@ -13,12 +13,12 @@ import {
   getPostConditionTitle,
   getSymbolFromPostCondition,
 } from '@app/common/transactions/stacks/post-condition.utils';
-import { truncateMiddle } from '@app/common/utils';
 import { EventCard } from '@app/components/event-card';
 import { LoadingSpinner } from '@app/components/loading-spinner';
 import { useCurrentStacksAccount } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
 import { useAssetFromFungiblePostCondition } from '@app/store/transactions/post-conditions.hooks';
 import { useTransactionRequestState } from '@app/store/transactions/requests.hooks';
+import { truncateMiddle } from '@app/ui/utils/truncateMiddle';
 
 interface FungiblePostConditionItemProps {
   isLast?: boolean;

@@ -5,8 +5,8 @@ import { Flex, styled } from 'leather-styles/jsx';
 import { useBitcoinContracts } from '@app/common/hooks/use-bitcoin-contracts';
 import { BitcoinContractListItem } from '@app/common/hooks/use-bitcoin-contracts';
 import { useOnMount } from '@app/common/hooks/use-on-mount';
-import { truncateMiddle } from '@app/common/utils';
 import { FullPageLoadingSpinner } from '@app/components/loading-spinner';
+import { truncateMiddle } from '@app/ui/utils/truncateMiddle';
 
 import { BitcoinContractListItemLayout } from './components/bitcoin-contract-list-item-layout';
 import { BitcoinContractListLayout } from './components/bitcoin-contract-list-layout';

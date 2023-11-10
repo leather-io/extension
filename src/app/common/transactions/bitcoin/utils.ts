@@ -5,7 +5,7 @@ import { BitcoinTx } from '@shared/models/transactions/bitcoin-transaction.model
 
 import { sumNumbers } from '@app/common/math/helpers';
 import { satToBtc } from '@app/common/money/unit-conversion';
-import { truncateMiddle } from '@app/common/utils';
+import { truncateMiddle } from '@app/ui/utils/truncateMiddle';
 
 import { BtcSizeFeeEstimator } from './fees/btc-size-fee-estimator';
 

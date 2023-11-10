@@ -7,7 +7,6 @@ import { RouteUrls } from '@shared/route-urls';
 
 import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
 import { formatMoneyPadded } from '@app/common/money/format-money';
-import { truncateMiddle } from '@app/common/utils';
 import { delay } from '@app/common/utils';
 import { FormAddressDisplayer } from '@app/components/address-displayer/form-address-displayer';
 import { ExternalLink } from '@app/components/external-link';
@@ -18,6 +17,7 @@ import {
 } from '@app/query/bitcoin/balance/btc-taproot-balance.hooks';
 import { useBitcoinBroadcastTransaction } from '@app/query/bitcoin/transaction/use-bitcoin-broadcast-transaction';
 import { useCurrentAccountNativeSegwitAddressIndexZero } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
+import { truncateMiddle } from '@app/ui/utils/truncateMiddle';
 
 import { RetrieveTaprootToNativeSegwitLayout } from './components/retrieve-taproot-to-native-segwit.layout';
 import { useGenerateRetrieveTaprootFundsTx } from './use-generate-retrieve-taproot-funds-tx';

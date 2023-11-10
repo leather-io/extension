@@ -9,10 +9,10 @@ import { Money } from '@shared/models/money.model';
 
 import { formatBalance } from '@app/common/format-balance';
 import { ftDecimals } from '@app/common/stacks-utils';
-import { truncateMiddle } from '@app/common/utils';
 import { usePressable } from '@app/components/item-hover';
 import { Flag } from '@app/components/layout/flag';
 import { Tooltip } from '@app/components/tooltip';
+import { truncateMiddle } from '@app/ui/utils/truncateMiddle';
 
 import { AssetRowGrid } from '../components/asset-row-grid';
 
