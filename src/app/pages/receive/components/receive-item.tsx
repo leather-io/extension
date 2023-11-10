@@ -4,7 +4,7 @@ import { LeatherButton } from '@app/components/button/button';
 import { Flag } from '@app/components/layout/flag';
 import { CopyIcon } from '@app/ui/components/icons/copy-icon';
 import { QrCodeIcon } from '@app/ui/components/icons/qr-code-icon';
-import { truncateMiddle } from '@app/ui/utils/truncateMiddle';
+import { truncateMiddle } from '@app/ui/utils/truncate-middle';
 
 interface ReceiveItemProps {
   address?: string;

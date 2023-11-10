@@ -18,7 +18,7 @@ import { LoadingSpinner } from '@app/components/loading-spinner';
 import { useCurrentStacksAccount } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
 import { useAssetFromFungiblePostCondition } from '@app/store/transactions/post-conditions.hooks';
 import { useTransactionRequestState } from '@app/store/transactions/requests.hooks';
-import { truncateMiddle } from '@app/ui/utils/truncateMiddle';
+import { truncateMiddle } from '@app/ui/utils/truncate-middle';
 
 interface FungiblePostConditionItemProps {
   isLast?: boolean;

@@ -17,7 +17,7 @@ import {
 } from '@app/query/bitcoin/balance/btc-taproot-balance.hooks';
 import { useBitcoinBroadcastTransaction } from '@app/query/bitcoin/transaction/use-bitcoin-broadcast-transaction';
 import { useCurrentAccountNativeSegwitAddressIndexZero } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
-import { truncateMiddle } from '@app/ui/utils/truncateMiddle';
+import { truncateMiddle } from '@app/ui/utils/truncate-middle';
 
 import { RetrieveTaprootToNativeSegwitLayout } from './components/retrieve-taproot-to-native-segwit.layout';
 import { useGenerateRetrieveTaprootFundsTx } from './use-generate-retrieve-taproot-funds-tx';

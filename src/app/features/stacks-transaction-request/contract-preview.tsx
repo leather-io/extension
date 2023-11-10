@@ -4,7 +4,7 @@ import { formatContractId } from '@app/common/utils';
 import { DynamicColorCircle } from '@app/ui/components/dynamic-color-circle';
 import { Caption } from '@app/ui/components/typography/caption';
 import { Title } from '@app/ui/components/typography/title';
-import { truncateMiddle } from '@app/ui/utils/truncateMiddle';
+import { truncateMiddle } from '@app/ui/utils/truncate-middle';
 
 interface ContractPreviewLayoutProps {
   contractAddress: string;

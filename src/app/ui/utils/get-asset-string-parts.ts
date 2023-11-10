@@ -1,5 +1,5 @@
-import { getAssetName } from './getAssetName';
-import { getContractName } from './getContractName';
+import { getAssetName } from './get-asset-name';
+import { getContractName } from './get-contract-name';
 
 /**
  * getAssetStringParts

@@ -18,7 +18,7 @@ import { useCurrentStacksAccountAnchoredBalances } from '@app/query/stacks/balan
 import { useCurrentNetworkState } from '@app/store/networks/networks.hooks';
 import { useTransactionRequestState } from '@app/store/transactions/requests.hooks';
 import { Caption } from '@app/ui/components/typography/caption';
-import { truncateMiddle } from '@app/ui/utils/truncateMiddle';
+import { truncateMiddle } from '@app/ui/utils/truncate-middle';
 
 interface InsufficientFundsActionButtonsProps {
   eventName: string;

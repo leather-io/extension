@@ -12,7 +12,7 @@ import { ftDecimals } from '@app/common/stacks-utils';
 import { usePressable } from '@app/components/item-hover';
 import { Flag } from '@app/components/layout/flag';
 import { Tooltip } from '@app/components/tooltip';
-import { truncateMiddle } from '@app/ui/utils/truncateMiddle';
+import { truncateMiddle } from '@app/ui/utils/truncate-middle';
 
 import { AssetRowGrid } from '../components/asset-row-grid';
 

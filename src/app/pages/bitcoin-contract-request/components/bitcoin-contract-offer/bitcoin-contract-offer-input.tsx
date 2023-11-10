@@ -6,7 +6,7 @@ import { SimplifiedBitcoinContract } from '@app/common/hooks/use-bitcoin-contrac
 import { formatMoney, i18nFormatCurrency } from '@app/common/money/format-money';
 import { satToBtc } from '@app/common/money/unit-conversion';
 import { useCalculateBitcoinFiatValue } from '@app/query/common/market-data/market-data.hooks';
-import { truncateMiddle } from '@app/ui/utils/truncateMiddle';
+import { truncateMiddle } from '@app/ui/utils/truncate-middle';
 
 import { BitcoinContractLockAmount } from './bitcoin-contract-lock-amount';
 

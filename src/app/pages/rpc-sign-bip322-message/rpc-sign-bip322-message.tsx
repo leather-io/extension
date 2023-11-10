@@ -9,7 +9,7 @@ import { MessagePreviewBox } from '@app/features/message-signer/message-preview-
 import { MessageSigningRequestLayout } from '@app/features/message-signer/message-signing-request.layout';
 import { AccountGate } from '@app/routes/account-gate';
 import { useCurrentNetwork } from '@app/store/networks/networks.selectors';
-import { truncateMiddle } from '@app/ui/utils/truncateMiddle';
+import { truncateMiddle } from '@app/ui/utils/truncate-middle';
 
 import { MessageSigningHeader } from '../../features/message-signer/message-signing-header';
 import { SignMessageActions } from '../../features/message-signer/stacks-sign-message-action';
