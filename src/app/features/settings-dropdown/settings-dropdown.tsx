@@ -27,7 +27,6 @@ import { LedgerDeviceItemRow } from './components/ledger-item-row';
 import { SettingsMenuItem as MenuItem } from './components/settings-menu-item';
 import { MenuWrapper } from './components/settings-menu-wrapper';
 
-// #4313 - TODO rebuild this menu with Radix
 export function SettingsDropdown() {
   const ref = useRef<HTMLDivElement | null>(null);
   const hasGeneratedWallet = !!useCurrentStacksAccount();
@@ -53,17 +52,16 @@ export function SettingsDropdown() {
     [handleClose]
   );
 
-  const isShowing = isShowingSettings;
   const isLedger = useHasLedgerKeys();
 
-  useOnClickOutside(ref, isShowing ? handleClose : null);
+  useOnClickOutside(ref, isShowingSettings ? handleClose : null);
 
   // RouteUrls.Activity is nested off / so we need to use a link relative to the route
   const linkRelativeType =
     location.pathname === `${RouteUrls.Home}${RouteUrls.Activity}` ? 'route' : 'path';
 
   return (
-    <MenuWrapper pointerEvents={!isShowing ? 'none' : 'all'}>
+    <MenuWrapper isShowing={isShowingSettings}>
       {isLedger && targetId && (
         <LedgerDeviceItemRow deviceType={extractDeviceNameFromKnownTargetIds(targetId)} />
       )}

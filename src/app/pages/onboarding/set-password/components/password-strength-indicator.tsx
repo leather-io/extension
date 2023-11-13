@@ -45,5 +45,6 @@ export function PasswordStrengthIndicator(props: PasswordStrengthIndicatorProps)
     strengthResult.score,
   ]);
 
+  // TODO: This need to be fixed - Pete?
   return <HStack height="6px">{bars}</HStack>;
 }
