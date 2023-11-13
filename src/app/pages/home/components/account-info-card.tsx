@@ -4,9 +4,9 @@ import { Box, Divider, Flex, styled } from 'leather-styles/jsx';
 import { useCurrentAccountDisplayName } from '@app/common/hooks/account/use-account-names';
 import { useTotalBalance } from '@app/common/hooks/balance/use-total-balance';
 import { useDrawers } from '@app/common/hooks/use-drawers';
-import { LeatherButton } from '@app/components/button/button';
 import { useCurrentAccountNativeSegwitAddressIndexZero } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
 import { useCurrentStacksAccount } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
+import { LeatherButton } from '@app/ui/components/button';
 import { ChevronDownIcon } from '@app/ui/components/icons/chevron-down-icon';
 
 import { AccountActions } from './account-actions';

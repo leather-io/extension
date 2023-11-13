@@ -1,32 +1,32 @@
-import { Button, Stack } from '@stacks/ui';
 import { UpdateProfileRequestSelectors } from '@tests/selectors/requests.selectors';
+import { HStack } from 'leather-styles/jsx';
 
-interface UpdateActionProfileProps {
+import { LeatherButton } from '@app/ui/components/button';
+
+interface UpdateActionLayoutProps {
   onUpdateProfile: () => Promise<void>;
   onCancel: () => void;
   isLoading: boolean;
 }
-
 export function UpdateActionLayout({
   onUpdateProfile,
   onCancel,
   isLoading,
-}: UpdateActionProfileProps) {
+}: UpdateActionLayoutProps) {
   return (
-    <Stack isInline>
-      <Button onClick={onCancel} flexGrow={1} borderRadius="10px" mode="tertiary">
+    <HStack>
+      <LeatherButton onClick={onCancel} flexGrow={1} variant="outline">
         Cancel
-      </Button>
-      <Button
+      </LeatherButton>
+      <LeatherButton
+        aria-busy={isLoading}
         data-testid={UpdateProfileRequestSelectors.BtnUpdateProfile}
         type="submit"
         flexGrow={1}
-        borderRadius="10px"
         onClick={onUpdateProfile}
-        isLoading={isLoading}
       >
         Update
-      </Button>
-    </Stack>
+      </LeatherButton>
+    </HStack>
   );
 }

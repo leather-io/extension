@@ -2,8 +2,8 @@ import { Outlet } from 'react-router-dom';
 
 import { LoadingKeys, useLoading } from '@app/common/hooks/use-loading';
 import { useRouteHeader } from '@app/common/hooks/use-route-header';
-import { LeatherButton } from '@app/components/button/button';
 import { ModalHeader } from '@app/components/modal-header';
+import { LeatherButton } from '@app/ui/components/button';
 
 import { SwapAssetsPair } from '../components/swap-assets-pair/swap-assets-pair';
 import { SwapContentLayout } from '../components/swap-content.layout';

@@ -80,7 +80,7 @@ export function BitcoinChooseFee({
           }
           feesList={feesList}
         />
-        <Box mt="loose" width="100%">
+        <Box mt="space.05" width="100%">
           <AvailableBalance balance={btcBalance.balance} />
         </Box>
       </Stack>

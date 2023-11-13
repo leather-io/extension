@@ -7,10 +7,9 @@ import { token } from 'leather-styles/tokens';
 import { RouteUrls } from '@shared/route-urls';
 
 import { NetworkModeBadge } from '@app/components/network-mode-badge';
+import { LeatherButton } from '@app/ui/components/button';
 import { ArrowLeftIcon } from '@app/ui/components/icons/arrow-left-icon';
 import { CloseIcon } from '@app/ui/components/icons/close-icon';
-
-import { LeatherButton } from './button/button';
 
 interface ModalHeaderProps {
   actionButton?: React.JSX.Element;

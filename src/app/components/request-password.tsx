@@ -7,7 +7,7 @@ import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
 import { useKeyActions } from '@app/common/hooks/use-key-actions';
 import { buildEnterKeyEvent } from '@app/common/hooks/use-modifier-key';
 import { WaitingMessages, useWaitingMessage } from '@app/common/utils/use-waiting-message';
-import { LeatherButton } from '@app/components/button/button';
+import { LeatherButton } from '@app/ui/components/button';
 
 import { ErrorLabel } from './error-label';
 
@@ -60,10 +60,10 @@ export function RequestPassword({ title, caption, onSuccess }: RequestPasswordPr
       <styled.p textStyle="body.02">{(isRunning && waitingMessage) || caption}</styled.p>
       <Stack gap="space.04">
         <styled.input
+          _focus={{ border: 'focus' }}
           autoCapitalize="off"
           autoComplete="off"
           autoFocus
-          _focus={{ border: 'focus' }}
           border="active"
           borderRadius="10px"
           data-testid={SettingsSelectors.EnterPasswordInput}

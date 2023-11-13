@@ -1,6 +1,6 @@
 import { openInNewTab } from '@app/common/utils/open-in-new-tab';
-import { LeatherButton } from '@app/components/button/button';
 import { useCurrentNetworkState } from '@app/store/networks/networks.hooks';
+import { LeatherButton } from '@app/ui/components/button';
 
 interface PrincipalValueProps {
   address: string;

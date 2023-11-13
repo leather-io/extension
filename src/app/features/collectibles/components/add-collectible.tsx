@@ -10,16 +10,11 @@ import { PlusIcon } from '@app/ui/components/icons/plus-icon';
 import { CollectibleItemLayout } from './collectible-item.layout';
 
 const backgroundProps = {
-  backgroundColor: token('colors.brown.1'),
-  border: '2px dashed #DCDDE2',
-  borderRadius: '16px',
-  _hover: {
-    cursor: 'pointer',
-    backgroundColor: '#F9F9FA',
-  },
   _active: {
-    backgroundColor: '#EFEFF2',
+    bg: 'accent.component-background-pressed',
   },
+  bg: 'accent.background-primary',
+  border: 'dashed',
 };
 
 export function AddCollectible() {
@@ -41,7 +36,7 @@ export function AddCollectible() {
       subtitle="Collectible"
       title="Add new"
     >
-      <PlusIcon size={token('icons.icon.lg')} />
+      <PlusIcon size={token('icons.icon.xl')} />
     </CollectibleItemLayout>
   );
 }

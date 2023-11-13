@@ -1,4 +1,4 @@
-import { Flex, FlexProps } from '@stacks/ui';
+import { Flex, FlexProps } from 'leather-styles/jsx';
 
 import { useRemoteHiroMessages } from '@app/query/common/remote-config/remote-config.query';
 import { useCurrentNetworkState } from '@app/store/networks/networks.hooks';
@@ -25,7 +25,7 @@ export function InAppMessages(props: FlexProps) {
   }
 
   return (
-    <Flex background="#242629" color="white" {...props}>
+    <Flex bg="accent.component-background-default" color="white" {...props}>
       <HiroMessageItem onDismiss={messageId => dismissMessage(messageId)} {...firstMessage} />
     </Flex>
   );
