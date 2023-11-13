@@ -19,6 +19,7 @@ interface StacksFungibleTokenAssetItemProps extends FlexProps {
 }
 export function StacksFungibleTokenAssetItem({
   assetBalance,
+  isPressable,
   onClick,
 }: StacksFungibleTokenAssetItemProps) {
   const { asset, balance } = assetBalance;
@@ -39,6 +40,7 @@ export function StacksFungibleTokenAssetItem({
       caption={spamFilter(caption)}
       data-testid={dataTestId}
       imageCanonicalUri={imageCanonicalUri}
+      isPressable={isPressable}
       title={spamFilter(friendlyName)}
       onClick={onClick}
     />

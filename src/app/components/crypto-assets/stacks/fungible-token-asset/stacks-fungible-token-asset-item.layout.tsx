@@ -38,8 +38,7 @@ export function StacksFungibleTokenAssetItemLayout({
   const formattedBalance = formatBalance(amount);
 
   return (
-    //  #4476 TODO - test
-    <Flex as={isPressable ? 'button' : 'div'} outline={0} onClick={onClick} {...(bind as any)}>
+    <Flex onClick={isPressable ? onClick : undefined} {...bind}>
       <Flag
         align="middle"
         img={

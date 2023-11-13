@@ -29,7 +29,6 @@ type HoverBind = ReturnType<typeof useHover>[1];
 type FocusBind = ReturnType<typeof useFocus>[1];
 
 interface DefaultSpreadProps extends HoverBind, FocusBind {
-  bg: 'transparent';
   cursor: 'pointer' | 'default';
   position: 'relative';
   zIndex: 1;
@@ -59,7 +58,6 @@ export function usePressable(isPressable?: boolean): UsePressableReturn {
     {
       ...bind,
       ...focusBind,
-      bg: 'transparent',
       cursor: isPressable ? 'pointer' : 'default',
       position: 'relative',
       zIndex: 1,
