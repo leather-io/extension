@@ -1,25 +1,28 @@
-import { memo } from 'react';
+import { ReactNode, memo } from 'react';
 
-import { BoxProps, Text, color } from '@stacks/ui';
-import { token } from 'leather-styles/tokens';
+import { styled } from 'leather-styles/jsx';
 
-export const SettingsMenuItem = memo((props: BoxProps) => {
-  const { onClick, children, ...rest } = props;
+interface SettingsMenuItemTypes {
+  color?: string;
+  onClick: (e: React.MouseEvent) => void;
+  children: ReactNode;
+}
+
+export const SettingsMenuItem = memo(({ color, onClick, children }: SettingsMenuItemTypes) => {
   return (
-    <Text
+    <styled.span
       width="100%"
       px="base"
       py="base"
       cursor="pointer"
-      color={color('text-title')}
-      _hover={{ backgroundColor: token('colors.brown.2') }}
+      color={color ? color : 'accent.text-primary'}
+      _hover={{ backgroundColor: 'accent.component-background-hover' }}
       onClick={e => {
         onClick?.(e);
       }}
       fontSize={1}
-      {...rest}
     >
       {children}
-    </Text>
+    </styled.span>
   );
 });

@@ -1,5 +1,3 @@
-import { Text } from '@stacks/ui';
-
 import { useStxBalance } from '@app/common/hooks/balance/stx/use-stx-balance';
 import { ftDecimals } from '@app/common/stacks-utils';
 import { CryptoCurrencyAssetItem } from '@app/components/crypto-assets/crypto-currency-asset/crypto-currency-asset-item';
@@ -22,7 +20,7 @@ export function StacksBalanceItem({ account }: StacksBalanceItemProps) {
     useStxBalance();
 
   const stxAdditionalBalanceInfo = stxLockedBalance?.amount.isGreaterThan(0) ? (
-    <Text>({ftDecimals(stxLockedBalance.amount, stxLockedBalance.decimals || 0)} locked)</Text>
+    <>({ftDecimals(stxLockedBalance.amount, stxLockedBalance.decimals || 0)} locked)</>
   ) : undefined;
 
   const stxAdditionalUsdBalanceInfo = stxLockedBalance?.amount.isGreaterThan(0) ? (

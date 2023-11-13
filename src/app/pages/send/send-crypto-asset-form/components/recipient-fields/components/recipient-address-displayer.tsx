@@ -1,13 +1,12 @@
 import { useCallback } from 'react';
-import { FiCopy } from 'react-icons/fi';
 
-import { Box, Text, color } from '@stacks/ui';
 import { SendCryptoAssetSelectors } from '@tests/selectors/send.selectors';
-import { HStack } from 'leather-styles/jsx';
+import { HStack, styled } from 'leather-styles/jsx';
 
 import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
 import { useClipboard } from '@app/common/hooks/use-copy-to-clipboard';
 import { Tooltip } from '@app/components/tooltip';
+import { CopyIcon } from '@app/ui/components/icons/copy-icon';
 
 interface RecipientAddressDisplayerProps {
   address: string;
@@ -23,24 +22,21 @@ export function RecipientAddressDisplayer({ address }: RecipientAddressDisplayer
 
   return (
     <HStack alignItems="center" justifyContent="space-between" mb="space.04" width="100%">
-      <Text
-        color={color('text-caption')}
+      <styled.span
+        textStyle="caption.02"
         data-testid={SendCryptoAssetSelectors.RecipientBnsAddressLabel}
-        fontSize={0}
       >
         {address}
-      </Text>
+      </styled.span>
       <Tooltip hideOnClick={false} label={hasCopied ? 'Copied!' : 'Copy address'} placement="right">
-        <Box
+        <styled.button
           _hover={{ cursor: 'pointer' }}
-          as="button"
-          color={color('text-caption')}
           data-testid={SendCryptoAssetSelectors.RecipientBnsAddressCopyToClipboard}
           onClick={copyToClipboard}
           type="button"
         >
-          <FiCopy size="16px" />
-        </Box>
+          <CopyIcon size="16px" />
+        </styled.button>
       </Tooltip>
     </HStack>
   );

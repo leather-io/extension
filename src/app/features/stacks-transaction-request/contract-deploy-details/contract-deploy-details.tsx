@@ -1,10 +1,9 @@
 import { useState } from 'react';
 
-import { CodeBlock, Stack, color } from '@stacks/ui';
-import { HTMLStyledProps, styled } from 'leather-styles/jsx';
+import { HStack, HTMLStyledProps, Stack, styled } from 'leather-styles/jsx';
 
-import { Prism } from '@app/common/clarity-prism';
-import { Divider } from '@app/components/layout/divider';
+//  #4476 TODO - test and see if we need this
+// import { Prism } from '@app/common/clarity-prism';
 import { AttachmentRow } from '@app/features/stacks-transaction-request/attachment-row';
 import { ContractPreviewLayout } from '@app/features/stacks-transaction-request/contract-preview';
 import { Row } from '@app/features/stacks-transaction-request/row';
@@ -30,17 +29,19 @@ function ContractCodeSection() {
     return null;
   }
 
+  //#4476 TODO - test and style this CodeBlock
   return (
-    <CodeBlock
+    <styled.pre
       overflowX="scroll"
-      border="4px solid"
-      borderColor={color('border')}
+      border="borders.default"
       borderRadius="12px"
-      backgroundColor="ink.1000"
+      // backgroundColor="ink.1000"
       maxWidth="100vw"
-      code={transactionRequest.codeBody}
-      Prism={Prism as any}
-    />
+
+      // Prism={Prism as any}
+    >
+      {transactionRequest.codeBody}
+    </styled.pre>
   );
 }
 
@@ -80,30 +81,30 @@ export function ContractDeployDetails() {
   }
 
   return (
-    <Stack mb="loose" spacing="loose" width="100%">
-      <Stack spacing="0" isInline>
+    <Stack mb="space.05" gap="space.05" width="100%">
+      <HStack gap="0">
         <TabButton onClick={() => setTab('details')} isActive={tab === 'details'}>
           Details
         </TabButton>
         <TabButton onClick={() => setTab('code')} isActive={tab === 'code'}>
           Code
         </TabButton>
-      </Stack>
+      </HStack>
       {tab === 'details' ? (
         <Stack
-          spacing="loose"
+          gap="space.05"
           border="4px solid"
-          borderColor={color('border')}
+          borderColor="accent.border-default"
           borderRadius="12px"
-          py="extra-loose"
-          px="base-loose"
+          py="space.06"
+          px="space.04"
         >
           <Title>Contract deploy details</Title>
           <ContractPreviewLayout
             contractAddress={currentAccountStxAddress}
             contractName={transactionRequest.contractName}
           />
-          <Stack spacing="base-loose" divider={<Divider />}>
+          <Stack gap="space.04">
             {currentAccountStxAddress && (
               <Row name="Contract address" value={currentAccountStxAddress} type="Principal" />
             )}

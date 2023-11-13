@@ -1,5 +1,5 @@
-import { Button, Stack } from '@stacks/ui';
 import { useFormikContext } from 'formik';
+import { HStack, Stack, styled } from 'leather-styles/jsx';
 
 import {
   BitcoinSendFormValues,
@@ -13,15 +13,14 @@ import { LeatherButton } from '@app/ui/components/button';
 import { Caption } from '@app/ui/components/typography/caption';
 import { Title } from '@app/ui/components/typography/title';
 
-export function HighFeeConfirmation(props: { learnMoreUrl: string }) {
-  const { learnMoreUrl } = props;
+export function HighFeeConfirmation({ learnMoreUrl }: { learnMoreUrl: string }) {
   const { handleSubmit, values } = useFormikContext<
     BitcoinSendFormValues | StacksSendFormValues | StacksTransactionFormValues
   >();
   const { setIsShowingHighFeeConfirmation } = useDrawers();
 
   return (
-    <Stack px="loose" spacing="loose" pb="extra-loose">
+    <Stack px="loose" gap="loose" pb="extra-loose">
       <Title>
         Are you sure you want to pay {values.fee} {values.feeCurrency} in fees for this transaction?
       </Title>
@@ -31,19 +30,18 @@ export function HighFeeConfirmation(props: { learnMoreUrl: string }) {
           Learn more
         </LeatherButton>
       </Caption>
-      <Stack isInline mt="loose">
-        <Button
+      <HStack mt="loose">
+        <styled.button
           borderRadius="10px"
-          mode="tertiary"
           onClick={() => setIsShowingHighFeeConfirmation(false)}
           width="50%"
         >
           Edit fee
-        </Button>
-        <Button borderRadius="10px" onClick={() => handleSubmit()} width="50%">
+        </styled.button>
+        <styled.button borderRadius="10px" onClick={() => handleSubmit()} width="50%">
           Yes, I'm sure
-        </Button>
-      </Stack>
+        </styled.button>
+      </HStack>
     </Stack>
   );
 }

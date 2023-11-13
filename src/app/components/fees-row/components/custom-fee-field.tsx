@@ -1,9 +1,8 @@
 import { FormEvent, useCallback } from 'react';
 
-import { Input, InputGroup, Stack, StackProps, color } from '@stacks/ui';
 import { SharedComponentsSelectors } from '@tests/selectors/shared-component.selectors';
 import { useField } from 'formik';
-import { styled } from 'leather-styles/jsx';
+import { Flex, Stack, styled } from 'leather-styles/jsx';
 
 import { CryptoCurrencies } from '@shared/models/currencies.model';
 import { StacksFeeEstimate } from '@shared/models/fees/stacks-fees.model';
@@ -12,15 +11,18 @@ import { stxToMicroStx } from '@app/common/money/unit-conversion';
 import { SendFormWarningMessages } from '@app/common/warning-messages';
 import { Caption } from '@app/ui/components/typography/caption';
 
-interface CustomFeeFieldProps extends StackProps {
+interface CustomFeeFieldProps {
   feeCurrencySymbol: CryptoCurrencies;
   lowFeeEstimate: StacksFeeEstimate;
   setFieldWarning(value: string): void;
   disableFeeSelection?: boolean;
 }
-export function CustomFeeField(props: CustomFeeFieldProps) {
-  const { feeCurrencySymbol, lowFeeEstimate, setFieldWarning, disableFeeSelection, ...rest } =
-    props;
+export function CustomFeeField({
+  feeCurrencySymbol,
+  lowFeeEstimate,
+  setFieldWarning,
+  disableFeeSelection,
+}: CustomFeeFieldProps) {
   const [field, meta, helpers] = useField('fee');
 
   const checkFieldWarning = useCallback(
@@ -36,8 +38,9 @@ export function CustomFeeField(props: CustomFeeFieldProps) {
   );
 
   return (
-    <Stack position="relative" {...rest}>
-      <InputGroup
+    <Stack position="relative">
+      {/* #4476 TODO check this looks OK */}
+      <Flex
         alignSelf="flex-end"
         flexDirection="column"
         justifyContent="center"
@@ -47,15 +50,15 @@ export function CustomFeeField(props: CustomFeeFieldProps) {
         <styled.label htmlFor="fee" position="absolute" right={2} zIndex={999}>
           <Caption>{feeCurrencySymbol}</Caption>
         </styled.label>
-        <Input
+        <styled.input
           autoComplete="off"
           borderRadius="8px"
-          color={color('text-caption')}
+          color="accent.text-subdued"
           data-testid={SharedComponentsSelectors.CustomFeeFieldInput}
           display="block"
           height="32px"
           name="fee"
-          isDisabled={disableFeeSelection}
+          disabled={disableFeeSelection}
           onChange={(evt: FormEvent<HTMLInputElement>) => {
             helpers.setValue(evt.currentTarget.value);
             // Separating warning check from field validations
@@ -69,7 +72,7 @@ export function CustomFeeField(props: CustomFeeFieldProps) {
           type="number"
           value={field.value}
         />
-      </InputGroup>
+      </Flex>
     </Stack>
   );
 }

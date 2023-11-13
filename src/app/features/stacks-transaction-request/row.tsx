@@ -1,21 +1,18 @@
-import { Stack, StackProps, Text } from '@stacks/ui';
-import { HStack } from 'leather-styles/jsx';
+import { HStack, Stack, styled } from 'leather-styles/jsx';
 
 import { Caption } from '@app/ui/components/typography/caption';
 
 import { PrincipalValue } from './principal-value';
 
-interface RowProps extends StackProps {
+interface RowProps {
   name?: string | React.JSX.Element | null;
   type?: string;
   value: string;
 }
 
-export function Row(props: RowProps): React.JSX.Element {
-  const { name, type, value, ...rest } = props;
-
+export function Row({ name, type, value }: RowProps): React.JSX.Element {
   return (
-    <Stack spacing="base-tight" {...rest}>
+    <Stack gap="space.03">
       <HStack alignItems="center" justifyContent="space-between" flexShrink={0}>
         {name && <Caption>{name}</Caption>}
         {type && <Caption>{type}</Caption>}
@@ -24,9 +21,15 @@ export function Row(props: RowProps): React.JSX.Element {
       {type?.toLowerCase() === 'principal' ? (
         <PrincipalValue address={value} />
       ) : (
-        <Text display="block" fontSize={2} fontWeight={500} lineHeight="1.6" wordBreak="break-all">
+        <styled.span
+          display="block"
+          fontSize={2}
+          fontWeight={500}
+          lineHeight="1.6"
+          wordBreak="break-all"
+        >
           {value}
-        </Text>
+        </styled.span>
       )}
     </Stack>
   );

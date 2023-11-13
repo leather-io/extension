@@ -72,3 +72,9 @@ const contract = 'ST12EY99GS4YKP0CP2CFW6SEPWQ2CGVRWK5GHKDRV.market';
 const shortenedContract = truncateHex(contract, 4);
 // ST12...KDRV.market
 ```
+
+## Units
+
+### microStxToStx
+
+Converts uSTX to STX.
