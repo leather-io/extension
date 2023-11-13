@@ -1,9 +1,9 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
 
-import { Box } from '@stacks/ui';
 import { SharedComponentsSelectors } from '@tests/selectors/shared-component.selectors';
 import BigNumber from 'bignumber.js';
 import { useField } from 'formik';
+import { Box } from 'leather-styles/jsx';
 
 import { STX_DECIMALS } from '@shared/constants';
 import { FeeTypes, Fees } from '@shared/models/fees/fees.model';
@@ -115,7 +115,8 @@ export function FeesRow({
             setFieldWarning={(value: string) => setFieldWarning(value)}
           />
         ) : (
-          <Box as="button" onClick={() => handleSelectFeeEstimateOrCustomField(FeeTypes.Custom)}>
+          // #4476 TODO - make sure this clicks OK
+          <Box onClick={() => handleSelectFeeEstimateOrCustomField(FeeTypes.Custom)}>
             <TransactionFee
               fee={feeField.value}
               feeCurrencySymbol={feeCurrencySymbol}

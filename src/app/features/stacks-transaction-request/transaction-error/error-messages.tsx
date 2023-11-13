@@ -2,8 +2,6 @@ import { memo } from 'react';
 import { Navigate } from 'react-router-dom';
 
 import { STXTransferPayload, TransactionTypes } from '@stacks/connect';
-// #4476 TODO: ask Fara if we can ditch Fade
-import { Fade } from '@stacks/ui';
 import { Flex, HStack, Stack } from 'leather-styles/jsx';
 
 import { RouteUrls } from '@shared/route-urls';
@@ -140,38 +138,33 @@ export const UnauthorizedRequestRedirect = memo(() => {
 export const ExpiredRequestErrorMessage = memo(props => {
   useScrollLock(true);
   return (
-    <Fade in>
-      {styles => (
-        <Flex
-          position="fixed"
-          width="100%"
-          height="100vh"
-          zIndex={99}
-          left={0}
-          top={0}
-          alignItems="center"
-          justifyContent="center"
-          p="space.05"
-          bg="rgba(0,0,0,0.35)"
-          backdropFilter="blur(10px)"
-          style={styles}
-        >
-          <ErrorMessage
-            title="Expired request"
-            body="This transaction request has expired or cannot be validated, try to re-initiate this transaction request from the original app."
-            border="1px solid"
-            borderColor="accent.border-default"
-            // #4476 TODO check this is OK to remove boxShadow="high"
-            // boxShadow="high"
-            css={{
-              '& > *': {
-                pointerEvents: 'all',
-              },
-            }}
-            {...props}
-          />
-        </Flex>
-      )}
-    </Fade>
+    <Flex
+      position="fixed"
+      width="100%"
+      height="100vh"
+      zIndex={99}
+      left={0}
+      top={0}
+      alignItems="center"
+      justifyContent="center"
+      p="space.05"
+      bg="rgba(0,0,0,0.35)"
+      backdropFilter="blur(10px)"
+    >
+      <ErrorMessage
+        title="Expired request"
+        body="This transaction request has expired or cannot be validated, try to re-initiate this transaction request from the original app."
+        border="1px solid"
+        borderColor="accent.border-default"
+        // #4476 TODO check this is OK to remove boxShadow="high"
+        // boxShadow="high"
+        css={{
+          '& > *': {
+            pointerEvents: 'all',
+          },
+        }}
+        {...props}
+      />
+    </Flex>
   );
 });

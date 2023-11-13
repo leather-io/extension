@@ -2,7 +2,7 @@ import { useCallback, useRef } from 'react';
 import { FiExternalLink } from 'react-icons/fi';
 import { useLocation, useNavigate } from 'react-router-dom';
 
-import { Box, Flex, SlideFade, Stack, color } from '@stacks/ui';
+import { Box, Flex, Stack } from '@stacks/ui';
 import { SettingsSelectors } from '@tests/selectors/settings.selectors';
 
 import { RouteUrls } from '@shared/route-urls';
@@ -27,6 +27,7 @@ import { LedgerDeviceItemRow } from './components/ledger-item-row';
 import { SettingsMenuItem as MenuItem } from './components/settings-menu-item';
 import { MenuWrapper } from './components/settings-menu-wrapper';
 
+// #4313 - TODO rebuild this menu with Radix
 export function SettingsDropdown() {
   const ref = useRef<HTMLDivElement | null>(null);
   const hasGeneratedWallet = !!useCurrentStacksAccount();
@@ -62,126 +63,119 @@ export function SettingsDropdown() {
     location.pathname === `${RouteUrls.Home}${RouteUrls.Activity}` ? 'route' : 'path';
 
   return (
-    <SlideFade initialOffset="-20px" timeout={150} in={isShowing}>
-      {styles => (
-        <MenuWrapper ref={ref} style={styles} pointerEvents={!isShowing ? 'none' : 'all'}>
-          {isLedger && targetId && (
-            <LedgerDeviceItemRow deviceType={extractDeviceNameFromKnownTargetIds(targetId)} />
-          )}
-          {hasGeneratedWallet && walletType === 'software' && (
-            <>
-              <MenuItem
-                data-testid={SettingsSelectors.ViewSecretKeyListItem}
-                onClick={wrappedCloseCallback(() => {
-                  navigate(RouteUrls.ViewSecretKey);
-                })}
-              >
-                View Secret Key
-              </MenuItem>
-            </>
-          )}
-          <MenuItem
-            data-testid={SettingsSelectors.ToggleTheme}
-            onClick={wrappedCloseCallback(() => {
-              void analytics.track('click_change_theme_menu_item');
-              navigate(RouteUrls.ChangeTheme, {
-                relative: linkRelativeType,
-                state: { backgroundLocation: location },
-              });
-            })}
-          >
-            Change theme
-          </MenuItem>
-          {whenPageMode({
-            full: null,
-            popup: (
-              <MenuItem
-                data-testid={SettingsSelectors.OpenWalletInNewTab}
-                onClick={() => {
-                  void analytics.track('click_open_in_new_tab_menu_item');
-                  openIndexPageInNewTab(location.pathname);
-                }}
-              >
-                <Stack isInline>
-                  <Box>Open in new tab</Box>
-                  <FiExternalLink />
-                </Stack>
-              </MenuItem>
-            ),
-          })}
-          <MenuItem
-            data-testid={SettingsSelectors.GetSupportMenuItem}
-            onClick={wrappedCloseCallback(() => {
-              void analytics.track('click_get_support_menu_item');
-              openInNewTab('https://leather.gitbook.io/guides/installing/contact-support');
-            })}
-          >
-            <Stack isInline>
-              <Box>Get support</Box>
-              <FiExternalLink />
-            </Stack>
-          </MenuItem>
-          <MenuItem
-            onClick={wrappedCloseCallback(() => {
-              void analytics.track('click_request_feature_menu_item');
-              openInNewTab('https://leather.canny.io/feature-requests');
-            })}
-          >
-            <Stack isInline>
-              <Box>Request feature</Box>
-              <FiExternalLink />
-            </Stack>
-          </MenuItem>
-          {hasGeneratedWallet ? <Divider /> : null}
-          <MenuItem
-            data-testid={SettingsSelectors.ChangeNetworkAction}
-            onClick={wrappedCloseCallback(() => {
-              void analytics.track('click_change_network_menu_item');
-              navigate(RouteUrls.SelectNetwork, {
-                relative: linkRelativeType,
-                state: { backgroundLocation: location },
-              });
-            })}
-          >
-            <Flex width="100%" alignItems="center" justifyContent="space-between">
-              <Box>Change network</Box>
-              <Caption data-testid={SettingsSelectors.CurrentNetwork}>{currentNetworkId}</Caption>
-            </Flex>
-          </MenuItem>
-
-          <Divider />
-          {showAdvancedMenuOptions && (
-            <AdvancedMenuItems
-              closeHandler={wrappedCloseCallback}
-              settingsShown={isShowingSettings}
-            />
-          )}
-          {hasGeneratedWallet && walletType === 'software' && (
-            <MenuItem
-              onClick={wrappedCloseCallback(() => {
-                void analytics.track('lock_session');
-                void lockWallet();
-                navigate(RouteUrls.Unlock);
-              })}
-              data-testid="settings-lock"
-            >
-              Lock
-            </MenuItem>
-          )}
-          <MenuItem
-            color={color('feedback-error')}
-            onClick={wrappedCloseCallback(() =>
-              navigate(RouteUrls.SignOutConfirm, {
-                relative: linkRelativeType,
-                state: { backgroundLocation: location },
-              })
-            )}
-            data-testid={SettingsSelectors.SignOutListItem}
-          >
-            Sign out
-          </MenuItem>
-        </MenuWrapper>
+    <MenuWrapper pointerEvents={!isShowing ? 'none' : 'all'}>
+      {isLedger && targetId && (
+        <LedgerDeviceItemRow deviceType={extractDeviceNameFromKnownTargetIds(targetId)} />
       )}
-    </SlideFade>
+      {hasGeneratedWallet && walletType === 'software' && (
+        <>
+          <MenuItem
+            data-testid={SettingsSelectors.ViewSecretKeyListItem}
+            onClick={wrappedCloseCallback(() => {
+              navigate(RouteUrls.ViewSecretKey);
+            })}
+          >
+            View Secret Key
+          </MenuItem>
+        </>
+      )}
+      <MenuItem
+        data-testid={SettingsSelectors.ToggleTheme}
+        onClick={wrappedCloseCallback(() => {
+          void analytics.track('click_change_theme_menu_item');
+          navigate(RouteUrls.ChangeTheme, {
+            relative: linkRelativeType,
+            state: { backgroundLocation: location },
+          });
+        })}
+      >
+        Change theme
+      </MenuItem>
+      {whenPageMode({
+        full: null,
+        popup: (
+          <MenuItem
+            data-testid={SettingsSelectors.OpenWalletInNewTab}
+            onClick={() => {
+              void analytics.track('click_open_in_new_tab_menu_item');
+              openIndexPageInNewTab(location.pathname);
+            }}
+          >
+            <Stack isInline>
+              <Box>Open in new tab</Box>
+              <FiExternalLink />
+            </Stack>
+          </MenuItem>
+        ),
+      })}
+      <MenuItem
+        data-testid={SettingsSelectors.GetSupportMenuItem}
+        onClick={wrappedCloseCallback(() => {
+          void analytics.track('click_get_support_menu_item');
+          openInNewTab('https://leather.gitbook.io/guides/installing/contact-support');
+        })}
+      >
+        <Stack isInline>
+          <Box>Get support</Box>
+          <FiExternalLink />
+        </Stack>
+      </MenuItem>
+      <MenuItem
+        onClick={wrappedCloseCallback(() => {
+          void analytics.track('click_request_feature_menu_item');
+          openInNewTab('https://leather.canny.io/feature-requests');
+        })}
+      >
+        <Stack isInline>
+          <Box>Request feature</Box>
+          <FiExternalLink />
+        </Stack>
+      </MenuItem>
+      {hasGeneratedWallet ? <Divider /> : null}
+      <MenuItem
+        data-testid={SettingsSelectors.ChangeNetworkAction}
+        onClick={wrappedCloseCallback(() => {
+          void analytics.track('click_change_network_menu_item');
+          navigate(RouteUrls.SelectNetwork, {
+            relative: linkRelativeType,
+            state: { backgroundLocation: location },
+          });
+        })}
+      >
+        <Flex width="100%" alignItems="center" justifyContent="space-between">
+          <Box>Change network</Box>
+          <Caption data-testid={SettingsSelectors.CurrentNetwork}>{currentNetworkId}</Caption>
+        </Flex>
+      </MenuItem>
+
+      <Divider />
+      {showAdvancedMenuOptions && (
+        <AdvancedMenuItems closeHandler={wrappedCloseCallback} settingsShown={isShowingSettings} />
+      )}
+      {hasGeneratedWallet && walletType === 'software' && (
+        <MenuItem
+          onClick={wrappedCloseCallback(() => {
+            void analytics.track('lock_session');
+            void lockWallet();
+            navigate(RouteUrls.Unlock);
+          })}
+          data-testid="settings-lock"
+        >
+          Lock
+        </MenuItem>
+      )}
+      <MenuItem
+        color="error.label"
+        onClick={wrappedCloseCallback(() =>
+          navigate(RouteUrls.SignOutConfirm, {
+            relative: linkRelativeType,
+            state: { backgroundLocation: location },
+          })
+        )}
+        data-testid={SettingsSelectors.SignOutListItem}
+      >
+        Sign out
+      </MenuItem>
+    </MenuWrapper>
   );
 }

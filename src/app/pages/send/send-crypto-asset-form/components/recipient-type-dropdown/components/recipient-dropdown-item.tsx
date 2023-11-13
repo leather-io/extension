@@ -11,9 +11,11 @@ interface RecipientDropdownItemProps {
   isVisible?: boolean;
   onSelectItem(index: number): void;
 }
-export function RecipientDropdownItem(props: RecipientDropdownItemProps) {
-  const { index, isVisible, onSelectItem } = props;
-
+export function RecipientDropdownItem({
+  index,
+  isVisible,
+  onSelectItem,
+}: RecipientDropdownItemProps) {
   return (
     <LeatherButton
       alignItems="center"
@@ -23,7 +25,7 @@ export function RecipientDropdownItem(props: RecipientDropdownItemProps) {
       mb="0px !important"
       minWidth="110px"
       onClick={() => onSelectItem(index)}
-      pl={isVisible ? 'tight' : 'unset'}
+      pl={isVisible ? 'space.02' : 'unset'}
       variant="text"
     >
       <HStack gap="space.01">

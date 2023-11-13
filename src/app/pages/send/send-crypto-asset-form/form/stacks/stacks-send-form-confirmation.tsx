@@ -1,13 +1,14 @@
-import { FiInfo } from 'react-icons/fi';
 import { Outlet, useNavigate, useParams } from 'react-router-dom';
 
-import { Box, Stack, Tooltip, color } from '@stacks/ui';
+import { Box, Stack } from 'leather-styles/jsx';
 
 import { CryptoCurrencies } from '@shared/models/currencies.model';
 
 import { useLocationStateWithCache } from '@app/common/hooks/use-location-state';
 import { useRouteHeader } from '@app/common/hooks/use-route-header';
 import { ModalHeader } from '@app/components/modal-header';
+import { Tooltip } from '@app/components/tooltip';
+import { InfoIcon } from '@app/ui/components/icons/info-icon';
 
 import { useStacksBroadcastTransaction } from '../../family/stacks/hooks/use-stacks-broadcast-transaction';
 import { useStacksTransactionSummary } from '../../family/stacks/hooks/use-stacks-transaction-summary';
@@ -62,13 +63,9 @@ export function StacksSendFormConfirmation() {
       placement="bottom"
     >
       <Stack>
-        <Box
-          _hover={{ cursor: 'pointer' }}
-          as={FiInfo}
-          color={color('text-caption')}
-          size="14px"
-          ml="4px"
-        />
+        <Box>
+          <InfoIcon color="accent.text-subdued" />
+        </Box>
       </Stack>
     </Tooltip>
   ) : null;

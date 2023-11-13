@@ -1,5 +1,3 @@
-import { BoxProps } from 'leather-styles/jsx';
-
 import { StacksTx, StacksTxStatus } from '@shared/models/transactions/stacks-transaction.model';
 
 import { statusFromTx } from '@app/common/transactions/stacks/transaction.utils';
@@ -20,10 +18,10 @@ export function getColorFromTx(tx: StacksTx) {
   return colorMap[statusFromTx(tx)] ?? 'error.label';
 }
 
-interface TransactionTypeIconProps extends BoxProps {
+interface TransactionTypeIconProps {
   transaction: StacksTx;
 }
-export function TransactionTypeIcon({ transaction, ...rest }: TransactionTypeIconProps) {
+export function TransactionTypeIcon({ transaction }: TransactionTypeIconProps) {
   if (
     ['coinbase', 'contract_call', 'smart_contract', 'token_transfer'].includes(transaction.tx_type)
   ) {
@@ -31,7 +29,6 @@ export function TransactionTypeIcon({ transaction, ...rest }: TransactionTypeIco
       <TransactionTypeIconWrapper
         bg={getColorFromTx(transaction)}
         icon={<TransactionIcon tx={transaction} />}
-        {...rest}
       />
     );
   }

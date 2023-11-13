@@ -1,6 +1,8 @@
-import { Box, Button, CodeBlock, Stack, color } from '@stacks/ui';
+import { Box, Stack, styled } from 'leather-styles/jsx';
 
-import { Prism } from '@app/common/clarity-prism';
+// TODO #3986 improve this page
+// TODO #4476 check if we need Prism - likely not
+// import { Prism } from '@app/common/clarity-prism';
 import { HasChildren } from '@app/common/has-children';
 import { useRouteHeader } from '@app/common/hooks/use-route-header';
 import { Header } from '@app/components/header';
@@ -15,34 +17,33 @@ function ErrorFallback({ error, resetErrorBoundary }: FallbackProps) {
   useRouteHeader(<Header />);
 
   return (
-    <Stack spacing="extra-loose" flexGrow={1}>
+    <Stack gap="extra-loose" flexGrow={1}>
       <Title>Something went wrong</Title>
       <Box className="error-codeblock" maxWidth="100vw" overflow="hidden">
         {value && (
-          <CodeBlock
+          <styled.pre
             maxWidth="100%"
             flexShrink={1}
             overflow="auto"
             maxHeight="305px"
             border="4px solid"
-            borderColor={color('border')}
+            borderColor="accent.border-default"
             borderRadius="12px"
             backgroundColor="ink.1000"
             width="100%"
-            code={value as string}
-            language="bash"
-            Prism={Prism as any}
-          />
+            // Prism={Prism as any}
+          >
+            {value}
+          </styled.pre>
         )}
       </Box>
-      <Stack mt="auto" spacing="base">
-        <Button onClick={resetErrorBoundary}>Reload extension</Button>
-        <Button
-          mode="tertiary"
+      <Stack mt="auto" gap="base">
+        <styled.button onClick={resetErrorBoundary}>Reload extension</styled.button>
+        <styled.button
           onClick={() => openGithubIssue({ message: error.message, stackTrace: value })}
         >
           Report issue on GitHub
-        </Button>
+        </styled.button>
       </Stack>
     </Stack>
   );
