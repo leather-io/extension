@@ -8,11 +8,13 @@ import { RecipientDropdownItem } from './recipient-dropdown-item';
 
 interface RecipientDropdownLayoutProps {
   children: ReactNode;
+  isVisible: boolean;
   onSetIsSelectVisible(value: boolean): void;
   selectedItem: number;
 }
 export function RecipientDropdownLayout({
   children,
+  isVisible,
   onSetIsSelectVisible,
   selectedItem,
 }: RecipientDropdownLayoutProps) {
@@ -27,6 +29,7 @@ export function RecipientDropdownLayout({
         bg="accent.background-primary"
         borderRadius="8px"
         boxShadow="high"
+        display={isVisible ? 'unset' : 'none'}
         flexDirection="column"
         minWidth="100px"
         overflow="hidden"
