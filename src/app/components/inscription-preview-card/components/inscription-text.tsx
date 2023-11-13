@@ -1,7 +1,7 @@
-import { Box, Spinner, Text } from '@stacks/ui';
 import { sanitize } from 'dompurify';
+import { Box } from 'leather-styles/jsx';
 
-import { figmaTheme } from '@app/common/utils/figma-theme';
+import { LoadingSpinner } from '@app/components/loading-spinner';
 import { useInscriptionTextContentQuery } from '@app/query/bitcoin/ordinals/inscription-text-content.query';
 
 interface InscriptionTextProps {
@@ -10,7 +10,7 @@ interface InscriptionTextProps {
 export function InscriptionText(props: InscriptionTextProps) {
   const query = useInscriptionTextContentQuery(props.contentSrc);
 
-  if (query.isLoading) return <Spinner color={figmaTheme.icon} size="16px" />;
+  if (query.isLoading) return <LoadingSpinner size="16px" />;
 
   if (query.isError) return null; // TODO
 
@@ -19,11 +19,9 @@ export function InscriptionText(props: InscriptionTextProps) {
       height="100%"
       color="white"
       p="20px"
-      sx={{
-        position: 'relative',
-        overflow: 'hidden',
-        textAlign: 'left',
-      }}
+      position="relative"
+      overflow="hidden"
+      textAlign="left"
       _after={{
         content: '""',
         position: 'absolute',
@@ -34,7 +32,7 @@ export function InscriptionText(props: InscriptionTextProps) {
         backgroundImage: 'linear-gradient(rgba(0,0,0,0), rgba(0,0,0,1))',
       }}
     >
-      <Text>{sanitize(query.data)}</Text>
+      {sanitize(query.data)}
     </Box>
   );
 }

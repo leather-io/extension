@@ -1,6 +1,6 @@
 import { memo } from 'react';
 
-import { Flex, Stack } from '@stacks/ui';
+import { Flex, Stack } from 'leather-styles/jsx';
 
 import { getProfileDataContentFromToken } from '@app/common/profiles/requests';
 import { addPortSuffix, getUrlHostname } from '@app/common/utils';
@@ -26,7 +26,7 @@ function PageTopBase() {
   const avatarUrl = profileUpdaterPayload?.profile?.image?.[0]?.contentUrl;
   return (
     <Flex justify="space-between" align="center">
-      <Stack pt="extra-loose" spacing="base">
+      <Stack pt="space.06" gap="space.04">
         <Title>Update Profile</Title>
         {caption && <Caption wordBreak="break-word">{caption}</Caption>}
       </Stack>
