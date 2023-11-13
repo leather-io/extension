@@ -2,8 +2,8 @@ import { useCallback, useRef } from 'react';
 import { FiExternalLink } from 'react-icons/fi';
 import { useLocation, useNavigate } from 'react-router-dom';
 
-import { Box, Flex, Stack } from '@stacks/ui';
 import { SettingsSelectors } from '@tests/selectors/settings.selectors';
+import { Box, Flex, HStack } from 'leather-styles/jsx';
 
 import { RouteUrls } from '@shared/route-urls';
 
@@ -101,10 +101,10 @@ export function SettingsDropdown() {
               openIndexPageInNewTab(location.pathname);
             }}
           >
-            <Stack isInline>
+            <HStack>
               <Box>Open in new tab</Box>
               <FiExternalLink />
-            </Stack>
+            </HStack>
           </MenuItem>
         ),
       })}
@@ -115,10 +115,10 @@ export function SettingsDropdown() {
           openInNewTab('https://leather.gitbook.io/guides/installing/contact-support');
         })}
       >
-        <Stack isInline>
+        <HStack>
           <Box>Get support</Box>
           <FiExternalLink />
-        </Stack>
+        </HStack>
       </MenuItem>
       <MenuItem
         onClick={wrappedCloseCallback(() => {
@@ -126,10 +126,10 @@ export function SettingsDropdown() {
           openInNewTab('https://leather.canny.io/feature-requests');
         })}
       >
-        <Stack isInline>
+        <HStack>
           <Box>Request feature</Box>
           <FiExternalLink />
-        </Stack>
+        </HStack>
       </MenuItem>
       {hasGeneratedWallet ? <Divider /> : null}
       <MenuItem

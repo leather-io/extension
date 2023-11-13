@@ -6,14 +6,16 @@ import { StacksFungibleTokenAssetItem } from '@app/components/crypto-assets/stac
 
 interface FungibleTokenAssetItemProps extends FlexProps {
   assetBalance: StacksFungibleTokenAssetBalance;
+  onClick: () => void;
 }
-export function FungibleTokenAssetItem(props: FungibleTokenAssetItemProps) {
-  const { assetBalance, ...rest } = props;
+export function FungibleTokenAssetItem({ assetBalance, onClick }: FungibleTokenAssetItemProps) {
   const { blockchain } = assetBalance;
 
   switch (blockchain) {
     case 'stacks':
-      return <StacksFungibleTokenAssetItem assetBalance={assetBalance} isPressable {...rest} />;
+      return (
+        <StacksFungibleTokenAssetItem assetBalance={assetBalance} isPressable onClick={onClick} />
+      );
     default:
       return null;
   }
