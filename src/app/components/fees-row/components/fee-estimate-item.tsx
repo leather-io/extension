@@ -24,24 +24,31 @@ export function FeeEstimateItem({
 }: FeeEstimateItemProps) {
   const selectedIcon = useMemo(() => {
     const isSelected = index === selectedItem;
-    return isSelected ? <CheckmarkIcon color="accent.background-primary" size="14px" /> : <></>;
+    return isSelected ? <CheckmarkIcon /> : <></>;
   }, [index, selectedItem]);
 
   return (
     <HStack
+      _hover={{
+        bg: isVisible ? 'accent.component-background-hover' : 'accent.background-primary',
+        borderRadius: '8px',
+      }}
       alignItems="center"
       data-testid={`${testLabels[index]}-fee`}
-      //  #4476 TODO test this hover works and that removing isVisble + !imprtant
-      _hover={{ bg: 'accent.component-background-hover', borderRadius: '8px' }}
       height="32px"
       minWidth="100px"
-      onClick={() => !disableFeeSelection && onSelectItem(index)}
       p="tight"
     >
-      <styled.span fontSize={1} fontWeight={500} ml="2px">
-        {labels[index]}
-      </styled.span>
-      {!disableFeeSelection && (isVisible ? selectedIcon : <ChevronDownIcon />)}
+      <styled.button
+        onClick={() => !disableFeeSelection && onSelectItem(index)}
+        type="button"
+        width="100%"
+      >
+        <HStack gap="space.01">
+          <styled.span textStyle="label.02">{labels[index]}</styled.span>
+          {!disableFeeSelection && (isVisible ? selectedIcon : <ChevronDownIcon />)}
+        </HStack>
+      </styled.button>
     </HStack>
   );
 }

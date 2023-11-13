@@ -9,7 +9,6 @@ import { StacksFeeEstimate } from '@shared/models/fees/stacks-fees.model';
 
 import { stxToMicroStx } from '@app/common/money/unit-conversion';
 import { SendFormWarningMessages } from '@app/common/warning-messages';
-import { Caption } from '@app/ui/components/typography/caption';
 
 interface CustomFeeFieldProps {
   feeCurrencySymbol: CryptoCurrencies;
@@ -39,16 +38,16 @@ export function CustomFeeField({
 
   return (
     <Stack position="relative">
-      {/* #4476 TODO check this looks OK */}
       <Flex
         alignSelf="flex-end"
+        color="accent.text-subdued"
         flexDirection="column"
         justifyContent="center"
         position="relative"
         width="130px"
       >
         <styled.label htmlFor="fee" position="absolute" right={2} zIndex={999}>
-          <Caption>{feeCurrencySymbol}</Caption>
+          <styled.span textStyle="label.02">{feeCurrencySymbol}</styled.span>
         </styled.label>
         <styled.input
           autoComplete="off"
@@ -59,8 +58,8 @@ export function CustomFeeField({
           height="32px"
           name="fee"
           disabled={disableFeeSelection}
-          onChange={(evt: FormEvent<HTMLInputElement>) => {
-            helpers.setValue(evt.currentTarget.value);
+          onChange={async (evt: FormEvent<HTMLInputElement>) => {
+            await helpers.setValue(evt.currentTarget.value);
             // Separating warning check from field validations
             // bc we want the user to be able to submit the form
             // with the low fee warning present.
@@ -68,8 +67,9 @@ export function CustomFeeField({
           }}
           pr="38px"
           placeholder="0"
+          ring="none"
           textAlign="right"
-          type="number"
+          textStyle="label.02"
           value={field.value}
         />
       </Flex>
