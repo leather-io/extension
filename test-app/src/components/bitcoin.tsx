@@ -7,7 +7,7 @@ import { bytesToHex, hexToBytes } from '@stacks/common';
 import { PsbtData, PsbtRequestOptions } from '@stacks/connect';
 import { useConnect } from '@stacks/connect-react';
 import { StacksNetwork } from '@stacks/network';
-import { Box, Button, Text } from '@stacks/ui';
+import { Box, styled } from 'leather-styles/jsx';
 
 interface BitcoinNetwork {
   bech32: string;
@@ -20,7 +20,7 @@ const bitcoinTestnet: BitcoinNetwork = {
   bech32: 'tb',
   pubKeyHash: 0x6f,
   scriptHash: 0xc4,
-  wif: 0xef,  
+  wif: 0xef,
 };
 
 // For testing sBTC w/ OP_RETURN in script
@@ -184,19 +184,15 @@ export const Bitcoin = () => {
 
   return (
     <Box py={6}>
-      <Text as="h2" textStyle="display.small">
-        Bitcoin Testnet
-      </Text>
-      <Text textStyle="body.large" display="block" my={'loose'}>
-        Try testing Partially Signed Bitcoin Transactions.
-      </Text>
-      <Button
+      <styled.h2>Bitcoin Testnet</styled.h2>
+      <styled.span>Try testing Partially Signed Bitcoin Transactions.</styled.span>
+      <styled.button
         mt={3}
         onClick={() => signTx(buildTestNativeSegwitPsbtRequest(segwitPubKey), stacksTestnetNetwork)}
       >
         Sign PSBT (Segwit)
-      </Button>
-      <Button
+      </styled.button>
+      <styled.button
         ml={3}
         mt={3}
         onClick={() =>
@@ -204,15 +200,15 @@ export const Bitcoin = () => {
         }
       >
         Sign PSBT at indexes (SegWit)
-      </Button>
-      <Button
+      </styled.button>
+      <styled.button
         ml={3}
         mt={3}
         onClick={() => signTx(buildTestTaprootPsbtRequest(taprootPubKey), stacksTestnetNetwork)}
       >
         Sign PSBT (Taproot)
-      </Button>
-      <Button
+      </styled.button>
+      <styled.button
         ml={3}
         mt={3}
         onClick={() =>
@@ -220,8 +216,8 @@ export const Bitcoin = () => {
         }
       >
         Sign PSBT at index (Taproot)
-      </Button>
-      <Button
+      </styled.button>
+      <styled.button
         mt={3}
         onClick={() => {
           console.log('requesting');
@@ -240,7 +236,7 @@ export const Bitcoin = () => {
         }}
       >
         Send transfer
-      </Button>
+      </styled.button>
     </Box>
   );
 };

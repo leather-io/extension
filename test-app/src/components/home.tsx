@@ -1,7 +1,7 @@
 import React, { useContext, useState } from 'react';
 
 import { AppContext } from '@common/context';
-import { Box, BoxProps, Flex, Text } from '@stacks/ui';
+import { Box, BoxProps, Flex, styled } from 'leather-styles/jsx';
 
 import { Auth } from './auth';
 import { Bitcoin } from './bitcoin';
@@ -31,25 +31,25 @@ const Page: React.FC<{ tab: Tabs; setTab: (value: Tabs) => void }> = ({ tab, set
       <Container borderColor="#F0F0F5" borderWidth={0} borderBottomWidth="1px">
         <Flex>
           <Tab active={tab === 'debug'}>
-            <Text onClick={() => setTab('debug')}>Debugger</Text>
+            <styled.span onClick={() => setTab('debug')}>Debugger</styled.span>
           </Tab>
           <Tab active={tab === 'status'}>
-            <Text onClick={() => setTab('status')}>Status smart contract</Text>
+            <styled.span onClick={() => setTab('status')}>Status smart contract</styled.span>
           </Tab>
           <Tab active={tab === 'counter'}>
-            <Text onClick={() => setTab('counter')}>Counter smart contract</Text>
+            <styled.span onClick={() => setTab('counter')}>Counter smart contract</styled.span>
           </Tab>
           <Tab active={tab === 'bns'}>
-            <Text onClick={() => setTab('bns')}>BNS</Text>
+            <styled.span onClick={() => setTab('bns')}>BNS</styled.span>
           </Tab>
           <Tab active={tab === 'signature'}>
-            <Text onClick={() => setTab('signature')}>Signature</Text>
+            <styled.span onClick={() => setTab('signature')}>Signature</styled.span>
           </Tab>
           <Tab active={tab === 'profile'}>
-            <Text onClick={() => setTab('profile')}>Profile</Text>
+            <styled.span onClick={() => setTab('profile')}>Profile</styled.span>
           </Tab>
           <Tab active={tab === 'bitcoin'}>
-            <Text onClick={() => setTab('bitcoin')}>Bitcoin</Text>
+            <styled.span onClick={() => setTab('bitcoin')}>Bitcoin</styled.span>
           </Tab>
         </Flex>
       </Container>
@@ -72,9 +72,9 @@ export const Home: React.FC = () => {
 
   return (
     <Container>
-      <Text as="h1" textStyle="display.large" fontSize={7} mb={'loose'} display="block">
+      <styled.h1 textStyle="display.large" fontSize={7} mb={'loose'} display="block">
         Testnet Demo
-      </Text>
+      </styled.h1>
       {state.userData ? <Page tab={tab} setTab={setTab} /> : <Auth />}
     </Container>
   );
