@@ -60,6 +60,7 @@ function TabButton(props: TabButtonProps) {
       fontWeight={isActive ? 600 : 500}
       px="space.04"
       py="space.04"
+      type="button"
       {...rest}
     />
   );

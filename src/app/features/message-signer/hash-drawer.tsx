@@ -29,6 +29,7 @@ export function HashDrawer(props: HashDrawerProps) {
           setDisplayHash(showHash ? '' : hash);
           setShowHash(!showHash);
         }}
+        type="button"
         width="100%"
       >
         <styled.span py="space.02" textStyle="caption.01">

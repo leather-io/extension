@@ -19,7 +19,6 @@ export function FeesListItem({
   isSelected,
   ...props
 }: FeesListItemProps) {
-  // #4476 TODO visually inspect this
   return (
     <styled.button
       _hover={{ background: 'accent.component-background-hover' }}
@@ -32,6 +31,7 @@ export function FeesListItem({
       px="space.04"
       py="space.06"
       transition="transition"
+      type="button"
       width="100%"
       {...props}
     >

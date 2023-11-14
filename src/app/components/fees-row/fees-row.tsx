@@ -119,6 +119,7 @@ export function FeesRow({
             onClick={() => handleSelectFeeEstimateOrCustomField(FeeTypes.Custom)}
             textAlign="right"
             width="100%"
+            type="button"
           >
             <TransactionFee
               fee={feeField.value}

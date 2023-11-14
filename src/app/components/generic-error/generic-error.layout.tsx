@@ -52,7 +52,7 @@ export function GenericErrorLayout(props: GenericErrorProps) {
         <styled.li mt="space.04" textAlign="left">
           <HStack alignItems="center">
             <styled.span textStyle="label.02">Reach out to our support team</styled.span>
-            <styled.button onClick={() => openInNewTab(supportUrl)}>
+            <styled.button onClick={() => openInNewTab(supportUrl)} type="button">
               <ExternalLinkIcon />
             </styled.button>
           </HStack>

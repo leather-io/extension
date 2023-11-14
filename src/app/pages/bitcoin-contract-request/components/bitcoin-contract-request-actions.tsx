@@ -24,10 +24,7 @@ export function BitcoinContractRequestActions({
   return (
     <Box
       bg="accent.background-primary"
-      // TODO #4476 check this border colour it was DCDDE2
-      // - can we pass it with shorthand?
-      borderTop="1px solid"
-      borderColor="border-default"
+      borderTop="default"
       bottom="0px"
       height="96px"
       position="fixed"
@@ -36,22 +33,19 @@ export function BitcoinContractRequestActions({
       zIndex={999}
     >
       <HStack mt="space.05" gap="space.04">
-        <styled.button
-          borderRadius="10px"
-          flexGrow={1}
-          // TODO check this button style
-          // mode="tertiary"
+        <LeatherButton
           data-testid={BitcoinContractRequestSelectors.BitcoinContractRejectButton}
+          flexGrow={1}
           onClick={onRejectBitcoinContractOffer}
+          variant="outline"
         >
           Reject
-        </styled.button>
+        </LeatherButton>
         <LeatherButton
-          borderRadius="10px"
-          flexGrow={1}
           aria-busy={isLoading}
-          disabled={!canAccept}
           data-testid={BitcoinContractRequestSelectors.BitcoinContractAcceptButton}
+          flexGrow={1}
+          disabled={!canAccept}
           onClick={onAcceptBitcoinContractOffer}
         >
           Accept

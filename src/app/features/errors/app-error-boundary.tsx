@@ -38,9 +38,12 @@ function ErrorFallback({ error, resetErrorBoundary }: FallbackProps) {
         )}
       </Box>
       <Stack mt="auto" gap="space.04">
-        <styled.button onClick={resetErrorBoundary}>Reload extension</styled.button>
+        <styled.button onClick={resetErrorBoundary} type="button">
+          Reload extension
+        </styled.button>
         <styled.button
           onClick={() => openGithubIssue({ message: error.message, stackTrace: value })}
+          type="button"
         >
           Report issue on GitHub
         </styled.button>

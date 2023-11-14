@@ -28,6 +28,7 @@ export function IncreaseFeeButton(props: IncreaseFeeButtonProps) {
       px="space.02"
       py="space.01"
       rounded="8px"
+      type="button"
       zIndex={999}
     >
       <HStack gap="space.00">

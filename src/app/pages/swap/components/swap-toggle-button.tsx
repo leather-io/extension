@@ -42,6 +42,7 @@ export function SwapToggleButton() {
       alignSelf="flex-start"
       disabled={isUndefined(values.swapAssetTo) || isFetchingExchangeRate}
       onClick={onToggleSwapAssets}
+      type="button"
     >
       <SwapIcon transform="rotate(90)" />
     </styled.button>

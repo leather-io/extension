@@ -16,6 +16,7 @@ export function RecipientDropdownItem({
   isVisible,
   onSelectItem,
 }: RecipientDropdownItemProps) {
+  console.log(index, testLabels[index]);
   return (
     <LeatherButton
       alignItems="center"

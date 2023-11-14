@@ -13,7 +13,7 @@ const helpTextList = [
   <styled.li mt="space.04" key={1}>
     <HStack alignItems="center">
       Learn more on Twitter at @LeatherBTC
-      <styled.button onClick={() => openInNewTab('https://twitter.com/leatherbtc')}>
+      <styled.button onClick={() => openInNewTab('https://twitter.com/leatherbtc')} type="button">
         <ExternalLinkIcon />
       </styled.button>
     </HStack>

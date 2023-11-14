@@ -28,13 +28,14 @@ export function FundAccountTile(props: FundAccountTileProps) {
       backgroundColor="accent.background-primary"
       borderRadius="lg"
       boxShadow="0px 1px 2px rgba(0, 0, 0, 0.04)"
-      transition="transition"
       data-testid={testId}
       display="flex"
-      onClick={onClickTile}
-      textAlign="left"
-      width={['100%', '17.5rem']}
       height="11.3rem"
+      textAlign="left"
+      transition="transition"
+      onClick={onClickTile}
+      type="button"
+      width={['100%', '17.5rem']}
     >
       <Stack alignItems="flex-start" gap="space.03" p="space.05">
         <HStack alignItems="center" gap={receiveStxIcon ? 'space.02' : 'space.04'}>

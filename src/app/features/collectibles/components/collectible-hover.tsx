@@ -46,6 +46,7 @@ export function CollectibleHover({
           position="absolute"
           right="12px"
           top="12px"
+          type="button"
           width="30px"
         >
           <ArrowUpIcon transform="rotate(45deg)" />

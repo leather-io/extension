@@ -26,7 +26,7 @@ export function EventCard(props: EventCardProps): React.JSX.Element {
           <styled.span textStyle="label.01">{title}</styled.span>
           {/* TODO: What does this do? */}
           {actions && (
-            <styled.button width="24px" position="absolute" right={0}>
+            <styled.button width="24px" position="absolute" right={0} type="button">
               <EllipsesHorizontalIcon />
             </styled.button>
           )}

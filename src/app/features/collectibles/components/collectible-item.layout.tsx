@@ -41,6 +41,7 @@ export function CollectibleItemLayout({
         onClick={onClickLayout}
         p="space.01"
         textAlign="inherit"
+        type="button"
         width="100%"
         {...bind}
       >
@@ -94,6 +95,7 @@ export function CollectibleItemLayout({
               px="space.03"
               py="space.02"
               textStyle="caption.01"
+              type="button"
             >
               Send
             </styled.button>

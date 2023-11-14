@@ -31,16 +31,16 @@ export function HighFeeConfirmation({ learnMoreUrl }: { learnMoreUrl: string }) 
         </LeatherButton>
       </Caption>
       <HStack mt="space.05">
-        <styled.button
-          borderRadius="10px"
+        <LeatherButton
           onClick={() => setIsShowingHighFeeConfirmation(false)}
           width="50%"
+          variant="outline"
         >
           Edit fee
-        </styled.button>
-        <styled.button borderRadius="10px" onClick={() => handleSubmit()} width="50%">
+        </LeatherButton>
+        <LeatherButton onClick={() => handleSubmit()} width="50%" type="submit">
           Yes, I'm sure
-        </styled.button>
+        </LeatherButton>
       </HStack>
     </Stack>
   );
