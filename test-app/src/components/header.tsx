@@ -1,8 +1,8 @@
 import React, { useContext } from 'react';
-import { Flex, Box } from '@stacks/ui';
-import { StacksLogo } from '@stacks/ui';
+
 import { AppContext } from '@common/context';
 import { Link } from '@components/link';
+import { Box, styled } from 'leather-styles/jsx';
 
 interface HeaderProps {
   signOut: () => void;
@@ -11,10 +11,7 @@ interface HeaderProps {
 export const Header: React.FC<HeaderProps> = ({ signOut }) => {
   const state = useContext(AppContext);
   return (
-    <Flex as="nav" justifyContent="space-between" alignItems="center" height="64px" px={6}>
-      <Box verticalAlign="center">
-        <StacksLogo color="black" maxHeight="26px" display="inline-block" ml="-10px" />
-      </Box>
+    <styled.nav justifyContent="space-between" alignItems="center" height="64px" px={6}>
       {state.userData ? (
         <Box>
           <Link
@@ -30,6 +27,6 @@ export const Header: React.FC<HeaderProps> = ({ signOut }) => {
           </Link>
         </Box>
       ) : null}
-    </Flex>
+    </styled.nav>
   );
 };

@@ -5,8 +5,8 @@ import { stacksMainnetNetwork } from '@common/utils';
 import { openProfileUpdateRequestPopup } from '@stacks/connect';
 import { StacksNetwork } from '@stacks/network';
 import { PublicPersonProfile, PublicProfile } from '@stacks/profile';
-import { Box, Button, ButtonGroup, Text } from '@stacks/ui';
 import { TestAppSelectors } from '@tests/selectors/test-app.selectors';
+import { Box, Flex, styled } from 'leather-styles/jsx';
 
 export const Profile = () => {
   const name = 'Name ' + new Date().getTime().toString();
@@ -38,15 +38,17 @@ export const Profile = () => {
   return (
     <Box py={6}>
       {updatedProfile && (
-        <Text textStyle="body.large" display="block" my={'base'}>
-          <Text color="green" fontSize={1}>
+        <styled.span textStyle="body.large" display="block" my={'base'}>
+          <styled.span color="green" fontSize={1}>
             Profile {updatedProfile.profile ? 'successfully ' : 'not'} updated
-          </Text>
-          <Text>{updatedProfile.profile && JSON.stringify(updatedProfile.profile)}</Text>
-        </Text>
+          </styled.span>
+          <styled.span>
+            {updatedProfile.profile && JSON.stringify(updatedProfile.profile)}
+          </styled.span>
+        </styled.span>
       )}
-      <ButtonGroup spacing={4} my="base">
-        <Button
+      <Flex gap={4} my="base">
+        <styled.button
           data-testid={TestAppSelectors.BtnUpdateValidProfile}
           mt={3}
           onClick={() =>
@@ -73,9 +75,9 @@ export const Profile = () => {
           }
         >
           Update profile (Mainnet)
-        </Button>
+        </styled.button>
 
-        <Button
+        <styled.button
           data-testid={TestAppSelectors.BtnUpdateInvalidProfile}
           mt={3}
           onClick={() =>
@@ -88,8 +90,8 @@ export const Profile = () => {
           }
         >
           Try to update invalid profile (Mainnet)
-        </Button>
-      </ButtonGroup>
+        </styled.button>
+      </Flex>
     </Box>
   );
 };

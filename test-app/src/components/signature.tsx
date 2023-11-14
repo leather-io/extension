@@ -31,7 +31,7 @@ import {
   tupleCV,
   uintCV,
 } from '@stacks/transactions';
-import { Box, Button, Text } from '@stacks/ui';
+import { Box, styled } from 'leather-styles/jsx';
 
 export const Signature = () => {
   const [signature, setSignature] = useState<SignatureData | undefined>();
@@ -163,36 +163,43 @@ export const Signature = () => {
   return (
     <Box py={6}>
       {(signature || signatureStructured) && (
-        <Text textStyle="body.large" display="block" my={'base'}>
-          <Text color="green" fontSize={1}>
+        <styled.span textStyle="body.large" display="block" my={'base'}>
+          <styled.span color="green" fontSize={1}>
             {' '}
             Signature {signatureIsVerified ? 'successfully ' : 'not'} verified
-          </Text>
-        </Text>
+          </styled.span>
+        </styled.span>
       )}
-      <Button mt={3} onClick={() => signMessage(signatureMessage, stacksMainnetNetwork)}>
+      <styled.button mt={3} onClick={() => signMessage(signatureMessage, stacksMainnetNetwork)}>
         Signature (Mainnet)
-      </Button>
-      <Button mt={3} ml={3} onClick={() => signMessage(signatureMessage, stacksTestnetNetwork)}>
+      </styled.button>
+      <styled.button
+        mt={3}
+        ml={3}
+        onClick={() => signMessage(signatureMessage, stacksTestnetNetwork)}
+      >
         Signature (Testnet)
-      </Button>
+      </styled.button>
       <br />
-      <Button mt={3} onClick={() => signMessage(longSignatureMessage)}>
+      <styled.button mt={3} onClick={() => signMessage(longSignatureMessage)}>
         Signature (long message)
-      </Button>
+      </styled.button>
       <br />
-      <Button mt={3} onClick={() => signMessage(signatureMessageWithLineBreaks)}>
+      <styled.button mt={3} onClick={() => signMessage(signatureMessageWithLineBreaks)}>
         Signature (with line breaks)
-      </Button>
+      </styled.button>
       <br />
-      <Button mt={3} onClick={() => signStructure(structuredData, domain)}>
+      <styled.button mt={3} onClick={() => signStructure(structuredData, domain)}>
         Signature of Structured Data (2)
-      </Button>
+      </styled.button>
       <br />
       <hr style={{ margin: '10px' }} />
-      <Button mt={3} onClick={() => signStructure(sip18Test[0].message, sip18Test[0].domain)}>
+      <styled.button
+        mt={3}
+        onClick={() => signStructure(sip18Test[0].message, sip18Test[0].domain)}
+      >
         Signature of Structured Data SIP-018 test vector
-      </Button>
+      </styled.button>
       <br />
       <span>
         expected hash : '1bfdab6d4158313ce34073fbb8d6b0fc32c154d439def12247a0f44bb2225259'
