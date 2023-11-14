@@ -2,6 +2,7 @@ import { useMemo } from 'react';
 
 import { HStack, styled } from 'leather-styles/jsx';
 
+import { LeatherButton } from '@app/ui/components/button';
 import { CheckmarkIcon } from '@app/ui/components/icons/checkmark-icon';
 import { ChevronDownIcon } from '@app/ui/components/icons/chevron-down-icon';
 
@@ -28,27 +29,25 @@ export function FeeEstimateItem({
   }, [index, selectedItem]);
 
   return (
-    <HStack
+    <LeatherButton
       _hover={{
         bg: isVisible ? 'accent.component-background-hover' : 'accent.background-primary',
         borderRadius: '8px',
+        color: 'accent.text-primary',
       }}
       alignItems="center"
       data-testid={`${testLabels[index]}-fee`}
-      height="32px"
+      display="flex"
+      height="30px"
       minWidth="100px"
-      p="space.02"
+      onClick={() => !disableFeeSelection && onSelectItem(index)}
+      pl={isVisible ? 'space.02' : 'unset'}
+      variant="text"
     >
-      <styled.button
-        onClick={() => !disableFeeSelection && onSelectItem(index)}
-        type="button"
-        width="100%"
-      >
-        <HStack gap="space.01">
-          <styled.span textStyle="label.02">{labels[index]}</styled.span>
-          {!disableFeeSelection && (isVisible ? selectedIcon : <ChevronDownIcon />)}
-        </HStack>
-      </styled.button>
-    </HStack>
+      <HStack gap="space.01">
+        <styled.span textStyle="label.02">{labels[index]}</styled.span>
+        {!disableFeeSelection && (isVisible ? selectedIcon : <ChevronDownIcon />)}
+      </HStack>
+    </LeatherButton>
   );
 }

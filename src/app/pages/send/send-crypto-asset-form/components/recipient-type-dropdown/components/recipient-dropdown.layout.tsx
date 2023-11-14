@@ -25,22 +25,23 @@ export function RecipientDropdownLayout({
   return (
     <Box>
       <RecipientDropdownItem index={selectedItem} onSelectItem={() => onSetIsSelectVisible(true)} />
-      <Stack
-        bg="accent.background-primary"
-        borderRadius="8px"
-        boxShadow="high"
-        display={isVisible ? 'unset' : 'none'}
-        flexDirection="column"
-        minWidth="100px"
-        overflow="hidden"
-        p="space.01"
-        position="absolute"
-        ref={ref}
-        top="40px"
-        zIndex={9999}
-      >
-        {children}
-      </Stack>
+      {isVisible ? (
+        <Stack
+          bg="accent.background-primary"
+          borderRadius="8px"
+          boxShadow="0px 8px 16px rgba(27, 39, 51, 0.08)"
+          flexDirection="column"
+          minWidth="100px"
+          overflow="hidden"
+          p="space.01"
+          position="absolute"
+          ref={ref}
+          top="40px"
+          zIndex={9999}
+        >
+          {children}
+        </Stack>
+      ) : null}
     </Box>
   );
 }

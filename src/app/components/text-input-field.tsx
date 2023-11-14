@@ -97,7 +97,7 @@ export function TextInputField({
                 if (ref.current !== null && ref.current === document.activeElement)
                   ref.current.blur();
               }}
-              textStyle="label.03"
+              textStyle="label.02"
               variant="text"
               zIndex={999}
             >

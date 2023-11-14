@@ -1,5 +1,5 @@
 import { BitcoinContractRequestSelectors } from '@tests/selectors/bitcoin-contract-request.selectors';
-import { Box, HStack, styled } from 'leather-styles/jsx';
+import { Box, HStack } from 'leather-styles/jsx';
 
 import { useBtcAssetBalance } from '@app/common/hooks/balance/btc/use-btc-balance';
 import { LeatherButton } from '@app/ui/components/button';

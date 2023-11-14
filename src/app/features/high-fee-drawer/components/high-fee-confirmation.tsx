@@ -1,5 +1,5 @@
 import { useFormikContext } from 'formik';
-import { HStack, Stack, styled } from 'leather-styles/jsx';
+import { HStack, Stack } from 'leather-styles/jsx';
 
 import {
   BitcoinSendFormValues,
