@@ -140,8 +140,8 @@ export function AmountField({
   return (
     <Stack
       alignItems="center"
-      px="extra-loose"
-      gap={['base', showError ? 'base' : '48px']}
+      px="space.06"
+      gap={['space.04', showError ? 'space.04' : '48px']}
       width="100%"
     >
       <Flex alignItems="center" flexDirection="column" onClick={onClickFocusInput}>
@@ -211,7 +211,7 @@ export function AmountField({
             color="accent.text-primary"
             fontSize={fontSize + 'px'}
             letterSpacing="0.64px"
-            pl="tight"
+            pl="space.02"
           >
             {symbol.toUpperCase()}
           </styled.span>

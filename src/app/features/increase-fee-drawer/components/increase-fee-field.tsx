@@ -35,8 +35,8 @@ export function IncreaseFeeField(props: IncreaseFeeFieldProps): React.JSX.Elemen
     <>
       <Stack position="relative" width="100%">
         <FeeMultiplier
-          pt="base-loose"
-          pr="base-tight"
+          pt="space.04"
+          pr="space.03"
           height="100%"
           top={0}
           right={0}

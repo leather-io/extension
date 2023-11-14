@@ -24,7 +24,7 @@ export function ReceiveItem({
 }: ReceiveItemProps) {
   if (!address) return null;
   return (
-    <Flag align="middle" img={icon} spacing="base">
+    <Flag align="middle" img={icon} spacing="space.04">
       <Flex justifyContent="space-between">
         <Stack gap="space.00">
           <styled.span textStyle="label.02">{title}</styled.span>
@@ -37,7 +37,7 @@ export function ReceiveItem({
           {onClickQrCode && (
             <LeatherButton
               data-testid={dataTestId}
-              ml="tight"
+              ml="space.02"
               onClick={onClickQrCode}
               variant="ghost"
             >

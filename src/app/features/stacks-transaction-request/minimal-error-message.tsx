@@ -38,7 +38,7 @@ function MinimalErrorMessageSuspense(props: HstackProps) {
       bg="#FCEEED"
       borderRadius="12px"
       color="error.label"
-      p="base"
+      p="space.04"
       width="100%"
       {...props}
     >

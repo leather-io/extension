@@ -95,7 +95,7 @@ export const Status = () => {
   return (
     <Box py={6}>
       <styled.h2 textStyle="display.small">Status smart contract</styled.h2>
-      <styled.span textStyle="body.large" display="block" my={'loose'}>
+      <styled.span textStyle="body.large" display="block" my="space.05">
         Try a smart contract where anyone can write their public status, like a decentralized
         Twitter. You can read someone else's status by entering their address.
       </styled.span>
@@ -107,7 +107,7 @@ export const Status = () => {
 
       {transactions.length > 0 && (
         <>
-          <styled.span display="block" my={'base-loose'} textStyle="body.large.medium">
+          <styled.span display="block" my="space.04" textStyle="body.large.medium">
             Latest statuses
           </styled.span>
           <Flex flexWrap="wrap" justifyContent="left">
@@ -118,7 +118,7 @@ export const Status = () => {
         </>
       )}
 
-      <styled.span display="block" my={'base-loose'} textStyle="body.large.medium">
+      <styled.span display="block" my="space.04" textStyle="body.large.medium">
         Write a status
       </styled.span>
 
@@ -139,16 +139,16 @@ export const Status = () => {
         />
       </Box>
       {txId && <ExplorerLink txId={txId} />}
-      <styled.button my={'base-loose'} onClick={onSubmitWrite}>
+      <styled.button my="space.04" onClick={onSubmitWrite}>
         Write status
       </styled.button>
 
-      <styled.span display="block" my={'base-loose'} textStyle="body.large.medium">
+      <styled.span display="block" my="space.04" textStyle="body.large.medium">
         Read a status
       </styled.span>
 
       {stxAddress && (
-        <styled.span display="block" my={'base-loose'} textStyle="body.small">
+        <styled.span display="block" my="space.04" textStyle="body.small">
           If you want to read your own status, your address is {stxAddress}.
         </styled.span>
       )}
@@ -181,7 +181,7 @@ export const Status = () => {
           {error}
         </styled.span>
       )}
-      <styled.button my={'base-loose'} onClick={onSubmitRead} disabled={loading}>
+      <styled.button my="space.04" onClick={onSubmitRead} disabled={loading}>
         Read status
       </styled.button>
     </Box>

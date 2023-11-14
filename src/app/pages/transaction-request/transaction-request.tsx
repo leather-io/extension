@@ -106,7 +106,7 @@ function TransactionRequestBase() {
   };
 
   return (
-    <Flex alignItems="center" flexDirection="column" p="loose" width="100%">
+    <Flex alignItems="center" flexDirection="column" p="space.05" width="100%">
       <Formik
         initialValues={initialValues}
         onSubmit={onSubmit}

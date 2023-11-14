@@ -40,7 +40,7 @@ export function BitcoinSendMaxButton({
   return (
     <Tooltip
       label={sendMaxTooltipLabel}
-      labelProps={{ padding: 'tight', textAlign: 'center' }}
+      labelProps={{ padding: 'space.02', textAlign: 'center' }}
       maxWidth="200px"
       placement="bottom"
     >

@@ -14,9 +14,9 @@ export function CollectibleAsset({ icon, name, symbol }: CollectibleAssetProps) 
       border={`1px solid ${token('colors.accent.border-default')}`}
       borderRadius="10px"
       minHeight="64px"
-      mb="base"
-      mt="loose"
-      px="base"
+      mb="space.04"
+      mt="space.05"
+      px="space.04"
       width="100%"
     >
       <HStack alignItems="center" justifyContent="space-between">

@@ -163,7 +163,7 @@ export const Signature = () => {
   return (
     <Box py={6}>
       {(signature || signatureStructured) && (
-        <styled.span textStyle="body.large" display="block" my={'base'}>
+        <styled.span textStyle="body.large" display="block" my="space.04">
           <styled.span color="green" fontSize={1}>
             {' '}
             Signature {signatureIsVerified ? 'successfully ' : 'not'} verified

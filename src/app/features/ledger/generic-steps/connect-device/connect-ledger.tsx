@@ -106,7 +106,7 @@ export function ConnectLedger(props: ConnectLedgerProps) {
         </HStack>
       </Stack>
       {warning && (
-        <Box mb="base" mx="extra-loose">
+        <Box mb="space.04" mx="space.06">
           {warning}
         </Box>
       )}

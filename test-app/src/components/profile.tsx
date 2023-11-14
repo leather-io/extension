@@ -38,7 +38,7 @@ export const Profile = () => {
   return (
     <Box py={6}>
       {updatedProfile && (
-        <styled.span textStyle="body.large" display="block" my={'base'}>
+        <styled.span textStyle="body.large" display="block" my="space.04">
           <styled.span color="green" fontSize={1}>
             Profile {updatedProfile.profile ? 'successfully ' : 'not'} updated
           </styled.span>
@@ -47,7 +47,7 @@ export const Profile = () => {
           </styled.span>
         </styled.span>
       )}
-      <Flex gap={4} my="base">
+      <Flex gap={4} my="space.04">
         <styled.button
           data-testid={TestAppSelectors.BtnUpdateValidProfile}
           mt={3}

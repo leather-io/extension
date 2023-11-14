@@ -20,7 +20,7 @@ export function HighFeeConfirmation({ learnMoreUrl }: { learnMoreUrl: string }) 
   const { setIsShowingHighFeeConfirmation } = useDrawers();
 
   return (
-    <Stack px="loose" gap="loose" pb="extra-loose">
+    <Stack px="space.05" gap="space.05" pb="space.06">
       <Title>
         Are you sure you want to pay {values.fee} {values.feeCurrency} in fees for this transaction?
       </Title>
@@ -30,7 +30,7 @@ export function HighFeeConfirmation({ learnMoreUrl }: { learnMoreUrl: string }) 
           Learn more
         </LeatherButton>
       </Caption>
-      <HStack mt="loose">
+      <HStack mt="space.05">
         <styled.button
           borderRadius="10px"
           onClick={() => setIsShowingHighFeeConfirmation(false)}

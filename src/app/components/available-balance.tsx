@@ -24,7 +24,7 @@ export function AvailableBalance(props: { balance: Money; balanceTooltipLabel?: 
           </Box>
         </Tooltip>
       </HStack>
-      <styled.span color="accent.text-subdued" mr="tight" textStyle="caption.01">
+      <styled.span color="accent.text-subdued" mr="space.02" textStyle="caption.01">
         {formatMoney(balance)}
       </styled.span>
     </Flex>

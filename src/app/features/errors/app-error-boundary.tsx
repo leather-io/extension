@@ -17,7 +17,7 @@ function ErrorFallback({ error, resetErrorBoundary }: FallbackProps) {
   useRouteHeader(<Header />);
 
   return (
-    <Stack gap="extra-loose" flexGrow={1}>
+    <Stack gap="space.06" flexGrow={1}>
       <Title>Something went wrong</Title>
       <Box className="error-codeblock" maxWidth="100vw" overflow="hidden">
         {value && (
@@ -37,7 +37,7 @@ function ErrorFallback({ error, resetErrorBoundary }: FallbackProps) {
           </styled.pre>
         )}
       </Box>
-      <Stack mt="auto" gap="base">
+      <Stack mt="auto" gap="space.04">
         <styled.button onClick={resetErrorBoundary}>Reload extension</styled.button>
         <styled.button
           onClick={() => openGithubIssue({ message: error.message, stackTrace: value })}

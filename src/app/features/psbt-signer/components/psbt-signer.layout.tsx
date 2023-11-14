@@ -9,8 +9,8 @@ export function PsbtSignerLayout({ children }: HasChildren) {
       maxHeight="calc(100vh - 72px)"
       overflowY="auto"
       pb="120px"
-      px="loose"
-      gap="base-loose"
+      px="space.05"
+      gap="space.04"
       width="100%"
     >
       {children}

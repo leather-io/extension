@@ -121,7 +121,7 @@ export function AddNetwork() {
             <Stack
               gap="space.05"
               maxWidth="centeredPageFullWidth"
-              px={['loose', 'base-loose']}
+              px={['space.05', 'space.04']}
               textAlign={['left', 'center']}
             >
               <styled.span textStyle="body.02">

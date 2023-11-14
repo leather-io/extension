@@ -54,7 +54,7 @@ export function RetrieveTaprootToNativeSegwit() {
       onApproveTransaction={handleBroadcastRetieveBitcoinTx}
       onClose={() => navigate(RouteUrls.Home)}
     >
-      <InfoCard mt="loose">
+      <InfoCard mt="space.05">
         <Stack width="100%">
           <InfoCardRow title="Your address" value={<FormAddressDisplayer address={recipient} />} />
           <InfoCardSeparator />

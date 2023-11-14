@@ -43,7 +43,7 @@ export function RetrieveTaprootToNativeSegwitLayout(
           onClick={onApproveTransaction}
           aria-busy={isBroadcasting}
           width="100%"
-          my="loose"
+          my="space.05"
         >
           Retrieve bitcoin
         </LeatherButton>

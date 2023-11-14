@@ -72,7 +72,7 @@ export const Home: React.FC = () => {
 
   return (
     <Container>
-      <styled.h1 textStyle="display.large" fontSize={7} mb={'loose'} display="block">
+      <styled.h1 textStyle="display.large" fontSize={7} mb="space.05" display="block">
         Testnet Demo
       </styled.h1>
       {state.userData ? <Page tab={tab} setTab={setTab} /> : <Auth />}

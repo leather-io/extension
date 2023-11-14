@@ -30,15 +30,6 @@ export const tokens = defineTokens({
     'space.09': { value: '64px', description: '64px' },
     'space.10': { value: '72px', description: '72px' },
     'space.11': { value: '128px', description: '128px' },
-
-    // Legacy spacing units
-    'extra-tight': { value: '4px' },
-    tight: { value: '8px' },
-    'base-tight': { value: '12px' },
-    base: { value: '16px' },
-    'base-loose': { value: '20px' },
-    loose: { value: '24px' },
-    'extra-loose': { value: '32px' },
   },
   colors,
   borders: {

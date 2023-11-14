@@ -8,7 +8,7 @@ export function AddressDisplayerLayout({ isEven, ...props }: AddressDisplayerLay
   return (
     <styled.span
       color={isEven ? 'accent.text-primary' : 'accent.text-subdued'}
-      mr="tight"
+      mr="space.02"
       textStyle="mono.01"
       {...props}
     />

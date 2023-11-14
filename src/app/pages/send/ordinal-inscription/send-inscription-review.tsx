@@ -65,7 +65,7 @@ export function SendInscriptionReview() {
 
   return (
     <BaseDrawer title="Review" isShowing enableGoBack onClose={() => navigate(RouteUrls.Home)}>
-      <Box px="extra-loose" mt="extra-loose">
+      <Box px="space.06" mt="space.06">
         <InscriptionPreviewCard
           image={<InscriptionPreview inscription={inscription} />}
           subtitle="Ordinal inscription"
@@ -73,7 +73,7 @@ export function SendInscriptionReview() {
         />
       </Box>
 
-      <InfoCard pt="extra-loose" pb="extra-loose" px="extra-loose">
+      <InfoCard pt="space.06" pb="space.06" px="space.06">
         <Stack width="100%" mb="36px">
           <InfoCardRow title="To" value={<FormAddressDisplayer address={recipient} />} />
           <InfoCardSeparator />

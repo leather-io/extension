@@ -28,7 +28,7 @@ export function Brc20TokenAssetItemLayout({
   return (
     // #4476 TODO not sure why this isn't erroring
     <Flex as={isPressable ? 'button' : 'div'} outline={0} {...(bind as any)}>
-      <Flag align="middle" img={<Brc20TokenIcon />} spacing="base" width="100%">
+      <Flag align="middle" img={<Brc20TokenIcon />} spacing="space.04" width="100%">
         <HStack alignItems="center" justifyContent="space-between" width="100%">
           <styled.span
             maxWidth="150px"

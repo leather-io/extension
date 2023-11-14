@@ -37,7 +37,7 @@ export function FeeEstimateItem({
       data-testid={`${testLabels[index]}-fee`}
       height="32px"
       minWidth="100px"
-      p="tight"
+      p="space.02"
     >
       <styled.button
         onClick={() => !disableFeeSelection && onSelectItem(index)}

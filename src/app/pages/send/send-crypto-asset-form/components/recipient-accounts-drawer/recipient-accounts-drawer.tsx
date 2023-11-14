@@ -23,9 +23,9 @@ export const RecipientAccountsDrawer = memo(() => {
 
   return (
     <BaseDrawer title="My accounts" isShowing onClose={onGoBack}>
-      <Box mb="loose" mx={['base-loose', 'extra-loose']}>
+      <Box mb="space.05" mx={['space.04', 'space.06']}>
         {accounts.length <= smallNumberOfAccountsToRenderWholeList ? (
-          <Box marginBottom={8} mb={whenWallet({ ledger: 'base', software: '' })}>
+          <Box marginBottom={8} mb={whenWallet({ ledger: 'space.04', software: '' })}>
             {accounts.map(item => (
               <AccountListItem account={item} key={item.address} onClose={onGoBack} />
             ))}

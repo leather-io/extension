@@ -42,7 +42,7 @@ function ContractCallDetailsSuspense() {
         contractName={contractName}
         functionName={functionName}
       />
-      <Stack gap="base">
+      <Stack gap="space.04">
         <FunctionArgumentsList />
         {attachment && <AttachmentRow />}
       </Stack>

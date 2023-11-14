@@ -369,7 +369,7 @@ export const Debugger = () => {
       )}
 
       <Box>
-        <Flex gap={4} my="base">
+        <Flex gap={4} my="space.04">
           <styled.button
             mt={3}
             onClick={() => callFaker(stacksTestnetNetwork, PostConditionMode.Allow)}

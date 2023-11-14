@@ -56,7 +56,7 @@ export function Brc20SentSummary() {
       <InfoCardAssetValue px="space.05" symbol={tick} value={Number(amount)} />
 
       <Stack px="space.06" pb="space.06" width="100%">
-        <InfoLabel mb="loose" title="One more step is required to send tokens">
+        <InfoLabel mb="space.05" title="One more step is required to send tokens">
           {`You'll need to send the transfer inscription to your recipient of choice from the home screen once its status changes to "Ready to send"`}
           <br />
           <br />

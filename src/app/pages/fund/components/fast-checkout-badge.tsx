@@ -14,7 +14,7 @@ export function FastCheckoutBadge() {
       borderRadius="24px"
       height="24px"
       justifyContent="center"
-      paddingX="tight"
+      paddingX="space.02"
       paddingY="space.01"
       gap="space.01"
     >

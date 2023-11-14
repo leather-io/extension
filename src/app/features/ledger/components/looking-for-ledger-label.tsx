@@ -10,7 +10,7 @@ export function LookingForLedgerLabel({ children, ...props }: LookingForLedgerLa
   return (
     <Flex alignItems="center" flexDirection="row" {...props}>
       <Spinner opacity={0.5} />
-      <Caption ml="tight">{children}</Caption>
+      <Caption ml="space.02">{children}</Caption>
     </Flex>
   );
 }

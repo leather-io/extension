@@ -55,7 +55,7 @@ export function FeeEstimateSelectLayout({
           minHeight="96px"
           minWidth="100px"
           overflow="hidden"
-          p="extra-tight"
+          p="space.04"
           position="absolute"
           ref={ref}
           top="-35px"

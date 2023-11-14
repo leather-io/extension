@@ -23,7 +23,7 @@ export function StxTransferDetails(): React.JSX.Element | null {
       gap="space.05"
     >
       <Title>Transfer details</Title>
-      <Stack gap="base">
+      <Stack gap="space.04">
         <Row name="Recipient" type="Principal" value={pendingTransaction.recipient} />
         <Row name="Amount" type="uSTX" value={pendingTransaction.amount} />
         {pendingTransaction.memo && (
