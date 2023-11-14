@@ -22,7 +22,7 @@ function PossibleReasonUnableToConnect(props: PossibleReasonUnableToConnectProps
 
   return (
     <Flex alignItems="center">
-      <Box mr="tight">
+      <Box mr="space.02">
         <FiCircle fill="accent.text-primary" size="4px" />
       </Box>
       <styled.span textStyle="body.02">{text}</styled.span>
@@ -41,12 +41,12 @@ export function ConnectLedgerErrorLayout(props: ConnectLedgerErrorLayoutProps) {
 
   return (
     <LedgerWrapper px="space.07">
-      <Box mt="tight">
+      <Box mt="space.02">
         <ConnectLedgerErr />
       </Box>
       <LedgerTitle mt="space.07">We're unable to connect to your Ledger device</LedgerTitle>
       {warningText ? (
-        <WarningLabel mt="base" px="extra-loose" fontSize="14px">
+        <WarningLabel mt="space.04" px="space.06" fontSize="14px">
           {warningText}
         </WarningLabel>
       ) : (
@@ -63,7 +63,7 @@ export function ConnectLedgerErrorLayout(props: ConnectLedgerErrorLayoutProps) {
       <LeatherButton width="100%" onClick={onTryAgain}>
         Try again
       </LeatherButton>
-      <Caption mt="loose">
+      <Caption mt="space.05">
         If the problem persists, check our{' '}
         <ExternalLink
           textDecoration="underline"

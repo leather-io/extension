@@ -48,7 +48,7 @@ export function ModalHeader({
     <Flex
       alignItems={hideActions ? 'center' : 'flex-start'}
       justifyContent="space-between"
-      p="base"
+      p="space.04"
       position="relative"
       {...rest}
     >

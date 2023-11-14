@@ -15,7 +15,7 @@ export function TupleDisplayer({ isRoot, ...rest }: TupleDisplayerProps) {
         fontFamily: 'Fira Code',
       }
     : {};
-  return <Box ml="base" overflow="visible" {...rest} style={{ ...rootStyles }} />;
+  return <Box ml="space.04" overflow="visible" {...rest} style={{ ...rootStyles }} />;
 }
 
 interface TupleNodeDisplayerProps {
@@ -26,7 +26,7 @@ export function TupleNodeDisplayer({ clarityType, ...props }: TupleNodeDisplayer
   return clarityType === ClarityType.Tuple ? <Box {...props} /> : <Flex {...props} />;
 }
 export function TupleNodeLabelDisplayer(props: BoxProps) {
-  return <Box mr="base" color={figmaTheme.textSubdued} {...props} />;
+  return <Box mr="space.04" color={figmaTheme.textSubdued} {...props} />;
 }
 
 export function TupleNodeValueDisplayer(props: FlexProps) {

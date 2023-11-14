@@ -86,7 +86,7 @@ const AddAccountAction = memo(() => {
   };
 
   return (
-    <Box mb="loose" px="base-tight" py="tight" onClick={onCreateAccount} {...bind}>
+    <Box mb="space.05" px="space.03" py="space.02" onClick={onCreateAccount} {...bind}>
       <HStack alignItems="center">
         <PlusIcon size="16px" />
         {/* 
@@ -122,7 +122,7 @@ export const ChooseAccountsList = memo(() => {
   if (!accounts) return null;
 
   return (
-    <Box mt="loose" width="100%">
+    <Box mt="space.05" width="100%">
       {whenWallet({ software: <AddAccountAction />, ledger: <></> })}
       <Virtuoso
         useWindowScroll

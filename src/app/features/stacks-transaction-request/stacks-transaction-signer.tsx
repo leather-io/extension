@@ -92,7 +92,7 @@ export function StacksTransactionSigner({
   };
 
   return (
-    <Flex alignItems="center" flexDirection="column" p="loose" width="100%">
+    <Flex alignItems="center" flexDirection="column" p="space.05" width="100%">
       <Formik
         initialValues={initialValues}
         onSubmit={onSubmit}
@@ -121,7 +121,7 @@ export function StacksTransactionSigner({
             {!disableNonceSelection && (
               <EditNonceButton
                 alignSelf="flex-end"
-                my="base"
+                my="space.04"
                 onEditNonce={() => navigate(RouteUrls.EditNonce + search)}
               />
             )}

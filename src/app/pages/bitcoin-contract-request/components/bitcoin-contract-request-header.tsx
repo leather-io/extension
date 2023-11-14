@@ -19,13 +19,13 @@ function BitcoinContractRequestHeaderBase({
   const caption = `${counterpartyWalletName} is requesting you accept this offer`;
 
   return (
-    <Flex flexDirection="column" my="loose" width="100%">
+    <Flex flexDirection="column" my="space.05" width="100%">
       <Title mb="space.04">Lock Bitcoin</Title>
       {caption && (
         <Flag
           align="middle"
           img={<img src={counterpartyWalletIcon} height="32px" width="32px" />}
-          pl="tight"
+          pl="space.02"
         >
           <Caption data-testid={BitcoinContractRequestSelectors.BitcoinContractOfferorText}>
             {caption}

@@ -64,7 +64,7 @@ export function SendFormConfirmation({
         value={Number(txValue)}
       />
 
-      <InfoLabel px="loose" mb="loose" title="Sending to an exchange?">
+      <InfoLabel px="space.05" mb="space.05" title="Sending to an exchange?">
         {`Make sure you include the memo so the exchange can credit the ${symbol} to your account`}
       </InfoLabel>
 

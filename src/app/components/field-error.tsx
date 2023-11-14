@@ -28,7 +28,7 @@ export function TextInputFieldError(props: { name: string }) {
   if (!showError) return <Box height={closedHeight + 'px'} />;
 
   return (
-    <Flex mb="tight" width="100%">
+    <Flex mb="space.02" width="100%">
       <AnimateHeight duration={400} easing="ease-out" height={showHide}>
         <Flex height={openHeight + 'px'}>
           <ErrorLabel data-testid={SendCryptoAssetSelectors.FormFieldInputErrorLabel}>

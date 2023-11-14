@@ -130,7 +130,7 @@ export function InfoCardFooter({ children }: InfoCardFooterProps) {
       })}
       bottom="0"
       justifyContent="center"
-      p="loose"
+      p="space.05"
       position={whenPageMode({
         full: 'unset',
         popup: 'fixed',

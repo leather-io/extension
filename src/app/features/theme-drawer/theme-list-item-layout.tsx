@@ -24,8 +24,8 @@ export function ThemeListItemLayout({
               backgroundColor: token('colors.brown.2'),
             }
       }
-      px="loose"
-      py="base"
+      px="space.05"
+      py="space.04"
       onClick={isActive ? undefined : onThemeItemSelect}
       cursor={isActive ? 'default' : 'pointer'}
     >

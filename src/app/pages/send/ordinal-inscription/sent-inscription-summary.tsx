@@ -71,7 +71,7 @@ export function SendInscriptionSummary() {
         />
       </Box>
 
-      <InfoCard pt="extra-loose" pb="extra-loose" px="extra-loose">
+      <InfoCard pt="space.06" pb="space.06" px="space.06">
         <Stack mb="space.06" width="100%">
           <InfoCardRow title="To" value={<FormAddressDisplayer address={recipient} />} />
           <InfoCardSeparator />

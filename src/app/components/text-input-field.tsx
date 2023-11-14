@@ -66,10 +66,10 @@ export function TextInputField({
         cursor="text"
         flexDirection="column"
         justifyContent="center"
-        mb={showError ? 'tight' : 'base'}
+        mb={showError ? 'space.02' : 'space.04'}
         minHeight="64px"
-        px="base"
-        py="base-tight"
+        px="space.04"
+        py="space.03"
         position="relative"
         width="100%"
         {...props}
@@ -77,7 +77,7 @@ export function TextInputField({
         <HStack alignItems="center" justifyContent="space-between" maxHeight="20px" mb="space.01">
           <Flex alignItems="center">
             {label && field.value ? (
-              <styled.span color={showError ? 'error.label' : 'accent.text-primary'} mr="tight">
+              <styled.span color={showError ? 'error.label' : 'accent.text-primary'} mr="space.02">
                 {label}
               </styled.span>
             ) : null}

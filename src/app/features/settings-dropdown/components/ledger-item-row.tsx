@@ -9,8 +9,8 @@ interface LedgerDeviceItemRowProps {
 export function LedgerDeviceItemRow({ deviceType }: LedgerDeviceItemRowProps) {
   return (
     <>
-      <Flex my="base-tight" mb="base" mx="base" fontSize="14px" alignItems="center">
-        <WalletTypeLedgerIcon mr="base-tight" />
+      <Flex my="space.03" mb="space.04" mx="space.04" fontSize="14px" alignItems="center">
+        <WalletTypeLedgerIcon mr="space.03" />
         <styled.span cursor="default">Ledger {deviceType ?? ''}</styled.span>
       </Flex>
       <Divider />

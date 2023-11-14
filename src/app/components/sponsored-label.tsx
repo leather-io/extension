@@ -11,7 +11,7 @@ export function SponsoredLabel(): React.JSX.Element {
         bg="accent.component-background-hover"
         borderRadius="10px"
         height="48px"
-        pl="base"
+        pl="space.04"
       >
         <ErrorCircleIcon color="stacks" size="icon.sm" />
 

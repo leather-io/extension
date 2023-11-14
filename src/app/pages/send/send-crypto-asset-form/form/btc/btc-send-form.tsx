@@ -47,7 +47,7 @@ export function BtcSendForm() {
   } = useBtcSendForm();
 
   return (
-    <Box width="100%" pb="base">
+    <Box width="100%" pb="space.04">
       <Formik
         initialValues={createDefaultInitialFormValues({
           ...routeState,

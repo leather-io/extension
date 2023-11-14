@@ -13,8 +13,8 @@ export function SendCryptoAssetFormLayout({ children }: SendCryptoAssetFormLayou
       maxHeight={['calc(100vh - 116px)', 'calc(85vh - 116px)']}
       overflowY="auto"
       pb={['120px', '48px']}
-      pt={['base', '48px']}
-      px="loose"
+      pt={['space.04', '48px']}
+      px="space.05"
       width="100%"
     >
       {children}

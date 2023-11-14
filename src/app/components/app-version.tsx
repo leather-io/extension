@@ -20,7 +20,7 @@ const AppVersionLabel = forwardRef<HTMLSpanElement, AppVersionLabelProps>(
       textStyle="mono.02"
       marginRight="10px"
       mb="-4px"
-      ml="tight"
+      ml="space.02"
       opacity={0.5}
       textDecoration={isLatestVersion ? 'none' : 'line-through'}
       {...props}

@@ -100,7 +100,7 @@ function PendingBrcTransfer({ order }: PendingBrcTransferProps) {
   return (
     <Box
       key={order.id}
-      my="base-tight"
+      my="space.03"
       onClick={
         hasPositiveBtcBalanceForFees
           ? order.status === 'ready'
