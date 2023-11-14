@@ -89,14 +89,14 @@ export const BaseDrawer = memo((props: BaseDrawerProps) => {
         transitionDuration="0.4s"
         willChange="transform, opacity"
         width="100%"
-        maxWidth="472px"
+        maxWidth={['768px', '768px', '472px']}
         bg="accent.background-primary"
         borderTopLeftRadius="lg"
         borderTopRightRadius="lg"
-        borderBottomLeftRadius={[0, 'lg']}
-        borderBottomRightRadius={[0, 'lg']}
+        borderBottomLeftRadius={[0, 0, 'lg']}
+        borderBottomRightRadius={[0, 0, 'lg']}
         position="relative"
-        mt={['auto', 'unset', 'unset', 'unset']}
+        mt={['auto', 'auto', 'unset']}
         maxHeight={['calc(100vh - 24px)', 'calc(100vh - 96px)']}
       >
         <Box
