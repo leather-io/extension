@@ -66,7 +66,7 @@ export function StacksCommonSendForm({
                   {selectedAssetField}
                   <StacksRecipientField />
                   <MemoField />
-                  <Box mt="space.04">
+                  <Box mt="space.04" width="100%">
                     <FeesRow fees={fees} isSponsored={false} />
                   </Box>
                   <EditNonceButton

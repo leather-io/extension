@@ -17,6 +17,7 @@ export function RecipientTypeDropdown(props: RecipientTypeDropdownProps) {
 
   return (
     <RecipientDropdownLayout
+      isVisible={isVisible}
       onSetIsSelectVisible={onSetIsSelectVisible}
       selectedItem={selectedItem}
     >

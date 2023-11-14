@@ -84,8 +84,7 @@ export function Header(props: HeaderProps) {
         {!hideActions && (
           <LeatherButton
             data-testid={SettingsSelectors.SettingsMenuBtn}
-            onMouseUp={isShowingSettings ? undefined : () => setIsShowingSettings(true)}
-            pointerEvents={isShowingSettings ? 'none' : 'all'}
+            onClick={() => setIsShowingSettings(!isShowingSettings)}
             variant="ghost"
           >
             <HamburgerIcon />

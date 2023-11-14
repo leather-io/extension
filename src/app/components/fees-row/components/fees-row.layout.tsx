@@ -1,10 +1,9 @@
 import { useField } from 'formik';
-import { HstackProps } from 'leather-styles/jsx';
+import { HstackProps, styled } from 'leather-styles/jsx';
 import { HStack } from 'leather-styles/jsx';
 
 import { SponsoredLabel } from '@app/components/sponsored-label';
 import { WarningLabel } from '@app/components/warning-label';
-import { Caption } from '@app/ui/components/typography/caption';
 
 interface FeesRowLayoutProps extends HstackProps {
   feeField: React.JSX.Element;
@@ -18,9 +17,11 @@ export function FeesRowLayout(props: FeesRowLayoutProps) {
 
   return (
     <HStack gap="space.04" width="100%" {...rest}>
-      <HStack alignItems="center" justifyContent="space-between" position="relative">
-        <HStack alignItems="center">
-          <Caption>Fee</Caption>
+      <HStack alignItems="center" justifyContent="space-between" position="relative" width="100%">
+        <HStack alignItems="center" width="100%">
+          <styled.span color="accent.text-subdued" textStyle="label.02">
+            Fee
+          </styled.span>
           {!isSponsored ? selectInput : null}
         </HStack>
         {feeField}

@@ -25,10 +25,9 @@ export function FeeEstimateSelect({
   return (
     <FeeEstimateSelectLayout
       disableFeeSelection={disableFeeSelection}
+      isVisible={isVisible}
       onSetIsSelectVisible={onSetIsSelectVisible}
       selectedItem={selectedItem}
-      onSelectItem={onSelectItem}
-      isVisible={isVisible}
     >
       {estimate.map((estimate, index) => (
         <FeeEstimateItem

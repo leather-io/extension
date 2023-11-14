@@ -1,11 +1,11 @@
 import { SharedComponentsSelectors } from '@tests/selectors/shared-component.selectors';
+import { styled } from 'leather-styles/jsx';
 
 import { CryptoCurrencies } from '@shared/models/currencies.model';
 import { Money } from '@shared/models/money.model';
 
 import { formatDustUsdAmounts, i18nFormatCurrency } from '@app/common/money/format-money';
 import { Tooltip } from '@app/components/tooltip';
-import { Caption } from '@app/ui/components/typography/caption';
 
 interface TransactionFeeProps {
   fee: string | number;
@@ -14,9 +14,13 @@ interface TransactionFeeProps {
 }
 export function TransactionFee({ fee, feeCurrencySymbol, usdAmount }: TransactionFeeProps) {
   const feeLabel = (
-    <Caption data-testid={SharedComponentsSelectors.FeeToBePaidLabel}>
+    <styled.span
+      color="accent.text-subdued"
+      data-testid={SharedComponentsSelectors.FeeToBePaidLabel}
+      textStyle="label.02"
+    >
       {fee} {feeCurrencySymbol}
-    </Caption>
+    </styled.span>
   );
   if (!usdAmount || usdAmount.amount.isNaN()) return feeLabel;
   return <Tooltip label={formatDustUsdAmounts(i18nFormatCurrency(usdAmount))}>{feeLabel}</Tooltip>;

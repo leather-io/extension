@@ -1,28 +1,28 @@
-import { ReactNode, memo } from 'react';
+import { ReactNode } from 'react';
 
-import { styled } from 'leather-styles/jsx';
+import { LeatherButton } from '@app/ui/components/button';
 
-interface SettingsMenuItemTypes {
+interface SettingsMenuItemProps {
   color?: string;
   onClick: (e: React.MouseEvent) => void;
   children: ReactNode;
 }
-
-export const SettingsMenuItem = memo(({ color, onClick, children }: SettingsMenuItemTypes) => {
+export function SettingsMenuItem({ color, onClick, children }: SettingsMenuItemProps) {
   return (
-    <styled.span
-      width="100%"
-      px="base"
-      py="base"
-      cursor="pointer"
+    <LeatherButton
+      _hover={{ bg: 'accent.component-background-hover' }}
+      borderRadius="0px"
       color={color ? color : 'accent.text-primary'}
-      _hover={{ backgroundColor: 'accent.component-background-hover' }}
+      px="space.04"
+      py="space.04"
       onClick={e => {
         onClick?.(e);
       }}
-      fontSize={1}
+      textStyle="label.03"
+      variant="text"
+      width="100%"
     >
       {children}
-    </styled.span>
+    </LeatherButton>
   );
-});
+}

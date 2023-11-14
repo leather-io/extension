@@ -1,7 +1,8 @@
 import { ReactNode, useRef } from 'react';
 
 import { SharedComponentsSelectors } from '@tests/selectors/shared-component.selectors';
-import { Stack } from 'leather-styles/jsx';
+import { Box, Stack } from 'leather-styles/jsx';
+import { token } from 'leather-styles/tokens';
 
 import { FeeTypes } from '@shared/models/fees/fees.model';
 
@@ -22,17 +23,13 @@ interface FeeEstimateSelectLayoutProps {
   selectedItem: number;
   disableFeeSelection?: boolean;
   isVisible?: boolean;
-  onSelectItem(index: number): void;
 }
-
-// #4476 TODO test well as a few changes
 export function FeeEstimateSelectLayout({
   children,
   onSetIsSelectVisible,
   selectedItem,
   disableFeeSelection,
   isVisible,
-  onSelectItem,
 }: FeeEstimateSelectLayoutProps) {
   const ref = useRef<HTMLDivElement | null>(null);
 
@@ -44,15 +41,16 @@ export function FeeEstimateSelectLayout({
         <FeeEstimateItem
           disableFeeSelection={disableFeeSelection}
           index={selectedItem}
-          selectedItem={FeeTypes.Middle}
           isVisible={isVisible}
-          onSelectItem={onSelectItem}
+          onSelectItem={() => onSetIsSelectVisible(true)}
+          selectedItem={FeeTypes.Middle}
         />
         <Stack
           bg="accent.background-primary"
           borderRadius="8px"
           boxShadow="high"
           data-testid={SharedComponentsSelectors.FeeEstimateSelect}
+          display={isVisible ? 'unset' : 'none'}
           flexDirection="column"
           minHeight="96px"
           minWidth="100px"
@@ -67,14 +65,13 @@ export function FeeEstimateSelectLayout({
         </Stack>
       </Stack>
       <Tooltip label={feesInfo} placement="bottom">
-        <Stack>
+        <Box>
           <InfoIcon
-            size="icon.xs"
-            ml="space.01"
             color="accent.text-subdued"
             onClick={() => openInNewTab(url)}
+            size={token('icons.icon.sm')}
           />
-        </Stack>
+        </Box>
       </Tooltip>
     </>
   );

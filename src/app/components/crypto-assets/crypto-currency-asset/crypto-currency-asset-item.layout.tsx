@@ -1,7 +1,5 @@
 import { CryptoAssetSelectors } from '@tests/selectors/crypto-asset.selectors';
 import { Flex } from 'leather-styles/jsx';
-// #4383 FIXME - need to refactor this flex as=
-// import { Flex } from 'leather-styles/jsx';
 import { styled } from 'leather-styles/jsx';
 
 import { CryptoCurrencies } from '@shared/models/currencies.model';
@@ -25,15 +23,12 @@ interface CryptoCurrencyAssetItemLayoutProps {
   title: string;
   usdBalance?: string;
   address?: string;
-  canCopy?: boolean;
   isHovered?: boolean;
   currency?: CryptoCurrencies;
   additionalBalanceInfo?: React.ReactNode;
   additionalUsdBalanceInfo?: React.ReactNode;
   rightElement?: React.ReactNode;
-  onClick: () => void;
-  onMouseOver: () => void;
-  onMouseOut: () => void;
+  onClick?(): void;
 }
 export function CryptoCurrencyAssetItemLayout({
   balance,
@@ -49,8 +44,6 @@ export function CryptoCurrencyAssetItemLayout({
   additionalUsdBalanceInfo,
   rightElement,
   onClick,
-  onMouseOver,
-  onMouseOut,
 }: CryptoCurrencyAssetItemLayoutProps) {
   const [component, bind] = usePressable(isPressable);
 
@@ -64,18 +57,7 @@ export function CryptoCurrencyAssetItemLayout({
   const formattedBalance = formatBalance(amount);
 
   return (
-    <Flex
-      // #4383 FIXME - need test this properly
-      // - make sure onMouse works without ref
-      // as={isPressable ? 'button' : 'div'}
-      // changed to onClick={isPressable ? onClick : undefined}
-      data-testid={dataTestId}
-      outline={0}
-      onClick={isPressable ? onClick : undefined}
-      onMouseOver={onMouseOver}
-      onMouseOut={onMouseOut}
-      {...bind}
-    >
+    <Flex data-testid={dataTestId} onClick={isPressable ? onClick : undefined} {...bind}>
       <Flag
         align="middle"
         img={isHovered && copyIcon ? copyIcon : icon}

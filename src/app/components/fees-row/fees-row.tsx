@@ -3,7 +3,7 @@ import { useCallback, useEffect, useMemo, useState } from 'react';
 import { SharedComponentsSelectors } from '@tests/selectors/shared-component.selectors';
 import BigNumber from 'bignumber.js';
 import { useField } from 'formik';
-import { Box } from 'leather-styles/jsx';
+import { styled } from 'leather-styles/jsx';
 
 import { STX_DECIMALS } from '@shared/constants';
 import { FeeTypes, Fees } from '@shared/models/fees/fees.model';
@@ -115,14 +115,17 @@ export function FeesRow({
             setFieldWarning={(value: string) => setFieldWarning(value)}
           />
         ) : (
-          // #4476 TODO - make sure this clicks OK
-          <Box onClick={() => handleSelectFeeEstimateOrCustomField(FeeTypes.Custom)}>
+          <styled.button
+            onClick={() => handleSelectFeeEstimateOrCustomField(FeeTypes.Custom)}
+            textAlign="right"
+            width="100%"
+          >
             <TransactionFee
               fee={feeField.value}
               feeCurrencySymbol={feeCurrencySymbol}
               usdAmount={feeInUsd}
             />
-          </Box>
+          </styled.button>
         )
       }
       fieldWarning={fieldWarning}
@@ -133,7 +136,7 @@ export function FeesRow({
           allowCustom={allowCustom}
           isVisible={isSelectVisible}
           estimate={fees.estimates}
-          onSelectItem={handleSelectFeeEstimateOrCustomField}
+          onSelectItem={(index: number) => handleSelectFeeEstimateOrCustomField(index)}
           onSetIsSelectVisible={(value: boolean) => setIsSelectVisible(value)}
           selectedItem={selectedItem}
         />
