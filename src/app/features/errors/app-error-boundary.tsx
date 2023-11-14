@@ -1,14 +1,13 @@
 import { Box, Stack, styled } from 'leather-styles/jsx';
 
-// TODO #3986 improve this page
-// TODO #4476 check if we need Prism - likely not
-// import { Prism } from '@app/common/clarity-prism';
+import { Prism } from '@app/common/clarity-prism';
 import { HasChildren } from '@app/common/has-children';
 import { useRouteHeader } from '@app/common/hooks/use-route-header';
 import { Header } from '@app/components/header';
 import { ErrorBoundary, FallbackProps, useErrorHandler } from '@app/features/errors/error-boundary';
 import { openGithubIssue } from '@app/features/errors/utils';
 import { useErrorStackTraceState } from '@app/store/ui/ui.hooks';
+import { CodeBlock } from '@app/ui/components/codeblock';
 import { Title } from '@app/ui/components/typography/title';
 
 function ErrorFallback({ error, resetErrorBoundary }: FallbackProps) {
@@ -21,20 +20,17 @@ function ErrorFallback({ error, resetErrorBoundary }: FallbackProps) {
       <Title>Something went wrong</Title>
       <Box className="error-codeblock" maxWidth="100vw" overflow="hidden">
         {value && (
-          <styled.pre
-            maxWidth="100%"
+          <CodeBlock
+            border="default"
+            code={value}
             flexShrink={1}
             overflow="auto"
+            language="bash"
             maxHeight="305px"
-            border="4px solid"
-            borderColor="accent.border-default"
-            borderRadius="12px"
-            backgroundColor="ink.1000"
+            maxWidth="100%"
+            prism={Prism as any}
             width="100%"
-            // Prism={Prism as any}
-          >
-            {value}
-          </styled.pre>
+          />
         )}
       </Box>
       <Stack mt="auto" gap="space.04">

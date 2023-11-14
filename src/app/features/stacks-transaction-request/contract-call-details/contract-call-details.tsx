@@ -21,7 +21,7 @@ function ContractCallDetailsSuspense() {
   return (
     <Stack
       border="4px solid"
-      borderColor="accent.background-primary"
+      borderColor="accent.border-default"
       borderRadius="12px"
       mb="space.05"
       px="space.04"

@@ -2,8 +2,7 @@ import { useState } from 'react';
 
 import { HStack, HTMLStyledProps, Stack, styled } from 'leather-styles/jsx';
 
-//  #4476 TODO - test and see if we need this
-// import { Prism } from '@app/common/clarity-prism';
+import { Prism } from '@app/common/clarity-prism';
 import { AttachmentRow } from '@app/features/stacks-transaction-request/attachment-row';
 import { ContractPreviewLayout } from '@app/features/stacks-transaction-request/contract-preview';
 import { Row } from '@app/features/stacks-transaction-request/row';
@@ -12,6 +11,7 @@ import {
   useCurrentStacksAccount,
 } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
 import { useTransactionRequestState } from '@app/store/transactions/requests.hooks';
+import { CodeBlock } from '@app/ui/components/codeblock';
 import { Title } from '@app/ui/components/typography/title';
 
 function ContractCodeSection() {
@@ -29,19 +29,13 @@ function ContractCodeSection() {
     return null;
   }
 
-  //#4476 TODO - test and style this CodeBlock
   return (
-    <styled.pre
-      overflowX="scroll"
-      border="borders.default"
-      borderRadius="12px"
-      // backgroundColor="ink.1000"
+    <CodeBlock
+      border="default"
+      code={transactionRequest.codeBody}
       maxWidth="100vw"
-
-      // Prism={Prism as any}
-    >
-      {transactionRequest.codeBody}
-    </styled.pre>
+      prism={Prism as any}
+    />
   );
 }
 
@@ -55,11 +49,11 @@ function TabButton(props: TabButtonProps) {
   return (
     <styled.button
       bg={isActive ? 'accent.component-background-hover' : 'transparent'}
-      border={0}
       borderRadius="xs"
-      fontWeight={isActive ? 600 : 500}
+      color={isActive ? 'accent.text-primary' : 'accent.text-subdued'}
       px="space.04"
-      py="space.04"
+      py="space.03"
+      textStyle="label.01"
       type="button"
       {...rest}
     />

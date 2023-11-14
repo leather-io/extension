@@ -199,6 +199,7 @@
     "observable-hooks": "4.2.3",
     "pino": "8.15.4",
     "postcss-preset-env": "9.1.4",
+    "prism-react-renderer": "^2.2.0",
     "prismjs": "1.29.0",
     "promise-memoize": "1.2.1",
     "punycode": "2.3.0",
