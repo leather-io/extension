@@ -156,13 +156,14 @@ export const ExpiredRequestErrorMessage = memo(props => {
         body="This transaction request has expired or cannot be validated, try to re-initiate this transaction request from the original app."
         border="1px solid"
         borderColor="accent.border-default"
+        // #4476 TODO - move this to new error component
         // #4476 TODO check this is OK to remove boxShadow="high"
         // boxShadow="high"
-        css={{
-          '& > *': {
-            pointerEvents: 'all',
-          },
-        }}
+        // css={{
+        //   '& > *': {
+        //     pointerEvents: 'all',
+        //   },
+        // }}
         {...props}
       />
     </Flex>
