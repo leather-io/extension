@@ -1,9 +1,9 @@
 import type { ChangeEvent } from 'react';
 import { useCallback, useEffect, useRef, useState } from 'react';
 
-import { Box, Flex, Input, Stack, Text, color } from '@stacks/ui';
 import { SendCryptoAssetSelectors } from '@tests/selectors/send.selectors';
 import { useField } from 'formik';
+import { Box, Flex, Stack, styled } from 'leather-styles/jsx';
 import { token } from 'leather-styles/tokens';
 
 import { STX_DECIMALS, TOKEN_NAME_LENGTH } from '@shared/constants';
@@ -142,10 +142,11 @@ export function AmountField({
     <Stack
       alignItems="center"
       px="extra-loose"
-      spacing={['base', showError ? 'base' : '48px']}
+      gap={['base', showError ? 'base' : '48px']}
       width="100%"
     >
       <Flex alignItems="center" flexDirection="column" onClick={onClickFocusInput}>
+        {/* #4476 TODO check these fonts against design */}
         <Flex
           alignItems="center"
           height="55px"
@@ -154,12 +155,12 @@ export function AmountField({
           position="relative"
           fontFamily="Marche"
         >
-          {isSendingMax ? <Text fontSize={fontSize + 'px'}>~</Text> : null}
-          <Input
-            _disabled={{ bg: color('bg') }}
+          {isSendingMax ? <styled.span fontSize={fontSize + 'px'}>~</styled.span> : null}
+          <styled.input
+            _disabled={{ bg: 'accent.background-primary' }}
             _focus={{
               border: 'none',
-              color: token('colors.accent.text-primary'),
+              color: 'accent.text-primary',
             }}
             bg="transparent"
             border="none"
@@ -167,7 +168,7 @@ export function AmountField({
             fontSize={fontSize + 'px'}
             height="100%"
             id={amountInputId}
-            isDisabled={isSendingMax}
+            disabled={isSendingMax}
             maxLength={maxLength}
             placeholder="0"
             px="none"
@@ -192,7 +193,7 @@ export function AmountField({
            * This is what we use to measure the size of the input, it's hidden
            * and with no pointer events so users can't interact with it
            */}
-          <Text
+          <styled.span
             position="absolute"
             ref={fieldRef}
             visibility="hidden"
@@ -205,16 +206,16 @@ export function AmountField({
             minWidth={1 + 'ch'}
           >
             {field.value}
-          </Text>
-          <Text
+          </styled.span>
+          <styled.span
             fontFamily="Marche"
-            color={token('colors.accent.text-primary')}
+            color="accent.text-primary"
             fontSize={fontSize + 'px'}
             letterSpacing="0.64px"
             pl="tight"
           >
             {symbol.toUpperCase()}
-          </Text>
+          </styled.span>
         </Flex>
         <Box mt="12px">{switchableAmount && switchableAmount}</Box>
       </Flex>
