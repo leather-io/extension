@@ -242,7 +242,6 @@
     "@playwright/test": "1.38.1",
     "@pmmmwh/react-refresh-webpack-plugin": "0.5.11",
     "@redux-devtools/cli": "3.0.2",
-    "@redux-devtools/remote": "0.8.1",
     "@schemastore/web-manifest": "0.0.6",
     "@sentry/webpack-plugin": "2.4.0",
     "@stacks/connect-react": "22.2.0",

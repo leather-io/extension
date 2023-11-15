@@ -1,6 +1,5 @@
 import { useDispatch, useSelector } from 'react-redux';
 
-import { devToolsEnhancer } from '@redux-devtools/remote';
 import { Action, AnyAction, ThunkAction, combineReducers, configureStore } from '@reduxjs/toolkit';
 import { atomWithStore } from 'jotai-redux';
 import {
@@ -83,17 +82,6 @@ export const store = configureStore({
     }),
     broadcastActionTypeToOtherFramesMiddleware,
   ],
-  enhancers:
-    process.env.WALLET_ENVIRONMENT === 'development'
-      ? [
-          devToolsEnhancer({
-            hostname: 'localhost',
-            port: 8000,
-            realtime: true,
-            suppressConnectErrors: false,
-          }),
-        ]
-      : undefined,
 });
 
 export const persistor = persistStore(store);
