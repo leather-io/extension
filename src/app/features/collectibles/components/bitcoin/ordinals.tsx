@@ -11,7 +11,6 @@ import { Inscription } from './inscription';
 interface OrdinalsProps {
   setIsLoadingMore: (isLoading: boolean) => void;
 }
-
 export function Ordinals({ setIsLoadingMore }: OrdinalsProps) {
   const query = useGetInscriptionsInfiniteQuery();
   const pages = query.data?.pages;

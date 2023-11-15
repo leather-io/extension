@@ -1,6 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
 
-import { fetchWithTimeout } from '@app/common/api/wrapped-fetch';
+import { fetchWithTimeout } from '@app/common/api/fetch-wrapper';
 
 import { RateLimiter, useHiroApiRateLimiter } from '../rate-limiter';
 

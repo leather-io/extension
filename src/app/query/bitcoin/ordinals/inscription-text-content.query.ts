@@ -1,11 +1,11 @@
 import { useQuery } from '@tanstack/react-query';
+import axios from 'axios';
 
 import { QueryPrefixes } from '@app/query/query-prefixes';
 
 async function getInscriptionTextContent(src: string) {
-  const res = await fetch(src);
-  if (!res.ok) throw new Error('Failed to fetch ordinal text content');
-  return res.text();
+  const res = await axios.get(src, { responseType: 'text' });
+  return res.data;
 }
 
 export function useInscriptionTextContentQuery(contentSrc: string) {

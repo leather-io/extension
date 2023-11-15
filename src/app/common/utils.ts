@@ -8,7 +8,6 @@ import {
 import { toUnicode } from 'punycode';
 
 import { BitcoinNetworkModes, KEBAB_REGEX } from '@shared/constants';
-import { logger } from '@shared/logger';
 import type { Blockchains } from '@shared/models/blockchain.model';
 
 export function createNullArrayOfLength(length: number) {
@@ -262,11 +261,6 @@ interface WhenStacksChainIdMap<T> {
 }
 export function whenStacksChainId(chainId: ChainID) {
   return <T>(chainIdMap: WhenStacksChainIdMap<T>): T => chainIdMap[chainId];
-}
-
-export function logAndThrow(msg: string, args: any[] = []) {
-  logger.error(msg, ...args);
-  throw new Error(msg);
 }
 
 export const parseIfValidPunycode = (s: string) => {

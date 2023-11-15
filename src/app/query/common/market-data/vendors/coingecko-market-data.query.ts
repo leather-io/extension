@@ -1,8 +1,7 @@
 import { useQuery } from '@tanstack/react-query';
+import axios from 'axios';
 
 import { CryptoCurrencies } from '@shared/models/currencies.model';
-
-import { logAndThrow } from '@app/common/utils';
 
 import { marketDataQueryOptions } from '../market-data.query';
 
@@ -12,11 +11,10 @@ const currencyNameMap: Record<CryptoCurrencies, string> = {
 };
 
 async function fetchCoingeckoMarketData(currency: CryptoCurrencies) {
-  const resp = await fetch(
+  const resp = await axios.get(
     `https://api.coingecko.com/api/v3/simple/price?ids=${currencyNameMap[currency]}&vs_currencies=usd`
   );
-  if (!resp.ok) logAndThrow('Cannot load coingecko data');
-  return resp.json();
+  return resp.data;
 }
 
 export function selectCoingeckoUsdPrice(resp: any) {

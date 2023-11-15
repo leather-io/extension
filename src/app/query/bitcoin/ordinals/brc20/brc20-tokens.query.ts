@@ -1,6 +1,7 @@
 import { useCallback, useEffect } from 'react';
 
 import { useInfiniteQuery } from '@tanstack/react-query';
+import axios from 'axios';
 
 import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
 import { createNumArrayOfRange } from '@app/common/utils';
@@ -36,16 +37,13 @@ interface Brc20TokenTicker {
 }
 
 async function fetchTickerData(ticker: string): Promise<Brc20TokenTicker[]> {
-  const res = await fetch(`https://brc20api.bestinslot.xyz/v1/get_brc20_ticker/${ticker}`);
-  if (!res.ok) throw new Error('Failed to fetch BRC-20 token ticker data');
-  return res.json();
+  const res = await axios.get(`https://brc20api.bestinslot.xyz/v1/get_brc20_ticker/${ticker}`);
+  return res.data;
 }
 
 async function fetchBrc20TokensByAddress(address: string): Promise<Brc20Token[]> {
-  const res = await fetch(`https://brc20api.bestinslot.xyz/v1/get_brc20_balance/${address}`);
-
-  if (!res.ok) throw new Error('Failed to fetch BRC-20 token balances');
-  const tokensData = await res.json();
+  const res = await axios.get(`https://brc20api.bestinslot.xyz/v1/get_brc20_balance/${address}`);
+  const tokensData = res.data;
 
   const tickerPromises = tokensData.map((token: Brc20TokenResponse) => {
     return fetchTickerData(token.tick);

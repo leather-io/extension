@@ -1,4 +1,5 @@
 const avoidWindowOpenMsg = 'Use `openInNewTab` helper';
+const avoidFetchMsg = 'Use `axios` instead for consistency with the rest of the project';
 
 module.exports = {
   parser: '@typescript-eslint/parser',
@@ -34,7 +35,11 @@ module.exports = {
         ignoreReadBeforeAssign: false,
       },
     ],
-    'no-restricted-globals': ['error', { name: 'open', message: avoidWindowOpenMsg }],
+    'no-restricted-globals': [
+      'error',
+      { name: 'open', message: avoidWindowOpenMsg },
+      { name: 'fetch', message: avoidFetchMsg },
+    ],
     'no-restricted-properties': [
       'error',
       {
@@ -51,6 +56,11 @@ module.exports = {
         object: 'window',
         property: 'close',
         message: 'Use `closeWindow` utility helper',
+      },
+      {
+        object: 'window',
+        property: 'fetch',
+        message: avoidFetchMsg,
       },
     ],
     '@typescript-eslint/no-floating-promises': ['warn'],

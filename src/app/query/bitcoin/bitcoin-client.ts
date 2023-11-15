@@ -1,3 +1,5 @@
+import axios from 'axios';
+
 import { fetchData } from '../utils';
 
 class Configuration {
@@ -112,10 +114,14 @@ class TransactionsApi {
   constructor(public configuration: Configuration) {}
 
   async getBitcoinTransaction(txid: string) {
-    return fetch(`${this.configuration.baseUrl}/tx/${txid}`).then(res => res.json());
+    const resp = await axios.get(`${this.configuration.baseUrl}/tx/${txid}`);
+    return resp.data;
   }
 
   async broadcastTransaction(tx: string) {
+    // TODO: refactor to use `axios`
+    // https://github.com/leather-wallet/extension/issues/4521
+    // eslint-disable-next-line no-restricted-globals
     return fetch(`${this.configuration.baseUrl}/tx`, {
       method: 'POST',
       body: tx,

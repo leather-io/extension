@@ -2,7 +2,7 @@ import { useQuery } from '@tanstack/react-query';
 
 import { StacksTxFeeEstimation } from '@shared/models/fees/stacks-fees.model';
 
-import { fetcher } from '@app/common/api/wrapped-fetch';
+import { wrappedFetch } from '@app/common/api/fetch-wrapper';
 import { AppUseQueryConfig } from '@app/query/query-config';
 import { useCurrentNetworkState } from '@app/store/networks/networks.hooks';
 
@@ -11,7 +11,7 @@ import { RateLimiter, useHiroApiRateLimiter } from '../rate-limiter';
 function fetchTransactionFeeEstimation(currentNetwork: any, limiter: RateLimiter) {
   return async (estimatedLen: number | null, transactionPayload: string) => {
     await limiter.removeTokens(1);
-    const resp = await fetcher(currentNetwork.chain.stacks.url + '/v2/fees/transaction', {
+    const resp = await wrappedFetch(currentNetwork.chain.stacks.url + '/v2/fees/transaction', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
