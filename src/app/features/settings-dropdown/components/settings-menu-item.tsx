@@ -1,13 +1,13 @@
 import { ReactNode } from 'react';
 
-import { LeatherButton } from '@app/ui/components/button';
+import { ButtonProps, LeatherButton } from '@app/ui/components/button';
 
-interface SettingsMenuItemProps {
+interface SettingsMenuItemProps extends ButtonProps {
   color?: string;
   onClick: (e: React.MouseEvent) => void;
   children: ReactNode;
 }
-export function SettingsMenuItem({ color, onClick, children }: SettingsMenuItemProps) {
+export function SettingsMenuItem({ color, onClick, children, ...props }: SettingsMenuItemProps) {
   return (
     <LeatherButton
       _hover={{ bg: 'accent.component-background-hover' }}
@@ -21,6 +21,7 @@ export function SettingsMenuItem({ color, onClick, children }: SettingsMenuItemP
       textStyle="label.03"
       variant="text"
       width="100%"
+      {...props}
     >
       {children}
     </LeatherButton>

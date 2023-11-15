@@ -1,4 +1,4 @@
-import React from 'react';
+import { memo } from 'react';
 
 import { Box, Flex } from 'leather-styles/jsx';
 import { Highlight } from 'prism-react-renderer';
@@ -149,7 +149,7 @@ export interface HighlighterProps {
   prism: PrismLib;
 }
 
-export const Highlighter = React.memo(
+export const Highlighter = memo(
   ({ code, language = 'clarity', showLineNumbers, hideLineHover, prism }: HighlighterProps) => {
     return (
       <Highlight theme={theme} code={code} language={language} prism={prism as any}>

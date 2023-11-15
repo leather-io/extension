@@ -8,7 +8,7 @@ export interface GrammaticalToken {
   empty?: boolean;
 }
 
-export interface GrammaticalTokenOutputProps {
+interface GrammaticalTokenOutputProps {
   key?: React.Key;
   style?: CSSProperties;
   className: string;
@@ -16,7 +16,7 @@ export interface GrammaticalTokenOutputProps {
   [otherProp: string]: any;
 }
 
-export interface GrammaticalTokenInputProps {
+interface GrammaticalTokenInputProps {
   key?: React.Key;
   style?: CSSProperties;
   className?: string;
@@ -24,7 +24,7 @@ export interface GrammaticalTokenInputProps {
   [otherProp: string]: any;
 }
 
-export interface LineInputProps {
+interface LineInputProps {
   key?: React.Key;
   style?: CSSProperties;
   className?: string;
@@ -32,7 +32,7 @@ export interface LineInputProps {
   [otherProp: string]: any;
 }
 
-export interface LineOutputProps {
+interface LineOutputProps {
   key?: React.Key;
   style?: CSSProperties;
   className: string;

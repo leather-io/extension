@@ -1,12 +1,12 @@
-import React from 'react';
+import { forwardRef } from 'react';
 
 import { Box, BoxProps } from 'leather-styles/jsx';
 
 import { Highlighter, HighlighterProps } from './highlighter';
 
-export type CodeBlockProps = HighlighterProps & BoxProps;
+type CodeBlockProps = HighlighterProps & BoxProps;
 
-export const CodeBlock = React.forwardRef(
+export const CodeBlock = forwardRef(
   (
     { code, showLineNumbers, hideLineHover, style = {}, language, prism, ...rest }: CodeBlockProps,
     ref: React.Ref<HTMLDivElement>
