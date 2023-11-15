@@ -1,6 +1,6 @@
 import { PasswordStrength, ValidatedPassword } from '@app/common/validation/validate-password';
 
-export const defaultColor = 'accent.text-subdued';
+export const defaultColor = 'accent.background-secondary';
 
 const strengthStyles = {
   [PasswordStrength.NoScore]: {

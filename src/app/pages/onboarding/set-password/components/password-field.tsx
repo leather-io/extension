@@ -61,7 +61,11 @@ export function PasswordField({ strengthResult, isDisabled }: PasswordFieldProps
           {showPassword ? <EyeSlashIcon /> : <EyeIcon />}
         </styled.button>
       </Box>
-      <PasswordStrengthIndicator strengthColor={strengthColor} strengthResult={strengthResult} />
+      <PasswordStrengthIndicator
+        password={field.value}
+        strengthColor={strengthColor}
+        strengthResult={strengthResult}
+      />
       <Flex alignItems="center">
         <Caption mx="space.04">Password strength:</Caption>
         <Caption>{field.value ? strengthText : '—'}</Caption>
