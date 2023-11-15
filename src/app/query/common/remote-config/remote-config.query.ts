@@ -1,4 +1,5 @@
 import { useQuery } from '@tanstack/react-query';
+import axios from 'axios';
 import get from 'lodash.get';
 
 import { GITHUB_ORG, GITHUB_REPO } from '@shared/constants';
@@ -76,7 +77,7 @@ const githubWalletConfigRawUrl = `https://raw.githubusercontent.com/${GITHUB_ORG
 async function fetchHiroMessages(): Promise<RemoteConfig> {
   if ((!BRANCH_NAME && WALLET_ENVIRONMENT !== 'production') || IS_TEST_ENV)
     return localConfig as RemoteConfig;
-  return fetch(githubWalletConfigRawUrl).then(msg => msg.json());
+  return axios.get(githubWalletConfigRawUrl);
 }
 
 function useRemoteConfig() {

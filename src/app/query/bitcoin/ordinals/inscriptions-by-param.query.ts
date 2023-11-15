@@ -1,6 +1,7 @@
 import * as btc from '@scure/btc-signer';
 import { bytesToHex } from '@stacks/common';
 import { useQueries, useQuery } from '@tanstack/react-query';
+import axios from 'axios';
 
 import { HIRO_INSCRIPTIONS_API_URL } from '@shared/constants';
 import { Paginated } from '@shared/models/api-types';
@@ -13,10 +14,8 @@ type FetchInscriptionResp = Awaited<ReturnType<ReturnType<typeof fetchInscriptio
 
 function fetchInscriptionsByParam() {
   return async (param: string) => {
-    const res = await fetch(`${HIRO_INSCRIPTIONS_API_URL}?${param}`);
-    if (!res.ok) throw new Error('Error retrieving inscription metadata');
-    const data = await res.json();
-    return data as Paginated<Inscription[]>;
+    const res = await axios.get(`${HIRO_INSCRIPTIONS_API_URL}?${param}`);
+    return res.data as Paginated<Inscription[]>;
   };
 }
 

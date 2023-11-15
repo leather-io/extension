@@ -1,8 +1,7 @@
 import { useQuery } from '@tanstack/react-query';
+import axios from 'axios';
 
 import { CryptoCurrencies } from '@shared/models/currencies.model';
-
-import { logAndThrow } from '@app/common/utils';
 
 import { marketDataQueryOptions } from '../market-data.query';
 
@@ -12,9 +11,8 @@ const currencyNameMap: Record<CryptoCurrencies, string> = {
 };
 
 async function fetchCoincapMarketData(currency: CryptoCurrencies) {
-  const resp = await fetch(`https://api.coincap.io/v2/assets/${currencyNameMap[currency]}`);
-  if (!resp.ok) logAndThrow('Cannot load coincap data');
-  return resp.json();
+  const resp = await axios.get(`https://api.coincap.io/v2/assets/${currencyNameMap[currency]}`);
+  return resp.data;
 }
 
 export function selectCoincapUsdPrice(resp: any) {

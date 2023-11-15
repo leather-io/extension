@@ -1,4 +1,5 @@
 import { useQuery } from '@tanstack/react-query';
+import axios from 'axios';
 
 import { HIRO_INSCRIPTIONS_API_URL } from '@shared/constants';
 import { Inscription } from '@shared/models/inscription.model';
@@ -16,10 +17,8 @@ const inscriptionQueryOptions = {
  */
 function fetchInscription() {
   return async (id: string) => {
-    const res = await fetch(`${HIRO_INSCRIPTIONS_API_URL}/${id}`);
-    if (!res.ok) throw new Error('Error retrieving inscription metadata');
-    const data = await res.json();
-    return data as Inscription;
+    const res = await axios.get(`${HIRO_INSCRIPTIONS_API_URL}/${id}`);
+    return res.data as Inscription;
   };
 }
 
