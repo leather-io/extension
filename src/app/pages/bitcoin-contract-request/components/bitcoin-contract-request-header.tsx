@@ -27,7 +27,7 @@ function BitcoinContractRequestHeaderBase({
           img={<img src={counterpartyWalletIcon} height="32px" width="32px" />}
           pl="space.02"
         >
-          <Caption data-testid={BitcoinContractRequestSelectors.BitcoinContractOfferorText}>
+          <Caption data-testId={BitcoinContractRequestSelectors.BitcoinContractOfferorText}>
             {caption}
           </Caption>
         </Flag>

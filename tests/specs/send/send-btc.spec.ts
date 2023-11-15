@@ -84,8 +84,8 @@ test.describe('send btc', () => {
     });
   });
 });
-
-//https://github.com/microsoft/playwright/issues/12298
+// https://github.com/microsoft/playwright/issues/12298
+//https://github.com/microsoft/playwright/issues/1229
     //   <div class="leather-d_flex leather-flex_column leathe…>…</div> from <div class="leather-d_flex leather-flex_column leathe…>…</div> subtree intercepts pointer events
     // retrying click action, attempt #130
     //   waiting 500ms
