@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Outlet, useNavigate } from 'react-router-dom';
 
 import { RouteUrls } from '@shared/route-urls';
 
@@ -35,10 +35,13 @@ export function ViewSecretKey() {
   }
 
   return (
-    <RequestPassword
-      title="View Secret Key"
-      caption="Enter the password you set on this device"
-      onSuccess={() => setShowSecretKey(true)}
-    />
+    <>
+      <RequestPassword
+        title="View Secret Key"
+        caption="Enter the password you set on this device"
+        onSuccess={() => setShowSecretKey(true)}
+      />
+      <Outlet />
+    </>
   );
 }
