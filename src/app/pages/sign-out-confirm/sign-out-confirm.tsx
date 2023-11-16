@@ -17,8 +17,9 @@ export function SignOutConfirmDrawer() {
   return (
     <SignOutConfirmLayout
       onUserDeleteWallet={() => {
-        navigate(RouteUrls.Onboarding);
-        void signOut();
+        void signOut().finally(() => {
+          navigate(RouteUrls.Onboarding);
+        });
       }}
       onUserSafelyReturnToHomepage={() => navigate(backgroundLocation ?? '..')}
     />
