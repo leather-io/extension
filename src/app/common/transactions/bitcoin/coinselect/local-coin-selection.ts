@@ -25,9 +25,11 @@ export function determineUtxosForSpendAll({
 
   const txSizer = new BtcSizeFeeEstimator();
 
+  const filteredUtxos = utxos.filter(utxo => utxo.value >= BTC_P2WPKH_DUST_AMOUNT);
+
   const sizeInfo = txSizer.calcTxSize({
     input_script: 'p2wpkh',
-    input_count: utxos.length,
+    input_count: filteredUtxos.length,
     [addressInfo.type + '_output_count']: 1,
   });
 
@@ -37,8 +39,7 @@ export function determineUtxosForSpendAll({
   const fee = Math.ceil(sizeInfo.txVBytes * feeRate);
 
   return {
-    utxos,
-    inputs: utxos,
+    inputs: filteredUtxos,
     outputs,
     size: sizeInfo.txVBytes,
     fee,
