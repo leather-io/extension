@@ -28,10 +28,10 @@ export function useRecipientSelectFields() {
   const resetAllRecipientFields = useCallback(() => {
     void setFieldValue('recipient', '');
     setFieldError('recipient', undefined);
-    setFieldTouched('recipient', false);
+    void setFieldTouched('recipient', false);
     void setFieldValue('recipientBnsName', '');
     setFieldError('recipientBnsName', undefined);
-    setFieldTouched('recipientBnsName', false);
+    void setFieldTouched('recipientBnsName', false);
   }, [setFieldError, setFieldTouched, setFieldValue]);
 
   const onSelectRecipientFieldType = useCallback(
@@ -44,19 +44,11 @@ export function useRecipientSelectFields() {
     [resetAllRecipientFields, setBnsAddress]
   );
 
-  const onSetIsSelectVisible = useCallback(
-    (value: boolean) => {
-      resetAllRecipientFields();
-      setIsSelectVisible(value);
-    },
-    [resetAllRecipientFields]
-  );
-
   return {
     isSelectVisible,
     onClickLabelAction,
     onSelectRecipientFieldType,
-    onSetIsSelectVisible,
+    onSetIsSelectVisible: setIsSelectVisible,
     selectedRecipientField,
   };
 }
