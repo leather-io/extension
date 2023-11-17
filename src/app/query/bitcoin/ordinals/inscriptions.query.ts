@@ -7,6 +7,7 @@ import { getTaprootAddress } from '@shared/crypto/bitcoin/bitcoin.utils';
 import { InscriptionResponseItem } from '@shared/models/inscription.model';
 import { ensureArray } from '@shared/utils';
 
+import { wrappedFetch } from '@app/common/api/fetch-wrapper';
 import { createNumArrayOfRange } from '@app/common/utils';
 import { QueryPrefixes } from '@app/query/query-prefixes';
 import { useCurrentAccountNativeSegwitIndexZeroSigner } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
@@ -41,7 +42,7 @@ async function fetchInscriptions(addresses: string | string[], offset = 0, limit
   params.append('limit', limit.toString());
   params.append('offset', offset.toString());
 
-  const res = await fetch(`${HIRO_INSCRIPTIONS_API_URL}?${params.toString()}`);
+  const res = await wrappedFetch(`${HIRO_INSCRIPTIONS_API_URL}?${params.toString()}`);
   if (!res.ok) throw new Error('Error retrieving inscription metadata');
   const data = await res.json();
   return data as InscriptionsQueryResponse;

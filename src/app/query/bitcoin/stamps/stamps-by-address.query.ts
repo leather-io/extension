@@ -1,4 +1,5 @@
 import { useQuery } from '@tanstack/react-query';
+import axios from 'axios';
 
 import { AppUseQueryConfig } from '@app/query/query-config';
 import { QueryPrefixes } from '@app/query/query-prefixes';
@@ -16,9 +17,8 @@ export interface Stamp {
 }
 
 async function fetchStampsByAddress(address: string): Promise<Stamp[]> {
-  return fetch(`https://stampchain.io/api/stamps?wallet_address=${address}`).then(res =>
-    res.json()
-  );
+  const resp = await axios.get(`https://stampchain.io/api/stamps?wallet_address=${address}`);
+  return resp.data;
 }
 
 type FetchStampsByAddressResp = Awaited<ReturnType<typeof fetchStampsByAddress>>;
