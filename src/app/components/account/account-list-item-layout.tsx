@@ -18,9 +18,6 @@ interface AccountListItemLayoutProps extends StackProps {
   accountName: React.ReactNode;
   avatar: React.JSX.Element;
   balanceLabel: React.ReactNode;
-  hasCopied?: boolean;
-  onCopyToClipboard?(e: React.MouseEvent): void;
-  onClickBtcCopyIcon?(e: React.MouseEvent): void;
   onSelectAccount(): void;
 }
 export function AccountListItemLayout(props: AccountListItemLayoutProps) {
@@ -32,9 +29,6 @@ export function AccountListItemLayout(props: AccountListItemLayoutProps) {
     avatar,
     balanceLabel,
     onSelectAccount,
-    hasCopied,
-    onCopyToClipboard,
-    onClickBtcCopyIcon,
     children = null,
     ...rest
   } = props;
