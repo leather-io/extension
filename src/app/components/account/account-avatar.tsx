@@ -1,12 +1,26 @@
 import { memo } from 'react';
 
-import { AccountAvatar } from '@app/components/account/account-avatar/account-avatar';
+import { Box, CircleProps } from 'leather-styles/jsx';
 
-interface AccountAvatarItemProps {
+import { DynamicColorCircle } from '@app/ui/components/dynamic-color-circle';
+
+const getAccountNumber = (index: number) => {
+  // Always return account number in the Account Circle
+  return String(index + 1);
+};
+
+interface AccountAvatarProps extends CircleProps {
+  name: string;
   publicKey: string;
   index: number;
-  name: string;
 }
-export const AccountAvatarItem = memo(({ name, publicKey, index }: AccountAvatarItemProps) => {
-  return <AccountAvatar index={index} name={name} publicKey={publicKey} />;
+export const AccountAvatar = memo(({ name, publicKey, index, ...props }: AccountAvatarProps) => {
+  const gradient = publicKey + index.toString();
+  const text = getAccountNumber(index);
+
+  return (
+    <DynamicColorCircle sizeParam="48" value={gradient} {...props}>
+      <Box position="absolute">{text}</Box>
+    </DynamicColorCircle>
+  );
 });

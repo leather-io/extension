@@ -6,7 +6,7 @@ import { BitcoinSendFormValues, StacksSendFormValues } from '@shared/models/form
 
 import { useAccountDisplayName } from '@app/common/hooks/account/use-account-names';
 import { AccountTotalBalance } from '@app/components/account-total-balance';
-import { AccountAvatarItem } from '@app/components/account/account-avatar';
+import { AccountAvatarItem } from '@app/components/account/account-avatar-item';
 import { AccountListItemLayout } from '@app/components/account/account-list-item-layout';
 import { AccountName } from '@app/components/account/account-name';
 import { usePressable } from '@app/components/item-hover';

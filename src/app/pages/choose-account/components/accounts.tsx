@@ -12,7 +12,7 @@ import { useCreateAccount } from '@app/common/hooks/account/use-create-account';
 import { useWalletType } from '@app/common/use-wallet-type';
 import { slugify } from '@app/common/utils';
 import { AccountTotalBalance } from '@app/components/account-total-balance';
-import { AccountAvatar } from '@app/components/account/account-avatar/account-avatar';
+import { AccountAvatar } from '@app/components/account/account-avatar';
 import { AccountListItemLayout } from '@app/components/account/account-list-item-layout';
 import { usePressable } from '@app/components/item-hover';
 import { useNativeSegwitAccountIndexAddressIndexZero } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
