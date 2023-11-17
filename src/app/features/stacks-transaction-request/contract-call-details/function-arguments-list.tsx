@@ -1,10 +1,9 @@
 import { Suspense, memo } from 'react';
 
-import { Stack, StackProps } from '@stacks/ui';
+import { Stack, StackProps } from 'leather-styles/jsx';
 
-import { Divider } from '@app/components/layout/divider';
-import { Caption } from '@app/components/typography';
 import { useTransactionRequestState } from '@app/store/transactions/requests.hooks';
+import { Caption } from '@app/ui/components/typography/caption';
 
 import { FunctionArgumentItem } from './function-argument-item';
 
@@ -19,7 +18,7 @@ function FunctionArgumentsListBase(props: StackProps): React.JSX.Element | null 
   return (
     <>
       {hasArgs ? (
-        <Stack divider={<Divider />} spacing="base" {...props}>
+        <Stack gap="space.04" {...props}>
           {transactionRequest.functionArgs.map((arg, index) => {
             return (
               <Suspense fallback={<>loading</>} key={`${arg}-${index}`}>

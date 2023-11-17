@@ -34,9 +34,9 @@ import {
   tupleCV,
   uintCV,
 } from '@stacks/transactions';
-import { Box, Button, ButtonGroup, Text } from '@stacks/ui';
 import { TestAppSelectors } from '@tests/selectors/test-app.selectors';
 import BN from 'bn.js';
+import { Box, Flex, styled } from 'leather-styles/jsx';
 
 import { ExplorerLink } from './explorer-link';
 
@@ -355,80 +355,81 @@ export const Debugger = () => {
   };
   return (
     <Box py={6}>
-      <Text as="h2" textStyle="display.small">
-        Debugger
-      </Text>
-      <Text textStyle="body.large" display="block" my={'base'}>
+      <styled.h2>Debugger</styled.h2>
+      <styled.span>
         Try out a bunch of different transactions on the Stacks blockchain testnet.
-      </Text>
+      </styled.span>
       {txId && (
-        <Text textStyle="body.large" display="block" my={'base'}>
-          <Text color="green" fontSize={1} data-testid="status-message">
+        <styled.span>
+          <styled.span color="green" fontSize={1} data-testid="status-message">
             Successfully broadcasted &quot;{txType}&quot;
-          </Text>
+          </styled.span>
           <ExplorerLink txId={txId} />
-        </Text>
+        </styled.span>
       )}
 
       <Box>
-        <ButtonGroup spacing={4} my="base">
-          <Button mt={3} onClick={() => callFaker(stacksTestnetNetwork, PostConditionMode.Allow)}>
+        <Flex gap={4} my="space.04">
+          <styled.button
+            mt={3}
+            onClick={() => callFaker(stacksTestnetNetwork, PostConditionMode.Allow)}
+          >
             Contract call (ALLOW mode)
-          </Button>
-          <Button mt={3} onClick={() => callFaker(stacksTestnetNetwork)}>
+          </styled.button>
+          <styled.button mt={3} onClick={() => callFaker(stacksTestnetNetwork)}>
             Contract call (Testnet)
-          </Button>
-          <Button
+          </styled.button>
+          <styled.button
             data-testid={TestAppSelectors.BtnContractCall}
             mt={3}
             onClick={() => callFaker(stacksMainnetNetwork)}
           >
             Contract call (StacksMainnet)
-          </Button>
-          <Button mt={3} onClick={() => callFaker(stacksLocalhostNetwork)}>
+          </styled.button>
+          <styled.button mt={3} onClick={() => callFaker(stacksLocalhostNetwork)}>
             Contract call (Localhost)
-          </Button>
-          <Button
+          </styled.button>
+          <styled.button
             data-testid={TestAppSelectors.BtnStxTransfer}
             mt={3}
             onClick={() => stxTransfer('102')}
           >
             STX transfer
-          </Button>
-          <Button mt={3} onClick={callBnsTransfer}>
+          </styled.button>
+          <styled.button mt={3} onClick={callBnsTransfer}>
             NFT with postconditions (will fail)
-          </Button>
-          <Button mt={3} onClick={callAnimalTransfer}>
+          </styled.button>
+          <styled.button mt={3} onClick={callAnimalTransfer}>
             transfer Animal NFT
-          </Button>
-          <Button mt={3} onClick={deployContract}>
+          </styled.button>
+          <styled.button mt={3} onClick={deployContract}>
             Contract deploy
-          </Button>
-          <Button mt={3} onClick={getStellaFaucetTokens}>
+          </styled.button>
+          <styled.button mt={3} onClick={getStellaFaucetTokens}>
             Get SteLLa tokens (sip 10 with memo)
-          </Button>
-          <Button mt={3} onClick={sendStellaTokens}>
+          </styled.button>
+          <styled.button mt={3} onClick={sendStellaTokens}>
             Send SteLLa tokens
-          </Button>
-          <Button mt={3} onClick={getRocketTokens}>
+          </styled.button>
+          <styled.button mt={3} onClick={getRocketTokens}>
             Get Rocket tokens (old sip 10 no memo)
-          </Button>
-          <Button mt={3} onClick={sendRocketTokens}>
+          </styled.button>
+          <styled.button mt={3} onClick={sendRocketTokens}>
             Send Rocket tokens
-          </Button>
-          <Button mt={3} onClick={sendMiamiTokens}>
+          </styled.button>
+          <styled.button mt={3} onClick={sendMiamiTokens}>
             Send Miami tokens
-          </Button>
-          <Button mt={3} onClick={callNullContract}>
+          </styled.button>
+          <styled.button mt={3} onClick={callNullContract}>
             Non-existent contract
-          </Button>
-          <Button
+          </styled.button>
+          <styled.button
             mt={3}
             onClick={() => callFaker(stacksTestnetNetwork, PostConditionMode.Allow, true)}
           >
             Sponsored contract call
-          </Button>
-          <Button
+          </styled.button>
+          <styled.button
             mt={3}
             onClick={() =>
               fetch('https://api.hiro.so/v2/info')
@@ -437,9 +438,9 @@ export const Debugger = () => {
             }
           >
             Request API info
-          </Button>
+          </styled.button>
 
-          <Button
+          <styled.button
             mt={3}
             onClick={() => {
               console.log('requesting');
@@ -454,8 +455,8 @@ export const Debugger = () => {
             }}
           >
             RPC test
-          </Button>
-        </ButtonGroup>
+          </styled.button>
+        </Flex>
       </Box>
     </Box>
   );

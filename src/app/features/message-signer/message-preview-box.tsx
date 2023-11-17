@@ -1,4 +1,4 @@
-import { Stack, color } from '@stacks/ui';
+import { Stack } from 'leather-styles/jsx';
 import { styled } from 'leather-styles/jsx';
 
 import { HashDrawer } from './hash-drawer';
@@ -10,20 +10,20 @@ interface MessageBoxProps {
 export function MessagePreviewBox({ message, hash }: MessageBoxProps) {
   return (
     <Stack
+      bg="accent.background-primary"
       border="4px solid"
-      paddingBottom={hash ? '8px' : 0}
-      borderColor={color('border')}
+      borderColor="accent.background-primary"
       borderRadius="20px"
-      backgroundColor={color('border')}
+      paddingBottom={hash ? 'space.02' : 0}
     >
       <Stack
-        bg={color('bg')}
-        borderRadius="16px"
+        bg="accent.background-primary"
+        borderRadius="lg"
         fontSize={2}
+        gap="space.02"
         lineHeight="1.6"
-        px="loose"
-        py="loose"
-        spacing="tight"
+        px="space.05"
+        py="space.05"
         overflowX="auto"
       >
         {message.split(/\r?\n/).map(line => (

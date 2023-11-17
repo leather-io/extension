@@ -1,4 +1,4 @@
-import { Box, Flex, color } from '@stacks/ui';
+import { Box, Flex } from 'leather-styles/jsx';
 
 import { DividerSeparator } from '@app/components/layout/divider-separator';
 import { SignLedgerTransaction } from '@app/features/ledger/illustrations/ledger-illu-sign-ledger-transaction';
@@ -17,23 +17,23 @@ export function ApproveLedgerOperationLayout(props: ApproveLedgerOperationLayout
   const { description, details, status } = props;
   return (
     <LedgerWrapper>
-      <Box mt="tight">
+      <Box mt="space.02">
         <SignLedgerTransaction />
       </Box>
-      <LedgerTitle mt="loose" mx="50px">
+      <LedgerTitle mt="space.05" mx="space.08">
         {description}
       </LedgerTitle>
       <DeviceOperationApprovalStatus status={status} />
       <Flex
-        bg={color('bg-4')}
-        borderRadius="16px"
+        bg="accent.background-secondary"
+        borderRadius="lg"
         flexDirection="column"
+        px="space.06"
+        py="space.06"
         textAlign="left"
-        px="extra-loose"
-        py="extra-loose"
         width="100%"
       >
-        <DividerSeparator my="base-loose">
+        <DividerSeparator my="space.04">
           {details.map(([title, value, tooltipLabel]) => (
             <LedgerScreenDetail key={value} title={title} tooltipLabel={tooltipLabel}>
               {value}

@@ -18,7 +18,7 @@ export function BroadcastError() {
 
   return (
     <BroadcastErrorLayout
-      my="loose"
+      my="space.05"
       textAlign="center"
       errorPayload={msg}
       title={title}

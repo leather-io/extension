@@ -1,14 +1,12 @@
 import { memo } from 'react';
 
-import { BoxProps } from '@stacks/ui';
-
 import { AccountAvatar } from '@app/components/account/account-avatar/account-avatar';
 
-interface AccountAvatarItemProps extends BoxProps {
+interface AccountAvatarItemProps {
   publicKey: string;
   index: number;
   name: string;
 }
 export const AccountAvatarItem = memo(({ name, publicKey, index }: AccountAvatarItemProps) => {
-  return <AccountAvatar name={name} publicKey={publicKey} index={index} />;
+  return <AccountAvatar index={index} name={name} publicKey={publicKey} />;
 });

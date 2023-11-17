@@ -6,7 +6,6 @@ import {
   addressToString,
   cvToString,
 } from '@stacks/transactions';
-import { microStxToStx } from '@stacks/ui-utils';
 import BigNumber from 'bignumber.js';
 
 import { CryptoCurrencies } from '@shared/models/currencies.model';
@@ -22,6 +21,7 @@ import { removeTrailingNullCharacters } from '@app/common/utils';
 import { useCryptoCurrencyMarketData } from '@app/query/common/market-data/market-data.hooks';
 import { useStacksBlockTime } from '@app/query/stacks/info/info.hooks';
 import { useCurrentNetworkState } from '@app/store/networks/networks.hooks';
+import { microStxToStx } from '@app/ui/utils/micro-stx-to-stx';
 
 export function useStacksTransactionSummary(token: CryptoCurrencies) {
   const tokenMarketData = useCryptoCurrencyMarketData(token);

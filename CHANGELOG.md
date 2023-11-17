@@ -1,3 +1,18 @@
+## [6.16.1](https://github.com/leather-wallet/extension/compare/v6.16.0...v6.16.1) (2023-11-17)
+
+
+### Bug Fixes
+
+* add hiro api key, closes [#4518](https://github.com/leather-wallet/extension/issues/4518) ([8c3f3d2](https://github.com/leather-wallet/extension/commit/8c3f3d2535fc1da5292eef04c2b922b9985d6f83))
+* **auth:** sign out from view secret key ([ad056f2](https://github.com/leather-wallet/extension/commit/ad056f2b3cb0712687498cab1f49d5fc38e6579c))
+* **auth:** wait for sign out to finish to navigate ([5630364](https://github.com/leather-wallet/extension/commit/56303645487220684fa83a2b8dd0c5f3a879588b))
+* **ui:** change locked screen ui to match the updated styles ([35493d5](https://github.com/leather-wallet/extension/commit/35493d5775d3d48111cdc9321d31bb47a4f92acc))
+
+
+### Internal
+
+* post-release merge back ([831989d](https://github.com/leather-wallet/extension/commit/831989de0cd2749dfa5045c1109133ccb012365c))
+
 ## [6.16.0](https://github.com/leather-wallet/extension/compare/v6.15.1...v6.16.0) (2023-11-08)
 
 

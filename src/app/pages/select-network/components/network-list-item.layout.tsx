@@ -1,17 +1,17 @@
 import { FiTrash2 } from 'react-icons/fi';
 
-import { Box, BoxProps, Button, Flex, Stack } from '@stacks/ui';
 import { SettingsSelectors } from '@tests/selectors/settings.selectors';
+import { Box, Flex, Stack } from 'leather-styles/jsx';
 import { styled } from 'leather-styles/jsx';
-import { token } from 'leather-styles/tokens';
 
 import { NetworkConfiguration } from '@shared/constants';
 
 import { getUrlHostname } from '@app/common/utils';
+import { LeatherButton } from '@app/ui/components/button';
 
 import { NetworkStatusIndicator } from './network-status-indicator';
 
-interface NetworkListItemLayoutProps extends BoxProps {
+interface NetworkListItemLayoutProps {
   networkId: string;
   isOnline: boolean;
   isActive: boolean;
@@ -20,47 +20,42 @@ interface NetworkListItemLayoutProps extends BoxProps {
   onSelectNetwork(): void;
   onRemoveNetwork(id: string): void;
 }
-export function NetworkListItemLayout(props: NetworkListItemLayoutProps) {
-  const {
-    networkId,
-    isOnline,
-    isActive,
-    network,
-    isCustom,
-    onRemoveNetwork,
-    onSelectNetwork,
-    ...rest
-  } = props;
-
+export function NetworkListItemLayout({
+  networkId,
+  isOnline,
+  isActive,
+  network,
+  isCustom,
+  onRemoveNetwork,
+  onSelectNetwork,
+}: NetworkListItemLayoutProps) {
+  const unSelectable = !isOnline || isActive;
   return (
     <Box
       width="100%"
       key={networkId}
       _hover={
-        !isOnline || isActive
+        unSelectable
           ? undefined
           : {
-              backgroundColor: token('colors.brown.2'),
+              backgroundColor: 'accent.component-background-hover',
             }
       }
-      px="loose"
-      py="base"
-      onClick={!isOnline || isActive ? undefined : onSelectNetwork}
+      px="space.05"
+      py="space.04"
+      onClick={unSelectable ? undefined : onSelectNetwork}
       cursor={!isOnline ? 'not-allowed' : isActive ? 'default' : 'pointer'}
       opacity={!isOnline ? 0.5 : 1}
       data-testid={SettingsSelectors.NetworkListItem}
-      {...rest}
     >
       <Flex>
         <Flex
           width="100%"
-          as="button"
           justifyContent="space-between"
           alignItems="center"
-          disabled={!isOnline}
           data-testid={network.id}
         >
-          <Stack alignItems="flex-start" flex={1} spacing="tight">
+          <Stack alignItems="flex-start" flex={1} gap="space.02">
             <styled.span mb="space.01" textStyle="label.01">
               {network.name}
             </styled.span>
@@ -71,17 +66,17 @@ export function NetworkListItemLayout(props: NetworkListItemLayoutProps) {
           <NetworkStatusIndicator isActive={isActive} isOnline={isOnline} />
         </Flex>
         {isCustom && (
-          <Button
+          <LeatherButton
             type="button"
-            mode="tertiary"
-            ml="base"
+            ml="space.04"
             onClick={e => {
               e.stopPropagation();
               onRemoveNetwork(network.id);
             }}
           >
+            {/* FIXME #4476 icon */}
             <FiTrash2 size="14px" />
-          </Button>
+          </LeatherButton>
         )}
       </Flex>
     </Box>

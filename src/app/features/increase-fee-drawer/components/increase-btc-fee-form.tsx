@@ -1,7 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 
-import { Stack } from '@stacks/ui';
 import { Formik } from 'formik';
+import { Stack } from 'leather-styles/jsx';
 
 import { BitcoinTx } from '@shared/models/transactions/bitcoin-transaction.model';
 import { RouteUrls } from '@shared/route-urls';
@@ -14,8 +14,8 @@ import { BitcoinCustomFeeFiat } from '@app/components/bitcoin-custom-fee/bitcoin
 import { BitcoinTransactionItem } from '@app/components/bitcoin-transaction-item/bitcoin-transaction-item';
 import { LoadingSpinner } from '@app/components/loading-spinner';
 import { TextInputField } from '@app/components/text-input-field';
-import { Caption } from '@app/components/typography';
 import { useCurrentAccountNativeSegwitIndexZeroSigner } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
+import { Caption } from '@app/ui/components/typography/caption';
 
 import { useBtcIncreaseFee } from '../hooks/use-btc-increase-fee';
 import { IncreaseFeeActions } from './increase-fee-actions';
@@ -49,10 +49,10 @@ export function IncreaseBtcFeeForm({ btcTx }: IncreaseBtcFeeFormProps) {
       validateOnMount={false}
       validationSchema={validationSchema}
     >
-      <Stack spacing="extra-loose">
+      <Stack gap="space.06">
         {btcTx && <BitcoinTransactionItem position="relative" transaction={btcTx} zIndex={99} />}
-        <Stack spacing="base">
-          <Stack spacing="extra-tight">
+        <Stack gap="space.04">
+          <Stack gap="space.01">
             <TextInputField label={feeInputLabel} name="feeRate" placeholder={feeInputLabel} />
             <BitcoinCustomFeeFiat
               recipient={recipient}

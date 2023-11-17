@@ -1,21 +1,21 @@
-import { Box, Flex, FlexProps, Stack, StackProps } from '@stacks/ui';
+import { ReactNode } from 'react';
+
 import { SharedComponentsSelectors } from '@tests/selectors/shared-component.selectors';
-import { HStack, styled } from 'leather-styles/jsx';
+import { Box, BoxProps, Flex, FlexProps, HStack, Stack, styled } from 'leather-styles/jsx';
 
 import { isString } from '@shared/utils';
 
 import { whenPageMode } from '@app/common/utils';
-
-import { LeatherButton } from '../button/button';
-import { DashedHr } from '../hr';
+import { LeatherButton } from '@app/ui/components/button';
+import { DashedHr } from '@app/ui/components/hr';
 
 // InfoCard
 interface InfoCardProps extends FlexProps {
-  children: React.ReactNode;
+  children: ReactNode;
 }
 export function InfoCard({ children, ...props }: InfoCardProps) {
   return (
-    <Flex flexDirection="column" alignItems="center" justifyItems="center" width="100%" {...props}>
+    <Flex alignItems="center" flexDirection="column" justifyItems="center" width="100%" {...props}>
       {children}
     </Flex>
   );
@@ -24,10 +24,9 @@ export function InfoCard({ children, ...props }: InfoCardProps) {
 // InfoCardRow
 interface InfoCardRowProps {
   title?: string;
-  value: React.ReactNode;
-  titleAdditionalElement?: React.ReactNode;
+  value: ReactNode;
+  titleAdditionalElement?: ReactNode;
 }
-
 export function InfoCardRow({ title, value, titleAdditionalElement, ...props }: InfoCardRowProps) {
   return (
     <HStack alignItems="start" fontSize="14px" justifyContent="space-between" {...props}>
@@ -59,14 +58,13 @@ export function InfoCardSeparator() {
 }
 
 // InfoCardAssetValue
-interface InfoCardAssetValueProps extends StackProps {
+interface InfoCardAssetValueProps extends BoxProps {
   value: number;
   fiatValue?: string;
   fiatSymbol?: string;
   symbol?: string;
-  icon?: React.FC;
+  icon?: ReactNode;
 }
-
 export function InfoCardAssetValue({
   value,
   fiatValue,
@@ -77,14 +75,14 @@ export function InfoCardAssetValue({
 }: InfoCardAssetValueProps) {
   return (
     <Box width="100%" {...props}>
-      <Stack width="100%" alignItems="center" py="24px">
-        {icon && <Box as={icon} size="32px" />}
+      <Stack alignItems="center" width="100%" py="space.05">
+        {icon && icon}
 
-        <Flex flexDirection="column" alignItems="center">
+        <Flex alignItems="center" flexDirection="column">
           <styled.h1
             data-testid={SharedComponentsSelectors.InfoCardAssetValue}
-            textStyle="heading.03"
             mb="space.01"
+            textStyle="heading.03"
           >
             {value} {symbol}
           </styled.h1>
@@ -101,19 +99,18 @@ export function InfoCardAssetValue({
 
 // InfoCardBtn
 interface InfoCardBtnProps {
-  icon: React.FC;
+  icon: ReactNode;
   label: string;
   onClick: () => void;
 }
-
 export function InfoCardBtn({ icon, label, onClick }: InfoCardBtnProps) {
   return (
     <LeatherButton onClick={onClick} flexGrow="1">
       <Flex alignItems="center" justifyContent="center">
-        <styled.span mr="space.02" textStyle="label.02">
+        <styled.span mx="space.02" textStyle="label.02">
           {label}
         </styled.span>
-        <Box as={icon} mr="tight" size="14px" />
+        {icon}
       </Flex>
     </LeatherButton>
   );
@@ -121,26 +118,25 @@ export function InfoCardBtn({ icon, label, onClick }: InfoCardBtnProps) {
 
 // InfoCardFooter
 interface InfoCardFooterProps {
-  children: React.ReactNode;
+  children: ReactNode;
 }
-
 export function InfoCardFooter({ children }: InfoCardFooterProps) {
   return (
     <Flex
-      bottom="0"
-      width="100%"
+      alignItems="center"
       bg={whenPageMode({
         full: '',
         popup: '#fff',
       })}
-      alignItems="center"
+      bottom="0"
       justifyContent="center"
-      zIndex="999"
-      p="loose"
+      p="space.05"
       position={whenPageMode({
         full: 'unset',
         popup: 'fixed',
       })}
+      width="100%"
+      zIndex="999"
     >
       {children}
     </Flex>

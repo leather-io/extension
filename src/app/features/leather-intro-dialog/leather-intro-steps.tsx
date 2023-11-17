@@ -8,7 +8,7 @@ import { Box, Flex, Stack, styled } from 'leather-styles/jsx';
 
 import { HasChildren } from '@app/common/has-children';
 import { openInNewTab } from '@app/common/utils/open-in-new-tab';
-import { LeatherButton } from '@app/components/button/button';
+import { LeatherButton } from '@app/ui/components/button';
 
 import { confettiConfig } from './confetti-config';
 import { useLeatherIntroDialogContext } from './leather-intro-dialog';

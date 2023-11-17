@@ -2,7 +2,7 @@
   "name": "@stacks/wallet-web",
   "description": "Leather is browser extension for interacting with Stacks apps",
   "private": true,
-  "version": "6.16.0",
+  "version": "6.16.1",
   "author": "Hiro Systems PBC",
   "scripts": {
     "dev": "concurrently --raw \"node webpack/dev-server.js\" \"redux-devtools --hostname=localhost --port=8000\"",
@@ -153,10 +153,6 @@
     "@stacks/rpc-client": "1.0.3",
     "@stacks/storage": "6.9.0",
     "@stacks/transactions": "6.9.0",
-    "@stacks/ui": "7.10.0",
-    "@stacks/ui-core": "7.3.0",
-    "@stacks/ui-theme": "7.5.0",
-    "@stacks/ui-utils": "7.5.0",
     "@stacks/wallet-sdk": "6.9.0",
     "@stitches/react": "1.2.8",
     "@styled-system/theme-get": "5.1.2",
@@ -203,6 +199,7 @@
     "observable-hooks": "4.2.3",
     "pino": "8.15.4",
     "postcss-preset-env": "9.1.4",
+    "prism-react-renderer": "2.2.0",
     "prismjs": "1.29.0",
     "promise-memoize": "1.2.1",
     "punycode": "2.3.0",
@@ -328,6 +325,7 @@
     "webpack-shell-plugin": "0.5.0"
   },
   "resolutions": {
+    "nanoid": "3.3.4",
     "socket.io-parser": "4.2.4",
     "**/**/bn.js": "5.2.1"
   },

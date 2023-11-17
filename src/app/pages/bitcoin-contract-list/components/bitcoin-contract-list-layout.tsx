@@ -15,7 +15,7 @@ export function BitcoinContractListLayout({ children }: BitcoinContractListProps
   const navigate = useNavigate();
   useRouteHeader(<Header title="Bitcoin Contracts" onClose={() => navigate(RouteUrls.Home)} />);
   return (
-    <Stack padding="base" width="100%" overflow={'scroll'}>
+    <Stack padding="space.04" width="100%" overflow={'scroll'}>
       {children}
     </Stack>
   );

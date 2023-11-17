@@ -1,14 +1,15 @@
 import { PayloadType, StacksTransaction, addressToString } from '@stacks/transactions';
-import { BoxProps, DynamicColorCircle } from '@stacks/ui';
+import { CircleProps } from 'leather-styles/jsx';
 
 import { StacksTx } from '@shared/models/transactions/stacks-transaction.model';
 
 import { getTxSenderAddress } from '@app/common/transactions/stacks/transaction.utils';
-import { StxIcon } from '@app/components/icons/stx-icon';
 import { TransactionIconWrapper } from '@app/components/transaction/transaction-icon-wrapper';
 import { TransactionTypeIcon } from '@app/components/transaction/transaction-type-icon';
+import { DynamicColorCircle } from '@app/ui/components/dynamic-color-circle';
+import { StxIcon } from '@app/ui/components/icons/stx-icon';
 
-interface SubmittedTransactionIconProps extends BoxProps {
+interface SubmittedTransactionIconProps extends CircleProps {
   transaction: StacksTransaction;
 }
 export function SubmittedTransactionIcon({ transaction, ...rest }: SubmittedTransactionIconProps) {
@@ -17,9 +18,7 @@ export function SubmittedTransactionIcon({ transaction, ...rest }: SubmittedTran
       return (
         <DynamicColorCircle
           position="relative"
-          string={`${getTxSenderAddress(transaction)}.${transaction.payload.contractName.content}`}
-          backgroundSize="200%"
-          size="36px"
+          value={`${getTxSenderAddress(transaction)}.${transaction.payload.contractName.content}`}
           {...rest}
         >
           <TransactionTypeIcon
@@ -36,11 +35,9 @@ export function SubmittedTransactionIcon({ transaction, ...rest }: SubmittedTran
       return (
         <DynamicColorCircle
           position="relative"
-          string={`${addressToString(transaction.payload.contractAddress)}.${
+          value={`${addressToString(transaction.payload.contractAddress)}.${
             transaction.payload.contractName.content
           }::${transaction.payload.functionName.content}`}
-          backgroundSize="200%"
-          size="36px"
           {...rest}
         >
           <TransactionTypeIcon
@@ -56,7 +53,7 @@ export function SubmittedTransactionIcon({ transaction, ...rest }: SubmittedTran
     case PayloadType.TokenTransfer:
       return (
         <TransactionIconWrapper
-          icon={StxIcon}
+          icon={<StxIcon />}
           transaction={
             {
               tx_type: 'token_transfer',

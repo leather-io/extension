@@ -1,6 +1,6 @@
 import { Flex } from 'leather-styles/jsx';
 
-import { LeatherButton } from '@app/components/button/button';
+import { LeatherButton } from '@app/ui/components/button';
 
 interface CreateAccountActionProps {
   onCreateAccount(): void;

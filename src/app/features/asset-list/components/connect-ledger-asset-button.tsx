@@ -5,9 +5,9 @@ import { styled } from 'leather-styles/jsx';
 import { SupportedBlockchains } from '@shared/constants';
 
 import { capitalize } from '@app/common/utils';
-import { LeatherButton } from '@app/components/button/button';
-import { LedgerIcon } from '@app/components/icons/ledger-icon';
 import { immediatelyAttemptLedgerConnection } from '@app/features/ledger/hooks/use-when-reattempt-ledger-connection';
+import { LeatherButton } from '@app/ui/components/button';
+import { LedgerIcon } from '@app/ui/components/icons/ledger-icon';
 
 interface ConnectLedgerAssetBtnProps {
   chain: SupportedBlockchains;

@@ -1,21 +1,27 @@
-import { Box, color } from '@stacks/ui';
-import { forwardRefWithAs } from '@stacks/ui-core';
+import { forwardRef } from 'react';
 
-export const MenuWrapper = forwardRefWithAs((props, ref) => (
-  <Box
-    ref={ref}
-    position="absolute"
-    top="60px"
-    right="extra-loose"
-    borderRadius="10px"
-    width="296px"
-    boxShadow="0px 8px 16px rgba(27, 39, 51, 0.08);"
-    zIndex={2000}
-    border="1px solid"
-    bg={color('bg')}
-    borderColor={color('border')}
-    py="tight"
-    transformOrigin="top right"
-    {...(props as any)}
-  />
-));
+import { Box, BoxProps } from 'leather-styles/jsx';
+
+interface MenuWrapperProps extends BoxProps {
+  isShowing: boolean;
+}
+export const MenuWrapper = forwardRef<HTMLDivElement, MenuWrapperProps>(
+  ({ isShowing, ...props }: MenuWrapperProps, ref) =>
+    isShowing ? (
+      <Box
+        bg="accent.background-primary"
+        borderRadius="10px"
+        boxShadow="0px 8px 16px rgba(27, 39, 51, 0.08)"
+        cursor={isShowing ? 'all' : 'none'}
+        position="absolute"
+        py="space.02"
+        ref={ref}
+        right="space.06"
+        top="60px"
+        transformOrigin="top right"
+        width="296px"
+        zIndex={2000}
+        {...props}
+      />
+    ) : null
+);

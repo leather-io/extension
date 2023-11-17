@@ -5,8 +5,8 @@ import { OnboardingSelectors } from '@tests/selectors/onboarding.selectors';
 import { css } from 'leather-styles/css';
 import { Box, Flex, HStack, Stack, styled } from 'leather-styles/jsx';
 
-import { LeatherButton } from '@app/components/button/button';
-import { LeatherIcon } from '@app/components/icons/leather-icon';
+import { LeatherButton } from '@app/ui/components/button';
+import { LeatherIcon } from '@app/ui/components/icons/leather-icon';
 
 interface ReasonToAllowDiagnosticsProps {
   text: string;
@@ -37,7 +37,7 @@ export function AllowDiagnosticsLayout(props: AllowDiagnosticsLayoutProps) {
           backgroundColor: 'accent.background-primary',
         })}
       >
-        <LeatherIcon />
+        <LeatherIcon width="72px" />
         <styled.h1 textStyle="heading.03" mt={['space.05', 'space.08']}>
           Help us improve
         </styled.h1>

@@ -1,14 +1,14 @@
 import { useCallback } from 'react';
 import toast from 'react-hot-toast';
 
-import { Box } from '@stacks/ui';
 import { SendCryptoAssetSelectors } from '@tests/selectors/send.selectors';
 import { useField } from 'formik';
+import { Box } from 'leather-styles/jsx';
 
 import { Money } from '@shared/models/money.model';
 
 import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
-import { LeatherButton } from '@app/components/button/button';
+import { LeatherButton } from '@app/ui/components/button';
 
 interface SendMaxButtonProps {
   balance: Money;

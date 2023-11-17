@@ -1,6 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 
-import { Box, Flex, Stack, Text } from '@stacks/ui';
+import { Box, Flex, HStack, Stack } from 'leather-styles/jsx';
 
 import { RouteUrls } from '@shared/route-urls';
 import { noop } from '@shared/utils';
@@ -11,7 +11,6 @@ import { Flag } from '@app/components/layout/flag';
 import { StatusPending } from '@app/components/status-pending';
 import { StatusReady } from '@app/components/status-ready';
 import { Tooltip } from '@app/components/tooltip';
-import { Caption } from '@app/components/typography';
 import { useNativeSegwitBalance } from '@app/query/bitcoin/balance/btc-native-segwit-balance.hooks';
 import { useCheckOrderStatuses } from '@app/query/bitcoin/ordinals/brc20/use-check-order-status';
 import { fetchInscripionById } from '@app/query/bitcoin/ordinals/inscription-by-id.query';
@@ -23,6 +22,7 @@ import {
   PendingBrc20Transfer,
   usePendingBrc20Transfers,
 } from '@app/store/ordinals/ordinals.slice';
+import { Caption } from '@app/ui/components/typography/caption';
 
 function StatusIcon({ status }: { status: OrdinalsbotInscriptionStatus }) {
   switch (status) {
@@ -45,17 +45,17 @@ function StatusLabel({ status }: { status: OrdinalsbotInscriptionStatus }) {
     case 'paid':
       return (
         <Tooltip label="Your funds have been received. Your inscription will be available shortly.">
-          <Text>Creating transfer inscription…</Text>
+          <>Creating transfer inscription…</>
         </Tooltip>
       );
     case 'waiting-for-indexer':
       return (
         <Tooltip label="Inscription complete, awaiting metadata">
-          <Text>Receiving transfer inscription…</Text>
+          <>Receiving transfer inscription…</>
         </Tooltip>
       );
     case 'ready':
-      return <Text>Ready to transfer</Text>;
+      return <>Ready to transfer</>;
     default:
       return null;
   }
@@ -71,11 +71,11 @@ export function PendingBrc20TransferList() {
   if (!transferOrders.length) return null;
 
   return (
-    <Flex flexDirection="column" justifyContent="space-between" flex={1} my="base-loose">
+    <Flex flexDirection="column" justifyContent="space-between" flex={1} my="space.04">
       <Flex columnGap="8px">
         <Caption>Pending BRC-20 transfers</Caption>
       </Flex>
-      <Stack mt="tight">
+      <Stack mt="space.02">
         {transferOrders.map(order => (
           <PendingBrcTransfer key={order.id} order={order} />
         ))}
@@ -100,7 +100,7 @@ function PendingBrcTransfer({ order }: PendingBrcTransferProps) {
   return (
     <Box
       key={order.id}
-      my="base-tight"
+      my="space.03"
       onClick={
         hasPositiveBtcBalanceForFees
           ? order.status === 'ready'
@@ -124,23 +124,23 @@ function PendingBrcTransfer({ order }: PendingBrcTransferProps) {
       }
       {...(order.status === 'ready' ? bind : {})}
     >
-      <Text>
+      <>
         {order.amount} {order.tick}
-      </Text>
-      <Stack isInline width="100%" mt="tight">
+      </>
+      <HStack width="100%" mt="space.02">
         <CaptionDotSeparator>
-          <Flex as={Caption}>
+          <Flex>
             <Flag
-              ml="tight"
+              ml="space.02"
               align="middle"
-              spacing="tight"
+              spacing="space.02"
               img={<StatusIcon status={order.status} />}
             >
               <StatusLabel status={order.status} />
             </Flag>
           </Flex>
         </CaptionDotSeparator>
-      </Stack>
+      </HStack>
       {component}
     </Box>
   );

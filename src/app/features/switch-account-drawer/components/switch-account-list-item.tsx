@@ -73,8 +73,8 @@ export const SwitchAccountListItem = memo(
         avatar={
           <AccountAvatarItem
             index={currentAccountIndex}
-            publicKey={stacksAccounts[currentAccountIndex]?.stxPublicKey || ''}
             name={name}
+            publicKey={stacksAccounts[currentAccountIndex]?.stxPublicKey || ''}
           />
         }
         onSelectAccount={handleClick}
@@ -85,7 +85,7 @@ export const SwitchAccountListItem = memo(
         hasCopied={hasCopied}
         onCopyToClipboard={onCopyToClipboard}
         onClickBtcCopyIcon={onClickBtcCopyIcon}
-        mt="loose"
+        mt="space.05"
         {...bind}
       >
         {component}

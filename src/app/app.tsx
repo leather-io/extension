@@ -2,12 +2,11 @@ import { Suspense } from 'react';
 import { Provider as ReduxProvider } from 'react-redux';
 
 import { radixBaseCSS } from '@radix-ui/themes/styles.css';
-import { ThemeProvider } from '@stacks/ui';
 import { QueryClientProvider } from '@tanstack/react-query';
+import { styled } from 'leather-styles/jsx';
 import { PersistGate } from 'redux-persist/integration/react';
 
 import { queryClient } from '@app/common/persistence';
-import { theme } from '@app/common/theme';
 import { FullPageLoadingSpinner } from '@app/components/loading-spinner';
 import { Devtools } from '@app/features/devtool/devtools';
 import { AppErrorBoundary } from '@app/features/errors/app-error-boundary';
@@ -26,8 +25,8 @@ export function App() {
       <PersistGate loading={<FullPageLoadingSpinner />} persistor={persistor}>
         <HeadProvider />
         {/* TODO: this works but investigate importing radixBaseCSS in panda layer config */}
-        <ThemeProvider theme={theme} css={radixBaseCSS}>
-          <ThemeSwitcherProvider>
+        <ThemeSwitcherProvider>
+          <styled.div css={radixBaseCSS}>
             <QueryClientProvider client={queryClient}>
               <Suspense fallback={<FullPageLoadingSpinner />}>
                 <AppErrorBoundary>
@@ -36,8 +35,8 @@ export function App() {
                 {reactQueryDevToolsEnabled && <Devtools />}
               </Suspense>
             </QueryClientProvider>
-          </ThemeSwitcherProvider>
-        </ThemeProvider>
+          </styled.div>
+        </ThemeSwitcherProvider>
       </PersistGate>
     </ReduxProvider>
   );

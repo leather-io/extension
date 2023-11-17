@@ -75,6 +75,7 @@ const aliases = {
   '@stacks/network': '@stacks/network/dist/esm',
   '@stacks/profile': '@stacks/profile/dist/esm',
   '@stacks/auth': '@stacks/auth/dist/esm',
+  'leather-styles': path.resolve('leather-styles'),
 };
 
 const config = {

@@ -1,9 +1,7 @@
 import { toast } from 'react-hot-toast';
-import { FiCheck, FiCopy, FiExternalLink } from 'react-icons/fi';
 import { useLocation } from 'react-router-dom';
 
-import { Stack } from '@stacks/ui';
-import { Text } from '@stacks/ui';
+import { HStack, styled } from 'leather-styles/jsx';
 
 import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
 import { useClipboard } from '@app/common/hooks/use-copy-to-clipboard';
@@ -17,6 +15,9 @@ import {
   InfoCardFooter,
 } from '@app/components/info-card/info-card';
 import { ModalHeader } from '@app/components/modal-header';
+import { CheckmarkIcon } from '@app/ui/components/icons/checkmark-icon';
+import { CopyIcon } from '@app/ui/components/icons/copy-icon';
+import { ExternalLinkIcon } from '@app/ui/components/icons/external-link-icon';
 
 export function LockBitcoinSummary() {
   const { state } = useLocation();
@@ -42,24 +43,28 @@ export function LockBitcoinSummary() {
   return (
     <InfoCard>
       <InfoCardAssetValue
-        value={Number(satToBtc(txMoney.amount))}
-        fiatValue={txFiatValue}
         fiatSymbol={txFiatValueSymbol}
+        fiatValue={txFiatValue}
+        icon={<CheckmarkIcon size="32px" />}
+        my="space.05"
+        px="space.05"
         symbol={symbol}
-        icon={FiCheck}
-        my="loose"
-        px="loose"
+        value={Number(satToBtc(txMoney.amount))}
       />
-      <Text fontSize={2} fontWeight={200} padding={'25px'} textAlign={'justify'}>
-        <span style={{ fontWeight: 500 }}>Success!</span> Your bitcoin has been locked securely. All
-        that's left is for it to be confirmed on the blockchain. After confirmation, you can proceed
-        with borrowing against it.
-      </Text>
+      <styled.span fontSize={2} fontWeight={200} p="space.05" textAlign="justify">
+        <styled.span style={{ fontWeight: 500 }}>Success!</styled.span> Your bitcoin has been locked
+        securely. All that's left is for it to be confirmed on the blockchain. After confirmation,
+        you can proceed with borrowing against it.
+      </styled.span>
       <InfoCardFooter>
-        <Stack spacing="base" isInline width="100%">
-          <InfoCardBtn onClick={onClickLink} icon={FiExternalLink} label="View Details" />
-          <InfoCardBtn onClick={onClickCopy} icon={FiCopy} label="Copy ID" />
-        </Stack>
+        <HStack gap="space.04" width="100%">
+          <InfoCardBtn
+            icon={<ExternalLinkIcon size="14px" />}
+            label="View details"
+            onClick={onClickLink}
+          />
+          <InfoCardBtn icon={<CopyIcon size="14px" />} label="Copy ID" onClick={onClickCopy} />
+        </HStack>
       </InfoCardFooter>
     </InfoCard>
   );

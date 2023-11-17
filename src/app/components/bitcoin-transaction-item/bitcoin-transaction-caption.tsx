@@ -1,12 +1,12 @@
-import { Text, color } from '@stacks/ui';
+import { styled } from 'leather-styles/jsx';
 
 interface BitcoinTransactionCaptionProps {
   children: string;
 }
 export function BitcoinTransactionCaption({ children }: BitcoinTransactionCaptionProps) {
   return (
-    <Text color={color('text-caption')} fontSize={0} whiteSpace="nowrap">
+    <styled.span textStyle="caption.02" whiteSpace="nowrap">
       {children}
-    </Text>
+    </styled.span>
   );
 }

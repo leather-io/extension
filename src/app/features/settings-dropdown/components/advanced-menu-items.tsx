@@ -10,7 +10,7 @@ import {
 import { isNumber } from '@shared/utils';
 
 import { Divider } from '@app/components/layout/divider';
-import { Caption } from '@app/components/typography';
+import { Caption } from '@app/ui/components/typography/caption';
 
 import { SettingsMenuItem as MenuItem } from './settings-menu-item';
 
@@ -46,7 +46,7 @@ export function AdvancedMenuItems({ closeHandler, settingsShown }: AdvancedMenuI
         })}
       >
         Copy diagnostics to clipboard
-        <Caption mt="extra-tight" fontSize="12px !important">
+        <Caption mt="space.04" fontSize="12px !important">
           Contains private wallet usage activity
         </Caption>
       </MenuItem>
@@ -57,7 +57,7 @@ export function AdvancedMenuItems({ closeHandler, settingsShown }: AdvancedMenuI
         })}
       >
         Clear diagnostic information
-        <Caption mt="extra-tight" fontSize="12px !important">
+        <Caption mt="space.04" fontSize="12px !important">
           {diagnosticLogText}
         </Caption>
       </MenuItem>
