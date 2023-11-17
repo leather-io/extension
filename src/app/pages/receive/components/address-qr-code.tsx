@@ -2,6 +2,7 @@ import { memo, useMemo } from 'react';
 
 import { createQR } from '@vkontakte/vk-qr';
 import { Box, Flex } from 'leather-styles/jsx';
+import { token } from 'leather-styles/tokens';
 
 export const QrCode = memo(({ principal, ...rest }: { principal: string }) => {
   const qrSvg = useMemo(
@@ -9,8 +10,8 @@ export const QrCode = memo(({ principal, ...rest }: { principal: string }) => {
       createQR(principal, {
         ecc: 0,
         qrSize: 180,
-        backgroundColor: 'accent.text-primary',
-        foregroundColor: 'invert',
+        backgroundColor: token('colors.accent.background-primary'),
+        foregroundColor: token('colors.accent.text-primary'),
       }),
     [principal]
   );
