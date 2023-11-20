@@ -74,14 +74,15 @@ const githubWalletConfigRawUrl = `https://raw.githubusercontent.com/${GITHUB_ORG
   BRANCH_NAME || defaultBranch
 }/config/wallet-config.json`;
 
-async function fetchHiroMessages(): Promise<RemoteConfig> {
+async function fetchLeatherMessages(): Promise<RemoteConfig> {
   if ((!BRANCH_NAME && WALLET_ENVIRONMENT !== 'production') || IS_TEST_ENV)
     return localConfig as RemoteConfig;
-  return axios.get(githubWalletConfigRawUrl);
+  const resp = await axios.get(githubWalletConfigRawUrl);
+  return resp.data;
 }
 
 function useRemoteConfig() {
-  const { data } = useQuery(['walletConfig'], fetchHiroMessages, {
+  const { data } = useQuery(['walletConfig'], fetchLeatherMessages, {
     // As we're fetching from Github, a third-party, we want
     // to avoid any unnecessary stress on their services, so
     // we use quite slow stale/retry times
@@ -91,7 +92,7 @@ function useRemoteConfig() {
   return data;
 }
 
-export function useRemoteHiroMessages(): HiroMessage[] {
+export function useRemoteLeatherMessages(): HiroMessage[] {
   const config = useRemoteConfig();
   return get(config, 'messages.global', []);
 }
