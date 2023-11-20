@@ -34,7 +34,7 @@ test.describe('Bitcoin Contract Request Test', () => {
     }) =>
       page.evaluate(
         async params =>
-          (window as any).HiroWalletProvider.request('acceptBitcoinContractOffer', params).catch(
+          (window as any).LeatherProvider.request('acceptBitcoinContractOffer', params).catch(
             (e: unknown) => e
           ),
         requestParams
