@@ -1,7 +1,6 @@
-import { FiAlertTriangle } from 'react-icons/fi';
-
 import { HStack } from 'leather-styles/jsx';
 
+import { ErrorIcon } from '@app/ui/components/icons/error-icon';
 import { Caption } from '@app/ui/components/typography/caption';
 
 interface ErrorMessageProps {
@@ -12,9 +11,8 @@ export function ErrorMessage(props: ErrorMessageProps) {
   if (!errorMessage) return null;
 
   return (
-    // #4476 TODO change this colour and migrate FiAlertTriangle
     <HStack alignItems="center" bg="#FCEEED" p="space.04" borderRadius="md">
-      <FiAlertTriangle />
+      <ErrorIcon />
       <Caption color="error.label">{errorMessage}</Caption>
     </HStack>
   );
