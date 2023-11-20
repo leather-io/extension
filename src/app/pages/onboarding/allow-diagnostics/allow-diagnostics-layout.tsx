@@ -1,11 +1,10 @@
-import { FiCheck } from 'react-icons/fi';
-
 import { Dialog } from '@radix-ui/themes';
 import { OnboardingSelectors } from '@tests/selectors/onboarding.selectors';
 import { css } from 'leather-styles/css';
 import { Box, Flex, HStack, Stack, styled } from 'leather-styles/jsx';
 
 import { LeatherButton } from '@app/ui/components/button';
+import { CheckmarkIcon } from '@app/ui/components/icons/checkmark-icon';
 import { LeatherIcon } from '@app/ui/components/icons/leather-icon';
 
 interface ReasonToAllowDiagnosticsProps {
@@ -15,7 +14,7 @@ function ReasonToAllowDiagnostics({ text }: ReasonToAllowDiagnosticsProps) {
   return (
     <Flex textStyle="body.02">
       <Box mr="space.02" mt="3px">
-        <FiCheck />
+        <CheckmarkIcon />
       </Box>
       <Box>{text}</Box>
     </Flex>

@@ -1,13 +1,13 @@
-import { FiLock } from 'react-icons/fi';
-
 import { Box, Circle, HStack } from 'leather-styles/jsx';
 import { styled } from 'leather-styles/jsx';
+
+import { LockIcon } from '@app/ui/components/icons/lock-icon';
 
 export function NoPostConditions(): React.JSX.Element {
   return (
     <HStack alignItems="center" gap="space.04" p="space.04">
       <Circle bg="accent.component-background-hover" flexShrink={0}>
-        <FiLock />
+        <LockIcon />
       </Circle>
       <Box flexGrow={1}>
         <styled.span textStyle="body.02">

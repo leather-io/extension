@@ -1,3 +1,4 @@
+// TODO get icons for Trash, Circle, Star, Zap, CloudOff
 import { FiTrash2 } from 'react-icons/fi';
 
 import { SettingsSelectors } from '@tests/selectors/settings.selectors';
