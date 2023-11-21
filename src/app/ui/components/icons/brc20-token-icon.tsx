@@ -1,11 +1,10 @@
 import { Square, SquareProps } from 'leather-styles/jsx';
-import { token } from 'leather-styles/tokens';
 
 import { Svg } from '../svg';
 
-export function Brc20TokenIcon({ size = token('icons.icon.xl'), ...props }: SquareProps) {
+export function Brc20TokenIcon({ size = 'xl', ...rest }: SquareProps) {
   return (
-    <Square size={size} {...props}>
+    <Square size={size} {...rest}>
       <Svg
         width="36"
         height="36"

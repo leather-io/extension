@@ -1,7 +1,5 @@
 import { useLocation, useNavigate } from 'react-router-dom';
 
-import { token } from 'leather-styles/tokens';
-
 import { RouteUrls } from '@shared/route-urls';
 
 import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
@@ -28,7 +26,7 @@ export function AddCollectible() {
       subtitle="Collectible"
       title="Add new"
     >
-      <PlusIcon size={token('icons.icon.xl')} />
+      <PlusIcon size="xl" />
     </CollectibleItemLayout>
   );
 }

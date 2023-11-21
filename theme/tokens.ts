@@ -12,6 +12,11 @@ export const tokens = defineTokens({
   sizes: {
     centeredPageFullWidth: { value: '500px' },
     desktopViewportMinWidth: { value: '480px' },
+    xs: { value: '12px' },
+    sm: { value: '16px' },
+    md: { value: '24px' },
+    lg: { value: '30px' },
+    xl: { value: '36px' },
   },
   radii: {
     xs: { value: '8px' },
@@ -50,13 +55,6 @@ export const tokens = defineTokens({
     invert: { value: '1px solid {colors.invert}' },
     subdued: { value: '1px solid {colors.accent.text-subdued}' },
     warning: { value: '1px solid {colors.warning.label}' },
-  },
-  icons: {
-    'icon.xs': { value: '12px', description: '12px' },
-    'icon.sm': { value: '16px', description: '16px' },
-    'icon.md': { value: '24px', description: '24px' },
-    'icon.lg': { value: '30px', description: '30px' },
-    'icon.xl': { value: '36px', description: '36px' },
   },
   transition: { value: 'all 0.2s cubic-bezier(0.23, 1, 0.32, 1)' },
 });

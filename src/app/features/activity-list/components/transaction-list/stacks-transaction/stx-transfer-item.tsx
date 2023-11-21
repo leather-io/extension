@@ -24,11 +24,7 @@ export function StxTransferItem({ stxTransfer, parentTx }: StxTransferItemProps)
   const isOriginator = stxTransfer.sender === currentAccount?.address;
 
   const caption = getTxCaption(parentTx.tx) ?? '';
-  const icon = isOriginator ? (
-    <ArrowUpIcon size={token('icons.icon.xs')} />
-  ) : (
-    <ArrowDownIcon size={token('icons.icon.xs')} />
-  );
+  const icon = isOriginator ? <ArrowUpIcon size="xs" /> : <ArrowDownIcon size="xs" />;
   const title = 'Stacks Token Transfer';
   const value = `${isOriginator ? '-' : ''}${stacksValue({
     value: stxTransfer.amount,

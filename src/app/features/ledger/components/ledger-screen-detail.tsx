@@ -23,7 +23,7 @@ export function LedgerScreenDetail(props: LedgerScreenDetailProps) {
               <InfoIcon
                 ml="space.01"
                 mt="space.01"
-                size={token('icons.icon.xs')}
+                size="xs"
                 style={{ color: token('colors.accent.text-subdued') }}
               />
             </Flex>

@@ -1,9 +1,8 @@
 import { Square, SquareProps } from 'leather-styles/jsx';
-import { token } from 'leather-styles/tokens';
 
 import { Svg } from '@app/ui/components/svg';
 
-export function EllipsesHorizontalIcon({ size = token('icons.icon.sm'), ...props }: SquareProps) {
+export function EllipsesHorizontalIcon({ size = 'sm', ...props }: SquareProps) {
   return (
     <Square size={size} {...props}>
       <Svg

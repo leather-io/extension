@@ -1,9 +1,8 @@
 import { Square, SquareProps } from 'leather-styles/jsx';
-import { token } from 'leather-styles/tokens';
 
 import { Svg } from '@app/ui/components/svg';
 
-export function StxIcon({ size = token('icons.icon.xl'), ...props }: SquareProps) {
+export function StxIcon({ size = 'xl', ...props }: SquareProps) {
   return (
     <Square size={size} {...props}>
       <Svg

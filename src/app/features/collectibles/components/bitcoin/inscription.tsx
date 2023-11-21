@@ -31,7 +31,7 @@ export function Inscription({ rawInscription }: InscriptionProps) {
     case 'image': {
       return (
         <CollectibleImage
-          icon={<OrdinalIcon size={token('icons.icon.lg')} />}
+          icon={<OrdinalIcon size="lg" />}
           key={inscription.title}
           onClickCallToAction={() => openInNewTab(inscription.infoUrl)}
           onClickSend={() => openSendInscriptionModal()}

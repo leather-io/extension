@@ -1,5 +1,4 @@
 import { Box, Flex, HStack, styled } from 'leather-styles/jsx';
-import { token } from 'leather-styles/tokens';
 
 import { Money } from '@shared/models/money.model';
 
@@ -21,7 +20,7 @@ export function AvailableBalance(props: { balance: Money; balanceTooltipLabel?: 
         </styled.span>
         <Tooltip label={balanceTooltipLabel} placement="top">
           <Box>
-            <InfoIcon color="accent.text-subdued" size={token('icons.icon.xs')} />
+            <InfoIcon color="accent.text-subdued" size="xs" />
           </Box>
         </Tooltip>
       </HStack>
