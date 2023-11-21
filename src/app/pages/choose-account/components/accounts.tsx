@@ -88,11 +88,7 @@ const AddAccountAction = memo(() => {
   return (
     <Box mb="space.05" px="space.03" py="space.02" onClick={onCreateAccount} {...bind}>
       <HStack alignItems="center">
-        <PlusIcon size="16px" />
-        {/* 
-        #4476 TODO - test / refactor this - I'm not sure where it is or what it does 
-        We have a button instead for `Create new account'
-        */}
+        <PlusIcon />
         Generate new account
       </HStack>
       {component}

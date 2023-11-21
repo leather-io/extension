@@ -13,7 +13,7 @@ export function Stamp(props: { bitcoinStamp: BitcoinStamp }) {
 
   return (
     <CollectibleImage
-      icon={<StampsIcon size={token('icons.icon.lg')} />}
+      icon={<StampsIcon size="lg" />}
       key={bitcoinStamp.stamp}
       onClickCallToAction={() => openInNewTab(`${stampChainAssetUrl}${bitcoinStamp.stamp}`)}
       src={bitcoinStamp.stamp_url}

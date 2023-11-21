@@ -1,4 +1,5 @@
 import { BoxProps, Flex, HStack, styled } from 'leather-styles/jsx';
+import { token } from 'leather-styles/tokens';
 
 import type { Money } from '@shared/models/money.model';
 
@@ -13,12 +14,14 @@ interface Brc20TokenAssetItemLayoutProps extends BoxProps {
   balance: Money;
   caption: string;
   isPressable?: boolean;
+  onClick?(): void;
   title: string;
 }
 export function Brc20TokenAssetItemLayout({
   balance,
   caption,
   isPressable,
+  onClick,
   title,
 }: Brc20TokenAssetItemLayoutProps) {
   const [component, bind] = usePressable(isPressable);
@@ -26,8 +29,7 @@ export function Brc20TokenAssetItemLayout({
   const formattedBalance = formatBalance(balance.amount.toString());
 
   return (
-    // #4476 TODO not sure why this isn't erroring
-    <Flex as={isPressable ? 'button' : 'div'} outline={0} {...(bind as any)}>
+    <Flex onClick={isPressable ? onClick : undefined} {...bind}>
       <Flag align="middle" img={<Brc20TokenIcon />} spacing="space.04" width="100%">
         <HStack alignItems="center" justifyContent="space-between" width="100%">
           <styled.span

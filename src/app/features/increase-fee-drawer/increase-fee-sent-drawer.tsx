@@ -17,7 +17,7 @@ export function IncreaseFeeSentDrawer() {
     <>
       <BaseDrawer isShowing={isShowing} onClose={() => navigate(RouteUrls.Home)} title="Confirmed">
         <Flex justifyContent="center" pb="space.06" px="space.05">
-          <CheckmarkIcon mt="2px" size={token('icons.icon.lg')} />
+          <CheckmarkIcon mt="2px" size="lg" />
         </Flex>
       </BaseDrawer>
       <Outlet />

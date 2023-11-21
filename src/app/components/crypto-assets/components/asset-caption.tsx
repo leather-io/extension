@@ -23,7 +23,7 @@ export function AssetCaption({ caption, isUnanchored }: AssetCaptionProps) {
                 target="_blank"
                 rel="noreferrer"
               >
-                <InfoIcon size="icon.xs" ml="space.01" color="accent.text-subdued" />
+                <InfoIcon color="accent.text-subdued" ml="space.01" size="xs" />
               </a>
             </HStack>
           </Tooltip>

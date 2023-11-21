@@ -10,8 +10,8 @@ import { BtcIcon } from '@app/ui/components/icons/btc-icon';
 
 export function TxStatusIcon(props: { address: string; tx: BitcoinTx }) {
   const { address, tx } = props;
-  if (isBitcoinTxInbound(address, tx)) return <ArrowDownIcon size={token('icons.icon.xs')} />;
-  return <ArrowUpIcon size={token('icons.icon.xs')} />;
+  if (isBitcoinTxInbound(address, tx)) return <ArrowDownIcon size="xs" />;
+  return <ArrowUpIcon size="xs" />;
 }
 
 interface TransactionIconProps extends CircleProps {

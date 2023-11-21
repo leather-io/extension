@@ -1,9 +1,8 @@
 import { Square, SquareProps } from 'leather-styles/jsx';
-import { token } from 'leather-styles/tokens';
 
 import { Svg } from '../svg';
 
-export function OrdinalIcon({ size = token('icons.icon.xl'), ...props }: SquareProps) {
+export function OrdinalIcon({ size = 'xl', ...props }: SquareProps) {
   return (
     <Square size={size} {...props}>
       <Svg

@@ -16,7 +16,7 @@ export function Brc20TokenAssetItem({ token, isPressable, onClick }: Brc20TokenA
       caption="BRC-20"
       title={token.tick}
       isPressable={isPressable}
-      onClick={onClick} // #4383 TODO - check this works
+      onClick={onClick}
     />
   );
 }

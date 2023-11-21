@@ -32,11 +32,7 @@ export function FeesRowLayout(props: FeesRowLayoutProps) {
               <styled.span color="accent.text-subdued" textStyle="label.02">
                 Fee
               </styled.span>
-              <InfoIcon
-                color="accent.text-subdued"
-                onClick={() => openInNewTab(url)}
-                size={token('icons.icon.xs')}
-              />
+              <InfoIcon color="accent.text-subdued" onClick={() => openInNewTab(url)} size="xs" />
             </HStack>
           </Tooltip>
           {!isSponsored ? selectInput : null}

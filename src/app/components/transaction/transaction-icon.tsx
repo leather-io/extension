@@ -13,13 +13,13 @@ export function TransactionIcon(props: { tx: StacksTx }) {
 
   switch (tx.tx_type) {
     case 'coinbase':
-      return <PlusIcon size={token('icons.icon.xs')} />;
+      return <PlusIcon size="xs" />;
     case 'smart_contract':
-      return <CodeIcon size={token('icons.icon.xs')} />;
+      return <CodeIcon size="xs" />;
     case 'token_transfer':
       return <TokenTransferIcon tx={tx} />;
     case 'contract_call':
-      return <FunctionIcon size={token('icons.icon.xs')} />;
+      return <FunctionIcon size={token('sizes.xs')} />;
     case 'poison_microblock':
       return null;
     default:

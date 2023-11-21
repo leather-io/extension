@@ -13,7 +13,7 @@ export function SponsoredLabel(): React.JSX.Element {
         height="48px"
         pl="space.04"
       >
-        <ErrorCircleIcon color="stacks" size="icon.sm" />
+        <ErrorCircleIcon color="stacks" size="sm" />
 
         <styled.span color="accent.text-primary">
           This transaction is sponsored, so no fee is charged

@@ -1,9 +1,8 @@
 import { Square, SquareProps } from 'leather-styles/jsx';
-import { token } from 'leather-styles/tokens';
 
 import { Svg } from '../svg';
 
-export function RefreshIcon({ size = token('icons.icon.sm'), ...props }: SquareProps) {
+export function RefreshIcon({ size = 'sm', ...props }: SquareProps) {
   return (
     <Square size={size} {...props}>
       <Svg

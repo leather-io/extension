@@ -1,5 +1,3 @@
-import { token } from 'leather-styles/tokens';
-
 import { StacksTx } from '@shared/models/transactions/stacks-transaction.model';
 
 import { useCurrentAccountStxAddressState } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
@@ -20,11 +18,10 @@ export function TokenTransferIcon(props: { tx: StacksTx }) {
         bg={getColorFromTx(tx)}
         borderColor="currentColor"
         fill="accent.background-primary"
-        size={token('icons.icon.xs')}
       />
     );
 
-  if (isSent) return <ArrowUpIcon size={token('icons.icon.xs')} />;
+  if (isSent) return <ArrowUpIcon size="xs" />;
 
-  return <ArrowDownIcon size={token('icons.icon.xs')} />;
+  return <ArrowDownIcon size="xs" />;
 }
