@@ -46,6 +46,7 @@ export function BitcoinContractRequest() {
 
   useOnMount(() => {
     const bitcoinContractOfferJSON = initialSearchParams.get('bitcoinContractOffer');
+    const bitcoinNetwork = initialSearchParams.get('bitcoinNetwork');
     const counterpartyWalletDetailsJSON = initialSearchParams.get('counterpartyWalletDetails');
 
     const bitcoinAccountDetails = getNativeSegwitSigner?.(0);
@@ -54,19 +55,35 @@ export function BitcoinContractRequest() {
 
     const currentBitcoinNetwork = bitcoinAccountDetails.network;
 
+    if (
+      !getNativeSegwitSigner ||
+      !bitcoinContractOfferJSON ||
+      !counterpartyWalletDetailsJSON ||
+      !bitcoinNetwork
+    )
+      return;
+
     if (!['testnet', 'regtest'].includes(currentBitcoinNetwork)) {
       navigate(RouteUrls.BitcoinContractLockError, {
         state: {
           error: new Error('Invalid Network'),
-          title: "Network doesn't support Bitcoin Contracts",
+          title: "Current selected network doesn't support Bitcoin Contracts",
           body: "The wallet's current selected network doesn't support Bitcoin Contracts",
         },
       });
       sendRpcResponse(BitcoinContractResponseStatus.NETWORK_ERROR);
     }
 
-    if (!getNativeSegwitSigner || !bitcoinContractOfferJSON || !counterpartyWalletDetailsJSON)
-      return;
+    if (JSON.parse(bitcoinNetwork) !== currentBitcoinNetwork) {
+      navigate(RouteUrls.BitcoinContractLockError, {
+        state: {
+          error: new Error('Invalid Network'),
+          title: "Current selected network doesn't match offer's network",
+          body: "The wallet's current selected network doesn't match the offer's network",
+        },
+      });
+      sendRpcResponse(BitcoinContractResponseStatus.NETWORK_ERROR);
+    }
 
     const currentBitcoinContractOfferDetails = handleOffer(
       bitcoinContractOfferJSON,

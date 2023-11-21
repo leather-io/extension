@@ -2,22 +2,22 @@ import { BitcoinContractRequestSelectors } from '@tests/selectors/bitcoin-contra
 import { Flex } from 'leather-styles/jsx';
 import { styled } from 'leather-styles/jsx';
 
-interface BitcoinContractExpirationDateProps {
-  expirationDate: string;
+interface BitcoinContractEmergencyRefundTimeProps {
+  emergencyRefundTime: string;
 }
-export function BitcoinContractExpirationDate({
-  expirationDate,
-}: BitcoinContractExpirationDateProps) {
+export function BitcoinContractEmergencyRefundTime({
+  emergencyRefundTime,
+}: BitcoinContractEmergencyRefundTimeProps) {
   return (
     <Flex gap="space.05" justifyContent="space-between" p="space.05" width="100%">
       <styled.span fontWeight={500} textStyle="body.01">
-        Expiration Date
+        Emergency Refund Time
       </styled.span>
       <styled.span
         data-testid={BitcoinContractRequestSelectors.BitcoinContractExpirationDate}
         textStyle="body.01"
       >
-        {expirationDate}
+        {emergencyRefundTime}
       </styled.span>
     </Flex>
   );
