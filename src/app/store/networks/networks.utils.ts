@@ -1,7 +1,11 @@
 import { Dictionary } from '@reduxjs/toolkit';
 import { ChainID } from '@stacks/transactions';
 
-import { NetworkConfiguration } from '@shared/constants';
+import {
+  BITCOIN_API_BASE_URL_MAINNET,
+  BITCOIN_API_BASE_URL_TESTNET,
+  NetworkConfiguration,
+} from '@shared/constants';
 
 import { PersistedNetworkConfiguration } from './networks.slice';
 
@@ -37,6 +41,27 @@ export function findMatchingNetworkKey({
   return null;
 }
 
+function checkBitcoinNetworkProperties(
+  network: PersistedNetworkConfiguration
+): PersistedNetworkConfiguration {
+  if (!network.bitcoinNetwork || !network.bitcoinUrl) {
+    return {
+      id: network.id,
+      name: network.name,
+      chainId: network.chainId,
+      subnetChainId: network.subnetChainId,
+      url: network.url,
+      bitcoinNetwork: network.chainId === ChainID.Mainnet ? 'mainnet' : 'testnet',
+      bitcoinUrl:
+        network.chainId === ChainID.Mainnet
+          ? BITCOIN_API_BASE_URL_MAINNET
+          : BITCOIN_API_BASE_URL_TESTNET,
+    };
+  } else {
+    return network;
+  }
+}
+
 export function transformNetworkStateToMultichainStucture(
   state: Dictionary<PersistedNetworkConfiguration>
 ) {
@@ -44,7 +69,8 @@ export function transformNetworkStateToMultichainStucture(
     Object.entries(state)
       .map(([key, network]) => {
         if (!network) return ['', null];
-        const { id, name, chainId, subnetChainId, url, bitcoinNetwork, bitcoinUrl } = network;
+        const { id, name, chainId, subnetChainId, url, bitcoinNetwork, bitcoinUrl } =
+          checkBitcoinNetworkProperties(network);
 
         return [
           key,
@@ -60,8 +86,8 @@ export function transformNetworkStateToMultichainStucture(
               },
               bitcoin: {
                 blockchain: 'bitcoin',
-                bitcoinNetwork,
-                bitcoinUrl,
+                bitcoinNetwork: bitcoinNetwork ? bitcoinNetwork : 'testnet',
+                bitcoinUrl: bitcoinUrl ? bitcoinUrl : 'https://blockstream.info/testnet/api',
               },
             },
           },
