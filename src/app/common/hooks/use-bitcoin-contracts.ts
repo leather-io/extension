@@ -34,7 +34,7 @@ import { useDefaultRequestParams } from './use-default-request-search-params';
 export interface SimplifiedBitcoinContract {
   bitcoinContractId: string;
   bitcoinContractCollateralAmount: number;
-  bitcoinContractExpirationDate: string;
+  bitcoinContractEmergencyRefundTime: string;
 }
 
 interface CounterpartyWalletDetails {
@@ -63,13 +63,14 @@ export function useBitcoinContracts() {
   const bitcoinAccountDetails = useCurrentAccountNativeSegwitIndexZeroSigner();
   const currentIndex = useCurrentAccountIndex();
   const nativeSegwitPrivateKeychain = useNativeSegwitAccountBuilder()?.(currentIndex);
-  const currentBitcoinNetwork = useCurrentNetwork();
+  const currentNetwork = useCurrentNetwork();
 
   async function getBitcoinContractInterface(): Promise<JsDLCInterface | undefined> {
     if (!nativeSegwitPrivateKeychain || !bitcoinAccountDetails) return;
 
     const currentAddress = bitcoinAccountDetails.address;
     const currentAccountIndex = extractAddressIndexFromPath(bitcoinAccountDetails.derivationPath);
+    const currentBitcoinNetwork = currentNetwork.chain.bitcoin;
 
     const currentAddressPrivateKey = deriveAddressIndexKeychainFromAccount(
       nativeSegwitPrivateKeychain.keychain
@@ -77,11 +78,25 @@ export function useBitcoinContracts() {
 
     if (!currentAddressPrivateKey) return;
 
+    if (
+      currentBitcoinNetwork.bitcoinNetwork === 'mainnet' ||
+      currentBitcoinNetwork.bitcoinNetwork === 'signet'
+    )
+      return;
+
+    const bitcoinContractStorageMap: Record<'testnet' | 'regtest', string> = {
+      testnet: 'https://testnet.dlc.link/storage-api',
+      regtest: 'https://devnet.dlc.link/storage-api',
+    };
+    const bitcoinContractStorageApiUrl =
+      bitcoinContractStorageMap[currentBitcoinNetwork.bitcoinNetwork];
+
     const bitcoinContractInterface = await JsDLCInterface.new(
       bytesToHex(currentAddressPrivateKey),
       currentAddress,
-      currentBitcoinNetwork.chain.bitcoin.bitcoinNetwork,
-      currentBitcoinNetwork.chain.bitcoin.bitcoinUrl
+      currentBitcoinNetwork.bitcoinNetwork,
+      currentBitcoinNetwork.bitcoinUrl,
+      bitcoinContractStorageApiUrl
     );
 
     return bitcoinContractInterface;
@@ -97,14 +112,14 @@ export function useBitcoinContracts() {
     const bitcoinContractId = bitcoinContractOffer.temporaryContractId;
     const bitcoinContractCollateralAmount =
       bitcoinContractOffer.contractInfo.singleContractInfo.totalCollateral;
-    const bitcoinContractExpirationDate = new Date(
-      bitcoinContractOffer.cetLocktime * 1000
+    const bitcoinContractEmergencyRefundTime = new Date(
+      bitcoinContractOffer.refundLocktime * 1000
     ).toLocaleDateString();
 
     const simplifiedBitcoinContractOffer: SimplifiedBitcoinContract = {
       bitcoinContractId,
       bitcoinContractCollateralAmount,
-      bitcoinContractExpirationDate,
+      bitcoinContractEmergencyRefundTime,
     };
 
     const bitcoinContractOfferDetails: BitcoinContractOfferDetails = {
