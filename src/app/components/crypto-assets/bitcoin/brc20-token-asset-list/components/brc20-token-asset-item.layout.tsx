@@ -1,5 +1,4 @@
 import { BoxProps, Flex, HStack, styled } from 'leather-styles/jsx';
-import { token } from 'leather-styles/tokens';
 
 import type { Money } from '@shared/models/money.model';
 

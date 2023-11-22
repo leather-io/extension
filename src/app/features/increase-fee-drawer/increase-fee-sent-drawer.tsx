@@ -1,7 +1,6 @@
 import { Outlet, useLocation, useNavigate } from 'react-router-dom';
 
 import { Flex } from 'leather-styles/jsx';
-import { token } from 'leather-styles/tokens';
 
 import { RouteUrls } from '@shared/route-urls';
 

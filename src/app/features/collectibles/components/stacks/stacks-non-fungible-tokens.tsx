@@ -1,5 +1,4 @@
 import { Metadata as StacksNftMetadata } from '@hirosystems/token-metadata-api-client';
-import { token } from 'leather-styles/tokens';
 
 import { isValidUrl } from '@shared/utils/validate-url';
 
