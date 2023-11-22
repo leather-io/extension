@@ -13,8 +13,14 @@ interface CollectiblesLayoutProps {
   subHeader?: React.ReactNode;
   children: React.ReactNode;
 }
-export function CollectiblesLayout(props: CollectiblesLayoutProps) {
-  const { title, isLoading, onRefresh, subHeader, isLoadingMore, children } = props;
+export function CollectiblesLayout({
+  title,
+  isLoading,
+  onRefresh,
+  subHeader,
+  isLoadingMore,
+  children,
+}: CollectiblesLayoutProps) {
   return (
     <>
       <Flex flexDirection="row" justifyContent="space-between" flex={1}>
