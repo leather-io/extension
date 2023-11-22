@@ -7,6 +7,7 @@ import get from 'lodash.get';
 
 import { RouteUrls } from '@shared/route-urls';
 
+import { useLocationStateWithCache } from '@app/common/hooks/use-location-state';
 import { useScrollLock } from '@app/common/hooks/use-scroll-lock';
 import { appEvents } from '@app/common/publish-subscribe';
 import { delay } from '@app/common/utils';
@@ -42,6 +43,10 @@ function LedgerSignBitcoinTxContainer() {
   const [unsignedTransactionRaw, setUnsignedTransactionRaw] = useState<null | string>(null);
   const [unsignedTransaction, setUnsignedTransaction] = useState<null | btc.Transaction>(null);
   const signLedger = useSignLedgerBitcoinTx();
+
+  const inputsToSign = useLocationStateWithCache<number[]>('inputsToSign');
+
+  console.log('inputsToSign', inputsToSign);
 
   useEffect(() => {
     const tx = get(location.state, 'tx');
@@ -88,6 +93,7 @@ function LedgerSignBitcoinTxContainer() {
         unsignedPsbt: unsignedTransactionRaw,
       });
     } catch (e) {
+      console.log(e);
       ledgerAnalytics.transactionSignedOnLedgerRejected();
       ledgerNavigate.toOperationRejectedStep();
     } finally {

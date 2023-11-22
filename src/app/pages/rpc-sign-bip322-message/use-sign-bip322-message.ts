@@ -2,6 +2,7 @@ import { useMemo, useState } from 'react';
 import toast from 'react-hot-toast';
 
 import { PaymentTypes, RpcErrorCode } from '@btckit/types';
+import * as btc from '@scure/btc-signer';
 import * as bitcoin from 'bitcoinjs-lib';
 
 import {
@@ -18,6 +19,7 @@ import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
 import { useDefaultRequestParams } from '@app/common/hooks/use-default-request-search-params';
 import { initialSearchParams } from '@app/common/initial-search-params';
 import { createDelay } from '@app/common/utils';
+import { useSignBitcoinTx } from '@app/store/accounts/blockchain/bitcoin/bitcoin.hooks';
 import {
   useCurrentAccountNativeSegwitSigner,
   useCurrentNativeSegwitAccount,
@@ -49,7 +51,7 @@ const allowTimeForUserToReadToast = createDelay(1200);
 
 interface SignBip322MessageFactoryArgs {
   address: string;
-  signPsbt(a: bitcoin.Psbt): void;
+  signPsbt(a: bitcoin.Psbt): Promise<btc.Transaction>;
 }
 function useSignBip322MessageFactory({ address, signPsbt }: SignBip322MessageFactoryArgs) {
   const network = useCurrentNetwork();
@@ -86,7 +88,7 @@ function useSignBip322MessageFactory({ address, signPsbt }: SignBip322MessageFac
         return;
       }
 
-      const { signature } = signBip322MessageSimple({
+      const { signature } = await signBip322MessageSimple({
         message,
         address,
         signPsbt,
@@ -117,15 +119,17 @@ function useSignBip322MessageTaproot() {
   if (!createTaprootSigner) throw new Error('No taproot signer for current account');
   const currentTaprootAccount = useCurrentTaprootAccount();
   if (!currentTaprootAccount) throw new Error('No keychain for current account');
+  const sign = useSignBitcoinTx();
 
   const signer = createTaprootSigner(0);
-  const keychain = deriveAddressIndexZeroFromAccount(currentTaprootAccount.keychain);
+  // const keychain = deriveAddressIndexZeroFromAccount(currentTaprootAccount.keychain);
 
-  function signPsbt(psbt: bitcoin.Psbt) {
+  async function signPsbt(psbt: bitcoin.Psbt) {
     psbt.data.inputs.forEach(
       input => (input.tapInternalKey = Buffer.from(signer.payment.tapInternalKey))
     );
-    psbt.signAllInputs(createTaprootBitcoinJsSigner(Buffer.from(keychain.privateKey!)));
+    // psbt.signAllInputs(createTaprootBitcoinJsSigner(Buffer.from(keychain.privateKey!)));
+    return sign(psbt.toBuffer());
   }
 
   return useSignBip322MessageFactory({
@@ -140,12 +144,14 @@ function useSignBip322MessageNativeSegwit() {
 
   const currentNativeSegwitAccount = useCurrentNativeSegwitAccount();
   if (!currentNativeSegwitAccount) throw new Error('No keychain for current account');
+  const sign = useSignBitcoinTx();
 
-  const keychain = deriveAddressIndexZeroFromAccount(currentNativeSegwitAccount.keychain);
+  // const keychain = deriveAddressIndexZeroFromAccount(currentNativeSegwitAccount.keychain);
   const signer = createNativeSegwitSigner(0);
 
-  function signPsbt(psbt: bitcoin.Psbt) {
-    psbt.signAllInputs(createNativeSegwitBitcoinJsSigner(Buffer.from(keychain.privateKey!)));
+  async function signPsbt(psbt: bitcoin.Psbt) {
+    // psbt.signAllInputs(createNativeSegwitBitcoinJsSigner(Buffer.from(keychain.privateKey!)));
+    return sign(psbt.toBuffer());
   }
 
   return useSignBip322MessageFactory({

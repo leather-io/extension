@@ -237,12 +237,13 @@ function useAppRoutes() {
             );
             return { Component: RpcSignBip322MessageRoute };
           }}
-        />
+        >
+          {ledgerBitcoinTxSigningRoutes}
+        </Route>
 
         {alexSwapRoutes}
 
         {/* Catch-all route redirects to onboarding */}
-
         <Route path="*" element={<Navigate replace to={RouteUrls.Onboarding} />} />
       </Route>
     )

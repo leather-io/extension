@@ -13,6 +13,8 @@ import { getTaprootAddressIndexDerivationPath } from '@shared/crypto/bitcoin/p2t
 import { getNativeSegwitAddressIndexDerivationPath } from '@shared/crypto/bitcoin/p2wpkh-address-gen';
 import { AllowedSighashTypes } from '@shared/rpc/methods/sign-psbt';
 
+import { useBitcoinExtendedPublicKeyVersions } from './bitcoin-keychain';
+
 export interface Signer<Payment> {
   network: BitcoinNetworkModes;
   payment: Payment;
@@ -105,11 +107,13 @@ interface CreateSignersForAllNetworkTypesArgs {
   paymentFn: (keychain: HDKey, network: BitcoinNetworkModes) => unknown;
   mainnetKeychainFn: (accountIndex: number) => BitcoinAccount | undefined;
   testnetKeychainFn: (accountIndex: number) => BitcoinAccount | undefined;
+  extendedPublicKeyVersions?: Versions;
 }
 function createSignersForAllNetworkTypes<T extends CreateSignersForAllNetworkTypesArgs>({
   mainnetKeychainFn,
   testnetKeychainFn,
   paymentFn,
+  extendedPublicKeyVersions,
 }: T) {
   return ({ accountIndex, addressIndex }: { accountIndex: number; addressIndex: number }) => {
     const networkMap = new Map();
@@ -120,6 +124,7 @@ function createSignersForAllNetworkTypes<T extends CreateSignersForAllNetworkTyp
         accountKeychain: keychain,
         paymentFn: paymentFn as T['paymentFn'],
         network,
+        extendedPublicKeyVersions,
       })(addressIndex);
     }
 
@@ -144,6 +149,8 @@ export function useMakeBitcoinNetworkSignersForPaymentType<T>(
   testnetKeychainFn: (index: number) => BitcoinAccount | undefined,
   paymentFn: (keychain: HDKey, network: BitcoinNetworkModes) => T
 ) {
+  const extendedPublicKeyVersions = useBitcoinExtendedPublicKeyVersions();
+
   return useCallback(
     (accountIndex: number) => {
       const zeroIndex = 0;
@@ -152,8 +159,9 @@ export function useMakeBitcoinNetworkSignersForPaymentType<T>(
         mainnetKeychainFn,
         testnetKeychainFn,
         paymentFn,
+        extendedPublicKeyVersions,
       })({ accountIndex, addressIndex: zeroIndex });
     },
-    [mainnetKeychainFn, paymentFn, testnetKeychainFn]
+    [extendedPublicKeyVersions, mainnetKeychainFn, paymentFn, testnetKeychainFn]
   );
 }

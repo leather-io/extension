@@ -3,7 +3,6 @@ import { Outlet } from 'react-router-dom';
 import { closeWindow } from '@shared/utils';
 
 import { useRouteHeader } from '@app/common/hooks/use-route-header';
-import { useRejectIfLedgerWallet } from '@app/common/rpc-helpers';
 import { Disclaimer } from '@app/components/disclaimer';
 import { NoFeesWarningRow } from '@app/components/no-fees-warning-row';
 import { PopupHeader } from '@app/features/current-account/popup-header';
@@ -29,7 +28,6 @@ export function RpcSignBip322MessageRoute() {
 
 function RpcSignBip322Message() {
   useRouteHeader(<PopupHeader displayAddresssBalanceOf="all" />);
-  useRejectIfLedgerWallet('signMessage');
 
   const {
     origin,

@@ -216,6 +216,7 @@ export function useSignBitcoinTx() {
         // Ledger/software, we subscribe to the event that occurs when the
         // unsigned tx is signed
         ledgerNavigate.toConnectAndSignBitcoinTransactionStep(psbt);
+        // ledgerNavigate.toConnectAndSignBitcoinTransactionStep(psbt, inputsToSign);
         return listenForBitcoinTxLedgerSigning(bytesToHex(psbt));
       },
       async software() {
