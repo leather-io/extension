@@ -52,7 +52,7 @@ export function ConnectLedgerErrorLayout(props: ConnectLedgerErrorLayoutProps) {
       ) : (
         <ErrorLabel>Unable to connect</ErrorLabel>
       )}
-      <Stack borderRadius="12px" gap="space.01" textAlign="left" py="space.05">
+      <Stack borderRadius="md" gap="space.01" textAlign="left" py="space.05">
         <PossibleReasonUnableToConnect text="Check if Ledger Live is open. Close it and try again" />
         <PossibleReasonUnableToConnect text="Ensure you only have one instance of Leather open" />
         <PossibleReasonUnableToConnect

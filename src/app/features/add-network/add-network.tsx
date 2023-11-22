@@ -221,7 +221,7 @@ export function AddNetwork() {
               </styled.span>
               <Input
                 autoFocus
-                borderRadius="10px"
+                borderRadius="sm"
                 height="64px"
                 onChange={formikProps.handleChange}
                 name="name"
@@ -263,7 +263,7 @@ export function AddNetwork() {
               </SelectRoot>
               <Title>Stacks API URL</Title>
               <Input
-                borderRadius="10px"
+                borderRadius="sm"
                 height="64px"
                 onChange={formikProps.handleChange}
                 name="stacksUrl"
@@ -274,7 +274,7 @@ export function AddNetwork() {
               />
               <Title>Bitcoin API URL</Title>
               <Input
-                borderRadius="10px"
+                borderRadius="sm"
                 height="64px"
                 onChange={formikProps.handleChange}
                 name="bitcoinUrl"
@@ -284,7 +284,7 @@ export function AddNetwork() {
                 data-testid={NetworkSelectors.NetworkBitcoinAddress}
               />
               <Input
-                borderRadius="10px"
+                borderRadius="sm"
                 height="64px"
                 onChange={formikProps.handleChange}
                 name="key"

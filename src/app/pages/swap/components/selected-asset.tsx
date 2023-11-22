@@ -12,7 +12,7 @@ export function SelectedAsset({ contentLeft, contentRight, name, showError }: Se
       _focusWithin={{ border: 'action' }}
       alignItems="center"
       border={showError ? 'error' : 'default'}
-      borderRadius="10px"
+      borderRadius="sm"
       display="flex"
       height="76px"
       htmlFor={name}

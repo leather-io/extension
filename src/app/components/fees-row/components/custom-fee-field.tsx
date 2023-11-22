@@ -51,7 +51,7 @@ export function CustomFeeField({
         </styled.label>
         <styled.input
           autoComplete="off"
-          borderRadius="8px"
+          borderRadius="xs"
           color="accent.text-subdued"
           data-testid={SharedComponentsSelectors.CustomFeeFieldInput}
           display="block"

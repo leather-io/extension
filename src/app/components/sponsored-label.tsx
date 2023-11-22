@@ -9,7 +9,7 @@ export function SponsoredLabel(): React.JSX.Element {
       <HStack
         alignItems="center"
         bg="accent.component-background-hover"
-        borderRadius="10px"
+        borderRadius="sm"
         height="48px"
         pl="space.04"
       >

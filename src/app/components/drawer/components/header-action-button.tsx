@@ -16,7 +16,7 @@ export function HeaderActionButton(props: HeaderActionButtonProps) {
         cursor: isWaitingOnPerformedAction ? 'unset' : 'pointer',
       }}
       data-testid={HomePageSelectors.DrawerHeaderActionBtn}
-      borderRadius="8px"
+      borderRadius="xs"
       color="accent.action-primary-default"
       height="36px"
       onClick={isWaitingOnPerformedAction ? undefined : onAction}

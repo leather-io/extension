@@ -28,7 +28,7 @@ export function IncreaseFeeActions(props: IncreaseFeeActionsProps) {
         flex="1"
         onClick={handleSubmit as any}
         aria-busy={isLoading}
-        borderRadius="10px"
+        borderRadius="sm"
         aria-disabled={isDisabled}
       >
         {actionText}

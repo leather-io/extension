@@ -12,7 +12,7 @@ export function InfoLabel({ children, title, ...rest }: InfoLabelProps) {
       <Stack
         alignItems="start"
         bg="disabled"
-        borderRadius="10px"
+        borderRadius="sm"
         minHeight="48px"
         px="space.04"
         py="space.03"

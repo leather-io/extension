@@ -10,7 +10,7 @@ export const MenuWrapper = forwardRef<HTMLDivElement, MenuWrapperProps>(
     isShowing ? (
       <Box
         bg="accent.background-primary"
-        borderRadius="10px"
+        borderRadius="sm"
         boxShadow="0px 8px 16px rgba(27, 39, 51, 0.08)"
         cursor={isShowing ? 'all' : 'none'}
         position="absolute"

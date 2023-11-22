@@ -28,7 +28,7 @@ export function PsbtRequestDetailsHeader() {
         <HStack
           alignItems="center"
           border={isPsbtMutable ? 'warning' : 'subdued'}
-          borderRadius="24px"
+          borderRadius="xxl"
           gap="space.01"
           px="space.02"
           py="space.01"

@@ -16,7 +16,7 @@ export function StxTransferDetails(): React.JSX.Element | null {
     <Stack
       border="4px solid"
       borderColor="accent.border-default"
-      borderRadius="12px"
+      borderRadius="md"
       mb="space.05"
       px="space.04"
       py="space.06"

@@ -56,7 +56,7 @@ export function ProfileBox({ profile }: { profile: Profile }): React.JSX.Element
         border="4px solid"
         paddingBottom="space.02"
         borderColor="accent.border-default"
-        borderRadius="20px"
+        borderRadius="xl"
       >
         <Box bg="accent.background-primary" borderRadius="lg" px="space.05" py="space.05">
           <Stack gap="space.03">

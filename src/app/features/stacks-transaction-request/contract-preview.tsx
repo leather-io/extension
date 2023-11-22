@@ -22,7 +22,7 @@ export function ContractPreviewLayout({
   return (
     <HStack
       p="space.04"
-      borderRadius="12px"
+      borderRadius="md"
       gap="space.04"
       alignItems="center"
       border="1px solid"

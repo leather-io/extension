@@ -34,7 +34,7 @@ export function PasswordField({ strengthResult, isDisabled }: PasswordFieldProps
           autoComplete="off"
           autoFocus
           border="active"
-          borderRadius="10px"
+          borderRadius="sm"
           data-testid={OnboardingSelectors.NewPasswordInput}
           disabled={isDisabled}
           height="64px"

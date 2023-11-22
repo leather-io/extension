@@ -10,7 +10,7 @@ interface SendTransferActionsProps {
 export function SendTransferActions({ action, isLoading, onApprove }: SendTransferActionsProps) {
   return (
     <SendTransferFooter>
-      <LeatherButton borderRadius="10px" flexGrow={1} aria-busy={isLoading} onClick={onApprove}>
+      <LeatherButton borderRadius="sm" flexGrow={1} aria-busy={isLoading} onClick={onApprove}>
         {action}
       </LeatherButton>
     </SendTransferFooter>

@@ -13,7 +13,7 @@ export function MessagePreviewBox({ message, hash }: MessageBoxProps) {
       bg="accent.background-primary"
       border="4px solid"
       borderColor="accent.background-primary"
-      borderRadius="20px"
+      borderRadius="xl"
       paddingBottom={hash ? 'space.02' : 0}
     >
       <Stack

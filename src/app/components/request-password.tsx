@@ -84,7 +84,7 @@ export function RequestPassword({ title, caption, onSuccess }: RequestPasswordPr
                 autoComplete="off"
                 autoFocus
                 border="active"
-                borderRadius="10px"
+                borderRadius="sm"
                 data-testid={SettingsSelectors.EnterPasswordInput}
                 disabled={isRunning}
                 height="64px"

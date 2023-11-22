@@ -6,7 +6,7 @@ export function InscriptionPreviewContainer({ children, ...props }: HasChildren 
   return (
     <Box
       bg="black"
-      borderRadius="8px"
+      borderRadius="xs"
       width="100px"
       height="100px"
       overflow="hidden"

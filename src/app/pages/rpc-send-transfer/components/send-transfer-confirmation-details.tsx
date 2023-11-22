@@ -18,7 +18,7 @@ export function SendTransferConfirmationDetails({
     <Stack
       border="4px solid"
       borderColor="accent.border-default"
-      borderRadius="16px"
+      borderRadius="lg"
       p="space.05"
       gap="space.04"
       width="100%"

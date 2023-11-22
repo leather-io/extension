@@ -18,7 +18,7 @@ export const TxCard: React.FC<TxCardProps> = ({ tx, label }) => {
       mt={3}
       borderColor="#F0F0F5"
       borderWidth="1px"
-      borderRadius="12px"
+      borderRadius="md"
       p={6}
       _hover={{
         borderColor: 'ink.400',

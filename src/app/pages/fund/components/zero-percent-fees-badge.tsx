@@ -8,7 +8,7 @@ export function ZeroPercentFeesBadge() {
       alignItems="center"
       border="1px solid"
       borderColor="#FFE0C2"
-      borderRadius="24px"
+      borderRadius="xxl"
       height="24px"
       justifyContent="center"
       paddingX="space.02"

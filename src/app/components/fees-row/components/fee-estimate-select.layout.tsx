@@ -40,7 +40,7 @@ export function FeeEstimateSelectLayout({
         {isVisible ? (
           <Stack
             bg="accent.background-primary"
-            borderRadius="8px"
+            borderRadius="xs"
             boxShadow="0px 8px 16px rgba(27, 39, 51, 0.08)"
             data-testid={SharedComponentsSelectors.FeeEstimateSelect}
             flexDirection="column"

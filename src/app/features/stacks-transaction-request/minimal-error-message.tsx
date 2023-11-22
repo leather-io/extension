@@ -36,7 +36,7 @@ function MinimalErrorMessageSuspense(props: HstackProps) {
       alignItems="center"
       // #4476 TODO change this colour
       bg="#FCEEED"
-      borderRadius="12px"
+      borderRadius="md"
       color="error.label"
       p="space.04"
       width="100%"
