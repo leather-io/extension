@@ -1,13 +1,12 @@
-import { FiStar } from 'react-icons/fi';
-
 import { HStack, styled } from 'leather-styles/jsx';
+
+import { StarIcon } from '@app/ui/components/icons/star-icon';
 
 export function ZeroPercentFeesBadge() {
   return (
     <HStack
       alignItems="center"
-      border="1px solid"
-      borderColor="#FFE0C2"
+      border="default"
       borderRadius="xxl"
       height="24px"
       justifyContent="center"
@@ -15,9 +14,8 @@ export function ZeroPercentFeesBadge() {
       paddingY="space.01"
       gap="space.01"
     >
-      {/* #4476 FIXME update icon and colours */}
-      <FiStar color="#F59300" size="12px" strokeWidth="2.5px" />
-      <styled.span color="#FFA953" textStyle="caption.02">
+      <StarIcon color="warning.label" size="xs" />
+      <styled.span color="warning.label" textStyle="caption.02">
         0 % Fees
       </styled.span>
     </HStack>

@@ -1,16 +1,12 @@
-import { FiZap } from 'react-icons/fi';
-
 import { HStack, styled } from 'leather-styles/jsx';
 
+import { ZapIcon } from '@app/ui/components/icons/zap-icon';
+
 export function FastCheckoutBadge() {
-  {
-    /* #4476 FIXME update icon and colours */
-  }
   return (
     <HStack
       alignItems="center"
-      border="1px solid"
-      borderColor="#D9EDD4"
+      border="default"
       borderRadius="xxl"
       height="24px"
       justifyContent="center"
@@ -18,8 +14,8 @@ export function FastCheckoutBadge() {
       paddingY="space.01"
       gap="space.01"
     >
-      <FiZap color="#008051" size="12px" strokeWidth="2.5px" />
-      <styled.span color="#008051" textStyle="caption.02">
+      <ZapIcon color="success.label" size="xs" />
+      <styled.span color="success.label" textStyle="caption.02">
         Fast checkout
       </styled.span>
     </HStack>

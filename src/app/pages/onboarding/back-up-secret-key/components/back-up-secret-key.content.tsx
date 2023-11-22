@@ -1,9 +1,8 @@
-import { FiRotateCcw } from 'react-icons/fi';
-
 import { HStack, Stack, styled } from 'leather-styles/jsx';
 
 import { EyeSlashIcon } from '@app/ui/components/icons/eye-slash-icon';
 import { LockIcon } from '@app/ui/components/icons/lock-icon';
+import { RotateLeftIcon } from '@app/ui/components/icons/rotate-left-icon';
 
 export function BackUpSecretKeyContent(): React.JSX.Element {
   return (
@@ -25,7 +24,7 @@ export function BackUpSecretKeyContent(): React.JSX.Element {
 
       <Stack gap="space.03">
         <HStack alignItems="center" margin={['auto', 'auto', 'auto', 'unset']}>
-          <FiRotateCcw size="16px" />
+          <RotateLeftIcon />
           <styled.span textStyle="body.01">Your Secret Key gives access to your wallet</styled.span>
         </HStack>
         <HStack alignItems="center" margin={['auto', 'auto', 'auto', 'unset']}>

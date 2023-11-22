@@ -94,13 +94,14 @@ module.exports = {
       from: { path: '^src/app/features/.*' },
       to: { path: '^src/app/pages/.*' },
     },
-    {
-      name: 'only-allow-react-icons-fi',
-      comment: 'Ensure only icons from `fi` group are allowed',
-      severity: 'error',
-      from: { path: '^src' },
-      to: { path: 'react-icons.*', pathNot: 'react-icons/fi' },
-    },
+    // TODO: Replace in future with new icon library
+    // {
+    //   name: 'only-allow-react-icons-fi',
+    //   comment: 'Ensure only icons from `fi` group are allowed',
+    //   severity: 'error',
+    //   from: { path: '^src' },
+    //   to: { path: 'react-icons.*', pathNot: 'react-icons/fi' },
+    // },
     {
       name: 'no-using-pino-directly',
       comment: 'Enforce use of Pino logging library via @logger wrapper',

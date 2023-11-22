@@ -13114,11 +13114,6 @@ mdast-util-to-string@^3.0.0, mdast-util-to-string@^3.1.0:
   dependencies:
     "@types/mdast" "^3.0.0"
 
-mdi-react@9.2.0:
-  version "9.2.0"
-  resolved "https://registry.yarnpkg.com/mdi-react/-/mdi-react-9.2.0.tgz#58fa8654937e5d86c7dfd8be5ba9259940d21115"
-  integrity sha512-NI1sIvu142SQKkOMe4bjA9KuvMXpT8PfNOkCblSEuUeakFpgciMuKV9rEyJbQkvFBppDLx1f1xmbcIc06oRyAQ==
-
 media-typer@0.3.0:
   version "0.3.0"
   resolved "https://registry.yarnpkg.com/media-typer/-/media-typer-0.3.0.tgz#8710d7af0aa626f8fffa1ce00168545263255748"
@@ -15442,11 +15437,6 @@ react-hot-toast@2.4.1:
   integrity sha512-j8z+cQbWIM5LY37pR6uZR6D4LfseplqnuAO4co4u8917hBUvXlEqyP1ZzqVLcqoyUesZZv/ImreoCeHVDpE5pQ==
   dependencies:
     goober "^2.1.10"
-
-react-icons@4.10.1:
-  version "4.10.1"
-  resolved "https://registry.yarnpkg.com/react-icons/-/react-icons-4.10.1.tgz#3f3b5eec1f63c1796f6a26174a1091ca6437a500"
-  integrity sha512-/ngzDP/77tlCfqthiiGNZeYFACw85fUjZtLbedmJ5DTlNDIwETxhwBzdOJ21zj4iJdvc0J3y7yOsX3PpxAJzrw==
 
 react-icons@^4.11.0, react-icons@^4.3.1:
   version "4.12.0"
