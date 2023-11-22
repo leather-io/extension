@@ -144,21 +144,8 @@ const config = {
       {
         test: /\.(ts|tsx)$/,
         exclude: /node_modules/,
-        // #4164 TODO investigate removing babel
-        use: {
-          loader: 'babel-loader',
-          options: {
-            presets: [
-              '@babel/preset-typescript',
-              [
-                '@babel/preset-react',
-                {
-                  runtime: 'automatic',
-                },
-              ],
-            ],
-          },
-        },
+        loader: 'esbuild-loader',
+        options: { tsconfig: './tsconfig.json', target: 'es2020' },
       },
       {
         test: /\.(png|jpe?g|gif)$/i,
