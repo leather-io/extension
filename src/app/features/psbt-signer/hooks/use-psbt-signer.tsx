@@ -17,13 +17,7 @@ interface SignPsbtArgs {
   indexesToSign?: number[];
   tx: btc.Transaction;
 }
-
 export function usePsbtSigner() {
-  // const createNativeSegwitSigner = useCurrentAccountNativeSegwitSigner();
-  // const createTaprootSigner = useCurrentAccountTaprootSigner();
-
-  // const nativeSegwitSigner = createNativeSegwitSigner?.(0);
-  // const taprootSigner = createTaprootSigner?.(0);
   const addMissingTapInteralKeys = useAddTapInternalKeysIfMissing();
   const signBitcoinTx = useSignBitcoinTx();
 
@@ -31,27 +25,7 @@ export function usePsbtSigner() {
     () => ({
       async signPsbt({ indexesToSign, tx }: SignPsbtArgs) {
         addMissingTapInteralKeys(tx, indexesToSign);
-        return signBitcoinTx(tx.toPSBT());
-        // inputs.forEach((input, idx) => {
-        //   const isSigning = isUndefined(indexesToSign) || indexesToSign.includes(idx);
-        //   if (!isSigning) return;
-        //   const witnessOutputScript =
-        //     input.witnessUtxo?.script && btc.OutScript.decode(input.witnessUtxo.script);
-        //   // If type taproot, and the tapInternalKey is missing, assume it should
-        //   // be the account publicKey
-        //   if (taprootSigner && witnessOutputScript?.type === 'tr' && !input.tapInternalKey) {
-        //     tx.updateInput(idx, { ...input, tapInternalKey: taprootSigner.payment.tapInternalKey });
-        //   }
-        //   try {
-        //     nativeSegwitSigner?.signIndex(tx, idx, allSighashTypes);
-        //   } catch (e1) {
-        //     try {
-        //       taprootSigner?.signIndex(tx, idx, allSighashTypes);
-        //     } catch (e2) {
-        //       throw new Error(`Unable to sign PSBT at index, ${e1 ?? e2}`);
-        //     }
-        //   }
-        // });
+        return signBitcoinTx(tx.toPSBT(), indexesToSign);
       },
       getPsbtAsTransaction(psbt: string | Uint8Array) {
         const bytes = isString(psbt) ? hexToBytes(psbt) : psbt;

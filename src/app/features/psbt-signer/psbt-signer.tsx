@@ -45,6 +45,7 @@ export function PsbtSigner(props: PsbtSignerProps) {
   useRouteHeader(<PopupHeader displayAddresssBalanceOf="all" />);
 
   useOnOriginTabClose(() => closeWindow());
+  2;
 
   const psbtRaw = useMemo(() => {
     try {

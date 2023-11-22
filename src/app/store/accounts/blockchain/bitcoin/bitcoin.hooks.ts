@@ -211,6 +211,10 @@ export function useSignBitcoinTx() {
   return (psbt: Uint8Array, inputsToSign?: number[]) =>
     whenWallet({
       async ledger() {
+        // Because Ledger signing is a multi-step process that takes place over
+        // many routes, in order to achieve a consistent API between
+        // Ledger/software, we subscribe to the event that occurs when the
+        // unsigned tx is signed
         ledgerNavigate.toConnectAndSignBitcoinTransactionStep(psbt);
         return listenForBitcoinTxLedgerSigning(bytesToHex(psbt));
       },

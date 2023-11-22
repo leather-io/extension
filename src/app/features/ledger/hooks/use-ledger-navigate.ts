@@ -30,11 +30,11 @@ export function useLedgerNavigate() {
         });
       },
 
-      toConnectAndSignBitcoinTransactionStep(psbt: Uint8Array) {
+      toConnectAndSignBitcoinTransactionStep(psbt: Uint8Array, inputsToSign?: number[]) {
         return navigate(RouteUrls.ConnectLedger, {
           replace: true,
           relative: 'route',
-          state: { tx: bytesToHex(psbt) },
+          state: { tx: bytesToHex(psbt), inputsToSign },
         });
       },
 
