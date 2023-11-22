@@ -24,7 +24,6 @@ export function WelcomePage() {
   const [isGeneratingWallet, setIsGeneratingWallet] = useState(false);
 
   useRouteHeader(<></>);
-
   const startOnboarding = useCallback(async () => {
     if (isPopupMode()) {
       openIndexPageInNewTab(RouteUrls.Onboarding);
@@ -32,6 +31,8 @@ export function WelcomePage() {
       return;
     }
     setIsGeneratingWallet(true);
+    // #4517 signout other tabs on wallet create
+    await keyActions.signOut();
     keyActions.generateWalletKey();
     void analytics.track('generate_new_secret_key');
     if (decodedAuthRequest) {

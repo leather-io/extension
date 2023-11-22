@@ -14,16 +14,14 @@ interface WelcomeLayoutProps {
   onStartOnboarding(): void;
   onRestoreWallet(): void;
 }
-export function WelcomeLayout(props: WelcomeLayoutProps): React.JSX.Element {
-  const {
-    tagline,
-    subheader,
-    isGeneratingWallet,
-    onStartOnboarding,
-    onSelectConnectLedger,
-    onRestoreWallet,
-  } = props;
-
+export function WelcomeLayout({
+  tagline,
+  subheader,
+  isGeneratingWallet,
+  onStartOnboarding,
+  onSelectConnectLedger,
+  onRestoreWallet,
+}: WelcomeLayoutProps): React.JSX.Element {
   const isAtleastBreakpointMd = useViewportMinWidth('md');
 
   return (
