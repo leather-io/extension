@@ -1,8 +1,7 @@
-import FunctionIcon from 'mdi-react/FunctionIcon';
-
 import { StacksTx } from '@shared/models/transactions/stacks-transaction.model';
 
 import { CodeIcon } from '@app/ui/components/icons/code-icon';
+import { FunctionIcon } from '@app/ui/components/icons/function-icon';
 import { PlusIcon } from '@app/ui/components/icons/plus-icon';
 
 import { TokenTransferIcon } from './token-transfer-icon';

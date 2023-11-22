@@ -1,5 +1,3 @@
-import { FiCircle } from 'react-icons/fi';
-
 import { Box, Flex, Stack, styled } from 'leather-styles/jsx';
 
 import { capitalize } from '@app/common/utils';
@@ -8,6 +6,7 @@ import { ExternalLink } from '@app/components/external-link';
 import { WarningLabel } from '@app/components/warning-label';
 import { ConnectLedgerErr } from '@app/features/ledger/illustrations/ledger-illu-connect-ledger-error';
 import { LeatherButton } from '@app/ui/components/button';
+import { CircleIcon } from '@app/ui/components/icons/circle-icon';
 import { Caption } from '@app/ui/components/typography/caption';
 
 import { LedgerTitle } from '../../components/ledger-title';
@@ -23,7 +22,7 @@ function PossibleReasonUnableToConnect(props: PossibleReasonUnableToConnectProps
   return (
     <Flex alignItems="center">
       <Box mr="space.02">
-        <FiCircle fill="accent.text-primary" size="4px" />
+        <CircleIcon fill="accent.text-primary" size="4px" />
       </Box>
       <styled.span textStyle="body.02">{text}</styled.span>
     </Flex>
