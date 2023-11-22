@@ -10,7 +10,7 @@ export function SwapAssetsPairLayout({ swapAssetFrom, swapAssetTo }: SwapAssetsP
   return (
     <Stack
       border="default"
-      borderRadius="12px"
+      borderRadius="md"
       gap="space.01"
       mb="space.05"
       mt="space.04"

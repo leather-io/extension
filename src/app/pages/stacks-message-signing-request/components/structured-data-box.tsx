@@ -43,10 +43,10 @@ export function StructuredDataBox(props: {
         border="4px solid"
         paddingBottom="space.02"
         borderColor="accent.border-default"
-        borderRadius="20px"
+        borderRadius="xl"
         backgroundColor="accent.border-default"
       >
-        <Box background="white" borderRadius="16px" overflowX="scroll" py="space.05">
+        <Box background="white" borderRadius="lg" overflowX="scroll" py="space.05">
           <Box fontSize="14px" lineHeight="1.7" px="space.05">
             <HStack alignItems="center" justifyContent="space-between">
               <styled.h2 textStyle="label.01">{domainName}</styled.h2>

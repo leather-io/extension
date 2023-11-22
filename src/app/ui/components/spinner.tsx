@@ -22,7 +22,7 @@ export function Spinner({
       borderBottomColor={emptyColor}
       borderColor="currentColor"
       borderLeftColor={emptyColor}
-      borderRadius="100%"
+      borderRadius="lg"
       borderWidth={thickness}
       color={color}
       display="inline-block"

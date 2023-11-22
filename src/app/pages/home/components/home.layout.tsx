@@ -15,7 +15,7 @@ export function HomeLayout({ children }: HomeLayoutProps) {
         px={['space.04', 'space.04', 'space.08']}
         width="100%"
         backgroundColor="brown.1"
-        borderRadius={['space.00', 'space.02']}
+        borderRadius="lg"
       >
         <AccountInfoCard />
         {children}

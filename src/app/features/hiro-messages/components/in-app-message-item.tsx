@@ -29,7 +29,7 @@ export function HiroMessageItem(props: HiroMessageItemProps) {
           mt={['space.02', null, 'unset']}
           transform={[null, null, 'translateY(-50%)']}
           right={0}
-          borderRadius="50%"
+          borderRadius="lg"
           _focus={{ outline: '1px solid white' }}
           onClick={() => onDismiss(id)}
         >

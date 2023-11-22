@@ -18,6 +18,8 @@ export const tokens = defineTokens({
     sm: { value: '10px' },
     md: { value: '12px' },
     lg: { value: '16px' },
+    xl: { value: '20px' },
+    xxl: { value: '24px' },
   },
   spacing: {
     // Numbers are padded with 0 to ensure they are sorted correctly in TS

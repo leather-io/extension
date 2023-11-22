@@ -18,7 +18,7 @@ export const ErrorMessage = memo(({ border, title, body, actions }: ErrorMessage
       bg="accent.background-primary"
       // #4476 TODO change this colour
       border={border ? border : '4px solid #FCEEED'}
-      borderRadius="12px"
+      borderRadius="md"
       gap="space.06"
       mb="space.05"
       p="space.05"

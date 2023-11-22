@@ -32,7 +32,7 @@ function PostConditionsSuspense(): React.JSX.Element | null {
     <Flex
       border="4px solid"
       borderColor="accent.border-default"
-      borderRadius="12px"
+      borderRadius="md"
       flexDirection="column"
       mb="space.05"
       width="100%"

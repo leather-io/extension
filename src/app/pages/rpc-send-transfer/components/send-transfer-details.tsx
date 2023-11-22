@@ -12,7 +12,7 @@ export function SendTransferDetails({ address, amount, currentAddress }: SendTra
     <Stack
       border="4px solid"
       borderColor="accent.border-default !important"
-      borderRadius="16px"
+      borderRadius="lg"
       gap="space.04"
       p="space.05"
       width="100%"

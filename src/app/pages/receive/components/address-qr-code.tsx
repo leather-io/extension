@@ -23,7 +23,7 @@ export const QrCode = memo(({ principal, ...rest }: { principal: string }) => {
       alignItems="center"
       border="1px solid"
       borderColor="accent.border-default"
-      borderRadius="18px"
+      borderRadius="lg"
       boxShadow="low"
       justifyContent="center"
       mx="auto"

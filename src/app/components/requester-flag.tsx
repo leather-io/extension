@@ -15,7 +15,7 @@ export function RequesterFlag({ requester }: RequesterFlagProps) {
       justifyContent="center"
       py="space.04"
       px="space.02"
-      borderRadius="10px"
+      borderRadius="sm"
       width="fit-content"
     >
       <styled.span textStyle="label.02">{requester}</styled.span>

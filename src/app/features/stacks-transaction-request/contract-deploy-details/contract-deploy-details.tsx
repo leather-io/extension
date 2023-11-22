@@ -90,7 +90,7 @@ export function ContractDeployDetails() {
           gap="space.05"
           border="4px solid"
           borderColor="accent.border-default"
-          borderRadius="12px"
+          borderRadius="md"
           py="space.06"
           px="space.04"
         >

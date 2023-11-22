@@ -13,7 +13,7 @@ export function ErrorMessage(props: ErrorMessageProps) {
 
   return (
     // #4476 TODO change this colour and migrate FiAlertTriangle
-    <HStack alignItems="center" bg="#FCEEED" p="space.04" borderRadius="12px">
+    <HStack alignItems="center" bg="#FCEEED" p="space.04" borderRadius="md">
       <FiAlertTriangle />
       <Caption color="error.label">{errorMessage}</Caption>
     </HStack>

@@ -12,7 +12,7 @@ export function TxTransferIconWrapper({ icon }: TxTransferIconWrapperProps) {
   return (
     <Box
       bg="stacks"
-      borderRadius="50%"
+      borderRadius="lg"
       color="accent.background-primary"
       flexShrink={0}
       height="36px"

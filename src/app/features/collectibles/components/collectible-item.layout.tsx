@@ -36,7 +36,7 @@ export function CollectibleItemLayout({
         outlineOffset: onClickLayout ? '-4px' : 'unset',
       }}
       _hover={{ bg: 'accent.background-secondary' }}
-      borderRadius="20px"
+      borderRadius="xl"
       cursor={onClickLayout ? 'pointer' : 'default'}
       onClick={onClickLayout}
       p="space.01"

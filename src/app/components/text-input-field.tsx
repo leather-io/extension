@@ -57,7 +57,7 @@ export function TextInputField({
           bottom: '-1px',
         }}
         border="default"
-        borderRadius="10px"
+        borderRadius="sm"
         className={css({
           '& :has(:focus)::before': {
             border: '2px solid #bfc6ff',

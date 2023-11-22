@@ -11,7 +11,7 @@ export function CollectibleAsset({ icon, name, symbol }: CollectibleAssetProps) 
     <Flex
       alignItems="center"
       border="default"
-      borderRadius="10px"
+      borderRadius="sm"
       minHeight="64px"
       mb="space.04"
       mt="space.05"
