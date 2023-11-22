@@ -1,4 +1,3 @@
-import { token } from 'leather-styles/tokens';
 import FunctionIcon from 'mdi-react/FunctionIcon';
 
 import { StacksTx } from '@shared/models/transactions/stacks-transaction.model';
@@ -19,7 +18,7 @@ export function TransactionIcon(props: { tx: StacksTx }) {
     case 'token_transfer':
       return <TokenTransferIcon tx={tx} />;
     case 'contract_call':
-      return <FunctionIcon size={token('sizes.xs')} />;
+      return <FunctionIcon />;
     case 'poison_microblock':
       return null;
     default:

@@ -1,7 +1,6 @@
 import { useField } from 'formik';
 import { HstackProps, styled } from 'leather-styles/jsx';
 import { HStack } from 'leather-styles/jsx';
-import { token } from 'leather-styles/tokens';
 
 import { openInNewTab } from '@app/common/utils/open-in-new-tab';
 import { SponsoredLabel } from '@app/components/sponsored-label';

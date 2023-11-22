@@ -1,5 +1,4 @@
 import type { AddressTransactionWithTransfers } from '@stacks/stacks-blockchain-api-types';
-import { token } from 'leather-styles/tokens';
 
 import {
   StxTransfer,

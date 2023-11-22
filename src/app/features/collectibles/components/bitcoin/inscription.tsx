@@ -1,7 +1,5 @@
 import { useLocation, useNavigate } from 'react-router-dom';
 
-import { token } from 'leather-styles/tokens';
-
 import { Inscription as InscriptionType } from '@shared/models/inscription.model';
 import { RouteUrls } from '@shared/route-urls';
 

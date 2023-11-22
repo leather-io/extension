@@ -1,5 +1,4 @@
 import { Circle, CircleProps, Flex } from 'leather-styles/jsx';
-import { token } from 'leather-styles/tokens';
 
 import { BitcoinTx } from '@shared/models/transactions/bitcoin-transaction.model';
 

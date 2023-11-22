@@ -1,5 +1,4 @@
 import StacksNftBns from '@assets/images/stacks-nft-bns.png';
-import { token } from 'leather-styles/tokens';
 
 import { StxIcon } from '@app/ui/components/icons/stx-icon';
 
