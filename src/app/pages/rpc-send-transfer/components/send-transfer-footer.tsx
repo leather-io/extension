@@ -11,10 +11,7 @@ export function SendTransferFooter({ children }: HasChildren) {
         full: 'unset',
         popup: 'accent.background-primary',
       })}
-      // TODO #4476 check this border colour it was EFEFF2
-      // - can we pass it with shorthand?
-      borderTop="1px solid"
-      borderColor="border-default"
+      borderTop="default"
       bottom="0"
       justifyContent="center"
       position={whenPageMode({

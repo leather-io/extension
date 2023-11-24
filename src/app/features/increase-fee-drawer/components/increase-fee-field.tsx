@@ -23,10 +23,10 @@ export function IncreaseFeeField(props: IncreaseFeeFieldProps): React.JSX.Elemen
   }, [currentFee, modified, field.value]);
 
   const onSelectMultiplier = useCallback(
-    (multiplier: number) => {
+    async (multiplier: number) => {
       if (!currentFee) return;
       setModified(multiplier !== 1);
-      helpers.setValue(microStxToStx(currentFee * multiplier));
+      await helpers.setValue(microStxToStx(currentFee * multiplier));
     },
     [currentFee, helpers]
   );
@@ -35,7 +35,6 @@ export function IncreaseFeeField(props: IncreaseFeeFieldProps): React.JSX.Elemen
     <>
       <Stack position="relative" width="100%">
         <FeeMultiplier
-          pt="space.04"
           pr="space.03"
           height="100%"
           top={0}
@@ -45,7 +44,6 @@ export function IncreaseFeeField(props: IncreaseFeeFieldProps): React.JSX.Elemen
           showReset={showResetMultiplier}
           onSelectMultiplier={onSelectMultiplier}
         />
-
         <Flex>
           <styled.label display="block" fontSize={1} fontWeight={500} mb="space.02" htmlFor="fee">
             Fee
@@ -53,7 +51,6 @@ export function IncreaseFeeField(props: IncreaseFeeFieldProps): React.JSX.Elemen
           <styled.input
             _focus={{ border: 'focus' }}
             autoComplete="off"
-            autoFocus
             bg="transparent"
             border="default"
             borderRadius="sm"

@@ -9,7 +9,7 @@ interface FeeMultiplierProps extends HstackProps {
   showReset?: boolean;
 }
 
-export function FeeMultiplier(props: FeeMultiplierProps): React.JSX.Element {
+export function FeeMultiplier(props: FeeMultiplierProps) {
   const { onSelectMultiplier, showReset, ...rest } = props;
 
   return (

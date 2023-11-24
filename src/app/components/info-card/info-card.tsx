@@ -126,7 +126,7 @@ export function InfoCardFooter({ children }: InfoCardFooterProps) {
       alignItems="center"
       bg={whenPageMode({
         full: '',
-        popup: '#fff',
+        popup: 'accent.background-primary',
       })}
       bottom="0"
       justifyContent="center"

@@ -9,12 +9,12 @@ interface FormAddressDisplayerProps extends BoxProps {
 export function FormAddressDisplayer({ address, ...rest }: FormAddressDisplayerProps) {
   return (
     <Box
-      maxWidth="300px"
+      data-testid={SharedComponentsSelectors.AddressDisplayer}
       display="flex"
       flexWrap="wrap"
       justifyContent="end"
+      maxWidth="300px"
       mr="-8px"
-      data-testid={SharedComponentsSelectors.AddressDisplayer}
       {...rest}
     >
       <AddressDisplayer address={address} />

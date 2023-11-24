@@ -51,14 +51,15 @@ export function SendFormConfirmation({
       data-testid={SendCryptoAssetSelectors.ConfirmationDetails}
       pb={whenPageMode({
         full: '0px',
-        popup: '80px',
+        popup: '120px',
       })}
     >
       <InfoCardAssetValue
         data-testid={SendCryptoAssetSelectors.ConfirmationDetailsAssetValue}
         fiatSymbol={txFiatValueSymbol}
         fiatValue={txFiatValue}
-        my="space.05"
+        mb="space.05"
+        mt={['unset', 'space.05']}
         px="space.05"
         symbol={symbol}
         value={Number(txValue)}
