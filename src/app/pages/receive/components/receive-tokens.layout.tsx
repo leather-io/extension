@@ -45,8 +45,7 @@ export function ReceiveTokensLayout(props: ReceiveTokensLayoutProps) {
             data-testid={SharedComponentsSelectors.AddressDisplayer}
             flexWrap="wrap"
             justifyContent="center"
-            lineHeight={1.8}
-            maxWidth="280px"
+            maxWidth="300px"
             mt="space.04"
           >
             <AddressDisplayer address={address} />

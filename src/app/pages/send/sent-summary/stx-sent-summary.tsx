@@ -7,6 +7,7 @@ import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
 import { useClipboard } from '@app/common/hooks/use-copy-to-clipboard';
 import { useExplorerLink } from '@app/common/hooks/use-explorer-link';
 import { useRouteHeader } from '@app/common/hooks/use-route-header';
+import { whenPageMode } from '@app/common/utils';
 import { FormAddressDisplayer } from '@app/components/address-displayer/form-address-displayer';
 import {
   InfoCard,
@@ -56,7 +57,12 @@ export function StxSentSummary() {
   useRouteHeader(<ModalHeader hideActions defaultClose title="Sent" />);
 
   return (
-    <InfoCard>
+    <InfoCard
+      pb={whenPageMode({
+        full: '0px',
+        popup: '120px',
+      })}
+    >
       <TxDone />
 
       <InfoCardAssetValue

@@ -13,7 +13,7 @@ export function PrincipalValue(props: PrincipalValueProps) {
     <LeatherButton
       onClick={() => openInNewTab(`https://explorer.hiro.so/address/${address}?chain=${mode}`)}
       textStyle="label.03"
-      variant="link"
+      variant="text"
       wordBreak="break-all"
     >
       {address}

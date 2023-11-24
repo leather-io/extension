@@ -90,12 +90,17 @@ export const textStyles = defineTextStyles({
   },
   'caption.02': {
     description: 'caption.02',
-    value: { ...commonDiatypeStyles, fontSize: '0.8125rem', lineHeight: '1.25rem' },
+    value: { ...commonDiatypeStyles, fontSize: '0.8125rem', lineHeight: '1rem' },
   },
 
   'mono.01': {
     description: 'mono.01',
-    value: { fontFamily: firaCode, fontSize: '1.0625rem', lineHeight: '1.75rem' },
+    value: {
+      fontFamily: firaCode,
+      fontSize: '1rem',
+      lineHeight: '1.5rem',
+      letterSpacing: '.08rem',
+    },
   },
   'mono.02': {
     description: 'mono.02',

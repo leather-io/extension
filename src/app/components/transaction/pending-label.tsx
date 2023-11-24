@@ -1,4 +1,4 @@
-import { Box, Flex, Stack, styled } from 'leather-styles/jsx';
+import { Box, Flex, styled } from 'leather-styles/jsx';
 
 import { Tooltip } from '@app/components/tooltip';
 import { InfoIcon } from '@app/ui/components/icons/info-icon';
@@ -18,13 +18,10 @@ export function PendingLabel({
       <styled.span color="warning.label" mr="space.01" textStyle="label.03">
         Pending
       </styled.span>
-
       <Tooltip label={pendingWaitingMessage} placement="bottom">
-        <Stack>
-          <Box _hover={{ cursor: 'pointer' }} color="warning.label" height="10px" width="10px">
-            <InfoIcon />
-          </Box>
-        </Stack>
+        <Box>
+          <InfoIcon color="warning.label" size="xs" />
+        </Box>
       </Tooltip>
     </Flex>
   );
