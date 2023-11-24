@@ -5,12 +5,7 @@ import { PaymentTypes, RpcErrorCode } from '@btckit/types';
 import * as btc from '@scure/btc-signer';
 import * as bitcoin from 'bitcoinjs-lib';
 
-import {
-  createNativeSegwitBitcoinJsSigner,
-  createTaprootBitcoinJsSigner,
-  signBip322MessageSimple,
-} from '@shared/crypto/bitcoin/bip322/sign-message-bip322-bitcoinjs';
-import { deriveAddressIndexZeroFromAccount } from '@shared/crypto/bitcoin/bitcoin.utils';
+import { signBip322MessageSimple } from '@shared/crypto/bitcoin/bip322/sign-message-bip322-bitcoinjs';
 import { logger } from '@shared/logger';
 import { makeRpcErrorResponse, makeRpcSuccessResponse } from '@shared/rpc/rpc-methods';
 import { closeWindow } from '@shared/utils';
@@ -120,22 +115,16 @@ function useSignBip322MessageTaproot() {
   const currentTaprootAccount = useCurrentTaprootAccount();
   if (!currentTaprootAccount) throw new Error('No keychain for current account');
   const sign = useSignBitcoinTx();
-
   const signer = createTaprootSigner(0);
-  // const keychain = deriveAddressIndexZeroFromAccount(currentTaprootAccount.keychain);
 
   async function signPsbt(psbt: bitcoin.Psbt) {
     psbt.data.inputs.forEach(
       input => (input.tapInternalKey = Buffer.from(signer.payment.tapInternalKey))
     );
-    // psbt.signAllInputs(createTaprootBitcoinJsSigner(Buffer.from(keychain.privateKey!)));
     return sign(psbt.toBuffer());
   }
 
-  return useSignBip322MessageFactory({
-    address: signer.payment.address ?? '',
-    signPsbt,
-  });
+  return useSignBip322MessageFactory({ address: signer.payment.address ?? '', signPsbt });
 }
 
 function useSignBip322MessageNativeSegwit() {
@@ -146,11 +135,9 @@ function useSignBip322MessageNativeSegwit() {
   if (!currentNativeSegwitAccount) throw new Error('No keychain for current account');
   const sign = useSignBitcoinTx();
 
-  // const keychain = deriveAddressIndexZeroFromAccount(currentNativeSegwitAccount.keychain);
   const signer = createNativeSegwitSigner(0);
 
   async function signPsbt(psbt: bitcoin.Psbt) {
-    // psbt.signAllInputs(createNativeSegwitBitcoinJsSigner(Buffer.from(keychain.privateKey!)));
     return sign(psbt.toBuffer());
   }
 

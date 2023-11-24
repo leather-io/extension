@@ -46,7 +46,6 @@ export function LedgerSignJwtContainer() {
   const keyActions = useKeyActions();
   const canUserCancelAction = useActionCancellableByUser();
   const { decodedAuthRequest, authRequest } = useOnboardingState();
-  const getLegacyAuthBitcoinData = useGetLegacyAuthBitcoinAddresses();
 
   const [accountIndex, setAccountIndex] = useState<null | number>(null);
 
@@ -119,7 +118,6 @@ export function LedgerSignJwtContainer() {
             testnet: getAddressFromPublicKey(account.stxPublicKey, TransactionVersion.Testnet),
             mainnet: getAddressFromPublicKey(account.stxPublicKey, TransactionVersion.Mainnet),
           },
-          ...getLegacyAuthBitcoinData(accountIndex),
         },
       });
 

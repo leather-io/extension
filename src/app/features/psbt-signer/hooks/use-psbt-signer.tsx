@@ -29,7 +29,6 @@ export function usePsbtSigner() {
       },
       getPsbtAsTransaction(psbt: string | Uint8Array) {
         const bytes = isString(psbt) ? hexToBytes(psbt) : psbt;
-        console.log('xxxxxx', psbt, bytes);
         return btc.Transaction.fromPSBT(bytes);
       },
       getRawPsbt(psbt: string | Uint8Array) {

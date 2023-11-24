@@ -123,11 +123,10 @@ export function getNativeSegwitMainnetAddressFromMnemonic(secretKey: string) {
   };
 }
 
-export function useUpdateLedgerSpecificNativeSegwitInputPropsForAdddressIndexZero() {
-  const nativeSegwitSigner = useCurrentAccountNativeSegwitIndexZeroSigner();
+export function useUpdateLedgerSpecificNativeSegwitUtxoHexForAdddressIndexZero() {
   const bitcoinClient = useBitcoinClient();
 
-  return async (tx: Psbt, fingerprint: string, inputsToUpdate: number[] = []) => {
+  return async (tx: Psbt, inputsToUpdate: number[] = []) => {
     const inputsTxHex = await Promise.all(
       tx.txInputs.map(input =>
         bitcoinClient.transactionsApi.getBitcoinTransactionHex(
@@ -143,6 +142,19 @@ export function useUpdateLedgerSpecificNativeSegwitInputPropsForAdddressIndexZer
     inputsToSign.forEach(inputIndex => {
       tx.updateInput(inputIndex, {
         nonWitnessUtxo: Buffer.from(inputsTxHex[inputIndex], 'hex'),
+      });
+    });
+  };
+}
+export function useUpdateLedgerSpecificNativeSegwitBip32DerivationForAdddressIndexZero() {
+  const nativeSegwitSigner = useCurrentAccountNativeSegwitIndexZeroSigner();
+
+  return async (tx: Psbt, fingerprint: string, inputsToUpdate: number[] = []) => {
+    const inputsToSign =
+      inputsToUpdate.length > 0 ? inputsToUpdate : makeNumberRange(tx.inputCount);
+
+    inputsToSign.forEach(inputIndex => {
+      tx.updateInput(inputIndex, {
         bip32Derivation: [
           {
             masterFingerprint: Buffer.from(fingerprint, 'hex'),

@@ -3,6 +3,7 @@ import { Outlet, Route, useLocation } from 'react-router-dom';
 
 import * as btc from '@scure/btc-signer';
 import { hexToBytes } from '@stacks/common';
+import { Psbt } from 'bitcoinjs-lib';
 import get from 'lodash.get';
 
 import { RouteUrls } from '@shared/route-urls';
@@ -46,8 +47,6 @@ function LedgerSignBitcoinTxContainer() {
 
   const inputsToSign = useLocationStateWithCache<number[]>('inputsToSign');
 
-  console.log('inputsToSign', inputsToSign);
-
   useEffect(() => {
     const tx = get(location.state, 'tx');
     if (tx) {
@@ -84,7 +83,8 @@ function LedgerSignBitcoinTxContainer() {
     ledgerNavigate.toAwaitingDeviceOperation({ hasApprovedOperation: false });
 
     try {
-      const btcTx = await signLedger(bitcoinApp, unsignedTransaction.toPSBT());
+      const btcTx = await signLedger(bitcoinApp, unsignedTransaction.toPSBT(), inputsToSign);
+
       if (!btcTx || !unsignedTransactionRaw) throw new Error('No tx returned');
       ledgerNavigate.toAwaitingDeviceOperation({ hasApprovedOperation: true });
       await delay(1200);
@@ -93,7 +93,6 @@ function LedgerSignBitcoinTxContainer() {
         unsignedPsbt: unsignedTransactionRaw,
       });
     } catch (e) {
-      console.log(e);
       ledgerAnalytics.transactionSignedOnLedgerRejected();
       ledgerNavigate.toOperationRejectedStep();
     } finally {

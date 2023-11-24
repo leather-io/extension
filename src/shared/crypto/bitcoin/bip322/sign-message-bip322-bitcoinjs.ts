@@ -1,4 +1,3 @@
-import { sign } from '@noble/secp256k1';
 import { base64 } from '@scure/base';
 import * as btc from '@scure/btc-signer';
 import * as bitcoin from 'bitcoinjs-lib';
@@ -75,8 +74,6 @@ export async function signBip322MessageSimple(args: SignBip322MessageSimple) {
   const signedTx = await signPsbt(virtualToSign);
 
   const asBitcoinJsTransaction = bitcoin.Psbt.fromBuffer(Buffer.from(signedTx.toPSBT()));
-
-  // signedTx.finalize();
 
   asBitcoinJsTransaction.finalizeInput(0);
 
