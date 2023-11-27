@@ -45,7 +45,7 @@ function createToSignTx(toSpendTxHex: Buffer, script: Buffer, network: BitcoinNe
   virtualToSign.setVersion(0);
   const prevTxHash = toSpendTxHex;
   const prevOutIndex = 0;
-  const toSignScriptSig = bitcoin.script.compile([106]);
+  const toSignScriptSig = bitcoin.script.compile([bitcoin.script.OPS.OP_RETURN]);
 
   virtualToSign.addInput({
     hash: prevTxHash,

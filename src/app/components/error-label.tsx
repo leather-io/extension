@@ -16,7 +16,6 @@ export function ErrorLabel({ children, ...rest }: HstackProps) {
       gap="space.02"
       textAlign="left"
       textStyle="body.02"
-      width="100%"
       {...rest}
     >
       <ErrorCircleIcon />
