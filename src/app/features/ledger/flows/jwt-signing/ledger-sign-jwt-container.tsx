@@ -43,6 +43,8 @@ export function LedgerSignJwtContainer() {
   const activeAccount = useCurrentStacksAccount();
   const accounts = useStacksAccounts();
 
+  const getBitcoinAddressesLegacyFormat = useGetLegacyAuthBitcoinAddresses();
+
   const keyActions = useKeyActions();
   const canUserCancelAction = useActionCancellableByUser();
   const { decodedAuthRequest, authRequest } = useOnboardingState();
@@ -107,6 +109,14 @@ export function LedgerSignJwtContainer() {
       return;
     }
 
+    // Low-grade code. This is to be removed when deprecating legacy APIs
+    let legacyAddressObj = {};
+    try {
+      legacyAddressObj = getBitcoinAddressesLegacyFormat(accountIndex);
+    } catch (e) {
+      logger.error('Error while generating bitcoin addresses to return', e);
+    }
+
     try {
       ledgerNavigate.toConnectionSuccessStep('stacks');
       await delay(1000);
@@ -118,6 +128,7 @@ export function LedgerSignJwtContainer() {
             testnet: getAddressFromPublicKey(account.stxPublicKey, TransactionVersion.Testnet),
             mainnet: getAddressFromPublicKey(account.stxPublicKey, TransactionVersion.Mainnet),
           },
+          ...legacyAddressObj,
         },
       });
 

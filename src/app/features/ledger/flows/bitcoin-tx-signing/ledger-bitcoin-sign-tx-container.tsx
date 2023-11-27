@@ -5,6 +5,7 @@ import * as btc from '@scure/btc-signer';
 import { hexToBytes } from '@stacks/common';
 import get from 'lodash.get';
 
+import { logger } from '@shared/logger';
 import { RouteUrls } from '@shared/route-urls';
 
 import { useLocationStateWithCache } from '@app/common/hooks/use-location-state';
@@ -92,6 +93,7 @@ function LedgerSignBitcoinTxContainer() {
         unsignedPsbt: unsignedTransactionRaw,
       });
     } catch (e) {
+      logger.error('Unable to sign tx with ledger', e);
       ledgerAnalytics.transactionSignedOnLedgerRejected();
       ledgerNavigate.toOperationRejectedStep();
     } finally {
