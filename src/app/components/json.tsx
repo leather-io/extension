@@ -4,6 +4,14 @@ import { Box } from 'leather-styles/jsx';
 
 import { isBigInt, isTypedArray } from '@shared/utils';
 
+export function parseJson(content: string) {
+  try {
+    return JSON.stringify(JSON.parse(content), null, 2);
+  } catch (e) {
+    return content;
+  }
+}
+
 function parseJsonReadable(value: any) {
   if (isBigInt(value)) return value.toString();
   if (isTypedArray(value)) return bytesToHex(value);
