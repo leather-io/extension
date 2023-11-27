@@ -41,22 +41,22 @@ export function usePsbtRequest() {
         const tx = getPsbtAsTransaction(payload.hex);
 
         try {
-          await signPsbt({ indexesToSign: signAtIndex, tx });
+          const signedTx = await signPsbt({ indexesToSign: signAtIndex, tx });
+
+          const signedPsbt = signedTx.toPSBT();
+
+          setIsLoading(false);
+
+          finalizePsbt({
+            data: { hex: bytesToHex(signedPsbt) },
+            requestPayload: requestToken,
+            tabId,
+          });
         } catch (e) {
           return navigate(RouteUrls.RequestError, {
             state: { message: e instanceof Error ? e.message : '', title: 'Failed to sign' },
           });
         }
-
-        const psbt = tx.toPSBT();
-
-        setIsLoading(false);
-
-        finalizePsbt({
-          data: { hex: bytesToHex(psbt) },
-          requestPayload: requestToken,
-          tabId,
-        });
       },
     };
   }, [

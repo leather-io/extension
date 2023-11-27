@@ -3,7 +3,6 @@ import { Outlet, Route, useLocation } from 'react-router-dom';
 
 import * as btc from '@scure/btc-signer';
 import { hexToBytes } from '@stacks/common';
-import { Psbt } from 'bitcoinjs-lib';
 import get from 'lodash.get';
 
 import { RouteUrls } from '@shared/route-urls';
