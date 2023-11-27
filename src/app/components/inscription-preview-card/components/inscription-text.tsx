@@ -1,6 +1,7 @@
 import { sanitize } from 'dompurify';
 import { Box } from 'leather-styles/jsx';
 
+import { parseJson } from '@app/components/json';
 import { LoadingSpinner } from '@app/components/loading-spinner';
 import { useInscriptionTextContentQuery } from '@app/query/bitcoin/ordinals/inscription-text-content.query';
 
@@ -16,12 +17,6 @@ export function InscriptionText(props: InscriptionTextProps) {
 
   return (
     <Box
-      height="100%"
-      color="white"
-      p="20px"
-      position="relative"
-      overflow="hidden"
-      textAlign="left"
       _after={{
         content: '""',
         position: 'absolute',
@@ -31,8 +26,16 @@ export function InscriptionText(props: InscriptionTextProps) {
         width: '100%',
         backgroundImage: 'linear-gradient(rgba(0,0,0,0), rgba(0,0,0,1))',
       }}
+      color="white"
+      fontSize="9px"
+      height="100%"
+      p="space.03"
+      position="relative"
+      overflow="hidden"
+      textAlign="left"
+      width="100%"
     >
-      {sanitize(query.data)}
+      <pre>{sanitize(parseJson(query.data))}</pre>
     </Box>
   );
 }

@@ -1,15 +1,8 @@
+import { parseJson } from '@app/components/json';
 import { useInscriptionTextContentQuery } from '@app/query/bitcoin/ordinals/inscription-text-content.query';
 import { OrdinalIcon } from '@app/ui/components/icons/ordinal-icon';
 
 import { CollectibleText } from '../_collectible-types/collectible-text';
-
-function processContent(content: string) {
-  try {
-    return JSON.stringify(JSON.parse(content), null, 2);
-  } catch (e) {
-    return content;
-  }
-}
 
 interface InscriptionTextProps {
   contentSrc: string;
@@ -33,7 +26,7 @@ export function InscriptionText({
       key={inscriptionNumber}
       onClickCallToAction={onClickCallToAction}
       onClickSend={onClickSend}
-      content={processContent(query.data)}
+      content={parseJson(query.data)}
       subtitle="Ordinal inscription"
       title={`# ${inscriptionNumber}`}
     />

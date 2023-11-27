@@ -89,10 +89,11 @@ export function CollectibleItemLayout({
         <Box p="space.02">
           <styled.button
             _focus={{ clipPath: 'none', outline: 'focus' }}
-            _hover={{ bg: 'accent.background-primary', fontWeight: 500 }}
+            _hover={{ bg: 'accent.background-primary' }}
             bg="accent.background-primary"
             borderRadius="sm"
             clipPath={isHovered ? 'none' : 'circle(0%)'}
+            fontWeight={500}
             onClick={e => {
               e.stopPropagation();
               onClickSend();

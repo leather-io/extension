@@ -1,5 +1,4 @@
 import { Box, Flex, styled } from 'leather-styles/jsx';
-import { token } from 'leather-styles/tokens';
 
 import { CheckmarkIcon } from '@app/ui/components/icons/checkmark-icon';
 
@@ -21,7 +20,7 @@ export function ThemeListItemLayout({
         isActive
           ? undefined
           : {
-              backgroundColor: token('colors.brown.2'),
+              backgroundColor: 'accent.component-background-hover',
             }
       }
       px="space.05"

@@ -119,7 +119,6 @@ export function PsbtSigner(props: PsbtSignerProps) {
       <PsbtSignerLayout>
         <PsbtRequestHeader name={name} origin={origin} />
         <PsbtRequestDetailsLayout>
-          <PsbtRequestSighashWarningLabel />
           {isPsbtMutable ? <PsbtRequestSighashWarningLabel /> : null}
           <PsbtRequestDetailsHeader />
           <PsbtInputsOutputsTotals />
