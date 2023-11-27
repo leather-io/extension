@@ -108,7 +108,7 @@ export function RequestPassword({ title, caption, onSuccess }: RequestPasswordPr
               disabled={isRunning || !!error}
               aria-busy={isRunning}
               onClick={submit}
-              mt="space.05"
+              mt={['space.11', 'space.05']}
             >
               Continue
             </LeatherButton>
