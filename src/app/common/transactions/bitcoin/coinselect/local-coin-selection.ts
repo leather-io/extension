@@ -69,7 +69,7 @@ export function determineUtxosForSpend({
     sizeInfo = txSizer.calcTxSize({
       // Only p2wpkh is supported by the wallet
       input_script: 'p2wpkh',
-      input_count: neededUtxos.length + 1,
+      input_count: neededUtxos.length,
       // From the address of the recipient, we infer the output type
       [addressInfo.type + '_output_count']: 2,
     });
