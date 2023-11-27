@@ -56,6 +56,7 @@ export function RequestPassword({ title, caption, onSuccess }: RequestPasswordPr
           <>
             <styled.h1
               textStyle={['heading.03', 'heading.03', 'heading.03', 'display.02']}
+              textAlign="left"
               mt="space.00"
               mb="space.06"
             >
