@@ -55,6 +55,7 @@ export function TextInputField({
           right: '-1px',
           top: '-1px',
           bottom: '-1px',
+          pointerEvents: 'none',
         }}
         border="default"
         borderRadius="sm"
