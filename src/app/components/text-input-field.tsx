@@ -2,7 +2,6 @@ import { Ref, useRef } from 'react';
 
 import { SendCryptoAssetSelectors } from '@tests/selectors/send.selectors';
 import { useField } from 'formik';
-import { css } from 'leather-styles/css';
 import { Box, Flex, FlexProps, HStack, styled } from 'leather-styles/jsx';
 
 import { useShowFieldError } from '@app/common/form-utils';
@@ -59,11 +58,6 @@ export function TextInputField({
         }}
         border="default"
         borderRadius="sm"
-        className={css({
-          '& :has(:focus)::before': {
-            border: '1px solid green',
-          },
-        })}
         cursor="text"
         flexDirection="column"
         justifyContent="center"
