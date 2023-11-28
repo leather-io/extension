@@ -1,3 +1,51 @@
+## [6.17.0](https://github.com/leather-wallet/extension/compare/v6.16.1...v6.17.0) (2023-11-28)
+
+
+### Features
+
+* extended add-network page with the option to add bitcoin network too ([870574a](https://github.com/leather-wallet/extension/commit/870574a724030fe2105d482bda6c0c93f44388ba))
+* support bitcoin ledger, closes [#2893](https://github.com/leather-wallet/extension/issues/2893) ([8a81f58](https://github.com/leather-wallet/extension/commit/8a81f58c6261a1c8ac430e7fe8a410e0c11af4bd))
+* updated dlc-tools package, modified accept bitcoin contract rpc params ([0742719](https://github.com/leather-wallet/extension/commit/0742719793d72bd182167d5b0c50cb8515953b23))
+
+
+### Bug Fixes
+
+* account circle numbers and delete unused code ([a6588dc](https://github.com/leather-wallet/extension/commit/a6588dc5a2000ecea6f13be47a54ba2dac6b7bbf))
+* add background state for ledger connect modal ([41fef37](https://github.com/leather-wallet/extension/commit/41fef37ff46630745b8c5372cd887e8e3436f913))
+* align heading text left, closes [#4423](https://github.com/leather-wallet/extension/issues/4423) ([31ddc89](https://github.com/leather-wallet/extension/commit/31ddc89ce0c13092aeba8435713741ef96ba3d2d))
+* allow users to click input when populated, closes [#4582](https://github.com/leather-wallet/extension/issues/4582) ([222a854](https://github.com/leather-wallet/extension/commit/222a854fc542df3e1087d95bfaa34f0e6c352b0b))
+* axios get request for config ([3ad4b06](https://github.com/leather-wallet/extension/commit/3ad4b06b337f3e32a88da90b174809a4081945a0))
+* bitcoin fees tx size calc ([3f5718c](https://github.com/leather-wallet/extension/commit/3f5718c300f5cb14619fb3a362868d8a2a6c4fe8))
+* filter network dust amounts when sending all ([b7a34a9](https://github.com/leather-wallet/extension/commit/b7a34a9bc64d7f5fca205886bdc8519c164754d6))
+* fixed previously saved network loading ([c8724b4](https://github.com/leather-wallet/extension/commit/c8724b426c377a258191ef10cdf7fd7beed1726e))
+* give more margin to Continue button in extension mode, closes [#4423](https://github.com/leather-wallet/extension/issues/4423) ([8d61e93](https://github.com/leather-wallet/extension/commit/8d61e933d4e6323833ea9ad2a3ed86d3b1661139))
+* mark ui bugs ([e9da651](https://github.com/leather-wallet/extension/commit/e9da65164273476ae4ba0c2de185dc07c7230d34))
+* minor ui bugs ([0095ebc](https://github.com/leather-wallet/extension/commit/0095ebc61344472757a9d64ac593b3526b2937a9))
+* **popup:** avatar circle on stacks transactions ([8dbfefe](https://github.com/leather-wallet/extension/commit/8dbfefe8fcf5de687c2a137bce5eb2ff7a94b794))
+* provider name in tests ([6b75267](https://github.com/leather-wallet/extension/commit/6b7526759bde7975e661569bba928717b38c91b3))
+* psbt bare utxo signing ([954e707](https://github.com/leather-wallet/extension/commit/954e70772625f4c62509a872ac9852b4b36dbe8a))
+* qr code ([b035f20](https://github.com/leather-wallet/extension/commit/b035f205c1209a983d5cdfb6ea0b3fce9025f407))
+* remove not working onFocusborder, to be fixed in [#4583](https://github.com/leather-wallet/extension/issues/4583) ([cddf09b](https://github.com/leather-wallet/extension/commit/cddf09b8fd4145a926b70fd200776cb351773c19))
+* sign out and close all tabs on create wallet, closes [#4517](https://github.com/leather-wallet/extension/issues/4517) ([0b47dea](https://github.com/leather-wallet/extension/commit/0b47dea4ea7359fb1c5e49aa99e390c52768bb1c))
+* skip bitcoin contract tests ([83c4d04](https://github.com/leather-wallet/extension/commit/83c4d045a87f35151eaf28eacaa4ada291fc4fc4))
+
+
+### Internal
+
+* fix type errors ([98f5ddf](https://github.com/leather-wallet/extension/commit/98f5ddfc7fa3978e3ded0b86258e3555b280b69d))
+* icon tokens ([91403d7](https://github.com/leather-wallet/extension/commit/91403d7d8885270637d453e7ae76dea419c4e0b7))
+* migrate icons ([fbc6580](https://github.com/leather-wallet/extension/commit/fbc6580936dd1527689e70d2b54528e31fa4e123))
+* post-release merge back ([c3c7bd1](https://github.com/leather-wallet/extension/commit/c3c7bd1ba5b8205040e0f9b98aeaa44d577c913f))
+* remove bitcoinjs-lib from inscription send ([97854b0](https://github.com/leather-wallet/extension/commit/97854b069c7bada08047b07aa39e56af9b7da6b2))
+* remove patch file ([be8b040](https://github.com/leather-wallet/extension/commit/be8b04035f41615dad11ada5c80b6fc994795fc5))
+* remove remaining old icon libraries ([1fa4e6c](https://github.com/leather-wallet/extension/commit/1fa4e6cec0b7fcc015bc6d7368def1be45eea217))
+* remove stacks ui ([99fb117](https://github.com/leather-wallet/extension/commit/99fb11727e62f796e4a303afa4845881222dbb66))
+* remove unneeded parent button, closes [#4550](https://github.com/leather-wallet/extension/issues/4550) ([c44a7bb](https://github.com/leather-wallet/extension/commit/c44a7bb7dd33e8f2722ee9996536d68e98f17bb6))
+* update font and color for receive asset ([800fa3e](https://github.com/leather-wallet/extension/commit/800fa3ed35c220166ee8693396209c0a23fc10e1))
+* update panda ([2807b50](https://github.com/leather-wallet/extension/commit/2807b5002dc860765ddc8769f1944ef9e59d8ebc))
+* update readme ([c86f2ab](https://github.com/leather-wallet/extension/commit/c86f2ab2d2449c6e3f66827b5c84a62efcbfd87c))
+* use tokens for border radius ([b387903](https://github.com/leather-wallet/extension/commit/b38790346a179447028b325becdfc58c1b11fa0a))
+
 ## [6.16.1](https://github.com/leather-wallet/extension/compare/v6.16.0...v6.16.1) (2023-11-17)
 
 
