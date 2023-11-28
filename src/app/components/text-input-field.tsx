@@ -61,7 +61,7 @@ export function TextInputField({
         borderRadius="sm"
         className={css({
           '& :has(:focus)::before': {
-            border: '2px solid #bfc6ff',
+            border: '1px solid green',
           },
         })}
         cursor="text"
@@ -124,6 +124,7 @@ export function TextInputField({
           spellCheck="false"
           textStyle="body.02"
           width="100%"
+          zIndex={1}
           {...field}
           onBlur={e => {
             onBlur?.();
