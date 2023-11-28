@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { styled } from 'leather-styles/jsx';
 
 import { SupportedBlockchains } from '@shared/constants';
+import { RouteUrls } from '@shared/route-urls';
 
 import { capitalize } from '@app/common/utils';
 import { immediatelyAttemptLedgerConnection } from '@app/features/ledger/hooks/use-when-reattempt-ledger-connection';
@@ -19,7 +20,10 @@ export function ConnectLedgerAssetBtn({ chain }: ConnectLedgerAssetBtnProps) {
   const onClick = () => {
     navigate(`${chain}/connect-your-ledger`, {
       replace: true,
-      state: { [immediatelyAttemptLedgerConnection]: true },
+      state: {
+        [immediatelyAttemptLedgerConnection]: true,
+        backgroundLocation: { pathname: RouteUrls.Home },
+      },
     });
   };
   return (
