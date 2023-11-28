@@ -13,9 +13,9 @@ export function RequesterFlag({ requester }: RequesterFlagProps) {
       img={<Favicon origin={requester} />}
       alignItems="center"
       justifyContent="center"
-      py="extra-tight"
-      px="tight"
-      borderRadius="10px"
+      py="space.04"
+      px="space.02"
+      borderRadius="sm"
       width="fit-content"
     >
       <styled.span textStyle="label.02">{requester}</styled.span>

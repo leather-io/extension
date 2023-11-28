@@ -25,9 +25,7 @@ export function Container() {
 
   useOnWalletLock(() => closeWindow());
   useOnSignOut(() => closeWindow());
-
   useRestoreFormState();
-
   useInitalizeAnalytics();
 
   useEffect(() => void analytics.page('view', `${pathname}`), [analytics, pathname]);

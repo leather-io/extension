@@ -1,9 +1,9 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
 
-import { Box, StackProps } from '@stacks/ui';
 import { SharedComponentsSelectors } from '@tests/selectors/shared-component.selectors';
 import BigNumber from 'bignumber.js';
 import { useField } from 'formik';
+import { styled } from 'leather-styles/jsx';
 
 import { STX_DECIMALS } from '@shared/constants';
 import { FeeTypes, Fees } from '@shared/models/fees/fees.model';
@@ -19,23 +19,20 @@ import { FeeEstimateSelect } from './components/fee-estimate-select';
 import { FeesRowLayout } from './components/fees-row.layout';
 import { TransactionFee } from './components/transaction-fee';
 
-interface FeeRowProps extends StackProps {
+interface FeeRowProps {
   fees?: Fees;
   allowCustom?: boolean;
   isSponsored: boolean;
   defaultFeeValue?: number;
   disableFeeSelection?: boolean;
 }
-export function FeesRow(props: FeeRowProps) {
-  const {
-    fees,
-    isSponsored,
-    allowCustom = true,
-    defaultFeeValue,
-    disableFeeSelection,
-    ...rest
-  } = props;
-
+export function FeesRow({
+  fees,
+  isSponsored,
+  allowCustom = true,
+  defaultFeeValue,
+  disableFeeSelection,
+}: FeeRowProps) {
   const [feeField, _, feeHelper] = useField('fee');
   const [feeCurrencyField] = useField('feeCurrency');
   const [feeTypeField, __, feeTypeHelper] = useField('feeType');
@@ -104,7 +101,7 @@ export function FeesRow(props: FeeRowProps) {
     [feeTypeHelper, feeHelper, fees, defaultFeeValue]
   );
 
-  if (!hasFeeEstimates) return <LoadingRectangle height="32px" width="100%" {...rest} />;
+  if (!hasFeeEstimates) return <LoadingRectangle height="32px" width="100%" />;
 
   return (
     <FeesRowLayout
@@ -118,13 +115,18 @@ export function FeesRow(props: FeeRowProps) {
             setFieldWarning={(value: string) => setFieldWarning(value)}
           />
         ) : (
-          <Box as="button" onClick={() => handleSelectFeeEstimateOrCustomField(FeeTypes.Custom)}>
+          <styled.button
+            onClick={() => handleSelectFeeEstimateOrCustomField(FeeTypes.Custom)}
+            textAlign="right"
+            width="100%"
+            type="button"
+          >
             <TransactionFee
               fee={feeField.value}
               feeCurrencySymbol={feeCurrencySymbol}
               usdAmount={feeInUsd}
             />
-          </Box>
+          </styled.button>
         )
       }
       fieldWarning={fieldWarning}
@@ -135,12 +137,11 @@ export function FeesRow(props: FeeRowProps) {
           allowCustom={allowCustom}
           isVisible={isSelectVisible}
           estimate={fees.estimates}
-          onSelectItem={handleSelectFeeEstimateOrCustomField}
+          onSelectItem={(index: number) => handleSelectFeeEstimateOrCustomField(index)}
           onSetIsSelectVisible={(value: boolean) => setIsSelectVisible(value)}
           selectedItem={selectedItem}
         />
       }
-      {...rest}
     />
   );
 }

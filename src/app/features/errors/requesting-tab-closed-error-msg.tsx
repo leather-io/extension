@@ -14,7 +14,7 @@ export function RequestingTabClosedWarningMessage() {
   if (!hasTabClosed) return null;
 
   return (
-    <WarningLabel mb="loose" title="Requesting window closed" width="100%">
+    <WarningLabel mb="space.05" title="Requesting window closed" width="100%">
       The window making this request closed, but you can still broadcast the transaction
     </WarningLabel>
   );

@@ -1,6 +1,6 @@
 import { Box, Stack } from 'leather-styles/jsx';
 
-import { ArrowDownIcon } from '@app/components/icons/arrow-down-icon';
+import { ArrowDownIcon } from '@app/ui/components/icons/arrow-down-icon';
 
 interface SwapAssetsPairLayoutProps {
   swapAssetFrom: React.JSX.Element;
@@ -10,7 +10,7 @@ export function SwapAssetsPairLayout({ swapAssetFrom, swapAssetTo }: SwapAssetsP
   return (
     <Stack
       border="default"
-      borderRadius="12px"
+      borderRadius="md"
       gap="space.01"
       mb="space.05"
       mt="space.04"

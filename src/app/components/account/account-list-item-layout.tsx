@@ -1,15 +1,14 @@
-import { Spinner } from '@stacks/ui';
-import { truncateMiddle } from '@stacks/ui-utils';
 import { SettingsSelectors } from '@tests/selectors/settings.selectors';
 import { Flex, HStack, Stack, StackProps, styled } from 'leather-styles/jsx';
-import { token } from 'leather-styles/tokens';
 
 import { useViewportMinWidth } from '@app/common/hooks/use-media-query';
+import { CheckmarkIcon } from '@app/ui/components/icons/checkmark-icon';
+import { Spinner } from '@app/ui/components/spinner';
+import { truncateMiddle } from '@app/ui/utils/truncate-middle';
 
 import { CaptionDotSeparator } from '../caption-dot-separator';
-import { CheckmarkIcon } from '../icons/checkmark-icon';
 import { Flag } from '../layout/flag';
-import { StacksAccountLoader } from '../stacks-account-loader';
+import { StacksAccountLoader } from '../loaders/stacks-account-loader';
 import { BitcoinNativeSegwitAccountLoader } from './bitcoin-account-loader';
 
 interface AccountListItemLayoutProps extends StackProps {
@@ -19,9 +18,6 @@ interface AccountListItemLayoutProps extends StackProps {
   accountName: React.ReactNode;
   avatar: React.JSX.Element;
   balanceLabel: React.ReactNode;
-  hasCopied?: boolean;
-  onCopyToClipboard?(e: React.MouseEvent): void;
-  onClickBtcCopyIcon?(e: React.MouseEvent): void;
   onSelectAccount(): void;
 }
 export function AccountListItemLayout(props: AccountListItemLayoutProps) {
@@ -33,9 +29,6 @@ export function AccountListItemLayout(props: AccountListItemLayoutProps) {
     avatar,
     balanceLabel,
     onSelectAccount,
-    hasCopied,
-    onCopyToClipboard,
-    onClickBtcCopyIcon,
     children = null,
     ...rest
   } = props;
@@ -61,11 +54,11 @@ export function AccountListItemLayout(props: AccountListItemLayoutProps) {
             </HStack>
             {isLoading ? (
               <Spinner
+                color="accent.text-subdued"
                 position="absolute"
                 right={0}
-                top="calc(50% - 8px)"
-                color={token('colors.accent.text-subdued')}
                 size="18px"
+                top="calc(50% - 8px)"
               />
             ) : (
               balanceLabel

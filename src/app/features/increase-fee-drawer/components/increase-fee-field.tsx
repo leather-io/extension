@@ -1,7 +1,7 @@
 import { useCallback, useMemo, useState } from 'react';
 
-import { Input, InputGroup, Stack, Text } from '@stacks/ui';
 import { useField } from 'formik';
+import { Flex, Stack, styled } from 'leather-styles/jsx';
 
 import { microStxToStx, stxToMicroStx } from '@app/common/money/unit-conversion';
 import { ErrorLabel } from '@app/components/error-label';
@@ -23,20 +23,19 @@ export function IncreaseFeeField(props: IncreaseFeeFieldProps): React.JSX.Elemen
   }, [currentFee, modified, field.value]);
 
   const onSelectMultiplier = useCallback(
-    (multiplier: number) => {
+    async (multiplier: number) => {
       if (!currentFee) return;
       setModified(multiplier !== 1);
-      helpers.setValue(microStxToStx(currentFee * multiplier));
+      await helpers.setValue(microStxToStx(currentFee * multiplier));
     },
     [currentFee, helpers]
   );
 
   return (
     <>
-      <Stack width="100%" position="relative">
+      <Stack position="relative" width="100%">
         <FeeMultiplier
-          pt="base-loose"
-          pr="base-tight"
+          pr="space.03"
           height="100%"
           top={0}
           right={0}
@@ -45,21 +44,26 @@ export function IncreaseFeeField(props: IncreaseFeeFieldProps): React.JSX.Elemen
           showReset={showResetMultiplier}
           onSelectMultiplier={onSelectMultiplier}
         />
-
-        <InputGroup flexDirection="column">
-          <Text as="label" display="block" mb="tight" fontSize={1} fontWeight="500" htmlFor="fee">
+        <Flex>
+          <styled.label display="block" fontSize={1} fontWeight={500} mb="space.02" htmlFor="fee">
             Fee
-          </Text>
-          <Input
-            display="block"
-            type="number"
-            width="100%"
-            placeholder="Enter a custom fee"
+          </styled.label>
+          <styled.input
+            _focus={{ border: 'focus' }}
             autoComplete="off"
             bg="transparent"
+            border="default"
+            borderRadius="sm"
+            height="64px"
+            display="block"
+            p="space.04"
+            placeholder="Enter a custom fee"
+            ring="none"
+            textStyle="body.02"
+            width="100%"
             {...field}
           />
-        </InputGroup>
+        </Flex>
       </Stack>
       {meta.error && <ErrorLabel>{meta.error}</ErrorLabel>}
     </>

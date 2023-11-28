@@ -1,8 +1,7 @@
 import { toast } from 'react-hot-toast';
-import { FiCopy, FiExternalLink } from 'react-icons/fi';
 import { useLocation } from 'react-router-dom';
 
-import { Stack } from '@stacks/ui';
+import { HStack, Stack } from 'leather-styles/jsx';
 
 import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
 import { useClipboard } from '@app/common/hooks/use-copy-to-clipboard';
@@ -18,6 +17,8 @@ import {
   InfoCardSeparator,
 } from '@app/components/info-card/info-card';
 import { ModalHeader } from '@app/components/modal-header';
+import { CopyIcon } from '@app/ui/components/icons/copy-icon';
+import { ExternalLinkIcon } from '@app/ui/components/icons/external-link-icon';
 
 import { TxDone } from '../send-crypto-asset-form/components/tx-done';
 
@@ -44,7 +45,7 @@ export function BtcSentSummary() {
 
   function onClickLink() {
     void analytics.track('view_transaction_confirmation', { symbol: 'BTC' });
-    handleOpenTxLink({ blockchain: txLink.blockchain, txId: txLink.txid });
+    handleOpenTxLink({ blockchain: txLink.blockchain, txid: txLink.txid });
   }
 
   function onClickCopy() {
@@ -58,14 +59,14 @@ export function BtcSentSummary() {
     <InfoCard>
       <TxDone />
       <InfoCardAssetValue
-        value={txValue}
-        fiatValue={txFiatValue}
         fiatSymbol={txFiatValueSymbol}
+        fiatValue={txFiatValue}
+        px="space.05"
         symbol={symbol}
-        px="loose"
+        value={txValue}
       />
 
-      <Stack width="100%" px="extra-loose" pb="extra-loose">
+      <Stack pb="space.06" px="space.06" width="100%">
         <InfoCardRow title="To" value={<FormAddressDisplayer address={recipient} />} />
         <InfoCardSeparator />
         <InfoCardRow title="Total spend" value={totalSpend} />
@@ -76,10 +77,14 @@ export function BtcSentSummary() {
       </Stack>
 
       <InfoCardFooter>
-        <Stack spacing="base" isInline width="100%">
-          <InfoCardBtn onClick={onClickLink} icon={FiExternalLink} label="View Details" />
-          <InfoCardBtn onClick={onClickCopy} icon={FiCopy} label="Copy ID" />
-        </Stack>
+        <HStack gap="space.04" width="100%">
+          <InfoCardBtn
+            icon={<ExternalLinkIcon size="14px" />}
+            label="View details"
+            onClick={onClickLink}
+          />
+          <InfoCardBtn icon={<CopyIcon size="14px" />} label="Copy ID" onClick={onClickCopy} />
+        </HStack>
       </InfoCardFooter>
     </InfoCard>
   );

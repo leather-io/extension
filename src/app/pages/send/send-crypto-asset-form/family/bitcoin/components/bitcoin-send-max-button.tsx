@@ -3,8 +3,8 @@ import { Box } from 'leather-styles/jsx';
 
 import { Money } from '@shared/models/money.model';
 
-import { LeatherButton } from '@app/components/button/button';
 import { Tooltip } from '@app/components/tooltip';
+import { LeatherButton } from '@app/ui/components/button';
 
 import { useSendMax } from '../hooks/use-send-max';
 
@@ -40,7 +40,7 @@ export function BitcoinSendMaxButton({
   return (
     <Tooltip
       label={sendMaxTooltipLabel}
-      labelProps={{ padding: 'tight', textAlign: 'center' }}
+      labelProps={{ padding: 'space.02', textAlign: 'center' }}
       maxWidth="200px"
       placement="bottom"
     >

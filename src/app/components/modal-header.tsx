@@ -1,17 +1,15 @@
 import { useNavigate } from 'react-router-dom';
 
-import { Box } from '@stacks/ui';
 import { SharedComponentsSelectors } from '@tests/selectors/shared-component.selectors';
-import { Flex, styled } from 'leather-styles/jsx';
+import { Box, Flex, styled } from 'leather-styles/jsx';
 import { token } from 'leather-styles/tokens';
 
 import { RouteUrls } from '@shared/route-urls';
 
 import { NetworkModeBadge } from '@app/components/network-mode-badge';
-
-import { LeatherButton } from './button/button';
-import { ArrowLeftIcon } from './icons/arrow-left-icon';
-import { CloseIcon } from './icons/close-icon';
+import { LeatherButton } from '@app/ui/components/button';
+import { ArrowLeftIcon } from '@app/ui/components/icons/arrow-left-icon';
+import { CloseIcon } from '@app/ui/components/icons/close-icon';
 
 interface ModalHeaderProps {
   actionButton?: React.JSX.Element;
@@ -50,7 +48,7 @@ export function ModalHeader({
     <Flex
       alignItems={hideActions ? 'center' : 'flex-start'}
       justifyContent="space-between"
-      p="base"
+      p="space.04"
       position="relative"
       {...rest}
     >

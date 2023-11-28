@@ -3,13 +3,12 @@ import { Suspense, lazy, useMemo } from 'react';
 import { Box, HStack, Stack, styled } from 'leather-styles/jsx';
 
 import { SupportedBlockchains } from '@shared/constants';
-import { LEDGER_BITCOIN_ENABLED } from '@shared/environment';
 
-import { LeatherButton } from '@app/components/button/button';
 import { ExternalLink } from '@app/components/external-link';
-import { BtcLedgerIcon } from '@app/components/icons/btc-ledger-icon';
-import { StxLedgerIcon } from '@app/components/icons/stx-ledger-icon';
 import { Divider } from '@app/components/layout/divider';
+import { LeatherButton } from '@app/ui/components/button';
+import { BtcLedgerIcon } from '@app/ui/components/icons/btc-ledger-icon';
+import { StxLedgerIcon } from '@app/ui/components/icons/stx-ledger-icon';
 
 import { LedgerWrapper } from '../../components/ledger-wrapper';
 
@@ -39,9 +38,6 @@ export function ConnectLedger(props: ConnectLedgerProps) {
   } = props;
 
   const showBitcoinConnectButton = useMemo(() => {
-    if (!LEDGER_BITCOIN_ENABLED) {
-      return false;
-    }
     return chain === 'bitcoin' || !!connectBitcoin;
   }, [chain, connectBitcoin]);
 
@@ -49,14 +45,16 @@ export function ConnectLedger(props: ConnectLedgerProps) {
     return chain === 'stacks' || !!connectStacks;
   }, [chain, connectStacks]);
 
-  const instructions = useMemo(
-    () => [
+  const instructions = useMemo(() => {
+    const showBothBtns = showBitcoinConnectButton && showStacksConnectButton;
+    return [
       '1. Connect & unlock your Ledger',
-      `2. Open${showBitcoinConnectButton ? ' Bitcoin or' : ''} Stacks app`,
+      `2. Open${showBitcoinConnectButton ? ' Bitcoin' : ''} ${showBothBtns ? 'or' : ''} ${
+        showStacksConnectButton ? 'Stacks' : ''
+      } app`,
       '3. Click the button below',
-    ],
-    [showBitcoinConnectButton]
-  );
+    ];
+  }, [showBitcoinConnectButton, showStacksConnectButton]);
 
   return (
     <LedgerWrapper>
@@ -106,7 +104,7 @@ export function ConnectLedger(props: ConnectLedgerProps) {
         </HStack>
       </Stack>
       {warning && (
-        <Box mb="base" mx="extra-loose">
+        <Box mb="space.04" mx="space.06">
           {warning}
         </Box>
       )}

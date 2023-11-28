@@ -1,7 +1,7 @@
-import { FiChevronDown } from 'react-icons/fi';
+import { HStack, styled } from 'leather-styles/jsx';
 
-import { Box, Text, color } from '@stacks/ui';
-import { token } from 'leather-styles/tokens';
+import { LeatherButton } from '@app/ui/components/button';
+import { ChevronDownIcon } from '@app/ui/components/icons/chevron-down-icon';
 
 const labels = ['Address', 'BNS Name'];
 const testLabels = ['address', 'bns-name'];
@@ -11,33 +11,31 @@ interface RecipientDropdownItemProps {
   isVisible?: boolean;
   onSelectItem(index: number): void;
 }
-export function RecipientDropdownItem(props: RecipientDropdownItemProps) {
-  const { index, isVisible, onSelectItem } = props;
-
+export function RecipientDropdownItem({
+  index,
+  isVisible,
+  onSelectItem,
+}: RecipientDropdownItemProps) {
   return (
-    <Box
-      _hover={{ bg: isVisible ? color('bg-alt') : 'none', borderRadius: '8px' }}
+    <LeatherButton
+      _hover={{
+        bg: isVisible ? 'accent.component-background-hover' : 'accent.background-primary',
+        borderRadius: '8px',
+        color: 'accent.text-primary',
+      }}
       alignItems="center"
-      as="button"
       data-testid={`recipient-select-field-${testLabels[index]}`}
       display="flex"
-      height="32px"
-      mb="0px !important"
+      height="30px"
       minWidth="110px"
       onClick={() => onSelectItem(index)}
-      pl={isVisible ? 'tight' : 'unset'}
-      type="button"
+      pl={isVisible ? 'space.02' : 'unset'}
+      variant="text"
     >
-      <Text
-        color={isVisible ? color('text-body') : token('colors.brown.12')}
-        fontSize={1}
-        fontWeight={isVisible ? 400 : 500}
-        ml="2px"
-        mr="tight"
-      >
-        {labels[index]}
-      </Text>
-      {isVisible ? <></> : <FiChevronDown color={token('colors.brown.12')} />}
-    </Box>
+      <HStack gap="space.01">
+        <styled.span textStyle="label.02">{labels[index]}</styled.span>
+        {isVisible ? <></> : <ChevronDownIcon />}
+      </HStack>
+    </LeatherButton>
   );
 }

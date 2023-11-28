@@ -56,7 +56,7 @@ export function useTaprootAccountUtxosQuery() {
         const address = getTaprootAddress({
           index: addressIndexCounter.getValue(),
           keychain: account?.keychain,
-          network: network.chain.bitcoin.network,
+          network: network.chain.bitcoin.bitcoinNetwork,
         });
 
         const unspentTransactions = await client.addressApi.getUtxosByAddress(address);

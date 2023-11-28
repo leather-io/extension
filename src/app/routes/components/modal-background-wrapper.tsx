@@ -1,5 +1,4 @@
-import { Route } from 'react-router-dom';
-import { Outlet, Routes, useLocation } from 'react-router-dom';
+import { Outlet, Route, Routes, useLocation } from 'react-router-dom';
 
 import { useLocationState } from '@app/common/hooks/use-location-state';
 

@@ -1,6 +1,6 @@
-import { Flex, styled } from 'leather-styles/jsx';
+import { Box, Flex, styled } from 'leather-styles/jsx';
 
-import { LeatherButton } from '@app/components/button/button';
+import { LeatherButton } from '@app/ui/components/button';
 
 import AccessibleIcon from './accessible-icon';
 
@@ -19,7 +19,11 @@ export function ActionButton({ icon, label, ...rest }: ActionButtonProps) {
       {...rest}
     >
       <Flex gap="space.02" direction="column" align="center">
-        <AccessibleIcon label={label}>{icon}</AccessibleIcon>
+        <AccessibleIcon label={label}>
+          <Box height="16px" width="16px">
+            {icon}
+          </Box>
+        </AccessibleIcon>
         <styled.span px="space.02">{label}</styled.span>
       </Flex>
     </LeatherButton>

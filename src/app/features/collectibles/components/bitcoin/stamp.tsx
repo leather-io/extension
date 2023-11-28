@@ -1,8 +1,6 @@
-import BitcoinStampImg from '@assets/images/bitcoin-stamp.png';
-import { Box } from '@stacks/ui';
-
 import { openInNewTab } from '@app/common/utils/open-in-new-tab';
 import { Stamp as BitcoinStamp } from '@app/query/bitcoin/stamps/stamps-by-address.query';
+import { StampsIcon } from '@app/ui/components/icons/stamps-icon';
 
 import { CollectibleImage } from '../_collectible-types/collectible-image';
 
@@ -13,11 +11,7 @@ export function Stamp(props: { bitcoinStamp: BitcoinStamp }) {
 
   return (
     <CollectibleImage
-      icon={
-        <Box>
-          <img src={BitcoinStampImg} width="30px" />
-        </Box>
-      }
+      icon={<StampsIcon size="lg" />}
       key={bitcoinStamp.stamp}
       onClickCallToAction={() => openInNewTab(`${stampChainAssetUrl}${bitcoinStamp.stamp}`)}
       src={bitcoinStamp.stamp_url}

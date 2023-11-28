@@ -37,7 +37,7 @@ test.describe('Transaction signing', () => {
     return async (txHex: string) =>
       page.evaluate(
         async txHex =>
-          (window as any).HiroWalletProvider.request('stx_signTransaction', {
+          (window as any).LeatherProvider.request('stx_signTransaction', {
             txHex,
             network: 'mainnet',
           }).catch((e: unknown) => e),

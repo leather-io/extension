@@ -1,6 +1,6 @@
 import LottieRaw, { Options } from 'react-lottie';
 
-import { Box, BoxProps } from '@stacks/ui';
+import { Box, BoxProps } from 'leather-styles/jsx';
 
 import { useThemeSwitcher } from '@app/common/theme-provider';
 
@@ -24,7 +24,7 @@ export default function PluggingInLedgerCableAnimation(props: BoxProps) {
   const invertStyle = theme === 'light' ? {} : { filter: 'invert()' };
 
   return (
-    <Box width="100%" height="200px" overflow="hidden" position="relative" {...props}>
+    <Box height="200px" overflow="hidden" position="relative" width="100%" {...props}>
       <Box position="absolute" left={0} right={0}>
         <Lottie options={options} width={380} style={invertStyle} />
       </Box>

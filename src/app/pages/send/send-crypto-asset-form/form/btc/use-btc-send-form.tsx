@@ -3,13 +3,10 @@ import { useRef, useState } from 'react';
 import { FormikHelpers, FormikProps } from 'formik';
 import * as yup from 'yup';
 
-import { logger } from '@shared/logger';
 import { BitcoinSendFormValues } from '@shared/models/form.model';
-import { noop } from '@shared/utils';
 
 import { formatPrecisionError } from '@app/common/error-formatters';
 import { useOnMount } from '@app/common/hooks/use-on-mount';
-import { useWalletType } from '@app/common/use-wallet-type';
 import {
   btcAddressNetworkValidator,
   btcAddressValidator,
@@ -39,7 +36,6 @@ export function useBtcSendForm() {
   const nativeSegwitSigner = useCurrentAccountNativeSegwitIndexZeroSigner();
   const { data: utxos = [], refetch } = useCurrentNativeSegwitAccountSpendableUtxos();
   const btcCryptoCurrencyAssetBalance = useNativeSegwitBalance(nativeSegwitSigner.address);
-  const { whenWallet } = useWalletType();
   const sendFormNavigate = useSendFormNavigate();
   const calcMaxSpend = useCalculateMaxBitcoinSpend();
   const { onFormStateChange } = useUpdatePersistedSendFormValues();
@@ -77,7 +73,7 @@ export function useBtcSendForm() {
       recipient: yup
         .string()
         .concat(btcAddressValidator())
-        .concat(btcAddressNetworkValidator(currentNetwork.chain.bitcoin.network))
+        .concat(btcAddressNetworkValidator(currentNetwork.chain.bitcoin.bitcoinNetwork))
         .concat(notCurrentAddressValidator(nativeSegwitSigner.address || ''))
         .required('Enter a bitcoin address'),
     }),
@@ -86,14 +82,9 @@ export function useBtcSendForm() {
       values: BitcoinSendFormValues,
       formikHelpers: FormikHelpers<BitcoinSendFormValues>
     ) {
-      logger.debug('btc form values', values);
-      // Validate and check high fee warning first
+      // Validate and check high fee warning firsts
       await formikHelpers.validateForm();
-
-      whenWallet({
-        software: () => sendFormNavigate.toChooseTransactionFee(isSendingMax, utxos, values),
-        ledger: noop,
-      })();
+      sendFormNavigate.toChooseTransactionFee(isSendingMax, utxos, values);
     },
   };
 }

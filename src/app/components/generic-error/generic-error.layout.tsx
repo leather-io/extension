@@ -4,9 +4,8 @@ import GenericError from '@assets/images/generic-error.png';
 import { Flex, FlexProps, HStack, styled } from 'leather-styles/jsx';
 
 import { openInNewTab } from '@app/common/utils/open-in-new-tab';
-
-import { LeatherButton } from '../button/button';
-import { ExternalLinkIcon } from '../icons/external-link-icon';
+import { LeatherButton } from '@app/ui/components/button';
+import { ExternalLinkIcon } from '@app/ui/components/icons/external-link-icon';
 
 const supportUrl =
   'https://wallet.hiro.so/wallet-faq/where-can-i-find-support-for-the-stacks-wallet';
@@ -37,7 +36,7 @@ export function GenericErrorLayout(props: GenericErrorProps) {
       </styled.h2>
       <styled.ul
         border="default"
-        borderRadius="10px"
+        borderRadius="sm"
         fontSize="14px"
         lineHeight="1.6"
         listStyleType="circle"
@@ -53,7 +52,7 @@ export function GenericErrorLayout(props: GenericErrorProps) {
         <styled.li mt="space.04" textAlign="left">
           <HStack alignItems="center">
             <styled.span textStyle="label.02">Reach out to our support team</styled.span>
-            <styled.button onClick={() => openInNewTab(supportUrl)}>
+            <styled.button onClick={() => openInNewTab(supportUrl)} type="button">
               <ExternalLinkIcon />
             </styled.button>
           </HStack>

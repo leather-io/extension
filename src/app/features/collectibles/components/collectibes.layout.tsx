@@ -1,9 +1,9 @@
-import { Spinner } from '@stacks/ui';
 import { Flex, Grid, HStack, styled } from 'leather-styles/jsx';
 import { token } from 'leather-styles/tokens';
 
-import { RefreshIcon } from '@app/components/icons/refresh-icon';
 import { LoadingSpinner } from '@app/components/loading-spinner';
+import { RefreshIcon } from '@app/ui/components/icons/refresh-icon';
+import { Spinner } from '@app/ui/components/spinner';
 
 interface CollectiblesLayoutProps {
   title: string;
@@ -13,8 +13,14 @@ interface CollectiblesLayoutProps {
   subHeader?: React.ReactNode;
   children: React.ReactNode;
 }
-export function CollectiblesLayout(props: CollectiblesLayoutProps) {
-  const { title, isLoading, onRefresh, subHeader, isLoadingMore, children } = props;
+export function CollectiblesLayout({
+  title,
+  isLoading,
+  onRefresh,
+  subHeader,
+  isLoadingMore,
+  children,
+}: CollectiblesLayoutProps) {
   return (
     <>
       <Flex flexDirection="row" justifyContent="space-between" flex={1}>

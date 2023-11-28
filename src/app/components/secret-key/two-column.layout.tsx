@@ -42,7 +42,7 @@ export function TwoColumnLayout({
           pb={['space.02', 'space.05']}
           gap="space.04"
           backgroundColor="accent.background-primary"
-          borderRadius="8px"
+          borderRadius="xs"
           width="100%"
           flex="1"
         >

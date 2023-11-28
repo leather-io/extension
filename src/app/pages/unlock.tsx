@@ -41,7 +41,13 @@ export function Unlock() {
       )}
 
       <RequestPassword
-        title="Your session is locked"
+        title={
+          <>
+            Your
+            <br />
+            session is locked
+          </>
+        }
         caption="Enter the password you set on this device"
         onSuccess={handleSuccess}
       />

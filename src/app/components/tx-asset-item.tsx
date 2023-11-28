@@ -1,5 +1,4 @@
-import { Text } from '@stacks/ui';
-import { HStack, HstackProps } from 'leather-styles/jsx';
+import { HStack, HstackProps, styled } from 'leather-styles/jsx';
 
 import { isValidUrl } from '@shared/utils/validate-url';
 
@@ -21,15 +20,11 @@ export function TxAssetItem(props: TxAssetItemProps) {
           gradientString={iconString}
           imageCanonicalUri={imageCanonicalUri}
           isStx={iconString === 'STX'}
-          size="32px"
+          size="32"
         />
-        <Text fontWeight="500" fontSize={4}>
-          {ticker}
-        </Text>
+        <styled.span textStyle="heading.04">{ticker}</styled.span>
       </HStack>
-      <Text fontWeight="500" fontSize={4}>
-        {amount}
-      </Text>
+      <styled.span textStyle="heading.04">{amount}</styled.span>
     </HStack>
   );
 }

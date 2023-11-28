@@ -1,4 +1,4 @@
-import { Title } from '@app/components/typography';
+import { Title } from '@app/ui/components/typography/title';
 
 interface BitcoinTransactionValueProps {
   children: string;

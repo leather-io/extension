@@ -18,10 +18,6 @@ export interface UtxoResponseItem {
   value: number;
 }
 
-export interface NativeSegwitUtxo extends UtxoResponseItem {
-  addressIndex: number;
-}
-
 export interface TaprootUtxo extends UtxoResponseItem {
   addressIndex: number;
 }
@@ -80,10 +76,10 @@ interface FeeResult {
 class FeeEstimatesApi {
   constructor(public configuration: Configuration) {}
 
-  async getFeeEstimatesFromBlockcypherApi(): Promise<FeeResult> {
+  async getFeeEstimatesFromBlockcypherApi(network: string): Promise<FeeResult> {
     return fetchData({
       errorMsg: 'No fee estimates fetched',
-      url: `https://api.blockcypher.com/v1/btc/main`,
+      url: `https://api.blockcypher.com/v1/btc/${network}`,
     }).then((resp: FeeEstimateEarnApiResponse) => {
       const { low_fee_per_kb, medium_fee_per_kb, high_fee_per_kb } = resp;
       // These fees are in satoshis per kb
@@ -115,6 +111,13 @@ class TransactionsApi {
 
   async getBitcoinTransaction(txid: string) {
     const resp = await axios.get(`${this.configuration.baseUrl}/tx/${txid}`);
+    return resp.data;
+  }
+
+  async getBitcoinTransactionHex(txid: string) {
+    const resp = await axios.get(`${this.configuration.baseUrl}/tx/${txid}/hex`, {
+      responseType: 'text',
+    });
     return resp.data;
   }
 

@@ -1,11 +1,11 @@
-import { FiCheck } from 'react-icons/fi';
 import { Outlet, useLocation, useNavigate } from 'react-router-dom';
 
-import { Box, Flex } from '@stacks/ui';
+import { Flex } from 'leather-styles/jsx';
 
 import { RouteUrls } from '@shared/route-urls';
 
 import { BaseDrawer } from '@app/components/drawer/base-drawer';
+import { CheckmarkIcon } from '@app/ui/components/icons/checkmark-icon';
 
 export function IncreaseFeeSentDrawer() {
   const location = useLocation();
@@ -15,8 +15,8 @@ export function IncreaseFeeSentDrawer() {
   return (
     <>
       <BaseDrawer isShowing={isShowing} onClose={() => navigate(RouteUrls.Home)} title="Confirmed">
-        <Flex px="loose" pb="extra-loose" justifyContent="center">
-          <Box size="32px" as={FiCheck} mt="2px" />
+        <Flex justifyContent="center" pb="space.06" px="space.05">
+          <CheckmarkIcon mt="2px" size="lg" />
         </Flex>
       </BaseDrawer>
       <Outlet />

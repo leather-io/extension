@@ -1,19 +1,21 @@
-import { BoxProps } from '@stacks/ui';
+import { FlexProps } from 'leather-styles/jsx';
 
 import type { StacksFungibleTokenAssetBalance } from '@shared/models/crypto-asset-balance.model';
 
 import { StacksFungibleTokenAssetItem } from '@app/components/crypto-assets/stacks/fungible-token-asset/stacks-fungible-token-asset-item';
 
-interface FungibleTokenAssetItemProps extends BoxProps {
+interface FungibleTokenAssetItemProps extends FlexProps {
   assetBalance: StacksFungibleTokenAssetBalance;
+  onClick: () => void;
 }
-export function FungibleTokenAssetItem(props: FungibleTokenAssetItemProps) {
-  const { assetBalance, ...rest } = props;
+export function FungibleTokenAssetItem({ assetBalance, onClick }: FungibleTokenAssetItemProps) {
   const { blockchain } = assetBalance;
 
   switch (blockchain) {
     case 'stacks':
-      return <StacksFungibleTokenAssetItem assetBalance={assetBalance} isPressable {...rest} />;
+      return (
+        <StacksFungibleTokenAssetItem assetBalance={assetBalance} isPressable onClick={onClick} />
+      );
     default:
       return null;
   }

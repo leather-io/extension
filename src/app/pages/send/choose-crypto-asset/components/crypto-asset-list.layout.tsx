@@ -1,14 +1,13 @@
-import { Stack, StackProps } from '@stacks/ui';
 import { CryptoAssetSelectors } from '@tests/selectors/crypto-asset.selectors';
+import { Stack, StackProps } from 'leather-styles/jsx';
 
 export function CryptoAssetListLayout({ children }: StackProps) {
   return (
     <Stack
-      width="100%"
       data-testid={CryptoAssetSelectors.CryptoAssetList}
-      pb="extra-loose"
-      px="loose"
-      spacing="extra-loose"
+      gap="space.06"
+      px="space.05"
+      width="100%"
     >
       {children}
     </Stack>

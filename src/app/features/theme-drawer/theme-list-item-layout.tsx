@@ -1,10 +1,8 @@
-import { Box, BoxProps, Flex } from '@stacks/ui';
-import { token } from 'leather-styles/tokens';
+import { Box, Flex, styled } from 'leather-styles/jsx';
 
-import { CheckmarkIcon } from '@app/components/icons/checkmark-icon';
-import { Title } from '@app/components/typography';
+import { CheckmarkIcon } from '@app/ui/components/icons/checkmark-icon';
 
-interface ThemeListItemProps extends BoxProps {
+interface ThemeListItemProps {
   themeLabel: string;
   isActive: boolean;
   onThemeItemSelect: () => void;
@@ -13,7 +11,6 @@ export function ThemeListItemLayout({
   themeLabel,
   isActive,
   onThemeItemSelect,
-  ...props
 }: ThemeListItemProps) {
   return (
     <Box
@@ -23,19 +20,16 @@ export function ThemeListItemLayout({
         isActive
           ? undefined
           : {
-              backgroundColor: token('colors.brown.2'),
+              backgroundColor: 'accent.component-background-hover',
             }
       }
-      px="loose"
-      py="base"
+      px="space.05"
+      py="space.04"
       onClick={isActive ? undefined : onThemeItemSelect}
       cursor={isActive ? 'default' : 'pointer'}
-      {...props}
     >
       <Flex width="100%" justifyContent="space-between" alignItems="center" height="20px">
-        <Title fontWeight={400} lineHeight="1rem" display="block" fontFamily="Diatype">
-          {themeLabel}
-        </Title>
+        <styled.span textStyle="label.02">{themeLabel}</styled.span>
         {isActive && <CheckmarkIcon />}
       </Flex>
     </Box>

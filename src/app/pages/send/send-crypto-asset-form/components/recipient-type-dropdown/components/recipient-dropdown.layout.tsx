@@ -1,6 +1,6 @@
 import { ReactNode, useRef } from 'react';
 
-import { Box, Fade, Stack, color } from '@stacks/ui';
+import { Box, Stack } from 'leather-styles/jsx';
 
 import { useOnClickOutside } from '@app/common/hooks/use-onclickoutside';
 
@@ -12,8 +12,12 @@ interface RecipientDropdownLayoutProps {
   onSetIsSelectVisible(value: boolean): void;
   selectedItem: number;
 }
-export function RecipientDropdownLayout(props: RecipientDropdownLayoutProps) {
-  const { children, isVisible, onSetIsSelectVisible, selectedItem } = props;
+export function RecipientDropdownLayout({
+  children,
+  isVisible,
+  onSetIsSelectVisible,
+  selectedItem,
+}: RecipientDropdownLayoutProps) {
   const ref = useRef<HTMLDivElement | null>(null);
 
   useOnClickOutside(ref, () => onSetIsSelectVisible(false));
@@ -21,26 +25,23 @@ export function RecipientDropdownLayout(props: RecipientDropdownLayoutProps) {
   return (
     <Box>
       <RecipientDropdownItem index={selectedItem} onSelectItem={() => onSetIsSelectVisible(true)} />
-      <Fade in={isVisible}>
-        {styles => (
-          <Stack
-            bg={color('bg')}
-            borderRadius="8px"
-            boxShadow="high"
-            flexDirection="column"
-            minWidth="100px"
-            overflow="hidden"
-            p="extra-tight"
-            position="absolute"
-            ref={ref}
-            style={styles}
-            top="40px"
-            zIndex={9999}
-          >
-            {children}
-          </Stack>
-        )}
-      </Fade>
+      {isVisible ? (
+        <Stack
+          bg="accent.background-primary"
+          borderRadius="xs"
+          boxShadow="0px 8px 16px rgba(27, 39, 51, 0.08)"
+          flexDirection="column"
+          minWidth="100px"
+          overflow="hidden"
+          p="space.01"
+          position="absolute"
+          ref={ref}
+          top="40px"
+          zIndex={9999}
+        >
+          {children}
+        </Stack>
+      ) : null}
     </Box>
   );
 }

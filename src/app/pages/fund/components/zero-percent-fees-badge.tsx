@@ -1,28 +1,23 @@
-import { FiStar } from 'react-icons/fi';
+import { HStack, styled } from 'leather-styles/jsx';
 
-import { Stack, color } from '@stacks/ui';
-
-import { Caption } from '@app/components/typography';
+import { StarIcon } from '@app/ui/components/icons/star-icon';
 
 export function ZeroPercentFeesBadge() {
   return (
-    <Stack
+    <HStack
       alignItems="center"
-      border="1px solid"
-      borderColor="#FFE0C2"
-      borderRadius="24px"
-      color={color('text-caption')}
+      border="default"
+      borderRadius="xxl"
       height="24px"
-      isInline
       justifyContent="center"
-      paddingX="tight"
-      paddingY="extra-tight"
-      spacing="extra-tight"
+      paddingX="space.02"
+      paddingY="space.01"
+      gap="space.01"
     >
-      <FiStar color="#F59300" size="12px" strokeWidth="2.5px" />
-      <Caption color="#FFA953" fontWeight={500} variant="c2">
-        0% Fees
-      </Caption>
-    </Stack>
+      <StarIcon color="warning.label" size="xs" />
+      <styled.span color="warning.label" textStyle="caption.02">
+        0 % Fees
+      </styled.span>
+    </HStack>
   );
 }

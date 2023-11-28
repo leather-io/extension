@@ -1,7 +1,7 @@
-import { FiInfo } from 'react-icons/fi';
+import { Flex, HStack, styled } from 'leather-styles/jsx';
 
-import { Box, Flex, Stack, Tooltip, color } from '@stacks/ui';
-import { styled } from 'leather-styles/jsx';
+import { Tooltip } from '@app/components/tooltip';
+import { InfoIcon } from '@app/ui/components/icons/info-icon';
 
 interface AssetCaptionProps {
   caption: string;
@@ -17,21 +17,15 @@ export function AssetCaption({ caption, isUnanchored }: AssetCaptionProps) {
             • Microblock
           </styled.span>
           <Tooltip placement="right-end" label={'Learn more about microblocks'}>
-            <Stack isInline>
+            <HStack>
               <a
                 href="https://docs.stacks.co/understand-stacks/microblocks"
                 target="_blank"
                 rel="noreferrer"
               >
-                <Box
-                  _hover={{ cursor: 'pointer' }}
-                  size="12px"
-                  color={color('text-caption')}
-                  as={FiInfo}
-                  ml={1}
-                />
+                <InfoIcon color="accent.text-subdued" ml="space.01" size="xs" />
               </a>
-            </Stack>
+            </HStack>
           </Tooltip>
         </>
       ) : (

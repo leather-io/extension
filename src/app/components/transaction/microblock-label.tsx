@@ -1,8 +1,7 @@
-import { FiInfo } from 'react-icons/fi';
-
-import { Box, Flex, Stack, Text, color } from '@stacks/ui';
+import { Box, Flex, styled } from 'leather-styles/jsx';
 
 import { Tooltip } from '@app/components/tooltip';
+import { InfoIcon } from '@app/ui/components/icons/info-icon';
 
 const inMicroblockMessage =
   'This transaction is currently in a microblock, which increases the chances of inclusion in the next anchor block.';
@@ -10,19 +9,13 @@ const inMicroblockMessage =
 export function MicroblockLabel() {
   return (
     <Flex alignItems="center">
-      <Text color={color('feedback-alert')} fontSize={0} mr="2px">
+      <styled.span color="warning.label" mr="space.01" textStyle="label.03">
         In microblock
-      </Text>
+      </styled.span>
       <Tooltip label={inMicroblockMessage} placement="bottom">
-        <Stack>
-          <Box
-            _hover={{ cursor: 'pointer' }}
-            as={FiInfo}
-            color={color('feedback-alert')}
-            ml="2px"
-            size="10px"
-          />
-        </Stack>
+        <Box _hover={{ cursor: 'pointer' }} color="warning.label" height="10px" width="10px">
+          <InfoIcon />
+        </Box>
       </Tooltip>
     </Flex>
   );

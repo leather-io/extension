@@ -1,13 +1,7 @@
 import { memo } from 'react';
-import { useNavigate } from 'react-router-dom';
-
-import { RouteUrls } from '@shared/route-urls';
 
 import { useAccountDisplayName } from '@app/common/hooks/account/use-account-names';
 import { useSwitchAccount } from '@app/common/hooks/account/use-switch-account';
-import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
-import { useClipboard } from '@app/common/hooks/use-copy-to-clipboard';
-import { useDrawers } from '@app/common/hooks/use-drawers';
 import { useLoading } from '@app/common/hooks/use-loading';
 import { AccountTotalBalance } from '@app/components/account-total-balance';
 import { AccountListItemLayout } from '@app/components/account/account-list-item-layout';
@@ -15,7 +9,7 @@ import { usePressable } from '@app/components/item-hover';
 import { useNativeSegwitSigner } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
 import { useStacksAccounts } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
 
-import { AccountAvatarItem } from '../../../components/account/account-avatar';
+import { AccountAvatarItem } from '../../../components/account/account-avatar-item';
 import { AccountNameLayout } from '../../../components/account/account-name';
 
 interface SwitchAccountListItemProps {
@@ -36,7 +30,6 @@ export const SwitchAccountListItem = memo(
     const { handleSwitchAccount } = useSwitchAccount(handleClose);
     const [component, bind] = usePressable(true);
     const name = useAccountDisplayName({ address: stacksAddress, index });
-    const navigate = useNavigate();
 
     const handleClick = async () => {
       setIsLoading();
@@ -46,25 +39,6 @@ export const SwitchAccountListItem = memo(
       }, 80);
     };
 
-    const analytics = useAnalytics();
-    const { onCopy, hasCopied } = useClipboard(stacksAddress || '');
-    const { setIsShowingSwitchAccountsState } = useDrawers();
-
-    const onCopyToClipboard = (e: React.MouseEvent) => {
-      e.stopPropagation();
-      void analytics.track('copy_address_to_clipboard');
-      onCopy();
-    };
-
-    const onClickBtcCopyIcon = (e: React.MouseEvent) => {
-      if (!bitcoinAddress) return;
-      e.stopPropagation();
-      setIsShowingSwitchAccountsState(false);
-      navigate(RouteUrls.ReceiveBtc, {
-        state: { btcAddress: bitcoinAddress, accountIndex: currentAccountIndex },
-      });
-    };
-
     return (
       <AccountListItemLayout
         index={index}
@@ -72,8 +46,8 @@ export const SwitchAccountListItem = memo(
         isActive={currentAccountIndex === index}
         avatar={
           <AccountAvatarItem
-            index={currentAccountIndex}
-            publicKey={stacksAccounts[currentAccountIndex]?.stxPublicKey || ''}
+            index={index}
+            publicKey={stacksAccounts[index]?.stxPublicKey || ''}
             name={name}
           />
         }
@@ -82,10 +56,7 @@ export const SwitchAccountListItem = memo(
         balanceLabel={
           <AccountTotalBalance stxAddress={stacksAddress} btcAddress={bitcoinAddress} />
         }
-        hasCopied={hasCopied}
-        onCopyToClipboard={onCopyToClipboard}
-        onClickBtcCopyIcon={onClickBtcCopyIcon}
-        mt="loose"
+        mt="space.05"
         {...bind}
       >
         {component}

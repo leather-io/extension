@@ -1,10 +1,8 @@
 import { useState } from 'react';
 
-import { BoxProps, CodeBlock, Stack, color } from '@stacks/ui';
+import { HStack, HTMLStyledProps, Stack, styled } from 'leather-styles/jsx';
 
 import { Prism } from '@app/common/clarity-prism';
-import { Divider } from '@app/components/layout/divider';
-import { Caption, Title } from '@app/components/typography';
 import { AttachmentRow } from '@app/features/stacks-transaction-request/attachment-row';
 import { ContractPreviewLayout } from '@app/features/stacks-transaction-request/contract-preview';
 import { Row } from '@app/features/stacks-transaction-request/row';
@@ -13,6 +11,8 @@ import {
   useCurrentStacksAccount,
 } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
 import { useTransactionRequestState } from '@app/store/transactions/requests.hooks';
+import { CodeBlock } from '@app/ui/components/codeblock';
+import { Title } from '@app/ui/components/typography/title';
 
 function ContractCodeSection() {
   const transactionRequest = useTransactionRequestState();
@@ -31,19 +31,15 @@ function ContractCodeSection() {
 
   return (
     <CodeBlock
-      overflowX="scroll"
-      border="4px solid"
-      borderColor={color('border')}
-      borderRadius="12px"
-      backgroundColor="ink.1000"
-      maxWidth="100vw"
+      border="default"
       code={transactionRequest.codeBody}
-      Prism={Prism as any}
+      maxWidth="100vw"
+      prism={Prism as any}
     />
   );
 }
 
-interface TabButtonProps extends BoxProps {
+interface TabButtonProps extends HTMLStyledProps<'button'> {
   isActive: boolean;
 }
 
@@ -51,14 +47,14 @@ function TabButton(props: TabButtonProps) {
   const { isActive, ...rest } = props;
 
   return (
-    <Caption
-      as="button"
-      border={0}
-      borderRadius="8px"
-      px="base"
-      py="base"
-      bg={isActive ? color('bg-4') : 'transparent'}
-      fontWeight={isActive ? 600 : 500}
+    <styled.button
+      bg={isActive ? 'accent.component-background-hover' : 'transparent'}
+      borderRadius="xs"
+      color={isActive ? 'accent.text-primary' : 'accent.text-subdued'}
+      px="space.04"
+      py="space.03"
+      textStyle="label.01"
+      type="button"
       {...rest}
     />
   );
@@ -80,32 +76,30 @@ export function ContractDeployDetails() {
   }
 
   return (
-    <Stack mb="loose" spacing="loose">
-      <Stack spacing="0" isInline>
+    <Stack mb="space.05" gap="space.05" width="100%">
+      <HStack gap="0">
         <TabButton onClick={() => setTab('details')} isActive={tab === 'details'}>
           Details
         </TabButton>
         <TabButton onClick={() => setTab('code')} isActive={tab === 'code'}>
           Code
         </TabButton>
-      </Stack>
+      </HStack>
       {tab === 'details' ? (
         <Stack
-          spacing="loose"
+          gap="space.05"
           border="4px solid"
-          borderColor={color('border')}
-          borderRadius="12px"
-          py="extra-loose"
-          px="base-loose"
+          borderColor="accent.border-default"
+          borderRadius="md"
+          py="space.06"
+          px="space.04"
         >
-          <Title as="h2" fontWeight="500">
-            Contract deploy details
-          </Title>
+          <Title>Contract deploy details</Title>
           <ContractPreviewLayout
             contractAddress={currentAccountStxAddress}
             contractName={transactionRequest.contractName}
           />
-          <Stack spacing="base-loose" divider={<Divider />}>
+          <Stack gap="space.04">
             {currentAccountStxAddress && (
               <Row name="Contract address" value={currentAccountStxAddress} type="Principal" />
             )}

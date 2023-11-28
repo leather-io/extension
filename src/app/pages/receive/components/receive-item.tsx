@@ -1,10 +1,10 @@
-import { truncateMiddle } from '@stacks/ui-utils';
 import { Flex, HStack, Stack, styled } from 'leather-styles/jsx';
 
-import { LeatherButton } from '@app/components/button/button';
-import { CopyIcon } from '@app/components/icons/copy-icon';
-import { QrCodeIcon } from '@app/components/icons/qr-code-icon';
 import { Flag } from '@app/components/layout/flag';
+import { LeatherButton } from '@app/ui/components/button';
+import { CopyIcon } from '@app/ui/components/icons/copy-icon';
+import { QrCodeIcon } from '@app/ui/components/icons/qr-code-icon';
+import { truncateMiddle } from '@app/ui/utils/truncate-middle';
 
 interface ReceiveItemProps {
   address?: string;
@@ -24,7 +24,7 @@ export function ReceiveItem({
 }: ReceiveItemProps) {
   if (!address) return null;
   return (
-    <Flag align="middle" img={icon} spacing="base">
+    <Flag align="middle" img={icon} spacing="space.04">
       <Flex justifyContent="space-between">
         <Stack gap="space.00">
           <styled.span textStyle="label.02">{title}</styled.span>
@@ -37,7 +37,7 @@ export function ReceiveItem({
           {onClickQrCode && (
             <LeatherButton
               data-testid={dataTestId}
-              ml="tight"
+              ml="space.02"
               onClick={onClickQrCode}
               variant="ghost"
             >

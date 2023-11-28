@@ -13,6 +13,8 @@ import { getTaprootAddressIndexDerivationPath } from '@shared/crypto/bitcoin/p2t
 import { getNativeSegwitAddressIndexDerivationPath } from '@shared/crypto/bitcoin/p2wpkh-address-gen';
 import { AllowedSighashTypes } from '@shared/rpc/methods/sign-psbt';
 
+import { useBitcoinExtendedPublicKeyVersions } from './bitcoin-keychain';
+
 export interface Signer<Payment> {
   network: BitcoinNetworkModes;
   payment: Payment;
@@ -105,17 +107,16 @@ interface CreateSignersForAllNetworkTypesArgs {
   paymentFn: (keychain: HDKey, network: BitcoinNetworkModes) => unknown;
   mainnetKeychainFn: (accountIndex: number) => BitcoinAccount | undefined;
   testnetKeychainFn: (accountIndex: number) => BitcoinAccount | undefined;
+  extendedPublicKeyVersions?: Versions;
 }
 function createSignersForAllNetworkTypes<T extends CreateSignersForAllNetworkTypesArgs>({
   mainnetKeychainFn,
   testnetKeychainFn,
   paymentFn,
+  extendedPublicKeyVersions,
 }: T) {
   return ({ accountIndex, addressIndex }: { accountIndex: number; addressIndex: number }) => {
-    const mainnetAccount = mainnetKeychainFn(accountIndex);
-    const testnetAccount = testnetKeychainFn(accountIndex);
-
-    if (!mainnetAccount || !testnetAccount) throw new Error('No account found');
+    const networkMap = new Map();
 
     function makeNetworkSigner(keychain: HDKey, network: BitcoinNetworkModes) {
       return bitcoinAddressIndexSignerFactory({
@@ -123,15 +124,23 @@ function createSignersForAllNetworkTypes<T extends CreateSignersForAllNetworkTyp
         accountKeychain: keychain,
         paymentFn: paymentFn as T['paymentFn'],
         network,
+        extendedPublicKeyVersions,
       })(addressIndex);
     }
 
-    return {
-      mainnet: makeNetworkSigner(mainnetAccount.keychain, 'mainnet'),
-      testnet: makeNetworkSigner(testnetAccount.keychain, 'testnet'),
-      regtest: makeNetworkSigner(testnetAccount.keychain, 'regtest'),
-      signet: makeNetworkSigner(testnetAccount.keychain, 'signet'),
-    };
+    const mainnetAccount = mainnetKeychainFn(accountIndex);
+    if (mainnetAccount) {
+      networkMap.set('mainnet', makeNetworkSigner(mainnetAccount.keychain, 'mainnet'));
+    }
+
+    const testnetAccount = testnetKeychainFn(accountIndex);
+    if (testnetAccount) {
+      networkMap.set('testnet', makeNetworkSigner(testnetAccount.keychain, 'testnet'));
+      networkMap.set('regtest', makeNetworkSigner(testnetAccount.keychain, 'regtest'));
+      networkMap.set('signet', makeNetworkSigner(testnetAccount.keychain, 'signet'));
+    }
+
+    return Object.fromEntries(networkMap);
   };
 }
 
@@ -140,6 +149,8 @@ export function useMakeBitcoinNetworkSignersForPaymentType<T>(
   testnetKeychainFn: (index: number) => BitcoinAccount | undefined,
   paymentFn: (keychain: HDKey, network: BitcoinNetworkModes) => T
 ) {
+  const extendedPublicKeyVersions = useBitcoinExtendedPublicKeyVersions();
+
   return useCallback(
     (accountIndex: number) => {
       const zeroIndex = 0;
@@ -148,8 +159,9 @@ export function useMakeBitcoinNetworkSignersForPaymentType<T>(
         mainnetKeychainFn,
         testnetKeychainFn,
         paymentFn,
+        extendedPublicKeyVersions,
       })({ accountIndex, addressIndex: zeroIndex });
     },
-    [mainnetKeychainFn, paymentFn, testnetKeychainFn]
+    [extendedPublicKeyVersions, mainnetKeychainFn, paymentFn, testnetKeychainFn]
   );
 }

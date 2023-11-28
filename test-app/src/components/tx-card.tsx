@@ -1,8 +1,8 @@
 import React from 'react';
-import { Box, Flex, Text } from '@stacks/ui';
-import type { ContractCallTransaction } from '@stacks/stacks-blockchain-api-types';
 
 import { toRelativeTime } from '@common/utils';
+import type { ContractCallTransaction } from '@stacks/stacks-blockchain-api-types';
+import { Box, Flex, styled } from 'leather-styles/jsx';
 
 interface TxCardProps {
   tx: ContractCallTransaction;
@@ -18,7 +18,7 @@ export const TxCard: React.FC<TxCardProps> = ({ tx, label }) => {
       mt={3}
       borderColor="#F0F0F5"
       borderWidth="1px"
-      borderRadius="12px"
+      borderRadius="md"
       p={6}
       _hover={{
         borderColor: 'ink.400',
@@ -31,15 +31,15 @@ export const TxCard: React.FC<TxCardProps> = ({ tx, label }) => {
     >
       <Flex>
         <Box>
-          <Text color="ink.600">{shortAddr}</Text>
+          <styled.span color="ink.600">{shortAddr}</styled.span>
         </Box>
         <Box flexGrow={1} textAlign="right">
-          <Text color="ink.600">{toRelativeTime(tx.burn_block_time * 1000)}</Text>
+          <styled.span color="ink.600">{toRelativeTime(tx.burn_block_time * 1000)}</styled.span>
         </Box>
       </Flex>
-      <Text display="block" textStyle="body.large" mt={3}>
+      <styled.span display="block" textStyle="body.large" mt={3}>
         {label}
-      </Text>
+      </styled.span>
     </Box>
   );
 };

@@ -5,9 +5,9 @@ import { Box, Flex, styled } from 'leather-styles/jsx';
 
 import { useLocationState } from '@app/common/hooks/use-location-state';
 import { AddressDisplayer } from '@app/components/address-displayer/address-displayer';
-import { LeatherButton } from '@app/components/button/button';
 import { BaseDrawer } from '@app/components/drawer/base-drawer';
 import { useBackgroundLocationRedirect } from '@app/routes/hooks/use-background-location-redirect';
+import { LeatherButton } from '@app/ui/components/button';
 
 import { QrCode } from './address-qr-code';
 
@@ -45,8 +45,7 @@ export function ReceiveTokensLayout(props: ReceiveTokensLayoutProps) {
             data-testid={SharedComponentsSelectors.AddressDisplayer}
             flexWrap="wrap"
             justifyContent="center"
-            lineHeight={1.8}
-            maxWidth="280px"
+            maxWidth="300px"
             mt="space.04"
           >
             <AddressDisplayer address={address} />

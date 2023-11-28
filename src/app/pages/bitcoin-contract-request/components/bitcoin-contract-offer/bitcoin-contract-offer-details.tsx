@@ -1,6 +1,6 @@
 import { SimplifiedBitcoinContract } from '@app/common/hooks/use-bitcoin-contracts';
 
-import { BitcoinContractExpirationDate } from './bitcoin-contract-expiration-date';
+import { BitcoinContractEmergencyRefundTime } from './bitcoin-contract-emergency-refund-time';
 import { BitcoinContractOfferInput } from './bitcoin-contract-offer-input';
 
 interface BitcoinContractOfferDetailsSimpleProps {
@@ -17,8 +17,8 @@ export function BitcoinContractOfferDetailsSimple({
         addressNativeSegwit={bitcoinAddress}
         bitcoinContractOffer={bitcoinContractOffer}
       />
-      <BitcoinContractExpirationDate
-        expirationDate={bitcoinContractOffer.bitcoinContractExpirationDate}
+      <BitcoinContractEmergencyRefundTime
+        emergencyRefundTime={bitcoinContractOffer.bitcoinContractEmergencyRefundTime}
       />
     </>
   );

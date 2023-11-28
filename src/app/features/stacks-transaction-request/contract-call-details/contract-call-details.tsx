@@ -1,14 +1,13 @@
 import { Suspense } from 'react';
 
-import { Stack, color } from '@stacks/ui';
+import { Stack } from 'leather-styles/jsx';
 
 import { useExplorerLink } from '@app/common/hooks/use-explorer-link';
 import { formatContractId } from '@app/common/utils';
-import { Divider } from '@app/components/layout/divider';
-import { Title } from '@app/components/typography';
 import { AttachmentRow } from '@app/features/stacks-transaction-request/attachment-row';
 import { ContractPreviewLayout } from '@app/features/stacks-transaction-request/contract-preview';
 import { useTransactionRequestState } from '@app/store/transactions/requests.hooks';
+import { Title } from '@app/ui/components/typography/title';
 
 import { FunctionArgumentsList } from './function-arguments-list';
 
@@ -22,30 +21,28 @@ function ContractCallDetailsSuspense() {
   return (
     <Stack
       border="4px solid"
-      borderColor={color('border')}
-      borderRadius="12px"
-      mb="loose"
-      px="base-loose"
-      py="extra-loose"
-      spacing="loose"
+      borderColor="accent.border-default"
+      borderRadius="md"
+      mb="space.05"
+      px="space.04"
+      py="32px"
+      gap="space.05"
       width="100%"
     >
-      <Title as="h2" fontWeight="500">
-        Function and arguments
-      </Title>
+      <Title>Function and arguments</Title>
 
       <ContractPreviewLayout
         onClick={() =>
           handleOpenTxLink({
             blockchain: 'stacks',
-            txId: formatContractId(contractAddress, contractName),
+            txid: formatContractId(contractAddress, contractName),
           })
         }
         contractAddress={contractAddress}
         contractName={contractName}
         functionName={functionName}
       />
-      <Stack divider={<Divider />} spacing="base">
+      <Stack gap="space.04">
         <FunctionArgumentsList />
         {attachment && <AttachmentRow />}
       </Stack>

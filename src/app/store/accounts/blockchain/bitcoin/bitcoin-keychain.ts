@@ -58,21 +58,25 @@ export function bitcoinAccountBuilderFactory(
 
 export function useBitcoinScureLibNetworkConfig() {
   const network = useCurrentNetwork();
-  return getBtcSignerLibNetworkConfigByMode(network.chain.bitcoin.network);
+  return getBtcSignerLibNetworkConfigByMode(network.chain.bitcoin.bitcoinNetwork);
 }
 
 export function useBitcoinExtendedPublicKeyVersions(): Versions | undefined {
   const network = useCurrentNetwork();
   const { whenWallet } = useWalletType();
   // Only Ledger in testnet mode do we need to manually declare `Versions`
-  return useMemo(
-    () =>
-      whenWallet({
+  return useMemo(() => {
+    // whenWallet throws if it's neither. As whenWallet is also called on
+    // SetPassword page, we need to catch because it's neither at that point
+    try {
+      return whenWallet({
         software: undefined,
         ledger: getHdKeyVersionsFromNetwork(
-          bitcoinNetworkModeToCoreNetworkMode(network.chain.bitcoin.network)
+          bitcoinNetworkModeToCoreNetworkMode(network.chain.bitcoin.bitcoinNetwork)
         ),
-      }),
-    [network, whenWallet]
-  );
+      });
+    } catch (e) {
+      return undefined;
+    }
+  }, [network, whenWallet]);
 }

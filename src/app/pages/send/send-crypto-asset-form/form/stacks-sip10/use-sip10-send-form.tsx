@@ -24,7 +24,6 @@ interface UseSip10SendFormArgs {
   symbol: string;
   contractId: string;
 }
-
 export function useSip10SendForm({ symbol, contractId }: UseSip10SendFormArgs) {
   const assetBalance = useStacksFungibleTokenAssetBalance(contractId);
   const generateTx = useGenerateFtTokenTransferUnsignedTx(assetBalance);

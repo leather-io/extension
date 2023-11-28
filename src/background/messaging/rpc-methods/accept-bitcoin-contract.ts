@@ -20,7 +20,7 @@ export async function rpcAcceptBitcoinContractOffer(
   if (
     !message.params ||
     !message.params.bitcoinContractOffer ||
-    !message.params.attestorURLs ||
+    !message.params.bitcoinNetwork ||
     !message.params.counterpartyWalletDetails
   ) {
     chrome.tabs.sendMessage(
@@ -38,7 +38,7 @@ export async function rpcAcceptBitcoinContractOffer(
 
   const params: RequestParams = [
     ['bitcoinContractOffer', message.params.bitcoinContractOffer],
-    ['attestorURLs', message.params.attestorURLs],
+    ['bitcoinNetwork', message.params.bitcoinNetwork],
     ['counterpartyWalletDetails', message.params.counterpartyWalletDetails],
     ['requestId', message.id],
   ];

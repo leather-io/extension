@@ -1,25 +1,25 @@
 import { Suspense } from 'react';
 import { Outlet } from 'react-router-dom';
 
-import { Flex, Spinner, Stack } from '@stacks/ui';
+import { Flex, Stack } from 'leather-styles/jsx';
 
 import { BaseDrawer } from '@app/components/drawer/base-drawer';
-import { Caption } from '@app/components/typography';
+import { Spinner } from '@app/ui/components/spinner';
+import { Caption } from '@app/ui/components/typography/caption';
 
 interface IncreaseFeeDrawerProps {
   feeForm: React.JSX.Element;
   onClose: () => void;
   isShowing: boolean;
 }
-
 export function IncreaseFeeDrawer({ feeForm, onClose, isShowing }: IncreaseFeeDrawerProps) {
   return (
     <>
       <BaseDrawer isShowing={isShowing} onClose={onClose} title="Increase transaction fee">
-        <Stack px="loose" spacing="loose" pb="extra-loose">
+        <Stack gap="space.05" px="space.05" pb="space.05">
           <Suspense
             fallback={
-              <Flex alignItems="center" justifyContent="center" p="extra-loose">
+              <Flex alignItems="center" justifyContent="center" p="space.06">
                 <Spinner />
               </Flex>
             }

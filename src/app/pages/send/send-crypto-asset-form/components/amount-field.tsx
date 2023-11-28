@@ -1,10 +1,9 @@
 import type { ChangeEvent } from 'react';
 import { useCallback, useEffect, useRef, useState } from 'react';
 
-import { Box, Flex, Input, Stack, Text, color } from '@stacks/ui';
 import { SendCryptoAssetSelectors } from '@tests/selectors/send.selectors';
 import { useField } from 'formik';
-import { token } from 'leather-styles/tokens';
+import { Box, Flex, Stack, styled } from 'leather-styles/jsx';
 
 import { STX_DECIMALS, TOKEN_NAME_LENGTH } from '@shared/constants';
 import { Money } from '@shared/models/money.model';
@@ -141,11 +140,12 @@ export function AmountField({
   return (
     <Stack
       alignItems="center"
-      px="extra-loose"
-      spacing={['base', showError ? 'base' : '48px']}
+      px="space.06"
+      gap={['space.04', showError ? 'space.04' : '48px']}
       width="100%"
     >
       <Flex alignItems="center" flexDirection="column" onClick={onClickFocusInput}>
+        {/* #4476 TODO check these fonts against design */}
         <Flex
           alignItems="center"
           height="55px"
@@ -154,23 +154,28 @@ export function AmountField({
           position="relative"
           fontFamily="Marche"
         >
-          {isSendingMax ? <Text fontSize={fontSize + 'px'}>~</Text> : null}
-          <Input
-            _disabled={{ bg: color('bg') }}
+          {isSendingMax ? <styled.span style={{ fontSize: fontSize + 'px' }}>~</styled.span> : null}
+          <styled.input
+            _disabled={{ bg: 'accent.background-primary' }}
             _focus={{
               border: 'none',
-              color: token('colors.accent.text-primary'),
+              color: 'accent.text-primary',
             }}
             bg="transparent"
             border="none"
             data-testid={SendCryptoAssetSelectors.AmountFieldInput}
-            fontSize={fontSize + 'px'}
             height="100%"
             id={amountInputId}
-            isDisabled={isSendingMax}
+            disabled={isSendingMax}
             maxLength={maxLength}
             placeholder="0"
             px="none"
+            ring="none"
+            style={{
+              fontSize: fontSize + 'px',
+              marginInlineStart: !field.value?.length ? 0 : -25 + 'px',
+              width: !field.value?.length ? '1ch' : textSizeInPx + 25 + 'px',
+            }}
             textAlign="right"
             letterSpacing="0.64px"
             /*
@@ -180,8 +185,8 @@ export function AmountField({
              * We are correcting for that extra space with a negative margin so the content is perfectly
              * centered
              */
-            width={!field.value?.length ? '1ch' : textSizeInPx + 25 + 'px'}
-            marginInlineStart={!field.value?.length ? 0 : -25 + 'px'}
+            // width={!field.value?.length ? '1ch' : textSizeInPx + 25 + 'px'}
+            // marginInlineStart={!field.value?.length ? 0 : -25 + 'px'}
             autoFocus={autofocus}
             fontWeight={500}
             autoComplete={autoComplete}
@@ -192,7 +197,7 @@ export function AmountField({
            * This is what we use to measure the size of the input, it's hidden
            * and with no pointer events so users can't interact with it
            */}
-          <Text
+          <styled.span
             position="absolute"
             ref={fieldRef}
             visibility="hidden"
@@ -201,27 +206,27 @@ export function AmountField({
             left={0}
             letterSpacing={-0.3 + 'px'}
             fontWeight={500}
-            fontSize={fontSize + 'px'}
             minWidth={1 + 'ch'}
+            style={{ fontSize: fontSize + 'px' }}
           >
             {field.value}
-          </Text>
-          <Text
+          </styled.span>
+          <styled.span
             fontFamily="Marche"
-            color={token('colors.accent.text-primary')}
-            fontSize={fontSize + 'px'}
+            color="accent.text-primary"
             letterSpacing="0.64px"
-            pl="tight"
+            pl="space.02"
+            style={{ fontSize: fontSize + 'px' }}
           >
             {symbol.toUpperCase()}
-          </Text>
+          </styled.span>
         </Flex>
         <Box mt="12px">{switchableAmount && switchableAmount}</Box>
       </Flex>
       {showError && (
         <ErrorLabel
-          justifyContent="center"
           data-testid={SendCryptoAssetSelectors.AmountFieldInputErrorLabel}
+          justifyContent="center"
         >
           {meta.error}
         </ErrorLabel>

@@ -18,7 +18,7 @@ import { useCurrentNetworkState } from '../networks/networks.hooks';
 
 export function useBitcoinClient() {
   const network = useCurrentNetworkState();
-  return new BitcoinClient(network.chain.bitcoin.url);
+  return new BitcoinClient(network.chain.bitcoin.bitcoinUrl);
 }
 
 // Unanchored by default (microblocks)

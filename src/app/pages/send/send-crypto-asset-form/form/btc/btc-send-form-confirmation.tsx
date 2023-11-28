@@ -1,7 +1,9 @@
 import { useLocation, useNavigate } from 'react-router-dom';
 
-import { Stack } from '@stacks/ui';
+import { hexToBytes } from '@noble/hashes/utils';
+import * as btc from '@scure/btc-signer';
 import { SendCryptoAssetSelectors } from '@tests/selectors/send.selectors';
+import { Stack } from 'leather-styles/jsx';
 import get from 'lodash.get';
 
 import { decodeBitcoinTx } from '@shared/crypto/bitcoin/bitcoin.utils';
@@ -16,7 +18,6 @@ import { formatMoneyPadded, i18nFormatCurrency } from '@app/common/money/format-
 import { satToBtc } from '@app/common/money/unit-conversion';
 import { queryClient } from '@app/common/persistence';
 import { FormAddressDisplayer } from '@app/components/address-displayer/form-address-displayer';
-import { LeatherButton } from '@app/components/button/button';
 import {
   InfoCard,
   InfoCardAssetValue,
@@ -28,6 +29,7 @@ import { ModalHeader } from '@app/components/modal-header';
 import { useCurrentNativeSegwitUtxos } from '@app/query/bitcoin/address/utxos-by-address.hooks';
 import { useBitcoinBroadcastTransaction } from '@app/query/bitcoin/transaction/use-bitcoin-broadcast-transaction';
 import { useCryptoCurrencyMarketData } from '@app/query/common/market-data/market-data.hooks';
+import { LeatherButton } from '@app/ui/components/button';
 
 import { useSendFormNavigate } from '../../hooks/use-send-form-navigate';
 
@@ -47,16 +49,20 @@ function useBtcSendFormConfirmationState() {
 export function BtcSendFormConfirmation() {
   const navigate = useNavigate();
   const { tx, recipient, fee, arrivesIn, feeRowValue } = useBtcSendFormConfirmationState();
+
   const { refetch } = useCurrentNativeSegwitUtxos();
   const analytics = useAnalytics();
 
   const btcMarketData = useCryptoCurrencyMarketData('BTC');
   const { broadcastTx, isBroadcasting } = useBitcoinBroadcastTransaction();
-  const psbt = decodeBitcoinTx(tx);
+
+  const transaction = btc.Transaction.fromRaw(hexToBytes(tx));
+
+  const decodedTx = decodeBitcoinTx(transaction.hex);
 
   const nav = useSendFormNavigate();
 
-  const transferAmount = satToBtc(psbt.outputs[0].amount.toString()).toString();
+  const transferAmount = satToBtc(decodedTx.outputs[0].amount.toString()).toString();
   const txFiatValue = i18nFormatCurrency(
     baseCurrencyAmountInQuote(createMoneyFromDecimal(Number(transferAmount), symbol), btcMarketData)
   );
@@ -71,14 +77,14 @@ export function BtcSendFormConfirmation() {
 
   async function initiateTransaction() {
     await broadcastTx({
-      tx,
+      tx: transaction.hex,
       async onSuccess(txid) {
         void analytics.track('broadcast_transaction', {
           symbol: 'btc',
           amount: transferAmount,
           fee,
-          inputs: psbt.inputs.length,
-          outputs: psbt.inputs.length,
+          inputs: decodedTx.inputs.length,
+          outputs: decodedTx.inputs.length,
         });
         await refetch();
         navigate(RouteUrls.SentBtcTxSummary.replace(':txId', `${txid}`), {
@@ -86,9 +92,10 @@ export function BtcSendFormConfirmation() {
         });
 
         // invalidate txs query after some time to ensure that the new tx will be shown in the list
-        setTimeout(() => {
-          void queryClient.invalidateQueries({ queryKey: ['btc-txs-by-address'] });
-        }, 2000);
+        setTimeout(
+          () => void queryClient.invalidateQueries({ queryKey: ['btc-txs-by-address'] }),
+          2000
+        );
       },
       onError(e) {
         nav.toErrorPage(e);
@@ -122,17 +129,17 @@ export function BtcSendFormConfirmation() {
   return (
     <InfoCard data-testid={SendCryptoAssetSelectors.ConfirmationDetails}>
       <InfoCardAssetValue
-        value={Number(transferAmount)}
-        fiatValue={txFiatValue}
-        fiatSymbol={txFiatValueSymbol}
-        symbol={symbol}
         data-testid={SendCryptoAssetSelectors.ConfirmationDetailsAssetValue}
-        mt="loose"
-        mb="extra-loose"
-        px="loose"
+        fiatSymbol={txFiatValueSymbol}
+        fiatValue={txFiatValue}
+        mb="space.06"
+        mt="space.05"
+        px="space.05"
+        symbol={symbol}
+        value={Number(transferAmount)}
       />
 
-      <Stack width="100%" px="extra-loose" pb="extra-loose">
+      <Stack pb="space.06" px="space.06" width="100%">
         <InfoCardRow
           title="To"
           value={<FormAddressDisplayer address={recipient} />}
@@ -150,7 +157,7 @@ export function BtcSendFormConfirmation() {
       </Stack>
 
       <InfoCardFooter>
-        <LeatherButton aria-busy={isBroadcasting} width="100%" onClick={initiateTransaction}>
+        <LeatherButton aria-busy={isBroadcasting} onClick={initiateTransaction} width="100%">
           Confirm and send transaction
         </LeatherButton>
       </InfoCardFooter>

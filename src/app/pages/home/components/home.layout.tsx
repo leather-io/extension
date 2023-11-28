@@ -11,11 +11,11 @@ export function HomeLayout({ children }: HomeLayoutProps) {
     <Stack alignItems="center" width="100%" mx={['', 'space.04']}>
       <Stack
         data-testid={HomePageSelectors.HomePageContainer}
-        maxWidth={['unset', '882px']}
-        px={['base-loose', 'base-loose', 'base-loose', 'space.08']}
+        maxWidth={['unset', 'unset', '882px']}
+        px={['space.04', 'space.04', 'space.08']}
         width="100%"
         backgroundColor="brown.1"
-        borderRadius={['space.00', 'space.02']}
+        borderRadius="lg"
       >
         <AccountInfoCard />
         {children}

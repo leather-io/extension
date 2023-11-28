@@ -1,7 +1,7 @@
 import { HStack, styled } from 'leather-styles/jsx';
 
-import { LeatherButton } from '@app/components/button/button';
-import { ArrowUpIcon } from '@app/components/icons/arrow-up-icon';
+import { LeatherButton } from '@app/ui/components/button';
+import { ArrowUpIcon } from '@app/ui/components/icons/arrow-up-icon';
 
 interface PsbtRequestDetailsSectionHeaderProps {
   hasDetails?: boolean;

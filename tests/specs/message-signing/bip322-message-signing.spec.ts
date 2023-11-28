@@ -22,7 +22,7 @@ test.describe('Message signing', () =>
       return async (message: string) =>
         page.evaluate(
           async message =>
-            (window as any).HiroWalletProvider.request('signMessage', {
+            (window as any).LeatherProvider.request('signMessage', {
               message,
               paymentType: 'p2wpkh',
             }).catch((e: unknown) => e),

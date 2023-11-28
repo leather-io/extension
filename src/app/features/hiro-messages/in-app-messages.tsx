@@ -1,6 +1,6 @@
-import { Flex, FlexProps } from '@stacks/ui';
+import { Flex, FlexProps } from 'leather-styles/jsx';
 
-import { useRemoteHiroMessages } from '@app/query/common/remote-config/remote-config.query';
+import { useRemoteLeatherMessages } from '@app/query/common/remote-config/remote-config.query';
 import { useCurrentNetworkState } from '@app/store/networks/networks.hooks';
 import { useDismissMessage } from '@app/store/settings/settings.actions';
 import { useDismissedMessageIds } from '@app/store/settings/settings.selectors';
@@ -8,7 +8,7 @@ import { useDismissedMessageIds } from '@app/store/settings/settings.selectors';
 import { HiroMessageItem } from './components/in-app-message-item';
 
 export function InAppMessages(props: FlexProps) {
-  const messages = useRemoteHiroMessages();
+  const messages = useRemoteLeatherMessages();
 
   const { mode } = useCurrentNetworkState();
   const dismissMessage = useDismissMessage();
@@ -25,7 +25,7 @@ export function InAppMessages(props: FlexProps) {
   }
 
   return (
-    <Flex background="#242629" color="white" {...props}>
+    <Flex bg="accent.component-background-default" color="white" {...props}>
       <HiroMessageItem onDismiss={messageId => dismissMessage(messageId)} {...firstMessage} />
     </Flex>
   );

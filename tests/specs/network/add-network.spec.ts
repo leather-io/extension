@@ -12,22 +12,57 @@ test.describe('Networks tests', () => {
     await page.getByTestId(SettingsSelectors.BtnAddNetwork).click();
   });
 
-  test('validation error when address is empty', async ({ networkPage }) => {
-    await networkPage.clickAddNetwork();
-    await networkPage.waitForErrorMessage();
-
-    const errorMsgElement = await networkPage.getErrorMessage();
-    const errorMessage = await errorMsgElement.innerText();
-    test.expect(errorMessage).toEqual(NetworkSelectors.EmptyAddressError);
-  });
-
-  test('unable to fetch info from node', async ({ networkPage }) => {
-    await networkPage.inputNetworkAddressField('https://www.google.com/');
+  test('validation error when stacks api url is empty', async ({ networkPage }) => {
+    await networkPage.inputNetworkStacksAddressField('');
+    await networkPage.inputNetworkBitcoinAddressField('https://mempool.space/testnet/api');
     await networkPage.inputNetworkKeyField('test-network');
     await networkPage.clickAddNetwork();
     await networkPage.waitForErrorMessage();
+
     const errorMsgElement = await networkPage.getErrorMessage();
     const errorMessage = await errorMsgElement.innerText();
-    test.expect(errorMessage).toEqual(NetworkSelectors.NoNodeFetch);
+    test.expect(errorMessage).toEqual(NetworkSelectors.EmptyStacksAddressError);
+  });
+
+  test('validation error when key is empty', async ({ networkPage }) => {
+    await networkPage.clickAddNetwork();
+    await networkPage.waitForErrorMessage();
+
+    const errorMsgElement = await networkPage.getErrorMessage();
+    const errorMessage = await errorMsgElement.innerText();
+    test.expect(errorMessage).toEqual(NetworkSelectors.EmptyKeyError);
+  });
+
+  test('validation error when bitcoin api url is empty', async ({ networkPage }) => {
+    await networkPage.inputNetworkBitcoinAddressField('');
+    await networkPage.inputNetworkKeyField('test-network');
+    await networkPage.clickAddNetwork();
+    await networkPage.waitForErrorMessage();
+
+    const errorMsgElement = await networkPage.getErrorMessage();
+    const errorMessage = await errorMsgElement.innerText();
+    test.expect(errorMessage).toEqual(NetworkSelectors.EmptyBitcoinURLError);
+  });
+
+  test('unable to fetch info from stacks node', async ({ networkPage }) => {
+    await networkPage.inputNetworkStacksAddressField('https://www.google.com/');
+    await networkPage.inputNetworkKeyField('test-network');
+    await networkPage.clickAddNetwork();
+    await networkPage.waitForErrorMessage();
+
+    const errorMsgElement = await networkPage.getErrorMessage();
+    const errorMessage = await errorMsgElement.innerText();
+    test.expect(errorMessage).toEqual(NetworkSelectors.NoStacksNodeFetch);
+  });
+
+  test('unable to fetch mempool from bitcoin node', async ({ networkPage }) => {
+    await networkPage.inputNetworkBitcoinAddressField('https://www.google.com/');
+    await networkPage.inputNetworkKeyField('test-network');
+    await networkPage.clickAddNetwork();
+    await networkPage.waitForErrorMessage();
+
+    const errorMsgElement = await networkPage.getErrorMessage();
+    const errorMessage = await errorMsgElement.innerText();
+    test.expect(errorMessage).toEqual(NetworkSelectors.NoBitcoinNodeFetch);
   });
 });

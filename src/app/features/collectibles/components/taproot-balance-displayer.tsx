@@ -1,7 +1,7 @@
 import { formatMoney } from '@app/common/money/format-money';
 import { Tooltip } from '@app/components/tooltip';
-import { Caption } from '@app/components/typography';
 import { useCurrentTaprootAccountBalance } from '@app/query/bitcoin/balance/btc-taproot-balance.hooks';
+import { LeatherButton } from '@app/ui/components/button';
 
 const taprootSpendNotSupportedYetMsg = `
   Total amount of BTC in your Taproot account addresses. Click to
@@ -16,13 +16,13 @@ export function TaprootBalanceDisplayer({ onSelectRetrieveBalance }: TaprootBala
   if (balance.amount.isLessThanOrEqualTo(0)) return null;
   return (
     <Tooltip label={taprootSpendNotSupportedYetMsg}>
-      <Caption
-        as="button"
+      <LeatherButton
         onClick={() => onSelectRetrieveBalance()}
-        _hover={{ textDecoration: 'underline' }}
+        textStyle="caption.02"
+        variant="text"
       >
         {formatMoney(balance)}
-      </Caption>
+      </LeatherButton>
     </Tooltip>
   );
 }

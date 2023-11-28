@@ -1,8 +1,6 @@
 import { createSearchParams, useLocation, useNavigate } from 'react-router-dom';
 
-import type { MempoolTransaction } from '@stacks/stacks-blockchain-api-types';
-import { BoxProps, Text, color } from '@stacks/ui';
-import { isPendingTx } from '@stacks/ui-utils';
+import { BoxProps, styled } from 'leather-styles/jsx';
 
 import { StacksTx, TxTransferDetails } from '@shared/models/transactions/stacks-transaction.model';
 import { RouteUrls } from '@shared/route-urls';
@@ -13,13 +11,13 @@ import {
   getTxCaption,
   getTxTitle,
   getTxValue,
+  isPendingTx,
 } from '@app/common/transactions/stacks/transaction.utils';
 import { useWalletType } from '@app/common/use-wallet-type';
 import { whenPageMode } from '@app/common/utils';
 import { openIndexPageInNewTab } from '@app/common/utils/open-in-new-tab';
 import { usePressable } from '@app/components/item-hover';
 import { TransactionTitle } from '@app/components/transaction/transaction-title';
-import { Title } from '@app/components/typography';
 import { useCurrentStacksAccount } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
 import { useRawTxIdState } from '@app/store/transactions/raw.hooks';
 
@@ -52,7 +50,7 @@ export function StacksTransactionItem({
     void analytics.track('view_transaction');
     handleOpenTxLink({
       blockchain: 'stacks',
-      txId: transaction?.tx_id || transferDetails?.link || '',
+      txid: transaction?.tx_id || transferDetails?.link || '',
     });
   };
 
@@ -73,7 +71,7 @@ export function StacksTransactionItem({
   };
 
   const isOriginator = transaction?.sender_address === currentAccount?.address;
-  const isPending = transaction && isPendingTx(transaction as MempoolTransaction);
+  const isPending = transaction && isPendingTx(transaction);
 
   const caption = transaction ? getTxCaption(transaction) : transferDetails?.caption || '';
   const txIcon = transaction ? (
@@ -93,11 +91,11 @@ export function StacksTransactionItem({
   );
   const txStatus = transaction && <StacksTransactionStatus transaction={transaction} />;
   const txCaption = (
-    <Text color={color('text-caption')} fontSize={0} whiteSpace="nowrap">
+    <styled.span color="accent.text-subdued" textStyle="caption.02" whiteSpace="nowrap">
       {caption}
-    </Text>
+    </styled.span>
   );
-  const txValue = <Title fontWeight="normal">{value}</Title>;
+  const txValue = <styled.span textStyle="label.02">{value}</styled.span>;
 
   return (
     <TransactionItemLayout

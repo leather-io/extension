@@ -1,12 +1,11 @@
-import { FiCheck } from 'react-icons/fi';
-
 import { Dialog } from '@radix-ui/themes';
 import { OnboardingSelectors } from '@tests/selectors/onboarding.selectors';
 import { css } from 'leather-styles/css';
 import { Box, Flex, HStack, Stack, styled } from 'leather-styles/jsx';
 
-import { LeatherButton } from '@app/components/button/button';
-import { LeatherIcon } from '@app/components/icons/leather-icon';
+import { LeatherButton } from '@app/ui/components/button';
+import { CheckmarkIcon } from '@app/ui/components/icons/checkmark-icon';
+import { LeatherIcon } from '@app/ui/components/icons/leather-icon';
 
 interface ReasonToAllowDiagnosticsProps {
   text: string;
@@ -15,7 +14,7 @@ function ReasonToAllowDiagnostics({ text }: ReasonToAllowDiagnosticsProps) {
   return (
     <Flex textStyle="body.02">
       <Box mr="space.02" mt="3px">
-        <FiCheck />
+        <CheckmarkIcon />
       </Box>
       <Box>{text}</Box>
     </Flex>
@@ -37,7 +36,7 @@ export function AllowDiagnosticsLayout(props: AllowDiagnosticsLayoutProps) {
           backgroundColor: 'accent.background-primary',
         })}
       >
-        <LeatherIcon />
+        <LeatherIcon width="72px" />
         <styled.h1 textStyle="heading.03" mt={['space.05', 'space.08']}>
           Help us improve
         </styled.h1>

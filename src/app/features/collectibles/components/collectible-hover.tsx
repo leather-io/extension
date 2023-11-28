@@ -1,7 +1,6 @@
-import { Box, Flex, color } from '@stacks/ui';
+import { Box, styled } from 'leather-styles/jsx';
 
-import { figmaTheme } from '@app/common/utils/figma-theme';
-import { ArrowIcon } from '@app/components/icons/arrow-icon';
+import { ArrowUpIcon } from '@app/ui/components/icons/arrow-up-icon';
 
 interface CollectibleHoverProps {
   collectibleTypeIcon?: React.JSX.Element;
@@ -15,7 +14,6 @@ export function CollectibleHover({
 }: CollectibleHoverProps) {
   return (
     <Box
-      sx={{ opacity: isHovered ? 'inherit' : '0' }}
       _focusWithin={{ opacity: 'inherit' }}
       display="flex"
       height="100%"
@@ -23,34 +21,36 @@ export function CollectibleHover({
       opacity="0"
       overflow="hidden"
       position="absolute"
+      style={{ opacity: isHovered ? 'inherit' : '0' }}
       top="0px"
       width="100%"
       zIndex={999}
     >
-      <Box position="absolute" left="12px" bottom="12px">
+      <Box bottom="space.03" height="30px" left="space.03" position="absolute" width="30px">
         {collectibleTypeIcon}
       </Box>
       {onClickCallToAction && (
-        <Flex
+        <styled.button
+          _focus={{ outline: 'focus' }}
+          _hover={{ bg: 'accent.component-background-hover' }}
+          alignItems="center"
+          bg="accent.background-primary"
+          borderRadius="lg"
+          display="flex"
+          height="30px"
+          justifyContent="center"
           onClick={e => {
             e.stopPropagation();
             onClickCallToAction();
           }}
-          as="button"
           position="absolute"
           right="12px"
           top="12px"
+          type="button"
           width="30px"
-          height="30px"
-          backgroundColor={color('bg')}
-          borderRadius="50%"
-          justifyContent="center"
-          alignItems="center"
-          _hover={{ backgroundColor: figmaTheme.surfaceHovered }}
-          _focus={{ outline: `4px solid ${figmaTheme.borderFocused}` }}
         >
-          <ArrowIcon />
-        </Flex>
+          <ArrowUpIcon transform="rotate(45deg)" />
+        </styled.button>
       )}
     </Box>
   );

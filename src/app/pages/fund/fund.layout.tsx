@@ -24,7 +24,7 @@ export function FundLayout({ address }: FundLayoutProps) {
         <styled.h1
           px={['unset', 'space.05']}
           textAlign={['left', 'center']}
-          textStyle={['heading.04', 'heading.02']}
+          textStyle={['heading.03', 'heading.02']}
         >
           Let's get funds into your wallet
         </styled.h1>

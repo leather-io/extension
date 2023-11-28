@@ -12,7 +12,7 @@ export function DeviceBusyLayout(props: DeviceBusyLayoutProps) {
   return (
     <LedgerWrapper>
       <ConnectLedgerSuccess />
-      <LookingForLedgerLabel my="extra-loose">{activityDescription}</LookingForLedgerLabel>
+      <LookingForLedgerLabel my="space.06">{activityDescription}</LookingForLedgerLabel>
     </LedgerWrapper>
   );
 }

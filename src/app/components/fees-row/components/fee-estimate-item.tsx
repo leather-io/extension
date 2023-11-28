@@ -1,7 +1,10 @@
 import { useMemo } from 'react';
-import { FiCheck, FiChevronDown } from 'react-icons/fi';
 
-import { Stack, Text, color } from '@stacks/ui';
+import { HStack, styled } from 'leather-styles/jsx';
+
+import { LeatherButton } from '@app/ui/components/button';
+import { CheckmarkIcon } from '@app/ui/components/icons/checkmark-icon';
+import { ChevronDownIcon } from '@app/ui/components/icons/chevron-down-icon';
 
 const labels = ['Low', 'Standard', 'High', 'Custom'];
 const testLabels = labels.map(label => label.toLowerCase());
@@ -13,30 +16,38 @@ interface FeeEstimateItemProps {
   selectedItem: number;
   disableFeeSelection?: boolean;
 }
-export function FeeEstimateItem(props: FeeEstimateItemProps) {
-  const { index, isVisible, onSelectItem, selectedItem, disableFeeSelection } = props;
-
+export function FeeEstimateItem({
+  index,
+  isVisible,
+  onSelectItem,
+  selectedItem,
+  disableFeeSelection,
+}: FeeEstimateItemProps) {
   const selectedIcon = useMemo(() => {
     const isSelected = index === selectedItem;
-    return isSelected ? <FiCheck color={color('accent')} size="14px" /> : <></>;
+    return isSelected ? <CheckmarkIcon /> : <></>;
   }, [index, selectedItem]);
 
   return (
-    <Stack
+    <LeatherButton
+      _hover={{
+        bg: isVisible ? 'accent.component-background-hover' : 'accent.background-primary',
+        borderRadius: '8px',
+        color: 'accent.text-primary',
+      }}
       alignItems="center"
       data-testid={`${testLabels[index]}-fee`}
-      _hover={{ bg: isVisible ? color('bg-alt') : 'none', borderRadius: '8px' }}
-      height="32px"
-      isInline
-      mb="0px !important"
+      display="flex"
+      height="30px"
       minWidth="100px"
       onClick={() => !disableFeeSelection && onSelectItem(index)}
-      p="tight"
+      pl={isVisible ? 'space.02' : 'unset'}
+      variant="text"
     >
-      <Text fontSize={1} fontWeight={500} ml="2px">
-        {labels[index]}
-      </Text>
-      {!disableFeeSelection && (isVisible ? selectedIcon : <FiChevronDown />)}
-    </Stack>
+      <HStack gap="space.01">
+        <styled.span textStyle="label.02">{labels[index]}</styled.span>
+        {!disableFeeSelection && (isVisible ? selectedIcon : <ChevronDownIcon />)}
+      </HStack>
+    </LeatherButton>
   );
 }

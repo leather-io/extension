@@ -8,8 +8,8 @@ import { closeWindow } from '@shared/utils';
 
 import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
 import { useRpcRequestParams } from '@app/common/rpc-helpers';
-import { useCurrentAccountNativeSegwitIndexZeroSigner } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
-import { useCurrentAccountTaprootIndexZeroSigner } from '@app/store/accounts/blockchain/bitcoin/taproot-account.hooks';
+import { useCurrentAccountNativeSegwitSigner } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
+import { useCurrentAccountTaprootSigner } from '@app/store/accounts/blockchain/bitcoin/taproot-account.hooks';
 import { useCurrentStacksAccount } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
 import { useAppPermissions } from '@app/store/app-permissions/app-permissions.slice';
 
@@ -19,31 +19,9 @@ export function useGetAddresses() {
   const permissions = useAppPermissions();
   const { tabId, origin, requestId } = useRpcRequestParams();
 
-  const nativeSegwitSigner = useCurrentAccountNativeSegwitIndexZeroSigner();
-  const taprootSigner = useCurrentAccountTaprootIndexZeroSigner();
+  const createNativeSegwitSigner = useCurrentAccountNativeSegwitSigner();
+  const createTaprootSigner = useCurrentAccountTaprootSigner();
   const stacksAccount = useCurrentStacksAccount();
-
-  const taprootAddressResponse: BtcAddress = {
-    symbol: 'BTC',
-    type: 'p2tr',
-    address: taprootSigner.address,
-    publicKey: bytesToHex(taprootSigner.publicKey),
-    tweakedPublicKey: bytesToHex(ecdsaPublicKeyToSchnorr(taprootSigner.publicKey)),
-    derivationPath: taprootSigner.derivationPath,
-  };
-
-  const nativeSegwitAddressResponse: BtcAddress = {
-    symbol: 'BTC',
-    type: 'p2wpkh',
-    address: nativeSegwitSigner.address,
-    publicKey: bytesToHex(nativeSegwitSigner.publicKey),
-    derivationPath: nativeSegwitSigner.derivationPath,
-  };
-
-  const stacksAddressResponse = {
-    symbol: 'STX',
-    address: stacksAccount?.address ?? '',
-  };
 
   return {
     origin,
@@ -52,20 +30,52 @@ export function useGetAddresses() {
         logger.error('Cannot give app accounts: missing tabId, origin');
         return;
       }
+
+      const keysToIncludeInResponse = [];
+
+      if (createNativeSegwitSigner) {
+        const nativeSegwitSigner = createNativeSegwitSigner(0);
+
+        const nativeSegwitAddressResponse: BtcAddress = {
+          symbol: 'BTC',
+          type: 'p2wpkh',
+          address: nativeSegwitSigner.address,
+          publicKey: bytesToHex(nativeSegwitSigner.publicKey),
+          derivationPath: nativeSegwitSigner.derivationPath,
+        };
+
+        keysToIncludeInResponse.push(nativeSegwitAddressResponse);
+      }
+
+      if (createTaprootSigner) {
+        const taprootSigner = createTaprootSigner(0);
+        const taprootAddressResponse: BtcAddress = {
+          symbol: 'BTC',
+          type: 'p2tr',
+          address: taprootSigner.address,
+          publicKey: bytesToHex(taprootSigner.publicKey),
+          tweakedPublicKey: bytesToHex(ecdsaPublicKeyToSchnorr(taprootSigner.publicKey)),
+          derivationPath: taprootSigner.derivationPath,
+        };
+        keysToIncludeInResponse.push(taprootAddressResponse);
+      }
+
+      if (stacksAccount) {
+        const stacksAddressResponse = {
+          symbol: 'STX',
+          address: stacksAccount?.address ?? '',
+        };
+
+        keysToIncludeInResponse.push(stacksAddressResponse);
+      }
+
       void analytics.track('user_approved_get_addresses', { origin });
       permissions.hasRequestedAccounts(origin);
       chrome.tabs.sendMessage(
         tabId,
         makeRpcSuccessResponse('getAddresses', {
           id: requestId,
-          result: {
-            addresses: [
-              nativeSegwitAddressResponse,
-              taprootAddressResponse,
-              // casting until btckit has better extend support
-              stacksAddressResponse as any,
-            ],
-          },
+          result: { addresses: keysToIncludeInResponse as any },
         })
       );
       closeWindow();

@@ -1,10 +1,11 @@
 import React from 'react';
-import { Button, ButtonGroup, Box, Text } from '@stacks/ui';
+
+import { IntCV, deserializeCV } from '@blockstack/stacks-transactions';
 import { AppContext } from '@common/context';
 import { getRPCClient, stacksTestnetNetwork as network } from '@common/utils';
-import { deserializeCV, IntCV } from '@blockstack/stacks-transactions';
-import { useConnect } from '@stacks/connect-react';
 import { ExplorerLink } from '@components/explorer-link';
+import { useConnect } from '@stacks/connect-react';
+import { Box, styled } from 'leather-styles/jsx';
 
 export const CounterActions: React.FC = () => {
   const { userData } = React.useContext(AppContext);

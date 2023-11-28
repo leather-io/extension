@@ -1,6 +1,5 @@
-import { Box, Grid, transition } from '@stacks/ui';
 import { HomePageSelectors } from '@tests/selectors/home.selectors';
-import { token } from 'leather-styles/tokens';
+import { Grid } from 'leather-styles/jsx';
 
 interface HeaderActionButtonProps {
   icon?: React.JSX.Element;
@@ -13,22 +12,23 @@ export function HeaderActionButton(props: HeaderActionButtonProps) {
   return (
     <Grid
       _hover={{
-        bg: isWaitingOnPerformedAction ? 'unset' : token('colors.brown.3'),
+        bg: isWaitingOnPerformedAction ? 'unset' : 'accent.component-background-hover',
         cursor: isWaitingOnPerformedAction ? 'unset' : 'pointer',
       }}
       data-testid={HomePageSelectors.DrawerHeaderActionBtn}
-      borderRadius="8px"
-      color={token('colors.brown.12')}
+      borderRadius="xs"
+      color="accent.action-primary-default"
+      height="36px"
       onClick={isWaitingOnPerformedAction ? undefined : onAction}
       opacity={isWaitingOnPerformedAction ? '0.3' : 'unset'}
       placeItems="center"
       position="relative"
-      size="36px"
-      transition={transition}
+      transition="transition"
       userSelect="none"
-      zIndex={9}
+      width="36px"
+      zIndex={999}
     >
-      <Box>{icon}</Box>
+      {icon}
     </Grid>
   );
 }

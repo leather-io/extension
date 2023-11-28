@@ -4,11 +4,12 @@ import { HDKey, Versions } from '@scure/bip32';
 import * as btc from '@scure/btc-signer';
 
 import { BitcoinNetworkModes, NetworkModes } from '@shared/constants';
-import { whenNetwork } from '@shared/utils';
+import { logger } from '@shared/logger';
 import { defaultWalletKeyId } from '@shared/utils';
+import { isDefined, whenNetwork } from '@shared/utils';
 
 import { DerivationPathDepth } from '../derivation-path.utils';
-import { BtcSignerNetwork } from './bitcoin.network';
+import { BtcSignerNetwork, getBtcSignerLibNetworkConfigByMode } from './bitcoin.network';
 import { getTaprootPayment } from './p2tr-address-gen';
 
 export interface BitcoinAccount {
@@ -66,32 +67,51 @@ export function decodeBitcoinTx(tx: string) {
 export function getAddressFromOutScript(script: Uint8Array, bitcoinNetwork: BtcSignerNetwork) {
   const outputScript = btc.OutScript.decode(script);
 
-  if (outputScript.type === 'pk' || outputScript.type === 'tr') {
-    return btc.Address(bitcoinNetwork).encode({
-      type: outputScript.type,
-      pubkey: outputScript.pubkey,
-    });
+  switch (outputScript.type) {
+    case 'pkh':
+    case 'sh':
+    case 'wpkh':
+    case 'wsh':
+      return btc.Address(bitcoinNetwork).encode({
+        type: outputScript.type,
+        hash: outputScript.hash,
+      });
+    case 'tr':
+      return btc.Address(bitcoinNetwork).encode({
+        type: outputScript.type,
+        pubkey: outputScript.pubkey,
+      });
+    case 'ms':
+      return btc.p2ms(outputScript.m, outputScript.pubkeys).address ?? '';
+    case 'pk':
+      return btc.p2pk(outputScript.pubkey, bitcoinNetwork).address ?? '';
+    case 'tr_ms':
+    case 'tr_ns':
+      logger.error(`Cannot currently handle script type ${outputScript.type}`);
+      return '';
+    case 'unknown':
+      return 'unknown';
+    default:
+      return '';
   }
-  if (outputScript.type === 'ms' || outputScript.type === 'tr_ms') {
-    return btc.Address(bitcoinNetwork).encode({
-      type: outputScript.type,
-      pubkeys: outputScript.pubkeys,
-      m: outputScript.m,
-    });
-  }
-  if (outputScript.type === 'tr_ns') {
-    return btc.Address(bitcoinNetwork).encode({
-      type: outputScript.type,
-      pubkeys: outputScript.pubkeys,
-    });
-  }
-  if (outputScript.type === 'unknown') {
-    return 'unknown';
-  }
-  return btc.Address(bitcoinNetwork).encode({
-    type: outputScript.type,
-    hash: outputScript.hash,
-  });
+}
+
+export function getBitcoinInputAddress(
+  index: number,
+  input: btc.TransactionInput,
+  bitcoinNetwork: BtcSignerNetwork
+) {
+  if (isDefined(input.witnessUtxo))
+    return getAddressFromOutScript(input.witnessUtxo.script, bitcoinNetwork);
+  if (isDefined(input.nonWitnessUtxo))
+    return getAddressFromOutScript(input.nonWitnessUtxo.outputs[index]?.script, bitcoinNetwork);
+  return '';
+}
+
+export function getBitcoinInputValue(index: number, input: btc.TransactionInput) {
+  if (isDefined(input.witnessUtxo)) return Number(input.witnessUtxo.amount);
+  if (isDefined(input.nonWitnessUtxo)) return Number(input.nonWitnessUtxo.outputs[index]?.amount);
+  return 0;
 }
 
 type BtcSignerLibPaymentTypeIdentifers = 'wpkh' | 'wsh' | 'tr' | 'pkh' | 'sh';
@@ -131,7 +151,7 @@ function inferPaymentTypeFromPath(path: string): PaymentTypes {
   throw new Error(`Unable to infer payment type from path=${path}`);
 }
 
-function inferNetworkFromPath(path: string): NetworkModes {
+export function inferNetworkFromPath(path: string): NetworkModes {
   return path.split('/')[2].startsWith('0') ? 'mainnet' : 'testnet';
 }
 
@@ -224,4 +244,36 @@ export function getTaprootAddress({ index, keychain, network }: GetTaprootAddres
   if (!payment.address) throw new Error('Expected address to be defined');
 
   return payment.address;
+}
+
+export function getPsbtTxInputs(psbtTx: btc.Transaction) {
+  const inputsLength = psbtTx.inputsLength;
+  const inputs: btc.TransactionInput[] = [];
+  if (inputsLength === 0) return inputs;
+  for (let i = 0; i < inputsLength; i++) {
+    inputs.push(psbtTx.getInput(i));
+  }
+  return inputs;
+}
+
+export function getPsbtTxOutputs(psbtTx: btc.Transaction) {
+  const outputsLength = psbtTx.outputsLength;
+  const outputs: btc.TransactionOutput[] = [];
+  if (outputsLength === 0) return outputs;
+  for (let i = 0; i < outputsLength; i++) {
+    outputs.push(psbtTx.getOutput(i));
+  }
+  return outputs;
+}
+
+export function getInputPaymentType(
+  index: number,
+  input: btc.TransactionInput,
+  network: BitcoinNetworkModes
+): PaymentTypes {
+  const address = getBitcoinInputAddress(index, input, getBtcSignerLibNetworkConfigByMode(network));
+  if (address === '') throw new Error('Input address cannot be empty');
+  if (address.startsWith('bc1p') || address.startsWith('tb1p')) return 'p2tr';
+  if (address.startsWith('bc1q') || address.startsWith('tb1q')) return 'p2wpkh';
+  throw new Error('Unable to infer payment type from input address');
 }

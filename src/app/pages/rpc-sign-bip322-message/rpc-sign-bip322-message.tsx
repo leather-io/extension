@@ -1,9 +1,8 @@
-import { truncateMiddle } from '@stacks/ui-utils';
+import { Outlet } from 'react-router-dom';
 
 import { closeWindow } from '@shared/utils';
 
 import { useRouteHeader } from '@app/common/hooks/use-route-header';
-import { useRejectIfLedgerWallet } from '@app/common/rpc-helpers';
 import { Disclaimer } from '@app/components/disclaimer';
 import { NoFeesWarningRow } from '@app/components/no-fees-warning-row';
 import { PopupHeader } from '@app/features/current-account/popup-header';
@@ -11,6 +10,7 @@ import { MessagePreviewBox } from '@app/features/message-signer/message-preview-
 import { MessageSigningRequestLayout } from '@app/features/message-signer/message-signing-request.layout';
 import { AccountGate } from '@app/routes/account-gate';
 import { useCurrentNetwork } from '@app/store/networks/networks.selectors';
+import { truncateMiddle } from '@app/ui/utils/truncate-middle';
 
 import { MessageSigningHeader } from '../../features/message-signer/message-signing-header';
 import { SignMessageActions } from '../../features/message-signer/stacks-sign-message-action';
@@ -28,7 +28,6 @@ export function RpcSignBip322MessageRoute() {
 
 function RpcSignBip322Message() {
   useRouteHeader(<PopupHeader displayAddresssBalanceOf="all" />);
-  useRejectIfLedgerWallet('signMessage');
 
   const {
     origin,
@@ -47,23 +46,26 @@ function RpcSignBip322Message() {
   }
 
   return (
-    <MessageSigningRequestLayout>
-      <MessageSigningHeader
-        origin={origin}
-        additionalText={`. This message is signed by ${truncateMiddle(address)}`}
-      />
-      <MessagePreviewBox message={message} />
-      <NoFeesWarningRow chainId={chain.stacks.chainId} />
-      <SignMessageActions
-        isLoading={isLoading}
-        onSignMessage={() => onUserApproveBip322MessageSigningRequest()}
-        onSignMessageCancel={() => onUserRejectBip322MessageSigningRequest()}
-      />
-      <hr />
-      <Disclaimer
-        disclaimerText="By signing this message, you prove that you own this address"
-        mb="loose"
-      />
-    </MessageSigningRequestLayout>
+    <>
+      <Outlet />
+      <MessageSigningRequestLayout>
+        <MessageSigningHeader
+          origin={origin}
+          additionalText={`. This message is signed by ${truncateMiddle(address)}`}
+        />
+        <MessagePreviewBox message={message} />
+        <NoFeesWarningRow chainId={chain.stacks.chainId} />
+        <SignMessageActions
+          isLoading={isLoading}
+          onSignMessage={() => onUserApproveBip322MessageSigningRequest()}
+          onSignMessageCancel={() => onUserRejectBip322MessageSigningRequest()}
+        />
+        <hr />
+        <Disclaimer
+          disclaimerText="By signing this message, you prove that you own this address"
+          mb="space.05"
+        />
+      </MessageSigningRequestLayout>
+    </>
   );
 }

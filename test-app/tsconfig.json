@@ -32,7 +32,8 @@
       "@containers/*": ["./containers/*"],
       "@common/*": ["./common/*"],
       "@cards/*": ["./components/cards/*"],
-      "@tests/*": ["../../tests/*"]
+      "@tests/*": ["../../tests/*"],
+      "leather-styles/*": ["../../leather-styles/*"]
     },
     "baseUrl": "./src",
     "allowSyntheticDefaultImports": true,

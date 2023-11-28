@@ -1,9 +1,8 @@
-import { Stack } from '@stacks/ui';
 import { SendCryptoAssetSelectors } from '@tests/selectors/send.selectors';
+import { Stack } from 'leather-styles/jsx';
 
 import { whenPageMode } from '@app/common/utils';
 import { FormAddressDisplayer } from '@app/components/address-displayer/form-address-displayer';
-import { LeatherButton } from '@app/components/button/button';
 import {
   InfoCard,
   InfoCardAssetValue,
@@ -12,6 +11,7 @@ import {
   InfoCardSeparator,
 } from '@app/components/info-card/info-card';
 import { InfoLabel } from '@app/components/info-label';
+import { LeatherButton } from '@app/ui/components/button';
 
 interface SendFormConfirmationProps {
   recipient: string;
@@ -29,7 +29,6 @@ interface SendFormConfirmationProps {
   feeWarningTooltip?: React.ReactNode;
   onBroadcastTransaction: () => void;
 }
-
 export function SendFormConfirmation({
   txValue,
   txFiatValue,
@@ -51,24 +50,25 @@ export function SendFormConfirmation({
       data-testid={SendCryptoAssetSelectors.ConfirmationDetails}
       pb={whenPageMode({
         full: '0px',
-        popup: '80px',
+        popup: '120px',
       })}
     >
       <InfoCardAssetValue
-        value={Number(txValue)}
-        fiatValue={txFiatValue}
-        fiatSymbol={txFiatValueSymbol}
-        symbol={symbol}
         data-testid={SendCryptoAssetSelectors.ConfirmationDetailsAssetValue}
-        my="loose"
-        px="loose"
+        fiatSymbol={txFiatValueSymbol}
+        fiatValue={txFiatValue}
+        mb="space.05"
+        mt={['unset', 'space.05']}
+        px="space.05"
+        symbol={symbol}
+        value={Number(txValue)}
       />
 
-      <InfoLabel px="loose" mb="loose" title="Sending to an exchange?">
+      <InfoLabel px="space.05" mb="space.05" title="Sending to an exchange?">
         {`Make sure you include the memo so the exchange can credit the ${symbol} to your account`}
       </InfoLabel>
 
-      <Stack width="100%" px="extra-loose" pb="extra-loose">
+      <Stack pb="space.06" px="space.06" width="100%">
         <InfoCardRow
           title="To"
           value={<FormAddressDisplayer address={recipient} />}
@@ -94,10 +94,10 @@ export function SendFormConfirmation({
 
       <InfoCardFooter>
         <LeatherButton
-          data-testid={SendCryptoAssetSelectors.ConfirmSendTxBtn}
-          width="100%"
           aria-busy={isLoading}
+          data-testid={SendCryptoAssetSelectors.ConfirmSendTxBtn}
           onClick={onBroadcastTransaction}
+          width="100%"
         >
           Confirm and send transaction
         </LeatherButton>

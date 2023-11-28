@@ -1,5 +1,6 @@
-import { truncateMiddle } from '@stacks/ui-utils';
 import { HStack, Stack, styled } from 'leather-styles/jsx';
+
+import { truncateMiddle } from '@app/ui/utils/truncate-middle';
 
 interface SendTransferDetailsProps {
   address: string;
@@ -11,7 +12,7 @@ export function SendTransferDetails({ address, amount, currentAddress }: SendTra
     <Stack
       border="4px solid"
       borderColor="accent.border-default !important"
-      borderRadius="16px"
+      borderRadius="lg"
       gap="space.04"
       p="space.05"
       width="100%"

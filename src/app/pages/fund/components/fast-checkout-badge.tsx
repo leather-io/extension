@@ -1,28 +1,23 @@
-import { FiZap } from 'react-icons/fi';
+import { HStack, styled } from 'leather-styles/jsx';
 
-import { Stack, color } from '@stacks/ui';
-
-import { Caption } from '@app/components/typography';
+import { ZapIcon } from '@app/ui/components/icons/zap-icon';
 
 export function FastCheckoutBadge() {
   return (
-    <Stack
+    <HStack
       alignItems="center"
-      border="1px solid"
-      borderColor="#D9EDD4"
-      borderRadius="24px"
-      color={color('text-caption')}
+      border="default"
+      borderRadius="xxl"
       height="24px"
-      isInline
       justifyContent="center"
-      paddingX="tight"
-      paddingY="extra-tight"
-      spacing="extra-tight"
+      paddingX="space.02"
+      paddingY="space.01"
+      gap="space.01"
     >
-      <FiZap color="#008051" size="12px" strokeWidth="2.5px" />
-      <Caption color="#008051" fontWeight={500} variant="c2">
+      <ZapIcon color="success.label" size="xs" />
+      <styled.span color="success.label" textStyle="caption.02">
         Fast checkout
-      </Caption>
-    </Stack>
+      </styled.span>
+    </HStack>
   );
 }

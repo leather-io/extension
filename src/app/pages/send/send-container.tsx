@@ -1,7 +1,6 @@
 import { Outlet } from 'react-router-dom';
 
-import { Flex } from '@stacks/ui';
-import { token } from 'leather-styles/tokens';
+import { Flex } from 'leather-styles/jsx';
 
 import { useRouteHeader } from '@app/common/hooks/use-route-header';
 import { whenPageMode } from '@app/common/utils';
@@ -15,15 +14,15 @@ export function SendContainer() {
       <Flex
         borderRadius={['unset', '16px']}
         height="fit-content"
-        maxWidth={['100%', token('sizes.centeredPageFullWidth')]}
-        minWidth={['100%', token('sizes.centeredPageFullWidth')]}
-        background={token('colors.accent.background-primary')}
+        maxWidth={['100%', 'centeredPageFullWidth']}
+        minWidth={['100%', 'centeredPageFullWidth']}
+        background="accent.background-primary"
       >
         <Outlet />
       </Flex>
     ),
     popup: (
-      <Flex background={token('colors.accent.background-primary')} width="100%">
+      <Flex background="accent.background-primary" width="100%">
         <Outlet />
       </Flex>
     ),

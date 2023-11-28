@@ -11,11 +11,11 @@ export function Pill({ hoverLabel, label, ...props }: PillProps) {
     <Tooltip disabled={!hoverLabel} label={hoverLabel} maxWidth="200px" placement="bottom">
       <Box
         border="1px solid"
-        borderRadius="24px"
+        borderRadius="xxl"
         borderColor="#DCDDE2"
         lineHeight="16px"
-        ml="base-tight"
-        px="tight"
+        ml="space.03"
+        px="space.02"
         {...props}
       >
         <styled.span textStyle="caption.02">{label}</styled.span>

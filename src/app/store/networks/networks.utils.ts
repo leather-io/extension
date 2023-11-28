@@ -7,8 +7,6 @@ import {
   NetworkConfiguration,
 } from '@shared/constants';
 
-import { whenStacksChainId } from '@app/common/utils';
-
 import { PersistedNetworkConfiguration } from './networks.slice';
 
 interface FindMatchingNetworkKeyArgs {
@@ -43,6 +41,27 @@ export function findMatchingNetworkKey({
   return null;
 }
 
+function checkBitcoinNetworkProperties(
+  network: PersistedNetworkConfiguration
+): PersistedNetworkConfiguration {
+  if (!network.bitcoinNetwork || !network.bitcoinUrl) {
+    return {
+      id: network.id,
+      name: network.name,
+      chainId: network.chainId,
+      subnetChainId: network.subnetChainId,
+      url: network.url,
+      bitcoinNetwork: network.chainId === ChainID.Mainnet ? 'mainnet' : 'testnet',
+      bitcoinUrl:
+        network.chainId === ChainID.Mainnet
+          ? BITCOIN_API_BASE_URL_MAINNET
+          : BITCOIN_API_BASE_URL_TESTNET,
+    };
+  } else {
+    return network;
+  }
+}
+
 export function transformNetworkStateToMultichainStucture(
   state: Dictionary<PersistedNetworkConfiguration>
 ) {
@@ -50,7 +69,9 @@ export function transformNetworkStateToMultichainStucture(
     Object.entries(state)
       .map(([key, network]) => {
         if (!network) return ['', null];
-        const { id, name, chainId, subnetChainId, url } = network;
+        const { id, name, chainId, subnetChainId, url, bitcoinNetwork, bitcoinUrl } =
+          checkBitcoinNetworkProperties(network);
+
         return [
           key,
           {
@@ -59,18 +80,14 @@ export function transformNetworkStateToMultichainStucture(
             chain: {
               stacks: {
                 blockchain: 'stacks',
-                url,
+                url: url,
                 chainId,
                 subnetChainId,
               },
               bitcoin: {
                 blockchain: 'bitcoin',
-                network: ChainID[chainId] ? ChainID[chainId].toLowerCase() : 'testnet',
-                url:
-                  whenStacksChainId(chainId)({
-                    [ChainID.Mainnet]: BITCOIN_API_BASE_URL_MAINNET,
-                    [ChainID.Testnet]: BITCOIN_API_BASE_URL_TESTNET,
-                  }) || BITCOIN_API_BASE_URL_TESTNET,
+                bitcoinNetwork: bitcoinNetwork ? bitcoinNetwork : 'testnet',
+                bitcoinUrl: bitcoinUrl ? bitcoinUrl : 'https://blockstream.info/testnet/api',
               },
             },
           },

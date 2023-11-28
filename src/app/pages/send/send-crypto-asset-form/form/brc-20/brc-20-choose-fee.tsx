@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { toast } from 'react-hot-toast';
 import { useLocation, useNavigate } from 'react-router-dom';
 
-import { Stack } from '@stacks/ui';
+import { Stack } from 'leather-styles/jsx';
 import get from 'lodash.get';
 
 import { logger } from '@shared/logger';
@@ -12,7 +12,7 @@ import { RouteUrls } from '@shared/route-urls';
 
 import { useRouteHeader } from '@app/common/hooks/use-route-header';
 import { formFeeRowValue } from '@app/common/send/utils';
-import { useGenerateSignedNativeSegwitTx } from '@app/common/transactions/bitcoin/use-generate-bitcoin-tx';
+import { useGenerateUnsignedNativeSegwitSingleRecipientTx } from '@app/common/transactions/bitcoin/use-generate-bitcoin-tx';
 import {
   BitcoinFeesList,
   OnChooseFeeArgs,
@@ -40,7 +40,7 @@ function useBrc20ChooseFeeState() {
 export function BrcChooseFee() {
   const navigate = useNavigate();
   const { amount, recipient, tick, utxos } = useBrc20ChooseFeeState();
-  const generateTx = useGenerateSignedNativeSegwitTx();
+  const generateTx = useGenerateUnsignedNativeSegwitSingleRecipientTx();
   const { selectedFeeType, setSelectedFeeType } = useSendBitcoinAssetContextState();
   const { initiateTransfer } = useBrc20Transfers();
   const { feesList, isLoading } = useBitcoinFeesList({
@@ -70,7 +70,7 @@ export function BrcChooseFee() {
 
       const serviceFeeAsMoney = createMoney(serviceFee, 'BTC');
 
-      const resp = generateTx(
+      const resp = await generateTx(
         {
           amount: serviceFeeAsMoney,
           recipient: serviceFeeRecipient,
@@ -118,8 +118,8 @@ export function BrcChooseFee() {
     <Stack
       alignItems="center"
       minHeight={['unset', '630px']}
-      p="extra-loose"
-      spacing="base"
+      p="space.06"
+      gap="space.04"
       width="100%"
     >
       <LoadingSpinner />

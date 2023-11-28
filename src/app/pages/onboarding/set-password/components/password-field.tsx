@@ -1,13 +1,13 @@
-import { useState } from 'react';
-import { FiEye, FiEyeOff } from 'react-icons/fi';
+import { useMemo, useState } from 'react';
 
-import { Box, Button, Flex, Input, color } from '@stacks/ui';
 import { OnboardingSelectors } from '@tests/selectors/onboarding.selectors';
 import { useField } from 'formik';
-import { token } from 'leather-styles/tokens';
+import { Box, Flex, styled } from 'leather-styles/jsx';
 
 import { ValidatedPassword } from '@app/common/validation/validate-password';
-import { Caption } from '@app/components/typography';
+import { EyeIcon } from '@app/ui/components/icons/eye-icon';
+import { EyeSlashIcon } from '@app/ui/components/icons/eye-slash-icon';
+import { Caption } from '@app/ui/components/typography/caption';
 
 import { getIndicatorsOfPasswordStrength } from './password-field.utils';
 import { PasswordStrengthIndicator } from './password-strength-indicator';
@@ -20,44 +20,57 @@ export function PasswordField({ strengthResult, isDisabled }: PasswordFieldProps
   const [field] = useField('password');
   const [showPassword, setShowPassword] = useState(false);
 
-  const { strengthColor, strengthText } = getIndicatorsOfPasswordStrength(strengthResult);
+  const { strengthColor, strengthText } = useMemo(
+    () => getIndicatorsOfPasswordStrength(strengthResult),
+    [strengthResult]
+  );
 
   return (
     <>
       <Box position="relative">
-        <Input
-          _focus={{ border: `2px solid ${token('colors.brown.12')}` }}
+        <styled.input
+          _focus={{ border: 'focus' }}
+          autoCapitalize="off"
+          autoComplete="off"
           autoFocus
-          border="2px solid"
+          border="active"
+          borderRadius="sm"
           data-testid={OnboardingSelectors.NewPasswordInput}
+          disabled={isDisabled}
           height="64px"
           key="password-input"
+          p="space.04"
           placeholder="Set a password"
+          ring="none"
           type={showPassword ? 'text' : 'password'}
-          isDisabled={isDisabled}
+          textStyle="body.02"
+          width="100%"
           {...field}
         />
-        <Button
+        <styled.button
           _focus={{ bg: 'transparent', boxShadow: 'none' }}
           _hover={{ bg: 'transparent', boxShadow: 'none' }}
           bg="transparent"
           boxShadow="none"
-          color={color('text-title')}
           height="20px"
           onClick={() => setShowPassword(!showPassword)}
           position="absolute"
-          right="base"
+          right="space.04"
           top="20px"
           transform="matrix(-1, 0, 0, 1, 0, 0)"
           type="button"
           width="20px"
         >
-          {showPassword ? <FiEyeOff size="20px" /> : <FiEye size="20px" />}
-        </Button>
+          {showPassword ? <EyeSlashIcon /> : <EyeIcon />}
+        </styled.button>
       </Box>
-      <PasswordStrengthIndicator strengthColor={strengthColor} strengthResult={strengthResult} />
+      <PasswordStrengthIndicator
+        password={field.value}
+        strengthColor={strengthColor}
+        strengthResult={strengthResult}
+      />
       <Flex alignItems="center">
-        <Caption mx="extra-tight">Password strength:</Caption>
+        <Caption mx="space.04">Password strength:</Caption>
         <Caption>{field.value ? strengthText : '—'}</Caption>
       </Flex>
     </>

@@ -4,14 +4,27 @@ import { colors } from './colors';
 
 // ts-unused-exports:disable-next-line
 export const tokens = defineTokens({
+  animations: {
+    spin: {
+      value: 'spin 1s linear infinite',
+    },
+  },
   sizes: {
     centeredPageFullWidth: { value: '500px' },
     desktopViewportMinWidth: { value: '480px' },
+    xs: { value: '12px' },
+    sm: { value: '16px' },
+    md: { value: '24px' },
+    lg: { value: '30px' },
+    xl: { value: '36px' },
   },
   radii: {
+    xs: { value: '8px' },
     sm: { value: '10px' },
     md: { value: '12px' },
     lg: { value: '16px' },
+    xl: { value: '20px' },
+    xxl: { value: '24px' },
   },
   spacing: {
     // Numbers are padded with 0 to ensure they are sorted correctly in TS
@@ -29,20 +42,19 @@ export const tokens = defineTokens({
     'space.09': { value: '64px', description: '64px' },
     'space.10': { value: '72px', description: '72px' },
     'space.11': { value: '128px', description: '128px' },
-
-    // Legacy spacing units
-    'extra-tight': { value: '4px' },
-    tight: { value: '8px' },
-    'base-tight': { value: '12px' },
-    base: { value: '16px' },
-    'base-loose': { value: '20px' },
-    loose: { value: '24px' },
-    'extra-loose': { value: '32px' },
   },
   colors,
   borders: {
+    action: { value: '1px solid {colors.accent.action-primary-default}' },
+    active: { value: '2px solid {colors.accent.border-default}' },
+    background: { value: '2px solid {colors.accent.background-primary}' },
+    dashed: { value: '2px dashed {colors.accent.component-background-default}' },
     default: { value: '1px solid {colors.accent.border-default}' },
-    error: { value: '1px solid {colors.error}' },
-    'action-primary-default': { value: '1px solid {colors.accent.action-primary-default}' },
+    error: { value: '1px solid {colors.error.label}' },
+    focus: { value: '2px solid {colors.accent.action-primary-default}' },
+    invert: { value: '1px solid {colors.invert}' },
+    subdued: { value: '1px solid {colors.accent.text-subdued}' },
+    warning: { value: '1px solid {colors.warning.label}' },
   },
+  transition: { value: 'all 0.2s cubic-bezier(0.23, 1, 0.32, 1)' },
 });

@@ -1,118 +1,114 @@
 import { ReactNode } from 'react';
 
-import { Box, Button, Stack, Text } from '@stacks/ui';
-import type { BoxProps } from '@stacks/ui';
+import { Box, Stack, styled } from 'leather-styles/jsx';
 import { token } from 'leather-styles/tokens';
 import { useHover } from 'use-events';
-
-import { figmaTheme } from '@app/common/utils/figma-theme';
 
 import { CollectibleHover } from './collectible-hover';
 
 export interface CollectibleItemLayoutProps {
-  backgroundElementProps?: BoxProps;
   children: ReactNode;
   hoverText?: string;
   onClickCallToAction?(): void;
   onClickLayout?(): void;
   onClickSend?(): void;
   collectibleTypeIcon?: React.JSX.Element;
+  showBorder?: boolean;
   subtitle: string;
   title: string;
 }
 export function CollectibleItemLayout({
-  backgroundElementProps,
   children,
   onClickCallToAction,
   onClickSend,
   onClickLayout,
   collectibleTypeIcon,
+  showBorder,
   subtitle,
   title,
 }: CollectibleItemLayoutProps) {
   const [isHovered, bind] = useHover();
 
   return (
-    <Box>
-      <Box
-        _focus={{
-          outline: `4px solid ${token('colors.accent.background-secondary')}`,
-          outlineOffset: '-4px',
-        }}
-        _hover={{ backgroundColor: token('colors.accent.background-secondary') }}
-        as={onClickLayout ? 'button' : 'div'}
-        borderRadius="20px"
-        onClick={onClickLayout}
-        padding="4px"
-        sx={{
-          // Buttons have had styles applied that center their children text
-          // nodes, which is undesirable in this case. A button is being used more
-          // for its actionability (focus, onclick) & accessibility rather than
-          // for its styles.
-          textAlign: 'inherit',
-          width: '100%',
-        }}
-        {...bind}
-      >
-        <Box height="0px" position="relative" pb="100%">
-          <CollectibleHover
-            onClickCallToAction={onClickCallToAction}
-            collectibleTypeIcon={collectibleTypeIcon}
-            isHovered={isHovered}
-          />
-          <Box
-            alignItems="center"
-            borderRadius="16px"
-            display="flex"
-            height="100%"
-            justifyContent="center"
-            left="0px"
-            overflow="hidden"
-            position="absolute"
-            top="0px"
-            width="100%"
-            {...backgroundElementProps}
-          >
-            {children}
-          </Box>
+    <Box
+      _focus={{
+        outline: onClickLayout ? 'focus' : 'unset',
+        outlineOffset: onClickLayout ? '-4px' : 'unset',
+      }}
+      _hover={{ bg: 'accent.background-secondary' }}
+      borderRadius="xl"
+      cursor={onClickLayout ? 'pointer' : 'default'}
+      onClick={onClickLayout}
+      p="space.01"
+      textAlign="inherit"
+      width="100%"
+      {...bind}
+    >
+      <Box height="0px" position="relative" pb="100%">
+        <CollectibleHover
+          onClickCallToAction={onClickCallToAction}
+          collectibleTypeIcon={collectibleTypeIcon}
+          isHovered={isHovered}
+        />
+        <Box
+          alignItems="center"
+          borderRadius="lg"
+          display="flex"
+          height="100%"
+          justifyContent="center"
+          left="0px"
+          overflow="hidden"
+          position="absolute"
+          style={{
+            backgroundColor: showBorder
+              ? token('colors.accent.background-primary')
+              : token('colors.accent.component-background-default'),
+            border: showBorder ? token('borders.dashed') : 'unset',
+          }}
+          top="0px"
+          width="100%"
+        >
+          {children}
         </Box>
-        <Stack mt="base" pl="tight" spacing="extra-tight" textAlign="left">
-          <Text
-            color={token('colors.accent.text-primary')}
-            fontWeight="500"
-            overflow="hidden"
-            textOverflow="ellipsis"
-            whiteSpace="nowrap"
-            width="95%"
-          >
-            {title}
-          </Text>
-          <Text color={token('colors.accent.text-subdued')} fontSize={1}>
-            {subtitle}
-          </Text>
-        </Stack>
-
-        {onClickSend ? (
-          <Box padding="8px">
-            <Button
-              mode="tertiary"
-              p="6px 12px"
-              sx={{
-                clipPath: isHovered ? 'none' : 'circle(0%)',
-              }}
-              onClick={e => {
-                e.stopPropagation();
-                onClickSend();
-              }}
-              _focus={{ clipPath: 'none', outline: `4px solid ${figmaTheme.borderFocused}` }}
-            >
-              Send
-            </Button>
-          </Box>
-        ) : (
-          <Box padding="4px" />
-        )}
       </Box>
+      <Stack gap="space.01" mt="space.04" pl="space.02" textAlign="left">
+        <styled.span
+          overflow="hidden"
+          textOverflow="ellipsis"
+          textStyle="label.01"
+          whiteSpace="nowrap"
+          width="95%"
+        >
+          {title}
+        </styled.span>
+        <styled.span color="accent.text-subdued" textStyle="caption.01">
+          {subtitle}
+        </styled.span>
+      </Stack>
+      {onClickSend ? (
+        <Box p="space.02">
+          <styled.button
+            _focus={{ clipPath: 'none', outline: 'focus' }}
+            _hover={{ bg: 'accent.background-primary' }}
+            bg="accent.background-primary"
+            borderRadius="sm"
+            clipPath={isHovered ? 'none' : 'circle(0%)'}
+            fontWeight={500}
+            onClick={e => {
+              e.stopPropagation();
+              onClickSend();
+            }}
+            px="space.03"
+            py="space.02"
+            textStyle="caption.01"
+            type="button"
+          >
+            Send
+          </styled.button>
+        </Box>
+      ) : (
+        <Box p="space.01" />
+      )}
     </Box>
   );
 }

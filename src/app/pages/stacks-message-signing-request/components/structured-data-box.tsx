@@ -1,8 +1,7 @@
 import { useEffect, useState } from 'react';
 
 import { ClarityValue } from '@stacks/transactions';
-import { Stack, color } from '@stacks/ui';
-import { Box, Divider, HStack, styled } from 'leather-styles/jsx';
+import { Box, Divider, HStack, Stack, styled } from 'leather-styles/jsx';
 
 import { StructuredMessageDataDomain } from '@shared/signature/signature-types';
 
@@ -42,12 +41,12 @@ export function StructuredDataBox(props: {
     <Box minHeight="260px">
       <Stack
         border="4px solid"
-        paddingBottom={'8px'}
-        borderColor={color('border')}
-        borderRadius="20px"
-        backgroundColor={color('border')}
+        paddingBottom="space.02"
+        borderColor="accent.border-default"
+        borderRadius="xl"
+        backgroundColor="accent.border-default"
       >
-        <Box background="white" borderRadius="16px" overflowX="scroll" py="space.05">
+        <Box background="white" borderRadius="lg" overflowX="scroll" py="space.05">
           <Box fontSize="14px" lineHeight="1.7" px="space.05">
             <HStack alignItems="center" justifyContent="space-between">
               <styled.h2 textStyle="label.01">{domainName}</styled.h2>

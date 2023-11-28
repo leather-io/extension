@@ -3,13 +3,7 @@ import axios from 'axios';
 import get from 'lodash.get';
 
 import { GITHUB_ORG, GITHUB_REPO } from '@shared/constants';
-import {
-  BRANCH_NAME,
-  IS_DEV_ENV,
-  IS_TEST_ENV,
-  LEDGER_BITCOIN_ENABLED,
-  WALLET_ENVIRONMENT,
-} from '@shared/environment';
+import { BRANCH_NAME, IS_DEV_ENV, IS_TEST_ENV, WALLET_ENVIRONMENT } from '@shared/environment';
 import { createMoney } from '@shared/models/money.model';
 import { isUndefined } from '@shared/utils';
 
@@ -74,14 +68,15 @@ const githubWalletConfigRawUrl = `https://raw.githubusercontent.com/${GITHUB_ORG
   BRANCH_NAME || defaultBranch
 }/config/wallet-config.json`;
 
-async function fetchHiroMessages(): Promise<RemoteConfig> {
+async function fetchLeatherMessages(): Promise<RemoteConfig> {
   if ((!BRANCH_NAME && WALLET_ENVIRONMENT !== 'production') || IS_TEST_ENV)
     return localConfig as RemoteConfig;
-  return axios.get(githubWalletConfigRawUrl);
+  const resp = await axios.get(githubWalletConfigRawUrl);
+  return resp.data;
 }
 
 function useRemoteConfig() {
-  const { data } = useQuery(['walletConfig'], fetchHiroMessages, {
+  const { data } = useQuery(['walletConfig'], fetchLeatherMessages, {
     // As we're fetching from Github, a third-party, we want
     // to avoid any unnecessary stress on their services, so
     // we use quite slow stale/retry times
@@ -91,7 +86,7 @@ function useRemoteConfig() {
   return data;
 }
 
-export function useRemoteHiroMessages(): HiroMessage[] {
+export function useRemoteLeatherMessages(): HiroMessage[] {
   const config = useRemoteConfig();
   return get(config, 'messages.global', []);
 }
@@ -118,7 +113,7 @@ export function useConfigBitcoinEnabled() {
   const config = useRemoteConfig();
   const hasBitcoinAccount = useHasCurrentBitcoinAccount();
   return whenWallet({
-    ledger: (config?.bitcoinEnabled ?? true) && LEDGER_BITCOIN_ENABLED && hasBitcoinAccount,
+    ledger: (config?.bitcoinEnabled ?? true) && hasBitcoinAccount,
     software: config?.bitcoinEnabled ?? true,
   });
 }
