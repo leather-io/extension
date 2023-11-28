@@ -3,7 +3,7 @@
 <html lang="en">
 
 <head>
-    <title>Code coverage report for app/common/money/unit-conversion.ts</title>
+    <title>Code coverage report for app/ui/utils/truncate-middle.ts</title>
     <meta charset="utf-8" />
     <link rel="stylesheet" href="../../../prettify.css" />
     <link rel="stylesheet" href="../../../base.css" />
@@ -19,34 +19,34 @@
 <body>
 <div class='wrapper'>
     <div class='pad1'>
-        <h1><a href="../../../index.html">All files</a> / <a href="index.html">app/common/money</a> unit-conversion.ts</h1>
+        <h1><a href="../../../index.html">All files</a> / <a href="index.html">app/ui/utils</a> truncate-middle.ts</h1>
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">72.72% </span>
+                <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>8/11</span>
+                <span class='fraction'>0/13</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
+                <span class="strong">0% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/0</span>
+                <span class='fraction'>0/8</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">60% </span>
+                <span class="strong">0% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>3/5</span>
+                <span class='fraction'>0/2</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">72.72% </span>
+                <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>8/11</span>
+                <span class='fraction'>0/12</span>
             </div>
         
             
@@ -61,7 +61,7 @@
             </div>
         </template>
     </div>
-    <div class='status-line medium'></div>
+    <div class='status-line low'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -86,72 +86,51 @@
 <a name='L21'></a><a href='#L21'>21</a>
 <a name='L22'></a><a href='#L22'>22</a>
 <a name='L23'></a><a href='#L23'>23</a>
-<a name='L24'></a><a href='#L24'>24</a>
-<a name='L25'></a><a href='#L25'>25</a>
-<a name='L26'></a><a href='#L26'>26</a>
-<a name='L27'></a><a href='#L27'>27</a>
-<a name='L28'></a><a href='#L28'>28</a>
-<a name='L29'></a><a href='#L29'>29</a>
-<a name='L30'></a><a href='#L30'>30</a>
-<a name='L31'></a><a href='#L31'>31</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">8x</span>
-<span class="cline-any cline-yes">4x</span>
-<span class="cline-any cline-yes">4x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">8x</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<a name='L24'></a><a href='#L24'>24</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">4x</span>
-<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">4x</span>
-<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import BigNumber from 'bignumber.js';
-&nbsp;
-import { BTC_DECIMALS, STX_DECIMALS } from '@shared/constants';
-import { Money } from '@shared/models/money.model';
-&nbsp;
-import { initBigNumber } from '../math/helpers';
-&nbsp;
-function fractionalUnitToUnit(decimals: number) {
-  return (unit: number | string | BigNumber) =&gt; {
-    const unitBigNumber = initBigNumber(unit);
-    return unitBigNumber.shiftedBy(-decimals);
-  };
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">function <span class="fstat-no" title="function not covered" >truncateHex(h</span>ex: string, offset = <span class="branch-0 cbranch-no" title="branch not covered" >5): string {</span>
+<span class="cstat-no" title="statement not covered" >  return `${hex.substring(0, offset + 2)}…${hex.substring(hex.length - offset)}`;</span>
 }
 &nbsp;
-export function unitToFractionalUnit(decimals: number) {
-  return <span class="fstat-no" title="function not covered" >(u</span>nit: number | string | BigNumber) =&gt; {
-    const unitBigNumber = <span class="cstat-no" title="statement not covered" >initBigNumber(unit);</span>
-<span class="cstat-no" title="statement not covered" >    return unitBigNumber.shiftedBy(decimals);</span>
-  };
-}
-&nbsp;
-export const satToBtc = fractionalUnitToUnit(BTC_DECIMALS);
-export const btcToSat = unitToFractionalUnit(BTC_DECIMALS);
-&nbsp;
-export const microStxToStx = fractionalUnitToUnit(STX_DECIMALS);
-export const stxToMicroStx = unitToFractionalUnit(STX_DECIMALS);
-&nbsp;
-export function <span class="fstat-no" title="function not covered" >moneyToBaseUnit(s</span>um: Money) {
-<span class="cstat-no" title="statement not covered" >  return fractionalUnitToUnit(sum.decimals)(sum.amount);</span>
+export function <span class="fstat-no" title="function not covered" >truncateMiddle(i</span>nput: string, offset = <span class="branch-0 cbranch-no" title="branch not covered" >5): string {</span>
+<span class="cstat-no" title="statement not covered" >  if (!input) <span class="cstat-no" title="statement not covered" >return '';</span></span>
+  // Hex
+<span class="cstat-no" title="statement not covered" >  if (input.startsWith('0x')) {</span>
+<span class="cstat-no" title="statement not covered" >    return truncateHex(input, offset);</span>
+  }
+  // For contracts
+<span class="cstat-no" title="statement not covered" >  if (input.includes('.')) {</span>
+    const parts = <span class="cstat-no" title="statement not covered" >input.split('.');</span>
+    const start = <span class="cstat-no" title="statement not covered" >parts[0]?.substring(0, offset);</span>
+    const end = <span class="cstat-no" title="statement not covered" >parts[0]?.substring(parts[0].length - offset, parts[0].length);</span>
+<span class="cstat-no" title="statement not covered" >    return `${start}…${end}.${parts[1]}`;</span>
+  } else {
+    // Everything else
+    const start = <span class="cstat-no" title="statement not covered" >input?.substring(0, offset);</span>
+    const end = <span class="cstat-no" title="statement not covered" >input?.substring(input.length - offset, input.length);</span>
+<span class="cstat-no" title="statement not covered" >    return `${start}…${end}`;</span>
+  }
 }
 &nbsp;</pre></td></tr></table></pre>
 
