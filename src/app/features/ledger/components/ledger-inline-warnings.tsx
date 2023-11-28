@@ -18,7 +18,7 @@ interface CommonLedgerInlineWarningsProps extends RequiresChainProp {
 
 function OutdatedLedgerAppWarning({ chain }: RequiresChainProp) {
   return (
-    <WarningLabel fontSize="14px" textAlign="left">
+    <WarningLabel textAlign="left">
       Latest version of <Capitalize>{chain} app</Capitalize> required
       <styled.a href="ledgerlive://manager" textDecoration="underline">
         Update on Ledger Live to continue
@@ -29,7 +29,7 @@ function OutdatedLedgerAppWarning({ chain }: RequiresChainProp) {
 
 function LedgerDeviceLockedWarning({ chain }: RequiresChainProp) {
   return (
-    <WarningLabel fontSize="14px" textAlign="left">
+    <WarningLabel textAlign="left">
       Your Ledger is locked. Unlock it and open the {''}
       <Capitalize>{chain}</Capitalize>
       {''} app to continue.
@@ -39,7 +39,7 @@ function LedgerDeviceLockedWarning({ chain }: RequiresChainProp) {
 
 function LedgerAppClosedWarning({ chain }: RequiresChainProp) {
   return (
-    <WarningLabel fontSize="14px" textAlign="left">
+    <WarningLabel textAlign="left">
       The <Capitalize>{chain}</Capitalize> app appears to be closed on Ledger. Open it to continue.
     </WarningLabel>
   );

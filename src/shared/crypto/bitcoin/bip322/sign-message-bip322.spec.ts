@@ -153,16 +153,16 @@ describe(signBip322MessageSimple.name, () => {
       );
     });
 
-    test('Signature: "HiroWalletIsTheBest"', async () => {
+    test('Signature: "WearLeather"', async () => {
       const { signature } = await signBip322MessageSimple({
         address: taprootAddress,
-        message: 'HiroWalletIsTheBest',
+        message: 'WearLeather',
         network: 'mainnet',
         signPsbt,
       });
 
       expect(signature).toEqual(
-        'AUAJNdp5SEAFCDYrIR8TQRkgbNo6P+dUeL97eadGjPWC8iPrhngZSBZvcImVk/HEb3zq3xuyGqyP0dqR7CH2HCa7'
+        'AUDjK8SJX34boek3m3EKXI94AMBZynJUmdqgO7i4z6JKG6gkUgp+brkWl0ylzWb+8enM4s4B4TWel0iCmcQrKNWS'
       );
     });
   });
