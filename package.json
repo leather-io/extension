@@ -232,6 +232,7 @@
     "@actions/core": "1.10.1",
     "@btckit/types": "0.0.19",
     "@leather-wallet/prettier-config": "0.0.1",
+    "@leather-wallet/tokens": "0.0.2",
     "@ls-lint/ls-lint": "2.1.0",
     "@pandacss/dev": "0.18.3",
     "@playwright/test": "1.38.1",
