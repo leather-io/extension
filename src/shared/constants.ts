@@ -55,7 +55,7 @@ interface BaseChainConfig {
   blockchain: Blockchains;
 }
 
-interface BitcoinChainConfig extends BaseChainConfig {
+export interface BitcoinChainConfig extends BaseChainConfig {
   blockchain: 'bitcoin';
   bitcoinUrl: string;
   bitcoinNetwork: BitcoinNetworkModes;

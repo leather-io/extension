@@ -224,7 +224,7 @@ export function useBitcoinContracts() {
     const txMoney = createMoneyFromDecimal(bitcoinValue, 'BTC');
     const txFiatValue = i18nFormatCurrency(calculateFiatValue(txMoney)).toString();
     const txFiatValueSymbol = bitcoinMarketData.price.symbol;
-    const txLink = { blockchain: 'bitcoin', txId };
+    const txLink = { blockchain: 'bitcoin', txid: txId };
 
     return {
       txId,
