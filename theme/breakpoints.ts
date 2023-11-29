@@ -1,8 +1,7 @@
+import { breakpoints as leatherBreakpoints } from '@leather-wallet/tokens';
+
+// TODO consider removing this from the tokens package / doing this better
 // ts-unused-exports:disable-next-line
 export const breakpoints = {
-  sm: '398px',
-  md: '768px',
-  lg: '1024px',
-  xl: '1280px',
-  '2xl': '1536px',
+  ...leatherBreakpoints,
 };
