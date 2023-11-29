@@ -13,11 +13,13 @@ export interface HandleOpenTxLinkArgs {
   txid: string;
 }
 export function useExplorerLink() {
-  const { mode } = useCurrentNetworkState();
+  const { mode, chain } = useCurrentNetworkState();
+  const { bitcoin } = chain;
   const handleOpenTxLink = useCallback(
-    ({ blockchain, suffix, txid }: HandleOpenTxLinkArgs) =>
-      openInNewTab(makeTxExplorerLink({ blockchain, mode, suffix, txid })),
-    [mode]
+    ({ blockchain, suffix, txid }: HandleOpenTxLinkArgs) => {
+      openInNewTab(makeTxExplorerLink({ blockchain, mode, suffix, txid, bitcoin }));
+    },
+    [mode, bitcoin]
   );
 
   return {

@@ -7,7 +7,7 @@ import {
 } from '@stacks/transactions';
 import { toUnicode } from 'punycode';
 
-import { BitcoinNetworkModes, KEBAB_REGEX } from '@shared/constants';
+import { BitcoinChainConfig, BitcoinNetworkModes, KEBAB_REGEX } from '@shared/constants';
 import type { Blockchains } from '@shared/models/blockchain.model';
 
 export function createNullArrayOfLength(length: number) {
@@ -44,15 +44,20 @@ interface MakeTxExplorerLinkArgs {
   mode: BitcoinNetworkModes;
   suffix?: string;
   txid: string;
+  bitcoin: BitcoinChainConfig;
 }
 export function makeTxExplorerLink({
   blockchain,
   mode,
   suffix = '',
   txid,
+  bitcoin: { bitcoinUrl, bitcoinNetwork },
 }: MakeTxExplorerLinkArgs) {
   switch (blockchain) {
     case 'bitcoin':
+      if (bitcoinNetwork === 'regtest') {
+        return `${bitcoinUrl}/tx/${txid}`;
+      }
       return `https://mempool.space/${mode !== 'mainnet' ? mode + '/' : ''}tx/${txid}`;
     case 'stacks':
       return `https://explorer.hiro.so/txid/${txid}?chain=${mode}${suffix}`;
