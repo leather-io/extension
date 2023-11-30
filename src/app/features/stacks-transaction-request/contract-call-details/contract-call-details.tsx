@@ -2,7 +2,7 @@ import { Suspense } from 'react';
 
 import { Stack } from 'leather-styles/jsx';
 
-import { useExplorerLink } from '@app/common/hooks/use-explorer-link';
+import { useStacksExplorerLink } from '@app/common/hooks/use-stacks-explorer-link';
 import { formatContractId } from '@app/common/utils';
 import { AttachmentRow } from '@app/features/stacks-transaction-request/attachment-row';
 import { ContractPreviewLayout } from '@app/features/stacks-transaction-request/contract-preview';
@@ -13,7 +13,7 @@ import { FunctionArgumentsList } from './function-arguments-list';
 
 function ContractCallDetailsSuspense() {
   const transactionRequest = useTransactionRequestState();
-  const { handleOpenTxLink } = useExplorerLink();
+  const { handleOpenStacksTxLink: handleOpenTxLink } = useStacksExplorerLink();
 
   if (!transactionRequest || transactionRequest.txType !== 'contract_call') return null;
   const { contractAddress, contractName, functionName, attachment } = transactionRequest;
@@ -34,7 +34,6 @@ function ContractCallDetailsSuspense() {
       <ContractPreviewLayout
         onClick={() =>
           handleOpenTxLink({
-            blockchain: 'stacks',
             txid: formatContractId(contractAddress, contractName),
           })
         }

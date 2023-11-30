@@ -4,7 +4,7 @@ import { Flex, HStack, styled } from 'leather-styles/jsx';
 
 import { createMoneyFromDecimal } from '@shared/models/money.model';
 
-import { useExplorerLink } from '@app/common/hooks/use-explorer-link';
+import { useBitcoinExplorerLink } from '@app/common/hooks/use-bitcoin-explorer-link';
 import { baseCurrencyAmountInQuote } from '@app/common/money/calculate-money';
 import { i18nFormatCurrency } from '@app/common/money/format-money';
 import { satToBtc } from '@app/common/money/unit-conversion';
@@ -25,7 +25,7 @@ export function BitcoinContractListItemLayout({
   collateralAmount,
   txid,
 }: BitcoinContractListItemLayoutProps) {
-  const { handleOpenTxLink } = useExplorerLink();
+  const { handleOpenBitcoinTxLink: handleOpenTxLink } = useBitcoinExplorerLink();
   const bitcoinMarketData = useCryptoCurrencyMarketData('BTC');
 
   const getFiatValue = useCallback(
@@ -41,8 +41,6 @@ export function BitcoinContractListItemLayout({
       marginBottom="15px"
       onClick={() =>
         handleOpenTxLink({
-          blockchain: 'bitcoin',
-          suffix: `&submitted=true`,
           txid,
         })
       }

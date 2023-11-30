@@ -8,7 +8,6 @@ import {
 import { toUnicode } from 'punycode';
 
 import { BitcoinChainConfig, BitcoinNetworkModes, KEBAB_REGEX } from '@shared/constants';
-import type { Blockchains } from '@shared/models/blockchain.model';
 
 export function createNullArrayOfLength(length: number) {
   return new Array(length).fill(null);
@@ -39,28 +38,37 @@ export function extractPhraseFromString(value: string) {
   }
 }
 
-interface MakeTxExplorerLinkArgs {
-  blockchain: Blockchains;
-  mode: BitcoinNetworkModes;
-  suffix?: string;
+interface MakeBitcoinTxExplorerLinkArgs {
   txid: string;
   bitcoin: BitcoinChainConfig;
 }
-export function makeTxExplorerLink({
-  blockchain,
+
+interface MakeStacksTxExplorerLinkArgs {
+  mode: BitcoinNetworkModes;
+  suffix?: string;
+  txid: string;
+}
+
+export function makeStacksTxExplorerLink({
   mode,
   suffix = '',
   txid,
+}: MakeStacksTxExplorerLinkArgs) {
+  return `https://explorer.hiro.so/txid/${txid}?chain=${mode}${suffix}`;
+}
+
+export function makeBitcoinTxExplorerLink({
+  txid,
   bitcoin: { bitcoinUrl, bitcoinNetwork },
-}: MakeTxExplorerLinkArgs) {
-  switch (blockchain) {
-    case 'bitcoin':
-      if (bitcoinNetwork === 'regtest') {
-        return `${bitcoinUrl}/tx/${txid}`;
-      }
-      return `https://mempool.space/${mode !== 'mainnet' ? mode + '/' : ''}tx/${txid}`;
-    case 'stacks':
-      return `https://explorer.hiro.so/txid/${txid}?chain=${mode}${suffix}`;
+}: MakeBitcoinTxExplorerLinkArgs) {
+  switch (bitcoinNetwork) {
+    case 'mainnet':
+    case 'testnet':
+      return `https://mempool.space/${
+        bitcoinNetwork !== 'mainnet' ? bitcoinNetwork + '/' : ''
+      }tx/${txid}`;
+    case 'regtest':
+      return `${bitcoinUrl}/tx/${txid}`;
     default:
       return '';
   }

@@ -1,7 +1,7 @@
 import { Box, Flex, HStack, styled } from 'leather-styles/jsx';
 
+import { useBitcoinExplorerLink } from '@app/common/hooks/use-bitcoin-explorer-link';
 import { useClipboard } from '@app/common/hooks/use-copy-to-clipboard';
-import { useExplorerLink } from '@app/common/hooks/use-explorer-link';
 import { Flag } from '@app/components/layout/flag';
 import { Tooltip } from '@app/components/tooltip';
 import { LeatherButton } from '@app/ui/components/button';
@@ -24,7 +24,7 @@ export function PsbtInputOutputItemLayout({
   txIdHoverLabel,
 }: PsbtInputOutputItemLayoutProps) {
   const { onCopy, hasCopied } = useClipboard(addressHoverLabel ?? '');
-  const { handleOpenTxLink } = useExplorerLink();
+  const { handleOpenBitcoinTxLink: handleOpenTxLink } = useBitcoinExplorerLink();
 
   return (
     <Flag align="middle" img={<></>} mt="space.05" spacing="space.04">
@@ -56,7 +56,6 @@ export function PsbtInputOutputItemLayout({
           <LeatherButton
             onClick={() =>
               handleOpenTxLink({
-                blockchain: 'bitcoin',
                 txid: txIdHoverLabel ?? '',
               })
             }

@@ -9,8 +9,8 @@ import { SupportedInscription } from '@shared/models/inscription.model';
 import { RouteUrls } from '@shared/route-urls';
 
 import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
+import { useBitcoinExplorerLink } from '@app/common/hooks/use-bitcoin-explorer-link';
 import { useClipboard } from '@app/common/hooks/use-copy-to-clipboard';
-import { useExplorerLink } from '@app/common/hooks/use-explorer-link';
 import { FormAddressDisplayer } from '@app/components/address-displayer/form-address-displayer';
 import { BaseDrawer } from '@app/components/drawer/base-drawer';
 import {
@@ -47,7 +47,7 @@ export function SendInscriptionSummary() {
   };
 
   const { onCopy } = useClipboard(txid || '');
-  const { handleOpenTxLink } = useExplorerLink();
+  const { handleOpenBitcoinTxLink: handleOpenTxLink } = useBitcoinExplorerLink();
   const analytics = useAnalytics();
 
   function onClickLink() {

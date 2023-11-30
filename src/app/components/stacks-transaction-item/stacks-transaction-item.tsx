@@ -6,7 +6,7 @@ import { StacksTx, TxTransferDetails } from '@shared/models/transactions/stacks-
 import { RouteUrls } from '@shared/route-urls';
 
 import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
-import { useExplorerLink } from '@app/common/hooks/use-explorer-link';
+import { useStacksExplorerLink } from '@app/common/hooks/use-stacks-explorer-link';
 import {
   getTxCaption,
   getTxTitle,
@@ -36,7 +36,7 @@ export function StacksTransactionItem({
   ...rest
 }: StacksTransactionItemProps) {
   const [component, bind, { isHovered }] = usePressable(true);
-  const { handleOpenTxLink } = useExplorerLink();
+  const { handleOpenStacksTxLink: handleOpenTxLink } = useStacksExplorerLink();
   const currentAccount = useCurrentStacksAccount();
   const analytics = useAnalytics();
   const [_, setRawTxId] = useRawTxIdState();
@@ -49,7 +49,6 @@ export function StacksTransactionItem({
   const openTxLink = () => {
     void analytics.track('view_transaction');
     handleOpenTxLink({
-      blockchain: 'stacks',
       txid: transaction?.tx_id || transferDetails?.link || '',
     });
   };

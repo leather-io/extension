@@ -7,7 +7,7 @@ import { BitcoinTx } from '@shared/models/transactions/bitcoin-transaction.model
 import { RouteUrls } from '@shared/route-urls';
 
 import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
-import { useExplorerLink } from '@app/common/hooks/use-explorer-link';
+import { useBitcoinExplorerLink } from '@app/common/hooks/use-bitcoin-explorer-link';
 import {
   containsTaprootInput,
   getBitcoinTxCaption,
@@ -50,7 +50,7 @@ export function BitcoinTransactionItem({ transaction, ...rest }: BitcoinTransact
   });
 
   const bitcoinAddress = useCurrentAccountNativeSegwitAddressIndexZero();
-  const { handleOpenTxLink } = useExplorerLink();
+  const { handleOpenBitcoinTxLink: handleOpenTxLink } = useBitcoinExplorerLink();
   const analytics = useAnalytics();
   const caption = useMemo(() => getBitcoinTxCaption(transaction), [transaction]);
   const value = useMemo(
@@ -70,7 +70,7 @@ export function BitcoinTransactionItem({ transaction, ...rest }: BitcoinTransact
       openInNewTab(createInscriptionInfoUrl(inscriptionData.id));
       return;
     }
-    handleOpenTxLink({ blockchain: 'bitcoin', txid: transaction?.txid || '' });
+    handleOpenTxLink({ txid: transaction?.txid || '' });
   };
 
   const isOriginator = !isBitcoinTxInbound(bitcoinAddress, transaction);
