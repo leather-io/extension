@@ -1,14 +1,10 @@
-import { HTMLStyledProps, styled } from 'leather-styles/jsx';
-import { SizeToken } from 'leather-styles/tokens';
+import { styled } from 'leather-styles/jsx';
 
-import { LiteralUnion } from '@shared/utils/type-utils';
+import { SvgProps } from '@app/ui/ui-types';
 
 const defaultSize = '20px';
 
-interface AnimatedTickIconProps extends HTMLStyledProps<'svg'> {
-  size?: LiteralUnion<SizeToken, string>;
-}
-export function AnimatedTickIcon({ size = defaultSize, ...props }: AnimatedTickIconProps) {
+export function AnimatedTickIcon({ size = defaultSize, ...props }: SvgProps) {
   return (
     <styled.svg
       preserveAspectRatio="xMidYMid meet"
