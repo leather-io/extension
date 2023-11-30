@@ -4,8 +4,8 @@ import { useLocation } from 'react-router-dom';
 import { Flex, HStack, Stack } from 'leather-styles/jsx';
 
 import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
+import { useBitcoinExplorerLink } from '@app/common/hooks/use-bitcoin-explorer-link';
 import { useClipboard } from '@app/common/hooks/use-copy-to-clipboard';
-import { useExplorerLink } from '@app/common/hooks/use-explorer-link';
 import {
   InfoCard,
   InfoCardAssetValue,
@@ -19,7 +19,7 @@ import { ExternalLinkIcon } from '@app/ui/components/icons/external-link-icon';
 
 export function RpcSignPsbtSummary() {
   const { state } = useLocation();
-  const { handleOpenTxLink } = useExplorerLink();
+  const { handleOpenBitcoinTxLink: handleOpenTxLink } = useBitcoinExplorerLink();
   const analytics = useAnalytics();
 
   const { fee, sendingValue, totalSpend, txId, txFiatValue, txFiatValueSymbol, txLink, txValue } =

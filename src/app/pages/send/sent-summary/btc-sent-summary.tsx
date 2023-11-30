@@ -4,8 +4,8 @@ import { useLocation } from 'react-router-dom';
 import { HStack, Stack } from 'leather-styles/jsx';
 
 import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
+import { useBitcoinExplorerLink } from '@app/common/hooks/use-bitcoin-explorer-link';
 import { useClipboard } from '@app/common/hooks/use-copy-to-clipboard';
-import { useExplorerLink } from '@app/common/hooks/use-explorer-link';
 import { useRouteHeader } from '@app/common/hooks/use-route-header';
 import { FormAddressDisplayer } from '@app/components/address-displayer/form-address-displayer';
 import {
@@ -40,12 +40,12 @@ export function BtcSentSummary() {
   } = state;
 
   const { onCopy } = useClipboard(txId);
-  const { handleOpenTxLink } = useExplorerLink();
+  const { handleOpenBitcoinTxLink: handleOpenTxLink } = useBitcoinExplorerLink();
   const analytics = useAnalytics();
 
   function onClickLink() {
     void analytics.track('view_transaction_confirmation', { symbol: 'BTC' });
-    handleOpenTxLink({ blockchain: txLink.blockchain, txid: txLink.txid });
+    handleOpenTxLink({ txid: txLink.txid });
   }
 
   function onClickCopy() {
