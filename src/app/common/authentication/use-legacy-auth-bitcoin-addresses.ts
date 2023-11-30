@@ -30,6 +30,10 @@ export function useGetLegacyAuthBitcoinAddresses() {
         p2tr: bytesToHex(taprootAccount?.mainnet?.keychain.publicKey!),
         p2wpkh: bytesToHex(nativeSegwitAccount?.mainnet?.keychain.publicKey!),
       },
+      btcPublicKeyTestnet: {
+        p2tr: bytesToHex(taprootAccount?.testnet?.keychain.publicKey!),
+        p2wpkh: bytesToHex(nativeSegwitAccount?.testnet?.keychain.publicKey!),
+      },
     };
   };
 }
