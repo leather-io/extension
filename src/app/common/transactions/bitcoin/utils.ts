@@ -22,8 +22,7 @@ export const getColorFromBitcoinTx = (tx: BitcoinTx) => {
     pending: 'warning.label',
     success: 'stacks',
   };
-
-  return colorMap[statusFromBitcoinTx(tx)] ?? 'feedback-error';
+  return colorMap[statusFromBitcoinTx(tx)] ?? 'error.label';
 };
 
 export function containsTaprootInput(tx: BitcoinTx) {

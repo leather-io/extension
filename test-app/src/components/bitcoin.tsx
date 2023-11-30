@@ -29,10 +29,10 @@ const bitcoinTestnet: BitcoinNetwork = {
 
 const ecdsaPublicKeyLength = 33;
 const TEST_TESTNET_ACCOUNT_1_PUBKEY_P2WPKH =
-  '02b6b0afe5f620bc8e532b640b148dd9dea0ed19d11f8ab420fcce488fe3974893';
+  '03fe21e3444109e30ff7d19da0f530c344cad2e35fbee89afb2413858e4a9d7aa5';
 const TEST_TESTNET_ACCOUNT_1_PUBKEY_TR =
-  '03cf7525b9d94fd35eaf6b4ac4c570f718d1df142606ba3a64e2407ea01a37778f';
-const TEST_TESTNET_ACCOUNT_2_BTC_ADDRESS = 'tb1qkzvk9hr7uvas23hspvsgqfvyc8h4nngeqjqtnj';
+  '02e11c344f80d5fa9530183ed4c7f532c796def176c13276b7919f5047d82370b5';
+const TEST_TESTNET_ACCOUNT_2_BTC_ADDRESS = 'tb1qr8me8t9gu9g6fu926ry5v44yp0wyljrespjtnz';
 
 export function ecdsaPublicKeyToSchnorr(pubKey: Uint8Array) {
   if (pubKey.byteLength !== ecdsaPublicKeyLength) throw new Error('Invalid public key length');
@@ -43,29 +43,31 @@ function getTaprootPayment(publicKey: Uint8Array) {
   return btc.p2tr(ecdsaPublicKeyToSchnorr(publicKey), undefined, bitcoinTestnet);
 }
 
-function buildTestNativeSegwitPsbtRequest(pubKey: Uint8Array): PsbtRequestOptions {
+function buildTestNativeSegwitPsbtRequest(
+  pubKey: Uint8Array
+): PsbtRequestOptions & { broadcast: boolean } {
   const p2wpkh = btc.p2wpkh(pubKey, bitcoinTestnet);
 
   const tx = new btc.Transaction();
 
   tx.addInput({
     index: 0,
-    txid: '5be910a6557bae29b8ff2dbf4607dbf783eaf82802896d13f61d975c133ccce7',
+    txid: '5e03c0986d1b196dc586558bdcfcc9971c31e0c4c98ac7a6e86f9e07d899910c',
     witnessUtxo: {
-      amount: BigInt(1268294),
+      amount: BigInt(100),
       script: p2wpkh.script,
     },
   });
   tx.addInput({
-    index: 1,
-    txid: '513bb27703148f97fbc2b7758ee314c14510a7ccd2b10cd8cb57366022fea8ab',
+    index: 0,
+    txid: 'ef375b4af02821a14b249c879f818a50d3d0a98a334d70277ab329b9f5687108',
     witnessUtxo: {
-      amount: BigInt(1000),
+      amount: BigInt(100),
       script: p2wpkh.script,
     },
   });
   tx.addOutput({
-    amount: BigInt(5000),
+    amount: BigInt(200),
     script: p2wpkh.script,
   });
 
@@ -73,7 +75,7 @@ function buildTestNativeSegwitPsbtRequest(pubKey: Uint8Array): PsbtRequestOption
 
   // For testing mainnet
   // return { hex: tempHex };
-  return { hex: bytesToHex(psbt) };
+  return { hex: bytesToHex(psbt), broadcast: true };
 }
 
 function buildTestNativeSegwitPsbtRequestWithIndexes(pubKey: Uint8Array): PsbtRequestOptions {
@@ -83,29 +85,28 @@ function buildTestNativeSegwitPsbtRequestWithIndexes(pubKey: Uint8Array): PsbtRe
 
   tx.addInput({
     index: 0,
-    txid: '5be910a6557bae29b8ff2dbf4607dbf783eaf82802896d13f61d975c133ccce7',
-    sighashType: 2,
+    txid: '5e03c0986d1b196dc586558bdcfcc9971c31e0c4c98ac7a6e86f9e07d899910c',
     witnessUtxo: {
-      amount: BigInt(1268294),
+      amount: BigInt(100),
       script: p2wpkh.script,
     },
   });
   tx.addInput({
-    index: 1,
-    txid: '513bb27703148f97fbc2b7758ee314c14510a7ccd2b10cd8cb57366022fea8ab',
+    index: 0,
+    txid: 'ef375b4af02821a14b249c879f818a50d3d0a98a334d70277ab329b9f5687108',
     witnessUtxo: {
-      amount: BigInt(1000),
+      amount: BigInt(100),
       script: p2wpkh.script,
     },
   });
   tx.addOutput({
-    amount: BigInt(5000),
+    amount: BigInt(200),
     script: p2wpkh.script,
   });
 
   const psbt = tx.toPSBT();
 
-  return { signAtIndex: [0, 1], hex: bytesToHex(psbt), allowedSighash: [2] };
+  return { signAtIndex: 0, hex: bytesToHex(psbt) };
 }
 
 function buildTestTaprootPsbtRequest(pubKey: Uint8Array): PsbtRequestOptions {
@@ -117,12 +118,12 @@ function buildTestTaprootPsbtRequest(pubKey: Uint8Array): PsbtRequestOptions {
     index: 0,
     txid: '4f4cc7cb40b04978bd7704798dc1adf55b58196cef616b0fac8181965abc4726',
     witnessUtxo: {
-      amount: BigInt(1000),
+      amount: BigInt(100),
       script: payment.script,
     },
   });
   tx.addOutput({
-    amount: BigInt(1000),
+    amount: BigInt(100),
     script: payment.script,
   });
 
@@ -141,12 +142,12 @@ function buildTestTaprootPsbtRequestWithIndex(pubKey: Uint8Array): PsbtRequestOp
     txid: '4f4cc7cb40b04978bd7704798dc1adf55b58196cef616b0fac8181965abc4726',
     // tapInternalKey: payment.tapInternalKey,
     witnessUtxo: {
-      amount: BigInt(1000),
+      amount: BigInt(100),
       script: payment.script,
     },
   });
   tx.addOutput({
-    amount: BigInt(1000),
+    amount: BigInt(100),
     script: payment.script,
   });
 

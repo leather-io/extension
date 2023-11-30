@@ -103,7 +103,7 @@ export function useRpcSignPsbt() {
         // but we only support broadcasting using the rpc request method
         if (broadcast && addressNativeSegwitTotal && addressTaprootTotal && fee) {
           try {
-            tx.finalize();
+            signedTx.finalize();
           } catch (e) {
             return navigate(RouteUrls.RequestError, {
               state: {
@@ -121,7 +121,6 @@ export function useRpcSignPsbt() {
           });
           return;
         }
-
         closeWindow();
       } catch (e) {
         return navigate(RouteUrls.RequestError, {
@@ -135,8 +134,8 @@ export function useRpcSignPsbt() {
         makeRpcErrorResponse('signPsbt', {
           id: requestId,
           error: {
-            message: 'User denied signing',
             code: RpcErrorCode.USER_REJECTION,
+            message: 'User rejected signing PSBT request',
           },
         })
       );

@@ -1,6 +1,6 @@
 import { useMemo } from 'react';
 
-import { ensureArray, undefinedIfLengthZero } from '@shared/utils';
+import { ensureArray, isDefined, undefinedIfLengthZero } from '@shared/utils';
 
 import { useDefaultRequestParams } from '../hooks/use-default-request-search-params';
 import { initialSearchParams } from '../initial-search-params';
@@ -20,7 +20,7 @@ export function usePsbtRequestSearchParams() {
       origin,
       payload,
       requestToken,
-      signAtIndex: payload?.signAtIndex
+      signAtIndex: isDefined(payload?.signAtIndex)
         ? undefinedIfLengthZero(ensureArray(payload?.signAtIndex).map(h => Number(h)))
         : undefined,
       tabId: tabId ?? 1,
