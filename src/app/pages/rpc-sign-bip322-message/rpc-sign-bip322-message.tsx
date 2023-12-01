@@ -13,7 +13,7 @@ import { useCurrentNetwork } from '@app/store/networks/networks.selectors';
 import { truncateMiddle } from '@app/ui/utils/truncate-middle';
 
 import { MessageSigningHeader } from '../../features/message-signer/message-signing-header';
-import { SignMessageActions } from '../../features/message-signer/stacks-sign-message-action';
+import { SignMessageActions } from '../../features/message-signer/sign-message-actions';
 import { useSignBip322Message } from './use-sign-bip322-message';
 
 // Imported dynamically

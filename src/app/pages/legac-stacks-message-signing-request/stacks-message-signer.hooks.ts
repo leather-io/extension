@@ -8,7 +8,7 @@ import { initialSearchParams } from '@app/common/initial-search-params';
 import { getGenericSignaturePayloadFromToken } from '@app/common/signature/requests';
 import { useStacksAccounts } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
 
-export function useSignatureRequestSearchParams() {
+export function useLegacySignatureRequestSearchParams() {
   const { origin, tabId } = useDefaultRequestParams();
 
   return useMemo(() => {
@@ -25,7 +25,7 @@ export function useSignatureRequestSearchParams() {
 }
 
 function useSignatureRequestState() {
-  const { requestToken } = useSignatureRequestSearchParams();
+  const { requestToken } = useLegacySignatureRequestSearchParams();
   return useMemo(() => {
     if (!requestToken) return null;
     return getGenericSignaturePayloadFromToken(requestToken);

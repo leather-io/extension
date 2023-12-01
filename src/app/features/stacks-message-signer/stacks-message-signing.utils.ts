@@ -12,8 +12,8 @@ import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
 import { useWalletType } from '@app/common/use-wallet-type';
 import { createDelay } from '@app/common/utils';
 import { useLedgerNavigate } from '@app/features/ledger/hooks/use-ledger-navigate';
+import { useLegacySignatureRequestSearchParams } from '@app/pages/legac-stacks-message-signing-request/stacks-message-signer.hooks';
 import { useCurrentStacksAccount } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
-import { useSignatureRequestSearchParams } from '@app/store/signatures/requests.hooks';
 
 const improveUxWithShortDelayAsSigningIsSoFast = createDelay(1000);
 
@@ -44,7 +44,7 @@ export function useStacksMessageSigner() {
 
   const [isLoading, setIsLoading] = useState(false);
 
-  const { requestToken, tabId } = useSignatureRequestSearchParams();
+  const { requestToken, tabId } = useLegacySignatureRequestSearchParams();
   if (!tabId) throw new Error('Requests can only be made with corresponding tab');
   if (!requestToken) throw new Error('Missing request token');
 

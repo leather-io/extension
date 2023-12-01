@@ -42,7 +42,7 @@ export function prepareLedgerDeviceForAppFn<T extends () => Promise<unknown>>(co
 
     if (error || !app) {
       onError(error);
-      throw new Error('Unable to initiate Ledger app');
+      return;
     }
 
     return app;

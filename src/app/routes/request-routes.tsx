@@ -7,8 +7,8 @@ import { BroadcastErrorDrawer } from '@app/components/broadcast-error-drawer/bro
 import { EditNonceDrawer } from '@app/features/edit-nonce-drawer/edit-nonce-drawer';
 import { ledgerStacksMessageSigningRoutes } from '@app/features/ledger/flows/stacks-message-signing/ledger-stacks-sign-msg.routes';
 import { ledgerStacksTxSigningRoutes } from '@app/features/ledger/flows/stacks-tx-signing/ledger-sign-stacks-tx-container';
+import { StacksMessageLegacySigningRequest } from '@app/pages/legac-stacks-message-signing-request/stacks-message-signing-request';
 import { PsbtRequest } from '@app/pages/psbt-request/psbt-request';
-import { StacksMessageSigningRequest } from '@app/pages/stacks-message-signing-request/stacks-message-signing-request';
 import { TransactionRequest } from '@app/pages/transaction-request/transaction-request';
 import { ProfileUpdateRequest } from '@app/pages/update-profile-request/update-profile-request';
 import { AccountGate } from '@app/routes/account-gate';
@@ -35,7 +35,7 @@ export const legacyRequestRoutes = (
       element={
         <AccountGate>
           <Suspense fallback={<SuspenseLoadingSpinner />}>
-            <StacksMessageSigningRequest />
+            <StacksMessageLegacySigningRequest />
           </Suspense>
         </AccountGate>
       }

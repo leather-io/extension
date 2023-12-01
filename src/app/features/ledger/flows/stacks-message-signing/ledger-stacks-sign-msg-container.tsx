@@ -20,9 +20,9 @@ import {
   signLedgerStacksUtf8Message,
   useActionCancellableByUser,
 } from '@app/features/ledger/utils/stacks-ledger-utils';
+import { useLegacySignatureRequestSearchParams } from '@app/pages/legac-stacks-message-signing-request/stacks-message-signer.hooks';
 import { useCurrentStacksAccount } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
 import { StacksAccount } from '@app/store/accounts/blockchain/stacks/stacks-account.models';
-import { useSignatureRequestSearchParams } from '@app/store/signatures/requests.hooks';
 
 import { useLedgerAnalytics } from '../../hooks/use-ledger-analytics.hook';
 import { useLedgerNavigate } from '../../hooks/use-ledger-navigate';
@@ -56,7 +56,7 @@ function LedgerSignStacksMsg({ account, unsignedMessage }: LedgerSignMsgProps) {
   const ledgerNavigate = useLedgerNavigate();
   const ledgerAnalytics = useLedgerAnalytics();
   const verifyLedgerPublicKey = useVerifyMatchingLedgerStacksPublicKey();
-  const { tabId, requestToken } = useSignatureRequestSearchParams();
+  const { tabId, requestToken } = useLegacySignatureRequestSearchParams();
 
   const [latestDeviceResponse, setLatestDeviceResponse] = useLedgerResponseState();
   const canUserCancelAction = useActionCancellableByUser();

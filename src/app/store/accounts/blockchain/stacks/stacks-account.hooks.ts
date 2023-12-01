@@ -2,11 +2,11 @@ import { useMemo } from 'react';
 
 import { useAtomValue } from 'jotai';
 
+import { useSignatureRequestAccountIndex } from '@app/pages/legac-stacks-message-signing-request/stacks-message-signer.hooks';
 import {
   legacyStackWallet,
   stacksAccountState,
 } from '@app/store/accounts/blockchain/stacks/stacks-accounts';
-import { useSignatureRequestAccountIndex } from '@app/store/signatures/requests.hooks';
 import { useTransactionRequestState } from '@app/store/transactions/requests.hooks';
 import { transactionNetworkVersionState } from '@app/store/transactions/transaction';
 

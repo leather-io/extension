@@ -3,12 +3,12 @@ import { HStack } from 'leather-styles/jsx';
 import { useWalletType } from '@app/common/use-wallet-type';
 import { LeatherButton } from '@app/ui/components/button';
 
-interface StacksSignMessageActionsProps {
+interface SignMessageActionsProps {
   onSignMessage(): void;
   onSignMessageCancel(): void;
   isLoading: boolean;
 }
-export function SignMessageActions(props: StacksSignMessageActionsProps) {
+export function SignMessageActions(props: SignMessageActionsProps) {
   const { onSignMessage, onSignMessageCancel, isLoading } = props;
   const { whenWallet } = useWalletType();
 
