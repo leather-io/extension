@@ -15,6 +15,7 @@ export function CreateAccountAction({ onCreateAccount }: CreateAccountActionProp
       position="fixed"
       bottom={0}
       width="100%"
+      zIndex={1}
     >
       <LeatherButton fullWidth onClick={() => onCreateAccount()}>
         Create new account
