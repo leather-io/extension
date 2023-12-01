@@ -16,6 +16,7 @@ import { RouteUrls } from '@shared/route-urls';
 import { isDefined, isUndefined } from '@shared/utils';
 
 import { LoadingKeys, useLoading } from '@app/common/hooks/use-loading';
+import { useWalletType } from '@app/common/use-wallet-type';
 import { NonceSetter } from '@app/components/nonce-setter';
 import { defaultFeesMinValues } from '@app/query/stacks/fees/fees.hooks';
 import { useStacksPendingTransactions } from '@app/query/stacks/mempool/mempool.hooks';
@@ -43,8 +44,12 @@ function AlexSwapContainer() {
   const generateUnsignedTx = useGenerateStacksContractCallUnsignedTx();
   const signTx = useSignStacksTransaction();
   const { transactions: pendingTransactions } = useStacksPendingTransactions();
+  const { whenWallet } = useWalletType();
 
-  const isSponsoredByAlex = !pendingTransactions.length;
+  const isSponsoredByAlex = whenWallet({
+    ledger: false,
+    software: !pendingTransactions.length,
+  });
 
   const {
     alexSDK,
@@ -172,10 +177,12 @@ function AlexSwapContainer() {
         return logger.error('Attempted to generate raw tx, but signed tx is undefined');
       const txRaw = bytesToHex(signedTx.serialize());
 
-      if (isSponsoredByAlex) {
-        return await broadcastAlexSwap(txRaw);
-      }
-      return await broadcastStacksSwap(unsignedTx);
+      return whenWallet({
+        ledger: await broadcastStacksSwap(signedTx),
+        software: isSponsoredByAlex
+          ? await broadcastAlexSwap(txRaw)
+          : await broadcastStacksSwap(signedTx),
+      });
     } catch (error) {}
   }
 
