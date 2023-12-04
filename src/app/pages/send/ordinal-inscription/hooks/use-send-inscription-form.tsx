@@ -76,7 +76,14 @@ export function useSendInscriptionForm() {
 
       navigate(
         `/${RouteUrls.SendOrdinalInscription}/${RouteUrls.SendOrdinalInscriptionChooseFee}`,
-        { state: { inscription, recipient: values.recipient, utxo } }
+        {
+          state: {
+            inscription,
+            recipient: values.recipient,
+            utxo,
+            backgroundLocation: { pathname: RouteUrls.Home },
+          },
+        }
       );
     },
 
@@ -115,6 +122,7 @@ export function useSendInscriptionForm() {
           time,
           feeRowValue,
           signedTx: signedTx.extract(),
+          backgroundLocation: { pathname: RouteUrls.Home },
         },
       });
     },
