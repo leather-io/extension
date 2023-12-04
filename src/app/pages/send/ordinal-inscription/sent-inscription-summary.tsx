@@ -1,7 +1,7 @@
 import { toast } from 'react-hot-toast';
 import { useLocation, useNavigate } from 'react-router-dom';
 
-import { Box, Stack } from 'leather-styles/jsx';
+import { Box, HStack, Stack } from 'leather-styles/jsx';
 import get from 'lodash.get';
 
 import { Blockchains } from '@shared/models/blockchain.model';
@@ -79,14 +79,14 @@ export function SendInscriptionSummary() {
           <InfoCardRow title="Fee" value={feeRowValue} />
         </Stack>
 
-        <Stack gap="space.04" width="100%">
+        <HStack gap="space.04" width="100%">
           <InfoCardBtn
             onClick={onClickLink}
             icon={<ExternalLinkIcon size="14px" />}
             label="View details"
           />
           <InfoCardBtn onClick={onClickCopy} icon={<CopyIcon size="14px" />} label="Copy ID" />
-        </Stack>
+        </HStack>
       </InfoCard>
     </BaseDrawer>
   );
