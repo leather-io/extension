@@ -24,12 +24,13 @@ import {
 } from '@app/query/bitcoin/ordinals/inscription.hooks';
 import { useGetInscriptionsByOutputQuery } from '@app/query/bitcoin/ordinals/inscriptions-by-param.query';
 import { useCurrentAccountNativeSegwitAddressIndexZero } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
+import { BtcIcon } from '@app/ui/components/icons/btc-icon';
 
 import { CaptionDotSeparator } from '../caption-dot-separator';
 import { TransactionItemLayout } from '../transaction-item/transaction-item.layout';
 import { BitcoinTransactionCaption } from './bitcoin-transaction-caption';
 import { BitcoinTransactionIcon } from './bitcoin-transaction-icon';
-import { BitcoinTransactionInscriptionIcon } from './bitcoin-transaction-inscription-icon';
+import { InscriptionIcon } from './bitcoin-transaction-inscription-icon';
 import { BitcoinTransactionStatus } from './bitcoin-transaction-status';
 import { BitcoinTransactionValue } from './bitcoin-transaction-value';
 
@@ -86,15 +87,7 @@ export function BitcoinTransactionItem({ transaction, ...rest }: BitcoinTransact
     </CaptionDotSeparator>
   );
   const txValue = <BitcoinTransactionValue>{value}</BitcoinTransactionValue>;
-  const txIcon = inscriptionData ? (
-    <BitcoinTransactionInscriptionIcon
-      inscription={inscriptionData}
-      transaction={transaction}
-      btcAddress={bitcoinAddress}
-    />
-  ) : (
-    <BitcoinTransactionIcon transaction={transaction} btcAddress={bitcoinAddress} />
-  );
+
   const title = inscriptionData ? `Ordinal inscription #${inscriptionData.number}` : 'Bitcoin';
   const increaseFeeButton = (
     <IncreaseFeeButton
@@ -109,7 +102,13 @@ export function BitcoinTransactionItem({ transaction, ...rest }: BitcoinTransact
     <TransactionItemLayout
       openTxLink={openTxLink}
       txCaption={txCaption}
-      txIcon={txIcon}
+      txIcon={
+        <BitcoinTransactionIcon
+          icon={inscriptionData ? <InscriptionIcon inscription={inscriptionData} /> : <BtcIcon />}
+          transaction={transaction}
+          btcAddress={bitcoinAddress}
+        />
+      }
       txStatus={<BitcoinTransactionStatus transaction={transaction} />}
       txTitle={<TransactionTitle title={title} />}
       txValue={txValue}
