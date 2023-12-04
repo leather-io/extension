@@ -45,9 +45,10 @@ export function CustomFeeField({
         justifyContent="center"
         position="relative"
         width="130px"
+        textStyle="label.02"
       >
-        <styled.label htmlFor="fee" position="absolute" right={2} zIndex={999}>
-          <styled.span textStyle="label.02">{feeCurrencySymbol}</styled.span>
+        <styled.label htmlFor="fee" position="absolute" right={4} zIndex={999}>
+          {feeCurrencySymbol}
         </styled.label>
         <styled.input
           autoComplete="off"
@@ -69,7 +70,6 @@ export function CustomFeeField({
           placeholder="0"
           ring="none"
           textAlign="right"
-          textStyle="label.02"
           value={field.value}
         />
       </Flex>
