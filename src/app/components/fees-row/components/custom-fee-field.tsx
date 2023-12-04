@@ -58,8 +58,8 @@ export function CustomFeeField({
           height="32px"
           name="fee"
           disabled={disableFeeSelection}
-          onChange={async (evt: FormEvent<HTMLInputElement>) => {
-            await helpers.setValue(evt.currentTarget.value);
+          onChange={(evt: FormEvent<HTMLInputElement>) => {
+            void helpers.setValue(evt.currentTarget.value);
             // Separating warning check from field validations
             // bc we want the user to be able to submit the form
             // with the low fee warning present.
