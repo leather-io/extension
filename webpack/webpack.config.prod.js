@@ -48,7 +48,9 @@ config.plugins = [
           // and needs the `project:releases` and `org:read` scopes
           authToken: sentryAuthToken,
 
-          release: packageJson.version,
+          release: {
+            name: packageJson.version,
+          },
         }),
       ]
     : []),
