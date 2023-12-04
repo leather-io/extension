@@ -39,7 +39,7 @@ config.plugins = [
     ? [
         sentryWebpackPlugin({
           org: 'trust-machines',
-          project: 'hiro-wallet',
+          project: 'leather',
 
           // Specify the directory containing build artifacts
           include: './dist',
