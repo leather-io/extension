@@ -10,13 +10,12 @@ import { useAllTransferableCryptoAssetBalances } from '@app/common/hooks/use-tra
 import { useWalletType } from '@app/common/use-wallet-type';
 import { Brc20TokensLoader } from '@app/components/brc20-tokens-loader';
 import { Brc20TokenAssetList } from '@app/components/crypto-assets/bitcoin/brc20-token-asset-list/brc20-token-asset-list';
+import { ChooseCryptoAssetLayout } from '@app/components/crypto-assets/choose-crypto-asset/choose-crypto-asset.layout';
+import { CryptoAssetList } from '@app/components/crypto-assets/choose-crypto-asset/crypto-asset-list';
 import { ModalHeader } from '@app/components/modal-header';
 import { useConfigBitcoinSendEnabled } from '@app/query/common/remote-config/remote-config.query';
 import { useHasCurrentBitcoinAccount } from '@app/store/accounts/blockchain/bitcoin/bitcoin.hooks';
 import { useHasStacksLedgerKeychain } from '@app/store/accounts/blockchain/stacks/stacks.hooks';
-
-import { ChooseCryptoAssetLayout } from './components/choose-crypto-asset.layout';
-import { CryptoAssetList } from './components/crypto-asset-list';
 
 export function ChooseCryptoAsset() {
   const allTransferableCryptoAssetBalances = useAllTransferableCryptoAssetBalances();
