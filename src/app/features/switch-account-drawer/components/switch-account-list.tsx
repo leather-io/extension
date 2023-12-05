@@ -8,7 +8,7 @@ import { useWalletType } from '@app/common/use-wallet-type';
 import { SwitchAccountListItem } from './switch-account-list-item';
 
 interface SwitchAccountListProps {
-  handleClose: () => void;
+  handleClose(): void;
   currentAccountIndex: number;
   addressesNum: number;
 }

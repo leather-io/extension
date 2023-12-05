@@ -8,7 +8,7 @@ interface FeesListItemProps {
   feeRate: number;
   feeType: string;
   isSelected?: boolean;
-  onClick: () => void;
+  onClick(): void;
 }
 export function FeesListItem({
   arrivesIn,

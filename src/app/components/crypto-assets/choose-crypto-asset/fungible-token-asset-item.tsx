@@ -6,7 +6,7 @@ import { StacksFungibleTokenAssetItem } from '@app/components/crypto-assets/stac
 
 interface FungibleTokenAssetItemProps extends FlexProps {
   assetBalance: StacksFungibleTokenAssetBalance;
-  onClick: () => void;
+  onClick(): void;
 }
 export function FungibleTokenAssetItem({ assetBalance, onClick }: FungibleTokenAssetItemProps) {
   const { blockchain } = assetBalance;

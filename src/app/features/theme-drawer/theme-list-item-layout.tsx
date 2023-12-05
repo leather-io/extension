@@ -5,7 +5,7 @@ import { CheckmarkIcon } from '@app/ui/components/icons/checkmark-icon';
 interface ThemeListItemProps {
   themeLabel: string;
   isActive: boolean;
-  onThemeItemSelect: () => void;
+  onThemeItemSelect(): void;
 }
 export function ThemeListItemLayout({
   themeLabel,

@@ -4,8 +4,8 @@ import { HStack } from 'leather-styles/jsx';
 import { LeatherButton } from '@app/ui/components/button';
 
 interface UpdateActionLayoutProps {
-  onUpdateProfile: () => Promise<void>;
-  onCancel: () => void;
+  onUpdateProfile(): Promise<void>;
+  onCancel(): void;
   isLoading: boolean;
 }
 export function UpdateActionLayout({

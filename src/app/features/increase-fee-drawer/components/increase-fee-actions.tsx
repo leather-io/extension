@@ -7,7 +7,7 @@ import { LeatherButton } from '@app/ui/components/button';
 
 interface IncreaseFeeActionsProps {
   isDisabled: boolean;
-  onCancel: () => void;
+  onCancel(): void;
 }
 export function IncreaseFeeActions(props: IncreaseFeeActionsProps) {
   const { onCancel, isDisabled } = props;
