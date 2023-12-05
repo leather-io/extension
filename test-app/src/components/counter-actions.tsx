@@ -5,7 +5,7 @@ import { AppContext } from '@common/context';
 import { getRPCClient, stacksTestnetNetwork as network } from '@common/utils';
 import { ExplorerLink } from '@components/explorer-link';
 import { useConnect } from '@stacks/connect-react';
-import { Box, styled } from 'leather-styles/jsx';
+import { Box, Flex, styled } from 'leather-styles/jsx';
 
 export const CounterActions: React.FC = () => {
   const { userData } = React.useContext(AppContext);
@@ -54,26 +54,30 @@ export const CounterActions: React.FC = () => {
 
   return (
     <Box>
-      {!userData && <Text display="block">Log in to change the state of this smart contract.</Text>}
-      <ButtonGroup spacing={4} my={5}>
-        <Button mt={3} onClick={() => callMethod('increment')}>
+      {!userData && (
+        <styled.span display="block">
+          Log in to change the state of this smart contract.
+        </styled.span>
+      )}
+      <Flex gap={4} my={5}>
+        <styled.button mt={3} onClick={() => callMethod('increment')}>
           Increase by 1
-        </Button>
-        <Button mt={3} onClick={() => callMethod('decrement')}>
+        </styled.button>
+        <styled.button mt={3} onClick={() => callMethod('decrement')}>
           Decrease by 1
-        </Button>
-        <Button mt={3} onClick={getCounter}>
+        </styled.button>
+        <styled.button mt={3} onClick={getCounter}>
           Get current value
-        </Button>
-      </ButtonGroup>
+        </styled.button>
+      </Flex>
       {error && (
-        <Text display="block" color="red">
+        <styled.span display="block" color="red">
           {error}
-        </Text>
+        </styled.span>
       )}
       {txId && !loading && <ExplorerLink txId={txId} />}
       {counter !== null && !loading && (
-        <Text display="block">Current counter value: {counter}</Text>
+        <styled.span display="block">Current counter value: {counter}</styled.span>
       )}
     </Box>
   );

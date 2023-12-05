@@ -10,7 +10,6 @@ import { BtcFeeType } from '@shared/models/fees/bitcoin-fees.model';
 import { createMoney } from '@shared/models/money.model';
 import { RouteUrls } from '@shared/route-urls';
 
-import { useRouteHeader } from '@app/common/hooks/use-route-header';
 import { formFeeRowValue } from '@app/common/send/utils';
 import { useGenerateUnsignedNativeSegwitSingleRecipientTx } from '@app/common/transactions/bitcoin/use-generate-bitcoin-tx';
 import {
@@ -19,7 +18,6 @@ import {
 } from '@app/components/bitcoin-fees-list/bitcoin-fees-list';
 import { useBitcoinFeesList } from '@app/components/bitcoin-fees-list/use-bitcoin-fees-list';
 import { LoadingSpinner } from '@app/components/loading-spinner';
-import { ModalHeader } from '@app/components/modal-header';
 import { BitcoinChooseFee } from '@app/features/bitcoin-choose-fee/bitcoin-choose-fee';
 import { useValidateBitcoinSpend } from '@app/features/bitcoin-choose-fee/hooks/use-validate-bitcoin-spend';
 import { UtxoResponseItem } from '@app/query/bitcoin/bitcoin-client';
@@ -112,13 +110,6 @@ export function BrcChooseFee() {
       setIsLoadingOrder(false);
     }
   }
-
-  function onGoBack() {
-    setSelectedFeeType(null);
-    navigate(-1);
-  }
-
-  useRouteHeader(<ModalHeader defaultGoBack hideActions onGoBack={onGoBack} title="Choose fee" />);
 
   return isLoadingOrder ? (
     <Stack

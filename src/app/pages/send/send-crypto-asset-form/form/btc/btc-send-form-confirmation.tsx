@@ -13,7 +13,6 @@ import { createMoney, createMoneyFromDecimal } from '@shared/models/money.model'
 import { RouteUrls } from '@shared/route-urls';
 
 import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
-import { useRouteHeader } from '@app/common/hooks/use-route-header';
 import { baseCurrencyAmountInQuote } from '@app/common/money/calculate-money';
 import { formatMoneyPadded, i18nFormatCurrency } from '@app/common/money/format-money';
 import { satToBtc } from '@app/common/money/unit-conversion';
@@ -26,7 +25,6 @@ import {
   InfoCardRow,
   InfoCardSeparator,
 } from '@app/components/info-card/info-card';
-import { ModalHeader } from '@app/components/modal-header';
 import { useCurrentNativeSegwitUtxos } from '@app/query/bitcoin/address/utxos-by-address.hooks';
 import { useBitcoinBroadcastTransaction } from '@app/query/bitcoin/transaction/use-bitcoin-broadcast-transaction';
 import { useCryptoCurrencyMarketData } from '@app/query/common/market-data/market-data.hooks';
@@ -106,7 +104,6 @@ export function BtcSendFormConfirmation() {
 
   function formBtcTxSummaryState(txId: string) {
     return {
-      hasHeaderTitle: true,
       txLink: {
         blockchain: 'bitcoin',
         txid: txId || '',
@@ -124,8 +121,6 @@ export function BtcSendFormConfirmation() {
       feeRowValue,
     };
   }
-
-  useRouteHeader(<ModalHeader hideActions defaultClose defaultGoBack title="Review" />);
 
   return (
     <InfoCard data-testid={SendCryptoAssetSelectors.ConfirmationDetails}>

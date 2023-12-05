@@ -22,8 +22,8 @@ import { defaultFeesMinValuesAsMoney } from '@app/query/stacks/fees/fees.utils';
 import { useCurrentStacksAccount } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
 import { useGenerateStacksContractCallUnsignedTx } from '@app/store/transactions/contract-call.hooks';
 import { useSignStacksTransaction } from '@app/store/transactions/transaction.hooks';
+import { Page } from '@app/ui/layout/page/page.layout';
 
-import { SwapContainerLayout } from './components/swap-container.layout';
 import { SwapForm } from './components/swap-form';
 import { generateSwapRoutes } from './generate-swap-routes';
 import { useAlexBroadcastSwap } from './hooks/use-alex-broadcast-swap';
@@ -201,12 +201,12 @@ function AlexSwapContainer() {
 
   return (
     <SwapProvider value={swapContextValue}>
-      <SwapContainerLayout>
+      <Page>
         <SwapForm>
           <NonceSetter />
           <Outlet />
         </SwapForm>
-      </SwapContainerLayout>
+      </Page>
     </SwapProvider>
   );
 }

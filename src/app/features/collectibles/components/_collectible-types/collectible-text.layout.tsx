@@ -16,7 +16,7 @@ export function CollectibleTextLayout({ children }: CollectibleTextLayoutProps) 
         width: '100%',
         backgroundImage: 'linear-gradient(rgba(0,0,0,0), rgba(0,0,0,1))',
       }}
-      backgroundColor="black"
+      bg="black"
       color="white"
       height="100%"
       p="20px"

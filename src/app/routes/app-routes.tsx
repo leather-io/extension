@@ -12,11 +12,11 @@ import { RouteUrls } from '@shared/route-urls';
 import { LoadingSpinner } from '@app/components/loading-spinner';
 import { AddNetwork } from '@app/features/add-network/add-network';
 import { Container } from '@app/features/container/container';
-import { EditNonceDrawer } from '@app/features/edit-nonce-drawer/edit-nonce-drawer';
-import { IncreaseBtcFeeDrawer } from '@app/features/increase-fee-drawer/increase-btc-fee-drawer';
-import { IncreaseFeeSentDrawer } from '@app/features/increase-fee-drawer/increase-fee-sent-drawer';
-import { IncreaseStxFeeDrawer } from '@app/features/increase-fee-drawer/increase-stx-fee-drawer';
-import { leatherIntroDialogRoutes } from '@app/features/leather-intro-dialog/leather-intro-dialog';
+import { EditNonceDialog } from '@app/features/dialogs/edit-nonce-dialog/edit-nonce-dialog';
+import { IncreaseBtcFeeDialog } from '@app/features/dialogs/increase-fee-dialog/increase-btc-fee-dialog';
+import { IncreaseFeeSentDialog } from '@app/features/dialogs/increase-fee-dialog/increase-fee-sent-dialog';
+import { IncreaseStxFeeDialog } from '@app/features/dialogs/increase-fee-dialog/increase-stx-fee-dialog';
+import { leatherIntroDialogRoutes } from '@app/features/dialogs/leather-intro-dialog/leather-intro-dialog';
 import { ledgerBitcoinTxSigningRoutes } from '@app/features/ledger/flows/bitcoin-tx-signing/ledger-bitcoin-sign-tx-container';
 import { ledgerJwtSigningRoutes } from '@app/features/ledger/flows/jwt-signing/ledger-sign-jwt.routes';
 import { requestBitcoinKeysRoutes } from '@app/features/ledger/flows/request-bitcoin-keys/ledger-request-bitcoin-keys';
@@ -51,7 +51,6 @@ import { AccountGate } from '@app/routes/account-gate';
 import { receiveRoutes } from '@app/routes/receive-routes';
 import { legacyRequestRoutes } from '@app/routes/request-routes';
 import { rpcRequestRoutes } from '@app/routes/rpc-routes';
-import { settingsRoutes } from '@app/routes/settings-routes';
 
 import { OnboardingGate } from './onboarding-gate';
 
@@ -66,7 +65,6 @@ export function AppRoutes() {
 
 export const homePageModalRoutes = (
   <>
-    {settingsRoutes}
     {receiveRoutes}
     {ledgerStacksTxSigningRoutes}
     {ledgerBitcoinTxSigningRoutes}
@@ -92,13 +90,13 @@ function useAppRoutes() {
         </Route>
 
         <Route path={RouteUrls.RetrieveTaprootFunds} element={<RetrieveTaprootToNativeSegwit />} />
-        <Route path={RouteUrls.IncreaseStxFee} element={<IncreaseStxFeeDrawer />}>
+        <Route path={RouteUrls.IncreaseStxFee} element={<IncreaseStxFeeDialog />}>
           {ledgerStacksTxSigningRoutes}
         </Route>
-        <Route path={RouteUrls.IncreaseBtcFee} element={<IncreaseBtcFeeDrawer />}>
+        <Route path={RouteUrls.IncreaseBtcFee} element={<IncreaseBtcFeeDialog />}>
           {ledgerBitcoinTxSigningRoutes}
         </Route>
-        <Route path={RouteUrls.IncreaseFeeSent} element={<IncreaseFeeSentDrawer />} />
+        <Route path={RouteUrls.IncreaseFeeSent} element={<IncreaseFeeSentDialog />} />
 
         {ledgerStacksTxSigningRoutes}
 
@@ -183,8 +181,6 @@ function useAppRoutes() {
             </AccountGate>
           }
         >
-          {settingsRoutes}
-
           <Route path={RouteUrls.ReceiveStx} element={<ReceiveStxModal />} />
           <Route path={RouteUrls.ReceiveBtc} element={<ReceiveBtcModal />} />
         </Route>
@@ -196,7 +192,6 @@ function useAppRoutes() {
             </AccountGate>
           }
         >
-          {settingsRoutes}
           <Route path={RouteUrls.ReceiveStx} element={<ReceiveStxModal />} />
         </Route>
 
@@ -209,11 +204,8 @@ function useAppRoutes() {
               <ViewSecretKey />
             </AccountGate>
           }
-        >
-          {settingsRoutes}
-        </Route>
+        />
         <Route path={RouteUrls.Unlock} element={<Unlock />}>
-          {settingsRoutes}
           {leatherIntroDialogRoutes}
         </Route>
 
@@ -237,7 +229,7 @@ function useAppRoutes() {
             </AccountGate>
           }
         >
-          <Route path={RouteUrls.EditNonce} element={<EditNonceDrawer />} />
+          <Route path={RouteUrls.EditNonce} element={<EditNonceDialog />} />
         </Route>
 
         <Route

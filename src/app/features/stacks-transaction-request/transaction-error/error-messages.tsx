@@ -1,4 +1,4 @@
-import { memo } from 'react';
+import { memo, useState } from 'react';
 import { Navigate } from 'react-router-dom';
 
 import { STXTransferPayload, TransactionTypes } from '@stacks/connect';
@@ -8,9 +8,9 @@ import { RouteUrls } from '@shared/route-urls';
 import { closeWindow } from '@shared/utils';
 
 import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
-import { useDrawers } from '@app/common/hooks/use-drawers';
 import { useScrollLock } from '@app/common/hooks/use-scroll-lock';
 import { stacksValue } from '@app/common/stacks-utils';
+import { SwitchAccountDialog } from '@app/features/dialogs/switch-account-dialog/switch-account-dialog';
 import { ErrorMessage } from '@app/features/stacks-transaction-request/transaction-error/error-message';
 import { useCurrentStacksAccountBalances } from '@app/query/stacks/balance/stx-balance.hooks';
 import { useCurrentNetworkState } from '@app/store/networks/networks.hooks';
@@ -24,7 +24,7 @@ interface InsufficientFundsActionButtonsProps {
 }
 function InsufficientFundsActionButtons({ eventName }: InsufficientFundsActionButtonsProps) {
   const analytics = useAnalytics();
-  const { setIsShowingSwitchAccountsState } = useDrawers();
+  const [isShowingSwitchAccount, setIsShowingSwitchAccount] = useState(false);
 
   const onGetStx = () => {
     void analytics.track(eventName);
@@ -34,8 +34,12 @@ function InsufficientFundsActionButtons({ eventName }: InsufficientFundsActionBu
 
   return (
     <>
+      <SwitchAccountDialog
+        isShowing={isShowingSwitchAccount}
+        onClose={() => setIsShowingSwitchAccount(false)}
+      />
       <Button onClick={onGetStx}>Get STX</Button>
-      <Button onClick={() => setIsShowingSwitchAccountsState(true)} variant="outline">
+      <Button onClick={() => setIsShowingSwitchAccount(true)} variant="outline">
         Switch account
       </Button>
     </>

@@ -2,8 +2,8 @@ import { useNavigate } from 'react-router-dom';
 
 import { styled } from 'leather-styles/jsx';
 
-import { BaseDrawer } from '@app/components/drawer/base-drawer';
 import { UnsupportedBrowserImg } from '@app/features/ledger/illustrations/ledger-illu-unsupported-browser';
+import { Dialog } from '@app/ui/components/containers/dialog/dialog';
 import { Link } from '@app/ui/components/link/link';
 
 import { LedgerTitle } from '../../components/ledger-title';
@@ -13,16 +13,21 @@ export function UnsupportedBrowserLayout() {
   const navigate = useNavigate();
 
   return (
-    <BaseDrawer isShowing onClose={() => navigate(-1)}>
+    <Dialog isShowing onClose={() => navigate(-1)}>
       <LedgerWrapper image={<UnsupportedBrowserImg />}>
         <LedgerTitle mb="space.03">Your browser isn't supported</LedgerTitle>
         <styled.span textStyle="label.03" color="ink.text-subdued">
-          {' '}
-          To connect your Ledger with Leather try{' '}
-          <Link href="https://www.google.com/chrome/">Chrome</Link> or{' '}
-          <Link href="https://brave.com/download/">Brave</Link>.
+          {'To connect your Ledger with Leather try '}
+          <Link textDecoration="underline" href="https://www.google.com/chrome/">
+            Chrome
+          </Link>
+          {' or '}
+          <Link textDecoration="underline" href="https://brave.com/download/">
+            Brave
+          </Link>
+          .
         </styled.span>
       </LedgerWrapper>
-    </BaseDrawer>
+    </Dialog>
   );
 }

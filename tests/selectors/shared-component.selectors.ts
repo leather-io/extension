@@ -19,9 +19,7 @@ export enum SharedComponentsSelectors {
   FeesListItem = 'fee-list-item',
   FeesListItemFeeValue = 'fee-list-item-fee-value',
 
-  // Modal Header
-  ModalHeaderBackBtn = 'modal-header-back-button',
-
   // Error
   BroadcastErrorTitle = 'broadcast-error-title',
+  HeaderBackBtn = 'header-back-button',
 }

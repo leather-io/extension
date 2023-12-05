@@ -8,7 +8,7 @@ export function TupleDisplayer({ isRoot, ...rest }: TupleDisplayerProps) {
   const rootStyles = isRoot
     ? {
         flex: '1 100%',
-        paddingTop: '12px',
+        pt: '12px',
         marginLeft: 0,
         fontFamily: 'Fira Code',
       }

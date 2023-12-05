@@ -5,12 +5,13 @@ import { Box, Flex } from 'leather-styles/jsx';
 
 import { RouteUrls } from '@shared/route-urls';
 
-import { BaseDrawer } from '@app/components/drawer/base-drawer';
 import { ErrorLabel } from '@app/components/error-label';
 import { InscriptionPreview } from '@app/components/inscription-preview-card/components/inscription-preview';
 import { InscriptionPreviewCard } from '@app/components/inscription-preview-card/inscription-preview-card';
 import { OrdinalAvatarIcon } from '@app/ui/components/avatar/ordinal-avatar-icon';
 import { Button } from '@app/ui/components/button/button';
+import { Dialog } from '@app/ui/components/containers/dialog/dialog';
+import { Header } from '@app/ui/components/containers/headers/header';
 
 import { RecipientAddressTypeField } from '../send-crypto-asset-form/components/recipient-address-type-field';
 import { CollectibleAsset } from './components/collectible-asset';
@@ -37,7 +38,12 @@ export function SendInscriptionForm() {
       onSubmit={chooseTransactionFee}
     >
       <Form>
-        <BaseDrawer title="Send" enableGoBack isShowing onClose={() => navigate(RouteUrls.Home)}>
+        <Dialog
+          header={<Header variant="dialog" title="Send" />}
+          onGoBack={() => navigate(-1)}
+          isShowing
+          onClose={() => navigate(RouteUrls.Home)}
+        >
           <SendInscriptionFormLoader isLoading={isCheckingFees}>
             <Box display="flex" flexDirection="column" px="space.06" pb="space.04">
               <InscriptionPreviewCard
@@ -59,7 +65,7 @@ export function SendInscriptionForm() {
               <Button type="submit">Continue</Button>
             </Box>
           </SendInscriptionFormLoader>
-        </BaseDrawer>
+        </Dialog>
       </Form>
     </Formik>
   );

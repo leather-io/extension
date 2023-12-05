@@ -9,7 +9,7 @@ type LinkProps = Omit<React.ComponentProps<typeof StyledLink>, keyof LinkVariant
   LinkVariantProps;
 
 export const Link = forwardRef((props: LinkProps, ref: ForwardedRef<HTMLAnchorElement>) => {
-  const { children, disabled, fullWidth, invert, size, variant, ...rest } = props;
+  const { children, disabled, fullWidth, size, invert, variant, ...rest } = props;
 
   return (
     <StyledLink

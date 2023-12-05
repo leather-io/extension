@@ -1,9 +1,9 @@
 import { Flex, styled } from 'leather-styles/jsx';
 
-import { BaseDrawer } from '@app/components/drawer/base-drawer';
 import { BtcAvatarIcon } from '@app/ui/components/avatar/btc-avatar-icon';
 import { Button } from '@app/ui/components/button/button';
 import { Callout } from '@app/ui/components/callout/callout';
+import { Dialog } from '@app/ui/components/containers/dialog/dialog';
 
 interface RetrieveTaprootToNativeSegwitLayoutProps {
   isBroadcasting: boolean;
@@ -16,7 +16,7 @@ export function RetrieveTaprootToNativeSegwitLayout(
 ) {
   const { onClose, onApproveTransaction, isBroadcasting, children } = props;
   return (
-    <BaseDrawer isShowing onClose={() => onClose()}>
+    <Dialog isShowing onClose={() => onClose()}>
       <Flex alignItems="start" flexDirection="column" mt="-45px" mx="space.06" textAlign="left">
         <BtcAvatarIcon />
         <styled.span mt="space.04" textStyle="label.01">
@@ -48,6 +48,6 @@ export function RetrieveTaprootToNativeSegwitLayout(
           Retrieve bitcoin
         </Button>
       </Flex>
-    </BaseDrawer>
+    </Dialog>
   );
 }

@@ -33,17 +33,3 @@ export const Disabled: Story = {
     variant: 'underlined',
   },
 };
-
-// TODO: Remove invert code
-export const InvertLink: Story = {
-  parameters: {
-    backgrounds: { default: 'leather-dark-mode' },
-    controls: { include: [] },
-  },
-  args: {
-    children: 'Link',
-    invert: true,
-    size: 'md',
-    variant: 'underlined',
-  },
-};

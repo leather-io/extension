@@ -34,7 +34,6 @@ export function useStacksTransactionSummary(token: CryptoCurrencies) {
   function formSentSummaryTxState(txId: string, signedTx: StacksTransaction, decimals?: number) {
     return {
       state: {
-        hasHeaderTitle: true,
         txLink: {
           blockchain: 'stacks',
           txid: txId || '',

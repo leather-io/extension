@@ -4,7 +4,9 @@ import { SwapSelectors } from '@tests/selectors/swap.selectors';
 import { Box, styled } from 'leather-styles/jsx';
 import get from 'lodash.get';
 
-import { BaseDrawer } from '@app/components/drawer/base-drawer';
+import { RouteUrls } from '@shared/route-urls';
+
+import { Dialog } from '@app/ui/components/containers/dialog/dialog';
 
 import { useSwapContext } from '../swap.context';
 import { SwapAssetList } from './components/swap-asset-list';
@@ -22,28 +24,15 @@ export function SwapChooseAsset() {
 
   const isFromList = swapListType === 'from';
 
-  const title = isFromList ? (
-    <>
-      Choose asset
-      <br />
-      to swap
-    </>
-  ) : (
-    <>
-      Choose asset
-      <br />
-      to receive
-    </>
-  );
+  const title = isFromList ? 'Choose asset to swap' : 'Choose asset to receive';
 
   return (
-    <BaseDrawer title="" isShowing onClose={() => navigate(-1)}>
-      <Box data-testid={SwapSelectors.ChooseAssetList} mx="space.06">
-        <styled.h1 mb="space.05" textStyle="heading.03">
-          {title}
-        </styled.h1>
+    <Dialog isShowing onClose={() => navigate(RouteUrls.Swap)}>
+      {/* try replace below height with dialog and get rid of box */}
+      <Box data-testid={SwapSelectors.ChooseAssetList} maxHeight={{ base: '80vh', md: '50vh' }}>
+        <styled.h1 textStyle="heading.03">{title}</styled.h1>
         <SwapAssetList assets={isFromList ? swappableAssetsFrom : swappableAssetsTo} />
       </Box>
-    </BaseDrawer>
+    </Dialog>
   );
 }

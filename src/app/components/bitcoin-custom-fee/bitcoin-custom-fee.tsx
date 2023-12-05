@@ -1,5 +1,6 @@
 import { Dispatch, SetStateAction, useCallback, useRef } from 'react';
 
+import { SendCryptoAssetSelectors } from '@tests/selectors/send.selectors';
 import { Form, Formik, useField } from 'formik';
 import { Stack, styled } from 'leather-styles/jsx';
 import * as yup from 'yup';
@@ -8,7 +9,7 @@ import { BtcFeeType } from '@shared/models/fees/bitcoin-fees.model';
 import { createMoney } from '@shared/models/money.model';
 
 import { openInNewTab } from '@app/common/utils/open-in-new-tab';
-import { PreviewButton } from '@app/components/preview-button';
+import { Button } from '@app/ui/components/button/button';
 import { Input } from '@app/ui/components/input/input';
 import { Link } from '@app/ui/components/link/link';
 
@@ -138,7 +139,14 @@ export function BitcoinCustomFee({
                 />
               </Stack>
             </Stack>
-            <PreviewButton isDisabled={!props.values.feeRate} text="Use custom fee" />
+            <Button
+              data-testid={SendCryptoAssetSelectors.PreviewSendTxBtn}
+              disabled={!props.values.feeRate}
+              onClick={() => props.handleSubmit}
+              type="submit"
+            >
+              Use custom fee
+            </Button>
           </Stack>
         </Form>
       )}

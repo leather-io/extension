@@ -12,7 +12,6 @@ import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
 import { useBitcoinExplorerLink } from '@app/common/hooks/use-bitcoin-explorer-link';
 import { useClipboard } from '@app/common/hooks/use-copy-to-clipboard';
 import { FormAddressDisplayer } from '@app/components/address-displayer/form-address-displayer';
-import { BaseDrawer } from '@app/components/drawer/base-drawer';
 import {
   InfoCard,
   InfoCardBtn,
@@ -20,6 +19,8 @@ import {
   InfoCardSeparator,
 } from '@app/components/info-card/info-card';
 import { InscriptionPreview } from '@app/components/inscription-preview-card/components/inscription-preview';
+import { Dialog } from '@app/ui/components/containers/dialog/dialog';
+import { Header } from '@app/ui/components/containers/headers/header';
 import { CheckmarkIcon } from '@app/ui/icons/checkmark-icon';
 import { CopyIcon } from '@app/ui/icons/copy-icon';
 import { ExternalLinkIcon } from '@app/ui/icons/external-link-icon';
@@ -61,7 +62,11 @@ export function SendInscriptionSummary() {
   }
 
   return (
-    <BaseDrawer title="Sent" isShowing onClose={() => navigate(RouteUrls.Home)}>
+    <Dialog
+      header={<Header variant="dialog" title="Sent" />}
+      isShowing
+      onClose={() => navigate(RouteUrls.Home)}
+    >
       <Box mt="space.06" px="space.06">
         <InscriptionPreviewCard
           icon={<CheckmarkIcon mt="space.01" width="lg" />}
@@ -84,6 +89,6 @@ export function SendInscriptionSummary() {
           <InfoCardBtn onClick={onClickCopy} icon={<CopyIcon />} label="Copy ID" />
         </HStack>
       </InfoCard>
-    </BaseDrawer>
+    </Dialog>
   );
 }

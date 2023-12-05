@@ -7,12 +7,10 @@ import { closeWindow } from '@shared/utils';
 import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
 import { useOnboardingState } from '@app/common/hooks/auth/use-onboarding-state';
 import { useKeyActions } from '@app/common/hooks/use-key-actions';
-import { useRouteHeader } from '@app/common/hooks/use-route-header';
 import { doesBrowserSupportWebUsbApi, isPopupMode, whenPageMode } from '@app/common/utils';
 import { openIndexPageInNewTab } from '@app/common/utils/open-in-new-tab';
 import { useHasUserRespondedToAnalyticsConsent } from '@app/store/settings/settings.selectors';
-
-import { WelcomeLayout } from './welcome.layout';
+import { WelcomeLayout } from '@app/ui/pages/welcome.layout';
 
 export function WelcomePage() {
   const hasResponded = useHasUserRespondedToAnalyticsConsent();
@@ -23,7 +21,6 @@ export function WelcomePage() {
 
   const [isGeneratingWallet, setIsGeneratingWallet] = useState(false);
 
-  useRouteHeader(<></>);
   const startOnboarding = useCallback(async () => {
     if (isPopupMode()) {
       openIndexPageInNewTab(RouteUrls.Onboarding);
@@ -79,8 +76,6 @@ export function WelcomePage() {
   return (
     <>
       <WelcomeLayout
-        tagline="Bitcoin for the rest of us"
-        subheader="Leather is the only Bitcoin wallet you need to tap into the emerging Bitcoin economy"
         isGeneratingWallet={isGeneratingWallet}
         onSelectConnectLedger={onSelectConnectLedger}
         onStartOnboarding={() => startOnboarding()}

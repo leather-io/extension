@@ -1,6 +1,6 @@
 import { forwardRef, useMemo } from 'react';
 
-import { HTMLStyledProps, styled } from 'leather-styles/jsx';
+import { Box, HTMLStyledProps, styled } from 'leather-styles/jsx';
 
 import { BRANCH_NAME, COMMIT_SHA } from '@shared/environment';
 
@@ -13,19 +13,18 @@ interface AppVersionLabelProps extends HTMLStyledProps<'span'> {
 }
 const AppVersionLabel = forwardRef<HTMLSpanElement, AppVersionLabelProps>(
   ({ children, isLatestVersion, ...props }: AppVersionLabelProps, ref) => (
-    <styled.span
-      ref={ref}
-      textStyle="mono.02"
-      marginRight="10px"
-      mb="-4px"
-      ml="space.02"
-      opacity={0.5}
-      textDecoration={isLatestVersion ? 'none' : 'line-through'}
-      textWrap="nowrap"
-      {...props}
-    >
-      {children}
-    </styled.span>
+    <Box bg="ink.background-secondary" px="20px" py="space.01">
+      <styled.span
+        textStyle="label.03"
+        ref={ref}
+        color="ink.text-subdued"
+        textDecoration={isLatestVersion ? 'none' : 'line-through'}
+        textWrap="nowrap"
+        {...props}
+      >
+        {children}
+      </styled.span>
+    </Box>
   )
 );
 
