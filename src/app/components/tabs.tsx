@@ -16,7 +16,7 @@ export function Tabs({
 }: {
   tabs: Tabs[];
   activeTab: number;
-  onTabClick: (index: number) => void;
+  onTabClick(index: number): void;
 }) {
   return (
     <RTabs.Root

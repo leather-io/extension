@@ -13,7 +13,7 @@ interface CryptoCurrencyAssetItemProps {
   additionalBalanceInfo?: React.ReactNode;
   additionalUsdBalanceInfo?: React.ReactNode;
   rightElement?: React.ReactNode;
-  onClick?: () => void;
+  onClick?(): void;
 }
 export function CryptoCurrencyAssetItem({
   additionalBalanceInfo,

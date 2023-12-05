@@ -10,7 +10,7 @@ interface ContractPreviewLayoutProps {
   contractAddress: string;
   contractName: string;
   functionName?: string;
-  onClick?: () => void;
+  onClick?(): void;
 }
 
 export function ContractPreviewLayout({

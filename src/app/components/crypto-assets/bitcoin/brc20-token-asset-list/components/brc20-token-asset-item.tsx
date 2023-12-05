@@ -7,7 +7,7 @@ import { Brc20TokenAssetItemLayout } from './brc20-token-asset-item.layout';
 interface Brc20TokenAssetItemProps {
   token: Brc20Token;
   isPressable?: boolean;
-  onClick?: () => void;
+  onClick?(): void;
 }
 export function Brc20TokenAssetItem({ token, isPressable, onClick }: Brc20TokenAssetItemProps) {
   return (

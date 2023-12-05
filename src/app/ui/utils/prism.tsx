@@ -43,8 +43,8 @@ export interface RenderProps {
   tokens: GrammaticalToken[][];
   className: string;
   style: CSSProperties;
-  getLineProps: (input: LineInputProps) => LineOutputProps;
-  getTokenProps: (input: GrammaticalTokenInputProps) => GrammaticalTokenOutputProps;
+  getLineProps(input: LineInputProps): LineOutputProps;
+  getTokenProps(input: GrammaticalTokenInputProps): GrammaticalTokenOutputProps;
 }
 
 export type GetGrammaticalTokenProps = (

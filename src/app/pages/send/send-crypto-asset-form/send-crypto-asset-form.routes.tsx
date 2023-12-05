@@ -4,6 +4,7 @@ import { Route } from 'react-router-dom';
 import { RouteUrls } from '@shared/route-urls';
 
 import { BroadcastErrorDrawer } from '@app/components/broadcast-error-drawer/broadcast-error-drawer';
+import { SendBtcDisabled } from '@app/components/crypto-assets/choose-crypto-asset/send-btc-disabled';
 import { FullPageWithHeaderLoadingSpinner } from '@app/components/loading-spinner';
 import { EditNonceDrawer } from '@app/features/edit-nonce-drawer/edit-nonce-drawer';
 import { ledgerBitcoinTxSigningRoutes } from '@app/features/ledger/flows/bitcoin-tx-signing/ledger-bitcoin-sign-tx-container';
@@ -12,7 +13,6 @@ import { AccountGate } from '@app/routes/account-gate';
 
 import { BroadcastError } from '../broadcast-error/broadcast-error';
 import { ChooseCryptoAsset } from '../choose-crypto-asset/choose-crypto-asset';
-import { SendBtcDisabled } from '../choose-crypto-asset/components/send-btc-disabled';
 import { SendContainer } from '../send-container';
 import { Brc20SentSummary } from '../sent-summary/brc20-sent-symmary';
 import { BtcSentSummary } from '../sent-summary/btc-sent-summary';
