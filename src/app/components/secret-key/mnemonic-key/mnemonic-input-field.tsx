@@ -11,8 +11,8 @@ interface InputFieldProps extends FlexProps {
   dataTestId?: string;
   name: string;
   value: string;
-  onPaste: (e: React.ClipboardEvent<HTMLInputElement>) => void;
-  onUpdateWord: (word: string) => void;
+  onPaste(e: React.ClipboardEvent<HTMLInputElement>): void;
+  onUpdateWord(word: string): void;
   hasError?: boolean;
   wordlist: string[];
 }

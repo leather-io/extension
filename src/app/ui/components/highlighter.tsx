@@ -137,8 +137,8 @@ type LanguageDict = { [lang in Language]: PrismGrammar };
 
 interface PrismLib {
   languages: LanguageDict;
-  tokenize: (code: string, grammar: PrismGrammar, language: Language) => PrismToken[] | string[];
-  highlight: (code: string, grammar: PrismGrammar, language: Language) => string;
+  tokenize(code: string, grammar: PrismGrammar, language: Language): PrismToken[] | string[];
+  highlight(code: string, grammar: PrismGrammar, language: Language): string;
 }
 
 export interface HighlighterProps {

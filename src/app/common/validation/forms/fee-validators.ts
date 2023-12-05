@@ -14,8 +14,8 @@ import { btcToSat, moneyToBaseUnit, stxToMicroStx } from '../../money/unit-conve
 
 interface FeeValidatorFactoryArgs {
   availableBalance?: Money;
-  unitConverter: (unit: string | number | BigNumber) => BigNumber;
-  validator: (errorMsg: string) => NumberSchema<number | undefined, AnyObject>;
+  unitConverter(unit: string | number | BigNumber): BigNumber;
+  validator(errorMsg: string): NumberSchema<number | undefined, AnyObject>;
 }
 function feeValidatorFactory({
   availableBalance,

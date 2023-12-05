@@ -104,9 +104,9 @@ export function bitcoinAddressIndexSignerFactory<T extends BitcoinAddressIndexSi
 }
 
 interface CreateSignersForAllNetworkTypesArgs {
-  paymentFn: (keychain: HDKey, network: BitcoinNetworkModes) => unknown;
-  mainnetKeychainFn: (accountIndex: number) => BitcoinAccount | undefined;
-  testnetKeychainFn: (accountIndex: number) => BitcoinAccount | undefined;
+  paymentFn(keychain: HDKey, network: BitcoinNetworkModes): unknown;
+  mainnetKeychainFn(accountIndex: number): BitcoinAccount | undefined;
+  testnetKeychainFn(accountIndex: number): BitcoinAccount | undefined;
   extendedPublicKeyVersions?: Versions;
 }
 function createSignersForAllNetworkTypes<T extends CreateSignersForAllNetworkTypesArgs>({

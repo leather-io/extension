@@ -101,7 +101,7 @@ export function InfoCardAssetValue({
 interface InfoCardBtnProps {
   icon: ReactNode;
   label: string;
-  onClick: () => void;
+  onClick(): void;
 }
 export function InfoCardBtn({ icon, label, onClick }: InfoCardBtnProps) {
   return (

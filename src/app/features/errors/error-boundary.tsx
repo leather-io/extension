@@ -16,16 +16,16 @@ const changedArray = (a: unknown[] = [], b: unknown[] = []) =>
 
 interface FallbackProps {
   error: Error;
-  resetErrorBoundary: (...args: unknown[]) => void;
+  resetErrorBoundary(...args: unknown[]): void;
 }
 
 interface ErrorBoundaryPropsWithComponent {
-  onResetKeysChange?: (
+  onResetKeysChange?(
     prevResetKeys: unknown[] | undefined,
     resetKeys: unknown[] | undefined
-  ) => void;
-  onReset?: (...args: unknown[]) => void;
-  onError?: (error: Error, info: { componentStack: string }) => void;
+  ): void;
+  onReset?(...args: unknown[]): void;
+  onError?(error: Error, info: { componentStack: string }): void;
   resetKeys?: unknown[];
   fallback?: never;
   FallbackComponent: ComponentType<FallbackProps>;
@@ -37,12 +37,12 @@ declare function FallbackRender(
 ): ReactElement<unknown, string | FunctionComponent | typeof Component> | null;
 
 interface ErrorBoundaryPropsWithRender {
-  onResetKeysChange?: (
+  onResetKeysChange?(
     prevResetKeys: unknown[] | undefined,
     resetKeys: unknown[] | undefined
-  ) => void;
-  onReset?: (...args: unknown[]) => void;
-  onError?: (error: Error, info: { componentStack: string }) => void;
+  ): void;
+  onReset?(...args: unknown[]): void;
+  onError?(error: Error, info: { componentStack: string }): void;
   resetKeys?: unknown[];
   fallback?: never;
   FallbackComponent?: never;
@@ -50,12 +50,12 @@ interface ErrorBoundaryPropsWithRender {
 }
 
 interface ErrorBoundaryPropsWithFallback {
-  onResetKeysChange?: (
+  onResetKeysChange?(
     prevResetKeys: unknown[] | undefined,
     resetKeys: unknown[] | undefined
-  ) => void;
-  onReset?: (...args: unknown[]) => void;
-  onError?: (error: Error, info: { componentStack: string }) => void;
+  ): void;
+  onReset?(...args: unknown[]): void;
+  onError?(error: Error, info: { componentStack: string }): void;
   resetKeys?: unknown[];
   fallback: ReactElement<unknown, string | FunctionComponent | typeof Component> | null;
   FallbackComponent?: never;

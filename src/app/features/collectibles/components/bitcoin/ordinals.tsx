@@ -9,7 +9,7 @@ import { useGetInscriptionsInfiniteQuery } from '@app/query/bitcoin/ordinals/ins
 import { Inscription } from './inscription';
 
 interface OrdinalsProps {
-  setIsLoadingMore: (isLoading: boolean) => void;
+  setIsLoadingMore(isLoading: boolean): void;
 }
 export function Ordinals({ setIsLoadingMore }: OrdinalsProps) {
   const query = useGetInscriptionsInfiniteQuery();

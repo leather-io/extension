@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 
 interface UiClipboard {
   value: string;
-  onCopy: () => void;
+  onCopy(): void;
   hasCopied: boolean;
 }
 

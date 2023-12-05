@@ -27,7 +27,7 @@ interface SendFormConfirmationProps {
   memoDisplayText: string;
   isLoading: boolean;
   feeWarningTooltip?: React.ReactNode;
-  onBroadcastTransaction: () => void;
+  onBroadcastTransaction(): void;
 }
 export function SendFormConfirmation({
   txValue,

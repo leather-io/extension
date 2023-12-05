@@ -9,7 +9,7 @@ import { Caption } from '@app/ui/components/typography/caption';
 
 interface IncreaseFeeDrawerProps {
   feeForm: React.JSX.Element;
-  onClose: () => void;
+  onClose(): void;
   isShowing: boolean;
 }
 export function IncreaseFeeDrawer({ feeForm, onClose, isShowing }: IncreaseFeeDrawerProps) {

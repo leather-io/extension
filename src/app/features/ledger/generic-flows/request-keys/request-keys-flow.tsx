@@ -8,7 +8,7 @@ import { LedgerRequestKeysContext, LedgerRequestKeysProvider } from './ledger-re
 interface RequestKeysFlowProps {
   context: LedgerRequestKeysContext;
   isActionCancellableByUser: boolean;
-  onCancelConnectLedger?: () => void;
+  onCancelConnectLedger?(): void;
 }
 export function RequestKeysFlow({
   context,
