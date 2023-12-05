@@ -7,10 +7,10 @@ import { FungibleTokenAssetItem } from './fungible-token-asset-item';
 
 interface CryptoAssetListItemProps {
   assetBalance: AllTransferableCryptoAssetBalances;
-  onClick: () => void;
+  onClick(): void;
 }
 export function CryptoAssetListItem(props: CryptoAssetListItemProps) {
-  const { assetBalance } = props;
+  const { assetBalance, onClick } = props;
   const { blockchain, type } = assetBalance;
 
   switch (type) {
@@ -20,11 +20,11 @@ export function CryptoAssetListItem(props: CryptoAssetListItemProps) {
           assetBalance={assetBalance}
           icon={<CryptoCurrencyAssetIcon blockchain={blockchain} />}
           isPressable
-          onClick={props.onClick}
+          onClick={onClick}
         />
       );
     case 'fungible-token':
-      return <FungibleTokenAssetItem assetBalance={assetBalance} onClick={props.onClick} />;
+      return <FungibleTokenAssetItem assetBalance={assetBalance} onClick={onClick} />;
     default:
       return null;
   }
