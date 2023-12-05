@@ -5,13 +5,20 @@ import { Psbt } from 'bitcoinjs-lib';
 import AppClient from 'ledger-bitcoin';
 
 import { getBitcoinJsLibNetworkConfigByMode } from '@shared/crypto/bitcoin/bitcoin.network';
-import { getTaprootAddress } from '@shared/crypto/bitcoin/bitcoin.utils';
+import {
+  extractAddressIndexFromPath,
+  getTaprootAddress,
+} from '@shared/crypto/bitcoin/bitcoin.utils';
 import { getInputPaymentType } from '@shared/crypto/bitcoin/bitcoin.utils';
 import { getTaprootAccountDerivationPath } from '@shared/crypto/bitcoin/p2tr-address-gen';
 import { getNativeSegwitAccountDerivationPath } from '@shared/crypto/bitcoin/p2wpkh-address-gen';
+import {
+  BitcoinInputSigningConfig,
+  getAssumedZeroIndexSigningConfig,
+} from '@shared/crypto/bitcoin/signer-config';
 import { logger } from '@shared/logger';
 import { allSighashTypes } from '@shared/rpc/methods/sign-psbt';
-import { makeNumberRange } from '@shared/utils';
+import { isNumber, makeNumberRange } from '@shared/utils';
 
 import { useWalletType } from '@app/common/use-wallet-type';
 import { listenForBitcoinTxLedgerSigning } from '@app/features/ledger/flows/bitcoin-tx-signing/bitcoin-tx-signing-event-listeners';
@@ -62,23 +69,22 @@ export function useZeroIndexTaprootAddress(accIndex?: number) {
   return address;
 }
 
-// This implementation assumes address re-use of the 0 index. Funds spread
-// across multiple address indexes does not work here.
 function useSignBitcoinSoftwareTx() {
   const createNativeSegwitSigner = useCurrentAccountNativeSegwitSigner();
   const createTaprootSigner = useCurrentAccountTaprootSigner();
   const network = useCurrentNetwork();
-  return async (psbt: Uint8Array, inputsToSign?: number[]) => {
-    const nativeSegwitSigner = createNativeSegwitSigner?.(0);
-    const taprootSigner = createTaprootSigner?.(0);
 
-    if (!nativeSegwitSigner || !taprootSigner) throw new Error('Signers not available');
-
+  return async (psbt: Uint8Array, inputSigningConfig: BitcoinInputSigningConfig[]) => {
     const tx = btc.Transaction.fromPSBT(psbt);
 
-    const inputIndexes = inputsToSign ?? makeNumberRange(tx.inputsLength);
+    inputSigningConfig.forEach(({ index, derivationPath }) => {
+      const nativeSegwitSigner = createNativeSegwitSigner?.(
+        extractAddressIndexFromPath(derivationPath)
+      );
+      const taprootSigner = createTaprootSigner?.(extractAddressIndexFromPath(derivationPath));
 
-    inputIndexes.forEach(index => {
+      if (!nativeSegwitSigner || !taprootSigner) throw new Error('Signers not available');
+
       const input = tx.getInput(index);
       const addressType = getInputPaymentType(index, input, network.chain.bitcoin.bitcoinNetwork);
 
@@ -199,11 +205,10 @@ export function useSignLedgerBitcoinTx() {
 
 export function useAddTapInternalKeysIfMissing() {
   const createTaprootSigner = useCurrentAccountTaprootSigner();
-  return (tx: btc.Transaction, inputIndexes?: number[]) => {
-    const taprootSigner = createTaprootSigner?.(0);
-    if (!taprootSigner) throw new Error('Taproot signer not found');
-
-    (inputIndexes ?? makeNumberRange(tx.inputsLength)).forEach(index => {
+  return (tx: btc.Transaction, inputIndexes: BitcoinInputSigningConfig[]) => {
+    inputIndexes.forEach(({ index, derivationPath }) => {
+      const taprootSigner = createTaprootSigner?.(extractAddressIndexFromPath(derivationPath));
+      if (!taprootSigner) throw new Error('Taproot signer not found');
       const input = tx.getInput(index);
       const witnessOutputScript =
         input.witnessUtxo?.script && btc.OutScript.decode(input.witnessUtxo.script);
@@ -214,28 +219,47 @@ export function useAddTapInternalKeysIfMissing() {
   };
 }
 
+export function useGetAssumedZeroIndexSigningConfig() {
+  const network = useCurrentNetwork();
+  const accountIndex = useCurrentAccountIndex();
+
+  return (psbt: Uint8Array, indexesToSign?: number[]) =>
+    getAssumedZeroIndexSigningConfig({
+      psbt,
+      network: network.chain.bitcoin.bitcoinNetwork,
+      indexesToSign,
+    }).forAccountIndex(accountIndex);
+}
+
 export function useSignBitcoinTx() {
   const { whenWallet } = useWalletType();
   const ledgerNavigate = useLedgerNavigate();
   const signSoftwareTx = useSignBitcoinSoftwareTx();
+  const getDefaultSigningConfig = useGetAssumedZeroIndexSigningConfig();
 
   /**
    * Don't forget to finalize the tx once it's returned. You can broadcast with
-   * the hex value from `tx.hex` TODO: add support for signing specific inputs
+   * the hex value from `tx.hex`.
    */
-  return (psbt: Uint8Array, inputsToSign?: number[]) =>
-    whenWallet({
+  return (psbt: Uint8Array, inputsToSign?: BitcoinInputSigningConfig[] | number[]) => {
+    function getSigningConfig(inputsToSign?: BitcoinInputSigningConfig[] | number[]) {
+      if (!inputsToSign) return getDefaultSigningConfig(psbt);
+      if (inputsToSign.every(isNumber)) return getDefaultSigningConfig(psbt, inputsToSign);
+      return inputsToSign;
+    }
+
+    return whenWallet({
       async ledger() {
         // Because Ledger signing is a multi-step process that takes place over
         // many routes, in order to achieve a consistent API between
         // Ledger/software, we subscribe to the event that occurs when the
         // unsigned tx is signed
-        ledgerNavigate.toConnectAndSignBitcoinTransactionStep(psbt, inputsToSign);
-        // ledgerNavigate.toConnectAndSignBitcoinTransactionStep(psbt, inputsToSign);
+        ledgerNavigate.toConnectAndSignBitcoinTransactionStep(psbt, getSigningConfig(inputsToSign));
         return listenForBitcoinTxLedgerSigning(bytesToHex(psbt));
       },
       async software() {
-        return signSoftwareTx(psbt, inputsToSign);
+        return signSoftwareTx(psbt, getSigningConfig(inputsToSign));
       },
     })();
+  };
 }

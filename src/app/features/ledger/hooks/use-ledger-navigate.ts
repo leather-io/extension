@@ -5,6 +5,7 @@ import { bytesToHex } from '@stacks/common';
 import { ClarityValue, StacksTransaction } from '@stacks/transactions';
 
 import { SupportedBlockchains } from '@shared/constants';
+import { BitcoinInputSigningConfig } from '@shared/crypto/bitcoin/signer-config';
 import { RouteUrls } from '@shared/route-urls';
 
 import { immediatelyAttemptLedgerConnection } from './use-when-reattempt-ledger-connection';
@@ -30,7 +31,10 @@ export function useLedgerNavigate() {
         });
       },
 
-      toConnectAndSignBitcoinTransactionStep(psbt: Uint8Array, inputsToSign?: number[]) {
+      toConnectAndSignBitcoinTransactionStep(
+        psbt: Uint8Array,
+        inputsToSign?: BitcoinInputSigningConfig[]
+      ) {
         return navigate(RouteUrls.ConnectLedger, {
           replace: true,
           relative: 'route',
