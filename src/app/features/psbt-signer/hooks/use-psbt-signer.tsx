@@ -3,6 +3,7 @@ import { useMemo } from 'react';
 import { hexToBytes } from '@noble/hashes/utils';
 import * as btc from '@scure/btc-signer';
 
+import { BitcoinInputSigningConfig } from '@shared/crypto/bitcoin/signer-config';
 import { logger } from '@shared/logger';
 import { isString } from '@shared/utils';
 
@@ -14,7 +15,7 @@ import {
 export type RawPsbt = ReturnType<typeof btc.RawPSBTV0.decode>;
 
 interface SignPsbtArgs {
-  indexesToSign?: number[];
+  signingConfig: BitcoinInputSigningConfig[];
   tx: btc.Transaction;
 }
 export function usePsbtSigner() {
@@ -23,9 +24,9 @@ export function usePsbtSigner() {
 
   return useMemo(
     () => ({
-      async signPsbt({ indexesToSign, tx }: SignPsbtArgs) {
-        addMissingTapInteralKeys(tx, indexesToSign);
-        return signBitcoinTx(tx.toPSBT(), indexesToSign);
+      async signPsbt({ signingConfig, tx }: SignPsbtArgs) {
+        addMissingTapInteralKeys(tx, signingConfig);
+        return signBitcoinTx(tx.toPSBT(), signingConfig);
       },
       getPsbtAsTransaction(psbt: string | Uint8Array) {
         const bytes = isString(psbt) ? hexToBytes(psbt) : psbt;

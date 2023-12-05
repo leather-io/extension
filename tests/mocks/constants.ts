@@ -1,4 +1,6 @@
-// Bitcoin test addresses
+export const STANDARD_BIP_FAKE_MNEMONIC =
+  'abandon abandon abandon abandon abandon abandon abandon abandon abandon abandon abandon cactus';
+
 export const TEST_ACCOUNT_1_NATIVE_SEGWIT_ADDRESS = 'bc1q530dz4h80kwlzywlhx2qn0k6vdtftd93c499yq';
 export const TEST_ACCOUNT_1_TAPROOT_ADDRESS =
   'bc1putuzj9lyfcm8fef9jpy85nmh33cxuq9u6wyuk536t9kemdk37yjqmkc0pg';
