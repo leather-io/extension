@@ -1,7 +1,7 @@
 import { useMemo, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import { bytesToHex } from '@noble/hashes/utils';
+import { bytesToHex, hexToBytes } from '@noble/hashes/utils';
 
 import { finalizePsbt } from '@shared/actions/finalize-psbt';
 import { RouteUrls } from '@shared/route-urls';
@@ -9,6 +9,7 @@ import { RouteUrls } from '@shared/route-urls';
 import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
 import { usePsbtRequestSearchParams } from '@app/common/psbt/use-psbt-request-params';
 import { usePsbtSigner } from '@app/features/psbt-signer/hooks/use-psbt-signer';
+import { useGetAssumedZeroIndexSigningConfig } from '@app/store/accounts/blockchain/bitcoin/bitcoin.hooks';
 
 export function usePsbtRequest() {
   const [isLoading, setIsLoading] = useState(false);
@@ -17,6 +18,7 @@ export function usePsbtRequest() {
   const { appName, origin, payload, requestToken, signAtIndex, tabId } =
     usePsbtRequestSearchParams();
   const { signPsbt, getRawPsbt, getPsbtAsTransaction } = usePsbtSigner();
+  const getDefaultSigningConfig = useGetAssumedZeroIndexSigningConfig();
 
   return useMemo(() => {
     return {
@@ -41,7 +43,8 @@ export function usePsbtRequest() {
         const tx = getPsbtAsTransaction(payload.hex);
 
         try {
-          const signedTx = await signPsbt({ indexesToSign: signAtIndex, tx });
+          const signingConfig = getDefaultSigningConfig(hexToBytes(payload.hex));
+          const signedTx = await signPsbt({ tx, signingConfig });
 
           const signedPsbt = signedTx.toPSBT();
 
@@ -71,6 +74,7 @@ export function usePsbtRequest() {
     tabId,
     getPsbtAsTransaction,
     signPsbt,
+    getDefaultSigningConfig,
     navigate,
   ]);
 }
