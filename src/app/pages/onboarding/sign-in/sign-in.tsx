@@ -1,23 +1,13 @@
 import { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 
-import { RouteUrls } from '@shared/route-urls';
-
-import { useRouteHeader } from '@app/common/hooks/use-route-header';
 import { createNullArrayOfLength } from '@app/common/utils';
-import { Header } from '@app/components/header';
-import { TwoColumnLayout } from '@app/components/secret-key/two-column.layout';
 import { MnemonicForm } from '@app/pages/onboarding/sign-in/mnemonic-form';
-
-import { SignInContent } from './components/sign-in.content';
+import { Link } from '@app/ui/components/link/link';
+import { TwoColumnLayout } from '@app/ui/pages/two-column.layout';
 
 export function SignIn() {
-  const navigate = useNavigate();
-
   const [twentyFourWordMode, setTwentyFourWordMode] = useState(true);
   const [mnemonic, setMnemonic] = useState<(string | null)[]>([]);
-
-  useRouteHeader(<Header onClose={() => navigate(RouteUrls.Onboarding)} hideActions />);
 
   useEffect(() => {
     const emptyMnemonicArray = twentyFourWordMode
@@ -27,22 +17,29 @@ export function SignIn() {
   }, [twentyFourWordMode]);
 
   return (
-    <>
-      <TwoColumnLayout
-        leftColumn={
-          <SignInContent
-            onClick={() => setTwentyFourWordMode(!twentyFourWordMode)}
-            twentyFourWordMode={twentyFourWordMode}
-          />
-        }
-        rightColumn={
-          <MnemonicForm
-            mnemonic={mnemonic}
-            setMnemonic={setMnemonic}
-            twentyFourWordMode={twentyFourWordMode}
-          />
-        }
+    <TwoColumnLayout
+      title={
+        <>
+          Sign in <br /> with your <br /> Secret Key
+        </>
+      }
+      content={<>Speed things up by pasting your entire Secret Key in one go.</>}
+      action={
+        <Link
+          onClick={() => setTwentyFourWordMode(!twentyFourWordMode)}
+          textStyle="label.03"
+          width="fit-content"
+          variant="text"
+        >
+          {twentyFourWordMode ? 'Have a 12-word Secret Key?' : 'Use 24 word Secret Key'}
+        </Link>
+      }
+    >
+      <MnemonicForm
+        mnemonic={mnemonic}
+        setMnemonic={setMnemonic}
+        twentyFourWordMode={twentyFourWordMode}
       />
-    </>
+    </TwoColumnLayout>
   );
 }

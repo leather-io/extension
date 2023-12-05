@@ -12,41 +12,33 @@ import { Pressable } from '@app/ui/pressable/pressable';
 interface Brc20TokenAssetItemLayoutProps {
   token: Brc20Token;
   onClick?(): void;
-  displayNotEnoughBalance?: boolean;
 }
 export function Brc20TokenAssetItemLayout({
   onClick,
-  displayNotEnoughBalance,
+
   token,
 }: Brc20TokenAssetItemLayoutProps) {
   const balance = createMoney(Number(token.overall_balance), token.ticker, 0);
   const formattedBalance = formatBalance(balance.amount.toString());
 
   return (
-    <BasicTooltip
-      asChild
-      disabled={!displayNotEnoughBalance}
-      label="Not enough BTC in balance"
-      side="top"
-    >
-      <Pressable onClick={onClick} my="space.02">
-        <ItemLayout
-          flagImg={<Brc20AvatarIcon />}
-          titleLeft={token.ticker}
-          captionLeft="BRC-20"
-          titleRight={
-            <BasicTooltip
-              asChild
-              label={formattedBalance.isAbbreviated ? balance.amount.toString() : undefined}
-              side="left"
-            >
-              <styled.span data-testid={token.ticker} fontWeight={500} textStyle="label.02">
-                {formattedBalance.value}
-              </styled.span>
-            </BasicTooltip>
-          }
-        />
-      </Pressable>
-    </BasicTooltip>
+    <Pressable onClick={onClick} my="space.02">
+      <ItemLayout
+        flagImg={<Brc20AvatarIcon />}
+        titleLeft={token.ticker}
+        captionLeft="BRC-20"
+        titleRight={
+          <BasicTooltip
+            asChild
+            label={formattedBalance.isAbbreviated ? balance.amount.toString() : undefined}
+            side="left"
+          >
+            <styled.span data-testid={token.ticker} fontWeight={500} textStyle="label.02">
+              {formattedBalance.value}
+            </styled.span>
+          </BasicTooltip>
+        }
+      />
+    </Pressable>
   );
 }

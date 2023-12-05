@@ -59,7 +59,7 @@ export function PsbtInputOutputItemLayout({
             variant="text"
           >
             <BasicTooltip disabled={!txIdHoverLabel} label={txIdHoverLabel} side="bottom">
-              <styled.span textStyle="caption.02">{txId}</styled.span>
+              <styled.span textStyle="caption.01">{txId}</styled.span>
             </BasicTooltip>
           </Link>
         ) : null}

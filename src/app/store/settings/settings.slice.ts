@@ -7,15 +7,12 @@ interface InitialState {
   userSelectedTheme: UserSelectedTheme;
   hasAllowedAnalytics: HasAcceptedAnalytics;
   dismissedMessages: string[];
-  hasApprovedNewBrand: boolean;
 }
 
 const initialState: InitialState = {
   userSelectedTheme: 'system',
   hasAllowedAnalytics: null,
   dismissedMessages: [],
-  // Defaults to true, as this is undefined for existing users
-  hasApprovedNewBrand: true,
 };
 
 export const settingsSlice = createSlice({
@@ -34,12 +31,6 @@ export const settingsSlice = createSlice({
     },
     resetMessages(state) {
       state.dismissedMessages = [];
-    },
-    setHasApprovedNewBrand(state) {
-      state.hasApprovedNewBrand = true;
-    },
-    resetHasApprovedNewBrand(state) {
-      state.hasApprovedNewBrand = false;
     },
   },
 });

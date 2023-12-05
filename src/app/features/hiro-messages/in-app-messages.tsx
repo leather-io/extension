@@ -7,6 +7,7 @@ import { useDismissedMessageIds } from '@app/store/settings/settings.selectors';
 
 import { HiroMessageItem } from './components/in-app-message-item';
 
+//  See wallet-config.md for instructions on testing InAppMessages
 export function InAppMessages(props: FlexProps) {
   const messages = useRemoteLeatherMessages();
 

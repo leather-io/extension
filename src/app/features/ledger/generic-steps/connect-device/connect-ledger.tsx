@@ -57,9 +57,9 @@ export function ConnectLedger(props: ConnectLedgerProps) {
 
   return (
     <LedgerWrapper>
-      <Box position="relative" width="100%" minHeight="120px">
+      <Box position="relative" width="100%" minHeight="220px">
         <Suspense fallback={null}>
-          {<PluggingInLedgerCableAnimation position="absolute" top="-112px" />}
+          {<PluggingInLedgerCableAnimation position="absolute" top="-20px" />}
         </Suspense>
       </Box>
 

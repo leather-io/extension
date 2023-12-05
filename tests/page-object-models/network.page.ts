@@ -9,29 +9,31 @@ export class NetworkPage {
     NetworkSelectors.NetworkBitcoinAddress
   );
   readonly networkKeySelector = createTestSelector(NetworkSelectors.NetworkKey);
-  readonly btnAddNetworkSelector = createTestSelector(NetworkSelectors.BtnAddNetwork);
+  readonly btnAddNetworkSelector = createTestSelector(NetworkSelectors.AddNetworkBtn);
   readonly errorTextSelector = createTestSelector(NetworkSelectors.ErrorText);
 
   constructor(readonly page: Page) {}
 
+  async waitForNetworkPageReady() {
+    await this.page.waitForSelector(createTestSelector(NetworkSelectors.NetworkPageReady), {
+      state: 'attached',
+    });
+  }
+
   async inputNetworkNameField(input: string) {
-    const field = this.page.locator(this.networkNameSelector);
-    await field?.fill(input);
+    await this.page.locator(this.networkNameSelector).fill(input);
   }
 
   async inputNetworkStacksAddressField(input: string) {
-    const field = this.page.locator(this.networkStacksAddressSelector);
-    await field?.fill(input);
+    await this.page.locator(this.networkStacksAddressSelector).fill(input);
   }
 
   async inputNetworkBitcoinAddressField(input: string) {
-    const field = this.page.locator(this.networkBitcoinAddressSelector);
-    await field?.fill(input);
+    await this.page.locator(this.networkBitcoinAddressSelector).fill(input);
   }
 
   async inputNetworkKeyField(input: string) {
-    const field = this.page.locator(this.networkKeySelector);
-    await field?.fill(input);
+    await this.page.locator(this.networkKeySelector).fill(input);
   }
 
   async waitForErrorMessage() {
@@ -43,6 +45,6 @@ export class NetworkPage {
   }
 
   async clickAddNetwork() {
-    await this.page.locator(this.btnAddNetworkSelector).click();
+    await this.page.locator(this.btnAddNetworkSelector).click({ force: true });
   }
 }

@@ -3,15 +3,17 @@ import { Outlet, useNavigate } from 'react-router-dom';
 
 import { BtcFeeType } from '@shared/models/fees/bitcoin-fees.model';
 import { createMoney } from '@shared/models/money.model';
+import { RouteUrls } from '@shared/route-urls';
 
 import {
   BitcoinFeesList,
   OnChooseFeeArgs,
 } from '@app/components/bitcoin-fees-list/bitcoin-fees-list';
-import { BaseDrawer } from '@app/components/drawer/base-drawer';
 import { LoadingSpinner } from '@app/components/loading-spinner';
 import { BitcoinChooseFee } from '@app/features/bitcoin-choose-fee/bitcoin-choose-fee';
 import { useValidateBitcoinSpend } from '@app/features/bitcoin-choose-fee/hooks/use-validate-bitcoin-spend';
+import { Dialog } from '@app/ui/components/containers/dialog/dialog';
+import { Header } from '@app/ui/components/containers/headers/header';
 
 import { useSendInscriptionState } from './components/send-inscription-container';
 import { useSendInscriptionFeesList } from './hooks/use-send-inscription-fees-list';
@@ -47,7 +49,12 @@ export function SendInscriptionChooseFee() {
 
   return (
     <>
-      <BaseDrawer title="Choose fee" isShowing enableGoBack onClose={() => navigate(-1)}>
+      <Dialog
+        header={<Header variant="dialog" title="Choose fee" />}
+        isShowing
+        onGoBack={() => navigate(RouteUrls.Home)}
+        onClose={() => navigate(RouteUrls.Home)}
+      >
         <BitcoinChooseFee
           amount={createMoney(0, 'BTC')}
           feesList={
@@ -69,7 +76,7 @@ export function SendInscriptionChooseFee() {
           showError={showInsufficientBalanceError}
           maxRecommendedFeeRate={feesList[0]?.feeRate}
         />
-      </BaseDrawer>
+      </Dialog>
       <Outlet />
     </>
   );

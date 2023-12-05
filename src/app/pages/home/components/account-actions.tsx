@@ -2,7 +2,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 
 import { ChainID } from '@stacks/transactions';
 import { HomePageSelectors } from '@tests/selectors/home.selectors';
-import { Flex, FlexProps } from 'leather-styles/jsx';
+import { Flex } from 'leather-styles/jsx';
 
 import { RouteUrls } from '@shared/route-urls';
 
@@ -11,12 +11,12 @@ import { useConfigBitcoinEnabled } from '@app/query/common/remote-config/remote-
 import { useCurrentAccountNativeSegwitIndexZeroSignerNullable } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
 import { useCurrentStacksAccount } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
 import { useCurrentNetwork } from '@app/store/networks/networks.selectors';
+import { IconButton } from '@app/ui/components/icon-button/icon-button';
 import { CreditCardIcon, InboxIcon, SwapIcon } from '@app/ui/icons';
 
-import { ActionButton } from './action-button';
 import { SendButton } from './send-button';
 
-export function AccountActions(props: FlexProps) {
+export function AccountActions() {
   const navigate = useNavigate();
   const location = useLocation();
   const isBitcoinEnabled = useConfigBitcoinEnabled();
@@ -30,9 +30,9 @@ export function AccountActions(props: FlexProps) {
     : `${RouteUrls.Home}${RouteUrls.ReceiveStx}`;
 
   return (
-    <Flex justify="space-between" {...props}>
+    <Flex gap={{ base: 'space.01', md: 'space.04' }} py="space.04" justifyContent="space-between">
       <SendButton />
-      <ActionButton
+      <IconButton
         data-testid={HomePageSelectors.ReceiveCryptoAssetBtn}
         icon={<InboxIcon />}
         label="Receive"
@@ -40,7 +40,7 @@ export function AccountActions(props: FlexProps) {
       />
 
       {(!!stacksAccount || !!btcAccount) && (
-        <ActionButton
+        <IconButton
           data-testid={HomePageSelectors.FundAccountBtn}
           icon={<CreditCardIcon />}
           label="Buy"
@@ -49,7 +49,7 @@ export function AccountActions(props: FlexProps) {
       )}
       {whenStacksChainId(currentNetwork.chain.stacks.chainId)({
         [ChainID.Mainnet]: (
-          <ActionButton
+          <IconButton
             data-testid={HomePageSelectors.SwapBtn}
             icon={<SwapIcon />}
             label="Swap"

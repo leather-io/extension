@@ -2,7 +2,7 @@ import { InternalMethods } from '@shared/message-types';
 import { sendMessage } from '@shared/messages';
 import { RouteUrls } from '@shared/route-urls';
 
-import { popupCenter } from '@background/popup-center';
+import { popup } from '@background/popup';
 
 export function getTabIdFromPort(port: chrome.runtime.Port) {
   return port.sender?.tab?.id ?? 0;
@@ -67,5 +67,5 @@ const IS_TEST_ENV = process.env.TEST_ENV === 'true';
 
 export async function triggerRequestWindowOpen(path: RouteUrls, urlParams: URLSearchParams) {
   if (IS_TEST_ENV) return openRequestInFullPage(path, urlParams);
-  return popupCenter({ url: `/popup-center.html#${path}?${urlParams.toString()}` });
+  return popup({ url: `/popup.html#${path}?${urlParams.toString()}` });
 }

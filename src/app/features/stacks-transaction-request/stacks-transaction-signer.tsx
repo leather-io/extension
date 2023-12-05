@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { Outlet, useLocation, useNavigate } from 'react-router-dom';
 
 import { StacksTransaction } from '@stacks/transactions';
@@ -12,14 +13,12 @@ import { RouteUrls } from '@shared/route-urls';
 
 import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
 import { useOnMount } from '@app/common/hooks/use-on-mount';
-import { useRouteHeader } from '@app/common/hooks/use-route-header';
 import { stxToMicroStx } from '@app/common/money/unit-conversion';
 import { stxFeeValidator } from '@app/common/validation/forms/fee-validators';
 import { nonceValidator } from '@app/common/validation/nonce-validators';
 import { NonceSetter } from '@app/components/nonce-setter';
-import { PopupHeader } from '@app/features/current-account/popup-header';
+import { HighFeeDialog } from '@app/features/dialogs/high-fee-dialog/high-fee-dialog';
 import { RequestingTabClosedWarningMessage } from '@app/features/errors/requesting-tab-closed-error-msg';
-import { HighFeeDrawer } from '@app/features/high-fee-drawer/high-fee-drawer';
 import { ContractCallDetails } from '@app/features/stacks-transaction-request/contract-call-details/contract-call-details';
 import { ContractDeployDetails } from '@app/features/stacks-transaction-request/contract-deploy-details/contract-deploy-details';
 import { PageTop } from '@app/features/stacks-transaction-request/page-top';
@@ -52,6 +51,7 @@ export function StacksTransactionSigner({
   onSignStacksTransaction,
   isMultisig,
 }: StacksTransactionSignerProps) {
+  const [isShowingHighFeeConfirmation, setIsShowingHighFeeConfirmation] = useState(false);
   const transactionRequest = useTransactionRequestState();
   const { data: stxFees } = useCalculateStacksTxFees(stacksTransaction);
   const analytics = useAnalytics();
@@ -59,8 +59,6 @@ export function StacksTransactionSigner({
   const navigate = useNavigate();
   const { data: nextNonce } = useNextNonce();
   const { search } = useLocation();
-
-  useRouteHeader(<PopupHeader />);
 
   useOnMount(() => {
     void analytics.track('view_transaction_signing'), [analytics];
@@ -133,8 +131,13 @@ export function StacksTransactionSigner({
               </Link>
             )}
             <MinimalErrorMessage />
-            <SubmitAction />
-            <HighFeeDrawer learnMoreUrl={HIGH_FEE_WARNING_LEARN_MORE_URL_STX} />
+            <SubmitAction
+              setIsShowingHighFeeConfirmation={() => setIsShowingHighFeeConfirmation(true)}
+            />
+            <HighFeeDialog
+              isShowing={isShowingHighFeeConfirmation}
+              learnMoreUrl={HIGH_FEE_WARNING_LEARN_MORE_URL_STX}
+            />
             <Outlet />
           </>
         )}

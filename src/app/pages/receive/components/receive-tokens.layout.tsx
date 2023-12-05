@@ -1,15 +1,17 @@
+import QRCode from 'react-qr-code';
 import { useNavigate } from 'react-router-dom';
 
 import { SharedComponentsSelectors } from '@tests/selectors/shared-component.selectors';
 import { Box, Flex, styled } from 'leather-styles/jsx';
+import { token } from 'leather-styles/tokens';
 
 import { useLocationState } from '@app/common/hooks/use-location-state';
-import { BaseDrawer } from '@app/components/drawer/base-drawer';
 import { useBackgroundLocationRedirect } from '@app/routes/hooks/use-background-location-redirect';
 import { AddressDisplayer } from '@app/ui/components/address-displayer/address-displayer';
 import { Button } from '@app/ui/components/button/button';
-
-import { QrCode } from './address-qr-code';
+import { Dialog } from '@app/ui/components/containers/dialog/dialog';
+import { Footer } from '@app/ui/components/containers/footers/footer';
+import { Header } from '@app/ui/components/containers/headers/header';
 
 interface ReceiveTokensLayoutProps {
   address: string;
@@ -26,14 +28,47 @@ export function ReceiveTokensLayout(props: ReceiveTokensLayoutProps) {
   const backgroundLocation = useLocationState<Location>('backgroundLocation');
 
   return (
-    <BaseDrawer title="Receive" isShowing onClose={() => navigate(backgroundLocation ?? '..')}>
+    <Dialog
+      header={
+        <Header
+          variant="bigTitle"
+          title={
+            <>
+              Receive <br /> {title}
+            </>
+          }
+          onGoBack={() => navigate(backgroundLocation ?? '..')}
+        />
+      }
+      isShowing
+      onClose={() => navigate(backgroundLocation ?? '..')}
+      footer={
+        <Footer>
+          <Button fullWidth onClick={() => onCopyAddressToClipboard(address)}>
+            Copy address
+          </Button>
+        </Footer>
+      }
+    >
       {warning && warning}
-      <Flex alignItems="center" flexDirection="column" pb={['space.05', 'space.08']} px="space.05">
-        <styled.h2 mt="space.05" textStyle="heading.03">
-          {title}
-        </styled.h2>
+      <Flex
+        alignItems="center"
+        flexDirection="column"
+        pb={['space.05', 'space.08']}
+        px="space.05"
+        style={{ marginBottom: token('sizes.footerHeight') }}
+      >
         <Box mt="space.06" mx="auto">
-          <QrCode principal={address} />
+          <Flex alignItems="center" justifyContent="center" mx="auto" position="relative">
+            <QRCode
+              bgColor={token('colors.ink.background-primary')}
+              fgColor={token('colors.ink.text-primary')}
+              size={132}
+              style={{ height: 'auto', maxWidth: '100%', width: '100%' }}
+              value={address}
+              viewBox={`0 0 132 132`}
+            />
+          </Flex>
         </Box>
         <Flex alignItems="center" flexDirection="column">
           {accountName && (
@@ -51,10 +86,7 @@ export function ReceiveTokensLayout(props: ReceiveTokensLayoutProps) {
             <AddressDisplayer address={address} />
           </Flex>
         </Flex>
-        <Button fullWidth mt="space.05" onClick={() => onCopyAddressToClipboard(address)}>
-          Copy address
-        </Button>
       </Flex>
-    </BaseDrawer>
+    </Dialog>
   );
 }

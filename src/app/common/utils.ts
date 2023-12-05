@@ -257,16 +257,13 @@ type PageMode = 'popup' | 'full';
 
 type WhenPageModeMap<T> = Record<PageMode, T>;
 
+// don't use whenPageMode for styling - use panda responsive object
 export function whenPageMode<T>(pageModeMap: WhenPageModeMap<T>) {
   return pageModeMap[pageMode];
 }
 
 export function isPopupMode() {
   return pageMode === 'popup';
-}
-
-export function isFullPageMode() {
-  return pageMode === 'full';
 }
 
 interface WhenStacksChainIdMap<T> {

@@ -7,7 +7,12 @@ interface ProfileUpdateRequestLayoutProps {
 }
 export function ProfileUpdateRequestLayout({ children }: ProfileUpdateRequestLayoutProps) {
   return (
-    <Stack px={['space.05', 'space.05', 'unset']} gap="space.05" width="100%">
+    <Stack
+      bg="ink.background-primary"
+      px={['space.05', 'space.05', 'unset']}
+      gap="space.05"
+      width="100%"
+    >
       <PageTop />
       {children}
     </Stack>

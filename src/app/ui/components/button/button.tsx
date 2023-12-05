@@ -3,14 +3,17 @@ import { type ButtonVariantProps, button as buttonRecipe } from 'leather-styles/
 
 const StyledButton = styled('button');
 
-type ButtonProps = Omit<React.ComponentProps<typeof StyledButton>, keyof ButtonVariantProps> &
+export type ButtonProps = Omit<
+  React.ComponentProps<typeof StyledButton>,
+  keyof ButtonVariantProps
+> &
   ButtonVariantProps;
 
 export function Button(props: ButtonProps) {
-  const { children, fullWidth, invert, size, trigger, type = 'button', variant, ...rest } = props;
+  const { children, fullWidth, size, trigger, invert, type = 'button', variant, ...rest } = props;
   return (
     <StyledButton
-      className={buttonRecipe({ fullWidth, invert, size, trigger, variant })}
+      className={buttonRecipe({ fullWidth, size, invert, trigger, variant })}
       type={type}
       {...rest}
     >

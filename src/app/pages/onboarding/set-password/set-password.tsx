@@ -3,7 +3,6 @@ import { useNavigate } from 'react-router-dom';
 
 import { OnboardingSelectors } from '@tests/selectors/onboarding.selectors';
 import { Form, Formik } from 'formik';
-import { styled } from 'leather-styles/jsx';
 import { debounce } from 'ts-debounce';
 import * as yup from 'yup';
 
@@ -14,16 +13,14 @@ import { useFinishAuthRequest } from '@app/common/authentication/use-finish-auth
 import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
 import { useOnboardingState } from '@app/common/hooks/auth/use-onboarding-state';
 import { useKeyActions } from '@app/common/hooks/use-key-actions';
-import { useRouteHeader } from '@app/common/hooks/use-route-header';
 import {
   blankPasswordValidation,
   validatePassword,
 } from '@app/common/validation/validate-password';
-import { Header } from '@app/components/header';
-import { TwoColumnLayout } from '@app/components/secret-key/two-column.layout';
 import { OnboardingGate } from '@app/routes/onboarding-gate';
 import { useStacksAccounts } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
 import { Button } from '@app/ui/components/button/button';
+import { TwoColumnLayout } from '@app/ui/pages/two-column.layout';
 
 import { PasswordField } from './components/password-field';
 
@@ -52,8 +49,6 @@ function SetPasswordPage() {
   const navigate = useNavigate();
   const { decodedAuthRequest } = useOnboardingState();
   const analytics = useAnalytics();
-
-  useRouteHeader(<Header hideActions onClose={() => navigate(-1)} />);
 
   useEffect(() => {
     void analytics.page('view', '/set-password');
@@ -125,48 +120,33 @@ function SetPasswordPage() {
       {({ dirty, isSubmitting, isValid }) => (
         <Form>
           <TwoColumnLayout
-            leftColumn={
+            wideChild={false}
+            title={
               <>
-                <styled.h1
-                  textStyle={['heading.03', 'heading.03', 'heading.03', 'display.02']}
-                  mt="space.00"
-                  mb="space.06"
-                >
-                  Set a password
-                </styled.h1>
-                <styled.p textStyle={['label.01', 'heading.05']} mb="space.06">
-                  Your password protects your Secret Key on this device only.
-                </styled.p>
-                <styled.p textStyle="body.02" color="ink.text-subdued">
-                  You'll need just your Secret Key to access your wallet on another device, or this
-                  one if you lose your password.
-                </styled.p>
+                Set a <br />
+                password
               </>
             }
-            rightColumn={
+            content={
               <>
-                <styled.h2
-                  textStyle="heading.03"
-                  mt="space.02"
-                  mb="space.04"
-                  hideBelow="sm"
-                  textAlign="center"
-                >
-                  Your password
-                </styled.h2>
-                <PasswordField strengthResult={strengthResult} isDisabled={loading} />
-                <Button
-                  data-testid={OnboardingSelectors.SetPasswordBtn}
-                  disabled={loading || !(dirty && isValid)}
-                  aria-busy={loading || isSubmitting}
-                  mt="space.08"
-                  type="submit"
-                >
-                  Continue
-                </Button>
+                Your password protects your Secret Key on this device only. To access your wallet on
+                another device, you'll need just your Secret Key.
               </>
             }
-          />
+          >
+            <>
+              <PasswordField strengthResult={strengthResult} isDisabled={loading} />
+              <Button
+                data-testid={OnboardingSelectors.SetPasswordBtn}
+                disabled={loading || !(dirty && isValid)}
+                aria-busy={loading || isSubmitting}
+                mt="space.08"
+                type="submit"
+              >
+                Continue
+              </Button>
+            </>
+          </TwoColumnLayout>
         </Form>
       )}
     </Formik>

@@ -219,11 +219,6 @@ export const config = {
       ...HTML_PROD_OPTIONS,
     }),
     new HtmlWebpackPlugin({
-      template: path.join(SRC_ROOT_PATH, '../', 'public', 'html', 'popup-center.html'),
-      filename: 'popup-center.html',
-      ...HTML_PROD_OPTIONS,
-    }),
-    new HtmlWebpackPlugin({
       template: path.join(SRC_ROOT_PATH, '../', 'public', 'html', 'debug.html'),
       filename: 'debug.html',
       title: 'Leather—Debugger',

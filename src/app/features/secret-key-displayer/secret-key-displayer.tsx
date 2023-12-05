@@ -6,12 +6,12 @@ import { RouteUrls } from '@shared/route-urls';
 import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
 import { useClipboard } from '@app/common/hooks/use-copy-to-clipboard';
 
-import { SecretKeyDisplayerLayout } from './secret-key-displayer.layout';
+import { SecretKeyLayout } from '../../ui/components/secret-key/secret-key.layout';
 
-interface SecretKeyDisplayerProps {
+interface SecretKeyProps {
   secretKey: string;
 }
-export const SecretKeyDisplayer = memo(({ secretKey }: SecretKeyDisplayerProps) => {
+export const SecretKey = memo(({ secretKey }: SecretKeyProps) => {
   const { onCopy, hasCopied } = useClipboard(secretKey || '');
   const { pathname } = useLocation();
   const analytics = useAnalytics();
@@ -27,7 +27,7 @@ export const SecretKeyDisplayer = memo(({ secretKey }: SecretKeyDisplayerProps) 
 
   return (
     <>
-      <SecretKeyDisplayerLayout
+      <SecretKeyLayout
         hasCopied={hasCopied}
         onCopyToClipboard={copyToClipboard}
         secretKeyWords={secretKeyWords}

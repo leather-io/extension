@@ -50,12 +50,16 @@ export function useStxSendForm() {
     availableTokenBalance: availableStxBalance,
   });
 
+  // FIXME - I don't this this is the fee, should be value.fee or something from the form
+  const fee = stxFeeValidator(availableStxBalance);
+
   return {
     availableStxBalance,
     initialValues,
     onFormStateChange,
     sendMaxBalance,
     stxFees,
+    fee,
 
     validationSchema: yup.object({
       amount: stxAmountValidator(availableStxBalance).concat(

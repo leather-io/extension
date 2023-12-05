@@ -1,5 +1,8 @@
 import { useNavigate } from 'react-router-dom';
 
+import { CryptoAssetSelectors } from '@tests/selectors/crypto-asset.selectors';
+import { Stack } from 'leather-styles/jsx';
+
 import { RouteUrls } from '@shared/route-urls';
 import { noop } from '@shared/utils';
 
@@ -8,7 +11,6 @@ import { Brc20Token } from '@app/query/bitcoin/bitcoin-client';
 import { useCurrentAccountNativeSegwitAddressIndexZero } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
 
 import { Brc20TokenAssetItemLayout } from './components/brc20-token-asset-item.layout';
-import { Brc20AssetListLayout } from './components/brc20-token-asset-list.layout';
 
 export function Brc20TokenAssetList(props: { brc20Tokens?: Brc20Token[] }) {
   const navigate = useNavigate();
@@ -28,15 +30,14 @@ export function Brc20TokenAssetList(props: { brc20Tokens?: Brc20Token[] }) {
   if (!props.brc20Tokens?.length) return null;
 
   return (
-    <Brc20AssetListLayout>
+    <Stack data-testid={CryptoAssetSelectors.CryptoAssetList}>
       {props.brc20Tokens?.map(token => (
         <Brc20TokenAssetItemLayout
           key={token.ticker}
-          displayNotEnoughBalance={!hasPositiveBtcBalanceForFees}
           token={token}
           onClick={hasPositiveBtcBalanceForFees ? () => navigateToBrc20SendForm(token) : noop}
         />
       ))}
-    </Brc20AssetListLayout>
+    </Stack>
   );
 }

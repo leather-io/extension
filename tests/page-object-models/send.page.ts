@@ -94,7 +94,7 @@ export class SendPage {
   }
 
   async goBack() {
-    await this.page.getByTestId(SharedComponentsSelectors.ModalHeaderBackBtn).click();
+    await this.page.getByTestId(SharedComponentsSelectors.HeaderBackBtn).click({ force: true });
   }
 
   async goBackSelectStx() {

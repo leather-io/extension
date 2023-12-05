@@ -33,7 +33,7 @@ export function ReceiveFundsItem({ onReceive, symbol }: ReceiveStxItemProps) {
       description={cryptoDescriptions[symbol].title}
       icon={QRCodeIcon}
       onClickTile={onReceive}
-      ReceiveStxIcon={cryptoDescriptions[symbol].IconComponent}
+      ReceiveIcon={cryptoDescriptions[symbol].IconComponent}
       testId={FundPageSelectors.BtnReceiveStx}
     />
   );

@@ -64,8 +64,6 @@ pnpm playwright install --with-deps
 
 Note that the installed browsers are tied to the version of Playwright being used, and it may be necessary to run the above command again in some situations, such as when upgrading Playwright or switching branches. [Read the documentation for more information](https://playwright.dev/docs/cli#install-system-dependencies).
 
-### Integration tests
-
 All integration tests can be run using:
 
 ```bash
@@ -77,6 +75,14 @@ To run a suite of tests you can use:
 ```bash
 pnpm playwright test specs/TEST.spec.ts
 pnpm playwright test tests/specs --shard=3/8
+```
+
+To get more information when running tests you can pass the `--debug` flag or the `--ui` flag to playwright.
+
+When running tests locally you must add the following to your `.env` file:
+
+```
+WALLET_ENVIRONMENT=testing
 ```
 
 ### Unit tests

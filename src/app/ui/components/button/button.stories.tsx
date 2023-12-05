@@ -39,34 +39,6 @@ export const Disabled: Story = {
   },
 };
 
-// TODO: Remove invert code
-export const InvertSolid: Story = {
-  parameters: {
-    backgrounds: { default: 'leather-dark-mode' },
-    controls: { include: [] },
-  },
-  args: {
-    children: 'Button',
-    invert: true,
-    size: 'md',
-    variant: 'solid',
-  },
-};
-
-// TODO: Remove invert code
-export const InvertOutline: Story = {
-  parameters: {
-    backgrounds: { default: 'leather-dark-mode' },
-    controls: { include: [] },
-  },
-  args: {
-    children: 'Button',
-    invert: true,
-    size: 'md',
-    variant: 'outline',
-  },
-};
-
 export const WithIcons: Story = {
   parameters: {
     controls: { include: ['size', 'variant'] },

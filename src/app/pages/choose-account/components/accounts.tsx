@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { Virtuoso } from 'react-virtuoso';
 
 import { Box, FlexProps, HStack, styled } from 'leather-styles/jsx';
+import { token } from 'leather-styles/tokens';
 
 import { RouteUrls } from '@shared/route-urls';
 
@@ -13,13 +14,14 @@ import { useWalletType } from '@app/common/use-wallet-type';
 import { slugify } from '@app/common/utils';
 import { AccountTotalBalance } from '@app/components/account-total-balance';
 import { AcccountAddresses } from '@app/components/account/account-addresses';
-import { AccountAvatar } from '@app/components/account/account-avatar';
 import { AccountListItemLayout } from '@app/components/account/account-list-item.layout';
 import { usePressable } from '@app/components/item-hover';
 import { useNativeSegwitAccountIndexAddressIndexZero } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
 import { useStacksAccounts } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
 import { StacksAccount } from '@app/store/accounts/blockchain/stacks/stacks-account.models';
+import { AccountAvatar } from '@app/ui/components/account/account-avatar/account-avatar';
 import { PlusIcon } from '@app/ui/icons/plus-icon';
+import { virtuosoHeight, virtuosoStyles } from '@app/ui/shared/virtuoso';
 
 interface AccountTitlePlaceholderProps {
   account: StacksAccount;
@@ -43,33 +45,28 @@ const ChooseAccountItem = memo(
     const accountSlug = useMemo(() => slugify(`Account ${account?.index + 1}`), [account?.index]);
 
     return (
-      // Padding required on outer element to prevent jumpy virtualized list
-      <Box pb="space.05">
-        <AccountListItemLayout
-          accountAddresses={<AcccountAddresses index={account.index} />}
-          accountName={
-            <Suspense fallback={<AccountTitlePlaceholder account={account} />}>
-              <styled.span textStyle="label.01">{name}</styled.span>
-            </Suspense>
-          }
-          avatar={
-            <AccountAvatar
-              index={account.index}
-              publicKey={account.stxPublicKey}
-              name={name}
-              flexGrow={0}
-            />
-          }
-          balanceLabel={
-            <AccountTotalBalance stxAddress={account.address} btcAddress={btcAddress} />
-          }
-          data-testid={`account-${accountSlug}-${account.index}`}
-          index={account.index}
-          isLoading={isLoading}
-          isSelected={false}
-          onSelectAccount={() => onSelectAccount(account.index)}
-        />
-      </Box>
+      <AccountListItemLayout
+        accountAddresses={<AcccountAddresses index={account.index} />}
+        accountName={
+          <Suspense fallback={<AccountTitlePlaceholder account={account} />}>
+            <styled.span textStyle="label.01">{name}</styled.span>
+          </Suspense>
+        }
+        avatar={
+          <AccountAvatar
+            index={account.index}
+            publicKey={account.stxPublicKey}
+            name={name}
+            flexGrow={0}
+          />
+        }
+        balanceLabel={<AccountTotalBalance stxAddress={account.address} btcAddress={btcAddress} />}
+        data-testid={`account-${accountSlug}-${account.index}`}
+        index={account.index}
+        isLoading={isLoading}
+        isSelected={false}
+        onSelectAccount={() => onSelectAccount(account.index)}
+      />
     );
   }
 );
@@ -83,7 +80,7 @@ const AddAccountAction = memo(() => {
   };
 
   return (
-    <Box mb="space.05" px="space.03" py="space.02" onClick={onCreateAccount} {...bind}>
+    <Box mx="space.05" py="space.02" onClick={onCreateAccount} {...bind}>
       <HStack alignItems="center">
         <PlusIcon />
         Generate new account
@@ -113,19 +110,27 @@ export const ChooseAccountsList = memo(() => {
   };
 
   if (!accounts) return null;
+  const accountNum = accounts.length;
 
   return (
-    <Box mt="space.05" width="100%">
+    <Box mt="space.05" mb="space.06" width="100%">
       {whenWallet({ software: <AddAccountAction />, ledger: <></> })}
       <Virtuoso
-        useWindowScroll
+        height={virtuosoHeight}
+        style={{
+          ...virtuosoStyles,
+          height: `calc(${virtuosoHeight * accountNum}px + 50px)`,
+          background: token('colors.ink.background-primary'),
+        }}
         data={accounts}
         itemContent={(index, account) => (
-          <ChooseAccountItem
-            account={account}
-            isLoading={whenWallet({ software: selectedAccount === index, ledger: false })}
-            onSelectAccount={signIntoAccount}
-          />
+          <Box key={index} my="space.05" px="space.05">
+            <ChooseAccountItem
+              account={account}
+              isLoading={whenWallet({ software: selectedAccount === index, ledger: false })}
+              onSelectAccount={signIntoAccount}
+            />
+          </Box>
         )}
       />
     </Box>

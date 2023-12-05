@@ -12,7 +12,7 @@ export function PsbtRequestHeader({ name, origin }: PsbtRequestHeaderProps) {
   const caption = displayName ? `Requested by ${displayName}` : null;
 
   return (
-    <Flex flexDirection="column" my="space.05" width="100%">
+    <Flex flexDirection="column" mb="space.05" width="100%">
       <styled.h1 mb="space.04" textStyle="heading.03">
         Approve
         <br />
