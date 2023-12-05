@@ -8,7 +8,7 @@ function loadingStyles(color: ColorToken) {
         animation: 'spin',
         border: '2px solid',
         borderColor: color,
-        borderTop: '2px solid',
+        borderBottomColor: 'transparent',
         boxSizing: 'border-box',
         content: '""',
         display: 'inline-block',
@@ -112,7 +112,6 @@ export const buttonRecipe = defineRecipe({
       },
     },
 
-    // TODO: Remove invert code
     invert: { true: {} },
 
     fullWidth: { true: { width: '100%' } },
@@ -124,7 +123,6 @@ export const buttonRecipe = defineRecipe({
     variant: 'solid',
   },
 
-  // TODO: Remove invert code
   compoundVariants: [
     {
       css: {

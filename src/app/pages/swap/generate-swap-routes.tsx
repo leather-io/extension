@@ -5,10 +5,10 @@ import { RouteUrls } from '@shared/route-urls';
 import { ledgerStacksTxSigningRoutes } from '@app/features/ledger/flows/stacks-tx-signing/ledger-sign-stacks-tx-container';
 import { AccountGate } from '@app/routes/account-gate';
 
+import { SwapChooseAsset } from './components/swap-choose-asset/swap-choose-asset';
+import { SwapError } from './components/swap-error';
+import { SwapReview } from './components/swap-review';
 import { Swap } from './swap';
-import { SwapChooseAsset } from './swap-choose-asset/swap-choose-asset';
-import { SwapError } from './swap-error/swap-error';
-import { SwapReview } from './swap-review/swap-review';
 
 export function generateSwapRoutes(container: React.ReactNode) {
   return (

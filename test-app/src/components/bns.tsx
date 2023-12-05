@@ -2,6 +2,8 @@ import React from 'react';
 
 import { Box, styled } from 'leather-styles/jsx';
 
+/** TODO 4370 - Delete this as the link is broken ???? */
+/** @deprecated */
 export const Bns = () => {
   return (
     <Box py={6}>

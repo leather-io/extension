@@ -93,7 +93,6 @@ export const linkRecipe = defineRecipe({
       },
     },
 
-    // TODO: Remove invert code
     invert: { true: {} },
     disabled: { true: {} },
     fullWidth: { true: { width: '100%' } },

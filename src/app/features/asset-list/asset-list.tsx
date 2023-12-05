@@ -32,7 +32,7 @@ export function AssetsList() {
   const { whenWallet } = useWalletType();
 
   return (
-    <Stack data-testid={HomePageSelectors.BalancesList} pb="space.06">
+    <Stack data-testid={HomePageSelectors.BalancesList}>
       {whenWallet({
         software: (
           <CryptoCurrencyAssetItemLayout

@@ -1,5 +1,6 @@
 import { HStack, styled } from 'leather-styles/jsx';
 
+import { whenPageMode } from '@app/common/utils';
 import { ChevronsRightIcon } from '@app/ui/icons/chevrons-right-icon';
 
 interface IncreaseFeeButtonProps {
@@ -15,7 +16,7 @@ export function IncreaseFeeButton(props: IncreaseFeeButtonProps) {
     <styled.button
       _hover={{ color: 'ink.text-subdued' }}
       bg="ink.background-primary"
-      minWidth="105px"
+      maxWidth="110px"
       ml="auto"
       onClick={e => {
         onIncreaseFee();
@@ -32,7 +33,12 @@ export function IncreaseFeeButton(props: IncreaseFeeButtonProps) {
     >
       <HStack gap="space.01">
         <ChevronsRightIcon color="stacks" variant="small" />
-        <styled.span textStyle="label.03">Increase fee</styled.span>
+        <styled.span textStyle="label.03">
+          {whenPageMode({
+            popup: 'Fee',
+            full: 'Increase fee',
+          })}
+        </styled.span>
       </HStack>
     </styled.button>
   );

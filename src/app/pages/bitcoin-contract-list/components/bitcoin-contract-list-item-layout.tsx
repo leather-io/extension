@@ -38,7 +38,7 @@ export function BitcoinContractListItemLayout({
 
   return (
     <Flex
-      marginBottom="15px"
+      mb="15px"
       onClick={() =>
         handleOpenTxLink({
           txid,

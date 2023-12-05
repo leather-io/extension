@@ -4,13 +4,16 @@ import { SettingsSelectors } from '@tests/selectors/settings.selectors';
 import { test } from '../../fixtures/fixtures';
 
 test.describe('Networks tests', () => {
-  test.beforeEach(async ({ extensionId, globalPage, onboardingPage, homePage, page }) => {
-    await globalPage.setupAndUseApiCalls(extensionId);
-    await onboardingPage.signInWithTestAccount(extensionId);
-    await homePage.clickSettingsButton();
-    await page.getByTestId(SettingsSelectors.ChangeNetworkAction).click();
-    await page.getByTestId(SettingsSelectors.BtnAddNetwork).click();
-  });
+  test.beforeEach(
+    async ({ extensionId, globalPage, onboardingPage, homePage, networkPage, page }) => {
+      await globalPage.setupAndUseApiCalls(extensionId);
+      await onboardingPage.signInWithTestAccount(extensionId);
+      await homePage.clickSettingsButton();
+      await page.getByTestId(SettingsSelectors.ChangeNetworkAction).click();
+      await page.getByTestId(SettingsSelectors.AddNewNetworkBtn).click();
+      await networkPage.waitForNetworkPageReady();
+    }
+  );
 
   test('validation error when stacks api url is empty', async ({ networkPage }) => {
     await networkPage.inputNetworkNameField('Test network');
@@ -33,6 +36,7 @@ test.describe('Networks tests', () => {
     const errorMessage = await errorMsgElement.innerText();
     test.expect(errorMessage).toEqual(NetworkSelectors.EmptyNameError);
   });
+
   test('validation error when key is empty', async ({ networkPage }) => {
     await networkPage.inputNetworkNameField('Test network');
     await networkPage.clickAddNetwork();

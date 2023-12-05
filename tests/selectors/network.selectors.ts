@@ -1,9 +1,11 @@
 export enum NetworkSelectors {
+  NetworkListActiveNetwork = 'network-active-network',
+  NetworkPageReady = 'network-page-ready',
   NetworkName = 'network-name',
   NetworkStacksAddress = 'network-stacks-address',
   NetworkBitcoinAddress = 'network-bitcoin-address',
   NetworkKey = 'network-key',
-  BtnAddNetwork = 'btn-add-network',
+  AddNetworkBtn = 'add-network-btn',
   ErrorText = 'error-text',
   EmptyNameError = 'Enter a name',
   EmptyStacksAddressError = 'Enter a valid Stacks API URL',

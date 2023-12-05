@@ -1,7 +1,6 @@
 import { SendCryptoAssetSelectors } from '@tests/selectors/send.selectors';
 import { Stack } from 'leather-styles/jsx';
 
-import { whenPageMode } from '@app/common/utils';
 import { FormAddressDisplayer } from '@app/components/address-displayer/form-address-displayer';
 import {
   InfoCard,
@@ -48,10 +47,7 @@ export function SendFormConfirmation({
   return (
     <InfoCard
       data-testid={SendCryptoAssetSelectors.ConfirmationDetails}
-      pb={whenPageMode({
-        full: '0px',
-        popup: '120px',
-      })}
+      pb={{ base: '120px', md: '0' }}
     >
       <InfoCardAssetValue
         data-testid={SendCryptoAssetSelectors.ConfirmationDetailsAssetValue}

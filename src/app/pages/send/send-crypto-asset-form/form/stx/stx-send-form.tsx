@@ -22,6 +22,7 @@ export function StxSendForm() {
     sendMaxBalance,
     stxFees: fees,
     validationSchema,
+    fee,
   } = useStxSendForm();
 
   const amountField = (
@@ -47,6 +48,9 @@ export function StxSendForm() {
       amountField={amountField}
       selectedAssetField={selectedAssetField}
       fees={fees}
+      // FIXME 4370 - need to fix this as fee is actually  NumberSchema<number | undefined, AnyObject>; in FeeValidatorFactoryArgs
+      // this needs to be the STX fee so it can be validated against HIGH_FEE_AMOUNT_STX
+      fee={fee as unknown as string}
       availableTokenBalance={availableStxBalance}
     />
   );

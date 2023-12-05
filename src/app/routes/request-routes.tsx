@@ -3,8 +3,8 @@ import { Route } from 'react-router-dom';
 
 import { RouteUrls } from '@shared/route-urls';
 
-import { BroadcastErrorDrawer } from '@app/components/broadcast-error-drawer/broadcast-error-drawer';
-import { EditNonceDrawer } from '@app/features/edit-nonce-drawer/edit-nonce-drawer';
+import { BroadcastErrorDialog } from '@app/components/broadcast-error-dialog/broadcast-error-dialog';
+import { EditNonceDialog } from '@app/features/dialogs/edit-nonce-dialog/edit-nonce-dialog';
 import { ledgerStacksMessageSigningRoutes } from '@app/features/ledger/flows/stacks-message-signing/ledger-stacks-sign-msg.routes';
 import { ledgerStacksTxSigningRoutes } from '@app/features/ledger/flows/stacks-tx-signing/ledger-sign-stacks-tx-container';
 import { PsbtRequest } from '@app/pages/psbt-request/psbt-request';
@@ -27,8 +27,8 @@ export const legacyRequestRoutes = (
       }
     >
       {ledgerStacksTxSigningRoutes}
-      <Route path={RouteUrls.EditNonce} element={<EditNonceDrawer />} />
-      <Route path={RouteUrls.TransactionBroadcastError} element={<BroadcastErrorDrawer />} />
+      <Route path={RouteUrls.EditNonce} element={<EditNonceDialog />} />
+      <Route path={RouteUrls.TransactionBroadcastError} element={<BroadcastErrorDialog />} />
     </Route>
     <Route
       path={RouteUrls.SignatureRequest}

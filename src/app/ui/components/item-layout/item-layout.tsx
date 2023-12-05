@@ -1,6 +1,6 @@
 import { ReactNode, isValidElement } from 'react';
 
-import { Flex, HStack, Stack, styled } from 'leather-styles/jsx';
+import { Box, Flex, HStack, Stack, styled } from 'leather-styles/jsx';
 
 import { pressableCaptionStyles, pressableChevronStyles } from '@app/ui/pressable/pressable';
 
@@ -42,11 +42,13 @@ export function ItemLayout({
             {isValidElement(titleLeft) ? (
               titleLeft
             ) : (
-              <styled.span fontWeight={500} textStyle="label.02">
-                {titleLeft}
-              </styled.span>
+              <styled.span textStyle="label.02">{titleLeft}</styled.span>
             )}
-            {isSelected && <CheckmarkIcon variant="small" />}
+            {isSelected && (
+              <Box height="20px">
+                <CheckmarkIcon variant="small" />
+              </Box>
+            )}
           </HStack>
           {isValidElement(captionLeft) ? (
             captionLeft
@@ -68,7 +70,7 @@ export function ItemLayout({
             {isValidElement(captionRight) ? (
               captionRight
             ) : (
-              <styled.span className={pressableCaptionStyles} textStyle="caption.02">
+              <styled.span className={pressableCaptionStyles} textStyle="caption.01">
                 {captionRight}
               </styled.span>
             )}

@@ -23,7 +23,7 @@ export function RecipientAddressDisplayer({ address }: RecipientAddressDisplayer
   return (
     <HStack mb="space.04" width="100%" px="space.04" mt="space.02">
       <styled.span
-        textStyle="caption.02"
+        textStyle="caption.01"
         data-testid={SendCryptoAssetSelectors.RecipientBnsAddressLabel}
       >
         {address}

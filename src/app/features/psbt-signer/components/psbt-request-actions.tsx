@@ -1,6 +1,5 @@
-import { Box, HStack } from 'leather-styles/jsx';
-
 import { Button } from '@app/ui/components/button/button';
+import { Footer } from '@app/ui/components/containers/footers/footer';
 
 interface PsbtRequestActionsProps {
   isLoading?: boolean;
@@ -9,24 +8,13 @@ interface PsbtRequestActionsProps {
 }
 export function PsbtRequestActions({ isLoading, onCancel, onSignPsbt }: PsbtRequestActionsProps) {
   return (
-    <Box
-      bg="ink.background-primary"
-      borderTop="default"
-      bottom="0px"
-      height="96px"
-      position="absolute"
-      px="space.05"
-      width="100%"
-      zIndex={999}
-    >
-      <HStack gap="space.04" mt="space.05">
-        <Button flexGrow={1} onClick={onCancel} variant="outline">
-          Cancel
-        </Button>
-        <Button flexGrow={1} aria-busy={isLoading} onClick={onSignPsbt}>
-          Confirm
-        </Button>
-      </HStack>
-    </Box>
+    <Footer flexDirection="row">
+      <Button flexGrow={1} onClick={onCancel} variant="outline">
+        Cancel
+      </Button>
+      <Button flexGrow={1} aria-busy={isLoading} onClick={onSignPsbt}>
+        Confirm
+      </Button>
+    </Footer>
   );
 }

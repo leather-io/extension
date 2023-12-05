@@ -1,7 +1,7 @@
 import { useLocation } from 'react-router-dom';
 
 import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
-import { useClipboard } from '@app/common/hooks/use-copy-to-clipboard';
+import { copyToClipboard } from '@app/common/utils/copy-to-clipboard';
 import { useToast } from '@app/features/toasts/use-toast';
 import { useBackgroundLocationRedirect } from '@app/routes/hooks/use-background-location-redirect';
 
@@ -13,18 +13,16 @@ export function ReceiveOrdinalModal() {
   const toast = useToast();
   const analytics = useAnalytics();
   const { state } = useLocation();
-  const { onCopy } = useClipboard(state.btcAddressTaproot);
 
-  function copyToClipboard() {
-    void analytics.track('copy_address_to_add_new_inscription');
-    toast.success('Copied to clipboard!');
-    onCopy();
-  }
   // #4028 FIXME - this doesn't open in new tab as it loses btcAddressTaproot amd crashes btcStamp and Stx are OK?
   return (
     <ReceiveTokensLayout
       address={state.btcAddressTaproot}
-      onCopyAddressToClipboard={copyToClipboard}
+      onCopyAddressToClipboard={async () => {
+        void analytics.track('copy_address_to_add_new_inscription');
+        await copyToClipboard(state.btcAddressTaproot);
+        toast.success('Copied to clipboard!');
+      }}
       title="ORD. INSCRIPTION"
       warning={<ReceiveBtcModalWarning message="Deposit only Ordinal inscriptions here" />}
     />

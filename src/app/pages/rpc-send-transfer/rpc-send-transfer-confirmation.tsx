@@ -13,13 +13,14 @@ import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
 import { baseCurrencyAmountInQuote } from '@app/common/money/calculate-money';
 import { formatMoney, formatMoneyPadded, i18nFormatCurrency } from '@app/common/money/format-money';
 import { satToBtc } from '@app/common/money/unit-conversion';
+import { InfoCardFooter } from '@app/components/info-card/info-card';
 import { useCurrentNativeSegwitUtxos } from '@app/query/bitcoin/address/utxos-by-address.hooks';
 import { useBitcoinBroadcastTransaction } from '@app/query/bitcoin/transaction/use-bitcoin-broadcast-transaction';
 import { useCryptoCurrencyMarketData } from '@app/query/common/market-data/market-data.hooks';
 import { useCurrentAccountNativeSegwitAddressIndexZero } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
+import { Button } from '@app/ui/components/button/button';
 import { truncateMiddle } from '@app/ui/utils/truncate-middle';
 
-import { SendTransferActions } from './components/send-transfer-actions';
 import { SendTransferConfirmationDetails } from './components/send-transfer-confirmation-details';
 import { useRpcSendTransferRequestParams } from './use-rpc-send-transfer';
 
@@ -61,7 +62,6 @@ export function RpcSendTransferConfirmation() {
 
   function formBtcTxSummaryState(txId: string) {
     return {
-      hasHeaderTitle: true,
       txLink: {
         blockchain: 'bitcoin',
         txid: txId || '',
@@ -126,11 +126,16 @@ export function RpcSendTransferConfirmation() {
         total={totalSpend}
         feeRowValue={feeRowValue}
       />
-      <SendTransferActions
-        action="Send"
-        isLoading={isBroadcasting}
-        onApprove={onUserApproveSendTransferRequest}
-      />
+      <InfoCardFooter>
+        <Button
+          borderRadius="sm"
+          flexGrow={1}
+          aria-busy={isBroadcasting}
+          onClick={onUserApproveSendTransferRequest}
+        >
+          Send
+        </Button>
+      </InfoCardFooter>
     </>
   );
 }

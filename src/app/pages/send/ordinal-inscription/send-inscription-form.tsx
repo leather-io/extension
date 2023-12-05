@@ -5,12 +5,14 @@ import { Box, Flex } from 'leather-styles/jsx';
 
 import { RouteUrls } from '@shared/route-urls';
 
-import { BaseDrawer } from '@app/components/drawer/base-drawer';
 import { ErrorLabel } from '@app/components/error-label';
 import { InscriptionPreview } from '@app/components/inscription-preview-card/components/inscription-preview';
 import { InscriptionPreviewCard } from '@app/components/inscription-preview-card/inscription-preview-card';
 import { OrdinalAvatarIcon } from '@app/ui/components/avatar/ordinal-avatar-icon';
 import { Button } from '@app/ui/components/button/button';
+import { Dialog } from '@app/ui/components/containers/dialog/dialog';
+import { Footer } from '@app/ui/components/containers/footers/footer';
+import { Header } from '@app/ui/components/containers/headers/header';
 
 import { RecipientAddressTypeField } from '../send-crypto-asset-form/components/recipient-address-type-field';
 import { CollectibleAsset } from './components/collectible-asset';
@@ -36,31 +38,46 @@ export function SendInscriptionForm() {
       }}
       onSubmit={chooseTransactionFee}
     >
-      <Form>
-        <BaseDrawer title="Send" enableGoBack isShowing onClose={() => navigate(RouteUrls.Home)}>
-          <SendInscriptionFormLoader isLoading={isCheckingFees}>
-            <Box display="flex" flexDirection="column" px="space.06" pb="space.04">
-              <InscriptionPreviewCard
-                image={<InscriptionPreview inscription={inscription} />}
-                subtitle="Ordinal inscription"
-                title={inscription.title}
-              />
-              <Box mt={['space.04', 'space.06', '100px']}>
-                <Flex flexDirection="column" mt="space.05" width="100%">
-                  <CollectibleAsset icon={<OrdinalAvatarIcon />} name="Ordinal inscription" />
-                  <RecipientAddressTypeField
-                    name={recipientFieldName}
-                    label="To"
-                    placeholder="Enter recipient address"
+      {props => {
+        return (
+          <Form>
+            <Dialog
+              header={<Header variant="dialog" title="Send" />}
+              onGoBack={() => navigate(-1)}
+              isShowing
+              onClose={() => navigate(RouteUrls.Home)}
+              footer={
+                <Footer>
+                  <Button onClick={() => props.handleSubmit()} type="submit">
+                    Continue
+                  </Button>
+                </Footer>
+              }
+            >
+              <SendInscriptionFormLoader isLoading={isCheckingFees}>
+                <Box display="flex" flexDirection="column" px="space.06" pb="space.04">
+                  <InscriptionPreviewCard
+                    image={<InscriptionPreview inscription={inscription} />}
+                    subtitle="Ordinal inscription"
+                    title={inscription.title}
                   />
-                </Flex>
-              </Box>
-              {currentError && <ErrorLabel>{currentError}</ErrorLabel>}
-              <Button type="submit">Continue</Button>
-            </Box>
-          </SendInscriptionFormLoader>
-        </BaseDrawer>
-      </Form>
+                  <Box mt={['space.04', 'space.06', '100px']}>
+                    <Flex flexDirection="column" mt="space.05" width="100%">
+                      <CollectibleAsset icon={<OrdinalAvatarIcon />} name="Ordinal inscription" />
+                      <RecipientAddressTypeField
+                        name={recipientFieldName}
+                        label="To"
+                        placeholder="Enter recipient address"
+                      />
+                    </Flex>
+                  </Box>
+                  {currentError && <ErrorLabel>{currentError}</ErrorLabel>}
+                </Box>
+              </SendInscriptionFormLoader>
+            </Dialog>
+          </Form>
+        );
+      }}
     </Formik>
   );
 }

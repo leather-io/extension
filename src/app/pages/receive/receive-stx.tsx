@@ -1,6 +1,6 @@
 import { useCurrentAccountDisplayName } from '@app/common/hooks/account/use-account-names';
 import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
-import { useClipboard } from '@app/common/hooks/use-copy-to-clipboard';
+import { copyToClipboard } from '@app/common/utils/copy-to-clipboard';
 import { useToast } from '@app/features/toasts/use-toast';
 import { useBackgroundLocationRedirect } from '@app/routes/hooks/use-background-location-redirect';
 import { useCurrentStacksAccount } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
@@ -12,14 +12,7 @@ export function ReceiveStxModal() {
   const toast = useToast();
   const currentAccount = useCurrentStacksAccount();
   const analytics = useAnalytics();
-  const { onCopy } = useClipboard(currentAccount?.address ?? '');
   const accountName = useCurrentAccountDisplayName();
-
-  function copyToClipboard() {
-    void analytics.track('copy_stx_address_to_clipboard');
-    toast.success('Copied to clipboard');
-    onCopy();
-  }
 
   if (!currentAccount) return null;
 
@@ -27,7 +20,11 @@ export function ReceiveStxModal() {
     <ReceiveTokensLayout
       address={currentAccount.address}
       accountName={accountName}
-      onCopyAddressToClipboard={copyToClipboard}
+      onCopyAddressToClipboard={async () => {
+        void analytics.track('copy_stx_address_to_clipboard');
+        await copyToClipboard(currentAccount.address);
+        toast.success('Copied to clipboard!');
+      }}
       title="STX"
     />
   );

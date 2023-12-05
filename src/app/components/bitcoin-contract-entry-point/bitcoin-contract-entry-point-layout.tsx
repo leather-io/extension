@@ -43,9 +43,9 @@ export function BitcoinContractEntryPointLayout(props: BitcoinContractEntryPoint
           </BasicTooltip>
         </HStack>
         <HStack alignItems="center" justifyContent="space-between" width="100%">
-          <styled.span textStyle="caption.02">{caption}</styled.span>
+          <styled.span textStyle="caption.01">{caption}</styled.span>
           <Flex>
-            {isLoading ? '' : <styled.span textStyle="caption.02">{usdBalance}</styled.span>}
+            {isLoading ? '' : <styled.span textStyle="caption.01">{usdBalance}</styled.span>}
           </Flex>
         </HStack>
       </Flag>

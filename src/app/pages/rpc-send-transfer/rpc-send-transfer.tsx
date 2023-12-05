@@ -3,9 +3,10 @@ import BigNumber from 'bignumber.js';
 import { createMoney } from '@shared/models/money.model';
 
 import { formatMoneyPadded } from '@app/common/money/format-money';
+import { InfoCardFooter } from '@app/components/info-card/info-card';
 import { useCurrentAccountNativeSegwitIndexZeroSigner } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
+import { Button } from '@app/ui/components/button/button';
 
-import { SendTransferActions } from './components/send-transfer-actions';
 import { SendTransferDetails } from './components/send-transfer-details';
 import { SendTransferHeader } from './components/send-transfer-header';
 import { useRpcSendTransfer } from './use-rpc-send-transfer';
@@ -24,7 +25,11 @@ export function RpcSendTransfer() {
         amount={formattedMoney}
         currentAddress={nativeSegwitSigner.address}
       />
-      <SendTransferActions action="Continue" onApprove={onChooseTransferFee} />
+      <InfoCardFooter>
+        <Button borderRadius="sm" flexGrow={1} onClick={onChooseTransferFee}>
+          Continue
+        </Button>
+      </InfoCardFooter>
     </>
   );
 }

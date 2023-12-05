@@ -90,6 +90,7 @@ export function useSendInscriptionForm() {
             inscription,
             recipient: values.recipient,
             utxo,
+            backgroundLocation: { pathname: RouteUrls.Home },
           },
         }
       );

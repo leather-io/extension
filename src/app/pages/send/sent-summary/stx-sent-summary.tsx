@@ -4,9 +4,7 @@ import { HStack, Stack } from 'leather-styles/jsx';
 
 import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
 import { useClipboard } from '@app/common/hooks/use-copy-to-clipboard';
-import { useRouteHeader } from '@app/common/hooks/use-route-header';
 import { useStacksExplorerLink } from '@app/common/hooks/use-stacks-explorer-link';
-import { whenPageMode } from '@app/common/utils';
 import { FormAddressDisplayer } from '@app/components/address-displayer/form-address-displayer';
 import {
   InfoCard,
@@ -16,7 +14,6 @@ import {
   InfoCardRow,
   InfoCardSeparator,
 } from '@app/components/info-card/info-card';
-import { ModalHeader } from '@app/components/modal-header';
 import { useToast } from '@app/features/toasts/use-toast';
 import { CopyIcon } from '@app/ui/icons/copy-icon';
 import { ExternalLinkIcon } from '@app/ui/icons/external-link-icon';
@@ -55,15 +52,8 @@ export function StxSentSummary() {
     toast.success('ID copied!');
   }
 
-  useRouteHeader(<ModalHeader hideActions defaultClose title="Sent" />);
-
   return (
-    <InfoCard
-      pb={whenPageMode({
-        full: '0px',
-        popup: '120px',
-      })}
-    >
+    <InfoCard pb={{ base: '120px', md: '0' }}>
       <TxDone />
 
       <InfoCardAssetValue

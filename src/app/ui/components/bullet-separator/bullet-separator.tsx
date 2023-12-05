@@ -7,7 +7,7 @@ export function BulletOperator(props: CircleProps) {
     <Circle
       display="inline-block"
       verticalAlign="middle"
-      backgroundColor="currentColor"
+      bg="currentColor"
       size="3px"
       // Visual adjustment for correct centering on retina displays
       transform="translateY(-0.5px)"

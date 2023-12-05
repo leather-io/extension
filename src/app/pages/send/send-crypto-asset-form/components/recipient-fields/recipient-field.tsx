@@ -1,6 +1,6 @@
 import { TextInputFieldError } from '@app/components/field-error';
 
-import { SelectAccountButton } from '../recipient-accounts-drawer/select-account-button';
+import { SelectAccountButton } from '../recipient-accounts-dialog/select-account-button';
 import { RecipientAddressTypeField } from '../recipient-address-type-field';
 import { RecipientIdentifierTypeDropdown } from '../recipient-type-dropdown/recipient-type-dropdown';
 import { useRecipientSelectFields } from './hooks/use-recipient-select-fields';

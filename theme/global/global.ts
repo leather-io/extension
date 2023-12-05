@@ -1,20 +1,19 @@
+import { tokens } from '@leather-wallet/tokens';
 import { defineGlobalStyles } from '@pandacss/dev';
-
-import { fullPageStyles } from './full-page-styles';
-import { popupCenterStyles } from './popup-center-styles';
-import { popupStyles } from './popup-styles';
 
 // ts-unused-exports:disable-next-line
 export const globalCss = defineGlobalStyles({
-  'html, body': {
-    backgroundColor: 'ink.background-primary',
-  },
   button: {
     cursor: 'pointer',
   },
-  '@media (min-width: 600px)': {
-    'html, body': {
-      backgroundColor: 'ink.background-secondary',
+  'html, body': {
+    backgroundColor: 'ink.background-primary',
+  },
+  html: {
+    // adding to always not show scroll bar for windows Chrome
+    '::-webkit-scrollbar': {
+      display: 'none',
+      width: 0,
     },
   },
   body: {
@@ -22,7 +21,29 @@ export const globalCss = defineGlobalStyles({
       overflow: 'hidden',
     },
   },
-  ...fullPageStyles,
-  ...popupStyles,
-  ...popupCenterStyles,
+  '.mode__full-page': {
+    '&, body, main, .radix-themes': {
+      height: '100%',
+      maxHeight: 'unset',
+      width: '100%',
+    },
+    '.main-content': {
+      flexGrow: 1,
+      justifyContent: 'center',
+      margin: '0 auto',
+    },
+  },
+  '.mode__popup': {
+    'html,body, #app, .radix-themes': {
+      height: tokens.sizes.popupHeight.value,
+      maxHeight: '100vh',
+      minHeight: tokens.sizes.dialogHeight.value,
+      width: tokens.sizes.popupWidth.value,
+
+      '::-webkit-scrollbar': {
+        display: 'none',
+        width: 0,
+      },
+    },
+  },
 });
