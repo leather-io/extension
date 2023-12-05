@@ -1,3 +1,33 @@
+## [6.18.0](https://github.com/leather-wallet/extension/compare/v6.17.0...v6.18.0) (2023-12-05)
+
+
+### Features
+
+* add tests for psbt sigining ([c5ee6b7](https://github.com/leather-wallet/extension/commit/c5ee6b75776e9b21faa15a6d8cb933181a47801f))
+* modified explorer link maker function to have a regtest option ([4b158d2](https://github.com/leather-wallet/extension/commit/4b158d231ff8a5c2b8d9bba41b512230e817870f))
+* use-explorer-link got separated into bitcoin and stacks function variant ([89bd3c5](https://github.com/leather-wallet/extension/commit/89bd3c52834c5f332cd7f0ba7e6f87863cb54216))
+
+
+### Bug Fixes
+
+* add color to warning background, closes [#4600](https://github.com/leather-wallet/extension/issues/4600) ([cdcc597](https://github.com/leather-wallet/extension/commit/cdcc59787fc74ebd98449a2314d2dfb72ef5f518))
+* adjust position of fee slot, closes [#4462](https://github.com/leather-wallet/extension/issues/4462) ([fc2e08a](https://github.com/leather-wallet/extension/commit/fc2e08a929768ef7bba41b736f81f7426cfd8a50))
+* change to hstack to align buttons, closes [#4592](https://github.com/leather-wallet/extension/issues/4592) ([d00d83f](https://github.com/leather-wallet/extension/commit/d00d83faf6952f0e658622102435827fe6c18aa1))
+* decouple choose crypto asset components and add a new lint rule ([7b11213](https://github.com/leather-wallet/extension/commit/7b112135201e6b86221d7868183177f7c23d0a29))
+* make sure pending transactions have the correct circle colour, closes [#4591](https://github.com/leather-wallet/extension/issues/4591) ([eb96ac2](https://github.com/leather-wallet/extension/commit/eb96ac2732a1ced897aa4c9c9dc01da8dd786613))
+* remove PSBT learn more link, closes [#4607](https://github.com/leather-wallet/extension/issues/4607) ([1d9fd60](https://github.com/leather-wallet/extension/commit/1d9fd6092cf0606c50080061fa2f1dff614ee5ee))
+* roll back move to async from PR 4490 to supress sentry error ([9ec8a0c](https://github.com/leather-wallet/extension/commit/9ec8a0cacd1f6cf54d057c1879857b249d56a089))
+* set backgroundLocation for send ordinal, closes [#4562](https://github.com/leather-wallet/extension/issues/4562) ([b104a48](https://github.com/leather-wallet/extension/commit/b104a482c07eb5099e50c7f0c08034037d9f811b))
+* underlaid button, closes [#4615](https://github.com/leather-wallet/extension/issues/4615) ([907f33c](https://github.com/leather-wallet/extension/commit/907f33ccd8c8e432bd30fe855596bdd35cf25688))
+
+
+### Internal
+
+* consume design tokens from extension ([d476fa3](https://github.com/leather-wallet/extension/commit/d476fa31cd7061613b43d157c6b724edda9efd74))
+* consume design tokens from extension ([0e52e5f](https://github.com/leather-wallet/extension/commit/0e52e5fb28428202e99f4ac533741171be43f002))
+* improve icons ([fcbf0d7](https://github.com/leather-wallet/extension/commit/fcbf0d725c1557701bccd8224c60bc27441c2fe5))
+* post-release merge back ([34f5553](https://github.com/leather-wallet/extension/commit/34f5553a8e22dd50585fc8f02f6ef1711be3d847))
+
 ## [6.17.0](https://github.com/leather-wallet/extension/compare/v6.16.1...v6.17.0) (2023-11-28)
 
 
