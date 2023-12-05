@@ -1,0 +1,45 @@
+import { RouteUrls } from '@shared/route-urls';
+
+import { isKnownPopupRoute } from './get-popup-header';
+
+function isHomePage(pathname: RouteUrls) {
+  return pathname === RouteUrls.Home || pathname.match(RouteUrls.Activity);
+}
+
+export function isLandingPage(pathname: RouteUrls) {
+  return pathname === RouteUrls.RequestDiagnostics || pathname.match(RouteUrls.Onboarding); // need to match get-started/ledger
+}
+
+const isOnboardingPage = (pathname: RouteUrls) => {
+  return (
+    pathname === RouteUrls.BackUpSecretKey ||
+    pathname === RouteUrls.SetPassword ||
+    pathname === RouteUrls.SignIn ||
+    pathname === RouteUrls.ViewSecretKey
+  );
+};
+
+export function getPageVariant(pathname: RouteUrls) {
+  if (isHomePage(pathname)) return 'home';
+  if (isOnboardingPage(pathname)) return 'onboarding';
+  return 'page';
+}
+
+function isSessionLocked(pathname: RouteUrls) {
+  return pathname === RouteUrls.Unlock;
+}
+
+export function canGoBack(pathname: RouteUrls) {
+  if (isSessionLocked(pathname) || isKnownPopupRoute(pathname)) {
+    return false;
+  }
+  return true;
+}
+
+export function hideLogo(pathname: RouteUrls) {
+  return pathname === RouteUrls.RpcGetAddresses || pathname === RouteUrls.Unlock;
+}
+
+export function isGetAddressesPopup(pathname: RouteUrls) {
+  return pathname === RouteUrls.RpcGetAddresses;
+}

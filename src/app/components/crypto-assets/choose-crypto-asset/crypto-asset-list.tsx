@@ -1,3 +1,6 @@
+import { CryptoAssetSelectors } from '@tests/selectors/crypto-asset.selectors';
+import { Stack } from 'leather-styles/jsx';
+
 import type { AllTransferableCryptoAssetBalances } from '@shared/models/crypto-asset-balance.model';
 import { StacksFungibleTokenAsset } from '@shared/models/crypto-asset.model';
 
@@ -10,7 +13,6 @@ import { BtcIcon } from '@app/ui/components/avatar-icon/btc-icon';
 
 import { CryptoCurrencyAssetItemLayout } from '../crypto-currency-asset/crypto-currency-asset-item.layout';
 import { CryptoAssetListItem } from './crypto-asset-list-item';
-import { CryptoAssetListLayout } from './crypto-asset-list.layout';
 
 interface CryptoAssetListProps {
   cryptoAssetBalances: AllTransferableCryptoAssetBalances[];
@@ -20,7 +22,7 @@ export function CryptoAssetList({ cryptoAssetBalances, onItemClick }: CryptoAsse
   const { whenWallet } = useWalletType();
 
   return (
-    <CryptoAssetListLayout>
+    <Stack data-testid={CryptoAssetSelectors.CryptoAssetList} width="100%" paddingX="space.01">
       <BitcoinNativeSegwitAccountLoader current>
         {signer => (
           <BitcoinBalanceLoader address={signer.address}>
@@ -56,6 +58,6 @@ export function CryptoAssetList({ cryptoAssetBalances, onItemClick }: CryptoAsse
         ),
         ledger: null,
       })}
-    </CryptoAssetListLayout>
+    </Stack>
   );
 }

@@ -48,22 +48,10 @@ export function FiatProvidersList(props: FiatProvidersProps) {
 
   return (
     <Grid
-      columnGap="space.05"
-      justifyContent="center"
-      mt={['space.04', 'space.08']}
-      py="0"
-      px={['space.05', 'space.08']}
-      rowGap="1.5rem"
-      placeItems="center"
-      gridTemplateColumns={[
-        'repeat(1, 1fr)',
-        'repeat(1, 1fr)',
-        'repeat(2, 1fr)',
-        'repeat(3, 1fr)',
-        'repeat(4, 1fr)',
-      ]}
-      width="100%"
-      maxWidth={['100%', '80rem']}
+      columnGap="space.04"
+      mt={{ base: 0, md: 'space.03' }}
+      rowGap="space.04"
+      gridTemplateColumns={{ base: 'repeat(1, 1fr)', sm: 'repeat(2, 1fr)', md: 'repeat(3, 1fr)' }}
     >
       <ReceiveFundsItem
         symbol={symbol}

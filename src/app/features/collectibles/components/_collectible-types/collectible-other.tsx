@@ -10,7 +10,7 @@ export function CollectibleOther({ children, ...props }: CollectibleOtherProps) 
     <CollectibleItemLayout {...props}>
       <Box
         alignItems="center"
-        backgroundColor="black"
+        bg="black"
         display="flex"
         height="100%"
         justifyContent="center"

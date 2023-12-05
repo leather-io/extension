@@ -13,11 +13,11 @@ import {
 import { useOnMount } from '@app/common/hooks/use-on-mount';
 import { initialSearchParams } from '@app/common/initial-search-params';
 import { useCurrentAccountNativeSegwitSigner } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
+import { PopupCard } from '@app/ui/components/containers/popup/popup-card';
 
 import { BitcoinContractOfferDetailsSimple } from './components/bitcoin-contract-offer/bitcoin-contract-offer-details';
 import { BitcoinContractRequestActions } from './components/bitcoin-contract-request-actions';
 import { BitcoinContractRequestHeader } from './components/bitcoin-contract-request-header';
-import { BitcoinContractRequestLayout } from './components/bitcoin-contract-request-layout';
 import { BitcoinContractRequestWarningLabel } from './components/bitcoin-contract-request-warning-label';
 
 export function BitcoinContractRequest() {
@@ -103,7 +103,7 @@ export function BitcoinContractRequest() {
   return (
     <>
       {!isLoading && bitcoinAddress && bitcoinContractOfferDetails && (
-        <BitcoinContractRequestLayout>
+        <PopupCard>
           <BitcoinContractRequestHeader
             counterpartyWalletName={
               bitcoinContractOfferDetails.counterpartyWalletDetails.counterpartyWalletName
@@ -112,7 +112,7 @@ export function BitcoinContractRequest() {
               bitcoinContractOfferDetails.counterpartyWalletDetails.counterpartyWalletIcon
             }
           />
-          <Stack gap="space.04" backgroundColor="white" borderRadius="lg">
+          <Stack gap="space.04" bg="white" borderRadius="lg">
             <BitcoinContractRequestWarningLabel
               appName={bitcoinContractOfferDetails.counterpartyWalletDetails.counterpartyWalletName}
             />
@@ -130,7 +130,7 @@ export function BitcoinContractRequest() {
             bitcoinAddress={bitcoinAddress}
             bitcoinContractOffer={bitcoinContractOfferDetails.simplifiedBitcoinContract}
           />
-        </BitcoinContractRequestLayout>
+        </PopupCard>
       )}
     </>
   );

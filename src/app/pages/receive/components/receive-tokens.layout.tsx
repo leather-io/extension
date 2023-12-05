@@ -5,9 +5,10 @@ import { Box, Flex, styled } from 'leather-styles/jsx';
 
 import { useLocationState } from '@app/common/hooks/use-location-state';
 import { AddressDisplayer } from '@app/components/address-displayer/address-displayer';
-import { BaseDrawer } from '@app/components/drawer/base-drawer';
 import { useBackgroundLocationRedirect } from '@app/routes/hooks/use-background-location-redirect';
 import { Button } from '@app/ui/components/button/button';
+import { Dialog } from '@app/ui/components/containers/dialog/dialog';
+import { Footer } from '@app/ui/components/containers/footers/footer';
 
 import { QrCode } from './address-qr-code';
 
@@ -26,7 +27,18 @@ export function ReceiveTokensLayout(props: ReceiveTokensLayoutProps) {
   const backgroundLocation = useLocationState<Location>('backgroundLocation');
 
   return (
-    <BaseDrawer title="Receive" isShowing onClose={() => navigate(backgroundLocation ?? '..')}>
+    <Dialog
+      title="Receive"
+      isShowing
+      onClose={() => navigate(backgroundLocation ?? '..')}
+      footer={
+        <Footer>
+          <Button fullWidth mt="space.05" onClick={() => onCopyAddressToClipboard(address)}>
+            Copy address
+          </Button>
+        </Footer>
+      }
+    >
       {warning && warning}
       <Flex alignItems="center" flexDirection="column" pb={['space.05', 'space.08']} px="space.05">
         <styled.h2 mt="space.05" textStyle="heading.03">
@@ -51,10 +63,7 @@ export function ReceiveTokensLayout(props: ReceiveTokensLayoutProps) {
             <AddressDisplayer address={address} />
           </Flex>
         </Flex>
-        <Button fullWidth mt="space.05" onClick={() => onCopyAddressToClipboard(address)}>
-          Copy address
-        </Button>
       </Flex>
-    </BaseDrawer>
+    </Dialog>
   );
 }

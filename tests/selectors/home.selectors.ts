@@ -1,5 +1,5 @@
 export enum HomePageSelectors {
-  DrawerHeaderActionBtn = 'drawer-header-action-btn',
+  HeaderActionBtn = 'header-action-btn',
   HomePageContainer = 'home-page-container',
   ReceiveCryptoAssetBtn = 'receive-crypto-asset-btn',
   ReceiveBtcNativeSegwitQrCodeBtn = 'receive-native-segwit-qr-code-btn',

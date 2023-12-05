@@ -1,6 +1,7 @@
 import type { Preview } from '@storybook/react';
 
 import '../src/app/index.css';
+import { customViewports } from './viewports';
 
 const preview: Preview = {
   parameters: {
@@ -24,6 +25,12 @@ const preview: Preview = {
         date: /Date$/i,
       },
     },
+    viewport: {
+      viewports: {
+        ...customViewports,
+      },
+    },
+    toc: true,
   },
 };
 

@@ -2,6 +2,7 @@ import { useNavigate } from 'react-router-dom';
 
 import BigNumber from 'bignumber.js';
 import { useFormikContext } from 'formik';
+import { Stack } from 'leather-styles/jsx';
 
 import { createMoney } from '@shared/models/money.model';
 import { isUndefined } from '@shared/utils';
@@ -13,7 +14,6 @@ import { useSwapContext } from '@app/pages/swap/swap.context';
 import { SwapAsset, SwapFormValues } from '../../hooks/use-swap-form';
 import { useSwapChooseAssetState } from '../swap-choose-asset';
 import { SwapAssetItem } from './swap-asset-item';
-import { SwapAssetListLayout } from './swap-asset-list.layout';
 
 interface SwapAssetList {
   assets: SwapAsset[];
@@ -46,6 +46,7 @@ export function SwapAssetList({ assets }: SwapAssetList) {
       await setFieldValue('swapAssetTo', asset);
       setFieldError('swapAssetTo', undefined);
     }
+
     navigate(-1);
     if (from && to && values.swapAmountFrom) {
       const toAmount = await fetchToAmount(from, to, values.swapAmountFrom);
@@ -64,7 +65,7 @@ export function SwapAssetList({ assets }: SwapAssetList) {
   }
 
   return (
-    <SwapAssetListLayout>
+    <Stack pb="space.05" width="100%">
       {selectableAssets.map(asset => (
         <SwapAssetItem
           asset={asset}
@@ -72,6 +73,6 @@ export function SwapAssetList({ assets }: SwapAssetList) {
           onClick={() => onChooseAsset(asset)}
         />
       ))}
-    </SwapAssetListLayout>
+    </Stack>
   );
 }

@@ -25,7 +25,7 @@ export function FundAccountTile(props: FundAccountTileProps) {
         cursor: 'pointer',
       }}
       border="default"
-      backgroundColor="ink.background-primary"
+      bg="ink.background-primary"
       borderRadius="xs"
       boxShadow="0px 1px 2px rgba(0, 0, 0, 0.04)"
       data-testid={testId}

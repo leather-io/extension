@@ -265,10 +265,6 @@ export function isPopupMode() {
   return pageMode === 'popup';
 }
 
-export function isFullPageMode() {
-  return pageMode === 'full';
-}
-
 interface WhenStacksChainIdMap<T> {
   [ChainID.Mainnet]: T;
   [ChainID.Testnet]: T;

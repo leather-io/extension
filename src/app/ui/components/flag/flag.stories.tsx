@@ -18,7 +18,7 @@ const meta: Meta<typeof Component> = {
     controls: { include: ['align'] },
   },
   render: ({ children, ...args }) => (
-    <Component {...args} img={<Circle size="40px" backgroundColor="lightModeRed.300" />}>
+    <Component {...args} img={<Circle size="40px" bg="lightModeRed.300" />}>
       {children}
     </Component>
   ),
@@ -30,6 +30,6 @@ type Story = StoryObj<typeof Component>;
 
 export const Flag: Story = {
   args: {
-    children: <Box width="300px" height="20px" backgroundColor="lightModeRed.300" />,
+    children: <Box width="300px" height="20px" bg="lightModeRed.300" />,
   },
 };

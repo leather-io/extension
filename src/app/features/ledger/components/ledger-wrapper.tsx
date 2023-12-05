@@ -6,7 +6,7 @@ interface LedgerWrapperProps extends BoxProps {
 
 export function LedgerWrapper({ image, children, ...props }: LedgerWrapperProps) {
   return (
-    <Box maxHeight="80vh" textAlign="center" px="space.07" {...props}>
+    <Box maxHeight="80vh" textAlign="center" {...props}>
       <Flex alignItems="center" flexDirection="column" pb="space.05">
         {image && <Box mb="space.06">{image}</Box>}
         {children}

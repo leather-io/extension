@@ -7,10 +7,11 @@ type ButtonProps = Omit<React.ComponentProps<typeof StyledButton>, keyof ButtonV
   ButtonVariantProps;
 
 export function Button(props: ButtonProps) {
-  const { children, fullWidth, invert, size, trigger, type = 'button', variant, ...rest } = props;
+  const { children, fullWidth, size, trigger, invert, type = 'button', variant, ...rest } = props;
+  // pete - not sure we need this invert but it could be thje key difference
   return (
     <StyledButton
-      className={buttonRecipe({ fullWidth, invert, size, trigger, variant })}
+      className={buttonRecipe({ fullWidth, size, invert, trigger, variant })}
       type={type}
       {...rest}
     >

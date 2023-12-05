@@ -11,7 +11,7 @@ import { Tabs } from '@app/ui/components/tabs/tabs';
 interface HomeTabsProps {
   children: React.ReactNode;
 }
-// TODO #4013: Abstract this to generic RouteTab once choose-fee-tab updated
+
 export function HomeTabs({ children }: HomeTabsProps) {
   const navigate = useNavigate();
   const location = useLocation();
@@ -23,13 +23,15 @@ export function HomeTabs({ children }: HomeTabsProps) {
           <Tabs.Trigger data-testid="tab-assets" value={RouteUrls.Home}>
             Assets
           </Tabs.Trigger>
-          <Tabs.Trigger data-testid="tab-activity" value={`${RouteUrls.Home}${RouteUrls.Activity}`}>
+          <Tabs.Trigger data-testid="tab-activity" value={RouteUrls.Activity}>
             Activity
           </Tabs.Trigger>
         </Tabs.List>
       </Tabs.Root>
       <Suspense fallback={<LoadingSpinner pb="72px" />}>
-        <Box width="100%">{children}</Box>
+        <Box px={{ base: 'space.04', md: 0 }} width="100%">
+          {children}
+        </Box>
       </Suspense>
     </Stack>
   );

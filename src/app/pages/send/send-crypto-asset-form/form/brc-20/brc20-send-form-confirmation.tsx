@@ -9,7 +9,6 @@ import { createMoney } from '@shared/models/money.model';
 import { RouteUrls } from '@shared/route-urls';
 
 import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
-import { useRouteHeader } from '@app/common/hooks/use-route-header';
 import { sumMoney } from '@app/common/money/calculate-money';
 import { formatMoney, formatMoneyPadded } from '@app/common/money/format-money';
 import {
@@ -19,7 +18,6 @@ import {
   InfoCardRow,
   InfoCardSeparator,
 } from '@app/components/info-card/info-card';
-import { ModalHeader } from '@app/components/modal-header';
 import { useCurrentNativeSegwitUtxos } from '@app/query/bitcoin/address/utxos-by-address.hooks';
 import { useBrc20Transfers } from '@app/query/bitcoin/ordinals/brc20/use-brc-20';
 import { useBitcoinBroadcastTransaction } from '@app/query/bitcoin/transaction/use-bitcoin-broadcast-transaction';
@@ -93,7 +91,6 @@ export function Brc20SendFormConfirmation() {
               blockchain: 'bitcoin',
               txid: txId || '',
             },
-            hasHeaderTitle: true,
           },
         });
       },
@@ -102,8 +99,6 @@ export function Brc20SendFormConfirmation() {
       },
     });
   }
-
-  useRouteHeader(<ModalHeader hideActions defaultClose defaultGoBack title="Review" />);
 
   return (
     <InfoCard data-testid={SendCryptoAssetSelectors.ConfirmationDetails}>

@@ -7,7 +7,6 @@ import { closeWindow } from '@shared/utils';
 
 import { useCancelAuthRequest } from '@app/common/authentication/use-cancel-auth-request';
 import { useAppDetails } from '@app/common/hooks/auth/use-app-details';
-import { useRouteHeader } from '@app/common/hooks/use-route-header';
 import { RequesterFlag } from '@app/components/requester-flag';
 import { ChooseAccountsList } from '@app/pages/choose-account/components/accounts';
 import { useOnOriginTabClose } from '@app/routes/hooks/use-on-tab-closed';
@@ -18,7 +17,6 @@ export const ChooseAccount = memo(() => {
 
   const cancelAuthentication = useCancelAuthRequest();
 
-  useRouteHeader(<></>);
   useOnOriginTabClose(() => closeWindow());
 
   const handleUnmount = async () => cancelAuthentication();

@@ -61,7 +61,6 @@ export function RpcSendTransferConfirmation() {
 
   function formBtcTxSummaryState(txId: string) {
     return {
-      hasHeaderTitle: true,
       txLink: {
         blockchain: 'bitcoin',
         txid: txId || '',

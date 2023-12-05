@@ -1,7 +1,4 @@
-import { useNavigate } from 'react-router-dom';
-
 import { logger } from '@shared/logger';
-import { BtcFeeType } from '@shared/models/fees/bitcoin-fees.model';
 import { createMoney } from '@shared/models/money.model';
 
 import { btcToSat } from '@app/common/money/unit-conversion';
@@ -10,27 +7,20 @@ import { useGenerateUnsignedNativeSegwitSingleRecipientTx } from '@app/common/tr
 import { OnChooseFeeArgs } from '@app/components/bitcoin-fees-list/bitcoin-fees-list';
 import { useSignBitcoinTx } from '@app/store/accounts/blockchain/bitcoin/bitcoin.hooks';
 
-import { useSendBitcoinAssetContextState } from '../../family/bitcoin/components/send-bitcoin-asset-container';
 import { useCalculateMaxBitcoinSpend } from '../../family/bitcoin/hooks/use-calculate-max-spend';
 import { useSendFormNavigate } from '../../hooks/use-send-form-navigate';
 import { useBtcChooseFeeState } from './btc-choose-fee';
 
 export function useBtcChooseFee() {
   const { isSendingMax, txValues, utxos } = useBtcChooseFeeState();
-  const navigate = useNavigate();
   const sendFormNavigate = useSendFormNavigate();
   const generateTx = useGenerateUnsignedNativeSegwitSingleRecipientTx();
-  const { setSelectedFeeType } = useSendBitcoinAssetContextState();
   const calcMaxSpend = useCalculateMaxBitcoinSpend();
   const signTx = useSignBitcoinTx();
   const amountAsMoney = createMoney(btcToSat(txValues.amount).toNumber(), 'BTC');
 
   return {
     amountAsMoney,
-    onGoBack() {
-      setSelectedFeeType(BtcFeeType.Standard);
-      navigate(-1);
-    },
 
     async previewTransaction({ feeRate, feeValue, time, isCustomFee }: OnChooseFeeArgs) {
       const resp = await generateTx(

@@ -13,9 +13,8 @@ import {
   useTransferableStacksFungibleTokenAssetBalances,
 } from '@app/query/stacks/balance/stacks-ft-balances.hooks';
 import { useCurrentStacksAccount } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
+import { ActionButton } from '@app/ui/components/account/action-button';
 import { SendIcon } from '@app/ui/icons';
-
-import { ActionButton } from './action-button';
 
 function SendButtonSuspense() {
   const navigate = useNavigate();
@@ -34,10 +33,10 @@ function SendButtonSuspense() {
         whenWallet({
           ledger: () =>
             whenPageMode({
-              full: () => navigate(RouteUrls.SendCryptoAsset, { state: { hasHeaderTitle: true } }),
+              full: () => navigate(RouteUrls.SendCryptoAsset),
               popup: () => openIndexPageInNewTab(RouteUrls.SendCryptoAsset),
             })(),
-          software: () => navigate(RouteUrls.SendCryptoAsset, { state: { hasHeaderTitle: true } }),
+          software: () => navigate(RouteUrls.SendCryptoAsset),
         })()
       }
       disabled={isDisabled}

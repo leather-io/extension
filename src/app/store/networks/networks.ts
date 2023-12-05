@@ -9,6 +9,8 @@ import { storeAtom } from '..';
 import { selectCurrentNetworkId, selectNetworks } from './networks.selectors';
 import { findMatchingNetworkKey } from './networks.utils';
 
+// TODO as about this as it's depreacted but not sure what to do instead
+// PR https://github.com/leather-wallet/extension/pull/3017
 /** @deprecated */
 export const currentNetworkAtom = atom(get => {
   const store = get(storeAtom);

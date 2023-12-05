@@ -6,12 +6,10 @@ import { RouteUrls } from '@shared/route-urls';
 import { isDefined } from '@shared/utils';
 
 import { useStxCryptoCurrencyAssetBalance } from '@app/common/hooks/balance/stx/use-stx-crypto-currency-asset-balance';
-import { useRouteHeader } from '@app/common/hooks/use-route-header';
 import { useWalletType } from '@app/common/use-wallet-type';
 import { ChooseAssetContainer } from '@app/components/crypto-assets/choose-crypto-asset/choose-asset-container';
 import { ChooseCryptoAssetLayout } from '@app/components/crypto-assets/choose-crypto-asset/choose-crypto-asset.layout';
 import { CryptoAssetList } from '@app/components/crypto-assets/choose-crypto-asset/crypto-asset-list';
-import { ModalHeader } from '@app/components/modal-header';
 import { useCheckLedgerBlockchainAvailable } from '@app/store/accounts/blockchain/utils';
 
 export function ChooseCryptoAssetToFund() {
@@ -32,8 +30,6 @@ export function ChooseCryptoAssetToFund() {
       ),
     [stxCryptoCurrencyAssetBalance, checkBlockchainAvailable, whenWallet]
   );
-
-  useRouteHeader(<ModalHeader hideActions onGoBack={() => navigate(RouteUrls.Home)} title=" " />);
 
   const navigateToSendForm = useCallback(
     (cryptoAssetBalance: AllTransferableCryptoAssetBalances) => {

@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-import { Flex, styled } from 'leather-styles/jsx';
+import { Flex, Stack, styled } from 'leather-styles/jsx';
 
 import {
   BitcoinContractListItem,
@@ -11,7 +11,6 @@ import { FullPageLoadingSpinner } from '@app/components/loading-spinner';
 import { truncateMiddle } from '@app/ui/utils/truncate-middle';
 
 import { BitcoinContractListItemLayout } from './components/bitcoin-contract-list-item-layout';
-import { BitcoinContractListLayout } from './components/bitcoin-contract-list-layout';
 
 export function BitcoinContractList() {
   const { getAllActiveBitcoinContracts } = useBitcoinContracts();
@@ -36,7 +35,7 @@ export function BitcoinContractList() {
   if (isLoading) return <FullPageLoadingSpinner />;
 
   return (
-    <BitcoinContractListLayout>
+    <Stack padding="space.04" width="100%" overflow="scroll">
       {bitcoinContracts.length === 0 || isError ? (
         <Flex width="100%" height="100vh" alignItems="center" justifyContent="center">
           <styled.span textAlign="center" textStyle="body.01">
@@ -58,6 +57,6 @@ export function BitcoinContractList() {
           );
         })
       )}
-    </BitcoinContractListLayout>
+    </Stack>
   );
 }

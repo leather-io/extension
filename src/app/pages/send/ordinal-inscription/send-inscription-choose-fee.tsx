@@ -8,10 +8,10 @@ import {
   BitcoinFeesList,
   OnChooseFeeArgs,
 } from '@app/components/bitcoin-fees-list/bitcoin-fees-list';
-import { BaseDrawer } from '@app/components/drawer/base-drawer';
 import { LoadingSpinner } from '@app/components/loading-spinner';
 import { BitcoinChooseFee } from '@app/features/bitcoin-choose-fee/bitcoin-choose-fee';
 import { useValidateBitcoinSpend } from '@app/features/bitcoin-choose-fee/hooks/use-validate-bitcoin-spend';
+import { Dialog } from '@app/ui/components/containers/dialog/dialog';
 
 import { useSendInscriptionState } from './components/send-inscription-container';
 import { useSendInscriptionFeesList } from './hooks/use-send-inscription-fees-list';
@@ -47,7 +47,12 @@ export function SendInscriptionChooseFee() {
 
   return (
     <>
-      <BaseDrawer title="Choose fee" isShowing enableGoBack onClose={() => navigate(-1)}>
+      <Dialog
+        title="Choose fee"
+        isShowing
+        onGoBack={() => navigate(-1)}
+        onClose={() => navigate(-1)}
+      >
         <BitcoinChooseFee
           amount={createMoney(0, 'BTC')}
           feesList={
@@ -69,7 +74,7 @@ export function SendInscriptionChooseFee() {
           showError={showInsufficientBalanceError}
           maxRecommendedFeeRate={feesList[0]?.feeRate}
         />
-      </BaseDrawer>
+      </Dialog>
       <Outlet />
     </>
   );

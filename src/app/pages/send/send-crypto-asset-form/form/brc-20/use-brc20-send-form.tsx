@@ -79,7 +79,7 @@ export function useBrc20SendForm({ balance, tick, decimals }: UseBrc20SendFormAr
     whenWallet({
       software: () =>
         navigate(RouteUrls.SendBrc20ChooseFee.replace(':ticker', tick), {
-          state: { ...values, tick, utxos, hasHeaderTitle: true },
+          state: { ...values, tick, utxos },
         }),
       ledger: noop,
     })();

@@ -5,6 +5,7 @@ import { BtcIcon } from '@app/ui/components/avatar-icon/btc-icon';
 import { ChevronDownIcon } from '@app/ui/icons/chevron-down-icon';
 import { PlaceholderIcon } from '@app/ui/icons/placeholder-icon';
 
+// TODO - fix this, my branch is missing a lot of variants and I thin kthats whays up with bottons
 import { Button as Component } from './button';
 
 const meta: Meta<typeof Component> = {
@@ -36,34 +37,6 @@ export const Disabled: Story = {
     children: 'Button',
     size: 'md',
     variant: 'solid',
-  },
-};
-
-// TODO: Remove invert code
-export const InvertSolid: Story = {
-  parameters: {
-    backgrounds: { default: 'leather-dark-mode' },
-    controls: { include: [] },
-  },
-  args: {
-    children: 'Button',
-    invert: true,
-    size: 'md',
-    variant: 'solid',
-  },
-};
-
-// TODO: Remove invert code
-export const InvertOutline: Story = {
-  parameters: {
-    backgrounds: { default: 'leather-dark-mode' },
-    controls: { include: [] },
-  },
-  args: {
-    children: 'Button',
-    invert: true,
-    size: 'md',
-    variant: 'outline',
   },
 };
 

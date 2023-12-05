@@ -1,7 +1,7 @@
 import { Outlet, useNavigate } from 'react-router-dom';
 
 import { useScrollLock } from '@app/common/hooks/use-scroll-lock';
-import { BaseDrawer } from '@app/components/drawer/base-drawer';
+import { Dialog } from '@app/ui/components/containers/dialog/dialog';
 
 import { LedgerRequestKeysContext, LedgerRequestKeysProvider } from './ledger-request-keys.context';
 
@@ -20,15 +20,13 @@ export function RequestKeysFlow({
 
   return (
     <LedgerRequestKeysProvider value={context}>
-      <BaseDrawer
+      <Dialog
         isShowing
         isWaitingOnPerformedAction={isActionCancellableByUser}
         onClose={onCancelConnectLedger ? onCancelConnectLedger : () => navigate('../')}
-        pauseOnClickOutside
-        waitingOnPerformedActionMessage="Ledger device in use"
       >
         <Outlet />
-      </BaseDrawer>
+      </Dialog>
     </LedgerRequestKeysProvider>
   );
 }

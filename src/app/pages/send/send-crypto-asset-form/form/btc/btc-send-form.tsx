@@ -7,16 +7,20 @@ import { Box } from 'leather-styles/jsx';
 import { HIGH_FEE_WARNING_LEARN_MORE_URL_BTC } from '@shared/constants';
 import { CryptoCurrencies } from '@shared/models/currencies.model';
 
-import { HighFeeDrawer } from '@app/features/high-fee-drawer/high-fee-drawer';
+import { formatMoney } from '@app/common/money/format-money';
+import { HighFeeDialog } from '@app/features/dialogs/high-fee-dialog/high-fee-dialog';
 import { useNativeSegwitBalance } from '@app/query/bitcoin/balance/btc-native-segwit-balance.hooks';
 import { useCryptoCurrencyMarketData } from '@app/query/common/market-data/market-data.hooks';
 import { useCurrentAccountNativeSegwitIndexZeroSigner } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
 import { BtcIcon } from '@app/ui/components/avatar-icon/btc-icon';
+import { Button } from '@app/ui/components/button/button';
 import { Callout } from '@app/ui/components/callout/callout';
+import { AvailableBalance } from '@app/ui/components/containers/footers/available-balance';
+import { Footer } from '@app/ui/components/containers/footers/footer';
 import { Link } from '@app/ui/components/link/link';
+import { Card } from '@app/ui/layout/card/card';
 
 import { AmountField } from '../../components/amount-field';
-import { FormFooter } from '../../components/form-footer';
 import { SelectedAssetField } from '../../components/selected-asset-field';
 import { SendCryptoAssetFormLayout } from '../../components/send-crypto-asset-form.layout';
 import { SendFiatValue } from '../../components/send-fiat-value';
@@ -66,42 +70,60 @@ export function BtcSendForm() {
 
           return (
             <Form>
-              <SendCryptoAssetFormLayout>
-                <AmountField
-                  autoComplete="off"
-                  balance={btcBalance.balance}
-                  bottomInputOverlay={
-                    <BitcoinSendMaxButton
-                      balance={btcBalance.balance}
-                      isSendingMax={isSendingMax}
-                      onSetIsSendingMax={onSetIsSendingMax}
-                      sendMaxBalance={sendMaxCalculation.spendableBitcoin.toString()}
-                      sendMaxFee={sendMaxCalculation.spendAllFee.toString()}
-                    />
-                  }
-                  onSetIsSendingMax={onSetIsSendingMax}
-                  isSendingMax={isSendingMax}
-                  switchableAmount={
-                    <SendFiatValue marketData={btcMarketData} assetSymbol={symbol} />
-                  }
-                />
-                <SelectedAssetField
-                  icon={<BtcIcon />}
-                  name={btcBalance.asset.name}
-                  symbol={symbol}
-                />
-                <BitcoinRecipientField />
-                {currentNetwork.chain.bitcoin.bitcoinNetwork === 'testnet' && (
-                  <Callout variant="warning" mt="space.04">
-                    {'This is a Bitcoin testnet transaction. Funds have no value. '}
-                    <Link href="https://coinfaucet.eu/en/btc-testnet" textStyle="caption.02">
-                      Get testnet BTC here ↗
-                    </Link>
-                  </Callout>
-                )}
-              </SendCryptoAssetFormLayout>
-              <FormFooter balance={btcBalance.balance} />
-              <HighFeeDrawer learnMoreUrl={HIGH_FEE_WARNING_LEARN_MORE_URL_BTC} />
+              <Card
+                action={
+                  <Footer variant="card">
+                    <Button
+                      data-testid={SendCryptoAssetSelectors.PreviewSendTxBtn}
+                      onClick={() => props.handleSubmit()}
+                      type="submit"
+                    >
+                      Continue
+                    </Button>
+                    <AvailableBalance balance={formatMoney(btcBalance.balance)} />
+                  </Footer>
+                }
+              >
+                <SendCryptoAssetFormLayout>
+                  <AmountField
+                    autoComplete="off"
+                    balance={btcBalance.balance}
+                    bottomInputOverlay={
+                      <BitcoinSendMaxButton
+                        balance={btcBalance.balance}
+                        isSendingMax={isSendingMax}
+                        onSetIsSendingMax={onSetIsSendingMax}
+                        sendMaxBalance={sendMaxCalculation.spendableBitcoin.toString()}
+                        sendMaxFee={sendMaxCalculation.spendAllFee.toString()}
+                      />
+                    }
+                    onSetIsSendingMax={onSetIsSendingMax}
+                    isSendingMax={isSendingMax}
+                    switchableAmount={
+                      <SendFiatValue marketData={btcMarketData} assetSymbol={symbol} />
+                    }
+                  />
+                  <SelectedAssetField
+                    icon={<BtcIcon />}
+                    name={btcBalance.asset.name}
+                    symbol={symbol}
+                  />
+                  <BitcoinRecipientField />
+                  {currentNetwork.chain.bitcoin.bitcoinNetwork === 'testnet' && (
+                    <Callout variant="warning" title="Funds have no value" mt="space.04">
+                      {'This is a Bitcoin testnet transaction. '}
+                      <Link
+                        variant="text"
+                        href="https://coinfaucet.eu/en/btc-testnet"
+                        textStyle="caption.02"
+                      >
+                        Get testnet BTC here ↗
+                      </Link>
+                    </Callout>
+                  )}
+                </SendCryptoAssetFormLayout>
+              </Card>
+              <HighFeeDialog learnMoreUrl={HIGH_FEE_WARNING_LEARN_MORE_URL_BTC} />
               <Outlet />
 
               {/* This is for testing purposes only, to make sure the form is ready to be submitted. */}

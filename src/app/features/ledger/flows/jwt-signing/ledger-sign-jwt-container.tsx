@@ -16,7 +16,6 @@ import { useKeyActions } from '@app/common/hooks/use-key-actions';
 import { useScrollLock } from '@app/common/hooks/use-scroll-lock';
 import { makeLedgerCompatibleUnsignedAuthResponsePayload } from '@app/common/unsafe-auth-response';
 import { delay } from '@app/common/utils';
-import { BaseDrawer } from '@app/components/drawer/base-drawer';
 import {
   getStacksAppVersion,
   prepareLedgerDeviceStacksAppConnection,
@@ -26,6 +25,7 @@ import {
   useCurrentStacksAccount,
   useStacksAccounts,
 } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
+import { Dialog } from '@app/ui/components/containers/dialog/dialog';
 
 import { useLedgerNavigate } from '../../hooks/use-ledger-navigate';
 import { checkLockedDeviceError, useLedgerResponseState } from '../../utils/generic-ledger-utils';
@@ -180,15 +180,13 @@ export function LedgerSignJwtContainer() {
 
   return (
     <LedgerJwtSigningProvider value={ledgerContextValue}>
-      <BaseDrawer
+      <Dialog
         isShowing
         isWaitingOnPerformedAction={awaitingDeviceConnection || canUserCancelAction}
         onClose={onCancelConnectLedger}
-        pauseOnClickOutside
-        waitingOnPerformedActionMessage="Ledger device in use"
       >
         <Outlet />
-      </BaseDrawer>
+      </Dialog>
     </LedgerJwtSigningProvider>
   );
 }

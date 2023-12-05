@@ -6,9 +6,7 @@ import { useFormikContext } from 'formik';
 
 import { isUndefined } from '@shared/utils';
 
-import { useRouteHeader } from '@app/common/hooks/use-route-header';
 import { LoadingSpinner } from '@app/components/loading-spinner';
-import { ModalHeader } from '@app/components/modal-header';
 import { Button } from '@app/ui/components/button/button';
 
 import { SwapContentLayout } from './components/swap-content.layout';
@@ -20,8 +18,6 @@ import { useSwapContext } from './swap.context';
 export function Swap() {
   const { isFetchingExchangeRate, swappableAssetsFrom } = useSwapContext();
   const { dirty, isValid, setFieldValue, values } = useFormikContext<SwapFormValues>();
-
-  useRouteHeader(<ModalHeader defaultGoBack hideActions title="Swap" />, true);
 
   useAsync(async () => {
     if (isUndefined(values.swapAssetFrom))
