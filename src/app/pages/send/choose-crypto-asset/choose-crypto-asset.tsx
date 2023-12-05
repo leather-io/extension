@@ -41,11 +41,7 @@ export function ChooseCryptoAsset() {
 
   useRouteHeader(<ModalHeader hideActions defaultGoBack title=" " />);
 
-  function navigateToSendForm({
-    cryptoAssetBalance,
-  }: {
-    cryptoAssetBalance: AllTransferableCryptoAssetBalances;
-  }) {
+  function navigateToSendForm(cryptoAssetBalance: AllTransferableCryptoAssetBalances) {
     const { asset } = cryptoAssetBalance;
     if (asset.symbol === 'BTC' && !isBitcoinSendEnabled) {
       return navigate(RouteUrls.SendBtcDisabled);
@@ -67,7 +63,7 @@ export function ChooseCryptoAsset() {
   return (
     <ChooseCryptoAssetLayout>
       <CryptoAssetList
-        onItemClick={({ cryptoAssetBalance }) => navigateToSendForm({ cryptoAssetBalance })}
+        onItemClick={cryptoAssetBalance => navigateToSendForm(cryptoAssetBalance)}
         cryptoAssetBalances={allTransferableCryptoAssetBalances.filter(asset =>
           whenWallet({
             ledger: checkBlockchainAvailable(asset.blockchain),

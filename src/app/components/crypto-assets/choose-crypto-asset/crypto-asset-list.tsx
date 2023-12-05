@@ -5,16 +5,16 @@ import { CryptoAssetListLayout } from './crypto-asset-list.layout';
 
 interface CryptoAssetListProps {
   cryptoAssetBalances: AllTransferableCryptoAssetBalances[];
-  onItemClick(props: { cryptoAssetBalance: AllTransferableCryptoAssetBalances }): void;
+  onItemClick(cryptoAssetBalance: AllTransferableCryptoAssetBalances): void;
 }
 export function CryptoAssetList({ cryptoAssetBalances, onItemClick }: CryptoAssetListProps) {
   return (
     <CryptoAssetListLayout>
-      {cryptoAssetBalances.map(assetBalance => (
+      {cryptoAssetBalances.map(cryptoAssetBalance => (
         <CryptoAssetListItem
-          onClick={() => onItemClick({ cryptoAssetBalance: assetBalance })}
-          assetBalance={assetBalance}
-          key={assetBalance.asset.name}
+          onClick={() => onItemClick(cryptoAssetBalance)}
+          assetBalance={cryptoAssetBalance}
+          key={cryptoAssetBalance.asset.name}
         />
       ))}
     </CryptoAssetListLayout>
