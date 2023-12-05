@@ -4,7 +4,7 @@ import { useCurrentNativeSegwitAccount } from '@app/store/accounts/blockchain/bi
 import { useCurrentTaprootAccount } from '@app/store/accounts/blockchain/bitcoin/taproot-account.hooks';
 
 interface CurrentBitcoinAccountLoaderProps {
-  children: (data: { nativeSegwit: BitcoinAccount; taproot: BitcoinAccount }) => React.ReactNode;
+  children(data: { nativeSegwit: BitcoinAccount; taproot: BitcoinAccount }): React.ReactNode;
 }
 export function CurrentBitcoinAccountLoader({ children }: CurrentBitcoinAccountLoaderProps) {
   const nativeSegwit = useCurrentNativeSegwitAccount();

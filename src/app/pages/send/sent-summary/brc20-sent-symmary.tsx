@@ -5,8 +5,8 @@ import get from 'lodash.get';
 
 import { createMoney } from '@shared/models/money.model';
 
-import { HandleOpenTxLinkArgs } from '@app/common/hooks/use-explorer-link';
 import { useRouteHeader } from '@app/common/hooks/use-route-header';
+import { HandleOpenStacksTxLinkArgs } from '@app/common/hooks/use-stacks-explorer-link';
 import { formatMoney } from '@app/common/money/format-money';
 import { openInNewTab } from '@app/common/utils/open-in-new-tab';
 import {
@@ -33,7 +33,7 @@ function useBrc20SentSummaryState() {
     tick: get(location.state, 'tick') as string,
     amount: get(location.state, 'amount') as string,
     txId: get(location.state, 'txId') as string,
-    txLink: get(location.state, 'txLink') as HandleOpenTxLinkArgs,
+    txLink: get(location.state, 'txLink') as HandleOpenStacksTxLinkArgs,
     feeRowValue: get(location.state, 'feeRowValue') as string,
   };
 }

@@ -19,7 +19,7 @@ interface StacksFungibleTokenAssetItemLayoutProps extends FlexProps {
   imageCanonicalUri?: string;
   isPressable?: boolean;
   title: string;
-  onClick?: () => void;
+  onClick?(): void;
 }
 export function StacksFungibleTokenAssetItemLayout({
   avatar,

@@ -4,7 +4,7 @@ import { ButtonProps, LeatherButton } from '@app/ui/components/button';
 
 interface SettingsMenuItemProps extends ButtonProps {
   color?: string;
-  onClick: (e: React.MouseEvent) => void;
+  onClick(e: React.MouseEvent): void;
   children: ReactNode;
 }
 export function SettingsMenuItem({ color, onClick, children, ...props }: SettingsMenuItemProps) {

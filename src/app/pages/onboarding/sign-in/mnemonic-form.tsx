@@ -20,7 +20,7 @@ import { validationSchema } from '../../../components/secret-key/mnemonic-key/ut
 
 interface MnemonicFormProps {
   mnemonic: (string | null)[];
-  setMnemonic: (mnemonic: (string | null)[]) => void;
+  setMnemonic(mnemonic: (string | null)[]): void;
   twentyFourWordMode: boolean;
 }
 export function MnemonicForm({ mnemonic, setMnemonic, twentyFourWordMode }: MnemonicFormProps) {

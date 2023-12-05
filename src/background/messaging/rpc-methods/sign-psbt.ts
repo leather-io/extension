@@ -98,7 +98,7 @@ export async function rpcSignPsbt(message: SignPsbtRequest, port: chrome.runtime
       id: message.id,
       error: {
         code: RpcErrorCode.USER_REJECTION,
-        message: 'User rejected the PSBT request',
+        message: 'User rejected signing PSBT request',
       },
     }),
   });

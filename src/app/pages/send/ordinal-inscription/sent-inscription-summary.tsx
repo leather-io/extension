@@ -1,7 +1,7 @@
 import { toast } from 'react-hot-toast';
 import { useLocation, useNavigate } from 'react-router-dom';
 
-import { Box, Stack } from 'leather-styles/jsx';
+import { Box, HStack, Stack } from 'leather-styles/jsx';
 import get from 'lodash.get';
 
 import { Blockchains } from '@shared/models/blockchain.model';
@@ -9,8 +9,8 @@ import { SupportedInscription } from '@shared/models/inscription.model';
 import { RouteUrls } from '@shared/route-urls';
 
 import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
+import { useBitcoinExplorerLink } from '@app/common/hooks/use-bitcoin-explorer-link';
 import { useClipboard } from '@app/common/hooks/use-copy-to-clipboard';
-import { useExplorerLink } from '@app/common/hooks/use-explorer-link';
 import { FormAddressDisplayer } from '@app/components/address-displayer/form-address-displayer';
 import { BaseDrawer } from '@app/components/drawer/base-drawer';
 import {
@@ -47,7 +47,7 @@ export function SendInscriptionSummary() {
   };
 
   const { onCopy } = useClipboard(txid || '');
-  const { handleOpenTxLink } = useExplorerLink();
+  const { handleOpenBitcoinTxLink: handleOpenTxLink } = useBitcoinExplorerLink();
   const analytics = useAnalytics();
 
   function onClickLink() {
@@ -79,14 +79,14 @@ export function SendInscriptionSummary() {
           <InfoCardRow title="Fee" value={feeRowValue} />
         </Stack>
 
-        <Stack gap="space.04" width="100%">
+        <HStack gap="space.04" width="100%">
           <InfoCardBtn
             onClick={onClickLink}
             icon={<ExternalLinkIcon size="14px" />}
             label="View details"
           />
           <InfoCardBtn onClick={onClickCopy} icon={<CopyIcon size="14px" />} label="Copy ID" />
-        </Stack>
+        </HStack>
       </InfoCard>
     </BaseDrawer>
   );

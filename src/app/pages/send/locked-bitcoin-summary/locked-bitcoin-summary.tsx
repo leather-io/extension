@@ -4,8 +4,8 @@ import { useLocation } from 'react-router-dom';
 import { HStack, styled } from 'leather-styles/jsx';
 
 import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
+import { useBitcoinExplorerLink } from '@app/common/hooks/use-bitcoin-explorer-link';
 import { useClipboard } from '@app/common/hooks/use-copy-to-clipboard';
-import { useExplorerLink } from '@app/common/hooks/use-explorer-link';
 import { useRouteHeader } from '@app/common/hooks/use-route-header';
 import { satToBtc } from '@app/common/money/unit-conversion';
 import {
@@ -25,7 +25,7 @@ export function LockBitcoinSummary() {
   const { txId, txMoney, txFiatValue, txFiatValueSymbol, symbol, txLink } = state;
 
   const { onCopy } = useClipboard(txId);
-  const { handleOpenTxLink } = useExplorerLink();
+  const { handleOpenBitcoinTxLink: handleOpenTxLink } = useBitcoinExplorerLink();
   const analytics = useAnalytics();
 
   function onClickLink() {

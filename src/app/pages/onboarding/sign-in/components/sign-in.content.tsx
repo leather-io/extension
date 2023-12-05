@@ -6,7 +6,7 @@ export function SignInContent({
   onClick,
   twentyFourWordMode,
 }: {
-  onClick: () => void;
+  onClick(): void;
   twentyFourWordMode: boolean;
 }): React.JSX.Element {
   return (

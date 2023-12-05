@@ -45,9 +45,10 @@ export function CustomFeeField({
         justifyContent="center"
         position="relative"
         width="130px"
+        textStyle="label.02"
       >
-        <styled.label htmlFor="fee" position="absolute" right={2} zIndex={999}>
-          <styled.span textStyle="label.02">{feeCurrencySymbol}</styled.span>
+        <styled.label htmlFor="fee" position="absolute" right={4} zIndex={999}>
+          {feeCurrencySymbol}
         </styled.label>
         <styled.input
           autoComplete="off"
@@ -58,8 +59,8 @@ export function CustomFeeField({
           height="32px"
           name="fee"
           disabled={disableFeeSelection}
-          onChange={async (evt: FormEvent<HTMLInputElement>) => {
-            await helpers.setValue(evt.currentTarget.value);
+          onChange={(evt: FormEvent<HTMLInputElement>) => {
+            void helpers.setValue(evt.currentTarget.value);
             // Separating warning check from field validations
             // bc we want the user to be able to submit the form
             // with the low fee warning present.
@@ -69,7 +70,6 @@ export function CustomFeeField({
           placeholder="0"
           ring="none"
           textAlign="right"
-          textStyle="label.02"
           value={field.value}
         />
       </Flex>

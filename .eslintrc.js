@@ -81,6 +81,7 @@ module.exports = {
     '@typescript-eslint/no-unnecessary-condition': 'off',
     '@typescript-eslint/consistent-type-definitions': ['error', 'interface'],
     '@typescript-eslint/array-type': ['error'],
+    '@typescript-eslint/method-signature-style': ['error', 'method'],
     'no-warning-comments': [0],
 
     'react-hooks/rules-of-hooks': 'error',

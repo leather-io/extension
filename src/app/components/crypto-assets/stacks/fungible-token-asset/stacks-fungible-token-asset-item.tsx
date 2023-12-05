@@ -15,7 +15,7 @@ interface StacksFungibleTokenAssetItemProps extends FlexProps {
   assetBalance: StacksFungibleTokenAssetBalance;
   unanchoredAssetBalance?: Money;
   isPressable?: boolean;
-  onClick?: () => void;
+  onClick?(): void;
 }
 export function StacksFungibleTokenAssetItem({
   assetBalance,

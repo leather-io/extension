@@ -1,7 +1,7 @@
 import { StacksTransaction } from '@stacks/transactions';
 import { Box, HStack, Stack } from 'leather-styles/jsx';
 
-import { useExplorerLink } from '@app/common/hooks/use-explorer-link';
+import { useStacksExplorerLink } from '@app/common/hooks/use-stacks-explorer-link';
 import { getTxSenderAddress } from '@app/common/transactions/stacks/transaction.utils';
 import { usePressable } from '@app/components/item-hover';
 import { Tooltip } from '@app/components/tooltip';
@@ -18,7 +18,7 @@ interface SubmittedTransactionItemProps {
 }
 export function SubmittedTransactionItem({ transaction, txId }: SubmittedTransactionItemProps) {
   const [component, bind] = usePressable(true);
-  const { handleOpenTxLink } = useExplorerLink();
+  const { handleOpenStacksTxLink: handleOpenTxLink } = useStacksExplorerLink();
 
   if (!transaction) return null;
 
@@ -38,7 +38,6 @@ export function SubmittedTransactionItem({ transaction, txId }: SubmittedTransac
         alignItems="center"
         onClick={() =>
           handleOpenTxLink({
-            blockchain: 'stacks',
             suffix: `&submitted=true`,
             txid: txId,
           })

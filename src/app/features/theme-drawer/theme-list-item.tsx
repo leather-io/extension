@@ -6,7 +6,7 @@ import { ThemeListItemLayout } from './theme-list-item-layout';
 
 interface ThemeListItemProps {
   theme: UserSelectedTheme;
-  onThemeSelected: (theme: UserSelectedTheme) => void;
+  onThemeSelected(theme: UserSelectedTheme): void;
   isActive: boolean;
 }
 export function ThemeListItem({ theme, onThemeSelected, isActive }: ThemeListItemProps) {

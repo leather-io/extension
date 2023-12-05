@@ -16,7 +16,7 @@ interface BitcoinContractEntryPointLayoutProps {
   usdBalance?: string;
   isLoading?: boolean;
   cursor?: 'pointer' | 'default';
-  onClick: () => void;
+  onClick(): void;
 }
 export function BitcoinContractEntryPointLayout(props: BitcoinContractEntryPointLayoutProps) {
   const { balance, caption, icon, usdBalance, isLoading, cursor, onClick } = props;
