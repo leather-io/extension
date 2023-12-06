@@ -26,6 +26,7 @@ test.describe('Sign PSBT', () => {
   function clickActionButton(context: BrowserContext) {
     return async (buttonToPress: 'Cancel' | 'Confirm') => {
       const popup = await context.waitForEvent('page');
+      await popup.waitForTimeout(1000);
       const btn = popup.locator(`text="${buttonToPress}"`);
       await btn.click();
     };

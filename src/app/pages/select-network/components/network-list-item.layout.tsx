@@ -30,30 +30,25 @@ export function NetworkListItemLayout({
 }: NetworkListItemLayoutProps) {
   const unSelectable = !isOnline || isActive;
   return (
-    <Box
-      width="100%"
-      key={networkId}
-      _hover={
-        unSelectable
-          ? undefined
-          : {
-              backgroundColor: 'accent.component-background-hover',
-            }
-      }
-      px="space.05"
-      py="space.04"
-      onClick={unSelectable ? undefined : onSelectNetwork}
-      cursor={!isOnline ? 'not-allowed' : isActive ? 'default' : 'pointer'}
-      opacity={!isOnline ? 0.5 : 1}
-      data-testid={SettingsSelectors.NetworkListItem}
-    >
-      <Flex>
-        <Flex
-          width="100%"
-          justifyContent="space-between"
-          alignItems="center"
-          data-testid={network.id}
-        >
+    <Flex data-testid={SettingsSelectors.NetworkListItem}>
+      <Box
+        width="100%"
+        key={networkId}
+        _hover={
+          unSelectable
+            ? undefined
+            : {
+                backgroundColor: 'accent.component-background-hover',
+              }
+        }
+        px="space.05"
+        py="space.04"
+        onClick={unSelectable ? undefined : onSelectNetwork}
+        cursor={!isOnline ? 'not-allowed' : isActive ? 'default' : 'pointer'}
+        opacity={!isOnline ? 0.5 : 1}
+        data-testid={network.id}
+      >
+        <Flex width="100%" justifyContent="space-between" alignItems="center">
           <Stack alignItems="flex-start" flex={1} gap="space.02">
             <styled.span mb="space.01" textStyle="label.01">
               {network.name}
@@ -76,7 +71,7 @@ export function NetworkListItemLayout({
             <TrashIcon />
           </LeatherButton>
         )}
-      </Flex>
-    </Box>
+      </Box>
+    </Flex>
   );
 }
