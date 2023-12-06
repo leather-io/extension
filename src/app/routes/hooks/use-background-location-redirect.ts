@@ -11,18 +11,21 @@ import { useLocationState } from '@app/common/hooks/use-location-state';
  */
 
 export function useBackgroundLocationRedirect(baseUrl = RouteUrls.Home) {
-  const { pathname, state } = useLocation();
+  const { pathname, state, search } = useLocation();
   const navigate = useNavigate();
   const backgroundLocation = useLocationState('backgroundLocation');
 
   useEffect(() => {
     void (async () => {
       if (backgroundLocation === undefined) {
-        return navigate(pathname, {
-          state: { backgroundLocation: { pathname: baseUrl }, ...state },
-        });
+        return navigate(
+          { pathname, search },
+          {
+            state: { backgroundLocation: { pathname: baseUrl }, ...state },
+          }
+        );
       }
       return false;
     })();
-  }, [backgroundLocation, baseUrl, navigate, pathname, state]);
+  }, [backgroundLocation, baseUrl, navigate, pathname, state, search]);
 }
