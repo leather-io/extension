@@ -1,6 +1,7 @@
 import { useAsync } from 'react-async-hook';
 import { Outlet } from 'react-router-dom';
 
+import { SwapSelectors } from '@tests/selectors/swap.selectors';
 import { useFormikContext } from 'formik';
 
 import { isUndefined } from '@shared/utils';
@@ -37,6 +38,7 @@ export function Swap() {
       </SwapContentLayout>
       <SwapFooterLayout>
         <LeatherButton
+          data-testid={SwapSelectors.SwapReviewBtn}
           disabled={!(dirty && isValid) || isFetchingExchangeRate}
           type="submit"
           width="100%"
