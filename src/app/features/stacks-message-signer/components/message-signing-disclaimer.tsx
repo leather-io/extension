@@ -1,7 +1,7 @@
 import { Disclaimer } from '@app/components/disclaimer';
 
 interface DisclaimerProps {
-  appName?: string;
+  appName?: string | null;
 }
 export function StacksMessageSigningDisclaimer({ appName }: DisclaimerProps) {
   return (

@@ -23,6 +23,7 @@ import {
   noneCV,
   responseErrorCV,
   responseOkCV,
+  serializeCV,
   someCV,
   standardPrincipalCV,
   stringAsciiCV,
@@ -122,6 +123,17 @@ export const Signature = () => {
       },
     });
   };
+
+  const signMessageRpc = async (message: string) => {
+    clearState();
+    setCurrentMessage(message);
+
+    await window.btc?.request('stx_signMessage', {
+      message,
+      messageType: 'utf8',
+    });
+  };
+
   const domain = tupleCV({
     name: stringAsciiCV('hiro.so'),
     version: stringAsciiCV('1.0.0'),
@@ -146,6 +158,21 @@ export const Signature = () => {
       onCancel: () => {
         console.log('popup closed!');
       },
+    });
+  };
+
+  const signStructureRpc = async (message: ClarityValue, domain: TupleCV) => {
+    clearState();
+    setCurrentStructuredData({ message, domain });
+
+    // ClarityValue -> Uint8Array -> Buffer -> string (hex)
+    const stringMessage = Buffer.from(serializeCV(message)).toString('hex');
+    const stringDomain = Buffer.from(serializeCV(domain)).toString('hex');
+
+    await window.btc?.request('stx_signMessage', {
+      message: stringMessage,
+      messageType: 'structured',
+      domain: stringDomain,
     });
   };
 
@@ -204,6 +231,17 @@ export const Signature = () => {
       <span>
         expected hash : '1bfdab6d4158313ce34073fbb8d6b0fc32c154d439def12247a0f44bb2225259'
       </span>
+      <br />
+      <hr style={{ margin: '10px' }} />
+      <span>RPC</span>
+      <br />
+      <styled.button mt={3} onClick={() => signMessageRpc(signatureMessage)}>
+        Signature RPC (Testnet)
+      </styled.button>
+      <br />
+      <styled.button mt={3} onClick={() => signStructureRpc(structuredData, domain)}>
+        Signature Structure RPC (Testnet)
+      </styled.button>
     </Box>
   );
 };
