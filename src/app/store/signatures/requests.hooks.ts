@@ -1,7 +1,6 @@
 import { useMemo } from 'react';
 
 import { SignedMessageType } from '@shared/signature/signature-types';
-import { isString } from '@shared/utils';
 
 import { useDefaultRequestParams } from '@app/common/hooks/use-default-request-search-params';
 import { initialSearchParams } from '@app/common/initial-search-params';
@@ -16,7 +15,7 @@ export function useSignatureRequestSearchParams() {
     const messageType = initialSearchParams.get('messageType') as SignedMessageType;
 
     return {
-      tabId: isString(tabId) ? parseInt(tabId, 10) : tabId,
+      tabId,
       requestToken,
       origin,
       messageType,
