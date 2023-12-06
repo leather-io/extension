@@ -1,5 +1,6 @@
 import { ChangeEvent } from 'react';
 
+import { SwapSelectors } from '@tests/selectors/swap.selectors';
 import BigNumber from 'bignumber.js';
 import { useField, useFormikContext } from 'formik';
 import { Stack, styled } from 'leather-styles/jsx';
@@ -60,6 +61,7 @@ export function SwapAmountField({ amountAsFiat, isDisabled, name }: SwapAmountFi
         bg="accent.background-primary"
         border="none"
         color={showError ? 'error.label' : 'accent.text-primary'}
+        data-testid={SwapSelectors.SwapAmountInput}
         display="block"
         disabled={isDisabled || isFetchingExchangeRate}
         id={name}
