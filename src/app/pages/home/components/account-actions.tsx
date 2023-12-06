@@ -43,7 +43,12 @@ export function AccountActions(props: FlexProps) {
         />
       )}
 
-      <ActionButton icon={<SwapIcon />} label="Swap" onClick={() => navigate(RouteUrls.Swap)} />
+      <ActionButton
+        data-testid={HomePageSelectors.SwapBtn}
+        icon={<SwapIcon />}
+        label="Swap"
+        onClick={() => navigate(RouteUrls.Swap)}
+      />
     </Flex>
   );
 }
