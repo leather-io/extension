@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { toast } from 'react-hot-toast';
+import { Outlet } from 'react-router-dom';
 import { useLocation, useNavigate } from 'react-router-dom';
 
 import { Stack } from 'leather-styles/jsx';
@@ -130,26 +131,29 @@ export function BrcChooseFee() {
       <LoadingSpinner />
     </Stack>
   ) : (
-    <BitcoinChooseFee
-      amount={amountAsMoney}
-      feesList={
-        <BitcoinFeesList
-          feesList={feesList}
-          onChooseFee={previewTransaction}
-          onSetSelectedFeeType={(value: BtcFeeType | null) => setSelectedFeeType(value)}
-          onValidateBitcoinSpend={onValidateBitcoinFeeSpend}
-          selectedFeeType={selectedFeeType}
-        />
-      }
-      isLoading={isLoading}
-      isSendingMax={false}
-      onChooseFee={previewTransaction}
-      onSetSelectedFeeType={(value: BtcFeeType | null) => setSelectedFeeType(value)}
-      onValidateBitcoinSpend={onValidateBitcoinFeeSpend}
-      recommendedFeeRate={recommendedFeeRate}
-      recipient={recipient}
-      showError={showInsufficientBalanceError}
-      maxRecommendedFeeRate={feesList[0]?.feeRate}
-    />
+    <>
+      <BitcoinChooseFee
+        amount={amountAsMoney}
+        feesList={
+          <BitcoinFeesList
+            feesList={feesList}
+            onChooseFee={previewTransaction}
+            onSetSelectedFeeType={(value: BtcFeeType | null) => setSelectedFeeType(value)}
+            onValidateBitcoinSpend={onValidateBitcoinFeeSpend}
+            selectedFeeType={selectedFeeType}
+          />
+        }
+        isLoading={isLoading}
+        isSendingMax={false}
+        onChooseFee={previewTransaction}
+        onSetSelectedFeeType={(value: BtcFeeType | null) => setSelectedFeeType(value)}
+        onValidateBitcoinSpend={onValidateBitcoinFeeSpend}
+        recommendedFeeRate={recommendedFeeRate}
+        recipient={recipient}
+        showError={showInsufficientBalanceError}
+        maxRecommendedFeeRate={feesList[0]?.feeRate}
+      />
+      <Outlet />
+    </>
   );
 }
