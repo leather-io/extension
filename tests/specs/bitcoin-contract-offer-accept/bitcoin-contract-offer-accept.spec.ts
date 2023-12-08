@@ -22,8 +22,7 @@ test.describe('Bitcoin Contract Request Test', () => {
     await homePage.clickSettingsButton();
     await page.getByTestId(SettingsSelectors.ChangeNetworkAction).click();
     await page.locator(`text="Testnet"`).click();
-    await page.goto('https://leather.io');
-    await page.waitForLoadState('networkidle');
+    await page.goto('localhost:3000', { waitUntil: 'networkidle' });
   });
 
   function initiateOfferRequest(page: Page) {
