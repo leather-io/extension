@@ -21,7 +21,7 @@ export const Deploy = () => {
     });
   return (
     <Box mb={6} maxWidth="600px" mt={6}>
-      <styled.h2 fontSize={5} mt={6}>
+      <styled.h2 textStyle="body.02" mt={6}>
         Contract Deploy
       </styled.h2>
       <styled.span display="block" my={4}>

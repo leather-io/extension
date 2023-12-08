@@ -361,7 +361,7 @@ export const Debugger = () => {
       </styled.span>
       {txId && (
         <styled.span>
-          <styled.span color="green" fontSize={1} data-testid="status-message">
+          <styled.span color="green" textStyle="body.02" data-testid="status-message">
             Successfully broadcasted &quot;{txType}&quot;
           </styled.span>
           <ExplorerLink txId={txId} />

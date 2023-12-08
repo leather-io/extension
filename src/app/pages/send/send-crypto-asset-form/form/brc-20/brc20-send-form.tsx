@@ -1,7 +1,7 @@
 import { Outlet, useLocation } from 'react-router-dom';
 
 import { Form, Formik } from 'formik';
-import { Box } from 'leather-styles/jsx';
+import { Box, styled } from 'leather-styles/jsx';
 import get from 'lodash.get';
 
 import { openInNewTab } from '@app/common/utils/open-in-new-tab';
@@ -63,22 +63,20 @@ export function Brc20SendForm() {
                 />
                 <SelectedAssetField icon={<Brc20TokenIcon />} name={tick} symbol={tick} />
                 <InfoLabel title="Sending BRC-20 tokens requires two steps">
-                  {'1. Create transfer inscription with amount to send'}
-                  <br />
-                  {'2. Send transfer inscription to recipient of choice'}
-                  <br /> <br />
+                  <styled.ol mb="space.02">
+                    <li>1. Create transfer inscription with amount to send</li>
+                    <li>2. Send transfer inscription to recipient of choice</li>
+                  </styled.ol>
                   <LeatherButton
                     onClick={() => {
                       openInNewTab(
                         'https://leather.gitbook.io/guides/bitcoin/sending-brc-20-tokens'
                       );
                     }}
-                    fontSize={1}
-                    fontWeight={500}
-                    lineHeight="1.6"
+                    textStyle="body.02"
                     variant="link"
                   >
-                    {'Learn more'}
+                    Learn more
                   </LeatherButton>
                 </InfoLabel>
               </SendCryptoAssetFormLayout>

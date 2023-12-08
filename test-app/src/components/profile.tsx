@@ -39,7 +39,7 @@ export const Profile = () => {
     <Box py={6}>
       {updatedProfile && (
         <styled.span textStyle="body.large" display="block" my="space.04">
-          <styled.span color="green" fontSize={1}>
+          <styled.span color="green">
             Profile {updatedProfile.profile ? 'successfully ' : 'not'} updated
           </styled.span>
           <styled.span>
