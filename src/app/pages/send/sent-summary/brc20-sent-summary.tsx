@@ -1,6 +1,6 @@
 import { useLocation, useNavigate } from 'react-router-dom';
 
-import { HStack, Stack } from 'leather-styles/jsx';
+import { HStack, Stack, styled } from 'leather-styles/jsx';
 import get from 'lodash.get';
 
 import { createMoney } from '@shared/models/money.model';
@@ -57,19 +57,19 @@ export function Brc20SentSummary() {
 
       <Stack px="space.06" pb="space.06" width="100%">
         <InfoLabel mb="space.05" title="One more step is required to send tokens">
-          {`You'll need to send the transfer inscription to your recipient of choice from the home screen once its status changes to "Ready to send"`}
-          <br />
-          <br />
+          <styled.span mb="space.02">
+            You'll need to send the transfer inscription to your recipient of choice from the home
+            screen once its status changes to "Ready to send"
+          </styled.span>
+
           <LeatherButton
-            fontSize={1}
-            fontWeight={500}
-            lineHeight="1.6"
+            textStyle="body.02"
             onClick={() => {
               openInNewTab('https://leather.gitbook.io/guides/bitcoin/sending-brc-20-tokens');
             }}
             variant="link"
           >
-            {'Learn more'}
+            Learn more
           </LeatherButton>
         </InfoLabel>
         <InfoCardSeparator />

@@ -51,10 +51,9 @@ export function LockBitcoinSummary() {
         symbol={symbol}
         value={Number(satToBtc(txMoney.amount))}
       />
-      <styled.span fontSize={2} fontWeight={200} p="space.05" textAlign="justify">
-        <styled.span style={{ fontWeight: 500 }}>Success!</styled.span> Your bitcoin has been locked
-        securely. All that's left is for it to be confirmed on the blockchain. After confirmation,
-        you can proceed with borrowing against it.
+      <styled.span textStyle="body.02" p="space.05" textAlign="justify">
+        <b>Success!</b> Your bitcoin has been locked securely. All that's left is for it to be
+        confirmed on the blockchain. After confirmation, you can proceed with borrowing against it.
       </styled.span>
       <InfoCardFooter>
         <HStack gap="space.04" width="100%">

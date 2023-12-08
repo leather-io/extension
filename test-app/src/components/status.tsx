@@ -177,7 +177,7 @@ export const Status = () => {
       )}
 
       {error && (
-        <styled.span display="block" color="red" width="100%" fontSize={1} mt={2}>
+        <styled.span display="block" color="red" width="100%" mt={2}>
           {error}
         </styled.span>
       )}
