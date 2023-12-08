@@ -16,10 +16,10 @@ import {
   BitcoinInputSigningConfig,
   getAssumedZeroIndexSigningConfig,
 } from '@shared/crypto/bitcoin/signer-config';
-import { logger } from '@shared/logger';
 import { allSighashTypes } from '@shared/rpc/methods/sign-psbt';
 import { isNumber, makeNumberRange } from '@shared/utils';
 
+import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
 import { useWalletType } from '@app/common/use-wallet-type';
 import { listenForBitcoinTxLedgerSigning } from '@app/features/ledger/flows/bitcoin-tx-signing/bitcoin-tx-signing-event-listeners';
 import { useLedgerNavigate } from '@app/features/ledger/hooks/use-ledger-navigate';
@@ -72,7 +72,6 @@ export function useZeroIndexTaprootAddress(accIndex?: number) {
 function useSignBitcoinSoftwareTx() {
   const createNativeSegwitSigner = useCurrentAccountNativeSegwitSigner();
   const createTaprootSigner = useCurrentAccountTaprootSigner();
-  const network = useCurrentNetwork();
 
   return async (psbt: Uint8Array, inputSigningConfig: BitcoinInputSigningConfig[]) => {
     const tx = btc.Transaction.fromPSBT(psbt);
@@ -85,20 +84,16 @@ function useSignBitcoinSoftwareTx() {
 
       if (!nativeSegwitSigner || !taprootSigner) throw new Error('Signers not available');
 
-      const input = tx.getInput(index);
-      const addressType = getInputPaymentType(index, input, network.chain.bitcoin.bitcoinNetwork);
-
-      switch (addressType) {
-        case 'p2tr': {
+      // See #4628.
+      // Our API doesn't support users specifying which key they want to sign
+      // with. Until we support this, we sign with both, as in some cases, e.g.
+      // Asigna, the Native Segwit key is used to sign a multisig taproot input
+      try {
+        nativeSegwitSigner.signIndex(tx, index, allSighashTypes);
+      } catch (e) {
+        try {
           taprootSigner.signIndex(tx, index, allSighashTypes);
-          break;
-        }
-        case 'p2wpkh': {
-          nativeSegwitSigner.signIndex(tx, index, allSighashTypes);
-          break;
-        }
-        default:
-          logger.warn('Cannot sign input of address type ' + addressType);
+        } catch (er) {}
       }
     });
 
@@ -205,18 +200,21 @@ export function useSignLedgerBitcoinTx() {
 
 export function useAddTapInternalKeysIfMissing() {
   const createTaprootSigner = useCurrentAccountTaprootSigner();
-  return (tx: btc.Transaction, inputIndexes: BitcoinInputSigningConfig[]) => {
+  const analytics = useAnalytics();
+  return (tx: btc.Transaction, inputIndexes: BitcoinInputSigningConfig[]) =>
     inputIndexes.forEach(({ index, derivationPath }) => {
       const taprootSigner = createTaprootSigner?.(extractAddressIndexFromPath(derivationPath));
       if (!taprootSigner) throw new Error('Taproot signer not found');
       const input = tx.getInput(index);
+
       const witnessOutputScript =
         input.witnessUtxo?.script && btc.OutScript.decode(input.witnessUtxo.script);
 
-      if (taprootSigner && witnessOutputScript?.type === 'tr' && !input.tapInternalKey)
+      if (taprootSigner && witnessOutputScript?.type === 'tr' && !input.tapInternalKey) {
+        void analytics.track('psbt_sign_request_p2tr_missing_taproot_internal_key');
         tx.updateInput(index, { ...input, tapInternalKey: taprootSigner.payment.tapInternalKey });
+      }
     });
-  };
 }
 
 export function useGetAssumedZeroIndexSigningConfig() {
@@ -238,8 +236,8 @@ export function useSignBitcoinTx() {
   const getDefaultSigningConfig = useGetAssumedZeroIndexSigningConfig();
 
   /**
-   * Don't forget to finalize the tx once it's returned. You can broadcast with
-   * the hex value from `tx.hex`.
+   * Bitcoin signing function. Don't forget to finalize the tx once it's
+   * returned. You can broadcast with the hex value from `tx.hex`.
    */
   return (psbt: Uint8Array, inputsToSign?: BitcoinInputSigningConfig[] | number[]) => {
     function getSigningConfig(inputsToSign?: BitcoinInputSigningConfig[] | number[]) {
