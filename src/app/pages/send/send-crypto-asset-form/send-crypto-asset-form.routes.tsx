@@ -71,7 +71,9 @@ export const sendCryptoAssetFormRoutes = (
       <Route path={RouteUrls.SentBtcTxSummary} element={<BtcSentSummary />} />
 
       <Route path={RouteUrls.SendBrc20SendForm} element={<Brc20SendForm />} />
-      <Route path={RouteUrls.SendBrc20ChooseFee} element={<BrcChooseFee />} />
+      <Route path={RouteUrls.SendBrc20ChooseFee} element={<BrcChooseFee />}>
+        {ledgerBitcoinTxSigningRoutes}
+      </Route>
       <Route path={RouteUrls.SendBrc20Confirmation} element={<Brc20SendFormConfirmation />} />
       <Route path={RouteUrls.SentBrc20Summary} element={<Brc20SentSummary />} />
     </Route>
