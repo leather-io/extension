@@ -14,7 +14,7 @@ test.describe('Transaction signing', () => {
   test.beforeEach(async ({ extensionId, globalPage, onboardingPage, page }) => {
     await globalPage.setupAndUseApiCalls(extensionId);
     await onboardingPage.signInWithTestAccount(extensionId);
-    await page.goto('https://leather.io');
+    await page.goto('localhost:3000', { waitUntil: 'networkidle' });
   });
 
   function checkVisibleContent(context: BrowserContext) {
