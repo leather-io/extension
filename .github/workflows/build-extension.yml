@@ -29,7 +29,8 @@ jobs:
       - pre-run
     strategy:
       matrix:
-        target: [chromium, firefox]
+        # Firefox removed while off store
+        target: [chromium]
     steps:
       - uses: actions/checkout@v4
         with:
@@ -65,7 +66,12 @@ jobs:
       - pre-run
       - build
     steps:
+      - name: Extract branch name
+        shell: bash
+        run: echo "branch=${GITHUB_HEAD_REF:-${GITHUB_REF#refs/heads/}}" >> $GITHUB_OUTPUT
+        id: extract_branch
+
       - uses: kyranjamie/pull-request-fixed-header@v1.0.1
         with:
-          header: '> Try out this version of Leather — [download extension builds](https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}).'
+          header: '> Try out this version of Leather — [Extension build](https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}), [Test report](https://leather-wallet.github.io/playwright-reports/${{ steps.extract_branch.outputs.branch }})'
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
