@@ -1,4 +1,4 @@
-name: GH pages
+name: Publish unit test coverage
 
 on:
   push:
