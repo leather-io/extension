@@ -4,20 +4,20 @@ import { useFormikContext } from 'formik';
 
 import { StacksSendFormValues, StacksTransactionFormValues } from '@shared/models/form.model';
 
-import { useNextNonce } from '@app/query/stacks/nonce/account-nonces.hooks';
+import { usePersistedNonce } from './use-persisted-nonce';
 
 export function NonceSetter() {
   const { setFieldValue, touched, values } = useFormikContext<
     StacksSendFormValues | StacksTransactionFormValues
   >();
-  const { data: nextNonce } = useNextNonce();
+  const { persistedNonce } = usePersistedNonce();
 
   useAsync(async () => {
-    if (nextNonce?.nonce && !touched.nonce && values.nonce !== nextNonce.nonce) {
-      return await setFieldValue('nonce', nextNonce?.nonce);
+    if (persistedNonce && !touched.nonce && values.nonce !== persistedNonce) {
+      return await setFieldValue('nonce', persistedNonce);
     }
     return;
-  }, [nextNonce?.nonce]);
+  }, [persistedNonce]);
 
   return <></>;
 }

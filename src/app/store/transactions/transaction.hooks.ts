@@ -18,6 +18,7 @@ import BN from 'bn.js';
 import { finalizeTxSignature } from '@shared/actions/finalize-tx-signature';
 import { logger } from '@shared/logger';
 import { StacksTransactionFormValues } from '@shared/models/form.model';
+import { closeWindow } from '@shared/utils';
 import { isString, isUndefined } from '@shared/utils';
 
 import { useDefaultRequestParams } from '@app/common/hooks/use-default-request-search-params';
@@ -31,6 +32,7 @@ import {
 import { useWalletType } from '@app/common/use-wallet-type';
 import { listenForStacksTxLedgerSigning } from '@app/features/ledger/flows/stacks-tx-signing/stacks-tx-signing-event-listeners';
 import { useLedgerNavigate } from '@app/features/ledger/hooks/use-ledger-navigate';
+import { usePersistedNonce } from '@app/features/nonce/use-persisted-nonce';
 import { useNextNonce } from '@app/query/stacks/nonce/account-nonces.hooks';
 import {
   useCurrentAccountStxAddressState,
@@ -101,6 +103,7 @@ export function useStacksTransactionBroadcast() {
   const requestToken = useTransactionRequest();
   const attachment = useTransactionAttachment();
   const network = useCurrentNetworkState();
+  const { incrementPersistedNonce } = usePersistedNonce();
 
   return async ({ signedTx }: { signedTx: StacksTransaction }) => {
     try {
@@ -125,6 +128,8 @@ export function useStacksTransactionBroadcast() {
       // Otherwise, it's a send form tx and we don't want to
       if (requestToken && tabId) {
         finalizeTxSignature({ requestPayload: requestToken, tabId, data: result });
+        await incrementPersistedNonce();
+        closeWindow();
       }
       return Promise.resolve();
     } catch (error) {

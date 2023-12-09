@@ -17,7 +17,7 @@ import { isDefined, isUndefined } from '@shared/utils';
 
 import { LoadingKeys, useLoading } from '@app/common/hooks/use-loading';
 import { useWalletType } from '@app/common/use-wallet-type';
-import { NonceSetter } from '@app/components/nonce-setter';
+import { NonceSetter } from '@app/features/nonce/nonce-setter';
 import { defaultFeesMinValues } from '@app/query/stacks/fees/fees.hooks';
 import { useStacksPendingTransactions } from '@app/query/stacks/mempool/mempool.hooks';
 import { useCurrentStacksAccount } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';

@@ -12,6 +12,7 @@ import { useOnWalletLock } from '@app/routes/hooks/use-on-wallet-lock';
 import { useHasStateRehydrated } from '@app/store';
 import { useRouteHeaderState } from '@app/store/ui/ui.hooks';
 
+import { usePersistedNonce } from '../nonce/use-persisted-nonce';
 import { useRestoreFormState } from '../popup-send-form-restoration/use-restore-form-state';
 import { SettingsDropdown } from '../settings-dropdown/settings-dropdown';
 import { SwitchAccountDrawer } from '../switch-account-drawer/switch-account-drawer';
@@ -25,6 +26,7 @@ export function Container() {
 
   useOnWalletLock(() => closeWindow());
   useOnSignOut(() => closeWindow());
+  usePersistedNonce();
   useRestoreFormState();
   useInitalizeAnalytics();
 

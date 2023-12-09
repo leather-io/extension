@@ -12,8 +12,8 @@ import { RouteUrls } from '@shared/route-urls';
 
 import { EditNonceButton } from '@app/components/edit-nonce-button';
 import { FeesRow } from '@app/components/fees-row/fees-row';
-import { NonceSetter } from '@app/components/nonce-setter';
 import { HighFeeDrawer } from '@app/features/high-fee-drawer/high-fee-drawer';
+import { NonceSetter } from '@app/features/nonce/nonce-setter';
 import { useUpdatePersistedSendFormValues } from '@app/features/popup-send-form-restoration/use-update-persisted-send-form-values';
 
 import { FormFooter } from '../../components/form-footer';
