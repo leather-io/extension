@@ -1,5 +1,7 @@
 import { defineConfig, devices } from '@playwright/test';
 
+console.log('Branch: ', process.env.GITHUB_HEAD_REF);
+
 /**
  * See https://playwright.dev/docs/test-configuration
  */
@@ -17,7 +19,9 @@ export default defineConfig({
     [process.env.CI ? 'blob' : 'html', { open: 'never' }],
   ],
   use: {
-    trace: 'on-first-retry',
+    // Traces are heavy so we want to use them sparingly, but having full trace
+    // to reference of the latest dev build is useful to inspect.
+    trace: process.env.GITHUB_HEAD_REF === 'dev' ? 'on' : 'on-first-retry',
   },
   projects: [
     {
