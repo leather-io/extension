@@ -10,9 +10,13 @@ export type ButtonProps = Omit<
   ButtonVariantProps;
 
 export function LeatherButton(props: ButtonProps) {
-  const { children, variant, fullWidth, invert, type = 'button', ...rest } = props;
+  const { children, variant, fullWidth, invert, size, type = 'button', ...rest } = props;
   return (
-    <StyledButton className={buttonRecipe({ variant, fullWidth, invert })} type={type} {...rest}>
+    <StyledButton
+      className={buttonRecipe({ variant, fullWidth, size, invert })}
+      type={type}
+      {...rest}
+    >
       {children}
     </StyledButton>
   );

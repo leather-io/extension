@@ -110,13 +110,6 @@ jobs:
       - name: Merge into HTML Report
         run: npx playwright merge-reports --reporter html ./all-blob-reports
 
-      - name: Upload HTML report
-        uses: actions/upload-artifact@v3
-        with:
-          name: html-report--attempt-${{ github.run_attempt }}
-          path: playwright-report
-          retention-days: 14
-
       - name: Extract branch name
         shell: bash
         run: echo "branch=${GITHUB_HEAD_REF:-${GITHUB_REF#refs/heads/}}" >> $GITHUB_OUTPUT

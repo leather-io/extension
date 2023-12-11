@@ -9,6 +9,7 @@ import { useRouteHeader } from '@app/common/hooks/use-route-header';
 import { Header } from '@app/components/header';
 import { ActivityList } from '@app/features/activity-list/activity-list';
 import { AssetsList } from '@app/features/asset-list/asset-list';
+import { FeedbackButton } from '@app/features/feedback-button/feedback-button';
 import { InAppMessages } from '@app/features/hiro-messages/in-app-messages';
 import { homePageModalRoutes } from '@app/routes/app-routes';
 import { ModalBackgroundWrapper } from '@app/routes/components/modal-background-wrapper';
@@ -37,6 +38,7 @@ export function Home() {
 
   return (
     <HomeLayout currentAccount={<CurrentAccount />}>
+      <FeedbackButton />
       <HomeTabs>
         <ModalBackgroundWrapper>
           <Route index element={<AssetsList />} />
