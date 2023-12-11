@@ -32,7 +32,13 @@ export function Collectibles() {
       subHeader={whenWallet({
         software: (
           <TaprootBalanceDisplayer
-            onSelectRetrieveBalance={() => navigate(RouteUrls.RetriveTaprootFunds)}
+            onSelectRetrieveBalance={() =>
+              navigate(RouteUrls.RetrieveTaprootFunds, {
+                state: {
+                  backgroundLocation: { pathname: RouteUrls.Home },
+                },
+              })
+            }
           />
         ),
         ledger: null,

@@ -89,7 +89,7 @@ function useAppRoutes() {
           {homePageModalRoutes}
         </Route>
 
-        <Route path={RouteUrls.RetriveTaprootFunds} element={<RetrieveTaprootToNativeSegwit />} />
+        <Route path={RouteUrls.RetrieveTaprootFunds} element={<RetrieveTaprootToNativeSegwit />} />
         <Route path={RouteUrls.IncreaseStxFee} element={<IncreaseStxFeeDrawer />}>
           {ledgerStacksTxSigningRoutes}
         </Route>
