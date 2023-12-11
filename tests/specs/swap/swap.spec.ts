@@ -1,6 +1,6 @@
 import { test } from '../../fixtures/fixtures';
 
-const alexSdkPostRoute = '*/**/v1/graphql';
+const alexSdkPostRoute = 'https://*.alexlab.co/v1/graphql';
 
 test.describe('Swaps', () => {
   test.beforeEach(async ({ extensionId, globalPage, homePage, onboardingPage, swapPage }) => {
