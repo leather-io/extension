@@ -23,6 +23,7 @@ const AppVersionLabel = forwardRef<HTMLSpanElement, AppVersionLabelProps>(
       ml="space.02"
       opacity={0.5}
       textDecoration={isLatestVersion ? 'none' : 'line-through'}
+      textWrap="nowrap"
       {...props}
     >
       {children}
@@ -36,7 +37,7 @@ export function AppVersion() {
   const version = useMemo(() => {
     switch (process.env.WALLET_ENVIRONMENT) {
       case 'development':
-        return `dev@${BRANCH_NAME}`;
+        return BRANCH_NAME;
       case 'feature':
         return `${BRANCH_NAME}#${COMMIT_SHA?.slice(0, 8)}`;
       default:
