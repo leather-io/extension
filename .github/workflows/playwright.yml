@@ -72,6 +72,7 @@ jobs:
       - name: Run Playwright tests
         run: xvfb-run yarn playwright test tests/specs --shard=${{ matrix.shardIndex }}/${{ matrix.shardTotal }} --workers=1
         env:
+          GITHUB_HEAD_REF: ${{ github.head_ref }}
           TEST_ACCOUNT_SECRET_KEY: ${{ secrets.TEST_ACCOUNT_SECRET_KEY }}
 
       - name: Upload blob report to GitHub Actions Artifacts
@@ -118,7 +119,6 @@ jobs:
 
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v3
-        if: github.event_name == 'pull_request'
         with:
           personal_token: ${{ secrets.SEMANTIC_RELEASE_TOKEN }}
           external_repository: leather-wallet/playwright-reports
