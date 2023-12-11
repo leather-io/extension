@@ -50,7 +50,7 @@ test.describe('Bitcoin Contract Request Test', () => {
     await rejectButton.click();
   }
 
-  test.skip('that the bitcoin contract offer is properly displayed', async ({ page, context }) => {
+  test('that the bitcoin contract offer is properly displayed', async ({ page, context }) => {
     const expectedOfferorName = 'DLC.Link';
     const expectedLockAmount = '0.0001 BTC';
     const expectedExpirationDate = '10/17/2023';
@@ -81,7 +81,7 @@ test.describe('Bitcoin Contract Request Test', () => {
     await popup.close();
   });
 
-  test.skip('that user can reject a bitcoin contract offer', async ({ page, context }) => {
+  test('that user can reject a bitcoin contract offer', async ({ page, context }) => {
     const [result] = await Promise.all([
       initiateOfferRequest(page)(requestParams),
       clickReject(context),
@@ -98,7 +98,7 @@ test.describe('Bitcoin Contract Request Test', () => {
     });
   });
 
-  test.skip(`that user can't accept a bitcoin contract offer without sufficient bitcoin'`, async ({
+  test(`that user can't accept a bitcoin contract offer without sufficient bitcoin'`, async ({
     page,
     context,
   }) => {
