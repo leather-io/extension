@@ -9,7 +9,6 @@ import { formatMoney } from './format-money';
 import { isMoney } from './is-money';
 
 export function baseCurrencyAmountInQuote(quantity: Money, { pair, price }: MarketData) {
-  console.log(quantity, pair, price)
   if (quantity.symbol !== pair.base)
     throw new Error(
       `Cannot calculate value of ${formatMoney(quantity)} with market pair of ${formatMarketPair(
@@ -42,7 +41,6 @@ export function convertToMoneyTypeWithDefaultOfZero(
 
 // ts-unused-exports:disable-next-line
 export function convertAmountToBaseUnit(num: Money | BigNumber, decimals?: number) {
-  console.log(num, decimals)
   if (isMoney(num)) return num.amount.shiftedBy(-num.decimals);
   if (!isNumber(decimals)) throw new Error('Must define decimal of given currency');
   return num.shiftedBy(-decimals);

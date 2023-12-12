@@ -29,7 +29,6 @@ import { useCurrentNetwork } from '@app/store/networks/networks.selectors';
 import { initialSearchParams } from '../initial-search-params';
 import { i18nFormatCurrency } from '../money/format-money';
 import { satToBtc } from '../money/unit-conversion';
-import { useConvertCryptoCurrencyToFiatAmount } from './use-convert-to-fiat-amount';
 import { useDefaultRequestParams } from './use-default-request-search-params';
 
 export interface SimplifiedBitcoinContract {
@@ -211,7 +210,6 @@ export function useBitcoinContracts() {
   async function getAllSignedBitcoinContracts(): Promise<BitcoinContractListItem[] | undefined> {
     const bitcoinContractInterface = await getBitcoinContractInterface();
 
-    console.log('bitcoinContractInterface', bitcoinContractInterface?.get_options())
     if (!bitcoinContractInterface) return;
 
     const bitcoinContracts = await bitcoinContractInterface.get_contracts();
@@ -219,7 +217,6 @@ export function useBitcoinContracts() {
       (bitcoinContract: BitcoinContractListItem) => bitcoinContract.state === 'Signed'
     );
 
-    console.log('signedBitcoinContracts', signedBitcoinContracts)
     return signedBitcoinContracts;
   }
 
@@ -241,7 +238,6 @@ export function useBitcoinContracts() {
   }
 
   async function sumBitcoinContractCollateralAmounts(): Promise<Money> {
-    console.log('sumBitcoinContractCollateralAmounts')
     let bitcoinContractsCollateralSum = 0;
     const bitcoinContracts = await getAllSignedBitcoinContracts();
     if (!bitcoinContracts) return createMoneyFromDecimal(0, 'BTC');

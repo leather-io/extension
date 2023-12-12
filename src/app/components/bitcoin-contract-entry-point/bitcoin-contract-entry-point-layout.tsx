@@ -26,6 +26,8 @@ export function BitcoinContractEntryPointLayout(props: BitcoinContractEntryPoint
     : balance.amount.toString();
   const formattedBalance = formatBalance(amount);
 
+  if (Number(balance.amount) === 0) return false;
+
   return (
     <Flex cursor={cursor} onClick={onClick} outline={0}>
       <Flag align="middle" img={icon} spacing="space.04" width="100%">
