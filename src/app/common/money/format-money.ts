@@ -15,6 +15,7 @@ export function formatMoneyPadded({ amount, symbol, decimals }: Money) {
 }
 
 export function i18nFormatCurrency(quantity: Money, locale = 'en-US') {
+  console.log(quantity)
   if (quantity.symbol !== 'USD') throw new Error('Cannot format non-USD amounts');
   const currencyFormatter = new Intl.NumberFormat(locale, { style: 'currency', currency: 'USD' });
 
