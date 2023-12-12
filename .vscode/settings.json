@@ -1,5 +1,6 @@
 {
   "prettier.documentSelectors": ["src/**/*.{ts,tsx}", "*.{js,json}"],
   "vitest.include": ["src/**/*.spec.ts"],
-  "githubPullRequests.ignoredPullRequestBranches": ["dev"]
+  "githubPullRequests.ignoredPullRequestBranches": ["dev"],
+  "typescript.preferences.preferTypeOnlyAutoImports": true
 }

@@ -1,13 +1,18 @@
+import { Suspense } from 'react';
 import { Route } from 'react-router-dom';
 
 import { RouteUrls } from '@shared/route-urls';
 
 import { ledgerBitcoinTxSigningRoutes } from '@app/features/ledger/flows/bitcoin-tx-signing/ledger-bitcoin-sign-tx-container';
+import { ledgerStacksMessageSigningRoutes } from '@app/features/ledger/flows/stacks-message-signing/ledger-stacks-sign-msg.routes';
 import { RpcGetAddresses } from '@app/pages/rpc-get-addresses/rpc-get-addresses';
 import { rpcSendTransferRoutes } from '@app/pages/rpc-send-transfer/rpc-send-transfer.routes';
 import { RpcSignPsbt } from '@app/pages/rpc-sign-psbt/rpc-sign-psbt';
 import { RpcSignPsbtSummary } from '@app/pages/rpc-sign-psbt/rpc-sign-psbt-summary';
+import { RpcStacksMessageSigning } from '@app/pages/rpc-sign-stacks-message/rpc-sign-stacks-message';
 import { AccountGate } from '@app/routes/account-gate';
+
+import { SuspenseLoadingSpinner } from './app-routes';
 
 export const rpcRequestRoutes = (
   <>
@@ -49,5 +54,17 @@ export const rpcRequestRoutes = (
         </AccountGate>
       }
     />
+    <Route
+      path={RouteUrls.RpcStacksSignature}
+      element={
+        <AccountGate>
+          <Suspense fallback={<SuspenseLoadingSpinner />}>
+            <RpcStacksMessageSigning />
+          </Suspense>
+        </AccountGate>
+      }
+    >
+      {ledgerStacksMessageSigningRoutes}
+    </Route>
   </>
 );

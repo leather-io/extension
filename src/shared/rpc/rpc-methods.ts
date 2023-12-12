@@ -5,6 +5,7 @@ import { ValueOf } from '@shared/utils/type-utils';
 
 import { AcceptBitcoinContract } from './methods/accept-bitcoin-contract';
 import { SignPsbt } from './methods/sign-psbt';
+import { SignStacksMessage } from './methods/sign-stacks-message';
 import { SupportedMethods } from './methods/supported-methods';
 
 // Supports BtcKit methods, as well as custom Leather methods
@@ -12,7 +13,8 @@ export type WalletMethodMap = BtcKitMethodMap &
   SupportedMethods &
   SignPsbt &
   AcceptBitcoinContract &
-  SignStacksTransaction;
+  SignStacksTransaction &
+  SignStacksMessage;
 
 export type WalletRequests = ValueOf<WalletMethodMap>['request'];
 export type WalletResponses = ValueOf<WalletMethodMap>['response'];

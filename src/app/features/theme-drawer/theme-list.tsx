@@ -1,6 +1,5 @@
 import { useCallback } from 'react';
 
-import { SettingsSelectors } from '@tests/selectors/settings.selectors';
 import { Flex, FlexProps } from 'leather-styles/jsx';
 
 import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
@@ -30,7 +29,6 @@ export function ThemeList(props: FlexProps) {
       {themes.map(theme => (
         <ThemeListItem
           key={theme}
-          data-testid={SettingsSelectors.NetworkListItem}
           theme={theme}
           onThemeSelected={handleThemeSelected}
           isActive={theme === userSelectedTheme}

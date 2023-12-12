@@ -10,6 +10,7 @@ import { rpcGetAddresses } from './rpc-methods/get-addresses';
 import { rpcSendTransfer } from './rpc-methods/send-transfer';
 import { rpcSignMessage } from './rpc-methods/sign-message';
 import { rpcSignPsbt } from './rpc-methods/sign-psbt';
+import { rpcSignStacksMessage } from './rpc-methods/sign-stacks-message';
 import { rpcSupportedMethods } from './rpc-methods/supported-methods';
 
 export async function rpcMessageHandler(message: WalletRequests, port: chrome.runtime.Port) {
@@ -46,6 +47,11 @@ export async function rpcMessageHandler(message: WalletRequests, port: chrome.ru
 
     case 'acceptBitcoinContractOffer': {
       await rpcAcceptBitcoinContractOffer(message, port);
+      break;
+    }
+
+    case 'stx_signMessage': {
+      await rpcSignStacksMessage(message, port);
       break;
     }
 

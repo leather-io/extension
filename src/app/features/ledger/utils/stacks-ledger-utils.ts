@@ -70,11 +70,11 @@ export function signLedgerStacksStructuredMessage(app: StacksApp) {
 }
 
 export function signStacksTransactionWithSignature(transaction: string, signatureVRS: Buffer) {
-  const deserialzedTx = deserializeTransaction(transaction);
+  const deserializedTx = deserializeTransaction(transaction);
   const spendingCondition = createMessageSignature(signatureVRS.toString('hex'));
-  (deserialzedTx.auth.spendingCondition as SingleSigSpendingCondition).signature =
+  (deserializedTx.auth.spendingCondition as SingleSigSpendingCondition).signature =
     spendingCondition;
-  return deserialzedTx;
+  return deserializedTx;
 }
 
 export function useActionCancellableByUser() {

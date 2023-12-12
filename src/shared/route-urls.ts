@@ -55,7 +55,7 @@ export enum RouteUrls {
   EditNonce = 'edit-nonce',
   SelectNetwork = 'choose-network',
   SignOutConfirm = 'sign-out',
-  RetriveTaprootFunds = 'retrive-taproot-funds',
+  RetrieveTaprootFunds = 'retrieve-taproot-funds',
 
   // Send crypto asset routes
   SendCryptoAsset = '/send',
@@ -105,6 +105,7 @@ export enum RouteUrls {
   RpcSendTransferSummary = '/send-transfer/summary',
   RpcReceiveBitcoinContractOffer = '/bitcoin-contract-offer/:bitcoinContractOffer/:counterpartyWalletURL',
   RpcSignBip322Message = '/sign-bip322-message',
+  RpcStacksSignature = '/sign-stacks-message',
 
   // Shared legacy and rpc request routes
   RequestError = '/request-error',
