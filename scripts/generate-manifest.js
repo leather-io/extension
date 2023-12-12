@@ -30,10 +30,15 @@ const environmentIcons = {
   },
 };
 
+const devCsp =
+  "script-src 'self' 'wasm-unsafe-eval'; object-src 'self'; frame-src https://ordinals.com/; frame-ancestors 'none';";
+
+const prodCsp = `default-src 'none'; connect-src *; style-src 'unsafe-inline'; img-src 'self' data: https:; script-src 'self' 'wasm-unsafe-eval'; object-src 'none'; frame-src https://ordinals.com/; frame-ancestors 'none';`;
+
 const contentSecurityPolicyEnvironment = {
-  development:
-    "script-src 'self' 'wasm-unsafe-eval'; object-src 'self'; frame-src 'none'; frame-ancestors 'none';",
-  production: `default-src 'none'; connect-src *; style-src 'unsafe-inline'; img-src 'self' data: https:; script-src 'self' 'wasm-unsafe-eval'; object-src 'none'; frame-src 'none'; frame-ancestors 'none';`,
+  testing: prodCsp,
+  development: devCsp,
+  production: prodCsp,
 };
 
 const defaultIconEnvironment = {

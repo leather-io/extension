@@ -1,21 +1,16 @@
-import { Flex, styled } from 'leather-styles/jsx';
+import { styled } from 'leather-styles/jsx';
 
 import { EyeSlashIcon } from '@app/ui/components/icons/eye-slash-icon';
 
+import { CollectiblePlaceholderLayout } from './_collectible-types/collectible-placeholder.layout';
+
 export function ImageUnavailable() {
   return (
-    <Flex
-      alignItems="center"
-      bg="accent.component-background-default"
-      flexDirection="column"
-      height="100%"
-      justifyContent="center"
-      textAlign="center"
-      width="100%"
-    >
-      <EyeSlashIcon pb="12px" size="md" />
-      <styled.span textStyle="label.03">Image currently</styled.span>
-      <styled.span textStyle="label.03">unavailable</styled.span>
-    </Flex>
+    <CollectiblePlaceholderLayout>
+      <EyeSlashIcon size="md" />
+      <styled.span pt="space.02" px="space.04" textStyle="label.03">
+        Image currently unavailable
+      </styled.span>
+    </CollectiblePlaceholderLayout>
   );
 }
