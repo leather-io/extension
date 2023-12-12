@@ -1,9 +1,11 @@
+import { ReactNode } from 'react';
+
 import { Box, styled } from 'leather-styles/jsx';
 
 import { ArrowUpIcon } from '@app/ui/components/icons/arrow-up-icon';
 
 interface CollectibleHoverProps {
-  collectibleTypeIcon?: React.JSX.Element;
+  collectibleTypeIcon?: ReactNode;
   isHovered: boolean;
   onClickCallToAction?(): void;
 }
@@ -24,9 +26,15 @@ export function CollectibleHover({
       style={{ opacity: isHovered ? 'inherit' : '0' }}
       top="0px"
       width="100%"
-      zIndex={999}
     >
-      <Box bottom="space.03" height="30px" left="space.03" position="absolute" width="30px">
+      <Box
+        bottom="space.03"
+        height="30px"
+        left="space.03"
+        position="absolute"
+        width="30px"
+        zIndex={999}
+      >
         {collectibleTypeIcon}
       </Box>
       {onClickCallToAction && (
@@ -48,6 +56,7 @@ export function CollectibleHover({
           top="12px"
           type="button"
           width="30px"
+          zIndex={999}
         >
           <ArrowUpIcon transform="rotate(45deg)" />
         </styled.button>

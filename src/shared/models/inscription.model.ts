@@ -35,7 +35,7 @@ export interface Inscription extends InscriptionResponseItem {
  * appropriately and securely. Inscriptions of types not ready to be handled by the
  * app should be classified as "other".
  */
-const supportedInscriptionTypes = ['image', 'text', 'other'] as const;
+const supportedInscriptionTypes = ['audio', 'html', 'image', 'text', 'video', 'other'] as const;
 
 type SupportedInscriptionType = (typeof supportedInscriptionTypes)[number];
 
@@ -49,6 +49,16 @@ interface BaseSupportedInscription extends Inscription {
   infoUrl: string;
 }
 
+interface AudioInscription extends BaseSupportedInscription {
+  type: 'audio';
+  src: string;
+}
+
+interface HtmlInscription extends BaseSupportedInscription {
+  type: 'html';
+  src: string;
+}
+
 interface ImageInscription extends BaseSupportedInscription {
   type: 'image';
   src: string;
@@ -57,6 +67,11 @@ interface ImageInscription extends BaseSupportedInscription {
 interface TextInscription extends BaseSupportedInscription {
   type: 'text';
   contentSrc: string;
+}
+
+interface VideoInscription extends BaseSupportedInscription {
+  type: 'video';
+  src: string;
 }
 
 interface OtherInscription extends BaseSupportedInscription {
@@ -68,18 +83,36 @@ interface OtherInscription extends BaseSupportedInscription {
  * type. Typically, API data will be used to construct this object. This is
  * *not* the result of any one API response.
  */
-export type SupportedInscription = ImageInscription | TextInscription | OtherInscription;
+export type SupportedInscription =
+  | AudioInscription
+  | HtmlInscription
+  | ImageInscription
+  | TextInscription
+  | VideoInscription
+  | OtherInscription;
 
 export function whenInscriptionType<T>(
   mimeType: string,
   branches: { [k in SupportedInscriptionType]?: () => T }
 ) {
+  if (mimeType.startsWith('audio/') && branches.audio) {
+    return branches.audio();
+  }
+
+  if (mimeType.startsWith('text/html') && branches.html) {
+    return branches.html();
+  }
+
   if (mimeType.startsWith('image/') && branches.image) {
     return branches.image();
   }
 
   if (mimeType.startsWith('text') && branches.text) {
     return branches.text();
+  }
+
+  if (mimeType.startsWith('video/') && branches.video) {
+    return branches.video();
   }
 
   if (branches.other) return branches.other();

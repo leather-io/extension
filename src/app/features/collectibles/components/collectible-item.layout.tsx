@@ -12,7 +12,7 @@ export interface CollectibleItemLayoutProps {
   onClickCallToAction?(): void;
   onClickLayout?(): void;
   onClickSend?(): void;
-  collectibleTypeIcon?: React.JSX.Element;
+  collectibleTypeIcon?: ReactNode;
   showBorder?: boolean;
   subtitle: string;
   title: string;

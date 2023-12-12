@@ -1,11 +1,11 @@
-import { useState } from 'react';
+import { ReactNode, useState } from 'react';
 
 import { CollectibleItemLayout, CollectibleItemLayoutProps } from '../collectible-item.layout';
 import { ImageUnavailable } from '../image-unavailable';
 
 interface CollectibleImageProps extends Omit<CollectibleItemLayoutProps, 'children'> {
   alt?: string;
-  icon: React.JSX.Element;
+  icon: ReactNode;
   src: string;
 }
 export function CollectibleImage(props: CollectibleImageProps) {
