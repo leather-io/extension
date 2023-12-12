@@ -14,6 +14,7 @@ import { useCurrentAccountNativeSegwitAddressIndexZero } from '@app/store/accoun
 import { useCurrentNetwork } from '@app/store/networks/networks.selectors';
 import { BtcIcon } from '@app/ui/components/icons/btc-icon';
 
+import { useBitcoinContractsBalance } from '@app/query/stacks/balance/bitcoin-contracts-balance.query';
 import { Collectibles } from '../collectibles/collectibles';
 import { PendingBrc20TransferList } from '../pending-brc-20-transfers/pending-brc-20-transfers';
 import { BitcoinFungibleTokenAssetList } from './components/bitcoin-fungible-tokens-asset-list';
@@ -57,7 +58,7 @@ export function AssetsList() {
       {/* Temporary duplication during Ledger Bitcoin feature dev */}
       {['testnet', 'regtest'].includes(network.chain.bitcoin.bitcoinNetwork) &&
         whenWallet({
-          software: <BitcoinContractEntryPoint btcAddress={btcAddress} />,
+          software: <BitcoinContractEntryPoint />,
           ledger: null,
         })}
 
