@@ -1,3 +1,31 @@
+## [6.19.0](https://github.com/leather-wallet/extension/compare/v6.18.0...v6.19.0) (2023-12-12)
+
+
+### Features
+
+* add rpc method for signing stacks messages ([e77a8d8](https://github.com/leather-wallet/extension/commit/e77a8d8db6879325c11003d36ef2e3ab8ad8af16))
+
+
+### Bug Fixes
+
+* add background location to brc-20 modal and fix typo ([7483b9e](https://github.com/leather-wallet/extension/commit/7483b9e52e175431bbd02778e128f6de603da352))
+* broadcast ledger swap ([886309b](https://github.com/leather-wallet/extension/commit/886309b318dda5fa1c19f30b5a2772408e21acb6))
+* fix brc-20 sendby signing transaction before finalising then broadcasting, closes [#4635](https://github.com/leather-wallet/extension/issues/4635) ([5aa7c3c](https://github.com/leather-wallet/extension/commit/5aa7c3c3d6d5c383c78f6457ac6aa9dd4a73e8c5))
+* keep search params while doing background location redirect ([6b7ce6a](https://github.com/leather-wallet/extension/commit/6b7ce6a7946441e7b03864fc3a4a3313d28d61b7))
+* playwright error ([5bef424](https://github.com/leather-wallet/extension/commit/5bef424e0e457e850cea1e08a1befe9274c34b72))
+* revert signing logic to try both keys, closes [#4645](https://github.com/leather-wallet/extension/issues/4645) ([8b1be50](https://github.com/leather-wallet/extension/commit/8b1be500fa099bd09b1e9617d77c98be7843bab2))
+* selecting testnet in tests ([d275d8c](https://github.com/leather-wallet/extension/commit/d275d8c9bb6a1914ffd3b94e7e41e956c7fb2035))
+* swap test route path ([24d3677](https://github.com/leather-wallet/extension/commit/24d36773adfb2ab830fa0ab8d4063182c7656829))
+
+
+### Internal
+
+* add ledger signing routes to BRC-20 send ([42ee981](https://github.com/leather-wallet/extension/commit/42ee98101aacd61eacdde381b53209b738522518))
+* add swap tests ([bd6dc1a](https://github.com/leather-wallet/extension/commit/bd6dc1a6d946727859f5b4f1b89b7d7b0b199f99))
+* enable ledger swaps to test ([6539075](https://github.com/leather-wallet/extension/commit/6539075521f8250dcea08ff487b35267b7f94ac7))
+* post-release merge back ([9414a9b](https://github.com/leather-wallet/extension/commit/9414a9bc23966f1a33ff156a9ae80abdaab1cccf))
+* **signing:** support non-index zero input signing, closes [#4620](https://github.com/leather-wallet/extension/issues/4620), [#4628](https://github.com/leather-wallet/extension/issues/4628) ([d2edb18](https://github.com/leather-wallet/extension/commit/d2edb187e80bef233606a9a38d8b83dc83f4d91f))
+
 ## [6.18.0](https://github.com/leather-wallet/extension/compare/v6.17.0...v6.18.0) (2023-12-05)
 
 
