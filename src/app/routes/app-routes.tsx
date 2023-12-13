@@ -66,13 +66,13 @@ export function AppRoutes() {
 
 export const homePageModalRoutes = (
   <>
-    {sendOrdinalRoutes}
     {settingsRoutes}
     {receiveRoutes}
     {ledgerStacksTxSigningRoutes}
     {ledgerBitcoinTxSigningRoutes}
     {requestBitcoinKeysRoutes}
     {requestStacksKeysRoutes}
+    {sendOrdinalRoutes}
   </>
 );
 
