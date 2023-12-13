@@ -115,11 +115,21 @@ jobs:
         run: echo "branch=${GITHUB_HEAD_REF:-${GITHUB_REF#refs/heads/}}" >> $GITHUB_OUTPUT
         id: extract_branch
 
-      - name: Deploy
+      - name: Deploy PR
         uses: peaceiris/actions-gh-pages@v3
+        if: github.event_name == 'pull_request'
         with:
           personal_token: ${{ secrets.SEMANTIC_RELEASE_TOKEN }}
           external_repository: leather-wallet/playwright-reports
           publish_branch: main
           publish_dir: ./playwright-report
           destination_dir: ${{ steps.extract_branch.outputs.branch }}
+
+      - name: Deploy specs.leather.io
+        uses: peaceiris/actions-gh-pages@v3
+        if: steps.extract_branch.outputs.branch == 'dev'
+        with:
+          personal_token: ${{ secrets.SEMANTIC_RELEASE_TOKEN }}
+          external_repository: leather-wallet/specs.leather.io
+          publish_branch: main
+          publish_dir: ./playwright-report
