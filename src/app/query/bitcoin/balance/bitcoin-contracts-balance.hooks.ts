@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useMemo } from 'react';
 
 import BigNumber from 'bignumber.js';
 
@@ -13,14 +13,6 @@ import { useBitcoinContractsBalanceQuery } from './bitcoin-contracts-balance.que
 export function useGetBitcoinContractsBalance() {
   const calculateFiatValue = useCalculateBitcoinFiatValue();
   const { data: bitcoinContractsBalance, isLoading } = useBitcoinContractsBalanceQuery();
-  const [bitcoinContractsBalanceInUSD, setBitcoinContractsBalanceInUSD] = useState<string>('0');
-
-  useEffect(() => {
-    if (isUndefined(bitcoinContractsBalance)) return;
-    setBitcoinContractsBalanceInUSD(
-      i18nFormatCurrency(calculateFiatValue(createMoney(bitcoinContractsBalance.amount, 'BTC')))
-    );
-  }, [bitcoinContractsBalance, calculateFiatValue]);
 
   return useMemo(() => {
     if (isUndefined(bitcoinContractsBalance))
@@ -31,8 +23,10 @@ export function useGetBitcoinContractsBalance() {
       };
     return {
       bitcoinContractsBalance,
-      bitcoinContractsBalanceInUSD: bitcoinContractsBalanceInUSD,
+      bitcoinContractsBalanceInUSD: i18nFormatCurrency(
+        calculateFiatValue(createMoney(bitcoinContractsBalance.amount, 'BTC'))
+      ),
       isLoading,
     };
-  }, [bitcoinContractsBalance, bitcoinContractsBalanceInUSD, isLoading]);
+  }, [bitcoinContractsBalance, isLoading, calculateFiatValue]);
 }
