@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { toast } from 'react-hot-toast';
+import { Outlet } from 'react-router-dom';
 import { useLocation, useNavigate } from 'react-router-dom';
 
 import { Stack } from 'leather-styles/jsx';
@@ -24,6 +25,7 @@ import { BitcoinChooseFee } from '@app/features/bitcoin-choose-fee/bitcoin-choos
 import { useValidateBitcoinSpend } from '@app/features/bitcoin-choose-fee/hooks/use-validate-bitcoin-spend';
 import { UtxoResponseItem } from '@app/query/bitcoin/bitcoin-client';
 import { useBrc20Transfers } from '@app/query/bitcoin/ordinals/brc20/use-brc-20';
+import { useSignBitcoinTx } from '@app/store/accounts/blockchain/bitcoin/bitcoin.hooks';
 
 import { useSendBitcoinAssetContextState } from '../../family/bitcoin/components/send-bitcoin-asset-container';
 
@@ -41,6 +43,7 @@ export function BrcChooseFee() {
   const navigate = useNavigate();
   const { amount, recipient, tick, utxos } = useBrc20ChooseFeeState();
   const generateTx = useGenerateUnsignedNativeSegwitSingleRecipientTx();
+  const signTx = useSignBitcoinTx();
   const { selectedFeeType, setSelectedFeeType } = useSendBitcoinAssetContextState();
   const { initiateTransfer } = useBrc20Transfers();
   const { feesList, isLoading } = useBitcoinFeesList({
@@ -80,12 +83,15 @@ export function BrcChooseFee() {
       );
 
       if (!resp) return logger.error('Attempted to generate raw tx, but no tx exists');
+      const signedTx = await signTx(resp.psbt);
 
-      const { hex } = resp;
+      if (!signedTx) return logger.error('Attempted to sign tx, but no tx exists');
+      signedTx.finalize();
+
       const feeRowValue = formFeeRowValue(feeRate, isCustomFee);
       navigate(RouteUrls.SendBrc20Confirmation.replace(':ticker', tick), {
         state: {
-          tx: hex,
+          tx: signedTx.hex,
           orderId: id,
           fee: feeValue,
           serviceFee: charge.amount,
@@ -125,26 +131,29 @@ export function BrcChooseFee() {
       <LoadingSpinner />
     </Stack>
   ) : (
-    <BitcoinChooseFee
-      amount={amountAsMoney}
-      feesList={
-        <BitcoinFeesList
-          feesList={feesList}
-          onChooseFee={previewTransaction}
-          onSetSelectedFeeType={(value: BtcFeeType | null) => setSelectedFeeType(value)}
-          onValidateBitcoinSpend={onValidateBitcoinFeeSpend}
-          selectedFeeType={selectedFeeType}
-        />
-      }
-      isLoading={isLoading}
-      isSendingMax={false}
-      onChooseFee={previewTransaction}
-      onSetSelectedFeeType={(value: BtcFeeType | null) => setSelectedFeeType(value)}
-      onValidateBitcoinSpend={onValidateBitcoinFeeSpend}
-      recommendedFeeRate={recommendedFeeRate}
-      recipient={recipient}
-      showError={showInsufficientBalanceError}
-      maxRecommendedFeeRate={feesList[0]?.feeRate}
-    />
+    <>
+      <BitcoinChooseFee
+        amount={amountAsMoney}
+        feesList={
+          <BitcoinFeesList
+            feesList={feesList}
+            onChooseFee={previewTransaction}
+            onSetSelectedFeeType={(value: BtcFeeType | null) => setSelectedFeeType(value)}
+            onValidateBitcoinSpend={onValidateBitcoinFeeSpend}
+            selectedFeeType={selectedFeeType}
+          />
+        }
+        isLoading={isLoading}
+        isSendingMax={false}
+        onChooseFee={previewTransaction}
+        onSetSelectedFeeType={(value: BtcFeeType | null) => setSelectedFeeType(value)}
+        onValidateBitcoinSpend={onValidateBitcoinFeeSpend}
+        recommendedFeeRate={recommendedFeeRate}
+        recipient={recipient}
+        showError={showInsufficientBalanceError}
+        maxRecommendedFeeRate={feesList[0]?.feeRate}
+      />
+      <Outlet />
+    </>
   );
 }

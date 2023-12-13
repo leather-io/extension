@@ -1,5 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 
+import { SwapSelectors } from '@tests/selectors/swap.selectors';
 import BigNumber from 'bignumber.js';
 import { useFormikContext } from 'formik';
 import { styled } from 'leather-styles/jsx';
@@ -68,6 +69,7 @@ export function SwapAssetList({ assets }: SwapAssetList) {
     <SwapAssetListLayout>
       {selectableAssets.map(asset => (
         <styled.button
+          data-testid={SwapSelectors.ChooseAssetListItem}
           key={asset.balance.symbol}
           onClick={() => onChooseAsset(asset)}
           textAlign="left"

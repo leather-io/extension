@@ -3,7 +3,7 @@ import { defineConfig } from '@pandacss/dev';
 import { breakpoints } from './theme/breakpoints';
 import { globalCss } from './theme/global/global';
 import { keyframes } from './theme/keyframes';
-import { buttonRecipe } from './theme/recipes/button';
+import { buttonRecipe } from './theme/recipes/button-recipe';
 import { semanticTokens } from './theme/semantic-tokens';
 import { tokens } from './theme/tokens';
 import { textStyles } from './theme/typography';

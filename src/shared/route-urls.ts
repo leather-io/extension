@@ -26,7 +26,8 @@ export enum RouteUrls {
   Home = '/',
   AddNetwork = '/add-network',
   ChooseAccount = '/choose-account',
-  Fund = '/fund',
+  Fund = '/fund/:currency',
+  FundChooseCurrency = '/fund-choose-currency',
   IncreaseStxFee = '/increase-fee/stx',
   IncreaseBtcFee = '/increase-fee/btc',
   IncreaseFeeSent = '/increase-fee/sent',
@@ -55,7 +56,7 @@ export enum RouteUrls {
   EditNonce = 'edit-nonce',
   SelectNetwork = 'choose-network',
   SignOutConfirm = 'sign-out',
-  RetriveTaprootFunds = 'retrive-taproot-funds',
+  RetrieveTaprootFunds = 'retrieve-taproot-funds',
 
   // Send crypto asset routes
   SendCryptoAsset = '/send',

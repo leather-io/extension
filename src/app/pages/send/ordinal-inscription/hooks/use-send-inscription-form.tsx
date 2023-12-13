@@ -101,7 +101,7 @@ export function useSendInscriptionForm() {
         return;
       }
 
-      const signedTx = await sign(resp.psbt);
+      const signedTx = await sign(resp.psbt, resp.signingConfig);
 
       if (!signedTx) {
         logger.error('No signed transaction returned');
