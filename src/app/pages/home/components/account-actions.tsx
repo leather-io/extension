@@ -5,7 +5,6 @@ import { Flex, FlexProps } from 'leather-styles/jsx';
 
 import { RouteUrls } from '@shared/route-urls';
 
-import { useWalletType } from '@app/common/use-wallet-type';
 import { useConfigBitcoinEnabled } from '@app/query/common/remote-config/remote-config.query';
 import { useCurrentStacksAccount } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
 import { ArrowDownIcon } from '@app/ui/components/icons/arrow-down-icon';
@@ -19,7 +18,6 @@ export function AccountActions(props: FlexProps) {
   const navigate = useNavigate();
   const location = useLocation();
   const isBitcoinEnabled = useConfigBitcoinEnabled();
-  const { whenWallet } = useWalletType();
   const stacksAccount = useCurrentStacksAccount();
 
   const receivePath = isBitcoinEnabled
@@ -41,16 +39,16 @@ export function AccountActions(props: FlexProps) {
           data-testid={HomePageSelectors.FundAccountBtn}
           icon={<PlusIcon />}
           label="Buy"
-          onClick={() => navigate(RouteUrls.Fund)}
+          onClick={() => navigate(RouteUrls.FundChooseCurrency)}
         />
       )}
 
-      {whenWallet({
-        software: (
-          <ActionButton icon={<SwapIcon />} label="Swap" onClick={() => navigate(RouteUrls.Swap)} />
-        ),
-        ledger: null,
-      })}
+      <ActionButton
+        data-testid={HomePageSelectors.SwapBtn}
+        icon={<SwapIcon />}
+        label="Swap"
+        onClick={() => navigate(RouteUrls.Swap)}
+      />
     </Flex>
   );
 }

@@ -1,4 +1,5 @@
 import { BrowserContext, test as base, chromium } from '@playwright/test';
+import { FundChooseCurrencyPage } from '@tests/page-object-models/fund-choose-currency.page';
 import { GlobalPage } from '@tests/page-object-models/global.page';
 import { HomePage } from '@tests/page-object-models/home.page';
 import { NetworkPage } from '@tests/page-object-models/network.page';
@@ -16,6 +17,7 @@ interface TestFixtures {
   sendPage: SendPage;
   swapPage: SwapPage;
   networkPage: NetworkPage;
+  fundChooseCurrencyPage: FundChooseCurrencyPage;
 }
 
 /**
@@ -63,5 +65,8 @@ export const test = base.extend<TestFixtures>({
   },
   networkPage: async ({ page }, use) => {
     await use(new NetworkPage(page));
+  },
+  fundChooseCurrencyPage: async ({ page }, use) => {
+    await use(new FundChooseCurrencyPage(page));
   },
 });

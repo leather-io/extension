@@ -1,33 +1,52 @@
-import { useNavigate } from 'react-router-dom';
+import { Outlet, useNavigate, useParams } from 'react-router-dom';
 
+import { isCryptoCurrency } from '@shared/models/currencies.model';
 import { RouteUrls } from '@shared/route-urls';
 
 import { useRouteHeader } from '@app/common/hooks/use-route-header';
 import { Header } from '@app/components/header';
 import { FullPageLoadingSpinner } from '@app/components/loading-spinner';
 import { useCurrentStacksAccountAnchoredBalances } from '@app/query/stacks/balance/stx-balance.hooks';
-import { ModalBackgroundWrapper } from '@app/routes/components/modal-background-wrapper';
-import { useBackgroundLocationRedirect } from '@app/routes/hooks/use-background-location-redirect';
+import { useCurrentAccountNativeSegwitIndexZeroSigner } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
 import { useCurrentStacksAccount } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
 
-import { FundLayout } from './fund.layout';
+import { FundLayout } from './components/fund.layout';
+import { FiatProvidersList } from './fiat-providers-list';
 
-interface FundPageProps {
-  children: React.ReactNode;
-}
-export function FundPage({ children }: FundPageProps) {
-  useBackgroundLocationRedirect(RouteUrls.Fund);
+export function FundPage() {
   const navigate = useNavigate();
-  const currentAccount = useCurrentStacksAccount();
+  const currentStxAccount = useCurrentStacksAccount();
+  const bitcoinSigner = useCurrentAccountNativeSegwitIndexZeroSigner();
   const { data: balances } = useCurrentStacksAccountAnchoredBalances();
+  const { currency } = useParams();
 
-  useRouteHeader(<Header onClose={() => navigate(RouteUrls.Home)} title=" " />);
+  function getSymbol() {
+    if (isCryptoCurrency(currency)) {
+      return currency;
+    }
+    return 'STX';
+  }
+  function getAddress() {
+    switch (symbol) {
+      case 'BTC':
+        return bitcoinSigner.address;
+      case 'STX':
+        return currentStxAccount?.address;
+    }
+  }
 
-  if (!currentAccount || !balances) return <FullPageLoadingSpinner />;
+  const symbol = getSymbol();
+  const address = getAddress();
+
+  useRouteHeader(<Header onClose={() => navigate(RouteUrls.FundChooseCurrency)} title=" " />);
+
+  if (!address || !balances) return <FullPageLoadingSpinner />;
   return (
     <>
-      <FundLayout address={currentAccount.address} />
-      <ModalBackgroundWrapper>{children}</ModalBackgroundWrapper>
+      <FundLayout symbol={symbol}>
+        <FiatProvidersList address={address} symbol={symbol} />
+      </FundLayout>
+      <Outlet />
     </>
   );
 }

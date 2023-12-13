@@ -1,4 +1,4 @@
-import { SwapCryptoAssetSelectors } from '@tests/selectors/swap.selectors';
+import { SwapSelectors } from '@tests/selectors/swap.selectors';
 import { Flex } from 'leather-styles/jsx';
 
 import { HasChildren } from '@app/common/has-children';
@@ -7,7 +7,7 @@ export function SwapContentLayout({ children }: HasChildren) {
   return (
     <Flex
       alignItems="center"
-      data-testid={SwapCryptoAssetSelectors.SwapPageReady}
+      data-testid={SwapSelectors.SwapPageReady}
       flexDirection="column"
       maxHeight={['calc(100vh - 116px)', 'calc(85vh - 116px)']}
       overflowY="auto"

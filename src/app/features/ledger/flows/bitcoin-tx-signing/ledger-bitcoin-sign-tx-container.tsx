@@ -5,6 +5,7 @@ import * as btc from '@scure/btc-signer';
 import { hexToBytes } from '@stacks/common';
 import get from 'lodash.get';
 
+import { BitcoinInputSigningConfig } from '@shared/crypto/bitcoin/signer-config';
 import { logger } from '@shared/logger';
 import { RouteUrls } from '@shared/route-urls';
 
@@ -45,7 +46,7 @@ function LedgerSignBitcoinTxContainer() {
   const [unsignedTransaction, setUnsignedTransaction] = useState<null | btc.Transaction>(null);
   const signLedger = useSignLedgerBitcoinTx();
 
-  const inputsToSign = useLocationStateWithCache<number[]>('inputsToSign');
+  const inputsToSign = useLocationStateWithCache<BitcoinInputSigningConfig[]>('inputsToSign');
   const allowUserToGoBack = useLocationState<boolean>('goBack');
 
   useEffect(() => {
@@ -68,12 +69,12 @@ function LedgerSignBitcoinTxContainer() {
 
     try {
       const versionInfo = await getBitcoinAppVersion(bitcoinApp);
-
       ledgerAnalytics.trackDeviceVersionInfo(versionInfo);
       setAwaitingDeviceConnection(false);
-
       setLatestDeviceResponse(versionInfo as any);
-    } catch (e) {}
+    } catch (e) {
+      logger.error('Unable to get Ledger app version info', e);
+    }
 
     ledgerNavigate.toDeviceBusyStep('Verifying public key on Ledger…');
 
@@ -84,7 +85,11 @@ function LedgerSignBitcoinTxContainer() {
     ledgerNavigate.toAwaitingDeviceOperation({ hasApprovedOperation: false });
 
     try {
-      const btcTx = await signLedger(bitcoinApp, unsignedTransaction.toPSBT(), inputsToSign);
+      const btcTx = await signLedger(
+        bitcoinApp,
+        unsignedTransaction.toPSBT(),
+        inputsToSign?.map(x => x.index)
+      );
 
       if (!btcTx || !unsignedTransactionRaw) throw new Error('No tx returned');
       ledgerNavigate.toAwaitingDeviceOperation({ hasApprovedOperation: true });

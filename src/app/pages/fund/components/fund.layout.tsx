@@ -1,11 +1,27 @@
 import { Flex, Stack, styled } from 'leather-styles/jsx';
 
-import { FiatProvidersList } from './components/fiat-providers-list';
+import { CryptoCurrencies } from '@shared/models/currencies.model';
 
-interface FundLayoutProps {
-  address: string;
+import { HasChildren } from '@app/common/has-children';
+
+const nameMap: Record<CryptoCurrencies, { name: string; symbol: string }> = {
+  BTC: {
+    name: 'Bitcoin',
+    symbol: 'BTC',
+  },
+  STX: {
+    name: 'Stacks',
+    symbol: 'STX',
+  },
+};
+
+interface FundLayoutProps extends HasChildren {
+  symbol: CryptoCurrencies;
 }
-export function FundLayout({ address }: FundLayoutProps) {
+
+export function FundLayout({ symbol, children }: FundLayoutProps) {
+  const name = nameMap[symbol].name;
+  const nameAbbr = nameMap[symbol].symbol;
   return (
     <Flex
       alignItems={['left', 'center']}
@@ -35,12 +51,12 @@ export function FundLayout({ address }: FundLayoutProps) {
           maxWidth="544px"
           textAlign={['left', 'center']}
         >
-          Choose an exchange to fund your account with Stacks (STX) or deposit from elsewhere.
-          Exchanges with “Fast checkout” make it easier to purchase STX for direct deposit into your
-          wallet with a credit card.
+          Choose an exchange to fund your account with {name} ({nameAbbr}) or deposit from
+          elsewhere. Exchanges with “Fast checkout” make it easier to purchase {nameAbbr} for direct
+          deposit into your wallet with a credit card.
         </styled.span>
       </Stack>
-      <FiatProvidersList address={address} />
+      {children}
     </Flex>
   );
 }

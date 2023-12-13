@@ -4,7 +4,7 @@ import { ColorToken } from 'leather-styles/tokens';
 const basePesudoOutlineProps = {
   content: '""',
   position: 'absolute',
-  rounded: '8px',
+  rounded: 'xs',
   top: 0,
   left: 0,
   bottom: 0,
@@ -43,6 +43,7 @@ function loadingStyles(color: ColorToken) {
     },
   };
 }
+
 // ts-unused-exports:disable-next-line
 export const buttonRecipe = defineRecipe({
   description: 'The styles for the Button component',
@@ -52,11 +53,18 @@ export const buttonRecipe = defineRecipe({
     position: 'relative',
     py: 'space.03',
     px: 'space.04',
-    rounded: '8px',
+    rounded: 'xs',
     textStyle: 'label.01',
     _disabled: { cursor: 'not-allowed' },
   },
   variants: {
+    size: {
+      sm: {
+        textStyle: 'label.02',
+        py: 'space.02',
+        px: 'space.03',
+      },
+    },
     variant: {
       // Solid button
       solid: {
