@@ -39,7 +39,7 @@ export function AccountActions(props: FlexProps) {
           data-testid={HomePageSelectors.FundAccountBtn}
           icon={<PlusIcon />}
           label="Buy"
-          onClick={() => navigate(RouteUrls.Fund)}
+          onClick={() => navigate(RouteUrls.FundChooseCurrency)}
         />
       )}
 

@@ -1,4 +1,3 @@
-import { useCallback } from 'react';
 import toast from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
 
@@ -14,30 +13,16 @@ import { ChooseCryptoAssetLayout } from '@app/components/crypto-assets/choose-cr
 import { CryptoAssetList } from '@app/components/crypto-assets/choose-crypto-asset/crypto-asset-list';
 import { ModalHeader } from '@app/components/modal-header';
 import { useConfigBitcoinSendEnabled } from '@app/query/common/remote-config/remote-config.query';
-import { useHasCurrentBitcoinAccount } from '@app/store/accounts/blockchain/bitcoin/bitcoin.hooks';
-import { useHasStacksLedgerKeychain } from '@app/store/accounts/blockchain/stacks/stacks.hooks';
+import { useCheckLedgerBlockchainAvailable } from '@app/store/accounts/blockchain/utils';
 
 export function ChooseCryptoAsset() {
   const allTransferableCryptoAssetBalances = useAllTransferableCryptoAssetBalances();
 
   const { whenWallet } = useWalletType();
-  const hasBitcoinLedgerKeys = useHasCurrentBitcoinAccount();
-  const hasStacksLedgerKeys = useHasStacksLedgerKeychain();
   const navigate = useNavigate();
   const isBitcoinSendEnabled = useConfigBitcoinSendEnabled();
 
-  const checkBlockchainAvailable = useCallback(
-    (symbol: string) => {
-      if (symbol === 'bitcoin') {
-        return hasBitcoinLedgerKeys;
-      }
-      if (symbol === 'stacks') {
-        return hasStacksLedgerKeys;
-      }
-      return false;
-    },
-    [hasBitcoinLedgerKeys, hasStacksLedgerKeys]
-  );
+  const checkBlockchainAvailable = useCheckLedgerBlockchainAvailable();
 
   useRouteHeader(<ModalHeader hideActions defaultGoBack title=" " />);
 
@@ -61,7 +46,7 @@ export function ChooseCryptoAsset() {
   }
 
   return (
-    <ChooseCryptoAssetLayout>
+    <ChooseCryptoAssetLayout title="choose asset to send">
       <CryptoAssetList
         onItemClick={cryptoAssetBalance => navigateToSendForm(cryptoAssetBalance)}
         cryptoAssetBalances={allTransferableCryptoAssetBalances.filter(asset =>

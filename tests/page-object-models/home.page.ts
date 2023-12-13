@@ -132,7 +132,7 @@ export class HomePage {
     await this.lockSettingsListItem.click();
   }
 
-  async goToFundPage() {
+  async goToFundChooseCurrencyPage() {
     await this.fundAccountBtn.click();
   }
 }
