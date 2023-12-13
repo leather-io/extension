@@ -6,6 +6,7 @@ import { Psbt } from 'bitcoinjs-lib';
 
 import {
   deriveAddressIndexZeroFromAccount,
+  extractAddressIndexFromPath,
   lookUpLedgerKeysByPath,
 } from '@shared/crypto/bitcoin/bitcoin.utils';
 import {
@@ -13,7 +14,8 @@ import {
   getNativeSegWitPaymentFromAddressIndex,
   getNativeSegwitAccountDerivationPath,
 } from '@shared/crypto/bitcoin/p2wpkh-address-gen';
-import { makeNumberRange, reverseBytes } from '@shared/utils';
+import { BitcoinInputSigningConfig } from '@shared/crypto/bitcoin/signer-config';
+import { reverseBytes } from '@shared/utils';
 
 import { mnemonicToRootNode } from '@app/common/keychain/keychain';
 import { useBitcoinClient } from '@app/store/common/api-clients.hooks';
@@ -126,7 +128,7 @@ export function getNativeSegwitMainnetAddressFromMnemonic(secretKey: string) {
 export function useUpdateLedgerSpecificNativeSegwitUtxoHexForAdddressIndexZero() {
   const bitcoinClient = useBitcoinClient();
 
-  return async (tx: Psbt, inputsToUpdate: number[] = []) => {
+  return async (tx: Psbt, inputSigningConfig: BitcoinInputSigningConfig[]) => {
     const inputsTxHex = await Promise.all(
       tx.txInputs.map(input =>
         bitcoinClient.transactionsApi.getBitcoinTransactionHex(
@@ -135,31 +137,32 @@ export function useUpdateLedgerSpecificNativeSegwitUtxoHexForAdddressIndexZero()
         )
       )
     );
-
-    const inputsToSign =
-      inputsToUpdate.length > 0 ? inputsToUpdate : makeNumberRange(tx.inputCount);
-
-    inputsToSign.forEach(inputIndex => {
-      tx.updateInput(inputIndex, {
-        nonWitnessUtxo: Buffer.from(inputsTxHex[inputIndex], 'hex'),
+    inputSigningConfig.forEach(({ index }) => {
+      tx.updateInput(index, {
+        nonWitnessUtxo: Buffer.from(inputsTxHex[index], 'hex'),
       });
     });
   };
 }
+
 export function useUpdateLedgerSpecificNativeSegwitBip32DerivationForAdddressIndexZero() {
-  const nativeSegwitSigner = useCurrentAccountNativeSegwitIndexZeroSigner();
+  const createNativeSegwitSigner = useCurrentAccountNativeSegwitSigner();
 
-  return async (tx: Psbt, fingerprint: string, inputsToUpdate: number[] = []) => {
-    const inputsToSign =
-      inputsToUpdate.length > 0 ? inputsToUpdate : makeNumberRange(tx.inputCount);
+  return async (tx: Psbt, fingerprint: string, inputSigningConfig: BitcoinInputSigningConfig[]) => {
+    inputSigningConfig.forEach(({ index, derivationPath }) => {
+      const nativeSegwitSigner = createNativeSegwitSigner?.(
+        extractAddressIndexFromPath(derivationPath)
+      );
 
-    inputsToSign.forEach(inputIndex => {
-      tx.updateInput(inputIndex, {
+      if (!nativeSegwitSigner)
+        throw new Error(`Unable to update input for path ${derivationPath}}`);
+
+      tx.updateInput(index, {
         bip32Derivation: [
           {
             masterFingerprint: Buffer.from(fingerprint, 'hex'),
             pubkey: Buffer.from(nativeSegwitSigner.publicKey),
-            path: nativeSegwitSigner.derivationPath,
+            path: derivationPath,
           },
         ],
       });

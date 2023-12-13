@@ -17,7 +17,7 @@ import {
   getAssumedZeroIndexSigningConfig,
 } from '@shared/crypto/bitcoin/signer-config';
 import { allSighashTypes } from '@shared/rpc/methods/sign-psbt';
-import { isNumber, makeNumberRange } from '@shared/utils';
+import { isNumber } from '@shared/utils';
 
 import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
 import { useWalletType } from '@app/common/use-wallet-type';
@@ -113,7 +113,11 @@ export function useSignLedgerBitcoinTx() {
 
   const updateTaprootLedgerInputs = useUpdateLedgerSpecificTaprootInputPropsForAdddressIndexZero();
 
-  return async (app: AppClient, rawPsbt: Uint8Array, inputsToSign?: number[]) => {
+  return async (
+    app: AppClient,
+    rawPsbt: Uint8Array,
+    signingConfig: BitcoinInputSigningConfig[]
+  ) => {
     const fingerprint = await app.getMasterFingerprint();
 
     // BtcSigner not compatible with Ledger. Encoded format returns more terse
@@ -124,16 +128,14 @@ export function useSignLedgerBitcoinTx() {
 
     const btcSignerPsbtClone = btc.Transaction.fromPSBT(psbt.toBuffer());
 
-    const inputByPaymentType = (
-      inputsToSign ?? makeNumberRange(btcSignerPsbtClone.inputsLength)
-    ).map(index => [
-      index,
+    const inputByPaymentType = signingConfig.map(config => [
+      config,
       getInputPaymentType(
-        index,
-        btcSignerPsbtClone.getInput(index),
+        config.index,
+        btcSignerPsbtClone.getInput(config.index),
         network.chain.bitcoin.bitcoinNetwork
       ),
-    ]) as readonly [number, PaymentTypes][];
+    ]) as readonly [BitcoinInputSigningConfig, PaymentTypes][];
 
     //
     // Taproot
