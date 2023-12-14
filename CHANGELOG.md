@@ -1,3 +1,28 @@
+## [6.20.0](https://github.com/leather-wallet/extension/compare/v6.19.0...v6.20.0) (2023-12-14)
+
+
+### Features
+
+* add fund btc screen ([df77eb9](https://github.com/leather-wallet/extension/commit/df77eb9ebb327ddcb9351ced7d8074e47f590e1a))
+* added query for bitcoin contracts ([408ce03](https://github.com/leather-wallet/extension/commit/408ce0312b76ab9fb5ed8d5975f59a1518012158))
+* modified bitcoin contracts balance fetching ([bc909cf](https://github.com/leather-wallet/extension/commit/bc909cfa3102b18459984b83b6b62871402f43c3))
+* removed unnecessary useeffect, modfied btc entry point return if balance is undefined ([c858abb](https://github.com/leather-wallet/extension/commit/c858abb729a9c1a30f1793f5d8efb92554595ddc))
+* sentry feedback ([c4f6260](https://github.com/leather-wallet/extension/commit/c4f626067356e43c75003a100eedcef52e6c9f0c))
+* upgrade alex-sdk to 0.1.23 ([4a2b5d5](https://github.com/leather-wallet/extension/commit/4a2b5d5f3ed6e67ff381f8ca763a0869ae9c6ebb))
+
+
+### Bug Fixes
+
+* add CNAME to action ([e62c4b1](https://github.com/leather-wallet/extension/commit/e62c4b1e514869c2537db32d65a9782f0931cd06))
+* **ledger:** inscription sends, non-index 0, closes [#4680](https://github.com/leather-wallet/extension/issues/4680) ([aae3221](https://github.com/leather-wallet/extension/commit/aae32219433386376c17f7a6d6d52c10382670a8))
+* serialize sip10 form memo before displaying it ([6140a7c](https://github.com/leather-wallet/extension/commit/6140a7cadd25d4a1b4a4fdba5d73e3e47e84e034))
+* use light mode icons ([8d160b0](https://github.com/leather-wallet/extension/commit/8d160b0d5928083b2aec329a07a7d45ba59d05d1))
+
+
+### Internal
+
+* post-release merge back ([11b48fc](https://github.com/leather-wallet/extension/commit/11b48fca8b85c16e94cf7e307bac5ad88aa0ab18))
+
 ## [6.19.0](https://github.com/leather-wallet/extension/compare/v6.18.0...v6.19.0) (2023-12-12)
 
 
