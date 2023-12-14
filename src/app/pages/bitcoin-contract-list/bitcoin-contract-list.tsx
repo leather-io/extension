@@ -12,14 +12,14 @@ import { BitcoinContractListItemLayout } from './components/bitcoin-contract-lis
 import { BitcoinContractListLayout } from './components/bitcoin-contract-list-layout';
 
 export function BitcoinContractList() {
-  const { getAllActiveBitcoinContracts } = useBitcoinContracts();
+  const { getAllSignedBitcoinContracts } = useBitcoinContracts();
   const [bitcoinContracts, setBitcoinContracts] = useState<BitcoinContractListItem[]>([]);
   const [isLoading, setLoading] = useState(true);
   const [isError, setError] = useState(false);
 
   useOnMount(() => {
     const fetchAndFormatBitcoinContracts = async () => {
-      const fetchedBitcoinContracts = await getAllActiveBitcoinContracts();
+      const fetchedBitcoinContracts = await getAllSignedBitcoinContracts();
       if (!fetchedBitcoinContracts) {
         setError(true);
         setLoading(false);
