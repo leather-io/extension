@@ -1,5 +1,7 @@
 import { Outlet } from 'react-router-dom';
 
+import { SwapSelectors } from '@tests/selectors/swap.selectors';
+
 import { LoadingKeys, useLoading } from '@app/common/hooks/use-loading';
 import { useRouteHeader } from '@app/common/hooks/use-route-header';
 import { ModalHeader } from '@app/components/modal-header';
@@ -26,7 +28,13 @@ export function SwapReview() {
           <SwapDetails />
         </SwapContentLayout>
         <SwapFooterLayout>
-          <LeatherButton aria-busy={isLoading} type="button" onClick={onSubmitSwap} fullWidth>
+          <LeatherButton
+            aria-busy={isLoading}
+            data-testid={SwapSelectors.SwapBtn}
+            type="button"
+            onClick={onSubmitSwap}
+            fullWidth
+          >
             Swap
           </LeatherButton>
         </SwapFooterLayout>

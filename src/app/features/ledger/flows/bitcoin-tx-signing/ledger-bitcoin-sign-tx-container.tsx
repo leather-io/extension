@@ -1,10 +1,12 @@
 import { useEffect, useState } from 'react';
+import toast from 'react-hot-toast';
 import { Outlet, Route, useLocation } from 'react-router-dom';
 
 import * as btc from '@scure/btc-signer';
 import { hexToBytes } from '@stacks/common';
 import get from 'lodash.get';
 
+import { BitcoinInputSigningConfig } from '@shared/crypto/bitcoin/signer-config';
 import { logger } from '@shared/logger';
 import { RouteUrls } from '@shared/route-urls';
 
@@ -45,7 +47,8 @@ function LedgerSignBitcoinTxContainer() {
   const [unsignedTransaction, setUnsignedTransaction] = useState<null | btc.Transaction>(null);
   const signLedger = useSignLedgerBitcoinTx();
 
-  const inputsToSign = useLocationStateWithCache<number[]>('inputsToSign');
+  const inputsToSign = useLocationStateWithCache<BitcoinInputSigningConfig[]>('inputsToSign');
+
   const allowUserToGoBack = useLocationState<boolean>('goBack');
 
   useEffect(() => {
@@ -62,18 +65,25 @@ function LedgerSignBitcoinTxContainer() {
 
   const [awaitingDeviceConnection, setAwaitingDeviceConnection] = useState(false);
 
+  if (!inputsToSign) {
+    ledgerNavigate.cancelLedgerAction();
+    toast.error('No input signing config defined');
+    return null;
+  }
+
   const signTransaction = async () => {
     setAwaitingDeviceConnection(true);
     const bitcoinApp = await connectLedgerBitcoinApp();
 
     try {
       const versionInfo = await getBitcoinAppVersion(bitcoinApp);
-
       ledgerAnalytics.trackDeviceVersionInfo(versionInfo);
       setAwaitingDeviceConnection(false);
-
       setLatestDeviceResponse(versionInfo as any);
-    } catch (e) {}
+    } catch (e) {
+      setLatestDeviceResponse(e as any);
+      logger.error('Unable to get Ledger app version info', e);
+    }
 
     ledgerNavigate.toDeviceBusyStep('Verifying public key on Ledger…');
 

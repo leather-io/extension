@@ -1,3 +1,4 @@
+import { SwapSelectors } from '@tests/selectors/swap.selectors';
 import { HStack, styled } from 'leather-styles/jsx';
 
 import { Flag } from '@app/components/layout/flag';
@@ -20,8 +21,12 @@ export function SwapAssetItemLayout({ caption, icon, symbol, value }: SwapAssetI
         {caption}
       </styled.span>
       <HStack alignItems="center" justifyContent="space-between">
-        <styled.span textStyle="heading.05">{symbol}</styled.span>
-        <styled.span textStyle="heading.05">{value}</styled.span>
+        <styled.span data-testid={SwapSelectors.SwapDetailsSymbol} textStyle="heading.05">
+          {symbol}
+        </styled.span>
+        <styled.span data-testid={SwapSelectors.SwapDetailsAmount} textStyle="heading.05">
+          {value}
+        </styled.span>
       </HStack>
     </Flag>
   );

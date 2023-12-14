@@ -81,7 +81,6 @@ export function useSendInscriptionForm() {
             inscription,
             recipient: values.recipient,
             utxo,
-            backgroundLocation: { pathname: RouteUrls.Home },
           },
         }
       );
@@ -101,7 +100,7 @@ export function useSendInscriptionForm() {
         return;
       }
 
-      const signedTx = await sign(resp.psbt);
+      const signedTx = await sign(resp.psbt, resp.signingConfig);
 
       if (!signedTx) {
         logger.error('No signed transaction returned');
@@ -122,7 +121,6 @@ export function useSendInscriptionForm() {
           time,
           feeRowValue,
           signedTx: signedTx.extract(),
-          backgroundLocation: { pathname: RouteUrls.Home },
         },
       });
     },

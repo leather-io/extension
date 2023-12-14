@@ -6,12 +6,12 @@ interface FundAccountTileProps {
   description: string;
   icon: string;
   onClickTile(): void;
-  receiveStxIcon?: React.JSX.Element;
+  ReceiveStxIcon?(): React.JSX.Element;
   testId: string;
   title?: string;
 }
 export function FundAccountTile(props: FundAccountTileProps) {
-  const { attributes, description, icon, onClickTile, receiveStxIcon, testId, title } = props;
+  const { attributes, description, icon, onClickTile, ReceiveStxIcon, testId, title } = props;
 
   return (
     <styled.button
@@ -38,8 +38,8 @@ export function FundAccountTile(props: FundAccountTileProps) {
       width={['100%', '17.5rem']}
     >
       <Stack alignItems="flex-start" gap="space.03" p="space.05">
-        <HStack alignItems="center" gap={receiveStxIcon ? 'space.02' : 'space.04'}>
-          {receiveStxIcon}
+        <HStack alignItems="center" gap={ReceiveStxIcon ? 'space.02' : 'space.04'}>
+          {ReceiveStxIcon ? <ReceiveStxIcon /> : null}
           <Box
             alignItems="center"
             border="default"
@@ -48,6 +48,7 @@ export function FundAccountTile(props: FundAccountTileProps) {
             height="40px"
             justifyContent="center"
             width="40px"
+            backgroundColor="lightModeBrown.1"
           >
             <img src={icon} width="24px" />
           </Box>

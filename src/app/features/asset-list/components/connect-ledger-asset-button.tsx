@@ -31,7 +31,7 @@ export function ConnectLedgerAssetBtn({ chain }: ConnectLedgerAssetBtnProps) {
       display="flex"
       alignItems="center"
       variant="outline"
-      height="36px"
+      size="sm"
       gap="space.02"
       onClick={onClick}
     >

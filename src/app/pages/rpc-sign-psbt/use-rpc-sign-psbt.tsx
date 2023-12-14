@@ -1,6 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 
 import { RpcErrorCode } from '@btckit/types';
+import { hexToBytes } from '@noble/hashes/utils';
 import { bytesToHex } from '@stacks/common';
 
 import { Money } from '@shared/models/money.model';
@@ -20,6 +21,7 @@ import {
   useCalculateBitcoinFiatValue,
   useCryptoCurrencyMarketData,
 } from '@app/query/common/market-data/market-data.hooks';
+import { useGetAssumedZeroIndexSigningConfig } from '@app/store/accounts/blockchain/bitcoin/bitcoin.hooks';
 
 interface BroadcastSignedPsbtTxArgs {
   addressNativeSegwitTotal: Money;
@@ -36,6 +38,7 @@ export function useRpcSignPsbt() {
   const { refetch } = useCurrentNativeSegwitUtxos();
   const btcMarketData = useCryptoCurrencyMarketData('BTC');
   const calculateBitcoinFiatValue = useCalculateBitcoinFiatValue();
+  const getDefaultSigningConfig = useGetAssumedZeroIndexSigningConfig();
 
   if (!requestId || !psbtHex || !origin) throw new Error('Invalid params in useRpcSignPsbt');
 
@@ -90,7 +93,10 @@ export function useRpcSignPsbt() {
       const tx = getPsbtAsTransaction(psbtHex);
 
       try {
-        const signedTx = await signPsbt({ tx, indexesToSign: signAtIndex });
+        const signedTx = await signPsbt({
+          tx,
+          signingConfig: getDefaultSigningConfig(hexToBytes(psbtHex), signAtIndex),
+        });
 
         const psbt = signedTx.toPSBT();
 

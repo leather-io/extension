@@ -1,3 +1,56 @@
+## [6.20.0](https://github.com/leather-wallet/extension/compare/v6.19.0...v6.20.0) (2023-12-14)
+
+
+### Features
+
+* add fund btc screen ([df77eb9](https://github.com/leather-wallet/extension/commit/df77eb9ebb327ddcb9351ced7d8074e47f590e1a))
+* added query for bitcoin contracts ([408ce03](https://github.com/leather-wallet/extension/commit/408ce0312b76ab9fb5ed8d5975f59a1518012158))
+* modified bitcoin contracts balance fetching ([bc909cf](https://github.com/leather-wallet/extension/commit/bc909cfa3102b18459984b83b6b62871402f43c3))
+* removed unnecessary useeffect, modfied btc entry point return if balance is undefined ([c858abb](https://github.com/leather-wallet/extension/commit/c858abb729a9c1a30f1793f5d8efb92554595ddc))
+* sentry feedback ([c4f6260](https://github.com/leather-wallet/extension/commit/c4f626067356e43c75003a100eedcef52e6c9f0c))
+* upgrade alex-sdk to 0.1.23 ([4a2b5d5](https://github.com/leather-wallet/extension/commit/4a2b5d5f3ed6e67ff381f8ca763a0869ae9c6ebb))
+
+
+### Bug Fixes
+
+* add CNAME to action ([e62c4b1](https://github.com/leather-wallet/extension/commit/e62c4b1e514869c2537db32d65a9782f0931cd06))
+* **ledger:** inscription sends, non-index 0, closes [#4680](https://github.com/leather-wallet/extension/issues/4680) ([aae3221](https://github.com/leather-wallet/extension/commit/aae32219433386376c17f7a6d6d52c10382670a8))
+* serialize sip10 form memo before displaying it ([6140a7c](https://github.com/leather-wallet/extension/commit/6140a7cadd25d4a1b4a4fdba5d73e3e47e84e034))
+* use light mode icons ([8d160b0](https://github.com/leather-wallet/extension/commit/8d160b0d5928083b2aec329a07a7d45ba59d05d1))
+
+
+### Internal
+
+* post-release merge back ([11b48fc](https://github.com/leather-wallet/extension/commit/11b48fca8b85c16e94cf7e307bac5ad88aa0ab18))
+
+## [6.19.0](https://github.com/leather-wallet/extension/compare/v6.18.0...v6.19.0) (2023-12-12)
+
+
+### Features
+
+* add rpc method for signing stacks messages ([e77a8d8](https://github.com/leather-wallet/extension/commit/e77a8d8db6879325c11003d36ef2e3ab8ad8af16))
+
+
+### Bug Fixes
+
+* add background location to brc-20 modal and fix typo ([7483b9e](https://github.com/leather-wallet/extension/commit/7483b9e52e175431bbd02778e128f6de603da352))
+* broadcast ledger swap ([886309b](https://github.com/leather-wallet/extension/commit/886309b318dda5fa1c19f30b5a2772408e21acb6))
+* fix brc-20 sendby signing transaction before finalising then broadcasting, closes [#4635](https://github.com/leather-wallet/extension/issues/4635) ([5aa7c3c](https://github.com/leather-wallet/extension/commit/5aa7c3c3d6d5c383c78f6457ac6aa9dd4a73e8c5))
+* keep search params while doing background location redirect ([6b7ce6a](https://github.com/leather-wallet/extension/commit/6b7ce6a7946441e7b03864fc3a4a3313d28d61b7))
+* playwright error ([5bef424](https://github.com/leather-wallet/extension/commit/5bef424e0e457e850cea1e08a1befe9274c34b72))
+* revert signing logic to try both keys, closes [#4645](https://github.com/leather-wallet/extension/issues/4645) ([8b1be50](https://github.com/leather-wallet/extension/commit/8b1be500fa099bd09b1e9617d77c98be7843bab2))
+* selecting testnet in tests ([d275d8c](https://github.com/leather-wallet/extension/commit/d275d8c9bb6a1914ffd3b94e7e41e956c7fb2035))
+* swap test route path ([24d3677](https://github.com/leather-wallet/extension/commit/24d36773adfb2ab830fa0ab8d4063182c7656829))
+
+
+### Internal
+
+* add ledger signing routes to BRC-20 send ([42ee981](https://github.com/leather-wallet/extension/commit/42ee98101aacd61eacdde381b53209b738522518))
+* add swap tests ([bd6dc1a](https://github.com/leather-wallet/extension/commit/bd6dc1a6d946727859f5b4f1b89b7d7b0b199f99))
+* enable ledger swaps to test ([6539075](https://github.com/leather-wallet/extension/commit/6539075521f8250dcea08ff487b35267b7f94ac7))
+* post-release merge back ([9414a9b](https://github.com/leather-wallet/extension/commit/9414a9bc23966f1a33ff156a9ae80abdaab1cccf))
+* **signing:** support non-index zero input signing, closes [#4620](https://github.com/leather-wallet/extension/issues/4620), [#4628](https://github.com/leather-wallet/extension/issues/4628) ([d2edb18](https://github.com/leather-wallet/extension/commit/d2edb187e80bef233606a9a38d8b83dc83f4d91f))
+
 ## [6.18.0](https://github.com/leather-wallet/extension/compare/v6.17.0...v6.18.0) (2023-12-05)
 
 

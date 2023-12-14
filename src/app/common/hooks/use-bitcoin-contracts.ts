@@ -60,6 +60,7 @@ export function useBitcoinContracts() {
   const defaultParams = useDefaultRequestParams();
   const bitcoinMarketData = useCryptoCurrencyMarketData('BTC');
   const calculateFiatValue = useCalculateBitcoinFiatValue();
+
   const bitcoinAccountDetails = useCurrentAccountNativeSegwitIndexZeroSigner();
   const currentIndex = useCurrentAccountIndex();
   const nativeSegwitPrivateKeychain = useNativeSegwitAccountBuilder()?.(currentIndex);
@@ -236,10 +237,11 @@ export function useBitcoinContracts() {
     };
   }
 
-  async function sumBitcoinContractCollateralAmounts(): Promise<Money | undefined> {
+  async function sumBitcoinContractCollateralAmounts(): Promise<Money> {
     let bitcoinContractsCollateralSum = 0;
     const bitcoinContracts = await getAllSignedBitcoinContracts();
-    if (!bitcoinContracts) return;
+    if (!bitcoinContracts) return createMoneyFromDecimal(0, 'BTC');
+
     bitcoinContracts.forEach((bitcoinContract: BitcoinContractListItem) => {
       bitcoinContractsCollateralSum += parseInt(bitcoinContract.acceptorCollateral);
     });
@@ -247,6 +249,7 @@ export function useBitcoinContracts() {
       satToBtc(bitcoinContractsCollateralSum),
       'BTC'
     );
+
     return bitcoinContractCollateralSumMoney;
   }
 

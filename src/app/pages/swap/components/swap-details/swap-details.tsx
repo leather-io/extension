@@ -1,3 +1,4 @@
+import { SwapSelectors } from '@tests/selectors/swap.selectors';
 import BigNumber from 'bignumber.js';
 import { HStack, styled } from 'leather-styles/jsx';
 
@@ -21,7 +22,7 @@ function RouteNames(props: { swapSubmissionData: SwapSubmissionData }) {
     return (
       <HStack gap="space.01" key={route.name}>
         <styled.span>{route.name}</styled.span>
-        {insertIcon && <ChevronUpIcon transform="rotate(90)" />}
+        {insertIcon && <ChevronUpIcon transform="rotate(90deg)" />}
       </HStack>
     );
   });
@@ -49,7 +50,11 @@ export function SwapDetails() {
 
   return (
     <SwapDetailsLayout>
-      <SwapDetailLayout title="Powered by" value={swapSubmissionData.protocol} />
+      <SwapDetailLayout
+        dataTestId={SwapSelectors.SwapDetailsProtocol}
+        title="Powered by"
+        value={swapSubmissionData.protocol}
+      />
       <SwapDetailLayout
         title="Route"
         value={

@@ -1,5 +1,6 @@
 import { useLocation, useNavigate } from 'react-router-dom';
 
+import { SwapSelectors } from '@tests/selectors/swap.selectors';
 import { Box, styled } from 'leather-styles/jsx';
 import get from 'lodash.get';
 
@@ -37,7 +38,7 @@ export function SwapChooseAsset() {
 
   return (
     <BaseDrawer title="" isShowing onClose={() => navigate(-1)}>
-      <Box mx="space.06">
+      <Box data-testid={SwapSelectors.ChooseAssetList} mx="space.06">
         <styled.h1 mb="space.05" textStyle="heading.03">
           {title}
         </styled.h1>

@@ -57,7 +57,7 @@ export function AssetsList() {
       {/* Temporary duplication during Ledger Bitcoin feature dev */}
       {['testnet', 'regtest'].includes(network.chain.bitcoin.bitcoinNetwork) &&
         whenWallet({
-          software: <BitcoinContractEntryPoint btcAddress={btcAddress} />,
+          software: <BitcoinContractEntryPoint />,
           ledger: null,
         })}
 
