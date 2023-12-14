@@ -133,3 +133,4 @@ jobs:
           external_repository: leather-wallet/specs.leather.io
           publish_branch: main
           publish_dir: ./playwright-report
+          cname: specs.leather.io
