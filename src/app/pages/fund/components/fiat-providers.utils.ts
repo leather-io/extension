@@ -11,6 +11,7 @@ import TransakIcon from '@assets/images/fund/fiat-providers/transak-icon.png';
 import { generateOnRampURL } from '@coinbase/cbpay-js';
 
 import { COINBASE_APP_ID, MOONPAY_API_KEY, TRANSAK_API_KEY } from '@shared/environment';
+import { CryptoCurrencies } from '@shared/models/currencies.model';
 
 import { ActiveFiatProvider } from '@app/query/common/remote-config/remote-config.query';
 
@@ -41,32 +42,37 @@ export const activeFiatProviderIcons: Record<ActiveFiatProvider['name'], string>
   [ActiveFiatProviders.Transak]: TransakIcon,
 };
 
-function makeCoinbaseUrl(address: string) {
+function makeCoinbaseUrl(address: string, symbol: CryptoCurrencies) {
+  const code = symbol.toUpperCase();
+
   const onRampURL = generateOnRampURL({
     appId: COINBASE_APP_ID,
     destinationWallets: [
       {
         address,
-        assets: ['STX'],
+        assets: [code],
       },
     ],
   });
   return onRampURL;
 }
 
-function makeMoonPayUrl(address: string) {
-  return `https://buy.moonpay.com?apiKey=${MOONPAY_API_KEY}&currencyCode=stx&walletAddress=${address}`;
+function makeMoonPayUrl(address: string, symbol: CryptoCurrencies) {
+  const code = symbol.toLowerCase();
+  return `https://buy.moonpay.com?apiKey=${MOONPAY_API_KEY}&currencyCode=${code}&walletAddress=${address}`;
 }
 
-function makeTransakUrl(address: string) {
+function makeTransakUrl(address: string, symbol: CryptoCurrencies) {
   const screenTitle = 'Buy Stacks';
+  const code = symbol.toUpperCase();
 
-  return `https://global.transak.com?apiKey=${TRANSAK_API_KEY}&cryptoCurrencyCode=STX&exchangeScreenTitle=${encodeURI(
+  return `https://global.transak.com?apiKey=${TRANSAK_API_KEY}&cryptoCurrencyCode=${code}&exchangeScreenTitle=${encodeURI(
     screenTitle
   )}&defaultPaymentMethod=credit_debit_card&walletAddress=${address}`;
 }
 
 function makeFiatProviderFaqUrl(address: string, provider: string) {
+  // TODO: Add FAQ for BTC
   return `https://hiro.so/wallet-faq/how-do-i-buy-stx-from-an-exchange?provider=${provider}&address=${address}`;
 }
 
@@ -75,23 +81,25 @@ interface GetProviderNameArgs {
   hasFastCheckoutProcess: boolean;
   key: string;
   name: string;
+  symbol: CryptoCurrencies;
 }
 export function getProviderUrl({
   address,
   hasFastCheckoutProcess,
   key,
   name,
+  symbol,
 }: GetProviderNameArgs) {
   if (!hasFastCheckoutProcess) {
     return makeFiatProviderFaqUrl(address, name);
   }
   switch (key) {
     case ActiveFiatProviders.Coinbase:
-      return makeCoinbaseUrl(address);
+      return makeCoinbaseUrl(address, symbol);
     case ActiveFiatProviders.MoonPay:
-      return makeMoonPayUrl(address);
+      return makeMoonPayUrl(address, symbol);
     case ActiveFiatProviders.Transak:
-      return makeTransakUrl(address);
+      return makeTransakUrl(address, symbol);
     default:
       return makeFiatProviderFaqUrl(address, name);
   }

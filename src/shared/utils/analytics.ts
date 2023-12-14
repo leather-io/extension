@@ -3,6 +3,7 @@ import { sha256 } from '@noble/hashes/sha256';
 import { base58 } from '@scure/base';
 import { AnalyticsBrowser } from '@segment/analytics-next';
 import * as Sentry from '@sentry/react';
+import { token } from 'leather-styles/tokens';
 import { getStoredState } from 'redux-persist';
 
 import {
@@ -58,6 +59,35 @@ export function initSentry() {
         startTransactionOnLocationChange: false,
         startTransactionOnPageLoad: false,
         markBackgroundTransactions: false,
+      }),
+      new Sentry.Feedback({
+        colorScheme: 'system',
+        isEmailRequired: false,
+        buttonLabel: 'Give feedback',
+        formTitle: 'Give feedback',
+        autoInject: false,
+        showEmail: false,
+        showName: false,
+        showBranding: false,
+        messageLabel: 'Feedback',
+        submitButtonLabel: 'Send feedback',
+        messagePlaceholder: 'How can we improve Leather?',
+        successMessageText: 'Thanks for helping make Leather better',
+        themeDark: {
+          background: token('colors.accent.background-primary'),
+          inputOutlineFocus: token('colors.accent.border-hover'),
+          submitBackground: token('colors.accent.component-background-default'),
+          submitBackgroundHover: token('colors.accent.component-background-hover'),
+          submitOutlineFocus: token('colors.accent.border-hover'),
+          submitBorder: token('colors.accent.component-background-default'),
+          cancelBackground: token('colors.colorPalette.action-primary-default'),
+          cancelBackgroundHover: token('colors.colorPalette.action-primary-hover'),
+        },
+        themeLight: {
+          submitBackground: token('colors.lightModeInk.12'),
+          submitBackgroundHover: token('colors.lightModeInk.12'),
+          submitOutlineFocus: token('colors.lightModeInk.12'),
+        },
       }),
     ],
     ignoreErrors: [

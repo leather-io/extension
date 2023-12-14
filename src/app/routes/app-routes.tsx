@@ -28,12 +28,14 @@ import { RetrieveTaprootToNativeSegwit } from '@app/features/retrieve-taproot-to
 import { BitcoinContractList } from '@app/pages/bitcoin-contract-list/bitcoin-contract-list';
 import { BitcoinContractRequest } from '@app/pages/bitcoin-contract-request/bitcoin-contract-request';
 import { ChooseAccount } from '@app/pages/choose-account/choose-account';
+import { ChooseCryptoAssetToFund } from '@app/pages/fund/choose-asset-to-fund/choose-asset-to-fund';
 import { FundPage } from '@app/pages/fund/fund';
 import { Home } from '@app/pages/home/home';
 import { AllowDiagnosticsModal } from '@app/pages/onboarding/allow-diagnostics/allow-diagnostics';
 import { BackUpSecretKeyPage } from '@app/pages/onboarding/back-up-secret-key/back-up-secret-key';
 import { SignIn } from '@app/pages/onboarding/sign-in/sign-in';
 import { WelcomePage } from '@app/pages/onboarding/welcome/welcome';
+import { ReceiveBtcModal } from '@app/pages/receive/receive-btc';
 import { ReceiveStxModal } from '@app/pages/receive/receive-stx';
 import { RequestError } from '@app/pages/request-error/request-error';
 import { RpcSignStacksTransaction } from '@app/pages/rpc-sign-stacks-transaction/rpc-sign-stacks-transaction';
@@ -64,13 +66,13 @@ export function AppRoutes() {
 
 export const homePageModalRoutes = (
   <>
-    {sendOrdinalRoutes}
     {settingsRoutes}
     {receiveRoutes}
     {ledgerStacksTxSigningRoutes}
     {ledgerBitcoinTxSigningRoutes}
     {requestBitcoinKeysRoutes}
     {requestStacksKeysRoutes}
+    {sendOrdinalRoutes}
   </>
 );
 
@@ -174,18 +176,27 @@ function useAppRoutes() {
         </Route>
 
         <Route
-          path={`${RouteUrls.Fund}/*`}
+          path={RouteUrls.Fund}
           element={
             <AccountGate>
-              <FundPage>
-                <Route path={RouteUrls.ReceiveStx} element={<ReceiveStxModal />} />
-                {settingsRoutes}
-              </FundPage>
+              <FundPage />
             </AccountGate>
           }
         >
           {settingsRoutes}
 
+          <Route path={RouteUrls.ReceiveStx} element={<ReceiveStxModal />} />
+          <Route path={RouteUrls.ReceiveBtc} element={<ReceiveBtcModal />} />
+        </Route>
+        <Route
+          path={RouteUrls.FundChooseCurrency}
+          element={
+            <AccountGate>
+              <ChooseCryptoAssetToFund />
+            </AccountGate>
+          }
+        >
+          {settingsRoutes}
           <Route path={RouteUrls.ReceiveStx} element={<ReceiveStxModal />} />
         </Route>
 

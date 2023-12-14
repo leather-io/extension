@@ -59,6 +59,11 @@ jobs:
       - name: Build extension in test mode
         run: yarn build:test
 
+      - name: Extract branch name
+        shell: bash
+        run: echo "branch=${GITHUB_HEAD_REF:-${GITHUB_REF#refs/heads/}}" >> $GITHUB_OUTPUT
+        id: extract_branch
+
         # Playwright can only test extensions in headed mode, see
         # https://playwright.dev/docs/chrome-extensions. To run a browser in
         # headed mode, a display server is necessary. However, this job runs on
@@ -72,7 +77,7 @@ jobs:
       - name: Run Playwright tests
         run: xvfb-run yarn playwright test tests/specs --shard=${{ matrix.shardIndex }}/${{ matrix.shardTotal }} --workers=1
         env:
-          GITHUB_HEAD_REF: ${{ github.head_ref }}
+          BRANCH_NAME: ${{ steps.extract_branch.outputs.branch }}
           TEST_ACCOUNT_SECRET_KEY: ${{ secrets.TEST_ACCOUNT_SECRET_KEY }}
 
       - name: Upload blob report to GitHub Actions Artifacts
@@ -105,23 +110,27 @@ jobs:
       - name: Merge into HTML Report
         run: npx playwright merge-reports --reporter html ./all-blob-reports
 
-      - name: Upload HTML report
-        uses: actions/upload-artifact@v3
-        with:
-          name: html-report--attempt-${{ github.run_attempt }}
-          path: playwright-report
-          retention-days: 14
-
       - name: Extract branch name
         shell: bash
         run: echo "branch=${GITHUB_HEAD_REF:-${GITHUB_REF#refs/heads/}}" >> $GITHUB_OUTPUT
         id: extract_branch
 
-      - name: Deploy
+      - name: Deploy PR
         uses: peaceiris/actions-gh-pages@v3
+        if: github.event_name == 'pull_request'
         with:
           personal_token: ${{ secrets.SEMANTIC_RELEASE_TOKEN }}
           external_repository: leather-wallet/playwright-reports
           publish_branch: main
           publish_dir: ./playwright-report
           destination_dir: ${{ steps.extract_branch.outputs.branch }}
+
+      - name: Deploy specs.leather.io
+        uses: peaceiris/actions-gh-pages@v3
+        if: steps.extract_branch.outputs.branch == 'dev'
+        with:
+          personal_token: ${{ secrets.SEMANTIC_RELEASE_TOKEN }}
+          external_repository: leather-wallet/specs.leather.io
+          publish_branch: main
+          publish_dir: ./playwright-report
+          cname: specs.leather.io

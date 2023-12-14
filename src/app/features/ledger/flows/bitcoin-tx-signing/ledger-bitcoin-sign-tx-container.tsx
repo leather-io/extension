@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import toast from 'react-hot-toast';
 import { Outlet, Route, useLocation } from 'react-router-dom';
 
 import * as btc from '@scure/btc-signer';
@@ -47,6 +48,7 @@ function LedgerSignBitcoinTxContainer() {
   const signLedger = useSignLedgerBitcoinTx();
 
   const inputsToSign = useLocationStateWithCache<BitcoinInputSigningConfig[]>('inputsToSign');
+
   const allowUserToGoBack = useLocationState<boolean>('goBack');
 
   useEffect(() => {
@@ -63,6 +65,12 @@ function LedgerSignBitcoinTxContainer() {
 
   const [awaitingDeviceConnection, setAwaitingDeviceConnection] = useState(false);
 
+  if (!inputsToSign) {
+    ledgerNavigate.cancelLedgerAction();
+    toast.error('No input signing config defined');
+    return null;
+  }
+
   const signTransaction = async () => {
     setAwaitingDeviceConnection(true);
     const bitcoinApp = await connectLedgerBitcoinApp();
@@ -73,6 +81,7 @@ function LedgerSignBitcoinTxContainer() {
       setAwaitingDeviceConnection(false);
       setLatestDeviceResponse(versionInfo as any);
     } catch (e) {
+      setLatestDeviceResponse(e as any);
       logger.error('Unable to get Ledger app version info', e);
     }
 
@@ -85,11 +94,7 @@ function LedgerSignBitcoinTxContainer() {
     ledgerNavigate.toAwaitingDeviceOperation({ hasApprovedOperation: false });
 
     try {
-      const btcTx = await signLedger(
-        bitcoinApp,
-        unsignedTransaction.toPSBT(),
-        inputsToSign?.map(x => x.index)
-      );
+      const btcTx = await signLedger(bitcoinApp, unsignedTransaction.toPSBT(), inputsToSign);
 
       if (!btcTx || !unsignedTransactionRaw) throw new Error('No tx returned');
       ledgerNavigate.toAwaitingDeviceOperation({ hasApprovedOperation: true });

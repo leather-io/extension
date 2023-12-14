@@ -21,6 +21,7 @@ import { useCurrentNetworkId } from '@app/store/networks/networks.selectors';
 import { ExternalLinkIcon } from '@app/ui/components/icons/external-link-icon';
 import { Caption } from '@app/ui/components/typography/caption';
 
+import { openFeedbackDialog } from '../feedback-button/feedback-button';
 import { extractDeviceNameFromKnownTargetIds } from '../ledger/utils/generic-ledger-utils';
 import { AdvancedMenuItems } from './components/advanced-menu-items';
 import { LedgerDeviceItemRow } from './components/ledger-item-row';
@@ -109,7 +110,6 @@ export function SettingsDropdown() {
       <MenuItem
         data-testid={SettingsSelectors.GetSupportMenuItem}
         onClick={wrappedCloseCallback(() => {
-          void analytics.track('click_get_support_menu_item');
           openInNewTab('https://leather.gitbook.io/guides/installing/contact-support');
         })}
       >
@@ -118,17 +118,7 @@ export function SettingsDropdown() {
           <ExternalLinkIcon />
         </HStack>
       </MenuItem>
-      <MenuItem
-        onClick={wrappedCloseCallback(() => {
-          void analytics.track('click_request_feature_menu_item');
-          openInNewTab('https://leather.canny.io/feature-requests');
-        })}
-      >
-        <HStack>
-          <Box>Request feature</Box>
-          <ExternalLinkIcon />
-        </HStack>
-      </MenuItem>
+      <MenuItem onClick={wrappedCloseCallback(() => openFeedbackDialog())}>Give feedback</MenuItem>
       {hasGeneratedWallet ? <Divider /> : null}
       <MenuItem
         data-testid={SettingsSelectors.ChangeNetworkAction}
@@ -147,6 +137,7 @@ export function SettingsDropdown() {
       </MenuItem>
 
       <Divider />
+
       {showAdvancedMenuOptions && (
         <AdvancedMenuItems closeHandler={wrappedCloseCallback} settingsShown={isShowingSettings} />
       )}

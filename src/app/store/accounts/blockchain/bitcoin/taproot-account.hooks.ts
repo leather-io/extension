@@ -7,6 +7,7 @@ import { Psbt } from 'bitcoinjs-lib';
 import { BitcoinNetworkModes } from '@shared/constants';
 import {
   ecdsaPublicKeyToSchnorr,
+  extractAddressIndexFromPath,
   lookUpLedgerKeysByPath,
 } from '@shared/crypto/bitcoin/bitcoin.utils';
 import {
@@ -14,7 +15,7 @@ import {
   getTaprootAccountDerivationPath,
   getTaprootPaymentFromAddressIndex,
 } from '@shared/crypto/bitcoin/p2tr-address-gen';
-import { makeNumberRange } from '@shared/utils';
+import { BitcoinInputSigningConfig } from '@shared/crypto/bitcoin/signer-config';
 
 import { selectCurrentNetwork, useCurrentNetwork } from '@app/store/networks/networks.selectors';
 import { selectCurrentAccountIndex } from '@app/store/software-keys/software-key.selectors';
@@ -99,19 +100,27 @@ export function useCurrentAccountTaprootSigner() {
 }
 
 export function useUpdateLedgerSpecificTaprootInputPropsForAdddressIndexZero() {
-  const taprootSigner = useCurrentAccountTaprootIndexZeroSigner();
+  const createTaprootSigner = useCurrentAccountTaprootSigner();
 
-  return async (tx: Psbt, fingerprint: string, inputsToUpdate: number[] = []) => {
-    const inputsToSign =
-      inputsToUpdate.length > 0 ? inputsToUpdate : makeNumberRange(tx.inputCount);
+  return async (
+    tx: Psbt,
+    fingerprint: string,
+    inputsToUpdate: BitcoinInputSigningConfig[] = []
+  ) => {
+    inputsToUpdate.forEach(({ index, derivationPath }) => {
+      const taprootAddressIndexSigner = createTaprootSigner?.(
+        extractAddressIndexFromPath(derivationPath)
+      );
 
-    inputsToSign.forEach(inputIndex => {
-      tx.updateInput(inputIndex, {
+      if (!taprootAddressIndexSigner)
+        throw new Error(`Unable to update taproot input for path ${derivationPath}}`);
+
+      tx.updateInput(index, {
         tapBip32Derivation: [
           {
             masterFingerprint: Buffer.from(fingerprint, 'hex'),
-            pubkey: Buffer.from(ecdsaPublicKeyToSchnorr(taprootSigner.publicKey)),
-            path: taprootSigner.derivationPath,
+            pubkey: Buffer.from(ecdsaPublicKeyToSchnorr(taprootAddressIndexSigner.publicKey)),
+            path: derivationPath,
             leafHashes: [],
           },
         ],

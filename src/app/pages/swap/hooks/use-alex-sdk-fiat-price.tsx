@@ -7,6 +7,7 @@ import { unitToFractionalUnit } from '@app/common/money/unit-conversion';
 
 export function useAlexSdkAmountAsFiat(balance?: Money, price?: Money, value?: string) {
   const convertAlexSdkCurrencyToUsd = useConvertAlexSdkCurrencyToFiatAmount(
+    // @ts-expect-error TODO: balance?.symbol should be of a Cryptocurrency type.
     balance?.symbol ?? '',
     price ?? createMoney(0, 'USD')
   );
@@ -22,6 +23,7 @@ export function useAlexSdkAmountAsFiat(balance?: Money, price?: Money, value?: s
 
 export function useAlexSdkBalanceAsFiat(balance?: Money, price?: Money) {
   const convertAlexSdkCurrencyToUsd = useConvertAlexSdkCurrencyToFiatAmount(
+    // @ts-expect-error TODO: balance?.symbol should be of a Cryptocurrency type.
     balance?.symbol ?? '',
     price ?? createMoney(0, 'USD')
   );
