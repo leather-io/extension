@@ -1,10 +1,13 @@
+import { bytesToUtf8 } from '@stacks/common';
 import {
+  ClarityType,
   ContractCallPayload,
   IntCV,
   StacksTransaction,
   TokenTransferPayload,
   addressToString,
   cvToString,
+  serializeCV,
 } from '@stacks/transactions';
 import BigNumber from 'bignumber.js';
 
@@ -74,8 +77,9 @@ export function useStacksTransactionSummary(token: CryptoCurrencies) {
     const payload = tx.payload as ContractCallPayload;
     const fee = tx.auth.spendingCondition.fee;
     const txValue = Number((payload.functionArgs[0] as IntCV).value);
-    const memo = cvToString(payload.functionArgs[3]);
-    const memoDisplayText = memo === 'none' ? 'No memo' : memo;
+    const isSome = payload.functionArgs[3].type === ClarityType.OptionalSome;
+    const memo = bytesToUtf8(serializeCV(payload.functionArgs[3]));
+    const memoDisplayText = isSome ? memo : 'No memo';
 
     const sendingValue = formatMoney(
       convertToMoneyTypeWithDefaultOfZero(symbol, txValue, decimals)

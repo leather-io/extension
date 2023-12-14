@@ -48,6 +48,7 @@ export function FundAccountTile(props: FundAccountTileProps) {
             height="40px"
             justifyContent="center"
             width="40px"
+            backgroundColor="lightModeBrown.1"
           >
             <img src={icon} width="24px" />
           </Box>
