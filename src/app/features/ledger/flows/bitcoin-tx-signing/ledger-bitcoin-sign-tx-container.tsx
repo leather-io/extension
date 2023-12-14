@@ -95,11 +95,7 @@ function LedgerSignBitcoinTxContainer() {
     ledgerNavigate.toAwaitingDeviceOperation({ hasApprovedOperation: false });
 
     try {
-      const btcTx = await signLedger(
-        bitcoinApp,
-        unsignedTransaction.toPSBT(),
-        inputsToSign?.map(x => x.index)
-      );
+      const btcTx = await signLedger(bitcoinApp, unsignedTransaction.toPSBT(), inputsToSign);
 
       if (!btcTx || !unsignedTransactionRaw) throw new Error('No tx returned');
       ledgerNavigate.toAwaitingDeviceOperation({ hasApprovedOperation: true });

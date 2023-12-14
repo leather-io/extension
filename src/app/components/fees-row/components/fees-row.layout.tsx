@@ -23,7 +23,7 @@ export function FeesRowLayout(props: FeesRowLayoutProps) {
   const [_, meta] = useField('fee');
 
   return (
-    <HStack gap="space.04" width="100%" {...rest} flexWrap={'wrap'} >
+    <HStack gap="space.04" width="100%" {...rest} flexWrap="wrap" >
       <HStack alignItems="center" justifyContent="space-between" position="relative" width="100%">
         <HStack alignItems="center" width="100%">
           <Tooltip label={feesInfo} placement="bottom">
@@ -39,7 +39,7 @@ export function FeesRowLayout(props: FeesRowLayoutProps) {
         {feeField}
       </HStack>
       {isSponsored && <SponsoredLabel />}
-      {!meta.error && fieldWarning && <WarningLabel>{fieldWarning}</WarningLabel>}
+      {!meta.error && fieldWarning && <WarningLabel width="100%" >{fieldWarning}</WarningLabel>}
     </HStack>
   );
 }
