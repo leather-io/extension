@@ -4,6 +4,7 @@ import { getTaprootAddress } from '@shared/crypto/bitcoin/bitcoin.utils';
 
 import { createCounter } from '@app/common/utils/counter';
 import { AppUseQueryConfig } from '@app/query/query-config';
+import { QueryPrefixes } from '@app/query/query-prefixes';
 import { useCurrentAccountIndex } from '@app/store/accounts/account';
 import { useCurrentTaprootAccount } from '@app/store/accounts/blockchain/bitcoin/taproot-account.hooks';
 import { useBitcoinClient } from '@app/store/common/api-clients.hooks';
@@ -45,7 +46,7 @@ export function useTaprootAccountUtxosQuery() {
   const currentAccountIndex = useCurrentAccountIndex();
 
   return useQuery(
-    ['taproot-address-utxos-metadata', currentAccountIndex, network.id],
+    [QueryPrefixes.TaprootAddressUtxos, currentAccountIndex, network.id],
     async () => {
       let currentNumberOfAddressesWithoutOrdinals = 0;
       const addressIndexCounter = createCounter(0);

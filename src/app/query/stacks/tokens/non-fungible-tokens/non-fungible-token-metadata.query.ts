@@ -12,7 +12,7 @@ import { NftAssetResponse } from '../token-metadata.utils';
 import useGetNonFungibleTokenHoldingsQuery from './non-fungible-token-holdings.query';
 
 const queryOptions = {
-  refetchOnWindowFocus: true,
+  refetchOnWindowFocus: false,
   refetchOnMount: false,
   staleTime: 10 * 1000,
 };
