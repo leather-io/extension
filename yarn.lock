@@ -899,10 +899,10 @@
   resolved "https://registry.yarnpkg.com/@discoveryjs/json-ext/-/json-ext-0.5.7.tgz#1d572bfbbe14b7704e0ba0f39b74815b84870d70"
   integrity sha512-dBVuXR082gk3jsFp7Rd/JI4kytwGHecnCoTtXFb7DB6CNHp4rg5k1bhg0nWdLGLnOV71lmDzGQaLMy8iPLY0pw==
 
-"@dlc-link/dlc-tools@1.1.0":
-  version "1.1.0"
-  resolved "https://registry.yarnpkg.com/@dlc-link/dlc-tools/-/dlc-tools-1.1.0.tgz#6d28f139ea971894c11ba182776cf97a35317eeb"
-  integrity sha512-P4APlS2PaA6pNEh2WFonGspMvO9HJXjmqQNYPeM9p+THUoQQDb8Uq9aTaiN8K/5oS8kqZCetkfdBijtgO9Vi+w==
+"dlc-link/dlc-tools@1.0.9":
+  version "1.0.9"
+  resolved "https://registry.yarnpkg.com/@dlc-link/dlc-tools/-/dlc-tools-1.0.9.tgz#3dfe1d743e9d5e309732e55c824ffbf77039f2bf"
+  integrity sha512-+lxe6nrZCbuUWcMR4l9X+axqR1yB7lgtjsrP6Pp23GRqSGL+wvts+L8wSCJxTi6rDhBKfGzvau3SLOPrha/3Rw==
 
 "@dnd-kit/accessibility@^3.1.0":
   version "3.1.0"
