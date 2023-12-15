@@ -76,7 +76,7 @@ export function useGetInscriptionsInfiniteQuery() {
   );
 
   const query = useInfiniteQuery({
-    queryKey: [QueryPrefixes.InscriptionsFromApiInfiniteQuery, currentBitcoinAddress, network.id],
+    queryKey: [QueryPrefixes.GetInscriptions, currentBitcoinAddress, network.id],
     async queryFn({ pageParam }: InfiniteQueryPageParam) {
       const responsesArr: InscriptionsQueryResponse[] = [];
       let fromIndex = pageParam?.fromIndex ?? 0;
@@ -179,7 +179,7 @@ export function useGetInscriptionsInfiniteQuery() {
     staleTime: 3 * 60 * 1000,
     refetchOnMount: false,
     refetchOnReconnect: false,
-    refetchOnWindowFocus: false,
+    refetchOnWindowFocus: true,
   });
 
   return query;

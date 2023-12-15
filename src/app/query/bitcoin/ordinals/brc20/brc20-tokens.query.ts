@@ -60,7 +60,7 @@ async function fetchBrc20TokensByAddress(address: string): Promise<Brc20Token[]>
   });
 }
 
-export function useBrc20TokensQuery() {
+export function useGetBrc20TokensQuery() {
   const network = useCurrentNetwork();
   const nativeSegwitSigner = useCurrentAccountNativeSegwitIndexZeroSigner();
   const currentBitcoinAddress = nativeSegwitSigner.address;
@@ -79,7 +79,7 @@ export function useBrc20TokensQuery() {
     [createSigner]
   );
   const query = useInfiniteQuery({
-    queryKey: [QueryPrefixes.Brc20InfiniteQuery, currentBitcoinAddress, network.id],
+    queryKey: [QueryPrefixes.GetBrc20Tokens, currentBitcoinAddress, network.id],
     async queryFn({ pageParam }) {
       const fromIndex: number = pageParam?.fromIndex ?? 0;
       let addressesWithoutTokens = pageParam?.addressesWithoutTokens ?? 0;
