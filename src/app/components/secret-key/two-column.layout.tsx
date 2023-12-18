@@ -26,7 +26,9 @@ export function TwoColumnLayout({
         gap="space.07"
         mx={['auto', 'space.03', 'space.03', 'space.03']}
       >
-        <styled.div maxWidth="440px">{leftColumn}</styled.div>
+        <styled.div width="390px" textAlign="left">
+          {leftColumn}
+        </styled.div>
       </Flex>
 
       <Flex

@@ -62,7 +62,7 @@ export function RequestPassword({ title, caption, onSuccess }: RequestPasswordPr
             >
               {title}
             </styled.h1>
-            <styled.p textStyle={['label.01', 'heading.05']} mb="space.06">
+            <styled.p textStyle={['label.01', 'heading.05']} mb="space.06" textAlign="left">
               {(isRunning && waitingMessage) || caption}
             </styled.p>
           </>
@@ -78,7 +78,7 @@ export function RequestPassword({ title, caption, onSuccess }: RequestPasswordPr
             >
               Your password
             </styled.h2>
-            <Stack gap="space.04" alignItems="center">
+            <Stack gap="space.04" alignItems="center" minHeight="100px">
               <styled.input
                 _focus={{ border: 'focus' }}
                 autoCapitalize="off"
@@ -102,7 +102,7 @@ export function RequestPassword({ title, caption, onSuccess }: RequestPasswordPr
                 value={password}
                 width="100%"
               />
-              {error && <ErrorLabel>{error}</ErrorLabel>}
+              {error && <ErrorLabel width="100%">{error}</ErrorLabel>}
             </Stack>
             <LeatherButton
               data-testid={SettingsSelectors.UnlockWalletBtn}
