@@ -56,7 +56,7 @@ export function BtcSentSummary() {
   useRouteHeader(<ModalHeader hideActions defaultClose title="Sent" />);
 
   return (
-    <InfoCard>
+    <InfoCard height="110%">
       <TxDone />
       <InfoCardAssetValue
         fiatSymbol={txFiatValueSymbol}
