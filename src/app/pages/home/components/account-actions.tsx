@@ -1,12 +1,15 @@
 import { useLocation, useNavigate } from 'react-router-dom';
 
+import { ChainID } from '@stacks/transactions';
 import { HomePageSelectors } from '@tests/selectors/home.selectors';
 import { Flex, FlexProps } from 'leather-styles/jsx';
 
 import { RouteUrls } from '@shared/route-urls';
 
+import { whenStacksChainId } from '@app/common/utils';
 import { useConfigBitcoinEnabled } from '@app/query/common/remote-config/remote-config.query';
 import { useCurrentStacksAccount } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
+import { useCurrentNetwork } from '@app/store/networks/networks.selectors';
 import { ArrowDownIcon } from '@app/ui/components/icons/arrow-down-icon';
 import { PlusIcon } from '@app/ui/components/icons/plus-icon';
 import { SwapIcon } from '@app/ui/components/icons/swap-icon';
@@ -19,6 +22,7 @@ export function AccountActions(props: FlexProps) {
   const location = useLocation();
   const isBitcoinEnabled = useConfigBitcoinEnabled();
   const stacksAccount = useCurrentStacksAccount();
+  const currentNetwork = useCurrentNetwork();
 
   const receivePath = isBitcoinEnabled
     ? RouteUrls.Receive
@@ -42,13 +46,17 @@ export function AccountActions(props: FlexProps) {
           onClick={() => navigate(RouteUrls.FundChooseCurrency)}
         />
       )}
-
-      <ActionButton
-        data-testid={HomePageSelectors.SwapBtn}
-        icon={<SwapIcon />}
-        label="Swap"
-        onClick={() => navigate(RouteUrls.Swap)}
-      />
+      {whenStacksChainId(currentNetwork.chain.stacks.chainId)({
+        [ChainID.Mainnet]: (
+          <ActionButton
+            data-testid={HomePageSelectors.SwapBtn}
+            icon={<SwapIcon />}
+            label="Swap"
+            onClick={() => navigate(RouteUrls.Swap)}
+          />
+        ),
+        [ChainID.Testnet]: null,
+      })}
     </Flex>
   );
 }
