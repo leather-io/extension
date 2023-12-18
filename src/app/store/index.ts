@@ -17,7 +17,6 @@ import { PersistPartial } from 'redux-persist/es/persistReducer';
 
 import { persistConfig } from '@shared/storage/redux-pesist';
 
-import { analyticsSlice } from './analytics/analytics.slice';
 import { appPermissionsSlice } from './app-permissions/app-permissions.slice';
 import { stxChainSlice } from './chains/stx-chain.slice';
 import { inMemoryKeySlice } from './in-memory-key/in-memory-key.slice';
@@ -31,7 +30,6 @@ import { submittedTransactionsSlice } from './submitted-transactions/submitted-t
 import { broadcastActionTypeToOtherFramesMiddleware } from './utils/broadcast-action-types';
 
 export interface RootState {
-  analytics: ReturnType<typeof analyticsSlice.reducer>;
   appPermissions: ReturnType<typeof appPermissionsSlice.reducer>;
   chains: {
     stx: ReturnType<typeof stxChainSlice.reducer>;
@@ -49,7 +47,6 @@ export interface RootState {
 }
 
 const appReducer = combineReducers({
-  analytics: analyticsSlice.reducer,
   appPermissions: appPermissionsSlice.reducer,
   chains: combineReducers({
     stx: stxChainSlice.reducer,
