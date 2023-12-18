@@ -53,6 +53,7 @@ test.describe('Transaction signing', () => {
     const multiSignatureTxHex = await generateMultisigUnsignedStxTransfer(
       TEST_ACCOUNT_2_STX_ADDRESS,
       amount,
+      100,
       'mainnet',
       [TEST_ACCOUNT_3_PUBKEY, TEST_ACCOUNT_1_PUBKEY],
       2,

@@ -4,27 +4,22 @@ import { createTestSelector } from '@tests/utils';
 
 export class SwapPage {
   readonly page: Page;
-  readonly chooseAssetList: Locator;
-  readonly chooseAssetListItem: Locator;
-  readonly selectAssetBtn: Locator;
-  readonly swapAmountInput: Locator;
   readonly swapBtn: Locator;
   readonly swapDetailsAmount: Locator;
   readonly swapDetailsProtocol: Locator;
   readonly swapDetailsSymbol: Locator;
-  readonly swapReviewBtn: Locator;
+  readonly chooseAssetList = createTestSelector(SwapSelectors.ChooseAssetList);
+  readonly chooseAssetListItem = createTestSelector(SwapSelectors.ChooseAssetListItem);
+  readonly selectAssetBtn = createTestSelector(SwapSelectors.SelectAssetTriggerBtn);
+  readonly swapAmountInput = createTestSelector(SwapSelectors.SwapAmountInput);
+  readonly swapReviewBtn = createTestSelector(SwapSelectors.SwapReviewBtn);
 
   constructor(page: Page) {
     this.page = page;
-    this.chooseAssetList = page.getByTestId(SwapSelectors.ChooseAssetList);
-    this.chooseAssetListItem = page.getByTestId(SwapSelectors.ChooseAssetListItem);
-    this.selectAssetBtn = page.getByTestId(SwapSelectors.SelectAssetTriggerBtn);
-    this.swapAmountInput = page.getByTestId(SwapSelectors.SwapAmountInput);
     this.swapBtn = page.getByTestId(SwapSelectors.SwapBtn);
     this.swapDetailsAmount = page.getByTestId(SwapSelectors.SwapDetailsAmount);
     this.swapDetailsProtocol = page.getByTestId(SwapSelectors.SwapDetailsProtocol);
     this.swapDetailsSymbol = page.getByTestId(SwapSelectors.SwapDetailsSymbol);
-    this.swapReviewBtn = page.getByTestId(SwapSelectors.SwapReviewBtn);
   }
 
   async waitForSwapPageReady() {
@@ -34,11 +29,16 @@ export class SwapPage {
   }
 
   async selectAssetToReceive() {
-    const swapAssetSelectors = await this.selectAssetBtn.all();
+    const swapAssetSelectors = await this.page.locator(this.selectAssetBtn).all();
     await swapAssetSelectors[1].click();
-    await this.chooseAssetList.waitFor();
-    const swapAssets = await this.chooseAssetListItem.all();
+    await this.page.locator(this.chooseAssetList).waitFor();
+    const swapAssets = await this.page.locator(this.chooseAssetListItem).all();
     await swapAssets[0].click();
-    await this.swapReviewBtn.click();
+    await this.page.locator(this.swapReviewBtn).click();
+  }
+
+  async inputSwapAmountFrom() {
+    const swapAmountInputs = await this.page.locator(this.swapAmountInput).all();
+    await swapAmountInputs[0].fill('1');
   }
 }

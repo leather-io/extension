@@ -1,12 +1,12 @@
 import { test } from '../../fixtures/fixtures';
 
 const alexSdkPostRoute = 'https://*.alexlab.co/v1/graphql';
+const hiroApiPostRoute = '*/**/v2/transactions';
 
 test.describe('Swaps', () => {
   test.beforeEach(async ({ extensionId, globalPage, homePage, onboardingPage, swapPage }) => {
     await globalPage.setupAndUseApiCalls(extensionId);
     await onboardingPage.signInWithTestAccount(extensionId);
-    await homePage.enableTestMode();
     await homePage.swapButton.click();
     await swapPage.waitForSwapPageReady();
   });
@@ -16,8 +16,7 @@ test.describe('Swaps', () => {
   });
 
   test('that it shows correct swap review details', async ({ swapPage }) => {
-    const swapAmountInputs = await swapPage.swapAmountInput.all();
-    await swapAmountInputs[0].fill('1');
+    await swapPage.inputSwapAmountFrom();
     await swapPage.selectAssetToReceive();
 
     const swapProtocol = await swapPage.swapDetailsProtocol.innerText();
@@ -37,14 +36,22 @@ test.describe('Swaps', () => {
   });
 
   test('that the swap is broadcast', async ({ swapPage }) => {
-    const requestPromise = swapPage.page.waitForRequest(alexSdkPostRoute);
+    let requestPromise;
+    const isSponsoredSwap = swapPage.page.getByText('Sponsored');
 
-    await swapPage.page.route(alexSdkPostRoute, async route => {
-      await route.abort();
-    });
+    if (isSponsoredSwap) {
+      requestPromise = swapPage.page.waitForRequest(alexSdkPostRoute);
+      await swapPage.page.route(alexSdkPostRoute, async route => {
+        await route.abort();
+      });
+    } else {
+      requestPromise = swapPage.page.waitForRequest(hiroApiPostRoute);
+      await swapPage.page.route(alexSdkPostRoute, async route => {
+        await route.abort();
+      });
+    }
 
-    const swapAmountInputs = await swapPage.swapAmountInput.all();
-    await swapAmountInputs[0].fill('1');
+    await swapPage.inputSwapAmountFrom();
     await swapPage.selectAssetToReceive();
 
     await swapPage.swapBtn.click();
