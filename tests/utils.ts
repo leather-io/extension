@@ -45,6 +45,7 @@ export async function generateUnsignedStxTransfer(
 export async function generateMultisigUnsignedStxTransfer(
   recipient: string,
   amount: number,
+  fee: number,
   network: any,
   publicKeys: string[],
   threshold: number,
@@ -53,6 +54,7 @@ export async function generateMultisigUnsignedStxTransfer(
   memo?: string
 ) {
   const options = {
+    fee,
     recipient,
     memo,
     publicKeys,
