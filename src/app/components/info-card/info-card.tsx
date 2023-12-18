@@ -30,7 +30,7 @@ interface InfoCardRowProps {
 export function InfoCardRow({ title, value, titleAdditionalElement, ...props }: InfoCardRowProps) {
   return (
     <HStack alignItems="start" fontSize="14px" justifyContent="space-between" {...props}>
-      <Flex alignItems="center">
+      <Flex alignItems="center" gap="space.01">
         <styled.span textStyle="body.02" color="accent.text-subdued">
           {title}
         </styled.span>
