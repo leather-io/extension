@@ -39,7 +39,7 @@ export function FeesRowLayout(props: FeesRowLayoutProps) {
         {feeField}
       </HStack>
       {isSponsored && <SponsoredLabel />}
-      {!meta.error && fieldWarning && <WarningLabel width="100%" >{fieldWarning}</WarningLabel>}
+      {!meta.error && fieldWarning && <WarningLabel width="100%">{fieldWarning}</WarningLabel>}
     </HStack>
   );
 }
