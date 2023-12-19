@@ -8,10 +8,10 @@ import { Caption } from '@app/ui/components/typography/caption';
 
 import { StacksFungibleTokenAssetList } from './stacks-fungible-token-asset-list';
 
-interface StacksBalanceItemProps {
+interface StacksAssetListProps {
   account: StacksAccount;
 }
-export function StacksBalanceItem({ account }: StacksBalanceItemProps) {
+export function StacksAssetList({ account }: StacksAssetListProps) {
   const stacksFtAssetBalances = useStacksFungibleTokenAssetBalancesAnchoredWithMetadata(
     account.address
   );
