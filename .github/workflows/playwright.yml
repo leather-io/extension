@@ -7,10 +7,10 @@ env:
 on:
   push:
     branches:
-      - dev
       - gh-readonly-queue/dev/**
   pull_request:
-    branches: [dev]
+    branches:
+      - dev
 
 jobs:
   test:
