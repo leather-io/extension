@@ -1,3 +1,16 @@
+## [6.21.1](https://github.com/leather-wallet/extension/compare/v6.21.0...v6.21.1) (2023-12-19)
+
+
+### Bug Fixes
+
+* remove stx deposit analytics ([0b123eb](https://github.com/leather-wallet/extension/commit/0b123eb061db023d7154eb6ecc0d42e2f616315f))
+
+
+### Internal
+
+* improve display of lock screen, closes [#4606](https://github.com/leather-wallet/extension/issues/4606) ([d0977cb](https://github.com/leather-wallet/extension/commit/d0977cb5934e8c133f3abd16bf045cd021c25827))
+* post-release merge back ([8639a2e](https://github.com/leather-wallet/extension/commit/8639a2edcf26637664dda71645b05b7e05221fac))
+
 ## [6.21.0](https://github.com/leather-wallet/extension/compare/v6.20.0...v6.21.0) (2023-12-19)
 
 
