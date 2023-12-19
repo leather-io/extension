@@ -207,17 +207,27 @@ export function useBitcoinContracts() {
     close();
   }
 
-  async function getAllSignedBitcoinContracts(): Promise<BitcoinContractListItem[] | undefined> {
+  async function getAllActiveBitcoinContracts(): Promise<BitcoinContractListItem[] | undefined> {
     const bitcoinContractInterface = await getBitcoinContractInterface();
 
     if (!bitcoinContractInterface) return;
 
+    await bitcoinContractInterface.periodic_check();
     const bitcoinContracts = await bitcoinContractInterface.get_contracts();
-    const signedBitcoinContracts = bitcoinContracts.filter(
-      (bitcoinContract: BitcoinContractListItem) => bitcoinContract.state === 'Signed'
-    );
 
-    return signedBitcoinContracts;
+    const stateOrder = ['Signed', 'Confirmed'];
+
+    const activeBitcoinContracts = bitcoinContracts
+      .filter(
+        (bitcoinContract: BitcoinContractListItem) =>
+          bitcoinContract.state === 'Signed' || bitcoinContract.state === 'Confirmed'
+      )
+      .sort(
+        (a: BitcoinContractListItem, b: BitcoinContractListItem) =>
+          stateOrder.indexOf(a.state) - stateOrder.indexOf(b.state)
+      );
+
+    return activeBitcoinContracts;
   }
 
   function getTransactionDetails(txId: string, bitcoinCollateral: number) {
@@ -239,7 +249,7 @@ export function useBitcoinContracts() {
 
   async function sumBitcoinContractCollateralAmounts(): Promise<Money> {
     let bitcoinContractsCollateralSum = 0;
-    const bitcoinContracts = await getAllSignedBitcoinContracts();
+    const bitcoinContracts = await getAllActiveBitcoinContracts();
     if (!bitcoinContracts) return createMoneyFromDecimal(0, 'BTC');
 
     bitcoinContracts.forEach((bitcoinContract: BitcoinContractListItem) => {
@@ -313,7 +323,7 @@ export function useBitcoinContracts() {
     handleOffer,
     handleAccept,
     handleReject,
-    getAllSignedBitcoinContracts,
+    getAllActiveBitcoinContracts,
     sumBitcoinContractCollateralAmounts,
     sendRpcResponse,
   };

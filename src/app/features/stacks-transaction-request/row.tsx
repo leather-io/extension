@@ -21,13 +21,7 @@ export function Row({ name, type, value }: RowProps): React.JSX.Element {
       {type?.toLowerCase() === 'principal' ? (
         <PrincipalValue address={value} />
       ) : (
-        <styled.span
-          display="block"
-          fontSize={2}
-          fontWeight={500}
-          lineHeight="1.6"
-          wordBreak="break-all"
-        >
+        <styled.span display="block" textStyle="body.02" wordBreak="break-all">
           {value}
         </styled.span>
       )}

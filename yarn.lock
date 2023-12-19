@@ -899,10 +899,10 @@
   resolved "https://registry.yarnpkg.com/@discoveryjs/json-ext/-/json-ext-0.5.7.tgz#1d572bfbbe14b7704e0ba0f39b74815b84870d70"
   integrity sha512-dBVuXR082gk3jsFp7Rd/JI4kytwGHecnCoTtXFb7DB6CNHp4rg5k1bhg0nWdLGLnOV71lmDzGQaLMy8iPLY0pw==
 
-"@dlc-link/dlc-tools@1.0.9":
-  version "1.0.9"
-  resolved "https://registry.yarnpkg.com/@dlc-link/dlc-tools/-/dlc-tools-1.0.9.tgz#3dfe1d743e9d5e309732e55c824ffbf77039f2bf"
-  integrity sha512-+lxe6nrZCbuUWcMR4l9X+axqR1yB7lgtjsrP6Pp23GRqSGL+wvts+L8wSCJxTi6rDhBKfGzvau3SLOPrha/3Rw==
+"@dlc-link/dlc-tools@1.1.1":
+  version "1.1.1"
+  resolved "https://registry.yarnpkg.com/@dlc-link/dlc-tools/-/dlc-tools-1.1.1.tgz#01e2351babb70b352247cf8e0e20aac9724c4f35"
+  integrity sha512-+4RlBjqv3Ws9ndc9dP+SWS/GZ7j18T3TlpzgEblR/WB8pA0FAV2D8Faz+S32m7q6CXFogArZXc/IoyQ+bx3Wtg==
 
 "@dnd-kit/accessibility@^3.1.0":
   version "3.1.0"
@@ -12065,7 +12065,7 @@ is-typedarray@^1.0.0, is-typedarray@~1.0.0:
   resolved "https://registry.yarnpkg.com/is-typedarray/-/is-typedarray-1.0.0.tgz#e479c80858df0c1b11ddda6940f96011fcda4a9a"
   integrity sha512-cyA56iCMHAh5CdzjJIa4aohJyeO1YbwLi3Jc35MmRU6poroFjIGZzUzupGiRPOjgHg9TLu43xbpwXk523fMxKA==
 
-is-unicode-supported@^1.1.0, is-unicode-supported@^1.2.0, is-unicode-supported@^1.3.0:
+is-unicode-supported@^1.1.0, is-unicode-supported@^1.2.0:
   version "1.3.0"
   resolved "https://registry.yarnpkg.com/is-unicode-supported/-/is-unicode-supported-1.3.0.tgz#d824984b616c292a2e198207d4a609983842f714"
   integrity sha512-43r2mRvz+8JRIKnWJ+3j8JtjRKZ6GmjzfaE/qiBJnikNnYv/6bagRJ1kUhNk8R5EX/GkobD+r+sfxCPJsiKBLQ==

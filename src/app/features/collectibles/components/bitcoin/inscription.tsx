@@ -7,6 +7,8 @@ import { openInNewTab } from '@app/common/utils/open-in-new-tab';
 import { convertInscriptionToSupportedInscriptionType } from '@app/query/bitcoin/ordinals/inscription.hooks';
 import { OrdinalIcon } from '@app/ui/components/icons/ordinal-icon';
 
+import { CollectibleAudio } from '../_collectible-types/collectible-audio';
+import { CollectibleIframe } from '../_collectible-types/collectible-iframe';
 import { CollectibleImage } from '../_collectible-types/collectible-image';
 import { CollectibleOther } from '../_collectible-types/collectible-other';
 import { InscriptionText } from './inscription-text';
@@ -26,7 +28,32 @@ export function Inscription({ rawInscription }: InscriptionProps) {
   }
 
   switch (inscription.type) {
-    case 'image': {
+    case 'audio':
+      return (
+        <CollectibleAudio
+          icon={<OrdinalIcon size="lg" />}
+          key={inscription.title}
+          onClickCallToAction={() => openInNewTab(inscription.infoUrl)}
+          onClickSend={() => openSendInscriptionModal()}
+          subtitle="Ordinal inscription"
+          title={`# ${inscription.number}`}
+        />
+      );
+    case 'html':
+    case 'svg':
+    case 'video':
+      return (
+        <CollectibleIframe
+          icon={<OrdinalIcon size="lg" />}
+          key={inscription.title}
+          onClickCallToAction={() => openInNewTab(inscription.infoUrl)}
+          onClickSend={() => openSendInscriptionModal()}
+          src={inscription.src}
+          subtitle="Ordinal inscription"
+          title={`# ${inscription.number}`}
+        />
+      );
+    case 'image':
       return (
         <CollectibleImage
           icon={<OrdinalIcon size="lg" />}
@@ -38,8 +65,7 @@ export function Inscription({ rawInscription }: InscriptionProps) {
           title={`# ${inscription.number}`}
         />
       );
-    }
-    case 'text': {
+    case 'text':
       return (
         <InscriptionText
           contentSrc={inscription.contentSrc}
@@ -48,8 +74,7 @@ export function Inscription({ rawInscription }: InscriptionProps) {
           onClickSend={() => openSendInscriptionModal()}
         />
       );
-    }
-    case 'other': {
+    case 'other':
       return (
         <CollectibleOther
           key={inscription.title}
@@ -61,9 +86,7 @@ export function Inscription({ rawInscription }: InscriptionProps) {
           <OrdinalIcon />
         </CollectibleOther>
       );
-    }
-    default: {
+    default:
       return null;
-    }
   }
 }

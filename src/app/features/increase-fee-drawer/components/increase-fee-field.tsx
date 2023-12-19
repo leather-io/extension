@@ -45,7 +45,7 @@ export function IncreaseFeeField(props: IncreaseFeeFieldProps): React.JSX.Elemen
           onSelectMultiplier={onSelectMultiplier}
         />
         <Flex>
-          <styled.label display="block" fontSize={1} fontWeight={500} mb="space.02" htmlFor="fee">
+          <styled.label display="block" textStyle="body.02" mb="space.02" htmlFor="fee">
             Fee
           </styled.label>
           <styled.input

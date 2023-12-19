@@ -19,9 +19,7 @@ export function MessagePreviewBox({ message, hash }: MessageBoxProps) {
       <Stack
         bg="accent.background-primary"
         borderRadius="lg"
-        fontSize={2}
         gap="space.02"
-        lineHeight="1.6"
         px="space.05"
         py="space.05"
         overflowX="auto"
