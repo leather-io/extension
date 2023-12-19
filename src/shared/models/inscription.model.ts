@@ -35,7 +35,15 @@ export interface Inscription extends InscriptionResponseItem {
  * appropriately and securely. Inscriptions of types not ready to be handled by the
  * app should be classified as "other".
  */
-const supportedInscriptionTypes = ['audio', 'html', 'image', 'text', 'video', 'other'] as const;
+const supportedInscriptionTypes = [
+  'audio',
+  'html',
+  'image',
+  'svg',
+  'text',
+  'video',
+  'other',
+] as const;
 
 type SupportedInscriptionType = (typeof supportedInscriptionTypes)[number];
 
@@ -64,6 +72,11 @@ interface ImageInscription extends BaseSupportedInscription {
   src: string;
 }
 
+interface SvgInscription extends BaseSupportedInscription {
+  type: 'svg';
+  src: string;
+}
+
 interface TextInscription extends BaseSupportedInscription {
   type: 'text';
   contentSrc: string;
@@ -87,6 +100,7 @@ export type SupportedInscription =
   | AudioInscription
   | HtmlInscription
   | ImageInscription
+  | SvgInscription
   | TextInscription
   | VideoInscription
   | OtherInscription;
@@ -105,6 +119,10 @@ export function whenInscriptionType<T>(
 
   if (mimeType.startsWith('image/') && branches.image) {
     return branches.image();
+  }
+
+  if (mimeType.startsWith('image/svg') && branches.svg) {
+    return branches.svg();
   }
 
   if (mimeType.startsWith('text') && branches.text) {

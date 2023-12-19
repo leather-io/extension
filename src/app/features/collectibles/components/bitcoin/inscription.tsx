@@ -40,6 +40,7 @@ export function Inscription({ rawInscription }: InscriptionProps) {
         />
       );
     case 'html':
+    case 'svg':
     case 'video':
       return (
         <CollectibleIframe
