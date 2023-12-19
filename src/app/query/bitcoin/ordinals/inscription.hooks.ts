@@ -11,7 +11,7 @@ export function createInscriptionInfoUrl(id: string) {
   return `https://ordinals.hiro.so/inscription/${id}`;
 }
 
-function createHtmlPreviewUrl(id: string) {
+function createIframePreviewUrl(id: string) {
   return `https://ordinals.com/preview/${id}`;
 }
 
@@ -20,14 +20,14 @@ export function convertInscriptionToSupportedInscriptionType(inscription: Inscri
   return whenInscriptionType<SupportedInscription>(inscription.content_type, {
     audio: () => ({
       infoUrl: createInscriptionInfoUrl(inscription.id),
-      src: createHtmlPreviewUrl(inscription.id),
+      src: createIframePreviewUrl(inscription.id),
       title,
       type: 'audio',
       ...inscription,
     }),
     html: () => ({
       infoUrl: createInscriptionInfoUrl(inscription.id),
-      src: createHtmlPreviewUrl(inscription.id),
+      src: createIframePreviewUrl(inscription.id),
       title,
       type: 'html',
       ...inscription,
@@ -39,6 +39,13 @@ export function convertInscriptionToSupportedInscriptionType(inscription: Inscri
       type: 'image',
       ...inscription,
     }),
+    svg: () => ({
+      infoUrl: createInscriptionInfoUrl(inscription.id),
+      src: createIframePreviewUrl(inscription.id),
+      title,
+      type: 'svg',
+      ...inscription,
+    }),
     text: () => ({
       contentSrc: `${HIRO_INSCRIPTIONS_API_URL}/${inscription.id}/content`,
       infoUrl: createInscriptionInfoUrl(inscription.id),
@@ -48,7 +55,7 @@ export function convertInscriptionToSupportedInscriptionType(inscription: Inscri
     }),
     video: () => ({
       infoUrl: createInscriptionInfoUrl(inscription.id),
-      src: createHtmlPreviewUrl(inscription.id),
+      src: createIframePreviewUrl(inscription.id),
       title,
       type: 'video',
       ...inscription,

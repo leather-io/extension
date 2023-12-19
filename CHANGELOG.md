@@ -1,3 +1,40 @@
+## [6.21.1](https://github.com/leather-wallet/extension/compare/v6.21.0...v6.21.1) (2023-12-19)
+
+
+### Bug Fixes
+
+* remove stx deposit analytics ([0b123eb](https://github.com/leather-wallet/extension/commit/0b123eb061db023d7154eb6ecc0d42e2f616315f))
+
+
+### Internal
+
+* improve display of lock screen, closes [#4606](https://github.com/leather-wallet/extension/issues/4606) ([d0977cb](https://github.com/leather-wallet/extension/commit/d0977cb5934e8c133f3abd16bf045cd021c25827))
+* post-release merge back ([8639a2e](https://github.com/leather-wallet/extension/commit/8639a2edcf26637664dda71645b05b7e05221fac))
+
+## [6.21.0](https://github.com/leather-wallet/extension/compare/v6.20.0...v6.21.0) (2023-12-19)
+
+
+### Features
+
+* html video and audio inscription types, closes [#4077](https://github.com/leather-wallet/extension/issues/4077) and [#3556](https://github.com/leather-wallet/extension/issues/3556) ([e19eea4](https://github.com/leather-wallet/extension/commit/e19eea4fb217d949351425e99c4370ed83b7ba98))
+* modified contracts and balance fetching ([63d29ba](https://github.com/leather-wallet/extension/commit/63d29ba39ed228a95da777f41a365fb8e91bf911))
+* updated dlc tools version ([8dc1d22](https://github.com/leather-wallet/extension/commit/8dc1d22f2157d5304a9119c9ea503ca0afd453ef))
+
+
+### Bug Fixes
+
+* collectibles refetch, closes [#4413](https://github.com/leather-wallet/extension/issues/4413) ([13aa68f](https://github.com/leather-wallet/extension/commit/13aa68f5f592abe3d036d64bce306f72b45158d6))
+* deprecate legacy font sizes, closes [#4587](https://github.com/leather-wallet/extension/issues/4587) ([5f539ca](https://github.com/leather-wallet/extension/commit/5f539ca786fc39524a200f7c68fd7475b1fa7970))
+* handle inscription type svg, ref [#4727](https://github.com/leather-wallet/extension/issues/4727) ([b713c70](https://github.com/leather-wallet/extension/commit/b713c70cbcd83ddc27ada9a959434a413f501090))
+* only show swaps option on mainnet, closes [#4687](https://github.com/leather-wallet/extension/issues/4687) ([af6443c](https://github.com/leather-wallet/extension/commit/af6443c13d88bb9f073c3a13483e4a2fd0249361))
+* swaps test, ref [#4725](https://github.com/leather-wallet/extension/issues/4725) ([faae457](https://github.com/leather-wallet/extension/commit/faae457608c7ba21a791b07992816780e896d82d))
+* **wallet:** fees warning alignment fix ([d771bcc](https://github.com/leather-wallet/extension/commit/d771bccc687e4b0c593dcd64a83fc96eda84c357))
+
+
+### Internal
+
+* post-release merge back ([75f4998](https://github.com/leather-wallet/extension/commit/75f4998b615fe3bc3ab1bdd55a83372c55e430fe))
+
 ## [6.20.0](https://github.com/leather-wallet/extension/compare/v6.19.0...v6.20.0) (2023-12-14)
 
 

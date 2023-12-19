@@ -15,13 +15,6 @@ test.describe('Transaction signing', () => {
 
     testAppPage = await TestAppPage.openDemoPage(context);
     await testAppPage.signIn();
-    const accountsPage = await context.waitForEvent('page');
-    await accountsPage.locator('text="Account 1"').click();
-    await testAppPage.page.bringToFront();
-    await testAppPage.page.click('text=Debugger', {
-      timeout: 30000,
-    });
-    await accountsPage.close();
   });
 
   // These tests often break if ran in parallel
@@ -31,6 +24,14 @@ test.describe('Transaction signing', () => {
     test('that it validates against insufficient funds when performing a contract call', async ({
       context,
     }) => {
+      const accountsPage = await context.waitForEvent('page');
+      await accountsPage.locator('text="Account 2"').click();
+      await testAppPage.page.bringToFront();
+      await testAppPage.page.click('text=Debugger', {
+        timeout: 30000,
+      });
+      await accountsPage.close();
+
       await testAppPage.clickContractCallButton();
       const transactionRequestPage = new TransactionRequestPage(await context.waitForEvent('page'));
       const error =
@@ -42,6 +43,14 @@ test.describe('Transaction signing', () => {
 
   test.describe('App initiated STX transfer', () => {
     test('that it broadcasts correctly with given fee and amount', async ({ context }) => {
+      const accountsPage = await context.waitForEvent('page');
+      await accountsPage.locator('text="Account 1"').click();
+      await testAppPage.page.bringToFront();
+      await testAppPage.page.click('text=Debugger', {
+        timeout: 30000,
+      });
+      await accountsPage.close();
+
       await testAppPage.clickStxTransferButton();
       const transactionRequestPage = new TransactionRequestPage(await context.waitForEvent('page'));
 
