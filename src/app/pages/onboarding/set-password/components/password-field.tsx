@@ -70,7 +70,7 @@ export function PasswordField({ strengthResult, isDisabled }: PasswordFieldProps
         strengthResult={strengthResult}
       />
       <Flex alignItems="center">
-        <Caption mx="space.04">Password strength:</Caption>
+        <Caption mr="space.02">Password strength:</Caption>
         <Caption>{field.value ? strengthText : '—'}</Caption>
       </Flex>
     </>

@@ -2,7 +2,6 @@ import { Route, useNavigate } from 'react-router-dom';
 
 import { RouteUrls } from '@shared/route-urls';
 
-import { useTrackFirstDeposit } from '@app/common/hooks/analytics/transactions-analytics.hooks';
 import { useOnboardingState } from '@app/common/hooks/auth/use-onboarding-state';
 import { useOnMount } from '@app/common/hooks/use-on-mount';
 import { useRouteHeader } from '@app/common/hooks/use-route-header';
@@ -22,8 +21,6 @@ export function Home() {
   const { decodedAuthRequest } = useOnboardingState();
 
   const navigate = useNavigate();
-
-  useTrackFirstDeposit();
 
   useRouteHeader(
     <>

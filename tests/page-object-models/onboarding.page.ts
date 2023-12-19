@@ -9,7 +9,6 @@ const TEST_ACCOUNT_SECRET_KEY = process.env.TEST_ACCOUNT_SECRET_KEY ?? '';
 
 // If default wallet state changes, we'll need to update this
 export const testSoftwareAccountDefaultWalletState = {
-  analytics: { hasStxDeposits: { '1': true, '2147483648': true } },
   chains: { stx: { default: { highestAccountIndex: 1, currentAccountIndex: 0 } } },
   softwareKeys: {
     ids: ['default'],
@@ -49,7 +48,6 @@ export const testSoftwareAccountDefaultWalletState = {
 
 const testLedgerAccountDefaultWalletState = {
   _persist: { rehydrated: true, version: 2 },
-  analytics: { hasStxDeposits: { '1': false, '2147483648': true } },
   chains: { stx: { default: { currentAccountIndex: 0, highestAccountIndex: 0 } } },
   softwareKeys: {
     entities: {},
