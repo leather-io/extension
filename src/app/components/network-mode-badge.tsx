@@ -32,7 +32,7 @@ export const NetworkModeBadge = memo((props: FlexProps) => {
       {...props}
     >
       <styled.span color="accent.text-subdued" textStyle="label.03">
-        {name}
+        {!name ? chain.bitcoin.bitcoinNetwork : name}
       </styled.span>
     </Flex>
   );
