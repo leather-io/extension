@@ -1,3 +1,16 @@
+## [6.21.2](https://github.com/leather-wallet/extension/compare/v6.21.1...v6.21.2) (2023-12-21)
+
+
+### Bug Fixes
+
+* ledger locked stx, ref [#4539](https://github.com/leather-wallet/extension/issues/4539) ([5c89eea](https://github.com/leather-wallet/extension/commit/5c89eea58f491c2a81083568f1e30f274a4a6464))
+* remove hiro api key ([7c73d9e](https://github.com/leather-wallet/extension/commit/7c73d9ead0ed3fb8ed97bd29b487900807b3fdad))
+
+
+### Internal
+
+* post-release merge back ([1836adf](https://github.com/leather-wallet/extension/commit/1836adf724e48b366208af723f5c13270b65735d))
+
 ## [6.21.1](https://github.com/leather-wallet/extension/compare/v6.21.0...v6.21.1) (2023-12-19)
 
 
