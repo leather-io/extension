@@ -1,10 +1,5 @@
-import axios from 'axios';
-
-import { HIRO_API_KEY } from '@shared/constants';
-
 const leatherHeaders: HeadersInit = {
   'x-leather-version': VERSION,
-  'x-hiro-api-key': HIRO_API_KEY,
 };
 
 /**
@@ -37,8 +32,3 @@ export async function fetchWithTimeout(
 
   return response;
 }
-
-axios.interceptors.request.use(config => {
-  if (config.url?.includes('hiro.so')) config.headers['x-hiro-api-key'] = HIRO_API_KEY;
-  return config;
-});

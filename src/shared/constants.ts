@@ -79,8 +79,6 @@ export interface NetworkConfiguration {
   };
 }
 
-export const HIRO_API_KEY = 'leather_i2LDUpJTyVZcLz51EoY57QjYr8fx8vvX';
-
 export const HIRO_API_BASE_URL_MAINNET = 'https://api.hiro.so';
 export const HIRO_API_BASE_URL_TESTNET = 'https://api.testnet.hiro.so';
 export const HIRO_INSCRIPTIONS_API_URL = 'https://api.hiro.so/ordinals/v1/inscriptions';

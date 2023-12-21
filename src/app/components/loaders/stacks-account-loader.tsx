@@ -1,3 +1,5 @@
+import { ReactNode } from 'react';
+
 import { useCurrentAccountIndex } from '@app/store/accounts/account';
 import {
   useCurrentStacksAccount,
@@ -6,11 +8,15 @@ import {
 import { StacksAccount } from '@app/store/accounts/blockchain/stacks/stacks-account.models';
 
 interface CurrentStacksAccountLoaderProps {
-  children(data: StacksAccount): React.ReactNode;
+  children(data: StacksAccount): ReactNode;
+  fallback?: ReactNode;
 }
-export function CurrentStacksAccountLoader({ children }: CurrentStacksAccountLoaderProps) {
+export function CurrentStacksAccountLoader({
+  children,
+  fallback,
+}: CurrentStacksAccountLoaderProps) {
   const currentAccount = useCurrentStacksAccount();
-  if (!currentAccount) return null;
+  if (!currentAccount) return fallback ? fallback : null;
   return children(currentAccount);
 }
 

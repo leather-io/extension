@@ -52,7 +52,7 @@ function makeNonFungibleTokenHoldingsQuery(
   };
 }
 
-export default function useGetNonFungibleTokenHoldingsQuery(address: string) {
+export function useGetNonFungibleTokenHoldingsQuery(address: string) {
   const client = useStacksClientUnanchored();
   const network = useCurrentNetworkState();
   const limiter = useHiroApiRateLimiter();

@@ -16,10 +16,10 @@ import { BtcIcon } from '@app/ui/components/icons/btc-icon';
 
 import { Collectibles } from '../collectibles/collectibles';
 import { PendingBrc20TransferList } from '../pending-brc-20-transfers/pending-brc-20-transfers';
+import { AddStacksLedgerKeysItem } from './components/add-stacks-ledger-keys-item';
 import { BitcoinFungibleTokenAssetList } from './components/bitcoin-fungible-tokens-asset-list';
 import { ConnectLedgerAssetBtn } from './components/connect-ledger-asset-button';
-import { StacksBalanceItem } from './components/stacks-balance-item';
-import { StacksLedgerAssetsList } from './components/stacks-ledger-assets';
+import { StacksAssetList } from './components/stacks-asset-list';
 
 export function AssetsList() {
   const hasBitcoinLedgerKeys = useHasBitcoinLedgerKeychain();
@@ -61,14 +61,9 @@ export function AssetsList() {
           ledger: null,
         })}
 
-      {whenWallet({
-        software: (
-          <CurrentStacksAccountLoader>
-            {account => <StacksBalanceItem account={account} />}
-          </CurrentStacksAccountLoader>
-        ),
-        ledger: <StacksLedgerAssetsList />,
-      })}
+      <CurrentStacksAccountLoader fallback={<AddStacksLedgerKeysItem />}>
+        {account => <StacksAssetList account={account} />}
+      </CurrentStacksAccountLoader>
 
       {whenWallet({
         software: (
