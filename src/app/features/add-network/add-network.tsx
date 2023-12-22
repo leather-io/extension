@@ -110,6 +110,11 @@ export function AddNetwork() {
         onSubmit={async () => {
           const { name, stacksUrl, bitcoinUrl, key } = formikProps.values;
 
+          if (!name) {
+            setError('Enter a name');
+            return;
+          }
+
           if (!isValidUrl(stacksUrl)) {
             setError('Enter a valid Stacks API URL');
             return;
