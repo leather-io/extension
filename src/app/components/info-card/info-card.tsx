@@ -30,8 +30,13 @@ interface InfoCardRowProps {
 export function InfoCardRow({ title, value, titleAdditionalElement, ...props }: InfoCardRowProps) {
   return (
     <HStack alignItems="start" fontSize="14px" justifyContent="space-between" {...props}>
+<<<<<<< HEAD
       <Flex alignItems="center">
         <styled.span color="accent.text-subdued" mr="space.01" textStyle="body.02">
+=======
+      <Flex alignItems="center" gap="space.01">
+        <styled.span textStyle="body.02" color="accent.text-subdued">
+>>>>>>> fd3ddec428 (Fix padding between label and tooltip icon on transaction review screen)
           {title}
         </styled.span>
         {titleAdditionalElement && titleAdditionalElement}
