@@ -1,7 +1,11 @@
 import { useCallback, useMemo } from 'react';
 import { Outlet, useNavigate } from 'react-router-dom';
 
-import { AllTransferableCryptoAssetBalances } from '@shared/models/crypto-asset-balance.model';
+import {
+  AllTransferableCryptoAssetBalances,
+  BitcoinCryptoCurrencyAssetBalance,
+  StacksCryptoCurrencyAssetBalance,
+} from '@shared/models/crypto-asset-balance.model';
 import { RouteUrls } from '@shared/route-urls';
 
 import { useStxBalance } from '@app/common/hooks/balance/stx/use-stx-balance';
@@ -16,11 +20,15 @@ import { createStacksCryptoCurrencyAssetTypeWrapper } from '@app/query/stacks/ba
 import { useCurrentAccountNativeSegwitSigner } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
 import { useCheckLedgerBlockchainAvailable } from '@app/store/accounts/blockchain/utils';
 
+type CryptoAssetBalance = BitcoinCryptoCurrencyAssetBalance | StacksCryptoCurrencyAssetBalance;
+
 function useBtcCryptoCurrencyAssetBalance() {
   const currentBtcSigner = useCurrentAccountNativeSegwitSigner();
-  if (!currentBtcSigner?.(0).address) throw new Error('No bitcoin address');
+  // TODO: it would be better if we could skip providing the empty string to this hook.
+  const bitcoinBalance = useNativeSegwitBalance(currentBtcSigner?.(0).address ?? '');
 
-  return useNativeSegwitBalance(currentBtcSigner?.(0).address);
+  if (!currentBtcSigner?.(0).address) return undefined;
+  return bitcoinBalance;
 }
 
 function useStxCryptoCurrencyAssetBalance() {
@@ -44,12 +52,14 @@ export function ChooseCryptoAssetToFund() {
 
   const filteredCryptoAssetBalances = useMemo(
     () =>
-      cryptoCurrencyAssetBalances.filter(assetBalance =>
-        whenWallet({
-          ledger: checkBlockchainAvailable(assetBalance.blockchain),
-          software: true,
-        })
-      ),
+      cryptoCurrencyAssetBalances
+        .filter((assetBalance): assetBalance is CryptoAssetBalance => assetBalance != null)
+        .filter(assetBalance =>
+          whenWallet({
+            ledger: checkBlockchainAvailable(assetBalance?.blockchain),
+            software: true,
+          })
+        ),
     [cryptoCurrencyAssetBalances, checkBlockchainAvailable, whenWallet]
   );
 
