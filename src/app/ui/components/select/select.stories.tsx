@@ -1,4 +1,5 @@
 import * as RadixSelect from '@radix-ui/react-select';
+import type { Meta, StoryObj } from '@storybook/react';
 
 import { ListItemType } from '../list/list-item';
 import { Select } from './select';
@@ -7,10 +8,17 @@ import { SelectSectionLabel } from './select-section-label';
 
 const items: ListItemType[] = [{ label: 'Label 1' }, { label: 'Label 2' }];
 
-// Example implementation - remove with Storybook
-// ts-unused-exports:disable-next-line
-export function SelectExample() {
-  return (
+const meta: Meta<typeof Select> = {
+  component: Select,
+  tags: ['autodocs'],
+  title: 'Select',
+};
+
+export default meta;
+type Story = StoryObj<typeof Select>;
+
+export const Primary: Story = {
+  render: () => (
     <Select>
       <RadixSelect.Group>
         <SelectSectionLabel label="Items" />
@@ -26,5 +34,5 @@ export function SelectExample() {
         })}
       </RadixSelect.Group>
     </Select>
-  );
-}
+  ),
+};
