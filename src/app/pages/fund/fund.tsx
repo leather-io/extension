@@ -3,6 +3,8 @@ import { Outlet, useNavigate, useParams } from 'react-router-dom';
 import { isCryptoCurrency } from '@shared/models/currencies.model';
 import { RouteUrls } from '@shared/route-urls';
 
+import { useBtcCryptoCurrencyAssetBalance } from '@app/common/hooks/balance/btc/use-btc-crypto-currency-asset-balance';
+import { useStxCryptoCurrencyAssetBalance } from '@app/common/hooks/balance/stx/use-stx-crypto-currency-asset-balance';
 import { useRouteHeader } from '@app/common/hooks/use-route-header';
 import { Header } from '@app/components/header';
 import { FullPageLoadingSpinner } from '@app/components/loading-spinner';
@@ -11,7 +13,6 @@ import { useCurrentStacksAccount } from '@app/store/accounts/blockchain/stacks/s
 
 import { FundLayout } from './components/fund.layout';
 import { FiatProvidersList } from './fiat-providers-list';
-import { useBtcCryptoCurrencyAssetBalance, useStxCryptoCurrencyAssetBalance } from './util';
 
 export function FundPage() {
   const navigate = useNavigate();
