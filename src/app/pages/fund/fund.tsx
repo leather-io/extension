@@ -12,12 +12,14 @@ import { useCurrentStacksAccount } from '@app/store/accounts/blockchain/stacks/s
 
 import { FundLayout } from './components/fund.layout';
 import { FiatProvidersList } from './fiat-providers-list';
+import { useBtcCryptoCurrencyAssetBalance, useStxCryptoCurrencyAssetBalance } from './util';
 
 export function FundPage() {
   const navigate = useNavigate();
   const currentStxAccount = useCurrentStacksAccount();
   const bitcoinSigner = useCurrentAccountNativeSegwitIndexZeroSignerNullable();
-  const { data: balances } = useCurrentStacksAccountAnchoredBalances();
+  const btcCryptoCurrencyAssetBalance = useBtcCryptoCurrencyAssetBalance();
+  const stxCryptoCurrencyAssetBalance = useStxCryptoCurrencyAssetBalance();
   const { currency } = useParams();
 
   function getSymbol() {
@@ -34,13 +36,22 @@ export function FundPage() {
         return currentStxAccount?.address;
     }
   }
+  function getBalance() {
+    switch (symbol) {
+      case 'BTC':
+        return btcCryptoCurrencyAssetBalance;
+      case 'STX':
+        return stxCryptoCurrencyAssetBalance;
+    }
+  }
 
   const symbol = getSymbol();
   const address = getAddress();
+  const balance = getBalance();
 
   useRouteHeader(<Header onClose={() => navigate(RouteUrls.FundChooseCurrency)} title=" " />);
 
-  if (!address || !balances) return <FullPageLoadingSpinner />;
+  if (!address || !balance) return <FullPageLoadingSpinner />;
   return (
     <>
       <FundLayout symbol={symbol}>

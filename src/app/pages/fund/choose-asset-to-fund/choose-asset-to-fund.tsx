@@ -8,33 +8,17 @@ import {
 } from '@shared/models/crypto-asset-balance.model';
 import { RouteUrls } from '@shared/route-urls';
 
-import { useStxBalance } from '@app/common/hooks/balance/stx/use-stx-balance';
 import { useRouteHeader } from '@app/common/hooks/use-route-header';
 import { useWalletType } from '@app/common/use-wallet-type';
 import { ChooseAssetContainer } from '@app/components/crypto-assets/choose-crypto-asset/choose-asset-container';
 import { ChooseCryptoAssetLayout } from '@app/components/crypto-assets/choose-crypto-asset/choose-crypto-asset.layout';
 import { CryptoAssetList } from '@app/components/crypto-assets/choose-crypto-asset/crypto-asset-list';
 import { ModalHeader } from '@app/components/modal-header';
-import { useNativeSegwitBalance } from '@app/query/bitcoin/balance/btc-native-segwit-balance.hooks';
-import { createStacksCryptoCurrencyAssetTypeWrapper } from '@app/query/stacks/balance/stacks-ft-balances.utils';
-import { useCurrentAccountNativeSegwitSigner } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
 import { useCheckLedgerBlockchainAvailable } from '@app/store/accounts/blockchain/utils';
 
+import { useBtcCryptoCurrencyAssetBalance, useStxCryptoCurrencyAssetBalance } from '../util';
+
 type CryptoAssetBalance = BitcoinCryptoCurrencyAssetBalance | StacksCryptoCurrencyAssetBalance;
-
-function useBtcCryptoCurrencyAssetBalance() {
-  const currentBtcSigner = useCurrentAccountNativeSegwitSigner();
-  // TODO: it would be better if we could skip providing the empty string to this hook.
-  const bitcoinBalance = useNativeSegwitBalance(currentBtcSigner?.(0).address ?? '');
-
-  if (!currentBtcSigner?.(0).address) return undefined;
-  return bitcoinBalance;
-}
-
-function useStxCryptoCurrencyAssetBalance() {
-  const { availableBalance: availableStxBalance } = useStxBalance();
-  return createStacksCryptoCurrencyAssetTypeWrapper(availableStxBalance.amount);
-}
 
 export function ChooseCryptoAssetToFund() {
   const btcCryptoCurrencyAssetBalance = useBtcCryptoCurrencyAssetBalance();
