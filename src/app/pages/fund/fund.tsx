@@ -7,7 +7,7 @@ import { useRouteHeader } from '@app/common/hooks/use-route-header';
 import { Header } from '@app/components/header';
 import { FullPageLoadingSpinner } from '@app/components/loading-spinner';
 import { useCurrentStacksAccountAnchoredBalances } from '@app/query/stacks/balance/stx-balance.hooks';
-import { useCurrentAccountNativeSegwitIndexZeroSigner } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
+import { useCurrentAccountNativeSegwitIndexZeroSignerNullable } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
 import { useCurrentStacksAccount } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
 
 import { FundLayout } from './components/fund.layout';
@@ -16,7 +16,7 @@ import { FiatProvidersList } from './fiat-providers-list';
 export function FundPage() {
   const navigate = useNavigate();
   const currentStxAccount = useCurrentStacksAccount();
-  const bitcoinSigner = useCurrentAccountNativeSegwitIndexZeroSigner();
+  const bitcoinSigner = useCurrentAccountNativeSegwitIndexZeroSignerNullable();
   const { data: balances } = useCurrentStacksAccountAnchoredBalances();
   const { currency } = useParams();
 
@@ -29,7 +29,7 @@ export function FundPage() {
   function getAddress() {
     switch (symbol) {
       case 'BTC':
-        return bitcoinSigner.address;
+        return bitcoinSigner?.address;
       case 'STX':
         return currentStxAccount?.address;
     }
