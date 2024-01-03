@@ -1,4 +1,5 @@
 import * as RadixDropdownMenu from '@radix-ui/react-dropdown-menu';
+import type { Meta, StoryObj } from '@storybook/react';
 
 import { ListItemType } from '../list/list-item';
 import { DropdownMenu } from './dropdown-menu';
@@ -7,10 +8,17 @@ import { DropdownMenuSectionLabel } from './dropdown-menu-section-label';
 
 const items: ListItemType[] = [{ label: 'Label 1' }, { label: 'Label 2' }];
 
-// Example implementation - remove with Storybook
-// ts-unused-exports:disable-next-line
-export function DropdownMenuExample() {
-  return (
+const meta: Meta<typeof DropdownMenu> = {
+  component: DropdownMenu,
+  tags: ['autodocs'],
+  title: 'Dropdown Menu',
+};
+
+export default meta;
+type Story = StoryObj<typeof DropdownMenu>;
+
+export const Primary: Story = {
+  render: () => (
     <DropdownMenu>
       <RadixDropdownMenu.Group>
         <DropdownMenuSectionLabel label="Items" />
@@ -26,5 +34,5 @@ export function DropdownMenuExample() {
         })}
       </RadixDropdownMenu.Group>
     </DropdownMenu>
-  );
-}
+  ),
+};
