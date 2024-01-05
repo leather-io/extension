@@ -2,24 +2,24 @@ import * as RadixDropdownMenu from '@radix-ui/react-dropdown-menu';
 import type { Meta, StoryObj } from '@storybook/react';
 
 import { ListItemType } from '../list/list-item';
-import { DropdownMenu } from './dropdown-menu';
+import { DropdownMenu as Component } from './dropdown-menu';
 import { DropdownMenuItem } from './dropdown-menu-item';
 import { DropdownMenuSectionLabel } from './dropdown-menu-section-label';
 
 const items: ListItemType[] = [{ label: 'Label 1' }, { label: 'Label 2' }];
 
-const meta: Meta<typeof DropdownMenu> = {
-  component: DropdownMenu,
+const meta: Meta<typeof Component> = {
+  component: Component,
   tags: ['autodocs'],
   title: 'Dropdown Menu',
 };
 
 export default meta;
-type Story = StoryObj<typeof DropdownMenu>;
+type Story = StoryObj<typeof Component>;
 
-export const Primary: Story = {
+export const DropdownMenu: Story = {
   render: () => (
-    <DropdownMenu>
+    <Component>
       <RadixDropdownMenu.Group>
         <DropdownMenuSectionLabel label="Items" />
         {items.map(item => {
@@ -33,6 +33,6 @@ export const Primary: Story = {
           );
         })}
       </RadixDropdownMenu.Group>
-    </DropdownMenu>
+    </Component>
   ),
 };

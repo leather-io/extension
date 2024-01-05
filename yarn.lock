@@ -9777,6 +9777,11 @@ chroma-js@2.4.2:
   resolved "https://registry.yarnpkg.com/chroma-js/-/chroma-js-2.4.2.tgz#dffc214ed0c11fa8eefca2c36651d8e57cbfb2b0"
   integrity sha512-U9eDw6+wt7V8z5NncY2jJfZa+hUH8XEj8FQHgFJTrUFnJfXYf4Ml4adI2vXZOjqRDpFWtYVWypDfZwnJ+HIR4A==
 
+chromatic@10.2.0:
+  version "10.2.0"
+  resolved "https://registry.yarnpkg.com/chromatic/-/chromatic-10.2.0.tgz#04c96ce86c39a2ef54153bb5f98427912386c99b"
+  integrity sha512-UDVGWa2Fx9CLCpwnyfvFHGr0vGF0ooB1TugUdgOcjC9pJXiFa67i7oaXMyTfVRIFxlt/QkqOJwdqDqqlLFffCw==
+
 chrome-launcher@0.15.1:
   version "0.15.1"
   resolved "https://registry.yarnpkg.com/chrome-launcher/-/chrome-launcher-0.15.1.tgz#0a0208037063641e2b3613b7e42b0fcb3fa2d399"
