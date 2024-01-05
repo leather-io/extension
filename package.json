@@ -1,9 +1,11 @@
 {
-  "name": "@stacks/wallet-web",
-  "description": "Leather is browser extension for interacting with Stacks apps",
+  "name": "@leather-wallet/extension",
+  "description": "Leather is a browser extension for interacting with Stacks apps",
   "private": true,
   "version": "6.21.2",
-  "author": "Hiro Systems PBC",
+  "author": {
+    "name": "Leather Wallet LLC"
+  },
   "scripts": {
     "dev": "concurrently --raw \"node webpack/dev-server.js\" \"redux-devtools --hostname=localhost --port=8000\"",
     "dev:test-app": "webpack serve --config test-app/webpack/webpack.config.dev.js",
@@ -36,13 +38,14 @@
     "prepare": "panda codegen",
     "storybook": "storybook dev -p 6006",
     "storybook-docs": "storybook dev --docs",
-    "build-storybook": "storybook build"
+    "build-storybook": "storybook build",
+    "chromatic": "npx chromatic --project-token=CHROMATIC_PROJECT_TOKEN"
   },
   "license": "MIT",
   "main": "index.js",
   "repository": {
     "type": "git",
-    "url": "git@github.com:leather-wallet/extension.git"
+    "url": "git+ssh://git@github.com/leather-wallet/extension.git"
   },
   "webExt": {
     "sourceDir": "dist/"
@@ -286,6 +289,7 @@
     "bip32": "4.0.0",
     "blns": "2.0.4",
     "browserslist": "4.22.1",
+    "chromatic": "10.2.0",
     "chrome-webstore-upload-cli": "2.2.2",
     "clean-webpack-plugin": "4.0.0",
     "concurrently": "8.0.1",
