@@ -1,6 +1,7 @@
 import { useState } from 'react';
 
 import TransportWebUSB from '@ledgerhq/hw-transport-webusb';
+import BitcoinApp from 'ledger-bitcoin';
 
 import { delay } from '@app/common/utils';
 import { safeAwait } from '@app/common/utils/safe-await';
@@ -61,41 +62,14 @@ export function prepareLedgerDeviceForAppFn<T extends () => Promise<unknown>>(co
   };
 }
 
-async function getAppAndVersion(
-  transport: Awaited<ReturnType<typeof TransportWebUSB.create>>
-): Promise<{
-  name: string;
-  version: string;
-  flags: number | Buffer;
-}> {
-  const r = await transport.send(0xb0, 0x01, 0x00, 0x00);
-  let i = 0;
-  const format = r[i++];
-
-  if (format !== 1) {
-    throw new Error('getAppAndVersion: format not supported');
-  }
-
-  const nameLength = r[i++];
-  const name = r.subarray(i, (i += nameLength)).toString('ascii');
-  const versionLength = r[i++];
-  const version = r.subarray(i, (i += versionLength)).toString('ascii');
-  const flagLength = r[i++];
-  const flags = r.subarray(i, (i += flagLength));
-  return {
-    name,
-    version,
-    flags,
-  };
-}
-
 export async function promptOpenAppOnDevice(appName: string) {
   const tmpTransport = await TransportWebUSB.create();
-  const r = await getAppAndVersion(tmpTransport);
-  if (r.name !== appName && r.name !== LEDGER_APPS_MAP.MAIN_MENU) {
+  const tmpBitcoinApp = new BitcoinApp(tmpTransport);
+  const resp = await tmpBitcoinApp.getAppAndVersion();
+  if (resp.name !== appName && resp.name !== LEDGER_APPS_MAP.MAIN_MENU) {
     throw new Error(LedgerConnectionErrors.IncorrectAppOpened);
   }
-  if (r.name !== appName) {
+  if (resp.name !== appName) {
     await tmpTransport.send(0xe0, 0xd8, 0x00, 0x00, Buffer.from(appName, 'ascii'));
   }
   // for some reason sending open app buffer to ledger will close the connection afterwards.
