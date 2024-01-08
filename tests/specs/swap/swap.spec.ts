@@ -20,6 +20,7 @@ test.describe('Swaps', () => {
     await swapPage.selectAssetToReceive();
 
     const swapProtocol = await swapPage.swapDetailsProtocol.innerText();
+    // is is lower?
     test.expect(swapProtocol).toEqual('ALEX');
 
     const swapAssets = await swapPage.swapDetailsSymbol.all();
