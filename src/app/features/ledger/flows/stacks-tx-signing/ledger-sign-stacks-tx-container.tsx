@@ -31,7 +31,11 @@ import { ledgerSignTxRoutes } from '../../generic-flows/tx-signing/ledger-sign-t
 import { useLedgerAnalytics } from '../../hooks/use-ledger-analytics.hook';
 import { useLedgerNavigate } from '../../hooks/use-ledger-navigate';
 import { useVerifyMatchingLedgerStacksPublicKey } from '../../hooks/use-verify-matching-stacks-public-key';
-import { useLedgerResponseState } from '../../utils/generic-ledger-utils';
+import {
+  checkIncorrectAppOpenedError,
+  checkLockedDeviceError,
+  useLedgerResponseState,
+} from '../../utils/generic-ledger-utils';
 import { ApproveSignLedgerStacksTx } from './steps/approve-sign-stacks-ledger-tx';
 
 export const ledgerStacksTxSigningRoutes = ledgerSignTxRoutes({
@@ -62,6 +66,7 @@ function LedgerSignStacksTxContainer() {
   useEffect(() => () => setUnsignedTx(null), []);
 
   const [latestDeviceResponse, setLatestDeviceResponse] = useLedgerResponseState();
+  const [incorrectAppOpened, setIncorrectAppOpened] = useState(false);
 
   const [awaitingDeviceConnection, setAwaitingDeviceConnection] = useState(false);
 
@@ -70,7 +75,15 @@ function LedgerSignStacksTxContainer() {
 
     const stacksApp = await prepareLedgerDeviceStacksAppConnection({
       setLoadingState: setAwaitingDeviceConnection,
-      onError() {
+      onError(e) {
+        if (checkIncorrectAppOpenedError(e)) {
+          setIncorrectAppOpened(true);
+          return;
+        }
+        if (checkLockedDeviceError(e)) {
+          setLatestDeviceResponse({ deviceLocked: true } as any);
+          return;
+        }
         ledgerNavigate.toErrorStep();
       },
     });
@@ -168,6 +181,7 @@ function LedgerSignStacksTxContainer() {
     latestDeviceResponse,
     awaitingDeviceConnection,
     hasUserSkippedBuggyAppWarning,
+    incorrectAppOpened,
   };
 
   return (
