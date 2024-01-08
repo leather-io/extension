@@ -23,37 +23,39 @@ function LedgerRequestBitcoinKeys() {
   const ledgerNavigate = useLedgerNavigate();
   const network = useCurrentNetwork();
 
-  const { requestKeys, latestDeviceResponse, awaitingDeviceConnection } = useRequestLedgerKeys({
-    chain: 'bitcoin',
-    connectApp: connectLedgerBitcoinApp(network.chain.bitcoin.bitcoinNetwork),
-    getAppVersion: getBitcoinAppVersion,
-    isAppOpen({ name }: { name: string }) {
-      return name === 'Bitcoin' || name === 'Bitcoin Test';
-    },
-    onSuccess() {
-      navigate('/', { replace: true });
-    },
-    async pullKeysFromDevice(app) {
-      const { keys } = await pullBitcoinKeysFromLedgerDevice(app)({
-        network: bitcoinNetworkModeToCoreNetworkMode(network.chain.bitcoin.bitcoinNetwork),
-        onRequestKey(index) {
-          if (index <= 4) {
-            ledgerNavigate.toDeviceBusyStep(
-              `Requesting Bitcoin Native Segwit address (${index + 1}…5)`
-            );
-            return;
-          }
-          ledgerNavigate.toDeviceBusyStep(`Requesting Bitcoin Taproot address (${index - 4}…5)`);
-        },
-      });
-      dispatch(bitcoinKeysSlice.actions.addKeys(keys));
-    },
-  });
+  const { requestKeys, latestDeviceResponse, awaitingDeviceConnection, incorrectAppOpened } =
+    useRequestLedgerKeys({
+      chain: 'bitcoin',
+      connectApp: connectLedgerBitcoinApp(network.chain.bitcoin.bitcoinNetwork),
+      getAppVersion: getBitcoinAppVersion,
+      isAppOpen({ name }: { name: string }) {
+        return name === 'Bitcoin' || name === 'Bitcoin Test';
+      },
+      onSuccess() {
+        navigate('/', { replace: true });
+      },
+      async pullKeysFromDevice(app) {
+        const { keys } = await pullBitcoinKeysFromLedgerDevice(app)({
+          network: bitcoinNetworkModeToCoreNetworkMode(network.chain.bitcoin.bitcoinNetwork),
+          onRequestKey(index) {
+            if (index <= 4) {
+              ledgerNavigate.toDeviceBusyStep(
+                `Requesting Bitcoin Native Segwit address (${index + 1}…5)`
+              );
+              return;
+            }
+            ledgerNavigate.toDeviceBusyStep(`Requesting Bitcoin Taproot address (${index - 4}…5)`);
+          },
+        });
+        dispatch(bitcoinKeysSlice.actions.addKeys(keys));
+      },
+    });
 
   const ledgerContextValue: LedgerRequestKeysContext = {
     chain: 'bitcoin',
     pullPublicKeysFromDevice: requestKeys,
     latestDeviceResponse,
+    incorrectAppOpened,
     awaitingDeviceConnection,
     outdatedAppVersionWarning: false,
   };

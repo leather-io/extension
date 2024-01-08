@@ -27,7 +27,11 @@ import {
 } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
 
 import { useLedgerNavigate } from '../../hooks/use-ledger-navigate';
-import { useLedgerResponseState } from '../../utils/generic-ledger-utils';
+import {
+  checkIncorrectAppOpenedError,
+  checkLockedDeviceError,
+  useLedgerResponseState,
+} from '../../utils/generic-ledger-utils';
 import {
   addSignatureToAuthResponseJwt,
   getSha256HashOfJwtAuthPayload,
@@ -57,6 +61,7 @@ export function LedgerSignJwtContainer() {
   }, [location.state]);
 
   const [latestDeviceResponse, setLatestDeviceResponse] = useLedgerResponseState();
+  const [incorrectAppOpened, setIncorrectAppOpened] = useState(false);
 
   const [awaitingDeviceConnection, setAwaitingDeviceConnection] = useState(false);
 
@@ -91,7 +96,15 @@ export function LedgerSignJwtContainer() {
 
     const stacks = await prepareLedgerDeviceStacksAppConnection({
       setLoadingState: setAwaitingDeviceConnection,
-      onError() {
+      onError(e) {
+        if (checkIncorrectAppOpenedError(e)) {
+          setIncorrectAppOpened(true);
+          return;
+        }
+        if (checkLockedDeviceError(e)) {
+          setLatestDeviceResponse({ deviceLocked: true } as any);
+          return;
+        }
         ledgerNavigate.toErrorStep();
       },
     });
@@ -169,6 +182,7 @@ export function LedgerSignJwtContainer() {
     jwtPayloadHash,
     latestDeviceResponse,
     awaitingDeviceConnection,
+    incorrectAppOpened,
   };
 
   return (

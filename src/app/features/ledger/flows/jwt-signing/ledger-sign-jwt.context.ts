@@ -14,6 +14,7 @@ export const ledgerJwtSigningContext = createContext<LedgerJwtSigningContext>({
   awaitingDeviceConnection: false,
   signJwtPayload: noop,
   jwtPayloadHash: null,
+  incorrectAppOpened: false,
 });
 
 export const LedgerJwtSigningProvider = ledgerJwtSigningContext.Provider;
