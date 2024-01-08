@@ -1,6 +1,5 @@
 import { useState } from 'react';
 
-import Transport from '@ledgerhq/hw-transport';
 import TransportWebUSB from '@ledgerhq/hw-transport-webusb';
 
 import { delay } from '@app/common/utils';
@@ -62,7 +61,9 @@ export function prepareLedgerDeviceForAppFn<T extends () => Promise<unknown>>(co
   };
 }
 
-async function getAppAndVersion(transport: Transport): Promise<{
+async function getAppAndVersion(
+  transport: Awaited<ReturnType<typeof TransportWebUSB.create>>
+): Promise<{
   name: string;
   version: string;
   flags: number | Buffer;
