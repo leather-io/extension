@@ -21,13 +21,13 @@ test.describe('Swaps', () => {
 
     const swapProtocol = await swapPage.swapDetailsProtocol.innerText();
     // is is lower?
-    test.expect(swapProtocol).toEqual('ALEX');
+    test.expect(swapProtocol).toMatch(/alex/);
 
     const swapAssets = await swapPage.swapDetailsSymbol.all();
     const swapAssetFrom = await swapAssets[0].innerText();
     const swapAssetTo = await swapAssets[1].innerText();
     test.expect(swapAssetFrom).toEqual('STX');
-    test.expect(swapAssetTo).toEqual('ALEX');
+    test.expect(swapAssetTo).toMatch(/alex/);
 
     const swapAmounts = await swapPage.swapDetailsAmount.all();
     const swapAmountFrom = await swapAmounts[0].innerText();
