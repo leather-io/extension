@@ -21,6 +21,7 @@ import {
 } from '@app/features/ledger/generic-flows/tx-signing/ledger-sign-tx.context';
 import { useActionCancellableByUser } from '@app/features/ledger/utils/stacks-ledger-utils';
 import { useSignLedgerBitcoinTx } from '@app/store/accounts/blockchain/bitcoin/bitcoin.hooks';
+import { useCurrentNetwork } from '@app/store/networks/networks.selectors';
 
 import { ledgerSignTxRoutes } from '../../generic-flows/tx-signing/ledger-sign-tx-route-generator';
 import { useLedgerAnalytics } from '../../hooks/use-ledger-analytics.hook';
@@ -46,6 +47,7 @@ function LedgerSignBitcoinTxContainer() {
   const [unsignedTransactionRaw, setUnsignedTransactionRaw] = useState<null | string>(null);
   const [unsignedTransaction, setUnsignedTransaction] = useState<null | btc.Transaction>(null);
   const signLedger = useSignLedgerBitcoinTx();
+  const network = useCurrentNetwork();
 
   const inputsToSign = useLocationStateWithCache<BitcoinInputSigningConfig[]>('inputsToSign');
 
@@ -73,7 +75,7 @@ function LedgerSignBitcoinTxContainer() {
 
   const signTransaction = async () => {
     setAwaitingDeviceConnection(true);
-    const bitcoinApp = await connectLedgerBitcoinApp();
+    const bitcoinApp = await connectLedgerBitcoinApp(network.chain.bitcoin.bitcoinNetwork)();
 
     try {
       const versionInfo = await getBitcoinAppVersion(bitcoinApp);

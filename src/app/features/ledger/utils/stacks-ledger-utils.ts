@@ -14,9 +14,11 @@ import { getStxDerivationPath, stxDerivationWithAccount } from '@shared/crypto/s
 import { RouteUrls } from '@shared/route-urls';
 
 import {
+  LEDGER_APPS_MAP,
   PrepareLedgerDeviceConnectionArgs,
   SemVerObject,
   prepareLedgerDeviceForAppFn,
+  promptOpenAppOnDevice,
 } from './generic-ledger-utils';
 import { versionObjectToVersionString } from './generic-ledger-utils';
 
@@ -37,6 +39,7 @@ export interface StacksAppKeysResponseItem {
 }
 
 export async function connectLedgerStacksApp() {
+  await promptOpenAppOnDevice(LEDGER_APPS_MAP.STACKS);
   const transport = await Transport.create();
   return new StacksApp(transport);
 }

@@ -7,6 +7,8 @@ import { BitcoinNetworkModes } from '@shared/constants';
 import { getTaprootAccountDerivationPath } from '@shared/crypto/bitcoin/p2tr-address-gen';
 import { getNativeSegwitAccountDerivationPath } from '@shared/crypto/bitcoin/p2wpkh-address-gen';
 
+import { LEDGER_APPS_MAP, promptOpenAppOnDevice } from './generic-ledger-utils';
+
 export interface BitcoinLedgerAccountDetails {
   id: string;
   path: string;
@@ -14,9 +16,17 @@ export interface BitcoinLedgerAccountDetails {
   targetId: string;
 }
 
-export async function connectLedgerBitcoinApp() {
-  const transport = await Transport.create();
-  return new BitcoinApp(transport);
+export function connectLedgerBitcoinApp(network: BitcoinNetworkModes) {
+  return async function connectLedgerBitcoinAppImpl() {
+    if (network === 'mainnet') {
+      await promptOpenAppOnDevice(LEDGER_APPS_MAP.BITCOIN_MAINNET);
+    } else if (network === 'testnet') {
+      await promptOpenAppOnDevice(LEDGER_APPS_MAP.BITCOIN_TESTNET);
+    }
+
+    const transport = await Transport.create();
+    return new BitcoinApp(transport);
+  };
 }
 
 export async function getBitcoinAppVersion(app: BitcoinApp) {
