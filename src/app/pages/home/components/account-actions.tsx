@@ -8,6 +8,7 @@ import { RouteUrls } from '@shared/route-urls';
 
 import { whenStacksChainId } from '@app/common/utils';
 import { useConfigBitcoinEnabled } from '@app/query/common/remote-config/remote-config.query';
+import { useCurrentAccountNativeSegwitIndexZeroSignerNullable } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
 import { useCurrentStacksAccount } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
 import { useCurrentNetwork } from '@app/store/networks/networks.selectors';
 import { ArrowDownIcon } from '@app/ui/components/icons/arrow-down-icon';
@@ -22,6 +23,8 @@ export function AccountActions(props: FlexProps) {
   const location = useLocation();
   const isBitcoinEnabled = useConfigBitcoinEnabled();
   const stacksAccount = useCurrentStacksAccount();
+  const currentBtcSigner = useCurrentAccountNativeSegwitIndexZeroSignerNullable();
+  const btcAccount = currentBtcSigner?.address;
   const currentNetwork = useCurrentNetwork();
 
   const receivePath = isBitcoinEnabled
@@ -38,7 +41,7 @@ export function AccountActions(props: FlexProps) {
         onClick={() => navigate(receivePath, { state: { backgroundLocation: location } })}
       />
 
-      {!!stacksAccount && (
+      {(!!stacksAccount || !!btcAccount) && (
         <ActionButton
           data-testid={HomePageSelectors.FundAccountBtn}
           icon={<PlusIcon />}
