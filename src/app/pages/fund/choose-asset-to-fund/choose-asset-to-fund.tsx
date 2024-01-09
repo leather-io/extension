@@ -1,12 +1,9 @@
 import { useCallback, useMemo } from 'react';
 import { Outlet, useNavigate } from 'react-router-dom';
 
-import {
-  AllTransferableCryptoAssetBalances,
-  BitcoinCryptoCurrencyAssetBalance,
-  StacksCryptoCurrencyAssetBalance,
-} from '@shared/models/crypto-asset-balance.model';
+import { AllTransferableCryptoAssetBalances } from '@shared/models/crypto-asset-balance.model';
 import { RouteUrls } from '@shared/route-urls';
+import { isDefined } from '@shared/utils';
 
 import { useBtcCryptoCurrencyAssetBalance } from '@app/common/hooks/balance/btc/use-btc-crypto-currency-asset-balance';
 import { useStxCryptoCurrencyAssetBalance } from '@app/common/hooks/balance/stx/use-stx-crypto-currency-asset-balance';
@@ -17,8 +14,6 @@ import { ChooseCryptoAssetLayout } from '@app/components/crypto-assets/choose-cr
 import { CryptoAssetList } from '@app/components/crypto-assets/choose-crypto-asset/crypto-asset-list';
 import { ModalHeader } from '@app/components/modal-header';
 import { useCheckLedgerBlockchainAvailable } from '@app/store/accounts/blockchain/utils';
-
-type CryptoAssetBalance = BitcoinCryptoCurrencyAssetBalance | StacksCryptoCurrencyAssetBalance;
 
 export function ChooseCryptoAssetToFund() {
   const btcCryptoCurrencyAssetBalance = useBtcCryptoCurrencyAssetBalance();
@@ -36,14 +31,12 @@ export function ChooseCryptoAssetToFund() {
 
   const filteredCryptoAssetBalances = useMemo(
     () =>
-      cryptoCurrencyAssetBalances
-        .filter((assetBalance): assetBalance is CryptoAssetBalance => assetBalance != null)
-        .filter(assetBalance =>
-          whenWallet({
-            ledger: checkBlockchainAvailable(assetBalance?.blockchain),
-            software: true,
-          })
-        ),
+      cryptoCurrencyAssetBalances.filter(isDefined).filter(assetBalance =>
+        whenWallet({
+          ledger: checkBlockchainAvailable(assetBalance?.blockchain),
+          software: true,
+        })
+      ),
     [cryptoCurrencyAssetBalances, checkBlockchainAvailable, whenWallet]
   );
 
