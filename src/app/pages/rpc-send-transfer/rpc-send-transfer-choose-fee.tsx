@@ -37,7 +37,7 @@ export function RpcSendTransferChooseFee() {
   const generateTx = useGenerateUnsignedNativeSegwitSingleRecipientTx();
   const signTransaction = useSignBitcoinTx();
   const { feesList, isLoading } = useBitcoinFeesList({
-    amount: Number(amountAsMoney.amount),
+    amount: amountAsMoney,
     recipient: address,
     utxos,
   });
@@ -90,6 +90,7 @@ export function RpcSendTransferChooseFee() {
         recommendedFeeRate={recommendedFeeRate}
         showError={showInsufficientBalanceError}
         maxRecommendedFeeRate={feesList[0]?.feeRate}
+        px="0"
       />
     </>
   );

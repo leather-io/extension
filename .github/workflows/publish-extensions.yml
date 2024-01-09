@@ -1,4 +1,5 @@
-name: Publish Extensions
+name: Publish extensions
+
 on:
   push:
     tags-ignore:

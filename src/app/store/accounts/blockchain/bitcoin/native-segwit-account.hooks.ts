@@ -90,10 +90,20 @@ export function useCurrentAccountNativeSegwitSigner() {
   return useNativeSegwitSigner(currentAccountIndex);
 }
 
+// TODO: as ledger users are able to have only stacks account on their devices, this hook throws an unnecessary error.
+// To alleviate that, use useCurrentAccountNativeSegwitIndexZeroSignerNullable
 export function useCurrentAccountNativeSegwitIndexZeroSigner() {
   const signer = useCurrentAccountNativeSegwitSigner();
   return useMemo(() => {
     if (!signer) throw new Error('No signer');
+    return signer(0);
+  }, [signer]);
+}
+
+export function useCurrentAccountNativeSegwitIndexZeroSignerNullable() {
+  const signer = useCurrentAccountNativeSegwitSigner();
+  return useMemo(() => {
+    if (!signer) return undefined;
     return signer(0);
   }, [signer]);
 }

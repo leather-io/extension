@@ -21,6 +21,7 @@ module.exports = {
     'plugin:react/recommended',
     'plugin:react/jsx-runtime',
     'plugin:react-hooks/recommended',
+    'plugin:storybook/recommended',
   ],
   ignorePatterns: ['./leather-styles'],
   plugins: ['react', 'react-hooks', '@typescript-eslint', 'deprecation'],
@@ -112,7 +113,7 @@ module.exports = {
               {
                 name: 'react-redux',
                 importNames: ['useSelector'],
-                message: 'Selectors must be expored from the store via a hook',
+                message: 'Selectors must be exported from the store via a hook',
               },
               {
                 name: '@radix-ui/themes',

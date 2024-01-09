@@ -5,6 +5,7 @@ import { Stack, styled } from 'leather-styles/jsx';
 import * as yup from 'yup';
 
 import { BtcFeeType } from '@shared/models/fees/bitcoin-fees.model';
+import { createMoney } from '@shared/models/money.model';
 
 import { openInNewTab } from '@app/common/utils/open-in-new-tab';
 import { PreviewButton } from '@app/components/preview-button';
@@ -42,7 +43,11 @@ export function BitcoinCustomFee({
   maxCustomFeeRate,
 }: BitcoinCustomFeeProps) {
   const feeInputRef = useRef<HTMLInputElement | null>(null);
-  const getCustomFeeValues = useBitcoinCustomFee({ amount, isSendingMax, recipient });
+  const getCustomFeeValues = useBitcoinCustomFee({
+    amount: createMoney(amount, 'BTC'),
+    isSendingMax,
+    recipient,
+  });
 
   const onChooseCustomBtcFee = useCallback(
     async ({ feeRate }: { feeRate: string }) => {

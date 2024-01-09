@@ -46,14 +46,13 @@ export function BrcChooseFee() {
   const signTx = useSignBitcoinTx();
   const { selectedFeeType, setSelectedFeeType } = useSendBitcoinAssetContextState();
   const { initiateTransfer } = useBrc20Transfers();
+  const amountAsMoney = createMoney(Number(amount), tick, 0);
   const { feesList, isLoading } = useBitcoinFeesList({
-    amount: Number(amount),
+    amount: amountAsMoney,
     recipient,
     utxos,
   });
   const recommendedFeeRate = feesList[1]?.feeRate.toString() || '';
-
-  const amountAsMoney = createMoney(Number(amount), tick, 0);
 
   const { showInsufficientBalanceError, onValidateBitcoinFeeSpend } =
     useValidateBitcoinSpend(amountAsMoney);
