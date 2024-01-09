@@ -73,7 +73,7 @@ export function useRequestLedgerKeys<App extends AppClient | StacksApp>({
       onSuccess?.();
     } catch (e) {
       setAwaitingDeviceConnection(false);
-      if (checkLockedDeviceError(e)) {
+      if (e instanceof Error && checkLockedDeviceError(e)) {
         setLatestDeviceResponse({ deviceLocked: true } as any);
         return;
       }
