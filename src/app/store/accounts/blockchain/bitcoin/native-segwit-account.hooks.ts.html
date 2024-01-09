@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">6.81% </span>
+                <span class="strong">6.12% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>3/44</span>
+                <span class='fraction'>3/49</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/6</span>
+                <span class='fraction'>0/8</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/22</span>
+                <span class='fraction'>0/24</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">7.31% </span>
+                <span class="strong">6.66% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>3/41</span>
+                <span class='fraction'>3/45</span>
             </div>
         
             
@@ -234,7 +234,17 @@
 <a name='L169'></a><a href='#L169'>169</a>
 <a name='L170'></a><a href='#L170'>170</a>
 <a name='L171'></a><a href='#L171'>171</a>
-<a name='L172'></a><a href='#L172'>172</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L172'></a><a href='#L172'>172</a>
+<a name='L173'></a><a href='#L173'>173</a>
+<a name='L174'></a><a href='#L174'>174</a>
+<a name='L175'></a><a href='#L175'>175</a>
+<a name='L176'></a><a href='#L176'>176</a>
+<a name='L177'></a><a href='#L177'>177</a>
+<a name='L178'></a><a href='#L178'>178</a>
+<a name='L179'></a><a href='#L179'>179</a>
+<a name='L180'></a><a href='#L180'>180</a>
+<a name='L181'></a><a href='#L181'>181</a>
+<a name='L182'></a><a href='#L182'>182</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -324,6 +334,16 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -497,10 +517,20 @@ export function <span class="fstat-no" title="function not covered" >useCurrentA
 <span class="cstat-no" title="statement not covered" >  return useNativeSegwitSigner(currentAccountIndex);</span>
 }
 &nbsp;
+// TODO: as ledger users are able to have only stacks account on their devices, this hook throws an unnecessary error.
+// To alleviate that, use useCurrentAccountNativeSegwitIndexZeroSignerNullable
 export function <span class="fstat-no" title="function not covered" >useCurrentAccountNativeSegwitIndexZeroSigner() {</span>
   const signer = <span class="cstat-no" title="statement not covered" >useCurrentAccountNativeSegwitSigner();</span>
 <span class="cstat-no" title="statement not covered" >  return useMemo(<span class="fstat-no" title="function not covered" >() =&gt; {</span></span>
 <span class="cstat-no" title="statement not covered" >    if (!signer) <span class="cstat-no" title="statement not covered" >throw new Error('No signer');</span></span>
+<span class="cstat-no" title="statement not covered" >    return signer(0);</span>
+  }, [signer]);
+}
+&nbsp;
+export function <span class="fstat-no" title="function not covered" >useCurrentAccountNativeSegwitIndexZeroSignerNullable() {</span>
+  const signer = <span class="cstat-no" title="statement not covered" >useCurrentAccountNativeSegwitSigner();</span>
+<span class="cstat-no" title="statement not covered" >  return useMemo(<span class="fstat-no" title="function not covered" >() =&gt; {</span></span>
+<span class="cstat-no" title="statement not covered" >    if (!signer) <span class="cstat-no" title="statement not covered" >return undefined;</span></span>
 <span class="cstat-no" title="statement not covered" >    return signer(0);</span>
   }, [signer]);
 }
@@ -583,7 +613,7 @@ export function <span class="fstat-no" title="function not covered" >useUpdateLe
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2023-12-21T15:37:15.442Z
+                at 2024-01-09T19:51:37.031Z
             </div>
         <script src="../../../../../../prettify.js"></script>
         <script>
