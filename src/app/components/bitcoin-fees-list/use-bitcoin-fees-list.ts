@@ -1,11 +1,10 @@
 import { useMemo } from 'react';
 
 import { BtcFeeType, btcTxTimeMap } from '@shared/models/fees/bitcoin-fees.model';
-import { createMoney } from '@shared/models/money.model';
+import { Money, createMoney } from '@shared/models/money.model';
 
 import { baseCurrencyAmountInQuote } from '@app/common/money/calculate-money';
 import { formatMoneyPadded, i18nFormatCurrency } from '@app/common/money/format-money';
-import { btcToSat } from '@app/common/money/unit-conversion';
 import {
   DetermineUtxosForSpendArgs,
   determineUtxosForSpend,
@@ -29,7 +28,7 @@ function getFeeForList(
 }
 
 interface UseBitcoinFeesListArgs {
-  amount: number;
+  amount: Money;
   isSendingMax?: boolean;
   recipient: string;
   utxos: UtxoResponseItem[];
@@ -53,7 +52,7 @@ export function useBitcoinFeesList({
 
     if (!feeRates || !utxos.length) return [];
 
-    const satAmount = isSendingMax ? balance.amount.toNumber() : btcToSat(amount).toNumber();
+    const satAmount = isSendingMax ? balance.amount.toNumber() : amount.amount.toNumber();
 
     const determineUtxosDefaultArgs = {
       amount: satAmount,
@@ -106,7 +105,7 @@ export function useBitcoinFeesList({
         feeRate: feeRates.hourFee.toNumber(),
       },
     ];
-  }, [feeRates, utxos, isSendingMax, balance.amount, amount, recipient, btcMarketData]);
+  }, [feeRates, utxos, isSendingMax, balance.amount, amount.amount, recipient, btcMarketData]);
 
   return {
     feesList,
