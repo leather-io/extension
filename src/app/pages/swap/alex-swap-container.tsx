@@ -19,7 +19,6 @@ import { LoadingKeys, useLoading } from '@app/common/hooks/use-loading';
 import { useWalletType } from '@app/common/use-wallet-type';
 import { NonceSetter } from '@app/components/nonce-setter';
 import { defaultFeesMinValues } from '@app/query/stacks/fees/fees.hooks';
-import { useStacksPendingTransactions } from '@app/query/stacks/mempool/mempool.hooks';
 import { useCurrentStacksAccount } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
 import { useGenerateStacksContractCallUnsignedTx } from '@app/store/transactions/contract-call.hooks';
 import { useSignStacksTransaction } from '@app/store/transactions/transaction.hooks';
@@ -43,12 +42,13 @@ function AlexSwapContainer() {
   const currentAccount = useCurrentStacksAccount();
   const generateUnsignedTx = useGenerateStacksContractCallUnsignedTx();
   const signTx = useSignStacksTransaction();
-  const { transactions: pendingTransactions } = useStacksPendingTransactions();
   const { whenWallet } = useWalletType();
 
+  // Setting software to false until we revisit:
+  // https://github.com/leather-wallet/extension/issues/4750
   const isSponsoredByAlex = whenWallet({
     ledger: false,
-    software: !pendingTransactions.length,
+    software: false,
   });
 
   const {

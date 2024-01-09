@@ -1,6 +1,5 @@
 import { test } from '../../fixtures/fixtures';
 
-const alexSdkPostRoute = 'https://*.alexlab.co/v1/graphql';
 const hiroApiPostRoute = '*/**/v2/transactions';
 
 test.describe('Swaps', () => {
@@ -36,20 +35,11 @@ test.describe('Swaps', () => {
   });
 
   test('that the swap is broadcast', async ({ swapPage }) => {
-    let requestPromise;
-    const isSponsoredSwap = swapPage.page.getByText('Sponsored');
+    const requestPromise = swapPage.page.waitForRequest(hiroApiPostRoute);
 
-    if (isSponsoredSwap) {
-      requestPromise = swapPage.page.waitForRequest(alexSdkPostRoute);
-      await swapPage.page.route(alexSdkPostRoute, async route => {
-        await route.abort();
-      });
-    } else {
-      requestPromise = swapPage.page.waitForRequest(hiroApiPostRoute);
-      await swapPage.page.route(alexSdkPostRoute, async route => {
-        await route.abort();
-      });
-    }
+    await swapPage.page.route(hiroApiPostRoute, async route => {
+      await route.abort();
+    });
 
     await swapPage.inputSwapAmountFrom();
     await swapPage.selectAssetToReceive();

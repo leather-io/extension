@@ -8,6 +8,7 @@ interface StacksFungibleTokenAssetListProps {
   assetBalances: StacksFungibleTokenAssetBalance[];
 }
 export function StacksFungibleTokenAssetList({ assetBalances }: StacksFungibleTokenAssetListProps) {
+  if (assetBalances.length === 0) return null;
   return (
     <Stack gap="space.05">
       {assetBalances.map(assetBalance => (

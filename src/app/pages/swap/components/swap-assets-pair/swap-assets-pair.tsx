@@ -25,7 +25,7 @@ export function SwapAssetsPair() {
         <SwapAssetItemLayout
           caption="You will swap"
           icon={swapAssetFrom.icon}
-          symbol={swapAssetFrom.balance.symbol}
+          symbol={swapAssetFrom.name}
           value={swapAmountFrom}
         />
       }
@@ -33,7 +33,7 @@ export function SwapAssetsPair() {
         <SwapAssetItemLayout
           caption="You will receive"
           icon={swapAssetTo.icon}
-          symbol={swapAssetTo.balance.symbol}
+          symbol={swapAssetTo.name}
           value={swapAmountTo}
         />
       }
