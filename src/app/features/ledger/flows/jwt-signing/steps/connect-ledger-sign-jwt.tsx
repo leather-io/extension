@@ -5,7 +5,7 @@ import { ledgerJwtSigningContext } from '@app/features/ledger/flows/jwt-signing/
 import { ConnectLedger } from '@app/features/ledger/generic-steps';
 
 export function ConnectLedgerSignJwt() {
-  const { signJwtPayload, latestDeviceResponse, awaitingDeviceConnection, incorrectAppOpened } =
+  const { signJwtPayload, latestDeviceResponse, awaitingDeviceConnection } =
     useContext(ledgerJwtSigningContext);
 
   return (
@@ -16,7 +16,6 @@ export function ConnectLedgerSignJwt() {
         <CommonLedgerDeviceInlineWarnings
           chain="stacks"
           latestDeviceResponse={latestDeviceResponse}
-          incorrectAppOpened={incorrectAppOpened}
         />
       }
       onConnectLedger={signJwtPayload}

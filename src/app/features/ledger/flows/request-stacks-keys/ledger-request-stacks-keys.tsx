@@ -26,45 +26,40 @@ function LedgerRequestStacksKeys() {
 
   const dispatch = useDispatch();
 
-  const {
-    requestKeys,
-    latestDeviceResponse,
-    awaitingDeviceConnection,
-    outdatedAppVersionWarning,
-    incorrectAppOpened,
-  } = useRequestLedgerKeys({
-    chain: 'stacks',
-    connectApp: connectLedgerStacksApp,
-    getAppVersion: getStacksAppVersion,
-    isAppOpen(resp) {
-      return !isStacksLedgerAppClosed(resp);
-    },
-    onSuccess() {
-      navigate('/', { replace: true });
-    },
-    async pullKeysFromDevice(app) {
-      const resp = await pullStacksKeysFromLedgerDevice(app)({
-        onRequestKey(accountIndex) {
-          ledgerNavigate.toDeviceBusyStep(`Requesting STX addresses (${accountIndex + 1}…5)`);
-        },
-      });
-      if (resp.status === 'failure') {
-        toast.error(resp.errorMessage);
-        ledgerNavigate.toErrorStep(resp.errorMessage);
-        return;
-      }
-      ledgerNavigate.toDeviceBusyStep();
-      dispatch(
-        stacksKeysSlice.actions.addKeys(
-          resp.publicKeys.map(keys => ({
-            ...keys,
-            id: keys.path.replace('m', defaultWalletKeyId),
-            targetId: latestDeviceResponse?.targetId || '',
-          }))
-        )
-      );
-    },
-  });
+  const { requestKeys, latestDeviceResponse, awaitingDeviceConnection, outdatedAppVersionWarning } =
+    useRequestLedgerKeys({
+      chain: 'stacks',
+      connectApp: connectLedgerStacksApp,
+      getAppVersion: getStacksAppVersion,
+      isAppOpen(resp) {
+        return !isStacksLedgerAppClosed(resp);
+      },
+      onSuccess() {
+        navigate('/', { replace: true });
+      },
+      async pullKeysFromDevice(app) {
+        const resp = await pullStacksKeysFromLedgerDevice(app)({
+          onRequestKey(accountIndex) {
+            ledgerNavigate.toDeviceBusyStep(`Requesting STX addresses (${accountIndex + 1}…5)`);
+          },
+        });
+        if (resp.status === 'failure') {
+          toast.error(resp.errorMessage);
+          ledgerNavigate.toErrorStep(resp.errorMessage);
+          return;
+        }
+        ledgerNavigate.toDeviceBusyStep();
+        dispatch(
+          stacksKeysSlice.actions.addKeys(
+            resp.publicKeys.map(keys => ({
+              ...keys,
+              id: keys.path.replace('m', defaultWalletKeyId),
+              targetId: latestDeviceResponse?.targetId || '',
+            }))
+          )
+        );
+      },
+    });
 
   const ledgerContextValue: LedgerRequestKeysContext = {
     chain: 'stacks',
@@ -72,7 +67,6 @@ function LedgerRequestStacksKeys() {
     latestDeviceResponse,
     awaitingDeviceConnection,
     outdatedAppVersionWarning,
-    incorrectAppOpened,
   };
 
   return (

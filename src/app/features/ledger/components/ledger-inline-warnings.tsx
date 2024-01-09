@@ -15,7 +15,6 @@ interface RequiresChainProp {
 interface CommonLedgerInlineWarningsProps extends RequiresChainProp {
   latestDeviceResponse: LatestDeviceResponse;
   outdatedLedgerAppWarning?: boolean;
-  incorrectAppOpened: boolean;
 }
 
 function OutdatedLedgerAppWarning({ chain }: RequiresChainProp) {
@@ -39,16 +38,6 @@ function LedgerDeviceLockedWarning({ chain }: RequiresChainProp) {
   );
 }
 
-function LedgerIncorrectAppWarning({ chain }: RequiresChainProp) {
-  return (
-    <WarningLabel textAlign="left">
-      Incorrect app is opened. Close it and open the {''}
-      <Capitalize>{chain}</Capitalize>
-      {''} app to continue.
-    </WarningLabel>
-  );
-}
-
 function LedgerAppClosedWarning({ chain }: RequiresChainProp) {
   return (
     <WarningLabel textAlign="left">
@@ -61,14 +50,14 @@ export function CommonLedgerDeviceInlineWarnings({
   chain,
   latestDeviceResponse,
   outdatedLedgerAppWarning = false,
-  incorrectAppOpened,
 }: CommonLedgerInlineWarningsProps) {
+  if (!latestDeviceResponse) return null;
+
   if (outdatedLedgerAppWarning) {
     return <OutdatedLedgerAppWarning chain={chain} />;
   }
-  if (latestDeviceResponse?.deviceLocked) return <LedgerDeviceLockedWarning chain={chain} />;
-  if (incorrectAppOpened) return <LedgerIncorrectAppWarning chain={chain} />;
-  if (latestDeviceResponse && isStacksLedgerAppClosed(latestDeviceResponse))
+  if (latestDeviceResponse.deviceLocked) return <LedgerDeviceLockedWarning chain={chain} />;
+  if (isStacksLedgerAppClosed(latestDeviceResponse))
     return <LedgerAppClosedWarning chain={chain} />;
   return null;
 }

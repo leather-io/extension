@@ -7,7 +7,7 @@ import { useWhenReattemptingLedgerConnection } from '@app/features/ledger/hooks/
 import { ledgerMsgSigningContext } from '../ledger-stacks-sign-msg.context';
 
 export function ConnectLedgerSignMsg() {
-  const { signMessage, latestDeviceResponse, awaitingDeviceConnection, incorrectAppOpened } =
+  const { signMessage, latestDeviceResponse, awaitingDeviceConnection } =
     useContext(ledgerMsgSigningContext);
 
   useWhenReattemptingLedgerConnection(() => signMessage());
@@ -20,7 +20,6 @@ export function ConnectLedgerSignMsg() {
         <CommonLedgerDeviceInlineWarnings
           chain="stacks"
           latestDeviceResponse={latestDeviceResponse}
-          incorrectAppOpened={incorrectAppOpened}
         />
       }
       onConnectLedger={signMessage}

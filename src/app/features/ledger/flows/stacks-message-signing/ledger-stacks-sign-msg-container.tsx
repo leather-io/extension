@@ -27,11 +27,7 @@ import { useSignatureRequestSearchParams } from '@app/store/signatures/requests.
 import { useLedgerAnalytics } from '../../hooks/use-ledger-analytics.hook';
 import { useLedgerNavigate } from '../../hooks/use-ledger-navigate';
 import { useVerifyMatchingLedgerStacksPublicKey } from '../../hooks/use-verify-matching-stacks-public-key';
-import {
-  checkIncorrectAppOpenedError,
-  checkLockedDeviceError,
-  useLedgerResponseState,
-} from '../../utils/generic-ledger-utils';
+import { checkLockedDeviceError, useLedgerResponseState } from '../../utils/generic-ledger-utils';
 import {
   LedgerMessageSigningContext,
   LedgerMsgSigningProvider,
@@ -63,7 +59,6 @@ function LedgerSignStacksMsg({ account, unsignedMessage }: LedgerSignMsgProps) {
   const { tabId, requestToken } = useSignatureRequestSearchParams();
 
   const [latestDeviceResponse, setLatestDeviceResponse] = useLedgerResponseState();
-  const [incorrectAppOpened, setIncorrectAppOpened] = useState(false);
   const canUserCancelAction = useActionCancellableByUser();
 
   const [awaitingDeviceConnection, setAwaitingDeviceConnection] = useState(false);
@@ -72,10 +67,6 @@ function LedgerSignStacksMsg({ account, unsignedMessage }: LedgerSignMsgProps) {
     const stacksApp = await prepareLedgerDeviceStacksAppConnection({
       setLoadingState: setAwaitingDeviceConnection,
       onError(e) {
-        if (checkIncorrectAppOpenedError(e)) {
-          setIncorrectAppOpened(true);
-          return;
-        }
         if (checkLockedDeviceError(e)) {
           setLatestDeviceResponse({ deviceLocked: true } as any);
           return;
@@ -161,7 +152,6 @@ function LedgerSignStacksMsg({ account, unsignedMessage }: LedgerSignMsgProps) {
     signMessage,
     latestDeviceResponse,
     awaitingDeviceConnection,
-    incorrectAppOpened,
   };
 
   return (

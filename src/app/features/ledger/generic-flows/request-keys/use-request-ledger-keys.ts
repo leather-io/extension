@@ -9,11 +9,7 @@ import { delay } from '@app/common/utils';
 
 import { useLedgerAnalytics } from '../../hooks/use-ledger-analytics.hook';
 import { useLedgerNavigate } from '../../hooks/use-ledger-navigate';
-import {
-  checkIncorrectAppOpenedError,
-  checkLockedDeviceError,
-  useLedgerResponseState,
-} from '../../utils/generic-ledger-utils';
+import { checkLockedDeviceError, useLedgerResponseState } from '../../utils/generic-ledger-utils';
 
 export enum LedgerConnectionErrors {
   FailedToConnect = 'FailedToConnect',
@@ -45,7 +41,6 @@ export function useRequestLedgerKeys<App extends AppClient | StacksApp>({
   const [awaitingDeviceConnection, setAwaitingDeviceConnection] = useState(false);
   const ledgerNavigate = useLedgerNavigate();
   const ledgerAnalytics = useLedgerAnalytics();
-  const [incorrectAppOpened, setIncorrectAppOpened] = useState(false);
 
   async function connectLedgerWithFailState() {
     const app = await connectApp();
@@ -66,7 +61,6 @@ export function useRequestLedgerKeys<App extends AppClient | StacksApp>({
     let app;
     try {
       setLatestDeviceResponse({ deviceLocked: false } as any);
-      setIncorrectAppOpened(false);
       setAwaitingDeviceConnection(true);
       app = await connectLedgerWithFailState();
       await checkCorrectAppIsOpenWithFailState(app);
@@ -79,10 +73,6 @@ export function useRequestLedgerKeys<App extends AppClient | StacksApp>({
       onSuccess?.();
     } catch (e) {
       setAwaitingDeviceConnection(false);
-      if (checkIncorrectAppOpenedError(e)) {
-        setIncorrectAppOpened(true);
-        return;
-      }
       if (checkLockedDeviceError(e)) {
         setLatestDeviceResponse({ deviceLocked: true } as any);
         return;
@@ -103,6 +93,5 @@ export function useRequestLedgerKeys<App extends AppClient | StacksApp>({
     setLatestDeviceResponse,
     awaitingDeviceConnection,
     setAwaitingDeviceConnection,
-    incorrectAppOpened,
   };
 }
