@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-import { Box, Stack } from 'leather-styles/jsx';
+import { Box, FlexProps, Stack } from 'leather-styles/jsx';
 import { styled } from 'leather-styles/jsx';
 
 import { BtcFeeType } from '@shared/models/fees/bitcoin-fees.model';
@@ -19,7 +19,7 @@ import { ChooseFeeSubtitle } from './components/choose-fee-subtitle';
 import { ChooseFeeTabs } from './components/choose-fee-tabs';
 import { InsufficientBalanceError } from './components/insufficient-balance-error';
 
-interface BitcoinChooseFeeProps {
+interface BitcoinChooseFeeProps extends FlexProps {
   amount: Money;
   feesList: React.JSX.Element;
   isLoading: boolean;
@@ -44,6 +44,7 @@ export function BitcoinChooseFee({
   recommendedFeeRate,
   showError,
   maxRecommendedFeeRate = 0,
+  ...rest
 }: BitcoinChooseFeeProps) {
   const nativeSegwitSigner = useCurrentAccountNativeSegwitIndexZeroSigner();
   const btcBalance = useNativeSegwitBalance(nativeSegwitSigner.address);
@@ -51,7 +52,7 @@ export function BitcoinChooseFee({
   const [customFeeInitialValue, setCustomFeeInitialValue] = useState(recommendedFeeRate);
 
   return (
-    <BitcoinChooseFeeLayout isLoading={isLoading}>
+    <BitcoinChooseFeeLayout isLoading={isLoading} {...rest}>
       <Stack alignItems="center" width="100%">
         {hasAmount && (
           <styled.h3 textStyle="heading.03" color={showError ? 'error.label' : 'unset'}>

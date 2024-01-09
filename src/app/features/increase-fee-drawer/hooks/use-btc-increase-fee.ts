@@ -5,11 +5,13 @@ import * as btc from '@scure/btc-signer';
 import BigNumber from 'bignumber.js';
 import * as yup from 'yup';
 
+import { createMoney } from '@shared/models/money.model';
 import { BitcoinTx } from '@shared/models/transactions/bitcoin-transaction.model';
 import { RouteUrls } from '@shared/route-urls';
 
 import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
 import { useBtcAssetBalance } from '@app/common/hooks/balance/btc/use-btc-balance';
+import { btcToSat } from '@app/common/money/unit-conversion';
 import { queryClient } from '@app/common/persistence';
 import {
   getBitcoinTxValue,
@@ -44,7 +46,7 @@ export function useBtcIncreaseFee(btcTx: BitcoinTx) {
   const { btcAvailableAssetBalance } = useBtcAssetBalance(currentBitcoinAddress);
   const sendingAmount = getBitcoinTxValue(currentBitcoinAddress, btcTx);
   const { feesList } = useBitcoinFeesList({
-    amount: Number(sendingAmount),
+    amount: createMoney(btcToSat(sendingAmount), 'BTC'),
     isSendingMax: false,
     recipient,
     utxos,
