@@ -64,23 +64,23 @@ export function prepareLedgerDeviceForAppFn<T extends () => Promise<unknown>>(co
 type TransportInstance = Awaited<ReturnType<typeof TransportWebUSB.create>>;
 
 // Reference: https://github.com/LedgerHQ/ledger-live/blob/v22.0.1/src/hw/quitApp.ts
-export async function quitApp(transport: TransportInstance): Promise<void> {
+async function quitApp(transport: TransportInstance): Promise<void> {
   await transport.send(0xb0, 0xa7, 0x00, 0x00);
 }
 
 // Reference: https://github.com/LedgerHQ/ledger-live/blob/v22.0.1/src/hw/openApp.ts
-export async function openApp(transport: TransportInstance, name: string): Promise<void> {
+async function openApp(transport: TransportInstance, name: string): Promise<void> {
   await transport.send(0xe0, 0xd8, 0x00, 0x00, Buffer.from(name, 'ascii'));
 }
 
-export async function getAppAndVersion() {
+async function getAppAndVersion() {
   const tmpTransport = await TransportWebUSB.create();
   const tmpBitcoinApp = new BitcoinApp(tmpTransport);
   const appAndVersion = await tmpBitcoinApp.getAppAndVersion();
   return appAndVersion;
 }
 
-export async function quitAppOnDevice() {
+async function quitAppOnDevice() {
   const tmpTransport = await TransportWebUSB.create();
   await quitApp(tmpTransport);
   // for some reason sending quit app buffer to ledger will close the connection afterwards.
