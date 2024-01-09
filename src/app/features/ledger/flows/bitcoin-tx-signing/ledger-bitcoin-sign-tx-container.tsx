@@ -27,11 +27,7 @@ import { ledgerSignTxRoutes } from '../../generic-flows/tx-signing/ledger-sign-t
 import { useLedgerAnalytics } from '../../hooks/use-ledger-analytics.hook';
 import { useLedgerNavigate } from '../../hooks/use-ledger-navigate';
 import { connectLedgerBitcoinApp, getBitcoinAppVersion } from '../../utils/bitcoin-ledger-utils';
-import {
-  checkIncorrectAppOpenedError,
-  checkLockedDeviceError,
-  useLedgerResponseState,
-} from '../../utils/generic-ledger-utils';
+import { checkLockedDeviceError, useLedgerResponseState } from '../../utils/generic-ledger-utils';
 import { ApproveSignLedgerBitcoinTx } from './steps/approve-bitcoin-sign-ledger-tx';
 
 export const ledgerBitcoinTxSigningRoutes = ledgerSignTxRoutes({
@@ -68,7 +64,6 @@ function LedgerSignBitcoinTxContainer() {
   useEffect(() => () => setUnsignedTransaction(null), []);
 
   const [latestDeviceResponse, setLatestDeviceResponse] = useLedgerResponseState();
-  const [incorrectAppOpened, setIncorrectAppOpened] = useState(false);
 
   const [awaitingDeviceConnection, setAwaitingDeviceConnection] = useState(false);
 
@@ -120,10 +115,6 @@ function LedgerSignBitcoinTxContainer() {
         void bitcoinApp.transport.close();
       }
     } catch (e) {
-      if (checkIncorrectAppOpenedError(e)) {
-        setIncorrectAppOpened(true);
-        return;
-      }
       if (checkLockedDeviceError(e)) {
         setLatestDeviceResponse({ deviceLocked: true } as any);
         return;
@@ -137,7 +128,6 @@ function LedgerSignBitcoinTxContainer() {
     signTransaction,
     latestDeviceResponse,
     awaitingDeviceConnection,
-    incorrectAppOpened,
   };
 
   return (

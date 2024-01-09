@@ -10,7 +10,6 @@ export function ConnectLedgerRequestKeys() {
     awaitingDeviceConnection,
     outdatedAppVersionWarning,
     chain,
-    incorrectAppOpened,
   } = useLedgerRequestKeysContext();
 
   useWhenReattemptingLedgerConnection(() => pullPublicKeysFromDevice());
@@ -24,7 +23,6 @@ export function ConnectLedgerRequestKeys() {
           chain={chain}
           latestDeviceResponse={latestDeviceResponse}
           outdatedLedgerAppWarning={outdatedAppVersionWarning}
-          incorrectAppOpened={incorrectAppOpened}
         />
       }
       showInstructions

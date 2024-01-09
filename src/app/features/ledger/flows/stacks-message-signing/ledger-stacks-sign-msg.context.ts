@@ -15,7 +15,6 @@ export const ledgerMsgSigningContext = createContext<LedgerMessageSigningContext
   latestDeviceResponse: null,
   awaitingDeviceConnection: false,
   signMessage: noop,
-  incorrectAppOpened: false,
 });
 
 export const LedgerMsgSigningProvider = ledgerMsgSigningContext.Provider;
