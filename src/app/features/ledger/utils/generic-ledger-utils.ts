@@ -104,7 +104,7 @@ export async function promptOpenAppOnDevice(appName: string) {
   await delay(500);
 }
 
-export function checkLockedDeviceError(e: any) {
+export function checkLockedDeviceError(e: Error) {
   return !!(
     e?.name === 'LockedDeviceError' ||
     e?.message?.includes('LockedDeviceError') ||
