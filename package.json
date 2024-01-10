@@ -241,7 +241,7 @@
     "@leather-wallet/prettier-config": "0.0.1",
     "@leather-wallet/tokens": "0.0.2",
     "@ls-lint/ls-lint": "2.1.0",
-    "@pandacss/dev": "0.22.1",
+    "@pandacss/dev": "0.26.1",
     "@playwright/test": "1.40.1",
     "@pmmmwh/react-refresh-webpack-plugin": "0.5.11",
     "@redux-devtools/cli": "3.0.2",
