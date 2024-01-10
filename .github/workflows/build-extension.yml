@@ -1,11 +1,12 @@
-name: PR Extensions builds
+name: PR extension build
+
 on: [pull_request, workflow_dispatch]
 
 jobs:
   pre-run:
     runs-on: ubuntu-latest
     steps:
-      - name: Cancel Previous Runs
+      - name: Cancel previous runs
         uses: styfle/cancel-workflow-action@main
         with:
           access_token: ${{ github.token }}
@@ -54,7 +55,7 @@ jobs:
           COMMIT_SHA: ${{ env.SHORT_SHA }}
 
       - uses: actions/upload-artifact@v3
-        name: Upload ${{ matrix.target }} Extension Zip
+        name: Upload ${{ matrix.target }} extension zip
         with:
           name: leather-${{ matrix.target }}-${{ env.SHORT_SHA }}
           path: dist

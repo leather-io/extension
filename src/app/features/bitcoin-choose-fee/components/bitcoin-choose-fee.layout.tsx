@@ -1,13 +1,17 @@
-import { Flex } from 'leather-styles/jsx';
+import { Flex, FlexProps } from 'leather-styles/jsx';
 
 import { LoadingSpinner } from '@app/components/loading-spinner';
 
-interface BitcoinChooseFeeLayoutProps {
+interface BitcoinChooseFeeLayoutProps extends FlexProps {
   children: React.JSX.Element;
   isLoading: boolean;
 }
 
-export function BitcoinChooseFeeLayout({ children, isLoading }: BitcoinChooseFeeLayoutProps) {
+export function BitcoinChooseFeeLayout({
+  children,
+  isLoading,
+  ...rest
+}: BitcoinChooseFeeLayoutProps) {
   if (isLoading) {
     return (
       <Flex py="108px" justifyContent="center" alignItems="center" width="100%">
@@ -24,6 +28,7 @@ export function BitcoinChooseFeeLayout({ children, isLoading }: BitcoinChooseFee
       alignItems="center"
       flex="1 0 0"
       alignSelf="stretch"
+      {...rest}
     >
       {children}
     </Flex>

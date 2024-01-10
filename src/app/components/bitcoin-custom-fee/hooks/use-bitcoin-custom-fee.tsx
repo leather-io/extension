@@ -1,6 +1,6 @@
 import { useCallback } from 'react';
 
-import { createMoney } from '@shared/models/money.model';
+import { Money, createMoney } from '@shared/models/money.model';
 
 import { baseCurrencyAmountInQuote } from '@app/common/money/calculate-money';
 import { i18nFormatCurrency } from '@app/common/money/format-money';
@@ -15,7 +15,7 @@ import { useCryptoCurrencyMarketData } from '@app/query/common/market-data/marke
 export const MAX_FEE_RATE_MULTIPLIER = 50;
 
 interface UseBitcoinCustomFeeArgs {
-  amount: number;
+  amount: Money;
   isSendingMax: boolean;
   recipient: string;
 }
@@ -28,7 +28,7 @@ export function useBitcoinCustomFee({ amount, isSendingMax, recipient }: UseBitc
     (feeRate: number) => {
       if (!feeRate || !utxos.length) return { fee: 0, fiatFeeValue: '' };
 
-      const satAmount = isSendingMax ? balance.amount.toNumber() : amount;
+      const satAmount = isSendingMax ? balance.amount.toNumber() : amount.amount.toNumber();
 
       const determineUtxosArgs = {
         amount: satAmount,
@@ -47,6 +47,6 @@ export function useBitcoinCustomFee({ amount, isSendingMax, recipient }: UseBitc
         )}`,
       };
     },
-    [utxos, isSendingMax, balance.amount, amount, recipient, btcMarketData]
+    [utxos, isSendingMax, balance.amount, amount.amount, recipient, btcMarketData]
   );
 }

@@ -1,3 +1,32 @@
+## [6.22.0](https://github.com/leather-wallet/extension/compare/v6.21.2...v6.22.0) (2024-01-09)
+
+
+### Features
+
+* add storybook, ref [#1230](https://github.com/leather-wallet/extension/issues/1230) ([958f177](https://github.com/leather-wallet/extension/commit/958f1776d8d9cca2510123952f9bc3f31a26574b))
+* deploy storybook with chromatic ([b22ee5d](https://github.com/leather-wallet/extension/commit/b22ee5d220133148511323cda59757b5f4c2c490))
+* ui dropdown and select, ref [#4312](https://github.com/leather-wallet/extension/issues/4312) and [#4417](https://github.com/leather-wallet/extension/issues/4417) ([3bd7ab4](https://github.com/leather-wallet/extension/commit/3bd7ab400cd30b485f447799785b9da80168032a))
+
+
+### Bug Fixes
+
+* asset list ui bug, ref [#4603](https://github.com/leather-wallet/extension/issues/4603) ([9a2e8b4](https://github.com/leather-wallet/extension/commit/9a2e8b4bee19b812d1d62491aeca44ceafcfeb13))
+* delete unused import ([072cbd6](https://github.com/leather-wallet/extension/commit/072cbd67fe7805cca7c483739aa8ef61d69f8b5d))
+* fee value calc bug, ref [#4742](https://github.com/leather-wallet/extension/issues/4742) ([a59e0d2](https://github.com/leather-wallet/extension/commit/a59e0d2192988b91d2fd4c52c0220d5fc4cb8676))
+* infinite loader on buy screen if stacks account is not present ([1fb92aa](https://github.com/leather-wallet/extension/commit/1fb92aa101bfc4850f0a33883639fb77eb49736d))
+* nan total amount bug ([8c37393](https://github.com/leather-wallet/extension/commit/8c3739343542281345bf63e5d70b8d509c3e564e))
+* swap broadcasts, ref [#4750](https://github.com/leather-wallet/extension/issues/4750) ([54705e7](https://github.com/leather-wallet/extension/commit/54705e7ae34e8a59f1c95dbb04477a4866487a0b))
+* swaps UI bug ([d4c99d5](https://github.com/leather-wallet/extension/commit/d4c99d5e8979bf050beb68befabb629a691c0ef5))
+* user should be able to buy stacks for stacks account ([b2854c0](https://github.com/leather-wallet/extension/commit/b2854c0d2edf8ab92af3cf0cab1f7341fe079ff4))
+
+
+### Internal
+
+* move hooks to hooks folder ([336e12c](https://github.com/leather-wallet/extension/commit/336e12c475f10589be4012a35f7c627e7341fc95))
+* post-release merge back ([44ca1fd](https://github.com/leather-wallet/extension/commit/44ca1fd8ccafad8ce5fa17c623865fd394efd7c6))
+* update axios, radix, panda. remove unused radix primitives ([51320f9](https://github.com/leather-wallet/extension/commit/51320f999e24322225c8c45f5f4c0f0678a7b0a9))
+* use isDefined function in filter ([ca7b44c](https://github.com/leather-wallet/extension/commit/ca7b44cc4b53a5f12a56d8efab55d8345355a749))
+
 ## [6.21.2](https://github.com/leather-wallet/extension/compare/v6.21.1...v6.21.2) (2023-12-21)
 
 

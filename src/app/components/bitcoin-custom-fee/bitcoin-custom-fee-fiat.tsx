@@ -3,6 +3,8 @@ import { useMemo } from 'react';
 import { useField } from 'formik';
 import { Flex, styled } from 'leather-styles/jsx';
 
+import { createMoney } from '@shared/models/money.model';
+
 import { satToBtc } from '@app/common/money/unit-conversion';
 
 import { useBitcoinCustomFee } from './hooks/use-bitcoin-custom-fee';
@@ -19,7 +21,11 @@ export function BitcoinCustomFeeFiat({
   recipient,
 }: BitcoinCustomFeeFiatProps) {
   const [field] = useField('feeRate');
-  const getCustomFeeValues = useBitcoinCustomFee({ amount, isSendingMax, recipient });
+  const getCustomFeeValues = useBitcoinCustomFee({
+    amount: createMoney(amount, 'BTC'),
+    isSendingMax,
+    recipient,
+  });
 
   const feeData = useMemo(() => {
     const { fee, fiatFeeValue } = getCustomFeeValues(Number(field.value));

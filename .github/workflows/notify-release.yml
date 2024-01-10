@@ -1,6 +1,6 @@
 # Sends a notification to Discord whenever a new version of Leather is available in FireFox or Chrome stores
+name: Notify on release
 
-name: Notify on Release
 on:
   schedule:
     # Run every hour

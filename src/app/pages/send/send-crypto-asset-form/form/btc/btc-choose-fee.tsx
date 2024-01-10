@@ -26,15 +26,16 @@ export function useBtcChooseFeeState() {
 export function BtcChooseFee() {
   const { isSendingMax, txValues, utxos } = useBtcChooseFeeState();
   const { selectedFeeType, setSelectedFeeType } = useSendBitcoinAssetContextState();
+  const { amountAsMoney, onGoBack, previewTransaction } = useBtcChooseFee();
+
   const { feesList, isLoading } = useBitcoinFeesList({
-    amount: Number(txValues.amount),
+    amount: amountAsMoney,
     isSendingMax,
     recipient: txValues.recipient,
     utxos,
   });
   const recommendedFeeRate = feesList[1]?.feeRate.toString() || '';
 
-  const { amountAsMoney, onGoBack, previewTransaction } = useBtcChooseFee();
   const { showInsufficientBalanceError, onValidateBitcoinAmountSpend } = useValidateBitcoinSpend(
     amountAsMoney,
     isSendingMax

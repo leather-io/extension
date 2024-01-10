@@ -1,4 +1,5 @@
-name: Development Extension
+name: Development extension
+
 on:
   push:
     branches:
