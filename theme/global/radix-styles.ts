@@ -82,23 +82,3 @@ export const radixStyles = {
     '--gray-12': 'ink.12',
   },
 };
-
-// override the radix tabs color
-export const radixTabStyles = {
-  '.rt-TabsList.rt-r-size-2': {
-    height: 'auto',
-    '--tabs-trigger-inner-padding-y': 'spacing.space.04',
-  },
-  '.rt-TabsTrigger': {
-    flex: 1,
-    '& :hover::before': {
-      backgroundColor: 'accent.component-background-hover',
-    },
-  },
-  '.rt-TabsTriggerInner': {
-    width: '100%',
-  },
-  '.rt-TabsTrigger[data-state="active"]::before': {
-    backgroundColor: 'accent.text-primary',
-  },
-};
