@@ -1,7 +1,7 @@
 import { useCallback, useMemo, useState } from 'react';
 
 import { useField } from 'formik';
-import { Flex, Stack, styled } from 'leather-styles/jsx';
+import { Stack, styled } from 'leather-styles/jsx';
 
 import { microStxToStx, stxToMicroStx } from '@app/common/money/unit-conversion';
 import { ErrorLabel } from '@app/components/error-label';
@@ -44,26 +44,24 @@ export function IncreaseFeeField(props: IncreaseFeeFieldProps): React.JSX.Elemen
           showReset={showResetMultiplier}
           onSelectMultiplier={onSelectMultiplier}
         />
-        <Flex>
-          <styled.label display="block" textStyle="body.02" mb="space.02" htmlFor="fee">
-            Fee
-          </styled.label>
-          <styled.input
-            _focus={{ border: 'focus' }}
-            autoComplete="off"
-            bg="transparent"
-            border="default"
-            borderRadius="sm"
-            height="64px"
-            display="block"
-            p="space.04"
-            placeholder="Enter a custom fee"
-            ring="none"
-            textStyle="body.02"
-            width="100%"
-            {...field}
-          />
-        </Flex>
+        <styled.label htmlFor="fee" display="none">
+          Fee
+        </styled.label>
+        <styled.input
+          _focus={{ border: 'focus' }}
+          autoComplete="off"
+          bg="transparent"
+          border="default"
+          borderRadius="sm"
+          height="64px"
+          display="block"
+          p="space.04"
+          placeholder="Enter a custom fee"
+          ring="none"
+          textStyle="body.02"
+          width="100%"
+          {...field}
+        />
       </Stack>
       {meta.error && <ErrorLabel>{meta.error}</ErrorLabel>}
     </>
