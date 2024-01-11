@@ -143,6 +143,13 @@ module.exports = {
       from: { path: '^src/inpage' },
       to: { path: '^src/shared/logger' },
     },
+    {
+      name: 'no-external-tab-usage',
+      comment: `Inpage cannot use logger, which uses unavailable APIs`,
+      severity: 'error',
+      from: { path: '^src', pathNot: ['^src/app/ui/components/tabs'] },
+      to: { path: '@radix-ui/react-tabs' },
+    },
   ],
   options: {
     doNotFollow: {
