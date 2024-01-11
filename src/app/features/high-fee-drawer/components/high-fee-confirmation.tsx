@@ -9,7 +9,8 @@ import {
 
 import { useDrawers } from '@app/common/hooks/use-drawers';
 import { openInNewTab } from '@app/common/utils/open-in-new-tab';
-import { LeatherButton } from '@app/ui/components/button';
+import { Button } from '@app/ui/components/button/button';
+import { Link } from '@app/ui/components/link/link';
 import { Caption } from '@app/ui/components/typography/caption';
 import { Title } from '@app/ui/components/typography/title';
 
@@ -26,21 +27,21 @@ export function HighFeeConfirmation({ learnMoreUrl }: { learnMoreUrl: string }) 
       </Title>
       <Caption>
         This action cannot be undone and the fees won't be returned, even if the transaction fails.{' '}
-        <LeatherButton fontSize="14px" onClick={() => openInNewTab(learnMoreUrl)} variant="link">
+        <Link onClick={() => openInNewTab(learnMoreUrl)} size="sm">
           Learn more
-        </LeatherButton>
+        </Link>
       </Caption>
       <HStack mt="space.05">
-        <LeatherButton
+        <Button
           onClick={() => setIsShowingHighFeeConfirmation(false)}
           width="50%"
           variant="outline"
         >
           Edit fee
-        </LeatherButton>
-        <LeatherButton onClick={() => handleSubmit()} width="50%" type="submit">
+        </Button>
+        <Button onClick={() => handleSubmit()} width="50%" type="submit">
           Yes, I'm sure
-        </LeatherButton>
+        </Button>
       </HStack>
     </Stack>
   );

@@ -7,7 +7,7 @@ import { useLocationState } from '@app/common/hooks/use-location-state';
 import { AddressDisplayer } from '@app/components/address-displayer/address-displayer';
 import { BaseDrawer } from '@app/components/drawer/base-drawer';
 import { useBackgroundLocationRedirect } from '@app/routes/hooks/use-background-location-redirect';
-import { LeatherButton } from '@app/ui/components/button';
+import { Button } from '@app/ui/components/button/button';
 
 import { QrCode } from './address-qr-code';
 
@@ -51,9 +51,9 @@ export function ReceiveTokensLayout(props: ReceiveTokensLayoutProps) {
             <AddressDisplayer address={address} />
           </Flex>
         </Flex>
-        <LeatherButton fullWidth mt="space.05" onClick={() => onCopyAddressToClipboard(address)}>
+        <Button fullWidth mt="space.05" onClick={() => onCopyAddressToClipboard(address)}>
           Copy address
-        </LeatherButton>
+        </Button>
       </Flex>
     </BaseDrawer>
   );

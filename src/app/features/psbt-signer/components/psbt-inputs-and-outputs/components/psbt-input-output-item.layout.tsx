@@ -3,8 +3,8 @@ import { Box, Flex, HStack, styled } from 'leather-styles/jsx';
 import { useBitcoinExplorerLink } from '@app/common/hooks/use-bitcoin-explorer-link';
 import { useClipboard } from '@app/common/hooks/use-copy-to-clipboard';
 import { Flag } from '@app/components/layout/flag';
-import { LeatherButton } from '@app/ui/components/button';
 import { CopyIcon } from '@app/ui/components/icons/copy-icon';
+import { Link } from '@app/ui/components/link/link';
 import { BasicTooltip } from '@app/ui/components/tooltip/basic-tooltip';
 
 interface PsbtInputOutputItemLayoutProps {
@@ -39,9 +39,9 @@ export function PsbtInputOutputItemLayout({
             side="bottom"
           >
             <Box display="flex" height="16px">
-              <LeatherButton onClick={onCopy} variant="text">
+              <Link onClick={onCopy} variant="text">
                 {addressHoverLabel ? <CopyIcon /> : null}
-              </LeatherButton>
+              </Link>
             </Box>
           </BasicTooltip>
           {label}
@@ -50,7 +50,7 @@ export function PsbtInputOutputItemLayout({
       </HStack>
       <Box mt="space.01">
         {txId && txIdHoverLabel ? (
-          <LeatherButton
+          <Link
             onClick={() =>
               handleOpenTxLink({
                 txid: txIdHoverLabel ?? '',
@@ -61,7 +61,7 @@ export function PsbtInputOutputItemLayout({
             <BasicTooltip disabled={!txIdHoverLabel} label={txIdHoverLabel} side="bottom">
               <styled.span textStyle="caption.02">{txId}</styled.span>
             </BasicTooltip>
-          </LeatherButton>
+          </Link>
         ) : null}
       </Box>
     </Flag>

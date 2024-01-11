@@ -4,7 +4,7 @@ import { Flex } from 'leather-styles/jsx';
 import { analytics } from '@shared/utils/analytics';
 
 import { useThemeSwitcher } from '@app/common/theme-provider';
-import { LeatherButton } from '@app/ui/components/button';
+import { Button } from '@app/ui/components/button/button';
 import { MegaphoneIcon } from '@app/ui/components/icons/megaphone-icon';
 
 export function openFeedbackDialog() {
@@ -18,7 +18,7 @@ export function openFeedbackDialog() {
 export function FeedbackButton() {
   const { theme } = useThemeSwitcher();
   return (
-    <LeatherButton
+    <Button
       background="ink.1"
       _hover={{ background: 'ink.2' }}
       variant="ghost"
@@ -45,6 +45,6 @@ export function FeedbackButton() {
         <MegaphoneIcon mr="space.01" mt="2px" />
         Give feedback
       </Flex>
-    </LeatherButton>
+    </Button>
   );
 }

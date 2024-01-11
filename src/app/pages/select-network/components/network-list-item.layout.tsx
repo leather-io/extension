@@ -5,7 +5,7 @@ import { styled } from 'leather-styles/jsx';
 import { NetworkConfiguration } from '@shared/constants';
 
 import { getUrlHostname } from '@app/common/utils';
-import { LeatherButton } from '@app/ui/components/button';
+import { Button } from '@app/ui/components/button/button';
 import { TrashIcon } from '@app/ui/components/icons/trash-icon';
 
 import { NetworkStatusIndicator } from './network-status-indicator';
@@ -60,7 +60,7 @@ export function NetworkListItemLayout({
           <NetworkStatusIndicator isActive={isActive} isOnline={isOnline} />
         </Flex>
         {isCustom && (
-          <LeatherButton
+          <Button
             type="button"
             ml="space.04"
             onClick={e => {
@@ -69,7 +69,7 @@ export function NetworkListItemLayout({
             }}
           >
             <TrashIcon />
-          </LeatherButton>
+          </Button>
         )}
       </Box>
     </Flex>

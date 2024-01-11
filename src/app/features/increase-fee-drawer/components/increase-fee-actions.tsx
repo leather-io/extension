@@ -3,7 +3,7 @@ import { Flex } from 'leather-styles/jsx';
 
 import { LoadingKeys, useLoading } from '@app/common/hooks/use-loading';
 import { useWalletType } from '@app/common/use-wallet-type';
-import { LeatherButton } from '@app/ui/components/button';
+import { Button } from '@app/ui/components/button/button';
 
 interface IncreaseFeeActionsProps {
   isDisabled: boolean;
@@ -20,10 +20,10 @@ export function IncreaseFeeActions(props: IncreaseFeeActionsProps) {
 
   return (
     <Flex gap="space.02">
-      <LeatherButton onClick={onCancel} variant="outline" flex="1">
+      <Button onClick={onCancel} variant="outline" flex="1">
         Cancel
-      </LeatherButton>
-      <LeatherButton
+      </Button>
+      <Button
         type="submit"
         flex="1"
         onClick={handleSubmit as any}
@@ -32,7 +32,7 @@ export function IncreaseFeeActions(props: IncreaseFeeActionsProps) {
         aria-disabled={isDisabled}
       >
         {actionText}
-      </LeatherButton>
+      </Button>
     </Flex>
   );
 }

@@ -1,7 +1,7 @@
 import { Box, Flex, styled } from 'leather-styles/jsx';
 
 import { ConnectLedgerErr } from '@app/features/ledger/illustrations/ledger-illu-connect-ledger-error';
-import { LeatherButton } from '@app/ui/components/button';
+import { Button } from '@app/ui/components/button/button';
 
 import { LedgerWrapper } from '../../components/ledger-wrapper';
 
@@ -22,10 +22,10 @@ export function PublicKeyMismatchLayout({ onClose, onTryAgain }: PublicKeyMismat
         Ensure you're using the same Ledger you used when setting up Leather
       </styled.span>
       <Flex mt="space.04">
-        <LeatherButton variant="outline" mr="space.03" onClick={onClose}>
+        <Button variant="outline" mr="space.03" onClick={onClose}>
           Close
-        </LeatherButton>
-        <LeatherButton onClick={onTryAgain}>Try again</LeatherButton>
+        </Button>
+        <Button onClick={onTryAgain}>Try again</Button>
       </Flex>
     </LedgerWrapper>
   );

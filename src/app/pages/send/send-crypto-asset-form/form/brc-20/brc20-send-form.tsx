@@ -6,8 +6,8 @@ import get from 'lodash.get';
 
 import { openInNewTab } from '@app/common/utils/open-in-new-tab';
 import { InfoLabel } from '@app/components/info-label';
-import { LeatherButton } from '@app/ui/components/button';
 import { Brc20TokenIcon } from '@app/ui/components/icons/brc20-token-icon';
+import { Link } from '@app/ui/components/link/link';
 
 import { AmountField } from '../../components/amount-field';
 import { FormFooter } from '../../components/form-footer';
@@ -67,17 +67,16 @@ export function Brc20SendForm() {
                     <li>1. Create transfer inscription with amount to send</li>
                     <li>2. Send transfer inscription to recipient of choice</li>
                   </styled.ol>
-                  <LeatherButton
+                  <Link
                     onClick={() => {
                       openInNewTab(
                         'https://leather.gitbook.io/guides/bitcoin/sending-brc-20-tokens'
                       );
                     }}
                     textStyle="body.02"
-                    variant="link"
                   >
                     Learn more
-                  </LeatherButton>
+                  </Link>
                 </InfoLabel>
               </SendCryptoAssetFormLayout>
 

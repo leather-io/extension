@@ -2,7 +2,7 @@ import GenericError from '@assets/images/generic-error.png';
 import { Flex, styled } from 'leather-styles/jsx';
 
 import { BaseDrawer } from '@app/components/drawer/base-drawer';
-import { LeatherButton } from '@app/ui/components/button';
+import { Button } from '@app/ui/components/button/button';
 
 interface BroadcastErrorDrawerLayoutProps {
   message: string;
@@ -27,9 +27,9 @@ export function BroadcastErrorDrawerLayout({ message, onClose }: BroadcastErrorD
           Your transaction failed to broadcast{' '}
           {message && <>because of the error: {message.toLowerCase()}</>}
         </styled.span>
-        <LeatherButton fullWidth onClick={onClose} mt="space.05">
+        <Button fullWidth onClick={onClose} mt="space.05">
           Close
-        </LeatherButton>
+        </Button>
       </Flex>
     </BaseDrawer>
   );

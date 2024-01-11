@@ -6,10 +6,10 @@ import { token } from 'leather-styles/tokens';
 
 import { useClipboard } from '@app/common/hooks/use-copy-to-clipboard';
 import { Flag } from '@app/components/layout/flag';
-import { LeatherButton } from '@app/ui/components/button';
 import { ArrowUpIcon } from '@app/ui/components/icons/arrow-up-icon';
 import { BtcIcon } from '@app/ui/components/icons/btc-icon';
 import { CopyIcon } from '@app/ui/components/icons/copy-icon';
+import { Link } from '@app/ui/components/link/link';
 import { BasicTooltip } from '@app/ui/components/tooltip/basic-tooltip';
 
 interface BitcoinContractLockAmountProps {
@@ -65,7 +65,7 @@ export function BitcoinContractLockAmount({
           </BasicTooltip>
         ) : null}
         {subValue ? (
-          <LeatherButton onClick={subValueAction} variant="text">
+          <Link onClick={subValueAction} variant="text">
             <HStack gap="space.01">
               <styled.span color={subValueAction ? 'stacks' : 'accent.text-subdued'}>
                 {subValue}
@@ -74,7 +74,7 @@ export function BitcoinContractLockAmount({
                 <ArrowUpIcon color={token('colors.stacks')} transform="rotate(45deg)" />
               ) : null}
             </HStack>
-          </LeatherButton>
+          </Link>
         ) : null}
       </HStack>
     </Flag>

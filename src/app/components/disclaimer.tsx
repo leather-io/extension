@@ -1,7 +1,7 @@
 import { Box, BoxProps, styled } from 'leather-styles/jsx';
 
 import { openInNewTab } from '@app/common/utils/open-in-new-tab';
-import { LeatherButton } from '@app/ui/components/button';
+import { Link } from '@app/ui/components/link/link';
 
 interface DisclaimerProps extends BoxProps {
   disclaimerText: string;
@@ -13,15 +13,10 @@ export function Disclaimer({ disclaimerText, learnMoreUrl, ...props }: Disclaime
       <styled.span textStyle="caption.02">
         {disclaimerText}
         {learnMoreUrl ? (
-          <LeatherButton
-            display="inline"
-            fontSize="14px"
-            onClick={() => openInNewTab(learnMoreUrl)}
-            variant="link"
-          >
+          <Link display="inline" fontSize="14px" onClick={() => openInNewTab(learnMoreUrl)}>
             {' '}
             Learn more
-          </LeatherButton>
+          </Link>
         ) : null}
         {learnMoreUrl ? '.' : null}
       </styled.span>

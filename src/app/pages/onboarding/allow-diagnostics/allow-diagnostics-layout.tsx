@@ -3,7 +3,7 @@ import { OnboardingSelectors } from '@tests/selectors/onboarding.selectors';
 import { css } from 'leather-styles/css';
 import { Box, Flex, HStack, Stack, styled } from 'leather-styles/jsx';
 
-import { LeatherButton } from '@app/ui/components/button';
+import { Button } from '@app/ui/components/button/button';
 import { CheckmarkIcon } from '@app/ui/components/icons/checkmark-icon';
 import { LeatherIcon } from '@app/ui/components/icons/leather-icon';
 
@@ -52,22 +52,22 @@ export function AllowDiagnosticsLayout(props: AllowDiagnosticsLayoutProps) {
         </Stack>
 
         <HStack mt={['space.07', 'space.11']} gap="space.04">
-          <LeatherButton
+          <Button
             fullWidth
             variant="outline"
             onClick={() => onUserDenyDiagnostics()}
             data-testid={OnboardingSelectors.DenyAnalyticsBtn}
           >
             Deny
-          </LeatherButton>
-          <LeatherButton
+          </Button>
+          <Button
             autoFocus
             fullWidth
             data-testid={OnboardingSelectors.AllowAnalyticsBtn}
             onClick={onUserAllowDiagnostics}
           >
             Allow
-          </LeatherButton>
+          </Button>
         </HStack>
       </Dialog.Content>
     </Dialog.Root>

@@ -1,7 +1,7 @@
 import { formatMoney } from '@app/common/money/format-money';
 import { useCurrentTaprootAccountBalance } from '@app/query/bitcoin/balance/btc-taproot-balance.hooks';
 import { useRecoverUninscribedTaprootUtxosFeatureEnabled } from '@app/query/common/remote-config/remote-config.query';
-import { LeatherButton } from '@app/ui/components/button';
+import { Link } from '@app/ui/components/link/link';
 import { BasicTooltip } from '@app/ui/components/tooltip/basic-tooltip';
 
 const taprootSpendNotSupportedYetMsg = `
@@ -19,13 +19,9 @@ export function TaprootBalanceDisplayer({ onSelectRetrieveBalance }: TaprootBala
   if (balance.amount.isLessThanOrEqualTo(0)) return null;
   return (
     <BasicTooltip label={taprootSpendNotSupportedYetMsg}>
-      <LeatherButton
-        onClick={() => onSelectRetrieveBalance()}
-        textStyle="caption.02"
-        variant="text"
-      >
+      <Link onClick={() => onSelectRetrieveBalance()} textStyle="caption.02" variant="text">
         {formatMoney(balance)}
-      </LeatherButton>
+      </Link>
     </BasicTooltip>
   );
 }

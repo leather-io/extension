@@ -7,7 +7,7 @@ import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
 import { useKeyActions } from '@app/common/hooks/use-key-actions';
 import { buildEnterKeyEvent } from '@app/common/hooks/use-modifier-key';
 import { WaitingMessages, useWaitingMessage } from '@app/common/utils/use-waiting-message';
-import { LeatherButton } from '@app/ui/components/button';
+import { Button } from '@app/ui/components/button/button';
 
 import { ErrorLabel } from './error-label';
 import { TwoColumnLayout } from './secret-key/two-column.layout';
@@ -104,7 +104,7 @@ export function RequestPassword({ title, caption, onSuccess }: RequestPasswordPr
               />
               {error && <ErrorLabel width="100%">{error}</ErrorLabel>}
             </Stack>
-            <LeatherButton
+            <Button
               data-testid={SettingsSelectors.UnlockWalletBtn}
               disabled={isRunning || !!error}
               aria-busy={isRunning}
@@ -112,7 +112,7 @@ export function RequestPassword({ title, caption, onSuccess }: RequestPasswordPr
               mt={['space.11', 'space.05']}
             >
               Continue
-            </LeatherButton>
+            </Button>
           </>
         }
       />

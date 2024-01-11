@@ -1,7 +1,7 @@
 import { Flex, HStack, Stack, styled } from 'leather-styles/jsx';
 
 import { Flag } from '@app/components/layout/flag';
-import { LeatherButton } from '@app/ui/components/button';
+import { Button } from '@app/ui/components/button/button';
 import { CopyIcon } from '@app/ui/components/icons/copy-icon';
 import { QrCodeIcon } from '@app/ui/components/icons/qr-code-icon';
 import { truncateMiddle } from '@app/ui/utils/truncate-middle';
@@ -31,18 +31,13 @@ export function ReceiveItem({
           <styled.span textStyle="caption.02">{truncateMiddle(address, 6)}</styled.span>
         </Stack>
         <HStack gap="space.00">
-          <LeatherButton onClick={onCopyAddress} variant="ghost">
+          <Button onClick={onCopyAddress} variant="ghost">
             <CopyIcon />
-          </LeatherButton>
+          </Button>
           {onClickQrCode && (
-            <LeatherButton
-              data-testid={dataTestId}
-              ml="space.02"
-              onClick={onClickQrCode}
-              variant="ghost"
-            >
+            <Button data-testid={dataTestId} ml="space.02" onClick={onClickQrCode} variant="ghost">
               <QrCodeIcon />
-            </LeatherButton>
+            </Button>
           )}
         </HStack>
       </Flex>

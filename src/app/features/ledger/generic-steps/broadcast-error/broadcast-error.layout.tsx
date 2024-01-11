@@ -1,7 +1,7 @@
 import BroadcastError from '@assets/images/unhappy-face-ui.png';
 import { Box, Flex, styled } from 'leather-styles/jsx';
 
-import { LeatherButton } from '@app/ui/components/button';
+import { Button } from '@app/ui/components/button/button';
 
 import { LedgerTitle } from '../../components/ledger-title';
 import { LedgerWrapper } from '../../components/ledger-wrapper';
@@ -25,9 +25,9 @@ export function LedgerBroadcastErrorLayout(props: LedgerBroadcastErrorLayoutProp
         Your transaction failed to broadcast {error && <>because of the error: {error}</>}
       </styled.span>
       <Flex mt="space.04">
-        <LeatherButton mr="space.03" onClick={onClose} variant="outline">
+        <Button mr="space.03" onClick={onClose} variant="outline">
           Close
-        </LeatherButton>
+        </Button>
       </Flex>
     </LedgerWrapper>
   );

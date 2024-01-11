@@ -6,8 +6,8 @@ import { useTotalBalance } from '@app/common/hooks/balance/use-total-balance';
 import { useDrawers } from '@app/common/hooks/use-drawers';
 import { useCurrentAccountNativeSegwitAddressIndexZero } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
 import { useCurrentStacksAccount } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
-import { LeatherButton } from '@app/ui/components/button';
 import { ChevronDownIcon } from '@app/ui/components/icons/chevron-down-icon';
+import { Link } from '@app/ui/components/link/link';
 
 import { AccountActions } from './account-actions';
 
@@ -29,10 +29,10 @@ export function AccountInfoCard() {
       pt={{ base: 'space.05', sm: 'space.06' }}
       pb={{ base: 'space.02', sm: 'space.06' }}
     >
-      <LeatherButton
-        onClick={() => setIsShowingSwitchAccountsState(true)}
-        variant="link"
+      <Link
         _before={{ bg: 'transparent' }}
+        _hover={{ color: 'accent.action-primary-hover' }}
+        onClick={() => setIsShowingSwitchAccountsState(true)}
       >
         <Flex>
           <styled.p data-testid={SettingsSelectors.CurrentAccountDisplayName} textStyle="label.01">
@@ -42,7 +42,7 @@ export function AccountInfoCard() {
             <ChevronDownIcon />
           </Box>
         </Flex>
-      </LeatherButton>
+      </Link>
       <Flex
         flexDir={['column', 'column', 'row']}
         justify="space-between"

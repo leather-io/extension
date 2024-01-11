@@ -23,7 +23,7 @@ import { ModalHeader } from '@app/components/modal-header';
 import { useCurrentNativeSegwitUtxos } from '@app/query/bitcoin/address/utxos-by-address.hooks';
 import { useBrc20Transfers } from '@app/query/bitcoin/ordinals/brc20/use-brc-20';
 import { useBitcoinBroadcastTransaction } from '@app/query/bitcoin/transaction/use-bitcoin-broadcast-transaction';
-import { LeatherButton } from '@app/ui/components/button';
+import { Button } from '@app/ui/components/button/button';
 
 import { useSendFormNavigate } from '../../hooks/use-send-form-navigate';
 
@@ -130,9 +130,9 @@ export function Brc20SendFormConfirmation() {
       </Stack>
 
       <InfoCardFooter>
-        <LeatherButton aria-busy={isBroadcasting} onClick={initiateTransaction} width="100%">
+        <Button aria-busy={isBroadcasting} onClick={initiateTransaction} width="100%">
           Create transfer inscription
-        </LeatherButton>
+        </Button>
       </InfoCardFooter>
     </InfoCard>
   );

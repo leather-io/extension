@@ -4,11 +4,11 @@ import { Box, HStack, Stack, styled } from 'leather-styles/jsx';
 
 import { SupportedBlockchains } from '@shared/constants';
 
-import { ExternalLink } from '@app/components/external-link';
 import { Divider } from '@app/components/layout/divider';
-import { LeatherButton } from '@app/ui/components/button';
+import { Button } from '@app/ui/components/button/button';
 import { BtcLedgerIcon } from '@app/ui/components/icons/btc-ledger-icon';
 import { StxLedgerIcon } from '@app/ui/components/icons/stx-ledger-icon';
+import { Link } from '@app/ui/components/link/link';
 
 import { LedgerWrapper } from '../../components/ledger-wrapper';
 
@@ -76,30 +76,28 @@ export function ConnectLedger(props: ConnectLedgerProps) {
         </Stack>
         <HStack>
           {showBitcoinConnectButton && (
-            <LeatherButton
+            <Button
               onClick={onConnectLedger || connectBitcoin}
               aria-busy={awaitingLedgerConnection}
-              display="flex"
-              alignItems="center"
             >
-              <BtcLedgerIcon />
-              <styled.span ml="space.01" textStyle="label.02">
-                Connect Bitcoin
-              </styled.span>
-            </LeatherButton>
+              <HStack gap="space.01">
+                <BtcLedgerIcon />
+                <styled.span textStyle="label.02">Connect Bitcoin</styled.span>
+              </HStack>
+            </Button>
           )}
           {showStacksConnectButton && (
-            <LeatherButton
+            <Button
               onClick={onConnectLedger || connectStacks}
               aria-busy={awaitingLedgerConnection}
               display="flex"
               alignItems="center"
             >
-              <StxLedgerIcon />
-              <styled.span ml="space.01" textStyle="label.02">
-                Connect Stacks
-              </styled.span>
-            </LeatherButton>
+              <HStack gap="space.01">
+                <StxLedgerIcon />
+                <styled.span textStyle="label.02">Connect Stacks</styled.span>
+              </HStack>
+            </Button>
           )}
         </HStack>
       </Stack>
@@ -111,15 +109,16 @@ export function ConnectLedger(props: ConnectLedgerProps) {
       {showInstructions ? (
         <Stack gap="space.05" width="100%">
           <Divider />
-          <Stack gap="space.01">
+          <Stack alignItems="center" gap="space.01">
             <styled.span textStyle="label.03" color="accent.text-subdued">
               First time using Ledger on Leather?
             </styled.span>
-            <ExternalLink href="https://www.hiro.so/wallet-faq/how-can-i-use-my-ledger-device-with-hiro-wallet">
-              <styled.span textStyle="label.03" textDecoration="underline">
-                Learn how to use Ledger device with Leather ↗
-              </styled.span>
-            </ExternalLink>
+            <Link
+              href="https://www.hiro.so/wallet-faq/how-can-i-use-my-ledger-device-with-hiro-wallet"
+              size="sm"
+            >
+              Learn how to use Ledger device with Leather ↗
+            </Link>
           </Stack>
         </Stack>
       ) : null}

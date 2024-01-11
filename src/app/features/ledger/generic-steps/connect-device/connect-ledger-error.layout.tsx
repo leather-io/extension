@@ -1,13 +1,12 @@
-import { Box, Flex, Stack, styled } from 'leather-styles/jsx';
+import { Box, Flex, HStack, Stack, styled } from 'leather-styles/jsx';
 
 import { capitalize } from '@app/common/utils';
 import { ErrorLabel } from '@app/components/error-label';
-import { ExternalLink } from '@app/components/external-link';
 import { WarningLabel } from '@app/components/warning-label';
 import { ConnectLedgerErr } from '@app/features/ledger/illustrations/ledger-illu-connect-ledger-error';
-import { LeatherButton } from '@app/ui/components/button';
+import { Button } from '@app/ui/components/button/button';
 import { CircleIcon } from '@app/ui/components/icons/circle-icon';
-import { Caption } from '@app/ui/components/typography/caption';
+import { Link } from '@app/ui/components/link/link';
 
 import { LedgerTitle } from '../../components/ledger-title';
 import { LedgerWrapper } from '../../components/ledger-wrapper';
@@ -22,7 +21,7 @@ function PossibleReasonUnableToConnect(props: PossibleReasonUnableToConnectProps
   return (
     <Flex alignItems="center">
       <Box mr="space.02">
-        <CircleIcon fill="accent.text-primary" size="4px" />
+        <CircleIcon fill="accent.text-primary" width="4px" />
       </Box>
       <styled.span textStyle="body.02">{text}</styled.span>
     </Flex>
@@ -59,18 +58,20 @@ export function ConnectLedgerErrorLayout(props: ConnectLedgerErrorLayoutProps) {
         />
         <PossibleReasonUnableToConnect text="Check you've approved the browser USB pop up" />
       </Stack>
-      <LeatherButton width="100%" onClick={onTryAgain}>
+      <Button width="100%" onClick={onTryAgain}>
         Try again
-      </LeatherButton>
-      <Caption mt="space.05">
-        If the problem persists, check our{' '}
-        <ExternalLink
-          textDecoration="underline"
+      </Button>
+      <HStack gap="space.01" mt="space.05">
+        <styled.span color="accent.text-subdued" textStyle="label.03">
+          If the problem persists, check our
+        </styled.span>
+        <Link
           href="https://leather.gitbook.io/guides/securing-the-wallet/using-ledger-with-leather"
+          size="sm"
         >
           Support Page
-        </ExternalLink>
-      </Caption>
+        </Link>
+      </HStack>
     </LedgerWrapper>
   );
 }

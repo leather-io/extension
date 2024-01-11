@@ -1,6 +1,5 @@
 import { HStack, styled } from 'leather-styles/jsx';
 
-import { LeatherButton } from '@app/ui/components/button';
 import { ChevronDownIcon } from '@app/ui/components/icons/chevron-down-icon';
 
 const labels = ['Address', 'BNS Name'];
@@ -17,7 +16,7 @@ export function RecipientDropdownItem({
   onSelectItem,
 }: RecipientDropdownItemProps) {
   return (
-    <LeatherButton
+    <styled.button
       _hover={{
         bg: isVisible ? 'accent.component-background-hover' : 'accent.background-primary',
         borderRadius: 'xs',
@@ -30,12 +29,13 @@ export function RecipientDropdownItem({
       minWidth="110px"
       onClick={() => onSelectItem(index)}
       pl={isVisible ? 'space.02' : 'unset'}
-      variant="text"
+      textStyle="label.02"
+      zIndex={999}
     >
       <HStack gap="space.01">
         <styled.span textStyle="label.02">{labels[index]}</styled.span>
         {isVisible ? <></> : <ChevronDownIcon />}
       </HStack>
-    </LeatherButton>
+    </styled.button>
   );
 }
