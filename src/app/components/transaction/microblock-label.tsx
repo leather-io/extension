@@ -13,7 +13,7 @@ export function MicroblockLabel() {
         In microblock
       </styled.span>
       <Tooltip label={inMicroblockMessage} placement="bottom">
-        <Box _hover={{ cursor: 'pointer' }} color="warning.label" height="10px" width="10px">
+        <Box _hover={{ cursor: 'pointer' }} color="warning.label">
           <InfoIcon />
         </Box>
       </Tooltip>
