@@ -4,6 +4,7 @@ import { breakpoints } from './theme/breakpoints';
 import { globalCss } from './theme/global/global';
 import { keyframes } from './theme/keyframes';
 import { buttonRecipe } from './theme/recipes/button-recipe';
+import { linkRecipe } from './theme/recipes/link-recipe';
 import { semanticTokens } from './theme/semantic-tokens';
 import { tokens } from './theme/tokens';
 import { textStyles } from './theme/typography';
@@ -32,7 +33,7 @@ export default defineConfig({
       keyframes,
       textStyles,
       breakpoints,
-      recipes: { button: buttonRecipe },
+      recipes: { button: buttonRecipe, link: linkRecipe },
     },
   },
   outdir: 'leather-styles',

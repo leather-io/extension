@@ -4,7 +4,7 @@ import { Stack } from 'leather-styles/jsx';
 
 import { LedgerTitle } from '@app/features/ledger/components/ledger-title';
 import { LedgerWrapper } from '@app/features/ledger/components/ledger-wrapper';
-import { LeatherButton } from '@app/ui/components/button';
+import { Button } from '@app/ui/components/button/button';
 import { Caption } from '@app/ui/components/typography/caption';
 import { Capitalize } from '@app/ui/utils/capitalize';
 
@@ -24,12 +24,12 @@ export function AddMoreKeysLayout() {
         <Capitalize>{addKeysChain}</Capitalize>?
       </LedgerTitle>
       <Stack gap="space.04" mb="space.04">
-        <LeatherButton onClick={() => navigate(`/get-started/${addKeysChain}/connect-your-ledger`)}>
+        <Button onClick={() => navigate(`/get-started/${addKeysChain}/connect-your-ledger`)}>
           Connect <Capitalize>{addKeysChain}</Capitalize>
-        </LeatherButton>
-        <LeatherButton variant="outline" onClick={() => navigate('/')}>
+        </Button>
+        <Button variant="outline" onClick={() => navigate('/')}>
           No, continue to Leather
-        </LeatherButton>
+        </Button>
       </Stack>
 
       <Caption>

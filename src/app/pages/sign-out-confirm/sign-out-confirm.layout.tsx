@@ -2,10 +2,11 @@ import { SettingsSelectors } from '@tests/selectors/settings.selectors';
 import { useFormik } from 'formik';
 import { Box, HStack, styled } from 'leather-styles/jsx';
 
+import { useThemeSwitcher } from '@app/common/theme-provider';
 import { useWalletType } from '@app/common/use-wallet-type';
 import { BaseDrawer } from '@app/components/drawer/base-drawer';
 import { Flag } from '@app/components/layout/flag';
-import { LeatherButton } from '@app/ui/components/button';
+import { Button } from '@app/ui/components/button/button';
 import { ErrorIcon } from '@app/ui/components/icons/error-icon';
 
 interface SignOutConfirmLayoutProps {
@@ -16,6 +17,7 @@ export function SignOutConfirmLayout(props: SignOutConfirmLayoutProps) {
   const { onUserDeleteWallet, onUserSafelyReturnToHomepage } = props;
 
   const { whenWallet, walletType } = useWalletType();
+  const { theme } = useThemeSwitcher();
 
   const form = useFormik({
     initialValues: {
@@ -83,25 +85,26 @@ export function SignOutConfirmLayout(props: SignOutConfirmLayoutProps) {
             </styled.p>
           </styled.label>
           <HStack gap="space.04" mt="space.06">
-            <LeatherButton
-              color="gray"
+            <Button
               data-testid={SettingsSelectors.BtnSignOutReturnToHomeScreen}
               flexGrow={1}
-              variant="outline"
               onClick={() => onUserSafelyReturnToHomepage()}
+              variant="outline"
             >
               Cancel
-            </LeatherButton>
-            <LeatherButton
+            </Button>
+            <Button
+              _disabled={{ color: 'accent.non-interactive' }}
               _hover={{ background: 'error.label' }}
               background="error.label"
+              color={theme === 'light' ? 'accent.background-primary' : 'accent.text-primary'}
               data-testid={SettingsSelectors.BtnSignOutActuallyDeleteWallet}
               flexGrow={1}
               disabled={!(form.values.confirmBackup && form.values.confirmPasswordDisable)}
               type="submit"
             >
               Sign out
-            </LeatherButton>
+            </Button>
           </HStack>
         </form>
       </Box>

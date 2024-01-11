@@ -11,7 +11,7 @@ import {
   InfoCardSeparator,
 } from '@app/components/info-card/info-card';
 import { InfoLabel } from '@app/components/info-label';
-import { LeatherButton } from '@app/ui/components/button';
+import { Button } from '@app/ui/components/button/button';
 
 interface SendFormConfirmationProps {
   recipient: string;
@@ -93,14 +93,14 @@ export function SendFormConfirmation({
       </Stack>
 
       <InfoCardFooter>
-        <LeatherButton
+        <Button
           aria-busy={isLoading}
           data-testid={SendCryptoAssetSelectors.ConfirmSendTxBtn}
           onClick={onBroadcastTransaction}
           width="100%"
         >
           Confirm and send transaction
-        </LeatherButton>
+        </Button>
       </InfoCardFooter>
     </InfoCard>
   );

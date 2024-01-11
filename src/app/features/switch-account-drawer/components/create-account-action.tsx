@@ -1,6 +1,6 @@
 import { Flex } from 'leather-styles/jsx';
 
-import { LeatherButton } from '@app/ui/components/button';
+import { Button } from '@app/ui/components/button/button';
 
 interface CreateAccountActionProps {
   onCreateAccount(): void;
@@ -17,9 +17,9 @@ export function CreateAccountAction({ onCreateAccount }: CreateAccountActionProp
       width="100%"
       zIndex={1}
     >
-      <LeatherButton fullWidth onClick={() => onCreateAccount()}>
+      <Button fullWidth onClick={() => onCreateAccount()}>
         Create new account
-      </LeatherButton>
+      </Button>
     </Flex>
   );
 }

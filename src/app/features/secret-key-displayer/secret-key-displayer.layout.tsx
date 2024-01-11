@@ -4,7 +4,7 @@ import { OnboardingSelectors } from '@tests/selectors/onboarding.selectors';
 import { SettingsSelectors } from '@tests/selectors/settings.selectors';
 import { Flex, styled } from 'leather-styles/jsx';
 
-import { LeatherButton } from '@app/ui/components/button';
+import { Button } from '@app/ui/components/button/button';
 import { CopyIcon } from '@app/ui/components/icons/copy-icon';
 import { EyeIcon } from '@app/ui/components/icons/eye-icon';
 import { EyeSlashIcon } from '@app/ui/components/icons/eye-slash-icon';
@@ -35,7 +35,7 @@ export function SecretKeyDisplayerLayout(props: SecretKeyDisplayerLayoutProps) {
         ))}
       </SecretKeyGrid>
       <Flex gap="space.02" alignItems="center" width="100%">
-        <LeatherButton
+        <Button
           variant="outline"
           flex="1"
           display="flex"
@@ -49,8 +49,8 @@ export function SecretKeyDisplayerLayout(props: SecretKeyDisplayerLayoutProps) {
         >
           {showSecretKey ? <EyeSlashIcon size="20px" /> : <EyeIcon size="20px" />}
           <styled.p textStyle="body.02">{showSecretKey ? 'Hide key' : 'Show key'}</styled.p>
-        </LeatherButton>
-        <LeatherButton
+        </Button>
+        <Button
           variant="outline"
           flex="1"
           display="flex"
@@ -64,15 +64,15 @@ export function SecretKeyDisplayerLayout(props: SecretKeyDisplayerLayoutProps) {
         >
           <CopyIcon />
           <styled.p textStyle="body.02">{!hasCopied ? ' Copy' : 'Copied!'}</styled.p>
-        </LeatherButton>
+        </Button>
       </Flex>
-      <LeatherButton
+      <Button
         width="100%"
         data-testid={OnboardingSelectors.BackUpSecretKeyBtn}
         onClick={onBackedUpSecretKey}
       >
         I've backed it up
-      </LeatherButton>
+      </Button>
     </>
   );
 }

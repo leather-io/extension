@@ -2,9 +2,9 @@ import { Box, HStack, styled } from 'leather-styles/jsx';
 
 import { useClipboard } from '@app/common/hooks/use-copy-to-clipboard';
 import { Flag } from '@app/components/layout/flag';
-import { LeatherButton } from '@app/ui/components/button';
 import { BtcIcon } from '@app/ui/components/icons/btc-icon';
 import { CopyIcon } from '@app/ui/components/icons/copy-icon';
+import { Link } from '@app/ui/components/link/link';
 import { BasicTooltip } from '@app/ui/components/tooltip/basic-tooltip';
 
 interface PsbtAddressTotalItemProps {
@@ -32,9 +32,7 @@ export function PsbtAddressTotalItem({
       <HStack alignItems="center" justifyContent="space-between">
         <styled.span textStyle="label.01">{title ? title : 'Bitcoin'}</styled.span>
         {valueAction ? (
-          <LeatherButton onClick={valueAction} variant="link">
-            {value}
-          </LeatherButton>
+          <Link onClick={valueAction}>{value}</Link>
         ) : (
           <styled.span textStyle="label.01">{value}</styled.span>
         )}
@@ -51,9 +49,9 @@ export function PsbtAddressTotalItem({
               side="bottom"
             >
               <Box display="flex" height="16px">
-                <LeatherButton onClick={onCopy} variant="text">
+                <Link onClick={onCopy} variant="text">
                   {hoverLabel ? <CopyIcon /> : null}
-                </LeatherButton>
+                </Link>
               </Box>
             </BasicTooltip>
           </HStack>

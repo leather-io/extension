@@ -1,6 +1,6 @@
 import { Flex, styled } from 'leather-styles/jsx';
 
-import { LeatherButton } from '@app/ui/components/button';
+import { Link } from '@app/ui/components/link/link';
 
 interface InscriptionMetadataProps {
   action?(): void;
@@ -22,14 +22,9 @@ export function InscriptionMetadata({
       <styled.span textStyle="label.01">{title}</styled.span>
       <styled.span textStyle="caption.02">{subtitle}</styled.span>
       {action ? (
-        <LeatherButton
-          color="stacks"
-          onClick={() => action()}
-          textStyle="caption.02"
-          variant="text"
-        >
+        <Link color="stacks" onClick={() => action()} textStyle="caption.02" variant="text">
           {actionLabel}
-        </LeatherButton>
+        </Link>
       ) : null}
     </Flex>
   );

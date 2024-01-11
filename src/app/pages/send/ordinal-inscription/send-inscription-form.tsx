@@ -9,7 +9,7 @@ import { BaseDrawer } from '@app/components/drawer/base-drawer';
 import { ErrorLabel } from '@app/components/error-label';
 import { InscriptionPreview } from '@app/components/inscription-preview-card/components/inscription-preview';
 import { InscriptionPreviewCard } from '@app/components/inscription-preview-card/inscription-preview-card';
-import { LeatherButton } from '@app/ui/components/button';
+import { Button } from '@app/ui/components/button/button';
 import { OrdinalIcon } from '@app/ui/components/icons/ordinal-icon';
 
 import { RecipientField } from '../send-crypto-asset-form/components/recipient-field';
@@ -56,7 +56,7 @@ export function SendInscriptionForm() {
                 </Flex>
               </Box>
               {currentError && <ErrorLabel>{currentError}</ErrorLabel>}
-              <LeatherButton type="submit">Continue</LeatherButton>
+              <Button type="submit">Continue</Button>
             </Box>
           </SendInscriptionFormLoader>
         </BaseDrawer>

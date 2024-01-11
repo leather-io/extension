@@ -9,7 +9,7 @@ import { isUndefined } from '@shared/utils';
 import { useRouteHeader } from '@app/common/hooks/use-route-header';
 import { LoadingSpinner } from '@app/components/loading-spinner';
 import { ModalHeader } from '@app/components/modal-header';
-import { LeatherButton } from '@app/ui/components/button';
+import { Button } from '@app/ui/components/button/button';
 
 import { SwapContentLayout } from './components/swap-content.layout';
 import { SwapFooterLayout } from './components/swap-footer.layout';
@@ -37,14 +37,14 @@ export function Swap() {
         <SwapSelectedAssets />
       </SwapContentLayout>
       <SwapFooterLayout>
-        <LeatherButton
+        <Button
           data-testid={SwapSelectors.SwapReviewBtn}
           disabled={!(dirty && isValid) || isFetchingExchangeRate}
           type="submit"
           width="100%"
         >
           Review and swap
-        </LeatherButton>
+        </Button>
       </SwapFooterLayout>
       <Outlet />
     </>

@@ -23,7 +23,7 @@ import { Header } from '@app/components/header';
 import { TwoColumnLayout } from '@app/components/secret-key/two-column.layout';
 import { OnboardingGate } from '@app/routes/onboarding-gate';
 import { useStacksAccounts } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
-import { LeatherButton } from '@app/ui/components/button';
+import { Button } from '@app/ui/components/button/button';
 
 import { PasswordField } from './components/password-field';
 
@@ -155,7 +155,7 @@ function SetPasswordPage() {
                   Your password
                 </styled.h2>
                 <PasswordField strengthResult={strengthResult} isDisabled={loading} />
-                <LeatherButton
+                <Button
                   data-testid={OnboardingSelectors.SetPasswordBtn}
                   disabled={loading || !(dirty && isValid)}
                   aria-busy={loading || isSubmitting}
@@ -163,7 +163,7 @@ function SetPasswordPage() {
                   type="submit"
                 >
                   Continue
-                </LeatherButton>
+                </Button>
               </>
             }
           />

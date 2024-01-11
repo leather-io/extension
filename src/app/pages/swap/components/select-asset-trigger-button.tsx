@@ -2,7 +2,7 @@ import { SwapSelectors } from '@tests/selectors/swap.selectors';
 import { useField } from 'formik';
 import { HStack, styled } from 'leather-styles/jsx';
 
-import { LeatherButton } from '@app/ui/components/button';
+import { Button } from '@app/ui/components/button/button';
 import { ChevronDownIcon } from '@app/ui/components/icons/chevron-down-icon';
 
 interface SelectAssetTriggerButtonProps {
@@ -20,7 +20,7 @@ export function SelectAssetTriggerButton({
   const [field] = useField(name);
 
   return (
-    <LeatherButton
+    <Button
       data-testid={SwapSelectors.SelectAssetTriggerBtn}
       onClick={onChooseAsset}
       p="space.02"
@@ -32,6 +32,6 @@ export function SelectAssetTriggerButton({
         <styled.span textStyle="label.01">{symbol}</styled.span>
         <ChevronDownIcon />
       </HStack>
-    </LeatherButton>
+    </Button>
   );
 }

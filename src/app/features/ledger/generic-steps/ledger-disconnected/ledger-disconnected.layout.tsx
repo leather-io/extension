@@ -1,6 +1,6 @@
 import { Box, HStack } from 'leather-styles/jsx';
 
-import { LeatherButton } from '@app/ui/components/button';
+import { Button } from '@app/ui/components/button/button';
 
 import { LedgerTitle } from '../../components/ledger-title';
 import { LedgerWrapper } from '../../components/ledger-wrapper';
@@ -19,12 +19,12 @@ export function LedgerDisconnectedLayout(props: LedgerDisconnectedLayoutProps) {
       </Box>
       <LedgerTitle my="space.05">Your Ledger has disconnected</LedgerTitle>
       <HStack width="100%">
-        <LeatherButton flex={1} variant="outline" onClick={onClose}>
+        <Button flex={1} variant="outline" onClick={onClose}>
           Close
-        </LeatherButton>
-        <LeatherButton flex={1} onClick={onConnectAgain}>
+        </Button>
+        <Button flex={1} onClick={onConnectAgain}>
           Connect again
-        </LeatherButton>
+        </Button>
       </HStack>
     </LedgerWrapper>
   );

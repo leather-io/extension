@@ -1,6 +1,6 @@
 import { styled } from 'leather-styles/jsx';
 
-import { LeatherButton } from '@app/ui/components/button';
+import { Link } from '@app/ui/components/link/link';
 
 export function SignInContent({
   onClick,
@@ -18,9 +18,9 @@ export function SignInContent({
       <styled.p textStyle={['label.01', 'heading.05']} my="space.05">
         Speed things up by pasting your entire Secret Key in one go.
       </styled.p>
-      <LeatherButton variant="link" textStyle="label.01" width="fit-content" onClick={onClick}>
+      <Link onClick={onClick} size="lg" width="fit-content">
         {twentyFourWordMode ? 'Have a 12-word Secret Key?' : 'Use 24 word Secret Key'}
-      </LeatherButton>
+      </Link>
     </>
   );
 }

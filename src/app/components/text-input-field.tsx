@@ -6,7 +6,7 @@ import { Box, Flex, FlexProps, HStack, styled } from 'leather-styles/jsx';
 
 import { useShowFieldError } from '@app/common/form-utils';
 import { capitalize } from '@app/common/utils';
-import { LeatherButton } from '@app/ui/components/button';
+import { Link } from '@app/ui/components/link/link';
 
 import { TextInputFieldError } from './field-error';
 
@@ -79,7 +79,7 @@ export function TextInputField({
             {topInputOverlay ? <Box zIndex={999}>{topInputOverlay}</Box> : null}
           </Flex>
           {labelAction ? (
-            <LeatherButton
+            <Link
               data-testid={SendCryptoAssetSelectors.RecipientChooseAccountButton}
               fontWeight={500}
               // Prevents focusing underlying input
@@ -92,12 +92,11 @@ export function TextInputField({
                 if (ref.current !== null && ref.current === document.activeElement)
                   ref.current.blur();
               }}
-              textStyle="label.02"
               variant="text"
               zIndex={999}
             >
               {labelAction}
-            </LeatherButton>
+            </Link>
           ) : null}
         </HStack>
         <styled.input

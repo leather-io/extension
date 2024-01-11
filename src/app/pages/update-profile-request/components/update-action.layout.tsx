@@ -1,7 +1,7 @@
 import { UpdateProfileRequestSelectors } from '@tests/selectors/requests.selectors';
 import { HStack } from 'leather-styles/jsx';
 
-import { LeatherButton } from '@app/ui/components/button';
+import { Button } from '@app/ui/components/button/button';
 
 interface UpdateActionLayoutProps {
   onUpdateProfile(): Promise<void>;
@@ -15,10 +15,10 @@ export function UpdateActionLayout({
 }: UpdateActionLayoutProps) {
   return (
     <HStack>
-      <LeatherButton onClick={onCancel} flexGrow={1} variant="outline">
+      <Button onClick={onCancel} flexGrow={1} variant="outline">
         Cancel
-      </LeatherButton>
-      <LeatherButton
+      </Button>
+      <Button
         aria-busy={isLoading}
         data-testid={UpdateProfileRequestSelectors.BtnUpdateProfile}
         type="submit"
@@ -26,7 +26,7 @@ export function UpdateActionLayout({
         onClick={onUpdateProfile}
       >
         Update
-      </LeatherButton>
+      </Button>
     </HStack>
   );
 }

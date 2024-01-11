@@ -2,7 +2,7 @@ import { Box, HStack, styled } from 'leather-styles/jsx';
 
 import { noop } from '@shared/utils';
 
-import { LeatherButton } from '@app/ui/components/button';
+import { Link } from '@app/ui/components/link/link';
 import { BasicTooltip } from '@app/ui/components/tooltip/basic-tooltip';
 
 import { SelectAssetTriggerButton } from './select-asset-trigger-button';
@@ -82,14 +82,14 @@ export function SwapSelectedAssetLayout({
               {showError ? error : caption}
             </styled.span>
           </BasicTooltip>
-          <LeatherButton
+          <Link
             _focus={{ _before: { color: 'unset' } }}
             cursor={onClickHandler ? 'pointer' : 'unset'}
             onClick={onClickHandler ? onClickHandler : noop}
-            variant={onClickHandler ? 'link' : 'text'}
+            variant={onClickHandler ? 'underlined' : 'text'}
           >
             <styled.span textStyle="caption.02">{value}</styled.span>
-          </LeatherButton>
+          </Link>
         </HStack>
       ) : null}
     </Box>

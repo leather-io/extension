@@ -8,15 +8,7 @@ import { isEmpty } from '@shared/utils';
 import { useDrawers } from '@app/common/hooks/use-drawers';
 import { LoadingKeys, useLoading } from '@app/common/hooks/use-loading';
 import { useTransactionError } from '@app/features/stacks-transaction-request/hooks/use-transaction-error';
-import { ButtonProps, LeatherButton } from '@app/ui/components/button';
-
-function BaseConfirmButton(props: ButtonProps): React.JSX.Element {
-  return (
-    <LeatherButton fullWidth mt="space.04" type="submit" {...props}>
-      Confirm
-    </LeatherButton>
-  );
-}
+import { Button } from '@app/ui/components/button/button';
 
 export function SubmitAction() {
   const { handleSubmit, values, validateForm } = useFormikContext<StacksTransactionFormValues>();
@@ -36,13 +28,16 @@ export function SubmitAction() {
   };
 
   return (
-    <BaseConfirmButton
+    <Button
       aria-busy={isLoading}
       data-testid={TransactionRequestSelectors.BtnConfirmTransaction}
       disabled={isDisabled}
+      fullWidth
+      mt="space.04"
       onClick={onConfirmTransaction}
+      type="submit"
     >
       Confirm
-    </BaseConfirmButton>
+    </Button>
   );
 }

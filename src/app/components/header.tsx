@@ -1,5 +1,4 @@
-import { useMemo } from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 import { OnboardingSelectors } from '@tests/selectors/onboarding.selectors';
 import { SettingsSelectors } from '@tests/selectors/settings.selectors';
@@ -11,7 +10,7 @@ import { useDrawers } from '@app/common/hooks/use-drawers';
 import { useViewportMinWidth } from '@app/common/hooks/use-media-query';
 import { LeatherLogo } from '@app/components/leather-logo';
 import { NetworkModeBadge } from '@app/components/network-mode-badge';
-import { LeatherButton } from '@app/ui/components/button';
+import { Button } from '@app/ui/components/button/button';
 import { ArrowLeftIcon } from '@app/ui/components/icons/arrow-left-icon';
 import { HamburgerIcon } from '@app/ui/components/icons/hamburger-icon';
 
@@ -26,21 +25,9 @@ interface HeaderProps extends FlexProps {
 export function Header(props: HeaderProps) {
   const { actionButton, hideActions, onClose, title, ...rest } = props;
   const { isShowingSettings, setIsShowingSettings } = useDrawers();
-  const { pathname } = useLocation();
   const navigate = useNavigate();
 
   const isBreakpointSm = useViewportMinWidth('sm');
-
-  const leatherLogoIsClickable = useMemo(() => {
-    return (
-      pathname !== RouteUrls.RequestDiagnostics &&
-      pathname !== RouteUrls.Onboarding &&
-      pathname !== RouteUrls.BackUpSecretKey &&
-      pathname !== RouteUrls.SetPassword &&
-      pathname !== RouteUrls.SignIn &&
-      pathname !== RouteUrls.Home
-    );
-  }, [pathname]);
 
   return (
     <Flex
@@ -54,9 +41,9 @@ export function Header(props: HeaderProps) {
     >
       {onClose ? (
         <Flex flexBasis="20%">
-          <LeatherButton onClick={onClose} variant="ghost">
+          <Button onClick={onClose} variant="ghost">
             <ArrowLeftIcon />
-          </LeatherButton>
+          </Button>
         </Flex>
       ) : null}
       {!title && (!onClose || isBreakpointSm) ? (
@@ -70,8 +57,7 @@ export function Header(props: HeaderProps) {
           <HStack alignItems="flex-end" gap="space.01">
             <LeatherLogo
               data-testid={OnboardingSelectors.LeatherLogoRouteToHome}
-              isClickable={leatherLogoIsClickable}
-              onClick={leatherLogoIsClickable ? () => navigate(RouteUrls.Home) : undefined}
+              onClick={() => navigate(RouteUrls.Home)}
             />
             <AppVersion />
           </HStack>
@@ -84,13 +70,13 @@ export function Header(props: HeaderProps) {
       <HStack alignItems="center" flexBasis="20%" justifyContent="flex-end">
         <NetworkModeBadge />
         {!hideActions && (
-          <LeatherButton
+          <Button
             data-testid={SettingsSelectors.SettingsMenuBtn}
             onClick={() => setIsShowingSettings(!isShowingSettings)}
             variant="ghost"
           >
             <HamburgerIcon />
-          </LeatherButton>
+          </Button>
         )}
         {actionButton ? actionButton : null}
       </HStack>

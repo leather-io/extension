@@ -3,7 +3,7 @@ import { Box } from 'leather-styles/jsx';
 
 import { Money } from '@shared/models/money.model';
 
-import { LeatherButton } from '@app/ui/components/button';
+import { Link } from '@app/ui/components/link/link';
 import { BasicTooltip } from '@app/ui/components/tooltip/basic-tooltip';
 
 import { useSendMax } from '../hooks/use-send-max';
@@ -40,14 +40,13 @@ export function BitcoinSendMaxButton({
   return (
     <BasicTooltip label={sendMaxTooltipLabel} side="bottom">
       <Box>
-        <LeatherButton
+        <Link
           data-testid={SendCryptoAssetSelectors.SendMaxBtn}
           onClick={() => onSendMax()}
-          variant="link"
           {...props}
         >
           {isSendingMax ? 'Sending max' : 'Send max'}
-        </LeatherButton>
+        </Link>
       </Box>
     </BasicTooltip>
   );
