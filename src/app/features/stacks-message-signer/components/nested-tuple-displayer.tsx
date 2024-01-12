@@ -1,8 +1,6 @@
 import { ClarityType } from '@stacks/transactions';
 import { Box, BoxProps, Flex, FlexProps } from 'leather-styles/jsx';
 
-import { figmaTheme } from '@app/common/utils/figma-theme';
-
 interface TupleDisplayerProps extends BoxProps {
   isRoot: boolean;
 }
@@ -26,7 +24,7 @@ export function TupleNodeDisplayer({ clarityType, ...props }: TupleNodeDisplayer
   return clarityType === ClarityType.Tuple ? <Box {...props} /> : <Flex {...props} />;
 }
 export function TupleNodeLabelDisplayer(props: BoxProps) {
-  return <Box mr="space.04" color={figmaTheme.textSubdued} {...props} />;
+  return <Box mr="space.04" color="accent.text-subdued" {...props} />;
 }
 
 export function TupleNodeValueDisplayer(props: FlexProps) {

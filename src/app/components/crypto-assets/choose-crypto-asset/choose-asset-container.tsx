@@ -7,7 +7,7 @@ export function ChooseAssetContainer({ children }: HasChildren) {
   return whenPageMode({
     full: (
       <Flex
-        borderRadius={['unset', '16px']}
+        borderRadius={['unset', 'lg']}
         height="fit-content"
         maxWidth={['100%', 'centeredPageFullWidth']}
         minWidth={['100%', 'centeredPageFullWidth']}

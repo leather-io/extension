@@ -51,19 +51,17 @@ function Properties({ p }: { p: any }) {
 export function ProfileBox({ profile }: { profile: Profile }): React.JSX.Element | null {
   return (
     <Box minHeight="260px">
-      <Stack
-        bg="accent.background-secondary"
-        border="4px solid"
-        paddingBottom="space.02"
-        borderColor="accent.border-default"
-        borderRadius="xl"
+      <Box
+        bg="accent.background-primary"
+        border="active"
+        borderRadius="sm"
+        px="space.05"
+        py="space.05"
       >
-        <Box bg="accent.background-primary" borderRadius="lg" px="space.05" py="space.05">
-          <Stack gap="space.03">
-            <Properties p={profile._profile} />
-          </Stack>
-        </Box>
-      </Stack>
+        <Stack gap="space.03">
+          <Properties p={profile._profile} />
+        </Stack>
+      </Box>
     </Box>
   );
 }

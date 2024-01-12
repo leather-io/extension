@@ -23,7 +23,7 @@ export function InscriptionPreviewCard({
     <Flag
       align="middle"
       border={hideBorder ? 'unset' : 'default'}
-      borderRadius={hideBorder ? 'unset' : '10px'}
+      borderRadius={hideBorder ? 'unset' : 'sm'}
       img={image}
       p={hideBorder ? 'unset' : 'space.04'}
       spacing="space.04"

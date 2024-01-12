@@ -13,7 +13,7 @@ const Root = RadixDropdownMenu.Root;
 
 const dropdownTriggerStyles = css({
   bg: 'accent.background-primary',
-  borderRadius: '2px',
+  borderRadius: 'xs',
   fontWeight: 500,
   maxWidth: 'fit-content',
   maxHeight: 'fit-content',
@@ -37,7 +37,7 @@ const dropdownContentStyles = css({
   animationTimingFunction: 'cubic-bezier(0.16, 1, 0.3, 1)',
   '--base-menu-padding': '0px',
   bg: 'accent.background-primary',
-  borderRadius: '2px',
+  borderRadius: 'xs',
   boxShadow:
     '0px 12px 24px 0px rgba(18, 16, 15, 0.08), 0px 4px 8px 0px rgba(18, 16, 15, 0.08), 0px 0px 2px 0px rgba(18, 16, 15, 0.08)',
   minWidth: '256px',

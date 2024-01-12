@@ -45,7 +45,7 @@ export function AccountListItemLayout(props: AccountListItemLayoutProps) {
       onClick={onSelectAccount}
       {...rest}
     >
-      <Flag align="middle" img={avatar} spacing="space.04" width="100%" mr="space.04">
+      <Flag align="middle" img={avatar} spacing="space.04" width="100%" mx="space.04">
         <Stack gap="space.01">
           <HStack alignItems="center" justifyContent="space-between">
             <HStack alignItems="center" gap="space.02">

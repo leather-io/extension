@@ -11,9 +11,8 @@ export function MessagePreviewBox({ message, hash }: MessageBoxProps) {
   return (
     <Stack
       bg="accent.background-primary"
-      border="4px solid"
-      borderColor="accent.background-primary"
-      borderRadius="xl"
+      border="active"
+      borderRadius="sm"
       paddingBottom={hash ? 'space.02' : 0}
     >
       <Stack

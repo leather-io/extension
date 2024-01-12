@@ -29,14 +29,7 @@ function PostConditionsSuspense(): React.JSX.Element | null {
   if (!IS_TEST_ENV && mode === PostConditionMode.Allow) return null;
 
   return (
-    <Flex
-      border="4px solid"
-      borderColor="accent.border-default"
-      borderRadius="md"
-      flexDirection="column"
-      mb="space.05"
-      width="100%"
-    >
+    <Flex border="active" borderRadius="sm" flexDirection="column" mb="space.05" width="100%">
       {hasPostConditions ? (
         <PostConditionsList />
       ) : isStxTransfer ? (

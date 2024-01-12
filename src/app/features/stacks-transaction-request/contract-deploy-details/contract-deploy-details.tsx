@@ -86,14 +86,7 @@ export function ContractDeployDetails() {
         </TabButton>
       </HStack>
       {tab === 'details' ? (
-        <Stack
-          gap="space.05"
-          border="4px solid"
-          borderColor="accent.border-default"
-          borderRadius="md"
-          py="space.06"
-          px="space.04"
-        >
+        <Stack gap="space.05" border="active" borderRadius="sm" py="space.06" px="space.04">
           <Title>Contract deploy details</Title>
           <ContractPreviewLayout
             contractAddress={currentAccountStxAddress}

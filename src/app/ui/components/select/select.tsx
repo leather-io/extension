@@ -14,7 +14,7 @@ const Root = RadixSelect.Root;
 const selectTriggerStyles = css({
   alignItems: 'center',
   bg: 'accent.background-primary',
-  borderRadius: '2px',
+  borderRadius: 'xs',
   display: 'flex',
   fontWeight: 500,
   gap: 'space.02',
@@ -42,7 +42,7 @@ const selectContentStyles = css({
   animationTimingFunction: 'cubic-bezier(0.16, 1, 0.3, 1)',
   '--base-menu-padding': '0px',
   bg: 'accent.background-primary',
-  borderRadius: '2px',
+  borderRadius: 'xs',
   boxShadow:
     '0px 12px 24px 0px rgba(18, 16, 15, 0.08), 0px 4px 8px 0px rgba(18, 16, 15, 0.08), 0px 0px 2px 0px rgba(18, 16, 15, 0.08)',
   minWidth: '256px',

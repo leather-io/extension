@@ -31,7 +31,7 @@ export function InfoCardRow({ title, value, titleAdditionalElement, ...props }: 
   return (
     <HStack alignItems="start" fontSize="14px" justifyContent="space-between" {...props}>
       <Flex alignItems="center">
-        <styled.span textStyle="body.02" color="accent.text-subdued">
+        <styled.span color="accent.text-subdued" mr="space.01" textStyle="body.02">
           {title}
         </styled.span>
         {titleAdditionalElement && titleAdditionalElement}

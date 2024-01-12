@@ -32,7 +32,7 @@ export function FeeEstimateItem({
     <LeatherButton
       _hover={{
         bg: isVisible ? 'accent.component-background-hover' : 'accent.background-primary',
-        borderRadius: '8px',
+        borderRadius: 'xs',
         color: 'accent.text-primary',
       }}
       alignItems="center"

@@ -22,10 +22,8 @@ export function FeesListItem({
   return (
     <styled.button
       _hover={{ background: 'accent.component-background-hover' }}
-      border={isSelected ? '4px solid' : '1px solid'}
-      borderColor="accent.action-primary-default"
-      borderRadius="lg"
-      // #4476 TODO add tokens for boxShadow
+      border={isSelected ? 'focus' : 'default'}
+      borderRadius="xs"
       boxShadow="0px 1px 2px rgba(0, 0, 0, 0.04)"
       data-testid={SharedComponentsSelectors.FeesListItem}
       px="space.04"
