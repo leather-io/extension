@@ -8,7 +8,6 @@ interface ErrorMessageProps {
   title: string;
   body: string | React.JSX.Element;
   actions?: React.JSX.Element;
-  // #4476 FIXME share borders better colour
   border?: string;
   borderColor?: string;
 }
@@ -16,9 +15,8 @@ export const ErrorMessage = memo(({ border, title, body, actions }: ErrorMessage
   return (
     <Stack
       bg="accent.background-primary"
-      // #4476 TODO change this colour
-      border={border ? border : '4px solid #FCEEED'}
-      borderRadius="md"
+      border={border ? border : 'active'}
+      borderRadius="sm"
       gap="space.06"
       mb="space.05"
       p="space.05"

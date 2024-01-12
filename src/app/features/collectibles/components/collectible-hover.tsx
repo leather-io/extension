@@ -43,7 +43,7 @@ export function CollectibleHover({
           _hover={{ bg: 'accent.component-background-hover' }}
           alignItems="center"
           bg="accent.background-primary"
-          borderRadius="lg"
+          borderRadius="50%"
           display="flex"
           height="30px"
           justifyContent="center"

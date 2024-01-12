@@ -49,7 +49,7 @@ export function TextInputField({
           content: '""',
           position: 'absolute',
           border: showError ? 'error' : 'unset',
-          borderRadius: '10px',
+          borderRadius: 'sm',
           left: '-1px',
           right: '-1px',
           top: '-1px',

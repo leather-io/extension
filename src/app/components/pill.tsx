@@ -10,9 +10,8 @@ export function Pill({ hoverLabel, label, ...props }: PillProps) {
   return (
     <Tooltip disabled={!hoverLabel} label={hoverLabel} maxWidth="200px" placement="bottom">
       <Box
-        border="1px solid"
-        borderRadius="xxl"
-        borderColor="#DCDDE2"
+        border="default"
+        borderRadius="xs"
         lineHeight="16px"
         ml="space.03"
         px="space.02"

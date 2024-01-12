@@ -13,7 +13,7 @@ function ItemHover({
     <Square
       opacity={isFocused || isHovered ? 1 : 0}
       transition="transition"
-      borderRadius="lg"
+      borderRadius="xs"
       position="absolute"
       size="calc(100% + 24px)"
       left="-12px"

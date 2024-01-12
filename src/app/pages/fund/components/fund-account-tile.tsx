@@ -26,7 +26,7 @@ export function FundAccountTile(props: FundAccountTileProps) {
       }}
       border="default"
       backgroundColor="accent.background-primary"
-      borderRadius="lg"
+      borderRadius="xs"
       boxShadow="0px 1px 2px rgba(0, 0, 0, 0.04)"
       data-testid={testId}
       display="flex"
@@ -43,7 +43,7 @@ export function FundAccountTile(props: FundAccountTileProps) {
           <Box
             alignItems="center"
             border="default"
-            borderRadius="sm"
+            borderRadius="xs"
             display="inline-flex"
             height="40px"
             justifyContent="center"

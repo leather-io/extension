@@ -40,11 +40,10 @@ export function StructuredDataBox(props: {
   return (
     <Box minHeight="260px">
       <Stack
-        border="4px solid"
+        border="active"
         paddingBottom="space.02"
         borderColor="accent.border-default"
-        borderRadius="xl"
-        backgroundColor="accent.border-default"
+        borderRadius="sm"
       >
         <Box background="white" borderRadius="lg" overflowX="scroll" py="space.05">
           <Box fontSize="14px" lineHeight="1.7" px="space.05">

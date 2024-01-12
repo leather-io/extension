@@ -7,7 +7,7 @@ export function ZeroPercentFeesBadge() {
     <HStack
       alignItems="center"
       border="default"
-      borderRadius="xxl"
+      borderRadius="xs"
       height="24px"
       justifyContent="center"
       paddingX="space.02"

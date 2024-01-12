@@ -231,20 +231,22 @@ export function AddNetwork() {
                 data-testid={NetworkSelectors.NetworkName}
               />
               <Title>Bitcoin API</Title>
+              {/* TODO: Replace with new Select */}
               <SelectRoot onValueChange={handleApiChange} defaultValue="mainnet">
                 <SelectTrigger
                   className={css({
                     backgroundColor: 'accent.background-primary',
-                    borderRadius: '6px',
+                    borderRadius: 'sm',
                     border: '1px solid accent.border-primary',
                   })}
                 ></SelectTrigger>
                 <SelectContent
                   className={css({
                     backgroundColor: 'accent.background-primary',
-                    borderRadius: '6px',
+                    borderRadius: 'sm',
                     border: '1px solid accent.border-primary',
                     dropShadow: 'lg',
+                    height: 'fit-content',
                   })}
                 >
                   <SelectItem key="mainnet" value="mainnet">

@@ -27,7 +27,7 @@ const psuedoBorderStyles = {
   background: 'transparent',
   position: 'absolute',
   border: '1px solid',
-  borderRadius: '4px',
+  borderRadius: 'sm',
 };
 
 export function InputField({ dataTestId, name, onPaste, onChange, value }: InputFieldProps) {
@@ -47,6 +47,7 @@ export function InputField({ dataTestId, name, onPaste, onChange, value }: Input
       color="brown"
       data-state={isDirty && meta.error ? 'error' : undefined}
       className={css({
+        borderRadius: 'sm',
         display: 'flex',
         alignSelf: 'stretch',
         height: '48px',
@@ -68,8 +69,7 @@ export function InputField({ dataTestId, name, onPaste, onChange, value }: Input
       })}
     >
       <TextField.Slot className={css({ padding: 'space.00', marginRight: 'space.01' })}>
-        {/* // FIXME #4130: - update this color when available in design system */}
-        <styled.span textStyle="label.01" color="GrayText">{`${name}.`}</styled.span>
+        <styled.span textStyle="label.01" color="accent.text-subdued">{`${name}.`}</styled.span>
       </TextField.Slot>
       <TextField.Input
         autoCapitalize="off"

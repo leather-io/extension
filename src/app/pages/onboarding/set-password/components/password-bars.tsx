@@ -9,7 +9,7 @@ export function PasswordStrengthBars({ bars }: PasswordStrengthBarsProps) {
       {bars.map((bar: string, index: number) => {
         return (
           <Box
-            borderRadius="2px"
+            borderRadius="xs"
             flexGrow={1}
             key={index}
             marginBottom="0"
