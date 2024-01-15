@@ -1,6 +1,5 @@
 import { useQuery } from '@tanstack/react-query';
-
-import { fetchWithTimeout } from '@app/common/api/fetch-wrapper';
+import axios from 'axios';
 
 import { RateLimiter, useHiroApiRateLimiter } from '../rate-limiter';
 
@@ -16,7 +15,8 @@ const networkStatusQueryOptions = {
 
 async function getNetworkStatusFetcher(url: string, limiter: RateLimiter) {
   await limiter.removeTokens(1);
-  return fetchWithTimeout(url, { timeout: 4500 });
+  const resp = await axios.get(url, { timeout: 4500 });
+  return resp.data;
 }
 
 export function useGetNetworkStatus(url: string) {

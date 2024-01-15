@@ -1,7 +1,5 @@
 import axios from 'axios';
 
-import { fetchData } from '../utils';
-
 class Configuration {
   constructor(public baseUrl: string) {}
 }
@@ -26,20 +24,15 @@ class AddressApi {
   constructor(public configuration: Configuration) {}
 
   async getTransactionsByAddress(address: string) {
-    return fetchData({
-      errorMsg: 'No transactions fetched',
-      url: `${this.configuration.baseUrl}/address/${address}/txs`,
-    });
+    const resp = await axios.get(`${this.configuration.baseUrl}/address/${address}/txs`);
+    return resp.data;
   }
 
   async getUtxosByAddress(address: string): Promise<UtxoResponseItem[]> {
-    return fetchData({
-      errorMsg: 'No UTXOs fetched',
-      url: `${this.configuration.baseUrl}/address/${address}/utxo`,
-    }).then((utxos: UtxoResponseItem[]) =>
-      // Sort by vout as blockstream API returns them inconsistently
-      utxos.sort((a, b) => a.vout - b.vout)
+    const resp = await axios.get<UtxoResponseItem[]>(
+      `${this.configuration.baseUrl}/address/${address}/utxo`
     );
+    return resp.data.sort((a, b) => a.vout - b.vout);
   }
 }
 
@@ -77,32 +70,28 @@ class FeeEstimatesApi {
   constructor(public configuration: Configuration) {}
 
   async getFeeEstimatesFromBlockcypherApi(network: string): Promise<FeeResult> {
-    return fetchData({
-      errorMsg: 'No fee estimates fetched',
-      url: `https://api.blockcypher.com/v1/btc/${network}`,
-    }).then((resp: FeeEstimateEarnApiResponse) => {
-      const { low_fee_per_kb, medium_fee_per_kb, high_fee_per_kb } = resp;
-      // These fees are in satoshis per kb
-      return {
-        slow: low_fee_per_kb / 1000,
-        medium: medium_fee_per_kb / 1000,
-        fast: high_fee_per_kb / 1000,
-      };
-    });
+    const resp = await axios.get<FeeEstimateEarnApiResponse>(
+      `https://api.blockcypher.com/v1/btc/${network}`
+    );
+    const { low_fee_per_kb, medium_fee_per_kb, high_fee_per_kb } = resp.data;
+    // These fees are in satoshis per kb
+    return {
+      slow: low_fee_per_kb / 1000,
+      medium: medium_fee_per_kb / 1000,
+      fast: high_fee_per_kb / 1000,
+    };
   }
 
   async getFeeEstimatesFromMempoolSpaceApi(): Promise<FeeResult> {
-    return fetchData({
-      errorMsg: 'No fee estimates fetched',
-      url: ` https://mempool.space/api/v1/fees/recommended`,
-    }).then((resp: FeeEstimateMempoolSpaceApiResponse) => {
-      const { fastestFee, halfHourFee, hourFee } = resp;
-      return {
-        slow: hourFee,
-        medium: halfHourFee,
-        fast: fastestFee,
-      };
-    });
+    const resp = await axios.get<FeeEstimateMempoolSpaceApiResponse>(
+      `https://mempool.space/api/v1/fees/recommended`
+    );
+    const { fastestFee, halfHourFee, hourFee } = resp.data;
+    return {
+      slow: hourFee,
+      medium: halfHourFee,
+      fast: fastestFee,
+    };
   }
 }
 
