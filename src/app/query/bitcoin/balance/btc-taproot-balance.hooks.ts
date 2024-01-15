@@ -11,6 +11,7 @@ import { useGetInscriptionsInfiniteQuery } from '../ordinals/inscriptions.query'
 
 export function useCurrentTaprootAccountUninscribedUtxos() {
   const { data: utxos = [] } = useTaprootAccountUtxosQuery();
+
   const query = useGetInscriptionsInfiniteQuery();
 
   return useMemo(() => {
