@@ -128,6 +128,11 @@ export function useConfigBitcoinSendEnabled() {
   });
 }
 
+export function useRecoverUninscribedTaprootUtxosFeatureEnabled() {
+  const config = useRemoteConfig();
+  return get(config, 'recoverUninscribedTaprootUtxosFeatureEnabled', false);
+}
+
 export function useConfigFeeEstimationsMaxEnabled() {
   const config = useRemoteConfig();
   if (isUndefined(config) || isUndefined(config?.feeEstimationsMinMax)) return;

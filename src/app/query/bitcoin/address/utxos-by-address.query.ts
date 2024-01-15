@@ -31,7 +31,7 @@ export function useGetUtxosByAddressQuery<T extends unknown = UtxoResponseItem[]
   });
 }
 
-const stopSearchAfterNumberAddressesWithoutOrdinals = 20;
+const stopSearchAfterNumberAddressesWithoutUtxos = 20;
 
 /**
  * Returns all utxos for the user's current taproot account. The search for
@@ -48,12 +48,10 @@ export function useTaprootAccountUtxosQuery() {
   return useQuery(
     [QueryPrefixes.TaprootAddressUtxos, currentAccountIndex, network.id],
     async () => {
-      let currentNumberOfAddressesWithoutOrdinals = 0;
+      let currentNumberOfAddressesWithoutUtxos = 0;
       const addressIndexCounter = createCounter(0);
       let foundUnspentTransactions: TaprootUtxo[] = [];
-      while (
-        currentNumberOfAddressesWithoutOrdinals < stopSearchAfterNumberAddressesWithoutOrdinals
-      ) {
+      while (currentNumberOfAddressesWithoutUtxos < stopSearchAfterNumberAddressesWithoutUtxos) {
         const address = getTaprootAddress({
           index: addressIndexCounter.getValue(),
           keychain: account?.keychain,
@@ -63,7 +61,7 @@ export function useTaprootAccountUtxosQuery() {
         const unspentTransactions = await client.addressApi.getUtxosByAddress(address);
 
         if (!hasInscriptions(unspentTransactions)) {
-          currentNumberOfAddressesWithoutOrdinals += 1;
+          currentNumberOfAddressesWithoutUtxos += 1;
           addressIndexCounter.increment();
           continue;
         }
@@ -77,7 +75,7 @@ export function useTaprootAccountUtxosQuery() {
           ...foundUnspentTransactions,
         ];
 
-        currentNumberOfAddressesWithoutOrdinals = 0;
+        currentNumberOfAddressesWithoutUtxos = 0;
         addressIndexCounter.increment();
       }
       return foundUnspentTransactions;

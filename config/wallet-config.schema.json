@@ -137,6 +137,10 @@
         "mainnetApiUrl": { "type": "string" },
         "signetApiUrl": { "type": "string" }
       }
+    },
+    "recoverUninscribedTaprootUtxosFeatureEnabled": {
+      "type": "boolean",
+      "description": "Determines whether or not the recover uninscribed taproot utxos feature is enabled"
     }
   },
   "$defs": {
