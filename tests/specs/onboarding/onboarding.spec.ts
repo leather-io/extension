@@ -47,6 +47,7 @@ test.describe('Onboarding an existing user', () => {
     await test.expect(error).toBeVisible();
     await test.expect(signInButton).toBeDisabled();
   });
+
   test('mnemonic key validation: should not show error  for valid mnemonic key words', async ({
     extensionId,
     globalPage,
@@ -56,9 +57,7 @@ test.describe('Onboarding an existing user', () => {
     // enter some key partial
     const validPartialKey = 'shoulder any pencil';
     await onboardingPage.signInMnemonicKey(validPartialKey);
-    const signInSeedError = await onboardingPage.page.getByTestId(
-      OnboardingSelectors.SignInSeedError
-    );
+    const signInSeedError = onboardingPage.page.getByTestId(OnboardingSelectors.SignInSeedError);
     await test.expect(signInSeedError).not.toBeVisible();
   });
 

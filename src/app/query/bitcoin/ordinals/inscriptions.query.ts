@@ -1,13 +1,13 @@
 import { useCallback, useEffect } from 'react';
 
 import { useInfiniteQuery } from '@tanstack/react-query';
+import axios from 'axios';
 
 import { HIRO_INSCRIPTIONS_API_URL } from '@shared/constants';
 import { getTaprootAddress } from '@shared/crypto/bitcoin/bitcoin.utils';
 import { InscriptionResponseItem } from '@shared/models/inscription.model';
 import { ensureArray } from '@shared/utils';
 
-import { wrappedFetch } from '@app/common/api/fetch-wrapper';
 import { createNumArrayOfRange } from '@app/common/utils';
 import { QueryPrefixes } from '@app/query/query-prefixes';
 import { useCurrentAccountNativeSegwitIndexZeroSigner } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
@@ -41,11 +41,10 @@ async function fetchInscriptions(addresses: string | string[], offset = 0, limit
   ensureArray(addresses).forEach(address => params.append('address', address));
   params.append('limit', limit.toString());
   params.append('offset', offset.toString());
-
-  const res = await wrappedFetch(`${HIRO_INSCRIPTIONS_API_URL}?${params.toString()}`);
-  if (!res.ok) throw new Error('Error retrieving inscription metadata');
-  const data = await res.json();
-  return data as InscriptionsQueryResponse;
+  const res = await axios.get<InscriptionsQueryResponse>(
+    `${HIRO_INSCRIPTIONS_API_URL}?${params.toString()}`
+  );
+  return res.data;
 }
 
 /**

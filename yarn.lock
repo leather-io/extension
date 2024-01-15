@@ -2313,10 +2313,10 @@
   resolved "https://registry.yarnpkg.com/@graphql-typed-document-node/core/-/core-3.2.0.tgz#5f3d96ec6b2354ad6d8a28bf216a1d97b5426861"
   integrity sha512-mB9oAsNCm9aM3/SOv4YtBMqZbYj10R7dkq8byBqxGY/ncFwhf2oQzMV+LCRlWoDSEBJ3COiR1yeDvMtsoOsuFQ==
 
-"@hirosystems/token-metadata-api-client@1.1.0":
-  version "1.1.0"
-  resolved "https://registry.yarnpkg.com/@hirosystems/token-metadata-api-client/-/token-metadata-api-client-1.1.0.tgz#ba61900fef6f9d3348b50540341ed3d3d2960ca5"
-  integrity sha512-1IWfthAvxJzIqpbcBmZlavEVGS/bxh2gOsO+SuSsBOp95CGpKAuTjUv7BS5Y6LBfniKrok/FEKlR+Wh8+zBwhQ==
+"@hirosystems/token-metadata-api-client@1.2.0":
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/@hirosystems/token-metadata-api-client/-/token-metadata-api-client-1.2.0.tgz#a10af1061f1556ca454182471f42af76093e1ede"
+  integrity sha512-voIhvGV4yCOEE2BWbQeGV4S395OLTKg5VsV4HJBM4Ekf/hiu5fktF8R0T24JcZc06resf94hH6L9ybiLz6tpGQ==
   dependencies:
     isomorphic-fetch "^3.0.0"
 
