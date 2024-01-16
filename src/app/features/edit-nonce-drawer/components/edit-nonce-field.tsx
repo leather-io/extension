@@ -4,7 +4,7 @@ import { useField } from 'formik';
 import { Stack, StackProps } from 'leather-styles/jsx';
 
 import { ErrorLabel } from '@app/components/error-label';
-import { Input } from '@app/ui/components/input';
+import { Input } from '@app/ui/components/input/input';
 
 interface EditNonceFieldProps extends StackProps {
   onBlur(): void;
@@ -15,14 +15,16 @@ export const EditNonceField = memo((props: EditNonceFieldProps) => {
 
   return (
     <Stack width="100%" {...props}>
-      <Input
-        onBlur={onBlur}
-        onChange={async (evt: FormEvent<HTMLInputElement>) => {
-          await helpers.setValue(evt.currentTarget.value);
-        }}
-        placeholder="Enter a custom nonce"
-        value={field.value}
-      />
+      <Input.Root data-has-error={meta.error}>
+        <Input.Label>Custom nonce</Input.Label>
+        <Input.Field
+          onBlur={onBlur}
+          value={field.value}
+          onChange={async (evt: FormEvent<HTMLInputElement>) => {
+            await helpers.setValue(evt.currentTarget.value);
+          }}
+        />
+      </Input.Root>
       {meta.error && <ErrorLabel>{meta.error}</ErrorLabel>}
     </Stack>
   );

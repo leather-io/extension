@@ -43,32 +43,32 @@ const isBrowser = checkIsBrowser();
  *
  * @param event the event name
  * @param handler the event handler function to execute
- * @param doc the dom environment to execute against (defaults to `document`)
+ * @param element the dom environment to execute against (defaults to `document`)
  * @param options the event listener options
  */
 export function useEventListener(
   event: keyof WindowEventMap,
   handler: (event: any) => void,
-  doc: Document | null = isBrowser ? document : null,
+  element: Document | null = isBrowser ? document : null,
   options?: AddEventListener[2]
 ) {
   const savedHandler = useLatestRef(handler);
 
   useEffect(() => {
-    if (!doc) return;
+    if (!element) return;
 
     const listener = (event: any) => {
       savedHandler.current(event);
     };
 
-    doc.addEventListener(event, listener, options);
+    element.addEventListener(event, listener, options);
 
     return () => {
-      doc.removeEventListener(event, listener, options);
+      element.removeEventListener(event, listener, options);
     };
-  }, [event, doc, options, savedHandler]);
+  }, [event, element, options, savedHandler]);
 
   return () => {
-    doc?.removeEventListener(event, savedHandler.current, options);
+    element?.removeEventListener(event, savedHandler.current, options);
   };
 }
