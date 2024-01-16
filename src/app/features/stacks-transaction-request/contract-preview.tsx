@@ -22,11 +22,10 @@ export function ContractPreviewLayout({
   return (
     <HStack
       p="space.04"
-      borderRadius="md"
+      borderRadius="sm"
       gap="space.04"
       alignItems="center"
-      border="1px solid"
-      borderColor="accent.border-default"
+      border="default"
       _hover={
         onClick
           ? {

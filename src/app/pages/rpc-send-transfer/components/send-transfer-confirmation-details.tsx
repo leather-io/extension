@@ -15,14 +15,7 @@ export function SendTransferConfirmationDetails({
   feeRowValue,
 }: SendTransferConfirmationDetailsProps) {
   return (
-    <Stack
-      border="4px solid"
-      borderColor="accent.border-default"
-      borderRadius="lg"
-      p="space.05"
-      gap="space.04"
-      width="100%"
-    >
+    <Stack border="active" borderRadius="sm" p="space.05" gap="space.04" width="100%">
       <HStack alignItems="center" gap="space.04" justifyContent="space-between">
         <styled.span color="accent.styled.span-subdued">From</styled.span>
         <styled.span>{currentAddress}</styled.span>

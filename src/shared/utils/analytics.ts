@@ -1,3 +1,11 @@
+import React from 'react';
+import {
+  createRoutesFromChildren,
+  matchRoutes,
+  useLocation,
+  useNavigationType,
+} from 'react-router-dom';
+
 import { ripemd160 } from '@noble/hashes/ripemd160';
 import { sha256 } from '@noble/hashes/sha256';
 import { base58 } from '@scure/base';
@@ -59,6 +67,13 @@ export function initSentry() {
         startTransactionOnLocationChange: false,
         startTransactionOnPageLoad: false,
         markBackgroundTransactions: false,
+        routingInstrumentation: Sentry.reactRouterV6Instrumentation(
+          React.useEffect,
+          useLocation,
+          useNavigationType,
+          createRoutesFromChildren,
+          matchRoutes
+        ),
       }),
       new Sentry.Feedback({
         colorScheme: 'system',

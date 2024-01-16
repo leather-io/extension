@@ -5,6 +5,7 @@ import { SupportedBlockchains } from '@shared/constants';
 import { WarningLabel } from '@app/components/warning-label';
 import { Capitalize } from '@app/ui/utils/capitalize';
 
+import { LatestDeviceResponse } from '../utils/generic-ledger-utils';
 import { isStacksLedgerAppClosed } from '../utils/stacks-ledger-utils';
 
 interface RequiresChainProp {
@@ -12,7 +13,7 @@ interface RequiresChainProp {
 }
 
 interface CommonLedgerInlineWarningsProps extends RequiresChainProp {
-  latestDeviceResponse: any | null;
+  latestDeviceResponse: LatestDeviceResponse;
   outdatedLedgerAppWarning?: boolean;
 }
 

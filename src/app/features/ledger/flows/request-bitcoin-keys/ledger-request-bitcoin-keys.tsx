@@ -25,7 +25,7 @@ function LedgerRequestBitcoinKeys() {
 
   const { requestKeys, latestDeviceResponse, awaitingDeviceConnection } = useRequestLedgerKeys({
     chain: 'bitcoin',
-    connectApp: connectLedgerBitcoinApp,
+    connectApp: connectLedgerBitcoinApp(network.chain.bitcoin.bitcoinNetwork),
     getAppVersion: getBitcoinAppVersion,
     isAppOpen({ name }: { name: string }) {
       return name === 'Bitcoin' || name === 'Bitcoin Test';

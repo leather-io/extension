@@ -88,5 +88,6 @@
     "integrationEnabled": true,
     "mainnetApiUrl": "https://api2.ordinalsbot.com",
     "signetApiUrl": "https://signet.ordinalsbot.com"
-  }
+  },
+  "recoverUninscribedTaprootUtxosFeatureEnabled": false
 }

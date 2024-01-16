@@ -27,7 +27,7 @@ import {
 } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
 
 import { useLedgerNavigate } from '../../hooks/use-ledger-navigate';
-import { useLedgerResponseState } from '../../utils/generic-ledger-utils';
+import { checkLockedDeviceError, useLedgerResponseState } from '../../utils/generic-ledger-utils';
 import {
   addSignatureToAuthResponseJwt,
   getSha256HashOfJwtAuthPayload,
@@ -91,7 +91,11 @@ export function LedgerSignJwtContainer() {
 
     const stacks = await prepareLedgerDeviceStacksAppConnection({
       setLoadingState: setAwaitingDeviceConnection,
-      onError() {
+      onError(e) {
+        if (e instanceof Error && checkLockedDeviceError(e)) {
+          setLatestDeviceResponse({ deviceLocked: true } as any);
+          return;
+        }
         ledgerNavigate.toErrorStep();
       },
     });

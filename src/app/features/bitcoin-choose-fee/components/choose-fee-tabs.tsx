@@ -1,12 +1,15 @@
-import { Suspense, useState } from 'react';
+import { Suspense } from 'react';
 
-import { Box, Flex, Stack, StackProps } from 'leather-styles/jsx';
+import { Box, Stack, StackProps } from 'leather-styles/jsx';
 
 import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
 import { LoadingSpinner } from '@app/components/loading-spinner';
-import { Tabs } from '@app/components/tabs';
+import { Tabs } from '@app/ui/components/tabs/tabs';
 
-const analyticsPath = ['/recommended', '/custom'];
+enum CustomFeeTabs {
+  Recommended = 'recommended',
+  Custom = 'custom',
+}
 
 interface ChooseFeeTabsProps extends StackProps {
   customFee: React.JSX.Element;
@@ -15,40 +18,34 @@ interface ChooseFeeTabsProps extends StackProps {
 export function ChooseFeeTabs(props: ChooseFeeTabsProps) {
   const { feesList, customFee, ...rest } = props;
   const analytics = useAnalytics();
-  // TODO #4013: Refactor this to use routes for tabs like home-tabs
-  const [activeTab, setActiveTab] = useState(0);
-
-  const setActiveTabTracked = (index: number) => {
-    void analytics.page('view', analyticsPath[index]);
-    setActiveTab(index);
-  };
 
   return (
     <Stack flexGrow={1} gap="space.04" mt="space.02" width="100%" {...rest}>
-      <Tabs
-        tabs={[
-          { slug: 'recommended', label: 'Recommended' },
-          { slug: 'custom', label: 'Custom' },
-        ]}
-        activeTab={activeTab}
-        onTabClick={setActiveTabTracked}
-      />
-      <Flex flexGrow={1} position="relative">
-        {activeTab === 0 && (
+      <Tabs.Root
+        defaultValue={CustomFeeTabs.Recommended}
+        onValueChange={tab => void analytics.page('view', 'custom-fee-tab-' + tab)}
+      >
+        <Tabs.List>
+          <Tabs.Trigger value={CustomFeeTabs.Recommended} data-testid="tab-recommended">
+            Recommended
+          </Tabs.Trigger>
+          <Tabs.Trigger value="custom" data-testid="tab-custom">
+            Custom
+          </Tabs.Trigger>
+        </Tabs.List>
+        <Tabs.Content value={CustomFeeTabs.Recommended}>
           <Suspense fallback={<LoadingSpinner pb="space.10" />}>
-            <Box animation="fadein" transition="transition" width="100%">
-              {feesList}
-            </Box>
+            <Box mt="space.05">{feesList}</Box>
           </Suspense>
-        )}
-        {activeTab === 1 && (
+        </Tabs.Content>
+        <Tabs.Content value={CustomFeeTabs.Custom}>
           <Suspense fallback={<LoadingSpinner pb="72px" />}>
-            <Box animation="fadein" transition="transition" width="100%">
+            <Box mt="space.05" width="100%">
               {customFee}
             </Box>
           </Suspense>
-        )}
-      </Flex>
+        </Tabs.Content>
+      </Tabs.Root>
     </Stack>
   );
 }

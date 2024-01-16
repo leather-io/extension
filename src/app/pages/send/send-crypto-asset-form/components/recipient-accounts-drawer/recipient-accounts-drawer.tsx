@@ -23,17 +23,16 @@ export const RecipientAccountsDrawer = memo(() => {
 
   return (
     <BaseDrawer title="My accounts" isShowing onClose={onGoBack}>
-      <Box mb="space.05" mx={['space.04', 'space.06']}>
+      <Box mb="space.05" mx="space.04">
         <Virtuoso
           height="72px"
           itemContent={index => (
-            <Box mx={['space.05', 'space.06']} key={index}>
-              <AccountListItem
-                stacksAccount={stacksAccounts[index]}
-                onClose={onGoBack}
-                index={index}
-              />
-            </Box>
+            <AccountListItem
+              key={index}
+              stacksAccount={stacksAccounts[index]}
+              onClose={onGoBack}
+              index={index}
+            />
           )}
           style={{ paddingTop: '24px', height: '70vh' }}
           totalCount={stacksAddressesNum || btcAddressesNum}

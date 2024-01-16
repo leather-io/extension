@@ -21,12 +21,13 @@ import {
 } from '@app/features/ledger/generic-flows/tx-signing/ledger-sign-tx.context';
 import { useActionCancellableByUser } from '@app/features/ledger/utils/stacks-ledger-utils';
 import { useSignLedgerBitcoinTx } from '@app/store/accounts/blockchain/bitcoin/bitcoin.hooks';
+import { useCurrentNetwork } from '@app/store/networks/networks.selectors';
 
 import { ledgerSignTxRoutes } from '../../generic-flows/tx-signing/ledger-sign-tx-route-generator';
 import { useLedgerAnalytics } from '../../hooks/use-ledger-analytics.hook';
 import { useLedgerNavigate } from '../../hooks/use-ledger-navigate';
 import { connectLedgerBitcoinApp, getBitcoinAppVersion } from '../../utils/bitcoin-ledger-utils';
-import { useLedgerResponseState } from '../../utils/generic-ledger-utils';
+import { checkLockedDeviceError, useLedgerResponseState } from '../../utils/generic-ledger-utils';
 import { ApproveSignLedgerBitcoinTx } from './steps/approve-bitcoin-sign-ledger-tx';
 
 export const ledgerBitcoinTxSigningRoutes = ledgerSignTxRoutes({
@@ -46,6 +47,7 @@ function LedgerSignBitcoinTxContainer() {
   const [unsignedTransactionRaw, setUnsignedTransactionRaw] = useState<null | string>(null);
   const [unsignedTransaction, setUnsignedTransaction] = useState<null | btc.Transaction>(null);
   const signLedger = useSignLedgerBitcoinTx();
+  const network = useCurrentNetwork();
 
   const inputsToSign = useLocationStateWithCache<BitcoinInputSigningConfig[]>('inputsToSign');
 
@@ -73,42 +75,50 @@ function LedgerSignBitcoinTxContainer() {
 
   const signTransaction = async () => {
     setAwaitingDeviceConnection(true);
-    const bitcoinApp = await connectLedgerBitcoinApp();
 
     try {
-      const versionInfo = await getBitcoinAppVersion(bitcoinApp);
-      ledgerAnalytics.trackDeviceVersionInfo(versionInfo);
-      setAwaitingDeviceConnection(false);
-      setLatestDeviceResponse(versionInfo as any);
-    } catch (e) {
-      setLatestDeviceResponse(e as any);
-      logger.error('Unable to get Ledger app version info', e);
-    }
+      const bitcoinApp = await connectLedgerBitcoinApp(network.chain.bitcoin.bitcoinNetwork)();
 
-    ledgerNavigate.toDeviceBusyStep('Verifying public key on Ledger…');
+      try {
+        const versionInfo = await getBitcoinAppVersion(bitcoinApp);
+        ledgerAnalytics.trackDeviceVersionInfo(versionInfo);
+        setAwaitingDeviceConnection(false);
+        setLatestDeviceResponse(versionInfo as any);
+      } catch (e) {
+        setLatestDeviceResponse(e as any);
+        logger.error('Unable to get Ledger app version info', e);
+      }
 
-    ledgerNavigate.toConnectionSuccessStep('bitcoin');
-    await delay(1200);
-    if (!unsignedTransaction) throw new Error('No unsigned tx');
+      ledgerNavigate.toDeviceBusyStep('Verifying public key on Ledger…');
 
-    ledgerNavigate.toAwaitingDeviceOperation({ hasApprovedOperation: false });
-
-    try {
-      const btcTx = await signLedger(bitcoinApp, unsignedTransaction.toPSBT(), inputsToSign);
-
-      if (!btcTx || !unsignedTransactionRaw) throw new Error('No tx returned');
-      ledgerNavigate.toAwaitingDeviceOperation({ hasApprovedOperation: true });
+      ledgerNavigate.toConnectionSuccessStep('bitcoin');
       await delay(1200);
-      appEvents.publish('ledgerBitcoinTxSigned', {
-        signedPsbt: btcTx,
-        unsignedPsbt: unsignedTransactionRaw,
-      });
+      if (!unsignedTransaction) throw new Error('No unsigned tx');
+
+      ledgerNavigate.toAwaitingDeviceOperation({ hasApprovedOperation: false });
+
+      try {
+        const btcTx = await signLedger(bitcoinApp, unsignedTransaction.toPSBT(), inputsToSign);
+
+        if (!btcTx || !unsignedTransactionRaw) throw new Error('No tx returned');
+        ledgerNavigate.toAwaitingDeviceOperation({ hasApprovedOperation: true });
+        await delay(1200);
+        appEvents.publish('ledgerBitcoinTxSigned', {
+          signedPsbt: btcTx,
+          unsignedPsbt: unsignedTransactionRaw,
+        });
+      } catch (e) {
+        logger.error('Unable to sign tx with ledger', e);
+        ledgerAnalytics.transactionSignedOnLedgerRejected();
+        ledgerNavigate.toOperationRejectedStep();
+      } finally {
+        void bitcoinApp.transport.close();
+      }
     } catch (e) {
-      logger.error('Unable to sign tx with ledger', e);
-      ledgerAnalytics.transactionSignedOnLedgerRejected();
-      ledgerNavigate.toOperationRejectedStep();
-    } finally {
-      void bitcoinApp.transport.close();
+      if (e instanceof Error && checkLockedDeviceError(e)) {
+        setLatestDeviceResponse({ deviceLocked: true } as any);
+        return;
+      }
     }
   };
 

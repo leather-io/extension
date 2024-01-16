@@ -9,7 +9,7 @@ export const tippyStyles = {
     position: 'relative',
     backgroundColor: ' #333',
     color: '#fff',
-    borderRadius: '4px',
+    borderRadius: 'sm',
     fontSize: '14px',
     lineHeight: 1.4,
     outline: 0,

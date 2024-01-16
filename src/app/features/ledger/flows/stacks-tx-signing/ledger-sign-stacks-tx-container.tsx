@@ -31,7 +31,7 @@ import { ledgerSignTxRoutes } from '../../generic-flows/tx-signing/ledger-sign-t
 import { useLedgerAnalytics } from '../../hooks/use-ledger-analytics.hook';
 import { useLedgerNavigate } from '../../hooks/use-ledger-navigate';
 import { useVerifyMatchingLedgerStacksPublicKey } from '../../hooks/use-verify-matching-stacks-public-key';
-import { useLedgerResponseState } from '../../utils/generic-ledger-utils';
+import { checkLockedDeviceError, useLedgerResponseState } from '../../utils/generic-ledger-utils';
 import { ApproveSignLedgerStacksTx } from './steps/approve-sign-stacks-ledger-tx';
 
 export const ledgerStacksTxSigningRoutes = ledgerSignTxRoutes({
@@ -70,7 +70,11 @@ function LedgerSignStacksTxContainer() {
 
     const stacksApp = await prepareLedgerDeviceStacksAppConnection({
       setLoadingState: setAwaitingDeviceConnection,
-      onError() {
+      onError(e) {
+        if (e instanceof Error && checkLockedDeviceError(e)) {
+          setLatestDeviceResponse({ deviceLocked: true } as any);
+          return;
+        }
         ledgerNavigate.toErrorStep();
       },
     });

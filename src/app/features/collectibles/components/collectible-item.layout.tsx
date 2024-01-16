@@ -36,7 +36,7 @@ export function CollectibleItemLayout({
         outlineOffset: onClickLayout ? '-4px' : 'unset',
       }}
       _hover={{ bg: 'accent.background-secondary' }}
-      borderRadius="xl"
+      borderRadius="xs"
       cursor={onClickLayout ? 'pointer' : 'default'}
       onClick={onClickLayout}
       p="space.01"
@@ -52,7 +52,7 @@ export function CollectibleItemLayout({
         />
         <Box
           alignItems="center"
-          borderRadius="lg"
+          borderRadius="xs"
           display="flex"
           height="100%"
           justifyContent="center"
@@ -91,7 +91,7 @@ export function CollectibleItemLayout({
             _focus={{ clipPath: 'none', outline: 'focus' }}
             _hover={{ bg: 'accent.background-primary' }}
             bg="accent.background-primary"
-            borderRadius="sm"
+            borderRadius="xs"
             clipPath={isHovered ? 'none' : 'circle(0%)'}
             fontWeight={500}
             onClick={e => {

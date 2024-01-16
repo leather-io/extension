@@ -27,7 +27,7 @@ import { useSignatureRequestSearchParams } from '@app/store/signatures/requests.
 import { useLedgerAnalytics } from '../../hooks/use-ledger-analytics.hook';
 import { useLedgerNavigate } from '../../hooks/use-ledger-navigate';
 import { useVerifyMatchingLedgerStacksPublicKey } from '../../hooks/use-verify-matching-stacks-public-key';
-import { useLedgerResponseState } from '../../utils/generic-ledger-utils';
+import { checkLockedDeviceError, useLedgerResponseState } from '../../utils/generic-ledger-utils';
 import {
   LedgerMessageSigningContext,
   LedgerMsgSigningProvider,
@@ -66,7 +66,11 @@ function LedgerSignStacksMsg({ account, unsignedMessage }: LedgerSignMsgProps) {
   async function signMessage() {
     const stacksApp = await prepareLedgerDeviceStacksAppConnection({
       setLoadingState: setAwaitingDeviceConnection,
-      onError() {
+      onError(e) {
+        if (e instanceof Error && checkLockedDeviceError(e)) {
+          setLatestDeviceResponse({ deviceLocked: true } as any);
+          return;
+        }
         ledgerNavigate.toErrorStep();
       },
     });

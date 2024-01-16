@@ -2,7 +2,6 @@
 import {
   Component,
   ComponentType,
-  ErrorInfo,
   FunctionComponent,
   PropsWithChildren,
   PropsWithRef,
@@ -84,7 +83,7 @@ class ErrorBoundary extends Component<
     this.setState(initialState);
   }
 
-  componentDidCatch(error: Error, info: ErrorInfo) {
+  componentDidCatch(error: Error, info: any) {
     this.props.onError?.(error, info);
   }
 
