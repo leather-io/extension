@@ -2,8 +2,8 @@ import { Box, HStack, styled } from 'leather-styles/jsx';
 
 import { noop } from '@shared/utils';
 
-import { Tooltip } from '@app/components/tooltip';
 import { LeatherButton } from '@app/ui/components/button';
+import { BasicTooltip } from '@app/ui/components/tooltip/basic-tooltip';
 
 import { SelectAssetTriggerButton } from './select-asset-trigger-button';
 import { SelectedAsset } from './selected-asset';
@@ -73,7 +73,7 @@ export function SwapSelectedAssetLayout({
       />
       {caption ? (
         <HStack alignItems="center" justifyContent="space-between">
-          <Tooltip label={tooltipLabel} maxWidth="160px" placement="bottom">
+          <BasicTooltip label={tooltipLabel} side="bottom">
             <styled.span
               color={captionTextColor}
               cursor={tooltipLabel ? 'pointer' : 'unset'}
@@ -81,7 +81,7 @@ export function SwapSelectedAssetLayout({
             >
               {showError ? error : caption}
             </styled.span>
-          </Tooltip>
+          </BasicTooltip>
           <LeatherButton
             _focus={{ _before: { color: 'unset' } }}
             cursor={onClickHandler ? 'pointer' : 'unset'}

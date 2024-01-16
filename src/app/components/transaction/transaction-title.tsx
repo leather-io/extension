@@ -2,7 +2,7 @@ import { useRef, useState } from 'react';
 
 import { useOnResizeListener } from '@app/common/hooks/use-on-resize-listener';
 import { spamFilter } from '@app/common/utils/spam-filter';
-import { Tooltip } from '@app/components/tooltip';
+import { BasicTooltip } from '@app/ui/components/tooltip/basic-tooltip';
 import { Title } from '@app/ui/components/typography/title';
 
 interface TransactionTitleProps {
@@ -20,7 +20,7 @@ export function TransactionTitle(props: TransactionTitleProps) {
   useOnResizeListener(onResize);
 
   return (
-    <Tooltip disabled={!isEllipsisActive} label={title} placement="top">
+    <BasicTooltip disabled={!isEllipsisActive} label={title} side="top">
       <Title
         fontWeight="normal"
         overflow="hidden"
@@ -30,6 +30,6 @@ export function TransactionTitle(props: TransactionTitleProps) {
       >
         {spamFilter(title)}
       </Title>
-    </Tooltip>
+    </BasicTooltip>
   );
 }

@@ -6,8 +6,8 @@ import { formatBalance } from '@app/common/format-balance';
 import { AssetCaption } from '@app/components/crypto-assets/components/asset-caption';
 import { usePressable } from '@app/components/item-hover';
 import { Flag } from '@app/components/layout/flag';
-import { Tooltip } from '@app/components/tooltip';
 import { Brc20TokenIcon } from '@app/ui/components/icons/brc20-token-icon';
+import { BasicTooltip } from '@app/ui/components/tooltip/basic-tooltip';
 
 interface Brc20TokenAssetItemLayoutProps extends BoxProps {
   balance: Money;
@@ -41,14 +41,14 @@ export function Brc20TokenAssetItemLayout({
           >
             {title}
           </styled.span>
-          <Tooltip
+          <BasicTooltip
             label={formattedBalance.isAbbreviated ? balance.amount.toString() : undefined}
-            placement="left-start"
+            side="left"
           >
             <styled.span data-testid={title} textStyle="label.01">
               {formattedBalance.value}
             </styled.span>
-          </Tooltip>
+          </BasicTooltip>
         </HStack>
         <HStack alignItems="center" justifyContent="space-between" height="1.25rem" width="100%">
           <AssetCaption caption={caption} />
