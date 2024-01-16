@@ -52,10 +52,7 @@ export function InputField({ dataTestId, name, onPaste, onChange, value }: Input
           },
         },
         '&[data-state=error]': {
-          _before: {
-            ...psuedoBorderStyles,
-            border: 'error',
-          },
+          _before: { ...psuedoBorderStyles, border: 'error' },
         },
         /**
          * Focus styling:

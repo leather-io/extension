@@ -42,7 +42,6 @@ export function Home() {
           <Route path={RouteUrls.Activity} element={<ActivityList />}>
             {homePageModalRoutes}
           </Route>
-
           {homePageModalRoutes}
         </ModalBackgroundWrapper>
       </HomeTabs>
