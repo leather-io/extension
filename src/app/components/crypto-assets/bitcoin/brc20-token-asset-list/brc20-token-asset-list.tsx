@@ -4,10 +4,10 @@ import { RouteUrls } from '@shared/route-urls';
 import { noop } from '@shared/utils';
 
 import { Brc20TokenAssetItem } from '@app/components/crypto-assets/bitcoin/brc20-token-asset-list/components/brc20-token-asset-item';
-import { Tooltip } from '@app/components/tooltip';
 import { useNativeSegwitBalance } from '@app/query/bitcoin/balance/btc-native-segwit-balance.hooks';
 import { Brc20Token } from '@app/query/bitcoin/ordinals/brc20/brc20-tokens.query';
 import { useCurrentAccountNativeSegwitAddressIndexZero } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
+import { BasicTooltip } from '@app/ui/components/tooltip/basic-tooltip';
 
 import { Brc20AssetListLayout } from './components/brc20-token-asset-list.layout';
 
@@ -31,19 +31,18 @@ export function Brc20TokenAssetList(props: { brc20Tokens?: Brc20Token[] }) {
   return (
     <Brc20AssetListLayout>
       {props.brc20Tokens?.map(token => (
-        <Tooltip
+        <BasicTooltip
           disabled={hasPositiveBtcBalanceForFees}
           key={token.tick}
-          placement="top"
+          side="top"
           label={'Not enough BTC in balance'}
-          hideOnClick={false}
         >
           <Brc20TokenAssetItem
             token={token}
             isPressable={hasPositiveBtcBalanceForFees}
             onClick={hasPositiveBtcBalanceForFees ? () => navigateToBrc20SendForm(token) : noop}
           />
-        </Tooltip>
+        </BasicTooltip>
       ))}
     </Brc20AssetListLayout>
   );

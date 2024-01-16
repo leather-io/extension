@@ -7,8 +7,8 @@ import { CryptoCurrencies } from '@shared/models/currencies.model';
 import { useLocationStateWithCache } from '@app/common/hooks/use-location-state';
 import { useRouteHeader } from '@app/common/hooks/use-route-header';
 import { ModalHeader } from '@app/components/modal-header';
-import { Tooltip } from '@app/components/tooltip';
 import { InfoIcon } from '@app/ui/components/icons/info-icon';
+import { BasicTooltip } from '@app/ui/components/tooltip/basic-tooltip';
 
 import { useStacksBroadcastTransaction } from '../../family/stacks/hooks/use-stacks-broadcast-transaction';
 import { useStacksTransactionSummary } from '../../family/stacks/hooks/use-stacks-transaction-summary';
@@ -56,18 +56,18 @@ export function StacksSendFormConfirmation() {
   );
 
   const feeWarningTooltip = showFeeChangeWarning ? (
-    <Tooltip
+    <BasicTooltip
       label={
         'You are using a nonce for this transaction that is already pending. The fee has been increased so that it is exactly high enough to replace the pending transaction with the same nonce.'
       }
-      placement="bottom"
+      side="bottom"
     >
       <Stack>
         <Box>
           <InfoIcon color="accent.text-subdued" />
         </Box>
       </Stack>
-    </Tooltip>
+    </BasicTooltip>
   ) : null;
 
   return (

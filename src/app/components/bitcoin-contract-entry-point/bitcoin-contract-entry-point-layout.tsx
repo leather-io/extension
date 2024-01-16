@@ -5,7 +5,7 @@ import { Money } from '@shared/models/money.model';
 import { formatBalance } from '@app/common/format-balance';
 import { ftDecimals } from '@app/common/stacks-utils';
 import { Flag } from '@app/components/layout/flag';
-import { Tooltip } from '@app/components/tooltip';
+import { BasicTooltip } from '@app/ui/components/tooltip/basic-tooltip';
 
 import { LoadingSpinner } from '../loading-spinner';
 
@@ -33,14 +33,14 @@ export function BitcoinContractEntryPointLayout(props: BitcoinContractEntryPoint
       <Flag align="middle" img={icon} spacing="space.04" width="100%">
         <HStack alignItems="center" justifyContent="space-between" width="100%">
           <styled.span textStyle="label.01">Bitcoin Contracts</styled.span>
-          <Tooltip
+          <BasicTooltip
             label={formattedBalance.isAbbreviated ? balance.amount.toString() : undefined}
-            placement="left-start"
+            side="left"
           >
             <styled.span textStyle="label.01">
               {isLoading ? <LoadingSpinner size="sm" /> : formattedBalance.value}
             </styled.span>
-          </Tooltip>
+          </BasicTooltip>
         </HStack>
         <HStack alignItems="center" justifyContent="space-between" width="100%">
           <styled.span textStyle="caption.02">{caption}</styled.span>

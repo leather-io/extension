@@ -3,8 +3,6 @@ import { defineGlobalStyles } from '@pandacss/dev';
 import { fullPageStyles } from './full-page-styles';
 import { popupCenterStyles } from './popup-center-styles';
 import { popupStyles } from './popup-styles';
-import { tippyStyles } from './tippy-styles';
-
 // ts-unused-exports:disable-next-line
 export const globalCss = defineGlobalStyles({
   'html, body': {
@@ -26,5 +24,4 @@ export const globalCss = defineGlobalStyles({
   ...fullPageStyles,
   ...popupStyles,
   ...popupCenterStyles,
-  ...tippyStyles,
 });

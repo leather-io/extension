@@ -2,10 +2,10 @@ import { Box, HStack, styled } from 'leather-styles/jsx';
 
 import { useClipboard } from '@app/common/hooks/use-copy-to-clipboard';
 import { Flag } from '@app/components/layout/flag';
-import { Tooltip } from '@app/components/tooltip';
 import { LeatherButton } from '@app/ui/components/button';
 import { BtcIcon } from '@app/ui/components/icons/btc-icon';
 import { CopyIcon } from '@app/ui/components/icons/copy-icon';
+import { BasicTooltip } from '@app/ui/components/tooltip/basic-tooltip';
 
 interface PsbtAddressTotalItemProps {
   hoverLabel?: string;
@@ -45,20 +45,17 @@ export function PsbtAddressTotalItem({
             <styled.span mr="space.01" textStyle="caption.01">
               {subtitle}
             </styled.span>
-            <Tooltip
+            <BasicTooltip
               disabled={!hoverLabel}
-              hideOnClick={false}
               label={hasCopied ? 'Copied!' : hoverLabel}
-              labelProps={{ wordWrap: 'break-word' }}
-              maxWidth="230px"
-              placement="bottom"
+              side="bottom"
             >
               <Box display="flex" height="16px">
                 <LeatherButton onClick={onCopy} variant="text">
                   {hoverLabel ? <CopyIcon /> : null}
                 </LeatherButton>
               </Box>
-            </Tooltip>
+            </BasicTooltip>
           </HStack>
         ) : null}
         {subValue ? (

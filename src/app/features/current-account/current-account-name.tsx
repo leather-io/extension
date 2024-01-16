@@ -6,8 +6,8 @@ import { Box, BoxProps, styled } from 'leather-styles/jsx';
 import { HasChildren } from '@app/common/has-children';
 import { useCurrentAccountDisplayName } from '@app/common/hooks/account/use-account-names';
 import { truncateString } from '@app/common/utils';
-import { Tooltip } from '@app/components/tooltip';
 import { useCurrentStacksAccount } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
+import { BasicTooltip } from '@app/ui/components/tooltip/basic-tooltip';
 
 function AccountNameTitle({ children, ...props }: HasChildren & BoxProps) {
   return (
@@ -28,9 +28,9 @@ const AccountNameSuspense = memo((props: BoxProps) => {
   const isLong = name.length > nameCharLimit;
   const displayName = truncateString(name, nameCharLimit);
   return (
-    <Tooltip label={isLong ? name : undefined}>
+    <BasicTooltip label={isLong ? name : undefined}>
       <AccountNameTitle {...props}>{displayName}</AccountNameTitle>
-    </Tooltip>
+    </BasicTooltip>
   );
 });
 

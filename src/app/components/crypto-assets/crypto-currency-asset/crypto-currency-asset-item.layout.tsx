@@ -9,7 +9,7 @@ import { formatBalance } from '@app/common/format-balance';
 import { ftDecimals } from '@app/common/stacks-utils';
 import { usePressable } from '@app/components/item-hover';
 import { Flag } from '@app/components/layout/flag';
-import { Tooltip } from '@app/components/tooltip';
+import { BasicTooltip } from '@app/ui/components/tooltip/basic-tooltip';
 import { truncateMiddle } from '@app/ui/utils/truncate-middle';
 
 import { AssetRowGrid } from '../components/asset-row-grid';
@@ -71,14 +71,14 @@ export function CryptoCurrencyAssetItemLayout({
             </styled.span>
           }
           balance={
-            <Tooltip
+            <BasicTooltip
               label={formattedBalance.isAbbreviated ? balance.amount.toString() : undefined}
-              placement="left-start"
+              side="left"
             >
               <styled.span data-testid={title} textStyle="label.01">
                 {formattedBalance.value} {additionalBalanceInfo}
               </styled.span>
-            </Tooltip>
+            </BasicTooltip>
           }
           caption={<styled.span textStyle="caption.02">{caption}</styled.span>}
           usdBalance={
