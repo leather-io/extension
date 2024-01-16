@@ -1,3 +1,35 @@
+## [6.23.0](https://github.com/leather-wallet/extension/compare/v6.22.0...v6.23.0) (2024-01-16)
+
+
+### Features
+
+* improve error handling in ledger, surface incorrect app error ([5bff514](https://github.com/leather-wallet/extension/commit/5bff514db064ce145b52d72eadc8bbf6d24e519b))
+* prompt user to open the app ([f672bec](https://github.com/leather-wallet/extension/commit/f672becf668fe2f67b2a55c02e3d6dfdad55ccd4))
+
+
+### Bug Fixes
+
+* add remote config to recover feature ([84a10dc](https://github.com/leather-wallet/extension/commit/84a10dcc2d84fc3c1ac17c16dae7e2c67415f03c))
+* duplicate keys error ([77dc018](https://github.com/leather-wallet/extension/commit/77dc018286402c3f2ff7de369d92840d91bba602))
+* lint for deps ([42179de](https://github.com/leather-wallet/extension/commit/42179de5e4bf82cfe821bc0e1d080cad7a7e7eed))
+* remove fee title in increase fee form ([0de3900](https://github.com/leather-wallet/extension/commit/0de39009995aca8e6b809c759e9005f09b8ff970))
+* track error codes ([227f6ee](https://github.com/leather-wallet/extension/commit/227f6ee10b06f420e4061551a284202ff5c059fe))
+* **ui:** rebuild tabs with radix primitives, ref [#4309](https://github.com/leather-wallet/extension/issues/4309) ([3b0488e](https://github.com/leather-wallet/extension/commit/3b0488e7ba694216f92013c13e9d7a0cb7880e80))
+* unused exports ([3fff31d](https://github.com/leather-wallet/extension/commit/3fff31d783722aa96131897105d18307289b4127))
+
+
+### Internal
+
+* add improved sentry perf tracking ([8b96e9a](https://github.com/leather-wallet/extension/commit/8b96e9a4fbc7262026bee545186694e2e2565733))
+* check instance of error before passing it to checkLockedDeviceError ([e342642](https://github.com/leather-wallet/extension/commit/e3426422e535601d5ae7d38d49b1e8c6f58cc4f5))
+* post-release merge back ([2eaa09f](https://github.com/leather-wallet/extension/commit/2eaa09f7797e01f358a78d96f7498851270f1199))
+* quit app ourselves instead of prompting user to do it ([35c2ff1](https://github.com/leather-wallet/extension/commit/35c2ff13a87c4b35037fdbadc5e9dd0b4a8cdb15))
+* remove unneeded radix styles ([6808536](https://github.com/leather-wallet/extension/commit/6808536ee67df8ba27a55539a00ab83e1548c998))
+* reuse getAppAndVersion from bitcoin app instance method ([e894808](https://github.com/leather-wallet/extension/commit/e8948085fa176dde7960212ce97d962604de2128))
+* select and dropdown, ref [#4798](https://github.com/leather-wallet/extension/issues/4798) ([a82457d](https://github.com/leather-wallet/extension/commit/a82457d8f04e94b696fe4b54edbd8981f311c353))
+* token radii and keyframe, ref [#4637](https://github.com/leather-wallet/extension/issues/4637) ([e67b61d](https://github.com/leather-wallet/extension/commit/e67b61d5c27cd4129415aa63e1fa49e30efdb5ae))
+* update panda ([2418a1c](https://github.com/leather-wallet/extension/commit/2418a1c9cb4a1310b588c673a76f7aa549ad35d2))
+
 ## [6.22.0](https://github.com/leather-wallet/extension/compare/v6.21.2...v6.22.0) (2024-01-09)
 
 
