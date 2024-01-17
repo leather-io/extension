@@ -99,7 +99,7 @@ export const buttonRecipe = defineRecipe({
 
       // Ghost button
       ghost: {
-        _hover: { bg: 'brown.2' },
+        _hover: { bg: 'accent.component-background-hover' },
         _focus: { _before: { border: '2px solid', borderColor: 'blue.500' } },
         ...loadingStyles('brown.12'),
       },
