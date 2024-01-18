@@ -7,6 +7,7 @@ import { Box, Flex, styled } from 'leather-styles/jsx';
 import { ValidatedPassword } from '@app/common/validation/validate-password';
 import { EyeIcon } from '@app/ui/components/icons/eye-icon';
 import { EyeSlashIcon } from '@app/ui/components/icons/eye-slash-icon';
+import { Input } from '@app/ui/components/input/input';
 import { Caption } from '@app/ui/components/typography/caption';
 
 import { getIndicatorsOfPasswordStrength } from './password-field.utils';
@@ -28,38 +29,33 @@ export function PasswordField({ strengthResult, isDisabled }: PasswordFieldProps
   return (
     <>
       <Box position="relative">
-        <styled.input
-          _focus={{ border: 'focus' }}
-          autoCapitalize="off"
-          autoComplete="off"
-          autoFocus
-          border="active"
-          borderRadius="sm"
-          data-testid={OnboardingSelectors.NewPasswordInput}
-          disabled={isDisabled}
-          height="64px"
-          key="password-input"
-          p="space.04"
-          placeholder="Set a password"
-          ring="none"
-          type={showPassword ? 'text' : 'password'}
-          textStyle="body.02"
-          width="100%"
-          {...field}
-        />
+        <Input.Root>
+          <Input.Label>Password</Input.Label>
+          <Input.Field
+            autoCapitalize="off"
+            autoComplete="off"
+            autoFocus
+            data-testid={OnboardingSelectors.NewPasswordInput}
+            disabled={isDisabled}
+            key="password-input"
+            type={showPassword ? 'text' : 'password'}
+            width="100%"
+            {...field}
+          />
+        </Input.Root>
         <styled.button
-          _focus={{ bg: 'transparent', boxShadow: 'none' }}
-          _hover={{ bg: 'transparent', boxShadow: 'none' }}
+          _focus={{ bg: 'transparent', outline: 'none' }}
+          _hover={{ bg: 'transparent', outline: 'none' }}
           bg="transparent"
-          boxShadow="none"
+          appearance="none"
           height="20px"
           onClick={() => setShowPassword(!showPassword)}
           position="absolute"
           right="space.04"
-          top="20px"
-          transform="matrix(-1, 0, 0, 1, 0, 0)"
+          top="22px"
           type="button"
           width="20px"
+          zIndex={10}
         >
           {showPassword ? <EyeSlashIcon /> : <EyeIcon />}
         </styled.button>
