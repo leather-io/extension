@@ -137,7 +137,7 @@ function SetPasswordPage() {
                 <styled.p textStyle={['label.01', 'heading.05']} mb="space.06">
                   Your password protects your Secret Key on this device only.
                 </styled.p>
-                <styled.p textStyle="body.02" color="brown.10">
+                <styled.p textStyle="body.02" color="ink.10">
                   You'll need just your Secret Key to access your wallet on another device, or this
                   one if you lose your password.
                 </styled.p>

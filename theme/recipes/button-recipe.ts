@@ -68,52 +68,52 @@ export const buttonRecipe = defineRecipe({
     variant: {
       // Solid button
       solid: {
-        bg: 'brown.12',
-        color: 'brown.1',
-        _hover: { bg: 'brown.10' },
-        _active: { bg: 'brown.12' },
+        bg: 'ink.12',
+        color: 'ink.1',
+        _hover: { bg: 'ink.10' },
+        _active: { bg: 'ink.12' },
         _disabled: {
           _hover: {
-            bg: 'brown.6',
+            bg: 'ink.6',
           },
-          bg: 'brown.6',
+          bg: 'ink.6',
           color: 'white',
         },
         ...focusStyles,
-        ...loadingStyles('brown.2'),
+        ...loadingStyles('ink.2'),
       },
 
       // Outline button
       outline: {
-        _hover: { bg: 'brown.3' },
+        _hover: { bg: 'ink.3' },
         _focus: {
           _before: { border: '2px solid', borderColor: 'blue.500' },
         },
         _before: {
           ...basePesudoOutlineProps,
           border: '1px solid',
-          borderColor: 'brown.12',
+          borderColor: 'ink.12',
         },
-        ...loadingStyles('brown.12'),
+        ...loadingStyles('ink.12'),
       },
 
       // Ghost button
       ghost: {
         _hover: { bg: 'accent.component-background-hover' },
         _focus: { _before: { border: '2px solid', borderColor: 'blue.500' } },
-        ...loadingStyles('brown.12'),
+        ...loadingStyles('ink.12'),
       },
 
       // Link button
       link: {
         appearance: 'none',
         pos: 'relative',
-        color: 'brown.12',
+        color: 'ink.12',
         display: 'inline',
         p: 'unset',
         textAlign: 'left',
-        _hover: { color: 'brown.8' },
-        _active: { color: 'brown.8' },
+        _hover: { color: 'ink.8' },
+        _active: { color: 'ink.8' },
         _focus: {
           outline: 0,
           _before: { color: 'blue.500' },
@@ -128,8 +128,8 @@ export const buttonRecipe = defineRecipe({
           background: 'currentColor',
         },
         _disabled: {
-          color: 'brown.6',
-          _hover: { color: 'brown.6' },
+          color: 'ink.6',
+          _hover: { color: 'ink.6' },
         },
       },
 
@@ -137,15 +137,15 @@ export const buttonRecipe = defineRecipe({
       text: {
         appearance: 'none',
         pos: 'relative',
-        color: 'brown.12',
+        color: 'ink.12',
         display: 'inline',
         p: 'unset',
         textAlign: 'left',
-        _hover: { color: 'brown.8' },
-        _active: { color: 'brown.8' },
+        _hover: { color: 'ink.8' },
+        _active: { color: 'ink.8' },
         _disabled: {
-          color: 'brown.6',
-          _hover: { color: 'brown.6' },
+          color: 'ink.6',
+          _hover: { color: 'ink.6' },
         },
       },
     },
@@ -168,30 +168,30 @@ export const buttonRecipe = defineRecipe({
       variant: 'solid',
       invert: true,
       css: {
-        bg: 'brown.2',
-        color: 'brown.12',
-        _hover: { bg: 'brown.1' },
-        _active: { bg: 'brown.4' },
-        _loading: { _after: { borderColor: 'brown.12' } },
+        bg: 'ink.2',
+        color: 'ink.12',
+        _hover: { bg: 'ink.1' },
+        _active: { bg: 'ink.4' },
+        _loading: { _after: { borderColor: 'ink.12' } },
       },
     },
     {
       variant: 'outline',
       invert: true,
       css: {
-        color: 'brown.2',
-        _before: { borderColor: 'brown.2' },
-        _hover: { bg: 'brown.10' },
-        _active: { bg: 'brown.12' },
-        _loading: { _after: { borderColor: 'brown.12' } },
+        color: 'ink.2',
+        _before: { borderColor: 'ink.2' },
+        _hover: { bg: 'ink.10' },
+        _active: { bg: 'ink.12' },
+        _loading: { _after: { borderColor: 'ink.12' } },
       },
     },
     {
       variant: 'link',
       invert: true,
       css: {
-        color: 'brown.2',
-        _hover: { color: 'brown.5' },
+        color: 'ink.2',
+        _hover: { color: 'ink.5' },
       },
     },
   ],
