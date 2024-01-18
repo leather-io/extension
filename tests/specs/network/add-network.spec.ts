@@ -13,6 +13,7 @@ test.describe('Networks tests', () => {
   });
 
   test('validation error when stacks api url is empty', async ({ networkPage }) => {
+    await networkPage.inputNetworkNameField('Test network');
     await networkPage.inputNetworkStacksAddressField('');
     await networkPage.inputNetworkBitcoinAddressField('https://mempool.space/testnet/api');
     await networkPage.inputNetworkKeyField('test-network');
@@ -24,7 +25,16 @@ test.describe('Networks tests', () => {
     test.expect(errorMessage).toEqual(NetworkSelectors.EmptyStacksAddressError);
   });
 
+  test('validation error when name is empty', async ({ networkPage }) => {
+    await networkPage.clickAddNetwork();
+    await networkPage.waitForErrorMessage();
+
+    const errorMsgElement = await networkPage.getErrorMessage();
+    const errorMessage = await errorMsgElement.innerText();
+    test.expect(errorMessage).toEqual(NetworkSelectors.EmptyNameError);
+  });
   test('validation error when key is empty', async ({ networkPage }) => {
+    await networkPage.inputNetworkNameField('Test network');
     await networkPage.clickAddNetwork();
     await networkPage.waitForErrorMessage();
 
@@ -34,6 +44,7 @@ test.describe('Networks tests', () => {
   });
 
   test('validation error when bitcoin api url is empty', async ({ networkPage }) => {
+    await networkPage.inputNetworkNameField('Test network');
     await networkPage.inputNetworkBitcoinAddressField('');
     await networkPage.inputNetworkKeyField('test-network');
     await networkPage.clickAddNetwork();
@@ -45,6 +56,7 @@ test.describe('Networks tests', () => {
   });
 
   test('unable to fetch info from stacks node', async ({ networkPage }) => {
+    await networkPage.inputNetworkNameField('Test network');
     await networkPage.inputNetworkStacksAddressField('https://www.google.com/');
     await networkPage.inputNetworkKeyField('test-network');
     await networkPage.clickAddNetwork();
@@ -56,6 +68,7 @@ test.describe('Networks tests', () => {
   });
 
   test('unable to fetch mempool from bitcoin node', async ({ networkPage }) => {
+    await networkPage.inputNetworkNameField('Test network');
     await networkPage.inputNetworkBitcoinAddressField('https://www.google.com/');
     await networkPage.inputNetworkKeyField('test-network');
     await networkPage.clickAddNetwork();
