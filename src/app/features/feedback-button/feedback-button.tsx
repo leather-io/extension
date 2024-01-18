@@ -12,6 +12,10 @@ export function openFeedbackDialog() {
   const client = getCurrentHub().getClient<BrowserClient>();
   const feedback = client?.getIntegration(Feedback);
   if (!feedback) return;
+
+  feedback.createWidget({
+    showEmail: true,
+  });
   feedback.openDialog();
 }
 
