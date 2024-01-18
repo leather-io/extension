@@ -19,8 +19,8 @@ export function FeedbackButton() {
   const { theme } = useThemeSwitcher();
   return (
     <LeatherButton
-      background="brown.1"
-      _hover={{ background: 'brown.2' }}
+      background="ink.1"
+      _hover={{ background: 'ink.2' }}
       variant="ghost"
       size="sm"
       pos="fixed"

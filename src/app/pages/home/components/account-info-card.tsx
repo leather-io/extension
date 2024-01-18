@@ -23,7 +23,7 @@ export function AccountInfoCard() {
   return (
     <Flex
       direction="column"
-      bgColor={{ base: 'brown.2', sm: 'unset' }}
+      bgColor={{ base: 'ink.2', sm: 'unset' }}
       rounded="sm"
       px={{ base: 'space.05', sm: '0' }}
       pt={{ base: 'space.05', sm: 'space.06' }}

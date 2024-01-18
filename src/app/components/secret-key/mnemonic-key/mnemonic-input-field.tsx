@@ -34,17 +34,8 @@ export function InputField({ dataTestId, name, onPaste, onChange, value }: Input
   const [field, meta] = useField(name);
   const [isFocused, setIsFocused] = useState(false);
   const isDirty = useIsFieldDirty(name);
-
   return (
     <TextField.Root
-      /**
-       * Focus styling:
-       * radix inserts a <div inside the root with .rt-TextFieldChrome
-       * onFocus - this adds an unwanted box-shadow
-       * setting color="brown" makes this transparent
-       * then focus border can be controlled more easily
-       */
-      color="brown"
       data-state={isDirty && meta.error ? 'error' : undefined}
       className={css({
         borderRadius: 'sm',
@@ -66,9 +57,24 @@ export function InputField({ dataTestId, name, onPaste, onChange, value }: Input
             border: 'error',
           },
         },
+        /**
+         * Focus styling:
+         * radix inserts a <div inside the root with .rt-TextFieldChrome
+         * onFocus - this adds an unwanted box-shadow
+         * setting outline: 'none' removes this
+         * then focus border can be controlled more easily
+         */
+        '& .rt-TextFieldChrome': {
+          outline: 'none',
+        },
       })}
     >
-      <TextField.Slot className={css({ padding: 'space.00', marginRight: 'space.01' })}>
+      <TextField.Slot
+        className={css({
+          padding: 'space.00',
+          marginRight: 'space.01',
+        })}
+      >
         <styled.span textStyle="label.01" color="accent.text-subdued">{`${name}.`}</styled.span>
       </TextField.Slot>
       <TextField.Input
