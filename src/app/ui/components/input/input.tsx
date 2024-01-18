@@ -1,5 +1,6 @@
 import {
   type ComponentProps,
+  LegacyRef,
   createContext,
   forwardRef,
   useContext,
@@ -12,6 +13,7 @@ import { sva } from 'leather-styles/css';
 import { SystemStyleObject } from 'leather-styles/types';
 
 import { useOnMount } from '@app/common/hooks/use-on-mount';
+import { propIfDefined } from '@app/common/utils';
 import { createStyleContext } from '@app/ui/utils/style-context';
 
 const hackyDelayOneMs = 1;
@@ -32,30 +34,20 @@ const input = sva({
       p: 'space.04',
       ring: 'none',
       textStyle: 'body.02',
-      minW: '220px',
       zIndex: 4,
       color: 'accent.text-subdued',
       _before: {
         content: '""',
-        // TODO: outdated design system file
-        rounded: '2px',
+        rounded: 'xs',
         pos: 'absolute',
-        top: 0,
-        left: 0,
-        right: 0,
-        bottom: 0,
-        border: 'default',
-        borderColor: 'accent.border-hover',
+        top: '-1px',
+        left: '-1px',
+        right: '-1px',
+        bottom: '-1px',
+        border: '3px solid transparent',
+        zIndex: 9,
+        pointerEvents: 'none',
       },
-      '&[data-has-error]': {
-        color: 'error.label',
-        _before: {
-          borderColor: 'error.label',
-          borderWidth: '2px',
-        },
-      },
-      // Move the input's label to the top when the input has a value
-      '&[data-has-value="true"] label': transformedLabelStyles,
       _focusWithin: {
         '& label': { color: 'accent.text-primary', ...transformedLabelStyles },
         _before: {
@@ -63,13 +55,19 @@ const input = sva({
           borderWidth: '2px',
         },
       },
+      '&[data-has-error="true"]': {
+        color: 'error.label',
+        _before: {
+          borderColor: 'error.label',
+          borderWidth: '2px',
+        },
+      },
     },
     input: {
       background: 'transparent',
       appearance: 'none',
+      rounded: 'xs',
       pos: 'absolute',
-      pt: '22px',
-      pb: '4px',
       px: 'space.04',
       top: 0,
       left: 0,
@@ -78,12 +76,20 @@ const input = sva({
       zIndex: 5,
       textStyle: 'body.01',
       color: 'accent.text-primary',
+      border: '1px solid',
+      borderColor: 'accent.border-hover',
       _disabled: {
-        bg: 'accent.background-secondary',
+        bg: 'accent.component-background-default',
+        borderColor: 'accent.non-interactive',
         cursor: 'not-allowed',
       },
       _focus: { ring: 'none' },
+      _placeholder: { color: 'accent.text-subdued' },
       '&:placeholder-shown + label': transformedLabelStyles,
+      '[data-has-label="true"] &': {
+        pt: '22px',
+        pb: '4px',
+      },
     },
     label: {
       pointerEvents: 'none',
@@ -93,16 +99,26 @@ const input = sva({
       zIndex: 9,
       color: 'inherit',
       textStyle: 'body.02',
-      transition: 'all 100ms ease-in-out',
+      transition: 'font-size 100ms ease-in-out, transform 100ms ease-in-out',
+      // Move the input's label to the top when the input has a value
+      '[data-has-value="true"] &': transformedLabelStyles,
+      '[data-shrink="true"] &': transformedLabelStyles,
     },
   },
 });
 
+type InputChldren = 'root' | 'label' | 'input';
+
 const { withProvider, withContext } = createStyleContext(input);
 
-const InputContext = createContext<null | { hasValue: boolean; setHasValue(x: boolean): void }>(
-  null
-);
+interface InputContextProps {
+  hasValue: boolean;
+  setHasValue(hasValue: boolean): void;
+  registerChild(child: string): void;
+  children: InputChldren[];
+}
+
+const InputContext = createContext<InputContextProps | null>(null);
 
 function useInputContext() {
   const context = useContext(InputContext);
@@ -112,18 +128,39 @@ function useInputContext() {
 
 const RootBase = withProvider('div', 'root');
 
-function Root(props: ComponentProps<'div'>) {
+interface RootProps extends ComponentProps<'div'> {
+  hasError?: boolean;
+  /**
+   * Display the label in a top fixed position. Often necessary when
+   * programmatically updating inputs, similar to issues described here
+   * https://mui.com/material-ui/react-text-field/#limitations
+   */
+  shrink?: boolean;
+}
+function Root({ hasError, shrink, ...props }: RootProps) {
   const [hasValue, setHasValue] = useState(false);
+  const [children, setChildren] = useState<InputChldren[]>(['root']);
+
+  function registerChild(child: InputChldren) {
+    setChildren(children => [...children, child]);
+  }
+
+  const dataAttrs = {
+    ...propIfDefined('data-has-error', hasError),
+    ...propIfDefined('data-shrink', shrink),
+    'data-has-label': children.includes('label'),
+  };
+
   return (
-    <InputContext.Provider value={{ hasValue, setHasValue }}>
-      <RootBase data-has-value={hasValue} {...props} />
+    <InputContext.Provider value={{ hasValue, setHasValue, children, registerChild }}>
+      <RootBase data-has-value={hasValue} {...dataAttrs} {...props} />
     </InputContext.Provider>
   );
 }
 
 const FieldBase = withContext('input', 'input');
 
-const Field = forwardRef((props: ComponentProps<'input'>, ref) => {
+const Field = forwardRef(({ type, ...props }: ComponentProps<'input'>, ref) => {
   const { setHasValue } = useInputContext();
   const innerRef = useRef<HTMLInputElement | null>(null);
 
@@ -140,9 +177,18 @@ const Field = forwardRef((props: ComponentProps<'input'>, ref) => {
       }, hackyDelayOneMs)
   );
 
+  // `type=number` is bad UX, instead we follow guidance here
+  // https://mui.com/material-ui/react-text-field/#type-quot-number-quot
+  // https://technology.blog.gov.uk/2020/02/24/why-the-gov-uk-design-system-team-changed-the-input-type-for-numbers/
+  const inputTypeProps =
+    type === 'number'
+      ? ({ type: 'text', inputMode: 'numeric', pattern: '[0-9]*' } as const)
+      : { type };
+
   return (
     <FieldBase
       ref={innerRef}
+      {...inputTypeProps}
       {...props}
       onInput={e => {
         // Note: this logic to determine if the field is empty may have to be
@@ -158,6 +204,12 @@ const Field = forwardRef((props: ComponentProps<'input'>, ref) => {
   );
 });
 
-const Label = withContext('label', 'label');
+const LabelBase = withContext('label', 'label');
+
+const Label = forwardRef((props: ComponentProps<'label'>, ref: LegacyRef<HTMLLabelElement>) => {
+  const { registerChild } = useInputContext();
+  useOnMount(() => registerChild('label'));
+  return <LabelBase ref={ref} {...props} />;
+});
 
 export const Input = { Root, Field, Label };

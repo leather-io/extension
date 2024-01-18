@@ -29,11 +29,32 @@ export const Error: Story = {
   ),
 };
 
+export const Disabled: Story = {
+  render: () => (
+    <Input.Root>
+      <Input.Label>Field is disabled</Input.Label>
+      <Input.Field disabled type="text" />
+    </Input.Root>
+  ),
+};
+
 export const DefaultValue: Story = {
   render: () => (
     <Input.Root>
       <Input.Label>Description</Input.Label>
-      <Input.Field value="This is a default value" type="text" />
+      <Input.Field defaultValue="This is a default value" type="text" />
+    </Input.Root>
+  ),
+};
+
+/**
+ * Layout needs to be adjusted in case where there's no label provided
+ * An example of this is our Secret Key input form
+ */
+export const InputNoLabel: Story = {
+  render: () => (
+    <Input.Root>
+      <Input.Field defaultValue="This is a default value" type="text" />
     </Input.Root>
   ),
 };
