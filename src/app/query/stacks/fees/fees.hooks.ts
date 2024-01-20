@@ -2,7 +2,6 @@ import { useMemo } from 'react';
 
 import { StacksTransaction } from '@stacks/transactions';
 
-import { logger } from '@shared/logger';
 import { FeeCalculationTypes, Fees } from '@shared/models/fees/fees.model';
 import { StacksFeeEstimate, StacksTxFeeEstimation } from '@shared/models/fees/stacks-fees.model';
 import { Money, createMoney } from '@shared/models/money.model';
@@ -16,45 +15,22 @@ import {
 import { useGetStacksTransactionFeeEstimationQuery } from '@app/query/stacks/fees/fees.query';
 
 import {
+  defaultFeesMaxValuesAsMoney,
+  defaultFeesMinValuesAsMoney,
+  defaultStacksFees,
+  feeEstimationQueryFailedSilently,
   getDefaultSimulatedFeeEstimations,
   getEstimatedUnsignedStacksTxByteLength,
   getFeeEstimationsWithCappedValues,
   getSerializedUnsignedStacksTxPayload,
 } from './fees.utils';
 
-const defaultFeesMaxValues = [
-  createMoney(500000, 'STX'),
-  createMoney(750000, 'STX'),
-  createMoney(2000000, 'STX'),
-];
-export const defaultFeesMinValues = [
-  createMoney(2500, 'STX'),
-  createMoney(3000, 'STX'),
-  createMoney(3500, 'STX'),
-];
-
-const defaultStacksFeeEstimates: StacksFeeEstimate[] = [
-  { fee: defaultFeesMinValues[0], feeRate: 0 },
-  { fee: defaultFeesMinValues[1], feeRate: 0 },
-  { fee: defaultFeesMinValues[2], feeRate: 0 },
-];
-
-const defaultStacksFees: Fees = {
-  blockchain: 'stacks',
-  estimates: defaultStacksFeeEstimates,
-  calculation: FeeCalculationTypes.Default,
-};
-
-function feeEstimationQueryFailedSilently(feeEstimation: StacksTxFeeEstimation) {
-  return !!(feeEstimation && (!!feeEstimation.error || !feeEstimation.estimations.length));
-}
-
 function useFeeEstimationsMaxValues() {
   const configFeeEstimationsMaxEnabled = useConfigFeeEstimationsMaxEnabled();
   const configFeeEstimationsMaxValues = useConfigFeeEstimationsMaxValues();
 
   if (configFeeEstimationsMaxEnabled === false) return;
-  return configFeeEstimationsMaxValues || defaultFeesMaxValues;
+  return configFeeEstimationsMaxValues || defaultFeesMaxValuesAsMoney;
 }
 
 function useFeeEstimationsMinValues() {
@@ -62,7 +38,7 @@ function useFeeEstimationsMinValues() {
   const configFeeEstimationsMinValues = useConfigFeeEstimationsMinValues();
 
   if (configFeeEstimationsMinEnabled === false) return;
-  return configFeeEstimationsMinValues || defaultFeesMinValues;
+  return configFeeEstimationsMinValues || defaultFeesMinValuesAsMoney;
 }
 
 interface ParseStacksTxFeeEstimationResponseArgs {
@@ -77,7 +53,7 @@ function parseStacksTxFeeEstimationResponse({
   minValues,
   txByteLength,
 }: ParseStacksTxFeeEstimationResponseArgs): Fees {
-  if (!!feeEstimation.error) defaultStacksFees;
+  if (!!feeEstimation.error) return defaultStacksFees;
   if (txByteLength && feeEstimationQueryFailedSilently(feeEstimation)) {
     return {
       blockchain: 'stacks',
@@ -126,7 +102,6 @@ export function useCalculateStacksTxFees(unsignedTx?: StacksTransaction) {
   }, [unsignedTx]);
 
   return useGetStacksTransactionFeeEstimationQuery(txByteLength, txPayload, {
-    onError: err => logger.error('Error getting stacks tx fee estimation', { err }),
     select: resp =>
       parseStacksTxFeeEstimationResponse({
         feeEstimation: resp,

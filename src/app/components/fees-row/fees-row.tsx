@@ -3,7 +3,7 @@ import { useCallback, useEffect, useMemo, useState } from 'react';
 import { SharedComponentsSelectors } from '@tests/selectors/shared-component.selectors';
 import BigNumber from 'bignumber.js';
 import { useField } from 'formik';
-import { styled } from 'leather-styles/jsx';
+import { Box } from 'leather-styles/jsx';
 
 import { STX_DECIMALS } from '@shared/constants';
 import { FeeTypes, Fees } from '@shared/models/fees/fees.model';
@@ -115,18 +115,17 @@ export function FeesRow({
             setFieldWarning={(value: string) => setFieldWarning(value)}
           />
         ) : (
-          <styled.button
+          <Box
             onClick={() => handleSelectFeeEstimateOrCustomField(FeeTypes.Custom)}
             textAlign="right"
             width="100%"
-            type="button"
           >
             <TransactionFee
               fee={feeField.value}
               feeCurrencySymbol={feeCurrencySymbol}
               usdAmount={feeInUsd}
             />
-          </styled.button>
+          </Box>
         )
       }
       fieldWarning={fieldWarning}
