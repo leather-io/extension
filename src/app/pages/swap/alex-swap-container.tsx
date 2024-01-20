@@ -18,7 +18,7 @@ import { isDefined, isUndefined } from '@shared/utils';
 import { LoadingKeys, useLoading } from '@app/common/hooks/use-loading';
 import { useWalletType } from '@app/common/use-wallet-type';
 import { NonceSetter } from '@app/components/nonce-setter';
-import { defaultFeesMinValues } from '@app/query/stacks/fees/fees.hooks';
+import { defaultFeesMinValuesAsMoney } from '@app/query/stacks/fees/fees.utils';
 import { useCurrentStacksAccount } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
 import { useGenerateStacksContractCallUnsignedTx } from '@app/store/transactions/contract-call.hooks';
 import { useSignStacksTransaction } from '@app/store/transactions/transaction.hooks';
@@ -86,7 +86,7 @@ function AlexSwapContainer() {
     ]);
 
     onSetSwapSubmissionData({
-      fee: isSponsoredByAlex ? '0' : defaultFeesMinValues[1].amount.toString(),
+      fee: isSponsoredByAlex ? '0' : defaultFeesMinValuesAsMoney[1].amount.toString(),
       feeCurrency: values.feeCurrency,
       feeType: values.feeType,
       liquidityFee: new BigNumber(Number(lpFee)).dividedBy(oneHundredMillion).toNumber(),
