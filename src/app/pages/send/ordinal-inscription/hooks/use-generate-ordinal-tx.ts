@@ -7,7 +7,7 @@ import { OrdinalSendFormValues } from '@shared/models/form.model';
 
 import { determineUtxosForSpend } from '@app/common/transactions/bitcoin/coinselect/local-coin-selection';
 import { createCounter } from '@app/common/utils/counter';
-import { useCurrentNativeSegwitUtxos } from '@app/query/bitcoin/address/utxos-by-address.hooks';
+import { useCurrentNativeSegwitAccountSpendableUtxos } from '@app/query/bitcoin/address/utxos-by-address.hooks';
 import { TaprootUtxo } from '@app/query/bitcoin/bitcoin-client';
 import { useBitcoinScureLibNetworkConfig } from '@app/store/accounts/blockchain/bitcoin/bitcoin-keychain';
 import { useCurrentAccountNativeSegwitSigner } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
@@ -19,7 +19,7 @@ export function useGenerateUnsignedOrdinalTx(taprootInput: TaprootUtxo) {
   const createTaprootSigner = useCurrentAccountTaprootSigner();
   const createNativeSegwitSigner = useCurrentAccountNativeSegwitSigner();
   const networkMode = useBitcoinScureLibNetworkConfig();
-  const { data: nativeSegwitUtxos } = useCurrentNativeSegwitUtxos();
+  const { data: nativeSegwitUtxos } = useCurrentNativeSegwitAccountSpendableUtxos();
 
   function coverFeeFromAdditionalUtxos(values: OrdinalSendFormValues) {
     if (getAddressInfo(values.inscription.address).type === AddressType.p2wpkh) {
