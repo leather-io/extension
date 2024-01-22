@@ -2,7 +2,7 @@ import { BitcoinContractRequestSelectors } from '@tests/selectors/bitcoin-contra
 import { Box, HStack } from 'leather-styles/jsx';
 
 import { useBtcAssetBalance } from '@app/common/hooks/balance/btc/use-btc-balance';
-import { LeatherButton } from '@app/ui/components/button';
+import { Button } from '@app/ui/components/button/button';
 
 interface BitcoinContractRequestActionsProps {
   isLoading: boolean;
@@ -33,15 +33,15 @@ export function BitcoinContractRequestActions({
       zIndex={999}
     >
       <HStack mt="space.05" gap="space.04">
-        <LeatherButton
+        <Button
           data-testid={BitcoinContractRequestSelectors.BitcoinContractRejectButton}
           flexGrow={1}
           onClick={onRejectBitcoinContractOffer}
           variant="outline"
         >
           Reject
-        </LeatherButton>
-        <LeatherButton
+        </Button>
+        <Button
           aria-busy={isLoading}
           data-testid={BitcoinContractRequestSelectors.BitcoinContractAcceptButton}
           flexGrow={1}
@@ -49,7 +49,7 @@ export function BitcoinContractRequestActions({
           onClick={onAcceptBitcoinContractOffer}
         >
           Accept
-        </LeatherButton>
+        </Button>
       </HStack>
     </Box>
   );

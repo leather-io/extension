@@ -1,6 +1,6 @@
 import { Box, HStack } from 'leather-styles/jsx';
 
-import { LeatherButton } from '@app/ui/components/button';
+import { Button } from '@app/ui/components/button/button';
 
 interface PsbtRequestActionsProps {
   isLoading?: boolean;
@@ -20,12 +20,12 @@ export function PsbtRequestActions({ isLoading, onCancel, onSignPsbt }: PsbtRequ
       zIndex={999}
     >
       <HStack gap="space.04" mt="space.05">
-        <LeatherButton flexGrow={1} onClick={onCancel} variant="outline">
+        <Button flexGrow={1} onClick={onCancel} variant="outline">
           Cancel
-        </LeatherButton>
-        <LeatherButton flexGrow={1} aria-busy={isLoading} onClick={onSignPsbt}>
+        </Button>
+        <Button flexGrow={1} aria-busy={isLoading} onClick={onSignPsbt}>
           Confirm
-        </LeatherButton>
+        </Button>
       </HStack>
     </Box>
   );

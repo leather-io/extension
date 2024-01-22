@@ -8,7 +8,7 @@ import { Box } from 'leather-styles/jsx';
 import { Money } from '@shared/models/money.model';
 
 import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
-import { LeatherButton } from '@app/ui/components/button';
+import { Link } from '@app/ui/components/link/link';
 
 interface SendMaxButtonProps {
   balance: Money;
@@ -30,13 +30,8 @@ export function SendMaxButton({ balance, sendMaxBalance, ...props }: SendMaxButt
   if (sendMaxBalance === '0') return <Box height="32px" />;
 
   return (
-    <LeatherButton
-      data-testid={SendCryptoAssetSelectors.SendMaxBtn}
-      onClick={onSendMax}
-      variant="link"
-      {...props}
-    >
+    <Link data-testid={SendCryptoAssetSelectors.SendMaxBtn} onClick={onSendMax} {...props}>
       Send max
-    </LeatherButton>
+    </Link>
   );
 }

@@ -9,7 +9,6 @@ import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
 import { formatMoneyPadded } from '@app/common/money/format-money';
 import { delay } from '@app/common/utils';
 import { FormAddressDisplayer } from '@app/components/address-displayer/form-address-displayer';
-import { ExternalLink } from '@app/components/external-link';
 import { InfoCard, InfoCardRow, InfoCardSeparator } from '@app/components/info-card/info-card';
 import {
   useCurrentTaprootAccountBalance,
@@ -17,6 +16,7 @@ import {
 } from '@app/query/bitcoin/balance/btc-taproot-balance.hooks';
 import { useBitcoinBroadcastTransaction } from '@app/query/bitcoin/transaction/use-bitcoin-broadcast-transaction';
 import { useCurrentAccountNativeSegwitAddressIndexZero } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
+import { Link } from '@app/ui/components/link/link';
 import { truncateMiddle } from '@app/ui/utils/truncate-middle';
 
 import { RetrieveTaprootToNativeSegwitLayout } from './components/retrieve-taproot-to-native-segwit.layout';
@@ -66,9 +66,9 @@ export function RetrieveTaprootToNativeSegwit() {
               key={utxo.txid}
               title={`Uninscribed UTXO #${i}`}
               value={
-                <ExternalLink href={`https://ordinals.com/output/${utxo.txid}:${utxo.vout}`}>
+                <Link href={`https://ordinals.com/output/${utxo.txid}:${utxo.vout}`}>
                   {`${truncateMiddle(utxo.txid, 4)}:${utxo.vout}`} ↗
-                </ExternalLink>
+                </Link>
               }
             />
           ))}

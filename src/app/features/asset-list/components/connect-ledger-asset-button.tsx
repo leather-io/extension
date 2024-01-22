@@ -7,7 +7,7 @@ import { RouteUrls } from '@shared/route-urls';
 
 import { capitalize } from '@app/common/utils';
 import { immediatelyAttemptLedgerConnection } from '@app/features/ledger/hooks/use-when-reattempt-ledger-connection';
-import { LeatherButton } from '@app/ui/components/button';
+import { Button } from '@app/ui/components/button/button';
 import { LedgerIcon } from '@app/ui/components/icons/ledger-icon';
 
 interface ConnectLedgerAssetBtnProps {
@@ -27,7 +27,7 @@ export function ConnectLedgerAssetBtn({ chain }: ConnectLedgerAssetBtnProps) {
     });
   };
   return (
-    <LeatherButton
+    <Button
       display="flex"
       alignItems="center"
       variant="outline"
@@ -37,6 +37,6 @@ export function ConnectLedgerAssetBtn({ chain }: ConnectLedgerAssetBtnProps) {
     >
       <LedgerIcon />
       <styled.span textStyle="label.02">Connect&nbsp;{capitalize(chain)}</styled.span>
-    </LeatherButton>
+    </Button>
   );
 }

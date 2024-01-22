@@ -10,7 +10,6 @@ import { usePressable } from '@app/components/item-hover';
 import { Flag } from '@app/components/layout/flag';
 import { StatusPending } from '@app/components/status-pending';
 import { StatusReady } from '@app/components/status-ready';
-import { Tooltip } from '@app/components/tooltip';
 import { useNativeSegwitBalance } from '@app/query/bitcoin/balance/btc-native-segwit-balance.hooks';
 import { useCheckOrderStatuses } from '@app/query/bitcoin/ordinals/brc20/use-check-order-status';
 import { fetchInscripionById } from '@app/query/bitcoin/ordinals/inscription-by-id.query';
@@ -22,6 +21,7 @@ import {
   PendingBrc20Transfer,
   usePendingBrc20Transfers,
 } from '@app/store/ordinals/ordinals.slice';
+import { BasicTooltip } from '@app/ui/components/tooltip/basic-tooltip';
 import { Caption } from '@app/ui/components/typography/caption';
 
 function StatusIcon({ status }: { status: OrdinalsbotInscriptionStatus }) {
@@ -44,15 +44,15 @@ function StatusLabel({ status }: { status: OrdinalsbotInscriptionStatus }) {
       return <>Paying for transfer inscription…</>;
     case 'paid':
       return (
-        <Tooltip label="Your funds have been received. Your inscription will be available shortly.">
+        <BasicTooltip label="Your funds have been received. Your inscription will be available shortly.">
           <>Creating transfer inscription…</>
-        </Tooltip>
+        </BasicTooltip>
       );
     case 'waiting-for-indexer':
       return (
-        <Tooltip label="Inscription complete, awaiting metadata">
+        <BasicTooltip label="Inscription complete, awaiting metadata">
           <>Receiving transfer inscription…</>
-        </Tooltip>
+        </BasicTooltip>
       );
     case 'ready':
       return <>Ready to transfer</>;

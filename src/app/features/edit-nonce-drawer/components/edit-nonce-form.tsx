@@ -1,6 +1,6 @@
 import { HStack } from 'leather-styles/jsx';
 
-import { LeatherButton } from '@app/ui/components/button';
+import { Button } from '@app/ui/components/button/button';
 
 import { EditNonceField } from './edit-nonce-field';
 
@@ -16,12 +16,12 @@ export function EditNonceForm(props: EditNonceFormProps): React.JSX.Element {
     <>
       <EditNonceField onBlur={onBlur} />
       <HStack gap="space.04">
-        <LeatherButton flexGrow={1} variant="outline" onClick={onClose}>
+        <Button flexGrow={1} variant="outline" onClick={onClose}>
           Cancel
-        </LeatherButton>
-        <LeatherButton flexGrow={1} onClick={onSubmit}>
+        </Button>
+        <Button flexGrow={1} onClick={onSubmit}>
           Apply
-        </LeatherButton>
+        </Button>
       </HStack>
     </>
   );

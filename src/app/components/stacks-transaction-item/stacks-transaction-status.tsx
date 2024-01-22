@@ -3,7 +3,7 @@ import { styled } from 'leather-styles/jsx';
 import { StacksTx } from '@shared/models/transactions/stacks-transaction.model';
 
 import { isPendingTx } from '@app/common/transactions/stacks/transaction.utils';
-import { Tooltip } from '@app/components/tooltip';
+import { BasicTooltip } from '@app/ui/components/tooltip/basic-tooltip';
 
 import { MicroblockLabel } from '../transaction/microblock-label';
 import { PendingLabel } from '../transaction/pending-label';
@@ -22,11 +22,11 @@ export function StacksTransactionStatus({ transaction }: TransactionStatusProps)
       {isPending && <PendingLabel />}
       {isInMicroblock && <MicroblockLabel />}
       {isFailed && (
-        <Tooltip label={transaction.tx_status} placement="bottom">
+        <BasicTooltip label={transaction.tx_status} side="bottom">
           <styled.span color="error.label" textStyle="label.03">
             Failed
           </styled.span>
-        </Tooltip>
+        </BasicTooltip>
       )}
     </>
   );

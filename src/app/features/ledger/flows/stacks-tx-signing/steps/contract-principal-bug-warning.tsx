@@ -5,7 +5,7 @@ import { useLoading } from '@app/common/hooks/use-loading';
 import { delay } from '@app/common/utils';
 import { LedgerTitle } from '@app/features/ledger/components/ledger-title';
 import { LedgerWrapper } from '@app/features/ledger/components/ledger-wrapper';
-import { LeatherButton } from '@app/ui/components/button';
+import { Button } from '@app/ui/components/button/button';
 
 import { useLedgerTxSigningContext } from '../../../generic-flows/tx-signing/ledger-sign-tx.context';
 
@@ -38,12 +38,12 @@ export function ContractPrincipalBugWarning() {
         >
           Open Ledger Live ↗
         </styled.a>
-        <LeatherButton
+        <Button
           onClick={() => context.hasUserSkippedBuggyAppWarning.done('ignored-warning')}
           variant="outline"
         >
           Continue anyway
-        </LeatherButton>
+        </Button>
       </HStack>
     </LedgerWrapper>
   );

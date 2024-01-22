@@ -2,9 +2,9 @@ import { useMemo } from 'react';
 
 import { HStack, styled } from 'leather-styles/jsx';
 
-import { LeatherButton } from '@app/ui/components/button';
 import { CheckmarkIcon } from '@app/ui/components/icons/checkmark-icon';
 import { ChevronDownIcon } from '@app/ui/components/icons/chevron-down-icon';
+import { Link } from '@app/ui/components/link/link';
 
 const labels = ['Low', 'Standard', 'High', 'Custom'];
 const testLabels = labels.map(label => label.toLowerCase());
@@ -29,7 +29,8 @@ export function FeeEstimateItem({
   }, [index, selectedItem]);
 
   return (
-    <LeatherButton
+    <Link
+      _before={{ bg: 'transparent' }}
       _hover={{
         bg: isVisible ? 'accent.component-background-hover' : 'accent.background-primary',
         borderRadius: 'xs',
@@ -48,6 +49,6 @@ export function FeeEstimateItem({
         <styled.span textStyle="label.02">{labels[index]}</styled.span>
         {!disableFeeSelection && (isVisible ? selectedIcon : <ChevronDownIcon />)}
       </HStack>
-    </LeatherButton>
+    </Link>
   );
 }

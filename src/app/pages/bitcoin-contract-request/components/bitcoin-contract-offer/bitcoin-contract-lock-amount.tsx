@@ -6,11 +6,11 @@ import { token } from 'leather-styles/tokens';
 
 import { useClipboard } from '@app/common/hooks/use-copy-to-clipboard';
 import { Flag } from '@app/components/layout/flag';
-import { Tooltip } from '@app/components/tooltip';
-import { LeatherButton } from '@app/ui/components/button';
 import { ArrowUpIcon } from '@app/ui/components/icons/arrow-up-icon';
 import { BtcIcon } from '@app/ui/components/icons/btc-icon';
 import { CopyIcon } from '@app/ui/components/icons/copy-icon';
+import { Link } from '@app/ui/components/link/link';
+import { BasicTooltip } from '@app/ui/components/tooltip/basic-tooltip';
 
 interface BitcoinContractLockAmountProps {
   hoverLabel?: string;
@@ -45,13 +45,10 @@ export function BitcoinContractLockAmount({
       </HStack>
       <HStack alignItems="center" justifyContent="space-between" mt="space.02">
         {subtitle ? (
-          <Tooltip
+          <BasicTooltip
             disabled={!hoverLabel}
-            hideOnClick={false}
             label={hasCopied ? 'Copied!' : hoverLabel}
-            labelProps={{ wordWrap: 'break-word' }}
-            maxWidth="230px"
-            placement="bottom"
+            side="bottom"
           >
             <styled.button
               _hover={{ cursor: 'pointer' }}
@@ -65,10 +62,10 @@ export function BitcoinContractLockAmount({
               </styled.span>
               {hoverLabel ? <CopyIcon size="14px" /> : null}
             </styled.button>
-          </Tooltip>
+          </BasicTooltip>
         ) : null}
         {subValue ? (
-          <LeatherButton onClick={subValueAction} variant="text">
+          <Link onClick={subValueAction} variant="text">
             <HStack gap="space.01">
               <styled.span color={subValueAction ? 'stacks' : 'accent.text-subdued'}>
                 {subValue}
@@ -77,7 +74,7 @@ export function BitcoinContractLockAmount({
                 <ArrowUpIcon color={token('colors.stacks')} transform="rotate(45deg)" />
               ) : null}
             </HStack>
-          </LeatherButton>
+          </Link>
         ) : null}
       </HStack>
     </Flag>

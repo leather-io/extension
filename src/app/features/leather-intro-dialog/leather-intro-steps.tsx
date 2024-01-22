@@ -8,7 +8,7 @@ import { Box, Flex, Stack, styled } from 'leather-styles/jsx';
 
 import { HasChildren } from '@app/common/has-children';
 import { openInNewTab } from '@app/common/utils/open-in-new-tab';
-import { LeatherButton } from '@app/ui/components/button';
+import { Button } from '@app/ui/components/button/button';
 
 import { confettiConfig } from './confetti-config';
 import { useLeatherIntroDialogContext } from './leather-intro-dialog';
@@ -55,14 +55,14 @@ export function LeatherIntroDialogPart1() {
           evolved into something even more incredible
         </styled.p>
         <Flex mt="48px">
-          <LeatherButton
+          <Button
             onClick={() => {
               context.onRevealNewName();
               setShowConfetti(true);
             }}
           >
             {!showConfetti ? 'Click to reveal our new name' : 'Introducing…'}
-          </LeatherButton>
+          </Button>
         </Flex>
       </Box>
     </>
@@ -117,10 +117,10 @@ export function LeatherIntroDialogPart2() {
         .
       </styled.span>
       <Stack gap="16px" mt="space.05">
-        <LeatherButton onClick={context.onAcceptTerms}>Accept new terms</LeatherButton>
-        <LeatherButton onClick={context.onRejectAndUninstall} variant="outline">
+        <Button onClick={context.onAcceptTerms}>Accept new terms</Button>
+        <Button onClick={context.onRejectAndUninstall} variant="outline">
           Refuse and uninstall
-        </LeatherButton>
+        </Button>
       </Stack>
     </Box>
   );

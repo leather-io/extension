@@ -19,8 +19,8 @@ import {
 } from '@app/components/info-card/info-card';
 import { InfoLabel } from '@app/components/info-label';
 import { ModalHeader } from '@app/components/modal-header';
-import { LeatherButton } from '@app/ui/components/button';
 import { ExternalLinkIcon } from '@app/ui/components/icons/external-link-icon';
+import { Link } from '@app/ui/components/link/link';
 
 import { TxDone } from '../send-crypto-asset-form/components/tx-done';
 
@@ -62,15 +62,14 @@ export function Brc20SentSummary() {
             screen once its status changes to "Ready to send"
           </styled.span>
 
-          <LeatherButton
+          <Link
             textStyle="body.02"
             onClick={() => {
               openInNewTab('https://leather.gitbook.io/guides/bitcoin/sending-brc-20-tokens');
             }}
-            variant="link"
           >
             Learn more
-          </LeatherButton>
+          </Link>
         </InfoLabel>
         <InfoCardSeparator />
 

@@ -3,8 +3,49 @@ import { StacksTransaction, serializePayload } from '@stacks/transactions';
 import { BigNumber } from 'bignumber.js';
 
 import { DEFAULT_FEE_RATE } from '@shared/constants';
-import { StacksFeeEstimate } from '@shared/models/fees/stacks-fees.model';
+import { FeeCalculationTypes, Fees } from '@shared/models/fees/fees.model';
+import {
+  ApiFeeEstimation,
+  StacksFeeEstimate,
+  StacksTxFeeEstimation,
+} from '@shared/models/fees/stacks-fees.model';
 import { Money, createMoney } from '@shared/models/money.model';
+
+const defaultFeesMaxValues = [500000, 750000, 2000000];
+const defaultFeesMinValues = [2500, 3000, 3500];
+
+export const defaultFeesMaxValuesAsMoney = [
+  createMoney(defaultFeesMaxValues[0], 'STX'),
+  createMoney(defaultFeesMaxValues[1], 'STX'),
+  createMoney(defaultFeesMaxValues[2], 'STX'),
+];
+export const defaultFeesMinValuesAsMoney = [
+  createMoney(defaultFeesMinValues[0], 'STX'),
+  createMoney(defaultFeesMinValues[1], 'STX'),
+  createMoney(defaultFeesMinValues[2], 'STX'),
+];
+
+export const defaultApiFeeEstimations: ApiFeeEstimation[] = [
+  { fee: defaultFeesMinValues[0], fee_rate: 0 },
+  { fee: defaultFeesMinValues[1], fee_rate: 0 },
+  { fee: defaultFeesMinValues[2], fee_rate: 0 },
+];
+
+const defaultStacksFeeEstimates: StacksFeeEstimate[] = [
+  { fee: defaultFeesMinValuesAsMoney[0], feeRate: 0 },
+  { fee: defaultFeesMinValuesAsMoney[1], feeRate: 0 },
+  { fee: defaultFeesMinValuesAsMoney[2], feeRate: 0 },
+];
+
+export const defaultStacksFees: Fees = {
+  blockchain: 'stacks',
+  estimates: defaultStacksFeeEstimates,
+  calculation: FeeCalculationTypes.Default,
+};
+
+export function feeEstimationQueryFailedSilently(feeEstimation: StacksTxFeeEstimation) {
+  return !!(feeEstimation && (!!feeEstimation.error || !feeEstimation.estimations.length));
+}
 
 export function getEstimatedUnsignedStacksTxByteLength(transaction: StacksTransaction) {
   return transaction.serialize().byteLength;

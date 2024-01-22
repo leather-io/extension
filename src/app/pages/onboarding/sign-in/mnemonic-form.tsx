@@ -8,7 +8,7 @@ import { createNullArrayOfLength } from '@app/common/utils';
 import { ErrorLabel } from '@app/components/error-label';
 import { SecretKeyGrid } from '@app/components/secret-key/secret-key-grid';
 import { useSignIn } from '@app/pages/onboarding/sign-in/hooks/use-sign-in';
-import { LeatherButton } from '@app/ui/components/button';
+import { Button } from '@app/ui/components/button/button';
 
 import { MnemonicWordInput } from '../../../components/secret-key/mnemonic-key/mnemonic-word-input';
 import {
@@ -93,7 +93,7 @@ export function MnemonicForm({ mnemonic, setMnemonic, twentyFourWordMode }: Mnem
                 </ErrorLabel>
               )}
 
-              <LeatherButton
+              <Button
                 data-testid={OnboardingSelectors.SignInBtn}
                 aria-disabled={isLoading || showMnemonicErrors}
                 disabled={isEmpty(touched) || !isValid || !hasFormValues}
@@ -106,7 +106,7 @@ export function MnemonicForm({ mnemonic, setMnemonic, twentyFourWordMode }: Mnem
                 }}
               >
                 Continue
-              </LeatherButton>
+              </Button>
             </Flex>
           </Form>
         );

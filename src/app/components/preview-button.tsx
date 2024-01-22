@@ -1,7 +1,7 @@
 import { SendCryptoAssetSelectors } from '@tests/selectors/send.selectors';
 import { useFormikContext } from 'formik';
 
-import { LeatherButton } from '@app/ui/components/button';
+import { Button } from '@app/ui/components/button/button';
 
 interface PreviewButtonProps {
   text?: string;
@@ -11,7 +11,7 @@ export function PreviewButton({ text = 'Continue', isDisabled, ...props }: Previ
   const { handleSubmit } = useFormikContext();
 
   return (
-    <LeatherButton
+    <Button
       data-testid={SendCryptoAssetSelectors.PreviewSendTxBtn}
       disabled={isDisabled}
       onClick={() => handleSubmit()}
@@ -19,6 +19,6 @@ export function PreviewButton({ text = 'Continue', isDisabled, ...props }: Previ
       {...props}
     >
       {text}
-    </LeatherButton>
+    </Button>
   );
 }

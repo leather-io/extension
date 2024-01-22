@@ -16,7 +16,6 @@ import { useRouteHeader } from '@app/common/hooks/use-route-header';
 import { stxToMicroStx } from '@app/common/money/unit-conversion';
 import { stxFeeValidator } from '@app/common/validation/forms/fee-validators';
 import { nonceValidator } from '@app/common/validation/nonce-validators';
-import { EditNonceButton } from '@app/components/edit-nonce-button';
 import { NonceSetter } from '@app/components/nonce-setter';
 import { PopupHeader } from '@app/features/current-account/popup-header';
 import { RequestingTabClosedWarningMessage } from '@app/features/errors/requesting-tab-closed-error-msg';
@@ -32,6 +31,7 @@ import { useCurrentStacksAccountAnchoredBalances } from '@app/query/stacks/balan
 import { useCalculateStacksTxFees } from '@app/query/stacks/fees/fees.hooks';
 import { useNextNonce } from '@app/query/stacks/nonce/account-nonces.hooks';
 import { useTransactionRequestState } from '@app/store/transactions/requests.hooks';
+import { Link } from '@app/ui/components/link/link';
 
 import { FeeForm } from './fee-form';
 import { MinimalErrorMessage } from './minimal-error-message';
@@ -119,11 +119,13 @@ export function StacksTransactionSigner({
               disableFeeSelection={disableFeeSelection}
             />
             {!disableNonceSelection && (
-              <EditNonceButton
+              <Link
                 alignSelf="flex-end"
                 my="space.04"
-                onEditNonce={() => navigate(RouteUrls.EditNonce + search)}
-              />
+                onClick={() => navigate(RouteUrls.EditNonce + search)}
+              >
+                Edit nonce
+              </Link>
             )}
             <MinimalErrorMessage />
             <SubmitAction />

@@ -1,45 +1,25 @@
 import { defineRecipe } from '@pandacss/dev';
 import { ColorToken } from 'leather-styles/tokens';
 
-const basePesudoOutlineProps = {
-  content: '""',
-  position: 'absolute',
-  rounded: 'xs',
-  top: 0,
-  left: 0,
-  bottom: 0,
-  right: 0,
-};
-
-const focusStyles = {
-  _focus: {
-    _before: {
-      ...basePesudoOutlineProps,
-      border: '2px solid',
-      borderColor: 'blue.500',
-    },
-    _focusWithin: { outline: 'none' },
-  },
-};
-
 function loadingStyles(color: ColorToken) {
   return {
     _loading: {
-      color: 'transparent !important',
       _after: {
+        animation: 'spin',
+        border: '2px solid',
+        borderColor: color,
+        borderTop: '2px solid',
+        boxSizing: 'border-box',
         content: '""',
-        position: 'absolute',
-        width: '20px',
+        display: 'inline-block',
         height: '20px',
         left: 'calc(50% - 10px)',
+        position: 'absolute',
         rounded: '50%',
-        display: 'inline-block',
-        borderTop: '2px solid',
-        borderColor: color,
-        borderRight: '2px solid transparent',
-        boxSizing: 'border-box',
-        animation: 'rotate 1s linear infinite',
+        top: 'calc(50% - 10px)',
+        width: '20px',
       },
+      color: 'transparent !important',
     },
   };
 }
@@ -48,151 +28,141 @@ function loadingStyles(color: ColorToken) {
 export const buttonRecipe = defineRecipe({
   description: 'The styles for the Button component',
   className: 'button',
-  jsx: ['LeatherButton'],
+  jsx: ['Button'],
   base: {
+    _disabled: {
+      cursor: 'not-allowed',
+    },
     position: 'relative',
-    py: 'space.03',
-    px: 'space.04',
     rounded: 'xs',
-    textStyle: 'label.01',
-    _disabled: { cursor: 'not-allowed' },
+    textStyle: 'label.02',
   },
   variants: {
     size: {
       sm: {
-        textStyle: 'label.02',
-        py: 'space.02',
-        px: 'space.03',
+        px: 'space.02',
+        py: 'space.01',
+      },
+      md: {
+        px: 'space.04',
+        py: 'space.03',
       },
     },
     variant: {
-      // Solid button
       solid: {
-        bg: 'brown.12',
-        color: 'brown.1',
-        _hover: { bg: 'brown.10' },
-        _active: { bg: 'brown.12' },
+        _active: {
+          bg: 'accent.action-primary-default',
+        },
         _disabled: {
-          _hover: {
-            bg: 'brown.6',
+          bg: 'accent.background-secondary',
+          color: 'accent.non-interactive',
+        },
+        _focus: {
+          _before: {
+            border: '3px solid {colors.focus}',
           },
-          bg: 'brown.6',
-          color: 'white',
         },
-        ...focusStyles,
-        ...loadingStyles('brown.2'),
+        _hover: {
+          bg: 'accent.action-primary-hover',
+        },
+        bg: 'accent.action-primary-default',
+        color: 'accent.background-primary',
+        ...loadingStyles('accent.background-primary'),
       },
 
-      // Outline button
       outline: {
-        _hover: { bg: 'brown.3' },
+        _active: {
+          bg: 'accent.component-background-pressed',
+        },
         _focus: {
-          _before: { border: '2px solid', borderColor: 'blue.500' },
+          _before: {
+            border: '3px solid {colors.focus}',
+          },
         },
-        _before: {
-          ...basePesudoOutlineProps,
-          border: '1px solid',
-          borderColor: 'brown.12',
+        _hover: {
+          bg: 'accent.component-background-hover',
         },
-        ...loadingStyles('brown.12'),
+        border: '1px solid {colors.accent.action-primary-default}',
+        ...loadingStyles('accent.action-primary-default'),
       },
 
-      // Ghost button
       ghost: {
-        _hover: { bg: 'brown.2' },
-        _focus: { _before: { border: '2px solid', borderColor: 'blue.500' } },
-        ...loadingStyles('brown.12'),
-      },
-
-      // Link button
-      link: {
-        appearance: 'none',
-        pos: 'relative',
-        color: 'brown.12',
-        display: 'inline',
-        p: 'unset',
-        textAlign: 'left',
-        _hover: { color: 'brown.8' },
-        _active: { color: 'brown.8' },
+        _active: {
+          bg: 'accent.component-background-pressed',
+        },
         _focus: {
-          outline: 0,
-          _before: { color: 'blue.500' },
+          _before: {
+            border: '3px solid {focus}',
+          },
         },
-        _before: {
-          content: '""',
-          position: 'absolute',
-          left: 0,
-          right: 0,
-          bottom: '-2px',
-          height: '2px',
-          background: 'currentColor',
+        _hover: {
+          bg: 'accent.component-background-hover',
         },
-        _disabled: {
-          color: 'brown.6',
-          _hover: { color: 'brown.6' },
-        },
-      },
-
-      // Text as action button
-      text: {
-        appearance: 'none',
-        pos: 'relative',
-        color: 'brown.12',
-        display: 'inline',
-        p: 'unset',
-        textAlign: 'left',
-        _hover: { color: 'brown.8' },
-        _active: { color: 'brown.8' },
-        _disabled: {
-          color: 'brown.6',
-          _hover: { color: 'brown.6' },
-        },
+        ...loadingStyles('accent.action-primary-default'),
       },
     },
 
-    // Invert variant
-    // - Flag that allows using dark mode in light mode (and vice versa), used
-    //   in some UIs
+    // TODO: Remove invert code
     invert: { true: {} },
 
-    // Full width variant helper
     fullWidth: { true: { width: '100%' } },
+    trigger: { true: {} },
   },
 
   defaultVariants: {
+    size: 'md',
     variant: 'solid',
   },
 
+  // TODO: Remove invert code
   compoundVariants: [
     {
+      css: {
+        _active: {
+          bg: 'accent.component-background-pressed',
+        },
+        _hover: {
+          bg: 'accent.background-primary',
+        },
+        _loading: {
+          _after: {
+            borderColor: 'accent.text-primary',
+          },
+        },
+        bg: 'accent.background-secondary',
+        color: 'accent.text-primary',
+      },
+      invert: true,
       variant: 'solid',
-      invert: true,
-      css: {
-        bg: 'brown.2',
-        color: 'brown.12',
-        _hover: { bg: 'brown.1' },
-        _active: { bg: 'brown.4' },
-        _loading: { _after: { borderColor: 'brown.12' } },
-      },
     },
     {
+      css: {
+        _active: {
+          bg: 'accent.text-primary',
+        },
+        _before: {
+          borderColor: 'accent.background-secondary',
+        },
+        _hover: {
+          bg: 'accent.action-primary-hover',
+        },
+        _loading: {
+          _after: {
+            borderColor: 'accent.text-primary',
+          },
+        },
+        border: '1px solid {colors.accent.background-secondary}',
+        color: 'accent.background-secondary',
+      },
+      invert: true,
       variant: 'outline',
-      invert: true,
-      css: {
-        color: 'brown.2',
-        _before: { borderColor: 'brown.2' },
-        _hover: { bg: 'brown.10' },
-        _active: { bg: 'brown.12' },
-        _loading: { _after: { borderColor: 'brown.12' } },
-      },
     },
     {
-      variant: 'link',
-      invert: true,
       css: {
-        color: 'brown.2',
-        _hover: { color: 'brown.5' },
+        p: 'space.02',
       },
+      trigger: true,
+      variant: 'ghost',
     },
   ],
 });

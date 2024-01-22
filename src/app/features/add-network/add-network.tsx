@@ -21,7 +21,7 @@ import {
   useCurrentStacksNetworkState,
   useNetworksActions,
 } from '@app/store/networks/networks.hooks';
-import { LeatherButton } from '@app/ui/components/button';
+import { Button } from '@app/ui/components/button/button';
 import { Input } from '@app/ui/components/input';
 import { Title } from '@app/ui/components/typography/title';
 
@@ -109,6 +109,11 @@ export function AddNetwork() {
         initialValues={addNetworkFormValues}
         onSubmit={async () => {
           const { name, stacksUrl, bitcoinUrl, key } = formikProps.values;
+
+          if (!name) {
+            setError('Enter a name');
+            return;
+          }
 
           if (!isValidUrl(stacksUrl)) {
             setError('Enter a valid Stacks API URL');
@@ -298,14 +303,14 @@ export function AddNetwork() {
               {error ? (
                 <ErrorLabel data-testid={NetworkSelectors.ErrorText}>{error}</ErrorLabel>
               ) : null}
-              <LeatherButton
+              <Button
                 disabled={loading}
                 aria-busy={loading}
                 data-testid={NetworkSelectors.BtnAddNetwork}
                 type="submit"
               >
                 Add network
-              </LeatherButton>
+              </Button>
             </Stack>
           </form>
         )}

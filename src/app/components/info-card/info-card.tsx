@@ -6,7 +6,7 @@ import { Box, BoxProps, Flex, FlexProps, HStack, Stack, styled } from 'leather-s
 import { isString } from '@shared/utils';
 
 import { whenPageMode } from '@app/common/utils';
-import { LeatherButton } from '@app/ui/components/button';
+import { Button } from '@app/ui/components/button/button';
 import { DashedHr } from '@app/ui/components/hr';
 
 // InfoCard
@@ -30,7 +30,7 @@ interface InfoCardRowProps {
 export function InfoCardRow({ title, value, titleAdditionalElement, ...props }: InfoCardRowProps) {
   return (
     <HStack alignItems="start" fontSize="14px" justifyContent="space-between" {...props}>
-      <Flex alignItems="center">
+      <Flex alignItems="center" gap="space.01">
         <styled.span color="accent.text-subdued" mr="space.01" textStyle="body.02">
           {title}
         </styled.span>
@@ -105,14 +105,14 @@ interface InfoCardBtnProps {
 }
 export function InfoCardBtn({ icon, label, onClick }: InfoCardBtnProps) {
   return (
-    <LeatherButton onClick={onClick} flexGrow="1">
+    <Button onClick={onClick} flexGrow="1">
       <Flex alignItems="center" justifyContent="center">
         <styled.span mx="space.02" textStyle="label.02">
           {label}
         </styled.span>
         {icon}
       </Flex>
-    </LeatherButton>
+    </Button>
   );
 }
 
