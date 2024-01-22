@@ -125,7 +125,7 @@ class OrdinalsbotClient {
   async order({ receiveAddress, file, fee, size, name }: InscriptionOrderArgs) {
     return axios.post<InscriptionOrderSuccessResponse>(urlJoin(this.baseUrl, 'order'), {
       receiveAddress,
-      files: [{ dataURL: file, size, name, type: 'plain/text', url: '' }],
+      files: [{ dataURL: file, size, name, type: 'plain/text' }],
       fee,
       lowPostage: true,
     });
