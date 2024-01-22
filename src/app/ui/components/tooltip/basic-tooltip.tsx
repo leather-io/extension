@@ -12,7 +12,7 @@ interface BasicTooltipProps {
 }
 
 export function BasicTooltip({ children, label, disabled, side }: BasicTooltipProps) {
-  const isDisabled = !!label && !disabled;
+  const isDisabled = !label || disabled;
   return (
     <Tooltip.Root>
       <Tooltip.Trigger>{children}</Tooltip.Trigger>
