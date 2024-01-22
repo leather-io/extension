@@ -25,14 +25,14 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/6</span>
+                <span class='fraction'>0/7</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/6</span>
+                <span class='fraction'>0/8</span>
             </div>
         
             
@@ -46,7 +46,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/6</span>
+                <span class='fraction'>0/7</span>
             </div>
         
             
@@ -173,7 +173,11 @@
 <a name='L108'></a><a href='#L108'>108</a>
 <a name='L109'></a><a href='#L109'>109</a>
 <a name='L110'></a><a href='#L110'>110</a>
-<a name='L111'></a><a href='#L111'>111</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L111'></a><a href='#L111'>111</a>
+<a name='L112'></a><a href='#L112'>112</a>
+<a name='L113'></a><a href='#L113'>113</a>
+<a name='L114'></a><a href='#L114'>114</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -191,6 +195,7 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -261,9 +266,10 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -287,10 +293,11 @@
 import { useFormik } from 'formik';
 import { Box, HStack, styled } from 'leather-styles/jsx';
 &nbsp;
+import { useThemeSwitcher } from '@app/common/theme-provider';
 import { useWalletType } from '@app/common/use-wallet-type';
 import { BaseDrawer } from '@app/components/drawer/base-drawer';
 import { Flag } from '@app/components/layout/flag';
-import { LeatherButton } from '@app/ui/components/button';
+import { Button } from '@app/ui/components/button/button';
 import { ErrorIcon } from '@app/ui/components/icons/error-icon';
 &nbsp;
 interface SignOutConfirmLayoutProps {
@@ -301,6 +308,7 @@ export function <span class="fstat-no" title="function not covered" >SignOutConf
   const { onUserDeleteWallet, onUserSafelyReturnToHomepage } = <span class="cstat-no" title="statement not covered" >props;</span>
 &nbsp;
   const { whenWallet, walletType } = <span class="cstat-no" title="statement not covered" >useWalletType();</span>
+  const { theme } = <span class="cstat-no" title="statement not covered" >useThemeSwitcher();</span>
 &nbsp;
   const form = <span class="cstat-no" title="statement not covered" >useFormik({</span>
     initialValues: {
@@ -368,25 +376,26 @@ export function <span class="fstat-no" title="function not covered" >SignOutConf
             &lt;/styled.p&gt;
           &lt;/styled.label&gt;
           &lt;HStack gap="space.04" mt="space.06"&gt;
-            &lt;LeatherButton
-              color="gray"
+            &lt;Button
               data-testid={SettingsSelectors.BtnSignOutReturnToHomeScreen}
               flexGrow={1}
-              variant="outline"
               onClick={<span class="fstat-no" title="function not covered" >() =&gt; <span class="cstat-no" title="statement not covered" >o</span>nUserSafelyReturnToHomepage()}</span>
+              variant="outline"
             &gt;
               Cancel
-            &lt;/LeatherButton&gt;
-            &lt;LeatherButton
+            &lt;/Button&gt;
+            &lt;Button
+              _disabled={{ color: 'accent.non-interactive' }}
               _hover={{ background: 'error.label' }}
               background="error.label"
+              color={theme === 'light' ? 'accent.background-primary' : 'accent.text-primary'}
               data-testid={SettingsSelectors.BtnSignOutActuallyDeleteWallet}
               flexGrow={1}
               disabled={!(form.values.confirmBackup &amp;&amp; form.values.confirmPasswordDisable)}
               type="submit"
             &gt;
               Sign out
-            &lt;/LeatherButton&gt;
+            &lt;/Button&gt;
           &lt;/HStack&gt;
         &lt;/form&gt;
       &lt;/Box&gt;
@@ -400,7 +409,7 @@ export function <span class="fstat-no" title="function not covered" >SignOutConf
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-01-16T14:34:31.869Z
+                at 2024-01-22T18:23:44.278Z
             </div>
         <script src="../../../../../prettify.js"></script>
         <script>

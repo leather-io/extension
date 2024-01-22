@@ -3,15 +3,15 @@
 <html lang="en">
 
 <head>
-    <title>Code coverage report for extension/src/app/components/external-link.tsx</title>
+    <title>Code coverage report for extension/src/app/ui/components/tooltip/basic-tooltip.tsx</title>
     <meta charset="utf-8" />
-    <link rel="stylesheet" href="../../../../prettify.css" />
-    <link rel="stylesheet" href="../../../../base.css" />
-    <link rel="shortcut icon" type="image/x-icon" href="../../../../favicon.png" />
+    <link rel="stylesheet" href="../../../../../../prettify.css" />
+    <link rel="stylesheet" href="../../../../../../base.css" />
+    <link rel="shortcut icon" type="image/x-icon" href="../../../../../../favicon.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <style type='text/css'>
         .coverage-summary .sorter {
-            background-image: url(../../../../sort-arrow-sprite.png);
+            background-image: url(../../../../../../sort-arrow-sprite.png);
         }
     </style>
 </head>
@@ -19,7 +19,7 @@
 <body>
 <div class='wrapper'>
     <div class='pad1'>
-        <h1><a href="../../../../index.html">All files</a> / <a href="index.html">extension/src/app/components</a> external-link.tsx</h1>
+        <h1><a href="../../../../../../index.html">All files</a> / <a href="index.html">extension/src/app/ui/components/tooltip</a> basic-tooltip.tsx</h1>
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
@@ -30,9 +30,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
+                <span class="strong">0% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/0</span>
+                <span class='fraction'>0/2</span>
             </div>
         
             
@@ -81,10 +81,30 @@
 <a name='L16'></a><a href='#L16'>16</a>
 <a name='L17'></a><a href='#L17'>17</a>
 <a name='L18'></a><a href='#L18'>18</a>
-<a name='L19'></a><a href='#L19'>19</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L19'></a><a href='#L19'>19</a>
+<a name='L20'></a><a href='#L20'>20</a>
+<a name='L21'></a><a href='#L21'>21</a>
+<a name='L22'></a><a href='#L22'>22</a>
+<a name='L23'></a><a href='#L23'>23</a>
+<a name='L24'></a><a href='#L24'>24</a>
+<a name='L25'></a><a href='#L25'>25</a>
+<a name='L26'></a><a href='#L26'>26</a>
+<a name='L27'></a><a href='#L27'>27</a>
+<a name='L28'></a><a href='#L28'>28</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -93,28 +113,35 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React from 'react';
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { ReactNode } from 'react';
 &nbsp;
-import { styled } from 'leather-styles/jsx';
+import * as RadixTooltip from '@radix-ui/react-tooltip';
 &nbsp;
-const StyledA = <span class="cstat-no" title="statement not covered" >styled('a');</span>
+import { Tooltip } from './tooltip';
 &nbsp;
-interface ExternalLinkProps extends React.ComponentProps&lt;typeof StyledA&gt; {
-  href: string;
-  children: React.ReactNode;
+interface BasicTooltipProps {
+  children: ReactNode;
+  label?: string;
+  disabled?: boolean;
+  side?: RadixTooltip.TooltipContentProps['side'];
 }
 &nbsp;
-export function <span class="fstat-no" title="function not covered" >ExternalLink({</span> href, children, ...rest }: ExternalLinkProps) {
+export function <span class="fstat-no" title="function not covered" >BasicTooltip({</span> children, label, disabled, side }: BasicTooltipProps) {
+  const isDisabled = <span class="cstat-no" title="statement not covered" >!label || disabled;</span>
 <span class="cstat-no" title="statement not covered" >  return (</span>
-    &lt;styled.a target="_blank" cursor="pointer" href={href} {...rest}&gt;
-      {children}
-    &lt;/styled.a&gt;
+    &lt;Tooltip.Root&gt;
+      &lt;Tooltip.Trigger&gt;{children}&lt;/Tooltip.Trigger&gt;
+      &lt;Tooltip.Portal&gt;
+        &lt;Tooltip.Content hidden={isDisabled} side={side} sideOffset={5}&gt;
+          {label}
+          &lt;Tooltip.Arrow /&gt;
+        &lt;/Tooltip.Content&gt;
+      &lt;/Tooltip.Portal&gt;
+    &lt;/Tooltip.Root&gt;
   );
 }
 &nbsp;</pre></td></tr></table></pre>
@@ -124,16 +151,16 @@ export function <span class="fstat-no" title="function not covered" >ExternalLin
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-01-16T14:34:31.869Z
+                at 2024-01-22T18:23:44.278Z
             </div>
-        <script src="../../../../prettify.js"></script>
+        <script src="../../../../../../prettify.js"></script>
         <script>
             window.onload = function () {
                 prettyPrint();
             };
         </script>
-        <script src="../../../../sorter.js"></script>
-        <script src="../../../../block-navigation.js"></script>
+        <script src="../../../../../../sorter.js"></script>
+        <script src="../../../../../../block-navigation.js"></script>
     </body>
 </html>
     

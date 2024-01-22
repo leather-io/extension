@@ -30,9 +30,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/4</span>
+                <span class='fraction'>0/0</span>
             </div>
         
             
@@ -163,7 +163,30 @@
 <a name='L98'></a><a href='#L98'>98</a>
 <a name='L99'></a><a href='#L99'>99</a>
 <a name='L100'></a><a href='#L100'>100</a>
-<a name='L101'></a><a href='#L101'>101</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L101'></a><a href='#L101'>101</a>
+<a name='L102'></a><a href='#L102'>102</a>
+<a name='L103'></a><a href='#L103'>103</a>
+<a name='L104'></a><a href='#L104'>104</a>
+<a name='L105'></a><a href='#L105'>105</a>
+<a name='L106'></a><a href='#L106'>106</a>
+<a name='L107'></a><a href='#L107'>107</a>
+<a name='L108'></a><a href='#L108'>108</a>
+<a name='L109'></a><a href='#L109'>109</a>
+<a name='L110'></a><a href='#L110'>110</a>
+<a name='L111'></a><a href='#L111'>111</a>
+<a name='L112'></a><a href='#L112'>112</a>
+<a name='L113'></a><a href='#L113'>113</a>
+<a name='L114'></a><a href='#L114'>114</a>
+<a name='L115'></a><a href='#L115'>115</a>
+<a name='L116'></a><a href='#L116'>116</a>
+<a name='L117'></a><a href='#L117'>117</a>
+<a name='L118'></a><a href='#L118'>118</a>
+<a name='L119'></a><a href='#L119'>119</a>
+<a name='L120'></a><a href='#L120'>120</a>
+<a name='L121'></a><a href='#L121'>121</a>
+<a name='L122'></a><a href='#L122'>122</a>
+<a name='L123'></a><a href='#L123'>123</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -190,6 +213,27 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -267,9 +311,10 @@
 import { Box, Flex, styled } from 'leather-styles/jsx';
 &nbsp;
 import { useViewportMinWidth } from '@app/common/hooks/use-media-query';
-import { LeatherButton } from '@app/ui/components/button';
+import { Button } from '@app/ui/components/button/button';
 import { LeatherIcon } from '@app/ui/components/icons/leather-icon';
 import { LeatherLettermarkIcon } from '@app/ui/components/icons/leather-lettermark-icon';
+import { Link } from '@app/ui/components/link/link';
 &nbsp;
 interface WelcomeLayoutProps {
   tagline: React.ReactNode;
@@ -291,12 +336,12 @@ export function <span class="fstat-no" title="function not covered" >WelcomeLayo
 &nbsp;
 <span class="cstat-no" title="statement not covered" >  return (</span>
     &lt;Flex flexDir={['column-reverse', '', 'row']} minW="100vw" minH="100vh"&gt;
-      &lt;Flex flexDir="column" bg={['brown.2', '', 'brown.12']} flex={[1, 2]} p="space.05"&gt;
+      &lt;Flex flexDir="column" bg={['ink.2', '', 'ink.12']} flex={[1, 2]} p="space.05"&gt;
         &lt;Flex
           flexDir="column"
           flex={[1, 1, 0]}
           justifyContent={['center', '', 'flex-start']}
-          color={['brown.12', '', 'brown.2']}
+          color={['ink.12', '', 'ink.2']}
         &gt;
           &lt;Box&gt;
             &lt;styled.h1 textStyle={['heading.03', '', 'display.02', 'display.01']}&gt;
@@ -312,7 +357,7 @@ export function <span class="fstat-no" title="function not covered" >WelcomeLayo
           &lt;/Box&gt;
         &lt;/Flex&gt;
         &lt;Flex flexDir="column" alignItems={['normal', '', 'flex-start']}&gt;
-          &lt;LeatherButton
+          &lt;Button
             invert={isAtleastBreakpointMd}
             mt={[0, 0, 'space.07']}
             onClick={onStartOnboarding}
@@ -320,39 +365,60 @@ export function <span class="fstat-no" title="function not covered" >WelcomeLayo
             aria-busy={isGeneratingWallet}
           &gt;
             Create new wallet
-          &lt;/LeatherButton&gt;
+          &lt;/Button&gt;
           &lt;Flex
             flexDir={['row', '', 'column']}
             gap="space.03"
             mt="space.04"
             alignItems="flex-start"
           &gt;
-            &lt;LeatherButton
-              variant={isAtleastBreakpointMd ? 'link' : 'outline'}
+            &lt;Link
+              hideBelow="md"
               invert={isAtleastBreakpointMd}
               flex={1}
               mt={[0, 0, 'space.05']}
               data-testid={OnboardingSelectors.SignInLink}
               onClick={onRestoreWallet}
+              size="lg"
             &gt;
               Use existing key
-            &lt;/LeatherButton&gt;
-            &lt;LeatherButton
-              variant={isAtleastBreakpointMd ? 'link' : 'outline'}
+            &lt;/Link&gt;
+            &lt;Button
+              hideFrom="md"
+              variant="outline"
+              invert={isAtleastBreakpointMd}
+              flex={1}
+              mt={[0, 0, 'space.05']}
+              onClick={onRestoreWallet}
+            &gt;
+              Use existing key
+            &lt;/Button&gt;
+            &lt;Link
+              hideBelow="md"
               invert={isAtleastBreakpointMd}
               flex={1}
               mt={[0, 0, 'space.05']}
               onClick={onSelectConnectLedger}
+              size="lg"
             &gt;
               Use Ledger
-            &lt;/LeatherButton&gt;
+            &lt;/Link&gt;
+            &lt;Button
+              hideFrom="md"
+              variant="outline"
+              invert={isAtleastBreakpointMd}
+              flex={1}
+              mt={[0, 0, 'space.05']}
+            &gt;
+              Use Ledger
+            &lt;/Button&gt;
           &lt;/Flex&gt;
         &lt;/Flex&gt;
       &lt;/Flex&gt;
       &lt;Flex
         p="space.05"
-        bg="brown.2"
-        color="brown.12"
+        bg="ink.2"
+        color="ink.12"
         flexDir="column"
         justifyContent="space-between"
         flex={['', '', 1]}
@@ -370,7 +436,7 @@ export function <span class="fstat-no" title="function not covered" >WelcomeLayo
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-01-16T14:34:31.869Z
+                at 2024-01-22T18:23:44.278Z
             </div>
         <script src="../../../../../../prettify.js"></script>
         <script>

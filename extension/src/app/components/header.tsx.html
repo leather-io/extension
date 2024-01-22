@@ -25,28 +25,28 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/10</span>
+                <span class='fraction'>0/7</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/23</span>
+                <span class='fraction'>0/15</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/4</span>
+                <span class='fraction'>0/3</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/10</span>
+                <span class='fraction'>0/7</span>
             </div>
         
             
@@ -148,22 +148,7 @@
 <a name='L83'></a><a href='#L83'>83</a>
 <a name='L84'></a><a href='#L84'>84</a>
 <a name='L85'></a><a href='#L85'>85</a>
-<a name='L86'></a><a href='#L86'>86</a>
-<a name='L87'></a><a href='#L87'>87</a>
-<a name='L88'></a><a href='#L88'>88</a>
-<a name='L89'></a><a href='#L89'>89</a>
-<a name='L90'></a><a href='#L90'>90</a>
-<a name='L91'></a><a href='#L91'>91</a>
-<a name='L92'></a><a href='#L92'>92</a>
-<a name='L93'></a><a href='#L93'>93</a>
-<a name='L94'></a><a href='#L94'>94</a>
-<a name='L95'></a><a href='#L95'>95</a>
-<a name='L96'></a><a href='#L96'>96</a>
-<a name='L97'></a><a href='#L97'>97</a>
-<a name='L98'></a><a href='#L98'>98</a>
-<a name='L99'></a><a href='#L99'>99</a>
-<a name='L100'></a><a href='#L100'>100</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L86'></a><a href='#L86'>86</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -191,23 +176,10 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -261,8 +233,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { useMemo } from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { useNavigate } from 'react-router-dom';
 &nbsp;
 import { OnboardingSelectors } from '@tests/selectors/onboarding.selectors';
 import { SettingsSelectors } from '@tests/selectors/settings.selectors';
@@ -274,7 +245,7 @@ import { useDrawers } from '@app/common/hooks/use-drawers';
 import { useViewportMinWidth } from '@app/common/hooks/use-media-query';
 import { LeatherLogo } from '@app/components/leather-logo';
 import { NetworkModeBadge } from '@app/components/network-mode-badge';
-import { LeatherButton } from '@app/ui/components/button';
+import { Button } from '@app/ui/components/button/button';
 import { ArrowLeftIcon } from '@app/ui/components/icons/arrow-left-icon';
 import { HamburgerIcon } from '@app/ui/components/icons/hamburger-icon';
 &nbsp;
@@ -289,21 +260,9 @@ interface HeaderProps extends FlexProps {
 export function <span class="fstat-no" title="function not covered" >Header(p</span>rops: HeaderProps) {
   const { actionButton, hideActions, onClose, title, ...rest } = <span class="cstat-no" title="statement not covered" >props;</span>
   const { isShowingSettings, setIsShowingSettings } = <span class="cstat-no" title="statement not covered" >useDrawers();</span>
-  const { pathname } = <span class="cstat-no" title="statement not covered" >useLocation();</span>
   const navigate = <span class="cstat-no" title="statement not covered" >useNavigate();</span>
 &nbsp;
   const isBreakpointSm = <span class="cstat-no" title="statement not covered" >useViewportMinWidth('sm');</span>
-&nbsp;
-  const leatherLogoIsClickable = <span class="cstat-no" title="statement not covered" >useMemo(<span class="fstat-no" title="function not covered" >() =&gt; {</span></span>
-<span class="cstat-no" title="statement not covered" >    return (</span>
-      pathname !== RouteUrls.RequestDiagnostics &amp;&amp;
-      pathname !== RouteUrls.Onboarding &amp;&amp;
-      pathname !== RouteUrls.BackUpSecretKey &amp;&amp;
-      pathname !== RouteUrls.SetPassword &amp;&amp;
-      pathname !== RouteUrls.SignIn &amp;&amp;
-      pathname !== RouteUrls.Home
-    );
-  }, [pathname]);
 &nbsp;
 <span class="cstat-no" title="statement not covered" >  return (</span>
     &lt;Flex
@@ -317,9 +276,9 @@ export function <span class="fstat-no" title="function not covered" >Header(p</s
     &gt;
       {onClose ? (
         &lt;Flex flexBasis="20%"&gt;
-          &lt;LeatherButton onClick={onClose} variant="ghost"&gt;
+          &lt;Button onClick={onClose} variant="ghost"&gt;
             &lt;ArrowLeftIcon /&gt;
-          &lt;/LeatherButton&gt;
+          &lt;/Button&gt;
         &lt;/Flex&gt;
       ) : null}
       {!title &amp;&amp; (!onClose || isBreakpointSm) ? (
@@ -333,8 +292,7 @@ export function <span class="fstat-no" title="function not covered" >Header(p</s
           &lt;HStack alignItems="flex-end" gap="space.01"&gt;
             &lt;LeatherLogo
               data-testid={OnboardingSelectors.LeatherLogoRouteToHome}
-              isClickable={leatherLogoIsClickable}
-              onClick={leatherLogoIsClickable ? <span class="fstat-no" title="function not covered" >() =&gt; <span class="cstat-no" title="statement not covered" >n</span>avigate(RouteUrls.Home) : u</span>ndefined}
+              onClick={<span class="fstat-no" title="function not covered" >() =&gt; <span class="cstat-no" title="statement not covered" >n</span>avigate(RouteUrls.Home)}</span>
             /&gt;
             &lt;AppVersion /&gt;
           &lt;/HStack&gt;
@@ -347,13 +305,13 @@ export function <span class="fstat-no" title="function not covered" >Header(p</s
       &lt;HStack alignItems="center" flexBasis="20%" justifyContent="flex-end"&gt;
         &lt;NetworkModeBadge /&gt;
         {!hideActions &amp;&amp; (
-          &lt;LeatherButton
+          &lt;Button
             data-testid={SettingsSelectors.SettingsMenuBtn}
             onClick={<span class="fstat-no" title="function not covered" >() =&gt; <span class="cstat-no" title="statement not covered" >s</span>etIsShowingSettings(!isShowingSettings)}</span>
             variant="ghost"
           &gt;
             &lt;HamburgerIcon /&gt;
-          &lt;/LeatherButton&gt;
+          &lt;/Button&gt;
         )}
         {actionButton ? actionButton : null}
       &lt;/HStack&gt;
@@ -367,7 +325,7 @@ export function <span class="fstat-no" title="function not covered" >Header(p</s
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-01-16T14:34:31.869Z
+                at 2024-01-22T18:23:44.278Z
             </div>
         <script src="../../../../prettify.js"></script>
         <script>
