@@ -1,6 +1,7 @@
 import * as btc from '@scure/btc-signer';
 import { AddressType, getAddressInfo } from 'bitcoin-address-validation';
 
+import { extractAddressIndexFromPath } from '@shared/crypto/bitcoin/bitcoin.utils';
 import { BitcoinInputSigningConfig } from '@shared/crypto/bitcoin/signer-config';
 import { logger } from '@shared/logger';
 import { OrdinalSendFormValues } from '@shared/models/form.model';
@@ -8,14 +9,14 @@ import { OrdinalSendFormValues } from '@shared/models/form.model';
 import { determineUtxosForSpend } from '@app/common/transactions/bitcoin/coinselect/local-coin-selection';
 import { createCounter } from '@app/common/utils/counter';
 import { useCurrentNativeSegwitAccountSpendableUtxos } from '@app/query/bitcoin/address/utxos-by-address.hooks';
-import { TaprootUtxo } from '@app/query/bitcoin/bitcoin-client';
+import { UtxoWithDerivationPath } from '@app/query/bitcoin/bitcoin-client';
 import { useBitcoinScureLibNetworkConfig } from '@app/store/accounts/blockchain/bitcoin/bitcoin-keychain';
 import { useCurrentAccountNativeSegwitSigner } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
 import { useCurrentAccountTaprootSigner } from '@app/store/accounts/blockchain/bitcoin/taproot-account.hooks';
 
 import { selectInscriptionTransferCoins } from '../coinselect/select-inscription-coins';
 
-export function useGenerateUnsignedOrdinalTx(taprootInput: TaprootUtxo) {
+export function useGenerateUnsignedOrdinalTx(inscriptionInput: UtxoWithDerivationPath) {
   const createTaprootSigner = useCurrentAccountTaprootSigner();
   const createNativeSegwitSigner = useCurrentAccountNativeSegwitSigner();
   const networkMode = useBitcoinScureLibNetworkConfig();
@@ -30,9 +31,8 @@ export function useGenerateUnsignedOrdinalTx(taprootInput: TaprootUtxo) {
   }
 
   function formTaprootOrdinalTx(values: OrdinalSendFormValues) {
-    const inscriptionInput = taprootInput;
-
-    const taprootSigner = createTaprootSigner?.(inscriptionInput.addressIndex);
+    const addressIndex = extractAddressIndexFromPath(inscriptionInput.derivationPath);
+    const taprootSigner = createTaprootSigner?.(addressIndex);
     const nativeSegwitSigner = createNativeSegwitSigner?.(0);
 
     if (!taprootSigner || !nativeSegwitSigner || !nativeSegwitUtxos || !values.feeRate) return;
@@ -58,13 +58,13 @@ export function useGenerateUnsignedOrdinalTx(taprootInput: TaprootUtxo) {
 
       // Inscription input
       tx.addInput({
-        txid: taprootInput.txid,
-        index: taprootInput.vout,
+        txid: inscriptionInput.txid,
+        index: inscriptionInput.vout,
         tapInternalKey: taprootSigner.payment.tapInternalKey,
         sequence: 0,
         witnessUtxo: {
           script: taprootSigner.payment.script,
-          amount: BigInt(taprootInput.value),
+          amount: BigInt(inscriptionInput.value),
         },
       });
       signingConfig.push({
@@ -122,7 +122,7 @@ export function useGenerateUnsignedOrdinalTx(taprootInput: TaprootUtxo) {
       const tx = new btc.Transaction();
 
       // Fee-covering Native Segwit inputs
-      [taprootInput, ...inputs].forEach(input =>
+      [inscriptionInput, ...inputs].forEach(input =>
         tx.addInput({
           txid: input.txid,
           index: input.vout,
@@ -135,7 +135,7 @@ export function useGenerateUnsignedOrdinalTx(taprootInput: TaprootUtxo) {
       );
 
       // Inscription output
-      tx.addOutputAddress(values.recipient, BigInt(taprootInput.value), networkMode);
+      tx.addOutputAddress(values.recipient, BigInt(inscriptionInput.value), networkMode);
 
       // Recipient and change outputs
       outputs.forEach(output => {
