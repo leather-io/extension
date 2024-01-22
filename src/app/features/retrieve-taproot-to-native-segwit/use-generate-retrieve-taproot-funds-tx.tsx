@@ -2,6 +2,7 @@ import { useCallback, useMemo } from 'react';
 
 import * as btc from '@scure/btc-signer';
 
+import { extractAddressIndexFromPath } from '@shared/crypto/bitcoin/bitcoin.utils';
 import { Money, createMoney } from '@shared/models/money.model';
 
 import { sumNumbers } from '@app/common/math/helpers';
@@ -35,7 +36,8 @@ export function useGenerateRetrieveTaprootFundsTx() {
       const totalAmount = sumNumbers(uninscribedUtxos.map(utxo => utxo.value));
 
       uninscribedUtxos.forEach(utxo => {
-        const signer = createSigner?.(utxo.addressIndex);
+        const addressIndex = extractAddressIndexFromPath(utxo.derivationPath);
+        const signer = createSigner?.(addressIndex);
         if (!signer) return;
 
         tx.addInput({
@@ -61,7 +63,10 @@ export function useGenerateRetrieveTaprootFundsTx() {
 
       tx.addOutputAddress(recipient, paymentAmount, networkMode);
 
-      uninscribedUtxos.forEach(utxo => createSigner?.(utxo.addressIndex).sign(tx));
+      uninscribedUtxos.forEach(utxo => {
+        const addressIndex = extractAddressIndexFromPath(utxo.derivationPath);
+        return createSigner?.(addressIndex).sign(tx);
+      });
 
       tx.finalize();
       return tx.hex;
