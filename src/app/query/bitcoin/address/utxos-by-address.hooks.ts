@@ -4,14 +4,14 @@ import { InscriptionResponseItem } from '@shared/models/inscription.model';
 
 import { useCurrentAccountNativeSegwitIndexZeroSigner } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
 
-import { TaprootUtxo, UtxoResponseItem } from '../bitcoin-client';
+import { UtxoResponseItem, UtxoWithDerivationPath } from '../bitcoin-client';
 import { useInscriptionsByAddressQuery } from '../ordinals/inscriptions.query';
 import { useBitcoinPendingTransactionsInputs } from './transactions-by-address.hooks';
 import { useGetUtxosByAddressQuery } from './utxos-by-address.query';
 
 export function filterUtxosWithInscriptions(
   inscriptions: InscriptionResponseItem[],
-  utxos: TaprootUtxo[] | UtxoResponseItem[]
+  utxos: UtxoWithDerivationPath[] | UtxoResponseItem[]
 ) {
   return utxos.filter(
     utxo =>

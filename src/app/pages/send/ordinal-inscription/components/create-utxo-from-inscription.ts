@@ -1,8 +1,20 @@
+import { BitcoinNetworkModes } from '@shared/constants';
+import { getNativeSegwitAddressIndexDerivationPath } from '@shared/crypto/bitcoin/p2wpkh-address-gen';
 import { Inscription } from '@shared/models/inscription.model';
 
-import { TaprootUtxo } from '@app/query/bitcoin/bitcoin-client';
+import { UtxoWithDerivationPath } from '@app/query/bitcoin/bitcoin-client';
 
-export function createUtxoFromInscription(inscription: Inscription): TaprootUtxo {
+interface CreateUtxoFromInscriptionArgs {
+  inscription: Inscription;
+  network: BitcoinNetworkModes;
+  accountIndex: number;
+}
+
+export function createUtxoFromInscription({
+  inscription,
+  network,
+  accountIndex,
+}: CreateUtxoFromInscriptionArgs): UtxoWithDerivationPath {
   const { genesis_block_hash, genesis_timestamp, genesis_block_height, value, addressIndex } =
     inscription;
 
@@ -16,6 +28,6 @@ export function createUtxoFromInscription(inscription: Inscription): TaprootUtxo
       block_time: genesis_timestamp,
     },
     value: Number(value),
-    addressIndex,
+    derivationPath: getNativeSegwitAddressIndexDerivationPath(network, accountIndex, addressIndex),
   };
 }

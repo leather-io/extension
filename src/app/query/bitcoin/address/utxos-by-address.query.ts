@@ -1,6 +1,7 @@
 import { useQuery } from '@tanstack/react-query';
 
 import { getTaprootAddress } from '@shared/crypto/bitcoin/bitcoin.utils';
+import { getNativeSegwitAddressIndexDerivationPath } from '@shared/crypto/bitcoin/p2wpkh-address-gen';
 
 import { createCounter } from '@app/common/utils/counter';
 import { AppUseQueryConfig } from '@app/query/query-config';
@@ -10,7 +11,7 @@ import { useCurrentTaprootAccount } from '@app/store/accounts/blockchain/bitcoin
 import { useBitcoinClient } from '@app/store/common/api-clients.hooks';
 import { useCurrentNetwork } from '@app/store/networks/networks.selectors';
 
-import { TaprootUtxo, UtxoResponseItem } from '../bitcoin-client';
+import { UtxoResponseItem, UtxoWithDerivationPath } from '../bitcoin-client';
 import { hasInscriptions } from './address.utils';
 
 const staleTime = 3 * 60 * 1000;
@@ -50,7 +51,7 @@ export function useTaprootAccountUtxosQuery() {
     async () => {
       let currentNumberOfAddressesWithoutUtxos = 0;
       const addressIndexCounter = createCounter(0);
-      let foundUnspentTransactions: TaprootUtxo[] = [];
+      let foundUnspentTransactions: UtxoWithDerivationPath[] = [];
       while (currentNumberOfAddressesWithoutUtxos < stopSearchAfterNumberAddressesWithoutUtxos) {
         const address = getTaprootAddress({
           index: addressIndexCounter.getValue(),
@@ -67,11 +68,19 @@ export function useTaprootAccountUtxosQuery() {
         }
 
         foundUnspentTransactions = [
-          ...unspentTransactions.map(utxo => ({
-            // adds addresss index of which utxo belongs
-            ...utxo,
-            addressIndex: addressIndexCounter.getValue(),
-          })),
+          ...unspentTransactions.map(utxo => {
+            const addressIndex = addressIndexCounter.getValue();
+            return {
+              // adds addresss index of which utxo belongs
+              ...utxo,
+              addressIndex,
+              derivationPath: getNativeSegwitAddressIndexDerivationPath(
+                network.chain.bitcoin.bitcoinNetwork,
+                currentAccountIndex,
+                addressIndex
+              ),
+            };
+          }),
           ...foundUnspentTransactions,
         ];
 
