@@ -25,7 +25,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/16</span>
+                <span class='fraction'>0/18</span>
             </div>
         
             
@@ -46,7 +46,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/14</span>
+                <span class='fraction'>0/16</span>
             </div>
         
             
@@ -114,7 +114,19 @@
 <a name='L49'></a><a href='#L49'>49</a>
 <a name='L50'></a><a href='#L50'>50</a>
 <a name='L51'></a><a href='#L51'>51</a>
-<a name='L52'></a><a href='#L52'>52</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L52'></a><a href='#L52'>52</a>
+<a name='L53'></a><a href='#L53'>53</a>
+<a name='L54'></a><a href='#L54'>54</a>
+<a name='L55'></a><a href='#L55'>55</a>
+<a name='L56'></a><a href='#L56'>56</a>
+<a name='L57'></a><a href='#L57'>57</a>
+<a name='L58'></a><a href='#L58'>58</a>
+<a name='L59'></a><a href='#L59'>59</a>
+<a name='L60'></a><a href='#L60'>60</a>
+<a name='L61'></a><a href='#L61'>61</a>
+<a name='L62'></a><a href='#L62'>62</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -148,11 +160,19 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -174,7 +194,9 @@ import { AverageBitcoinFeeRates, BtcFeeType } from '@shared/models/fees/bitcoin-
 import { SupportedInscription } from '@shared/models/inscription.model';
 &nbsp;
 import { useOnMount } from '@app/common/hooks/use-on-mount';
-import { TaprootUtxo } from '@app/query/bitcoin/bitcoin-client';
+import { UtxoWithDerivationPath } from '@app/query/bitcoin/bitcoin-client';
+import { useCurrentAccountIndex } from '@app/store/accounts/account';
+import { useCurrentNetwork } from '@app/store/networks/networks.selectors';
 &nbsp;
 import { useSendInscriptionRouteState } from '../hooks/use-send-inscription-route-state';
 import { createUtxoFromInscription } from './create-utxo-from-inscription';
@@ -185,7 +207,7 @@ interface SendInscriptionContextState {
   inscription: SupportedInscription;
   selectedFeeType: BtcFeeType;
   setSelectedFeeType(value: BtcFeeType | null): void;
-  utxo: TaprootUtxo;
+  utxo: UtxoWithDerivationPath;
 }
 export function <span class="fstat-no" title="function not covered" >useSendInscriptionState() {</span>
   const location = <span class="cstat-no" title="statement not covered" >useLocation();</span>
@@ -196,14 +218,22 @@ export function <span class="fstat-no" title="function not covered" >useSendInsc
 export function <span class="fstat-no" title="function not covered" >SendInscriptionContainer() {</span>
   const [selectedFeeType, setSelectedFeeType] = <span class="cstat-no" title="statement not covered" >useState&lt;BtcFeeType | null&gt;(null);</span>
   const [inscription, setInscription] = <span class="cstat-no" title="statement not covered" >useState&lt;SupportedInscription | null&gt;(null);</span>
-  const [utxo, setUtxo] = <span class="cstat-no" title="statement not covered" >useState&lt;TaprootUtxo | null&gt;(null);</span>
+  const [utxo, setUtxo] = <span class="cstat-no" title="statement not covered" >useState&lt;UtxoWithDerivationPath | null&gt;(null);</span>
 &nbsp;
   const routeState = <span class="cstat-no" title="statement not covered" >useSendInscriptionRouteState();</span>
+  const network = <span class="cstat-no" title="statement not covered" >useCurrentNetwork();</span>
+  const currentAccountIndex = <span class="cstat-no" title="statement not covered" >useCurrentAccountIndex();</span>
 &nbsp;
 <span class="cstat-no" title="statement not covered" >  useOnMount(<span class="fstat-no" title="function not covered" >() =&gt; {</span></span>
 <span class="cstat-no" title="statement not covered" >    if (!routeState.inscription) <span class="cstat-no" title="statement not covered" >return;</span></span>
 <span class="cstat-no" title="statement not covered" >    setInscription(routeState.inscription);</span>
-<span class="cstat-no" title="statement not covered" >    setUtxo(createUtxoFromInscription(routeState.inscription));</span>
+<span class="cstat-no" title="statement not covered" >    setUtxo(</span>
+      createUtxoFromInscription({
+        inscription: routeState.inscription,
+        network: network.chain.bitcoin.bitcoinNetwork,
+        accountIndex: currentAccountIndex,
+      })
+    );
   });
 &nbsp;
 <span class="cstat-no" title="statement not covered" >  if (!inscription || !utxo) <span class="cstat-no" title="statement not covered" >return null;</span></span>
@@ -223,7 +253,7 @@ export function <span class="fstat-no" title="function not covered" >SendInscrip
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-01-22T18:25:46.728Z
+                at 2024-01-23T10:54:20.718Z
             </div>
         <script src="../../../../../../../prettify.js"></script>
         <script>

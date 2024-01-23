@@ -240,22 +240,22 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -384,6 +384,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import * as btc from '@scure/btc-signer';
 import { AddressType, getAddressInfo } from 'bitcoin-address-validation';
 &nbsp;
+import { extractAddressIndexFromPath } from '@shared/crypto/bitcoin/bitcoin.utils';
 import { BitcoinInputSigningConfig } from '@shared/crypto/bitcoin/signer-config';
 import { logger } from '@shared/logger';
 import { OrdinalSendFormValues } from '@shared/models/form.model';
@@ -391,14 +392,14 @@ import { OrdinalSendFormValues } from '@shared/models/form.model';
 import { determineUtxosForSpend } from '@app/common/transactions/bitcoin/coinselect/local-coin-selection';
 import { createCounter } from '@app/common/utils/counter';
 import { useCurrentNativeSegwitAccountSpendableUtxos } from '@app/query/bitcoin/address/utxos-by-address.hooks';
-import { TaprootUtxo } from '@app/query/bitcoin/bitcoin-client';
+import { UtxoWithDerivationPath } from '@app/query/bitcoin/bitcoin-client';
 import { useBitcoinScureLibNetworkConfig } from '@app/store/accounts/blockchain/bitcoin/bitcoin-keychain';
 import { useCurrentAccountNativeSegwitSigner } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
 import { useCurrentAccountTaprootSigner } from '@app/store/accounts/blockchain/bitcoin/taproot-account.hooks';
 &nbsp;
 import { selectInscriptionTransferCoins } from '../coinselect/select-inscription-coins';
 &nbsp;
-export function <span class="fstat-no" title="function not covered" >useGenerateUnsignedOrdinalTx(t</span>aprootInput: TaprootUtxo) {
+export function <span class="fstat-no" title="function not covered" >useGenerateUnsignedOrdinalTx(i</span>nscriptionInput: UtxoWithDerivationPath) {
   const createTaprootSigner = <span class="cstat-no" title="statement not covered" >useCurrentAccountTaprootSigner();</span>
   const createNativeSegwitSigner = <span class="cstat-no" title="statement not covered" >useCurrentAccountNativeSegwitSigner();</span>
   const networkMode = <span class="cstat-no" title="statement not covered" >useBitcoinScureLibNetworkConfig();</span>
@@ -413,9 +414,8 @@ export function <span class="fstat-no" title="function not covered" >useGenerate
   }
 &nbsp;
   function <span class="fstat-no" title="function not covered" >formTaprootOrdinalTx(v</span>alues: OrdinalSendFormValues) {
-    const inscriptionInput = <span class="cstat-no" title="statement not covered" >taprootInput;</span>
-&nbsp;
-    const taprootSigner = <span class="cstat-no" title="statement not covered" >createTaprootSigner?.(inscriptionInput.addressIndex);</span>
+    const addressIndex = <span class="cstat-no" title="statement not covered" >extractAddressIndexFromPath(inscriptionInput.derivationPath);</span>
+    const taprootSigner = <span class="cstat-no" title="statement not covered" >createTaprootSigner?.(addressIndex);</span>
     const nativeSegwitSigner = <span class="cstat-no" title="statement not covered" >createNativeSegwitSigner?.(0);</span>
 &nbsp;
 <span class="cstat-no" title="statement not covered" >    if (!taprootSigner || !nativeSegwitSigner || !nativeSegwitUtxos || !values.feeRate) <span class="cstat-no" title="statement not covered" >return;</span></span>
@@ -441,13 +441,13 @@ export function <span class="fstat-no" title="function not covered" >useGenerate
 &nbsp;
       // Inscription input
 <span class="cstat-no" title="statement not covered" >      tx.addInput({</span>
-        txid: taprootInput.txid,
-        index: taprootInput.vout,
+        txid: inscriptionInput.txid,
+        index: inscriptionInput.vout,
         tapInternalKey: taprootSigner.payment.tapInternalKey,
         sequence: 0,
         witnessUtxo: {
           script: taprootSigner.payment.script,
-          amount: BigInt(taprootInput.value),
+          amount: BigInt(inscriptionInput.value),
         },
       });
 <span class="cstat-no" title="statement not covered" >      signingConfig.push({</span>
@@ -505,7 +505,7 @@ export function <span class="fstat-no" title="function not covered" >useGenerate
       const tx = <span class="cstat-no" title="statement not covered" >new btc.Transaction();</span>
 &nbsp;
       // Fee-covering Native Segwit inputs
-<span class="cstat-no" title="statement not covered" >      [taprootInput, ...inputs].forEach(<span class="fstat-no" title="function not covered" >input =&gt;</span></span>
+<span class="cstat-no" title="statement not covered" >      [inscriptionInput, ...inputs].forEach(<span class="fstat-no" title="function not covered" >input =&gt;</span></span>
 <span class="cstat-no" title="statement not covered" >        tx.addInput({</span>
           txid: input.txid,
           index: input.vout,
@@ -518,7 +518,7 @@ export function <span class="fstat-no" title="function not covered" >useGenerate
       );
 &nbsp;
       // Inscription output
-<span class="cstat-no" title="statement not covered" >      tx.addOutputAddress(values.recipient, BigInt(taprootInput.value), networkMode);</span>
+<span class="cstat-no" title="statement not covered" >      tx.addOutputAddress(values.recipient, BigInt(inscriptionInput.value), networkMode);</span>
 &nbsp;
       // Recipient and change outputs
 <span class="cstat-no" title="statement not covered" >      outputs.forEach(<span class="fstat-no" title="function not covered" >output =&gt; {</span></span>
@@ -547,7 +547,7 @@ export function <span class="fstat-no" title="function not covered" >useGenerate
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-01-22T18:25:46.728Z
+                at 2024-01-23T10:54:20.718Z
             </div>
         <script src="../../../../../../../prettify.js"></script>
         <script>
