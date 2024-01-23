@@ -13,5 +13,9 @@ export const AccountTotalBalance = memo(({ btcAddress, stxAddress }: AccountTota
 
   if (!totalBalance) return null;
 
-  return <styled.span textStyle="label.01">{totalBalance.totalUsdBalance}</styled.span>;
+  return (
+    <styled.span fontWeight={500} textStyle="label.02">
+      {totalBalance.totalUsdBalance}
+    </styled.span>
+  );
 });

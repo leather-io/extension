@@ -2,7 +2,7 @@ import { Stack } from 'leather-styles/jsx';
 
 import type { StacksFungibleTokenAssetBalance } from '@shared/models/crypto-asset-balance.model';
 
-import { StacksFungibleTokenAssetItem } from '@app/components/crypto-assets/stacks/fungible-token-asset/stacks-fungible-token-asset-item';
+import { StacksFungibleTokenAssetItemLayout } from '@app/components/crypto-assets/stacks/fungible-token-asset/stacks-fungible-token-asset-item.layout';
 
 interface StacksFungibleTokenAssetListProps {
   assetBalances: StacksFungibleTokenAssetBalance[];
@@ -10,9 +10,9 @@ interface StacksFungibleTokenAssetListProps {
 export function StacksFungibleTokenAssetList({ assetBalances }: StacksFungibleTokenAssetListProps) {
   if (assetBalances.length === 0) return null;
   return (
-    <Stack gap="space.05">
+    <Stack>
       {assetBalances.map(assetBalance => (
-        <StacksFungibleTokenAssetItem
+        <StacksFungibleTokenAssetItemLayout
           assetBalance={assetBalance}
           key={assetBalance.asset.contractId}
         />

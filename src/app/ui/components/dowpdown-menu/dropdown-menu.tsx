@@ -3,6 +3,8 @@ import { ReactNode, forwardRef } from 'react';
 import * as RadixDropdownMenu from '@radix-ui/react-dropdown-menu';
 import { css } from 'leather-styles/css';
 
+import { itemBaseStyles, itemInteractiveStyles } from '../item/item-interactive';
+
 export interface DropdownMenuItem {
   iconLeft?: ReactNode;
   iconRight?: ReactNode;
@@ -67,20 +69,12 @@ const Label: typeof RadixDropdownMenu.Label = forwardRef((props, ref) => (
   <RadixDropdownMenu.Label className={dropdownMenuLabelStyles} ref={ref} {...props} />
 ));
 
-const dropdownMenuItemStyles = css({
-  bg: 'accent.background-primary',
-  color: 'accent.text-primary',
-  height: 'auto',
-  outline: 'none',
-  userSelect: 'none',
-  p: 'space.03',
-
-  '&[data-highlighted]': {
-    bg: 'accent.component-background-hover',
-  },
-});
 const Item: typeof RadixDropdownMenu.Item = forwardRef((props, ref) => (
-  <RadixDropdownMenu.Item className={dropdownMenuItemStyles} ref={ref} {...props} />
+  <RadixDropdownMenu.Item
+    className={css(itemBaseStyles, itemInteractiveStyles)}
+    ref={ref}
+    {...props}
+  />
 ));
 
 const dropdownMenuSeparatorStyles = css({

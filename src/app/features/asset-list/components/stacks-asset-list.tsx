@@ -2,7 +2,7 @@ import { styled } from 'leather-styles/jsx';
 
 import { useStxBalance } from '@app/common/hooks/balance/stx/use-stx-balance';
 import { ftDecimals } from '@app/common/stacks-utils';
-import { CryptoCurrencyAssetItem } from '@app/components/crypto-assets/crypto-currency-asset/crypto-currency-asset-item';
+import { CryptoCurrencyAssetItemLayout } from '@app/components/crypto-assets/crypto-currency-asset/crypto-currency-asset-item.layout';
 import { StxAvatar } from '@app/components/crypto-assets/stacks/components/stx-avatar';
 import { useStacksFungibleTokenAssetBalancesWithMetadata } from '@app/query/stacks/balance/stacks-ft-balances.hooks';
 import { StacksAccount } from '@app/store/accounts/blockchain/stacks/stacks-account.models';
@@ -36,7 +36,7 @@ export function StacksAssetList({ account }: StacksAssetListProps) {
 
   return (
     <>
-      <CryptoCurrencyAssetItem
+      <CryptoCurrencyAssetItemLayout
         assetBalance={stxEffectiveBalance}
         usdBalance={stxEffectiveUsdBalance}
         address={account.address}

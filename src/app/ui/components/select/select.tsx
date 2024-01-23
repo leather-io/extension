@@ -3,6 +3,8 @@ import { ReactNode, forwardRef } from 'react';
 import * as RadixSelect from '@radix-ui/react-select';
 import { css } from 'leather-styles/css';
 
+import { itemBaseStyles, itemInteractiveStyles } from '../item/item-interactive';
+
 export interface SelectItem {
   iconLeft?: ReactNode;
   iconRight?: ReactNode;
@@ -79,20 +81,8 @@ const Label: typeof RadixSelect.Label = forwardRef((props, ref) => (
   <RadixSelect.Label className={selectLabelStyles} ref={ref} {...props} />
 ));
 
-const selectItemStyles = css({
-  bg: 'accent.background-primary',
-  color: 'accent.text-primary',
-  height: 'auto',
-  outline: 'none',
-  userSelect: 'none',
-  p: 'space.03',
-
-  '&[data-highlighted]': {
-    bg: 'accent.component-background-hover',
-  },
-});
 const Item: typeof RadixSelect.Item = forwardRef((props, ref) => (
-  <RadixSelect.Item className={selectItemStyles} ref={ref} {...props} />
+  <RadixSelect.Item className={css(itemBaseStyles, itemInteractiveStyles)} ref={ref} {...props} />
 ));
 
 const ItemText = RadixSelect.ItemText;

@@ -15,7 +15,7 @@ export function StacksAssetAvatar({
   gradientString,
   imageCanonicalUri,
   isStx,
-  size = '36',
+  size = '40',
   ...props
 }: StacksAssetAvatarProps) {
   if (isStx) return <StxAvatar />;
