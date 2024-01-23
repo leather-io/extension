@@ -23,7 +23,7 @@ export function CollectiblesLayout({
 }: CollectiblesLayoutProps) {
   return (
     <>
-      <Flex flexDirection="row" justifyContent="space-between" flex={1}>
+      <Flex flexDirection="row" justifyContent="space-between" flex={1} mt="space.05">
         <HStack columnGap="space.02">
           <styled.span textStyle="label.01">{title}</styled.span>
           {isLoading ? (

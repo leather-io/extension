@@ -1,8 +1,6 @@
 import { useMemo } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 
-import { BoxProps } from 'leather-styles/jsx';
-
 import { BitcoinTx } from '@shared/models/transactions/bitcoin-transaction.model';
 import { RouteUrls } from '@shared/route-urls';
 
@@ -15,7 +13,6 @@ import {
   isBitcoinTxInbound,
 } from '@app/common/transactions/bitcoin/utils';
 import { openInNewTab } from '@app/common/utils/open-in-new-tab';
-import { usePressable } from '@app/components/item-hover';
 import { IncreaseFeeButton } from '@app/components/stacks-transaction-item/increase-fee-button';
 import { TransactionTitle } from '@app/components/transaction/transaction-title';
 import {
@@ -34,11 +31,10 @@ import { InscriptionIcon } from './bitcoin-transaction-inscription-icon';
 import { BitcoinTransactionStatus } from './bitcoin-transaction-status';
 import { BitcoinTransactionValue } from './bitcoin-transaction-value';
 
-interface BitcoinTransactionItemProps extends BoxProps {
+interface BitcoinTransactionItemProps {
   transaction: BitcoinTx;
 }
-export function BitcoinTransactionItem({ transaction, ...rest }: BitcoinTransactionItemProps) {
-  const [component, bind, { isHovered }] = usePressable(true);
+export function BitcoinTransactionItem({ transaction }: BitcoinTransactionItemProps) {
   const { pathname } = useLocation();
   const navigate = useNavigate();
 
@@ -92,7 +88,6 @@ export function BitcoinTransactionItem({ transaction, ...rest }: BitcoinTransact
   const increaseFeeButton = (
     <IncreaseFeeButton
       isEnabled={isEnabled}
-      isHovered={isHovered}
       isSelected={pathname === RouteUrls.IncreaseBtcFee}
       onIncreaseFee={onIncreaseFee}
     />
@@ -101,6 +96,7 @@ export function BitcoinTransactionItem({ transaction, ...rest }: BitcoinTransact
   return (
     <TransactionItemLayout
       openTxLink={openTxLink}
+      rightElement={isEnabled ? increaseFeeButton : undefined}
       txCaption={txCaption}
       txIcon={
         <BitcoinTransactionIcon
@@ -112,11 +108,6 @@ export function BitcoinTransactionItem({ transaction, ...rest }: BitcoinTransact
       txStatus={<BitcoinTransactionStatus transaction={transaction} />}
       txTitle={<TransactionTitle title={title} />}
       txValue={txValue}
-      belowCaptionEl={increaseFeeButton}
-      {...bind}
-      {...rest}
-    >
-      {component}
-    </TransactionItemLayout>
+    />
   );
 }

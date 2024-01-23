@@ -1,69 +1,52 @@
-import { BoxProps, Flex, HStack, styled } from 'leather-styles/jsx';
+import { styled } from 'leather-styles/jsx';
 
-import type { Money } from '@shared/models/money.model';
+import { createMoney } from '@shared/models/money.model';
 
 import { formatBalance } from '@app/common/format-balance';
-import { AssetCaption } from '@app/components/crypto-assets/components/asset-caption';
-import { usePressable } from '@app/components/item-hover';
-import { Flag } from '@app/ui/components/flag/flag';
+import { Brc20Token } from '@app/query/bitcoin/ordinals/brc20/brc20-tokens.query';
 import { Brc20TokenIcon } from '@app/ui/components/icons/brc20-token-icon';
+import { ItemInteractive } from '@app/ui/components/item/item-interactive';
+import { ItemLayout } from '@app/ui/components/item/item.layout';
 import { BasicTooltip } from '@app/ui/components/tooltip/basic-tooltip';
 
-interface Brc20TokenAssetItemLayoutProps extends BoxProps {
-  balance: Money;
-  caption: string;
-  isPressable?: boolean;
+interface Brc20TokenAssetItemLayoutProps {
+  token: Brc20Token;
   onClick?(): void;
-  title: string;
   displayNotEnoughBalance?: boolean;
 }
 export function Brc20TokenAssetItemLayout({
-  balance,
-  caption,
-  isPressable,
   onClick,
-  title,
   displayNotEnoughBalance,
+  token,
 }: Brc20TokenAssetItemLayoutProps) {
-  const [component, bind] = usePressable(isPressable);
-
+  const balance = createMoney(Number(token.overall_balance), token.tick, 0);
   const formattedBalance = formatBalance(balance.amount.toString());
 
   return (
     <BasicTooltip
-      disabled={!displayNotEnoughBalance}
-      side="top"
-      label={'Not enough BTC in balance'}
       asChild
+      disabled={!displayNotEnoughBalance}
+      label="Not enough BTC in balance"
+      side="top"
     >
-      <Flex onClick={isPressable ? onClick : undefined} {...bind}>
-        <Flag img={<Brc20TokenIcon />} spacing="space.04" width="100%">
-          <HStack alignItems="center" justifyContent="space-between" width="100%">
-            <styled.span
-              maxWidth="150px"
-              overflow="hidden"
-              textAlign="left"
-              textOverflow="ellipsis"
-              textStyle="label.01"
-              whiteSpace="nowrap"
-            >
-              {title}
-            </styled.span>
+      <ItemInteractive onClick={onClick}>
+        <ItemLayout
+          flagImg={<Brc20TokenIcon />}
+          titleLeft={token.tick}
+          captionLeft="BRC-20"
+          titleRight={
             <BasicTooltip
+              asChild
               label={formattedBalance.isAbbreviated ? balance.amount.toString() : undefined}
               side="left"
             >
-              <styled.span data-testid={title} textStyle="label.01">
+              <styled.span data-testid={token.tick} fontWeight={500} textStyle="label.02">
                 {formattedBalance.value}
               </styled.span>
             </BasicTooltip>
-          </HStack>
-          <HStack alignItems="center" justifyContent="space-between" height="1.25rem" width="100%">
-            <AssetCaption caption={caption} />
-          </HStack>
-          {component}
-        </Flag>
-      </Flex>
+          }
+        />
+      </ItemInteractive>
     </BasicTooltip>
   );
 }

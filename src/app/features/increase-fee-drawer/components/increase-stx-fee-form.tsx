@@ -74,7 +74,7 @@ export function IncreaseStxFeeForm() {
     >
       {props => (
         <Stack gap="space.06">
-          {tx && <StacksTransactionItem position="relative" transaction={tx} zIndex={99} />}
+          {tx && <StacksTransactionItem transaction={tx} />}
           <Stack gap="space.04">
             <IncreaseFeeField currentFee={fee} />
             {balances?.stx.unlockedStx.amount && (

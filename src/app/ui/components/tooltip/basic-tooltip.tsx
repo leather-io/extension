@@ -11,7 +11,6 @@ interface BasicTooltipProps {
   side?: RadixTooltip.TooltipContentProps['side'];
   asChild?: boolean;
 }
-
 export function BasicTooltip({ children, label, disabled, side, asChild }: BasicTooltipProps) {
   const isDisabled = !label || disabled;
   return (

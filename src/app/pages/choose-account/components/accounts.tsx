@@ -12,8 +12,9 @@ import { useCreateAccount } from '@app/common/hooks/account/use-create-account';
 import { useWalletType } from '@app/common/use-wallet-type';
 import { slugify } from '@app/common/utils';
 import { AccountTotalBalance } from '@app/components/account-total-balance';
+import { AcccountAddresses } from '@app/components/account/account-addresses';
 import { AccountAvatar } from '@app/components/account/account-avatar';
-import { AccountListItemLayout } from '@app/components/account/account-list-item-layout';
+import { AccountListItemLayout } from '@app/components/account/account-list-item.layout';
 import { usePressable } from '@app/components/item-hover';
 import { useNativeSegwitAccountIndexAddressIndexZero } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
 import { useStacksAccounts } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
@@ -36,19 +37,16 @@ interface ChooseAccountItemProps extends FlexProps {
 }
 const ChooseAccountItem = memo(
   ({ account, isLoading, onSelectAccount }: ChooseAccountItemProps) => {
-    const [component, bind] = usePressable(true);
     const name = useAccountDisplayName(account);
     const btcAddress = useNativeSegwitAccountIndexAddressIndexZero(account.index);
 
     const accountSlug = useMemo(() => slugify(`Account ${account?.index + 1}`), [account?.index]);
 
     return (
-      // Padding required on outer element to prevent jumpy list behaviours in
-      // virtualised list library
+      // Padding required on outer element to prevent jumpy virtualized list
       <Box pb="space.05">
         <AccountListItemLayout
-          index={account.index}
-          isActive={false}
+          accountAddresses={<AcccountAddresses index={account.index} />}
           accountName={
             <Suspense fallback={<AccountTitlePlaceholder account={account} />}>
               <styled.span textStyle="label.01">{name}</styled.span>
@@ -65,13 +63,12 @@ const ChooseAccountItem = memo(
           balanceLabel={
             <AccountTotalBalance stxAddress={account.address} btcAddress={btcAddress} />
           }
-          isLoading={isLoading}
-          onSelectAccount={() => onSelectAccount(account.index)}
           data-testid={`account-${accountSlug}-${account.index}`}
-          {...bind}
-        >
-          {component}
-        </AccountListItemLayout>
+          index={account.index}
+          isLoading={isLoading}
+          isSelected={false}
+          onSelectAccount={() => onSelectAccount(account.index)}
+        />
       </Box>
     );
   }

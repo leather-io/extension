@@ -1,98 +1,69 @@
-import { CryptoAssetSelectors } from '@tests/selectors/crypto-asset.selectors';
-import { Flex, styled } from 'leather-styles/jsx';
+import { ReactNode } from 'react';
 
-import { CryptoCurrencies } from '@shared/models/currencies.model';
-import { Money } from '@shared/models/money.model';
+import { styled } from 'leather-styles/jsx';
 
-import { formatBalance } from '@app/common/format-balance';
-import { ftDecimals } from '@app/common/stacks-utils';
-import { usePressable } from '@app/components/item-hover';
-import { Flag } from '@app/ui/components/flag/flag';
+import { AllCryptoCurrencyAssetBalances } from '@shared/models/crypto-asset-balance.model';
+
+import { ItemInteractive } from '@app/ui/components/item/item-interactive';
+import { ItemLayout } from '@app/ui/components/item/item.layout';
 import { BasicTooltip } from '@app/ui/components/tooltip/basic-tooltip';
-import { truncateMiddle } from '@app/ui/utils/truncate-middle';
+import { Caption } from '@app/ui/components/typography/caption';
 
-import { AssetRowGrid } from '../components/asset-row-grid';
+import { parseCryptoCurrencyAssetBalance } from './crypto-currency-asset.utils';
 
 interface CryptoCurrencyAssetItemLayoutProps {
-  balance: Money;
-  caption: string;
-  icon: React.ReactNode;
-  copyIcon?: React.ReactNode;
-  isPressable?: boolean;
-  title: string;
-  usdBalance?: string;
+  additionalBalanceInfo?: ReactNode;
+  additionalUsdBalanceInfo?: ReactNode;
   address?: string;
-  isHovered?: boolean;
-  currency?: CryptoCurrencies;
-  additionalBalanceInfo?: React.ReactNode;
-  additionalUsdBalanceInfo?: React.ReactNode;
-  rightElement?: React.ReactNode;
+  assetBalance: AllCryptoCurrencyAssetBalances;
+  icon: React.ReactNode;
   onClick?(): void;
+  rightElement?: React.ReactNode;
+  usdBalance?: string;
 }
 export function CryptoCurrencyAssetItemLayout({
-  balance,
-  caption,
-  icon,
-  copyIcon,
-  isPressable,
-  title,
-  usdBalance,
-  address = '',
-  isHovered = false,
   additionalBalanceInfo,
   additionalUsdBalanceInfo,
-  rightElement,
+  address = '',
+  assetBalance,
+  icon,
   onClick,
+  rightElement,
+  usdBalance,
 }: CryptoCurrencyAssetItemLayoutProps) {
-  const [component, bind] = usePressable(isPressable);
-
-  const amount = balance.decimals
-    ? ftDecimals(balance.amount, balance.decimals)
-    : balance.amount.toString();
-  const dataTestId = CryptoAssetSelectors.CryptoAssetListItem.replace(
-    '{symbol}',
-    balance.symbol.toLowerCase()
-  );
-  const formattedBalance = formatBalance(amount);
+  const { balance, dataTestId, formattedBalance, title } =
+    parseCryptoCurrencyAssetBalance(assetBalance);
 
   return (
-    <Flex data-testid={dataTestId} onClick={isPressable ? onClick : undefined} {...bind}>
-      <Flag img={isHovered && copyIcon ? copyIcon : icon} spacing="space.04" width="100%">
-        <AssetRowGrid
-          title={
-            <styled.span textStyle="label.01">
-              {isHovered ? truncateMiddle(address, 6) : title}
-            </styled.span>
-          }
-          balance={
+    <ItemInteractive data-testid={dataTestId} onClick={onClick}>
+      <ItemLayout
+        flagImg={icon}
+        titleLeft={title}
+        captionLeft={balance.symbol}
+        titleRight={
+          rightElement ? (
+            rightElement
+          ) : (
             <BasicTooltip
+              asChild
               label={formattedBalance.isAbbreviated ? balance.amount.toString() : undefined}
               side="left"
             >
-              <styled.span data-testid={title} textStyle="label.01">
+              <styled.span data-testid={title} fontWeight={500} textStyle="label.02">
                 {formattedBalance.value} {additionalBalanceInfo}
               </styled.span>
             </BasicTooltip>
-          }
-          caption={
-            <styled.span textStyle="caption.02" color="accent.text-subdued">
-              {caption}
-            </styled.span>
-          }
-          usdBalance={
-            <Flex justifyContent="flex-end">
-              {balance.amount.toNumber() > 0 && address ? (
-                <styled.span textStyle="caption.02" color="accent.text-subdued">
-                  {usdBalance}
-                </styled.span>
-              ) : null}
+          )
+        }
+        captionRight={
+          !rightElement && (
+            <>
+              <Caption>{balance.amount.toNumber() > 0 && address ? usdBalance : null}</Caption>
               {additionalUsdBalanceInfo}
-            </Flex>
-          }
-          rightElement={rightElement}
-        />
-      </Flag>
-      {component}
-    </Flex>
+            </>
+          )
+        }
+      />
+    </ItemInteractive>
   );
 }
