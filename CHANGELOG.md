@@ -1,3 +1,16 @@
+## [6.25.0](https://github.com/leather-wallet/extension/compare/v6.24.0...v6.25.0) (2024-01-23)
+
+
+### Features
+
+* remove unused url in brc20 request, ref [#4833](https://github.com/leather-wallet/extension/issues/4833) ([95b722c](https://github.com/leather-wallet/extension/commit/95b722cfcf03329c221d12fc29ad1141e6e2af80))
+
+
+### Internal
+
+* post-release merge back ([d80459f](https://github.com/leather-wallet/extension/commit/d80459f556909c9c9e65ae48c58580710200a313))
+* rename taproot utxo ([0dacac6](https://github.com/leather-wallet/extension/commit/0dacac604f5d11a616e9decfa1bb06c7c87862b2))
+
 ## [6.24.0](https://github.com/leather-wallet/extension/compare/v6.23.0...v6.24.0) (2024-01-22)
 
 
