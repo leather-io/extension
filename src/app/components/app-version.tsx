@@ -1,5 +1,4 @@
-import { useMemo } from 'react';
-import { forwardRef } from 'react';
+import { forwardRef, useMemo } from 'react';
 
 import { HTMLStyledProps, styled } from 'leather-styles/jsx';
 

@@ -1,6 +1,5 @@
 import { SettingsSelectors } from '@tests/selectors/settings.selectors';
-import { Box, Flex, Stack } from 'leather-styles/jsx';
-import { styled } from 'leather-styles/jsx';
+import { Box, Flex, Stack, styled } from 'leather-styles/jsx';
 
 import { NetworkConfiguration } from '@shared/constants';
 

@@ -1,5 +1,4 @@
-import { useMemo } from 'react';
-import { useCallback } from 'react';
+import { useCallback, useMemo } from 'react';
 
 import BigNumber from 'bignumber.js';
 
@@ -8,8 +7,10 @@ import { MarketData, createMarketData, createMarketPair } from '@shared/models/m
 import { Money, createMoney, currencyDecimalsMap } from '@shared/models/money.model';
 
 import { calculateMeanAverage } from '@app/common/math/calculate-averages';
-import { convertAmountToFractionalUnit } from '@app/common/money/calculate-money';
-import { baseCurrencyAmountInQuote } from '@app/common/money/calculate-money';
+import {
+  baseCurrencyAmountInQuote,
+  convertAmountToFractionalUnit,
+} from '@app/common/money/calculate-money';
 
 import {
   selectBinanceUsdPrice,

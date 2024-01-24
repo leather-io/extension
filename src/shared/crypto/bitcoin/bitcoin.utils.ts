@@ -5,8 +5,7 @@ import * as btc from '@scure/btc-signer';
 
 import { BitcoinNetworkModes, NetworkModes } from '@shared/constants';
 import { logger } from '@shared/logger';
-import { defaultWalletKeyId } from '@shared/utils';
-import { isDefined, whenNetwork } from '@shared/utils';
+import { defaultWalletKeyId, isDefined, whenNetwork } from '@shared/utils';
 
 import { DerivationPathDepth } from '../derivation-path.utils';
 import { BtcSignerNetwork, getBtcSignerLibNetworkConfigByMode } from './bitcoin.network';

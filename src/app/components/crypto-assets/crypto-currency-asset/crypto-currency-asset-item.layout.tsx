@@ -1,6 +1,5 @@
 import { CryptoAssetSelectors } from '@tests/selectors/crypto-asset.selectors';
-import { Flex } from 'leather-styles/jsx';
-import { styled } from 'leather-styles/jsx';
+import { Flex, styled } from 'leather-styles/jsx';
 
 import { CryptoCurrencies } from '@shared/models/currencies.model';
 import { Money } from '@shared/models/money.model';

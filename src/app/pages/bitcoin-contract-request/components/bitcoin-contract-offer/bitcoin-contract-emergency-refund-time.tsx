@@ -1,6 +1,5 @@
 import { BitcoinContractRequestSelectors } from '@tests/selectors/bitcoin-contract-request.selectors';
-import { Flex } from 'leather-styles/jsx';
-import { styled } from 'leather-styles/jsx';
+import { Flex, styled } from 'leather-styles/jsx';
 
 interface BitcoinContractEmergencyRefundTimeProps {
   emergencyRefundTime: string;
