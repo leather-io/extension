@@ -34,7 +34,7 @@ describe(determineUtxosForSpend.name, () => {
   describe('sorting algorithm (biggest first and no dust)', () => {
     test('that it filters out dust utxos', () => {
       const result = generate10kSpendWithTestData('tb1qt28eagxcl9gvhq2rpj5slg7dwgxae2dn2hk93m');
-      const hasDust = result.orderedUtxos.some(utxo => utxo.value <= BTC_P2WPKH_DUST_AMOUNT);
+      const hasDust = result.filteredUtxos.some(utxo => utxo.value <= BTC_P2WPKH_DUST_AMOUNT);
       expect(hasDust).toBeFalsy();
     });
 
