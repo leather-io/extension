@@ -15,7 +15,7 @@ export function BasicTooltip({ children, label, disabled, side }: BasicTooltipPr
   const isDisabled = !label || disabled;
   return (
     <Tooltip.Root>
-      <Tooltip.Trigger>{children}</Tooltip.Trigger>
+      <Tooltip.Trigger asChild>{children}</Tooltip.Trigger>
       <Tooltip.Portal>
         <Tooltip.Content hidden={isDisabled} side={side} sideOffset={5}>
           {label}
