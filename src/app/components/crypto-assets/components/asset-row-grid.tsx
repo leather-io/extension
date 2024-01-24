@@ -22,7 +22,13 @@ export function AssetRowGrid({
     <GridItem textAlign="right">{balance}</GridItem>
   );
   return (
-    <Grid columns={2} gridTemplateColumns="2fr 1fr" gridTemplateRows={2} gap={0}>
+    <Grid
+      columns={2}
+      gridTemplateColumns="2fr 1fr"
+      gridTemplateRows={2}
+      gap={0}
+      whiteSpace="nowrap"
+    >
       <GridItem textAlign="left" whiteSpace="nowrap" overflow="hidden" textOverflow="ellipsis">
         {title}
       </GridItem>

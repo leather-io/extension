@@ -1,13 +1,9 @@
 import { cloneElement, isValidElement } from 'react';
 
-import { BoxProps, styled } from 'leather-styles/jsx';
+import { Circle, CircleProps } from 'leather-styles/jsx';
 
-function CaptionSeparatorDot(props: BoxProps) {
-  return (
-    <styled.span color="accent.text-subdued" fontSize="10px" {...props}>
-      •
-    </styled.span>
-  );
+export function CaptionSeparatorDot(props: CircleProps) {
+  return <Circle display="inline-flex" backgroundColor="currentColor" size="3px" {...props} />;
 }
 
 interface CaptionDotSeparatorProps {

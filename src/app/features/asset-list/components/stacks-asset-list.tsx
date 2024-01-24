@@ -1,5 +1,8 @@
+import { styled } from 'leather-styles/jsx';
+
 import { useStxBalance } from '@app/common/hooks/balance/stx/use-stx-balance';
 import { ftDecimals } from '@app/common/stacks-utils';
+import { CaptionSeparatorDot } from '@app/components/caption-dot-separator';
 import { CryptoCurrencyAssetItem } from '@app/components/crypto-assets/crypto-currency-asset/crypto-currency-asset-item';
 import { StxAvatar } from '@app/components/crypto-assets/stacks/components/stx-avatar';
 import { useStacksFungibleTokenAssetBalancesAnchoredWithMetadata } from '@app/query/stacks/balance/stacks-ft-balances.hooks';
@@ -20,11 +23,17 @@ export function StacksAssetList({ account }: StacksAssetListProps) {
     useStxBalance();
 
   const stxAdditionalBalanceInfo = stxLockedBalance?.amount.isGreaterThan(0) ? (
-    <>({ftDecimals(stxLockedBalance.amount, stxLockedBalance.decimals || 0)} locked)</>
+    <styled.span>
+      <CaptionSeparatorDot mr="space.01" pos="relative" top="-2px" />
+      {ftDecimals(stxLockedBalance.amount, stxLockedBalance.decimals || 0)} locked
+    </styled.span>
   ) : undefined;
 
   const stxAdditionalUsdBalanceInfo = stxLockedBalance?.amount.isGreaterThan(0) ? (
-    <Caption ml="4px">({stxUsdLockedBalance} locked)</Caption>
+    <Caption ml="4px">
+      <CaptionSeparatorDot mr="space.01" pos="relative" top="-1px" />
+      {stxUsdLockedBalance} locked
+    </Caption>
   ) : undefined;
 
   return (
