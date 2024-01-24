@@ -2,8 +2,10 @@ import BigNumber from 'bignumber.js';
 import { getAddressInfo, validate } from 'bitcoin-address-validation';
 
 import { BTC_P2WPKH_DUST_AMOUNT } from '@shared/constants';
-import { BitcoinTransactionVectorOutput } from '@shared/models/transactions/bitcoin-transaction.model';
-import { BitcoinTx } from '@shared/models/transactions/bitcoin-transaction.model';
+import {
+  BitcoinTransactionVectorOutput,
+  BitcoinTx,
+} from '@shared/models/transactions/bitcoin-transaction.model';
 
 import { sumNumbers } from '@app/common/math/helpers';
 import { satToBtc } from '@app/common/money/unit-conversion';

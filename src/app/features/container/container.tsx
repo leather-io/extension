@@ -4,8 +4,7 @@ import { Outlet, useLocation } from 'react-router-dom';
 
 import { closeWindow } from '@shared/utils';
 
-import { useInitalizeAnalytics } from '@app/common/hooks/analytics/use-analytics';
-import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
+import { useAnalytics, useInitalizeAnalytics } from '@app/common/hooks/analytics/use-analytics';
 import { LoadingSpinner } from '@app/components/loading-spinner';
 import { useOnSignOut } from '@app/routes/hooks/use-on-sign-out';
 import { useOnWalletLock } from '@app/routes/hooks/use-on-wallet-lock';

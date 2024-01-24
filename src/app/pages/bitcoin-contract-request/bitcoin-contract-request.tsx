@@ -6,8 +6,10 @@ import { Stack } from 'leather-styles/jsx';
 import { RouteUrls } from '@shared/route-urls';
 import { BitcoinContractResponseStatus } from '@shared/rpc/methods/accept-bitcoin-contract';
 
-import { useBitcoinContracts } from '@app/common/hooks/use-bitcoin-contracts';
-import { BitcoinContractOfferDetails } from '@app/common/hooks/use-bitcoin-contracts';
+import {
+  BitcoinContractOfferDetails,
+  useBitcoinContracts,
+} from '@app/common/hooks/use-bitcoin-contracts';
 import { useOnMount } from '@app/common/hooks/use-on-mount';
 import { initialSearchParams } from '@app/common/initial-search-params';
 import { useCurrentAccountNativeSegwitSigner } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
