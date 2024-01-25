@@ -18,7 +18,7 @@ export function TaprootBalanceDisplayer({ onSelectRetrieveBalance }: TaprootBala
   if (!isRecoverFeatureEnabled) return null;
   if (balance.amount.isLessThanOrEqualTo(0)) return null;
   return (
-    <BasicTooltip label={taprootSpendNotSupportedYetMsg}>
+    <BasicTooltip label={taprootSpendNotSupportedYetMsg} asChild>
       <Link onClick={() => onSelectRetrieveBalance()} textStyle="caption.02" variant="text">
         {formatMoney(balance)}
       </Link>

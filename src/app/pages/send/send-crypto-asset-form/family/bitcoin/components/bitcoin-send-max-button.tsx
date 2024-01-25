@@ -38,16 +38,14 @@ export function BitcoinSendMaxButton({
   if (sendMaxBalance === '0') return <Box height="32px" />;
 
   return (
-    <BasicTooltip label={sendMaxTooltipLabel} side="bottom">
-      <Box>
-        <Link
-          data-testid={SendCryptoAssetSelectors.SendMaxBtn}
-          onClick={() => onSendMax()}
-          {...props}
-        >
-          {isSendingMax ? 'Sending max' : 'Send max'}
-        </Link>
-      </Box>
+    <BasicTooltip label={sendMaxTooltipLabel} side="bottom" asChild>
+      <Link
+        data-testid={SendCryptoAssetSelectors.SendMaxBtn}
+        onClick={() => onSendMax()}
+        {...props}
+      >
+        {isSendingMax ? 'Sending max' : 'Send max'}
+      </Link>
     </BasicTooltip>
   );
 }
