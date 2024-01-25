@@ -28,7 +28,9 @@ export function RecipientAddressDisplayer({ address }: RecipientAddressDisplayer
       >
         {address}
       </styled.span>
-      <BasicTooltip label={hasCopied ? 'Copied!' : 'Copy address'} side="right">
+      {/** TODO: We need to persist the tooltip after it is clicked.
+           Current implementation of radix-ui tooltip doesn't allow that, ref: https://github.com/radix-ui/primitives/issues/2029 */}
+      <BasicTooltip label={hasCopied ? 'Copied!' : 'Copy address'} side="right" asChild>
         <styled.button
           _hover={{ cursor: 'pointer' }}
           data-testid={SendCryptoAssetSelectors.RecipientBnsAddressCopyToClipboard}

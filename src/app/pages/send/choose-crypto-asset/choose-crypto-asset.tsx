@@ -4,11 +4,10 @@ import { useNavigate } from 'react-router-dom';
 import { AllTransferableCryptoAssetBalances } from '@shared/models/crypto-asset-balance.model';
 import { RouteUrls } from '@shared/route-urls';
 
+import { useBrc20Tokens } from '@app/common/hooks/use-brc20-tokens';
 import { useRouteHeader } from '@app/common/hooks/use-route-header';
 import { useAllTransferableCryptoAssetBalances } from '@app/common/hooks/use-transferable-asset-balances.hooks';
 import { useWalletType } from '@app/common/use-wallet-type';
-import { Brc20TokensLoader } from '@app/components/brc20-tokens-loader';
-import { Brc20TokenAssetList } from '@app/components/crypto-assets/bitcoin/brc20-token-asset-list/brc20-token-asset-list';
 import { ChooseCryptoAssetLayout } from '@app/components/crypto-assets/choose-crypto-asset/choose-crypto-asset.layout';
 import { CryptoAssetList } from '@app/components/crypto-assets/choose-crypto-asset/crypto-asset-list';
 import { ModalHeader } from '@app/components/modal-header';
@@ -17,6 +16,7 @@ import { useCheckLedgerBlockchainAvailable } from '@app/store/accounts/blockchai
 
 export function ChooseCryptoAsset() {
   const allTransferableCryptoAssetBalances = useAllTransferableCryptoAssetBalances();
+  const brc20Tokens = useBrc20Tokens();
 
   const { whenWallet } = useWalletType();
   const navigate = useNavigate();
@@ -49,6 +49,7 @@ export function ChooseCryptoAsset() {
     <ChooseCryptoAssetLayout title="choose asset to send">
       <CryptoAssetList
         onItemClick={cryptoAssetBalance => navigateToSendForm(cryptoAssetBalance)}
+        brc20Tokens={brc20Tokens}
         cryptoAssetBalances={allTransferableCryptoAssetBalances.filter(asset =>
           whenWallet({
             ledger: checkBlockchainAvailable(asset.blockchain),
@@ -56,14 +57,6 @@ export function ChooseCryptoAsset() {
           })
         )}
       />
-      {whenWallet({
-        software: (
-          <Brc20TokensLoader>
-            {brc20Tokens => <Brc20TokenAssetList brc20Tokens={brc20Tokens} />}
-          </Brc20TokensLoader>
-        ),
-        ledger: null,
-      })}
     </ChooseCryptoAssetLayout>
   );
 }
