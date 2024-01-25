@@ -5,7 +5,7 @@ import { CryptoCurrencies } from '@shared/models/currencies.model';
 import { Money } from '@shared/models/money.model';
 
 import { formatDustUsdAmounts, i18nFormatCurrency } from '@app/common/money/format-money';
-import { Tooltip } from '@app/components/tooltip';
+import { BasicTooltip } from '@app/ui/components/tooltip/basic-tooltip';
 
 interface TransactionFeeProps {
   fee: string | number;
@@ -23,5 +23,9 @@ export function TransactionFee({ fee, feeCurrencySymbol, usdAmount }: Transactio
     </styled.span>
   );
   if (!usdAmount || usdAmount.amount.isNaN()) return feeLabel;
-  return <Tooltip label={formatDustUsdAmounts(i18nFormatCurrency(usdAmount))}>{feeLabel}</Tooltip>;
+  return (
+    <BasicTooltip label={formatDustUsdAmounts(i18nFormatCurrency(usdAmount))}>
+      {feeLabel}
+    </BasicTooltip>
+  );
 }

@@ -1,4 +1,4 @@
-import { LeatherButton } from '@app/ui/components/button';
+import { Button } from '@app/ui/components/button/button';
 
 import { SendTransferFooter } from './send-transfer-footer';
 
@@ -10,9 +10,9 @@ interface SendTransferActionsProps {
 export function SendTransferActions({ action, isLoading, onApprove }: SendTransferActionsProps) {
   return (
     <SendTransferFooter>
-      <LeatherButton borderRadius="sm" flexGrow={1} aria-busy={isLoading} onClick={onApprove}>
+      <Button borderRadius="sm" flexGrow={1} aria-busy={isLoading} onClick={onApprove}>
         {action}
-      </LeatherButton>
+      </Button>
     </SendTransferFooter>
   );
 }

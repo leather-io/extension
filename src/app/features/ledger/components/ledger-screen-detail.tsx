@@ -1,8 +1,8 @@
 import { Flex, styled } from 'leather-styles/jsx';
 import { token } from 'leather-styles/tokens';
 
-import { Tooltip } from '@app/components/tooltip';
 import { InfoIcon } from '@app/ui/components/icons/info-icon';
+import { BasicTooltip } from '@app/ui/components/tooltip/basic-tooltip';
 import { Caption } from '@app/ui/components/typography/caption';
 
 interface LedgerScreenDetailProps {
@@ -17,7 +17,7 @@ export function LedgerScreenDetail(props: LedgerScreenDetailProps) {
     <Flex borderColor="accent.border-default" flexDirection="column">
       <Caption>
         {tooltipLabel ? (
-          <Tooltip label={tooltipLabel} placement="top">
+          <BasicTooltip label={tooltipLabel} side="top">
             <Flex cursor="question" display="inline-flex">
               {title}
               <InfoIcon
@@ -27,7 +27,7 @@ export function LedgerScreenDetail(props: LedgerScreenDetailProps) {
                 style={{ color: token('colors.accent.text-subdued') }}
               />
             </Flex>
-          </Tooltip>
+          </BasicTooltip>
         ) : (
           <>{title}</>
         )}

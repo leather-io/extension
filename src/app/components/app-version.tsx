@@ -1,5 +1,4 @@
-import { useMemo } from 'react';
-import { forwardRef } from 'react';
+import { forwardRef, useMemo } from 'react';
 
 import { HTMLStyledProps, styled } from 'leather-styles/jsx';
 
@@ -7,8 +6,7 @@ import { BRANCH_NAME, COMMIT_SHA } from '@shared/environment';
 
 import { openInNewTab } from '@app/common/utils/open-in-new-tab';
 import { useIsLatestPullRequestBuild } from '@app/query/common/outdated-pr/outdated-pr.query';
-
-import { Tooltip } from './tooltip';
+import { BasicTooltip } from '@app/ui/components/tooltip/basic-tooltip';
 
 interface AppVersionLabelProps extends HTMLStyledProps<'span'> {
   isLatestVersion: boolean;
@@ -47,7 +45,7 @@ export function AppVersion() {
 
   if (!isLatestBuild && process.env.WALLET_ENVIRONMENT === 'feature') {
     return (
-      <Tooltip label="Outdated PR build, download the latest version">
+      <BasicTooltip label="Outdated PR build, download the latest version">
         <AppVersionLabel
           isLatestVersion={false}
           cursor="pointer"
@@ -55,7 +53,7 @@ export function AppVersion() {
         >
           {version}
         </AppVersionLabel>
-      </Tooltip>
+      </BasicTooltip>
     );
   }
 

@@ -21,8 +21,8 @@ import {
   useCurrentStacksNetworkState,
   useNetworksActions,
 } from '@app/store/networks/networks.hooks';
-import { LeatherButton } from '@app/ui/components/button';
-import { Input } from '@app/ui/components/input';
+import { Button } from '@app/ui/components/button/button';
+import { Input } from '@app/ui/components/input/input';
 import { Title } from '@app/ui/components/typography/title';
 
 /**
@@ -70,14 +70,14 @@ export function AddNetwork() {
 
   const setStacksUrl = useCallback(
     (value: string) => {
-      setFieldValue('stacksUrl', value);
+      void setFieldValue('stacksUrl', value);
     },
     [setFieldValue]
   );
 
   const setBitcoinUrl = useCallback(
     (value: string) => {
-      setFieldValue('bitcoinUrl', value);
+      void setFieldValue('bitcoinUrl', value);
     },
     [setFieldValue]
   );
@@ -109,6 +109,11 @@ export function AddNetwork() {
         initialValues={addNetworkFormValues}
         onSubmit={async () => {
           const { name, stacksUrl, bitcoinUrl, key } = formikProps.values;
+
+          if (!name) {
+            setError('Enter a name');
+            return;
+          }
 
           if (!isValidUrl(stacksUrl)) {
             setError('Enter a valid Stacks API URL');
@@ -219,17 +224,17 @@ export function AddNetwork() {
                 </a>
                 . Make sure you review and trust the host before you add it.
               </styled.span>
-              <Input
-                autoFocus
-                borderRadius="sm"
-                height="64px"
-                onChange={formikProps.handleChange}
-                name="name"
-                placeholder="Name"
-                value={formikProps.values.name}
-                width="100%"
-                data-testid={NetworkSelectors.NetworkName}
-              />
+              <Input.Root>
+                <Input.Label>Name</Input.Label>
+                <Input.Field
+                  autoFocus
+                  onChange={formikProps.handleChange}
+                  name="name"
+                  value={formikProps.values.name}
+                  width="100%"
+                  data-testid={NetworkSelectors.NetworkName}
+                />
+              </Input.Root>
               <Title>Bitcoin API</Title>
               {/* TODO: Replace with new Select */}
               <SelectRoot onValueChange={handleApiChange} defaultValue="mainnet">
@@ -264,48 +269,49 @@ export function AddNetwork() {
                 </SelectContent>
               </SelectRoot>
               <Title>Stacks API URL</Title>
-              <Input
-                borderRadius="sm"
-                height="64px"
-                onChange={formikProps.handleChange}
-                name="stacksUrl"
-                placeholder="Stacks Address"
-                value={formikProps.values.stacksUrl}
-                width="100%"
-                data-testid={NetworkSelectors.NetworkStacksAddress}
-              />
+              <Input.Root>
+                <Input.Label>Name</Input.Label>
+                <Input.Field
+                  height="64px"
+                  onChange={formikProps.handleChange}
+                  name="stacksUrl"
+                  value={formikProps.values.stacksUrl}
+                  width="100%"
+                  data-testid={NetworkSelectors.NetworkStacksAddress}
+                />
+              </Input.Root>
               <Title>Bitcoin API URL</Title>
-              <Input
-                borderRadius="sm"
-                height="64px"
-                onChange={formikProps.handleChange}
-                name="bitcoinUrl"
-                placeholder="Bitcoin Address"
-                value={formikProps.values.bitcoinUrl}
-                width="100%"
-                data-testid={NetworkSelectors.NetworkBitcoinAddress}
-              />
-              <Input
-                borderRadius="sm"
-                height="64px"
-                onChange={formikProps.handleChange}
-                name="key"
-                placeholder="Key"
-                value={formikProps.values.key}
-                width="100%"
-                data-testid={NetworkSelectors.NetworkKey}
-              />
+              <Input.Root>
+                <Input.Label>Bitcoin API URL</Input.Label>
+                <Input.Field
+                  onChange={formikProps.handleChange}
+                  name="bitcoinUrl"
+                  value={formikProps.values.bitcoinUrl}
+                  width="100%"
+                  data-testid={NetworkSelectors.NetworkBitcoinAddress}
+                />
+              </Input.Root>
+              <Input.Root>
+                <Input.Label>Network key</Input.Label>
+                <Input.Field
+                  onChange={formikProps.handleChange}
+                  name="key"
+                  value={formikProps.values.key}
+                  width="100%"
+                  data-testid={NetworkSelectors.NetworkKey}
+                />
+              </Input.Root>
               {error ? (
                 <ErrorLabel data-testid={NetworkSelectors.ErrorText}>{error}</ErrorLabel>
               ) : null}
-              <LeatherButton
+              <Button
                 disabled={loading}
                 aria-busy={loading}
                 data-testid={NetworkSelectors.BtnAddNetwork}
                 type="submit"
               >
                 Add network
-              </LeatherButton>
+              </Button>
             </Stack>
           </form>
         )}

@@ -1,7 +1,6 @@
 import { useState } from 'react';
 
-import { Box, FlexProps, Stack } from 'leather-styles/jsx';
-import { styled } from 'leather-styles/jsx';
+import { Box, FlexProps, Stack, styled } from 'leather-styles/jsx';
 
 import { BtcFeeType } from '@shared/models/fees/bitcoin-fees.model';
 import { Money } from '@shared/models/money.model';

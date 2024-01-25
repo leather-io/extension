@@ -4,7 +4,7 @@ import { isDefined } from '@shared/utils';
 import { sumNumbers } from '@app/common/math/helpers';
 import { BtcSizeFeeEstimator } from '@app/common/transactions/bitcoin/fees/btc-size-fee-estimator';
 import { createCounter } from '@app/common/utils/counter';
-import { TaprootUtxo, UtxoResponseItem } from '@app/query/bitcoin/bitcoin-client';
+import { UtxoResponseItem, UtxoWithDerivationPath } from '@app/query/bitcoin/bitcoin-client';
 
 const idealInscriptionValue = 10_000;
 
@@ -22,7 +22,7 @@ interface SelectInscriptionCoinFailure {
 type SelectInscriptionCoinResult = SelectInscriptionCoinSuccess | SelectInscriptionCoinFailure;
 
 interface SelectInscriptionTransferCoinsArgs {
-  inscriptionInput: TaprootUtxo;
+  inscriptionInput: UtxoWithDerivationPath;
   nativeSegwitUtxos: UtxoResponseItem[];
   feeRate: number;
   recipient: string;

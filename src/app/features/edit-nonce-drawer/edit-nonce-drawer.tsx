@@ -9,7 +9,7 @@ import { StacksSendFormValues, StacksTransactionFormValues } from '@shared/model
 import { useOnMount } from '@app/common/hooks/use-on-mount';
 import { openInNewTab } from '@app/common/utils/open-in-new-tab';
 import { BaseDrawer } from '@app/components/drawer/base-drawer';
-import { LeatherButton } from '@app/ui/components/button';
+import { Link } from '@app/ui/components/link/link';
 
 import { EditNonceForm } from './components/edit-nonce-form';
 
@@ -19,9 +19,9 @@ function CustomFeeMessaging() {
   return (
     <styled.span textStyle="caption.01">
       If your transaction has been pending for a long time, its nonce might not be correct.
-      <LeatherButton fontSize="14px" ml="space.01" onClick={() => openInNewTab(url)} variant="link">
+      <Link fontSize="14px" ml="space.01" onClick={() => openInNewTab(url)}>
         Learn more.
-      </LeatherButton>
+      </Link>
     </styled.span>
   );
 }

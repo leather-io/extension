@@ -9,7 +9,7 @@ import { createMoney } from '@shared/models/money.model';
 
 import { openInNewTab } from '@app/common/utils/open-in-new-tab';
 import { PreviewButton } from '@app/components/preview-button';
-import { LeatherButton } from '@app/ui/components/button';
+import { Link } from '@app/ui/components/link/link';
 
 import { OnChooseFeeArgs } from '../bitcoin-fees-list/bitcoin-fees-list';
 import { TextInputField } from '../text-input-field';
@@ -89,14 +89,13 @@ export function BitcoinCustomFee({
               <Stack gap="space.05">
                 <styled.span color="accent.text-subdued" textStyle="body.02" maxWidth="21.5rem">
                   Higher fee rates typically lead to faster confirmation times.
-                  <LeatherButton
+                  <Link
                     ml="space.01"
                     onClick={() => openInNewTab('https://buybitcoinworldwide.com/fee-calculator/')}
                     textStyle="body.02"
-                    variant="link"
                   >
                     View fee calculator
-                  </LeatherButton>
+                  </Link>
                 </styled.span>
                 <Stack gap="space.01">
                   <TextInputField

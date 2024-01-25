@@ -44,6 +44,7 @@ export function FeeEstimateSelectLayout({
             boxShadow="0px 8px 16px rgba(27, 39, 51, 0.08)"
             data-testid={SharedComponentsSelectors.FeeEstimateSelect}
             flexDirection="column"
+            gap="0px"
             minHeight="96px"
             minWidth="100px"
             overflow="hidden"

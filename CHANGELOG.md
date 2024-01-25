@@ -1,3 +1,41 @@
+## [6.25.0](https://github.com/leather-wallet/extension/compare/v6.24.0...v6.25.0) (2024-01-23)
+
+
+### Features
+
+* remove unused url in brc20 request, ref [#4833](https://github.com/leather-wallet/extension/issues/4833) ([95b722c](https://github.com/leather-wallet/extension/commit/95b722cfcf03329c221d12fc29ad1141e6e2af80))
+
+
+### Internal
+
+* post-release merge back ([d80459f](https://github.com/leather-wallet/extension/commit/d80459f556909c9c9e65ae48c58580710200a313))
+* rename taproot utxo ([0dacac6](https://github.com/leather-wallet/extension/commit/0dacac604f5d11a616e9decfa1bb06c7c87862b2))
+
+## [6.24.0](https://github.com/leather-wallet/extension/compare/v6.23.0...v6.24.0) (2024-01-22)
+
+
+### Features
+
+* use radix tooltip ([aa8a530](https://github.com/leather-wallet/extension/commit/aa8a530fe855735757828d3b09e67f1e8b0ede9e))
+
+
+### Bug Fixes
+
+* fee estimation error, ref [#4821](https://github.com/leather-wallet/extension/issues/4821) ([9b75521](https://github.com/leather-wallet/extension/commit/9b75521af8b4d019692d78163dc1a6748b12a4a4))
+* home action btns hover state ([c270868](https://github.com/leather-wallet/extension/commit/c270868ce03626104421a841b1cc763a54f457af))
+* send inscription form fee flow ([ee9728d](https://github.com/leather-wallet/extension/commit/ee9728d6aad15ae22bf711067a191e2d07a13765))
+* tooltip logic ([2ae8cf0](https://github.com/leather-wallet/extension/commit/2ae8cf0240760e2bfb32b6d6a4bc9773a9db0f60))
+
+
+### Internal
+
+* audit colours, update token package, brown becomes ink ([c82c612](https://github.com/leather-wallet/extension/commit/c82c612d75246a94b3ca504ef1d814cbb74b7cbf))
+* button and link, ref [#4418](https://github.com/leather-wallet/extension/issues/4418) and [#4523](https://github.com/leather-wallet/extension/issues/4523) ([7d75f4a](https://github.com/leather-wallet/extension/commit/7d75f4a376f73368303a5a50b2c811c62aa06fc2))
+* fix icon padding, ref [#4693](https://github.com/leather-wallet/extension/issues/4693) ([fbd8c11](https://github.com/leather-wallet/extension/commit/fbd8c1199d2bd590b9158644ae94b3b355910b49))
+* fix validate custom network name field on form submission, closes [#4737](https://github.com/leather-wallet/extension/issues/4737) ([63e6a94](https://github.com/leather-wallet/extension/commit/63e6a9482f8bc1ad5a7a414699b07b1a1a4c188c))
+* post-release merge back ([0930968](https://github.com/leather-wallet/extension/commit/0930968439e320b2dc4d56641d39a70df518f354))
+* update network tests ([ab1fb5b](https://github.com/leather-wallet/extension/commit/ab1fb5b6ad408bdae1b044b043540bb99de70692))
+
 ## [6.23.0](https://github.com/leather-wallet/extension/compare/v6.22.0...v6.23.0) (2024-01-16)
 
 

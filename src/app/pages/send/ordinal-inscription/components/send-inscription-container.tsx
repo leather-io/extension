@@ -7,7 +7,9 @@ import { AverageBitcoinFeeRates, BtcFeeType } from '@shared/models/fees/bitcoin-
 import { SupportedInscription } from '@shared/models/inscription.model';
 
 import { useOnMount } from '@app/common/hooks/use-on-mount';
-import { TaprootUtxo } from '@app/query/bitcoin/bitcoin-client';
+import { UtxoWithDerivationPath } from '@app/query/bitcoin/bitcoin-client';
+import { useCurrentAccountIndex } from '@app/store/accounts/account';
+import { useCurrentNetwork } from '@app/store/networks/networks.selectors';
 
 import { useSendInscriptionRouteState } from '../hooks/use-send-inscription-route-state';
 import { createUtxoFromInscription } from './create-utxo-from-inscription';
@@ -18,7 +20,7 @@ interface SendInscriptionContextState {
   inscription: SupportedInscription;
   selectedFeeType: BtcFeeType;
   setSelectedFeeType(value: BtcFeeType | null): void;
-  utxo: TaprootUtxo;
+  utxo: UtxoWithDerivationPath;
 }
 export function useSendInscriptionState() {
   const location = useLocation();
@@ -29,14 +31,22 @@ export function useSendInscriptionState() {
 export function SendInscriptionContainer() {
   const [selectedFeeType, setSelectedFeeType] = useState<BtcFeeType | null>(null);
   const [inscription, setInscription] = useState<SupportedInscription | null>(null);
-  const [utxo, setUtxo] = useState<TaprootUtxo | null>(null);
+  const [utxo, setUtxo] = useState<UtxoWithDerivationPath | null>(null);
 
   const routeState = useSendInscriptionRouteState();
+  const network = useCurrentNetwork();
+  const currentAccountIndex = useCurrentAccountIndex();
 
   useOnMount(() => {
     if (!routeState.inscription) return;
     setInscription(routeState.inscription);
-    setUtxo(createUtxoFromInscription(routeState.inscription));
+    setUtxo(
+      createUtxoFromInscription({
+        inscription: routeState.inscription,
+        network: network.chain.bitcoin.bitcoinNetwork,
+        accountIndex: currentAccountIndex,
+      })
+    );
   });
 
   if (!inscription || !utxo) return null;

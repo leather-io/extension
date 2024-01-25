@@ -18,7 +18,6 @@ import { useOnMount } from '@app/common/hooks/use-on-mount';
 import { useRouteHeader } from '@app/common/hooks/use-route-header';
 import { stxFeeValidator } from '@app/common/validation/forms/fee-validators';
 import { nonceValidator } from '@app/common/validation/nonce-validators';
-import { EditNonceButton } from '@app/components/edit-nonce-button';
 import { NonceSetter } from '@app/components/nonce-setter';
 import { PopupHeader } from '@app/features/current-account/popup-header';
 import { RequestingTabClosedWarningMessage } from '@app/features/errors/requesting-tab-closed-error-msg';
@@ -43,6 +42,7 @@ import {
   useStacksTransactionBroadcast,
   useUnsignedStacksTransactionBaseState,
 } from '@app/store/transactions/transaction.hooks';
+import { Link } from '@app/ui/components/link/link';
 
 function TransactionRequestBase() {
   const transactionRequest = useTransactionRequestState();
@@ -128,11 +128,9 @@ function TransactionRequestBase() {
 
             <NonceSetter />
             <FeeForm fees={stxFees} />
-            <EditNonceButton
-              alignSelf="flex-end"
-              my="space.04"
-              onEditNonce={() => navigate(RouteUrls.EditNonce)}
-            />
+            <Link alignSelf="flex-end" my="space.04" onClick={() => navigate(RouteUrls.EditNonce)}>
+              Edit nonce
+            </Link>
             <MinimalErrorMessage />
             <SubmitAction />
             <HighFeeDrawer learnMoreUrl={HIGH_FEE_WARNING_LEARN_MORE_URL_STX} />

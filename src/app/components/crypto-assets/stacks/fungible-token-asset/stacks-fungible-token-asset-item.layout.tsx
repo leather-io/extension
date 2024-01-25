@@ -7,7 +7,7 @@ import { ftDecimals } from '@app/common/stacks-utils';
 import { StacksAssetAvatar } from '@app/components/crypto-assets/stacks/components/stacks-asset-avatar';
 import { usePressable } from '@app/components/item-hover';
 import { Flag } from '@app/components/layout/flag';
-import { Tooltip } from '@app/components/tooltip';
+import { BasicTooltip } from '@app/ui/components/tooltip/basic-tooltip';
 
 import { AssetCaption } from '../../components/asset-caption';
 import { AssetRowGrid } from '../../components/asset-row-grid';
@@ -56,14 +56,11 @@ export function StacksFungibleTokenAssetItemLayout({
         <AssetRowGrid
           title={<styled.span textStyle="label.01">{title}</styled.span>}
           balance={
-            <Tooltip
-              label={formattedBalance.isAbbreviated ? amount : undefined}
-              placement="left-start"
-            >
+            <BasicTooltip label={formattedBalance.isAbbreviated ? amount : undefined} side="left">
               <styled.span data-testid={title} textStyle="label.01">
                 {formattedBalance.value}
               </styled.span>
-            </Tooltip>
+            </BasicTooltip>
           }
           caption={<AssetCaption caption={caption} />}
         />

@@ -3,9 +3,9 @@ import { Box, Flex, HStack, styled } from 'leather-styles/jsx';
 import { useBitcoinExplorerLink } from '@app/common/hooks/use-bitcoin-explorer-link';
 import { useClipboard } from '@app/common/hooks/use-copy-to-clipboard';
 import { Flag } from '@app/components/layout/flag';
-import { Tooltip } from '@app/components/tooltip';
-import { LeatherButton } from '@app/ui/components/button';
 import { CopyIcon } from '@app/ui/components/icons/copy-icon';
+import { Link } from '@app/ui/components/link/link';
+import { BasicTooltip } from '@app/ui/components/tooltip/basic-tooltip';
 
 interface PsbtInputOutputItemLayoutProps {
   address: string;
@@ -33,27 +33,24 @@ export function PsbtInputOutputItemLayout({
           <styled.span mr="space.02" textStyle="caption.01">
             {address}
           </styled.span>
-          <Tooltip
+          <BasicTooltip
             disabled={!addressHoverLabel}
-            hideOnClick={false}
             label={hasCopied ? 'Copied!' : addressHoverLabel}
-            labelProps={{ wordWrap: 'break-word' }}
-            maxWidth="230px"
-            placement="bottom"
+            side="bottom"
           >
             <Box display="flex" height="16px">
-              <LeatherButton onClick={onCopy} variant="text">
+              <Link onClick={onCopy} variant="text">
                 {addressHoverLabel ? <CopyIcon /> : null}
-              </LeatherButton>
+              </Link>
             </Box>
-          </Tooltip>
+          </BasicTooltip>
           {label}
         </Flex>
         <styled.span textStyle="caption.01">{amount}</styled.span>
       </HStack>
       <Box mt="space.01">
         {txId && txIdHoverLabel ? (
-          <LeatherButton
+          <Link
             onClick={() =>
               handleOpenTxLink({
                 txid: txIdHoverLabel ?? '',
@@ -61,17 +58,10 @@ export function PsbtInputOutputItemLayout({
             }
             variant="text"
           >
-            <Tooltip
-              disabled={!txIdHoverLabel}
-              hideOnClick={false}
-              label={txIdHoverLabel}
-              labelProps={{ wordWrap: 'break-word' }}
-              maxWidth="230px"
-              placement="bottom"
-            >
+            <BasicTooltip disabled={!txIdHoverLabel} label={txIdHoverLabel} side="bottom">
               <styled.span textStyle="caption.02">{txId}</styled.span>
-            </Tooltip>
-          </LeatherButton>
+            </BasicTooltip>
+          </Link>
         ) : null}
       </Box>
     </Flag>

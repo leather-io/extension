@@ -1,6 +1,6 @@
 import { Box, BoxProps, styled } from 'leather-styles/jsx';
 
-import { Tooltip } from './tooltip';
+import { BasicTooltip } from '@app/ui/components/tooltip/basic-tooltip';
 
 interface PillProps extends BoxProps {
   hoverLabel?: string;
@@ -8,7 +8,7 @@ interface PillProps extends BoxProps {
 }
 export function Pill({ hoverLabel, label, ...props }: PillProps) {
   return (
-    <Tooltip disabled={!hoverLabel} label={hoverLabel} maxWidth="200px" placement="bottom">
+    <BasicTooltip label={hoverLabel} side="bottom">
       <Box
         border="default"
         borderRadius="xs"
@@ -19,6 +19,6 @@ export function Pill({ hoverLabel, label, ...props }: PillProps) {
       >
         <styled.span textStyle="caption.02">{label}</styled.span>
       </Box>
-    </Tooltip>
+    </BasicTooltip>
   );
 }

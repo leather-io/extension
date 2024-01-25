@@ -1,7 +1,8 @@
 import { Flex, HStack, styled } from 'leather-styles/jsx';
 
-import { Tooltip } from '@app/components/tooltip';
+import { BulletOperator } from '@app/ui/components/bullet-separator/bullet-separator';
 import { InfoIcon } from '@app/ui/components/icons/info-icon';
+import { BasicTooltip } from '@app/ui/components/tooltip/basic-tooltip';
 
 interface AssetCaptionProps {
   caption: string;
@@ -14,9 +15,9 @@ export function AssetCaption({ caption, isUnanchored }: AssetCaptionProps) {
       {isUnanchored ? (
         <>
           <styled.span mx="space.01" textStyle="caption.02">
-            • Microblock
+            <BulletOperator /> Microblock
           </styled.span>
-          <Tooltip placement="right-end" label={'Learn more about microblocks'}>
+          <BasicTooltip side="right" label={'Learn more about microblocks'}>
             <HStack>
               <a
                 href="https://docs.stacks.co/understand-stacks/microblocks"
@@ -26,7 +27,7 @@ export function AssetCaption({ caption, isUnanchored }: AssetCaptionProps) {
                 <InfoIcon color="accent.text-subdued" ml="space.01" size="xs" />
               </a>
             </HStack>
-          </Tooltip>
+          </BasicTooltip>
         </>
       ) : (
         ''

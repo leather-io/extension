@@ -2,11 +2,11 @@ import { SettingsSelectors } from '@tests/selectors/settings.selectors';
 import { Flex, HStack, Stack, StackProps, styled } from 'leather-styles/jsx';
 
 import { useViewportMinWidth } from '@app/common/hooks/use-media-query';
+import { BulletSeparator } from '@app/ui/components/bullet-separator/bullet-separator';
 import { CheckmarkIcon } from '@app/ui/components/icons/checkmark-icon';
 import { Spinner } from '@app/ui/components/spinner';
 import { truncateMiddle } from '@app/ui/utils/truncate-middle';
 
-import { CaptionDotSeparator } from '../caption-dot-separator';
 import { Flag } from '../layout/flag';
 import { StacksAccountLoader } from '../loaders/stacks-account-loader';
 import { BitcoinNativeSegwitAccountLoader } from './bitcoin-account-loader';
@@ -65,7 +65,7 @@ export function AccountListItemLayout(props: AccountListItemLayoutProps) {
             )}
           </HStack>
           <HStack alignItems="center" gap="space.02" whiteSpace="nowrap">
-            <CaptionDotSeparator>
+            <BulletSeparator>
               <StacksAccountLoader index={index}>
                 {account => (
                   <styled.span textStyle="caption.02">
@@ -81,7 +81,7 @@ export function AccountListItemLayout(props: AccountListItemLayoutProps) {
                   </styled.span>
                 )}
               </BitcoinNativeSegwitAccountLoader>
-            </CaptionDotSeparator>
+            </BulletSeparator>
           </HStack>
         </Stack>
       </Flag>

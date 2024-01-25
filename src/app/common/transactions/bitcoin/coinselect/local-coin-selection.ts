@@ -1,10 +1,8 @@
-import { getAddressInfo, validate } from 'bitcoin-address-validation';
-
-import { BTC_P2WPKH_DUST_AMOUNT } from '@shared/constants';
+import { validate } from 'bitcoin-address-validation';
 
 import { UtxoResponseItem } from '@app/query/bitcoin/bitcoin-client';
 
-import { BtcSizeFeeEstimator } from '../fees/btc-size-fee-estimator';
+import { filterUneconomicalUtxos, getSizeInfo } from '../utils';
 
 export interface DetermineUtxosForSpendArgs {
   amount: number;
@@ -20,17 +18,12 @@ export function determineUtxosForSpendAll({
   utxos,
 }: DetermineUtxosForSpendArgs) {
   if (!validate(recipient)) throw new Error('Cannot calculate spend of invalid address type');
+  const filteredUtxos = filterUneconomicalUtxos({ utxos, feeRate, address: recipient });
 
-  const addressInfo = getAddressInfo(recipient);
-
-  const txSizer = new BtcSizeFeeEstimator();
-
-  const filteredUtxos = utxos.filter(utxo => utxo.value >= BTC_P2WPKH_DUST_AMOUNT);
-
-  const sizeInfo = txSizer.calcTxSize({
-    input_script: 'p2wpkh',
-    input_count: filteredUtxos.length,
-    [addressInfo.type + '_output_count']: 1,
+  const sizeInfo = getSizeInfo({
+    inputLength: filteredUtxos.length,
+    outputLength: 1,
+    recipient,
   });
 
   // Fee has already been deducted from the amount with send all
@@ -54,25 +47,23 @@ export function determineUtxosForSpend({
 }: DetermineUtxosForSpendArgs) {
   if (!validate(recipient)) throw new Error('Cannot calculate spend of invalid address type');
 
-  const addressInfo = getAddressInfo(recipient);
+  const orderedUtxos = utxos.sort((a, b) => b.value - a.value);
 
-  const orderedUtxos = utxos
-    .filter(utxo => utxo.value >= BTC_P2WPKH_DUST_AMOUNT)
-    .sort((a, b) => b.value - a.value);
-
-  const txSizer = new BtcSizeFeeEstimator();
+  const filteredUtxos = filterUneconomicalUtxos({
+    utxos: orderedUtxos,
+    feeRate,
+    address: recipient,
+  });
 
   const neededUtxos = [];
   let sum = 0n;
   let sizeInfo = null;
 
-  for (const utxo of orderedUtxos) {
-    sizeInfo = txSizer.calcTxSize({
-      // Only p2wpkh is supported by the wallet
-      input_script: 'p2wpkh',
-      input_count: neededUtxos.length,
-      // From the address of the recipient, we infer the output type
-      [addressInfo.type + '_output_count']: 2,
+  for (const utxo of filteredUtxos) {
+    sizeInfo = getSizeInfo({
+      inputLength: neededUtxos.length,
+      outputLength: 2,
+      recipient,
     });
     if (sum >= BigInt(amount) + BigInt(Math.ceil(sizeInfo.txVBytes * feeRate))) break;
 
@@ -92,7 +83,7 @@ export function determineUtxosForSpend({
   ];
 
   return {
-    orderedUtxos,
+    filteredUtxos,
     inputs: neededUtxos,
     outputs,
     size: sizeInfo.txVBytes,

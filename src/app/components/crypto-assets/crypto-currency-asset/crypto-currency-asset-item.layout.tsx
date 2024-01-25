@@ -1,6 +1,5 @@
 import { CryptoAssetSelectors } from '@tests/selectors/crypto-asset.selectors';
-import { Flex } from 'leather-styles/jsx';
-import { styled } from 'leather-styles/jsx';
+import { Flex, styled } from 'leather-styles/jsx';
 
 import { CryptoCurrencies } from '@shared/models/currencies.model';
 import { Money } from '@shared/models/money.model';
@@ -9,7 +8,7 @@ import { formatBalance } from '@app/common/format-balance';
 import { ftDecimals } from '@app/common/stacks-utils';
 import { usePressable } from '@app/components/item-hover';
 import { Flag } from '@app/components/layout/flag';
-import { Tooltip } from '@app/components/tooltip';
+import { BasicTooltip } from '@app/ui/components/tooltip/basic-tooltip';
 import { truncateMiddle } from '@app/ui/utils/truncate-middle';
 
 import { AssetRowGrid } from '../components/asset-row-grid';
@@ -71,20 +70,26 @@ export function CryptoCurrencyAssetItemLayout({
             </styled.span>
           }
           balance={
-            <Tooltip
+            <BasicTooltip
               label={formattedBalance.isAbbreviated ? balance.amount.toString() : undefined}
-              placement="left-start"
+              side="left"
             >
               <styled.span data-testid={title} textStyle="label.01">
                 {formattedBalance.value} {additionalBalanceInfo}
               </styled.span>
-            </Tooltip>
+            </BasicTooltip>
           }
-          caption={<styled.span textStyle="caption.02">{caption}</styled.span>}
+          caption={
+            <styled.span textStyle="caption.02" color="accent.text-subdued">
+              {caption}
+            </styled.span>
+          }
           usdBalance={
             <Flex justifyContent="flex-end">
               {balance.amount.toNumber() > 0 && address ? (
-                <styled.span textStyle="caption.02">{usdBalance}</styled.span>
+                <styled.span textStyle="caption.02" color="accent.text-subdued">
+                  {usdBalance}
+                </styled.span>
               ) : null}
               {additionalUsdBalanceInfo}
             </Flex>

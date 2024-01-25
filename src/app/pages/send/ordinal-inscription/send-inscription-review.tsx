@@ -14,7 +14,7 @@ import { InscriptionPreview } from '@app/components/inscription-preview-card/com
 import { useCurrentNativeSegwitUtxos } from '@app/query/bitcoin/address/utxos-by-address.hooks';
 import { useAppDispatch } from '@app/store';
 import { inscriptionSent } from '@app/store/ordinals/ordinals.slice';
-import { LeatherButton } from '@app/ui/components/button';
+import { Button } from '@app/ui/components/button/button';
 
 import { InscriptionPreviewCard } from '../../../components/inscription-preview-card/inscription-preview-card';
 import { useBitcoinBroadcastTransaction } from '../../../query/bitcoin/transaction/use-bitcoin-broadcast-transaction';
@@ -82,9 +82,9 @@ export function SendInscriptionReview() {
           <InfoCardRow title="Fee" value={feeRowValue} />
         </Stack>
 
-        <LeatherButton aria-busy={isBroadcasting} width="100%" onClick={sendInscription}>
+        <Button aria-busy={isBroadcasting} width="100%" onClick={sendInscription}>
           Confirm and send transaction
-        </LeatherButton>
+        </Button>
       </InfoCard>
     </BaseDrawer>
   );

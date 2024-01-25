@@ -5,7 +5,7 @@ import { SwapSelectors } from '@tests/selectors/swap.selectors';
 import { LoadingKeys, useLoading } from '@app/common/hooks/use-loading';
 import { useRouteHeader } from '@app/common/hooks/use-route-header';
 import { ModalHeader } from '@app/components/modal-header';
-import { LeatherButton } from '@app/ui/components/button';
+import { Button } from '@app/ui/components/button/button';
 
 import { SwapAssetsPair } from '../components/swap-assets-pair/swap-assets-pair';
 import { SwapContentLayout } from '../components/swap-content.layout';
@@ -28,7 +28,7 @@ export function SwapReview() {
           <SwapDetails />
         </SwapContentLayout>
         <SwapFooterLayout>
-          <LeatherButton
+          <Button
             aria-busy={isLoading}
             data-testid={SwapSelectors.SwapBtn}
             type="button"
@@ -36,7 +36,7 @@ export function SwapReview() {
             fullWidth
           >
             Swap
-          </LeatherButton>
+          </Button>
         </SwapFooterLayout>
       </SwapReviewLayout>
       <Outlet />

@@ -29,7 +29,7 @@ import { ModalHeader } from '@app/components/modal-header';
 import { useCurrentNativeSegwitUtxos } from '@app/query/bitcoin/address/utxos-by-address.hooks';
 import { useBitcoinBroadcastTransaction } from '@app/query/bitcoin/transaction/use-bitcoin-broadcast-transaction';
 import { useCryptoCurrencyMarketData } from '@app/query/common/market-data/market-data.hooks';
-import { LeatherButton } from '@app/ui/components/button';
+import { Button } from '@app/ui/components/button/button';
 
 import { useSendFormNavigate } from '../../hooks/use-send-form-navigate';
 
@@ -157,9 +157,9 @@ export function BtcSendFormConfirmation() {
       </Stack>
 
       <InfoCardFooter>
-        <LeatherButton aria-busy={isBroadcasting} onClick={initiateTransaction} width="100%">
+        <Button aria-busy={isBroadcasting} onClick={initiateTransaction} width="100%">
           Confirm and send transaction
-        </LeatherButton>
+        </Button>
       </InfoCardFooter>
     </InfoCard>
   );

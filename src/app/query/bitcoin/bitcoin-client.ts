@@ -16,8 +16,8 @@ export interface UtxoResponseItem {
   value: number;
 }
 
-export interface TaprootUtxo extends UtxoResponseItem {
-  addressIndex: number;
+export interface UtxoWithDerivationPath extends UtxoResponseItem {
+  derivationPath: string;
 }
 
 class AddressApi {

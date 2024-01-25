@@ -6,7 +6,7 @@ import { sumNumbers } from '@app/common/math/helpers';
 
 import { filterUtxosWithInscriptions } from '../address/utxos-by-address.hooks';
 import { useTaprootAccountUtxosQuery } from '../address/utxos-by-address.query';
-import { TaprootUtxo } from '../bitcoin-client';
+import { UtxoWithDerivationPath } from '../bitcoin-client';
 import { useGetInscriptionsInfiniteQuery } from '../ordinals/inscriptions.query';
 
 export function useCurrentTaprootAccountUninscribedUtxos() {
@@ -19,7 +19,7 @@ export function useCurrentTaprootAccountUninscribedUtxos() {
     return filterUtxosWithInscriptions(
       inscriptions,
       utxos.filter(utxo => utxo.status.confirmed)
-    ) as TaprootUtxo[];
+    ) as UtxoWithDerivationPath[];
   }, [query.data?.pages, utxos]);
 }
 

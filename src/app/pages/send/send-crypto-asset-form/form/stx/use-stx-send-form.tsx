@@ -28,7 +28,6 @@ import { useStacksCommonSendForm } from '../stacks/use-stacks-common-send-form';
 export function useStxSendForm() {
   const unsignedTx = useStxTokenTransferUnsignedTxState();
   const { data: stxFees } = useCalculateStacksTxFees(unsignedTx);
-
   const generateTx = useGenerateStxTokenTransferUnsignedTx();
   const { onFormStateChange } = useUpdatePersistedSendFormValues();
 

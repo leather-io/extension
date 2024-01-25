@@ -1,5 +1,4 @@
-import { Box } from 'leather-styles/jsx';
-import { Flex } from 'leather-styles/jsx';
+import { Box, Flex } from 'leather-styles/jsx';
 
 import { Money } from '@shared/models/money.model';
 

@@ -1,8 +1,10 @@
 import { RpcErrorCode } from '@btckit/types';
 
 import { RouteUrls } from '@shared/route-urls';
-import { BitcoinContractRequest } from '@shared/rpc/methods/accept-bitcoin-contract';
-import { BitcoinContractResponseStatus } from '@shared/rpc/methods/accept-bitcoin-contract';
+import {
+  BitcoinContractRequest,
+  BitcoinContractResponseStatus,
+} from '@shared/rpc/methods/accept-bitcoin-contract';
 import { makeRpcErrorResponse } from '@shared/rpc/rpc-methods';
 
 import {

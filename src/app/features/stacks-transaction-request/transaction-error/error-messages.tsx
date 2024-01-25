@@ -15,7 +15,7 @@ import { ErrorMessage } from '@app/features/stacks-transaction-request/transacti
 import { useCurrentStacksAccountAnchoredBalances } from '@app/query/stacks/balance/stx-balance.hooks';
 import { useCurrentNetworkState } from '@app/store/networks/networks.hooks';
 import { useTransactionRequestState } from '@app/store/transactions/requests.hooks';
-import { LeatherButton } from '@app/ui/components/button';
+import { Button } from '@app/ui/components/button/button';
 import { Caption } from '@app/ui/components/typography/caption';
 import { truncateMiddle } from '@app/ui/utils/truncate-middle';
 
@@ -34,10 +34,10 @@ function InsufficientFundsActionButtons({ eventName }: InsufficientFundsActionBu
 
   return (
     <>
-      <LeatherButton onClick={onGetStx}>Get STX</LeatherButton>
-      <LeatherButton onClick={() => setIsShowingSwitchAccountsState(true)} variant="outline">
+      <Button onClick={onGetStx}>Get STX</Button>
+      <Button onClick={() => setIsShowingSwitchAccountsState(true)} variant="outline">
         Switch account
-      </LeatherButton>
+      </Button>
     </>
   );
 }

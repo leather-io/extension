@@ -7,7 +7,7 @@ import { token } from 'leather-styles/tokens';
 import { RouteUrls } from '@shared/route-urls';
 
 import { NetworkModeBadge } from '@app/components/network-mode-badge';
-import { LeatherButton } from '@app/ui/components/button';
+import { Button } from '@app/ui/components/button/button';
 import { ArrowLeftIcon } from '@app/ui/components/icons/arrow-left-icon';
 import { CloseIcon } from '@app/ui/components/icons/close-icon';
 
@@ -54,14 +54,14 @@ export function ModalHeader({
     >
       {onGoBack || defaultGoBack ? (
         <Box flexBasis="32.5%">
-          <LeatherButton
+          <Button
             data-testid={SharedComponentsSelectors.ModalHeaderBackBtn}
             alignSelf="center"
             onClick={onGoBack || defaultGoBackAction}
             variant="ghost"
           >
             <ArrowLeftIcon />
-          </LeatherButton>
+          </Button>
         </Box>
       ) : (
         <Box flexBasis="32.5%" />
@@ -76,9 +76,9 @@ export function ModalHeader({
       <Flex alignItems="center" flexBasis="32.5%" justifyContent="flex-end" position="relative">
         <NetworkModeBadge />
         {hasCloseIcon && (
-          <LeatherButton ml="space.02" onClick={onClose || defaultCloseAction} variant="ghost">
+          <Button ml="space.02" onClick={onClose || defaultCloseAction} variant="ghost">
             <CloseIcon />
-          </LeatherButton>
+          </Button>
         )}
       </Flex>
     </Flex>

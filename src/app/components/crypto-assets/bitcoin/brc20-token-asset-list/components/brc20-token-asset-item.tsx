@@ -8,8 +8,14 @@ interface Brc20TokenAssetItemProps {
   token: Brc20Token;
   isPressable?: boolean;
   onClick?(): void;
+  displayNotEnoughBalance?: boolean;
 }
-export function Brc20TokenAssetItem({ token, isPressable, onClick }: Brc20TokenAssetItemProps) {
+export function Brc20TokenAssetItem({
+  token,
+  isPressable,
+  onClick,
+  displayNotEnoughBalance,
+}: Brc20TokenAssetItemProps) {
   return (
     <Brc20TokenAssetItemLayout
       balance={createMoney(Number(token.overall_balance), token.tick, 0)}
@@ -17,6 +23,7 @@ export function Brc20TokenAssetItem({ token, isPressable, onClick }: Brc20TokenA
       title={token.tick}
       isPressable={isPressable}
       onClick={onClick}
+      displayNotEnoughBalance={displayNotEnoughBalance}
     />
   );
 }

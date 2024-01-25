@@ -5,8 +5,8 @@ import { HStack, styled } from 'leather-styles/jsx';
 
 import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
 import { useClipboard } from '@app/common/hooks/use-copy-to-clipboard';
-import { Tooltip } from '@app/components/tooltip';
 import { CopyIcon } from '@app/ui/components/icons/copy-icon';
+import { BasicTooltip } from '@app/ui/components/tooltip/basic-tooltip';
 
 interface RecipientAddressDisplayerProps {
   address: string;
@@ -28,7 +28,9 @@ export function RecipientAddressDisplayer({ address }: RecipientAddressDisplayer
       >
         {address}
       </styled.span>
-      <Tooltip hideOnClick={false} label={hasCopied ? 'Copied!' : 'Copy address'} placement="right">
+      {/** TODO: We need to persist the tooltip after it is clicked.
+           Current implementation of radix-ui tooltip doesn't allow that, ref: https://github.com/radix-ui/primitives/issues/2029 */}
+      <BasicTooltip label={hasCopied ? 'Copied!' : 'Copy address'} side="right" asChild>
         <styled.button
           _hover={{ cursor: 'pointer' }}
           data-testid={SendCryptoAssetSelectors.RecipientBnsAddressCopyToClipboard}
@@ -37,7 +39,7 @@ export function RecipientAddressDisplayer({ address }: RecipientAddressDisplayer
         >
           <CopyIcon size="16px" />
         </styled.button>
-      </Tooltip>
+      </BasicTooltip>
     </HStack>
   );
 }

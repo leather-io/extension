@@ -4,8 +4,8 @@ import { Box, HStack, Stack } from 'leather-styles/jsx';
 import { useStacksExplorerLink } from '@app/common/hooks/use-stacks-explorer-link';
 import { getTxSenderAddress } from '@app/common/transactions/stacks/transaction.utils';
 import { usePressable } from '@app/components/item-hover';
-import { Tooltip } from '@app/components/tooltip';
 import { TransactionTitle } from '@app/components/transaction/transaction-title';
+import { BasicTooltip } from '@app/ui/components/tooltip/basic-tooltip';
 import { Caption } from '@app/ui/components/typography/caption';
 import { Title } from '@app/ui/components/typography/title';
 
@@ -52,12 +52,12 @@ export function SubmittedTransactionItem({ transaction, txId }: SubmittedTransac
             <TransactionTitle title={title} />
             <Stack flexWrap="wrap">
               <Caption>{caption}</Caption>
-              <Tooltip
-                placement="bottom"
+              <BasicTooltip
+                side="bottom"
                 label={'Transaction broadcasted, but not yet in the mempool'}
               >
                 <Caption>Submitted</Caption>
-              </Tooltip>
+              </BasicTooltip>
             </Stack>
           </Stack>
           <Box alignItems="flex-end">{value && <Title fontWeight="normal">{value}</Title>}</Box>

@@ -1,6 +1,5 @@
 import { Field, useField } from 'formik';
-import { Flex } from 'leather-styles/jsx';
-import { styled } from 'leather-styles/jsx';
+import { Flex, styled } from 'leather-styles/jsx';
 
 import { useOnMount } from '@app/common/hooks/use-on-mount';
 import { Flag } from '@app/components/layout/flag';

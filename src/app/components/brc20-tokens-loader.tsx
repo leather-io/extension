@@ -1,17 +1,12 @@
-import {
-  Brc20Token,
-  useGetBrc20TokensQuery,
-} from '@app/query/bitcoin/ordinals/brc20/brc20-tokens.query';
+import { useBrc20Tokens } from '@app/common/hooks/use-brc20-tokens';
+import { Brc20Token } from '@app/query/bitcoin/ordinals/brc20/brc20-tokens.query';
 
 interface Brc20TokensLoaderProps {
   children(brc20Tokens: Brc20Token[]): React.JSX.Element;
 }
+
 export function Brc20TokensLoader({ children }: Brc20TokensLoaderProps) {
-  const { data: allBrc20TokensResponse } = useGetBrc20TokensQuery();
-  const brc20Tokens = allBrc20TokensResponse?.pages
-    .flatMap(page => page.brc20Tokens)
-    .filter(token => token.length > 0)
-    .flatMap(token => token);
+  const brc20Tokens = useBrc20Tokens();
 
   if (!brc20Tokens) return null;
   return children(brc20Tokens);

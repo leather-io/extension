@@ -31,6 +31,7 @@ export function RecipientDropdownLayout({
           borderRadius="xs"
           boxShadow="0px 8px 16px rgba(27, 39, 51, 0.08)"
           flexDirection="column"
+          gap="0px"
           minWidth="100px"
           overflow="hidden"
           p="space.01"
