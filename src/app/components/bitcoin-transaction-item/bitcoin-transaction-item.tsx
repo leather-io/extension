@@ -24,9 +24,9 @@ import {
 } from '@app/query/bitcoin/ordinals/inscription.hooks';
 import { useGetInscriptionsByOutputQuery } from '@app/query/bitcoin/ordinals/inscriptions-by-param.query';
 import { useCurrentAccountNativeSegwitAddressIndexZero } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
+import { BulletSeparator } from '@app/ui/components/bullet-separator/bullet-separator';
 import { BtcIcon } from '@app/ui/components/icons/btc-icon';
 
-import { CaptionDotSeparator } from '../caption-dot-separator';
 import { TransactionItemLayout } from '../transaction-item/transaction-item.layout';
 import { BitcoinTransactionCaption } from './bitcoin-transaction-caption';
 import { BitcoinTransactionIcon } from './bitcoin-transaction-icon';
@@ -79,12 +79,12 @@ export function BitcoinTransactionItem({ transaction, ...rest }: BitcoinTransact
     isOriginator && !transaction.status.confirmed && !containsTaprootInput(transaction);
 
   const txCaption = (
-    <CaptionDotSeparator>
+    <BulletSeparator>
       <BitcoinTransactionCaption>{caption}</BitcoinTransactionCaption>
       {inscriptionData ? (
         <BitcoinTransactionCaption>{inscriptionData.mime_type}</BitcoinTransactionCaption>
       ) : null}
-    </CaptionDotSeparator>
+    </BulletSeparator>
   );
   const txValue = <BitcoinTransactionValue>{value}</BitcoinTransactionValue>;
 

@@ -9,6 +9,7 @@ const meta: Meta<typeof Component.Root> = {
 };
 
 export default meta;
+
 type Story = StoryObj<typeof Component.Root>;
 
 export const Tabs: Story = {
