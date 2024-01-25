@@ -5,7 +5,6 @@ import { Box, Flex, HStack, Stack } from 'leather-styles/jsx';
 import { RouteUrls } from '@shared/route-urls';
 import { noop } from '@shared/utils';
 
-import { CaptionDotSeparator } from '@app/components/caption-dot-separator';
 import { usePressable } from '@app/components/item-hover';
 import { Flag } from '@app/components/layout/flag';
 import { StatusPending } from '@app/components/status-pending';
@@ -21,6 +20,7 @@ import {
   PendingBrc20Transfer,
   usePendingBrc20Transfers,
 } from '@app/store/ordinals/ordinals.slice';
+import { BulletSeparator } from '@app/ui/components/bullet-separator/bullet-separator';
 import { BasicTooltip } from '@app/ui/components/tooltip/basic-tooltip';
 import { Caption } from '@app/ui/components/typography/caption';
 
@@ -128,7 +128,7 @@ function PendingBrcTransfer({ order }: PendingBrcTransferProps) {
         {order.amount} {order.tick}
       </>
       <HStack width="100%" mt="space.02">
-        <CaptionDotSeparator>
+        <BulletSeparator>
           <Flex>
             <Flag
               ml="space.02"
@@ -139,7 +139,7 @@ function PendingBrcTransfer({ order }: PendingBrcTransferProps) {
               <StatusLabel status={order.status} />
             </Flag>
           </Flex>
-        </CaptionDotSeparator>
+        </BulletSeparator>
       </HStack>
       {component}
     </Box>
