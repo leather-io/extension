@@ -123,7 +123,18 @@
 <a name='L58'></a><a href='#L58'>58</a>
 <a name='L59'></a><a href='#L59'>59</a>
 <a name='L60'></a><a href='#L60'>60</a>
-<a name='L61'></a><a href='#L61'>61</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L61'></a><a href='#L61'>61</a>
+<a name='L62'></a><a href='#L62'>62</a>
+<a name='L63'></a><a href='#L63'>63</a>
+<a name='L64'></a><a href='#L64'>64</a>
+<a name='L65'></a><a href='#L65'>65</a>
+<a name='L66'></a><a href='#L66'>66</a>
+<a name='L67'></a><a href='#L67'>67</a>
+<a name='L68'></a><a href='#L68'>68</a>
+<a name='L69'></a><a href='#L69'>69</a>
+<a name='L70'></a><a href='#L70'>70</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -153,6 +164,13 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -200,6 +218,7 @@ interface Brc20TokenAssetItemLayoutProps extends BoxProps {
   isPressable?: boolean;
   onClick?(): void;
   title: string;
+  displayNotEnoughBalance?: boolean;
 }
 export function <span class="fstat-no" title="function not covered" >Brc20TokenAssetItemLayout({</span>
   balance,
@@ -207,40 +226,48 @@ export function <span class="fstat-no" title="function not covered" >Brc20TokenA
   isPressable,
   onClick,
   title,
+  displayNotEnoughBalance,
 }: Brc20TokenAssetItemLayoutProps) {
   const [component, bind] = <span class="cstat-no" title="statement not covered" >usePressable(isPressable);</span>
 &nbsp;
   const formattedBalance = <span class="cstat-no" title="statement not covered" >formatBalance(balance.amount.toString());</span>
 &nbsp;
 <span class="cstat-no" title="statement not covered" >  return (</span>
-    &lt;Flex onClick={isPressable ? onClick : undefined} {...bind}&gt;
-      &lt;Flag align="middle" img={&lt;Brc20TokenIcon /&gt;} spacing="space.04" width="100%"&gt;
-        &lt;HStack alignItems="center" justifyContent="space-between" width="100%"&gt;
-          &lt;styled.span
-            maxWidth="150px"
-            overflow="hidden"
-            textAlign="left"
-            textOverflow="ellipsis"
-            textStyle="label.01"
-            whiteSpace="nowrap"
-          &gt;
-            {title}
-          &lt;/styled.span&gt;
-          &lt;BasicTooltip
-            label={formattedBalance.isAbbreviated ? balance.amount.toString() : undefined}
-            side="left"
-          &gt;
-            &lt;styled.span data-testid={title} textStyle="label.01"&gt;
-              {formattedBalance.value}
+    &lt;BasicTooltip
+      disabled={!displayNotEnoughBalance}
+      side="top"
+      label={'Not enough BTC in balance'}
+      asChild
+    &gt;
+      &lt;Flex onClick={isPressable ? onClick : undefined} {...bind}&gt;
+        &lt;Flag align="middle" img={&lt;Brc20TokenIcon /&gt;} spacing="space.04" width="100%"&gt;
+          &lt;HStack alignItems="center" justifyContent="space-between" width="100%"&gt;
+            &lt;styled.span
+              maxWidth="150px"
+              overflow="hidden"
+              textAlign="left"
+              textOverflow="ellipsis"
+              textStyle="label.01"
+              whiteSpace="nowrap"
+            &gt;
+              {title}
             &lt;/styled.span&gt;
-          &lt;/BasicTooltip&gt;
-        &lt;/HStack&gt;
-        &lt;HStack alignItems="center" justifyContent="space-between" height="1.25rem" width="100%"&gt;
-          &lt;AssetCaption caption={caption} /&gt;
-        &lt;/HStack&gt;
-        {component}
-      &lt;/Flag&gt;
-    &lt;/Flex&gt;
+            &lt;BasicTooltip
+              label={formattedBalance.isAbbreviated ? balance.amount.toString() : undefined}
+              side="left"
+            &gt;
+              &lt;styled.span data-testid={title} textStyle="label.01"&gt;
+                {formattedBalance.value}
+              &lt;/styled.span&gt;
+            &lt;/BasicTooltip&gt;
+          &lt;/HStack&gt;
+          &lt;HStack alignItems="center" justifyContent="space-between" height="1.25rem" width="100%"&gt;
+            &lt;AssetCaption caption={caption} /&gt;
+          &lt;/HStack&gt;
+          {component}
+        &lt;/Flag&gt;
+      &lt;/Flex&gt;
+    &lt;/BasicTooltip&gt;
   );
 }
 &nbsp;</pre></td></tr></table></pre>
@@ -250,7 +277,7 @@ export function <span class="fstat-no" title="function not covered" >Brc20TokenA
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-01-23T10:56:19.601Z
+                at 2024-01-26T16:11:23.020Z
             </div>
         <script src="../../../../../../../../prettify.js"></script>
         <script>

@@ -3,15 +3,15 @@
 <html lang="en">
 
 <head>
-    <title>Code coverage report for extension/src/app/components/caption-dot-separator.tsx</title>
+    <title>Code coverage report for extension/src/app/ui/components/bullet-separator/bullet-separator.tsx</title>
     <meta charset="utf-8" />
-    <link rel="stylesheet" href="../../../../prettify.css" />
-    <link rel="stylesheet" href="../../../../base.css" />
-    <link rel="shortcut icon" type="image/x-icon" href="../../../../favicon.png" />
+    <link rel="stylesheet" href="../../../../../../prettify.css" />
+    <link rel="stylesheet" href="../../../../../../base.css" />
+    <link rel="shortcut icon" type="image/x-icon" href="../../../../../../favicon.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <style type='text/css'>
         .coverage-summary .sorter {
-            background-image: url(../../../../sort-arrow-sprite.png);
+            background-image: url(../../../../../../sort-arrow-sprite.png);
         }
     </style>
 </head>
@@ -19,7 +19,7 @@
 <body>
 <div class='wrapper'>
     <div class='pad1'>
-        <h1><a href="../../../../index.html">All files</a> / <a href="index.html">extension/src/app/components</a> caption-dot-separator.tsx</h1>
+        <h1><a href="../../../../../../index.html">All files</a> / <a href="index.html">extension/src/app/ui/components/bullet-separator</a> bullet-separator.tsx</h1>
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
@@ -89,12 +89,24 @@
 <a name='L24'></a><a href='#L24'>24</a>
 <a name='L25'></a><a href='#L25'>25</a>
 <a name='L26'></a><a href='#L26'>26</a>
-<a name='L27'></a><a href='#L27'>27</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L27'></a><a href='#L27'>27</a>
+<a name='L28'></a><a href='#L28'>28</a>
+<a name='L29'></a><a href='#L29'>29</a>
+<a name='L30'></a><a href='#L30'>30</a>
+<a name='L31'></a><a href='#L31'>31</a>
+<a name='L32'></a><a href='#L32'>32</a>
+<a name='L33'></a><a href='#L33'>33</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -117,25 +129,31 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { cloneElement, isValidElement } from 'react';
 &nbsp;
-import { BoxProps, styled } from 'leather-styles/jsx';
+import { Circle, CircleProps } from 'leather-styles/jsx';
 &nbsp;
-function <span class="fstat-no" title="function not covered" >CaptionSeparatorDot(p</span>rops: BoxProps) {
+export function <span class="fstat-no" title="function not covered" >BulletOperator(p</span>rops: CircleProps) {
 <span class="cstat-no" title="statement not covered" >  return (</span>
-    &lt;styled.span color="accent.text-subdued" fontSize="10px" {...props}&gt;
-      •
-    &lt;/styled.span&gt;
+    &lt;Circle
+      display="inline-block"
+      verticalAlign="middle"
+      backgroundColor="currentColor"
+      size="3px"
+      // Visual adjustment for correct centering on retina displays
+      transform="translateY(-0.5px)"
+      {...props}
+    /&gt;
   );
 }
 &nbsp;
-interface CaptionDotSeparatorProps {
+interface BulletSeparatorSeparatorProps {
   children: React.ReactNode;
 }
-export function <span class="fstat-no" title="function not covered" >CaptionDotSeparator({</span> children }: CaptionDotSeparatorProps) {
+export function <span class="fstat-no" title="function not covered" >BulletSeparator({</span> children }: BulletSeparatorSeparatorProps) {
   const parsedChildren = <span class="cstat-no" title="statement not covered" >Array.isArray(children) ? children : [children];</span>
   const content = <span class="cstat-no" title="statement not covered" >parsedChildren</span>
     .flatMap(<span class="fstat-no" title="function not covered" >(c</span>hild, index) =&gt; {
 <span class="cstat-no" title="statement not covered" >      if (!isValidElement(child)) <span class="cstat-no" title="statement not covered" >return null;</span></span>
-<span class="cstat-no" title="statement not covered" >      return [cloneElement(child, { key: index }), &lt;CaptionSeparatorDot key={index + 'dot'} /&gt;];</span>
+<span class="cstat-no" title="statement not covered" >      return [cloneElement(child, { key: index }), &lt;BulletOperator key={index + 'dot'} /&gt;];</span>
     })
     .filter(<span class="fstat-no" title="function not covered" >val =&gt; <span class="cstat-no" title="statement not covered" >v</span>al !== null)</span>
     .slice(0, -1);
@@ -148,16 +166,16 @@ export function <span class="fstat-no" title="function not covered" >CaptionDotS
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-01-23T10:56:19.601Z
+                at 2024-01-26T16:11:23.020Z
             </div>
-        <script src="../../../../prettify.js"></script>
+        <script src="../../../../../../prettify.js"></script>
         <script>
             window.onload = function () {
                 prettyPrint();
             };
         </script>
-        <script src="../../../../sorter.js"></script>
-        <script src="../../../../block-navigation.js"></script>
+        <script src="../../../../../../sorter.js"></script>
+        <script src="../../../../../../block-navigation.js"></script>
     </body>
 </html>
     

@@ -383,7 +383,8 @@
 <a name='L318'></a><a href='#L318'>318</a>
 <a name='L319'></a><a href='#L319'>319</a>
 <a name='L320'></a><a href='#L320'>320</a>
-<a name='L321'></a><a href='#L321'>321</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L321'></a><a href='#L321'>321</a>
+<a name='L322'></a><a href='#L322'>322</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -588,6 +589,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -727,7 +729,7 @@ import {
   useNetworksActions,
 } from '@app/store/networks/networks.hooks';
 import { Button } from '@app/ui/components/button/button';
-import { Input } from '@app/ui/components/input';
+import { Input } from '@app/ui/components/input/input';
 import { Title } from '@app/ui/components/typography/title';
 &nbsp;
 /**
@@ -775,14 +777,14 @@ export function <span class="fstat-no" title="function not covered" >AddNetwork(
 &nbsp;
   const setStacksUrl = <span class="cstat-no" title="statement not covered" >useCallback(</span>
 <span class="fstat-no" title="function not covered" >    (v</span>alue: string) =&gt; {
-<span class="cstat-no" title="statement not covered" >      setFieldValue('stacksUrl', value);</span>
+<span class="cstat-no" title="statement not covered" >      void setFieldValue('stacksUrl', value);</span>
     },
     [setFieldValue]
   );
 &nbsp;
   const setBitcoinUrl = <span class="cstat-no" title="statement not covered" >useCallback(</span>
 <span class="fstat-no" title="function not covered" >    (v</span>alue: string) =&gt; {
-<span class="cstat-no" title="statement not covered" >      setFieldValue('bitcoinUrl', value);</span>
+<span class="cstat-no" title="statement not covered" >      void setFieldValue('bitcoinUrl', value);</span>
     },
     [setFieldValue]
   );
@@ -929,17 +931,17 @@ export function <span class="fstat-no" title="function not covered" >AddNetwork(
                 &lt;/a&gt;
                 . Make sure you review and trust the host before you add it.
               &lt;/styled.span&gt;
-              &lt;Input
-                autoFocus
-                borderRadius="sm"
-                height="64px"
-                onChange={formikProps.handleChange}
-                name="name"
-                placeholder="Name"
-                value={formikProps.values.name}
-                width="100%"
-                data-testid={NetworkSelectors.NetworkName}
-              /&gt;
+              &lt;Input.Root&gt;
+                &lt;Input.Label&gt;Name&lt;/Input.Label&gt;
+                &lt;Input.Field
+                  autoFocus
+                  onChange={formikProps.handleChange}
+                  name="name"
+                  value={formikProps.values.name}
+                  width="100%"
+                  data-testid={NetworkSelectors.NetworkName}
+                /&gt;
+              &lt;/Input.Root&gt;
               &lt;Title&gt;Bitcoin API&lt;/Title&gt;
               {/* TODO: Replace with new Select */}
               &lt;SelectRoot onValueChange={handleApiChange} defaultValue="mainnet"&gt;
@@ -974,37 +976,38 @@ export function <span class="fstat-no" title="function not covered" >AddNetwork(
                 &lt;/SelectContent&gt;
               &lt;/SelectRoot&gt;
               &lt;Title&gt;Stacks API URL&lt;/Title&gt;
-              &lt;Input
-                borderRadius="sm"
-                height="64px"
-                onChange={formikProps.handleChange}
-                name="stacksUrl"
-                placeholder="Stacks Address"
-                value={formikProps.values.stacksUrl}
-                width="100%"
-                data-testid={NetworkSelectors.NetworkStacksAddress}
-              /&gt;
+              &lt;Input.Root&gt;
+                &lt;Input.Label&gt;Name&lt;/Input.Label&gt;
+                &lt;Input.Field
+                  height="64px"
+                  onChange={formikProps.handleChange}
+                  name="stacksUrl"
+                  value={formikProps.values.stacksUrl}
+                  width="100%"
+                  data-testid={NetworkSelectors.NetworkStacksAddress}
+                /&gt;
+              &lt;/Input.Root&gt;
               &lt;Title&gt;Bitcoin API URL&lt;/Title&gt;
-              &lt;Input
-                borderRadius="sm"
-                height="64px"
-                onChange={formikProps.handleChange}
-                name="bitcoinUrl"
-                placeholder="Bitcoin Address"
-                value={formikProps.values.bitcoinUrl}
-                width="100%"
-                data-testid={NetworkSelectors.NetworkBitcoinAddress}
-              /&gt;
-              &lt;Input
-                borderRadius="sm"
-                height="64px"
-                onChange={formikProps.handleChange}
-                name="key"
-                placeholder="Key"
-                value={formikProps.values.key}
-                width="100%"
-                data-testid={NetworkSelectors.NetworkKey}
-              /&gt;
+              &lt;Input.Root&gt;
+                &lt;Input.Label&gt;Bitcoin API URL&lt;/Input.Label&gt;
+                &lt;Input.Field
+                  onChange={formikProps.handleChange}
+                  name="bitcoinUrl"
+                  value={formikProps.values.bitcoinUrl}
+                  width="100%"
+                  data-testid={NetworkSelectors.NetworkBitcoinAddress}
+                /&gt;
+              &lt;/Input.Root&gt;
+              &lt;Input.Root&gt;
+                &lt;Input.Label&gt;Network key&lt;/Input.Label&gt;
+                &lt;Input.Field
+                  onChange={formikProps.handleChange}
+                  name="key"
+                  value={formikProps.values.key}
+                  width="100%"
+                  data-testid={NetworkSelectors.NetworkKey}
+                /&gt;
+              &lt;/Input.Root&gt;
               {error ? (
                 &lt;ErrorLabel data-testid={NetworkSelectors.ErrorText}&gt;{error}&lt;/ErrorLabel&gt;
               ) : null}
@@ -1030,7 +1033,7 @@ export function <span class="fstat-no" title="function not covered" >AddNetwork(
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-01-23T10:56:19.601Z
+                at 2024-01-26T16:11:23.020Z
             </div>
         <script src="../../../../../prettify.js"></script>
         <script>
