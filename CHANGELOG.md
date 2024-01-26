@@ -1,3 +1,30 @@
+## [6.26.0](https://github.com/leather-wallet/extension/compare/v6.25.0...v6.26.0) (2024-01-26)
+
+
+### Features
+
+* **ui:** adds input element, ref [#4810](https://github.com/leather-wallet/extension/issues/4810) ([e223b0a](https://github.com/leather-wallet/extension/commit/e223b0a9fa4d9821237dfcbc707f943b25a33a7c))
+
+
+### Bug Fixes
+
+* filter out uneconomical utxos, closes [#4505](https://github.com/leather-wallet/extension/issues/4505) ([a6e116c](https://github.com/leather-wallet/extension/commit/a6e116c981e21e27dc895d713d1d6aa213142d1a))
+* layout issue when stacking, ref [#4851](https://github.com/leather-wallet/extension/issues/4851) ([ce6c52a](https://github.com/leather-wallet/extension/commit/ce6c52a9227071562a2b5c8820113b882cb119e4))
+* nested button tooltip error, closes [#4835](https://github.com/leather-wallet/extension/issues/4835) ([5b87e3d](https://github.com/leather-wallet/extension/commit/5b87e3d9c767a6fc1afde8a7fa43d077130d7b70))
+* onboarding gate in ledger mode ([07729b5](https://github.com/leather-wallet/extension/commit/07729b5275d1e2790f94f15ab2234d8fbeeb8278))
+* sign out of the wallet before proceeding with ledger sign in ([aa214c8](https://github.com/leather-wallet/extension/commit/aa214c8450fcef7e9a86fa2648f389e68a741120))
+* update psbt warning copy ([988e23f](https://github.com/leather-wallet/extension/commit/988e23f0d6e57796983912d337451eed5cc193a3))
+
+
+### Internal
+
+* add BulletSeparator story ([863a128](https://github.com/leather-wallet/extension/commit/863a1287e3cc0ca9ae7abc8dcc7ae9fbbafcf38d))
+* **deps:** bump vite from 5.0.11 to 5.0.12 ([4ec0cd9](https://github.com/leather-wallet/extension/commit/4ec0cd97c55442ce25b9bd210428da934ba294bf))
+* fix ledger, ref [#4861](https://github.com/leather-wallet/extension/issues/4861) ([62bf0ec](https://github.com/leather-wallet/extension/commit/62bf0ecac7994dc4b434db4df5ffcf4dfb911085))
+* improve styles, try mnemonic ([f6bad6a](https://github.com/leather-wallet/extension/commit/f6bad6af32342b764aca85f18f609e4c8b1986a0))
+* post-release merge back ([be0d9a7](https://github.com/leather-wallet/extension/commit/be0d9a74b1ab188ce34f81be110b9a44801172c7))
+* remove dupe imports, lint ([b05f731](https://github.com/leather-wallet/extension/commit/b05f731e0e339c2b02b5059bb2417c184a21e243))
+
 ## [6.25.0](https://github.com/leather-wallet/extension/compare/v6.24.0...v6.25.0) (2024-01-23)
 
 
