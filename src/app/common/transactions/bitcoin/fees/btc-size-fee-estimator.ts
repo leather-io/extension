@@ -10,7 +10,7 @@ type InputScriptTypes =
   | 'p2wsh'
   | 'p2tr';
 
-interface Params {
+interface TxSizerParams {
   input_count: number;
   input_script: InputScriptTypes;
   input_m: number;
@@ -48,7 +48,7 @@ export class BtcSizeFeeEstimator {
     'p2tr',
   ];
 
-  defaultParams: Params = {
+  defaultParams: TxSizerParams = {
     input_count: 0,
     input_script: 'p2wpkh',
     input_m: 0,
@@ -62,7 +62,7 @@ export class BtcSizeFeeEstimator {
     p2tr_output_count: 0,
   };
 
-  params: Params = { ...this.defaultParams };
+  params: TxSizerParams = { ...this.defaultParams };
 
   getSizeOfScriptLengthElement(length: number) {
     if (length < 75) {
@@ -128,7 +128,7 @@ export class BtcSizeFeeEstimator {
     return witness_vbytes * 3;
   }
 
-  prepareParams(opts: Partial<Params>) {
+  prepareParams(opts: Partial<TxSizerParams>) {
     // Verify opts and set them to this.params
     opts = opts || Object.assign(this.defaultParams);
 
@@ -279,7 +279,7 @@ export class BtcSizeFeeEstimator {
     };
   }
 
-  calcTxSize(opts: Partial<Params>) {
+  calcTxSize(opts: Partial<TxSizerParams>) {
     this.prepareParams(opts);
     const output_count = this.getOutputCount();
     const { inputSize, inputWitnessSize } = this.getSizeBasedOnInputType();

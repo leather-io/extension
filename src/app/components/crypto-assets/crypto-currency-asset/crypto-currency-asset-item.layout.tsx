@@ -1,6 +1,5 @@
 import { CryptoAssetSelectors } from '@tests/selectors/crypto-asset.selectors';
-import { Flex } from 'leather-styles/jsx';
-import { styled } from 'leather-styles/jsx';
+import { Flex, styled } from 'leather-styles/jsx';
 
 import { CryptoCurrencies } from '@shared/models/currencies.model';
 import { Money } from '@shared/models/money.model';
@@ -80,11 +79,17 @@ export function CryptoCurrencyAssetItemLayout({
               </styled.span>
             </BasicTooltip>
           }
-          caption={<styled.span textStyle="caption.02">{caption}</styled.span>}
+          caption={
+            <styled.span textStyle="caption.02" color="accent.text-subdued">
+              {caption}
+            </styled.span>
+          }
           usdBalance={
             <Flex justifyContent="flex-end">
               {balance.amount.toNumber() > 0 && address ? (
-                <styled.span textStyle="caption.02">{usdBalance}</styled.span>
+                <styled.span textStyle="caption.02" color="accent.text-subdued">
+                  {usdBalance}
+                </styled.span>
               ) : null}
               {additionalUsdBalanceInfo}
             </Flex>

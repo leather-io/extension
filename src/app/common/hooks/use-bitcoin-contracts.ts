@@ -11,8 +11,7 @@ import {
 import { Money, createMoneyFromDecimal } from '@shared/models/money.model';
 import { RouteUrls } from '@shared/route-urls';
 import { BitcoinContractResponseStatus } from '@shared/rpc/methods/accept-bitcoin-contract';
-import { makeRpcSuccessResponse } from '@shared/rpc/rpc-methods';
-import { makeRpcErrorResponse } from '@shared/rpc/rpc-methods';
+import { makeRpcErrorResponse, makeRpcSuccessResponse } from '@shared/rpc/rpc-methods';
 
 import { sendAcceptedBitcoinContractOfferToProtocolWallet } from '@app/query/bitcoin/contract/send-accepted-bitcoin-contract-offer';
 import {

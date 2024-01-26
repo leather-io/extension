@@ -1,5 +1,4 @@
-import { getTicker } from '@app/common/utils';
-import { extractPhraseFromString } from '@app/common/utils';
+import { extractPhraseFromString, getTicker } from '@app/common/utils';
 
 import { countDecimals } from './math/helpers';
 

@@ -7,9 +7,9 @@ import AppClient from 'ledger-bitcoin';
 import { getBitcoinJsLibNetworkConfigByMode } from '@shared/crypto/bitcoin/bitcoin.network';
 import {
   extractAddressIndexFromPath,
+  getInputPaymentType,
   getTaprootAddress,
 } from '@shared/crypto/bitcoin/bitcoin.utils';
-import { getInputPaymentType } from '@shared/crypto/bitcoin/bitcoin.utils';
 import { getTaprootAccountDerivationPath } from '@shared/crypto/bitcoin/p2tr-address-gen';
 import { getNativeSegwitAccountDerivationPath } from '@shared/crypto/bitcoin/p2wpkh-address-gen';
 import {
@@ -40,10 +40,12 @@ import {
   useCurrentAccountNativeSegwitSigner,
   useCurrentNativeSegwitAccount,
   useUpdateLedgerSpecificNativeSegwitBip32DerivationForAdddressIndexZero,
+  useUpdateLedgerSpecificNativeSegwitUtxoHexForAdddressIndexZero,
 } from './native-segwit-account.hooks';
-import { useUpdateLedgerSpecificNativeSegwitUtxoHexForAdddressIndexZero } from './native-segwit-account.hooks';
-import { useCurrentTaprootAccount } from './taproot-account.hooks';
-import { useUpdateLedgerSpecificTaprootInputPropsForAdddressIndexZero } from './taproot-account.hooks';
+import {
+  useCurrentTaprootAccount,
+  useUpdateLedgerSpecificTaprootInputPropsForAdddressIndexZero,
+} from './taproot-account.hooks';
 
 // Checks for both TR and NativeSegwit hooks
 export function useHasCurrentBitcoinAccount() {

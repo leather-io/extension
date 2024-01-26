@@ -21,7 +21,7 @@ export const Tooltip: Story = {
     disabled: false,
   },
   render: args => (
-    <RadixTooltip.Provider>
+    <RadixTooltip.Provider delayDuration={300}>
       <Component {...args}>
         <Box>
           <InfoIcon color="accent.text-subdued" size="xs" />

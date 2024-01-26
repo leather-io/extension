@@ -9,13 +9,14 @@ interface BasicTooltipProps {
   label?: string;
   disabled?: boolean;
   side?: RadixTooltip.TooltipContentProps['side'];
+  asChild?: boolean;
 }
 
-export function BasicTooltip({ children, label, disabled, side }: BasicTooltipProps) {
+export function BasicTooltip({ children, label, disabled, side, asChild }: BasicTooltipProps) {
   const isDisabled = !label || disabled;
   return (
     <Tooltip.Root>
-      <Tooltip.Trigger>{children}</Tooltip.Trigger>
+      <Tooltip.Trigger asChild={asChild}>{children}</Tooltip.Trigger>
       <Tooltip.Portal>
         <Tooltip.Content hidden={isDisabled} side={side} sideOffset={5}>
           {label}

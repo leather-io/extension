@@ -1,5 +1,4 @@
-import { Box, Circle, HStack } from 'leather-styles/jsx';
-import { styled } from 'leather-styles/jsx';
+import { Box, Circle, HStack, styled } from 'leather-styles/jsx';
 
 import { LockIcon } from '@app/ui/components/icons/lock-icon';
 

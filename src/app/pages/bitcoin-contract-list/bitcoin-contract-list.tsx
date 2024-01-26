@@ -2,8 +2,10 @@ import { useState } from 'react';
 
 import { Flex, styled } from 'leather-styles/jsx';
 
-import { useBitcoinContracts } from '@app/common/hooks/use-bitcoin-contracts';
-import { BitcoinContractListItem } from '@app/common/hooks/use-bitcoin-contracts';
+import {
+  BitcoinContractListItem,
+  useBitcoinContracts,
+} from '@app/common/hooks/use-bitcoin-contracts';
 import { useOnMount } from '@app/common/hooks/use-on-mount';
 import { FullPageLoadingSpinner } from '@app/components/loading-spinner';
 import { truncateMiddle } from '@app/ui/utils/truncate-middle';

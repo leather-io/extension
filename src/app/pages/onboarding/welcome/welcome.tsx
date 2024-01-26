@@ -67,15 +67,22 @@ export function WelcomePage() {
 
   const restoreWallet = pageModeRoutingAction(RouteUrls.SignIn);
 
+  const onSelectConnectLedger = useCallback(async () => {
+    await keyActions.signOut();
+    if (doesBrowserSupportWebUsbApi()) {
+      supportsWebUsbAction();
+    } else {
+      doesNotSupportWebUsbAction();
+    }
+  }, [doesNotSupportWebUsbAction, keyActions, supportsWebUsbAction]);
+
   return (
     <>
       <WelcomeLayout
         tagline="Bitcoin for the rest of us"
         subheader="Leather is the only Bitcoin wallet you need to tap into the emerging Bitcoin economy"
         isGeneratingWallet={isGeneratingWallet}
-        onSelectConnectLedger={() =>
-          doesBrowserSupportWebUsbApi() ? supportsWebUsbAction() : doesNotSupportWebUsbAction()
-        }
+        onSelectConnectLedger={onSelectConnectLedger}
         onStartOnboarding={() => startOnboarding()}
         onRestoreWallet={() => restoreWallet()}
       />

@@ -1,10 +1,15 @@
-import { getAddressInfo } from 'bitcoin-address-validation';
+import BigNumber from 'bignumber.js';
+import { getAddressInfo, validate } from 'bitcoin-address-validation';
 
-import { BitcoinTransactionVectorOutput } from '@shared/models/transactions/bitcoin-transaction.model';
-import { BitcoinTx } from '@shared/models/transactions/bitcoin-transaction.model';
+import { BTC_P2WPKH_DUST_AMOUNT } from '@shared/constants';
+import {
+  BitcoinTransactionVectorOutput,
+  BitcoinTx,
+} from '@shared/models/transactions/bitcoin-transaction.model';
 
 import { sumNumbers } from '@app/common/math/helpers';
 import { satToBtc } from '@app/common/money/unit-conversion';
+import { UtxoResponseItem } from '@app/query/bitcoin/bitcoin-client';
 import { truncateMiddle } from '@app/ui/utils/truncate-middle';
 
 import { BtcSizeFeeEstimator } from './fees/btc-size-fee-estimator';
@@ -12,14 +17,71 @@ import { BtcSizeFeeEstimator } from './fees/btc-size-fee-estimator';
 export function containsTaprootInput(tx: BitcoinTx) {
   return tx.vin.some(input => input.prevout.scriptpubkey_type === 'v1_p2tr');
 }
+export function getSpendableAmount({
+  utxos,
+  feeRate,
+  address,
+}: {
+  utxos: UtxoResponseItem[];
+  feeRate: number;
+  address: string;
+}) {
+  const balance = utxos.map(utxo => utxo.value).reduce((prevVal, curVal) => prevVal + curVal, 0);
+
+  const size = getSizeInfo({
+    inputLength: utxos.length,
+    outputLength: 1,
+    recipient: address,
+  });
+  const fee = Math.ceil(size.txVBytes * feeRate);
+  const bigNumberBalance = BigNumber(balance);
+  return {
+    spendableAmount: BigNumber.max(0, bigNumberBalance.minus(fee)),
+    fee,
+  };
+}
+
+// Check if the spendable amount drops when adding a utxo. If it drops, don't use that utxo.
+// Method might be not particularly efficient as it would
+// go through the utxo array multiple times, but it's reliable.
+export function filterUneconomicalUtxos({
+  utxos,
+  feeRate,
+  address,
+}: {
+  utxos: UtxoResponseItem[];
+  feeRate: number;
+  address: string;
+}) {
+  const { spendableAmount: fullSpendableAmount } = getSpendableAmount({
+    utxos,
+    feeRate,
+    address,
+  });
+
+  const filteredUtxos = utxos
+    .filter(utxo => utxo.value >= BTC_P2WPKH_DUST_AMOUNT)
+    .filter(utxo => {
+      // calculate spendableAmount without that utxo.
+      const { spendableAmount } = getSpendableAmount({
+        utxos: utxos.filter(u => u.txid !== utxo.txid),
+        feeRate,
+        address,
+      });
+      // if spendable amount becomes bigger, do not use that utxo
+      return spendableAmount.toNumber() < fullSpendableAmount.toNumber();
+    });
+  return filteredUtxos;
+}
 
 export function getSizeInfo(payload: {
   inputLength: number;
-  recipient: string;
   outputLength: number;
+  recipient: string;
 }) {
   const { inputLength, recipient, outputLength } = payload;
-  const addressInfo = getAddressInfo(recipient);
+  const addressInfo = validate(recipient) ? getAddressInfo(recipient) : null;
+  const outputAddressTypeWithFallback = addressInfo ? addressInfo.type : 'p2wpkh';
 
   const txSizer = new BtcSizeFeeEstimator();
   const sizeInfo = txSizer.calcTxSize({
@@ -27,7 +89,7 @@ export function getSizeInfo(payload: {
     input_script: 'p2wpkh',
     input_count: inputLength,
     // From the address of the recipient, we infer the output type
-    [addressInfo.type + '_output_count']: outputLength,
+    [outputAddressTypeWithFallback + '_output_count']: outputLength,
   });
 
   return sizeInfo;

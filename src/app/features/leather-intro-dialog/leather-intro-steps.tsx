@@ -1,8 +1,7 @@
 import { useLayoutEffect, useRef, useState } from 'react';
 import Confetti from 'react-dom-confetti';
 
-import { Dialog } from '@radix-ui/themes';
-import { Inset } from '@radix-ui/themes';
+import { Dialog, Inset } from '@radix-ui/themes';
 import { css } from 'leather-styles/css';
 import { Box, Flex, Stack, styled } from 'leather-styles/jsx';
 

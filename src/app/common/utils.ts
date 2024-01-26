@@ -8,6 +8,7 @@ import {
 import { toUnicode } from 'punycode';
 
 import { BitcoinChainConfig, BitcoinNetworkModes, KEBAB_REGEX } from '@shared/constants';
+import { isBoolean } from '@shared/utils';
 
 export function createNullArrayOfLength(length: number) {
   return new Array(length).fill(null);
@@ -313,4 +314,8 @@ export function removeTrailingNullCharacters(s: string) {
 
 export function removeMinusSign(value: string) {
   return value.replace('-', '');
+}
+
+export function propIfDefined(prop: string, value: any) {
+  return isBoolean(value) ? { [prop]: value } : {};
 }

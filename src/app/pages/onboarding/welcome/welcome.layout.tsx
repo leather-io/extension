@@ -100,6 +100,7 @@ export function WelcomeLayout({
               invert={isAtleastBreakpointMd}
               flex={1}
               mt={[0, 0, 'space.05']}
+              onClick={onSelectConnectLedger}
             >
               Use Ledger
             </Button>

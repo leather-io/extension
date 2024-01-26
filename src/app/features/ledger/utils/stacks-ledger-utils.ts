@@ -19,8 +19,8 @@ import {
   SemVerObject,
   prepareLedgerDeviceForAppFn,
   promptOpenAppOnDevice,
+  versionObjectToVersionString,
 } from './generic-ledger-utils';
-import { versionObjectToVersionString } from './generic-ledger-utils';
 
 export function requestPublicKeyForStxAccount(app: StacksApp) {
   return async (index: number) =>

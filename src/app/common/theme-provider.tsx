@@ -82,7 +82,7 @@ export function ThemeSwitcherProvider({ children }: ThemeSwitcherProviderProps) 
   return (
     <ThemeContext.Provider value={{ theme, userSelectedTheme, setUserSelectedTheme }}>
       <RadixTheme appearance={theme}>
-        <RadixTooltip.Provider>{children}</RadixTooltip.Provider>
+        <RadixTooltip.Provider delayDuration={300}>{children}</RadixTooltip.Provider>
       </RadixTheme>
     </ThemeContext.Provider>
   );

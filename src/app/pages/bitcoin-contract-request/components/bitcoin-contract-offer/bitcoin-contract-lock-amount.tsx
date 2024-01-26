@@ -44,11 +44,14 @@ export function BitcoinContractLockAmount({
         </styled.span>
       </HStack>
       <HStack alignItems="center" justifyContent="space-between" mt="space.02">
+        {/** TODO: We need to persist the tooltip after it is clicked.
+             Current implementation of radix-ui tooltip doesn't allow that, ref: https://github.com/radix-ui/primitives/issues/2029 */}
         {subtitle ? (
           <BasicTooltip
             disabled={!hoverLabel}
             label={hasCopied ? 'Copied!' : hoverLabel}
             side="bottom"
+            asChild
           >
             <styled.button
               _hover={{ cursor: 'pointer' }}

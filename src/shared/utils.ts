@@ -21,6 +21,10 @@ export function isFunction(value: unknown): value is () => void {
   return typeof value === 'function';
 }
 
+export function isBoolean(value: unknown): value is boolean {
+  return typeof value === 'boolean';
+}
+
 export function isObject(value: unknown): value is object {
   return typeof value === 'object';
 }

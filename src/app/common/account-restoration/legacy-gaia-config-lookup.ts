@@ -1,5 +1,9 @@
-import { fetchWalletConfig, generateWallet } from '@stacks/wallet-sdk';
-import { connectToGaiaHubWithConfig, getHubInfo } from '@stacks/wallet-sdk';
+import {
+  connectToGaiaHubWithConfig,
+  fetchWalletConfig,
+  generateWallet,
+  getHubInfo,
+} from '@stacks/wallet-sdk';
 
 import { gaiaUrl as gaiaHubUrl } from '@shared/constants';
 
