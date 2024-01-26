@@ -21,7 +21,7 @@ import {
   currencyAmountValidator,
 } from '@app/common/validation/forms/currency-validators';
 import { useUpdatePersistedSendFormValues } from '@app/features/popup-send-form-restoration/use-update-persisted-send-form-values';
-import { useCurrentNativeSegwitAccountSpendableUtxos } from '@app/query/bitcoin/address/utxos-by-address.hooks';
+import { useCurrentNativeSegwitUtxos } from '@app/query/bitcoin/address/utxos-by-address.hooks';
 import { useNativeSegwitBalance } from '@app/query/bitcoin/balance/btc-native-segwit-balance.hooks';
 import { useCurrentAccountNativeSegwitIndexZeroSigner } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
 import { useCurrentNetwork } from '@app/store/networks/networks.selectors';
@@ -34,7 +34,7 @@ export function useBtcSendForm() {
   const formRef = useRef<FormikProps<BitcoinSendFormValues>>(null);
   const currentNetwork = useCurrentNetwork();
   const nativeSegwitSigner = useCurrentAccountNativeSegwitIndexZeroSigner();
-  const { data: utxos = [], refetch } = useCurrentNativeSegwitAccountSpendableUtxos();
+  const { data: utxos = [], refetch } = useCurrentNativeSegwitUtxos();
   const btcCryptoCurrencyAssetBalance = useNativeSegwitBalance(nativeSegwitSigner.address);
   const sendFormNavigate = useSendFormNavigate();
   const calcMaxSpend = useCalculateMaxBitcoinSpend();

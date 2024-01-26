@@ -6,7 +6,7 @@ import { RouteUrls } from '@shared/route-urls';
 import { useDefaultRequestParams } from '@app/common/hooks/use-default-request-search-params';
 import { useOnMount } from '@app/common/hooks/use-on-mount';
 import { initialSearchParams } from '@app/common/initial-search-params';
-import { useCurrentNativeSegwitAccountSpendableUtxos } from '@app/query/bitcoin/address/utxos-by-address.hooks';
+import { useCurrentNativeSegwitUtxos } from '@app/query/bitcoin/address/utxos-by-address.hooks';
 
 export function useRpcSendTransferRequestParams() {
   const defaultParams = useDefaultRequestParams();
@@ -24,7 +24,7 @@ export function useRpcSendTransferRequestParams() {
 export function useRpcSendTransfer() {
   const navigate = useNavigate();
   const { address, amount, origin } = useRpcSendTransferRequestParams();
-  const { data: utxos = [], refetch } = useCurrentNativeSegwitAccountSpendableUtxos();
+  const { data: utxos = [], refetch } = useCurrentNativeSegwitUtxos();
 
   // Forcing a refetch to ensure UTXOs are fresh
   useOnMount(() => refetch());
