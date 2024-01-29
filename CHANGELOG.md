@@ -1,3 +1,18 @@
+## [6.26.1](https://github.com/leather-wallet/extension/compare/v6.26.0...v6.26.1) (2024-01-29)
+
+
+### Bug Fixes
+
+* make coinbase global ([625bfe5](https://github.com/leather-wallet/extension/commit/625bfe52ef83a1842bf2206ccd709c9253dcc25d))
+* no btc signer in  ledger mode, ref [#4873](https://github.com/leather-wallet/extension/issues/4873) ([d13a678](https://github.com/leather-wallet/extension/commit/d13a678c490fd4e556277d5ac003c3b72aa0132e))
+
+
+### Internal
+
+* limit query opts, add hiro header ([68c557f](https://github.com/leather-wallet/extension/commit/68c557f7dbb9a309d3587910b7680ff1e8105fda))
+* post-release merge back ([c7ba7b7](https://github.com/leather-wallet/extension/commit/c7ba7b79a557f498898978708c92398b29a7d1b9))
+* remove use spendable utxos hook ([0c36db3](https://github.com/leather-wallet/extension/commit/0c36db342707eedb257a6d0ea306f00e459cdba2))
+
 ## [6.26.0](https://github.com/leather-wallet/extension/compare/v6.25.0...v6.26.0) (2024-01-26)
 
 
