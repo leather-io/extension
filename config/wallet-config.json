@@ -5,7 +5,7 @@
   },
   "activeFiatProviders": {
     "coinbase": {
-      "availableRegions": "inside-usa-only",
+      "availableRegions": "global",
       "enabled": true,
       "hasFastCheckoutProcess": true,
       "hasTradingFees": true,

@@ -7,10 +7,14 @@ import { isUndefined } from '@shared/utils';
 
 import { sumNumbers } from '@app/common/math/helpers';
 
-import { useAllSpendableUtxosByAddress } from '../address/utxos-by-address.hooks';
+import { useNativeSegwitUtxosByAddress } from '../address/utxos-by-address.hooks';
 
 export function useGetBitcoinBalanceByAddress(address: string) {
-  const { data: utxos } = useAllSpendableUtxosByAddress(address);
+  const { data: utxos } = useNativeSegwitUtxosByAddress({
+    address,
+    filterInscriptionUtxos: true,
+    filterPendingTxsUtxos: true,
+  });
 
   return useMemo(() => {
     if (isUndefined(utxos)) return createMoney(new BigNumber(0), 'BTC');
