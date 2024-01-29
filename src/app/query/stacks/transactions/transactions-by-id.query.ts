@@ -5,6 +5,13 @@ import { useStacksClientUnanchored } from '@app/store/common/api-clients.hooks';
 
 import { useHiroApiRateLimiter } from '../rate-limiter';
 
+const options = {
+  staleTime: 30 * 1000,
+  refetchOnMount: false,
+  refetchOnReconnect: false,
+  refetchOnWindowFocus: true,
+} as const;
+
 export function useTransactionsById(txids: string[]) {
   const client = useStacksClientUnanchored();
   const limiter = useHiroApiRateLimiter();
@@ -19,6 +26,7 @@ export function useTransactionsById(txids: string[]) {
       return {
         queryKey: ['transaction-by-id', txid],
         queryFn: () => transactionByIdFetcher(txid),
+        ...options,
       };
     }),
   });
@@ -37,5 +45,6 @@ export function useTransactionById(txid: string) {
   return useQuery({
     queryKey: ['transaction-by-id', txid],
     queryFn: () => transactionByIdFetcher(txid),
+    ...options,
   });
 }

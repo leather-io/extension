@@ -10,10 +10,11 @@ import { useCurrentNetworkState } from '@app/store/networks/networks.hooks';
 import { useHiroApiRateLimiter } from '../rate-limiter';
 
 const queryOptions: UseQueryOptions = {
-  refetchInterval: 10_000,
-  refetchOnMount: 'always',
-  refetchOnReconnect: 'always',
-  refetchOnWindowFocus: 'always',
+  staleTime: 60 * 1000,
+  refetchInterval: 30_000,
+  refetchOnMount: false,
+  refetchOnReconnect: false,
+  refetchOnWindowFocus: true,
 };
 
 export function useGetAccountTransactionsWithTransfersQuery() {
