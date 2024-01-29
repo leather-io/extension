@@ -25,7 +25,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/17</span>
+                <span class='fraction'>0/14</span>
             </div>
         
             
@@ -39,14 +39,14 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/6</span>
+                <span class='fraction'>0/5</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/16</span>
+                <span class='fraction'>0/13</span>
             </div>
         
             
@@ -124,15 +124,7 @@
 <a name='L59'></a><a href='#L59'>59</a>
 <a name='L60'></a><a href='#L60'>60</a>
 <a name='L61'></a><a href='#L61'>61</a>
-<a name='L62'></a><a href='#L62'>62</a>
-<a name='L63'></a><a href='#L63'>63</a>
-<a name='L64'></a><a href='#L64'>64</a>
-<a name='L65'></a><a href='#L65'>65</a>
-<a name='L66'></a><a href='#L66'>66</a>
-<a name='L67'></a><a href='#L67'>67</a>
-<a name='L68'></a><a href='#L68'>68</a>
-<a name='L69'></a><a href='#L69'>69</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L62'></a><a href='#L62'>62</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -150,12 +142,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -206,7 +192,6 @@ import { AllTransferableCryptoAssetBalances } from '@shared/models/crypto-asset-
 import { RouteUrls } from '@shared/route-urls';
 import { isDefined } from '@shared/utils';
 &nbsp;
-import { useBtcCryptoCurrencyAssetBalance } from '@app/common/hooks/balance/btc/use-btc-crypto-currency-asset-balance';
 import { useStxCryptoCurrencyAssetBalance } from '@app/common/hooks/balance/stx/use-stx-crypto-currency-asset-balance';
 import { useRouteHeader } from '@app/common/hooks/use-route-header';
 import { useWalletType } from '@app/common/use-wallet-type';
@@ -217,13 +202,7 @@ import { ModalHeader } from '@app/components/modal-header';
 import { useCheckLedgerBlockchainAvailable } from '@app/store/accounts/blockchain/utils';
 &nbsp;
 export function <span class="fstat-no" title="function not covered" >ChooseCryptoAssetToFund() {</span>
-  const btcCryptoCurrencyAssetBalance = <span class="cstat-no" title="statement not covered" >useBtcCryptoCurrencyAssetBalance();</span>
   const stxCryptoCurrencyAssetBalance = <span class="cstat-no" title="statement not covered" >useStxCryptoCurrencyAssetBalance();</span>
-&nbsp;
-  const cryptoCurrencyAssetBalances = <span class="cstat-no" title="statement not covered" >useMemo(</span>
-<span class="fstat-no" title="function not covered" >    () =&gt; <span class="cstat-no" title="statement not covered" >[</span>btcCryptoCurrencyAssetBalance, stxCryptoCurrencyAssetBalance],</span>
-    [btcCryptoCurrencyAssetBalance, stxCryptoCurrencyAssetBalance]
-  );
 &nbsp;
   const { whenWallet } = <span class="cstat-no" title="statement not covered" >useWalletType();</span>
   const navigate = <span class="cstat-no" title="statement not covered" >useNavigate();</span>
@@ -232,13 +211,13 @@ export function <span class="fstat-no" title="function not covered" >ChooseCrypt
 &nbsp;
   const filteredCryptoAssetBalances = <span class="cstat-no" title="statement not covered" >useMemo(</span>
 <span class="fstat-no" title="function not covered" >    () =&gt;</span>
-<span class="cstat-no" title="statement not covered" >      cryptoCurrencyAssetBalances.filter(isDefined).filter(<span class="fstat-no" title="function not covered" >assetBalance =&gt;</span></span>
+<span class="cstat-no" title="statement not covered" >      [stxCryptoCurrencyAssetBalance].filter(isDefined).filter(<span class="fstat-no" title="function not covered" >assetBalance =&gt;</span></span>
 <span class="cstat-no" title="statement not covered" >        whenWallet({</span>
           ledger: checkBlockchainAvailable(assetBalance?.blockchain),
           software: true,
         })
       ),
-    [cryptoCurrencyAssetBalances, checkBlockchainAvailable, whenWallet]
+    [stxCryptoCurrencyAssetBalance, checkBlockchainAvailable, whenWallet]
   );
 &nbsp;
 <span class="cstat-no" title="statement not covered" >  useRouteHeader(&lt;ModalHeader hideActions onGoBack={<span class="fstat-no" title="function not covered" >() =&gt; <span class="cstat-no" title="statement not covered" >n</span>avigate(RouteUrls.Home)} t</span>itle=" " /&gt;);</span>
@@ -274,7 +253,7 @@ export function <span class="fstat-no" title="function not covered" >ChooseCrypt
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-01-26T16:13:27.425Z
+                at 2024-01-29T17:04:47.938Z
             </div>
         <script src="../../../../../../prettify.js"></script>
         <script>
