@@ -7,7 +7,7 @@ import { BitcoinSendFormValues, StacksSendFormValues } from '@shared/models/form
 
 import { FormErrorMessages } from '@app/common/error-messages';
 import { StacksClient } from '@app/query/stacks/stacks-client';
-import { useStacksClientUnanchored } from '@app/store/common/api-clients.hooks';
+import { useStacksClient } from '@app/store/common/api-clients.hooks';
 import { useCurrentNetworkState } from '@app/store/networks/networks.hooks';
 
 // Handles validating the BNS name lookup
@@ -17,7 +17,7 @@ export function useRecipientBnsName() {
   >();
   const [bnsAddress, setBnsAddress] = useState('');
   const currentNetwork = useCurrentNetworkState();
-  const client = useStacksClientUnanchored();
+  const client = useStacksClient();
 
   const getBnsAddressAndValidate = useCallback(
     async (

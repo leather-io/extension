@@ -1,9 +1,9 @@
 import { useQuery } from '@tanstack/react-query';
 
-import { useStacksClientUnanchored } from '@app/store/common/api-clients.hooks';
+import { useStacksClient } from '@app/store/common/api-clients.hooks';
 
 export function useGetStackNetworkBlockTimeQuery() {
-  const client = useStacksClientUnanchored();
+  const client = useStacksClient();
 
   return useQuery({
     queryKey: ['stacks-block-time'],

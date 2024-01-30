@@ -12,7 +12,7 @@ import { useDrawers } from '@app/common/hooks/use-drawers';
 import { useScrollLock } from '@app/common/hooks/use-scroll-lock';
 import { stacksValue } from '@app/common/stacks-utils';
 import { ErrorMessage } from '@app/features/stacks-transaction-request/transaction-error/error-message';
-import { useCurrentStacksAccountAnchoredBalances } from '@app/query/stacks/balance/stx-balance.hooks';
+import { useCurrentStacksAccountBalances } from '@app/query/stacks/balance/stx-balance.hooks';
 import { useCurrentNetworkState } from '@app/store/networks/networks.hooks';
 import { useTransactionRequestState } from '@app/store/transactions/requests.hooks';
 import { Button } from '@app/ui/components/button/button';
@@ -55,7 +55,7 @@ export const FeeInsufficientFundsErrorMessage = memo(props => {
 
 export const StxTransferInsufficientFundsErrorMessage = memo(props => {
   const pendingTransaction = useTransactionRequestState();
-  const { data: balance } = useCurrentStacksAccountAnchoredBalances();
+  const { data: balance } = useCurrentStacksAccountBalances();
 
   return (
     <ErrorMessage

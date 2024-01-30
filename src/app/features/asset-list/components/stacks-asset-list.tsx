@@ -4,7 +4,7 @@ import { useStxBalance } from '@app/common/hooks/balance/stx/use-stx-balance';
 import { ftDecimals } from '@app/common/stacks-utils';
 import { CryptoCurrencyAssetItem } from '@app/components/crypto-assets/crypto-currency-asset/crypto-currency-asset-item';
 import { StxAvatar } from '@app/components/crypto-assets/stacks/components/stx-avatar';
-import { useStacksFungibleTokenAssetBalancesAnchoredWithMetadata } from '@app/query/stacks/balance/stacks-ft-balances.hooks';
+import { useStacksFungibleTokenAssetBalancesWithMetadata } from '@app/query/stacks/balance/stacks-ft-balances.hooks';
 import { StacksAccount } from '@app/store/accounts/blockchain/stacks/stacks-account.models';
 import { BulletOperator } from '@app/ui/components/bullet-separator/bullet-separator';
 import { Caption } from '@app/ui/components/typography/caption';
@@ -15,9 +15,7 @@ interface StacksAssetListProps {
   account: StacksAccount;
 }
 export function StacksAssetList({ account }: StacksAssetListProps) {
-  const stacksFtAssetBalances = useStacksFungibleTokenAssetBalancesAnchoredWithMetadata(
-    account.address
-  );
+  const stacksFtAssetBalances = useStacksFungibleTokenAssetBalancesWithMetadata(account.address);
 
   const { stxEffectiveBalance, stxEffectiveUsdBalance, stxLockedBalance, stxUsdLockedBalance } =
     useStxBalance();

@@ -9,7 +9,7 @@ import { queryClient } from '@app/common/persistence';
 import { partiallyClearLocalStorage } from '@app/common/store-utils';
 import { useAppDispatch } from '@app/store';
 import { createNewAccount, stxChainActions } from '@app/store/chains/stx-chain.actions';
-import { useBitcoinClient, useStacksClientAnchored } from '@app/store/common/api-clients.hooks';
+import { useBitcoinClient, useStacksClient } from '@app/store/common/api-clients.hooks';
 import { inMemoryKeyActions } from '@app/store/in-memory-key/in-memory-key.actions';
 import { bitcoinKeysSlice } from '@app/store/ledger/bitcoin/bitcoin-key.slice';
 import { stacksKeysSlice } from '@app/store/ledger/stacks/stacks-key.slice';
@@ -23,7 +23,7 @@ export function useKeyActions() {
   const analytics = useAnalytics();
   const dispatch = useAppDispatch();
   const defaultKeyDetails = useCurrentKeyDetails();
-  const stxClient = useStacksClientAnchored();
+  const stxClient = useStacksClient();
   const btcClient = useBitcoinClient();
 
   return useMemo(

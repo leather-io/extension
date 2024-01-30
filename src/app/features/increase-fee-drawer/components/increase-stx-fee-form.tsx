@@ -19,7 +19,7 @@ import { stxFeeValidator } from '@app/common/validation/forms/fee-validators';
 import { LoadingSpinner } from '@app/components/loading-spinner';
 import { StacksTransactionItem } from '@app/components/stacks-transaction-item/stacks-transaction-item';
 import { useLedgerNavigate } from '@app/features/ledger/hooks/use-ledger-navigate';
-import { useCurrentStacksAccountAnchoredBalances } from '@app/query/stacks/balance/stx-balance.hooks';
+import { useCurrentStacksAccountBalances } from '@app/query/stacks/balance/stx-balance.hooks';
 import { useSubmittedTransactionsActions } from '@app/store/submitted-transactions/submitted-transactions.hooks';
 import { useReplaceByFeeSoftwareWalletSubmitCallBack } from '@app/store/transactions/fees.hooks';
 import { useRawDeserializedTxState, useRawTxIdState } from '@app/store/transactions/raw.hooks';
@@ -35,7 +35,7 @@ export function IncreaseStxFeeForm() {
   const navigate = useNavigate();
   const [, setTxId] = useRawTxIdState();
   const replaceByFee = useReplaceByFeeSoftwareWalletSubmitCallBack();
-  const { data: balances } = useCurrentStacksAccountAnchoredBalances();
+  const { data: balances } = useCurrentStacksAccountBalances();
   const { availableBalance } = useStxBalance();
   const submittedTransactionsActions = useSubmittedTransactionsActions();
   const rawTx = useRawDeserializedTxState();
