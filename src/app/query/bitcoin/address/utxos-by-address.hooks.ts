@@ -21,13 +21,62 @@ export function filterUtxosWithInscriptions(
   );
 }
 
+const defaultArgs = {
+  filterInscriptionUtxos: true,
+  filterPendingTxsUtxos: true,
+};
+
 /**
- * Warning: ⚠️ These are **all** UTXOs, including Stamped and Inscribed UTXOs.
- * You should probably use `useCurrentNativeSegwitAccountSpendableUtxos` instead.
+ * Warning: ⚠️ To avoid spending inscriptions, when using UTXOs
+ * we set `filterInscriptionUtxos` and `filterPendingTxsUtxos` to true
  */
-export function useCurrentNativeSegwitUtxos() {
+export function useCurrentNativeSegwitUtxos(args = defaultArgs) {
+  const { filterInscriptionUtxos, filterPendingTxsUtxos } = args;
+
   const nativeSegwitSigner = useCurrentAccountNativeSegwitIndexZeroSigner();
-  return useGetUtxosByAddressQuery(nativeSegwitSigner.address);
+  const address = nativeSegwitSigner.address;
+
+  return useNativeSegwitUtxosByAddress({
+    address,
+    filterInscriptionUtxos,
+    filterPendingTxsUtxos,
+  });
+}
+
+interface UseFilterUtxosByAddressArgs {
+  address: string;
+  filterInscriptionUtxos: boolean;
+  filterPendingTxsUtxos: boolean;
+}
+
+type filterUtxoFunctionType = (utxos: UtxoResponseItem[]) => UtxoResponseItem[];
+
+export function useNativeSegwitUtxosByAddress({
+  address,
+  filterInscriptionUtxos,
+  filterPendingTxsUtxos,
+}: UseFilterUtxosByAddressArgs) {
+  const filterOutInscriptions = useFilterInscriptionsByAddress(address);
+  const filterOutPendingTxsUtxos = useFilterPendingUtxosByAddress(address);
+
+  return useGetUtxosByAddressQuery(address, {
+    select(utxos) {
+      const filters = [];
+      if (filterPendingTxsUtxos) {
+        filters.push(filterOutPendingTxsUtxos);
+      }
+
+      if (filterInscriptionUtxos) {
+        filters.push(filterOutInscriptions);
+      }
+
+      return filters.reduce(
+        (filteredUtxos: UtxoResponseItem[], filterFunc: filterUtxoFunctionType) =>
+          filterFunc(filteredUtxos),
+        utxos
+      );
+    },
+  });
 }
 
 function useFilterInscriptionsByAddress(address: string) {
@@ -65,29 +114,4 @@ function useFilterPendingUtxosByAddress(address: string) {
     },
     [address, pendingInputs]
   );
-}
-
-export function useAllSpendableUtxosByAddress(address: string) {
-  const filterOutInscriptions = useFilterInscriptionsByAddress(address);
-  return useGetUtxosByAddressQuery(address, {
-    select(utxos) {
-      return filterOutInscriptions(utxos);
-    },
-  });
-}
-
-function useSpendableAndNotPendingUtxosByAddress(address: string) {
-  const filterOutInscriptions = useFilterInscriptionsByAddress(address);
-  const filterOutPendingTxsUtxos = useFilterPendingUtxosByAddress(address);
-
-  return useGetUtxosByAddressQuery(address, {
-    select(utxos) {
-      return filterOutPendingTxsUtxos(filterOutInscriptions(utxos));
-    },
-  });
-}
-
-export function useCurrentNativeSegwitAccountSpendableUtxos() {
-  const nativeSegwitSigner = useCurrentAccountNativeSegwitIndexZeroSigner();
-  return useSpendableAndNotPendingUtxosByAddress(nativeSegwitSigner.address);
 }

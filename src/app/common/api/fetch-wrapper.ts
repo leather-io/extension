@@ -4,6 +4,7 @@ import { analytics } from '@shared/utils/analytics';
 
 const leatherHeaders: HeadersInit = {
   'x-leather-version': VERSION,
+  'x-hiro-product': 'leather',
 };
 
 function isErrorCode(statusCode: number) {
@@ -29,6 +30,13 @@ export async function wrappedFetch(input: RequestInfo, init: RequestInit = {}) {
   if (isErrorCode(resp.status)) trackApiError(resp.url, resp.status);
   return resp;
 }
+
+axios.interceptors.request.use(request => {
+  if (request.url?.includes('hiro.so'))
+    Object.entries(leatherHeaders).forEach(([key, value]) => request.headers.set(key, value));
+
+  return request;
+});
 
 axios.interceptors.response.use(response => {
   if (isErrorCode(response.status)) trackApiError(response.config.url ?? '', response.status);

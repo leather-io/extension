@@ -8,7 +8,7 @@ import {
   determineUtxosForSpend,
   determineUtxosForSpendAll,
 } from '@app/common/transactions/bitcoin/coinselect/local-coin-selection';
-import { useCurrentNativeSegwitAccountSpendableUtxos } from '@app/query/bitcoin/address/utxos-by-address.hooks';
+import { useCurrentNativeSegwitUtxos } from '@app/query/bitcoin/address/utxos-by-address.hooks';
 import { useCurrentNativeSegwitAddressBalance } from '@app/query/bitcoin/balance/btc-native-segwit-balance.hooks';
 import { useCryptoCurrencyMarketData } from '@app/query/common/market-data/market-data.hooks';
 
@@ -21,7 +21,7 @@ interface UseBitcoinCustomFeeArgs {
 }
 export function useBitcoinCustomFee({ amount, isSendingMax, recipient }: UseBitcoinCustomFeeArgs) {
   const balance = useCurrentNativeSegwitAddressBalance();
-  const { data: utxos = [] } = useCurrentNativeSegwitAccountSpendableUtxos();
+  const { data: utxos = [] } = useCurrentNativeSegwitUtxos();
   const btcMarketData = useCryptoCurrencyMarketData('BTC');
 
   return useCallback(

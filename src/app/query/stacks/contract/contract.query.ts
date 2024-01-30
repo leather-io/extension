@@ -30,5 +30,7 @@ export function useGetContractInterface(transactionRequest: ContractCallPayload 
       transactionRequest?.contractAddress,
     ],
     queryFn: fetchContractInterface,
+    staleTime: 30 * 60 * 1000,
+    refetchOnWindowFocus: false,
   });
 }

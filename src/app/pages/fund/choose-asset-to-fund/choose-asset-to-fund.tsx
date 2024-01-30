@@ -5,7 +5,6 @@ import { AllTransferableCryptoAssetBalances } from '@shared/models/crypto-asset-
 import { RouteUrls } from '@shared/route-urls';
 import { isDefined } from '@shared/utils';
 
-import { useBtcCryptoCurrencyAssetBalance } from '@app/common/hooks/balance/btc/use-btc-crypto-currency-asset-balance';
 import { useStxCryptoCurrencyAssetBalance } from '@app/common/hooks/balance/stx/use-stx-crypto-currency-asset-balance';
 import { useRouteHeader } from '@app/common/hooks/use-route-header';
 import { useWalletType } from '@app/common/use-wallet-type';
@@ -16,13 +15,7 @@ import { ModalHeader } from '@app/components/modal-header';
 import { useCheckLedgerBlockchainAvailable } from '@app/store/accounts/blockchain/utils';
 
 export function ChooseCryptoAssetToFund() {
-  const btcCryptoCurrencyAssetBalance = useBtcCryptoCurrencyAssetBalance();
   const stxCryptoCurrencyAssetBalance = useStxCryptoCurrencyAssetBalance();
-
-  const cryptoCurrencyAssetBalances = useMemo(
-    () => [btcCryptoCurrencyAssetBalance, stxCryptoCurrencyAssetBalance],
-    [btcCryptoCurrencyAssetBalance, stxCryptoCurrencyAssetBalance]
-  );
 
   const { whenWallet } = useWalletType();
   const navigate = useNavigate();
@@ -31,13 +24,13 @@ export function ChooseCryptoAssetToFund() {
 
   const filteredCryptoAssetBalances = useMemo(
     () =>
-      cryptoCurrencyAssetBalances.filter(isDefined).filter(assetBalance =>
+      [stxCryptoCurrencyAssetBalance].filter(isDefined).filter(assetBalance =>
         whenWallet({
           ledger: checkBlockchainAvailable(assetBalance?.blockchain),
           software: true,
         })
       ),
-    [cryptoCurrencyAssetBalances, checkBlockchainAvailable, whenWallet]
+    [stxCryptoCurrencyAssetBalance, checkBlockchainAvailable, whenWallet]
   );
 
   useRouteHeader(<ModalHeader hideActions onGoBack={() => navigate(RouteUrls.Home)} title=" " />);
