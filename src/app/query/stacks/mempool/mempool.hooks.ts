@@ -19,7 +19,7 @@ import { useAccountMempoolQuery } from './mempool.query';
 
 const droppedCache = new Map();
 
-function useAccountUnanchoredMempoolTransactions(address: string) {
+function useAccountMempoolTransactions(address: string) {
   const analytics = useAnalytics();
   const query = useAccountMempoolQuery(address);
   const accountMempoolTxs = query.data;
@@ -51,7 +51,7 @@ function useAccountUnanchoredMempoolTransactions(address: string) {
 
 export function useStacksPendingTransactions() {
   const address = useCurrentAccountStxAddressState();
-  const { query, transactions } = useAccountUnanchoredMempoolTransactions(address ?? '');
+  const { query, transactions } = useAccountMempoolTransactions(address ?? '');
   return useMemo(() => {
     const nonEmptyTransactions = transactions.filter(tx => !!tx) as MempoolTransaction[];
     return { query, transactions: nonEmptyTransactions };

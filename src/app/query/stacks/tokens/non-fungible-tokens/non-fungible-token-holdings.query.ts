@@ -5,7 +5,7 @@ import { Paginated } from '@shared/models/api-types';
 
 import { QueryPrefixes } from '@app/query/query-prefixes';
 import { StacksClient } from '@app/query/stacks/stacks-client';
-import { useStacksClientUnanchored } from '@app/store/common/api-clients.hooks';
+import { useStacksClient } from '@app/store/common/api-clients.hooks';
 import { useCurrentNetworkState } from '@app/store/networks/networks.hooks';
 
 import { RateLimiter, useHiroApiRateLimiter } from '../../rate-limiter';
@@ -53,7 +53,7 @@ function makeNonFungibleTokenHoldingsQuery(
 }
 
 export function useGetNonFungibleTokenHoldingsQuery(address: string) {
-  const client = useStacksClientUnanchored();
+  const client = useStacksClient();
   const network = useCurrentNetworkState();
   const limiter = useHiroApiRateLimiter();
 

@@ -1,6 +1,5 @@
 import { ChainID } from '@stacks/transactions';
 
-import { IS_TEST_ENV } from './environment';
 import { Blockchains } from './models/blockchain.model';
 
 export const gaiaUrl = 'https://hub.blockstack.org';
@@ -23,8 +22,6 @@ export const STX_DECIMALS = 6;
 export const BTC_P2WPKH_DUST_AMOUNT = 294;
 
 export const KEBAB_REGEX = /[A-Z\u00C0-\u00D6\u00D8-\u00DE]/g;
-
-export const MICROBLOCKS_ENABLED = !IS_TEST_ENV && true;
 
 export const GITHUB_ORG = 'leather-wallet';
 export const GITHUB_REPO = 'extension';

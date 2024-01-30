@@ -1,7 +1,7 @@
 import { useMemo } from 'react';
 
 import { stacksValue } from '@app/common/stacks-utils';
-import { useAnchoredStacksAccountBalances } from '@app/query/stacks/balance/stx-balance.hooks';
+import { useStacksAccountBalances } from '@app/query/stacks/balance/stx-balance.hooks';
 import { Caption } from '@app/ui/components/typography/caption';
 
 interface BalanceProps {
@@ -9,7 +9,7 @@ interface BalanceProps {
 }
 export function StxBalance(props: BalanceProps) {
   const { address } = props;
-  const { data: balances } = useAnchoredStacksAccountBalances(address);
+  const { data: balances } = useStacksAccountBalances(address);
 
   const balance = useMemo(
     () =>

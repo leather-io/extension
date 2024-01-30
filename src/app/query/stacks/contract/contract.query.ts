@@ -3,12 +3,12 @@ import { useQuery } from '@tanstack/react-query';
 
 import { ContractInterfaceResponseWithFunctions } from '@shared/models/contract-types';
 
-import { useStacksClientUnanchored } from '@app/store/common/api-clients.hooks';
+import { useStacksClient } from '@app/store/common/api-clients.hooks';
 
 import { useHiroApiRateLimiter } from '../rate-limiter';
 
 export function useGetContractInterface(transactionRequest: ContractCallPayload | null) {
-  const { smartContractsApi } = useStacksClientUnanchored();
+  const { smartContractsApi } = useStacksClient();
   const limiter = useHiroApiRateLimiter();
 
   async function fetchContractInterface() {

@@ -25,10 +25,7 @@ import { truncateMiddle } from '@app/ui/utils/truncate-middle';
 export const statusFromTx = (tx: StacksTx): StacksTxStatus => {
   const { tx_status } = tx;
   if (tx_status === 'pending') return 'pending';
-  if (tx_status === 'success')
-    return 'is_unanchored' in tx && tx.is_unanchored
-      ? 'success_microblock'
-      : 'success_anchor_block';
+  if (tx_status === 'success') return 'success';
   return 'failed';
 };
 

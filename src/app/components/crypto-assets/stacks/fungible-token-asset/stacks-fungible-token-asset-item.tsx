@@ -2,7 +2,6 @@ import { CryptoAssetSelectors } from '@tests/selectors/crypto-asset.selectors';
 import { FlexProps } from 'leather-styles/jsx';
 
 import type { StacksFungibleTokenAssetBalance } from '@shared/models/crypto-asset-balance.model';
-import { Money } from '@shared/models/money.model';
 
 import { getImageCanonicalUri } from '@app/common/crypto-assets/stacks-crypto-asset.utils';
 import { formatContractId, getTicker } from '@app/common/utils';
@@ -13,7 +12,6 @@ import { StacksFungibleTokenAssetItemLayout } from './stacks-fungible-token-asse
 
 interface StacksFungibleTokenAssetItemProps extends FlexProps {
   assetBalance: StacksFungibleTokenAssetBalance;
-  unanchoredAssetBalance?: Money;
   isPressable?: boolean;
   onClick?(): void;
 }
