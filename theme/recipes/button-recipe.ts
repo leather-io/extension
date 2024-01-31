@@ -30,9 +30,6 @@ export const buttonRecipe = defineRecipe({
   className: 'button',
   jsx: ['Button'],
   base: {
-    _disabled: {
-      cursor: 'not-allowed',
-    },
     position: 'relative',
     rounded: 'xs',
     textStyle: 'label.02',
@@ -54,8 +51,10 @@ export const buttonRecipe = defineRecipe({
           bg: 'accent.action-primary-default',
         },
         _disabled: {
+          _hover: { bg: 'accent.background-secondary' },
           bg: 'accent.background-secondary',
           color: 'accent.non-interactive',
+          cursor: 'not-allowed',
         },
         _focus: {
           _before: {
@@ -74,6 +73,12 @@ export const buttonRecipe = defineRecipe({
         _active: {
           bg: 'accent.component-background-pressed',
         },
+        _disabled: {
+          _hover: { bg: 'unset' },
+          border: '1px solid {colors.accent.non-interactive}',
+          color: 'accent.non-interactive',
+          cursor: 'not-allowed',
+        },
         _focus: {
           _before: {
             border: '3px solid {colors.focus}',
@@ -89,6 +94,11 @@ export const buttonRecipe = defineRecipe({
       ghost: {
         _active: {
           bg: 'accent.component-background-pressed',
+        },
+        _disabled: {
+          _hover: { bg: 'unset' },
+          color: 'accent.non-interactive',
+          cursor: 'not-allowed',
         },
         _focus: {
           _before: {

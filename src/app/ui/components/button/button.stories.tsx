@@ -26,6 +26,18 @@ export const Button: Story = {
   },
 };
 
+export const Disabled: Story = {
+  parameters: {
+    controls: { include: ['size', 'variant'] },
+  },
+  args: {
+    disabled: true,
+    children: 'Button',
+    size: 'md',
+    variant: 'solid',
+  },
+};
+
 // TODO: Remove invert code
 export const InvertSolid: Story = {
   parameters: {
