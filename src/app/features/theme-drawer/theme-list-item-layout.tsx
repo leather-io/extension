@@ -1,6 +1,6 @@
 import { Box, Flex, styled } from 'leather-styles/jsx';
 
-import { CheckmarkIcon } from '@app/ui/components/icons/checkmark-icon';
+import { CheckmarkIcon } from '@app/ui/icons/checkmark-icon';
 
 interface ThemeListItemProps {
   themeLabel: string;

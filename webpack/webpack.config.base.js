@@ -97,7 +97,7 @@ const config = {
     filename: () => '[name].js',
   },
   resolve: {
-    extensions: ['.js', '.ts', '.tsx', '.json', '.d.ts'],
+    extensions: ['.js', '.ts', '.tsx', '.json', '.d.ts', '.mdx'],
     plugins: [new TsconfigPathsPlugin()],
     alias: aliases,
     fallback: {
@@ -146,6 +146,14 @@ const config = {
         exclude: /node_modules/,
         loader: 'esbuild-loader',
         options: { tsconfig: './tsconfig.json', target: 'es2020' },
+      },
+      {
+        test: /\.mdx?$/,
+        use: [
+          {
+            loader: '@mdx-js/loader',
+          },
+        ],
       },
       {
         test: /\.(png|jpe?g|gif)$/i,

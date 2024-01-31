@@ -1,8 +1,8 @@
 import { Box, Flex, styled } from 'leather-styles/jsx';
 import { useHover } from 'use-events';
 
-import { ArrowLeftIcon } from '@app/ui/components/icons/arrow-left-icon';
-import { CloseIcon } from '@app/ui/components/icons/close-icon';
+import { ArrowLeftIcon } from '@app/ui/icons/arrow-left-icon';
+import { CloseIcon } from '@app/ui/icons/close-icon';
 
 import { HeaderActionButton } from './header-action-button';
 

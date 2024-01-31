@@ -4,8 +4,8 @@ import { HStack, HstackProps, styled } from 'leather-styles/jsx';
 import { openInNewTab } from '@app/common/utils/open-in-new-tab';
 import { SponsoredLabel } from '@app/components/sponsored-label';
 import { WarningLabel } from '@app/components/warning-label';
-import { InfoIcon } from '@app/ui/components/icons/info-icon';
 import { BasicTooltip } from '@app/ui/components/tooltip/basic-tooltip';
+import { InfoCircleIcon } from '@app/ui/icons/info-circle-icon';
 
 const feesInfo =
   'Higher fees increase the likelihood of your transaction getting confirmed before others. Click to learn more.';
@@ -30,7 +30,11 @@ export function FeesRowLayout(props: FeesRowLayoutProps) {
               <styled.span color="accent.text-subdued" textStyle="label.02">
                 Fee
               </styled.span>
-              <InfoIcon color="accent.text-subdued" onClick={() => openInNewTab(url)} size="xs" />
+              <InfoCircleIcon
+                color="accent.text-subdued"
+                onClick={() => openInNewTab(url)}
+                width="xs"
+              />
             </HStack>
           </BasicTooltip>
           {!isSponsored ? selectInput : null}

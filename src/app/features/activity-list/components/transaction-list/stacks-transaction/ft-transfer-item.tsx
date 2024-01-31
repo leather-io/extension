@@ -17,8 +17,8 @@ import { StacksTransactionItem } from '@app/components/stacks-transaction-item/s
 import { useGetFungibleTokenMetadataQuery } from '@app/query/stacks/tokens/fungible-tokens/fungible-token-metadata.query';
 import { isFtAsset } from '@app/query/stacks/tokens/token-metadata.utils';
 import { useCurrentStacksAccount } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
-import { ArrowDownIcon } from '@app/ui/components/icons/arrow-down-icon';
-import { ArrowUpIcon } from '@app/ui/components/icons/arrow-up-icon';
+import { ArrowDownIcon } from '@app/ui/icons/arrow-down-icon';
+import { ArrowUpIcon } from '@app/ui/icons/arrow-up-icon';
 
 import { TxTransferIconWrapper } from './tx-transfer-icon-wrapper';
 
@@ -49,7 +49,7 @@ export function FtTransferItem({ ftTransfer, parentTx }: FtTransferItemProps) {
     assetMetadata.image_canonical_uri &&
     assetMetadata.name &&
     getImageCanonicalUri(assetMetadata.image_canonical_uri, assetMetadata.name);
-  const icon = isOriginator ? <ArrowUpIcon size="xs" /> : <ArrowDownIcon size="xs" />;
+  const icon = isOriginator ? <ArrowUpIcon width="xs" /> : <ArrowDownIcon width="xs" />;
   const title = `${assetMetadata.name || 'Token'} Transfer`;
   const value = `${isOriginator ? '-' : ''}${displayAmount.toFormat()}`;
   const transferIcon = ftImageCanonicalUri ? (

@@ -11,7 +11,7 @@ import { HighFeeDrawer } from '@app/features/high-fee-drawer/high-fee-drawer';
 import { useNativeSegwitBalance } from '@app/query/bitcoin/balance/btc-native-segwit-balance.hooks';
 import { useCryptoCurrencyMarketData } from '@app/query/common/market-data/market-data.hooks';
 import { useCurrentAccountNativeSegwitIndexZeroSigner } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
-import { BtcIcon } from '@app/ui/components/icons/btc-icon';
+import { BtcIcon } from '@app/ui/components/avatar-icon/btc-icon';
 
 import { AmountField } from '../../components/amount-field';
 import { FormFooter } from '../../components/form-footer';

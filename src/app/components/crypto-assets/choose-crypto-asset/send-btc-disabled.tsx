@@ -6,7 +6,7 @@ import { RouteUrls } from '@shared/route-urls';
 
 import { openInNewTab } from '@app/common/utils/open-in-new-tab';
 import { GenericError } from '@app/components/generic-error/generic-error';
-import { ExternalLinkIcon } from '@app/ui/components/icons/external-link-icon';
+import { ExternalLinkIcon } from '@app/ui/icons/external-link-icon';
 
 const body = 'Sending bitcoin is temporarily disabled';
 const helpTextList = [

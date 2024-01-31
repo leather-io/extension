@@ -1,6 +1,6 @@
 import { openInNewTab } from '@app/common/utils/open-in-new-tab';
 import { Stamp as BitcoinStamp } from '@app/query/bitcoin/stamps/stamps-by-address.query';
-import { StampsIcon } from '@app/ui/components/icons/stamps-icon';
+import { StampsIcon } from '@app/ui/components/avatar-icon/stamps-icon';
 
 import { CollectibleImage } from '../_collectible-types/collectible-image';
 

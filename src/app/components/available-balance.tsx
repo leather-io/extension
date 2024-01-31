@@ -3,8 +3,8 @@ import { Box, Flex, HStack, styled } from 'leather-styles/jsx';
 import { Money } from '@shared/models/money.model';
 
 import { formatMoney } from '@app/common/money/format-money';
-import { InfoIcon } from '@app/ui/components/icons/info-icon';
 import { BasicTooltip } from '@app/ui/components/tooltip/basic-tooltip';
+import { InfoCircleIcon } from '@app/ui/icons/info-circle-icon';
 
 export function AvailableBalance(props: { balance: Money; balanceTooltipLabel?: string }) {
   const {
@@ -20,7 +20,7 @@ export function AvailableBalance(props: { balance: Money; balanceTooltipLabel?: 
         </styled.span>
         <BasicTooltip label={balanceTooltipLabel} side="top">
           <Box>
-            <InfoIcon color="accent.text-subdued" size="xs" />
+            <InfoCircleIcon color="accent.text-subdued" width="xs" />
           </Box>
         </BasicTooltip>
       </HStack>

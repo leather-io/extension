@@ -16,9 +16,9 @@ import { useBackgroundLocationRedirect } from '@app/routes/hooks/use-background-
 import { useZeroIndexTaprootAddress } from '@app/store/accounts/blockchain/bitcoin/bitcoin.hooks';
 import { useCurrentAccountNativeSegwitAddressIndexZero } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
 import { useCurrentAccountStxAddressState } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
-import { BtcIcon } from '@app/ui/components/icons/btc-icon';
-import { OrdinalIcon } from '@app/ui/components/icons/ordinal-icon';
-import { StampsIcon } from '@app/ui/components/icons/stamps-icon';
+import { BtcIcon } from '@app/ui/components/avatar-icon/btc-icon';
+import { OrdinalIcon } from '@app/ui/components/avatar-icon/ordinal-icon';
+import { StampsIcon } from '@app/ui/components/avatar-icon/stamps-icon';
 
 import { ReceiveItem } from './components/receive-item';
 import { ReceiveItemList } from './components/receive-items';

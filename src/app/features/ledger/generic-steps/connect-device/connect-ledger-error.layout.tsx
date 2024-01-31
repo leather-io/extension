@@ -4,8 +4,8 @@ import { ErrorLabel } from '@app/components/error-label';
 import { WarningLabel } from '@app/components/warning-label';
 import { ConnectLedgerErr } from '@app/features/ledger/illustrations/ledger-illu-connect-ledger-error';
 import { Button } from '@app/ui/components/button/button';
-import { CircleIcon } from '@app/ui/components/icons/circle-icon';
 import { Link } from '@app/ui/components/link/link';
+import { CircleIcon } from '@app/ui/icons/circle-icon';
 
 import { LedgerTitle } from '../../components/ledger-title';
 import { LedgerWrapper } from '../../components/ledger-wrapper';

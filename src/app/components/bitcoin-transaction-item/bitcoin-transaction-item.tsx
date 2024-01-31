@@ -21,8 +21,8 @@ import {
 } from '@app/query/bitcoin/ordinals/inscription.hooks';
 import { useGetInscriptionsByOutputQuery } from '@app/query/bitcoin/ordinals/inscriptions-by-param.query';
 import { useCurrentAccountNativeSegwitAddressIndexZero } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
+import { BtcIcon } from '@app/ui/components/avatar-icon/btc-icon';
 import { BulletSeparator } from '@app/ui/components/bullet-separator/bullet-separator';
-import { BtcIcon } from '@app/ui/components/icons/btc-icon';
 import { Caption } from '@app/ui/components/typography/caption';
 
 import { TransactionItemLayout } from '../transaction-item/transaction-item.layout';

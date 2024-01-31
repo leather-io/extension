@@ -7,7 +7,7 @@ import {
   createInscriptionInfoUrl,
   useInscription,
 } from '@app/query/bitcoin/ordinals/inscription.hooks';
-import { OrdinalIcon } from '@app/ui/components/icons/ordinal-icon';
+import { OrdinalIcon } from '@app/ui/components/avatar-icon/ordinal-icon';
 
 import { PsbtAddressTotalItem } from './psbt-address-total-item';
 

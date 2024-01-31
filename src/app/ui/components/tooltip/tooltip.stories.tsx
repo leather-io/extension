@@ -2,7 +2,7 @@ import * as RadixTooltip from '@radix-ui/react-tooltip';
 import type { Meta, StoryObj } from '@storybook/react';
 import { Box } from 'leather-styles/jsx';
 
-import { InfoIcon } from '../icons/info-icon';
+import { InfoCircleIcon } from '../../icons/info-circle-icon';
 import { BasicTooltip as Component } from './basic-tooltip';
 
 const meta: Meta<typeof Component> = {
@@ -24,7 +24,7 @@ export const Tooltip: Story = {
     <RadixTooltip.Provider delayDuration={300}>
       <Component {...args}>
         <Box>
-          <InfoIcon color="accent.text-subdued" size="xs" />
+          <InfoCircleIcon color="accent.text-subdued" width="xs" />
         </Box>
       </Component>
     </RadixTooltip.Provider>

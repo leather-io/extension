@@ -1,6 +1,6 @@
 import { HStack, styled } from 'leather-styles/jsx';
 
-import { ChevronDownIcon } from '@app/ui/components/icons/chevron-down-icon';
+import { ChevronDownIcon } from '@app/ui/icons/chevron-down-icon';
 
 const labels = ['Address', 'BNS Name'];
 const testLabels = ['address', 'bns-name'];

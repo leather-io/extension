@@ -1,9 +1,10 @@
 import { Meta, StoryObj } from '@storybook/react';
 
+import { BtcIcon } from '@app/ui/components/avatar-icon/btc-icon';
+import { CopyIcon } from '@app/ui/icons/copy-icon';
+import { QrCodeIcon } from '@app/ui/icons/qr-code-icon';
+
 import { Button } from '../button/button';
-import { BtcIcon } from '../icons/btc-icon';
-import { CopyIcon } from '../icons/copy-icon';
-import { QrCodeIcon } from '../icons/qr-code-icon';
 import { ItemInteractive as Component } from './item-interactive';
 import { ItemWithButtonsLayout } from './item-with-buttons.layout';
 import { ItemLayout } from './item.layout';
@@ -11,7 +12,7 @@ import { ItemLayout } from './item.layout';
 const meta: Meta<typeof Component> = {
   component: Component,
   tags: ['autodocs'],
-  title: 'Item Interactive',
+  title: 'ItemInteractive',
   parameters: {
     controls: { include: [] },
   },

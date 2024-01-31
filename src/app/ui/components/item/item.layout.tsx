@@ -2,9 +2,9 @@ import { ReactNode, isValidElement } from 'react';
 
 import { Flex, HStack, Stack, styled } from 'leather-styles/jsx';
 
+import { CheckmarkIcon } from '../../icons/checkmark-icon';
+import { ChevronUpIcon } from '../../icons/chevron-up-icon';
 import { Flag } from '../flag/flag';
-import { CheckmarkIcon } from '../icons/checkmark-icon';
-import { ChevronUpIcon } from '../icons/chevron-up-icon';
 import { itemCaptionStyles, itemChevronStyles } from './item-interactive';
 
 interface ItemLayoutProps {

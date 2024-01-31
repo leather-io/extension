@@ -1,6 +1,6 @@
 import { HStack, styled } from 'leather-styles/jsx';
 
-import { ChevronsRightIcon } from '@app/ui/components/icons/chevrons-right-icon';
+import { ChevronsRightIcon } from '@app/ui/icons/chevrons-right-icon';
 
 interface IncreaseFeeButtonProps {
   isEnabled?: boolean;
