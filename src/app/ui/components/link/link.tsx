@@ -9,12 +9,12 @@ type LinkProps = Omit<React.ComponentProps<typeof StyledLink>, keyof LinkVariant
   LinkVariantProps;
 
 export const Link = forwardRef((props: LinkProps, ref: ForwardedRef<HTMLAnchorElement>) => {
-  const { children, fullWidth, invert, size, variant, ...rest } = props;
+  const { children, disabled, fullWidth, invert, size, variant, ...rest } = props;
 
   return (
     <StyledLink
       ref={ref}
-      className={linkRecipe({ fullWidth, invert, size, variant })}
+      className={linkRecipe({ disabled, fullWidth, invert, size, variant })}
       cursor="pointer"
       {...rest}
     >
