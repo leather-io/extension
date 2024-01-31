@@ -5,8 +5,8 @@ import { Title } from '../typography/title';
 import { BulletSeparator as Component } from './bullet-separator';
 
 /**
- * Note that the BulletSeparator component doesn't bring it's own margins, these
- * should be appiled separately
+ * Note that the BulletSeparator component doesn't bring it's own margins,
+ * these should be applied separately
  */
 const meta: Meta<typeof Component> = {
   component: Component,

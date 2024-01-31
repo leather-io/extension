@@ -11,9 +11,7 @@ import { useConfigBitcoinEnabled } from '@app/query/common/remote-config/remote-
 import { useCurrentAccountNativeSegwitIndexZeroSignerNullable } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
 import { useCurrentStacksAccount } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
 import { useCurrentNetwork } from '@app/store/networks/networks.selectors';
-import { ArrowDownIcon } from '@app/ui/components/icons/arrow-down-icon';
-import { PlusIcon } from '@app/ui/components/icons/plus-icon';
-import { SwapIcon } from '@app/ui/components/icons/swap-icon';
+import { CreditCardIcon, InboxIcon, SwapIcon } from '@app/ui/icons';
 
 import { ActionButton } from './action-button';
 import { SendButton } from './send-button';
@@ -36,7 +34,7 @@ export function AccountActions(props: FlexProps) {
       <SendButton />
       <ActionButton
         data-testid={HomePageSelectors.ReceiveCryptoAssetBtn}
-        icon={<ArrowDownIcon />}
+        icon={<InboxIcon width="md" />}
         label="Receive"
         onClick={() => navigate(receivePath, { state: { backgroundLocation: location } })}
       />
@@ -44,7 +42,7 @@ export function AccountActions(props: FlexProps) {
       {(!!stacksAccount || !!btcAccount) && (
         <ActionButton
           data-testid={HomePageSelectors.FundAccountBtn}
-          icon={<PlusIcon />}
+          icon={<CreditCardIcon width="md" />}
           label="Buy"
           onClick={() => navigate(RouteUrls.FundChooseCurrency)}
         />
@@ -53,7 +51,7 @@ export function AccountActions(props: FlexProps) {
         [ChainID.Mainnet]: (
           <ActionButton
             data-testid={HomePageSelectors.SwapBtn}
-            icon={<SwapIcon />}
+            icon={<SwapIcon width="md" />}
             label="Swap"
             onClick={() => navigate(RouteUrls.Swap)}
           />

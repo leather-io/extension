@@ -5,7 +5,7 @@ import { Flex } from 'leather-styles/jsx';
 import { RouteUrls } from '@shared/route-urls';
 
 import { BaseDrawer } from '@app/components/drawer/base-drawer';
-import { CheckmarkIcon } from '@app/ui/components/icons/checkmark-icon';
+import { CheckmarkIcon } from '@app/ui/icons/checkmark-icon';
 
 export function IncreaseFeeSentDrawer() {
   const location = useLocation();
@@ -16,7 +16,7 @@ export function IncreaseFeeSentDrawer() {
     <>
       <BaseDrawer isShowing={isShowing} onClose={() => navigate(RouteUrls.Home)} title="Confirmed">
         <Flex justifyContent="center" pb="space.06" px="space.05">
-          <CheckmarkIcon mt="2px" size="lg" />
+          <CheckmarkIcon mt="2px" width="lg" />
         </Flex>
       </BaseDrawer>
       <Outlet />

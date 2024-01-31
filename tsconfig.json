@@ -37,5 +37,8 @@
     "types": ["vitest/globals", "chrome"]
   },
   "include": ["./src/**/*", "./tests/**/*", "./scripts-ts/**/*", "leather-styles", "theme"],
-  "exclude": ["test-app"]
+  "exclude": ["test-app"],
+  "parserOptions": {
+    "extraFileExtensions": [".mdx"]
+  }
 }

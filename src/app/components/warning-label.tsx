@@ -2,7 +2,7 @@ import { Box, BoxProps, styled } from 'leather-styles/jsx';
 import { token } from 'leather-styles/tokens';
 
 import { Flag } from '@app/ui/components/flag/flag';
-import { ErrorCircleIcon } from '@app/ui/components/icons/error-circle-icon';
+import { ErrorCircleIcon } from '@app/ui/icons/error-circle-icon';
 
 interface WarningLabelProps extends BoxProps {
   title?: string;

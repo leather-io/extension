@@ -3,7 +3,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { RouteUrls } from '@shared/route-urls';
 
 import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
-import { PlusIcon } from '@app/ui/components/icons/plus-icon';
+import { PlusIcon } from '@app/ui/icons/plus-icon';
 
 import { CollectibleItemLayout } from './collectible-item.layout';
 
@@ -26,7 +26,7 @@ export function AddCollectible() {
       subtitle="Collectible"
       title="Add new"
     >
-      <PlusIcon size="xl" />
+      <PlusIcon width="xl" />
     </CollectibleItemLayout>
   );
 }

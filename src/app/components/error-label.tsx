@@ -1,7 +1,7 @@
 import { css } from 'leather-styles/css';
 import { HStack, HstackProps } from 'leather-styles/jsx';
 
-import { ErrorCircleIcon } from '@app/ui/components/icons/error-circle-icon';
+import { ErrorCircleIcon } from '@app/ui/icons/error-circle-icon';
 
 export function ErrorLabel({ children, ...rest }: HstackProps) {
   return (

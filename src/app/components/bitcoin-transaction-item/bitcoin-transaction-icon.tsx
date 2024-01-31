@@ -3,13 +3,13 @@ import { Circle, CircleProps, Flex } from 'leather-styles/jsx';
 import { BitcoinTx } from '@shared/models/transactions/bitcoin-transaction.model';
 
 import { isBitcoinTxInbound } from '@app/common/transactions/bitcoin/utils';
-import { ArrowDownIcon } from '@app/ui/components/icons/arrow-down-icon';
-import { ArrowUpIcon } from '@app/ui/components/icons/arrow-up-icon';
+import { ArrowDownIcon } from '@app/ui/icons/arrow-down-icon';
+import { ArrowUpIcon } from '@app/ui/icons/arrow-up-icon';
 
 function TxStatusIcon(props: { address: string; tx: BitcoinTx }) {
   const { address, tx } = props;
-  if (isBitcoinTxInbound(address, tx)) return <ArrowDownIcon size="xs" />;
-  return <ArrowUpIcon size="xs" />;
+  if (isBitcoinTxInbound(address, tx)) return <ArrowDownIcon width="xs" />;
+  return <ArrowUpIcon width="xs" />;
 }
 
 interface TransactionIconProps extends CircleProps {

@@ -2,7 +2,7 @@ import { BoxProps, Flex } from 'leather-styles/jsx';
 
 import { SupportedInscription } from '@shared/models/inscription.model';
 
-import { OrdinalIcon } from '@app/ui/components/icons/ordinal-icon';
+import { OrdinalIcon } from '@app/ui/components/avatar-icon/ordinal-icon';
 
 import { InscriptionImage } from './inscription-image';
 import { InscriptionPreviewContainer } from './inscription-preview-container';
@@ -31,7 +31,7 @@ export function InscriptionPreview({ inscription, ...props }: InscriptionPreview
       return (
         <InscriptionPreviewContainer {...props}>
           <Flex alignItems="center" height="100%" justifyContent="center">
-            <OrdinalIcon size="40px" />
+            <OrdinalIcon width="40px" />
           </Flex>
         </InscriptionPreviewContainer>
       );

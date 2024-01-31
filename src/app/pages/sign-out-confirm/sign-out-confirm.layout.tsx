@@ -7,7 +7,7 @@ import { useWalletType } from '@app/common/use-wallet-type';
 import { BaseDrawer } from '@app/components/drawer/base-drawer';
 import { Button } from '@app/ui/components/button/button';
 import { Flag } from '@app/ui/components/flag/flag';
-import { ErrorIcon } from '@app/ui/components/icons/error-icon';
+import { ErrorIcon } from '@app/ui/icons/error-icon';
 
 interface SignOutConfirmLayoutProps {
   onUserDeleteWallet(): void;

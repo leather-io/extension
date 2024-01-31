@@ -1,7 +1,7 @@
 import { HStack } from 'leather-styles/jsx';
 
-import { ErrorIcon } from '@app/ui/components/icons/error-icon';
 import { Caption } from '@app/ui/components/typography/caption';
+import { ErrorIcon } from '@app/ui/icons/error-icon';
 
 interface ErrorMessageProps {
   errorMessage: string;

@@ -4,7 +4,7 @@ import { createMoney } from '@shared/models/money.model';
 
 import { formatBalance } from '@app/common/format-balance';
 import { Brc20Token } from '@app/query/bitcoin/ordinals/brc20/brc20-tokens.query';
-import { Brc20TokenIcon } from '@app/ui/components/icons/brc20-token-icon';
+import { Brc20TokenIcon } from '@app/ui/components/avatar-icon/brc20-token-icon';
 import { ItemInteractive } from '@app/ui/components/item/item-interactive';
 import { ItemLayout } from '@app/ui/components/item/item.layout';
 import { BasicTooltip } from '@app/ui/components/tooltip/basic-tooltip';

@@ -1,8 +1,8 @@
 import { HStack, Stack, styled } from 'leather-styles/jsx';
 
-import { EyeSlashIcon } from '@app/ui/components/icons/eye-slash-icon';
-import { LockIcon } from '@app/ui/components/icons/lock-icon';
-import { RotateLeftIcon } from '@app/ui/components/icons/rotate-left-icon';
+import { KeyIcon } from '@app/ui/icons';
+import { EyeSlashIcon } from '@app/ui/icons/eye-slash-icon';
+import { LockIcon } from '@app/ui/icons/lock-icon';
 
 export function BackUpSecretKeyContent(): React.JSX.Element {
   return (
@@ -24,15 +24,15 @@ export function BackUpSecretKeyContent(): React.JSX.Element {
 
       <Stack gap="space.03">
         <HStack alignItems="center" margin={['auto', 'auto', 'auto', 'unset']}>
-          <RotateLeftIcon />
+          <KeyIcon />
           <styled.span textStyle="body.01">Your Secret Key gives access to your wallet</styled.span>
         </HStack>
         <HStack alignItems="center" margin={['auto', 'auto', 'auto', 'unset']}>
-          <EyeSlashIcon size="16px" />
+          <EyeSlashIcon />
           <styled.span textStyle="body.01">Never share your Secret Key with anyone</styled.span>
         </HStack>
         <HStack alignItems="center" margin={['auto', 'auto', 'auto', 'unset']} mb="space.05">
-          <LockIcon size="16px" />
+          <LockIcon />
           <styled.span textStyle="body.01">Store it somewhere 100% private and secure</styled.span>
         </HStack>
       </Stack>

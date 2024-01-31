@@ -2,9 +2,9 @@ import { Box, HStack, styled } from 'leather-styles/jsx';
 import { token } from 'leather-styles/tokens';
 
 import { usePsbtSignerContext } from '@app/features/psbt-signer/psbt-signer.context';
-import { LockIcon } from '@app/ui/components/icons/lock-icon';
-import { UnlockIcon } from '@app/ui/components/icons/unlock-icon';
 import { BasicTooltip } from '@app/ui/components/tooltip/basic-tooltip';
+import { LockIcon } from '@app/ui/icons/lock-icon';
+import { UnlockIcon } from '@app/ui/icons/unlock-icon';
 
 const immutableLabel =
   'Any modification to the transaction, including the fee amount or other inputs/outputs, will invalidate the signature.';
@@ -31,9 +31,9 @@ export function PsbtRequestDetailsHeader() {
         >
           <Box width="12px">
             {isPsbtMutable ? (
-              <UnlockIcon style={{ color: tokenLabelColor }} size="xs" />
+              <UnlockIcon style={{ color: tokenLabelColor }} width="xs" />
             ) : (
-              <LockIcon style={{ color: tokenLabelColor }} size="xs" />
+              <LockIcon style={{ color: tokenLabelColor }} width="xs" />
             )}
           </Box>
           <styled.span

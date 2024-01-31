@@ -1,5 +1,5 @@
-import { CheckmarkIcon } from '@app/ui/components/icons/checkmark-icon';
-import { CloudOffIcon } from '@app/ui/components/icons/cloud-off-icon';
+import { CheckmarkIcon } from '@app/ui/icons/checkmark-icon';
+import { CloudOffIcon } from '@app/ui/icons/cloud-off-icon';
 
 interface NetworkStatusIndicatorProps {
   isActive: boolean;

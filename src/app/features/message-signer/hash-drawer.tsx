@@ -2,8 +2,8 @@ import { useState } from 'react';
 
 import { Box, styled } from 'leather-styles/jsx';
 
-import { ChevronDownIcon } from '@app/ui/components/icons/chevron-down-icon';
-import { ChevronUpIcon } from '@app/ui/components/icons/chevron-up-icon';
+import { ChevronDownIcon } from '@app/ui/icons/chevron-down-icon';
+import { ChevronUpIcon } from '@app/ui/icons/chevron-up-icon';
 
 interface ShowHashButtonProps {
   expanded: boolean;
