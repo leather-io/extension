@@ -1,7 +1,7 @@
 import { Flex, styled } from 'leather-styles/jsx';
 
 import { Favicon } from '@app/components/favicon';
-import { Flag } from '@app/components/layout/flag';
+import { Flag } from '@app/ui/components/flag/flag';
 
 interface SendTransferHeaderProps {
   amount: string;

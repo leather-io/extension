@@ -1,4 +1,4 @@
-import { Flag } from '../layout/flag';
+import { Flag } from '../../ui/components/flag/flag';
 import { InscriptionMetadata } from './components/inscription-metadata';
 
 interface InscriptionPreviewCardProps {

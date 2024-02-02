@@ -7,7 +7,7 @@ import { Money } from '@shared/models/money.model';
 import { formatBalance } from '@app/common/format-balance';
 import { ftDecimals } from '@app/common/stacks-utils';
 import { usePressable } from '@app/components/item-hover';
-import { Flag } from '@app/components/layout/flag';
+import { Flag } from '@app/ui/components/flag/flag';
 import { BasicTooltip } from '@app/ui/components/tooltip/basic-tooltip';
 import { truncateMiddle } from '@app/ui/utils/truncate-middle';
 

@@ -6,7 +6,6 @@ import { RouteUrls } from '@shared/route-urls';
 import { noop } from '@shared/utils';
 
 import { usePressable } from '@app/components/item-hover';
-import { Flag } from '@app/components/layout/flag';
 import { StatusPending } from '@app/components/status-pending';
 import { StatusReady } from '@app/components/status-ready';
 import { useNativeSegwitBalance } from '@app/query/bitcoin/balance/btc-native-segwit-balance.hooks';
@@ -21,6 +20,7 @@ import {
   usePendingBrc20Transfers,
 } from '@app/store/ordinals/ordinals.slice';
 import { BulletSeparator } from '@app/ui/components/bullet-separator/bullet-separator';
+import { Flag } from '@app/ui/components/flag/flag';
 import { BasicTooltip } from '@app/ui/components/tooltip/basic-tooltip';
 import { Caption } from '@app/ui/components/typography/caption';
 

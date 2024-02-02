@@ -3,11 +3,11 @@ import { Flex, HStack, Stack, StackProps, styled } from 'leather-styles/jsx';
 
 import { useViewportMinWidth } from '@app/common/hooks/use-media-query';
 import { BulletSeparator } from '@app/ui/components/bullet-separator/bullet-separator';
+import { Flag } from '@app/ui/components/flag/flag';
 import { CheckmarkIcon } from '@app/ui/components/icons/checkmark-icon';
 import { Spinner } from '@app/ui/components/spinner';
 import { truncateMiddle } from '@app/ui/utils/truncate-middle';
 
-import { Flag } from '../layout/flag';
 import { StacksAccountLoader } from '../loaders/stacks-account-loader';
 import { BitcoinNativeSegwitAccountLoader } from './bitcoin-account-loader';
 
