@@ -23,7 +23,7 @@ export function MnemonicWordInput({
   const [isFocused, setIsFocused] = useState(false);
   const isDirty = useIsFieldDirty(name);
   return (
-    <Input.Root hasError={isDirty && !!meta.error} shrink>
+    <Input.Root hasError={isDirty && !!meta.error} shrink={!!value}>
       <Input.Field
         // Limitation of the animated label is that we cannot detect
         // programatically updated inputs. Here we add an empty place holder to
