@@ -319,7 +319,7 @@
     "react-refresh": "0.14.0",
     "schema-inspector": "2.0.2",
     "speed-measure-webpack-plugin": "1.5.0",
-    "storybook": "7.6.10",
+    "storybook": "7.6.12",
     "stream-browserify": "3.0.0",
     "svg-url-loader": "8.0.0",
     "ts-node": "10.9.2",

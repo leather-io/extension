@@ -1,7 +1,7 @@
 import { styled } from 'leather-styles/jsx';
 
+import { Flag } from '../ui/components/flag/flag';
 import { Favicon } from './favicon';
-import { Flag } from './layout/flag';
 
 interface RequesterFlagProps {
   requester: string;

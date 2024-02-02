@@ -2,8 +2,8 @@ import { Stack, styled } from 'leather-styles/jsx';
 
 import { addPortSuffix, getUrlHostname } from '@app/common/utils';
 import { Favicon } from '@app/components/favicon';
-import { Flag } from '@app/components/layout/flag';
 import { useCurrentNetworkState } from '@app/store/networks/networks.hooks';
+import { Flag } from '@app/ui/components/flag/flag';
 
 interface MessageSigningHeaderProps {
   name?: string;

@@ -6,7 +6,7 @@ import { formatBalance } from '@app/common/format-balance';
 import { ftDecimals } from '@app/common/stacks-utils';
 import { StacksAssetAvatar } from '@app/components/crypto-assets/stacks/components/stacks-asset-avatar';
 import { usePressable } from '@app/components/item-hover';
-import { Flag } from '@app/components/layout/flag';
+import { Flag } from '@app/ui/components/flag/flag';
 import { BasicTooltip } from '@app/ui/components/tooltip/basic-tooltip';
 
 import { AssetCaption } from '../../components/asset-caption';

@@ -1,19 +1,24 @@
+import { css } from 'leather-styles/css';
 import { Box, Flex, FlexProps } from 'leather-styles/jsx';
 import { SpacingToken } from 'leather-styles/tokens';
 
-function alignToFlexProp(alignment: FlagAlignment) {
-  return {
-    top: 'start',
-    middle: 'center',
-    bottom: 'end',
-  }[alignment];
-}
+const flagStyles = css({
+  '&[data-align="top"]': {
+    alignItems: 'start',
+  },
+  '&[data-align="middle"]': {
+    alignItems: 'center',
+  },
+  '&[data-align="bottom"]': {
+    alignItems: 'end',
+  },
+});
 
 type FlagAlignment = 'top' | 'middle' | 'bottom';
 
 interface FlagProps extends FlexProps {
   spacing?: SpacingToken;
-  align?: 'top' | 'middle' | 'bottom';
+  align?: FlagAlignment;
   children: React.ReactNode;
   img: React.ReactNode;
 }
@@ -27,7 +32,7 @@ interface FlagProps extends FlexProps {
  */
 export function Flag({ spacing = 'space.02', align = 'top', img, children, ...props }: FlagProps) {
   return (
-    <Flex flexDirection="row" align={alignToFlexProp(align)} width="100%" {...props}>
+    <Flex flexDirection="row" width="100%" data-align={align} className={flagStyles} {...props}>
       <Box mr={spacing}>{img}</Box>
       <Box flex={1}>{children}</Box>
     </Flex>

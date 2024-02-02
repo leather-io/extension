@@ -3,7 +3,7 @@ import { token } from 'leather-styles/tokens';
 
 import { ErrorCircleIcon } from '@app/ui/components/icons/error-circle-icon';
 
-import { Flag } from './layout/flag';
+import { Flag } from '../ui/components/flag/flag';
 
 interface WarningLabelProps extends BoxProps {
   title?: string;
