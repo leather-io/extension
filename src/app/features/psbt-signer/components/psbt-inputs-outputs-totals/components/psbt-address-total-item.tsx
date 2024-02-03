@@ -28,7 +28,7 @@ export function PsbtAddressTotalItem({
   const { onCopy, hasCopied } = useClipboard(hoverLabel ?? '');
 
   return (
-    <Flag align="middle" img={image ? image : <BtcIcon />} mt="space.05" spacing="space.04">
+    <Flag img={image ? image : <BtcIcon />} mt="space.05" spacing="space.04">
       <HStack alignItems="center" justifyContent="space-between">
         <styled.span textStyle="label.01">{title ? title : 'Bitcoin'}</styled.span>
         {valueAction ? (

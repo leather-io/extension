@@ -130,12 +130,7 @@ function PendingBrcTransfer({ order }: PendingBrcTransferProps) {
       <HStack width="100%" mt="space.02">
         <BulletSeparator>
           <Flex>
-            <Flag
-              ml="space.02"
-              align="middle"
-              spacing="space.02"
-              img={<StatusIcon status={order.status} />}
-            >
+            <Flag ml="space.02" spacing="space.02" img={<StatusIcon status={order.status} />}>
               <StatusLabel status={order.status} />
             </Flag>
           </Flex>

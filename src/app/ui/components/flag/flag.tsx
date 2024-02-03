@@ -30,7 +30,13 @@ interface FlagProps extends FlexProps {
  *   1st. Image content
  *   2nd. Body content
  */
-export function Flag({ spacing = 'space.02', align = 'top', img, children, ...props }: FlagProps) {
+export function Flag({
+  spacing = 'space.03',
+  align = 'middle',
+  img,
+  children,
+  ...props
+}: FlagProps) {
   return (
     <Flex flexDirection="row" width="100%" data-align={align} className={flagStyles} {...props}>
       <Box mr={spacing}>{img}</Box>

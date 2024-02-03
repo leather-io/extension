@@ -45,7 +45,7 @@ export function BitcoinContractListItemLayout({
         })
       }
     >
-      <Flag img={<BitcoinContractIcon />} align="middle" spacing="space.04" width="100%">
+      <Flag img={<BitcoinContractIcon />} spacing="space.04" width="100%">
         <HStack alignItems="center" justifyContent="space-between" width="100%">
           <styled.span textStyle="body.01">{id}</styled.span>
           <styled.span fontVariantNumeric="tabular-nums" textAlign="right" textStyle="body.01">

@@ -40,7 +40,6 @@ export function StacksFungibleTokenAssetItemLayout({
   return (
     <Flex onClick={isPressable ? onClick : undefined} {...bind}>
       <Flag
-        align="middle"
         img={
           <StacksAssetAvatar
             color="white"

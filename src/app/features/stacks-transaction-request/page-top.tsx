@@ -37,7 +37,7 @@ function PageTopBase() {
         {pageTitle}
       </styled.h1>
       {caption && (
-        <Flag align="middle" img={<Favicon origin={origin ?? ''} />} pl="space.02">
+        <Flag img={<Favicon origin={origin ?? ''} />} pl="space.02">
           <styled.span textStyle="label.02" wordBreak="break-word">
             {caption}
           </styled.span>

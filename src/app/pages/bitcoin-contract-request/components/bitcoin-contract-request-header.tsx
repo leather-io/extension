@@ -22,11 +22,7 @@ function BitcoinContractRequestHeaderBase({
     <Flex flexDirection="column" my="space.05" width="100%">
       <Title mb="space.04">Lock Bitcoin</Title>
       {caption && (
-        <Flag
-          align="middle"
-          img={<img src={counterpartyWalletIcon} height="32px" width="32px" />}
-          pl="space.02"
-        >
+        <Flag img={<img src={counterpartyWalletIcon} height="32px" width="32px" />} pl="space.02">
           <Caption data-testid={BitcoinContractRequestSelectors.BitcoinContractOfferorText}>
             {caption}
           </Caption>

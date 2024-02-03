@@ -12,7 +12,6 @@ interface SwapAssetItemLayoutProps {
 export function SwapAssetItemLayout({ caption, icon, symbol, value }: SwapAssetItemLayoutProps) {
   return (
     <Flag
-      align="middle"
       img={<styled.img src={icon} width="48px" height="48px" alt="Swap asset" />}
       spacing="space.03"
       width="100%"

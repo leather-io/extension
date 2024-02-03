@@ -57,12 +57,7 @@ export function CryptoCurrencyAssetItemLayout({
 
   return (
     <Flex data-testid={dataTestId} onClick={isPressable ? onClick : undefined} {...bind}>
-      <Flag
-        align="middle"
-        img={isHovered && copyIcon ? copyIcon : icon}
-        spacing="space.04"
-        width="100%"
-      >
+      <Flag img={isHovered && copyIcon ? copyIcon : icon} spacing="space.04" width="100%">
         <AssetRowGrid
           title={
             <styled.span textStyle="label.01">

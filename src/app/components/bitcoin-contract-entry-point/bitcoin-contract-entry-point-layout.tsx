@@ -30,7 +30,7 @@ export function BitcoinContractEntryPointLayout(props: BitcoinContractEntryPoint
 
   return (
     <Flex cursor={cursor} onClick={onClick} outline={0}>
-      <Flag align="middle" img={icon} spacing="space.04" width="100%">
+      <Flag img={icon} spacing="space.04" width="100%">
         <HStack alignItems="center" justifyContent="space-between" width="100%">
           <styled.span textStyle="label.01">Bitcoin Contracts</styled.span>
           <BasicTooltip

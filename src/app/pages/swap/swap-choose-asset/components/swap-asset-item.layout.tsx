@@ -9,7 +9,7 @@ export function SwapAssetItemLayout({
   ...rest
 }: HasChildren & { icon: React.JSX.Element }) {
   return (
-    <Flag align="middle" img={icon} {...rest}>
+    <Flag img={icon} {...rest}>
       <Stack gap="none">{children}</Stack>
     </Flag>
   );

@@ -37,7 +37,7 @@ export function Brc20TokenAssetItemLayout({
       asChild
     >
       <Flex onClick={isPressable ? onClick : undefined} {...bind}>
-        <Flag align="middle" img={<Brc20TokenIcon />} spacing="space.04" width="100%">
+        <Flag img={<Brc20TokenIcon />} spacing="space.04" width="100%">
           <HStack alignItems="center" justifyContent="space-between" width="100%">
             <styled.span
               maxWidth="150px"
