@@ -11,17 +11,14 @@ const meta: Meta<typeof Component> = {
     align: {
       options: ['top', 'middle', 'bottom'],
       control: { type: 'radio' },
-      defaultValue: 'top',
+      defaultValue: 'middle',
     },
   },
   parameters: {
     controls: { include: ['align'] },
   },
   render: ({ children, ...args }) => (
-    <Component
-      {...args}
-      img={<Circle size="52px" backgroundColor="accent.component-background-pressed" />}
-    >
+    <Component {...args} img={<Circle size="40px" backgroundColor="lightModeRed.300" />}>
       {children}
     </Component>
   ),
@@ -33,25 +30,6 @@ type Story = StoryObj<typeof Component>;
 
 export const Flag: Story = {
   args: {
-    children: (
-      <>
-        <Box width="120px" height="16px" backgroundColor="accent.component-background-pressed" />
-        <Box
-          width="80px"
-          height="12px"
-          mt="space.02"
-          backgroundColor="accent.component-background-pressed"
-        />
-      </>
-    ),
-  },
-};
-
-export const FlagAlternate: Story = {
-  args: {
-    align: 'middle',
-    children: (
-      <Box width="120px" height="16px" backgroundColor="accent.component-background-pressed" />
-    ),
+    children: <Box width="300px" height="20px" backgroundColor="lightModeRed.300" />,
   },
 };

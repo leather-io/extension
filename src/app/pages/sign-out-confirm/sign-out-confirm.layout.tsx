@@ -43,7 +43,7 @@ export function SignOutConfirmLayout(props: SignOutConfirmLayoutProps) {
           <styled.div mt="space.05" textStyle="label.02">
             {whenWallet({
               software: (
-                <Flag align="middle" img={<ErrorIcon />} spacing="space.02">
+                <Flag img={<ErrorIcon />} spacing="space.02">
                   If you haven't backed up your Secret Key, you will lose all your funds.
                 </Flag>
               ),

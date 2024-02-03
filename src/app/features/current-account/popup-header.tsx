@@ -33,7 +33,6 @@ function PopupHeaderSuspense({ displayAddresssBalanceOf = 'stx' }: PopupHeaderPr
   return (
     <PopupHeaderLayout>
       <Flag
-        align="middle"
         img={
           <CurrentAccountAvatar
             color={token('colors.white')}

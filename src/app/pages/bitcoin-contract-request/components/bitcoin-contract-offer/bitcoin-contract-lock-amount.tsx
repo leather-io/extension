@@ -33,7 +33,7 @@ export function BitcoinContractLockAmount({
   const { onCopy, hasCopied } = useClipboard(hoverLabel ?? '');
 
   return (
-    <Flag align="middle" img={image || <BtcIcon />} width="100%">
+    <Flag img={image || <BtcIcon />} width="100%">
       <HStack alignItems="center" justifyContent="space-between">
         <styled.span textStyle="label.01">{title ? title : 'BTC'}</styled.span>
         <styled.span

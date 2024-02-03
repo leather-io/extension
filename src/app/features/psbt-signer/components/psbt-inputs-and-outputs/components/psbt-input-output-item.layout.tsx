@@ -27,7 +27,7 @@ export function PsbtInputOutputItemLayout({
   const { handleOpenBitcoinTxLink: handleOpenTxLink } = useBitcoinExplorerLink();
 
   return (
-    <Flag align="middle" img={<></>} mt="space.05" spacing="space.04">
+    <Flag img={<></>} mt="space.05" spacing="space.04">
       <HStack alignItems="center" justifyContent="space-between">
         <Flex alignItems="center">
           <styled.span mr="space.02" textStyle="caption.01">
