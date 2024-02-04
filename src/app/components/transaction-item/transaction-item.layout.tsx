@@ -1,9 +1,10 @@
 import { ReactNode } from 'react';
 
-import { styled } from 'leather-styles/jsx';
+import { HStack, styled } from 'leather-styles/jsx';
 
 import { ItemInteractive } from '@app/ui/components/item/item-interactive';
 import { ItemLayout } from '@app/ui/components/item/item.layout';
+import { Caption } from '@app/ui/components/typography/caption';
 
 interface TransactionItemLayoutProps {
   openTxLink(): void;
@@ -25,18 +26,15 @@ export function TransactionItemLayout({
   txValue,
 }: TransactionItemLayoutProps) {
   return (
-    // TODO: Revisit if needed styles position="relative" zIndex={99}
     <ItemInteractive onClick={openTxLink}>
       <ItemLayout
         flagImg={txIcon && txIcon}
         titleLeft={txTitle}
         captionLeft={
-          <>
-            <styled.span color="accent.text-subdued" textStyle="caption.01">
-              {txCaption}
-            </styled.span>
+          <HStack alignItems="center">
+            <Caption>{txCaption}</Caption>
             {txStatus && txStatus}
-          </>
+          </HStack>
         }
         titleRight={
           rightElement ? (
