@@ -26,7 +26,7 @@ export function IncreaseFeeButton(props: IncreaseFeeButtonProps) {
       position="relative"
       px="space.02"
       py="space.01"
-      rounded="8px"
+      rounded="xs"
       type="button"
       zIndex={999}
     >

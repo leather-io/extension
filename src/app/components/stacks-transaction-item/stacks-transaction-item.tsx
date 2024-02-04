@@ -1,7 +1,5 @@
 import { createSearchParams, useLocation, useNavigate } from 'react-router-dom';
 
-import { styled } from 'leather-styles/jsx';
-
 import { StacksTx, TxTransferDetails } from '@shared/models/transactions/stacks-transaction.model';
 import { RouteUrls } from '@shared/route-urls';
 
@@ -85,22 +83,16 @@ export function StacksTransactionItem({
     />
   );
   const txStatus = transaction && <StacksTransactionStatus transaction={transaction} />;
-  const txCaption = (
-    <styled.span color="accent.text-subdued" textStyle="caption.02" whiteSpace="nowrap">
-      {caption}
-    </styled.span>
-  );
-  const txValue = <styled.span textStyle="label.02">{value}</styled.span>;
 
   return (
     <TransactionItemLayout
       openTxLink={openTxLink}
       rightElement={isOriginator && isPending ? increaseFeeButton : undefined}
-      txCaption={txCaption}
+      txCaption={caption}
       txIcon={txIcon}
       txStatus={txStatus}
       txTitle={<TransactionTitle title={title} />}
-      txValue={txValue}
+      txValue={value}
     />
   );
 }
