@@ -1,10 +1,12 @@
 import { useCallback, useState } from 'react';
 
+import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
 import { useBitcoinClient } from '@app/store/common/api-clients.hooks';
 import { useCurrentNetworkState } from '@app/store/networks/networks.hooks';
 
 export function useCheckInscribedUtxos(txIds: string[]) {
   const client = useBitcoinClient();
+  const analytics = useAnalytics();
   const [isLoading, setIsLoading] = useState(false);
   const { isTestnet } = useCurrentNetworkState();
 
@@ -24,18 +26,24 @@ export function useCheckInscribedUtxos(txIds: string[]) {
       const responses = await Promise.all(
         txIds.map(id => client.bestinslotInscriptionsApi.getInscriptionsByTransactionId(id))
       );
-      return responses.some(resp => {
+      const hasInscribedUtxo = responses.some(resp => {
         return resp.data.length > 0;
       });
+
+      if (hasInscribedUtxo) {
+        void analytics.track('utxos_includes_inscribed_one', {
+          txIds,
+        });
+      }
+
+      return hasInscribedUtxo;
     } catch (e) {
-      blockTransaction();
-      return false;
+      // TO-DO what to do with error? maybe try to refetch at least once?
+      return true;
     } finally {
       setIsLoading(false);
     }
-  }, [client.bestinslotInscriptionsApi, txIds, blockTransaction, isTestnet]);
-
-  console.log({ checkIfUtxosListIncludesInscribed, blockTransaction, isLoading });
+  }, [client.bestinslotInscriptionsApi, txIds, isTestnet, analytics]);
 
   return {
     checkIfUtxosListIncludesInscribed,
