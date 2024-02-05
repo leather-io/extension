@@ -76,17 +76,12 @@ export function BtcSendFormConfirmation() {
   );
   const sendingValue = formatMoneyPadded(createMoneyFromDecimal(Number(transferAmount), symbol));
   const summaryFee = formatMoneyPadded(createMoney(Number(fee), symbol));
-  const { checkIfUtxosListIncludesInscribed, isLoading, blockTransaction } = useCheckInscribedUtxos(
+  const { checkIfUtxosListIncludesInscribed, isLoading } = useCheckInscribedUtxos(
     decodedTx.inputs.map(input => bytesToHex(input.txid))
   );
   async function initiateTransaction() {
-    const utxosHasInscriptions = await checkIfUtxosListIncludesInscribed();
-    if (utxosHasInscriptions) {
-      return blockTransaction();
-    }
-
     await broadcastTx({
-      hasPassedCheckForInscribedUtxos: true,
+      checkForInscribedUtxos: checkIfUtxosListIncludesInscribed,
       tx: transaction.hex,
       async onSuccess(txid) {
         void analytics.track('broadcast_transaction', {
