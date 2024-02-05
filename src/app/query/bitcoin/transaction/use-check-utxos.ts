@@ -23,6 +23,10 @@ export function useCheckInscribedUtxos(txIds: string[]) {
         return false;
       }
 
+      if (txIds.length === 0) {
+        throw new Error('Utxos list cannot be empty');
+      }
+
       const responses = await Promise.all(
         txIds.map(id => client.bestinslotInscriptionsApi.getInscriptionsByTransactionId(id))
       );

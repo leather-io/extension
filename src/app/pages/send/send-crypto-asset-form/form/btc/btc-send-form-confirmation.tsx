@@ -86,6 +86,7 @@ export function BtcSendFormConfirmation() {
     }
 
     await broadcastTx({
+      hasPassedCheckForInscribedUtxos: true,
       tx: transaction.hex,
       async onSuccess(txid) {
         void analytics.track('broadcast_transaction', {

@@ -8,6 +8,7 @@ import { useBitcoinClient } from '@app/store/common/api-clients.hooks';
 
 interface BroadcastCallbackArgs {
   tx: string;
+  hasPassedCheckForInscribedUtxos: boolean;
   delayTime?: number;
   onSuccess?(txid: string): void;
   onError?(error: Error): void;
@@ -20,8 +21,20 @@ export function useBitcoinBroadcastTransaction() {
   const analytics = useAnalytics();
 
   const broadcastTx = useCallback(
-    async ({ tx, onSuccess, onError, onFinally, delayTime = 700 }: BroadcastCallbackArgs) => {
+    async ({
+      tx,
+      onSuccess,
+      onError,
+      onFinally,
+      delayTime = 700,
+      hasPassedCheckForInscribedUtxos,
+    }: BroadcastCallbackArgs) => {
       try {
+        // add explicit check in broadcastTx to ensure that utxos are checked before broadcasting
+        if (!hasPassedCheckForInscribedUtxos) {
+          throw new Error('Utxos should be checked for inscriptions before broadcasting');
+        }
+
         setIsBroadcasting(true);
         const resp = await client.transactionsApi.broadcastTransaction(tx);
         // simulate slower broadcast time to allow mempool refresh
