@@ -4,6 +4,7 @@ import StacksApp from '@zondax/ledger-stacks';
 import AppClient from 'ledger-bitcoin';
 
 import { SupportedBlockchains } from '@shared/constants';
+import { isError } from '@shared/utils';
 
 import { delay } from '@app/common/utils';
 
@@ -73,7 +74,7 @@ export function useRequestLedgerKeys<App extends AppClient | StacksApp>({
       onSuccess?.();
     } catch (e) {
       setAwaitingDeviceConnection(false);
-      if (e instanceof Error && checkLockedDeviceError(e)) {
+      if (isError(e) && checkLockedDeviceError(e)) {
         setLatestDeviceResponse({ deviceLocked: true } as any);
         return;
       }

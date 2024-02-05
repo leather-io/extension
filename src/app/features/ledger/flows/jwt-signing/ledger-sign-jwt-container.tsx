@@ -7,6 +7,7 @@ import get from 'lodash.get';
 
 import { finalizeAuthResponse } from '@shared/actions/finalize-auth-response';
 import { logger } from '@shared/logger';
+import { isError } from '@shared/utils';
 
 import { useGetLegacyAuthBitcoinAddresses } from '@app/common/authentication/use-legacy-auth-bitcoin-addresses';
 import { useOnboardingState } from '@app/common/hooks/auth/use-onboarding-state';
@@ -92,7 +93,7 @@ export function LedgerSignJwtContainer() {
     const stacks = await prepareLedgerDeviceStacksAppConnection({
       setLoadingState: setAwaitingDeviceConnection,
       onError(e) {
-        if (e instanceof Error && checkLockedDeviceError(e)) {
+        if (isError(e) && checkLockedDeviceError(e)) {
           setLatestDeviceResponse({ deviceLocked: true } as any);
           return;
         }

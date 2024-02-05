@@ -6,7 +6,7 @@ import { StacksTransaction } from '@stacks/transactions';
 
 import { logger } from '@shared/logger';
 import { RouteUrls } from '@shared/route-urls';
-import { isString } from '@shared/utils';
+import { isError, isString } from '@shared/utils';
 
 import { LoadingKeys, useLoading } from '@app/common/hooks/use-loading';
 import { useSubmitTransactionCallback } from '@app/common/hooks/use-submit-stx-transaction';
@@ -42,7 +42,7 @@ export function useStacksBroadcastSwap() {
       } catch (e) {
         setIsIdle();
         navigate(RouteUrls.TransactionBroadcastError, {
-          state: { message: e instanceof Error ? e.message : 'Unknown error' },
+          state: { message: isError(e) ? e.message : 'Unknown error' },
         });
       } finally {
         setIsIdle();

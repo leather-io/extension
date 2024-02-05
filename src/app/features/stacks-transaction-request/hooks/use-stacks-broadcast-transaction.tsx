@@ -7,7 +7,7 @@ import { StacksTransaction } from '@stacks/transactions';
 import { logger } from '@shared/logger';
 import { CryptoCurrencies } from '@shared/models/currencies.model';
 import { RouteUrls } from '@shared/route-urls';
-import { isString } from '@shared/utils';
+import { isError, isString } from '@shared/utils';
 
 import { LoadingKeys } from '@app/common/hooks/use-loading';
 import { useSubmitTransactionCallback } from '@app/common/hooks/use-submit-stx-transaction';
@@ -56,7 +56,7 @@ export function useStacksBroadcastTransaction(token: CryptoCurrencies, decimals?
         })(signedTx);
       } catch (e) {
         navigate(RouteUrls.TransactionBroadcastError, {
-          state: { message: e instanceof Error ? e.message : 'Unknown error' },
+          state: { message: isError(e) ? e.message : 'Unknown error' },
         });
       } finally {
         setIsBroadcasting(false);
