@@ -7,6 +7,7 @@ import get from 'lodash.get';
 
 import { logger } from '@shared/logger';
 import { RouteUrls } from '@shared/route-urls';
+import { isError } from '@shared/utils';
 
 import { useScrollLock } from '@app/common/hooks/use-scroll-lock';
 import { appEvents } from '@app/common/publish-subscribe';
@@ -71,7 +72,7 @@ function LedgerSignStacksTxContainer() {
     const stacksApp = await prepareLedgerDeviceStacksAppConnection({
       setLoadingState: setAwaitingDeviceConnection,
       onError(e) {
-        if (e instanceof Error && checkLockedDeviceError(e)) {
+        if (isError(e) && checkLockedDeviceError(e)) {
           setLatestDeviceResponse({ deviceLocked: true } as any);
           return;
         }
@@ -148,7 +149,7 @@ function LedgerSignStacksTxContainer() {
           signedTx,
         });
       } catch (e) {
-        ledgerNavigate.toBroadcastErrorStep(e instanceof Error ? e.message : 'Unknown error');
+        ledgerNavigate.toBroadcastErrorStep(isError(e) ? e.message : 'Unknown error');
         return;
       }
     } catch (e) {

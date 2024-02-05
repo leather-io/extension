@@ -9,6 +9,7 @@ import get from 'lodash.get';
 import { BitcoinInputSigningConfig } from '@shared/crypto/bitcoin/signer-config';
 import { logger } from '@shared/logger';
 import { RouteUrls } from '@shared/route-urls';
+import { isError } from '@shared/utils';
 
 import { useLocationState, useLocationStateWithCache } from '@app/common/hooks/use-location-state';
 import { useScrollLock } from '@app/common/hooks/use-scroll-lock';
@@ -115,7 +116,7 @@ function LedgerSignBitcoinTxContainer() {
         void bitcoinApp.transport.close();
       }
     } catch (e) {
-      if (e instanceof Error && checkLockedDeviceError(e)) {
+      if (isError(e) && checkLockedDeviceError(e)) {
         setLatestDeviceResponse({ deviceLocked: true } as any);
         return;
       }

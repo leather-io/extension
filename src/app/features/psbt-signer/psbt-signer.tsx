@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 
 import { getPsbtTxInputs, getPsbtTxOutputs } from '@shared/crypto/bitcoin/bitcoin.utils';
 import { RouteUrls } from '@shared/route-urls';
-import { closeWindow } from '@shared/utils';
+import { closeWindow, isError } from '@shared/utils';
 
 import { useRouteHeader } from '@app/common/hooks/use-route-header';
 import { SignPsbtArgs } from '@app/common/psbt/requests';
@@ -51,7 +51,7 @@ export function PsbtSigner(props: PsbtSignerProps) {
       return getRawPsbt(psbtHex);
     } catch (e) {
       navigate(RouteUrls.RequestError, {
-        state: { message: e instanceof Error ? e.message : '', title: 'Failed request' },
+        state: { message: isError(e) ? e.message : '', title: 'Failed request' },
       });
       return;
     }
