@@ -1,19 +1,24 @@
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
+import BitcoinApp from 'ledger-bitcoin';
+
 import { bitcoinNetworkModeToCoreNetworkMode } from '@shared/crypto/bitcoin/bitcoin.utils';
 
+import { pullBitcoinKeysFromLedgerDevice } from '@app/features/ledger/flows/request-bitcoin-keys/request-bitcoin-keys.utils';
+import { ledgerRequestKeysRoutes } from '@app/features/ledger/generic-flows/request-keys/ledger-request-keys-route-generator';
 import { LedgerRequestKeysContext } from '@app/features/ledger/generic-flows/request-keys/ledger-request-keys.context';
+import { RequestKeysFlow } from '@app/features/ledger/generic-flows/request-keys/request-keys-flow';
+import { useRequestLedgerKeys } from '@app/features/ledger/generic-flows/request-keys/use-request-ledger-keys';
 import { useLedgerNavigate } from '@app/features/ledger/hooks/use-ledger-navigate';
+import {
+  connectLedgerBitcoinApp,
+  getBitcoinAppVersion,
+  isBitcoinAppOpen,
+} from '@app/features/ledger/utils/bitcoin-ledger-utils';
 import { useActionCancellableByUser } from '@app/features/ledger/utils/stacks-ledger-utils';
 import { bitcoinKeysSlice } from '@app/store/ledger/bitcoin/bitcoin-key.slice';
 import { useCurrentNetwork } from '@app/store/networks/networks.selectors';
-
-import { ledgerRequestKeysRoutes } from '../../generic-flows/request-keys/ledger-request-keys-route-generator';
-import { RequestKeysFlow } from '../../generic-flows/request-keys/request-keys-flow';
-import { useRequestLedgerKeys } from '../../generic-flows/request-keys/use-request-ledger-keys';
-import { connectLedgerBitcoinApp, getBitcoinAppVersion } from '../../utils/bitcoin-ledger-utils';
-import { pullBitcoinKeysFromLedgerDevice } from './request-bitcoin-keys.utils';
 
 function LedgerRequestBitcoinKeys() {
   const navigate = useNavigate();
@@ -23,32 +28,33 @@ function LedgerRequestBitcoinKeys() {
   const ledgerNavigate = useLedgerNavigate();
   const network = useCurrentNetwork();
 
-  const { requestKeys, latestDeviceResponse, awaitingDeviceConnection } = useRequestLedgerKeys({
-    chain: 'bitcoin',
-    connectApp: connectLedgerBitcoinApp(network.chain.bitcoin.bitcoinNetwork),
-    getAppVersion: getBitcoinAppVersion,
-    isAppOpen({ name }: { name: string }) {
-      return name === 'Bitcoin' || name === 'Bitcoin Test';
-    },
-    onSuccess() {
-      navigate('/', { replace: true });
-    },
-    async pullKeysFromDevice(app) {
-      const { keys } = await pullBitcoinKeysFromLedgerDevice(app)({
-        network: bitcoinNetworkModeToCoreNetworkMode(network.chain.bitcoin.bitcoinNetwork),
-        onRequestKey(index) {
-          if (index <= 4) {
-            ledgerNavigate.toDeviceBusyStep(
-              `Requesting Bitcoin Native Segwit address (${index + 1}…5)`
-            );
-            return;
-          }
-          ledgerNavigate.toDeviceBusyStep(`Requesting Bitcoin Taproot address (${index - 4}…5)`);
-        },
-      });
-      dispatch(bitcoinKeysSlice.actions.addKeys(keys));
-    },
-  });
+  const chain = 'bitcoin' as const;
+
+  const { requestKeys, latestDeviceResponse, awaitingDeviceConnection } =
+    useRequestLedgerKeys<BitcoinApp>({
+      chain,
+      connectApp: connectLedgerBitcoinApp(network.chain.bitcoin.bitcoinNetwork),
+      getAppVersion: getBitcoinAppVersion,
+      isAppOpen: isBitcoinAppOpen({ network: network.chain.bitcoin.bitcoinNetwork }),
+      onSuccess() {
+        navigate('/', { replace: true });
+      },
+      async pullKeysFromDevice(app) {
+        const { keys } = await pullBitcoinKeysFromLedgerDevice(app)({
+          network: bitcoinNetworkModeToCoreNetworkMode(network.chain.bitcoin.bitcoinNetwork),
+          onRequestKey(index) {
+            if (index <= 4) {
+              ledgerNavigate.toDeviceBusyStep(
+                `Requesting Bitcoin Native Segwit address (${index + 1}…5)`
+              );
+              return;
+            }
+            ledgerNavigate.toDeviceBusyStep(`Requesting Bitcoin Taproot address (${index - 4}…5)`);
+          },
+        });
+        dispatch(bitcoinKeysSlice.actions.addKeys(keys));
+      },
+    });
 
   const ledgerContextValue: LedgerRequestKeysContext = {
     chain: 'bitcoin',
