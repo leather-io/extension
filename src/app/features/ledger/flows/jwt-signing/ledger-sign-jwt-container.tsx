@@ -64,6 +64,8 @@ export function LedgerSignJwtContainer() {
   const [jwtPayloadHash, setJwtPayloadHash] = useState<null | string>(null);
   const { origin, tabId } = useDefaultRequestParams();
 
+  const chain = 'stacks';
+
   const signJwtPayload = async () => {
     if (!origin) throw new Error('Cannot sign payload for unknown origin');
 
@@ -97,7 +99,7 @@ export function LedgerSignJwtContainer() {
           setLatestDeviceResponse({ deviceLocked: true } as any);
           return;
         }
-        ledgerNavigate.toErrorStep();
+        ledgerNavigate.toErrorStep(chain);
       },
     });
 

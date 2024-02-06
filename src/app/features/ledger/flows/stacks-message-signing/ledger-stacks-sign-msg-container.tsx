@@ -64,6 +64,8 @@ function LedgerSignStacksMsg({ account, unsignedMessage }: LedgerSignMsgProps) {
 
   const [awaitingDeviceConnection, setAwaitingDeviceConnection] = useState(false);
 
+  const chain = 'stacks';
+
   async function signMessage() {
     const stacksApp = await prepareLedgerDeviceStacksAppConnection({
       setLoadingState: setAwaitingDeviceConnection,
@@ -72,7 +74,7 @@ function LedgerSignStacksMsg({ account, unsignedMessage }: LedgerSignMsgProps) {
           setLatestDeviceResponse({ deviceLocked: true } as any);
           return;
         }
-        ledgerNavigate.toErrorStep();
+        ledgerNavigate.toErrorStep(chain);
       },
     });
 

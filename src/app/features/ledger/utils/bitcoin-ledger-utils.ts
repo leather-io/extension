@@ -29,8 +29,13 @@ export function connectLedgerBitcoinApp(network: BitcoinNetworkModes) {
   };
 }
 
-export async function getBitcoinAppVersion(app: BitcoinApp) {
-  return app.getAppAndVersion();
+export interface BitcoinAppVersion extends Awaited<ReturnType<BitcoinApp['getAppAndVersion']>> {
+  chain: 'bitcoin';
+}
+
+export async function getBitcoinAppVersion(app: BitcoinApp): Promise<BitcoinAppVersion> {
+  const appVersion = await app.getAppAndVersion();
+  return { chain: 'bitcoin' as const, ...appVersion };
 }
 
 export interface WalletPolicyDetails {
@@ -78,4 +83,13 @@ export function addTaprootInputSignaturesToPsbt(
   signatures.forEach(([index, signature]) =>
     psbt.updateInput(index, { tapKeySig: signature.signature })
   );
+}
+
+export function isBitcoinAppOpen({ network }: { network: BitcoinNetworkModes }) {
+  return function isBitcoinAppOpenByName({ name }: { name: string }) {
+    if (network === 'mainnet') {
+      return name === LEDGER_APPS_MAP.BITCOIN_MAINNET;
+    }
+    return name === LEDGER_APPS_MAP.BITCOIN_TESTNET;
+  };
 }
