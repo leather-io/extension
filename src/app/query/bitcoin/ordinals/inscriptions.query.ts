@@ -12,7 +12,10 @@ import { createNumArrayOfRange } from '@app/common/utils';
 import { QueryPrefixes } from '@app/query/query-prefixes';
 import { useCurrentAccountNativeSegwitIndexZeroSigner } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
 import { useCurrentTaprootAccount } from '@app/store/accounts/blockchain/bitcoin/taproot-account.hooks';
+import { useBitcoinClient } from '@app/store/common/api-clients.hooks';
 import { useCurrentNetwork } from '@app/store/networks/networks.selectors';
+
+import { MAX_ORDISCAN_INSCRIPTIONS_PER_REQUEST } from '../bitcoin-client';
 
 const stopSearchAfterNumberAddressesWithoutOrdinals = 20;
 const addressesSimultaneousFetchLimit = 5;
@@ -206,6 +209,44 @@ export function useInscriptionsByAddressQuery(address: string) {
   useEffect(() => {
     void query.fetchNextPage();
   }, [query, query.data]);
+
+  return query;
+}
+
+export function useOrdiscanInscriptionsByAddressQuery({
+  address,
+  enabled = false,
+}: {
+  address: string;
+  enabled?: boolean;
+}) {
+  const network = useCurrentNetwork();
+  const client = useBitcoinClient();
+  const query = useInfiniteQuery({
+    queryKey: [QueryPrefixes.InscriptionsByAddress, address, network.id, 'ordiscan'],
+    async queryFn({ pageParam: inscription_number = 0 }) {
+      return client.ordiscanApi.getInscriptionsByAddress({
+        address,
+        fromInscriptionNumber: inscription_number,
+      });
+    },
+    getNextPageParam(prevInscriptionsQuery) {
+      if (prevInscriptionsQuery.length < MAX_ORDISCAN_INSCRIPTIONS_PER_REQUEST) return undefined;
+      return prevInscriptionsQuery[prevInscriptionsQuery.length - 1].inscription_number;
+    },
+    refetchOnMount: false,
+    refetchOnReconnect: false,
+    refetchOnWindowFocus: false,
+    staleTime: 3 * 60 * 1000,
+    enabled,
+  });
+
+  // Auto-trigger next request
+  useEffect(() => {
+    if (enabled) {
+      void query.fetchNextPage();
+    }
+  }, [query, query.data, enabled]);
 
   return query;
 }

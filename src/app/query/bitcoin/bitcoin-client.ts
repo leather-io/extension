@@ -16,6 +16,16 @@ export interface UtxoResponseItem {
   value: number;
 }
 
+export interface OrdiscanInscription {
+  inscription_id: string;
+  inscription_number: number;
+  content_type: string;
+  owner_address: string;
+  owner_output: string;
+  timestamp: string;
+  content_url: string;
+}
+
 export interface UtxoWithDerivationPath extends UtxoResponseItem {
   derivationPath: string;
 }
@@ -40,6 +50,11 @@ class BestinslotInscriptionsApi {
   }
 }
 
+/**
+ * @see https://ordiscan.com/docs/api#get-list-of-inscriptions
+ */
+export const MAX_ORDISCAN_INSCRIPTIONS_PER_REQUEST = 100;
+
 class OrdiscanApi {
   private defaultOptions = {
     headers: {
@@ -48,9 +63,21 @@ class OrdiscanApi {
   };
   constructor(public configuration: Configuration) {}
 
-  async getInscriptionsByAddress(address: string) {
-    const resp = await axios.get<{ data: { inscription_id: string }[]; blockHeight: number }>(
-      `https://ordiscan.com/v1/inscriptions?address=${address}`,
+  /**
+   * @description Retrieve a list of inscriptions based on different filters. The max number of inscriptions returned per request is 100.
+   * @see https://ordiscan.com/docs/api#get-list-of-inscriptions
+   */
+  async getInscriptionsByAddress({
+    address,
+    fromInscriptionNumber,
+    sort = 'inscription_number_asc',
+  }: {
+    address: string;
+    fromInscriptionNumber: number;
+    sort?: 'inscription_number_asc' | 'inscription_number_desc';
+  }) {
+    const resp = await axios.get<OrdiscanInscription[]>(
+      `https://ordiscan.com/v1/inscriptions?address=${address}&from=${fromInscriptionNumber}&sort=${sort}`,
       {
         ...this.defaultOptions,
       }

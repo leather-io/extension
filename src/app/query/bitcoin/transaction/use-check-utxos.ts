@@ -4,11 +4,14 @@ import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
 import { useBitcoinClient } from '@app/store/common/api-clients.hooks';
 import { useCurrentNetworkState } from '@app/store/networks/networks.hooks';
 
+import { useOrdiscanInscriptionsByAddressQuery } from '../ordinals/inscriptions.query';
+
 export function useCheckInscribedUtxos(txids: string[], blockTxAction?: () => void) {
   const client = useBitcoinClient();
   const analytics = useAnalytics();
   const [isLoading, setIsLoading] = useState(false);
   const { isTestnet } = useCurrentNetworkState();
+  const { data } = useOrdiscanInscriptionsByAddressQuery({ address: '' });
 
   const preventTransaction = useCallback(() => {
     if (blockTxAction) return blockTxAction();
@@ -47,6 +50,11 @@ export function useCheckInscribedUtxos(txids: string[], blockTxAction?: () => vo
 
       return false;
     } catch (e) {
+      void analytics.track('error_checking_utxos_from_bestinslot', {
+        txids,
+      });
+      // fallback to ordiscan
+
       // TO-DO what to do with error? maybe try to refetch at least once?
       preventTransaction();
       return true;
