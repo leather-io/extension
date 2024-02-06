@@ -10,7 +10,7 @@ export function useCheckInscribedUtxos(txids: string[], blockTxAction?: () => vo
   const [isLoading, setIsLoading] = useState(false);
   const { isTestnet } = useCurrentNetworkState();
 
-  const blockTransaction = useCallback(() => {
+  const preventTransaction = useCallback(() => {
     if (blockTxAction) return blockTxAction();
 
     // To-Do default action to block transaction
@@ -41,19 +41,19 @@ export function useCheckInscribedUtxos(txids: string[], blockTxAction?: () => vo
         void analytics.track('utxos_includes_inscribed_one', {
           txids,
         });
-        blockTransaction();
+        preventTransaction();
         return true;
       }
 
       return false;
     } catch (e) {
       // TO-DO what to do with error? maybe try to refetch at least once?
-      blockTransaction();
+      preventTransaction();
       return true;
     } finally {
       setIsLoading(false);
     }
-  }, [client.bestinslotInscriptionsApi, txids, isTestnet, analytics, blockTransaction]);
+  }, [client.bestinslotInscriptionsApi, txids, isTestnet, analytics, preventTransaction]);
 
   return {
     checkIfUtxosListIncludesInscribed,

@@ -40,6 +40,26 @@ class BestinslotInscriptionsApi {
   }
 }
 
+class OrdiscanApi {
+  private defaultOptions = {
+    headers: {
+      Authorization: `Bearer ${process.env.ORDISCAN_API_KEY}`,
+    },
+  };
+  constructor(public configuration: Configuration) {}
+
+  async getInscriptionsByAddress(address: string) {
+    const resp = await axios.get<{ data: { inscription_id: string }[]; blockHeight: number }>(
+      `https://ordiscan.com/v1/inscriptions?address=${address}`,
+      {
+        ...this.defaultOptions,
+      }
+    );
+
+    return resp.data;
+  }
+}
+
 class AddressApi {
   constructor(public configuration: Configuration) {}
 
@@ -150,6 +170,7 @@ export class BitcoinClient {
   feeEstimatesApi: FeeEstimatesApi;
   transactionsApi: TransactionsApi;
   bestinslotInscriptionsApi: BestinslotInscriptionsApi;
+  ordiscanApi: OrdiscanApi;
 
   constructor(basePath: string) {
     this.configuration = new Configuration(basePath);
@@ -157,5 +178,6 @@ export class BitcoinClient {
     this.feeEstimatesApi = new FeeEstimatesApi(this.configuration);
     this.transactionsApi = new TransactionsApi(this.configuration);
     this.bestinslotInscriptionsApi = new BestinslotInscriptionsApi(this.configuration);
+    this.ordiscanApi = new OrdiscanApi(this.configuration);
   }
 }
