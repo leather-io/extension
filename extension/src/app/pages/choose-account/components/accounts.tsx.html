@@ -25,7 +25,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/31</span>
+                <span class='fraction'>0/30</span>
             </div>
         
             
@@ -46,7 +46,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/29</span>
+                <span class='fraction'>0/28</span>
             </div>
         
             
@@ -196,10 +196,8 @@
 <a name='L131'></a><a href='#L131'>131</a>
 <a name='L132'></a><a href='#L132'>132</a>
 <a name='L133'></a><a href='#L133'>133</a>
-<a name='L134'></a><a href='#L134'>134</a>
-<a name='L135'></a><a href='#L135'>135</a>
-<a name='L136'></a><a href='#L136'>136</a>
-<a name='L137'></a><a href='#L137'>137</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L134'></a><a href='#L134'>134</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -239,7 +237,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -267,11 +264,8 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -349,8 +343,9 @@ import { useCreateAccount } from '@app/common/hooks/account/use-create-account';
 import { useWalletType } from '@app/common/use-wallet-type';
 import { slugify } from '@app/common/utils';
 import { AccountTotalBalance } from '@app/components/account-total-balance';
+import { AcccountAddresses } from '@app/components/account/account-addresses';
 import { AccountAvatar } from '@app/components/account/account-avatar';
-import { AccountListItemLayout } from '@app/components/account/account-list-item-layout';
+import { AccountListItemLayout } from '@app/components/account/account-list-item.layout';
 import { usePressable } from '@app/components/item-hover';
 import { useNativeSegwitAccountIndexAddressIndexZero } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
 import { useStacksAccounts } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
@@ -373,19 +368,16 @@ interface ChooseAccountItemProps extends FlexProps {
 }
 const ChooseAccountItem = <span class="cstat-no" title="statement not covered" >memo(</span>
 <span class="fstat-no" title="function not covered" >  ({</span> account, isLoading, onSelectAccount }: ChooseAccountItemProps) =&gt; {
-    const [component, bind] = <span class="cstat-no" title="statement not covered" >usePressable(true);</span>
     const name = <span class="cstat-no" title="statement not covered" >useAccountDisplayName(account);</span>
     const btcAddress = <span class="cstat-no" title="statement not covered" >useNativeSegwitAccountIndexAddressIndexZero(account.index);</span>
 &nbsp;
     const accountSlug = <span class="cstat-no" title="statement not covered" >useMemo(<span class="fstat-no" title="function not covered" >() =&gt; <span class="cstat-no" title="statement not covered" >s</span>lugify(`Account ${account?.index + 1}`), [</span>account?.index]);</span>
 &nbsp;
 <span class="cstat-no" title="statement not covered" >    return (</span>
-      // Padding required on outer element to prevent jumpy list behaviours in
-      // virtualised list library
+      // Padding required on outer element to prevent jumpy virtualized list
       &lt;Box pb="space.05"&gt;
         &lt;AccountListItemLayout
-          index={account.index}
-          isActive={false}
+          accountAddresses={&lt;AcccountAddresses index={account.index} /&gt;}
           accountName={
             &lt;Suspense fallback={&lt;AccountTitlePlaceholder account={account} /&gt;}&gt;
               &lt;styled.span textStyle="label.01"&gt;{name}&lt;/styled.span&gt;
@@ -402,13 +394,12 @@ const ChooseAccountItem = <span class="cstat-no" title="statement not covered" >
           balanceLabel={
             &lt;AccountTotalBalance stxAddress={account.address} btcAddress={btcAddress} /&gt;
           }
-          isLoading={isLoading}
-          onSelectAccount={<span class="fstat-no" title="function not covered" >() =&gt; <span class="cstat-no" title="statement not covered" >o</span>nSelectAccount(account.index)}</span>
           data-testid={`account-${accountSlug}-${account.index}`}
-          {...bind}
-        &gt;
-          {component}
-        &lt;/AccountListItemLayout&gt;
+          index={account.index}
+          isLoading={isLoading}
+          isSelected={false}
+          onSelectAccount={<span class="fstat-no" title="function not covered" >() =&gt; <span class="cstat-no" title="statement not covered" >o</span>nSelectAccount(account.index)}</span>
+        /&gt;
       &lt;/Box&gt;
     );
   }
@@ -478,7 +469,7 @@ export const ChooseAccountsList = <span class="cstat-no" title="statement not co
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-01-29T17:06:53.838Z
+                at 2024-02-07T09:25:17.456Z
             </div>
         <script src="../../../../../../prettify.js"></script>
         <script>

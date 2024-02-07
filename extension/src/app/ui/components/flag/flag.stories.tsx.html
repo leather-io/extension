@@ -3,7 +3,7 @@
 <html lang="en">
 
 <head>
-    <title>Code coverage report for extension/src/app/query/stacks/microblock/microblock.query.ts</title>
+    <title>Code coverage report for extension/src/app/ui/components/flag/flag.stories.tsx</title>
     <meta charset="utf-8" />
     <link rel="stylesheet" href="../../../../../../prettify.css" />
     <link rel="stylesheet" href="../../../../../../base.css" />
@@ -19,13 +19,13 @@
 <body>
 <div class='wrapper'>
     <div class='pad1'>
-        <h1><a href="../../../../../../index.html">All files</a> / <a href="index.html">extension/src/app/query/stacks/microblock</a> microblock.query.ts</h1>
+        <h1><a href="../../../../../../index.html">All files</a> / <a href="index.html">extension/src/app/ui/components/flag</a> flag.stories.tsx</h1>
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/8</span>
+                <span class='fraction'>0/3</span>
             </div>
         
             
@@ -39,14 +39,14 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/5</span>
+                <span class='fraction'>0/1</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/7</span>
+                <span class='fraction'>0/3</span>
             </div>
         
             
@@ -92,7 +92,24 @@
 <a name='L27'></a><a href='#L27'>27</a>
 <a name='L28'></a><a href='#L28'>28</a>
 <a name='L29'></a><a href='#L29'>29</a>
-<a name='L30'></a><a href='#L30'>30</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L30'></a><a href='#L30'>30</a>
+<a name='L31'></a><a href='#L31'>31</a>
+<a name='L32'></a><a href='#L32'>32</a>
+<a name='L33'></a><a href='#L33'>33</a>
+<a name='L34'></a><a href='#L34'>34</a>
+<a name='L35'></a><a href='#L35'>35</a>
+<a name='L36'></a><a href='#L36'>36</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -104,52 +121,53 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { TokenTransferTransaction } from '@stacks/stacks-blockchain-api-types';
-import { useQuery } from '@tanstack/react-query';
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { Meta, StoryObj } from '@storybook/react';
+import { Box, Circle } from 'leather-styles/jsx';
 &nbsp;
-import { createMoney } from '@shared/models/money.model';
+import { Flag as Component } from './flag';
 &nbsp;
-import { sumNumbers } from '@app/common/math/helpers';
-import { useStacksClientUnanchored } from '@app/store/common/api-clients.hooks';
-&nbsp;
-export function <span class="fstat-no" title="function not covered" >useCurrentAccountMicroblockBalanceQuery(a</span>ddress: string) {
-  const client = <span class="cstat-no" title="statement not covered" >useStacksClientUnanchored();</span>
-&nbsp;
-  async function <span class="fstat-no" title="function not covered" >accountMicroblockFetcher() {</span>
-    const txs = <span class="cstat-no" title="statement not covered" >await client.microblocksApi.getUnanchoredTxs({});</span>
-<span class="cstat-no" title="statement not covered" >    return txs.results as TokenTransferTransaction[];</span>
-  }
-<span class="cstat-no" title="statement not covered" >  return useQuery({</span>
-    enabled: !!address,
-    queryKey: ['account-microblock', address],
-    queryFn: accountMicroblockFetcher,
-    select: <span class="fstat-no" title="function not covered" >resp =&gt; {</span>
-      const senderMicroblockTxs = <span class="cstat-no" title="statement not covered" >resp.filter(<span class="fstat-no" title="function not covered" >tx =&gt; <span class="cstat-no" title="statement not covered" >t</span>x.sender_address === address)</span>;</span>
-<span class="cstat-no" title="statement not covered" >      return createMoney(</span>
-        sumNumbers(senderMicroblockTxs.map(<span class="fstat-no" title="function not covered" >tx =&gt; <span class="cstat-no" title="statement not covered" >N</span>umber(tx.token_transfer.amount))</span>),
-        'STX'
-      );
+const meta: Meta&lt;typeof Component&gt; = <span class="cstat-no" title="statement not covered" >{</span>
+  component: Component,
+  tags: ['autodocs'],
+  title: 'Layout/Flag',
+  argTypes: {
+    align: {
+      options: ['top', 'middle', 'bottom'],
+      control: { type: 'radio' },
+      defaultValue: 'middle',
     },
-    refetchOnWindowFocus: false,
-  });
-}
+  },
+  parameters: {
+    controls: { include: ['align'] },
+  },
+  render: <span class="fstat-no" title="function not covered" >({</span> children, ...args }) =&gt; (
+<span class="cstat-no" title="statement not covered" >    &lt;Component {...args} img={&lt;Circle size="40px" backgroundColor="lightModeRed.300" /&gt;}&gt;</span>
+      {children}
+    &lt;/Component&gt;
+  ),
+};
+&nbsp;
+export default meta;
+&nbsp;
+type Story = StoryObj&lt;typeof Component&gt;;
+&nbsp;
+export const Flag: Story = <span class="cstat-no" title="statement not covered" >{</span>
+  args: {
+    children: &lt;Box width="300px" height="20px" backgroundColor="lightModeRed.300" /&gt;,
+  },
+};
 &nbsp;</pre></td></tr></table></pre>
 
                 <div class='push'></div><!-- for sticky footer -->
@@ -157,7 +175,7 @@ export function <span class="fstat-no" title="function not covered" >useCurrentA
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-01-29T17:06:53.838Z
+                at 2024-02-07T09:25:17.456Z
             </div>
         <script src="../../../../../../prettify.js"></script>
         <script>

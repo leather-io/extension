@@ -32,14 +32,14 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/6</span>
+                <span class='fraction'>0/4</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/5</span>
+                <span class='fraction'>0/4</span>
             </div>
         
             
@@ -135,7 +135,18 @@
 <a name='L70'></a><a href='#L70'>70</a>
 <a name='L71'></a><a href='#L71'>71</a>
 <a name='L72'></a><a href='#L72'>72</a>
-<a name='L73'></a><a href='#L73'>73</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L73'></a><a href='#L73'>73</a>
+<a name='L74'></a><a href='#L74'>74</a>
+<a name='L75'></a><a href='#L75'>75</a>
+<a name='L76'></a><a href='#L76'>76</a>
+<a name='L77'></a><a href='#L77'>77</a>
+<a name='L78'></a><a href='#L78'>78</a>
+<a name='L79'></a><a href='#L79'>79</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -163,9 +174,10 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -210,19 +222,24 @@
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 &nbsp;
+import BitcoinApp from 'ledger-bitcoin';
+&nbsp;
 import { bitcoinNetworkModeToCoreNetworkMode } from '@shared/crypto/bitcoin/bitcoin.utils';
 &nbsp;
+import { pullBitcoinKeysFromLedgerDevice } from '@app/features/ledger/flows/request-bitcoin-keys/request-bitcoin-keys.utils';
+import { ledgerRequestKeysRoutes } from '@app/features/ledger/generic-flows/request-keys/ledger-request-keys-route-generator';
 import { LedgerRequestKeysContext } from '@app/features/ledger/generic-flows/request-keys/ledger-request-keys.context';
+import { RequestKeysFlow } from '@app/features/ledger/generic-flows/request-keys/request-keys-flow';
+import { useRequestLedgerKeys } from '@app/features/ledger/generic-flows/request-keys/use-request-ledger-keys';
 import { useLedgerNavigate } from '@app/features/ledger/hooks/use-ledger-navigate';
+import {
+  connectLedgerBitcoinApp,
+  getBitcoinAppVersion,
+  isBitcoinAppOpen,
+} from '@app/features/ledger/utils/bitcoin-ledger-utils';
 import { useActionCancellableByUser } from '@app/features/ledger/utils/stacks-ledger-utils';
 import { bitcoinKeysSlice } from '@app/store/ledger/bitcoin/bitcoin-key.slice';
 import { useCurrentNetwork } from '@app/store/networks/networks.selectors';
-&nbsp;
-import { ledgerRequestKeysRoutes } from '../../generic-flows/request-keys/ledger-request-keys-route-generator';
-import { RequestKeysFlow } from '../../generic-flows/request-keys/request-keys-flow';
-import { useRequestLedgerKeys } from '../../generic-flows/request-keys/use-request-ledger-keys';
-import { connectLedgerBitcoinApp, getBitcoinAppVersion } from '../../utils/bitcoin-ledger-utils';
-import { pullBitcoinKeysFromLedgerDevice } from './request-bitcoin-keys.utils';
 &nbsp;
 function <span class="fstat-no" title="function not covered" >LedgerRequestBitcoinKeys() {</span>
   const navigate = <span class="cstat-no" title="statement not covered" >useNavigate();</span>
@@ -232,32 +249,33 @@ function <span class="fstat-no" title="function not covered" >LedgerRequestBitco
   const ledgerNavigate = <span class="cstat-no" title="statement not covered" >useLedgerNavigate();</span>
   const network = <span class="cstat-no" title="statement not covered" >useCurrentNetwork();</span>
 &nbsp;
-  const { requestKeys, latestDeviceResponse, awaitingDeviceConnection } = <span class="cstat-no" title="statement not covered" >useRequestLedgerKeys({</span>
-    chain: 'bitcoin',
-    connectApp: connectLedgerBitcoinApp(network.chain.bitcoin.bitcoinNetwork),
-    getAppVersion: getBitcoinAppVersion,
-<span class="fstat-no" title="function not covered" >    isAppOpen({</span> name }: { name: string }) {
-<span class="cstat-no" title="statement not covered" >      return name === 'Bitcoin' || name === 'Bitcoin Test';</span>
-    },
-<span class="fstat-no" title="function not covered" >    onSuccess() {</span>
-<span class="cstat-no" title="statement not covered" >      navigate('/', { replace: true });</span>
-    },
-<span class="fstat-no" title="function not covered" >    async p</span>ullKeysFromDevice(app) {
-      const { keys } = <span class="cstat-no" title="statement not covered" >await pullBitcoinKeysFromLedgerDevice(app)({</span>
-        network: bitcoinNetworkModeToCoreNetworkMode(network.chain.bitcoin.bitcoinNetwork),
-<span class="fstat-no" title="function not covered" >        onRequestKey(i</span>ndex) {
-<span class="cstat-no" title="statement not covered" >          if (index &lt;= 4) {</span>
-<span class="cstat-no" title="statement not covered" >            ledgerNavigate.toDeviceBusyStep(</span>
-              `Requesting Bitcoin Native Segwit address (${index + 1}…5)`
-            );
-<span class="cstat-no" title="statement not covered" >            return;</span>
-          }
-<span class="cstat-no" title="statement not covered" >          ledgerNavigate.toDeviceBusyStep(`Requesting Bitcoin Taproot address (${index - 4}…5)`);</span>
-        },
-      });
-<span class="cstat-no" title="statement not covered" >      dispatch(bitcoinKeysSlice.actions.addKeys(keys));</span>
-    },
-  });
+  const chain = <span class="cstat-no" title="statement not covered" >'bitcoin' as const;</span>
+&nbsp;
+  const { requestKeys, latestDeviceResponse, awaitingDeviceConnection } =
+<span class="cstat-no" title="statement not covered" >    useRequestLedgerKeys&lt;BitcoinApp&gt;({</span>
+      chain,
+      connectApp: connectLedgerBitcoinApp(network.chain.bitcoin.bitcoinNetwork),
+      getAppVersion: getBitcoinAppVersion,
+      isAppOpen: isBitcoinAppOpen({ network: network.chain.bitcoin.bitcoinNetwork }),
+<span class="fstat-no" title="function not covered" >      onSuccess() {</span>
+<span class="cstat-no" title="statement not covered" >        navigate('/', { replace: true });</span>
+      },
+<span class="fstat-no" title="function not covered" >      async p</span>ullKeysFromDevice(app) {
+        const { keys } = <span class="cstat-no" title="statement not covered" >await pullBitcoinKeysFromLedgerDevice(app)({</span>
+          network: bitcoinNetworkModeToCoreNetworkMode(network.chain.bitcoin.bitcoinNetwork),
+<span class="fstat-no" title="function not covered" >          onRequestKey(i</span>ndex) {
+<span class="cstat-no" title="statement not covered" >            if (index &lt;= 4) {</span>
+<span class="cstat-no" title="statement not covered" >              ledgerNavigate.toDeviceBusyStep(</span>
+                `Requesting Bitcoin Native Segwit address (${index + 1}…5)`
+              );
+<span class="cstat-no" title="statement not covered" >              return;</span>
+            }
+<span class="cstat-no" title="statement not covered" >            ledgerNavigate.toDeviceBusyStep(`Requesting Bitcoin Taproot address (${index - 4}…5)`);</span>
+          },
+        });
+<span class="cstat-no" title="statement not covered" >        dispatch(bitcoinKeysSlice.actions.addKeys(keys));</span>
+      },
+    });
 &nbsp;
   const ledgerContextValue: LedgerRequestKeysContext = <span class="cstat-no" title="statement not covered" >{</span>
     chain: 'bitcoin',
@@ -286,7 +304,7 @@ export const requestBitcoinKeysRoutes = <span class="cstat-no" title="statement 
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-01-29T17:06:53.838Z
+                at 2024-02-07T09:25:17.456Z
             </div>
         <script src="../../../../../../../prettify.js"></script>
         <script>

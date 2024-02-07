@@ -25,7 +25,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/15</span>
+                <span class='fraction'>0/14</span>
             </div>
         
             
@@ -46,7 +46,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/15</span>
+                <span class='fraction'>0/14</span>
             </div>
         
             
@@ -123,13 +123,7 @@
 <a name='L58'></a><a href='#L58'>58</a>
 <a name='L59'></a><a href='#L59'>59</a>
 <a name='L60'></a><a href='#L60'>60</a>
-<a name='L61'></a><a href='#L61'>61</a>
-<a name='L62'></a><a href='#L62'>62</a>
-<a name='L63'></a><a href='#L63'>63</a>
-<a name='L64'></a><a href='#L64'>64</a>
-<a name='L65'></a><a href='#L65'>65</a>
-<a name='L66'></a><a href='#L66'>66</a>
-<a name='L67'></a><a href='#L67'>67</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L61'></a><a href='#L61'>61</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -160,7 +154,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -171,11 +164,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -201,13 +189,13 @@ import { useAccountDisplayName } from '@app/common/hooks/account/use-account-nam
 import { useSwitchAccount } from '@app/common/hooks/account/use-switch-account';
 import { useLoading } from '@app/common/hooks/use-loading';
 import { AccountTotalBalance } from '@app/components/account-total-balance';
-import { AccountListItemLayout } from '@app/components/account/account-list-item-layout';
-import { usePressable } from '@app/components/item-hover';
+import { AcccountAddresses } from '@app/components/account/account-addresses';
+import { AccountListItemLayout } from '@app/components/account/account-list-item.layout';
+import { AccountNameLayout } from '@app/components/account/account-name';
 import { useNativeSegwitSigner } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
 import { useStacksAccounts } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
 &nbsp;
 import { AccountAvatarItem } from '../../../components/account/account-avatar-item';
-import { AccountNameLayout } from '../../../components/account/account-name';
 &nbsp;
 interface SwitchAccountListItemProps {
   handleClose(): void;
@@ -217,16 +205,15 @@ interface SwitchAccountListItemProps {
 export const SwitchAccountListItem = <span class="cstat-no" title="statement not covered" >memo(</span>
 <span class="fstat-no" title="function not covered" >  ({</span> handleClose, currentAccountIndex, index }: SwitchAccountListItemProps) =&gt; {
     const stacksAccounts = <span class="cstat-no" title="statement not covered" >useStacksAccounts();</span>
-    const stacksAddress = <span class="cstat-no" title="statement not covered" >stacksAccounts[index]?.address || '';</span>
+    const stxAddress = <span class="cstat-no" title="statement not covered" >stacksAccounts[index]?.address || '';</span>
     const bitcoinSigner = <span class="cstat-no" title="statement not covered" >useNativeSegwitSigner(index);</span>
-    const bitcoinAddress = <span class="cstat-no" title="statement not covered" >bitcoinSigner?.(0).address || '';</span>
+    const btcAddress = <span class="cstat-no" title="statement not covered" >bitcoinSigner?.(0).address || '';</span>
 &nbsp;
     const { isLoading, setIsLoading, setIsIdle } = <span class="cstat-no" title="statement not covered" >useLoading(</span>
-      'SWITCH_ACCOUNTS' + stacksAddress || bitcoinAddress
+      'SWITCH_ACCOUNTS' + stxAddress || btcAddress
     );
     const { handleSwitchAccount } = <span class="cstat-no" title="statement not covered" >useSwitchAccount(handleClose);</span>
-    const [component, bind] = <span class="cstat-no" title="statement not covered" >usePressable(true);</span>
-    const name = <span class="cstat-no" title="statement not covered" >useAccountDisplayName({ address: stacksAddress, index });</span>
+    const name = <span class="cstat-no" title="statement not covered" >useAccountDisplayName({ address: stxAddress, index });</span>
 &nbsp;
     const handleClick = <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >async () =&gt; {</span></span>
 <span class="cstat-no" title="statement not covered" >      setIsLoading();</span>
@@ -238,9 +225,8 @@ export const SwitchAccountListItem = <span class="cstat-no" title="statement not
 &nbsp;
 <span class="cstat-no" title="statement not covered" >    return (</span>
       &lt;AccountListItemLayout
-        index={index}
-        isLoading={isLoading}
-        isActive={currentAccountIndex === index}
+        accountAddresses={&lt;AcccountAddresses index={index} /&gt;}
+        accountName={&lt;AccountNameLayout&gt;{name}&lt;/AccountNameLayout&gt;}
         avatar={
           &lt;AccountAvatarItem
             index={index}
@@ -248,16 +234,12 @@ export const SwitchAccountListItem = <span class="cstat-no" title="statement not
             name={name}
           /&gt;
         }
+        balanceLabel={&lt;AccountTotalBalance stxAddress={stxAddress} btcAddress={btcAddress} /&gt;}
+        index={index}
+        isLoading={isLoading}
+        isSelected={currentAccountIndex === index}
         onSelectAccount={handleClick}
-        accountName={&lt;AccountNameLayout&gt;{name}&lt;/AccountNameLayout&gt;}
-        balanceLabel={
-          &lt;AccountTotalBalance stxAddress={stacksAddress} btcAddress={bitcoinAddress} /&gt;
-        }
-        mt="space.05"
-        {...bind}
-      &gt;
-        {component}
-      &lt;/AccountListItemLayout&gt;
+      /&gt;
     );
   }
 );
@@ -268,7 +250,7 @@ export const SwitchAccountListItem = <span class="cstat-no" title="statement not
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-01-29T17:06:53.838Z
+                at 2024-02-07T09:25:17.456Z
             </div>
         <script src="../../../../../../prettify.js"></script>
         <script>

@@ -25,7 +25,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/58</span>
+                <span class='fraction'>0/59</span>
             </div>
         
             
@@ -46,7 +46,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/56</span>
+                <span class='fraction'>0/57</span>
             </div>
         
             
@@ -238,7 +238,10 @@
 <a name='L173'></a><a href='#L173'>173</a>
 <a name='L174'></a><a href='#L174'>174</a>
 <a name='L175'></a><a href='#L175'>175</a>
-<a name='L176'></a><a href='#L176'>176</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L176'></a><a href='#L176'>176</a>
+<a name='L177'></a><a href='#L177'>177</a>
+<a name='L178'></a><a href='#L178'>178</a>
+<a name='L179'></a><a href='#L179'>179</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -279,18 +282,19 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -299,6 +303,8 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -424,6 +430,7 @@ import get from 'lodash.get';
 import { finalizeMessageSignature } from '@shared/actions/finalize-message-signature';
 import { logger } from '@shared/logger';
 import { UnsignedMessage, whenSignableMessageOfType } from '@shared/signature/signature-types';
+import { isError } from '@shared/utils';
 &nbsp;
 import { useScrollLock } from '@app/common/hooks/use-scroll-lock';
 import { delay } from '@app/common/utils';
@@ -478,15 +485,17 @@ function <span class="fstat-no" title="function not covered" >LedgerSignStacksMs
 &nbsp;
   const [awaitingDeviceConnection, setAwaitingDeviceConnection] = <span class="cstat-no" title="statement not covered" >useState(false);</span>
 &nbsp;
+  const chain = <span class="cstat-no" title="statement not covered" >'stacks';</span>
+&nbsp;
   async function <span class="fstat-no" title="function not covered" >signMessage() {</span>
     const stacksApp = <span class="cstat-no" title="statement not covered" >await prepareLedgerDeviceStacksAppConnection({</span>
       setLoadingState: setAwaitingDeviceConnection,
 <span class="fstat-no" title="function not covered" >      onError(e</span>) {
-<span class="cstat-no" title="statement not covered" >        if (e instanceof Error &amp;&amp; checkLockedDeviceError(e)) {</span>
+<span class="cstat-no" title="statement not covered" >        if (isError(e) &amp;&amp; checkLockedDeviceError(e)) {</span>
 <span class="cstat-no" title="statement not covered" >          setLatestDeviceResponse({ deviceLocked: true } as any);</span>
 <span class="cstat-no" title="statement not covered" >          return;</span>
         }
-<span class="cstat-no" title="statement not covered" >        ledgerNavigate.toErrorStep();</span>
+<span class="cstat-no" title="statement not covered" >        ledgerNavigate.toErrorStep(chain);</span>
       },
     });
 &nbsp;
@@ -595,7 +604,7 @@ export function <span class="fstat-no" title="function not covered" >LedgerSignM
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-01-29T17:06:53.838Z
+                at 2024-02-07T09:25:17.456Z
             </div>
         <script src="../../../../../../../prettify.js"></script>
         <script>

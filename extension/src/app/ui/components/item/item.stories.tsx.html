@@ -3,15 +3,15 @@
 <html lang="en">
 
 <head>
-    <title>Code coverage report for extension/src/app/components/transaction/microblock-label.tsx</title>
+    <title>Code coverage report for extension/src/app/ui/components/item/item.stories.tsx</title>
     <meta charset="utf-8" />
-    <link rel="stylesheet" href="../../../../../prettify.css" />
-    <link rel="stylesheet" href="../../../../../base.css" />
-    <link rel="shortcut icon" type="image/x-icon" href="../../../../../favicon.png" />
+    <link rel="stylesheet" href="../../../../../../prettify.css" />
+    <link rel="stylesheet" href="../../../../../../base.css" />
+    <link rel="shortcut icon" type="image/x-icon" href="../../../../../../favicon.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <style type='text/css'>
         .coverage-summary .sorter {
-            background-image: url(../../../../../sort-arrow-sprite.png);
+            background-image: url(../../../../../../sort-arrow-sprite.png);
         }
     </style>
 </head>
@@ -19,13 +19,13 @@
 <body>
 <div class='wrapper'>
     <div class='pad1'>
-        <h1><a href="../../../../../index.html">All files</a> / <a href="index.html">extension/src/app/components/transaction</a> microblock-label.tsx</h1>
+        <h1><a href="../../../../../../index.html">All files</a> / <a href="index.html">extension/src/app/ui/components/item</a> item.stories.tsx</h1>
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/2</span>
+                <span class='fraction'>0/3</span>
             </div>
         
             
@@ -46,7 +46,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/2</span>
+                <span class='fraction'>0/3</span>
             </div>
         
             
@@ -85,8 +85,10 @@
 <a name='L20'></a><a href='#L20'>20</a>
 <a name='L21'></a><a href='#L21'>21</a>
 <a name='L22'></a><a href='#L22'>22</a>
-<a name='L23'></a><a href='#L23'>23</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L23'></a><a href='#L23'>23</a>
+<a name='L24'></a><a href='#L24'>24</a>
+<a name='L25'></a><a href='#L25'>25</a>
+<a name='L26'></a><a href='#L26'>26</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -94,6 +96,14 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -103,32 +113,31 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { Box, Flex, styled } from 'leather-styles/jsx';
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { Meta, StoryObj } from '@storybook/react';
+import { Box, Circle } from 'leather-styles/jsx';
 &nbsp;
-import { InfoIcon } from '@app/ui/components/icons/info-icon';
-import { BasicTooltip } from '@app/ui/components/tooltip/basic-tooltip';
+import { ItemLayout as Component } from './item.layout';
 &nbsp;
-const inMicroblockMessage =
-<span class="cstat-no" title="statement not covered" >  'This transaction is currently in a microblock, which increases the chances of inclusion in the next anchor block.';</span>
+const meta: Meta&lt;typeof Component&gt; = <span class="cstat-no" title="statement not covered" >{</span>
+  component: Component,
+  tags: ['autodocs'],
+  title: 'Layout/Item',
+};
 &nbsp;
-export function <span class="fstat-no" title="function not covered" >MicroblockLabel() {</span>
-<span class="cstat-no" title="statement not covered" >  return (</span>
-    &lt;Flex alignItems="center"&gt;
-      &lt;styled.span color="warning.label" mr="space.01" textStyle="label.03"&gt;
-        In microblock
-      &lt;/styled.span&gt;
-      &lt;BasicTooltip label={inMicroblockMessage} side="bottom"&gt;
-        &lt;Box _hover={{ cursor: 'pointer' }} color="warning.label"&gt;
-          &lt;InfoIcon /&gt;
-        &lt;/Box&gt;
-      &lt;/BasicTooltip&gt;
-    &lt;/Flex&gt;
-  );
-}
+export default meta;
+type Story = StoryObj&lt;typeof Component&gt;;
+&nbsp;
+export const Item: Story = <span class="cstat-no" title="statement not covered" >{</span>
+  render: <span class="fstat-no" title="function not covered" >() =&gt; (</span>
+<span class="cstat-no" title="statement not covered" >    &lt;Component</span>
+      flagImg={&lt;Circle size="40px" backgroundColor="lightModeRed.300" /&gt;}
+      titleLeft={&lt;Box width="500px" height="20px" backgroundColor="lightModeRed.300" /&gt;}
+      captionLeft={&lt;Box width="300px" height="20px" backgroundColor="lightModeRed.300" /&gt;}
+      titleRight={&lt;Box width="100px" height="20px" backgroundColor="lightModeRed.300" /&gt;}
+      captionRight={&lt;Box width="200px" height="20px" backgroundColor="lightModeRed.300" /&gt;}
+    /&gt;
+  ),
+};
 &nbsp;</pre></td></tr></table></pre>
 
                 <div class='push'></div><!-- for sticky footer -->
@@ -136,16 +145,16 @@ export function <span class="fstat-no" title="function not covered" >MicroblockL
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-01-29T17:06:53.838Z
+                at 2024-02-07T09:25:17.456Z
             </div>
-        <script src="../../../../../prettify.js"></script>
+        <script src="../../../../../../prettify.js"></script>
         <script>
             window.onload = function () {
                 prettyPrint();
             };
         </script>
-        <script src="../../../../../sorter.js"></script>
-        <script src="../../../../../block-navigation.js"></script>
+        <script src="../../../../../../sorter.js"></script>
+        <script src="../../../../../../block-navigation.js"></script>
     </body>
 </html>
     

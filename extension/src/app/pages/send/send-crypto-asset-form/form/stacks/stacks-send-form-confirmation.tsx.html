@@ -25,7 +25,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/12</span>
+                <span class='fraction'>0/13</span>
             </div>
         
             
@@ -46,7 +46,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/12</span>
+                <span class='fraction'>0/13</span>
             </div>
         
             
@@ -157,7 +157,12 @@
 <a name='L92'></a><a href='#L92'>92</a>
 <a name='L93'></a><a href='#L93'>93</a>
 <a name='L94'></a><a href='#L94'>94</a>
-<a name='L95'></a><a href='#L95'>95</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L95'></a><a href='#L95'>95</a>
+<a name='L96'></a><a href='#L96'>96</a>
+<a name='L97'></a><a href='#L97'>97</a>
+<a name='L98'></a><a href='#L98'>98</a>
+<a name='L99'></a><a href='#L99'>99</a>
+<a name='L100'></a><a href='#L100'>100</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -168,13 +173,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -183,8 +181,20 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -253,6 +263,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { Outlet, useNavigate, useParams } from 'react-router-dom';
 &nbsp;
+import { deserializeTransaction } from '@stacks/transactions';
 import { Box, Stack } from 'leather-styles/jsx';
 &nbsp;
 import { CryptoCurrencies } from '@shared/models/currencies.model';
@@ -260,11 +271,11 @@ import { CryptoCurrencies } from '@shared/models/currencies.model';
 import { useLocationStateWithCache } from '@app/common/hooks/use-location-state';
 import { useRouteHeader } from '@app/common/hooks/use-route-header';
 import { ModalHeader } from '@app/components/modal-header';
+import { useStacksBroadcastTransaction } from '@app/features/stacks-transaction-request/hooks/use-stacks-broadcast-transaction';
+import { useStacksTransactionSummary } from '@app/features/stacks-transaction-request/hooks/use-stacks-transaction-summary';
 import { InfoIcon } from '@app/ui/components/icons/info-icon';
 import { BasicTooltip } from '@app/ui/components/tooltip/basic-tooltip';
 &nbsp;
-import { useStacksBroadcastTransaction } from '../../family/stacks/hooks/use-stacks-broadcast-transaction';
-import { useStacksTransactionSummary } from '../../family/stacks/hooks/use-stacks-transaction-summary';
 import { SendFormConfirmation } from '../send-form-confirmation';
 &nbsp;
 function <span class="fstat-no" title="function not covered" >useStacksSendFormConfirmationState() {</span>
@@ -280,8 +291,12 @@ export function <span class="fstat-no" title="function not covered" >StacksSendF
   const { symbol = <span class="branch-0 cbranch-no" title="branch not covered" >'STX' }</span> = <span class="cstat-no" title="statement not covered" >useParams();</span>
   const navigate = <span class="cstat-no" title="statement not covered" >useNavigate();</span>
 &nbsp;
-  const { stacksDeserializedTransaction, stacksBroadcastTransaction, isBroadcasting } =
-<span class="cstat-no" title="statement not covered" >    useStacksBroadcastTransaction(tx, symbol.toUpperCase() as CryptoCurrencies, decimals);</span>
+  const { stacksBroadcastTransaction, isBroadcasting } = <span class="cstat-no" title="statement not covered" >useStacksBroadcastTransaction(</span>
+    symbol.toUpperCase() as CryptoCurrencies,
+    decimals
+  );
+&nbsp;
+  const stacksDeserializedTransaction = <span class="cstat-no" title="statement not covered" >deserializeTransaction(tx);</span>
 &nbsp;
   const { formReviewTxSummary } = <span class="cstat-no" title="statement not covered" >useStacksTransactionSummary(</span>
     symbol.toUpperCase() as CryptoCurrencies
@@ -352,7 +367,7 @@ export function <span class="fstat-no" title="function not covered" >StacksSendF
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-01-29T17:06:53.838Z
+                at 2024-02-07T09:25:17.456Z
             </div>
         <script src="../../../../../../../../prettify.js"></script>
         <script>

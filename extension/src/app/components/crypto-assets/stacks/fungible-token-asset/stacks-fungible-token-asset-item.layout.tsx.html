@@ -25,14 +25,14 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/4</span>
+                <span class='fraction'>0/2</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/8</span>
+                <span class='fraction'>0/2</span>
             </div>
         
             
@@ -46,7 +46,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/4</span>
+                <span class='fraction'>0/2</span>
             </div>
         
             
@@ -114,39 +114,7 @@
 <a name='L49'></a><a href='#L49'>49</a>
 <a name='L50'></a><a href='#L50'>50</a>
 <a name='L51'></a><a href='#L51'>51</a>
-<a name='L52'></a><a href='#L52'>52</a>
-<a name='L53'></a><a href='#L53'>53</a>
-<a name='L54'></a><a href='#L54'>54</a>
-<a name='L55'></a><a href='#L55'>55</a>
-<a name='L56'></a><a href='#L56'>56</a>
-<a name='L57'></a><a href='#L57'>57</a>
-<a name='L58'></a><a href='#L58'>58</a>
-<a name='L59'></a><a href='#L59'>59</a>
-<a name='L60'></a><a href='#L60'>60</a>
-<a name='L61'></a><a href='#L61'>61</a>
-<a name='L62'></a><a href='#L62'>62</a>
-<a name='L63'></a><a href='#L63'>63</a>
-<a name='L64'></a><a href='#L64'>64</a>
-<a name='L65'></a><a href='#L65'>65</a>
-<a name='L66'></a><a href='#L66'>66</a>
-<a name='L67'></a><a href='#L67'>67</a>
-<a name='L68'></a><a href='#L68'>68</a>
-<a name='L69'></a><a href='#L69'>69</a>
-<a name='L70'></a><a href='#L70'>70</a>
-<a name='L71'></a><a href='#L71'>71</a>
-<a name='L72'></a><a href='#L72'>72</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L52'></a><a href='#L52'>52</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -171,9 +139,6 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -200,55 +165,32 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { Flex, FlexProps, styled } from 'leather-styles/jsx';
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { styled } from 'leather-styles/jsx';
 &nbsp;
-import type { Money } from '@shared/models/money.model';
+import { StacksFungibleTokenAssetBalance } from '@shared/models/crypto-asset-balance.model';
 &nbsp;
-import { formatBalance } from '@app/common/format-balance';
-import { ftDecimals } from '@app/common/stacks-utils';
 import { StacksAssetAvatar } from '@app/components/crypto-assets/stacks/components/stacks-asset-avatar';
-import { usePressable } from '@app/components/item-hover';
-import { Flag } from '@app/components/layout/flag';
+import { ItemInteractive } from '@app/ui/components/item/item-interactive';
+import { ItemLayout } from '@app/ui/components/item/item.layout';
 import { BasicTooltip } from '@app/ui/components/tooltip/basic-tooltip';
 &nbsp;
-import { AssetCaption } from '../../components/asset-caption';
-import { AssetRowGrid } from '../../components/asset-row-grid';
+import { parseStacksFungibleTokenAssetBalance } from './fungible-token-asset.utils';
 &nbsp;
-interface StacksFungibleTokenAssetItemLayoutProps extends FlexProps {
-  avatar: string;
-  balance: Money;
-  caption: string;
-  imageCanonicalUri?: string;
-  isPressable?: boolean;
-  title: string;
+interface StacksFungibleTokenAssetItemLayoutProps {
+  assetBalance: StacksFungibleTokenAssetBalance;
   onClick?(): void;
 }
 export function <span class="fstat-no" title="function not covered" >StacksFungibleTokenAssetItemLayout({</span>
-  avatar,
-  balance,
-  caption,
-  imageCanonicalUri,
-  isPressable,
-  title,
+  assetBalance,
   onClick,
 }: StacksFungibleTokenAssetItemLayoutProps) {
-  const [component, bind] = <span class="cstat-no" title="statement not covered" >usePressable(isPressable);</span>
-&nbsp;
-  const amount = <span class="cstat-no" title="statement not covered" >balance.decimals</span>
-    ? ftDecimals(balance.amount, balance.decimals || 0)
-    : balance.amount.toString();
-  const formattedBalance = <span class="cstat-no" title="statement not covered" >formatBalance(amount);</span>
+  const { amount, avatar, caption, dataTestId, formattedBalance, imageCanonicalUri, title } =
+<span class="cstat-no" title="statement not covered" >    parseStacksFungibleTokenAssetBalance(assetBalance);</span>
 &nbsp;
 <span class="cstat-no" title="statement not covered" >  return (</span>
-    &lt;Flex onClick={isPressable ? onClick : undefined} {...bind}&gt;
-      &lt;Flag
-        align="middle"
-        img={
+    &lt;ItemInteractive data-testid={dataTestId} onClick={onClick}&gt;
+      &lt;ItemLayout
+        flagImg={
           &lt;StacksAssetAvatar
             color="white"
             gradientString={avatar}
@@ -257,23 +199,21 @@ export function <span class="fstat-no" title="function not covered" >StacksFungi
             {title[0]}
           &lt;/StacksAssetAvatar&gt;
         }
-        spacing="space.04"
-        width="100%"
-      &gt;
-        &lt;AssetRowGrid
-          title={&lt;styled.span textStyle="label.01"&gt;{title}&lt;/styled.span&gt;}
-          balance={
-            &lt;BasicTooltip label={formattedBalance.isAbbreviated ? amount : undefined} side="left"&gt;
-              &lt;styled.span data-testid={title} textStyle="label.01"&gt;
-                {formattedBalance.value}
-              &lt;/styled.span&gt;
-            &lt;/BasicTooltip&gt;
-          }
-          caption={&lt;AssetCaption caption={caption} /&gt;}
-        /&gt;
-        {component}
-      &lt;/Flag&gt;
-    &lt;/Flex&gt;
+        titleLeft={title}
+        captionLeft={caption}
+        titleRight={
+          &lt;BasicTooltip
+            asChild
+            label={formattedBalance.isAbbreviated ? amount : undefined}
+            side="left"
+          &gt;
+            &lt;styled.span data-testid={title} fontWeight={500} textStyle="label.02"&gt;
+              {formattedBalance.value}
+            &lt;/styled.span&gt;
+          &lt;/BasicTooltip&gt;
+        }
+      /&gt;
+    &lt;/ItemInteractive&gt;
   );
 }
 &nbsp;</pre></td></tr></table></pre>
@@ -283,7 +223,7 @@ export function <span class="fstat-no" title="function not covered" >StacksFungi
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-01-29T17:06:53.838Z
+                at 2024-02-07T09:25:17.456Z
             </div>
         <script src="../../../../../../../prettify.js"></script>
         <script>

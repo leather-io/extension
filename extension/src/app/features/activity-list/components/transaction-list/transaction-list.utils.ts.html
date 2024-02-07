@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">76.47% </span>
+                <span class="strong">75% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>52/68</span>
+                <span class='fraction'>45/60</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">42.66% </span>
+                <span class="strong">43.07% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>32/75</span>
+                <span class='fraction'>28/65</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">90% </span>
+                <span class="strong">88.88% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>18/20</span>
+                <span class='fraction'>16/18</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">77.96% </span>
+                <span class="strong">76.92% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>46/59</span>
+                <span class='fraction'>40/52</span>
             </div>
         
             
@@ -213,27 +213,7 @@
 <a name='L148'></a><a href='#L148'>148</a>
 <a name='L149'></a><a href='#L149'>149</a>
 <a name='L150'></a><a href='#L150'>150</a>
-<a name='L151'></a><a href='#L151'>151</a>
-<a name='L152'></a><a href='#L152'>152</a>
-<a name='L153'></a><a href='#L153'>153</a>
-<a name='L154'></a><a href='#L154'>154</a>
-<a name='L155'></a><a href='#L155'>155</a>
-<a name='L156'></a><a href='#L156'>156</a>
-<a name='L157'></a><a href='#L157'>157</a>
-<a name='L158'></a><a href='#L158'>158</a>
-<a name='L159'></a><a href='#L159'>159</a>
-<a name='L160'></a><a href='#L160'>160</a>
-<a name='L161'></a><a href='#L161'>161</a>
-<a name='L162'></a><a href='#L162'>162</a>
-<a name='L163'></a><a href='#L163'>163</a>
-<a name='L164'></a><a href='#L164'>164</a>
-<a name='L165'></a><a href='#L165'>165</a>
-<a name='L166'></a><a href='#L166'>166</a>
-<a name='L167'></a><a href='#L167'>167</a>
-<a name='L168'></a><a href='#L168'>168</a>
-<a name='L169'></a><a href='#L169'>169</a>
-<a name='L170'></a><a href='#L170'>170</a>
-<a name='L171'></a><a href='#L171'>171</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L151'></a><a href='#L151'>151</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -283,15 +263,6 @@
 <span class="cline-any cline-yes">6x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">3x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">3x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">6x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">3x</span>
@@ -308,17 +279,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">3x</span>
-<span class="cline-any cline-yes">3x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">3x</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">3x</span>
@@ -449,15 +409,6 @@ function getTransactionTxIndex(listTx: TransactionListTxs) {
   }
 }
 &nbsp;
-function getTransactionMicroblockSequence(listTx: TransactionListTxs) {
-  switch (listTx.blockchain) {
-    case 'stacks':
-      return listTx.transaction.tx.microblock_sequence;
-    default:
-      return undefined;
-  }
-}
-&nbsp;
 function getTransactionBlockHeight(listTx: TransactionListTxs) {
   switch (listTx.blockchain) {
     case 'bitcoin':
@@ -478,17 +429,6 @@ function groupTxsByDateMap(txs: TransactionListTxs[]) {
 &nbsp;
       <span class="missing-if-branch" title="else path not taken" >E</span>if (!aTxIndex || <span class="branch-1 cbranch-no" title="branch not covered" >!bTxIndex) r</span>eturn 0;
 <span class="cstat-no" title="statement not covered" >      return aTxIndex &gt; bTxIndex ? -1 : aTxIndex &lt; bTxIndex ? 1 : 0;</span>
-    })
-    .sort((a, b) =&gt; {
-      const aMicroblockSequence = getTransactionMicroblockSequence(a);
-      const bMicroblockSequence = getTransactionMicroblockSequence(b);
-&nbsp;
-      <span class="missing-if-branch" title="else path not taken" >E</span>if (!aMicroblockSequence || <span class="branch-1 cbranch-no" title="branch not covered" >!bMicroblockSequence) r</span>eturn 0;
-<span class="cstat-no" title="statement not covered" >      return aMicroblockSequence &gt; bMicroblockSequence</span>
-        ? -1
-        : aMicroblockSequence &lt; bMicroblockSequence
-        ? 1
-        : 0;
     })
     .sort((a, b) =&gt; {
       const aBlockHeight = getTransactionBlockHeight(a);
@@ -580,7 +520,7 @@ export function createTxDateFormatList(
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-01-29T17:06:53.838Z
+                at 2024-02-07T09:25:17.456Z
             </div>
         <script src="../../../../../../../prettify.js"></script>
         <script>

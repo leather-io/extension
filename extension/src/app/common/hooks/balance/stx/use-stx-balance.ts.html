@@ -32,7 +32,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/10</span>
+                <span class='fraction'>0/8</span>
             </div>
         
             
@@ -118,10 +118,7 @@
 <a name='L53'></a><a href='#L53'>53</a>
 <a name='L54'></a><a href='#L54'>54</a>
 <a name='L55'></a><a href='#L55'>55</a>
-<a name='L56'></a><a href='#L56'>56</a>
-<a name='L57'></a><a href='#L57'>57</a>
-<a name='L58'></a><a href='#L58'>58</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L56'></a><a href='#L56'>56</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -156,7 +153,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -186,38 +182,36 @@ import { baseCurrencyAmountInQuote, subtractMoney } from '@app/common/money/calc
 import { i18nFormatCurrency } from '@app/common/money/format-money';
 import { useCryptoCurrencyMarketData } from '@app/query/common/market-data/market-data.hooks';
 import { createStacksCryptoCurrencyAssetTypeWrapper } from '@app/query/stacks/balance/stacks-ft-balances.utils';
-import { useCurrentStacksAccountAnchoredBalances } from '@app/query/stacks/balance/stx-balance.hooks';
-&nbsp;
-import { useStxOutboundValue } from './use-stx-outbound-value';
+import { useCurrentStacksAccountBalances } from '@app/query/stacks/balance/stx-balance.hooks';
+import { useCurrentAccountMempoolTransactionsBalance } from '@app/query/stacks/mempool/mempool.hooks';
 &nbsp;
 export function <span class="fstat-no" title="function not covered" >useStxBalance() {</span>
-  const anchoredBalanceQuery = <span class="cstat-no" title="statement not covered" >useCurrentStacksAccountAnchoredBalances();</span>
-  const totalBalance = <span class="cstat-no" title="statement not covered" >anchoredBalanceQuery.data?.stx.balance;</span>
-  const unlockedStxBalance = <span class="cstat-no" title="statement not covered" >anchoredBalanceQuery.data?.stx.unlockedStx;</span>
+  const stxBalanceQuery = <span class="cstat-no" title="statement not covered" >useCurrentStacksAccountBalances();</span>
+  const totalBalance = <span class="cstat-no" title="statement not covered" >stxBalanceQuery.data?.stx.balance;</span>
+  const unlockedStxBalance = <span class="cstat-no" title="statement not covered" >stxBalanceQuery.data?.stx.unlockedStx;</span>
 &nbsp;
   const stxMarketData = <span class="cstat-no" title="statement not covered" >useCryptoCurrencyMarketData('STX');</span>
-  const stxOutboundQuery = <span class="cstat-no" title="statement not covered" >useStxOutboundValue();</span>
+  const pendingTxsBalance = <span class="cstat-no" title="statement not covered" >useCurrentAccountMempoolTransactionsBalance();</span>
 &nbsp;
   const stxEffectiveBalance = <span class="cstat-no" title="statement not covered" >isDefined(totalBalance)</span>
-    ? subtractMoney(totalBalance, stxOutboundQuery.data)
+    ? subtractMoney(totalBalance, pendingTxsBalance)
     : createMoney(0, 'STX');
 &nbsp;
   const stxEffectiveUsdBalance = <span class="cstat-no" title="statement not covered" >isDefined(totalBalance)</span>
     ? i18nFormatCurrency(baseCurrencyAmountInQuote(stxEffectiveBalance, stxMarketData))
     : undefined;
 &nbsp;
-  const stxLockedBalance = <span class="cstat-no" title="statement not covered" >anchoredBalanceQuery.data?.stx.locked;</span>
+  const stxLockedBalance = <span class="cstat-no" title="statement not covered" >stxBalanceQuery.data?.stx.locked;</span>
   const stxUsdLockedBalance = <span class="cstat-no" title="statement not covered" >isDefined(stxLockedBalance)</span>
     ? i18nFormatCurrency(baseCurrencyAmountInQuote(stxLockedBalance, stxMarketData))
     : undefined;
 &nbsp;
 <span class="cstat-no" title="statement not covered" >  return useMemo(<span class="fstat-no" title="function not covered" >() =&gt; {</span></span>
 <span class="cstat-no" title="statement not covered" >    return {</span>
-      anchoredBalanceQuery,
-      stxOutboundQuery,
-      isLoading: anchoredBalanceQuery.isLoading || stxOutboundQuery.isLoading,
+      stxBalanceQuery,
+      stxOutboundQuery: pendingTxsBalance,
       availableBalance: isDefined(unlockedStxBalance)
-        ? subtractMoney(unlockedStxBalance, stxOutboundQuery.data)
+        ? subtractMoney(unlockedStxBalance, pendingTxsBalance)
         : createMoney(0, 'STX'),
       stxEffectiveBalance: createStacksCryptoCurrencyAssetTypeWrapper(stxEffectiveBalance.amount),
       stxEffectiveUsdBalance,
@@ -225,10 +219,10 @@ export function <span class="fstat-no" title="function not covered" >useStxBalan
       stxUsdLockedBalance,
     };
   }, [
-    anchoredBalanceQuery,
-    stxOutboundQuery,
+    stxBalanceQuery,
+    pendingTxsBalance,
     unlockedStxBalance,
-    stxEffectiveBalance,
+    stxEffectiveBalance.amount,
     stxEffectiveUsdBalance,
     stxLockedBalance,
     stxUsdLockedBalance,
@@ -241,7 +235,7 @@ export function <span class="fstat-no" title="function not covered" >useStxBalan
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-01-29T17:06:53.838Z
+                at 2024-02-07T09:25:17.456Z
             </div>
         <script src="../../../../../../../prettify.js"></script>
         <script>

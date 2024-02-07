@@ -25,14 +25,14 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/32</span>
+                <span class='fraction'>0/30</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/17</span>
+                <span class='fraction'>0/19</span>
             </div>
         
             
@@ -46,7 +46,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/29</span>
+                <span class='fraction'>0/27</span>
             </div>
         
             
@@ -172,20 +172,7 @@
 <a name='L107'></a><a href='#L107'>107</a>
 <a name='L108'></a><a href='#L108'>108</a>
 <a name='L109'></a><a href='#L109'>109</a>
-<a name='L110'></a><a href='#L110'>110</a>
-<a name='L111'></a><a href='#L111'>111</a>
-<a name='L112'></a><a href='#L112'>112</a>
-<a name='L113'></a><a href='#L113'>113</a>
-<a name='L114'></a><a href='#L114'>114</a>
-<a name='L115'></a><a href='#L115'>115</a>
-<a name='L116'></a><a href='#L116'>116</a>
-<a name='L117'></a><a href='#L117'>117</a>
-<a name='L118'></a><a href='#L118'>118</a>
-<a name='L119'></a><a href='#L119'>119</a>
-<a name='L120'></a><a href='#L120'>120</a>
-<a name='L121'></a><a href='#L121'>121</a>
-<a name='L122'></a><a href='#L122'>122</a>
-<a name='L123'></a><a href='#L123'>123</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L110'></a><a href='#L110'>110</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -221,11 +208,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -272,13 +254,9 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -286,10 +264,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -310,8 +284,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { useMemo } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 &nbsp;
-import { BoxProps } from 'leather-styles/jsx';
-&nbsp;
 import { BitcoinTx } from '@shared/models/transactions/bitcoin-transaction.model';
 import { RouteUrls } from '@shared/route-urls';
 &nbsp;
@@ -324,7 +296,6 @@ import {
   isBitcoinTxInbound,
 } from '@app/common/transactions/bitcoin/utils';
 import { openInNewTab } from '@app/common/utils/open-in-new-tab';
-import { usePressable } from '@app/components/item-hover';
 import { IncreaseFeeButton } from '@app/components/stacks-transaction-item/increase-fee-button';
 import { TransactionTitle } from '@app/components/transaction/transaction-title';
 import {
@@ -335,19 +306,17 @@ import { useGetInscriptionsByOutputQuery } from '@app/query/bitcoin/ordinals/ins
 import { useCurrentAccountNativeSegwitAddressIndexZero } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
 import { BulletSeparator } from '@app/ui/components/bullet-separator/bullet-separator';
 import { BtcIcon } from '@app/ui/components/icons/btc-icon';
+import { Caption } from '@app/ui/components/typography/caption';
 &nbsp;
 import { TransactionItemLayout } from '../transaction-item/transaction-item.layout';
-import { BitcoinTransactionCaption } from './bitcoin-transaction-caption';
 import { BitcoinTransactionIcon } from './bitcoin-transaction-icon';
 import { InscriptionIcon } from './bitcoin-transaction-inscription-icon';
 import { BitcoinTransactionStatus } from './bitcoin-transaction-status';
-import { BitcoinTransactionValue } from './bitcoin-transaction-value';
 &nbsp;
-interface BitcoinTransactionItemProps extends BoxProps {
+interface BitcoinTransactionItemProps {
   transaction: BitcoinTx;
 }
-export function <span class="fstat-no" title="function not covered" >BitcoinTransactionItem({</span> transaction, ...rest }: BitcoinTransactionItemProps) {
-  const [component, bind, { isHovered }] = <span class="cstat-no" title="statement not covered" >usePressable(true);</span>
+export function <span class="fstat-no" title="function not covered" >BitcoinTransactionItem({</span> transaction }: BitcoinTransactionItemProps) {
   const { pathname } = <span class="cstat-no" title="statement not covered" >useLocation();</span>
   const navigate = <span class="cstat-no" title="statement not covered" >useNavigate();</span>
 &nbsp;
@@ -389,19 +358,15 @@ export function <span class="fstat-no" title="function not covered" >BitcoinTran
 &nbsp;
   const txCaption = (
 <span class="cstat-no" title="statement not covered" >    &lt;BulletSeparator&gt;</span>
-      &lt;BitcoinTransactionCaption&gt;{caption}&lt;/BitcoinTransactionCaption&gt;
-      {inscriptionData ? (
-        &lt;BitcoinTransactionCaption&gt;{inscriptionData.mime_type}&lt;/BitcoinTransactionCaption&gt;
-      ) : null}
+      &lt;Caption&gt;{caption}&lt;/Caption&gt;
+      {inscriptionData ? &lt;Caption&gt;{inscriptionData.mime_type}&lt;/Caption&gt; : null}
     &lt;/BulletSeparator&gt;
   );
-  const txValue = <span class="cstat-no" title="statement not covered" >&lt;BitcoinTransactionValue&gt;{value}&lt;/BitcoinTransactionValue&gt;;</span>
 &nbsp;
   const title = <span class="cstat-no" title="statement not covered" >inscriptionData ? `Ordinal inscription #${inscriptionData.number}` : 'Bitcoin';</span>
   const increaseFeeButton = (
 <span class="cstat-no" title="statement not covered" >    &lt;IncreaseFeeButton</span>
       isEnabled={isEnabled}
-      isHovered={isHovered}
       isSelected={pathname === RouteUrls.IncreaseBtcFee}
       onIncreaseFee={onIncreaseFee}
     /&gt;
@@ -410,6 +375,7 @@ export function <span class="fstat-no" title="function not covered" >BitcoinTran
 <span class="cstat-no" title="statement not covered" >  return (</span>
     &lt;TransactionItemLayout
       openTxLink={openTxLink}
+      rightElement={isEnabled ? increaseFeeButton : undefined}
       txCaption={txCaption}
       txIcon={
         &lt;BitcoinTransactionIcon
@@ -420,13 +386,8 @@ export function <span class="fstat-no" title="function not covered" >BitcoinTran
       }
       txStatus={&lt;BitcoinTransactionStatus transaction={transaction} /&gt;}
       txTitle={&lt;TransactionTitle title={title} /&gt;}
-      txValue={txValue}
-      belowCaptionEl={increaseFeeButton}
-      {...bind}
-      {...rest}
-    &gt;
-      {component}
-    &lt;/TransactionItemLayout&gt;
+      txValue={value}
+    /&gt;
   );
 }
 &nbsp;</pre></td></tr></table></pre>
@@ -436,7 +397,7 @@ export function <span class="fstat-no" title="function not covered" >BitcoinTran
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-01-29T17:06:53.838Z
+                at 2024-02-07T09:25:17.456Z
             </div>
         <script src="../../../../../prettify.js"></script>
         <script>

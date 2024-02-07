@@ -39,7 +39,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/6</span>
+                <span class='fraction'>0/5</span>
             </div>
         
             
@@ -146,7 +146,8 @@
 <a name='L81'></a><a href='#L81'>81</a>
 <a name='L82'></a><a href='#L82'>82</a>
 <a name='L83'></a><a href='#L83'>83</a>
-<a name='L84'></a><a href='#L84'>84</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L84'></a><a href='#L84'>84</a>
+<a name='L85'></a><a href='#L85'>85</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -165,22 +166,23 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -233,22 +235,23 @@
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 &nbsp;
+import StacksApp from '@zondax/ledger-stacks';
+import { pullStacksKeysFromLedgerDevice } from 'app/features/ledger/flows/request-stacks-keys/request-stacks-keys.utils';
+&nbsp;
 import { defaultWalletKeyId } from '@shared/utils';
 &nbsp;
+import { ledgerRequestKeysRoutes } from '@app/features/ledger/generic-flows/request-keys/ledger-request-keys-route-generator';
 import { LedgerRequestKeysContext } from '@app/features/ledger/generic-flows/request-keys/ledger-request-keys.context';
+import { RequestKeysFlow } from '@app/features/ledger/generic-flows/request-keys/request-keys-flow';
+import { useRequestLedgerKeys } from '@app/features/ledger/generic-flows/request-keys/use-request-ledger-keys';
 import { useLedgerNavigate } from '@app/features/ledger/hooks/use-ledger-navigate';
 import {
   connectLedgerStacksApp,
   getStacksAppVersion,
-  isStacksLedgerAppClosed,
+  isStacksAppOpen,
   useActionCancellableByUser,
 } from '@app/features/ledger/utils/stacks-ledger-utils';
 import { stacksKeysSlice } from '@app/store/ledger/stacks/stacks-key.slice';
-&nbsp;
-import { ledgerRequestKeysRoutes } from '../../generic-flows/request-keys/ledger-request-keys-route-generator';
-import { RequestKeysFlow } from '../../generic-flows/request-keys/request-keys-flow';
-import { useRequestLedgerKeys } from '../../generic-flows/request-keys/use-request-ledger-keys';
-import { pullStacksKeysFromLedgerDevice } from './request-stacks-keys.utils';
 &nbsp;
 function <span class="fstat-no" title="function not covered" >LedgerRequestStacksKeys() {</span>
   const navigate = <span class="cstat-no" title="statement not covered" >useNavigate();</span>
@@ -257,14 +260,14 @@ function <span class="fstat-no" title="function not covered" >LedgerRequestStack
 &nbsp;
   const dispatch = <span class="cstat-no" title="statement not covered" >useDispatch();</span>
 &nbsp;
+  const chain = <span class="cstat-no" title="statement not covered" >'stacks';</span>
+&nbsp;
   const { requestKeys, latestDeviceResponse, awaitingDeviceConnection, outdatedAppVersionWarning } =
-<span class="cstat-no" title="statement not covered" >    useRequestLedgerKeys({</span>
-      chain: 'stacks',
+<span class="cstat-no" title="statement not covered" >    useRequestLedgerKeys&lt;StacksApp&gt;({</span>
+      chain,
       connectApp: connectLedgerStacksApp,
       getAppVersion: getStacksAppVersion,
-<span class="fstat-no" title="function not covered" >      isAppOpen(r</span>esp) {
-<span class="cstat-no" title="statement not covered" >        return !isStacksLedgerAppClosed(resp);</span>
-      },
+      isAppOpen: isStacksAppOpen,
 <span class="fstat-no" title="function not covered" >      onSuccess() {</span>
 <span class="cstat-no" title="statement not covered" >        navigate('/', { replace: true });</span>
       },
@@ -276,7 +279,7 @@ function <span class="fstat-no" title="function not covered" >LedgerRequestStack
         });
 <span class="cstat-no" title="statement not covered" >        if (resp.status === 'failure') {</span>
 <span class="cstat-no" title="statement not covered" >          toast.error(resp.errorMessage);</span>
-<span class="cstat-no" title="statement not covered" >          ledgerNavigate.toErrorStep(resp.errorMessage);</span>
+<span class="cstat-no" title="statement not covered" >          ledgerNavigate.toErrorStep(chain, resp.errorMessage);</span>
 <span class="cstat-no" title="statement not covered" >          return;</span>
         }
 <span class="cstat-no" title="statement not covered" >        ledgerNavigate.toDeviceBusyStep();</span>
@@ -319,7 +322,7 @@ export const requestStacksKeysRoutes = <span class="cstat-no" title="statement n
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-01-29T17:06:53.838Z
+                at 2024-02-07T09:25:17.456Z
             </div>
         <script src="../../../../../../../prettify.js"></script>
         <script>
