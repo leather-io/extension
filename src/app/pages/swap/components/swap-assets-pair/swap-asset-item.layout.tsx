@@ -1,7 +1,7 @@
 import { SwapSelectors } from '@tests/selectors/swap.selectors';
 import { HStack, styled } from 'leather-styles/jsx';
 
-import { Flag } from '@app/components/layout/flag';
+import { Flag } from '@app/ui/components/flag/flag';
 
 interface SwapAssetItemLayoutProps {
   caption: string;
@@ -12,7 +12,6 @@ interface SwapAssetItemLayoutProps {
 export function SwapAssetItemLayout({ caption, icon, symbol, value }: SwapAssetItemLayoutProps) {
   return (
     <Flag
-      align="middle"
       img={<styled.img src={icon} width="48px" height="48px" alt="Swap asset" />}
       spacing="space.03"
       width="100%"

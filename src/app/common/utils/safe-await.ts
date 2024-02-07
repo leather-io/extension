@@ -1,4 +1,5 @@
 // TypeScript port of https://github.com/DavidWells/safe-await/
+import { isError } from '@shared/utils';
 
 // Native Error types https://mzl.la/2Veh3TR
 const nativeExceptions = [
@@ -19,7 +20,7 @@ function throwNative(error: Error) {
 export async function safeAwait<T>(promise: Promise<T>, finallyFn?: () => void) {
   return promise
     .then(data => {
-      if (data instanceof Error) {
+      if (isError(data)) {
         throwNative(data);
         return [data] as readonly [Error];
       }

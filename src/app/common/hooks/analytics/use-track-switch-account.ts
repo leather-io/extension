@@ -10,10 +10,7 @@ export function useTrackSwitchAccount() {
 
   return useCallback(
     async (address: string, index: number) => {
-      const accountBalanceCache = queryClient.getQueryData([
-        'get-address-anchored-stx-balance',
-        address,
-      ]);
+      const accountBalanceCache = queryClient.getQueryData(['get-address-stx-balance', address]);
       if (!accountBalanceCache) return;
       try {
         const balances = parseBalanceResponse(accountBalanceCache as any);

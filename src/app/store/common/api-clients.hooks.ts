@@ -8,11 +8,7 @@ import { whenStacksChainId } from '@app/common/utils';
 import { BitcoinClient } from '@app/query/bitcoin/bitcoin-client';
 import { StacksClient } from '@app/query/stacks/stacks-client';
 import { TokenMetadataClient } from '@app/query/stacks/token-metadata-client';
-import {
-  createStacksAnchoredConfig,
-  createStacksUnanchoredConfig,
-  createTokenMetadataConfig,
-} from '@app/query/stacks/utils';
+import { createStacksClientConfig, createTokenMetadataConfig } from '@app/query/stacks/utils';
 
 import { useCurrentNetworkState } from '../networks/networks.hooks';
 
@@ -21,22 +17,11 @@ export function useBitcoinClient() {
   return new BitcoinClient(network.chain.bitcoin.bitcoinUrl);
 }
 
-// Unanchored by default (microblocks)
-export function useStacksClientUnanchored() {
+export function useStacksClient() {
   const network = useCurrentNetworkState();
 
   return useMemo(() => {
-    const config = createStacksUnanchoredConfig(network.chain.stacks.url);
-    return new StacksClient(config);
-  }, [network.chain.stacks.url]);
-}
-
-// Anchored (NON-microblocks)
-export function useStacksClientAnchored() {
-  const network = useCurrentNetworkState();
-
-  return useMemo(() => {
-    const config = createStacksAnchoredConfig(network.chain.stacks.url);
+    const config = createStacksClientConfig(network.chain.stacks.url);
     return new StacksClient(config);
   }, [network.chain.stacks.url]);
 }

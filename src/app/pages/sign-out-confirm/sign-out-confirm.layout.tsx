@@ -5,8 +5,8 @@ import { Box, HStack, styled } from 'leather-styles/jsx';
 import { useThemeSwitcher } from '@app/common/theme-provider';
 import { useWalletType } from '@app/common/use-wallet-type';
 import { BaseDrawer } from '@app/components/drawer/base-drawer';
-import { Flag } from '@app/components/layout/flag';
 import { Button } from '@app/ui/components/button/button';
+import { Flag } from '@app/ui/components/flag/flag';
 import { ErrorIcon } from '@app/ui/components/icons/error-icon';
 
 interface SignOutConfirmLayoutProps {
@@ -43,7 +43,7 @@ export function SignOutConfirmLayout(props: SignOutConfirmLayoutProps) {
           <styled.div mt="space.05" textStyle="label.02">
             {whenWallet({
               software: (
-                <Flag align="middle" img={<ErrorIcon />} spacing="space.02">
+                <Flag img={<ErrorIcon />} spacing="space.02">
                   If you haven't backed up your Secret Key, you will lose all your funds.
                 </Flag>
               ),

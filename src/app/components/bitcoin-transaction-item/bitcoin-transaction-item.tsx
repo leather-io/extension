@@ -1,8 +1,6 @@
 import { useMemo } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 
-import { BoxProps } from 'leather-styles/jsx';
-
 import { BitcoinTx } from '@shared/models/transactions/bitcoin-transaction.model';
 import { RouteUrls } from '@shared/route-urls';
 
@@ -15,7 +13,6 @@ import {
   isBitcoinTxInbound,
 } from '@app/common/transactions/bitcoin/utils';
 import { openInNewTab } from '@app/common/utils/open-in-new-tab';
-import { usePressable } from '@app/components/item-hover';
 import { IncreaseFeeButton } from '@app/components/stacks-transaction-item/increase-fee-button';
 import { TransactionTitle } from '@app/components/transaction/transaction-title';
 import {
@@ -26,19 +23,17 @@ import { useGetInscriptionsByOutputQuery } from '@app/query/bitcoin/ordinals/ins
 import { useCurrentAccountNativeSegwitAddressIndexZero } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
 import { BulletSeparator } from '@app/ui/components/bullet-separator/bullet-separator';
 import { BtcIcon } from '@app/ui/components/icons/btc-icon';
+import { Caption } from '@app/ui/components/typography/caption';
 
 import { TransactionItemLayout } from '../transaction-item/transaction-item.layout';
-import { BitcoinTransactionCaption } from './bitcoin-transaction-caption';
 import { BitcoinTransactionIcon } from './bitcoin-transaction-icon';
 import { InscriptionIcon } from './bitcoin-transaction-inscription-icon';
 import { BitcoinTransactionStatus } from './bitcoin-transaction-status';
-import { BitcoinTransactionValue } from './bitcoin-transaction-value';
 
-interface BitcoinTransactionItemProps extends BoxProps {
+interface BitcoinTransactionItemProps {
   transaction: BitcoinTx;
 }
-export function BitcoinTransactionItem({ transaction, ...rest }: BitcoinTransactionItemProps) {
-  const [component, bind, { isHovered }] = usePressable(true);
+export function BitcoinTransactionItem({ transaction }: BitcoinTransactionItemProps) {
   const { pathname } = useLocation();
   const navigate = useNavigate();
 
@@ -80,19 +75,15 @@ export function BitcoinTransactionItem({ transaction, ...rest }: BitcoinTransact
 
   const txCaption = (
     <BulletSeparator>
-      <BitcoinTransactionCaption>{caption}</BitcoinTransactionCaption>
-      {inscriptionData ? (
-        <BitcoinTransactionCaption>{inscriptionData.mime_type}</BitcoinTransactionCaption>
-      ) : null}
+      <Caption>{caption}</Caption>
+      {inscriptionData ? <Caption>{inscriptionData.mime_type}</Caption> : null}
     </BulletSeparator>
   );
-  const txValue = <BitcoinTransactionValue>{value}</BitcoinTransactionValue>;
 
   const title = inscriptionData ? `Ordinal inscription #${inscriptionData.number}` : 'Bitcoin';
   const increaseFeeButton = (
     <IncreaseFeeButton
       isEnabled={isEnabled}
-      isHovered={isHovered}
       isSelected={pathname === RouteUrls.IncreaseBtcFee}
       onIncreaseFee={onIncreaseFee}
     />
@@ -101,6 +92,7 @@ export function BitcoinTransactionItem({ transaction, ...rest }: BitcoinTransact
   return (
     <TransactionItemLayout
       openTxLink={openTxLink}
+      rightElement={isEnabled ? increaseFeeButton : undefined}
       txCaption={txCaption}
       txIcon={
         <BitcoinTransactionIcon
@@ -111,12 +103,7 @@ export function BitcoinTransactionItem({ transaction, ...rest }: BitcoinTransact
       }
       txStatus={<BitcoinTransactionStatus transaction={transaction} />}
       txTitle={<TransactionTitle title={title} />}
-      txValue={txValue}
-      belowCaptionEl={increaseFeeButton}
-      {...bind}
-      {...rest}
-    >
-      {component}
-    </TransactionItemLayout>
+      txValue={value}
+    />
   );
 }

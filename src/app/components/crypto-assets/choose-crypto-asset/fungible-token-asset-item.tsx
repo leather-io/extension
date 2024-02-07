@@ -2,7 +2,7 @@ import { FlexProps } from 'leather-styles/jsx';
 
 import type { StacksFungibleTokenAssetBalance } from '@shared/models/crypto-asset-balance.model';
 
-import { StacksFungibleTokenAssetItem } from '@app/components/crypto-assets/stacks/fungible-token-asset/stacks-fungible-token-asset-item';
+import { StacksFungibleTokenAssetItemLayout } from '../stacks/fungible-token-asset/stacks-fungible-token-asset-item.layout';
 
 interface FungibleTokenAssetItemProps extends FlexProps {
   assetBalance: StacksFungibleTokenAssetBalance;
@@ -13,9 +13,7 @@ export function FungibleTokenAssetItem({ assetBalance, onClick }: FungibleTokenA
 
   switch (blockchain) {
     case 'stacks':
-      return (
-        <StacksFungibleTokenAssetItem assetBalance={assetBalance} isPressable onClick={onClick} />
-      );
+      return <StacksFungibleTokenAssetItemLayout assetBalance={assetBalance} onClick={onClick} />;
     default:
       return null;
   }

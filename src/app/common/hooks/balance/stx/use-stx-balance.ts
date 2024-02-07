@@ -7,38 +7,36 @@ import { baseCurrencyAmountInQuote, subtractMoney } from '@app/common/money/calc
 import { i18nFormatCurrency } from '@app/common/money/format-money';
 import { useCryptoCurrencyMarketData } from '@app/query/common/market-data/market-data.hooks';
 import { createStacksCryptoCurrencyAssetTypeWrapper } from '@app/query/stacks/balance/stacks-ft-balances.utils';
-import { useCurrentStacksAccountAnchoredBalances } from '@app/query/stacks/balance/stx-balance.hooks';
-
-import { useStxOutboundValue } from './use-stx-outbound-value';
+import { useCurrentStacksAccountBalances } from '@app/query/stacks/balance/stx-balance.hooks';
+import { useCurrentAccountMempoolTransactionsBalance } from '@app/query/stacks/mempool/mempool.hooks';
 
 export function useStxBalance() {
-  const anchoredBalanceQuery = useCurrentStacksAccountAnchoredBalances();
-  const totalBalance = anchoredBalanceQuery.data?.stx.balance;
-  const unlockedStxBalance = anchoredBalanceQuery.data?.stx.unlockedStx;
+  const stxBalanceQuery = useCurrentStacksAccountBalances();
+  const totalBalance = stxBalanceQuery.data?.stx.balance;
+  const unlockedStxBalance = stxBalanceQuery.data?.stx.unlockedStx;
 
   const stxMarketData = useCryptoCurrencyMarketData('STX');
-  const stxOutboundQuery = useStxOutboundValue();
+  const pendingTxsBalance = useCurrentAccountMempoolTransactionsBalance();
 
   const stxEffectiveBalance = isDefined(totalBalance)
-    ? subtractMoney(totalBalance, stxOutboundQuery.data)
+    ? subtractMoney(totalBalance, pendingTxsBalance)
     : createMoney(0, 'STX');
 
   const stxEffectiveUsdBalance = isDefined(totalBalance)
     ? i18nFormatCurrency(baseCurrencyAmountInQuote(stxEffectiveBalance, stxMarketData))
     : undefined;
 
-  const stxLockedBalance = anchoredBalanceQuery.data?.stx.locked;
+  const stxLockedBalance = stxBalanceQuery.data?.stx.locked;
   const stxUsdLockedBalance = isDefined(stxLockedBalance)
     ? i18nFormatCurrency(baseCurrencyAmountInQuote(stxLockedBalance, stxMarketData))
     : undefined;
 
   return useMemo(() => {
     return {
-      anchoredBalanceQuery,
-      stxOutboundQuery,
-      isLoading: anchoredBalanceQuery.isLoading || stxOutboundQuery.isLoading,
+      stxBalanceQuery,
+      stxOutboundQuery: pendingTxsBalance,
       availableBalance: isDefined(unlockedStxBalance)
-        ? subtractMoney(unlockedStxBalance, stxOutboundQuery.data)
+        ? subtractMoney(unlockedStxBalance, pendingTxsBalance)
         : createMoney(0, 'STX'),
       stxEffectiveBalance: createStacksCryptoCurrencyAssetTypeWrapper(stxEffectiveBalance.amount),
       stxEffectiveUsdBalance,
@@ -46,10 +44,10 @@ export function useStxBalance() {
       stxUsdLockedBalance,
     };
   }, [
-    anchoredBalanceQuery,
-    stxOutboundQuery,
+    stxBalanceQuery,
+    pendingTxsBalance,
     unlockedStxBalance,
-    stxEffectiveBalance,
+    stxEffectiveBalance.amount,
     stxEffectiveUsdBalance,
     stxLockedBalance,
     stxUsdLockedBalance,

@@ -2,8 +2,8 @@ import { Stack, styled } from 'leather-styles/jsx';
 
 import { addPortSuffix, getUrlHostname } from '@app/common/utils';
 import { Favicon } from '@app/components/favicon';
-import { Flag } from '@app/components/layout/flag';
 import { useCurrentNetworkState } from '@app/store/networks/networks.hooks';
+import { Flag } from '@app/ui/components/flag/flag';
 
 interface MessageSigningHeaderProps {
   name?: string;
@@ -32,7 +32,7 @@ export function MessageSigningHeader({
     <Stack gap="space.04" pt="space.05">
       <styled.h1 textStyle="heading.03">Sign message</styled.h1>
       {caption && (
-        <Flag align="middle" img={<Favicon origin={origin ?? ''} />} pl="space.02">
+        <Flag img={<Favicon origin={origin ?? ''} />} pl="space.02">
           <styled.span textStyle="label.02" wordBreak="break-word">
             {caption}
             {additionalText}

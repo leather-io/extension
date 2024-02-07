@@ -2,12 +2,12 @@ import { useMemo, useState } from 'react';
 import toast from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
 
-import { StacksTransaction, deserializeTransaction } from '@stacks/transactions';
+import { StacksTransaction } from '@stacks/transactions';
 
 import { logger } from '@shared/logger';
 import { CryptoCurrencies } from '@shared/models/currencies.model';
 import { RouteUrls } from '@shared/route-urls';
-import { isString } from '@shared/utils';
+import { isError, isString } from '@shared/utils';
 
 import { LoadingKeys } from '@app/common/hooks/use-loading';
 import { useSubmitTransactionCallback } from '@app/common/hooks/use-submit-stx-transaction';
@@ -15,11 +15,7 @@ import { useSignStacksTransaction } from '@app/store/transactions/transaction.ho
 
 import { useStacksTransactionSummary } from './use-stacks-transaction-summary';
 
-export function useStacksBroadcastTransaction(
-  unsignedTx: string,
-  token: CryptoCurrencies,
-  decimals?: number
-) {
+export function useStacksBroadcastTransaction(token: CryptoCurrencies, decimals?: number) {
   const signStacksTransaction = useSignStacksTransaction();
   const [isBroadcasting, setIsBroadcasting] = useState(false);
   const { formSentSummaryTxState } = useStacksTransactionSummary(token);
@@ -60,7 +56,7 @@ export function useStacksBroadcastTransaction(
         })(signedTx);
       } catch (e) {
         navigate(RouteUrls.TransactionBroadcastError, {
-          state: { message: e instanceof Error ? e.message : 'Unknown error' },
+          state: { message: isError(e) ? e.message : 'Unknown error' },
         });
       } finally {
         setIsBroadcasting(false);
@@ -76,10 +72,7 @@ export function useStacksBroadcastTransaction(
       } catch (e) {}
     }
 
-    const deserializedTransaction = deserializeTransaction(unsignedTx);
-
     return {
-      stacksDeserializedTransaction: deserializedTransaction,
       stacksBroadcastTransaction: broadcastTransaction,
       isBroadcasting,
     };
@@ -87,7 +80,6 @@ export function useStacksBroadcastTransaction(
     broadcastTransactionFn,
     navigate,
     signStacksTransaction,
-    unsignedTx,
     isBroadcasting,
     token,
     formSentSummaryTxState,

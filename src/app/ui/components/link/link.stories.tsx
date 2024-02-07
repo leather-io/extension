@@ -22,6 +22,18 @@ export const Link: Story = {
   },
 };
 
+export const Disabled: Story = {
+  parameters: {
+    controls: { include: ['size', 'variant'] },
+  },
+  args: {
+    children: 'Link',
+    disabled: true,
+    size: 'md',
+    variant: 'underlined',
+  },
+};
+
 // TODO: Remove invert code
 export const InvertLink: Story = {
   parameters: {

@@ -1,7 +1,8 @@
 import { styled } from 'leather-styles/jsx';
 
+import { Flag } from '@app/ui/components/flag/flag';
+
 import { Favicon } from './favicon';
-import { Flag } from './layout/flag';
 
 interface RequesterFlagProps {
   requester: string;
@@ -11,6 +12,7 @@ export function RequesterFlag({ requester }: RequesterFlagProps) {
   return (
     <Flag
       img={<Favicon origin={requester} />}
+      align="top"
       alignItems="center"
       justifyContent="center"
       py="space.04"

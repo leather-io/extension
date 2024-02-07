@@ -2,9 +2,9 @@ import { MempoolTransaction } from '@stacks/stacks-blockchain-api-types';
 
 import { BitcoinTx } from '@shared/models/transactions/bitcoin-transaction.model';
 
+import { BitcoinTransactionItem } from '@app/components/bitcoin-transaction-item/bitcoin-transaction-item';
 import { StacksTransactionItem } from '@app/components/stacks-transaction-item/stacks-transaction-item';
 
-import { BitcoinTransactionItem } from '../../../../components/bitcoin-transaction-item/bitcoin-transaction-item';
 import { PendingTransactionListLayout } from './pending-transaction-list.layout';
 
 interface PendingTransactionListProps {

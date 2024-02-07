@@ -2,7 +2,7 @@ import { Field, useField } from 'formik';
 import { Flex, styled } from 'leather-styles/jsx';
 
 import { useOnMount } from '@app/common/hooks/use-on-mount';
-import { Flag } from '@app/components/layout/flag';
+import { Flag } from '@app/ui/components/flag/flag';
 
 interface SelectedAssetFieldProps {
   icon: React.JSX.Element;
@@ -26,7 +26,7 @@ export function SelectedAssetField({ icon, name, symbol }: SelectedAssetFieldPro
       width="100%"
     >
       <Field as="div" name="symbol">
-        <Flag align="middle" img={icon} spacing="space.03">
+        <Flag img={icon} spacing="space.03">
           <styled.span textStyle="label.01">{name}</styled.span>
         </Flag>
       </Field>

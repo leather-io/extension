@@ -2,12 +2,7 @@ import { Circle, CircleProps } from 'leather-styles/jsx';
 
 import { StxIcon } from '@app/ui/components/icons/stx-icon';
 
-import { StacksUnanchoredStatusIcon } from './stacks-unanchored-status-icon';
-
-interface StxAvatarProps extends CircleProps {
-  isUnanchored?: boolean;
-}
-export function StxAvatar({ isUnanchored, ...props }: StxAvatarProps) {
+export function StxAvatar({ ...props }: CircleProps) {
   return (
     <Circle
       bg="stacks"
@@ -17,7 +12,6 @@ export function StxAvatar({ isUnanchored, ...props }: StxAvatarProps) {
       {...props}
     >
       <StxIcon />
-      {isUnanchored ? <StacksUnanchoredStatusIcon /> : null}
     </Circle>
   );
 }

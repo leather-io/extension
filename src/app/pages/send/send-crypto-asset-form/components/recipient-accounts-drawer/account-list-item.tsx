@@ -6,10 +6,10 @@ import { BitcoinSendFormValues, StacksSendFormValues } from '@shared/models/form
 
 import { useAccountDisplayName } from '@app/common/hooks/account/use-account-names';
 import { AccountTotalBalance } from '@app/components/account-total-balance';
+import { AcccountAddresses } from '@app/components/account/account-addresses';
 import { AccountAvatarItem } from '@app/components/account/account-avatar-item';
-import { AccountListItemLayout } from '@app/components/account/account-list-item-layout';
+import { AccountListItemLayout } from '@app/components/account/account-list-item.layout';
 import { AccountNameLayout } from '@app/components/account/account-name';
-import { usePressable } from '@app/components/item-hover';
 import { useNativeSegwitSigner } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
 import { StacksAccount } from '@app/store/accounts/blockchain/stacks/stacks-account.models';
 
@@ -22,7 +22,6 @@ export const AccountListItem = memo(({ index, stacksAccount, onClose }: AccountL
   const { setFieldValue, values, setFieldTouched } = useFormikContext<
     BitcoinSendFormValues | StacksSendFormValues
   >();
-  const [component, bind] = usePressable(true);
   const stacksAddress = stacksAccount?.address || '';
   const name = useAccountDisplayName({ address: stacksAddress, index });
 
@@ -38,6 +37,7 @@ export const AccountListItem = memo(({ index, stacksAccount, onClose }: AccountL
 
   return (
     <AccountListItemLayout
+      accountAddresses={<AcccountAddresses index={index} />}
       accountName={<AccountNameLayout>{name}</AccountNameLayout>}
       avatar={
         <AccountAvatarItem
@@ -48,13 +48,9 @@ export const AccountListItem = memo(({ index, stacksAccount, onClose }: AccountL
       }
       balanceLabel={<AccountTotalBalance stxAddress={stacksAddress} btcAddress={bitcoinAddress} />}
       index={index}
-      isActive={false}
+      isSelected={false}
       isLoading={false}
-      mt="space.05"
       onSelectAccount={onSelectAccount}
-      {...bind}
-    >
-      {component}
-    </AccountListItemLayout>
+    />
   );
 });

@@ -2,7 +2,7 @@ import { Box, Flex, HStack, styled } from 'leather-styles/jsx';
 
 import { useBitcoinExplorerLink } from '@app/common/hooks/use-bitcoin-explorer-link';
 import { useClipboard } from '@app/common/hooks/use-copy-to-clipboard';
-import { Flag } from '@app/components/layout/flag';
+import { Flag } from '@app/ui/components/flag/flag';
 import { CopyIcon } from '@app/ui/components/icons/copy-icon';
 import { Link } from '@app/ui/components/link/link';
 import { BasicTooltip } from '@app/ui/components/tooltip/basic-tooltip';
@@ -27,7 +27,7 @@ export function PsbtInputOutputItemLayout({
   const { handleOpenBitcoinTxLink: handleOpenTxLink } = useBitcoinExplorerLink();
 
   return (
-    <Flag align="middle" img={<></>} mt="space.05" spacing="space.04">
+    <Flag img={<></>} mt="space.05" spacing="space.04">
       <HStack alignItems="center" justifyContent="space-between">
         <Flex alignItems="center">
           <styled.span mr="space.02" textStyle="caption.01">
