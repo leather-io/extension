@@ -15,15 +15,12 @@ import {
 } from '@stacks/transactions';
 import BN from 'bn.js';
 
-import { finalizeTxSignature } from '@shared/actions/finalize-tx-signature';
 import { logger } from '@shared/logger';
 import { StacksTransactionFormValues } from '@shared/models/form.model';
-import { isString, isUndefined } from '@shared/utils';
+import { isUndefined } from '@shared/utils';
 
-import { useDefaultRequestParams } from '@app/common/hooks/use-default-request-search-params';
 import { stxToMicroStx } from '@app/common/money/unit-conversion';
 import { validateStacksAddress } from '@app/common/stacks-utils';
-import { broadcastStacksTransaction } from '@app/common/transactions/stacks/broadcast-transaction';
 import {
   GenerateUnsignedTransactionOptions,
   generateUnsignedTransaction,
@@ -36,22 +33,13 @@ import {
   useCurrentAccountStxAddressState,
   useCurrentStacksAccount,
 } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
-import {
-  useCurrentNetworkState,
-  useCurrentStacksNetworkState,
-} from '@app/store/networks/networks.hooks';
-import { useSubmittedTransactionsActions } from '@app/store/submitted-transactions/submitted-transactions.hooks';
+import { useCurrentStacksNetworkState } from '@app/store/networks/networks.hooks';
 
 import { usePostConditionState } from './post-conditions.hooks';
-import { useTransactionRequest, useTransactionRequestState } from './requests.hooks';
-import { prepareTxDetailsForBroadcast } from './transaction';
+import { useTransactionRequestState } from './requests.hooks';
 
 export function useTransactionPostConditions() {
   return usePostConditionState();
-}
-
-function useTransactionAttachment() {
-  return useTransactionRequestState()?.attachment;
 }
 
 export function useUnsignedStacksTransactionBaseState() {
@@ -93,44 +81,6 @@ export function useUnsignedStacksTransactionBaseState() {
 export function useUnsignedPrepareTransactionDetails(values: StacksTransactionFormValues) {
   const unsignedStacksTransaction = useUnsignedStacksTransaction(values);
   return useMemo(() => unsignedStacksTransaction, [unsignedStacksTransaction]);
-}
-
-export function useStacksTransactionBroadcast() {
-  const submittedTransactionsActions = useSubmittedTransactionsActions();
-  const { tabId } = useDefaultRequestParams();
-  const requestToken = useTransactionRequest();
-  const attachment = useTransactionAttachment();
-  const network = useCurrentNetworkState();
-
-  return async ({ signedTx }: { signedTx: StacksTransaction }) => {
-    try {
-      const { isSponsored, serialized, txRaw } = prepareTxDetailsForBroadcast(signedTx);
-      const result = await broadcastStacksTransaction({
-        isSponsored,
-        serialized,
-        txRaw,
-        attachment,
-        networkUrl: network.chain.stacks.url,
-      });
-
-      if (isString(result.txId)) {
-        submittedTransactionsActions.newTransactionSubmitted({
-          rawTx: result.txRaw,
-          txId: result.txId,
-        });
-      }
-
-      // If there's a request token, this means it's a transaction request
-      // In which case we need to return to the app the results of the tx
-      // Otherwise, it's a send form tx and we don't want to
-      if (requestToken && tabId) {
-        finalizeTxSignature({ requestPayload: requestToken, tabId, data: result });
-      }
-      return Promise.resolve();
-    } catch (error) {
-      return Promise.reject(error);
-    }
-  };
 }
 
 interface PostConditionsOptions {

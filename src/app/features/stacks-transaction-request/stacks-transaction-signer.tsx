@@ -1,7 +1,7 @@
 import { Outlet, useLocation, useNavigate } from 'react-router-dom';
 
 import { StacksTransaction } from '@stacks/transactions';
-import { Formik } from 'formik';
+import { Formik, FormikHelpers } from 'formik';
 import { Flex } from 'leather-styles/jsx';
 import * as yup from 'yup';
 
@@ -43,7 +43,7 @@ interface StacksTransactionSignerProps {
   disableNonceSelection?: boolean;
   isMultisig: boolean;
   onCancel(): void;
-  onSignStacksTransaction(fee: number, nonce: number): void;
+  onSignStacksTransaction(fee: number, nonce: number): Promise<void>;
 }
 export function StacksTransactionSigner({
   stacksTransaction,
@@ -66,9 +66,14 @@ export function StacksTransactionSigner({
     void analytics.track('view_transaction_signing'), [analytics];
   });
 
-  const onSubmit = async (values: StacksTransactionFormValues) => {
-    onSignStacksTransaction(stxToMicroStx(values.fee).toNumber(), Number(values.nonce));
-  };
+  async function onSubmit(
+    values: StacksTransactionFormValues,
+    formikHelpers: FormikHelpers<StacksTransactionFormValues>
+  ) {
+    formikHelpers.setSubmitting(true);
+    await onSignStacksTransaction(stxToMicroStx(values.fee).toNumber(), Number(values.nonce));
+    formikHelpers.setSubmitting(false);
+  }
 
   if (!transactionRequest) return null;
 
