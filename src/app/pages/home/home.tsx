@@ -13,7 +13,6 @@ import { InAppMessages } from '@app/features/hiro-messages/in-app-messages';
 import { homePageModalRoutes } from '@app/routes/app-routes';
 import { ModalBackgroundWrapper } from '@app/routes/components/modal-background-wrapper';
 
-import { CurrentAccount } from './components/account-area';
 import { HomeTabs } from './components/home-tabs';
 import { HomeLayout } from './components/home.layout';
 
@@ -34,7 +33,7 @@ export function Home() {
   });
 
   return (
-    <HomeLayout currentAccount={<CurrentAccount />}>
+    <HomeLayout>
       <FeedbackButton />
       <HomeTabs>
         <ModalBackgroundWrapper>

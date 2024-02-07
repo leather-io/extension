@@ -5,7 +5,7 @@ import { Stack } from 'leather-styles/jsx';
 
 import { AccountInfoCard } from './account-info-card';
 
-type HomeLayoutProps = Record<'currentAccount' | 'children', React.ReactNode>;
+type HomeLayoutProps = Record<'children', React.ReactNode>;
 export function HomeLayout({ children }: HomeLayoutProps) {
   return (
     <Stack alignItems="center" width="100%" mx={['', 'space.04']}>

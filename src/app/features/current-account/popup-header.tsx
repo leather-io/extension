@@ -28,7 +28,7 @@ interface PopupHeaderProps {
   displayAddresssBalanceOf?: 'all' | 'stx';
 }
 function PopupHeaderSuspense({ displayAddresssBalanceOf = 'stx' }: PopupHeaderProps) {
-  const account = useCurrentStacksAccount();
+  const stacksAccount = useCurrentStacksAccount();
   const isBitcoinEnabled = useConfigBitcoinEnabled();
   return (
     <PopupHeaderLayout>
@@ -39,6 +39,7 @@ function PopupHeaderSuspense({ displayAddresssBalanceOf = 'stx' }: PopupHeaderPr
             fontSize="16px"
             fontWeight={500}
             size="32px"
+            stacksAccount={stacksAccount}
           />
         }
       >
@@ -49,8 +50,8 @@ function PopupHeaderSuspense({ displayAddresssBalanceOf = 'stx' }: PopupHeaderPr
 
           <HStack alignItems="center" justifyContent="right">
             <NetworkModeBadge />
-            {account && displayAddresssBalanceOf === 'stx' && (
-              <StxBalance address={account.address} />
+            {stacksAccount && displayAddresssBalanceOf === 'stx' && (
+              <StxBalance address={stacksAccount.address} />
             )}
             {isBitcoinEnabled && displayAddresssBalanceOf === 'all' && <BtcBalance />}
           </HStack>
