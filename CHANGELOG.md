@@ -1,3 +1,31 @@
+## [6.27.0](https://github.com/leather-wallet/extension/compare/v6.26.1...v6.27.0) (2024-02-07)
+
+
+### Features
+
+* ui items, closes [#4314](https://github.com/leather-wallet/extension/issues/4314) ([4e6cd7d](https://github.com/leather-wallet/extension/commit/4e6cd7df05dcccb7552afd6148b34afc0d9415d5))
+
+
+### Bug Fixes
+
+* activity list items ([c01626b](https://github.com/leather-wallet/extension/commit/c01626b630b9c347ca181ae097f28702df3bf234))
+* **analytics:** reporting empty error, closes [#4907](https://github.com/leather-wallet/extension/issues/4907) ([ad32854](https://github.com/leather-wallet/extension/commit/ad328542da55315199cd881aad25991bfede3233))
+* disabled button styles, closes [#4840](https://github.com/leather-wallet/extension/issues/4840) ([666fa37](https://github.com/leather-wallet/extension/commit/666fa37da8ea622c4e2651b54cfca5d487e76f05))
+* **input:** mnemonic value state ([5fa284a](https://github.com/leather-wallet/extension/commit/5fa284af7527b746520fd86ed02331c12d664e8a))
+* ledger no request keys context ([d57f005](https://github.com/leather-wallet/extension/commit/d57f0057311317cae0e2e6de208c34dfddd0ee5d))
+* select account overlay ([04e5d0e](https://github.com/leather-wallet/extension/commit/04e5d0ed476e74d7291f86a5a2f1af46dd0a3c92))
+* user should be able to increase fee for stacks with ledger, closes [#4503](https://github.com/leather-wallet/extension/issues/4503) ([47b03f6](https://github.com/leather-wallet/extension/commit/47b03f6f4922893a0e3153e193996937f361a378))
+
+
+### Internal
+
+* error helper ([a6a33a0](https://github.com/leather-wallet/extension/commit/a6a33a09e0c11a4fd669c3afc7716015a32525af))
+* flag layout stories ([a2230a6](https://github.com/leather-wallet/extension/commit/a2230a606a4e98c18c412ca494ef6258a1428e7c))
+* post-release merge back ([7743f90](https://github.com/leather-wallet/extension/commit/7743f905fe03a7545c9e2aba2fab5743510a6485))
+* remove unanchored microblocks, closes [#4812](https://github.com/leather-wallet/extension/issues/4812) ([b21decb](https://github.com/leather-wallet/extension/commit/b21decb9d6f05200055f5f8735f4fd5fda881759))
+* **stories:** add stories for flags ([7b0ffab](https://github.com/leather-wallet/extension/commit/7b0ffab2bf61621eedbe6a8aceb1f62668375152))
+* update monorepo tokens ([32d0caf](https://github.com/leather-wallet/extension/commit/32d0caf9812dc6958d5c22448518860422287bee))
+
 ## [6.26.1](https://github.com/leather-wallet/extension/compare/v6.26.0...v6.26.1) (2024-01-29)
 
 
