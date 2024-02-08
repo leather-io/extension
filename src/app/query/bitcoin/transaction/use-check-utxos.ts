@@ -11,7 +11,13 @@ export function useCheckInscribedUtxos(txids: string[], blockTxAction?: () => vo
   const analytics = useAnalytics();
   const [isLoading, setIsLoading] = useState(false);
   const { isTestnet } = useCurrentNetworkState();
-  const { data } = useOrdiscanInscriptionsByAddressQuery({ address: '' });
+  const {
+    data: ordInscriptionsList,
+    refetch,
+    isError,
+  } = useOrdiscanInscriptionsByAddressQuery({
+    address: '',
+  });
 
   const preventTransaction = useCallback(() => {
     if (blockTxAction) return blockTxAction();
@@ -36,6 +42,7 @@ export function useCheckInscribedUtxos(txids: string[], blockTxAction?: () => vo
       const responses = await Promise.all(
         txids.map(id => client.bestinslotInscriptionsApi.getInscriptionsByTransactionId(id))
       );
+
       const hasInscribedUtxo = responses.some(resp => {
         return resp.data.length > 0;
       });
@@ -54,14 +61,30 @@ export function useCheckInscribedUtxos(txids: string[], blockTxAction?: () => vo
         txids,
       });
       // fallback to ordiscan
+      await refetch();
+      const hasInscriptions = ordInscriptionsList?.pages.some(page => {
+        return page.some(v => {
+          return txids.includes(v.owner_output);
+        });
+      });
+      if (hasInscriptions && !isError) {
+        preventTransaction();
+      }
 
-      // TO-DO what to do with error? maybe try to refetch at least once?
-      preventTransaction();
       return true;
     } finally {
       setIsLoading(false);
     }
-  }, [client.bestinslotInscriptionsApi, txids, isTestnet, analytics, preventTransaction]);
+  }, [
+    client.bestinslotInscriptionsApi,
+    txids,
+    isTestnet,
+    analytics,
+    preventTransaction,
+    refetch,
+    ordInscriptionsList,
+    isError,
+  ]);
 
   return {
     checkIfUtxosListIncludesInscribed,
