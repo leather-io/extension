@@ -214,7 +214,21 @@ export function useAddTapInternalKeysIfMissing() {
       const witnessOutputScript =
         input.witnessUtxo?.script && btc.OutScript.decode(input.witnessUtxo.script);
 
-      if (taprootSigner && witnessOutputScript?.type === 'tr' && !input.tapInternalKey) {
+      // Original implementation supports auto-adding of tapInternalKey if
+      // missing. This functionality helps some developers who don't form their
+      // tx correctly, however neglects certain alternate use cases, e.g. script
+      // spends. We should consider removing this functionality in the future.
+      function shouldAssumeTxNeedsTaprootInternalKeyAdded() {
+        if (!taprootSigner) return false;
+        if (witnessOutputScript?.type !== 'tr') return false;
+        // Already has it, doesn't need
+        if (input.tapInternalKey) return false;
+        // Is a script spend, doesn't need `tapInternalKey`
+        if (input.tapLeafScript) return false;
+        return true;
+      }
+
+      if (shouldAssumeTxNeedsTaprootInternalKeyAdded()) {
         void analytics.track('psbt_sign_request_p2tr_missing_taproot_internal_key');
         tx.updateInput(index, { ...input, tapInternalKey: taprootSigner.payment.tapInternalKey });
       }
