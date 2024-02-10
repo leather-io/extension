@@ -55,7 +55,7 @@ export function SettingsDropdown() {
 
   const isLedger = useHasLedgerKeys();
 
-  useOnClickOutside(ref, isShowingSettings ? handleClose : null);
+  useOnClickOutside(ref, isShowingSettings ? handleClose : null, ['settings-menu-btn']);
 
   // RouteUrls.Activity is nested off / so we need to use a link relative to the route
   const linkRelativeType =
