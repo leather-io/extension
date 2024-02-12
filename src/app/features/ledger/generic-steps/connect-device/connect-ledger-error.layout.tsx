@@ -1,9 +1,8 @@
 import { Box, Flex, HStack, Stack, styled } from 'leather-styles/jsx';
 
-import { ErrorLabel } from '@app/components/error-label';
-import { WarningLabel } from '@app/components/warning-label';
 import { ConnectLedgerErr } from '@app/features/ledger/illustrations/ledger-illu-connect-ledger-error';
 import { Button } from '@app/ui/components/button/button';
+import { Callout } from '@app/ui/components/callout/callout';
 import { Link } from '@app/ui/components/link/link';
 import { CircleIcon } from '@app/ui/icons/circle-icon';
 
@@ -40,13 +39,11 @@ export function ConnectLedgerErrorLayout(props: ConnectLedgerErrorLayoutProps) {
         <ConnectLedgerErr />
       </Box>
       <LedgerTitle mt="space.07">We're unable to connect to your Ledger device</LedgerTitle>
-      {warningText ? (
-        <WarningLabel mt="space.04" px="space.06" fontSize="14px">
-          {warningText}
-        </WarningLabel>
-      ) : (
-        <ErrorLabel mt="space.02">Unable to connect</ErrorLabel>
-      )}
+
+      <Callout variant={warningText ? 'warning' : 'error'} mt="space.04">
+        {warningText ? warningText : 'Unable to connect'}
+      </Callout>
+
       <Stack borderRadius="md" gap="space.01" textAlign="left" py="space.05">
         <PossibleReasonUnableToConnect text="Check if Ledger Live is open. Close it and try again" />
         <PossibleReasonUnableToConnect text="Ensure you only have one instance of Leather open" />

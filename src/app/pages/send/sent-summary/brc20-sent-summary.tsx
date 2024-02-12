@@ -17,8 +17,8 @@ import {
   InfoCardRow,
   InfoCardSeparator,
 } from '@app/components/info-card/info-card';
-import { InfoLabel } from '@app/components/info-label';
 import { ModalHeader } from '@app/components/modal-header';
+import { Callout } from '@app/ui/components/callout/callout';
 import { Link } from '@app/ui/components/link/link';
 import { ExternalLinkIcon } from '@app/ui/icons/external-link-icon';
 
@@ -56,12 +56,11 @@ export function Brc20SentSummary() {
       <InfoCardAssetValue px="space.05" symbol={tick} value={Number(amount)} />
 
       <Stack px="space.06" pb="space.06" width="100%">
-        <InfoLabel mb="space.05" title="One more step is required to send tokens">
+        <Callout variant="info" title="One more step is required to send tokens" mb="space.05">
           <styled.span mb="space.02">
             You'll need to send the transfer inscription to your recipient of choice from the home
             screen once its status changes to "Ready to send"
           </styled.span>
-
           <Link
             textStyle="body.02"
             onClick={() => {
@@ -70,7 +69,7 @@ export function Brc20SentSummary() {
           >
             Learn more
           </Link>
-        </InfoLabel>
+        </Callout>
         <InfoCardSeparator />
 
         <InfoCardRow title="Sending" value={amountFormatted} />

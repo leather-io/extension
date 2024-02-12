@@ -3,7 +3,7 @@ import { HStack, HstackProps, styled } from 'leather-styles/jsx';
 
 import { openInNewTab } from '@app/common/utils/open-in-new-tab';
 import { SponsoredLabel } from '@app/components/sponsored-label';
-import { WarningLabel } from '@app/components/warning-label';
+import { Callout } from '@app/ui/components/callout/callout';
 import { BasicTooltip } from '@app/ui/components/tooltip/basic-tooltip';
 import { InfoCircleIcon } from '@app/ui/icons/info-circle-icon';
 
@@ -42,7 +42,11 @@ export function FeesRowLayout(props: FeesRowLayoutProps) {
         {feeField}
       </HStack>
       {isSponsored && <SponsoredLabel />}
-      {!meta.error && fieldWarning && <WarningLabel width="100%">{fieldWarning}</WarningLabel>}
+      {!meta.error && fieldWarning && (
+        <Callout variant="warning" width="100%">
+          {fieldWarning}
+        </Callout>
+      )}
     </HStack>
   );
 }

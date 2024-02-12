@@ -5,8 +5,8 @@ import { Box, styled } from 'leather-styles/jsx';
 import get from 'lodash.get';
 
 import { openInNewTab } from '@app/common/utils/open-in-new-tab';
-import { InfoLabel } from '@app/components/info-label';
 import { Brc20TokenIcon } from '@app/ui/components/avatar-icon/brc20-token-icon';
+import { Callout } from '@app/ui/components/callout/callout';
 import { Link } from '@app/ui/components/link/link';
 
 import { AmountField } from '../../components/amount-field';
@@ -62,7 +62,7 @@ export function Brc20SendForm() {
                   autoComplete="off"
                 />
                 <SelectedAssetField icon={<Brc20TokenIcon />} name={tick} symbol={tick} />
-                <InfoLabel title="Sending BRC-20 tokens requires two steps">
+                <Callout variant="info" title="Sending BRC-20 tokens requires two steps">
                   <styled.ol mb="space.02">
                     <li>1. Create transfer inscription with amount to send</li>
                     <li>2. Send transfer inscription to recipient of choice</li>
@@ -77,7 +77,7 @@ export function Brc20SendForm() {
                   >
                     Learn more
                   </Link>
-                </InfoLabel>
+                </Callout>
               </SendCryptoAssetFormLayout>
 
               <FormFooter

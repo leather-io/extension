@@ -12,6 +12,8 @@ import { useNativeSegwitBalance } from '@app/query/bitcoin/balance/btc-native-se
 import { useCryptoCurrencyMarketData } from '@app/query/common/market-data/market-data.hooks';
 import { useCurrentAccountNativeSegwitIndexZeroSigner } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
 import { BtcIcon } from '@app/ui/components/avatar-icon/btc-icon';
+import { Callout } from '@app/ui/components/callout/callout';
+import { Link } from '@app/ui/components/link/link';
 
 import { AmountField } from '../../components/amount-field';
 import { FormFooter } from '../../components/form-footer';
@@ -20,7 +22,6 @@ import { SendCryptoAssetFormLayout } from '../../components/send-crypto-asset-fo
 import { SendFiatValue } from '../../components/send-fiat-value';
 import { BitcoinRecipientField } from '../../family/bitcoin/components/bitcoin-recipient-field';
 import { BitcoinSendMaxButton } from '../../family/bitcoin/components/bitcoin-send-max-button';
-import { TestnetBtcMessage } from '../../family/bitcoin/components/testnet-btc-message';
 import { useSendFormRouteState } from '../../hooks/use-send-form-route-state';
 import { createDefaultInitialFormValues, defaultSendFormFormikProps } from '../../send-form.utils';
 import { useBtcSendForm } from './use-btc-send-form';
@@ -89,13 +90,14 @@ export function BtcSendForm() {
                   name={btcBalance.asset.name}
                   symbol={symbol}
                 />
-
                 <BitcoinRecipientField />
-
                 {currentNetwork.chain.bitcoin.bitcoinNetwork === 'testnet' && (
-                  <Box mt="space.04">
-                    <TestnetBtcMessage />
-                  </Box>
+                  <Callout variant="warning" mt="space.04">
+                    {'This is a Bitcoin testnet transaction. Funds have no value. '}
+                    <Link href="https://coinfaucet.eu/en/btc-testnet" textStyle="caption.02">
+                      Get testnet BTC here ↗
+                    </Link>
+                  </Callout>
                 )}
               </SendCryptoAssetFormLayout>
               <FormFooter balance={btcBalance.balance} />

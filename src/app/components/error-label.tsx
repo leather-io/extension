@@ -8,6 +8,7 @@ export function ErrorLabel({ children, ...rest }: FlagProps) {
       spacing="space.02"
       color="red.action-primary-default"
       textStyle="body.02"
+      textAlign="left"
       {...rest}
     >
       {children}
