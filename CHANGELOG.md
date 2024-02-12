@@ -1,3 +1,10 @@
+## [6.27.1](https://github.com/leather-wallet/extension/compare/v6.27.0...v6.27.1) (2024-02-12)
+
+
+### Bug Fixes
+
+* contend with other wallets ([fb70408](https://github.com/leather-wallet/extension/commit/fb704087ecedfc7e0baba9f26f8ef037a703032e))
+
 ## [6.27.0](https://github.com/leather-wallet/extension/compare/v6.26.1...v6.27.0) (2024-02-07)
 
 
