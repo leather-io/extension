@@ -25,7 +25,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/132</span>
+                <span class='fraction'>0/136</span>
             </div>
         
             
@@ -39,14 +39,14 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/31</span>
+                <span class='fraction'>0/37</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/115</span>
+                <span class='fraction'>0/117</span>
             </div>
         
             
@@ -336,7 +336,16 @@
 <a name='L271'></a><a href='#L271'>271</a>
 <a name='L272'></a><a href='#L272'>272</a>
 <a name='L273'></a><a href='#L273'>273</a>
-<a name='L274'></a><a href='#L274'>274</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L274'></a><a href='#L274'>274</a>
+<a name='L275'></a><a href='#L275'>275</a>
+<a name='L276'></a><a href='#L276'>276</a>
+<a name='L277'></a><a href='#L277'>277</a>
+<a name='L278'></a><a href='#L278'>278</a>
+<a name='L279'></a><a href='#L279'>279</a>
+<a name='L280'></a><a href='#L280'>280</a>
+<a name='L281'></a><a href='#L281'>281</a>
+<a name='L282'></a><a href='#L282'>282</a>
+<a name='L283'></a><a href='#L283'>283</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -591,9 +600,18 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -863,10 +881,19 @@ const provider: HiroWalletProviderOverrides = <span class="cstat-no" title="stat
   },
 };
 &nbsp;
-<span class="cstat-no" title="statement not covered" >window.StacksProvider = provider;</span>
-(<span class="cstat-no" title="statement not covered" >window as any).LeatherProvider = provider;</span>
-&nbsp;
-(<span class="cstat-no" title="statement not covered" >window as any).HiroWalletProvider = provider;</span>
+<span class="cstat-no" title="statement not covered" >try {</span>
+  // Make properties immutable to contend with other wallets that use agressive
+  // "prioritisation" default settings. As wallet use this approach, Leather has
+  // to use it too, resulting in browsers' own internal logic being used to
+  // determine content script exeuction order. A more fair way to contend over
+  // shared provider space.
+<span class="cstat-no" title="statement not covered" >  Object.defineProperty(window, 'StacksProvider', { get: <span class="fstat-no" title="function not covered" >() =&gt; <span class="cstat-no" title="statement not covered" >p</span>rovider, s</span>et: <span class="fstat-no" title="function not covered" >() =&gt; {</span>} });</span>
+<span class="cstat-no" title="statement not covered" >  Object.defineProperty(window, 'LeatherProvider', { get: <span class="fstat-no" title="function not covered" >() =&gt; <span class="cstat-no" title="statement not covered" >p</span>rovider, s</span>et: <span class="fstat-no" title="function not covered" >() =&gt; {</span>} });</span>
+<span class="cstat-no" title="statement not covered" >  Object.defineProperty(window, 'HiroWalletProvider', {</span>
+    get: <span class="fstat-no" title="function not covered" >() =&gt; <span class="cstat-no" title="statement not covered" >p</span>rovider,</span>
+    set: <span class="fstat-no" title="function not covered" >() =&gt; {</span>},
+  });
+} catch (e) {}
 &nbsp;
 <span class="cstat-no" title="statement not covered" >if (typeof window.btc === 'undefined') {</span>
   (<span class="cstat-no" title="statement not covered" >window as any).btc = {</span>
@@ -889,7 +916,7 @@ const provider: HiroWalletProviderOverrides = <span class="cstat-no" title="stat
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-02-07T09:27:19.347Z
+                at 2024-02-12T11:55:31.718Z
             </div>
         <script src="../../../prettify.js"></script>
         <script>
