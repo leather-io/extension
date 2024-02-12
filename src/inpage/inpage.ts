@@ -252,10 +252,19 @@ const provider: HiroWalletProviderOverrides = {
   },
 };
 
-window.StacksProvider = provider;
-(window as any).LeatherProvider = provider;
-
-(window as any).HiroWalletProvider = provider;
+try {
+  // Make properties immutable to contend with other wallets that use agressive
+  // "prioritisation" default settings. As wallet use this approach, Leather has
+  // to use it too, resulting in browsers' own internal logic being used to
+  // determine content script exeuction order. A more fair way to contend over
+  // shared provider space.
+  Object.defineProperty(window, 'StacksProvider', { get: () => provider, set: () => {} });
+  Object.defineProperty(window, 'LeatherProvider', { get: () => provider, set: () => {} });
+  Object.defineProperty(window, 'HiroWalletProvider', {
+    get: () => provider,
+    set: () => {},
+  });
+} catch (e) {}
 
 if (typeof window.btc === 'undefined') {
   (window as any).btc = {
