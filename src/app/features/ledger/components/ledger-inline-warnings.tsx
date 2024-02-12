@@ -2,7 +2,7 @@ import { styled } from 'leather-styles/jsx';
 
 import { SupportedBlockchains } from '@shared/constants';
 
-import { WarningLabel } from '@app/components/warning-label';
+import { Callout } from '@app/ui/components/callout/callout';
 import { Capitalize } from '@app/ui/utils/capitalize';
 
 import { LatestDeviceResponse } from '../utils/generic-ledger-utils';
@@ -19,30 +19,30 @@ interface CommonLedgerInlineWarningsProps extends RequiresChainProp {
 
 function OutdatedLedgerAppWarning({ chain }: RequiresChainProp) {
   return (
-    <WarningLabel textAlign="left">
+    <Callout variant="warning" textAlign="left">
       Latest version of <Capitalize>{chain} app</Capitalize> required
       <styled.a href="ledgerlive://manager" textDecoration="underline">
         Update on Ledger Live to continue
       </styled.a>
-    </WarningLabel>
+    </Callout>
   );
 }
 
 function LedgerDeviceLockedWarning({ chain }: RequiresChainProp) {
   return (
-    <WarningLabel textAlign="left">
+    <Callout variant="warning" textAlign="left">
       Your Ledger is locked. Unlock it and open the {''}
       <Capitalize>{chain}</Capitalize>
       {''} app to continue.
-    </WarningLabel>
+    </Callout>
   );
 }
 
 function LedgerAppClosedWarning({ chain }: RequiresChainProp) {
   return (
-    <WarningLabel textAlign="left">
+    <Callout variant="warning" textAlign="left">
       The <Capitalize>{chain}</Capitalize> app appears to be closed on Ledger. Open it to continue.
-    </WarningLabel>
+    </Callout>
   );
 }
 

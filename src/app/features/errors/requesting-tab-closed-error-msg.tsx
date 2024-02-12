@@ -1,7 +1,7 @@
 import { useState } from 'react';
 
-import { WarningLabel } from '@app/components/warning-label';
 import { useOnOriginTabClose } from '@app/routes/hooks/use-on-tab-closed';
+import { Callout } from '@app/ui/components/callout/callout';
 
 export function RequestingTabClosedWarningMessage() {
   const [hasTabClosed, setHasTabClosed] = useState(false);
@@ -14,8 +14,8 @@ export function RequestingTabClosedWarningMessage() {
   if (!hasTabClosed) return null;
 
   return (
-    <WarningLabel mb="space.05" title="Requesting window closed" width="100%">
+    <Callout variant="warning" mb="space.05" title="Requesting window closed" width="100%">
       The window making this request closed, but you can still broadcast the transaction
-    </WarningLabel>
+    </Callout>
   );
 }

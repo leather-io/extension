@@ -10,8 +10,8 @@ import {
   InfoCardRow,
   InfoCardSeparator,
 } from '@app/components/info-card/info-card';
-import { InfoLabel } from '@app/components/info-label';
 import { Button } from '@app/ui/components/button/button';
+import { Callout } from '@app/ui/components/callout/callout';
 
 interface SendFormConfirmationProps {
   recipient: string;
@@ -64,9 +64,9 @@ export function SendFormConfirmation({
         value={Number(txValue)}
       />
 
-      <InfoLabel px="space.05" mb="space.05" title="Sending to an exchange?">
+      <Callout variant="info" title="Sending to an exchange?" px="space.03" mb="space.05">
         {`Make sure you include the memo so the exchange can credit the ${symbol} to your account`}
-      </InfoLabel>
+      </Callout>
 
       <Stack pb="space.06" px="space.06" width="100%">
         <InfoCardRow
