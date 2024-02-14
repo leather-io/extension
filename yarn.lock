@@ -9684,6 +9684,17 @@ clarity-codegen@^0.2.6:
     yargs "^17.7.2"
     yqueue "^1.0.1"
 
+clarity-codegen@^0.3.5:
+  version "0.3.5"
+  resolved "https://registry.yarnpkg.com/clarity-codegen/-/clarity-codegen-0.3.5.tgz#4c4a411478500164b597fa36f422078e0ef6cacc"
+  integrity sha512-tMYXP0lyZ/WViR2vRHCdv/vD+VLhzguawa+GyGRhwMTaYzBRzgyvaZf1qipEf8tIhd8wQGI+3e9KGaWC8TRcaA==
+  dependencies:
+    "@stacks/stacks-blockchain-api-types" "^7.1.10"
+    axios "^1.5.0"
+    lodash "^4.17.21"
+    yargs "^17.7.2"
+    yqueue "^1.0.1"
+
 classnames@^2.3.2:
   version "2.5.1"
   resolved "https://registry.yarnpkg.com/classnames/-/classnames-2.5.1.tgz#ba774c614be0f016da105c858e7159eae8e7687b"
@@ -14733,6 +14744,13 @@ linked-list@^0.1.0:
   version "0.1.0"
   resolved "https://registry.yarnpkg.com/linked-list/-/linked-list-0.1.0.tgz#798b0ff97d1b92a4fd08480f55aea4e9d49d37bf"
   integrity sha512-Zr4ovrd0ODzF3ut2TWZMdHIxb8iFdJc/P3QM4iCJdlxxGHXo69c9hGIHzLo8/FtuR9E6WUZc5irKhtPUgOKMAg==
+
+lnswap-sdk@^0.0.1:
+  version "0.0.1"
+  resolved "https://registry.yarnpkg.com/lnswap-sdk/-/lnswap-sdk-0.0.1.tgz#c7fa94e5c4a007e8da4e001fd8e8a806c84d4c93"
+  integrity sha512-9Qsy/1oBFJaCzu4WjH1pc6WNNWrer7i/Bg8SpAB8Lbb9py8dHt7X+djDAhAwpm0Pz4UhDNDua2UfnBor8ptf7w==
+  dependencies:
+    clarity-codegen "^0.3.5"
 
 load-yaml-file@^0.2.0:
   version "0.2.0"

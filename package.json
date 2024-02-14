@@ -200,6 +200,7 @@
     "jsontokens": "4.0.1",
     "ledger-bitcoin": "0.2.3",
     "limiter": "2.1.0",
+    "lnswap-sdk": "^0.0.1",
     "lodash.get": "4.4.2",
     "lodash.uniqby": "4.7.0",
     "micro-packed": "0.3.2",
