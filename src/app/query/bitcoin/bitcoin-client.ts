@@ -20,6 +20,26 @@ export interface UtxoWithDerivationPath extends UtxoResponseItem {
   derivationPath: string;
 }
 
+class BestinslotInscriptionsApi {
+  private defaultOptions = {
+    headers: {
+      'x-api-key': `${process.env.BESTINSLOT_API_KEY}`,
+    },
+  };
+  constructor(public configuration: Configuration) {}
+
+  async getInscriptionsByTransactionId(id: string) {
+    const resp = await axios.get<{ data: { inscription_id: string }[]; blockHeight: number }>(
+      `https://api.bestinslot.xyz/v3/inscription/in_transaction?tx_id=${id}`,
+      {
+        ...this.defaultOptions,
+      }
+    );
+
+    return resp.data;
+  }
+}
+
 class AddressApi {
   constructor(public configuration: Configuration) {}
 
@@ -129,11 +149,13 @@ export class BitcoinClient {
   addressApi: AddressApi;
   feeEstimatesApi: FeeEstimatesApi;
   transactionsApi: TransactionsApi;
+  bestinslotInscriptionsApi: BestinslotInscriptionsApi;
 
   constructor(basePath: string) {
     this.configuration = new Configuration(basePath);
     this.addressApi = new AddressApi(this.configuration);
     this.feeEstimatesApi = new FeeEstimatesApi(this.configuration);
     this.transactionsApi = new TransactionsApi(this.configuration);
+    this.bestinslotInscriptionsApi = new BestinslotInscriptionsApi(this.configuration);
   }
 }
