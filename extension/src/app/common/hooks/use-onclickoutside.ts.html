@@ -25,28 +25,28 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/23</span>
+                <span class='fraction'>0/28</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/11</span>
+                <span class='fraction'>0/14</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/7</span>
+                <span class='fraction'>0/9</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/23</span>
+                <span class='fraction'>0/28</span>
             </div>
         
             
@@ -120,7 +120,19 @@
 <a name='L55'></a><a href='#L55'>55</a>
 <a name='L56'></a><a href='#L56'>56</a>
 <a name='L57'></a><a href='#L57'>57</a>
-<a name='L58'></a><a href='#L58'>58</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L58'></a><a href='#L58'>58</a>
+<a name='L59'></a><a href='#L59'>59</a>
+<a name='L60'></a><a href='#L60'>60</a>
+<a name='L61'></a><a href='#L61'>61</a>
+<a name='L62'></a><a href='#L62'>62</a>
+<a name='L63'></a><a href='#L63'>63</a>
+<a name='L64'></a><a href='#L64'>64</a>
+<a name='L65'></a><a href='#L65'>65</a>
+<a name='L66'></a><a href='#L66'>66</a>
+<a name='L67'></a><a href='#L67'>67</a>
+<a name='L68'></a><a href='#L68'>68</a>
+<a name='L69'></a><a href='#L69'>69</a>
+<a name='L70'></a><a href='#L70'>70</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -150,6 +162,10 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -159,6 +175,14 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -206,7 +230,11 @@ const getOptions = <span class="cstat-no" title="statement not covered" ><span c
 <span class="cstat-no" title="statement not covered" >  return;</span>
 };
 &nbsp;
-export function <span class="fstat-no" title="function not covered" >useOnClickOutside(r</span>ef: RefObject&lt;HTMLElement&gt;, handler: Handler | null) {
+export function <span class="fstat-no" title="function not covered" >useOnClickOutside(</span>
+  ref: RefObject&lt;HTMLElement&gt;,
+  handler: Handler | null,
+  exceptionIds: string[] = <span class="branch-0 cbranch-no" title="branch not covered" >[]</span>
+) {
   const noHandler = <span class="cstat-no" title="statement not covered" >!handler;</span>
   const handlerRef = <span class="cstat-no" title="statement not covered" >useLatest(handler);</span>
 &nbsp;
@@ -217,6 +245,14 @@ export function <span class="fstat-no" title="function not covered" >useOnClickO
 &nbsp;
     const listener = <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >(e</span>vent: PossibleEvent) =&gt; {</span>
 <span class="cstat-no" title="statement not covered" >      if (!ref.current || !handlerRef.current || ref.current.contains(event.target as Node)) {</span>
+<span class="cstat-no" title="statement not covered" >        return;</span>
+      }
+&nbsp;
+      const clickedElementIsAnException = <span class="cstat-no" title="statement not covered" >exceptionIds</span>
+        .map(<span class="fstat-no" title="function not covered" >el =&gt; <span class="cstat-no" title="statement not covered" >d</span>ocument.getElementById(el))</span>
+        .some(<span class="fstat-no" title="function not covered" >el =&gt; <span class="cstat-no" title="statement not covered" >e</span>l?.contains(event.target as Node))</span>;
+&nbsp;
+<span class="cstat-no" title="statement not covered" >      if (clickedElementIsAnException) {</span>
 <span class="cstat-no" title="statement not covered" >        return;</span>
       }
 &nbsp;
@@ -232,7 +268,7 @@ export function <span class="fstat-no" title="function not covered" >useOnClickO
 <span class="cstat-no" title="statement not covered" >        document.removeEventListener(event, listener, getOptions(event) as EventListenerOptions);</span>
       });
     };
-  }, [ref, handlerRef, noHandler]);
+  }, [ref, handlerRef, noHandler, exceptionIds]);
 }
 &nbsp;</pre></td></tr></table></pre>
 
@@ -241,7 +277,7 @@ export function <span class="fstat-no" title="function not covered" >useOnClickO
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-02-12T11:57:37.900Z
+                at 2024-02-14T22:41:20.118Z
             </div>
         <script src="../../../../../prettify.js"></script>
         <script>

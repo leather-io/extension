@@ -25,14 +25,14 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/36</span>
+                <span class='fraction'>0/27</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/14</span>
+                <span class='fraction'>0/12</span>
             </div>
         
             
@@ -46,7 +46,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/33</span>
+                <span class='fraction'>0/25</span>
             </div>
         
             
@@ -195,23 +195,7 @@
 <a name='L130'></a><a href='#L130'>130</a>
 <a name='L131'></a><a href='#L131'>131</a>
 <a name='L132'></a><a href='#L132'>132</a>
-<a name='L133'></a><a href='#L133'>133</a>
-<a name='L134'></a><a href='#L134'>134</a>
-<a name='L135'></a><a href='#L135'>135</a>
-<a name='L136'></a><a href='#L136'>136</a>
-<a name='L137'></a><a href='#L137'>137</a>
-<a name='L138'></a><a href='#L138'>138</a>
-<a name='L139'></a><a href='#L139'>139</a>
-<a name='L140'></a><a href='#L140'>140</a>
-<a name='L141'></a><a href='#L141'>141</a>
-<a name='L142'></a><a href='#L142'>142</a>
-<a name='L143'></a><a href='#L143'>143</a>
-<a name='L144'></a><a href='#L144'>144</a>
-<a name='L145'></a><a href='#L145'>145</a>
-<a name='L146'></a><a href='#L146'>146</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L133'></a><a href='#L133'>133</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -257,9 +241,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -272,6 +253,10 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -282,21 +267,10 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -356,9 +330,8 @@
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { memo } from 'react';
 import { Outlet, useNavigate } from 'react-router-dom';
 &nbsp;
-import { Formik } from 'formik';
+import { Formik, FormikHelpers } from 'formik';
 import { Flex } from 'leather-styles/jsx';
-import get from 'lodash.get';
 import * as yup from 'yup';
 &nbsp;
 import { HIGH_FEE_WARNING_LEARN_MORE_URL_STX } from '@shared/constants';
@@ -368,7 +341,6 @@ import { StacksTransactionFormValues } from '@shared/models/form.model';
 import { RouteUrls } from '@shared/route-urls';
 &nbsp;
 import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
-import { LoadingKeys, useLoading } from '@app/common/hooks/use-loading';
 import { useOnMount } from '@app/common/hooks/use-on-mount';
 import { useRouteHeader } from '@app/common/hooks/use-route-header';
 import { stxFeeValidator } from '@app/common/validation/forms/fee-validators';
@@ -380,6 +352,7 @@ import { HighFeeDrawer } from '@app/features/high-fee-drawer/high-fee-drawer';
 import { ContractCallDetails } from '@app/features/stacks-transaction-request/contract-call-details/contract-call-details';
 import { ContractDeployDetails } from '@app/features/stacks-transaction-request/contract-deploy-details/contract-deploy-details';
 import { FeeForm } from '@app/features/stacks-transaction-request/fee-form';
+import { useStacksBroadcastTransaction } from '@app/features/stacks-transaction-request/hooks/use-stacks-broadcast-transaction';
 import { MinimalErrorMessage } from '@app/features/stacks-transaction-request/minimal-error-message';
 import { PageTop } from '@app/features/stacks-transaction-request/page-top';
 import { PostConditionModeWarning } from '@app/features/stacks-transaction-request/post-condition-mode-warning';
@@ -393,16 +366,12 @@ import { useNextNonce } from '@app/query/stacks/nonce/account-nonces.hooks';
 import { useTransactionRequestState } from '@app/store/transactions/requests.hooks';
 import {
   useGenerateUnsignedStacksTransaction,
-  useSignStacksTransaction,
-  useStacksTransactionBroadcast,
   useUnsignedStacksTransactionBaseState,
 } from '@app/store/transactions/transaction.hooks';
 import { Link } from '@app/ui/components/link/link';
 &nbsp;
 function <span class="fstat-no" title="function not covered" >TransactionRequestBase() {</span>
   const transactionRequest = <span class="cstat-no" title="statement not covered" >useTransactionRequestState();</span>
-  const { setIsLoading, setIsIdle } = <span class="cstat-no" title="statement not covered" >useLoading(LoadingKeys.SUBMIT_TRANSACTION_REQUEST);</span>
-  // const handleBroadcastTransaction = useSoftwareWalletTransactionRequestBroadcast();
   const unsignedTx = <span class="cstat-no" title="statement not covered" >useUnsignedStacksTransactionBaseState();</span>
   const { data: stxFees } = <span class="cstat-no" title="statement not covered" >useCalculateStacksTxFees(unsignedTx.transaction);</span>
   const analytics = <span class="cstat-no" title="statement not covered" >useAnalytics();</span>
@@ -410,39 +379,31 @@ function <span class="fstat-no" title="function not covered" >TransactionRequest
   const { data: stacksBalances } = <span class="cstat-no" title="statement not covered" >useCurrentStacksAccountBalances();</span>
   const { data: nextNonce } = <span class="cstat-no" title="statement not covered" >useNextNonce();</span>
   const navigate = <span class="cstat-no" title="statement not covered" >useNavigate();</span>
-  const signStacksTransaction = <span class="cstat-no" title="statement not covered" >useSignStacksTransaction();</span>
-  const txBroadcast = <span class="cstat-no" title="statement not covered" >useStacksTransactionBroadcast();</span>
+  const { stacksBroadcastTransaction } = <span class="cstat-no" title="statement not covered" >useStacksBroadcastTransaction('STX');</span>
 &nbsp;
 <span class="cstat-no" title="statement not covered" >  useRouteHeader(&lt;PopupHeader /&gt;);</span>
 &nbsp;
 <span class="cstat-no" title="statement not covered" >  useOnMount(<span class="fstat-no" title="function not covered" >() =&gt; <span class="cstat-no" title="statement not covered" >v</span>oid analytics.track('view_transaction_signing'))</span>;</span>
 &nbsp;
-  const onSubmit = <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >async (v</span>alues: StacksTransactionFormValues) =&gt; {</span>
+  async function <span class="fstat-no" title="function not covered" >onSubmit(</span>
+    values: StacksTransactionFormValues,
+    formikHelpers: FormikHelpers&lt;StacksTransactionFormValues&gt;
+  ) {
+<span class="cstat-no" title="statement not covered" >    formikHelpers.setSubmitting(true);</span>
     const unsignedTx = <span class="cstat-no" title="statement not covered" >await generateUnsignedTx(values);</span>
 &nbsp;
 <span class="cstat-no" title="statement not covered" >    if (!unsignedTx)</span>
 <span class="cstat-no" title="statement not covered" >      return logger.error('Failed to generate unsigned transaction in transaction-request');</span>
 &nbsp;
-    const signedTx = <span class="cstat-no" title="statement not covered" >await signStacksTransaction(unsignedTx);</span>
-&nbsp;
-<span class="cstat-no" title="statement not covered" >    if (!signedTx) <span class="cstat-no" title="statement not covered" >return logger.error('Failed to sign transaction in transaction-request');</span></span>
-&nbsp;
-<span class="cstat-no" title="statement not covered" >    setIsLoading();</span>
-&nbsp;
-<span class="cstat-no" title="statement not covered" >    try {</span>
-<span class="cstat-no" title="statement not covered" >      await txBroadcast({ signedTx });</span>
-<span class="cstat-no" title="statement not covered" >      setIsIdle();</span>
-    } catch (e) {
-<span class="cstat-no" title="statement not covered" >      navigate(RouteUrls.TransactionBroadcastError, { state: { message: get(e, 'message') } });</span>
-<span class="cstat-no" title="statement not covered" >      return;</span>
-    }
+<span class="cstat-no" title="statement not covered" >    await stacksBroadcastTransaction(unsignedTx);</span>
 &nbsp;
 <span class="cstat-no" title="statement not covered" >    void analytics.track('submit_fee_for_transaction', {</span>
       calculation: stxFees?.calculation,
       fee: values.fee,
       type: values.feeType,
     });
-  };
+<span class="cstat-no" title="statement not covered" >    formikHelpers.setSubmitting(false);</span>
+  }
 &nbsp;
 <span class="cstat-no" title="statement not covered" >  if (!transactionRequest) <span class="cstat-no" title="statement not covered" >return null;</span></span>
 &nbsp;
@@ -505,7 +466,7 @@ export const TransactionRequest = <span class="cstat-no" title="statement not co
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-02-12T11:57:37.900Z
+                at 2024-02-14T22:41:20.118Z
             </div>
         <script src="../../../../../prettify.js"></script>
         <script>
