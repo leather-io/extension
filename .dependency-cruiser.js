@@ -1,5 +1,5 @@
 /** @type {import('dependency-cruiser').IConfiguration} */
-module.exports = {
+export default {
   extends: 'dependency-cruiser/configs/recommended',
 
   forbidden: [
