@@ -71,6 +71,7 @@ export function Header(props: HeaderProps) {
         <NetworkModeBadge />
         {!hideActions && (
           <Button
+            id="settings-menu-btn"
             data-testid={SettingsSelectors.SettingsMenuBtn}
             onClick={() => setIsShowingSettings(!isShowingSettings)}
             variant="ghost"

@@ -27,7 +27,11 @@ const getOptions = (event: HandledEventsType) => {
   return;
 };
 
-export function useOnClickOutside(ref: RefObject<HTMLElement>, handler: Handler | null) {
+export function useOnClickOutside(
+  ref: RefObject<HTMLElement>,
+  handler: Handler | null,
+  exceptionIds: string[] = []
+) {
   const noHandler = !handler;
   const handlerRef = useLatest(handler);
 
@@ -38,6 +42,14 @@ export function useOnClickOutside(ref: RefObject<HTMLElement>, handler: Handler 
 
     const listener = (event: PossibleEvent) => {
       if (!ref.current || !handlerRef.current || ref.current.contains(event.target as Node)) {
+        return;
+      }
+
+      const clickedElementIsAnException = exceptionIds
+        .map(el => document.getElementById(el))
+        .some(el => el?.contains(event.target as Node));
+
+      if (clickedElementIsAnException) {
         return;
       }
 
@@ -53,5 +65,5 @@ export function useOnClickOutside(ref: RefObject<HTMLElement>, handler: Handler 
         document.removeEventListener(event, listener, getOptions(event) as EventListenerOptions);
       });
     };
-  }, [ref, handlerRef, noHandler]);
+  }, [ref, handlerRef, noHandler, exceptionIds]);
 }

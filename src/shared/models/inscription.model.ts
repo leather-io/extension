@@ -117,12 +117,12 @@ export function whenInscriptionType<T>(
     return branches.html();
   }
 
-  if (mimeType.startsWith('image/') && branches.image) {
-    return branches.image();
-  }
-
   if (mimeType.startsWith('image/svg') && branches.svg) {
     return branches.svg();
+  }
+
+  if (mimeType.startsWith('image/') && branches.image) {
+    return branches.image();
   }
 
   if (mimeType.startsWith('text') && branches.text) {
