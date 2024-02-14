@@ -58,7 +58,14 @@ export function AccountActions(props: FlexProps) {
             onClick={() => navigate(RouteUrls.Swap)}
           />
         ),
-        [ChainID.Testnet]: null,
+        [ChainID.Testnet]: (
+          <ActionButton
+            data-testid={HomePageSelectors.SwapBtn}
+            icon={<SwapIcon />}
+            label="Swap"
+            onClick={() => navigate(RouteUrls.Swap)}
+          />
+        ),
       })}
     </Flex>
   );
