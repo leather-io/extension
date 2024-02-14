@@ -305,12 +305,21 @@ try {
     get: () => warnAboutDeprecatedProvider(provider),
     set: () => {},
   });
+} catch (e) {}
+
+try {
   Object.defineProperty(window, 'HiroWalletProvider', {
     get: () => warnAboutDeprecatedProvider(provider),
     set: () => {},
   });
-  Object.defineProperty(window, 'LeatherProvider', { get: () => provider, set: () => {} });
 } catch (e) {}
+
+try {
+  Object.defineProperty(window, 'LeatherProvider', { get: () => provider, set: () => {} });
+} catch (e) {
+  // eslint-disable-next-line no-console
+  console.warn('Unable to set LeatherProvider');
+}
 
 // Legacy product provider objects
 if (typeof window.btc === 'undefined') {
