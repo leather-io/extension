@@ -1,7 +1,6 @@
-/* eslint-disable @typescript-eslint/no-var-requires */
-const baseConfig = require('./webpack.config.base');
+import { config as baseConfig } from './webpack.config.base.js';
 
-const config = {
+export default {
   ...baseConfig,
   devtool: 'inline-source-map',
   mode: 'development',
@@ -19,5 +18,3 @@ const config = {
     splitChunks: false,
   },
 };
-
-module.exports = config;

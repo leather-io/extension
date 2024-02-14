@@ -1,5 +1,3 @@
-const defaultConfig = require('@leather-wallet/prettier-config');
+import config from '@leather-wallet/prettier-config';
 
-module.exports = {
-  ...defaultConfig,
-};
+export default config;

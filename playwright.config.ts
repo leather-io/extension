@@ -1,7 +1,5 @@
 import { defineConfig, devices } from '@playwright/test';
 
-console.log('Branch: ', process.env.BRANCH_NAME);
-
 /**
  * See https://playwright.dev/docs/test-configuration
  */

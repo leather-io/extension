@@ -1,19 +1,24 @@
-/* eslint-disable @typescript-eslint/no-var-requires */
-const path = require('path');
-const webpack = require('webpack');
-const { version: _version } = require('../package.json');
-const generateManifest = require('../scripts/generate-manifest');
-const Dotenv = require('dotenv-webpack');
-const GenerateJsonPlugin = require('generate-json-webpack-plugin');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
-const CopyWebpackPlugin = require('copy-webpack-plugin');
-const { CleanWebpackPlugin } = require('clean-webpack-plugin');
-const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin');
-const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
-const ProgressBarPlugin = require('progress-bar-webpack-plugin');
+import { execSync } from 'node:child_process';
+import CopyWebpackPlugin from 'copy-webpack-plugin';
+import Dotenv from 'dotenv-webpack';
+import GenerateJsonPlugin from 'generate-json-webpack-plugin';
+import HtmlWebpackPlugin from 'html-webpack-plugin';
+import { createRequire } from 'node:module';
+import path from 'node:path';
+import ProgressBarPlugin from 'progress-bar-webpack-plugin';
+import TsconfigPathsPlugin from 'tsconfig-paths-webpack-plugin';
+import webpack from 'webpack';
+import { BundleAnalyzerPlugin } from 'webpack-bundle-analyzer';
+import * as url from 'url';
+
+import packageJson from '../package.json' assert { type: 'json' };
+import generateManifest from '../scripts/generate-manifest.js';
+
+
+const __dirname = url.fileURLToPath(new URL('.', import.meta.url));
+
 const SRC_ROOT_PATH = path.join(__dirname, '../', 'src');
 const DIST_ROOT_PATH = path.join(__dirname, '../', 'dist');
-const { execSync } = require('child_process');
 
 const WALLET_ENVIRONMENT = process.env.WALLET_ENVIRONMENT ?? 'development';
 const ANALYZE_BUNDLE = process.env.ANALYZE === 'true';
@@ -38,10 +43,12 @@ console.log({
   locallyExe: executeGitCommand('git rev-parse HEAD'),
 });
 
+const require = createRequire(import.meta.url);
+
 // For non main branch builds, add a random number
 const getVersionWithRandomSuffix = ref => {
-  if (ref === MAIN_BRANCH || !ref || IS_PUBLISHING) return _version;
-  return `${_version}.${Math.floor(Math.floor(Math.random() * 1000))}`;
+  if (ref === MAIN_BRANCH || !ref || IS_PUBLISHING) return packageJson.version;
+  return `${packageJson.version}.${Math.floor(Math.floor(Math.random() * 1000))}`;
 };
 const VERSION = getVersionWithRandomSuffix(BRANCH_NAME);
 
@@ -82,7 +89,7 @@ const aliases = {
   'leather-styles': path.resolve('leather-styles'),
 };
 
-const config = {
+export const config = {
   entry: {
     background: path.join(SRC_ROOT_PATH, 'background', 'background.ts'),
     inpage: path.join(SRC_ROOT_PATH, 'inpage', 'inpage.ts'),
@@ -268,13 +275,11 @@ const config = {
   },
 };
 
-module.exports = config;
-
-if (IS_PROD) {
-  module.exports.plugins.push(
-    new CleanWebpackPlugin({ verbose: true, dry: false, cleanStaleWebpackAssets: false })
-  );
-}
-if (ANALYZE_BUNDLE) {
-  module.exports.plugins.push(new BundleAnalyzerPlugin());
-}
+// if (IS_PROD) {
+//   module.exports.plugins.push(
+//     new CleanWebpackPlugin({ verbose: true, dry: false, cleanStaleWebpackAssets: false })
+//   );
+// }
+// if (ANALYZE_BUNDLE) {
+//   module.exports.plugins.push(new BundleAnalyzerPlugin());
+// }
