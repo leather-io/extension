@@ -1,3 +1,20 @@
+## [6.27.2](https://github.com/leather-wallet/extension/compare/v6.27.1...v6.27.2) (2024-02-14)
+
+
+### Bug Fixes
+
+* close settings dropdown on click ([3183b8b](https://github.com/leather-wallet/extension/commit/3183b8be2ba453d00891bf93902e766fa1f57410))
+* separate catch block ([52a849a](https://github.com/leather-wallet/extension/commit/52a849a0cacfdb0249f2a554e9adb48075418914))
+* svg inscriptions preview ([787c03a](https://github.com/leather-wallet/extension/commit/787c03a84918a859997a4b0a0d0a5b98e9237d26))
+
+
+### Internal
+
+* deprecation warnings, closes [#4928](https://github.com/leather-wallet/extension/issues/4928) ([81fea0d](https://github.com/leather-wallet/extension/commit/81fea0d6b7bdc6ec12f8a62538d273e01219c6a0))
+* post-release merge back ([67809a2](https://github.com/leather-wallet/extension/commit/67809a2dad21bcb4e4a0af58b54895b6dcac3c32))
+* post-release merge back ([4a66d63](https://github.com/leather-wallet/extension/commit/4a66d63e66fdfd03b21a802cdcee663b07d449b7))
+* remove references of broadcastRawTransaction, use only broadcastTransaction ([f0f488a](https://github.com/leather-wallet/extension/commit/f0f488ac1a47b239264f1e75934e1ad552eb697d))
+
 ## [6.27.1](https://github.com/leather-wallet/extension/compare/v6.27.0...v6.27.1) (2024-02-12)
 
 
