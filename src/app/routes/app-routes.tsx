@@ -54,6 +54,7 @@ import { rpcRequestRoutes } from '@app/routes/rpc-routes';
 import { settingsRoutes } from '@app/routes/settings-routes';
 
 import { OnboardingGate } from './onboarding-gate';
+import { lnswapSwapRoutes } from '@app/pages/swap/lnswap-swap-container';
 
 export function SuspenseLoadingSpinner() {
   return <LoadingSpinner height="600px" />;
@@ -252,7 +253,8 @@ function useAppRoutes() {
           {ledgerBitcoinTxSigningRoutes}
         </Route>
 
-        {alexSwapRoutes}
+        {/* {alexSwapRoutes} */}
+        {lnswapSwapRoutes}
 
         {/* Catch-all route redirects to onboarding */}
         <Route path="*" element={<Navigate replace to={RouteUrls.Onboarding} />} />
