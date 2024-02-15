@@ -3,6 +3,7 @@ import { useCallback, useState } from 'react';
 import * as btc from '@scure/btc-signer';
 import { bytesToHex } from '@stacks/common';
 
+import type { SupportedInscription } from '@shared/models/inscription.model';
 import { isUndefined } from '@shared/utils';
 
 import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
@@ -21,6 +22,24 @@ class PreventTransactionError extends Error {
 interface UseCheckInscribedUtxosArgs {
   inputs: btc.TransactionInput[];
   blockTxAction?(): void;
+}
+
+interface FilterOutIntentionalInscriptionsSpendArgs {
+  inputs: btc.TransactionInput[];
+  inscriptions: SupportedInscription[];
+}
+export function filterOutIntentionalInscriptionsSpend({
+  inputs,
+  inscriptions,
+}: FilterOutIntentionalInscriptionsSpendArgs) {
+  return inputs.filter(input => {
+    if (!input.txid) throw new Error('Transaction ID is missing in the input');
+    const inputTxid = bytesToHex(input.txid);
+
+    return inscriptions.every(inscription => {
+      return inscription.tx_id !== inputTxid;
+    });
+  });
 }
 
 export function useCheckInscribedUtxos({ inputs, blockTxAction }: UseCheckInscribedUtxosArgs) {
