@@ -7,7 +7,6 @@ import WebpackDevServer from 'webpack-dev-server';
 import config from './webpack.config.dev.js';
 
 const __dirname = url.fileURLToPath(new URL('.', import.meta.url));
-const WALLET_ENVIRONMENT = process.env.WALLET_ENVIRONMENT;
 
 const HOST = 'localhost';
 const PORT = process.env.PORT || '8080';
@@ -54,10 +53,6 @@ const server = new WebpackDevServer(
   },
   compiler
 );
-
-// if (WALLET_ENVIRONMENT === 'development' && module.hot) {
-//   module.hot.accept();
-// }
 
 server.startCallback(() => {
   console.log('Starting server on http://localhost:8080');

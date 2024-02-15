@@ -269,17 +269,10 @@ export const config = {
     }),
 
     new ProgressBarPlugin(),
+
+    ...(ANALYZE_BUNDLE ? [new BundleAnalyzerPlugin()] : []),
   ],
   experiments: {
     asyncWebAssembly: true,
   },
 };
-
-// if (IS_PROD) {
-//   module.exports.plugins.push(
-//     new CleanWebpackPlugin({ verbose: true, dry: false, cleanStaleWebpackAssets: false })
-//   );
-// }
-// if (ANALYZE_BUNDLE) {
-//   module.exports.plugins.push(new BundleAnalyzerPlugin());
-// }
