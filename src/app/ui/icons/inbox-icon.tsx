@@ -1,6 +1,19 @@
-import { Icon, IconProps } from './icon/icon';
+import { Icon, IconProps, IconSmall } from './icon/icon';
 
-export function InboxIcon(props: IconProps) {
+export function InboxIcon({ variant, ...props }: IconProps) {
+  if (variant === 'small')
+    return (
+      <IconSmall {...props}>
+        <path
+          d="M2.5 8.5H5.38013C5.61417 9.73377 6.69814 10.6667 8 10.6667C9.30186 10.6667 10.3858 9.73376 10.6199 8.5L13.5 8.5M2.5 13.5H13.5V2.5L2.50003 2.5L2.5 13.5Z"
+          stroke="currentColor"
+          strokeWidth="1.5"
+          strokeLinecap="square"
+          strokeLinejoin="round"
+        />
+      </IconSmall>
+    );
+
   return (
     <Icon {...props}>
       <path

@@ -1,6 +1,18 @@
-import { Icon, IconProps } from './icon/icon';
+import { Icon, IconProps, IconSmall } from './icon/icon';
 
-export function HamburgerIcon(props: IconProps) {
+export function HamburgerIcon({ variant, ...props }: IconProps) {
+  if (variant === 'small')
+    return (
+      <IconSmall {...props}>
+        <path
+          d="M1.8335 4.8335H14.1668M1.8335 11.1668H14.1668"
+          stroke="currentColor"
+          strokeWidth="1.5"
+          strokeLinecap="round"
+        />
+      </IconSmall>
+    );
+
   return (
     <Icon {...props}>
       <path

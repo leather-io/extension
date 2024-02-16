@@ -1,6 +1,19 @@
-import { Icon, IconProps } from './icon/icon';
+import { Icon, IconProps, IconSmall } from './icon/icon';
 
-export function CheckmarkCircleIcon(props: IconProps) {
+export function CheckmarkCircleIcon({ variant, ...props }: IconProps) {
+  if (variant === 'small')
+    return (
+      <IconSmall {...props}>
+        <path
+          d="M10.0002 6.33325L7.00016 9.99992L5.66683 8.66659M14.1668 7.99992C14.1668 11.4057 11.4059 14.1666 8.00016 14.1666C4.59441 14.1666 1.8335 11.4057 1.8335 7.99992C1.8335 4.59416 4.59441 1.83325 8.00016 1.83325C11.4059 1.83325 14.1668 4.59416 14.1668 7.99992Z"
+          stroke="currentColor"
+          strokeWidth="1.5"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
+      </IconSmall>
+    );
+
   return (
     <Icon {...props}>
       <path

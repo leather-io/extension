@@ -1,6 +1,19 @@
-import { Icon, IconProps } from './icon/icon';
+import { Icon, IconProps, IconSmall } from './icon/icon';
 
-export function ExternalLinkIcon(props: IconProps) {
+export function ExternalLinkIcon({ variant, ...props }: IconProps) {
+  if (variant === 'small')
+    return (
+      <IconSmall {...props}>
+        <path
+          d="M12.1667 9.33333V12.4333C12.1667 12.8067 12.1667 12.9934 12.094 13.136C12.0301 13.2614 11.9281 13.3634 11.8027 13.4273C11.6601 13.5 11.4734 13.5 11.1 13.5H3.56667C3.1933 13.5 3.00661 13.5 2.86401 13.4273C2.73856 13.3634 2.63658 13.2614 2.57266 13.136C2.5 12.9934 2.5 12.8067 2.5 12.4333V4.9C2.5 4.52663 2.5 4.33995 2.57266 4.19734C2.63658 4.0719 2.73856 3.96991 2.86401 3.906C3.00661 3.83333 3.1933 3.83333 3.56667 3.83333H6.16667M9.16667 2.5H13.5M13.5 2.5V6.83333M13.5 2.5L7.33333 8.66667"
+          stroke="currentColor"
+          strokeWidth="1.5"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
+      </IconSmall>
+    );
+
   return (
     <Icon {...props}>
       <path

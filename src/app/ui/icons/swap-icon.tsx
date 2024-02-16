@@ -1,6 +1,19 @@
-import { Icon, IconProps } from './icon/icon';
+import { Icon, IconProps, IconSmall } from './icon/icon';
 
-export function SwapIcon(props: IconProps) {
+export function SwapIcon({ variant, ...props }: IconProps) {
+  if (variant === 'small')
+    return (
+      <IconSmall {...props}>
+        <path
+          d="M11.6665 14.1665L13.4308 12.4022C13.5609 12.272 13.5609 12.061 13.4308 11.9308L11.6665 10.1665M4.33312 1.83317L2.56882 3.59747C2.43865 3.72764 2.43865 3.9387 2.56882 4.06887L4.33312 5.83317M3.49979 3.83317H12.8331C13.2013 3.83317 13.4998 4.13165 13.4998 4.49984V7.1665M2.49979 9.1665V11.4998C2.49979 11.868 2.79826 12.1665 3.16645 12.1665H12.4998"
+          stroke="currentColor"
+          strokeWidth="1.5"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
+      </IconSmall>
+    );
+
   return (
     <Icon {...props}>
       <path

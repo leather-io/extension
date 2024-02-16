@@ -1,6 +1,16 @@
-import { Icon, IconProps } from './icon/icon';
+import { Icon, IconProps, IconSmall } from './icon/icon';
 
-export function StacksIcon(props: IconProps) {
+export function StacksIcon({ variant, ...props }: IconProps) {
+  if (variant === 'small')
+    return (
+      <IconSmall {...props}>
+        <path
+          d="M10.3332 9.5L12.9999 13.5H10.9999L7.99988 9.5L4.99988 13.5H2.99988L5.66655 9.5H1.99988V8H13.9999L13.9995 9.5H10.3332ZM13.9992 5.6665L13.9995 6.99984H1.99951V5.6665H5.66618L3.06828 1.6665H4.99951L7.99951 5.6665L10.9995 1.6665H12.9995L10.3328 5.6665H13.9992Z"
+          fill="currentColor"
+        />
+      </IconSmall>
+    );
+
   return (
     <Icon {...props}>
       <path

@@ -1,6 +1,19 @@
-import { Icon, IconProps } from './icon/icon';
+import { Icon, IconProps, IconSmall } from './icon/icon';
 
-export function StarIcon(props: IconProps) {
+export function StarIcon({ variant, ...props }: IconProps) {
+  if (variant === 'small')
+    return (
+      <IconSmall {...props}>
+        <path
+          d="M7.69983 1.35512C7.82047 1.10363 8.17953 1.10363 8.30017 1.35512L10.0126 4.92472C10.0612 5.02597 10.1578 5.09587 10.2694 5.1105L14.2103 5.62721C14.488 5.66363 14.5991 6.00504 14.3957 6.19709L11.5139 8.91815C11.4319 8.99551 11.3949 9.109 11.4155 9.21962L12.1391 13.1067C12.1902 13.381 11.8996 13.5919 11.6535 13.459L8.15842 11.5722C8.05959 11.5188 7.94041 11.5188 7.84158 11.5722L4.34646 13.459C4.10042 13.5919 3.80982 13.381 3.86088 13.1067L4.5845 9.21962C4.6051 9.109 4.56807 8.99551 4.48614 8.91815L1.60434 6.19709C1.40094 6.00504 1.51202 5.66363 1.78975 5.62721L5.7306 5.1105C5.8422 5.09587 5.93882 5.02597 5.98739 4.92472L7.69983 1.35512Z"
+          stroke="currentColor"
+          strokeWidth="1.5"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
+      </IconSmall>
+    );
+
   return (
     <Icon {...props}>
       <path

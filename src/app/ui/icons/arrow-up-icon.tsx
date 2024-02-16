@@ -1,6 +1,19 @@
-import { Icon, IconProps } from './icon/icon';
+import { Icon, IconProps, IconSmall } from './icon/icon';
 
-export function ArrowUpIcon(props: IconProps) {
+export function ArrowUpIcon({ variant, ...props }: IconProps) {
+  if (variant === 'small')
+    return (
+      <IconSmall {...props}>
+        <path
+          d="M3.8335 6.50014L7.52875 2.80488C7.7891 2.54453 8.21121 2.54453 8.47156 2.80488L12.1668 6.50014M8.00015 3.16681V13.5001"
+          stroke="currentColor"
+          strokeWidth="1.5"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
+      </IconSmall>
+    );
+
   return (
     <Icon {...props}>
       <path
