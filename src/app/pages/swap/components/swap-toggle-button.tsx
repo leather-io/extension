@@ -44,7 +44,7 @@ export function SwapToggleButton() {
       onClick={onToggleSwapAssets}
       type="button"
     >
-      <SwapIcon transform="rotate(90deg)" />
+      <SwapIcon transform="rotate(90deg)" variant="small" />
     </styled.button>
   );
 }

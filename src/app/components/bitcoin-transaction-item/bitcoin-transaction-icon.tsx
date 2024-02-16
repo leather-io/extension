@@ -8,8 +8,8 @@ import { ArrowUpIcon } from '@app/ui/icons/arrow-up-icon';
 
 function TxStatusIcon(props: { address: string; tx: BitcoinTx }) {
   const { address, tx } = props;
-  if (isBitcoinTxInbound(address, tx)) return <ArrowDownIcon width="xs" />;
-  return <ArrowUpIcon width="xs" />;
+  if (isBitcoinTxInbound(address, tx)) return <ArrowDownIcon variant="small" />;
+  return <ArrowUpIcon variant="small" />;
 }
 
 interface TransactionIconProps extends CircleProps {

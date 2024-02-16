@@ -7,7 +7,7 @@ import { CollectiblePlaceholderLayout } from './_collectible-types/collectible-p
 export function ImageUnavailable() {
   return (
     <CollectiblePlaceholderLayout>
-      <EyeSlashIcon width="md" />
+      <EyeSlashIcon />
       <styled.span pt="space.02" px="space.04" textStyle="label.03">
         Image currently unavailable
       </styled.span>

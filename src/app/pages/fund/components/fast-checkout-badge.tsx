@@ -1,5 +1,4 @@
 import { HStack, styled } from 'leather-styles/jsx';
-import { token } from 'leather-styles/tokens';
 
 import { ZapIcon } from '@app/ui/icons/zap-icon';
 
@@ -15,7 +14,7 @@ export function FastCheckoutBadge() {
       paddingY="space.01"
       gap="space.01"
     >
-      <ZapIcon style={{ color: token('colors.success.label') }} width="xs" />
+      <ZapIcon color="success.label" variant="small" />
       <styled.span color="success.label" textStyle="caption.02">
         Fast checkout
       </styled.span>

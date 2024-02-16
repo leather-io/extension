@@ -30,8 +30,8 @@ export function IncreaseFeeButton(props: IncreaseFeeButtonProps) {
       type="button"
       zIndex={999}
     >
-      <HStack gap="space.00">
-        <ChevronsRightIcon color="stacks" mr="3px" />
+      <HStack gap="space.01">
+        <ChevronsRightIcon color="stacks" variant="small" />
         <styled.span textStyle="label.03">Increase fee</styled.span>
       </HStack>
     </styled.button>

@@ -14,7 +14,7 @@ export function ZeroPercentFeesBadge() {
       paddingY="space.01"
       gap="space.01"
     >
-      <StarIcon color="warning.label" width="xs" />
+      <StarIcon color="warning.label" variant="small" />
       <styled.span color="warning.label" textStyle="caption.02">
         0 % Fees
       </styled.span>

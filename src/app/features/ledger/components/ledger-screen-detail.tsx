@@ -1,5 +1,4 @@
 import { Flex, styled } from 'leather-styles/jsx';
-import { token } from 'leather-styles/tokens';
 
 import { BasicTooltip } from '@app/ui/components/tooltip/basic-tooltip';
 import { Caption } from '@app/ui/components/typography/caption';
@@ -21,10 +20,10 @@ export function LedgerScreenDetail(props: LedgerScreenDetailProps) {
             <Flex cursor="question" display="inline-flex">
               {title}
               <InfoCircleIcon
+                color="accent.text-subdued"
                 ml="space.01"
                 mt="space.01"
-                width="xs"
-                style={{ color: token('colors.accent.text-subdued') }}
+                variant="small"
               />
             </Flex>
           </BasicTooltip>

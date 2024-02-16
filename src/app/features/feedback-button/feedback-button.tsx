@@ -42,7 +42,7 @@ export function FeedbackButton() {
       onClick={openFeedbackDialog}
     >
       <Flex>
-        <MegaphoneIcon mr="space.01" mt="2px" />
+        <MegaphoneIcon mr="space.01" mt="2px" variant="small" />
         Give feedback
       </Flex>
     </Button>

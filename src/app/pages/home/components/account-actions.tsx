@@ -34,7 +34,7 @@ export function AccountActions(props: FlexProps) {
       <SendButton />
       <ActionButton
         data-testid={HomePageSelectors.ReceiveCryptoAssetBtn}
-        icon={<InboxIcon width="md" />}
+        icon={<InboxIcon />}
         label="Receive"
         onClick={() => navigate(receivePath, { state: { backgroundLocation: location } })}
       />
@@ -42,7 +42,7 @@ export function AccountActions(props: FlexProps) {
       {(!!stacksAccount || !!btcAccount) && (
         <ActionButton
           data-testid={HomePageSelectors.FundAccountBtn}
-          icon={<CreditCardIcon width="md" />}
+          icon={<CreditCardIcon />}
           label="Buy"
           onClick={() => navigate(RouteUrls.FundChooseCurrency)}
         />
@@ -51,7 +51,7 @@ export function AccountActions(props: FlexProps) {
         [ChainID.Mainnet]: (
           <ActionButton
             data-testid={HomePageSelectors.SwapBtn}
-            icon={<SwapIcon width="md" />}
+            icon={<SwapIcon />}
             label="Swap"
             onClick={() => navigate(RouteUrls.Swap)}
           />

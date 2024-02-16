@@ -33,7 +33,6 @@ export * from './lettermark-icon';
 export * from './ledger-icon';
 export * from './list-icon';
 export * from './lock-icon';
-export * from './logomark-icon';
 export * from './megaphone-icon';
 export * from './moon-icon';
 export * from './placeholder-icon';

@@ -30,7 +30,7 @@ export function SelectAssetTriggerButton({
       <HStack>
         {icon && <styled.img src={icon} width="32px" height="32px" alt="Swap asset" />}
         <styled.span textStyle="label.01">{symbol}</styled.span>
-        <ChevronDownIcon />
+        <ChevronDownIcon variant="small" />
       </HStack>
     </Button>
   );

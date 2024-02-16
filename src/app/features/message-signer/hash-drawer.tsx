@@ -10,7 +10,7 @@ interface ShowHashButtonProps {
 }
 function ShowHashButton(props: ShowHashButtonProps) {
   const { expanded } = props;
-  return expanded ? <ChevronUpIcon /> : <ChevronDownIcon />;
+  return expanded ? <ChevronUpIcon variant="small" /> : <ChevronDownIcon variant="small" />;
 }
 
 interface HashDrawerProps {

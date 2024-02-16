@@ -9,7 +9,7 @@ interface SpinnerProps extends SquareProps {
 
 export function Spinner({
   emptyColor = 'transparent',
-  size = '1.5rem',
+  size = 'sm',
   label = 'Loading...',
   thickness = '2px',
   speed = '0.85s',

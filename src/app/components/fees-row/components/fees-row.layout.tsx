@@ -33,7 +33,7 @@ export function FeesRowLayout(props: FeesRowLayoutProps) {
               <InfoCircleIcon
                 color="accent.text-subdued"
                 onClick={() => openInNewTab(url)}
-                width="xs"
+                variant="small"
               />
             </HStack>
           </BasicTooltip>
