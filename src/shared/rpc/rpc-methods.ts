@@ -7,6 +7,7 @@ import { AcceptBitcoinContract } from './methods/accept-bitcoin-contract';
 import { SignPsbt } from './methods/sign-psbt';
 import { SignStacksMessage } from './methods/sign-stacks-message';
 import { SupportedMethods } from './methods/supported-methods';
+import {GetXpub} from "@shared/rpc/methods/get-xpub";
 
 // Supports BtcKit methods, as well as custom Leather methods
 export type WalletMethodMap = BtcKitMethodMap &
@@ -14,7 +15,8 @@ export type WalletMethodMap = BtcKitMethodMap &
   SignPsbt &
   AcceptBitcoinContract &
   SignStacksTransaction &
-  SignStacksMessage;
+  SignStacksMessage &
+  GetXpub;
 
 export type WalletRequests = ValueOf<WalletMethodMap>['request'];
 export type WalletResponses = ValueOf<WalletMethodMap>['response'];

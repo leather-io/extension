@@ -12,11 +12,17 @@ import { rpcSignMessage } from './rpc-methods/sign-message';
 import { rpcSignPsbt } from './rpc-methods/sign-psbt';
 import { rpcSignStacksMessage } from './rpc-methods/sign-stacks-message';
 import { rpcSupportedMethods } from './rpc-methods/supported-methods';
+import {rpcGetXpub} from "@background/messaging/rpc-methods/get-xpub";
 
 export async function rpcMessageHandler(message: WalletRequests, port: chrome.runtime.Port) {
   switch (message.method) {
     case 'getAddresses': {
       await rpcGetAddresses(message, port);
+      break;
+    }
+
+    case 'getXpub': {
+      await rpcGetXpub(message, port);
       break;
     }
 
