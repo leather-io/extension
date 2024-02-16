@@ -20,7 +20,7 @@ export function AvailableBalance(props: { balance: Money; balanceTooltipLabel?: 
         </styled.span>
         <BasicTooltip label={balanceTooltipLabel} side="top">
           <Box>
-            <InfoCircleIcon color="accent.text-subdued" width="xs" />
+            <InfoCircleIcon color="accent.text-subdued" variant="small" />
           </Box>
         </BasicTooltip>
       </HStack>

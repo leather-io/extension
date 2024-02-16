@@ -39,7 +39,7 @@ export function AccountInfoCard() {
             {name}
           </styled.p>
           <Box mt="space.01" ml="space.02">
-            <ChevronDownIcon />
+            <ChevronDownIcon variant="small" />
           </Box>
         </Flex>
       </Link>

@@ -49,7 +49,7 @@ export function FtTransferItem({ ftTransfer, parentTx }: FtTransferItemProps) {
     assetMetadata.image_canonical_uri &&
     assetMetadata.name &&
     getImageCanonicalUri(assetMetadata.image_canonical_uri, assetMetadata.name);
-  const icon = isOriginator ? <ArrowUpIcon width="xs" /> : <ArrowDownIcon width="xs" />;
+  const icon = isOriginator ? <ArrowUpIcon variant="small" /> : <ArrowDownIcon variant="small" />;
   const title = `${assetMetadata.name || 'Token'} Transfer`;
   const value = `${isOriginator ? '-' : ''}${displayAmount.toFormat()}`;
   const transferIcon = ftImageCanonicalUri ? (

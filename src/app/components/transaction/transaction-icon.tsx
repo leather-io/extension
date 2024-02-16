@@ -11,9 +11,9 @@ export function TransactionIcon(props: { tx: StacksTx }) {
 
   switch (tx.tx_type) {
     case 'coinbase':
-      return <PlusIcon width="xs" />;
+      return <PlusIcon variant="small" />;
     case 'smart_contract':
-      return <CodeIcon width="xs" />;
+      return <CodeIcon variant="small" />;
     case 'token_transfer':
       return <TokenTransferIcon tx={tx} />;
     case 'contract_call':

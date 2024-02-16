@@ -34,7 +34,7 @@ export function RecipientDropdownItem({
     >
       <HStack gap="space.01">
         <styled.span textStyle="label.02">{labels[index]}</styled.span>
-        {isVisible ? <></> : <ChevronDownIcon />}
+        {isVisible ? <></> : <ChevronDownIcon variant="small" />}
       </HStack>
     </styled.button>
   );

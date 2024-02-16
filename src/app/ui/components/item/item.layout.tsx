@@ -45,7 +45,7 @@ export function ItemLayout({
                 {titleLeft}
               </styled.span>
             )}
-            {isSelected && <CheckmarkIcon />}
+            {isSelected && <CheckmarkIcon variant="small" />}
           </HStack>
           {isValidElement(captionLeft) ? (
             captionLeft
@@ -72,7 +72,9 @@ export function ItemLayout({
               </styled.span>
             )}
           </Stack>
-          {showChevron && <ChevronUpIcon color={itemChevronStyles} transform="rotate(90deg)" />}
+          {showChevron && (
+            <ChevronUpIcon color={itemChevronStyles} transform="rotate(90deg)" variant="small" />
+          )}
         </HStack>
       </Flex>
     </Flag>

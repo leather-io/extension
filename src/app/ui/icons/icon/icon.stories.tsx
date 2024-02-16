@@ -13,7 +13,7 @@ type Story = StoryObj<typeof Icon>;
 
 export const ExampleIcon: Story = {
   parameters: {
-    controls: { include: ['width'] },
+    controls: { include: ['variant'] },
   },
-  args: { width: 'md' },
+  args: { width: 'default' },
 };

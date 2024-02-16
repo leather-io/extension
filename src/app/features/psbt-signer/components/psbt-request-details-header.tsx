@@ -31,9 +31,9 @@ export function PsbtRequestDetailsHeader() {
         >
           <Box width="12px">
             {isPsbtMutable ? (
-              <UnlockIcon style={{ color: tokenLabelColor }} width="xs" />
+              <UnlockIcon style={{ color: tokenLabelColor }} variant="small" />
             ) : (
-              <LockIcon style={{ color: tokenLabelColor }} width="xs" />
+              <LockIcon style={{ color: tokenLabelColor }} variant="small" />
             )}
           </Box>
           <styled.span

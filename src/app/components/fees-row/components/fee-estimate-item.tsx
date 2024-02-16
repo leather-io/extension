@@ -25,7 +25,7 @@ export function FeeEstimateItem({
 }: FeeEstimateItemProps) {
   const selectedIcon = useMemo(() => {
     const isSelected = index === selectedItem;
-    return isSelected ? <CheckmarkIcon /> : <></>;
+    return isSelected ? <CheckmarkIcon variant="small" /> : <></>;
   }, [index, selectedItem]);
 
   return (
@@ -47,7 +47,7 @@ export function FeeEstimateItem({
     >
       <HStack gap="space.01">
         <styled.span textStyle="label.02">{labels[index]}</styled.span>
-        {!disableFeeSelection && (isVisible ? selectedIcon : <ChevronDownIcon />)}
+        {!disableFeeSelection && (isVisible ? selectedIcon : <ChevronDownIcon variant="small" />)}
       </HStack>
     </Link>
   );

@@ -44,7 +44,6 @@ export function AccountListItemLayout(props: AccountListItemLayoutProps) {
               color="accent.text-subdued"
               position="absolute"
               right={0}
-              size="18px"
               top="calc(50% - 8px)"
             />
           ) : (

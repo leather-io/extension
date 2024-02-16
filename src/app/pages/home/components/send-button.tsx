@@ -29,7 +29,7 @@ function SendButtonSuspense() {
     <ActionButton
       data-testid={HomePageSelectors.SendCryptoAssetBtn}
       label="Send"
-      icon={<SendIcon width="md" />}
+      icon={<SendIcon />}
       onClick={() =>
         whenWallet({
           ledger: () =>
@@ -45,9 +45,7 @@ function SendButtonSuspense() {
   );
 }
 
-const SendButtonFallback = memo(() => (
-  <ActionButton label="Send" icon={<SendIcon width="md" />} disabled />
-));
+const SendButtonFallback = memo(() => <ActionButton label="Send" icon={<SendIcon />} disabled />);
 
 export function SendButton() {
   return (

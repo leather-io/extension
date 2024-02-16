@@ -24,7 +24,7 @@ export const DropdownMenu: Story = {
         <styled.button>
           <HStack gap="space.02" width="100%">
             <styled.span textStyle="label.02">Options</styled.span>
-            <ChevronDownIcon />
+            <ChevronDownIcon variant="small" />
           </HStack>
         </styled.button>
       </Component.Trigger>

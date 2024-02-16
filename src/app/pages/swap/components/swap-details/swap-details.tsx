@@ -22,7 +22,7 @@ function RouteNames(props: { swapSubmissionData: SwapSubmissionData }) {
     return (
       <HStack gap="space.01" key={route.name}>
         <styled.span>{route.name}</styled.span>
-        {insertIcon && <ChevronUpIcon transform="rotate(90deg)" />}
+        {insertIcon && <ChevronUpIcon transform="rotate(90deg)" variant="small" />}
       </HStack>
     );
   });

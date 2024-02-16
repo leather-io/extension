@@ -20,7 +20,7 @@ import { iconsList } from './icons-list';
 <div className="spacer" />
 
 <div>
-  <h3 style={{ marginTop: 32, marginBottom: 24 }}>Small 16x16</h3>
+  <h3 style={{ marginTop: 32, marginBottom: 24 }}>Default 24x24</h3>
   <IconGallery>
     {iconsList.map(item => {
       const IconComponent = Icon[item];
@@ -36,13 +36,13 @@ import { iconsList } from './icons-list';
 <div className="spacer" />
 
 <div>
-  <h3 style={{ marginTop: 32, marginBottom: 24 }}>Medium 24x24</h3>
+  <h3 style={{ marginTop: 32, marginBottom: 24 }}>Small 16x16</h3>
   <IconGallery>
     {iconsList.map(item => {
       const IconComponent = Icon[item];
       return (
         <IconItem key={item} name={item}>
-          <IconComponent width="md" />
+          <IconComponent variant="small" width="16px" />
         </IconItem>
       );
     })}

@@ -93,7 +93,7 @@ export const WithToken: Story = {
       <HStack>
         <BtcIcon />
         <styled.span textStyle="label.01">Button</styled.span>
-        <ChevronDownIcon />
+        <ChevronDownIcon variant="small" />
       </HStack>
     ),
     trigger: true,
