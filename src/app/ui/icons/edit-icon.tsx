@@ -1,6 +1,19 @@
-import { Icon, IconProps } from './icon/icon';
+import { Icon, IconProps, IconSmall } from './icon/icon';
 
-export function EditIcon(props: IconProps) {
+export function EditIcon({ variant, ...props }: IconProps) {
+  if (variant === 'small')
+    return (
+      <IconSmall {...props}>
+        <path
+          d="M8.8335 4.16673L10.8621 2.13813C11.1224 1.87778 11.5446 1.87778 11.8049 2.13813L13.8621 4.19532C14.1224 4.45567 14.1224 4.87778 13.8621 5.13813L11.8335 7.16673M8.8335 4.16673L2.02876 10.9715C1.90373 11.0965 1.8335 11.2661 1.8335 11.4429V14.1667H4.55735C4.73416 14.1667 4.90373 14.0965 5.02876 13.9715L11.8335 7.16673M8.8335 4.16673L11.8335 7.16673"
+          stroke="currentColor"
+          strokeWidth="1.5"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
+      </IconSmall>
+    );
+
   return (
     <Icon {...props}>
       <path

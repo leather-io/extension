@@ -1,6 +1,19 @@
-import { Icon, IconProps } from './icon/icon';
+import { Icon, IconProps, IconSmall } from './icon/icon';
 
-export function ErrorIcon(props: IconProps) {
+export function ErrorIcon({ variant, ...props }: IconProps) {
+  if (variant === 'small')
+    return (
+      <IconSmall {...props}>
+        <path
+          d="M8.00004 6.50001V8.83335M7.42478 2.14882L1.75453 11.8297C1.49422 12.2742 1.81473 12.8333 2.32978 12.8333H13.6703C14.1853 12.8333 14.5059 12.2742 14.2455 11.8297L8.57529 2.14882C8.31779 1.70918 7.68229 1.70918 7.42478 2.14882Z"
+          stroke="currentColor"
+          strokeWidth="1.5"
+          strokeLinecap="round"
+        />
+        <ellipse cx="8.00016" cy="10.4999" rx="0.666667" ry="0.666667" fill="currentColor" />
+      </IconSmall>
+    );
+
   return (
     <Icon {...props}>
       <path

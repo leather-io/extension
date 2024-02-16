@@ -1,6 +1,23 @@
-import { Icon, IconProps } from './icon/icon';
+import { Icon, IconProps, IconSmall } from './icon/icon';
 
-export function QrCodeIcon(props: IconProps) {
+export function QrCodeIcon({ variant, ...props }: IconProps) {
+  if (variant === 'small')
+    return (
+      <IconSmall {...props}>
+        <rect x="2.75" y="2.75" width="3.5" height="3.5" stroke="currentColor" strokeWidth="1.5" />
+        <rect x="2.75" y="9.75" width="3.5" height="3.5" stroke="currentColor" strokeWidth="1.5" />
+        <rect x="9.75" y="2.75" width="3.5" height="3.5" stroke="currentColor" strokeWidth="1.5" />
+        <path d="M9.5 9.5V11.2875H11.5" stroke="currentColor" strokeWidth="1.5" />
+        <path
+          d="M12.7998 14.0264V11.7096L14.0315 11.7098"
+          stroke="currentColor"
+          strokeWidth="1.5"
+        />
+        <rect x="9" y="12.8506" width="1.24319" height="1.2" fill="currentColor" />
+        <line x1="13.4019" y1="9.75" x2="11.5" y2="9.75" stroke="currentColor" strokeWidth="1.5" />
+      </IconSmall>
+    );
+
   return (
     <Icon {...props}>
       <path

@@ -1,6 +1,26 @@
-import { Icon, IconProps } from './icon/icon';
+import { Icon, IconProps, IconSmall } from './icon/icon';
 
-export function SunIcon(props: IconProps) {
+export function SunIcon({ variant, ...props }: IconProps) {
+  if (variant === 'small')
+    return (
+      <IconSmall {...props}>
+        <g clipPath="url(#clip0_13346_191323)">
+          <path
+            d="M8.00016 2.00016V1.3335M8.00016 14.6668V14.0002M12.2401 3.7602L12.7134 3.28686M3.28693 12.7135L3.76027 12.2402M14.0002 8.00018H14.6668M1.3335 8.00018H2.00016M12.2401 12.2402L12.7134 12.7135M3.28693 3.28686L3.76027 3.7602M10.3572 5.64314C11.6589 6.94489 11.6589 9.05544 10.3572 10.3572C9.05544 11.6589 6.94489 11.6589 5.64314 10.3572C4.34139 9.05544 4.34139 6.94489 5.64314 5.64314C6.94489 4.34139 9.05544 4.34139 10.3572 5.64314Z"
+            stroke="#12100F"
+            strokeWidth="1.5"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          />
+        </g>
+        <defs>
+          <clipPath id="clip0_13346_191323">
+            <rect width="16" height="16" fill="white" />
+          </clipPath>
+        </defs>
+      </IconSmall>
+    );
+
   return (
     <Icon {...props}>
       <path

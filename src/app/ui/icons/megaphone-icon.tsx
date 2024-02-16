@@ -1,6 +1,19 @@
-import { Icon, IconProps } from './icon/icon';
+import { Icon, IconProps, IconSmall } from './icon/icon';
 
-export function MegaphoneIcon(props: IconProps) {
+export function MegaphoneIcon({ variant, ...props }: IconProps) {
+  if (variant === 'small')
+    return (
+      <IconSmall {...props}>
+        <path
+          d="M12.1654 9.96376C13.2699 9.96376 14.1654 9.06833 14.1654 7.96376C14.1654 6.85919 13.2699 5.96376 12.1654 5.96376M8.38489 12.7971C8.11034 13.5739 7.36951 14.1304 6.4987 14.1304C5.39413 14.1304 4.4987 13.235 4.4987 12.1304V11.1304M4.50016 4.79709V11.1304M12.1654 3.36732V12.5602C12.1654 13.009 11.7309 13.3296 11.302 13.1972L2.30202 10.4184C2.02261 10.3321 1.83203 10.0738 1.83203 9.7814L1.83203 6.14612C1.83203 5.85369 2.02261 5.5954 2.30202 5.50912L11.302 2.73032C11.7309 2.59792 12.1654 2.91851 12.1654 3.36732Z"
+          stroke="currentColor"
+          strokeWidth="1.5"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
+      </IconSmall>
+    );
+
   return (
     <Icon {...props}>
       <path

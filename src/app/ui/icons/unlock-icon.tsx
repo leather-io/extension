@@ -1,6 +1,19 @@
-import { Icon, IconProps } from './icon/icon';
+import { Icon, IconProps, IconSmall } from './icon/icon';
 
-export function UnlockIcon(props: IconProps) {
+export function UnlockIcon({ variant, ...props }: IconProps) {
+  if (variant === 'small')
+    return (
+      <IconSmall {...props}>
+        <path
+          d="M7.99984 9.3335V11.3335M5.1665 6.50016V4.66683C5.1665 3.10202 6.43503 1.8335 7.99984 1.8335C9.3949 1.8335 10.5545 2.84174 10.7896 4.1693M3.83317 14.1668H12.1665C12.5347 14.1668 12.8332 13.8684 12.8332 13.5002V7.16683C12.8332 6.79864 12.5347 6.50016 12.1665 6.50016H3.83317C3.46498 6.50016 3.1665 6.79864 3.1665 7.16683V13.5002C3.1665 13.8684 3.46498 14.1668 3.83317 14.1668Z"
+          stroke="currentColor"
+          strokeWidth="1.5"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
+      </IconSmall>
+    );
+
   return (
     <Icon {...props}>
       <path

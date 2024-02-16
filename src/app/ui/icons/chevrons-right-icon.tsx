@@ -1,6 +1,26 @@
-import { Icon, IconProps } from './icon/icon';
+import { Icon, IconProps, IconSmall } from './icon/icon';
 
-export function ChevronsRightIcon(props: IconProps) {
+export function ChevronsRightIcon({ variant, ...props }: IconProps) {
+  if (variant === 'small')
+    return (
+      <IconSmall {...props}>
+        <path
+          d="M9 5L11.8842 7.73484C12.0386 7.88128 12.0386 8.11872 11.8842 8.26516L9 11"
+          stroke="currentColor"
+          strokeWidth="1.5"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
+        <path
+          d="M4 5L6.88417 7.73484C7.03861 7.88128 7.03861 8.11872 6.88417 8.26516L4 11"
+          stroke="currentColor"
+          strokeWidth="1.5"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
+      </IconSmall>
+    );
+
   return (
     <Icon {...props}>
       <path

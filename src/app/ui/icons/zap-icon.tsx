@@ -1,6 +1,18 @@
-import { Icon, IconProps } from './icon/icon';
+import { Icon, IconProps, IconSmall } from './icon/icon';
 
-export function ZapIcon(props: IconProps) {
+export function ZapIcon({ variant, ...props }: IconProps) {
+  if (variant === 'small')
+    return (
+      <IconSmall {...props}>
+        <path
+          d="M12.881 5.83333H9.33317C9.05703 5.83333 8.83317 5.60948 8.83317 5.33333V2.1057C8.83317 1.61505 8.20012 1.41792 7.92156 1.82183L2.7071 9.3828C2.47835 9.71449 2.71579 10.1667 3.11871 10.1667H6.6665C6.94265 10.1667 7.1665 10.3905 7.1665 10.6667V13.8943C7.1665 14.385 7.79955 14.5821 8.07811 14.1782L13.2926 6.6172C13.5213 6.28551 13.2839 5.83333 12.881 5.83333Z"
+          stroke="currentColor"
+          strokeWidth="1.5"
+          strokeLinejoin="round"
+        />
+      </IconSmall>
+    );
+
   return (
     <Icon {...props}>
       <path
