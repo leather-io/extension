@@ -6,6 +6,7 @@ import { RouteUrls } from '@shared/route-urls';
 import { ledgerBitcoinTxSigningRoutes } from '@app/features/ledger/flows/bitcoin-tx-signing/ledger-bitcoin-sign-tx-container';
 import { ledgerStacksMessageSigningRoutes } from '@app/features/ledger/flows/stacks-message-signing/ledger-stacks-sign-msg.routes';
 import { RpcGetAddresses } from '@app/pages/rpc-get-addresses/rpc-get-addresses';
+import { RpcGetXpub } from '@app/pages/rpc-get-xpub/rpc-get-xpub';
 import { rpcSendTransferRoutes } from '@app/pages/rpc-send-transfer/rpc-send-transfer.routes';
 import { RpcSignPsbt } from '@app/pages/rpc-sign-psbt/rpc-sign-psbt';
 import { RpcSignPsbtSummary } from '@app/pages/rpc-sign-psbt/rpc-sign-psbt-summary';
@@ -21,6 +22,14 @@ export const rpcRequestRoutes = (
       element={
         <AccountGate>
           <RpcGetAddresses />
+        </AccountGate>
+      }
+    />
+    <Route
+      path={RouteUrls.RpcGetXpub}
+      element={
+        <AccountGate>
+          <RpcGetXpub />
         </AccountGate>
       }
     />

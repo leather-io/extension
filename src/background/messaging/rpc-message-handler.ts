@@ -2,6 +2,7 @@ import { RpcErrorCode } from '@btckit/types';
 
 import { WalletRequests, makeRpcErrorResponse } from '@shared/rpc/rpc-methods';
 
+import { rpcGetXpub } from '@background/messaging/rpc-methods/get-xpub';
 import { rpcSignStacksTransaction } from '@background/messaging/rpc-methods/sign-stacks-transaction';
 
 import { getTabIdFromPort } from './messaging-utils';
@@ -17,6 +18,11 @@ export async function rpcMessageHandler(message: WalletRequests, port: chrome.ru
   switch (message.method) {
     case 'getAddresses': {
       await rpcGetAddresses(message, port);
+      break;
+    }
+
+    case 'getXpub': {
+      await rpcGetXpub(message, port);
       break;
     }
 

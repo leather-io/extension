@@ -1,5 +1,6 @@
 import { BtcKitMethodMap, ExtractErrorResponse, ExtractSuccessResponse } from '@btckit/types';
 
+import { GetXpub } from '@shared/rpc/methods/get-xpub';
 import { SignStacksTransaction } from '@shared/rpc/methods/sign-stacks-transaction';
 import { ValueOf } from '@shared/utils/type-utils';
 
@@ -14,7 +15,8 @@ export type WalletMethodMap = BtcKitMethodMap &
   SignPsbt &
   AcceptBitcoinContract &
   SignStacksTransaction &
-  SignStacksMessage;
+  SignStacksMessage &
+  GetXpub;
 
 export type WalletRequests = ValueOf<WalletMethodMap>['request'];
 export type WalletResponses = ValueOf<WalletMethodMap>['response'];
