@@ -1,9 +1,10 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { HStack, styled } from 'leather-styles/jsx';
 
-import { BtcIcon } from '../icons/btc-icon';
-import { ChevronDownIcon } from '../icons/chevron-down-icon';
-import { PlaceholderIcon } from '../icons/placeholder-icon';
+import { BtcIcon } from '@app/ui/components/avatar-icon/btc-icon';
+import { ChevronDownIcon } from '@app/ui/icons/chevron-down-icon';
+import { PlaceholderIcon } from '@app/ui/icons/placeholder-icon';
+
 import { Button as Component } from './button';
 
 const meta: Meta<typeof Component> = {

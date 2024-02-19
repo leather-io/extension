@@ -1,6 +1,6 @@
 import { ReactNode } from 'react';
 
-import { AudioIcon } from '@app/ui/components/icons/audio-icon';
+import { HeadsetIcon } from '@app/ui/icons/headset-icon';
 
 import { CollectibleItemLayout, CollectibleItemLayoutProps } from '../collectible-item.layout';
 import { CollectiblePlaceholderLayout } from './collectible-placeholder.layout';
@@ -12,7 +12,7 @@ export function CollectibleAudio({ icon, ...props }: CollectibleAudioProps) {
   return (
     <CollectibleItemLayout collectibleTypeIcon={icon} {...props}>
       <CollectiblePlaceholderLayout>
-        <AudioIcon size="xl" />
+        <HeadsetIcon width="xl" />
       </CollectiblePlaceholderLayout>
     </CollectibleItemLayout>
   );

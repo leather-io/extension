@@ -12,7 +12,7 @@ import { CurrentStacksAccountLoader } from '@app/components/loaders/stacks-accou
 import { useHasBitcoinLedgerKeychain } from '@app/store/accounts/blockchain/bitcoin/bitcoin.ledger';
 import { useCurrentAccountNativeSegwitAddressIndexZero } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
 import { useCurrentNetwork } from '@app/store/networks/networks.selectors';
-import { BtcIcon } from '@app/ui/components/icons/btc-icon';
+import { BtcIcon } from '@app/ui/components/avatar-icon/btc-icon';
 
 import { Collectibles } from '../collectibles/collectibles';
 import { PendingBrc20TransferList } from '../pending-brc-20-transfers/pending-brc-20-transfers';

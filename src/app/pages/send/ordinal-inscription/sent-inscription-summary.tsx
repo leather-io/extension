@@ -20,9 +20,9 @@ import {
   InfoCardSeparator,
 } from '@app/components/info-card/info-card';
 import { InscriptionPreview } from '@app/components/inscription-preview-card/components/inscription-preview';
-import { CheckmarkIcon } from '@app/ui/components/icons/checkmark-icon';
-import { CopyIcon } from '@app/ui/components/icons/copy-icon';
-import { ExternalLinkIcon } from '@app/ui/components/icons/external-link-icon';
+import { CheckmarkIcon } from '@app/ui/icons/checkmark-icon';
+import { CopyIcon } from '@app/ui/icons/copy-icon';
+import { ExternalLinkIcon } from '@app/ui/icons/external-link-icon';
 
 import { InscriptionPreviewCard } from '../../../components/inscription-preview-card/inscription-preview-card';
 
@@ -64,7 +64,7 @@ export function SendInscriptionSummary() {
     <BaseDrawer title="Sent" isShowing onClose={() => navigate(RouteUrls.Home)}>
       <Box mt="space.06" px="space.06">
         <InscriptionPreviewCard
-          icon={<CheckmarkIcon mt="space.01" size="32px" />}
+          icon={<CheckmarkIcon mt="space.01" width="lg" />}
           image={<InscriptionPreview inscription={inscription} />}
           subtitle="Ordinal inscription"
           title={inscription.title}
@@ -80,12 +80,8 @@ export function SendInscriptionSummary() {
         </Stack>
 
         <HStack gap="space.04" width="100%">
-          <InfoCardBtn
-            onClick={onClickLink}
-            icon={<ExternalLinkIcon size="14px" />}
-            label="View details"
-          />
-          <InfoCardBtn onClick={onClickCopy} icon={<CopyIcon size="14px" />} label="Copy ID" />
+          <InfoCardBtn onClick={onClickLink} icon={<ExternalLinkIcon />} label="View details" />
+          <InfoCardBtn onClick={onClickCopy} icon={<CopyIcon />} label="Copy ID" />
         </HStack>
       </InfoCard>
     </BaseDrawer>

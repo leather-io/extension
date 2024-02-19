@@ -37,7 +37,10 @@ module.exports = {
     {
       name: 'no-orphans',
       severity: 'error',
-      from: { orphan: true, pathNot: ['^src/shared/models/global-types.ts'] },
+      from: {
+        orphan: true,
+        pathNot: ['^src/shared/models/global-types.ts', '^src/app/ui/icons/docs/icons-list.ts'],
+      },
       to: {},
     },
     {

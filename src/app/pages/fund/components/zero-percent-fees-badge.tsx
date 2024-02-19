@@ -1,6 +1,6 @@
 import { HStack, styled } from 'leather-styles/jsx';
 
-import { StarIcon } from '@app/ui/components/icons/star-icon';
+import { StarIcon } from '@app/ui/icons/star-icon';
 
 export function ZeroPercentFeesBadge() {
   return (
@@ -14,7 +14,7 @@ export function ZeroPercentFeesBadge() {
       paddingY="space.01"
       gap="space.01"
     >
-      <StarIcon color="warning.label" size="xs" />
+      <StarIcon color="warning.label" width="xs" />
       <styled.span color="warning.label" textStyle="caption.02">
         0 % Fees
       </styled.span>

@@ -99,6 +99,7 @@ const manifest = {
   },
   content_scripts: [
     {
+      run_at: 'document_start',
       js: ['content-script.js'],
       matches: ['*://*/*'],
       all_frames: true,

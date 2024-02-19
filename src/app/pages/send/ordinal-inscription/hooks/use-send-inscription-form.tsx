@@ -6,6 +6,7 @@ import * as yup from 'yup';
 import { logger } from '@shared/logger';
 import { OrdinalSendFormValues } from '@shared/models/form.model';
 import { RouteUrls } from '@shared/route-urls';
+import { isError } from '@shared/utils';
 
 import { FormErrorMessages } from '@app/common/error-messages';
 import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
@@ -66,7 +67,7 @@ export function useSendInscriptionForm() {
         void analytics.track('ordinals_dot_com_unavailable', { error });
 
         let message = 'Unable to establish if utxo has multiple inscriptions';
-        if (error instanceof Error) {
+        if (isError(error)) {
           message = error.message;
         }
         setShowError(message);

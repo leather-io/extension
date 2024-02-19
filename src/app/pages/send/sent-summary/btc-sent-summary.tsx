@@ -17,8 +17,8 @@ import {
   InfoCardSeparator,
 } from '@app/components/info-card/info-card';
 import { ModalHeader } from '@app/components/modal-header';
-import { CopyIcon } from '@app/ui/components/icons/copy-icon';
-import { ExternalLinkIcon } from '@app/ui/components/icons/external-link-icon';
+import { CopyIcon } from '@app/ui/icons/copy-icon';
+import { ExternalLinkIcon } from '@app/ui/icons/external-link-icon';
 
 import { TxDone } from '../send-crypto-asset-form/components/tx-done';
 
@@ -78,12 +78,8 @@ export function BtcSentSummary() {
 
       <InfoCardFooter>
         <HStack gap="space.04" width="100%">
-          <InfoCardBtn
-            icon={<ExternalLinkIcon size="14px" />}
-            label="View details"
-            onClick={onClickLink}
-          />
-          <InfoCardBtn icon={<CopyIcon size="14px" />} label="Copy ID" onClick={onClickCopy} />
+          <InfoCardBtn icon={<ExternalLinkIcon />} label="View details" onClick={onClickLink} />
+          <InfoCardBtn icon={<CopyIcon />} label="Copy ID" onClick={onClickCopy} />
         </HStack>
       </InfoCardFooter>
     </InfoCard>

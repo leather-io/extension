@@ -10,8 +10,8 @@ import { i18nFormatCurrency } from '@app/common/money/format-money';
 import { satToBtc } from '@app/common/money/unit-conversion';
 import { useCryptoCurrencyMarketData } from '@app/query/common/market-data/market-data.hooks';
 import { Flag } from '@app/ui/components/flag/flag';
-import { BitcoinContractIcon } from '@app/ui/components/icons/bitcoin-contract-icon';
 import { Caption } from '@app/ui/components/typography/caption';
+import { BitcoinContractIcon } from '@app/ui/icons/bitcoin-contract-icon';
 
 interface BitcoinContractListItemLayoutProps {
   id: string;

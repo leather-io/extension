@@ -6,8 +6,16 @@ import BitcoinApp from 'ledger-bitcoin';
 import { delay } from '@app/common/utils';
 import { safeAwait } from '@app/common/utils/safe-await';
 
-import { LedgerConnectionErrors } from '../generic-flows/request-keys/use-request-ledger-keys';
 import { getStacksAppVersion } from './stacks-ledger-utils';
+
+export enum LedgerConnectionErrors {
+  FailedToConnect = 'FailedToConnect',
+  AppNotOpen = 'AppNotOpen',
+  AppVersionOutdated = 'AppVersionOutdated',
+  DeviceNotConnected = 'DeviceNotConnected',
+  DeviceLocked = 'DeviceLocked',
+  IncorrectAppOpened = 'INCORRECT_APP_OPENED',
+}
 
 export const LEDGER_APPS_MAP = {
   STACKS: 'Stacks',

@@ -5,7 +5,7 @@ import { NetworkConfiguration } from '@shared/constants';
 
 import { getUrlHostname } from '@app/common/utils';
 import { Button } from '@app/ui/components/button/button';
-import { TrashIcon } from '@app/ui/components/icons/trash-icon';
+import { TrashIcon } from '@app/ui/icons/trash-icon';
 
 import { NetworkStatusIndicator } from './network-status-indicator';
 

@@ -8,7 +8,7 @@ import { RouteUrls } from '@shared/route-urls';
 import { capitalize } from '@app/common/utils';
 import { immediatelyAttemptLedgerConnection } from '@app/features/ledger/hooks/use-when-reattempt-ledger-connection';
 import { Button } from '@app/ui/components/button/button';
-import { LedgerIcon } from '@app/ui/components/icons/ledger-icon';
+import { LedgerIcon } from '@app/ui/icons/ledger-icon';
 
 interface ConnectLedgerAssetBtnProps {
   chain: SupportedBlockchains;

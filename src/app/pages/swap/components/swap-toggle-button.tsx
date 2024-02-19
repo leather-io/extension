@@ -3,7 +3,7 @@ import { styled } from 'leather-styles/jsx';
 
 import { isDefined, isUndefined } from '@shared/utils';
 
-import { SwapIcon } from '@app/ui/components/icons/swap-icon';
+import { SwapIcon } from '@app/ui/icons';
 
 import { SwapFormValues } from '../hooks/use-swap-form';
 import { useSwapContext } from '../swap.context';

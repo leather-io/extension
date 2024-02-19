@@ -11,8 +11,8 @@ import { useViewportMinWidth } from '@app/common/hooks/use-media-query';
 import { LeatherLogo } from '@app/components/leather-logo';
 import { NetworkModeBadge } from '@app/components/network-mode-badge';
 import { Button } from '@app/ui/components/button/button';
-import { ArrowLeftIcon } from '@app/ui/components/icons/arrow-left-icon';
-import { HamburgerIcon } from '@app/ui/components/icons/hamburger-icon';
+import { ArrowLeftIcon } from '@app/ui/icons/arrow-left-icon';
+import { HamburgerIcon } from '@app/ui/icons/hamburger-icon';
 
 import { AppVersion } from './app-version';
 
@@ -71,6 +71,7 @@ export function Header(props: HeaderProps) {
         <NetworkModeBadge />
         {!hideActions && (
           <Button
+            id="settings-menu-btn"
             data-testid={SettingsSelectors.SettingsMenuBtn}
             onClick={() => setIsShowingSettings(!isShowingSettings)}
             variant="ghost"

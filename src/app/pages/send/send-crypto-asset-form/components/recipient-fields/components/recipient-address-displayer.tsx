@@ -5,8 +5,8 @@ import { HStack, styled } from 'leather-styles/jsx';
 
 import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
 import { useClipboard } from '@app/common/hooks/use-copy-to-clipboard';
-import { CopyIcon } from '@app/ui/components/icons/copy-icon';
 import { BasicTooltip } from '@app/ui/components/tooltip/basic-tooltip';
+import { CopyIcon } from '@app/ui/icons/copy-icon';
 
 interface RecipientAddressDisplayerProps {
   address: string;
@@ -37,7 +37,7 @@ export function RecipientAddressDisplayer({ address }: RecipientAddressDisplayer
           onClick={copyToClipboard}
           type="button"
         >
-          <CopyIcon size="16px" />
+          <CopyIcon />
         </styled.button>
       </BasicTooltip>
     </HStack>

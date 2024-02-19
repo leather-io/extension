@@ -2,7 +2,7 @@ import { Metadata as StacksNftMetadata } from '@hirosystems/token-metadata-api-c
 
 import { isValidUrl } from '@shared/utils/validate-url';
 
-import { StxIcon } from '@app/ui/components/icons/stx-icon';
+import { StxIcon } from '@app/ui/components/avatar-icon/stx-icon';
 
 import { CollectibleImage } from '../_collectible-types/collectible-image';
 import { ImageUnavailable } from '../image-unavailable';
@@ -18,7 +18,7 @@ export function StacksNonFungibleTokens({ metadata }: StacksNonFungibleTokensPro
   return (
     <CollectibleImage
       alt="stacks nft"
-      icon={<StxIcon size="lg" />}
+      icon={<StxIcon width="lg" />}
       src={metadata.cached_image ?? ''}
       subtitle="Stacks NFT"
       title={metadata.name ?? ''}

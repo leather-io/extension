@@ -21,15 +21,14 @@ import {
 } from '@app/query/bitcoin/ordinals/inscription.hooks';
 import { useGetInscriptionsByOutputQuery } from '@app/query/bitcoin/ordinals/inscriptions-by-param.query';
 import { useCurrentAccountNativeSegwitAddressIndexZero } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
+import { BtcIcon } from '@app/ui/components/avatar-icon/btc-icon';
 import { BulletSeparator } from '@app/ui/components/bullet-separator/bullet-separator';
-import { BtcIcon } from '@app/ui/components/icons/btc-icon';
+import { Caption } from '@app/ui/components/typography/caption';
 
 import { TransactionItemLayout } from '../transaction-item/transaction-item.layout';
-import { BitcoinTransactionCaption } from './bitcoin-transaction-caption';
 import { BitcoinTransactionIcon } from './bitcoin-transaction-icon';
 import { InscriptionIcon } from './bitcoin-transaction-inscription-icon';
 import { BitcoinTransactionStatus } from './bitcoin-transaction-status';
-import { BitcoinTransactionValue } from './bitcoin-transaction-value';
 
 interface BitcoinTransactionItemProps {
   transaction: BitcoinTx;
@@ -76,13 +75,10 @@ export function BitcoinTransactionItem({ transaction }: BitcoinTransactionItemPr
 
   const txCaption = (
     <BulletSeparator>
-      <BitcoinTransactionCaption>{caption}</BitcoinTransactionCaption>
-      {inscriptionData ? (
-        <BitcoinTransactionCaption>{inscriptionData.mime_type}</BitcoinTransactionCaption>
-      ) : null}
+      <Caption>{caption}</Caption>
+      {inscriptionData ? <Caption>{inscriptionData.mime_type}</Caption> : null}
     </BulletSeparator>
   );
-  const txValue = <BitcoinTransactionValue>{value}</BitcoinTransactionValue>;
 
   const title = inscriptionData ? `Ordinal inscription #${inscriptionData.number}` : 'Bitcoin';
   const increaseFeeButton = (
@@ -107,7 +103,7 @@ export function BitcoinTransactionItem({ transaction }: BitcoinTransactionItemPr
       }
       txStatus={<BitcoinTransactionStatus transaction={transaction} />}
       txTitle={<TransactionTitle title={title} />}
-      txValue={txValue}
+      txValue={value}
     />
   );
 }

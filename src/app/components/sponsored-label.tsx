@@ -1,6 +1,6 @@
 import { HStack, Stack, styled } from 'leather-styles/jsx';
 
-import { ErrorCircleIcon } from '@app/ui/components/icons/error-circle-icon';
+import { ErrorCircleIcon } from '@app/ui/icons/error-circle-icon';
 
 // #4476 TODO - visually inspect this
 export function SponsoredLabel(): React.JSX.Element {
@@ -13,7 +13,7 @@ export function SponsoredLabel(): React.JSX.Element {
         height="48px"
         pl="space.04"
       >
-        <ErrorCircleIcon color="stacks" size="sm" />
+        <ErrorCircleIcon color="stacks" />
 
         <styled.span color="accent.text-primary">
           This transaction is sponsored, so no fee is charged
