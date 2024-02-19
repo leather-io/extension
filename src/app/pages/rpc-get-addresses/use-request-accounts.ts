@@ -43,7 +43,7 @@ export function useGetAddresses() {
           publicKey: bytesToHex(nativeSegwitSigner.publicKey),
           derivationPath: nativeSegwitSigner.derivationPath,
         };
-        
+
         keysToIncludeInResponse.push(nativeSegwitAddressResponse);
       }
 
