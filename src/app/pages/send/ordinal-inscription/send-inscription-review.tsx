@@ -4,7 +4,6 @@ import { bytesToHex } from '@noble/hashes/utils';
 import { Box, Stack } from 'leather-styles/jsx';
 import get from 'lodash.get';
 
-import { decodeBitcoinTx } from '@shared/crypto/bitcoin/bitcoin.utils';
 import { RouteUrls } from '@shared/route-urls';
 
 import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
@@ -13,10 +12,6 @@ import { BaseDrawer } from '@app/components/drawer/base-drawer';
 import { InfoCard, InfoCardRow, InfoCardSeparator } from '@app/components/info-card/info-card';
 import { InscriptionPreview } from '@app/components/inscription-preview-card/components/inscription-preview';
 import { useCurrentNativeSegwitUtxos } from '@app/query/bitcoin/address/utxos-by-address.hooks';
-import {
-  filterOutIntentionalInscriptionsSpend,
-  useCheckInscribedUtxos,
-} from '@app/query/bitcoin/transaction/use-check-utxos';
 import { useAppDispatch } from '@app/store';
 import { inscriptionSent } from '@app/store/ordinals/ordinals.slice';
 import { Button } from '@app/ui/components/button/button';
@@ -45,17 +40,9 @@ export function SendInscriptionReview() {
   const { refetch } = useCurrentNativeSegwitUtxos();
   const { broadcastTx, isBroadcasting } = useBitcoinBroadcastTransaction();
 
-  const { checkIfUtxosListIncludesInscribed, isLoading } = useCheckInscribedUtxos({
-    // Filer out inscription txid from the check list
-    inputs: filterOutIntentionalInscriptionsSpend({
-      inputs: decodeBitcoinTx(bytesToHex(signedTx)).inputs,
-      inscriptions: [inscription],
-    }),
-  });
-
   async function sendInscription() {
     await broadcastTx({
-      checkForInscribedUtxos: checkIfUtxosListIncludesInscribed,
+      skipBypassUtxoIdsCheckFor: [inscription.tx_id],
       tx: bytesToHex(signedTx),
       async onSuccess(txid: string) {
         void analytics.track('broadcast_ordinal_transaction');
@@ -100,7 +87,7 @@ export function SendInscriptionReview() {
           <InfoCardRow title="Fee" value={feeRowValue} />
         </Stack>
 
-        <Button aria-busy={isLoading || isBroadcasting} width="100%" onClick={sendInscription}>
+        <Button aria-busy={isBroadcasting} width="100%" onClick={sendInscription}>
           Confirm and send transaction
         </Button>
       </InfoCard>

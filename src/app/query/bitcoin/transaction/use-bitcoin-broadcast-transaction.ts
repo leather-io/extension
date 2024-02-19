@@ -1,14 +1,19 @@
 import { useCallback, useState } from 'react';
 
+import * as btc from '@scure/btc-signer';
+
+import { decodeBitcoinTx } from '@shared/crypto/bitcoin/bitcoin.utils';
 import { isError } from '@shared/utils';
 
 import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
 import { delay } from '@app/common/utils';
 import { useBitcoinClient } from '@app/store/common/api-clients.hooks';
 
+import { filterOutIntentionalUtxoSpend, useCheckInscribedUtxos } from './use-check-utxos';
+
 interface BroadcastCallbackArgs {
   tx: string;
-  checkForInscribedUtxos?(): Promise<boolean>;
+  skipBypassUtxoIdsCheckFor?: string[];
   delayTime?: number;
   onSuccess?(txid: string): void;
   onError?(error: Error): void;
@@ -19,6 +24,7 @@ export function useBitcoinBroadcastTransaction() {
   const client = useBitcoinClient();
   const [isBroadcasting, setIsBroadcasting] = useState(false);
   const analytics = useAnalytics();
+  const { checkIfUtxosListIncludesInscribed } = useCheckInscribedUtxos();
 
   const broadcastTx = useCallback(
     async ({
@@ -26,13 +32,17 @@ export function useBitcoinBroadcastTransaction() {
       onSuccess,
       onError,
       onFinally,
+      skipBypassUtxoIdsCheckFor = [],
       delayTime = 700,
-      checkForInscribedUtxos,
     }: BroadcastCallbackArgs) => {
       try {
-        // To-Do implement check in all btc related flows and remove conditional usage
-        // add explicit check in broadcastTx to ensure that utxos are checked before broadcasting
-        const hasInscribedUtxos = await checkForInscribedUtxos?.();
+        // Filter out intentional spend inscription txid from the check list
+        const utxos: btc.TransactionInput[] = filterOutIntentionalUtxoSpend({
+          inputs: decodeBitcoinTx(tx).inputs,
+          intentionalSpendUtxoIds: skipBypassUtxoIdsCheckFor,
+        });
+
+        const hasInscribedUtxos = await checkIfUtxosListIncludesInscribed(utxos);
         if (hasInscribedUtxos) {
           return;
         }
@@ -58,7 +68,7 @@ export function useBitcoinBroadcastTransaction() {
         return;
       }
     },
-    [analytics, client.transactionsApi]
+    [analytics, checkIfUtxosListIncludesInscribed, client]
   );
 
   return { broadcastTx, isBroadcasting };

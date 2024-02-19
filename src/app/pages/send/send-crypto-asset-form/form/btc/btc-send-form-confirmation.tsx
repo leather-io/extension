@@ -28,7 +28,6 @@ import {
 import { ModalHeader } from '@app/components/modal-header';
 import { useCurrentNativeSegwitUtxos } from '@app/query/bitcoin/address/utxos-by-address.hooks';
 import { useBitcoinBroadcastTransaction } from '@app/query/bitcoin/transaction/use-bitcoin-broadcast-transaction';
-import { useCheckInscribedUtxos } from '@app/query/bitcoin/transaction/use-check-utxos';
 import { useCryptoCurrencyMarketData } from '@app/query/common/market-data/market-data.hooks';
 import { Button } from '@app/ui/components/button/button';
 
@@ -75,12 +74,9 @@ export function BtcSendFormConfirmation() {
   );
   const sendingValue = formatMoneyPadded(createMoneyFromDecimal(Number(transferAmount), symbol));
   const summaryFee = formatMoneyPadded(createMoney(Number(fee), symbol));
-  const { checkIfUtxosListIncludesInscribed, isLoading } = useCheckInscribedUtxos({
-    inputs: decodedTx.inputs,
-  });
+
   async function initiateTransaction() {
     await broadcastTx({
-      checkForInscribedUtxos: checkIfUtxosListIncludesInscribed,
       tx: transaction.hex,
       async onSuccess(txid) {
         void analytics.track('broadcast_transaction', {
@@ -161,7 +157,7 @@ export function BtcSendFormConfirmation() {
       </Stack>
 
       <InfoCardFooter>
-        <Button aria-busy={isLoading || isBroadcasting} onClick={initiateTransaction} width="100%">
+        <Button aria-busy={isBroadcasting} onClick={initiateTransaction} width="100%">
           Confirm and send transaction
         </Button>
       </InfoCardFooter>
