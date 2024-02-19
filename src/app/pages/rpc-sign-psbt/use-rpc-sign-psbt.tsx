@@ -4,6 +4,7 @@ import { RpcErrorCode } from '@btckit/types';
 import { hexToBytes } from '@noble/hashes/utils';
 import { bytesToHex } from '@stacks/common';
 
+import { decodeBitcoinTx } from '@shared/crypto/bitcoin/bitcoin.utils';
 import { Money } from '@shared/models/money.model';
 import { RouteUrls } from '@shared/route-urls';
 import { makeRpcErrorResponse, makeRpcSuccessResponse } from '@shared/rpc/rpc-methods';
@@ -54,6 +55,8 @@ export function useRpcSignPsbt() {
 
     await broadcastTx({
       tx,
+      // skip utxos check for psbt txs
+      skipBypassUtxoIdsCheckFor: decodeBitcoinTx(tx).inputs.map(input => bytesToHex(input.txid)),
       async onSuccess(txid) {
         await refetch();
 
