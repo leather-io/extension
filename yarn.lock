@@ -8942,12 +8942,12 @@ ajv@^6.12.2, ajv@^6.12.3, ajv@^6.12.4, ajv@^6.12.5, ajv@^6.7.0:
     json-schema-traverse "^0.4.1"
     uri-js "^4.2.2"
 
-alex-sdk@0.1.23:
-  version "0.1.23"
-  resolved "https://registry.yarnpkg.com/alex-sdk/-/alex-sdk-0.1.23.tgz#2fc47f3fb686cb42299bb90d511d397fef5f27a7"
-  integrity sha512-HVgEpB6lJJXW/F0YsYPqQsnOYYtitYaEhjt4xoJsBbqDBxXweIDAQUlGJJBv6VpEK0Veg9NPd+QbhkywIdPbJg==
+alex-sdk@0.1.24:
+  version "0.1.24"
+  resolved "https://registry.yarnpkg.com/alex-sdk/-/alex-sdk-0.1.24.tgz#d999ba4dd9cd054074f00f8865da77ff1d4d7e83"
+  integrity sha512-Uz8atbx3vwZHXKSwUWXgWJ8mWNbpmqXtHGReHlCmW1E/u7A92+bhJpokpqkOPRLccsFn7Wndo985+yLfO0R7kw==
   dependencies:
-    clarity-codegen "^0.2.6"
+    clarity-codegen "^0.3.5"
 
 anser@^2.1.1:
   version "2.1.1"
@@ -10356,10 +10356,10 @@ cjs-module-lexer@^1.2.3:
   resolved "https://registry.yarnpkg.com/cjs-module-lexer/-/cjs-module-lexer-1.2.3.tgz#6c370ab19f8a3394e318fe682686ec0ac684d107"
   integrity sha512-0TNiGstbQmCFwt4akjjBg5pLRTSyj/PkWQ1ZoO2zntmg9yLqSRxwEa4iCfQLGjqhiqBfOJa7W/E8wfGrTDmlZQ==
 
-clarity-codegen@^0.2.6:
-  version "0.2.6"
-  resolved "https://registry.yarnpkg.com/clarity-codegen/-/clarity-codegen-0.2.6.tgz#897bfdc0374279c3a6dceebbe83bb6b553d6184b"
-  integrity sha512-1ZZoPO4VcqPkOaOPaj0OxgVeAJAjpga2nbbMTVynrYBEwN77hrWIwYfnICR0K3XFoyeW+mzxnYw9CpOvEA9eWQ==
+clarity-codegen@^0.3.5:
+  version "0.3.5"
+  resolved "https://registry.yarnpkg.com/clarity-codegen/-/clarity-codegen-0.3.5.tgz#4c4a411478500164b597fa36f422078e0ef6cacc"
+  integrity sha512-tMYXP0lyZ/WViR2vRHCdv/vD+VLhzguawa+GyGRhwMTaYzBRzgyvaZf1qipEf8tIhd8wQGI+3e9KGaWC8TRcaA==
   dependencies:
     "@stacks/stacks-blockchain-api-types" "^7.1.10"
     axios "^1.5.0"
