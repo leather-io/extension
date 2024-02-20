@@ -16,11 +16,11 @@ const flagStyles = css({
 
 type FlagAlignment = 'top' | 'middle' | 'bottom';
 
-interface FlagProps extends FlexProps {
+export interface FlagProps extends FlexProps {
   spacing?: SpacingToken;
   align?: FlagAlignment;
   children: React.ReactNode;
-  img: React.ReactNode;
+  img?: React.ReactNode;
 }
 
 /**

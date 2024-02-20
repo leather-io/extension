@@ -74,7 +74,7 @@ const input = sva({
       right: 0,
       bottom: 0,
       zIndex: 5,
-      textStyle: 'body.01',
+      textStyle: 'body.02',
       color: 'ink.text-primary',
       border: '1px solid',
       borderColor: 'ink.border-transparent',
@@ -88,13 +88,11 @@ const input = sva({
       '&:placeholder-shown + label': transformedLabelStyles,
       '[data-has-label="true"] &': {
         pt: '22px',
-        pb: '4px',
       },
     },
     label: {
-      pointerEvents: 'none',
       pos: 'absolute',
-      top: '36%',
+      top: '38%',
       left: 'space.04',
       zIndex: 9,
       color: 'inherit',

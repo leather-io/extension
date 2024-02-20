@@ -14,7 +14,7 @@ export function MemoField() {
   const showError = useShowFieldError(name);
 
   return (
-    <Box width="100%">
+    <Box width="100%" mt="space.04">
       <Input.Root hasError={!!showError}>
         <Input.Label>Memo</Input.Label>
         <Input.Field data-testid={SendCryptoAssetSelectors.MemoFieldInput} {...field} />

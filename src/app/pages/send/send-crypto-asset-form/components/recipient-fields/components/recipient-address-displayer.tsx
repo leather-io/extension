@@ -21,7 +21,7 @@ export function RecipientAddressDisplayer({ address }: RecipientAddressDisplayer
   }, [analytics, onCopy]);
 
   return (
-    <HStack alignItems="center" justifyContent="space-between" mb="space.04" width="100%">
+    <HStack mb="space.04" width="100%" px="space.04" mt="space.02">
       <styled.span
         textStyle="caption.02"
         data-testid={SendCryptoAssetSelectors.RecipientBnsAddressLabel}

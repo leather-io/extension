@@ -1,6 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 
-import { Formik } from 'formik';
+import { Formik, useField } from 'formik';
 import { Stack } from 'leather-styles/jsx';
 
 import { BitcoinTx } from '@shared/models/transactions/bitcoin-transaction.model';
@@ -13,14 +13,24 @@ import { getBitcoinTxValue } from '@app/common/transactions/bitcoin/utils';
 import { BitcoinCustomFeeFiat } from '@app/components/bitcoin-custom-fee/bitcoin-custom-fee-fiat';
 import { BitcoinTransactionItem } from '@app/components/bitcoin-transaction-item/bitcoin-transaction-item';
 import { LoadingSpinner } from '@app/components/loading-spinner';
-import { TextInputField } from '@app/components/text-input-field';
 import { useCurrentAccountNativeSegwitIndexZeroSigner } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
+import { Input } from '@app/ui/components/input/input';
 import { Caption } from '@app/ui/components/typography/caption';
 
 import { useBtcIncreaseFee } from '../hooks/use-btc-increase-fee';
 import { IncreaseFeeActions } from './increase-fee-actions';
 
 const feeInputLabel = 'sats/vB';
+
+function BitcoinFeeIncreaseField() {
+  const [field] = useField('feeRate');
+  return (
+    <Input.Root>
+      <Input.Field placeholder={feeInputLabel} {...field} />
+      <Input.Label>Fee rate</Input.Label>
+    </Input.Root>
+  );
+}
 
 interface IncreaseBtcFeeFormProps {
   btcTx: BitcoinTx;
@@ -53,7 +63,7 @@ export function IncreaseBtcFeeForm({ btcTx }: IncreaseBtcFeeFormProps) {
         {btcTx && <BitcoinTransactionItem transaction={btcTx} />}
         <Stack gap="space.04">
           <Stack gap="space.01">
-            <TextInputField label={feeInputLabel} name="feeRate" placeholder={feeInputLabel} />
+            <BitcoinFeeIncreaseField />
             <BitcoinCustomFeeFiat
               recipient={recipient}
               isSendingMax={false}
