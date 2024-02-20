@@ -68,7 +68,7 @@ export function ModalHeader({
       )}
 
       <Flex alignItems="center" flexBasis="35%" justifyContent="center">
-        <styled.h5 textStyle="heading.05" color={token('colors.accent.background-secondary')}>
+        <styled.h5 textStyle="heading.05" color={token('colors.ink.background-secondary')}>
           {title}
         </styled.h5>
       </Flex>

@@ -72,7 +72,10 @@ export function TextInputField({
         <HStack alignItems="center" justifyContent="space-between" maxHeight="20px" mb="space.01">
           <Flex alignItems="center">
             {label && field.value ? (
-              <styled.span color={showError ? 'error.label' : 'accent.text-primary'} mr="space.02">
+              <styled.span
+                color={showError ? 'red.action-primary-default' : 'ink.text-primary'}
+                mr="space.02"
+              >
                 {label}
               </styled.span>
             ) : null}
@@ -100,7 +103,7 @@ export function TextInputField({
           ) : null}
         </HStack>
         <styled.input
-          _disabled={{ bg: 'accent.background-primary' }}
+          _disabled={{ bg: 'ink.background-primary' }}
           _focus={{ border: 'none' }}
           autoComplete="off"
           bg="transparent"

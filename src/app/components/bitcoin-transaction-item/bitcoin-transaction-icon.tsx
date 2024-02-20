@@ -31,8 +31,8 @@ export function BitcoinTransactionIcon({
         right="-9px"
         position="absolute"
         size="21px"
-        bg={transaction.status.confirmed ? 'stacks' : 'warning.label'}
-        color="accent.background-primary"
+        bg={transaction.status.confirmed ? 'stacks' : 'yellow.action-primary-default'}
+        color="ink.background-primary"
         border="background"
         {...props}
       >

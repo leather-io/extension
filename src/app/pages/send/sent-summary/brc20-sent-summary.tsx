@@ -81,7 +81,7 @@ export function Brc20SentSummary() {
         <InfoCardRow title="Total fee" value={totalFee} />
       </Stack>
       <InfoCardFooter>
-        <HStack gap="sapce.04" width="100%">
+        <HStack gap="space.04" width="100%">
           <InfoCardBtn
             icon={<ExternalLinkIcon />}
             label="Pending BRC-20 transfers"

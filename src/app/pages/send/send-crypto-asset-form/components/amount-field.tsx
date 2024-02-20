@@ -155,10 +155,10 @@ export function AmountField({
         >
           {isSendingMax ? <styled.span style={{ fontSize: fontSize + 'px' }}>~</styled.span> : null}
           <styled.input
-            _disabled={{ bg: 'accent.background-primary' }}
+            _disabled={{ bg: 'ink.background-primary' }}
             _focus={{
               border: 'none',
-              color: 'accent.text-primary',
+              color: 'ink.text-primary',
             }}
             bg="transparent"
             border="none"
@@ -212,7 +212,7 @@ export function AmountField({
           </styled.span>
           <styled.span
             fontFamily="Marche"
-            color="accent.text-primary"
+            color="ink.text-primary"
             letterSpacing="0.64px"
             pl="space.02"
             style={{ fontSize: fontSize + 'px' }}

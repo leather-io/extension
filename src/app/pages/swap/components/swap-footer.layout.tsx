@@ -9,7 +9,7 @@ export function SwapFooterLayout({ children }: HasChildren) {
       alignItems="center"
       bg={whenPageMode({
         full: '',
-        popup: 'accent.background-primary',
+        popup: 'ink.background-primary',
       })}
       bottom="0"
       justifyContent="center"

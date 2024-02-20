@@ -31,7 +31,7 @@ export const NetworkModeBadge = memo((props: FlexProps) => {
       zIndex={999}
       {...props}
     >
-      <styled.span color="accent.text-subdued" textStyle="label.03">
+      <styled.span color="ink.text-subdued" textStyle="label.03">
         {name}
       </styled.span>
     </Flex>

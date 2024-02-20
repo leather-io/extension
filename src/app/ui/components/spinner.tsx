@@ -13,7 +13,7 @@ export function Spinner({
   label = 'Loading...',
   thickness = '2px',
   speed = '0.85s',
-  color = 'accent.text-subdued',
+  color = 'ink.text-subdued',
   ...props
 }: SpinnerProps) {
   return (

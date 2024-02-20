@@ -40,7 +40,7 @@ export function DrawerHeader({
       {icon && icon}
       {title && <styled.h1 textStyle="heading.05">{title}</styled.h1>}
       {isHovered && isWaitingOnPerformedAction && (
-        <styled.span color="accent.text-subdued" textStyle="caption.01">
+        <styled.span color="ink.text-subdued" textStyle="caption.01">
           {waitingOnPerformedActionMessage}
         </styled.span>
       )}

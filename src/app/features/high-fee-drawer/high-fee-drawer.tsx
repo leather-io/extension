@@ -18,7 +18,7 @@ export function HighFeeDrawer(props: { learnMoreUrl: string }) {
 
   return (
     <ControlledDrawer
-      icon={<ErrorIcon color="error.label" width="xl" />}
+      icon={<ErrorIcon color="red.action-primary-default" width="xl" />}
       isShowing={isShowingHighFeeConfirmation}
       onClose={() => setIsShowingHighFeeConfirmation(false)}
     >

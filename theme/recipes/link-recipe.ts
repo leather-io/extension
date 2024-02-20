@@ -31,7 +31,7 @@ export const linkRecipe = defineRecipe({
       underlined: {
         _before: {
           content: '""',
-          background: 'accent.non-interactive',
+          background: 'ink.non-interactive',
           bottom: '-2px',
           height: '2px',
           left: 0,
@@ -40,27 +40,27 @@ export const linkRecipe = defineRecipe({
         },
         _active: {
           _before: {
-            background: 'accent.text-primary',
+            background: 'ink.text-primary',
           },
-          color: 'accent.text-primary',
+          color: 'ink.text-primary',
         },
         _focus: {
           _before: { background: 'focus' },
-          color: 'accent.text-primary',
+          color: 'ink.text-primary',
           outline: 0,
         },
         _hover: {
           _before: {
-            background: 'accent.action-primary-hover',
+            background: 'ink.action-primary-hover',
           },
         },
-        color: 'accent.text-primary',
+        color: 'ink.text-primary',
       },
 
       text: {
         _before: {
           content: '""',
-          background: 'accent.action-primary-hover',
+          background: 'ink.action-primary-hover',
           bottom: '-2px',
           height: '2px',
           left: 0,
@@ -70,9 +70,9 @@ export const linkRecipe = defineRecipe({
         },
         _active: {
           _before: {
-            background: 'accent.text-primary',
+            background: 'ink.text-primary',
           },
-          color: 'accent.text-primary',
+          color: 'ink.text-primary',
           visibility: 'visible',
         },
         _focus: {
@@ -80,16 +80,16 @@ export const linkRecipe = defineRecipe({
             background: 'focus',
             visibility: 'visible',
           },
-          color: 'accent.text-primary',
+          color: 'ink.text-primary',
           outline: 0,
         },
         _hover: {
           _before: {
-            background: 'accent.action-primary-hover',
+            background: 'ink.action-primary-hover',
             visibility: 'visible',
           },
         },
-        color: 'accent.text-primary',
+        color: 'ink.text-primary',
       },
     },
 
@@ -110,18 +110,18 @@ export const linkRecipe = defineRecipe({
       css: {
         _focus: {
           _before: {
-            background: 'accent.background-primary',
+            background: 'ink.background-primary',
             visibility: 'visible',
           },
           outline: 0,
         },
         _hover: {
           _before: {
-            background: 'accent.background-primary',
+            background: 'ink.background-primary',
             visibility: 'visible',
           },
         },
-        color: 'accent.background-secondary',
+        color: 'ink.background-secondary',
       },
       invert: true,
       variant: 'underlined',
@@ -130,14 +130,14 @@ export const linkRecipe = defineRecipe({
       css: {
         _before: {
           content: '""',
-          background: 'accent.non-interactive',
+          background: 'ink.non-interactive',
           bottom: '-2px',
           height: '2px',
           left: 0,
           position: 'absolute',
           right: 0,
         },
-        color: 'accent.non-interactive',
+        color: 'ink.non-interactive',
         cursor: 'not-allowed',
       },
       disabled: true,
@@ -147,7 +147,7 @@ export const linkRecipe = defineRecipe({
       css: {
         _before: {
           content: '""',
-          background: 'accent.non-interactive',
+          background: 'ink.non-interactive',
           bottom: '-2px',
           height: '2px',
           left: 0,
@@ -155,7 +155,7 @@ export const linkRecipe = defineRecipe({
           right: 0,
           visibility: 'visible',
         },
-        color: 'accent.non-interactive',
+        color: 'ink.non-interactive',
         cursor: 'not-allowed',
       },
       disabled: true,

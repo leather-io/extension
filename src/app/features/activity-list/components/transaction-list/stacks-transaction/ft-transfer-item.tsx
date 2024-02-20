@@ -54,7 +54,7 @@ export function FtTransferItem({ ftTransfer, parentTx }: FtTransferItemProps) {
   const value = `${isOriginator ? '-' : ''}${displayAmount.toFormat()}`;
   const transferIcon = ftImageCanonicalUri ? (
     <StacksAssetAvatar
-      color="accent.background-primary"
+      color="ink.background-primary"
       gradientString=""
       imageCanonicalUri={ftImageCanonicalUri}
     >

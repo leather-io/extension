@@ -10,8 +10,8 @@ export const QrCode = memo(({ principal, ...rest }: { principal: string }) => {
       createQR(principal, {
         ecc: 0,
         qrSize: 180,
-        backgroundColor: token('colors.accent.background-primary'),
-        foregroundColor: token('colors.accent.text-primary'),
+        backgroundColor: token('colors.ink.background-primary'),
+        foregroundColor: token('colors.ink.text-primary'),
       }),
     [principal]
   );

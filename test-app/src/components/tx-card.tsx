@@ -14,14 +14,12 @@ export const TxCard: React.FC<TxCardProps> = ({ tx, label }) => {
   return (
     <Box
       flex="0 1 280px"
-      mr="10px"
-      mt={3}
-      borderColor="#F0F0F5"
-      borderWidth="1px"
-      borderRadius="md"
-      p={6}
+      mr="space.02"
+      mt="space.03"
+      border="default"
+      borderRadius="xs"
+      p="space.05"
       _hover={{
-        borderColor: 'ink.400',
         cursor: 'pointer',
       }}
       onClick={() => {
@@ -31,10 +29,12 @@ export const TxCard: React.FC<TxCardProps> = ({ tx, label }) => {
     >
       <Flex>
         <Box>
-          <styled.span color="ink.600">{shortAddr}</styled.span>
+          <styled.span color="ink.text-primary">{shortAddr}</styled.span>
         </Box>
         <Box flexGrow={1} textAlign="right">
-          <styled.span color="ink.600">{toRelativeTime(tx.burn_block_time * 1000)}</styled.span>
+          <styled.span color="ink.text-primary">
+            {toRelativeTime(tx.burn_block_time * 1000)}
+          </styled.span>
         </Box>
       </Flex>
       <styled.span display="block" textStyle="body.large" mt={3}>

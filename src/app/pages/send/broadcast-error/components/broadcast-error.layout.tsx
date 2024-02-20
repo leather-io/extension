@@ -26,12 +26,12 @@ export function BroadcastErrorLayout(props: BroadcastErrorProps) {
       <styled.span mx="space.05" mt="space.05" textStyle="heading.05">
         {title}
       </styled.span>
-      <styled.span color="accent.text-subdued" mt="space.04" textAlign="center" textStyle="body.02">
+      <styled.span color="ink.text-subdued" mt="space.04" textAlign="center" textStyle="body.02">
         {body}
       </styled.span>
       {errorPayload && (
         <Box
-          bg="accent.component-background-default"
+          bg="ink.component-background-default"
           borderRadius="sm"
           mt="space.05"
           mx="space.05"

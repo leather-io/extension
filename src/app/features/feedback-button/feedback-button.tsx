@@ -19,8 +19,8 @@ export function FeedbackButton() {
   const { theme } = useThemeSwitcher();
   return (
     <Button
-      background="ink.1"
-      _hover={{ background: 'ink.2' }}
+      _hover={{ bg: 'ink.background-secondary' }}
+      bg="ink.background-primary"
       variant="ghost"
       size="sm"
       pos="fixed"

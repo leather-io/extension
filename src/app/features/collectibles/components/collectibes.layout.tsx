@@ -27,7 +27,7 @@ export function CollectiblesLayout({
         <HStack columnGap="space.02">
           <styled.span textStyle="label.01">{title}</styled.span>
           {isLoading ? (
-            <Spinner color={token('colors.accent.text-primary')} opacity={0.5} />
+            <Spinner color={token('colors.ink.text-primary')} opacity={0.5} />
           ) : (
             <RefreshIcon cursor="pointer" onClick={() => onRefresh()} variant="small" />
           )}

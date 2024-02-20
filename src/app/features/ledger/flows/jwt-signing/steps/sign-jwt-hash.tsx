@@ -26,7 +26,7 @@ export function SignJwtHash() {
         status={hasApprovedOperation ? 'approved' : 'awaiting-approval'}
       />
       <Flex
-        bg="accent.component-background-default"
+        bg="ink.component-background-default"
         borderRadius="lg"
         flexDirection="column"
         textAlign="left"

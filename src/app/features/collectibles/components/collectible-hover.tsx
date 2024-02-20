@@ -40,9 +40,9 @@ export function CollectibleHover({
       {onClickCallToAction && (
         <styled.button
           _focus={{ outline: 'focus' }}
-          _hover={{ bg: 'accent.component-background-hover' }}
+          _hover={{ bg: 'ink.component-background-hover' }}
           alignItems="center"
-          bg="accent.background-primary"
+          bg="ink.background-primary"
           borderRadius="50%"
           display="flex"
           height="30px"

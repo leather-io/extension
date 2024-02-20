@@ -37,7 +37,7 @@ export function Unlock() {
     <>
       {/* Hide the logo when user hasn't consented yet */}
       {!hasApprovedNewBrand && (
-        <Box position="fixed" w="200px" h="60px" background="ink.2" top={0} left={0} />
+        <Box bg="ink.background-secondary" position="fixed" w="200px" h="60px" top={0} left={0} />
       )}
 
       <RequestPassword

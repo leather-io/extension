@@ -10,7 +10,7 @@ export function InscriptionIcon({ inscription, ...rest }: { inscription: Support
       return (
         <Circle
           bg="stacks"
-          color="accent.background-primary"
+          color="ink.background-primary"
           flexShrink={0}
           position="relative"
           size="36px"

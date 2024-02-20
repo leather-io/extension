@@ -12,7 +12,7 @@ export function ErrorLabel({ children, ...rest }: HstackProps) {
           mt: '2px',
         },
       })}
-      color="error.label"
+      color="red.action-primary-default"
       gap="space.02"
       textAlign="left"
       textStyle="body.02"

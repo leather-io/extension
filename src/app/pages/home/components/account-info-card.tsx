@@ -23,7 +23,7 @@ export function AccountInfoCard() {
   return (
     <Flex
       direction="column"
-      bgColor={{ base: 'ink.2', sm: 'unset' }}
+      bgColor={{ base: 'ink.background-secondary', sm: 'unset' }}
       rounded="sm"
       px={{ base: 'space.05', sm: '0' }}
       pt={{ base: 'space.05', sm: 'space.06' }}
@@ -31,7 +31,7 @@ export function AccountInfoCard() {
     >
       <Link
         _before={{ bg: 'transparent' }}
-        _hover={{ color: 'accent.action-primary-hover' }}
+        _hover={{ color: 'ink.action-primary-hover' }}
         onClick={() => setIsShowingSwitchAccountsState(true)}
       >
         <Flex>
@@ -53,7 +53,7 @@ export function AccountInfoCard() {
         </styled.h1>
         <Divider
           position="relative"
-          color="accent.border-default"
+          color="ink.border-default"
           right="space.05"
           width="calc(100% + 48px)"
           mb="space.02"

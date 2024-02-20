@@ -14,8 +14,8 @@ export function ZeroPercentFeesBadge() {
       paddingY="space.01"
       gap="space.01"
     >
-      <StarIcon color="warning.label" variant="small" />
-      <styled.span color="warning.label" textStyle="caption.02">
+      <StarIcon color="yellow.action-primary-default" variant="small" />
+      <styled.span color="yellow.action-primary-default" textStyle="caption.02">
         0 % Fees
       </styled.span>
     </HStack>

@@ -55,12 +55,12 @@ export function SwapAmountField({ amountAsFiat, isDisabled, name }: SwapAmountFi
     <Stack alignItems="flex-end" gap="space.01" width={['50%', '60%']}>
       <styled.input
         _disabled={{
-          color: 'accent.text-subdued',
+          color: 'ink.text-subdued',
         }}
         autoComplete="off"
-        bg="accent.background-primary"
+        bg="ink.background-primary"
         border="none"
-        color={showError ? 'error.label' : 'accent.text-primary'}
+        color={showError ? 'red.action-primary-default' : 'ink.text-primary'}
         data-testid={SwapSelectors.SwapAmountInput}
         display="block"
         disabled={isDisabled || isFetchingExchangeRate}
@@ -79,7 +79,7 @@ export function SwapAmountField({ amountAsFiat, isDisabled, name }: SwapAmountFi
         }}
       />
       {amountAsFiat ? (
-        <styled.span color={showError ? 'error' : 'accent.text-subdued'} textStyle="caption.02">
+        <styled.span color={showError ? 'error' : 'ink.text-subdued'} textStyle="caption.02">
           {amountAsFiat}
         </styled.span>
       ) : null}

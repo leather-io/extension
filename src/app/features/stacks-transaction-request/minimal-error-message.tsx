@@ -34,10 +34,9 @@ function MinimalErrorMessageSuspense(props: HstackProps) {
   return (
     <HStack
       alignItems="center"
-      // #4476 TODO change this colour
-      bg="#FCEEED"
+      bg="ink.background-primary"
       borderRadius="md"
-      color="error.label"
+      color="red.action-primary-default"
       p="space.04"
       width="100%"
       {...props}

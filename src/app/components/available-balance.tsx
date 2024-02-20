@@ -15,16 +15,16 @@ export function AvailableBalance(props: { balance: Money; balanceTooltipLabel?: 
   return (
     <Flex alignItems="center" justifyContent="space-between">
       <HStack gap="space.01">
-        <styled.span color="accent.text-subdued" textStyle="caption.01">
+        <styled.span color="ink.text-subdued" textStyle="caption.01">
           Available balance
         </styled.span>
         <BasicTooltip label={balanceTooltipLabel} side="top">
           <Box>
-            <InfoCircleIcon color="accent.text-subdued" variant="small" />
+            <InfoCircleIcon color="ink.text-subdued" variant="small" />
           </Box>
         </BasicTooltip>
       </HStack>
-      <styled.span color="accent.text-subdued" mr="space.02" textStyle="caption.01">
+      <styled.span color="ink.text-subdued" mr="space.02" textStyle="caption.01">
         {formatMoney(balance)}
       </styled.span>
     </Flex>

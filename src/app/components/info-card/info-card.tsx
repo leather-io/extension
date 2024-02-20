@@ -31,14 +31,14 @@ export function InfoCardRow({ title, value, titleAdditionalElement, ...props }: 
   return (
     <HStack alignItems="start" fontSize="14px" justifyContent="space-between" {...props}>
       <Flex alignItems="center" gap="space.01">
-        <styled.span color="accent.text-subdued" mr="space.01" textStyle="body.02">
+        <styled.span color="ink.text-subdued" mr="space.01" textStyle="body.02">
           {title}
         </styled.span>
         {titleAdditionalElement && titleAdditionalElement}
       </Flex>
       {isString(value) ? (
         <styled.span
-          color="accent.text-primary"
+          color="ink.text-primary"
           textStyle="label.02"
           fontVariant="tabular-nums"
           data-testid={SharedComponentsSelectors.InfoCardRowValue}
@@ -126,7 +126,7 @@ export function InfoCardFooter({ children }: InfoCardFooterProps) {
       alignItems="center"
       bg={whenPageMode({
         full: '',
-        popup: 'accent.background-primary',
+        popup: 'ink.background-primary',
       })}
       bottom="0"
       justifyContent="center"

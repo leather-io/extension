@@ -10,7 +10,7 @@ export function ChooseFeeSubtitle({ isSendingMax }: { isSendingMax: boolean }) {
   );
 
   return (
-    <styled.span color="accent.text-subdued" textAlign="center" textStyle="caption.02">
+    <styled.span color="ink.text-subdued" textAlign="center" textStyle="caption.02">
       {subtitle}
     </styled.span>
   );

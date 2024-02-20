@@ -12,7 +12,7 @@ export function TxTransferIconWrapper({ icon }: TxTransferIconWrapperProps) {
   return (
     <Circle
       bg="stacks"
-      color="accent.background-primary"
+      color="ink.background-primary"
       flexShrink={0}
       height="36px"
       position="relative"

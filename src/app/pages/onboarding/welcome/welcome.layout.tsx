@@ -27,12 +27,17 @@ export function WelcomeLayout({
 
   return (
     <Flex flexDir={['column-reverse', '', 'row']} minW="100vw" minH="100vh">
-      <Flex flexDir="column" bg={['ink.2', '', 'ink.12']} flex={[1, 2]} p="space.05">
+      <Flex
+        flexDir="column"
+        bg={['ink.background-secondary', '', 'ink.text-primary']}
+        flex={[1, 2]}
+        p="space.05"
+      >
         <Flex
           flexDir="column"
           flex={[1, 1, 0]}
           justifyContent={['center', '', 'flex-start']}
-          color={['ink.12', '', 'ink.2']}
+          color={['ink.background-primary', '', 'ink.background-secondary']}
         >
           <Box>
             <styled.h1 textStyle={['heading.03', '', 'display.02', 'display.01']}>
@@ -109,8 +114,8 @@ export function WelcomeLayout({
       </Flex>
       <Flex
         p="space.05"
-        bg="ink.2"
-        color="ink.12"
+        bg="ink.background-secondary"
+        color="ink.text-primary"
         flexDir="column"
         justifyContent="space-between"
         flex={['', '', 1]}

@@ -18,7 +18,7 @@ export function InfoLabel({ children, title, ...rest }: InfoLabelProps) {
         py="space.03"
         gap="space.02"
         width="100%"
-        color="accent.notification-text"
+        color="ink.text-primary"
       >
         <styled.span textStyle="label.02">{title}</styled.span>
         <styled.span textStyle="label.03">{children}</styled.span>

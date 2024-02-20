@@ -62,7 +62,7 @@ export const StxTransferInsufficientFundsErrorMessage = memo(props => {
       title="Insufficient balance"
       body={
         <Stack gap="space.05">
-          <Caption color="accent.text-primary">
+          <Caption color="ink.text-primary">
             You don't have enough STX to make this transfer. Send some STX to this address, or
             switch to another account.
           </Caption>
@@ -155,7 +155,7 @@ export const ExpiredRequestErrorMessage = memo(props => {
         title="Expired request"
         body="This transaction request has expired or cannot be validated, try to re-initiate this transaction request from the original app."
         border="1px solid"
-        borderColor="accent.border-default"
+        borderColor="ink.border-default"
         // #4476 TODO - move this to new error component
         // #4476 TODO check this is OK to remove boxShadow="high"
         // boxShadow="high"

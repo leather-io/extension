@@ -39,10 +39,10 @@ export function BitcoinCustomFeeFiat({
 
   return (
     <Flex justifyContent="space-between">
-      <styled.span color="accent.text-subdued" textStyle="body.02">
+      <styled.span color="ink.text-subdued" textStyle="body.02">
         {feeData.fiatFeeValue}
       </styled.span>
-      <styled.span color="accent.text-subdued" textStyle="body.02">
+      <styled.span color="ink.text-subdued" textStyle="body.02">
         {feeData.feeInBtc} BTC
       </styled.span>
     </Flex>

@@ -24,7 +24,7 @@ export function TupleNodeDisplayer({ clarityType, ...props }: TupleNodeDisplayer
   return clarityType === ClarityType.Tuple ? <Box {...props} /> : <Flex {...props} />;
 }
 export function TupleNodeLabelDisplayer(props: BoxProps) {
-  return <Box mr="space.04" color="accent.text-subdued" {...props} />;
+  return <Box mr="space.04" color="ink.text-subdued" {...props} />;
 }
 
 export function TupleNodeValueDisplayer(props: FlexProps) {

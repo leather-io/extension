@@ -19,7 +19,7 @@ function PossibleReasonUnableToConnect(props: PossibleReasonUnableToConnectProps
   return (
     <Flex alignItems="center">
       <Box mr="space.02">
-        <CircleIcon fill="accent.text-primary" width="4px" />
+        <CircleIcon fill="ink.text-primary" width="4px" />
       </Box>
       <styled.span textStyle="body.02">{text}</styled.span>
     </Flex>
@@ -57,7 +57,7 @@ export function ConnectLedgerErrorLayout(props: ConnectLedgerErrorLayoutProps) {
         Try again
       </Button>
       <HStack gap="space.01" mt="space.05">
-        <styled.span color="accent.text-subdued" textStyle="label.03">
+        <styled.span color="ink.text-subdued" textStyle="label.03">
           If the problem persists, check our
         </styled.span>
         <Link

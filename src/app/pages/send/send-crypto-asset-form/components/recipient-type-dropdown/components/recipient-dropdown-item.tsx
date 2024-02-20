@@ -18,9 +18,9 @@ export function RecipientDropdownItem({
   return (
     <styled.button
       _hover={{
-        bg: isVisible ? 'accent.component-background-hover' : 'accent.background-primary',
+        bg: isVisible ? 'ink.component-background-hover' : 'ink.background-primary',
         borderRadius: 'xs',
-        color: 'accent.text-primary',
+        color: 'ink.text-primary',
       }}
       alignItems="center"
       data-testid={`recipient-select-field-${testLabels[index]}`}
