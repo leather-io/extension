@@ -14,8 +14,8 @@ export function FastCheckoutBadge() {
       paddingY="space.01"
       gap="space.01"
     >
-      <ZapIcon color="success.label" variant="small" />
-      <styled.span color="success.label" textStyle="caption.02">
+      <ZapIcon color="green.action-primary-default" variant="small" />
+      <styled.span color="green.action-primary-default" textStyle="caption.02">
         Fast checkout
       </styled.span>
     </HStack>

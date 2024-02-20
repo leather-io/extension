@@ -18,12 +18,12 @@ export function StacksTransactionStatus({ transaction }: TransactionStatusProps)
     <>
       {isPending && (
         <BasicTooltip asChild label={pendingWaitingMessage} side="bottom">
-          <Caption color="warning.label">Pending</Caption>
+          <Caption color="yellow.action-primary-default">Pending</Caption>
         </BasicTooltip>
       )}
       {isFailed && (
         <BasicTooltip label={transaction.tx_status} side="bottom">
-          <Caption color="error.label">Failed</Caption>
+          <Caption color="yellow.action-primary-default">Failed</Caption>
         </BasicTooltip>
       )}
     </>

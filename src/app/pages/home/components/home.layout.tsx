@@ -20,7 +20,7 @@ export function HomeLayout({ children }: HomeLayoutProps) {
         maxWidth={['unset', 'unset', '882px']}
         px={['space.04', 'space.04', 'space.08']}
         width="100%"
-        backgroundColor="ink.1"
+        backgroundColor="ink.background-primary"
         borderRadius="lg"
       >
         <AccountInfoCard />

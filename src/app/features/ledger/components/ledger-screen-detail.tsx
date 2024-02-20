@@ -13,14 +13,14 @@ export function LedgerScreenDetail(props: LedgerScreenDetailProps) {
   const { children, title, tooltipLabel } = props;
 
   return (
-    <Flex borderColor="accent.border-default" flexDirection="column">
+    <Flex borderColor="ink.border-default" flexDirection="column">
       <Caption>
         {tooltipLabel ? (
           <BasicTooltip label={tooltipLabel} side="top">
             <Flex cursor="question" display="inline-flex">
               {title}
               <InfoCircleIcon
-                color="accent.text-subdued"
+                color="ink.text-subdued"
                 ml="space.01"
                 mt="space.01"
                 variant="small"

@@ -37,7 +37,7 @@ export function NetworkListItemLayout({
           unSelectable
             ? undefined
             : {
-                backgroundColor: 'accent.component-background-hover',
+                backgroundColor: 'ink.component-background-hover',
               }
         }
         px="space.05"

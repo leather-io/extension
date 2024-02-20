@@ -12,8 +12,8 @@ export const LeatherLogo = memo((props: LeatherLogoProps) => {
 
   return (
     <styled.button
-      _hover={{ color: 'accent.action-primary-hover' }}
-      color="accent.text-primary"
+      _hover={{ color: 'ink.action-primary-hover' }}
+      color="ink.text-primary"
       onClick={onClick}
       type="button"
     >

@@ -154,7 +154,7 @@ export function SettingsDropdown() {
         </MenuItem>
       )}
       <MenuItem
-        color="error.label"
+        color="red.action-primary-default"
         onClick={wrappedCloseCallback(() =>
           navigate(RouteUrls.SignOutConfirm, {
             relative: linkRelativeType,

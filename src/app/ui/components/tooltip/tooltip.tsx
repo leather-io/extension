@@ -36,7 +36,7 @@ export const Tooltip = {
 };
 
 const defaultContentStyles = css({
-  bg: 'accent.action-primary-default',
+  bg: 'ink.action-primary-default',
   borderRadius: 'xs',
   px: 'space.03',
   py: 'space.02',
@@ -47,7 +47,7 @@ const defaultContentStyles = css({
   maxWidth: '250px',
   textAlign: 'center',
   wordWrap: 'break-word',
-  color: 'accent.background-primary',
+  color: 'ink.background-primary',
 
   "&[data-state='delayed-open'][data-side='top']": {
     animationName: 'slideDownAndFade',
@@ -64,5 +64,5 @@ const defaultContentStyles = css({
 });
 
 const defaultTooltipArrowStyles = css({
-  fill: 'accent.action-primary-default',
+  fill: 'ink.action-primary-default',
 });

@@ -48,9 +48,9 @@ function TabButton(props: TabButtonProps) {
 
   return (
     <styled.button
-      bg={isActive ? 'accent.component-background-hover' : 'transparent'}
+      bg={isActive ? 'ink.component-background-hover' : 'transparent'}
       borderRadius="xs"
-      color={isActive ? 'accent.text-primary' : 'accent.text-subdued'}
+      color={isActive ? 'ink.text-primary' : 'ink.text-subdued'}
       px="space.04"
       py="space.03"
       textStyle="label.01"

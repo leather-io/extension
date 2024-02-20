@@ -13,8 +13,8 @@ export function IncreaseFeeButton(props: IncreaseFeeButtonProps) {
 
   return (
     <styled.button
-      _hover={{ color: 'accent.text-subdued' }}
-      bg="accent.background-primary"
+      _hover={{ color: 'ink.text-subdued' }}
+      bg="ink.background-primary"
       minWidth="105px"
       ml="auto"
       onClick={e => {

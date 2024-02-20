@@ -9,7 +9,7 @@ export function SendTransferFooter({ children }: HasChildren) {
       alignItems="center"
       bg={whenPageMode({
         full: 'unset',
-        popup: 'accent.background-primary',
+        popup: 'ink.background-primary',
       })}
       borderTop="default"
       bottom="0"

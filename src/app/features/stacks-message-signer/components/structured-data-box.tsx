@@ -42,7 +42,7 @@ export function StructuredDataBox(props: {
       <Stack
         border="active"
         paddingBottom="space.02"
-        borderColor="accent.border-default"
+        borderColor="ink.border-default"
         borderRadius="sm"
       >
         <Box background="white" borderRadius="lg" overflowX="scroll" py="space.05">

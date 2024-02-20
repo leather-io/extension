@@ -87,7 +87,7 @@ export function BitcoinCustomFee({
           <Form>
             <Stack gap="space.06" mt="space.02">
               <Stack gap="space.05">
-                <styled.span color="accent.text-subdued" textStyle="body.02" maxWidth="21.5rem">
+                <styled.span color="ink.text-subdued" textStyle="body.02" maxWidth="21.5rem">
                   Higher fee rates typically lead to faster confirmation times.
                   <Link
                     ml="space.01"

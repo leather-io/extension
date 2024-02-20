@@ -13,7 +13,7 @@ export function BitcoinTransactionStatus({ transaction }: BitcoinTransactionStat
   const isPending = !transaction.status.confirmed;
   return isPending ? (
     <BasicTooltip asChild label={pendingWaitingMessage} side="bottom">
-      <Caption color="warning.label">Pending</Caption>
+      <Caption color="yellow.action-primary-default">Pending</Caption>
     </BasicTooltip>
   ) : null;
 }

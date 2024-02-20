@@ -4,7 +4,7 @@ export function ReceiveBtcModalWarning({ message }: { message: string }) {
   return (
     <Flex
       justifyContent="center"
-      bg="warning.background"
+      bg="yellow.background-primary"
       minHeight="48px"
       p="space.05"
       width="100%"

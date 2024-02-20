@@ -55,12 +55,12 @@ export function BitcoinContractLockAmount({
           >
             <styled.button
               _hover={{ cursor: 'pointer' }}
-              color="accent.text-subdued"
+              color="ink.text-subdued"
               display="flex"
               onClick={onCopy}
               type="button"
             >
-              <styled.span color="accent.text-subdued" mr="space.01" textStyle="caption.01">
+              <styled.span color="ink.text-subdued" mr="space.01" textStyle="caption.01">
                 {subtitle}
               </styled.span>
               {hoverLabel ? <CopyIcon /> : null}
@@ -70,7 +70,7 @@ export function BitcoinContractLockAmount({
         {subValue ? (
           <Link onClick={subValueAction} variant="text">
             <HStack gap="space.01">
-              <styled.span color={subValueAction ? 'stacks' : 'accent.text-subdued'}>
+              <styled.span color={subValueAction ? 'stacks' : 'ink.text-subdued'}>
                 {subValue}
               </styled.span>
               {subValueAction ? (

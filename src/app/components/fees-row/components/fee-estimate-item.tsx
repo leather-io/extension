@@ -32,9 +32,9 @@ export function FeeEstimateItem({
     <Link
       _before={{ bg: 'transparent' }}
       _hover={{
-        bg: isVisible ? 'accent.component-background-hover' : 'accent.background-primary',
+        bg: isVisible ? 'ink.component-background-hover' : 'ink.background-primary',
         borderRadius: 'xs',
-        color: 'accent.text-primary',
+        color: 'ink.text-primary',
       }}
       alignItems="center"
       data-testid={`${testLabels[index]}-fee`}

@@ -14,8 +14,8 @@ const uncertainLabel =
 export function PsbtRequestDetailsHeader() {
   const { isPsbtMutable } = usePsbtSignerContext();
   const tokenLabelColor = isPsbtMutable
-    ? token('colors.warning.label')
-    : token('colors.accent.text-subdued');
+    ? token('colors.yellow.action-primary-default')
+    : token('colors.ink.text-subdued');
 
   return (
     <HStack alignItems="center" gap="space.02">
@@ -37,7 +37,7 @@ export function PsbtRequestDetailsHeader() {
             )}
           </Box>
           <styled.span
-            color={isPsbtMutable ? 'warning.label' : 'accent.text-subdued'}
+            color={isPsbtMutable ? 'yellow.action-primary-default' : 'ink.text-subdued'}
             textStyle="caption.02"
           >
             {isPsbtMutable ? 'Uncertain' : 'Certain'}

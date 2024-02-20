@@ -14,7 +14,7 @@ export interface DropdownMenuItem {
 const Root = RadixDropdownMenu.Root;
 
 const dropdownTriggerStyles = css({
-  bg: 'accent.background-primary',
+  bg: 'ink.background-primary',
   borderRadius: 'xs',
   fontWeight: 500,
   maxWidth: 'fit-content',
@@ -24,7 +24,7 @@ const dropdownTriggerStyles = css({
   textStyle: 'label.02',
 
   '&[data-state=open]': {
-    bg: 'accent.component-background-pressed',
+    bg: 'ink.component-background-pressed',
   },
 });
 const Trigger: typeof RadixDropdownMenu.Trigger = forwardRef((props, ref) => (
@@ -38,7 +38,7 @@ const dropdownContentStyles = css({
   animationDuration: '400ms',
   animationTimingFunction: 'cubic-bezier(0.16, 1, 0.3, 1)',
   '--base-menu-padding': '0px',
-  bg: 'accent.background-primary',
+  bg: 'ink.background-primary',
   borderRadius: 'xs',
   boxShadow:
     '0px 12px 24px 0px rgba(18, 16, 15, 0.08), 0px 4px 8px 0px rgba(18, 16, 15, 0.08), 0px 0px 2px 0px rgba(18, 16, 15, 0.08)',
@@ -58,7 +58,7 @@ const Content: typeof RadixDropdownMenu.Content = forwardRef((props, ref) => (
 const Group = RadixDropdownMenu.Group;
 
 const dropdownMenuLabelStyles = css({
-  color: 'accent.text-subdued',
+  color: 'ink.text-subdued',
   height: 'auto',
   px: 'space.03',
   py: 'space.02',
@@ -78,8 +78,8 @@ const Item: typeof RadixDropdownMenu.Item = forwardRef((props, ref) => (
 ));
 
 const dropdownMenuSeparatorStyles = css({
-  bg: 'accent.background-primary',
-  color: 'accent.border-default',
+  bg: 'ink.background-primary',
+  color: 'ink.border-default',
   mx: '0px',
   my: 'space.03',
 });

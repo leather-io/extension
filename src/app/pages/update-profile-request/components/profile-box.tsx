@@ -52,7 +52,7 @@ export function ProfileBox({ profile }: { profile: Profile }): React.JSX.Element
   return (
     <Box minHeight="260px">
       <Box
-        bg="accent.background-primary"
+        bg="ink.background-primary"
         border="active"
         borderRadius="sm"
         px="space.05"

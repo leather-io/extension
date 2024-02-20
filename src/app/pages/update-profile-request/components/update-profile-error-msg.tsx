@@ -13,7 +13,7 @@ export function ErrorMessage(props: ErrorMessageProps) {
   return (
     <HStack alignItems="center" bg="#FCEEED" p="space.04" borderRadius="md">
       <ErrorIcon />
-      <Caption color="error.label">{errorMessage}</Caption>
+      <Caption color="red.action-primary-default">{errorMessage}</Caption>
     </HStack>
   );
 }

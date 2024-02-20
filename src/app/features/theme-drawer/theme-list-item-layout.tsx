@@ -20,7 +20,7 @@ export function ThemeListItemLayout({
         isActive
           ? undefined
           : {
-              backgroundColor: 'accent.component-background-hover',
+              backgroundColor: 'ink.component-background-hover',
             }
       }
       px="space.05"

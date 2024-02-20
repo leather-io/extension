@@ -8,7 +8,7 @@ interface LedgerSuccessLabelProps extends FlexProps {
 }
 export function LedgerSuccessLabel({ children, ...props }: LedgerSuccessLabelProps) {
   return (
-    <Flex alignItems="center" color="success.label" flexDirection="row" {...props}>
+    <Flex alignItems="center" color="green.action-primary-default" flexDirection="row" {...props}>
       <CheckmarkIcon />
       <Caption color="inherit" ml="space.02">
         {children}

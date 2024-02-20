@@ -12,17 +12,16 @@ export function SecretKeyWord({ word, num }: SecretKeyWordProps) {
       width="100%"
       gap="space.01"
       px="space.03"
-      backgroundColor="accent.component-background-default"
+      backgroundColor="ink.component-background-default"
       borderRadius="xs"
     >
-      {/*  FIXME #4130: need to fix this color color: var(--color-grey-light-8, #BBB); */}
-      <styled.span display="flex" alignItems="center" mr="space.01" color="accent.text-subdued">
+      <styled.span display="flex" alignItems="center" mr="space.01" color="ink.text-subdued">
         {num}.
       </styled.span>
       <styled.span
         display="flex"
         alignItems="center"
-        color="accent.text-primary"
+        color="ink.text-primary"
         data-testid={OnboardingSelectors.SecretKey}
       >
         {word}

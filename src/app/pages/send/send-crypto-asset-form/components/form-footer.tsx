@@ -11,7 +11,7 @@ export function FormFooter(props: { balance: Money; balanceTooltipLabel?: string
 
   return (
     <Box
-      bg="accent.background-primary"
+      bg="ink.background-primary"
       bottom="0px"
       height={['96px', '116px']}
       position={whenPageMode({

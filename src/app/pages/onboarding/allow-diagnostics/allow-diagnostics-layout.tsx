@@ -33,7 +33,7 @@ export function AllowDiagnosticsLayout(props: AllowDiagnosticsLayoutProps) {
         className={css({
           width: '500px',
           marginY: 'space.03',
-          backgroundColor: 'accent.background-primary',
+          backgroundColor: 'ink.background-primary',
         })}
       >
         <LogomarkIcon width="72px" />

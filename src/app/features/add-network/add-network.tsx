@@ -240,16 +240,16 @@ export function AddNetwork() {
               <SelectRoot onValueChange={handleApiChange} defaultValue="mainnet">
                 <SelectTrigger
                   className={css({
-                    backgroundColor: 'accent.background-primary',
+                    backgroundColor: 'ink.background-primary',
                     borderRadius: 'sm',
-                    border: '1px solid accent.border-primary',
+                    border: '1px solid ink.border-primary',
                   })}
                 ></SelectTrigger>
                 <SelectContent
                   className={css({
-                    backgroundColor: 'accent.background-primary',
+                    backgroundColor: 'ink.background-primary',
                     borderRadius: 'sm',
-                    border: '1px solid accent.border-primary',
+                    border: '1px solid ink.border-primary',
                     dropShadow: 'lg',
                     height: 'fit-content',
                   })}

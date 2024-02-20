@@ -32,7 +32,7 @@ export function Header(props: HeaderProps) {
   return (
     <Flex
       alignItems={hideActions ? 'center' : 'flex-start'}
-      backgroundColor={['accent.background-primary', 'accent.background-secondary']}
+      backgroundColor={['ink.background-primary', 'ink.background-secondary']}
       justifyContent="space-between"
       minHeight={['unset', '80px']}
       p="space.04"

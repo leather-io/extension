@@ -35,7 +35,7 @@ const input = sva({
       ring: 'none',
       textStyle: 'body.02',
       zIndex: 4,
-      color: 'accent.text-subdued',
+      color: 'ink.text-subdued',
       _before: {
         content: '""',
         rounded: 'xs',
@@ -49,16 +49,16 @@ const input = sva({
         pointerEvents: 'none',
       },
       _focusWithin: {
-        '& label': { color: 'accent.text-primary', ...transformedLabelStyles },
+        '& label': { color: 'ink.text-primary', ...transformedLabelStyles },
         _before: {
           border: 'action',
           borderWidth: '2px',
         },
       },
       '&[data-has-error="true"]': {
-        color: 'error.label',
+        color: 'red.action-primary-default',
         _before: {
-          borderColor: 'error.label',
+          borderColor: 'red.action-primary-default',
           borderWidth: '2px',
         },
       },
@@ -75,16 +75,16 @@ const input = sva({
       bottom: 0,
       zIndex: 5,
       textStyle: 'body.01',
-      color: 'accent.text-primary',
+      color: 'ink.text-primary',
       border: '1px solid',
-      borderColor: 'accent.border-hover',
+      borderColor: 'ink.border-transparent',
       _disabled: {
-        bg: 'accent.component-background-default',
-        borderColor: 'accent.non-interactive',
+        bg: 'ink.component-background-default',
+        borderColor: 'ink.non-interactive',
         cursor: 'not-allowed',
       },
       _focus: { ring: 'none' },
-      _placeholder: { color: 'accent.text-subdued' },
+      _placeholder: { color: 'ink.text-subdued' },
       '&:placeholder-shown + label': transformedLabelStyles,
       '[data-has-label="true"] &': {
         pt: '22px',

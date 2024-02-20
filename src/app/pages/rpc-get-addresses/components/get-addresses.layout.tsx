@@ -43,7 +43,7 @@ export function GetAddressesLayout(props: GetAddressesLayoutProps) {
         lineHeight="20px"
         textAlign="center"
         alignSelf="bottom"
-        bg="accent.background-secondary"
+        bg="ink.background-secondary"
       >
         <styled.p textStyle="caption.02">
           By connecting you give permission to {requester} to see all addresses linked to this
