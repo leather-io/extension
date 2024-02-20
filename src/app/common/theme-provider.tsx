@@ -9,6 +9,8 @@ import { store } from '@app/store';
 import { settingsActions } from '@app/store/settings/settings.actions';
 import { useUserSelectedTheme } from '@app/store/settings/settings.selectors';
 
+import { useOnMount } from './hooks/use-on-mount';
+
 export const themeLabelMap = {
   light: 'Light',
   dark: 'Dark',
@@ -48,9 +50,18 @@ function setUserSelectedTheme(theme: UserSelectedTheme) {
 interface ThemeSwitcherProviderProps {
   children: React.JSX.Element | React.JSX.Element[];
 }
+
+function removeSplashScreen() {
+  document.getElementById('splash-screen')?.remove();
+}
+
 export function ThemeSwitcherProvider({ children }: ThemeSwitcherProviderProps) {
   const userSelectedTheme = useUserSelectedTheme();
   const [theme, setTheme] = useState<ComputedTheme>(() => getComputedTheme(userSelectedTheme));
+
+  useOnMount(() => {
+    removeSplashScreen();
+  });
 
   useEffect(() => {
     switch (userSelectedTheme) {

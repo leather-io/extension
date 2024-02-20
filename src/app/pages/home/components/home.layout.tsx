@@ -8,7 +8,13 @@ import { AccountInfoCard } from './account-info-card';
 type HomeLayoutProps = Record<'currentAccount' | 'children', React.ReactNode>;
 export function HomeLayout({ children }: HomeLayoutProps) {
   return (
-    <Stack alignItems="center" width="100%" mx={['', 'space.04']}>
+    <Stack
+      alignItems="center"
+      width="100%"
+      mx={['', 'space.04']}
+      animation="fadein"
+      animationDuration="500ms"
+    >
       <Stack
         data-testid={HomePageSelectors.HomePageContainer}
         maxWidth={['unset', 'unset', '882px']}
