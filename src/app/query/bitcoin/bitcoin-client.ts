@@ -69,7 +69,8 @@ interface FeeResult {
 class FeeEstimatesApi {
   constructor(public configuration: Configuration) {}
 
-  async getFeeEstimatesFromBlockcypherApi(network: string): Promise<FeeResult> {
+  async getFeeEstimatesFromBlockcypherApi(network: 'main' | 'test3'): Promise<FeeResult> {
+    // https://www.blockcypher.com/dev/bitcoin/#restful-resources
     const resp = await axios.get<FeeEstimateEarnApiResponse>(
       `https://api.blockcypher.com/v1/btc/${network}`
     );
