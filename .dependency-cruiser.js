@@ -69,7 +69,7 @@ export default {
     {
       name: 'component-cannot-import-pages-or-features',
       severity: 'error',
-      from: { path: 'src/app/components*' },
+      from: { path: ['src/app/components*', 'src/app/ui'] },
       to: { path: ['^src/app/pages*', '^src/app/features/*'] },
     },
     {
