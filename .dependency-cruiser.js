@@ -29,6 +29,8 @@ export default {
       severity: 'error',
       from: {},
       to: {
+        // Types only package falsely triggers this rule
+        pathNot: ['@octokit'],
         // Depcruiser fails on some legitimate type imports, so allowing them there
         dependencyTypesNot: ['type-only'],
         couldNotResolve: true,
