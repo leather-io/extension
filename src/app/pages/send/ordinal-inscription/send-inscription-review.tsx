@@ -42,6 +42,7 @@ export function SendInscriptionReview() {
 
   async function sendInscription() {
     await broadcastTx({
+      skipBypassUtxoIdsCheckFor: [inscription.tx_id],
       tx: bytesToHex(signedTx),
       async onSuccess(txid: string) {
         void analytics.track('broadcast_ordinal_transaction');
@@ -58,8 +59,12 @@ export function SendInscriptionReview() {
           },
         });
       },
-      onError() {
-        navigate(`/${RouteUrls.SendOrdinalInscription}/${RouteUrls.SendOrdinalInscriptionError}`);
+      onError(e) {
+        navigate(`/${RouteUrls.SendOrdinalInscription}/${RouteUrls.SendOrdinalInscriptionError}`, {
+          state: {
+            error: e,
+          },
+        });
       },
     });
   }
