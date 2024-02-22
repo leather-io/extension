@@ -20,6 +20,37 @@ export interface UtxoWithDerivationPath extends UtxoResponseItem {
   derivationPath: string;
 }
 
+interface BestinslotInscription {
+  inscription_name: string | null;
+  inscription_id: string;
+  inscription_number: number;
+  metadata: any | null;
+  wallet: string;
+  mime_type: string;
+  media_length: number;
+  genesis_ts: number;
+  genesis_height: number;
+  genesis_fee: number;
+  output_value: number;
+  satpoint: string;
+  collection_name: string | null;
+  collection_slug: string | null;
+  last_transfer_block_height: number;
+  content_url: string;
+  bis_url: string;
+  byte_size: number;
+}
+
+export interface BestinslotInscriptionByIdResponse {
+  data: BestinslotInscription;
+  block_height: number;
+}
+
+export interface BestinslotInscriptionsByTxIdResponse {
+  data: { inscription_id: string }[];
+  blockHeight: number;
+}
+
 class BestinslotInscriptionsApi {
   private defaultOptions = {
     headers: {
@@ -29,13 +60,23 @@ class BestinslotInscriptionsApi {
   constructor(public configuration: Configuration) {}
 
   async getInscriptionsByTransactionId(id: string) {
-    const resp = await axios.get<{ data: { inscription_id: string }[]; blockHeight: number }>(
+    const resp = await axios.get<BestinslotInscriptionsByTxIdResponse>(
       `https://api.bestinslot.xyz/v3/inscription/in_transaction?tx_id=${id}`,
       {
         ...this.defaultOptions,
       }
     );
 
+    return resp.data;
+  }
+
+  async getInscriptionById(id: string) {
+    const resp = await axios.get<BestinslotInscriptionByIdResponse>(
+      `https://api.bestinslot.xyz/v3/inscription/single_info_id?inscription_id=${id}`,
+      {
+        ...this.defaultOptions,
+      }
+    );
     return resp.data;
   }
 }

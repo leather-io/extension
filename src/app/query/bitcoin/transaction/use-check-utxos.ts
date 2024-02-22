@@ -9,6 +9,10 @@ import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
 import { useBitcoinClient } from '@app/store/common/api-clients.hooks';
 import { useCurrentNetworkState } from '@app/store/networks/networks.hooks';
 
+import type {
+  BestinslotInscriptionByIdResponse,
+  BestinslotInscriptionsByTxIdResponse,
+} from '../bitcoin-client';
 import { getNumberOfInscriptionOnUtxoUsingOrdinalsCom } from '../ordinals/inscriptions.query';
 
 class PreventTransactionError extends Error {
@@ -22,6 +26,7 @@ interface FilterOutIntentionalInscriptionsSpendArgs {
   inputs: btc.TransactionInput[];
   intentionalSpendUtxoIds: string[];
 }
+
 export function filterOutIntentionalUtxoSpend({
   inputs,
   intentionalSpendUtxoIds,
@@ -34,6 +39,42 @@ export function filterOutIntentionalUtxoSpend({
       return id !== inputTxid;
     });
   });
+}
+
+interface CheckInscribedUtxosByBestinslotArgs {
+  inputs: btc.TransactionInput[];
+  txids: string[];
+  getInscriptionsByTransactionId(id: string): Promise<BestinslotInscriptionsByTxIdResponse>;
+  getInscriptionById(id: string): Promise<BestinslotInscriptionByIdResponse>;
+}
+
+async function checkInscribedUtxosByBestinslot({
+  inputs,
+  txids,
+  getInscriptionsByTransactionId,
+  getInscriptionById,
+}: CheckInscribedUtxosByBestinslotArgs): Promise<boolean> {
+  /**
+   * @description Get the list of inscriptions moving on a transaction
+   * @see https://docs.bestinslot.xyz/reference/api-reference/ordinals-and-brc-20-and-bitmap-v3-api-mainnet+testnet/inscriptions
+   */
+  const inscriptionIdsList = await Promise.all(txids.map(id => getInscriptionsByTransactionId(id)));
+
+  const inscriptionIds = inscriptionIdsList.flatMap(inscription =>
+    inscription.data.map(data => data.inscription_id)
+  );
+
+  const inscriptionsList = await Promise.all(inscriptionIds.map(id => getInscriptionById(id)));
+
+  const hasInscribedUtxos = inscriptionsList.some(resp => {
+    return inputs.some(input => {
+      if (!input.txid) throw new Error('Transaction ID is missing in the input');
+      const idWithIndex = `${bytesToHex(input.txid)}:${input.index}`;
+      return resp.data.satpoint.includes(idWithIndex);
+    });
+  });
+
+  return hasInscribedUtxos;
 }
 
 export function useCheckInscribedUtxos(blockTxAction?: () => void) {
@@ -67,32 +108,6 @@ export function useCheckInscribedUtxos(blockTxAction?: () => void) {
           throw new Error('Utxos list cannot be empty');
         }
 
-        const responses = await Promise.all(
-          txids.map(id => client.bestinslotInscriptionsApi.getInscriptionsByTransactionId(id))
-        );
-
-        const hasInscribedUtxo = responses.some(resp => {
-          return resp.data.length > 0;
-        });
-
-        if (hasInscribedUtxo) {
-          void analytics.track('utxos_includes_inscribed_one', {
-            txids,
-          });
-          preventTransaction();
-          return true;
-        }
-
-        return false;
-      } catch (e) {
-        if (e instanceof PreventTransactionError) {
-          throw e;
-        }
-
-        void analytics.track('error_checking_utxos_from_bestinslot', {
-          txids,
-        });
-
         const ordinalsComResponses = await Promise.all(
           txids.map(async (id, index) => {
             const inscriptionIndex = inputs[index].index;
@@ -108,16 +123,47 @@ export function useCheckInscribedUtxos(blockTxAction?: () => void) {
 
         // if there are inscribed utxos in the transaction, and no error => prevent the transaction
         if (hasInscribedUtxo) {
+          void analytics.track('utxos_includes_inscribed_one', {
+            txids,
+          });
           preventTransaction();
           return true;
         }
 
-        return true;
+        // if there are no inscribed utxos in the transaction => allow the transaction
+        return false;
+      } catch (e) {
+        if (e instanceof PreventTransactionError) {
+          throw e;
+        }
+
+        void analytics.track('error_checking_utxos_from_ordinalscom', {
+          txids,
+        });
+
+        const hasInscribedUtxo = await checkInscribedUtxosByBestinslot({
+          inputs,
+          txids,
+          getInscriptionsByTransactionId:
+            client.bestinslotInscriptionsApi.getInscriptionsByTransactionId,
+          getInscriptionById: client.bestinslotInscriptionsApi.getInscriptionById,
+        });
+
+        if (hasInscribedUtxo) {
+          void analytics.track('utxos_includes_inscribed_one', {
+            txids,
+          });
+          preventTransaction();
+          return true;
+        }
+
+        // if there are no inscribed utxos in the transaction => allow the transaction
+        return false;
       } finally {
         setIsLoading(false);
       }
     },
-    [analytics, client.bestinslotInscriptionsApi, isTestnet, preventTransaction]
+    [analytics, client, isTestnet, preventTransaction]
   );
 
   return {
