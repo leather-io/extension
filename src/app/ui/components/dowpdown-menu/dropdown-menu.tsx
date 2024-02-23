@@ -22,7 +22,6 @@ const dropdownTriggerStyles = css({
   px: 'space.04',
   py: 'space.03',
   textStyle: 'label.02',
-
   '&[data-state=open]': {
     bg: 'ink.component-background-pressed',
   },
@@ -90,6 +89,7 @@ const Separator: typeof RadixDropdownMenu.Separator = forwardRef((props, ref) =>
 export const DropdownMenu = {
   Root,
   Trigger,
+  UnstyledTrigger: RadixDropdownMenu.Trigger,
   Portal,
   Content,
   Group,

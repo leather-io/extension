@@ -21,6 +21,7 @@ export interface FlagProps extends FlexProps {
   align?: FlagAlignment;
   children: React.ReactNode;
   img?: React.ReactNode;
+  reverse?: boolean;
 }
 
 /**
@@ -33,13 +34,23 @@ export interface FlagProps extends FlexProps {
 export function Flag({
   spacing = 'space.03',
   align = 'middle',
+  reverse = false,
   img,
   children,
   ...props
 }: FlagProps) {
   return (
-    <Flex flexDirection="row" width="100%" data-align={align} className={flagStyles} {...props}>
-      <Box mr={spacing}>{img}</Box>
+    <Flex
+      flexDirection={reverse ? 'row-reverse' : 'row'}
+      data-reversed={reverse}
+      width="100%"
+      data-align={align}
+      className={flagStyles}
+      {...props}
+    >
+      <Box ml={reverse ? spacing : ''} mr={!reverse ? spacing : ''}>
+        {img}
+      </Box>
       <Box flex={1}>{children}</Box>
     </Flex>
   );

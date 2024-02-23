@@ -3,23 +3,24 @@ import { useNavigate } from 'react-router-dom';
 
 import { useFormikContext } from 'formik';
 
-import { BitcoinSendFormValues, StacksSendFormValues } from '@shared/models/form.model';
 import { RouteUrls } from '@shared/route-urls';
-
-import { RecipientFieldType } from '@app/pages/send/send-crypto-asset-form/components/recipient-type-dropdown/recipient-type-dropdown';
 
 import { useRecipientBnsName } from './use-recipient-bns-name';
 
+export const recipientIdentifierTypesMap = { bnsName: 'BNS Name', address: 'Address' } as const;
+
+export type RecipientIdentifierType = keyof typeof recipientIdentifierTypesMap;
+
 export function useRecipientSelectFields() {
-  const { setFieldError, setFieldTouched, setFieldValue } = useFormikContext<
-    BitcoinSendFormValues | StacksSendFormValues
-  >();
-  const [selectedRecipientField, setSelectedRecipientField] = useState(RecipientFieldType.Address);
+  const { setFieldError, setFieldTouched, setFieldValue } = useFormikContext();
+
+  const [selectedRecipientField, setSelectedRecipientField] =
+    useState<RecipientIdentifierType>('address');
+
   const [isSelectVisible, setIsSelectVisible] = useState(false);
   const { setBnsAddress } = useRecipientBnsName();
   const navigate = useNavigate();
 
-  // Formik does not provide a field reset
   const resetAllRecipientFields = useCallback(async () => {
     void setFieldValue('recipient', '');
     setFieldError('recipient', undefined);
@@ -32,17 +33,20 @@ export function useRecipientSelectFields() {
   return useMemo(
     () => ({
       selectedRecipientField,
+
+      selectedRecipientFieldName: recipientIdentifierTypesMap[selectedRecipientField],
+
       isSelectVisible,
 
       showRecipientAccountsModal() {
-        setSelectedRecipientField(RecipientFieldType.Address);
+        setSelectedRecipientField('address');
         navigate(RouteUrls.SendCryptoAssetFormRecipientAccounts, { replace: true });
       },
 
-      async onSelectRecipientFieldType(index: number) {
+      async onSelectRecipientFieldType(recipientType: RecipientIdentifierType) {
         await resetAllRecipientFields();
         setBnsAddress('');
-        setSelectedRecipientField(index);
+        setSelectedRecipientField(recipientType);
         setIsSelectVisible(false);
       },
 
