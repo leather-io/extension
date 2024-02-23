@@ -16,6 +16,7 @@ export class SendPage {
   readonly memoInput: Locator;
   readonly previewSendTxButton: Locator;
   readonly recipientChooseAccountButton: Locator;
+  readonly recipientSelectRecipientTypeDropdown: Locator;
   readonly recipientSelectFieldAddress: Locator;
   readonly recipientSelectFieldBnsName: Locator;
   readonly recipientInput: Locator;
@@ -43,6 +44,10 @@ export class SendPage {
     this.previewSendTxButton = page.getByTestId(SendCryptoAssetSelectors.PreviewSendTxBtn);
     this.recipientChooseAccountButton = page.getByTestId(
       SendCryptoAssetSelectors.RecipientChooseAccountButton
+    );
+    this.page.getByTestId(SendCryptoAssetSelectors.RecipientSelectFieldAddress);
+    this.recipientSelectRecipientTypeDropdown = this.page.getByTestId(
+      SendCryptoAssetSelectors.RecipientSelectRecipientTypeDropdown
     );
     this.recipientSelectFieldAddress = this.page.getByTestId(
       SendCryptoAssetSelectors.RecipientSelectFieldAddress

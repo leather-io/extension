@@ -190,7 +190,7 @@ test.describe('send stx', () => {
       test('that recipient address matches bns name', async () => {
         await sPage.amountInput.fill('.0001');
         await sPage.amountInput.blur();
-        await sPage.recipientSelectFieldAddress.click();
+        await sPage.recipientSelectRecipientTypeDropdown.click();
         await sPage.recipientSelectFieldBnsName.click();
         await sPage.recipientInput.fill(TEST_BNS_NAME);
         await sPage.recipientInput.blur();

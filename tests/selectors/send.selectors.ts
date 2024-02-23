@@ -13,6 +13,7 @@ export enum SendCryptoAssetSelectors {
   MemoFieldInput = 'memo-field-input',
   PreviewSendTxBtn = 'preview-send-tx-btn',
   RecipientChooseAccountButton = 'recipient-choose-account-button',
+  RecipientSelectRecipientTypeDropdown = 'recipient-select-field-dropdown-button',
   RecipientSelectFieldAddress = 'recipient-select-field-address',
   RecipientSelectFieldBnsName = 'recipient-select-field-bnsName',
   RecipientFieldInput = 'recipient-field-input',

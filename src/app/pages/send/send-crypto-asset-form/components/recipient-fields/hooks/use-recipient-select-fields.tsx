@@ -4,12 +4,24 @@ import { useNavigate } from 'react-router-dom';
 import { useFormikContext } from 'formik';
 
 import { RouteUrls } from '@shared/route-urls';
+import type { Entries } from '@shared/utils/type-utils';
 
 import { useRecipientBnsName } from './use-recipient-bns-name';
 
-export const recipientIdentifierTypesMap = { bnsName: 'BNS Name', address: 'Address' } as const;
+const recipientIdentifierTypesMap = { address: 'Address', bnsName: 'BNS Name' } as const;
 
 export type RecipientIdentifierType = keyof typeof recipientIdentifierTypesMap;
+
+function makeIteratbleListOfRecipientIdentifierTypes(
+  recipientTypeMap: typeof recipientIdentifierTypesMap
+) {
+  return (Object.entries(recipientTypeMap) as Entries<typeof recipientTypeMap>).map(
+    ([key, value]) => ({ key, label: value })
+  );
+}
+export const recipientIdentifierTypes = makeIteratbleListOfRecipientIdentifierTypes(
+  recipientIdentifierTypesMap
+);
 
 export function useRecipientSelectFields() {
   const { setFieldError, setFieldTouched, setFieldValue } = useFormikContext();
