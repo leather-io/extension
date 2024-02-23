@@ -2,6 +2,7 @@ import { ReactNode, forwardRef } from 'react';
 
 import * as RadixDropdownMenu from '@radix-ui/react-dropdown-menu';
 import { css } from 'leather-styles/css';
+import { type HTMLStyledProps, styled } from 'leather-styles/jsx';
 
 import { itemBaseStyles, itemInteractiveStyles } from '../item/item-interactive';
 
@@ -11,9 +12,7 @@ export interface DropdownMenuItem {
   label: string;
 }
 
-const Root = RadixDropdownMenu.Root;
-
-const dropdownTriggerStyles = css({
+const dropdownButtonStyles = css({
   bg: 'ink.background-primary',
   borderRadius: 'xs',
   fontWeight: 500,
@@ -22,15 +21,13 @@ const dropdownTriggerStyles = css({
   px: 'space.04',
   py: 'space.03',
   textStyle: 'label.02',
-  '&[data-state=open]': {
+  '[data-state=open] &': {
     bg: 'ink.component-background-pressed',
   },
 });
-const Trigger: typeof RadixDropdownMenu.Trigger = forwardRef((props, ref) => (
-  <RadixDropdownMenu.Trigger className={dropdownTriggerStyles} ref={ref} {...props} />
-));
-
-const Portal = RadixDropdownMenu.Portal;
+function Button(props: HTMLStyledProps<'button'>) {
+  return <styled.button className={dropdownButtonStyles} {...props} />;
+}
 
 const dropdownContentStyles = css({
   alignItems: 'center',
@@ -53,8 +50,6 @@ const dropdownContentStyles = css({
 const Content: typeof RadixDropdownMenu.Content = forwardRef((props, ref) => (
   <RadixDropdownMenu.Content className={dropdownContentStyles} ref={ref} {...props} />
 ));
-
-const Group = RadixDropdownMenu.Group;
 
 const dropdownMenuLabelStyles = css({
   color: 'ink.text-subdued',
@@ -87,12 +82,12 @@ const Separator: typeof RadixDropdownMenu.Separator = forwardRef((props, ref) =>
 ));
 
 export const DropdownMenu = {
-  Root,
-  Trigger,
-  UnstyledTrigger: RadixDropdownMenu.Trigger,
-  Portal,
+  Root: RadixDropdownMenu.Root,
+  Trigger: RadixDropdownMenu.Trigger,
+  Group: RadixDropdownMenu.Group,
+  Portal: RadixDropdownMenu.Portal,
+  Button,
   Content,
-  Group,
   Label,
   Item,
   Separator,

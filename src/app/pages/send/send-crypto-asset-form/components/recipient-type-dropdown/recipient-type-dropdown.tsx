@@ -28,7 +28,7 @@ export function RecipientIdentifierTypeDropdown(props: RecipientIdentifierTypeDr
   const { activeRecipientIdentifierType, onSelectRecipientIdentifierType } = props;
   return (
     <DropdownMenu.Root>
-      <DropdownMenu.UnstyledTrigger>
+      <DropdownMenu.Trigger>
         <Flag
           reverse
           img={<ChevronDownIcon variant="small" />}
@@ -38,7 +38,7 @@ export function RecipientIdentifierTypeDropdown(props: RecipientIdentifierTypeDr
         >
           {activeRecipientIdentifierType}
         </Flag>
-      </DropdownMenu.UnstyledTrigger>
+      </DropdownMenu.Trigger>
       <DropdownMenu.Portal>
         <DropdownMenu.Content>
           <DropdownMenu.Group>
