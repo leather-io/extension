@@ -14,9 +14,10 @@ export function SelectAccountButton({ onClick, ...props }: SelectAccountButtonPr
   return (
     <styled.button
       type="button"
-      color="accent.text-primary"
+      color="ink.text-primary"
+      userSelect="none"
       textStyle="label.03"
-      _hover={{ color: 'accent.action-primary-hover' }}
+      _hover={{ color: 'ink.action-primary-hover' }}
       data-testid={SendCryptoAssetSelectors.RecipientChooseAccountButton}
       fontWeight={500}
       onMouseDown={e => preventFocusOfUnderlyingInput(e)}

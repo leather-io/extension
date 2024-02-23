@@ -1,4 +1,4 @@
-import type { Entries } from '@shared/utils/type-utils';
+import { SendCryptoAssetSelectors } from '@tests/selectors/send.selectors';
 
 import { DropdownMenu } from '@app/ui/components/dowpdown-menu/dropdown-menu';
 import { Flag } from '@app/ui/components/flag/flag';
@@ -6,19 +6,8 @@ import { ChevronDownIcon } from '@app/ui/icons';
 
 import {
   type RecipientIdentifierType,
-  recipientIdentifierTypesMap,
+  recipientIdentifierTypes,
 } from '../recipient-fields/hooks/use-recipient-select-fields';
-
-function makeIteratbleListOfRecipientIdentifierTypes(
-  recipientTypeMap: typeof recipientIdentifierTypesMap
-) {
-  return (Object.entries(recipientTypeMap) as Entries<typeof recipientTypeMap>).map(
-    ([key, value]) => ({ key, label: value })
-  );
-}
-const recipientIdentifierTypes = makeIteratbleListOfRecipientIdentifierTypes(
-  recipientIdentifierTypesMap
-);
 
 interface RecipientIdentifierTypeDropdownProps {
   activeRecipientIdentifierType: string;
@@ -28,13 +17,15 @@ export function RecipientIdentifierTypeDropdown(props: RecipientIdentifierTypeDr
   const { activeRecipientIdentifierType, onSelectRecipientIdentifierType } = props;
   return (
     <DropdownMenu.Root>
-      <DropdownMenu.Trigger>
+      <DropdownMenu.Trigger
+        data-testid={SendCryptoAssetSelectors.RecipientSelectRecipientTypeDropdown}
+      >
         <Flag
           reverse
           img={<ChevronDownIcon variant="small" />}
           spacing="space.01"
-          color="accent.text-primary"
-          _hover={{ color: 'accent.action-primary-hover' }}
+          color="ink.text-primary"
+          _hover={{ color: 'ink.action-primary-hover' }}
         >
           {activeRecipientIdentifierType}
         </Flag>
