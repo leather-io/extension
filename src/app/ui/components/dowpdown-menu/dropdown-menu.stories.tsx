@@ -21,12 +21,12 @@ export const DropdownMenu: Story = {
   render: () => (
     <Component.Root>
       <Component.Trigger>
-        <styled.button>
+        <Component.Button>
           <HStack gap="space.02" width="100%">
             <styled.span textStyle="label.02">Options</styled.span>
             <ChevronDownIcon variant="small" />
           </HStack>
-        </styled.button>
+        </Component.Button>
       </Component.Trigger>
       <Component.Portal>
         <Component.Content align="start" sideOffset={8}>

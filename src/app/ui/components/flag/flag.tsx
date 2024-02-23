@@ -42,7 +42,6 @@ export function Flag({
   return (
     <Flex
       flexDirection={reverse ? 'row-reverse' : 'row'}
-      data-reversed={reverse}
       width="100%"
       data-align={align}
       className={flagStyles}
