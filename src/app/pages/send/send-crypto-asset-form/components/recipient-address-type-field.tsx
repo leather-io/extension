@@ -8,8 +8,7 @@ import { BitcoinSendFormValues, StacksSendFormValues } from '@shared/models/form
 
 import { Input } from '@app/ui/components/input/input';
 
-interface RecipientFieldProps {
-  isDisabled?: boolean;
+interface RecipientAddressTypeFieldProps {
   label?: string;
   name: string;
   onBlur?(): void;
@@ -17,13 +16,12 @@ interface RecipientFieldProps {
   topInputOverlay?: React.JSX.Element;
   rightLabel?: React.JSX.Element;
 }
-export function RecipientField({
+export function RecipientAddressTypeField({
   name,
   topInputOverlay,
   rightLabel,
-  isDisabled,
   onBlur,
-}: RecipientFieldProps) {
+}: RecipientAddressTypeFieldProps) {
   const [field] = useField(name);
   const { setFieldValue } = useFormikContext<BitcoinSendFormValues | StacksSendFormValues>();
 
@@ -41,7 +39,6 @@ export function RecipientField({
         <Input.Field
           data-testid={SendCryptoAssetSelectors.RecipientFieldInput}
           placeholder="Recipient"
-          disabled={isDisabled}
           {...field}
           onBlur={e => {
             field.onBlur(e);

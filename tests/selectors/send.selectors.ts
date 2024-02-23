@@ -14,7 +14,7 @@ export enum SendCryptoAssetSelectors {
   PreviewSendTxBtn = 'preview-send-tx-btn',
   RecipientChooseAccountButton = 'recipient-choose-account-button',
   RecipientSelectFieldAddress = 'recipient-select-field-address',
-  RecipientSelectFieldBnsName = 'recipient-select-field-bns-name',
+  RecipientSelectFieldBnsName = 'recipient-select-field-bnsName',
   RecipientFieldInput = 'recipient-field-input',
   RecipientBnsAddressLabel = 'recipient-bns-address-label',
   RecipientBnsAddressCopyToClipboard = 'recipient-bns-address-copy-to-clipboard',

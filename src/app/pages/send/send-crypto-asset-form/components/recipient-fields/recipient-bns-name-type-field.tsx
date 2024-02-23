@@ -4,25 +4,22 @@ import { useFormikContext } from 'formik';
 
 import { BitcoinSendFormValues, StacksSendFormValues } from '@shared/models/form.model';
 
-import { RecipientField } from '@app/pages/send/send-crypto-asset-form/components/recipient-field';
+import { RecipientAddressTypeField } from '@app/pages/send/send-crypto-asset-form/components/recipient-address-type-field';
 import { StacksClient } from '@app/query/stacks/stacks-client';
 
 import { RecipientAddressDisplayer } from './components/recipient-address-displayer';
 import { useRecipientBnsName } from './hooks/use-recipient-bns-name';
 
-interface RecipientFieldBnsNameProps {
+interface RecipientBnsNameTypeFieldProps {
   fetchFn(client: StacksClient, name: string, isTestnet?: boolean): Promise<string | null>;
-  isSelectVisible: boolean;
-  selectedRecipientField: number;
   topInputOverlay: React.JSX.Element;
   rightLabel: React.JSX.Element;
 }
-export function RecipientFieldBnsName({
+export function RecipientBnsNameTypeField({
   fetchFn,
-  isSelectVisible,
   topInputOverlay,
   rightLabel,
-}: RecipientFieldBnsNameProps) {
+}: RecipientBnsNameTypeFieldProps) {
   const [showBnsAddress, setShowBnsAddress] = useState(false);
   const { errors, setFieldError, values } = useFormikContext<
     BitcoinSendFormValues | StacksSendFormValues
@@ -47,8 +44,7 @@ export function RecipientFieldBnsName({
 
   return (
     <>
-      <RecipientField
-        isDisabled={isSelectVisible}
+      <RecipientAddressTypeField
         name="recipientBnsName"
         onBlur={() => getBnsAddressAndValidate(fetchFn)}
         placeholder="Enter recipient BNS name"
