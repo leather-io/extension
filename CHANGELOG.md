@@ -1,3 +1,55 @@
+## [6.27.2](https://github.com/leather-wallet/extension/compare/v6.27.1...v6.27.2) (2024-02-14)
+
+
+### Bug Fixes
+
+* close settings dropdown on click ([3183b8b](https://github.com/leather-wallet/extension/commit/3183b8be2ba453d00891bf93902e766fa1f57410))
+* separate catch block ([52a849a](https://github.com/leather-wallet/extension/commit/52a849a0cacfdb0249f2a554e9adb48075418914))
+* svg inscriptions preview ([787c03a](https://github.com/leather-wallet/extension/commit/787c03a84918a859997a4b0a0d0a5b98e9237d26))
+
+
+### Internal
+
+* deprecation warnings, closes [#4928](https://github.com/leather-wallet/extension/issues/4928) ([81fea0d](https://github.com/leather-wallet/extension/commit/81fea0d6b7bdc6ec12f8a62538d273e01219c6a0))
+* post-release merge back ([67809a2](https://github.com/leather-wallet/extension/commit/67809a2dad21bcb4e4a0af58b54895b6dcac3c32))
+* post-release merge back ([4a66d63](https://github.com/leather-wallet/extension/commit/4a66d63e66fdfd03b21a802cdcee663b07d449b7))
+* remove references of broadcastRawTransaction, use only broadcastTransaction ([f0f488a](https://github.com/leather-wallet/extension/commit/f0f488ac1a47b239264f1e75934e1ad552eb697d))
+
+## [6.27.1](https://github.com/leather-wallet/extension/compare/v6.27.0...v6.27.1) (2024-02-12)
+
+
+### Bug Fixes
+
+* contend with other wallets ([fb70408](https://github.com/leather-wallet/extension/commit/fb704087ecedfc7e0baba9f26f8ef037a703032e))
+
+## [6.27.0](https://github.com/leather-wallet/extension/compare/v6.26.1...v6.27.0) (2024-02-07)
+
+
+### Features
+
+* ui items, closes [#4314](https://github.com/leather-wallet/extension/issues/4314) ([4e6cd7d](https://github.com/leather-wallet/extension/commit/4e6cd7df05dcccb7552afd6148b34afc0d9415d5))
+
+
+### Bug Fixes
+
+* activity list items ([c01626b](https://github.com/leather-wallet/extension/commit/c01626b630b9c347ca181ae097f28702df3bf234))
+* **analytics:** reporting empty error, closes [#4907](https://github.com/leather-wallet/extension/issues/4907) ([ad32854](https://github.com/leather-wallet/extension/commit/ad328542da55315199cd881aad25991bfede3233))
+* disabled button styles, closes [#4840](https://github.com/leather-wallet/extension/issues/4840) ([666fa37](https://github.com/leather-wallet/extension/commit/666fa37da8ea622c4e2651b54cfca5d487e76f05))
+* **input:** mnemonic value state ([5fa284a](https://github.com/leather-wallet/extension/commit/5fa284af7527b746520fd86ed02331c12d664e8a))
+* ledger no request keys context ([d57f005](https://github.com/leather-wallet/extension/commit/d57f0057311317cae0e2e6de208c34dfddd0ee5d))
+* select account overlay ([04e5d0e](https://github.com/leather-wallet/extension/commit/04e5d0ed476e74d7291f86a5a2f1af46dd0a3c92))
+* user should be able to increase fee for stacks with ledger, closes [#4503](https://github.com/leather-wallet/extension/issues/4503) ([47b03f6](https://github.com/leather-wallet/extension/commit/47b03f6f4922893a0e3153e193996937f361a378))
+
+
+### Internal
+
+* error helper ([a6a33a0](https://github.com/leather-wallet/extension/commit/a6a33a09e0c11a4fd669c3afc7716015a32525af))
+* flag layout stories ([a2230a6](https://github.com/leather-wallet/extension/commit/a2230a606a4e98c18c412ca494ef6258a1428e7c))
+* post-release merge back ([7743f90](https://github.com/leather-wallet/extension/commit/7743f905fe03a7545c9e2aba2fab5743510a6485))
+* remove unanchored microblocks, closes [#4812](https://github.com/leather-wallet/extension/issues/4812) ([b21decb](https://github.com/leather-wallet/extension/commit/b21decb9d6f05200055f5f8735f4fd5fda881759))
+* **stories:** add stories for flags ([7b0ffab](https://github.com/leather-wallet/extension/commit/7b0ffab2bf61621eedbe6a8aceb1f62668375152))
+* update monorepo tokens ([32d0caf](https://github.com/leather-wallet/extension/commit/32d0caf9812dc6958d5c22448518860422287bee))
+
 ## [6.26.1](https://github.com/leather-wallet/extension/compare/v6.26.0...v6.26.1) (2024-01-29)
 
 

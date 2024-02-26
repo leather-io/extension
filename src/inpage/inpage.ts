@@ -67,12 +67,12 @@ function isValidEvent(event: MessageEvent, method: LegacyMessageToContentScript[
   return correctSource && correctMethod && !!data.payload;
 }
 
-interface HiroWalletProviderOverrides extends StacksProvider {
-  isHiroWallet: true;
+interface LeatherProviderOverrides extends StacksProvider {
+  isLeather: true;
 }
 
-const provider: HiroWalletProviderOverrides = {
-  isHiroWallet: true,
+const provider: LeatherProviderOverrides = {
+  isLeather: true,
 
   getURL: async () => {
     const { url } = await callAndReceive('getURL');
@@ -252,22 +252,76 @@ const provider: HiroWalletProviderOverrides = {
   },
 };
 
-window.StacksProvider = provider;
-(window as any).LeatherProvider = provider;
+function consoleDeprecationNotice(text: string) {
+  // eslint-disable-next-line no-console
+  console.warn(`Deprecation warning: ${text}`);
+}
 
-(window as any).HiroWalletProvider = provider;
+function warnAboutDeprecatedProvider(legacyProvider: object) {
+  return Object.fromEntries(
+    Object.entries(legacyProvider).map(([key, value]) => {
+      if (typeof value === 'function') {
+        return [
+          key,
+          (...args: any[]) => {
+            switch (key) {
+              case 'authenticationRequest':
+                consoleDeprecationNotice(
+                  `Use LeatherProvider.request('getAddresses') instead, see docs https://leather.gitbook.io/developers/bitcoin/connect-users/get-addresses`
+                );
+                break;
+              case 'psbtRequest':
+                consoleDeprecationNotice(
+                  `Use LeatherProvider.request('signPsbt') instead, see docs https://leather.gitbook.io/developers/bitcoin/sign-transactions/partially-signed-bitcoin-transactions-psbts`
+                );
+                break;
+              case 'structuredDataSignatureRequest':
+              case 'signatureRequest':
+                consoleDeprecationNotice(`Use LeatherProvider.request('stx_signMessage') instead`);
+                break;
+              default:
+                consoleDeprecationNotice(
+                  'The provider object is deprecated. Use `LeatherProvider` instead'
+                );
+            }
 
-if (typeof window.btc === 'undefined') {
-  (window as any).btc = {
-    request: (window as any).StacksProvider?.request,
-    listen(event: 'accountChange', callback: (arg: any) => void) {
-      function handler(e: MessageEvent) {
-        if (!e.data) return;
-        if ((e as any).event !== event) return;
-        callback((e as any).event);
+            return value(...args);
+          },
+        ];
       }
-      window.addEventListener('message', handler);
-      return () => window.removeEventListener('message', handler);
-    },
-  };
+      return [key, value];
+    })
+  );
+}
+
+try {
+  // Makes properties immutable to contend with other wallets that use agressive
+  // "prioritisation" default settings. As other wallet's use this approach,
+  // Leather has to use it too, so that the browsers' own internal logic being
+  // used to determine content script exeuction order. A more fair way to
+  // contend over shared provider space. `StacksProvider` should be considered
+  // deprecated and each wallet use their own provider namespace.
+  Object.defineProperty(window, 'StacksProvider', {
+    get: () => warnAboutDeprecatedProvider(provider),
+    set: () => {},
+  });
+} catch (e) {}
+
+try {
+  Object.defineProperty(window, 'HiroWalletProvider', {
+    get: () => warnAboutDeprecatedProvider(provider),
+    set: () => {},
+  });
+} catch (e) {}
+
+try {
+  Object.defineProperty(window, 'LeatherProvider', { get: () => provider, set: () => {} });
+} catch (e) {
+  // eslint-disable-next-line no-console
+  console.warn('Unable to set LeatherProvider');
+}
+
+// Legacy product provider objects
+if (typeof window.btc === 'undefined') {
+  (window as any).btc = warnAboutDeprecatedProvider(provider);
 }

@@ -2,7 +2,7 @@ import { useQuery } from '@tanstack/react-query';
 
 import { AppUseQueryConfig } from '@app/query/query-config';
 import { useCurrentAccountStxAddressState } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
-import { useStacksClientUnanchored } from '@app/store/common/api-clients.hooks';
+import { useStacksClient } from '@app/store/common/api-clients.hooks';
 import { useCurrentNetworkState } from '@app/store/networks/networks.hooks';
 
 import { RateLimiter, useHiroApiRateLimiter } from '../rate-limiter';
@@ -31,7 +31,7 @@ export function useGetAccountNoncesQuery<T extends unknown = FetchAccountNoncesR
 ) {
   const principal = useCurrentAccountStxAddressState();
   const network = useCurrentNetworkState();
-  const client = useStacksClientUnanchored();
+  const client = useStacksClient();
   const limiter = useHiroApiRateLimiter();
 
   return useQuery({

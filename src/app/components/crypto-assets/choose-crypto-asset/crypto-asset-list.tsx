@@ -6,9 +6,9 @@ import { BitcoinNativeSegwitAccountLoader } from '@app/components/account/bitcoi
 import { BitcoinBalanceLoader } from '@app/components/balance/bitcoin-balance-loader';
 import { Brc20TokensLoader } from '@app/components/brc20-tokens-loader';
 import { Brc20TokenAssetList } from '@app/components/crypto-assets/bitcoin/brc20-token-asset-list/brc20-token-asset-list';
-import { BtcIcon } from '@app/ui/components/icons/btc-icon';
+import { BtcIcon } from '@app/ui/components/avatar-icon/btc-icon';
 
-import { CryptoCurrencyAssetItem } from '../crypto-currency-asset/crypto-currency-asset-item';
+import { CryptoCurrencyAssetItemLayout } from '../crypto-currency-asset/crypto-currency-asset-item.layout';
 import { CryptoAssetListItem } from './crypto-asset-list-item';
 import { CryptoAssetListLayout } from './crypto-asset-list.layout';
 
@@ -25,11 +25,10 @@ export function CryptoAssetList({ cryptoAssetBalances, onItemClick }: CryptoAsse
         {signer => (
           <BitcoinBalanceLoader address={signer.address}>
             {balance => (
-              <CryptoCurrencyAssetItem
+              <CryptoCurrencyAssetItemLayout
                 assetBalance={balance}
                 icon={<BtcIcon />}
                 onClick={() => onItemClick(balance)}
-                isPressable
               />
             )}
           </BitcoinBalanceLoader>

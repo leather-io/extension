@@ -1,4 +1,5 @@
-import { Flag } from '../layout/flag';
+import { Flag } from '@app/ui/components/flag/flag';
+
 import { InscriptionMetadata } from './components/inscription-metadata';
 
 interface InscriptionPreviewCardProps {
@@ -21,7 +22,6 @@ export function InscriptionPreviewCard({
 }: InscriptionPreviewCardProps) {
   return (
     <Flag
-      align="middle"
       border={hideBorder ? 'unset' : 'default'}
       borderRadius={hideBorder ? 'unset' : 'sm'}
       img={image}

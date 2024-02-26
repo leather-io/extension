@@ -9,11 +9,11 @@ import { useWalletType } from '@app/common/use-wallet-type';
 import { whenPageMode } from '@app/common/utils';
 import { openIndexPageInNewTab } from '@app/common/utils/open-in-new-tab';
 import {
-  useStacksAnchoredCryptoCurrencyAssetBalance,
+  useStacksCryptoCurrencyAssetBalance,
   useTransferableStacksFungibleTokenAssetBalances,
 } from '@app/query/stacks/balance/stacks-ft-balances.hooks';
 import { useCurrentStacksAccount } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
-import { ArrowUpIcon } from '@app/ui/components/icons/arrow-up-icon';
+import { SendIcon } from '@app/ui/icons';
 
 import { ActionButton } from './action-button';
 
@@ -21,7 +21,7 @@ function SendButtonSuspense() {
   const navigate = useNavigate();
   const { whenWallet } = useWalletType();
   const account = useCurrentStacksAccount();
-  const stxAssetBalance = useStacksAnchoredCryptoCurrencyAssetBalance(account?.address ?? '');
+  const stxAssetBalance = useStacksCryptoCurrencyAssetBalance(account?.address ?? '');
   const ftAssets = useTransferableStacksFungibleTokenAssetBalances(account?.address ?? '');
   const isDisabled = !stxAssetBalance && ftAssets?.length === 0;
 
@@ -29,7 +29,7 @@ function SendButtonSuspense() {
     <ActionButton
       data-testid={HomePageSelectors.SendCryptoAssetBtn}
       label="Send"
-      icon={<ArrowUpIcon />}
+      icon={<SendIcon />}
       onClick={() =>
         whenWallet({
           ledger: () =>
@@ -45,9 +45,7 @@ function SendButtonSuspense() {
   );
 }
 
-const SendButtonFallback = memo(() => (
-  <ActionButton label="Send" icon={<ArrowUpIcon />} disabled />
-));
+const SendButtonFallback = memo(() => <ActionButton label="Send" icon={<SendIcon />} disabled />);
 
 export function SendButton() {
   return (

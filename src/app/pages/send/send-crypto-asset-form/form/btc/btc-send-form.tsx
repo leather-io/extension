@@ -11,7 +11,7 @@ import { HighFeeDrawer } from '@app/features/high-fee-drawer/high-fee-drawer';
 import { useNativeSegwitBalance } from '@app/query/bitcoin/balance/btc-native-segwit-balance.hooks';
 import { useCryptoCurrencyMarketData } from '@app/query/common/market-data/market-data.hooks';
 import { useCurrentAccountNativeSegwitIndexZeroSigner } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
-import { BtcIcon } from '@app/ui/components/icons/btc-icon';
+import { BtcIcon } from '@app/ui/components/avatar-icon/btc-icon';
 
 import { AmountField } from '../../components/amount-field';
 import { FormFooter } from '../../components/form-footer';
@@ -89,8 +89,14 @@ export function BtcSendForm() {
                   name={btcBalance.asset.name}
                   symbol={symbol}
                 />
+
                 <BitcoinRecipientField />
-                {currentNetwork.chain.bitcoin.bitcoinNetwork === 'testnet' && <TestnetBtcMessage />}
+
+                {currentNetwork.chain.bitcoin.bitcoinNetwork === 'testnet' && (
+                  <Box mt="space.04">
+                    <TestnetBtcMessage />
+                  </Box>
+                )}
               </SendCryptoAssetFormLayout>
               <FormFooter balance={btcBalance.balance} />
               <HighFeeDrawer learnMoreUrl={HIGH_FEE_WARNING_LEARN_MORE_URL_BTC} />

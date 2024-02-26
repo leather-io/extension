@@ -1,6 +1,6 @@
 import { Box, Flex, styled } from 'leather-styles/jsx';
 
-import { CheckmarkIcon } from '@app/ui/components/icons/checkmark-icon';
+import { CheckmarkIcon } from '@app/ui/icons/checkmark-icon';
 
 interface ThemeListItemProps {
   themeLabel: string;
@@ -20,7 +20,7 @@ export function ThemeListItemLayout({
         isActive
           ? undefined
           : {
-              backgroundColor: 'accent.component-background-hover',
+              backgroundColor: 'ink.component-background-hover',
             }
       }
       px="space.05"

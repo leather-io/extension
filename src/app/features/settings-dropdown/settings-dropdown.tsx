@@ -18,8 +18,8 @@ import { Divider } from '@app/components/layout/divider';
 import { useCurrentStacksAccount } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
 import { useHasLedgerKeys, useLedgerDeviceTargetId } from '@app/store/ledger/ledger.selectors';
 import { useCurrentNetworkId } from '@app/store/networks/networks.selectors';
-import { ExternalLinkIcon } from '@app/ui/components/icons/external-link-icon';
 import { Caption } from '@app/ui/components/typography/caption';
+import { ExternalLinkIcon } from '@app/ui/icons/external-link-icon';
 
 import { openFeedbackDialog } from '../feedback-button/feedback-button';
 import { extractDeviceNameFromKnownTargetIds } from '../ledger/utils/generic-ledger-utils';
@@ -55,7 +55,7 @@ export function SettingsDropdown() {
 
   const isLedger = useHasLedgerKeys();
 
-  useOnClickOutside(ref, isShowingSettings ? handleClose : null);
+  useOnClickOutside(ref, isShowingSettings ? handleClose : null, ['settings-menu-btn']);
 
   // RouteUrls.Activity is nested off / so we need to use a link relative to the route
   const linkRelativeType =
@@ -154,7 +154,7 @@ export function SettingsDropdown() {
         </MenuItem>
       )}
       <MenuItem
-        color="error.label"
+        color="red.action-primary-default"
         onClick={wrappedCloseCallback(() =>
           navigate(RouteUrls.SignOutConfirm, {
             relative: linkRelativeType,

@@ -4,7 +4,7 @@ import { useQuery } from '@tanstack/react-query';
 import { AppUseQueryConfig } from '@app/query/query-config';
 import { QueryPrefixes } from '@app/query/query-prefixes';
 import { StacksClient } from '@app/query/stacks/stacks-client';
-import { useStacksClientUnanchored } from '@app/store/common/api-clients.hooks';
+import { useStacksClient } from '@app/store/common/api-clients.hooks';
 import { useCurrentNetworkState } from '@app/store/networks/networks.hooks';
 
 import { RateLimiter, useHiroApiRateLimiter } from '../rate-limiter';
@@ -45,7 +45,7 @@ export function useGetBnsNamesOwnedByAddress<T extends unknown = BnsNameFetcherR
   address: string,
   options?: AppUseQueryConfig<BnsNameFetcherResp, T>
 ) {
-  const client = useStacksClientUnanchored();
+  const client = useStacksClient();
   const limiter = useHiroApiRateLimiter();
   const { isTestnet } = useCurrentNetworkState();
   return useQuery({

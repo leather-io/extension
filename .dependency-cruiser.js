@@ -1,5 +1,5 @@
 /** @type {import('dependency-cruiser').IConfiguration} */
-module.exports = {
+export default {
   extends: 'dependency-cruiser/configs/recommended',
 
   forbidden: [
@@ -29,6 +29,8 @@ module.exports = {
       severity: 'error',
       from: {},
       to: {
+        // Types only package falsely triggers this rule
+        pathNot: ['@octokit'],
         // Depcruiser fails on some legitimate type imports, so allowing them there
         dependencyTypesNot: ['type-only'],
         couldNotResolve: true,
@@ -37,7 +39,10 @@ module.exports = {
     {
       name: 'no-orphans',
       severity: 'error',
-      from: { orphan: true, pathNot: ['^src/shared/models/global-types.ts'] },
+      from: {
+        orphan: true,
+        pathNot: ['^src/shared/models/global-types.ts', '^src/app/ui/icons/docs/icons-list.ts'],
+      },
       to: {},
     },
     {
@@ -66,7 +71,7 @@ module.exports = {
     {
       name: 'component-cannot-import-pages-or-features',
       severity: 'error',
-      from: { path: 'src/app/components*' },
+      from: { path: ['src/app/components*', 'src/app/ui'] },
       to: { path: ['^src/app/pages*', '^src/app/features/*'] },
     },
     {

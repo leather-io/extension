@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 
 import { useAuth } from '@common/use-auth';
-import { stacksMainnetNetwork } from '@common/utils';
+import { stacksMainnetNetwork, stacksTestnetNetwork } from '@common/utils';
 import { openProfileUpdateRequestPopup } from '@stacks/connect';
 import { StacksNetwork } from '@stacks/network';
 import { PublicPersonProfile, PublicProfile } from '@stacks/profile';
@@ -70,11 +70,11 @@ export const Profile = () => {
                   },
                 ],
               },
-              stacksMainnetNetwork
+              stacksTestnetNetwork
             )
           }
         >
-          Update profile (Mainnet)
+          Update profile (Testnet)
         </styled.button>
 
         <styled.button
@@ -85,11 +85,11 @@ export const Profile = () => {
               {
                 name: 1,
               } as any,
-              stacksMainnetNetwork
+              stacksTestnetNetwork
             )
           }
         >
-          Try to update invalid profile (Mainnet)
+          Try to update invalid profile (Testnet)
         </styled.button>
       </Flex>
     </Box>

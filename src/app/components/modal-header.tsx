@@ -8,8 +8,8 @@ import { RouteUrls } from '@shared/route-urls';
 
 import { NetworkModeBadge } from '@app/components/network-mode-badge';
 import { Button } from '@app/ui/components/button/button';
-import { ArrowLeftIcon } from '@app/ui/components/icons/arrow-left-icon';
-import { CloseIcon } from '@app/ui/components/icons/close-icon';
+import { ArrowLeftIcon } from '@app/ui/icons/arrow-left-icon';
+import { CloseIcon } from '@app/ui/icons/close-icon';
 
 interface ModalHeaderProps {
   actionButton?: React.JSX.Element;
@@ -68,7 +68,7 @@ export function ModalHeader({
       )}
 
       <Flex alignItems="center" flexBasis="35%" justifyContent="center">
-        <styled.h5 textStyle="heading.05" color={token('colors.accent.background-secondary')}>
+        <styled.h5 textStyle="heading.05" color={token('colors.ink.background-secondary')}>
           {title}
         </styled.h5>
       </Flex>

@@ -9,7 +9,7 @@ export function FeeMultiplierButton(props: FeeMultiplierButtonProps) {
   return (
     <styled.button
       _focus={{ border: 'focus' }}
-      _hover={{ bg: 'accent.component-background-hover' }}
+      _hover={{ bg: 'ink.component-background-hover' }}
       border="default"
       borderRadius="xs"
       key={`multiply-${multiplier}`}

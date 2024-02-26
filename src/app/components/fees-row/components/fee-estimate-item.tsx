@@ -2,9 +2,9 @@ import { useMemo } from 'react';
 
 import { HStack, styled } from 'leather-styles/jsx';
 
-import { CheckmarkIcon } from '@app/ui/components/icons/checkmark-icon';
-import { ChevronDownIcon } from '@app/ui/components/icons/chevron-down-icon';
 import { Link } from '@app/ui/components/link/link';
+import { CheckmarkIcon } from '@app/ui/icons/checkmark-icon';
+import { ChevronDownIcon } from '@app/ui/icons/chevron-down-icon';
 
 const labels = ['Low', 'Standard', 'High', 'Custom'];
 const testLabels = labels.map(label => label.toLowerCase());
@@ -25,16 +25,16 @@ export function FeeEstimateItem({
 }: FeeEstimateItemProps) {
   const selectedIcon = useMemo(() => {
     const isSelected = index === selectedItem;
-    return isSelected ? <CheckmarkIcon /> : <></>;
+    return isSelected ? <CheckmarkIcon variant="small" /> : <></>;
   }, [index, selectedItem]);
 
   return (
     <Link
       _before={{ bg: 'transparent' }}
       _hover={{
-        bg: isVisible ? 'accent.component-background-hover' : 'accent.background-primary',
+        bg: isVisible ? 'ink.component-background-hover' : 'ink.background-primary',
         borderRadius: 'xs',
-        color: 'accent.text-primary',
+        color: 'ink.text-primary',
       }}
       alignItems="center"
       data-testid={`${testLabels[index]}-fee`}
@@ -47,7 +47,7 @@ export function FeeEstimateItem({
     >
       <HStack gap="space.01">
         <styled.span textStyle="label.02">{labels[index]}</styled.span>
-        {!disableFeeSelection && (isVisible ? selectedIcon : <ChevronDownIcon />)}
+        {!disableFeeSelection && (isVisible ? selectedIcon : <ChevronDownIcon variant="small" />)}
       </HStack>
     </Link>
   );

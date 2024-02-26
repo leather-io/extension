@@ -1,17 +1,16 @@
 import { Suspense } from 'react';
 
 import { Box, HStack, styled } from 'leather-styles/jsx';
-import { token } from 'leather-styles/tokens';
 
 import { BtcBalance } from '@app/components/balance-btc';
 import { StxBalance } from '@app/components/balance-stx';
-import { Flag } from '@app/components/layout/flag';
 import { LoadingRectangle } from '@app/components/loading-rectangle';
 import { NetworkModeBadge } from '@app/components/network-mode-badge';
 import { CurrentAccountAvatar } from '@app/features/current-account/current-account-avatar';
 import { CurrentAccountName } from '@app/features/current-account/current-account-name';
 import { useConfigBitcoinEnabled } from '@app/query/common/remote-config/remote-config.query';
 import { useCurrentStacksAccount } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
+import { Flag } from '@app/ui/components/flag/flag';
 
 interface PopupHeaderLayoutProps {
   children: React.ReactNode;
@@ -33,15 +32,7 @@ function PopupHeaderSuspense({ displayAddresssBalanceOf = 'stx' }: PopupHeaderPr
   return (
     <PopupHeaderLayout>
       <Flag
-        align="middle"
-        img={
-          <CurrentAccountAvatar
-            color={token('colors.white')}
-            fontSize="16px"
-            fontWeight={500}
-            size="32px"
-          />
-        }
+        img={<CurrentAccountAvatar color="white" fontSize="16px" fontWeight={500} size="32px" />}
       >
         <HStack alignItems="center" justifyContent="space-between">
           <styled.h3>

@@ -1,9 +1,10 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { HStack, styled } from 'leather-styles/jsx';
 
-import { BtcIcon } from '../icons/btc-icon';
-import { ChevronDownIcon } from '../icons/chevron-down-icon';
-import { PlaceholderIcon } from '../icons/placeholder-icon';
+import { BtcIcon } from '@app/ui/components/avatar-icon/btc-icon';
+import { ChevronDownIcon } from '@app/ui/icons/chevron-down-icon';
+import { PlaceholderIcon } from '@app/ui/icons/placeholder-icon';
+
 import { Button as Component } from './button';
 
 const meta: Meta<typeof Component> = {
@@ -20,6 +21,18 @@ export const Button: Story = {
     controls: { include: ['size', 'variant'] },
   },
   args: {
+    children: 'Button',
+    size: 'md',
+    variant: 'solid',
+  },
+};
+
+export const Disabled: Story = {
+  parameters: {
+    controls: { include: ['size', 'variant'] },
+  },
+  args: {
+    disabled: true,
     children: 'Button',
     size: 'md',
     variant: 'solid',
@@ -80,7 +93,7 @@ export const WithToken: Story = {
       <HStack>
         <BtcIcon />
         <styled.span textStyle="label.01">Button</styled.span>
-        <ChevronDownIcon />
+        <ChevronDownIcon variant="small" />
       </HStack>
     ),
     trigger: true,

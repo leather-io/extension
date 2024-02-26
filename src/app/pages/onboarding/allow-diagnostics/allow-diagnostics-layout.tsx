@@ -4,8 +4,8 @@ import { css } from 'leather-styles/css';
 import { Box, Flex, HStack, Stack, styled } from 'leather-styles/jsx';
 
 import { Button } from '@app/ui/components/button/button';
-import { CheckmarkIcon } from '@app/ui/components/icons/checkmark-icon';
-import { LeatherIcon } from '@app/ui/components/icons/leather-icon';
+import { CheckmarkIcon } from '@app/ui/icons/checkmark-icon';
+import { LogomarkIcon } from '@app/ui/icons/logomark-icon';
 
 interface ReasonToAllowDiagnosticsProps {
   text: string;
@@ -33,10 +33,10 @@ export function AllowDiagnosticsLayout(props: AllowDiagnosticsLayoutProps) {
         className={css({
           width: '500px',
           marginY: 'space.03',
-          backgroundColor: 'accent.background-primary',
+          backgroundColor: 'ink.background-primary',
         })}
       >
-        <LeatherIcon width="72px" />
+        <LogomarkIcon width="72px" />
         <styled.h1 textStyle="heading.03" mt={['space.05', 'space.08']}>
           Help us improve
         </styled.h1>

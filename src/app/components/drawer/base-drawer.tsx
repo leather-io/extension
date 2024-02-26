@@ -90,7 +90,7 @@ export const BaseDrawer = memo((props: BaseDrawerProps) => {
         willChange="transform, opacity"
         width="100%"
         maxWidth={['768px', '768px', '472px']}
-        bg="accent.background-primary"
+        bg="ink.background-primary"
         borderTopLeftRadius="lg"
         borderTopRightRadius="lg"
         borderBottomLeftRadius={[0, 0, 'lg']}

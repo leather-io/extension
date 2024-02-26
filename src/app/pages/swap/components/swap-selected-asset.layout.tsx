@@ -10,9 +10,9 @@ import { SelectedAsset } from './selected-asset';
 import { SwapToggleButton } from './swap-toggle-button';
 
 function getTextColor(showError?: boolean, onClickHandler?: boolean) {
-  if (showError) return 'error.label';
-  if (onClickHandler) return 'accent.text-primary';
-  return 'accent.text-subdued';
+  if (showError) return 'red.action-primary-default';
+  if (onClickHandler) return 'ink.text-primary';
+  return 'ink.text-subdued';
 }
 
 interface SwapSelectedAssetLayoutProps {

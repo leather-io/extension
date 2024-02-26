@@ -1,9 +1,10 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { HStack, styled } from 'leather-styles/jsx';
 
-import { CheckmarkIcon } from '../icons/checkmark-icon';
-import { ChevronDownIcon } from '../icons/chevron-down-icon';
-import { PlaceholderIcon } from '../icons/placeholder-icon';
+import { CheckmarkIcon } from '@app/ui/icons/checkmark-icon';
+import { ChevronDownIcon } from '@app/ui/icons/chevron-down-icon';
+import { PlaceholderIcon } from '@app/ui/icons/placeholder-icon';
+
 import { Select as Component, SelectItem } from './select';
 import { SelectItemLayout } from './select-item.layout';
 
@@ -24,7 +25,7 @@ export const Select: Story = {
       <Component.Trigger>
         <Component.Value placeholder="Options" />
         <Component.Icon>
-          <ChevronDownIcon />
+          <ChevronDownIcon variant="small" />
         </Component.Icon>
       </Component.Trigger>
       <Component.Portal>
@@ -42,7 +43,7 @@ export const Select: Story = {
                           <styled.span textStyle="label.02">{item.label}</styled.span>
                         </Component.ItemText>
                         <Component.ItemIndicator>
-                          <CheckmarkIcon />
+                          <CheckmarkIcon variant="small" />
                         </Component.ItemIndicator>
                       </HStack>
                     }

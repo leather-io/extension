@@ -40,7 +40,7 @@ export function CustomFeeField({
     <Stack position="relative">
       <Flex
         alignSelf="flex-end"
-        color="accent.text-subdued"
+        color="ink.text-subdued"
         flexDirection="column"
         justifyContent="center"
         position="relative"
@@ -53,7 +53,7 @@ export function CustomFeeField({
         <styled.input
           autoComplete="off"
           borderRadius="xs"
-          color="accent.text-subdued"
+          color="ink.text-subdued"
           data-testid={SharedComponentsSelectors.CustomFeeFieldInput}
           display="block"
           height="32px"

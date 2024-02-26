@@ -30,9 +30,6 @@ export const buttonRecipe = defineRecipe({
   className: 'button',
   jsx: ['Button'],
   base: {
-    _disabled: {
-      cursor: 'not-allowed',
-    },
     position: 'relative',
     rounded: 'xs',
     textStyle: 'label.02',
@@ -51,11 +48,13 @@ export const buttonRecipe = defineRecipe({
     variant: {
       solid: {
         _active: {
-          bg: 'accent.action-primary-default',
+          bg: 'ink.action-primary-default',
         },
         _disabled: {
-          bg: 'accent.background-secondary',
-          color: 'accent.non-interactive',
+          _hover: { bg: 'ink.background-secondary' },
+          bg: 'ink.background-secondary',
+          color: 'ink.non-interactive',
+          cursor: 'not-allowed',
         },
         _focus: {
           _before: {
@@ -63,16 +62,22 @@ export const buttonRecipe = defineRecipe({
           },
         },
         _hover: {
-          bg: 'accent.action-primary-hover',
+          bg: 'ink.action-primary-hover',
         },
-        bg: 'accent.action-primary-default',
-        color: 'accent.background-primary',
-        ...loadingStyles('accent.background-primary'),
+        bg: 'ink.action-primary-default',
+        color: 'ink.background-primary',
+        ...loadingStyles('ink.background-primary'),
       },
 
       outline: {
         _active: {
-          bg: 'accent.component-background-pressed',
+          bg: 'ink.component-background-pressed',
+        },
+        _disabled: {
+          _hover: { bg: 'unset' },
+          border: '1px solid {colors.ink.non-interactive}',
+          color: 'ink.non-interactive',
+          cursor: 'not-allowed',
         },
         _focus: {
           _before: {
@@ -80,15 +85,20 @@ export const buttonRecipe = defineRecipe({
           },
         },
         _hover: {
-          bg: 'accent.component-background-hover',
+          bg: 'ink.component-background-hover',
         },
-        border: '1px solid {colors.accent.action-primary-default}',
-        ...loadingStyles('accent.action-primary-default'),
+        border: '1px solid {colors.ink.action-primary-default}',
+        ...loadingStyles('ink.action-primary-default'),
       },
 
       ghost: {
         _active: {
-          bg: 'accent.component-background-pressed',
+          bg: 'ink.component-background-pressed',
+        },
+        _disabled: {
+          _hover: { bg: 'unset' },
+          color: 'ink.non-interactive',
+          cursor: 'not-allowed',
         },
         _focus: {
           _before: {
@@ -96,9 +106,9 @@ export const buttonRecipe = defineRecipe({
           },
         },
         _hover: {
-          bg: 'accent.component-background-hover',
+          bg: 'ink.component-background-hover',
         },
-        ...loadingStyles('accent.action-primary-default'),
+        ...loadingStyles('ink.action-primary-default'),
       },
     },
 
@@ -119,18 +129,18 @@ export const buttonRecipe = defineRecipe({
     {
       css: {
         _active: {
-          bg: 'accent.component-background-pressed',
+          bg: 'ink.component-background-pressed',
         },
         _hover: {
-          bg: 'accent.background-primary',
+          bg: 'ink.background-primary',
         },
         _loading: {
           _after: {
-            borderColor: 'accent.text-primary',
+            borderColor: 'ink.text-primary',
           },
         },
-        bg: 'accent.background-secondary',
-        color: 'accent.text-primary',
+        bg: 'ink.background-secondary',
+        color: 'ink.text-primary',
       },
       invert: true,
       variant: 'solid',
@@ -138,21 +148,21 @@ export const buttonRecipe = defineRecipe({
     {
       css: {
         _active: {
-          bg: 'accent.text-primary',
+          bg: 'ink.text-primary',
         },
         _before: {
-          borderColor: 'accent.background-secondary',
+          borderColor: 'ink.background-secondary',
         },
         _hover: {
-          bg: 'accent.action-primary-hover',
+          bg: 'ink.action-primary-hover',
         },
         _loading: {
           _after: {
-            borderColor: 'accent.text-primary',
+            borderColor: 'ink.text-primary',
           },
         },
-        border: '1px solid {colors.accent.background-secondary}',
-        color: 'accent.background-secondary',
+        border: '1px solid {colors.ink.background-secondary}',
+        color: 'ink.background-secondary',
       },
       invert: true,
       variant: 'outline',

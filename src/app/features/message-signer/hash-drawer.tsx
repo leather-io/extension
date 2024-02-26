@@ -2,15 +2,15 @@ import { useState } from 'react';
 
 import { Box, styled } from 'leather-styles/jsx';
 
-import { ChevronDownIcon } from '@app/ui/components/icons/chevron-down-icon';
-import { ChevronUpIcon } from '@app/ui/components/icons/chevron-up-icon';
+import { ChevronDownIcon } from '@app/ui/icons/chevron-down-icon';
+import { ChevronUpIcon } from '@app/ui/icons/chevron-up-icon';
 
 interface ShowHashButtonProps {
   expanded: boolean;
 }
 function ShowHashButton(props: ShowHashButtonProps) {
   const { expanded } = props;
-  return expanded ? <ChevronUpIcon /> : <ChevronDownIcon />;
+  return expanded ? <ChevronUpIcon variant="small" /> : <ChevronDownIcon variant="small" />;
 }
 
 interface HashDrawerProps {
@@ -45,7 +45,7 @@ export function HashDrawer(props: HashDrawerProps) {
         visibility={showHash ? 'visible' : 'hidden'}
       >
         <styled.span
-          color="accent.text-subdued"
+          color="ink.text-subdued"
           lineHeight="1.6"
           wordBreak="break-all"
           textStyle="caption.02"

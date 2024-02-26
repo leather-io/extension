@@ -5,9 +5,9 @@ import { SettingsSelectors } from '@tests/selectors/settings.selectors';
 import { Flex, styled } from 'leather-styles/jsx';
 
 import { Button } from '@app/ui/components/button/button';
-import { CopyIcon } from '@app/ui/components/icons/copy-icon';
-import { EyeIcon } from '@app/ui/components/icons/eye-icon';
-import { EyeSlashIcon } from '@app/ui/components/icons/eye-slash-icon';
+import { CopyIcon } from '@app/ui/icons/copy-icon';
+import { EyeIcon } from '@app/ui/icons/eye-icon';
+import { EyeSlashIcon } from '@app/ui/icons/eye-slash-icon';
 
 import { SecretKeyGrid } from '../../components/secret-key/secret-key-grid';
 import { SecretKeyWord } from './components/secret-key-word';
@@ -47,7 +47,7 @@ export function SecretKeyDisplayerLayout(props: SecretKeyDisplayerLayoutProps) {
           data-testid={SettingsSelectors.ShowSecretKeyBtn}
           onClick={() => setShowSecretKey(!showSecretKey)}
         >
-          {showSecretKey ? <EyeSlashIcon size="20px" /> : <EyeIcon size="20px" />}
+          {showSecretKey ? <EyeSlashIcon width="20px" /> : <EyeIcon width="20px" />}
           <styled.p textStyle="body.02">{showSecretKey ? 'Hide key' : 'Show key'}</styled.p>
         </Button>
         <Button

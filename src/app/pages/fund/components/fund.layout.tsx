@@ -47,7 +47,7 @@ export function FundLayout({ symbol, children }: FundLayoutProps) {
 
         <styled.span
           textStyle="body.01"
-          color="accent.text-subdued"
+          color="ink.text-subdued"
           maxWidth="544px"
           textAlign={['left', 'center']}
         >

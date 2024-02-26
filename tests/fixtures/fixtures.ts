@@ -6,7 +6,8 @@ import { NetworkPage } from '@tests/page-object-models/network.page';
 import { OnboardingPage } from '@tests/page-object-models/onboarding.page';
 import { SendPage } from '@tests/page-object-models/send.page';
 import { SwapPage } from '@tests/page-object-models/swap.page';
-import path from 'path';
+import path from 'node:path';
+import { fileURLToPath } from 'node:url';
 
 interface TestFixtures {
   context: BrowserContext;
@@ -19,6 +20,8 @@ interface TestFixtures {
   networkPage: NetworkPage;
   fundChooseCurrencyPage: FundChooseCurrencyPage;
 }
+
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 /**
  * Loads the extension into the browser context. Use this test function with

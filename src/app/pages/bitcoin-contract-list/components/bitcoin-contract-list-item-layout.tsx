@@ -8,10 +8,10 @@ import { useBitcoinExplorerLink } from '@app/common/hooks/use-bitcoin-explorer-l
 import { baseCurrencyAmountInQuote } from '@app/common/money/calculate-money';
 import { i18nFormatCurrency } from '@app/common/money/format-money';
 import { satToBtc } from '@app/common/money/unit-conversion';
-import { Flag } from '@app/components/layout/flag';
 import { useCryptoCurrencyMarketData } from '@app/query/common/market-data/market-data.hooks';
-import { BitcoinContractIcon } from '@app/ui/components/icons/bitcoin-contract-icon';
+import { Flag } from '@app/ui/components/flag/flag';
 import { Caption } from '@app/ui/components/typography/caption';
+import { BitcoinContractIcon } from '@app/ui/icons/bitcoin-contract-icon';
 
 interface BitcoinContractListItemLayoutProps {
   id: string;
@@ -45,7 +45,7 @@ export function BitcoinContractListItemLayout({
         })
       }
     >
-      <Flag img={<BitcoinContractIcon />} align="middle" spacing="space.04" width="100%">
+      <Flag img={<BitcoinContractIcon />} spacing="space.04" width="100%">
         <HStack alignItems="center" justifyContent="space-between" width="100%">
           <styled.span textStyle="body.01">{id}</styled.span>
           <styled.span fontVariantNumeric="tabular-nums" textAlign="right" textStyle="body.01">

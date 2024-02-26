@@ -5,7 +5,7 @@ import { RouteUrls } from '@shared/route-urls';
 
 import { openInNewTab } from '@app/common/utils/open-in-new-tab';
 import { convertInscriptionToSupportedInscriptionType } from '@app/query/bitcoin/ordinals/inscription.hooks';
-import { OrdinalIcon } from '@app/ui/components/icons/ordinal-icon';
+import { OrdinalIcon } from '@app/ui/components/avatar-icon/ordinal-icon';
 
 import { CollectibleAudio } from '../_collectible-types/collectible-audio';
 import { CollectibleIframe } from '../_collectible-types/collectible-iframe';
@@ -31,7 +31,7 @@ export function Inscription({ rawInscription }: InscriptionProps) {
     case 'audio':
       return (
         <CollectibleAudio
-          icon={<OrdinalIcon size="lg" />}
+          icon={<OrdinalIcon width="lg" />}
           key={inscription.title}
           onClickCallToAction={() => openInNewTab(inscription.infoUrl)}
           onClickSend={() => openSendInscriptionModal()}
@@ -44,7 +44,7 @@ export function Inscription({ rawInscription }: InscriptionProps) {
     case 'video':
       return (
         <CollectibleIframe
-          icon={<OrdinalIcon size="lg" />}
+          icon={<OrdinalIcon width="lg" />}
           key={inscription.title}
           onClickCallToAction={() => openInNewTab(inscription.infoUrl)}
           onClickSend={() => openSendInscriptionModal()}
@@ -56,7 +56,7 @@ export function Inscription({ rawInscription }: InscriptionProps) {
     case 'image':
       return (
         <CollectibleImage
-          icon={<OrdinalIcon size="lg" />}
+          icon={<OrdinalIcon width="lg" />}
           key={inscription.title}
           onClickCallToAction={() => openInNewTab(inscription.infoUrl)}
           onClickSend={() => openSendInscriptionModal()}

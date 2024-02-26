@@ -23,7 +23,7 @@ export function BitcoinContractRequestActions({
 
   return (
     <Box
-      bg="accent.background-primary"
+      bg="ink.background-primary"
       borderTop="default"
       bottom="0px"
       height="96px"

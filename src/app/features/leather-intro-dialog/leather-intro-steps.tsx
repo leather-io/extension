@@ -16,10 +16,10 @@ export function LeatherIntroDialog({ children }: HasChildren) {
   return (
     <Dialog.Root defaultOpen>
       <Dialog.Content
-        // Prevent immediate closing, force interation
+        // Prevent immediate closing, force interaction
         onEscapeKeyDown={e => e.preventDefault()}
         onInteractOutside={e => e.preventDefault()}
-        className={css({ maxWidth: '500px', backgroundColor: 'accent.background-primary' })}
+        className={css({ maxWidth: '500px', backgroundColor: 'ink.background-primary' })}
       >
         {children}
       </Dialog.Content>

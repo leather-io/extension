@@ -25,7 +25,7 @@ export function FundAccountTile(props: FundAccountTileProps) {
         cursor: 'pointer',
       }}
       border="default"
-      backgroundColor="accent.background-primary"
+      backgroundColor="ink.background-primary"
       borderRadius="xs"
       boxShadow="0px 1px 2px rgba(0, 0, 0, 0.04)"
       data-testid={testId}
@@ -42,13 +42,13 @@ export function FundAccountTile(props: FundAccountTileProps) {
           {ReceiveStxIcon ? <ReceiveStxIcon /> : null}
           <Box
             alignItems="center"
+            bg="white"
             border="default"
             borderRadius="xs"
             display="inline-flex"
             height="40px"
             justifyContent="center"
             width="40px"
-            backgroundColor="lightModeInk.1"
           >
             <img src={icon} width="24px" />
           </Box>
@@ -56,14 +56,14 @@ export function FundAccountTile(props: FundAccountTileProps) {
           <styled.span
             textStyle="label.02"
             data-testid={FundPageSelectors.FiatProviderName}
-            color="accent.text-primary"
+            color="ink.text-primary"
           >
             {title}
           </styled.span>
         </HStack>
         <styled.span
           data-testid={FundPageSelectors.FiatProviderName}
-          color="accent.text-subdued"
+          color="ink.text-subdued"
           minHeight="50px"
           textStyle="body.02"
         >

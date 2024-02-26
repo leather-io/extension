@@ -25,7 +25,7 @@ export function ApproveLedgerOperationLayout(props: ApproveLedgerOperationLayout
       </LedgerTitle>
       <DeviceOperationApprovalStatus status={status} />
       <Flex
-        bg="accent.background-secondary"
+        bg="ink.background-secondary"
         borderRadius="lg"
         flexDirection="column"
         px="space.06"

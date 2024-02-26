@@ -16,7 +16,7 @@ export function UnsupportedBrowserLayout() {
     <BaseDrawer isShowing onClose={() => navigate(-1)}>
       <LedgerWrapper image={<UnsupportedBrowserImg />}>
         <LedgerTitle mb="space.03">Your browser isn't supported</LedgerTitle>
-        <styled.span textStyle="label.03" color="accent.text-subdued">
+        <styled.span textStyle="label.03" color="ink.text-subdued">
           {' '}
           To connect your Ledger with Leather try{' '}
           <Link href="https://www.google.com/chrome/">Chrome</Link> or{' '}

@@ -29,6 +29,10 @@ export function isObject(value: unknown): value is object {
   return typeof value === 'object';
 }
 
+export function isError(value: unknown): value is Error {
+  return value instanceof Error;
+}
+
 export function isEmpty(value: object) {
   return Object.keys(value).length === 0;
 }

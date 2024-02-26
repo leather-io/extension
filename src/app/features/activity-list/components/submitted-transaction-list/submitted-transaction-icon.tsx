@@ -6,8 +6,8 @@ import { StacksTx } from '@shared/models/transactions/stacks-transaction.model';
 import { getTxSenderAddress } from '@app/common/transactions/stacks/transaction.utils';
 import { TransactionIconWrapper } from '@app/components/transaction/transaction-icon-wrapper';
 import { TransactionTypeIcon } from '@app/components/transaction/transaction-type-icon';
+import { StxIcon } from '@app/ui/components/avatar-icon/stx-icon';
 import { DynamicColorCircle } from '@app/ui/components/dynamic-color-circle';
-import { StxIcon } from '@app/ui/components/icons/stx-icon';
 
 interface SubmittedTransactionIconProps extends CircleProps {
   transaction: StacksTransaction;

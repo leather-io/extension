@@ -12,7 +12,7 @@ import { useDrawers } from '@app/common/hooks/use-drawers';
 import { useScrollLock } from '@app/common/hooks/use-scroll-lock';
 import { stacksValue } from '@app/common/stacks-utils';
 import { ErrorMessage } from '@app/features/stacks-transaction-request/transaction-error/error-message';
-import { useCurrentStacksAccountAnchoredBalances } from '@app/query/stacks/balance/stx-balance.hooks';
+import { useCurrentStacksAccountBalances } from '@app/query/stacks/balance/stx-balance.hooks';
 import { useCurrentNetworkState } from '@app/store/networks/networks.hooks';
 import { useTransactionRequestState } from '@app/store/transactions/requests.hooks';
 import { Button } from '@app/ui/components/button/button';
@@ -55,14 +55,14 @@ export const FeeInsufficientFundsErrorMessage = memo(props => {
 
 export const StxTransferInsufficientFundsErrorMessage = memo(props => {
   const pendingTransaction = useTransactionRequestState();
-  const { data: balance } = useCurrentStacksAccountAnchoredBalances();
+  const { data: balance } = useCurrentStacksAccountBalances();
 
   return (
     <ErrorMessage
       title="Insufficient balance"
       body={
         <Stack gap="space.05">
-          <Caption color="accent.text-primary">
+          <Caption color="ink.text-primary">
             You don't have enough STX to make this transfer. Send some STX to this address, or
             switch to another account.
           </Caption>
@@ -155,7 +155,7 @@ export const ExpiredRequestErrorMessage = memo(props => {
         title="Expired request"
         body="This transaction request has expired or cannot be validated, try to re-initiate this transaction request from the original app."
         border="1px solid"
-        borderColor="accent.border-default"
+        borderColor="ink.border-default"
         // #4476 TODO - move this to new error component
         // #4476 TODO check this is OK to remove boxShadow="high"
         // boxShadow="high"

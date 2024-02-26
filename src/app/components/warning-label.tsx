@@ -1,19 +1,18 @@
 import { Box, BoxProps, styled } from 'leather-styles/jsx';
-import { token } from 'leather-styles/tokens';
 
-import { ErrorCircleIcon } from '@app/ui/components/icons/error-circle-icon';
-
-import { Flag } from './layout/flag';
+import { Flag } from '@app/ui/components/flag/flag';
+import { ErrorCircleIcon } from '@app/ui/icons/error-circle-icon';
 
 interface WarningLabelProps extends BoxProps {
   title?: string;
 }
 export function WarningLabel({ children, title, ...props }: WarningLabelProps) {
   return (
-    <Box bg="warning.background" borderRadius="sm" {...props}>
+    <Box bg="yellow.background-primary" borderRadius="sm" {...props}>
       <Flag
-        color="accent.notification-text"
-        img={<ErrorCircleIcon style={{ color: token('colors.warning.label') }} />}
+        align="top"
+        color="ink.notification-text"
+        img={<ErrorCircleIcon color="yellow.action-primary-default" />}
         minHeight="48px"
         px="space.04"
         py="space.03"

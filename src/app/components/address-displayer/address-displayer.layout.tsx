@@ -7,7 +7,7 @@ interface AddressDisplayerLayoutProps {
 export function AddressDisplayerLayout({ isEven, ...props }: AddressDisplayerLayoutProps) {
   return (
     <styled.span
-      color={isEven ? 'accent.text-primary' : 'accent.text-subdued'}
+      color={isEven ? 'ink.text-primary' : 'ink.text-subdued'}
       mr="space.02"
       textStyle="mono.01"
       {...props}

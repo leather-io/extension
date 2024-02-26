@@ -1,19 +1,20 @@
-import { HStack, styled } from 'leather-styles/jsx';
+import { SwapSelectors } from '@tests/selectors/swap.selectors';
+import { styled } from 'leather-styles/jsx';
 
 import { formatMoneyWithoutSymbol } from '@app/common/money/format-money';
-import { usePressable } from '@app/components/item-hover';
 import { useGetFungibleTokenMetadataQuery } from '@app/query/stacks/tokens/fungible-tokens/fungible-token-metadata.query';
 import { isFtAsset } from '@app/query/stacks/tokens/token-metadata.utils';
+import { ItemInteractive } from '@app/ui/components/item/item-interactive';
+import { ItemLayout } from '@app/ui/components/item/item.layout';
 
 import { useAlexSdkBalanceAsFiat } from '../../hooks/use-alex-sdk-fiat-price';
 import { SwapAsset } from '../../hooks/use-swap-form';
-import { SwapAssetItemLayout } from './swap-asset-item.layout';
 
 interface SwapAssetItemProps {
   asset: SwapAsset;
+  onClick(): void;
 }
-export function SwapAssetItem({ asset }: SwapAssetItemProps) {
-  const [component, bind] = usePressable(true);
+export function SwapAssetItem({ asset, onClick }: SwapAssetItemProps) {
   const balanceAsFiat = useAlexSdkBalanceAsFiat(asset.balance, asset.price);
   const { data: ftMetadata } = useGetFungibleTokenMetadataQuery(asset.principal);
 
@@ -21,21 +22,14 @@ export function SwapAssetItem({ asset }: SwapAssetItemProps) {
   const displayName = asset.displayName ?? ftMetadataName;
 
   return (
-    <SwapAssetItemLayout
-      icon={<styled.img src={asset.icon} width="40px" height="40px" alt="Swap asset" />}
-      {...bind}
-    >
-      <HStack alignItems="center" justifyContent="space-between">
-        <styled.span textStyle="label.01">{displayName}</styled.span>
-        <styled.span textStyle="label.01">{formatMoneyWithoutSymbol(asset.balance)}</styled.span>
-      </HStack>
-      <HStack alignItems="center" justifyContent="space-between">
-        <styled.span textStyle="caption.01">{asset.name}</styled.span>
-        <styled.span color="accent.text-subdued" textStyle="caption.01">
-          {balanceAsFiat}
-        </styled.span>
-      </HStack>
-      {component}
-    </SwapAssetItemLayout>
+    <ItemInteractive data-testid={SwapSelectors.ChooseAssetListItem} onClick={onClick}>
+      <ItemLayout
+        flagImg={<styled.img src={asset.icon} width="40px" height="40px" alt="Swap asset" />}
+        titleLeft={displayName}
+        captionLeft={asset.name}
+        titleRight={formatMoneyWithoutSymbol(asset.balance)}
+        captionRight={balanceAsFiat}
+      />
+    </ItemInteractive>
   );
 }

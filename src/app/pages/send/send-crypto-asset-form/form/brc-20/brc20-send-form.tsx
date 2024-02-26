@@ -6,7 +6,7 @@ import get from 'lodash.get';
 
 import { openInNewTab } from '@app/common/utils/open-in-new-tab';
 import { InfoLabel } from '@app/components/info-label';
-import { Brc20TokenIcon } from '@app/ui/components/icons/brc20-token-icon';
+import { Brc20TokenIcon } from '@app/ui/components/avatar-icon/brc20-token-icon';
 import { Link } from '@app/ui/components/link/link';
 
 import { AmountField } from '../../components/amount-field';

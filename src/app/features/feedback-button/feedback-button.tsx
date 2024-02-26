@@ -5,7 +5,7 @@ import { analytics } from '@shared/utils/analytics';
 
 import { useThemeSwitcher } from '@app/common/theme-provider';
 import { Button } from '@app/ui/components/button/button';
-import { MegaphoneIcon } from '@app/ui/components/icons/megaphone-icon';
+import { MegaphoneIcon } from '@app/ui/icons/megaphone-icon';
 
 export function openFeedbackDialog() {
   void analytics.track('user_clicked_feedback_button');
@@ -19,8 +19,8 @@ export function FeedbackButton() {
   const { theme } = useThemeSwitcher();
   return (
     <Button
-      background="ink.1"
-      _hover={{ background: 'ink.2' }}
+      _hover={{ bg: 'ink.background-secondary' }}
+      bg="ink.background-primary"
       variant="ghost"
       size="sm"
       pos="fixed"
@@ -42,7 +42,7 @@ export function FeedbackButton() {
       onClick={openFeedbackDialog}
     >
       <Flex>
-        <MegaphoneIcon mr="space.01" mt="2px" />
+        <MegaphoneIcon mr="space.01" mt="2px" variant="small" />
         Give feedback
       </Flex>
     </Button>

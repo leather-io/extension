@@ -1,7 +1,7 @@
 import { Outlet, useLocation, useNavigate } from 'react-router-dom';
 
 import { StacksTransaction } from '@stacks/transactions';
-import { Formik } from 'formik';
+import { Formik, FormikHelpers } from 'formik';
 import { Flex } from 'leather-styles/jsx';
 import * as yup from 'yup';
 
@@ -27,7 +27,7 @@ import { PostConditionModeWarning } from '@app/features/stacks-transaction-reque
 import { PostConditions } from '@app/features/stacks-transaction-request/post-conditions/post-conditions';
 import { StxTransferDetails } from '@app/features/stacks-transaction-request/stx-transfer-details/stx-transfer-details';
 import { TransactionError } from '@app/features/stacks-transaction-request/transaction-error/transaction-error';
-import { useCurrentStacksAccountAnchoredBalances } from '@app/query/stacks/balance/stx-balance.hooks';
+import { useCurrentStacksAccountBalances } from '@app/query/stacks/balance/stx-balance.hooks';
 import { useCalculateStacksTxFees } from '@app/query/stacks/fees/fees.hooks';
 import { useNextNonce } from '@app/query/stacks/nonce/account-nonces.hooks';
 import { useTransactionRequestState } from '@app/store/transactions/requests.hooks';
@@ -43,7 +43,7 @@ interface StacksTransactionSignerProps {
   disableNonceSelection?: boolean;
   isMultisig: boolean;
   onCancel(): void;
-  onSignStacksTransaction(fee: number, nonce: number): void;
+  onSignStacksTransaction(fee: number, nonce: number): Promise<void>;
 }
 export function StacksTransactionSigner({
   stacksTransaction,
@@ -55,7 +55,7 @@ export function StacksTransactionSigner({
   const transactionRequest = useTransactionRequestState();
   const { data: stxFees } = useCalculateStacksTxFees(stacksTransaction);
   const analytics = useAnalytics();
-  const { data: stacksBalances } = useCurrentStacksAccountAnchoredBalances();
+  const { data: stacksBalances } = useCurrentStacksAccountBalances();
   const navigate = useNavigate();
   const { data: nextNonce } = useNextNonce();
   const { search } = useLocation();
@@ -66,9 +66,14 @@ export function StacksTransactionSigner({
     void analytics.track('view_transaction_signing'), [analytics];
   });
 
-  const onSubmit = async (values: StacksTransactionFormValues) => {
-    onSignStacksTransaction(stxToMicroStx(values.fee).toNumber(), Number(values.nonce));
-  };
+  async function onSubmit(
+    values: StacksTransactionFormValues,
+    formikHelpers: FormikHelpers<StacksTransactionFormValues>
+  ) {
+    formikHelpers.setSubmitting(true);
+    await onSignStacksTransaction(stxToMicroStx(values.fee).toNumber(), Number(values.nonce));
+    formikHelpers.setSubmitting(false);
+  }
 
   if (!transactionRequest) return null;
 

@@ -44,15 +44,6 @@ function getTransactionTxIndex(listTx: TransactionListTxs) {
   }
 }
 
-function getTransactionMicroblockSequence(listTx: TransactionListTxs) {
-  switch (listTx.blockchain) {
-    case 'stacks':
-      return listTx.transaction.tx.microblock_sequence;
-    default:
-      return undefined;
-  }
-}
-
 function getTransactionBlockHeight(listTx: TransactionListTxs) {
   switch (listTx.blockchain) {
     case 'bitcoin':
@@ -73,17 +64,6 @@ function groupTxsByDateMap(txs: TransactionListTxs[]) {
 
       if (!aTxIndex || !bTxIndex) return 0;
       return aTxIndex > bTxIndex ? -1 : aTxIndex < bTxIndex ? 1 : 0;
-    })
-    .sort((a, b) => {
-      const aMicroblockSequence = getTransactionMicroblockSequence(a);
-      const bMicroblockSequence = getTransactionMicroblockSequence(b);
-
-      if (!aMicroblockSequence || !bMicroblockSequence) return 0;
-      return aMicroblockSequence > bMicroblockSequence
-        ? -1
-        : aMicroblockSequence < bMicroblockSequence
-        ? 1
-        : 0;
     })
     .sort((a, b) => {
       const aBlockHeight = getTransactionBlockHeight(a);

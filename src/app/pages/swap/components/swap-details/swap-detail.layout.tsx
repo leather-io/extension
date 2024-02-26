@@ -2,8 +2,8 @@ import { ReactNode } from 'react';
 
 import { Box, HStack, styled } from 'leather-styles/jsx';
 
-import { InfoIcon } from '@app/ui/components/icons/info-icon';
 import { BasicTooltip } from '@app/ui/components/tooltip/basic-tooltip';
+import { InfoCircleIcon } from '@app/ui/icons/info-circle-icon';
 
 interface SwapDetailLayoutProps {
   dataTestId?: string;
@@ -20,13 +20,13 @@ export function SwapDetailLayout({
   return (
     <HStack alignItems="center" justifyContent="space-between" width="100%">
       <HStack alignItems="center" gap="space.01">
-        <styled.span color="accent.text-subdued" textStyle="body.02">
+        <styled.span color="ink.text-subdued" textStyle="body.02">
           {title}
         </styled.span>
         {tooltipLabel ? (
           <BasicTooltip label={tooltipLabel} side="bottom">
-            <Box _hover={{ cursor: 'pointer' }} color="accent.text-subdued">
-              <InfoIcon />
+            <Box _hover={{ cursor: 'pointer' }} color="ink.text-subdued">
+              <InfoCircleIcon />
             </Box>
           </BasicTooltip>
         ) : null}

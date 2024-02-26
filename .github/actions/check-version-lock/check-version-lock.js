@@ -1,5 +1,6 @@
-const core = require('@actions/core');
-const appPackage = require('../../../package.json');
+import core from '@actions/core';
+
+import appPackage from '../../../package.json' assert { type: 'json' };
 
 const illegalVersionSymbol = ['~', '^', '>', '<'];
 
@@ -15,8 +16,8 @@ function containsIllegalChar(input) {
     const allPackages = [...Object.entries(dependencies), ...Object.entries(devDependencies)];
 
     const illegalPackages = allPackages
-      .filter(([package, version]) => containsIllegalChar(version))
-      .map(([package, version]) => ({ package, version }));
+      .filter(([pkg, version]) => containsIllegalChar(version))
+      .map(([pkg, version]) => ({ package: pkg, version }));
 
     if (illegalPackages.length > 0) {
       core.setFailed(`

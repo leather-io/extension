@@ -6,11 +6,7 @@ export const linkRecipe = defineRecipe({
   className: 'link',
   jsx: ['Link'],
   base: {
-    _disabled: {
-      cursor: 'not-allowed',
-    },
     appearance: 'none',
-    color: 'accent.text-primary',
     display: 'inline',
     mb: 'space.01',
     p: 'unset',
@@ -35,7 +31,7 @@ export const linkRecipe = defineRecipe({
       underlined: {
         _before: {
           content: '""',
-          background: 'accent.non-interactive',
+          background: 'ink.non-interactive',
           bottom: '-2px',
           height: '2px',
           left: 0,
@@ -44,32 +40,27 @@ export const linkRecipe = defineRecipe({
         },
         _active: {
           _before: {
-            background: 'accent.text-primary',
+            background: 'ink.text-primary',
           },
-          color: 'accent.text-primary',
-        },
-        _disabled: {
-          _before: {
-            background: 'accent.non-interactive',
-          },
-          color: 'accent.non-interactive',
+          color: 'ink.text-primary',
         },
         _focus: {
           _before: { background: 'focus' },
-          color: 'accent.text-primary',
+          color: 'ink.text-primary',
           outline: 0,
         },
         _hover: {
           _before: {
-            background: 'accent.action-primary-hover',
+            background: 'ink.action-primary-hover',
           },
         },
+        color: 'ink.text-primary',
       },
 
       text: {
         _before: {
           content: '""',
-          background: 'accent.action-primary-hover',
+          background: 'ink.action-primary-hover',
           bottom: '-2px',
           height: '2px',
           left: 0,
@@ -79,38 +70,32 @@ export const linkRecipe = defineRecipe({
         },
         _active: {
           _before: {
-            background: 'accent.text-primary',
+            background: 'ink.text-primary',
           },
-          color: 'accent.text-primary',
+          color: 'ink.text-primary',
           visibility: 'visible',
-        },
-        _disabled: {
-          _before: {
-            background: 'accent.non-interactive',
-            visibility: 'visible',
-          },
-          color: 'accent.non-interactive',
         },
         _focus: {
           _before: {
             background: 'focus',
             visibility: 'visible',
           },
-          color: 'accent.text-primary',
+          color: 'ink.text-primary',
           outline: 0,
         },
         _hover: {
           _before: {
-            background: 'accent.action-primary-hover',
+            background: 'ink.action-primary-hover',
             visibility: 'visible',
           },
         },
+        color: 'ink.text-primary',
       },
     },
 
     // TODO: Remove invert code
     invert: { true: {} },
-
+    disabled: { true: {} },
     fullWidth: { true: { width: '100%' } },
   },
 
@@ -122,24 +107,59 @@ export const linkRecipe = defineRecipe({
   // TODO: Remove invert code
   compoundVariants: [
     {
-      variant: 'underlined',
-      invert: true,
       css: {
         _focus: {
           _before: {
-            background: 'accent.background-primary',
+            background: 'ink.background-primary',
             visibility: 'visible',
           },
           outline: 0,
         },
         _hover: {
           _before: {
-            background: 'accent.background-primary',
+            background: 'ink.background-primary',
             visibility: 'visible',
           },
         },
-        color: 'accent.background-secondary',
+        color: 'ink.background-secondary',
       },
+      invert: true,
+      variant: 'underlined',
+    },
+    {
+      css: {
+        _before: {
+          content: '""',
+          background: 'ink.non-interactive',
+          bottom: '-2px',
+          height: '2px',
+          left: 0,
+          position: 'absolute',
+          right: 0,
+        },
+        color: 'ink.non-interactive',
+        cursor: 'not-allowed',
+      },
+      disabled: true,
+      variant: 'underlined',
+    },
+    {
+      css: {
+        _before: {
+          content: '""',
+          background: 'ink.non-interactive',
+          bottom: '-2px',
+          height: '2px',
+          left: 0,
+          position: 'absolute',
+          right: 0,
+          visibility: 'visible',
+        },
+        color: 'ink.non-interactive',
+        cursor: 'not-allowed',
+      },
+      disabled: true,
+      variant: 'text',
     },
   ],
 });

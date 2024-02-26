@@ -40,12 +40,12 @@ function LineNumber({ number, length, ...rest }: { number: number; length: numbe
   return (
     <Flex
       textAlign="right"
-      pr="sapce.04"
+      pr="space.04"
       pl="space.04"
       width={lineNumberWidth}
       borderRight="1px solid"
       borderRightColor="inherit"
-      color="ink.400"
+      color="ink.text-subdued"
       flexShrink={0}
       style={{ userSelect: 'none' }}
       position="absolute"
@@ -81,11 +81,14 @@ function Line({
     <Flex
       height="space.05"
       align="baseline"
-      borderColor="ink.900"
+      borderColor="ink.border-default"
       _hover={
         hideLineHover
           ? undefined
-          : { bg: ['unset', 'unset', 'ink.900'], borderColor: ['ink.900', 'ink.900', 'ink.600'] }
+          : {
+              bg: ['unset', 'unset', 'ink.text-primary'],
+              borderColor: ['ink.text-primary', 'ink.text-primary', 'ink.text-subdued'],
+            }
       }
       position="relative"
       {...rest}

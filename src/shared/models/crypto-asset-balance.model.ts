@@ -29,6 +29,7 @@ export interface StacksFungibleTokenAssetBalance {
   readonly balance: Money;
 }
 
+// ts-unused-exports:disable-next-line
 export interface StacksNonFungibleTokenAssetBalance {
   readonly blockchain: 'stacks';
   readonly type: 'non-fungible-token';

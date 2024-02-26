@@ -7,6 +7,7 @@ import get from 'lodash.get';
 
 import { finalizeAuthResponse } from '@shared/actions/finalize-auth-response';
 import { logger } from '@shared/logger';
+import { isError } from '@shared/utils';
 
 import { useGetLegacyAuthBitcoinAddresses } from '@app/common/authentication/use-legacy-auth-bitcoin-addresses';
 import { useOnboardingState } from '@app/common/hooks/auth/use-onboarding-state';
@@ -63,6 +64,8 @@ export function LedgerSignJwtContainer() {
   const [jwtPayloadHash, setJwtPayloadHash] = useState<null | string>(null);
   const { origin, tabId } = useDefaultRequestParams();
 
+  const chain = 'stacks';
+
   const signJwtPayload = async () => {
     if (!origin) throw new Error('Cannot sign payload for unknown origin');
 
@@ -92,11 +95,11 @@ export function LedgerSignJwtContainer() {
     const stacks = await prepareLedgerDeviceStacksAppConnection({
       setLoadingState: setAwaitingDeviceConnection,
       onError(e) {
-        if (e instanceof Error && checkLockedDeviceError(e)) {
+        if (isError(e) && checkLockedDeviceError(e)) {
           setLatestDeviceResponse({ deviceLocked: true } as any);
           return;
         }
-        ledgerNavigate.toErrorStep();
+        ledgerNavigate.toErrorStep(chain);
       },
     });
 

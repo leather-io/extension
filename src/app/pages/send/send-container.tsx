@@ -16,13 +16,13 @@ export function SendContainer() {
         height="fit-content"
         maxWidth={['100%', 'centeredPageFullWidth']}
         minWidth={['100%', 'centeredPageFullWidth']}
-        background="accent.background-primary"
+        background="ink.background-primary"
       >
         <Outlet />
       </Flex>
     ),
     popup: (
-      <Flex background="accent.background-primary" width="100%">
+      <Flex background="ink.background-primary" width="100%">
         <Outlet />
       </Flex>
     ),

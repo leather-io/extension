@@ -6,8 +6,8 @@ import { useTotalBalance } from '@app/common/hooks/balance/use-total-balance';
 import { useDrawers } from '@app/common/hooks/use-drawers';
 import { useCurrentAccountNativeSegwitAddressIndexZero } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
 import { useCurrentStacksAccount } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
-import { ChevronDownIcon } from '@app/ui/components/icons/chevron-down-icon';
 import { Link } from '@app/ui/components/link/link';
+import { ChevronDownIcon } from '@app/ui/icons/chevron-down-icon';
 
 import { AccountActions } from './account-actions';
 
@@ -23,7 +23,7 @@ export function AccountInfoCard() {
   return (
     <Flex
       direction="column"
-      bgColor={{ base: 'ink.2', sm: 'unset' }}
+      bgColor={{ base: 'ink.background-secondary', sm: 'unset' }}
       rounded="sm"
       px={{ base: 'space.05', sm: '0' }}
       pt={{ base: 'space.05', sm: 'space.06' }}
@@ -31,7 +31,7 @@ export function AccountInfoCard() {
     >
       <Link
         _before={{ bg: 'transparent' }}
-        _hover={{ color: 'accent.action-primary-hover' }}
+        _hover={{ color: 'ink.action-primary-hover' }}
         onClick={() => setIsShowingSwitchAccountsState(true)}
       >
         <Flex>
@@ -39,7 +39,7 @@ export function AccountInfoCard() {
             {name}
           </styled.p>
           <Box mt="space.01" ml="space.02">
-            <ChevronDownIcon />
+            <ChevronDownIcon variant="small" />
           </Box>
         </Flex>
       </Link>
@@ -53,7 +53,7 @@ export function AccountInfoCard() {
         </styled.h1>
         <Divider
           position="relative"
-          color="accent.border-default"
+          color="ink.border-default"
           right="space.05"
           width="calc(100% + 48px)"
           mb="space.02"

@@ -1,6 +1,6 @@
 import { parseJson } from '@app/components/json';
 import { useInscriptionTextContentQuery } from '@app/query/bitcoin/ordinals/inscription-text-content.query';
-import { OrdinalIcon } from '@app/ui/components/icons/ordinal-icon';
+import { OrdinalIcon } from '@app/ui/components/avatar-icon/ordinal-icon';
 
 import { CollectibleText } from '../_collectible-types/collectible-text';
 
@@ -22,7 +22,7 @@ export function InscriptionText({
 
   return (
     <CollectibleText
-      icon={<OrdinalIcon size="30px" />}
+      icon={<OrdinalIcon width="md" />}
       key={inscriptionNumber}
       onClickCallToAction={onClickCallToAction}
       onClickSend={onClickSend}

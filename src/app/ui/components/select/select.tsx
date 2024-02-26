@@ -3,6 +3,8 @@ import { ReactNode, forwardRef } from 'react';
 import * as RadixSelect from '@radix-ui/react-select';
 import { css } from 'leather-styles/css';
 
+import { itemBaseStyles, itemInteractiveStyles } from '../item/item-interactive';
+
 export interface SelectItem {
   iconLeft?: ReactNode;
   iconRight?: ReactNode;
@@ -13,7 +15,7 @@ const Root = RadixSelect.Root;
 
 const selectTriggerStyles = css({
   alignItems: 'center',
-  bg: 'accent.background-primary',
+  bg: 'ink.background-primary',
   borderRadius: 'xs',
   display: 'flex',
   fontWeight: 500,
@@ -25,7 +27,7 @@ const selectTriggerStyles = css({
   textStyle: 'label.02',
 
   '&[data-state=open]': {
-    bg: 'accent.component-background-pressed',
+    bg: 'ink.component-background-pressed',
   },
 });
 const Trigger: typeof RadixSelect.Trigger = forwardRef((props, ref) => (
@@ -41,7 +43,7 @@ const selectContentStyles = css({
   animationDuration: '400ms',
   animationTimingFunction: 'cubic-bezier(0.16, 1, 0.3, 1)',
   '--base-menu-padding': '0px',
-  bg: 'accent.background-primary',
+  bg: 'ink.background-primary',
   borderRadius: 'xs',
   boxShadow:
     '0px 12px 24px 0px rgba(18, 16, 15, 0.08), 0px 4px 8px 0px rgba(18, 16, 15, 0.08), 0px 0px 2px 0px rgba(18, 16, 15, 0.08)',
@@ -68,7 +70,7 @@ const Viewport: typeof RadixSelect.Viewport = forwardRef((props, ref) => (
 const Group = RadixSelect.Group;
 
 const selectLabelStyles = css({
-  color: 'accent.text-subdued',
+  color: 'ink.text-subdued',
   height: 'auto',
   px: 'space.03',
   py: 'space.02',
@@ -79,28 +81,16 @@ const Label: typeof RadixSelect.Label = forwardRef((props, ref) => (
   <RadixSelect.Label className={selectLabelStyles} ref={ref} {...props} />
 ));
 
-const selectItemStyles = css({
-  bg: 'accent.background-primary',
-  color: 'accent.text-primary',
-  height: 'auto',
-  outline: 'none',
-  userSelect: 'none',
-  p: 'space.03',
-
-  '&[data-highlighted]': {
-    bg: 'accent.component-background-hover',
-  },
-});
 const Item: typeof RadixSelect.Item = forwardRef((props, ref) => (
-  <RadixSelect.Item className={selectItemStyles} ref={ref} {...props} />
+  <RadixSelect.Item className={css(itemBaseStyles, itemInteractiveStyles)} ref={ref} {...props} />
 ));
 
 const ItemText = RadixSelect.ItemText;
 const ItemIndicator = RadixSelect.ItemIndicator;
 
 const selectSeparatorStyles = css({
-  bg: 'accent.background-primary',
-  color: 'accent.border-default',
+  bg: 'ink.background-primary',
+  color: 'ink.border-default',
   mx: '0px',
   my: 'space.03',
 });

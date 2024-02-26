@@ -6,7 +6,6 @@ import type { AccountBalanceResponseBigNumber } from '@shared/models/account.mod
 import type {
   StacksCryptoCurrencyAssetBalance,
   StacksFungibleTokenAssetBalance,
-  StacksNonFungibleTokenAssetBalance,
 } from '@shared/models/crypto-asset-balance.model';
 import { createMoney } from '@shared/models/money.model';
 
@@ -53,25 +52,6 @@ export function createStacksFtCryptoAssetBalanceTypeWrapper(
   };
 }
 
-function createStacksNftCryptoAssetBalanceTypeWrapper(
-  balance: BigNumber,
-  key: string
-): StacksNonFungibleTokenAssetBalance {
-  const { address, contractName, assetName } = getAssetStringParts(key);
-  return {
-    blockchain: 'stacks',
-    type: 'non-fungible-token',
-    count: balance,
-    asset: {
-      contractAddress: address,
-      contractAssetName: assetName,
-      contractName,
-      imageCanonicalUri: '',
-      name: '',
-    },
-  };
-}
-
 export function convertFtBalancesToStacksFungibleTokenAssetBalanceType(
   ftBalances: AccountBalanceResponseBigNumber['fungible_tokens']
 ) {
@@ -84,17 +64,6 @@ export function convertFtBalancesToStacksFungibleTokenAssetBalanceType(
       // Assets users have traded will persist in the api response
       .filter(assetBalance => !assetBalance?.balance.amount.isEqualTo(0))
   );
-}
-
-export function convertNftBalancesToStacksNonFungibleTokenAssetBalanceType(
-  nftBalances: AccountBalanceResponseBigNumber['non_fungible_tokens']
-) {
-  return Object.entries(nftBalances)
-    .map(([key, value]) => {
-      const count = new BigNumber(value.count);
-      return createStacksNftCryptoAssetBalanceTypeWrapper(count, key);
-    })
-    .filter(assetBalance => !assetBalance?.count.isEqualTo(0));
 }
 
 export function addQueriedMetadataToInitializedStacksFungibleTokenAssetBalance(

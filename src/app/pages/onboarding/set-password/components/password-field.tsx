@@ -5,10 +5,10 @@ import { useField } from 'formik';
 import { Box, Flex, styled } from 'leather-styles/jsx';
 
 import { ValidatedPassword } from '@app/common/validation/validate-password';
-import { EyeIcon } from '@app/ui/components/icons/eye-icon';
-import { EyeSlashIcon } from '@app/ui/components/icons/eye-slash-icon';
 import { Input } from '@app/ui/components/input/input';
 import { Caption } from '@app/ui/components/typography/caption';
+import { EyeIcon } from '@app/ui/icons/eye-icon';
+import { EyeSlashIcon } from '@app/ui/icons/eye-slash-icon';
 
 import { getIndicatorsOfPasswordStrength } from './password-field.utils';
 import { PasswordStrengthIndicator } from './password-strength-indicator';

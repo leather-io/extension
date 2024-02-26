@@ -5,12 +5,12 @@ import { HStack, styled } from 'leather-styles/jsx';
 import { token } from 'leather-styles/tokens';
 
 import { useClipboard } from '@app/common/hooks/use-copy-to-clipboard';
-import { Flag } from '@app/components/layout/flag';
-import { ArrowUpIcon } from '@app/ui/components/icons/arrow-up-icon';
-import { BtcIcon } from '@app/ui/components/icons/btc-icon';
-import { CopyIcon } from '@app/ui/components/icons/copy-icon';
+import { BtcIcon } from '@app/ui/components/avatar-icon/btc-icon';
+import { Flag } from '@app/ui/components/flag/flag';
 import { Link } from '@app/ui/components/link/link';
 import { BasicTooltip } from '@app/ui/components/tooltip/basic-tooltip';
+import { ArrowUpIcon } from '@app/ui/icons/arrow-up-icon';
+import { CopyIcon } from '@app/ui/icons/copy-icon';
 
 interface BitcoinContractLockAmountProps {
   hoverLabel?: string;
@@ -33,7 +33,7 @@ export function BitcoinContractLockAmount({
   const { onCopy, hasCopied } = useClipboard(hoverLabel ?? '');
 
   return (
-    <Flag align="middle" img={image || <BtcIcon />} width="100%">
+    <Flag img={image || <BtcIcon />} width="100%">
       <HStack alignItems="center" justifyContent="space-between">
         <styled.span textStyle="label.01">{title ? title : 'BTC'}</styled.span>
         <styled.span
@@ -55,22 +55,22 @@ export function BitcoinContractLockAmount({
           >
             <styled.button
               _hover={{ cursor: 'pointer' }}
-              color="accent.text-subdued"
+              color="ink.text-subdued"
               display="flex"
               onClick={onCopy}
               type="button"
             >
-              <styled.span color="accent.text-subdued" mr="space.01" textStyle="caption.01">
+              <styled.span color="ink.text-subdued" mr="space.01" textStyle="caption.01">
                 {subtitle}
               </styled.span>
-              {hoverLabel ? <CopyIcon size="14px" /> : null}
+              {hoverLabel ? <CopyIcon /> : null}
             </styled.button>
           </BasicTooltip>
         ) : null}
         {subValue ? (
           <Link onClick={subValueAction} variant="text">
             <HStack gap="space.01">
-              <styled.span color={subValueAction ? 'stacks' : 'accent.text-subdued'}>
+              <styled.span color={subValueAction ? 'stacks' : 'ink.text-subdued'}>
                 {subValue}
               </styled.span>
               {subValueAction ? (

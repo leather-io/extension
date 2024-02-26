@@ -1,8 +1,8 @@
 import { Box, Flex, styled } from 'leather-styles/jsx';
 import { useHover } from 'use-events';
 
-import { ArrowLeftIcon } from '@app/ui/components/icons/arrow-left-icon';
-import { CloseIcon } from '@app/ui/components/icons/close-icon';
+import { ArrowLeftIcon } from '@app/ui/icons/arrow-left-icon';
+import { CloseIcon } from '@app/ui/icons/close-icon';
 
 import { HeaderActionButton } from './header-action-button';
 
@@ -40,7 +40,7 @@ export function DrawerHeader({
       {icon && icon}
       {title && <styled.h1 textStyle="heading.05">{title}</styled.h1>}
       {isHovered && isWaitingOnPerformedAction && (
-        <styled.span color="accent.text-subdued" textStyle="caption.01">
+        <styled.span color="ink.text-subdued" textStyle="caption.01">
           {waitingOnPerformedActionMessage}
         </styled.span>
       )}

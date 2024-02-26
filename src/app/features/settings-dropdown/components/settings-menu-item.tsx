@@ -10,9 +10,9 @@ interface SettingsMenuItemProps extends BoxProps {
 export function SettingsMenuItem({ color, onClick, children, ...props }: SettingsMenuItemProps) {
   return (
     <Box
-      _hover={{ bg: 'accent.component-background-hover' }}
+      _hover={{ bg: 'ink.component-background-hover' }}
       borderRadius="0px"
-      color={color ? color : 'accent.text-primary'}
+      color={color ? color : 'ink.text-primary'}
       cursor="pointer"
       onClick={e => onClick?.(e)}
       px="space.04"

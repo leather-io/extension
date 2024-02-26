@@ -1,4 +1,4 @@
-import { useCallback, useState } from 'react';
+import { useCallback, useMemo, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import { useFormikContext } from 'formik';
@@ -19,11 +19,6 @@ export function useRecipientSelectFields() {
   const { setBnsAddress } = useRecipientBnsName();
   const navigate = useNavigate();
 
-  const onClickLabelAction = useCallback(() => {
-    setSelectedRecipientField(RecipientFieldType.Address);
-    navigate(RouteUrls.SendCryptoAssetFormRecipientAccounts, { replace: true });
-  }, [navigate]);
-
   // Formik does not provide a field reset
   const resetAllRecipientFields = useCallback(async () => {
     void setFieldValue('recipient', '');
@@ -32,31 +27,30 @@ export function useRecipientSelectFields() {
     void setFieldValue('recipientBnsName', '');
     setFieldError('recipientBnsName', undefined);
     await setFieldTouched('recipientBnsName', false);
-  }, [setFieldError, setFieldTouched, setFieldValue]);
+  }, [setFieldValue, setFieldError, setFieldTouched]);
 
-  const onSelectRecipientFieldType = useCallback(
-    async (index: number) => {
-      await resetAllRecipientFields();
-      setBnsAddress('');
-      setSelectedRecipientField(index);
-      setIsSelectVisible(false);
-    },
-    [resetAllRecipientFields, setBnsAddress]
+  return useMemo(
+    () => ({
+      selectedRecipientField,
+      isSelectVisible,
+
+      showRecipientAccountsModal() {
+        setSelectedRecipientField(RecipientFieldType.Address);
+        navigate(RouteUrls.SendCryptoAssetFormRecipientAccounts, { replace: true });
+      },
+
+      async onSelectRecipientFieldType(index: number) {
+        await resetAllRecipientFields();
+        setBnsAddress('');
+        setSelectedRecipientField(index);
+        setIsSelectVisible(false);
+      },
+
+      async onSetIsSelectVisible(value: boolean) {
+        await resetAllRecipientFields();
+        setIsSelectVisible(value);
+      },
+    }),
+    [isSelectVisible, navigate, resetAllRecipientFields, selectedRecipientField, setBnsAddress]
   );
-
-  const onSetIsSelectVisible = useCallback(
-    async (value: boolean) => {
-      await resetAllRecipientFields();
-      setIsSelectVisible(value);
-    },
-    [resetAllRecipientFields]
-  );
-
-  return {
-    isSelectVisible,
-    onClickLabelAction,
-    onSelectRecipientFieldType,
-    onSetIsSelectVisible,
-    selectedRecipientField,
-  };
 }
