@@ -2,31 +2,37 @@ import { token } from 'leather-styles/tokens';
 
 import { PasswordStrength, ValidatedPassword } from '@app/common/validation/validate-password';
 
-export const defaultColor = token('colors.accent.background-secondary');
+export const defaultColor = token('colors.ink.background-secondary');
 
 const strengthStyles = {
   [PasswordStrength.NoScore]: {
-    strengthColor: token('colors.error.label'),
+    strengthColorLightMode: token('colors.red.background-secondary'),
+    strengthColorDarkMode: token('colors.red.border'),
     strengthText: 'Poor',
   },
   [PasswordStrength.PoorScore]: {
-    strengthColor: token('colors.error.label'),
+    strengthColorLightMode: token('colors.red.background-secondary'),
+    strengthColorDarkMode: token('colors.red.border'),
     strengthText: 'Poor',
   },
   [PasswordStrength.WeakScore]: {
-    strengthColor: token('colors.warning.label'),
+    strengthColorLightMode: token('colors.yellow.background-secondary'),
+    strengthColorDarkMode: token('colors.yellow.border'),
     strengthText: 'Weak',
   },
   [PasswordStrength.AverageScore]: {
-    strengthColor: token('colors.warning.label'),
+    strengthColorLightMode: token('colors.yellow.background-secondary'),
+    strengthColorDarkMode: token('colors.yellow.border'),
     strengthText: 'Average',
   },
   [PasswordStrength.StrongScore]: {
-    strengthColor: token('colors.warning.label'),
+    strengthColorLightMode: token('colors.yellow.background-secondary'),
+    strengthColorDarkMode: token('colors.yellow.border'),
     strengthText: 'Average',
   },
   [PasswordStrength.MeetsAllRequirements]: {
-    strengthColor: token('colors.success.label'),
+    strengthColorLightMode: token('colors.green.background-secondary'),
+    strengthColorDarkMode: token('colors.green.border'),
     strengthText: 'Strong',
   },
 };

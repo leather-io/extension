@@ -8,12 +8,5 @@ export function Hr(props: HrProps) {
 }
 
 export function DashedHr(props: HrProps) {
-  return (
-    <styled.hr
-      border="1px dashed"
-      borderColor="accent.border-default !important"
-      width="100%"
-      {...props}
-    />
-  );
+  return <styled.hr border={'1px dashed {colors.ink.border-default}'} width="100%" {...props} />;
 }

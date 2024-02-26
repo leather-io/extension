@@ -1,8 +1,9 @@
-/* eslint-disable @typescript-eslint/no-var-requires */
-const config = require('./webpack.config.base');
-const packageJson = require('../package.json');
-const { sentryWebpackPlugin } = require('@sentry/webpack-plugin');
-const webpack = require('webpack');
+import { sentryWebpackPlugin } from '@sentry/webpack-plugin';
+import webpack from 'webpack';
+import { CleanWebpackPlugin } from 'clean-webpack-plugin';
+
+import packageJson from '../package.json' assert { type: 'json' };
+import { config } from './webpack.config.base.js';
 
 const sentryAuthToken = process.env.SENTRY_AUTH_TOKEN;
 
@@ -26,6 +27,7 @@ config.optimization = {
 
 config.plugins = [
   ...config.plugins,
+  new CleanWebpackPlugin({ verbose: true, dry: false, cleanStaleWebpackAssets: false }),
   new webpack.SourceMapDevToolPlugin({
     // These entry points are excuted in an app's context. If we generate source
     // maps for them, the browser attempts to load them from the inaccessible
@@ -58,4 +60,4 @@ config.plugins = [
 
 config.devtool = false;
 
-module.exports = config;
+export default config;

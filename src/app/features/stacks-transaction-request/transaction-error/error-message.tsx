@@ -2,7 +2,7 @@ import { memo } from 'react';
 
 import { HStack, Stack, styled } from 'leather-styles/jsx';
 
-import { ErrorIcon } from '@app/ui/components/icons/error-icon';
+import { ErrorIcon } from '@app/ui/icons/error-icon';
 
 interface ErrorMessageProps {
   title: string;
@@ -14,7 +14,7 @@ interface ErrorMessageProps {
 export const ErrorMessage = memo(({ border, title, body, actions }: ErrorMessageProps) => {
   return (
     <Stack
-      bg="accent.background-primary"
+      bg="ink.background-primary"
       border={border ? border : 'active'}
       borderRadius="sm"
       gap="space.06"
@@ -22,7 +22,7 @@ export const ErrorMessage = memo(({ border, title, body, actions }: ErrorMessage
       p="space.05"
     >
       <Stack gap="space.04">
-        <HStack alignItems="center" color="error.label">
+        <HStack alignItems="center" color="red.action-primary-default">
           <ErrorIcon />
           <styled.h1 textStyle="label.01">{title}</styled.h1>
         </HStack>

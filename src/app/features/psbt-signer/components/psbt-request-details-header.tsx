@@ -2,9 +2,9 @@ import { Box, HStack, styled } from 'leather-styles/jsx';
 import { token } from 'leather-styles/tokens';
 
 import { usePsbtSignerContext } from '@app/features/psbt-signer/psbt-signer.context';
-import { LockIcon } from '@app/ui/components/icons/lock-icon';
-import { UnlockIcon } from '@app/ui/components/icons/unlock-icon';
 import { BasicTooltip } from '@app/ui/components/tooltip/basic-tooltip';
+import { LockIcon } from '@app/ui/icons/lock-icon';
+import { UnlockIcon } from '@app/ui/icons/unlock-icon';
 
 const immutableLabel =
   'Any modification to the transaction, including the fee amount or other inputs/outputs, will invalidate the signature.';
@@ -14,8 +14,8 @@ const uncertainLabel =
 export function PsbtRequestDetailsHeader() {
   const { isPsbtMutable } = usePsbtSignerContext();
   const tokenLabelColor = isPsbtMutable
-    ? token('colors.warning.label')
-    : token('colors.accent.text-subdued');
+    ? token('colors.yellow.action-primary-default')
+    : token('colors.ink.text-subdued');
 
   return (
     <HStack alignItems="center" gap="space.02">
@@ -31,13 +31,13 @@ export function PsbtRequestDetailsHeader() {
         >
           <Box width="12px">
             {isPsbtMutable ? (
-              <UnlockIcon style={{ color: tokenLabelColor }} size="xs" />
+              <UnlockIcon style={{ color: tokenLabelColor }} variant="small" />
             ) : (
-              <LockIcon style={{ color: tokenLabelColor }} size="xs" />
+              <LockIcon style={{ color: tokenLabelColor }} variant="small" />
             )}
           </Box>
           <styled.span
-            color={isPsbtMutable ? 'warning.label' : 'accent.text-subdued'}
+            color={isPsbtMutable ? 'yellow.action-primary-default' : 'ink.text-subdued'}
             textStyle="caption.02"
           >
             {isPsbtMutable ? 'Uncertain' : 'Certain'}

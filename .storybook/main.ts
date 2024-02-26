@@ -8,6 +8,14 @@ const config: StorybookConfig = {
     '@storybook/addon-onboarding',
     '@storybook/addon-interactions',
     {
+      name: '@storybook/addon-docs',
+      options: {
+        csfPluginOptions: null,
+        mdxPluginOptions: {},
+        transcludeMarkdown: true,
+      },
+    },
+    {
       name: '@storybook/addon-styling-webpack',
       options: {
         rules: [

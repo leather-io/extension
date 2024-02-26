@@ -1,8 +1,8 @@
 import { Button } from '@app/ui/components/button/button';
-import { CopyIcon } from '@app/ui/components/icons/copy-icon';
-import { QrCodeIcon } from '@app/ui/components/icons/qr-code-icon';
 import { ItemInteractive } from '@app/ui/components/item/item-interactive';
 import { ItemWithButtonsLayout } from '@app/ui/components/item/item-with-buttons.layout';
+import { CopyIcon } from '@app/ui/icons/copy-icon';
+import { QrCodeIcon } from '@app/ui/icons/qr-code-icon';
 import { truncateMiddle } from '@app/ui/utils/truncate-middle';
 
 interface ReceiveItemProps {

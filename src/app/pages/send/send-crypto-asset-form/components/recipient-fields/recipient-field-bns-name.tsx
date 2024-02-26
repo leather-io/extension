@@ -13,15 +13,15 @@ import { useRecipientBnsName } from './hooks/use-recipient-bns-name';
 interface RecipientFieldBnsNameProps {
   fetchFn(client: StacksClient, name: string, isTestnet?: boolean): Promise<string | null>;
   isSelectVisible: boolean;
-  onClickLabelAction(): void;
   selectedRecipientField: number;
   topInputOverlay: React.JSX.Element;
+  rightLabel: React.JSX.Element;
 }
 export function RecipientFieldBnsName({
   fetchFn,
   isSelectVisible,
-  onClickLabelAction,
   topInputOverlay,
+  rightLabel,
 }: RecipientFieldBnsNameProps) {
   const [showBnsAddress, setShowBnsAddress] = useState(false);
   const { errors, setFieldError, values } = useFormikContext<
@@ -49,12 +49,11 @@ export function RecipientFieldBnsName({
     <>
       <RecipientField
         isDisabled={isSelectVisible}
-        labelAction="Select account"
         name="recipientBnsName"
         onBlur={() => getBnsAddressAndValidate(fetchFn)}
-        onClickLabelAction={onClickLabelAction}
         placeholder="Enter recipient BNS name"
         topInputOverlay={topInputOverlay}
+        rightLabel={rightLabel}
       />
       {showBnsAddress ? <RecipientAddressDisplayer address={bnsAddress} /> : null}
     </>

@@ -35,7 +35,7 @@ export function CollectibleItemLayout({
         outline: onClickLayout ? 'focus' : 'unset',
         outlineOffset: onClickLayout ? '-4px' : 'unset',
       }}
-      _hover={{ bg: 'accent.background-secondary' }}
+      _hover={{ bg: 'ink.background-secondary' }}
       borderRadius="xs"
       cursor={onClickLayout ? 'pointer' : 'default'}
       onClick={onClickLayout}
@@ -61,8 +61,8 @@ export function CollectibleItemLayout({
           position="absolute"
           style={{
             backgroundColor: showBorder
-              ? token('colors.accent.background-primary')
-              : token('colors.accent.component-background-default'),
+              ? token('colors.ink.background-primary')
+              : token('colors.ink.component-background-default'),
             border: showBorder ? token('borders.dashed') : 'unset',
           }}
           top="0px"
@@ -81,7 +81,7 @@ export function CollectibleItemLayout({
         >
           {title}
         </styled.span>
-        <styled.span color="accent.text-subdued" textStyle="caption.01">
+        <styled.span color="ink.text-subdued" textStyle="caption.01">
           {subtitle}
         </styled.span>
       </Stack>
@@ -89,8 +89,8 @@ export function CollectibleItemLayout({
         <Box p="space.02">
           <styled.button
             _focus={{ clipPath: 'none', outline: 'focus' }}
-            _hover={{ bg: 'accent.background-primary' }}
-            bg="accent.background-primary"
+            _hover={{ bg: 'ink.background-primary' }}
+            bg="ink.background-primary"
             borderRadius="xs"
             clipPath={isHovered ? 'none' : 'circle(0%)'}
             fontWeight={500}

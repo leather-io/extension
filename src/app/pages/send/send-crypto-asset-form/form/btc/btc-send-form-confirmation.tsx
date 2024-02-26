@@ -3,6 +3,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { hexToBytes } from '@noble/hashes/utils';
 import * as btc from '@scure/btc-signer';
 import { SendCryptoAssetSelectors } from '@tests/selectors/send.selectors';
+import { SharedComponentsSelectors } from '@tests/selectors/shared-component.selectors';
 import { Stack } from 'leather-styles/jsx';
 import get from 'lodash.get';
 
@@ -157,7 +158,12 @@ export function BtcSendFormConfirmation() {
       </Stack>
 
       <InfoCardFooter>
-        <Button aria-busy={isBroadcasting} onClick={initiateTransaction} width="100%">
+        <Button
+          data-testid={SharedComponentsSelectors.InfoCardButton}
+          aria-busy={isBroadcasting}
+          onClick={initiateTransaction}
+          width="100%"
+        >
           Confirm and send transaction
         </Button>
       </InfoCardFooter>

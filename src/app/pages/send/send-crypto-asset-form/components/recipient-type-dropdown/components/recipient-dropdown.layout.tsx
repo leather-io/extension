@@ -27,17 +27,18 @@ export function RecipientDropdownLayout({
       <RecipientDropdownItem index={selectedItem} onSelectItem={() => onSetIsSelectVisible(true)} />
       {isVisible ? (
         <Stack
-          bg="accent.background-primary"
+          bg="ink.background-primary"
           borderRadius="xs"
           boxShadow="0px 8px 16px rgba(27, 39, 51, 0.08)"
           flexDirection="column"
-          gap="0px"
+          gap="space.03"
           minWidth="100px"
           overflow="hidden"
-          p="space.01"
+          px="space.02"
+          py="space.02"
           position="absolute"
           ref={ref}
-          top="40px"
+          top="20px"
           zIndex={9999}
         >
           {children}

@@ -1,8 +1,8 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { HStack, styled } from 'leather-styles/jsx';
 
-import { ChevronDownIcon } from '../icons/chevron-down-icon';
-import { PlaceholderIcon } from '../icons/placeholder-icon';
+import { ChevronDownIcon } from '../../icons/chevron-down-icon';
+import { PlaceholderIcon } from '../../icons/placeholder-icon';
 import { DropdownMenu as Component, DropdownMenuItem } from './dropdown-menu';
 import { DropdownMenuItemLayout } from './dropdown-menu-item.layout';
 
@@ -11,7 +11,7 @@ const items: DropdownMenuItem[] = [{ label: 'Label 1' }, { label: 'Label 2' }];
 const meta: Meta<typeof Component.Root> = {
   component: Component.Root,
   tags: ['autodocs'],
-  title: 'Dropdown Menu',
+  title: 'DropdownMenu',
 };
 
 export default meta;
@@ -24,7 +24,7 @@ export const DropdownMenu: Story = {
         <styled.button>
           <HStack gap="space.02" width="100%">
             <styled.span textStyle="label.02">Options</styled.span>
-            <ChevronDownIcon />
+            <ChevronDownIcon variant="small" />
           </HStack>
         </styled.button>
       </Component.Trigger>

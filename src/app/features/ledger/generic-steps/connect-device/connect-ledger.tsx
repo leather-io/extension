@@ -6,9 +6,8 @@ import { SupportedBlockchains } from '@shared/constants';
 
 import { Divider } from '@app/components/layout/divider';
 import { Button } from '@app/ui/components/button/button';
-import { BtcLedgerIcon } from '@app/ui/components/icons/btc-ledger-icon';
-import { StxLedgerIcon } from '@app/ui/components/icons/stx-ledger-icon';
 import { Link } from '@app/ui/components/link/link';
+import { BitcoinIcon, StacksIcon } from '@app/ui/icons';
 
 import { LedgerWrapper } from '../../components/ledger-wrapper';
 
@@ -81,7 +80,7 @@ export function ConnectLedger(props: ConnectLedgerProps) {
               aria-busy={awaitingLedgerConnection}
             >
               <HStack gap="space.01">
-                <BtcLedgerIcon />
+                <BitcoinIcon width="md" />
                 <styled.span textStyle="label.02">Connect Bitcoin</styled.span>
               </HStack>
             </Button>
@@ -94,7 +93,7 @@ export function ConnectLedger(props: ConnectLedgerProps) {
               alignItems="center"
             >
               <HStack gap="space.01">
-                <StxLedgerIcon />
+                <StacksIcon width="md" />
                 <styled.span textStyle="label.02">Connect Stacks</styled.span>
               </HStack>
             </Button>
@@ -110,7 +109,7 @@ export function ConnectLedger(props: ConnectLedgerProps) {
         <Stack gap="space.05" width="100%">
           <Divider />
           <Stack alignItems="center" gap="space.01">
-            <styled.span textStyle="label.03" color="accent.text-subdued">
+            <styled.span textStyle="label.03" color="ink.text-subdued">
               First time using Ledger on Leather?
             </styled.span>
             <Link

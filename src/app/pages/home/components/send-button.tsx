@@ -13,7 +13,7 @@ import {
   useTransferableStacksFungibleTokenAssetBalances,
 } from '@app/query/stacks/balance/stacks-ft-balances.hooks';
 import { useCurrentStacksAccount } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
-import { ArrowUpIcon } from '@app/ui/components/icons/arrow-up-icon';
+import { SendIcon } from '@app/ui/icons';
 
 import { ActionButton } from './action-button';
 
@@ -29,7 +29,7 @@ function SendButtonSuspense() {
     <ActionButton
       data-testid={HomePageSelectors.SendCryptoAssetBtn}
       label="Send"
-      icon={<ArrowUpIcon />}
+      icon={<SendIcon />}
       onClick={() =>
         whenWallet({
           ledger: () =>
@@ -45,9 +45,7 @@ function SendButtonSuspense() {
   );
 }
 
-const SendButtonFallback = memo(() => (
-  <ActionButton label="Send" icon={<ArrowUpIcon />} disabled />
-));
+const SendButtonFallback = memo(() => <ActionButton label="Send" icon={<SendIcon />} disabled />);
 
 export function SendButton() {
   return (

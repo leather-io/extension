@@ -1,14 +1,15 @@
-const ReactRefreshWebpackPlugin = require('@pmmmwh/react-refresh-webpack-plugin');
-const WebpackDevServer = require('webpack-dev-server');
-const webpack = require('webpack');
-const path = require('path');
+import ReactRefreshWebpackPlugin from '@pmmmwh/react-refresh-webpack-plugin';
+import path from 'path';
+import * as url from 'url';
+import webpack from 'webpack';
+import WebpackDevServer from 'webpack-dev-server';
 
-const WALLET_ENVIRONMENT = process.env.WALLET_ENVIRONMENT;
+import config from './webpack.config.dev.js';
+
+const __dirname = url.fileURLToPath(new URL('.', import.meta.url));
 
 const HOST = 'localhost';
 const PORT = process.env.PORT || '8080';
-
-const config = require('./webpack.config.dev');
 
 // This is important bc it allows for fast refresh to work
 // We don't want to inject our fast refresh helpers into these entry points
@@ -52,10 +53,6 @@ const server = new WebpackDevServer(
   },
   compiler
 );
-
-if (WALLET_ENVIRONMENT === 'development' && module.hot) {
-  module.hot.accept();
-}
 
 server.startCallback(() => {
   console.log('Starting server on http://localhost:8080');

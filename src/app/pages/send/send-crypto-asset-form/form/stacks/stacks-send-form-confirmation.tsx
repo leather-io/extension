@@ -10,8 +10,8 @@ import { useRouteHeader } from '@app/common/hooks/use-route-header';
 import { ModalHeader } from '@app/components/modal-header';
 import { useStacksBroadcastTransaction } from '@app/features/stacks-transaction-request/hooks/use-stacks-broadcast-transaction';
 import { useStacksTransactionSummary } from '@app/features/stacks-transaction-request/hooks/use-stacks-transaction-summary';
-import { InfoIcon } from '@app/ui/components/icons/info-icon';
 import { BasicTooltip } from '@app/ui/components/tooltip/basic-tooltip';
+import { InfoCircleIcon } from '@app/ui/icons/info-circle-icon';
 
 import { SendFormConfirmation } from '../send-form-confirmation';
 
@@ -69,7 +69,7 @@ export function StacksSendFormConfirmation() {
     >
       <Stack>
         <Box>
-          <InfoIcon color="accent.text-subdued" />
+          <InfoCircleIcon color="ink.text-subdued" />
         </Box>
       </Stack>
     </BasicTooltip>

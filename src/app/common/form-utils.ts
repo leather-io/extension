@@ -11,7 +11,7 @@ export function useShowFieldError(name: string) {
   const isDirty = useIsFieldDirty(name);
   const isFieldInFocus = document.activeElement?.getAttribute('name') === name;
 
-  return (
+  return !!(
     (form.submitCount > 0 && meta.error) ||
     (!isFieldInFocus && meta.touched && isDirty && meta.error)
   );

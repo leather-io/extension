@@ -3,9 +3,9 @@ import { Box, Flex, styled } from 'leather-styles/jsx';
 
 import { useViewportMinWidth } from '@app/common/hooks/use-media-query';
 import { Button } from '@app/ui/components/button/button';
-import { LeatherIcon } from '@app/ui/components/icons/leather-icon';
-import { LeatherLettermarkIcon } from '@app/ui/components/icons/leather-lettermark-icon';
 import { Link } from '@app/ui/components/link/link';
+import { LettermarkIcon } from '@app/ui/icons/lettermark-icon';
+import { LogomarkIcon } from '@app/ui/icons/logomark-icon';
 
 interface WelcomeLayoutProps {
   tagline: React.ReactNode;
@@ -27,12 +27,17 @@ export function WelcomeLayout({
 
   return (
     <Flex flexDir={['column-reverse', '', 'row']} minW="100vw" minH="100vh">
-      <Flex flexDir="column" bg={['ink.2', '', 'ink.12']} flex={[1, 2]} p="space.05">
+      <Flex
+        flexDir="column"
+        bg={['ink.background-secondary', '', 'ink.text-primary']}
+        flex={[1, 2]}
+        p="space.05"
+      >
         <Flex
           flexDir="column"
           flex={[1, 1, 0]}
           justifyContent={['center', '', 'flex-start']}
-          color={['ink.12', '', 'ink.2']}
+          color={['ink.text-primary', '', 'ink.background-secondary']}
         >
           <Box>
             <styled.h1 textStyle={['heading.03', '', 'display.02', 'display.01']}>
@@ -109,14 +114,14 @@ export function WelcomeLayout({
       </Flex>
       <Flex
         p="space.05"
-        bg="ink.2"
-        color="ink.12"
+        bg="ink.background-secondary"
+        color="ink.text-primary"
         flexDir="column"
         justifyContent="space-between"
         flex={['', '', 1]}
       >
-        <LeatherIcon width="150px" height="34px" />
-        <LeatherLettermarkIcon display={['none', '', 'block']} width="100%" />
+        <LogomarkIcon width="150px" height="34px" />
+        <LettermarkIcon display={['none', '', 'block']} height="auto" width="100%" />
       </Flex>
     </Flex>
   );

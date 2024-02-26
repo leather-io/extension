@@ -2,9 +2,9 @@ import { ReactNode, isValidElement } from 'react';
 
 import { Flex, HStack, Stack, styled } from 'leather-styles/jsx';
 
+import { CheckmarkIcon } from '../../icons/checkmark-icon';
+import { ChevronUpIcon } from '../../icons/chevron-up-icon';
 import { Flag } from '../flag/flag';
-import { CheckmarkIcon } from '../icons/checkmark-icon';
-import { ChevronUpIcon } from '../icons/chevron-up-icon';
 import { itemCaptionStyles, itemChevronStyles } from './item-interactive';
 
 interface ItemLayoutProps {
@@ -45,7 +45,7 @@ export function ItemLayout({
                 {titleLeft}
               </styled.span>
             )}
-            {isSelected && <CheckmarkIcon />}
+            {isSelected && <CheckmarkIcon variant="small" />}
           </HStack>
           {isValidElement(captionLeft) ? (
             captionLeft
@@ -72,7 +72,9 @@ export function ItemLayout({
               </styled.span>
             )}
           </Stack>
-          {showChevron && <ChevronUpIcon color={itemChevronStyles} transform="rotate(90deg)" />}
+          {showChevron && (
+            <ChevronUpIcon color={itemChevronStyles} transform="rotate(90deg)" variant="small" />
+          )}
         </HStack>
       </Flex>
     </Flag>

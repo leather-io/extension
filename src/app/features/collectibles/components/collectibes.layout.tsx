@@ -2,8 +2,8 @@ import { Flex, Grid, HStack, styled } from 'leather-styles/jsx';
 import { token } from 'leather-styles/tokens';
 
 import { LoadingSpinner } from '@app/components/loading-spinner';
-import { RefreshIcon } from '@app/ui/components/icons/refresh-icon';
 import { Spinner } from '@app/ui/components/spinner';
+import { RefreshIcon } from '@app/ui/icons/refresh-icon';
 
 interface CollectiblesLayoutProps {
   title: string;
@@ -27,9 +27,9 @@ export function CollectiblesLayout({
         <HStack columnGap="space.02">
           <styled.span textStyle="label.01">{title}</styled.span>
           {isLoading ? (
-            <Spinner color={token('colors.accent.text-primary')} opacity={0.5} size="16px" />
+            <Spinner color={token('colors.ink.text-primary')} opacity={0.5} />
           ) : (
-            <RefreshIcon cursor="pointer" onClick={() => onRefresh()} />
+            <RefreshIcon cursor="pointer" onClick={() => onRefresh()} variant="small" />
           )}
         </HStack>
         {subHeader}

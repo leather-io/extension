@@ -18,7 +18,7 @@ function ItemHover({
       size="calc(100% + 24px)"
       left="-12px"
       top="-12px"
-      bg="accent.component-background-hover"
+      bg="ink.component-background-hover"
       zIndex={-1}
       {...rest}
     />

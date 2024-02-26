@@ -7,7 +7,7 @@ import { useWalletType } from '@app/common/use-wallet-type';
 import { BaseDrawer } from '@app/components/drawer/base-drawer';
 import { Button } from '@app/ui/components/button/button';
 import { Flag } from '@app/ui/components/flag/flag';
-import { ErrorIcon } from '@app/ui/components/icons/error-icon';
+import { ErrorIcon } from '@app/ui/icons/error-icon';
 
 interface SignOutConfirmLayoutProps {
   onUserDeleteWallet(): void;
@@ -94,10 +94,12 @@ export function SignOutConfirmLayout(props: SignOutConfirmLayoutProps) {
               Cancel
             </Button>
             <Button
-              _disabled={{ color: 'accent.non-interactive' }}
-              _hover={{ background: 'error.label' }}
-              background="error.label"
-              color={theme === 'light' ? 'accent.background-primary' : 'accent.text-primary'}
+              _disabled={{
+                bg: 'red.background-secondary',
+                color: 'ink.non-interactive',
+              }}
+              bg="red.action-primary-default"
+              color={theme === 'light' ? 'ink.background-primary' : 'ink.text-primary'}
               data-testid={SettingsSelectors.BtnSignOutActuallyDeleteWallet}
               flexGrow={1}
               disabled={!(form.values.confirmBackup && form.values.confirmPasswordDisable)}

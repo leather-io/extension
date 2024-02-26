@@ -64,6 +64,7 @@ export const sendCryptoAssetFormRoutes = (
       </Route>
       <Route path="/send/btc/disabled" element={<SendBtcDisabled />} />
       <Route path="/send/btc/error" element={<BroadcastError />} />
+
       <Route path="/send/btc/confirm" element={<BtcSendFormConfirmation />} />
       <Route path={RouteUrls.SendBtcChooseFee} element={<BtcChooseFee />}>
         {ledgerBitcoinTxSigningRoutes}

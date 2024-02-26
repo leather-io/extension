@@ -6,6 +6,7 @@ export enum SharedComponentsSelectors {
   // InfoCard
   InfoCardAssetValue = 'info-card-asset-value',
   InfoCardRowValue = 'info-card-row-value',
+  InfoCardButton = 'info-card-button',
 
   // Fees
   FeeRow = 'fee-row',
@@ -20,4 +21,7 @@ export enum SharedComponentsSelectors {
 
   // Modal Header
   ModalHeaderBackBtn = 'modal-header-back-button',
+
+  // Error
+  BroadcastErrorTitle = 'broadcast-error-title',
 }

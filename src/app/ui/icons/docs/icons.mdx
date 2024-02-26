@@ -1,0 +1,50 @@
+import { IconGallery, IconItem, Meta } from '@storybook/blocks';
+
+import * as Icon from '..';
+import { iconsList } from './icons-list';
+
+<Meta title="Icons/Icons" />
+
+<style>
+  {`
+    .spacer {
+      height: 24px
+    }
+  `}
+</style>
+
+<div className="spacer" />
+
+# Icons
+
+<div className="spacer" />
+
+<div>
+  <h3 style={{ marginTop: 32, marginBottom: 24 }}>Default 24x24</h3>
+  <IconGallery>
+    {iconsList.map(item => {
+      const IconComponent = Icon[item];
+      return (
+        <IconItem key={item} name={item}>
+          <IconComponent />
+        </IconItem>
+      );
+    })}
+  </IconGallery>
+</div>
+
+<div className="spacer" />
+
+<div>
+  <h3 style={{ marginTop: 32, marginBottom: 24 }}>Small 16x16</h3>
+  <IconGallery>
+    {iconsList.map(item => {
+      const IconComponent = Icon[item];
+      return (
+        <IconItem key={item} name={item}>
+          <IconComponent variant="small" width="16px" />
+        </IconItem>
+      );
+    })}
+  </IconGallery>
+</div>

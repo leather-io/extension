@@ -25,8 +25,8 @@ const focusVisibleStyles = {
 };
 
 export const itemBaseStyles = css.raw({
-  bg: 'accent.background-primary',
-  color: 'accent.text-primary',
+  bg: 'ink.background-primary',
+  color: 'ink.text-primary',
   cursor: 'default',
   display: 'flex',
   height: 'auto',
@@ -42,7 +42,7 @@ export const itemInteractiveStyles = css.raw({
   cursor: 'pointer',
 
   '&:is(:active)': {
-    bg: 'accent.component-background-pressed',
+    bg: 'ink.component-background-pressed',
   },
   '&:is(:focus-visible)': {
     ...focusVisibleStyles,
@@ -51,12 +51,12 @@ export const itemInteractiveStyles = css.raw({
     _active: { bg: 'unset' },
     _focus: { border: 'unset' },
     _hover: { bg: 'unset' },
-    color: 'accent.non-interactive',
+    color: 'ink.non-interactive',
     cursor: 'not-allowed',
   },
   '&:is(:hover, [data-highlighted])': {
     _before: { borderColor: 'transparent' },
-    bg: 'accent.component-background-hover',
+    bg: 'ink.component-background-hover',
   },
 });
 
@@ -71,13 +71,13 @@ const itemRecipe = cva({
 });
 
 export const itemCaptionStyles = css({
-  _groupDisabled: { color: 'accent.non-interactive' },
-  color: 'accent.text-subdued',
+  _groupDisabled: { color: 'ink.non-interactive' },
+  color: 'ink.text-subdued',
 });
 
 export const itemChevronStyles = css({
-  _groupDisabled: { color: 'accent.non-interactive' },
-  color: 'accent.action-primary-default',
+  _groupDisabled: { color: 'ink.non-interactive' },
+  color: 'ink.action-primary-default',
 });
 
 type ItemVariantProps = RecipeVariantProps<typeof itemRecipe>;

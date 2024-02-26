@@ -14,7 +14,7 @@ export function TransactionTypeIconWrapper({
       bg="stacks"
       border="background"
       bottom="-2px"
-      color="accent.background-primary"
+      color="ink.background-primary"
       position="absolute"
       right="-9px"
       size="21px"

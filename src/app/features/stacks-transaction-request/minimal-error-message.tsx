@@ -5,7 +5,7 @@ import { HStack, HstackProps, styled } from 'leather-styles/jsx';
 
 import { useTransactionError } from '@app/features/stacks-transaction-request/hooks/use-transaction-error';
 import { TransactionErrorReason } from '@app/features/stacks-transaction-request/transaction-error/transaction-error';
-import { ErrorIcon } from '@app/ui/components/icons/error-icon';
+import { ErrorIcon } from '@app/ui/icons/error-icon';
 
 function MinimalErrorMessageSuspense(props: HstackProps) {
   const error = useTransactionError();
@@ -34,10 +34,9 @@ function MinimalErrorMessageSuspense(props: HstackProps) {
   return (
     <HStack
       alignItems="center"
-      // #4476 TODO change this colour
-      bg="#FCEEED"
+      bg="ink.background-primary"
       borderRadius="md"
-      color="error.label"
+      color="red.action-primary-default"
       p="space.04"
       width="100%"
       {...props}

@@ -1,25 +1,16 @@
-import { css } from 'leather-styles/css';
-import { HStack, HstackProps } from 'leather-styles/jsx';
+import { Flag, type FlagProps } from '@app/ui/components/flag/flag';
+import { ErrorCircleIcon } from '@app/ui/icons/error-circle-icon';
 
-import { ErrorCircleIcon } from '@app/ui/components/icons/error-circle-icon';
-
-export function ErrorLabel({ children, ...rest }: HstackProps) {
+export function ErrorLabel({ children, ...rest }: FlagProps) {
   return (
-    <HStack
-      alignItems="flex-start"
-      className={css({
-        '& svg': {
-          mt: '2px',
-        },
-      })}
-      color="error.label"
-      gap="space.02"
-      textAlign="left"
+    <Flag
+      img={<ErrorCircleIcon variant="small" />}
+      spacing="space.02"
+      color="red.action-primary-default"
       textStyle="body.02"
       {...rest}
     >
-      <ErrorCircleIcon />
       {children}
-    </HStack>
+    </Flag>
   );
 }

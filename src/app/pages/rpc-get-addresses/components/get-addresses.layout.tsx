@@ -2,8 +2,8 @@ import { Box, Flex, styled } from 'leather-styles/jsx';
 
 import { RequesterFlag } from '@app/components/requester-flag';
 import { Button } from '@app/ui/components/button/button';
-import { LeatherIcon } from '@app/ui/components/icons/leather-icon';
-import { LeatherLIcon } from '@app/ui/components/icons/leather-l-icon';
+import { LettermarkIcon } from '@app/ui/icons';
+import { LogomarkIcon } from '@app/ui/icons/logomark-icon';
 
 interface GetAddressesLayoutProps {
   requester: string;
@@ -23,7 +23,7 @@ export function GetAddressesLayout(props: GetAddressesLayoutProps) {
         gap="space.06"
       >
         <Box mb="space.08" mt="space.11">
-          <LeatherIcon width="248px" height="58px" />
+          <LogomarkIcon width="248px" height="58px" />
         </Box>
         <styled.p textStyle="heading.03">Connect your account to</styled.p>
 
@@ -31,7 +31,7 @@ export function GetAddressesLayout(props: GetAddressesLayoutProps) {
         <Box width="100%" display="flex">
           <Button onClick={() => onUserApproveGetAddresses()} fullWidth>
             <Flex justifyContent="center" alignItems="center">
-              <LeatherLIcon mr="space.02" />
+              <LettermarkIcon mr="space.02" />
               <styled.span textStyle="label.02">Connect Leather</styled.span>
             </Flex>
           </Button>
@@ -43,7 +43,7 @@ export function GetAddressesLayout(props: GetAddressesLayoutProps) {
         lineHeight="20px"
         textAlign="center"
         alignSelf="bottom"
-        bg="accent.background-secondary"
+        bg="ink.background-secondary"
       >
         <styled.p textStyle="caption.02">
           By connecting you give permission to {requester} to see all addresses linked to this

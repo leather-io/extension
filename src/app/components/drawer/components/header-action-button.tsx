@@ -12,12 +12,12 @@ export function HeaderActionButton(props: HeaderActionButtonProps) {
   return (
     <Grid
       _hover={{
-        bg: isWaitingOnPerformedAction ? 'unset' : 'accent.component-background-hover',
+        bg: isWaitingOnPerformedAction ? 'unset' : 'ink.component-background-hover',
         cursor: isWaitingOnPerformedAction ? 'unset' : 'pointer',
       }}
       data-testid={HomePageSelectors.DrawerHeaderActionBtn}
       borderRadius="xs"
-      color="accent.action-primary-default"
+      color="ink.action-primary-default"
       height="36px"
       onClick={isWaitingOnPerformedAction ? undefined : onAction}
       opacity={isWaitingOnPerformedAction ? '0.3' : 'unset'}

@@ -19,8 +19,8 @@ import {
 } from '@app/components/info-card/info-card';
 import { InfoLabel } from '@app/components/info-label';
 import { ModalHeader } from '@app/components/modal-header';
-import { ExternalLinkIcon } from '@app/ui/components/icons/external-link-icon';
 import { Link } from '@app/ui/components/link/link';
+import { ExternalLinkIcon } from '@app/ui/icons/external-link-icon';
 
 import { TxDone } from '../send-crypto-asset-form/components/tx-done';
 
@@ -81,9 +81,9 @@ export function Brc20SentSummary() {
         <InfoCardRow title="Total fee" value={totalFee} />
       </Stack>
       <InfoCardFooter>
-        <HStack gap="sapce.04" width="100%">
+        <HStack gap="space.04" width="100%">
           <InfoCardBtn
-            icon={<ExternalLinkIcon size="14px" />}
+            icon={<ExternalLinkIcon />}
             label="Pending BRC-20 transfers"
             onClick={onClickLink}
           />

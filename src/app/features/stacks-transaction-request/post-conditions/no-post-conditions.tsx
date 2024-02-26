@@ -1,11 +1,11 @@
 import { Box, Circle, HStack, styled } from 'leather-styles/jsx';
 
-import { LockIcon } from '@app/ui/components/icons/lock-icon';
+import { LockIcon } from '@app/ui/icons/lock-icon';
 
 export function NoPostConditions(): React.JSX.Element {
   return (
     <HStack alignItems="center" gap="space.04" p="space.04">
-      <Circle bg="accent.component-background-hover" flexShrink={0}>
+      <Circle bg="ink.component-background-hover" flexShrink={0}>
         <LockIcon />
       </Circle>
       <Box flexGrow={1}>

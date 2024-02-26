@@ -15,9 +15,9 @@ import {
   InfoCardRow,
   InfoCardSeparator,
 } from '@app/components/info-card/info-card';
-import { CheckmarkIcon } from '@app/ui/components/icons/checkmark-icon';
-import { CopyIcon } from '@app/ui/components/icons/copy-icon';
-import { ExternalLinkIcon } from '@app/ui/components/icons/external-link-icon';
+import { CheckmarkIcon } from '@app/ui/icons/checkmark-icon';
+import { CopyIcon } from '@app/ui/icons/copy-icon';
+import { ExternalLinkIcon } from '@app/ui/icons/external-link-icon';
 
 export function RpcSendTransferSummary() {
   const { state } = useLocation();
@@ -56,7 +56,7 @@ export function RpcSendTransferSummary() {
         <InfoCardAssetValue
           fiatSymbol={txFiatValueSymbol}
           fiatValue={txFiatValue}
-          icon={<CheckmarkIcon size="32px" />}
+          icon={<CheckmarkIcon width="lg" />}
           mb="space.05"
           symbol={symbol}
           value={txValue}
@@ -71,12 +71,8 @@ export function RpcSendTransferSummary() {
         </Stack>
         <InfoCardFooter>
           <HStack gap="space.04" width="100%">
-            <InfoCardBtn
-              icon={<ExternalLinkIcon size="14px" />}
-              label="View details"
-              onClick={onClickLink}
-            />
-            <InfoCardBtn icon={<CopyIcon size="14px" />} label="Copy ID" onClick={onClickCopy} />
+            <InfoCardBtn icon={<ExternalLinkIcon />} label="View details" onClick={onClickLink} />
+            <InfoCardBtn icon={<CopyIcon />} label="Copy ID" onClick={onClickCopy} />
           </HStack>
         </InfoCardFooter>
       </InfoCard>

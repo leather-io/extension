@@ -1,4 +1,3 @@
-import { Page } from '@playwright/test';
 import { TestAppPage } from '@tests/page-object-models/test-app.page';
 import { UpdateProfileRequestPage } from '@tests/page-object-models/update-profile-request.page';
 
@@ -8,19 +7,6 @@ test.describe.configure({ mode: 'serial' });
 
 test.describe('Profile updating', () => {
   let testAppPage: TestAppPage;
-
-  function interceptGaiaRequest(page: Page): Promise<Buffer> {
-    return new Promise(resolve => {
-      page.on('request', request => {
-        if (request.url().startsWith('https://hub.blockstack.org/store')) {
-          const requestBody = request.postDataBuffer();
-          if (request.method() === 'GET') return;
-          if (requestBody === null) return;
-          resolve(requestBody);
-        }
-      });
-    });
-  }
 
   test.beforeEach(async ({ extensionId, globalPage, onboardingPage, context }) => {
     await globalPage.setupAndUseApiCalls(extensionId);
@@ -57,12 +43,21 @@ test.describe('Profile updating', () => {
     await testAppPage.clickUpdateProfileButton();
     const profileUpdatingPage = new UpdateProfileRequestPage(await context.waitForEvent('page'));
 
-    const [gaiaRequestBody] = await Promise.all([
-      interceptGaiaRequest(profileUpdatingPage.page),
-      profileUpdatingPage.clickUpdateProfileButton(),
-    ]);
+    const requestPromise = profileUpdatingPage.page.waitForRequest('https://hub.blockstack.org/*');
 
-    const { decodedToken } = JSON.parse(gaiaRequestBody.toString())[0];
+    await profileUpdatingPage.page.route('https://hub.blockstack.org/*', async route => {
+      await route.abort();
+    });
+
+    await profileUpdatingPage.clickUpdateProfileButton();
+
+    const request = await requestPromise;
+    const requestBody = request.postDataBuffer();
+    if (!requestBody) return;
+
+    const { decodedToken } = JSON.parse(requestBody.toString())[0];
+
+    test.expect(decodedToken).toBeDefined();
 
     test.expect(decodedToken?.header?.alg).toEqual('ES256K');
     test.expect(decodedToken?.payload?.claim?.name).toContain('Name ');

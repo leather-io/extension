@@ -3,7 +3,7 @@ import { styled } from 'leather-styles/jsx';
 
 import { isDefined, isUndefined } from '@shared/utils';
 
-import { SwapIcon } from '@app/ui/components/icons/swap-icon';
+import { SwapIcon } from '@app/ui/icons';
 
 import { SwapFormValues } from '../hooks/use-swap-form';
 import { useSwapContext } from '../swap.context';
@@ -44,7 +44,7 @@ export function SwapToggleButton() {
       onClick={onToggleSwapAssets}
       type="button"
     >
-      <SwapIcon transform="rotate(90deg)" />
+      <SwapIcon transform="rotate(90deg)" variant="small" />
     </styled.button>
   );
 }

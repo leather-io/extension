@@ -9,12 +9,12 @@ type StatusColorMap = Record<StacksTxStatus, string>;
 
 function getColorFromTx(tx: StacksTx) {
   const colorMap: StatusColorMap = {
-    pending: 'warning.label',
+    pending: 'yellow.action-primary-default',
     success: 'stacks',
-    failed: 'error.label',
+    failed: 'red.action-primary-default',
   };
 
-  return colorMap[statusFromTx(tx)] ?? 'error.label';
+  return colorMap[statusFromTx(tx)] ?? 'red.action-primary-default';
 }
 
 interface TransactionTypeIconProps {

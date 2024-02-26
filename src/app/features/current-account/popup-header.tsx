@@ -1,7 +1,6 @@
 import { Suspense } from 'react';
 
 import { Box, HStack, styled } from 'leather-styles/jsx';
-import { token } from 'leather-styles/tokens';
 
 import { BtcBalance } from '@app/components/balance-btc';
 import { StxBalance } from '@app/components/balance-stx';
@@ -33,14 +32,7 @@ function PopupHeaderSuspense({ displayAddresssBalanceOf = 'stx' }: PopupHeaderPr
   return (
     <PopupHeaderLayout>
       <Flag
-        img={
-          <CurrentAccountAvatar
-            color={token('colors.white')}
-            fontSize="16px"
-            fontWeight={500}
-            size="32px"
-          />
-        }
+        img={<CurrentAccountAvatar color="white" fontSize="16px" fontWeight={500} size="32px" />}
       >
         <HStack alignItems="center" justifyContent="space-between">
           <styled.h3>

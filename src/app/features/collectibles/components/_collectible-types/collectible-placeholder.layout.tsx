@@ -6,7 +6,7 @@ export function CollectiblePlaceholderLayout({ children }: HasChildren) {
   return (
     <Flex
       alignItems="center"
-      bg="accent.component-background-default"
+      bg="ink.component-background-default"
       flexDirection="column"
       height="100%"
       justifyContent="center"

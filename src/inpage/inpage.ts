@@ -67,12 +67,12 @@ function isValidEvent(event: MessageEvent, method: LegacyMessageToContentScript[
   return correctSource && correctMethod && !!data.payload;
 }
 
-interface HiroWalletProviderOverrides extends StacksProvider {
-  isHiroWallet: true;
+interface LeatherProviderOverrides extends StacksProvider {
+  isLeather: true;
 }
 
-const provider: HiroWalletProviderOverrides = {
-  isHiroWallet: true,
+const provider: LeatherProviderOverrides = {
+  isLeather: true,
 
   getURL: async () => {
     const { url } = await callAndReceive('getURL');

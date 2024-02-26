@@ -1,6 +1,6 @@
 import { Dispatch, SetStateAction, useCallback, useRef } from 'react';
 
-import { Form, Formik } from 'formik';
+import { Form, Formik, useField } from 'formik';
 import { Stack, styled } from 'leather-styles/jsx';
 import * as yup from 'yup';
 
@@ -9,14 +9,40 @@ import { createMoney } from '@shared/models/money.model';
 
 import { openInNewTab } from '@app/common/utils/open-in-new-tab';
 import { PreviewButton } from '@app/components/preview-button';
+import { Input } from '@app/ui/components/input/input';
 import { Link } from '@app/ui/components/link/link';
 
 import { OnChooseFeeArgs } from '../bitcoin-fees-list/bitcoin-fees-list';
-import { TextInputField } from '../text-input-field';
 import { BitcoinCustomFeeFiat } from './bitcoin-custom-fee-fiat';
 import { useBitcoinCustomFee } from './hooks/use-bitcoin-custom-fee';
 
 const feeInputLabel = 'sats/vB';
+
+interface BitcoinCustomFeeInputProps {
+  hasInsufficientBalanceError: boolean;
+  onClick(): void;
+  onChange?(e: React.ChangeEvent<HTMLInputElement>): void;
+}
+function BitcoinCustomFeeInput({
+  hasInsufficientBalanceError,
+  onClick,
+  onChange,
+}: BitcoinCustomFeeInputProps) {
+  const [field] = useField('feeRate');
+  return (
+    <Input.Root hasError={hasInsufficientBalanceError}>
+      <Input.Label>{feeInputLabel}</Input.Label>
+      <Input.Field
+        onClick={onClick}
+        {...field}
+        onChange={e => {
+          field.onChange(e);
+          onChange?.(e);
+        }}
+      />
+    </Input.Root>
+  );
+}
 
 interface BitcoinCustomFeeProps {
   amount: number;
@@ -82,48 +108,40 @@ export function BitcoinCustomFee({
       validateOnMount={false}
       validationSchema={validationSchema}
     >
-      {props => {
-        return (
-          <Form>
-            <Stack gap="space.06" mt="space.02">
-              <Stack gap="space.05">
-                <styled.span color="accent.text-subdued" textStyle="body.02" maxWidth="21.5rem">
-                  Higher fee rates typically lead to faster confirmation times.
-                  <Link
-                    ml="space.01"
-                    onClick={() => openInNewTab('https://buybitcoinworldwide.com/fee-calculator/')}
-                    textStyle="body.02"
-                  >
-                    View fee calculator
-                  </Link>
-                </styled.span>
-                <Stack gap="space.01">
-                  <TextInputField
-                    hasError={hasInsufficientBalanceError}
-                    label={feeInputLabel}
-                    name="feeRate"
-                    placeholder={feeInputLabel}
-                    onClick={async () => {
-                      feeInputRef?.current?.focus();
-                      await props.setValues({ ...props.values });
-                    }}
-                    onChange={e => {
-                      setCustomFeeInitialValue((e.target as HTMLInputElement).value);
-                    }}
-                    inputRef={feeInputRef}
-                  />
-                  <BitcoinCustomFeeFiat
-                    amount={amount}
-                    isSendingMax={isSendingMax}
-                    recipient={recipient}
-                  />
-                </Stack>
+      {props => (
+        <Form>
+          <Stack gap="space.06" mt="space.02">
+            <Stack gap="space.05">
+              <styled.span color="ink.text-subdued" textStyle="body.02" maxWidth="21.5rem">
+                Higher fee rates typically lead to faster confirmation times.
+                <Link
+                  ml="space.01"
+                  onClick={() => openInNewTab('https://buybitcoinworldwide.com/fee-calculator/')}
+                  textStyle="body.02"
+                >
+                  View fee calculator
+                </Link>
+              </styled.span>
+              <BitcoinCustomFeeInput
+                hasInsufficientBalanceError={hasInsufficientBalanceError}
+                onClick={async () => {
+                  feeInputRef?.current?.focus();
+                  await props.setValues({ ...props.values });
+                }}
+                onChange={e => setCustomFeeInitialValue((e.target as HTMLInputElement).value)}
+              />
+              <Stack gap="space.01">
+                <BitcoinCustomFeeFiat
+                  amount={amount}
+                  isSendingMax={isSendingMax}
+                  recipient={recipient}
+                />
               </Stack>
-              <PreviewButton isDisabled={!props.values.feeRate} text="Use custom fee" />
             </Stack>
-          </Form>
-        );
-      }}
+            <PreviewButton isDisabled={!props.values.feeRate} text="Use custom fee" />
+          </Stack>
+        </Form>
+      )}
     </Formik>
   );
 }

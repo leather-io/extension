@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { RouteUrls } from '@shared/route-urls';
 
 import { useGetBitcoinContractsBalance } from '@app/query/bitcoin/balance/bitcoin-contracts-balance.hooks';
-import { BitcoinContractIcon } from '@app/ui/components/icons/bitcoin-contract-icon';
+import { BitcoinContractIcon } from '@app/ui/icons/bitcoin-contract-icon';
 
 import { BitcoinContractEntryPointLayout } from './bitcoin-contract-entry-point-layout';
 

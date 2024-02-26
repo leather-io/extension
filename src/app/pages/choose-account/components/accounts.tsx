@@ -19,7 +19,7 @@ import { usePressable } from '@app/components/item-hover';
 import { useNativeSegwitAccountIndexAddressIndexZero } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
 import { useStacksAccounts } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
 import { StacksAccount } from '@app/store/accounts/blockchain/stacks/stacks-account.models';
-import { PlusIcon } from '@app/ui/components/icons/plus-icon';
+import { PlusIcon } from '@app/ui/icons/plus-icon';
 
 interface AccountTitlePlaceholderProps {
   account: StacksAccount;

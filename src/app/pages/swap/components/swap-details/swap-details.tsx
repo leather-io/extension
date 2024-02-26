@@ -11,7 +11,7 @@ import { getEstimatedConfirmationTime } from '@app/common/transactions/stacks/tr
 import { SwapSubmissionData, useSwapContext } from '@app/pages/swap/swap.context';
 import { useStacksBlockTime } from '@app/query/stacks/info/info.hooks';
 import { useCurrentNetworkState } from '@app/store/networks/networks.hooks';
-import { ChevronUpIcon } from '@app/ui/components/icons/chevron-up-icon';
+import { ChevronUpIcon } from '@app/ui/icons/chevron-up-icon';
 
 import { SwapDetailLayout } from './swap-detail.layout';
 import { SwapDetailsLayout } from './swap-details.layout';
@@ -22,7 +22,7 @@ function RouteNames(props: { swapSubmissionData: SwapSubmissionData }) {
     return (
       <HStack gap="space.01" key={route.name}>
         <styled.span>{route.name}</styled.span>
-        {insertIcon && <ChevronUpIcon transform="rotate(90deg)" />}
+        {insertIcon && <ChevronUpIcon transform="rotate(90deg)" variant="small" />}
       </HStack>
     );
   });

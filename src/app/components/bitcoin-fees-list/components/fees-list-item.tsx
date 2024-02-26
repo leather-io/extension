@@ -21,7 +21,7 @@ export function FeesListItem({
 }: FeesListItemProps) {
   return (
     <styled.button
-      _hover={{ background: 'accent.component-background-hover' }}
+      _hover={{ background: 'ink.component-background-hover' }}
       border={isSelected ? 'focus' : 'default'}
       borderRadius="xs"
       boxShadow="0px 1px 2px rgba(0, 0, 0, 0.04)"
