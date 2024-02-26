@@ -54,6 +54,8 @@ export function useRpcSignPsbt() {
 
     await broadcastTx({
       tx,
+      // skip utxos check for psbt txs
+      skipSpendableCheckUtxoIds: 'all',
       async onSuccess(txid) {
         await refetch();
 
