@@ -6,12 +6,11 @@ import { serializeCV } from '@stacks/transactions';
 import { LedgerError } from '@zondax/ledger-stacks';
 import get from 'lodash.get';
 
-import { finalizeMessageSignature } from '@shared/actions/finalize-message-signature';
-import { logger } from '@shared/logger';
 import { UnsignedMessage, whenSignableMessageOfType } from '@shared/signature/signature-types';
 import { isError } from '@shared/utils';
 
 import { useScrollLock } from '@app/common/hooks/use-scroll-lock';
+import { appEvents } from '@app/common/publish-subscribe';
 import { delay } from '@app/common/utils';
 import { BaseDrawer } from '@app/components/drawer/base-drawer';
 import {
@@ -23,7 +22,6 @@ import {
 } from '@app/features/ledger/utils/stacks-ledger-utils';
 import { useCurrentStacksAccount } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
 import { StacksAccount } from '@app/store/accounts/blockchain/stacks/stacks-account.models';
-import { useSignatureRequestSearchParams } from '@app/store/signatures/requests.hooks';
 
 import { useLedgerAnalytics } from '../../hooks/use-ledger-analytics.hook';
 import { useLedgerNavigate } from '../../hooks/use-ledger-navigate';
@@ -57,7 +55,6 @@ function LedgerSignStacksMsg({ account, unsignedMessage }: LedgerSignMsgProps) {
   const ledgerNavigate = useLedgerNavigate();
   const ledgerAnalytics = useLedgerAnalytics();
   const verifyLedgerPublicKey = useVerifyMatchingLedgerStacksPublicKey();
-  const { tabId, requestToken } = useSignatureRequestSearchParams();
 
   const [latestDeviceResponse, setLatestDeviceResponse] = useLedgerResponseState();
   const canUserCancelAction = useActionCancellableByUser();
@@ -83,11 +80,6 @@ function LedgerSignStacksMsg({ account, unsignedMessage }: LedgerSignMsgProps) {
     setLatestDeviceResponse(versionInfo);
     if (versionInfo.deviceLocked) {
       setAwaitingDeviceConnection(false);
-      return;
-    }
-
-    if (!tabId || !requestToken) {
-      logger.warn('Cannot sign message without corresponding `tabId` or `requestToken');
       return;
     }
 
@@ -122,7 +114,7 @@ function LedgerSignStacksMsg({ account, unsignedMessage }: LedgerSignMsgProps) {
       if (resp.returnCode === LedgerError.TransactionRejected) {
         ledgerNavigate.toOperationRejectedStep(`Message signing operation rejected`);
         ledgerAnalytics.messageSignedOnLedgerRejected();
-        finalizeMessageSignature({ requestPayload: requestToken, tabId, data: 'cancel' });
+        appEvents.publish('ledgerStacksMessageSigningCancelled', { unsignedMessage });
         return;
       }
       if (resp.returnCode !== LedgerError.NoErrors) {
@@ -133,13 +125,12 @@ function LedgerSignStacksMsg({ account, unsignedMessage }: LedgerSignMsgProps) {
 
       ledgerAnalytics.messageSignedOnLedgerSuccessfully();
 
-      finalizeMessageSignature({
-        requestPayload: requestToken,
-        tabId,
-        data: {
+      appEvents.publish('ledgerStacksMessageSigned', {
+        messageSignatures: {
           signature: signatureVrsToRsv(resp.signatureVRS.toString('hex')),
           publicKey: account.stxPublicKey,
         },
+        unsignedMessage,
       });
 
       await stacksApp.transport.close();

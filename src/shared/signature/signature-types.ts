@@ -1,4 +1,11 @@
-import { ClarityValue, StringAsciiCV, TupleCV, UIntCV } from '@stacks/transactions';
+import {
+  ClarityValue,
+  StringAsciiCV,
+  TupleCV,
+  UIntCV,
+  deserializeCV,
+  serializeCV,
+} from '@stacks/transactions';
 
 export type SignedMessageType = 'utf8' | 'structured';
 
@@ -21,6 +28,12 @@ export interface UnsignedMessageStructured extends AbstractUnsignedMessage {
   messageType: 'structured';
   message: ClarityValue;
   domain: StructuredMessageDataDomain;
+}
+
+interface SerializedUnsignedMessageStructured extends AbstractUnsignedMessage {
+  messageType: 'structured';
+  message: Uint8Array;
+  domain: Uint8Array;
 }
 
 export type UnsignedMessage = UnsignedMessageUtf8 | UnsignedMessageStructured;
@@ -47,5 +60,27 @@ export function whenSignableMessageOfType(msg: UnsignedMessage) {
   return <T>({ utf8, structured }: WhenSignableMessageOfType<T>) => {
     if (msg.messageType === 'utf8') return utf8(msg.message);
     return structured(msg.domain, msg.message);
+  };
+}
+
+export function toSerializableUnsignedMessage(
+  unsignedMessage: UnsignedMessage
+): UnsignedMessageUtf8 | SerializedUnsignedMessageStructured {
+  if (unsignedMessage.messageType === 'utf8') return unsignedMessage;
+  return {
+    messageType: 'structured',
+    message: serializeCV(unsignedMessage.message),
+    domain: serializeCV(unsignedMessage.domain),
+  };
+}
+
+export function deserializeUnsignedMessage(
+  serialisedUnsignedMessage: UnsignedMessageUtf8 | SerializedUnsignedMessageStructured
+): UnsignedMessage {
+  if (serialisedUnsignedMessage.messageType === 'utf8') return serialisedUnsignedMessage;
+  return {
+    messageType: 'structured',
+    message: deserializeCV(serialisedUnsignedMessage.message),
+    domain: deserializeCV(serialisedUnsignedMessage.domain),
   };
 }

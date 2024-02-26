@@ -2,11 +2,15 @@ import { useMemo } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 
 import { bytesToHex } from '@stacks/common';
-import { ClarityValue, StacksTransaction } from '@stacks/transactions';
+import { StacksTransaction } from '@stacks/transactions';
 
 import { SupportedBlockchains } from '@shared/constants';
 import { BitcoinInputSigningConfig } from '@shared/crypto/bitcoin/signer-config';
 import { RouteUrls } from '@shared/route-urls';
+import {
+  type UnsignedMessage,
+  toSerializableUnsignedMessage,
+} from '@shared/signature/signature-types';
 
 import { immediatelyAttemptLedgerConnection } from './use-when-reattempt-ledger-connection';
 
@@ -42,17 +46,11 @@ export function useLedgerNavigate() {
         });
       },
 
-      toConnectAndSignUtf8MessageStep(message: string) {
+      toConnectAndSignMessageStep(message: UnsignedMessage) {
         return navigate(RouteUrls.ConnectLedger, {
           replace: true,
-          state: { type: 'utf8', message },
-        });
-      },
-
-      toConnectAndSignStructuredMessageStep(domain: ClarityValue, message: ClarityValue) {
-        return navigate(RouteUrls.ConnectLedger, {
-          replace: true,
-          state: { type: 'structured', domain, message },
+          // Unsigned messages may contain unserializable data, such as bigint
+          state: { ...toSerializableUnsignedMessage(message) },
         });
       },
 
