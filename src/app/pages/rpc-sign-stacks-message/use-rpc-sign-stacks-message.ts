@@ -1,5 +1,4 @@
 import { useMemo } from 'react';
-import { useSearchParams } from 'react-router-dom';
 
 import { RpcErrorCode } from '@btckit/types';
 import { StacksNetwork } from '@stacks/network';
@@ -15,6 +14,7 @@ import { closeWindow } from '@shared/utils';
 
 import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
 import { useDefaultRequestParams } from '@app/common/hooks/use-default-request-search-params';
+import { initialSearchParams } from '@app/common/initial-search-params';
 import {
   StructuredPayload,
   Utf8Payload,
@@ -59,17 +59,16 @@ export function useRpcStacksMessagePayload() {
 }
 
 export function useRpcSignStacksMessageParams() {
-  const [searchParams] = useSearchParams();
   const { origin, tabId } = useDefaultRequestParams();
-  const requestId = searchParams.get('requestId');
-  const network = searchParams.get('network');
-  const appName = searchParams.get('appName');
-  const message = searchParams.get('message');
-  const messageType = searchParams.get('messageType');
-  const domain = searchParams.get('domain');
+  const requestId = initialSearchParams.get('requestId');
+  const network = initialSearchParams.get('network');
+  const appName = initialSearchParams.get('appName');
+  const message = initialSearchParams.get('message');
+  const messageType = initialSearchParams.get('messageType');
+  const domain = initialSearchParams.get('domain');
 
   if (!requestId || !message || !origin || !isSignableMessageType(messageType))
-    throw new Error('Invalid params');
+    throw new Error('Missing required parameters for Stacks signing message request');
 
   return useMemo(
     () => ({
@@ -93,7 +92,7 @@ export function useRpcSignStacksMessage() {
   if (!tabId) throw new Error('Requests can only be made with corresponding tab');
 
   const { isLoading, signMessage } = useSignStacksMessage({
-    onSignMessageCompleted: messageSignature => {
+    onSignMessageCompleted(messageSignature) {
       chrome.tabs.sendMessage(
         tabId,
         makeRpcSuccessResponse('stx_signMessage', {
@@ -103,6 +102,7 @@ export function useRpcSignStacksMessage() {
       );
       closeWindow();
     },
+    onSignMessageCancelled: onCancelMessageSigning,
   });
 
   function onCancelMessageSigning() {
