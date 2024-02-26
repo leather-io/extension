@@ -1,3 +1,33 @@
+## [6.28.0](https://github.com/leather-wallet/extension/compare/v6.27.2...v6.28.0) (2024-02-26)
+
+
+### Features
+
+* add dark splash screen, ref [#4398](https://github.com/leather-wallet/extension/issues/4398) ([c4fb072](https://github.com/leather-wallet/extension/commit/c4fb0722c980ec67e51ca927930c6f0078c98318))
+* check utxo ids for inscriptions, ref [#4920](https://github.com/leather-wallet/extension/issues/4920) ([86dd00d](https://github.com/leather-wallet/extension/commit/86dd00d1dea594f21d70e0b4425154a7b354d8c7))
+
+
+### Bug Fixes
+
+* attempt to fix failing test ([0ff7701](https://github.com/leather-wallet/extension/commit/0ff77014da4cc831cf51a7c9492c88e4465a2a66))
+* broken color on welcome page ([384c947](https://github.com/leather-wallet/extension/commit/384c9471664fdd8de11399f35fb35ab8262c0b42))
+* memo using old input ([8829a2a](https://github.com/leather-wallet/extension/commit/8829a2a67af86fdf082532d055e87320365d00d7))
+* remove hiro ref in page ([c49f7e9](https://github.com/leather-wallet/extension/commit/c49f7e9f52cb491b6e68a86546b1cafb4d08cab1))
+* stamps api, closes [#4845](https://github.com/leather-wallet/extension/issues/4845) ([3230c49](https://github.com/leather-wallet/extension/commit/3230c490e3bd34e9dd289138aeaf06bcc422b54b))
+
+
+### Internal
+
+* additional checks before adding tapInternalKey, ref [#4125](https://github.com/leather-wallet/extension/issues/4125) ([09a17bf](https://github.com/leather-wallet/extension/commit/09a17bf1f4344101321c7cb0c039d5b1d7af2af1))
+* colors, closes [#4831](https://github.com/leather-wallet/extension/issues/4831) ([934cfd0](https://github.com/leather-wallet/extension/commit/934cfd0a64082e239f483759299616b7b5aeafca))
+* esm webpack ([3cc8878](https://github.com/leather-wallet/extension/commit/3cc8878d1815e4b70b6bb44f4799633ae4667bf4))
+* existing icons to use variants, closes [#4950](https://github.com/leather-wallet/extension/issues/4950) ([2ce7319](https://github.com/leather-wallet/extension/commit/2ce73195501e040a3f1464d6af478115bf25c5ca))
+* icon variants ([7a886c1](https://github.com/leather-wallet/extension/commit/7a886c112b264d451c7e9f266f03e4ed2f9de8a3))
+* **input:** remove InputTextField component ([3556390](https://github.com/leather-wallet/extension/commit/35563904d41445926f5140ea088fbfe631deea68))
+* new icons using icon gallery ([dc1bf28](https://github.com/leather-wallet/extension/commit/dc1bf2838f40e16fbbb91c27ff05163a2ce6e515))
+* post-release merge back ([5a87a5d](https://github.com/leather-wallet/extension/commit/5a87a5daf81f5b47174d102b86b14e42d27b2280))
+* upgrade packages ([dcc36d0](https://github.com/leather-wallet/extension/commit/dcc36d0b8c03302e986f91f4b31d4894cdddacf9))
+
 ## [6.27.2](https://github.com/leather-wallet/extension/compare/v6.27.1...v6.27.2) (2024-02-14)
 
 
