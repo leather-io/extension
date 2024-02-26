@@ -1,6 +1,7 @@
 import { ReactNode } from 'react';
 
 import BroadcastError from '@assets/images/unhappy-face-ui.png';
+import { SharedComponentsSelectors } from '@tests/selectors/shared-component.selectors';
 import { Box, Flex, FlexProps, styled } from 'leather-styles/jsx';
 
 interface BroadcastErrorProps extends FlexProps {
@@ -23,7 +24,12 @@ export function BroadcastErrorLayout(props: BroadcastErrorProps) {
       <Box mt="space.05">
         <img src={BroadcastError} alt="Unhappy user interface cloud" width="106px" />
       </Box>
-      <styled.span mx="space.05" mt="space.05" textStyle="heading.05">
+      <styled.span
+        data-testid={SharedComponentsSelectors.BroadcastErrorTitle}
+        mx="space.05"
+        mt="space.05"
+        textStyle="heading.05"
+      >
         {title}
       </styled.span>
       <styled.span color="accent.text-subdued" mt="space.04" textAlign="center" textStyle="body.02">

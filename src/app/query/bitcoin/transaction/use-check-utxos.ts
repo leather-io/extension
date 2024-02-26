@@ -3,6 +3,7 @@ import { useCallback, useState } from 'react';
 import * as btc from '@scure/btc-signer';
 import { bytesToHex } from '@stacks/common';
 
+import { IS_TEST_ENV } from '@shared/environment';
 import { isUndefined } from '@shared/utils';
 
 import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
@@ -100,7 +101,7 @@ export function useCheckInscribedUtxos(blockTxAction?: () => void) {
 
       try {
         // no need to check for inscriptions on testnet
-        if (isTestnet) {
+        if (isTestnet && !IS_TEST_ENV) {
           return false;
         }
 

@@ -25,6 +25,8 @@ export class SendPage {
   readonly memoRow: Locator;
   readonly feesListItem: Locator;
   readonly feeToBePaid: Locator;
+  readonly infoCardButton: Locator;
+  readonly broadcastErrorTitle: Locator;
 
   constructor(page: Page) {
     this.page = page;
@@ -58,6 +60,8 @@ export class SendPage {
     this.sendMaxButton = page.getByTestId(SendCryptoAssetSelectors.SendMaxBtn);
     this.feesListItem = page.getByTestId(SharedComponentsSelectors.FeesListItem);
     this.feeToBePaid = page.getByTestId(SharedComponentsSelectors.FeeToBePaidLabel);
+    this.infoCardButton = page.getByTestId(SharedComponentsSelectors.InfoCardButton);
+    this.broadcastErrorTitle = page.getByTestId(SharedComponentsSelectors.BroadcastErrorTitle);
   }
 
   async selectBtcAndGoToSendForm() {
@@ -91,5 +95,9 @@ export class SendPage {
   async goBackSelectStx() {
     await this.goBack();
     await this.selectStxAndGoToSendForm();
+  }
+
+  async clickInfoCardButton() {
+    await this.infoCardButton.click();
   }
 }

@@ -1,4 +1,5 @@
 import { TEST_TESTNET_ACCOUNT_2_BTC_ADDRESS } from '@tests/mocks/constants';
+import { mockOrdinalsComApiHtmlResponse } from '@tests/mocks/mock-ordinalscom-api';
 import { SendCryptoAssetSelectors } from '@tests/selectors/send.selectors';
 import { SharedComponentsSelectors } from '@tests/selectors/shared-component.selectors';
 import { getDisplayerAddress } from '@tests/utils';
@@ -81,6 +82,27 @@ test.describe('send btc', () => {
         .innerText();
 
       test.expect(fee).toContain(confirmationFee);
+    });
+
+    test('that prevents transaction if it contains inscribed utxo', async ({ sendPage }) => {
+      await sendPage.page.route('**/ordinals-explorer.generative.xyz/**', async route => {
+        return route.fulfill({
+          status: 200,
+          contentType: 'text/html',
+          body: mockOrdinalsComApiHtmlResponse,
+        });
+      });
+      await sendPage.amountInput.fill('0.00006');
+      await sendPage.recipientInput.fill(TEST_TESTNET_ACCOUNT_2_BTC_ADDRESS);
+
+      await sendPage.previewSendTxButton.click();
+      await sendPage.feesListItem.filter({ hasText: BtcFeeType.High }).click();
+
+      await sendPage.clickInfoCardButton();
+
+      const isErrorPageVisible = await sendPage.broadcastErrorTitle.isVisible();
+
+      test.expect(isErrorPageVisible).toBeTruthy();
     });
   });
 });
