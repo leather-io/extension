@@ -25,28 +25,28 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/8</span>
+                <span class='fraction'>0/11</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/3</span>
+                <span class='fraction'>0/5</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/3</span>
+                <span class='fraction'>0/4</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/6</span>
+                <span class='fraction'>0/9</span>
             </div>
         
             
@@ -81,13 +81,20 @@
 <a name='L16'></a><a href='#L16'>16</a>
 <a name='L17'></a><a href='#L17'>17</a>
 <a name='L18'></a><a href='#L18'>18</a>
-<a name='L19'></a><a href='#L19'>19</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L19'></a><a href='#L19'>19</a>
+<a name='L20'></a><a href='#L20'>20</a>
+<a name='L21'></a><a href='#L21'>21</a>
+<a name='L22'></a><a href='#L22'>22</a>
+<a name='L23'></a><a href='#L23'>23</a>
+<a name='L24'></a><a href='#L24'>24</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -97,24 +104,32 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { mapObject } from '../helpers.js';
+<span class="cline-any cline-no">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { getPatternStyles, patternFns } from '../helpers.js';
 import { css } from '../css/index.js';
 &nbsp;
 const bleedConfig = <span class="cstat-no" title="statement not covered" >{</span>
-<span class="fstat-no" title="function not covered" >transform(</span>props) {
-  const { inline = <span class="branch-0 cbranch-no" title="branch not covered" >"0",</span> block = <span class="branch-0 cbranch-no" title="branch not covered" >"0",</span> ...rest } = <span class="cstat-no" title="statement not covered" >props;</span>
+<span class="fstat-no" title="function not covered" >transform(</span>props, { map, isCssUnit, isCssVar }) {
+  const { inline, block, ...rest } = <span class="cstat-no" title="statement not covered" >props;</span>
+  const valueFn = <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >(v</span>) =&gt; <span class="cstat-no" title="statement not covered" >isCssUnit(v) || isCssVar(v) ? v : `token(spacing.${v}, ${v})`;</span></span>
 <span class="cstat-no" title="statement not covered" >  return {</span>
-    "--bleed-x": `spacing.${inline}`,
-    "--bleed-y": `spacing.${block}`,
+    "--bleed-x": map(inline, valueFn),
+    "--bleed-y": map(block, valueFn),
     marginInline: "calc(var(--bleed-x, 0) * -1)",
     marginBlock: "calc(var(--bleed-y, 0) * -1)",
     ...rest
   };
-}}
+},
+defaultValues:{inline:'0',block:'0'}}
 &nbsp;
-export const getBleedStyle = <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >(s</span>tyles = <span class="branch-0 cbranch-no" title="branch not covered" >{})</span> =&gt; <span class="cstat-no" title="statement not covered" >bleedConfig.transform(styles, { map: mapObject })</span></span>
+export const getBleedStyle = <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >(s</span>tyles = <span class="branch-0 cbranch-no" title="branch not covered" >{})</span> =&gt; {</span>
+  const _styles = <span class="cstat-no" title="statement not covered" >getPatternStyles(bleedConfig, styles)</span>
+<span class="cstat-no" title="statement not covered" >  return bleedConfig.transform(_styles, patternFns)</span>
+}
 &nbsp;
 export const bleed = <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >(s</span>tyles) =&gt; <span class="cstat-no" title="statement not covered" >css(getBleedStyle(styles))</span></span>
 <span class="cstat-no" title="statement not covered" >bleed.raw = getBleedStyle</span></pre></td></tr></table></pre>
@@ -124,7 +139,7 @@ export const bleed = <span class="cstat-no" title="statement not covered" ><span
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-02-14T22:43:32.088Z
+                at 2024-02-26T21:00:36.155Z
             </div>
         <script src="../../../prettify.js"></script>
         <script>

@@ -25,28 +25,28 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/86</span>
+                <span class='fraction'>0/95</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/27</span>
+                <span class='fraction'>0/32</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/22</span>
+                <span class='fraction'>0/23</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/80</span>
+                <span class='fraction'>0/85</span>
             </div>
         
             
@@ -330,7 +330,21 @@
 <a name='L265'></a><a href='#L265'>265</a>
 <a name='L266'></a><a href='#L266'>266</a>
 <a name='L267'></a><a href='#L267'>267</a>
-<a name='L268'></a><a href='#L268'>268</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L268'></a><a href='#L268'>268</a>
+<a name='L269'></a><a href='#L269'>269</a>
+<a name='L270'></a><a href='#L270'>270</a>
+<a name='L271'></a><a href='#L271'>271</a>
+<a name='L272'></a><a href='#L272'>272</a>
+<a name='L273'></a><a href='#L273'>273</a>
+<a name='L274'></a><a href='#L274'>274</a>
+<a name='L275'></a><a href='#L275'>275</a>
+<a name='L276'></a><a href='#L276'>276</a>
+<a name='L277'></a><a href='#L277'>277</a>
+<a name='L278'></a><a href='#L278'>278</a>
+<a name='L279'></a><a href='#L279'>279</a>
+<a name='L280'></a><a href='#L280'>280</a>
+<a name='L281'></a><a href='#L281'>281</a>
+<a name='L282'></a><a href='#L282'>282</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -545,6 +559,20 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -813,7 +841,21 @@ export function <span class="fstat-no" title="function not covered" >useAddTapIn
       const witnessOutputScript =
 <span class="cstat-no" title="statement not covered" >        input.witnessUtxo?.script &amp;&amp; btc.OutScript.decode(input.witnessUtxo.script);</span>
 &nbsp;
-<span class="cstat-no" title="statement not covered" >      if (taprootSigner &amp;&amp; witnessOutputScript?.type === 'tr' &amp;&amp; !input.tapInternalKey) {</span>
+      // Original implementation supports auto-adding of tapInternalKey if
+      // missing. This functionality helps some developers who don't form their
+      // tx correctly, however neglects certain alternate use cases, e.g. script
+      // spends. We should consider removing this functionality in the future.
+      function <span class="fstat-no" title="function not covered" >shouldAssumeTxNeedsTaprootInternalKeyAdded() {</span>
+<span class="cstat-no" title="statement not covered" >        if (!taprootSigner) <span class="cstat-no" title="statement not covered" >return false;</span></span>
+<span class="cstat-no" title="statement not covered" >        if (witnessOutputScript?.type !== 'tr') <span class="cstat-no" title="statement not covered" >return false;</span></span>
+        // Already has it, doesn't need
+<span class="cstat-no" title="statement not covered" >        if (input.tapInternalKey) <span class="cstat-no" title="statement not covered" >return false;</span></span>
+        // Is a script spend, doesn't need `tapInternalKey`
+<span class="cstat-no" title="statement not covered" >        if (input.tapLeafScript) <span class="cstat-no" title="statement not covered" >return false;</span></span>
+<span class="cstat-no" title="statement not covered" >        return true;</span>
+      }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >      if (shouldAssumeTxNeedsTaprootInternalKeyAdded()) {</span>
 <span class="cstat-no" title="statement not covered" >        void analytics.track('psbt_sign_request_p2tr_missing_taproot_internal_key');</span>
 <span class="cstat-no" title="statement not covered" >        tx.updateInput(index, { ...input, tapInternalKey: taprootSigner.payment.tapInternalKey });</span>
       }
@@ -871,7 +913,7 @@ export function <span class="fstat-no" title="function not covered" >useSignBitc
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-02-14T22:43:32.088Z
+                at 2024-02-26T21:00:36.155Z
             </div>
         <script src="../../../../../../../prettify.js"></script>
         <script>

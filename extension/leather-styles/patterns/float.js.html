@@ -25,28 +25,28 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/24</span>
+                <span class='fraction'>0/27</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/5</span>
+                <span class='fraction'>0/3</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/8</span>
+                <span class='fraction'>0/9</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/22</span>
+                <span class='fraction'>0/26</span>
             </div>
         
             
@@ -107,7 +107,14 @@
 <a name='L42'></a><a href='#L42'>42</a>
 <a name='L43'></a><a href='#L43'>43</a>
 <a name='L44'></a><a href='#L44'>44</a>
-<a name='L45'></a><a href='#L45'>45</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L45'></a><a href='#L45'>45</a>
+<a name='L46'></a><a href='#L46'>46</a>
+<a name='L47'></a><a href='#L47'>47</a>
+<a name='L48'></a><a href='#L48'>48</a>
+<a name='L49'></a><a href='#L49'>49</a>
+<a name='L50'></a><a href='#L50'>50</a>
+<a name='L51'></a><a href='#L51'>51</a>
+<a name='L52'></a><a href='#L52'>52</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -149,14 +156,21 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { mapObject } from '../helpers.js';
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { getPatternStyles, patternFns } from '../helpers.js';
 import { css } from '../css/index.js';
 &nbsp;
 const floatConfig = <span class="cstat-no" title="statement not covered" >{</span>
 <span class="fstat-no" title="function not covered" >transform(</span>props, { map }) {
-  const { offset = <span class="branch-0 cbranch-no" title="branch not covered" >"0",</span> offsetX = <span class="branch-0 cbranch-no" title="branch not covered" >offset,</span> offsetY = <span class="branch-0 cbranch-no" title="branch not covered" >offset,</span> placement = <span class="branch-0 cbranch-no" title="branch not covered" >"top-end",</span> ...rest } = <span class="cstat-no" title="statement not covered" >props;</span>
+  const { offset, offsetX, offsetY, placement, ...rest } = <span class="cstat-no" title="statement not covered" >props;</span>
 <span class="cstat-no" title="statement not covered" >  return {</span>
     display: "inline-flex",
     justifyContent: "center",
@@ -190,9 +204,16 @@ const floatConfig = <span class="cstat-no" title="statement not covered" >{</spa
     }),
     ...rest
   };
+},
+<span class="fstat-no" title="function not covered" >defaultValues(</span>props) {
+  const offset = <span class="cstat-no" title="statement not covered" >props.offset || "0";</span>
+<span class="cstat-no" title="statement not covered" >  return { offset, offsetX: offset, offsetY: offset, placement: "top-end" };</span>
 }}
 &nbsp;
-export const getFloatStyle = <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >(s</span>tyles = <span class="branch-0 cbranch-no" title="branch not covered" >{})</span> =&gt; <span class="cstat-no" title="statement not covered" >floatConfig.transform(styles, { map: mapObject })</span></span>
+export const getFloatStyle = <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >(s</span>tyles = <span class="branch-0 cbranch-no" title="branch not covered" >{})</span> =&gt; {</span>
+  const _styles = <span class="cstat-no" title="statement not covered" >getPatternStyles(floatConfig, styles)</span>
+<span class="cstat-no" title="statement not covered" >  return floatConfig.transform(_styles, patternFns)</span>
+}
 &nbsp;
 export const float = <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >(s</span>tyles) =&gt; <span class="cstat-no" title="statement not covered" >css(getFloatStyle(styles))</span></span>
 <span class="cstat-no" title="statement not covered" >float.raw = getFloatStyle</span></pre></td></tr></table></pre>
@@ -202,7 +223,7 @@ export const float = <span class="cstat-no" title="statement not covered" ><span
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-02-14T22:43:32.088Z
+                at 2024-02-26T21:00:36.155Z
             </div>
         <script src="../../../prettify.js"></script>
         <script>

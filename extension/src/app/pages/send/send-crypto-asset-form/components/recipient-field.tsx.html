@@ -25,7 +25,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/5</span>
+                <span class='fraction'>0/7</span>
             </div>
         
             
@@ -39,14 +39,14 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/2</span>
+                <span class='fraction'>0/3</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/5</span>
+                <span class='fraction'>0/7</span>
             </div>
         
             
@@ -114,10 +114,10 @@
 <a name='L49'></a><a href='#L49'>49</a>
 <a name='L50'></a><a href='#L50'>50</a>
 <a name='L51'></a><a href='#L51'>51</a>
-<a name='L52'></a><a href='#L52'>52</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L52'></a><a href='#L52'>52</a>
+<a name='L53'></a><a href='#L53'>53</a>
+<a name='L54'></a><a href='#L54'>54</a>
+<a name='L55'></a><a href='#L55'>55</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -159,6 +159,12 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -169,30 +175,27 @@
 &nbsp;
 import { SendCryptoAssetSelectors } from '@tests/selectors/send.selectors';
 import { useField, useFormikContext } from 'formik';
+import { Box } from 'leather-styles/jsx';
 &nbsp;
 import { BitcoinSendFormValues, StacksSendFormValues } from '@shared/models/form.model';
 &nbsp;
-import { TextInputField } from '@app/components/text-input-field';
+import { Input } from '@app/ui/components/input/input';
 &nbsp;
 interface RecipientFieldProps {
   isDisabled?: boolean;
   label?: string;
-  labelAction?: string;
   name: string;
   onBlur?(): void;
-  onClickLabelAction?(): void;
   placeholder: string;
   topInputOverlay?: React.JSX.Element;
+  rightLabel?: React.JSX.Element;
 }
 export function <span class="fstat-no" title="function not covered" >RecipientField({</span>
-  isDisabled,
-  label,
-  labelAction,
   name,
-  onBlur,
-  onClickLabelAction,
-  placeholder,
   topInputOverlay,
+  rightLabel,
+  isDisabled,
+  onBlur,
 }: RecipientFieldProps) {
   const [field] = <span class="cstat-no" title="statement not covered" >useField(name);</span>
   const { setFieldValue } = <span class="cstat-no" title="statement not covered" >useFormikContext&lt;BitcoinSendFormValues | StacksSendFormValues&gt;();</span>
@@ -202,18 +205,24 @@ export function <span class="fstat-no" title="function not covered" >RecipientFi
   }, [name, field.value, setFieldValue]);
 &nbsp;
 <span class="cstat-no" title="statement not covered" >  return (</span>
-    &lt;TextInputField
-      dataTestId={SendCryptoAssetSelectors.RecipientFieldInput}
-      isDisabled={isDisabled}
-      label={label}
-      labelAction={labelAction}
-      minHeight="76px"
-      name={name}
-      onBlur={onBlur}
-      onClickLabelAction={onClickLabelAction}
-      placeholder={placeholder}
-      topInputOverlay={topInputOverlay}
-    /&gt;
+    &lt;Box width="100%" position="relative" mb="space.02"&gt;
+      &lt;Input.Root shrink&gt;
+        &lt;Box pos="absolute" right="space.03" zIndex={15} top="9px"&gt;
+          {rightLabel}
+        &lt;/Box&gt;
+        &lt;Input.Label&gt;{topInputOverlay}&lt;/Input.Label&gt;
+        &lt;Input.Field
+          data-testid={SendCryptoAssetSelectors.RecipientFieldInput}
+          placeholder="Recipient"
+          disabled={isDisabled}
+          {...field}
+          onBlur={<span class="fstat-no" title="function not covered" >e =&gt; {</span>
+<span class="cstat-no" title="statement not covered" >            field.onBlur(e);</span>
+<span class="cstat-no" title="statement not covered" >            onBlur?.();</span>
+          }}
+        /&gt;
+      &lt;/Input.Root&gt;
+    &lt;/Box&gt;
   );
 }
 &nbsp;</pre></td></tr></table></pre>
@@ -223,7 +232,7 @@ export function <span class="fstat-no" title="function not covered" >RecipientFi
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-02-14T22:43:32.088Z
+                at 2024-02-26T21:00:36.155Z
             </div>
         <script src="../../../../../../../prettify.js"></script>
         <script>

@@ -25,7 +25,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/24</span>
+                <span class='fraction'>0/22</span>
             </div>
         
             
@@ -39,14 +39,14 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/5</span>
+                <span class='fraction'>0/6</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/24</span>
+                <span class='fraction'>0/22</span>
             </div>
         
             
@@ -119,13 +119,7 @@
 <a name='L54'></a><a href='#L54'>54</a>
 <a name='L55'></a><a href='#L55'>55</a>
 <a name='L56'></a><a href='#L56'>56</a>
-<a name='L57'></a><a href='#L57'>57</a>
-<a name='L58'></a><a href='#L58'>58</a>
-<a name='L59'></a><a href='#L59'>59</a>
-<a name='L60'></a><a href='#L60'>60</a>
-<a name='L61'></a><a href='#L61'>61</a>
-<a name='L62'></a><a href='#L62'>62</a>
-<a name='L63'></a><a href='#L63'>63</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L57'></a><a href='#L57'>57</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -146,11 +140,6 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -162,6 +151,15 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -170,24 +168,14 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { useCallback, useState } from 'react';
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { useCallback, useMemo, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 &nbsp;
 import { useFormikContext } from 'formik';
@@ -208,11 +196,6 @@ export function <span class="fstat-no" title="function not covered" >useRecipien
   const { setBnsAddress } = <span class="cstat-no" title="statement not covered" >useRecipientBnsName();</span>
   const navigate = <span class="cstat-no" title="statement not covered" >useNavigate();</span>
 &nbsp;
-  const onClickLabelAction = <span class="cstat-no" title="statement not covered" >useCallback(<span class="fstat-no" title="function not covered" >() =&gt; {</span></span>
-<span class="cstat-no" title="statement not covered" >    setSelectedRecipientField(RecipientFieldType.Address);</span>
-<span class="cstat-no" title="statement not covered" >    navigate(RouteUrls.SendCryptoAssetFormRecipientAccounts, { replace: true });</span>
-  }, [navigate]);
-&nbsp;
   // Formik does not provide a field reset
   const resetAllRecipientFields = <span class="cstat-no" title="statement not covered" >useCallback(<span class="fstat-no" title="function not covered" >async () =&gt; {</span></span>
 <span class="cstat-no" title="statement not covered" >    void setFieldValue('recipient', '');</span>
@@ -221,33 +204,32 @@ export function <span class="fstat-no" title="function not covered" >useRecipien
 <span class="cstat-no" title="statement not covered" >    void setFieldValue('recipientBnsName', '');</span>
 <span class="cstat-no" title="statement not covered" >    setFieldError('recipientBnsName', undefined);</span>
 <span class="cstat-no" title="statement not covered" >    await setFieldTouched('recipientBnsName', false);</span>
-  }, [setFieldError, setFieldTouched, setFieldValue]);
+  }, [setFieldValue, setFieldError, setFieldTouched]);
 &nbsp;
-  const onSelectRecipientFieldType = <span class="cstat-no" title="statement not covered" >useCallback(</span>
-<span class="fstat-no" title="function not covered" >    async (i</span>ndex: number) =&gt; {
-<span class="cstat-no" title="statement not covered" >      await resetAllRecipientFields();</span>
-<span class="cstat-no" title="statement not covered" >      setBnsAddress('');</span>
-<span class="cstat-no" title="statement not covered" >      setSelectedRecipientField(index);</span>
-<span class="cstat-no" title="statement not covered" >      setIsSelectVisible(false);</span>
-    },
-    [resetAllRecipientFields, setBnsAddress]
+<span class="cstat-no" title="statement not covered" >  return useMemo(</span>
+<span class="fstat-no" title="function not covered" >    () =&gt; (<span class="cstat-no" title="statement not covered" >{</span></span>
+      selectedRecipientField,
+      isSelectVisible,
+&nbsp;
+<span class="fstat-no" title="function not covered" >      showRecipientAccountsModal() {</span>
+<span class="cstat-no" title="statement not covered" >        setSelectedRecipientField(RecipientFieldType.Address);</span>
+<span class="cstat-no" title="statement not covered" >        navigate(RouteUrls.SendCryptoAssetFormRecipientAccounts, { replace: true });</span>
+      },
+&nbsp;
+<span class="fstat-no" title="function not covered" >      async o</span>nSelectRecipientFieldType(index: number) {
+<span class="cstat-no" title="statement not covered" >        await resetAllRecipientFields();</span>
+<span class="cstat-no" title="statement not covered" >        setBnsAddress('');</span>
+<span class="cstat-no" title="statement not covered" >        setSelectedRecipientField(index);</span>
+<span class="cstat-no" title="statement not covered" >        setIsSelectVisible(false);</span>
+      },
+&nbsp;
+<span class="fstat-no" title="function not covered" >      async o</span>nSetIsSelectVisible(value: boolean) {
+<span class="cstat-no" title="statement not covered" >        await resetAllRecipientFields();</span>
+<span class="cstat-no" title="statement not covered" >        setIsSelectVisible(value);</span>
+      },
+    }),
+    [isSelectVisible, navigate, resetAllRecipientFields, selectedRecipientField, setBnsAddress]
   );
-&nbsp;
-  const onSetIsSelectVisible = <span class="cstat-no" title="statement not covered" >useCallback(</span>
-<span class="fstat-no" title="function not covered" >    async (v</span>alue: boolean) =&gt; {
-<span class="cstat-no" title="statement not covered" >      await resetAllRecipientFields();</span>
-<span class="cstat-no" title="statement not covered" >      setIsSelectVisible(value);</span>
-    },
-    [resetAllRecipientFields]
-  );
-&nbsp;
-<span class="cstat-no" title="statement not covered" >  return {</span>
-    isSelectVisible,
-    onClickLabelAction,
-    onSelectRecipientFieldType,
-    onSetIsSelectVisible,
-    selectedRecipientField,
-  };
 }
 &nbsp;</pre></td></tr></table></pre>
 
@@ -256,7 +238,7 @@ export function <span class="fstat-no" title="function not covered" >useRecipien
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-02-14T22:43:32.088Z
+                at 2024-02-26T21:00:36.155Z
             </div>
         <script src="../../../../../../../../../prettify.js"></script>
         <script>

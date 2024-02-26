@@ -25,28 +25,28 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/13</span>
+                <span class='fraction'>0/14</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/12</span>
+                <span class='fraction'>0/11</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/6</span>
+                <span class='fraction'>0/7</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/9</span>
+                <span class='fraction'>0/11</span>
             </div>
         
             
@@ -84,7 +84,12 @@
 <a name='L19'></a><a href='#L19'>19</a>
 <a name='L20'></a><a href='#L20'>20</a>
 <a name='L21'></a><a href='#L21'>21</a>
-<a name='L22'></a><a href='#L22'>22</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L22'></a><a href='#L22'>22</a>
+<a name='L23'></a><a href='#L23'>23</a>
+<a name='L24'></a><a href='#L24'>24</a>
+<a name='L25'></a><a href='#L25'>25</a>
+<a name='L26'></a><a href='#L26'>26</a>
+<a name='L27'></a><a href='#L27'>27</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -92,7 +97,6 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -104,15 +108,20 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { mapObject } from '../helpers.js';
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { getPatternStyles, patternFns } from '../helpers.js';
 import { css } from '../css/index.js';
 &nbsp;
 const gridConfig = <span class="cstat-no" title="statement not covered" >{</span>
-<span class="fstat-no" title="function not covered" >transform(</span>props, { map }) {
-  const regex = <span class="cstat-no" title="statement not covered" >/\d+(cm|in|pt|em|px|rem|vh|vmax|vmin|vw|ch|lh|%)$/;</span>
-  const { columnGap, rowGap, gap = <span class="branch-0 cbranch-no" title="branch not covered" >columnGap || rowGap ? void 0 : "10px",</span> columns, minChildWidth, ...rest } = <span class="cstat-no" title="statement not covered" >props;</span>
-  const getValue = <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >(v</span>) =&gt; <span class="cstat-no" title="statement not covered" >regex.test(v) ? v : `token(sizes.${v}, ${v})`;</span></span>
+<span class="fstat-no" title="function not covered" >transform(</span>props, { map, isCssUnit }) {
+  const { columnGap, rowGap, gap, columns, minChildWidth, ...rest } = <span class="cstat-no" title="statement not covered" >props;</span>
+  const getValue = <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >(v</span>) =&gt; <span class="cstat-no" title="statement not covered" >isCssUnit(v) ? v : `token(sizes.${v}, ${v})`;</span></span>
 <span class="cstat-no" title="statement not covered" >  return {</span>
     display: "grid",
     gridTemplateColumns: columns != null ? map(columns, <span class="fstat-no" title="function not covered" >(v</span>) =&gt; <span class="cstat-no" title="statement not covered" >`repeat(${v}, minmax(0, 1fr))`)</span> : minChildWidth != null ? map(minChildWidth, <span class="fstat-no" title="function not covered" >(v</span>) =&gt; <span class="cstat-no" title="statement not covered" >`repeat(auto-fit, minmax(${getValue(v)}, 1fr))`)</span> : void 0,
@@ -121,9 +130,15 @@ const gridConfig = <span class="cstat-no" title="statement not covered" >{</span
     rowGap,
     ...rest
   };
+},
+<span class="fstat-no" title="function not covered" >defaultValues(</span>props) {
+<span class="cstat-no" title="statement not covered" >  return { gap: props.columnGap || props.rowGap ? void 0 : "10px" };</span>
 }}
 &nbsp;
-export const getGridStyle = <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >(s</span>tyles = <span class="branch-0 cbranch-no" title="branch not covered" >{})</span> =&gt; <span class="cstat-no" title="statement not covered" >gridConfig.transform(styles, { map: mapObject })</span></span>
+export const getGridStyle = <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >(s</span>tyles = <span class="branch-0 cbranch-no" title="branch not covered" >{})</span> =&gt; {</span>
+  const _styles = <span class="cstat-no" title="statement not covered" >getPatternStyles(gridConfig, styles)</span>
+<span class="cstat-no" title="statement not covered" >  return gridConfig.transform(_styles, patternFns)</span>
+}
 &nbsp;
 export const grid = <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >(s</span>tyles) =&gt; <span class="cstat-no" title="statement not covered" >css(getGridStyle(styles))</span></span>
 <span class="cstat-no" title="statement not covered" >grid.raw = getGridStyle</span></pre></td></tr></table></pre>
@@ -133,7 +148,7 @@ export const grid = <span class="cstat-no" title="statement not covered" ><span 
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-02-14T22:43:32.088Z
+                at 2024-02-26T21:00:36.155Z
             </div>
         <script src="../../../prettify.js"></script>
         <script>

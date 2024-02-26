@@ -25,14 +25,14 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/19</span>
+                <span class='fraction'>0/12</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/12</span>
+                <span class='fraction'>0/8</span>
             </div>
         
             
@@ -46,7 +46,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/19</span>
+                <span class='fraction'>0/12</span>
             </div>
         
             
@@ -122,19 +122,17 @@
 <a name='L57'></a><a href='#L57'>57</a>
 <a name='L58'></a><a href='#L58'>58</a>
 <a name='L59'></a><a href='#L59'>59</a>
-<a name='L60'></a><a href='#L60'>60</a>
-<a name='L61'></a><a href='#L61'>61</a>
-<a name='L62'></a><a href='#L62'>62</a>
-<a name='L63'></a><a href='#L63'>63</a></td><td class="line-coverage quiet"><span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<a name='L60'></a><a href='#L60'>60</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -183,21 +181,18 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">const ReactRefreshWebpackPlugin = <span class="cstat-no" title="statement not covered" >require('@pmmmwh/react-refresh-webpack-plugin');</span>
-const WebpackDevServer = <span class="cstat-no" title="statement not covered" >require('webpack-dev-server');</span>
-const webpack = <span class="cstat-no" title="statement not covered" >require('webpack');</span>
-const path = <span class="cstat-no" title="statement not covered" >require('path');</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import ReactRefreshWebpackPlugin from '@pmmmwh/react-refresh-webpack-plugin';
+import path from 'path';
+import * as url from 'url';
+import webpack from 'webpack';
+import WebpackDevServer from 'webpack-dev-server';
 &nbsp;
-const WALLET_ENVIRONMENT = <span class="cstat-no" title="statement not covered" >process.env.WALLET_ENVIRONMENT;</span>
+import config from './webpack.config.dev.js';
+&nbsp;
+const __dirname = <span class="cstat-no" title="statement not covered" >url.fileURLToPath(new URL('.', import.meta.url));</span>
 &nbsp;
 const HOST = <span class="cstat-no" title="statement not covered" >'localhost';</span>
 const PORT = <span class="cstat-no" title="statement not covered" >process.env.PORT || '8080';</span>
-&nbsp;
-const config = <span class="cstat-no" title="statement not covered" >require('./webpack.config.dev');</span>
 &nbsp;
 // This is important bc it allows for fast refresh to work
 // We don't want to inject our fast refresh helpers into these entry points
@@ -242,10 +237,6 @@ const server = <span class="cstat-no" title="statement not covered" >new Webpack
   compiler
 );
 &nbsp;
-<span class="cstat-no" title="statement not covered" >if (WALLET_ENVIRONMENT === 'development' &amp;&amp; module.hot) {</span>
-<span class="cstat-no" title="statement not covered" >  module.hot.accept();</span>
-}
-&nbsp;
 <span class="cstat-no" title="statement not covered" >server.startCallback(<span class="fstat-no" title="function not covered" >()</span> =&gt; {</span>
 <span class="cstat-no" title="statement not covered" >  console.log('Starting server on http://localhost:8080');</span>
 });
@@ -256,7 +247,7 @@ const server = <span class="cstat-no" title="statement not covered" >new Webpack
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-02-14T22:43:32.088Z
+                at 2024-02-26T21:00:36.155Z
             </div>
         <script src="../../prettify.js"></script>
         <script>
