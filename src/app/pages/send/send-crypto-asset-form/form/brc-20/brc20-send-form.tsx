@@ -21,13 +21,14 @@ function useBrc20SendFormRouteState() {
   const { state } = useLocation();
   return {
     balance: get(state, 'balance', '') as string,
-    tick: get(state, 'tick', '') as string,
+    ticker: get(state, 'ticker', '') as string,
     decimals: get(state, 'decimals', '') as number,
+    holderAddress: get(state, 'holderAddress', '') as string,
   };
 }
 
 export function Brc20SendForm() {
-  const { balance, tick, decimals } = useBrc20SendFormRouteState();
+  const { balance, ticker, decimals, holderAddress } = useBrc20SendFormRouteState();
   const {
     initialValues,
     chooseTransactionFee,
@@ -35,7 +36,7 @@ export function Brc20SendForm() {
     formRef,
     onFormStateChange,
     moneyBalance,
-  } = useBrc20SendForm({ balance, tick, decimals });
+  } = useBrc20SendForm({ balance, ticker, decimals, holderAddress });
 
   return (
     <Box pb="space.04" width="100%">
@@ -61,7 +62,7 @@ export function Brc20SendForm() {
                   }
                   autoComplete="off"
                 />
-                <SelectedAssetField icon={<Brc20TokenIcon />} name={tick} symbol={tick} />
+                <SelectedAssetField icon={<Brc20TokenIcon />} name={ticker} symbol={ticker} />
                 <Callout variant="info" title="Sending BRC-20 tokens requires two steps">
                   <styled.ol mb="space.02">
                     <li>1. Create transfer inscription with amount to send</li>

@@ -51,6 +51,7 @@ jobs:
           SENTRY_DSN: ${{ secrets.SENTRY_DSN }}
           SEGMENT_WRITE_KEY: ${{ secrets.SEGMENT_WRITE_KEY_STAGING }}
           TRANSAK_API_KEY: ${{ secrets.TRANSAK_API_KEY }}
+          BESTINSLOT_API_KEY: ${{ secrets.BESTINSLOT_API_KEY }}
           PR_NUMBER: ${{ github.event.number }}
           COMMIT_SHA: ${{ env.SHORT_SHA }}
 

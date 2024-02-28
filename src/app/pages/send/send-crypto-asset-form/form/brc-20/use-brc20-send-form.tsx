@@ -34,11 +34,17 @@ interface Brc20SendFormValues {
 
 interface UseBrc20SendFormArgs {
   balance: string;
-  tick: string;
+  ticker: string;
   decimals: number;
+  holderAddress: string;
 }
 
-export function useBrc20SendForm({ balance, tick, decimals }: UseBrc20SendFormArgs) {
+export function useBrc20SendForm({
+  balance,
+  ticker,
+  decimals,
+  holderAddress,
+}: UseBrc20SendFormArgs) {
   const formRef = useRef<FormikProps<Brc20SendFormValues>>(null);
   const { whenWallet } = useWalletType();
   const navigate = useNavigate();
@@ -53,14 +59,14 @@ export function useBrc20SendForm({ balance, tick, decimals }: UseBrc20SendFormAr
   const initialValues = createDefaultInitialFormValues({
     recipient: nativeSegwitSigner.address,
     amount: '',
-    symbol: tick,
+    symbol: ticker,
   });
 
   const validationSchema = yup.object({
     amount: yup
       .number()
       .concat(currencyAmountValidator())
-      .concat(tokenAmountValidator(createMoney(new BigNumber(balance), tick, 0))),
+      .concat(tokenAmountValidator(createMoney(new BigNumber(balance), ticker, 0))),
     recipient: yup
       .string()
       .concat(btcAddressValidator())
@@ -78,8 +84,8 @@ export function useBrc20SendForm({ balance, tick, decimals }: UseBrc20SendFormAr
     await formikHelpers.validateForm();
     whenWallet({
       software: () =>
-        navigate(RouteUrls.SendBrc20ChooseFee.replace(':ticker', tick), {
-          state: { ...values, tick, utxos, hasHeaderTitle: true },
+        navigate(RouteUrls.SendBrc20ChooseFee.replace(':ticker', ticker), {
+          state: { ...values, ticker, utxos, holderAddress, hasHeaderTitle: true },
         }),
       ledger: noop,
     })();
@@ -93,7 +99,7 @@ export function useBrc20SendForm({ balance, tick, decimals }: UseBrc20SendFormAr
     onFormStateChange,
     moneyBalance: createMoney(
       unitToFractionalUnit(decimals)(new BigNumber(balance)),
-      tick,
+      ticker,
       decimals
     ),
   };
