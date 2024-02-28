@@ -145,9 +145,8 @@ export function useCheckInscribedUtxos(blockTxAction?: () => void) {
         const hasInscribedUtxo = await checkInscribedUtxosByBestinslot({
           inputs,
           txids,
-          getInscriptionsByTransactionId:
-            client.bestinslotInscriptionsApi.getInscriptionsByTransactionId,
-          getInscriptionById: client.bestinslotInscriptionsApi.getInscriptionById,
+          getInscriptionsByTransactionId: client.BestinslotApi.getInscriptionsByTransactionId,
+          getInscriptionById: client.BestinslotApi.getInscriptionById,
         });
 
         if (hasInscribedUtxo) {

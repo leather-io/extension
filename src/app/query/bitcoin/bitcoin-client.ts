@@ -51,7 +51,45 @@ export interface BestinslotInscriptionsByTxIdResponse {
   blockHeight: number;
 }
 
-class BestinslotInscriptionsApi {
+interface Brc20TokenResponse {
+  ticker: string;
+  overall_balance: string;
+  available_balance: string;
+  transferrable_balance: string;
+  image_url: string | null;
+}
+
+export interface Brc20Token extends Brc20TokenResponse {
+  decimals: number;
+  holderAddress: string;
+}
+
+interface Brc20TokenTicker {
+  decimals: number;
+  deploy_incr_number: number;
+  deploy_ts: string;
+  holder_count: number;
+  image_url: string | null;
+  limit_per_mint: string;
+  max_supply: string;
+  mint_progress: number;
+  minted_supply: string;
+  ticker: string;
+  tx_count: number;
+}
+
+interface Brc20TickerResponse {
+  data: Brc20TokenTicker;
+  block_height: number;
+}
+
+interface BestinslotBrc20AddressBalanceResponse {
+  block_height: number;
+  data: Brc20TokenResponse[];
+}
+
+class BestinslotApi {
+  url = 'https://api.bestinslot.xyz/v3';
   private defaultOptions = {
     headers: {
       'x-api-key': `${process.env.BESTINSLOT_API_KEY}`,
@@ -61,7 +99,7 @@ class BestinslotInscriptionsApi {
 
   async getInscriptionsByTransactionId(id: string) {
     const resp = await axios.get<BestinslotInscriptionsByTxIdResponse>(
-      `https://api.bestinslot.xyz/v3/inscription/in_transaction?tx_id=${id}`,
+      `${this.url}/inscription/in_transaction?tx_id=${id}`,
       {
         ...this.defaultOptions,
       }
@@ -72,7 +110,27 @@ class BestinslotInscriptionsApi {
 
   async getInscriptionById(id: string) {
     const resp = await axios.get<BestinslotInscriptionByIdResponse>(
-      `https://api.bestinslot.xyz/v3/inscription/single_info_id?inscription_id=${id}`,
+      `${this.url}/inscription/single_info_id?inscription_id=${id}`,
+      {
+        ...this.defaultOptions,
+      }
+    );
+    return resp.data;
+  }
+
+  async getBrc20Balance(address: string) {
+    const resp = await axios.get<BestinslotBrc20AddressBalanceResponse>(
+      `${this.url}/brc20/wallet_balances?address=${address}`,
+      {
+        ...this.defaultOptions,
+      }
+    );
+    return resp.data;
+  }
+
+  async getBrc20TickerData(ticker: string) {
+    const resp = await axios.get<Brc20TickerResponse>(
+      `${this.url}/brc20/ticker_info?ticker=${ticker}`,
       {
         ...this.defaultOptions,
       }
@@ -191,13 +249,13 @@ export class BitcoinClient {
   addressApi: AddressApi;
   feeEstimatesApi: FeeEstimatesApi;
   transactionsApi: TransactionsApi;
-  bestinslotInscriptionsApi: BestinslotInscriptionsApi;
+  BestinslotApi: BestinslotApi;
 
   constructor(basePath: string) {
     this.configuration = new Configuration(basePath);
     this.addressApi = new AddressApi(this.configuration);
     this.feeEstimatesApi = new FeeEstimatesApi(this.configuration);
     this.transactionsApi = new TransactionsApi(this.configuration);
-    this.bestinslotInscriptionsApi = new BestinslotInscriptionsApi(this.configuration);
+    this.BestinslotApi = new BestinslotApi(this.configuration);
   }
 }

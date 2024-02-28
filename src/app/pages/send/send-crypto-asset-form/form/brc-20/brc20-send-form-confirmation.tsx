@@ -39,6 +39,7 @@ function useBrc20SendFormConfirmationState() {
     tick: get(location.state, 'tick') as string,
     amount: get(location.state, 'amount') as string,
     tx: get(location.state, 'tx') as string,
+    holderAddress: get(location.state, 'holderAddress') as string,
   };
 }
 
@@ -46,7 +47,7 @@ export function Brc20SendFormConfirmation() {
   const navigate = useNavigate();
   const analytics = useAnalytics();
 
-  const { amount, recipient, fee, tick, serviceFee, tx, orderId, feeRowValue } =
+  const { amount, recipient, fee, tick, serviceFee, tx, orderId, feeRowValue, holderAddress } =
     useBrc20SendFormConfirmationState();
 
   const summaryFeeMoney = createMoney(Number(fee), 'BTC');
@@ -63,7 +64,8 @@ export function Brc20SendFormConfirmation() {
 
   const psbt = decodeBitcoinTx(tx);
   const nav = useSendFormNavigate();
-  const { inscriptionPaymentTransactionComplete } = useBrc20Transfers();
+
+  const { inscriptionPaymentTransactionComplete } = useBrc20Transfers(holderAddress);
 
   async function initiateTransaction() {
     await broadcastTx({

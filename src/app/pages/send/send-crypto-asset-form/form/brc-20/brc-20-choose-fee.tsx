@@ -31,21 +31,22 @@ import { useSendBitcoinAssetContextState } from '../../family/bitcoin/components
 function useBrc20ChooseFeeState() {
   const location = useLocation();
   return {
-    tick: get(location.state, 'tick') as string,
+    ticker: get(location.state, 'ticker') as string,
     amount: get(location.state, 'amount') as string,
     recipient: get(location.state, 'recipient') as string,
     utxos: get(location.state, 'utxos') as UtxoResponseItem[],
+    holderAddress: get(location.state, 'holderAddress') as string,
   };
 }
 
 export function BrcChooseFee() {
   const navigate = useNavigate();
-  const { amount, recipient, tick, utxos } = useBrc20ChooseFeeState();
+  const { amount, recipient, ticker, utxos, holderAddress } = useBrc20ChooseFeeState();
   const generateTx = useGenerateUnsignedNativeSegwitSingleRecipientTx();
   const signTx = useSignBitcoinTx();
   const { selectedFeeType, setSelectedFeeType } = useSendBitcoinAssetContextState();
-  const { initiateTransfer } = useBrc20Transfers();
-  const amountAsMoney = createMoney(Number(amount), tick, 0);
+  const { initiateTransfer } = useBrc20Transfers(holderAddress);
+  const amountAsMoney = createMoney(Number(amount), ticker, 0);
   const { feesList, isLoading } = useBitcoinFeesList({
     amount: amountAsMoney,
     recipient,
@@ -61,7 +62,7 @@ export function BrcChooseFee() {
   async function previewTransaction({ feeRate, feeValue, isCustomFee }: OnChooseFeeArgs) {
     setIsLoadingOrder(true);
     try {
-      const { order, id } = await initiateTransfer(tick, amount);
+      const { order, id } = await initiateTransfer(ticker, amount);
       setIsLoadingOrder(false);
 
       const { charge } = order.data;
@@ -87,7 +88,7 @@ export function BrcChooseFee() {
       signedTx.finalize();
 
       const feeRowValue = formFeeRowValue(feeRate, isCustomFee);
-      navigate(RouteUrls.SendBrc20Confirmation.replace(':ticker', tick), {
+      navigate(RouteUrls.SendBrc20Confirmation.replace(':ticker', ticker), {
         state: {
           tx: signedTx.hex,
           orderId: id,
@@ -96,8 +97,9 @@ export function BrcChooseFee() {
           serviceFeeRecipient,
           recipient,
           feeRowValue,
-          tick,
+          ticker,
           amount,
+          holderAddress,
           hasHeaderTitle: true,
         },
       });
