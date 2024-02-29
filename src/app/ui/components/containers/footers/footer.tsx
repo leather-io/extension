@@ -21,7 +21,7 @@ export function Footer({ children, variant = 'page', flexDirection = 'column' }:
       // footer is always white
       bg="ink.background-primary"
       borderTop={variant === 'page' ? ' default' : undefined}
-      position={{ base: 'fixed', md: variant === 'card' ? ' absolute' : 'fixed' }}
+      position={variant === 'card' ? ' absolute' : 'fixed'}
       borderBottomRadius="md"
     >
       <Flex flexDirection={flexDirection} width="100%" gap="space.04">
