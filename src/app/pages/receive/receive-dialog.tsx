@@ -1,5 +1,6 @@
 import { useLocation, useNavigate } from 'react-router-dom';
 
+import { styled } from 'leather-styles/jsx';
 import get from 'lodash.get';
 
 import { RouteUrls } from '@shared/route-urls';
@@ -11,7 +12,7 @@ import { useZeroIndexTaprootAddress } from '@app/store/accounts/blockchain/bitco
 import { useCurrentAccountNativeSegwitAddressIndexZero } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
 import { useCurrentAccountStxAddressState } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
 import { Dialog } from '@app/ui/components/containers/dialog/dialog';
-import { BigTitle } from '@app/ui/components/containers/headers/header';
+import { Header } from '@app/ui/components/containers/headers/header';
 import { Tabs } from '@app/ui/components/tabs/tabs';
 
 import { ReceiveCollectibles } from './components/receive-collectibles';
@@ -74,7 +75,15 @@ export function ReceiveDialog({ type = 'full' }: ReceiveDialogProps) {
 
   return (
     <Dialog
-      title={<BigTitle title={title} />}
+      header={
+        <Header
+          variant="receive"
+          onGoBack={() => navigate(backgroundLocation ?? '..')}
+          onClose={() => navigate(backgroundLocation ?? '..')}
+          title={<styled.h1 textStyle="heading.03">{title}</styled.h1>}
+        />
+      }
+      canClose={false}
       onClose={() => navigate(backgroundLocation ?? '..')}
       isShowing
     >

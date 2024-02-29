@@ -18,8 +18,6 @@ const tempTokens = {
     popupWidth: { value: '390px' },
     popupHeight: { value: '756px' },
     popupHeaderHeight: { value: '68px' },
-    bigTitleHeight: { value: '70px' },
-    bigTitleWidth: { value: '270px' },
     headerContainerHeight: { value: '40px' },
     logoHeight: { value: '32px' },
     logoWidth: { value: '86px' },

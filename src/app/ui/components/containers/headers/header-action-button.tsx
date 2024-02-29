@@ -1,7 +1,7 @@
 import { HomePageSelectors } from '@tests/selectors/home.selectors';
-import { Flex } from 'leather-styles/jsx';
+import { Flex, FlexProps } from 'leather-styles/jsx';
 
-interface HeaderActionButtonProps {
+interface HeaderActionButtonProps extends FlexProps {
   icon?: React.JSX.Element;
   isWaitingOnPerformedAction?: boolean;
   onAction?(): void;
@@ -10,6 +10,7 @@ export function HeaderActionButton({
   icon,
   isWaitingOnPerformedAction,
   onAction,
+  ...rest
 }: HeaderActionButtonProps) {
   return (
     <Flex
@@ -27,6 +28,7 @@ export function HeaderActionButton({
       userSelect="none"
       p="space.02"
       zIndex={999}
+      {...rest}
     >
       {icon}
     </Flex>

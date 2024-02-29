@@ -10,19 +10,19 @@ export interface DialogProps {
   children?: ReactNode;
   footer?: ReactNode;
   isShowing: boolean;
-  // figure out if isWaitingOnPerformedAction this just controls onClose
-  // it stops click on headerActionButton, maybe thats enough?
   isWaitingOnPerformedAction?: boolean;
   onGoBack?(): void;
   onClose(): void;
   canClose?: boolean;
-  title?: ReactNode;
+  header?: ReactNode;
+  title?: string;
 }
 
 export const Dialog = memo(
   ({
     children,
     footer,
+    header,
     isWaitingOnPerformedAction,
     onClose,
     title,
@@ -55,16 +55,16 @@ export const Dialog = memo(
                 left: '50%',
                 transform: 'translate(-50%, -50%)',
                 width: { base: '100vw', md: '90vw' },
-
                 height: { base: '100%', md: 'auto' },
                 maxWidth: { base: '100vw', md: 'pageWidth' },
                 maxHeight: { base: '100vh', md: '90vh' },
                 animation: 'contentShow 150ms cubic-bezier(0.16, 1, 0.3, 1)',
               })}
             >
+              {header}
               {canClose && (
                 <Header
-                  variant="page"
+                  variant="dialog"
                   isWaitingOnPerformedAction={isWaitingOnPerformedAction}
                   onClose={canClose ? onClose : undefined}
                   title={title}
