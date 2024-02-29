@@ -13,6 +13,7 @@ import { sva } from 'leather-styles/css';
 import { SystemStyleObject } from 'leather-styles/types';
 
 import { useOnMount } from '@app/common/hooks/use-on-mount';
+import { useRegisterChildren } from '@app/common/hooks/use-register-children';
 import { propIfDefined } from '@app/common/utils';
 import { createStyleContext } from '@app/ui/utils/style-context';
 
@@ -105,7 +106,7 @@ const input = sva({
   },
 });
 
-type InputChldren = 'root' | 'label' | 'input';
+type InputChildren = 'root' | 'label' | 'input';
 
 const { withProvider, withContext } = createStyleContext(input);
 
@@ -113,7 +114,7 @@ interface InputContextProps {
   hasValue: boolean;
   setHasValue(hasValue: boolean): void;
   registerChild(child: string): void;
-  children: InputChldren[];
+  children: InputChildren[];
 }
 
 const InputContext = createContext<InputContextProps | null>(null);
@@ -137,16 +138,13 @@ interface RootProps extends ComponentProps<'div'> {
 }
 function Root({ hasError, shrink, ...props }: RootProps) {
   const [hasValue, setHasValue] = useState(false);
-  const [children, setChildren] = useState<InputChldren[]>(['root']);
 
-  function registerChild(child: InputChldren) {
-    setChildren(children => [...children, child]);
-  }
+  const { registerChild, children, hasChild } = useRegisterChildren<InputChildren>();
 
   const dataAttrs = {
     ...propIfDefined('data-has-error', hasError),
     ...propIfDefined('data-shrink', shrink),
-    'data-has-label': children.includes('label'),
+    'data-has-label': hasChild('label'),
   };
 
   return (

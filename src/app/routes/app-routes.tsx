@@ -13,6 +13,7 @@ import { RouteUrls } from '@shared/route-urls';
 
 import { LoadingSpinner } from '@app/components/loading-spinner';
 import { AddNetwork } from '@app/features/add-network/add-network';
+import { ApproverDemo } from '@app/features/approver/approver-demo';
 import { Container } from '@app/features/container/container';
 import { EditNonceDialog } from '@app/features/dialogs/edit-nonce-dialog/edit-nonce-dialog';
 import { IncreaseBtcFeeDialog } from '@app/features/dialogs/increase-fee-dialog/increase-btc-fee-dialog';
@@ -92,6 +93,8 @@ function useAppRoutes() {
         >
           {homePageModalRoutes}
         </Route>
+
+        <Route path="approver" element={<ApproverDemo />} />
 
         <Route path={RouteUrls.RetrieveTaprootFunds} element={<RetrieveTaprootToNativeSegwit />} />
         <Route path={RouteUrls.IncreaseStxFee} element={<IncreaseStxFeeDialog />}>
