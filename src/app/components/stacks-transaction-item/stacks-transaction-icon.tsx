@@ -2,7 +2,7 @@ import { BoxProps } from 'leather-styles/jsx';
 
 import { StacksTx } from '@shared/models/transactions/stacks-transaction.model';
 
-import { StxIcon } from '@app/ui/components/avatar-icon/stx-icon';
+import { StxAvatarIcon } from '@app/ui/components/avatar/stx-avatar-icon';
 import { DynamicColorCircle } from '@app/ui/components/dynamic-color-circle';
 import { ErrorCircleIcon } from '@app/ui/icons';
 import { ListIcon } from '@app/ui/icons/list-icon';
@@ -33,7 +33,9 @@ export function StacksTransactionIcon({ transaction, ...rest }: TransactionIconP
         </DynamicColorCircle>
       );
     case 'token_transfer':
-      return <TransactionIconWrapper icon={<StxIcon />} transaction={transaction} {...rest} />;
+      return (
+        <TransactionIconWrapper icon={<StxAvatarIcon />} transaction={transaction} {...rest} />
+      );
     case 'poison_microblock':
       return (
         <TransactionIconWrapper icon={<ErrorCircleIcon />} transaction={transaction} {...rest} />

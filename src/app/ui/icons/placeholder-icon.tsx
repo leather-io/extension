@@ -1,6 +1,19 @@
-import { Icon, IconProps } from './icon/icon';
+import { Icon, IconProps, IconSmall } from './icon/icon';
 
-export function PlaceholderIcon(props: IconProps) {
+export function PlaceholderIcon({ variant, ...props }: IconProps) {
+  if (variant === 'small')
+    return (
+      <IconSmall {...props}>
+        <path
+          d="M2.5 4.16667V3.16667C2.5 2.79848 2.79848 2.5 3.16667 2.5H4.16667M11.8333 2.5H12.8333C13.2015 2.5 13.5 2.79848 13.5 3.16667V4.16667M13.5 11.8333V12.8333C13.5 13.2015 13.2015 13.5 12.8333 13.5H11.8333M4.16667 13.5H3.16667C2.79848 13.5 2.5 13.2015 2.5 12.8333V11.8333M2.5 9.16667V6.83333M6.83333 2.5H9.16667M13.5 6.83333V9.16667M9.16667 13.5H6.83333"
+          stroke="#12100F"
+          strokeWidth="1.5"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
+      </IconSmall>
+    );
+
   return (
     <Icon {...props}>
       <path

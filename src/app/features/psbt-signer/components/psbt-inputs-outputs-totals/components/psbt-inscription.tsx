@@ -7,7 +7,7 @@ import {
   createInscriptionInfoUrl,
   useInscription,
 } from '@app/query/bitcoin/ordinals/inscription.hooks';
-import { OrdinalIcon } from '@app/ui/components/avatar-icon/ordinal-icon';
+import { OrdinalAvatarIcon } from '@app/ui/components/avatar/ordinal-avatar-icon';
 
 import { PsbtAddressTotalItem } from './psbt-address-total-item';
 
@@ -21,7 +21,7 @@ export function PsbtInscription({ inscription }: PsbtInscriptionProps) {
   if (isError || isUndefined(supportedInscription))
     return (
       <PsbtAddressTotalItem
-        image={<OrdinalIcon />}
+        image={<OrdinalAvatarIcon />}
         title="Inscription not found"
         value="# Unknown"
       />

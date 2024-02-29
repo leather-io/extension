@@ -21,7 +21,7 @@ export function TransactionIconWrapper({
       color="ink.background-primary"
       flexShrink={0}
       position="relative"
-      size="36px"
+      size="xl"
       {...props}
     >
       {icon}

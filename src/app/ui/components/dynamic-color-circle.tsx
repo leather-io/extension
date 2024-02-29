@@ -6,7 +6,7 @@ interface DynamicColorCircleProps extends CircleProps {
 }
 export function DynamicColorCircle({
   children,
-  sizeParam = '40',
+  sizeParam = '36',
   value,
   ...props
 }: DynamicColorCircleProps) {
