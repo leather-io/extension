@@ -2,15 +2,12 @@ import { type ReactNode } from 'react';
 
 import { Box } from 'leather-styles/jsx';
 
-import { Header } from '@app/ui/components/containers/headers/header';
-import { Logo } from '@app/ui/components/logo';
-
 interface PageProps {
   children: ReactNode;
   showLogo?: boolean;
 }
 
-export function Page({ children, showLogo = false }: PageProps) {
+export function Page({ children }: PageProps) {
   return (
     <Box
       bg="ink.background-primary"
@@ -21,7 +18,6 @@ export function Page({ children, showLogo = false }: PageProps) {
       height={{ base: '100%', md: 'fit-content' }}
       minHeight="435px"
     >
-      {showLogo && <Header logo={<Logo />} variant="card" />}
       {children}
     </Box>
   );

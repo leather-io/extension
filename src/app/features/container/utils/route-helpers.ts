@@ -25,19 +25,19 @@ export function getPageVariant(pathname: RouteUrls) {
   return 'page';
 }
 
-function isSessionLocked(pathname: RouteUrls) {
+export function getIsSessionLocked(pathname: RouteUrls) {
   return pathname === RouteUrls.Unlock;
 }
 
 export function canGoBack(pathname: RouteUrls) {
-  if (isSessionLocked(pathname) || isKnownPopupRoute(pathname)) {
+  if (getIsSessionLocked(pathname) || isKnownPopupRoute(pathname)) {
     return false;
   }
   return true;
 }
 
 export function hideLogo(pathname: RouteUrls) {
-  return pathname === RouteUrls.RpcGetAddresses || pathname === RouteUrls.Unlock;
+  return pathname === RouteUrls.RpcGetAddresses;
 }
 
 export function isGetAddressesPopup(pathname: RouteUrls) {

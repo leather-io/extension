@@ -1,13 +1,14 @@
 import { FormEvent, useCallback, useState } from 'react';
 
 import { SettingsSelectors } from '@tests/selectors/settings.selectors';
-import { styled } from 'leather-styles/jsx';
+import { Box, styled } from 'leather-styles/jsx';
 
 import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
 import { useKeyActions } from '@app/common/hooks/use-key-actions';
 import { buildEnterKeyEvent } from '@app/common/hooks/use-modifier-key';
 import { Button } from '@app/ui/components/button/button';
 import { Footer } from '@app/ui/components/containers/footers/footer';
+import { Logo } from '@app/ui/components/logo';
 import { Card } from '@app/ui/layout/card/card';
 import { Page } from '@app/ui/layout/page/page.layout';
 
@@ -38,9 +39,16 @@ export function RequestPassword({ onSuccess }: RequestPasswordProps) {
   }, [analytics, unlockWallet, password, onSuccess]);
 
   return (
-    <Page showLogo>
+    <Page>
       <Card
-        title={<styled.h3 textStyle="heading.03">Enter your password</styled.h3>}
+        title={
+          <>
+            <Box pt="space.04" hideBelow="sm">
+              <Logo />
+            </Box>
+            <styled.h3 textStyle="heading.03">Enter your password</styled.h3>
+          </>
+        }
         text="Your password is used to secure your Secret Key and is only used locally on your device."
         action={
           <Footer variant="card">

@@ -38,6 +38,7 @@ import {
 import { getTitleFromUrl } from './utils/get-title-from-url';
 import {
   canGoBack,
+  getIsSessionLocked,
   getPageVariant,
   hideLogo,
   isGetAddressesPopup,
@@ -75,7 +76,7 @@ export function Container() {
   }, [variant, pathname]);
 
   const displayHeader = !isLandingPage(pathname) && !isGetAddressesPopup(pathname);
-  const [showSwitchAccount, setShowSwitchAccount] = useState(false);
+  const isSessionLocked = getIsSessionLocked(pathname);
 
   function getOnGoBackLocation(pathname: RouteUrls) {
     if (pathname === RouteUrls.Swap || RouteUrls.Fund) {
@@ -123,7 +124,8 @@ export function Container() {
                     height="headerContainerHeight"
                     margin="auto"
                     px="space.02"
-                    hideBelow={variant === 'home' ? undefined : 'sm'}
+                    hideBelow={variant === 'home' || isSessionLocked ? undefined : 'sm'}
+                    hideFrom={isSessionLocked ? 'sm' : undefined}
                   >
                     <Logo
                       data-testid={OnboardingSelectors.LogoRouteToHome}
@@ -142,7 +144,9 @@ export function Container() {
                         fontSize="16px"
                         fontWeight={500}
                         size="32px"
-                        toggleSwitchAccount={() => setShowSwitchAccount(!showSwitchAccount)}
+                        toggleSwitchAccount={() =>
+                          setIsShowingSwitchAccount(!isShowingSwitchAccount)
+                        }
                       />
                     }
                   >
