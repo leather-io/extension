@@ -9,10 +9,11 @@ const basePseudoOutlineProps = {
   content: '""',
   rounded: 'xs',
   position: 'absolute',
-  top: 0,
-  left: 0,
-  bottom: 0,
-  right: 0,
+  top: '-space.03',
+  left: '-space.03',
+  bottom: '-space.03',
+  right: '-space.03',
+  pointerEvents: 'none',
 };
 
 const focusVisibleStyles = {
@@ -25,14 +26,13 @@ const focusVisibleStyles = {
 };
 
 export const itemBaseStyles = css.raw({
+  position: 'relative',
   bg: 'ink.background-primary',
   color: 'ink.text-primary',
   cursor: 'default',
   display: 'flex',
   height: 'auto',
   outline: 'none',
-  p: 'space.03',
-  position: 'relative',
   rounded: 'xs',
   userSelect: 'none',
   width: '100%',
@@ -40,9 +40,13 @@ export const itemBaseStyles = css.raw({
 
 export const itemInteractiveStyles = css.raw({
   cursor: 'pointer',
+  position: 'relative',
+  _before: basePseudoOutlineProps,
 
   '&:is(:active)': {
-    bg: 'ink.component-background-pressed',
+    _before: {
+      bg: 'ink.component-background-pressed',
+    },
   },
   '&:is(:focus-visible)': {
     ...focusVisibleStyles,
@@ -54,9 +58,12 @@ export const itemInteractiveStyles = css.raw({
     color: 'ink.non-interactive',
     cursor: 'not-allowed',
   },
+
   '&:is(:hover, [data-highlighted])': {
-    _before: { borderColor: 'transparent' },
-    bg: 'ink.component-background-hover',
+    _before: {
+      bg: 'ink.component-background-hover',
+      borderColor: 'transparent',
+    },
   },
 });
 
