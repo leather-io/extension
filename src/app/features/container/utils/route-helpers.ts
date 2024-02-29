@@ -3,7 +3,11 @@ import { RouteUrls } from '@shared/route-urls';
 import { isKnownPopupRoute } from './get-popup-header';
 
 function isHomePage(pathname: RouteUrls) {
-  return pathname === RouteUrls.Home || pathname.match(RouteUrls.Activity);
+  return (
+    pathname === RouteUrls.Home ||
+    pathname.match(RouteUrls.Activity) ||
+    pathname.match(RouteUrls.Receive)
+  );
 }
 
 export function isLandingPage(pathname: RouteUrls) {
