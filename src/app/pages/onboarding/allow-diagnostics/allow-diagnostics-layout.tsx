@@ -32,7 +32,6 @@ export function AllowDiagnosticsLayout({
   return (
     <Dialog
       onClose={() => null}
-      canClose={false}
       isShowing
       footer={
         <Footer>

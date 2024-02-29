@@ -79,11 +79,9 @@ export function ReceiveDialog({ type = 'full' }: ReceiveDialogProps) {
         <Header
           variant="receive"
           onGoBack={() => navigate(backgroundLocation ?? '..')}
-          onClose={() => navigate(backgroundLocation ?? '..')}
           title={<styled.h1 textStyle="heading.03">{title}</styled.h1>}
         />
       }
-      canClose={false}
       onClose={() => navigate(backgroundLocation ?? '..')}
       isShowing
     >

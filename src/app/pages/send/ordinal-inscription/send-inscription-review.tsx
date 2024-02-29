@@ -15,6 +15,7 @@ import { useAppDispatch } from '@app/store';
 import { inscriptionSent } from '@app/store/ordinals/ordinals.slice';
 import { Button } from '@app/ui/components/button/button';
 import { Dialog } from '@app/ui/components/containers/dialog/dialog';
+import { Header } from '@app/ui/components/containers/headers/header';
 
 import { InscriptionPreviewCard } from '../../../components/inscription-preview-card/inscription-preview-card';
 import { useBitcoinBroadcastTransaction } from '../../../query/bitcoin/transaction/use-bitcoin-broadcast-transaction';
@@ -71,7 +72,7 @@ export function SendInscriptionReview() {
 
   return (
     <Dialog
-      title="Review"
+      header={<Header variant="dialog" title="Review" />}
       isShowing
       onGoBack={() => navigate(-1)}
       onClose={() => navigate(RouteUrls.Home)}

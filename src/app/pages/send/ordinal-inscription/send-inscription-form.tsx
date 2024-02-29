@@ -11,6 +11,7 @@ import { InscriptionPreviewCard } from '@app/components/inscription-preview-card
 import { OrdinalIcon } from '@app/ui/components/avatar-icon/ordinal-icon';
 import { Button } from '@app/ui/components/button/button';
 import { Dialog } from '@app/ui/components/containers/dialog/dialog';
+import { Header } from '@app/ui/components/containers/headers/header';
 
 import { RecipientAddressTypeField } from '../send-crypto-asset-form/components/recipient-address-type-field';
 import { CollectibleAsset } from './components/collectible-asset';
@@ -38,7 +39,7 @@ export function SendInscriptionForm() {
     >
       <Form>
         <Dialog
-          title="Send"
+          header={<Header variant="dialog" title="Send" />}
           onGoBack={() => navigate(-1)}
           isShowing
           onClose={() => navigate(RouteUrls.Home)}

@@ -4,6 +4,7 @@ import { Outlet } from 'react-router-dom';
 import { Flex, Stack } from 'leather-styles/jsx';
 
 import { Dialog } from '@app/ui/components/containers/dialog/dialog';
+import { Header } from '@app/ui/components/containers/headers/header';
 import { Spinner } from '@app/ui/components/spinner';
 import { Caption } from '@app/ui/components/typography/caption';
 
@@ -15,7 +16,11 @@ interface IncreaseFeeDialogProps {
 export function IncreaseFeeDialog({ feeForm, onClose, isShowing }: IncreaseFeeDialogProps) {
   return (
     <>
-      <Dialog isShowing={isShowing} onClose={onClose} title="Increase transaction fee">
+      <Dialog
+        isShowing={isShowing}
+        onClose={onClose}
+        header={<Header variant="dialog" title="Increase transaction fee" />}
+      >
         <Stack gap="space.05" px="space.05" pb="space.05">
           <Suspense
             fallback={

@@ -12,6 +12,7 @@ import { useNetworks } from '@app/store/networks/networks.selectors';
 import { Button } from '@app/ui/components/button/button';
 import { Dialog, DialogProps } from '@app/ui/components/containers/dialog/dialog';
 import { Footer } from '@app/ui/components/containers/footers/footer';
+import { Header } from '@app/ui/components/containers/headers/header';
 
 const defaultNetworkIds = Object.values(WalletDefaultNetworkConfigurationIds) as string[];
 
@@ -36,11 +37,10 @@ export function NetworkDialog({ isShowing, onClose }: DialogProps) {
     void analytics.track('change_network', { id });
     networksActions.changeNetwork(id);
   }
-  // fixme - change network on back is broken
 
   return (
     <Dialog
-      title="Change network"
+      header={<Header variant="dialog" title="Change network" />}
       isShowing={isShowing}
       onClose={onClose}
       footer={

@@ -9,6 +9,7 @@ import { useBackgroundLocationRedirect } from '@app/routes/hooks/use-background-
 import { Button } from '@app/ui/components/button/button';
 import { Dialog } from '@app/ui/components/containers/dialog/dialog';
 import { Footer } from '@app/ui/components/containers/footers/footer';
+import { Header } from '@app/ui/components/containers/headers/header';
 
 import { QrCode } from './address-qr-code';
 
@@ -28,7 +29,13 @@ export function ReceiveTokensLayout(props: ReceiveTokensLayoutProps) {
 
   return (
     <Dialog
-      title="Receive"
+      header={
+        <Header
+          variant="receive"
+          title="Receive"
+          onGoBack={() => navigate(backgroundLocation ?? '..')}
+        />
+      }
       isShowing
       onClose={() => navigate(backgroundLocation ?? '..')}
       footer={

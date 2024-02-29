@@ -8,6 +8,7 @@ import { useStacksAccounts } from '@app/store/accounts/blockchain/stacks/stacks-
 import { Button } from '@app/ui/components/button/button';
 import { Dialog, DialogProps } from '@app/ui/components/containers/dialog/dialog';
 import { Footer } from '@app/ui/components/containers/footers/footer';
+import { Header } from '@app/ui/components/containers/headers/header';
 
 import { AccountListUnavailable } from './components/account-list-unavailable';
 import { SwitchAccountList } from './components/switch-account-list';
@@ -30,13 +31,14 @@ export const SwitchAccountDialog = memo(({ isShowing, onClose }: DialogProps) =>
   if (isShowing && stacksAddressesNum === 0 && btcAddressesNum === 0) {
     return <AccountListUnavailable />;
   }
-  // #4370 SMELL without this early return the wallet crashes on new install with: Wallet is neither of type `ledger` nor `software`
-  // test this more as it could be OK to remove.
+  // #4370 SMELL without this early return the wallet crashes on new install with
+  // : Wallet is neither of type `ledger` nor `software`
+  // FIXME remove this when adding Create Account to Ledger in #2502 #4983
   if (!isShowing) return null;
 
   return (
     <Dialog
-      title="Select account"
+      header={<Header variant="dialog" title="Select account" />}
       isShowing={isShowing}
       onClose={onClose}
       footer={whenWallet({

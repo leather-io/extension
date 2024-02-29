@@ -53,8 +53,7 @@ export function Header({
                   icon={<ArrowLeftIcon />}
                   isWaitingOnPerformedAction={isWaitingOnPerformedAction}
                   onAction={onGoBack}
-                  // hideFrom={variant === 'receive' ? 'sm' : undefined}
-                  hideFrom="md"
+                  hideFrom={variant === 'receive' ? 'md' : undefined}
                 />
               ) : undefined}
               {account ? account : logo}
@@ -62,12 +61,7 @@ export function Header({
           )}
         </GridItem>
         <GridItem margin="auto">
-          {/* fix position of this */}
-          {title && (
-            <styled.span margin="auto" textStyle="heading.05">
-              {title}
-            </styled.span>
-          )}
+          {title && <styled.span textStyle="heading.05">{title}</styled.span>}
         </GridItem>
         <GridItem>
           <HStack alignItems="center" justifyContent="flex-end">

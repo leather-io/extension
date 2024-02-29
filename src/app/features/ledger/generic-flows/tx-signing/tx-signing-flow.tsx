@@ -3,6 +3,7 @@ import { Outlet, useNavigate } from 'react-router-dom';
 import { useLocationState } from '@app/common/hooks/use-location-state';
 import { useScrollLock } from '@app/common/hooks/use-scroll-lock';
 import { Dialog } from '@app/ui/components/containers/dialog/dialog';
+import { Header } from '@app/ui/components/containers/headers/header';
 
 import { useActionCancellableByUser } from '../../utils/stacks-ledger-utils';
 import { LedgerTxSigningContext, LedgerTxSigningProvider } from './ledger-sign-tx.context';
@@ -27,7 +28,12 @@ export function TxSigningFlow({
       <Dialog
         onGoBack={allowUserToGoBack ? () => navigate(-1) : undefined}
         isShowing
-        isWaitingOnPerformedAction={awaitingDeviceConnection || canUserCancelAction}
+        header={
+          <Header
+            variant="dialog"
+            isWaitingOnPerformedAction={awaitingDeviceConnection || canUserCancelAction}
+          />
+        }
         onClose={closeAction}
       >
         <Outlet />

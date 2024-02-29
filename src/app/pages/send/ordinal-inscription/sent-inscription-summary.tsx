@@ -20,6 +20,7 @@ import {
 } from '@app/components/info-card/info-card';
 import { InscriptionPreview } from '@app/components/inscription-preview-card/components/inscription-preview';
 import { Dialog } from '@app/ui/components/containers/dialog/dialog';
+import { Header } from '@app/ui/components/containers/headers/header';
 import { CheckmarkIcon } from '@app/ui/icons/checkmark-icon';
 import { CopyIcon } from '@app/ui/icons/copy-icon';
 import { ExternalLinkIcon } from '@app/ui/icons/external-link-icon';
@@ -61,7 +62,11 @@ export function SendInscriptionSummary() {
   }
 
   return (
-    <Dialog title="Sent" isShowing onClose={() => navigate(RouteUrls.Home)}>
+    <Dialog
+      header={<Header variant="dialog" title="Sent" />}
+      isShowing
+      onClose={() => navigate(RouteUrls.Home)}
+    >
       <Box mt="space.06" px="space.06">
         <InscriptionPreviewCard
           icon={<CheckmarkIcon mt="space.01" width="lg" />}

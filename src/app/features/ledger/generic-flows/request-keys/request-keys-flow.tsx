@@ -2,6 +2,7 @@ import { Outlet, useNavigate } from 'react-router-dom';
 
 import { useScrollLock } from '@app/common/hooks/use-scroll-lock';
 import { Dialog } from '@app/ui/components/containers/dialog/dialog';
+import { Header } from '@app/ui/components/containers/headers/header';
 
 import { LedgerRequestKeysContext, LedgerRequestKeysProvider } from './ledger-request-keys.context';
 
@@ -22,7 +23,7 @@ export function RequestKeysFlow({
     <LedgerRequestKeysProvider value={context}>
       <Dialog
         isShowing
-        isWaitingOnPerformedAction={isActionCancellableByUser}
+        header={<Header variant="dialog" isWaitingOnPerformedAction={isActionCancellableByUser} />}
         onClose={onCancelConnectLedger ? onCancelConnectLedger : () => navigate('../')}
       >
         <Outlet />

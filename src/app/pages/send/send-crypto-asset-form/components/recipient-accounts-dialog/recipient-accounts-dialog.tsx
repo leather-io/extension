@@ -7,6 +7,7 @@ import { css } from 'leather-styles/css';
 import { useFilteredBitcoinAccounts } from '@app/store/accounts/blockchain/bitcoin/bitcoin.ledger';
 import { useStacksAccounts } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
 import { Dialog } from '@app/ui/components/containers/dialog/dialog';
+import { Header } from '@app/ui/components/containers/headers/header';
 
 import { AccountListItem } from './account-list-item';
 
@@ -21,7 +22,7 @@ export const RecipientAccountsDialog = memo(() => {
 
   if (stacksAddressesNum === 0 && btcAddressesNum === 0) return null;
   return (
-    <Dialog title="My accounts" isShowing onClose={onGoBack}>
+    <Dialog header={<Header variant="dialog" title="My accounts" />} isShowing onClose={onGoBack}>
       <Virtuoso
         className={css({
           marginX: 'space.05',

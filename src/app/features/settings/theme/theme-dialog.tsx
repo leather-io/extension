@@ -3,6 +3,7 @@ import { useCallback } from 'react';
 import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
 import { UserSelectedTheme, themeLabelMap, useThemeSwitcher } from '@app/common/theme-provider';
 import { Dialog, DialogProps } from '@app/ui/components/containers/dialog/dialog';
+import { Header } from '@app/ui/components/containers/headers/header';
 
 import { ThemeListItem } from './theme-list-item';
 
@@ -24,7 +25,11 @@ export function ThemeDialog({ isShowing, onClose }: DialogProps) {
   const { userSelectedTheme } = useThemeSwitcher();
 
   return (
-    <Dialog title="Change theme" isShowing={isShowing} onClose={onClose}>
+    <Dialog
+      header={<Header variant="dialog" title="Change theme" />}
+      isShowing={isShowing}
+      onClose={onClose}
+    >
       {themes.map(theme => (
         <ThemeListItem
           key={theme}
