@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 
 import { SettingsSelectors } from '@tests/selectors/settings.selectors';
+import { css } from 'leather-styles/css';
 import { Flex, styled } from 'leather-styles/jsx';
 
 import { RouteUrls } from '@shared/route-urls';
@@ -67,7 +68,14 @@ export function Settings({ triggerButton, toggleSwitchAccount }: SettingsProps) 
       <DropdownMenu.Root>
         <DropdownMenu.IconButton>{triggerButton}</DropdownMenu.IconButton>
         <DropdownMenu.Portal>
-          <DropdownMenu.Content align="end" side="bottom" sideOffset={8}>
+          <DropdownMenu.Content
+            align="end"
+            side="bottom"
+            sideOffset={8}
+            className={css({
+              width: 'settingsMenuWidth',
+            })}
+          >
             <DropdownMenu.Group>
               {isLedger && targetId && (
                 <DropdownMenu.Item>

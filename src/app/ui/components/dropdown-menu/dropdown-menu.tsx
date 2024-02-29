@@ -68,8 +68,12 @@ const dropdownContentStyles = css({
   _closed: { animation: 'slideDownAndOut 140ms ease-in-out' },
   _open: { animation: 'slideUpAndFade 140ms ease-in-out' },
 });
-const Content: typeof RadixDropdownMenu.Content = forwardRef((props, ref) => (
-  <RadixDropdownMenu.Content className={dropdownContentStyles} ref={ref} {...props} />
+const Content: typeof RadixDropdownMenu.Content = forwardRef(({ className, ...props }, ref) => (
+  <RadixDropdownMenu.Content
+    className={`${dropdownContentStyles} ${className}`}
+    ref={ref}
+    {...props}
+  />
 ));
 
 const dropdownMenuLabelStyles = css({

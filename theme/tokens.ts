@@ -25,6 +25,7 @@ const tempTokens = {
     logoWidth: { value: '86px' },
     inputHeight: { value: '64px' },
     actionButtonWidth: { value: '64px' },
+    settingsMenuWidth: { value: '240px' },
   },
 };
 
