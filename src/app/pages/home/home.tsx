@@ -59,6 +59,20 @@ export function Home() {
       }
     >
       <FeedbackButton />
+      <button
+        onClick={() => {
+          chrome.windows.create({ url: chrome.runtime.getURL('index.html'), type: 'popup' });
+        }}
+      >
+        Open test popup
+      </button>
+      <button
+        onClick={() => {
+          navigate('./approver');
+        }}
+      >
+        Go to test instance
+      </button>
       <HomeTabs>
         <ModalBackgroundWrapper>
           <Route index element={<AssetsList />} />

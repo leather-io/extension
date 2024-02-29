@@ -8,6 +8,10 @@ const meta: Meta<typeof Component> = {
   tags: ['autodocs'],
   title: 'Layout/Flag',
   argTypes: {
+    reverse: {
+      control: { type: 'boolean' },
+      defaultValue: false,
+    },
     align: {
       options: ['top', 'middle', 'bottom'],
       control: { type: 'radio' },
@@ -15,12 +19,14 @@ const meta: Meta<typeof Component> = {
     },
   },
   parameters: {
-    controls: { include: ['align'] },
+    controls: { include: ['align', 'reverse'] },
   },
   render: ({ children, ...args }) => (
-    <Component {...args} img={<Circle size="40px" backgroundColor="red.background-secondary" />}>
-      {children}
-    </Component>
+    <Box maxWidth="360px">
+      <Component {...args} img={<Circle size="40px" backgroundColor="ink.border-default" />}>
+        {children}
+      </Component>
+    </Box>
   ),
 };
 
@@ -30,6 +36,6 @@ type Story = StoryObj<typeof Component>;
 
 export const Flag: Story = {
   args: {
-    children: <Box width="300px" height="20px" backgroundColor="red.background-secondary" />,
+    children: <Box width="300px" height="20px" backgroundColor="ink.border-default" />,
   },
 };
