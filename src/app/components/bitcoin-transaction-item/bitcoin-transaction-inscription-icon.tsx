@@ -2,7 +2,7 @@ import { Circle } from 'leather-styles/jsx';
 
 import { SupportedInscription } from '@shared/models/inscription.model';
 
-import { OrdinalIcon } from '@app/ui/components/avatar-icon/ordinal-icon';
+import { OrdinalAvatarIcon } from '@app/ui/components/avatar/ordinal-avatar-icon';
 
 export function InscriptionIcon({ inscription, ...rest }: { inscription: SupportedInscription }) {
   switch (inscription.type) {
@@ -13,7 +13,7 @@ export function InscriptionIcon({ inscription, ...rest }: { inscription: Support
           color="ink.background-primary"
           flexShrink={0}
           position="relative"
-          size="36px"
+          size="xl"
           {...rest}
         >
           <img
@@ -29,6 +29,6 @@ export function InscriptionIcon({ inscription, ...rest }: { inscription: Support
         </Circle>
       );
     default:
-      return <OrdinalIcon />;
+      return <OrdinalAvatarIcon />;
   }
 }

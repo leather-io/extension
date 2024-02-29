@@ -1,7 +1,7 @@
 import { CryptoCurrencies } from '@shared/models/currencies.model';
 
-import { StxAvatar } from '@app/components/crypto-assets/stacks/components/stx-avatar';
 import { useCryptoCurrencyMarketData } from '@app/query/common/market-data/market-data.hooks';
+import { StxAvatarIcon } from '@app/ui/components/avatar/stx-avatar-icon';
 
 import { AmountField } from '../../components/amount-field';
 import { SelectedAssetField } from '../../components/selected-asset-field';
@@ -36,7 +36,7 @@ export function StxSendForm() {
   );
 
   const selectedAssetField = (
-    <SelectedAssetField icon={<StxAvatar />} name="Stacks" symbol={symbol} />
+    <SelectedAssetField icon={<StxAvatarIcon />} name="Stacks" symbol={symbol} />
   );
 
   return (

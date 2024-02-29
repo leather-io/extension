@@ -1,6 +1,6 @@
 import { Meta, StoryObj } from '@storybook/react';
 
-import { BtcIcon } from '@app/ui/components/avatar-icon/btc-icon';
+import { BtcAvatarIcon } from '@app/ui/components/avatar/btc-avatar-icon';
 import { CopyIcon } from '@app/ui/icons/copy-icon';
 import { QrCodeIcon } from '@app/ui/icons/qr-code-icon';
 
@@ -27,7 +27,7 @@ export const ItemInteractive: Story = {
     children: (
       <ItemLayout
         showChevron
-        flagImg={<BtcIcon />}
+        flagImg={<BtcAvatarIcon />}
         titleLeft="Label"
         captionLeft="Caption"
         titleRight="1,000.00 ABC"
@@ -44,7 +44,7 @@ export const Disabled: Story = {
     children: (
       <ItemLayout
         showChevron
-        flagImg={<BtcIcon />}
+        flagImg={<BtcAvatarIcon />}
         titleLeft="Label"
         captionLeft="Caption"
         titleRight="1,000.00 ABC"
@@ -58,7 +58,7 @@ export const WithButtons: Story = {
   args: {
     children: (
       <ItemWithButtonsLayout
-        flagImg={<BtcIcon />}
+        flagImg={<BtcAvatarIcon />}
         title="Label"
         caption="Caption"
         buttons={

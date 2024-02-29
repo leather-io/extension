@@ -1,13 +1,14 @@
-import BitcoinIcon from '@assets/images/btc-icon.png';
 import ReceiveFundsEllipses from '@assets/images/fund/receive-funds-ellipses.png';
-import StxIcon from '@assets/images/fund/stacks-icon.png';
 import { Box } from 'leather-styles/jsx';
+
+import { BtcAvatarIcon } from '@app/ui/components/avatar/btc-avatar-icon';
+import { StxAvatarIcon } from '@app/ui/components/avatar/stx-avatar-icon';
 
 export function StacksIconComponent() {
   return (
     <>
       <Box>
-        <img src={StxIcon} width="40px" />
+        <StxAvatarIcon />
       </Box>
       <Box>
         <img src={ReceiveFundsEllipses} width="24px" />
@@ -19,9 +20,7 @@ export function StacksIconComponent() {
 export function BitcoinIconComponent() {
   return (
     <>
-      <Box>
-        <img src={BitcoinIcon} width="40px" />
-      </Box>
+      <BtcAvatarIcon />
       <Box>
         <img src={ReceiveFundsEllipses} width="24px" />
       </Box>

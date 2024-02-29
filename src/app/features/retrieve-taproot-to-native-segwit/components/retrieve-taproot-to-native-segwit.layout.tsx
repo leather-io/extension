@@ -1,7 +1,7 @@
 import { Flex, styled } from 'leather-styles/jsx';
 
 import { BaseDrawer } from '@app/components/drawer/base-drawer';
-import { BtcIcon } from '@app/ui/components/avatar-icon/btc-icon';
+import { BtcAvatarIcon } from '@app/ui/components/avatar/btc-avatar-icon';
 import { Button } from '@app/ui/components/button/button';
 import { Callout } from '@app/ui/components/callout/callout';
 
@@ -18,7 +18,7 @@ export function RetrieveTaprootToNativeSegwitLayout(
   return (
     <BaseDrawer isShowing onClose={() => onClose()}>
       <Flex alignItems="start" flexDirection="column" mt="-45px" mx="space.06" textAlign="left">
-        <BtcIcon />
+        <BtcAvatarIcon />
         <styled.span mt="space.04" textStyle="label.01">
           Retrieve Bitcoin deposited to <br /> Taproot addresses
         </styled.span>

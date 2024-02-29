@@ -5,7 +5,7 @@ import { HStack, styled } from 'leather-styles/jsx';
 import { token } from 'leather-styles/tokens';
 
 import { useClipboard } from '@app/common/hooks/use-copy-to-clipboard';
-import { BtcIcon } from '@app/ui/components/avatar-icon/btc-icon';
+import { BtcAvatarIcon } from '@app/ui/components/avatar/btc-avatar-icon';
 import { Flag } from '@app/ui/components/flag/flag';
 import { Link } from '@app/ui/components/link/link';
 import { BasicTooltip } from '@app/ui/components/tooltip/basic-tooltip';
@@ -33,7 +33,7 @@ export function BitcoinContractLockAmount({
   const { onCopy, hasCopied } = useClipboard(hoverLabel ?? '');
 
   return (
-    <Flag img={image || <BtcIcon />} width="100%">
+    <Flag img={image || <BtcAvatarIcon />} width="100%">
       <HStack alignItems="center" justifyContent="space-between">
         <styled.span textStyle="label.01">{title ? title : 'BTC'}</styled.span>
         <styled.span

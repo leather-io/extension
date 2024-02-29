@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { HStack, styled } from 'leather-styles/jsx';
 
-import { BtcIcon } from '@app/ui/components/avatar-icon/btc-icon';
+import { BtcAvatarIcon } from '@app/ui/components/avatar/btc-avatar-icon';
 import { ChevronDownIcon } from '@app/ui/icons/chevron-down-icon';
 import { PlaceholderIcon } from '@app/ui/icons/placeholder-icon';
 
@@ -91,7 +91,7 @@ export const WithToken: Story = {
   args: {
     children: (
       <HStack>
-        <BtcIcon />
+        <BtcAvatarIcon />
         <styled.span textStyle="label.01">Button</styled.span>
         <ChevronDownIcon variant="small" />
       </HStack>

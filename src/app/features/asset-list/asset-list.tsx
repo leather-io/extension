@@ -12,7 +12,7 @@ import { CurrentStacksAccountLoader } from '@app/components/loaders/stacks-accou
 import { useHasBitcoinLedgerKeychain } from '@app/store/accounts/blockchain/bitcoin/bitcoin.ledger';
 import { useCurrentAccountNativeSegwitAddressIndexZero } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
 import { useCurrentNetwork } from '@app/store/networks/networks.selectors';
-import { BtcIcon } from '@app/ui/components/avatar-icon/btc-icon';
+import { BtcAvatarIcon } from '@app/ui/components/avatar/btc-avatar-icon';
 
 import { Collectibles } from '../collectibles/collectibles';
 import { PendingBrc20TransferList } from '../pending-brc-20-transfers/pending-brc-20-transfers';
@@ -37,7 +37,7 @@ export function AssetsList() {
           <CryptoCurrencyAssetItemLayout
             assetBalance={btcAvailableAssetBalance}
             usdBalance={btcAvailableUsdBalance}
-            icon={<BtcIcon />}
+            icon={<BtcAvatarIcon />}
             address={btcAddress}
           />
         ),
@@ -45,7 +45,7 @@ export function AssetsList() {
           <CryptoCurrencyAssetItemLayout
             assetBalance={btcAvailableAssetBalance}
             usdBalance={btcAvailableUsdBalance}
-            icon={<BtcIcon />}
+            icon={<BtcAvatarIcon />}
             address={btcAddress}
             rightElement={
               hasBitcoinLedgerKeys ? undefined : <ConnectLedgerAssetBtn chain="bitcoin" />

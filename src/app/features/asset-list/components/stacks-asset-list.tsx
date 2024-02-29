@@ -3,9 +3,9 @@ import { styled } from 'leather-styles/jsx';
 import { useStxBalance } from '@app/common/hooks/balance/stx/use-stx-balance';
 import { ftDecimals } from '@app/common/stacks-utils';
 import { CryptoCurrencyAssetItemLayout } from '@app/components/crypto-assets/crypto-currency-asset/crypto-currency-asset-item.layout';
-import { StxAvatar } from '@app/components/crypto-assets/stacks/components/stx-avatar';
 import { useStacksFungibleTokenAssetBalancesWithMetadata } from '@app/query/stacks/balance/stacks-ft-balances.hooks';
 import { StacksAccount } from '@app/store/accounts/blockchain/stacks/stacks-account.models';
+import { StxAvatarIcon } from '@app/ui/components/avatar/stx-avatar-icon';
 import { BulletOperator } from '@app/ui/components/bullet-separator/bullet-separator';
 import { Caption } from '@app/ui/components/typography/caption';
 
@@ -42,7 +42,7 @@ export function StacksAssetList({ account }: StacksAssetListProps) {
         address={account.address}
         additionalBalanceInfo={stxAdditionalBalanceInfo}
         additionalUsdBalanceInfo={stxAdditionalUsdBalanceInfo}
-        icon={<StxAvatar />}
+        icon={<StxAvatarIcon />}
       />
       <StacksFungibleTokenAssetList assetBalances={stacksFtAssetBalances} />
     </>

@@ -6,7 +6,7 @@ import { StacksTx } from '@shared/models/transactions/stacks-transaction.model';
 import { getTxSenderAddress } from '@app/common/transactions/stacks/transaction.utils';
 import { TransactionIconWrapper } from '@app/components/transaction/transaction-icon-wrapper';
 import { TransactionTypeIcon } from '@app/components/transaction/transaction-type-icon';
-import { StxIcon } from '@app/ui/components/avatar-icon/stx-icon';
+import { StxAvatarIcon } from '@app/ui/components/avatar/stx-avatar-icon';
 import { DynamicColorCircle } from '@app/ui/components/dynamic-color-circle';
 
 interface SubmittedTransactionIconProps extends CircleProps {
@@ -53,7 +53,7 @@ export function SubmittedTransactionIcon({ transaction, ...rest }: SubmittedTran
     case PayloadType.TokenTransfer:
       return (
         <TransactionIconWrapper
-          icon={<StxIcon />}
+          icon={<StxAvatarIcon />}
           transaction={
             {
               tx_type: 'token_transfer',
