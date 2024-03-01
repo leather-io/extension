@@ -79,7 +79,7 @@ export function Container() {
   const isSessionLocked = getIsSessionLocked(pathname);
 
   function getOnGoBackLocation(pathname: RouteUrls) {
-    if (pathname === RouteUrls.Swap || RouteUrls.Fund) {
+    if (pathname === RouteUrls.Swap || pathname === RouteUrls.Fund) {
       return navigate(RouteUrls.Home);
     }
     return navigate(-1);
