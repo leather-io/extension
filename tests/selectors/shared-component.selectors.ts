@@ -21,6 +21,5 @@ export enum SharedComponentsSelectors {
 
   // Error
   BroadcastErrorTitle = 'broadcast-error-title',
-  // Dialog Header
-  DialogHeaderBackBtn = 'modal-header-back-button',
+  HeaderBackBtn = 'header-back-button',
 }

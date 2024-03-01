@@ -1,5 +1,6 @@
 import { ReactNode } from 'react';
 
+import { SharedComponentsSelectors } from '@tests/selectors/shared-component.selectors';
 import { Flex, Grid, GridItem, HStack, styled } from 'leather-styles/jsx';
 
 import { ArrowLeftIcon, CloseIcon } from '@app/ui/icons';
@@ -50,7 +51,7 @@ export function Header({
             <Flex py={{ base: 0, md: 'space.01' }}>
               {variant !== 'home' && onGoBack ? (
                 <HeaderActionButton
-                  icon={<ArrowLeftIcon />}
+                  icon={<ArrowLeftIcon data-testid={SharedComponentsSelectors.HeaderBackBtn} />}
                   isWaitingOnPerformedAction={isWaitingOnPerformedAction}
                   onAction={onGoBack}
                   hideFrom={variant === 'receive' ? 'md' : undefined}
