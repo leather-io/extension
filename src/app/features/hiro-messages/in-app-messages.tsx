@@ -25,7 +25,7 @@ export function InAppMessages(props: FlexProps) {
   }
 
   return (
-    <Flex bg="ink.component-background-default" color="white" {...props}>
+    <Flex bg="ink.non-interactive" {...props}>
       <HiroMessageItem onDismiss={messageId => dismissMessage(messageId)} {...firstMessage} />
     </Flex>
   );
