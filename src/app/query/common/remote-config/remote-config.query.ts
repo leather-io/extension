@@ -69,8 +69,7 @@ const githubWalletConfigRawUrl = `https://raw.githubusercontent.com/${GITHUB_ORG
 }/config/wallet-config.json`;
 
 async function fetchLeatherMessages(): Promise<RemoteConfig> {
-  if ((!BRANCH_NAME && WALLET_ENVIRONMENT !== 'production') || IS_TEST_ENV)
-    return localConfig as RemoteConfig;
+  if (WALLET_ENVIRONMENT !== 'production' || IS_TEST_ENV) return localConfig as RemoteConfig;
   const resp = await axios.get(githubWalletConfigRawUrl);
   return resp.data;
 }
