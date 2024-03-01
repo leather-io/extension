@@ -104,6 +104,7 @@ export function WelcomeLayout({
               flex={1}
               onClick={onRestoreWallet}
               css={secondaryActionButton}
+              data-testid={OnboardingSelectors.SignInLink}
               fullWidth
             >
               Use existing key
