@@ -1,5 +1,6 @@
 import { useLocation, useNavigate } from 'react-router-dom';
 
+import { HomePageSelectors } from '@tests/selectors/home.selectors';
 import { styled } from 'leather-styles/jsx';
 import get from 'lodash.get';
 
@@ -89,10 +90,13 @@ export function ReceiveDialog({ type = 'full' }: ReceiveDialogProps) {
       {type === 'full' && (
         <Tabs.Root defaultValue="tokens">
           <Tabs.List>
-            <Tabs.Trigger value="tokens" data-testid="tab-asset">
+            <Tabs.Trigger value="tokens" data-testid={HomePageSelectors.ReceiveAssetsTab}>
               Tokens
             </Tabs.Trigger>
-            <Tabs.Trigger value="collectibles" data-testid="tab-collectible">
+            <Tabs.Trigger
+              value="collectibles"
+              data-testid={HomePageSelectors.ReceiveCollectiblesTab}
+            >
               Collectibles
             </Tabs.Trigger>
           </Tabs.List>

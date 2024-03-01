@@ -80,9 +80,15 @@ export class HomePage {
   // Currently under Ordinals receive flow
   async getReceiveTaprootAddress() {
     await this.goToReceiveDialog();
+    await this.page.getByTestId(HomePageSelectors.ReceiveCollectiblesTab).click();
     await this.page.getByTestId(HomePageSelectors.ReceiveBtcTaprootQrCodeBtn).click();
-    await this.page.getByRole('button', { name: 'Copy address' }).click();
-    return this.page.evaluate('navigator.clipboard.readText()');
+    // await this.page.getByRole('button', { name: 'Copy address' }).click();
+    // const address = await this.page.evaluate('navigator.clipboard.readText()');
+    // return address;
+    const displayerAddress = await this.page
+      .getByTestId(SharedComponentsSelectors.AddressDisplayer)
+      .innerText();
+    return displayerAddress.replaceAll('\n', '');
   }
 
   async getReceiveStxAddress() {

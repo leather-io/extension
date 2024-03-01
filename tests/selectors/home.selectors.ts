@@ -3,6 +3,8 @@ export enum HomePageSelectors {
   HomePageContainer = 'home-page-container',
   ReceiveCryptoAssetBtn = 'receive-crypto-asset-btn',
   ReceiveBtcNativeSegwitQrCodeBtn = 'receive-native-segwit-qr-code-btn',
+  ReceiveAssetsTab = 'receive-assets-tab',
+  ReceiveCollectiblesTab = 'receive-collectibles-tab',
   ReceiveBtcTaprootQrCodeBtn = 'receive-taproot-qr-code-btn',
   ReceiveStxQrCodeBtn = 'receive-stx-qr-code-btn',
   SendCryptoAssetBtn = 'send-crypto-asset-btn',
