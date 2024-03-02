@@ -46,7 +46,7 @@ export function NetworkDialog({ isShowing, onClose }: DialogProps) {
       footer={
         <Footer>
           <Button
-            data-testid={SettingsSelectors.BtnAddNetwork}
+            data-testid={SettingsSelectors.AddNewNetworkBtn}
             fullWidth
             onClick={() => {
               addNetwork();

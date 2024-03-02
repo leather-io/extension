@@ -85,7 +85,7 @@ export function Settings({ triggerButton, toggleSwitchAccount }: SettingsProps) 
               {hasGeneratedWallet && (
                 <DropdownMenu.Item
                   data-testid={SettingsSelectors.SwitchAccountTrigger}
-                  onClick={toggleSwitchAccount}
+                  onSelect={toggleSwitchAccount}
                 >
                   <Flag img={<SwapIcon />} textStyle="label.02">
                     Switch account
@@ -95,7 +95,7 @@ export function Settings({ triggerButton, toggleSwitchAccount }: SettingsProps) 
               {hasGeneratedWallet && walletType === 'software' && (
                 <DropdownMenu.Item
                   data-testid={SettingsSelectors.ViewSecretKeyListItem}
-                  onClick={() => navigate(RouteUrls.ViewSecretKey)}
+                  onSelect={() => navigate(RouteUrls.ViewSecretKey)}
                 >
                   <Flag img={<KeyIcon />} textStyle="label.02">
                     View Secret Key
@@ -105,7 +105,7 @@ export function Settings({ triggerButton, toggleSwitchAccount }: SettingsProps) 
               <styled.div hideFrom="md">
                 <DropdownMenu.Item
                   data-testid={SettingsSelectors.OpenWalletInNewTab}
-                  onClick={() => {
+                  onSelect={() => {
                     void analytics.track('click_open_in_new_tab_menu_item');
                     openIndexPageInNewTab(location.pathname);
                   }}
@@ -118,7 +118,7 @@ export function Settings({ triggerButton, toggleSwitchAccount }: SettingsProps) 
 
               <DropdownMenu.Item
                 data-testid={SettingsSelectors.ChangeNetworkAction}
-                onClick={() => {
+                onSelect={() => {
                   void analytics.track('click_change_network_menu_item');
                   setShowChangeNetwork(!showChangeNetwork);
                 }}
@@ -135,7 +135,7 @@ export function Settings({ triggerButton, toggleSwitchAccount }: SettingsProps) 
 
               <DropdownMenu.Item
                 data-testid={SettingsSelectors.ToggleTheme}
-                onClick={() => {
+                onSelect={() => {
                   void analytics.track('click_change_theme_menu_item');
                   setShowChangeTheme(!showChangeTheme);
                 }}
@@ -151,7 +151,7 @@ export function Settings({ triggerButton, toggleSwitchAccount }: SettingsProps) 
             <DropdownMenu.Group>
               <DropdownMenu.Item
                 data-testid={SettingsSelectors.GetSupportMenuItem}
-                onClick={() => {
+                onSelect={() => {
                   openInNewTab('https://leather.gitbook.io/guides/installing/contact-support');
                 }}
               >
@@ -162,7 +162,7 @@ export function Settings({ triggerButton, toggleSwitchAccount }: SettingsProps) 
                   </Flex>
                 </Flag>
               </DropdownMenu.Item>
-              <DropdownMenu.Item onClick={() => openFeedbackDialog()}>
+              <DropdownMenu.Item onSelect={() => openFeedbackDialog()}>
                 <Flag img={<MegaphoneIcon />} textStyle="label.02">
                   Give feedback
                 </Flag>
@@ -174,7 +174,7 @@ export function Settings({ triggerButton, toggleSwitchAccount }: SettingsProps) 
               {showAdvancedMenuOptions && <AdvancedMenuItems />}
               {hasGeneratedWallet && walletType === 'software' && (
                 <DropdownMenu.Item
-                  onClick={() => {
+                  onSelect={() => {
                     void analytics.track('lock_session');
                     void lockWallet();
                     navigate(RouteUrls.Unlock);
@@ -188,7 +188,7 @@ export function Settings({ triggerButton, toggleSwitchAccount }: SettingsProps) 
               )}
 
               <DropdownMenu.Item
-                onClick={() => setShowSignOut(!showSignOut)}
+                onSelect={() => setShowSignOut(!showSignOut)}
                 data-testid={SettingsSelectors.SignOutListItem}
               >
                 <Flag color="red.action-primary-default" img={<ExitIcon />} textStyle="label.02">
