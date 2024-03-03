@@ -54,6 +54,14 @@ export const ordinalsSlice = createSlice({
       transfer.status = 'ready';
       transfer.inscriptionId = action.payload.inscriptionId;
     },
+    brc20OrderNotFound(state, action: PayloadAction<{ id: string }>) {
+      const transferMatch = ordinalsAdapter
+        .getSelectors()
+        .selectAll(state)
+        .find(transfer => transfer.id === action.payload.id);
+      if (!transferMatch) return;
+      ordinalsAdapter.removeOne(state, transferMatch.id);
+    },
     inscriptionSent(state, action: PayloadAction<{ inscriptionId: string }>) {
       const transferMatch = ordinalsAdapter
         .getSelectors()
@@ -71,6 +79,7 @@ export const {
   brc20TransferPaid,
   brc20TransferAwaitingIndexer,
   brc20TransferReady,
+  brc20OrderNotFound,
   inscriptionSent,
 } = ordinalsSlice.actions;
 

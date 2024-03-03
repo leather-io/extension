@@ -36,7 +36,7 @@ function useBrc20SendFormConfirmationState() {
     serviceFee: get(location.state, 'serviceFee') as number,
     serviceFeeRecipient: get(location.state, 'serviceFeeRecipient') as string,
     recipient: get(location.state, 'recipient') as string,
-    tick: get(location.state, 'tick') as string,
+    ticker: get(location.state, 'ticker') as string,
     amount: get(location.state, 'amount') as string,
     tx: get(location.state, 'tx') as string,
     holderAddress: get(location.state, 'holderAddress') as string,
@@ -47,7 +47,7 @@ export function Brc20SendFormConfirmation() {
   const navigate = useNavigate();
   const analytics = useAnalytics();
 
-  const { amount, recipient, fee, tick, serviceFee, tx, orderId, feeRowValue, holderAddress } =
+  const { amount, recipient, fee, ticker, serviceFee, tx, orderId, feeRowValue, holderAddress } =
     useBrc20SendFormConfirmationState();
 
   const summaryFeeMoney = createMoney(Number(fee), 'BTC');
@@ -58,7 +58,7 @@ export function Brc20SendFormConfirmation() {
   const totalFee = sumMoney([summaryFeeMoney, serviceFeeMoney]);
   const totalFeeFormatted = formatMoney(totalFee);
 
-  const amountFormatted = formatMoney(createMoney(Number(amount), tick, 0));
+  const amountFormatted = formatMoney(createMoney(Number(amount), ticker, 0));
   const { broadcastTx, isBroadcasting } = useBitcoinBroadcastTransaction();
   const { refetch } = useCurrentNativeSegwitUtxos();
 
@@ -71,10 +71,10 @@ export function Brc20SendFormConfirmation() {
     await broadcastTx({
       tx,
       async onSuccess(txId: string) {
-        inscriptionPaymentTransactionComplete(orderId, Number(amount), recipient, tick);
+        inscriptionPaymentTransactionComplete(orderId, Number(amount), recipient, ticker);
 
         void analytics.track('broadcast_transaction', {
-          symbol: tick,
+          symbol: ticker,
           type: 'brc-20',
           amount,
           fee,
@@ -82,12 +82,12 @@ export function Brc20SendFormConfirmation() {
           outputs: psbt.inputs.length,
         });
         await refetch();
-        navigate(RouteUrls.SentBrc20Summary.replace(':ticker', tick), {
+        navigate(RouteUrls.SentBrc20Summary.replace(':ticker', ticker), {
           state: {
             serviceFee: serviceFeeFormatted,
             totalFee: totalFeeFormatted,
             recipient,
-            tick,
+            ticker,
             amount,
             txId,
             feeRowValue,
@@ -114,7 +114,7 @@ export function Brc20SendFormConfirmation() {
         mb="space.06"
         mt="space.05"
         px="space.05"
-        symbol={tick}
+        symbol={ticker}
         value={Number(amount)}
       />
 
