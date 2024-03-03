@@ -2,6 +2,7 @@ import { useQueries } from '@tanstack/react-query';
 
 import { useAppDispatch } from '@app/store';
 import {
+  brc20OrderNotFound,
   brc20TransferAwaitingIndexer,
   brc20TransferPaid,
   brc20TransferReady,
@@ -22,6 +23,13 @@ export function useCheckOrderStatuses(ids: string[]) {
       queryKey: ['check-order-status', id],
       queryFn: async () => ordinalsbotClient.orderStatus(id),
       async onSuccess({ data }: Awaited<ReturnType<typeof ordinalsbotClient.orderStatus>>) {
+        if (data.status === 'error') {
+          if (data.error.includes('no such order')) {
+            dispatch(brc20OrderNotFound({ id }));
+          }
+          return;
+        }
+
         const entry = transferMap[data.charge.id];
 
         if (!entry) return;
