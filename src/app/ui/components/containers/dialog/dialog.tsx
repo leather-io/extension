@@ -14,9 +14,17 @@ export interface RadixDialogProps extends DialogProps {
   footer?: ReactNode;
   header?: ReactElement<any, string | JSXElementConstructor<any>>;
   onGoBack?(): void;
+  wrapChildren?: boolean;
 }
 
-export function Dialog({ children, footer, header, onClose, isShowing }: RadixDialogProps) {
+export function Dialog({
+  children,
+  footer,
+  header,
+  onClose,
+  isShowing,
+  wrapChildren = true,
+}: RadixDialogProps) {
   if (!isShowing) return null;
 
   return (
@@ -51,7 +59,7 @@ export function Dialog({ children, footer, header, onClose, isShowing }: RadixDi
           >
             {header && cloneElement(header, { onClose })}
 
-            <CardContent>{children}</CardContent>
+            {wrapChildren ? <CardContent>{children}</CardContent> : children}
             {footer}
           </RadixDialog.Content>
         </RadixDialog.Overlay>

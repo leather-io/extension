@@ -26,6 +26,7 @@ export const receiveTabStyle = {
   mt: 'space.03',
   paddingX: 'space.03',
   pb: 'space.05',
+  minHeight: '260px',
 };
 
 interface ReceiveDialogProps {
@@ -85,6 +86,7 @@ export function ReceiveDialog({ type = 'full' }: ReceiveDialogProps) {
       }
       onClose={() => navigate(backgroundLocation ?? '..')}
       isShowing
+      wrapChildren={false}
     >
       {type === 'collectible' && <Collectibles />}
       {type === 'full' && (
