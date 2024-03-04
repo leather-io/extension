@@ -21,7 +21,7 @@ export function StacksFungibleTokenAssetItemLayout({
     parseStacksFungibleTokenAssetBalance(assetBalance);
 
   return (
-    <ItemInteractive data-testid={dataTestId} onClick={onClick}>
+    <ItemInteractive data-testid={dataTestId} onClick={onClick} my="space.02">
       <ItemLayout
         flagImg={
           <StacksAssetAvatar

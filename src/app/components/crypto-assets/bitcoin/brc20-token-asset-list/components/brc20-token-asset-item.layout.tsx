@@ -29,7 +29,7 @@ export function Brc20TokenAssetItemLayout({
       label="Not enough BTC in balance"
       side="top"
     >
-      <ItemInteractive onClick={onClick}>
+      <ItemInteractive onClick={onClick} my="space.02">
         <ItemLayout
           flagImg={<Brc20AvatarIcon />}
           titleLeft={token.ticker}
