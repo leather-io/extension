@@ -16,9 +16,9 @@ export function ReceiveOrdinalModal() {
   return (
     <ReceiveTokensLayout
       address={state.btcAddressTaproot}
-      onCopyAddressToClipboard={() => {
+      onCopyAddressToClipboard={async () => {
         void analytics.track('copy_address_to_add_new_inscription');
-        copyToClipboard(state.btcAddressTaproot);
+        await copyToClipboard(state.btcAddressTaproot);
       }}
       title="ORD. INSCRIPTION"
       warning={<ReceiveBtcModalWarning message="Deposit only Ordinal inscriptions here" />}

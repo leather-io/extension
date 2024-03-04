@@ -28,9 +28,9 @@ export function ReceiveBtcModal({ type = 'btc' }: ReceiveBtcModalType) {
   return (
     <ReceiveTokensLayout
       address={btcAddress}
-      onCopyAddressToClipboard={() => {
+      onCopyAddressToClipboard={async () => {
         void analytics.track('copy_btc_address_to_clipboard');
-        copyToClipboard(btcAddress);
+        await copyToClipboard(btcAddress);
       }}
       title={type === 'btc-stamp' ? 'BITCOIN STAMP' : 'BTC'}
     />

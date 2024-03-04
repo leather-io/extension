@@ -18,9 +18,9 @@ export function ReceiveStxModal() {
     <ReceiveTokensLayout
       address={currentAccount.address}
       accountName={accountName}
-      onCopyAddressToClipboard={() => {
+      onCopyAddressToClipboard={async () => {
         void analytics.track('copy_stx_address_to_clipboard');
-        copyToClipboard(currentAccount.address);
+        await copyToClipboard(currentAccount.address);
       }}
       title="STX"
     />
