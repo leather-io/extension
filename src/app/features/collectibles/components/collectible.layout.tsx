@@ -38,7 +38,7 @@ export function CollectiblesLayout({
       </Flex>
       <Grid
         gridTemplateColumns={{
-          base: 'repeat(auto-fill, minmax(164px, 1fr))',
+          base: 'repeat(auto-fill, minmax(156px, 1fr))',
           md: 'repeat(auto-fill, minmax(184px, 1fr))',
         }}
       >

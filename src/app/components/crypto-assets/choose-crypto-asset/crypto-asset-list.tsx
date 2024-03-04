@@ -22,7 +22,7 @@ export function CryptoAssetList({ cryptoAssetBalances, onItemClick }: CryptoAsse
   const { whenWallet } = useWalletType();
 
   return (
-    <Stack data-testid={CryptoAssetSelectors.CryptoAssetList} width="100%" paddingX="space.01">
+    <Stack data-testid={CryptoAssetSelectors.CryptoAssetList} width="100%" paddingX="space.03">
       <BitcoinNativeSegwitAccountLoader current>
         {signer => (
           <BitcoinBalanceLoader address={signer.address}>
