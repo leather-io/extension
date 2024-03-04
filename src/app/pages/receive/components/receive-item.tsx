@@ -1,4 +1,4 @@
-import { Button } from '@app/ui/components/button/button';
+import { IconButton } from '@app/ui/components/icon-button/icon-button';
 import { ItemInteractive } from '@app/ui/components/item/item-interactive';
 import { ItemWithButtonsLayout } from '@app/ui/components/item/item-with-buttons.layout';
 import { CopyIcon } from '@app/ui/icons/copy-icon';
@@ -30,18 +30,14 @@ export function ReceiveItem({
         caption={truncateMiddle(address, 6)}
         buttons={
           <>
-            <Button onClick={onCopyAddress} variant="ghost">
-              <CopyIcon />
-            </Button>
+            <IconButton icon={<CopyIcon />} onClick={onCopyAddress} />
             {onClickQrCode && (
-              <Button
+              <IconButton
                 data-testid={dataTestId}
+                icon={<QrCodeIcon />}
                 ml="space.02"
                 onClick={onClickQrCode}
-                variant="ghost"
-              >
-                <QrCodeIcon />
-              </Button>
+              />
             )}
           </>
         }

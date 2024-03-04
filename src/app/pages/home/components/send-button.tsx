@@ -13,7 +13,7 @@ import {
   useTransferableStacksFungibleTokenAssetBalances,
 } from '@app/query/stacks/balance/stacks-ft-balances.hooks';
 import { useCurrentStacksAccount } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
-import { ActionButton } from '@app/ui/components/account/action-button';
+import { IconButton } from '@app/ui/components/icon-button/icon-button';
 import { SendIcon } from '@app/ui/icons';
 
 function SendButtonSuspense() {
@@ -25,7 +25,7 @@ function SendButtonSuspense() {
   const isDisabled = !stxAssetBalance && ftAssets?.length === 0;
 
   return (
-    <ActionButton
+    <IconButton
       data-testid={HomePageSelectors.SendCryptoAssetBtn}
       label="Send"
       icon={<SendIcon />}
@@ -44,7 +44,7 @@ function SendButtonSuspense() {
   );
 }
 
-const SendButtonFallback = memo(() => <ActionButton label="Send" icon={<SendIcon />} disabled />);
+const SendButtonFallback = memo(() => <IconButton label="Send" icon={<SendIcon />} disabled />);
 
 export function SendButton() {
   return (

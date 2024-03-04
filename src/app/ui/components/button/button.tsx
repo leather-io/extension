@@ -3,7 +3,10 @@ import { type ButtonVariantProps, button as buttonRecipe } from 'leather-styles/
 
 const StyledButton = styled('button');
 
-type ButtonProps = Omit<React.ComponentProps<typeof StyledButton>, keyof ButtonVariantProps> &
+export type ButtonProps = Omit<
+  React.ComponentProps<typeof StyledButton>,
+  keyof ButtonVariantProps
+> &
   ButtonVariantProps;
 
 export function Button(props: ButtonProps) {

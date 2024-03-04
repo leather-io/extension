@@ -11,7 +11,7 @@ import { useConfigBitcoinEnabled } from '@app/query/common/remote-config/remote-
 import { useCurrentAccountNativeSegwitIndexZeroSignerNullable } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
 import { useCurrentStacksAccount } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
 import { useCurrentNetwork } from '@app/store/networks/networks.selectors';
-import { ActionButton } from '@app/ui/components/account/action-button';
+import { IconButton } from '@app/ui/components/icon-button/icon-button';
 import { CreditCardIcon, InboxIcon, SwapIcon } from '@app/ui/icons';
 
 import { SendButton } from './send-button';
@@ -32,7 +32,7 @@ export function AccountActions() {
   return (
     <Flex gap={{ base: 'space.01', md: 'space.04' }} py="space.04" justifyContent="space-between">
       <SendButton />
-      <ActionButton
+      <IconButton
         data-testid={HomePageSelectors.ReceiveCryptoAssetBtn}
         icon={<InboxIcon />}
         label="Receive"
@@ -40,7 +40,7 @@ export function AccountActions() {
       />
 
       {(!!stacksAccount || !!btcAccount) && (
-        <ActionButton
+        <IconButton
           data-testid={HomePageSelectors.FundAccountBtn}
           icon={<CreditCardIcon />}
           label="Buy"
@@ -49,7 +49,7 @@ export function AccountActions() {
       )}
       {whenStacksChainId(currentNetwork.chain.stacks.chainId)({
         [ChainID.Mainnet]: (
-          <ActionButton
+          <IconButton
             data-testid={HomePageSelectors.SwapBtn}
             icon={<SwapIcon />}
             label="Swap"

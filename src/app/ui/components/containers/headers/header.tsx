@@ -75,7 +75,7 @@ export function Header({
 
             {onClose && (
               <HeaderActionButton
-                icon={<CloseIcon variant="small" />}
+                icon={<CloseIcon />}
                 isWaitingOnPerformedAction={isWaitingOnPerformedAction}
                 onAction={onClose}
                 hideBelow={variant === 'receive' ? 'md' : undefined}

@@ -3,7 +3,7 @@ import { Box, Flex, Stack } from 'leather-styles/jsx';
 
 import { RouteUrls } from '@shared/route-urls';
 
-import { ActionButton } from '@app/ui/components/account/action-button';
+import { IconButton } from '@app/ui/components/icon-button/icon-button';
 import { Tabs } from '@app/ui/components/tabs/tabs';
 import { ArrowDownIcon, ArrowUpIcon, PlusIcon, SwapIcon } from '@app/ui/icons';
 
@@ -23,10 +23,10 @@ export function HomeLayout() {
       accountCard={
         // TODO don't repeat this, compose story
         <Flex justify="space-between">
-          <ActionButton icon={<ArrowUpIcon />} label="Send" />
-          <ActionButton icon={<ArrowDownIcon />} label="Receive" />
-          <ActionButton icon={<PlusIcon />} label="Buy" />
-          <ActionButton icon={<SwapIcon />} label="Swap" />
+          <IconButton icon={<ArrowUpIcon />} label="Send" />
+          <IconButton icon={<ArrowDownIcon />} label="Receive" />
+          <IconButton icon={<PlusIcon />} label="Buy" />
+          <IconButton icon={<SwapIcon />} label="Swap" />
         </Flex>
       }
     >
