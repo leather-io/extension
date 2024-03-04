@@ -39,9 +39,9 @@ export function PsbtInputOutputItemLayout({
             side="bottom"
           >
             <Box display="flex" height="16px">
-              <Link onClick={onCopy} variant="text">
-                {addressHoverLabel ? <CopyIcon /> : null}
-              </Link>
+              <styled.button _hover={{ bg: 'ink.component-background-hover' }} onClick={onCopy}>
+                {addressHoverLabel ? <CopyIcon variant="small" /> : null}
+              </styled.button>
             </Box>
           </BasicTooltip>
           {label}
