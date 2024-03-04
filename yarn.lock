@@ -8942,10 +8942,10 @@ ajv@^6.12.2, ajv@^6.12.3, ajv@^6.12.4, ajv@^6.12.5, ajv@^6.7.0:
     json-schema-traverse "^0.4.1"
     uri-js "^4.2.2"
 
-alex-sdk@0.1.24:
-  version "0.1.24"
-  resolved "https://registry.yarnpkg.com/alex-sdk/-/alex-sdk-0.1.24.tgz#d999ba4dd9cd054074f00f8865da77ff1d4d7e83"
-  integrity sha512-Uz8atbx3vwZHXKSwUWXgWJ8mWNbpmqXtHGReHlCmW1E/u7A92+bhJpokpqkOPRLccsFn7Wndo985+yLfO0R7kw==
+alex-sdk@0.1.25:
+  version "0.1.25"
+  resolved "https://registry.yarnpkg.com/alex-sdk/-/alex-sdk-0.1.25.tgz#cd9766fff1fac5c332f7881a53ceb7b276c4f5b0"
+  integrity sha512-bmFx9tyxHagvCnMcCY5lHvc0QGjHLaLl1hWNiBCYju6sKgT5EUi+iRsyrPyqQWMMnABpV1+/zxyIJLSZeoZHdw==
   dependencies:
     clarity-codegen "^0.3.5"
 
