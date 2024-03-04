@@ -1,10 +1,10 @@
 import { FundPageSelectors } from '@tests/selectors/fund.selectors';
 
 import { AvailableRegions } from '@app/query/common/remote-config/remote-config.query';
+import { Tag } from '@app/ui/components/tag/tag';
+import { StarIcon, ZapIcon } from '@app/ui/icons';
 
-import { FastCheckoutBadge } from './fast-checkout-badge';
 import { FundAccountTile } from './fund-account-tile';
-import { ZeroPercentFeesBadge } from './zero-percent-fees-badge';
 
 const availableInsideUnitedStatesDescription = 'Available only inside of the US';
 const availableOutsideUnitedStatesDescription = 'Available only outside of the US';
@@ -37,8 +37,12 @@ export function FiatProviderItem(props: FiatProviderProps) {
 
   const Attributes = (
     <>
-      {hasFastCheckoutProcess && <FastCheckoutBadge />}
-      {!hasTradingFees && <ZeroPercentFeesBadge />}
+      {hasFastCheckoutProcess && (
+        <Tag icon={<ZapIcon variant="small" />} label="Fast checkout" variant="success" />
+      )}
+      {!hasTradingFees && (
+        <Tag icon={<StarIcon variant="small" />} label="0 % Fees" variant="warning" />
+      )}
     </>
   );
 
