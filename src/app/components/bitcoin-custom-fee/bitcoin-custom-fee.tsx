@@ -142,7 +142,6 @@ export function BitcoinCustomFee({
             <Button
               data-testid={SendCryptoAssetSelectors.PreviewSendTxBtn}
               disabled={!props.values.feeRate}
-              onClick={() => props.handleSubmit}
               type="submit"
             >
               Use custom fee
