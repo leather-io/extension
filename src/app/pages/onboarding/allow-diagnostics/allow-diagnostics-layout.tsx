@@ -4,6 +4,7 @@ import { Box, Flex, Stack, styled } from 'leather-styles/jsx';
 import { Button } from '@app/ui/components/button/button';
 import { Dialog } from '@app/ui/components/containers/dialog/dialog';
 import { Footer } from '@app/ui/components/containers/footers/footer';
+import { Flag } from '@app/ui/components/flag/flag';
 import { CheckmarkIcon } from '@app/ui/icons/';
 import { LogomarkIcon } from '@app/ui/icons/logomark-icon';
 
@@ -12,12 +13,9 @@ interface ReasonToAllowDiagnosticsProps {
 }
 function ReasonToAllowDiagnostics({ text }: ReasonToAllowDiagnosticsProps) {
   return (
-    <Flex textStyle="body.02">
-      <Box mr="space.02" mt="3px">
-        <CheckmarkIcon />
-      </Box>
-      <Box>{text}</Box>
-    </Flex>
+    <Flag align="top" img={<CheckmarkIcon variant="small" />}>
+      <styled.span textStyle="body.02">{text}</styled.span>
+    </Flag>
   );
 }
 
@@ -46,7 +44,6 @@ export function AllowDiagnosticsLayout({
             </Button>
             <Button
               flexGrow={1}
-              autoFocus
               data-testid={OnboardingSelectors.AllowAnalyticsBtn}
               onClick={onUserAllowDiagnostics}
             >
@@ -56,8 +53,8 @@ export function AllowDiagnosticsLayout({
         </Footer>
       }
     >
-      <styled.header padding="space.04">
-        <Box px="space.02">
+      <styled.header p="space.04">
+        <Box p="space.02">
           <LogomarkIcon />
         </Box>
       </styled.header>
@@ -68,7 +65,7 @@ export function AllowDiagnosticsLayout({
           experience of the wallet.
         </styled.p>
 
-        <Stack gap="space.04" textStyle="body.01">
+        <Stack gap="space.03">
           <ReasonToAllowDiagnostics text="Send data about page views, clicks, and errors" />
           <ReasonToAllowDiagnostics text="This data is tied to randomly-generated IDs, and not personal data such as your Stacks address, keys, balances or IP address" />
           <ReasonToAllowDiagnostics text="This data is used to generate and send crash reports, help fix errors, and analyze statistics" />
