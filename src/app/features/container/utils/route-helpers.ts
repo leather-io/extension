@@ -47,3 +47,13 @@ export function hideLogo(pathname: RouteUrls) {
 export function isGetAddressesPopup(pathname: RouteUrls) {
   return pathname === RouteUrls.RpcGetAddresses;
 }
+
+export function hideSettingsOnSm(pathname: RouteUrls) {
+  switch (pathname) {
+    case RouteUrls.Send:
+    case RouteUrls.FundChooseCurrency:
+      return true;
+    default:
+      return false;
+  }
+}

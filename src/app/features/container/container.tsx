@@ -41,6 +41,7 @@ import {
   getIsSessionLocked,
   getPageVariant,
   hideLogo,
+  hideSettingsOnSm,
   isGetAddressesPopup,
   isLandingPage,
 } from './utils/route-helpers';
@@ -105,7 +106,10 @@ export function Container() {
                 isKnownPopupRoute(pathname) ? null : (
                   <Settings
                     triggerButton={
-                      <HamburgerIcon data-testid={SettingsSelectors.SettingsMenuBtn} />
+                      <HamburgerIcon
+                        data-testid={SettingsSelectors.SettingsMenuBtn}
+                        hideBelow={hideSettingsOnSm(pathname) ? 'sm' : undefined}
+                      />
                     }
                     toggleSwitchAccount={() => setIsShowingSwitchAccount(!isShowingSwitchAccount)}
                   />
