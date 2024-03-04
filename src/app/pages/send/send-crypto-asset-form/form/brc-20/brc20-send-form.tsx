@@ -84,7 +84,7 @@ export function Brc20SendForm() {
                     }
                     autoComplete="off"
                   />
-                  <SelectedAssetField icon={<Brc20AvatarIcon />} name={tick} symbol={tick} />
+                  <SelectedAssetField icon={<Brc20AvatarIcon />} name={ticker} symbol={ticker} />
                   <Callout variant="info" title="Sending BRC-20 tokens requires two steps">
                     <styled.ol mb="space.02">
                       <li>1. Create transfer inscription with amount to send</li>

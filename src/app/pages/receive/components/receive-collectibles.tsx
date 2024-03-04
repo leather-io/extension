@@ -3,9 +3,9 @@ import { css } from 'leather-styles/css';
 import { Stack } from 'leather-styles/jsx';
 
 import { copyToClipboard } from '@app/common/utils/copy-to-clipboard';
-import { StxAvatar } from '@app/components/crypto-assets/stacks/components/stx-avatar';
-import { StampsIcon } from '@app/ui/components/avatar-icon//stamps-icon';
-import { OrdinalIcon } from '@app/ui/components/avatar-icon/ordinal-icon';
+import { OrdinalAvatarIcon } from '@app/ui/components/avatar/ordinal-avatar-icon';
+import { StampsAvatarIcon } from '@app/ui/components/avatar/stamps-avatar-icon';
+import { StxAvatarIcon } from '@app/ui/components/avatar/stx-avatar-icon';
 
 import { receiveTabStyle } from '../receive-dialog';
 import { ReceiveItem } from './receive-item';
@@ -30,7 +30,7 @@ export function ReceiveCollectibles({
     <Stack className={css(receiveTabStyle)}>
       <ReceiveItem
         address={btcAddressTaproot}
-        icon={<OrdinalIcon />}
+        icon={<OrdinalAvatarIcon />}
         dataTestId={HomePageSelectors.ReceiveBtcTaprootQrCodeBtn}
         onCopyAddress={() => copyToClipboard(btcAddressTaproot)}
         onClickQrCode={onClickQrOrdinal}
@@ -38,14 +38,14 @@ export function ReceiveCollectibles({
       />
       <ReceiveItem
         address={btcAddressNativeSegwit}
-        icon={<StampsIcon />}
+        icon={<StampsAvatarIcon />}
         onClickQrCode={onClickQrStamp}
         onCopyAddress={() => copyToClipboard(btcAddressNativeSegwit)}
         title="Bitcoin Stamp"
       />
       <ReceiveItem
         address={stxAddress}
-        icon={<StxAvatar />}
+        icon={<StxAvatarIcon />}
         onCopyAddress={() => copyToClipboard(stxAddress)}
         onClickQrCode={onClickQrStacksNft}
         title="Stacks NFT"

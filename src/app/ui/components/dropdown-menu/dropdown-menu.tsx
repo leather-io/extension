@@ -115,14 +115,10 @@ const Group: typeof RadixDropdownMenu.Group = forwardRef((props, ref) => (
 
 export const DropdownMenu = {
   Root: RadixDropdownMenu.Root,
-  Group: RadixDropdownMenu.Group,
   Portal: RadixDropdownMenu.Portal,
   Trigger,
   Button,
-  Portal: RadixDropdownMenu.Portal,
   Group,
-  Trigger,
-  Button,
   IconButton,
   Content,
   Label,

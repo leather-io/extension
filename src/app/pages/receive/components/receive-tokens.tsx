@@ -3,8 +3,8 @@ import { css } from 'leather-styles/css';
 import { Stack } from 'leather-styles/jsx';
 
 import { copyToClipboard } from '@app/common/utils/copy-to-clipboard';
-import { StxAvatar } from '@app/components/crypto-assets/stacks/components/stx-avatar';
-import { BtcIcon } from '@app/ui/components/avatar-icon/btc-icon';
+import { BtcAvatarIcon } from '@app/ui/components/avatar/btc-avatar-icon';
+import { StxAvatarIcon } from '@app/ui/components/avatar/stx-avatar-icon';
 
 import { receiveTabStyle } from '../receive-dialog';
 import { ReceiveItem } from './receive-item';
@@ -25,7 +25,7 @@ export function ReceiveTokens({
     <Stack className={css(receiveTabStyle)}>
       <ReceiveItem
         address={btcAddressNativeSegwit}
-        icon={<BtcIcon />}
+        icon={<BtcAvatarIcon />}
         dataTestId={HomePageSelectors.ReceiveBtcNativeSegwitQrCodeBtn}
         onCopyAddress={() => copyToClipboard(btcAddressNativeSegwit)}
         onClickQrCode={onClickQrBtc}
@@ -33,7 +33,7 @@ export function ReceiveTokens({
       />
       <ReceiveItem
         address={stxAddress}
-        icon={<StxAvatar />}
+        icon={<StxAvatarIcon />}
         dataTestId={HomePageSelectors.ReceiveStxQrCodeBtn}
         onCopyAddress={() => copyToClipboard(stxAddress)}
         onClickQrCode={onClickQrStx}
