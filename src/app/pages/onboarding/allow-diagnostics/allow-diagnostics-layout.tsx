@@ -56,10 +56,12 @@ export function AllowDiagnosticsLayout({
         </Footer>
       }
     >
-      <Stack py="space.04" gap="space.04" padding="space.05">
-        <Box height="32px">
+      <styled.header padding="space.04">
+        <Box px="space.02">
           <LogomarkIcon />
         </Box>
+      </styled.header>
+      <Stack p="space.05" gap="space.05">
         <styled.h1 textStyle="heading.03">Help us improve</styled.h1>
         <styled.p textStyle="heading.05">
           Leather would like to gather deidentified service usage data to help improve the
