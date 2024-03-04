@@ -34,7 +34,10 @@ export function Header({
 }: HeaderProps) {
   const logoItem = onGoBack || logo || account;
   return (
-    <styled.header p="space.04" bg={{ base: 'ink.background-primary', sm: 'transparent' }}>
+    <styled.header
+      p={variant === 'receive' ? 'space.05' : 'space.04'}
+      bg={{ base: 'ink.background-primary', sm: 'transparent' }}
+    >
       <Grid
         gridTemplateColumns="auto 4fr 1fr"
         // auto-fit seems good!
