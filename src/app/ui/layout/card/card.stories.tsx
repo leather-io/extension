@@ -16,9 +16,7 @@ export default meta;
 export function Card() {
   return (
     <Component
-      title="Some card"
-      text="This is a card"
-      action={
+      footer={
         <Button fullWidth onClick={() => null}>
           Create new account
         </Button>

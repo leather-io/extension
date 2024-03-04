@@ -7,9 +7,7 @@ interface ContainerLayoutProps {
   header: React.JSX.Element | null;
   variant: string;
 }
-//  better to keep this component for use in storybook demos
 export function ContainerLayout({ children, header, variant }: ContainerLayoutProps) {
-  //  no header still needs to have space I think - check on landing pages
   return (
     <Flex
       data-testid="main-container"
@@ -18,7 +16,6 @@ export function ContainerLayout({ children, header, variant }: ContainerLayoutPr
       width="100%"
       height="100%" // ??
       className={css(radixBaseCSS)}
-      // need to set this to secondary when variant is 'page'
       bg={variant !== 'home' ? 'ink.background-secondary' : undefined}
     >
       {header}

@@ -43,8 +43,8 @@ export function ChooseCryptoAsset() {
 
   return (
     <Card
-      title={
-        <styled.h1 textStyle="heading.03" p="space.04">
+      header={
+        <styled.h1 textStyle="heading.03" p="space.05">
           choose asset <br /> to send
         </styled.h1>
       }

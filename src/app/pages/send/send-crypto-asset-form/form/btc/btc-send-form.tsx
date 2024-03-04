@@ -16,7 +16,6 @@ import { BtcAvatarIcon } from '@app/ui/components/avatar/btc-avatar-icon';
 import { Button } from '@app/ui/components/button/button';
 import { Callout } from '@app/ui/components/callout/callout';
 import { AvailableBalance } from '@app/ui/components/containers/footers/available-balance';
-import { Footer } from '@app/ui/components/containers/footers/footer';
 import { Link } from '@app/ui/components/link/link';
 import { Card } from '@app/ui/layout/card/card';
 
@@ -71,8 +70,8 @@ export function BtcSendForm() {
           return (
             <Form>
               <Card
-                action={
-                  <Footer variant="card">
+                footer={
+                  <>
                     <Button
                       data-testid={SendCryptoAssetSelectors.PreviewSendTxBtn}
                       onClick={() => props.handleSubmit()}
@@ -81,7 +80,7 @@ export function BtcSendForm() {
                       Continue
                     </Button>
                     <AvailableBalance balance={formatMoney(btcBalance.balance)} />
-                  </Footer>
+                  </>
                 }
               >
                 <SendCryptoAssetFormLayout>

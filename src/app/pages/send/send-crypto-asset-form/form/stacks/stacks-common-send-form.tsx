@@ -19,7 +19,6 @@ import { HighFeeDialog } from '@app/features/dialogs/high-fee-dialog/high-fee-di
 import { useUpdatePersistedSendFormValues } from '@app/features/popup-send-form-restoration/use-update-persisted-send-form-values';
 import { Button } from '@app/ui/components/button/button';
 import { AvailableBalance } from '@app/ui/components/containers/footers/available-balance';
-import { Footer } from '@app/ui/components/containers/footers/footer';
 import { Link } from '@app/ui/components/link/link';
 import { Card } from '@app/ui/layout/card/card';
 
@@ -69,8 +68,8 @@ export function StacksCommonSendForm({
               <NonceSetter />
               <Form>
                 <Card
-                  action={
-                    <Footer variant="card">
+                  footer={
+                    <>
                       <Button
                         data-testid={SendCryptoAssetSelectors.PreviewSendTxBtn}
                         onClick={() => props.handleSubmit()}
@@ -79,7 +78,7 @@ export function StacksCommonSendForm({
                         Continue
                       </Button>
                       <AvailableBalance balance={formatMoney(availableTokenBalance)} />
-                    </Footer>
+                    </>
                   }
                 >
                   <SendCryptoAssetFormLayout>

@@ -1,26 +1,21 @@
 import type { ReactNode } from 'react';
 
-import { Flex, Stack, styled } from 'leather-styles/jsx';
+import { Flex } from 'leather-styles/jsx';
+
+import { Footer } from '@app/ui/components/containers/footers/footer';
 
 interface CardProps {
-  action?: ReactNode;
   children: ReactNode;
-  title?: ReactNode;
-  text?: string;
+  header?: ReactNode;
+  footer?: ReactNode;
 }
 
-export function Card({ action, children, title, text }: CardProps) {
+export function Card({ children, header, footer }: CardProps) {
   return (
     <Flex direction="column">
-      {(title || text) && (
-        <Stack gap="space.05" px="space.05">
-          {title}
-          {text && <styled.p textStyle="label.02">{text}</styled.p>}
-          {children}
-        </Stack>
-      )}
-      {!title && children}
-      {action}
+      {header}
+      {children}
+      {footer && <Footer variant="card">{footer}</Footer>}
     </Flex>
   );
 }
