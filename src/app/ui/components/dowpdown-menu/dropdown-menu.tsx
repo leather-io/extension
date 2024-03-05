@@ -72,12 +72,15 @@ const Label: typeof RadixDropdownMenu.Label = forwardRef((props, ref) => (
   <RadixDropdownMenu.Label className={dropdownMenuLabelStyles} ref={ref} {...props} />
 ));
 
+const dropdownItemStyles = css({ p: 'space.03' });
 const Item: typeof RadixDropdownMenu.Item = forwardRef((props, ref) => (
-  <RadixDropdownMenu.Item
-    className={css(itemBaseStyles, itemInteractiveStyles)}
-    ref={ref}
-    {...props}
-  />
+  <styled.div className={dropdownItemStyles}>
+    <RadixDropdownMenu.Item
+      ref={ref}
+      className={css(itemBaseStyles, itemInteractiveStyles)}
+      {...props}
+    />
+  </styled.div>
 ));
 
 const dropdownMenuSeparatorStyles = css({
