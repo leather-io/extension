@@ -32,10 +32,12 @@ export function RecipientAddressTypeField({
   return (
     <Box width="100%" position="relative" mb="space.02">
       <Input.Root shrink>
-        <Box pos="absolute" right="space.03" zIndex={15} top="9px">
-          {rightLabel}
-        </Box>
-        <Input.Label>{topInputOverlay}</Input.Label>
+        {rightLabel && (
+          <Box pos="absolute" right="space.03" zIndex={15} top="9px">
+            {rightLabel}
+          </Box>
+        )}
+        {topInputOverlay && <Input.Label>{topInputOverlay}</Input.Label>}
         <Input.Field
           data-testid={SendCryptoAssetSelectors.RecipientFieldInput}
           placeholder="Recipient"

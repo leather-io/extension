@@ -18,7 +18,7 @@ import { useSendInscriptionState } from './components/send-inscription-container
 import { useSendInscriptionForm } from './hooks/use-send-inscription-form';
 import { SendInscriptionFormLoader } from './send-indcription-form-loader';
 
-export const recipeintFieldName = 'recipient';
+export const recipientFieldName = 'recipient';
 
 export function SendInscriptionForm() {
   const navigate = useNavigate();
@@ -30,7 +30,7 @@ export function SendInscriptionForm() {
     <Formik
       validationSchema={validationSchema}
       initialValues={{
-        [recipeintFieldName]: recipient,
+        [recipientFieldName]: recipient,
         inscription,
         feeRate: feeRates.hourFee.toNumber(),
       }}
@@ -49,7 +49,7 @@ export function SendInscriptionForm() {
                 <Flex flexDirection="column" mt="space.05" width="100%">
                   <CollectibleAsset icon={<OrdinalAvatarIcon />} name="Ordinal inscription" />
                   <RecipientAddressTypeField
-                    name={recipeintFieldName}
+                    name={recipientFieldName}
                     label="To"
                     placeholder="Enter recipient address"
                   />

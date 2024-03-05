@@ -11,6 +11,12 @@ export interface DetermineUtxosForSpendArgs {
   utxos: UtxoResponseItem[];
 }
 
+export class InsufficientFundsError extends Error {
+  constructor() {
+    super('Insufficient funds');
+  }
+}
+
 export function determineUtxosForSpendAll({
   amount,
   feeRate,
@@ -71,7 +77,7 @@ export function determineUtxosForSpend({
     neededUtxos.push(utxo);
   }
 
-  if (!sizeInfo) throw new Error('Transaction size must be defined');
+  if (!sizeInfo) throw new InsufficientFundsError();
 
   const fee = Math.ceil(sizeInfo.txVBytes * feeRate);
 

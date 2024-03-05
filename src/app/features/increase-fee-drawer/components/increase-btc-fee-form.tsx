@@ -1,6 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 
-import { Formik, useField } from 'formik';
+import { Formik } from 'formik';
 import { Stack } from 'leather-styles/jsx';
 
 import { BitcoinTx } from '@shared/models/transactions/bitcoin-transaction.model';
@@ -10,31 +10,19 @@ import { useBtcAssetBalance } from '@app/common/hooks/balance/btc/use-btc-balanc
 import { formatMoney } from '@app/common/money/format-money';
 import { btcToSat } from '@app/common/money/unit-conversion';
 import { getBitcoinTxValue } from '@app/common/transactions/bitcoin/utils';
-import { BitcoinCustomFeeFiat } from '@app/components/bitcoin-custom-fee/bitcoin-custom-fee-fiat';
+import { BitcoinCustomFeeInput } from '@app/components/bitcoin-custom-fee/bitcoin-custom-fee-input';
 import { BitcoinTransactionItem } from '@app/components/bitcoin-transaction-item/bitcoin-transaction-item';
 import { LoadingSpinner } from '@app/components/loading-spinner';
 import { useCurrentAccountNativeSegwitIndexZeroSigner } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
-import { Input } from '@app/ui/components/input/input';
 import { Caption } from '@app/ui/components/typography/caption';
 
 import { useBtcIncreaseFee } from '../hooks/use-btc-increase-fee';
 import { IncreaseFeeActions } from './increase-fee-actions';
 
-const feeInputLabel = 'sats/vB';
-
-function BitcoinFeeIncreaseField() {
-  const [field] = useField('feeRate');
-  return (
-    <Input.Root>
-      <Input.Field placeholder={feeInputLabel} {...field} />
-      <Input.Label>Fee rate</Input.Label>
-    </Input.Root>
-  );
-}
-
 interface IncreaseBtcFeeFormProps {
   btcTx: BitcoinTx;
 }
+
 export function IncreaseBtcFeeForm({ btcTx }: IncreaseBtcFeeFormProps) {
   const nativeSegwitSigner = useCurrentAccountNativeSegwitIndexZeroSigner();
   const navigate = useNavigate();
@@ -63,13 +51,14 @@ export function IncreaseBtcFeeForm({ btcTx }: IncreaseBtcFeeFormProps) {
         {btcTx && <BitcoinTransactionItem transaction={btcTx} />}
         <Stack gap="space.04">
           <Stack gap="space.01">
-            <BitcoinFeeIncreaseField />
-            <BitcoinCustomFeeFiat
-              recipient={recipient}
-              isSendingMax={false}
+            <BitcoinCustomFeeInput
               amount={Math.abs(
                 btcToSat(getBitcoinTxValue(currentBitcoinAddress, btcTx)).toNumber()
               )}
+              isSendingMax={false}
+              recipient={recipient}
+              hasInsufficientBalanceError={false}
+              customFeeInitialValue={initialFeeRate}
             />
           </Stack>
 
