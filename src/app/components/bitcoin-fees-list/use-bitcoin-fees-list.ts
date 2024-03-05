@@ -21,10 +21,14 @@ function getFeeForList(
   determineUtxosForFeeArgs: DetermineUtxosForSpendArgs,
   isSendingMax?: boolean
 ) {
-  const { fee } = isSendingMax
-    ? determineUtxosForSpendAll(determineUtxosForFeeArgs)
-    : determineUtxosForSpend(determineUtxosForFeeArgs);
-  return fee;
+  try {
+    const { fee } = isSendingMax
+      ? determineUtxosForSpendAll(determineUtxosForFeeArgs)
+      : determineUtxosForSpend(determineUtxosForFeeArgs);
+    return fee;
+  } catch (error) {
+    return null;
+  }
 }
 
 interface UseBitcoinFeesListArgs {
@@ -75,36 +79,46 @@ export function useBitcoinFeesList({
       feeRate: feeRates.hourFee.toNumber(),
     };
 
+    const feesArr = [];
+
     const highFeeValue = getFeeForList(determineUtxosForHighFeeArgs, isSendingMax);
     const standardFeeValue = getFeeForList(determineUtxosForStandardFeeArgs, isSendingMax);
     const lowFeeValue = getFeeForList(determineUtxosForLowFeeArgs, isSendingMax);
 
-    return [
-      {
+    if (highFeeValue) {
+      feesArr.push({
         label: BtcFeeType.High,
         value: highFeeValue,
         btcValue: formatMoneyPadded(createMoney(highFeeValue, 'BTC')),
         time: btcTxTimeMap.fastestFee,
         fiatValue: getFiatFeeValue(highFeeValue),
         feeRate: feeRates.fastestFee.toNumber(),
-      },
-      {
+      });
+    }
+
+    if (standardFeeValue) {
+      feesArr.push({
         label: BtcFeeType.Standard,
         value: standardFeeValue,
         btcValue: formatMoneyPadded(createMoney(standardFeeValue, 'BTC')),
         time: btcTxTimeMap.halfHourFee,
         fiatValue: getFiatFeeValue(standardFeeValue),
         feeRate: feeRates.halfHourFee.toNumber(),
-      },
-      {
+      });
+    }
+
+    if (lowFeeValue) {
+      feesArr.push({
         label: BtcFeeType.Low,
         value: lowFeeValue,
         btcValue: formatMoneyPadded(createMoney(lowFeeValue, 'BTC')),
         time: btcTxTimeMap.hourFee,
         fiatValue: getFiatFeeValue(lowFeeValue),
         feeRate: feeRates.hourFee.toNumber(),
-      },
-    ];
+      });
+    }
+
+    return feesArr;
   }, [feeRates, utxos, isSendingMax, balance.amount, amount.amount, recipient, btcMarketData]);
 
   return {

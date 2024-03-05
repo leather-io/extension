@@ -71,7 +71,6 @@ export function useBrc20SendForm({
       .string()
       .concat(btcAddressValidator())
       .concat(btcAddressNetworkValidator(currentNetwork.chain.bitcoin.bitcoinNetwork)),
-    // .concat(notCurrentAddressValidator(currentAccountBtcAddress || '')),
   });
   const { onFormStateChange } = useUpdatePersistedSendFormValues();
 

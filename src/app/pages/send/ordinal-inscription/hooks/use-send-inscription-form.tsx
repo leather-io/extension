@@ -11,6 +11,7 @@ import { isError } from '@shared/utils';
 import { FormErrorMessages } from '@app/common/error-messages';
 import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
 import { formFeeRowValue } from '@app/common/send/utils';
+import { InsufficientFundsError } from '@app/common/transactions/bitcoin/coinselect/local-coin-selection';
 import {
   btcAddressNetworkValidator,
   btcAddressValidator,
@@ -20,7 +21,7 @@ import { useSignBitcoinTx } from '@app/store/accounts/blockchain/bitcoin/bitcoin
 import { useCurrentNetwork } from '@app/store/networks/networks.selectors';
 
 import { useSendInscriptionState } from '../components/send-inscription-container';
-import { recipeintFieldName } from '../send-inscription-form';
+import { recipientFieldName } from '../send-inscription-form';
 import { useGenerateUnsignedOrdinalTx } from './use-generate-ordinal-tx';
 
 export function useSendInscriptionForm() {
@@ -65,6 +66,13 @@ export function useSendInscriptionForm() {
         }
       } catch (error) {
         void analytics.track('ordinals_dot_com_unavailable', { error });
+
+        if (error instanceof InsufficientFundsError) {
+          setShowError(
+            'Insufficient funds to cover fee. Deposit some BTC to your Native Segwit address.'
+          );
+          return;
+        }
 
         let message = 'Unable to establish if utxo has multiple inscriptions';
         if (isError(error)) {
@@ -127,7 +135,7 @@ export function useSendInscriptionForm() {
     },
 
     validationSchema: yup.object({
-      [recipeintFieldName]: yup
+      [recipientFieldName]: yup
         .string()
         .required(FormErrorMessages.AddressRequired)
         .concat(btcAddressValidator())

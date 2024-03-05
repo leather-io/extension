@@ -1,6 +1,7 @@
-import { useMemo } from 'react';
+import { useCallback, useMemo } from 'react';
 
 import { BtcFeeType, btcTxTimeMap } from '@shared/models/fees/bitcoin-fees.model';
+import type { SupportedInscription } from '@shared/models/inscription.model';
 import { createMoney } from '@shared/models/money.model';
 
 import { baseCurrencyAmountInQuote } from '@app/common/money/calculate-money';
@@ -12,18 +13,43 @@ import { useAverageBitcoinFeeRates } from '@app/query/bitcoin/fees/fee-estimates
 import { useCryptoCurrencyMarketData } from '@app/query/common/market-data/market-data.hooks';
 import { useCurrentAccountNativeSegwitSigner } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
 
-import { selectInscriptionTransferCoins } from '../coinselect/select-inscription-coins';
+import { useGenerateUnsignedOrdinalTx } from './use-generate-ordinal-tx';
 
 interface UseSendInscriptionFeesListArgs {
   recipient: string;
   utxo: UtxoWithDerivationPath;
+  inscription: SupportedInscription;
 }
-export function useSendInscriptionFeesList({ recipient, utxo }: UseSendInscriptionFeesListArgs) {
+
+export function useSendInscriptionFeesList({
+  recipient,
+  utxo,
+  inscription,
+}: UseSendInscriptionFeesListArgs) {
   const createNativeSegwitSigner = useCurrentAccountNativeSegwitSigner();
   const { data: nativeSegwitUtxos } = useCurrentNativeSegwitUtxos();
 
   const btcMarketData = useCryptoCurrencyMarketData('BTC');
   const { data: feeRates, isLoading } = useAverageBitcoinFeeRates();
+
+  const { coverFeeFromAdditionalUtxos } = useGenerateUnsignedOrdinalTx(utxo);
+
+  const getTransactionFee = useCallback(
+    (feeRate: number) => {
+      try {
+        const tx = coverFeeFromAdditionalUtxos({
+          recipient,
+          feeRate,
+          inscription,
+        });
+
+        return tx?.txFee;
+      } catch (error) {
+        return null;
+      }
+    },
+    [coverFeeFromAdditionalUtxos, recipient, inscription]
+  );
 
   const feesList: FeesListItem[] = useMemo(() => {
     function getFiatFeeValue(fee: number) {
@@ -36,63 +62,47 @@ export function useSendInscriptionFeesList({ recipient, utxo }: UseSendInscripti
 
     if (!feeRates || !nativeSegwitUtxos || !nativeSegwitSigner) return [];
 
-    const highFeeResult = selectInscriptionTransferCoins({
-      recipient,
-      inscriptionInput: utxo,
-      nativeSegwitUtxos,
-      changeAddress: nativeSegwitSigner.payment.address!,
-      feeRate: feeRates.fastestFee.toNumber(),
-    });
+    const highFeeValue = getTransactionFee(feeRates.fastestFee.toNumber());
+    const standardFeeValue = getTransactionFee(feeRates.halfHourFee.toNumber());
+    const lowFeeValue = getTransactionFee(feeRates.hourFee.toNumber());
 
-    const standardFeeResult = selectInscriptionTransferCoins({
-      recipient,
-      inscriptionInput: utxo,
-      nativeSegwitUtxos,
-      changeAddress: nativeSegwitSigner.payment.address!,
-      feeRate: feeRates.halfHourFee.toNumber(),
-    });
+    const feesArr = [];
 
-    const lowFeeResult = selectInscriptionTransferCoins({
-      recipient,
-      inscriptionInput: utxo,
-      nativeSegwitUtxos,
-      changeAddress: nativeSegwitSigner.payment.address!,
-      feeRate: feeRates.hourFee.toNumber(),
-    });
-
-    if (!highFeeResult.success || !standardFeeResult.success || !lowFeeResult.success) return [];
-
-    const { txFee: highFeeValue } = highFeeResult;
-    const { txFee: standardFeeValue } = standardFeeResult;
-    const { txFee: lowFeeValue } = lowFeeResult;
-
-    return [
-      {
+    if (highFeeValue) {
+      feesArr.push({
         label: BtcFeeType.High,
         value: highFeeValue,
         btcValue: formatMoneyPadded(createMoney(highFeeValue, 'BTC')),
         time: btcTxTimeMap.fastestFee,
         fiatValue: getFiatFeeValue(highFeeValue),
         feeRate: feeRates.fastestFee.toNumber(),
-      },
-      {
+      });
+    }
+
+    if (standardFeeValue) {
+      feesArr.push({
         label: BtcFeeType.Standard,
         value: standardFeeValue,
         btcValue: formatMoneyPadded(createMoney(standardFeeValue, 'BTC')),
         time: btcTxTimeMap.halfHourFee,
         fiatValue: getFiatFeeValue(standardFeeValue),
         feeRate: feeRates.halfHourFee.toNumber(),
-      },
-      {
+      });
+    }
+
+    if (lowFeeValue) {
+      feesArr.push({
         label: BtcFeeType.Low,
         value: lowFeeValue,
         btcValue: formatMoneyPadded(createMoney(lowFeeValue, 'BTC')),
         time: btcTxTimeMap.hourFee,
         fiatValue: getFiatFeeValue(lowFeeValue),
         feeRate: feeRates.hourFee.toNumber(),
-      },
-    ];
-  }, [createNativeSegwitSigner, feeRates, nativeSegwitUtxos, recipient, utxo, btcMarketData]);
+      });
+    }
+
+    return feesArr;
+  }, [feeRates, nativeSegwitUtxos, btcMarketData, createNativeSegwitSigner, getTransactionFee]);
 
   return {
     feesList,
