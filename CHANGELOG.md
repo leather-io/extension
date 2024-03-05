@@ -1,3 +1,33 @@
+## [6.29.0](https://github.com/leather-wallet/extension/compare/v6.28.0...v6.29.0) (2024-03-05)
+
+
+### Features
+
+* add bestinslot api key ([105fedb](https://github.com/leather-wallet/extension/commit/105fedb4203b223713487a649575b42a1c15ac0a))
+* avatar ([4fdeea4](https://github.com/leather-wallet/extension/commit/4fdeea4de139ee2b671fd180ff2f269848b9ba73))
+* callout, closes [#4311](https://github.com/leather-wallet/extension/issues/4311) ([4214598](https://github.com/leather-wallet/extension/commit/4214598fce39f8859775eeefa7846733a6c756b0))
+* upgrade brc-20 api to bestinslot v3, closes [#4970](https://github.com/leather-wallet/extension/issues/4970) ([bf58f6d](https://github.com/leather-wallet/extension/commit/bf58f6d04f1d5a9b2b0d2e6380f90cfae9c63f02))
+
+
+### Bug Fixes
+
+* brc-20 pending transactions, closes [#4990](https://github.com/leather-wallet/extension/issues/4990) ([dbd33ba](https://github.com/leather-wallet/extension/commit/dbd33ba7a24db86b0d25546c01eb23aa1f5f9eac))
+* dropdown item padding ([f24f0a2](https://github.com/leather-wallet/extension/commit/f24f0a20308c1604dfe72e0e84fcde0bd11cb50e))
+* item interactive margins ([0b565dd](https://github.com/leather-wallet/extension/commit/0b565ddb0396a3ed448599bd68b4e854285d65b6))
+* **ledger:** stacks message signing, closes [#4945](https://github.com/leather-wallet/extension/issues/4945) ([cc19e40](https://github.com/leather-wallet/extension/commit/cc19e40e48589f632dcd29e768f20089fbe38121))
+* recipient account margins ([95278ac](https://github.com/leather-wallet/extension/commit/95278ace3ef9ee2dda53ab207ab33788eb2faa65))
+* settings btn ui ([b3146a2](https://github.com/leather-wallet/extension/commit/b3146a2333edaf1ce43c414f7840df79f6e1caee))
+* warning banner, add fake app warning ([41a47ec](https://github.com/leather-wallet/extension/commit/41a47ec2ac7482440bd2abd64b0d6887e64bc875))
+
+
+### Internal
+
+* **dropdown:** unstyled trigger, separate button ([38146b3](https://github.com/leather-wallet/extension/commit/38146b3ee5c5a02edbbf5b7f908c0bb163c7b345))
+* **dropdown:** update animations ([6656e05](https://github.com/leather-wallet/extension/commit/6656e059c3045434461226ad16372a84dd9f0d49))
+* item interactive ([758d65d](https://github.com/leather-wallet/extension/commit/758d65ddab8b1a9197a5419ab637699272062920))
+* post-release merge back ([a1fdbd2](https://github.com/leather-wallet/extension/commit/a1fdbd2d990406ccaec8ff369181bd150f9f951d))
+* **send-form:** remove custom dropdown type ([5b6bbfc](https://github.com/leather-wallet/extension/commit/5b6bbfc301cfe501bcf5dd49ac519a17e1f2754b))
+
 ## [6.28.0](https://github.com/leather-wallet/extension/compare/v6.27.2...v6.28.0) (2024-02-26)
 
 
