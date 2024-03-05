@@ -7,14 +7,15 @@ import { styled } from 'leather-styles/jsx';
 import { PersistGate } from 'redux-persist/integration/react';
 
 import { queryClient } from '@app/common/persistence';
+import { ThemeSwitcherProvider } from '@app/common/theme-provider';
 import { FullPageLoadingSpinner } from '@app/components/loading-spinner';
 import { Devtools } from '@app/features/devtool/devtools';
 import { AppErrorBoundary } from '@app/features/errors/app-error-boundary';
+import { HeadProvider } from '@app/features/html-head/head-provider';
+import { ToastsProvider } from '@app/features/toasts/toasts-provider';
 import { AppRoutes } from '@app/routes/app-routes';
 import { persistor, store } from '@app/store';
 
-import { ThemeSwitcherProvider } from './common/theme-provider';
-import { HeadProvider } from './features/html-head/head-provider';
 import './index.css';
 
 const reactQueryDevToolsEnabled = process.env.REACT_QUERY_DEVTOOLS_ENABLED === 'true';
@@ -26,16 +27,18 @@ export function App() {
         <HeadProvider />
         {/* TODO: this works but investigate importing radixBaseCSS in panda layer config */}
         <ThemeSwitcherProvider>
-          <styled.div css={radixBaseCSS}>
-            <QueryClientProvider client={queryClient}>
-              <Suspense fallback={<FullPageLoadingSpinner />}>
-                <AppErrorBoundary>
-                  <AppRoutes />
-                </AppErrorBoundary>
-                {reactQueryDevToolsEnabled && <Devtools />}
-              </Suspense>
-            </QueryClientProvider>
-          </styled.div>
+          <ToastsProvider>
+            <styled.div css={radixBaseCSS}>
+              <QueryClientProvider client={queryClient}>
+                <Suspense fallback={<FullPageLoadingSpinner />}>
+                  <AppErrorBoundary>
+                    <AppRoutes />
+                  </AppErrorBoundary>
+                  {reactQueryDevToolsEnabled && <Devtools />}
+                </Suspense>
+              </QueryClientProvider>
+            </styled.div>
+          </ToastsProvider>
         </ThemeSwitcherProvider>
       </PersistGate>
     </ReduxProvider>

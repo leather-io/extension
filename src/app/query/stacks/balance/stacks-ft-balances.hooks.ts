@@ -1,5 +1,4 @@
 import { useMemo } from 'react';
-import { toast } from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
 
 import BigNumber from 'bignumber.js';
@@ -7,6 +6,7 @@ import BigNumber from 'bignumber.js';
 import type { StacksFungibleTokenAssetBalance } from '@shared/models/crypto-asset-balance.model';
 
 import { formatContractId } from '@app/common/utils';
+import { useToast } from '@app/features/toasts/use-toast';
 import { useCurrentStacksAccount } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
 
 import { useGetFungibleTokenMetadataListQuery } from '../tokens/fungible-tokens/fungible-token-metadata.query';
@@ -58,9 +58,11 @@ export function useStacksFungibleTokenAssetBalancesWithMetadata(address: string)
 }
 
 export function useStacksFungibleTokenAssetBalance(contractId: string) {
+  const toast = useToast();
   const account = useCurrentStacksAccount();
   const navigate = useNavigate();
   const assetBalances = useStacksFungibleTokenAssetBalancesWithMetadata(account?.address ?? '');
+
   return useMemo(() => {
     const balance = assetBalances.find(assetBalance =>
       assetBalance.asset.contractId.includes(contractId)
@@ -70,7 +72,7 @@ export function useStacksFungibleTokenAssetBalance(contractId: string) {
       navigate('..');
     }
     return balance ?? createStacksFtCryptoAssetBalanceTypeWrapper(new BigNumber(0), contractId);
-  }, [assetBalances, contractId, navigate]);
+  }, [assetBalances, contractId, navigate, toast]);
 }
 
 export function useTransferableStacksFungibleTokenAssetBalances(

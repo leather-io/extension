@@ -1,4 +1,3 @@
-import { toast } from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
 
 import * as btc from '@scure/btc-signer';
@@ -21,6 +20,7 @@ import {
 } from '@app/common/transactions/bitcoin/utils';
 import { MAX_FEE_RATE_MULTIPLIER } from '@app/components/bitcoin-custom-fee/hooks/use-bitcoin-custom-fee';
 import { useBitcoinFeesList } from '@app/components/bitcoin-fees-list/use-bitcoin-fees-list';
+import { useToast } from '@app/features/toasts/use-toast';
 import { useCurrentNativeSegwitUtxos } from '@app/query/bitcoin/address/utxos-by-address.hooks';
 import { useBitcoinBroadcastTransaction } from '@app/query/bitcoin/transaction/use-bitcoin-broadcast-transaction';
 import { useBitcoinScureLibNetworkConfig } from '@app/store/accounts/blockchain/bitcoin/bitcoin-keychain';
@@ -28,6 +28,7 @@ import { useSignBitcoinTx } from '@app/store/accounts/blockchain/bitcoin/bitcoin
 import { useCurrentAccountNativeSegwitIndexZeroSigner } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
 
 export function useBtcIncreaseFee(btcTx: BitcoinTx) {
+  const toast = useToast();
   const navigate = useNavigate();
   const networkMode = useBitcoinScureLibNetworkConfig();
   const analytics = useAnalytics();

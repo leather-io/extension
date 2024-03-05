@@ -1,5 +1,4 @@
 import { useCallback, useEffect } from 'react';
-import { toast } from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
 
 import BigNumber from 'bignumber.js';
@@ -18,6 +17,7 @@ import { stxFeeValidator } from '@app/common/validation/forms/fee-validators';
 import { LoadingSpinner } from '@app/components/loading-spinner';
 import { StacksTransactionItem } from '@app/components/stacks-transaction-item/stacks-transaction-item';
 import { useStacksBroadcastTransaction } from '@app/features/stacks-transaction-request/hooks/use-stacks-broadcast-transaction';
+import { useToast } from '@app/features/toasts/use-toast';
 import { useCurrentStacksAccountBalances } from '@app/query/stacks/balance/stx-balance.hooks';
 import { useSubmittedTransactionsActions } from '@app/store/submitted-transactions/submitted-transactions.hooks';
 import { useRawDeserializedTxState, useRawTxIdState } from '@app/store/transactions/raw.hooks';
@@ -28,6 +28,7 @@ import { IncreaseFeeActions } from './increase-fee-actions';
 import { IncreaseFeeField } from './increase-fee-field';
 
 export function IncreaseStxFeeForm() {
+  const toast = useToast();
   const refreshAccountData = useRefreshAllAccountData();
   const tx = useSelectedTx();
   const navigate = useNavigate();
@@ -43,9 +44,9 @@ export function IncreaseStxFeeForm() {
   useEffect(() => {
     if (tx?.tx_status !== 'pending' && rawTx) {
       setTxId(null);
-      toast('Your transaction went through! No need to speed it up.');
+      toast.info('Your transaction went through! No need to speed it up.');
     }
-  }, [rawTx, tx?.tx_status, setTxId]);
+  }, [rawTx, tx?.tx_status, setTxId, toast]);
 
   const onSubmit = useCallback(
     async (values: any) => {

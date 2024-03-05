@@ -1,5 +1,4 @@
 import { useMemo, useState } from 'react';
-import toast from 'react-hot-toast';
 
 import { PaymentTypes, RpcErrorCode } from '@btckit/types';
 import * as btc from '@scure/btc-signer';
@@ -14,6 +13,7 @@ import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
 import { useDefaultRequestParams } from '@app/common/hooks/use-default-request-search-params';
 import { initialSearchParams } from '@app/common/initial-search-params';
 import { createDelay } from '@app/common/utils';
+import { useToast } from '@app/features/toasts/use-toast';
 import { useSignBitcoinTx } from '@app/store/accounts/blockchain/bitcoin/bitcoin.hooks';
 import {
   useCurrentAccountNativeSegwitSigner,
@@ -52,6 +52,7 @@ function useSignBip322MessageFactory({ address, signPsbt }: SignBip322MessageFac
   const network = useCurrentNetwork();
   const analytics = useAnalytics();
   const [isLoading, setIsLoading] = useState(false);
+  const toast = useToast();
 
   const { tabId, origin, requestId, message } = useRpcSignBitcoinMessage();
 
