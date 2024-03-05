@@ -89,20 +89,12 @@ interface BestinslotBrc20AddressBalanceResponse {
 }
 
 class BestinslotApi {
-  url = 'https://api.bestinslot.xyz/v3';
-  private defaultOptions = {
-    headers: {
-      'x-api-key': `${process.env.BESTINSLOT_API_KEY}`,
-    },
-  };
+  url = 'https://leatherapi.bestinslot.xyz/v3';
   constructor(public configuration: Configuration) {}
 
   async getInscriptionsByTransactionId(id: string) {
     const resp = await axios.get<BestinslotInscriptionsByTxIdResponse>(
-      `${this.url}/inscription/in_transaction?tx_id=${id}`,
-      {
-        ...this.defaultOptions,
-      }
+      `${this.url}/inscription/in_transaction?tx_id=${id}`
     );
 
     return resp.data;
@@ -110,30 +102,21 @@ class BestinslotApi {
 
   async getInscriptionById(id: string) {
     const resp = await axios.get<BestinslotInscriptionByIdResponse>(
-      `${this.url}/inscription/single_info_id?inscription_id=${id}`,
-      {
-        ...this.defaultOptions,
-      }
+      `${this.url}/inscription/single_info_id?inscription_id=${id}`
     );
     return resp.data;
   }
 
   async getBrc20Balance(address: string) {
     const resp = await axios.get<BestinslotBrc20AddressBalanceResponse>(
-      `${this.url}/brc20/wallet_balances?address=${address}`,
-      {
-        ...this.defaultOptions,
-      }
+      `${this.url}/brc20/wallet_balances?address=${address}`
     );
     return resp.data;
   }
 
   async getBrc20TickerData(ticker: string) {
     const resp = await axios.get<Brc20TickerResponse>(
-      `${this.url}/brc20/ticker_info?ticker=${ticker}`,
-      {
-        ...this.defaultOptions,
-      }
+      `${this.url}/brc20/ticker_info?ticker=${ticker}`
     );
     return resp.data;
   }
