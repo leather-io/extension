@@ -25,7 +25,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/36</span>
+                <span class='fraction'>0/35</span>
             </div>
         
             
@@ -46,7 +46,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/33</span>
+                <span class='fraction'>0/32</span>
             </div>
         
             
@@ -256,7 +256,6 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -292,6 +291,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -314,7 +314,6 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { useMemo } from 'react';
-import { useSearchParams } from 'react-router-dom';
 &nbsp;
 import { RpcErrorCode } from '@btckit/types';
 import { StacksNetwork } from '@stacks/network';
@@ -330,6 +329,7 @@ import { closeWindow } from '@shared/utils';
 &nbsp;
 import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
 import { useDefaultRequestParams } from '@app/common/hooks/use-default-request-search-params';
+import { initialSearchParams } from '@app/common/initial-search-params';
 import {
   StructuredPayload,
   Utf8Payload,
@@ -374,17 +374,16 @@ export function <span class="fstat-no" title="function not covered" >useRpcStack
 }
 &nbsp;
 export function <span class="fstat-no" title="function not covered" >useRpcSignStacksMessageParams() {</span>
-  const [searchParams] = <span class="cstat-no" title="statement not covered" >useSearchParams();</span>
   const { origin, tabId } = <span class="cstat-no" title="statement not covered" >useDefaultRequestParams();</span>
-  const requestId = <span class="cstat-no" title="statement not covered" >searchParams.get('requestId');</span>
-  const network = <span class="cstat-no" title="statement not covered" >searchParams.get('network');</span>
-  const appName = <span class="cstat-no" title="statement not covered" >searchParams.get('appName');</span>
-  const message = <span class="cstat-no" title="statement not covered" >searchParams.get('message');</span>
-  const messageType = <span class="cstat-no" title="statement not covered" >searchParams.get('messageType');</span>
-  const domain = <span class="cstat-no" title="statement not covered" >searchParams.get('domain');</span>
+  const requestId = <span class="cstat-no" title="statement not covered" >initialSearchParams.get('requestId');</span>
+  const network = <span class="cstat-no" title="statement not covered" >initialSearchParams.get('network');</span>
+  const appName = <span class="cstat-no" title="statement not covered" >initialSearchParams.get('appName');</span>
+  const message = <span class="cstat-no" title="statement not covered" >initialSearchParams.get('message');</span>
+  const messageType = <span class="cstat-no" title="statement not covered" >initialSearchParams.get('messageType');</span>
+  const domain = <span class="cstat-no" title="statement not covered" >initialSearchParams.get('domain');</span>
 &nbsp;
 <span class="cstat-no" title="statement not covered" >  if (!requestId || !message || !origin || !isSignableMessageType(messageType))</span>
-<span class="cstat-no" title="statement not covered" >    throw new Error('Invalid params');</span>
+<span class="cstat-no" title="statement not covered" >    throw new Error('Missing required parameters for Stacks signing message request');</span>
 &nbsp;
 <span class="cstat-no" title="statement not covered" >  return useMemo(</span>
 <span class="fstat-no" title="function not covered" >    () =&gt; (<span class="cstat-no" title="statement not covered" >{</span></span>
@@ -408,7 +407,7 @@ export function <span class="fstat-no" title="function not covered" >useRpcSignS
 <span class="cstat-no" title="statement not covered" >  if (!tabId) <span class="cstat-no" title="statement not covered" >throw new Error('Requests can only be made with corresponding tab');</span></span>
 &nbsp;
   const { isLoading, signMessage } = <span class="cstat-no" title="statement not covered" >useSignStacksMessage({</span>
-    onSignMessageCompleted: <span class="fstat-no" title="function not covered" >messageSignature =&gt; {</span>
+<span class="fstat-no" title="function not covered" >    onSignMessageCompleted(m</span>essageSignature) {
 <span class="cstat-no" title="statement not covered" >      chrome.tabs.sendMessage(</span>
         tabId,
         makeRpcSuccessResponse('stx_signMessage', {
@@ -418,6 +417,7 @@ export function <span class="fstat-no" title="function not covered" >useRpcSignS
       );
 <span class="cstat-no" title="statement not covered" >      closeWindow();</span>
     },
+    onSignMessageCancelled: onCancelMessageSigning,
   });
 &nbsp;
   function <span class="fstat-no" title="function not covered" >onCancelMessageSigning() {</span>
@@ -445,7 +445,7 @@ export function <span class="fstat-no" title="function not covered" >useRpcSignS
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-02-26T21:03:03.062Z
+                at 2024-03-05T11:43:05.390Z
             </div>
         <script src="../../../../../prettify.js"></script>
         <script>

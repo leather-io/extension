@@ -220,7 +220,9 @@
 <a name='L155'></a><a href='#L155'>155</a>
 <a name='L156'></a><a href='#L156'>156</a>
 <a name='L157'></a><a href='#L157'>157</a>
-<a name='L158'></a><a href='#L158'>158</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L158'></a><a href='#L158'>158</a>
+<a name='L159'></a><a href='#L159'>159</a>
+<a name='L160'></a><a href='#L160'>160</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -261,6 +263,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -310,6 +313,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -410,21 +414,22 @@ import { useSendBitcoinAssetContextState } from '../../family/bitcoin/components
 function <span class="fstat-no" title="function not covered" >useBrc20ChooseFeeState() {</span>
   const location = <span class="cstat-no" title="statement not covered" >useLocation();</span>
 <span class="cstat-no" title="statement not covered" >  return {</span>
-    tick: get(location.state, 'tick') as string,
+    ticker: get(location.state, 'ticker') as string,
     amount: get(location.state, 'amount') as string,
     recipient: get(location.state, 'recipient') as string,
     utxos: get(location.state, 'utxos') as UtxoResponseItem[],
+    holderAddress: get(location.state, 'holderAddress') as string,
   };
 }
 &nbsp;
 export function <span class="fstat-no" title="function not covered" >BrcChooseFee() {</span>
   const navigate = <span class="cstat-no" title="statement not covered" >useNavigate();</span>
-  const { amount, recipient, tick, utxos } = <span class="cstat-no" title="statement not covered" >useBrc20ChooseFeeState();</span>
+  const { amount, recipient, ticker, utxos, holderAddress } = <span class="cstat-no" title="statement not covered" >useBrc20ChooseFeeState();</span>
   const generateTx = <span class="cstat-no" title="statement not covered" >useGenerateUnsignedNativeSegwitSingleRecipientTx();</span>
   const signTx = <span class="cstat-no" title="statement not covered" >useSignBitcoinTx();</span>
   const { selectedFeeType, setSelectedFeeType } = <span class="cstat-no" title="statement not covered" >useSendBitcoinAssetContextState();</span>
-  const { initiateTransfer } = <span class="cstat-no" title="statement not covered" >useBrc20Transfers();</span>
-  const amountAsMoney = <span class="cstat-no" title="statement not covered" >createMoney(Number(amount), tick, 0);</span>
+  const { initiateTransfer } = <span class="cstat-no" title="statement not covered" >useBrc20Transfers(holderAddress);</span>
+  const amountAsMoney = <span class="cstat-no" title="statement not covered" >createMoney(Number(amount), ticker, 0);</span>
   const { feesList, isLoading } = <span class="cstat-no" title="statement not covered" >useBitcoinFeesList({</span>
     amount: amountAsMoney,
     recipient,
@@ -440,7 +445,7 @@ export function <span class="fstat-no" title="function not covered" >BrcChooseFe
   async function <span class="fstat-no" title="function not covered" >previewTransaction({</span> feeRate, feeValue, isCustomFee }: OnChooseFeeArgs) {
 <span class="cstat-no" title="statement not covered" >    setIsLoadingOrder(true);</span>
 <span class="cstat-no" title="statement not covered" >    try {</span>
-      const { order, id } = <span class="cstat-no" title="statement not covered" >await initiateTransfer(tick, amount);</span>
+      const { order, id } = <span class="cstat-no" title="statement not covered" >await initiateTransfer(ticker, amount);</span>
 <span class="cstat-no" title="statement not covered" >      setIsLoadingOrder(false);</span>
 &nbsp;
       const { charge } = <span class="cstat-no" title="statement not covered" >order.data;</span>
@@ -466,7 +471,7 @@ export function <span class="fstat-no" title="function not covered" >BrcChooseFe
 <span class="cstat-no" title="statement not covered" >      signedTx.finalize();</span>
 &nbsp;
       const feeRowValue = <span class="cstat-no" title="statement not covered" >formFeeRowValue(feeRate, isCustomFee);</span>
-<span class="cstat-no" title="statement not covered" >      navigate(RouteUrls.SendBrc20Confirmation.replace(':ticker', tick), {</span>
+<span class="cstat-no" title="statement not covered" >      navigate(RouteUrls.SendBrc20Confirmation.replace(':ticker', ticker), {</span>
         state: {
           tx: signedTx.hex,
           orderId: id,
@@ -475,8 +480,9 @@ export function <span class="fstat-no" title="function not covered" >BrcChooseFe
           serviceFeeRecipient,
           recipient,
           feeRowValue,
-          tick,
+          ticker,
           amount,
+          holderAddress,
           hasHeaderTitle: true,
         },
       });
@@ -541,7 +547,7 @@ export function <span class="fstat-no" title="function not covered" >BrcChooseFe
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-02-26T21:03:03.062Z
+                at 2024-03-05T11:43:05.390Z
             </div>
         <script src="../../../../../../../../prettify.js"></script>
         <script>

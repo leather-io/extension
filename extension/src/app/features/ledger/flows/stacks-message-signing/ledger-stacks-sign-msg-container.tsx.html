@@ -25,14 +25,14 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/59</span>
+                <span class='fraction'>0/55</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/22</span>
+                <span class='fraction'>0/18</span>
             </div>
         
             
@@ -46,7 +46,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/57</span>
+                <span class='fraction'>0/53</span>
             </div>
         
             
@@ -232,18 +232,7 @@
 <a name='L167'></a><a href='#L167'>167</a>
 <a name='L168'></a><a href='#L168'>168</a>
 <a name='L169'></a><a href='#L169'>169</a>
-<a name='L170'></a><a href='#L170'>170</a>
-<a name='L171'></a><a href='#L171'>171</a>
-<a name='L172'></a><a href='#L172'>172</a>
-<a name='L173'></a><a href='#L173'>173</a>
-<a name='L174'></a><a href='#L174'>174</a>
-<a name='L175'></a><a href='#L175'>175</a>
-<a name='L176'></a><a href='#L176'>176</a>
-<a name='L177'></a><a href='#L177'>177</a>
-<a name='L178'></a><a href='#L178'>178</a>
-<a name='L179'></a><a href='#L179'>179</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L170'></a><a href='#L170'>170</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -300,7 +289,6 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -324,11 +312,6 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -377,7 +360,6 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -427,12 +409,11 @@ import { serializeCV } from '@stacks/transactions';
 import { LedgerError } from '@zondax/ledger-stacks';
 import get from 'lodash.get';
 &nbsp;
-import { finalizeMessageSignature } from '@shared/actions/finalize-message-signature';
-import { logger } from '@shared/logger';
 import { UnsignedMessage, whenSignableMessageOfType } from '@shared/signature/signature-types';
 import { isError } from '@shared/utils';
 &nbsp;
 import { useScrollLock } from '@app/common/hooks/use-scroll-lock';
+import { appEvents } from '@app/common/publish-subscribe';
 import { delay } from '@app/common/utils';
 import { BaseDrawer } from '@app/components/drawer/base-drawer';
 import {
@@ -444,7 +425,6 @@ import {
 } from '@app/features/ledger/utils/stacks-ledger-utils';
 import { useCurrentStacksAccount } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
 import { StacksAccount } from '@app/store/accounts/blockchain/stacks/stacks-account.models';
-import { useSignatureRequestSearchParams } from '@app/store/signatures/requests.hooks';
 &nbsp;
 import { useLedgerAnalytics } from '../../hooks/use-ledger-analytics.hook';
 import { useLedgerNavigate } from '../../hooks/use-ledger-navigate';
@@ -478,7 +458,6 @@ function <span class="fstat-no" title="function not covered" >LedgerSignStacksMs
   const ledgerNavigate = <span class="cstat-no" title="statement not covered" >useLedgerNavigate();</span>
   const ledgerAnalytics = <span class="cstat-no" title="statement not covered" >useLedgerAnalytics();</span>
   const verifyLedgerPublicKey = <span class="cstat-no" title="statement not covered" >useVerifyMatchingLedgerStacksPublicKey();</span>
-  const { tabId, requestToken } = <span class="cstat-no" title="statement not covered" >useSignatureRequestSearchParams();</span>
 &nbsp;
   const [latestDeviceResponse, setLatestDeviceResponse] = <span class="cstat-no" title="statement not covered" >useLedgerResponseState();</span>
   const canUserCancelAction = <span class="cstat-no" title="statement not covered" >useActionCancellableByUser();</span>
@@ -504,11 +483,6 @@ function <span class="fstat-no" title="function not covered" >LedgerSignStacksMs
 <span class="cstat-no" title="statement not covered" >    setLatestDeviceResponse(versionInfo);</span>
 <span class="cstat-no" title="statement not covered" >    if (versionInfo.deviceLocked) {</span>
 <span class="cstat-no" title="statement not covered" >      setAwaitingDeviceConnection(false);</span>
-<span class="cstat-no" title="statement not covered" >      return;</span>
-    }
-&nbsp;
-<span class="cstat-no" title="statement not covered" >    if (!tabId || !requestToken) {</span>
-<span class="cstat-no" title="statement not covered" >      logger.warn('Cannot sign message without corresponding `tabId` or `requestToken');</span>
 <span class="cstat-no" title="statement not covered" >      return;</span>
     }
 &nbsp;
@@ -543,7 +517,7 @@ function <span class="fstat-no" title="function not covered" >LedgerSignStacksMs
 <span class="cstat-no" title="statement not covered" >      if (resp.returnCode === LedgerError.TransactionRejected) {</span>
 <span class="cstat-no" title="statement not covered" >        ledgerNavigate.toOperationRejectedStep(`Message signing operation rejected`);</span>
 <span class="cstat-no" title="statement not covered" >        ledgerAnalytics.messageSignedOnLedgerRejected();</span>
-<span class="cstat-no" title="statement not covered" >        finalizeMessageSignature({ requestPayload: requestToken, tabId, data: 'cancel' });</span>
+<span class="cstat-no" title="statement not covered" >        appEvents.publish('ledgerStacksMessageSigningCancelled', { unsignedMessage });</span>
 <span class="cstat-no" title="statement not covered" >        return;</span>
       }
 <span class="cstat-no" title="statement not covered" >      if (resp.returnCode !== LedgerError.NoErrors) {</span>
@@ -554,13 +528,12 @@ function <span class="fstat-no" title="function not covered" >LedgerSignStacksMs
 &nbsp;
 <span class="cstat-no" title="statement not covered" >      ledgerAnalytics.messageSignedOnLedgerSuccessfully();</span>
 &nbsp;
-<span class="cstat-no" title="statement not covered" >      finalizeMessageSignature({</span>
-        requestPayload: requestToken,
-        tabId,
-        data: {
+<span class="cstat-no" title="statement not covered" >      appEvents.publish('ledgerStacksMessageSigned', {</span>
+        messageSignatures: {
           signature: signatureVrsToRsv(resp.signatureVRS.toString('hex')),
           publicKey: account.stxPublicKey,
         },
+        unsignedMessage,
       });
 &nbsp;
 <span class="cstat-no" title="statement not covered" >      await stacksApp.transport.close();</span>
@@ -604,7 +577,7 @@ export function <span class="fstat-no" title="function not covered" >LedgerSignM
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-02-26T21:03:03.062Z
+                at 2024-03-05T11:43:05.390Z
             </div>
         <script src="../../../../../../../prettify.js"></script>
         <script>

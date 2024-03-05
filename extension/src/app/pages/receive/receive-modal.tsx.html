@@ -377,15 +377,15 @@ import { RouteUrls } from '@shared/route-urls';
 import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
 import { useClipboard } from '@app/common/hooks/use-copy-to-clipboard';
 import { useLocationState } from '@app/common/hooks/use-location-state';
-import { StxAvatar } from '@app/components/crypto-assets/stacks/components/stx-avatar';
 import { BaseDrawer } from '@app/components/drawer/base-drawer';
 import { useBackgroundLocationRedirect } from '@app/routes/hooks/use-background-location-redirect';
 import { useZeroIndexTaprootAddress } from '@app/store/accounts/blockchain/bitcoin/bitcoin.hooks';
 import { useCurrentAccountNativeSegwitAddressIndexZero } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
 import { useCurrentAccountStxAddressState } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
-import { BtcIcon } from '@app/ui/components/avatar-icon/btc-icon';
-import { OrdinalIcon } from '@app/ui/components/avatar-icon/ordinal-icon';
-import { StampsIcon } from '@app/ui/components/avatar-icon/stamps-icon';
+import { BtcAvatarIcon } from '@app/ui/components/avatar/btc-avatar-icon';
+import { OrdinalAvatarIcon } from '@app/ui/components/avatar/ordinal-avatar-icon';
+import { StampsAvatarIcon } from '@app/ui/components/avatar/stamps-avatar-icon';
+import { StxAvatarIcon } from '@app/ui/components/avatar/stx-avatar-icon';
 &nbsp;
 import { ReceiveItem } from './components/receive-item';
 import { ReceiveItemList } from './components/receive-items';
@@ -443,7 +443,7 @@ export function <span class="fstat-no" title="function not covered" >ReceiveModa
             &lt;ReceiveItemList title="Tokens"&gt;
               &lt;ReceiveItem
                 address={btcAddressNativeSegwit}
-                icon={&lt;BtcIcon /&gt;}
+                icon={&lt;BtcAvatarIcon /&gt;}
                 dataTestId={HomePageSelectors.ReceiveBtcNativeSegwitQrCodeBtn}
                 onCopyAddress={<span class="fstat-no" title="function not covered" >() =&gt; <span class="cstat-no" title="statement not covered" >c</span>opyToClipboard(onCopyBtc)}</span>
                 onClickQrCode={<span class="fstat-no" title="function not covered" >() =&gt;</span>
@@ -455,7 +455,7 @@ export function <span class="fstat-no" title="function not covered" >ReceiveModa
               /&gt;
               &lt;ReceiveItem
                 address={stxAddress}
-                icon={&lt;StxAvatar /&gt;}
+                icon={&lt;StxAvatarIcon /&gt;}
                 dataTestId={HomePageSelectors.ReceiveStxQrCodeBtn}
                 onCopyAddress={<span class="fstat-no" title="function not covered" >() =&gt; <span class="cstat-no" title="statement not covered" >c</span>opyToClipboard(onCopyStx)}</span>
                 onClickQrCode={<span class="fstat-no" title="function not covered" >() =&gt;</span>
@@ -470,7 +470,7 @@ export function <span class="fstat-no" title="function not covered" >ReceiveModa
           &lt;ReceiveItemList title={type === 'full' ? 'Collectibles' : undefined}&gt;
             &lt;ReceiveItem
               address={btcAddressTaproot}
-              icon={&lt;OrdinalIcon /&gt;}
+              icon={&lt;OrdinalAvatarIcon /&gt;}
               dataTestId={HomePageSelectors.ReceiveBtcTaprootQrCodeBtn}
               onCopyAddress={<span class="fstat-no" title="function not covered" >() =&gt;</span>
 <span class="cstat-no" title="statement not covered" >                copyToClipboard(onCopyOrdinal, 'select_stamp_to_add_new_collectible')</span>
@@ -488,7 +488,7 @@ export function <span class="fstat-no" title="function not covered" >ReceiveModa
             /&gt;
             &lt;ReceiveItem
               address={btcAddressNativeSegwit}
-              icon={&lt;StampsIcon /&gt;}
+              icon={&lt;StampsAvatarIcon /&gt;}
               onClickQrCode={<span class="fstat-no" title="function not covered" >() =&gt;</span>
 <span class="cstat-no" title="statement not covered" >                navigate(`${RouteUrls.Home}${RouteUrls.ReceiveBtcStamp}`, {</span>
                   state: { backgroundLocation },
@@ -501,7 +501,7 @@ export function <span class="fstat-no" title="function not covered" >ReceiveModa
             /&gt;
             &lt;ReceiveItem
               address={stxAddress}
-              icon={&lt;StxAvatar /&gt;}
+              icon={&lt;StxAvatarIcon /&gt;}
               onCopyAddress={<span class="fstat-no" title="function not covered" >() =&gt; <span class="cstat-no" title="statement not covered" >c</span>opyToClipboard(onCopyStx, 'select_nft_to_add_new_collectible')}</span>
               onClickQrCode={<span class="fstat-no" title="function not covered" >() =&gt;</span>
 <span class="cstat-no" title="statement not covered" >                navigate(`${RouteUrls.Home}${RouteUrls.ReceiveStx}`, {</span>
@@ -523,7 +523,7 @@ export function <span class="fstat-no" title="function not covered" >ReceiveModa
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-02-26T21:03:03.062Z
+                at 2024-03-05T11:43:05.390Z
             </div>
         <script src="../../../../../prettify.js"></script>
         <script>

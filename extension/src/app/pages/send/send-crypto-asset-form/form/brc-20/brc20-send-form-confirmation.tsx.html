@@ -202,7 +202,9 @@
 <a name='L137'></a><a href='#L137'>137</a>
 <a name='L138'></a><a href='#L138'>138</a>
 <a name='L139'></a><a href='#L139'>139</a>
-<a name='L140'></a><a href='#L140'>140</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L140'></a><a href='#L140'>140</a>
+<a name='L141'></a><a href='#L141'>141</a>
+<a name='L142'></a><a href='#L142'>142</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -247,15 +249,13 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -263,10 +263,14 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -379,9 +383,10 @@ function <span class="fstat-no" title="function not covered" >useBrc20SendFormCo
     serviceFee: get(location.state, 'serviceFee') as number,
     serviceFeeRecipient: get(location.state, 'serviceFeeRecipient') as string,
     recipient: get(location.state, 'recipient') as string,
-    tick: get(location.state, 'tick') as string,
+    ticker: get(location.state, 'ticker') as string,
     amount: get(location.state, 'amount') as string,
     tx: get(location.state, 'tx') as string,
+    holderAddress: get(location.state, 'holderAddress') as string,
   };
 }
 &nbsp;
@@ -389,7 +394,7 @@ export function <span class="fstat-no" title="function not covered" >Brc20SendFo
   const navigate = <span class="cstat-no" title="statement not covered" >useNavigate();</span>
   const analytics = <span class="cstat-no" title="statement not covered" >useAnalytics();</span>
 &nbsp;
-  const { amount, recipient, fee, tick, serviceFee, tx, orderId, feeRowValue } =
+  const { amount, recipient, fee, ticker, serviceFee, tx, orderId, feeRowValue, holderAddress } =
 <span class="cstat-no" title="statement not covered" >    useBrc20SendFormConfirmationState();</span>
 &nbsp;
   const summaryFeeMoney = <span class="cstat-no" title="statement not covered" >createMoney(Number(fee), 'BTC');</span>
@@ -400,22 +405,23 @@ export function <span class="fstat-no" title="function not covered" >Brc20SendFo
   const totalFee = <span class="cstat-no" title="statement not covered" >sumMoney([summaryFeeMoney, serviceFeeMoney]);</span>
   const totalFeeFormatted = <span class="cstat-no" title="statement not covered" >formatMoney(totalFee);</span>
 &nbsp;
-  const amountFormatted = <span class="cstat-no" title="statement not covered" >formatMoney(createMoney(Number(amount), tick, 0));</span>
+  const amountFormatted = <span class="cstat-no" title="statement not covered" >formatMoney(createMoney(Number(amount), ticker, 0));</span>
   const { broadcastTx, isBroadcasting } = <span class="cstat-no" title="statement not covered" >useBitcoinBroadcastTransaction();</span>
   const { refetch } = <span class="cstat-no" title="statement not covered" >useCurrentNativeSegwitUtxos();</span>
 &nbsp;
   const psbt = <span class="cstat-no" title="statement not covered" >decodeBitcoinTx(tx);</span>
   const nav = <span class="cstat-no" title="statement not covered" >useSendFormNavigate();</span>
-  const { inscriptionPaymentTransactionComplete } = <span class="cstat-no" title="statement not covered" >useBrc20Transfers();</span>
+&nbsp;
+  const { inscriptionPaymentTransactionComplete } = <span class="cstat-no" title="statement not covered" >useBrc20Transfers(holderAddress);</span>
 &nbsp;
   async function <span class="fstat-no" title="function not covered" >initiateTransaction() {</span>
 <span class="cstat-no" title="statement not covered" >    await broadcastTx({</span>
       tx,
 <span class="fstat-no" title="function not covered" >      async o</span>nSuccess(txId: string) {
-<span class="cstat-no" title="statement not covered" >        inscriptionPaymentTransactionComplete(orderId, Number(amount), recipient, tick);</span>
+<span class="cstat-no" title="statement not covered" >        inscriptionPaymentTransactionComplete(orderId, Number(amount), recipient, ticker);</span>
 &nbsp;
 <span class="cstat-no" title="statement not covered" >        void analytics.track('broadcast_transaction', {</span>
-          symbol: tick,
+          symbol: ticker,
           type: 'brc-20',
           amount,
           fee,
@@ -423,12 +429,12 @@ export function <span class="fstat-no" title="function not covered" >Brc20SendFo
           outputs: psbt.inputs.length,
         });
 <span class="cstat-no" title="statement not covered" >        await refetch();</span>
-<span class="cstat-no" title="statement not covered" >        navigate(RouteUrls.SentBrc20Summary.replace(':ticker', tick), {</span>
+<span class="cstat-no" title="statement not covered" >        navigate(RouteUrls.SentBrc20Summary.replace(':ticker', ticker), {</span>
           state: {
             serviceFee: serviceFeeFormatted,
             totalFee: totalFeeFormatted,
             recipient,
-            tick,
+            ticker,
             amount,
             txId,
             feeRowValue,
@@ -455,7 +461,7 @@ export function <span class="fstat-no" title="function not covered" >Brc20SendFo
         mb="space.06"
         mt="space.05"
         px="space.05"
-        symbol={tick}
+        symbol={ticker}
         value={Number(amount)}
       /&gt;
 &nbsp;
@@ -487,7 +493,7 @@ export function <span class="fstat-no" title="function not covered" >Brc20SendFo
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-02-26T21:03:03.062Z
+                at 2024-03-05T11:43:05.390Z
             </div>
         <script src="../../../../../../../../prettify.js"></script>
         <script>

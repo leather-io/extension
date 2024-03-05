@@ -25,7 +25,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/21</span>
+                <span class='fraction'>0/23</span>
             </div>
         
             
@@ -39,14 +39,14 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/5</span>
+                <span class='fraction'>0/3</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/21</span>
+                <span class='fraction'>0/23</span>
             </div>
         
             
@@ -124,7 +124,16 @@
 <a name='L59'></a><a href='#L59'>59</a>
 <a name='L60'></a><a href='#L60'>60</a>
 <a name='L61'></a><a href='#L61'>61</a>
-<a name='L62'></a><a href='#L62'>62</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L62'></a><a href='#L62'>62</a>
+<a name='L63'></a><a href='#L63'>63</a>
+<a name='L64'></a><a href='#L64'>64</a>
+<a name='L65'></a><a href='#L65'>65</a>
+<a name='L66'></a><a href='#L66'>66</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -173,12 +182,11 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -190,7 +198,7 @@
 import { SignatureData } from '@stacks/connect';
 &nbsp;
 import { logger } from '@shared/logger';
-import { UnsignedMessage, whenSignableMessageOfType } from '@shared/signature/signature-types';
+import { UnsignedMessage } from '@shared/signature/signature-types';
 &nbsp;
 import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
 import { useWalletType } from '@app/common/use-wallet-type';
@@ -200,11 +208,16 @@ import {
   useMessageSignerStacksSoftwareWallet,
 } from '@app/features/stacks-message-signer/stacks-message-signing.utils';
 &nbsp;
+import { listenForStacksMessageSigning } from '../ledger/flows/stacks-message-signing/stacks-message-signing-event-listeners';
+&nbsp;
 interface SignStacksMessageProps {
   onSignMessageCompleted(messageSignature: SignatureData): void;
+  onSignMessageCancelled(): void;
 }
-&nbsp;
-export function <span class="fstat-no" title="function not covered" >useSignStacksMessage({</span> onSignMessageCompleted }: SignStacksMessageProps) {
+export function <span class="fstat-no" title="function not covered" >useSignStacksMessage({</span>
+  onSignMessageCompleted,
+  onSignMessageCancelled,
+}: SignStacksMessageProps) {
   const analytics = <span class="cstat-no" title="statement not covered" >useAnalytics();</span>
   const signSoftwareWalletMessage = <span class="cstat-no" title="statement not covered" >useMessageSignerStacksSoftwareWallet();</span>
 &nbsp;
@@ -233,14 +246,13 @@ export function <span class="fstat-no" title="function not covered" >useSignStac
 &nbsp;
 <span class="fstat-no" title="function not covered" >    async l</span>edger(unsignedMessage: UnsignedMessage) {
 <span class="cstat-no" title="statement not covered" >      void analytics.track('request_signature_sign', { type: 'ledger' });</span>
-<span class="cstat-no" title="statement not covered" >      whenSignableMessageOfType(unsignedMessage)({</span>
-<span class="fstat-no" title="function not covered" >        utf8(m</span>sg) {
-<span class="cstat-no" title="statement not covered" >          ledgerNavigate.toConnectAndSignUtf8MessageStep(msg);</span>
-        },
-<span class="fstat-no" title="function not covered" >        structured(d</span>omain, msg) {
-<span class="cstat-no" title="statement not covered" >          ledgerNavigate.toConnectAndSignStructuredMessageStep(domain, msg);</span>
-        },
-      });
+<span class="cstat-no" title="statement not covered" >      ledgerNavigate.toConnectAndSignMessageStep(unsignedMessage);</span>
+<span class="cstat-no" title="statement not covered" >      try {</span>
+        const messageSignature = <span class="cstat-no" title="statement not covered" >await listenForStacksMessageSigning(unsignedMessage);</span>
+<span class="cstat-no" title="statement not covered" >        onSignMessageCompleted(messageSignature);</span>
+      } catch (e) {
+<span class="cstat-no" title="statement not covered" >        onSignMessageCancelled();</span>
+      }
     },
   });
 &nbsp;
@@ -253,7 +265,7 @@ export function <span class="fstat-no" title="function not covered" >useSignStac
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-02-26T21:03:03.062Z
+                at 2024-03-05T11:43:05.390Z
             </div>
         <script src="../../../../../prettify.js"></script>
         <script>

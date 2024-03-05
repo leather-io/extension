@@ -131,13 +131,7 @@
 <a name='L66'></a><a href='#L66'>66</a>
 <a name='L67'></a><a href='#L67'>67</a>
 <a name='L68'></a><a href='#L68'>68</a>
-<a name='L69'></a><a href='#L69'>69</a>
-<a name='L70'></a><a href='#L70'>70</a>
-<a name='L71'></a><a href='#L71'>71</a>
-<a name='L72'></a><a href='#L72'>72</a>
-<a name='L73'></a><a href='#L73'>73</a>
-<a name='L74'></a><a href='#L74'>74</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L69'></a><a href='#L69'>69</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -163,13 +157,9 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -217,68 +207,63 @@ import { CloseIcon } from '@app/ui/icons/close-icon';
 interface HiroMessageItemProps extends HiroMessage {
   onDismiss(id: string): void;
 }
-&nbsp;
 export function <span class="fstat-no" title="function not covered" >HiroMessageItem(p</span>rops: HiroMessageItemProps) {
   const { id, title, text, learnMoreUrl, learnMoreText, img, imgWidth, dismissible, onDismiss } =
 <span class="cstat-no" title="statement not covered" >    props;</span>
 &nbsp;
 <span class="cstat-no" title="statement not covered" >  return (</span>
-    &lt;Flex
-      flex={1}
-      flexDirection={['column', null, 'row']}
-      alignItems={[null, null, 'center']}
-      justifyContent="center"
-      position="relative"
-      p="space.04"
-    &gt;
-      {dismissible &amp;&amp; (
-        &lt;styled.button
-          position="absolute"
-          p="space.02"
-          top={[0, 0, '50%']}
-          mr="space.02"
-          mt={['space.02', null, 'unset']}
-          transform={[null, null, 'translateY(-50%)']}
-          right={0}
-          borderRadius="lg"
-          _focus={{ outline: '1px solid white' }}
-          onClick={<span class="fstat-no" title="function not covered" >() =&gt; <span class="cstat-no" title="statement not covered" >o</span>nDismiss(id)}</span>
-        &gt;
-          &lt;CloseIcon /&gt;
-        &lt;/styled.button&gt;
-      )}
-      {img &amp;&amp; (
-        &lt;Box mb={['space.03', null, 'unset']}&gt;
-          &lt;img width={imgWidth} src={img} /&gt;
-        &lt;/Box&gt;
-      )}
-      &lt;Box fontSize="13px" lineHeight="20px"&gt;
-        {title &amp;&amp; (
-          &lt;styled.span display="block" lineHeight="inherit"&gt;
-            {title}
-          &lt;/styled.span&gt;
-        )}
-        &lt;styled.span
-          display="inline"
-          fontSize="inherit"
-          ml={[null, null, 'space.04']}
-          mr={['space.02', 'space.04']}
-          lineHeight="inherit"
-        &gt;
-          {text}
-        &lt;/styled.span&gt;
-        {learnMoreUrl &amp;&amp; (
-          &lt;styled.a
-            display="inline-block"
-            textDecoration="underline"
-            href={learnMoreUrl}
-            whiteSpace="nowrap"
-            target="_blank"
+    &lt;Flex position="relative" py="space.05" px="space.04" width="100%" justifyContent="center"&gt;
+      &lt;Flex pos="relative" flexDirection={['column', null, 'row']} width={['100%', null, '884px']}&gt;
+        {dismissible &amp;&amp; (
+          &lt;styled.button
+            position="absolute"
+            p="space.02"
+            top={['-16px', null, '50%']}
+            // mr="space.02"
+            mt={['space.02', null, 'unset']}
+            transform={[null, null, 'translateY(-50%)']}
+            right="-space.02"
+            borderRadius="lg"
+            _focus={{ outline: '1px solid white' }}
+            onClick={<span class="fstat-no" title="function not covered" >() =&gt; <span class="cstat-no" title="statement not covered" >o</span>nDismiss(id)}</span>
           &gt;
-            {learnMoreText ? learnMoreText : 'Learn more ↗'}
-          &lt;/styled.a&gt;
+            &lt;CloseIcon /&gt;
+          &lt;/styled.button&gt;
         )}
-      &lt;/Box&gt;
+        {img &amp;&amp; (
+          &lt;Box mb={['space.03', null, 'unset']}&gt;
+            &lt;img width={imgWidth} src={img} /&gt;
+          &lt;/Box&gt;
+        )}
+        &lt;Box fontSize="13px" lineHeight="20px"&gt;
+          {title &amp;&amp; (
+            &lt;styled.span textStyle="label.02" display="block" lineHeight="inherit"&gt;
+              {title}
+            &lt;/styled.span&gt;
+          )}
+          &lt;styled.span
+            textStyle="caption.02"
+            display="inline-block"
+            fontSize="inherit"
+            mr={['space.02', 'space.04']}
+            mt="space.03"
+            lineHeight="inherit"
+          &gt;
+            {text}
+          &lt;/styled.span&gt;
+          {learnMoreUrl &amp;&amp; (
+            &lt;styled.a
+              display="inline-block"
+              textDecoration="underline"
+              href={learnMoreUrl}
+              whiteSpace="nowrap"
+              target="_blank"
+            &gt;
+              {learnMoreText ? learnMoreText : 'Learn more ↗'}
+            &lt;/styled.a&gt;
+          )}
+        &lt;/Box&gt;
+      &lt;/Flex&gt;
     &lt;/Flex&gt;
   );
 }
@@ -289,7 +274,7 @@ export function <span class="fstat-no" title="function not covered" >HiroMessage
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-02-26T21:03:03.062Z
+                at 2024-03-05T11:43:05.390Z
             </div>
         <script src="../../../../../../prettify.js"></script>
         <script>

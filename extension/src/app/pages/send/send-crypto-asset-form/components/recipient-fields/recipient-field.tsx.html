@@ -3,7 +3,7 @@
 <html lang="en">
 
 <head>
-    <title>Code coverage report for extension/src/app/pages/send/send-crypto-asset-form/components/recipient-fields/generic-recipient-field.tsx</title>
+    <title>Code coverage report for extension/src/app/pages/send/send-crypto-asset-form/components/recipient-fields/recipient-field.tsx</title>
     <meta charset="utf-8" />
     <link rel="stylesheet" href="../../../../../../../../prettify.css" />
     <link rel="stylesheet" href="../../../../../../../../base.css" />
@@ -19,13 +19,13 @@
 <body>
 <div class='wrapper'>
     <div class='pad1'>
-        <h1><a href="../../../../../../../../index.html">All files</a> / <a href="index.html">extension/src/app/pages/send/send-crypto-asset-form/components/recipient-fields</a> generic-recipient-field.tsx</h1>
+        <h1><a href="../../../../../../../../index.html">All files</a> / <a href="index.html">extension/src/app/pages/send/send-crypto-asset-form/components/recipient-fields</a> recipient-field.tsx</h1>
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/6</span>
+                <span class='fraction'>0/7</span>
             </div>
         
             
@@ -39,14 +39,14 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/1</span>
+                <span class='fraction'>0/2</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/6</span>
+                <span class='fraction'>0/7</span>
             </div>
         
             
@@ -118,16 +118,7 @@
 <a name='L53'></a><a href='#L53'>53</a>
 <a name='L54'></a><a href='#L54'>54</a>
 <a name='L55'></a><a href='#L55'>55</a>
-<a name='L56'></a><a href='#L56'>56</a>
-<a name='L57'></a><a href='#L57'>57</a>
-<a name='L58'></a><a href='#L58'>58</a>
-<a name='L59'></a><a href='#L59'>59</a>
-<a name='L60'></a><a href='#L60'>60</a>
-<a name='L61'></a><a href='#L61'>61</a>
-<a name='L62'></a><a href='#L62'>62</a>
-<a name='L63'></a><a href='#L63'>63</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L56'></a><a href='#L56'>56</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -149,9 +140,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -171,10 +160,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -188,57 +174,50 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { TextInputFieldError } from '@app/components/field-error';
-import { RecipientFieldType } from '@app/pages/send/send-crypto-asset-form/components/recipient-type-dropdown/recipient-type-dropdown';
 &nbsp;
 import { SelectAccountButton } from '../recipient-accounts-drawer/select-account-button';
-import { RecipientField } from '../recipient-field';
-import { RecipientDropdownOverlay } from '../recipient-type-dropdown/components/recipient-dropdown-overlay';
+import { RecipientAddressTypeField } from '../recipient-address-type-field';
+import { RecipientIdentifierTypeDropdown } from '../recipient-type-dropdown/recipient-type-dropdown';
 import { useRecipientSelectFields } from './hooks/use-recipient-select-fields';
-import { RecipientFieldBnsName } from './recipient-field-bns-name';
+import { RecipientBnsNameTypeField } from './recipient-bns-name-type-field';
 &nbsp;
-interface GenericRecipientFieldProps {
-  bnsFn(client: any, name: string, isTestnet?: boolean): Promise&lt;string | null&gt;;
+interface RecipientFieldProps {
+  bnsLookupFn(client: any, name: string, isTestnet?: boolean): Promise&lt;string | null&gt;;
 }
-export function <span class="fstat-no" title="function not covered" >GenericRecipientField({</span> bnsFn }: GenericRecipientFieldProps) {
+export function <span class="fstat-no" title="function not covered" >RecipientField({</span> bnsLookupFn }: RecipientFieldProps) {
   const {
-    isSelectVisible,
     showRecipientAccountsModal,
     onSelectRecipientFieldType,
-    onSetIsSelectVisible,
+    selectedRecipientFieldName,
     selectedRecipientField,
   } = <span class="cstat-no" title="statement not covered" >useRecipientSelectFields();</span>
 &nbsp;
   const recipientDropdown = (
-<span class="cstat-no" title="statement not covered" >    &lt;RecipientDropdownOverlay</span>
-      isSelectVisible={isSelectVisible}
-      onSelectRecipientFieldType={onSelectRecipientFieldType}
-      onSetIsSelectVisible={onSetIsSelectVisible}
-      selectedRecipientField={selectedRecipientField}
+<span class="cstat-no" title="statement not covered" >    &lt;RecipientIdentifierTypeDropdown</span>
+      activeRecipientIdentifierType={selectedRecipientFieldName}
+      onSelectRecipientIdentifierType={<span class="fstat-no" title="function not covered" >recipientType =&gt; <span class="cstat-no" title="statement not covered" >o</span>nSelectRecipientFieldType(recipientType)}</span>
     /&gt;
   );
 &nbsp;
   const selectAccountButton = <span class="cstat-no" title="statement not covered" >&lt;SelectAccountButton onClick={showRecipientAccountsModal} /&gt;;</span>
 &nbsp;
 <span class="cstat-no" title="statement not covered" >  switch (selectedRecipientField) {</span>
-    case RecipientFieldType.BnsName:
+    case 'bnsName':
 <span class="cstat-no" title="statement not covered" >      return (</span>
         &lt;&gt;
-          &lt;RecipientFieldBnsName
-            fetchFn={bnsFn}
-            isSelectVisible={isSelectVisible}
+          &lt;RecipientBnsNameTypeField
+            fetchFn={bnsLookupFn}
             rightLabel={selectAccountButton}
-            selectedRecipientField={selectedRecipientField}
             topInputOverlay={recipientDropdown}
           /&gt;
           &lt;TextInputFieldError name="recipientBnsName" /&gt;
         &lt;/&gt;
       );
-    case RecipientFieldType.Address:
+    case 'address':
     default:
 <span class="cstat-no" title="statement not covered" >      return (</span>
         &lt;&gt;
-          &lt;RecipientField
-            isDisabled={isSelectVisible}
+          &lt;RecipientAddressTypeField
             name="recipient"
             rightLabel={selectAccountButton}
             placeholder="Enter recipient address"
@@ -256,7 +235,7 @@ export function <span class="fstat-no" title="function not covered" >GenericReci
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-02-26T21:03:03.062Z
+                at 2024-03-05T11:43:05.390Z
             </div>
         <script src="../../../../../../../../prettify.js"></script>
         <script>

@@ -157,7 +157,9 @@
 <a name='L92'></a><a href='#L92'>92</a>
 <a name='L93'></a><a href='#L93'>93</a>
 <a name='L94'></a><a href='#L94'>94</a>
-<a name='L95'></a><a href='#L95'>95</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L95'></a><a href='#L95'>95</a>
+<a name='L96'></a><a href='#L96'>96</a>
+<a name='L97'></a><a href='#L97'>97</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -224,7 +226,9 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -270,8 +274,8 @@ import {
   InfoCardRow,
   InfoCardSeparator,
 } from '@app/components/info-card/info-card';
-import { InfoLabel } from '@app/components/info-label';
 import { ModalHeader } from '@app/components/modal-header';
+import { Callout } from '@app/ui/components/callout/callout';
 import { Link } from '@app/ui/components/link/link';
 import { ExternalLinkIcon } from '@app/ui/icons/external-link-icon';
 &nbsp;
@@ -283,7 +287,7 @@ function <span class="fstat-no" title="function not covered" >useBrc20SentSummar
     serviceFee: get(location.state, 'serviceFee') as string,
     totalFee: get(location.state, 'totalFee') as string,
     recipient: get(location.state, 'recipient') as string,
-    tick: get(location.state, 'tick') as string,
+    ticker: get(location.state, 'ticker') as string,
     amount: get(location.state, 'amount') as string,
     txId: get(location.state, 'txId') as string,
     txLink: get(location.state, 'txLink') as HandleOpenStacksTxLinkArgs,
@@ -292,8 +296,8 @@ function <span class="fstat-no" title="function not covered" >useBrc20SentSummar
 }
 &nbsp;
 export function <span class="fstat-no" title="function not covered" >Brc20SentSummary() {</span>
-  const { tick, amount, serviceFee, totalFee, feeRowValue } = <span class="cstat-no" title="statement not covered" >useBrc20SentSummaryState();</span>
-  const amountFormatted = <span class="cstat-no" title="statement not covered" >formatMoney(createMoney(Number(amount), tick, 0));</span>
+  const { ticker, amount, serviceFee, totalFee, feeRowValue } = <span class="cstat-no" title="statement not covered" >useBrc20SentSummaryState();</span>
+  const amountFormatted = <span class="cstat-no" title="statement not covered" >formatMoney(createMoney(Number(amount), ticker, 0));</span>
   const navigate = <span class="cstat-no" title="statement not covered" >useNavigate();</span>
 &nbsp;
   function <span class="fstat-no" title="function not covered" >onClickLink() {</span>
@@ -306,24 +310,26 @@ export function <span class="fstat-no" title="function not covered" >Brc20SentSu
     &lt;InfoCard&gt;
       &lt;TxDone /&gt;
 &nbsp;
-      &lt;InfoCardAssetValue px="space.05" symbol={tick} value={Number(amount)} /&gt;
+      &lt;InfoCardAssetValue px="space.05" symbol={ticker} value={Number(amount)} /&gt;
 &nbsp;
       &lt;Stack px="space.06" pb="space.06" width="100%"&gt;
-        &lt;InfoLabel mb="space.05" title="One more step is required to send tokens"&gt;
-          &lt;styled.span mb="space.02"&gt;
-            You'll need to send the transfer inscription to your recipient of choice from the home
-            screen once its status changes to "Ready to send"
-          &lt;/styled.span&gt;
-&nbsp;
-          &lt;Link
-            textStyle="body.02"
-            onClick={<span class="fstat-no" title="function not covered" >() =&gt; {</span>
-<span class="cstat-no" title="statement not covered" >              openInNewTab('https://leather.gitbook.io/guides/bitcoin/sending-brc-20-tokens');</span>
-            }}
-          &gt;
-            Learn more
-          &lt;/Link&gt;
-        &lt;/InfoLabel&gt;
+        &lt;Callout variant="info" title="One more step is required to send tokens" mb="space.05"&gt;
+          &lt;Stack&gt;
+            &lt;styled.span mb="space.02"&gt;
+              You'll need to send the transfer inscription to your recipient of choice from the home
+              screen once its status changes to "Ready to send"
+            &lt;/styled.span&gt;
+            &lt;Link
+              width="fit-content"
+              textStyle="body.02"
+              onClick={<span class="fstat-no" title="function not covered" >() =&gt; {</span>
+<span class="cstat-no" title="statement not covered" >                openInNewTab('https://leather.gitbook.io/guides/bitcoin/sending-brc-20-tokens');</span>
+              }}
+            &gt;
+              Learn more
+            &lt;/Link&gt;
+          &lt;/Stack&gt;
+        &lt;/Callout&gt;
         &lt;InfoCardSeparator /&gt;
 &nbsp;
         &lt;InfoCardRow title="Sending" value={amountFormatted} /&gt;
@@ -352,7 +358,7 @@ export function <span class="fstat-no" title="function not covered" >Brc20SentSu
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-02-26T21:03:03.062Z
+                at 2024-03-05T11:43:05.390Z
             </div>
         <script src="../../../../../../prettify.js"></script>
         <script>
