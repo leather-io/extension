@@ -14,7 +14,7 @@ test.describe('Profile updating', () => {
     testAppPage = await TestAppPage.openDemoPage(context);
     await testAppPage.signIn();
     const accountsPage = await context.waitForEvent('page');
-    await accountsPage.locator('text="Account 1"').click();
+    await accountsPage.locator('text="Account 1"').click({ force: true });
     await testAppPage.page.bringToFront();
     await testAppPage.page.click('text=Profile');
     await accountsPage.close();
@@ -25,7 +25,6 @@ test.describe('Profile updating', () => {
     const profileUpdatingPage = new UpdateProfileRequestPage(await context.waitForEvent('page'));
     const name = profileUpdatingPage.page.getByText('twitter');
     const nameText = await name.innerText();
-
     test.expect(nameText).toBe('https://twitter.com/twitterHandle');
   });
 

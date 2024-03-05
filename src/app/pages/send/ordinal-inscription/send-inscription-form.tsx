@@ -9,10 +9,10 @@ import { BaseDrawer } from '@app/components/drawer/base-drawer';
 import { ErrorLabel } from '@app/components/error-label';
 import { InscriptionPreview } from '@app/components/inscription-preview-card/components/inscription-preview';
 import { InscriptionPreviewCard } from '@app/components/inscription-preview-card/inscription-preview-card';
-import { OrdinalIcon } from '@app/ui/components/avatar-icon/ordinal-icon';
+import { OrdinalAvatarIcon } from '@app/ui/components/avatar/ordinal-avatar-icon';
 import { Button } from '@app/ui/components/button/button';
 
-import { RecipientField } from '../send-crypto-asset-form/components/recipient-field';
+import { RecipientAddressTypeField } from '../send-crypto-asset-form/components/recipient-address-type-field';
 import { CollectibleAsset } from './components/collectible-asset';
 import { useSendInscriptionState } from './components/send-inscription-container';
 import { useSendInscriptionForm } from './hooks/use-send-inscription-form';
@@ -47,8 +47,8 @@ export function SendInscriptionForm() {
               />
               <Box mt={['space.04', 'space.06', '100px']}>
                 <Flex flexDirection="column" mt="space.05" width="100%">
-                  <CollectibleAsset icon={<OrdinalIcon />} name="Ordinal inscription" />
-                  <RecipientField
+                  <CollectibleAsset icon={<OrdinalAvatarIcon />} name="Ordinal inscription" />
+                  <RecipientAddressTypeField
                     name={recipeintFieldName}
                     label="To"
                     placeholder="Enter recipient address"

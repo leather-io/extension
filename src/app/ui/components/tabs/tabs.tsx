@@ -58,6 +58,4 @@ const List: typeof RadixTabs.List = forwardRef((props, ref) => (
   <RadixTabs.List className={tabsListStyles} ref={ref} {...props} />
 ));
 
-const Content = RadixTabs.Content;
-
-export const Tabs = { Root, List, Trigger, Content };
+export const Tabs = { Root, List, Trigger, Content: RadixTabs.Content };

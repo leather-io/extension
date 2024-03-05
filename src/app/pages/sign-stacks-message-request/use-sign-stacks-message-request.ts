@@ -55,6 +55,7 @@ export function useSignStacksMessageRequest() {
     onSignMessageCompleted: messageSignature => {
       finalizeMessageSignature({ requestPayload: requestToken, tabId, data: messageSignature });
     },
+    onSignMessageCancelled: onCancelMessageSigning,
   });
 
   function onCancelMessageSigning() {

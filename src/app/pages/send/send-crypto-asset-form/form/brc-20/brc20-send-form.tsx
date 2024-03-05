@@ -5,8 +5,8 @@ import { Box, styled } from 'leather-styles/jsx';
 import get from 'lodash.get';
 
 import { openInNewTab } from '@app/common/utils/open-in-new-tab';
-import { InfoLabel } from '@app/components/info-label';
-import { Brc20TokenIcon } from '@app/ui/components/avatar-icon/brc20-token-icon';
+import { Brc20AvatarIcon } from '@app/ui/components/avatar/brc20-avatar-icon';
+import { Callout } from '@app/ui/components/callout/callout';
 import { Link } from '@app/ui/components/link/link';
 
 import { AmountField } from '../../components/amount-field';
@@ -21,13 +21,14 @@ function useBrc20SendFormRouteState() {
   const { state } = useLocation();
   return {
     balance: get(state, 'balance', '') as string,
-    tick: get(state, 'tick', '') as string,
+    ticker: get(state, 'ticker', '') as string,
     decimals: get(state, 'decimals', '') as number,
+    holderAddress: get(state, 'holderAddress', '') as string,
   };
 }
 
 export function Brc20SendForm() {
-  const { balance, tick, decimals } = useBrc20SendFormRouteState();
+  const { balance, ticker, decimals, holderAddress } = useBrc20SendFormRouteState();
   const {
     initialValues,
     chooseTransactionFee,
@@ -35,7 +36,7 @@ export function Brc20SendForm() {
     formRef,
     onFormStateChange,
     moneyBalance,
-  } = useBrc20SendForm({ balance, tick, decimals });
+  } = useBrc20SendForm({ balance, ticker, decimals, holderAddress });
 
   return (
     <Box pb="space.04" width="100%">
@@ -61,8 +62,8 @@ export function Brc20SendForm() {
                   }
                   autoComplete="off"
                 />
-                <SelectedAssetField icon={<Brc20TokenIcon />} name={tick} symbol={tick} />
-                <InfoLabel title="Sending BRC-20 tokens requires two steps">
+                <SelectedAssetField icon={<Brc20AvatarIcon />} name={ticker} symbol={ticker} />
+                <Callout variant="info" title="Sending BRC-20 tokens requires two steps">
                   <styled.ol mb="space.02">
                     <li>1. Create transfer inscription with amount to send</li>
                     <li>2. Send transfer inscription to recipient of choice</li>
@@ -77,7 +78,7 @@ export function Brc20SendForm() {
                   >
                     Learn more
                   </Link>
-                </InfoLabel>
+                </Callout>
               </SendCryptoAssetFormLayout>
 
               <FormFooter

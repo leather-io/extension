@@ -1,19 +1,18 @@
 import { BitcoinContractRequestSelectors } from '@tests/selectors/bitcoin-contract-request.selectors';
 
-import { WarningLabel } from '@app/components/warning-label';
+import { Callout } from '@app/ui/components/callout/callout';
 
 export function BitcoinContractRequestWarningLabel(props: { appName?: string }) {
   const { appName } = props;
-  const title = `Do not proceed unless you trust ${appName ?? 'Unknown'}!`;
 
   return (
-    <WarningLabel
-      title={title}
-      width="100%"
+    <Callout
       data-testid={BitcoinContractRequestSelectors.BitcoinContractWarningLabel}
+      variant="warning"
+      title={`Do not proceed unless you trust ${appName ?? 'Unknown'}!`}
     >
       By signing the contract YOU AGREE TO LOCK YOUR BITCOIN with {appName} into a contract where it
       will remain until a triggering event will release it.
-    </WarningLabel>
+    </Callout>
   );
 }

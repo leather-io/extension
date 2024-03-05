@@ -21,7 +21,7 @@ import {
 } from '@app/query/bitcoin/ordinals/inscription.hooks';
 import { useGetInscriptionsByOutputQuery } from '@app/query/bitcoin/ordinals/inscriptions-by-param.query';
 import { useCurrentAccountNativeSegwitAddressIndexZero } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
-import { BtcIcon } from '@app/ui/components/avatar-icon/btc-icon';
+import { BtcAvatarIcon } from '@app/ui/components/avatar/btc-avatar-icon';
 import { BulletSeparator } from '@app/ui/components/bullet-separator/bullet-separator';
 import { Caption } from '@app/ui/components/typography/caption';
 
@@ -96,7 +96,9 @@ export function BitcoinTransactionItem({ transaction }: BitcoinTransactionItemPr
       txCaption={txCaption}
       txIcon={
         <BitcoinTransactionIcon
-          icon={inscriptionData ? <InscriptionIcon inscription={inscriptionData} /> : <BtcIcon />}
+          icon={
+            inscriptionData ? <InscriptionIcon inscription={inscriptionData} /> : <BtcAvatarIcon />
+          }
           transaction={transaction}
           btcAddress={bitcoinAddress}
         />

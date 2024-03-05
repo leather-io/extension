@@ -65,7 +65,7 @@ interface InscriptionOrderArgs {
 }
 
 interface OrderStatusSuccessResponse {
-  status: string;
+  status: 'success';
   paid: boolean;
   underpaid: boolean;
   expired: boolean;
@@ -115,6 +115,11 @@ interface OrderStatusSuccessResponse {
   sent: string;
 }
 
+interface OrderStatusErrorResponse {
+  status: 'error';
+  error: string;
+}
+
 class OrdinalsbotClient {
   constructor(readonly baseUrl: string) {}
 
@@ -132,9 +137,12 @@ class OrdinalsbotClient {
   }
 
   async orderStatus(id: string) {
-    return axios.get<OrderStatusSuccessResponse>(urlJoin(this.baseUrl, 'order'), {
-      params: { id },
-    });
+    return axios.get<OrderStatusSuccessResponse | OrderStatusErrorResponse>(
+      urlJoin(this.baseUrl, 'order'),
+      {
+        params: { id },
+      }
+    );
   }
 }
 

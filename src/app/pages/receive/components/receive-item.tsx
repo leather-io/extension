@@ -23,7 +23,7 @@ export function ReceiveItem({
 }: ReceiveItemProps) {
   if (!address) return null;
   return (
-    <ItemInteractive>
+    <ItemInteractive my="space.02">
       <ItemWithButtonsLayout
         flagImg={icon}
         title={title}
