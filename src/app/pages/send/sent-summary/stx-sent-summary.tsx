@@ -1,4 +1,3 @@
-import { toast } from 'react-hot-toast';
 import { useLocation } from 'react-router-dom';
 
 import { HStack, Stack } from 'leather-styles/jsx';
@@ -18,6 +17,7 @@ import {
   InfoCardSeparator,
 } from '@app/components/info-card/info-card';
 import { ModalHeader } from '@app/components/modal-header';
+import { useToast } from '@app/features/toasts/use-toast';
 import { CopyIcon } from '@app/ui/icons/copy-icon';
 import { ExternalLinkIcon } from '@app/ui/icons/external-link-icon';
 
@@ -25,6 +25,8 @@ import { TxDone } from '../send-crypto-asset-form/components/tx-done';
 
 export function StxSentSummary() {
   const { state } = useLocation();
+  const analytics = useAnalytics();
+  const toast = useToast();
 
   const {
     txValue,
@@ -42,7 +44,6 @@ export function StxSentSummary() {
 
   const { onCopy } = useClipboard(txId || '');
   const { handleOpenStacksTxLink: handleOpenTxLink } = useStacksExplorerLink();
-  const analytics = useAnalytics();
 
   function onClickLink() {
     void analytics.track('view_transaction_confirmation', { symbol: 'STX' });

@@ -1,10 +1,10 @@
-import toast from 'react-hot-toast';
 import { useLocation } from 'react-router-dom';
 
 import get from 'lodash.get';
 
 import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
 import { useClipboard } from '@app/common/hooks/use-copy-to-clipboard';
+import { useToast } from '@app/features/toasts/use-toast';
 import { useBackgroundLocationRedirect } from '@app/routes/hooks/use-background-location-redirect';
 import { useCurrentAccountIndex } from '@app/store/accounts/account';
 import { useNativeSegwitAccountIndexAddressIndexZero } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
@@ -19,6 +19,7 @@ export function ReceiveBtcModal({ type = 'btc' }: ReceiveBtcModalType) {
   useBackgroundLocationRedirect();
   const analytics = useAnalytics();
   const { state } = useLocation();
+  const toast = useToast();
 
   const currentAccountIndex = useCurrentAccountIndex();
   const accountIndex = get(state, 'accountIndex', currentAccountIndex);

@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react';
-import toast from 'react-hot-toast';
 import { Route, useLocation } from 'react-router-dom';
 
 import * as btc from '@scure/btc-signer';
@@ -27,6 +26,7 @@ import {
   getBitcoinAppVersion,
   isBitcoinAppOpen,
 } from '@app/features/ledger/utils/bitcoin-ledger-utils';
+import { useToast } from '@app/features/toasts/use-toast';
 import { useSignLedgerBitcoinTx } from '@app/store/accounts/blockchain/bitcoin/bitcoin.hooks';
 import { useCurrentNetwork } from '@app/store/networks/networks.selectors';
 
@@ -38,6 +38,7 @@ export const ledgerBitcoinTxSigningRoutes = ledgerSignTxRoutes({
 });
 
 function LedgerSignBitcoinTxContainer() {
+  const toast = useToast();
   const location = useLocation();
   const ledgerNavigate = useLedgerNavigate();
   const ledgerAnalytics = useLedgerAnalytics();

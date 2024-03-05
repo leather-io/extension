@@ -1,4 +1,3 @@
-import toast from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
 
 import { AllTransferableCryptoAssetBalances } from '@shared/models/crypto-asset-balance.model';
@@ -10,10 +9,12 @@ import { useWalletType } from '@app/common/use-wallet-type';
 import { ChooseCryptoAssetLayout } from '@app/components/crypto-assets/choose-crypto-asset/choose-crypto-asset.layout';
 import { CryptoAssetList } from '@app/components/crypto-assets/choose-crypto-asset/crypto-asset-list';
 import { ModalHeader } from '@app/components/modal-header';
+import { useToast } from '@app/features/toasts/use-toast';
 import { useConfigBitcoinSendEnabled } from '@app/query/common/remote-config/remote-config.query';
 import { useCheckLedgerBlockchainAvailable } from '@app/store/accounts/blockchain/utils';
 
 export function ChooseCryptoAsset() {
+  const toast = useToast();
   const allTransferableCryptoAssetBalances = useAllTransferableCryptoAssetBalances();
 
   const { whenWallet } = useWalletType();

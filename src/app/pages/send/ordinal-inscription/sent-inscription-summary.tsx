@@ -1,4 +1,3 @@
-import { toast } from 'react-hot-toast';
 import { useLocation, useNavigate } from 'react-router-dom';
 
 import { Box, HStack, Stack } from 'leather-styles/jsx';
@@ -20,6 +19,7 @@ import {
   InfoCardSeparator,
 } from '@app/components/info-card/info-card';
 import { InscriptionPreview } from '@app/components/inscription-preview-card/components/inscription-preview';
+import { useToast } from '@app/features/toasts/use-toast';
 import { CheckmarkIcon } from '@app/ui/icons/checkmark-icon';
 import { CopyIcon } from '@app/ui/icons/copy-icon';
 import { ExternalLinkIcon } from '@app/ui/icons/external-link-icon';
@@ -39,7 +39,7 @@ function useSendInscriptionSummaryState() {
 
 export function SendInscriptionSummary() {
   const { txid, recipient, arrivesIn, inscription, feeRowValue } = useSendInscriptionSummaryState();
-
+  const toast = useToast();
   const navigate = useNavigate();
   const txLink = {
     blockchain: 'bitcoin' as Blockchains,
