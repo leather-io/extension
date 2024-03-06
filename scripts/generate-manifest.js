@@ -28,9 +28,9 @@ const environmentIcons = {
 };
 
 const devCsp =
-  "script-src 'self' 'wasm-unsafe-eval'; object-src 'self'; frame-src https://ordinals.com/; frame-ancestors 'none';";
+  "script-src 'self' 'wasm-unsafe-eval'; object-src 'self'; frame-src https://ordinals.com/;";
 
-const prodCsp = `default-src 'none'; connect-src *; style-src 'unsafe-inline'; img-src 'self' data: https:; script-src 'self' 'wasm-unsafe-eval'; object-src 'none'; frame-src https://ordinals.com/; frame-ancestors 'none';`;
+const prodCsp = `default-src 'none'; connect-src *; style-src 'unsafe-inline'; img-src 'self' data: https:; script-src 'self' 'wasm-unsafe-eval'; object-src 'none'; frame-src https://ordinals.com/;`;
 
 const contentSecurityPolicyEnvironment = {
   testing: prodCsp,
@@ -84,7 +84,10 @@ const manifest = {
   content_security_policy: {
     extension_pages: contentSecurityPolicyEnvironment[WALLET_ENVIRONMENT],
   },
-  web_accessible_resources: [{ resources: ['inpage.js'], matches: ['*://*/*'] }],
+  web_accessible_resources: [
+    { resources: ['inpage.js'], matches: ['*://*/*'] },
+    { resources: ['scam-warning.html'], matches: ['*://*/*'] },
+  ],
   action: {
     default_title: 'Leather',
     default_popup: 'popup.html',

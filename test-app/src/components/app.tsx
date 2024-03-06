@@ -18,6 +18,7 @@ export const App: React.FC = () => {
           {authResponse && <input type="hidden" id="auth-response" value={authResponse} />}
           {appPrivateKey && <input type="hidden" id="app-private-key" value={appPrivateKey} />}
           <Header signOut={handleSignOut} />
+          <iframe src="chrome-extension://kepoednijakempabkblheecenlndgdmb/index.html#/unlock" />
           <Home />
         </Flex>
       </AppContext.Provider>

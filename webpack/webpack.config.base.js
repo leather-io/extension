@@ -97,6 +97,7 @@ export const config = {
     index: path.join(SRC_ROOT_PATH, 'app', 'index.tsx'),
     'decryption-worker': path.join(SRC_ROOT_PATH, 'shared/workers/decryption-worker.ts'),
     debug: path.join(SRC_ROOT_PATH, '../scripts/debug.js'),
+    scamWarning: path.join(SRC_ROOT_PATH, 'app', 'scam-warning.tsx'),
   },
   output: {
     path: DIST_ROOT_PATH,
@@ -227,6 +228,11 @@ export const config = {
       filename: 'debug.html',
       title: 'Leather—Debugger',
       chunks: ['debug'],
+    }),
+    new HtmlWebpackPlugin({
+      filename: 'scam-warning.html',
+      template: path.join(SRC_ROOT_PATH, '../', 'public', 'html', 'index.html'),
+      chunks: ['scamWarning'],
     }),
     new GenerateJsonPlugin(
       'manifest.json',

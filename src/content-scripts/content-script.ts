@@ -137,3 +137,32 @@ function addLeatherToPage() {
 
 // Don't block thread to add Leather to page
 requestAnimationFrame(() => addLeatherToPage());
+
+function addScamWarningToPage() {
+  const url = chrome.runtime.getURL('scam-warning.html');
+  const iframe = document.createElement('iframe');
+  iframe.src = url;
+  iframe.style.left = '0';
+  iframe.style.top = '0';
+  iframe.style.width = '100%';
+  iframe.style.height = '260px';
+  iframe.style.position = 'absolute';
+  iframe.style.border = 'none';
+  iframe.style.zIndex = '9999999999999999999999999999';
+  document.body.appendChild(iframe);
+}
+
+// This function would have to query bg script or somewhere to read the list of
+// known scams.
+function isMassiveScamWebsite(url: string) {
+  const massiveScams = ['leather-wallet-hiro-bitcoin/id6478242082'];
+  return massiveScams.some(scam => url.includes(scam));
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  console.log(document.location.href);
+  if (isMassiveScamWebsite(document.location.href)) {
+    console.log('This is a scam website');
+    addScamWarningToPage();
+  }
+});

@@ -13,6 +13,7 @@
       }
     ]
   },
+  "scams": [{ "url": "https://apps.apple.com/gb/app/leather-wallet-hiro-bitcoin/id6478242082" }],
   "activeFiatProviders": {
     "coinbase": {
       "availableRegions": "global",
