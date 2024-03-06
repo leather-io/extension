@@ -30,7 +30,7 @@ export function BroadcastErrorLayout(props: BroadcastErrorProps) {
         mt="space.05"
         textStyle="heading.05"
       >
-        {title}
+        {title} + Some trivial change
       </styled.span>
       <styled.span color="ink.text-subdued" mt="space.04" textAlign="center" textStyle="body.02">
         {body}
