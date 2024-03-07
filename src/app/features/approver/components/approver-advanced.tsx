@@ -9,8 +9,8 @@ import { Button } from '@app/ui/components/button/button';
 import { Flag } from '@app/ui/components/flag/flag';
 import { ChevronDownIcon } from '@app/ui/icons';
 
+import { AnimateChangeInHeight } from '../../../components/animate-height';
 import { useApproverContext } from '../approver.context';
-import { AnimateChangeInHeight } from './animate-height';
 
 const slightPauseForContentEnterAnimation = createDelay(120);
 
@@ -23,7 +23,7 @@ export function ApproverAdvanced({ children }: HasChildren) {
     setIsDisplayingAdvancedView(!isDisplayingAdvancedView);
     if (ref.current && !isDisplayingAdvancedView) {
       await slightPauseForContentEnterAnimation();
-      ref.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      ref.current.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'start' });
     }
   }
 

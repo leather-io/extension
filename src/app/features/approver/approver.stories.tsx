@@ -102,6 +102,7 @@ export const ActionsAlignToBottom: Story = {
           title="Action align to bottom of page"
           requester="even when there's no content to push it there"
         />
+
         <Approver.Actions
           actions={
             <>
