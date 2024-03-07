@@ -1,6 +1,6 @@
 import { Dispatch, SetStateAction, useCallback, useRef } from 'react';
 
-import { Form, Formik, useField } from 'formik';
+import { Form, Formik } from 'formik';
 import { Stack, styled } from 'leather-styles/jsx';
 import * as yup from 'yup';
 
@@ -9,40 +9,11 @@ import { createMoney } from '@shared/models/money.model';
 
 import { openInNewTab } from '@app/common/utils/open-in-new-tab';
 import { PreviewButton } from '@app/components/preview-button';
-import { Input } from '@app/ui/components/input/input';
 import { Link } from '@app/ui/components/link/link';
 
 import { OnChooseFeeArgs } from '../bitcoin-fees-list/bitcoin-fees-list';
-import { BitcoinCustomFeeFiat } from './bitcoin-custom-fee-fiat';
+import { BitcoinCustomFeeInput } from './bitcoin-custom-fee-input';
 import { useBitcoinCustomFee } from './hooks/use-bitcoin-custom-fee';
-
-const feeInputLabel = 'sats/vB';
-
-interface BitcoinCustomFeeInputProps {
-  hasInsufficientBalanceError: boolean;
-  onClick(): void;
-  onChange?(e: React.ChangeEvent<HTMLInputElement>): void;
-}
-function BitcoinCustomFeeInput({
-  hasInsufficientBalanceError,
-  onClick,
-  onChange,
-}: BitcoinCustomFeeInputProps) {
-  const [field] = useField('feeRate');
-  return (
-    <Input.Root hasError={hasInsufficientBalanceError}>
-      <Input.Label>{feeInputLabel}</Input.Label>
-      <Input.Field
-        onClick={onClick}
-        {...field}
-        onChange={e => {
-          field.onChange(e);
-          onChange?.(e);
-        }}
-      />
-    </Input.Root>
-  );
-}
 
 interface BitcoinCustomFeeProps {
   amount: number;
@@ -56,6 +27,7 @@ interface BitcoinCustomFeeProps {
   setCustomFeeInitialValue: Dispatch<SetStateAction<string>>;
   maxCustomFeeRate: number;
 }
+
 export function BitcoinCustomFee({
   amount,
   customFeeInitialValue,
@@ -123,20 +95,17 @@ export function BitcoinCustomFee({
                 </Link>
               </styled.span>
               <BitcoinCustomFeeInput
-                hasInsufficientBalanceError={hasInsufficientBalanceError}
+                amount={amount}
+                isSendingMax={isSendingMax}
                 onClick={async () => {
-                  feeInputRef?.current?.focus();
+                  feeInputRef.current?.focus();
                   await props.setValues({ ...props.values });
                 }}
-                onChange={e => setCustomFeeInitialValue((e.target as HTMLInputElement).value)}
+                customFeeInitialValue={customFeeInitialValue}
+                setCustomFeeInitialValue={setCustomFeeInitialValue}
+                recipient={recipient}
+                hasInsufficientBalanceError={hasInsufficientBalanceError}
               />
-              <Stack gap="space.01">
-                <BitcoinCustomFeeFiat
-                  amount={amount}
-                  isSendingMax={isSendingMax}
-                  recipient={recipient}
-                />
-              </Stack>
             </Stack>
             <PreviewButton isDisabled={!props.values.feeRate} text="Use custom fee" />
           </Stack>
