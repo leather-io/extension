@@ -297,3 +297,9 @@ export function removeMinusSign(value: string) {
 export function propIfDefined(prop: string, value: any) {
   return isBoolean(value) ? { [prop]: value } : {};
 }
+
+export function getScrollParent(node: HTMLElement | null) {
+  if (node === null) return null;
+  if (node.scrollHeight > node.clientHeight) return node;
+  return getScrollParent(node.parentNode as HTMLElement);
+}
