@@ -1,3 +1,22 @@
+## [6.30.0](https://github.com/leather-wallet/extension/compare/v6.29.0...v6.30.0) (2024-03-07)
+
+
+### Features
+
+* tag ([5b37691](https://github.com/leather-wallet/extension/commit/5b376919f70dfa8c7f9082ebcf60ba4887db3386))
+
+
+### Bug Fixes
+
+* tx calc unhandled errors, closes [#4941](https://github.com/leather-wallet/extension/issues/4941) ([150e7de](https://github.com/leather-wallet/extension/commit/150e7deb48cad69d2ff1b4d29de7dbbc5909e580))
+
+
+### Internal
+
+* add scam app warning ([caff01e](https://github.com/leather-wallet/extension/commit/caff01eab53f54427e3b8733ce4d8cbb965b7e1f))
+* post-release merge back ([cc74de2](https://github.com/leather-wallet/extension/commit/cc74de2f80697da824845cc094632c5ed4b17e8e))
+* post-release merge back ([769ac8f](https://github.com/leather-wallet/extension/commit/769ac8f441d703c4a22e28daba5d86a10220a0c6))
+
 ## [6.29.0](https://github.com/leather-wallet/extension/compare/v6.28.0...v6.29.0) (2024-03-05)
 
 
