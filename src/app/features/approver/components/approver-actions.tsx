@@ -3,7 +3,8 @@ import { Flex, styled } from 'leather-styles/jsx';
 
 import type { HasChildren } from '@app/common/has-children';
 
-import { ApproverActionsAnimation } from './approver-animation';
+import { ApproverActionsAnimation } from '../approver-animation';
+import { useRegisterApproverChild } from '../approver.context';
 
 const stretchChildrenStyles = css({ '& > *': { flex: 1 } });
 
@@ -11,6 +12,7 @@ interface ApproverActionsProps extends HasChildren {
   actions: React.ReactNode;
 }
 export function ApproverActions({ children, actions }: ApproverActionsProps) {
+  useRegisterApproverChild('actions');
   return (
     <styled.footer pos="sticky" mt="auto" bottom={0} className="skip-animation">
       <ApproverActionsAnimation>

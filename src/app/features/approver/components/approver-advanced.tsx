@@ -4,18 +4,19 @@ import { AnimatePresence, motion } from 'framer-motion';
 import { Flex } from 'leather-styles/jsx';
 
 import type { HasChildren } from '@app/common/has-children';
-import { createDelay } from '@app/common/utils';
+import { createDelay, getScrollParent } from '@app/common/utils';
 import { Button } from '@app/ui/components/button/button';
 import { Flag } from '@app/ui/components/flag/flag';
 import { ChevronDownIcon } from '@app/ui/icons';
 
 import { AnimateChangeInHeight } from '../../../components/animate-height';
-import { useApproverContext } from '../approver.context';
+import { useApproverContext, useRegisterApproverChild } from '../approver.context';
 
 const slightPauseForContentEnterAnimation = createDelay(120);
 
 export function ApproverAdvanced({ children }: HasChildren) {
   const { isDisplayingAdvancedView, setIsDisplayingAdvancedView } = useApproverContext();
+  useRegisterApproverChild('advanced');
 
   const ref = useRef<HTMLButtonElement>(null);
 
@@ -23,7 +24,9 @@ export function ApproverAdvanced({ children }: HasChildren) {
     setIsDisplayingAdvancedView(!isDisplayingAdvancedView);
     if (ref.current && !isDisplayingAdvancedView) {
       await slightPauseForContentEnterAnimation();
-      ref.current.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'start' });
+      const scrollPosition = ref.current.offsetTop;
+      const scrollParent = getScrollParent(ref.current);
+      scrollParent?.parentElement?.scroll({ top: scrollPosition, behavior: 'smooth' });
     }
   }
 

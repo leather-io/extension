@@ -10,7 +10,7 @@ export const childElementInitialAnimationState = css({
   [animationSelector]: { opacity: 0, transform: 'translateY(-16px)' },
 });
 
-const staggerMenuItems = stagger(0.06, { startDelay: 0.32 });
+const staggerMenuItems = stagger(0.06, { startDelay: 0.36 });
 
 export function useApproverChildrenEntryAnimation() {
   const [scope, animate] = useAnimate();
@@ -33,17 +33,14 @@ export function useApproverChildrenEntryAnimation() {
   return scope;
 }
 
-const initialState = { x: -20, opacity: 0 } as const;
-const animateState = { x: 0, opacity: 1, transition: { duration: 0.32 } } as const;
-
 interface ApproverHeaderAnimationProps extends HasChildren {
   delay?: number;
 }
 export function ApproverHeaderAnimation({ delay = 0, ...props }: ApproverHeaderAnimationProps) {
   return (
     <motion.div
-      initial={initialState}
-      animate={{ ...animateState, transition: { ...animateState, delay } }}
+      initial={{ x: -18, opacity: 0 }}
+      animate={{ x: 0, opacity: 1, transition: { duration: 0.4, delay, ease: 'easeOut' } }}
       {...props}
     />
   );
@@ -53,7 +50,7 @@ export function ApproverActionsAnimation(props: HasChildren) {
   return (
     <motion.div
       initial={{ opacity: 0 }}
-      animate={{ ...animateState, transition: { ...animateState.transition, delay: 0.64 } }}
+      animate={{ opacity: 1, transition: { duration: 0.4, delay: 0.68, ease: 'easeOut' } }}
       {...props}
     />
   );

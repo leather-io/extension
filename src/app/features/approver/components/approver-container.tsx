@@ -6,7 +6,7 @@ import type { HasChildren } from '@app/common/has-children';
 import {
   childElementInitialAnimationState,
   useApproverChildrenEntryAnimation,
-} from './approver-animation';
+} from '../approver-animation';
 
 const applyMarginsToLastApproverSection = css({
   '& .approver-section:last-child': { mb: 'space.03' },
