@@ -3,7 +3,7 @@
 <html lang="en">
 
 <head>
-    <title>Code coverage report for extension/src/app/pages/fund/components/zero-percent-fees-badge.tsx</title>
+    <title>Code coverage report for extension/src/app/ui/components/tag/tag-with-tooltip.tsx</title>
     <meta charset="utf-8" />
     <link rel="stylesheet" href="../../../../../../prettify.css" />
     <link rel="stylesheet" href="../../../../../../base.css" />
@@ -19,7 +19,7 @@
 <body>
 <div class='wrapper'>
     <div class='pad1'>
-        <h1><a href="../../../../../../index.html">All files</a> / <a href="index.html">extension/src/app/pages/fund/components</a> zero-percent-fees-badge.tsx</h1>
+        <h1><a href="../../../../../../index.html">All files</a> / <a href="index.html">extension/src/app/ui/components/tag</a> tag-with-tooltip.tsx</h1>
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
@@ -30,9 +30,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
+                <span class="strong">0% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/0</span>
+                <span class='fraction'>0/1</span>
             </div>
         
             
@@ -83,10 +83,16 @@
 <a name='L18'></a><a href='#L18'>18</a>
 <a name='L19'></a><a href='#L19'>19</a>
 <a name='L20'></a><a href='#L20'>20</a>
-<a name='L21'></a><a href='#L21'>21</a>
-<a name='L22'></a><a href='#L22'>22</a>
-<a name='L23'></a><a href='#L23'>23</a>
-<a name='L24'></a><a href='#L24'>24</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L21'></a><a href='#L21'>21</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -97,39 +103,24 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { HStack, styled } from 'leather-styles/jsx';
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { BasicTooltip } from '../tooltip/basic-tooltip';
+import { Tag, type TagProps, type TagVariants } from './tag';
 &nbsp;
-import { StarIcon } from '@app/ui/icons/star-icon';
+type TooltipSideType = 'bottom' | 'left' | 'right' | 'top';
 &nbsp;
-export function <span class="fstat-no" title="function not covered" >ZeroPercentFeesBadge() {</span>
+interface TagWithTooltipProps extends TagProps {
+  hoverLabel: string;
+  side?: TooltipSideType;
+}
+export function <span class="fstat-no" title="function not covered" >TagWithTooltip({</span>
+  hoverLabel,
+  side = <span class="branch-0 cbranch-no" title="branch not covered" >'bottom',</span>
+  ...props
+}: TagWithTooltipProps &amp; TagVariants) {
 <span class="cstat-no" title="statement not covered" >  return (</span>
-    &lt;HStack
-      alignItems="center"
-      border="default"
-      borderRadius="xs"
-      height="24px"
-      justifyContent="center"
-      paddingX="space.02"
-      paddingY="space.01"
-      gap="space.01"
-    &gt;
-      &lt;StarIcon color="yellow.action-primary-default" variant="small" /&gt;
-      &lt;styled.span color="yellow.action-primary-default" textStyle="caption.02"&gt;
-        0 % Fees
-      &lt;/styled.span&gt;
-    &lt;/HStack&gt;
+    &lt;BasicTooltip label={hoverLabel} side={side}&gt;
+      &lt;Tag {...props} /&gt;
+    &lt;/BasicTooltip&gt;
   );
 }
 &nbsp;</pre></td></tr></table></pre>
@@ -139,7 +130,7 @@ export function <span class="fstat-no" title="function not covered" >ZeroPercent
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-03-06T12:21:04.952Z
+                at 2024-03-07T11:28:23.518Z
             </div>
         <script src="../../../../../../prettify.js"></script>
         <script>
