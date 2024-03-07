@@ -9,8 +9,8 @@ export function SwapContainerLayout({ children }: HasChildren) {
       <Flex
         borderRadius={['unset', '16px']}
         maxHeight="90vh"
-        maxWidth={['100%', 'centeredPageFullWidth']}
-        minWidth={['100%', 'centeredPageFullWidth']}
+        maxWidth={['100%', 'pageWidth']}
+        minWidth={['100%', 'pageWidth']}
         background="ink.background-primary"
       >
         {children}

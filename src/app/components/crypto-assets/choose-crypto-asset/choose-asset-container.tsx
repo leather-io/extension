@@ -9,8 +9,8 @@ export function ChooseAssetContainer({ children }: HasChildren) {
       <Flex
         borderRadius={['unset', 'lg']}
         height="fit-content"
-        maxWidth={['100%', 'centeredPageFullWidth']}
-        minWidth={['100%', 'centeredPageFullWidth']}
+        maxWidth={['100%', 'pageWidth']}
+        minWidth={['100%', 'pageWidth']}
         background="ink.background-primary"
       >
         {children}
