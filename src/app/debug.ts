@@ -40,6 +40,7 @@ const debug = {
   },
   clearChromeStorage() {
     chrome.storage.local.clear();
+    chrome.storage.session.clear();
   },
 };
 
