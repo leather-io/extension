@@ -2594,10 +2594,10 @@
     "@trivago/prettier-plugin-sort-imports" "^4.2.0"
     prettier "^3.0.3"
 
-"@leather-wallet/tokens@0.0.10":
-  version "0.0.10"
-  resolved "https://registry.yarnpkg.com/@leather-wallet/tokens/-/tokens-0.0.10.tgz#8d944d6f63847a71d9739974163554496c92b79c"
-  integrity sha512-DhFBpPclCaDM5+o/H5+luPfTrnLuQ8aW9PGBRSc+yiIhSL1wNv/fuTljF/R4uHQQblG4EQQ2fjRyh5XKBEfKaQ==
+"@leather-wallet/tokens@0.0.13":
+  version "0.0.13"
+  resolved "https://registry.yarnpkg.com/@leather-wallet/tokens/-/tokens-0.0.13.tgz#0162f59d888afcb15dd71fbbe7ab54b5b54b6386"
+  integrity sha512-ScXDDa0pyB86XqUHTWGoZPsrCpdWG/vEvhD5YyfSIBKnNnPdf/zP16/Wv88edPBXQfcR98YUOgIm+Uvjq75Fqw==
 
 "@ledgerhq/devices@^8.0.7", "@ledgerhq/devices@^8.2.0":
   version "8.2.0"
