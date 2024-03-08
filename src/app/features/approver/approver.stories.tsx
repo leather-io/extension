@@ -6,6 +6,7 @@ import { Callout } from '@app/ui/components/callout/callout';
 import { Flag } from '@app/ui/components/flag/flag';
 import { ItemInteractive } from '@app/ui/components/item/item-interactive';
 import { ItemLayout } from '@app/ui/components/item/item.layout';
+import { ZapIcon } from '@app/ui/icons';
 
 import { Approver } from './approver';
 
@@ -32,8 +33,24 @@ export const ExampleOne: Story = {
         <Approver.Header title="Some prompt that breaks two lines" requester="gamma.io" />
         <Callout title="Some callout">Hey watch out for this sketchy app</Callout>
         <Approver.Section>
-          <Approver.Subheader>Example flag content</Approver.Subheader>
-          <Flag img={<Circle size="40px" backgroundColor="ink.border-default" />} align="top">
+          <Approver.Subheader>
+            Subheader with icon <ZapIcon variant="small" />
+          </Approver.Subheader>
+          <ItemInteractive>
+            <ItemLayout
+              flagImg={<Circle size="40px" backgroundColor="ink.border-default" />}
+              titleLeft={<Box width="180px" height="14px" backgroundColor="ink.border-default" />}
+              titleRight={<Box width="50px" height="14px" backgroundColor="ink.border-default" />}
+              captionLeft={<Box width="70px" height="12px" backgroundColor="ink.border-default" />}
+              captionRight={<Box width="40px" height="12px" backgroundColor="ink.border-default" />}
+            />
+          </ItemInteractive>
+          <Approver.Subheader mt="space.05">Subheader 2</Approver.Subheader>
+          <Flag
+            img={<Circle size="40px" backgroundColor="ink.border-default" />}
+            align="top"
+            mb="space.03"
+          >
             <Box width="90%" height="16px" backgroundColor="ink.border-default" />
             <Box width="75%" height="12px" backgroundColor="ink.border-default" mt="space.02" />
           </Flag>
