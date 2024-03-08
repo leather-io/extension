@@ -1,5 +1,8 @@
 import axios from 'axios';
 
+import { HIRO_API_BASE_URL_MAINNET } from '@shared/constants';
+import { Paginated } from '@shared/models/api-types';
+
 class Configuration {
   constructor(public baseUrl: string) {}
 }
@@ -65,16 +68,17 @@ export interface Brc20Token extends Brc20TokenResponse {
 }
 
 interface Brc20TokenTicker {
-  decimals: number;
-  deploy_incr_number: number;
-  deploy_ts: string;
-  holder_count: number;
-  image_url: string | null;
-  limit_per_mint: string;
-  max_supply: string;
-  mint_progress: number;
-  minted_supply: string;
+  id: string;
+  number: number;
+  block_height: number;
+  tx_id: string;
+  address: string;
   ticker: string;
+  max_supply: string;
+  mint_limit: string;
+  decimals: number;
+  deploy_timestamp: number;
+  minted_supply: string;
   tx_count: number;
 }
 
@@ -134,6 +138,24 @@ class BestinslotApi {
       {
         ...this.defaultOptions,
       }
+    );
+    return resp.data;
+  }
+}
+
+class HiroApi {
+  url = HIRO_API_BASE_URL_MAINNET;
+
+  async getBrc20Balance(address: string) {
+    const resp = await axios.get<Paginated<Brc20TokenResponse[]>>(
+      `${this.url}/ordinals/v1/brc-20/balances/${address}`
+    );
+    return resp.data;
+  }
+
+  async getBrc20TickerData(ticker: string) {
+    const resp = await axios.get<Paginated<Brc20TokenTicker[]>>(
+      `${this.url}/ordinals/v1/brc-20/tokens?ticker=${ticker}`
     );
     return resp.data;
   }
@@ -250,6 +272,7 @@ export class BitcoinClient {
   feeEstimatesApi: FeeEstimatesApi;
   transactionsApi: TransactionsApi;
   BestinslotApi: BestinslotApi;
+  HiroApi: HiroApi;
 
   constructor(basePath: string) {
     this.configuration = new Configuration(basePath);
@@ -257,5 +280,6 @@ export class BitcoinClient {
     this.feeEstimatesApi = new FeeEstimatesApi(this.configuration);
     this.transactionsApi = new TransactionsApi(this.configuration);
     this.BestinslotApi = new BestinslotApi(this.configuration);
+    this.HiroApi = new HiroApi();
   }
 }
