@@ -60,7 +60,7 @@ export function Callout(props: CalloutProps & CalloutVariants) {
               {title}
             </styled.span>
           )}
-          {children && <styled.span textStyle="caption.02">{children}</styled.span>}
+          {children && <styled.span textStyle="label.03">{children}</styled.span>}
         </Stack>
       </Flag>
     </Box>

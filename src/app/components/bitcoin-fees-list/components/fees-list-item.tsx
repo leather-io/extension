@@ -41,7 +41,7 @@ export function FeesListItem({
       </Flex>
       <Flex justifyContent="center">
         <styled.span
-          textStyle="caption.02"
+          textStyle="label.03"
           data-testid={SharedComponentsSelectors.FeesListItemFeeValue}
         >
           {`${feeFiatValue} | ${feeRate} sats/vB | ${feeAmount}`}

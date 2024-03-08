@@ -49,7 +49,7 @@ export function StructuredDataBox(props: {
           <Box fontSize="14px" lineHeight="1.7" px="space.05">
             <HStack alignItems="center" justifyContent="space-between">
               <styled.h2 textStyle="label.01">{domainName}</styled.h2>
-              <styled.span lineHeight="1.5" textStyle="caption.02">
+              <styled.span lineHeight="1.5" textStyle="label.03">
                 {domainVersion} {domainChainName}
               </styled.span>
             </HStack>

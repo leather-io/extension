@@ -20,9 +20,9 @@ export function InscriptionMetadata({
     <Flex alignItems="flex-start" flexDirection="column" justifyContent="center">
       {icon && icon}
       <styled.span textStyle="label.01">{title}</styled.span>
-      <styled.span textStyle="caption.02">{subtitle}</styled.span>
+      <styled.span textStyle="label.03">{subtitle}</styled.span>
       {action ? (
-        <Link color="stacks" onClick={() => action()} textStyle="caption.02" variant="text">
+        <Link color="stacks" onClick={() => action()} textStyle="label.03" variant="text">
           {actionLabel}
         </Link>
       ) : null}

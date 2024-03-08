@@ -67,7 +67,7 @@ export function ItemLayout({
             {isValidElement(captionRight) ? (
               captionRight
             ) : (
-              <styled.span className={itemCaptionStyles} textStyle="caption.02">
+              <styled.span className={itemCaptionStyles} textStyle="label.03">
                 {captionRight}
               </styled.span>
             )}

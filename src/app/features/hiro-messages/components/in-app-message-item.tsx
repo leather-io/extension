@@ -41,7 +41,7 @@ export function HiroMessageItem(props: HiroMessageItemProps) {
             </styled.span>
           )}
           <styled.span
-            textStyle="caption.02"
+            textStyle="label.03"
             display="inline-block"
             fontSize="inherit"
             mr={['space.02', 'space.04']}

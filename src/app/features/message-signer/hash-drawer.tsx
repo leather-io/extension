@@ -48,7 +48,7 @@ export function HashDrawer(props: HashDrawerProps) {
           color="ink.text-subdued"
           lineHeight="1.6"
           wordBreak="break-all"
-          textStyle="caption.02"
+          textStyle="label.03"
         >
           {displayHash}
         </styled.span>

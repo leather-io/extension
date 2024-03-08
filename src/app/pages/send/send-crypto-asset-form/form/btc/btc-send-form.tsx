@@ -94,7 +94,7 @@ export function BtcSendForm() {
                 {currentNetwork.chain.bitcoin.bitcoinNetwork === 'testnet' && (
                   <Callout variant="warning" mt="space.04">
                     {'This is a Bitcoin testnet transaction. Funds have no value. '}
-                    <Link href="https://coinfaucet.eu/en/btc-testnet" textStyle="caption.02">
+                    <Link href="https://coinfaucet.eu/en/btc-testnet" textStyle="label.03">
                       Get testnet BTC here ↗
                     </Link>
                   </Callout>

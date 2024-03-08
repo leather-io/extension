@@ -45,7 +45,7 @@ export function GetAddressesLayout(props: GetAddressesLayoutProps) {
         alignSelf="bottom"
         bg="ink.background-secondary"
       >
-        <styled.p textStyle="caption.02">
+        <styled.p textStyle="label.03">
           By connecting you give permission to {requester} to see all addresses linked to this
           account
         </styled.p>

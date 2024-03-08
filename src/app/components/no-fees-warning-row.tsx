@@ -9,8 +9,8 @@ interface NoFeesWarningRowProps {
 export function NoFeesWarningRow({ chainId }: NoFeesWarningRowProps) {
   return (
     <HStack alignItems="center" justifyContent="space-between">
-      <styled.span textStyle="caption.02">No fees are incurred</styled.span>
-      <styled.span textStyle="caption.02">
+      <styled.span textStyle="label.03">No fees are incurred</styled.span>
+      <styled.span textStyle="label.03">
         {whenStacksChainId(chainId)({
           [ChainID.Testnet]: 'Testnet',
           [ChainID.Mainnet]: 'Mainnet',
