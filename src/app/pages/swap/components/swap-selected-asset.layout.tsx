@@ -77,7 +77,7 @@ export function SwapSelectedAssetLayout({
             <styled.span
               color={captionTextColor}
               cursor={tooltipLabel ? 'pointer' : 'unset'}
-              textStyle="caption.02"
+              textStyle="caption.01"
             >
               {showError ? error : caption}
             </styled.span>
@@ -88,7 +88,7 @@ export function SwapSelectedAssetLayout({
             onClick={onClickHandler ? onClickHandler : noop}
             variant={onClickHandler ? 'underlined' : 'text'}
           >
-            <styled.span textStyle="caption.02">{value}</styled.span>
+            <styled.span textStyle="caption.01">{value}</styled.span>
           </Link>
         </HStack>
       ) : null}

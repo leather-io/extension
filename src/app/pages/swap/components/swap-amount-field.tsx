@@ -79,7 +79,7 @@ export function SwapAmountField({ amountAsFiat, isDisabled, name }: SwapAmountFi
         }}
       />
       {amountAsFiat ? (
-        <styled.span color={showError ? 'error' : 'ink.text-subdued'} textStyle="caption.02">
+        <styled.span color={showError ? 'error' : 'ink.text-subdued'} textStyle="caption.01">
           {amountAsFiat}
         </styled.span>
       ) : null}

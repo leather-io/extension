@@ -99,7 +99,7 @@ export function LeatherIntroDialogPart2() {
           Learn more →
         </styled.a>
       </Box>
-      <styled.span textStyle="caption.02" display="block" textAlign="left" mt="16px">
+      <styled.span textStyle="caption.01" display="block" textAlign="left" mt="16px">
         Leather Wallet will now be provided by Leather Wallet LLC [a subsidiary of Nassau Machines
         Inc]. Please review and accept Leather Wallet{' '}
         <styled.a href="https://leather.io/terms" textDecoration="underline" target="_blank">
