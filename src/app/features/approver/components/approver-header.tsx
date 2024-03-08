@@ -17,7 +17,7 @@ export function ApproverHeader({ title, requester }: ApproverHeaderProps) {
         <styled.h1 textStyle="heading.03">{title}</styled.h1>
       </ApproverHeaderAnimation>
       <ApproverHeaderAnimation delay={0.04}>
-        <styled.p textStyle="label.02" mt="space.03">
+        <styled.p textStyle="label.03" mt="space.03">
           Requested by {requester}
         </styled.p>
       </ApproverHeaderAnimation>

@@ -1,10 +1,9 @@
 import { ReactNode, isValidElement } from 'react';
 
-import { Box, Flex, HStack, Stack, styled } from 'leather-styles/jsx';
+import { Flex, HStack, Stack, styled } from 'leather-styles/jsx';
 
 import { pressableCaptionStyles, pressableChevronStyles } from '@app/ui/pressable/pressable';
 
-import { CheckmarkIcon } from '../../icons/checkmark-icon';
 import { ChevronUpIcon } from '../../icons/chevron-up-icon';
 import { Flag } from '../flag/flag';
 
@@ -22,7 +21,6 @@ export function ItemLayout({
   captionLeft,
   captionRight,
   flagImg,
-  isSelected,
   showChevron,
   titleLeft,
   titleRight,
@@ -32,7 +30,6 @@ export function ItemLayout({
       <Flex alignItems="center" justifyContent="space-between" width="100%">
         <Stack
           alignItems="start"
-          flexGrow={2}
           gap="2px"
           overflow="hidden"
           textOverflow="ellipsis"
@@ -42,12 +39,9 @@ export function ItemLayout({
             {isValidElement(titleLeft) ? (
               titleLeft
             ) : (
-              <styled.span textStyle="label.02">{titleLeft}</styled.span>
-            )}
-            {isSelected && (
-              <Box height="20px">
-                <CheckmarkIcon variant="small" />
-              </Box>
+              <styled.span fontWeight={500} textStyle="label.03">
+                {titleLeft}
+              </styled.span>
             )}
           </HStack>
           {isValidElement(captionLeft) ? (
@@ -59,7 +53,7 @@ export function ItemLayout({
           )}
         </Stack>
         <HStack gap="space.03">
-          <Stack alignItems="end" gap="2px" height="42px">
+          <Stack alignItems="end" gap="2px">
             {isValidElement(titleRight) ? (
               titleRight
             ) : (
