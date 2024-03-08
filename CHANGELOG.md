@@ -1,3 +1,20 @@
+## [6.30.1](https://github.com/leather-wallet/extension/compare/v6.30.0...v6.30.1) (2024-03-08)
+
+
+### Bug Fixes
+
+* fetch brc20 balance from hiro ([69b13b6](https://github.com/leather-wallet/extension/commit/69b13b6a94530bac9ef41f961d69cfd148d5efff))
+* regression on stacking layout ([0193986](https://github.com/leather-wallet/extension/commit/019398651c934d1c3b9bdaf653f2cd6356fbd57b))
+
+
+### Internal
+
+* fix page width issue ([c7edd05](https://github.com/leather-wallet/extension/commit/c7edd0554d7d54f0dc2cd02a9ad7f0b3d265de4d))
+* internal clear storage tool fix ([f20a14b](https://github.com/leather-wallet/extension/commit/f20a14ba11c41f9a7c08f17b23ad3bf7db30d70d))
+* post-release merge back ([d95baac](https://github.com/leather-wallet/extension/commit/d95baac8f936c2c5855c7813f3aa56a4465798ce))
+* post-release merge back ([6702100](https://github.com/leather-wallet/extension/commit/6702100bdd0da98d43c6b5f498e3c5f92005b701))
+* update wallet config ([1eb13bc](https://github.com/leather-wallet/extension/commit/1eb13bc537bcfe0f3c8632dd3781db13a9c10652))
+
 ## [6.30.0](https://github.com/leather-wallet/extension/compare/v6.29.0...v6.30.0) (2024-03-07)
 
 
