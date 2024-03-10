@@ -9,7 +9,7 @@ import { InfoCircleIcon } from '@app/ui/icons/info-circle-icon';
 
 const feesInfo =
   'Higher fees increase the likelihood of your transaction getting confirmed before others. Click to learn more.';
-const url = 'https://hiro.so/questions/fee-estimates';
+const url = 'https://leather.gitbook.io/guides/transactions/fees';
 
 interface FeesRowLayoutProps extends HstackProps {
   feeField: React.JSX.Element;
