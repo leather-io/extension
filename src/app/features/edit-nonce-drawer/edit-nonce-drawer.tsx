@@ -13,7 +13,7 @@ import { Link } from '@app/ui/components/link/link';
 
 import { EditNonceForm } from './components/edit-nonce-form';
 
-const url = 'https://www.hiro.so/questions/transactions-advanced-settings';
+const url = 'https://leather.gitbook.io/guides/transactions/nonces';
 
 function CustomFeeMessaging() {
   return (
