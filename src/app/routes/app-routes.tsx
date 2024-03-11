@@ -7,6 +7,8 @@ import {
   createRoutesFromElements,
 } from 'react-router-dom';
 
+import * as Sentry from '@sentry/react';
+
 import { RouteUrls } from '@shared/route-urls';
 
 import { LoadingSpinner } from '@app/components/loading-spinner';
@@ -64,6 +66,8 @@ export function AppRoutes() {
   return <RouterProvider router={routes} />;
 }
 
+const sentryCreateBrowserRouter = Sentry.wrapCreateBrowserRouter(createHashRouter);
+
 export const homePageModalRoutes = (
   <>
     {settingsRoutes}
@@ -77,7 +81,7 @@ export const homePageModalRoutes = (
 );
 
 function useAppRoutes() {
-  return createHashRouter(
+  return sentryCreateBrowserRouter(
     createRoutesFromElements(
       <Route element={<Container />}>
         <Route
