@@ -1,0 +1,33 @@
+name: Contributor automation
+
+on:
+  pull_request:
+    types: opened
+
+jobs:
+  fork-detection:
+    runs-on: ubuntu-latest
+    permissions:
+      issues: write
+    # When a fork
+    if: github.event.pull_request.head.repo.full_name != github.repository && github.actor != 'dependabot[bot]'
+    steps:
+      - name: Add contributor advice
+        uses: peter-evans/create-or-update-comment@v4
+        with:
+          issue-number: ${{ github.event.pull_request.number }}
+          token: ${{ secrets.LEATHER_BOT }}
+          body: |
+            Thanks for contributing to Leather! Our team will review your PR and get back to you as soon as possible.
+
+            Please make sure to follow our [Contributor Guidelines][1]
+
+            [1]: https://github.com/leather-wallet/extension/tree/dev/.github/CONTRIBUTING.md
+
+      - name: Add label
+        run: gh issue edit "$NUMBER" --add-label "$LABELS"
+        env:
+          GH_TOKEN: ${{ secrets.LEATHER_BOT }}
+          GH_REPO: ${{ github.repository }}
+          NUMBER: ${{ github.event.pull_request.number }}
+          LABELS: 'needs:internal-review'
