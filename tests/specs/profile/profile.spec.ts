@@ -26,6 +26,7 @@ test.describe('Profile updating', () => {
     const name = profileUpdatingPage.page.getByText('twitter');
     const nameText = await name.innerText();
     test.expect(nameText).toBe('https://twitter.com/twitterHandle');
+    await profileUpdatingPage.page.close();
   });
 
   test('should show an error for invalid profile', async ({ context }) => {
@@ -36,6 +37,23 @@ test.describe('Profile updating', () => {
     );
 
     test.expect(error).toBeTruthy();
+    await profileUpdatingPage.page.close();
+  });
+});
+
+test.describe('Gaia request', () => {
+  let testAppPage: TestAppPage;
+
+  test.beforeEach(async ({ extensionId, globalPage, onboardingPage, context }) => {
+    await globalPage.setupAndUseApiCalls(extensionId);
+    await onboardingPage.signInWithTestAccount(extensionId);
+    testAppPage = await TestAppPage.openDemoPage(context);
+    await testAppPage.signIn();
+    const accountsPage = await context.waitForEvent('page');
+    await accountsPage.locator('text="Account 2"').click({ force: true });
+    await testAppPage.page.bringToFront();
+    await testAppPage.page.click('text=Profile');
+    await accountsPage.close();
   });
 
   test('should send a signed profile token to gaia', async ({ context }) => {
