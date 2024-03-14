@@ -85,7 +85,6 @@ const aliases = {
   '@stacks/storage': '@stacks/storage/dist/esm',
   '@stacks/transactions': '@stacks/transactions/dist/esm',
   '@stacks/wallet-sdk': '@stacks/wallet-sdk/dist/esm',
-  'lottie-web': path.resolve('node_modules/lottie-web/build/player/lottie_light.js'),
   'leather-styles': path.resolve('leather-styles'),
 };
 
@@ -110,10 +109,12 @@ export const config = {
     fallback: {
       global: false,
       node: false,
+      buffer: require.resolve("buffer/"),
       crypto: require.resolve('crypto-browserify'),
       stream: require.resolve('stream-browserify'),
       vm: require.resolve('vm-browserify'),
       assert: require.resolve('assert'),
+      'lottie-web': path.resolve('node_modules/lottie-web/build/player/lottie_light.js'),
       fs: false,
       path: false,
     },

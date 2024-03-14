@@ -14,21 +14,21 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: ./.github/actions/provision
-      - uses: actions/setup-node@v3
+      - uses: actions/setup-node@v4
         with:
           node-version: 18
 
-      - uses: actions/cache@v3
+      - uses: actions/cache@v4
         id: cache
         with:
           path: '**/node_modules'
-          key: ${{ runner.os }}-${{ hashFiles('**/yarn.lock') }}-${{ hashFiles('**/package.json') }}
+          key: ${{ runner.os }}-${{ hashFiles('**/pnpm-lock.yaml') }}-${{ hashFiles('**/package.json') }}
 
       - name: Install dependencies
         if: steps.cache.outputs.cache-hit != 'true'
         env:
           PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD: 1
-        run: yarn --frozen-lockfile
+        run: pnpm install --frozen-lockfile
         shell: bash
 
       - name: Get installed Playwright version
@@ -36,21 +36,21 @@ jobs:
         run: echo "PLAYWRIGHT_VERSION=$(node -e "console.log(require('./package.json').devDependencies['@playwright/test'])")" >> $GITHUB_ENV
 
       - name: Cache playwright binaries
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         id: playwright-cache
         with:
           path: ~/.cache/ms-playwright
           key: ${{ runner.os }}-playwright-${{ env.PLAYWRIGHT_VERSION }}
 
       - name: Install Playwright deps
-        run: yarn playwright install chrome
+        run: pnpm playwright install chrome
         if: steps.playwright-cache.outputs.cache-hit != 'true'
 
       - name: Run Playwright tests
         id: playwright
         uses: mathiasvr/command-output@v2.0.0
         with:
-          run: yarn playwright test --reporter=github tests/api
+          run: pnpm playwright test --reporter=github tests/api
 
       - name: Truncate String
         uses: 2428392/gh-truncate-string-action@v1.2.0

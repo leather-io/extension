@@ -18,9 +18,9 @@ There is a long list of features we want to add to Leather, and we’d love help
 
 Code contributions must follow the style and patterns already employed by the project. This list of requirements is non-exhaustive. The Leather team might ask for additional changes.
 
-- Code must conform to our linting setup `yarn lint`
-- Code formatting correctly `yarn prettier`
-- Code must be typed properly with Typescript `yarn typecheck`
+- Code must conform to our linting setup `pnpm lint`
+- Code formatting correctly `pnpm prettier`
+- Code must be typed properly with Typescript `pnpm typecheck`
 
 ## Testing
 

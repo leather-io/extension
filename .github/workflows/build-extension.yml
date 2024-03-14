@@ -20,7 +20,7 @@ jobs:
 
       - uses: kyranjamie/pull-request-fixed-header@v1.0.1
         with:
-          header: '> _Building Leather at commit `${{ env.SHORT_SHA }}`_'
+          header: '> _Building Leather at commit ${{ env.SHORT_SHA }}_'
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
   build:
@@ -42,7 +42,7 @@ jobs:
       - run: echo "SHORT_SHA=`echo ${{ github.event.pull_request.head.sha }} | cut -c1-7`" >> $GITHUB_ENV
 
       - name: Build project
-        run: yarn build
+        run: pnpm build
         env:
           WALLET_ENVIRONMENT: feature
           TARGET_BROWSER: ${{ matrix.target }}
