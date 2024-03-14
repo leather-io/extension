@@ -31,35 +31,23 @@ jobs:
         id: playwright-version
         run: echo "PLAYWRIGHT_VERSION=$(node -e "console.log(require('./package.json').devDependencies['@playwright/test'])")" >> $GITHUB_ENV
 
-      - uses: actions/cache@v3
-        id: cache
-        with:
-          path: '**/node_modules'
-          key: ${{ runner.os }}-${{ hashFiles('**/yarn.lock') }}-${{ hashFiles('**/package.json') }}-${{ env.PLAYWRIGHT_VERSION }}-force
-
-      - name: Install dependencies
-        if: steps.cache.outputs.cache-hit != 'true'
-        env:
-          PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD: 1
-        run: yarn --frozen-lockfile
-
       - name: Cache playwright binaries
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         id: playwright-cache
         with:
           path: ~/.cache/ms-playwright
           key: ${{ runner.os }}-playwright-cache-${{ env.PLAYWRIGHT_VERSION }}
 
       - name: Install Playwright browsers
-        run: yarn playwright install chrome chromium
+        run: pnpm playwright install chrome chromium
         if: steps.playwright-cache.outputs.cache-hit != 'true'
 
       - name: Install Playwright deps
-        run: yarn playwright install --with-deps
+        run: pnpm playwright install --with-deps
         if: steps.playwright-cache.outputs.cache-hit != 'true'
 
       - name: Build extension in test mode
-        run: yarn build:test
+        run: pnpm build:test
 
       - name: Extract branch name
         shell: bash
@@ -77,7 +65,7 @@ jobs:
         # processes that require a display server to run in environments where
         # one is not available.
       - name: Run Playwright tests
-        run: xvfb-run yarn playwright test tests/specs --shard=${{ matrix.shardIndex }}/${{ matrix.shardTotal }} --workers=1
+        run: xvfb-run pnpm playwright test tests/specs --shard=${{ matrix.shardIndex }}/${{ matrix.shardTotal }} --workers=1
         env:
           BRANCH_NAME: ${{ steps.extract_branch.outputs.branch }}
           TEST_ACCOUNT_SECRET_KEY: ${{ secrets.TEST_ACCOUNT_SECRET_KEY }}
@@ -98,10 +86,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
+
+      - name: Set up pnpm
+        uses: pnpm/action-setup@v3
 
       - name: Install dependencies
-        run: yarn --frozen-lockfile
+        run: pnpm install --frozen-lockfile
 
       - name: Download blob reports from GitHub Actions Artifacts
         uses: actions/download-artifact@v3

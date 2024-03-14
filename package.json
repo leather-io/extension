@@ -3,6 +3,7 @@
   "description": "Leather is a browser extension for interacting with Stacks apps",
   "private": true,
   "version": "6.30.1",
+  "packageManager": "pnpm@8.15.4",
   "author": {
     "name": "Leather Wallet LLC"
   },
@@ -16,12 +17,12 @@
     "build:ext:test": "cross-env WALLET_ENVIRONMENT=testing webpack --config webpack/webpack.config.prod.js",
     "build:ext:test:watch": "cross-env WALLET_ENVIRONMENT=testing webpack --config webpack/webpack.config.prod.js --watch",
     "build:test-app": "cross-env WALLET_ENVIRONMENT=production webpack --config ./test-app/webpack/webpack.config.prod.cjs",
-    "build:test": "concurrently 'yarn build:ext:test' 'yarn build:test-app'",
-    "build:test-api": "concurrently 'yarn build:ext:test' 'yarn build:test-app'",
+    "build:test": "concurrently 'pnpm build:ext:test' 'pnpm build:test-app'",
+    "build:test-api": "concurrently 'pnpm build:ext:test' 'pnpm build:test-app'",
     "build:test:watch": "cross-env WALLET_ENVIRONMENT=testing webpack --config webpack/webpack.config.prod.js",
     "clean": "rm -rf ./dist",
     "clean:all": "rm -rf ./dist && rm -rf ./coverage && rm -rf ./node_modules",
-    "lint": "concurrently -g 'yarn lint:prettier' 'yarn lint:unused-exports' 'yarn lint:deps' 'yarn lint:remote-wallet-config' 'yarn lint:eslint' 'yarn lint:filename'",
+    "lint": "concurrently -g 'pnpm lint:prettier' 'pnpm lint:unused-exports' 'pnpm lint:deps' 'pnpm lint:remote-wallet-config' 'pnpm lint:eslint' 'pnpm lint:filename'",
     "lint:eslint": "eslint \"src/**/*.{ts,tsx}\"",
     "lint:filename": "ls-lint",
     "lint:fix": "eslint \"src/**/*.{ts,tsx}\" --fix",
@@ -30,7 +31,7 @@
     "lint:unused-exports": "ts-unused-exports tsconfig.json --ignoreFiles=icons --ignoreFiles=leather-styles --ignoreFiles=tests --excludePathsFromReport=.*stories",
     "lint:remote-wallet-config": "npx ajv-cli validate -s config/wallet-config.schema.json -d config/wallet-config.json",
     "lint:deps": "dependency-cruise  --config .dependency-cruiser.js \"src/**/*.{ts,tsx}\"",
-    "prod:ext": "yarn build",
+    "prod:ext": "pnpm build",
     "prod:analyze": "cross-env WALLET_ENVIRONMENT=production ANALYZE=true webpack -p",
     "test:integration": "playwright test",
     "test:unit": "vitest run",
@@ -40,7 +41,8 @@
     "storybook": "storybook dev -p 6006",
     "storybook-docs": "storybook dev --docs",
     "build-storybook": "storybook build",
-    "chromatic": "npx chromatic --project-token=CHROMATIC_PROJECT_TOKEN"
+    "chromatic": "npx chromatic --project-token=CHROMATIC_PROJECT_TOKEN",
+    "preinstall": "npx only-allow pnpm"
   },
   "license": "MIT",
   "main": "index.js",
@@ -128,6 +130,7 @@
   },
   "dependencies": {
     "@bitcoinerlab/secp256k1": "1.0.2",
+    "@blockstack/stacks-transactions": "0.7.0",
     "@coinbase/cbpay-js": "1.0.2",
     "@dlc-link/dlc-tools": "1.1.1",
     "@fungible-systems/zone-file": "2.0.0",
@@ -191,6 +194,7 @@
     "chroma-js": "2.4.2",
     "coinselect": "3.1.13",
     "compare-versions": "4.1.3",
+    "cross-fetch": "4.0.0",
     "css-loader": "6.9.0",
     "dayjs": "1.11.8",
     "dompurify": "3.0.6",
@@ -264,7 +268,9 @@
     "@storybook/react": "7.6.17",
     "@storybook/react-webpack5": "7.6.17",
     "@storybook/test": "7.6.17",
+    "@storybook/theming": "8.0.0",
     "@types/argon2-browser": "1.18.4",
+    "@types/bn.js": "5.1.5",
     "@types/chrome": "0.0.260",
     "@types/dompurify": "3.0.5",
     "@types/download": "8.0.5",
@@ -345,7 +351,6 @@
   "resolutions": {
     "nanoid": "3.3.4",
     "socket.io-parser": "4.2.4",
-    "**/**/bn.js": "5.2.1",
     "wrap-ansi": "7.0.0"
   },
   "keywords": [
