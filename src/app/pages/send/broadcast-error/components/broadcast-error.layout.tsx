@@ -43,7 +43,8 @@ export function BroadcastErrorLayout(props: BroadcastErrorProps) {
           mx="space.05"
           p="space.04"
           textAlign="left"
-          textStyle="mono.02"
+          textStyle="code"
+          fontSize="10px"
           wordBreak="break-all"
         >
           {errorPayload}

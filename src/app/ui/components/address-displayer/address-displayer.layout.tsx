@@ -1,6 +1,6 @@
-import { styled } from 'leather-styles/jsx';
+import { type HTMLStyledProps, styled } from 'leather-styles/jsx';
 
-interface AddressDisplayerLayoutProps {
+interface AddressDisplayerLayoutProps extends HTMLStyledProps<'span'> {
   isEven: boolean;
   children: React.ReactNode;
 }
@@ -9,7 +9,7 @@ export function AddressDisplayerLayout({ isEven, ...props }: AddressDisplayerLay
     <styled.span
       color={isEven ? 'ink.text-primary' : 'ink.text-subdued'}
       mr="space.02"
-      textStyle="mono.01"
+      textStyle="code"
       {...props}
     />
   );
