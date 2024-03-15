@@ -1,5 +1,5 @@
 import { StacksAssetAvatar } from '@app/components/crypto-assets/stacks/components/stacks-asset-avatar';
-import { StxAvatar } from '@app/components/crypto-assets/stacks/components/stx-avatar';
+import { StxAvatarIcon } from '@app/ui/components/avatar/stx-avatar-icon';
 
 import { AmountField } from '../../components/amount-field';
 import { SelectedAssetField } from '../../components/selected-asset-field';
@@ -33,6 +33,7 @@ export function Sip10TokenSendFormContainer({
       }
       tokenSymbol={symbol}
       autoComplete="off"
+      tokenMaxLength={Infinity}
     />
   );
   const selectedAssetField = (
@@ -44,7 +45,7 @@ export function Sip10TokenSendFormContainer({
             imageCanonicalUri={avatar.imageCanonicalUri}
           />
         ) : (
-          <StxAvatar />
+          <StxAvatarIcon />
         )
       }
       name={symbol}

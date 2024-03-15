@@ -1,6 +1,5 @@
 import { useMemo } from 'react';
 import { useAsync } from 'react-async-hook';
-import toast from 'react-hot-toast';
 
 import {
   clearBrowserStorageLogs,
@@ -10,6 +9,7 @@ import {
 import { isNumber } from '@shared/utils';
 
 import { Divider } from '@app/components/layout/divider';
+import { useToast } from '@app/features/toasts/use-toast';
 import { Caption } from '@app/ui/components/typography/caption';
 
 import { SettingsMenuItem as MenuItem } from './settings-menu-item';
@@ -27,6 +27,7 @@ interface AdvancedMenuItemsProps {
 }
 export function AdvancedMenuItems({ closeHandler, settingsShown }: AdvancedMenuItemsProps) {
   const { result: logSizeInBytes } = useAsync(async () => getLogSizeInBytes(), [settingsShown]);
+  const toast = useToast();
 
   const diagnosticLogText = useMemo(() => {
     const noLogInfoMsg = `There are no logs cached`;

@@ -12,6 +12,7 @@ env:
   SENTRY_DSN: ${{ secrets.SENTRY_DSN }}
   SEGMENT_WRITE_KEY: ${{ secrets.SEGMENT_WRITE_KEY }}
   TRANSAK_API_KEY: ${{ secrets.TRANSAK_API_KEY }}
+  BESTINSLOT_API_KEY: ${{ secrets.BESTINSLOT_API_KEY }}
   WALLET_ENVIRONMENT: production
   IS_PUBLISHING: true
 
@@ -58,7 +59,7 @@ jobs:
           # We only add the sentry auth token for chrome, as we don't want to
           # create a duplicate release during the ff build
           SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
-        run: yarn build
+        run: pnpm build
 
       - uses: actions/upload-artifact@v3
         name: Upload build artifact
@@ -73,7 +74,7 @@ jobs:
         continue-on-error: true
         id: publish-chrome
         run: |
-          yarn chrome-webstore-upload upload --auto-publish --source leather-chromium.zip
+          pnpm chrome-webstore-upload upload --auto-publish --source leather-chromium.zip
           echo "::set-output name=publish_status::${?}"
         env:
           EXTENSION_ID: ${{ secrets.CHROME_APP_ID }}
@@ -98,7 +99,7 @@ jobs:
 
       - name: Build project
 
-        run: yarn build
+        run: pnpm build
 
       - uses: actions/upload-artifact@v3
         name: Upload build artifact
@@ -110,7 +111,7 @@ jobs:
         continue-on-error: true
         id: publish-firefox
         run: |
-          yarn web-ext-submit --channel listed --artifacts-dir dist
+          pnpm web-ext-submit --channel listed --artifacts-dir dist
           echo "::set-output name=publish_status::${?}"
         env:
           WEB_EXT_API_KEY: ${{ secrets.FIREFOX_API_KEY }}

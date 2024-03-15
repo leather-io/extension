@@ -60,22 +60,17 @@ export function initSentry() {
 
   Sentry.init({
     dsn: SENTRY_DSN,
+    tracesSampleRate: 0.75,
     integrations: [
-      new Sentry.BrowserTracing({
-        traceFetch: false,
-        traceXHR: false,
-        startTransactionOnLocationChange: false,
-        startTransactionOnPageLoad: false,
-        markBackgroundTransactions: false,
-        routingInstrumentation: Sentry.reactRouterV6Instrumentation(
-          React.useEffect,
-          useLocation,
-          useNavigationType,
-          createRoutesFromChildren,
-          matchRoutes
-        ),
+      Sentry.browserTracingIntegration({}),
+      Sentry.reactRouterV6BrowserTracingIntegration({
+        useEffect: React.useEffect,
+        useLocation,
+        useNavigationType,
+        createRoutesFromChildren,
+        matchRoutes,
       }),
-      new Sentry.Feedback({
+      Sentry.feedbackIntegration({
         colorScheme: 'system',
         isEmailRequired: false,
         buttonLabel: 'Give feedback',
@@ -112,7 +107,6 @@ export function initSentry() {
       // Failed network requests needn't be tracked
       'Network request failed',
     ],
-    tracesSampleRate: 1,
     environment: WALLET_ENVIRONMENT,
     autoSessionTracking: false,
     async beforeSend(event) {

@@ -205,7 +205,7 @@ export function AddNetwork() {
           <form onSubmit={handleSubmit}>
             <Stack
               gap="space.05"
-              maxWidth="centeredPageFullWidth"
+              maxWidth="pageWidth"
               px={['space.05', 'space.04']}
               textAlign={['left', 'center']}
             >

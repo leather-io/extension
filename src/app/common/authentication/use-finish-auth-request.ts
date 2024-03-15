@@ -53,45 +53,49 @@ export function useFinishAuthRequest() {
       if (walletType === 'software' && account.type === 'software') {
         if (!wallet) return;
 
-        const gaiaHubConfig = await createWalletGaiaConfig({ gaiaHubUrl: gaiaUrl, wallet });
-        const walletConfig = await getOrCreateWalletConfig({
-          wallet,
-          gaiaHubConfig,
-          skipUpload: true,
-        });
-        await updateWalletConfigWithApp({
-          wallet,
-          walletConfig,
-          gaiaHubConfig,
-          account,
-          app: {
-            origin: appURL.origin,
-            lastLoginAt: new Date().getTime(),
-            scopes: decodedAuthRequest.scopes,
-            appIcon: appIcon as string,
-            name: appName as string,
-          },
-        });
+        try {
+          const gaiaHubConfig = await createWalletGaiaConfig({ gaiaHubUrl: gaiaUrl, wallet });
+          const walletConfig = await getOrCreateWalletConfig({
+            wallet,
+            gaiaHubConfig,
+            skipUpload: true,
+          });
+          await updateWalletConfigWithApp({
+            wallet,
+            walletConfig,
+            gaiaHubConfig,
+            account,
+            app: {
+              origin: appURL.origin,
+              lastLoginAt: new Date().getTime(),
+              scopes: decodedAuthRequest.scopes,
+              appIcon: appIcon as string,
+              name: appName as string,
+            },
+          });
 
-        const authResponse = await makeAuthResponse({
-          gaiaHubUrl: gaiaUrl,
-          appDomain: appURL.origin,
-          transitPublicKey: decodedAuthRequest.public_keys[0],
-          scopes: decodedAuthRequest.scopes,
-          account: account,
-          additionalData: {
-            ...getLegacyAuthBitcoinData(accountIndex),
-            walletProvider: 'leather',
-          },
-        });
-        keyActions.switchAccount(accountIndex);
-        finalizeAuthResponse({
-          decodedAuthRequest,
-          authRequest,
-          authResponse,
-          requestingOrigin: origin,
-          tabId,
-        });
+          const authResponse = await makeAuthResponse({
+            gaiaHubUrl: gaiaUrl,
+            appDomain: appURL.origin,
+            transitPublicKey: decodedAuthRequest.public_keys[0],
+            scopes: decodedAuthRequest.scopes,
+            account: account,
+            additionalData: {
+              ...getLegacyAuthBitcoinData(accountIndex),
+              walletProvider: 'leather',
+            },
+          });
+          keyActions.switchAccount(accountIndex);
+          finalizeAuthResponse({
+            decodedAuthRequest,
+            authRequest,
+            authResponse,
+            requestingOrigin: origin,
+            tabId,
+          });
+        } catch (e) {
+          logger.error('Error finishing auth request', e);
+        }
       }
     },
     [

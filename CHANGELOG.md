@@ -1,3 +1,99 @@
+## [6.30.1](https://github.com/leather-wallet/extension/compare/v6.30.0...v6.30.1) (2024-03-08)
+
+
+### Bug Fixes
+
+* fetch brc20 balance from hiro ([69b13b6](https://github.com/leather-wallet/extension/commit/69b13b6a94530bac9ef41f961d69cfd148d5efff))
+* regression on stacking layout ([0193986](https://github.com/leather-wallet/extension/commit/019398651c934d1c3b9bdaf653f2cd6356fbd57b))
+
+
+### Internal
+
+* fix page width issue ([c7edd05](https://github.com/leather-wallet/extension/commit/c7edd0554d7d54f0dc2cd02a9ad7f0b3d265de4d))
+* internal clear storage tool fix ([f20a14b](https://github.com/leather-wallet/extension/commit/f20a14ba11c41f9a7c08f17b23ad3bf7db30d70d))
+* post-release merge back ([d95baac](https://github.com/leather-wallet/extension/commit/d95baac8f936c2c5855c7813f3aa56a4465798ce))
+* post-release merge back ([6702100](https://github.com/leather-wallet/extension/commit/6702100bdd0da98d43c6b5f498e3c5f92005b701))
+* update wallet config ([1eb13bc](https://github.com/leather-wallet/extension/commit/1eb13bc537bcfe0f3c8632dd3781db13a9c10652))
+
+## [6.30.0](https://github.com/leather-wallet/extension/compare/v6.29.0...v6.30.0) (2024-03-07)
+
+
+### Features
+
+* tag ([5b37691](https://github.com/leather-wallet/extension/commit/5b376919f70dfa8c7f9082ebcf60ba4887db3386))
+
+
+### Bug Fixes
+
+* tx calc unhandled errors, closes [#4941](https://github.com/leather-wallet/extension/issues/4941) ([150e7de](https://github.com/leather-wallet/extension/commit/150e7deb48cad69d2ff1b4d29de7dbbc5909e580))
+
+
+### Internal
+
+* add scam app warning ([caff01e](https://github.com/leather-wallet/extension/commit/caff01eab53f54427e3b8733ce4d8cbb965b7e1f))
+* post-release merge back ([cc74de2](https://github.com/leather-wallet/extension/commit/cc74de2f80697da824845cc094632c5ed4b17e8e))
+* post-release merge back ([769ac8f](https://github.com/leather-wallet/extension/commit/769ac8f441d703c4a22e28daba5d86a10220a0c6))
+
+## [6.29.0](https://github.com/leather-wallet/extension/compare/v6.28.0...v6.29.0) (2024-03-05)
+
+
+### Features
+
+* add bestinslot api key ([105fedb](https://github.com/leather-wallet/extension/commit/105fedb4203b223713487a649575b42a1c15ac0a))
+* avatar ([4fdeea4](https://github.com/leather-wallet/extension/commit/4fdeea4de139ee2b671fd180ff2f269848b9ba73))
+* callout, closes [#4311](https://github.com/leather-wallet/extension/issues/4311) ([4214598](https://github.com/leather-wallet/extension/commit/4214598fce39f8859775eeefa7846733a6c756b0))
+* upgrade brc-20 api to bestinslot v3, closes [#4970](https://github.com/leather-wallet/extension/issues/4970) ([bf58f6d](https://github.com/leather-wallet/extension/commit/bf58f6d04f1d5a9b2b0d2e6380f90cfae9c63f02))
+
+
+### Bug Fixes
+
+* brc-20 pending transactions, closes [#4990](https://github.com/leather-wallet/extension/issues/4990) ([dbd33ba](https://github.com/leather-wallet/extension/commit/dbd33ba7a24db86b0d25546c01eb23aa1f5f9eac))
+* dropdown item padding ([f24f0a2](https://github.com/leather-wallet/extension/commit/f24f0a20308c1604dfe72e0e84fcde0bd11cb50e))
+* item interactive margins ([0b565dd](https://github.com/leather-wallet/extension/commit/0b565ddb0396a3ed448599bd68b4e854285d65b6))
+* **ledger:** stacks message signing, closes [#4945](https://github.com/leather-wallet/extension/issues/4945) ([cc19e40](https://github.com/leather-wallet/extension/commit/cc19e40e48589f632dcd29e768f20089fbe38121))
+* recipient account margins ([95278ac](https://github.com/leather-wallet/extension/commit/95278ace3ef9ee2dda53ab207ab33788eb2faa65))
+* settings btn ui ([b3146a2](https://github.com/leather-wallet/extension/commit/b3146a2333edaf1ce43c414f7840df79f6e1caee))
+* warning banner, add fake app warning ([41a47ec](https://github.com/leather-wallet/extension/commit/41a47ec2ac7482440bd2abd64b0d6887e64bc875))
+
+
+### Internal
+
+* **dropdown:** unstyled trigger, separate button ([38146b3](https://github.com/leather-wallet/extension/commit/38146b3ee5c5a02edbbf5b7f908c0bb163c7b345))
+* **dropdown:** update animations ([6656e05](https://github.com/leather-wallet/extension/commit/6656e059c3045434461226ad16372a84dd9f0d49))
+* item interactive ([758d65d](https://github.com/leather-wallet/extension/commit/758d65ddab8b1a9197a5419ab637699272062920))
+* post-release merge back ([a1fdbd2](https://github.com/leather-wallet/extension/commit/a1fdbd2d990406ccaec8ff369181bd150f9f951d))
+* **send-form:** remove custom dropdown type ([5b6bbfc](https://github.com/leather-wallet/extension/commit/5b6bbfc301cfe501bcf5dd49ac519a17e1f2754b))
+
+## [6.28.0](https://github.com/leather-wallet/extension/compare/v6.27.2...v6.28.0) (2024-02-26)
+
+
+### Features
+
+* add dark splash screen, ref [#4398](https://github.com/leather-wallet/extension/issues/4398) ([c4fb072](https://github.com/leather-wallet/extension/commit/c4fb0722c980ec67e51ca927930c6f0078c98318))
+* check utxo ids for inscriptions, ref [#4920](https://github.com/leather-wallet/extension/issues/4920) ([86dd00d](https://github.com/leather-wallet/extension/commit/86dd00d1dea594f21d70e0b4425154a7b354d8c7))
+
+
+### Bug Fixes
+
+* attempt to fix failing test ([0ff7701](https://github.com/leather-wallet/extension/commit/0ff77014da4cc831cf51a7c9492c88e4465a2a66))
+* broken color on welcome page ([384c947](https://github.com/leather-wallet/extension/commit/384c9471664fdd8de11399f35fb35ab8262c0b42))
+* memo using old input ([8829a2a](https://github.com/leather-wallet/extension/commit/8829a2a67af86fdf082532d055e87320365d00d7))
+* remove hiro ref in page ([c49f7e9](https://github.com/leather-wallet/extension/commit/c49f7e9f52cb491b6e68a86546b1cafb4d08cab1))
+* stamps api, closes [#4845](https://github.com/leather-wallet/extension/issues/4845) ([3230c49](https://github.com/leather-wallet/extension/commit/3230c490e3bd34e9dd289138aeaf06bcc422b54b))
+
+
+### Internal
+
+* additional checks before adding tapInternalKey, ref [#4125](https://github.com/leather-wallet/extension/issues/4125) ([09a17bf](https://github.com/leather-wallet/extension/commit/09a17bf1f4344101321c7cb0c039d5b1d7af2af1))
+* colors, closes [#4831](https://github.com/leather-wallet/extension/issues/4831) ([934cfd0](https://github.com/leather-wallet/extension/commit/934cfd0a64082e239f483759299616b7b5aeafca))
+* esm webpack ([3cc8878](https://github.com/leather-wallet/extension/commit/3cc8878d1815e4b70b6bb44f4799633ae4667bf4))
+* existing icons to use variants, closes [#4950](https://github.com/leather-wallet/extension/issues/4950) ([2ce7319](https://github.com/leather-wallet/extension/commit/2ce73195501e040a3f1464d6af478115bf25c5ca))
+* icon variants ([7a886c1](https://github.com/leather-wallet/extension/commit/7a886c112b264d451c7e9f266f03e4ed2f9de8a3))
+* **input:** remove InputTextField component ([3556390](https://github.com/leather-wallet/extension/commit/35563904d41445926f5140ea088fbfe631deea68))
+* new icons using icon gallery ([dc1bf28](https://github.com/leather-wallet/extension/commit/dc1bf2838f40e16fbbb91c27ff05163a2ce6e515))
+* post-release merge back ([5a87a5d](https://github.com/leather-wallet/extension/commit/5a87a5daf81f5b47174d102b86b14e42d27b2280))
+* upgrade packages ([dcc36d0](https://github.com/leather-wallet/extension/commit/dcc36d0b8c03302e986f91f4b31d4894cdddacf9))
+
 ## [6.27.2](https://github.com/leather-wallet/extension/compare/v6.27.1...v6.27.2) (2024-02-14)
 
 

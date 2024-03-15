@@ -1,7 +1,7 @@
 import { Box, HStack, styled } from 'leather-styles/jsx';
 
 import { useClipboard } from '@app/common/hooks/use-copy-to-clipboard';
-import { BtcIcon } from '@app/ui/components/avatar-icon/btc-icon';
+import { BtcAvatarIcon } from '@app/ui/components/avatar/btc-avatar-icon';
 import { Flag } from '@app/ui/components/flag/flag';
 import { Link } from '@app/ui/components/link/link';
 import { BasicTooltip } from '@app/ui/components/tooltip/basic-tooltip';
@@ -28,7 +28,7 @@ export function PsbtAddressTotalItem({
   const { onCopy, hasCopied } = useClipboard(hoverLabel ?? '');
 
   return (
-    <Flag img={image ? image : <BtcIcon />} mt="space.05" spacing="space.04">
+    <Flag img={image ? image : <BtcAvatarIcon />} mt="space.05" spacing="space.04">
       <HStack alignItems="center" justifyContent="space-between">
         <styled.span textStyle="label.01">{title ? title : 'Bitcoin'}</styled.span>
         {valueAction ? (

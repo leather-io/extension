@@ -1,12 +1,12 @@
 import { sumNumbers } from '@app/common/math/helpers';
 
-import { selectInscriptionTransferCoins } from './select-inscription-coins';
+import { selectTaprootInscriptionTransferCoins } from './select-inscription-coins';
 
-describe(selectInscriptionTransferCoins.name, () => {
+describe(selectTaprootInscriptionTransferCoins.name, () => {
   test('inscription coin selection', () => {
     const inscriptionInputAmount = 1000n;
 
-    const result = selectInscriptionTransferCoins({
+    const result = selectTaprootInscriptionTransferCoins({
       recipient: '',
       inscriptionInput: {
         value: Number(inscriptionInputAmount),
@@ -37,11 +37,11 @@ describe(selectInscriptionTransferCoins.name, () => {
         Number(inscriptionInputAmount)
     );
 
-    expect(result.txFee).toEqual(6765);
+    expect(result.txFee).toEqual(5048);
   });
 
   test('when there are not enough utxo to cover fee', () => {
-    const result = selectInscriptionTransferCoins({
+    const result = selectTaprootInscriptionTransferCoins({
       recipient: '',
       inscriptionInput: {
         value: 1000,

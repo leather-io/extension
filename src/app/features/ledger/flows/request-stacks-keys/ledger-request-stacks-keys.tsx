@@ -1,4 +1,3 @@
-import toast from 'react-hot-toast';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
@@ -18,9 +17,11 @@ import {
   isStacksAppOpen,
   useActionCancellableByUser,
 } from '@app/features/ledger/utils/stacks-ledger-utils';
+import { useToast } from '@app/features/toasts/use-toast';
 import { stacksKeysSlice } from '@app/store/ledger/stacks/stacks-key.slice';
 
 function LedgerRequestStacksKeys() {
+  const toast = useToast();
   const navigate = useNavigate();
   const ledgerNavigate = useLedgerNavigate();
   const canUserCancelAction = useActionCancellableByUser();

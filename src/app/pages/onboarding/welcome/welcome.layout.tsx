@@ -37,7 +37,7 @@ export function WelcomeLayout({
           flexDir="column"
           flex={[1, 1, 0]}
           justifyContent={['center', '', 'flex-start']}
-          color={['ink.background-primary', '', 'ink.background-secondary']}
+          color={['ink.text-primary', '', 'ink.background-secondary']}
         >
           <Box>
             <styled.h1 textStyle={['heading.03', '', 'display.02', 'display.01']}>

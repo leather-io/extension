@@ -1,7 +1,6 @@
-import toast from 'react-hot-toast';
-
 import * as reduxPersist from 'redux-persist';
 
+import { logger } from '@shared/logger';
 import { getLogsFromBrowserStorage } from '@shared/logger-storage';
 import { persistConfig } from '@shared/storage/redux-pesist';
 
@@ -29,7 +28,7 @@ const debug = {
     return reduxPersist.getStoredState(persistConfig);
   },
   setHighestAccountIndex(index: number) {
-    toast.success('Highest account index set to ' + index);
+    logger.info(`Highest account index set to ${index}`);
     store.dispatch(stxChainSlice.actions.restoreAccountIndex(index));
   },
   resetMessages() {
@@ -40,6 +39,7 @@ const debug = {
   },
   clearChromeStorage() {
     chrome.storage.local.clear();
+    chrome.storage.session.clear();
   },
 };
 

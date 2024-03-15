@@ -1,5 +1,8 @@
 import type { Transaction } from '@scure/btc-signer';
+import type { SignatureData } from '@stacks/connect';
 import type { StacksTransaction } from '@stacks/transactions';
+
+import type { UnsignedMessage } from '@shared/signature/signature-types';
 
 type PubTypeFn<E> = <Key extends string & keyof E>(
   event: Key,
@@ -58,6 +61,13 @@ export interface GlobalAppEvents {
   };
   ledgerBitcoinTxSigningCancelled: {
     unsignedPsbt: string;
+  };
+  ledgerStacksMessageSigned: {
+    unsignedMessage: UnsignedMessage;
+    messageSignatures: SignatureData;
+  };
+  ledgerStacksMessageSigningCancelled: {
+    unsignedMessage: UnsignedMessage;
   };
 }
 

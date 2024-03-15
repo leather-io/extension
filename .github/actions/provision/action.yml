@@ -4,25 +4,30 @@ runs:
   using: 'composite'
   steps:
     - name: Set up node
-      uses: actions/setup-node@v3
+      uses: actions/setup-node@v4
       with:
         node-version: 18
 
-    - uses: actions/cache@v3
+    - name: Set up pnpm
+      uses: pnpm/action-setup@v3
+
+    - name: Get pnpm store directory
+      shell: bash
+      run: |
+        echo "STORE_PATH=$(pnpm store path --silent)" >> $GITHUB_ENV
+
+    - uses: actions/cache@v4
       id: cache
       with:
-        path: '**/node_modules'
-        key: ${{ runner.os }}-${{ hashFiles('**/yarn.lock') }}-${{ hashFiles('**/package.json') }}
+        path: ${{ env.STORE_PATH }}
+        key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
+        restore-keys: |
+          ${{ runner.os }}-pnpm-store-
 
     - uses: nick-fields/retry@v2
-      if: steps.cache.outputs.cache-hit != 'true'
       env:
         PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD: 1
       with:
         timeout_minutes: 5
         max_attempts: 3
-        command: yarn --frozen-lockfile
-
-    - name: Pandacodegen
-      run: yarn panda codegen
-      shell: bash
+        command: pnpm install --frozen-lockfile

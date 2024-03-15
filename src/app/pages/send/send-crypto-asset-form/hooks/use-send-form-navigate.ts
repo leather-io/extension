@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 
 import { bytesToHex } from '@stacks/common';
 import { StacksTransaction } from '@stacks/transactions';
+import { AxiosError } from 'axios';
 
 import { BitcoinSendFormValues } from '@shared/models/form.model';
 import { RouteUrls } from '@shared/route-urls';
@@ -95,7 +96,14 @@ export function useSendFormNavigate() {
         });
       },
       toErrorPage(error: unknown) {
-        return navigate('../error', { relative: 'path', replace: true, state: { error } });
+        // without this processing, navigate does not work
+        const processedError = error instanceof AxiosError ? new Error(error.message) : error;
+
+        return navigate('../error', {
+          relative: 'path',
+          replace: true,
+          state: { error: processedError },
+        });
       },
     }),
     [navigate]

@@ -17,8 +17,8 @@ import {
   InfoCardRow,
   InfoCardSeparator,
 } from '@app/components/info-card/info-card';
-import { InfoLabel } from '@app/components/info-label';
 import { ModalHeader } from '@app/components/modal-header';
+import { Callout } from '@app/ui/components/callout/callout';
 import { Link } from '@app/ui/components/link/link';
 import { ExternalLinkIcon } from '@app/ui/icons/external-link-icon';
 
@@ -30,7 +30,7 @@ function useBrc20SentSummaryState() {
     serviceFee: get(location.state, 'serviceFee') as string,
     totalFee: get(location.state, 'totalFee') as string,
     recipient: get(location.state, 'recipient') as string,
-    tick: get(location.state, 'tick') as string,
+    ticker: get(location.state, 'ticker') as string,
     amount: get(location.state, 'amount') as string,
     txId: get(location.state, 'txId') as string,
     txLink: get(location.state, 'txLink') as HandleOpenStacksTxLinkArgs,
@@ -39,8 +39,8 @@ function useBrc20SentSummaryState() {
 }
 
 export function Brc20SentSummary() {
-  const { tick, amount, serviceFee, totalFee, feeRowValue } = useBrc20SentSummaryState();
-  const amountFormatted = formatMoney(createMoney(Number(amount), tick, 0));
+  const { ticker, amount, serviceFee, totalFee, feeRowValue } = useBrc20SentSummaryState();
+  const amountFormatted = formatMoney(createMoney(Number(amount), ticker, 0));
   const navigate = useNavigate();
 
   function onClickLink() {
@@ -53,24 +53,26 @@ export function Brc20SentSummary() {
     <InfoCard>
       <TxDone />
 
-      <InfoCardAssetValue px="space.05" symbol={tick} value={Number(amount)} />
+      <InfoCardAssetValue px="space.05" symbol={ticker} value={Number(amount)} />
 
       <Stack px="space.06" pb="space.06" width="100%">
-        <InfoLabel mb="space.05" title="One more step is required to send tokens">
-          <styled.span mb="space.02">
-            You'll need to send the transfer inscription to your recipient of choice from the home
-            screen once its status changes to "Ready to send"
-          </styled.span>
-
-          <Link
-            textStyle="body.02"
-            onClick={() => {
-              openInNewTab('https://leather.gitbook.io/guides/bitcoin/sending-brc-20-tokens');
-            }}
-          >
-            Learn more
-          </Link>
-        </InfoLabel>
+        <Callout variant="info" title="One more step is required to send tokens" mb="space.05">
+          <Stack>
+            <styled.span mb="space.02">
+              You'll need to send the transfer inscription to your recipient of choice from the home
+              screen once its status changes to "Ready to send"
+            </styled.span>
+            <Link
+              width="fit-content"
+              textStyle="body.02"
+              onClick={() => {
+                openInNewTab('https://leather.gitbook.io/guides/bitcoin/sending-brc-20-tokens');
+              }}
+            >
+              Learn more
+            </Link>
+          </Stack>
+        </Callout>
         <InfoCardSeparator />
 
         <InfoCardRow title="Sending" value={amountFormatted} />

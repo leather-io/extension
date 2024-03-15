@@ -6,27 +6,33 @@ export const defaultColor = token('colors.ink.background-secondary');
 
 const strengthStyles = {
   [PasswordStrength.NoScore]: {
-    strengthColor: token('colors.red.action-primary-default'),
+    strengthColorLightMode: token('colors.red.background-secondary'),
+    strengthColorDarkMode: token('colors.red.border'),
     strengthText: 'Poor',
   },
   [PasswordStrength.PoorScore]: {
-    strengthColor: token('colors.red.action-primary-default'),
+    strengthColorLightMode: token('colors.red.background-secondary'),
+    strengthColorDarkMode: token('colors.red.border'),
     strengthText: 'Poor',
   },
   [PasswordStrength.WeakScore]: {
-    strengthColor: token('colors.yellow.action-primary-default'),
+    strengthColorLightMode: token('colors.yellow.background-secondary'),
+    strengthColorDarkMode: token('colors.yellow.border'),
     strengthText: 'Weak',
   },
   [PasswordStrength.AverageScore]: {
-    strengthColor: token('colors.yellow.action-primary-default'),
+    strengthColorLightMode: token('colors.yellow.background-secondary'),
+    strengthColorDarkMode: token('colors.yellow.border'),
     strengthText: 'Average',
   },
   [PasswordStrength.StrongScore]: {
-    strengthColor: token('colors.yellow.action-primary-default'),
+    strengthColorLightMode: token('colors.yellow.background-secondary'),
+    strengthColorDarkMode: token('colors.yellow.border'),
     strengthText: 'Average',
   },
   [PasswordStrength.MeetsAllRequirements]: {
-    strengthColor: token('colors.green.action-primary-default'),
+    strengthColorLightMode: token('colors.green.background-secondary'),
+    strengthColorDarkMode: token('colors.green.border'),
     strengthText: 'Strong',
   },
 };

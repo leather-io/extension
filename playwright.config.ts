@@ -28,7 +28,7 @@ export default defineConfig({
     },
   ],
   webServer: {
-    command: 'yarn dev:test-app',
+    command: 'pnpm dev:test-app',
     port: 3000,
     timeout: 15000,
   },

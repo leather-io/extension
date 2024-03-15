@@ -22,7 +22,7 @@ export function SendInscriptionChooseFee() {
   const navigate = useNavigate();
   const { recipient, selectedFeeType, setSelectedFeeType, utxo, inscription } =
     useSendInscriptionState();
-  const { feesList, isLoading } = useSendInscriptionFeesList({ recipient, utxo });
+  const { feesList, isLoading } = useSendInscriptionFeesList({ recipient, utxo, inscription });
   const recommendedFeeRate = feesList[1]?.feeRate.toString() || '';
 
   const { reviewTransaction } = useSendInscriptionForm();

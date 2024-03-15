@@ -9,7 +9,8 @@ jobs:
       - uses: actions/checkout@v3
         with:
           fetch-depth: 0
-      - run: yarn
+
+      - uses: ./.github/actions/provision
 
       - uses: chromaui/action@latest
         with:

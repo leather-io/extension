@@ -6,7 +6,10 @@ import { BitcoinInputSigningConfig } from '@shared/crypto/bitcoin/signer-config'
 import { logger } from '@shared/logger';
 import { OrdinalSendFormValues } from '@shared/models/form.model';
 
-import { determineUtxosForSpend } from '@app/common/transactions/bitcoin/coinselect/local-coin-selection';
+import {
+  InsufficientFundsError,
+  determineUtxosForSpend,
+} from '@app/common/transactions/bitcoin/coinselect/local-coin-selection';
 import { createCounter } from '@app/common/utils/counter';
 import { useCurrentNativeSegwitUtxos } from '@app/query/bitcoin/address/utxos-by-address.hooks';
 import { UtxoWithDerivationPath } from '@app/query/bitcoin/bitcoin-client';
@@ -14,7 +17,7 @@ import { useBitcoinScureLibNetworkConfig } from '@app/store/accounts/blockchain/
 import { useCurrentAccountNativeSegwitSigner } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
 import { useCurrentAccountTaprootSigner } from '@app/store/accounts/blockchain/bitcoin/taproot-account.hooks';
 
-import { selectInscriptionTransferCoins } from '../coinselect/select-inscription-coins';
+import { selectTaprootInscriptionTransferCoins } from '../coinselect/select-inscription-coins';
 
 export function useGenerateUnsignedOrdinalTx(inscriptionInput: UtxoWithDerivationPath) {
   const createTaprootSigner = useCurrentAccountTaprootSigner();
@@ -37,7 +40,7 @@ export function useGenerateUnsignedOrdinalTx(inscriptionInput: UtxoWithDerivatio
 
     if (!taprootSigner || !nativeSegwitSigner || !nativeSegwitUtxos || !values.feeRate) return;
 
-    const result = selectInscriptionTransferCoins({
+    const result = selectTaprootInscriptionTransferCoins({
       recipient: values.recipient,
       inscriptionInput,
       nativeSegwitUtxos,
@@ -51,7 +54,7 @@ export function useGenerateUnsignedOrdinalTx(inscriptionInput: UtxoWithDerivatio
 
     if (!result.success) return null;
 
-    const { inputs, outputs } = result;
+    const { inputs, outputs, txFee } = result;
 
     try {
       const tx = new btc.Transaction();
@@ -96,8 +99,11 @@ export function useGenerateUnsignedOrdinalTx(inscriptionInput: UtxoWithDerivatio
 
       tx.toPSBT();
 
-      return { psbt: tx.toPSBT(), signingConfig };
+      return { psbt: tx.toPSBT(), signingConfig, txFee };
     } catch (e) {
+      if (e instanceof InsufficientFundsError) {
+        throw new InsufficientFundsError();
+      }
       logger.error('Unable to sign transaction');
       return null;
     }
@@ -116,7 +122,7 @@ export function useGenerateUnsignedOrdinalTx(inscriptionInput: UtxoWithDerivatio
       utxos: nativeSegwitUtxos,
     };
 
-    const { inputs, outputs } = determineUtxosForSpend(determineUtxosArgs);
+    const { inputs, outputs, fee } = determineUtxosForSpend(determineUtxosArgs);
 
     try {
       const tx = new btc.Transaction();
@@ -148,8 +154,11 @@ export function useGenerateUnsignedOrdinalTx(inscriptionInput: UtxoWithDerivatio
         tx.addOutputAddress(values.recipient, BigInt(output.value), networkMode);
       });
 
-      return { psbt: tx.toPSBT(), signingConfig: undefined };
+      return { psbt: tx.toPSBT(), signingConfig: undefined, txFee: fee };
     } catch (e) {
+      if (e instanceof InsufficientFundsError) {
+        throw new InsufficientFundsError();
+      }
       logger.error('Unable to sign transaction');
       return null;
     }

@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { SignatureData } from '@stacks/connect';
 
 import { logger } from '@shared/logger';
-import { UnsignedMessage, whenSignableMessageOfType } from '@shared/signature/signature-types';
+import { UnsignedMessage } from '@shared/signature/signature-types';
 
 import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
 import { useWalletType } from '@app/common/use-wallet-type';
@@ -13,11 +13,16 @@ import {
   useMessageSignerStacksSoftwareWallet,
 } from '@app/features/stacks-message-signer/stacks-message-signing.utils';
 
+import { listenForStacksMessageSigning } from '../ledger/flows/stacks-message-signing/stacks-message-signing-event-listeners';
+
 interface SignStacksMessageProps {
   onSignMessageCompleted(messageSignature: SignatureData): void;
+  onSignMessageCancelled(): void;
 }
-
-export function useSignStacksMessage({ onSignMessageCompleted }: SignStacksMessageProps) {
+export function useSignStacksMessage({
+  onSignMessageCompleted,
+  onSignMessageCancelled,
+}: SignStacksMessageProps) {
   const analytics = useAnalytics();
   const signSoftwareWalletMessage = useMessageSignerStacksSoftwareWallet();
 
@@ -46,14 +51,13 @@ export function useSignStacksMessage({ onSignMessageCompleted }: SignStacksMessa
 
     async ledger(unsignedMessage: UnsignedMessage) {
       void analytics.track('request_signature_sign', { type: 'ledger' });
-      whenSignableMessageOfType(unsignedMessage)({
-        utf8(msg) {
-          ledgerNavigate.toConnectAndSignUtf8MessageStep(msg);
-        },
-        structured(domain, msg) {
-          ledgerNavigate.toConnectAndSignStructuredMessageStep(domain, msg);
-        },
-      });
+      ledgerNavigate.toConnectAndSignMessageStep(unsignedMessage);
+      try {
+        const messageSignature = await listenForStacksMessageSigning(unsignedMessage);
+        onSignMessageCompleted(messageSignature);
+      } catch (e) {
+        onSignMessageCancelled();
+      }
     },
   });
 

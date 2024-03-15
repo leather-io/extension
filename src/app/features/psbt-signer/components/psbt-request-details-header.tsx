@@ -1,8 +1,7 @@
-import { Box, HStack, styled } from 'leather-styles/jsx';
-import { token } from 'leather-styles/tokens';
+import { HStack, styled } from 'leather-styles/jsx';
 
 import { usePsbtSignerContext } from '@app/features/psbt-signer/psbt-signer.context';
-import { BasicTooltip } from '@app/ui/components/tooltip/basic-tooltip';
+import { TagWithTooltip } from '@app/ui/components/tag/tag-with-tooltip';
 import { LockIcon } from '@app/ui/icons/lock-icon';
 import { UnlockIcon } from '@app/ui/icons/unlock-icon';
 
@@ -13,37 +12,17 @@ const uncertainLabel =
 
 export function PsbtRequestDetailsHeader() {
   const { isPsbtMutable } = usePsbtSignerContext();
-  const tokenLabelColor = isPsbtMutable
-    ? token('colors.yellow.action-primary-default')
-    : token('colors.ink.text-subdued');
 
   return (
     <HStack alignItems="center" gap="space.02">
       <styled.h2 textStyle="heading.05">Transaction</styled.h2>
-      <BasicTooltip label={isPsbtMutable ? uncertainLabel : immutableLabel} side="bottom">
-        <HStack
-          alignItems="center"
-          border={isPsbtMutable ? 'warning' : 'subdued'}
-          borderRadius="xs"
-          gap="space.01"
-          px="space.02"
-          py="space.01"
-        >
-          <Box width="12px">
-            {isPsbtMutable ? (
-              <UnlockIcon style={{ color: tokenLabelColor }} variant="small" />
-            ) : (
-              <LockIcon style={{ color: tokenLabelColor }} variant="small" />
-            )}
-          </Box>
-          <styled.span
-            color={isPsbtMutable ? 'yellow.action-primary-default' : 'ink.text-subdued'}
-            textStyle="caption.02"
-          >
-            {isPsbtMutable ? 'Uncertain' : 'Certain'}
-          </styled.span>
-        </HStack>
-      </BasicTooltip>
+      <TagWithTooltip
+        hoverLabel={isPsbtMutable ? uncertainLabel : immutableLabel}
+        icon={isPsbtMutable ? <UnlockIcon variant="small" /> : <LockIcon variant="small" />}
+        label={isPsbtMutable ? 'Uncertain' : 'Certain'}
+        transparent
+        variant={isPsbtMutable ? 'warning' : 'default'}
+      />
     </HStack>
   );
 }

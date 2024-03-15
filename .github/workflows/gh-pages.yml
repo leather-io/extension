@@ -14,7 +14,7 @@ jobs:
       - uses: ./.github/actions/provision
 
       - name: Build
-        run: yarn test:coverage
+        run: pnpm test:coverage
 
       - name: Make badge maker
         run: npx make-coverage-badge

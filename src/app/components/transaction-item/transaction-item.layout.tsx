@@ -26,7 +26,7 @@ export function TransactionItemLayout({
   txValue,
 }: TransactionItemLayoutProps) {
   return (
-    <ItemInteractive onClick={openTxLink}>
+    <ItemInteractive onClick={openTxLink} my="space.02">
       <ItemLayout
         flagImg={txIcon && txIcon}
         titleLeft={txTitle}

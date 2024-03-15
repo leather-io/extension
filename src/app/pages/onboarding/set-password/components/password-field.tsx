@@ -4,6 +4,7 @@ import { OnboardingSelectors } from '@tests/selectors/onboarding.selectors';
 import { useField } from 'formik';
 import { Box, Flex, styled } from 'leather-styles/jsx';
 
+import { useThemeSwitcher } from '@app/common/theme-provider';
 import { ValidatedPassword } from '@app/common/validation/validate-password';
 import { Input } from '@app/ui/components/input/input';
 import { Caption } from '@app/ui/components/typography/caption';
@@ -20,8 +21,9 @@ interface PasswordFieldProps {
 export function PasswordField({ strengthResult, isDisabled }: PasswordFieldProps) {
   const [field] = useField('password');
   const [showPassword, setShowPassword] = useState(false);
+  const { theme } = useThemeSwitcher();
 
-  const { strengthColor, strengthText } = useMemo(
+  const { strengthColorLightMode, strengthColorDarkMode, strengthText } = useMemo(
     () => getIndicatorsOfPasswordStrength(strengthResult),
     [strengthResult]
   );
@@ -62,7 +64,7 @@ export function PasswordField({ strengthResult, isDisabled }: PasswordFieldProps
       </Box>
       <PasswordStrengthIndicator
         password={field.value}
-        strengthColor={strengthColor}
+        strengthColor={theme === 'light' ? strengthColorLightMode : strengthColorDarkMode}
         strengthResult={strengthResult}
       />
       <Flex alignItems="center">

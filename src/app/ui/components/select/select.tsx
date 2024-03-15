@@ -11,8 +11,6 @@ export interface SelectItem {
   label: string;
 }
 
-const Root = RadixSelect.Root;
-
 const selectTriggerStyles = css({
   alignItems: 'center',
   bg: 'ink.background-primary',
@@ -33,10 +31,6 @@ const selectTriggerStyles = css({
 const Trigger: typeof RadixSelect.Trigger = forwardRef((props, ref) => (
   <RadixSelect.Trigger className={selectTriggerStyles} ref={ref} {...props} />
 ));
-
-const Value = RadixSelect.Value;
-const Icon = RadixSelect.Icon;
-const Portal = RadixSelect.Portal;
 
 const selectContentStyles = css({
   alignItems: 'center',
@@ -67,8 +61,6 @@ const Viewport: typeof RadixSelect.Viewport = forwardRef((props, ref) => (
   <RadixSelect.Viewport className={selectViewportStyles} ref={ref} {...props} />
 ));
 
-const Group = RadixSelect.Group;
-
 const selectLabelStyles = css({
   color: 'ink.text-subdued',
   height: 'auto',
@@ -85,9 +77,6 @@ const Item: typeof RadixSelect.Item = forwardRef((props, ref) => (
   <RadixSelect.Item className={css(itemBaseStyles, itemInteractiveStyles)} ref={ref} {...props} />
 ));
 
-const ItemText = RadixSelect.ItemText;
-const ItemIndicator = RadixSelect.ItemIndicator;
-
 const selectSeparatorStyles = css({
   bg: 'ink.background-primary',
   color: 'ink.border-default',
@@ -99,17 +88,17 @@ const Separator: typeof RadixSelect.Separator = forwardRef((props, ref) => (
 ));
 
 export const Select = {
-  Root,
+  Root: RadixSelect.Root,
+  Value: RadixSelect.Value,
+  Icon: RadixSelect.Icon,
+  Portal: RadixSelect.Portal,
+  Group: RadixSelect.Group,
+  ItemText: RadixSelect.ItemText,
+  ItemIndicator: RadixSelect.ItemIndicator,
   Trigger,
-  Value,
-  Icon,
-  Portal,
   Content,
   Viewport,
-  Group,
   Label,
   Item,
-  ItemText,
-  ItemIndicator,
   Separator,
 };

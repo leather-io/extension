@@ -1,9 +1,9 @@
 import { Flex, styled } from 'leather-styles/jsx';
 
 import { BaseDrawer } from '@app/components/drawer/base-drawer';
-import { WarningLabel } from '@app/components/warning-label';
-import { BtcIcon } from '@app/ui/components/avatar-icon/btc-icon';
+import { BtcAvatarIcon } from '@app/ui/components/avatar/btc-avatar-icon';
 import { Button } from '@app/ui/components/button/button';
+import { Callout } from '@app/ui/components/callout/callout';
 
 interface RetrieveTaprootToNativeSegwitLayoutProps {
   isBroadcasting: boolean;
@@ -18,7 +18,7 @@ export function RetrieveTaprootToNativeSegwitLayout(
   return (
     <BaseDrawer isShowing onClose={() => onClose()}>
       <Flex alignItems="start" flexDirection="column" mt="-45px" mx="space.06" textAlign="left">
-        <BtcIcon />
+        <BtcAvatarIcon />
         <styled.span mt="space.04" textStyle="label.01">
           Retrieve Bitcoin deposited to <br /> Taproot addresses
         </styled.span>
@@ -34,11 +34,11 @@ export function RetrieveTaprootToNativeSegwitLayout(
           This transaction may take upwards of 30 minutes to confirm.
         </styled.span>
         {children}
-        <WarningLabel mt="space.05">
+        <Callout variant="warning" mt="space.05">
           We recommend you check the URL for each "Uninscribed UTXO" listed above to ensure it
           displays no inscription. If it does display one, do not proceed with retrieval or you may
           lose it!
-        </WarningLabel>
+        </Callout>
         <Button
           onClick={onApproveTransaction}
           aria-busy={isBroadcasting}

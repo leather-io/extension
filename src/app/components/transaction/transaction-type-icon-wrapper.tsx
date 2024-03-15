@@ -1,8 +1,10 @@
+import type { ReactNode } from 'react';
+
 import { Circle, CircleProps } from 'leather-styles/jsx';
 
 interface TransactionTypeIconWrapperProps extends CircleProps {
   bg?: any;
-  icon: React.JSX.Element;
+  icon: ReactNode;
 }
 export function TransactionTypeIconWrapper({
   bg,

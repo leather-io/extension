@@ -6,8 +6,6 @@ import { BtcSizeFeeEstimator } from '@app/common/transactions/bitcoin/fees/btc-s
 import { createCounter } from '@app/common/utils/counter';
 import { UtxoResponseItem, UtxoWithDerivationPath } from '@app/query/bitcoin/bitcoin-client';
 
-const idealInscriptionValue = 10_000;
-
 interface SelectInscriptionCoinSuccess {
   success: true;
   inputs: UtxoResponseItem[];
@@ -28,7 +26,8 @@ interface SelectInscriptionTransferCoinsArgs {
   recipient: string;
   changeAddress: string;
 }
-export function selectInscriptionTransferCoins(
+
+export function selectTaprootInscriptionTransferCoins(
   args: SelectInscriptionTransferCoinsArgs
 ): SelectInscriptionCoinResult {
   const { inscriptionInput, recipient, changeAddress, nativeSegwitUtxos, feeRate } = args;
@@ -51,9 +50,9 @@ export function selectInscriptionTransferCoins(
   const indexCounter = createCounter();
 
   function shouldContinueTryingWithMoreInputs() {
-    const valueOfUtxos = sumNumbers(neededInputs.map(utxo => utxo.value));
+    const neededSumOfInputs = sumNumbers(neededInputs.map(utxo => utxo.value));
     if (indexCounter.getValue() > nativeSegwitUtxos.length) return false;
-    return idealInscriptionValue + txFee > inscriptionInput.value + valueOfUtxos.toNumber();
+    return txFee >= neededSumOfInputs.toNumber();
   }
 
   let utxos = nativeSegwitUtxos

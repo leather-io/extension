@@ -1,13 +1,13 @@
-import { Link, HeadProvider as ReastHeadProvider, Title } from 'react-head';
+import { Link, HeadProvider as ReactHeadProvider, Title } from 'react-head';
 
 import { useNewBrandApprover } from '@app/store/settings/settings.selectors';
 
 export function HeadProvider() {
   const { hasApprovedNewBrand } = useNewBrandApprover();
   return (
-    <ReastHeadProvider>
+    <ReactHeadProvider>
       {hasApprovedNewBrand ? <LeatherMetaTags /> : <HiroMetaTags />}
-    </ReastHeadProvider>
+    </ReactHeadProvider>
   );
 }
 

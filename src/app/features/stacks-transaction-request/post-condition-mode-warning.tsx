@@ -1,7 +1,7 @@
 import { PostConditionMode } from '@stacks/transactions';
 
-import { WarningLabel } from '@app/components/warning-label';
 import { usePostConditionModeState } from '@app/store/transactions/post-conditions.hooks';
+import { Callout } from '@app/ui/components/callout/callout';
 
 export function PostConditionModeWarning(): React.JSX.Element | null {
   const mode = usePostConditionModeState();
@@ -9,9 +9,9 @@ export function PostConditionModeWarning(): React.JSX.Element | null {
   if (mode !== PostConditionMode.Allow) return null;
 
   return (
-    <WarningLabel mb="space.05" title="This transaction is not secure" width="100%">
+    <Callout variant="warning" mb="space.05" title="This transaction is not secure">
       If you confirm, you allow it to transfer any of your tokens. Only confirm if you trust and
       have verified the contract.
-    </WarningLabel>
+    </Callout>
   );
 }

@@ -15,11 +15,11 @@ type Story = StoryObj<typeof Component>;
 export const Item: Story = {
   render: () => (
     <Component
-      flagImg={<Circle size="40px" backgroundColor="lightModeRed.300" />}
-      titleLeft={<Box width="500px" height="20px" backgroundColor="lightModeRed.300" />}
-      captionLeft={<Box width="300px" height="20px" backgroundColor="lightModeRed.300" />}
-      titleRight={<Box width="100px" height="20px" backgroundColor="lightModeRed.300" />}
-      captionRight={<Box width="200px" height="20px" backgroundColor="lightModeRed.300" />}
+      flagImg={<Circle size="40px" backgroundColor="red.background-secondary" />}
+      titleLeft={<Box width="500px" height="20px" backgroundColor="red.background-secondary" />}
+      captionLeft={<Box width="300px" height="20px" backgroundColor="red.background-secondary" />}
+      titleRight={<Box width="100px" height="20px" backgroundColor="red.background-secondary" />}
+      captionRight={<Box width="200px" height="20px" backgroundColor="red.background-secondary" />}
     />
   ),
 };

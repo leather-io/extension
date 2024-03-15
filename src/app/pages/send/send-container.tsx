@@ -14,8 +14,8 @@ export function SendContainer() {
       <Flex
         borderRadius={['unset', '16px']}
         height="fit-content"
-        maxWidth={['100%', 'centeredPageFullWidth']}
-        minWidth={['100%', 'centeredPageFullWidth']}
+        maxWidth={['100%', 'pageWidth']}
+        minWidth={['100%', 'pageWidth']}
         background="ink.background-primary"
       >
         <Outlet />

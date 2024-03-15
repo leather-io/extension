@@ -1,7 +1,6 @@
 import { useConfigOrdinalsbot } from '@app/query/common/remote-config/remote-config.query';
 import { useAppDispatch } from '@app/store';
 import { useCurrentAccountIndex } from '@app/store/accounts/account';
-import { useCurrentAccountTaprootIndexZeroSigner } from '@app/store/accounts/blockchain/bitcoin/taproot-account.hooks';
 import { useCurrentNetwork } from '@app/store/networks/networks.selectors';
 import { brc20TransferInitiated } from '@app/store/ordinals/ordinals.slice';
 
@@ -30,11 +29,10 @@ export function useBrc20FeatureFlag() {
   return { enabled: true } as const;
 }
 
-export function useBrc20Transfers() {
+export function useBrc20Transfers(holderAddress: string) {
   const dispatch = useAppDispatch();
   const currentAccountIndex = useCurrentAccountIndex();
   const ordinalsbotClient = useOrdinalsbotClient();
-  const { address } = useCurrentAccountTaprootIndexZeroSigner();
   const { data: fees } = useAverageBitcoinFeeRates();
 
   return {
@@ -43,7 +41,7 @@ export function useBrc20Transfers() {
       const { payload, size } = encodeBrc20TransferInscription(transferInscription);
 
       const order = await ordinalsbotClient.order({
-        receiveAddress: address,
+        receiveAddress: holderAddress,
         file: payload,
         size,
         name: `${tick}-${amount}.txt`,

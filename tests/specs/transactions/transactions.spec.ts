@@ -25,7 +25,7 @@ test.describe('Transaction signing', () => {
       context,
     }) => {
       const accountsPage = await context.waitForEvent('page');
-      await accountsPage.locator('text="Account 2"').click();
+      await accountsPage.locator('text="Account 2"').click({ force: true });
       await testAppPage.page.bringToFront();
       await testAppPage.page.click('text=Debugger', {
         timeout: 30000,
@@ -44,7 +44,7 @@ test.describe('Transaction signing', () => {
   test.describe('App initiated STX transfer', () => {
     test('that it broadcasts correctly with given fee and amount', async ({ context }) => {
       const accountsPage = await context.waitForEvent('page');
-      await accountsPage.locator('text="Account 1"').click();
+      await accountsPage.locator('text="Account 1"').click({ force: true });
       await testAppPage.page.bringToFront();
       await testAppPage.page.click('text=Debugger', {
         timeout: 30000,

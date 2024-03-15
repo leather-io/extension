@@ -1,4 +1,3 @@
-import toast from 'react-hot-toast';
 import { useLocation, useNavigate } from 'react-router-dom';
 
 import { HomePageSelectors } from '@tests/selectors/home.selectors';
@@ -10,15 +9,16 @@ import { RouteUrls } from '@shared/route-urls';
 import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
 import { useClipboard } from '@app/common/hooks/use-copy-to-clipboard';
 import { useLocationState } from '@app/common/hooks/use-location-state';
-import { StxAvatar } from '@app/components/crypto-assets/stacks/components/stx-avatar';
 import { BaseDrawer } from '@app/components/drawer/base-drawer';
+import { useToast } from '@app/features/toasts/use-toast';
 import { useBackgroundLocationRedirect } from '@app/routes/hooks/use-background-location-redirect';
 import { useZeroIndexTaprootAddress } from '@app/store/accounts/blockchain/bitcoin/bitcoin.hooks';
 import { useCurrentAccountNativeSegwitAddressIndexZero } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
 import { useCurrentAccountStxAddressState } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
-import { BtcIcon } from '@app/ui/components/avatar-icon/btc-icon';
-import { OrdinalIcon } from '@app/ui/components/avatar-icon/ordinal-icon';
-import { StampsIcon } from '@app/ui/components/avatar-icon/stamps-icon';
+import { BtcAvatarIcon } from '@app/ui/components/avatar/btc-avatar-icon';
+import { OrdinalAvatarIcon } from '@app/ui/components/avatar/ordinal-avatar-icon';
+import { StampsAvatarIcon } from '@app/ui/components/avatar/stamps-avatar-icon';
+import { StxAvatarIcon } from '@app/ui/components/avatar/stx-avatar-icon';
 
 import { ReceiveItem } from './components/receive-item';
 import { ReceiveItemList } from './components/receive-items';
@@ -31,6 +31,7 @@ interface ReceiveModalProps {
 
 export function ReceiveModal({ type = 'full' }: ReceiveModalProps) {
   useBackgroundLocationRedirect();
+  const toast = useToast();
   const analytics = useAnalytics();
   const backgroundLocation = useLocationState<Location>('backgroundLocation');
   const navigate = useNavigate();
@@ -76,7 +77,7 @@ export function ReceiveModal({ type = 'full' }: ReceiveModalProps) {
             <ReceiveItemList title="Tokens">
               <ReceiveItem
                 address={btcAddressNativeSegwit}
-                icon={<BtcIcon />}
+                icon={<BtcAvatarIcon />}
                 dataTestId={HomePageSelectors.ReceiveBtcNativeSegwitQrCodeBtn}
                 onCopyAddress={() => copyToClipboard(onCopyBtc)}
                 onClickQrCode={() =>
@@ -88,7 +89,7 @@ export function ReceiveModal({ type = 'full' }: ReceiveModalProps) {
               />
               <ReceiveItem
                 address={stxAddress}
-                icon={<StxAvatar />}
+                icon={<StxAvatarIcon />}
                 dataTestId={HomePageSelectors.ReceiveStxQrCodeBtn}
                 onCopyAddress={() => copyToClipboard(onCopyStx)}
                 onClickQrCode={() =>
@@ -103,7 +104,7 @@ export function ReceiveModal({ type = 'full' }: ReceiveModalProps) {
           <ReceiveItemList title={type === 'full' ? 'Collectibles' : undefined}>
             <ReceiveItem
               address={btcAddressTaproot}
-              icon={<OrdinalIcon />}
+              icon={<OrdinalAvatarIcon />}
               dataTestId={HomePageSelectors.ReceiveBtcTaprootQrCodeBtn}
               onCopyAddress={() =>
                 copyToClipboard(onCopyOrdinal, 'select_stamp_to_add_new_collectible')
@@ -121,7 +122,7 @@ export function ReceiveModal({ type = 'full' }: ReceiveModalProps) {
             />
             <ReceiveItem
               address={btcAddressNativeSegwit}
-              icon={<StampsIcon />}
+              icon={<StampsAvatarIcon />}
               onClickQrCode={() =>
                 navigate(`${RouteUrls.Home}${RouteUrls.ReceiveBtcStamp}`, {
                   state: { backgroundLocation },
@@ -134,7 +135,7 @@ export function ReceiveModal({ type = 'full' }: ReceiveModalProps) {
             />
             <ReceiveItem
               address={stxAddress}
-              icon={<StxAvatar />}
+              icon={<StxAvatarIcon />}
               onCopyAddress={() => copyToClipboard(onCopyStx, 'select_nft_to_add_new_collectible')}
               onClickQrCode={() =>
                 navigate(`${RouteUrls.Home}${RouteUrls.ReceiveStx}`, {

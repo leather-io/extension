@@ -11,8 +11,8 @@ export function ConnectLedgerError() {
   const latestLedgerError = useLatestLedgerError();
   const ledgerNavigate = useLedgerNavigate();
   const chain = useLocationState<SupportedBlockchains>('chain');
-  // TODO: here it would be better to use
-  // the actual app name from LEDGER_APPS_MAP at src/app/features/ledger/utils/generic-ledger-utils.ts
+  // TODO: here it would be better to use the actual app name from
+  // LEDGER_APPS_MAP at src/app/features/ledger/utils/generic-ledger-utils.ts
 
   const appName = capitalize(chain);
   return (

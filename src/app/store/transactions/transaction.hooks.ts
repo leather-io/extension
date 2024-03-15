@@ -1,6 +1,5 @@
 import { useCallback, useMemo } from 'react';
 import { useAsync } from 'react-async-hook';
-import toast from 'react-hot-toast';
 
 import { bytesToHex } from '@noble/hashes/utils';
 import { TransactionTypes } from '@stacks/connect';
@@ -28,6 +27,7 @@ import {
 import { useWalletType } from '@app/common/use-wallet-type';
 import { listenForStacksTxLedgerSigning } from '@app/features/ledger/flows/stacks-tx-signing/stacks-tx-signing-event-listeners';
 import { useLedgerNavigate } from '@app/features/ledger/hooks/use-ledger-navigate';
+import { useToast } from '@app/features/toasts/use-toast';
 import { useNextNonce } from '@app/query/stacks/nonce/account-nonces.hooks';
 import {
   useCurrentAccountStxAddressState,
@@ -131,7 +131,9 @@ function useUnsignedStacksTransaction(values: StacksTransactionFormValues) {
 }
 
 function useSignTransactionSoftwareWallet() {
+  const toast = useToast();
   const account = useCurrentStacksAccount();
+
   return useCallback(
     (tx: StacksTransaction) => {
       if (account?.type !== 'software') {
@@ -145,7 +147,7 @@ function useSignTransactionSoftwareWallet() {
       signer.signOrigin(createStacksPrivateKey(account.stxPrivateKey));
       return tx;
     },
-    [account]
+    [account, toast.error]
   );
 }
 

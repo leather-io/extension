@@ -1,7 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { HStack, styled } from 'leather-styles/jsx';
 
-import { ChevronDownIcon } from '../../icons/chevron-down-icon';
 import { PlaceholderIcon } from '../../icons/placeholder-icon';
 import { DropdownMenu as Component, DropdownMenuItem } from './dropdown-menu';
 import { DropdownMenuItemLayout } from './dropdown-menu-item.layout';
@@ -21,12 +20,7 @@ export const DropdownMenu: Story = {
   render: () => (
     <Component.Root>
       <Component.Trigger>
-        <styled.button>
-          <HStack gap="space.02" width="100%">
-            <styled.span textStyle="label.02">Options</styled.span>
-            <ChevronDownIcon variant="small" />
-          </HStack>
-        </styled.button>
+        <Component.Button>Button</Component.Button>
       </Component.Trigger>
       <Component.Portal>
         <Component.Content align="start" sideOffset={8}>
@@ -41,7 +35,6 @@ export const DropdownMenu: Story = {
                       <styled.span textStyle="label.02">{item.label}</styled.span>
                     </HStack>
                   }
-                  contentRight={<PlaceholderIcon />}
                 />
               </Component.Item>
             ))}

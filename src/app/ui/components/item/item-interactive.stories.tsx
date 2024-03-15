@@ -1,6 +1,7 @@
 import { Meta, StoryObj } from '@storybook/react';
+import { styled } from 'leather-styles/jsx';
 
-import { BtcIcon } from '@app/ui/components/avatar-icon/btc-icon';
+import { BtcAvatarIcon } from '@app/ui/components/avatar/btc-avatar-icon';
 import { CopyIcon } from '@app/ui/icons/copy-icon';
 import { QrCodeIcon } from '@app/ui/icons/qr-code-icon';
 
@@ -21,19 +22,31 @@ const meta: Meta<typeof Component> = {
 export default meta;
 type Story = StoryObj<typeof Component>;
 
+function ExampleInteractiveItemContent() {
+  return (
+    <ItemLayout
+      showChevron
+      flagImg={<BtcAvatarIcon />}
+      titleLeft="Label"
+      captionLeft="Caption"
+      titleRight="1,000.00 ABC"
+      captionRight="$1,000.00"
+    />
+  );
+}
+
 export const ItemInteractive: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story:
+          '`InteractiveItem` has its hover state applied with a before pseudo element, so the content aligns independently from its hover state background.',
+      },
+    },
+  },
   args: {
     onClick: () => {},
-    children: (
-      <ItemLayout
-        showChevron
-        flagImg={<BtcIcon />}
-        titleLeft="Label"
-        captionLeft="Caption"
-        titleRight="1,000.00 ABC"
-        captionRight="$1,000.00"
-      />
-    ),
+    children: <ExampleInteractiveItemContent />,
   },
 };
 
@@ -44,7 +57,7 @@ export const Disabled: Story = {
     children: (
       <ItemLayout
         showChevron
-        flagImg={<BtcIcon />}
+        flagImg={<BtcAvatarIcon />}
         titleLeft="Label"
         captionLeft="Caption"
         titleRight="1,000.00 ABC"
@@ -58,7 +71,7 @@ export const WithButtons: Story = {
   args: {
     children: (
       <ItemWithButtonsLayout
-        flagImg={<BtcIcon />}
+        flagImg={<BtcAvatarIcon />}
         title="Label"
         caption="Caption"
         buttons={
@@ -69,5 +82,51 @@ export const WithButtons: Story = {
         }
       />
     ),
+  },
+};
+
+export const AlignmentExample: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story: 'Demonstrates the component alignment in combination with its hover state',
+      },
+    },
+  },
+  decorators: [
+    Story => (
+      <styled.div borderLeft="2px solid" borderColor="red.background-secondary" py="space.06">
+        <styled.h1 textStyle="heading.04" mb="space.04">
+          Left aligned header
+        </styled.h1>
+        <Story />
+      </styled.div>
+    ),
+  ],
+  args: {
+    onClick: () => {},
+    children: <ExampleInteractiveItemContent />,
+  },
+};
+
+export const WithPadding: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story:
+          "In some layouts, it's necessary to contain the bounds of the element's pseudo element hover background. Wrap the component in a div with padding `space.03` to achieve this",
+      },
+    },
+  },
+  decorators: [
+    Story => (
+      <styled.div border="2px solid" borderColor="red.background-secondary" p="space.03">
+        <Story />
+      </styled.div>
+    ),
+  ],
+  args: {
+    onClick: () => {},
+    children: <ExampleInteractiveItemContent />,
   },
 };

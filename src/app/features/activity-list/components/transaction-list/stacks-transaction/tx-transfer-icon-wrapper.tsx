@@ -1,24 +1,17 @@
-import React from 'react';
+import { type ReactNode } from 'react';
 
 import { Circle } from 'leather-styles/jsx';
 
 import { TransactionTypeIconWrapper } from '@app/components/transaction/transaction-type-icon-wrapper';
-import { StxIcon } from '@app/ui/components/avatar-icon/stx-icon';
+import { StxAvatarIcon } from '@app/ui/components/avatar/stx-avatar-icon';
 
 interface TxTransferIconWrapperProps {
-  icon: React.JSX.Element;
+  icon: ReactNode;
 }
 export function TxTransferIconWrapper({ icon }: TxTransferIconWrapperProps) {
   return (
-    <Circle
-      bg="stacks"
-      color="ink.background-primary"
-      flexShrink={0}
-      height="36px"
-      position="relative"
-      width="36px"
-    >
-      <StxIcon />
+    <Circle position="relative">
+      <StxAvatarIcon />
       <TransactionTypeIconWrapper icon={icon} />
     </Circle>
   );

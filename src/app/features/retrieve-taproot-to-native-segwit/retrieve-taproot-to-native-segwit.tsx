@@ -1,4 +1,3 @@
-import toast from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
 
 import { Stack } from 'leather-styles/jsx';
@@ -10,6 +9,7 @@ import { formatMoneyPadded } from '@app/common/money/format-money';
 import { delay } from '@app/common/utils';
 import { FormAddressDisplayer } from '@app/components/address-displayer/form-address-displayer';
 import { InfoCard, InfoCardRow, InfoCardSeparator } from '@app/components/info-card/info-card';
+import { useToast } from '@app/features/toasts/use-toast';
 import {
   useCurrentTaprootAccountBalance,
   useCurrentTaprootAccountUninscribedUtxos,
@@ -23,6 +23,7 @@ import { RetrieveTaprootToNativeSegwitLayout } from './components/retrieve-tapro
 import { useGenerateRetrieveTaprootFundsTx } from './use-generate-retrieve-taproot-funds-tx';
 
 export function RetrieveTaprootToNativeSegwit() {
+  const toast = useToast();
   const navigate = useNavigate();
   const balance = useCurrentTaprootAccountBalance();
   const recipient = useCurrentAccountNativeSegwitAddressIndexZero();

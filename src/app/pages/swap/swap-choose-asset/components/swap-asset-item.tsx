@@ -1,9 +1,9 @@
 import { SwapSelectors } from '@tests/selectors/swap.selectors';
-import { styled } from 'leather-styles/jsx';
 
 import { formatMoneyWithoutSymbol } from '@app/common/money/format-money';
 import { useGetFungibleTokenMetadataQuery } from '@app/query/stacks/tokens/fungible-tokens/fungible-token-metadata.query';
 import { isFtAsset } from '@app/query/stacks/tokens/token-metadata.utils';
+import { Avatar, defaultFallbackDelay, getAvatarFallback } from '@app/ui/components/avatar/avatar';
 import { ItemInteractive } from '@app/ui/components/item/item-interactive';
 import { ItemLayout } from '@app/ui/components/item/item.layout';
 
@@ -20,11 +20,21 @@ export function SwapAssetItem({ asset, onClick }: SwapAssetItemProps) {
 
   const ftMetadataName = ftMetadata && isFtAsset(ftMetadata) ? ftMetadata.name : asset.name;
   const displayName = asset.displayName ?? ftMetadataName;
+  const fallback = getAvatarFallback(asset.name);
 
   return (
-    <ItemInteractive data-testid={SwapSelectors.ChooseAssetListItem} onClick={onClick}>
+    <ItemInteractive
+      data-testid={SwapSelectors.ChooseAssetListItem}
+      onClick={onClick}
+      my="space.02"
+    >
       <ItemLayout
-        flagImg={<styled.img src={asset.icon} width="40px" height="40px" alt="Swap asset" />}
+        flagImg={
+          <Avatar.Root>
+            <Avatar.Image alt={fallback} src={asset.icon} />
+            <Avatar.Fallback delayMs={defaultFallbackDelay}>{fallback}</Avatar.Fallback>
+          </Avatar.Root>
+        }
         titleLeft={displayName}
         captionLeft={asset.name}
         titleRight={formatMoneyWithoutSymbol(asset.balance)}

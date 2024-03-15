@@ -1,9 +1,10 @@
 import { ReactNode } from 'react';
 
-import { styled } from 'leather-styles/jsx';
+import { Flex, styled } from 'leather-styles/jsx';
 
 import { AllCryptoCurrencyAssetBalances } from '@shared/models/crypto-asset-balance.model';
 
+import { BulletSeparator } from '@app/ui/components/bullet-separator/bullet-separator';
 import { ItemInteractive } from '@app/ui/components/item/item-interactive';
 import { ItemLayout } from '@app/ui/components/item/item.layout';
 import { BasicTooltip } from '@app/ui/components/tooltip/basic-tooltip';
@@ -35,7 +36,7 @@ export function CryptoCurrencyAssetItemLayout({
     parseCryptoCurrencyAssetBalance(assetBalance);
 
   return (
-    <ItemInteractive data-testid={dataTestId} onClick={onClick}>
+    <ItemInteractive data-testid={dataTestId} onClick={onClick} my="space.02">
       <ItemLayout
         flagImg={icon}
         titleLeft={title}
@@ -57,10 +58,14 @@ export function CryptoCurrencyAssetItemLayout({
         }
         captionRight={
           !rightElement && (
-            <>
-              <Caption>{balance.amount.toNumber() > 0 && address ? usdBalance : null}</Caption>
-              {additionalUsdBalanceInfo}
-            </>
+            <Caption>
+              <Flex alignItems="center" gap="space.02" color="inherit">
+                <BulletSeparator>
+                  <Caption>{balance.amount.toNumber() > 0 && address ? usdBalance : null}</Caption>
+                  {additionalUsdBalanceInfo}
+                </BulletSeparator>
+              </Flex>
+            </Caption>
           )
         }
       />
