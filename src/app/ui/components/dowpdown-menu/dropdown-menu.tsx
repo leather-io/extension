@@ -5,9 +5,9 @@ import { css } from 'leather-styles/css';
 import { type HTMLStyledProps, styled } from 'leather-styles/jsx';
 
 import { ChevronDownIcon } from '@app/ui/icons';
+import { pressableBaseStyles, pressableStyles } from '@app/ui/pressable/pressable';
 
 import { Flag } from '../flag/flag';
-import { itemBaseStyles, itemInteractiveStyles } from '../item/item-interactive';
 
 export interface DropdownMenuItem {
   iconLeft?: ReactNode;
@@ -77,7 +77,7 @@ const Item: typeof RadixDropdownMenu.Item = forwardRef((props, ref) => (
   <styled.div className={dropdownItemStyles}>
     <RadixDropdownMenu.Item
       ref={ref}
-      className={css(itemBaseStyles, itemInteractiveStyles)}
+      className={css(pressableBaseStyles, pressableStyles)}
       {...props}
     />
   </styled.div>

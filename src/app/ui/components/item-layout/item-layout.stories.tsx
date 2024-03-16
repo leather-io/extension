@@ -1,7 +1,7 @@
 import { Meta, StoryObj } from '@storybook/react';
 import { Box, Circle } from 'leather-styles/jsx';
 
-import { ItemLayout as Component } from './item.layout';
+import { ItemLayout as Component } from './item-layout';
 
 const meta: Meta<typeof Component> = {
   component: Component,

@@ -2,8 +2,9 @@ import { ReactNode } from 'react';
 
 import { Flex, HStack, Stack, styled } from 'leather-styles/jsx';
 
+import { pressableCaptionStyles } from '@app/ui/pressable/pressable';
+
 import { Flag } from '../flag/flag';
-import { itemCaptionStyles } from './item-interactive';
 
 interface ItemWithButtonsLayoutProps {
   buttons: ReactNode;
@@ -11,7 +12,7 @@ interface ItemWithButtonsLayoutProps {
   flagImg: ReactNode;
   title: string;
 }
-export function ItemWithButtonsLayout({
+export function ItemLayoutWithButtons({
   buttons,
   caption,
   flagImg,
@@ -31,7 +32,7 @@ export function ItemWithButtonsLayout({
           <styled.span fontWeight={500} textStyle="label.02">
             {title}
           </styled.span>
-          <styled.span className={itemCaptionStyles} textStyle="caption.01">
+          <styled.span className={pressableCaptionStyles} textStyle="caption.01">
             {caption}
           </styled.span>
         </Stack>

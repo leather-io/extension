@@ -2,9 +2,9 @@ import { ReactNode } from 'react';
 
 import { SettingsSelectors } from '@tests/selectors/settings.selectors';
 
-import { ItemInteractive } from '@app/ui/components/item/item-interactive';
-import { ItemLayout } from '@app/ui/components/item/item.layout';
+import { ItemLayout } from '@app/ui/components/item-layout/item-layout';
 import { Spinner } from '@app/ui/components/spinner';
+import { Pressable } from '@app/ui/pressable/pressable';
 
 interface AccountListItemLayoutProps {
   accountAddresses: ReactNode;
@@ -29,7 +29,7 @@ export function AccountListItemLayout(props: AccountListItemLayoutProps) {
   } = props;
 
   return (
-    <ItemInteractive
+    <Pressable
       data-testid={SettingsSelectors.SwitchAccountItemIndex.replace('[index]', `${index}`)}
       key={`account-${index}`}
       onClick={onSelectAccount}
@@ -47,6 +47,6 @@ export function AccountListItemLayout(props: AccountListItemLayoutProps) {
         }
         captionLeft={accountAddresses}
       />
-    </ItemInteractive>
+    </Pressable>
   );
 }

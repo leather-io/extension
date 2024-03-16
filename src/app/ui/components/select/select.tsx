@@ -3,7 +3,7 @@ import { ReactNode, forwardRef } from 'react';
 import * as RadixSelect from '@radix-ui/react-select';
 import { css } from 'leather-styles/css';
 
-import { itemBaseStyles, itemInteractiveStyles } from '../item/item-interactive';
+import { pressableBaseStyles, pressableStyles } from '@app/ui/pressable/pressable';
 
 export interface SelectItem {
   iconLeft?: ReactNode;
@@ -74,7 +74,7 @@ const Label: typeof RadixSelect.Label = forwardRef((props, ref) => (
 ));
 
 const Item: typeof RadixSelect.Item = forwardRef((props, ref) => (
-  <RadixSelect.Item className={css(itemBaseStyles, itemInteractiveStyles)} ref={ref} {...props} />
+  <RadixSelect.Item className={css(pressableBaseStyles, pressableStyles)} ref={ref} {...props} />
 ));
 
 const selectSeparatorStyles = css({
