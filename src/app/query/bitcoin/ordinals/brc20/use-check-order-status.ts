@@ -30,13 +30,13 @@ export function useCheckOrderStatuses(ids: string[]) {
           return;
         }
 
-        const entry = transferMap[data.charge.id];
+        const entry = transferMap[data.id];
 
         if (!entry) return;
 
         const file = data.files[0];
 
-        // inscrption reported by service
+        // inscription reported by service
         if ('tx' in file) {
           // see if its on hiro indexer
           try {
@@ -45,7 +45,7 @@ export function useCheckOrderStatuses(ids: string[]) {
             if (inscription.number) {
               dispatch(
                 brc20TransferReady({
-                  id: data.charge.id,
+                  id: data.id,
                   inscriptionId: file.tx?.inscription ?? '',
                 })
               );
@@ -54,12 +54,12 @@ export function useCheckOrderStatuses(ids: string[]) {
           } catch (error) {}
 
           // or say awaiting indexer
-          dispatch(brc20TransferAwaitingIndexer({ id: data.charge.id }));
+          dispatch(brc20TransferAwaitingIndexer({ id: data.id }));
           return;
         }
 
         if (data.paid && entry.status !== 'paid') {
-          dispatch(brc20TransferPaid({ id: data.charge.id }));
+          dispatch(brc20TransferPaid({ id: data.id }));
           return;
         }
       },

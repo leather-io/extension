@@ -45,6 +45,7 @@ interface InscriptionOrderSuccessResponse {
       payreq: string;
     };
   };
+  id: string;
   chainFee: number;
   serviceFee: number;
   baseFee: number;
@@ -69,6 +70,8 @@ interface OrderStatusSuccessResponse {
   paid: boolean;
   underpaid: boolean;
   expired: boolean;
+  id: string;
+  state: string;
   charge: {
     id: string;
     description: string;
