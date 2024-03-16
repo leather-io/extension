@@ -2,9 +2,9 @@ import { ReactNode } from 'react';
 
 import { HStack, styled } from 'leather-styles/jsx';
 
-import { ItemInteractive } from '@app/ui/components/item/item-interactive';
-import { ItemLayout } from '@app/ui/components/item/item.layout';
+import { ItemLayout } from '@app/ui/components/item-layout/item-layout';
 import { Caption } from '@app/ui/components/typography/caption';
+import { Pressable } from '@app/ui/pressable/pressable';
 
 interface TransactionItemLayoutProps {
   openTxLink(): void;
@@ -26,7 +26,7 @@ export function TransactionItemLayout({
   txValue,
 }: TransactionItemLayoutProps) {
   return (
-    <ItemInteractive onClick={openTxLink} my="space.02">
+    <Pressable onClick={openTxLink} my="space.02">
       <ItemLayout
         flagImg={txIcon && txIcon}
         titleLeft={txTitle}
@@ -46,6 +46,6 @@ export function TransactionItemLayout({
           )
         }
       />
-    </ItemInteractive>
+    </Pressable>
   );
 }

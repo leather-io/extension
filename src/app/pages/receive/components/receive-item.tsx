@@ -1,8 +1,8 @@
 import { Button } from '@app/ui/components/button/button';
-import { ItemInteractive } from '@app/ui/components/item/item-interactive';
-import { ItemWithButtonsLayout } from '@app/ui/components/item/item-with-buttons.layout';
+import { ItemLayoutWithButtons } from '@app/ui/components/item-layout/item-layout-with-buttons';
 import { CopyIcon } from '@app/ui/icons/copy-icon';
 import { QrCodeIcon } from '@app/ui/icons/qr-code-icon';
+import { Pressable } from '@app/ui/pressable/pressable';
 import { truncateMiddle } from '@app/ui/utils/truncate-middle';
 
 interface ReceiveItemProps {
@@ -23,8 +23,8 @@ export function ReceiveItem({
 }: ReceiveItemProps) {
   if (!address) return null;
   return (
-    <ItemInteractive my="space.02">
-      <ItemWithButtonsLayout
+    <Pressable my="space.02">
+      <ItemLayoutWithButtons
         flagImg={icon}
         title={title}
         caption={truncateMiddle(address, 6)}
@@ -46,6 +46,6 @@ export function ReceiveItem({
           </>
         }
       />
-    </ItemInteractive>
+    </Pressable>
   );
 }

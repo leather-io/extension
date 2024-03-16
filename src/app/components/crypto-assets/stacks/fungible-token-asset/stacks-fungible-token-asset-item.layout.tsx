@@ -3,9 +3,9 @@ import { styled } from 'leather-styles/jsx';
 import { StacksFungibleTokenAssetBalance } from '@shared/models/crypto-asset-balance.model';
 
 import { StacksAssetAvatar } from '@app/components/crypto-assets/stacks/components/stacks-asset-avatar';
-import { ItemInteractive } from '@app/ui/components/item/item-interactive';
-import { ItemLayout } from '@app/ui/components/item/item.layout';
+import { ItemLayout } from '@app/ui/components/item-layout/item-layout';
 import { BasicTooltip } from '@app/ui/components/tooltip/basic-tooltip';
+import { Pressable } from '@app/ui/pressable/pressable';
 
 import { parseStacksFungibleTokenAssetBalance } from './fungible-token-asset.utils';
 
@@ -21,7 +21,7 @@ export function StacksFungibleTokenAssetItemLayout({
     parseStacksFungibleTokenAssetBalance(assetBalance);
 
   return (
-    <ItemInteractive data-testid={dataTestId} onClick={onClick} my="space.02">
+    <Pressable data-testid={dataTestId} onClick={onClick} my="space.02">
       <ItemLayout
         flagImg={
           <StacksAssetAvatar
@@ -46,6 +46,6 @@ export function StacksFungibleTokenAssetItemLayout({
           </BasicTooltip>
         }
       />
-    </ItemInteractive>
+    </Pressable>
   );
 }

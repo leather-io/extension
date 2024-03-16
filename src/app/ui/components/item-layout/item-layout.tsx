@@ -2,10 +2,11 @@ import { ReactNode, isValidElement } from 'react';
 
 import { Flex, HStack, Stack, styled } from 'leather-styles/jsx';
 
+import { pressableCaptionStyles, pressableChevronStyles } from '@app/ui/pressable/pressable';
+
 import { CheckmarkIcon } from '../../icons/checkmark-icon';
 import { ChevronUpIcon } from '../../icons/chevron-up-icon';
 import { Flag } from '../flag/flag';
-import { itemCaptionStyles, itemChevronStyles } from './item-interactive';
 
 interface ItemLayoutProps {
   captionLeft: ReactNode;
@@ -50,7 +51,7 @@ export function ItemLayout({
           {isValidElement(captionLeft) ? (
             captionLeft
           ) : (
-            <styled.span className={itemCaptionStyles} textStyle="caption.01">
+            <styled.span className={pressableCaptionStyles} textStyle="caption.01">
               {captionLeft}
             </styled.span>
           )}
@@ -67,13 +68,17 @@ export function ItemLayout({
             {isValidElement(captionRight) ? (
               captionRight
             ) : (
-              <styled.span className={itemCaptionStyles} textStyle="caption.02">
+              <styled.span className={pressableCaptionStyles} textStyle="caption.02">
                 {captionRight}
               </styled.span>
             )}
           </Stack>
           {showChevron && (
-            <ChevronUpIcon color={itemChevronStyles} transform="rotate(90deg)" variant="small" />
+            <ChevronUpIcon
+              color={pressableChevronStyles}
+              transform="rotate(90deg)"
+              variant="small"
+            />
           )}
         </HStack>
       </Flex>
