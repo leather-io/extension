@@ -77,7 +77,7 @@ export function CryptoCurrencyAssetItemLayout({
 
   const content = (
     <ItemLayout
-      flagImg={icon}
+      img={icon}
       titleLeft={title}
       captionLeft={balance.symbol}
       titleRight={titleRight}

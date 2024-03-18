@@ -1,6 +1,7 @@
-import { TooltipProvider } from '@radix-ui/react-tooltip';
 import { Meta, StoryObj } from '@storybook/react';
 import BigNumber from 'bignumber.js';
+
+import { TooltipProvider } from '@app/ui/components/tooltip/tooltip';
 
 import { StacksBalanceListItemLayout } from './stacks-balance-list-item.layout';
 

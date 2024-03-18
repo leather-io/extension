@@ -25,7 +25,7 @@ export function StacksFungibleTokenAssetItemLayout({
   return (
     <Pressable data-testid={dataTestId} onClick={onClick} my="space.02">
       <ItemLayout
-        flagImg={
+        img={
           <StacksAssetAvatar
             color="white"
             gradientString={avatar}

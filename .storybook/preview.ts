@@ -5,7 +5,6 @@ import { customViewports } from './viewports';
 
 const preview: Preview = {
   parameters: {
-    actions: { argTypesRegex: '^on[A-Z].*' },
     backgrounds: {
       default: 'leather-light-mode',
       values: [

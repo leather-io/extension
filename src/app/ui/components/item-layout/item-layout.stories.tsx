@@ -15,7 +15,7 @@ type Story = StoryObj<typeof Component>;
 export const Item: Story = {
   render: () => (
     <Component
-      flagImg={<Circle size="40px" backgroundColor="red.background-secondary" />}
+      img={<Circle size="40px" backgroundColor="red.background-secondary" />}
       titleLeft={<Box width="500px" height="20px" backgroundColor="red.background-secondary" />}
       captionLeft={<Box width="300px" height="20px" backgroundColor="red.background-secondary" />}
       titleRight={<Box width="100px" height="20px" backgroundColor="red.background-secondary" />}

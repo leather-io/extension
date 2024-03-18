@@ -36,7 +36,7 @@ export function AccountListItemLayout(props: AccountListItemLayoutProps) {
     >
       <ItemLayout
         isSelected={isSelected}
-        flagImg={avatar}
+        img={avatar}
         titleLeft={accountName}
         titleRight={
           isLoading ? (

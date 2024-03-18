@@ -24,7 +24,7 @@ export function SwapAssetItem({ asset, onClick }: SwapAssetItemProps) {
   return (
     <Pressable data-testid={SwapSelectors.ChooseAssetListItem} onClick={onClick} my="space.02">
       <ItemLayout
-        flagImg={
+        img={
           <Avatar.Root>
             <Avatar.Image alt={fallback} src={asset.icon} />
             <Avatar.Fallback delayMs={defaultFallbackDelay}>{fallback}</Avatar.Fallback>

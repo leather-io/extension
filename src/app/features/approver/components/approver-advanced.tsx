@@ -3,8 +3,10 @@ import { useRef } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import { Flex } from 'leather-styles/jsx';
 
+import { createDelay } from '@shared/utils';
+
 import type { HasChildren } from '@app/common/has-children';
-import { createDelay, getScrollParent } from '@app/common/utils';
+import { getScrollParent } from '@app/common/utils';
 import { Button } from '@app/ui/components/button/button';
 import { Flag } from '@app/ui/components/flag/flag';
 import { ChevronDownIcon } from '@app/ui/icons';
