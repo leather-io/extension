@@ -25,7 +25,7 @@ export function ReceiveItem({
   return (
     <Pressable my="space.02">
       <ItemLayoutWithButtons
-        flagImg={icon}
+        img={icon}
         title={title}
         caption={truncateMiddle(address, 6)}
         buttons={

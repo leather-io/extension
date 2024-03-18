@@ -26,7 +26,7 @@ function ExampleInteractiveItemContent() {
   return (
     <ItemLayout
       showChevron
-      flagImg={<BtcAvatarIcon />}
+      img={<BtcAvatarIcon />}
       titleLeft="Label"
       captionLeft="Caption"
       titleRight="1,000.00 ABC"
@@ -57,7 +57,7 @@ export const Disabled: Story = {
     children: (
       <ItemLayout
         showChevron
-        flagImg={<BtcAvatarIcon />}
+        img={<BtcAvatarIcon />}
         titleLeft="Label"
         captionLeft="Caption"
         titleRight="1,000.00 ABC"
@@ -71,7 +71,7 @@ export const WithButtons: Story = {
   args: {
     children: (
       <ItemLayoutWithButtons
-        flagImg={<BtcAvatarIcon />}
+        img={<BtcAvatarIcon />}
         title="Label"
         caption="Caption"
         buttons={

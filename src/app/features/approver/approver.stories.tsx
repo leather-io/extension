@@ -4,9 +4,9 @@ import { Box, Circle, Flex } from 'leather-styles/jsx';
 import { Button } from '@app/ui/components/button/button';
 import { Callout } from '@app/ui/components/callout/callout';
 import { Flag } from '@app/ui/components/flag/flag';
-import { ItemInteractive } from '@app/ui/components/item/item-interactive';
-import { ItemLayout } from '@app/ui/components/item/item.layout';
+import { ItemLayout } from '@app/ui/components/item-layout/item-layout';
 import { ZapIcon } from '@app/ui/icons';
+import { Pressable } from '@app/ui/pressable/pressable';
 
 import { Approver } from './approver';
 
@@ -36,15 +36,15 @@ export const ExampleOne: Story = {
           <Approver.Subheader>
             Subheader with icon <ZapIcon variant="small" />
           </Approver.Subheader>
-          <ItemInteractive>
+          <Pressable>
             <ItemLayout
-              flagImg={<Circle size="40px" backgroundColor="ink.border-default" />}
+              img={<Circle size="40px" backgroundColor="ink.border-default" />}
               titleLeft={<Box width="180px" height="14px" backgroundColor="ink.border-default" />}
               titleRight={<Box width="50px" height="14px" backgroundColor="ink.border-default" />}
               captionLeft={<Box width="70px" height="12px" backgroundColor="ink.border-default" />}
               captionRight={<Box width="40px" height="12px" backgroundColor="ink.border-default" />}
             />
-          </ItemInteractive>
+          </Pressable>
           <Approver.Subheader mt="space.05">Subheader 2</Approver.Subheader>
           <Flag
             img={<Circle size="40px" backgroundColor="ink.border-default" />}
@@ -62,21 +62,21 @@ export const ExampleOne: Story = {
             titleRight="100 MICA"
             captionLeft="SIP-10"
             captionRight="$894,891"
-            flagImg={<Circle size="40px" backgroundColor="ink.border-default" />}
+            img={<Circle size="40px" backgroundColor="ink.border-default" />}
           />
         </Approver.Section>
         <Approver.Advanced>
           <Approver.Section>
             <Approver.Subheader>In the advanced section</Approver.Subheader>
-            <ItemInteractive onClick={() => {}} mt="space.03" mb="space.03">
+            <Pressable onClick={() => {}} mt="space.03" mb="space.03">
               <ItemLayout
                 titleLeft="Pressable"
                 titleRight="Mr. Clicky"
                 captionLeft="Interactive item"
                 captionRight="Click me"
-                flagImg={<Circle size="40px" backgroundColor="ink.border-default" />}
+                img={<Circle size="40px" backgroundColor="ink.border-default" />}
               />
-            </ItemInteractive>
+            </Pressable>
           </Approver.Section>
           <Approver.Section>
             <Approver.Subheader>Inputs & Outputs</Approver.Subheader>

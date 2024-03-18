@@ -29,7 +29,7 @@ export function TransactionItemLayout({
   return (
     <Pressable onClick={openTxLink} my="space.02">
       <ItemLayout
-        flagImg={txIcon && txIcon}
+        img={txIcon && txIcon}
         titleLeft={txTitle}
         captionLeft={
           <HStack alignItems="center">

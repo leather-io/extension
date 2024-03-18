@@ -10,7 +10,6 @@ export function ApproverSection(props: HasChildren) {
     <styled.section
       className="approver-section"
       mt="space.03"
-      mx="space.03"
       px="space.05"
       py="space.03"
       rounded="sm"

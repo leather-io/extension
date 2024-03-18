@@ -1,6 +1,5 @@
 import { createContext, useContext, useEffect, useState } from 'react';
 
-import * as RadixTooltip from '@radix-ui/react-tooltip';
 import { Theme as RadixTheme } from '@radix-ui/themes';
 
 import { noop } from '@shared/utils';
@@ -8,6 +7,7 @@ import { noop } from '@shared/utils';
 import { store } from '@app/store';
 import { settingsActions } from '@app/store/settings/settings.actions';
 import { useUserSelectedTheme } from '@app/store/settings/settings.selectors';
+import { TooltipProvider } from '@app/ui/components/tooltip/tooltip';
 
 import { useOnMount } from './hooks/use-on-mount';
 
@@ -93,7 +93,7 @@ export function ThemeSwitcherProvider({ children }: ThemeSwitcherProviderProps) 
   return (
     <ThemeContext.Provider value={{ theme, userSelectedTheme, setUserSelectedTheme }}>
       <RadixTheme appearance={theme}>
-        <RadixTooltip.Provider delayDuration={300}>{children}</RadixTooltip.Provider>
+        <TooltipProvider delayDuration={300}>{children}</TooltipProvider>
       </RadixTheme>
     </ThemeContext.Provider>
   );

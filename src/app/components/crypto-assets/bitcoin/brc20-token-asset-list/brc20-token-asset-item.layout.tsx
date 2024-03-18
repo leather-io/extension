@@ -20,7 +20,7 @@ export function Brc20TokenAssetItemLayout({ onClick, token }: Brc20TokenAssetIte
   return (
     <Pressable onClick={onClick} my="space.02">
       <ItemLayout
-        flagImg={<Brc20AvatarIcon />}
+        img={<Brc20AvatarIcon />}
         titleLeft={token.ticker}
         captionLeft="BRC-20"
         titleRight={
