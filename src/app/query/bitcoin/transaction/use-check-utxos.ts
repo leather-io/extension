@@ -126,6 +126,7 @@ export function useCheckInscribedUtxos(blockTxAction?: () => void) {
         if (hasInscribedUtxo) {
           void analytics.track('utxos_includes_inscribed_one', {
             txids,
+            inputs,
           });
           preventTransaction();
           return true;
@@ -140,6 +141,7 @@ export function useCheckInscribedUtxos(blockTxAction?: () => void) {
 
         void analytics.track('error_checking_utxos_from_ordinalscom', {
           txids,
+          inputs,
         });
 
         const hasInscribedUtxo = await checkInscribedUtxosByBestinslot({
@@ -152,6 +154,7 @@ export function useCheckInscribedUtxos(blockTxAction?: () => void) {
         if (hasInscribedUtxo) {
           void analytics.track('utxos_includes_inscribed_one', {
             txids,
+            inputs,
           });
           preventTransaction();
           return true;
