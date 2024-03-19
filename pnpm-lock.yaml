@@ -74,17 +74,17 @@ dependencies:
     specifier: 1.9.6
     version: 1.9.6(react-redux@8.1.3)(react@18.2.0)
   '@scure/base':
-    specifier: 1.1.3
-    version: 1.1.3
+    specifier: 1.1.5
+    version: 1.1.5
   '@scure/bip32':
-    specifier: 1.3.2
-    version: 1.3.2
+    specifier: 1.3.3
+    version: 1.3.3
   '@scure/bip39':
+    specifier: 1.2.2
+    version: 1.2.2
+  '@scure/btc-signer':
     specifier: 1.2.1
     version: 1.2.1
-  '@scure/btc-signer':
-    specifier: 1.1.0
-    version: 1.1.0
   '@segment/analytics-next':
     specifier: 1.66.0
     version: 1.66.0
@@ -188,8 +188,8 @@ dependencies:
     specifier: 2.2.1
     version: 2.2.1
   bitcoinjs-lib:
-    specifier: 6.1.3
-    version: 6.1.3
+    specifier: 6.1.5
+    version: 6.1.5
   bn.js:
     specifier: 5.2.1
     version: 5.2.1
@@ -2247,7 +2247,7 @@ packages:
   /@bitcoinerlab/secp256k1@1.0.5:
     resolution: {integrity: sha512-8gT+ukTCFN2rTxn4hD9Jq3k+UJwcprgYjfK/SQUSLgznXoIgsBnlPuARMkyyuEjycQK9VvnPiejKdszVTflh+w==}
     dependencies:
-      '@noble/hashes': 1.3.3
+      '@noble/hashes': 1.3.2
       '@noble/secp256k1': 1.7.1
     dev: false
 
@@ -3739,10 +3739,10 @@ packages:
       tar-fs: 2.1.1
     dev: true
 
-  /@noble/curves@1.2.0:
-    resolution: {integrity: sha512-oYclrNgRaM9SsBUBVbb8M6DTV7ZHRTKugureoYEncY5c65HOmRzvSiTE3y5CYaPYJA/GVkrhXEoF0M3Ya9PMnw==}
+  /@noble/curves@1.3.0:
+    resolution: {integrity: sha512-t01iSXPuN+Eqzb4eBX0S5oubSqXbK/xXa1Ne18Hj8f9pStxztHCE2gfboSp/dZRLSqfuLpRK2nDXDK+W9puocA==}
     dependencies:
-      '@noble/hashes': 1.3.2
+      '@noble/hashes': 1.3.3
     dev: false
 
   /@noble/hashes@1.1.5:
@@ -5837,10 +5837,6 @@ packages:
     resolution: {integrity: sha512-mhMEg7qUdpPuqdTAs2xh2GBAISAE++74uFX3y84G0GPwkBF1kdiDVypKbHIbizYTEFty+Ieurxoagq9KRkgEiw==}
     dev: true
 
-  /@scure/base@1.1.3:
-    resolution: {integrity: sha512-/+SgoRjLq7Xlf0CWuLHq2LUZeL/w65kfzAPG5NH9pcmBhs+nunQTn4gvdwgMTIXnt9b2C/1SeL2XiysZEyIC9Q==}
-    dev: false
-
   /@scure/base@1.1.5:
     resolution: {integrity: sha512-Brj9FiG2W1MRQSTB212YVPRrcbjkv48FoZi/u4l/zds/ieRrqsh7aUf6CLwkAq61oKXr/ZlTzlY66gLIj3TFTQ==}
 
@@ -5852,11 +5848,11 @@ packages:
       '@scure/base': 1.1.5
     dev: false
 
-  /@scure/bip32@1.3.2:
-    resolution: {integrity: sha512-N1ZhksgwD3OBlwTv3R6KFEcPojl/W4ElJOeCZdi+vuI5QmTFwLq3OFf2zd2ROpKvxFdgZ6hUpb0dx9bVNEwYCA==}
+  /@scure/bip32@1.3.3:
+    resolution: {integrity: sha512-LJaN3HwRbfQK0X1xFSi0Q9amqOgzQnnDngIt+ZlsBC3Bm7/nE7K0kwshZHyaru79yIVRv/e1mQAjZyuZG6jOFQ==}
     dependencies:
-      '@noble/curves': 1.2.0
-      '@noble/hashes': 1.3.3
+      '@noble/curves': 1.3.0
+      '@noble/hashes': 1.3.2
       '@scure/base': 1.1.5
     dev: false
 
@@ -5866,20 +5862,20 @@ packages:
       '@noble/hashes': 1.1.5
       '@scure/base': 1.1.5
 
-  /@scure/bip39@1.2.1:
-    resolution: {integrity: sha512-Z3/Fsz1yr904dduJD0NpiyRHhRYHdcnyh73FZWiV+/qhWi83wNJ3NWolYqCEN+ZWsUz2TWwajJggcRE9r1zUYg==}
+  /@scure/bip39@1.2.2:
+    resolution: {integrity: sha512-HYf9TUXG80beW+hGAt3TRM8wU6pQoYur9iNypTROm42dorCGmLnFe3eWjz3gOq6G62H2WRh0FCzAR1PI+29zIA==}
     dependencies:
-      '@noble/hashes': 1.3.3
+      '@noble/hashes': 1.3.2
       '@scure/base': 1.1.5
     dev: false
 
-  /@scure/btc-signer@1.1.0:
-    resolution: {integrity: sha512-kCX7WaaTJr0VZIXDvaY0wNZfzZoZuLnPz4G0qmKXN8bnNx5M86wb1cce9XrZcfzb0jrVAbZJqNpxmE1e7Ka2hA==}
+  /@scure/btc-signer@1.2.1:
+    resolution: {integrity: sha512-/Zle18/aWhYDBuBeXGDGJTdo0/LKpQhU8ETBJeWABCQkbk0QHCFCinidTiz9hdQFfh0HtasPGq5p6EodVCfEew==}
     dependencies:
-      '@noble/curves': 1.2.0
+      '@noble/curves': 1.3.0
       '@noble/hashes': 1.3.3
       '@scure/base': 1.1.5
-      micro-packed: 0.3.2
+      micro-packed: 0.5.3
     dev: false
 
   /@segment/analytics-core@1.5.0:
@@ -6414,7 +6410,7 @@ packages:
   /@stacks/transactions@4.3.8:
     resolution: {integrity: sha512-5xYYv2TdXXM9PVixB79Pr99symQ8fhbVATjempGUxtL23/XUiRiLvJZohDxIE4VQ2EzbB4g4j8Y7oqPjj0h09Q==}
     dependencies:
-      '@noble/hashes': 1.3.3
+      '@noble/hashes': 1.3.2
       '@noble/secp256k1': 1.7.1
       '@stacks/common': 4.3.5
       '@stacks/network': 4.3.5
@@ -11035,23 +11031,11 @@ packages:
       sha256-uint8array: 0.10.7
     dev: false
 
-  /bitcoinjs-lib@6.1.3:
-    resolution: {integrity: sha512-TYXs/Qf+GNk2nnsB9HrXWqzFuEgCg0Gx+v3UW3B8VuceFHXVvhT+7hRnTSvwkX0i8rz2rtujeU6gFaDcFqYFDw==}
-    engines: {node: '>=8.0.0'}
-    dependencies:
-      '@noble/hashes': 1.3.3
-      bech32: 2.0.0
-      bip174: 2.1.1
-      bs58check: 3.0.1
-      typeforce: 1.18.0
-      varuint-bitcoin: 1.1.2
-    dev: false
-
   /bitcoinjs-lib@6.1.5:
     resolution: {integrity: sha512-yuf6xs9QX/E8LWE2aMJPNd0IxGofwfuVOiYdNUESkc+2bHHVKjhJd8qewqapeoolh9fihzHGoDCB5Vkr57RZCQ==}
     engines: {node: '>=8.0.0'}
     dependencies:
-      '@noble/hashes': 1.3.3
+      '@noble/hashes': 1.3.2
       bech32: 2.0.0
       bip174: 2.1.1
       bs58check: 3.0.1
@@ -11284,7 +11268,7 @@ packages:
   /bs58check@3.0.1:
     resolution: {integrity: sha512-hjuuJvoWEybo7Hn/0xOrczQKKEKD63WguEjlhLExYs2wUBcebDC1jDNK17eEAD2lYfw82d5ASC1d7K3SWszjaQ==}
     dependencies:
-      '@noble/hashes': 1.3.3
+      '@noble/hashes': 1.3.2
       bs58: 5.0.0
     dev: false
 
@@ -17617,6 +17601,12 @@ packages:
 
   /micro-packed@0.3.2:
     resolution: {integrity: sha512-D1Bq0/lVOzdxhnX5vylCxZpdw5LylH7Vd81py0DfRsKUP36XYpwvy8ZIsECVo3UfnoROn8pdKqkOzL7Cd82sGA==}
+    dependencies:
+      '@scure/base': 1.1.5
+    dev: false
+
+  /micro-packed@0.5.3:
+    resolution: {integrity: sha512-zWRoH+qUb/ZMp9gVZhexvRGCENDM5HEQF4sflqpdilUHWK2/zKR7/MT8GBctnTwbhNJwy1iuk5q6+TYP7/twYA==}
     dependencies:
       '@scure/base': 1.1.5
     dev: false
