@@ -60,6 +60,13 @@ export function convertInscriptionToSupportedInscriptionType(inscription: Inscri
       type: 'video',
       ...inscription,
     }),
+    gltf: () => ({
+      infoUrl: createInscriptionInfoUrl(inscription.id),
+      src: createIframePreviewUrl(inscription.id),
+      title,
+      type: 'gltf',
+      ...inscription,
+    }),
     other: () => ({
       infoUrl: createInscriptionInfoUrl(inscription.id),
       title,

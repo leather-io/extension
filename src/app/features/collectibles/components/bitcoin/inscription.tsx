@@ -48,6 +48,7 @@ export function Inscription({ rawInscription }: InscriptionProps) {
     case 'html':
     case 'svg':
     case 'video':
+    case 'gltf':
       return (
         <CollectibleIframe
           icon={<OrdinalAvatarIcon size="lg" />}

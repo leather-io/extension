@@ -1,3 +1,5 @@
+import { analytics } from '@shared/utils/analytics';
+
 export interface InscriptionResponseItem {
   address: string;
   content_length: number;
@@ -42,6 +44,7 @@ const supportedInscriptionTypes = [
   'svg',
   'text',
   'video',
+  'gltf',
   'other',
 ] as const;
 
@@ -87,6 +90,11 @@ interface VideoInscription extends BaseSupportedInscription {
   src: string;
 }
 
+interface GltfInscription extends BaseSupportedInscription {
+  type: 'gltf';
+  src: string;
+}
+
 interface OtherInscription extends BaseSupportedInscription {
   type: 'other';
 }
@@ -103,6 +111,7 @@ export type SupportedInscription =
   | SvgInscription
   | TextInscription
   | VideoInscription
+  | GltfInscription
   | OtherInscription;
 
 export function whenInscriptionType<T>(
@@ -133,7 +142,14 @@ export function whenInscriptionType<T>(
     return branches.video();
   }
 
-  if (branches.other) return branches.other();
+  if (mimeType.startsWith('model/gltf') && branches.gltf) {
+    return branches.gltf();
+  }
+
+  if (branches.other) {
+    void analytics.track('unsupported_mime_type', { mimeType });
+    return branches.other();
+  }
 
   throw new Error('Unhandled inscription type');
 }
