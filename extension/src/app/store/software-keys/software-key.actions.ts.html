@@ -25,7 +25,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/43</span>
+                <span class='fraction'>0/44</span>
             </div>
         
             
@@ -46,7 +46,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/38</span>
+                <span class='fraction'>0/39</span>
             </div>
         
             
@@ -179,7 +179,11 @@
 <a name='L114'></a><a href='#L114'>114</a>
 <a name='L115'></a><a href='#L115'>115</a>
 <a name='L116'></a><a href='#L116'>116</a>
-<a name='L117'></a><a href='#L117'>117</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L117'></a><a href='#L117'>117</a>
+<a name='L118'></a><a href='#L118'>118</a>
+<a name='L119'></a><a href='#L119'>119</a>
+<a name='L120'></a><a href='#L120'>120</a>
+<a name='L121'></a><a href='#L121'>121</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -246,23 +250,27 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -361,25 +369,29 @@ function <span class="fstat-no" title="function not covered" >setWalletEncryptio
     // action is performed outside this Promise's execution, as it may be slow,
     // and the user shouldn't have to wait before being directed to homepage.
 <span class="cstat-no" title="statement not covered" >    logger.info('Initiating recursive account activity lookup');</span>
-<span class="cstat-no" title="statement not covered" >    void recurseAccountsForActivity({</span>
-<span class="fstat-no" title="function not covered" >      async d</span>oesAddressHaveActivityFn(index) {
-        const stxAddress = <span class="cstat-no" title="statement not covered" >getStacksAddressByIndex(</span>
-          secretKey,
-          AddressVersion.MainnetSingleSig
-        )(index);
-        const hasStxBalance = <span class="cstat-no" title="statement not covered" >await doesStacksAddressHaveBalance(stxAddress);</span>
-        const hasNames = <span class="cstat-no" title="statement not covered" >await doesStacksAddressHaveBnsName(stxAddress);</span>
+<span class="cstat-no" title="statement not covered" >    try {</span>
+<span class="cstat-no" title="statement not covered" >      void recurseAccountsForActivity({</span>
+<span class="fstat-no" title="function not covered" >        async d</span>oesAddressHaveActivityFn(index) {
+          const stxAddress = <span class="cstat-no" title="statement not covered" >getStacksAddressByIndex(</span>
+            secretKey,
+            AddressVersion.MainnetSingleSig
+          )(index);
+          const hasStxBalance = <span class="cstat-no" title="statement not covered" >await doesStacksAddressHaveBalance(stxAddress);</span>
+          const hasNames = <span class="cstat-no" title="statement not covered" >await doesStacksAddressHaveBnsName(stxAddress);</span>
 &nbsp;
-        const btcAddress = <span class="cstat-no" title="statement not covered" >getNativeSegwitMainnetAddressFromMnemonic(secretKey)(index);</span>
-        const hasBtcBalance = <span class="cstat-no" title="statement not covered" >await doesBitcoinAddressHaveBalance(btcAddress.address!);</span>
-        // TODO: add inscription check here also?
-<span class="cstat-no" title="statement not covered" >        return hasStxBalance || hasNames || hasBtcBalance;</span>
-      },
-    }).then(<span class="fstat-no" title="function not covered" >recursiveActivityIndex =&gt; {</span>
-<span class="cstat-no" title="statement not covered" >      if (recursiveActivityIndex &lt;= legacyAccountActivityLookup) <span class="cstat-no" title="statement not covered" >return;</span></span>
-<span class="cstat-no" title="statement not covered" >      logger.info('Found account activity at higher index', { recursiveActivityIndex });</span>
-<span class="cstat-no" title="statement not covered" >      dispatch(stxChainSlice.actions.restoreAccountIndex(recursiveActivityIndex));</span>
-    });
+          const btcAddress = <span class="cstat-no" title="statement not covered" >getNativeSegwitMainnetAddressFromMnemonic(secretKey)(index);</span>
+          const hasBtcBalance = <span class="cstat-no" title="statement not covered" >await doesBitcoinAddressHaveBalance(btcAddress.address!);</span>
+          // TODO: add inscription check here also?
+<span class="cstat-no" title="statement not covered" >          return hasStxBalance || hasNames || hasBtcBalance;</span>
+        },
+      }).then(<span class="fstat-no" title="function not covered" >recursiveActivityIndex =&gt; {</span>
+<span class="cstat-no" title="statement not covered" >        if (recursiveActivityIndex &lt;= legacyAccountActivityLookup) <span class="cstat-no" title="statement not covered" >return;</span></span>
+<span class="cstat-no" title="statement not covered" >        logger.info('Found account activity at higher index', { recursiveActivityIndex });</span>
+<span class="cstat-no" title="statement not covered" >        dispatch(stxChainSlice.actions.restoreAccountIndex(recursiveActivityIndex));</span>
+      });
+    } catch (e) {
+      // Errors during account restore are non-critical and can fail silently
+    }
 &nbsp;
 <span class="cstat-no" title="statement not covered" >    dispatch(</span>
       keySlice.actions.createSoftwareWalletComplete({
@@ -418,7 +430,7 @@ export const keyActions = <span class="cstat-no" title="statement not covered" >
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-03-13T09:42:47.423Z
+                at 2024-03-19T11:24:42.518Z
             </div>
         <script src="../../../../../prettify.js"></script>
         <script>

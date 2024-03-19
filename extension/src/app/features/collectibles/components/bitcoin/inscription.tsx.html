@@ -25,28 +25,28 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/21</span>
+                <span class='fraction'>0/22</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/8</span>
+                <span class='fraction'>0/9</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/12</span>
+                <span class='fraction'>0/13</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/21</span>
+                <span class='fraction'>0/22</span>
             </div>
         
             
@@ -155,7 +155,14 @@
 <a name='L90'></a><a href='#L90'>90</a>
 <a name='L91'></a><a href='#L91'>91</a>
 <a name='L92'></a><a href='#L92'>92</a>
-<a name='L93'></a><a href='#L93'>93</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L93'></a><a href='#L93'>93</a>
+<a name='L94'></a><a href='#L94'>94</a>
+<a name='L95'></a><a href='#L95'>95</a>
+<a name='L96'></a><a href='#L96'>96</a>
+<a name='L97'></a><a href='#L97'>97</a>
+<a name='L98'></a><a href='#L98'>98</a>
+<a name='L99'></a><a href='#L99'>99</a>
+<a name='L100'></a><a href='#L100'>100</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -171,6 +178,12 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -192,6 +205,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -249,6 +263,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { useLocation, useNavigate } from 'react-router-dom';
 &nbsp;
+import { ORD_IO_URL } from '@shared/constants';
 import { Inscription as InscriptionType } from '@shared/models/inscription.model';
 import { RouteUrls } from '@shared/route-urls';
 &nbsp;
@@ -265,6 +280,11 @@ import { InscriptionText } from './inscription-text';
 interface InscriptionProps {
   rawInscription: InscriptionType;
 }
+&nbsp;
+function <span class="fstat-no" title="function not covered" >openInscriptionUrl(n</span>um: number) {
+<span class="cstat-no" title="statement not covered" >  return openInNewTab(`${ORD_IO_URL}/${num}`);</span>
+}
+&nbsp;
 export function <span class="fstat-no" title="function not covered" >Inscription({</span> rawInscription }: InscriptionProps) {
   const inscription = <span class="cstat-no" title="statement not covered" >convertInscriptionToSupportedInscriptionType(rawInscription);</span>
   const navigate = <span class="cstat-no" title="statement not covered" >useNavigate();</span>
@@ -282,7 +302,7 @@ export function <span class="fstat-no" title="function not covered" >Inscription
         &lt;CollectibleAudio
           icon={&lt;OrdinalAvatarIcon size="lg" /&gt;}
           key={inscription.title}
-          onClickCallToAction={<span class="fstat-no" title="function not covered" >() =&gt; <span class="cstat-no" title="statement not covered" >o</span>penInNewTab(inscription.infoUrl)}</span>
+          onClickCallToAction={<span class="fstat-no" title="function not covered" >() =&gt; <span class="cstat-no" title="statement not covered" >o</span>penInscriptionUrl(inscription.number)}</span>
           onClickSend={<span class="fstat-no" title="function not covered" >() =&gt; <span class="cstat-no" title="statement not covered" >o</span>penSendInscriptionModal()}</span>
           subtitle="Ordinal inscription"
           title={`# ${inscription.number}`}
@@ -291,11 +311,12 @@ export function <span class="fstat-no" title="function not covered" >Inscription
     case 'html':
     case 'svg':
     case 'video':
+    case 'gltf':
 <span class="cstat-no" title="statement not covered" >      return (</span>
         &lt;CollectibleIframe
           icon={&lt;OrdinalAvatarIcon size="lg" /&gt;}
           key={inscription.title}
-          onClickCallToAction={<span class="fstat-no" title="function not covered" >() =&gt; <span class="cstat-no" title="statement not covered" >o</span>penInNewTab(inscription.infoUrl)}</span>
+          onClickCallToAction={<span class="fstat-no" title="function not covered" >() =&gt; <span class="cstat-no" title="statement not covered" >o</span>penInscriptionUrl(inscription.number)}</span>
           onClickSend={<span class="fstat-no" title="function not covered" >() =&gt; <span class="cstat-no" title="statement not covered" >o</span>penSendInscriptionModal()}</span>
           src={inscription.src}
           subtitle="Ordinal inscription"
@@ -307,7 +328,7 @@ export function <span class="fstat-no" title="function not covered" >Inscription
         &lt;CollectibleImage
           icon={&lt;OrdinalAvatarIcon size="lg" /&gt;}
           key={inscription.title}
-          onClickCallToAction={<span class="fstat-no" title="function not covered" >() =&gt; <span class="cstat-no" title="statement not covered" >o</span>penInNewTab(inscription.infoUrl)}</span>
+          onClickCallToAction={<span class="fstat-no" title="function not covered" >() =&gt; <span class="cstat-no" title="statement not covered" >o</span>penInscriptionUrl(inscription.number)}</span>
           onClickSend={<span class="fstat-no" title="function not covered" >() =&gt; <span class="cstat-no" title="statement not covered" >o</span>penSendInscriptionModal()}</span>
           src={inscription.src}
           subtitle="Ordinal inscription"
@@ -319,7 +340,7 @@ export function <span class="fstat-no" title="function not covered" >Inscription
         &lt;InscriptionText
           contentSrc={inscription.contentSrc}
           inscriptionNumber={inscription.number}
-          onClickCallToAction={<span class="fstat-no" title="function not covered" >() =&gt; <span class="cstat-no" title="statement not covered" >o</span>penInNewTab(inscription.infoUrl)}</span>
+          onClickCallToAction={<span class="fstat-no" title="function not covered" >() =&gt; <span class="cstat-no" title="statement not covered" >o</span>penInscriptionUrl(inscription.number)}</span>
           onClickSend={<span class="fstat-no" title="function not covered" >() =&gt; <span class="cstat-no" title="statement not covered" >o</span>penSendInscriptionModal()}</span>
         /&gt;
       );
@@ -327,7 +348,7 @@ export function <span class="fstat-no" title="function not covered" >Inscription
 <span class="cstat-no" title="statement not covered" >      return (</span>
         &lt;CollectibleOther
           key={inscription.title}
-          onClickCallToAction={<span class="fstat-no" title="function not covered" >() =&gt; <span class="cstat-no" title="statement not covered" >o</span>penInNewTab(inscription.infoUrl)}</span>
+          onClickCallToAction={<span class="fstat-no" title="function not covered" >() =&gt; <span class="cstat-no" title="statement not covered" >o</span>penInscriptionUrl(inscription.number)}</span>
           onClickSend={<span class="fstat-no" title="function not covered" >() =&gt; <span class="cstat-no" title="statement not covered" >o</span>penSendInscriptionModal()}</span>
           subtitle="Ordinal inscription"
           title={`# ${inscription.number}`}
@@ -346,7 +367,7 @@ export function <span class="fstat-no" title="function not covered" >Inscription
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-03-13T09:42:47.423Z
+                at 2024-03-19T11:24:42.518Z
             </div>
         <script src="../../../../../../../prettify.js"></script>
         <script>

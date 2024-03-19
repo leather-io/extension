@@ -25,7 +25,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/13</span>
+                <span class='fraction'>0/14</span>
             </div>
         
             
@@ -46,7 +46,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/13</span>
+                <span class='fraction'>0/14</span>
             </div>
         
             
@@ -113,7 +113,9 @@
 <a name='L48'></a><a href='#L48'>48</a>
 <a name='L49'></a><a href='#L49'>49</a>
 <a name='L50'></a><a href='#L50'>50</a>
-<a name='L51'></a><a href='#L51'>51</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L51'></a><a href='#L51'>51</a>
+<a name='L52'></a><a href='#L52'>52</a>
+<a name='L53'></a><a href='#L53'>53</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -138,13 +140,8 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -152,6 +149,13 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -164,13 +168,13 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { useCallback } from 'react';
-import toast from 'react-hot-toast';
 &nbsp;
 import { useField } from 'formik';
 &nbsp;
 import { Money } from '@shared/models/money.model';
 &nbsp;
 import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
+import { useToast } from '@app/features/toasts/use-toast';
 &nbsp;
 interface UseSendMaxArgs {
   balance: Money;
@@ -188,19 +192,20 @@ export function <span class="fstat-no" title="function not covered" >useSendMax(
 }: UseSendMaxArgs) {
   const [, _, amountFieldHelpers] = <span class="cstat-no" title="statement not covered" >useField('amount');</span>
   const [, __, feeFieldHelpers] = <span class="cstat-no" title="statement not covered" >useField('fee');</span>
+  const toast = <span class="cstat-no" title="statement not covered" >useToast();</span>
 &nbsp;
   const analytics = <span class="cstat-no" title="statement not covered" >useAnalytics();</span>
 &nbsp;
 <span class="cstat-no" title="statement not covered" >  return useCallback(<span class="fstat-no" title="function not covered" >() =&gt; {</span></span>
 <span class="cstat-no" title="statement not covered" >    void analytics.track('select_maximum_amount_for_send');</span>
 <span class="cstat-no" title="statement not covered" >    if (balance.amount.isLessThanOrEqualTo(0)) {</span>
-<span class="cstat-no" title="statement not covered" >      toast.error(`Zero balance`);</span>
+<span class="cstat-no" title="statement not covered" >      toast.error('Zero balance');</span>
 <span class="cstat-no" title="statement not covered" >      return;</span>
     }
 <span class="cstat-no" title="statement not covered" >    onSetIsSendingMax(!isSendingMax);</span>
-<span class="cstat-no" title="statement not covered" >    feeFieldHelpers.setValue(sendMaxFee);</span>
-<span class="cstat-no" title="statement not covered" >    amountFieldHelpers.setValue(sendMaxBalance, false);</span>
-<span class="cstat-no" title="statement not covered" >    amountFieldHelpers.setTouched(false, false);</span>
+<span class="cstat-no" title="statement not covered" >    void feeFieldHelpers.setValue(sendMaxFee);</span>
+<span class="cstat-no" title="statement not covered" >    void amountFieldHelpers.setValue(sendMaxBalance, false);</span>
+<span class="cstat-no" title="statement not covered" >    void amountFieldHelpers.setTouched(false, false);</span>
 <span class="cstat-no" title="statement not covered" >    amountFieldHelpers.setError(undefined);</span>
   }, [
     amountFieldHelpers,
@@ -211,6 +216,7 @@ export function <span class="fstat-no" title="function not covered" >useSendMax(
     onSetIsSendingMax,
     sendMaxBalance,
     sendMaxFee,
+    toast,
   ]);
 }
 &nbsp;</pre></td></tr></table></pre>
@@ -220,7 +226,7 @@ export function <span class="fstat-no" title="function not covered" >useSendMax(
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-03-13T09:42:47.423Z
+                at 2024-03-19T11:24:42.518Z
             </div>
         <script src="../../../../../../../../../prettify.js"></script>
         <script>

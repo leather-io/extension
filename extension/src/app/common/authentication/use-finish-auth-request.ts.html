@@ -25,7 +25,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/23</span>
+                <span class='fraction'>0/25</span>
             </div>
         
             
@@ -46,7 +46,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/22</span>
+                <span class='fraction'>0/24</span>
             </div>
         
             
@@ -175,7 +175,11 @@
 <a name='L110'></a><a href='#L110'>110</a>
 <a name='L111'></a><a href='#L111'>111</a>
 <a name='L112'></a><a href='#L112'>112</a>
-<a name='L113'></a><a href='#L113'>113</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L113'></a><a href='#L113'>113</a>
+<a name='L114'></a><a href='#L114'>114</a>
+<a name='L115'></a><a href='#L115'>115</a>
+<a name='L116'></a><a href='#L116'>116</a>
+<a name='L117'></a><a href='#L117'>117</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -232,6 +236,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -268,6 +273,9 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -342,45 +350,49 @@ export function <span class="fstat-no" title="function not covered" >useFinishAu
 <span class="cstat-no" title="statement not covered" >      if (walletType === 'software' &amp;&amp; account.type === 'software') {</span>
 <span class="cstat-no" title="statement not covered" >        if (!wallet) <span class="cstat-no" title="statement not covered" >return;</span></span>
 &nbsp;
-        const gaiaHubConfig = <span class="cstat-no" title="statement not covered" >await createWalletGaiaConfig({ gaiaHubUrl: gaiaUrl, wallet });</span>
-        const walletConfig = <span class="cstat-no" title="statement not covered" >await getOrCreateWalletConfig({</span>
-          wallet,
-          gaiaHubConfig,
-          skipUpload: true,
-        });
-<span class="cstat-no" title="statement not covered" >        await updateWalletConfigWithApp({</span>
-          wallet,
-          walletConfig,
-          gaiaHubConfig,
-          account,
-          app: {
-            origin: appURL.origin,
-            lastLoginAt: new Date().getTime(),
-            scopes: decodedAuthRequest.scopes,
-            appIcon: appIcon as string,
-            name: appName as string,
-          },
-        });
+<span class="cstat-no" title="statement not covered" >        try {</span>
+          const gaiaHubConfig = <span class="cstat-no" title="statement not covered" >await createWalletGaiaConfig({ gaiaHubUrl: gaiaUrl, wallet });</span>
+          const walletConfig = <span class="cstat-no" title="statement not covered" >await getOrCreateWalletConfig({</span>
+            wallet,
+            gaiaHubConfig,
+            skipUpload: true,
+          });
+<span class="cstat-no" title="statement not covered" >          await updateWalletConfigWithApp({</span>
+            wallet,
+            walletConfig,
+            gaiaHubConfig,
+            account,
+            app: {
+              origin: appURL.origin,
+              lastLoginAt: new Date().getTime(),
+              scopes: decodedAuthRequest.scopes,
+              appIcon: appIcon as string,
+              name: appName as string,
+            },
+          });
 &nbsp;
-        const authResponse = <span class="cstat-no" title="statement not covered" >await makeAuthResponse({</span>
-          gaiaHubUrl: gaiaUrl,
-          appDomain: appURL.origin,
-          transitPublicKey: decodedAuthRequest.public_keys[0],
-          scopes: decodedAuthRequest.scopes,
-          account: account,
-          additionalData: {
-            ...getLegacyAuthBitcoinData(accountIndex),
-            walletProvider: 'leather',
-          },
-        });
-<span class="cstat-no" title="statement not covered" >        keyActions.switchAccount(accountIndex);</span>
-<span class="cstat-no" title="statement not covered" >        finalizeAuthResponse({</span>
-          decodedAuthRequest,
-          authRequest,
-          authResponse,
-          requestingOrigin: origin,
-          tabId,
-        });
+          const authResponse = <span class="cstat-no" title="statement not covered" >await makeAuthResponse({</span>
+            gaiaHubUrl: gaiaUrl,
+            appDomain: appURL.origin,
+            transitPublicKey: decodedAuthRequest.public_keys[0],
+            scopes: decodedAuthRequest.scopes,
+            account: account,
+            additionalData: {
+              ...getLegacyAuthBitcoinData(accountIndex),
+              walletProvider: 'leather',
+            },
+          });
+<span class="cstat-no" title="statement not covered" >          keyActions.switchAccount(accountIndex);</span>
+<span class="cstat-no" title="statement not covered" >          finalizeAuthResponse({</span>
+            decodedAuthRequest,
+            authRequest,
+            authResponse,
+            requestingOrigin: origin,
+            tabId,
+          });
+        } catch (e) {
+<span class="cstat-no" title="statement not covered" >          logger.error('Error finishing auth request', e);</span>
+        }
       }
     },
     [
@@ -406,7 +418,7 @@ export function <span class="fstat-no" title="function not covered" >useFinishAu
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-03-13T09:42:47.423Z
+                at 2024-03-19T11:24:42.518Z
             </div>
         <script src="../../../../../prettify.js"></script>
         <script>
