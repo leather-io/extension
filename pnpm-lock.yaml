@@ -164,8 +164,8 @@ dependencies:
     specifier: 1.0.4
     version: 1.0.4
   alex-sdk:
-    specifier: 0.1.24
-    version: 0.1.24(@stacks/network@6.8.1)(@stacks/transactions@6.9.0)
+    specifier: 0.1.26
+    version: 0.1.26(@stacks/network@6.8.1)(@stacks/transactions@6.9.0)
   are-passive-events-supported:
     specifier: 1.1.1
     version: 1.1.1
@@ -10449,8 +10449,8 @@ packages:
       require-from-string: 2.0.2
       uri-js: 4.4.1
 
-  /alex-sdk@0.1.24(@stacks/network@6.8.1)(@stacks/transactions@6.9.0):
-    resolution: {integrity: sha512-Uz8atbx3vwZHXKSwUWXgWJ8mWNbpmqXtHGReHlCmW1E/u7A92+bhJpokpqkOPRLccsFn7Wndo985+yLfO0R7kw==}
+  /alex-sdk@0.1.26(@stacks/network@6.8.1)(@stacks/transactions@6.9.0):
+    resolution: {integrity: sha512-uUjbONoAit6htxZGLOFev8v2h59kE31fM1X9efH0Yi1eLXYSSXojj+iFPTlQTQvIysyseXGxkX4VVTc9aQ13sg==}
     engines: {node: '>=10'}
     peerDependencies:
       '@stacks/network': '*'
