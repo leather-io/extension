@@ -28,6 +28,9 @@ function RouteNames(props: { swapSubmissionData: SwapSubmissionData }) {
   });
 }
 
+const sponsoredFeeLabel =
+  'Sponsorship may not apply when you have pending transactions. In such cases, if you choose to proceed, the associated costs will be deducted from your balance.';
+
 export function SwapDetails() {
   const { swapSubmissionData } = useSwapContext();
   const { isTestnet } = useCurrentNetworkState();
@@ -75,11 +78,11 @@ export function SwapDetails() {
       />
       <SwapDetailLayout
         title="Transaction fees"
-        tooltipLabel="Swap transactions are sponsored by default. However, this sponsorship may not apply when you have pending transactions. In such cases, if you choose to proceed, the associated costs will be deducted from your balance."
+        tooltipLabel={swapSubmissionData.sponsored ? sponsoredFeeLabel : undefined}
         value={
           swapSubmissionData.sponsored
             ? 'Sponsored'
-            : microStxToStx(swapSubmissionData.fee).toString()
+            : `${microStxToStx(swapSubmissionData.fee).toString()} STX`
         }
       />
       <SwapDetailLayout
