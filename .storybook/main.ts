@@ -38,7 +38,8 @@ const config: StorybookConfig = {
       },
     },
     '@storybook/addon-mdx-gfm',
-    '@storybook/addon-webpack5-compiler-swc'
+    '@storybook/addon-webpack5-compiler-swc',
+    '@chromatic-com/storybook'
   ],
   docs: {
     autodocs: 'tag',
