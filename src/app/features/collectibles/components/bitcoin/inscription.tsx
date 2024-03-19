@@ -1,5 +1,6 @@
 import { useLocation, useNavigate } from 'react-router-dom';
 
+import { ORD_IO_URL } from '@shared/constants';
 import { Inscription as InscriptionType } from '@shared/models/inscription.model';
 import { RouteUrls } from '@shared/route-urls';
 
@@ -16,6 +17,11 @@ import { InscriptionText } from './inscription-text';
 interface InscriptionProps {
   rawInscription: InscriptionType;
 }
+
+function openInscriptionUrl(num: number) {
+  return openInNewTab(`${ORD_IO_URL}/${num}`);
+}
+
 export function Inscription({ rawInscription }: InscriptionProps) {
   const inscription = convertInscriptionToSupportedInscriptionType(rawInscription);
   const navigate = useNavigate();
@@ -33,7 +39,7 @@ export function Inscription({ rawInscription }: InscriptionProps) {
         <CollectibleAudio
           icon={<OrdinalAvatarIcon size="lg" />}
           key={inscription.title}
-          onClickCallToAction={() => openInNewTab(inscription.infoUrl)}
+          onClickCallToAction={() => openInscriptionUrl(inscription.number)}
           onClickSend={() => openSendInscriptionModal()}
           subtitle="Ordinal inscription"
           title={`# ${inscription.number}`}
@@ -46,7 +52,7 @@ export function Inscription({ rawInscription }: InscriptionProps) {
         <CollectibleIframe
           icon={<OrdinalAvatarIcon size="lg" />}
           key={inscription.title}
-          onClickCallToAction={() => openInNewTab(inscription.infoUrl)}
+          onClickCallToAction={() => openInscriptionUrl(inscription.number)}
           onClickSend={() => openSendInscriptionModal()}
           src={inscription.src}
           subtitle="Ordinal inscription"
@@ -58,7 +64,7 @@ export function Inscription({ rawInscription }: InscriptionProps) {
         <CollectibleImage
           icon={<OrdinalAvatarIcon size="lg" />}
           key={inscription.title}
-          onClickCallToAction={() => openInNewTab(inscription.infoUrl)}
+          onClickCallToAction={() => openInscriptionUrl(inscription.number)}
           onClickSend={() => openSendInscriptionModal()}
           src={inscription.src}
           subtitle="Ordinal inscription"
@@ -70,7 +76,7 @@ export function Inscription({ rawInscription }: InscriptionProps) {
         <InscriptionText
           contentSrc={inscription.contentSrc}
           inscriptionNumber={inscription.number}
-          onClickCallToAction={() => openInNewTab(inscription.infoUrl)}
+          onClickCallToAction={() => openInscriptionUrl(inscription.number)}
           onClickSend={() => openSendInscriptionModal()}
         />
       );
@@ -78,7 +84,7 @@ export function Inscription({ rawInscription }: InscriptionProps) {
       return (
         <CollectibleOther
           key={inscription.title}
-          onClickCallToAction={() => openInNewTab(inscription.infoUrl)}
+          onClickCallToAction={() => openInscriptionUrl(inscription.number)}
           onClickSend={() => openSendInscriptionModal()}
           subtitle="Ordinal inscription"
           title={`# ${inscription.number}`}
