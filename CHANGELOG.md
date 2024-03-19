@@ -1,3 +1,39 @@
+## [6.31.0](https://github.com/leather-wallet/extension/compare/v6.30.1...v6.31.0) (2024-03-19)
+
+
+### Features
+
+* add storybook preview to pr links ([0e0ca6f](https://github.com/leather-wallet/extension/commit/0e0ca6fbc0c9a6c6c4b1c10b533760818f2c2215))
+* address displayer ([7f72f15](https://github.com/leather-wallet/extension/commit/7f72f15055518a5d2a2090ef61fbd81da9ecbeff))
+* ord io inscription links, closes [#3980](https://github.com/leather-wallet/extension/issues/3980) ([0681c93](https://github.com/leather-wallet/extension/commit/0681c939ffe077a2c0da9015d598d2da534a1489))
+* support gltf inscription type, closes [#5091](https://github.com/leather-wallet/extension/issues/5091) ([a303de4](https://github.com/leather-wallet/extension/commit/a303de45b983783ae18f2e6508ce284f13db2968))
+* toast ([1284422](https://github.com/leather-wallet/extension/commit/12844220963336faf8a0829d66c4c9823a22d447))
+
+
+### Bug Fixes
+
+* brc20 send status update, closes [#4939](https://github.com/leather-wallet/extension/issues/4939) ([e49e7ec](https://github.com/leather-wallet/extension/commit/e49e7ec79115edd174b62f0366475fd4a60bceb3))
+* gaia profile test ([1d87592](https://github.com/leather-wallet/extension/commit/1d87592570822f91dcf995f3f0644b7e0c6e3a8f))
+* gaia profile test ([db6a1aa](https://github.com/leather-wallet/extension/commit/db6a1aa763ebf655d4bdf1fbc54cc6f286bc214b))
+* send inputs in check utxos analytics event ([2190278](https://github.com/leather-wallet/extension/commit/219027881dc0ceca3d016a4dda820fe539ed18ef))
+* sentry api upgrade, routing ([2d7b07e](https://github.com/leather-wallet/extension/commit/2d7b07ef8c590ec77c7833826cd7120c52509c0f))
+* sip10 token default max length, closes [#4930](https://github.com/leather-wallet/extension/issues/4930) ([22b695e](https://github.com/leather-wallet/extension/commit/22b695e9bfea3e982153716318ab3989882d99a2))
+* try retry action ([5590cd4](https://github.com/leather-wallet/extension/commit/5590cd45c3ea9321e4bdb2bfbef561621dfe6153))
+* upgrade tokens package ([bdeb1c1](https://github.com/leather-wallet/extension/commit/bdeb1c18717ed487fedf5552f40e84f63032a5a3))
+
+
+### Internal
+
+* fix uncaught account 429 restore errors ([863904e](https://github.com/leather-wallet/extension/commit/863904ec5f232e77d8e96da3f2a26700d68e7582))
+* fix uncaught gaia error ([456b8d0](https://github.com/leather-wallet/extension/commit/456b8d083cd03b30b0a73b336cf62f61d18d6800))
+* item interactive to pressable ([faa3a79](https://github.com/leather-wallet/extension/commit/faa3a794e75556315e746be06aadb0ff8560929f))
+* migrate to pnpm ([32de09b](https://github.com/leather-wallet/extension/commit/32de09b148a8fd9486da2012fe64bfbd6a5990b8))
+* post-release merge back ([951ce43](https://github.com/leather-wallet/extension/commit/951ce43114bd915bc972b335b54c3c8b7befbd47))
+* post-release merge back ([12c10da](https://github.com/leather-wallet/extension/commit/12c10da6e61ee2c245145b6013ebd34e8aa46269))
+* remove warning banner ([53beaf0](https://github.com/leather-wallet/extension/commit/53beaf0b4d8e9ab85ab0744430574b9d46f784e6))
+* temp skip profile test ([ea4b71a](https://github.com/leather-wallet/extension/commit/ea4b71a025e8d324d74975c680b13659de7b62c7))
+* update post condition allow copy ([b0eb524](https://github.com/leather-wallet/extension/commit/b0eb5248fb946bbdcb1e55b663218ecbd89e2d83))
+
 ## [6.30.1](https://github.com/leather-wallet/extension/compare/v6.30.0...v6.30.1) (2024-03-08)
 
 
