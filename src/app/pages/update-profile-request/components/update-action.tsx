@@ -61,7 +61,7 @@ export function UpdateAction({
   const { profile: publicProfile } = profileUpdaterPayload;
 
   const { tabId, requestToken } = useProfileUpdateRequestSearchParams();
-  const updateProfileSofwareWallet = useUpdateProfileSoftwareWallet();
+  const updateProfileSoftwareWallet = useUpdateProfileSoftwareWallet();
   const [isLoading, setIsLoading] = useState(false);
   const analytics = useAnalytics();
 
@@ -70,7 +70,7 @@ export function UpdateAction({
   const onUpdateProfile = async () => {
     setIsLoading(true);
     void analytics.track('request_update_profile_submit');
-    const result = await updateProfileSofwareWallet(publicProfile);
+    const result = await updateProfileSoftwareWallet(publicProfile);
     setIsLoading(false);
 
     finalizeProfileUpdate({

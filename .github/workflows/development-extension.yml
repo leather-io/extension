@@ -33,7 +33,7 @@ jobs:
       - name: Build project
         env:
           IS_PUBLISHING: true
-        run: yarn build
+        run: pnpm build
 
       - uses: actions/upload-artifact@v3
         name: Upload build artifact

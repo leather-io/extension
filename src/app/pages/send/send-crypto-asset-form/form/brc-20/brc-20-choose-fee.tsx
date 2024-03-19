@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import { toast } from 'react-hot-toast';
 import { Outlet, useLocation, useNavigate } from 'react-router-dom';
 
 import { Stack } from 'leather-styles/jsx';
@@ -22,6 +21,7 @@ import { LoadingSpinner } from '@app/components/loading-spinner';
 import { ModalHeader } from '@app/components/modal-header';
 import { BitcoinChooseFee } from '@app/features/bitcoin-choose-fee/bitcoin-choose-fee';
 import { useValidateBitcoinSpend } from '@app/features/bitcoin-choose-fee/hooks/use-validate-bitcoin-spend';
+import { useToast } from '@app/features/toasts/use-toast';
 import { UtxoResponseItem } from '@app/query/bitcoin/bitcoin-client';
 import { useBrc20Transfers } from '@app/query/bitcoin/ordinals/brc20/use-brc-20';
 import { useSignBitcoinTx } from '@app/store/accounts/blockchain/bitcoin/bitcoin.hooks';
@@ -40,6 +40,7 @@ function useBrc20ChooseFeeState() {
 }
 
 export function BrcChooseFee() {
+  const toast = useToast();
   const navigate = useNavigate();
   const { amount, recipient, ticker, utxos, holderAddress } = useBrc20ChooseFeeState();
   const generateTx = useGenerateUnsignedNativeSegwitSingleRecipientTx();

@@ -50,7 +50,7 @@ export function useBrc20Transfers(holderAddress: string) {
 
       if (order.data.status !== 'ok') throw new Error('Failed to initiate transfer');
 
-      return { id: order.data.charge.id, order };
+      return { id: order.data.id, order };
     },
 
     inscriptionPaymentTransactionComplete(

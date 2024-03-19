@@ -40,6 +40,7 @@ interface AmountFieldProps {
   switchableAmount?: React.JSX.Element;
   tokenSymbol?: string;
   onSetIsSendingMax?(value: boolean): void;
+  tokenMaxLength?: number;
 }
 export function AmountField({
   autoComplete = 'on',
@@ -50,6 +51,7 @@ export function AmountField({
   onSetIsSendingMax,
   switchableAmount,
   tokenSymbol,
+  tokenMaxLength,
 }: AmountFieldProps) {
   const [field, meta, helpers] = useField('amount');
 
@@ -61,7 +63,9 @@ export function AmountField({
 
   const { decimals } = balance;
   const symbol = tokenSymbol || balance.symbol;
-  const maxLength = decimals === 0 ? maxLengthDefault : decimals + 2;
+
+  const maxLength = tokenMaxLength || (decimals === 0 ? maxLengthDefault : decimals + 2);
+
   const fontSizeModifier = (maxFontSize - minFontSize) / maxLength;
   const subtractedLengthToPositionPrefix = 0.5;
 

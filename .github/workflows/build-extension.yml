@@ -20,7 +20,7 @@ jobs:
 
       - uses: kyranjamie/pull-request-fixed-header@v1.0.1
         with:
-          header: '> _Building Leather at commit `${{ env.SHORT_SHA }}`_'
+          header: '> _Building Leather at commit ${{ env.SHORT_SHA }}_'
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
   build:
@@ -42,7 +42,7 @@ jobs:
       - run: echo "SHORT_SHA=`echo ${{ github.event.pull_request.head.sha }} | cut -c1-7`" >> $GITHUB_ENV
 
       - name: Build project
-        run: yarn build
+        run: pnpm build
         env:
           WALLET_ENVIRONMENT: feature
           TARGET_BROWSER: ${{ matrix.target }}
@@ -61,12 +61,32 @@ jobs:
           name: leather-${{ matrix.target }}-${{ env.SHORT_SHA }}
           path: dist
 
+  chromatic:
+    runs-on: ubuntu-latest
+    outputs:
+      storybook_url: ${{ steps.chromatic.outputs.storybookUrl }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: ./.github/actions/provision
+
+      - name: Deploy to Chromatic
+        id: chromatic
+        uses: chromaui/action@latest
+        with:
+          autoAcceptChanges: 'main'
+          projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
+          token: ${{ secrets.GITHUB_TOKEN }}
+
   set-download-link:
     if: github.repository == 'leather-wallet/extension' && github.actor != 'dependabot[bot]'
     runs-on: ubuntu-latest
     needs:
       - pre-run
       - build
+      - chromatic
     steps:
       - name: Extract branch name
         shell: bash
@@ -75,5 +95,5 @@ jobs:
 
       - uses: kyranjamie/pull-request-fixed-header@v1.0.1
         with:
-          header: '> Try out this version of Leather — [Extension build](https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}), [Test report](https://leather-wallet.github.io/playwright-reports/${{ steps.extract_branch.outputs.branch }})'
+          header: '> Try out this version of Leather — [Extension build](https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}), [Test report](https://leather-wallet.github.io/playwright-reports/${{ steps.extract_branch.outputs.branch }}), [Storybook preview](${{ needs.chromatic.outputs.storybook_url }})'
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

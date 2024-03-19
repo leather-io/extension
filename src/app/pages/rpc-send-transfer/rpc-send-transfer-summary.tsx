@@ -1,4 +1,3 @@
-import toast from 'react-hot-toast';
 import { useLocation } from 'react-router-dom';
 
 import { HStack, Stack } from 'leather-styles/jsx';
@@ -15,6 +14,7 @@ import {
   InfoCardRow,
   InfoCardSeparator,
 } from '@app/components/info-card/info-card';
+import { useToast } from '@app/features/toasts/use-toast';
 import { CheckmarkIcon } from '@app/ui/icons/checkmark-icon';
 import { CopyIcon } from '@app/ui/icons/copy-icon';
 import { ExternalLinkIcon } from '@app/ui/icons/external-link-icon';
@@ -23,6 +23,7 @@ export function RpcSendTransferSummary() {
   const { state } = useLocation();
   const { handleOpenBitcoinTxLink: handleOpenTxLink } = useBitcoinExplorerLink();
   const analytics = useAnalytics();
+  const toast = useToast();
 
   const {
     txId,

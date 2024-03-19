@@ -1,7 +1,7 @@
 import { forwardRef } from 'react';
 
 import { type RecipeVariantProps, css, cva } from 'leather-styles/css';
-import { Box, BoxProps } from 'leather-styles/jsx';
+import { type HTMLStyledProps, styled } from 'leather-styles/jsx';
 
 import { isDefined } from '@shared/utils';
 
@@ -24,7 +24,7 @@ const focusVisibleStyles = {
   _focusWithin: { outline: 'none' },
 };
 
-export const itemBaseStyles = css.raw({
+export const pressableBaseStyles = css.raw({
   position: 'relative',
   bg: 'ink.background-primary',
   color: 'ink.text-primary',
@@ -37,7 +37,7 @@ export const itemBaseStyles = css.raw({
   width: '100%',
 });
 
-export const itemInteractiveStyles = css.raw({
+export const pressableStyles = css.raw({
   cursor: 'pointer',
   position: 'relative',
   _before: basePseudoOutlineProps,
@@ -66,41 +66,41 @@ export const itemInteractiveStyles = css.raw({
   },
 });
 
-const itemRecipe = cva({
-  base: itemBaseStyles,
+const pressableRecipe = cva({
+  base: pressableBaseStyles,
   variants: {
     disabled: { true: {} },
-    interactive: {
-      true: itemInteractiveStyles,
+    pressable: {
+      true: pressableStyles,
     },
   },
 });
 
-export const itemCaptionStyles = css({
+export const pressableCaptionStyles = css({
   _groupDisabled: { color: 'ink.non-interactive' },
   color: 'ink.text-subdued',
 });
 
-export const itemChevronStyles = css({
+export const pressableChevronStyles = css({
   _groupDisabled: { color: 'ink.non-interactive' },
   color: 'ink.action-primary-default',
 });
 
-type ItemVariantProps = RecipeVariantProps<typeof itemRecipe>;
+type PressableVariantProps = RecipeVariantProps<typeof pressableRecipe>;
 
-export const ItemInteractive = forwardRef<HTMLDivElement, BoxProps & ItemVariantProps>(
-  (props, ref) => {
-    const { disabled, onClick, ...rest } = props;
-    const isInteractive = isDefined(onClick);
-    return (
-      <Box
-        className={`group ${itemRecipe({ interactive: isInteractive })}`}
-        data-disabled={disabled}
-        onClick={isInteractive ? onClick : undefined}
-        ref={ref}
-        tabIndex={0}
-        {...rest}
-      />
-    );
-  }
-);
+export const Pressable = forwardRef<
+  HTMLButtonElement,
+  HTMLStyledProps<'button'> & PressableVariantProps
+>((props, ref) => {
+  const { disabled, onClick, ...rest } = props;
+  const isPressable = isDefined(onClick);
+  return (
+    <styled.button
+      className={`group ${pressableRecipe({ pressable: isPressable })}`}
+      data-disabled={disabled}
+      onClick={isPressable ? onClick : undefined}
+      ref={ref}
+      {...rest}
+    />
+  );
+});

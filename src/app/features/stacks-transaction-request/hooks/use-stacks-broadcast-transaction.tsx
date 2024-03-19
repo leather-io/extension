@@ -1,5 +1,4 @@
 import { useMemo, useState } from 'react';
-import toast from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
 
 import { AuthType, StacksTransaction } from '@stacks/transactions';
@@ -15,6 +14,7 @@ import { LoadingKeys } from '@app/common/hooks/use-loading';
 import { useSubmitTransactionCallback } from '@app/common/hooks/use-submit-stx-transaction';
 import { stacksTransactionToHex } from '@app/common/transactions/stacks/transaction.utils';
 import { delay } from '@app/common/utils';
+import { useToast } from '@app/features/toasts/use-toast';
 import { useTransactionRequest } from '@app/store/transactions/requests.hooks';
 import { useSignStacksTransaction } from '@app/store/transactions/transaction.hooks';
 
@@ -31,6 +31,7 @@ export function useStacksBroadcastTransaction(token: CryptoCurrencies, decimals?
   const requestToken = useTransactionRequest();
   const { formSentSummaryTxState } = useStacksTransactionSummary(token);
   const navigate = useNavigate();
+  const toast = useToast();
 
   const broadcastTransactionFn = useSubmitTransactionCallback({
     loadingKey: LoadingKeys.SUBMIT_SEND_FORM_TRANSACTION,
@@ -107,14 +108,15 @@ export function useStacksBroadcastTransaction(token: CryptoCurrencies, decimals?
       isBroadcasting,
     };
   }, [
-    broadcastTransactionFn,
-    navigate,
-    signStacksTransaction,
     isBroadcasting,
+    requestToken,
+    tabId,
+    navigate,
     token,
     formSentSummaryTxState,
     decimals,
-    requestToken,
-    tabId,
+    toast,
+    broadcastTransactionFn,
+    signStacksTransaction,
   ]);
 }

@@ -1,4 +1,3 @@
-import toast from 'react-hot-toast';
 import { useLocation, useNavigate } from 'react-router-dom';
 
 import { HomePageSelectors } from '@tests/selectors/home.selectors';
@@ -11,6 +10,7 @@ import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
 import { useClipboard } from '@app/common/hooks/use-copy-to-clipboard';
 import { useLocationState } from '@app/common/hooks/use-location-state';
 import { BaseDrawer } from '@app/components/drawer/base-drawer';
+import { useToast } from '@app/features/toasts/use-toast';
 import { useBackgroundLocationRedirect } from '@app/routes/hooks/use-background-location-redirect';
 import { useZeroIndexTaprootAddress } from '@app/store/accounts/blockchain/bitcoin/bitcoin.hooks';
 import { useCurrentAccountNativeSegwitAddressIndexZero } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
@@ -31,6 +31,7 @@ interface ReceiveModalProps {
 
 export function ReceiveModal({ type = 'full' }: ReceiveModalProps) {
   useBackgroundLocationRedirect();
+  const toast = useToast();
   const analytics = useAnalytics();
   const backgroundLocation = useLocationState<Location>('backgroundLocation');
   const navigate = useNavigate();

@@ -1,5 +1,4 @@
 import { useEffect } from 'react';
-import { Toaster } from 'react-hot-toast';
 import { Outlet, useLocation } from 'react-router-dom';
 
 import { closeWindow } from '@shared/utils';
@@ -35,7 +34,6 @@ export function Container() {
     <>
       <SwitchAccountDrawer />
       <SettingsDropdown />
-      <Toaster position="bottom-center" toastOptions={{ style: { fontSize: '14px' } }} />
       <ContainerLayout header={routeHeader}>
         <Outlet />
       </ContainerLayout>

@@ -24,7 +24,7 @@ use `react-refresh` to update the extension as you work. This gives us near inst
 persists the state of the application between changes. To start development mode for the extension, run this command:
 
 ```bash
-yarn dev
+pnpm dev
 ```
 
 #### Optional: run test app
@@ -35,13 +35,13 @@ can do.
 In a separate terminal, run:
 
 ```bash
-yarn dev:test-app
+pnpm dev:test-app
 ```
 
 ### Loading extension in your browser
 
 You'll need to add it to your browser of choice. Leather only
-supports Chromium and Firefox browsers. When you run `yarn dev`, it will compile the application to the `/dist` folder
+supports Chromium and Firefox browsers. When you run `pnpm dev`, it will compile the application to the `/dist` folder
 
 - [Chrome instructions](https://developer.chrome.com/docs/extensions/mv3/faq/#faq-dev-01)
 - [Firefox instructions](https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/Your_first_WebExtension#trying_it_out)
@@ -53,13 +53,13 @@ Several testing scripts are available in [`package.json`](./package.json).
 The integration tests expect the extension to be built prior to running. The extension can be built for tests with the command below.
 
 ```bash
-yarn build:test
+pnpm build:test
 ```
 
 The integration tests use Playwright, which requires the system to have the browsers it needs. The following command installs everything Playwright needs.
 
 ```bash
-yarn playwright install --with-deps
+pnpm playwright install --with-deps
 ```
 
 Note that the installed browsers are tied to the version of Playwright being used, and it may be necessary to run the above command again in some situations, such as when upgrading Playwright or switching branches. [Read the documentation for more information](https://playwright.dev/docs/cli#install-system-dependencies).
@@ -69,14 +69,14 @@ Note that the installed browsers are tied to the version of Playwright being use
 All integration tests can be run using:
 
 ```bash
-yarn test:integration
+pnpm test:integration
 ```
 
 To run a suite of tests you can use:
 
 ```bash
-yarn playwright test specs/TEST.spec.ts
-yarn playwright test tests/specs --shard=3/8
+pnpm playwright test specs/TEST.spec.ts
+pnpm playwright test tests/specs --shard=3/8
 ```
 
 ### Unit tests
@@ -84,7 +84,7 @@ yarn playwright test tests/specs --shard=3/8
 Unit tests can be run with vitest using:
 
 ```bash
-yarn test:unit
+pnpm test:unit
 ```
 
 ## Production
@@ -98,7 +98,7 @@ Alternatively, the following steps can be taken by _technical_ users with the la
 Run the following from within this repository's root directory if you've pulled it with Git:
 
 ```bash
-yarn && yarn prepare && yarn build
+pnpm && pnpm prepare && pnpm build
 ```
 
 The extension is now built in the `./dist` folder.
@@ -108,7 +108,7 @@ The extension is now built in the `./dist` folder.
 To build the extension in Firefox mode, the `TARGET_BROWSER=firefox` variable needs to be set.
 
 ```bash
-yarn && yarn prepare && TARGET_BROWSER=firefox yarn build
+pnpm && pnpm prepare && TARGET_BROWSER=firefox pnpm build
 ```
 
 Note that when building in a clean environment, some code may vary between this and the submitted build. This is because some variables are set within the scope of the production build's CI.

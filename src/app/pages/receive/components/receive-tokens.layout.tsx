@@ -4,9 +4,9 @@ import { SharedComponentsSelectors } from '@tests/selectors/shared-component.sel
 import { Box, Flex, styled } from 'leather-styles/jsx';
 
 import { useLocationState } from '@app/common/hooks/use-location-state';
-import { AddressDisplayer } from '@app/components/address-displayer/address-displayer';
 import { BaseDrawer } from '@app/components/drawer/base-drawer';
 import { useBackgroundLocationRedirect } from '@app/routes/hooks/use-background-location-redirect';
+import { AddressDisplayer } from '@app/ui/components/address-displayer/address-displayer';
 import { Button } from '@app/ui/components/button/button';
 
 import { QrCode } from './address-qr-code';

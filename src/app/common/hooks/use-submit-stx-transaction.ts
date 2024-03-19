@@ -1,5 +1,4 @@
 import { useCallback } from 'react';
-import { toast } from 'react-hot-toast';
 
 import { bytesToHex } from '@stacks/common';
 import { StacksTransaction, broadcastTransaction } from '@stacks/transactions';
@@ -12,6 +11,7 @@ import { useRefreshAllAccountData } from '@app/common/hooks/account/use-refresh-
 import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
 import { useLoading } from '@app/common/hooks/use-loading';
 import { safelyFormatHexTxid } from '@app/common/utils/safe-handle-txid';
+import { useToast } from '@app/features/toasts/use-toast';
 import { useCurrentStacksNetworkState } from '@app/store/networks/networks.hooks';
 import { useSubmittedTransactionsActions } from '@app/store/submitted-transactions/submitted-transactions.hooks';
 
@@ -27,6 +27,7 @@ interface UseSubmitTransactionCallbackArgs {
 }
 export function useSubmitTransactionCallback({ loadingKey }: UseSubmitTransactionArgs) {
   const submittedTransactionsActions = useSubmittedTransactionsActions();
+  const toast = useToast();
 
   const analytics = useAnalytics();
   const refreshAccountData = useRefreshAllAccountData();
@@ -67,6 +68,7 @@ export function useSubmitTransactionCallback({ loadingKey }: UseSubmitTransactio
     [
       setIsLoading,
       stacksNetwork,
+      toast,
       setIsIdle,
       submittedTransactionsActions,
       analytics,

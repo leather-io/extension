@@ -1,8 +1,8 @@
-import toast from 'react-hot-toast';
 import { useLocation } from 'react-router-dom';
 
 import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
 import { useClipboard } from '@app/common/hooks/use-copy-to-clipboard';
+import { useToast } from '@app/features/toasts/use-toast';
 import { useBackgroundLocationRedirect } from '@app/routes/hooks/use-background-location-redirect';
 
 import { ReceiveBtcModalWarning } from './components/receive-btc-warning';
@@ -10,6 +10,7 @@ import { ReceiveTokensLayout } from './components/receive-tokens.layout';
 
 export function ReceiveOrdinalModal() {
   useBackgroundLocationRedirect();
+  const toast = useToast();
   const analytics = useAnalytics();
   const { state } = useLocation();
   const { onCopy } = useClipboard(state.btcAddressTaproot);

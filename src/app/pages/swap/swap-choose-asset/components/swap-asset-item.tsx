@@ -4,8 +4,8 @@ import { formatMoneyWithoutSymbol } from '@app/common/money/format-money';
 import { useGetFungibleTokenMetadataQuery } from '@app/query/stacks/tokens/fungible-tokens/fungible-token-metadata.query';
 import { isFtAsset } from '@app/query/stacks/tokens/token-metadata.utils';
 import { Avatar, defaultFallbackDelay, getAvatarFallback } from '@app/ui/components/avatar/avatar';
-import { ItemInteractive } from '@app/ui/components/item/item-interactive';
-import { ItemLayout } from '@app/ui/components/item/item.layout';
+import { ItemLayout } from '@app/ui/components/item-layout/item-layout';
+import { Pressable } from '@app/ui/pressable/pressable';
 
 import { useAlexSdkBalanceAsFiat } from '../../hooks/use-alex-sdk-fiat-price';
 import { SwapAsset } from '../../hooks/use-swap-form';
@@ -23,11 +23,7 @@ export function SwapAssetItem({ asset, onClick }: SwapAssetItemProps) {
   const fallback = getAvatarFallback(asset.name);
 
   return (
-    <ItemInteractive
-      data-testid={SwapSelectors.ChooseAssetListItem}
-      onClick={onClick}
-      my="space.02"
-    >
+    <Pressable data-testid={SwapSelectors.ChooseAssetListItem} onClick={onClick} my="space.02">
       <ItemLayout
         flagImg={
           <Avatar.Root>
@@ -40,6 +36,6 @@ export function SwapAssetItem({ asset, onClick }: SwapAssetItemProps) {
         titleRight={formatMoneyWithoutSymbol(asset.balance)}
         captionRight={balanceAsFiat}
       />
-    </ItemInteractive>
+    </Pressable>
   );
 }

@@ -84,6 +84,8 @@ export const BITCOIN_API_BASE_URL_MAINNET = 'https://blockstream.info/api';
 export const BITCOIN_API_BASE_URL_TESTNET = 'https://blockstream.info/testnet/api';
 const BITCOIN_API_BASE_URL_SIGNET = 'https://mempool.space/signet/api';
 
+export const ORD_IO_URL = 'https://ord.io';
+
 const networkMainnet: NetworkConfiguration = {
   id: WalletDefaultNetworkConfigurationIds.mainnet,
   name: 'Mainnet',
