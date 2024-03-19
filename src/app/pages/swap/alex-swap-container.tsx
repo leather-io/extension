@@ -18,7 +18,6 @@ import { isDefined, isUndefined } from '@shared/utils';
 import { LoadingKeys, useLoading } from '@app/common/hooks/use-loading';
 import { useWalletType } from '@app/common/use-wallet-type';
 import { NonceSetter } from '@app/components/nonce-setter';
-import { defaultFeesMinValuesAsMoney } from '@app/query/stacks/fees/fees.utils';
 import { useCurrentStacksAccount } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
 import { useGenerateStacksContractCallUnsignedTx } from '@app/store/transactions/contract-call.hooks';
 import { useSignStacksTransaction } from '@app/store/transactions/transaction.hooks';
@@ -31,7 +30,11 @@ import { oneHundredMillion, useAlexSwap } from './hooks/use-alex-swap';
 import { useStacksBroadcastSwap } from './hooks/use-stacks-broadcast-swap';
 import { SwapAsset, SwapFormValues } from './hooks/use-swap-form';
 import { SwapContext, SwapProvider } from './swap.context';
-import { migratePositiveBalancesToTop, sortSwappableAssetsBySymbol } from './swap.utils';
+import {
+  defaultSwapFee,
+  migratePositiveBalancesToTop,
+  sortSwappableAssetsBySymbol,
+} from './swap.utils';
 
 export const alexSwapRoutes = generateSwapRoutes(<AlexSwapContainer />);
 
@@ -86,7 +89,7 @@ function AlexSwapContainer() {
     ]);
 
     onSetSwapSubmissionData({
-      fee: isSponsoredByAlex ? '0' : defaultFeesMinValuesAsMoney[1].amount.toString(),
+      fee: isSponsoredByAlex ? '0' : defaultSwapFee.amount.toString(),
       feeCurrency: values.feeCurrency,
       feeType: values.feeType,
       liquidityFee: new BigNumber(Number(lpFee)).dividedBy(oneHundredMillion).toNumber(),

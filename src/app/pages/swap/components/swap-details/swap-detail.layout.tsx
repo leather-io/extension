@@ -26,7 +26,7 @@ export function SwapDetailLayout({
         {tooltipLabel ? (
           <BasicTooltip label={tooltipLabel} side="bottom">
             <Box _hover={{ cursor: 'pointer' }} color="ink.text-subdued">
-              <InfoCircleIcon />
+              <InfoCircleIcon variant="small" />
             </Box>
           </BasicTooltip>
         ) : null}
