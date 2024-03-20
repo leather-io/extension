@@ -15,6 +15,8 @@ import { useToast } from '@app/features/toasts/use-toast';
 import { useCurrentStacksNetworkState } from '@app/store/networks/networks.hooks';
 import { useSubmittedTransactionsActions } from '@app/store/submitted-transactions/submitted-transactions.hooks';
 
+import { delay } from '../utils';
+
 const timeForApiToUpdate = 250;
 
 interface UseSubmitTransactionArgs {
@@ -52,7 +54,9 @@ export function useSubmitTransactionCallback({ loadingKey }: UseSubmitTransactio
               rawTx: bytesToHex(transaction.serialize()),
               txId: safelyFormatHexTxid(response.txid),
             });
+            await delay(500);
             toast.success('Transaction submitted!');
+            await delay(500);
 
             void analytics.track('broadcast_transaction', { symbol: 'stx' });
             onSuccess(safelyFormatHexTxid(response.txid));
