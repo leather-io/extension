@@ -32,7 +32,7 @@ export function getAssumedZeroIndexSigningConfig({
       return indexes.map(inputIndex => {
         const input = tx.getInput(inputIndex);
 
-        const paymentType = getInputPaymentType(inputIndex, input, 'mainnet');
+        const paymentType = getInputPaymentType(inputIndex, input, network);
         switch (paymentType) {
           case 'p2wpkh':
             return {
