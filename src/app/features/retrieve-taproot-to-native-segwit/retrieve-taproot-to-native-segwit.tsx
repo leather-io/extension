@@ -32,13 +32,13 @@ export function RetrieveTaprootToNativeSegwit() {
   const { generateRetrieveTaprootFundsTx, fee } = useGenerateRetrieveTaprootFundsTx();
   const { broadcastTx, isBroadcasting } = useBitcoinBroadcastTransaction();
 
-  async function handleBroadcastRetieveBitcoinTx() {
+  async function handleBroadcastRetrieveBitcoinTx() {
     const tx = await generateRetrieveTaprootFundsTx({ recipient, fee });
     await broadcastTx({
       tx,
       async onSuccess() {
         await delay(1200);
-        toast.success('Transaction broadcasted succesfully');
+        toast.success('Transaction submitted!');
         await delay(700);
         navigate(RouteUrls.Activity);
         void analytics.track('broadcast_retrieve_taproot_to_native_segwit');
@@ -52,7 +52,7 @@ export function RetrieveTaprootToNativeSegwit() {
   return (
     <RetrieveTaprootToNativeSegwitLayout
       isBroadcasting={isBroadcasting}
-      onApproveTransaction={handleBroadcastRetieveBitcoinTx}
+      onApproveTransaction={handleBroadcastRetrieveBitcoinTx}
       onClose={() => navigate(RouteUrls.Home)}
     >
       <InfoCard mt="space.05">
