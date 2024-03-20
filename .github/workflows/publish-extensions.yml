@@ -17,14 +17,6 @@ env:
   IS_PUBLISHING: true
 
 jobs:
-  pre-run:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Cancel Previous Runs
-        uses: styfle/cancel-workflow-action@main
-        with:
-          access_token: ${{ github.token }}
-
   extract-version:
     runs-on: ubuntu-latest
     outputs:
@@ -44,7 +36,6 @@ jobs:
     runs-on: ubuntu-latest
     if: startsWith(github.ref, 'refs/tags/v')
     needs:
-      - pre-run
       - extract-version
     outputs:
       publish_status: ${{ steps.publish-chrome.outputs.publish_status }}
@@ -89,7 +80,6 @@ jobs:
     env:
       TARGET_BROWSER: firefox
     needs:
-      - pre-run
       - extract-version
     outputs:
       publish_status: ${{ steps.publish-firefox.outputs.publish_status }}

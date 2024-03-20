@@ -1,6 +1,6 @@
 import { ChainID } from '@stacks/transactions';
 
-import { whenStacksChainId } from '@app/common/utils';
+import { whenStacksChainId } from './stacks.utils';
 
 describe(whenStacksChainId.name, () => {
   const expectedResult = 'should be this value';

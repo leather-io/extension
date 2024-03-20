@@ -13,7 +13,6 @@ import { LedgerIcon } from '@app/ui/icons/ledger-icon';
 interface ConnectLedgerAssetBtnProps {
   chain: SupportedBlockchains;
 }
-
 export function ConnectLedgerAssetBtn({ chain }: ConnectLedgerAssetBtnProps) {
   const navigate = useNavigate();
 

@@ -7,11 +7,10 @@ import { LedgerError } from '@zondax/ledger-stacks';
 import get from 'lodash.get';
 
 import { UnsignedMessage, whenSignableMessageOfType } from '@shared/signature/signature-types';
-import { isError } from '@shared/utils';
+import { delay, isError } from '@shared/utils';
 
 import { useScrollLock } from '@app/common/hooks/use-scroll-lock';
 import { appEvents } from '@app/common/publish-subscribe';
-import { delay } from '@app/common/utils';
 import {
   getStacksAppVersion,
   prepareLedgerDeviceStacksAppConnection,

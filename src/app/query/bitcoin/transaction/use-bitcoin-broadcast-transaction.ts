@@ -3,10 +3,9 @@ import { useCallback, useState } from 'react';
 import * as btc from '@scure/btc-signer';
 
 import { decodeBitcoinTx } from '@shared/crypto/bitcoin/bitcoin.utils';
-import { isError } from '@shared/utils';
+import { delay, isError } from '@shared/utils';
 
 import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
-import { delay } from '@app/common/utils';
 import { useBitcoinClient } from '@app/store/common/api-clients.hooks';
 
 import { filterOutIntentionalUtxoSpend, useCheckInscribedUtxos } from './use-check-utxos';

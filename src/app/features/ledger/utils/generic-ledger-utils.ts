@@ -3,7 +3,8 @@ import { useState } from 'react';
 import TransportWebUSB from '@ledgerhq/hw-transport-webusb';
 import BitcoinApp from 'ledger-bitcoin';
 
-import { delay } from '@app/common/utils';
+import { delay } from '@shared/utils';
+
 import { safeAwait } from '@app/common/utils/safe-await';
 
 import { getStacksAppVersion } from './stacks-ledger-utils';

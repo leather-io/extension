@@ -7,13 +7,12 @@ import { finalizeTxSignature } from '@shared/actions/finalize-tx-signature';
 import { logger } from '@shared/logger';
 import { CryptoCurrencies } from '@shared/models/currencies.model';
 import { RouteUrls } from '@shared/route-urls';
-import { isError, isString } from '@shared/utils';
+import { delay, isError, isString } from '@shared/utils';
 
 import { useDefaultRequestParams } from '@app/common/hooks/use-default-request-search-params';
 import { LoadingKeys } from '@app/common/hooks/use-loading';
 import { useSubmitTransactionCallback } from '@app/common/hooks/use-submit-stx-transaction';
 import { stacksTransactionToHex } from '@app/common/transactions/stacks/transaction.utils';
-import { delay } from '@app/common/utils';
 import { useToast } from '@app/features/toasts/use-toast';
 import { useTransactionRequest } from '@app/store/transactions/requests.hooks';
 import { useSignStacksTransaction } from '@app/store/transactions/transaction.hooks';

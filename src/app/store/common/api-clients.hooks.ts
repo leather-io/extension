@@ -3,8 +3,8 @@ import { useMemo } from 'react';
 import { ChainID } from '@stacks/transactions';
 
 import { HIRO_API_BASE_URL_MAINNET, HIRO_API_BASE_URL_TESTNET } from '@shared/constants';
+import { whenStacksChainId } from '@shared/crypto/stacks/stacks.utils';
 
-import { whenStacksChainId } from '@app/common/utils';
 import { BitcoinClient } from '@app/query/bitcoin/bitcoin-client';
 import { StacksClient } from '@app/query/stacks/stacks-client';
 import { TokenMetadataClient } from '@app/query/stacks/token-metadata-client';

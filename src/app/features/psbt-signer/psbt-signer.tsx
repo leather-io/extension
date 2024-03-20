@@ -8,6 +8,7 @@ import { RouteUrls } from '@shared/route-urls';
 import { closeWindow, isError } from '@shared/utils';
 
 import { SignPsbtArgs } from '@app/common/psbt/requests';
+import { useBreakOnNonCompliantEntity } from '@app/query/common/compliance-checker/compliance-checker.query';
 import { useOnOriginTabClose } from '@app/routes/hooks/use-on-tab-closed';
 import { useCurrentAccountNativeSegwitIndexZeroSigner } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
 import { useCurrentAccountTaprootIndexZeroSigner } from '@app/store/accounts/blockchain/bitcoin/taproot-account.hooks';
@@ -17,7 +18,7 @@ import { Card } from '@app/ui/layout/card/card';
 import { CardContent } from '@app/ui/layout/card/card-content';
 
 import * as Psbt from './components';
-import { useParsedPsbt } from './hooks/use-parsed-psbt';
+import { usePsbtDetails } from './hooks/use-psbt-details';
 import { usePsbtSigner } from './hooks/use-psbt-signer';
 import { PsbtSignerContext, PsbtSignerProvider } from './psbt-signer.context';
 
@@ -64,11 +65,13 @@ export function PsbtSigner(props: PsbtSignerProps) {
     psbtInputs,
     psbtOutputs,
     shouldDefaultToAdvancedView,
-  } = useParsedPsbt({
+  } = usePsbtDetails({
     inputs: psbtTxInputs,
     indexesToSign,
     outputs: psbtTxOutputs,
   });
+
+  useBreakOnNonCompliantEntity(psbtOutputs.map(output => output.address));
 
   const psbtSignerContext: PsbtSignerContext = {
     accountInscriptionsBeingTransferred,

@@ -7,12 +7,11 @@ import * as bitcoin from 'bitcoinjs-lib';
 import { signBip322MessageSimple } from '@shared/crypto/bitcoin/bip322/sign-message-bip322-bitcoinjs';
 import { logger } from '@shared/logger';
 import { makeRpcErrorResponse, makeRpcSuccessResponse } from '@shared/rpc/rpc-methods';
-import { closeWindow } from '@shared/utils';
+import { closeWindow, createDelay } from '@shared/utils';
 
 import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
 import { useDefaultRequestParams } from '@app/common/hooks/use-default-request-search-params';
 import { initialSearchParams } from '@app/common/initial-search-params';
-import { createDelay } from '@app/common/utils';
 import { useToast } from '@app/features/toasts/use-toast';
 import { useSignBitcoinTx } from '@app/store/accounts/blockchain/bitcoin/bitcoin.hooks';
 import {

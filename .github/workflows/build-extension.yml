@@ -2,20 +2,17 @@ name: PR extension build
 
 on: [pull_request, workflow_dispatch]
 
-jobs:
-  pre-run:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Cancel previous runs
-        uses: styfle/cancel-workflow-action@main
-        with:
-          access_token: ${{ github.token }}
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
 
+jobs:
   sha-hash:
     runs-on: ubuntu-latest
     outputs:
       SHORT_SHA: ${{ steps.short-sha.outputs.SHORT_SHA }}
     steps:
+      - run: echo "${{ github.workflow }}-${{ github.ref }}"
       - name: Make short commit SHA
         id: short-sha
         run: echo "SHORT_SHA=`echo ${{ github.event.pull_request.head.sha }} | cut -c1-7`" >> $GITHUB_OUTPUT
@@ -24,7 +21,6 @@ jobs:
     if: github.repository == 'leather-wallet/extension' && github.actor != 'dependabot[bot]'
     runs-on: ubuntu-latest
     needs:
-      - pre-run
       - sha-hash
     steps:
       - uses: kyranjamie/pull-request-fixed-header@v1.0.1
@@ -36,7 +32,6 @@ jobs:
     name: build-${{ matrix.target }}-extension
     runs-on: ubuntu-latest
     needs:
-      - pre-run
       - sha-hash
     strategy:
       matrix:
@@ -73,7 +68,6 @@ jobs:
     if: github.repository == 'leather-wallet/extension' && github.actor != 'dependabot[bot]'
     runs-on: ubuntu-latest
     needs:
-      - pre-run
       - sha-hash
       - build
     steps:

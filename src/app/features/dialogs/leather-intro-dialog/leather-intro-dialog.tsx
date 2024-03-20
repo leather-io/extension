@@ -1,8 +1,9 @@
 import { createContext, useContext } from 'react';
 import { Outlet, Route, useNavigate } from 'react-router-dom';
 
+import { delay } from '@shared/utils';
+
 import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
-import { delay } from '@app/common/utils';
 import { openInNewTab } from '@app/common/utils/open-in-new-tab';
 
 import {

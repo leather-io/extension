@@ -4,9 +4,7 @@ import StacksApp from '@zondax/ledger-stacks';
 import BitcoinApp from 'ledger-bitcoin';
 
 import { SupportedBlockchains } from '@shared/constants';
-import { isError } from '@shared/utils';
-
-import { delay } from '@app/common/utils';
+import { delay, isError } from '@shared/utils';
 
 import { useLedgerAnalytics } from '../../hooks/use-ledger-analytics.hook';
 import { useLedgerNavigate } from '../../hooks/use-ledger-navigate';

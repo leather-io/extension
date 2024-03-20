@@ -4,9 +4,9 @@ import { ChainID } from '@stacks/transactions';
 import { HomePageSelectors } from '@tests/selectors/home.selectors';
 import { Flex } from 'leather-styles/jsx';
 
+import { whenStacksChainId } from '@shared/crypto/stacks/stacks.utils';
 import { RouteUrls } from '@shared/route-urls';
 
-import { whenStacksChainId } from '@app/common/utils';
 import { useConfigBitcoinEnabled } from '@app/query/common/remote-config/remote-config.query';
 import { useCurrentAccountNativeSegwitIndexZeroSignerNullable } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
 import { useCurrentStacksAccount } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
