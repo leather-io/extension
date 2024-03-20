@@ -7,7 +7,7 @@ import get from 'lodash.get';
 
 import { finalizeAuthResponse } from '@shared/actions/finalize-auth-response';
 import { logger } from '@shared/logger';
-import { isError } from '@shared/utils';
+import { delay, isError } from '@shared/utils';
 
 import { useGetLegacyAuthBitcoinAddresses } from '@app/common/authentication/use-legacy-auth-bitcoin-addresses';
 import { useOnboardingState } from '@app/common/hooks/auth/use-onboarding-state';
@@ -15,7 +15,6 @@ import { useDefaultRequestParams } from '@app/common/hooks/use-default-request-s
 import { useKeyActions } from '@app/common/hooks/use-key-actions';
 import { useScrollLock } from '@app/common/hooks/use-scroll-lock';
 import { makeLedgerCompatibleUnsignedAuthResponsePayload } from '@app/common/unsafe-auth-response';
-import { delay } from '@app/common/utils';
 import {
   getStacksAppVersion,
   prepareLedgerDeviceStacksAppConnection,

@@ -6,8 +6,7 @@ import {
   getIdentityDerivationPath,
   getStxDerivationPath,
 } from '@shared/crypto/stacks/stacks.utils';
-
-import { delay } from '@app/common/utils';
+import { delay } from '@shared/utils';
 
 import {
   StacksAppKeysResponseItem,

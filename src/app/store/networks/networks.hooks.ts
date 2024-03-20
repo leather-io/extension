@@ -5,8 +5,8 @@ import { StacksNetwork } from '@stacks/network';
 import { ChainID, TransactionVersion } from '@stacks/transactions';
 
 import { NetworkModes } from '@shared/constants';
+import { whenStacksChainId } from '@shared/crypto/stacks/stacks.utils';
 
-import { whenStacksChainId } from '@app/common/utils';
 import { useAppDispatch } from '@app/store';
 
 import { networksActions } from './networks.actions';

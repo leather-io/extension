@@ -14,10 +14,11 @@ import { deriveStxPrivateKey, generateWallet } from '@stacks/wallet-sdk';
 import { atom } from 'jotai';
 
 import { DATA_DERIVATION_PATH, deriveStacksSalt } from '@shared/crypto/stacks/stacks-address-gen';
+import { whenStacksChainId } from '@shared/crypto/stacks/stacks.utils';
 import { defaultWalletKeyId } from '@shared/utils';
 
 import { derivePublicKey } from '@app/common/keychain/keychain';
-import { createNullArrayOfLength, whenStacksChainId } from '@app/common/utils';
+import { createNullArrayOfLength } from '@app/common/utils';
 import { storeAtom } from '@app/store';
 import { selectStacksChain } from '@app/store/chains/stx-chain.selectors';
 import {

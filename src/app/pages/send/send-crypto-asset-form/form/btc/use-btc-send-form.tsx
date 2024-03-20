@@ -3,6 +3,7 @@ import { useRef, useState } from 'react';
 import { FormikHelpers, FormikProps } from 'formik';
 import * as yup from 'yup';
 
+import { bitcoinNetworkModeToCoreNetworkMode } from '@shared/crypto/bitcoin/bitcoin.utils';
 import { BitcoinSendFormValues } from '@shared/models/form.model';
 
 import { formatPrecisionError } from '@app/common/error-formatters';
@@ -16,6 +17,7 @@ import {
   btcInsufficientBalanceValidator,
   btcMinimumSpendValidator,
 } from '@app/common/validation/forms/amount-validators';
+import { complianceValidator } from '@app/common/validation/forms/compliance-validators';
 import {
   btcAmountPrecisionValidator,
   currencyAmountValidator,
@@ -75,6 +77,12 @@ export function useBtcSendForm() {
         .concat(btcAddressValidator())
         .concat(btcAddressNetworkValidator(currentNetwork.chain.bitcoin.bitcoinNetwork))
         .concat(notCurrentAddressValidator(nativeSegwitSigner.address || ''))
+        .concat(
+          complianceValidator(
+            btcAddressValidator(),
+            bitcoinNetworkModeToCoreNetworkMode(currentNetwork.chain.bitcoin.bitcoinNetwork)
+          )
+        )
         .required('Enter a bitcoin address'),
     }),
 

@@ -4,7 +4,7 @@ import { bytesToHex } from '@stacks/common';
 import { StacksTransaction, broadcastTransaction } from '@stacks/transactions';
 
 import { logger } from '@shared/logger';
-import { isError } from '@shared/utils';
+import { delay, isError } from '@shared/utils';
 
 import { getErrorMessage } from '@app/common/get-error-message';
 import { useRefreshAllAccountData } from '@app/common/hooks/account/use-refresh-all-account-data';
@@ -14,8 +14,6 @@ import { safelyFormatHexTxid } from '@app/common/utils/safe-handle-txid';
 import { useToast } from '@app/features/toasts/use-toast';
 import { useCurrentStacksNetworkState } from '@app/store/networks/networks.hooks';
 import { useSubmittedTransactionsActions } from '@app/store/submitted-transactions/submitted-transactions.hooks';
-
-import { delay } from '../utils';
 
 const timeForApiToUpdate = 250;
 

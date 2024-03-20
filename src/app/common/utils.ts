@@ -1,10 +1,5 @@
 import { hexToBytes } from '@stacks/common';
-import {
-  BytesReader,
-  ChainID,
-  PostCondition,
-  deserializePostCondition,
-} from '@stacks/transactions';
+import { BytesReader, PostCondition, deserializePostCondition } from '@stacks/transactions';
 import { toUnicode } from 'punycode';
 
 import { BitcoinChainConfig, BitcoinNetworkModes, KEBAB_REGEX } from '@shared/constants';
@@ -225,14 +220,6 @@ export function addPortSuffix(url: string) {
   return port ? `:${port}` : '';
 }
 
-export async function delay(ms: number) {
-  return new Promise(resolve => setTimeout(resolve, ms));
-}
-
-export function createDelay(ms: number) {
-  return async () => delay(ms);
-}
-
 export function with0x(value: string): string {
   return !value.startsWith('0x') ? `0x${value}` : value;
 }
@@ -249,9 +236,11 @@ export function doesBrowserSupportWebUsbApi() {
   return Boolean((navigator as any).usb);
 }
 
-const isFullPage = document.location.pathname.startsWith('/index.html');
+function isFullPage() {
+  return document.location.pathname.startsWith('/index.html');
+}
 
-const pageMode = isFullPage ? 'full' : 'popup';
+const pageMode = isFullPage() ? 'full' : 'popup';
 
 type PageMode = 'popup' | 'full';
 
@@ -264,14 +253,6 @@ export function whenPageMode<T>(pageModeMap: WhenPageModeMap<T>) {
 
 export function isPopupMode() {
   return pageMode === 'popup';
-}
-
-interface WhenStacksChainIdMap<T> {
-  [ChainID.Mainnet]: T;
-  [ChainID.Testnet]: T;
-}
-export function whenStacksChainId(chainId: ChainID) {
-  return <T>(chainIdMap: WhenStacksChainIdMap<T>): T => chainIdMap[chainId];
 }
 
 export const parseIfValidPunycode = (s: string) => {

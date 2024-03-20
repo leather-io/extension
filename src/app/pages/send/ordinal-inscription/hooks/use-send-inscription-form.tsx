@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 
 import * as yup from 'yup';
 
+import { bitcoinNetworkModeToCoreNetworkMode } from '@shared/crypto/bitcoin/bitcoin.utils';
 import { logger } from '@shared/logger';
 import { OrdinalSendFormValues } from '@shared/models/form.model';
 import { RouteUrls } from '@shared/route-urls';
@@ -16,6 +17,7 @@ import {
   btcAddressNetworkValidator,
   btcAddressValidator,
 } from '@app/common/validation/forms/address-validators';
+import { complianceValidator } from '@app/common/validation/forms/compliance-validators';
 import { useNumberOfInscriptionsOnUtxo } from '@app/query/bitcoin/ordinals/inscriptions.hooks';
 import { useSignBitcoinTx } from '@app/store/accounts/blockchain/bitcoin/bitcoin.hooks';
 import { useCurrentNetwork } from '@app/store/networks/networks.selectors';
@@ -140,6 +142,12 @@ export function useSendInscriptionForm() {
         .string()
         .required(FormErrorMessages.AddressRequired)
         .concat(btcAddressValidator())
+        .concat(
+          complianceValidator(
+            btcAddressValidator(),
+            bitcoinNetworkModeToCoreNetworkMode(currentNetwork.chain.bitcoin.bitcoinNetwork)
+          )
+        )
         .concat(btcAddressNetworkValidator(currentNetwork.chain.bitcoin.bitcoinNetwork)),
     }),
   };

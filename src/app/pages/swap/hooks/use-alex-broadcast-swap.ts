@@ -5,9 +5,9 @@ import { AlexSDK, SponsoredTxError } from 'alex-sdk';
 
 import { logger } from '@shared/logger';
 import { RouteUrls } from '@shared/route-urls';
+import { delay } from '@shared/utils';
 
 import { LoadingKeys, useLoading } from '@app/common/hooks/use-loading';
-import { delay } from '@app/common/utils';
 
 export function useAlexBroadcastSwap(alexSDK: AlexSDK) {
   const { setIsIdle } = useLoading(LoadingKeys.SUBMIT_SWAP_TRANSACTION);

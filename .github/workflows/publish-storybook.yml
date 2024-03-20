@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
   push:
     branches:
-      - 'dev'
+      - dev
 
 permissions:
   contents: read
@@ -13,7 +13,7 @@ permissions:
 
 concurrency:
   group: 'storybook-deploy'
-  cancel-in-progress: false
+  cancel-in-progress: true
 
 jobs:
   deploy:

@@ -6,11 +6,10 @@ import StacksApp, { LedgerError } from '@zondax/ledger-stacks';
 import get from 'lodash.get';
 
 import { RouteUrls } from '@shared/route-urls';
-import { isError } from '@shared/utils';
+import { delay, isError } from '@shared/utils';
 
 import { useScrollLock } from '@app/common/hooks/use-scroll-lock';
 import { appEvents } from '@app/common/publish-subscribe';
-import { delay } from '@app/common/utils';
 import { LedgerTxSigningContext } from '@app/features/ledger/generic-flows/tx-signing/ledger-sign-tx.context';
 import {
   connectLedgerStacksApp,

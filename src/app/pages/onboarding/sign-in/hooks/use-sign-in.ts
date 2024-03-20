@@ -5,10 +5,10 @@ import { validateMnemonic } from '@scure/bip39';
 import { wordlist } from '@scure/bip39/wordlists/english';
 
 import { RouteUrls } from '@shared/route-urls';
+import { delay } from '@shared/utils';
 
 import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
 import { useLoading } from '@app/common/hooks/use-loading';
-import { delay } from '@app/common/utils';
 import { useAppDispatch } from '@app/store';
 import { inMemoryKeyActions } from '@app/store/in-memory-key/in-memory-key.actions';
 import { useSeedInputErrorState } from '@app/store/onboarding/onboarding.hooks';

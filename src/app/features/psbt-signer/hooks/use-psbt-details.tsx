@@ -14,12 +14,12 @@ import { useParsedOutputs } from './use-parsed-outputs';
 import { usePsbtInscriptions } from './use-psbt-inscriptions';
 import { usePsbtTotals } from './use-psbt-totals';
 
-interface UseParsedPsbtArgs {
+interface UsePsbtDetailsArgs {
   inputs: btc.TransactionInput[];
   indexesToSign?: number[];
   outputs: btc.TransactionOutput[];
 }
-export function useParsedPsbt({ inputs, indexesToSign, outputs }: UseParsedPsbtArgs) {
+export function usePsbtDetails({ inputs, indexesToSign, outputs }: UsePsbtDetailsArgs) {
   const network = useCurrentNetwork();
   const bitcoinAddressNativeSegwit = useCurrentAccountNativeSegwitIndexZeroSigner().address;
   const { address: bitcoinAddressTaproot } = useCurrentAccountTaprootIndexZeroSigner();
