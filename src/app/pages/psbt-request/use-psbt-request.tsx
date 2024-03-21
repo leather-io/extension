@@ -44,7 +44,7 @@ export function usePsbtRequest() {
         const tx = getPsbtAsTransaction(payload.hex);
 
         try {
-          const signingConfig = getDefaultSigningConfig(hexToBytes(payload.hex));
+          const signingConfig = getDefaultSigningConfig(hexToBytes(payload.hex), signAtIndex);
           const signedTx = await signPsbt({ tx, signingConfig });
 
           const signedPsbt = signedTx.toPSBT();
