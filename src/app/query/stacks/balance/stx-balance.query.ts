@@ -7,7 +7,7 @@ import { StacksClient } from '@app/query/stacks/stacks-client';
 import { useStacksClient } from '@app/store/common/api-clients.hooks';
 import { useCurrentNetworkState } from '@app/store/networks/networks.hooks';
 
-import { RateLimiter, useHiroApiRateLimiter } from '../rate-limiter';
+import { useHiroApiRateLimiter } from '../hiro-rate-limiter';
 
 const staleTime = 1 * 60 * 1000;
 
@@ -17,11 +17,17 @@ const balanceQueryOptions = {
   refetchOnMount: true,
 } as const;
 
-function fetchAccountBalance(client: StacksClient, limiter: RateLimiter) {
+function fetchAccountBalance(client: StacksClient, signal?: AbortSignal) {
   return async (principal: string) => {
-    await limiter.removeTokens(1);
     // Coercing type with client-side one that's more accurate
-    return client.accountsApi.getAccountBalance({ principal }) as Promise<AddressBalanceResponse>;
+    return client.accountsApi.getAccountBalance(
+      {
+        principal,
+      },
+      {
+        signal,
+      }
+    ) as Promise<AddressBalanceResponse>;
   };
 }
 
@@ -38,7 +44,12 @@ export function useStacksAccountBalanceQuery<T extends unknown = FetchAccountBal
   return useQuery({
     enabled: !!address,
     queryKey: ['get-address-stx-balance', address, network.id],
-    queryFn: () => fetchAccountBalance(client, limiter)(address),
+    queryFn: async ({ signal }) => {
+      return limiter.add(() => fetchAccountBalance(client, signal)(address), {
+        signal,
+        throwOnTimeout: true,
+      });
+    },
     ...balanceQueryOptions,
     ...options,
   });

@@ -2,6 +2,7 @@ import { useCallback, useEffect } from 'react';
 
 import { useInfiniteQuery } from '@tanstack/react-query';
 import axios from 'axios';
+import PQueue from 'p-queue';
 
 import { HIRO_INSCRIPTIONS_API_URL } from '@shared/constants';
 import { getTaprootAddress } from '@shared/crypto/bitcoin/bitcoin.utils';
@@ -10,6 +11,7 @@ import { ensureArray } from '@shared/utils';
 
 import { createNumArrayOfRange } from '@app/common/utils';
 import { QueryPrefixes } from '@app/query/query-prefixes';
+import { useHiroApiRateLimiter } from '@app/query/stacks/hiro-rate-limiter';
 import { useCurrentAccountNativeSegwitIndexZeroSigner } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
 import { useCurrentTaprootAccount } from '@app/store/accounts/blockchain/bitcoin/taproot-account.hooks';
 import { useCurrentNetwork } from '@app/store/networks/networks.selectors';
@@ -36,14 +38,41 @@ interface InscriptionsQueryResponse {
   total: number;
 }
 
-async function fetchInscriptions(addresses: string | string[], offset = 0, limit = 60) {
+interface FetchInscriptionsArgs {
+  addresses: string | string[];
+  offset?: number;
+  limit?: number;
+  signal?: AbortSignal;
+  limiter: PQueue;
+}
+
+async function fetchInscriptions({
+  addresses,
+  offset = 0,
+  limit = 60,
+  signal,
+  limiter,
+}: FetchInscriptionsArgs) {
   const params = new URLSearchParams();
   ensureArray(addresses).forEach(address => params.append('address', address));
   params.append('limit', limit.toString());
   params.append('offset', offset.toString());
-  const res = await axios.get<InscriptionsQueryResponse>(
-    `${HIRO_INSCRIPTIONS_API_URL}?${params.toString()}`
+
+  const res = await limiter.add(
+    () => {
+      return axios.get<InscriptionsQueryResponse>(
+        `${HIRO_INSCRIPTIONS_API_URL}?${params.toString()}`,
+        {
+          signal,
+        }
+      );
+    },
+    {
+      signal,
+      throwOnTimeout: true,
+    }
   );
+
   return res.data;
 }
 
@@ -55,6 +84,7 @@ export function useGetInscriptionsInfiniteQuery() {
   const account = useCurrentTaprootAccount();
   const nativeSegwitSigner = useCurrentAccountNativeSegwitIndexZeroSigner();
   const currentBitcoinAddress = nativeSegwitSigner.address;
+  const limiter = useHiroApiRateLimiter();
 
   const getTaprootAddressData = useCallback(
     (fromIndex: number, toIndex: number) => {
@@ -98,7 +128,12 @@ export function useGetInscriptionsInfiniteQuery() {
         if (fromIndex === 0) {
           addresses.unshift(currentBitcoinAddress);
         }
-        const response = await fetchInscriptions(addresses, offset, inscriptionsLazyLoadLimit);
+        const response = await fetchInscriptions({
+          addresses,
+          offset,
+          limit: inscriptionsLazyLoadLimit,
+          limiter,
+        });
 
         responsesArr.push(response);
 
@@ -186,11 +221,17 @@ export function useGetInscriptionsInfiniteQuery() {
 
 export function useInscriptionsByAddressQuery(address: string) {
   const network = useCurrentNetwork();
+  const limiter = useHiroApiRateLimiter();
 
   const query = useInfiniteQuery({
-    queryKey: [QueryPrefixes.InscriptionsByAddress, address, network.id],
-    async queryFn({ pageParam = 0 }) {
-      return fetchInscriptions(address, pageParam);
+    queryKey: [QueryPrefixes.InscriptionsByAddress, network.id, address],
+    async queryFn({ pageParam = 0, signal }) {
+      return fetchInscriptions({
+        addresses: address,
+        offset: pageParam,
+        signal,
+        limiter,
+      });
     },
     getNextPageParam(prevInscriptionsQuery) {
       if (prevInscriptionsQuery.offset >= prevInscriptionsQuery.total) return undefined;

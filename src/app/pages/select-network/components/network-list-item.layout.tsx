@@ -1,5 +1,5 @@
 import { SettingsSelectors } from '@tests/selectors/settings.selectors';
-import { Box, Flex, Stack, styled } from 'leather-styles/jsx';
+import { Flex, Stack, styled } from 'leather-styles/jsx';
 
 import { NetworkConfiguration } from '@shared/constants';
 
@@ -30,22 +30,17 @@ export function NetworkListItemLayout({
   const unSelectable = !isOnline || isActive;
   return (
     <Flex data-testid={SettingsSelectors.NetworkListItem}>
-      <Box
+      <Button
         width="100%"
+        variant="ghost"
         key={networkId}
-        _hover={
-          unSelectable
-            ? undefined
-            : {
-                backgroundColor: 'ink.component-background-hover',
-              }
-        }
         px="space.05"
         py="space.04"
         onClick={unSelectable ? undefined : onSelectNetwork}
         cursor={!isOnline ? 'not-allowed' : isActive ? 'default' : 'pointer'}
         opacity={!isOnline ? 0.5 : 1}
         data-testid={network.id}
+        aria-disabled={unSelectable}
       >
         <Flex width="100%" justifyContent="space-between" alignItems="center">
           <Stack alignItems="flex-start" flex={1} gap="space.02">
@@ -70,7 +65,7 @@ export function NetworkListItemLayout({
             <TrashIcon />
           </Button>
         )}
-      </Box>
+      </Button>
     </Flex>
   );
 }

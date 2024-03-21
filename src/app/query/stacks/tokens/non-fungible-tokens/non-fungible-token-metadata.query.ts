@@ -6,7 +6,7 @@ import { QueryPrefixes } from '@app/query/query-prefixes';
 import { StacksAccount } from '@app/store/accounts/blockchain/stacks/stacks-account.models';
 import { useTokenMetadataClient } from '@app/store/common/api-clients.hooks';
 
-import { RateLimiter, useHiroApiRateLimiter } from '../../rate-limiter';
+import { useHiroApiRateLimiter } from '../../hiro-rate-limiter';
 import { TokenMetadataClient } from '../../token-metadata-client';
 import { NftAssetResponse } from '../token-metadata.utils';
 import { useGetNonFungibleTokenHoldingsQuery } from './non-fungible-token-holdings.query';
@@ -22,9 +22,8 @@ function getTokenId(hex: string) {
   return clarityValue.type === 1 ? Number(clarityValue.value) : 0;
 }
 
-function fetchNonFungibleTokenMetadata(client: TokenMetadataClient, limiter: RateLimiter) {
+function fetchNonFungibleTokenMetadata(client: TokenMetadataClient) {
   return (principal: string, tokenId: number) => async () => {
-    await limiter.removeTokens(1);
     return client.tokensApi.getNftMetadata(principal, tokenId);
   };
 }
@@ -44,7 +43,11 @@ export function useGetNonFungibleTokenMetadataListQuery(
       return {
         enabled: !!tokenId,
         queryKey: [QueryPrefixes.GetNftMetadata, principal, tokenId],
-        queryFn: fetchNonFungibleTokenMetadata(client, limiter)(principal, tokenId),
+        queryFn: async () => {
+          return limiter.add(() => fetchNonFungibleTokenMetadata(client)(principal, tokenId), {
+            throwOnTimeout: true,
+          });
+        },
         ...queryOptions,
       };
     }),

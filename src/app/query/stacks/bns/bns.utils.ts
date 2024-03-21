@@ -26,19 +26,26 @@ const bnsContractConsts = {
 } as const;
 
 // Fetch an address's "primary name" from the BNSx contract.
-async function fetchBnsxName(client: StacksClient, address: string): Promise<string | null> {
+async function fetchBnsxName(
+  client: StacksClient,
+  address: string,
+  signal?: AbortSignal
+): Promise<string | null> {
   try {
     const addressCV = standardPrincipalCV(address);
     const addressHex = cvToHex(addressCV);
-    const res = await client.smartContractsApi.callReadOnlyFunction({
-      ...bnsContractConsts,
-      functionName: 'get-primary-name',
-      tip: 'latest',
-      readOnlyFunctionArgs: {
-        sender: address,
-        arguments: [addressHex],
+    const res = await client.smartContractsApi.callReadOnlyFunction(
+      {
+        ...bnsContractConsts,
+        functionName: 'get-primary-name',
+        tip: 'latest',
+        readOnlyFunctionArgs: {
+          sender: address,
+          arguments: [addressHex],
+        },
       },
-    });
+      { signal }
+    );
     if (!res.okay || !res.result) return null;
     const { result } = res;
     const cv = deserializeCV(result) as OptionalCV<
@@ -97,21 +104,26 @@ interface FetchNamesForAddressArgs {
   client: StacksClient;
   address: string;
   isTestnet: boolean;
+  signal?: AbortSignal;
 }
 export async function fetchNamesForAddress({
   client,
   address,
   isTestnet,
+  signal,
 }: FetchNamesForAddressArgs): Promise<BnsNamesOwnByAddressResponse> {
   const fetchFromApi = async () => {
-    return client.namesApi.getNamesOwnedByAddress({ address, blockchain: 'stacks' });
+    return client.namesApi.getNamesOwnedByAddress({ address, blockchain: 'stacks' }, { signal });
   };
   if (isTestnet) {
     return fetchFromApi();
   }
 
   // Return BNSx name if available, otherwise return names from API.
-  const [bnsxName, bnsNames] = await Promise.all([fetchBnsxName(client, address), fetchFromApi()]);
+  const [bnsxName, bnsNames] = await Promise.all([
+    fetchBnsxName(client, address, signal),
+    fetchFromApi(),
+  ]);
   const bnsName = 'names' in bnsNames ? bnsNames.names[0] : null;
   const names: string[] = [];
   if (bnsName) names.push(bnsName);
