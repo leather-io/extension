@@ -60,7 +60,7 @@ function buildTestNativeSegwitPsbtRequest(
         {
           txid: hexToBytes('0c634e54f790a1e92b38b54f9b15995b0bb349e701f782c0f2b51cabfb619db3'),
           index: 0,
-          finalScriptSig: hexToBytes('1600141be6c9133cb9f4e95393f5f66bf85193476cb7e5'),
+          finalScriptSig: hexToBytes(''),
           sequence: 4294967293,
         },
       ],
@@ -137,7 +137,7 @@ function buildTestNativeSegwitPsbtRequest(
   });
 
   const psbt = tx.toPSBT();
-
+  console.log(bytesToHex(psbt));
   // For testing mainnet
   // return { hex: tempHex };
   return { hex: bytesToHex(psbt), broadcast: true };
@@ -158,7 +158,7 @@ function buildTestNativeSegwitPsbtRequestWithIndexes(pubKey: Uint8Array): PsbtRe
         {
           txid: hexToBytes('0c634e54f790a1e92b38b54f9b15995b0bb349e701f782c0f2b51cabfb619db3'),
           index: 0,
-          finalScriptSig: hexToBytes('1600141be6c9133cb9f4e95393f5f66bf85193476cb7e5'),
+          finalScriptSig: hexToBytes(''),
           sequence: 4294967293,
         },
       ],
