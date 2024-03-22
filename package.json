@@ -170,7 +170,7 @@
     "@stacks/transactions": "6.9.0",
     "@stacks/wallet-sdk": "6.9.0",
     "@stitches/react": "1.2.8",
-    "@storybook/addon-styling-webpack": "0.0.6",
+    "@storybook/addon-styling-webpack": "1.0.0",
     "@styled-system/theme-get": "5.1.2",
     "@tanstack/query-sync-storage-persister": "4.35.7",
     "@tanstack/react-query": "4.35.7",
@@ -354,7 +354,8 @@
   "resolutions": {
     "nanoid": "3.3.4",
     "socket.io-parser": "4.2.4",
-    "wrap-ansi": "7.0.0"
+    "wrap-ansi": "7.0.0",
+    "webpack-dev-middleware": "5.3.4"
   },
   "keywords": [
     "blockstack",
