@@ -8,6 +8,7 @@ overrides:
   nanoid: 3.3.4
   socket.io-parser: 4.2.4
   wrap-ansi: 7.0.0
+  webpack-dev-middleware: 5.3.4
 
 dependencies:
   '@bitcoinerlab/secp256k1':
@@ -134,8 +135,8 @@ dependencies:
     specifier: 1.2.8
     version: 1.2.8(react@18.2.0)
   '@storybook/addon-styling-webpack':
-    specifier: 0.0.6
-    version: 0.0.6(webpack@5.90.3)
+    specifier: 1.0.0
+    version: 1.0.0(webpack@5.90.3)
   '@styled-system/theme-get':
     specifier: 5.1.2
     version: 5.1.2
@@ -7670,12 +7671,12 @@ packages:
       ts-dedent: 2.2.0
     dev: true
 
-  /@storybook/addon-styling-webpack@0.0.6(webpack@5.90.3):
-    resolution: {integrity: sha512-JjM2FXFiHpjbJsp7nRUEMhYBRpK6ukBKsbtWzCrAGOfUgoElcGwPY8KhSKSnRknIhebonGK1bxalh3u8bGZ/dw==}
+  /@storybook/addon-styling-webpack@1.0.0(webpack@5.90.3):
+    resolution: {integrity: sha512-jo1kzn7pi+NA+LZxrWoRvW6w7dXIKY/BjTG80XX2uU92lIKT+X1k/9vYk/0KPVK3Bsf4tO6ToAuqIRyOk7MHtg==}
     peerDependencies:
       webpack: ^5.0.0
     dependencies:
-      '@storybook/node-logger': 7.6.17
+      '@storybook/node-logger': 8.0.1
       webpack: 5.90.3(@swc/core@1.4.8)(esbuild@0.20.1)(webpack-cli@5.1.4)
     dev: false
 
@@ -7805,7 +7806,7 @@ packages:
       util: 0.12.5
       util-deprecate: 1.0.2
       webpack: 5.90.3(@swc/core@1.4.8)(esbuild@0.20.1)(webpack-cli@5.1.4)
-      webpack-dev-middleware: 6.1.1(webpack@5.90.3)
+      webpack-dev-middleware: 5.3.4(webpack@5.90.3)
       webpack-hot-middleware: 2.26.1
       webpack-virtual-modules: 0.5.0
     transitivePeerDependencies:
@@ -8146,13 +8147,8 @@ packages:
     resolution: {integrity: sha512-UbOSz6dNhugFTXdBgCdQTa8ZQdlPmpjN1fUY3bxpv+Ii3YN4U/CDWlAmmOUKlKi/Oj2ZNQBJtJWYUe8DkerlfA==}
     dev: true
 
-  /@storybook/node-logger@7.6.17:
-    resolution: {integrity: sha512-w59MQuXhhUNrUVmVkXhMwIg2nvFWjdDczLTwYLorhfsE36CWeUOY5QCZWQy0Qf/h+jz8Uo7Evy64qn18v9C4wA==}
-    dev: false
-
   /@storybook/node-logger@8.0.1:
     resolution: {integrity: sha512-uYWKSz9NhLOe2O60sJ4UPT1nzvbH0oR/YjK+OP3B4BySa6e195xY/5Uhou4lEaPSNU/0XXaLHCYeXjqeBjZopA==}
-    dev: true
 
   /@storybook/preset-react-webpack@8.0.1(@swc/core@1.4.8)(esbuild@0.20.1)(react-dom@18.2.0)(react@18.2.0)(typescript@5.3.3)(webpack-cli@5.1.4):
     resolution: {integrity: sha512-PqEKrNy2efVYuhDJXtq+eMvsGy7NUngec4AIaGwX2CRG8bJsAx9x6p8f2hmRwNn9fkhloPyM/+ryI31QW/ZgCA==}
@@ -23528,8 +23524,8 @@ packages:
       webpack-dev-server: 4.15.1(webpack-cli@5.1.4)(webpack@5.90.3)
       webpack-merge: 5.10.0
 
-  /webpack-dev-middleware@5.3.3(webpack@5.90.3):
-    resolution: {integrity: sha512-hj5CYrY0bZLB+eTO+x/j67Pkrquiy7kWepMHmUMoPsmcUaeEnQJqFzHJOyxgWlq746/wUuA64p9ta34Kyb01pA==}
+  /webpack-dev-middleware@5.3.4(webpack@5.90.3):
+    resolution: {integrity: sha512-BVdTqhhs+0IfoeAf7EoH5WE+exCmqGerHfDM0IL096Px60Tq2Mn9MAbnaGUe6HiMa41KMCYF19gyzZmBcq/o4Q==}
     engines: {node: '>= 12.13.0'}
     peerDependencies:
       webpack: ^4.0.0 || ^5.0.0
@@ -23540,23 +23536,6 @@ packages:
       range-parser: 1.2.1
       schema-utils: 4.2.0
       webpack: 5.90.3(@swc/core@1.4.8)(esbuild@0.20.1)(webpack-cli@5.1.4)
-
-  /webpack-dev-middleware@6.1.1(webpack@5.90.3):
-    resolution: {integrity: sha512-y51HrHaFeeWir0YO4f0g+9GwZawuigzcAdRNon6jErXy/SqV/+O6eaVAzDqE6t3e3NpGeR5CS+cCDaTC+V3yEQ==}
-    engines: {node: '>= 14.15.0'}
-    peerDependencies:
-      webpack: ^5.0.0
-    peerDependenciesMeta:
-      webpack:
-        optional: true
-    dependencies:
-      colorette: 2.0.20
-      memfs: 3.6.0
-      mime-types: 2.1.35
-      range-parser: 1.2.1
-      schema-utils: 4.2.0
-      webpack: 5.90.3(@swc/core@1.4.8)(esbuild@0.20.1)(webpack-cli@5.1.4)
-    dev: true
 
   /webpack-dev-server@4.15.1(webpack-cli@5.1.4)(webpack@5.90.3):
     resolution: {integrity: sha512-5hbAst3h3C3L8w6W4P96L5vaV0PxSmJhxZvWKYIdgxOQm8pNZ5dEOmmSLBVpP85ReeyRt6AS1QJNyo/oFFPeVA==}
@@ -23601,7 +23580,7 @@ packages:
       spdy: 4.0.2
       webpack: 5.90.3(@swc/core@1.4.8)(esbuild@0.20.1)(webpack-cli@5.1.4)
       webpack-cli: 5.1.4(webpack-bundle-analyzer@4.10.1)(webpack-dev-server@4.15.1)(webpack@5.90.3)
-      webpack-dev-middleware: 5.3.3(webpack@5.90.3)
+      webpack-dev-middleware: 5.3.4(webpack@5.90.3)
       ws: 8.16.0
     transitivePeerDependencies:
       - bufferutil
