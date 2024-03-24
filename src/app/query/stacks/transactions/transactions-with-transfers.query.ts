@@ -7,7 +7,7 @@ import { useCurrentAccountStxAddressState } from '@app/store/accounts/blockchain
 import { useStacksClient } from '@app/store/common/api-clients.hooks';
 import { useCurrentNetworkState } from '@app/store/networks/networks.hooks';
 
-import { useHiroApiRateLimiter } from '../rate-limiter';
+import { useHiroApiRateLimiter } from '../hiro-rate-limiter';
 
 const queryOptions: UseQueryOptions = {
   staleTime: 60 * 1000,
@@ -23,18 +23,24 @@ export function useGetAccountTransactionsWithTransfersQuery() {
   const client = useStacksClient();
   const limiter = useHiroApiRateLimiter();
 
-  async function fetchAccountTxsWithTransfers() {
+  async function fetchAccountTxsWithTransfers(signal?: AbortSignal) {
     if (!principal) return;
-    await limiter.removeTokens(1);
-    return client.accountsApi.getAccountTransactionsWithTransfers({
-      principal,
-      limit: DEFAULT_LIST_LIMIT,
-    });
+    return limiter.add(
+      () =>
+        client.accountsApi.getAccountTransactionsWithTransfers({
+          principal,
+          limit: DEFAULT_LIST_LIMIT,
+        }),
+      {
+        signal,
+        throwOnTimeout: true,
+      }
+    );
   }
 
   return useQuery({
     queryKey: ['account-txs-with-transfers', principal, chain.stacks.url],
-    queryFn: fetchAccountTxsWithTransfers,
+    queryFn: ({ signal }) => fetchAccountTxsWithTransfers(signal),
     enabled: !!principal && !!chain.stacks.url,
     ...queryOptions,
   }) as UseQueryResult<AddressTransactionsWithTransfersListResponse, Error>;

@@ -37,7 +37,7 @@ interface ChooseAccountItemProps extends FlexProps {
 }
 const ChooseAccountItem = memo(
   ({ account, isLoading, onSelectAccount }: ChooseAccountItemProps) => {
-    const name = useAccountDisplayName(account);
+    const { name } = useAccountDisplayName(account);
     const btcAddress = useNativeSegwitAccountIndexAddressIndexZero(account.index);
 
     const accountSlug = useMemo(() => slugify(`Account ${account?.index + 1}`), [account?.index]);

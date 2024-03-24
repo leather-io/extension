@@ -3,7 +3,7 @@ import { useQueries, useQuery } from '@tanstack/react-query';
 
 import { useStacksClient } from '@app/store/common/api-clients.hooks';
 
-import { useHiroApiRateLimiter } from '../rate-limiter';
+import { useHiroApiRateLimiter } from '../hiro-rate-limiter';
 
 const options = {
   staleTime: 30 * 1000,
@@ -17,8 +17,12 @@ export function useTransactionsById(txids: string[]) {
   const limiter = useHiroApiRateLimiter();
 
   async function transactionByIdFetcher(txId: string) {
-    await limiter.removeTokens(1);
-    return client.transactionsApi.getTransactionById({ txId }) as unknown as MempoolTransaction;
+    return limiter.add(
+      () => client.transactionsApi.getTransactionById({ txId }) as unknown as MempoolTransaction,
+      {
+        throwOnTimeout: true,
+      }
+    );
   }
 
   return useQueries({
@@ -36,10 +40,15 @@ export function useTransactionById(txid: string) {
   const client = useStacksClient();
   const limiter = useHiroApiRateLimiter();
   async function transactionByIdFetcher(txId: string) {
-    await limiter.removeTokens(1);
-    return client.transactionsApi.getTransactionById({ txId }) as unknown as
-      | Transaction
-      | MempoolTransaction;
+    return limiter.add(
+      () =>
+        client.transactionsApi.getTransactionById({ txId }) as unknown as
+          | Transaction
+          | MempoolTransaction,
+      {
+        throwOnTimeout: true,
+      }
+    );
   }
 
   return useQuery({
