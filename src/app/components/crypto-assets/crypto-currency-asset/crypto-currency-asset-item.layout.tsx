@@ -1,6 +1,6 @@
 import { ReactNode } from 'react';
 
-import { Flex, styled } from 'leather-styles/jsx';
+import { Box, Flex, styled } from 'leather-styles/jsx';
 
 import { AllCryptoCurrencyAssetBalances } from '@shared/models/crypto-asset-balance.model';
 
@@ -35,40 +35,49 @@ export function CryptoCurrencyAssetItemLayout({
   const { balance, dataTestId, formattedBalance, title } =
     parseCryptoCurrencyAssetBalance(assetBalance);
 
-  return (
-    <Pressable data-testid={dataTestId} onClick={onClick} my="space.02">
-      <ItemLayout
-        flagImg={icon}
-        titleLeft={title}
-        captionLeft={balance.symbol}
-        titleRight={
-          rightElement ? (
-            rightElement
-          ) : (
-            <BasicTooltip
-              asChild
-              label={formattedBalance.isAbbreviated ? balance.amount.toString() : undefined}
-              side="left"
-            >
-              <styled.span data-testid={title} fontWeight={500} textStyle="label.02">
-                {formattedBalance.value} {additionalBalanceInfo}
-              </styled.span>
-            </BasicTooltip>
-          )
-        }
-        captionRight={
-          !rightElement && (
-            <Caption>
-              <Flex alignItems="center" gap="space.02" color="inherit">
-                <BulletSeparator>
-                  <Caption>{balance.amount.toNumber() > 0 && address ? usdBalance : null}</Caption>
-                  {additionalUsdBalanceInfo}
-                </BulletSeparator>
-              </Flex>
-            </Caption>
-          )
-        }
-      />
-    </Pressable>
+  const isInteractive = !!onClick;
+
+  const content = (
+    <ItemLayout
+      flagImg={icon}
+      titleLeft={title}
+      captionLeft={balance.symbol}
+      titleRight={
+        rightElement ? (
+          rightElement
+        ) : (
+          <BasicTooltip
+            asChild
+            label={formattedBalance.isAbbreviated ? balance.amount.toString() : undefined}
+            side="left"
+          >
+            <styled.span data-testid={title} fontWeight={500} textStyle="label.02">
+              {formattedBalance.value} {additionalBalanceInfo}
+            </styled.span>
+          </BasicTooltip>
+        )
+      }
+      captionRight={
+        !rightElement && (
+          <Caption>
+            <Flex alignItems="center" gap="space.02" color="inherit">
+              <BulletSeparator>
+                <Caption>{balance.amount.toNumber() > 0 && address ? usdBalance : null}</Caption>
+                {additionalUsdBalanceInfo}
+              </BulletSeparator>
+            </Flex>
+          </Caption>
+        )
+      }
+    />
   );
+
+  if (isInteractive)
+    return (
+      <Pressable data-testid={dataTestId} onClick={onClick} my="space.02">
+        {content}
+      </Pressable>
+    );
+
+  return <Box my="space.02">{content}</Box>;
 }
