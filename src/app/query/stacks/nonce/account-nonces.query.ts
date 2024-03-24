@@ -1,11 +1,12 @@
 import { useQuery } from '@tanstack/react-query';
+import PQueue from 'p-queue';
 
 import { AppUseQueryConfig } from '@app/query/query-config';
 import { useCurrentAccountStxAddressState } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
 import { useStacksClient } from '@app/store/common/api-clients.hooks';
 import { useCurrentNetworkState } from '@app/store/networks/networks.hooks';
 
-import { RateLimiter, useHiroApiRateLimiter } from '../rate-limiter';
+import { useHiroApiRateLimiter } from '../hiro-rate-limiter';
 import { StacksClient } from '../stacks-client';
 
 const accountNoncesQueryOptions = {
@@ -14,13 +15,19 @@ const accountNoncesQueryOptions = {
   refetchOnWindowFocus: 'always',
 } as const;
 
-function fetchAccountNonces(client: StacksClient, limiter: RateLimiter) {
+function fetchAccountNonces(client: StacksClient, limiter: PQueue) {
   return async (principal: string) => {
     if (!principal) return;
-    await limiter.removeTokens(1);
-    return client.accountsApi.getAccountNonces({
-      principal,
-    });
+
+    return limiter.add(
+      () =>
+        client.accountsApi.getAccountNonces({
+          principal,
+        }),
+      {
+        throwOnTimeout: true,
+      }
+    );
   };
 }
 

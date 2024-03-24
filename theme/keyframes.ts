@@ -12,4 +12,9 @@ export const keyframes: CssKeyframes = {
     from: { opacity: 0, transform: 'translateY(-12px) scale(0.9)' },
     to: { opacity: 1, transform: 'translateY(0) scale(1)' },
   },
+  shimmer: {
+    '100%': {
+      maskPosition: 'left',
+    },
+  },
 };

@@ -1,7 +1,11 @@
 import axios from 'axios';
+import PQueue from 'p-queue';
 
 import { HIRO_API_BASE_URL_MAINNET } from '@shared/constants';
 import { Paginated } from '@shared/models/api-types';
+import type { BitcoinTx } from '@shared/models/transactions/bitcoin-transaction.model';
+
+import { getBlockstreamRatelimiter } from './blockstream-rate-limiter';
 
 class Configuration {
   constructor(public baseUrl: string) {}
@@ -162,16 +166,23 @@ class HiroApi {
 }
 
 class AddressApi {
-  constructor(public configuration: Configuration) {}
+  rateLimiter: PQueue;
+  constructor(public configuration: Configuration) {
+    this.rateLimiter = getBlockstreamRatelimiter(this.configuration.baseUrl);
+  }
 
-  async getTransactionsByAddress(address: string) {
-    const resp = await axios.get(`${this.configuration.baseUrl}/address/${address}/txs`);
+  async getTransactionsByAddress(address: string, signal?: AbortSignal) {
+    const resp = await this.rateLimiter.add(
+      () => axios.get<BitcoinTx[]>(`${this.configuration.baseUrl}/address/${address}/txs`),
+      { signal, throwOnTimeout: true }
+    );
     return resp.data;
   }
 
-  async getUtxosByAddress(address: string): Promise<UtxoResponseItem[]> {
-    const resp = await axios.get<UtxoResponseItem[]>(
-      `${this.configuration.baseUrl}/address/${address}/utxo`
+  async getUtxosByAddress(address: string, signal?: AbortSignal): Promise<UtxoResponseItem[]> {
+    const resp = await this.rateLimiter.add(
+      () => axios.get<UtxoResponseItem[]>(`${this.configuration.baseUrl}/address/${address}/utxo`),
+      { signal, priority: 1, throwOnTimeout: true }
     );
     return resp.data.sort((a, b) => a.vout - b.vout);
   }
