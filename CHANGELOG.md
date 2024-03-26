@@ -1,3 +1,37 @@
+## [6.32.0](https://github.com/leather-wallet/extension/compare/v6.31.0...v6.32.0) (2024-03-26)
+
+
+### Features
+
+* add blockstream and hiro api rate limiters, closes [#4926](https://github.com/leather-wallet/extension/issues/4926) ([b1b2ec5](https://github.com/leather-wallet/extension/commit/b1b2ec5087023c598979bf7702a0a54c459214d8))
+
+
+### Bug Fixes
+
+* add new test for sign psbt ([d5d7cb7](https://github.com/leather-wallet/extension/commit/d5d7cb74226ad9beec5375b578c5da8020f326a1))
+* add test for psbt wrong index failure ([7ec9744](https://github.com/leather-wallet/extension/commit/7ec9744a0cf52708325dea86397cca8dca63c57c))
+* client side nested button error ([c800721](https://github.com/leather-wallet/extension/commit/c800721e1dc0046b25e81477eae7e181ee856bbb))
+* increase swap hardcoded fee, closes [#4984](https://github.com/leather-wallet/extension/issues/4984) ([1eb268e](https://github.com/leather-wallet/extension/commit/1eb268e9c3a9840965eaddd2eda113e81a3fc17e))
+* index bug and modify tests ([f9efae6](https://github.com/leather-wallet/extension/commit/f9efae6feba9462783035c790903219c9bd07ce8))
+* input payment type, closes [#5076](https://github.com/leather-wallet/extension/issues/5076) ([5f558da](https://github.com/leather-wallet/extension/commit/5f558da2ddb797397dca73db736968d18bfb4ae7))
+* missing regtest prefix in address check ([7e8549f](https://github.com/leather-wallet/extension/commit/7e8549f94597c21dc197663f62bb0cb80bfc48eb))
+* modify input payment type index for ledger also ([17f57f3](https://github.com/leather-wallet/extension/commit/17f57f3d56a4083fae2bc766ec195bf17e1dffdd))
+* swap arrow icon ([9dcd980](https://github.com/leather-wallet/extension/commit/9dcd9809fa00db12c398ef4701ec8d0caebf636f))
+* swap duplicate toast, closes [#5068](https://github.com/leather-wallet/extension/issues/5068) ([5f08a9c](https://github.com/leather-wallet/extension/commit/5f08a9c21a98f92ef31449972d5d43c198e64f46))
+* swapping welsh with alex sdk, closes [#5022](https://github.com/leather-wallet/extension/issues/5022) ([1f1216c](https://github.com/leather-wallet/extension/commit/1f1216cd91fa61a3b66a47d157a4b987de694f55))
+* validation regtest addresses ([462ab8c](https://github.com/leather-wallet/extension/commit/462ab8c339857026a468c75502ce1c726e171a88))
+
+
+### Internal
+
+* add chromatic visual tests ([3ed207f](https://github.com/leather-wallet/extension/commit/3ed207f5443dfc87136d03b4a38059ad9da4cbbd))
+* fix audit vulnerability ([f577570](https://github.com/leather-wallet/extension/commit/f577570fc3bccf62072cf4b7641ef517df9d486d))
+* post-release merge back ([7ad58b1](https://github.com/leather-wallet/extension/commit/7ad58b1508ecbdd289daaf42f96e8dbd7ca2e0f2))
+* update link to fee info ([0d0dc34](https://github.com/leather-wallet/extension/commit/0d0dc3462c95263fba31cf70991e7f0dd0220e33))
+* update link to nonce info ([c79ddda](https://github.com/leather-wallet/extension/commit/c79ddda55411770b6aff8c4fcb5fab8e42ea11ad))
+* upgrade signer packages ([9ddea5f](https://github.com/leather-wallet/extension/commit/9ddea5f173994f866e33e273ca7a851903e9acdd))
+* upgrade storybook ([fb0ed2a](https://github.com/leather-wallet/extension/commit/fb0ed2a1c6631f20a1251dc37527ada50d03e1dc))
+
 ## [6.31.0](https://github.com/leather-wallet/extension/compare/v6.30.1...v6.31.0) (2024-03-19)
 
 
