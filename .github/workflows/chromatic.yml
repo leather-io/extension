@@ -1,0 +1,24 @@
+name: Chromatic
+
+on: [pull_request]
+
+jobs:
+  chromatic:
+    if: github.repository == 'leather-wallet/extension' && github.actor != 'dependabot[bot]'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: ./.github/actions/provision
+
+      - name: Deploy to Chromatic
+        id: chromatic
+        uses: chromaui/action@latest
+        with:
+          autoAcceptChanges: '{main,dev}'
+          onlyChanged: true
+          exitZeroOnChanges: true
+          projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
+          token: ${{ secrets.LEATHER_BOT }}

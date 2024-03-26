@@ -32,9 +32,9 @@ export function useParsedInputs({ inputs, indexesToSign }: UseParsedInputsArgs) 
   const bitcoinNetwork = getBtcSignerLibNetworkConfigByMode(network.chain.bitcoin.bitcoinNetwork);
   const bitcoinAddressNativeSegwit = useCurrentAccountNativeSegwitIndexZeroSigner().address;
   const { address: bitcoinAddressTaproot } = useCurrentAccountTaprootIndexZeroSigner();
-  const inscriptions = useGetInscriptionsByOutputQueries(inputs).map(query => {
-    return query.data?.results[0];
-  });
+  const inscriptions = useGetInscriptionsByOutputQueries(inputs).map(
+    query => query.data?.results[0]
+  );
   const signAll = isUndefined(indexesToSign);
 
   const psbtInputs = useMemo(

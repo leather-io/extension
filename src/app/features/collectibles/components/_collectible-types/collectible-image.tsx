@@ -26,6 +26,7 @@ export function CollectibleImage(props: CollectibleImageProps) {
       <img
         alt={alt}
         onError={() => setIsError(true)}
+        loading="lazy"
         onLoad={event => {
           const target = event.target as HTMLImageElement;
           setWidth(target.naturalWidth);
@@ -37,7 +38,8 @@ export function CollectibleImage(props: CollectibleImageProps) {
           height: '100%',
           aspectRatio: '1 / 1',
           objectFit: 'cover',
-          display: isLoading ? 'none' : 'inherit',
+          // display: 'none' breaks onLoad event firing
+          opacity: isLoading ? '0' : '1',
           imageRendering: width <= 40 ? 'pixelated' : 'auto',
         }}
       />

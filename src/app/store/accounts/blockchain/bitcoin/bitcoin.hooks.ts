@@ -17,7 +17,7 @@ import {
   getAssumedZeroIndexSigningConfig,
 } from '@shared/crypto/bitcoin/signer-config';
 import { allSighashTypes } from '@shared/rpc/methods/sign-psbt';
-import { isNumber } from '@shared/utils';
+import { isNumber, isUndefined } from '@shared/utils';
 
 import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
 import { useWalletType } from '@app/common/use-wallet-type';
@@ -130,14 +130,18 @@ export function useSignLedgerBitcoinTx() {
 
     const btcSignerPsbtClone = btc.Transaction.fromPSBT(psbt.toBuffer());
 
-    const inputByPaymentType = signingConfig.map(config => [
-      config,
-      getInputPaymentType(
-        config.index,
-        btcSignerPsbtClone.getInput(config.index),
-        network.chain.bitcoin.bitcoinNetwork
-      ),
-    ]) as readonly [BitcoinInputSigningConfig, PaymentTypes][];
+    const inputByPaymentType = signingConfig.map(config => {
+      const inputIndex = btcSignerPsbtClone.getInput(config.index).index;
+      if (isUndefined(inputIndex)) throw new Error('Input must have an index for payment type');
+      return [
+        config,
+        getInputPaymentType(
+          inputIndex,
+          btcSignerPsbtClone.getInput(config.index),
+          network.chain.bitcoin.bitcoinNetwork
+        ),
+      ];
+    }) as readonly [BitcoinInputSigningConfig, PaymentTypes][];
 
     //
     // Taproot

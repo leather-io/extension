@@ -19,7 +19,7 @@ export function SwapAssetsPairLayout({ swapAssetFrom, swapAssetTo }: SwapAssetsP
     >
       {swapAssetFrom}
       <Box height="24px" px="space.04" py="space.01" width="48px">
-        <ArrowDownIcon />
+        <ArrowDownIcon variant="small" />
       </Box>
       {swapAssetTo}
     </Stack>

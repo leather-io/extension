@@ -1,7 +1,8 @@
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
+import PQueue from 'p-queue';
 
-import { RateLimiter, useHiroApiRateLimiter } from '../rate-limiter';
+import { useHiroApiRateLimiter } from '../hiro-rate-limiter';
 
 const staleTime = 15 * 60 * 1000; // 15 min
 
@@ -13,9 +14,12 @@ const networkStatusQueryOptions = {
   refetchOnReconnect: false,
 } as const;
 
-async function getNetworkStatusFetcher(url: string, limiter: RateLimiter) {
-  await limiter.removeTokens(1);
-  const resp = await axios.get(url, { timeout: 4500 });
+async function getNetworkStatusFetcher(url: string, limiter: PQueue) {
+  const resp = await limiter.add(() => axios.get(url, { timeout: 30000 }), {
+    throwOnTimeout: true,
+    priority: 1,
+  });
+
   return resp.data;
 }
 

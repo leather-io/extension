@@ -1,4 +1,4 @@
-import { useQueries, useQuery } from '@tanstack/react-query';
+import { type QueryFunctionContext, useQueries, useQuery } from '@tanstack/react-query';
 
 import { BitcoinTx } from '@shared/models/transactions/bitcoin-transaction.model';
 
@@ -18,7 +18,9 @@ export function useGetBitcoinTransactionsByAddressQuery<T extends unknown = Bitc
   return useQuery({
     enabled: !!address,
     queryKey: ['btc-txs-by-address', address],
-    queryFn: () => client.addressApi.getTransactionsByAddress(address),
+    queryFn: async ({ signal }) => {
+      return client.addressApi.getTransactionsByAddress(address, signal);
+    },
     ...queryOptions,
     ...options,
   });
@@ -35,7 +37,9 @@ export function useGetBitcoinTransactionsByAddressesQuery<T extends unknown = Bi
       return {
         enabled: !!address,
         queryKey: ['btc-txs-by-address', address],
-        queryFn: () => client.addressApi.getTransactionsByAddress(address),
+        queryFn: async ({ signal }: QueryFunctionContext<string[], any>) => {
+          return client.addressApi.getTransactionsByAddress(address, signal);
+        },
         ...queryOptions,
         ...options,
       };

@@ -22,9 +22,15 @@ module.exports = {
     'plugin:react/jsx-runtime',
     'plugin:react-hooks/recommended',
     'plugin:storybook/recommended',
+    'plugin:storybook/csf',
   ],
   ignorePatterns: ['./leather-styles'],
   plugins: ['react', 'react-hooks', '@typescript-eslint', 'deprecation'],
+  settings: {
+    react: {
+      version: 'detect',
+    },
+  },
   rules: {
     // This rule helps highlight areas of the code that use deprecated
     // methods, such as implicit use of signed transactions

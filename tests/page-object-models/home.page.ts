@@ -99,10 +99,7 @@ export class HomePage {
   async enableTestMode() {
     await this.page.getByTestId(SettingsSelectors.SettingsMenuBtn).click();
     await this.page.getByTestId(SettingsSelectors.ChangeNetworkAction).click();
-    await this.page.waitForTimeout(1000);
-    await (
-      await this.page.waitForSelector(this.testNetworkSelector, { timeout: 30000 })
-    ).isVisible();
+
     await this.page.getByTestId(WalletDefaultNetworkConfigurationIds.testnet).click();
   }
 

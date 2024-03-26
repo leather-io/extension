@@ -1,4 +1,8 @@
+import { createMoney } from '@shared/models/money.model';
+
 import { SwapAsset } from './hooks/use-swap-form';
+
+export const defaultSwapFee = createMoney(1000000, 'STX');
 
 export function sortSwappableAssetsBySymbol(swappableAssets: SwapAsset[]) {
   return swappableAssets

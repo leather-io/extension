@@ -23,10 +23,13 @@ export function useGetUtxosByAddressQuery<T extends unknown = UtxoResponseItem[]
   options?: AppUseQueryConfig<UtxoResponseItem[], T>
 ) {
   const client = useBitcoinClient();
+
   return useQuery({
     enabled: !!address,
     queryKey: ['btc-utxos-by-address', address],
-    queryFn: () => client.addressApi.getUtxosByAddress(address),
+    queryFn: async ({ signal }) => {
+      return client.addressApi.getUtxosByAddress(address, signal);
+    },
     ...queryOptions,
     ...options,
   });

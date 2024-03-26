@@ -37,6 +37,9 @@ const config: StorybookConfig = {
         ],
       },
     },
+    '@storybook/addon-mdx-gfm',
+    '@storybook/addon-webpack5-compiler-swc',
+    '@chromatic-com/storybook'
   ],
   docs: {
     autodocs: 'tag',
@@ -44,9 +47,7 @@ const config: StorybookConfig = {
   framework: {
     name: '@storybook/react-webpack5',
     options: {
-      builder: {
-        useSWC: true,
-      },
+      builder: {},
     },
   },
   staticDirs: ['../public'],

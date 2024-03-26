@@ -1,5 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
+import PQueue from 'p-queue';
 
 import { logger } from '@shared/logger';
 import { StacksTxFeeEstimation } from '@shared/models/fees/stacks-fees.model';
@@ -7,17 +8,22 @@ import { StacksTxFeeEstimation } from '@shared/models/fees/stacks-fees.model';
 import { AppUseQueryConfig } from '@app/query/query-config';
 import { useCurrentNetworkState } from '@app/store/networks/networks.hooks';
 
-import { RateLimiter, useHiroApiRateLimiter } from '../rate-limiter';
+import { useHiroApiRateLimiter } from '../hiro-rate-limiter';
 import { defaultApiFeeEstimations } from './fees.utils';
 
-function fetchTransactionFeeEstimation(currentNetwork: any, limiter: RateLimiter) {
+function fetchTransactionFeeEstimation(currentNetwork: any, limiter: PQueue) {
   return async (estimatedLen: number | null, transactionPayload: string) => {
-    await limiter.removeTokens(1);
-    const resp = await axios.post<StacksTxFeeEstimation>(
-      currentNetwork.chain.stacks.url + '/v2/fees/transaction',
+    const resp = await limiter.add(
+      () =>
+        axios.post<StacksTxFeeEstimation>(
+          currentNetwork.chain.stacks.url + '/v2/fees/transaction',
+          {
+            estimated_len: estimatedLen,
+            transaction_payload: transactionPayload,
+          }
+        ),
       {
-        estimated_len: estimatedLen,
-        transaction_payload: transactionPayload,
+        throwOnTimeout: true,
       }
     );
     return resp.data;

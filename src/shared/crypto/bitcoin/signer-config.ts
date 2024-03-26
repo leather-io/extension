@@ -2,7 +2,7 @@ import * as btc from '@scure/btc-signer';
 
 import { BitcoinNetworkModes } from '@shared/constants';
 import { logger } from '@shared/logger';
-import { makeNumberRange } from '@shared/utils';
+import { isUndefined, makeNumberRange } from '@shared/utils';
 
 import { getInputPaymentType } from './bitcoin.utils';
 import { getTaprootAddressIndexDerivationPath } from './p2tr-address-gen';
@@ -32,7 +32,9 @@ export function getAssumedZeroIndexSigningConfig({
       return indexes.map(inputIndex => {
         const input = tx.getInput(inputIndex);
 
-        const paymentType = getInputPaymentType(inputIndex, input, 'mainnet');
+        if (isUndefined(input.index)) throw new Error('Input must have an index for payment type');
+        const paymentType = getInputPaymentType(input.index, input, network);
+
         switch (paymentType) {
           case 'p2wpkh':
             return {

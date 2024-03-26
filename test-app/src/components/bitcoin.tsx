@@ -53,26 +53,91 @@ function buildTestNativeSegwitPsbtRequest(
   tx.addInput({
     index: 0,
     txid: '5e03c0986d1b196dc586558bdcfcc9971c31e0c4c98ac7a6e86f9e07d899910c',
-    witnessUtxo: {
-      amount: BigInt(100),
-      script: p2wpkh.script,
+    nonWitnessUtxo: {
+      version: 1,
+      segwitFlag: false,
+      inputs: [
+        {
+          txid: hexToBytes('0c634e54f790a1e92b38b54f9b15995b0bb349e701f782c0f2b51cabfb619db3'),
+          index: 0,
+          finalScriptSig: hexToBytes(''),
+          sequence: 4294967293,
+        },
+      ],
+      outputs: [
+        {
+          amount: BigInt(1112640),
+          script: hexToBytes('0014a8113965cee4d5ffa2d9996a204866a58200131d'),
+        },
+        {
+          amount: BigInt(36595102),
+          script: hexToBytes('001436d197d642a9b02fa0d31b34fe0eab93f273a3c8'),
+        },
+      ],
+      lockTime: 2536001,
     },
   });
   tx.addInput({
     index: 0,
-    txid: 'ef375b4af02821a14b249c879f818a50d3d0a98a334d70277ab329b9f5687108',
-    witnessUtxo: {
-      amount: BigInt(100),
-      script: p2wpkh.script,
+    txid: '13c87eb1eb080ac9bf4f8b649b70e0bc83335c3b9a684b3a9d7216e8b4d3b247',
+    nonWitnessUtxo: {
+      version: 1,
+      segwitFlag: false,
+      inputs: [
+        {
+          txid: hexToBytes('8be3e863d8db3e41919f16b07f158fbbe87924055eb4a256293fb5bacd6c4926'),
+          index: 1,
+          finalScriptSig: hexToBytes(''),
+          sequence: 0,
+        },
+      ],
+      outputs: [
+        {
+          amount: BigInt(10000),
+          script: hexToBytes('0014a8113965cee4d5ffa2d9996a204866a58200131d'),
+        },
+        {
+          amount: BigInt(5363),
+          script: hexToBytes('00148027825ee06ad337f9716df8137a1b651163c5b0'),
+        },
+      ],
+      lockTime: 2536001,
+    },
+  });
+  tx.addInput({
+    index: 0,
+    txid: 'ed1f2163137e5714b1a8da2a2409067e0d5526347b93d5300b1930a015b8f78b',
+    nonWitnessUtxo: {
+      version: 1,
+      segwitFlag: false,
+      inputs: [
+        {
+          txid: hexToBytes('ed1f2163137e5714b1a8da2a2409067e0d5526347b93d5300b1930a015b8f78b'),
+          index: 1,
+          finalScriptSig: hexToBytes(''),
+          sequence: 0,
+        },
+      ],
+      outputs: [
+        {
+          amount: BigInt(6000),
+          script: hexToBytes('001419f793aca8e151a4f0aad0c94656a40bdc4fc879'),
+        },
+        {
+          amount: BigInt(1468212),
+          script: hexToBytes('0014a8113965cee4d5ffa2d9996a204866a58200131d'),
+        },
+      ],
+      lockTime: 0,
     },
   });
   tx.addOutput({
-    amount: BigInt(200),
+    amount: BigInt(100),
     script: p2wpkh.script,
   });
 
   const psbt = tx.toPSBT();
-
+  console.log(bytesToHex(psbt));
   // For testing mainnet
   // return { hex: tempHex };
   return { hex: bytesToHex(psbt), broadcast: true };
@@ -86,27 +151,92 @@ function buildTestNativeSegwitPsbtRequestWithIndexes(pubKey: Uint8Array): PsbtRe
   tx.addInput({
     index: 0,
     txid: '5e03c0986d1b196dc586558bdcfcc9971c31e0c4c98ac7a6e86f9e07d899910c',
-    witnessUtxo: {
-      amount: BigInt(100),
-      script: p2wpkh.script,
+    nonWitnessUtxo: {
+      version: 1,
+      segwitFlag: false,
+      inputs: [
+        {
+          txid: hexToBytes('0c634e54f790a1e92b38b54f9b15995b0bb349e701f782c0f2b51cabfb619db3'),
+          index: 0,
+          finalScriptSig: hexToBytes(''),
+          sequence: 4294967293,
+        },
+      ],
+      outputs: [
+        {
+          amount: BigInt(1112640),
+          script: hexToBytes('0014a8113965cee4d5ffa2d9996a204866a58200131d'),
+        },
+        {
+          amount: BigInt(36595102),
+          script: hexToBytes('001436d197d642a9b02fa0d31b34fe0eab93f273a3c8'),
+        },
+      ],
+      lockTime: 2536001,
     },
   });
   tx.addInput({
     index: 0,
-    txid: 'ef375b4af02821a14b249c879f818a50d3d0a98a334d70277ab329b9f5687108',
-    witnessUtxo: {
-      amount: BigInt(100),
-      script: p2wpkh.script,
+    txid: '13c87eb1eb080ac9bf4f8b649b70e0bc83335c3b9a684b3a9d7216e8b4d3b247',
+    nonWitnessUtxo: {
+      version: 1,
+      segwitFlag: false,
+      inputs: [
+        {
+          txid: hexToBytes('8be3e863d8db3e41919f16b07f158fbbe87924055eb4a256293fb5bacd6c4926'),
+          index: 1,
+          finalScriptSig: hexToBytes(''),
+          sequence: 0,
+        },
+      ],
+      outputs: [
+        {
+          amount: BigInt(10000),
+          script: hexToBytes('0014a8113965cee4d5ffa2d9996a204866a58200131d'),
+        },
+        {
+          amount: BigInt(5363),
+          script: hexToBytes('00148027825ee06ad337f9716df8137a1b651163c5b0'),
+        },
+      ],
+      lockTime: 2536001,
+    },
+  });
+  tx.addInput({
+    index: 0,
+    txid: 'ed1f2163137e5714b1a8da2a2409067e0d5526347b93d5300b1930a015b8f78b',
+    nonWitnessUtxo: {
+      version: 1,
+      segwitFlag: false,
+      inputs: [
+        {
+          txid: hexToBytes('ed1f2163137e5714b1a8da2a2409067e0d5526347b93d5300b1930a015b8f78b'),
+          index: 1,
+          finalScriptSig: hexToBytes(''),
+          sequence: 0,
+        },
+      ],
+      outputs: [
+        {
+          amount: BigInt(6000),
+          script: hexToBytes('001419f793aca8e151a4f0aad0c94656a40bdc4fc879'),
+        },
+        {
+          amount: BigInt(1468212),
+          script: hexToBytes('0014a8113965cee4d5ffa2d9996a204866a58200131d'),
+        },
+      ],
+      lockTime: 0,
     },
   });
   tx.addOutput({
-    amount: BigInt(200),
+    amount: BigInt(100),
     script: p2wpkh.script,
   });
 
   const psbt = tx.toPSBT();
 
-  return { signAtIndex: 0, hex: bytesToHex(psbt) };
+  return { hex: bytesToHex(psbt), signAtIndex: 0 };
 }
 
 function buildTestTaprootPsbtRequest(pubKey: Uint8Array): PsbtRequestOptions {
@@ -117,9 +247,30 @@ function buildTestTaprootPsbtRequest(pubKey: Uint8Array): PsbtRequestOptions {
   tx.addInput({
     index: 0,
     txid: '4f4cc7cb40b04978bd7704798dc1adf55b58196cef616b0fac8181965abc4726',
-    witnessUtxo: {
-      amount: BigInt(100),
-      script: payment.script,
+    nonWitnessUtxo: {
+      version: 1,
+      segwitFlag: false,
+      inputs: [
+        {
+          txid: hexToBytes('ed1f2163137e5714b1a8da2a2409067e0d5526347b93d5300b1930a015b8f78b'),
+          index: 0,
+          finalScriptSig: hexToBytes(''),
+          sequence: 4294967294,
+        },
+      ],
+      outputs: [
+        {
+          amount: BigInt(1000),
+          script: hexToBytes(
+            '5120d7b0a2cb4ea70c8d707caca0b06fb1c640c614d91f5e96baf5c3dd097cdfb113'
+          ),
+        },
+        {
+          amount: BigInt(1661000),
+          script: hexToBytes('001469f127131937ecffe8379a77dc0ecb255a3ade11'),
+        },
+      ],
+      lockTime: 2428539,
     },
   });
   tx.addOutput({
@@ -140,10 +291,30 @@ function buildTestTaprootPsbtRequestWithIndex(pubKey: Uint8Array): PsbtRequestOp
   tx.addInput({
     index: 0,
     txid: '4f4cc7cb40b04978bd7704798dc1adf55b58196cef616b0fac8181965abc4726',
-    // tapInternalKey: payment.tapInternalKey,
-    witnessUtxo: {
-      amount: BigInt(100),
-      script: payment.script,
+    nonWitnessUtxo: {
+      version: 1,
+      segwitFlag: false,
+      inputs: [
+        {
+          txid: hexToBytes('ed1f2163137e5714b1a8da2a2409067e0d5526347b93d5300b1930a015b8f78b'),
+          index: 0,
+          finalScriptSig: hexToBytes(''),
+          sequence: 4294967294,
+        },
+      ],
+      outputs: [
+        {
+          amount: BigInt(1000),
+          script: hexToBytes(
+            '5120d7b0a2cb4ea70c8d707caca0b06fb1c640c614d91f5e96baf5c3dd097cdfb113'
+          ),
+        },
+        {
+          amount: BigInt(1661000),
+          script: hexToBytes('001469f127131937ecffe8379a77dc0ecb255a3ade11'),
+        },
+      ],
+      lockTime: 2428539,
     },
   });
   tx.addOutput({
@@ -153,7 +324,7 @@ function buildTestTaprootPsbtRequestWithIndex(pubKey: Uint8Array): PsbtRequestOp
 
   const psbt = tx.toPSBT();
 
-  return { signAtIndex: 0, hex: bytesToHex(psbt) };
+  return { hex: bytesToHex(psbt), signAtIndex: 2 };
 }
 
 export const Bitcoin = () => {
@@ -212,7 +383,7 @@ export const Bitcoin = () => {
           signTx(buildTestTaprootPsbtRequestWithIndex(taprootPubKey), stacksTestnetNetwork)
         }
       >
-        Sign PSBT at index (Taproot)
+        Sign PSBT at index failure (Taproot)
       </styled.button>
       <styled.button
         mt={3}

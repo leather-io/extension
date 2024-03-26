@@ -6,7 +6,7 @@ import { useStacksClient } from '@app/store/common/api-clients.hooks';
 import { useSubmittedTransactionsActions } from '@app/store/submitted-transactions/submitted-transactions.hooks';
 import { useSubmittedTransactions } from '@app/store/submitted-transactions/submitted-transactions.selectors';
 
-import { useHiroApiRateLimiter } from '../rate-limiter';
+import { useHiroApiRateLimiter } from '../hiro-rate-limiter';
 
 export function useAccountMempoolQuery(address: string) {
   const client = useStacksClient();
@@ -15,8 +15,12 @@ export function useAccountMempoolQuery(address: string) {
   const limiter = useHiroApiRateLimiter();
 
   async function accountMempoolFetcher() {
-    await limiter.removeTokens(1);
-    return client.transactionsApi.getAddressMempoolTransactions({ address, limit: 50 });
+    return limiter.add(
+      () => client.transactionsApi.getAddressMempoolTransactions({ address, limit: 50 }),
+      {
+        throwOnTimeout: true,
+      }
+    );
   }
 
   return useQuery({
