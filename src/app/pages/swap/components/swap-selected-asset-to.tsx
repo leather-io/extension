@@ -1,9 +1,9 @@
 import { useField } from 'formik';
 
+import { useAlexSdkAmountAsFiat } from '@app/common/hooks/use-alex-sdk';
 import { formatMoneyWithoutSymbol } from '@app/common/money/format-money';
 import { LoadingSpinner } from '@app/components/loading-spinner';
 
-import { useAlexSdkAmountAsFiat } from '../hooks/use-alex-sdk-fiat-price';
 import { useSwapContext } from '../swap.context';
 import { SwapAmountField } from './swap-amount-field';
 import { SwapSelectedAssetLayout } from './swap-selected-asset.layout';

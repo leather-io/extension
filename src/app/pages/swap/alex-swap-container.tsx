@@ -14,6 +14,7 @@ import BigNumber from 'bignumber.js';
 import { logger } from '@shared/logger';
 import { RouteUrls } from '@shared/route-urls';
 import { isDefined, isUndefined } from '@shared/utils';
+import { alex } from '@shared/utils/alex-sdk';
 
 import { LoadingKeys, useLoading } from '@app/common/hooks/use-loading';
 import { useWalletType } from '@app/common/use-wallet-type';
@@ -55,7 +56,6 @@ function AlexSwapContainer() {
   });
 
   const {
-    alexSDK,
     fetchToAmount,
     createSwapAssetFromAlexCurrency,
     isFetchingExchangeRate,
@@ -66,7 +66,7 @@ function AlexSwapContainer() {
     swapSubmissionData,
   } = useAlexSwap();
 
-  const broadcastAlexSwap = useAlexBroadcastSwap(alexSDK);
+  const broadcastAlexSwap = useAlexBroadcastSwap();
   const broadcastStacksSwap = useStacksBroadcastSwap();
 
   const swappableAssets: SwapAsset[] = useMemo(
@@ -84,8 +84,8 @@ function AlexSwapContainer() {
     }
 
     const [router, lpFee] = await Promise.all([
-      alexSDK.getRouter(values.swapAssetFrom.currency, values.swapAssetTo.currency),
-      alexSDK.getFeeRate(values.swapAssetFrom.currency, values.swapAssetTo.currency),
+      alex.getRouter(values.swapAssetFrom.currency, values.swapAssetTo.currency),
+      alex.getFeeRate(values.swapAssetFrom.currency, values.swapAssetTo.currency),
     ]);
 
     onSetSwapSubmissionData({
@@ -141,7 +141,7 @@ function AlexSwapContainer() {
         .toString()
     );
 
-    const tx = alexSDK.runSwap(
+    const tx = alex.runSwap(
       currentAccount?.address,
       swapSubmissionData.swapAssetFrom.currency,
       swapSubmissionData.swapAssetTo.currency,

@@ -1,27 +1,15 @@
 import { Stack, styled } from 'leather-styles/jsx';
 
+import type { Blockchains } from '@shared/models/blockchain.model';
 import { CryptoCurrencies } from '@shared/models/currencies.model';
 
 import { HasChildren } from '@app/common/has-children';
 
-const nameMap: Record<CryptoCurrencies, { name: string; symbol: string }> = {
-  BTC: {
-    name: 'Bitcoin',
-    symbol: 'BTC',
-  },
-  STX: {
-    name: 'Stacks',
-    symbol: 'STX',
-  },
-};
-
 interface FundLayoutProps extends HasChildren {
+  blockchain: Blockchains;
   symbol: CryptoCurrencies;
 }
-
-export function FundLayout({ symbol, children }: FundLayoutProps) {
-  const name = nameMap[symbol].name;
-  const nameAbbr = nameMap[symbol].symbol;
+export function FundLayout({ blockchain, symbol, children }: FundLayoutProps) {
   return (
     <Stack
       alignItems={{ base: 'left', md: 'center' }}
@@ -44,9 +32,10 @@ export function FundLayout({ symbol, children }: FundLayoutProps) {
         maxWidth="544px"
         textAlign={{ base: 'left', md: 'center' }}
       >
-        Choose an exchange to fund your account with {name} ({nameAbbr}) or deposit from elsewhere.
-        Exchanges with “Fast checkout” make it easier to purchase {nameAbbr} for direct deposit into
-        your wallet with a credit card.
+        Choose an exchange to fund your account with{' '}
+        <styled.span textTransform="capitalize">{blockchain}</styled.span> ({symbol}) or deposit
+        from elsewhere. Exchanges with “Fast checkout” make it easier to purchase {symbol} for
+        direct deposit into your wallet with a credit card.
       </styled.span>
       {children}
     </Stack>
