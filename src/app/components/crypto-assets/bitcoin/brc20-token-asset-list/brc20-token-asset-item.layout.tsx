@@ -13,13 +13,9 @@ interface Brc20TokenAssetItemLayoutProps {
   token: Brc20Token;
   onClick?(): void;
 }
-export function Brc20TokenAssetItemLayout({
-  onClick,
-
-  token,
-}: Brc20TokenAssetItemLayoutProps) {
-  const balance = createMoney(Number(token.overall_balance), token.ticker, 0);
-  const formattedBalance = formatBalance(balance.amount.toString());
+export function Brc20TokenAssetItemLayout({ onClick, token }: Brc20TokenAssetItemLayoutProps) {
+  const balance = createMoney(Number(token.overall_balance), token.ticker, 0).amount.toString();
+  const formattedBalance = formatBalance(balance);
 
   return (
     <Pressable onClick={onClick} my="space.02">
@@ -30,7 +26,7 @@ export function Brc20TokenAssetItemLayout({
         titleRight={
           <BasicTooltip
             asChild
-            label={formattedBalance.isAbbreviated ? balance.amount.toString() : undefined}
+            label={formattedBalance.isAbbreviated ? balance : undefined}
             side="left"
           >
             <styled.span data-testid={token.ticker} textStyle="label.02">

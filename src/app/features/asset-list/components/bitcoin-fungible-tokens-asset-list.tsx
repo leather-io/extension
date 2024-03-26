@@ -1,19 +1,20 @@
-import { Stack } from 'leather-styles/jsx';
-
-import { Brc20TokenAssetItemLayout } from '@app/components/crypto-assets/bitcoin/brc20-token-asset-list/components/brc20-token-asset-item.layout';
-import { Brc20Token } from '@app/query/bitcoin/bitcoin-client';
+import { Brc20TokensLoader } from '@app/components/brc20-tokens-loader';
+import { Brc20TokenAssetList } from '@app/components/crypto-assets/bitcoin/brc20-token-asset-list/brc20-token-asset-list';
+import { Src20TokenAssetList } from '@app/components/crypto-assets/bitcoin/src20-token-asset-list/src20-token-asset-list';
+import { Src20TokensLoader } from '@app/components/src20-tokens-loader';
 
 interface BitcoinFungibleTokenAssetListProps {
-  brc20Tokens?: Brc20Token[];
+  btcAddress: string;
 }
-export function BitcoinFungibleTokenAssetList({ brc20Tokens }: BitcoinFungibleTokenAssetListProps) {
-  if (!brc20Tokens) return null;
-
+export function BitcoinFungibleTokenAssetList({ btcAddress }: BitcoinFungibleTokenAssetListProps) {
   return (
-    <Stack gap="space.05">
-      {brc20Tokens.map(token => (
-        <Brc20TokenAssetItemLayout key={token.ticker} token={token} />
-      ))}
-    </Stack>
+    <>
+      <Brc20TokensLoader>
+        {brc20Tokens => <Brc20TokenAssetList brc20Tokens={brc20Tokens} />}
+      </Brc20TokensLoader>
+      <Src20TokensLoader address={btcAddress}>
+        {src20Tokens => <Src20TokenAssetList src20Tokens={src20Tokens} />}
+      </Src20TokensLoader>
+    </>
   );
 }

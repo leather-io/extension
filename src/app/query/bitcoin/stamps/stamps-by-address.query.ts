@@ -31,7 +31,7 @@ export interface Stamp {
   file_hash: string;
 }
 
-interface Src20 {
+export interface Src20Token {
   id: string;
   address: string;
   cpid: string;
@@ -57,18 +57,18 @@ interface StampsByAddressQueryResponse {
   };
   data: {
     stamps: Stamp[];
-    src20: Src20[];
+    src20: Src20Token[];
   };
 }
 
 /**
  * @see https://stampchain.io/docs#/default/get_api_v2_balance__address_
  */
-async function fetchStampsByAddress(address: string): Promise<Stamp[]> {
+async function fetchStampsByAddress(address: string): Promise<StampsByAddressQueryResponse> {
   const resp = await axios.get<StampsByAddressQueryResponse>(
     `https://stampchain.io/api/v2/balance/${address}`
   );
-  return resp.data.data.stamps;
+  return resp.data;
 }
 
 type FetchStampsByAddressResp = Awaited<ReturnType<typeof fetchStampsByAddress>>;
