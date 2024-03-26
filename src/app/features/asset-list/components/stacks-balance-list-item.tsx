@@ -6,12 +6,12 @@ interface StacksBalanceListItemProps {
   address: string;
 }
 export function StacksBalanceListItem({ address }: StacksBalanceListItemProps) {
-  const balaceDetails = useStxBalance();
+  const balanceDetails = useStxBalance();
   return (
     <StacksBalanceListItemLayout
       address={address}
-      isInitialLoading={balaceDetails.stxBalanceQuery.isInitialLoading}
-      {...balaceDetails}
+      isInitialLoading={balanceDetails.stxBalanceQuery.isInitialLoading}
+      {...balanceDetails}
     />
   );
 }

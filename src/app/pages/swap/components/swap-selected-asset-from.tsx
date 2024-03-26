@@ -5,10 +5,10 @@ import { createMoney } from '@shared/models/money.model';
 import { isUndefined } from '@shared/utils';
 
 import { useShowFieldError } from '@app/common/form-utils';
+import { useAlexSdkAmountAsFiat } from '@app/common/hooks/use-alex-sdk';
 import { convertAmountToFractionalUnit } from '@app/common/money/calculate-money';
 import { formatMoneyWithoutSymbol } from '@app/common/money/format-money';
 
-import { useAlexSdkAmountAsFiat } from '../hooks/use-alex-sdk-fiat-price';
 import { SwapFormValues } from '../hooks/use-swap-form';
 import { useSwapContext } from '../swap.context';
 import { SwapAmountField } from './swap-amount-field';

@@ -1,14 +1,13 @@
 import { SwapSelectors } from '@tests/selectors/swap.selectors';
 
+import { useAlexSdkBalanceAsFiat } from '@app/common/hooks/use-alex-sdk';
 import { formatMoneyWithoutSymbol } from '@app/common/money/format-money';
+import type { SwapAsset } from '@app/pages/swap/hooks/use-swap-form';
 import { useGetFungibleTokenMetadataQuery } from '@app/query/stacks/tokens/fungible-tokens/fungible-token-metadata.query';
 import { isFtAsset } from '@app/query/stacks/tokens/token-metadata.utils';
 import { Avatar, defaultFallbackDelay, getAvatarFallback } from '@app/ui/components/avatar/avatar';
 import { ItemLayout } from '@app/ui/components/item-layout/item-layout';
 import { Pressable } from '@app/ui/pressable/pressable';
-
-import { useAlexSdkBalanceAsFiat } from '../../../hooks/use-alex-sdk-fiat-price';
-import { SwapAsset } from '../../../hooks/use-swap-form';
 
 interface SwapAssetItemProps {
   asset: SwapAsset;

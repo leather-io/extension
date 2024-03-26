@@ -1,9 +1,6 @@
-const CRYPTO_CURRENCIES_ARRAY = ['BTC', 'STX'] as const;
+import type { LiteralUnion } from 'leather-styles/types';
 
-export type CryptoCurrencies = (typeof CRYPTO_CURRENCIES_ARRAY)[number];
-
-export const isCryptoCurrency = (value: unknown): value is CryptoCurrencies =>
-  CRYPTO_CURRENCIES_ARRAY.some(cryptocurrency => cryptocurrency === value);
+export type CryptoCurrencies = LiteralUnion<'BTC' | 'STX', string>;
 
 export type FiatCurrencies = 'USD' | string;
 

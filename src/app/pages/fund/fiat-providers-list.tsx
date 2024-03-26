@@ -1,10 +1,8 @@
-import { useMemo } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 
 import { Grid } from 'leather-styles/jsx';
 
 import { CryptoCurrencies } from '@shared/models/currencies.model';
-import { RouteUrls } from '@shared/route-urls';
 
 import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
 import { openInNewTab } from '@app/common/utils/open-in-new-tab';
@@ -20,24 +18,16 @@ import { ReceiveFundsItem } from './components/receive-funds-item';
 
 interface FiatProvidersProps {
   address: string;
+  route: string;
   symbol: CryptoCurrencies;
 }
 export function FiatProvidersList(props: FiatProvidersProps) {
-  const { address, symbol } = props;
+  const { address, route, symbol } = props;
   const navigate = useNavigate();
   const activeProviders = useActiveFiatProviders();
   const hasProviders = useHasFiatProviders();
   const analytics = useAnalytics();
   const location = useLocation();
-
-  const routeToQr = useMemo(() => {
-    switch (symbol) {
-      case 'BTC':
-        return RouteUrls.ReceiveBtc;
-      case 'STX':
-        return RouteUrls.ReceiveStx;
-    }
-  }, [symbol]);
 
   const goToProviderExternalWebsite = (provider: string, providerUrl: string) => {
     void analytics.track('select_buy_option', { provider });
@@ -56,7 +46,7 @@ export function FiatProvidersList(props: FiatProvidersProps) {
       <ReceiveFundsItem
         symbol={symbol}
         onReceive={() =>
-          navigate(routeToQr, {
+          navigate(route, {
             state: { backgroundLocation: location },
           })
         }

@@ -22,7 +22,7 @@ function getPlaceholderValue(name: string, values: SwapFormValues) {
 }
 
 interface SwapAmountFieldProps {
-  amountAsFiat: string;
+  amountAsFiat?: string;
   isDisabled?: boolean;
   name: string;
 }

@@ -1,4 +1,5 @@
 import { StacksFungibleTokenAsset } from '@shared/models/crypto-asset.model';
+import { createMoney } from '@shared/models/money.model';
 
 import {
   isFtNameLikeStx,
@@ -31,6 +32,7 @@ describe(isTransferableStacksFungibleTokenAsset.name, () => {
       canTransfer: true,
       hasMemo: true,
       imageCanonicalUri: '',
+      price: createMoney(0, 'USD'),
       symbol: 'CAT',
     };
     expect(isTransferableStacksFungibleTokenAsset(asset)).toBeTruthy();
@@ -47,6 +49,7 @@ describe(isTransferableStacksFungibleTokenAsset.name, () => {
       canTransfer: true,
       hasMemo: true,
       imageCanonicalUri: '',
+      price: createMoney(0, 'USD'),
       symbol: 'CAT',
     };
     expect(isTransferableStacksFungibleTokenAsset(asset)).toBeTruthy();

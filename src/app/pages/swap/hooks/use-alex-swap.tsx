@@ -1,16 +1,17 @@
 import { useCallback, useState } from 'react';
-import { useAsync } from 'react-async-hook';
 
-import { AlexSDK, Currency, TokenInfo } from 'alex-sdk';
+import { Currency, TokenInfo } from 'alex-sdk';
 import BigNumber from 'bignumber.js';
 
 import { logger } from '@shared/logger';
 import { createMoney } from '@shared/models/money.model';
+import { alex } from '@shared/utils/alex-sdk';
 
 import { useStxBalance } from '@app/common/hooks/balance/stx/use-stx-balance';
 import { convertAmountToFractionalUnit } from '@app/common/money/calculate-money';
 import { pullContractIdFromIdentity } from '@app/common/utils';
-import { useSwappableCurrencyQuery } from '@app/query/common/alex-swaps/swappable-currency.query';
+import { useAlexSdkLatestPricesQuery } from '@app/query/common/alex-sdk/latest-prices.query';
+import { useAlexSdkSwappableCurrencyQuery } from '@app/query/common/alex-sdk/swappable-currency.query';
 import { useTransferableStacksFungibleTokenAssetBalances } from '@app/query/stacks/balance/stacks-ft-balances.hooks';
 import { useCurrentStacksAccount } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
 
@@ -20,12 +21,11 @@ import { SwapAsset } from './use-swap-form';
 export const oneHundredMillion = 100_000_000;
 
 export function useAlexSwap() {
-  const alexSDK = useState(() => new AlexSDK())[0];
   const [swapSubmissionData, setSwapSubmissionData] = useState<SwapSubmissionData>();
   const [slippage, _setSlippage] = useState(0.04);
   const [isFetchingExchangeRate, setIsFetchingExchangeRate] = useState(false);
-  const { data: supportedCurrencies = [] } = useSwappableCurrencyQuery(alexSDK);
-  const { result: prices } = useAsync(async () => await alexSDK.getLatestPrices(), [alexSDK]);
+  const { data: supportedCurrencies = [] } = useAlexSdkSwappableCurrencyQuery();
+  const { data: prices } = useAlexSdkLatestPricesQuery();
   const { availableBalance: availableStxBalance } = useStxBalance();
   const account = useCurrentStacksAccount();
   const stacksFtAssetBalances = useTransferableStacksFungibleTokenAssetBalances(
@@ -79,7 +79,7 @@ export function useAlexSwap() {
     const amountAsBigInt = isNaN(Number(amount)) ? BigInt(0) : BigInt(amount);
     try {
       setIsFetchingExchangeRate(true);
-      const result = await alexSDK.getAmountTo(from.currency, amountAsBigInt, to.currency);
+      const result = await alex.getAmountTo(from.currency, amountAsBigInt, to.currency);
       setIsFetchingExchangeRate(false);
       return new BigNumber(Number(result)).dividedBy(oneHundredMillion).toString();
     } catch (e) {
@@ -90,7 +90,6 @@ export function useAlexSwap() {
   }
 
   return {
-    alexSDK,
     fetchToAmount,
     createSwapAssetFromAlexCurrency,
     isFetchingExchangeRate,
