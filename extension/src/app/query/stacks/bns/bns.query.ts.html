@@ -39,14 +39,14 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/4</span>
+                <span class='fraction'>0/5</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/10</span>
+                <span class='fraction'>0/9</span>
             </div>
         
             
@@ -121,7 +121,13 @@
 <a name='L56'></a><a href='#L56'>56</a>
 <a name='L57'></a><a href='#L57'>57</a>
 <a name='L58'></a><a href='#L58'>58</a>
-<a name='L59'></a><a href='#L59'>59</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L59'></a><a href='#L59'>59</a>
+<a name='L60'></a><a href='#L60'>60</a>
+<a name='L61'></a><a href='#L61'>61</a>
+<a name='L62'></a><a href='#L62'>62</a>
+<a name='L63'></a><a href='#L63'>63</a>
+<a name='L64'></a><a href='#L64'>64</a>
+<a name='L65'></a><a href='#L65'>65</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -156,25 +162,31 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -188,14 +200,14 @@ import { StacksClient } from '@app/query/stacks/stacks-client';
 import { useStacksClient } from '@app/store/common/api-clients.hooks';
 import { useCurrentNetworkState } from '@app/store/networks/networks.hooks';
 &nbsp;
-import { RateLimiter, useHiroApiRateLimiter } from '../rate-limiter';
+import { useHiroApiRateLimiter } from '../hiro-rate-limiter';
 import { fetchNamesForAddress } from './bns.utils';
 &nbsp;
-const staleTime = <span class="cstat-no" title="statement not covered" >15 * 60 * 1000; // 15 min</span>
+const staleTime = <span class="cstat-no" title="statement not covered" >24 * 60 * 60 * 1000; // 24 hours</span>
 &nbsp;
 const bnsQueryOptions = <span class="cstat-no" title="statement not covered" >{</span>
   keepPreviousData: true,
-  cacheTime: staleTime,
+  cacheTime: Infinity,
   staleTime: staleTime,
   refetchOnMount: false,
   refetchInterval: false,
@@ -206,17 +218,17 @@ type BnsNameFetcher = (address: string) =&gt; Promise&lt;BnsNamesOwnByAddressRes
 &nbsp;
 interface GetBnsNameFetcherFactoryArgs {
   client: StacksClient;
-  limiter: RateLimiter;
   isTestnet: boolean;
+  signal?: AbortSignal;
 }
+&nbsp;
 function <span class="fstat-no" title="function not covered" >getBnsNameFetcherFactory({</span>
   client,
-  limiter,
   isTestnet,
+  signal,
 }: GetBnsNameFetcherFactoryArgs): BnsNameFetcher {
 <span class="cstat-no" title="statement not covered" >  return <span class="fstat-no" title="function not covered" >async (a</span>ddress: string) =&gt; {</span>
-<span class="cstat-no" title="statement not covered" >    await limiter.removeTokens(1);</span>
-<span class="cstat-no" title="statement not covered" >    return fetchNamesForAddress({ client, address, isTestnet });</span>
+<span class="cstat-no" title="statement not covered" >    return fetchNamesForAddress({ client, address, isTestnet, signal });</span>
   };
 }
 &nbsp;
@@ -232,7 +244,13 @@ export function <span class="fstat-no" title="function not covered" >useGetBnsNa
 <span class="cstat-no" title="statement not covered" >  return useQuery({</span>
     enabled: address !== '',
     queryKey: [QueryPrefixes.BnsNamesByAddress, address],
-    queryFn: <span class="fstat-no" title="function not covered" >() =&gt; <span class="cstat-no" title="statement not covered" >g</span>etBnsNameFetcherFactory({ client, limiter, isTestnet })(address),</span>
+    queryFn: <span class="fstat-no" title="function not covered" >async ({</span> signal }) =&gt; {
+<span class="cstat-no" title="statement not covered" >      return limiter.add(<span class="fstat-no" title="function not covered" >() =&gt; <span class="cstat-no" title="statement not covered" >f</span>etchNamesForAddress({ client, address, isTestnet, signal }), {</span></span>
+        signal,
+        priority: 2,
+        throwOnTimeout: true,
+      });
+    },
     ...bnsQueryOptions,
     ...options,
   });
@@ -244,7 +262,7 @@ export function <span class="fstat-no" title="function not covered" >useGetBnsNa
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-03-19T11:25:56.665Z
+                at 2024-03-26T16:28:28.513Z
             </div>
         <script src="../../../../../../prettify.js"></script>
         <script>

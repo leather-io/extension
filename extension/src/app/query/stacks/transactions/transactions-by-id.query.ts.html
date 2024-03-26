@@ -39,7 +39,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/7</span>
+                <span class='fraction'>0/9</span>
             </div>
         
             
@@ -113,7 +113,16 @@
 <a name='L48'></a><a href='#L48'>48</a>
 <a name='L49'></a><a href='#L49'>49</a>
 <a name='L50'></a><a href='#L50'>50</a>
-<a name='L51'></a><a href='#L51'>51</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L51'></a><a href='#L51'>51</a>
+<a name='L52'></a><a href='#L52'>52</a>
+<a name='L53'></a><a href='#L53'>53</a>
+<a name='L54'></a><a href='#L54'>54</a>
+<a name='L55'></a><a href='#L55'>55</a>
+<a name='L56'></a><a href='#L56'>56</a>
+<a name='L57'></a><a href='#L57'>57</a>
+<a name='L58'></a><a href='#L58'>58</a>
+<a name='L59'></a><a href='#L59'>59</a>
+<a name='L60'></a><a href='#L60'>60</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -136,6 +145,23 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -145,14 +171,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -168,7 +186,7 @@ import { useQueries, useQuery } from '@tanstack/react-query';
 &nbsp;
 import { useStacksClient } from '@app/store/common/api-clients.hooks';
 &nbsp;
-import { useHiroApiRateLimiter } from '../rate-limiter';
+import { useHiroApiRateLimiter } from '../hiro-rate-limiter';
 &nbsp;
 const options = <span class="cstat-no" title="statement not covered" >{</span>
   staleTime: 30 * 1000,
@@ -182,8 +200,12 @@ export function <span class="fstat-no" title="function not covered" >useTransact
   const limiter = <span class="cstat-no" title="statement not covered" >useHiroApiRateLimiter();</span>
 &nbsp;
   async function <span class="fstat-no" title="function not covered" >transactionByIdFetcher(t</span>xId: string) {
-<span class="cstat-no" title="statement not covered" >    await limiter.removeTokens(1);</span>
-<span class="cstat-no" title="statement not covered" >    return client.transactionsApi.getTransactionById({ txId }) as unknown as MempoolTransaction;</span>
+<span class="cstat-no" title="statement not covered" >    return limiter.add(</span>
+<span class="fstat-no" title="function not covered" >      () =&gt; <span class="cstat-no" title="statement not covered" >c</span>lient.transactionsApi.getTransactionById({ txId }) as unknown as MempoolTransaction,</span>
+      {
+        throwOnTimeout: true,
+      }
+    );
   }
 &nbsp;
 <span class="cstat-no" title="statement not covered" >  return useQueries({</span>
@@ -201,10 +223,15 @@ export function <span class="fstat-no" title="function not covered" >useTransact
   const client = <span class="cstat-no" title="statement not covered" >useStacksClient();</span>
   const limiter = <span class="cstat-no" title="statement not covered" >useHiroApiRateLimiter();</span>
   async function <span class="fstat-no" title="function not covered" >transactionByIdFetcher(t</span>xId: string) {
-<span class="cstat-no" title="statement not covered" >    await limiter.removeTokens(1);</span>
-<span class="cstat-no" title="statement not covered" >    return client.transactionsApi.getTransactionById({ txId }) as unknown as</span>
-      | Transaction
-      | MempoolTransaction;
+<span class="cstat-no" title="statement not covered" >    return limiter.add(</span>
+<span class="fstat-no" title="function not covered" >      () =&gt;</span>
+<span class="cstat-no" title="statement not covered" >        client.transactionsApi.getTransactionById({ txId }) as unknown as</span>
+          | Transaction
+          | MempoolTransaction,
+      {
+        throwOnTimeout: true,
+      }
+    );
   }
 &nbsp;
 <span class="cstat-no" title="statement not covered" >  return useQuery({</span>
@@ -220,7 +247,7 @@ export function <span class="fstat-no" title="function not covered" >useTransact
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-03-19T11:25:56.665Z
+                at 2024-03-26T16:28:28.513Z
             </div>
         <script src="../../../../../../prettify.js"></script>
         <script>

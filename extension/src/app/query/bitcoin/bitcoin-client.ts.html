@@ -25,7 +25,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/42</span>
+                <span class='fraction'>0/45</span>
             </div>
         
             
@@ -39,14 +39,14 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/20</span>
+                <span class='fraction'>0/22</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/41</span>
+                <span class='fraction'>0/44</span>
             </div>
         
             
@@ -348,7 +348,22 @@
 <a name='L283'></a><a href='#L283'>283</a>
 <a name='L284'></a><a href='#L284'>284</a>
 <a name='L285'></a><a href='#L285'>285</a>
-<a name='L286'></a><a href='#L286'>286</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L286'></a><a href='#L286'>286</a>
+<a name='L287'></a><a href='#L287'>287</a>
+<a name='L288'></a><a href='#L288'>288</a>
+<a name='L289'></a><a href='#L289'>289</a>
+<a name='L290'></a><a href='#L290'>290</a>
+<a name='L291'></a><a href='#L291'>291</a>
+<a name='L292'></a><a href='#L292'>292</a>
+<a name='L293'></a><a href='#L293'>293</a>
+<a name='L294'></a><a href='#L294'>294</a>
+<a name='L295'></a><a href='#L295'>295</a>
+<a name='L296'></a><a href='#L296'>296</a>
+<a name='L297'></a><a href='#L297'>297</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -512,14 +527,21 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -634,9 +656,13 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import axios from 'axios';
+import PQueue from 'p-queue';
 &nbsp;
 import { HIRO_API_BASE_URL_MAINNET } from '@shared/constants';
 import { Paginated } from '@shared/models/api-types';
+import type { BitcoinTx } from '@shared/models/transactions/bitcoin-transaction.model';
+&nbsp;
+import { getBlockstreamRatelimiter } from './blockstream-rate-limiter';
 &nbsp;
 class Configuration {
 <span class="fstat-no" title="function not covered" >  constructor(public <span class="cstat-no" title="statement not covered" >b</span>aseUrl: string) {</span>}
@@ -797,16 +823,23 @@ class HiroApi {
 }
 &nbsp;
 class AddressApi {
-<span class="fstat-no" title="function not covered" >  constructor(public <span class="cstat-no" title="statement not covered" >c</span>onfiguration: Configuration) {</span>}
+  rateLimiter: PQueue;
+<span class="fstat-no" title="function not covered" >  constructor(public <span class="cstat-no" title="statement not covered" >c</span>onfiguration: Configuration) {</span>
+<span class="cstat-no" title="statement not covered" >    this.rateLimiter = getBlockstreamRatelimiter(this.configuration.baseUrl);</span>
+  }
 &nbsp;
-<span class="fstat-no" title="function not covered" >  async g</span>etTransactionsByAddress(address: string) {
-    const resp = <span class="cstat-no" title="statement not covered" >await axios.get(`${this.configuration.baseUrl}/address/${address}/txs`);</span>
+<span class="fstat-no" title="function not covered" >  async g</span>etTransactionsByAddress(address: string, signal?: AbortSignal) {
+    const resp = <span class="cstat-no" title="statement not covered" >await this.rateLimiter.add(</span>
+<span class="fstat-no" title="function not covered" >      () =&gt; <span class="cstat-no" title="statement not covered" >a</span>xios.get&lt;BitcoinTx[]&gt;(`${this.configuration.baseUrl}/address/${address}/txs`),</span>
+      { signal, throwOnTimeout: true }
+    );
 <span class="cstat-no" title="statement not covered" >    return resp.data;</span>
   }
 &nbsp;
-<span class="fstat-no" title="function not covered" >  async g</span>etUtxosByAddress(address: string): Promise&lt;UtxoResponseItem[]&gt; {
-    const resp = <span class="cstat-no" title="statement not covered" >await axios.get&lt;UtxoResponseItem[]&gt;(</span>
-      `${this.configuration.baseUrl}/address/${address}/utxo`
+<span class="fstat-no" title="function not covered" >  async g</span>etUtxosByAddress(address: string, signal?: AbortSignal): Promise&lt;UtxoResponseItem[]&gt; {
+    const resp = <span class="cstat-no" title="statement not covered" >await this.rateLimiter.add(</span>
+<span class="fstat-no" title="function not covered" >      () =&gt; <span class="cstat-no" title="statement not covered" >a</span>xios.get&lt;UtxoResponseItem[]&gt;(`${this.configuration.baseUrl}/address/${address}/utxo`),</span>
+      { signal, priority: 1, throwOnTimeout: true }
     );
 <span class="cstat-no" title="statement not covered" >    return resp.data.sort(<span class="fstat-no" title="function not covered" >(a</span>, b) =&gt; <span class="cstat-no" title="statement not covered" >a.vout - b.vout)</span>;</span>
   }
@@ -925,7 +958,7 @@ export class BitcoinClient {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-03-19T11:25:56.665Z
+                at 2024-03-26T16:28:28.513Z
             </div>
         <script src="../../../../../prettify.js"></script>
         <script>

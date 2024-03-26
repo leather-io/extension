@@ -25,7 +25,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/14</span>
+                <span class='fraction'>0/12</span>
             </div>
         
             
@@ -39,14 +39,14 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/6</span>
+                <span class='fraction'>0/5</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/13</span>
+                <span class='fraction'>0/11</span>
             </div>
         
             
@@ -111,12 +111,7 @@
 <a name='L46'></a><a href='#L46'>46</a>
 <a name='L47'></a><a href='#L47'>47</a>
 <a name='L48'></a><a href='#L48'>48</a>
-<a name='L49'></a><a href='#L49'>49</a>
-<a name='L50'></a><a href='#L50'>50</a>
-<a name='L51'></a><a href='#L51'>51</a>
-<a name='L52'></a><a href='#L52'>52</a>
-<a name='L53'></a><a href='#L53'>53</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L49'></a><a href='#L49'>49</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -140,13 +135,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -157,6 +145,10 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -175,8 +167,7 @@ import { QueryPrefixes } from '@app/query/query-prefixes';
 import { StacksAccount } from '@app/store/accounts/blockchain/stacks/stacks-account.models';
 import { useTokenMetadataClient } from '@app/store/common/api-clients.hooks';
 &nbsp;
-import { RateLimiter, useHiroApiRateLimiter } from '../../rate-limiter';
-import { TokenMetadataClient } from '../../token-metadata-client';
+import { useHiroApiRateLimiter } from '../../hiro-rate-limiter';
 import { NftAssetResponse } from '../token-metadata.utils';
 import { useGetNonFungibleTokenHoldingsQuery } from './non-fungible-token-holdings.query';
 &nbsp;
@@ -189,13 +180,6 @@ const queryOptions = <span class="cstat-no" title="statement not covered" >{</sp
 function <span class="fstat-no" title="function not covered" >getTokenId(h</span>ex: string) {
   const clarityValue = <span class="cstat-no" title="statement not covered" >hexToCV(hex);</span>
 <span class="cstat-no" title="statement not covered" >  return clarityValue.type === 1 ? Number(clarityValue.value) : 0;</span>
-}
-&nbsp;
-function <span class="fstat-no" title="function not covered" >fetchNonFungibleTokenMetadata(c</span>lient: TokenMetadataClient, limiter: RateLimiter) {
-<span class="cstat-no" title="statement not covered" >  return <span class="fstat-no" title="function not covered" >(p</span>rincipal: string, tokenId: number) =&gt; <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >async () =&gt; {</span></span></span>
-<span class="cstat-no" title="statement not covered" >    await limiter.removeTokens(1);</span>
-<span class="cstat-no" title="statement not covered" >    return client.tokensApi.getNftMetadata(principal, tokenId);</span>
-  };
 }
 &nbsp;
 export function <span class="fstat-no" title="function not covered" >useGetNonFungibleTokenMetadataListQuery(</span>
@@ -213,7 +197,11 @@ export function <span class="fstat-no" title="function not covered" >useGetNonFu
 <span class="cstat-no" title="statement not covered" >      return {</span>
         enabled: !!tokenId,
         queryKey: [QueryPrefixes.GetNftMetadata, principal, tokenId],
-        queryFn: fetchNonFungibleTokenMetadata(client, limiter)(principal, tokenId),
+        queryFn: <span class="fstat-no" title="function not covered" >async () =&gt; {</span>
+<span class="cstat-no" title="statement not covered" >          return limiter.add(<span class="fstat-no" title="function not covered" >() =&gt; <span class="cstat-no" title="statement not covered" >c</span>lient.tokensApi.getNftMetadata(principal, tokenId), {</span></span>
+            throwOnTimeout: true,
+          });
+        },
         ...queryOptions,
       };
     }),
@@ -226,7 +214,7 @@ export function <span class="fstat-no" title="function not covered" >useGetNonFu
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-03-19T11:25:56.665Z
+                at 2024-03-26T16:28:28.513Z
             </div>
         <script src="../../../../../../../prettify.js"></script>
         <script>

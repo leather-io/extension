@@ -25,14 +25,14 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/2</span>
+                <span class='fraction'>0/6</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/11</span>
+                <span class='fraction'>0/13</span>
             </div>
         
             
@@ -46,7 +46,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/2</span>
+                <span class='fraction'>0/6</span>
             </div>
         
             
@@ -137,7 +137,16 @@
 <a name='L72'></a><a href='#L72'>72</a>
 <a name='L73'></a><a href='#L73'>73</a>
 <a name='L74'></a><a href='#L74'>74</a>
-<a name='L75'></a><a href='#L75'>75</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L75'></a><a href='#L75'>75</a>
+<a name='L76'></a><a href='#L76'>76</a>
+<a name='L77'></a><a href='#L77'>77</a>
+<a name='L78'></a><a href='#L78'>78</a>
+<a name='L79'></a><a href='#L79'>79</a>
+<a name='L80'></a><a href='#L80'>80</a>
+<a name='L81'></a><a href='#L81'>81</a>
+<a name='L82'></a><a href='#L82'>82</a>
+<a name='L83'></a><a href='#L83'>83</a>
+<a name='L84'></a><a href='#L84'>84</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -177,6 +186,7 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -210,10 +220,18 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { ReactNode } from 'react';
 &nbsp;
-import { Flex, styled } from 'leather-styles/jsx';
+import { Box, Flex, styled } from 'leather-styles/jsx';
 &nbsp;
 import { AllCryptoCurrencyAssetBalances } from '@shared/models/crypto-asset-balance.model';
 &nbsp;
@@ -248,42 +266,51 @@ export function <span class="fstat-no" title="function not covered" >CryptoCurre
   const { balance, dataTestId, formattedBalance, title } =
 <span class="cstat-no" title="statement not covered" >    parseCryptoCurrencyAssetBalance(assetBalance);</span>
 &nbsp;
-<span class="cstat-no" title="statement not covered" >  return (</span>
-    &lt;Pressable data-testid={dataTestId} onClick={onClick} my="space.02"&gt;
-      &lt;ItemLayout
-        flagImg={icon}
-        titleLeft={title}
-        captionLeft={balance.symbol}
-        titleRight={
-          rightElement ? (
-            rightElement
-          ) : (
-            &lt;BasicTooltip
-              asChild
-              label={formattedBalance.isAbbreviated ? balance.amount.toString() : undefined}
-              side="left"
-            &gt;
-              &lt;styled.span data-testid={title} fontWeight={500} textStyle="label.02"&gt;
-                {formattedBalance.value} {additionalBalanceInfo}
-              &lt;/styled.span&gt;
-            &lt;/BasicTooltip&gt;
-          )
-        }
-        captionRight={
-          !rightElement &amp;&amp; (
-            &lt;Caption&gt;
-              &lt;Flex alignItems="center" gap="space.02" color="inherit"&gt;
-                &lt;BulletSeparator&gt;
-                  &lt;Caption&gt;{balance.amount.toNumber() &gt; 0 &amp;&amp; address ? usdBalance : null}&lt;/Caption&gt;
-                  {additionalUsdBalanceInfo}
-                &lt;/BulletSeparator&gt;
-              &lt;/Flex&gt;
-            &lt;/Caption&gt;
-          )
-        }
-      /&gt;
-    &lt;/Pressable&gt;
+  const isInteractive = <span class="cstat-no" title="statement not covered" >!!onClick;</span>
+&nbsp;
+  const content = (
+<span class="cstat-no" title="statement not covered" >    &lt;ItemLayout</span>
+      flagImg={icon}
+      titleLeft={title}
+      captionLeft={balance.symbol}
+      titleRight={
+        rightElement ? (
+          rightElement
+        ) : (
+          &lt;BasicTooltip
+            asChild
+            label={formattedBalance.isAbbreviated ? balance.amount.toString() : undefined}
+            side="left"
+          &gt;
+            &lt;styled.span data-testid={title} fontWeight={500} textStyle="label.02"&gt;
+              {formattedBalance.value} {additionalBalanceInfo}
+            &lt;/styled.span&gt;
+          &lt;/BasicTooltip&gt;
+        )
+      }
+      captionRight={
+        !rightElement &amp;&amp; (
+          &lt;Caption&gt;
+            &lt;Flex alignItems="center" gap="space.02" color="inherit"&gt;
+              &lt;BulletSeparator&gt;
+                &lt;Caption&gt;{balance.amount.toNumber() &gt; 0 &amp;&amp; address ? usdBalance : null}&lt;/Caption&gt;
+                {additionalUsdBalanceInfo}
+              &lt;/BulletSeparator&gt;
+            &lt;/Flex&gt;
+          &lt;/Caption&gt;
+        )
+      }
+    /&gt;
   );
+&nbsp;
+<span class="cstat-no" title="statement not covered" >  if (isInteractive)</span>
+<span class="cstat-no" title="statement not covered" >    return (</span>
+      &lt;Pressable data-testid={dataTestId} onClick={onClick} my="space.02"&gt;
+        {content}
+      &lt;/Pressable&gt;
+    );
+&nbsp;
+<span class="cstat-no" title="statement not covered" >  return &lt;Box my="space.02"&gt;{content}&lt;/Box&gt;;</span>
 }
 &nbsp;</pre></td></tr></table></pre>
 
@@ -292,7 +319,7 @@ export function <span class="fstat-no" title="function not covered" >CryptoCurre
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-03-19T11:25:56.665Z
+                at 2024-03-26T16:28:28.513Z
             </div>
         <script src="../../../../../../prettify.js"></script>
         <script>

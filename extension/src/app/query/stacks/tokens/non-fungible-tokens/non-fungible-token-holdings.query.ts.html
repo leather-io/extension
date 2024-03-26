@@ -39,7 +39,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/5</span>
+                <span class='fraction'>0/6</span>
             </div>
         
             
@@ -126,19 +126,14 @@
 <a name='L61'></a><a href='#L61'>61</a>
 <a name='L62'></a><a href='#L62'>62</a>
 <a name='L63'></a><a href='#L63'>63</a>
-<a name='L64'></a><a href='#L64'>64</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L64'></a><a href='#L64'>64</a>
+<a name='L65'></a><a href='#L65'>65</a>
+<a name='L66'></a><a href='#L66'>66</a>
+<a name='L67'></a><a href='#L67'>67</a>
+<a name='L68'></a><a href='#L68'>68</a>
+<a name='L69'></a><a href='#L69'>69</a>
+<a name='L70'></a><a href='#L70'>70</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -155,10 +150,27 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -190,6 +202,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { useQuery } from '@tanstack/react-query';
+import PQueue from 'p-queue';
 &nbsp;
 import { logger } from '@shared/logger';
 import { Paginated } from '@shared/models/api-types';
@@ -199,7 +212,7 @@ import { StacksClient } from '@app/query/stacks/stacks-client';
 import { useStacksClient } from '@app/store/common/api-clients.hooks';
 import { useCurrentNetworkState } from '@app/store/networks/networks.hooks';
 &nbsp;
-import { RateLimiter, useHiroApiRateLimiter } from '../../rate-limiter';
+import { useHiroApiRateLimiter } from '../../hiro-rate-limiter';
 &nbsp;
 const staleTime = <span class="cstat-no" title="statement not covered" >15 * 60 * 1000; // 15 min</span>
 &nbsp;
@@ -217,14 +230,19 @@ const queryOptions = <span class="cstat-no" title="statement not covered" >{ cac
 &nbsp;
 type FetchNonFungibleTokenHoldingsResp = Paginated&lt;NonFungibleTokenHoldingListResult[]&gt;;
 &nbsp;
-function <span class="fstat-no" title="function not covered" >fetchNonFungibleTokenHoldings(c</span>lient: StacksClient, limiter: RateLimiter) {
+function <span class="fstat-no" title="function not covered" >fetchNonFungibleTokenHoldings(c</span>lient: StacksClient, limiter: PQueue) {
 <span class="cstat-no" title="statement not covered" >  return <span class="fstat-no" title="function not covered" >async (a</span>ddress: string) =&gt; {</span>
 <span class="cstat-no" title="statement not covered" >    if (!address) <span class="cstat-no" title="statement not covered" >return;</span></span>
-<span class="cstat-no" title="statement not covered" >    await limiter.removeTokens(1);</span>
-<span class="cstat-no" title="statement not covered" >    return client.nonFungibleTokensApi.getNftHoldings({</span>
-      principal: address,
-      limit: 50,
-    }) as unknown as Promise&lt;FetchNonFungibleTokenHoldingsResp&gt;;
+<span class="cstat-no" title="statement not covered" >    return limiter.add(</span>
+<span class="fstat-no" title="function not covered" >      () =&gt;</span>
+<span class="cstat-no" title="statement not covered" >        client.nonFungibleTokensApi.getNftHoldings({</span>
+          principal: address,
+          limit: 50,
+        }) as unknown as Promise&lt;FetchNonFungibleTokenHoldingsResp&gt;,
+      {
+        throwOnTimeout: true,
+      }
+    );
   };
 }
 &nbsp;
@@ -232,7 +250,7 @@ function <span class="fstat-no" title="function not covered" >makeNonFungibleTok
   address: string,
   network: string,
   client: StacksClient,
-  limiter: RateLimiter
+  limiter: PQueue
 ) {
 <span class="cstat-no" title="statement not covered" >  if (address === '') <span class="cstat-no" title="statement not covered" >logger.warn('No address passed to ' + QueryPrefixes.GetNftHoldings);</span></span>
 <span class="cstat-no" title="statement not covered" >  return {</span>
@@ -259,7 +277,7 @@ export function <span class="fstat-no" title="function not covered" >useGetNonFu
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-03-19T11:25:56.665Z
+                at 2024-03-26T16:28:28.513Z
             </div>
         <script src="../../../../../../../prettify.js"></script>
         <script>
