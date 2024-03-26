@@ -37,7 +37,10 @@ export function useTotalBalance({ btcAddress, stxAddress }: UseTotalBalanceArgs)
     const totalBalance = { ...stxUsdAmount, amount: stxUsdAmount.amount.plus(btcUsdAmount.amount) };
     return {
       totalBalance,
-      totalUsdBalance: i18nFormatCurrency(totalBalance),
+      totalUsdBalance: i18nFormatCurrency(
+        totalBalance,
+        totalBalance.amount.isGreaterThanOrEqualTo(100_000) ? 0 : 2
+      ),
       isLoading,
     };
   }, [btcBalance, btcMarketData, stxMarketData, isLoading, stxBalance]);
