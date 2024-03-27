@@ -8,6 +8,8 @@ import { SendPage } from '@tests/page-object-models/send.page';
 import { SharedComponentsSelectors } from '@tests/selectors/shared-component.selectors';
 import { getDisplayerAddress } from '@tests/utils';
 
+import { STX_DECIMALS } from '@shared/constants';
+
 import { FormErrorMessages } from '@app/common/error-messages';
 
 import { test } from '../../fixtures/fixtures';
@@ -106,7 +108,8 @@ test.describe('send stx', () => {
         await sPage.amountInput.fill('0.0000001');
         await sPage.amountInput.blur();
         const errorMsg = await sPage.amountInputErrorLabel.innerText();
-        test.expect(errorMsg).toEqual(FormErrorMessages.MustBePositive);
+        const error = FormErrorMessages.TooMuchPrecision;
+        test.expect(errorMsg).toEqual(error.replace('{decimals}', String(STX_DECIMALS)));
       });
 
       test('that the amount is greater than the available balance', async () => {
@@ -160,7 +163,8 @@ test.describe('send stx', () => {
 
         await sPage.previewSendTxButton.click();
         const errorMsg = await sPage.amountInputErrorLabel.innerText();
-        test.expect(errorMsg).toEqual(FormErrorMessages.MustBePositive);
+        const error = FormErrorMessages.TooMuchPrecision;
+        test.expect(errorMsg).toEqual(error.replace('{decimals}', String(STX_DECIMALS)));
         await sPage.amountInput.fill('0.000001');
         await sPage.previewSendTxButton.click();
         const details = await sPage.confirmationDetails.allInnerTexts();

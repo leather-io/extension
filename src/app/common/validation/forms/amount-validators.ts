@@ -73,12 +73,12 @@ export function btcMinimumSpendValidator() {
     });
 }
 
-export function stxAmountValidator() {
+export function stxAmountValidator(availableStxBalance: Money) {
   return yup
     .number()
     .typeError(FormErrorMessages.MustBeNumber)
     .concat(currencyAmountValidator())
-    .concat(stxAmountPrecisionValidator(formatPrecisionError()));
+    .concat(stxAmountPrecisionValidator(formatPrecisionError(availableStxBalance)));
 }
 
 export function stxAvailableBalanceValidator(availableBalance: Money) {
