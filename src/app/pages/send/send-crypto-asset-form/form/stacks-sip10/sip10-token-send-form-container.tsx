@@ -33,7 +33,6 @@ export function Sip10TokenSendFormContainer({
       }
       tokenSymbol={symbol}
       autoComplete="off"
-      tokenMaxLength={Infinity}
     />
   );
   const selectedAssetField = (
