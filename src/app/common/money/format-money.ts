@@ -14,9 +14,13 @@ export function formatMoneyPadded({ amount, symbol, decimals }: Money) {
   return `${amount.shiftedBy(-decimals).toFormat(decimals)} ${symbol}`;
 }
 
-export function i18nFormatCurrency(quantity: Money, locale = 'en-US') {
+export function i18nFormatCurrency(quantity: Money, decimals: number = 2) {
   if (quantity.symbol !== 'USD') throw new Error('Cannot format non-USD amounts');
-  const currencyFormatter = new Intl.NumberFormat(locale, { style: 'currency', currency: 'USD' });
+  const currencyFormatter = new Intl.NumberFormat('en-US', {
+    style: 'currency',
+    currency: 'USD',
+    maximumFractionDigits: decimals,
+  });
 
   const formatted = currencyFormatter.format(
     quantity.amount.shiftedBy(-quantity.decimals).toNumber()

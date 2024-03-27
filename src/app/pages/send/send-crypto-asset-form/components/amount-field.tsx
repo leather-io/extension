@@ -14,7 +14,9 @@ import { ErrorLabel } from '@app/components/error-label';
 const amountInputId = 'amount-input';
 const maxFontSize = 48;
 const minFontSize = 22;
-const maxLengthDefault = STX_DECIMALS + 2; // + 1 for decimal char
+// This is set so the font resizing works. We can revisit the design,
+// but this cannot be completely removed or the UI breaks.
+const maxLength = STX_DECIMALS + 12;
 
 interface GetAmountModifiedFontSize {
   amount: string;
@@ -40,7 +42,6 @@ interface AmountFieldProps {
   switchableAmount?: React.JSX.Element;
   tokenSymbol?: string;
   onSetIsSendingMax?(value: boolean): void;
-  tokenMaxLength?: number;
 }
 export function AmountField({
   autoComplete = 'on',
@@ -51,7 +52,6 @@ export function AmountField({
   onSetIsSendingMax,
   switchableAmount,
   tokenSymbol,
-  tokenMaxLength,
 }: AmountFieldProps) {
   const [field, meta, helpers] = useField('amount');
 
@@ -61,10 +61,7 @@ export function AmountField({
   const [previousTextLength, setPreviousTextLength] = useState(1);
   const fieldRef = useRef<HTMLSpanElement>(null);
 
-  const { decimals } = balance;
   const symbol = tokenSymbol || balance.symbol;
-
-  const maxLength = tokenMaxLength || (decimals === 0 ? maxLengthDefault : decimals + 2);
 
   const fontSizeModifier = (maxFontSize - minFontSize) / maxLength;
   const subtractedLengthToPositionPrefix = 0.5;
@@ -130,7 +127,7 @@ export function AmountField({
   // TODO: could be implemented with html using padded label element
   const onClickFocusInput = useCallback(() => {
     if (isSendingMax) {
-      helpers.setValue('');
+      void helpers.setValue('');
       onSetIsSendingMax?.(false);
     }
 
@@ -141,13 +138,8 @@ export function AmountField({
   }, [isSendingMax, helpers, onSetIsSendingMax]);
 
   return (
-    <Stack
-      alignItems="center"
-      px="space.06"
-      gap={['space.04', showError ? 'space.04' : '48px']}
-      width="100%"
-    >
-      <Flex alignItems="center" flexDirection="column" onClick={onClickFocusInput}>
+    <Stack alignItems="center" gap={['space.04', showError ? 'space.04' : '48px']} width="100%">
+      <Flex alignItems="center" flexDirection="column" onClick={onClickFocusInput} width="100%">
         {/* #4476 TODO check these fonts against design */}
         <Flex
           alignItems="center"
