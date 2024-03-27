@@ -25,14 +25,14 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/51</span>
+                <span class='fraction'>0/49</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/42</span>
+                <span class='fraction'>0/38</span>
             </div>
         
             
@@ -46,7 +46,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/49</span>
+                <span class='fraction'>0/47</span>
             </div>
         
             
@@ -294,15 +294,7 @@
 <a name='L229'></a><a href='#L229'>229</a>
 <a name='L230'></a><a href='#L230'>230</a>
 <a name='L231'></a><a href='#L231'>231</a>
-<a name='L232'></a><a href='#L232'>232</a>
-<a name='L233'></a><a href='#L233'>233</a>
-<a name='L234'></a><a href='#L234'>234</a>
-<a name='L235'></a><a href='#L235'>235</a>
-<a name='L236'></a><a href='#L236'>236</a>
-<a name='L237'></a><a href='#L237'>237</a>
-<a name='L238'></a><a href='#L238'>238</a>
-<a name='L239'></a><a href='#L239'>239</a>
-<a name='L240'></a><a href='#L240'>240</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L232'></a><a href='#L232'>232</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -318,6 +310,8 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -355,16 +349,11 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -445,11 +434,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -557,7 +541,9 @@ import { ErrorLabel } from '@app/components/error-label';
 const amountInputId = <span class="cstat-no" title="statement not covered" >'amount-input';</span>
 const maxFontSize = <span class="cstat-no" title="statement not covered" >48;</span>
 const minFontSize = <span class="cstat-no" title="statement not covered" >22;</span>
-const maxLengthDefault = <span class="cstat-no" title="statement not covered" >STX_DECIMALS + 2; // + 1 for decimal char</span>
+// This is set so the font resizing works. We can revisit the design,
+// but this cannot be completely removed or the UI breaks.
+const maxLength = <span class="cstat-no" title="statement not covered" >STX_DECIMALS + 12;</span>
 &nbsp;
 interface GetAmountModifiedFontSize {
   amount: string;
@@ -583,7 +569,6 @@ interface AmountFieldProps {
   switchableAmount?: React.JSX.Element;
   tokenSymbol?: string;
   onSetIsSendingMax?(value: boolean): void;
-  tokenMaxLength?: number;
 }
 export function <span class="fstat-no" title="function not covered" >AmountField({</span>
   autoComplete = <span class="branch-0 cbranch-no" title="branch not covered" >'on',</span>
@@ -594,7 +579,6 @@ export function <span class="fstat-no" title="function not covered" >AmountField
   onSetIsSendingMax,
   switchableAmount,
   tokenSymbol,
-  tokenMaxLength,
 }: AmountFieldProps) {
   const [field, meta, helpers] = <span class="cstat-no" title="statement not covered" >useField('amount');</span>
 &nbsp;
@@ -604,10 +588,7 @@ export function <span class="fstat-no" title="function not covered" >AmountField
   const [previousTextLength, setPreviousTextLength] = <span class="cstat-no" title="statement not covered" >useState(1);</span>
   const fieldRef = <span class="cstat-no" title="statement not covered" >useRef&lt;HTMLSpanElement&gt;(null);</span>
 &nbsp;
-  const { decimals } = <span class="cstat-no" title="statement not covered" >balance;</span>
   const symbol = <span class="cstat-no" title="statement not covered" >tokenSymbol || balance.symbol;</span>
-&nbsp;
-  const maxLength = <span class="cstat-no" title="statement not covered" >tokenMaxLength || (decimals === 0 ? maxLengthDefault : decimals + 2);</span>
 &nbsp;
   const <span class="cstat-no" title="statement not covered" >fontSizeModifier = (maxFontSize - minFontSize) / maxLength;</span>
   const subtractedLengthToPositionPrefix = <span class="cstat-no" title="statement not covered" >0.5;</span>
@@ -673,7 +654,7 @@ export function <span class="fstat-no" title="function not covered" >AmountField
   // TODO: could be implemented with html using padded label element
   const onClickFocusInput = <span class="cstat-no" title="statement not covered" >useCallback(<span class="fstat-no" title="function not covered" >() =&gt; {</span></span>
 <span class="cstat-no" title="statement not covered" >    if (isSendingMax) {</span>
-<span class="cstat-no" title="statement not covered" >      helpers.setValue('');</span>
+<span class="cstat-no" title="statement not covered" >      void helpers.setValue('');</span>
 <span class="cstat-no" title="statement not covered" >      onSetIsSendingMax?.(false);</span>
     }
 &nbsp;
@@ -684,13 +665,8 @@ export function <span class="fstat-no" title="function not covered" >AmountField
   }, [isSendingMax, helpers, onSetIsSendingMax]);
 &nbsp;
 <span class="cstat-no" title="statement not covered" >  return (</span>
-    &lt;Stack
-      alignItems="center"
-      px="space.06"
-      gap={['space.04', showError ? 'space.04' : '48px']}
-      width="100%"
-    &gt;
-      &lt;Flex alignItems="center" flexDirection="column" onClick={onClickFocusInput}&gt;
+    &lt;Stack alignItems="center" gap={['space.04', showError ? 'space.04' : '48px']} width="100%"&gt;
+      &lt;Flex alignItems="center" flexDirection="column" onClick={onClickFocusInput} width="100%"&gt;
         {/* #4476 TODO check these fonts against design */}
         &lt;Flex
           alignItems="center"
@@ -787,7 +763,7 @@ export function <span class="fstat-no" title="function not covered" >AmountField
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-03-26T16:29:29.350Z
+                at 2024-03-27T19:09:06.184Z
             </div>
         <script src="../../../../../../../prettify.js"></script>
         <script>
