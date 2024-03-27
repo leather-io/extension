@@ -1,3 +1,17 @@
+## [6.32.1](https://github.com/leather-wallet/extension/compare/v6.32.0...v6.32.1) (2024-03-27)
+
+
+### Bug Fixes
+
+* removes decimals from balances > $1,000 ([5db63de](https://github.com/leather-wallet/extension/commit/5db63de747f05af8f5e42bb0ba199a706e79c70f))
+* send form max amount ([caae144](https://github.com/leather-wallet/extension/commit/caae144892a3d3691b41caca0f33d25f8171013a))
+* wrong send stx validation msg ([926a90b](https://github.com/leather-wallet/extension/commit/926a90bac3507d0851068eaca816e0fe538e4b00))
+
+
+### Internal
+
+* post-release merge back ([541c27a](https://github.com/leather-wallet/extension/commit/541c27a30617b7f80d4a974fac3a60e2014d2cd3))
+
 ## [6.32.0](https://github.com/leather-wallet/extension/compare/v6.31.0...v6.32.0) (2024-03-26)
 
 
