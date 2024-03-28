@@ -38,7 +38,8 @@ export function TwoColumnLayout({
           p={{ base: 'space.02', md: 'space.05' }}
           gap="space.04"
           bg="ink.background-primary"
-          borderRadius="xs"
+          border="default"
+          borderRadius="lg"
           width="100%"
           minWidth={{
             base: '100%',
