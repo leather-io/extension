@@ -6,6 +6,7 @@ import { Callout } from '@app/ui/components/callout/callout';
 import { Dialog } from '@app/ui/components/containers/dialog/dialog';
 import { Footer } from '@app/ui/components/containers/footers/footer';
 import { Header } from '@app/ui/components/containers/headers/header';
+import { Card } from '@app/ui/layout/card/card';
 
 interface RetrieveTaprootToNativeSegwitLayoutProps {
   isBroadcasting: boolean;
@@ -30,29 +31,37 @@ export function RetrieveTaprootToNativeSegwitLayout(
         </Footer>
       }
     >
-      <Flex alignItems="start" flexDirection="column" mx="space.06" textAlign="left">
-        <BtcAvatarIcon />
-        <styled.span mt="space.04" textStyle="label.01">
-          Retrieve Bitcoin deposited to <br /> Taproot addresses
-        </styled.span>
-        <styled.span mt="space.05" textStyle="body.02">
-          Taproot addresses are used by Leather for Ordinal inscriptions, but they can also contain
-          bitcoin.
-        </styled.span>
-        <styled.span mt="space.04" textStyle="body.02">
-          As we don't support tranferring from Taproot addresses yet, you can retrieve funds to your
-          account's main Native SegWit balance here.
-        </styled.span>
-        <styled.span mt="space.04" textStyle="body.02">
-          This transaction may take upwards of 30 minutes to confirm.
-        </styled.span>
-        {children}
-        <Callout variant="warning" mt="space.05" mb="space.05">
-          We recommend you check the URL for each "Uninscribed UTXO" listed above to ensure it
-          displays no inscription. If it does display one, do not proceed with retrieval or you may
-          lose it!
-        </Callout>
-      </Flex>
+      <Card>
+        <Flex
+          alignItems="start"
+          flexDirection="column"
+          mx="space.06"
+          mt="space.05"
+          textAlign="left"
+        >
+          <BtcAvatarIcon />
+          <styled.span mt="space.04" textStyle="label.01">
+            Retrieve Bitcoin deposited to <br /> Taproot addresses
+          </styled.span>
+          <styled.span mt="space.05" textStyle="body.02">
+            Taproot addresses are used by Leather for Ordinal inscriptions, but they can also
+            contain bitcoin.
+          </styled.span>
+          <styled.span mt="space.04" textStyle="body.02">
+            As we don't support tranferring from Taproot addresses yet, you can retrieve funds to
+            your account's main Native SegWit balance here.
+          </styled.span>
+          <styled.span mt="space.04" textStyle="body.02">
+            This transaction may take upwards of 30 minutes to confirm.
+          </styled.span>
+          {children}
+          <Callout variant="warning" mt="space.05" mb="space.05">
+            We recommend you check the URL for each "Uninscribed UTXO" listed above to ensure it
+            displays no inscription. If it does display one, do not proceed with retrieval or you
+            may lose it!
+          </Callout>
+        </Flex>
+      </Card>
     </Dialog>
   );
 }

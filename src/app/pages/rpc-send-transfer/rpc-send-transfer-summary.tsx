@@ -7,7 +7,6 @@ import { useBitcoinExplorerLink } from '@app/common/hooks/use-bitcoin-explorer-l
 import { useClipboard } from '@app/common/hooks/use-copy-to-clipboard';
 import { FormAddressDisplayer } from '@app/components/address-displayer/form-address-displayer';
 import {
-  InfoCard,
   InfoCardAssetValue,
   InfoCardBtn,
   InfoCardFooter,
@@ -18,6 +17,7 @@ import { useToast } from '@app/features/toasts/use-toast';
 import { CheckmarkIcon } from '@app/ui/icons/checkmark-icon';
 import { CopyIcon } from '@app/ui/icons/copy-icon';
 import { ExternalLinkIcon } from '@app/ui/icons/external-link-icon';
+import { Card } from '@app/ui/layout/card/card';
 
 export function RpcSendTransferSummary() {
   const { state } = useLocation();
@@ -52,31 +52,29 @@ export function RpcSendTransferSummary() {
   }
 
   return (
-    <>
-      <InfoCard>
-        <InfoCardAssetValue
-          fiatSymbol={txFiatValueSymbol}
-          fiatValue={txFiatValue}
-          icon={<CheckmarkIcon width="lg" />}
-          mb="space.05"
-          symbol={symbol}
-          value={txValue}
-        />
-        <Stack pb="space.06" width="100%">
-          <InfoCardRow title="To" value={<FormAddressDisplayer address={recipient} />} />
-          <InfoCardSeparator />
-          <InfoCardRow title="Total spend" value={totalSpend} />
-          <InfoCardRow title="Sending" value={sendingValue} />
-          <InfoCardRow title="Fee" value={feeRowValue} />
-          {arrivesIn && <InfoCardRow title="Estimated confirmation time" value={arrivesIn} />}
-        </Stack>
-        <InfoCardFooter>
-          <HStack gap="space.04" width="100%">
-            <InfoCardBtn icon={<ExternalLinkIcon />} label="View details" onClick={onClickLink} />
-            <InfoCardBtn icon={<CopyIcon />} label="Copy ID" onClick={onClickCopy} />
-          </HStack>
-        </InfoCardFooter>
-      </InfoCard>
-    </>
+    <Card>
+      <InfoCardAssetValue
+        fiatSymbol={txFiatValueSymbol}
+        fiatValue={txFiatValue}
+        icon={<CheckmarkIcon width="lg" />}
+        mb="space.05"
+        symbol={symbol}
+        value={txValue}
+      />
+      <Stack pb="space.06" width="100%">
+        <InfoCardRow title="To" value={<FormAddressDisplayer address={recipient} />} />
+        <InfoCardSeparator />
+        <InfoCardRow title="Total spend" value={totalSpend} />
+        <InfoCardRow title="Sending" value={sendingValue} />
+        <InfoCardRow title="Fee" value={feeRowValue} />
+        {arrivesIn && <InfoCardRow title="Estimated confirmation time" value={arrivesIn} />}
+      </Stack>
+      <InfoCardFooter>
+        <HStack gap="space.04" width="100%">
+          <InfoCardBtn icon={<ExternalLinkIcon />} label="View details" onClick={onClickLink} />
+          <InfoCardBtn icon={<CopyIcon />} label="Copy ID" onClick={onClickCopy} />
+        </HStack>
+      </InfoCardFooter>
+    </Card>
   );
 }

@@ -4,13 +4,14 @@ import { Flex } from 'leather-styles/jsx';
 
 interface CardProps {
   children: ReactNode;
+  dataTestId?: string;
   header?: ReactNode;
   footer?: ReactNode;
 }
 
-export function Card({ children, header, footer }: CardProps) {
+export function Card({ children, dataTestId, header, footer }: CardProps) {
   return (
-    <Flex direction="column" border={{ base: 'unset', sm: 'default' }} rounded="lg">
+    <Flex data-testid={dataTestId} direction="column">
       {header}
       {children}
       {footer}

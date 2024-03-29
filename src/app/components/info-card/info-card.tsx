@@ -1,25 +1,12 @@
 import { ReactNode } from 'react';
 
 import { SharedComponentsSelectors } from '@tests/selectors/shared-component.selectors';
-import { Box, BoxProps, Flex, FlexProps, HStack, Stack, styled } from 'leather-styles/jsx';
+import { Box, BoxProps, Flex, HStack, Stack, styled } from 'leather-styles/jsx';
 
 import { isString } from '@shared/utils';
 
 import { Button } from '@app/ui/components/button/button';
 import { DashedHr } from '@app/ui/components/hr';
-
-// InfoCard
-interface InfoCardProps extends FlexProps {
-  children: ReactNode;
-}
-/** @deprecated - replace with ui/card */
-export function InfoCard({ children, ...props }: InfoCardProps) {
-  return (
-    <Flex alignItems="center" flexDirection="column" justifyItems="center" width="100%" {...props}>
-      {children}
-    </Flex>
-  );
-}
 
 // InfoCardRow
 interface InfoCardRowProps {

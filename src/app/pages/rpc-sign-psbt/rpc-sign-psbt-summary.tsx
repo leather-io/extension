@@ -6,7 +6,6 @@ import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
 import { useBitcoinExplorerLink } from '@app/common/hooks/use-bitcoin-explorer-link';
 import { useClipboard } from '@app/common/hooks/use-copy-to-clipboard';
 import {
-  InfoCard,
   InfoCardAssetValue,
   InfoCardBtn,
   InfoCardFooter,
@@ -16,6 +15,7 @@ import { useToast } from '@app/features/toasts/use-toast';
 import { CheckmarkIcon } from '@app/ui/icons/checkmark-icon';
 import { CopyIcon } from '@app/ui/icons/copy-icon';
 import { ExternalLinkIcon } from '@app/ui/icons/external-link-icon';
+import { Card } from '@app/ui/layout/card/card';
 
 export function RpcSignPsbtSummary() {
   const { state } = useLocation();
@@ -40,7 +40,7 @@ export function RpcSignPsbtSummary() {
 
   return (
     <Flex alignItems="center" flexDirection="column" p="space.05" width="100%">
-      <InfoCard>
+      <Card>
         <InfoCardAssetValue
           fiatSymbol={txFiatValueSymbol}
           fiatValue={txFiatValue}
@@ -59,7 +59,7 @@ export function RpcSignPsbtSummary() {
             <InfoCardBtn icon={<CopyIcon />} label="Copy ID" onClick={onClickCopy} />
           </HStack>
         </InfoCardFooter>
-      </InfoCard>
+      </Card>
     </Flex>
   );
 }
