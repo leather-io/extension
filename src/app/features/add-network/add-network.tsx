@@ -4,6 +4,7 @@ import { Stack, styled } from 'leather-styles/jsx';
 
 import { ErrorLabel } from '@app/components/error-label';
 import { Button } from '@app/ui/components/button/button';
+import { Card } from '@app/ui/layout/card/card';
 import { Page } from '@app/ui/layout/page/page.layout';
 
 import { AddNetworkForm } from './add-network-form';
@@ -16,42 +17,44 @@ export function AddNetwork() {
     <Page>
       <Formik initialValues={initialFormValues} onSubmit={onSubmit}>
         {() => (
-          <Form data-testid={NetworkSelectors.NetworkPageReady}>
-            <Stack
-              gap="space.05"
-              maxWidth="pageWidth"
-              px={['space.05', 'space.04']}
-              textAlign={['left', 'center']}
-              my="space.05"
-            >
-              <styled.span textStyle="body.02">
-                Use this form to add a new instance of the{' '}
-                <a
-                  href="https://github.com/blockstack/stacks-blockchain-api"
-                  target="_blank"
-                  rel="noreferrer"
-                >
-                  Stacks Blockchain API
-                </a>{' '}
-                or{' '}
-                <a href="https://github.com/Blockstream/esplora" target="_blank" rel="noreferrer">
-                  Bitcoin Blockchain API
-                </a>
-                . Make sure you review and trust the host before you add it.
-              </styled.span>
-              <AddNetworkForm />
-              {error ? (
-                <ErrorLabel data-testid={NetworkSelectors.ErrorText}>{error}</ErrorLabel>
-              ) : null}
-              <Button
-                aria-busy={loading}
-                data-testid={NetworkSelectors.AddNetworkBtn}
-                type="submit"
+          <Card>
+            <Form data-testid={NetworkSelectors.NetworkPageReady}>
+              <Stack
+                gap="space.05"
+                maxWidth="pageWidth"
+                px={['space.05', 'space.04']}
+                textAlign={['left', 'center']}
+                my="space.05"
               >
-                Add network
-              </Button>
-            </Stack>
-          </Form>
+                <styled.span textStyle="body.02">
+                  Use this form to add a new instance of the{' '}
+                  <a
+                    href="https://github.com/blockstack/stacks-blockchain-api"
+                    target="_blank"
+                    rel="noreferrer"
+                  >
+                    Stacks Blockchain API
+                  </a>{' '}
+                  or{' '}
+                  <a href="https://github.com/Blockstream/esplora" target="_blank" rel="noreferrer">
+                    Bitcoin Blockchain API
+                  </a>
+                  . Make sure you review and trust the host before you add it.
+                </styled.span>
+                <AddNetworkForm />
+                {error ? (
+                  <ErrorLabel data-testid={NetworkSelectors.ErrorText}>{error}</ErrorLabel>
+                ) : null}
+                <Button
+                  aria-busy={loading}
+                  data-testid={NetworkSelectors.AddNetworkBtn}
+                  type="submit"
+                >
+                  Add network
+                </Button>
+              </Stack>
+            </Form>
+          </Card>
         )}
       </Formik>
     </Page>

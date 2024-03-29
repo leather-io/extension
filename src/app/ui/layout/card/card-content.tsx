@@ -5,7 +5,7 @@ import { token } from 'leather-styles/tokens';
 
 interface CardContentProps extends FlexProps {
   children: ReactNode;
-  dataTestId: string;
+  dataTestId?: string;
 }
 
 export function CardContent({ children, dataTestId, ...props }: CardContentProps) {

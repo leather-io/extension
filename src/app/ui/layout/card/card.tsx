@@ -10,7 +10,7 @@ interface CardProps {
 
 export function Card({ children, header, footer }: CardProps) {
   return (
-    <Flex direction="column" border={{ base: 'unset', sm: 'default' }} rounded="lg">
+    <Flex direction="column">
       {header}
       {children}
       {footer}

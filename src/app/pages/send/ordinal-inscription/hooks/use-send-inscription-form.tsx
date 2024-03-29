@@ -133,6 +133,7 @@ export function useSendInscriptionForm() {
           time,
           feeRowValue,
           signedTx: signedTx.extract(),
+          backgroundLocation: { pathname: RouteUrls.Home },
         },
       });
     },
