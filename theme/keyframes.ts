@@ -17,4 +17,12 @@ export const keyframes: CssKeyframes = {
       maskPosition: 'left',
     },
   },
+  barberpole: {
+    '0%': {
+      backgroundPosition: '300% 0',
+    },
+    '100%': {
+      backgroundPosition: '0 0',
+    },
+  },
 };

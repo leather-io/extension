@@ -2,11 +2,10 @@ import { Meta, StoryObj } from '@storybook/react';
 import { Box, Circle, Flex } from 'leather-styles/jsx';
 
 import { Button } from '@app/ui/components/button/button';
-import { Callout } from '@app/ui/components/callout/callout';
 import { Flag } from '@app/ui/components/flag/flag';
 import { ItemLayout } from '@app/ui/components/item-layout/item-layout';
+import { Pressable } from '@app/ui/components/pressable/pressable';
 import { ZapIcon } from '@app/ui/icons';
-import { Pressable } from '@app/ui/pressable/pressable';
 
 import { Approver } from './approver';
 
@@ -31,7 +30,7 @@ export const ExampleOne: Story = {
     children: (
       <>
         <Approver.Header title="Some prompt that breaks two lines" requester="gamma.io" />
-        <Callout title="Some callout">Hey watch out for this sketchy app</Callout>
+        <Approver.Status status="pending"></Approver.Status>
         <Approver.Section>
           <Approver.Subheader>
             Subheader with icon <ZapIcon variant="small" />

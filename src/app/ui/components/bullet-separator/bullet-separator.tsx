@@ -1,6 +1,7 @@
 import { cloneElement, isValidElement } from 'react';
 
 import { Circle, CircleProps } from 'leather-styles/jsx';
+import type { SpacingToken } from 'leather-styles/tokens';
 
 export function BulletOperator(props: CircleProps) {
   return (
@@ -18,13 +19,17 @@ export function BulletOperator(props: CircleProps) {
 
 interface BulletSeparatorSeparatorProps {
   children: React.ReactNode;
+  spacing?: SpacingToken;
 }
-export function BulletSeparator({ children }: BulletSeparatorSeparatorProps) {
+export function BulletSeparator({ children, spacing }: BulletSeparatorSeparatorProps) {
   const parsedChildren = Array.isArray(children) ? children : [children];
   const content = parsedChildren
     .flatMap((child, index) => {
       if (!isValidElement(child)) return null;
-      return [cloneElement(child, { key: index }), <BulletOperator key={index + 'dot'} />];
+      return [
+        cloneElement(child, { key: index }),
+        <BulletOperator key={index + 'dot'} mx={spacing} />,
+      ];
     })
     .filter(val => val !== null)
     .slice(0, -1);

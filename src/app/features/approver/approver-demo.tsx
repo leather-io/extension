@@ -4,10 +4,10 @@ import { Button } from '@app/ui/components/button/button';
 import { Callout } from '@app/ui/components/callout/callout';
 import { Flag } from '@app/ui/components/flag/flag';
 import { ItemLayout } from '@app/ui/components/item-layout/item-layout';
+import { Pressable } from '@app/ui/components/pressable/pressable';
 import { BasicTooltip } from '@app/ui/components/tooltip/basic-tooltip';
 import { TooltipProvider } from '@app/ui/components/tooltip/tooltip';
 import { InfoCircleIcon } from '@app/ui/icons';
-import { Pressable } from '@app/ui/pressable/pressable';
 
 import { Approver } from './approver';
 

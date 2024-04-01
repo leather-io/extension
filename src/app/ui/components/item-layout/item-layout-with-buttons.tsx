@@ -2,7 +2,7 @@ import { ReactNode } from 'react';
 
 import { Flex, HStack, Stack, styled } from 'leather-styles/jsx';
 
-import { pressableCaptionStyles } from '@app/ui/pressable/pressable';
+import { pressableCaptionStyles } from '@app/ui/components/pressable/pressable';
 
 import { Flag } from '../flag/flag';
 

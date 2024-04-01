@@ -1,0 +1,59 @@
+
+> @leather-wallet/extension@6.32.1 build-storybook /Users/kyranjamie/dev/leather/wallet
+> storybook build "--output-dir" "/var/folders/n2/ds19zkvd5q52dtfnyyb_qdbr0000gn/T/chromatic--27829-yOY4NVX7fkQl" "--webpack-stats-json" "/var/folders/n2/ds19zkvd5q52dtfnyyb_qdbr0000gn/T/chromatic--27829-yOY4NVX7fkQl"
+
+@storybook/cli v8.0.1
+
+info => Cleaning outputDir: ../../../../../var/folders/n2/ds19zkvd5q52dtfnyyb_qdbr0000gn/T/chromatic--27829-yOY4NVX7fkQl
+info => Loading presets
+WARN The "@storybook/addon-mdx-gfm" addon is meant as a migration assistant for Storybook 8.0; and will likely be removed in a future version.
+WARN It's recommended you read this document:
+WARN https://storybook.js.org/docs/react/writing-docs/mdx#lack-of-github-flavored-markdown-gfm
+WARN 
+WARN Once you've made the necessary changes, you can remove the addon from your package.json and storybook config.
+info Found existing addon {"name":"@storybook/addon-docs","options":{"csfPluginOptions":null,"mdxPluginOptions":{},"transcludeMarkdown":true}}, skipping.
+info Found existing addon {"name":"@storybook/addon-docs","options":{"csfPluginOptions":null,"mdxPluginOptions":{},"transcludeMarkdown":true}}, skipping.
+info => Building manager..
+info => Manager built (116 ms)
+info => Building preview..
+info => Copying static files: public at ../../../../../var/folders/n2/ds19zkvd5q52dtfnyyb_qdbr0000gn/T/chromatic--27829-yOY4NVX7fkQl
+info => Using implicit CSS loaders
+info => [@storybook/addon-styling-webpack] Applying custom Storybook webpack configuration styling.
+info => [@storybook/addon-styling-webpack] Replacing Storybook's webpack rules for styles with given rules.
+info => Using default Webpack5 setup
+🐼 warn [token] Reference not found: `colors.focus` in "3px solid {colors.focus}"
+🐼 warn [token] Reference not found: `colors.focus` in "3px solid {colors.focus}"
+🐼 warn [token] Reference not found: `focus` in "3px solid {focus}"
+🐼 info [hrtime] Extracted in (1132.02ms)
+WARN Module Warning (from ./node_modules/.pnpm/esbuild-loader@4.0.3_webpack@5.90.3/node_modules/esbuild-loader/dist/index.cjs):
+WARN [esbuild-loader] The specified tsconfig at "/Users/kyranjamie/dev/leather/wallet/tsconfig.json" was applied to the file "/Users/kyranjamie/dev/leather/wallet/node_modules/.pnpm/@leather-wallet+tokens@0.0.14/node_modules/@leather-wallet/tokens/src/breakpoints.ts" but does not match its "include" patterns
+WARN Module Warning (from ./node_modules/.pnpm/esbuild-loader@4.0.3_webpack@5.90.3/node_modules/esbuild-loader/dist/index.cjs):
+WARN [esbuild-loader] The specified tsconfig at "/Users/kyranjamie/dev/leather/wallet/tsconfig.json" was applied to the file "/Users/kyranjamie/dev/leather/wallet/node_modules/.pnpm/@leather-wallet+tokens@0.0.14/node_modules/@leather-wallet/tokens/src/colors.ts" but does not match its "include" patterns
+WARN Module Warning (from ./node_modules/.pnpm/esbuild-loader@4.0.3_webpack@5.90.3/node_modules/esbuild-loader/dist/index.cjs):
+WARN [esbuild-loader] The specified tsconfig at "/Users/kyranjamie/dev/leather/wallet/tsconfig.json" was applied to the file "/Users/kyranjamie/dev/leather/wallet/node_modules/.pnpm/@leather-wallet+tokens@0.0.14/node_modules/@leather-wallet/tokens/src/index.ts" but does not match its "include" patterns
+WARN Module Warning (from ./node_modules/.pnpm/esbuild-loader@4.0.3_webpack@5.90.3/node_modules/esbuild-loader/dist/index.cjs):
+WARN [esbuild-loader] The specified tsconfig at "/Users/kyranjamie/dev/leather/wallet/tsconfig.json" was applied to the file "/Users/kyranjamie/dev/leather/wallet/node_modules/.pnpm/@leather-wallet+tokens@0.0.14/node_modules/@leather-wallet/tokens/src/keyframes.ts" but does not match its "include" patterns
+WARN Module Warning (from ./node_modules/.pnpm/esbuild-loader@4.0.3_webpack@5.90.3/node_modules/esbuild-loader/dist/index.cjs):
+WARN [esbuild-loader] The specified tsconfig at "/Users/kyranjamie/dev/leather/wallet/tsconfig.json" was applied to the file "/Users/kyranjamie/dev/leather/wallet/node_modules/.pnpm/@leather-wallet+tokens@0.0.14/node_modules/@leather-wallet/tokens/src/semantic-tokens.ts" but does not match its "include" patterns
+WARN Module Warning (from ./node_modules/.pnpm/esbuild-loader@4.0.3_webpack@5.90.3/node_modules/esbuild-loader/dist/index.cjs):
+WARN [esbuild-loader] The specified tsconfig at "/Users/kyranjamie/dev/leather/wallet/tsconfig.json" was applied to the file "/Users/kyranjamie/dev/leather/wallet/node_modules/.pnpm/@leather-wallet+tokens@0.0.14/node_modules/@leather-wallet/tokens/src/tokens.ts" but does not match its "include" patterns
+WARN Module Warning (from ./node_modules/.pnpm/esbuild-loader@4.0.3_webpack@5.90.3/node_modules/esbuild-loader/dist/index.cjs):
+WARN [esbuild-loader] The specified tsconfig at "/Users/kyranjamie/dev/leather/wallet/tsconfig.json" was applied to the file "/Users/kyranjamie/dev/leather/wallet/node_modules/.pnpm/@leather-wallet+tokens@0.0.14/node_modules/@leather-wallet/tokens/src/typography.ts" but does not match its "include" patterns
+WARN Module Warning (from ./node_modules/.pnpm/esbuild-loader@4.0.3_webpack@5.90.3/node_modules/esbuild-loader/dist/index.cjs):
+WARN [esbuild-loader] The specified tsconfig at "/Users/kyranjamie/dev/leather/wallet/tsconfig.json" was applied to the file "/Users/kyranjamie/dev/leather/wallet/.storybook/preview.ts" but does not match its "include" patterns
+WARN Module Warning (from ./node_modules/.pnpm/esbuild-loader@4.0.3_webpack@5.90.3/node_modules/esbuild-loader/dist/index.cjs):
+WARN [esbuild-loader] The specified tsconfig at "/Users/kyranjamie/dev/leather/wallet/tsconfig.json" was applied to the file "/Users/kyranjamie/dev/leather/wallet/.storybook/viewports.ts" but does not match its "include" patterns
+WARN asset size limit: The following asset(s) exceed the recommended size limit (244 KiB).
+WARN This can impact web performance.
+WARN Assets: 
+WARN   8510.0add2d64.iframe.bundle.js (769 KiB)
+WARN entrypoint size limit: The following entrypoint(s) combined asset size exceeds the recommended limit (244 KiB). This can impact web performance.
+WARN Entrypoints:
+WARN   main (1010 KiB)
+WARN       runtime~main.57e1694f.iframe.bundle.js
+WARN       8510.0add2d64.iframe.bundle.js
+WARN       main.d66cdef4.iframe.bundle.js
+WARN 
+info => Preview built (6.26 s)
+info => preview stats written to /var/folders/n2/ds19zkvd5q52dtfnyyb_qdbr0000gn/T/chromatic--27829-yOY4NVX7fkQl/preview-stats.json
+info => Output directory: /var/folders/n2/ds19zkvd5q52dtfnyyb_qdbr0000gn/T/chromatic--27829-yOY4NVX7fkQl
