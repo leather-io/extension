@@ -1,9 +1,13 @@
 import { ReactNode, isValidElement } from 'react';
 
-import { Flex, HStack, Stack, styled } from 'leather-styles/jsx';
+import { Box, Flex, HStack, Stack, styled } from 'leather-styles/jsx';
 
-import { pressableCaptionStyles, pressableChevronStyles } from '@app/ui/pressable/pressable';
+import {
+  pressableCaptionStyles,
+  pressableChevronStyles,
+} from '@app/ui/components/pressable/pressable';
 
+import { CheckmarkIcon } from '../../icons/checkmark-icon';
 import { ChevronUpIcon } from '../../icons/chevron-up-icon';
 import { Flag, type FlagProps } from '../flag/flag';
 
@@ -28,10 +32,11 @@ export function ItemLayout({
   ...props
 }: ItemLayoutProps) {
   return (
-    <Flag spacing="space.03" {...props}>
+    <Flag img={img} spacing="space.03" {...props}>
       <Flex alignItems="center" justifyContent="space-between" width="100%">
         <Stack
           alignItems="start"
+          flexGrow={2}
           gap="2px"
           overflow="hidden"
           textOverflow="ellipsis"
@@ -41,9 +46,12 @@ export function ItemLayout({
             {isValidElement(titleLeft) ? (
               titleLeft
             ) : (
-              <styled.span fontWeight={500} textStyle="label.03">
-                {titleLeft}
-              </styled.span>
+              <styled.span textStyle="label.02">{titleLeft}</styled.span>
+            )}
+            {isSelected && (
+              <Box height="20px">
+                <CheckmarkIcon variant="small" />
+              </Box>
             )}
           </HStack>
           {isValidElement(captionLeft) ? (
@@ -55,7 +63,7 @@ export function ItemLayout({
           )}
         </Stack>
         <HStack gap="space.03">
-          <Stack alignItems="end" gap="2px">
+          <Stack alignItems="end" gap="2px" height="42px">
             {isValidElement(titleRight) ? (
               titleRight
             ) : (

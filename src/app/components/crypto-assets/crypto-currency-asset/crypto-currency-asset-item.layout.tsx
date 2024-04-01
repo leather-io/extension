@@ -6,10 +6,10 @@ import { AllCryptoCurrencyAssetBalances } from '@shared/models/crypto-asset-bala
 
 import { BulletSeparator } from '@app/ui/components/bullet-separator/bullet-separator';
 import { ItemLayout } from '@app/ui/components/item-layout/item-layout';
+import { Pressable } from '@app/ui/components/pressable/pressable';
 import { SkeletonLoader } from '@app/ui/components/skeleton-loader/skeleton-loader';
 import { BasicTooltip } from '@app/ui/components/tooltip/basic-tooltip';
 import { Caption } from '@app/ui/components/typography/caption';
-import { Pressable } from '@app/ui/pressable/pressable';
 
 import { parseCryptoCurrencyAssetBalance } from './crypto-currency-asset.utils';
 

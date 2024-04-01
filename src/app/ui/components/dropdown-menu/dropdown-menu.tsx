@@ -4,8 +4,8 @@ import * as RadixDropdownMenu from '@radix-ui/react-dropdown-menu';
 import { css } from 'leather-styles/css';
 import { type HTMLStyledProps, styled } from 'leather-styles/jsx';
 
+import { pressableBaseStyles, pressableStyles } from '@app/ui/components/pressable/pressable';
 import { ChevronDownIcon } from '@app/ui/icons';
-import { pressableBaseStyles, pressableStyles } from '@app/ui/pressable/pressable';
 
 import { Flag } from '../flag/flag';
 

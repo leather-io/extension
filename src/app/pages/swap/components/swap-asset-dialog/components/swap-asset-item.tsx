@@ -7,7 +7,7 @@ import { useGetFungibleTokenMetadataQuery } from '@app/query/stacks/tokens/fungi
 import { isFtAsset } from '@app/query/stacks/tokens/token-metadata.utils';
 import { Avatar, defaultFallbackDelay, getAvatarFallback } from '@app/ui/components/avatar/avatar';
 import { ItemLayout } from '@app/ui/components/item-layout/item-layout';
-import { Pressable } from '@app/ui/pressable/pressable';
+import { Pressable } from '@app/ui/components/pressable/pressable';
 
 interface SwapAssetItemProps {
   asset: SwapAsset;

@@ -3,7 +3,7 @@ import { ReactNode, forwardRef } from 'react';
 import * as RadixSelect from '@radix-ui/react-select';
 import { css } from 'leather-styles/css';
 
-import { pressableBaseStyles, pressableStyles } from '@app/ui/pressable/pressable';
+import { pressableBaseStyles, pressableStyles } from '@app/ui/components/pressable/pressable';
 
 export interface SelectItem {
   iconLeft?: ReactNode;

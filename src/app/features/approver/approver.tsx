@@ -8,6 +8,7 @@ import { ApproverAdvanced } from './components/approver-advanced';
 import { ApproverContainer } from './components/approver-container';
 import { ApproverHeader } from './components/approver-header';
 import { ApproverSection } from './components/approver-section';
+import { ApproverStatus } from './components/approver-status';
 import { ApproverSubheader } from './components/approver-subheader';
 
 function Approver(props: HasChildren) {
@@ -24,6 +25,7 @@ function Approver(props: HasChildren) {
 }
 
 Approver.Header = ApproverHeader;
+Approver.Status = ApproverStatus;
 Approver.Subheader = ApproverSubheader;
 Approver.Section = ApproverSection;
 Approver.Advanced = ApproverAdvanced;

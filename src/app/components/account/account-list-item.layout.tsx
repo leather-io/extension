@@ -3,8 +3,8 @@ import { ReactNode } from 'react';
 import { SettingsSelectors } from '@tests/selectors/settings.selectors';
 
 import { ItemLayout } from '@app/ui/components/item-layout/item-layout';
+import { Pressable } from '@app/ui/components/pressable/pressable';
 import { Spinner } from '@app/ui/components/spinner';
-import { Pressable } from '@app/ui/pressable/pressable';
 
 interface AccountListItemLayoutProps {
   accountAddresses: ReactNode;
