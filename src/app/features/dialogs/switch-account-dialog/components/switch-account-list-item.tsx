@@ -32,6 +32,12 @@ export const SwitchAccountListItem = memo(
       index,
     });
 
+    // FIX: A virtual list should only render the components within the
+    // viewport. When opening the Switch Account dialog, we can see the output
+    // for every account in list, demonstrating that its rendering more than
+    // what's in the viewport.
+    console.log(stacksAccounts[index].index);
+
     const handleClick = async () => {
       setIsLoading();
       setTimeout(async () => {
