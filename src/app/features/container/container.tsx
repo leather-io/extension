@@ -53,7 +53,6 @@ export function Container() {
   const navigate = useNavigate();
   const { pathname: locationPathname } = useLocation();
   const pathname = locationPathname as RouteUrls;
-
   const analytics = useAnalytics();
   const hasStateRehydrated = useHasStateRehydrated();
   const { chain, name: chainName } = useCurrentNetworkState();
