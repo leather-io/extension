@@ -794,7 +794,7 @@ packages:
       '@types/node-fetch': 2.6.11
       async-retry: 1.3.3
       cors: 2.8.5
-      express: 4.18.2
+      express: 4.19.2
       graphql: 16.8.1
       loglevel: 1.8.1
       lru-cache: 7.18.3
@@ -6628,7 +6628,7 @@ packages:
       cors: 2.8.5
       cross-spawn: 7.0.3
       electron: 27.2.1
-      express: 4.18.2
+      express: 4.19.2
       get-port: 7.0.0
       graphql: 16.8.1
       knex: 3.1.0(sqlite3@5.1.6)
@@ -9663,7 +9663,7 @@ packages:
       ejs: 3.1.9
       esbuild: 0.20.1
       esbuild-plugin-alias: 0.2.1
-      express: 4.18.2
+      express: 4.19.2
       fs-extra: 11.2.0
       process: 0.11.10
       util: 0.12.5
@@ -9699,7 +9699,7 @@ packages:
       constants-browserify: 1.0.0
       css-loader: 6.9.0(webpack@5.91.0)
       es-module-lexer: 1.4.1
-      express: 4.18.2
+      express: 4.19.2
       fork-ts-checker-webpack-plugin: 8.0.0(typescript@5.3.3)(webpack@5.91.0)
       fs-extra: 11.2.0
       html-webpack-plugin: 5.6.0(webpack@5.91.0)
@@ -9932,7 +9932,7 @@ packages:
       cli-table3: 0.6.3
       compression: 1.7.4
       detect-port: 1.5.1
-      express: 4.18.2
+      express: 4.19.2
       fs-extra: 11.2.0
       globby: 11.1.0
       ip: 2.0.1
@@ -13112,7 +13112,7 @@ packages:
       }
     peerDependencies:
       body-parser: 1.20.2
-      express: 4.18.2
+      express: 4.19.2
       node-fetch: 2.6.11
       safe-compare: 1.1.4
     peerDependenciesMeta:
@@ -13141,7 +13141,7 @@ packages:
       }
     peerDependencies:
       body-parser: 1.20.2
-      express: 4.18.2
+      express: 4.19.2
       node-fetch: 2.6.11
       safe-compare: 1.1.4
     peerDependenciesMeta:
@@ -14250,28 +14250,6 @@ packages:
         integrity: sha512-eXRvHzWyYPBuB4NBy0cmYQjGitUrtqwbvlzP3G6VFnNRbsZQIxQ10PbKKHt8gZ/HW/D/747aDl+QkDqg3KQLMQ==,
       }
 
-  /body-parser@1.20.1:
-    resolution:
-      {
-        integrity: sha512-jWi7abTbYwajOytWCQc37VulmWiRae5RyTpaCyDcS5/lMdtwSz5lOpDE67srw/HYe35f1z3fDQw+3txg7gNtWw==,
-      }
-    engines: { node: '>= 0.8', npm: 1.2.8000 || >= 1.4.16 }
-    dependencies:
-      bytes: 3.1.2
-      content-type: 1.0.5
-      debug: 2.6.9
-      depd: 2.0.0
-      destroy: 1.2.0
-      http-errors: 2.0.0
-      iconv-lite: 0.4.24
-      on-finished: 2.4.1
-      qs: 6.11.0
-      raw-body: 2.5.1
-      type-is: 1.6.18
-      unpipe: 1.0.0
-    transitivePeerDependencies:
-      - supports-color
-
   /body-parser@1.20.2:
     resolution:
       {
@@ -14293,7 +14271,6 @@ packages:
       unpipe: 1.0.0
     transitivePeerDependencies:
       - supports-color
-    dev: true
 
   /bonjour-service@1.2.1:
     resolution:
@@ -15736,10 +15713,10 @@ packages:
         integrity: sha512-QADzlaHc8icV8I7vbaJXJwod9HWYp8uCqf1xa4OfNu1T7JVxQIrUgOWtHdNDtPiywmFbiS12VjotIXLrKM3orQ==,
       }
 
-  /cookie@0.5.0:
+  /cookie@0.6.0:
     resolution:
       {
-        integrity: sha512-YZ3GUyn/o8gfKJlnlX7g7xq4gyO6OSuhGPKaaGssGB2qgDUS0gPgtTvoyZLTt9Ab6dC4hfc9dV5arkvc/OCmrw==,
+        integrity: sha512-U71cyTamuh1CRNCfpGY6to28lxvNwPG4Guz/EVjgf3Jmzv0vlDp1atT9eS5dDjMYHucpHbWns6Lwf3BKz6svdw==,
       }
     engines: { node: '>= 0.6' }
 
@@ -18580,19 +18557,19 @@ packages:
       strip-final-newline: 3.0.0
     dev: true
 
-  /express@4.18.2:
+  /express@4.19.2:
     resolution:
       {
-        integrity: sha512-5/PsL6iGPdfQ/lKM1UuielYgv3BUoJfz1aUwU9vHZ+J7gyvwdQXFEBIEIaxeGf0GIcreATNyBExtalisDbuMqQ==,
+        integrity: sha512-5T6nhjsT+EOMzuck8JjBHARTHfMht0POzlA60WV2pMD3gyXw2LZnZ+ueGdNxG+0calOJcWKbpFcuzLZ91YWq9Q==,
       }
     engines: { node: '>= 0.10.0' }
     dependencies:
       accepts: 1.3.8
       array-flatten: 1.1.1
-      body-parser: 1.20.1
+      body-parser: 1.20.2
       content-disposition: 0.5.4
       content-type: 1.0.5
-      cookie: 0.5.0
+      cookie: 0.6.0
       cookie-signature: 1.0.6
       debug: 2.6.9
       depd: 2.0.0
@@ -26946,18 +26923,6 @@ packages:
       }
     engines: { node: '>= 0.6' }
 
-  /raw-body@2.5.1:
-    resolution:
-      {
-        integrity: sha512-qqJBtEyVgS0ZmPGdCFPWJ3FreoqvG4MVQln/kCgF7Olq95IbOp0/BWyMwbdtn4VTvkM8Y7khCQ2Xgk/tcrCXig==,
-      }
-    engines: { node: '>= 0.8' }
-    dependencies:
-      bytes: 3.1.2
-      http-errors: 2.0.0
-      iconv-lite: 0.4.24
-      unpipe: 1.0.0
-
   /raw-body@2.5.2:
     resolution:
       {
@@ -26969,7 +26934,6 @@ packages:
       http-errors: 2.0.0
       iconv-lite: 0.4.24
       unpipe: 1.0.0
-    dev: true
 
   /rc@1.2.8:
     resolution:
@@ -31822,7 +31786,7 @@ packages:
       compression: 1.7.4
       connect-history-api-fallback: 2.0.0
       default-gateway: 6.0.3
-      express: 4.18.2
+      express: 4.19.2
       graceful-fs: 4.2.11
       html-entities: 2.4.0
       http-proxy-middleware: 2.0.6(@types/express@4.17.21)
