@@ -11,18 +11,16 @@ export function HiroMessageItem(props: HiroMessageItemProps) {
     props;
 
   return (
-    <Flex position="relative" py="space.05" px="space.04" width="100%" justifyContent="center">
-      <Flex pos="relative" flexDirection={['column', null, 'row']} width={['100%', null, '884px']}>
+    <Flex position="relative" py="space.05" px="space.05" width="100%" justifyContent="center">
+      <Flex pos="relative" flexDirection={['column', null, 'row']} width="100%" maxWidth={{ base: '100vw', md: 'fullPageMaxWidth' }} px={['unset', 'space.05']}>
         {dismissible && (
           <styled.button
             position="absolute"
             p="space.02"
             top={['-16px', null, '50%']}
-            // mr="space.02"
             mt={['space.02', null, 'unset']}
             transform={[null, null, 'translateY(-50%)']}
-            right="-space.02"
-            borderRadius="lg"
+            right={['-space.02', 'space.04']}
             _focus={{ outline: '1px solid white' }}
             onClick={() => onDismiss(id)}
           >
@@ -34,35 +32,35 @@ export function HiroMessageItem(props: HiroMessageItemProps) {
             <img width={imgWidth} src={img} />
           </Box>
         )}
-        <Box fontSize="13px" lineHeight="20px">
+        <Box>
           {title && (
             <styled.span textStyle="label.02" display="block" lineHeight="inherit">
               {title}
             </styled.span>
           )}
           <styled.span
-            textStyle="caption.01"
+            textStyle="label.02"
             display="inline-block"
             fontSize="inherit"
-            mr={['space.02', 'space.04']}
-            mt="space.03"
+            mr="space.07"
             lineHeight="inherit"
           >
             {text}
+            {learnMoreUrl && (
+              <styled.a
+                textStyle="label.02"
+                textDecoration="underline"
+                href={learnMoreUrl}
+                whiteSpace="nowrap"
+                target="_blank"
+                ml="space.01"
+              >
+                {learnMoreText ? learnMoreText : 'Learn more →'}
+              </styled.a>
+            )}
           </styled.span>
-          {learnMoreUrl && (
-            <styled.a
-              display="inline-block"
-              textDecoration="underline"
-              href={learnMoreUrl}
-              whiteSpace="nowrap"
-              target="_blank"
-            >
-              {learnMoreText ? learnMoreText : 'Learn more ↗'}
-            </styled.a>
-          )}
         </Box>
       </Flex>
     </Flex>
-  );
+    );
 }
