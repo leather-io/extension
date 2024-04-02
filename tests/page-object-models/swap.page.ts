@@ -32,8 +32,7 @@ export class SwapPage {
     const swapAssetSelectors = await this.page.locator(this.selectAssetBtn).all();
     await swapAssetSelectors[1].click();
     await this.page.locator(this.chooseAssetList).waitFor();
-    const swapAssets = await this.page.locator(this.chooseAssetListItem).all();
-    await swapAssets[0].click();
+    await this.page.locator('text="ALEX Token"').click();
     await this.page.locator(this.swapReviewBtn).click();
   }
 
