@@ -16,25 +16,30 @@ interface RadixDialogProps extends DialogProps {
   footer?: ReactNode;
   header?: ReactElement<any, string | JSXElementConstructor<any>>;
   onGoBack?(): void;
+  contentMaxHeight?: string | number;
 }
 
-export function getHeightOffset(header: ReactNode, footer: ReactNode) {
+export function getHeightOffset(header: ReactNode, footer: ReactNode): number {
   const headerHeight = header ? pxStringToNumber(token('sizes.headerHeight')) : 0;
   const footerHeight = footer ? pxStringToNumber(token('sizes.footerHeight')) : 0;
   return headerHeight + footerHeight;
 }
 
 function getContentMaxHeight(maxHeightOffset: number) {
-  const virtualHeight = window.innerWidth <= pxStringToNumber(token('sizes.popupWidth')) ? 100 : 70;
-
-  return `calc(${virtualHeight}vh - ${maxHeightOffset}px)`;
+  return `calc(${80}vh - ${maxHeightOffset}px)`;
 }
 
-export function Dialog({ children, footer, header, onClose, isShowing }: RadixDialogProps) {
+export function Dialog({
+  children,
+  footer,
+  header,
+  onClose,
+  isShowing,
+  contentMaxHeight,
+}: RadixDialogProps) {
   if (!isShowing) return null;
 
   const maxHeightOffset = getHeightOffset(header, footer);
-  const contentMaxHeight = getContentMaxHeight(maxHeightOffset);
 
   return (
     <RadixDialog.Root open>
@@ -67,13 +72,14 @@ export function Dialog({ children, footer, header, onClose, isShowing }: RadixDi
             })}
           >
             {header && cloneElement(header, { onClose })}
-
             <Box
+              height="100%"
+              overflowY="auto"
               style={{
-                height: '100%',
-                maxHeight: contentMaxHeight,
+                maxHeight: contentMaxHeight
+                  ? contentMaxHeight
+                  : getContentMaxHeight(maxHeightOffset),
                 marginBottom: footer ? token('sizes.footerHeight') : token('spacing.space.04'),
-                overflowY: 'auto',
               }}
             >
               {children}

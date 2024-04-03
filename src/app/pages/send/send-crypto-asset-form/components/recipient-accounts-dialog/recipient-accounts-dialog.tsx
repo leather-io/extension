@@ -4,11 +4,11 @@ import { Virtuoso } from 'react-virtuoso';
 
 import { Box } from 'leather-styles/jsx';
 
+import { useGetVirtuosoHeight } from '@app/common/hooks/use-get-virtuoso-height';
 import { useFilteredBitcoinAccounts } from '@app/store/accounts/blockchain/bitcoin/bitcoin.ledger';
 import { useStacksAccounts } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
-import { Dialog, getHeightOffset } from '@app/ui/components/containers/dialog/dialog';
+import { Dialog } from '@app/ui/components/containers/dialog/dialog';
 import { Header } from '@app/ui/components/containers/headers/header';
-import { virtuosoHeight, virtuosoStyles } from '@app/ui/shared/virtuoso';
 
 import { AccountListItem } from './account-list-item';
 
@@ -21,17 +21,20 @@ export function RecipientAccountsDialog() {
   const btcAddressesNum = bitcoinAccounts.length / 2;
   const stacksAddressesNum = stacksAccounts.length;
 
-  if (stacksAddressesNum === 0 && btcAddressesNum === 0) return null;
   const accountNum = stacksAddressesNum || btcAddressesNum;
-  const maxAccountsShown = accountNum > 10 ? 10 : accountNum;
+  const maxHeight = useGetVirtuosoHeight(accountNum, 'no-footer');
+  if (stacksAddressesNum === 0 && btcAddressesNum === 0) return null;
 
   return (
-    <Dialog header={<Header variant="dialog" title="My accounts" />} isShowing onClose={onGoBack}>
+    <Dialog
+      header={<Header variant="dialog" title="My accounts" />}
+      contentMaxHeight={maxHeight}
+      isShowing
+      onClose={onGoBack}
+    >
       <Virtuoso
-        height={virtuosoHeight}
         style={{
-          ...virtuosoStyles,
-          height: `calc(${virtuosoHeight * maxAccountsShown}px + ${getHeightOffset(true, true)}px)`,
+          height: maxHeight,
         }}
         itemContent={index => (
           <Box key={index} my="space.05" px="space.05">

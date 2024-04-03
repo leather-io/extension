@@ -10,6 +10,7 @@ import { RouteUrls } from '@shared/route-urls';
 import { useFinishAuthRequest } from '@app/common/authentication/use-finish-auth-request';
 import { useAccountDisplayName } from '@app/common/hooks/account/use-account-names';
 import { useCreateAccount } from '@app/common/hooks/account/use-create-account';
+import { useGetVirtuosoHeight } from '@app/common/hooks/use-get-virtuoso-height';
 import { useWalletType } from '@app/common/use-wallet-type';
 import { slugify } from '@app/common/utils';
 import { AccountTotalBalance } from '@app/components/account-total-balance';
@@ -21,7 +22,6 @@ import { useStacksAccounts } from '@app/store/accounts/blockchain/stacks/stacks-
 import { StacksAccount } from '@app/store/accounts/blockchain/stacks/stacks-account.models';
 import { AccountAvatar } from '@app/ui/components/account/account-avatar/account-avatar';
 import { PlusIcon } from '@app/ui/icons/plus-icon';
-import { virtuosoHeight, virtuosoStyles } from '@app/ui/shared/virtuoso';
 
 interface AccountTitlePlaceholderProps {
   account: StacksAccount;
@@ -71,7 +71,7 @@ const ChooseAccountItem = memo(
   }
 );
 
-const AddAccountAction = memo(() => {
+function AddAccountAction() {
   const [component, bind] = usePressable(true);
   const createAccount = useCreateAccount();
 
@@ -88,9 +88,9 @@ const AddAccountAction = memo(() => {
       {component}
     </Box>
   );
-});
+}
 
-export const ChooseAccountsList = memo(() => {
+export function ChooseAccountsList() {
   const finishSignIn = useFinishAuthRequest();
   const { whenWallet } = useWalletType();
   const accounts = useStacksAccounts();
@@ -108,20 +108,17 @@ export const ChooseAccountsList = memo(() => {
       },
     })();
   };
+  const accountNum = accounts.length;
+  const maxHeight = useGetVirtuosoHeight(accountNum, 'popup');
 
   if (!accounts) return null;
-  const accountNum = accounts.length;
-
-  const maxAccountsShown = accountNum > 10 ? 10 : accountNum;
 
   return (
     <Box mt="space.05" mb="space.06" width="100%">
       {whenWallet({ software: <AddAccountAction />, ledger: <></> })}
       <Virtuoso
-        height={virtuosoHeight}
         style={{
-          ...virtuosoStyles,
-          height: `calc(${virtuosoHeight * maxAccountsShown}px + 50px)`,
+          height: maxHeight,
           background: token('colors.ink.background-primary'),
         }}
         data={accounts}
@@ -137,4 +134,4 @@ export const ChooseAccountsList = memo(() => {
       />
     </Box>
   );
-});
+}
