@@ -7,9 +7,9 @@
         "dismissible": true,
         "id": "user-survey-announcement",
         "publishedAt": "2024-04-03T12:55:46",
-        "text": "We want to hear what you think about using Leather.",
+        "text": "We want to hear what you think about Leather.",
         "learnMoreText": "Take our user survey →",
-        "learnMoreUrl":"https://blocksurvey.io/leather-wallet-user-survey-YWvSDeY2RU2mBtmuG2sbwA",
+        "learnMoreUrl": "https://blocksurvey.io/leather-wallet-user-survey-YWvSDeY2RU2mBtmuG2sbwA",
         "purpose": "info"
       }
     ]
