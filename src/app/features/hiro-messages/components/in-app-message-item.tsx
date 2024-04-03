@@ -12,7 +12,13 @@ export function HiroMessageItem(props: HiroMessageItemProps) {
 
   return (
     <Flex position="relative" py="space.05" px="space.05" width="100%" justifyContent="center">
-      <Flex pos="relative" flexDirection={['column', null, 'row']} width="100%" maxWidth={{ base: '100vw', md: 'fullPageMaxWidth' }} px={['unset', 'space.05']}>
+      <Flex
+        pos="relative"
+        flexDirection={['column', null, 'row']}
+        width="100%"
+        maxWidth={{ base: '100vw', md: 'fullPageMaxWidth' }}
+        px={['unset', 'space.05']}
+      >
         {dismissible && (
           <styled.button
             position="absolute"
@@ -62,5 +68,5 @@ export function HiroMessageItem(props: HiroMessageItemProps) {
         </Box>
       </Flex>
     </Flex>
-    );
+  );
 }
