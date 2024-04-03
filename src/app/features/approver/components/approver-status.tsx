@@ -32,13 +32,12 @@ export function ApproverStatus({ status }: ApproverStatusProps) {
     <styled.div pos="relative">
       <StatusIndicatorLine status={status} />
       <styled.div
-        mt="4px"
         textStyle="label.03"
         background="ink.background-primary"
         px="space.05"
         py="space.03"
       >
-        <BulletSeparator spacing="space.01">
+        <BulletSeparator spacing="space.02">
           <styled.span>{capitalize(status)}</styled.span>
           <styled.span>{toLocalizedDateFormat(dayjs())}</styled.span>
         </BulletSeparator>
