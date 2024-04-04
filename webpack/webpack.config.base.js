@@ -260,7 +260,6 @@ export const config = {
       COMMIT_SHA: COMMIT_SHA,
     }),
     new webpack.ProvidePlugin({
-      process: 'process/browser',
       Buffer: ['buffer', 'Buffer'],
     }),
 

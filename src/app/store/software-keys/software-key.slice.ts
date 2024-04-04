@@ -10,7 +10,6 @@ interface KeyConfig {
   encryptedSecretKey: string;
   salt: string;
 }
-
 const keyAdapter = createEntityAdapter<KeyConfig>();
 
 export const initialKeysState = keyAdapter.getInitialState();
@@ -20,11 +19,11 @@ export const keySlice = createSlice({
   initialState: migrateVaultReducerStoreToNewStateStructure(initialKeysState),
   reducers: {
     createSoftwareWalletComplete(state, action: PayloadAction<KeyConfig>) {
-      keyAdapter.addOne(state, action.payload);
+      keyAdapter.addOne(state as any, action.payload);
     },
 
     signOut(state) {
-      keyAdapter.removeOne(state, defaultWalletKeyId);
+      keyAdapter.removeOne(state as any, defaultWalletKeyId);
     },
 
     debugKillStacks() {
