@@ -1,4 +1,3 @@
-import { Dictionary } from '@reduxjs/toolkit';
 import { atom } from 'jotai';
 
 import { NetworkConfiguration, defaultCurrentNetwork } from '@shared/constants';
@@ -16,7 +15,7 @@ export const currentNetworkAtom = atom(get => {
   const networkChainId = initialSearchParams.get('networkChainId');
   const networkMode = initialSearchParams.get('network');
 
-  const networks: Dictionary<NetworkConfiguration> = selectNetworks(store);
+  const networks: Record<string, NetworkConfiguration> = selectNetworks(store);
 
   if (networkMode) return networks[networkMode] ?? defaultCurrentNetwork;
 

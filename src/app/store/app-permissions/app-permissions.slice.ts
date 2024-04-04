@@ -9,8 +9,7 @@ interface AppPermission {
   // has given permission
   requestedAccounts?: string;
 }
-
-const appPermissionsAdapter = createEntityAdapter<AppPermission>({
+const appPermissionsAdapter = createEntityAdapter<AppPermission, string>({
   selectId: permission => permission.origin,
 });
 

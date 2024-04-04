@@ -1,11 +1,11 @@
-import { EntityId, PayloadAction, createEntityAdapter, createSlice } from '@reduxjs/toolkit';
+import { PayloadAction, createEntityAdapter, createSlice } from '@reduxjs/toolkit';
 
 export interface SubmittedTransaction {
   rawTx: string;
   txId: string;
 }
 
-export const submittedTransactionsAdapter = createEntityAdapter<SubmittedTransaction>({
+export const submittedTransactionsAdapter = createEntityAdapter<SubmittedTransaction, string>({
   selectId: submittedTransaction => submittedTransaction.txId,
 });
 
@@ -18,10 +18,10 @@ export const submittedTransactionsSlice = createSlice({
     newTransactionSubmitted(state, action: PayloadAction<SubmittedTransaction>) {
       submittedTransactionsAdapter.addOne(state, action.payload);
     },
-    transactionEnteredMempool(state, action: PayloadAction<EntityId>) {
+    transactionEnteredMempool(state, action: PayloadAction<string>) {
       submittedTransactionsAdapter.removeOne(state, action.payload);
     },
-    transactionReplacedByFee(state, action: PayloadAction<EntityId>) {
+    transactionReplacedByFee(state, action: PayloadAction<string>) {
       submittedTransactionsAdapter.removeOne(state, action.payload);
     },
   },
