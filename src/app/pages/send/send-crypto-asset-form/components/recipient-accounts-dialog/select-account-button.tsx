@@ -19,7 +19,6 @@ export function SelectAccountButton({ onClick, ...props }: SelectAccountButtonPr
       textStyle="label.03"
       _hover={{ color: 'ink.action-primary-hover' }}
       data-testid={SendCryptoAssetSelectors.RecipientChooseAccountButton}
-      fontWeight={500}
       onMouseDown={e => preventFocusOfUnderlyingInput(e)}
       onClick={e => {
         // Improves UX of selecting a recipient from the window. As the button

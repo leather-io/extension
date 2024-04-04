@@ -7,7 +7,7 @@ import { useCurrentNativeSegwitAddressBalance } from '@app/query/bitcoin/balance
 
 export function useValidateBitcoinSpend(amount?: Money, isSendingMax?: boolean) {
   const [showInsufficientBalanceError, setShowInsufficientBalanceError] = useState(false);
-  const balance = useCurrentNativeSegwitAddressBalance();
+  const { balance } = useCurrentNativeSegwitAddressBalance();
 
   return {
     showInsufficientBalanceError,

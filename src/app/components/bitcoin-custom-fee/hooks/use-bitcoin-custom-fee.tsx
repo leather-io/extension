@@ -20,7 +20,7 @@ interface UseBitcoinCustomFeeArgs {
   recipient: string;
 }
 export function useBitcoinCustomFee({ amount, isSendingMax, recipient }: UseBitcoinCustomFeeArgs) {
-  const balance = useCurrentNativeSegwitAddressBalance();
+  const { balance } = useCurrentNativeSegwitAddressBalance();
   const { data: utxos = [] } = useCurrentNativeSegwitUtxos();
   const btcMarketData = useCryptoCurrencyMarketData('BTC');
 

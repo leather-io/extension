@@ -43,7 +43,7 @@ export function useBitcoinFeesList({
   recipient,
   utxos,
 }: UseBitcoinFeesListArgs) {
-  const balance = useCurrentNativeSegwitAddressBalance();
+  const { balance } = useCurrentNativeSegwitAddressBalance();
   const btcMarketData = useCryptoCurrencyMarketData('BTC');
   const { data: feeRates, isLoading } = useAverageBitcoinFeeRates();
 

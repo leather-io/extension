@@ -37,7 +37,7 @@ export function BtcSendForm() {
   const btcMarketData = useCryptoCurrencyMarketData(symbol);
 
   const nativeSegwitSigner = useCurrentAccountNativeSegwitIndexZeroSigner();
-  const btcBalance = useNativeSegwitBalance(nativeSegwitSigner.address);
+  const { btcBalance } = useNativeSegwitBalance(nativeSegwitSigner.address);
 
   const {
     calcMaxSpend,

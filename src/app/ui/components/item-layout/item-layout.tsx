@@ -63,9 +63,7 @@ export function ItemLayout({
             {isValidElement(titleRight) ? (
               titleRight
             ) : (
-              <styled.span fontWeight={500} textStyle="label.02">
-                {titleRight}
-              </styled.span>
+              <styled.span textStyle="label.02">{titleRight}</styled.span>
             )}
             {isValidElement(captionRight) ? (
               captionRight

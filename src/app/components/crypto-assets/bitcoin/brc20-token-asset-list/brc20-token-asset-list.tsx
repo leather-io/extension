@@ -15,7 +15,8 @@ import { Brc20TokenAssetItemLayout } from './components/brc20-token-asset-item.l
 export function Brc20TokenAssetList(props: { brc20Tokens?: Brc20Token[] }) {
   const navigate = useNavigate();
   const currentAccountBtcAddress = useCurrentAccountNativeSegwitAddressIndexZero();
-  const btcCryptoCurrencyAssetBalance = useNativeSegwitBalance(currentAccountBtcAddress);
+  const { btcBalance: btcCryptoCurrencyAssetBalance } =
+    useNativeSegwitBalance(currentAccountBtcAddress);
 
   const hasPositiveBtcBalanceForFees =
     btcCryptoCurrencyAssetBalance.balance.amount.isGreaterThan(0);

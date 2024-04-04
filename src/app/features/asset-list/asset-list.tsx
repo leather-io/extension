@@ -27,7 +27,8 @@ export function AssetsList() {
   const btcAddress = useCurrentAccountNativeSegwitAddressIndexZero();
   const network = useCurrentNetwork();
 
-  const { btcAvailableAssetBalance, btcAvailableUsdBalance } = useBtcAssetBalance(btcAddress);
+  const { btcAvailableAssetBalance, btcAvailableUsdBalance, isInitialLoading } =
+    useBtcAssetBalance(btcAddress);
 
   const { whenWallet } = useWalletType();
 
@@ -40,6 +41,7 @@ export function AssetsList() {
             usdBalance={btcAvailableUsdBalance}
             icon={<BtcAvatarIcon />}
             address={btcAddress}
+            isLoading={isInitialLoading}
           />
         ),
         ledger: (
@@ -48,6 +50,7 @@ export function AssetsList() {
             usdBalance={btcAvailableUsdBalance}
             icon={<BtcAvatarIcon />}
             address={btcAddress}
+            isLoading={isInitialLoading}
             rightElement={
               hasBitcoinLedgerKeys ? undefined : <ConnectLedgerAssetBtn chain="bitcoin" />
             }

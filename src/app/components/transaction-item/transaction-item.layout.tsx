@@ -16,6 +16,7 @@ interface TransactionItemLayoutProps {
   txStatus?: ReactNode;
   children?: ReactNode;
 }
+
 export function TransactionItemLayout({
   openTxLink,
   rightElement,
@@ -37,13 +38,7 @@ export function TransactionItemLayout({
           </HStack>
         }
         titleRight={
-          rightElement ? (
-            rightElement
-          ) : (
-            <styled.span fontWeight={500} textStyle="label.02">
-              {txValue}
-            </styled.span>
-          )
+          rightElement ? rightElement : <styled.span textStyle="label.02">{txValue}</styled.span>
         }
       />
     </Pressable>

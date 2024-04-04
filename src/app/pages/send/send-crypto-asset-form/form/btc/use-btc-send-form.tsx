@@ -37,7 +37,9 @@ export function useBtcSendForm() {
   const currentNetwork = useCurrentNetwork();
   const nativeSegwitSigner = useCurrentAccountNativeSegwitIndexZeroSigner();
   const { data: utxos = [], refetch } = useCurrentNativeSegwitUtxos();
-  const btcCryptoCurrencyAssetBalance = useNativeSegwitBalance(nativeSegwitSigner.address);
+  const { btcBalance: btcCryptoCurrencyAssetBalance } = useNativeSegwitBalance(
+    nativeSegwitSigner.address
+  );
   const sendFormNavigate = useSendFormNavigate();
   const calcMaxSpend = useCalculateMaxBitcoinSpend();
   const { onFormStateChange } = useUpdatePersistedSendFormValues();

@@ -4,6 +4,7 @@ import { SettingsSelectors } from '@tests/selectors/settings.selectors';
 import { Box, Flex, styled } from 'leather-styles/jsx';
 
 import { Link } from '@app/ui/components/link/link';
+import { SkeletonLoader } from '@app/ui/components/skeleton-loader/skeleton-loader';
 import { ChevronDownIcon } from '@app/ui/icons';
 
 interface AccountCardProps {
@@ -12,6 +13,7 @@ interface AccountCardProps {
   children: ReactNode;
   switchAccount: ReactNode;
   toggleSwitchAccount(): void;
+  isLoadingBalance: boolean;
 }
 
 export function AccountCard({
@@ -20,6 +22,7 @@ export function AccountCard({
   switchAccount,
   toggleSwitchAccount,
   children,
+  isLoadingBalance,
 }: AccountCardProps) {
   return (
     <Flex
@@ -46,9 +49,11 @@ export function AccountCard({
         </Flex>
       </Link>
       <Flex flexDir={{ base: 'column', md: 'row' }} justify="space-between">
-        <styled.h1 textStyle="heading.02" mb="space.05" mt="space.04">
-          {balance}
-        </styled.h1>
+        <Box mb="space.05" mt="space.04">
+          <SkeletonLoader width="200px" height="38px" isLoading={isLoadingBalance}>
+            <styled.h1 textStyle="heading.02">{balance}</styled.h1>
+          </SkeletonLoader>
+        </Box>
         {switchAccount}
         {children}
       </Flex>

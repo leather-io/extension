@@ -40,7 +40,7 @@ export function StacksFungibleTokenAssetItemLayout({
             label={formattedBalance.isAbbreviated ? amount : undefined}
             side="left"
           >
-            <styled.span data-testid={title} fontWeight={500} textStyle="label.02">
+            <styled.span data-testid={title} textStyle="label.02">
               {formattedBalance.value}
             </styled.span>
           </BasicTooltip>
