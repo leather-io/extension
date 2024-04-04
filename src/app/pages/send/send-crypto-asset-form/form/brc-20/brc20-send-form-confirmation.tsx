@@ -114,7 +114,7 @@ export function Brc20SendFormConfirmation() {
         </Footer>
       }
     >
-      <CardContent p={0}>
+      <CardContent p="space.00">
         <InfoCardAssetValue
           data-testid={SendCryptoAssetSelectors.ConfirmationDetailsAssetValue}
           mb="space.06"

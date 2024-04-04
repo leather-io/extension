@@ -139,7 +139,7 @@ export function BtcSendFormConfirmation() {
         </Footer>
       }
     >
-      <CardContent p={0}>
+      <CardContent p="space.00">
         <InfoCardAssetValue
           data-testid={SendCryptoAssetSelectors.ConfirmationDetailsAssetValue}
           fiatSymbol={txFiatValueSymbol}

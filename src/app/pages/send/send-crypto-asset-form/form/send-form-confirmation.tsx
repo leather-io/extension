@@ -60,7 +60,7 @@ export function SendFormConfirmation({
         </Footer>
       }
     >
-      <CardContent dataTestId={SendCryptoAssetSelectors.ConfirmationDetails} p={0}>
+      <CardContent dataTestId={SendCryptoAssetSelectors.ConfirmationDetails} p="space.00">
         <InfoCardAssetValue
           data-testid={SendCryptoAssetSelectors.ConfirmationDetailsAssetValue}
           fiatSymbol={txFiatValueSymbol}

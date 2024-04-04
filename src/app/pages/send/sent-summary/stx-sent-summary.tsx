@@ -64,7 +64,7 @@ export function StxSentSummary() {
         </Footer>
       }
     >
-      <CardContent p={0}>
+      <CardContent p="space.00">
         <TxDone />
 
         <InfoCardAssetValue

@@ -60,7 +60,7 @@ export function Brc20SentSummary() {
         </Footer>
       }
     >
-      <CardContent p={0}>
+      <CardContent p="space.00">
         <TxDone />
 
         <InfoCardAssetValue px="space.05" symbol={ticker} value={Number(amount)} />

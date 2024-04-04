@@ -64,7 +64,7 @@ export function BtcSentSummary() {
         </Footer>
       }
     >
-      <CardContent p={0}>
+      <CardContent p="space.00">
         <TxDone />
         <InfoCardAssetValue
           fiatSymbol={txFiatValueSymbol}
