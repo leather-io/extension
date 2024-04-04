@@ -46,7 +46,7 @@ export function BitcoinChooseFee({
   ...rest
 }: BitcoinChooseFeeProps) {
   const nativeSegwitSigner = useCurrentAccountNativeSegwitIndexZeroSigner();
-  const btcBalance = useNativeSegwitBalance(nativeSegwitSigner.address);
+  const { btcBalance } = useNativeSegwitBalance(nativeSegwitSigner.address);
   const hasAmount = amount.amount.isGreaterThan(0);
   const [customFeeInitialValue, setCustomFeeInitialValue] = useState(recommendedFeeRate);
 

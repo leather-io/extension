@@ -7,9 +7,7 @@ export function ToastLayout({ message, variant }: ToastProps) {
   return (
     <HStack gap="space.03">
       <Box>{getIconVariant(variant)}</Box>
-      <styled.span fontWeight={500} textStyle="label.02">
-        {message}
-      </styled.span>
+      <styled.span textStyle="label.02">{message}</styled.span>
     </HStack>
   );
 }

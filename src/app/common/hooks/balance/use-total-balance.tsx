@@ -20,19 +20,20 @@ export function useTotalBalance({ btcAddress, stxAddress }: UseTotalBalanceArgs)
   const stxMarketData = useCryptoCurrencyMarketData('STX');
 
   // get stx balance
-  const { data: balances, isLoading } = useStacksAccountBalances(stxAddress);
+  const { data: balances, isLoading, isInitialLoading } = useStacksAccountBalances(stxAddress);
   const stxBalance = balances ? balances.stx.balance : createMoney(0, 'STX');
 
   // get btc balance
-  const btcBalance = useBtcAssetBalance(btcAddress);
+  const {
+    btcAvailableAssetBalance,
+    isLoading: isLoadingBtcBalance,
+    isInitialLoading: isInititalLoadingBtcBalance,
+  } = useBtcAssetBalance(btcAddress);
 
   return useMemo(() => {
     // calculate total balance
     const stxUsdAmount = baseCurrencyAmountInQuote(stxBalance, stxMarketData);
-    const btcUsdAmount = baseCurrencyAmountInQuote(
-      btcBalance.btcAvailableAssetBalance.balance,
-      btcMarketData
-    );
+    const btcUsdAmount = baseCurrencyAmountInQuote(btcAvailableAssetBalance.balance, btcMarketData);
 
     const totalBalance = { ...stxUsdAmount, amount: stxUsdAmount.amount.plus(btcUsdAmount.amount) };
     return {
@@ -41,7 +42,17 @@ export function useTotalBalance({ btcAddress, stxAddress }: UseTotalBalanceArgs)
         totalBalance,
         totalBalance.amount.isGreaterThanOrEqualTo(100_000) ? 0 : 2
       ),
-      isLoading,
+      isLoading: isLoading || isLoadingBtcBalance,
+      isInitialLoading: isInitialLoading || isInititalLoadingBtcBalance,
     };
-  }, [btcBalance, btcMarketData, stxMarketData, isLoading, stxBalance]);
+  }, [
+    btcAvailableAssetBalance.balance,
+    btcMarketData,
+    isInitialLoading,
+    isInititalLoadingBtcBalance,
+    stxMarketData,
+    stxBalance,
+    isLoading,
+    isLoadingBtcBalance,
+  ]);
 }

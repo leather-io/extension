@@ -31,7 +31,7 @@ export function SwapDetailLayout({
           </BasicTooltip>
         ) : null}
       </HStack>
-      <styled.span data-testid={dataTestId} fontWeight={500} textStyle="label.02">
+      <styled.span data-testid={dataTestId} textStyle="label.02">
         {value}
       </styled.span>
     </HStack>

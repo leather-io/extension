@@ -29,9 +29,7 @@ export function ItemLayoutWithButtons({
           textOverflow="ellipsis"
           whiteSpace="nowrap"
         >
-          <styled.span fontWeight={500} textStyle="label.02">
-            {title}
-          </styled.span>
+          <styled.span textStyle="label.02">{title}</styled.span>
           <styled.span className={pressableCaptionStyles} textStyle="caption.01">
             {caption}
           </styled.span>

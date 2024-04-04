@@ -3,7 +3,7 @@ import { useCurrentNativeSegwitAddressBalance } from '@app/query/bitcoin/balance
 import { Caption } from '@app/ui/components/typography/caption';
 
 export function BtcBalance() {
-  const balance = useCurrentNativeSegwitAddressBalance();
+  const { balance } = useCurrentNativeSegwitAddressBalance();
 
   return <Caption>{formatMoney(balance)}</Caption>;
 }

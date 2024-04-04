@@ -33,7 +33,7 @@ export function Brc20TokenAssetItemLayout({
             label={formattedBalance.isAbbreviated ? balance.amount.toString() : undefined}
             side="left"
           >
-            <styled.span data-testid={token.ticker} fontWeight={500} textStyle="label.02">
+            <styled.span data-testid={token.ticker} textStyle="label.02">
               {formattedBalance.value}
             </styled.span>
           </BasicTooltip>

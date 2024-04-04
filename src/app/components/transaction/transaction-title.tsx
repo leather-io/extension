@@ -22,7 +22,6 @@ export function TransactionTitle(props: TransactionTitleProps) {
   return (
     <BasicTooltip disabled={!isEllipsisActive} label={title} side="top">
       <Title
-        fontWeight={500}
         overflow="hidden"
         ref={ref}
         textOverflow="ellipsis"

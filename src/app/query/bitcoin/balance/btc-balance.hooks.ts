@@ -10,14 +10,24 @@ import { sumNumbers } from '@app/common/math/helpers';
 import { useNativeSegwitUtxosByAddress } from '../address/utxos-by-address.hooks';
 
 export function useGetBitcoinBalanceByAddress(address: string) {
-  const { data: utxos } = useNativeSegwitUtxosByAddress({
+  const {
+    data: utxos,
+    isInitialLoading,
+    isLoading,
+  } = useNativeSegwitUtxosByAddress({
     address,
     filterInscriptionUtxos: true,
     filterPendingTxsUtxos: true,
   });
 
-  return useMemo(() => {
+  const balance = useMemo(() => {
     if (isUndefined(utxos)) return createMoney(new BigNumber(0), 'BTC');
     return createMoney(sumNumbers(utxos.map(utxo => utxo.value)), 'BTC');
   }, [utxos]);
+
+  return {
+    balance,
+    isInitialLoading,
+    isLoading,
+  };
 }

@@ -12,7 +12,6 @@ export function IconButton({ icon, label, ...rest }: IconButtonProps) {
     <Button
       key={label}
       color="ink.text-primary"
-      fontWeight={500}
       p={label ? 'space.01' : 'space.02'}
       textStyle="label.02"
       variant="ghost"

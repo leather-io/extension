@@ -31,11 +31,12 @@ export function CryptoAssetList({
       <BitcoinNativeSegwitAccountLoader current>
         {signer => (
           <BitcoinBalanceLoader address={signer.address}>
-            {balance => (
+            {(balance, isLoading) => (
               <CryptoCurrencyAssetItemLayout
                 assetBalance={balance}
                 icon={<BtcAvatarIcon />}
                 onClick={() => onItemClick(balance)}
+                isLoading={isLoading}
               />
             )}
           </BitcoinBalanceLoader>

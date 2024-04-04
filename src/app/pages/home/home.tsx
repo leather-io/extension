@@ -30,7 +30,10 @@ export function Home() {
 
   const account = useCurrentStacksAccount();
   const btcAddress = useCurrentAccountNativeSegwitAddressIndexZero();
-  const totalBalance = useTotalBalance({ btcAddress, stxAddress: account?.address || '' });
+  const { totalUsdBalance, isInitialLoading } = useTotalBalance({
+    btcAddress,
+    stxAddress: account?.address || '',
+  });
 
   useOnMount(() => {
     if (decodedAuthRequest) navigate(RouteUrls.ChooseAccount);
@@ -41,7 +44,7 @@ export function Home() {
       accountCard={
         <AccountCard
           name={name}
-          balance={totalBalance?.totalUsdBalance}
+          balance={totalUsdBalance}
           switchAccount={
             <SwitchAccountDialog
               isShowing={isShowingSwitchAccount}
@@ -49,6 +52,7 @@ export function Home() {
             />
           }
           toggleSwitchAccount={() => setIsShowingSwitchAccount(!isShowingSwitchAccount)}
+          isLoadingBalance={isInitialLoading}
         >
           <AccountActions />
         </AccountCard>

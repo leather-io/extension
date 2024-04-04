@@ -4,10 +4,10 @@ import { useNativeSegwitBalance } from '@app/query/bitcoin/balance/btc-native-se
 
 interface BitcoinBalanceLoaderProps {
   address: string;
-  children(balance: BitcoinCryptoCurrencyAssetBalance): React.ReactNode;
+  children(balance: BitcoinCryptoCurrencyAssetBalance, isInitialLoading: boolean): React.ReactNode;
 }
 
 export function BitcoinBalanceLoader({ address, children }: BitcoinBalanceLoaderProps) {
-  const btcCryptoCurrencyAssetBalance = useNativeSegwitBalance(address);
-  return children(btcCryptoCurrencyAssetBalance);
+  const { btcBalance, isInitialLoading } = useNativeSegwitBalance(address);
+  return children(btcBalance, isInitialLoading);
 }

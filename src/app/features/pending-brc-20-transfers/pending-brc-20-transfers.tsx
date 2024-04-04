@@ -92,7 +92,8 @@ function PendingBrcTransfer({ order }: PendingBrcTransferProps) {
   const navigate = useNavigate();
   const ordinalsbotClient = useOrdinalsbotClient();
   const currentAccountBtcAddress = useCurrentAccountNativeSegwitAddressIndexZero();
-  const btcCryptoCurrencyAssetBalance = useNativeSegwitBalance(currentAccountBtcAddress);
+  const { btcBalance: btcCryptoCurrencyAssetBalance } =
+    useNativeSegwitBalance(currentAccountBtcAddress);
 
   const hasPositiveBtcBalanceForFees =
     btcCryptoCurrencyAssetBalance.balance.amount.isGreaterThan(0);
