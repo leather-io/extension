@@ -2,6 +2,8 @@ import type { Meta } from '@storybook/react';
 import { Flex, styled } from 'leather-styles/jsx';
 
 import { Button } from '@app/ui/components/button/button';
+import { Card } from '@app/ui/layout/card/card';
+import { Page } from '@app/ui/layout/page/page.layout';
 
 import { Link } from '../../link/link';
 import { Footer as Component } from './footer';
@@ -29,6 +31,24 @@ export function Footer() {
         Create new account
       </Button>
     </Component>
+  );
+}
+
+export function CardFooter() {
+  return (
+    <Page>
+      <Card
+        footer={
+          <Component variant="card">
+            <Button fullWidth onClick={() => null}>
+              Create new account
+            </Button>
+          </Component>
+        }
+      >
+        Blah
+      </Card>
+    </Page>
   );
 }
 

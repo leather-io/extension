@@ -17,7 +17,14 @@ export function ContainerLayout({ children, header }: ContainerLayoutProps) {
       className={css(radixBaseCSS)}
     >
       {header}
-      <Flex className="main-content" flexGrow={1} position="relative" width="100%">
+      <Flex
+        className="main-content"
+        flexGrow={1}
+        position="relative"
+        width="100%"
+        justifyContent="center"
+        margin="0 auto"
+      >
         {children}
       </Flex>
     </Flex>

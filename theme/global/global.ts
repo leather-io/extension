@@ -27,11 +27,6 @@ export const globalCss = defineGlobalStyles({
       maxHeight: 'unset',
       width: '100%',
     },
-    '.main-content': {
-      flexGrow: 1,
-      justifyContent: 'center',
-      margin: '0 auto',
-    },
   },
   '.mode__popup': {
     'html,body, #app, .radix-themes': {

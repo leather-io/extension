@@ -44,7 +44,7 @@ export function HomeLayout() {
             </Tabs.Trigger>
           </Tabs.List>
         </Tabs.Root>
-        <Box width="100%" height="400px" bg="lightModeRed.300" />
+        <Box width="100%" height="400px" bg="red.background-secondary" />
       </Stack>
     </Component>
   );
