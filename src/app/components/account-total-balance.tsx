@@ -22,7 +22,7 @@ export const AccountTotalBalance = memo(({ btcAddress, stxAddress }: AccountTota
   if (!totalUsdBalance) return null;
 
   return (
-    <SkeletonLoader width="200px" height="38px" isLoading={isInitialLoading}>
+    <SkeletonLoader height="20px" isLoading={isInitialLoading}>
       <styled.span
         className={css(shimmerStyles)}
         textStyle="label.02"

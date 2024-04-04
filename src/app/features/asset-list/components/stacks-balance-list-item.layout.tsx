@@ -15,6 +15,7 @@ interface StacksBalanceListItemLayoutProps {
   stxEffectiveUsdBalance?: string;
   stxLockedBalance?: Money;
   stxUsdLockedBalance?: string;
+  isInitialLoading?: boolean;
 }
 export function StacksBalanceListItemLayout(props: StacksBalanceListItemLayoutProps) {
   const {
@@ -23,6 +24,7 @@ export function StacksBalanceListItemLayout(props: StacksBalanceListItemLayoutPr
     stxEffectiveUsdBalance,
     stxLockedBalance,
     stxUsdLockedBalance,
+    isInitialLoading,
   } = props;
 
   const stxAdditionalBalanceInfo = stxLockedBalance?.amount.isGreaterThan(0) ? (
@@ -44,6 +46,7 @@ export function StacksBalanceListItemLayout(props: StacksBalanceListItemLayoutPr
       additionalBalanceInfo={stxAdditionalBalanceInfo}
       additionalUsdBalanceInfo={stxAdditionalUsdBalanceInfo}
       icon={<StxAvatarIcon />}
+      isLoading={isInitialLoading}
     />
   );
 }
