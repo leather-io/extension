@@ -7,5 +7,11 @@ interface StacksBalanceListItemProps {
 }
 export function StacksBalanceListItem({ address }: StacksBalanceListItemProps) {
   const balaceDetails = useStxBalance();
-  return <StacksBalanceListItemLayout address={address} {...balaceDetails} />;
+  return (
+    <StacksBalanceListItemLayout
+      address={address}
+      isInitialLoading={balaceDetails.stxBalanceQuery.isInitialLoading}
+      {...balaceDetails}
+    />
+  );
 }
