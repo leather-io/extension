@@ -23,6 +23,7 @@ export function RecipientAccountsDialog() {
 
   if (stacksAddressesNum === 0 && btcAddressesNum === 0) return null;
   const accountNum = stacksAddressesNum || btcAddressesNum;
+  const maxAccountsShown = accountNum > 10 ? 10 : accountNum;
 
   return (
     <Dialog header={<Header variant="dialog" title="My accounts" />} isShowing onClose={onGoBack}>
@@ -30,7 +31,7 @@ export function RecipientAccountsDialog() {
         height={virtuosoHeight}
         style={{
           ...virtuosoStyles,
-          height: `calc(${virtuosoHeight * accountNum}px + ${getHeightOffset(true, true)}px)`,
+          height: `calc(${virtuosoHeight * maxAccountsShown}px + ${getHeightOffset(true, true)}px)`,
         }}
         itemContent={index => (
           <Box key={index} my="space.05" px="space.05">
