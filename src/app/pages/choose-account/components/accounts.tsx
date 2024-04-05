@@ -112,6 +112,8 @@ export const ChooseAccountsList = memo(() => {
   if (!accounts) return null;
   const accountNum = accounts.length;
 
+  const maxAccountsShown = accountNum > 10 ? 10 : accountNum;
+
   return (
     <Box mt="space.05" mb="space.06" width="100%">
       {whenWallet({ software: <AddAccountAction />, ledger: <></> })}
@@ -119,7 +121,7 @@ export const ChooseAccountsList = memo(() => {
         height={virtuosoHeight}
         style={{
           ...virtuosoStyles,
-          height: `calc(${virtuosoHeight * accountNum}px + 50px)`,
+          height: `calc(${virtuosoHeight * maxAccountsShown}px + 50px)`,
           background: token('colors.ink.background-primary'),
         }}
         data={accounts}

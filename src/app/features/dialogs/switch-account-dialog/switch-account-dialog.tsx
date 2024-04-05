@@ -43,6 +43,7 @@ export const SwitchAccountDialog = memo(({ isShowing, onClose }: DialogProps) =>
   if (!isShowing) return null;
 
   const accountNum = stacksAddressesNum || btcAddressesNum;
+  const maxAccountsShown = accountNum > 10 ? 10 : accountNum;
 
   return (
     <Dialog
@@ -64,7 +65,7 @@ export const SwitchAccountDialog = memo(({ isShowing, onClose }: DialogProps) =>
         height={virtuosoHeight}
         style={{
           ...virtuosoStyles,
-          height: `calc(${virtuosoHeight * accountNum}px + ${getHeightOffset(true, !isLedger)}px)`,
+          height: `calc(${virtuosoHeight * maxAccountsShown}px + ${getHeightOffset(true, !isLedger)}px)`,
         }}
         initialTopMostItemIndex={whenWallet({ ledger: 0, software: currentAccountIndex })}
         totalCount={stacksAddressesNum || btcAddressesNum}
