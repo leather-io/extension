@@ -34,7 +34,7 @@ export enum RouteUrls {
   ViewSecretKey = '/view-secret-key',
 
   // nested routes must have relative paths
-  Activity = 'activity',
+  Activity = '/activity',
   Receive = 'receive',
   ReceiveStx = 'receive/stx',
   ReceiveBtc = 'receive/btc',

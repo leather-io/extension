@@ -143,7 +143,7 @@ dependencies:
   '@styled-system/theme-get':
     specifier: 5.1.2
     version: 5.1.2
-  '@tanstack/query-sync-storage-persister':
+  '@tanstack/query-async-storage-persister':
     specifier: 4.35.7
     version: 4.35.7
   '@tanstack/react-query':
@@ -390,7 +390,7 @@ devDependencies:
     version: 4.0.0(@babel/core@7.24.4)(@types/react-dom@18.2.19)(@types/styled-components@5.1.34)
   '@redux-devtools/remote':
     specifier: 0.9.3
-    version: 0.9.3(@redux-devtools/core@4.0.0)(immutable@5.0.0-beta.5)(redux@5.0.1)
+    version: 0.9.3(@redux-devtools/core@4.0.0)(immutable@4.3.4)(redux@5.0.1)
   '@schemastore/web-manifest':
     specifier: 0.0.6
     version: 0.0.6
@@ -5532,14 +5532,14 @@ packages:
       redux-devtools-themes: 1.0.0
     dev: true
 
-  /@redux-devtools/remote@0.9.3(@redux-devtools/core@4.0.0)(immutable@5.0.0-beta.5)(redux@5.0.1):
+  /@redux-devtools/remote@0.9.3(@redux-devtools/core@4.0.0)(immutable@4.3.4)(redux@5.0.1):
     resolution: {integrity: sha512-M6sG/ekZiFjzVmm8tNra1c5asz6GfitdDnsCTt+Sg2hzK2HdR2rhHSbA0UyVk3/WNjor/wmY6wISmn1Om0T4KA==}
     peerDependencies:
       redux: ^3.5.2 || ^4.0.0 || ^5.0.0
     dependencies:
       '@babel/runtime': 7.24.4
       '@redux-devtools/instrument': 2.2.0(redux@5.0.1)
-      '@redux-devtools/utils': 3.0.0(@redux-devtools/core@4.0.0)(immutable@5.0.0-beta.5)(redux@5.0.1)
+      '@redux-devtools/utils': 3.0.0(@redux-devtools/core@4.0.0)(immutable@4.3.4)(redux@5.0.1)
       jsan: 3.1.14
       querystring: 0.2.1
       redux: 5.0.1
@@ -5586,13 +5586,13 @@ packages:
       - react-dom
     dev: true
 
-  /@redux-devtools/serialize@0.4.2(immutable@5.0.0-beta.5):
+  /@redux-devtools/serialize@0.4.2(immutable@4.3.4):
     resolution: {integrity: sha512-YVqZCChJld5l3Ni2psEZ5loe9x5xpf9J4ckz+7OJdzCNsplC7vzjnkQbFxE6+ULZbywRVp+nSBslTXmaXqAw4A==}
     peerDependencies:
       immutable: ^4.0.0
     dependencies:
       '@babel/runtime': 7.24.4
-      immutable: 5.0.0-beta.5
+      immutable: 4.3.4
       jsan: 3.1.14
     dev: true
 
@@ -5652,7 +5652,7 @@ packages:
       - react-dom
     dev: true
 
-  /@redux-devtools/utils@3.0.0(@redux-devtools/core@4.0.0)(immutable@5.0.0-beta.5)(redux@5.0.1):
+  /@redux-devtools/utils@3.0.0(@redux-devtools/core@4.0.0)(immutable@4.3.4)(redux@5.0.1):
     resolution: {integrity: sha512-m1AJoxQffm1/6m0qrkb7gW0FkmaAoi1/HJzmdkchAeA8sAJhzGOnXJEpsjmXPt5BIHxg0zsglA+5FsgGWXa97A==}
     peerDependencies:
       '@redux-devtools/core': ^4.0.0
@@ -5661,10 +5661,10 @@ packages:
     dependencies:
       '@babel/runtime': 7.24.4
       '@redux-devtools/core': 4.0.0(react-redux@9.1.0)(react@18.2.0)(redux@5.0.1)
-      '@redux-devtools/serialize': 0.4.2(immutable@5.0.0-beta.5)
+      '@redux-devtools/serialize': 0.4.2(immutable@4.3.4)
       '@types/get-params': 0.1.2
       get-params: 0.1.2
-      immutable: 5.0.0-beta.5
+      immutable: 4.3.4
       jsan: 3.1.14
       lodash: 4.17.21
       nanoid: 3.3.4
@@ -8541,6 +8541,12 @@ packages:
       remove-accents: 0.4.2
     dev: false
 
+  /@tanstack/query-async-storage-persister@4.35.7:
+    resolution: {integrity: sha512-+GftETR23j8DR0of84m1iBILu2sZvmHuZbRB9cYxoL6jVn8LEvwk8uXSV/4rRyy2kPgggjqYZclQNJntqtbfFw==}
+    dependencies:
+      '@tanstack/query-persist-client-core': 4.35.7
+    dev: false
+
   /@tanstack/query-core@4.35.7:
     resolution: {integrity: sha512-PgDJtX75ubFS0WCYFM7DqEoJ4QbxU3S5OH3gJSI40xr7UVVax3/J4CM3XUMOTs+EOT5YGEfssi3tfRVGte4DEw==}
     dev: false
@@ -8549,12 +8555,6 @@ packages:
     resolution: {integrity: sha512-RhnvVtjR2owK50XosSWJh3SD7516c/cQZO3FhPOPKfnCP7b7NqJbeiznKqxIIR88rvNlIOmZ2BIerdvvW7WQ5g==}
     dependencies:
       '@tanstack/query-core': 4.35.7
-    dev: false
-
-  /@tanstack/query-sync-storage-persister@4.35.7:
-    resolution: {integrity: sha512-LwOV4FfbRQmCH3MUXU2xngnws5AzRJ8mtc9JlDogRVwutlDEeY2bYSiu7xV6NDRLPf0/+0KCMzWeBx6Tlgnkgw==}
-    dependencies:
-      '@tanstack/query-persist-client-core': 4.35.7
     dev: false
 
   /@tanstack/react-query-devtools@4.35.7(@tanstack/react-query@4.35.7)(react-dom@18.2.0)(react@18.2.0):
@@ -15799,10 +15799,6 @@ packages:
     resolution: {integrity: sha512-fsXeu4J4i6WNWSikpI88v/PcVflZz+6kMhUfIwc5SY+poQRPnaf5V7qds6SUyUN3cVxEzuCab7QIoLOQ+DQ1wA==}
     dev: true
 
-  /immutable@5.0.0-beta.5:
-    resolution: {integrity: sha512-1RO6wxfJdh/uyWb2MTn3RuCPXYmpRiAhoKm8vEnA50+2Gy0j++6GBtu5q6sq2d4tpcL+e1sCHzk8NkWnRhT2/Q==}
-    dev: true
-
   /import-fresh@3.3.0:
     resolution: {integrity: sha512-veYYhQa+D1QBKznvhUHxb8faxlrwUnxseDAbAp457E0wLNio2bOSKnjYDhMj+YiAq61xrMGhQk9iXVk5FzgQMw==}
     engines: {node: '>=6'}
@@ -22049,6 +22045,9 @@ packages:
   /sqlite3@5.1.6:
     resolution: {integrity: sha512-olYkWoKFVNSSSQNvxVUfjiVbz3YtBwTJj+mfV5zpHmqW3sELx2Cf4QCdirMelhM5Zh+KDVaKgQHqCxrqiWHybw==}
     requiresBuild: true
+    peerDependenciesMeta:
+      node-gyp:
+        optional: true
     dependencies:
       '@mapbox/node-pre-gyp': 1.0.11
       node-addon-api: 4.3.0
