@@ -5,8 +5,8 @@ import { isDefined, isUndefined } from '@shared/utils';
 
 import { SwapIcon } from '@app/ui/icons';
 
-import { SwapFormValues } from '../hooks/use-swap-form';
-import { useSwapContext } from '../swap.context';
+import { SwapFormValues } from '../../../hooks/use-swap-form';
+import { useSwapContext } from '../../../swap.context';
 
 export function SwapToggleButton() {
   const { fetchToAmount, isFetchingExchangeRate, onSetIsSendingMax } = useSwapContext();
@@ -15,24 +15,24 @@ export function SwapToggleButton() {
   async function onToggleSwapAssets() {
     onSetIsSendingMax(false);
 
-    const prevAmountFrom = values.swapAmountFrom;
-    const prevAmountTo = values.swapAmountTo;
-    const prevAssetFrom = values.swapAssetFrom;
-    const prevAssetTo = values.swapAssetTo;
+    const prevAmountFrom = values.swapAmountBase;
+    const prevAmountTo = values.swapAmountQuote;
+    const prevAssetFrom = values.swapAssetBase;
+    const prevAssetTo = values.swapAssetQuote;
 
-    await setFieldValue('swapAssetFrom', prevAssetTo);
-    await setFieldValue('swapAssetTo', prevAssetFrom);
-    await setFieldValue('swapAmountFrom', prevAmountTo);
+    await setFieldValue('swapAssetBase', prevAssetTo);
+    await setFieldValue('swapAssetQuote', prevAssetFrom);
+    await setFieldValue('swapAmountBase', prevAmountTo);
 
     if (isDefined(prevAssetFrom) && isDefined(prevAssetTo)) {
       const toAmount = await fetchToAmount(prevAssetTo, prevAssetFrom, prevAmountTo);
       if (isUndefined(toAmount)) {
-        await setFieldValue('swapAmountTo', '');
+        await setFieldValue('swapAmountQuote', '');
         return;
       }
-      await setFieldValue('swapAmountTo', Number(toAmount));
+      await setFieldValue('swapAmountQuote', Number(toAmount));
     } else {
-      await setFieldValue('swapAmountTo', Number(prevAmountFrom));
+      await setFieldValue('swapAmountQuote', Number(prevAmountFrom));
     }
     await validateForm();
   }
@@ -40,7 +40,7 @@ export function SwapToggleButton() {
   return (
     <styled.button
       alignSelf="flex-start"
-      disabled={isUndefined(values.swapAssetTo) || isFetchingExchangeRate}
+      disabled={isUndefined(values.swapAssetQuote) || isFetchingExchangeRate}
       onClick={onToggleSwapAssets}
       type="button"
     >

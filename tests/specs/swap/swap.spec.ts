@@ -15,21 +15,21 @@ test.describe('Swaps', () => {
   });
 
   test('that it shows correct swap review details', async ({ swapPage }) => {
-    await swapPage.inputSwapAmountFrom();
+    await swapPage.inputSwapAmountBase();
     await swapPage.selectAssetToReceive();
 
     const swapProtocol = await swapPage.swapDetailsProtocol.innerText();
     test.expect(swapProtocol).toEqual('ALEX');
 
     const swapAssets = await swapPage.swapDetailsSymbol.all();
-    const swapAssetFrom = await swapAssets[0].innerText();
-    const swapAssetTo = await swapAssets[1].innerText();
-    test.expect(swapAssetFrom).toEqual('STX');
-    test.expect(swapAssetTo).toEqual('ALEX');
+    const swapAssetBase = await swapAssets[0].innerText();
+    const swapAssetQuote = await swapAssets[1].innerText();
+    test.expect(swapAssetBase).toEqual('STX');
+    test.expect(swapAssetQuote).toEqual('ALEX');
 
     const swapAmounts = await swapPage.swapDetailsAmount.all();
-    const swapAmountFrom = await swapAmounts[0].innerText();
-    test.expect(swapAmountFrom).toEqual('1');
+    const swapAmountBase = await swapAmounts[0].innerText();
+    test.expect(swapAmountBase).toEqual('1');
 
     test.expect(swapPage.page.getByText('Sponsored')).toBeTruthy();
   });
@@ -41,7 +41,7 @@ test.describe('Swaps', () => {
       await route.abort();
     });
 
-    await swapPage.inputSwapAmountFrom();
+    await swapPage.inputSwapAmountBase();
     await swapPage.selectAssetToReceive();
 
     await swapPage.swapBtn.click();

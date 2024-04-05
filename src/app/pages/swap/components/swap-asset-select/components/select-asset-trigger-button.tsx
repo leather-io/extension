@@ -9,13 +9,13 @@ import { ChevronDownIcon } from '@app/ui/icons/chevron-down-icon';
 interface SelectAssetTriggerButtonProps {
   icon?: string;
   name: string;
-  onChooseAsset(): void;
+  onSelectAsset(): void;
   symbol: string;
 }
 export function SelectAssetTriggerButton({
   icon,
   name,
-  onChooseAsset,
+  onSelectAsset,
   symbol,
 }: SelectAssetTriggerButtonProps) {
   const [field] = useField(name);
@@ -24,7 +24,7 @@ export function SelectAssetTriggerButton({
   return (
     <Button
       data-testid={SwapSelectors.SelectAssetTriggerBtn}
-      onClick={onChooseAsset}
+      onClick={onSelectAsset}
       p="space.02"
       variant="ghost"
       {...field}

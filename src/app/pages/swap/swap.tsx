@@ -1,5 +1,5 @@
-import { useAsync } from 'react-async-hook';
-import { Outlet } from 'react-router-dom';
+import { useEffect } from 'react';
+import { Outlet, useParams } from 'react-router-dom';
 
 import { SwapSelectors } from '@tests/selectors/swap.selectors';
 import { useFormikContext } from 'formik';
@@ -12,21 +12,30 @@ import { Footer } from '@app/ui/components/containers/footers/footer';
 import { Card } from '@app/ui/layout/card/card';
 import { CardContent } from '@app/ui/layout/card/card-content';
 
-import { SwapSelectedAssets } from './components/swap-selected-assets';
+import { SwapAssetSelectBase } from './components/swap-asset-select/swap-asset-select-base';
+import { SwapAssetSelectQuote } from './components/swap-asset-select/swap-asset-select-quote';
 import { SwapFormValues } from './hooks/use-swap-form';
 import { useSwapContext } from './swap.context';
 
 export function Swap() {
-  const { isFetchingExchangeRate, swappableAssetsFrom } = useSwapContext();
+  const { isFetchingExchangeRate, swappableAssetsBase, swappableAssetsQuote } = useSwapContext();
   const { dirty, isValid, setFieldValue, values } = useFormikContext<SwapFormValues>();
+  const { base, quote } = useParams();
 
-  useAsync(async () => {
-    if (isUndefined(values.swapAssetFrom))
-      return await setFieldValue('swapAssetFrom', swappableAssetsFrom[0]);
-    return;
-  }, [swappableAssetsFrom, values.swapAssetFrom]);
+  useEffect(() => {
+    if (base)
+      void setFieldValue(
+        'swapAssetBase',
+        swappableAssetsBase.find(asset => asset.name === base)
+      );
+    if (quote)
+      void setFieldValue(
+        'swapAssetQuote',
+        swappableAssetsQuote.find(asset => asset.name === quote)
+      );
+  }, [base, quote, setFieldValue, swappableAssetsBase, swappableAssetsQuote, values.swapAssetBase]);
 
-  if (isUndefined(values.swapAssetFrom)) return <LoadingSpinner height="300px" />;
+  if (isUndefined(values.swapAssetBase)) return <LoadingSpinner height="300px" />;
 
   return (
     <Card
@@ -44,7 +53,8 @@ export function Swap() {
       }
     >
       <CardContent dataTestId={SwapSelectors.SwapPageReady}>
-        <SwapSelectedAssets />
+        <SwapAssetSelectBase />
+        <SwapAssetSelectQuote />
       </CardContent>
       <Outlet />
     </Card>

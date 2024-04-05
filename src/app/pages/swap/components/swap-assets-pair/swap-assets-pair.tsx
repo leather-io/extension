@@ -10,31 +10,32 @@ import { SwapAssetItemLayout } from './swap-asset-item.layout';
 import { SwapAssetsPairLayout } from './swap-assets-pair.layout';
 
 export function SwapAssetsPair() {
-  const { values } = useFormikContext<SwapFormValues>();
-  const { swapAmountFrom, swapAmountTo, swapAssetFrom, swapAssetTo } = values;
+  const {
+    values: { swapAmountBase, swapAmountQuote, swapAssetBase, swapAssetQuote },
+  } = useFormikContext<SwapFormValues>();
   const navigate = useNavigate();
 
-  if (isUndefined(swapAssetFrom) || isUndefined(swapAssetTo)) {
+  if (isUndefined(swapAssetBase) || isUndefined(swapAssetQuote)) {
     navigate(RouteUrls.Swap, { replace: true });
     return null;
   }
 
   return (
     <SwapAssetsPairLayout
-      swapAssetFrom={
+      swapAssetBase={
         <SwapAssetItemLayout
           caption="You will swap"
-          icon={swapAssetFrom.icon}
-          symbol={swapAssetFrom.name}
-          value={swapAmountFrom}
+          icon={swapAssetBase.icon}
+          symbol={swapAssetBase.name}
+          value={swapAmountBase}
         />
       }
-      swapAssetTo={
+      swapAssetQuote={
         <SwapAssetItemLayout
           caption="You will receive"
-          icon={swapAssetTo.icon}
-          symbol={swapAssetTo.name}
-          value={swapAmountTo}
+          icon={swapAssetQuote.icon}
+          symbol={swapAssetQuote.name}
+          value={swapAmountQuote}
         />
       }
     />

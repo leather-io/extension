@@ -3,10 +3,10 @@ import { Box, Stack } from 'leather-styles/jsx';
 import { ArrowDownIcon } from '@app/ui/icons/arrow-down-icon';
 
 interface SwapAssetsPairLayoutProps {
-  swapAssetFrom: React.JSX.Element;
-  swapAssetTo: React.JSX.Element;
+  swapAssetBase: React.JSX.Element;
+  swapAssetQuote: React.JSX.Element;
 }
-export function SwapAssetsPairLayout({ swapAssetFrom, swapAssetTo }: SwapAssetsPairLayoutProps) {
+export function SwapAssetsPairLayout({ swapAssetBase, swapAssetQuote }: SwapAssetsPairLayoutProps) {
   return (
     <Stack
       border="default"
@@ -17,11 +17,11 @@ export function SwapAssetsPairLayout({ swapAssetFrom, swapAssetTo }: SwapAssetsP
       p="space.04"
       width="100%"
     >
-      {swapAssetFrom}
+      {swapAssetBase}
       <Box height="24px" px="space.04" py="space.01" width="48px">
         <ArrowDownIcon variant="small" />
       </Box>
-      {swapAssetTo}
+      {swapAssetQuote}
     </Stack>
   );
 }

@@ -1,21 +1,21 @@
 import { useField } from 'formik';
 
+import { RouteUrls } from '@shared/route-urls';
+
 import { useAlexSdkAmountAsFiat } from '@app/common/hooks/use-alex-sdk';
 import { formatMoneyWithoutSymbol } from '@app/common/money/format-money';
 import { LoadingSpinner } from '@app/components/loading-spinner';
 
-import { useSwapContext } from '../swap.context';
-import { SwapAmountField } from './swap-amount-field';
-import { SwapSelectedAssetLayout } from './swap-selected-asset.layout';
+import { useSwapNavigate } from '../../hooks/use-swap-navigate';
+import { useSwapContext } from '../../swap.context';
+import { SwapAmountField } from './components/swap-amount-field';
+import { SwapAssetSelectLayout } from './components/swap-asset-select.layout';
 
-interface SwapSelectedAssetToProps {
-  onChooseAsset(): void;
-  title: string;
-}
-export function SwapSelectedAssetTo({ onChooseAsset, title }: SwapSelectedAssetToProps) {
+export function SwapAssetSelectQuote() {
   const { isFetchingExchangeRate } = useSwapContext();
-  const [amountField] = useField('swapAmountTo');
-  const [assetField] = useField('swapAssetTo');
+  const [amountField] = useField('swapAmountQuote');
+  const [assetField] = useField('swapAssetQuote');
+  const navigate = useSwapNavigate();
 
   const amountAsFiat = useAlexSdkAmountAsFiat(
     assetField.value?.balance,
@@ -24,21 +24,21 @@ export function SwapSelectedAssetTo({ onChooseAsset, title }: SwapSelectedAssetT
   );
 
   return (
-    <SwapSelectedAssetLayout
+    <SwapAssetSelectLayout
       caption="You have"
       icon={assetField.value?.icon}
-      name="swapAmountTo"
-      onChooseAsset={onChooseAsset}
+      name="swapAmountQuote"
+      onSelectAsset={() => navigate(RouteUrls.SwapAssetSelectQuote)}
       showToggle
       swapAmountInput={
         isFetchingExchangeRate ? (
           <LoadingSpinner justifyContent="flex-end" size="sm" />
         ) : (
-          <SwapAmountField amountAsFiat={amountAsFiat} isDisabled name="swapAmountTo" />
+          <SwapAmountField amountAsFiat={amountAsFiat} isDisabled name="swapAmountQuote" />
         )
       }
       symbol={assetField.value?.name ?? 'Select asset'}
-      title={title}
+      title="You receive"
       value={assetField.value?.balance ? formatMoneyWithoutSymbol(assetField.value?.balance) : '0'}
     />
   );

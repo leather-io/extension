@@ -6,7 +6,7 @@ import { Link } from '@app/ui/components/link/link';
 import { BasicTooltip } from '@app/ui/components/tooltip/basic-tooltip';
 
 import { SelectAssetTriggerButton } from './select-asset-trigger-button';
-import { SelectedAsset } from './selected-asset';
+import { SwapAssetSelected } from './swap-asset-selected';
 import { SwapToggleButton } from './swap-toggle-button';
 
 function getTextColor(showError?: boolean, onClickHandler?: boolean) {
@@ -15,12 +15,12 @@ function getTextColor(showError?: boolean, onClickHandler?: boolean) {
   return 'ink.text-subdued';
 }
 
-interface SwapSelectedAssetLayoutProps {
+interface SwapAssetSelectLayoutProps {
   caption?: string;
   error?: string;
   icon?: string;
   name: string;
-  onChooseAsset(): void;
+  onSelectAsset(): void;
   onClickHandler?(): void;
   showError?: boolean;
   showToggle?: boolean;
@@ -30,12 +30,12 @@ interface SwapSelectedAssetLayoutProps {
   tooltipLabel?: string;
   value: string;
 }
-export function SwapSelectedAssetLayout({
+export function SwapAssetSelectLayout({
   caption,
   error,
   icon,
   name,
-  onChooseAsset,
+  onSelectAsset,
   onClickHandler,
   showError,
   showToggle,
@@ -44,7 +44,7 @@ export function SwapSelectedAssetLayout({
   title,
   tooltipLabel,
   value,
-}: SwapSelectedAssetLayoutProps) {
+}: SwapAssetSelectLayoutProps) {
   const captionTextColor = getTextColor(showError);
 
   return (
@@ -58,12 +58,12 @@ export function SwapSelectedAssetLayout({
         <styled.span textStyle="label.01">{title}</styled.span>
         {showToggle && <SwapToggleButton />}
       </HStack>
-      <SelectedAsset
+      <SwapAssetSelected
         contentLeft={
           <SelectAssetTriggerButton
             icon={icon}
             name={name}
-            onChooseAsset={onChooseAsset}
+            onSelectAsset={onSelectAsset}
             symbol={symbol}
           />
         }

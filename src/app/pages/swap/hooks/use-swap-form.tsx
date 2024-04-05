@@ -21,10 +21,10 @@ export interface SwapAsset {
 }
 
 export interface SwapFormValues extends StacksTransactionFormValues {
-  swapAmountFrom: string;
-  swapAmountTo: string;
-  swapAssetFrom?: SwapAsset;
-  swapAssetTo?: SwapAsset;
+  swapAmountBase: string;
+  swapAmountQuote: string;
+  swapAssetBase?: SwapAsset;
+  swapAssetQuote?: SwapAsset;
 }
 
 export function useSwapForm() {
@@ -35,36 +35,36 @@ export function useSwapForm() {
     feeCurrency: 'STX',
     feeType: FeeTypes[FeeTypes.Middle],
     nonce: nextNonce?.nonce,
-    swapAmountFrom: '',
-    swapAmountTo: '',
-    swapAssetFrom: undefined,
-    swapAssetTo: undefined,
+    swapAmountBase: '',
+    swapAmountQuote: '',
+    swapAssetBase: undefined,
+    swapAssetQuote: undefined,
   };
 
   const validationSchema = yup.object({
-    swapAssetFrom: yup.object<SwapAsset>().required(),
-    swapAssetTo: yup.object<SwapAsset>().required(),
-    swapAmountFrom: yup
+    swapAssetBase: yup.object<SwapAsset>().required(),
+    swapAssetQuote: yup.object<SwapAsset>().required(),
+    swapAmountBase: yup
       .number()
       .test({
         message: 'Insufficient balance',
         test(value) {
-          const { swapAssetFrom } = this.parent;
+          const { swapAssetBase } = this.parent;
           const valueInFractionalUnit = convertAmountToFractionalUnit(
             createMoney(
               new BigNumber(Number(value)),
-              swapAssetFrom.balance.symbol,
-              swapAssetFrom.balance.decimals
+              swapAssetBase.balance.symbol,
+              swapAssetBase.balance.decimals
             )
           );
-          if (swapAssetFrom.balance.amount.isLessThan(valueInFractionalUnit)) return false;
+          if (swapAssetBase.balance.amount.isLessThan(valueInFractionalUnit)) return false;
           return true;
         },
       })
       .required(FormErrorMessages.AmountRequired)
       .typeError(FormErrorMessages.MustBeNumber)
       .positive(FormErrorMessages.MustBePositive),
-    swapAmountTo: yup
+    swapAmountQuote: yup
       .number()
       .required(FormErrorMessages.AmountRequired)
       .typeError(FormErrorMessages.MustBeNumber)

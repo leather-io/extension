@@ -12,12 +12,12 @@ import { useShowFieldError } from '@app/common/form-utils';
 import { convertAmountToFractionalUnit } from '@app/common/money/calculate-money';
 import { formatMoneyWithoutSymbol } from '@app/common/money/format-money';
 
-import { SwapFormValues } from '../hooks/use-swap-form';
-import { useSwapContext } from '../swap.context';
+import { SwapFormValues } from '../../../hooks/use-swap-form';
+import { useSwapContext } from '../../../swap.context';
 
 function getPlaceholderValue(name: string, values: SwapFormValues) {
-  if (name === 'swapAmountFrom' && isDefined(values.swapAssetFrom)) return '0';
-  if (name === 'swapAmountTo' && isDefined(values.swapAssetTo)) return '0';
+  if (name === 'swapAmountBase' && isDefined(values.swapAssetBase)) return '0';
+  if (name === 'swapAmountQuote' && isDefined(values.swapAssetQuote)) return '0';
   return '-';
 }
 
@@ -30,25 +30,28 @@ export function SwapAmountField({ amountAsFiat, isDisabled, name }: SwapAmountFi
   const { fetchToAmount, isFetchingExchangeRate, onSetIsSendingMax } = useSwapContext();
   const { setFieldError, setFieldValue, values } = useFormikContext<SwapFormValues>();
   const [field] = useField(name);
-  const showError = useShowFieldError(name) && name === 'swapAmountFrom' && values.swapAssetTo;
+  const showError = useShowFieldError(name) && name === 'swapAmountBase' && values.swapAssetQuote;
 
   async function onBlur(event: ChangeEvent<HTMLInputElement>) {
-    const { swapAssetFrom, swapAssetTo } = values;
-    if (isUndefined(swapAssetFrom) || isUndefined(swapAssetTo)) return;
+    const { swapAssetBase, swapAssetQuote } = values;
+    if (isUndefined(swapAssetBase) || isUndefined(swapAssetQuote)) return;
     onSetIsSendingMax(false);
     const value = event.currentTarget.value;
-    const toAmount = await fetchToAmount(swapAssetFrom, swapAssetTo, value);
+    const toAmount = await fetchToAmount(swapAssetBase, swapAssetQuote, value);
     if (isUndefined(toAmount)) {
-      await setFieldValue('swapAmountTo', '');
+      await setFieldValue('swapAmountQuote', '');
       return;
     }
     const toAmountAsMoney = createMoney(
-      convertAmountToFractionalUnit(new BigNumber(toAmount), values.swapAssetTo?.balance.decimals),
-      values.swapAssetTo?.balance.symbol ?? '',
-      values.swapAssetTo?.balance.decimals
+      convertAmountToFractionalUnit(
+        new BigNumber(toAmount),
+        values.swapAssetQuote?.balance.decimals
+      ),
+      values.swapAssetQuote?.balance.symbol ?? '',
+      values.swapAssetQuote?.balance.decimals
     );
-    await setFieldValue('swapAmountTo', formatMoneyWithoutSymbol(toAmountAsMoney));
-    setFieldError('swapAmountTo', undefined);
+    await setFieldValue('swapAmountQuote', formatMoneyWithoutSymbol(toAmountAsMoney));
+    setFieldError('swapAmountQuote', undefined);
   }
 
   return (

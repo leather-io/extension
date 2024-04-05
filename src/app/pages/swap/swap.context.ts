@@ -19,8 +19,8 @@ export interface SwapContext {
   onSetIsSendingMax(value: boolean): void;
   onSubmitSwapForReview(values: SwapFormValues): Promise<void> | void;
   onSubmitSwap(): Promise<void> | void;
-  swappableAssetsFrom: SwapAsset[];
-  swappableAssetsTo: SwapAsset[];
+  swappableAssetsBase: SwapAsset[];
+  swappableAssetsQuote: SwapAsset[];
   swapSubmissionData?: SwapSubmissionData;
 }
 
