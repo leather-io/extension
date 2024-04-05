@@ -1,6 +1,8 @@
 import { useMemo } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 
+import { HStack } from 'leather-styles/jsx';
+
 import { BitcoinTx } from '@shared/models/transactions/bitcoin-transaction.model';
 import { RouteUrls } from '@shared/route-urls';
 
@@ -74,10 +76,12 @@ export function BitcoinTransactionItem({ transaction }: BitcoinTransactionItemPr
     isOriginator && !transaction.status.confirmed && !containsTaprootInput(transaction);
 
   const txCaption = (
-    <BulletSeparator>
-      <Caption>{caption}</Caption>
-      {inscriptionData ? <Caption>{inscriptionData.mime_type}</Caption> : null}
-    </BulletSeparator>
+    <HStack gap="space.02">
+      <BulletSeparator>
+        <Caption>{caption}</Caption>
+        {inscriptionData ? <Caption>{inscriptionData.mime_type}</Caption> : null}
+      </BulletSeparator>
+    </HStack>
   );
 
   const title = inscriptionData ? `Ordinal inscription #${inscriptionData.number}` : 'Bitcoin';

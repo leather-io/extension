@@ -1,11 +1,20 @@
-import { createSyncStoragePersister } from '@tanstack/query-sync-storage-persister';
+import { createAsyncStoragePersister } from '@tanstack/query-async-storage-persister';
 import { QueryClient } from '@tanstack/react-query';
 import { persistQueryClient } from '@tanstack/react-query-persist-client';
 
 import { PERSISTENCE_CACHE_TIME } from '@shared/constants';
 import { IS_TEST_ENV } from '@shared/environment';
 
-const localStoragePersistor = createSyncStoragePersister({ storage: window.localStorage });
+const storage = {
+  getItem: async (key: string) => {
+    const storageVal = await chrome.storage.local.get(key);
+    return storageVal[key];
+  },
+  setItem: (key: string, value: string) => chrome.storage.local.set({ [key]: value }),
+  removeItem: (key: string) => chrome.storage.local.remove([key]),
+};
+
+const chromeStorageLocalPersister = createAsyncStoragePersister({ storage });
 
 export const queryClient = new QueryClient({
   defaultOptions: {
@@ -21,7 +30,7 @@ export async function persistAndRenderApp(renderApp: () => void) {
   if (!IS_TEST_ENV)
     persistQueryClient({
       queryClient,
-      persister: localStoragePersistor,
+      persister: chromeStorageLocalPersister,
       buster: VERSION,
     });
   renderApp();
