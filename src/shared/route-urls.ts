@@ -82,10 +82,11 @@ export enum RouteUrls {
   SendOrdinalInscriptionError = 'error',
 
   // Swap routes
-  Swap = '/swap',
-  SwapChooseAsset = '/swap/choose-asset',
+  Swap = '/swap/:base/:quote?',
+  SwapAssetSelectBase = 'select-base',
+  SwapAssetSelectQuote = 'select-quote',
   SwapError = '/swap/error',
-  SwapReview = '/swap/review',
+  SwapReview = '/swap/:base/:quote/review',
 
   // Legacy request routes
   ProfileUpdateRequest = '/update-profile',

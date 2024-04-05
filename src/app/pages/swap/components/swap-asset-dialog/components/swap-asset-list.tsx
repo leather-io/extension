@@ -1,4 +1,4 @@
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 
 import { SwapSelectors } from '@tests/selectors/swap.selectors';
 import BigNumber from 'bignumber.js';
@@ -6,6 +6,7 @@ import { useFormikContext } from 'formik';
 import { Stack } from 'leather-styles/jsx';
 
 import { createMoney } from '@shared/models/money.model';
+import { RouteUrls } from '@shared/route-urls';
 import { isUndefined } from '@shared/utils';
 
 import { convertAmountToFractionalUnit } from '@app/common/money/calculate-money';
@@ -13,46 +14,46 @@ import { formatMoneyWithoutSymbol } from '@app/common/money/format-money';
 import { useSwapContext } from '@app/pages/swap/swap.context';
 
 import { SwapAsset, SwapFormValues } from '../../../hooks/use-swap-form';
-import { useSwapChooseAssetState } from '../swap-choose-asset';
 import { SwapAssetItem } from './swap-asset-item';
 
 interface SwapAssetList {
   assets: SwapAsset[];
+  type: string;
 }
-export function SwapAssetList({ assets }: SwapAssetList) {
+export function SwapAssetList({ assets, type }: SwapAssetList) {
   const { fetchToAmount } = useSwapContext();
-  const { swapListType } = useSwapChooseAssetState();
   const { setFieldError, setFieldValue, values } = useFormikContext<SwapFormValues>();
   const navigate = useNavigate();
-
-  const isFromList = swapListType === 'from';
-  const isToList = swapListType === 'to';
+  const { base, quote } = useParams();
+  const isBaseList = type === 'base';
+  const isQuoteList = type === 'quote';
 
   const selectableAssets = assets.filter(
     asset =>
-      (isFromList && asset.name !== values.swapAssetTo?.name) ||
-      (isToList && asset.name !== values.swapAssetFrom?.name)
+      (isBaseList && asset.name !== values.swapAssetQuote?.name) ||
+      (isQuoteList && asset.name !== values.swapAssetBase?.name)
   );
 
-  async function onChooseAsset(asset: SwapAsset) {
+  async function onSelectAsset(asset: SwapAsset) {
     let from: SwapAsset | undefined;
     let to: SwapAsset | undefined;
-    if (isFromList) {
+    if (isBaseList) {
       from = asset;
-      to = values.swapAssetTo;
-      await setFieldValue('swapAssetFrom', asset);
-    } else if (isToList) {
-      from = values.swapAssetFrom;
+      to = values.swapAssetQuote;
+      await setFieldValue('swapAssetBase', asset);
+      navigate(RouteUrls.Swap.replace(':base', from.name).replace(':quote', quote ?? ''));
+    } else if (isQuoteList) {
+      from = values.swapAssetBase;
       to = asset;
-      await setFieldValue('swapAssetTo', asset);
-      setFieldError('swapAssetTo', undefined);
+      await setFieldValue('swapAssetQuote', asset);
+      setFieldError('swapAssetQuote', undefined);
+      navigate(RouteUrls.Swap.replace(':base', base ?? '').replace(':quote', to.name));
     }
 
-    navigate(-1);
-    if (from && to && values.swapAmountFrom) {
-      const toAmount = await fetchToAmount(from, to, values.swapAmountFrom);
+    if (from && to && values.swapAmountBase) {
+      const toAmount = await fetchToAmount(from, to, values.swapAmountBase);
       if (isUndefined(toAmount)) {
-        await setFieldValue('swapAmountTo', '');
+        await setFieldValue('swapAmountQuote', '');
         return;
       }
       const toAmountAsMoney = createMoney(
@@ -60,18 +61,18 @@ export function SwapAssetList({ assets }: SwapAssetList) {
         to?.balance.symbol ?? '',
         to?.balance.decimals
       );
-      await setFieldValue('swapAmountTo', formatMoneyWithoutSymbol(toAmountAsMoney));
-      setFieldError('swapAmountTo', undefined);
+      await setFieldValue('swapAmountQuote', formatMoneyWithoutSymbol(toAmountAsMoney));
+      setFieldError('swapAmountQuote', undefined);
     }
   }
 
   return (
-    <Stack mb="space.05" p="space.05" width="100%" data-testid={SwapSelectors.ChooseAssetList}>
+    <Stack mb="space.05" p="space.05" width="100%" data-testid={SwapSelectors.SwapAssetList}>
       {selectableAssets.map(asset => (
         <SwapAssetItem
           asset={asset}
           key={asset.balance.symbol}
-          onClick={() => onChooseAsset(asset)}
+          onClick={() => onSelectAsset(asset)}
         />
       ))}
     </Stack>

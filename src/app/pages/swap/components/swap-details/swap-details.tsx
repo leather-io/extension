@@ -38,16 +38,16 @@ export function SwapDetails() {
 
   if (
     isUndefined(swapSubmissionData) ||
-    isUndefined(swapSubmissionData.swapAssetFrom) ||
-    isUndefined(swapSubmissionData.swapAssetTo)
+    isUndefined(swapSubmissionData.swapAssetBase) ||
+    isUndefined(swapSubmissionData.swapAssetQuote)
   )
     return null;
 
   const formattedMinToReceive = formatMoneyPadded(
     createMoneyFromDecimal(
-      new BigNumber(swapSubmissionData.swapAmountTo).times(1 - swapSubmissionData.slippage),
-      swapSubmissionData.swapAssetTo.balance.symbol,
-      swapSubmissionData.swapAssetTo.balance.decimals
+      new BigNumber(swapSubmissionData.swapAmountQuote).times(1 - swapSubmissionData.slippage),
+      swapSubmissionData.swapAssetQuote.balance.symbol,
+      swapSubmissionData.swapAssetQuote.balance.decimals
     )
   );
 
@@ -74,7 +74,7 @@ export function SwapDetails() {
       <SwapDetailLayout
         title="Liquidity provider fee"
         tooltipLabel="To receive a share of these fees, become a Liquidity Provider on app.alexlab.co."
-        value={`${swapSubmissionData.liquidityFee} ${swapSubmissionData.swapAssetFrom.name}`}
+        value={`${swapSubmissionData.liquidityFee} ${swapSubmissionData.swapAssetBase.name}`}
       />
       <SwapDetailLayout
         title="Transaction fees"

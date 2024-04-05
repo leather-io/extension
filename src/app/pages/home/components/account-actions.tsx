@@ -53,7 +53,7 @@ export function AccountActions() {
             data-testid={HomePageSelectors.SwapBtn}
             icon={<SwapIcon />}
             label="Swap"
-            onClick={() => navigate(RouteUrls.Swap)}
+            onClick={() => navigate(RouteUrls.Swap.replace(':base', 'STX').replace(':quote', ''))}
           />
         ),
         [ChainID.Testnet]: null,

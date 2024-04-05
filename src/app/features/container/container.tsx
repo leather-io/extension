@@ -69,9 +69,11 @@ export function Container() {
   const displayHeader = !isLandingPage(pathname) && !isNoHeaderPopup(pathname);
   const isSessionLocked = getIsSessionLocked(pathname);
 
+  // TODO: Refactor? This is very hard to manage with dynamic routes. Temporarily
+  // added a fix to catch the swap route: '/swap/:base/:quote?'
   function getOnGoBackLocation(pathname: RouteUrls) {
+    if (pathname.includes('/swap')) return navigate(RouteUrls.Home);
     switch (pathname) {
-      case RouteUrls.Swap:
       case RouteUrls.Fund.replace(':currency', 'STX'):
       case RouteUrls.Fund.replace(':currency', 'BTC'):
       case RouteUrls.SendCryptoAssetForm.replace(':symbol', 'stx'):

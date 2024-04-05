@@ -8,8 +8,8 @@ export class SwapPage {
   readonly swapDetailsAmount: Locator;
   readonly swapDetailsProtocol: Locator;
   readonly swapDetailsSymbol: Locator;
-  readonly chooseAssetList = createTestSelector(SwapSelectors.ChooseAssetList);
-  readonly chooseAssetListItem = createTestSelector(SwapSelectors.ChooseAssetListItem);
+  readonly chooseAssetList = createTestSelector(SwapSelectors.SwapAssetList);
+  readonly chooseAssetListItem = createTestSelector(SwapSelectors.SwapAssetListItem);
   readonly selectAssetBtn = createTestSelector(SwapSelectors.SelectAssetTriggerBtn);
   readonly swapAmountInput = createTestSelector(SwapSelectors.SwapAmountInput);
   readonly swapReviewBtn = createTestSelector(SwapSelectors.SwapReviewBtn);
@@ -36,7 +36,7 @@ export class SwapPage {
     await this.page.locator(this.swapReviewBtn).click();
   }
 
-  async inputSwapAmountFrom() {
+  async inputSwapAmountBase() {
     const swapAmountInputs = await this.page.locator(this.swapAmountInput).all();
     await swapAmountInputs[0].fill('1');
   }

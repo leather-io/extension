@@ -1,12 +1,17 @@
 import { Box, HStack, styled } from 'leather-styles/jsx';
 
-interface SelectedAssetProps {
+interface SwapAssetSelectedProps {
   contentLeft: React.JSX.Element;
   contentRight: React.JSX.Element;
   name: string;
   showError?: boolean;
 }
-export function SelectedAsset({ contentLeft, contentRight, name, showError }: SelectedAssetProps) {
+export function SwapAssetSelected({
+  contentLeft,
+  contentRight,
+  name,
+  showError,
+}: SwapAssetSelectedProps) {
   return (
     <styled.label
       _focusWithin={{ border: 'action' }}

@@ -22,7 +22,7 @@ export function SwapAssetItem({ asset, onClick }: SwapAssetItemProps) {
   const fallback = getAvatarFallback(asset.name);
 
   return (
-    <Pressable data-testid={SwapSelectors.ChooseAssetListItem} onClick={onClick} my="space.02">
+    <Pressable data-testid={SwapSelectors.SwapAssetListItem} onClick={onClick} my="space.02">
       <ItemLayout
         flagImg={
           <Avatar.Root>
