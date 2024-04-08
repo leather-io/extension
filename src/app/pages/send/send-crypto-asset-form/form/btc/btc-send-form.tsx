@@ -10,7 +10,7 @@ import { CryptoCurrencies } from '@shared/models/currencies.model';
 import { formatMoney } from '@app/common/money/format-money';
 import { HighFeeDialog } from '@app/features/dialogs/high-fee-dialog/high-fee-dialog';
 import { useNativeSegwitBalance } from '@app/query/bitcoin/balance/btc-native-segwit-balance.hooks';
-import { useCryptoCurrencyMarketData } from '@app/query/common/market-data/market-data.hooks';
+import { useCryptoCurrencyMarketDataMeanAverage } from '@app/query/common/market-data/market-data.hooks';
 import { useCurrentAccountNativeSegwitIndexZeroSigner } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
 import { BtcAvatarIcon } from '@app/ui/components/avatar/btc-avatar-icon';
 import { Button } from '@app/ui/components/button/button';
@@ -34,7 +34,7 @@ const symbol: CryptoCurrencies = 'BTC';
 
 export function BtcSendForm() {
   const routeState = useSendFormRouteState();
-  const btcMarketData = useCryptoCurrencyMarketData(symbol);
+  const btcMarketData = useCryptoCurrencyMarketDataMeanAverage(symbol);
 
   const nativeSegwitSigner = useCurrentAccountNativeSegwitIndexZeroSigner();
   const { btcBalance } = useNativeSegwitBalance(nativeSegwitSigner.address);

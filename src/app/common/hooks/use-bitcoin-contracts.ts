@@ -16,7 +16,7 @@ import { makeRpcErrorResponse, makeRpcSuccessResponse } from '@shared/rpc/rpc-me
 import { sendAcceptedBitcoinContractOfferToProtocolWallet } from '@app/query/bitcoin/contract/send-accepted-bitcoin-contract-offer';
 import {
   useCalculateBitcoinFiatValue,
-  useCryptoCurrencyMarketData,
+  useCryptoCurrencyMarketDataMeanAverage,
 } from '@app/query/common/market-data/market-data.hooks';
 import { useCurrentAccountIndex } from '@app/store/accounts/account';
 import {
@@ -57,7 +57,7 @@ export interface BitcoinContractOfferDetails {
 export function useBitcoinContracts() {
   const navigate = useNavigate();
   const defaultParams = useDefaultRequestParams();
-  const bitcoinMarketData = useCryptoCurrencyMarketData('BTC');
+  const bitcoinMarketData = useCryptoCurrencyMarketDataMeanAverage('BTC');
   const calculateFiatValue = useCalculateBitcoinFiatValue();
 
   const bitcoinAccountDetails = useCurrentAccountNativeSegwitIndexZeroSigner();

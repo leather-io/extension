@@ -22,7 +22,7 @@ import {
 import { InfoCardFooter } from '@app/components/info-card/info-card';
 import { useCurrentNativeSegwitUtxos } from '@app/query/bitcoin/address/utxos-by-address.hooks';
 import { useBitcoinBroadcastTransaction } from '@app/query/bitcoin/transaction/use-bitcoin-broadcast-transaction';
-import { useCryptoCurrencyMarketData } from '@app/query/common/market-data/market-data.hooks';
+import { useCryptoCurrencyMarketDataMeanAverage } from '@app/query/common/market-data/market-data.hooks';
 import { useCurrentAccountNativeSegwitAddressIndexZero } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
 import { Button } from '@app/ui/components/button/button';
 import { truncateMiddle } from '@app/ui/utils/truncate-middle';
@@ -51,7 +51,7 @@ export function RpcSendTransferConfirmation() {
   const bitcoinAddress = useCurrentAccountNativeSegwitAddressIndexZero();
   const { broadcastTx, isBroadcasting } = useBitcoinBroadcastTransaction();
   const { refetch } = useCurrentNativeSegwitUtxos();
-  const btcMarketData = useCryptoCurrencyMarketData('BTC');
+  const btcMarketData = useCryptoCurrencyMarketDataMeanAverage('BTC');
 
   const psbt = decodeBitcoinTx(tx);
   const transferAmount = sumMoney(recipients.map(r => r.amount));

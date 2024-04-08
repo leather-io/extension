@@ -3,16 +3,16 @@ import { useField, useFormikContext } from 'formik';
 
 import { createMoney } from '@shared/models/money.model';
 import { RouteUrls } from '@shared/route-urls';
-import { isUndefined } from '@shared/utils';
+import { isDefined, isUndefined } from '@shared/utils';
 
 import { useShowFieldError } from '@app/common/form-utils';
-import { useAlexSdkAmountAsFiat } from '@app/common/hooks/use-alex-sdk';
 import { convertAmountToFractionalUnit } from '@app/common/money/calculate-money';
-import { formatMoneyWithoutSymbol } from '@app/common/money/format-money';
+import { formatMoneyWithoutSymbol, i18nFormatCurrency } from '@app/common/money/format-money';
 
 import { SwapFormValues } from '../../hooks/use-swap-form';
 import { useSwapNavigate } from '../../hooks/use-swap-navigate';
 import { useSwapContext } from '../../swap.context';
+import { convertInputAmountValueToFiat } from '../../swap.utils';
 import { SwapAmountField } from './components/swap-amount-field';
 import { SwapAssetSelectLayout } from './components/swap-asset-select.layout';
 
@@ -30,11 +30,13 @@ export function SwapAssetSelectBase() {
   const [assetField] = useField('swapAssetBase');
   const navigate = useSwapNavigate();
 
-  const amountAsFiat = useAlexSdkAmountAsFiat(
-    assetField.value.balance,
-    assetField.value.price,
-    amountField.value
-  );
+  const amountAsFiat =
+    isDefined(assetField.value && amountField.value) &&
+    convertInputAmountValueToFiat(
+      assetField.value.balance,
+      assetField.value.price,
+      amountField.value
+    );
   const formattedBalance = formatMoneyWithoutSymbol(assetField.value.balance);
   const isSwapAssetBaseBalanceGreaterThanZero =
     values.swapAssetBase?.balance.amount.isGreaterThan(0);
@@ -74,7 +76,7 @@ export function SwapAssetSelectBase() {
       showError={!!(showError && values.swapAssetQuote)}
       swapAmountInput={
         <SwapAmountField
-          amountAsFiat={amountAsFiat}
+          amountAsFiat={amountAsFiat ? i18nFormatCurrency(amountAsFiat) : ''}
           isDisabled={!isSwapAssetBaseBalanceGreaterThanZero}
           name="swapAmountBase"
         />

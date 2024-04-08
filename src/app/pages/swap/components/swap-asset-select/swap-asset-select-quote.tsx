@@ -1,13 +1,14 @@
 import { useField } from 'formik';
 
 import { RouteUrls } from '@shared/route-urls';
+import { isDefined } from '@shared/utils';
 
-import { useAlexSdkAmountAsFiat } from '@app/common/hooks/use-alex-sdk';
-import { formatMoneyWithoutSymbol } from '@app/common/money/format-money';
+import { formatMoneyWithoutSymbol, i18nFormatCurrency } from '@app/common/money/format-money';
 import { LoadingSpinner } from '@app/components/loading-spinner';
 
 import { useSwapNavigate } from '../../hooks/use-swap-navigate';
 import { useSwapContext } from '../../swap.context';
+import { convertInputAmountValueToFiat } from '../../swap.utils';
 import { SwapAmountField } from './components/swap-amount-field';
 import { SwapAssetSelectLayout } from './components/swap-asset-select.layout';
 
@@ -17,11 +18,13 @@ export function SwapAssetSelectQuote() {
   const [assetField] = useField('swapAssetQuote');
   const navigate = useSwapNavigate();
 
-  const amountAsFiat = useAlexSdkAmountAsFiat(
-    assetField.value?.balance,
-    assetField.value?.price,
-    amountField.value
-  );
+  const amountAsFiat =
+    isDefined(assetField.value && amountField.value) &&
+    convertInputAmountValueToFiat(
+      assetField.value.balance,
+      assetField.value.price,
+      amountField.value
+    );
 
   return (
     <SwapAssetSelectLayout
@@ -34,7 +37,11 @@ export function SwapAssetSelectQuote() {
         isFetchingExchangeRate ? (
           <LoadingSpinner justifyContent="flex-end" size="sm" />
         ) : (
-          <SwapAmountField amountAsFiat={amountAsFiat} isDisabled name="swapAmountQuote" />
+          <SwapAmountField
+            amountAsFiat={amountAsFiat ? i18nFormatCurrency(amountAsFiat) : ''}
+            isDisabled
+            name="swapAmountQuote"
+          />
         )
       }
       symbol={assetField.value?.name ?? 'Select asset'}
