@@ -1,6 +1,6 @@
 import { CryptoCurrencies } from '@shared/models/currencies.model';
 
-import { useCryptoCurrencyMarketData } from '@app/query/common/market-data/market-data.hooks';
+import { useCryptoCurrencyMarketDataMeanAverage } from '@app/query/common/market-data/market-data.hooks';
 import { StxAvatarIcon } from '@app/ui/components/avatar/stx-avatar-icon';
 
 import { AmountField } from '../../components/amount-field';
@@ -13,7 +13,7 @@ import { useStxSendForm } from './use-stx-send-form';
 const symbol: CryptoCurrencies = 'STX';
 
 export function StxSendForm() {
-  const stxMarketData = useCryptoCurrencyMarketData(symbol);
+  const stxMarketData = useCryptoCurrencyMarketDataMeanAverage(symbol);
 
   const {
     availableStxBalance,

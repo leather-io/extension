@@ -1,4 +1,10 @@
-import { createMoney } from '@shared/models/money.model';
+import { type Money, createMoney } from '@shared/models/money.model';
+
+import {
+  checkIsMoneyAmountGreaterThanZero,
+  convertCryptoCurrencyMoneyToFiat,
+} from '@app/common/money/fiat-conversion';
+import { unitToFractionalUnit } from '@app/common/money/unit-conversion';
 
 import { SwapAsset } from './hooks/use-swap-form';
 
@@ -29,4 +35,15 @@ export function migratePositiveBalancesToTop(swappableAssets: SwapAsset[]) {
   );
   const assetsWithZeroBalance = swappableAssets.filter(asset => asset.balance.amount.isEqualTo(0));
   return [...assetsWithPositiveBalance, ...assetsWithZeroBalance];
+}
+
+export function convertInputAmountValueToFiat(balance: Money, price: Money, value: string) {
+  const valueAsMoney = createMoney(
+    unitToFractionalUnit(balance.decimals)(value),
+    balance.symbol,
+    balance.decimals
+  );
+
+  if (!checkIsMoneyAmountGreaterThanZero(valueAsMoney)) return;
+  return convertCryptoCurrencyMoneyToFiat(balance.symbol, price, valueAsMoney);
 }

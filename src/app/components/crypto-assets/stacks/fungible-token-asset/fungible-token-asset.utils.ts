@@ -4,6 +4,11 @@ import type { StacksFungibleTokenAssetBalance } from '@shared/models/crypto-asse
 
 import { getImageCanonicalUri } from '@app/common/crypto-assets/stacks-crypto-asset.utils';
 import { formatBalance } from '@app/common/format-balance';
+import {
+  checkIsMoneyAmountGreaterThanZero,
+  convertCryptoCurrencyMoneyToFiat,
+} from '@app/common/money/fiat-conversion';
+import { i18nFormatCurrency } from '@app/common/money/format-money';
 import { ftDecimals } from '@app/common/stacks-utils';
 import { formatContractId, getTicker } from '@app/common/utils';
 import { spamFilter } from '@app/common/utils/spam-filter';
@@ -29,9 +34,23 @@ export function parseStacksFungibleTokenAssetBalance(
   const caption = symbol || getTicker(friendlyName);
   const title = spamFilter(friendlyName);
 
+  const showFiatBalance =
+    assetBalance.asset.price && checkIsMoneyAmountGreaterThanZero(assetBalance.asset.price);
+  const balanceAsFiat = showFiatBalance
+    ? assetBalance.asset.price &&
+      i18nFormatCurrency(
+        convertCryptoCurrencyMoneyToFiat(
+          assetBalance.balance.symbol,
+          assetBalance.asset.price,
+          assetBalance.balance
+        )
+      )
+    : '';
+
   return {
     amount,
     avatar,
+    balanceAsFiat,
     caption,
     dataTestId,
     formattedBalance,

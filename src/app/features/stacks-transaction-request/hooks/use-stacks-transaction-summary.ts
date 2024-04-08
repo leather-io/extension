@@ -21,13 +21,13 @@ import {
 import { formatMoney, i18nFormatCurrency } from '@app/common/money/format-money';
 import { getEstimatedConfirmationTime } from '@app/common/transactions/stacks/transaction.utils';
 import { removeTrailingNullCharacters } from '@app/common/utils';
-import { useCryptoCurrencyMarketData } from '@app/query/common/market-data/market-data.hooks';
+import { useCryptoCurrencyMarketDataMeanAverage } from '@app/query/common/market-data/market-data.hooks';
 import { useStacksBlockTime } from '@app/query/stacks/info/info.hooks';
 import { useCurrentNetworkState } from '@app/store/networks/networks.hooks';
 import { microStxToStx } from '@app/ui/utils/micro-stx-to-stx';
 
 export function useStacksTransactionSummary(token: CryptoCurrencies) {
-  const tokenMarketData = useCryptoCurrencyMarketData(token);
+  const tokenMarketData = useCryptoCurrencyMarketDataMeanAverage(token);
   const { isTestnet } = useCurrentNetworkState();
   const { data: blockTime } = useStacksBlockTime();
 

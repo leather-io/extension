@@ -37,7 +37,7 @@ function pullPriceDataFromAvailableResponses(responses: MarketDataVendorWithPric
     .map(val => convertAmountToFractionalUnit(val, currencyDecimalsMap.USD));
 }
 
-export function useCryptoCurrencyMarketData(currency: CryptoCurrencies): MarketData {
+export function useCryptoCurrencyMarketDataMeanAverage(currency: CryptoCurrencies): MarketData {
   const { data: coingecko } = useCoinGeckoMarketDataQuery(currency);
   const { data: coincap } = useCoincapMarketDataQuery(currency);
   const { data: binance } = useBinanceMarketDataQuery(currency);
@@ -55,7 +55,7 @@ export function useCryptoCurrencyMarketData(currency: CryptoCurrencies): MarketD
 }
 
 export function useCalculateBitcoinFiatValue() {
-  const btcMarketData = useCryptoCurrencyMarketData('BTC');
+  const btcMarketData = useCryptoCurrencyMarketDataMeanAverage('BTC');
 
   return useCallback(
     (value: Money) => baseCurrencyAmountInQuote(value, btcMarketData),

@@ -10,7 +10,7 @@ import { FeesListItem } from '@app/components/bitcoin-fees-list/bitcoin-fees-lis
 import { useCurrentNativeSegwitUtxos } from '@app/query/bitcoin/address/utxos-by-address.hooks';
 import { UtxoWithDerivationPath } from '@app/query/bitcoin/bitcoin-client';
 import { useAverageBitcoinFeeRates } from '@app/query/bitcoin/fees/fee-estimates.hooks';
-import { useCryptoCurrencyMarketData } from '@app/query/common/market-data/market-data.hooks';
+import { useCryptoCurrencyMarketDataMeanAverage } from '@app/query/common/market-data/market-data.hooks';
 import { useCurrentAccountNativeSegwitSigner } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
 
 import { useGenerateUnsignedOrdinalTx } from './use-generate-ordinal-tx';
@@ -29,7 +29,7 @@ export function useSendInscriptionFeesList({
   const createNativeSegwitSigner = useCurrentAccountNativeSegwitSigner();
   const { data: nativeSegwitUtxos } = useCurrentNativeSegwitUtxos();
 
-  const btcMarketData = useCryptoCurrencyMarketData('BTC');
+  const btcMarketData = useCryptoCurrencyMarketDataMeanAverage('BTC');
   const { data: feeRates, isLoading } = useAverageBitcoinFeeRates();
 
   const { coverFeeFromAdditionalUtxos } = useGenerateUnsignedOrdinalTx(utxo);

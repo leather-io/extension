@@ -13,7 +13,7 @@ import {
 import { useCurrentNativeSegwitAddressBalance } from '@app/query/bitcoin/balance/btc-native-segwit-balance.hooks';
 import { UtxoResponseItem } from '@app/query/bitcoin/bitcoin-client';
 import { useAverageBitcoinFeeRates } from '@app/query/bitcoin/fees/fee-estimates.hooks';
-import { useCryptoCurrencyMarketData } from '@app/query/common/market-data/market-data.hooks';
+import { useCryptoCurrencyMarketDataMeanAverage } from '@app/query/common/market-data/market-data.hooks';
 
 import { FeesListItem } from './bitcoin-fees-list';
 
@@ -44,7 +44,7 @@ export function useBitcoinFeesList({
   utxos,
 }: UseBitcoinFeesListArgs) {
   const { balance } = useCurrentNativeSegwitAddressBalance();
-  const btcMarketData = useCryptoCurrencyMarketData('BTC');
+  const btcMarketData = useCryptoCurrencyMarketDataMeanAverage('BTC');
   const { data: feeRates, isLoading } = useAverageBitcoinFeeRates();
 
   const feesList: FeesListItem[] = useMemo(() => {

@@ -8,7 +8,7 @@ import { useBitcoinExplorerLink } from '@app/common/hooks/use-bitcoin-explorer-l
 import { baseCurrencyAmountInQuote } from '@app/common/money/calculate-money';
 import { i18nFormatCurrency } from '@app/common/money/format-money';
 import { satToBtc } from '@app/common/money/unit-conversion';
-import { useCryptoCurrencyMarketData } from '@app/query/common/market-data/market-data.hooks';
+import { useCryptoCurrencyMarketDataMeanAverage } from '@app/query/common/market-data/market-data.hooks';
 import { Flag } from '@app/ui/components/flag/flag';
 import { Caption } from '@app/ui/components/typography/caption';
 import { BitcoinContractIcon } from '@app/ui/icons/bitcoin-contract-icon';
@@ -26,7 +26,7 @@ export function BitcoinContractListItemLayout({
   txid,
 }: BitcoinContractListItemLayoutProps) {
   const { handleOpenBitcoinTxLink: handleOpenTxLink } = useBitcoinExplorerLink();
-  const bitcoinMarketData = useCryptoCurrencyMarketData('BTC');
+  const bitcoinMarketData = useCryptoCurrencyMarketDataMeanAverage('BTC');
 
   const getFiatValue = useCallback(
     (value: string) =>

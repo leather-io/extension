@@ -70,6 +70,7 @@ interface Brc20TokenResponse {
   available_balance: string;
   transferrable_balance: string;
   image_url: string | null;
+  min_listed_unit_price: number;
 }
 
 export interface Brc20Token extends Brc20TokenResponse {
