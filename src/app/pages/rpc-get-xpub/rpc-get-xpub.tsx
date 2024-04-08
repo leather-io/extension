@@ -13,10 +13,5 @@ export function RpcGetXpub() {
 
   const requester = new URL(origin).host;
 
-  return (
-    <GetXpubLayout
-      requester={requester}
-      onUserApproveGetXpub={onUserApproveGetXpub}
-    />
-  );
+  return <GetXpubLayout requester={requester} onUserApproveGetXpub={onUserApproveGetXpub} />;
 }

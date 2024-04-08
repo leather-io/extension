@@ -1,6 +1,7 @@
 import { RpcErrorCode } from '@btckit/types';
 
 import { RouteUrls } from '@shared/route-urls';
+import { GetXpubRequest } from '@shared/rpc/methods/get-xpub';
 import { makeRpcErrorResponse } from '@shared/rpc/rpc-methods';
 
 import {
@@ -8,7 +9,6 @@ import {
   makeSearchParamsWithDefaults,
   triggerRequestWindowOpen,
 } from '../messaging-utils';
-import {GetXpubRequest} from "@shared/rpc/methods/get-xpub";
 
 export async function rpcGetXpub(message: GetXpubRequest, port: chrome.runtime.Port) {
   const { urlParams, tabId } = makeSearchParamsWithDefaults(port, [['requestId', message.id]]);
