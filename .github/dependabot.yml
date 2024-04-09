@@ -5,11 +5,11 @@ updates:
     schedule:
       interval: 'weekly'
 
-  - package-ecosystem: 'pnpm'
+  - package-ecosystem: 'npm'
     directory: '/'
     schedule:
       interval: 'daily'
-    group:
+    groups:
       leather:
         applies-to: version-updates
         patterns:
