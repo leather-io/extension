@@ -141,15 +141,13 @@ export function useLedgerNavigate() {
       },
 
       cancelLedgerAction() {
-        // for send ordinal '..' brings you back to the `choose-fee` step but you lose context of the ordinal
-        const backLocation = location.pathname.match(RouteUrls.SendOrdinalInscription)
-          ? RouteUrls.Home
-          : '..';
+        // Use baseUrl to determine where to go on close
+        const baseUrl = `/${location.pathname.split('/')[1]}`;
 
-        return navigate(backLocation, {
+        return navigate(baseUrl, {
           relative: 'path',
           replace: true,
-          state: { ...location.state },
+          state: { ...location.state, wentBack: true },
         });
       },
 

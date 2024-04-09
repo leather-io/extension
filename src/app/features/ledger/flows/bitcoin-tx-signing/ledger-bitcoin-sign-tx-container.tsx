@@ -26,6 +26,7 @@ import {
   getBitcoinAppVersion,
   isBitcoinAppOpen,
 } from '@app/features/ledger/utils/bitcoin-ledger-utils';
+import { useActionCancellableByUser } from '@app/features/ledger/utils/stacks-ledger-utils';
 import { useToast } from '@app/features/toasts/use-toast';
 import { useSignLedgerBitcoinTx } from '@app/store/accounts/blockchain/bitcoin/bitcoin.hooks';
 import { useCurrentNetwork } from '@app/store/networks/networks.selectors';
@@ -42,6 +43,7 @@ function LedgerSignBitcoinTxContainer() {
   const location = useLocation();
   const ledgerNavigate = useLedgerNavigate();
   const ledgerAnalytics = useLedgerAnalytics();
+  const canUserCancelAction = useActionCancellableByUser();
   useScrollLock(true);
 
   const [unsignedTransactionRaw, setUnsignedTransactionRaw] = useState<null | string>(null);
@@ -112,11 +114,11 @@ function LedgerSignBitcoinTxContainer() {
     awaitingDeviceConnection,
   };
 
+  const canClose = !awaitingDeviceConnection && canUserCancelAction;
   return (
     <TxSigningFlow
       context={ledgerContextValue}
-      awaitingDeviceConnection={awaitingDeviceConnection}
-      closeAction={ledgerNavigate.cancelLedgerAction}
+      closeAction={canClose ? ledgerNavigate.cancelLedgerAction : undefined}
     />
   );
 }

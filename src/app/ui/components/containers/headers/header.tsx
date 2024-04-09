@@ -8,11 +8,10 @@ import { ArrowLeftIcon, CloseIcon } from '@app/ui/icons';
 import { BigTitleHeader } from './components/big-title-header';
 import { HeaderActionButton } from './components/header-action-button';
 
-type HeaderVariants = 'page' | 'home' | 'onboarding' | 'dialog' | 'bigTitle' | 'fund';
+type HeaderVariants = 'page' | 'home' | 'onboarding' | 'bigTitle' | 'fund';
 
 export interface HeaderProps {
   variant: HeaderVariants;
-  isWaitingOnPerformedAction?: boolean;
   onClose?(): void;
   onGoBack?(): void;
   title?: ReactNode;
@@ -25,7 +24,6 @@ export interface HeaderProps {
 
 export function Header({
   variant,
-  isWaitingOnPerformedAction,
   onClose,
   onGoBack,
   account,
@@ -60,7 +58,6 @@ export function Header({
               {variant !== 'home' && onGoBack ? (
                 <HeaderActionButton
                   icon={<ArrowLeftIcon />}
-                  isWaitingOnPerformedAction={isWaitingOnPerformedAction}
                   onAction={onGoBack}
                   dataTestId={SharedComponentsSelectors.HeaderBackBtn}
                 />
@@ -81,7 +78,6 @@ export function Header({
               <HeaderActionButton
                 icon={<CloseIcon />}
                 dataTestId={SharedComponentsSelectors.HeaderCloseBtn}
-                isWaitingOnPerformedAction={isWaitingOnPerformedAction}
                 onAction={onClose}
               />
             )}

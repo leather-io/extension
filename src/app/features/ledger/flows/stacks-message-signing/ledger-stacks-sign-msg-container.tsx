@@ -1,10 +1,9 @@
 import { useState } from 'react';
-import { Outlet, useLocation, useNavigate } from 'react-router-dom';
+import { Outlet } from 'react-router-dom';
 
 import { bytesToHex, signatureVrsToRsv } from '@stacks/common';
 import { serializeCV } from '@stacks/transactions';
 import { LedgerError } from '@zondax/ledger-stacks';
-import get from 'lodash.get';
 
 import { UnsignedMessage, whenSignableMessageOfType } from '@shared/signature/signature-types';
 import { delay, isError } from '@shared/utils';
@@ -21,7 +20,7 @@ import {
 import { useCurrentStacksAccount } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
 import { StacksAccount } from '@app/store/accounts/blockchain/stacks/stacks-account.models';
 import { Dialog } from '@app/ui/components/containers/dialog/dialog';
-import { Header } from '@app/ui/components/containers/headers/header';
+import { DialogHeader } from '@app/ui/components/containers/headers/dialog-header';
 
 import { useLedgerAnalytics } from '../../hooks/use-ledger-analytics.hook';
 import { useLedgerNavigate } from '../../hooks/use-ledger-navigate';
@@ -50,9 +49,6 @@ function LedgerSignMsgData({ children }: LedgerSignMsgDataProps) {
 type LedgerSignMsgProps = LedgerSignMsgData;
 function LedgerSignStacksMsg({ account, unsignedMessage }: LedgerSignMsgProps) {
   useScrollLock(true);
-  const navigate = useNavigate();
-
-  const location = useLocation();
   const ledgerNavigate = useLedgerNavigate();
   const ledgerAnalytics = useLedgerAnalytics();
   const verifyLedgerPublicKey = useVerifyMatchingLedgerStacksPublicKey();
@@ -140,8 +136,6 @@ function LedgerSignStacksMsg({ account, unsignedMessage }: LedgerSignMsgProps) {
     }
   }
 
-  const allowUserToGoBack = get(location.state, 'goBack');
-
   const ledgerContextValue: LedgerMessageSigningContext = {
     message: unsignedMessage,
     signMessage,
@@ -149,18 +143,13 @@ function LedgerSignStacksMsg({ account, unsignedMessage }: LedgerSignMsgProps) {
     awaitingDeviceConnection,
   };
 
+  const canClose = !awaitingDeviceConnection && canUserCancelAction;
   return (
     <LedgerMsgSigningProvider value={ledgerContextValue}>
       <Dialog
-        onGoBack={allowUserToGoBack ? () => navigate(-1) : undefined}
         isShowing
-        header={
-          <Header
-            variant="dialog"
-            isWaitingOnPerformedAction={awaitingDeviceConnection || canUserCancelAction}
-          />
-        }
-        onClose={ledgerNavigate.cancelLedgerAction}
+        header={<DialogHeader />}
+        onClose={canClose ? () => ledgerNavigate.cancelLedgerAction() : undefined}
       >
         <Outlet />
       </Dialog>

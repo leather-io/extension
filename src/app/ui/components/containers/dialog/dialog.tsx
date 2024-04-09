@@ -9,12 +9,12 @@ import { pxStringToNumber } from '@shared/utils/px-string-to-number';
 
 export interface DialogProps {
   isShowing: boolean;
-  onClose(): void;
+  onClose?(): void;
 }
 interface RadixDialogProps extends DialogProps {
   children: ReactNode;
   footer?: ReactNode;
-  header: ReactElement<any, string | JSXElementConstructor<any>>;
+  header?: ReactElement<any, string | JSXElementConstructor<any>>;
   onGoBack?(): void;
   wrapChildren?: boolean;
 }

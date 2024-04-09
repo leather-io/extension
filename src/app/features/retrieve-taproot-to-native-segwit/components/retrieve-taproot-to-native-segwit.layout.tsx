@@ -5,7 +5,7 @@ import { Button } from '@app/ui/components/button/button';
 import { Callout } from '@app/ui/components/callout/callout';
 import { Dialog } from '@app/ui/components/containers/dialog/dialog';
 import { Footer } from '@app/ui/components/containers/footers/footer';
-import { Header } from '@app/ui/components/containers/headers/header';
+import { DialogHeader } from '@app/ui/components/containers/headers/dialog-header';
 import { Card } from '@app/ui/layout/card/card';
 
 interface RetrieveTaprootToNativeSegwitLayoutProps {
@@ -21,7 +21,7 @@ export function RetrieveTaprootToNativeSegwitLayout(
   return (
     <Dialog
       isShowing
-      header={<Header variant="dialog" />}
+      header={<DialogHeader />}
       onClose={() => onClose()}
       footer={
         <Footer flexDirection="row">

@@ -13,7 +13,7 @@ import { LoadingSpinner } from '@app/components/loading-spinner';
 import { BitcoinChooseFee } from '@app/features/bitcoin-choose-fee/bitcoin-choose-fee';
 import { useValidateBitcoinSpend } from '@app/features/bitcoin-choose-fee/hooks/use-validate-bitcoin-spend';
 import { Dialog } from '@app/ui/components/containers/dialog/dialog';
-import { Header } from '@app/ui/components/containers/headers/header';
+import { DialogHeader } from '@app/ui/components/containers/headers/dialog-header';
 
 import { useSendInscriptionState } from './components/send-inscription-container';
 import { useSendInscriptionFeesList } from './hooks/use-send-inscription-fees-list';
@@ -57,7 +57,7 @@ export function SendInscriptionChooseFee() {
   return (
     <>
       <Dialog
-        header={<Header variant="dialog" title="Choose fee" />}
+        header={<DialogHeader title="Choose fee" />}
         isShowing
         onGoBack={() => navigate(RouteUrls.Home)}
         onClose={() => navigate(RouteUrls.Home)}
