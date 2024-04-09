@@ -197,7 +197,7 @@
     "cross-fetch": "4.0.0",
     "css-loader": "6.11.0",
     "dayjs": "1.11.8",
-    "dompurify": "3.0.6",
+    "dompurify": "3.1.0",
     "dotenv": "16.4.5",
     "ecdsa-sig-formatter": "1.0.11",
     "ecpair": "2.1.0",
