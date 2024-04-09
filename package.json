@@ -340,7 +340,7 @@
     "ts-node": "10.9.2",
     "ts-unused-exports": "10.0.1",
     "tsconfig-paths-webpack-plugin": "4.1.0",
-    "typescript": "5.4.3",
+    "typescript": "5.4.4",
     "vitest": "1.4.0",
     "vm-browserify": "1.1.2",
     "web-ext": "7.8.0",
