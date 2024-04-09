@@ -35,10 +35,10 @@ export const globalCss = defineGlobalStyles({
   },
   '.mode__popup': {
     'html,body, #app, .radix-themes': {
-      height: tokens.sizes.popupHeight.value,
       maxHeight: '100vh',
       minHeight: tokens.sizes.dialogHeight.value,
       width: tokens.sizes.popupWidth.value,
+      margin: '0 auto',
 
       '::-webkit-scrollbar': {
         display: 'none',
