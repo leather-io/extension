@@ -12,7 +12,7 @@ import { useNetworks } from '@app/store/networks/networks.selectors';
 import { Button } from '@app/ui/components/button/button';
 import { Dialog } from '@app/ui/components/containers/dialog/dialog';
 import { Footer } from '@app/ui/components/containers/footers/footer';
-import { Header } from '@app/ui/components/containers/headers/header';
+import { DialogHeader } from '@app/ui/components/containers/headers/dialog-header';
 
 const defaultNetworkIds = Object.values(WalletDefaultNetworkConfigurationIds) as string[];
 
@@ -43,7 +43,7 @@ export function NetworkDialog({ onClose }: NetworkDialogProps) {
 
   return (
     <Dialog
-      header={<Header variant="dialog" title="Change network" />}
+      header={<DialogHeader title="Change network" />}
       isShowing
       onClose={onClose}
       footer={

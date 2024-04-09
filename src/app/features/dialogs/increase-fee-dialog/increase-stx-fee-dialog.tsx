@@ -23,7 +23,7 @@ import { useSubmittedTransactionsActions } from '@app/store/submitted-transactio
 import { useRawDeserializedTxState, useRawTxIdState } from '@app/store/transactions/raw.hooks';
 import { Dialog } from '@app/ui/components/containers/dialog/dialog';
 import { Footer } from '@app/ui/components/containers/footers/footer';
-import { Header } from '@app/ui/components/containers/headers/header';
+import { DialogHeader } from '@app/ui/components/containers/headers/dialog-header';
 import { Spinner } from '@app/ui/components/spinner';
 import { Caption } from '@app/ui/components/typography/caption';
 
@@ -101,7 +101,7 @@ export function IncreaseStxFeeDialog() {
             <Dialog
               isShowing={location.pathname === RouteUrls.IncreaseStxFee}
               onClose={onClose}
-              header={<Header variant="dialog" title="Increase fee" />}
+              header={<DialogHeader title="Increase fee" />}
               footer={
                 <Footer flexDirection="row">
                   <IncreaseFeeActions

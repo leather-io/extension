@@ -67,7 +67,7 @@ function LedgerRequestBitcoinKeys() {
   return (
     <RequestKeysFlow
       context={ledgerContextValue}
-      isActionCancellableByUser={awaitingDeviceConnection || canUserCancelAction}
+      isActionCancellableByUser={!awaitingDeviceConnection && canUserCancelAction}
     />
   );
 }

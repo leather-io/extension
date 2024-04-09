@@ -88,8 +88,9 @@ export function signStacksTransactionWithSignature(transaction: string, signatur
 export function useActionCancellableByUser() {
   const { pathname } = useLocation();
   return (
-    pathname.includes(RouteUrls.DeviceBusy) ||
+    pathname.includes(RouteUrls.ConnectLedger) ||
     pathname.includes(RouteUrls.ConnectLedgerSuccess) ||
+    pathname.includes(RouteUrls.ConnectLedgerError) ||
     pathname.includes(RouteUrls.AwaitingDeviceUserAction)
   );
 }

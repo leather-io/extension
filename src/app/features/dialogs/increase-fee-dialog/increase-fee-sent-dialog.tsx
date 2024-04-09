@@ -5,7 +5,7 @@ import { Flex } from 'leather-styles/jsx';
 import { RouteUrls } from '@shared/route-urls';
 
 import { Dialog } from '@app/ui/components/containers/dialog/dialog';
-import { Header } from '@app/ui/components/containers/headers/header';
+import { DialogHeader } from '@app/ui/components/containers/headers/dialog-header';
 import { CheckmarkIcon } from '@app/ui/icons/checkmark-icon';
 
 export function IncreaseFeeSentDialog() {
@@ -18,7 +18,7 @@ export function IncreaseFeeSentDialog() {
       <Dialog
         isShowing={isShowing}
         onClose={() => navigate(RouteUrls.Home)}
-        header={<Header variant="dialog" title="Confirmed" />}
+        header={<DialogHeader title="Confirmed" />}
       >
         <Flex justifyContent="center" pb="space.06" px="space.05">
           <CheckmarkIcon mt="2px" width="lg" />
