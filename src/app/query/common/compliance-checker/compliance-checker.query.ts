@@ -15,6 +15,8 @@ const headers = {
   Token: '51d3c7529eb08a8c62d41d70d006bdcd4248150fbd6826d5828ac908e7c12073',
 };
 
+export const isComplianceCheckEnabled = false;
+
 async function registerEntityAddressComplianceCheck(address: string) {
   const resp = await axios.post(checkApi, { address }, { headers });
   return resp.data;
@@ -75,6 +77,8 @@ export function useBreakOnNonCompliantEntity(address: string | string[]) {
     nativeSegwitSigner.address,
     ...ensureArray(address),
   ]);
+
+  if (!isComplianceCheckEnabled) return;
 
   if (complianceReports.some(report => report.data?.isOnSanctionsList)) {
     void analytics.track('non_compliant_entity_detected');

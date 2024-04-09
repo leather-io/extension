@@ -18,7 +18,7 @@ function mockChainalysisEntityCheckRequest(context: BrowserContext) {
     );
 }
 
-test.describe('Compliance checks', () => {
+test.skip('Compliance checks', () => {
   test.beforeEach(async ({ extensionId, globalPage, onboardingPage, page }) => {
     await globalPage.setupAndUseApiCalls(extensionId);
     await onboardingPage.signInWithTestAccount(extensionId);
