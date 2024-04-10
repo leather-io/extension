@@ -1,6 +1,5 @@
 import { memo } from 'react';
 
-import { css } from 'leather-styles/css';
 import { styled } from 'leather-styles/jsx';
 
 import { useTotalBalance } from '@app/common/hooks/balance/use-total-balance';
@@ -24,7 +23,7 @@ export const AccountTotalBalance = memo(({ btcAddress, stxAddress }: AccountTota
   return (
     <SkeletonLoader height="20px" isLoading={isInitialLoading}>
       <styled.span
-        className={css(shimmerStyles)}
+        className={shimmerStyles}
         textStyle="label.02"
         data-state={isLoading ? 'loading' : undefined}
       >
