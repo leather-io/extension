@@ -1,6 +1,9 @@
+import { useNavigate } from 'react-router-dom';
+
 import { useFormikContext } from 'formik';
 import { styled } from 'leather-styles/jsx';
 
+import { RouteUrls } from '@shared/route-urls';
 import { isDefined, isUndefined } from '@shared/utils';
 
 import { SwapIcon } from '@app/ui/icons';
@@ -11,30 +14,37 @@ import { useSwapContext } from '../../../swap.context';
 export function SwapToggleButton() {
   const { fetchToAmount, isFetchingExchangeRate, onSetIsSendingMax } = useSwapContext();
   const { setFieldValue, validateForm, values } = useFormikContext<SwapFormValues>();
+  const navigate = useNavigate();
 
   async function onToggleSwapAssets() {
     onSetIsSendingMax(false);
 
-    const prevAmountFrom = values.swapAmountBase;
-    const prevAmountTo = values.swapAmountQuote;
-    const prevAssetFrom = values.swapAssetBase;
-    const prevAssetTo = values.swapAssetQuote;
+    const prevAmountBase = values.swapAmountBase;
+    const prevAmountQuote = values.swapAmountQuote;
+    const prevAssetBase = values.swapAssetBase;
+    const prevAssetQuote = values.swapAssetQuote;
 
-    await setFieldValue('swapAssetBase', prevAssetTo);
-    await setFieldValue('swapAssetQuote', prevAssetFrom);
-    await setFieldValue('swapAmountBase', prevAmountTo);
+    await setFieldValue('swapAssetBase', prevAssetQuote);
+    await setFieldValue('swapAssetQuote', prevAssetBase);
+    await setFieldValue('swapAmountBase', prevAmountQuote);
 
-    if (isDefined(prevAssetFrom) && isDefined(prevAssetTo)) {
-      const toAmount = await fetchToAmount(prevAssetTo, prevAssetFrom, prevAmountTo);
-      if (isUndefined(toAmount)) {
+    if (isDefined(prevAssetBase) && isDefined(prevAssetQuote)) {
+      const quoteAmount = await fetchToAmount(prevAssetQuote, prevAssetBase, prevAmountQuote);
+      if (isUndefined(quoteAmount)) {
         await setFieldValue('swapAmountQuote', '');
         return;
       }
-      await setFieldValue('swapAmountQuote', Number(toAmount));
+      await setFieldValue('swapAmountQuote', Number(quoteAmount));
     } else {
-      await setFieldValue('swapAmountQuote', Number(prevAmountFrom));
+      await setFieldValue('swapAmountQuote', Number(prevAmountBase));
     }
     await validateForm();
+    navigate(
+      RouteUrls.Swap.replace(':base', prevAssetQuote?.name ?? '').replace(
+        ':quote',
+        prevAssetBase?.name ?? ''
+      )
+    );
   }
 
   return (
