@@ -3,6 +3,7 @@ import { ReactNode } from 'react';
 import { SettingsSelectors } from '@tests/selectors/settings.selectors';
 import { Box, Flex, styled } from 'leather-styles/jsx';
 
+import { AccountNameLayout } from '@app/components/account/account-name';
 import { Link } from '@app/ui/components/link/link';
 import { SkeletonLoader } from '@app/ui/components/skeleton-loader/skeleton-loader';
 import { ChevronDownIcon } from '@app/ui/icons';
@@ -13,6 +14,7 @@ interface AccountCardProps {
   children: ReactNode;
   switchAccount: ReactNode;
   toggleSwitchAccount(): void;
+  isLoadingBnsName: boolean;
   isLoadingBalance: boolean;
 }
 
@@ -22,6 +24,7 @@ export function AccountCard({
   switchAccount,
   toggleSwitchAccount,
   children,
+  isLoadingBnsName,
   isLoadingBalance,
 }: AccountCardProps) {
   return (
@@ -40,9 +43,14 @@ export function AccountCard({
         variant="text"
       >
         <Flex>
-          <styled.p data-testid={SettingsSelectors.CurrentAccountDisplayName} textStyle="label.01">
+          <AccountNameLayout
+            isLoading={isLoadingBnsName}
+            data-testid={SettingsSelectors.CurrentAccountDisplayName}
+            textStyle="label.01"
+          >
             {name}
-          </styled.p>
+          </AccountNameLayout>
+
           <Box mt="space.01" ml="space.02">
             <ChevronDownIcon variant="small" />
           </Box>

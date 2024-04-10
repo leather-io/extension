@@ -3,7 +3,7 @@ import { Route, useNavigate } from 'react-router-dom';
 
 import { RouteUrls } from '@shared/route-urls';
 
-import { useCurrentAccountDisplayName } from '@app/common/hooks/account/use-account-names';
+import { useAccountDisplayName } from '@app/common/hooks/account/use-account-names';
 import { useOnboardingState } from '@app/common/hooks/auth/use-onboarding-state';
 import { useTotalBalance } from '@app/common/hooks/balance/use-total-balance';
 import { useOnMount } from '@app/common/hooks/use-on-mount';
@@ -26,9 +26,13 @@ export function Home() {
   const { decodedAuthRequest } = useOnboardingState();
 
   const navigate = useNavigate();
-  const name = useCurrentAccountDisplayName();
-
   const account = useCurrentStacksAccount();
+
+  const { name, isLoading: isLoadingBnsName } = useAccountDisplayName({
+    address: account?.address || '',
+    index: account?.index || 0,
+  });
+
   const btcAddress = useCurrentAccountNativeSegwitAddressIndexZero();
   const { totalUsdBalance, isInitialLoading } = useTotalBalance({
     btcAddress,
@@ -52,6 +56,7 @@ export function Home() {
             />
           }
           toggleSwitchAccount={() => setIsShowingSwitchAccount(!isShowingSwitchAccount)}
+          isLoadingBnsName={isLoadingBnsName}
           isLoadingBalance={isInitialLoading}
         >
           <AccountActions />
