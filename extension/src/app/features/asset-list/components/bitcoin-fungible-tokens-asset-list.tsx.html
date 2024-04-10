@@ -25,21 +25,21 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/4</span>
+                <span class='fraction'>0/3</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/2</span>
+                <span class='fraction'>0/0</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/2</span>
+                <span class='fraction'>0/3</span>
             </div>
         
             
@@ -57,7 +57,7 @@
         <template id="filterTemplate">
             <div class="quiet">
                 Filter:
-                <input oninput="onInput()" type="search" id="fileSearch">
+                <input type="search" id="fileSearch">
             </div>
         </template>
     </div>
@@ -82,7 +82,8 @@
 <a name='L17'></a><a href='#L17'>17</a>
 <a name='L18'></a><a href='#L18'>18</a>
 <a name='L19'></a><a href='#L19'>19</a>
-<a name='L20'></a><a href='#L20'>20</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L20'></a><a href='#L20'>20</a>
+<a name='L21'></a><a href='#L21'>21</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -93,31 +94,33 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { Stack } from 'leather-styles/jsx';
-&nbsp;
-import { Brc20TokenAssetItemLayout } from '@app/components/crypto-assets/bitcoin/brc20-token-asset-list/components/brc20-token-asset-item.layout';
-import { Brc20Token } from '@app/query/bitcoin/bitcoin-client';
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { Brc20TokensLoader } from '@app/components/brc20-tokens-loader';
+import { Brc20TokenAssetList } from '@app/components/crypto-assets/bitcoin/brc20-token-asset-list/brc20-token-asset-list';
+import { Src20TokenAssetList } from '@app/components/crypto-assets/bitcoin/src20-token-asset-list/src20-token-asset-list';
+import { Src20TokensLoader } from '@app/components/src20-tokens-loader';
 &nbsp;
 interface BitcoinFungibleTokenAssetListProps {
-  brc20Tokens?: Brc20Token[];
+  btcAddress: string;
 }
-export function <span class="fstat-no" title="function not covered" >BitcoinFungibleTokenAssetList({</span> brc20Tokens }: BitcoinFungibleTokenAssetListProps) {
-<span class="cstat-no" title="statement not covered" >  if (!brc20Tokens) <span class="cstat-no" title="statement not covered" >return null;</span></span>
-&nbsp;
+export function <span class="fstat-no" title="function not covered" >BitcoinFungibleTokenAssetList({</span> btcAddress }: BitcoinFungibleTokenAssetListProps) {
 <span class="cstat-no" title="statement not covered" >  return (</span>
-    &lt;Stack gap="space.05"&gt;
-      {brc20Tokens.map(<span class="fstat-no" title="function not covered" >token =&gt; (</span>
-<span class="cstat-no" title="statement not covered" >        &lt;Brc20TokenAssetItemLayout key={token.ticker} token={token} /&gt;</span>
-      ))}
-    &lt;/Stack&gt;
+    &lt;&gt;
+      &lt;Brc20TokensLoader&gt;
+        {<span class="fstat-no" title="function not covered" >brc20Tokens =&gt; <span class="cstat-no" title="statement not covered" >&lt;</span>Brc20TokenAssetList brc20Tokens={brc20Tokens} /&gt;}</span>
+      &lt;/Brc20TokensLoader&gt;
+      &lt;Src20TokensLoader address={btcAddress}&gt;
+        {<span class="fstat-no" title="function not covered" >src20Tokens =&gt; <span class="cstat-no" title="statement not covered" >&lt;</span>Src20TokenAssetList src20Tokens={src20Tokens} /&gt;}</span>
+      &lt;/Src20TokensLoader&gt;
+    &lt;/&gt;
   );
 }
 &nbsp;</pre></td></tr></table></pre>
@@ -127,7 +130,7 @@ export function <span class="fstat-no" title="function not covered" >BitcoinFung
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-03-27T19:10:35.836Z
+                at 2024-04-10T13:33:53.923Z
             </div>
         <script src="../../../../../../prettify.js"></script>
         <script>

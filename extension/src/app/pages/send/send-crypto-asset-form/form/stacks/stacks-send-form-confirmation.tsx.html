@@ -25,7 +25,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/13</span>
+                <span class='fraction'>0/10</span>
             </div>
         
             
@@ -39,14 +39,14 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/4</span>
+                <span class='fraction'>0/3</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/13</span>
+                <span class='fraction'>0/10</span>
             </div>
         
             
@@ -57,7 +57,7 @@
         <template id="filterTemplate">
             <div class="quiet">
                 Filter:
-                <input oninput="onInput()" type="search" id="fileSearch">
+                <input type="search" id="fileSearch">
             </div>
         </template>
     </div>
@@ -150,21 +150,7 @@
 <a name='L85'></a><a href='#L85'>85</a>
 <a name='L86'></a><a href='#L86'>86</a>
 <a name='L87'></a><a href='#L87'>87</a>
-<a name='L88'></a><a href='#L88'>88</a>
-<a name='L89'></a><a href='#L89'>89</a>
-<a name='L90'></a><a href='#L90'>90</a>
-<a name='L91'></a><a href='#L91'>91</a>
-<a name='L92'></a><a href='#L92'>92</a>
-<a name='L93'></a><a href='#L93'>93</a>
-<a name='L94'></a><a href='#L94'>94</a>
-<a name='L95'></a><a href='#L95'>95</a>
-<a name='L96'></a><a href='#L96'>96</a>
-<a name='L97'></a><a href='#L97'>97</a>
-<a name='L98'></a><a href='#L98'>98</a>
-<a name='L99'></a><a href='#L99'>99</a>
-<a name='L100'></a><a href='#L100'>100</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L88'></a><a href='#L88'>88</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -190,7 +176,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -214,15 +199,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -261,7 +237,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { Outlet, useNavigate, useParams } from 'react-router-dom';
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { Outlet, useParams } from 'react-router-dom';
 &nbsp;
 import { deserializeTransaction } from '@stacks/transactions';
 import { Box, Stack } from 'leather-styles/jsx';
@@ -269,8 +245,6 @@ import { Box, Stack } from 'leather-styles/jsx';
 import { CryptoCurrencies } from '@shared/models/currencies.model';
 &nbsp;
 import { useLocationStateWithCache } from '@app/common/hooks/use-location-state';
-import { useRouteHeader } from '@app/common/hooks/use-route-header';
-import { ModalHeader } from '@app/components/modal-header';
 import { useStacksBroadcastTransaction } from '@app/features/stacks-transaction-request/hooks/use-stacks-broadcast-transaction';
 import { useStacksTransactionSummary } from '@app/features/stacks-transaction-request/hooks/use-stacks-transaction-summary';
 import { BasicTooltip } from '@app/ui/components/tooltip/basic-tooltip';
@@ -289,7 +263,6 @@ function <span class="fstat-no" title="function not covered" >useStacksSendFormC
 export function <span class="fstat-no" title="function not covered" >StacksSendFormConfirmation() {</span>
   const { tx, decimals, showFeeChangeWarning } = <span class="cstat-no" title="statement not covered" >useStacksSendFormConfirmationState();</span>
   const { symbol = <span class="branch-0 cbranch-no" title="branch not covered" >'STX' }</span> = <span class="cstat-no" title="statement not covered" >useParams();</span>
-  const navigate = <span class="cstat-no" title="statement not covered" >useNavigate();</span>
 &nbsp;
   const { stacksBroadcastTransaction, isBroadcasting } = <span class="cstat-no" title="statement not covered" >useStacksBroadcastTransaction(</span>
     symbol.toUpperCase() as CryptoCurrencies,
@@ -313,15 +286,6 @@ export function <span class="fstat-no" title="function not covered" >StacksSendF
     nonce,
     memoDisplayText,
   } = <span class="cstat-no" title="statement not covered" >formReviewTxSummary(stacksDeserializedTransaction, symbol, decimals);</span>
-&nbsp;
-<span class="cstat-no" title="statement not covered" >  useRouteHeader(</span>
-    &lt;ModalHeader
-      hideActions
-      defaultClose
-      onGoBack={<span class="fstat-no" title="function not covered" >() =&gt; <span class="cstat-no" title="statement not covered" >n</span>avigate('../', { relative: 'path', replace: true })}</span>
-      title="Review"
-    /&gt;
-  );
 &nbsp;
   const feeWarningTooltip = <span class="cstat-no" title="statement not covered" >showFeeChangeWarning ? (</span>
     &lt;BasicTooltip
@@ -367,7 +331,7 @@ export function <span class="fstat-no" title="function not covered" >StacksSendF
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-03-27T19:10:35.836Z
+                at 2024-04-10T13:33:53.923Z
             </div>
         <script src="../../../../../../../../prettify.js"></script>
         <script>

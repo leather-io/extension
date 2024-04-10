@@ -23,9 +23,9 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">76.92% </span>
+                <span class="strong">78.57% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>10/13</span>
+                <span class='fraction'>11/14</span>
             </div>
         
             
@@ -37,16 +37,16 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">50% </span>
+                <span class="strong">60% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>2/4</span>
+                <span class='fraction'>3/5</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">90.9% </span>
+                <span class="strong">91.66% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>10/11</span>
+                <span class='fraction'>11/12</span>
             </div>
         
             
@@ -57,7 +57,7 @@
         <template id="filterTemplate">
             <div class="quiet">
                 Filter:
-                <input oninput="onInput()" type="search" id="fileSearch">
+                <input type="search" id="fileSearch">
             </div>
         </template>
     </div>
@@ -173,7 +173,21 @@
 <a name='L108'></a><a href='#L108'>108</a>
 <a name='L109'></a><a href='#L109'>109</a>
 <a name='L110'></a><a href='#L110'>110</a>
-<a name='L111'></a><a href='#L111'>111</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L111'></a><a href='#L111'>111</a>
+<a name='L112'></a><a href='#L112'>112</a>
+<a name='L113'></a><a href='#L113'>113</a>
+<a name='L114'></a><a href='#L114'>114</a>
+<a name='L115'></a><a href='#L115'>115</a>
+<a name='L116'></a><a href='#L116'>116</a>
+<a name='L117'></a><a href='#L117'>117</a>
+<a name='L118'></a><a href='#L118'>118</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -247,14 +261,14 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -286,7 +300,14 @@
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { useDispatch, useSelector } from 'react-redux';
 &nbsp;
 import { devToolsEnhancer } from '@redux-devtools/remote';
-import { Action, AnyAction, ThunkAction, combineReducers, configureStore } from '@reduxjs/toolkit';
+import {
+  Action,
+  AnyAction,
+  ThunkAction,
+  Tuple,
+  combineReducers,
+  configureStore,
+} from '@reduxjs/toolkit';
 import { atomWithStore } from 'jotai-redux';
 import {
   FLUSH,
@@ -357,25 +378,25 @@ const persistedReducer = persistReducer(persistConfig, rootReducer);
 &nbsp;
 export const store = configureStore({
   reducer: persistedReducer,
-  middleware: getDefaultMiddleware =&gt; [
-    ...getDefaultMiddleware({
+  middleware: getDefaultMiddleware =&gt;
+    getDefaultMiddleware({
       serializableCheck: {
         ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
       },
-    }),
-    broadcastActionTypeToOtherFramesMiddleware,
-  ],
-  enhancers:
-    process.env.WALLET_ENVIRONMENT === 'development'
-      ? <span class="branch-0 cbranch-no" title="branch not covered" >[</span>
-          devToolsEnhancer({
-            hostname: 'localhost',
-            port: 8000,
-            realtime: true,
-            suppressConnectErrors: false,
-          }),
-        ]
-      : undefined,
+    }).concat(new Tuple(broadcastActionTypeToOtherFramesMiddleware)),
+  enhancers: getDefaultEnhancers =&gt;
+    getDefaultEnhancers().concat(
+      process.env.WALLET_ENVIRONMENT === 'development'
+        ? <span class="branch-0 cbranch-no" title="branch not covered" >[</span>
+            devToolsEnhancer({
+              hostname: 'localhost',
+              port: 8000,
+              realtime: true,
+              suppressConnectErrors: false,
+            }),
+          ]
+        : []
+    ),
 });
 &nbsp;
 export const persistor = persistStore(store);
@@ -400,7 +421,7 @@ export function <span class="fstat-no" title="function not covered" >useHasState
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-03-27T19:10:35.836Z
+                at 2024-04-10T13:33:53.923Z
             </div>
         <script src="../../../../prettify.js"></script>
         <script>

@@ -25,14 +25,14 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/12</span>
+                <span class='fraction'>0/11</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/4</span>
+                <span class='fraction'>0/2</span>
             </div>
         
             
@@ -46,7 +46,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/11</span>
+                <span class='fraction'>0/10</span>
             </div>
         
             
@@ -57,7 +57,7 @@
         <template id="filterTemplate">
             <div class="quiet">
                 Filter:
-                <input oninput="onInput()" type="search" id="fileSearch">
+                <input type="search" id="fileSearch">
             </div>
         </template>
     </div>
@@ -94,10 +94,7 @@
 <a name='L29'></a><a href='#L29'>29</a>
 <a name='L30'></a><a href='#L30'>30</a>
 <a name='L31'></a><a href='#L31'>31</a>
-<a name='L32'></a><a href='#L32'>32</a>
-<a name='L33'></a><a href='#L33'>33</a>
-<a name='L34'></a><a href='#L34'>34</a>
-<a name='L35'></a><a href='#L35'>35</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L32'></a><a href='#L32'>32</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -112,13 +109,6 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -126,6 +116,10 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -133,7 +127,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { useCurrentAccountDisplayName } from '@app/common/hooks/account/use-account-names';
 import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
-import { useClipboard } from '@app/common/hooks/use-copy-to-clipboard';
+import { copyToClipboard } from '@app/common/utils/copy-to-clipboard';
 import { useToast } from '@app/features/toasts/use-toast';
 import { useBackgroundLocationRedirect } from '@app/routes/hooks/use-background-location-redirect';
 import { useCurrentStacksAccount } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
@@ -145,14 +139,7 @@ export function <span class="fstat-no" title="function not covered" >ReceiveStxM
   const toast = <span class="cstat-no" title="statement not covered" >useToast();</span>
   const currentAccount = <span class="cstat-no" title="statement not covered" >useCurrentStacksAccount();</span>
   const analytics = <span class="cstat-no" title="statement not covered" >useAnalytics();</span>
-  const { onCopy } = <span class="cstat-no" title="statement not covered" >useClipboard(currentAccount?.address ?? '');</span>
   const accountName = <span class="cstat-no" title="statement not covered" >useCurrentAccountDisplayName();</span>
-&nbsp;
-  function <span class="fstat-no" title="function not covered" >copyToClipboard() {</span>
-<span class="cstat-no" title="statement not covered" >    void analytics.track('copy_stx_address_to_clipboard');</span>
-<span class="cstat-no" title="statement not covered" >    toast.success('Copied to clipboard');</span>
-<span class="cstat-no" title="statement not covered" >    onCopy();</span>
-  }
 &nbsp;
 <span class="cstat-no" title="statement not covered" >  if (!currentAccount) <span class="cstat-no" title="statement not covered" >return null;</span></span>
 &nbsp;
@@ -160,7 +147,11 @@ export function <span class="fstat-no" title="function not covered" >ReceiveStxM
     &lt;ReceiveTokensLayout
       address={currentAccount.address}
       accountName={accountName}
-      onCopyAddressToClipboard={copyToClipboard}
+      onCopyAddressToClipboard={<span class="fstat-no" title="function not covered" >async () =&gt; {</span>
+<span class="cstat-no" title="statement not covered" >        void analytics.track('copy_stx_address_to_clipboard');</span>
+<span class="cstat-no" title="statement not covered" >        await copyToClipboard(currentAccount.address);</span>
+<span class="cstat-no" title="statement not covered" >        toast.success('Copied to clipboard!');</span>
+      }}
       title="STX"
     /&gt;
   );
@@ -172,7 +163,7 @@ export function <span class="fstat-no" title="function not covered" >ReceiveStxM
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-03-27T19:10:35.836Z
+                at 2024-04-10T13:33:53.923Z
             </div>
         <script src="../../../../../prettify.js"></script>
         <script>

@@ -25,7 +25,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/6</span>
+                <span class='fraction'>0/9</span>
             </div>
         
             
@@ -39,14 +39,14 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/2</span>
+                <span class='fraction'>0/5</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/6</span>
+                <span class='fraction'>0/9</span>
             </div>
         
             
@@ -57,7 +57,7 @@
         <template id="filterTemplate">
             <div class="quiet">
                 Filter:
-                <input oninput="onInput()" type="search" id="fileSearch">
+                <input type="search" id="fileSearch">
             </div>
         </template>
     </div>
@@ -129,7 +129,26 @@
 <a name='L64'></a><a href='#L64'>64</a>
 <a name='L65'></a><a href='#L65'>65</a>
 <a name='L66'></a><a href='#L66'>66</a>
-<a name='L67'></a><a href='#L67'>67</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L67'></a><a href='#L67'>67</a>
+<a name='L68'></a><a href='#L68'>68</a>
+<a name='L69'></a><a href='#L69'>69</a>
+<a name='L70'></a><a href='#L70'>70</a>
+<a name='L71'></a><a href='#L71'>71</a>
+<a name='L72'></a><a href='#L72'>72</a>
+<a name='L73'></a><a href='#L73'>73</a>
+<a name='L74'></a><a href='#L74'>74</a>
+<a name='L75'></a><a href='#L75'>75</a>
+<a name='L76'></a><a href='#L76'>76</a>
+<a name='L77'></a><a href='#L77'>77</a>
+<a name='L78'></a><a href='#L78'>78</a>
+<a name='L79'></a><a href='#L79'>79</a>
+<a name='L80'></a><a href='#L80'>80</a>
+<a name='L81'></a><a href='#L81'>81</a>
+<a name='L82'></a><a href='#L82'>82</a>
+<a name='L83'></a><a href='#L83'>83</a>
+<a name='L84'></a><a href='#L84'>84</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -169,6 +188,21 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -202,12 +236,14 @@ import { Box, Flex } from 'leather-styles/jsx';
 &nbsp;
 import { RouteUrls } from '@shared/route-urls';
 &nbsp;
-import { BaseDrawer } from '@app/components/drawer/base-drawer';
 import { ErrorLabel } from '@app/components/error-label';
 import { InscriptionPreview } from '@app/components/inscription-preview-card/components/inscription-preview';
 import { InscriptionPreviewCard } from '@app/components/inscription-preview-card/inscription-preview-card';
 import { OrdinalAvatarIcon } from '@app/ui/components/avatar/ordinal-avatar-icon';
 import { Button } from '@app/ui/components/button/button';
+import { Dialog } from '@app/ui/components/containers/dialog/dialog';
+import { Footer } from '@app/ui/components/containers/footers/footer';
+import { Header } from '@app/ui/components/containers/headers/header';
 &nbsp;
 import { RecipientAddressTypeField } from '../send-crypto-asset-form/components/recipient-address-type-field';
 import { CollectibleAsset } from './components/collectible-asset';
@@ -233,31 +269,46 @@ export function <span class="fstat-no" title="function not covered" >SendInscrip
       }}
       onSubmit={chooseTransactionFee}
     &gt;
-      &lt;Form&gt;
-        &lt;BaseDrawer title="Send" enableGoBack isShowing onClose={<span class="fstat-no" title="function not covered" >() =&gt; <span class="cstat-no" title="statement not covered" >n</span>avigate(RouteUrls.Home)}&gt;</span>
-          &lt;SendInscriptionFormLoader isLoading={isCheckingFees}&gt;
-            &lt;Box display="flex" flexDirection="column" px="space.06" pb="space.04"&gt;
-              &lt;InscriptionPreviewCard
-                image={&lt;InscriptionPreview inscription={inscription} /&gt;}
-                subtitle="Ordinal inscription"
-                title={inscription.title}
-              /&gt;
-              &lt;Box mt={['space.04', 'space.06', '100px']}&gt;
-                &lt;Flex flexDirection="column" mt="space.05" width="100%"&gt;
-                  &lt;CollectibleAsset icon={&lt;OrdinalAvatarIcon /&gt;} name="Ordinal inscription" /&gt;
-                  &lt;RecipientAddressTypeField
-                    name={recipientFieldName}
-                    label="To"
-                    placeholder="Enter recipient address"
+      {<span class="fstat-no" title="function not covered" >props =&gt; {</span>
+<span class="cstat-no" title="statement not covered" >        return (</span>
+          &lt;Form&gt;
+            &lt;Dialog
+              header={&lt;Header variant="dialog" title="Send" /&gt;}
+              onGoBack={<span class="fstat-no" title="function not covered" >() =&gt; <span class="cstat-no" title="statement not covered" >n</span>avigate(-1)}</span>
+              isShowing
+              onClose={<span class="fstat-no" title="function not covered" >() =&gt; <span class="cstat-no" title="statement not covered" >n</span>avigate(RouteUrls.Home)}</span>
+              footer={
+                &lt;Footer&gt;
+                  &lt;Button onClick={<span class="fstat-no" title="function not covered" >() =&gt; <span class="cstat-no" title="statement not covered" >p</span>rops.handleSubmit()} t</span>ype="submit"&gt;
+                    Continue
+                  &lt;/Button&gt;
+                &lt;/Footer&gt;
+              }
+            &gt;
+              &lt;SendInscriptionFormLoader isLoading={isCheckingFees}&gt;
+                &lt;Box display="flex" flexDirection="column" px="space.06" pb="space.04"&gt;
+                  &lt;InscriptionPreviewCard
+                    image={&lt;InscriptionPreview inscription={inscription} /&gt;}
+                    subtitle="Ordinal inscription"
+                    title={inscription.title}
                   /&gt;
-                &lt;/Flex&gt;
-              &lt;/Box&gt;
-              {currentError &amp;&amp; &lt;ErrorLabel&gt;{currentError}&lt;/ErrorLabel&gt;}
-              &lt;Button type="submit"&gt;Continue&lt;/Button&gt;
-            &lt;/Box&gt;
-          &lt;/SendInscriptionFormLoader&gt;
-        &lt;/BaseDrawer&gt;
-      &lt;/Form&gt;
+                  &lt;Box mt={['space.04', 'space.06', '100px']}&gt;
+                    &lt;Flex flexDirection="column" mt="space.05" width="100%"&gt;
+                      &lt;CollectibleAsset icon={&lt;OrdinalAvatarIcon /&gt;} name="Ordinal inscription" /&gt;
+                      &lt;RecipientAddressTypeField
+                        name={recipientFieldName}
+                        label="To"
+                        placeholder="Enter recipient address"
+                      /&gt;
+                    &lt;/Flex&gt;
+                  &lt;/Box&gt;
+                  {currentError &amp;&amp; &lt;ErrorLabel&gt;{currentError}&lt;/ErrorLabel&gt;}
+                &lt;/Box&gt;
+              &lt;/SendInscriptionFormLoader&gt;
+            &lt;/Dialog&gt;
+          &lt;/Form&gt;
+        );
+      }}
     &lt;/Formik&gt;
   );
 }
@@ -268,7 +319,7 @@ export function <span class="fstat-no" title="function not covered" >SendInscrip
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-03-27T19:10:35.836Z
+                at 2024-04-10T13:33:53.923Z
             </div>
         <script src="../../../../../../prettify.js"></script>
         <script>

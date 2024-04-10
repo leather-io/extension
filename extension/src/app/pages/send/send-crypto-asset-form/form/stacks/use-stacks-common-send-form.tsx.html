@@ -25,14 +25,14 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/12</span>
+                <span class='fraction'>0/10</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/5</span>
+                <span class='fraction'>0/4</span>
             </div>
         
             
@@ -46,7 +46,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/12</span>
+                <span class='fraction'>0/10</span>
             </div>
         
             
@@ -57,7 +57,7 @@
         <template id="filterTemplate">
             <div class="quiet">
                 Filter:
-                <input oninput="onInput()" type="search" id="fileSearch">
+                <input type="search" id="fileSearch">
             </div>
         </template>
     </div>
@@ -128,16 +128,7 @@
 <a name='L63'></a><a href='#L63'>63</a>
 <a name='L64'></a><a href='#L64'>64</a>
 <a name='L65'></a><a href='#L65'>65</a>
-<a name='L66'></a><a href='#L66'>66</a>
-<a name='L67'></a><a href='#L67'>67</a>
-<a name='L68'></a><a href='#L68'>68</a>
-<a name='L69'></a><a href='#L69'>69</a>
-<a name='L70'></a><a href='#L70'>70</a>
-<a name='L71'></a><a href='#L71'>71</a>
-<a name='L72'></a><a href='#L72'>72</a>
-<a name='L73'></a><a href='#L73'>73</a>
-<a name='L74'></a><a href='#L74'>74</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L66'></a><a href='#L66'>66</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -170,7 +161,6 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -187,13 +177,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -219,7 +203,6 @@ import { Money } from '@shared/models/money.model';
 import { isEmpty } from '@shared/utils';
 &nbsp;
 import { FormErrorMessages } from '@app/common/error-messages';
-import { useDrawers } from '@app/common/hooks/use-drawers';
 import { stxMemoValidator } from '@app/common/validation/forms/memo-validators';
 import { stxRecipientValidator } from '@app/common/validation/forms/recipient-validators';
 import { nonceValidator } from '@app/common/validation/nonce-validators';
@@ -241,7 +224,6 @@ export function <span class="fstat-no" title="function not covered" >useStacksCo
 }: UseStacksCommonSendFormArgs) {
   const routeState = <span class="cstat-no" title="statement not covered" >useSendFormRouteState();</span>
   const { data: nextNonce } = <span class="cstat-no" title="statement not covered" >useNextNonce();</span>
-  const { isShowingHighFeeConfirmation, setIsShowingHighFeeConfirmation } = <span class="cstat-no" title="statement not covered" >useDrawers();</span>
   const currentAccountStxAddress = <span class="cstat-no" title="statement not covered" >useCurrentAccountStxAddressState();</span>
   const currentNetwork = <span class="cstat-no" title="statement not covered" >useCurrentNetworkState();</span>
 &nbsp;
@@ -255,19 +237,13 @@ export function <span class="fstat-no" title="function not covered" >useStacksCo
     symbol,
     ...routeState,
   });
-&nbsp;
   async function <span class="fstat-no" title="function not covered" >checkFormValidation(</span>
     values: StacksSendFormValues,
     formikHelpers: FormikHelpers&lt;StacksSendFormValues&gt;
   ) {
     // Validate and check high fee warning first
     const formErrors = <span class="cstat-no" title="statement not covered" >formikHelpers.validateForm();</span>
-<span class="cstat-no" title="statement not covered" >    if (</span>
-      !isShowingHighFeeConfirmation &amp;&amp;
-      isEmpty(formErrors) &amp;&amp;
-      new BigNumber(values.fee).isGreaterThan(HIGH_FEE_AMOUNT_STX)
-    ) {
-<span class="cstat-no" title="statement not covered" >      setIsShowingHighFeeConfirmation(true);</span>
+<span class="cstat-no" title="statement not covered" >    if (isEmpty(formErrors) &amp;&amp; new BigNumber(values.fee).isGreaterThan(HIGH_FEE_AMOUNT_STX)) {</span>
 <span class="cstat-no" title="statement not covered" >      return false;</span>
     }
 <span class="cstat-no" title="statement not covered" >    return true;</span>
@@ -289,7 +265,7 @@ export function <span class="fstat-no" title="function not covered" >useStacksCo
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-03-27T19:10:35.836Z
+                at 2024-04-10T13:33:53.923Z
             </div>
         <script src="../../../../../../../../prettify.js"></script>
         <script>

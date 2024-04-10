@@ -25,7 +25,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/10</span>
+                <span class='fraction'>0/11</span>
             </div>
         
             
@@ -46,7 +46,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/10</span>
+                <span class='fraction'>0/11</span>
             </div>
         
             
@@ -57,7 +57,7 @@
         <template id="filterTemplate">
             <div class="quiet">
                 Filter:
-                <input oninput="onInput()" type="search" id="fileSearch">
+                <input type="search" id="fileSearch">
             </div>
         </template>
     </div>
@@ -171,10 +171,7 @@
 <a name='L106'></a><a href='#L106'>106</a>
 <a name='L107'></a><a href='#L107'>107</a>
 <a name='L108'></a><a href='#L108'>108</a>
-<a name='L109'></a><a href='#L109'>109</a>
-<a name='L110'></a><a href='#L110'>110</a>
-<a name='L111'></a><a href='#L111'>111</a>
-<a name='L112'></a><a href='#L112'>112</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L109'></a><a href='#L109'>109</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -207,7 +204,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -247,7 +244,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -261,9 +257,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -286,7 +280,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { useMemo } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 &nbsp;
 import { bytesToHex } from '@stacks/common';
 import { StacksTransaction } from '@stacks/transactions';
@@ -301,7 +295,6 @@ interface ConfirmationRouteState {
   decimals?: number;
   token?: string;
   tx: string;
-  hasHeaderTitle?: boolean;
 }
 &nbsp;
 interface ConfirmationRouteStacksSip10Args {
@@ -320,6 +313,7 @@ interface ConfirmationRouteBtcArgs {
 &nbsp;
 export function <span class="fstat-no" title="function not covered" >useSendFormNavigate() {</span>
   const navigate = <span class="cstat-no" title="statement not covered" >useNavigate();</span>
+  const location = <span class="cstat-no" title="statement not covered" >useLocation();</span>
 &nbsp;
 <span class="cstat-no" title="statement not covered" >  return useMemo(</span>
 <span class="fstat-no" title="function not covered" >    () =&gt; (<span class="cstat-no" title="statement not covered" >{</span></span>
@@ -331,12 +325,12 @@ export function <span class="fstat-no" title="function not covered" >useSendForm
         utxos: UtxoResponseItem[],
         values: BitcoinSendFormValues
       ) {
-<span class="cstat-no" title="statement not covered" >        return navigate('choose-fee', {</span>
+<span class="cstat-no" title="statement not covered" >        return navigate(RouteUrls.SendBtcChooseFee, {</span>
+          replace: true,
           state: {
             isSendingMax,
             utxos,
             values,
-            hasHeaderTitle: true,
           },
         });
       },
@@ -354,16 +348,14 @@ export function <span class="fstat-no" title="function not covered" >useSendForm
             fee,
             feeRowValue,
             time,
-            hasHeaderTitle: true,
           } as ConfirmationRouteState,
         });
       },
 <span class="fstat-no" title="function not covered" >      toConfirmAndSignStxTransaction(t</span>x: StacksTransaction, showFeeChangeWarning: boolean) {
-<span class="cstat-no" title="statement not covered" >        return navigate('confirm', {</span>
+<span class="cstat-no" title="statement not covered" >        return navigate(RouteUrls.SendStxConfirmation, {</span>
           replace: true,
           state: {
             tx: bytesToHex(tx.serialize()),
-            hasHeaderTitle: true,
             showFeeChangeWarning,
           } as ConfirmationRouteState,
         });
@@ -373,8 +365,7 @@ export function <span class="fstat-no" title="function not covered" >useSendForm
         name,
         tx,
       }: ConfirmationRouteStacksSip10Args) {
-<span class="cstat-no" title="statement not covered" >        return navigate('confirm', {</span>
-          replace: true,
+<span class="cstat-no" title="statement not covered" >        return navigate(`${location.pathname}/confirm`, {</span>
           state: {
             decimals,
             token: name,
@@ -393,7 +384,7 @@ export function <span class="fstat-no" title="function not covered" >useSendForm
         });
       },
     }),
-    [navigate]
+    [navigate, location]
   );
 }
 &nbsp;</pre></td></tr></table></pre>
@@ -403,7 +394,7 @@ export function <span class="fstat-no" title="function not covered" >useSendForm
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-03-27T19:10:35.836Z
+                at 2024-04-10T13:33:53.923Z
             </div>
         <script src="../../../../../../../prettify.js"></script>
         <script>

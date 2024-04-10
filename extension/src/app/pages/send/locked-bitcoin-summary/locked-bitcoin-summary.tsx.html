@@ -25,7 +25,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/12</span>
+                <span class='fraction'>0/11</span>
             </div>
         
             
@@ -46,7 +46,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/12</span>
+                <span class='fraction'>0/11</span>
             </div>
         
             
@@ -57,7 +57,7 @@
         <template id="filterTemplate">
             <div class="quiet">
                 Filter:
-                <input oninput="onInput()" type="search" id="fileSearch">
+                <input type="search" id="fileSearch">
             </div>
         </template>
     </div>
@@ -148,10 +148,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -173,7 +169,11 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -204,19 +204,15 @@ import { HStack, styled } from 'leather-styles/jsx';
 import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
 import { useBitcoinExplorerLink } from '@app/common/hooks/use-bitcoin-explorer-link';
 import { useClipboard } from '@app/common/hooks/use-copy-to-clipboard';
-import { useRouteHeader } from '@app/common/hooks/use-route-header';
 import { satToBtc } from '@app/common/money/unit-conversion';
-import {
-  InfoCard,
-  InfoCardAssetValue,
-  InfoCardBtn,
-  InfoCardFooter,
-} from '@app/components/info-card/info-card';
-import { ModalHeader } from '@app/components/modal-header';
+import { InfoCardAssetValue, InfoCardBtn } from '@app/components/info-card/info-card';
 import { useToast } from '@app/features/toasts/use-toast';
+import { Footer } from '@app/ui/components/containers/footers/footer';
 import { CheckmarkIcon } from '@app/ui/icons/checkmark-icon';
 import { CopyIcon } from '@app/ui/icons/copy-icon';
 import { ExternalLinkIcon } from '@app/ui/icons/external-link-icon';
+import { Card } from '@app/ui/layout/card/card';
+import { CardContent } from '@app/ui/layout/card/card-content';
 &nbsp;
 export function <span class="fstat-no" title="function not covered" >LockBitcoinSummary() {</span>
   const { state } = <span class="cstat-no" title="statement not covered" >useLocation();</span>
@@ -238,30 +234,34 @@ export function <span class="fstat-no" title="function not covered" >LockBitcoin
 <span class="cstat-no" title="statement not covered" >    toast.success('ID copied!');</span>
   }
 &nbsp;
-<span class="cstat-no" title="statement not covered" >  useRouteHeader(&lt;ModalHeader hideActions defaultClose title="Locked Bitcoin" /&gt;);</span>
-&nbsp;
 <span class="cstat-no" title="statement not covered" >  return (</span>
-    &lt;InfoCard&gt;
-      &lt;InfoCardAssetValue
-        fiatSymbol={txFiatValueSymbol}
-        fiatValue={txFiatValue}
-        icon={&lt;CheckmarkIcon width="lg" /&gt;}
-        my="space.05"
-        px="space.05"
-        symbol={symbol}
-        value={Number(satToBtc(txMoney.amount))}
-      /&gt;
-      &lt;styled.span textStyle="body.02" p="space.05" textAlign="justify"&gt;
-        &lt;b&gt;Success!&lt;/b&gt; Your bitcoin has been locked securely. All that's left is for it to be
-        confirmed on the blockchain. After confirmation, you can proceed with borrowing against it.
-      &lt;/styled.span&gt;
-      &lt;InfoCardFooter&gt;
-        &lt;HStack gap="space.04" width="100%"&gt;
-          &lt;InfoCardBtn icon={&lt;ExternalLinkIcon /&gt;} label="View details" onClick={onClickLink} /&gt;
-          &lt;InfoCardBtn icon={&lt;CopyIcon /&gt;} label="Copy ID" onClick={onClickCopy} /&gt;
-        &lt;/HStack&gt;
-      &lt;/InfoCardFooter&gt;
-    &lt;/InfoCard&gt;
+    &lt;Card
+      footer={
+        &lt;Footer variant="card"&gt;
+          &lt;HStack gap="space.04" width="100%"&gt;
+            &lt;InfoCardBtn icon={&lt;ExternalLinkIcon /&gt;} label="View details" onClick={onClickLink} /&gt;
+            &lt;InfoCardBtn icon={&lt;CopyIcon /&gt;} label="Copy ID" onClick={onClickCopy} /&gt;
+          &lt;/HStack&gt;
+        &lt;/Footer&gt;
+      }
+    &gt;
+      &lt;CardContent p="space.00"&gt;
+        &lt;InfoCardAssetValue
+          fiatSymbol={txFiatValueSymbol}
+          fiatValue={txFiatValue}
+          icon={&lt;CheckmarkIcon width="lg" /&gt;}
+          my="space.05"
+          px="space.05"
+          symbol={symbol}
+          value={Number(satToBtc(txMoney.amount))}
+        /&gt;
+        &lt;styled.span textStyle="body.02" p="space.05" textAlign="justify"&gt;
+          &lt;b&gt;Success!&lt;/b&gt; Your bitcoin has been locked securely. All that's left is for it to be
+          confirmed on the blockchain. After confirmation, you can proceed with borrowing against
+          it.
+        &lt;/styled.span&gt;
+      &lt;/CardContent&gt;
+    &lt;/Card&gt;
   );
 }
 &nbsp;</pre></td></tr></table></pre>
@@ -271,7 +271,7 @@ export function <span class="fstat-no" title="function not covered" >LockBitcoin
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-03-27T19:10:35.836Z
+                at 2024-04-10T13:33:53.923Z
             </div>
         <script src="../../../../../../prettify.js"></script>
         <script>

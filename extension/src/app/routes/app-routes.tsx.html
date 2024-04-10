@@ -57,7 +57,7 @@
         <template id="filterTemplate">
             <div class="quiet">
                 Filter:
-                <input oninput="onInput()" type="search" id="fileSearch">
+                <input type="search" id="fileSearch">
             </div>
         </template>
     </div>
@@ -325,12 +325,7 @@
 <a name='L260'></a><a href='#L260'>260</a>
 <a name='L261'></a><a href='#L261'>261</a>
 <a name='L262'></a><a href='#L262'>262</a>
-<a name='L263'></a><a href='#L263'>263</a>
-<a name='L264'></a><a href='#L264'>264</a>
-<a name='L265'></a><a href='#L265'>265</a>
-<a name='L266'></a><a href='#L266'>266</a>
-<a name='L267'></a><a href='#L267'>267</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L263'></a><a href='#L263'>263</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -411,7 +406,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -476,16 +470,14 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -611,11 +603,11 @@ import { RouteUrls } from '@shared/route-urls';
 import { LoadingSpinner } from '@app/components/loading-spinner';
 import { AddNetwork } from '@app/features/add-network/add-network';
 import { Container } from '@app/features/container/container';
-import { EditNonceDrawer } from '@app/features/edit-nonce-drawer/edit-nonce-drawer';
-import { IncreaseBtcFeeDrawer } from '@app/features/increase-fee-drawer/increase-btc-fee-drawer';
-import { IncreaseFeeSentDrawer } from '@app/features/increase-fee-drawer/increase-fee-sent-drawer';
-import { IncreaseStxFeeDrawer } from '@app/features/increase-fee-drawer/increase-stx-fee-drawer';
-import { leatherIntroDialogRoutes } from '@app/features/leather-intro-dialog/leather-intro-dialog';
+import { EditNonceDialog } from '@app/features/dialogs/edit-nonce-dialog/edit-nonce-dialog';
+import { IncreaseBtcFeeDialog } from '@app/features/dialogs/increase-fee-dialog/increase-btc-fee-dialog';
+import { IncreaseFeeSentDialog } from '@app/features/dialogs/increase-fee-dialog/increase-fee-sent-dialog';
+import { IncreaseStxFeeDialog } from '@app/features/dialogs/increase-fee-dialog/increase-stx-fee-dialog';
+import { leatherIntroDialogRoutes } from '@app/features/dialogs/leather-intro-dialog/leather-intro-dialog';
 import { ledgerBitcoinTxSigningRoutes } from '@app/features/ledger/flows/bitcoin-tx-signing/ledger-bitcoin-sign-tx-container';
 import { ledgerJwtSigningRoutes } from '@app/features/ledger/flows/jwt-signing/ledger-sign-jwt.routes';
 import { requestBitcoinKeysRoutes } from '@app/features/ledger/flows/request-bitcoin-keys/ledger-request-bitcoin-keys';
@@ -650,7 +642,6 @@ import { AccountGate } from '@app/routes/account-gate';
 import { receiveRoutes } from '@app/routes/receive-routes';
 import { legacyRequestRoutes } from '@app/routes/request-routes';
 import { rpcRequestRoutes } from '@app/routes/rpc-routes';
-import { settingsRoutes } from '@app/routes/settings-routes';
 &nbsp;
 import { OnboardingGate } from './onboarding-gate';
 &nbsp;
@@ -667,7 +658,6 @@ const sentryCreateBrowserRouter = <span class="cstat-no" title="statement not co
 &nbsp;
 export const homePageModalRoutes = (
 <span class="cstat-no" title="statement not covered" >  &lt;&gt;</span>
-    {settingsRoutes}
     {receiveRoutes}
     {ledgerStacksTxSigningRoutes}
     {ledgerBitcoinTxSigningRoutes}
@@ -693,13 +683,17 @@ function <span class="fstat-no" title="function not covered" >useAppRoutes() {</
         &lt;/Route&gt;
 &nbsp;
         &lt;Route path={RouteUrls.RetrieveTaprootFunds} element={&lt;RetrieveTaprootToNativeSegwit /&gt;} /&gt;
-        &lt;Route path={RouteUrls.IncreaseStxFee} element={&lt;IncreaseStxFeeDrawer /&gt;}&gt;
+        &lt;Route path={RouteUrls.IncreaseStxFee} element={&lt;IncreaseStxFeeDialog /&gt;}&gt;
           {ledgerStacksTxSigningRoutes}
         &lt;/Route&gt;
-        &lt;Route path={RouteUrls.IncreaseBtcFee} element={&lt;IncreaseBtcFeeDrawer /&gt;}&gt;
+        &lt;Route
+          path={`${RouteUrls.IncreaseStxFee}/${RouteUrls.TransactionBroadcastError}`}
+          element={&lt;BroadcastError /&gt;}
+        /&gt;
+        &lt;Route path={RouteUrls.IncreaseBtcFee} element={&lt;IncreaseBtcFeeDialog /&gt;}&gt;
           {ledgerBitcoinTxSigningRoutes}
         &lt;/Route&gt;
-        &lt;Route path={RouteUrls.IncreaseFeeSent} element={&lt;IncreaseFeeSentDrawer /&gt;} /&gt;
+        &lt;Route path={RouteUrls.IncreaseFeeSent} element={&lt;IncreaseFeeSentDialog /&gt;} /&gt;
 &nbsp;
         {ledgerStacksTxSigningRoutes}
 &nbsp;
@@ -784,8 +778,6 @@ function <span class="fstat-no" title="function not covered" >useAppRoutes() {</
             &lt;/AccountGate&gt;
           }
         &gt;
-          {settingsRoutes}
-&nbsp;
           &lt;Route path={RouteUrls.ReceiveStx} element={&lt;ReceiveStxModal /&gt;} /&gt;
           &lt;Route path={RouteUrls.ReceiveBtc} element={&lt;ReceiveBtcModal /&gt;} /&gt;
         &lt;/Route&gt;
@@ -797,7 +789,6 @@ function <span class="fstat-no" title="function not covered" >useAppRoutes() {</
             &lt;/AccountGate&gt;
           }
         &gt;
-          {settingsRoutes}
           &lt;Route path={RouteUrls.ReceiveStx} element={&lt;ReceiveStxModal /&gt;} /&gt;
         &lt;/Route&gt;
 &nbsp;
@@ -810,11 +801,8 @@ function <span class="fstat-no" title="function not covered" >useAppRoutes() {</
               &lt;ViewSecretKey /&gt;
             &lt;/AccountGate&gt;
           }
-        &gt;
-          {settingsRoutes}
-        &lt;/Route&gt;
+        /&gt;
         &lt;Route path={RouteUrls.Unlock} element={&lt;Unlock /&gt;}&gt;
-          {settingsRoutes}
           {leatherIntroDialogRoutes}
         &lt;/Route&gt;
 &nbsp;
@@ -838,7 +826,7 @@ function <span class="fstat-no" title="function not covered" >useAppRoutes() {</
             &lt;/AccountGate&gt;
           }
         &gt;
-          &lt;Route path={RouteUrls.EditNonce} element={&lt;EditNonceDrawer /&gt;} /&gt;
+          &lt;Route path={RouteUrls.EditNonce} element={&lt;EditNonceDialog /&gt;} /&gt;
         &lt;/Route&gt;
 &nbsp;
         &lt;Route
@@ -868,7 +856,7 @@ function <span class="fstat-no" title="function not covered" >useAppRoutes() {</
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-03-27T19:10:35.836Z
+                at 2024-04-10T13:33:53.923Z
             </div>
         <script src="../../../../prettify.js"></script>
         <script>

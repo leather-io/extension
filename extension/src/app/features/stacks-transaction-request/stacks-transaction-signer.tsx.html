@@ -25,7 +25,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/21</span>
+                <span class='fraction'>0/22</span>
             </div>
         
             
@@ -39,14 +39,14 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/5</span>
+                <span class='fraction'>0/6</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/20</span>
+                <span class='fraction'>0/21</span>
             </div>
         
             
@@ -57,7 +57,7 @@
         <template id="filterTemplate">
             <div class="quiet">
                 Filter:
-                <input oninput="onInput()" type="search" id="fileSearch">
+                <input type="search" id="fileSearch">
             </div>
         </template>
     </div>
@@ -207,8 +207,10 @@
 <a name='L142'></a><a href='#L142'>142</a>
 <a name='L143'></a><a href='#L143'>143</a>
 <a name='L144'></a><a href='#L144'>144</a>
-<a name='L145'></a><a href='#L145'>145</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L145'></a><a href='#L145'>145</a>
+<a name='L146'></a><a href='#L146'>146</a>
+<a name='L147'></a><a href='#L147'>147</a>
+<a name='L148'></a><a href='#L148'>148</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -268,7 +270,6 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -343,6 +344,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -351,7 +353,12 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { Outlet, useLocation, useNavigate } from 'react-router-dom';
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { useState } from 'react';
+import { Outlet, useLocation, useNavigate } from 'react-router-dom';
 &nbsp;
 import { StacksTransaction } from '@stacks/transactions';
 import { Formik, FormikHelpers } from 'formik';
@@ -365,14 +372,12 @@ import { RouteUrls } from '@shared/route-urls';
 &nbsp;
 import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
 import { useOnMount } from '@app/common/hooks/use-on-mount';
-import { useRouteHeader } from '@app/common/hooks/use-route-header';
 import { stxToMicroStx } from '@app/common/money/unit-conversion';
 import { stxFeeValidator } from '@app/common/validation/forms/fee-validators';
 import { nonceValidator } from '@app/common/validation/nonce-validators';
 import { NonceSetter } from '@app/components/nonce-setter';
-import { PopupHeader } from '@app/features/current-account/popup-header';
+import { HighFeeDialog } from '@app/features/dialogs/high-fee-dialog/high-fee-dialog';
 import { RequestingTabClosedWarningMessage } from '@app/features/errors/requesting-tab-closed-error-msg';
-import { HighFeeDrawer } from '@app/features/high-fee-drawer/high-fee-drawer';
 import { ContractCallDetails } from '@app/features/stacks-transaction-request/contract-call-details/contract-call-details';
 import { ContractDeployDetails } from '@app/features/stacks-transaction-request/contract-deploy-details/contract-deploy-details';
 import { PageTop } from '@app/features/stacks-transaction-request/page-top';
@@ -405,6 +410,7 @@ export function <span class="fstat-no" title="function not covered" >StacksTrans
   onSignStacksTransaction,
   isMultisig,
 }: StacksTransactionSignerProps) {
+  const [isShowingHighFeeConfirmation, setIsShowingHighFeeConfirmation] = <span class="cstat-no" title="statement not covered" >useState(false);</span>
   const transactionRequest = <span class="cstat-no" title="statement not covered" >useTransactionRequestState();</span>
   const { data: stxFees } = <span class="cstat-no" title="statement not covered" >useCalculateStacksTxFees(stacksTransaction);</span>
   const analytics = <span class="cstat-no" title="statement not covered" >useAnalytics();</span>
@@ -412,8 +418,6 @@ export function <span class="fstat-no" title="function not covered" >StacksTrans
   const navigate = <span class="cstat-no" title="statement not covered" >useNavigate();</span>
   const { data: nextNonce } = <span class="cstat-no" title="statement not covered" >useNextNonce();</span>
   const { search } = <span class="cstat-no" title="statement not covered" >useLocation();</span>
-&nbsp;
-<span class="cstat-no" title="statement not covered" >  useRouteHeader(&lt;PopupHeader /&gt;);</span>
 &nbsp;
 <span class="cstat-no" title="statement not covered" >  useOnMount(<span class="fstat-no" title="function not covered" >() =&gt; {</span></span>
 <span class="cstat-no" title="statement not covered" >    void analytics.track('view_transaction_signing'), [analytics];</span>
@@ -486,8 +490,13 @@ export function <span class="fstat-no" title="function not covered" >StacksTrans
               &lt;/Link&gt;
             )}
             &lt;MinimalErrorMessage /&gt;
-            &lt;SubmitAction /&gt;
-            &lt;HighFeeDrawer learnMoreUrl={HIGH_FEE_WARNING_LEARN_MORE_URL_STX} /&gt;
+            &lt;SubmitAction
+              setIsShowingHighFeeConfirmation={<span class="fstat-no" title="function not covered" >() =&gt; <span class="cstat-no" title="statement not covered" >s</span>etIsShowingHighFeeConfirmation(true)}</span>
+            /&gt;
+            &lt;HighFeeDialog
+              isShowing={isShowingHighFeeConfirmation}
+              learnMoreUrl={HIGH_FEE_WARNING_LEARN_MORE_URL_STX}
+            /&gt;
             &lt;Outlet /&gt;
           &lt;/&gt;
         )}
@@ -502,7 +511,7 @@ export function <span class="fstat-no" title="function not covered" >StacksTrans
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-03-27T19:10:35.836Z
+                at 2024-04-10T13:33:53.923Z
             </div>
         <script src="../../../../../prettify.js"></script>
         <script>

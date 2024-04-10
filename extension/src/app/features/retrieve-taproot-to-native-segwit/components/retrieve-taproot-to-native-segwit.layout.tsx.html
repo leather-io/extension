@@ -57,7 +57,7 @@
         <template id="filterTemplate">
             <div class="quiet">
                 Filter:
-                <input oninput="onInput()" type="search" id="fileSearch">
+                <input type="search" id="fileSearch">
             </div>
         </template>
     </div>
@@ -116,7 +116,24 @@
 <a name='L51'></a><a href='#L51'>51</a>
 <a name='L52'></a><a href='#L52'>52</a>
 <a name='L53'></a><a href='#L53'>53</a>
-<a name='L54'></a><a href='#L54'>54</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L54'></a><a href='#L54'>54</a>
+<a name='L55'></a><a href='#L55'>55</a>
+<a name='L56'></a><a href='#L56'>56</a>
+<a name='L57'></a><a href='#L57'>57</a>
+<a name='L58'></a><a href='#L58'>58</a>
+<a name='L59'></a><a href='#L59'>59</a>
+<a name='L60'></a><a href='#L60'>60</a>
+<a name='L61'></a><a href='#L61'>61</a>
+<a name='L62'></a><a href='#L62'>62</a>
+<a name='L63'></a><a href='#L63'>63</a>
+<a name='L64'></a><a href='#L64'>64</a>
+<a name='L65'></a><a href='#L65'>65</a>
+<a name='L66'></a><a href='#L66'>66</a>
+<a name='L67'></a><a href='#L67'>67</a>
+<a name='L68'></a><a href='#L68'>68</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -134,7 +151,18 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -171,10 +199,13 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { Flex, styled } from 'leather-styles/jsx';
 &nbsp;
-import { BaseDrawer } from '@app/components/drawer/base-drawer';
 import { BtcAvatarIcon } from '@app/ui/components/avatar/btc-avatar-icon';
 import { Button } from '@app/ui/components/button/button';
 import { Callout } from '@app/ui/components/callout/callout';
+import { Dialog } from '@app/ui/components/containers/dialog/dialog';
+import { Footer } from '@app/ui/components/containers/footers/footer';
+import { Header } from '@app/ui/components/containers/headers/header';
+import { Card } from '@app/ui/layout/card/card';
 &nbsp;
 interface RetrieveTaprootToNativeSegwitLayoutProps {
   isBroadcasting: boolean;
@@ -187,39 +218,50 @@ export function <span class="fstat-no" title="function not covered" >RetrieveTap
 ) {
   const { onClose, onApproveTransaction, isBroadcasting, children } = <span class="cstat-no" title="statement not covered" >props;</span>
 <span class="cstat-no" title="statement not covered" >  return (</span>
-    &lt;BaseDrawer isShowing onClose={<span class="fstat-no" title="function not covered" >() =&gt; <span class="cstat-no" title="statement not covered" >o</span>nClose()}&gt;</span>
-      &lt;Flex alignItems="start" flexDirection="column" mt="-45px" mx="space.06" textAlign="left"&gt;
-        &lt;BtcAvatarIcon /&gt;
-        &lt;styled.span mt="space.04" textStyle="label.01"&gt;
-          Retrieve Bitcoin deposited to &lt;br /&gt; Taproot addresses
-        &lt;/styled.span&gt;
-        &lt;styled.span mt="space.05" textStyle="body.02"&gt;
-          Taproot addresses are used by Leather for Ordinal inscriptions, but they can also contain
-          bitcoin.
-        &lt;/styled.span&gt;
-        &lt;styled.span mt="space.04" textStyle="body.02"&gt;
-          As we don't support tranferring from Taproot addresses yet, you can retrieve funds to your
-          account's main Native SegWit balance here.
-        &lt;/styled.span&gt;
-        &lt;styled.span mt="space.04" textStyle="body.02"&gt;
-          This transaction may take upwards of 30 minutes to confirm.
-        &lt;/styled.span&gt;
-        {children}
-        &lt;Callout variant="warning" mt="space.05"&gt;
-          We recommend you check the URL for each "Uninscribed UTXO" listed above to ensure it
-          displays no inscription. If it does display one, do not proceed with retrieval or you may
-          lose it!
-        &lt;/Callout&gt;
-        &lt;Button
-          onClick={onApproveTransaction}
-          aria-busy={isBroadcasting}
-          width="100%"
-          my="space.05"
+    &lt;Dialog
+      isShowing
+      header={&lt;Header variant="dialog" /&gt;}
+      onClose={<span class="fstat-no" title="function not covered" >() =&gt; <span class="cstat-no" title="statement not covered" >o</span>nClose()}</span>
+      footer={
+        &lt;Footer flexDirection="row"&gt;
+          &lt;Button onClick={onApproveTransaction} aria-busy={isBroadcasting} width="100%"&gt;
+            Retrieve bitcoin
+          &lt;/Button&gt;
+        &lt;/Footer&gt;
+      }
+    &gt;
+      &lt;Card&gt;
+        &lt;Flex
+          alignItems="start"
+          flexDirection="column"
+          mx="space.06"
+          mt="space.05"
+          textAlign="left"
         &gt;
-          Retrieve bitcoin
-        &lt;/Button&gt;
-      &lt;/Flex&gt;
-    &lt;/BaseDrawer&gt;
+          &lt;BtcAvatarIcon /&gt;
+          &lt;styled.span mt="space.04" textStyle="label.01"&gt;
+            Retrieve Bitcoin deposited to &lt;br /&gt; Taproot addresses
+          &lt;/styled.span&gt;
+          &lt;styled.span mt="space.05" textStyle="body.02"&gt;
+            Taproot addresses are used by Leather for Ordinal inscriptions, but they can also
+            contain bitcoin.
+          &lt;/styled.span&gt;
+          &lt;styled.span mt="space.04" textStyle="body.02"&gt;
+            As we don't support tranferring from Taproot addresses yet, you can retrieve funds to
+            your account's main Native SegWit balance here.
+          &lt;/styled.span&gt;
+          &lt;styled.span mt="space.04" textStyle="body.02"&gt;
+            This transaction may take upwards of 30 minutes to confirm.
+          &lt;/styled.span&gt;
+          {children}
+          &lt;Callout variant="warning" mt="space.05" mb="space.05"&gt;
+            We recommend you check the URL for each "Uninscribed UTXO" listed above to ensure it
+            displays no inscription. If it does display one, do not proceed with retrieval or you
+            may lose it!
+          &lt;/Callout&gt;
+        &lt;/Flex&gt;
+      &lt;/Card&gt;
+    &lt;/Dialog&gt;
   );
 }
 &nbsp;</pre></td></tr></table></pre>
@@ -229,7 +271,7 @@ export function <span class="fstat-no" title="function not covered" >RetrieveTap
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-03-27T19:10:35.836Z
+                at 2024-04-10T13:33:53.923Z
             </div>
         <script src="../../../../../../prettify.js"></script>
         <script>

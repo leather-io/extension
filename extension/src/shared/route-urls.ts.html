@@ -57,7 +57,7 @@
         <template id="filterTemplate">
             <div class="quiet">
                 Filter:
-                <input oninput="onInput()" type="search" id="fileSearch">
+                <input type="search" id="fileSearch">
             </div>
         </template>
     </div>
@@ -180,7 +180,9 @@
 <a name='L115'></a><a href='#L115'>115</a>
 <a name='L116'></a><a href='#L116'>116</a>
 <a name='L117'></a><a href='#L117'>117</a>
-<a name='L118'></a><a href='#L118'>118</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">2x</span>
+<a name='L118'></a><a href='#L118'>118</a>
+<a name='L119'></a><a href='#L119'>119</a>
+<a name='L120'></a><a href='#L120'>120</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
@@ -214,7 +216,6 @@
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
@@ -237,8 +238,6 @@
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
@@ -257,18 +256,6 @@
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -284,10 +271,27 @@
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -324,7 +328,6 @@
   // Active wallet routes
   Home = '/',
   AddNetwork = '/add-network',
-  ChooseAccount = '/choose-account',
   Fund = '/fund/:currency',
   FundChooseCurrency = '/fund-choose-currency',
   IncreaseStxFee = '/increase-fee/stx',
@@ -334,7 +337,7 @@
   ViewSecretKey = '/view-secret-key',
 &nbsp;
   // nested routes must have relative paths
-  Activity = 'activity',
+  Activity = '/activity',
   Receive = 'receive',
   ReceiveStx = 'receive/stx',
   ReceiveBtc = 'receive/btc',
@@ -351,9 +354,7 @@
   BitcoinContractList = '/bitcoin-contract-list',
 &nbsp;
   // Modal routes
-  ChangeTheme = 'change-theme',
   EditNonce = 'edit-nonce',
-  SelectNetwork = 'choose-network',
   SignOutConfirm = 'sign-out',
   RetrieveTaprootFunds = 'retrieve-taproot-funds',
 &nbsp;
@@ -364,6 +365,7 @@
   SendCryptoAssetFormRecipientAccounts = 'recipient-accounts',
   SendCryptoAssetFormRecipientBns = 'recipient-bns',
   SendBtcChooseFee = '/send/btc/choose-fee',
+  SendBtcError = '/send/btc/error',
   SendBtcConfirmation = '/send/btc/confirm',
   SendBtcDisabled = '/send/btc/disabled',
   SendStxConfirmation = '/send/stx/confirm',
@@ -383,10 +385,11 @@
   SendOrdinalInscriptionError = 'error',
 &nbsp;
   // Swap routes
-  Swap = '/swap',
-  SwapChooseAsset = '/swap/choose-asset',
+  Swap = '/swap/:base/:quote?',
+  SwapAssetSelectBase = 'select-base',
+  SwapAssetSelectQuote = 'select-quote',
   SwapError = '/swap/error',
-  SwapReview = '/swap/review',
+  SwapReview = '/swap/:base/:quote/review',
 &nbsp;
   // Legacy request routes
   ProfileUpdateRequest = '/update-profile',
@@ -407,6 +410,9 @@
   RpcSignBip322Message = '/sign-bip322-message',
   RpcStacksSignature = '/sign-stacks-message',
 &nbsp;
+  // Popup routes
+  ChooseAccount = '/choose-account',
+&nbsp;
   // Shared legacy and rpc request routes
   RequestError = '/request-error',
   UnauthorizedRequest = '/unauthorized-request',
@@ -421,7 +427,7 @@
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-03-27T19:10:35.836Z
+                at 2024-04-10T13:33:53.923Z
             </div>
         <script src="../../../prettify.js"></script>
         <script>

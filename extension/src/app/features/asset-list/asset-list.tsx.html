@@ -25,7 +25,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/8</span>
+                <span class='fraction'>0/7</span>
             </div>
         
             
@@ -39,14 +39,14 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/3</span>
+                <span class='fraction'>0/2</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/8</span>
+                <span class='fraction'>0/7</span>
             </div>
         
             
@@ -57,7 +57,7 @@
         <template id="filterTemplate">
             <div class="quiet">
                 Filter:
-                <input oninput="onInput()" type="search" id="fileSearch">
+                <input type="search" id="fileSearch">
             </div>
         </template>
     </div>
@@ -151,10 +151,7 @@
 <a name='L86'></a><a href='#L86'>86</a>
 <a name='L87'></a><a href='#L87'>87</a>
 <a name='L88'></a><a href='#L88'>88</a>
-<a name='L89'></a><a href='#L89'>89</a>
-<a name='L90'></a><a href='#L90'>90</a>
-<a name='L91'></a><a href='#L91'>91</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L89'></a><a href='#L89'>89</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -181,6 +178,7 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -219,17 +217,15 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -251,7 +247,6 @@ import { Stack } from 'leather-styles/jsx';
 import { useBtcAssetBalance } from '@app/common/hooks/balance/btc/use-btc-balance';
 import { useWalletType } from '@app/common/use-wallet-type';
 import { BitcoinContractEntryPoint } from '@app/components/bitcoin-contract-entry-point/bitcoin-contract-entry-point';
-import { Brc20TokensLoader } from '@app/components/brc20-tokens-loader';
 import { CryptoCurrencyAssetItemLayout } from '@app/components/crypto-assets/crypto-currency-asset/crypto-currency-asset-item.layout';
 import { CurrentStacksAccountLoader } from '@app/components/loaders/stacks-account-loader';
 import { useHasBitcoinLedgerKeychain } from '@app/store/accounts/blockchain/bitcoin/bitcoin.ledger';
@@ -272,12 +267,13 @@ export function <span class="fstat-no" title="function not covered" >AssetsList(
   const btcAddress = <span class="cstat-no" title="statement not covered" >useCurrentAccountNativeSegwitAddressIndexZero();</span>
   const network = <span class="cstat-no" title="statement not covered" >useCurrentNetwork();</span>
 &nbsp;
-  const { btcAvailableAssetBalance, btcAvailableUsdBalance } = <span class="cstat-no" title="statement not covered" >useBtcAssetBalance(btcAddress);</span>
+  const { btcAvailableAssetBalance, btcAvailableUsdBalance, isInitialLoading } =
+<span class="cstat-no" title="statement not covered" >    useBtcAssetBalance(btcAddress);</span>
 &nbsp;
   const { whenWallet } = <span class="cstat-no" title="statement not covered" >useWalletType();</span>
 &nbsp;
 <span class="cstat-no" title="statement not covered" >  return (</span>
-    &lt;Stack data-testid={HomePageSelectors.BalancesList} pb="space.06"&gt;
+    &lt;Stack data-testid={HomePageSelectors.BalancesList}&gt;
       {whenWallet({
         software: (
           &lt;CryptoCurrencyAssetItemLayout
@@ -285,6 +281,7 @@ export function <span class="fstat-no" title="function not covered" >AssetsList(
             usdBalance={btcAvailableUsdBalance}
             icon={&lt;BtcAvatarIcon /&gt;}
             address={btcAddress}
+            isLoading={isInitialLoading}
           /&gt;
         ),
         ledger: (
@@ -293,6 +290,7 @@ export function <span class="fstat-no" title="function not covered" >AssetsList(
             usdBalance={btcAvailableUsdBalance}
             icon={&lt;BtcAvatarIcon /&gt;}
             address={btcAddress}
+            isLoading={isInitialLoading}
             rightElement={
               hasBitcoinLedgerKeys ? undefined : &lt;ConnectLedgerAssetBtn chain="bitcoin" /&gt;
             }
@@ -317,11 +315,7 @@ export function <span class="fstat-no" title="function not covered" >AssetsList(
       &lt;/CurrentStacksAccountLoader&gt;
 &nbsp;
       {whenWallet({
-        software: (
-          &lt;Brc20TokensLoader&gt;
-            {<span class="fstat-no" title="function not covered" >brc20Tokens =&gt; <span class="cstat-no" title="statement not covered" >&lt;</span>BitcoinFungibleTokenAssetList brc20Tokens={brc20Tokens} /&gt;}</span>
-          &lt;/Brc20TokensLoader&gt;
-        ),
+        software: &lt;BitcoinFungibleTokenAssetList btcAddress={btcAddress} /&gt;,
         ledger: null,
       })}
 &nbsp;
@@ -340,7 +334,7 @@ export function <span class="fstat-no" title="function not covered" >AssetsList(
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-03-27T19:10:35.836Z
+                at 2024-04-10T13:33:53.923Z
             </div>
         <script src="../../../../../prettify.js"></script>
         <script>

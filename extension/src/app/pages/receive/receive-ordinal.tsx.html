@@ -25,7 +25,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/9</span>
+                <span class='fraction'>0/8</span>
             </div>
         
             
@@ -46,7 +46,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/9</span>
+                <span class='fraction'>0/8</span>
             </div>
         
             
@@ -57,7 +57,7 @@
         <template id="filterTemplate">
             <div class="quiet">
                 Filter:
-                <input oninput="onInput()" type="search" id="fileSearch">
+                <input type="search" id="fileSearch">
             </div>
         </template>
     </div>
@@ -93,9 +93,7 @@
 <a name='L28'></a><a href='#L28'>28</a>
 <a name='L29'></a><a href='#L29'>29</a>
 <a name='L30'></a><a href='#L30'>30</a>
-<a name='L31'></a><a href='#L31'>31</a>
-<a name='L32'></a><a href='#L32'>32</a>
-<a name='L33'></a><a href='#L33'>33</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L31'></a><a href='#L31'>31</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -110,17 +108,15 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -130,7 +126,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { useLocation } from 'react-router-dom';
 &nbsp;
 import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
-import { useClipboard } from '@app/common/hooks/use-copy-to-clipboard';
+import { copyToClipboard } from '@app/common/utils/copy-to-clipboard';
 import { useToast } from '@app/features/toasts/use-toast';
 import { useBackgroundLocationRedirect } from '@app/routes/hooks/use-background-location-redirect';
 &nbsp;
@@ -142,18 +138,16 @@ export function <span class="fstat-no" title="function not covered" >ReceiveOrdi
   const toast = <span class="cstat-no" title="statement not covered" >useToast();</span>
   const analytics = <span class="cstat-no" title="statement not covered" >useAnalytics();</span>
   const { state } = <span class="cstat-no" title="statement not covered" >useLocation();</span>
-  const { onCopy } = <span class="cstat-no" title="statement not covered" >useClipboard(state.btcAddressTaproot);</span>
 &nbsp;
-  function <span class="fstat-no" title="function not covered" >copyToClipboard() {</span>
-<span class="cstat-no" title="statement not covered" >    void analytics.track('copy_address_to_add_new_inscription');</span>
-<span class="cstat-no" title="statement not covered" >    toast.success('Copied to clipboard!');</span>
-<span class="cstat-no" title="statement not covered" >    onCopy();</span>
-  }
   // #4028 FIXME - this doesn't open in new tab as it loses btcAddressTaproot amd crashes btcStamp and Stx are OK?
 <span class="cstat-no" title="statement not covered" >  return (</span>
     &lt;ReceiveTokensLayout
       address={state.btcAddressTaproot}
-      onCopyAddressToClipboard={copyToClipboard}
+      onCopyAddressToClipboard={<span class="fstat-no" title="function not covered" >async () =&gt; {</span>
+<span class="cstat-no" title="statement not covered" >        void analytics.track('copy_address_to_add_new_inscription');</span>
+<span class="cstat-no" title="statement not covered" >        await copyToClipboard(state.btcAddressTaproot);</span>
+<span class="cstat-no" title="statement not covered" >        toast.success('Copied to clipboard!');</span>
+      }}
       title="ORD. INSCRIPTION"
       warning={&lt;ReceiveBtcModalWarning message="Deposit only Ordinal inscriptions here" /&gt;}
     /&gt;
@@ -166,7 +160,7 @@ export function <span class="fstat-no" title="function not covered" >ReceiveOrdi
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-03-27T19:10:35.836Z
+                at 2024-04-10T13:33:53.923Z
             </div>
         <script src="../../../../../prettify.js"></script>
         <script>

@@ -57,7 +57,7 @@
         <template id="filterTemplate">
             <div class="quiet">
                 Filter:
-                <input oninput="onInput()" type="search" id="fileSearch">
+                <input type="search" id="fileSearch">
             </div>
         </template>
     </div>
@@ -143,9 +143,7 @@
 <a name='L78'></a><a href='#L78'>78</a>
 <a name='L79'></a><a href='#L79'>79</a>
 <a name='L80'></a><a href='#L80'>80</a>
-<a name='L81'></a><a href='#L81'>81</a>
-<a name='L82'></a><a href='#L82'>82</a>
-<a name='L83'></a><a href='#L83'>83</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L81'></a><a href='#L81'>81</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -199,8 +197,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -236,7 +232,6 @@ import { useBitcoinExplorerLink } from '@app/common/hooks/use-bitcoin-explorer-l
 import { useClipboard } from '@app/common/hooks/use-copy-to-clipboard';
 import { FormAddressDisplayer } from '@app/components/address-displayer/form-address-displayer';
 import {
-  InfoCard,
   InfoCardAssetValue,
   InfoCardBtn,
   InfoCardFooter,
@@ -247,6 +242,7 @@ import { useToast } from '@app/features/toasts/use-toast';
 import { CheckmarkIcon } from '@app/ui/icons/checkmark-icon';
 import { CopyIcon } from '@app/ui/icons/copy-icon';
 import { ExternalLinkIcon } from '@app/ui/icons/external-link-icon';
+import { Card } from '@app/ui/layout/card/card';
 &nbsp;
 export function <span class="fstat-no" title="function not covered" >RpcSendTransferSummary() {</span>
   const { state } = <span class="cstat-no" title="statement not covered" >useLocation();</span>
@@ -281,32 +277,30 @@ export function <span class="fstat-no" title="function not covered" >RpcSendTran
   }
 &nbsp;
 <span class="cstat-no" title="statement not covered" >  return (</span>
-    &lt;&gt;
-      &lt;InfoCard&gt;
-        &lt;InfoCardAssetValue
-          fiatSymbol={txFiatValueSymbol}
-          fiatValue={txFiatValue}
-          icon={&lt;CheckmarkIcon width="lg" /&gt;}
-          mb="space.05"
-          symbol={symbol}
-          value={txValue}
-        /&gt;
-        &lt;Stack pb="space.06" width="100%"&gt;
-          &lt;InfoCardRow title="To" value={&lt;FormAddressDisplayer address={recipient} /&gt;} /&gt;
-          &lt;InfoCardSeparator /&gt;
-          &lt;InfoCardRow title="Total spend" value={totalSpend} /&gt;
-          &lt;InfoCardRow title="Sending" value={sendingValue} /&gt;
-          &lt;InfoCardRow title="Fee" value={feeRowValue} /&gt;
-          {arrivesIn &amp;&amp; &lt;InfoCardRow title="Estimated confirmation time" value={arrivesIn} /&gt;}
-        &lt;/Stack&gt;
-        &lt;InfoCardFooter&gt;
-          &lt;HStack gap="space.04" width="100%"&gt;
-            &lt;InfoCardBtn icon={&lt;ExternalLinkIcon /&gt;} label="View details" onClick={onClickLink} /&gt;
-            &lt;InfoCardBtn icon={&lt;CopyIcon /&gt;} label="Copy ID" onClick={onClickCopy} /&gt;
-          &lt;/HStack&gt;
-        &lt;/InfoCardFooter&gt;
-      &lt;/InfoCard&gt;
-    &lt;/&gt;
+    &lt;Card&gt;
+      &lt;InfoCardAssetValue
+        fiatSymbol={txFiatValueSymbol}
+        fiatValue={txFiatValue}
+        icon={&lt;CheckmarkIcon width="lg" /&gt;}
+        mb="space.05"
+        symbol={symbol}
+        value={txValue}
+      /&gt;
+      &lt;Stack pb="space.06" width="100%"&gt;
+        &lt;InfoCardRow title="To" value={&lt;FormAddressDisplayer address={recipient} /&gt;} /&gt;
+        &lt;InfoCardSeparator /&gt;
+        &lt;InfoCardRow title="Total spend" value={totalSpend} /&gt;
+        &lt;InfoCardRow title="Sending" value={sendingValue} /&gt;
+        &lt;InfoCardRow title="Fee" value={feeRowValue} /&gt;
+        {arrivesIn &amp;&amp; &lt;InfoCardRow title="Estimated confirmation time" value={arrivesIn} /&gt;}
+      &lt;/Stack&gt;
+      &lt;InfoCardFooter&gt;
+        &lt;HStack gap="space.04" width="100%"&gt;
+          &lt;InfoCardBtn icon={&lt;ExternalLinkIcon /&gt;} label="View details" onClick={onClickLink} /&gt;
+          &lt;InfoCardBtn icon={&lt;CopyIcon /&gt;} label="Copy ID" onClick={onClickCopy} /&gt;
+        &lt;/HStack&gt;
+      &lt;/InfoCardFooter&gt;
+    &lt;/Card&gt;
   );
 }
 &nbsp;</pre></td></tr></table></pre>
@@ -316,7 +310,7 @@ export function <span class="fstat-no" title="function not covered" >RpcSendTran
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-03-27T19:10:35.836Z
+                at 2024-04-10T13:33:53.923Z
             </div>
         <script src="../../../../../prettify.js"></script>
         <script>

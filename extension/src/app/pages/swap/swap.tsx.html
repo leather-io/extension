@@ -25,28 +25,28 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/10</span>
+                <span class='fraction'>0/13</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/8</span>
+                <span class='fraction'>0/10</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/2</span>
+                <span class='fraction'>0/4</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/9</span>
+                <span class='fraction'>0/12</span>
             </div>
         
             
@@ -57,7 +57,7 @@
         <template id="filterTemplate">
             <div class="quiet">
                 Filter:
-                <input oninput="onInput()" type="search" id="fileSearch">
+                <input type="search" id="fileSearch">
             </div>
         </template>
     </div>
@@ -115,7 +115,17 @@
 <a name='L50'></a><a href='#L50'>50</a>
 <a name='L51'></a><a href='#L51'>51</a>
 <a name='L52'></a><a href='#L52'>52</a>
-<a name='L53'></a><a href='#L53'>53</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L53'></a><a href='#L53'>53</a>
+<a name='L54'></a><a href='#L54'>54</a>
+<a name='L55'></a><a href='#L55'>55</a>
+<a name='L56'></a><a href='#L56'>56</a>
+<a name='L57'></a><a href='#L57'>57</a>
+<a name='L58'></a><a href='#L58'>58</a>
+<a name='L59'></a><a href='#L59'>59</a>
+<a name='L60'></a><a href='#L60'>60</a>
+<a name='L61'></a><a href='#L61'>61</a>
+<a name='L62'></a><a href='#L62'>62</a>
+<a name='L63'></a><a href='#L63'>63</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -137,18 +147,24 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -167,56 +183,70 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { useAsync } from 'react-async-hook';
-import { Outlet } from 'react-router-dom';
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { useEffect } from 'react';
+import { Outlet, useParams } from 'react-router-dom';
 &nbsp;
 import { SwapSelectors } from '@tests/selectors/swap.selectors';
 import { useFormikContext } from 'formik';
 &nbsp;
 import { isUndefined } from '@shared/utils';
 &nbsp;
-import { useRouteHeader } from '@app/common/hooks/use-route-header';
 import { LoadingSpinner } from '@app/components/loading-spinner';
-import { ModalHeader } from '@app/components/modal-header';
 import { Button } from '@app/ui/components/button/button';
+import { Footer } from '@app/ui/components/containers/footers/footer';
+import { Card } from '@app/ui/layout/card/card';
+import { CardContent } from '@app/ui/layout/card/card-content';
 &nbsp;
-import { SwapContentLayout } from './components/swap-content.layout';
-import { SwapFooterLayout } from './components/swap-footer.layout';
-import { SwapSelectedAssets } from './components/swap-selected-assets';
+import { SwapAssetSelectBase } from './components/swap-asset-select/swap-asset-select-base';
+import { SwapAssetSelectQuote } from './components/swap-asset-select/swap-asset-select-quote';
 import { SwapFormValues } from './hooks/use-swap-form';
 import { useSwapContext } from './swap.context';
 &nbsp;
 export function <span class="fstat-no" title="function not covered" >Swap() {</span>
-  const { isFetchingExchangeRate, swappableAssetsFrom } = <span class="cstat-no" title="statement not covered" >useSwapContext();</span>
+  const { isFetchingExchangeRate, swappableAssetsBase, swappableAssetsQuote } = <span class="cstat-no" title="statement not covered" >useSwapContext();</span>
   const { dirty, isValid, setFieldValue, values } = <span class="cstat-no" title="statement not covered" >useFormikContext&lt;SwapFormValues&gt;();</span>
+  const { base, quote } = <span class="cstat-no" title="statement not covered" >useParams();</span>
 &nbsp;
-<span class="cstat-no" title="statement not covered" >  useRouteHeader(&lt;ModalHeader defaultGoBack hideActions title="Swap" /&gt;, true);</span>
+<span class="cstat-no" title="statement not covered" >  useEffect(<span class="fstat-no" title="function not covered" >() =&gt; {</span></span>
+<span class="cstat-no" title="statement not covered" >    if (base)</span>
+<span class="cstat-no" title="statement not covered" >      void setFieldValue(</span>
+        'swapAssetBase',
+        swappableAssetsBase.find(<span class="fstat-no" title="function not covered" >asset =&gt; <span class="cstat-no" title="statement not covered" >a</span>sset.name === base)</span>
+      );
+<span class="cstat-no" title="statement not covered" >    if (quote)</span>
+<span class="cstat-no" title="statement not covered" >      void setFieldValue(</span>
+        'swapAssetQuote',
+        swappableAssetsQuote.find(<span class="fstat-no" title="function not covered" >asset =&gt; <span class="cstat-no" title="statement not covered" >a</span>sset.name === quote)</span>
+      );
+  }, [base, quote, setFieldValue, swappableAssetsBase, swappableAssetsQuote, values.swapAssetBase]);
 &nbsp;
-<span class="cstat-no" title="statement not covered" >  useAsync(<span class="fstat-no" title="function not covered" >async () =&gt; {</span></span>
-<span class="cstat-no" title="statement not covered" >    if (isUndefined(values.swapAssetFrom))</span>
-<span class="cstat-no" title="statement not covered" >      return await setFieldValue('swapAssetFrom', swappableAssetsFrom[0]);</span>
-<span class="cstat-no" title="statement not covered" >    return;</span>
-  }, [swappableAssetsFrom, values.swapAssetFrom]);
-&nbsp;
-<span class="cstat-no" title="statement not covered" >  if (isUndefined(values.swapAssetFrom)) <span class="cstat-no" title="statement not covered" >return &lt;LoadingSpinner height="300px" /&gt;;</span></span>
+<span class="cstat-no" title="statement not covered" >  if (isUndefined(values.swapAssetBase)) <span class="cstat-no" title="statement not covered" >return &lt;LoadingSpinner height="300px" /&gt;;</span></span>
 &nbsp;
 <span class="cstat-no" title="statement not covered" >  return (</span>
-    &lt;&gt;
-      &lt;SwapContentLayout&gt;
-        &lt;SwapSelectedAssets /&gt;
-      &lt;/SwapContentLayout&gt;
-      &lt;SwapFooterLayout&gt;
-        &lt;Button
-          data-testid={SwapSelectors.SwapReviewBtn}
-          disabled={!(dirty &amp;&amp; isValid) || isFetchingExchangeRate}
-          type="submit"
-          width="100%"
-        &gt;
-          Review and swap
-        &lt;/Button&gt;
-      &lt;/SwapFooterLayout&gt;
+    &lt;Card
+      footer={
+        &lt;Footer variant="card"&gt;
+          &lt;Button
+            data-testid={SwapSelectors.SwapReviewBtn}
+            disabled={!(dirty &amp;&amp; isValid) || isFetchingExchangeRate}
+            type="submit"
+            fullWidth
+          &gt;
+            Review and swap
+          &lt;/Button&gt;
+        &lt;/Footer&gt;
+      }
+    &gt;
+      &lt;CardContent dataTestId={SwapSelectors.SwapPageReady}&gt;
+        &lt;SwapAssetSelectBase /&gt;
+        &lt;SwapAssetSelectQuote /&gt;
+      &lt;/CardContent&gt;
       &lt;Outlet /&gt;
-    &lt;/&gt;
+    &lt;/Card&gt;
   );
 }
 &nbsp;</pre></td></tr></table></pre>
@@ -226,7 +256,7 @@ export function <span class="fstat-no" title="function not covered" >Swap() {</s
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-03-27T19:10:35.836Z
+                at 2024-04-10T13:33:53.923Z
             </div>
         <script src="../../../../../prettify.js"></script>
         <script>

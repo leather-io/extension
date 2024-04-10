@@ -25,7 +25,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/22</span>
+                <span class='fraction'>0/21</span>
             </div>
         
             
@@ -46,7 +46,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/22</span>
+                <span class='fraction'>0/21</span>
             </div>
         
             
@@ -57,7 +57,7 @@
         <template id="filterTemplate">
             <div class="quiet">
                 Filter:
-                <input oninput="onInput()" type="search" id="fileSearch">
+                <input type="search" id="fileSearch">
             </div>
         </template>
     </div>
@@ -123,7 +123,14 @@
 <a name='L58'></a><a href='#L58'>58</a>
 <a name='L59'></a><a href='#L59'>59</a>
 <a name='L60'></a><a href='#L60'>60</a>
-<a name='L61'></a><a href='#L61'>61</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L61'></a><a href='#L61'>61</a>
+<a name='L62'></a><a href='#L62'>62</a>
+<a name='L63'></a><a href='#L63'>63</a>
+<a name='L64'></a><a href='#L64'>64</a>
+<a name='L65'></a><a href='#L65'>65</a>
+<a name='L66'></a><a href='#L66'>66</a>
+<a name='L67'></a><a href='#L67'>67</a>
+<a name='L68'></a><a href='#L68'>68</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -148,8 +155,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -172,9 +177,18 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -185,18 +199,18 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { useNavigate } from 'react-router-dom';
 &nbsp;
+import { Box, styled } from 'leather-styles/jsx';
+&nbsp;
 import { AllTransferableCryptoAssetBalances } from '@shared/models/crypto-asset-balance.model';
 import { RouteUrls } from '@shared/route-urls';
 &nbsp;
-import { useRouteHeader } from '@app/common/hooks/use-route-header';
 import { useAllTransferableCryptoAssetBalances } from '@app/common/hooks/use-transferable-asset-balances.hooks';
 import { useWalletType } from '@app/common/use-wallet-type';
-import { ChooseCryptoAssetLayout } from '@app/components/crypto-assets/choose-crypto-asset/choose-crypto-asset.layout';
 import { CryptoAssetList } from '@app/components/crypto-assets/choose-crypto-asset/crypto-asset-list';
-import { ModalHeader } from '@app/components/modal-header';
 import { useToast } from '@app/features/toasts/use-toast';
 import { useConfigBitcoinSendEnabled } from '@app/query/common/remote-config/remote-config.query';
 import { useCheckLedgerBlockchainAvailable } from '@app/store/accounts/blockchain/utils';
+import { Card } from '@app/ui/layout/card/card';
 &nbsp;
 export function <span class="fstat-no" title="function not covered" >ChooseCryptoAsset() {</span>
   const toast = <span class="cstat-no" title="statement not covered" >useToast();</span>
@@ -207,8 +221,6 @@ export function <span class="fstat-no" title="function not covered" >ChooseCrypt
   const isBitcoinSendEnabled = <span class="cstat-no" title="statement not covered" >useConfigBitcoinSendEnabled();</span>
 &nbsp;
   const checkBlockchainAvailable = <span class="cstat-no" title="statement not covered" >useCheckLedgerBlockchainAvailable();</span>
-&nbsp;
-<span class="cstat-no" title="statement not covered" >  useRouteHeader(&lt;ModalHeader hideActions defaultGoBack title=" " /&gt;);</span>
 &nbsp;
   function <span class="fstat-no" title="function not covered" >navigateToSendForm(c</span>ryptoAssetBalance: AllTransferableCryptoAssetBalances) {
     const { asset } = <span class="cstat-no" title="statement not covered" >cryptoAssetBalance;</span>
@@ -230,17 +242,26 @@ export function <span class="fstat-no" title="function not covered" >ChooseCrypt
   }
 &nbsp;
 <span class="cstat-no" title="statement not covered" >  return (</span>
-    &lt;ChooseCryptoAssetLayout title="choose asset to send"&gt;
-      &lt;CryptoAssetList
-        onItemClick={<span class="fstat-no" title="function not covered" >cryptoAssetBalance =&gt; <span class="cstat-no" title="statement not covered" >n</span>avigateToSendForm(cryptoAssetBalance)}</span>
-        cryptoAssetBalances={allTransferableCryptoAssetBalances.filter(<span class="fstat-no" title="function not covered" >asset =&gt;</span>
-<span class="cstat-no" title="statement not covered" >          whenWallet({</span>
-            ledger: checkBlockchainAvailable(asset.blockchain),
-            software: true,
-          })
-        )}
-      /&gt;
-    &lt;/ChooseCryptoAssetLayout&gt;
+    &lt;Card
+      header={
+        &lt;styled.h1 textStyle="heading.03" p="space.05"&gt;
+          choose asset &lt;br /&gt; to send
+        &lt;/styled.h1&gt;
+      }
+    &gt;
+      &lt;Box pb="space.04" px="space.03"&gt;
+        &lt;CryptoAssetList
+          onItemClick={<span class="fstat-no" title="function not covered" >cryptoAssetBalance =&gt; <span class="cstat-no" title="statement not covered" >n</span>avigateToSendForm(cryptoAssetBalance)}</span>
+          cryptoAssetBalances={allTransferableCryptoAssetBalances.filter(<span class="fstat-no" title="function not covered" >asset =&gt;</span>
+<span class="cstat-no" title="statement not covered" >            whenWallet({</span>
+              ledger: checkBlockchainAvailable(asset.blockchain),
+              software: true,
+            })
+          )}
+          variant="send"
+        /&gt;
+      &lt;/Box&gt;
+    &lt;/Card&gt;
   );
 }
 &nbsp;</pre></td></tr></table></pre>
@@ -250,7 +271,7 @@ export function <span class="fstat-no" title="function not covered" >ChooseCrypt
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-03-27T19:10:35.836Z
+                at 2024-04-10T13:33:53.923Z
             </div>
         <script src="../../../../../../prettify.js"></script>
         <script>
