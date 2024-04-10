@@ -75,6 +75,9 @@ export interface NetworkConfiguration {
   };
 }
 
+export const BESTINSLOT_API_BASE_URL_MAINNET = 'https://api.bestinslot.xyz/v3';
+export const BESTINSLOT_API_BASE_URL_TESTNET = 'https://testnet.api.bestinslot.xyz/v3';
+
 export const HIRO_API_BASE_URL_MAINNET = 'https://api.hiro.so';
 export const HIRO_API_BASE_URL_TESTNET = 'https://api.testnet.hiro.so';
 export const HIRO_INSCRIPTIONS_API_URL = 'https://api.hiro.so/ordinals/v1/inscriptions';

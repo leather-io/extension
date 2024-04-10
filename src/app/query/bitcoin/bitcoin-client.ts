@@ -1,7 +1,11 @@
 import axios from 'axios';
 import PQueue from 'p-queue';
 
-import { HIRO_API_BASE_URL_MAINNET } from '@shared/constants';
+import {
+  BESTINSLOT_API_BASE_URL_MAINNET,
+  BESTINSLOT_API_BASE_URL_TESTNET,
+  HIRO_API_BASE_URL_MAINNET,
+} from '@shared/constants';
 import { Paginated } from '@shared/models/api-types';
 import type { BitcoinTx } from '@shared/models/transactions/bitcoin-transaction.model';
 
@@ -96,8 +100,19 @@ interface BestinslotBrc20AddressBalanceResponse {
   data: Brc20TokenResponse[];
 }
 
+interface RunesWalletBalanceResponse {
+  pkscript: string;
+  wallet_addr: string;
+  rune_id: string;
+  total_balance: string;
+  rune_name: string;
+  spaced_rune_name: string;
+}
+
 class BestinslotApi {
-  url = 'https://api.bestinslot.xyz/v3';
+  url = BESTINSLOT_API_BASE_URL_MAINNET;
+  testnetUrl = BESTINSLOT_API_BASE_URL_TESTNET;
+
   private defaultOptions = {
     headers: {
       'x-api-key': `${process.env.BESTINSLOT_API_KEY}`,
@@ -142,6 +157,15 @@ class BestinslotApi {
       {
         ...this.defaultOptions,
       }
+    );
+    return resp.data;
+  }
+
+  /* RUNES ON TESTNET */
+  async getRunesWalletBalances(address: string) {
+    const resp = await axios.get<RunesWalletBalanceResponse[]>(
+      `${this.testnetUrl}/runes/wallet_balances?address=${address}`,
+      { ...this.defaultOptions }
     );
     return resp.data;
   }
