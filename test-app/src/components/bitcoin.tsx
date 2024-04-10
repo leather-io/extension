@@ -405,6 +405,33 @@ export const Bitcoin = () => {
       >
         Send transfer
       </styled.button>
+      <styled.button
+        mt={3}
+        onClick={() => {
+          console.log('requesting');
+          (window as any).LeatherProvider?.request('sendTransfer', {
+            recipients: [
+              {
+                address: TEST_TESTNET_ACCOUNT_2_BTC_ADDRESS,
+                amount: '10000',
+              },
+              {
+                address: TEST_TESTNET_ACCOUNT_2_BTC_ADDRESS,
+                amount: '10000',
+              },
+            ],
+            network: 'testnet',
+          })
+            .then((resp: any) => {
+              console.log({ sucesss: resp });
+            })
+            .catch((error: Error) => {
+              console.log({ error });
+            });
+        }}
+      >
+        Send transfer to multiple addresses
+      </styled.button>
     </Box>
   );
 };
