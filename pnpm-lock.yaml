@@ -114,8 +114,8 @@ dependencies:
     specifier: 6.1.1
     version: 6.1.1
   '@stacks/encryption':
-    specifier: 6.9.0
-    version: 6.9.0
+    specifier: 6.13.1
+    version: 6.13.1
   '@stacks/network':
     specifier: 6.8.1
     version: 6.8.1
@@ -6216,7 +6216,7 @@ packages:
     resolution: {integrity: sha512-I4oWBoTu57lg3dL+PC/tpRdAU/1ETYtMw4g7f76a8tauiFDDvk4Dve5MNl5fknrH+rhtvqkwLILc3UBFIMfu0Q==}
     dependencies:
       '@stacks/common': 6.10.0
-      '@stacks/encryption': 6.11.0
+      '@stacks/encryption': 6.13.1
       '@stacks/network': 6.10.0
       '@stacks/profile': 6.11.0
       cross-fetch: 3.1.8
@@ -6228,7 +6228,7 @@ packages:
     resolution: {integrity: sha512-tBOB+H/96TUNK9pKmr1YQoiIItUFp2ms5RCNYPSjy3/lbIYYJYtw/O2fOS78fVQvCCpuObhhO65AVsrE/IzQeg==}
     dependencies:
       '@stacks/common': 6.10.0
-      '@stacks/encryption': 6.11.0
+      '@stacks/encryption': 6.13.1
       '@stacks/network': 6.10.0
       '@stacks/profile': 6.11.0
       cross-fetch: 3.1.8
@@ -6264,6 +6264,12 @@ packages:
 
   /@stacks/common@6.10.0:
     resolution: {integrity: sha512-6x5Z7AKd9/kj3+DYE9xIDIkFLHihBH614i2wqrZIjN02WxVo063hWSjIlUxlx8P4gl6olVzlOy5LzhLJD9OP0A==}
+    dependencies:
+      '@types/bn.js': 5.1.5
+      '@types/node': 18.19.29
+
+  /@stacks/common@6.13.0:
+    resolution: {integrity: sha512-wwzyihjaSdmL6NxKvDeayy3dqM0L0Q2sawmdNtzJDi0FnXuJGm5PeapJj7bEfcI9XwI7Bw5jZoC6mCn9nc5YIw==}
     dependencies:
       '@types/bn.js': 5.1.5
       '@types/node': 18.19.29
@@ -6306,32 +6312,18 @@ packages:
     transitivePeerDependencies:
       - encoding
 
-  /@stacks/encryption@6.11.0:
-    resolution: {integrity: sha512-VfBkrwmCRppCasJo+R/hWfC7vgS6GmfPyoTeDsoYlfRRXz/auFbEdRaaruFPtAda/1nKdDOZ9UZEMOp5AIw0IQ==}
+  /@stacks/encryption@6.13.1:
+    resolution: {integrity: sha512-y5IFX3/nGI3fCk70gE0JwH70GpshD8RhUfvhMLcL96oNaec1cCdj1ZUiQupeicfYTHuraaVBYU9xLls4TRmypg==}
     dependencies:
       '@noble/hashes': 1.1.5
       '@noble/secp256k1': 1.7.1
       '@scure/bip39': 1.1.0
-      '@stacks/common': 6.10.0
+      '@stacks/common': 6.13.0
       '@types/node': 18.19.29
       base64-js: 1.5.1
       bs58: 5.0.0
       ripemd160-min: 0.0.6
       varuint-bitcoin: 1.1.2
-
-  /@stacks/encryption@6.9.0:
-    resolution: {integrity: sha512-hbpZ47eYgw9ZH5ly+GSgvw2Ffsu9L6d++2XIhvYSzL7yxYl4m1+FV5QYdJthJ2AS3vi8cI5otE254HTfCrhKzg==}
-    dependencies:
-      '@noble/hashes': 1.1.5
-      '@noble/secp256k1': 1.7.1
-      '@scure/bip39': 1.1.0
-      '@stacks/common': 6.10.0
-      '@types/node': 18.19.29
-      base64-js: 1.5.1
-      bs58: 5.0.0
-      ripemd160-min: 0.0.6
-      varuint-bitcoin: 1.1.2
-    dev: false
 
   /@stacks/network@4.3.5:
     resolution: {integrity: sha512-TC4+AkuT6qi3MoEGxTftA+4BNp99QvGnI+qtKQkoA1m0KDr8b9hSBUhugJHRhQbWuo7D6q0+JagYEGxLID29Kw==}
@@ -6406,7 +6398,7 @@ packages:
     dependencies:
       '@stacks/auth': 6.11.0
       '@stacks/common': 6.10.0
-      '@stacks/encryption': 6.11.0
+      '@stacks/encryption': 6.13.1
       '@stacks/network': 6.10.0
       base64-js: 1.5.1
       jsontokens: 4.0.1
@@ -6419,7 +6411,7 @@ packages:
     dependencies:
       '@stacks/auth': 6.11.0
       '@stacks/common': 6.10.0
-      '@stacks/encryption': 6.11.0
+      '@stacks/encryption': 6.13.1
       '@stacks/network': 6.10.0
       base64-js: 1.5.1
       jsontokens: 4.0.1
@@ -6477,7 +6469,7 @@ packages:
       '@scure/bip39': 1.1.0
       '@stacks/auth': 6.11.0
       '@stacks/common': 6.10.0
-      '@stacks/encryption': 6.11.0
+      '@stacks/encryption': 6.13.1
       '@stacks/network': 6.10.0
       '@stacks/profile': 6.11.0
       '@stacks/storage': 6.11.0
@@ -22045,9 +22037,6 @@ packages:
   /sqlite3@5.1.6:
     resolution: {integrity: sha512-olYkWoKFVNSSSQNvxVUfjiVbz3YtBwTJj+mfV5zpHmqW3sELx2Cf4QCdirMelhM5Zh+KDVaKgQHqCxrqiWHybw==}
     requiresBuild: true
-    peerDependenciesMeta:
-      node-gyp:
-        optional: true
     dependencies:
       '@mapbox/node-pre-gyp': 1.0.11
       node-addon-api: 4.3.0

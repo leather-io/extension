@@ -163,7 +163,7 @@
     "@stacks/common": "6.8.1",
     "@stacks/connect": "7.4.0",
     "@stacks/connect-ui": "6.1.1",
-    "@stacks/encryption": "6.9.0",
+    "@stacks/encryption": "6.13.1",
     "@stacks/network": "6.8.1",
     "@stacks/profile": "6.9.0",
     "@stacks/rpc-client": "1.0.3",
