@@ -1,4 +1,3 @@
-import { css } from 'leather-styles/css';
 import { Box } from 'leather-styles/jsx';
 
 import { shimmerStyles } from '@app/ui/shared/shimmer-styles';
@@ -24,7 +23,7 @@ export function SkeletonLoader({
         bgColor="ink.non-interactive"
         data-state="loading"
         borderRadius="sm"
-        className={css(shimmerStyles)}
+        className={shimmerStyles}
       />
     );
   }

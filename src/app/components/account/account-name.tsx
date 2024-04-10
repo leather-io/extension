@@ -1,6 +1,5 @@
 import { memo } from 'react';
 
-import { css } from 'leather-styles/css';
 import { styled } from 'leather-styles/jsx';
 
 import { shimmerStyles } from '@app/ui/shared/shimmer-styles';
@@ -12,7 +11,7 @@ interface AccountNameLayoutProps {
 
 export const AccountNameLayout = memo(({ children, isLoading }: AccountNameLayoutProps) => (
   <styled.span
-    className={css(shimmerStyles)}
+    className={shimmerStyles}
     textStyle="label.02"
     aria-busy={isLoading}
     data-state={isLoading ? 'loading' : undefined}
