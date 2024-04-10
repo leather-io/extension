@@ -5,7 +5,7 @@ export function StatusReady() {
         width: '8px',
         height: '8px',
         borderRadius: '50%',
-        backgroundColor: '#23A978',
+        background: '#23A978',
       }}
     />
   );

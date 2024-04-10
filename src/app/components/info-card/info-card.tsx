@@ -1,25 +1,12 @@
 import { ReactNode } from 'react';
 
 import { SharedComponentsSelectors } from '@tests/selectors/shared-component.selectors';
-import { Box, BoxProps, Flex, FlexProps, HStack, Stack, styled } from 'leather-styles/jsx';
+import { Box, BoxProps, Flex, HStack, Stack, styled } from 'leather-styles/jsx';
 
 import { isString } from '@shared/utils';
 
-import { whenPageMode } from '@app/common/utils';
 import { Button } from '@app/ui/components/button/button';
 import { DashedHr } from '@app/ui/components/hr';
-
-// InfoCard
-interface InfoCardProps extends FlexProps {
-  children: ReactNode;
-}
-export function InfoCard({ children, ...props }: InfoCardProps) {
-  return (
-    <Flex alignItems="center" flexDirection="column" justifyItems="center" width="100%" {...props}>
-      {children}
-    </Flex>
-  );
-}
 
 // InfoCardRow
 interface InfoCardRowProps {
@@ -120,23 +107,18 @@ export function InfoCardBtn({ icon, label, onClick }: InfoCardBtnProps) {
 interface InfoCardFooterProps {
   children: ReactNode;
 }
+/** @deprecated replace with ui/footer */
 export function InfoCardFooter({ children }: InfoCardFooterProps) {
   return (
     <Flex
       alignItems="center"
-      bg={whenPageMode({
-        full: '',
-        popup: 'ink.background-primary',
-      })}
+      bg={{ base: 'ink.background-primary', md: '' }}
       bottom="0"
       justifyContent="center"
       p="space.05"
-      position={whenPageMode({
-        full: 'unset',
-        popup: 'fixed',
-      })}
+      position={{ base: 'fixed', md: 'unset' }}
       width="100%"
-      zIndex="999"
+      zIndex={999}
     >
       {children}
     </Flex>

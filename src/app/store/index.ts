@@ -1,7 +1,14 @@
 import { useDispatch, useSelector } from 'react-redux';
 
 import { devToolsEnhancer } from '@redux-devtools/remote';
-import { Action, AnyAction, ThunkAction, combineReducers, configureStore } from '@reduxjs/toolkit';
+import {
+  Action,
+  AnyAction,
+  ThunkAction,
+  Tuple,
+  combineReducers,
+  configureStore,
+} from '@reduxjs/toolkit';
 import { atomWithStore } from 'jotai-redux';
 import {
   FLUSH,
@@ -72,25 +79,25 @@ const persistedReducer = persistReducer(persistConfig, rootReducer);
 
 export const store = configureStore({
   reducer: persistedReducer,
-  middleware: getDefaultMiddleware => [
-    ...getDefaultMiddleware({
+  middleware: getDefaultMiddleware =>
+    getDefaultMiddleware({
       serializableCheck: {
         ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
       },
-    }),
-    broadcastActionTypeToOtherFramesMiddleware,
-  ],
-  enhancers:
-    process.env.WALLET_ENVIRONMENT === 'development'
-      ? [
-          devToolsEnhancer({
-            hostname: 'localhost',
-            port: 8000,
-            realtime: true,
-            suppressConnectErrors: false,
-          }),
-        ]
-      : undefined,
+    }).concat(new Tuple(broadcastActionTypeToOtherFramesMiddleware)),
+  enhancers: getDefaultEnhancers =>
+    getDefaultEnhancers().concat(
+      process.env.WALLET_ENVIRONMENT === 'development'
+        ? [
+            devToolsEnhancer({
+              hostname: 'localhost',
+              port: 8000,
+              realtime: true,
+              suppressConnectErrors: false,
+            }),
+          ]
+        : []
+    ),
 });
 
 export const persistor = persistStore(store);

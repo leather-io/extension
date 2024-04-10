@@ -13,8 +13,6 @@ import {
 } from '@shared/signature/signature-types';
 import { closeWindow } from '@shared/utils';
 
-import { useRouteHeader } from '@app/common/hooks/use-route-header';
-import { PopupHeader } from '@app/features/current-account/popup-header';
 import { MessageSigningHeader } from '@app/features/message-signer/message-signing-header';
 import { useOnOriginTabClose } from '@app/routes/hooks/use-on-tab-closed';
 
@@ -56,7 +54,6 @@ export function StacksMessageSigning({
   onCancelMessageSigning,
   payload,
 }: StacksMessageSigningProps) {
-  useRouteHeader(<PopupHeader />);
   useOnOriginTabClose(() => closeWindow());
 
   if (!tabId) return null;

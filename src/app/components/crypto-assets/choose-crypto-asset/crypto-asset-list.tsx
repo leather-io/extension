@@ -1,3 +1,6 @@
+import { CryptoAssetSelectors } from '@tests/selectors/crypto-asset.selectors';
+import { Stack } from 'leather-styles/jsx';
+
 import type { AllTransferableCryptoAssetBalances } from '@shared/models/crypto-asset-balance.model';
 import { StacksFungibleTokenAsset } from '@shared/models/crypto-asset.model';
 
@@ -10,25 +13,30 @@ import { BtcAvatarIcon } from '@app/ui/components/avatar/btc-avatar-icon';
 
 import { CryptoCurrencyAssetItemLayout } from '../crypto-currency-asset/crypto-currency-asset-item.layout';
 import { CryptoAssetListItem } from './crypto-asset-list-item';
-import { CryptoAssetListLayout } from './crypto-asset-list.layout';
 
 interface CryptoAssetListProps {
   cryptoAssetBalances: AllTransferableCryptoAssetBalances[];
   onItemClick(cryptoAssetBalance: AllTransferableCryptoAssetBalances): void;
+  variant: 'send' | 'fund';
 }
-export function CryptoAssetList({ cryptoAssetBalances, onItemClick }: CryptoAssetListProps) {
+export function CryptoAssetList({
+  cryptoAssetBalances,
+  onItemClick,
+  variant,
+}: CryptoAssetListProps) {
   const { whenWallet } = useWalletType();
 
   return (
-    <CryptoAssetListLayout>
+    <Stack data-testid={CryptoAssetSelectors.CryptoAssetList} width="100%" px="space.03">
       <BitcoinNativeSegwitAccountLoader current>
         {signer => (
           <BitcoinBalanceLoader address={signer.address}>
-            {balance => (
+            {(balance, isLoading) => (
               <CryptoCurrencyAssetItemLayout
                 assetBalance={balance}
                 icon={<BtcAvatarIcon />}
                 onClick={() => onItemClick(balance)}
+                isLoading={isLoading}
               />
             )}
           </BitcoinBalanceLoader>
@@ -44,18 +52,19 @@ export function CryptoAssetList({ cryptoAssetBalances, onItemClick }: CryptoAsse
           }
         />
       ))}
-      {whenWallet({
-        software: (
-          <BitcoinNativeSegwitAccountLoader current>
-            {() => (
-              <Brc20TokensLoader>
-                {brc20Tokens => <Brc20TokenAssetList brc20Tokens={brc20Tokens} />}
-              </Brc20TokensLoader>
-            )}
-          </BitcoinNativeSegwitAccountLoader>
-        ),
-        ledger: null,
-      })}
-    </CryptoAssetListLayout>
+      {variant === 'send' &&
+        whenWallet({
+          software: (
+            <BitcoinNativeSegwitAccountLoader current>
+              {() => (
+                <Brc20TokensLoader>
+                  {brc20Tokens => <Brc20TokenAssetList brc20Tokens={brc20Tokens} variant="send" />}
+                </Brc20TokensLoader>
+              )}
+            </BitcoinNativeSegwitAccountLoader>
+          ),
+          ledger: null,
+        })}
+    </Stack>
   );
 }

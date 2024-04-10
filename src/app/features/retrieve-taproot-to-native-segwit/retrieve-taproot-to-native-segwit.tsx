@@ -3,12 +3,12 @@ import { useNavigate } from 'react-router-dom';
 import { Stack } from 'leather-styles/jsx';
 
 import { RouteUrls } from '@shared/route-urls';
+import { delay } from '@shared/utils';
 
 import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
 import { formatMoneyPadded } from '@app/common/money/format-money';
-import { delay } from '@app/common/utils';
 import { FormAddressDisplayer } from '@app/components/address-displayer/form-address-displayer';
-import { InfoCard, InfoCardRow, InfoCardSeparator } from '@app/components/info-card/info-card';
+import { InfoCardRow, InfoCardSeparator } from '@app/components/info-card/info-card';
 import { useToast } from '@app/features/toasts/use-toast';
 import {
   useCurrentTaprootAccountBalance,
@@ -55,26 +55,24 @@ export function RetrieveTaprootToNativeSegwit() {
       onApproveTransaction={handleBroadcastRetrieveBitcoinTx}
       onClose={() => navigate(RouteUrls.Home)}
     >
-      <InfoCard mt="space.05">
-        <Stack width="100%">
-          <InfoCardRow title="Your address" value={<FormAddressDisplayer address={recipient} />} />
-          <InfoCardSeparator />
-          <InfoCardRow title="Amount" value={formatMoneyPadded(balance)} />
-          <InfoCardRow title="Fee" value={formatMoneyPadded(fee)} />
-          <InfoCardSeparator />
-          {uninscribedUtxos.map((utxo, i) => (
-            <InfoCardRow
-              key={utxo.txid}
-              title={`Uninscribed UTXO #${i}`}
-              value={
-                <Link href={`https://ordinals.com/output/${utxo.txid}:${utxo.vout}`}>
-                  {`${truncateMiddle(utxo.txid, 4)}:${utxo.vout}`} ↗
-                </Link>
-              }
-            />
-          ))}
-        </Stack>
-      </InfoCard>
+      <Stack width="100%">
+        <InfoCardRow title="Your address" value={<FormAddressDisplayer address={recipient} />} />
+        <InfoCardSeparator />
+        <InfoCardRow title="Amount" value={formatMoneyPadded(balance)} />
+        <InfoCardRow title="Fee" value={formatMoneyPadded(fee)} />
+        <InfoCardSeparator />
+        {uninscribedUtxos.map((utxo, i) => (
+          <InfoCardRow
+            key={utxo.txid}
+            title={`Uninscribed UTXO #${i}`}
+            value={
+              <Link href={`https://ordinals.com/output/${utxo.txid}:${utxo.vout}`}>
+                {`${truncateMiddle(utxo.txid, 4)}:${utxo.vout}`} ↗
+              </Link>
+            }
+          />
+        ))}
+      </Stack>
     </RetrieveTaprootToNativeSegwitLayout>
   );
 }

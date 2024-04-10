@@ -1,9 +1,17 @@
 import { formatMoney } from '@app/common/money/format-money';
-import { useCurrentNativeSegwitAddressBalance } from '@app/query/bitcoin/balance/btc-native-segwit-balance.hooks';
 import { Caption } from '@app/ui/components/typography/caption';
 
-export function BtcBalance() {
-  const balance = useCurrentNativeSegwitAddressBalance();
+import { BitcoinNativeSegwitAccountLoader } from './account/bitcoin-account-loader';
+import { BitcoinBalanceLoader } from './balance/bitcoin-balance-loader';
 
-  return <Caption>{formatMoney(balance)}</Caption>;
+export function BtcBalance() {
+  return (
+    <BitcoinNativeSegwitAccountLoader current>
+      {signer => (
+        <BitcoinBalanceLoader address={signer.address}>
+          {balance => <Caption>{formatMoney(balance.balance)}</Caption>}
+        </BitcoinBalanceLoader>
+      )}
+    </BitcoinNativeSegwitAccountLoader>
+  );
 }

@@ -1,4 +1,5 @@
 import { NetworkConfiguration } from '@shared/constants';
+import { stacksChainIdToCoreNetworkMode } from '@shared/crypto/stacks/stacks.utils';
 
 import { FormErrorMessages } from '@app/common/error-messages';
 
@@ -7,6 +8,7 @@ import {
   stxAddressNetworkValidator,
   stxAddressValidator,
 } from './address-validators';
+import { complianceValidator } from './compliance-validators';
 
 export function stxRecipientValidator(
   currentAddress: string,
@@ -14,5 +16,11 @@ export function stxRecipientValidator(
 ) {
   return stxAddressValidator(FormErrorMessages.InvalidAddress)
     .concat(stxAddressNetworkValidator(currentNetwork))
-    .concat(notCurrentAddressValidator(currentAddress || ''));
+    .concat(notCurrentAddressValidator(currentAddress || ''))
+    .concat(
+      complianceValidator(
+        stxAddressValidator(FormErrorMessages.InvalidAddress),
+        stacksChainIdToCoreNetworkMode(currentNetwork.chain.stacks.chainId)
+      )
+    );
 }

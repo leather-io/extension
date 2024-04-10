@@ -1,4 +1,8 @@
+import { useLocation } from 'react-router-dom';
+
 import { Flex, FlexProps } from 'leather-styles/jsx';
+
+import { RouteUrls } from '@shared/route-urls';
 
 import { useRemoteLeatherMessages } from '@app/query/common/remote-config/remote-config.query';
 import { useCurrentNetworkState } from '@app/store/networks/networks.hooks';
@@ -8,13 +12,14 @@ import { useDismissedMessageIds } from '@app/store/settings/settings.selectors';
 import { HiroMessageItem } from './components/in-app-message-item';
 
 export function InAppMessages(props: FlexProps) {
+  const location = useLocation();
   const messages = useRemoteLeatherMessages();
 
   const { mode } = useCurrentNetworkState();
   const dismissMessage = useDismissMessage();
   const dismissedIds = useDismissedMessageIds();
 
-  if (messages.length === 0) return null;
+  if (location.pathname !== RouteUrls.Home || messages.length === 0) return null;
 
   const firstMessage = messages.filter(msg => !dismissedIds.includes(msg.id))[0];
 

@@ -2,8 +2,6 @@ import { memo } from 'react';
 
 import { closeWindow, isUndefined } from '@shared/utils';
 
-import { useRouteHeader } from '@app/common/hooks/use-route-header';
-import { PopupHeader } from '@app/features/current-account/popup-header';
 import { useOnOriginTabClose } from '@app/routes/hooks/use-on-tab-closed';
 import {
   useIsProfileUpdateRequestValid,
@@ -17,8 +15,6 @@ import { ProfileUpdateRequestLayout } from './components/update-profile-request.
 function ProfileUpdateRequestBase() {
   const validProfileUpdateRequest = useIsProfileUpdateRequestValid();
   const { requestToken } = useProfileUpdateRequestSearchParams();
-
-  useRouteHeader(<PopupHeader />);
 
   useOnOriginTabClose(() => closeWindow());
   if (isUndefined(validProfileUpdateRequest) || !validProfileUpdateRequest || !requestToken)

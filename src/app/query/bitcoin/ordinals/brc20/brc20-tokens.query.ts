@@ -92,7 +92,7 @@ export function useGetBrc20TokensQuery() {
     },
     refetchOnMount: false,
     refetchOnReconnect: false,
-    refetchOnWindowFocus: false,
+    refetchOnWindowFocus: true,
     staleTime: 5 * 60 * 1000,
   });
 

@@ -1,6 +1,6 @@
 import { useSelector } from 'react-redux';
 
-import { Dictionary, createSelector } from '@reduxjs/toolkit';
+import { createSelector } from '@reduxjs/toolkit';
 
 import {
   NetworkConfiguration,
@@ -28,7 +28,7 @@ export const selectNetworks = createSelector(
     ({
       ...defaultNetworksKeyedById,
       ...transformNetworkStateToMultichainStucture(state),
-    }) as Dictionary<NetworkConfiguration>
+    }) as Record<string, NetworkConfiguration>
 );
 
 export const selectCurrentNetworkId = createSelector(
@@ -56,7 +56,7 @@ export const selectCurrentNetwork = createSelector(
     networks[appRequestedNetworkId || currentNetworkId] ?? defaultCurrentNetwork
 );
 
-export function useNetworks(): Dictionary<NetworkConfiguration> {
+export function useNetworks(): Record<string, NetworkConfiguration> {
   return useSelector(selectNetworks);
 }
 

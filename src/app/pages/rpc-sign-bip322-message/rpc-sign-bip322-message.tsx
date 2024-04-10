@@ -2,10 +2,8 @@ import { Outlet } from 'react-router-dom';
 
 import { closeWindow } from '@shared/utils';
 
-import { useRouteHeader } from '@app/common/hooks/use-route-header';
 import { Disclaimer } from '@app/components/disclaimer';
 import { NoFeesWarningRow } from '@app/components/no-fees-warning-row';
-import { PopupHeader } from '@app/features/current-account/popup-header';
 import { MessagePreviewBox } from '@app/features/message-signer/message-preview-box';
 import { MessageSigningRequestLayout } from '@app/features/message-signer/message-signing-request.layout';
 import { AccountGate } from '@app/routes/account-gate';
@@ -27,8 +25,6 @@ export function RpcSignBip322MessageRoute() {
 }
 
 function RpcSignBip322Message() {
-  useRouteHeader(<PopupHeader displayAddresssBalanceOf="all" />);
-
   const {
     origin,
     message,

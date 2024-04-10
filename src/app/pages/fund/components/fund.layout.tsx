@@ -1,62 +1,43 @@
-import { Flex, Stack, styled } from 'leather-styles/jsx';
+import { Stack, styled } from 'leather-styles/jsx';
 
+import type { Blockchains } from '@shared/models/blockchain.model';
 import { CryptoCurrencies } from '@shared/models/currencies.model';
 
 import { HasChildren } from '@app/common/has-children';
 
-const nameMap: Record<CryptoCurrencies, { name: string; symbol: string }> = {
-  BTC: {
-    name: 'Bitcoin',
-    symbol: 'BTC',
-  },
-  STX: {
-    name: 'Stacks',
-    symbol: 'STX',
-  },
-};
-
 interface FundLayoutProps extends HasChildren {
+  blockchain: Blockchains;
   symbol: CryptoCurrencies;
 }
-
-export function FundLayout({ symbol, children }: FundLayoutProps) {
-  const name = nameMap[symbol].name;
-  const nameAbbr = nameMap[symbol].symbol;
+export function FundLayout({ blockchain, symbol, children }: FundLayoutProps) {
   return (
-    <Flex
-      alignItems={['left', 'center']}
-      flexGrow={1}
-      flexDirection="column"
-      minHeight={['70vh', '90vh']}
-      justifyContent="start"
-      mb="space.05"
+    <Stack
+      alignItems={{ base: 'left', md: 'center' }}
+      p={{ base: 'space.05', md: 'unset' }}
+      gap={{ base: 'space.04', md: 'space.05' }}
+      maxWidth="fullPageMaxWidth"
     >
-      <Stack
-        alignItems={['left', 'center']}
-        pb={['space.04', 'unset']}
-        px={['space.05', 'space.05', 'unset']}
-        gap={['space.04', 'space.05']}
+      <styled.h1
+        textAlign={{ base: 'left', md: 'center' }}
+        color="ink.text-primary"
+        textStyle={{ base: 'heading.03', md: 'display.02' }}
       >
-        <styled.h1
-          px={['unset', 'space.05']}
-          textAlign={['left', 'center']}
-          textStyle={['heading.03', 'heading.02']}
-        >
-          Let's get funds into your wallet
-        </styled.h1>
+        Let's get {symbol} <br />
+        into your wallet
+      </styled.h1>
 
-        <styled.span
-          textStyle="body.01"
-          color="ink.text-subdued"
-          maxWidth="544px"
-          textAlign={['left', 'center']}
-        >
-          Choose an exchange to fund your account with {name} ({nameAbbr}) or deposit from
-          elsewhere. Exchanges with “Fast checkout” make it easier to purchase {nameAbbr} for direct
-          deposit into your wallet with a credit card.
-        </styled.span>
-      </Stack>
+      <styled.span
+        textStyle="body.01"
+        color="ink.text-primary"
+        maxWidth="544px"
+        textAlign={{ base: 'left', md: 'center' }}
+      >
+        Choose an exchange to fund your account with{' '}
+        <styled.span textTransform="capitalize">{blockchain}</styled.span> ({symbol}) or deposit
+        from elsewhere. Exchanges with “Fast checkout” make it easier to purchase {symbol} for
+        direct deposit into your wallet with a credit card.
+      </styled.span>
       {children}
-    </Flex>
+    </Stack>
   );
 }

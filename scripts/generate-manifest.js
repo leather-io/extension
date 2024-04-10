@@ -70,7 +70,7 @@ const manifest = {
   author: 'Leather Wallet, LLC',
   description:
     'Leather is the only Bitcoin wallet you need to tap into the emerging Bitcoin economy.',
-  permissions: ['contextMenus', 'storage'],
+  permissions: ['contextMenus', 'storage', 'unlimitedStorage'],
   commands: {
     _execute_browser_action: {
       suggested_key: {

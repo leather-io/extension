@@ -6,6 +6,7 @@ import { AllCryptoCurrencyAssetBalances } from '@shared/models/crypto-asset-bala
 
 import { BulletSeparator } from '@app/ui/components/bullet-separator/bullet-separator';
 import { ItemLayout } from '@app/ui/components/item-layout/item-layout';
+import { SkeletonLoader } from '@app/ui/components/skeleton-loader/skeleton-loader';
 import { BasicTooltip } from '@app/ui/components/tooltip/basic-tooltip';
 import { Caption } from '@app/ui/components/typography/caption';
 import { Pressable } from '@app/ui/pressable/pressable';
@@ -18,6 +19,7 @@ interface CryptoCurrencyAssetItemLayoutProps {
   address?: string;
   assetBalance: AllCryptoCurrencyAssetBalances;
   icon: React.ReactNode;
+  isLoading?: boolean;
   onClick?(): void;
   rightElement?: React.ReactNode;
   usdBalance?: string;
@@ -31,9 +33,45 @@ export function CryptoCurrencyAssetItemLayout({
   onClick,
   rightElement,
   usdBalance,
+  isLoading = false,
 }: CryptoCurrencyAssetItemLayoutProps) {
   const { balance, dataTestId, formattedBalance, title } =
     parseCryptoCurrencyAssetBalance(assetBalance);
+
+  const titleRight = (
+    <SkeletonLoader width="126px" isLoading={isLoading}>
+      {rightElement ? (
+        rightElement
+      ) : (
+        <BasicTooltip
+          asChild
+          label={formattedBalance.isAbbreviated ? balance.amount.toString() : undefined}
+          side="left"
+        >
+          <styled.span data-testid={title} textStyle="label.02">
+            {formattedBalance.value} {additionalBalanceInfo}
+          </styled.span>
+        </BasicTooltip>
+      )}
+    </SkeletonLoader>
+  );
+
+  const captionRight = (
+    <SkeletonLoader width="78px" isLoading={isLoading}>
+      {rightElement ? (
+        rightElement
+      ) : (
+        <Caption>
+          <Flex alignItems="center" gap="space.02" color="inherit">
+            <BulletSeparator>
+              <Caption>{balance.amount.toNumber() > 0 && address ? usdBalance : null}</Caption>
+              {additionalUsdBalanceInfo}
+            </BulletSeparator>
+          </Flex>
+        </Caption>
+      )}
+    </SkeletonLoader>
+  );
 
   const isInteractive = !!onClick;
 
@@ -42,33 +80,8 @@ export function CryptoCurrencyAssetItemLayout({
       flagImg={icon}
       titleLeft={title}
       captionLeft={balance.symbol}
-      titleRight={
-        rightElement ? (
-          rightElement
-        ) : (
-          <BasicTooltip
-            asChild
-            label={formattedBalance.isAbbreviated ? balance.amount.toString() : undefined}
-            side="left"
-          >
-            <styled.span data-testid={title} fontWeight={500} textStyle="label.02">
-              {formattedBalance.value} {additionalBalanceInfo}
-            </styled.span>
-          </BasicTooltip>
-        )
-      }
-      captionRight={
-        !rightElement && (
-          <Caption>
-            <Flex alignItems="center" gap="space.02" color="inherit">
-              <BulletSeparator>
-                <Caption>{balance.amount.toNumber() > 0 && address ? usdBalance : null}</Caption>
-                {additionalUsdBalanceInfo}
-              </BulletSeparator>
-            </Flex>
-          </Caption>
-        )
-      }
+      titleRight={titleRight}
+      captionRight={captionRight}
     />
   );
 

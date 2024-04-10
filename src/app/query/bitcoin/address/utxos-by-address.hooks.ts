@@ -56,10 +56,11 @@ export function useNativeSegwitUtxosByAddress({
   filterInscriptionUtxos,
   filterPendingTxsUtxos,
 }: UseFilterUtxosByAddressArgs) {
-  const filterOutInscriptions = useFilterInscriptionsByAddress(address);
-  const filterOutPendingTxsUtxos = useFilterPendingUtxosByAddress(address);
+  const { filterOutInscriptions, isInitialLoadingInscriptions } =
+    useFilterInscriptionsByAddress(address);
+  const { filterOutPendingTxsUtxos, isInitialLoading } = useFilterPendingUtxosByAddress(address);
 
-  return useGetUtxosByAddressQuery(address, {
+  const utxosQuery = useGetUtxosByAddressQuery(address, {
     select(utxos) {
       const filters = [];
       if (filterPendingTxsUtxos) {
@@ -77,6 +78,12 @@ export function useNativeSegwitUtxosByAddress({
       );
     },
   });
+
+  return {
+    ...utxosQuery,
+    isInitialLoading:
+      utxosQuery.isInitialLoading || isInitialLoading || isInitialLoadingInscriptions,
+  };
 }
 
 function useFilterInscriptionsByAddress(address: string) {
@@ -84,9 +91,10 @@ function useFilterInscriptionsByAddress(address: string) {
     data: inscriptionsList,
     hasNextPage: hasMoreInscriptionsToLoad,
     isLoading: isLoadingInscriptions,
+    isInitialLoading: isInitialLoadingInscriptions,
   } = useInscriptionsByAddressQuery(address);
 
-  return useCallback(
+  const filterOutInscriptions = useCallback(
     (utxos: UtxoResponseItem[]) => {
       // While infinite query checks if has more data to load, or Stamps
       // are loading, assume nothing is spendable
@@ -98,12 +106,18 @@ function useFilterInscriptionsByAddress(address: string) {
     },
     [hasMoreInscriptionsToLoad, inscriptionsList?.pages, isLoadingInscriptions]
   );
+
+  return {
+    filterOutInscriptions,
+    isInitialLoadingInscriptions: hasMoreInscriptionsToLoad || isInitialLoadingInscriptions,
+  };
 }
 
 function useFilterPendingUtxosByAddress(address: string) {
-  const { data: pendingInputs = [] } = useBitcoinPendingTransactionsInputs(address);
+  const { data: pendingInputs = [], isInitialLoading } =
+    useBitcoinPendingTransactionsInputs(address);
 
-  return useCallback(
+  const filterOutPendingTxsUtxos = useCallback(
     (utxos: UtxoResponseItem[]) => {
       return utxos.filter(
         utxo =>
@@ -114,4 +128,9 @@ function useFilterPendingUtxosByAddress(address: string) {
     },
     [address, pendingInputs]
   );
+
+  return {
+    filterOutPendingTxsUtxos,
+    isInitialLoading,
+  };
 }

@@ -8,9 +8,10 @@ import {
   encodeStructuredData,
 } from '@stacks/transactions';
 
+import { stacksChainIdToCoreNetworkMode } from '@shared/crypto/stacks/stacks.utils';
 import { UnsignedMessageStructured } from '@shared/signature/signature-types';
 
-import { whenStacksChainId } from '@app/common/utils';
+import { capitalize } from '@app/common/utils';
 
 export function cvToDisplay(cv: ClarityValue): string {
   return cvToString(cv).replaceAll('"', '');
@@ -21,11 +22,7 @@ export function chainIdToDisplay(chainIdCv: ClarityValue): string {
   const chainIdString = cvToString(chainIdCv);
   const chainId = parseInt(chainIdString.replace('u', ''));
   if (!Object.values(ChainID).includes(chainId)) return '';
-
-  return whenStacksChainId(chainId as ChainID)({
-    [ChainID.Testnet]: 'Testnet',
-    [ChainID.Mainnet]: 'Mainnet',
-  });
+  return capitalize(stacksChainIdToCoreNetworkMode(chainId));
 }
 
 export function deriveStructuredMessageHash({

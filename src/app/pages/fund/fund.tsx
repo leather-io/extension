@@ -1,12 +1,15 @@
-import { Outlet, useNavigate, useParams } from 'react-router-dom';
+import { Outlet, useParams } from 'react-router-dom';
 
-import { isCryptoCurrency } from '@shared/models/currencies.model';
+import type { Blockchains } from '@shared/models/blockchain.model';
+import type {
+  BitcoinCryptoCurrencyAssetBalance,
+  StacksCryptoCurrencyAssetBalance,
+} from '@shared/models/crypto-asset-balance.model';
+import type { CryptoCurrencies } from '@shared/models/currencies.model';
 import { RouteUrls } from '@shared/route-urls';
 
 import { useBtcCryptoCurrencyAssetBalance } from '@app/common/hooks/balance/btc/use-btc-crypto-currency-asset-balance';
 import { useStxCryptoCurrencyAssetBalance } from '@app/common/hooks/balance/stx/use-stx-crypto-currency-asset-balance';
-import { useRouteHeader } from '@app/common/hooks/use-route-header';
-import { Header } from '@app/components/header';
 import { FullPageLoadingSpinner } from '@app/components/loading-spinner';
 import { useCurrentAccountNativeSegwitIndexZeroSignerNullable } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
 import { useCurrentStacksAccount } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
@@ -14,48 +17,47 @@ import { useCurrentStacksAccount } from '@app/store/accounts/blockchain/stacks/s
 import { FundLayout } from './components/fund.layout';
 import { FiatProvidersList } from './fiat-providers-list';
 
+interface FundCryptoCurrencyInfo {
+  address?: string;
+  balance?: BitcoinCryptoCurrencyAssetBalance | StacksCryptoCurrencyAssetBalance;
+  blockchain: Blockchains;
+  route: string;
+  symbol: CryptoCurrencies;
+}
+
 export function FundPage() {
-  const navigate = useNavigate();
   const currentStxAccount = useCurrentStacksAccount();
   const bitcoinSigner = useCurrentAccountNativeSegwitIndexZeroSignerNullable();
   const btcCryptoCurrencyAssetBalance = useBtcCryptoCurrencyAssetBalance();
   const stxCryptoCurrencyAssetBalance = useStxCryptoCurrencyAssetBalance();
-  const { currency } = useParams();
+  const { currency = 'STX' } = useParams();
 
-  function getSymbol() {
-    if (isCryptoCurrency(currency)) {
-      return currency;
-    }
-    return 'STX';
-  }
-  function getAddress() {
-    switch (symbol) {
-      case 'BTC':
-        return bitcoinSigner?.address;
-      case 'STX':
-        return currentStxAccount?.address;
-    }
-  }
-  function getBalance() {
-    switch (symbol) {
-      case 'BTC':
-        return btcCryptoCurrencyAssetBalance;
-      case 'STX':
-        return stxCryptoCurrencyAssetBalance;
-    }
-  }
+  const fundCryptoCurrencyMap: Record<CryptoCurrencies, FundCryptoCurrencyInfo> = {
+    BTC: {
+      address: bitcoinSigner?.address,
+      balance: btcCryptoCurrencyAssetBalance?.btcBalance,
+      blockchain: 'Bitcoin',
+      route: RouteUrls.ReceiveBtc,
+      symbol: currency,
+    },
+    STX: {
+      address: currentStxAccount?.address,
+      balance: stxCryptoCurrencyAssetBalance,
+      blockchain: 'Stacks',
+      route: RouteUrls.ReceiveStx,
+      symbol: currency,
+    },
+  };
 
-  const symbol = getSymbol();
-  const address = getAddress();
-  const balance = getBalance();
-
-  useRouteHeader(<Header onClose={() => navigate(RouteUrls.FundChooseCurrency)} title=" " />);
+  const { address, balance, blockchain, route, symbol } =
+    fundCryptoCurrencyMap[currency as CryptoCurrencies];
 
   if (!address || !balance) return <FullPageLoadingSpinner />;
+
   return (
     <>
-      <FundLayout symbol={symbol}>
-        <FiatProvidersList address={address} symbol={symbol} />
+      <FundLayout blockchain={blockchain} symbol={symbol}>
+        <FiatProvidersList address={address} route={route} symbol={symbol} />
       </FundLayout>
       <Outlet />
     </>

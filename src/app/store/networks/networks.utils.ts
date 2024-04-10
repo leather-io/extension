@@ -1,4 +1,3 @@
-import { Dictionary } from '@reduxjs/toolkit';
 import { ChainID } from '@stacks/transactions';
 
 import {
@@ -12,7 +11,7 @@ import { PersistedNetworkConfiguration } from './networks.slice';
 interface FindMatchingNetworkKeyArgs {
   coreApiUrl: string | null;
   networkChainId: string | null;
-  networks: Dictionary<NetworkConfiguration>;
+  networks: Record<string, NetworkConfiguration>;
 }
 export function findMatchingNetworkKey({
   coreApiUrl,
@@ -24,13 +23,13 @@ export function findMatchingNetworkKey({
   const keys = Object.keys(networks);
 
   const exactUrlMatch = keys.find((key: string) => {
-    const network = networks[key] as NetworkConfiguration;
+    const network = networks[key];
     return network.chain.stacks.url === coreApiUrl;
   });
   if (exactUrlMatch) return exactUrlMatch;
 
   const chainIdMatch = keys.find((key: string) => {
-    const network = networks[key] as NetworkConfiguration;
+    const network = networks[key];
     return (
       network.chain.stacks.url === coreApiUrl ||
       network.chain.stacks.chainId === (Number(networkChainId) as ChainID)
@@ -63,7 +62,7 @@ function checkBitcoinNetworkProperties(
 }
 
 export function transformNetworkStateToMultichainStucture(
-  state: Dictionary<PersistedNetworkConfiguration>
+  state: Record<string, PersistedNetworkConfiguration>
 ) {
   return Object.fromEntries(
     Object.entries(state)

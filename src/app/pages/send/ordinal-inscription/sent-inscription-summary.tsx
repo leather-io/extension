@@ -1,6 +1,6 @@
 import { useLocation, useNavigate } from 'react-router-dom';
 
-import { Box, HStack, Stack } from 'leather-styles/jsx';
+import { Box, Flex, HStack, Stack } from 'leather-styles/jsx';
 import get from 'lodash.get';
 
 import { Blockchains } from '@shared/models/blockchain.model';
@@ -9,20 +9,18 @@ import { RouteUrls } from '@shared/route-urls';
 
 import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
 import { useBitcoinExplorerLink } from '@app/common/hooks/use-bitcoin-explorer-link';
-import { useClipboard } from '@app/common/hooks/use-copy-to-clipboard';
+import { copyToClipboard } from '@app/common/utils/copy-to-clipboard';
 import { FormAddressDisplayer } from '@app/components/address-displayer/form-address-displayer';
-import { BaseDrawer } from '@app/components/drawer/base-drawer';
-import {
-  InfoCard,
-  InfoCardBtn,
-  InfoCardRow,
-  InfoCardSeparator,
-} from '@app/components/info-card/info-card';
+import { InfoCardBtn, InfoCardRow, InfoCardSeparator } from '@app/components/info-card/info-card';
 import { InscriptionPreview } from '@app/components/inscription-preview-card/components/inscription-preview';
 import { useToast } from '@app/features/toasts/use-toast';
+import { Dialog } from '@app/ui/components/containers/dialog/dialog';
+import { Footer } from '@app/ui/components/containers/footers/footer';
+import { Header } from '@app/ui/components/containers/headers/header';
 import { CheckmarkIcon } from '@app/ui/icons/checkmark-icon';
 import { CopyIcon } from '@app/ui/icons/copy-icon';
 import { ExternalLinkIcon } from '@app/ui/icons/external-link-icon';
+import { Card } from '@app/ui/layout/card/card';
 
 import { InscriptionPreviewCard } from '../../../components/inscription-preview-card/inscription-preview-card';
 
@@ -46,7 +44,7 @@ export function SendInscriptionSummary() {
     txid,
   };
 
-  const { onCopy } = useClipboard(txid || '');
+  const id = txid || '';
   const { handleOpenBitcoinTxLink: handleOpenTxLink } = useBitcoinExplorerLink();
   const analytics = useAnalytics();
 
@@ -55,35 +53,52 @@ export function SendInscriptionSummary() {
     handleOpenTxLink(txLink);
   }
 
-  function onClickCopy() {
-    onCopy();
+  async function onClickCopy() {
+    await copyToClipboard(id);
     toast.success('ID copied!');
   }
 
   return (
-    <BaseDrawer title="Sent" isShowing onClose={() => navigate(RouteUrls.Home)}>
-      <Box mt="space.06" px="space.06">
-        <InscriptionPreviewCard
-          icon={<CheckmarkIcon mt="space.01" width="lg" />}
-          image={<InscriptionPreview inscription={inscription} />}
-          subtitle="Ordinal inscription"
-          title={inscription.title}
-        />
-      </Box>
-
-      <InfoCard pt="space.06" pb="space.06" px="space.06">
-        <Stack mb="space.06" width="100%">
-          <InfoCardRow title="To" value={<FormAddressDisplayer address={recipient} />} />
-          <InfoCardSeparator />
-          {arrivesIn && <InfoCardRow title="Estimated confirmation time" value={arrivesIn} />}
-          <InfoCardRow title="Fee" value={feeRowValue} />
-        </Stack>
-
-        <HStack gap="space.04" width="100%">
-          <InfoCardBtn onClick={onClickLink} icon={<ExternalLinkIcon />} label="View details" />
-          <InfoCardBtn onClick={onClickCopy} icon={<CopyIcon />} label="Copy ID" />
-        </HStack>
-      </InfoCard>
-    </BaseDrawer>
+    <Dialog
+      header={<Header variant="dialog" title="Sent" />}
+      isShowing
+      onClose={() => navigate(RouteUrls.Home)}
+    >
+      <Card
+        footer={
+          <Footer variant="card">
+            <HStack gap="space.04" width="100%">
+              <InfoCardBtn onClick={onClickLink} icon={<ExternalLinkIcon />} label="View details" />
+              <InfoCardBtn onClick={onClickCopy} icon={<CopyIcon />} label="Copy ID" />
+            </HStack>
+          </Footer>
+        }
+      >
+        <Box mt="space.06" px="space.06">
+          <InscriptionPreviewCard
+            icon={<CheckmarkIcon mt="space.01" width="lg" />}
+            image={<InscriptionPreview inscription={inscription} />}
+            subtitle="Ordinal inscription"
+            title={inscription.title}
+          />
+        </Box>
+        <Flex
+          alignItems="center"
+          flexDirection="column"
+          justifyItems="center"
+          width="100%"
+          pt="space.06"
+          pb="space.06"
+          px="space.06"
+        >
+          <Stack mb="space.06" width="100%">
+            <InfoCardRow title="To" value={<FormAddressDisplayer address={recipient} />} />
+            <InfoCardSeparator />
+            {arrivesIn && <InfoCardRow title="Estimated confirmation time" value={arrivesIn} />}
+            <InfoCardRow title="Fee" value={feeRowValue} />
+          </Stack>
+        </Flex>
+      </Card>
+    </Dialog>
   );
 }

@@ -25,7 +25,6 @@ export enum RouteUrls {
   // Active wallet routes
   Home = '/',
   AddNetwork = '/add-network',
-  ChooseAccount = '/choose-account',
   Fund = '/fund/:currency',
   FundChooseCurrency = '/fund-choose-currency',
   IncreaseStxFee = '/increase-fee/stx',
@@ -35,7 +34,7 @@ export enum RouteUrls {
   ViewSecretKey = '/view-secret-key',
 
   // nested routes must have relative paths
-  Activity = 'activity',
+  Activity = '/activity',
   Receive = 'receive',
   ReceiveStx = 'receive/stx',
   ReceiveBtc = 'receive/btc',
@@ -52,9 +51,7 @@ export enum RouteUrls {
   BitcoinContractList = '/bitcoin-contract-list',
 
   // Modal routes
-  ChangeTheme = 'change-theme',
   EditNonce = 'edit-nonce',
-  SelectNetwork = 'choose-network',
   SignOutConfirm = 'sign-out',
   RetrieveTaprootFunds = 'retrieve-taproot-funds',
 
@@ -65,6 +62,7 @@ export enum RouteUrls {
   SendCryptoAssetFormRecipientAccounts = 'recipient-accounts',
   SendCryptoAssetFormRecipientBns = 'recipient-bns',
   SendBtcChooseFee = '/send/btc/choose-fee',
+  SendBtcError = '/send/btc/error',
   SendBtcConfirmation = '/send/btc/confirm',
   SendBtcDisabled = '/send/btc/disabled',
   SendStxConfirmation = '/send/stx/confirm',
@@ -84,10 +82,11 @@ export enum RouteUrls {
   SendOrdinalInscriptionError = 'error',
 
   // Swap routes
-  Swap = '/swap',
-  SwapChooseAsset = '/swap/choose-asset',
+  Swap = '/swap/:base/:quote?',
+  SwapAssetSelectBase = 'select-base',
+  SwapAssetSelectQuote = 'select-quote',
   SwapError = '/swap/error',
-  SwapReview = '/swap/review',
+  SwapReview = '/swap/:base/:quote/review',
 
   // Legacy request routes
   ProfileUpdateRequest = '/update-profile',
@@ -107,6 +106,9 @@ export enum RouteUrls {
   RpcReceiveBitcoinContractOffer = '/bitcoin-contract-offer/:bitcoinContractOffer/:counterpartyWalletURL',
   RpcSignBip322Message = '/sign-bip322-message',
   RpcStacksSignature = '/sign-stacks-message',
+
+  // Popup routes
+  ChooseAccount = '/choose-account',
 
   // Shared legacy and rpc request routes
   RequestError = '/request-error',

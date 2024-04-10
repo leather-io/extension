@@ -2,8 +2,6 @@ import { Box, Stack, styled } from 'leather-styles/jsx';
 
 import { Prism } from '@app/common/clarity-prism';
 import { HasChildren } from '@app/common/has-children';
-import { useRouteHeader } from '@app/common/hooks/use-route-header';
-import { Header } from '@app/components/header';
 import { ErrorBoundary, FallbackProps, useErrorHandler } from '@app/features/errors/error-boundary';
 import { openGithubIssue } from '@app/features/errors/utils';
 import { useErrorStackTraceState } from '@app/store/ui/ui.hooks';
@@ -12,8 +10,6 @@ import { Title } from '@app/ui/components/typography/title';
 
 function ErrorFallback({ error, resetErrorBoundary }: FallbackProps) {
   const [value] = useErrorStackTraceState();
-
-  useRouteHeader(<Header />);
 
   return (
     <Stack gap="space.06" flexGrow={1}>

@@ -1,6 +1,7 @@
 import { useCallback } from 'react';
 
-import { delay } from '@app/common/utils';
+import { delay } from '@shared/utils';
+
 import { useCurrentAccountMempool } from '@app/query/stacks/mempool/mempool.hooks';
 
 // TODO: Can this be removed? It seems like we should be able

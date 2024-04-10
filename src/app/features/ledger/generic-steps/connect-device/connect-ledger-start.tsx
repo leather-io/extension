@@ -5,7 +5,8 @@ import { closeWindow } from '@shared/utils';
 
 import { doesBrowserSupportWebUsbApi, whenPageMode } from '@app/common/utils';
 import { openIndexPageInNewTab } from '@app/common/utils/open-in-new-tab';
-import { BaseDrawer } from '@app/components/drawer/base-drawer';
+import { Dialog } from '@app/ui/components/containers/dialog/dialog';
+import { Header } from '@app/ui/components/containers/headers/header';
 
 import { immediatelyAttemptLedgerConnection } from '../../hooks/use-when-reattempt-ledger-connection';
 import { ConnectLedger } from './connect-ledger';
@@ -35,12 +36,12 @@ export function ConnectLedgerStart() {
   }
 
   return (
-    <BaseDrawer isShowing onClose={() => navigate('../')}>
+    <Dialog isShowing header={<Header variant="dialog" />} onClose={() => navigate('../')}>
       <ConnectLedger
         connectBitcoin={() => connectChain('bitcoin')}
         connectStacks={() => connectChain('stacks')}
         showInstructions
       />
-    </BaseDrawer>
+    </Dialog>
   );
 }

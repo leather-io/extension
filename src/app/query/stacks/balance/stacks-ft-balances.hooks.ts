@@ -7,6 +7,7 @@ import type { StacksFungibleTokenAssetBalance } from '@shared/models/crypto-asse
 
 import { formatContractId } from '@app/common/utils';
 import { useToast } from '@app/features/toasts/use-toast';
+import { useAlexSdKCurrencyPriceAsMoney } from '@app/query/common/alex-sdk/alex-sdk.hooks';
 import { useCurrentStacksAccount } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
 
 import { useGetFungibleTokenMetadataListQuery } from '../tokens/fungible-tokens/fungible-token-metadata.query';
@@ -35,6 +36,7 @@ function useStacksFungibleTokenAssetBalances(address: string) {
 
 export function useStacksFungibleTokenAssetBalancesWithMetadata(address: string) {
   const { data: initializedAssetBalances = [] } = useStacksFungibleTokenAssetBalances(address);
+  const priceAsMoney = useAlexSdKCurrencyPriceAsMoney();
 
   const ftAssetsMetadata = useGetFungibleTokenMetadataListQuery(
     initializedAssetBalances.map(assetBalance =>
@@ -49,7 +51,10 @@ export function useStacksFungibleTokenAssetBalancesWithMetadata(address: string)
         if (!(metadata && isFtAsset(metadata))) return assetBalance;
         return addQueriedMetadataToInitializedStacksFungibleTokenAssetBalance(
           assetBalance,
-          metadata
+          metadata,
+          priceAsMoney(
+            formatContractId(assetBalance.asset.contractAddress, assetBalance.asset.contractName)
+          )
         );
       }),
     // eslint-disable-next-line react-hooks/exhaustive-deps

@@ -1,6 +1,6 @@
 export enum SwapSelectors {
-  ChooseAssetList = 'choose-asset-list',
-  ChooseAssetListItem = 'choose-asset-list-item',
+  SwapAssetList = 'swap-asset-list',
+  SwapAssetListItem = 'swap-asset-list-item',
   SelectAssetTriggerBtn = 'select-asset-trigger-btn',
   SwapAmountInput = 'swap-amount-input',
   SwapBtn = 'swap-btn',

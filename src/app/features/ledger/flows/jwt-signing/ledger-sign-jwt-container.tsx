@@ -7,7 +7,7 @@ import get from 'lodash.get';
 
 import { finalizeAuthResponse } from '@shared/actions/finalize-auth-response';
 import { logger } from '@shared/logger';
-import { isError } from '@shared/utils';
+import { delay, isError } from '@shared/utils';
 
 import { useGetLegacyAuthBitcoinAddresses } from '@app/common/authentication/use-legacy-auth-bitcoin-addresses';
 import { useOnboardingState } from '@app/common/hooks/auth/use-onboarding-state';
@@ -15,8 +15,6 @@ import { useDefaultRequestParams } from '@app/common/hooks/use-default-request-s
 import { useKeyActions } from '@app/common/hooks/use-key-actions';
 import { useScrollLock } from '@app/common/hooks/use-scroll-lock';
 import { makeLedgerCompatibleUnsignedAuthResponsePayload } from '@app/common/unsafe-auth-response';
-import { delay } from '@app/common/utils';
-import { BaseDrawer } from '@app/components/drawer/base-drawer';
 import {
   getStacksAppVersion,
   prepareLedgerDeviceStacksAppConnection,
@@ -26,6 +24,8 @@ import {
   useCurrentStacksAccount,
   useStacksAccounts,
 } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
+import { Dialog } from '@app/ui/components/containers/dialog/dialog';
+import { Header } from '@app/ui/components/containers/headers/header';
 
 import { useLedgerNavigate } from '../../hooks/use-ledger-navigate';
 import { checkLockedDeviceError, useLedgerResponseState } from '../../utils/generic-ledger-utils';
@@ -180,15 +180,18 @@ export function LedgerSignJwtContainer() {
 
   return (
     <LedgerJwtSigningProvider value={ledgerContextValue}>
-      <BaseDrawer
+      <Dialog
         isShowing
-        isWaitingOnPerformedAction={awaitingDeviceConnection || canUserCancelAction}
+        header={
+          <Header
+            variant="dialog"
+            isWaitingOnPerformedAction={awaitingDeviceConnection || canUserCancelAction}
+          />
+        }
         onClose={onCancelConnectLedger}
-        pauseOnClickOutside
-        waitingOnPerformedActionMessage="Ledger device in use"
       >
         <Outlet />
-      </BaseDrawer>
+      </Dialog>
     </LedgerJwtSigningProvider>
   );
 }

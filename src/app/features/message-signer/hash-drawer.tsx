@@ -16,6 +16,7 @@ function ShowHashButton(props: ShowHashButtonProps) {
 interface HashDrawerProps {
   hash: string;
 }
+
 export function HashDrawer(props: HashDrawerProps) {
   const { hash } = props;
   const [showHash, setShowHash] = useState(false);
@@ -35,7 +36,7 @@ export function HashDrawer(props: HashDrawerProps) {
         <styled.span py="space.02" textStyle="caption.01">
           {showHash ? 'Hide hash' : 'Show hash'}
         </styled.span>
-        <Box marginBottom="auto" marginLeft="auto" marginTop="auto">
+        <Box mb="auto" marginLeft="auto" mt="auto">
           <ShowHashButton expanded={showHash} />
         </Box>
       </styled.button>
@@ -48,7 +49,7 @@ export function HashDrawer(props: HashDrawerProps) {
           color="ink.text-subdued"
           lineHeight="1.6"
           wordBreak="break-all"
-          textStyle="caption.02"
+          textStyle="caption.01"
         >
           {displayHash}
         </styled.span>

@@ -1,5 +1,6 @@
 import { Locator, Page } from '@playwright/test';
 import { HomePageSelectors } from '@tests/selectors/home.selectors';
+import { NetworkSelectors } from '@tests/selectors/network.selectors';
 import { SettingsSelectors } from '@tests/selectors/settings.selectors';
 import { SharedComponentsSelectors } from '@tests/selectors/shared-component.selectors';
 import { createTestSelector } from '@tests/utils';
@@ -8,7 +9,7 @@ import { WalletDefaultNetworkConfigurationIds } from '@shared/constants';
 
 export class HomePage {
   readonly page: Page;
-  readonly drawerActionButton: Locator;
+  readonly headerActionButton: Locator;
   readonly receiveButton: Locator;
   readonly sendButton: Locator;
   readonly swapButton: Locator;
@@ -21,10 +22,6 @@ export class HomePage {
   readonly lockSettingsListItem: Locator;
   readonly fundAccountBtn: Locator;
 
-  readonly testNetworkSelector: string = createTestSelector(
-    WalletDefaultNetworkConfigurationIds.testnet
-  );
-
   $signOutConfirmHasBackupCheckbox = createTestSelector(
     SettingsSelectors.SignOutConfirmHasBackupCheckbox
   );
@@ -35,7 +32,7 @@ export class HomePage {
 
   constructor(page: Page) {
     this.page = page;
-    this.drawerActionButton = page.getByTestId(HomePageSelectors.DrawerHeaderActionBtn);
+    this.headerActionButton = page.getByTestId(SharedComponentsSelectors.HeaderBackBtn);
     this.receiveButton = page.getByTestId(HomePageSelectors.ReceiveCryptoAssetBtn);
     this.sendButton = page.getByTestId(HomePageSelectors.SendCryptoAssetBtn);
     this.swapButton = page.getByTestId(HomePageSelectors.SwapBtn);
@@ -55,7 +52,7 @@ export class HomePage {
     this.fundAccountBtn = page.getByTestId(HomePageSelectors.FundAccountBtn);
   }
 
-  async goToReceiveModal() {
+  async goToReceiveDialog() {
     await this.page.getByTestId(HomePageSelectors.ReceiveCryptoAssetBtn).click();
   }
 
@@ -69,7 +66,7 @@ export class HomePage {
   // https://github.com/microsoft/playwright/issues/12168
   // Using the `Receive` route to get the account address for now.
   async getReceiveNativeSegwitAddress() {
-    await this.goToReceiveModal();
+    await this.goToReceiveDialog();
     await this.page.getByTestId(HomePageSelectors.ReceiveBtcNativeSegwitQrCodeBtn).click();
     const displayerAddress = await this.page
       .getByTestId(SharedComponentsSelectors.AddressDisplayer)
@@ -79,14 +76,21 @@ export class HomePage {
 
   // Currently under Ordinals receive flow
   async getReceiveTaprootAddress() {
-    await this.goToReceiveModal();
+    await this.goToReceiveDialog();
+    await this.page.getByTestId(HomePageSelectors.ReceiveCollectiblesTab).click();
     await this.page.getByTestId(HomePageSelectors.ReceiveBtcTaprootQrCodeBtn).click();
-    await this.page.getByRole('button', { name: 'Copy address' }).click();
-    return this.page.evaluate('navigator.clipboard.readText()');
+    // FIXME - add better test for Copy action
+    // await this.page.getByRole('button', { name: 'Copy address' }).click();
+    // const address = await this.page.evaluate('navigator.clipboard.readText()');
+    // return address;
+    const displayerAddress = await this.page
+      .getByTestId(SharedComponentsSelectors.AddressDisplayer)
+      .innerText();
+    return displayerAddress.replaceAll('\n', '');
   }
 
   async getReceiveStxAddress() {
-    await this.goToReceiveModal();
+    await this.goToReceiveDialog();
     // In Ledger mode, this element isn't visible, so clicking is conditional
     const qrCodeBtn = this.page.getByTestId(HomePageSelectors.ReceiveStxQrCodeBtn);
     if (await qrCodeBtn.isVisible()) await qrCodeBtn.click();
@@ -96,10 +100,15 @@ export class HomePage {
     return displayerAddress.replaceAll('\n', '');
   }
 
-  async enableTestMode() {
+  async selectTestNet() {
     await this.page.getByTestId(SettingsSelectors.SettingsMenuBtn).click();
     await this.page.getByTestId(SettingsSelectors.ChangeNetworkAction).click();
+    await this.page
+      .getByTestId(WalletDefaultNetworkConfigurationIds.testnet)
+      .click({ force: true });
+    await this.page.getByTestId(NetworkSelectors.NetworkListActiveNetwork).isVisible();
 
+    await this.page.waitForTimeout(1000);
     await this.page.getByTestId(WalletDefaultNetworkConfigurationIds.testnet).click();
   }
 

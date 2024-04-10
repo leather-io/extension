@@ -27,6 +27,7 @@ function ContractCallDetailsSuspense() {
       py="32px"
       gap="space.05"
       width="100%"
+      background="ink.background-primary"
     >
       <Title>Function and arguments</Title>
 

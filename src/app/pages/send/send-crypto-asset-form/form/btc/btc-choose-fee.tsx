@@ -4,10 +4,8 @@ import { BtcFeeType } from '@shared/models/fees/bitcoin-fees.model';
 import { BitcoinSendFormValues } from '@shared/models/form.model';
 
 import { useLocationStateWithCache } from '@app/common/hooks/use-location-state';
-import { useRouteHeader } from '@app/common/hooks/use-route-header';
 import { BitcoinFeesList } from '@app/components/bitcoin-fees-list/bitcoin-fees-list';
 import { useBitcoinFeesList } from '@app/components/bitcoin-fees-list/use-bitcoin-fees-list';
-import { ModalHeader } from '@app/components/modal-header';
 import { BitcoinChooseFee } from '@app/features/bitcoin-choose-fee/bitcoin-choose-fee';
 import { useValidateBitcoinSpend } from '@app/features/bitcoin-choose-fee/hooks/use-validate-bitcoin-spend';
 import { UtxoResponseItem } from '@app/query/bitcoin/bitcoin-client';
@@ -26,7 +24,7 @@ export function useBtcChooseFeeState() {
 export function BtcChooseFee() {
   const { isSendingMax, txValues, utxos } = useBtcChooseFeeState();
   const { selectedFeeType, setSelectedFeeType } = useSendBitcoinAssetContextState();
-  const { amountAsMoney, onGoBack, previewTransaction } = useBtcChooseFee();
+  const { amountAsMoney, previewTransaction } = useBtcChooseFee();
 
   const { feesList, isLoading } = useBitcoinFeesList({
     amount: amountAsMoney,
@@ -40,8 +38,6 @@ export function BtcChooseFee() {
     amountAsMoney,
     isSendingMax
   );
-
-  useRouteHeader(<ModalHeader hideActions onGoBack={onGoBack} title="Choose fee" />);
 
   return (
     <>

@@ -7,7 +7,7 @@ import type {
   StacksCryptoCurrencyAssetBalance,
   StacksFungibleTokenAssetBalance,
 } from '@shared/models/crypto-asset-balance.model';
-import { createMoney } from '@shared/models/money.model';
+import { type Money, createMoney } from '@shared/models/money.model';
 
 import { isTransferableStacksFungibleTokenAsset } from '@app/common/crypto-assets/stacks-crypto-asset.utils';
 import { getAssetStringParts } from '@app/ui/utils/get-asset-string-parts';
@@ -47,6 +47,7 @@ export function createStacksFtCryptoAssetBalanceTypeWrapper(
       hasMemo: false,
       imageCanonicalUri: '',
       name: '',
+      price: null,
       symbol: '',
     },
   };
@@ -68,7 +69,8 @@ export function convertFtBalancesToStacksFungibleTokenAssetBalanceType(
 
 export function addQueriedMetadataToInitializedStacksFungibleTokenAssetBalance(
   assetBalance: StacksFungibleTokenAssetBalance,
-  metadata: FtMetadataResponse
+  metadata: FtMetadataResponse,
+  price: Money | null
 ) {
   return {
     ...assetBalance,
@@ -84,6 +86,7 @@ export function addQueriedMetadataToInitializedStacksFungibleTokenAssetBalance(
       hasMemo: isTransferableStacksFungibleTokenAsset(assetBalance.asset),
       imageCanonicalUri: metadata.image_canonical_uri ?? '',
       name: metadata.name ?? '',
+      price,
       symbol: metadata.symbol ?? '',
     },
   };

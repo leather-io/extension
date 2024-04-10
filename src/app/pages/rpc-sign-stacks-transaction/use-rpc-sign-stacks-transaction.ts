@@ -10,6 +10,7 @@ import { closeWindow } from '@shared/utils';
 
 import { useDefaultRequestParams } from '@app/common/hooks/use-default-request-search-params';
 import { useRejectIfLedgerWallet } from '@app/common/rpc-helpers';
+import { getTxSenderAddress } from '@app/common/transactions/stacks/transaction.utils';
 import { useSignStacksTransaction } from '@app/store/transactions/transaction.hooks';
 
 function useRpcSignStacksTransactionParams() {
@@ -30,13 +31,14 @@ function useRpcSignStacksTransactionParams() {
       requestId,
       isMultisig: isMultisig === 'true',
       stacksTransaction: deserializeTransaction(txHex),
+      txSender: getTxSenderAddress(deserializeTransaction(txHex)) ?? '',
     }),
     [origin, txHex, requestId, isMultisig, tabId]
   );
 }
 
 export function useRpcSignStacksTransaction() {
-  const { origin, requestId, tabId, stacksTransaction, isMultisig } =
+  const { origin, requestId, tabId, stacksTransaction, isMultisig, txSender } =
     useRpcSignStacksTransactionParams();
   const signStacksTx = useSignStacksTransaction();
   const wasSignedByOtherOwners =
@@ -49,6 +51,7 @@ export function useRpcSignStacksTransaction() {
     disableNonceSelection: wasSignedByOtherOwners,
     stacksTransaction,
     isMultisig,
+    txSender,
     async onSignStacksTransaction(fee: number, nonce: number) {
       stacksTransaction.setFee(fee);
       stacksTransaction.setNonce(nonce);

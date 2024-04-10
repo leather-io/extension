@@ -2,6 +2,7 @@ import { styled } from 'leather-styles/jsx';
 
 import { StacksFungibleTokenAssetBalance } from '@shared/models/crypto-asset-balance.model';
 
+import { useAlexSdkBalanceAsFiat } from '@app/common/hooks/use-alex-sdk';
 import { StacksAssetAvatar } from '@app/components/crypto-assets/stacks/components/stacks-asset-avatar';
 import { ItemLayout } from '@app/ui/components/item-layout/item-layout';
 import { BasicTooltip } from '@app/ui/components/tooltip/basic-tooltip';
@@ -17,6 +18,7 @@ export function StacksFungibleTokenAssetItemLayout({
   assetBalance,
   onClick,
 }: StacksFungibleTokenAssetItemLayoutProps) {
+  const balanceAsFiat = useAlexSdkBalanceAsFiat(assetBalance.balance, assetBalance.asset.price);
   const { amount, avatar, caption, dataTestId, formattedBalance, imageCanonicalUri, title } =
     parseStacksFungibleTokenAssetBalance(assetBalance);
 
@@ -40,11 +42,12 @@ export function StacksFungibleTokenAssetItemLayout({
             label={formattedBalance.isAbbreviated ? amount : undefined}
             side="left"
           >
-            <styled.span data-testid={title} fontWeight={500} textStyle="label.02">
+            <styled.span data-testid={title} textStyle="label.02">
               {formattedBalance.value}
             </styled.span>
           </BasicTooltip>
         }
+        captionRight={balanceAsFiat}
       />
     </Pressable>
   );

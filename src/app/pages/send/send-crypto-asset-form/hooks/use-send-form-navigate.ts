@@ -1,5 +1,5 @@
 import { useMemo } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 import { bytesToHex } from '@stacks/common';
 import { StacksTransaction } from '@stacks/transactions';
@@ -14,7 +14,6 @@ interface ConfirmationRouteState {
   decimals?: number;
   token?: string;
   tx: string;
-  hasHeaderTitle?: boolean;
 }
 
 interface ConfirmationRouteStacksSip10Args {
@@ -33,6 +32,7 @@ interface ConfirmationRouteBtcArgs {
 
 export function useSendFormNavigate() {
   const navigate = useNavigate();
+  const location = useLocation();
 
   return useMemo(
     () => ({
@@ -44,12 +44,12 @@ export function useSendFormNavigate() {
         utxos: UtxoResponseItem[],
         values: BitcoinSendFormValues
       ) {
-        return navigate('choose-fee', {
+        return navigate(RouteUrls.SendBtcChooseFee, {
+          replace: true,
           state: {
             isSendingMax,
             utxos,
             values,
-            hasHeaderTitle: true,
           },
         });
       },
@@ -67,16 +67,14 @@ export function useSendFormNavigate() {
             fee,
             feeRowValue,
             time,
-            hasHeaderTitle: true,
           } as ConfirmationRouteState,
         });
       },
       toConfirmAndSignStxTransaction(tx: StacksTransaction, showFeeChangeWarning: boolean) {
-        return navigate('confirm', {
+        return navigate(RouteUrls.SendStxConfirmation, {
           replace: true,
           state: {
             tx: bytesToHex(tx.serialize()),
-            hasHeaderTitle: true,
             showFeeChangeWarning,
           } as ConfirmationRouteState,
         });
@@ -86,8 +84,7 @@ export function useSendFormNavigate() {
         name,
         tx,
       }: ConfirmationRouteStacksSip10Args) {
-        return navigate('confirm', {
-          replace: true,
+        return navigate(`${location.pathname}/confirm`, {
           state: {
             decimals,
             token: name,
@@ -106,6 +103,6 @@ export function useSendFormNavigate() {
         });
       },
     }),
-    [navigate]
+    [navigate, location]
   );
 }

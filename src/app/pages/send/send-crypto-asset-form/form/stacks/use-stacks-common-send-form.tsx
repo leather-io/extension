@@ -8,7 +8,6 @@ import { Money } from '@shared/models/money.model';
 import { isEmpty } from '@shared/utils';
 
 import { FormErrorMessages } from '@app/common/error-messages';
-import { useDrawers } from '@app/common/hooks/use-drawers';
 import { stxMemoValidator } from '@app/common/validation/forms/memo-validators';
 import { stxRecipientValidator } from '@app/common/validation/forms/recipient-validators';
 import { nonceValidator } from '@app/common/validation/nonce-validators';
@@ -30,7 +29,6 @@ export function useStacksCommonSendForm({
 }: UseStacksCommonSendFormArgs) {
   const routeState = useSendFormRouteState();
   const { data: nextNonce } = useNextNonce();
-  const { isShowingHighFeeConfirmation, setIsShowingHighFeeConfirmation } = useDrawers();
   const currentAccountStxAddress = useCurrentAccountStxAddressState();
   const currentNetwork = useCurrentNetworkState();
 
@@ -44,19 +42,13 @@ export function useStacksCommonSendForm({
     symbol,
     ...routeState,
   });
-
   async function checkFormValidation(
     values: StacksSendFormValues,
     formikHelpers: FormikHelpers<StacksSendFormValues>
   ) {
     // Validate and check high fee warning first
     const formErrors = formikHelpers.validateForm();
-    if (
-      !isShowingHighFeeConfirmation &&
-      isEmpty(formErrors) &&
-      new BigNumber(values.fee).isGreaterThan(HIGH_FEE_AMOUNT_STX)
-    ) {
-      setIsShowingHighFeeConfirmation(true);
+    if (isEmpty(formErrors) && new BigNumber(values.fee).isGreaterThan(HIGH_FEE_AMOUNT_STX)) {
       return false;
     }
     return true;

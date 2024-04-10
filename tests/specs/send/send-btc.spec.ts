@@ -12,7 +12,7 @@ test.describe('send btc', () => {
   test.beforeEach(async ({ extensionId, globalPage, homePage, onboardingPage, sendPage }) => {
     await globalPage.setupAndUseApiCalls(extensionId);
     await onboardingPage.signInWithTestAccount(extensionId);
-    await homePage.enableTestMode();
+    await homePage.selectTestNet();
     await homePage.sendButton.click();
     await sendPage.selectBtcAndGoToSendForm();
     await sendPage.waitForSendPageReady();

@@ -1,4 +1,4 @@
-import { Outlet, useNavigate, useParams } from 'react-router-dom';
+import { Outlet, useParams } from 'react-router-dom';
 
 import { deserializeTransaction } from '@stacks/transactions';
 import { Box, Stack } from 'leather-styles/jsx';
@@ -6,8 +6,6 @@ import { Box, Stack } from 'leather-styles/jsx';
 import { CryptoCurrencies } from '@shared/models/currencies.model';
 
 import { useLocationStateWithCache } from '@app/common/hooks/use-location-state';
-import { useRouteHeader } from '@app/common/hooks/use-route-header';
-import { ModalHeader } from '@app/components/modal-header';
 import { useStacksBroadcastTransaction } from '@app/features/stacks-transaction-request/hooks/use-stacks-broadcast-transaction';
 import { useStacksTransactionSummary } from '@app/features/stacks-transaction-request/hooks/use-stacks-transaction-summary';
 import { BasicTooltip } from '@app/ui/components/tooltip/basic-tooltip';
@@ -26,7 +24,6 @@ function useStacksSendFormConfirmationState() {
 export function StacksSendFormConfirmation() {
   const { tx, decimals, showFeeChangeWarning } = useStacksSendFormConfirmationState();
   const { symbol = 'STX' } = useParams();
-  const navigate = useNavigate();
 
   const { stacksBroadcastTransaction, isBroadcasting } = useStacksBroadcastTransaction(
     symbol.toUpperCase() as CryptoCurrencies,
@@ -50,15 +47,6 @@ export function StacksSendFormConfirmation() {
     nonce,
     memoDisplayText,
   } = formReviewTxSummary(stacksDeserializedTransaction, symbol, decimals);
-
-  useRouteHeader(
-    <ModalHeader
-      hideActions
-      defaultClose
-      onGoBack={() => navigate('../', { relative: 'path', replace: true })}
-      title="Review"
-    />
-  );
 
   const feeWarningTooltip = showFeeChangeWarning ? (
     <BasicTooltip

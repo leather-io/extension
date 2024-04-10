@@ -1,3 +1,5 @@
+import type { Money } from './money.model';
+
 export interface BitcoinCryptoCurrencyAsset {
   decimals: number;
   hasMemo: boolean;
@@ -22,6 +24,7 @@ export interface StacksFungibleTokenAsset {
   hasMemo: boolean;
   imageCanonicalUri: string;
   name: string;
+  price: Money | null;
   symbol: string;
 }
 

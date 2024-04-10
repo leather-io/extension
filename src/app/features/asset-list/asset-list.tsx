@@ -6,7 +6,6 @@ import { Stack } from 'leather-styles/jsx';
 import { useBtcAssetBalance } from '@app/common/hooks/balance/btc/use-btc-balance';
 import { useWalletType } from '@app/common/use-wallet-type';
 import { BitcoinContractEntryPoint } from '@app/components/bitcoin-contract-entry-point/bitcoin-contract-entry-point';
-import { Brc20TokensLoader } from '@app/components/brc20-tokens-loader';
 import { CryptoCurrencyAssetItemLayout } from '@app/components/crypto-assets/crypto-currency-asset/crypto-currency-asset-item.layout';
 import { CurrentStacksAccountLoader } from '@app/components/loaders/stacks-account-loader';
 import { useHasBitcoinLedgerKeychain } from '@app/store/accounts/blockchain/bitcoin/bitcoin.ledger';
@@ -27,12 +26,13 @@ export function AssetsList() {
   const btcAddress = useCurrentAccountNativeSegwitAddressIndexZero();
   const network = useCurrentNetwork();
 
-  const { btcAvailableAssetBalance, btcAvailableUsdBalance } = useBtcAssetBalance(btcAddress);
+  const { btcAvailableAssetBalance, btcAvailableUsdBalance, isInitialLoading } =
+    useBtcAssetBalance(btcAddress);
 
   const { whenWallet } = useWalletType();
 
   return (
-    <Stack data-testid={HomePageSelectors.BalancesList} pb="space.06">
+    <Stack data-testid={HomePageSelectors.BalancesList}>
       {whenWallet({
         software: (
           <CryptoCurrencyAssetItemLayout
@@ -40,6 +40,7 @@ export function AssetsList() {
             usdBalance={btcAvailableUsdBalance}
             icon={<BtcAvatarIcon />}
             address={btcAddress}
+            isLoading={isInitialLoading}
           />
         ),
         ledger: (
@@ -48,6 +49,7 @@ export function AssetsList() {
             usdBalance={btcAvailableUsdBalance}
             icon={<BtcAvatarIcon />}
             address={btcAddress}
+            isLoading={isInitialLoading}
             rightElement={
               hasBitcoinLedgerKeys ? undefined : <ConnectLedgerAssetBtn chain="bitcoin" />
             }
@@ -72,11 +74,7 @@ export function AssetsList() {
       </CurrentStacksAccountLoader>
 
       {whenWallet({
-        software: (
-          <Brc20TokensLoader>
-            {brc20Tokens => <BitcoinFungibleTokenAssetList brc20Tokens={brc20Tokens} />}
-          </Brc20TokensLoader>
-        ),
+        software: <BitcoinFungibleTokenAssetList btcAddress={btcAddress} />,
         ledger: null,
       })}
 

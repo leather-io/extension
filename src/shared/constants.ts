@@ -4,9 +4,6 @@ import { Blockchains } from './models/blockchain.model';
 
 export const gaiaUrl = 'https://hub.blockstack.org';
 
-export const POPUP_CENTER_WIDTH = 442;
-export const POPUP_CENTER_HEIGHT = 646;
-
 export const HIGH_FEE_AMOUNT_STX = 5;
 export const HIGH_FEE_WARNING_LEARN_MORE_URL_BTC = 'https://bitcoinfees.earn.com/';
 export const HIGH_FEE_WARNING_LEARN_MORE_URL_STX = 'https://hiro.so/questions/fee-estimates';
@@ -17,6 +14,8 @@ export const PERSISTENCE_CACHE_TIME = 1000 * 60 * 60 * 12; // 12 hours
 
 export const BTC_DECIMALS = 8;
 export const STX_DECIMALS = 6;
+
+export const ZERO_INDEX = 0;
 
 // https://bitcoin.stackexchange.com/a/41082/139277
 export const BTC_P2WPKH_DUST_AMOUNT = 294;

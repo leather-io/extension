@@ -1,14 +1,17 @@
-import { BitcoinAccount } from '@shared/crypto/bitcoin/bitcoin.utils';
+import type { P2Ret, P2TROut } from '@scure/btc-signer';
 
-import { useCurrentNativeSegwitAccount } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
-import { useCurrentTaprootAccount } from '@app/store/accounts/blockchain/bitcoin/taproot-account.hooks';
+import { ZERO_INDEX } from '@shared/constants';
 
-interface CurrentBitcoinAccountLoaderProps {
-  children(data: { nativeSegwit: BitcoinAccount; taproot: BitcoinAccount }): React.ReactNode;
+import type { Signer } from '@app/store/accounts/blockchain/bitcoin/bitcoin-signer';
+import { useCurrentAccountNativeSegwitSigner } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
+import { useCurrentAccountTaprootSigner } from '@app/store/accounts/blockchain/bitcoin/taproot-account.hooks';
+
+interface CurrentBitcoinSignerLoaderProps {
+  children(data: { nativeSegwit: Signer<P2Ret>; taproot: Signer<P2TROut> }): React.ReactNode;
 }
-export function CurrentBitcoinAccountLoader({ children }: CurrentBitcoinAccountLoaderProps) {
-  const nativeSegwit = useCurrentNativeSegwitAccount();
-  const taproot = useCurrentTaprootAccount();
+export function CurrentBitcoinSignerLoader({ children }: CurrentBitcoinSignerLoaderProps) {
+  const nativeSegwit = useCurrentAccountNativeSegwitSigner()?.(ZERO_INDEX);
+  const taproot = useCurrentAccountTaprootSigner()?.(ZERO_INDEX);
   if (!taproot || !nativeSegwit) return null;
   return children({ nativeSegwit, taproot });
 }

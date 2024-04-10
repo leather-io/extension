@@ -8,7 +8,11 @@ import { useCryptoCurrencyMarketData } from '@app/query/common/market-data/marke
 
 export function useBtcAssetBalance(btcAddress: string) {
   const btcMarketData = useCryptoCurrencyMarketData('BTC');
-  const btcAssetBalance = useNativeSegwitBalance(btcAddress);
+  const {
+    btcBalance: btcAssetBalance,
+    isLoading,
+    isInitialLoading,
+  } = useNativeSegwitBalance(btcAddress);
 
   return useMemo(
     () => ({
@@ -23,7 +27,9 @@ export function useBtcAssetBalance(btcAddress: string) {
       btcAvailableUsdBalance: i18nFormatCurrency(
         baseCurrencyAmountInQuote(btcAssetBalance.balance, btcMarketData)
       ),
+      isLoading,
+      isInitialLoading,
     }),
-    [btcAddress, btcAssetBalance, btcMarketData]
+    [btcAddress, btcAssetBalance, btcMarketData, isLoading, isInitialLoading]
   );
 }

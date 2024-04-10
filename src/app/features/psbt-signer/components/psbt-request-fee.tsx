@@ -17,7 +17,7 @@ export function PsbtRequestFee(props: { fee: Money }) {
         <styled.span textStyle="label.01">Transaction fee</styled.span>
         <Stack alignItems="flex-end" gap="space.01">
           <styled.span textStyle="label.01">{formatMoney(fee)}</styled.span>
-          <styled.span textStyle="caption.02">
+          <styled.span textStyle="caption.01">
             {i18nFormatCurrency(calculateBitcoinFiatValue(fee))}
           </styled.span>
         </Stack>

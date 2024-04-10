@@ -7,5 +7,5 @@ export function useBrc20Tokens() {
     .filter(token => token.length > 0)
     .flatMap(token => token);
 
-  return brc20Tokens;
+  return brc20Tokens ?? [];
 }

@@ -1,3 +1,7 @@
+import { ChainID } from '@stacks/transactions';
+
+import type { NetworkModes } from '@shared/constants';
+
 export const stxDerivationWithAccount = `m/44'/5757'/0'/0/{account}`;
 const stxIdentityDerivationWithAccount = `m/888'/0'/{account}'`;
 
@@ -11,3 +15,18 @@ export const getStxDerivationPath =
 export const getIdentityDerivationPath = getAccountIndexFromDerivationPathFactory(
   stxIdentityDerivationWithAccount
 );
+
+export function stacksChainIdToCoreNetworkMode(chainId: ChainID): NetworkModes {
+  return whenStacksChainId(chainId)({
+    [ChainID.Mainnet]: 'mainnet',
+    [ChainID.Testnet]: 'testnet',
+  });
+}
+
+interface WhenStacksChainIdMap<T> {
+  [ChainID.Mainnet]: T;
+  [ChainID.Testnet]: T;
+}
+export function whenStacksChainId(chainId: ChainID) {
+  return <T>(chainIdMap: WhenStacksChainIdMap<T>): T => chainIdMap[chainId];
+}
