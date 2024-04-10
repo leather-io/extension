@@ -26,7 +26,7 @@ jobs:
 
       - name: Extract version
         id: extract_version
-        uses: Saionaro/extract-package-version@v1.1.1
+        uses: Saionaro/extract-package-version@v1.2.1
 
       - name: Print version
         run: echo ${{ steps.extract_version.outputs.version }}
@@ -121,7 +121,7 @@ jobs:
           path: .
 
       - name: Download release-notes.txt from create-version workflow
-        uses: dawidd6/action-download-artifact@v2
+        uses: dawidd6/action-download-artifact@v3
         with:
           workflow: create-version.yml
           name: release-notes
