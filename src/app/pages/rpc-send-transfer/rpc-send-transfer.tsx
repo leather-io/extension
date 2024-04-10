@@ -14,20 +14,17 @@ import { useRpcSendTransfer } from './use-rpc-send-transfer';
 
 export function RpcSendTransfer() {
   const nativeSegwitSigner = useCurrentAccountNativeSegwitIndexZeroSigner();
-  const { address, amount, onChooseTransferFee, origin } = useRpcSendTransfer();
-  const amountAsMoney = createMoney(new BigNumber(amount), 'BTC');
+  const { recipients, recipientAddresses, totalAmount, onChooseTransferFee, origin } =
+    useRpcSendTransfer();
+  const amountAsMoney = createMoney(new BigNumber(totalAmount), 'BTC');
   const formattedMoney = formatMoneyPadded(amountAsMoney);
 
-  useBreakOnNonCompliantEntity(address);
+  useBreakOnNonCompliantEntity(recipientAddresses);
 
   return (
     <>
       <SendTransferHeader amount={formattedMoney} origin={origin} />
-      <SendTransferDetails
-        address={address}
-        amount={formattedMoney}
-        currentAddress={nativeSegwitSigner.address}
-      />
+      <SendTransferDetails recipients={recipients} currentAddress={nativeSegwitSigner.address} />
       <InfoCardFooter>
         <Button borderRadius="sm" flexGrow={1} onClick={onChooseTransferFee}>
           Continue

@@ -1,12 +1,16 @@
-import { RpcErrorCode, SendTransferRequest } from '@btckit/types';
+import { RpcErrorCode, type RpcRequest, type SendTransferRequestParams } from '@btckit/types';
 
 import { RouteUrls } from '@shared/route-urls';
 import {
+  type RpcSendTransferParams,
+  type RpcSendTransferParamsLegacy,
+  convertRpcSendTransferLegacyParamsToNew,
   getRpcSendTransferParamErrors,
+  validateRpcSendTransferLegacyParams,
   validateRpcSendTransferParams,
 } from '@shared/rpc/methods/send-transfer';
 import { makeRpcErrorResponse } from '@shared/rpc/rpc-methods';
-import { isDefined, isUndefined } from '@shared/utils';
+import { isUndefined } from '@shared/utils';
 
 import {
   RequestParams,
@@ -16,7 +20,10 @@ import {
   triggerRequestWindowOpen,
 } from '../messaging-utils';
 
-export async function rpcSendTransfer(message: SendTransferRequest, port: chrome.runtime.Port) {
+export async function rpcSendTransfer(
+  message: RpcRequest<'sendTransfer', RpcSendTransferParams | SendTransferRequestParams>,
+  port: chrome.runtime.Port
+) {
   if (isUndefined(message.params)) {
     chrome.tabs.sendMessage(
       getTabIdFromPort(port),
@@ -28,29 +35,40 @@ export async function rpcSendTransfer(message: SendTransferRequest, port: chrome
     return;
   }
 
-  if (!validateRpcSendTransferParams(message.params)) {
+  // Legacy params support for backward compatibility
+  const params = validateRpcSendTransferLegacyParams(message.params)
+    ? convertRpcSendTransferLegacyParamsToNew(message.params as RpcSendTransferParamsLegacy)
+    : (message.params as RpcSendTransferParams);
+
+  if (!validateRpcSendTransferParams(params)) {
     chrome.tabs.sendMessage(
       getTabIdFromPort(port),
       makeRpcErrorResponse('sendTransfer', {
         id: message.id,
         error: {
           code: RpcErrorCode.INVALID_PARAMS,
-          message: getRpcSendTransferParamErrors(message.params),
+          message: getRpcSendTransferParamErrors(params),
         },
       })
     );
     return;
   }
 
+  const recipients: [string, string][] = params.recipients.map(({ address }) => [
+    'recipient',
+    address,
+  ]);
+  const amounts: [string, string][] = params.recipients.map(({ amount }) => ['amount', amount]);
+
   const requestParams: RequestParams = [
-    ['address', message.params.address],
-    ['amount', message.params.amount],
-    ['network', (message.params as any).network ?? 'mainnet'],
+    ...recipients,
+    ...amounts,
+    ['network', params.network ?? 'mainnet'],
     ['requestId', message.id],
   ];
 
-  if (isDefined((message.params as any).account)) {
-    requestParams.push(['accountIndex', (message.params as any).account.toString()]);
+  if (params.account) {
+    requestParams.push(['accountIndex', params.account.toString()]);
   }
 
   const { urlParams, tabId } = makeSearchParamsWithDefaults(port, requestParams);
