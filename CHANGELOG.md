@@ -1,3 +1,49 @@
+## [6.33.0](https://github.com/leather-wallet/extension/compare/v6.32.1...v6.33.0) (2024-04-10)
+
+
+### Features
+
+* add balances shimmer loader, closes [#5119](https://github.com/leather-wallet/extension/issues/5119) ([5c1c284](https://github.com/leather-wallet/extension/commit/5c1c284074c2211e75d1c2f2054de488918126e2))
+* add src-20 token balances, closes [#3751](https://github.com/leather-wallet/extension/issues/3751) ([fb859b6](https://github.com/leather-wallet/extension/commit/fb859b6ecb830af1455a344a22b3884dac9de82b))
+* add stacks balance loader ([20418ab](https://github.com/leather-wallet/extension/commit/20418ababa5e8db8a8c8b82f30c19eb10d2864b4))
+* change query persister to chrome storage, closes [#5153](https://github.com/leather-wallet/extension/issues/5153) ([1cd2625](https://github.com/leather-wallet/extension/commit/1cd26250dde7b46146e5da48fbe355e682b8c966))
+* compliance checks ([6df0869](https://github.com/leather-wallet/extension/commit/6df086937edabb6993ee5c16de9a85c198c79480))
+* stacks ft fiat values from alex-sdk, closes [#4653](https://github.com/leather-wallet/extension/issues/4653) ([0f7e44e](https://github.com/leather-wallet/extension/commit/0f7e44e730169a9de489f4a7e120106c87c3def4))
+* support multiple recipients in rpc send transfer method, closes [#5174](https://github.com/leather-wallet/extension/issues/5174) ([a470a57](https://github.com/leather-wallet/extension/commit/a470a5757c081f54f40cb7fc3c7f5ab2c375701e))
+
+
+### Bug Fixes
+
+* add border to onboarding form ([a6bda2d](https://github.com/leather-wallet/extension/commit/a6bda2dd12afa0be0fc7d8c448819d5414f12cc5))
+* container when resized ([909fa0c](https://github.com/leather-wallet/extension/commit/909fa0c724dfa847370a6f1aac1e586d219745dd))
+* dependabot ([d927ec0](https://github.com/leather-wallet/extension/commit/d927ec02d8833c9404809c28b7d8be35bfb743f9))
+* deprecate InfoCard to add border correctly ([b6864cd](https://github.com/leather-wallet/extension/commit/b6864cd774057cfe03ef7150855de7258456ebb8))
+* fix routing issues with send flow ([f32151d](https://github.com/leather-wallet/extension/commit/f32151d272a970b61ff83116e4edfeeb0706ab53))
+* only show messages on homepage ([8228c11](https://github.com/leather-wallet/extension/commit/8228c11c558ff31eca3df0e8319902b66a9d66fc))
+* refetch brc20 tokens on window focus ([a985e0f](https://github.com/leather-wallet/extension/commit/a985e0f4da50713587a84a6ab0f2bdffc1b72c4e))
+* shimmer styles import ([868ee71](https://github.com/leather-wallet/extension/commit/868ee717a6e33e3a266bc0e0fee3d8f8cb52c2d3))
+* swap test ([85eb975](https://github.com/leather-wallet/extension/commit/85eb97595d93b95346ecf1f4680f05afb6b8465d))
+* swap toggle with new routing ([f179f3e](https://github.com/leather-wallet/extension/commit/f179f3ef8e702bc5640de883e64964297ac695ad))
+* use signed stacks account in transaction [#4923](https://github.com/leather-wallet/extension/issues/4923) ([6dca269](https://github.com/leather-wallet/extension/commit/6dca269b31dcd2ce63e093ea0c004ffe611c5220))
+
+
+### Internal
+
+* Add wallet user survey, adjust styling ([3c242cf](https://github.com/leather-wallet/extension/commit/3c242cfc08cf18d441a5de448589ef685c5c7407))
+* disable compliance check ([b4b1d11](https://github.com/leather-wallet/extension/commit/b4b1d11be05f3c56c7f0adc3d9c97a33c282384c))
+* fmt ([a937795](https://github.com/leather-wallet/extension/commit/a9377954f7b7bf077944a8471be4adee120889a0))
+* implement fix to limit amount of accounts rendered ([629ef97](https://github.com/leather-wallet/extension/commit/629ef9788c4d54b98cd59bb38f9ac8d4208cb49e))
+* post-release merge back ([3c9c0f8](https://github.com/leather-wallet/extension/commit/3c9c0f8cb9418398198ee406210c7fe91d84b2f5))
+* replace drawer dialog, containers and global header footers, onboarding, settings, ref [#4371](https://github.com/leather-wallet/extension/issues/4371) ([6262267](https://github.com/leather-wallet/extension/commit/6262267ff11fdeaa3f0d995fb5f286debcbbfd17))
+* swaps routes, closes [#4317](https://github.com/leather-wallet/extension/issues/4317) ([70c51a1](https://github.com/leather-wallet/extension/commit/70c51a1ad112d3c37811ae7fb4e469d700c41107))
+* ugprade dev packages ([4ed8326](https://github.com/leather-wallet/extension/commit/4ed8326507156f30eb9c87495ae5ca8d9d1090ca))
+* update express, ref [#5130](https://github.com/leather-wallet/extension/issues/5130) ([264bf8d](https://github.com/leather-wallet/extension/commit/264bf8db38d487b26a6c71661e4c2dc9495f405f))
+* update prettier package ([e75990f](https://github.com/leather-wallet/extension/commit/e75990fc1670667ecd36912be2a14af3242b00b5))
+* update stx avatar ([03fe093](https://github.com/leather-wallet/extension/commit/03fe0936d0f2d7af663f406f42da941400c27dd2))
+* update undici, ref [#4956](https://github.com/leather-wallet/extension/issues/4956) ([8019e0d](https://github.com/leather-wallet/extension/commit/8019e0d106bd11c174b02513db42dd0990fca4a8))
+* update webpack + axios, ref [#5090](https://github.com/leather-wallet/extension/issues/5090) ([77803f5](https://github.com/leather-wallet/extension/commit/77803f56ce4fd39bc0c13f0ef0e23da9277957f1))
+* upgrade redux toolkit, redux ([2eb8090](https://github.com/leather-wallet/extension/commit/2eb8090cd88b32ae8b3d4eb3bbee2b3f7bb75bd5))
+
 ## [6.32.1](https://github.com/leather-wallet/extension/compare/v6.32.0...v6.32.1) (2024-03-27)
 
 
