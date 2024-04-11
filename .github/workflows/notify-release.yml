@@ -43,7 +43,7 @@ jobs:
 
       - name: Firefox Discord notification - userx
         if: steps.firefox.outputs.is_new
-        uses: Ilshidur/action-discord@f1ed8844d9b33c17221fab0f36672cde39800eed
+        uses: Ilshidur/action-discord@08d9328877d6954120eef2b07abbc79249bb6210
         env:
           DISCORD_WEBHOOK: ${{ secrets.DISCORD_LEATHER_WEBHOOK }}
           DISCORD_USERNAME: Leather Team
@@ -105,7 +105,7 @@ jobs:
 
       - name: Chrome Discord notification - userx
         if: steps.chrome.outputs.is_new
-        uses: Ilshidur/action-discord@f1ed8844d9b33c17221fab0f36672cde39800eed
+        uses: Ilshidur/action-discord@08d9328877d6954120eef2b07abbc79249bb6210
         env:
           DISCORD_WEBHOOK: ${{ secrets.DISCORD_LEATHER_WEBHOOK }}
           DISCORD_USERNAME: Leather Team
