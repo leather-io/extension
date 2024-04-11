@@ -416,8 +416,8 @@ devDependencies:
     specifier: 8.0.1
     version: 8.0.1(react@18.2.0)
   '@storybook/addon-mdx-gfm':
-    specifier: 8.0.1
-    version: 8.0.1
+    specifier: 8.0.6
+    version: 8.0.6
   '@storybook/addon-onboarding':
     specifier: 8.0.1
     version: 8.0.1
@@ -7658,10 +7658,10 @@ packages:
       ts-dedent: 2.2.0
     dev: true
 
-  /@storybook/addon-mdx-gfm@8.0.1:
-    resolution: {integrity: sha512-1z7pBMVgBnriQeVgjJ8106gihGV7uaLCG2k54QUgXhmyIfb0wWMBE/RB6VhRjkH3vN9eOb+1xjup3MQO3QWahg==}
+  /@storybook/addon-mdx-gfm@8.0.6:
+    resolution: {integrity: sha512-MB3In50x7Jw/raxZ1R3PVUPUiU+w8tqlmspIoTH6eYb4GwdaTwOPOcOzMu8A1pbNFdWcB50j9t+sXHHvHe0jtg==}
     dependencies:
-      '@storybook/node-logger': 8.0.1
+      '@storybook/node-logger': 8.0.6
       remark-gfm: 4.0.0
       ts-dedent: 2.2.0
     transitivePeerDependencies:
@@ -8164,6 +8164,10 @@ packages:
 
   /@storybook/node-logger@8.0.1:
     resolution: {integrity: sha512-uYWKSz9NhLOe2O60sJ4UPT1nzvbH0oR/YjK+OP3B4BySa6e195xY/5Uhou4lEaPSNU/0XXaLHCYeXjqeBjZopA==}
+
+  /@storybook/node-logger@8.0.6:
+    resolution: {integrity: sha512-mDRJLVAuTWauO0mnrwajfJV/6zKBJVPp/9g0ULccE3Q+cuqNfUefqfCd17cZBlJHeRsdB9jy9tod48d4qzGEkQ==}
+    dev: true
 
   /@storybook/preset-react-webpack@8.0.1(@swc/core@1.4.8)(esbuild@0.20.2)(react-dom@18.2.0)(react@18.2.0)(typescript@5.4.3)(webpack-cli@5.1.4):
     resolution: {integrity: sha512-PqEKrNy2efVYuhDJXtq+eMvsGy7NUngec4AIaGwX2CRG8bJsAx9x6p8f2hmRwNn9fkhloPyM/+ryI31QW/ZgCA==}
@@ -22045,9 +22049,6 @@ packages:
   /sqlite3@5.1.6:
     resolution: {integrity: sha512-olYkWoKFVNSSSQNvxVUfjiVbz3YtBwTJj+mfV5zpHmqW3sELx2Cf4QCdirMelhM5Zh+KDVaKgQHqCxrqiWHybw==}
     requiresBuild: true
-    peerDependenciesMeta:
-      node-gyp:
-        optional: true
     dependencies:
       '@mapbox/node-pre-gyp': 1.0.11
       node-addon-api: 4.3.0
