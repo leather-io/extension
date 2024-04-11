@@ -9,8 +9,5 @@ updates:
     directory: '/'
     schedule:
       interval: 'daily'
-    groups:
-      leather:
-        applies-to: version-updates
-        patterns:
-          - '@leather-wallet/*'
+    allow:
+      - dependency-name: '@leather-wallet/*'
