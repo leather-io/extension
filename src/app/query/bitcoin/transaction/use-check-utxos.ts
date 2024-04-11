@@ -78,7 +78,7 @@ async function checkInscribedUtxosByBestinslot({
   return hasInscribedUtxos;
 }
 
-export function useCheckInscribedUtxos(blockTxAction?: () => void) {
+export function useCheckUnspendableUtxos(blockTxAction?: () => void) {
   const client = useBitcoinClient();
   const analytics = useAnalytics();
   const [isLoading, setIsLoading] = useState(false);
@@ -169,8 +169,13 @@ export function useCheckInscribedUtxos(blockTxAction?: () => void) {
     [analytics, client, isTestnet, preventTransaction]
   );
 
+  const checkIfUtxosListIncludesRunes = useCallback(async (inputs: btc.TransactionInput[]) => {
+    return false;
+  }, []);
+
   return {
     checkIfUtxosListIncludesInscribed,
+    checkIfUtxosListIncludesRunes,
     isLoading,
   };
 }

@@ -24,6 +24,7 @@ export function filterUtxosWithInscriptions(
 const defaultArgs = {
   filterInscriptionUtxos: true,
   filterPendingTxsUtxos: true,
+  filterRunesUtxos: true,
 };
 
 /**
@@ -31,7 +32,7 @@ const defaultArgs = {
  * we set `filterInscriptionUtxos` and `filterPendingTxsUtxos` to true
  */
 export function useCurrentNativeSegwitUtxos(args = defaultArgs) {
-  const { filterInscriptionUtxos, filterPendingTxsUtxos } = args;
+  const { filterInscriptionUtxos, filterPendingTxsUtxos, filterRunesUtxos } = args;
 
   const nativeSegwitSigner = useCurrentAccountNativeSegwitIndexZeroSigner();
   const address = nativeSegwitSigner.address;
@@ -40,6 +41,7 @@ export function useCurrentNativeSegwitUtxos(args = defaultArgs) {
     address,
     filterInscriptionUtxos,
     filterPendingTxsUtxos,
+    filterRunesUtxos,
   });
 }
 
@@ -47,6 +49,7 @@ interface UseFilterUtxosByAddressArgs {
   address: string;
   filterInscriptionUtxos: boolean;
   filterPendingTxsUtxos: boolean;
+  filterRunesUtxos: boolean;
 }
 
 type filterUtxoFunctionType = (utxos: UtxoResponseItem[]) => UtxoResponseItem[];
@@ -55,6 +58,7 @@ export function useNativeSegwitUtxosByAddress({
   address,
   filterInscriptionUtxos,
   filterPendingTxsUtxos,
+  filterRunesUtxos,
 }: UseFilterUtxosByAddressArgs) {
   const { filterOutInscriptions, isInitialLoadingInscriptions } =
     useFilterInscriptionsByAddress(address);
@@ -111,6 +115,10 @@ function useFilterInscriptionsByAddress(address: string) {
     filterOutInscriptions,
     isInitialLoadingInscriptions: hasMoreInscriptionsToLoad || isInitialLoadingInscriptions,
   };
+}
+
+function useFilterRuneUtxosByAddress(address: string) {
+  return {};
 }
 
 function useFilterPendingUtxosByAddress(address: string) {

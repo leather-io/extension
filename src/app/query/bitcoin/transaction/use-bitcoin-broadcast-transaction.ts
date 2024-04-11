@@ -8,7 +8,7 @@ import { delay, isError } from '@shared/utils';
 import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
 import { useBitcoinClient } from '@app/store/common/api-clients.hooks';
 
-import { filterOutIntentionalUtxoSpend, useCheckInscribedUtxos } from './use-check-utxos';
+import { filterOutIntentionalUtxoSpend, useCheckUnspendableUtxos } from './use-check-utxos';
 
 interface BroadcastCallbackArgs {
   tx: string;
@@ -23,7 +23,8 @@ export function useBitcoinBroadcastTransaction() {
   const client = useBitcoinClient();
   const [isBroadcasting, setIsBroadcasting] = useState(false);
   const analytics = useAnalytics();
-  const { checkIfUtxosListIncludesInscribed } = useCheckInscribedUtxos();
+  const { checkIfUtxosListIncludesInscribed, checkIfUtxosListIncludesRunes } =
+    useCheckUnspendableUtxos();
 
   const broadcastTx = useCallback(
     async ({
@@ -43,8 +44,9 @@ export function useBitcoinBroadcastTransaction() {
           });
 
           const hasInscribedUtxos = await checkIfUtxosListIncludesInscribed(utxos);
+          const hasRunesUtxos = await checkIfUtxosListIncludesRunes(utxos);
 
-          if (hasInscribedUtxos) {
+          if (hasInscribedUtxos || hasRunesUtxos) {
             return;
           }
         }
