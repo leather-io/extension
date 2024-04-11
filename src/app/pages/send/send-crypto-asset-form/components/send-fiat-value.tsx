@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react';
 
+import type { MarketData } from '@leather-wallet/models';
 import { useField } from 'formik';
 import { styled } from 'leather-styles/jsx';
 
-import { MarketData } from '@shared/models/market.model';
 import { Money, createMoneyFromDecimal } from '@shared/models/money.model';
 import { isNumber } from '@shared/utils';
 

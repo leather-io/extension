@@ -1,9 +1,8 @@
+import type { Currencies } from '@leather-wallet/models';
 import BigNumber from 'bignumber.js';
 
 import { BTC_DECIMALS, STX_DECIMALS } from '@shared/constants';
 import { isBigInt, isUndefined } from '@shared/utils';
-
-import type { Currencies } from './currencies.model';
 
 export type NumType = BigNumber | bigint | number;
 

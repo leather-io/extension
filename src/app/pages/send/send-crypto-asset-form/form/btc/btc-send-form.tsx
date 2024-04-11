@@ -1,11 +1,11 @@
 import { Outlet } from 'react-router-dom';
 
+import type { CryptoCurrencies } from '@leather-wallet/models';
 import { SendCryptoAssetSelectors } from '@tests/selectors/send.selectors';
 import { Form, Formik } from 'formik';
 import { Box } from 'leather-styles/jsx';
 
 import { HIGH_FEE_WARNING_LEARN_MORE_URL_BTC } from '@shared/constants';
-import { CryptoCurrencies } from '@shared/models/currencies.model';
 
 import { formatMoney } from '@app/common/money/format-money';
 import { HighFeeDialog } from '@app/features/dialogs/high-fee-dialog/high-fee-dialog';
@@ -30,7 +30,7 @@ import { useSendFormRouteState } from '../../hooks/use-send-form-route-state';
 import { createDefaultInitialFormValues, defaultSendFormFormikProps } from '../../send-form.utils';
 import { useBtcSendForm } from './use-btc-send-form';
 
-const symbol: CryptoCurrencies = 'BTC';
+const symbol = 'BTC' satisfies CryptoCurrencies;
 
 export function BtcSendForm() {
   const routeState = useSendFormRouteState();

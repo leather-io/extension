@@ -1,5 +1,6 @@
 import { useLocation, useNavigate } from 'react-router-dom';
 
+import type { CryptoCurrencies } from '@leather-wallet/models';
 import { hexToBytes } from '@noble/hashes/utils';
 import * as btc from '@scure/btc-signer';
 import { SendCryptoAssetSelectors } from '@tests/selectors/send.selectors';
@@ -8,7 +9,6 @@ import { Stack } from 'leather-styles/jsx';
 import get from 'lodash.get';
 
 import { decodeBitcoinTx } from '@shared/crypto/bitcoin/bitcoin.utils';
-import { CryptoCurrencies } from '@shared/models/currencies.model';
 import { createMoney, createMoneyFromDecimal } from '@shared/models/money.model';
 import { RouteUrls } from '@shared/route-urls';
 

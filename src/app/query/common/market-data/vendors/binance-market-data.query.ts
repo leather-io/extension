@@ -1,7 +1,6 @@
+import type { CryptoCurrencies } from '@leather-wallet/models';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
-
-import { CryptoCurrencies } from '@shared/models/currencies.model';
 
 import { marketDataQueryOptions } from '../market-data.query';
 

@@ -1,6 +1,6 @@
+import { type MarketData, createMarketData, createMarketPair } from '@leather-wallet/models';
 import BigNumber from 'bignumber.js';
 
-import { MarketData, createMarketData, createMarketPair } from '@shared/models/market.model';
 import { createMoney, createMoneyFromDecimal } from '@shared/models/money.model';
 
 import {
@@ -18,7 +18,7 @@ const tenBtc = createMoneyFromDecimal(10, 'BTC');
 const mockWrongMarketData = {
   pair: createMarketPair('BTC' as any, 'USD'),
   price: createMoneyFromDecimal(1, 'EUR' as any, 2),
-} as MarketData;
+} satisfies MarketData;
 
 const mockAccurateStxMarketData = createMarketData(
   createMarketPair('STX', 'USD'),

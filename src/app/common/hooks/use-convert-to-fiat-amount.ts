@@ -1,7 +1,7 @@
 import { useCallback, useMemo } from 'react';
 
-import { CryptoCurrencies } from '@shared/models/currencies.model';
-import { createMarketData, createMarketPair } from '@shared/models/market.model';
+import { type CryptoCurrencies, createMarketData, createMarketPair } from '@leather-wallet/models';
+
 import type { Money } from '@shared/models/money.model';
 
 import { useCryptoCurrencyMarketData } from '@app/query/common/market-data/market-data.hooks';

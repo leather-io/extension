@@ -1,11 +1,11 @@
 import { useMemo, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
+import type { CryptoCurrencies } from '@leather-wallet/models';
 import { AuthType, StacksTransaction } from '@stacks/transactions';
 
 import { finalizeTxSignature } from '@shared/actions/finalize-tx-signature';
 import { logger } from '@shared/logger';
-import { CryptoCurrencies } from '@shared/models/currencies.model';
 import { RouteUrls } from '@shared/route-urls';
 import { delay, isError, isString } from '@shared/utils';
 

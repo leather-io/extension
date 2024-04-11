@@ -1,3 +1,4 @@
+import type { CryptoCurrencies } from '@leather-wallet/models';
 import { bytesToUtf8 } from '@stacks/common';
 import {
   ClarityType,
@@ -11,7 +12,6 @@ import {
 } from '@stacks/transactions';
 import BigNumber from 'bignumber.js';
 
-import { CryptoCurrencies } from '@shared/models/currencies.model';
 import { createMoney } from '@shared/models/money.model';
 
 import {

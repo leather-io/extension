@@ -1,6 +1,6 @@
+import { type MarketData, formatMarketPair } from '@leather-wallet/models';
 import { BigNumber } from 'bignumber.js';
 
-import { MarketData, formatMarketPair } from '@shared/models/market.model';
 import { Money, NumType, createMoney } from '@shared/models/money.model';
 import { isNumber } from '@shared/utils';
 

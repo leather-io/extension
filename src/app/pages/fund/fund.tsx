@@ -1,11 +1,12 @@
 import { Outlet, useParams } from 'react-router-dom';
 
+import type { CryptoCurrencies } from '@leather-wallet/models';
+
 import type { Blockchains } from '@shared/models/blockchain.model';
 import type {
   BitcoinCryptoCurrencyAssetBalance,
   StacksCryptoCurrencyAssetBalance,
 } from '@shared/models/crypto-asset-balance.model';
-import type { CryptoCurrencies } from '@shared/models/currencies.model';
 import { RouteUrls } from '@shared/route-urls';
 
 import { useBtcCryptoCurrencyAssetBalance } from '@app/common/hooks/balance/btc/use-btc-crypto-currency-asset-balance';
@@ -38,14 +39,14 @@ export function FundPage() {
       balance: btcCryptoCurrencyAssetBalance?.btcBalance,
       blockchain: 'Bitcoin',
       route: RouteUrls.ReceiveBtc,
-      symbol: currency,
+      symbol: currency as CryptoCurrencies,
     },
     STX: {
       address: currentStxAccount?.address,
       balance: stxCryptoCurrencyAssetBalance,
       blockchain: 'Stacks',
       route: RouteUrls.ReceiveStx,
-      symbol: currency,
+      symbol: currency as CryptoCurrencies,
     },
   };
 

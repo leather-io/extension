@@ -1,10 +1,10 @@
 import { FormEvent, useCallback } from 'react';
 
+import type { CryptoCurrencies } from '@leather-wallet/models';
 import { SharedComponentsSelectors } from '@tests/selectors/shared-component.selectors';
 import { useField } from 'formik';
 import { Flex, Stack, styled } from 'leather-styles/jsx';
 
-import { CryptoCurrencies } from '@shared/models/currencies.model';
 import { StacksFeeEstimate } from '@shared/models/fees/stacks-fees.model';
 
 import { stxToMicroStx } from '@app/common/money/unit-conversion';

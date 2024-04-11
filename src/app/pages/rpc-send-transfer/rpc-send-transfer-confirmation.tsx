@@ -1,11 +1,10 @@
 import { useLocation, useNavigate } from 'react-router-dom';
 
-import { Stack } from 'leather-styles/jsx';
+import type { CryptoCurrencies } from '@leather-wallet/models';
 import get from 'lodash.get';
 
 import { decodeBitcoinTx } from '@shared/crypto/bitcoin/bitcoin.utils';
 import { logger } from '@shared/logger';
-import { CryptoCurrencies } from '@shared/models/currencies.model';
 import { createMoney, createMoneyFromDecimal } from '@shared/models/money.model';
 import { RouteUrls } from '@shared/route-urls';
 import type { RpcSendTransferRecipient } from '@shared/rpc/methods/send-transfer';
