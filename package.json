@@ -287,7 +287,7 @@
     "@types/promise-memoize": "1.2.4",
     "@types/punycode": "2.1.4",
     "@types/qrcode.react": "1.0.5",
-    "@types/react": "18.2.57",
+    "@types/react": "18.2.75",
     "@types/react-dom": "18.2.19",
     "@types/react-lottie": "1.2.10",
     "@types/react-router-dom": "5.3.3",
