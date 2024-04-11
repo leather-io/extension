@@ -7,8 +7,8 @@ import { StacksFungibleTokenAsset } from '@shared/models/crypto-asset.model';
 import { useWalletType } from '@app/common/use-wallet-type';
 import { BitcoinNativeSegwitAccountLoader } from '@app/components/account/bitcoin-account-loader';
 import { BitcoinBalanceLoader } from '@app/components/balance/bitcoin-balance-loader';
-import { Brc20TokensLoader } from '@app/components/brc20-tokens-loader';
 import { Brc20TokenAssetList } from '@app/components/crypto-assets/bitcoin/brc20-token-asset-list/brc20-token-asset-list';
+import { Brc20TokensLoader } from '@app/components/loaders/brc20-tokens-loader';
 import { BtcAvatarIcon } from '@app/ui/components/avatar/btc-avatar-icon';
 
 import { CryptoCurrencyAssetItemLayout } from '../crypto-currency-asset/crypto-currency-asset-item.layout';
