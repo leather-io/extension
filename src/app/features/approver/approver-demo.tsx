@@ -1,9 +1,15 @@
+import { useNavigate } from 'react-router-dom';
+
 import { Box, Circle, styled } from 'leather-styles/jsx';
+
+import { RouteUrls } from '@shared/route-urls';
 
 import { Button } from '@app/ui/components/button/button';
 import { Callout } from '@app/ui/components/callout/callout';
+import { Header } from '@app/ui/components/containers/headers/header';
 import { Flag } from '@app/ui/components/flag/flag';
 import { ItemLayout } from '@app/ui/components/item-layout/item-layout';
+import { Logo } from '@app/ui/components/logo';
 import { Pressable } from '@app/ui/components/pressable/pressable';
 import { BasicTooltip } from '@app/ui/components/tooltip/basic-tooltip';
 import { TooltipProvider } from '@app/ui/components/tooltip/tooltip';
@@ -12,8 +18,17 @@ import { InfoCircleIcon } from '@app/ui/icons';
 import { Approver } from './approver';
 
 export function ApproverDemo() {
+  const navigate = useNavigate();
   return (
     <styled.div minH="100vh">
+      <Header
+        variant="dialog"
+        logo={
+          <Box height="headerContainerHeight" margin="auto" px="space.02">
+            <Logo onClick={() => navigate(RouteUrls.Home)} />
+          </Box>
+        }
+      />
       <Approver>
         <Approver.Header
           title="Some prompt that bre"

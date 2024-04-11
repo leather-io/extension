@@ -6,8 +6,8 @@ import { formatBalance } from '@app/common/format-balance';
 import type { Src20Token } from '@app/query/bitcoin/stamps/stamps-by-address.query';
 import { Src20AvatarIcon } from '@app/ui/components/avatar/src20-avatar-icon';
 import { ItemLayout } from '@app/ui/components/item-layout/item-layout';
+import { Pressable } from '@app/ui/components/pressable/pressable';
 import { BasicTooltip } from '@app/ui/components/tooltip/basic-tooltip';
-import { Pressable } from '@app/ui/pressable/pressable';
 
 interface Src20TokenAssetItemLayoutProps {
   token: Src20Token;

@@ -8,6 +8,8 @@ import {
 } from 'react-router-dom';
 
 import * as Sentry from '@sentry/react';
+import { OnboardingSelectors } from '@tests/selectors/onboarding.selectors';
+import { Box } from 'leather-styles/jsx';
 
 import { RouteUrls } from '@shared/route-urls';
 
@@ -54,6 +56,9 @@ import { AccountGate } from '@app/routes/account-gate';
 import { receiveRoutes } from '@app/routes/receive-routes';
 import { legacyRequestRoutes } from '@app/routes/request-routes';
 import { rpcRequestRoutes } from '@app/routes/rpc-routes';
+import { ContainerLayout } from '@app/ui/components/containers/container.layout';
+import { Header } from '@app/ui/components/containers/headers/header';
+import { Logo } from '@app/ui/components/logo';
 
 import { OnboardingGate } from './onboarding-gate';
 
@@ -82,144 +87,172 @@ export const homePageModalRoutes = (
 function useAppRoutes() {
   return sentryCreateBrowserRouter(
     createRoutesFromElements(
-      <Route element={<Container />}>
-        <Route
-          path="/*"
-          element={
-            <AccountGate>
-              <Home />
-            </AccountGate>
-          }
-        >
-          {homePageModalRoutes}
-        </Route>
+      <Route>
+        <Route element={<Container />}>
+          <Route
+            path="/*"
+            element={
+              <AccountGate>
+                <Home />
+              </AccountGate>
+            }
+          >
+            {homePageModalRoutes}
+          </Route>
 
-        <Route path="approver" element={<ApproverDemo />} />
+          <Route
+            path={RouteUrls.RetrieveTaprootFunds}
+            element={<RetrieveTaprootToNativeSegwit />}
+          />
+          <Route path={RouteUrls.IncreaseStxFee} element={<IncreaseStxFeeDialog />}>
+            {ledgerStacksTxSigningRoutes}
+          </Route>
+          <Route
+            path={`${RouteUrls.IncreaseStxFee}/${RouteUrls.TransactionBroadcastError}`}
+            element={<BroadcastError />}
+          />
+          <Route path={RouteUrls.IncreaseBtcFee} element={<IncreaseBtcFeeDialog />}>
+            {ledgerBitcoinTxSigningRoutes}
+          </Route>
+          <Route path={RouteUrls.IncreaseFeeSent} element={<IncreaseFeeSentDialog />} />
 
-        <Route path={RouteUrls.RetrieveTaprootFunds} element={<RetrieveTaprootToNativeSegwit />} />
-        <Route path={RouteUrls.IncreaseStxFee} element={<IncreaseStxFeeDialog />}>
           {ledgerStacksTxSigningRoutes}
-        </Route>
-        <Route
-          path={`${RouteUrls.IncreaseStxFee}/${RouteUrls.TransactionBroadcastError}`}
-          element={<BroadcastError />}
-        />
-        <Route path={RouteUrls.IncreaseBtcFee} element={<IncreaseBtcFeeDialog />}>
-          {ledgerBitcoinTxSigningRoutes}
-        </Route>
-        <Route path={RouteUrls.IncreaseFeeSent} element={<IncreaseFeeSentDialog />} />
 
-        {ledgerStacksTxSigningRoutes}
+          <Route
+            path={RouteUrls.RpcReceiveBitcoinContractOffer}
+            element={
+              <AccountGate>
+                <Suspense fallback={<SuspenseLoadingSpinner />}>
+                  <BitcoinContractRequest />
+                </Suspense>
+              </AccountGate>
+            }
+          />
+          <Route path={RouteUrls.BitcoinContractLockSuccess} element={<LockBitcoinSummary />} />
+          <Route path={RouteUrls.BitcoinContractLockError} element={<BroadcastError />} />
+          <Route path={RouteUrls.BitcoinContractList} element={<BitcoinContractList />} />
+          <Route
+            path={RouteUrls.Onboarding}
+            element={
+              <OnboardingGate>
+                <WelcomePage />
+              </OnboardingGate>
+            }
+          >
+            <Route path={RouteUrls.RequestDiagnostics} element={<AllowDiagnosticsModal />} />
+            <Route path={RouteUrls.ConnectLedgerStart} element={<ConnectLedgerStart />} />
+            <Route
+              path={RouteUrls.LedgerUnsupportedBrowser}
+              element={<UnsupportedBrowserLayout />}
+            />
 
-        <Route
-          path={RouteUrls.RpcReceiveBitcoinContractOffer}
-          element={
-            <AccountGate>
-              <Suspense fallback={<SuspenseLoadingSpinner />}>
-                <BitcoinContractRequest />
-              </Suspense>
-            </AccountGate>
-          }
-        />
-        <Route path={RouteUrls.BitcoinContractLockSuccess} element={<LockBitcoinSummary />} />
-        <Route path={RouteUrls.BitcoinContractLockError} element={<BroadcastError />} />
-        <Route path={RouteUrls.BitcoinContractList} element={<BitcoinContractList />} />
-        <Route
-          path={RouteUrls.Onboarding}
-          element={
-            <OnboardingGate>
-              <WelcomePage />
-            </OnboardingGate>
-          }
-        >
-          <Route path={RouteUrls.RequestDiagnostics} element={<AllowDiagnosticsModal />} />
-          <Route path={RouteUrls.ConnectLedgerStart} element={<ConnectLedgerStart />} />
-          <Route path={RouteUrls.LedgerUnsupportedBrowser} element={<UnsupportedBrowserLayout />} />
+            {requestBitcoinKeysRoutes}
+            {requestStacksKeysRoutes}
+          </Route>
+          <Route
+            path={RouteUrls.BackUpSecretKey}
+            element={
+              <OnboardingGate>
+                <BackUpSecretKeyPage />
+              </OnboardingGate>
+            }
+          />
+          <Route
+            path={RouteUrls.SetPassword}
+            lazy={async () => {
+              const { SetPasswordRoute } = await import(
+                '@app/pages/onboarding/set-password/set-password'
+              );
+              return { Component: SetPasswordRoute };
+            }}
+          />
 
-          {requestBitcoinKeysRoutes}
-          {requestStacksKeysRoutes}
-        </Route>
-        <Route
-          path={RouteUrls.BackUpSecretKey}
-          element={
-            <OnboardingGate>
-              <BackUpSecretKeyPage />
-            </OnboardingGate>
-          }
-        />
-        <Route
-          path={RouteUrls.SetPassword}
-          lazy={async () => {
-            const { SetPasswordRoute } = await import(
-              '@app/pages/onboarding/set-password/set-password'
-            );
-            return { Component: SetPasswordRoute };
-          }}
-        />
+          <Route
+            path={RouteUrls.SignIn}
+            element={
+              <OnboardingGate>
+                <SignIn />
+              </OnboardingGate>
+            }
+          />
+          <Route
+            path={RouteUrls.AddNetwork}
+            element={
+              <AccountGate>
+                <AddNetwork />
+              </AccountGate>
+            }
+          />
+          <Route
+            path={RouteUrls.ChooseAccount}
+            element={
+              <AccountGate>
+                <ChooseAccount />
+              </AccountGate>
+            }
+          >
+            {ledgerJwtSigningRoutes}
+          </Route>
 
-        <Route
-          path={RouteUrls.SignIn}
-          element={
-            <OnboardingGate>
-              <SignIn />
-            </OnboardingGate>
-          }
-        />
-        <Route
-          path={RouteUrls.AddNetwork}
-          element={
-            <AccountGate>
-              <AddNetwork />
-            </AccountGate>
-          }
-        />
-        <Route
-          path={RouteUrls.ChooseAccount}
-          element={
-            <AccountGate>
-              <ChooseAccount />
-            </AccountGate>
-          }
-        >
-          {ledgerJwtSigningRoutes}
-        </Route>
+          <Route
+            path={RouteUrls.Fund}
+            element={
+              <AccountGate>
+                <FundPage />
+              </AccountGate>
+            }
+          >
+            <Route path={RouteUrls.ReceiveStx} element={<ReceiveStxModal />} />
+            <Route path={RouteUrls.ReceiveBtc} element={<ReceiveBtcModal />} />
+          </Route>
+          <Route
+            path={RouteUrls.FundChooseCurrency}
+            element={
+              <AccountGate>
+                <ChooseCryptoAssetToFund />
+              </AccountGate>
+            }
+          >
+            <Route path={RouteUrls.ReceiveStx} element={<ReceiveStxModal />} />
+          </Route>
 
-        <Route
-          path={RouteUrls.Fund}
-          element={
-            <AccountGate>
-              <FundPage />
-            </AccountGate>
-          }
-        >
-          <Route path={RouteUrls.ReceiveStx} element={<ReceiveStxModal />} />
-          <Route path={RouteUrls.ReceiveBtc} element={<ReceiveBtcModal />} />
-        </Route>
-        <Route
-          path={RouteUrls.FundChooseCurrency}
-          element={
-            <AccountGate>
-              <ChooseCryptoAssetToFund />
-            </AccountGate>
-          }
-        >
-          <Route path={RouteUrls.ReceiveStx} element={<ReceiveStxModal />} />
-        </Route>
+          {sendCryptoAssetFormRoutes}
 
-        {sendCryptoAssetFormRoutes}
-
-        <Route
-          path={RouteUrls.ViewSecretKey}
-          element={
-            <AccountGate>
-              <ViewSecretKey />
-            </AccountGate>
-          }
-        />
-        <Route path={RouteUrls.Unlock} element={<Unlock />}>
-          {leatherIntroDialogRoutes}
+          <Route
+            path={RouteUrls.ViewSecretKey}
+            element={
+              <AccountGate>
+                <ViewSecretKey />
+              </AccountGate>
+            }
+          />
+          <Route path={RouteUrls.Unlock} element={<Unlock />}>
+            {leatherIntroDialogRoutes}
+          </Route>
         </Route>
 
+        <Route
+          path="approver"
+          element={
+            <ContainerLayout
+              header={
+                <Header
+                  variant="dialog"
+                  logo={
+                    <Box height="headerContainerHeight" margin="auto" px="space.02">
+                      <Logo
+                        data-testid={OnboardingSelectors.LogoRouteToHome}
+                        // onClick={() => navigate(RouteUrls.Home)}
+                      />
+                    </Box>
+                  }
+                />
+              }
+            >
+              <ApproverDemo />
+            </ContainerLayout>
+          }
+        />
         {legacyRequestRoutes}
         {rpcRequestRoutes}
         <Route path={RouteUrls.UnauthorizedRequest} element={<UnauthorizedRequest />} />
