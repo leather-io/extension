@@ -139,7 +139,7 @@
     "@ledgerhq/hw-transport-webusb": "6.27.19",
     "@noble/hashes": "1.3.2",
     "@noble/secp256k1": "2.0.0",
-    "@octokit/types": "12.4.0",
+    "@octokit/types": "13.4.0",
     "@radix-ui/colors": "3.0.0",
     "@radix-ui/react-accessible-icon": "1.0.3",
     "@radix-ui/react-avatar": "1.0.4",
