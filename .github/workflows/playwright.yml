@@ -114,7 +114,7 @@ jobs:
       - uses: Wandalen/wretry.action@master
         if: github.event_name == 'pull_request'
         with:
-          action: peaceiris/actions-gh-pages@v3
+          action: peaceiris/actions-gh-pages@v4
           with: |
             personal_token: ${{ secrets.SEMANTIC_RELEASE_TOKEN }}
             external_repository: leather-wallet/playwright-reports
@@ -123,7 +123,7 @@ jobs:
             destination_dir: ${{ steps.extract_branch.outputs.branch }}
 
       - name: Deploy specs.leather.io
-        uses: peaceiris/actions-gh-pages@v3
+        uses: peaceiris/actions-gh-pages@v4
         if: steps.extract_branch.outputs.branch == 'dev'
         with:
           personal_token: ${{ secrets.SEMANTIC_RELEASE_TOKEN }}
