@@ -141,6 +141,10 @@
     "recoverUninscribedTaprootUtxosFeatureEnabled": {
       "type": "boolean",
       "description": "Determines whether or not the recover uninscribed taproot utxos feature is enabled"
+    },
+    "runesEnabled": {
+      "type": "boolean",
+      "description": "Determines whether or not Runes are live on mainnet"
     }
   },
   "$defs": {

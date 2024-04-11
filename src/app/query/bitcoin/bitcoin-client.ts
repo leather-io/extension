@@ -4,9 +4,11 @@ import PQueue from 'p-queue';
 import {
   BESTINSLOT_API_BASE_URL_MAINNET,
   BESTINSLOT_API_BASE_URL_TESTNET,
+  type BitcoinNetworkModes,
   HIRO_API_BASE_URL_MAINNET,
 } from '@shared/constants';
 import { Paginated } from '@shared/models/api-types';
+import type { Money } from '@shared/models/money.model';
 import type { BitcoinTx } from '@shared/models/transactions/bitcoin-transaction.model';
 
 import { getBlockstreamRatelimiter } from './blockstream-rate-limiter';
@@ -100,13 +102,22 @@ interface BestinslotBrc20AddressBalanceResponse {
   data: Brc20TokenResponse[];
 }
 
-interface RunesWalletBalanceResponse {
+export interface RuneBalance {
   pkscript: string;
-  wallet_addr: string;
   rune_id: string;
-  total_balance: string;
   rune_name: string;
   spaced_rune_name: string;
+  total_balance: string;
+  wallet_addr: string;
+}
+
+interface RunesWalletBalancesResponse {
+  block_height: number;
+  data: RuneBalance[];
+}
+
+export interface RuneToken extends RuneBalance {
+  balance: Money;
 }
 
 class BestinslotApi {
@@ -161,13 +172,14 @@ class BestinslotApi {
     return resp.data;
   }
 
-  /* RUNES ON TESTNET */
-  async getRunesWalletBalances(address: string) {
-    const resp = await axios.get<RunesWalletBalanceResponse[]>(
-      `${this.testnetUrl}/runes/wallet_balances?address=${address}`,
+  /* RUNES */
+  async getRunesWalletBalances(address: string, network: BitcoinNetworkModes) {
+    const baseUrl = network === 'mainnet' ? this.url : this.testnetUrl;
+    const resp = await axios.get<RunesWalletBalancesResponse>(
+      `${baseUrl}/runes/wallet_balances?address=${address}`,
       { ...this.defaultOptions }
     );
-    return resp.data;
+    return resp.data.data;
   }
 }
 
