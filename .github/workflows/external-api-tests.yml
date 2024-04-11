@@ -53,7 +53,7 @@ jobs:
           run: pnpm playwright test --reporter=github tests/api
 
       - name: Truncate String
-        uses: 2428392/gh-truncate-string-action@v1.2.0
+        uses: 2428392/gh-truncate-string-action@v1.4.0
         id: truncatedString
         if: failure()
         with:
