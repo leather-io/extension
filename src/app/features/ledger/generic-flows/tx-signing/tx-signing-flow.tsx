@@ -23,18 +23,14 @@ export function TxSigningFlow({
   const allowUserToGoBack = useLocationState<boolean>('goBack');
   const canUserCancelAction = useActionCancellableByUser();
 
+  const isWaitingOnPerformedAction = awaitingDeviceConnection || canUserCancelAction;
   return (
     <LedgerTxSigningProvider value={context}>
       <Dialog
         onGoBack={allowUserToGoBack ? () => navigate(-1) : undefined}
         isShowing
-        header={
-          <Header
-            variant="dialog"
-            isWaitingOnPerformedAction={awaitingDeviceConnection || canUserCancelAction}
-          />
-        }
-        onClose={closeAction}
+        header={<Header variant="dialog" isWaitingOnPerformedAction={isWaitingOnPerformedAction} />}
+        onClose={isWaitingOnPerformedAction ? () => null : () => closeAction}
       >
         <Outlet />
       </Dialog>

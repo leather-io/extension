@@ -83,9 +83,6 @@ export function Container() {
         return navigate(RouteUrls.SendCryptoAssetForm.replace(':symbol', 'stx'));
       case RouteUrls.SendBtcConfirmation:
         return navigate(RouteUrls.SendCryptoAssetForm.replace(':symbol', 'btc'));
-      case RouteUrls.RpcSignBip322Message:
-        // console.log('Pete ');
-        return null;
       default:
         return navigate(-1);
     }

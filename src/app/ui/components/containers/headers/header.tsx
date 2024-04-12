@@ -60,7 +60,6 @@ export function Header({
               {variant !== 'home' && onGoBack ? (
                 <HeaderActionButton
                   icon={<ArrowLeftIcon />}
-                  isWaitingOnPerformedAction={isWaitingOnPerformedAction}
                   onAction={onGoBack}
                   dataTestId={SharedComponentsSelectors.HeaderBackBtn}
                 />
@@ -77,11 +76,10 @@ export function Header({
             {networkBadge}
             {totalBalance && totalBalance}
             {settingsMenu}
-            {variant !== 'bigTitle' && onClose && (
+            {variant !== 'bigTitle' && onClose && !isWaitingOnPerformedAction && (
               <HeaderActionButton
                 icon={<CloseIcon />}
                 dataTestId={SharedComponentsSelectors.HeaderCloseBtn}
-                isWaitingOnPerformedAction={isWaitingOnPerformedAction}
                 onAction={onClose}
               />
             )}

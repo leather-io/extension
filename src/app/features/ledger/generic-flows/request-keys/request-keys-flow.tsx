@@ -24,7 +24,14 @@ export function RequestKeysFlow({
       <Dialog
         isShowing
         header={<Header variant="dialog" isWaitingOnPerformedAction={isActionCancellableByUser} />}
-        onClose={onCancelConnectLedger ? onCancelConnectLedger : () => navigate('../')}
+        // clean this up
+        onClose={
+          isActionCancellableByUser
+            ? () => null
+            : onCancelConnectLedger
+              ? onCancelConnectLedger
+              : () => navigate('../')
+        }
       >
         <Outlet />
       </Dialog>

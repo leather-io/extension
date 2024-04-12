@@ -4,28 +4,21 @@ import { IconButton } from '../../../icon-button/icon-button';
 
 interface HeaderActionButtonProps extends FlexProps {
   icon: React.JSX.Element;
-  isWaitingOnPerformedAction?: boolean;
-  onAction?(): void;
+  onAction(): void;
   dataTestId: string;
 }
-export function HeaderActionButton({
-  icon,
-  isWaitingOnPerformedAction,
-  onAction,
-  dataTestId,
-}: HeaderActionButtonProps) {
+export function HeaderActionButton({ icon, onAction, dataTestId }: HeaderActionButtonProps) {
   return (
     <IconButton
       height="headerContainerHeight"
       _hover={{
-        bg: isWaitingOnPerformedAction ? 'unset' : 'ink.component-background-hover',
-        cursor: isWaitingOnPerformedAction ? 'unset' : 'pointer',
+        bg: 'ink.component-background-hover',
+        cursor: 'pointer',
       }}
       color="ink.action-primary-default"
       data-testid={dataTestId}
       icon={icon}
-      onClick={isWaitingOnPerformedAction ? undefined : onAction}
-      opacity={isWaitingOnPerformedAction ? '0.3' : 'unset'}
+      onClick={onAction}
       transition="transition"
       userSelect="none"
       zIndex={999}

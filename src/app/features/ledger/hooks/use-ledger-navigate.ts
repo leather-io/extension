@@ -100,12 +100,6 @@ export function useLedgerNavigate() {
       },
 
       cancelLedgerAction() {
-        // >> X in the dialog calls this same action but it doesn't know where the previous page is
-        // can propose removing this X in the ledger dialog as it doesn't do anything anyway???
-        // most of the time it's greyed out until you reject
-        // TODO - test what happens for Approve
-
-        console.log('pete', location.state);
         return navigate('..', { relative: 'path', replace: true, state: { ...location.state } });
       },
 
