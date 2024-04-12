@@ -1,24 +1,16 @@
-import { Currency } from 'alex-sdk';
 import BigNumber from 'bignumber.js';
 import * as yup from 'yup';
 
 import { FormErrorMessages } from '@shared/error-messages';
 import { FeeTypes } from '@shared/models/fees/fees.model';
 import { StacksTransactionFormValues } from '@shared/models/form.model';
-import { Money, createMoney } from '@shared/models/money.model';
+import { createMoney } from '@shared/models/money.model';
 
 import { convertAmountToFractionalUnit } from '@app/common/money/calculate-money';
+import type { SwapAsset } from '@app/query/common/alex-sdk/alex-sdk.hooks';
 import { useNextNonce } from '@app/query/stacks/nonce/account-nonces.hooks';
 
-export interface SwapAsset {
-  balance: Money;
-  currency: Currency;
-  displayName?: string;
-  icon: string;
-  name: string;
-  price: Money;
-  principal: string;
-}
+import { useSwapContext } from '../swap.context';
 
 export interface SwapFormValues extends StacksTransactionFormValues {
   swapAmountBase: string;
@@ -28,6 +20,7 @@ export interface SwapFormValues extends StacksTransactionFormValues {
 }
 
 export function useSwapForm() {
+  const { isFetchingExchangeRate } = useSwapContext();
   const { data: nextNonce } = useNextNonce();
 
   const initialValues: SwapFormValues = {
@@ -49,6 +42,7 @@ export function useSwapForm() {
       .test({
         message: 'Insufficient balance',
         test(value) {
+          if (isFetchingExchangeRate) return true;
           const { swapAssetBase } = this.parent;
           const valueInFractionalUnit = convertAmountToFractionalUnit(
             createMoney(

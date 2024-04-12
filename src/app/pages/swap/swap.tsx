@@ -19,7 +19,8 @@ import { useSwapContext } from './swap.context';
 
 export function Swap() {
   const { isFetchingExchangeRate, swappableAssetsBase, swappableAssetsQuote } = useSwapContext();
-  const { dirty, isValid, setFieldValue, values } = useFormikContext<SwapFormValues>();
+  const { dirty, isValid, setFieldValue, values, validateForm } =
+    useFormikContext<SwapFormValues>();
   const { base, quote } = useParams();
 
   useEffect(() => {
@@ -33,7 +34,16 @@ export function Swap() {
         'swapAssetQuote',
         swappableAssetsQuote.find(asset => asset.name === quote)
       );
-  }, [base, quote, setFieldValue, swappableAssetsBase, swappableAssetsQuote, values.swapAssetBase]);
+    void validateForm();
+  }, [
+    base,
+    quote,
+    setFieldValue,
+    swappableAssetsBase,
+    swappableAssetsQuote,
+    validateForm,
+    values.swapAssetBase,
+  ]);
 
   if (isUndefined(values.swapAssetBase)) return <LoadingSpinner height="300px" />;
 

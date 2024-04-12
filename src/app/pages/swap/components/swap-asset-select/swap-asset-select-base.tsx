@@ -22,7 +22,7 @@ const maxAvailableTooltip =
 const sendingMaxTooltip = 'When sending max, this amount is affected by the fee you choose.';
 
 export function SwapAssetSelectBase() {
-  const { fetchToAmount, isFetchingExchangeRate, isSendingMax, onSetIsSendingMax } =
+  const { fetchQuoteAmount, isFetchingExchangeRate, isSendingMax, onSetIsSendingMax } =
     useSwapContext();
   const { setFieldValue, setFieldError, values } = useFormikContext<SwapFormValues>();
   const [amountField, amountFieldMeta, amountFieldHelpers] = useField('swapAmountBase');
@@ -34,7 +34,7 @@ export function SwapAssetSelectBase() {
     isDefined(assetField.value && amountField.value) &&
     convertInputAmountValueToFiat(
       assetField.value.balance,
-      assetField.value.price,
+      assetField.value.marketData,
       amountField.value
     );
   const formattedBalance = formatMoneyWithoutSymbol(assetField.value.balance);
@@ -48,7 +48,7 @@ export function SwapAssetSelectBase() {
     await amountFieldHelpers.setValue(Number(formattedBalance));
     await amountFieldHelpers.setTouched(true);
     if (isUndefined(swapAssetQuote)) return;
-    const toAmount = await fetchToAmount(swapAssetBase, swapAssetQuote, formattedBalance);
+    const toAmount = await fetchQuoteAmount(swapAssetBase, swapAssetQuote, formattedBalance);
     if (isUndefined(toAmount)) {
       await setFieldValue('swapAmountQuote', '');
       return;

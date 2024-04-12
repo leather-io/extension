@@ -12,8 +12,9 @@ import { isUndefined } from '@shared/utils';
 import { convertAmountToFractionalUnit } from '@app/common/money/calculate-money';
 import { formatMoneyWithoutSymbol } from '@app/common/money/format-money';
 import { useSwapContext } from '@app/pages/swap/swap.context';
+import type { SwapAsset } from '@app/query/common/alex-sdk/alex-sdk.hooks';
 
-import { SwapAsset, SwapFormValues } from '../../../hooks/use-swap-form';
+import { SwapFormValues } from '../../../hooks/use-swap-form';
 import { SwapAssetItem } from './swap-asset-item';
 
 interface SwapAssetList {
@@ -21,7 +22,7 @@ interface SwapAssetList {
   type: string;
 }
 export function SwapAssetList({ assets, type }: SwapAssetList) {
-  const { fetchToAmount } = useSwapContext();
+  const { fetchQuoteAmount } = useSwapContext();
   const { setFieldError, setFieldValue, values } = useFormikContext<SwapFormValues>();
   const navigate = useNavigate();
   const { base, quote } = useParams();
@@ -35,33 +36,33 @@ export function SwapAssetList({ assets, type }: SwapAssetList) {
   );
 
   async function onSelectAsset(asset: SwapAsset) {
-    let from: SwapAsset | undefined;
-    let to: SwapAsset | undefined;
+    let baseAsset: SwapAsset | undefined;
+    let quoteAsset: SwapAsset | undefined;
     if (isBaseList) {
-      from = asset;
-      to = values.swapAssetQuote;
+      baseAsset = asset;
+      quoteAsset = values.swapAssetQuote;
       await setFieldValue('swapAssetBase', asset);
-      navigate(RouteUrls.Swap.replace(':base', from.name).replace(':quote', quote ?? ''));
+      navigate(RouteUrls.Swap.replace(':base', baseAsset.name).replace(':quote', quote ?? ''));
     } else if (isQuoteList) {
-      from = values.swapAssetBase;
-      to = asset;
+      baseAsset = values.swapAssetBase;
+      quoteAsset = asset;
       await setFieldValue('swapAssetQuote', asset);
       setFieldError('swapAssetQuote', undefined);
-      navigate(RouteUrls.Swap.replace(':base', base ?? '').replace(':quote', to.name));
+      navigate(RouteUrls.Swap.replace(':base', base ?? '').replace(':quote', quoteAsset.name));
     }
 
-    if (from && to && values.swapAmountBase) {
-      const toAmount = await fetchToAmount(from, to, values.swapAmountBase);
-      if (isUndefined(toAmount)) {
+    if (baseAsset && quoteAsset && values.swapAmountBase) {
+      const quoteAmount = await fetchQuoteAmount(baseAsset, quoteAsset, values.swapAmountBase);
+      if (isUndefined(quoteAmount)) {
         await setFieldValue('swapAmountQuote', '');
         return;
       }
-      const toAmountAsMoney = createMoney(
-        convertAmountToFractionalUnit(new BigNumber(toAmount), to?.balance.decimals),
-        to?.balance.symbol ?? '',
-        to?.balance.decimals
+      const quoteAmountAsMoney = createMoney(
+        convertAmountToFractionalUnit(new BigNumber(quoteAmount), quoteAsset?.balance.decimals),
+        quoteAsset?.balance.symbol ?? '',
+        quoteAsset?.balance.decimals
       );
-      await setFieldValue('swapAmountQuote', formatMoneyWithoutSymbol(toAmountAsMoney));
+      await setFieldValue('swapAmountQuote', formatMoneyWithoutSymbol(quoteAmountAsMoney));
       setFieldError('swapAmountQuote', undefined);
     }
   }

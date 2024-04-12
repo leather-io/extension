@@ -22,7 +22,7 @@ export function SwapAssetSelectQuote() {
     isDefined(assetField.value && amountField.value) &&
     convertInputAmountValueToFiat(
       assetField.value.balance,
-      assetField.value.price,
+      assetField.value.marketData,
       amountField.value
     );
 

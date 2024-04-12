@@ -13,7 +13,7 @@ import {
 } from '@app/common/transactions/bitcoin/coinselect/local-coin-selection';
 import { UtxoResponseItem } from '@app/query/bitcoin/bitcoin-client';
 import { useAverageBitcoinFeeRates } from '@app/query/bitcoin/fees/fee-estimates.hooks';
-import { useCryptoCurrencyMarketData } from '@app/query/common/market-data/market-data.hooks';
+import { useCryptoCurrencyMarketDataMeanAverage } from '@app/query/common/market-data/market-data.hooks';
 
 import { FeesListItem } from './bitcoin-fees-list';
 
@@ -41,7 +41,7 @@ export function useBitcoinFeesListMultipleRecipients({
   recipients,
   utxos,
 }: UseBitcoinFeesListArgs) {
-  const btcMarketData = useCryptoCurrencyMarketData('BTC');
+  const btcMarketData = useCryptoCurrencyMarketDataMeanAverage('BTC');
   const { data: feeRates, isLoading } = useAverageBitcoinFeeRates();
 
   const feesList: FeesListItem[] = useMemo(() => {

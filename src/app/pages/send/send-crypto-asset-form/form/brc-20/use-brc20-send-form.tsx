@@ -1,17 +1,15 @@
 import { useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import BigNumber from 'bignumber.js';
 import { FormikHelpers, FormikProps } from 'formik';
 import * as yup from 'yup';
 
 import { logger } from '@shared/logger';
-import { createMoney } from '@shared/models/money.model';
+import { type Money } from '@shared/models/money.model';
 import { RouteUrls } from '@shared/route-urls';
 import { noop } from '@shared/utils';
 
 import { useOnMount } from '@app/common/hooks/use-on-mount';
-import { unitToFractionalUnit } from '@app/common/money/unit-conversion';
 import { useWalletType } from '@app/common/use-wallet-type';
 import {
   btcAddressNetworkValidator,
@@ -33,18 +31,12 @@ interface Brc20SendFormValues {
 }
 
 interface UseBrc20SendFormArgs {
-  balance: string;
+  balance: Money;
   ticker: string;
-  decimals: number;
   holderAddress: string;
 }
 
-export function useBrc20SendForm({
-  balance,
-  ticker,
-  decimals,
-  holderAddress,
-}: UseBrc20SendFormArgs) {
+export function useBrc20SendForm({ balance, ticker, holderAddress }: UseBrc20SendFormArgs) {
   const formRef = useRef<FormikProps<Brc20SendFormValues>>(null);
   const { whenWallet } = useWalletType();
   const navigate = useNavigate();
@@ -63,10 +55,7 @@ export function useBrc20SendForm({
   });
 
   const validationSchema = yup.object({
-    amount: yup
-      .number()
-      .concat(currencyAmountValidator())
-      .concat(tokenAmountValidator(createMoney(new BigNumber(balance), ticker, 0))),
+    amount: yup.number().concat(currencyAmountValidator()).concat(tokenAmountValidator(balance)),
     recipient: yup
       .string()
       .concat(btcAddressValidator())
@@ -96,10 +85,5 @@ export function useBrc20SendForm({
     validationSchema,
     formRef,
     onFormStateChange,
-    moneyBalance: createMoney(
-      unitToFractionalUnit(decimals)(new BigNumber(balance)),
-      ticker,
-      decimals
-    ),
   };
 }
