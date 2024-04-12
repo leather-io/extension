@@ -13,7 +13,7 @@ import { openInNewTab } from '@app/common/utils/open-in-new-tab';
 import { Button } from '@app/ui/components/button/button';
 import { Dialog } from '@app/ui/components/containers/dialog/dialog';
 import { Footer } from '@app/ui/components/containers/footers/footer';
-import { Header } from '@app/ui/components/containers/headers/header';
+import { DialogHeader } from '@app/ui/components/containers/headers/dialog-header';
 import { Link } from '@app/ui/components/link/link';
 import { Caption } from '@app/ui/components/typography/caption';
 import { Title } from '@app/ui/components/typography/title';
@@ -38,7 +38,7 @@ export function HighFeeDialog({ learnMoreUrl, isShowing = false }: HighFeeDialog
   >();
   return (
     <Dialog
-      header={<Header variant="dialog" />}
+      header={<DialogHeader />}
       isShowing={isShowingHighFeeConfirmation}
       onClose={() => setIsShowingHighFeeConfirmation(false)}
       footer={

@@ -9,7 +9,7 @@ import { StacksSendFormValues, StacksTransactionFormValues } from '@shared/model
 import { useOnMount } from '@app/common/hooks/use-on-mount';
 import { openInNewTab } from '@app/common/utils/open-in-new-tab';
 import { Dialog } from '@app/ui/components/containers/dialog/dialog';
-import { Header } from '@app/ui/components/containers/headers/header';
+import { DialogHeader } from '@app/ui/components/containers/headers/dialog-header';
 import { Link } from '@app/ui/components/link/link';
 
 import { EditNonceForm } from './components/edit-nonce-form';
@@ -48,7 +48,7 @@ export function EditNonceDialog() {
   }, [loadedNextNonce, onGoBack, setFieldError, setFieldValue, values.nonce]);
 
   return (
-    <Dialog isShowing onClose={onClose} header={<Header variant="dialog" title="Edit nonce" />}>
+    <Dialog isShowing onClose={onClose} header={<DialogHeader title="Edit nonce" />}>
       <Stack gap="space.05" pb="space.06" px="space.05">
         <styled.span textStyle="caption.01">
           If your transaction has been pending for a long time, its nonce might not be correct.

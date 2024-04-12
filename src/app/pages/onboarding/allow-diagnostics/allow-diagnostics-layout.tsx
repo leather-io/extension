@@ -27,11 +27,9 @@ export function AllowDiagnosticsLayout({
   onUserAllowDiagnostics,
   onUserDenyDiagnostics,
 }: AllowDiagnosticsLayoutProps) {
-  // this dialog cannot close without a footer action has no header
   return (
     <Dialog
       isShowing
-      onClose={() => null}
       footer={
         <Footer>
           <Flex flexDirection="row" gap="space.04">

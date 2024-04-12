@@ -12,7 +12,7 @@ import { OrdinalAvatarIcon } from '@app/ui/components/avatar/ordinal-avatar-icon
 import { Button } from '@app/ui/components/button/button';
 import { Dialog } from '@app/ui/components/containers/dialog/dialog';
 import { Footer } from '@app/ui/components/containers/footers/footer';
-import { Header } from '@app/ui/components/containers/headers/header';
+import { DialogHeader } from '@app/ui/components/containers/headers/dialog-header';
 
 import { RecipientAddressTypeField } from '../send-crypto-asset-form/components/recipient-address-type-field';
 import { CollectibleAsset } from './components/collectible-asset';
@@ -42,7 +42,7 @@ export function SendInscriptionForm() {
         return (
           <Form>
             <Dialog
-              header={<Header variant="dialog" title="Send" />}
+              header={<DialogHeader title="Send" />}
               onGoBack={() => navigate(-1)}
               isShowing
               onClose={() => navigate(RouteUrls.Home)}

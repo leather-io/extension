@@ -7,7 +7,7 @@ import get from 'lodash.get';
 import { Button } from '@app/ui/components/button/button';
 import { Dialog } from '@app/ui/components/containers/dialog/dialog';
 import { Footer } from '@app/ui/components/containers/footers/footer';
-import { Header } from '@app/ui/components/containers/headers/header';
+import { DialogHeader } from '@app/ui/components/containers/headers/dialog-header';
 
 export function BroadcastErrorDialog() {
   const navigate = useNavigate();
@@ -17,7 +17,7 @@ export function BroadcastErrorDialog() {
   return (
     <Dialog
       isShowing
-      header={<Header variant="dialog" />}
+      header={<DialogHeader />}
       onClose={() => navigate('..')}
       footer={
         <Footer>

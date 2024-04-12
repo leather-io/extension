@@ -6,7 +6,7 @@ import { closeWindow } from '@shared/utils';
 import { doesBrowserSupportWebUsbApi, whenPageMode } from '@app/common/utils';
 import { openIndexPageInNewTab } from '@app/common/utils/open-in-new-tab';
 import { Dialog } from '@app/ui/components/containers/dialog/dialog';
-import { Header } from '@app/ui/components/containers/headers/header';
+import { DialogHeader } from '@app/ui/components/containers/headers/dialog-header';
 
 import { immediatelyAttemptLedgerConnection } from '../../hooks/use-when-reattempt-ledger-connection';
 import { ConnectLedger } from './connect-ledger';
@@ -36,7 +36,7 @@ export function ConnectLedgerStart() {
   }
 
   return (
-    <Dialog isShowing header={<Header variant="dialog" />} onClose={() => navigate('../')}>
+    <Dialog isShowing header={<DialogHeader />} onClose={() => navigate('../')}>
       <ConnectLedger
         connectBitcoin={() => connectChain('bitcoin')}
         connectStacks={() => connectChain('stacks')}

@@ -7,7 +7,7 @@ import { Box } from 'leather-styles/jsx';
 import { useFilteredBitcoinAccounts } from '@app/store/accounts/blockchain/bitcoin/bitcoin.ledger';
 import { useStacksAccounts } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
 import { Dialog, getHeightOffset } from '@app/ui/components/containers/dialog/dialog';
-import { Header } from '@app/ui/components/containers/headers/header';
+import { DialogHeader } from '@app/ui/components/containers/headers/dialog-header';
 import { virtuosoHeight, virtuosoStyles } from '@app/ui/shared/virtuoso';
 
 import { AccountListItem } from './account-list-item';
@@ -26,7 +26,7 @@ export function RecipientAccountsDialog() {
   const maxAccountsShown = accountNum > 10 ? 10 : accountNum;
 
   return (
-    <Dialog header={<Header variant="dialog" title="My accounts" />} isShowing onClose={onGoBack}>
+    <Dialog header={<DialogHeader title="My accounts" />} isShowing onClose={onGoBack}>
       <Virtuoso
         height={virtuosoHeight}
         style={{

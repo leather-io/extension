@@ -10,13 +10,18 @@ import { NetworkListItem } from '@app/features/settings/network/network-list-ite
 import { useCurrentNetworkState, useNetworksActions } from '@app/store/networks/networks.hooks';
 import { useNetworks } from '@app/store/networks/networks.selectors';
 import { Button } from '@app/ui/components/button/button';
-import { Dialog, DialogProps } from '@app/ui/components/containers/dialog/dialog';
+import { Dialog } from '@app/ui/components/containers/dialog/dialog';
 import { Footer } from '@app/ui/components/containers/footers/footer';
-import { Header } from '@app/ui/components/containers/headers/header';
+import { DialogHeader } from '@app/ui/components/containers/headers/dialog-header';
 
 const defaultNetworkIds = Object.values(WalletDefaultNetworkConfigurationIds) as string[];
 
-export function NetworkDialog({ isShowing, onClose }: DialogProps) {
+export interface NetworkDialogProps {
+  isShowing: boolean;
+  onClose(): void;
+}
+
+export function NetworkDialog({ isShowing, onClose }: NetworkDialogProps) {
   const navigate = useNavigate();
   const networks = useNetworks();
   const analytics = useAnalytics();
@@ -40,7 +45,7 @@ export function NetworkDialog({ isShowing, onClose }: DialogProps) {
 
   return (
     <Dialog
-      header={<Header variant="dialog" title="Change network" />}
+      header={<DialogHeader title="Change network" />}
       isShowing={isShowing}
       onClose={onClose}
       footer={

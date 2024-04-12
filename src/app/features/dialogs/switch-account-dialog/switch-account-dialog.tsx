@@ -10,15 +10,20 @@ import { useFilteredBitcoinAccounts } from '@app/store/accounts/blockchain/bitco
 import { useStacksAccounts } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
 import { useHasLedgerKeys } from '@app/store/ledger/ledger.selectors';
 import { Button } from '@app/ui/components/button/button';
-import { Dialog, DialogProps, getHeightOffset } from '@app/ui/components/containers/dialog/dialog';
+import { Dialog, getHeightOffset } from '@app/ui/components/containers/dialog/dialog';
 import { Footer } from '@app/ui/components/containers/footers/footer';
-import { Header } from '@app/ui/components/containers/headers/header';
+import { DialogHeader } from '@app/ui/components/containers/headers/dialog-header';
 import { virtuosoHeight, virtuosoStyles } from '@app/ui/shared/virtuoso';
 
 import { AccountListUnavailable } from './components/account-list-unavailable';
 import { SwitchAccountListItem } from './components/switch-account-list-item';
 
-export const SwitchAccountDialog = memo(({ isShowing, onClose }: DialogProps) => {
+interface SwitchAccountDialogProps {
+  isShowing: boolean;
+  onClose(): void;
+}
+
+export const SwitchAccountDialog = memo(({ isShowing, onClose }: SwitchAccountDialogProps) => {
   const currentAccountIndex = useCurrentAccountIndex();
   const createAccount = useCreateAccount();
   const { whenWallet } = useWalletType();
@@ -47,7 +52,7 @@ export const SwitchAccountDialog = memo(({ isShowing, onClose }: DialogProps) =>
 
   return (
     <Dialog
-      header={<Header variant="dialog" title="Select account" />}
+      header={<DialogHeader title="Select account" />}
       isShowing={isShowing}
       onClose={onClose}
       footer={whenWallet({

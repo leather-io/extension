@@ -25,7 +25,7 @@ import {
   useStacksAccounts,
 } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
 import { Dialog } from '@app/ui/components/containers/dialog/dialog';
-import { Header } from '@app/ui/components/containers/headers/header';
+import { DialogHeader } from '@app/ui/components/containers/headers/dialog-header';
 
 import { useLedgerNavigate } from '../../hooks/use-ledger-navigate';
 import { checkLockedDeviceError, useLedgerResponseState } from '../../utils/generic-ledger-utils';
@@ -184,8 +184,8 @@ export function LedgerSignJwtContainer() {
     <LedgerJwtSigningProvider value={ledgerContextValue}>
       <Dialog
         isShowing
-        header={<Header variant="dialog" isWaitingOnPerformedAction={isWaitingOnPerformedAction} />}
-        onClose={isWaitingOnPerformedAction ? () => null : () => onCancelConnectLedger}
+        header={<DialogHeader isWaitingOnPerformedAction={isWaitingOnPerformedAction} />}
+        onClose={isWaitingOnPerformedAction ? undefined : () => onCancelConnectLedger}
       >
         <Outlet />
       </Dialog>

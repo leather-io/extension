@@ -21,7 +21,7 @@ import {
 import { useCurrentStacksAccount } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
 import { StacksAccount } from '@app/store/accounts/blockchain/stacks/stacks-account.models';
 import { Dialog } from '@app/ui/components/containers/dialog/dialog';
-import { Header } from '@app/ui/components/containers/headers/header';
+import { DialogHeader } from '@app/ui/components/containers/headers/dialog-header';
 
 import { useLedgerAnalytics } from '../../hooks/use-ledger-analytics.hook';
 import { useLedgerNavigate } from '../../hooks/use-ledger-navigate';
@@ -155,8 +155,8 @@ function LedgerSignStacksMsg({ account, unsignedMessage }: LedgerSignMsgProps) {
       <Dialog
         onGoBack={allowUserToGoBack ? () => navigate(-1) : undefined}
         isShowing
-        header={<Header variant="dialog" isWaitingOnPerformedAction={isWaitingOnPerformedAction} />}
-        onClose={isWaitingOnPerformedAction ? () => null : () => ledgerNavigate.cancelLedgerAction}
+        header={<DialogHeader isWaitingOnPerformedAction={isWaitingOnPerformedAction} />}
+        onClose={isWaitingOnPerformedAction ? undefined : () => ledgerNavigate.cancelLedgerAction}
       >
         <Outlet />
       </Dialog>
