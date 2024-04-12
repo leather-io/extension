@@ -17,7 +17,7 @@ import {
   InfoCardSeparator,
 } from '@app/components/info-card/info-card';
 import { useCurrentNativeSegwitUtxos } from '@app/query/bitcoin/address/utxos-by-address.hooks';
-import { useBrc20Transfers } from '@app/query/bitcoin/ordinals/brc20/use-brc-20';
+import { useBrc20Transfers } from '@app/query/bitcoin/ordinals/brc20/brc20-tokens.hooks';
 import { useBitcoinBroadcastTransaction } from '@app/query/bitcoin/transaction/use-bitcoin-broadcast-transaction';
 import { Button } from '@app/ui/components/button/button';
 import { Footer } from '@app/ui/components/containers/footers/footer';

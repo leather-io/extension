@@ -25,9 +25,9 @@ export function Brc20TokenAssetList({ brc20Tokens, variant }: Brc20TokenAssetLis
     variant === 'send' && btcCryptoCurrencyAssetBalance.balance.amount.isGreaterThan(0);
 
   function navigateToBrc20SendForm(token: Brc20Token) {
-    const { ticker, available_balance, decimals, holderAddress } = token;
+    const { ticker, balance, holderAddress, marketData } = token;
     navigate(RouteUrls.SendBrc20SendForm.replace(':ticker', ticker), {
-      state: { balance: available_balance, ticker, decimals, holderAddress },
+      state: { balance, ticker, holderAddress, marketData },
     });
   }
 

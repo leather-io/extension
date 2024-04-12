@@ -1,4 +1,4 @@
-import type { Money } from './money.model';
+import type { MarketData } from './market.model';
 
 export interface BitcoinCryptoCurrencyAsset {
   decimals: number;
@@ -24,7 +24,7 @@ export interface StacksFungibleTokenAsset {
   hasMemo: boolean;
   imageCanonicalUri: string;
   name: string;
-  price: Money | null;
+  marketData: MarketData | null;
   symbol: string;
 }
 

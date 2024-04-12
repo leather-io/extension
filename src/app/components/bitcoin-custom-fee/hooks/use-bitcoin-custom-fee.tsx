@@ -67,7 +67,7 @@ export function useBitcoinCustomFeeMultipleRecipients({
 }: UseBitcoinCustomFeeArgsMultipleRecipients) {
   const { balance } = useCurrentNativeSegwitAddressBalance();
   const { data: utxos = [] } = useCurrentNativeSegwitUtxos();
-  const btcMarketData = useCryptoCurrencyMarketData('BTC');
+  const btcMarketData = useCryptoCurrencyMarketDataMeanAverage('BTC');
 
   return useCallback(
     (feeRate: number) => {

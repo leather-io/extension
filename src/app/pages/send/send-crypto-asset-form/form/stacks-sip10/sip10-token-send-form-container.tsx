@@ -3,6 +3,7 @@ import { StxAvatarIcon } from '@app/ui/components/avatar/stx-avatar-icon';
 
 import { AmountField } from '../../components/amount-field';
 import { SelectedAssetField } from '../../components/selected-asset-field';
+import { SendFiatValue } from '../../components/send-fiat-value';
 import { SendMaxButton } from '../../components/send-max-button';
 import { StacksCommonSendForm } from '../stacks/stacks-common-send-form';
 import { useSip10SendForm } from './use-sip10-send-form';
@@ -23,6 +24,8 @@ export function Sip10TokenSendFormContainer({
     stacksFtFees: fees,
     validationSchema,
     avatar,
+    marketData,
+    decimals,
   } = useSip10SendForm({ symbol, contractId });
 
   const amountField = (
@@ -33,6 +36,11 @@ export function Sip10TokenSendFormContainer({
       }
       tokenSymbol={symbol}
       autoComplete="off"
+      switchableAmount={
+        marketData ? (
+          <SendFiatValue marketData={marketData} assetSymbol={symbol} assetDecimals={decimals} />
+        ) : undefined
+      }
     />
   );
   const selectedAssetField = (

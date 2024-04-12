@@ -60,6 +60,8 @@ export function useSip10SendForm({ symbol, contractId }: UseSip10SendFormArgs) {
     sendMaxBalance,
     stacksFtFees,
     symbol,
+    decimals: assetBalance.asset.decimals,
+    marketData: assetBalance.asset.marketData,
     avatar: createFtAvatar(),
     validationSchema: yup.object({
       amount: stacksFungibleTokenAmountValidator(availableTokenBalance),

@@ -1,11 +1,8 @@
 import { SwapSelectors } from '@tests/selectors/swap.selectors';
 
-import {
-  checkIsMoneyAmountGreaterThanZero,
-  convertCryptoCurrencyMoneyToFiat,
-} from '@app/common/money/fiat-conversion';
-import { formatMoneyWithoutSymbol, i18nFormatCurrency } from '@app/common/money/format-money';
-import type { SwapAsset } from '@app/pages/swap/hooks/use-swap-form';
+import { convertAssetBalanceToFiat } from '@app/common/asset-utils';
+import { formatMoneyWithoutSymbol } from '@app/common/money/format-money';
+import type { SwapAsset } from '@app/query/common/alex-sdk/alex-sdk.hooks';
 import { useGetFungibleTokenMetadataQuery } from '@app/query/stacks/tokens/fungible-tokens/fungible-token-metadata.query';
 import { isFtAsset } from '@app/query/stacks/tokens/token-metadata.utils';
 import { Avatar, defaultFallbackDelay, getAvatarFallback } from '@app/ui/components/avatar/avatar';
@@ -22,12 +19,7 @@ export function SwapAssetItem({ asset, onClick }: SwapAssetItemProps) {
   const ftMetadataName = ftMetadata && isFtAsset(ftMetadata) ? ftMetadata.name : asset.name;
   const displayName = asset.displayName ?? ftMetadataName;
   const fallback = getAvatarFallback(asset.name);
-  const showFiatBalance = checkIsMoneyAmountGreaterThanZero(asset.price);
-  const balanceAsFiat = showFiatBalance
-    ? i18nFormatCurrency(
-        convertCryptoCurrencyMoneyToFiat(asset.balance.symbol, asset.price, asset.balance)
-      )
-    : '';
+  const balanceAsFiat = convertAssetBalanceToFiat(asset);
 
   return (
     <Pressable data-testid={SwapSelectors.SwapAssetListItem} onClick={onClick} my="space.02">

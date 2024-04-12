@@ -6,7 +6,7 @@ import { isNumber } from '@shared/utils';
 
 import { initBigNumber, sumNumbers } from '../math/helpers';
 import { formatMoney } from './format-money';
-import { isMoney } from './is-money';
+import { isMoney } from './money.utils';
 
 export function baseCurrencyAmountInQuote(quantity: Money, { pair, price }: MarketData) {
   if (quantity.symbol.toLowerCase() !== pair.base.toLowerCase())

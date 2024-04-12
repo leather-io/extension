@@ -12,8 +12,8 @@ import { SwapFormValues } from '../../../hooks/use-swap-form';
 import { useSwapContext } from '../../../swap.context';
 
 export function SwapToggleButton() {
-  const { fetchToAmount, isFetchingExchangeRate, onSetIsSendingMax } = useSwapContext();
-  const { setFieldValue, validateForm, values } = useFormikContext<SwapFormValues>();
+  const { fetchQuoteAmount, isFetchingExchangeRate, onSetIsSendingMax } = useSwapContext();
+  const { setFieldValue, values } = useFormikContext<SwapFormValues>();
   const navigate = useNavigate();
 
   async function onToggleSwapAssets() {
@@ -24,21 +24,20 @@ export function SwapToggleButton() {
     const prevAssetBase = values.swapAssetBase;
     const prevAssetQuote = values.swapAssetQuote;
 
-    await setFieldValue('swapAssetBase', prevAssetQuote);
-    await setFieldValue('swapAssetQuote', prevAssetBase);
-    await setFieldValue('swapAmountBase', prevAmountQuote);
+    void setFieldValue('swapAssetBase', prevAssetQuote);
+    void setFieldValue('swapAssetQuote', prevAssetBase);
+    void setFieldValue('swapAmountBase', prevAmountQuote);
 
     if (isDefined(prevAssetBase) && isDefined(prevAssetQuote)) {
-      const quoteAmount = await fetchToAmount(prevAssetQuote, prevAssetBase, prevAmountQuote);
+      const quoteAmount = await fetchQuoteAmount(prevAssetQuote, prevAssetBase, prevAmountQuote);
       if (isUndefined(quoteAmount)) {
-        await setFieldValue('swapAmountQuote', '');
+        void setFieldValue('swapAmountQuote', '');
         return;
       }
-      await setFieldValue('swapAmountQuote', Number(quoteAmount));
+      void setFieldValue('swapAmountQuote', Number(quoteAmount));
     } else {
-      await setFieldValue('swapAmountQuote', Number(prevAmountBase));
+      void setFieldValue('swapAmountQuote', Number(prevAmountBase));
     }
-    await validateForm();
     navigate(
       RouteUrls.Swap.replace(':base', prevAssetQuote?.name ?? '').replace(
         ':quote',
