@@ -33,8 +33,8 @@ dependencies:
     specifier: 0.4.5
     version: 0.4.5
   '@leather-wallet/tokens':
-    specifier: 0.0.14
-    version: 0.0.14
+    specifier: 0.0.15
+    version: 0.0.15
   '@ledgerhq/hw-transport-webusb':
     specifier: 6.27.19
     version: 6.27.19
@@ -3724,8 +3724,8 @@ packages:
       '@leather-wallet/models': 0.4.0
     dev: true
 
-  /@leather-wallet/tokens@0.0.14:
-    resolution: {integrity: sha512-xCg+aIcn8DexmQhfvxYM85IGP2Q1JNfUBq80ZwV4horKw18MxxTdX5FeEthTrO8quRZu7up+IW6m/l3wElnDsA==}
+  /@leather-wallet/tokens@0.0.15:
+    resolution: {integrity: sha512-/jG36yCB8YRtyn1/sUgSeFwQjHhf6OfT0vsf384kbIXCzuaGhJpNl7GN0qWQkrxOKB5ahVuvqRwqaKFgwg1lUg==}
     dev: false
 
   /@ledgerhq/devices@8.2.0:
