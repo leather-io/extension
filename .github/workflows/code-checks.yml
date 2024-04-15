@@ -42,7 +42,7 @@ jobs:
           fetch-depth: 0
 
       - name: Lint commit message
-        uses: wagoid/commitlint-github-action@v4
+        uses: wagoid/commitlint-github-action@v6
 
   lint-deps:
     runs-on: ubuntu-latest
