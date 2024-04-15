@@ -1,7 +1,7 @@
 import { ReactNode } from 'react';
 
 import { SharedComponentsSelectors } from '@tests/selectors/shared-component.selectors';
-import { Flex } from 'leather-styles/jsx';
+import { Box, Flex } from 'leather-styles/jsx';
 
 import { CloseIcon } from '@app/ui/icons';
 
@@ -17,22 +17,24 @@ export function DialogHeader({ isWaitingOnPerformedAction, onClose, title }: Dia
   return (
     <Flex
       justifyContent="center"
-      margin={{ base: 0, md: 'auto' }}
+      m={{ base: 0, md: 'auto' }}
       p="space.04"
       bg="transparent"
       width="100%"
     >
       {title && (
-        <Flex flex="none" margin="auto" alignItems="center" textStyle="heading.05">
+        <Flex flex="none" m="auto" alignItems="center" textStyle="heading.05">
           {title}
         </Flex>
       )}
       {onClose && !isWaitingOnPerformedAction && (
-        <HeaderActionButton
-          icon={<CloseIcon />}
-          dataTestId={SharedComponentsSelectors.HeaderCloseBtn}
-          onAction={onClose}
-        />
+        <Box ml="auto">
+          <HeaderActionButton
+            icon={<CloseIcon />}
+            dataTestId={SharedComponentsSelectors.HeaderCloseBtn}
+            onAction={onClose}
+          />
+        </Box>
       )}
     </Flex>
   );

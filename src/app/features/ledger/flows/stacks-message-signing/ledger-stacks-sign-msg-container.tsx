@@ -156,7 +156,7 @@ function LedgerSignStacksMsg({ account, unsignedMessage }: LedgerSignMsgProps) {
         onGoBack={allowUserToGoBack ? () => navigate(-1) : undefined}
         isShowing
         header={<DialogHeader isWaitingOnPerformedAction={isWaitingOnPerformedAction} />}
-        onClose={isWaitingOnPerformedAction ? undefined : () => ledgerNavigate.cancelLedgerAction}
+        onClose={isWaitingOnPerformedAction ? undefined : () => ledgerNavigate.cancelLedgerAction()}
       >
         <Outlet />
       </Dialog>

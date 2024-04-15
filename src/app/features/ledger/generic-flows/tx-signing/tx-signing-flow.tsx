@@ -1,6 +1,7 @@
-import { Outlet, useNavigate } from 'react-router-dom';
+import { Outlet, useLocation, useNavigate } from 'react-router-dom';
 
-import { useLocationState } from '@app/common/hooks/use-location-state';
+import { RouteUrls } from '@shared/route-urls';
+
 import { useScrollLock } from '@app/common/hooks/use-scroll-lock';
 import { Dialog } from '@app/ui/components/containers/dialog/dialog';
 import { DialogHeader } from '@app/ui/components/containers/headers/dialog-header';
@@ -11,26 +12,26 @@ import { LedgerTxSigningContext, LedgerTxSigningProvider } from './ledger-sign-t
 interface TxSigningFlowProps {
   context: LedgerTxSigningContext;
   awaitingDeviceConnection: boolean;
-  closeAction(): void;
 }
-export function TxSigningFlow({
-  context,
-  awaitingDeviceConnection,
-  closeAction,
-}: TxSigningFlowProps) {
+export function TxSigningFlow({ context, awaitingDeviceConnection }: TxSigningFlowProps) {
   const navigate = useNavigate();
+  const location = useLocation();
   useScrollLock(true);
-  const allowUserToGoBack = useLocationState<boolean>('goBack');
   const canUserCancelAction = useActionCancellableByUser();
 
-  const isWaitingOnPerformedAction = awaitingDeviceConnection || canUserCancelAction;
   return (
     <LedgerTxSigningProvider value={context}>
       <Dialog
-        onGoBack={allowUserToGoBack ? () => navigate(-1) : undefined}
         isShowing
-        header={<DialogHeader isWaitingOnPerformedAction={isWaitingOnPerformedAction} />}
-        onClose={isWaitingOnPerformedAction ? undefined : () => closeAction}
+        header={
+          <DialogHeader
+            isWaitingOnPerformedAction={awaitingDeviceConnection || canUserCancelAction}
+          />
+        }
+        onClose={() =>
+          // navigate to specific route instead of `..` to avoid redirect to Home
+          navigate(RouteUrls.RpcSignBip322Message, { state: { ...location.state, wentBack: true } })
+        }
       >
         <Outlet />
       </Dialog>

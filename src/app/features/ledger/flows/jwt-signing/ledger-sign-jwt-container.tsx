@@ -185,7 +185,7 @@ export function LedgerSignJwtContainer() {
       <Dialog
         isShowing
         header={<DialogHeader isWaitingOnPerformedAction={isWaitingOnPerformedAction} />}
-        onClose={isWaitingOnPerformedAction ? undefined : () => onCancelConnectLedger}
+        onClose={isWaitingOnPerformedAction ? undefined : () => onCancelConnectLedger()}
       >
         <Outlet />
       </Dialog>

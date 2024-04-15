@@ -71,7 +71,7 @@ const ChooseAccountItem = memo(
   }
 );
 
-const AddAccountAction = memo(() => {
+function AddAccountAction() {
   const [component, bind] = usePressable(true);
   const createAccount = useCreateAccount();
 
@@ -88,9 +88,9 @@ const AddAccountAction = memo(() => {
       {component}
     </Box>
   );
-});
+}
 
-export const ChooseAccountsList = memo(() => {
+export function ChooseAccountsList() {
   const finishSignIn = useFinishAuthRequest();
   const { whenWallet } = useWalletType();
   const accounts = useStacksAccounts();
@@ -109,7 +109,6 @@ export const ChooseAccountsList = memo(() => {
     })();
   };
 
-  if (!accounts) return null;
   const accountNum = accounts.length;
 
   const maxAccountsShown = accountNum > 10 ? 10 : accountNum;
@@ -137,4 +136,4 @@ export const ChooseAccountsList = memo(() => {
       />
     </Box>
   );
-});
+}
