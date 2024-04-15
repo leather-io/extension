@@ -75,7 +75,7 @@ export interface NetworkConfiguration {
   };
 }
 
-export const BESTINSLOT_API_BASE_URL_MAINNET = 'https://api.bestinslot.xyz/v3';
+export const BESTINSLOT_API_BASE_URL_MAINNET = 'https://leatherapi.bestinslot.xyz/v3';
 export const BESTINSLOT_API_BASE_URL_TESTNET = 'https://testnet.api.bestinslot.xyz/v3';
 
 export const HIRO_API_BASE_URL_MAINNET = 'https://api.hiro.so';
