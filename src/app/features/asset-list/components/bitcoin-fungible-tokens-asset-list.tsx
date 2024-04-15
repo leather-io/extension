@@ -21,7 +21,7 @@ export function BitcoinFungibleTokenAssetList({
       <Src20TokensLoader address={btcAddressNativeSegwit}>
         {src20Tokens => <Src20TokenAssetList src20Tokens={src20Tokens} />}
       </Src20TokensLoader>
-      <RunesLoader address={btcAddressTaproot}>
+      <RunesLoader addresses={[btcAddressNativeSegwit, btcAddressTaproot]}>
         {runes => <RunesAssetList runes={runes} />}
       </RunesLoader>
     </>

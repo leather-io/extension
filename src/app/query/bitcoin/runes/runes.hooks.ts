@@ -1,16 +1,17 @@
 import { createMoney } from '@shared/models/money.model';
 
-import type { RuneToken } from '../bitcoin-client';
-import { useGetRunesWalletBalancesQuery } from './runes-wallet-balances.query';
+import type { RuneBalance, RuneToken } from '../bitcoin-client';
+import { useGetRunesWalletBalancesByAddressesQuery } from './runes-wallet-balances.query';
 
-export function useRuneTokens(address: string) {
-  return useGetRunesWalletBalancesQuery(address, {
-    select: resp =>
-      resp.map(rune => {
-        return {
-          ...rune,
-          balance: createMoney(Number(rune.total_balance), rune.rune_name, 0),
-        } as RuneToken;
-      }),
+function makeRuneToken(rune: RuneBalance): RuneToken {
+  return {
+    ...rune,
+    balance: createMoney(Number(rune.total_balance), rune.rune_name, 0),
+  };
+}
+
+export function useRuneTokens(addresses: string[]) {
+  return useGetRunesWalletBalancesByAddressesQuery(addresses, {
+    select: resp => resp.map(makeRuneToken),
   });
 }
