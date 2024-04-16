@@ -1,11 +1,12 @@
 import BigNumber from 'bignumber.js';
-import { getAddressInfo, validate } from 'bitcoin-address-validation';
+import { AddressType, getAddressInfo, validate } from 'bitcoin-address-validation';
 
 import { BTC_P2WPKH_DUST_AMOUNT } from '@shared/constants';
 import {
   BitcoinTransactionVectorOutput,
   BitcoinTx,
 } from '@shared/models/transactions/bitcoin-transaction.model';
+import type { RpcSendTransferRecipient } from '@shared/rpc/methods/send-transfer';
 
 import { sumNumbers } from '@app/common/math/helpers';
 import { satToBtc } from '@app/common/money/unit-conversion';
@@ -143,4 +144,111 @@ export function getBitcoinTxValue(address: string, transaction?: BitcoinTx) {
   if (inputs.length) return '-' + totalInputValue.toString();
   if (outputs.length) return totalOutputValue.toString();
   return '';
+}
+
+// multiple recipients
+function getSpendableAmountMultipleRecipients({
+  utxos,
+  feeRate,
+  recipients,
+}: {
+  utxos: UtxoResponseItem[];
+  feeRate: number;
+  recipients: RpcSendTransferRecipient[];
+}) {
+  const balance = utxos.map(utxo => utxo.value).reduce((prevVal, curVal) => prevVal + curVal, 0);
+
+  const size = getSizeInfoMultipleRecipients({
+    inputLength: utxos.length,
+    recipients,
+  });
+  const fee = Math.ceil(size.txVBytes * feeRate);
+  const bigNumberBalance = BigNumber(balance);
+  return {
+    spendableAmount: BigNumber.max(0, bigNumberBalance.minus(fee)),
+    fee,
+  };
+}
+
+export function filterUneconomicalUtxosMultipleRecipients({
+  utxos,
+  feeRate,
+  recipients,
+}: {
+  utxos: UtxoResponseItem[];
+  feeRate: number;
+  recipients: RpcSendTransferRecipient[];
+}) {
+  const { spendableAmount: fullSpendableAmount } = getSpendableAmountMultipleRecipients({
+    utxos,
+    feeRate,
+    recipients,
+  });
+
+  const filteredUtxos = utxos
+    .filter(utxo => utxo.value >= BTC_P2WPKH_DUST_AMOUNT)
+    .filter(utxo => {
+      // calculate spendableAmount without that utxo.
+      const { spendableAmount } = getSpendableAmountMultipleRecipients({
+        utxos: utxos.filter(u => u.txid !== utxo.txid),
+        feeRate,
+        recipients,
+      });
+      // if spendable amount becomes bigger, do not use that utxo
+      return spendableAmount.toNumber() < fullSpendableAmount.toNumber();
+    });
+  return filteredUtxos;
+}
+
+export function getSizeInfoMultipleRecipients(payload: {
+  inputLength: number;
+  recipients: RpcSendTransferRecipient[];
+  isSendMax?: boolean;
+}) {
+  const { inputLength, recipients, isSendMax } = payload;
+
+  const addressesInfo = recipients.map(recipient => {
+    return validate(recipient.address) ? getAddressInfo(recipient.address) : null;
+  });
+  const outputAddressesTypesWithFallback = addressesInfo.map(addressInfo =>
+    addressInfo ? addressInfo.type : AddressType.p2wpkh
+  );
+
+  const outputTypesLengthMap = outputAddressesTypesWithFallback.reduce(
+    (acc: Record<AddressType, number>, outputType) => {
+      // we add 1 output for change address if not sending max
+      if (!acc['p2wpkh'] && !isSendMax) {
+        acc['p2wpkh'] = 1;
+      }
+
+      if (acc[outputType]) {
+        acc[outputType] = acc[outputType] + 1;
+      } else {
+        acc[outputType] = 1;
+      }
+
+      return acc;
+    },
+    {} as Record<AddressType, number>
+  );
+
+  const outputsData = (Object.keys(outputTypesLengthMap) as AddressType[]).map(
+    outputAddressType => {
+      return {
+        [outputAddressType + '_output_count']: outputTypesLengthMap[outputAddressType],
+      };
+    }
+  );
+
+  const txSizer = new BtcSizeFeeEstimator();
+  const sizeInfo = txSizer.calcTxSize({
+    // Only p2wpkh is supported by the wallet
+    input_script: 'p2wpkh',
+    input_count: inputLength,
+    // From the address of the recipient, we infer the output type
+
+    ...outputsData,
+  });
+
+  return sizeInfo;
 }

@@ -13,8 +13,8 @@ import {
 } from '@app/common/money/unit-conversion';
 import { UtxoResponseItem } from '@app/query/bitcoin/bitcoin-client';
 
+import { FormErrorMessages } from '../../../../shared/error-messages';
 import { formatInsufficientBalanceError, formatPrecisionError } from '../../error-formatters';
-import { FormErrorMessages } from '../../error-messages';
 import { currencyAmountValidator, stxAmountPrecisionValidator } from './currency-validators';
 
 const minSpendAmountInSats = 6000;

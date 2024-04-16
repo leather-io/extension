@@ -4,12 +4,12 @@ import { useNavigate } from 'react-router-dom';
 import * as yup from 'yup';
 
 import { bitcoinNetworkModeToCoreNetworkMode } from '@shared/crypto/bitcoin/bitcoin.utils';
+import { FormErrorMessages } from '@shared/error-messages';
 import { logger } from '@shared/logger';
 import { OrdinalSendFormValues } from '@shared/models/form.model';
 import { RouteUrls } from '@shared/route-urls';
 import { isError } from '@shared/utils';
 
-import { FormErrorMessages } from '@app/common/error-messages';
 import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
 import { formFeeRowValue } from '@app/common/send/utils';
 import { InsufficientFundsError } from '@app/common/transactions/bitcoin/coinselect/local-coin-selection';

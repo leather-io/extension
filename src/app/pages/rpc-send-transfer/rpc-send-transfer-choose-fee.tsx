@@ -2,17 +2,18 @@ import { Outlet, useNavigate } from 'react-router-dom';
 
 import { logger } from '@shared/logger';
 import { BtcFeeType } from '@shared/models/fees/bitcoin-fees.model';
-import { createMoney } from '@shared/models/money.model';
+import type { Money } from '@shared/models/money.model';
 import { RouteUrls } from '@shared/route-urls';
+import type { RpcSendTransferRecipient } from '@shared/rpc/methods/send-transfer';
 
 import { useLocationStateWithCache } from '@app/common/hooks/use-location-state';
-import { useGenerateUnsignedNativeSegwitSingleRecipientTx } from '@app/common/transactions/bitcoin/use-generate-bitcoin-tx';
+import { useGenerateUnsignedNativeSegwitMultipleRecipientsTx } from '@app/common/transactions/bitcoin/use-generate-bitcoin-tx';
 import {
   BitcoinFeesList,
   OnChooseFeeArgs,
 } from '@app/components/bitcoin-fees-list/bitcoin-fees-list';
-import { useBitcoinFeesList } from '@app/components/bitcoin-fees-list/use-bitcoin-fees-list';
-import { BitcoinChooseFee } from '@app/features/bitcoin-choose-fee/bitcoin-choose-fee';
+import { useBitcoinFeesListMultipleRecipients } from '@app/components/bitcoin-fees-list/use-bitcoin-fees-list-multiple-recipients';
+import { BitcoinChooseFeeMultipleRecipients } from '@app/features/bitcoin-choose-fee/bitcoin-choose-fee';
 import { useValidateBitcoinSpend } from '@app/features/bitcoin-choose-fee/hooks/use-validate-bitcoin-spend';
 import { UtxoResponseItem } from '@app/query/bitcoin/bitcoin-client';
 import { useSignBitcoinTx } from '@app/store/accounts/blockchain/bitcoin/bitcoin.hooks';
@@ -21,24 +22,24 @@ import { formFeeRowValue } from '../../common/send/utils';
 import { useRpcSendTransferState } from './rpc-send-transfer-container';
 
 function useRpcSendTransferFeeState() {
-  const amount = useLocationStateWithCache('amount');
-  const amountAsMoney = createMoney(Number(amount), 'BTC');
+  const amountAsMoney = useLocationStateWithCache('amountAsMoney') as Money;
+  const recipients = useLocationStateWithCache('recipients') as RpcSendTransferRecipient[];
   const utxos = useLocationStateWithCache('utxos') as UtxoResponseItem[];
-  const address = useLocationStateWithCache('address') as string;
 
-  return { address, amountAsMoney, utxos };
+  return { amountAsMoney, utxos, recipients };
 }
 
 export function RpcSendTransferChooseFee() {
   const { selectedFeeType, setSelectedFeeType } = useRpcSendTransferState();
-  const { address, amountAsMoney, utxos } = useRpcSendTransferFeeState();
+  const { amountAsMoney, utxos, recipients } = useRpcSendTransferFeeState();
+
   const navigate = useNavigate();
 
-  const generateTx = useGenerateUnsignedNativeSegwitSingleRecipientTx();
+  const generateTx = useGenerateUnsignedNativeSegwitMultipleRecipientsTx();
   const signTransaction = useSignBitcoinTx();
-  const { feesList, isLoading } = useBitcoinFeesList({
+  const { feesList, isLoading } = useBitcoinFeesListMultipleRecipients({
     amount: amountAsMoney,
-    recipient: address,
+    recipients,
     utxos,
   });
   const recommendedFeeRate = feesList[1]?.feeRate.toString() || '';
@@ -46,7 +47,7 @@ export function RpcSendTransferChooseFee() {
   const { showInsufficientBalanceError, onValidateBitcoinFeeSpend } = useValidateBitcoinSpend();
 
   async function previewTransfer({ feeRate, feeValue, time, isCustomFee }: OnChooseFeeArgs) {
-    const resp = await generateTx({ amount: amountAsMoney, recipient: address }, feeRate, utxos);
+    const resp = await generateTx({ amount: amountAsMoney, recipients }, feeRate, utxos);
 
     if (!resp) return logger.error('Attempted to generate raw tx, but no tx exists');
 
@@ -59,7 +60,7 @@ export function RpcSendTransferChooseFee() {
     navigate(RouteUrls.RpcSendTransferConfirmation, {
       state: {
         fee: feeValue,
-        recipient: address,
+        recipients,
         time,
         tx: tx.hex,
         feeRowValue,
@@ -70,7 +71,7 @@ export function RpcSendTransferChooseFee() {
   return (
     <>
       <Outlet />
-      <BitcoinChooseFee
+      <BitcoinChooseFeeMultipleRecipients
         amount={amountAsMoney}
         feesList={
           <BitcoinFeesList
@@ -86,7 +87,7 @@ export function RpcSendTransferChooseFee() {
         onChooseFee={previewTransfer}
         onSetSelectedFeeType={(value: BtcFeeType | null) => setSelectedFeeType(value)}
         onValidateBitcoinSpend={onValidateBitcoinFeeSpend}
-        recipient={address}
+        recipients={recipients}
         recommendedFeeRate={recommendedFeeRate}
         showError={showInsufficientBalanceError}
         maxRecommendedFeeRate={feesList[0]?.feeRate}

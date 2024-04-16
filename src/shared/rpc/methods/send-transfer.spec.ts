@@ -11,7 +11,7 @@ describe('`sendTransfer` method', () => {
         network: 'mainnet',
         account: 0,
         address: 'bc1qar0srrr7xfkvy5l643lydnw9re59gtzzwf5mdq',
-        amount: '0.0001',
+        amount: '10000',
       };
 
       expect(rpcSendTransferParamsSchemaLegacy.isValidSync(params)).toBeTruthy();
@@ -24,11 +24,11 @@ describe('`sendTransfer` method', () => {
         recipients: [
           {
             address: 'bc1qar0srrr7xfkvy5l643lydnw9re59gtzzwf5mdq',
-            amount: '0.0001',
+            amount: '10000',
           },
           {
             address: 'bc1qar0srrr7xfkvy5l643lydnw9re59gtzzwf5mdq',
-            amount: '0.0001',
+            amount: '800',
           },
         ],
       };
@@ -50,7 +50,7 @@ describe('`sendTransfer` method', () => {
         network: 'mainnet',
         account: 0,
         address: 'bc1qar0srrr7xfkvy5l643lydnw9re59gtzzwf5mdq',
-        amount: '0.0001',
+        amount: '10000',
       };
 
       const newParams = {
@@ -59,7 +59,7 @@ describe('`sendTransfer` method', () => {
         recipients: [
           {
             address: 'bc1qar0srrr7xfkvy5l643lydnw9re59gtzzwf5mdq',
-            amount: '0.0001',
+            amount: '10000',
           },
         ],
       };

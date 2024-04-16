@@ -1,5 +1,6 @@
 import { useLocation, useNavigate } from 'react-router-dom';
 
+import { Stack } from 'leather-styles/jsx';
 import get from 'lodash.get';
 
 import { decodeBitcoinTx } from '@shared/crypto/bitcoin/bitcoin.utils';
@@ -7,6 +8,7 @@ import { logger } from '@shared/logger';
 import { CryptoCurrencies } from '@shared/models/currencies.model';
 import { createMoney, createMoneyFromDecimal } from '@shared/models/money.model';
 import { RouteUrls } from '@shared/route-urls';
+import type { RpcSendTransferRecipient } from '@shared/rpc/methods/send-transfer';
 import { makeRpcSuccessResponse } from '@shared/rpc/rpc-methods';
 
 import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
@@ -30,7 +32,7 @@ function useRpcSendTransferConfirmationState() {
   const location = useLocation();
   return {
     fee: get(location.state, 'fee') as string,
-    recipient: get(location.state, 'recipient') as string,
+    recipients: get(location.state, 'recipients') as RpcSendTransferRecipient[],
     time: get(location.state, 'time') as string,
     tx: get(location.state, 'tx') as string,
     feeRowValue: get(location.state, 'feeRowValue') as string,
@@ -41,7 +43,7 @@ export function RpcSendTransferConfirmation() {
   const analytics = useAnalytics();
   const navigate = useNavigate();
   const { origin, requestId, tabId } = useRpcSendTransferRequestParams();
-  const { fee, recipient, time, tx, feeRowValue } = useRpcSendTransferConfirmationState();
+  const { fee, recipients, time, tx, feeRowValue } = useRpcSendTransferConfirmationState();
   const bitcoinAddress = useCurrentAccountNativeSegwitAddressIndexZero();
   const { broadcastTx, isBroadcasting } = useBitcoinBroadcastTransaction();
   const { refetch } = useCurrentNativeSegwitUtxos();
@@ -67,7 +69,7 @@ export function RpcSendTransferConfirmation() {
         txid: txId || '',
       },
       txId,
-      recipient,
+      recipients,
       fee: summaryFee,
       txValue: transferAmount,
       arrivesIn: time,
@@ -119,13 +121,19 @@ export function RpcSendTransferConfirmation() {
 
   return (
     <>
-      <SendTransferConfirmationDetails
-        currentAddress={truncateMiddle(bitcoinAddress)}
-        recipient={truncateMiddle(recipient)}
-        time={time}
-        total={totalSpend}
-        feeRowValue={feeRowValue}
-      />
+      <Stack gap={4} width="100%">
+        {recipients.map((recipient, index) => (
+          <SendTransferConfirmationDetails
+            key={index}
+            currentAddress={truncateMiddle(bitcoinAddress)}
+            recipient={truncateMiddle(recipient.address)}
+            time={time}
+            total={totalSpend}
+            feeRowValue={feeRowValue}
+          />
+        ))}
+      </Stack>
+
       <InfoCardFooter>
         <Button
           borderRadius="sm"

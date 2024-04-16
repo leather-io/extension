@@ -1,6 +1,9 @@
 import { useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
 
+import BigNumber from 'bignumber.js';
+
+import { createMoney } from '@shared/models/money.model';
 import { RouteUrls } from '@shared/route-urls';
 
 import { useDefaultRequestParams } from '@app/common/hooks/use-default-request-search-params';
@@ -15,7 +18,7 @@ export function useRpcSendTransferRequestParams() {
     () => ({
       ...defaultParams,
       requestId: initialSearchParams.get('requestId') ?? '',
-      recipients: initialSearchParams.getAll('recipient') ?? [],
+      recipientsAddresses: initialSearchParams.getAll('recipient') ?? [],
       amounts: initialSearchParams.getAll('amount') ?? [],
     }),
     [defaultParams]
@@ -24,26 +27,31 @@ export function useRpcSendTransferRequestParams() {
 
 export function useRpcSendTransfer() {
   const navigate = useNavigate();
-  const { origin, recipients, amounts } = useRpcSendTransferRequestParams();
+  const { origin, recipientsAddresses, amounts } = useRpcSendTransferRequestParams();
   const { data: utxos = [], refetch } = useCurrentNativeSegwitUtxos();
+  const totalAmount = sumNumbers(amounts.map(Number));
+  const amountAsMoney = createMoney(new BigNumber(totalAmount), 'BTC');
 
   // Forcing a refetch to ensure UTXOs are fresh
   useOnMount(() => refetch());
 
   if (!origin) throw new Error('Invalid params');
 
+  const recipients = recipientsAddresses.map((address, index) => ({
+    address,
+    amount: amounts[index],
+  }));
+
   return {
-    recipients: recipients.map((address, index) => ({
-      address,
-      amount: amounts[index],
-    })),
+    recipients,
     origin,
     utxos,
-    totalAmount: sumNumbers(amounts.map(Number)),
-    recipientAddresses: recipients,
+    totalAmount,
+    amountAsMoney,
+    recipientsAddresses,
     async onChooseTransferFee() {
       navigate(RouteUrls.RpcSendTransferChooseFee, {
-        state: { recipients, utxos },
+        state: { recipients, utxos, amountAsMoney },
       });
     },
   };

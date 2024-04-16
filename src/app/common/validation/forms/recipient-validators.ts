@@ -1,7 +1,6 @@
 import { NetworkConfiguration } from '@shared/constants';
 import { stacksChainIdToCoreNetworkMode } from '@shared/crypto/stacks/stacks.utils';
-
-import { FormErrorMessages } from '@app/common/error-messages';
+import { FormErrorMessages } from '@shared/error-messages';
 
 import {
   notCurrentAddressValidator,

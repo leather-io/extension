@@ -1,7 +1,13 @@
 import type { SendTransferRequestParams } from '@btckit/types';
 import * as yup from 'yup';
 
-import { WalletDefaultNetworkConfigurationIds } from '@shared/constants';
+import { type BitcoinNetworkModes, WalletDefaultNetworkConfigurationIds } from '@shared/constants';
+import { FormErrorMessages } from '@shared/error-messages';
+import { checkIfDigitsOnly } from '@shared/forms/amount-validators';
+import {
+  btcAddressNetworkValidator,
+  btcAddressValidator,
+} from '@shared/forms/bitcoin-address-validators';
 
 import {
   accountSchema,
@@ -19,11 +25,30 @@ export const rpcSendTransferParamsSchemaLegacy = yup.object().shape({
 
 export const rpcSendTransferParamsSchema = yup.object().shape({
   account: accountSchema,
+  network: yup.string().required().oneOf(Object.values(WalletDefaultNetworkConfigurationIds)),
   recipients: yup
     .array()
-    .of(yup.object().shape({ address: yup.string().required(), amount: yup.string().required() }))
-    .required(),
-  network: yup.string().oneOf(Object.values(WalletDefaultNetworkConfigurationIds)),
+    .required()
+    .of(
+      yup.object().shape({
+        // check network is valid for address
+        address: btcAddressValidator().test(
+          'address-network-validation',
+          FormErrorMessages.IncorrectNetworkAddress,
+          (value, context) => {
+            const contextOptions = context.options as any;
+            const network = contextOptions.from[1].value.network as BitcoinNetworkModes;
+            return btcAddressNetworkValidator(network).isValidSync(value);
+          }
+        ),
+        amount: yup
+          .string()
+          .required()
+          .test('amount-validation', 'Sat denominated amounts only', value => {
+            return checkIfDigitsOnly(value);
+          }),
+      })
+    ),
 });
 
 export interface RpcSendTransferParamsLegacy extends SendTransferRequestParams {
