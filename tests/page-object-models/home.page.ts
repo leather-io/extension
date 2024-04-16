@@ -56,10 +56,6 @@ export class HomePage {
     await this.page.getByTestId(HomePageSelectors.ReceiveCryptoAssetBtn).click();
   }
 
-  async goToSwapPage() {
-    await this.page.getByTestId(HomePageSelectors.SwapBtn).click();
-  }
-
   // Open issue with Playwright's ability to copyToClipboard from legacy tests:
   // https://github.com/microsoft/playwright/issues/8114#issuecomment-1103317576
   // Also, an open issue to consistently determine `isMac` in the workaround:
