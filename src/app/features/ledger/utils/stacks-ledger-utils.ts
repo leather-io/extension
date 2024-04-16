@@ -87,8 +87,9 @@ export function signStacksTransactionWithSignature(transaction: string, signatur
 
 export function useActionCancellableByUser() {
   const { pathname } = useLocation();
+  //  seems like user shouldn't be able to cancel devicie is busy
   return (
-    pathname.includes(RouteUrls.DeviceBusy) ||
+    // pathname.includes(RouteUrls.DeviceBusy) ||
     pathname.includes(RouteUrls.ConnectLedgerSuccess) ||
     pathname.includes(RouteUrls.AwaitingDeviceUserAction)
   );

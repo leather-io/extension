@@ -149,14 +149,16 @@ function LedgerSignStacksMsg({ account, unsignedMessage }: LedgerSignMsgProps) {
     awaitingDeviceConnection,
   };
 
-  const isWaitingOnPerformedAction = awaitingDeviceConnection || canUserCancelAction;
+  // Pete - fix this as this is not right
+  // const isWaitingOnPerformedAction = awaitingDeviceConnection || canUserCancelAction;
+  const canClose = !awaitingDeviceConnection && canUserCancelAction;
   return (
     <LedgerMsgSigningProvider value={ledgerContextValue}>
       <Dialog
         onGoBack={allowUserToGoBack ? () => navigate(-1) : undefined}
         isShowing
-        header={<DialogHeader isWaitingOnPerformedAction={isWaitingOnPerformedAction} />}
-        onClose={isWaitingOnPerformedAction ? undefined : () => ledgerNavigate.cancelLedgerAction()}
+        header={<DialogHeader />}
+        onClose={canClose ? () => ledgerNavigate.cancelLedgerAction() : undefined}
       >
         <Outlet />
       </Dialog>

@@ -116,7 +116,18 @@ function LedgerSignBitcoinTxContainer() {
     <TxSigningFlow
       context={ledgerContextValue}
       awaitingDeviceConnection={awaitingDeviceConnection}
-      closeAction={ledgerNavigate.cancelLedgerAction}
+      closeAction={() => ledgerNavigate.cancelLedgerAction(RouteUrls.RpcSignBip322Message)}
     />
   );
 }
+
+// onClose={
+//           canClose
+//             ? () =>
+//                 // navigate to specific route instead of `..` to avoid redirect to Home
+//                 // PETE double check this works for STx + BTC
+//                 navigate(RouteUrls.RpcSignBip322Message, {
+//                   state: { ...location.state, wentBack: true },
+//                 })
+//             : undefined
+//         }

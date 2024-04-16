@@ -8,12 +8,11 @@ import { CloseIcon } from '@app/ui/icons';
 import { HeaderActionButton } from './components/header-action-button';
 
 export interface DialogHeaderProps {
-  isWaitingOnPerformedAction?: boolean;
   onClose?(): void;
   title?: ReactNode;
 }
 
-export function DialogHeader({ isWaitingOnPerformedAction, onClose, title }: DialogHeaderProps) {
+export function DialogHeader({ onClose, title }: DialogHeaderProps) {
   return (
     <Flex
       justifyContent="center"
@@ -27,7 +26,7 @@ export function DialogHeader({ isWaitingOnPerformedAction, onClose, title }: Dia
           {title}
         </Flex>
       )}
-      {onClose && !isWaitingOnPerformedAction && (
+      {onClose && (
         <Box ml="auto">
           <HeaderActionButton
             icon={<CloseIcon />}

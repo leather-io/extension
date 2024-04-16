@@ -178,14 +178,14 @@ export function LedgerSignJwtContainer() {
     awaitingDeviceConnection,
   };
 
-  const isWaitingOnPerformedAction = awaitingDeviceConnection || canUserCancelAction;
+  const canClose = !awaitingDeviceConnection && canUserCancelAction;
 
   return (
     <LedgerJwtSigningProvider value={ledgerContextValue}>
       <Dialog
         isShowing
-        header={<DialogHeader isWaitingOnPerformedAction={isWaitingOnPerformedAction} />}
-        onClose={isWaitingOnPerformedAction ? undefined : () => onCancelConnectLedger()}
+        header={<DialogHeader />}
+        onClose={canClose ? () => onCancelConnectLedger() : undefined}
       >
         <Outlet />
       </Dialog>

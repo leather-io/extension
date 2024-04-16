@@ -99,8 +99,12 @@ export function useLedgerNavigate() {
         return navigate(RouteUrls.LedgerBroadcastError, { replace: true, state: { error } });
       },
 
-      cancelLedgerAction() {
-        return navigate('..', { relative: 'path', replace: true, state: { ...location.state } });
+      cancelLedgerAction(pathname?: RouteUrls) {
+        return navigate(pathname ? pathname : '..', {
+          relative: 'path',
+          replace: true,
+          state: { ...location.state },
+        });
       },
 
       cancelLedgerActionAndReturnHome() {

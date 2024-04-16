@@ -136,7 +136,7 @@ function LedgerSignStacksTxContainer() {
 
   function closeAction() {
     appEvents.publish('ledgerStacksTxSigningCancelled', { unsignedTx: unsignedTx ?? '' });
-    ledgerNavigate.cancelLedgerAction();
+    ledgerNavigate.cancelLedgerAction(RouteUrls.RpcSignBip322Message);
   }
 
   const ledgerContextValue: LedgerTxSigningContext = {
