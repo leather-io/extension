@@ -8,6 +8,7 @@ interface SendTransferDetailsProps {
   recipients: RpcSendTransferRecipient[];
   currentAddress: string;
 }
+
 export function SendTransferDetails({ recipients, currentAddress }: SendTransferDetailsProps) {
   return (
     <Stack width="100%">

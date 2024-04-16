@@ -92,7 +92,7 @@ interface InfoCardBtnProps {
 }
 export function InfoCardBtn({ icon, label, onClick }: InfoCardBtnProps) {
   return (
-    <Button onClick={onClick} flexGrow="1">
+    <Button onClick={onClick} flex="1">
       <Flex alignItems="center" justifyContent="center">
         <styled.span mx="space.02" textStyle="label.02">
           {label}

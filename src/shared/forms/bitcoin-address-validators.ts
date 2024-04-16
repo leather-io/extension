@@ -1,22 +1,9 @@
 import { AddressType, Network, getAddressInfo, validate } from 'bitcoin-address-validation';
 import * as yup from 'yup';
 
-import { BitcoinNetworkModes, NetworkConfiguration } from '@shared/constants';
+import { BitcoinNetworkModes } from '@shared/constants';
 import { FormErrorMessages } from '@shared/error-messages';
 import { isString } from '@shared/utils';
-
-import { validateAddressChain, validateStacksAddress } from '@app/common/stacks-utils';
-
-function notCurrentAddressValidatorFactory(currentAddress: string) {
-  return (value: unknown) => value !== currentAddress;
-}
-
-export function notCurrentAddressValidator(currentAddress: string) {
-  return yup.string().test({
-    message: FormErrorMessages.SameAddress,
-    test: notCurrentAddressValidatorFactory(currentAddress),
-  });
-}
 
 export function btcAddressValidator() {
   return yup
@@ -63,31 +50,4 @@ export function btcAddressNetworkValidator(network: BitcoinNetworkModes) {
     test: btcAddressNetworkValidatorFactory(network),
     message: FormErrorMessages.IncorrectNetworkAddress,
   });
-}
-
-function stxAddressNetworkValidatorFactory(currentNetwork: NetworkConfiguration) {
-  return (value: unknown) => {
-    if (!isString(value)) return false;
-    return validateAddressChain(value, currentNetwork);
-  };
-}
-
-export function stxAddressNetworkValidator(currentNetwork: NetworkConfiguration) {
-  return yup.string().test({
-    message: FormErrorMessages.IncorrectNetworkAddress,
-    test: stxAddressNetworkValidatorFactory(currentNetwork),
-  });
-}
-
-export function stxAddressValidator(errorMsg: string) {
-  return yup
-    .string()
-    .defined(FormErrorMessages.AddressRequired)
-    .test({
-      message: errorMsg,
-      test(value: unknown) {
-        if (!isString(value)) return false;
-        return validateStacksAddress(value);
-      },
-    });
 }

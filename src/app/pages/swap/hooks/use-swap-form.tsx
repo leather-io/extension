@@ -2,11 +2,11 @@ import { Currency } from 'alex-sdk';
 import BigNumber from 'bignumber.js';
 import * as yup from 'yup';
 
+import { FormErrorMessages } from '@shared/error-messages';
 import { FeeTypes } from '@shared/models/fees/fees.model';
 import { StacksTransactionFormValues } from '@shared/models/form.model';
 import { Money, createMoney } from '@shared/models/money.model';
 
-import { FormErrorMessages } from '@app/common/error-messages';
 import { convertAmountToFractionalUnit } from '@app/common/money/calculate-money';
 import { useNextNonce } from '@app/query/stacks/nonce/account-nonces.hooks';
 

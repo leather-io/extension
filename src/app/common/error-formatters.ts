@@ -1,7 +1,6 @@
+import { FormErrorMessages } from '@shared/error-messages';
 import { Money } from '@shared/models/money.model';
 import { isFunction } from '@shared/utils';
-
-import { FormErrorMessages } from '@app/common/error-messages';
 
 export function formatPrecisionError(num?: Money) {
   if (!num) return FormErrorMessages.CannotDeterminePrecision;
