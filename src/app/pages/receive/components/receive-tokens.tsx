@@ -100,11 +100,11 @@ export function ReceiveTokens({
       />
       {(network.chain.bitcoin.bitcoinNetwork === 'testnet' || runesEnabled) && (
         <ReceiveItem
-          address={btcAddressNativeSegwit}
+          address={btcAddressTaproot}
           icon={<RunesAvatarIcon />}
           // onClickQrCode={onClickQrStamp}
           onCopyAddress={async () => {
-            await copyToClipboard(btcAddressNativeSegwit);
+            await copyToClipboard(btcAddressTaproot);
             toast.success('Copied to clipboard!');
           }}
           title="Runes"
