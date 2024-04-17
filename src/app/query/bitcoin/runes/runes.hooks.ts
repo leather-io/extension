@@ -1,17 +1,38 @@
+import { logger } from '@shared/logger';
 import { createMoney } from '@shared/models/money.model';
+import { isDefined } from '@shared/utils';
 
-import type { RuneBalance, RuneToken } from '../bitcoin-client';
+import type { RuneBalance, RuneTickerInfo, RuneToken } from '../bitcoin-client';
+import { useGetRunesTickerInfoQuery } from './runes-ticker-info.query';
 import { useGetRunesWalletBalancesByAddressesQuery } from './runes-wallet-balances.query';
 
-function makeRuneToken(rune: RuneBalance): RuneToken {
+function makeRuneToken(runeBalance: RuneBalance, tickerInfo: RuneTickerInfo): RuneToken {
   return {
-    ...rune,
-    balance: createMoney(Number(rune.total_balance), rune.rune_name, 0),
+    ...runeBalance,
+    ...tickerInfo,
+    balance: createMoney(
+      Number(runeBalance.total_balance),
+      tickerInfo.rune_name,
+      tickerInfo.decimals
+    ),
   };
 }
 
 export function useRuneTokens(addresses: string[]) {
-  return useGetRunesWalletBalancesByAddressesQuery(addresses, {
-    select: resp => resp.map(makeRuneToken),
+  const runesBalances = useGetRunesWalletBalancesByAddressesQuery(addresses)
+    .flatMap(query => query.data)
+    .filter(isDefined);
+
+  const runesTickerInfo = useGetRunesTickerInfoQuery(runesBalances.map(r => r.rune_name))
+    .flatMap(query => query.data)
+    .filter(isDefined);
+
+  return runesBalances.map(r => {
+    const tickerInfo = runesTickerInfo.find(t => t.rune_name === r.rune_name);
+    if (!tickerInfo) {
+      logger.error('No ticker info found for Rune');
+      return;
+    }
+    return makeRuneToken(r, tickerInfo);
   });
 }

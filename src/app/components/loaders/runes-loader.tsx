@@ -8,8 +8,6 @@ interface RunesLoaderProps {
   children(runes: RuneToken[]): React.ReactNode;
 }
 export function RunesLoader({ addresses, children }: RunesLoaderProps) {
-  const runes = useRuneTokens(addresses)
-    .flatMap(query => query.data)
-    .filter(isDefined);
-  return children(runes);
+  const runes = useRuneTokens(addresses);
+  return children(runes.filter(isDefined));
 }

@@ -18,8 +18,8 @@ export function RunesAssetItemLayout({ rune }: RunesAssetItemLayoutProps) {
     <Pressable my="space.02">
       <ItemLayout
         flagImg={<RunesAvatarIcon />}
-        titleLeft={rune.rune_name.toUpperCase()}
-        captionLeft="RUNE"
+        titleLeft={rune.spaced_rune_name ?? rune.rune_name}
+        captionLeft="Runes"
         titleRight={
           <BasicTooltip
             asChild
@@ -27,7 +27,7 @@ export function RunesAssetItemLayout({ rune }: RunesAssetItemLayoutProps) {
             side="left"
           >
             <styled.span data-testid={rune.rune_name} fontWeight={500} textStyle="label.02">
-              {formattedBalance.value}
+              {formattedBalance.value} {rune.symbol}
             </styled.span>
           </BasicTooltip>
         }
