@@ -2,6 +2,7 @@ import { HStack, Stack, styled } from 'leather-styles/jsx';
 
 import type { RpcSendTransferRecipient } from '@shared/rpc/methods/send-transfer';
 
+import { formatMoney } from '@app/common/money/format-money';
 import { truncateMiddle } from '@app/ui/utils/truncate-middle';
 
 interface SendTransferDetailsProps {
@@ -31,7 +32,7 @@ export function SendTransferDetails({ recipients, currentAddress }: SendTransfer
           </HStack>
           <HStack alignItems="center" gap="space.04" justifyContent="space-between">
             <styled.span textStyle="caption.01">Amount</styled.span>
-            <styled.span textStyle="label.01">{amount}</styled.span>
+            <styled.span textStyle="label.01">{formatMoney(amount)}</styled.span>
           </HStack>
         </Stack>
       ))}

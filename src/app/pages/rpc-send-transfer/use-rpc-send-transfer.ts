@@ -39,7 +39,7 @@ export function useRpcSendTransfer() {
 
   const recipients = recipientsAddresses.map((address, index) => ({
     address,
-    amount: amounts[index],
+    amount: createMoney(Number(amounts[index]), 'BTC'),
   }));
 
   return {
