@@ -25,7 +25,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/23</span>
+                <span class='fraction'>0/22</span>
             </div>
         
             
@@ -46,7 +46,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/22</span>
+                <span class='fraction'>0/21</span>
             </div>
         
             
@@ -160,7 +160,8 @@
 <a name='L95'></a><a href='#L95'>95</a>
 <a name='L96'></a><a href='#L96'>96</a>
 <a name='L97'></a><a href='#L97'>97</a>
-<a name='L98'></a><a href='#L98'>98</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L98'></a><a href='#L98'>98</a>
+<a name='L99'></a><a href='#L99'>99</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -181,19 +182,20 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -261,17 +263,18 @@
 &nbsp;
 import { logger } from '@shared/logger';
 import { BtcFeeType } from '@shared/models/fees/bitcoin-fees.model';
-import { createMoney } from '@shared/models/money.model';
+import type { Money } from '@shared/models/money.model';
 import { RouteUrls } from '@shared/route-urls';
+import type { RpcSendTransferRecipient } from '@shared/rpc/methods/send-transfer';
 &nbsp;
 import { useLocationStateWithCache } from '@app/common/hooks/use-location-state';
-import { useGenerateUnsignedNativeSegwitSingleRecipientTx } from '@app/common/transactions/bitcoin/use-generate-bitcoin-tx';
+import { useGenerateUnsignedNativeSegwitMultipleRecipientsTx } from '@app/common/transactions/bitcoin/use-generate-bitcoin-tx';
 import {
   BitcoinFeesList,
   OnChooseFeeArgs,
 } from '@app/components/bitcoin-fees-list/bitcoin-fees-list';
-import { useBitcoinFeesList } from '@app/components/bitcoin-fees-list/use-bitcoin-fees-list';
-import { BitcoinChooseFee } from '@app/features/bitcoin-choose-fee/bitcoin-choose-fee';
+import { useBitcoinFeesListMultipleRecipients } from '@app/components/bitcoin-fees-list/use-bitcoin-fees-list-multiple-recipients';
+import { BitcoinChooseFeeMultipleRecipients } from '@app/features/bitcoin-choose-fee/bitcoin-choose-fee';
 import { useValidateBitcoinSpend } from '@app/features/bitcoin-choose-fee/hooks/use-validate-bitcoin-spend';
 import { UtxoResponseItem } from '@app/query/bitcoin/bitcoin-client';
 import { useSignBitcoinTx } from '@app/store/accounts/blockchain/bitcoin/bitcoin.hooks';
@@ -280,24 +283,24 @@ import { formFeeRowValue } from '../../common/send/utils';
 import { useRpcSendTransferState } from './rpc-send-transfer-container';
 &nbsp;
 function <span class="fstat-no" title="function not covered" >useRpcSendTransferFeeState() {</span>
-  const amount = <span class="cstat-no" title="statement not covered" >useLocationStateWithCache('amount');</span>
-  const amountAsMoney = <span class="cstat-no" title="statement not covered" >createMoney(Number(amount), 'BTC');</span>
+  const amountAsMoney = <span class="cstat-no" title="statement not covered" >useLocationStateWithCache('amountAsMoney') as Money;</span>
+  const recipients = <span class="cstat-no" title="statement not covered" >useLocationStateWithCache('recipients') as RpcSendTransferRecipient[];</span>
   const utxos = <span class="cstat-no" title="statement not covered" >useLocationStateWithCache('utxos') as UtxoResponseItem[];</span>
-  const address = <span class="cstat-no" title="statement not covered" >useLocationStateWithCache('address') as string;</span>
 &nbsp;
-<span class="cstat-no" title="statement not covered" >  return { address, amountAsMoney, utxos };</span>
+<span class="cstat-no" title="statement not covered" >  return { amountAsMoney, utxos, recipients };</span>
 }
 &nbsp;
 export function <span class="fstat-no" title="function not covered" >RpcSendTransferChooseFee() {</span>
   const { selectedFeeType, setSelectedFeeType } = <span class="cstat-no" title="statement not covered" >useRpcSendTransferState();</span>
-  const { address, amountAsMoney, utxos } = <span class="cstat-no" title="statement not covered" >useRpcSendTransferFeeState();</span>
+  const { amountAsMoney, utxos, recipients } = <span class="cstat-no" title="statement not covered" >useRpcSendTransferFeeState();</span>
+&nbsp;
   const navigate = <span class="cstat-no" title="statement not covered" >useNavigate();</span>
 &nbsp;
-  const generateTx = <span class="cstat-no" title="statement not covered" >useGenerateUnsignedNativeSegwitSingleRecipientTx();</span>
+  const generateTx = <span class="cstat-no" title="statement not covered" >useGenerateUnsignedNativeSegwitMultipleRecipientsTx();</span>
   const signTransaction = <span class="cstat-no" title="statement not covered" >useSignBitcoinTx();</span>
-  const { feesList, isLoading } = <span class="cstat-no" title="statement not covered" >useBitcoinFeesList({</span>
+  const { feesList, isLoading } = <span class="cstat-no" title="statement not covered" >useBitcoinFeesListMultipleRecipients({</span>
     amount: amountAsMoney,
-    recipient: address,
+    recipients,
     utxos,
   });
   const recommendedFeeRate = <span class="cstat-no" title="statement not covered" >feesList[1]?.feeRate.toString() || '';</span>
@@ -305,7 +308,7 @@ export function <span class="fstat-no" title="function not covered" >RpcSendTran
   const { showInsufficientBalanceError, onValidateBitcoinFeeSpend } = <span class="cstat-no" title="statement not covered" >useValidateBitcoinSpend();</span>
 &nbsp;
   async function <span class="fstat-no" title="function not covered" >previewTransfer({</span> feeRate, feeValue, time, isCustomFee }: OnChooseFeeArgs) {
-    const resp = <span class="cstat-no" title="statement not covered" >await generateTx({ amount: amountAsMoney, recipient: address }, feeRate, utxos);</span>
+    const resp = <span class="cstat-no" title="statement not covered" >await generateTx({ amount: amountAsMoney, recipients }, feeRate, utxos);</span>
 &nbsp;
 <span class="cstat-no" title="statement not covered" >    if (!resp) <span class="cstat-no" title="statement not covered" >return logger.error('Attempted to generate raw tx, but no tx exists');</span></span>
 &nbsp;
@@ -318,7 +321,7 @@ export function <span class="fstat-no" title="function not covered" >RpcSendTran
 <span class="cstat-no" title="statement not covered" >    navigate(RouteUrls.RpcSendTransferConfirmation, {</span>
       state: {
         fee: feeValue,
-        recipient: address,
+        recipients,
         time,
         tx: tx.hex,
         feeRowValue,
@@ -329,7 +332,7 @@ export function <span class="fstat-no" title="function not covered" >RpcSendTran
 <span class="cstat-no" title="statement not covered" >  return (</span>
     &lt;&gt;
       &lt;Outlet /&gt;
-      &lt;BitcoinChooseFee
+      &lt;BitcoinChooseFeeMultipleRecipients
         amount={amountAsMoney}
         feesList={
           &lt;BitcoinFeesList
@@ -345,7 +348,7 @@ export function <span class="fstat-no" title="function not covered" >RpcSendTran
         onChooseFee={previewTransfer}
         onSetSelectedFeeType={<span class="fstat-no" title="function not covered" >(v</span>alue: BtcFeeType | null) =&gt; <span class="cstat-no" title="statement not covered" >setSelectedFeeType(value)}</span>
         onValidateBitcoinSpend={onValidateBitcoinFeeSpend}
-        recipient={address}
+        recipients={recipients}
         recommendedFeeRate={recommendedFeeRate}
         showError={showInsufficientBalanceError}
         maxRecommendedFeeRate={feesList[0]?.feeRate}
@@ -361,7 +364,7 @@ export function <span class="fstat-no" title="function not covered" >RpcSendTran
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-04-10T13:35:16.011Z
+                at 2024-04-17T09:57:59.054Z
             </div>
         <script src="../../../../../prettify.js"></script>
         <script>

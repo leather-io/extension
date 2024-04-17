@@ -25,7 +25,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/13</span>
+                <span class='fraction'>0/16</span>
             </div>
         
             
@@ -46,7 +46,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/11</span>
+                <span class='fraction'>0/13</span>
             </div>
         
             
@@ -113,7 +113,18 @@
 <a name='L48'></a><a href='#L48'>48</a>
 <a name='L49'></a><a href='#L49'>49</a>
 <a name='L50'></a><a href='#L50'>50</a>
-<a name='L51'></a><a href='#L51'>51</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L51'></a><a href='#L51'>51</a>
+<a name='L52'></a><a href='#L52'>52</a>
+<a name='L53'></a><a href='#L53'>53</a>
+<a name='L54'></a><a href='#L54'>54</a>
+<a name='L55'></a><a href='#L55'>55</a>
+<a name='L56'></a><a href='#L56'>56</a>
+<a name='L57'></a><a href='#L57'>57</a>
+<a name='L58'></a><a href='#L58'>58</a>
+<a name='L59'></a><a href='#L59'>59</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -141,6 +152,8 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -148,8 +161,11 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -166,6 +182,9 @@
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
 &nbsp;
+import BigNumber from 'bignumber.js';
+&nbsp;
+import { createMoney } from '@shared/models/money.model';
 import { RouteUrls } from '@shared/route-urls';
 &nbsp;
 import { useDefaultRequestParams } from '@app/common/hooks/use-default-request-search-params';
@@ -180,7 +199,7 @@ export function <span class="fstat-no" title="function not covered" >useRpcSendT
 <span class="fstat-no" title="function not covered" >    () =&gt; (<span class="cstat-no" title="statement not covered" >{</span></span>
       ...defaultParams,
       requestId: initialSearchParams.get('requestId') ?? '',
-      recipients: initialSearchParams.getAll('recipient') ?? [],
+      recipientsAddresses: initialSearchParams.getAll('recipient') ?? [],
       amounts: initialSearchParams.getAll('amount') ?? [],
     }),
     [defaultParams]
@@ -189,26 +208,31 @@ export function <span class="fstat-no" title="function not covered" >useRpcSendT
 &nbsp;
 export function <span class="fstat-no" title="function not covered" >useRpcSendTransfer() {</span>
   const navigate = <span class="cstat-no" title="statement not covered" >useNavigate();</span>
-  const { origin, recipients, amounts } = <span class="cstat-no" title="statement not covered" >useRpcSendTransferRequestParams();</span>
+  const { origin, recipientsAddresses, amounts } = <span class="cstat-no" title="statement not covered" >useRpcSendTransferRequestParams();</span>
   const { data: utxos = <span class="branch-0 cbranch-no" title="branch not covered" >[], r</span>efetch } = <span class="cstat-no" title="statement not covered" >useCurrentNativeSegwitUtxos();</span>
+  const totalAmount = <span class="cstat-no" title="statement not covered" >sumNumbers(amounts.map(Number));</span>
+  const amountAsMoney = <span class="cstat-no" title="statement not covered" >createMoney(new BigNumber(totalAmount), 'BTC');</span>
 &nbsp;
   // Forcing a refetch to ensure UTXOs are fresh
 <span class="cstat-no" title="statement not covered" >  useOnMount(<span class="fstat-no" title="function not covered" >() =&gt; <span class="cstat-no" title="statement not covered" >r</span>efetch())</span>;</span>
 &nbsp;
 <span class="cstat-no" title="statement not covered" >  if (!origin) <span class="cstat-no" title="statement not covered" >throw new Error('Invalid params');</span></span>
 &nbsp;
+  const recipients = <span class="cstat-no" title="statement not covered" >recipientsAddresses.map(<span class="fstat-no" title="function not covered" >(a</span>ddress, index) =&gt; (<span class="cstat-no" title="statement not covered" >{</span></span>
+    address,
+    amount: amounts[index],
+  }));
+&nbsp;
 <span class="cstat-no" title="statement not covered" >  return {</span>
-    recipients: recipients.map(<span class="fstat-no" title="function not covered" >(a</span>ddress, index) =&gt; (<span class="cstat-no" title="statement not covered" >{</span>
-      address,
-      amount: amounts[index],
-    })),
+    recipients,
     origin,
     utxos,
-    totalAmount: sumNumbers(amounts.map(Number)),
-    recipientAddresses: recipients,
+    totalAmount,
+    amountAsMoney,
+    recipientsAddresses,
 <span class="fstat-no" title="function not covered" >    async o</span>nChooseTransferFee() {
 <span class="cstat-no" title="statement not covered" >      navigate(RouteUrls.RpcSendTransferChooseFee, {</span>
-        state: { recipients, utxos },
+        state: { recipients, utxos, amountAsMoney },
       });
     },
   };
@@ -220,7 +244,7 @@ export function <span class="fstat-no" title="function not covered" >useRpcSendT
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-04-10T13:35:16.011Z
+                at 2024-04-17T09:57:59.054Z
             </div>
         <script src="../../../../../prettify.js"></script>
         <script>
