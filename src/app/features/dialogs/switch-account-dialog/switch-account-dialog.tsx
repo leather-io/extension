@@ -37,7 +37,10 @@ export const SwitchAccountDialog = memo(({ isShowing, onClose }: DialogProps) =>
 
   const accountNum = stacksAddressesNum || btcAddressesNum;
 
-  const maxHeight = useGetVirtuosoHeight(accountNum, isLedger ? 'no-footer' : 'footer');
+  const { height, marginBottom } = useGetVirtuosoHeight(
+    accountNum,
+    isLedger ? 'no-footer' : 'footer'
+  );
 
   if (isShowing && stacksAddressesNum === 0 && btcAddressesNum === 0) {
     return <AccountListUnavailable />;
@@ -53,7 +56,7 @@ export const SwitchAccountDialog = memo(({ isShowing, onClose }: DialogProps) =>
       header={<Header variant="dialog" title="Select account" />}
       isShowing={isShowing}
       onClose={onClose}
-      contentMaxHeight={maxHeight}
+      contentMaxHeight={height}
       footer={whenWallet({
         software: (
           <Footer>
@@ -67,7 +70,10 @@ export const SwitchAccountDialog = memo(({ isShowing, onClose }: DialogProps) =>
     >
       <Virtuoso
         style={{
-          height: maxHeight,
+          height: height,
+          // marginBottom: marginBottom,
+          // minHeight: '600px',
+          marginBottom: '96px', // giving this margin on small height but wide helps
         }}
         initialTopMostItemIndex={whenWallet({ ledger: 0, software: currentAccountIndex })}
         totalCount={stacksAddressesNum}

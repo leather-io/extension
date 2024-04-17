@@ -22,19 +22,21 @@ export function RecipientAccountsDialog() {
   const stacksAddressesNum = stacksAccounts.length;
 
   const accountNum = stacksAddressesNum || btcAddressesNum;
-  const maxHeight = useGetVirtuosoHeight(accountNum, 'no-footer');
+  const virtuosoStyles = useGetVirtuosoHeight(accountNum, 'no-footer');
   if (stacksAddressesNum === 0 && btcAddressesNum === 0) return null;
 
   return (
     <Dialog
       header={<Header variant="dialog" title="My accounts" />}
-      contentMaxHeight={maxHeight}
+      contentMaxHeight={virtuosoStyles.height}
       isShowing
       onClose={onGoBack}
     >
       <Virtuoso
         style={{
-          height: maxHeight,
+          ...virtuosoStyles,
+          height: virtuosoStyles.height,
+          marginBottom: virtuosoStyles.marginBottom,
         }}
         itemContent={index => (
           <Box key={index} my="space.05" px="space.05">
