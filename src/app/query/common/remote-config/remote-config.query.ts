@@ -173,3 +173,8 @@ export function useConfigOrdinalsbot() {
     signetApiUrl: get(config, 'ordinalsbot.signetApiUrl', 'https://signet.ordinalsbot.com'),
   };
 }
+
+export function useConfigRunesEnabled() {
+  const config = useRemoteConfig();
+  return get(config, 'runesEnabled', false);
+}

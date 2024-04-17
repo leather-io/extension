@@ -1,6 +1,7 @@
 import { useLocation, useNavigate } from 'react-router-dom';
 
 import { HomePageSelectors } from '@tests/selectors/home.selectors';
+import { Box } from 'leather-styles/jsx';
 import get from 'lodash.get';
 
 import { RouteUrls } from '@shared/route-urls';
@@ -109,20 +110,24 @@ export function ReceiveDialog({ type = 'full' }: ReceiveDialogProps) {
             </Tabs.Trigger>
           </Tabs.List>
           <Tabs.Content value="tokens">
-            <ReceiveTokens
-              btcAddressNativeSegwit={btcAddressNativeSegwit}
-              stxAddress={stxAddress}
-              onClickQrBtc={() =>
-                navigate(`${RouteUrls.Home}${RouteUrls.ReceiveBtc}`, {
-                  state: { backgroundLocation },
-                })
-              }
-              onClickQrStx={() =>
-                navigate(`${RouteUrls.Home}${RouteUrls.ReceiveStx}`, {
-                  state: { backgroundLocation, btcAddressTaproot },
-                })
-              }
-            />
+            {/* FIXME 96px should be sizes.footerHeight */}
+            <Box mb={{ base: '96px', md: 'unset' }}>
+              <ReceiveTokens
+                btcAddressNativeSegwit={btcAddressNativeSegwit}
+                stxAddress={stxAddress}
+                btcAddressTaproot={btcAddressTaproot}
+                onClickQrBtc={() =>
+                  navigate(`${RouteUrls.Home}${RouteUrls.ReceiveBtc}`, {
+                    state: { backgroundLocation },
+                  })
+                }
+                onClickQrStx={() =>
+                  navigate(`${RouteUrls.Home}${RouteUrls.ReceiveStx}`, {
+                    state: { backgroundLocation, btcAddressTaproot },
+                  })
+                }
+              />
+            </Box>
           </Tabs.Content>
           <Tabs.Content value="collectibles">
             <Collectibles />

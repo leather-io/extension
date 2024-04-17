@@ -2,6 +2,8 @@ import { useLocation } from 'react-router-dom';
 
 import { HStack, Stack } from 'leather-styles/jsx';
 
+import type { RpcSendTransferRecipient } from '@shared/rpc/methods/send-transfer';
+
 import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
 import { useBitcoinExplorerLink } from '@app/common/hooks/use-bitcoin-explorer-link';
 import { useClipboard } from '@app/common/hooks/use-copy-to-clipboard';
@@ -34,7 +36,7 @@ export function RpcSendTransferSummary() {
     txLink,
     arrivesIn,
     sendingValue,
-    recipient,
+    recipients,
     feeRowValue,
     totalSpend,
   } = state;
@@ -52,29 +54,39 @@ export function RpcSendTransferSummary() {
   }
 
   return (
-    <Card>
-      <InfoCardAssetValue
-        fiatSymbol={txFiatValueSymbol}
-        fiatValue={txFiatValue}
-        icon={<CheckmarkIcon width="lg" />}
-        mb="space.05"
-        symbol={symbol}
-        value={txValue}
-      />
-      <Stack pb="space.06" width="100%">
-        <InfoCardRow title="To" value={<FormAddressDisplayer address={recipient} />} />
-        <InfoCardSeparator />
-        <InfoCardRow title="Total spend" value={totalSpend} />
-        <InfoCardRow title="Sending" value={sendingValue} />
-        <InfoCardRow title="Fee" value={feeRowValue} />
-        {arrivesIn && <InfoCardRow title="Estimated confirmation time" value={arrivesIn} />}
-      </Stack>
+    <>
+      <Card>
+        <InfoCardAssetValue
+          fiatSymbol={txFiatValueSymbol}
+          fiatValue={txFiatValue}
+          icon={<CheckmarkIcon width="lg" />}
+          mb="space.05"
+          symbol={symbol}
+          value={txValue}
+        />
+        <Stack pb="space.06" width="100%">
+          <Stack>
+            {recipients.map((recipient: RpcSendTransferRecipient, index: number) => (
+              <InfoCardRow
+                key={index}
+                title="To"
+                value={<FormAddressDisplayer address={recipient.address} />}
+              />
+            ))}
+          </Stack>
+          <InfoCardSeparator />
+          <InfoCardRow title="Total spend" value={totalSpend} />
+          <InfoCardRow title="Sending" value={sendingValue} />
+          <InfoCardRow title="Fee" value={feeRowValue} />
+          {arrivesIn && <InfoCardRow title="Estimated confirmation time" value={arrivesIn} />}
+        </Stack>
+      </Card>
       <InfoCardFooter>
         <HStack gap="space.04" width="100%">
           <InfoCardBtn icon={<ExternalLinkIcon />} label="View details" onClick={onClickLink} />
           <InfoCardBtn icon={<CopyIcon />} label="Copy ID" onClick={onClickCopy} />
         </HStack>
       </InfoCardFooter>
-    </Card>
+    </>
   );
 }

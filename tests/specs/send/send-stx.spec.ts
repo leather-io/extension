@@ -8,8 +8,7 @@ import { SharedComponentsSelectors } from '@tests/selectors/shared-component.sel
 import { getDisplayerAddress } from '@tests/utils';
 
 import { STX_DECIMALS } from '@shared/constants';
-
-import { FormErrorMessages } from '@app/common/error-messages';
+import { FormErrorMessages } from '@shared/error-messages';
 
 import { test } from '../../fixtures/fixtures';
 

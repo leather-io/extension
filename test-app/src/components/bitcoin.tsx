@@ -417,7 +417,7 @@ export const Bitcoin = () => {
               },
               {
                 address: TEST_TESTNET_ACCOUNT_2_BTC_ADDRESS,
-                amount: '10000',
+                amount: '0.010000',
               },
             ],
             network: 'testnet',
@@ -431,6 +431,32 @@ export const Bitcoin = () => {
         }}
       >
         Send transfer to multiple addresses
+      </styled.button>
+      <styled.button
+        mt={3}
+        onClick={() => {
+          console.log('requesting');
+          (window as any).LeatherProvider?.request('sendTransfer', {
+            recipients: [
+              {
+                address: TEST_TESTNET_ACCOUNT_2_BTC_ADDRESS,
+                amount: '10000',
+              },
+              {
+                address: TEST_TESTNET_ACCOUNT_2_BTC_ADDRESS,
+                amount: '10000',
+              },
+            ],
+          })
+            .then((resp: any) => {
+              console.log({ sucesss: resp });
+            })
+            .catch((error: Error) => {
+              console.log({ error });
+            });
+        }}
+      >
+        Send transfer validate error
       </styled.button>
     </Box>
   );

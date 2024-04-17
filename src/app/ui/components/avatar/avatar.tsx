@@ -29,7 +29,7 @@ const avatarRecipe = cva({
     },
     variant: {
       circle: { rounded: '100%' },
-      square: { rounded: 'sm' },
+      square: { rounded: 'xs' },
     },
   },
   defaultVariants: {

@@ -2,10 +2,10 @@ import { useCallback, useState } from 'react';
 
 import { useFormikContext } from 'formik';
 
+import { FormErrorMessages } from '@shared/error-messages';
 import { logger } from '@shared/logger';
 import { BitcoinSendFormValues, StacksSendFormValues } from '@shared/models/form.model';
 
-import { FormErrorMessages } from '@app/common/error-messages';
 import { StacksClient } from '@app/query/stacks/stacks-client';
 import { useStacksClient } from '@app/store/common/api-clients.hooks';
 import { useCurrentNetworkState } from '@app/store/networks/networks.hooks';

@@ -22,6 +22,7 @@ export function AccountCard() {
       switchAccount={<></>}
       toggleSwitchAccount={() => null}
       isLoadingBalance={false}
+      isLoadingBnsName={false}
     >
       <Flex justify="space-between">
         <IconButton icon={<ArrowUpIcon />} label="Send" />
@@ -41,6 +42,27 @@ export function AccountCardLoading() {
       switchAccount={<></>}
       toggleSwitchAccount={() => null}
       isLoadingBalance
+      isLoadingBnsName={false}
+    >
+      <Flex justify="space-between">
+        <IconButton icon={<ArrowUpIcon />} label="Send" />
+        <IconButton icon={<ArrowDownIcon />} label="Receive" />
+        <IconButton icon={<PlusIcon />} label="Buy" />
+        <IconButton icon={<SwapIcon />} label="Swap" />
+      </Flex>
+    </Component>
+  );
+}
+
+export function AccountCardBnsNameLoading() {
+  return (
+    <Component
+      name="leather.btc"
+      balance="$1,000"
+      switchAccount={<></>}
+      toggleSwitchAccount={() => null}
+      isLoadingBalance={false}
+      isLoadingBnsName
     >
       <Flex justify="space-between">
         <IconButton icon={<ArrowUpIcon />} label="Send" />

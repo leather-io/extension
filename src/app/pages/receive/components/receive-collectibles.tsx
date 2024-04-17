@@ -12,16 +12,16 @@ import { receiveTabStyle } from '../receive-dialog';
 import { ReceiveItem } from './receive-item';
 
 interface ReceiveCollectiblesProps {
-  btcAddressTaproot: string;
   btcAddressNativeSegwit: string;
+  btcAddressTaproot: string;
   stxAddress: string;
   onClickQrOrdinal(): void;
   onClickQrStacksNft(): void;
   onClickQrStamp(): void;
 }
 export function ReceiveCollectibles({
-  btcAddressTaproot,
   btcAddressNativeSegwit,
+  btcAddressTaproot,
   stxAddress,
   onClickQrOrdinal,
   onClickQrStacksNft,

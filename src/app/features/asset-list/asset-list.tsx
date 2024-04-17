@@ -10,6 +10,7 @@ import { CryptoCurrencyAssetItemLayout } from '@app/components/crypto-assets/cry
 import { CurrentStacksAccountLoader } from '@app/components/loaders/stacks-account-loader';
 import { useHasBitcoinLedgerKeychain } from '@app/store/accounts/blockchain/bitcoin/bitcoin.ledger';
 import { useCurrentAccountNativeSegwitAddressIndexZero } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
+import { useCurrentAccountTaprootIndexZeroSigner } from '@app/store/accounts/blockchain/bitcoin/taproot-account.hooks';
 import { useCurrentNetwork } from '@app/store/networks/networks.selectors';
 import { BtcAvatarIcon } from '@app/ui/components/avatar/btc-avatar-icon';
 
@@ -23,11 +24,13 @@ import { StacksFungibleTokenAssetList } from './components/stacks-fungible-token
 
 export function AssetsList() {
   const hasBitcoinLedgerKeys = useHasBitcoinLedgerKeychain();
-  const btcAddress = useCurrentAccountNativeSegwitAddressIndexZero();
+  const bitcoinAddressNativeSegwit = useCurrentAccountNativeSegwitAddressIndexZero();
+  const { address: bitcoinAddressTaproot } = useCurrentAccountTaprootIndexZeroSigner();
   const network = useCurrentNetwork();
 
-  const { btcAvailableAssetBalance, btcAvailableUsdBalance, isInitialLoading } =
-    useBtcAssetBalance(btcAddress);
+  const { btcAvailableAssetBalance, btcAvailableUsdBalance, isInitialLoading } = useBtcAssetBalance(
+    bitcoinAddressNativeSegwit
+  );
 
   const { whenWallet } = useWalletType();
 
@@ -39,7 +42,7 @@ export function AssetsList() {
             assetBalance={btcAvailableAssetBalance}
             usdBalance={btcAvailableUsdBalance}
             icon={<BtcAvatarIcon />}
-            address={btcAddress}
+            address={bitcoinAddressNativeSegwit}
             isLoading={isInitialLoading}
           />
         ),
@@ -48,7 +51,7 @@ export function AssetsList() {
             assetBalance={btcAvailableAssetBalance}
             usdBalance={btcAvailableUsdBalance}
             icon={<BtcAvatarIcon />}
-            address={btcAddress}
+            address={bitcoinAddressNativeSegwit}
             isLoading={isInitialLoading}
             rightElement={
               hasBitcoinLedgerKeys ? undefined : <ConnectLedgerAssetBtn chain="bitcoin" />
@@ -74,7 +77,12 @@ export function AssetsList() {
       </CurrentStacksAccountLoader>
 
       {whenWallet({
-        software: <BitcoinFungibleTokenAssetList btcAddress={btcAddress} />,
+        software: (
+          <BitcoinFungibleTokenAssetList
+            btcAddressNativeSegwit={bitcoinAddressNativeSegwit}
+            btcAddressTaproot={bitcoinAddressTaproot}
+          />
+        ),
         ledger: null,
       })}
 
