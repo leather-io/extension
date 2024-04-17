@@ -29,7 +29,7 @@ export function useGetVirtuosoHeight(accountNum: number, variant: VirtuosoVarian
     if (isNarrowLargeWindow) {
       return variant === 'footer' ? '85vh' : '95vh';
     }
-    return variant === 'footer' ? '70vh' : '85vh';
+    return variant === 'footer' ? '70vh' : '80vh';
   }
   const visibleAccounts = virtuosoHeight * accountNum;
   return visibleAccounts + offset;
