@@ -116,7 +116,37 @@ interface RunesWalletBalancesResponse {
   data: RuneBalance[];
 }
 
-export interface RuneToken extends RuneBalance {
+export interface RuneTickerInfo {
+  rune_id: string;
+  rune_number: string;
+  rune_name: string;
+  spaced_rune_name: string;
+  symbol: string;
+  decimals: number;
+  per_mint_amount: string;
+  mint_cnt: string;
+  mint_cnt_limit: string;
+  premined_supply: string;
+  total_minted_supply: string;
+  burned_supply: string;
+  circulating_supply: string;
+  mint_progress: number;
+  mint_start_block: number | null;
+  mint_end_block: number | null;
+  genesis_block: number;
+  deploy_ts: string;
+  deploy_txid: string;
+  auto_upgrade: boolean;
+  holder_count: number;
+  event_count: number;
+  mintable: boolean;
+}
+interface RunesTickerInfoResponse {
+  block_height: number;
+  data: RuneTickerInfo;
+}
+
+export interface RuneToken extends RuneBalance, RuneTickerInfo {
   balance: Money;
 }
 
@@ -177,6 +207,15 @@ class BestinslotApi {
     const baseUrl = network === 'mainnet' ? this.url : this.testnetUrl;
     const resp = await axios.get<RunesWalletBalancesResponse>(
       `${baseUrl}/runes/wallet_balances?address=${address}`,
+      { ...this.defaultOptions }
+    );
+    return resp.data.data;
+  }
+
+  async getRunesTickerInfo(runeName: string, network: BitcoinNetworkModes) {
+    const baseUrl = network === 'mainnet' ? this.url : this.testnetUrl;
+    const resp = await axios.get<RunesTickerInfoResponse>(
+      `${baseUrl}/runes/ticker_info?rune_name=${runeName}`,
       { ...this.defaultOptions }
     );
     return resp.data.data;

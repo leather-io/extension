@@ -3,7 +3,7 @@ import { useStampsByAddressQuery } from './stamps-by-address.query';
 export function useStampsByAddress(address: string) {
   return useStampsByAddressQuery(address, {
     select(data) {
-      return data.data.stamps;
+      return data.data?.stamps;
     },
   });
 }
@@ -11,7 +11,7 @@ export function useStampsByAddress(address: string) {
 export function useSrc20TokensByAddress(address: string) {
   return useStampsByAddressQuery(address, {
     select(data) {
-      return data.data.src20;
+      return data.data?.src20;
     },
   });
 }

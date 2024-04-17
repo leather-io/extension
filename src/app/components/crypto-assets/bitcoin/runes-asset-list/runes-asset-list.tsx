@@ -6,5 +6,5 @@ interface RunesAssetListProps {
   runes: RuneToken[];
 }
 export function RunesAssetList({ runes }: RunesAssetListProps) {
-  return runes.map(rune => <RunesAssetItemLayout key={rune.rune_id} rune={rune} />);
+  return runes.map((rune, i) => <RunesAssetItemLayout key={`${rune.rune_id}${i}`} rune={rune} />);
 }
