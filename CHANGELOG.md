@@ -1,3 +1,29 @@
+## [6.34.0](https://github.com/leather-wallet/extension/compare/v6.33.0...v6.34.0) (2024-04-17)
+
+
+### Features
+
+* rune balances ([4e1de2c](https://github.com/leather-wallet/extension/commit/4e1de2cf8eea0ca0f379986547a041b8514ce7da))
+
+
+### Bug Fixes
+
+* always show full text ([dc8c8e4](https://github.com/leather-wallet/extension/commit/dc8c8e4f505fdef00ce3bb9bec3666ef72729516))
+* change runes receive address to tr ([4c9c167](https://github.com/leather-wallet/extension/commit/4c9c16755b33eab8fde90b0eb3703a444932bcb2))
+* rpc send transfer recipient choose fee ([1a5fb85](https://github.com/leather-wallet/extension/commit/1a5fb85f77f4acc8fdf2b311428c00b8a74e1169))
+* wrong bns name while loading ([bc02c05](https://github.com/leather-wallet/extension/commit/bc02c05a577ef7b43e3b07275a2070ca73930e1e))
+
+
+### Internal
+
+* add bestinslot testnet for runes setup ([5aa7a20](https://github.com/leather-wallet/extension/commit/5aa7a2061a0e2cde7234630eb384b76e82104383))
+* add BRC-20 and SRC-20 to collectibles ([3360f0c](https://github.com/leather-wallet/extension/commit/3360f0cd7a873266c63b021f612e9795e7593b07))
+* add ns addresses for runes balances ([e26e5ba](https://github.com/leather-wallet/extension/commit/e26e5bacb711db7a1b2ed33c8333f370ed5c8bfd))
+* post-release merge back ([250089e](https://github.com/leather-wallet/extension/commit/250089e761dcd4cfdc9f5383601788b50012677a))
+* stop increase fee being cutoff when long contract name ([2b57f48](https://github.com/leather-wallet/extension/commit/2b57f48b32b2205a7107b9e3b8fc7eea1766f4cd))
+* update packages ([212bff8](https://github.com/leather-wallet/extension/commit/212bff8abe0aa00d43938065b7b0a2fa59250bfe))
+* update runes avatar icon ([f665707](https://github.com/leather-wallet/extension/commit/f665707a78465358f3f91a3d1b1d4069e3b5f00e))
+
 ## [6.33.0](https://github.com/leather-wallet/extension/compare/v6.32.1...v6.33.0) (2024-04-10)
 
 
