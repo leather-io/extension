@@ -1,20 +1,24 @@
 import { useLocation, useNavigate } from 'react-router-dom';
 
-import { Stack } from 'leather-styles/jsx';
+import { HStack, Stack, styled } from 'leather-styles/jsx';
 import get from 'lodash.get';
 
 import { decodeBitcoinTx } from '@shared/crypto/bitcoin/bitcoin.utils';
 import { logger } from '@shared/logger';
 import { CryptoCurrencies } from '@shared/models/currencies.model';
-import { createMoney, createMoneyFromDecimal } from '@shared/models/money.model';
+import { createMoney } from '@shared/models/money.model';
 import { RouteUrls } from '@shared/route-urls';
 import type { RpcSendTransferRecipient } from '@shared/rpc/methods/send-transfer';
 import { makeRpcSuccessResponse } from '@shared/rpc/rpc-methods';
 
 import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
-import { baseCurrencyAmountInQuote } from '@app/common/money/calculate-money';
-import { formatMoney, formatMoneyPadded, i18nFormatCurrency } from '@app/common/money/format-money';
-import { satToBtc } from '@app/common/money/unit-conversion';
+import { baseCurrencyAmountInQuote, sumMoney } from '@app/common/money/calculate-money';
+import {
+  formatMoney,
+  formatMoneyPadded,
+  formatMoneyWithoutSymbol,
+  i18nFormatCurrency,
+} from '@app/common/money/format-money';
 import { InfoCardFooter } from '@app/components/info-card/info-card';
 import { useCurrentNativeSegwitUtxos } from '@app/query/bitcoin/address/utxos-by-address.hooks';
 import { useBitcoinBroadcastTransaction } from '@app/query/bitcoin/transaction/use-bitcoin-broadcast-transaction';
@@ -50,17 +54,12 @@ export function RpcSendTransferConfirmation() {
   const btcMarketData = useCryptoCurrencyMarketData('BTC');
 
   const psbt = decodeBitcoinTx(tx);
-  const transferAmount = satToBtc(psbt.outputs[0].amount.toString()).toString();
-  const txFiatValue = i18nFormatCurrency(
-    baseCurrencyAmountInQuote(createMoneyFromDecimal(Number(transferAmount), symbol), btcMarketData)
-  );
+  const transferAmount = sumMoney(recipients.map(r => r.amount));
+  const txFiatValue = i18nFormatCurrency(baseCurrencyAmountInQuote(transferAmount, btcMarketData));
   const txFiatValueSymbol = btcMarketData.price.symbol;
-  const feeInBtc = satToBtc(fee);
-  const summaryFee = formatMoneyPadded(createMoney(Number(fee), symbol));
-  const sendingValue = formatMoney(createMoneyFromDecimal(Number(transferAmount), symbol));
-  const totalSpend = formatMoney(
-    createMoneyFromDecimal(Number(transferAmount) + Number(feeInBtc), symbol)
-  );
+  const feeMoney = createMoney(Number(fee), symbol);
+  const summaryFee = formatMoneyPadded(feeMoney);
+  const totalSpend = sumMoney([transferAmount, feeMoney]);
 
   function formBtcTxSummaryState(txId: string) {
     return {
@@ -71,11 +70,11 @@ export function RpcSendTransferConfirmation() {
       txId,
       recipients,
       fee: summaryFee,
-      txValue: transferAmount,
+      txValue: formatMoneyWithoutSymbol(transferAmount),
       arrivesIn: time,
-      totalSpend,
+      totalSpend: formatMoney(totalSpend),
       symbol,
-      sendingValue,
+      sendingValue: formatMoney(transferAmount),
       txFiatValue,
       txFiatValueSymbol,
       feeRowValue,
@@ -121,17 +120,31 @@ export function RpcSendTransferConfirmation() {
 
   return (
     <>
-      <Stack gap={4} width="100%">
+      <Stack width="100%" gap={4} height="100%" pb="100px">
         {recipients.map((recipient, index) => (
           <SendTransferConfirmationDetails
             key={index}
             currentAddress={truncateMiddle(bitcoinAddress)}
             recipient={truncateMiddle(recipient.address)}
-            time={time}
-            total={totalSpend}
-            feeRowValue={feeRowValue}
+            amount={recipient.amount}
           />
         ))}
+        <Stack border="active" borderRadius="sm" p="space.05" gap="space.04" width="100%">
+          <HStack alignItems="center" gap="space.04" justifyContent="space-between">
+            <styled.span color="ink.text-subdued">Fee</styled.span>
+            <styled.span>{feeRowValue}</styled.span>
+          </HStack>
+          <HStack alignItems="center" gap="space.04" justifyContent="space-between">
+            <styled.span color="ink.text-subdued">Total amount</styled.span>
+            <styled.span>{formatMoney(totalSpend)}</styled.span>
+          </HStack>
+          {time && (
+            <HStack alignItems="center" gap="space.04" justifyContent="space-between">
+              <styled.span color="ink.text-subdued">Estimated time</styled.span>
+              <styled.span>{time}</styled.span>
+            </HStack>
+          )}
+        </Stack>
       </Stack>
 
       <InfoCardFooter>

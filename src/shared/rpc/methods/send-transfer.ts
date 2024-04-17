@@ -8,6 +8,7 @@ import {
   btcAddressNetworkValidator,
   btcAddressValidator,
 } from '@shared/forms/bitcoin-address-validators';
+import type { Money } from '@shared/models/money.model';
 
 import {
   accountSchema,
@@ -57,12 +58,17 @@ export interface RpcSendTransferParamsLegacy extends SendTransferRequestParams {
 
 export interface RpcSendTransferRecipient {
   address: string;
+  amount: Money;
+}
+
+interface RpcSendTransferRecipientParam {
+  address: string;
   amount: string;
 }
 
 export interface RpcSendTransferParams {
   account?: number;
-  recipients: RpcSendTransferRecipient[];
+  recipients: RpcSendTransferRecipientParam[];
   network: string;
 }
 
