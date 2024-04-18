@@ -100,9 +100,65 @@ test.describe('send btc', () => {
 
       await sendPage.clickInfoCardButton();
 
-      const isErrorPageVisible = await sendPage.broadcastErrorTitle.isVisible();
+      await test.expect(sendPage.broadcastErrorTitle).toBeVisible();
+    });
 
-      test.expect(isErrorPageVisible).toBeTruthy();
+    test('that fallbacks to other api provider if main fails', async ({ sendPage }) => {
+      let output = '';
+      let id = '';
+      let index = '';
+
+      await sendPage.page.route('**/ordinals-explorer.generative.xyz/**', async route => {
+        return route.fulfill({
+          status: 500,
+          contentType: 'text/html',
+          body: mockOrdinalsComApiHtmlResponse,
+        });
+      });
+
+      sendPage.page.on('request', async request => {
+        if (request.url().includes('ordinals-explorer.generative.xyz')) {
+          const url = request.url();
+          output = url.split('/').pop() || '';
+          id = output.split(':')[0];
+          index = output.split(':')[1];
+        }
+      });
+
+      await sendPage.page.route(
+        '**/leatherapi.bestinslot.xyz/v3/inscription/in_transaction**',
+        async route => {
+          return route.fulfill({
+            status: 200,
+            contentType: 'application/json',
+            body: JSON.stringify({
+              data: [{ txid: id, output, index, satpoint: output }],
+            }),
+          });
+        }
+      );
+
+      await sendPage.page.route(
+        '**/leatherapi.bestinslot.xyz/v3/inscription/single_info_id**',
+        async route => {
+          return route.fulfill({
+            status: 200,
+            contentType: 'application/json',
+            body: JSON.stringify({
+              data: { txid: id, output, index, satpoint: output },
+            }),
+          });
+        }
+      );
+      await sendPage.amountInput.fill('0.00006');
+      await sendPage.recipientInput.fill(TEST_TESTNET_ACCOUNT_2_BTC_ADDRESS);
+
+      await sendPage.previewSendTxButton.click();
+      await sendPage.feesListItem.filter({ hasText: BtcFeeType.High }).click();
+
+      await sendPage.clickInfoCardButton();
+
+      await test.expect(sendPage.broadcastErrorTitle).toBeVisible();
     });
   });
 });
