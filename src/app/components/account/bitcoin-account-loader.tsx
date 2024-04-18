@@ -4,6 +4,8 @@ import { useConfigBitcoinEnabled } from '@app/query/common/remote-config/remote-
 import { useCurrentAccountIndex } from '@app/store/accounts/account';
 import { Signer } from '@app/store/accounts/blockchain/bitcoin/bitcoin-signer';
 import { useNativeSegwitSigner } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
+import { useTaprootSigner } from '@app/store/accounts/blockchain/bitcoin/taproot-account.hooks';
+import { useCurrentNetwork } from '@app/store/networks/networks.selectors';
 
 interface BitcoinAccountLoaderBaseProps {
   children(account: Signer<P2Ret>): React.ReactNode;
@@ -25,6 +27,20 @@ export function BitcoinNativeSegwitAccountLoader({ children, ...props }: BtcAcco
   const properIndex = 'current' in props ? currentAccountIndex : props.index;
 
   const signer = useNativeSegwitSigner(properIndex);
+
+  if (!signer || !isBitcoinEnabled) return null;
+  return children(signer(0));
+}
+
+export function BitcoinTaprootAccountLoader({ children, ...props }: BtcAccountLoaderProps) {
+  const isBitcoinEnabled = useConfigBitcoinEnabled();
+  const network = useCurrentNetwork();
+
+  const currentAccountIndex = useCurrentAccountIndex();
+
+  const properIndex = 'current' in props ? currentAccountIndex : props.index;
+
+  const signer = useTaprootSigner(properIndex, network.chain.bitcoin.bitcoinNetwork);
 
   if (!signer || !isBitcoinEnabled) return null;
   return children(signer(0));

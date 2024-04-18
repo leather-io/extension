@@ -135,7 +135,10 @@ export function determineUtxosForSpendAllMultipleRecipients({
   });
 
   // Fee has already been deducted from the amount with send all
-  const outputs = recipients.map(({ address, amount }) => ({ value: BigInt(amount), address }));
+  const outputs = recipients.map(({ address, amount }) => ({
+    value: BigInt(amount.amount.toNumber()),
+    address,
+  }));
 
   const fee = Math.ceil(sizeInfo.txVBytes * feeRate);
 
@@ -190,7 +193,10 @@ export function determineUtxosForSpendMultipleRecipients({
     address?: string;
   }[] = [
     // outputs[0] = the desired amount going to recipient
-    ...recipients.map(({ address, amount }) => ({ value: BigInt(amount), address })),
+    ...recipients.map(({ address, amount }) => ({
+      value: BigInt(amount.amount.toNumber()),
+      address,
+    })),
     // outputs[recipients.length] = the remainder to be returned to a change address
     { value: sum - BigInt(amount) - BigInt(fee) },
   ];

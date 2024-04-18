@@ -5,12 +5,15 @@ import { Stack } from 'leather-styles/jsx';
 
 import { useBtcAssetBalance } from '@app/common/hooks/balance/btc/use-btc-balance';
 import { useWalletType } from '@app/common/use-wallet-type';
+import {
+  BitcoinNativeSegwitAccountLoader,
+  BitcoinTaprootAccountLoader,
+} from '@app/components/account/bitcoin-account-loader';
 import { BitcoinContractEntryPoint } from '@app/components/bitcoin-contract-entry-point/bitcoin-contract-entry-point';
 import { CryptoCurrencyAssetItemLayout } from '@app/components/crypto-assets/crypto-currency-asset/crypto-currency-asset-item.layout';
 import { CurrentStacksAccountLoader } from '@app/components/loaders/stacks-account-loader';
 import { useHasBitcoinLedgerKeychain } from '@app/store/accounts/blockchain/bitcoin/bitcoin.ledger';
 import { useCurrentAccountNativeSegwitAddressIndexZero } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
-import { useCurrentAccountTaprootIndexZeroSigner } from '@app/store/accounts/blockchain/bitcoin/taproot-account.hooks';
 import { useCurrentNetwork } from '@app/store/networks/networks.selectors';
 import { BtcAvatarIcon } from '@app/ui/components/avatar/btc-avatar-icon';
 
@@ -25,7 +28,6 @@ import { StacksFungibleTokenAssetList } from './components/stacks-fungible-token
 export function AssetsList() {
   const hasBitcoinLedgerKeys = useHasBitcoinLedgerKeychain();
   const bitcoinAddressNativeSegwit = useCurrentAccountNativeSegwitAddressIndexZero();
-  const { address: bitcoinAddressTaproot } = useCurrentAccountTaprootIndexZeroSigner();
   const network = useCurrentNetwork();
 
   const { btcAvailableAssetBalance, btcAvailableUsdBalance, isInitialLoading } = useBtcAssetBalance(
@@ -76,15 +78,18 @@ export function AssetsList() {
         )}
       </CurrentStacksAccountLoader>
 
-      {whenWallet({
-        software: (
-          <BitcoinFungibleTokenAssetList
-            btcAddressNativeSegwit={bitcoinAddressNativeSegwit}
-            btcAddressTaproot={bitcoinAddressTaproot}
-          />
-        ),
-        ledger: null,
-      })}
+      <BitcoinNativeSegwitAccountLoader current>
+        {nativeSegwitAccount => (
+          <BitcoinTaprootAccountLoader current>
+            {taprootAccount => (
+              <BitcoinFungibleTokenAssetList
+                btcAddressNativeSegwit={nativeSegwitAccount.address}
+                btcAddressTaproot={taprootAccount.address}
+              />
+            )}
+          </BitcoinTaprootAccountLoader>
+        )}
+      </BitcoinNativeSegwitAccountLoader>
 
       <PendingBrc20TransferList />
 

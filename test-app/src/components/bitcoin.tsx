@@ -413,11 +413,11 @@ export const Bitcoin = () => {
             recipients: [
               {
                 address: TEST_TESTNET_ACCOUNT_2_BTC_ADDRESS,
-                amount: '10000',
+                amount: '800',
               },
               {
                 address: TEST_TESTNET_ACCOUNT_2_BTC_ADDRESS,
-                amount: '0.010000',
+                amount: '10000',
               },
             ],
             network: 'testnet',

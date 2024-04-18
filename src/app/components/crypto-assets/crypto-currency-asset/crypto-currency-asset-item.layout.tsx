@@ -58,9 +58,7 @@ export function CryptoCurrencyAssetItemLayout({
 
   const captionRight = (
     <SkeletonLoader width="78px" isLoading={isLoading}>
-      {rightElement ? (
-        rightElement
-      ) : (
+      {!rightElement && (
         <Caption>
           <Flex alignItems="center" gap="space.02" color="inherit">
             <BulletSeparator>

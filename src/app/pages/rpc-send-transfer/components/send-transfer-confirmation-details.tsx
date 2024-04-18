@@ -1,18 +1,18 @@
 import { HStack, Stack, styled } from 'leather-styles/jsx';
 
+import type { Money } from '@shared/models/money.model';
+
+import { formatMoney } from '@app/common/money/format-money';
+
 interface SendTransferConfirmationDetailsProps {
   currentAddress: string;
   recipient: string;
-  time: string;
-  total: string;
-  feeRowValue: string;
+  amount: Money;
 }
 export function SendTransferConfirmationDetails({
   currentAddress,
   recipient,
-  time,
-  total,
-  feeRowValue,
+  amount,
 }: SendTransferConfirmationDetailsProps) {
   return (
     <Stack border="active" borderRadius="sm" p="space.05" gap="space.04" width="100%">
@@ -25,19 +25,9 @@ export function SendTransferConfirmationDetails({
         <styled.span>{recipient}</styled.span>
       </HStack>
       <HStack alignItems="center" gap="space.04" justifyContent="space-between">
-        <styled.span color="ink.text-subdued">Fee</styled.span>
-        <styled.span>{feeRowValue}</styled.span>
+        <styled.span color="ink.text-subdued">Amount</styled.span>
+        <styled.span>{formatMoney(amount)}</styled.span>
       </HStack>
-      <HStack alignItems="center" gap="space.04" justifyContent="space-between">
-        <styled.span color="ink.text-subdued">Total</styled.span>
-        <styled.span>{total}</styled.span>
-      </HStack>
-      {time && (
-        <HStack alignItems="center" gap="space.04" justifyContent="space-between">
-          <styled.span color="ink.text-subdued">Estimated Time</styled.span>
-          <styled.span>{time}</styled.span>
-        </HStack>
-      )}
     </Stack>
   );
 }

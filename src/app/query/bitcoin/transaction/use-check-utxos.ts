@@ -10,10 +10,7 @@ import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
 import { useBitcoinClient } from '@app/store/common/api-clients.hooks';
 import { useCurrentNetworkState } from '@app/store/networks/networks.hooks';
 
-import type {
-  BestinslotInscriptionByIdResponse,
-  BestinslotInscriptionsByTxIdResponse,
-} from '../bitcoin-client';
+import type { BitcoinClient } from '../bitcoin-client';
 import { getNumberOfInscriptionOnUtxoUsingOrdinalsCom } from '../ordinals/inscriptions.query';
 
 class PreventTransactionError extends Error {
@@ -45,27 +42,29 @@ export function filterOutIntentionalUtxoSpend({
 interface CheckInscribedUtxosByBestinslotArgs {
   inputs: btc.TransactionInput[];
   txids: string[];
-  getInscriptionsByTransactionId(id: string): Promise<BestinslotInscriptionsByTxIdResponse>;
-  getInscriptionById(id: string): Promise<BestinslotInscriptionByIdResponse>;
+  client: BitcoinClient;
 }
 
 async function checkInscribedUtxosByBestinslot({
   inputs,
   txids,
-  getInscriptionsByTransactionId,
-  getInscriptionById,
+  client,
 }: CheckInscribedUtxosByBestinslotArgs): Promise<boolean> {
   /**
    * @description Get the list of inscriptions moving on a transaction
    * @see https://docs.bestinslot.xyz/reference/api-reference/ordinals-and-brc-20-and-bitmap-v3-api-mainnet+testnet/inscriptions
    */
-  const inscriptionIdsList = await Promise.all(txids.map(id => getInscriptionsByTransactionId(id)));
+  const inscriptionIdsList = await Promise.all(
+    txids.map(id => client.BestinslotApi.getInscriptionsByTransactionId(id))
+  );
 
   const inscriptionIds = inscriptionIdsList.flatMap(inscription =>
     inscription.data.map(data => data.inscription_id)
   );
 
-  const inscriptionsList = await Promise.all(inscriptionIds.map(id => getInscriptionById(id)));
+  const inscriptionsList = await Promise.all(
+    inscriptionIds.map(id => client.BestinslotApi.getInscriptionById(id))
+  );
 
   const hasInscribedUtxos = inscriptionsList.some(resp => {
     return inputs.some(input => {
@@ -78,7 +77,7 @@ async function checkInscribedUtxosByBestinslot({
   return hasInscribedUtxos;
 }
 
-export function useCheckInscribedUtxos(blockTxAction?: () => void) {
+export function useCheckUnspendableUtxos(blockTxAction?: () => void) {
   const client = useBitcoinClient();
   const analytics = useAnalytics();
   const [isLoading, setIsLoading] = useState(false);
@@ -147,8 +146,7 @@ export function useCheckInscribedUtxos(blockTxAction?: () => void) {
         const hasInscribedUtxo = await checkInscribedUtxosByBestinslot({
           inputs,
           txids,
-          getInscriptionsByTransactionId: client.BestinslotApi.getInscriptionsByTransactionId,
-          getInscriptionById: client.BestinslotApi.getInscriptionById,
+          client,
         });
 
         if (hasInscribedUtxo) {
