@@ -54,12 +54,12 @@ interface BestinslotInscription {
   byte_size: number;
 }
 
-export interface BestinslotInscriptionByIdResponse {
+interface BestinslotInscriptionByIdResponse {
   data: BestinslotInscription;
   block_height: number;
 }
 
-export interface BestinslotInscriptionsByTxIdResponse {
+interface BestinslotInscriptionsByTxIdResponse {
   data: { inscription_id: string }[];
   blockHeight: number;
 }
