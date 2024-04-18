@@ -2,7 +2,11 @@ import { logger } from '@shared/logger';
 import { createMoney } from '@shared/models/money.model';
 import { isDefined } from '@shared/utils';
 
+import { useConfigRunesEnabled } from '@app/query/common/remote-config/remote-config.query';
+import { useCurrentNetwork } from '@app/store/networks/networks.selectors';
+
 import type { RuneBalance, RuneTickerInfo, RuneToken } from '../bitcoin-client';
+import { useGetRunesOutputsByAddressQuery } from './runes-outputs-by-address.query';
 import { useGetRunesTickerInfoQuery } from './runes-ticker-info.query';
 import { useGetRunesWalletBalancesByAddressesQuery } from './runes-wallet-balances.query';
 
@@ -16,6 +20,13 @@ function makeRuneToken(runeBalance: RuneBalance, tickerInfo: RuneTickerInfo): Ru
       tickerInfo.decimals
     ),
   };
+}
+
+export function useRunesEnabled() {
+  const runesEnabled = useConfigRunesEnabled();
+  const network = useCurrentNetwork();
+
+  return runesEnabled || network.chain.bitcoin.bitcoinNetwork === 'testnet';
 }
 
 export function useRuneTokens(addresses: string[]) {
@@ -35,4 +46,8 @@ export function useRuneTokens(addresses: string[]) {
     }
     return makeRuneToken(r, tickerInfo);
   });
+}
+
+export function useRunesOutputsByAddress(address: string) {
+  return useGetRunesOutputsByAddressQuery(address);
 }

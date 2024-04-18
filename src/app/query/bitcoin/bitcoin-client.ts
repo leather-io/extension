@@ -150,6 +150,30 @@ export interface RuneToken extends RuneBalance, RuneTickerInfo {
   balance: Money;
 }
 
+export interface RunesOutputsByAddress {
+  pkscript: string;
+  wallet_addr: string;
+  output: string;
+  rune_ids: string[];
+  balances: number[];
+  rune_names: string[];
+  spaced_rune_names: string[];
+}
+
+interface RunesOutputsByAddressArgs {
+  address: string;
+  network?: BitcoinNetworkModes;
+  sortBy?: 'output';
+  order?: 'asc' | 'desc';
+  offset?: number;
+  count?: number;
+}
+
+interface RunesOutputsByAddressResponse {
+  block_height: number;
+  data: RunesOutputsByAddress[];
+}
+
 class BestinslotApi {
   url = BESTINSLOT_API_BASE_URL_MAINNET;
   testnetUrl = BESTINSLOT_API_BASE_URL_TESTNET;
@@ -216,6 +240,44 @@ class BestinslotApi {
     const baseUrl = network === 'mainnet' ? this.url : this.testnetUrl;
     const resp = await axios.get<RunesTickerInfoResponse>(
       `${baseUrl}/runes/ticker_info?rune_name=${runeName}`,
+      { ...this.defaultOptions }
+    );
+    return resp.data.data;
+  }
+
+  async getRunesBatchOutputsInfo(outputs: string[], network: BitcoinNetworkModes) {
+    const baseUrl = network === 'mainnet' ? this.url : this.testnetUrl;
+
+    const resp = await axios.post<RunesOutputsByAddressResponse>(
+      `${baseUrl}/runes/batch_output_info`,
+      { queries: outputs },
+      { ...this.defaultOptions }
+    );
+    return resp.data.data;
+  }
+
+  /**
+   * @see https://docs.bestinslot.xyz/reference/api-reference/ordinals-and-brc-20-and-runes-and-bitmap-v3-api-mainnet+testnet/runes#runes-wallet-valid-outputs
+   */
+  async getRunesOutputsByAddress({
+    address,
+    network = 'mainnet',
+    sortBy = 'output',
+    order = 'asc',
+    offset = 0,
+    count = 100,
+  }: RunesOutputsByAddressArgs) {
+    const baseUrl = network === 'mainnet' ? this.url : this.testnetUrl;
+    const queryParams = new URLSearchParams({
+      address,
+      sort_by: sortBy,
+      order,
+      offset: offset.toString(),
+      count: count.toString(),
+    });
+
+    const resp = await axios.get<RunesOutputsByAddressResponse>(
+      `${baseUrl}/runes/wallet_valid_outputs?${queryParams}`,
       { ...this.defaultOptions }
     );
     return resp.data.data;

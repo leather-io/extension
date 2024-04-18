@@ -8,8 +8,11 @@ import { isUndefined } from '@shared/utils';
 import { sumNumbers } from '@app/common/math/helpers';
 
 import { useNativeSegwitUtxosByAddress } from '../address/utxos-by-address.hooks';
+import { useRunesEnabled } from '../runes/runes.hooks';
 
 export function useGetBitcoinBalanceByAddress(address: string) {
+  const runesEnabled = useRunesEnabled();
+
   const {
     data: utxos,
     isInitialLoading,
@@ -18,6 +21,7 @@ export function useGetBitcoinBalanceByAddress(address: string) {
     address,
     filterInscriptionUtxos: true,
     filterPendingTxsUtxos: true,
+    filterRunesUtxos: runesEnabled,
   });
 
   const balance = useMemo(() => {
