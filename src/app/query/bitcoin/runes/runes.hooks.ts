@@ -10,10 +10,13 @@ import { useGetRunesOutputsByAddressQuery } from './runes-outputs-by-address.que
 import { useGetRunesTickerInfoQuery } from './runes-ticker-info.query';
 import { useGetRunesWalletBalancesByAddressesQuery } from './runes-wallet-balances.query';
 
+const defaultRunesSymbol = '¤';
+
 function makeRuneToken(runeBalance: RuneBalance, tickerInfo: RuneTickerInfo): RuneToken {
   return {
     ...runeBalance,
     ...tickerInfo,
+    symbol: tickerInfo.symbol ?? defaultRunesSymbol,
     balance: createMoney(
       Number(runeBalance.total_balance),
       tickerInfo.rune_name,
