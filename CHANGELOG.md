@@ -1,3 +1,25 @@
+## [6.35.0](https://github.com/leather-wallet/extension/compare/v6.34.0...v6.35.0) (2024-04-18)
+
+
+### Features
+
+* filter out runes utxos, closes [#5207](https://github.com/leather-wallet/extension/issues/5207) ([1e02992](https://github.com/leather-wallet/extension/commit/1e02992a7175ac9bbad2b18d2a467c6207ce7cd2))
+
+
+### Bug Fixes
+
+* add default runes symbol ([b3109ed](https://github.com/leather-wallet/extension/commit/b3109edabe011e5db62edf25c879fe6b4f9ae1af))
+* check utxo fallback error, closes [#5250](https://github.com/leather-wallet/extension/issues/5250) ([321a00a](https://github.com/leather-wallet/extension/commit/321a00ad4635d75dec8572422bf509ae1806f547))
+* duplicated connect btn, closes [#5255](https://github.com/leather-wallet/extension/issues/5255) ([2655c0f](https://github.com/leather-wallet/extension/commit/2655c0f031f11538a8ebcf0449d4f7e7029d471d))
+* **ledger:** no signer breaking homepage ([7624c0a](https://github.com/leather-wallet/extension/commit/7624c0a2a01ca90fe2b0c11413418c628a2ebe1c))
+* rpc send transfer data, closes [#5243](https://github.com/leather-wallet/extension/issues/5243) ([1858348](https://github.com/leather-wallet/extension/commit/1858348e7117fa2c396975e009ff7de1fbce008c))
+* runes ui, closes [#5246](https://github.com/leather-wallet/extension/issues/5246) ([b4dcf87](https://github.com/leather-wallet/extension/commit/b4dcf874f074964f656a8c7e977fe4107dcd218a))
+
+
+### Internal
+
+* post-release merge back ([75c4f5d](https://github.com/leather-wallet/extension/commit/75c4f5d95c102a29e87a6631f471742f83c4153a))
+
 ## [6.34.0](https://github.com/leather-wallet/extension/compare/v6.33.0...v6.34.0) (2024-04-17)
 
 
