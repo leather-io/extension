@@ -3,6 +3,7 @@ import { TEST_PASSWORD } from '@tests/mocks/constants';
 import { HomePageSelectors } from '@tests/selectors/home.selectors';
 import { OnboardingSelectors } from '@tests/selectors/onboarding.selectors';
 
+import type { SupportedBlockchains } from '@shared/constants';
 import { RouteUrls } from '@shared/route-urls';
 
 const TEST_ACCOUNT_SECRET_KEY = process.env.TEST_ACCOUNT_SECRET_KEY ?? '';
@@ -45,180 +46,188 @@ export const testSoftwareAccountDefaultWalletState = {
   _persist: { version: 2, rehydrated: true },
 };
 
-const testLedgerAccountDefaultWalletState = {
-  _persist: { rehydrated: true, version: 2 },
-  chains: { stx: { default: { currentAccountIndex: 0, highestAccountIndex: 0 } } },
-  softwareKeys: {
-    entities: {},
-    ids: [],
-  },
-  ledger: {
-    bitcoin: {
-      entities: {
-        "default/84'/0'/0'": {
-          id: "default/84'/0'/0'",
-          path: "m/84'/0'/0'",
-          policy:
-            "[e87a850b/84'/0'/0']xpub6BuKrNqTrGfsy8VAAdUW2KCxbHywuSKjg7hZuAXERXDv7GfuxUgUWdVRKNsgujcwdjEHCjaXWouPKi1m5gMgdWX8JpRcyMkrSxPe4Da3Lx8",
-          walletId: 'default',
-          targetId: '',
-        },
-        "default/84'/0'/1'": {
-          id: "default/84'/0'/1'",
-          path: "m/84'/0'/1'",
-          policy:
-            "[e87a850b/84'/0'/1']xpub6BuKrNqTrGft1dv2pR3Ey8VsBnSBkVVpehNsro8V8kaWMRGeUNv8yhJpTw62Ldqenm5kuVyC2bQqgc6yrKAruDKyzz18zi83Sg2FTwEHsrF",
-          walletId: 'default',
-          targetId: '',
-        },
-        "default/84'/0'/2'": {
-          id: "default/84'/0'/2'",
-          path: "m/84'/0'/2'",
-          policy:
-            "[e87a850b/84'/0'/2']xpub6BuKrNqTrGft5UhSiYcXtN1d9Cp8iwj9tBVLjfJtLUqUFYA2xjVmAiB4TbUP6uaX3qwNhrW3baGE1Fz49YNSFcEMTtcd4Uz25juszoCCy8w",
-          walletId: 'default',
-          targetId: '',
-        },
-        "default/84'/0'/3'": {
-          id: "default/84'/0'/3'",
-          path: "m/84'/0'/3'",
-          policy:
-            "[e87a850b/84'/0'/3']xpub6BuKrNqTrGft7h39ks3qJjcz3KusNtsDtr8t59t2MUneWoCqbGYLcqLeqRaXC5na2tWDDzncBBVNVPT55b6jLM4dT5f6aGvgaXEXV6VniL6",
-          walletId: 'default',
-          targetId: '',
-        },
-        "default/84'/0'/4'": {
-          id: "default/84'/0'/4'",
-          path: "m/84'/0'/4'",
-          policy:
-            "[e87a850b/84'/0'/4']xpub6BuKrNqTrGftAswPZxdCzxArCp1bsUh3JPizsMymSVanfVJqXR2wjsX7PBnwMXnXttiWU6pMdBgB82mR2BPDtSGcUfjD8QJTNca47iYkGD3",
-          walletId: 'default',
-          targetId: '',
-        },
-        "default/86'/0'/0'": {
-          id: "default/86'/0'/0'",
-          path: "m/86'/0'/0'",
-          policy:
-            "[e87a850b/86'/0'/0']xpub6C4MQD2bVDTfdnVe5AYKB6gE7BE4yQeKBRgukQ4Hi3phDB5fCYKEAdViQ2n7kZQ1t728QV4wKGgiR5qGigjNNrm5DCGWYUZDRVNWYb8ZWGK",
-          walletId: 'default',
-          targetId: '',
-        },
-        "default/86'/0'/1'": {
-          id: "default/86'/0'/1'",
-          path: "m/86'/0'/1'",
-          policy:
-            "[e87a850b/86'/0'/1']xpub6C4MQD2bVDTfgjjWZhmPMNDMFHFmrSmGzqJVpuf98XB8F5eNaQus6XmrcrTrTiiL2EscdC4cjztP5LfaW13vZ6eDuDHXXAq71W5KEHeEeKH",
-          walletId: 'default',
-          targetId: '',
-        },
-        "default/86'/0'/2'": {
-          id: "default/86'/0'/2'",
-          path: "m/86'/0'/2'",
-          policy:
-            "[e87a850b/86'/0'/2']xpub6C4MQD2bVDTfkGnARZXj6dRRF223bcyKAK2qCRKf9xyPQg7k4ZZc4FAHLcXhQ1NCVJCTVGEMd1YoRnBBDdgXKrmt4bm5XmF1ry9ox4Qsx3F",
-          walletId: 'default',
-          targetId: '',
-        },
-        "default/86'/0'/3'": {
-          id: "default/86'/0'/3'",
-          path: "m/86'/0'/3'",
-          policy:
-            "[e87a850b/86'/0'/3']xpub6C4MQD2bVDTfmbN4ZJfozbNRMqyD1jmMFcQTNRUNyjE2J6tdVggFoQ8KmxUpijsZX1E4iDciY5AmnHbq95BHMVGJAGZ1MAm7iupHkTBV6YE",
-          walletId: 'default',
-          targetId: '',
-        },
-        "default/86'/0'/4'": {
-          id: "default/86'/0'/4'",
-          path: "m/86'/0'/4'",
-          policy:
-            "[e87a850b/86'/0'/4']xpub6C4MQD2bVDTfq9RLtYxmqJRNsiviyuM51CFE1qqQbE6o8QN9Uix47Kvj4fqKFX5f88DyhxaX93L4H1WdSZChMZUWGUzPm54N9VfvsYJBvi9",
-          walletId: 'default',
-          targetId: '',
-        },
-      },
-      ids: [
-        "default/84'/0'/0'",
-        "default/84'/0'/1'",
-        "default/84'/0'/2'",
-        "default/84'/0'/3'",
-        "default/84'/0'/4'",
-        "default/86'/0'/0'",
-        "default/86'/0'/1'",
-        "default/86'/0'/2'",
-        "default/86'/0'/3'",
-        "default/86'/0'/4'",
-      ],
+const ledgerBitcoinKeysState = {
+  entities: {
+    "default/84'/0'/0'": {
+      id: "default/84'/0'/0'",
+      path: "m/84'/0'/0'",
+      policy:
+        "[e87a850b/84'/0'/0']xpub6BuKrNqTrGfsy8VAAdUW2KCxbHywuSKjg7hZuAXERXDv7GfuxUgUWdVRKNsgujcwdjEHCjaXWouPKi1m5gMgdWX8JpRcyMkrSxPe4Da3Lx8",
+      walletId: 'default',
+      targetId: '',
     },
-    stacks: {
-      entities: {
-        "default/44'/5757'/0'/0/0": {
-          path: "m/44'/5757'/0'/0/0",
-          stxPublicKey: '0329b076bc20f7b1592b2a1a5cb91dfefe8c966e50e256458e23dd2c5d63f8f1af',
-          dataPublicKey:
-            '04716759aa2d2ec9066ff699626c3404c5cc7e84e7295af6768a0fce2defcd1c50a9ee4b1fd1e63295abc47c81f602e77c497f4549fa68535c7abbe73854b62df7',
-          id: "default/44'/5757'/0'/0/0",
-          walletId: 'default',
-          targetId: '',
-        },
-        "default/44'/5757'/0'/0/1": {
-          path: "m/44'/5757'/0'/0/1",
-          stxPublicKey: '035c63a8042cd820ae59b50cfb225b886d0837c97a5f5daa190037fcadf60a1da6',
-          dataPublicKey:
-            '04c8fba749c7be4a817c1bee8c24b7464f3be6f7e78f5c9ab43a57710f703155e059ce8b5fcb33e8c8d0ff154e964f99c486eed8b8b19f108cf5137a07275a277f',
-          id: "default/44'/5757'/0'/0/1",
-          walletId: 'default',
-          targetId: '',
-        },
-        "default/44'/5757'/0'/0/2": {
-          path: "m/44'/5757'/0'/0/2",
-          stxPublicKey: '02dbcd4e19f13709889eebdb450f84b48195f8ada1673cd8e663ca409a09379740',
-          dataPublicKey:
-            '04614af2cb5b9a07fb9049713a860a09cd97549373e73104e32b814922392a97a3c6d938f2b7f6e771c5e6611be64b762919a435a242fa5796b5bb4b9728eb079e',
-          id: "default/44'/5757'/0'/0/2",
-          walletId: 'default',
-          targetId: '',
-        },
-        "default/44'/5757'/0'/0/3": {
-          path: "m/44'/5757'/0'/0/3",
-          stxPublicKey: '03a9ee7ccb82ecdd9de236b4d1909f79e75d93ba0ae68494f0cf710a5bf1e47837',
-          dataPublicKey:
-            '04e3c33077024159f2a1aa28e4e73811d477fac3303f6395bfb8937994bc61d1a3b762d52ea4a57d0f2ed36523a96ffec74d1f05676e4411601402013f16f16374',
-          id: "default/44'/5757'/0'/0/3",
-          walletId: 'default',
-          targetId: '',
-        },
-        "default/44'/5757'/0'/0/4": {
-          path: "m/44'/5757'/0'/0/4",
-          stxPublicKey: '03e8e4daeece139da8e03d06734712b3dce83175791b94f44185c3fdae9122d264',
-          dataPublicKey:
-            '04673e21fc8fb98131d843bcb10edb015dd3219bb1f730c81c6de13a9df91d5f1a709099cd0d41d535f45b3119d3458ccdc98614ee4833c99f09c7c62d654350fa',
-          id: "default/44'/5757'/0'/0/4",
-          walletId: 'default',
-          targetId: '',
-        },
-      },
-      ids: [
-        "default/44'/5757'/0'/0/0",
-        "default/44'/5757'/0'/0/1",
-        "default/44'/5757'/0'/0/2",
-        "default/44'/5757'/0'/0/3",
-        "default/44'/5757'/0'/0/4",
-      ],
+    "default/84'/0'/1'": {
+      id: "default/84'/0'/1'",
+      path: "m/84'/0'/1'",
+      policy:
+        "[e87a850b/84'/0'/1']xpub6BuKrNqTrGft1dv2pR3Ey8VsBnSBkVVpehNsro8V8kaWMRGeUNv8yhJpTw62Ldqenm5kuVyC2bQqgc6yrKAruDKyzz18zi83Sg2FTwEHsrF",
+      walletId: 'default',
+      targetId: '',
+    },
+    "default/84'/0'/2'": {
+      id: "default/84'/0'/2'",
+      path: "m/84'/0'/2'",
+      policy:
+        "[e87a850b/84'/0'/2']xpub6BuKrNqTrGft5UhSiYcXtN1d9Cp8iwj9tBVLjfJtLUqUFYA2xjVmAiB4TbUP6uaX3qwNhrW3baGE1Fz49YNSFcEMTtcd4Uz25juszoCCy8w",
+      walletId: 'default',
+      targetId: '',
+    },
+    "default/84'/0'/3'": {
+      id: "default/84'/0'/3'",
+      path: "m/84'/0'/3'",
+      policy:
+        "[e87a850b/84'/0'/3']xpub6BuKrNqTrGft7h39ks3qJjcz3KusNtsDtr8t59t2MUneWoCqbGYLcqLeqRaXC5na2tWDDzncBBVNVPT55b6jLM4dT5f6aGvgaXEXV6VniL6",
+      walletId: 'default',
+      targetId: '',
+    },
+    "default/84'/0'/4'": {
+      id: "default/84'/0'/4'",
+      path: "m/84'/0'/4'",
+      policy:
+        "[e87a850b/84'/0'/4']xpub6BuKrNqTrGftAswPZxdCzxArCp1bsUh3JPizsMymSVanfVJqXR2wjsX7PBnwMXnXttiWU6pMdBgB82mR2BPDtSGcUfjD8QJTNca47iYkGD3",
+      walletId: 'default',
+      targetId: '',
+    },
+    "default/86'/0'/0'": {
+      id: "default/86'/0'/0'",
+      path: "m/86'/0'/0'",
+      policy:
+        "[e87a850b/86'/0'/0']xpub6C4MQD2bVDTfdnVe5AYKB6gE7BE4yQeKBRgukQ4Hi3phDB5fCYKEAdViQ2n7kZQ1t728QV4wKGgiR5qGigjNNrm5DCGWYUZDRVNWYb8ZWGK",
+      walletId: 'default',
+      targetId: '',
+    },
+    "default/86'/0'/1'": {
+      id: "default/86'/0'/1'",
+      path: "m/86'/0'/1'",
+      policy:
+        "[e87a850b/86'/0'/1']xpub6C4MQD2bVDTfgjjWZhmPMNDMFHFmrSmGzqJVpuf98XB8F5eNaQus6XmrcrTrTiiL2EscdC4cjztP5LfaW13vZ6eDuDHXXAq71W5KEHeEeKH",
+      walletId: 'default',
+      targetId: '',
+    },
+    "default/86'/0'/2'": {
+      id: "default/86'/0'/2'",
+      path: "m/86'/0'/2'",
+      policy:
+        "[e87a850b/86'/0'/2']xpub6C4MQD2bVDTfkGnARZXj6dRRF223bcyKAK2qCRKf9xyPQg7k4ZZc4FAHLcXhQ1NCVJCTVGEMd1YoRnBBDdgXKrmt4bm5XmF1ry9ox4Qsx3F",
+      walletId: 'default',
+      targetId: '',
+    },
+    "default/86'/0'/3'": {
+      id: "default/86'/0'/3'",
+      path: "m/86'/0'/3'",
+      policy:
+        "[e87a850b/86'/0'/3']xpub6C4MQD2bVDTfmbN4ZJfozbNRMqyD1jmMFcQTNRUNyjE2J6tdVggFoQ8KmxUpijsZX1E4iDciY5AmnHbq95BHMVGJAGZ1MAm7iupHkTBV6YE",
+      walletId: 'default',
+      targetId: '',
+    },
+    "default/86'/0'/4'": {
+      id: "default/86'/0'/4'",
+      path: "m/86'/0'/4'",
+      policy:
+        "[e87a850b/86'/0'/4']xpub6C4MQD2bVDTfq9RLtYxmqJRNsiviyuM51CFE1qqQbE6o8QN9Uix47Kvj4fqKFX5f88DyhxaX93L4H1WdSZChMZUWGUzPm54N9VfvsYJBvi9",
+      walletId: 'default',
       targetId: '',
     },
   },
-  networks: { currentNetworkId: 'mainnet', entities: {}, ids: [] },
-  onboarding: {
-    hideSteps: false,
-    stepsStatus: {
-      'Add some funds': 0,
-      'Back up secret key': 1,
-      'Buy an NFT': 0,
-      'Explore apps': 0,
+  ids: [
+    "default/84'/0'/0'",
+    "default/84'/0'/1'",
+    "default/84'/0'/2'",
+    "default/84'/0'/3'",
+    "default/84'/0'/4'",
+    "default/86'/0'/0'",
+    "default/86'/0'/1'",
+    "default/86'/0'/2'",
+    "default/86'/0'/3'",
+    "default/86'/0'/4'",
+  ],
+};
+
+const ledgerStacksKeysState = {
+  entities: {
+    "default/44'/5757'/0'/0/0": {
+      path: "m/44'/5757'/0'/0/0",
+      stxPublicKey: '0329b076bc20f7b1592b2a1a5cb91dfefe8c966e50e256458e23dd2c5d63f8f1af',
+      dataPublicKey:
+        '04716759aa2d2ec9066ff699626c3404c5cc7e84e7295af6768a0fce2defcd1c50a9ee4b1fd1e63295abc47c81f602e77c497f4549fa68535c7abbe73854b62df7',
+      id: "default/44'/5757'/0'/0/0",
+      walletId: 'default',
+      targetId: '',
+    },
+    "default/44'/5757'/0'/0/1": {
+      path: "m/44'/5757'/0'/0/1",
+      stxPublicKey: '035c63a8042cd820ae59b50cfb225b886d0837c97a5f5daa190037fcadf60a1da6',
+      dataPublicKey:
+        '04c8fba749c7be4a817c1bee8c24b7464f3be6f7e78f5c9ab43a57710f703155e059ce8b5fcb33e8c8d0ff154e964f99c486eed8b8b19f108cf5137a07275a277f',
+      id: "default/44'/5757'/0'/0/1",
+      walletId: 'default',
+      targetId: '',
+    },
+    "default/44'/5757'/0'/0/2": {
+      path: "m/44'/5757'/0'/0/2",
+      stxPublicKey: '02dbcd4e19f13709889eebdb450f84b48195f8ada1673cd8e663ca409a09379740',
+      dataPublicKey:
+        '04614af2cb5b9a07fb9049713a860a09cd97549373e73104e32b814922392a97a3c6d938f2b7f6e771c5e6611be64b762919a435a242fa5796b5bb4b9728eb079e',
+      id: "default/44'/5757'/0'/0/2",
+      walletId: 'default',
+      targetId: '',
+    },
+    "default/44'/5757'/0'/0/3": {
+      path: "m/44'/5757'/0'/0/3",
+      stxPublicKey: '03a9ee7ccb82ecdd9de236b4d1909f79e75d93ba0ae68494f0cf710a5bf1e47837',
+      dataPublicKey:
+        '04e3c33077024159f2a1aa28e4e73811d477fac3303f6395bfb8937994bc61d1a3b762d52ea4a57d0f2ed36523a96ffec74d1f05676e4411601402013f16f16374',
+      id: "default/44'/5757'/0'/0/3",
+      walletId: 'default',
+      targetId: '',
+    },
+    "default/44'/5757'/0'/0/4": {
+      path: "m/44'/5757'/0'/0/4",
+      stxPublicKey: '03e8e4daeece139da8e03d06734712b3dce83175791b94f44185c3fdae9122d264',
+      dataPublicKey:
+        '04673e21fc8fb98131d843bcb10edb015dd3219bb1f730c81c6de13a9df91d5f1a709099cd0d41d535f45b3119d3458ccdc98614ee4833c99f09c7c62d654350fa',
+      id: "default/44'/5757'/0'/0/4",
+      walletId: 'default',
+      targetId: '',
     },
   },
-  settings: { dismissedMessages: [], hasAllowedAnalytics: false, userSelectedTheme: 'system' },
+  ids: [
+    "default/44'/5757'/0'/0/0",
+    "default/44'/5757'/0'/0/1",
+    "default/44'/5757'/0'/0/2",
+    "default/44'/5757'/0'/0/3",
+    "default/44'/5757'/0'/0/4",
+  ],
+  targetId: '',
 };
+
+const emptyKeysState = { entities: {}, ids: [] };
+
+export function makeLedgerTestAccountWalletState(keysToInclude: SupportedBlockchains[]) {
+  return {
+    _persist: { rehydrated: true, version: 2 },
+    chains: { stx: { default: { currentAccountIndex: 0, highestAccountIndex: 0 } } },
+    softwareKeys: {
+      entities: {},
+      ids: [],
+    },
+    ledger: {
+      bitcoin: keysToInclude.includes('bitcoin') ? ledgerBitcoinKeysState : emptyKeysState,
+      stacks: keysToInclude.includes('stacks') ? ledgerStacksKeysState : emptyKeysState,
+    },
+    networks: { currentNetworkId: 'mainnet', entities: {}, ids: [] },
+    onboarding: {
+      hideSteps: false,
+      stepsStatus: {
+        'Add some funds': 0,
+        'Back up secret key': 1,
+        'Buy an NFT': 0,
+        'Explore apps': 0,
+      },
+    },
+    settings: { dismissedMessages: [], hasAllowedAnalytics: false, userSelectedTheme: 'system' },
+  };
+}
 
 export class OnboardingPage {
   constructor(readonly page: Page) {}
@@ -294,10 +303,10 @@ export class OnboardingPage {
    * onboarding flow and initialise the wallet in a signed in state for the test
    * account
    */
-  async signInWithLedgerAccount(id: string) {
+  async signInWithLedgerAccount(id: string, state: object) {
     await this.page.evaluate(
       async walletState => chrome.storage.local.set({ 'persist:root': walletState }),
-      testLedgerAccountDefaultWalletState
+      state
     );
     await this.page.goto(`chrome-extension://${id}/index.html`);
   }
