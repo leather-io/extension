@@ -69,7 +69,7 @@ export function useTaprootNetworkSigners() {
   );
 }
 
-function useTaprootSigner(accountIndex: number, network: BitcoinNetworkModes) {
+export function useTaprootSigner(accountIndex: number, network: BitcoinNetworkModes) {
   const account = useTaprootAccount(accountIndex);
   const extendedPublicKeyVersions = useBitcoinExtendedPublicKeyVersions();
 
