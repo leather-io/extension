@@ -42,7 +42,11 @@ export function useLedgerNavigate() {
         return navigate(RouteUrls.ConnectLedger, {
           replace: true,
           relative: 'route',
-          state: { tx: bytesToHex(psbt), inputsToSign },
+          state: {
+            tx: bytesToHex(psbt),
+            inputsToSign,
+            backgroundLocation: { pathname: RouteUrls.Home },
+          },
         });
       },
 
@@ -59,48 +63,94 @@ export function useLedgerNavigate() {
       },
 
       toConnectionSuccessStep(chain: SupportedBlockchains) {
-        return navigate(RouteUrls.ConnectLedgerSuccess, { replace: true, state: { chain } });
+        return navigate(RouteUrls.ConnectLedgerSuccess, {
+          replace: true,
+          state: {
+            chain,
+            backgroundLocation: { pathname: RouteUrls.Home },
+          },
+        });
       },
 
       toErrorStep(chain: SupportedBlockchains, errorMessage?: string) {
         return navigate(RouteUrls.ConnectLedgerError, {
           replace: true,
-          state: { latestLedgerError: errorMessage, chain },
+          state: {
+            latestLedgerError: errorMessage,
+            chain,
+            backgroundLocation: { pathname: RouteUrls.Home },
+          },
         });
       },
 
       toAwaitingDeviceOperation({ hasApprovedOperation }: { hasApprovedOperation: boolean }) {
         return navigate(RouteUrls.AwaitingDeviceUserAction, {
           replace: true,
-          state: { hasApprovedOperation },
+          state: {
+            hasApprovedOperation,
+            backgroundLocation: { pathname: RouteUrls.Home },
+          },
         });
       },
 
       toPublicKeyMismatchStep() {
-        return navigate(RouteUrls.LedgerPublicKeyMismatch, { replace: true });
+        return navigate(RouteUrls.LedgerPublicKeyMismatch, {
+          replace: true,
+          state: {
+            backgroundLocation: { pathname: RouteUrls.Home },
+          },
+        });
       },
 
       toDevicePayloadInvalid() {
-        return navigate(RouteUrls.LedgerDevicePayloadInvalid, { replace: true });
+        return navigate(RouteUrls.LedgerDevicePayloadInvalid, {
+          replace: true,
+          state: {
+            backgroundLocation: { pathname: RouteUrls.Home },
+          },
+        });
       },
 
       toOperationRejectedStep(description?: string) {
         return navigate(RouteUrls.LedgerOperationRejected, {
           replace: true,
-          state: { description },
+          state: {
+            backgroundLocation: { pathname: RouteUrls.Home },
+            description,
+          },
         });
       },
 
       toDeviceDisconnectStep() {
-        return navigate(RouteUrls.LedgerDisconnected, { replace: true });
+        return navigate(RouteUrls.LedgerDisconnected, {
+          replace: true,
+          state: {
+            backgroundLocation: { pathname: RouteUrls.Home },
+          },
+        });
       },
 
       toBroadcastErrorStep(error: string) {
-        return navigate(RouteUrls.LedgerBroadcastError, { replace: true, state: { error } });
+        return navigate(RouteUrls.LedgerBroadcastError, {
+          replace: true,
+          state: {
+            backgroundLocation: { pathname: RouteUrls.Home },
+            error,
+          },
+        });
       },
 
       cancelLedgerAction() {
-        return navigate('..', { relative: 'path', replace: true, state: { ...location.state } });
+        // for send ordinal '..' brings you back to the `choose-fee` step but you lose context of the ordinal
+        const backLocation = location.pathname.match(RouteUrls.SendOrdinalInscription)
+          ? RouteUrls.Home
+          : '..';
+
+        return navigate(backLocation, {
+          relative: 'path',
+          replace: true,
+          state: { ...location.state },
+        });
       },
 
       cancelLedgerActionAndReturnHome() {
@@ -108,6 +158,6 @@ export function useLedgerNavigate() {
       },
     }),
 
-    [location.state, navigate]
+    [location, navigate]
   );
 }
