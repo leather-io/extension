@@ -23,9 +23,9 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">35.71% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/14</span>
+                <span class='fraction'>5/14</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">41.66% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/12</span>
+                <span class='fraction'>5/12</span>
             </div>
         
             
@@ -109,24 +109,15 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -135,7 +126,16 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -149,15 +149,15 @@ import { createSelector } from '@reduxjs/toolkit';
 &nbsp;
 import { RootState } from '@app/store';
 &nbsp;
-const selectSettings = <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >(s</span>tate: RootState) =&gt; <span class="cstat-no" title="statement not covered" >state.settings;</span></span>
+const selectSettings = <span class="fstat-no" title="function not covered" >(s</span>tate: RootState) =&gt; <span class="cstat-no" title="statement not covered" >state.settings;</span>
 &nbsp;
-const selectUserSelectedTheme = <span class="cstat-no" title="statement not covered" >createSelector(selectSettings, <span class="fstat-no" title="function not covered" >state =&gt; <span class="cstat-no" title="statement not covered" >s</span>tate.userSelectedTheme)</span>;</span>
+const selectUserSelectedTheme = createSelector(selectSettings, <span class="fstat-no" title="function not covered" >state =&gt; <span class="cstat-no" title="statement not covered" >s</span>tate.userSelectedTheme)</span>;
 &nbsp;
 export function <span class="fstat-no" title="function not covered" >useUserSelectedTheme() {</span>
 <span class="cstat-no" title="statement not covered" >  return useSelector(selectUserSelectedTheme);</span>
 }
 &nbsp;
-const selectHasUserExplicitlyDeclinedAnalytics = <span class="cstat-no" title="statement not covered" >createSelector(</span>
+const selectHasUserExplicitlyDeclinedAnalytics = createSelector(
   selectSettings,
 <span class="fstat-no" title="function not covered" >  state =&gt; <span class="cstat-no" title="statement not covered" >s</span>tate.hasAllowedAnalytics === false</span>
 );
@@ -166,7 +166,7 @@ export function <span class="fstat-no" title="function not covered" >useHasUserE
 <span class="cstat-no" title="statement not covered" >  return useSelector(selectHasUserExplicitlyDeclinedAnalytics);</span>
 }
 &nbsp;
-const selectHasUserRespondedToAnalyticsConsent = <span class="cstat-no" title="statement not covered" >createSelector(</span>
+const selectHasUserRespondedToAnalyticsConsent = createSelector(
   selectSettings,
 <span class="fstat-no" title="function not covered" >  state =&gt; <span class="cstat-no" title="statement not covered" >s</span>tate.hasAllowedAnalytics !== null</span>
 );
@@ -175,7 +175,7 @@ export function <span class="fstat-no" title="function not covered" >useHasUserR
 <span class="cstat-no" title="statement not covered" >  return useSelector(selectHasUserRespondedToAnalyticsConsent);</span>
 }
 &nbsp;
-const selectDismissedMessageIds = <span class="cstat-no" title="statement not covered" >createSelector(</span>
+const selectDismissedMessageIds = createSelector(
   selectSettings,
 <span class="fstat-no" title="function not covered" >  state =&gt; <span class="cstat-no" title="statement not covered" >s</span>tate.dismissedMessages ?? []</span>
 );
@@ -190,7 +190,7 @@ export function <span class="fstat-no" title="function not covered" >useDismisse
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-04-17T09:59:22.943Z
+                at 2024-04-18T16:57:41.065Z
             </div>
         <script src="../../../../../prettify.js"></script>
         <script>

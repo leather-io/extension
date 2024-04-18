@@ -46,7 +46,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/57</span>
+                <span class='fraction'>0/59</span>
             </div>
         
             
@@ -237,12 +237,7 @@
 <a name='L172'></a><a href='#L172'>172</a>
 <a name='L173'></a><a href='#L173'>173</a>
 <a name='L174'></a><a href='#L174'>174</a>
-<a name='L175'></a><a href='#L175'>175</a>
-<a name='L176'></a><a href='#L176'>176</a>
-<a name='L177'></a><a href='#L177'>177</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L175'></a><a href='#L175'>175</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -298,15 +293,17 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -386,7 +383,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -427,10 +423,7 @@ import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
 import { useBitcoinClient } from '@app/store/common/api-clients.hooks';
 import { useCurrentNetworkState } from '@app/store/networks/networks.hooks';
 &nbsp;
-import type {
-  BestinslotInscriptionByIdResponse,
-  BestinslotInscriptionsByTxIdResponse,
-} from '../bitcoin-client';
+import type { BitcoinClient } from '../bitcoin-client';
 import { getNumberOfInscriptionOnUtxoUsingOrdinalsCom } from '../ordinals/inscriptions.query';
 &nbsp;
 class PreventTransactionError extends Error {
@@ -462,27 +455,29 @@ export function <span class="fstat-no" title="function not covered" >filterOutIn
 interface CheckInscribedUtxosByBestinslotArgs {
   inputs: btc.TransactionInput[];
   txids: string[];
-  getInscriptionsByTransactionId(id: string): Promise&lt;BestinslotInscriptionsByTxIdResponse&gt;;
-  getInscriptionById(id: string): Promise&lt;BestinslotInscriptionByIdResponse&gt;;
+  client: BitcoinClient;
 }
 &nbsp;
 async function <span class="fstat-no" title="function not covered" >checkInscribedUtxosByBestinslot({</span>
   inputs,
   txids,
-  getInscriptionsByTransactionId,
-  getInscriptionById,
+  client,
 }: CheckInscribedUtxosByBestinslotArgs): Promise&lt;boolean&gt; {
   /**
    * @description Get the list of inscriptions moving on a transaction
    * @see https://docs.bestinslot.xyz/reference/api-reference/ordinals-and-brc-20-and-bitmap-v3-api-mainnet+testnet/inscriptions
    */
-  const inscriptionIdsList = <span class="cstat-no" title="statement not covered" >await Promise.all(txids.map(<span class="fstat-no" title="function not covered" >id =&gt; <span class="cstat-no" title="statement not covered" >g</span>etInscriptionsByTransactionId(id))</span>);</span>
+  const inscriptionIdsList = <span class="cstat-no" title="statement not covered" >await Promise.all(</span>
+    txids.map(<span class="fstat-no" title="function not covered" >id =&gt; <span class="cstat-no" title="statement not covered" >c</span>lient.BestinslotApi.getInscriptionsByTransactionId(id))</span>
+  );
 &nbsp;
   const inscriptionIds = <span class="cstat-no" title="statement not covered" >inscriptionIdsList.flatMap(<span class="fstat-no" title="function not covered" >inscription =&gt;</span></span>
 <span class="cstat-no" title="statement not covered" >    inscription.data.map(<span class="fstat-no" title="function not covered" >data =&gt; <span class="cstat-no" title="statement not covered" >d</span>ata.inscription_id)</span></span>
   );
 &nbsp;
-  const inscriptionsList = <span class="cstat-no" title="statement not covered" >await Promise.all(inscriptionIds.map(<span class="fstat-no" title="function not covered" >id =&gt; <span class="cstat-no" title="statement not covered" >g</span>etInscriptionById(id))</span>);</span>
+  const inscriptionsList = <span class="cstat-no" title="statement not covered" >await Promise.all(</span>
+    inscriptionIds.map(<span class="fstat-no" title="function not covered" >id =&gt; <span class="cstat-no" title="statement not covered" >c</span>lient.BestinslotApi.getInscriptionById(id))</span>
+  );
 &nbsp;
   const hasInscribedUtxos = <span class="cstat-no" title="statement not covered" >inscriptionsList.some(<span class="fstat-no" title="function not covered" >resp =&gt; {</span></span>
 <span class="cstat-no" title="statement not covered" >    return inputs.some(<span class="fstat-no" title="function not covered" >input =&gt; {</span></span>
@@ -495,7 +490,7 @@ async function <span class="fstat-no" title="function not covered" >checkInscrib
 <span class="cstat-no" title="statement not covered" >  return hasInscribedUtxos;</span>
 }
 &nbsp;
-export function <span class="fstat-no" title="function not covered" >useCheckInscribedUtxos(b</span>lockTxAction?: () =&gt; void) {
+export function <span class="fstat-no" title="function not covered" >useCheckUnspendableUtxos(b</span>lockTxAction?: () =&gt; void) {
   const client = <span class="cstat-no" title="statement not covered" >useBitcoinClient();</span>
   const analytics = <span class="cstat-no" title="statement not covered" >useAnalytics();</span>
   const [isLoading, setIsLoading] = <span class="cstat-no" title="statement not covered" >useState(false);</span>
@@ -564,8 +559,7 @@ export function <span class="fstat-no" title="function not covered" >useCheckIns
         const hasInscribedUtxo = <span class="cstat-no" title="statement not covered" >await checkInscribedUtxosByBestinslot({</span>
           inputs,
           txids,
-          getInscriptionsByTransactionId: client.BestinslotApi.getInscriptionsByTransactionId,
-          getInscriptionById: client.BestinslotApi.getInscriptionById,
+          client,
         });
 &nbsp;
 <span class="cstat-no" title="statement not covered" >        if (hasInscribedUtxo) {</span>
@@ -598,7 +592,7 @@ export function <span class="fstat-no" title="function not covered" >useCheckIns
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-04-17T09:59:22.943Z
+                at 2024-04-18T16:57:41.065Z
             </div>
         <script src="../../../../../../prettify.js"></script>
         <script>

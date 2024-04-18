@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">25% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/40</span>
+                <span class='fraction'>10/40</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">13.33% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/15</span>
+                <span class='fraction'>2/15</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">8.33% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/12</span>
+                <span class='fraction'>1/12</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">23.07% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/39</span>
+                <span class='fraction'>9/39</span>
             </div>
         
             
@@ -196,19 +196,16 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -219,7 +216,10 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -318,16 +318,16 @@ import { safeAwait } from '@app/common/utils/safe-await';
 &nbsp;
 import { getStacksAppVersion } from './stacks-ledger-utils';
 &nbsp;
-export <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >enum <span class="cstat-no" title="statement not covered" >L</span>edgerConnectionErrors {</span></span>
-<span class="cstat-no" title="statement not covered" >  FailedToConnect = 'FailedToConnect',</span>
-<span class="cstat-no" title="statement not covered" >  AppNotOpen = 'AppNotOpen',</span>
-<span class="cstat-no" title="statement not covered" >  AppVersionOutdated = 'AppVersionOutdated',</span>
-<span class="cstat-no" title="statement not covered" >  DeviceNotConnected = 'DeviceNotConnected',</span>
-<span class="cstat-no" title="statement not covered" >  DeviceLocked = 'DeviceLocked',</span>
-<span class="cstat-no" title="statement not covered" >  IncorrectAppOpened = 'INCORRECT_APP_OPENED',</span>
+export enum LedgerConnectionErrors {
+  FailedToConnect = 'FailedToConnect',
+  AppNotOpen = 'AppNotOpen',
+  AppVersionOutdated = 'AppVersionOutdated',
+  DeviceNotConnected = 'DeviceNotConnected',
+  DeviceLocked = 'DeviceLocked',
+  IncorrectAppOpened = 'INCORRECT_APP_OPENED',
 }
 &nbsp;
-export const LEDGER_APPS_MAP = <span class="cstat-no" title="statement not covered" >{</span>
+export const LEDGER_APPS_MAP = {
   STACKS: 'Stacks',
   BITCOIN_MAINNET: 'Bitcoin',
   BITCOIN_TESTNET: 'Bitcoin Test',
@@ -341,7 +341,7 @@ export interface BaseLedgerOperationContext {
   awaitingDeviceConnection: boolean;
 }
 &nbsp;
-const targetIdMap = <span class="cstat-no" title="statement not covered" >new Map([</span>
+const targetIdMap = new Map([
   ['31100004', 'Nano S'],
   ['33000004', 'Nano X'],
 ]);
@@ -436,7 +436,7 @@ export function <span class="fstat-no" title="function not covered" >checkLocked
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-04-17T09:59:22.943Z
+                at 2024-04-18T16:57:41.065Z
             </div>
         <script src="../../../../../../prettify.js"></script>
         <script>
