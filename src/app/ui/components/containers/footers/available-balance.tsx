@@ -18,7 +18,7 @@ export function AvailableBalance({
         <styled.span color="ink.text-subdued" textStyle="caption.01">
           Available balance
         </styled.span>
-        <BasicTooltip label={balanceTooltipLabel} side="top">
+        <BasicTooltip asChild label={balanceTooltipLabel} side="top">
           <Box>
             <InfoCircleIcon color="ink.text-subdued" variant="small" />
           </Box>
