@@ -1,5 +1,10 @@
 import BigNumber from 'bignumber.js';
-import { AddressType, getAddressInfo, validate } from 'bitcoin-address-validation';
+import {
+  type AddressInfo,
+  AddressType,
+  getAddressInfo,
+  validate,
+} from 'bitcoin-address-validation';
 
 import { BTC_P2WPKH_DUST_AMOUNT } from '@shared/constants';
 import {
@@ -207,46 +212,40 @@ export function getSizeInfoMultipleRecipients(payload: {
 }) {
   const { inputLength, recipients, isSendMax } = payload;
 
-  const addressesInfo = recipients.map(recipient => {
-    return validate(recipient.address) ? getAddressInfo(recipient.address) : null;
-  });
-  const outputAddressesTypesWithFallback = addressesInfo.map(addressInfo =>
-    addressInfo ? addressInfo.type : AddressType.p2wpkh
-  );
+  const validAddressesInfo = recipients
+    .map(recipient => validate(recipient.address) && getAddressInfo(recipient.address))
+    .filter(Boolean) as AddressInfo[];
 
-  const outputTypesLengthMap = outputAddressesTypesWithFallback.reduce(
-    (acc: Record<AddressType, number>, outputType) => {
-      // we add 1 output for change address if not sending max
-      if (!acc['p2wpkh'] && !isSendMax) {
-        acc['p2wpkh'] = 1;
-      }
+  function getTxOutputsLengthByPaymentType() {
+    return validAddressesInfo.reduce(
+      (acc, { type }) => {
+        acc[type] = (acc[type] || 0) + 1;
+        return acc;
+      },
+      {} as Record<AddressType, number>
+    );
+  }
 
-      if (acc[outputType]) {
-        acc[outputType] = acc[outputType] + 1;
-      } else {
-        acc[outputType] = 1;
-      }
+  const outputTypesCount = getTxOutputsLengthByPaymentType();
 
+  // Add a change address if not sending max (defaults to p2wpkh)
+  if (!isSendMax) {
+    outputTypesCount[AddressType.p2wpkh] = (outputTypesCount[AddressType.p2wpkh] || 0) + 1;
+  }
+
+  // Prepare the output data map for consumption by the txSizer
+  const outputsData = Object.entries(outputTypesCount).reduce(
+    (acc, [type, count]) => {
+      acc[type + '_output_count'] = count;
       return acc;
     },
-    {} as Record<AddressType, number>
-  );
-
-  const outputsData = (Object.keys(outputTypesLengthMap) as AddressType[]).map(
-    outputAddressType => {
-      return {
-        [outputAddressType + '_output_count']: outputTypesLengthMap[outputAddressType],
-      };
-    }
+    {} as Record<string, number>
   );
 
   const txSizer = new BtcSizeFeeEstimator();
   const sizeInfo = txSizer.calcTxSize({
-    // Only p2wpkh is supported by the wallet
     input_script: 'p2wpkh',
     input_count: inputLength,
-    // From the address of the recipient, we infer the output type
-
     ...outputsData,
   });
 
