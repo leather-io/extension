@@ -17,6 +17,12 @@ This application is a browser extension. There is no ability to run it as a stan
 
 Each child of the `src` directory represents the JavaScript context in which it is ran.
 
+### Install packages
+
+```bash
+pnpm i
+```
+
 ### Dev mode
 
 When working on the extension, you can run it in `development` mode which will watch for any file changes and
