@@ -12,7 +12,7 @@ const supportUrl =
 
 interface GenericErrorProps extends FlexProps {
   body: string;
-  helpTextList: ReactNode[];
+  helpTextList?: ReactNode[];
   onClose(): void;
   title: string;
 }
@@ -34,30 +34,32 @@ export function GenericErrorLayout(props: GenericErrorProps) {
       >
         {body}
       </styled.h2>
-      <styled.ul
-        border="default"
-        borderRadius="sm"
-        fontSize="14px"
-        lineHeight="1.6"
-        listStyleType="circle"
-        mt="space.06"
-        pb="space.05"
-        pl="40px"
-        pr="space.05"
-        pt="space.02"
-        textAlign="left"
-        width="100%"
-      >
-        {helpTextList}
-        <styled.li mt="space.04" textAlign="left">
-          <HStack alignItems="center">
-            <styled.span textStyle="label.02">Reach out to our support team</styled.span>
-            <styled.button onClick={() => openInNewTab(supportUrl)} type="button">
-              <ExternalLinkIcon />
-            </styled.button>
-          </HStack>
-        </styled.li>
-      </styled.ul>
+      {helpTextList && (
+        <styled.ul
+          border="default"
+          borderRadius="sm"
+          fontSize="14px"
+          lineHeight="1.6"
+          listStyleType="circle"
+          mt="space.06"
+          pb="space.05"
+          pl="40px"
+          pr="space.05"
+          pt="space.02"
+          textAlign="left"
+          width="100%"
+        >
+          {helpTextList}
+          <styled.li mt="space.04" textAlign="left">
+            <HStack alignItems="center">
+              <styled.span textStyle="label.02">Reach out to our support team</styled.span>
+              <styled.button onClick={() => openInNewTab(supportUrl)} type="button">
+                <ExternalLinkIcon />
+              </styled.button>
+            </HStack>
+          </styled.li>
+        </styled.ul>
+      )}
       <Link fontSize="14px" mt="space.05" onClick={onClose}>
         Close window
       </Link>
