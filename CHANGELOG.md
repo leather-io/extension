@@ -1,3 +1,24 @@
+## [6.35.1](https://github.com/leather-wallet/extension/compare/v6.35.0...v6.35.1) (2024-04-20)
+
+
+### Bug Fixes
+
+* bitcoin fees missing isloading ([7fcb417](https://github.com/leather-wallet/extension/commit/7fcb4175a7ef3dc48f853ac6206bb0e4da20f46c))
+* default to custom fee when no fees ([6022122](https://github.com/leather-wallet/extension/commit/602212212a0ca6da02259572a9f1af55bd5ede96))
+* fix bug with sending ordinals from ledger, [#ref](https://github.com/leather-wallet/extension/issues/ref) 5253 ([06aef60](https://github.com/leather-wallet/extension/commit/06aef609614b775aec0e953a294230fa0065aabc))
+* multiple recipient fee calc ([4b34089](https://github.com/leather-wallet/extension/commit/4b34089d03cf3556b734937e1532bff16f70ccbf))
+
+
+### Internal
+
+* add package installation instructions to readme ([f050237](https://github.com/leather-wallet/extension/commit/f0502371b9d8c31f902fa895e411ddee57e9c62d))
+* enable runes for mainnet ([fbf2062](https://github.com/leather-wallet/extension/commit/fbf2062a33cb21cca84e483c40743f5c740deede))
+* enable runes on mainnet ([0a17ad0](https://github.com/leather-wallet/extension/commit/0a17ad01e5e63ab0fbc51a267412721fe1b310ff))
+* fix alignment of PSBT copy, ref [#5260](https://github.com/leather-wallet/extension/issues/5260) ([b9d8c9c](https://github.com/leather-wallet/extension/commit/b9d8c9ce17ce748c3801d0db28058c0d6a5e3bfb))
+* post-release merge back ([3ad2b50](https://github.com/leather-wallet/extension/commit/3ad2b50b81420cf87fd14d0a7e4c28fcbc6dc39a))
+* post-release merge back ([448c4c0](https://github.com/leather-wallet/extension/commit/448c4c0596fe9708efd60eb850c9d8ce94bc6858))
+* update README ([f695261](https://github.com/leather-wallet/extension/commit/f695261b3a8847908dd5ce22eff5ae78e19bc01d))
+
 ## [6.35.0](https://github.com/leather-wallet/extension/compare/v6.34.0...v6.35.0) (2024-04-18)
 
 
