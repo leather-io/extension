@@ -4,6 +4,7 @@ import { Stack } from 'leather-styles/jsx';
 
 import { BtcFeeType } from '@shared/models/fees/bitcoin-fees.model';
 
+import { LoadingSpinner } from '../loading-spinner';
 import { FeesListError } from './components/fees-list-error';
 import { FeesListItem } from './components/fees-list-item';
 
@@ -25,6 +26,7 @@ export interface OnChooseFeeArgs {
 
 interface BitcoinFeesListProps {
   feesList: FeesListItem[];
+  isLoading: boolean;
   onChooseFee({ feeRate, feeValue, time }: OnChooseFeeArgs): Promise<void>;
   onSetSelectedFeeType(value: BtcFeeType): void;
   onValidateBitcoinSpend(value: number): boolean;
@@ -32,6 +34,7 @@ interface BitcoinFeesListProps {
 }
 export function BitcoinFeesList({
   feesList,
+  isLoading,
   onChooseFee,
   onSetSelectedFeeType,
   onValidateBitcoinSpend,
@@ -47,8 +50,7 @@ export function BitcoinFeesList({
     [onChooseFee, onSetSelectedFeeType, onValidateBitcoinSpend]
   );
 
-  // TODO: This should be changed when custom fees are implemented. We can simply
-  // force custom fee setting when api requests fail and we can't calculate fees.
+  if (isLoading) return <LoadingSpinner />;
   if (!feesList.length) return <FeesListError />;
 
   return (

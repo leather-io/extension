@@ -24,6 +24,7 @@ import { InsufficientBalanceError } from './components/insufficient-balance-erro
 
 interface BitcoinChooseFeeProps extends FlexProps {
   amount: Money;
+  defaultToCustomFee: boolean;
   feesList: React.JSX.Element;
   isLoading: boolean;
   isSendingMax: boolean;
@@ -37,6 +38,7 @@ interface BitcoinChooseFeeProps extends FlexProps {
 }
 export function BitcoinChooseFee({
   amount,
+  defaultToCustomFee,
   feesList,
   isLoading,
   isSendingMax,
@@ -71,6 +73,7 @@ export function BitcoinChooseFee({
           <ChooseFeeSubtitle isSendingMax={isSendingMax} />
         )}
         <ChooseFeeTabs
+          defaultToCustomFee={defaultToCustomFee}
           customFee={
             <BitcoinCustomFee
               amount={amount.amount.toNumber()}
@@ -97,6 +100,7 @@ export function BitcoinChooseFee({
 
 interface BitcoinChooseFeeMultipleRecipientsProps extends FlexProps {
   amount: Money;
+  defaultToCustomFee: boolean;
   feesList: React.JSX.Element;
   isLoading: boolean;
   isSendingMax: boolean;
@@ -110,6 +114,7 @@ interface BitcoinChooseFeeMultipleRecipientsProps extends FlexProps {
 }
 export function BitcoinChooseFeeMultipleRecipients({
   amount,
+  defaultToCustomFee,
   feesList,
   isLoading,
   isSendingMax,
@@ -144,6 +149,7 @@ export function BitcoinChooseFeeMultipleRecipients({
           <ChooseFeeSubtitle isSendingMax={isSendingMax} />
         )}
         <ChooseFeeTabs
+          defaultToCustomFee={defaultToCustomFee}
           customFee={
             <BitcoinCustomFeeMultipleRecipients
               amount={amount.amount.toNumber()}

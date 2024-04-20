@@ -126,9 +126,11 @@ export function BrcChooseFee() {
     <>
       <BitcoinChooseFee
         amount={amountAsMoney}
+        defaultToCustomFee={!feesList.length}
         feesList={
           <BitcoinFeesList
             feesList={feesList}
+            isLoading={isLoading}
             onChooseFee={previewTransaction}
             onSetSelectedFeeType={(value: BtcFeeType | null) => setSelectedFeeType(value)}
             onValidateBitcoinSpend={onValidateBitcoinFeeSpend}

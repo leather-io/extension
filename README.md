@@ -11,11 +11,21 @@ Leather is the most popular and trusted wallet for apps built on Bitcoin. Connec
 
 [📩 Join the mailing list for updates →](https://forms.gle/sdZPu2jbX1AeQ8Fi9)
 
+### Contibuting
+
+Please see our [contribution guide](.github/CONTRIBUTING.md)
+
 ## Development
 
 This application is a browser extension. There is no ability to run it as a standalone web application.
 
 Each child of the `src` directory represents the JavaScript context in which it is ran.
+
+### Install packages
+
+```bash
+pnpm i
+```
 
 ### Dev mode
 
