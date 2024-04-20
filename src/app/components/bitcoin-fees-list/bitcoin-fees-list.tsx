@@ -51,8 +51,6 @@ export function BitcoinFeesList({
   );
 
   if (isLoading) return <LoadingSpinner />;
-  // TODO: This should be changed when custom fees are implemented. We can simply
-  // force custom fee setting when api requests fail and we can't calculate fees.
   if (!feesList.length) return <FeesListError />;
 
   return (

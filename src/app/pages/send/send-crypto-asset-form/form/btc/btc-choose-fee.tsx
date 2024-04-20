@@ -43,7 +43,7 @@ export function BtcChooseFee() {
     <>
       <BitcoinChooseFee
         amount={amountAsMoney}
-        isLoading={isLoading}
+        defaultToCustomFee={!feesList.length}
         feesList={
           <BitcoinFeesList
             feesList={feesList}
@@ -54,6 +54,7 @@ export function BtcChooseFee() {
             selectedFeeType={selectedFeeType}
           />
         }
+        isLoading={isLoading}
         isSendingMax={isSendingMax}
         onChooseFee={previewTransaction}
         onValidateBitcoinSpend={onValidateBitcoinAmountSpend}

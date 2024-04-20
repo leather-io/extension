@@ -126,6 +126,7 @@ export function BrcChooseFee() {
     <>
       <BitcoinChooseFee
         amount={amountAsMoney}
+        defaultToCustomFee={!feesList.length}
         feesList={
           <BitcoinFeesList
             feesList={feesList}
