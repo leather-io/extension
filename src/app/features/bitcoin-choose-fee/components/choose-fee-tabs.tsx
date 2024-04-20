@@ -13,16 +13,17 @@ enum CustomFeeTabs {
 
 interface ChooseFeeTabsProps extends StackProps {
   customFee: React.JSX.Element;
+  defaultToCustomFee: boolean;
   feesList: React.JSX.Element;
 }
 export function ChooseFeeTabs(props: ChooseFeeTabsProps) {
-  const { feesList, customFee, ...rest } = props;
+  const { customFee, defaultToCustomFee, feesList, ...rest } = props;
   const analytics = useAnalytics();
 
   return (
     <Stack flexGrow={1} gap="space.04" mt="space.02" width="100%" {...rest}>
       <Tabs.Root
-        defaultValue={CustomFeeTabs.Recommended}
+        defaultValue={defaultToCustomFee ? CustomFeeTabs.Custom : CustomFeeTabs.Recommended}
         onValueChange={tab => void analytics.page('view', 'custom-fee-tab-' + tab)}
       >
         <Tabs.List>

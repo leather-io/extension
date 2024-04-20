@@ -73,6 +73,7 @@ export function RpcSendTransferChooseFee() {
       <Outlet />
       <BitcoinChooseFeeMultipleRecipients
         amount={amountAsMoney}
+        defaultToCustomFee={!feesList.length}
         feesList={
           <BitcoinFeesList
             feesList={feesList}
