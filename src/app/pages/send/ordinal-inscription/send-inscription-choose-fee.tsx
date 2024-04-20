@@ -60,6 +60,7 @@ export function SendInscriptionChooseFee() {
           feesList={
             <BitcoinFeesList
               feesList={feesList}
+              isLoading={isLoading}
               onChooseFee={previewTransaction}
               onValidateBitcoinSpend={onValidateBitcoinFeeSpend}
               onSetSelectedFeeType={(value: BtcFeeType | null) => setSelectedFeeType(value)}
