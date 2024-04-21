@@ -104,11 +104,6 @@ export function RequestPassword({ onSuccess }: RequestPasswordProps) {
           />
           {error && <ErrorLabel width="100%">{error}</ErrorLabel>}
         </Stack>
-
-        {/*  TODO: #4735 implement forgot password flow */}
-        {/* <Link>
-          Forgot password?
-        </Link> */}
       </Card>
     </Page>
   );

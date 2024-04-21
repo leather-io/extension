@@ -6,6 +6,8 @@ import { OnboardingSelectors } from '@tests/selectors/onboarding.selectors';
 import type { SupportedBlockchains } from '@shared/constants';
 import { RouteUrls } from '@shared/route-urls';
 
+import { test } from '../fixtures/fixtures';
+
 const TEST_ACCOUNT_SECRET_KEY = process.env.TEST_ACCOUNT_SECRET_KEY ?? '';
 
 // If default wallet state changes, we'll need to update this
@@ -287,11 +289,15 @@ export class OnboardingPage {
    * account
    */
   async signInWithTestAccount(id: string) {
-    await this.page.evaluate(
-      walletState => chrome.storage.local.set({ 'persist:root': walletState }),
-      testSoftwareAccountDefaultWalletState
-    );
-    await this.page.goto(`chrome-extension://${id}/index.html`);
+    const isUnlockPage = async () => await this.page.getByText('Enter your password').isVisible();
+    while (!(await isUnlockPage())) {
+      await this.page.evaluate(
+        async walletState => await chrome.storage.local.set({ 'persist:root': walletState }),
+        testSoftwareAccountDefaultWalletState
+      );
+      await this.page.goto(`chrome-extension://${id}/index.html`);
+    }
+    await test.expect(this.page.getByText('Enter your password')).toBeVisible();
     await this.page.getByRole('textbox').fill(TEST_PASSWORD);
     await this.page.getByRole('button', { name: 'Continue' }).click();
     await this.page.waitForURL('**' + RouteUrls.Home);
