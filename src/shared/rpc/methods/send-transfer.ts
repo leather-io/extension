@@ -26,7 +26,7 @@ export const rpcSendTransferParamsSchemaLegacy = yup.object().shape({
 
 export const rpcSendTransferParamsSchema = yup.object().shape({
   account: accountSchema,
-  network: yup.string().required().oneOf(Object.values(WalletDefaultNetworkConfigurationIds)),
+  network: yup.string().oneOf(Object.values(WalletDefaultNetworkConfigurationIds)),
   recipients: yup
     .array()
     .required()
