@@ -5,6 +5,7 @@ import {
   type RpcSendTransferParams,
   type RpcSendTransferParamsLegacy,
   convertRpcSendTransferLegacyParamsToNew,
+  defaultRpcSendTransferNetwork,
   getRpcSendTransferParamErrors,
   validateRpcSendTransferLegacyParams,
   validateRpcSendTransferParams,
@@ -63,7 +64,7 @@ export async function rpcSendTransfer(
   const requestParams: RequestParams = [
     ...recipients,
     ...amounts,
-    ['network', params.network ?? 'mainnet'],
+    ['network', params.network ?? defaultRpcSendTransferNetwork],
     ['requestId', message.id],
   ];
 
