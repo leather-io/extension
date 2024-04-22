@@ -97,10 +97,12 @@ export function Container() {
   const isLogoClickable = variant !== 'home' && !isRpcRoute(pathname);
   return (
     <>
-      <SwitchAccountDialog
-        isShowing={isShowingSwitchAccount}
-        onClose={() => setIsShowingSwitchAccount(false)}
-      />
+      {isShowingSwitchAccount && (
+        <SwitchAccountDialog
+          isShowing={isShowingSwitchAccount}
+          onClose={() => setIsShowingSwitchAccount(false)}
+        />
+      )}
 
       <InAppMessages />
       <ContainerLayout
@@ -171,7 +173,7 @@ export function Container() {
           ) : null
         }
       >
-        <Outlet />
+        <Outlet context={{ isShowingSwitchAccount, setIsShowingSwitchAccount }} />
       </ContainerLayout>
     </>
   );

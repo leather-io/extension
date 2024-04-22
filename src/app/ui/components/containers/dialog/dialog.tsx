@@ -16,9 +16,10 @@ interface RadixDialogProps extends DialogProps {
   footer?: ReactNode;
   header?: ReactElement<any, string | JSXElementConstructor<any>>;
   onGoBack?(): void;
+  wrapChildren?: boolean;
 }
 
-export function getHeightOffset(header: ReactNode, footer: ReactNode) {
+function getHeightOffset(header: ReactNode, footer: ReactNode) {
   const headerHeight = header ? pxStringToNumber(token('sizes.headerHeight')) : 0;
   const footerHeight = footer ? pxStringToNumber(token('sizes.footerHeight')) : 0;
   return headerHeight + footerHeight;
@@ -30,7 +31,14 @@ function getContentMaxHeight(maxHeightOffset: number) {
   return `calc(${virtualHeight}vh - ${maxHeightOffset}px)`;
 }
 
-export function Dialog({ children, footer, header, onClose, isShowing }: RadixDialogProps) {
+export function Dialog({
+  children,
+  footer,
+  header,
+  onClose,
+  isShowing,
+  wrapChildren = true,
+}: RadixDialogProps) {
   if (!isShowing) return null;
 
   const maxHeightOffset = getHeightOffset(header, footer);
@@ -68,16 +76,20 @@ export function Dialog({ children, footer, header, onClose, isShowing }: RadixDi
           >
             {header && cloneElement(header, { onClose })}
 
-            <Box
-              style={{
-                height: '100%',
-                maxHeight: contentMaxHeight,
-                marginBottom: footer ? token('sizes.footerHeight') : token('spacing.space.04'),
-                overflowY: 'auto',
-              }}
-            >
-              {children}
-            </Box>
+            {wrapChildren ? (
+              <Box
+                style={{
+                  height: '100%',
+                  maxHeight: contentMaxHeight,
+                  marginBottom: footer ? token('sizes.footerHeight') : token('spacing.space.04'),
+                  overflowY: 'auto',
+                }}
+              >
+                {children}
+              </Box>
+            ) : (
+              children
+            )}
             {footer}
           </RadixDialog.Content>
         </RadixDialog.Overlay>
