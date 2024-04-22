@@ -20,8 +20,8 @@ import { useNativeSegwitAccountIndexAddressIndexZero } from '@app/store/accounts
 import { useStacksAccounts } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
 import { StacksAccount } from '@app/store/accounts/blockchain/stacks/stacks-account.models';
 import { AccountAvatar } from '@app/ui/components/account/account-avatar/account-avatar';
+import { VirtuosoWrapper } from '@app/ui/components/virtuoso';
 import { PlusIcon } from '@app/ui/icons/plus-icon';
-import { virtuosoHeight, virtuosoStyles } from '@app/ui/shared/virtuoso';
 
 interface AccountTitlePlaceholderProps {
   account: StacksAccount;
@@ -44,7 +44,6 @@ const ChooseAccountItem = memo(
     const btcAddress = useNativeSegwitAccountIndexAddressIndexZero(account.index);
 
     const accountSlug = useMemo(() => slugify(`Account ${account?.index + 1}`), [account?.index]);
-
     return (
       <AccountListItemLayout
         accountAddresses={<AcccountAddresses index={account.index} />}
@@ -72,7 +71,7 @@ const ChooseAccountItem = memo(
   }
 );
 
-const AddAccountAction = memo(() => {
+function AddAccountAction() {
   const [component, bind] = usePressable(true);
   const createAccount = useCreateAccount();
 
@@ -89,9 +88,9 @@ const AddAccountAction = memo(() => {
       {component}
     </Box>
   );
-});
+}
 
-export const ChooseAccountsList = memo(() => {
+export function ChooseAccountsList() {
   const finishSignIn = useFinishAuthRequest();
   const { whenWallet } = useWalletType();
   const accounts = useStacksAccounts();
@@ -111,31 +110,27 @@ export const ChooseAccountsList = memo(() => {
   };
 
   if (!accounts) return null;
-  const accountNum = accounts.length;
-
-  const maxAccountsShown = accountNum > 10 ? 10 : accountNum;
 
   return (
     <Box mt="space.05" mb="space.06" width="100%">
       {whenWallet({ software: <AddAccountAction />, ledger: <></> })}
-      <Virtuoso
-        height={virtuosoHeight}
-        style={{
-          ...virtuosoStyles,
-          height: `calc(${virtuosoHeight * maxAccountsShown}px + 50px)`,
-          background: token('colors.ink.background-primary'),
-        }}
-        data={accounts}
-        itemContent={(index, account) => (
-          <Box key={index} my="space.05" px="space.05">
-            <ChooseAccountItem
-              account={account}
-              isLoading={whenWallet({ software: selectedAccount === index, ledger: false })}
-              onSelectAccount={signIntoAccount}
-            />
-          </Box>
-        )}
-      />
+      <VirtuosoWrapper isPopup>
+        <Virtuoso
+          style={{
+            background: token('colors.ink.background-primary'),
+          }}
+          data={accounts}
+          itemContent={(index, account) => (
+            <Box key={index} my="space.05" px="space.05">
+              <ChooseAccountItem
+                account={account}
+                isLoading={whenWallet({ software: selectedAccount === index, ledger: false })}
+                onSelectAccount={signIntoAccount}
+              />
+            </Box>
+          )}
+        />
+      </VirtuosoWrapper>
     </Box>
   );
-});
+}

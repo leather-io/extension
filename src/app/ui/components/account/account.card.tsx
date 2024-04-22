@@ -12,7 +12,6 @@ interface AccountCardProps {
   name: string;
   balance: string;
   children: ReactNode;
-  switchAccount: ReactNode;
   toggleSwitchAccount(): void;
   isFetchingBnsName: boolean;
   isLoadingBalance: boolean;
@@ -21,7 +20,6 @@ interface AccountCardProps {
 export function AccountCard({
   name,
   balance,
-  switchAccount,
   toggleSwitchAccount,
   children,
   isFetchingBnsName,
@@ -62,7 +60,6 @@ export function AccountCard({
             <styled.h1 textStyle="heading.02">{balance}</styled.h1>
           </SkeletonLoader>
         </Box>
-        {switchAccount}
         {children}
       </Flex>
     </Flex>

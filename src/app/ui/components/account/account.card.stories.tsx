@@ -19,7 +19,6 @@ export function AccountCard() {
     <Component
       name="leather.btc"
       balance="$1,000"
-      switchAccount={<></>}
       toggleSwitchAccount={() => null}
       isLoadingBalance={false}
       isFetchingBnsName={false}
@@ -39,7 +38,6 @@ export function AccountCardLoading() {
     <Component
       name="leather.btc"
       balance="$1,000"
-      switchAccount={<></>}
       toggleSwitchAccount={() => null}
       isLoadingBalance
       isFetchingBnsName={false}
@@ -59,7 +57,6 @@ export function AccountCardBnsNameLoading() {
     <Component
       name="leather.btc"
       balance="$1,000"
-      switchAccount={<></>}
       toggleSwitchAccount={() => null}
       isLoadingBalance={false}
       isFetchingBnsName
