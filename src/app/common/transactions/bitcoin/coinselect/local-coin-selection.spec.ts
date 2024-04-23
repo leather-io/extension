@@ -55,6 +55,28 @@ describe(determineUtxosForSpend.name, () => {
       expect(estimation.txVBytes).toBeGreaterThan(208);
       expect(estimation.txVBytes).toBeLessThan(209);
     });
+
+    test('that Native Segwit, 10 input 2 outputs weighs 200vBytes', () => {
+      const estimation = determineUtxosForSpend({
+        utxos: [
+          { value: 20_000 },
+          { value: 20_000 },
+          { value: 10_000 },
+          { value: 10_000 },
+          { value: 10_000 },
+          { value: 10_000 },
+          { value: 10_000 },
+          { value: 10_000 },
+          { value: 10_000 },
+          { value: 10_000 },
+        ] as any[],
+        amount: 100_000,
+        recipient: 'tb1qt28eagxcl9gvhq2rpj5slg7dwgxae2dn2hk93m',
+        feeRate: 20,
+      });
+      expect(estimation.txVBytes).toBeGreaterThan(750);
+      expect(estimation.txVBytes).toBeLessThan(751);
+    });
   });
 
   describe('sorting algorithm', () => {
@@ -94,13 +116,13 @@ describe(determineUtxosForSpend.name, () => {
   test('that given a set of utxos, legacy is more expensive', () => {
     const legacy = generate10kSpendWithDummyUtxoSet('15PyZveQd28E2SHZu2ugkWZBp6iER41vXj');
     const segwit = generate10kSpendWithDummyUtxoSet('33SVjoCHJovrXxjDKLFSXo1h3t5KgkPzfH');
-    expect(legacy.estimatedFee).toBeGreaterThan(segwit.estimatedFee);
+    expect(legacy.fee).toBeGreaterThan(segwit.fee);
   });
 
   test('that given a set of utxos, wrapped segwit is more expensive than native', () => {
     const segwit = generate10kSpendWithDummyUtxoSet('33SVjoCHJovrXxjDKLFSXo1h3t5KgkPzfH');
     const native = generate10kSpendWithDummyUtxoSet('tb1qt28eagxcl9gvhq2rpj5slg7dwgxae2dn2hk93m');
-    expect(segwit.estimatedFee).toBeGreaterThan(native.estimatedFee);
+    expect(segwit.fee).toBeGreaterThan(native.fee);
   });
 
   test('that given a set of utxos, taproot is more expensive than native segwit', () => {
@@ -111,7 +133,7 @@ describe(determineUtxosForSpend.name, () => {
     const taproot = generate10kSpendWithDummyUtxoSet(
       'tb1parwmj7533de3k2fw2kntyqacspvhm67qnjcmpqnnpfvzu05l69nsczdywd'
     );
-    expect(taproot.estimatedFee).toBeGreaterThan(native.estimatedFee);
+    expect(taproot.fee).toBeGreaterThan(native.fee);
   });
 
   test('against a random set of generated utxos', () => {
@@ -129,7 +151,7 @@ describe(determineUtxosForSpend.name, () => {
 
     expect(result.outputs[1].value.toString()).toEqual(
       sumNumbers(result.inputs.map(i => i.value))
-        .minus(result.estimatedFee)
+        .minus(result.fee)
         .minus(amount.toString())
         .toString()
     );
