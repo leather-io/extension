@@ -12,7 +12,6 @@ import { base58 } from '@scure/base';
 import { AnalyticsBrowser } from '@segment/analytics-next';
 import * as Sentry from '@sentry/react';
 import { token } from 'leather-styles/tokens';
-import { getStoredState } from 'redux-persist';
 
 import {
   IS_TEST_ENV,
@@ -20,9 +19,6 @@ import {
   SENTRY_DSN,
   WALLET_ENVIRONMENT,
 } from '@shared/environment';
-import { persistConfig } from '@shared/storage/redux-pesist';
-
-import type { RootState } from '@app/store';
 
 export const analytics = new AnalyticsBrowser();
 
@@ -110,11 +106,6 @@ export function initSentry() {
     environment: WALLET_ENVIRONMENT,
     autoSessionTracking: false,
     async beforeSend(event) {
-      const state = (await getStoredState(persistConfig)) as RootState;
-      const hasAllowedAnalytics = state.settings.hasAllowedAnalytics;
-
-      if (!hasAllowedAnalytics) return null;
-
       delete event.user?.ip_address;
       delete event.extra?.ip_address;
 

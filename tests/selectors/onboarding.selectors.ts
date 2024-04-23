@@ -1,7 +1,5 @@
 export enum OnboardingSelectors {
-  AllowAnalyticsBtn = 'allow-analytics-btn',
   BackUpSecretKeyBtn = 'back-up-secret-key-btn',
-  DenyAnalyticsBtn = 'deny-analytics-btn',
   LogoRouteToHome = 'logo-route-to-home',
   NewPasswordInput = 'set-or-enter-password-input',
   NoAssetsFundAccountLink = 'no-assets-fund-account-link',

@@ -12,7 +12,7 @@ function isHomePage(pathname: RouteUrls) {
 }
 
 export function isLandingPage(pathname: RouteUrls) {
-  return pathname === RouteUrls.RequestDiagnostics || pathname.match(RouteUrls.Onboarding); // need to match get-started/ledger
+  return pathname.match(RouteUrls.Onboarding); // need to match get-started/ledger
 }
 
 function isOnboardingPage(pathname: RouteUrls) {

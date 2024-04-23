@@ -25,7 +25,7 @@ test.describe('Settings menu', () => {
 
   test('that menu item can perform sign out', async ({ homePage, onboardingPage }) => {
     await homePage.signOut();
-    const button = onboardingPage.page.getByTestId(OnboardingSelectors.DenyAnalyticsBtn);
+    const button = onboardingPage.page.getByTestId(OnboardingSelectors.SignUpBtn);
     test.expect(button).toBeTruthy();
   });
 

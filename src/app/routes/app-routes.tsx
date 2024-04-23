@@ -33,7 +33,6 @@ import { ChooseAccount } from '@app/pages/choose-account/choose-account';
 import { ChooseCryptoAssetToFund } from '@app/pages/fund/choose-asset-to-fund/choose-asset-to-fund';
 import { FundPage } from '@app/pages/fund/fund';
 import { Home } from '@app/pages/home/home';
-import { AllowDiagnosticsModal } from '@app/pages/onboarding/allow-diagnostics/allow-diagnostics';
 import { BackUpSecretKeyPage } from '@app/pages/onboarding/back-up-secret-key/back-up-secret-key';
 import { SignIn } from '@app/pages/onboarding/sign-in/sign-in';
 import { WelcomePage } from '@app/pages/onboarding/welcome/welcome';
@@ -129,7 +128,6 @@ function useAppRoutes() {
             </OnboardingGate>
           }
         >
-          <Route path={RouteUrls.RequestDiagnostics} element={<AllowDiagnosticsModal />} />
           <Route path={RouteUrls.ConnectLedgerStart} element={<ConnectLedgerStart />} />
           <Route path={RouteUrls.LedgerUnsupportedBrowser} element={<UnsupportedBrowserLayout />} />
 
