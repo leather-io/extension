@@ -13,19 +13,13 @@ interface MessageSigningHeaderProps {
 export function MessageSigningHeader({
   name,
   origin,
-  additionalText = '',
 }: MessageSigningHeaderProps) {
   const { chain, isTestnet } = useCurrentNetworkState();
 
-  const originAddition = origin ? ` (${getUrlHostname(origin)})` : '';
-  const testnetAddition = isTestnet
-    ? ` using ${getUrlHostname(chain.stacks.url)}${addPortSuffix(chain.stacks.url)}`
-    : '';
-
-  const displayName = name ?? origin;
+  const displayName = origin ? `${getUrlHostname(origin)}` : '';
 
   const caption = displayName
-    ? `Requested by ${displayName}${originAddition}${testnetAddition}`
+    ? `Requested by ${displayName}`
     : null;
 
   return (
@@ -35,7 +29,6 @@ export function MessageSigningHeader({
         <Flag img={<Favicon origin={origin ?? ''} />} pl="space.02">
           <styled.span textStyle="label.02" wordBreak="break-word">
             {caption}
-            {additionalText}
           </styled.span>
         </Flag>
       )}

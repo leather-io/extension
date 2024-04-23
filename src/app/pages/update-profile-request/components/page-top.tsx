@@ -17,12 +17,9 @@ function PageTopBase() {
   if (!profileUpdaterPayload) return null;
   const appName = profileUpdaterPayload?.appDetails?.name;
   const originAddition = origin ? ` (${getUrlHostname(origin)})` : '';
-  const testnetAddition = isTestnet
-    ? ` using ${getUrlHostname(chain.stacks.url)}${addPortSuffix(chain.stacks.url)}`
-    : '';
   const caption = appName
-    ? `Requested by "${appName}"${originAddition}${testnetAddition}`
-    : 'Request by an unknown app';
+    ? `Requested by "${appName}"${originAddition}`
+    : 'Request by unknown domain';
   const avatarUrl = profileUpdaterPayload?.profile?.image?.[0]?.contentUrl;
   return (
     <Flex justify="space-between" align="center">

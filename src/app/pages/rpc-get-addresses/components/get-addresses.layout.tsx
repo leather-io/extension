@@ -46,7 +46,7 @@ export function GetAddressesLayout(props: GetAddressesLayoutProps) {
         bg="ink.background-secondary"
       >
         <styled.p textStyle="caption.01">
-          By connecting you give permission to {requester} to see all addresses linked to this
+          By connecting you give permission to {requester} to see all addresses in this
           account
         </styled.p>
       </Flex>

@@ -1,5 +1,6 @@
 import { Flex, styled } from 'leather-styles/jsx';
 
+import { getUrlHostname } from '@app/common/utils';
 import { Favicon } from '@app/components/favicon';
 import { Flag } from '@app/ui/components/flag/flag';
 
@@ -8,8 +9,10 @@ interface SendTransferHeaderProps {
   origin: string;
 }
 export function SendTransferHeader({ amount, origin }: SendTransferHeaderProps) {
-  const title = `Send ${amount}`;
-  const caption = origin ? `Requested by ${origin}` : null;
+  const n = parseFloat(amount)
+  const title = `Send ${Number(n.toFixed(4))}`;
+  const displayName = origin ? `${getUrlHostname(origin)}` : '';
+  const caption = origin ? `Requested by ${displayName}` : null;
 
   return (
     <Flex flexDirection="column" mb="space.05" width="100%">

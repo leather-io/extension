@@ -17,6 +17,7 @@ interface SignatureRequestMessageContentProps {
   payload: Utf8Payload;
 }
 export function StacksSignatureRequestMessageContent({
+  address,
   isLoading,
   onSignMessage,
   onCancelMessageSigning,
@@ -35,7 +36,7 @@ export function StacksSignatureRequestMessageContent({
         onSignMessage={() => onSignMessage({ messageType: 'utf8', message: payload.message })}
       />
       <hr />
-      <StacksMessageSigningDisclaimer appName={payload.appName} />
+      <StacksMessageSigningDisclaimer appName={payload.appName} address={address} />
     </>
   );
 }

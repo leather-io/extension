@@ -47,7 +47,6 @@ function RpcSignBip322Message() {
       <MessageSigningRequestLayout>
         <MessageSigningHeader
           origin={origin}
-          additionalText={`. This message is signed by ${truncateMiddle(address)}`}
         />
         <MessagePreviewBox message={message} />
         <NoFeesWarningRow chainId={chain.stacks.chainId} />
@@ -58,7 +57,7 @@ function RpcSignBip322Message() {
         />
         <hr />
         <Disclaimer
-          disclaimerText="By signing this message, you prove that you own this address"
+          disclaimerText={`By signing this message, you prove that you own address ${truncateMiddle(address)}.`}
           mb="space.05"
         />
       </MessageSigningRequestLayout>

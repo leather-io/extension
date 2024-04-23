@@ -18,10 +18,6 @@ export function PsbtRequestHeader({ name, origin }: PsbtRequestHeaderProps) {
         <br />
         transaction
       </styled.h1>
-      <styled.p mb="space.04" textStyle="label.01">
-        Please review the recipient address, amount, and associated fees. Authorize only
-        transactions you fully understand.
-      </styled.p>
       {caption && (
         <Flag img={<Favicon origin={origin} />} pl="space.02">
           <styled.span textStyle="label.02" wordBreak="break-word">

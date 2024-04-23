@@ -21,10 +21,7 @@ function PageTopBase() {
 
   const appName = transactionRequest?.appDetails?.name;
   const originAddition = origin ? ` (${getUrlHostname(origin)})` : '';
-  const testnetAddition = isTestnet
-    ? ` using ${getUrlHostname(chain.stacks.url)}${addPortSuffix(chain.stacks.url)}`
-    : '';
-  const caption = appName ? `Requested by "${appName}"${originAddition}${testnetAddition}` : null;
+  const caption = appName ? `Requested by "${appName}"${originAddition}` : null;
 
   return (
     <Stack
