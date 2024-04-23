@@ -11,6 +11,7 @@ export function useBtcAssetBalance(btcAddress: string) {
   const {
     btcBalance: btcAssetBalance,
     isLoading,
+    isFetching,
     isInitialLoading,
   } = useNativeSegwitBalance(btcAddress);
 
@@ -28,8 +29,9 @@ export function useBtcAssetBalance(btcAddress: string) {
         baseCurrencyAmountInQuote(btcAssetBalance.balance, btcMarketData)
       ),
       isLoading,
+      isFetching,
       isInitialLoading,
     }),
-    [btcAddress, btcAssetBalance, btcMarketData, isLoading, isInitialLoading]
+    [btcAddress, btcAssetBalance, btcMarketData, isLoading, isInitialLoading, isFetching]
   );
 }

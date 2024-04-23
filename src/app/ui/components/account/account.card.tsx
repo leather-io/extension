@@ -14,7 +14,7 @@ interface AccountCardProps {
   children: ReactNode;
   switchAccount: ReactNode;
   toggleSwitchAccount(): void;
-  isLoadingBnsName: boolean;
+  isFetchingBnsName: boolean;
   isLoadingBalance: boolean;
 }
 
@@ -24,7 +24,7 @@ export function AccountCard({
   switchAccount,
   toggleSwitchAccount,
   children,
-  isLoadingBnsName,
+  isFetchingBnsName,
   isLoadingBalance,
 }: AccountCardProps) {
   return (
@@ -44,7 +44,7 @@ export function AccountCard({
       >
         <Flex>
           <AccountNameLayout
-            isLoading={isLoadingBnsName}
+            isLoading={isFetchingBnsName}
             data-testid={SettingsSelectors.CurrentAccountDisplayName}
             textStyle="label.01"
           >

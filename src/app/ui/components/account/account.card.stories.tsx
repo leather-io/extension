@@ -22,7 +22,7 @@ export function AccountCard() {
       switchAccount={<></>}
       toggleSwitchAccount={() => null}
       isLoadingBalance={false}
-      isLoadingBnsName={false}
+      isFetchingBnsName={false}
     >
       <Flex justify="space-between">
         <IconButton icon={<ArrowUpIcon />} label="Send" />
@@ -42,7 +42,7 @@ export function AccountCardLoading() {
       switchAccount={<></>}
       toggleSwitchAccount={() => null}
       isLoadingBalance
-      isLoadingBnsName={false}
+      isFetchingBnsName={false}
     >
       <Flex justify="space-between">
         <IconButton icon={<ArrowUpIcon />} label="Send" />
@@ -62,7 +62,7 @@ export function AccountCardBnsNameLoading() {
       switchAccount={<></>}
       toggleSwitchAccount={() => null}
       isLoadingBalance={false}
-      isLoadingBnsName
+      isFetchingBnsName
     >
       <Flex justify="space-between">
         <IconButton icon={<ArrowUpIcon />} label="Send" />
