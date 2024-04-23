@@ -122,7 +122,7 @@ export function useGenerateUnsignedOrdinalTx(inscriptionInput: UtxoWithDerivatio
       utxos: nativeSegwitUtxos,
     };
 
-    const { inputs, outputs, estimatedFee: fee } = determineUtxosForSpend(determineUtxosArgs);
+    const { inputs, outputs, fee } = determineUtxosForSpend(determineUtxosArgs);
 
     try {
       const tx = new btc.Transaction();

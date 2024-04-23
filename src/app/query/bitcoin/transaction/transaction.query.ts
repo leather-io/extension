@@ -38,6 +38,7 @@ const queryOptions = {
   refetchOnWindowFocus: false,
 } as const;
 
+// ts-unused-exports:disable-next-line
 export function useGetBitcoinTransactionQueries(txids: string[]): UseQueryResult<BitcoinTx>[] {
   const client = useBitcoinClient();
 

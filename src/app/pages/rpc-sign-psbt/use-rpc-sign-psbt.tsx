@@ -73,9 +73,7 @@ export function useRpcSignPsbt() {
           txValue: formatMoney(transferTotalAsMoney),
         };
 
-        navigate(RouteUrls.RpcSignPsbtSummary, {
-          state: psbtTxSummaryState,
-        });
+        navigate(RouteUrls.RpcSignPsbtSummary, { state: psbtTxSummaryState });
       },
       onError(e) {
         navigate(RouteUrls.RequestError, {

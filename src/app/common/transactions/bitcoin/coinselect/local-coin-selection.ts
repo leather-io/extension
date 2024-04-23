@@ -44,13 +44,13 @@ export function determineUtxosForSpendAll({
   // Fee has already been deducted from the amount with send all
   const outputs = [{ value: BigInt(amount), address: recipient }];
 
-  const estimatedFee = Math.ceil(sizeInfo.txVBytes * feeRate);
+  const fee = Math.ceil(sizeInfo.txVBytes * feeRate);
 
   return {
     inputs: filteredUtxos,
     outputs,
     size: sizeInfo.txVBytes,
-    estimatedFee,
+    fee,
   };
 }
 
@@ -101,7 +101,7 @@ export function determineUtxosForSpend({
     neededUtxos.push(nextUtxo);
   }
 
-  const estimatedFee = Math.ceil(
+  const fee = Math.ceil(
     new BigNumber(estimateTransactionSize().txVBytes).multipliedBy(feeRate).toNumber()
   );
 
@@ -109,7 +109,7 @@ export function determineUtxosForSpend({
     // outputs[0] = the desired amount going to recipient
     { value: BigInt(amount), address: recipient },
     // outputs[1] = the remainder to be returned to a change address
-    { value: BigInt(getUtxoTotal(neededUtxos).toString()) - BigInt(amount) - BigInt(estimatedFee) },
+    { value: BigInt(getUtxoTotal(neededUtxos).toString()) - BigInt(amount) - BigInt(fee) },
   ];
 
   return {
@@ -117,8 +117,8 @@ export function determineUtxosForSpend({
     inputs: neededUtxos,
     outputs,
     size: estimateTransactionSize().txVBytes,
+    fee,
     ...estimateTransactionSize(),
-    estimatedFee,
   };
 }
 
@@ -158,13 +158,13 @@ export function determineUtxosForSpendAllMultipleRecipients({
     address,
   }));
 
-  const estimatedFee = Math.ceil(sizeInfo.txVBytes * feeRate);
+  const fee = Math.ceil(sizeInfo.txVBytes * feeRate);
 
   return {
     inputs: filteredUtxos,
     outputs,
     size: sizeInfo.txVBytes,
-    estimatedFee,
+    fee,
   };
 }
 
@@ -204,7 +204,7 @@ export function determineUtxosForSpendMultipleRecipients({
 
   if (!sizeInfo) throw new InsufficientFundsError();
 
-  const estimatedFee = Math.ceil(sizeInfo.txVBytes * feeRate);
+  const fee = Math.ceil(sizeInfo.txVBytes * feeRate);
 
   const outputs: {
     value: bigint;
@@ -216,7 +216,7 @@ export function determineUtxosForSpendMultipleRecipients({
       address,
     })),
     // outputs[recipients.length] = the remainder to be returned to a change address
-    { value: sum - BigInt(amount) - BigInt(estimatedFee) },
+    { value: sum - BigInt(amount) - BigInt(fee) },
   ];
 
   return {
@@ -224,6 +224,6 @@ export function determineUtxosForSpendMultipleRecipients({
     inputs: neededUtxos,
     outputs,
     size: sizeInfo.txVBytes,
-    estimatedFee,
+    fee,
   };
 }
