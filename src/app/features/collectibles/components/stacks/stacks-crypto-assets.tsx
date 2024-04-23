@@ -14,6 +14,7 @@ interface StacksCryptoAssetsProps {
 }
 export function StacksCryptoAssets({ account }: StacksCryptoAssetsProps) {
   const { data: names = [] } = useCurrentAccountNames();
+
   const stacksNftsMetadataResp = useStacksNonFungibleTokensMetadata(account);
   const analytics = useAnalytics();
 

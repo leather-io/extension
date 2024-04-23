@@ -28,7 +28,7 @@ export function Home() {
   const navigate = useNavigate();
   const account = useCurrentStacksAccount();
 
-  const { name, isLoading: isLoadingBnsName } = useAccountDisplayName({
+  const { data: name = '', isFetching: isFetchingBnsName } = useAccountDisplayName({
     address: account?.address || '',
     index: account?.index || 0,
   });
@@ -56,7 +56,7 @@ export function Home() {
             />
           }
           toggleSwitchAccount={() => setIsShowingSwitchAccount(!isShowingSwitchAccount)}
-          isLoadingBnsName={isLoadingBnsName}
+          isFetchingBnsName={isFetchingBnsName}
           isLoadingBalance={isInitialLoading}
         >
           <AccountActions />

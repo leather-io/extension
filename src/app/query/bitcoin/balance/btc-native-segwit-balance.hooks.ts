@@ -7,7 +7,8 @@ import { useGetBitcoinBalanceByAddress } from './btc-balance.hooks';
 
 // Balance is derived from a single query in address reuse mode
 export function useNativeSegwitBalance(address: string) {
-  const { balance, isInitialLoading, isLoading } = useGetBitcoinBalanceByAddress(address);
+  const { balance, isInitialLoading, isLoading, isFetching } =
+    useGetBitcoinBalanceByAddress(address);
 
   const wrappedBalance = useMemo(
     () => createBitcoinCryptoCurrencyAssetTypeWrapper(balance),
@@ -18,6 +19,7 @@ export function useNativeSegwitBalance(address: string) {
     btcBalance: wrappedBalance,
     isInitialLoading,
     isLoading,
+    isFetching,
   };
 }
 

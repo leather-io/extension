@@ -13,7 +13,7 @@ interface AccountTotalBalanceProps {
 }
 
 export const AccountTotalBalance = memo(({ btcAddress, stxAddress }: AccountTotalBalanceProps) => {
-  const { totalUsdBalance, isLoading, isInitialLoading } = useTotalBalance({
+  const { totalUsdBalance, isFetching, isInitialLoading } = useTotalBalance({
     btcAddress,
     stxAddress,
   });
@@ -25,7 +25,7 @@ export const AccountTotalBalance = memo(({ btcAddress, stxAddress }: AccountTota
       <styled.span
         className={shimmerStyles}
         textStyle="label.02"
-        data-state={isLoading ? 'loading' : undefined}
+        data-state={isFetching ? 'loading' : undefined}
       >
         {totalUsdBalance}
       </styled.span>

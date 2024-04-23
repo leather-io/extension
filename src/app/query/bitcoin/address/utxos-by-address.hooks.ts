@@ -117,21 +117,16 @@ function useFilterInscriptionsByAddress(address: string) {
   const {
     data: inscriptionsList,
     hasNextPage: hasMoreInscriptionsToLoad,
-    isLoading: isLoadingInscriptions,
     isInitialLoading: isInitialLoadingInscriptions,
   } = useInscriptionsByAddressQuery(address);
 
   const filterOutInscriptions = useCallback(
     (utxos: UtxoResponseItem[]) => {
-      // While infinite query checks if has more data to load, or Stamps
-      // are loading, assume nothing is spendable
-      if (hasMoreInscriptionsToLoad || isLoadingInscriptions) return [];
-
       const inscriptions = inscriptionsList?.pages.flatMap(page => page.results) ?? [];
 
       return filterUtxosWithInscriptions(inscriptions, utxos);
     },
-    [hasMoreInscriptionsToLoad, inscriptionsList?.pages, isLoadingInscriptions]
+    [inscriptionsList?.pages]
   );
 
   return {
