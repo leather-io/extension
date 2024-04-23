@@ -22,10 +22,10 @@ function getFeeForList(
   isSendingMax?: boolean
 ) {
   try {
-    const { fee } = isSendingMax
+    const { estimatedFee } = isSendingMax
       ? determineUtxosForSpendAll(determineUtxosForFeeArgs)
       : determineUtxosForSpend(determineUtxosForFeeArgs);
-    return fee;
+    return estimatedFee;
   } catch (error) {
     return null;
   }
@@ -64,37 +64,37 @@ export function useBitcoinFeesList({
       utxos,
     };
 
-    const determineUtxosForHighFeeArgs = {
-      ...determineUtxosDefaultArgs,
-      feeRate: feeRates.fastestFee.toNumber(),
-    };
+    // const determineUtxosForHighFeeArgs = {
+    //   ...determineUtxosDefaultArgs,
+    //   feeRate: feeRates.fastestFee.toNumber(),
+    // };
 
     const determineUtxosForStandardFeeArgs = {
       ...determineUtxosDefaultArgs,
       feeRate: feeRates.halfHourFee.toNumber(),
     };
 
-    const determineUtxosForLowFeeArgs = {
-      ...determineUtxosDefaultArgs,
-      feeRate: feeRates.hourFee.toNumber(),
-    };
+    // const determineUtxosForLowFeeArgs = {
+    //   ...determineUtxosDefaultArgs,
+    //   feeRate: feeRates.hourFee.toNumber(),
+    // };
 
     const feesArr = [];
 
-    const highFeeValue = getFeeForList(determineUtxosForHighFeeArgs, isSendingMax);
+    // const highFeeValue = getFeeForList(determineUtxosForHighFeeArgs, isSendingMax);
     const standardFeeValue = getFeeForList(determineUtxosForStandardFeeArgs, isSendingMax);
-    const lowFeeValue = getFeeForList(determineUtxosForLowFeeArgs, isSendingMax);
+    // const lowFeeValue = getFeeForList(determineUtxosForLowFeeArgs, isSendingMax);
 
-    if (highFeeValue) {
-      feesArr.push({
-        label: BtcFeeType.High,
-        value: highFeeValue,
-        btcValue: formatMoneyPadded(createMoney(highFeeValue, 'BTC')),
-        time: btcTxTimeMap.fastestFee,
-        fiatValue: getFiatFeeValue(highFeeValue),
-        feeRate: feeRates.fastestFee.toNumber(),
-      });
-    }
+    // if (highFeeValue) {
+    //   feesArr.push({
+    //     label: BtcFeeType.High,
+    //     value: highFeeValue,
+    //     btcValue: formatMoneyPadded(createMoney(highFeeValue, 'BTC')),
+    //     time: btcTxTimeMap.fastestFee,
+    //     fiatValue: getFiatFeeValue(highFeeValue),
+    //     feeRate: feeRates.fastestFee.toNumber(),
+    //   });
+    // }
 
     if (standardFeeValue) {
       feesArr.push({
@@ -107,16 +107,16 @@ export function useBitcoinFeesList({
       });
     }
 
-    if (lowFeeValue) {
-      feesArr.push({
-        label: BtcFeeType.Low,
-        value: lowFeeValue,
-        btcValue: formatMoneyPadded(createMoney(lowFeeValue, 'BTC')),
-        time: btcTxTimeMap.hourFee,
-        fiatValue: getFiatFeeValue(lowFeeValue),
-        feeRate: feeRates.hourFee.toNumber(),
-      });
-    }
+    // if (lowFeeValue) {
+    //   feesArr.push({
+    //     label: BtcFeeType.Low,
+    //     value: lowFeeValue,
+    //     btcValue: formatMoneyPadded(createMoney(lowFeeValue, 'BTC')),
+    //     time: btcTxTimeMap.hourFee,
+    //     fiatValue: getFiatFeeValue(lowFeeValue),
+    //     feeRate: feeRates.hourFee.toNumber(),
+    //   });
+    // }
 
     return feesArr;
   }, [feeRates, utxos, isSendingMax, balance.amount, amount.amount, recipient, btcMarketData]);

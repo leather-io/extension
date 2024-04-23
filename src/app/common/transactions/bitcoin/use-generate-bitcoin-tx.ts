@@ -47,7 +47,11 @@ export function useGenerateUnsignedNativeSegwitSingleRecipientTx() {
           utxos,
         };
 
-        const { inputs, outputs, fee } = isSendingMax
+        const {
+          inputs,
+          outputs,
+          estimatedFee: fee,
+        } = isSendingMax
           ? determineUtxosForSpendAll(determineUtxosArgs)
           : determineUtxosForSpend(determineUtxosArgs);
 
@@ -127,11 +131,11 @@ export function useGenerateUnsignedNativeSegwitMultipleRecipientsTx() {
           utxos,
         };
 
-        const { inputs, outputs, fee } = isSendingMax
+        const { inputs, outputs, estimatedFee } = isSendingMax
           ? determineUtxosForSpendAllMultipleRecipients(determineUtxosArgs)
           : determineUtxosForSpendMultipleRecipients(determineUtxosArgs);
 
-        logger.info('Coin selection', { inputs, outputs, fee });
+        logger.info('Coin selection', { inputs, outputs, estimatedFee });
 
         if (!inputs.length) throw new Error('No inputs to sign');
         if (!outputs.length) throw new Error('No outputs to sign');
@@ -166,7 +170,7 @@ export function useGenerateUnsignedNativeSegwitMultipleRecipientsTx() {
           tx.addOutputAddress(output.address, BigInt(output.value), networkMode);
         });
 
-        return { hex: tx.hex, fee, psbt: tx.toPSBT(), inputs };
+        return { hex: tx.hex, fee: estimatedFee, psbt: tx.toPSBT(), inputs };
       } catch (e) {
         // eslint-disable-next-line no-console
         console.log('Error signing bitcoin transaction', e);
