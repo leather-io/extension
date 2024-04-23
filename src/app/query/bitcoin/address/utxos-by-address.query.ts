@@ -35,7 +35,7 @@ export function useGetUtxosByAddressQuery<T extends unknown = UtxoResponseItem[]
   });
 }
 
-const stopSearchAfterNumberAddressesWithoutUtxos = 20;
+const stopSearchAfterNumberAddressesWithoutUtxos = 5;
 
 /**
  * Returns all utxos for the user's current taproot account. The search for
