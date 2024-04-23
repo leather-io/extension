@@ -4,7 +4,7 @@ import { BITCOIN_API_BASE_URL_TESTNET } from '@shared/constants';
 
 const blockstreamMainnetApiLimiter = new PQueue({
   interval: 5000,
-  intervalCap: 20,
+  intervalCap: 30,
 });
 
 const blockstreamTestnetApiLimiter = new PQueue({
