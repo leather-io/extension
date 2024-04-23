@@ -67,7 +67,7 @@ export function isEmptyArray(data: unknown[]) {
   return data.length === 0;
 }
 
-export const defaultWalletKeyId = 'default' as const;
+export const defaultWalletKeyId = 'default';
 
 export function closeWindow() {
   if (process.env.DEBUG_PREVENT_WINDOW_CLOSE === 'true') {

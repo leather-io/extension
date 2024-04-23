@@ -1,18 +1,27 @@
+import { useMemo } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 
 import { hexToBytes } from '@noble/hashes/utils';
 import * as btc from '@scure/btc-signer';
+import { bytesToHex } from '@stacks/common';
 import { SendCryptoAssetSelectors } from '@tests/selectors/send.selectors';
 import { SharedComponentsSelectors } from '@tests/selectors/shared-component.selectors';
+import BigNumber from 'bignumber.js';
 import { Stack } from 'leather-styles/jsx';
 import get from 'lodash.get';
 
-import { decodeBitcoinTx } from '@shared/crypto/bitcoin/bitcoin.utils';
+import {
+  decodeBitcoinTx,
+  getPsbtTxInputs,
+  getPsbtTxOutputs,
+} from '@shared/crypto/bitcoin/bitcoin.utils';
 import { CryptoCurrencies } from '@shared/models/currencies.model';
 import { createMoney, createMoneyFromDecimal } from '@shared/models/money.model';
 import { RouteUrls } from '@shared/route-urls';
+import { isDefined } from '@shared/utils';
 
 import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
+import { sumNumbers } from '@app/common/math/helpers';
 import { baseCurrencyAmountInQuote } from '@app/common/money/calculate-money';
 import { formatMoneyPadded, i18nFormatCurrency } from '@app/common/money/format-money';
 import { satToBtc } from '@app/common/money/unit-conversion';
@@ -24,6 +33,7 @@ import {
   InfoCardSeparator,
 } from '@app/components/info-card/info-card';
 import { useCurrentNativeSegwitUtxos } from '@app/query/bitcoin/address/utxos-by-address.hooks';
+import { useGetBitcoinTransactionQueries } from '@app/query/bitcoin/transaction/transaction.query';
 import { useBitcoinBroadcastTransaction } from '@app/query/bitcoin/transaction/use-bitcoin-broadcast-transaction';
 import { useCryptoCurrencyMarketDataMeanAverage } from '@app/query/common/market-data/market-data.hooks';
 import { Button } from '@app/ui/components/button/button';
@@ -50,13 +60,52 @@ export function BtcSendFormConfirmation() {
   const navigate = useNavigate();
   const { tx, recipient, fee, arrivesIn, feeRowValue } = useBtcSendFormConfirmationState();
 
+  const transaction = useMemo(() => btc.Transaction.fromRaw(hexToBytes(tx)), [tx]);
+  const inputs = useMemo(() => getPsbtTxInputs(transaction), [transaction]);
+
+  const inputTransactions = useGetBitcoinTransactionQueries(
+    inputs
+      .map(input => input.txid)
+      .filter(isDefined)
+      .map(txid => bytesToHex(txid))
+  );
+
   const { refetch } = useCurrentNativeSegwitUtxos();
   const analytics = useAnalytics();
 
   const btcMarketData = useCryptoCurrencyMarketDataMeanAverage('BTC');
   const { broadcastTx, isBroadcasting } = useBitcoinBroadcastTransaction();
 
-  const transaction = btc.Transaction.fromRaw(hexToBytes(tx));
+  console.log({ transaction });
+
+  useMemo(() => {
+    if (inputTransactions.some(query => !query.data)) return null;
+
+    const inputTotal = sumNumbers(
+      inputs
+        .map((input, index) => inputTransactions[index].data?.vout[input.index ?? 0].value)
+        .filter(isDefined)
+    );
+
+    const outputs = getPsbtTxOutputs(transaction);
+
+    const outputTotal = sumNumbers(
+      outputs
+        .map(output => output.amount)
+        .filter(isDefined)
+        .map(val => Number(val))
+    );
+
+    // console.log('Presented fee', fee);
+    // console.log('fee === ', inputTotal.minus(outputTotal).toNumber());
+
+    console.log('Actual vsize ', transaction.vsize);
+    console.log('Fee ', fee);
+    console.log('Fee row value', feeRowValue);
+    console.log('Sats per vbytes ', new BigNumber(fee).dividedBy(transaction.vsize).toNumber());
+  }, [fee, feeRowValue, inputTransactions, inputs, transaction]);
+
+  // console.log({ inputs, outputs });
 
   const decodedTx = decodeBitcoinTx(transaction.hex);
 

@@ -21,25 +21,52 @@ const demoUtxos = [
   { value: 909 },
 ];
 
-describe(determineUtxosForSpend.name, () => {
-  function generate10kSpendWithTestData(recipient: string) {
-    return determineUtxosForSpend({
-      utxos: demoUtxos as any,
-      amount: 10_000,
-      feeRate: 20,
-      recipient,
-    });
-  }
+function generate10kSpendWithDummyUtxoSet(recipient: string) {
+  return determineUtxosForSpend({
+    utxos: demoUtxos as any,
+    amount: 10_000,
+    feeRate: 20,
+    recipient,
+  });
+}
 
-  describe('sorting algorithm (biggest first and no dust)', () => {
+describe(determineUtxosForSpend.name, () => {
+  describe('Estimated size', () => {
+    test('that Native Segwit, 1 input 2 outputs weighs 140 vBytes', () => {
+      const estimation = determineUtxosForSpend({
+        utxos: [{ value: 50_000 }] as any[],
+        amount: 40_000,
+        recipient: 'tb1qt28eagxcl9gvhq2rpj5slg7dwgxae2dn2hk93m',
+        feeRate: 20,
+      });
+      console.log(estimation);
+      expect(estimation.txVBytes).toBeGreaterThan(140);
+      expect(estimation.txVBytes).toBeLessThan(142);
+    });
+
+    test('that Native Segwit, 2 input 2 outputs weighs 200vBytes', () => {
+      const estimation = determineUtxosForSpend({
+        utxos: [{ value: 50_000 }, { value: 50_000 }] as any[],
+        amount: 60_000,
+        recipient: 'tb1qt28eagxcl9gvhq2rpj5slg7dwgxae2dn2hk93m',
+        feeRate: 20,
+      });
+      console.log(estimation);
+      expect(estimation.txVBytes).toBeGreaterThan(208);
+      expect(estimation.txVBytes).toBeLessThan(209);
+    });
+  });
+
+  describe('sorting algorithm', () => {
     test('that it filters out dust utxos', () => {
-      const result = generate10kSpendWithTestData('tb1qt28eagxcl9gvhq2rpj5slg7dwgxae2dn2hk93m');
+      const result = generate10kSpendWithDummyUtxoSet('tb1qt28eagxcl9gvhq2rpj5slg7dwgxae2dn2hk93m');
+      console.log(result);
       const hasDust = result.filteredUtxos.some(utxo => utxo.value <= BTC_P2WPKH_DUST_AMOUNT);
       expect(hasDust).toBeFalsy();
     });
 
     test('that it sorts utxos in decending order', () => {
-      const result = generate10kSpendWithTestData('tb1qt28eagxcl9gvhq2rpj5slg7dwgxae2dn2hk93m');
+      const result = generate10kSpendWithDummyUtxoSet('tb1qt28eagxcl9gvhq2rpj5slg7dwgxae2dn2hk93m');
       result.inputs.forEach((u, i) => {
         const nextUtxo = result.inputs[i + 1];
         if (!nextUtxo) return;
@@ -50,41 +77,41 @@ describe(determineUtxosForSpend.name, () => {
 
   test('that it accepts a wrapped segwit address', () =>
     expect(() =>
-      generate10kSpendWithTestData('33SVjoCHJovrXxjDKLFSXo1h3t5KgkPzfH')
+      generate10kSpendWithDummyUtxoSet('33SVjoCHJovrXxjDKLFSXo1h3t5KgkPzfH')
     ).not.toThrowError());
 
   test('that it accepts a legacy addresses', () =>
     expect(() =>
-      generate10kSpendWithTestData('15PyZveQd28E2SHZu2ugkWZBp6iER41vXj')
+      generate10kSpendWithDummyUtxoSet('15PyZveQd28E2SHZu2ugkWZBp6iER41vXj')
     ).not.toThrowError());
 
   test('that it throws an error with non-legit address', () => {
     expect(() =>
-      generate10kSpendWithTestData('whoop-de-da-boop-da-de-not-a-bitcoin-address')
+      generate10kSpendWithDummyUtxoSet('whoop-de-da-boop-da-de-not-a-bitcoin-address')
     ).toThrowError();
   });
 
   test('that given a set of utxos, legacy is more expensive', () => {
-    const legacy = generate10kSpendWithTestData('15PyZveQd28E2SHZu2ugkWZBp6iER41vXj');
-    const segwit = generate10kSpendWithTestData('33SVjoCHJovrXxjDKLFSXo1h3t5KgkPzfH');
-    expect(legacy.fee).toBeGreaterThan(segwit.fee);
+    const legacy = generate10kSpendWithDummyUtxoSet('15PyZveQd28E2SHZu2ugkWZBp6iER41vXj');
+    const segwit = generate10kSpendWithDummyUtxoSet('33SVjoCHJovrXxjDKLFSXo1h3t5KgkPzfH');
+    expect(legacy.estimatedFee).toBeGreaterThan(segwit.estimatedFee);
   });
 
   test('that given a set of utxos, wrapped segwit is more expensive than native', () => {
-    const segwit = generate10kSpendWithTestData('33SVjoCHJovrXxjDKLFSXo1h3t5KgkPzfH');
-    const native = generate10kSpendWithTestData('tb1qt28eagxcl9gvhq2rpj5slg7dwgxae2dn2hk93m');
-    expect(segwit.fee).toBeGreaterThan(native.fee);
+    const segwit = generate10kSpendWithDummyUtxoSet('33SVjoCHJovrXxjDKLFSXo1h3t5KgkPzfH');
+    const native = generate10kSpendWithDummyUtxoSet('tb1qt28eagxcl9gvhq2rpj5slg7dwgxae2dn2hk93m');
+    expect(segwit.estimatedFee).toBeGreaterThan(native.estimatedFee);
   });
 
   test('that given a set of utxos, taproot is more expensive than native segwit', () => {
     // Non-obvious behaviour.
     // P2TR outputs = 34 vBytes
     // P2WPKH outputs = 22 vBytes
-    const native = generate10kSpendWithTestData('tb1qt28eagxcl9gvhq2rpj5slg7dwgxae2dn2hk93m');
-    const taproot = generate10kSpendWithTestData(
+    const native = generate10kSpendWithDummyUtxoSet('tb1qt28eagxcl9gvhq2rpj5slg7dwgxae2dn2hk93m');
+    const taproot = generate10kSpendWithDummyUtxoSet(
       'tb1parwmj7533de3k2fw2kntyqacspvhm67qnjcmpqnnpfvzu05l69nsczdywd'
     );
-    expect(taproot.fee).toBeGreaterThan(native.fee);
+    expect(taproot.estimatedFee).toBeGreaterThan(native.estimatedFee);
   });
 
   test('against a random set of generated utxos', () => {
@@ -102,7 +129,7 @@ describe(determineUtxosForSpend.name, () => {
 
     expect(result.outputs[1].value.toString()).toEqual(
       sumNumbers(result.inputs.map(i => i.value))
-        .minus(result.fee)
+        .minus(result.estimatedFee)
         .minus(amount.toString())
         .toString()
     );

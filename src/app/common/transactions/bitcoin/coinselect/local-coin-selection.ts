@@ -1,13 +1,15 @@
+import BigNumber from 'bignumber.js';
 import { validate } from 'bitcoin-address-validation';
 
 import type { RpcSendTransferRecipient } from '@shared/rpc/methods/send-transfer';
 
+import { sumNumbers } from '@app/common/math/helpers';
 import { UtxoResponseItem } from '@app/query/bitcoin/bitcoin-client';
 
 import {
   filterUneconomicalUtxos,
   filterUneconomicalUtxosMultipleRecipients,
-  getSizeInfo,
+  getBitcoinTxSizeEstimation,
   getSizeInfoMultipleRecipients,
 } from '../utils';
 
@@ -33,23 +35,27 @@ export function determineUtxosForSpendAll({
   if (!validate(recipient)) throw new Error('Cannot calculate spend of invalid address type');
   const filteredUtxos = filterUneconomicalUtxos({ utxos, feeRate, address: recipient });
 
-  const sizeInfo = getSizeInfo({
-    inputLength: filteredUtxos.length,
-    outputLength: 1,
+  const sizeInfo = getBitcoinTxSizeEstimation({
+    inputCount: filteredUtxos.length,
+    outputCount: 1,
     recipient,
   });
 
   // Fee has already been deducted from the amount with send all
   const outputs = [{ value: BigInt(amount), address: recipient }];
 
-  const fee = Math.ceil(sizeInfo.txVBytes * feeRate);
+  const estimatedFee = Math.ceil(sizeInfo.txVBytes * feeRate);
 
   return {
     inputs: filteredUtxos,
     outputs,
     size: sizeInfo.txVBytes,
-    fee,
+    estimatedFee,
   };
+}
+
+function getUtxoTotal(utxos: UtxoResponseItem[]) {
+  return sumNumbers(utxos.map(utxo => utxo.value));
 }
 
 export function determineUtxosForSpend({
@@ -60,47 +66,59 @@ export function determineUtxosForSpend({
 }: DetermineUtxosForSpendArgs) {
   if (!validate(recipient)) throw new Error('Cannot calculate spend of invalid address type');
 
-  const orderedUtxos = utxos.sort((a, b) => b.value - a.value);
-
-  const filteredUtxos = filterUneconomicalUtxos({
-    utxos: orderedUtxos,
+  const filteredUtxos: UtxoResponseItem[] = filterUneconomicalUtxos({
+    utxos: utxos.sort((a, b) => b.value - a.value),
     feeRate,
     address: recipient,
   });
 
-  const neededUtxos = [];
-  let sum = 0n;
-  let sizeInfo = null;
+  if (!filteredUtxos.length) throw new InsufficientFundsError();
 
-  for (const utxo of filteredUtxos) {
-    sizeInfo = getSizeInfo({
-      inputLength: neededUtxos.length,
-      outputLength: 2,
+  // Prepopulate with first UTXO, at least one is needed
+  const neededUtxos: UtxoResponseItem[] = [filteredUtxos[0]];
+
+  function estimateTransactionSize() {
+    return getBitcoinTxSizeEstimation({
+      inputCount: neededUtxos.length,
+      outputCount: 2,
       recipient,
     });
-    if (sum >= BigInt(amount) + BigInt(Math.ceil(sizeInfo.txVBytes * feeRate))) break;
-
-    sum += BigInt(utxo.value);
-    neededUtxos.push(utxo);
   }
 
-  if (!sizeInfo) throw new InsufficientFundsError();
+  function hasSufficientUtxosForTx() {
+    const txEstimation = estimateTransactionSize();
+    const neededAmount = new BigNumber(txEstimation.txVBytes * feeRate).plus(amount);
+    return getUtxoTotal(neededUtxos).isGreaterThanOrEqualTo(neededAmount);
+  }
 
-  const fee = Math.ceil(sizeInfo.txVBytes * feeRate);
+  function getRemainingUnspentUtxos() {
+    return filteredUtxos.filter(utxo => !neededUtxos.includes(utxo));
+  }
+
+  while (!hasSufficientUtxosForTx()) {
+    const [nextUtxo] = getRemainingUnspentUtxos();
+    if (!nextUtxo) throw new InsufficientFundsError();
+    neededUtxos.push(nextUtxo);
+  }
+
+  const estimatedFee = Math.ceil(
+    new BigNumber(estimateTransactionSize().txVBytes).multipliedBy(feeRate).toNumber()
+  );
 
   const outputs = [
     // outputs[0] = the desired amount going to recipient
     { value: BigInt(amount), address: recipient },
     // outputs[1] = the remainder to be returned to a change address
-    { value: sum - BigInt(amount) - BigInt(fee) },
+    { value: BigInt(getUtxoTotal(neededUtxos).toString()) - BigInt(amount) - BigInt(estimatedFee) },
   ];
 
   return {
     filteredUtxos,
     inputs: neededUtxos,
     outputs,
-    size: sizeInfo.txVBytes,
-    fee,
+    size: estimateTransactionSize().txVBytes,
+    ...estimateTransactionSize(),
+    estimatedFee,
   };
 }
 
@@ -140,13 +158,13 @@ export function determineUtxosForSpendAllMultipleRecipients({
     address,
   }));
 
-  const fee = Math.ceil(sizeInfo.txVBytes * feeRate);
+  const estimatedFee = Math.ceil(sizeInfo.txVBytes * feeRate);
 
   return {
     inputs: filteredUtxos,
     outputs,
     size: sizeInfo.txVBytes,
-    fee,
+    estimatedFee,
   };
 }
 
@@ -186,7 +204,7 @@ export function determineUtxosForSpendMultipleRecipients({
 
   if (!sizeInfo) throw new InsufficientFundsError();
 
-  const fee = Math.ceil(sizeInfo.txVBytes * feeRate);
+  const estimatedFee = Math.ceil(sizeInfo.txVBytes * feeRate);
 
   const outputs: {
     value: bigint;
@@ -198,7 +216,7 @@ export function determineUtxosForSpendMultipleRecipients({
       address,
     })),
     // outputs[recipients.length] = the remainder to be returned to a change address
-    { value: sum - BigInt(amount) - BigInt(fee) },
+    { value: sum - BigInt(amount) - BigInt(estimatedFee) },
   ];
 
   return {
@@ -206,6 +224,6 @@ export function determineUtxosForSpendMultipleRecipients({
     inputs: neededUtxos,
     outputs,
     size: sizeInfo.txVBytes,
-    fee,
+    estimatedFee,
   };
 }

@@ -39,14 +39,14 @@ export function useBitcoinCustomFee({ amount, isSendingMax, recipient }: UseBitc
         utxos,
         feeRate,
       };
-      const { fee } = isSendingMax
+      const { estimatedFee } = isSendingMax
         ? determineUtxosForSpendAll(determineUtxosArgs)
         : determineUtxosForSpend(determineUtxosArgs);
 
       return {
-        fee,
+        estimatedFee,
         fiatFeeValue: `~ ${i18nFormatCurrency(
-          baseCurrencyAmountInQuote(createMoney(Math.ceil(fee), 'BTC'), btcMarketData)
+          baseCurrencyAmountInQuote(createMoney(Math.ceil(estimatedFee), 'BTC'), btcMarketData)
         )}`,
       };
     },
@@ -81,14 +81,14 @@ export function useBitcoinCustomFeeMultipleRecipients({
         utxos,
         feeRate,
       };
-      const { fee } = isSendingMax
+      const { estimatedFee } = isSendingMax
         ? determineUtxosForSpendAllMultipleRecipients(determineUtxosArgs)
         : determineUtxosForSpendMultipleRecipients(determineUtxosArgs);
 
       return {
-        fee,
+        estimatedFee,
         fiatFeeValue: `~ ${i18nFormatCurrency(
-          baseCurrencyAmountInQuote(createMoney(Math.ceil(fee), 'BTC'), btcMarketData)
+          baseCurrencyAmountInQuote(createMoney(Math.ceil(estimatedFee), 'BTC'), btcMarketData)
         )}`,
       };
     },

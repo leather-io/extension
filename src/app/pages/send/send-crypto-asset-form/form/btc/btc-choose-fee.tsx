@@ -17,7 +17,6 @@ export function useBtcChooseFeeState() {
   const isSendingMax = useLocationStateWithCache('isSendingMax') as boolean;
   const txValues = useLocationStateWithCache('values') as BitcoinSendFormValues;
   const utxos = useLocationStateWithCache('utxos') as UtxoResponseItem[];
-
   return { isSendingMax, txValues, utxos };
 }
 

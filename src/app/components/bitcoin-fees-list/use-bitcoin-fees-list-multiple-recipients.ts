@@ -22,10 +22,10 @@ function getFeeForList(
   isSendingMax?: boolean
 ) {
   try {
-    const { fee } = isSendingMax
+    const { estimatedFee } = isSendingMax
       ? determineUtxosForSpendAllMultipleRecipients(determineUtxosForFeeArgs)
       : determineUtxosForSpendMultipleRecipients(determineUtxosForFeeArgs);
-    return fee;
+    return estimatedFee;
   } catch (error) {
     return null;
   }

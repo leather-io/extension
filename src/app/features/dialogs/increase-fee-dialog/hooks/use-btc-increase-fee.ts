@@ -1,3 +1,4 @@
+import { useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import * as btc from '@scure/btc-signer';
@@ -14,9 +15,9 @@ import { useBtcAssetBalance } from '@app/common/hooks/balance/btc/use-btc-balanc
 import { btcToSat } from '@app/common/money/unit-conversion';
 import { queryClient } from '@app/common/persistence';
 import {
+  getBitcoinTxSizeEstimation,
   getBitcoinTxValue,
   getRecipientAddressFromOutput,
-  getSizeInfo,
 } from '@app/common/transactions/bitcoin/utils';
 import { MAX_FEE_RATE_MULTIPLIER } from '@app/components/bitcoin-custom-fee/hooks/use-bitcoin-custom-fee';
 import { useBitcoinFeesList } from '@app/components/bitcoin-fees-list/use-bitcoin-fees-list';
@@ -39,11 +40,16 @@ export function useBtcIncreaseFee(btcTx: BitcoinTx) {
   const signTransaction = useSignBitcoinTx();
   const { broadcastTx, isBroadcasting } = useBitcoinBroadcastTransaction();
   const recipient = getRecipientAddressFromOutput(btcTx.vout, currentBitcoinAddress) || '';
-  const sizeInfo = getSizeInfo({
-    inputLength: btcTx.vin.length,
-    recipient,
-    outputLength: btcTx.vout.length,
-  });
+
+  const sizeInfo = useMemo(
+    () =>
+      getBitcoinTxSizeEstimation({
+        inputCount: btcTx.vin.length,
+        recipient,
+        outputCount: btcTx.vout.length,
+      }),
+    [btcTx.vin.length, btcTx.vout.length, recipient]
+  );
 
   const { btcAvailableAssetBalance } = useBtcAssetBalance(currentBitcoinAddress);
   const sendingAmount = getBitcoinTxValue(currentBitcoinAddress, btcTx);
