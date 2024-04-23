@@ -14,7 +14,7 @@ export interface DialogProps {
 interface RadixDialogProps extends DialogProps {
   children: ReactNode;
   footer?: ReactNode;
-  header?: ReactElement<any, string | JSXElementConstructor<any>>;
+  header: ReactElement<any, string | JSXElementConstructor<any>>;
   onGoBack?(): void;
   wrapChildren?: boolean;
 }

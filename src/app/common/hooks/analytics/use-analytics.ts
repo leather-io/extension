@@ -14,7 +14,6 @@ import { analytics, initAnalytics } from '@shared/utils/analytics';
 import { flow, origin } from '@app/common/initial-search-params';
 import { useWalletType } from '@app/common/use-wallet-type';
 import { useCurrentNetworkState } from '@app/store/networks/networks.hooks';
-import { useHasUserExplicitlyDeclinedAnalytics } from '@app/store/settings/settings.selectors';
 
 const IGNORED_PATH_REGEXPS = [/^\/$/];
 
@@ -27,12 +26,10 @@ function isHiroApiUrl(url: string) {
 }
 
 export function useInitalizeAnalytics() {
-  const hasUserDeclinedAnalytics = useHasUserExplicitlyDeclinedAnalytics();
-
   useEffect(() => {
-    if (hasUserDeclinedAnalytics || !SEGMENT_WRITE_KEY || IS_TEST_ENV) return;
+    if (!SEGMENT_WRITE_KEY || IS_TEST_ENV) return;
     initAnalytics();
-  }, [hasUserDeclinedAnalytics]);
+  }, []);
 }
 
 export function useAnalytics() {

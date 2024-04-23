@@ -42,7 +42,6 @@ export const testSoftwareAccountDefaultWalletState = {
   },
   settings: {
     userSelectedTheme: 'system',
-    hasAllowedAnalytics: false,
     dismissedMessages: [],
   },
   _persist: { version: 2, rehydrated: true },
@@ -227,17 +226,12 @@ export function makeLedgerTestAccountWalletState(keysToInclude: SupportedBlockch
         'Explore apps': 0,
       },
     },
-    settings: { dismissedMessages: [], hasAllowedAnalytics: false, userSelectedTheme: 'system' },
+    settings: { dismissedMessages: [], userSelectedTheme: 'system' },
   };
 }
 
 export class OnboardingPage {
   constructor(readonly page: Page) {}
-
-  async denyAnalytics() {
-    await this.page.getByTestId(OnboardingSelectors.DenyAnalyticsBtn).click();
-    await this.page.waitForURL('**' + RouteUrls.Onboarding);
-  }
 
   async setPassword() {
     await this.page.waitForURL('**' + RouteUrls.SetPassword);
@@ -247,14 +241,12 @@ export class OnboardingPage {
   }
 
   async signUpNewUser() {
-    await this.denyAnalytics();
     await this.page.getByTestId(OnboardingSelectors.SignUpBtn).click();
     await this.page.waitForURL('**' + RouteUrls.BackUpSecretKey);
     await this.page.getByTestId(OnboardingSelectors.BackUpSecretKeyBtn).click();
     await this.setPassword();
   }
   async initiateSignIn() {
-    await this.denyAnalytics();
     await this.page.getByTestId(OnboardingSelectors.SignInLink).click();
   }
 

@@ -18,7 +18,11 @@ export function Dialog() {
   return (
     <>
       <Button onClick={() => setIsShowing(!isShowing)}>Open</Button>
-      <Component isShowing={isShowing} onClose={() => setIsShowing(false)}>
+      <Component
+        header={<h1>Some Header</h1>}
+        isShowing={isShowing}
+        onClose={() => setIsShowing(false)}
+      >
         <h1>Some Dialog</h1>
       </Component>
     </>
