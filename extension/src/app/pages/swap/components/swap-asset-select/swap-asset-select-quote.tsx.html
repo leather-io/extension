@@ -32,7 +32,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/6</span>
+                <span class='fraction'>0/12</span>
             </div>
         
             
@@ -108,7 +108,14 @@
 <a name='L43'></a><a href='#L43'>43</a>
 <a name='L44'></a><a href='#L44'>44</a>
 <a name='L45'></a><a href='#L45'>45</a>
-<a name='L46'></a><a href='#L46'>46</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L46'></a><a href='#L46'>46</a>
+<a name='L47'></a><a href='#L47'>47</a>
+<a name='L48'></a><a href='#L48'>48</a>
+<a name='L49'></a><a href='#L49'>49</a>
+<a name='L50'></a><a href='#L50'>50</a>
+<a name='L51'></a><a href='#L51'>51</a>
+<a name='L52'></a><a href='#L52'>52</a>
+<a name='L53'></a><a href='#L53'>53</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -116,6 +123,20 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -123,12 +144,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -138,7 +153,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -156,13 +170,14 @@
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { useField } from 'formik';
 &nbsp;
 import { RouteUrls } from '@shared/route-urls';
+import { isDefined } from '@shared/utils';
 &nbsp;
-import { useAlexSdkAmountAsFiat } from '@app/common/hooks/use-alex-sdk';
-import { formatMoneyWithoutSymbol } from '@app/common/money/format-money';
+import { formatMoneyWithoutSymbol, i18nFormatCurrency } from '@app/common/money/format-money';
 import { LoadingSpinner } from '@app/components/loading-spinner';
 &nbsp;
 import { useSwapNavigate } from '../../hooks/use-swap-navigate';
 import { useSwapContext } from '../../swap.context';
+import { convertInputAmountValueToFiat } from '../../swap.utils';
 import { SwapAmountField } from './components/swap-amount-field';
 import { SwapAssetSelectLayout } from './components/swap-asset-select.layout';
 &nbsp;
@@ -172,11 +187,13 @@ export function <span class="fstat-no" title="function not covered" >SwapAssetSe
   const [assetField] = <span class="cstat-no" title="statement not covered" >useField('swapAssetQuote');</span>
   const navigate = <span class="cstat-no" title="statement not covered" >useSwapNavigate();</span>
 &nbsp;
-  const amountAsFiat = <span class="cstat-no" title="statement not covered" >useAlexSdkAmountAsFiat(</span>
-    assetField.value?.balance,
-    assetField.value?.price,
-    amountField.value
-  );
+  const amountAsFiat =
+<span class="cstat-no" title="statement not covered" >    isDefined(assetField.value &amp;&amp; amountField.value) &amp;&amp;</span>
+    convertInputAmountValueToFiat(
+      assetField.value.balance,
+      assetField.value.marketData,
+      amountField.value
+    );
 &nbsp;
 <span class="cstat-no" title="statement not covered" >  return (</span>
     &lt;SwapAssetSelectLayout
@@ -189,7 +206,11 @@ export function <span class="fstat-no" title="function not covered" >SwapAssetSe
         isFetchingExchangeRate ? (
           &lt;LoadingSpinner justifyContent="flex-end" size="sm" /&gt;
         ) : (
-          &lt;SwapAmountField amountAsFiat={amountAsFiat} isDisabled name="swapAmountQuote" /&gt;
+          &lt;SwapAmountField
+            amountAsFiat={amountAsFiat ? i18nFormatCurrency(amountAsFiat) : ''}
+            isDisabled
+            name="swapAmountQuote"
+          /&gt;
         )
       }
       symbol={assetField.value?.name ?? 'Select asset'}
@@ -205,7 +226,7 @@ export function <span class="fstat-no" title="function not covered" >SwapAssetSe
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-04-20T21:11:27.614Z
+                at 2024-04-24T14:55:38.416Z
             </div>
         <script src="../../../../../../../prettify.js"></script>
         <script>

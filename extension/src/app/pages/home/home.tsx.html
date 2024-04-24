@@ -25,28 +25,28 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/13</span>
+                <span class='fraction'>0/12</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/8</span>
+                <span class='fraction'>0/9</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/4</span>
+                <span class='fraction'>0/3</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/12</span>
+                <span class='fraction'>0/11</span>
             </div>
         
             
@@ -134,15 +134,7 @@
 <a name='L69'></a><a href='#L69'>69</a>
 <a name='L70'></a><a href='#L70'>70</a>
 <a name='L71'></a><a href='#L71'>71</a>
-<a name='L72'></a><a href='#L72'>72</a>
-<a name='L73'></a><a href='#L73'>73</a>
-<a name='L74'></a><a href='#L74'>74</a>
-<a name='L75'></a><a href='#L75'>75</a>
-<a name='L76'></a><a href='#L76'>76</a>
-<a name='L77'></a><a href='#L77'>77</a>
-<a name='L78'></a><a href='#L78'>78</a>
-<a name='L79'></a><a href='#L79'>79</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L72'></a><a href='#L72'>72</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -166,8 +158,8 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -192,12 +184,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -219,8 +205,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { useState } from 'react';
-import { Route, useNavigate } from 'react-router-dom';
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { Route, useNavigate, useOutletContext } from 'react-router-dom';
 &nbsp;
 import { RouteUrls } from '@shared/route-urls';
 &nbsp;
@@ -230,7 +215,7 @@ import { useTotalBalance } from '@app/common/hooks/balance/use-total-balance';
 import { useOnMount } from '@app/common/hooks/use-on-mount';
 import { ActivityList } from '@app/features/activity-list/activity-list';
 import { AssetsList } from '@app/features/asset-list/asset-list';
-import { SwitchAccountDialog } from '@app/features/dialogs/switch-account-dialog/switch-account-dialog';
+import { SwitchAccountOutletContext } from '@app/features/dialogs/switch-account-dialog/switch-account-dialog';
 import { FeedbackButton } from '@app/features/feedback-button/feedback-button';
 import { homePageModalRoutes } from '@app/routes/app-routes';
 import { ModalBackgroundWrapper } from '@app/routes/components/modal-background-wrapper';
@@ -243,13 +228,13 @@ import { AccountActions } from './components/account-actions';
 import { HomeTabs } from './components/home-tabs';
 &nbsp;
 export function <span class="fstat-no" title="function not covered" >Home() {</span>
-  const [isShowingSwitchAccount, setIsShowingSwitchAccount] = <span class="cstat-no" title="statement not covered" >useState(false);</span>
   const { decodedAuthRequest } = <span class="cstat-no" title="statement not covered" >useOnboardingState();</span>
-&nbsp;
+  const { isShowingSwitchAccount, setIsShowingSwitchAccount } =
+<span class="cstat-no" title="statement not covered" >    useOutletContext&lt;SwitchAccountOutletContext&gt;();</span>
   const navigate = <span class="cstat-no" title="statement not covered" >useNavigate();</span>
   const account = <span class="cstat-no" title="statement not covered" >useCurrentStacksAccount();</span>
 &nbsp;
-  const { name, isLoading: isLoadingBnsName } = <span class="cstat-no" title="statement not covered" >useAccountDisplayName({</span>
+  const { data: name = <span class="branch-0 cbranch-no" title="branch not covered" >'', i</span>sFetching: isFetchingBnsName } = <span class="cstat-no" title="statement not covered" >useAccountDisplayName({</span>
     address: account?.address || '',
     index: account?.index || 0,
   });
@@ -270,14 +255,8 @@ export function <span class="fstat-no" title="function not covered" >Home() {</s
         &lt;AccountCard
           name={name}
           balance={totalUsdBalance}
-          switchAccount={
-            &lt;SwitchAccountDialog
-              isShowing={isShowingSwitchAccount}
-              onClose={<span class="fstat-no" title="function not covered" >() =&gt; <span class="cstat-no" title="statement not covered" >s</span>etIsShowingSwitchAccount(false)}</span>
-            /&gt;
-          }
           toggleSwitchAccount={<span class="fstat-no" title="function not covered" >() =&gt; <span class="cstat-no" title="statement not covered" >s</span>etIsShowingSwitchAccount(!isShowingSwitchAccount)}</span>
-          isLoadingBnsName={isLoadingBnsName}
+          isFetchingBnsName={isFetchingBnsName}
           isLoadingBalance={isInitialLoading}
         &gt;
           &lt;AccountActions /&gt;
@@ -304,7 +283,7 @@ export function <span class="fstat-no" title="function not covered" >Home() {</s
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-04-20T21:11:27.614Z
+                at 2024-04-24T14:55:38.416Z
             </div>
         <script src="../../../../../prettify.js"></script>
         <script>

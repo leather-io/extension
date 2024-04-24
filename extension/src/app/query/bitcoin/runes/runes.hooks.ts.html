@@ -23,9 +23,9 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">5.55% </span>
+                <span class="strong">5.88% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>1/18</span>
+                <span class='fraction'>1/17</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">6.25% </span>
+                <span class="strong">7.14% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>1/16</span>
+                <span class='fraction'>1/14</span>
             </div>
         
             
@@ -117,10 +117,7 @@
 <a name='L52'></a><a href='#L52'>52</a>
 <a name='L53'></a><a href='#L53'>53</a>
 <a name='L54'></a><a href='#L54'>54</a>
-<a name='L55'></a><a href='#L55'>55</a>
-<a name='L56'></a><a href='#L56'>56</a>
-<a name='L57'></a><a href='#L57'>57</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L55'></a><a href='#L55'>55</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -163,20 +160,18 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { logger } from '@shared/logger';
-import { createMoney } from '@shared/models/money.model';
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { createMoney } from '@shared/models/money.model';
 import { isDefined } from '@shared/utils';
 &nbsp;
 import { useConfigRunesEnabled } from '@app/query/common/remote-config/remote-config.query';
@@ -218,14 +213,13 @@ export function <span class="fstat-no" title="function not covered" >useRuneToke
     .flatMap(<span class="fstat-no" title="function not covered" >query =&gt; <span class="cstat-no" title="statement not covered" >q</span>uery.data)</span>
     .filter(isDefined);
 &nbsp;
-<span class="cstat-no" title="statement not covered" >  return runesBalances.map(<span class="fstat-no" title="function not covered" >r =&gt; {</span></span>
-    const tickerInfo = <span class="cstat-no" title="statement not covered" >runesTickerInfo.find(<span class="fstat-no" title="function not covered" >t =&gt; <span class="cstat-no" title="statement not covered" >t</span>.rune_name === r.rune_name)</span>;</span>
-<span class="cstat-no" title="statement not covered" >    if (!tickerInfo) {</span>
-<span class="cstat-no" title="statement not covered" >      logger.error('No ticker info found for Rune');</span>
-<span class="cstat-no" title="statement not covered" >      return;</span>
-    }
-<span class="cstat-no" title="statement not covered" >    return makeRuneToken(r, tickerInfo);</span>
-  });
+<span class="cstat-no" title="statement not covered" >  return runesBalances</span>
+    .map(<span class="fstat-no" title="function not covered" >r =&gt; {</span>
+      const tickerInfo = <span class="cstat-no" title="statement not covered" >runesTickerInfo.find(<span class="fstat-no" title="function not covered" >t =&gt; <span class="cstat-no" title="statement not covered" >t</span>.rune_name === r.rune_name)</span>;</span>
+<span class="cstat-no" title="statement not covered" >      if (!tickerInfo) <span class="cstat-no" title="statement not covered" >return;</span></span>
+<span class="cstat-no" title="statement not covered" >      return makeRuneToken(r, tickerInfo);</span>
+    })
+    .filter(isDefined);
 }
 &nbsp;
 export function <span class="fstat-no" title="function not covered" >useRunesOutputsByAddress(a</span>ddress: string) {
@@ -238,7 +232,7 @@ export function <span class="fstat-no" title="function not covered" >useRunesOut
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-04-20T21:11:27.614Z
+                at 2024-04-24T14:55:38.416Z
             </div>
         <script src="../../../../../../prettify.js"></script>
         <script>

@@ -32,7 +32,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/8</span>
+                <span class='fraction'>0/10</span>
             </div>
         
             
@@ -121,7 +121,16 @@
 <a name='L56'></a><a href='#L56'>56</a>
 <a name='L57'></a><a href='#L57'>57</a>
 <a name='L58'></a><a href='#L58'>58</a>
-<a name='L59'></a><a href='#L59'>59</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L59'></a><a href='#L59'>59</a>
+<a name='L60'></a><a href='#L60'>60</a>
+<a name='L61'></a><a href='#L61'>61</a>
+<a name='L62'></a><a href='#L62'>62</a>
+<a name='L63'></a><a href='#L63'>63</a>
+<a name='L64'></a><a href='#L64'>64</a>
+<a name='L65'></a><a href='#L65'>65</a>
+<a name='L66'></a><a href='#L66'>66</a>
+<a name='L67'></a><a href='#L67'>67</a>
+<a name='L68'></a><a href='#L68'>68</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -143,6 +152,11 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -151,15 +165,19 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -185,7 +203,7 @@ import { createMoney } from '@shared/models/money.model';
 &nbsp;
 import { baseCurrencyAmountInQuote } from '@app/common/money/calculate-money';
 import { i18nFormatCurrency } from '@app/common/money/format-money';
-import { useCryptoCurrencyMarketData } from '@app/query/common/market-data/market-data.hooks';
+import { useCryptoCurrencyMarketDataMeanAverage } from '@app/query/common/market-data/market-data.hooks';
 import { useStacksAccountBalances } from '@app/query/stacks/balance/stx-balance.hooks';
 &nbsp;
 import { useBtcAssetBalance } from './btc/use-btc-balance';
@@ -197,17 +215,23 @@ interface UseTotalBalanceArgs {
 &nbsp;
 export function <span class="fstat-no" title="function not covered" >useTotalBalance({</span> btcAddress, stxAddress }: UseTotalBalanceArgs) {
   // get market data
-  const btcMarketData = <span class="cstat-no" title="statement not covered" >useCryptoCurrencyMarketData('BTC');</span>
-  const stxMarketData = <span class="cstat-no" title="statement not covered" >useCryptoCurrencyMarketData('STX');</span>
+  const btcMarketData = <span class="cstat-no" title="statement not covered" >useCryptoCurrencyMarketDataMeanAverage('BTC');</span>
+  const stxMarketData = <span class="cstat-no" title="statement not covered" >useCryptoCurrencyMarketDataMeanAverage('STX');</span>
 &nbsp;
   // get stx balance
-  const { data: balances, isLoading, isInitialLoading } = <span class="cstat-no" title="statement not covered" >useStacksAccountBalances(stxAddress);</span>
+  const {
+    data: balances,
+    isLoading,
+    isInitialLoading,
+    isFetching: isFetchingStacksBalance,
+  } = <span class="cstat-no" title="statement not covered" >useStacksAccountBalances(stxAddress);</span>
   const stxBalance = <span class="cstat-no" title="statement not covered" >balances ? balances.stx.balance : createMoney(0, 'STX');</span>
 &nbsp;
   // get btc balance
   const {
     btcAvailableAssetBalance,
     isLoading: isLoadingBtcBalance,
+    isFetching: isFetchingBtcBalance,
     isInitialLoading: isInititalLoadingBtcBalance,
   } = <span class="cstat-no" title="statement not covered" >useBtcAssetBalance(btcAddress);</span>
 &nbsp;
@@ -225,6 +249,7 @@ export function <span class="fstat-no" title="function not covered" >useTotalBal
       ),
       isLoading: isLoading || isLoadingBtcBalance,
       isInitialLoading: isInitialLoading || isInititalLoadingBtcBalance,
+      isFetching: isFetchingStacksBalance || isFetchingBtcBalance,
     };
   }, [
     btcAvailableAssetBalance.balance,
@@ -235,6 +260,8 @@ export function <span class="fstat-no" title="function not covered" >useTotalBal
     stxBalance,
     isLoading,
     isLoadingBtcBalance,
+    isFetchingStacksBalance,
+    isFetchingBtcBalance,
   ]);
 }
 &nbsp;</pre></td></tr></table></pre>
@@ -244,7 +271,7 @@ export function <span class="fstat-no" title="function not covered" >useTotalBal
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-04-20T21:11:27.614Z
+                at 2024-04-24T14:55:38.416Z
             </div>
         <script src="../../../../../../prettify.js"></script>
         <script>

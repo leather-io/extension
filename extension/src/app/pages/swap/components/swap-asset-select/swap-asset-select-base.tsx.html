@@ -32,7 +32,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/14</span>
+                <span class='fraction'>0/20</span>
             </div>
         
             
@@ -151,7 +151,9 @@
 <a name='L86'></a><a href='#L86'>86</a>
 <a name='L87'></a><a href='#L87'>87</a>
 <a name='L88'></a><a href='#L88'>88</a>
-<a name='L89'></a><a href='#L89'>89</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L89'></a><a href='#L89'>89</a>
+<a name='L90'></a><a href='#L90'>90</a>
+<a name='L91'></a><a href='#L91'>91</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -183,7 +185,9 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -244,16 +248,16 @@ import { useField, useFormikContext } from 'formik';
 &nbsp;
 import { createMoney } from '@shared/models/money.model';
 import { RouteUrls } from '@shared/route-urls';
-import { isUndefined } from '@shared/utils';
+import { isDefined, isUndefined } from '@shared/utils';
 &nbsp;
 import { useShowFieldError } from '@app/common/form-utils';
-import { useAlexSdkAmountAsFiat } from '@app/common/hooks/use-alex-sdk';
 import { convertAmountToFractionalUnit } from '@app/common/money/calculate-money';
-import { formatMoneyWithoutSymbol } from '@app/common/money/format-money';
+import { formatMoneyWithoutSymbol, i18nFormatCurrency } from '@app/common/money/format-money';
 &nbsp;
 import { SwapFormValues } from '../../hooks/use-swap-form';
 import { useSwapNavigate } from '../../hooks/use-swap-navigate';
 import { useSwapContext } from '../../swap.context';
+import { convertInputAmountValueToFiat } from '../../swap.utils';
 import { SwapAmountField } from './components/swap-amount-field';
 import { SwapAssetSelectLayout } from './components/swap-asset-select.layout';
 &nbsp;
@@ -263,7 +267,7 @@ const maxAvailableTooltip =
 const sendingMaxTooltip = <span class="cstat-no" title="statement not covered" >'When sending max, this amount is affected by the fee you choose.';</span>
 &nbsp;
 export function <span class="fstat-no" title="function not covered" >SwapAssetSelectBase() {</span>
-  const { fetchToAmount, isFetchingExchangeRate, isSendingMax, onSetIsSendingMax } =
+  const { fetchQuoteAmount, isFetchingExchangeRate, isSendingMax, onSetIsSendingMax } =
 <span class="cstat-no" title="statement not covered" >    useSwapContext();</span>
   const { setFieldValue, setFieldError, values } = <span class="cstat-no" title="statement not covered" >useFormikContext&lt;SwapFormValues&gt;();</span>
   const [amountField, amountFieldMeta, amountFieldHelpers] = <span class="cstat-no" title="statement not covered" >useField('swapAmountBase');</span>
@@ -271,11 +275,13 @@ export function <span class="fstat-no" title="function not covered" >SwapAssetSe
   const [assetField] = <span class="cstat-no" title="statement not covered" >useField('swapAssetBase');</span>
   const navigate = <span class="cstat-no" title="statement not covered" >useSwapNavigate();</span>
 &nbsp;
-  const amountAsFiat = <span class="cstat-no" title="statement not covered" >useAlexSdkAmountAsFiat(</span>
-    assetField.value.balance,
-    assetField.value.price,
-    amountField.value
-  );
+  const amountAsFiat =
+<span class="cstat-no" title="statement not covered" >    isDefined(assetField.value &amp;&amp; amountField.value) &amp;&amp;</span>
+    convertInputAmountValueToFiat(
+      assetField.value.balance,
+      assetField.value.marketData,
+      amountField.value
+    );
   const formattedBalance = <span class="cstat-no" title="statement not covered" >formatMoneyWithoutSymbol(assetField.value.balance);</span>
   const isSwapAssetBaseBalanceGreaterThanZero =
 <span class="cstat-no" title="statement not covered" >    values.swapAssetBase?.balance.amount.isGreaterThan(0);</span>
@@ -287,7 +293,7 @@ export function <span class="fstat-no" title="function not covered" >SwapAssetSe
 <span class="cstat-no" title="statement not covered" >    await amountFieldHelpers.setValue(Number(formattedBalance));</span>
 <span class="cstat-no" title="statement not covered" >    await amountFieldHelpers.setTouched(true);</span>
 <span class="cstat-no" title="statement not covered" >    if (isUndefined(swapAssetQuote)) <span class="cstat-no" title="statement not covered" >return;</span></span>
-    const toAmount = <span class="cstat-no" title="statement not covered" >await fetchToAmount(swapAssetBase, swapAssetQuote, formattedBalance);</span>
+    const toAmount = <span class="cstat-no" title="statement not covered" >await fetchQuoteAmount(swapAssetBase, swapAssetQuote, formattedBalance);</span>
 <span class="cstat-no" title="statement not covered" >    if (isUndefined(toAmount)) {</span>
 <span class="cstat-no" title="statement not covered" >      await setFieldValue('swapAmountQuote', '');</span>
 <span class="cstat-no" title="statement not covered" >      return;</span>
@@ -315,7 +321,7 @@ export function <span class="fstat-no" title="function not covered" >SwapAssetSe
       showError={!!(showError &amp;&amp; values.swapAssetQuote)}
       swapAmountInput={
         &lt;SwapAmountField
-          amountAsFiat={amountAsFiat}
+          amountAsFiat={amountAsFiat ? i18nFormatCurrency(amountAsFiat) : ''}
           isDisabled={!isSwapAssetBaseBalanceGreaterThanZero}
           name="swapAmountBase"
         /&gt;
@@ -334,7 +340,7 @@ export function <span class="fstat-no" title="function not covered" >SwapAssetSe
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-04-20T21:11:27.614Z
+                at 2024-04-24T14:55:38.416Z
             </div>
         <script src="../../../../../../../prettify.js"></script>
         <script>

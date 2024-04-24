@@ -143,7 +143,9 @@
 <a name='L78'></a><a href='#L78'>78</a>
 <a name='L79'></a><a href='#L79'>79</a>
 <a name='L80'></a><a href='#L80'>80</a>
-<a name='L81'></a><a href='#L81'>81</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L81'></a><a href='#L81'>81</a>
+<a name='L82'></a><a href='#L82'>82</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -237,8 +239,9 @@ import { isUndefined } from '@shared/utils';
 import { convertAmountToFractionalUnit } from '@app/common/money/calculate-money';
 import { formatMoneyWithoutSymbol } from '@app/common/money/format-money';
 import { useSwapContext } from '@app/pages/swap/swap.context';
+import type { SwapAsset } from '@app/query/common/alex-sdk/alex-sdk.hooks';
 &nbsp;
-import { SwapAsset, SwapFormValues } from '../../../hooks/use-swap-form';
+import { SwapFormValues } from '../../../hooks/use-swap-form';
 import { SwapAssetItem } from './swap-asset-item';
 &nbsp;
 interface SwapAssetList {
@@ -246,7 +249,7 @@ interface SwapAssetList {
   type: string;
 }
 export function <span class="fstat-no" title="function not covered" >SwapAssetList({</span> assets, type }: SwapAssetList) {
-  const { fetchToAmount } = <span class="cstat-no" title="statement not covered" >useSwapContext();</span>
+  const { fetchQuoteAmount } = <span class="cstat-no" title="statement not covered" >useSwapContext();</span>
   const { setFieldError, setFieldValue, values } = <span class="cstat-no" title="statement not covered" >useFormikContext&lt;SwapFormValues&gt;();</span>
   const navigate = <span class="cstat-no" title="statement not covered" >useNavigate();</span>
   const { base, quote } = <span class="cstat-no" title="statement not covered" >useParams();</span>
@@ -260,33 +263,33 @@ export function <span class="fstat-no" title="function not covered" >SwapAssetLi
   );
 &nbsp;
   async function <span class="fstat-no" title="function not covered" >onSelectAsset(a</span>sset: SwapAsset) {
-    let from: SwapAsset | undefined;
-    let to: SwapAsset | undefined;
+    let baseAsset: SwapAsset | undefined;
+    let quoteAsset: SwapAsset | undefined;
 <span class="cstat-no" title="statement not covered" >    if (isBaseList) {</span>
-<span class="cstat-no" title="statement not covered" >      from = asset;</span>
-<span class="cstat-no" title="statement not covered" >      to = values.swapAssetQuote;</span>
+<span class="cstat-no" title="statement not covered" >      baseAsset = asset;</span>
+<span class="cstat-no" title="statement not covered" >      quoteAsset = values.swapAssetQuote;</span>
 <span class="cstat-no" title="statement not covered" >      await setFieldValue('swapAssetBase', asset);</span>
-<span class="cstat-no" title="statement not covered" >      navigate(RouteUrls.Swap.replace(':base', from.name).replace(':quote', quote ?? ''));</span>
+<span class="cstat-no" title="statement not covered" >      navigate(RouteUrls.Swap.replace(':base', baseAsset.name).replace(':quote', quote ?? ''));</span>
 <span class="cstat-no" title="statement not covered" >    } else if (isQuoteList) {</span>
-<span class="cstat-no" title="statement not covered" >      from = values.swapAssetBase;</span>
-<span class="cstat-no" title="statement not covered" >      to = asset;</span>
+<span class="cstat-no" title="statement not covered" >      baseAsset = values.swapAssetBase;</span>
+<span class="cstat-no" title="statement not covered" >      quoteAsset = asset;</span>
 <span class="cstat-no" title="statement not covered" >      await setFieldValue('swapAssetQuote', asset);</span>
 <span class="cstat-no" title="statement not covered" >      setFieldError('swapAssetQuote', undefined);</span>
-<span class="cstat-no" title="statement not covered" >      navigate(RouteUrls.Swap.replace(':base', base ?? '').replace(':quote', to.name));</span>
+<span class="cstat-no" title="statement not covered" >      navigate(RouteUrls.Swap.replace(':base', base ?? '').replace(':quote', quoteAsset.name));</span>
     }
 &nbsp;
-<span class="cstat-no" title="statement not covered" >    if (from &amp;&amp; to &amp;&amp; values.swapAmountBase) {</span>
-      const toAmount = <span class="cstat-no" title="statement not covered" >await fetchToAmount(from, to, values.swapAmountBase);</span>
-<span class="cstat-no" title="statement not covered" >      if (isUndefined(toAmount)) {</span>
+<span class="cstat-no" title="statement not covered" >    if (baseAsset &amp;&amp; quoteAsset &amp;&amp; values.swapAmountBase) {</span>
+      const quoteAmount = <span class="cstat-no" title="statement not covered" >await fetchQuoteAmount(baseAsset, quoteAsset, values.swapAmountBase);</span>
+<span class="cstat-no" title="statement not covered" >      if (isUndefined(quoteAmount)) {</span>
 <span class="cstat-no" title="statement not covered" >        await setFieldValue('swapAmountQuote', '');</span>
 <span class="cstat-no" title="statement not covered" >        return;</span>
       }
-      const toAmountAsMoney = <span class="cstat-no" title="statement not covered" >createMoney(</span>
-        convertAmountToFractionalUnit(new BigNumber(toAmount), to?.balance.decimals),
-        to?.balance.symbol ?? '',
-        to?.balance.decimals
+      const quoteAmountAsMoney = <span class="cstat-no" title="statement not covered" >createMoney(</span>
+        convertAmountToFractionalUnit(new BigNumber(quoteAmount), quoteAsset?.balance.decimals),
+        quoteAsset?.balance.symbol ?? '',
+        quoteAsset?.balance.decimals
       );
-<span class="cstat-no" title="statement not covered" >      await setFieldValue('swapAmountQuote', formatMoneyWithoutSymbol(toAmountAsMoney));</span>
+<span class="cstat-no" title="statement not covered" >      await setFieldValue('swapAmountQuote', formatMoneyWithoutSymbol(quoteAmountAsMoney));</span>
 <span class="cstat-no" title="statement not covered" >      setFieldError('swapAmountQuote', undefined);</span>
     }
   }
@@ -310,7 +313,7 @@ export function <span class="fstat-no" title="function not covered" >SwapAssetLi
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-04-20T21:11:27.614Z
+                at 2024-04-24T14:55:38.416Z
             </div>
         <script src="../../../../../../../../prettify.js"></script>
         <script>
