@@ -9,22 +9,19 @@ import { useKeyActions } from '@app/common/hooks/use-key-actions';
 import { SignOutDialog } from './sign-out';
 
 interface SignOutProps {
-  isShowing: boolean;
   onClose(): void;
 }
 
-export function SignOut({ isShowing = false, onClose }: SignOutProps) {
+export function SignOut({ onClose }: SignOutProps) {
   const analytics = useAnalytics();
 
   useEffect(() => void analytics.track('sign-out'), [analytics]);
   const { signOut } = useKeyActions();
   const navigate = useNavigate();
-  // #4370 SMELL without this early return the wallet crashes on new install with
-  // : Wallet is neither of type `ledger` nor `software`
-  if (!isShowing) return null;
+
   return (
     <SignOutDialog
-      isShowing={isShowing}
+      isShowing
       onUserDeleteWallet={() => {
         void signOut().finally(() => {
           navigate(RouteUrls.Onboarding);

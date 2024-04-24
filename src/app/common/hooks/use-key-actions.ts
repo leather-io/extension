@@ -13,6 +13,7 @@ import { useBitcoinClient, useStacksClient } from '@app/store/common/api-clients
 import { inMemoryKeyActions } from '@app/store/in-memory-key/in-memory-key.actions';
 import { bitcoinKeysSlice } from '@app/store/ledger/bitcoin/bitcoin-key.slice';
 import { stacksKeysSlice } from '@app/store/ledger/stacks/stacks-key.slice';
+import { networksSlice } from '@app/store/networks/networks.slice';
 import { clearWalletSession } from '@app/store/session-restore';
 import { keyActions } from '@app/store/software-keys/software-key.actions';
 import { useCurrentKeyDetails } from '@app/store/software-keys/software-key.selectors';
@@ -55,6 +56,7 @@ export function useKeyActions() {
 
       async signOut() {
         await clearWalletSession();
+        dispatch(networksSlice.actions.changeNetwork('mainnet'));
         dispatch(keyActions.signOut());
         dispatch(bitcoinKeysSlice.actions.signOut());
         dispatch(stacksKeysSlice.actions.signOut());
