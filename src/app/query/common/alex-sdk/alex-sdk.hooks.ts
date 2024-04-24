@@ -42,10 +42,7 @@ export function useAlexCurrencyPriceAsMarketData() {
       const tokenInfo = supportedCurrencies
         .filter(isDefined)
         .find(token => pullContractIdFromIdentity(token.contractAddress) === principal);
-      if (!symbol || !prices || !tokenInfo) {
-        logger.error('Could not create market data');
-        return null;
-      }
+      if (!symbol || !prices || !tokenInfo) return null;
       const currency = tokenInfo.id as Currency;
       const price = convertAmountToFractionalUnit(new BigNumber(prices[currency] ?? 0), 2);
       return createMarketData(createMarketPair(symbol, 'USD'), createMoney(price, 'USD'));
