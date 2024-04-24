@@ -15,10 +15,8 @@ interface Brc20TokenAssetItemLayoutProps {
   onClick?(): void;
 }
 export function Brc20TokenAssetItemLayout({ onClick, token }: Brc20TokenAssetItemLayoutProps) {
-  const balanceAsString = token.balance?.amount.toString();
-  const formattedBalance = formatBalance(
-    convertAmountToBaseUnit(token.balance ?? new BigNumber(0)).toString()
-  );
+  const balanceAsString = convertAmountToBaseUnit(token.balance ?? new BigNumber(0)).toString();
+  const formattedBalance = formatBalance(balanceAsString);
   const balanceAsFiat = convertAssetBalanceToFiat(token);
 
   return (
