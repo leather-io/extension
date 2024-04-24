@@ -1,4 +1,3 @@
-import { logger } from '@shared/logger';
 import { createMoney } from '@shared/models/money.model';
 import { isDefined } from '@shared/utils';
 
@@ -41,14 +40,13 @@ export function useRuneTokens(addresses: string[]) {
     .flatMap(query => query.data)
     .filter(isDefined);
 
-  return runesBalances.map(r => {
-    const tickerInfo = runesTickerInfo.find(t => t.rune_name === r.rune_name);
-    if (!tickerInfo) {
-      logger.error('No ticker info found for Rune');
-      return;
-    }
-    return makeRuneToken(r, tickerInfo);
-  });
+  return runesBalances
+    .map(r => {
+      const tickerInfo = runesTickerInfo.find(t => t.rune_name === r.rune_name);
+      if (!tickerInfo) return;
+      return makeRuneToken(r, tickerInfo);
+    })
+    .filter(isDefined);
 }
 
 export function useRunesOutputsByAddress(address: string) {
