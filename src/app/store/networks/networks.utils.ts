@@ -61,7 +61,7 @@ function checkBitcoinNetworkProperties(
   }
 }
 
-export function transformNetworkStateToMultichainStucture(
+export function transformNetworkStateToMultichainStructure(
   state: Record<string, PersistedNetworkConfiguration>
 ) {
   return Object.fromEntries(

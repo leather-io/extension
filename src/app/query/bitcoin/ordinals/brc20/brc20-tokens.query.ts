@@ -51,11 +51,11 @@ export function useGetBrc20TokensQuery() {
       }
 
       const brc20TokensPromises = addressesData.map(async address => {
-        const brc20Tokens = await client.BestinslotApi.getBrc20Balances(address);
+        const brc20Tokens = await client.bestinSlotApi.getBrc20Balances(address);
 
         const tickerPromises = await Promise.all(
           brc20Tokens.data.map(token => {
-            return client.BestinslotApi.getBrc20TickerInfo(token.ticker);
+            return client.bestinSlotApi.getBrc20TickerInfo(token.ticker);
           })
         );
 

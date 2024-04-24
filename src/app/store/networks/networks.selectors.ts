@@ -15,7 +15,7 @@ import { useAppRequestedNetworkId } from './networks.hooks';
 import { networksAdapter } from './networks.slice';
 import {
   findMatchingNetworkKey,
-  transformNetworkStateToMultichainStucture,
+  transformNetworkStateToMultichainStructure,
 } from './networks.utils';
 
 const selectNetworksSlice = (state: RootState) => state.networks;
@@ -27,7 +27,7 @@ export const selectNetworks = createSelector(
   state =>
     ({
       ...defaultNetworksKeyedById,
-      ...transformNetworkStateToMultichainStucture(state),
+      ...transformNetworkStateToMultichainStructure(state),
     }) as Record<string, NetworkConfiguration>
 );
 

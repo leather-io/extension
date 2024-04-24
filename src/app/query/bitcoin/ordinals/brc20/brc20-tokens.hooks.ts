@@ -14,7 +14,7 @@ import { brc20TransferInitiated } from '@app/store/ordinals/ordinals.slice';
 import type { Brc20Token } from '../../bitcoin-client';
 import { useAverageBitcoinFeeRates } from '../../fees/fee-estimates.hooks';
 import { useOrdinalsbotClient } from '../../ordinalsbot-client';
-import { createBrc20TransferInscription, encodeBrc20TransferInscription } from './brc-20.utils';
+import { createBrc20TransferInscription, encodeBrc20TransferInscription } from './brc20.utils';
 
 // ts-unused-exports:disable-next-line
 export function useBrc20FeatureFlag() {

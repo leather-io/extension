@@ -60,7 +60,7 @@ export function convertFtBalancesToStacksFungibleTokenAssetBalanceType(
   return (
     Object.entries(ftBalances)
       .map(([key, value]) => {
-        const balance = new BigNumber(value.balance);
+        const balance = new BigNumber(value?.balance ?? 0);
         return createStacksFtCryptoAssetBalanceTypeWrapper(balance, key);
       })
       // Assets users have traded will persist in the api response

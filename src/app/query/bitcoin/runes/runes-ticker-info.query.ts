@@ -17,7 +17,7 @@ export function useGetRunesTickerInfoQuery(runeNames: string[]): UseQueryResult<
         enabled: !!runeName && (network.chain.bitcoin.bitcoinNetwork === 'testnet' || runesEnabled),
         queryKey: ['runes-ticker-info', runeName],
         queryFn: () =>
-          client.BestinslotApi.getRunesTickerInfo(runeName, network.chain.bitcoin.bitcoinNetwork),
+          client.bestinSlotApi.getRunesTickerInfo(runeName, network.chain.bitcoin.bitcoinNetwork),
       };
     }),
   });

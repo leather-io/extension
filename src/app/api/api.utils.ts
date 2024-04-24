@@ -2,10 +2,7 @@ import axios from 'axios';
 
 import { analytics } from '@shared/utils/analytics';
 
-const leatherHeaders: HeadersInit = {
-  'x-leather-version': VERSION,
-  'x-hiro-product': 'leather',
-};
+import { leatherHeaders } from './stacks/clients/hiro-api-client';
 
 function isErrorCode(statusCode: number) {
   return statusCode >= 400;
@@ -19,6 +16,7 @@ function trackApiError(url: string, statusCode: number) {
  * @deprecated Use `axios` directly instead. Fetch only needed for interation
  * with generated stacks blockchain api library
  */
+// TEMPORARY RELOCATION
 export async function wrappedFetch(input: RequestInfo, init: RequestInit = {}) {
   const initHeaders = init.headers || {};
   // eslint-disable-next-line no-restricted-globals

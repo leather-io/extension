@@ -10,8 +10,16 @@ import {
   BitcoinTaprootAccountLoader,
 } from '@app/components/account/bitcoin-account-loader';
 import { BitcoinContractEntryPoint } from '@app/components/bitcoin-contract-entry-point/bitcoin-contract-entry-point';
+import { Brc20TokenAssetList } from '@app/components/crypto-assets/bitcoin/brc20-token-asset-list/brc20-token-asset-list';
+import { RunesAssetList } from '@app/components/crypto-assets/bitcoin/runes-asset-list/runes-asset-list';
+import { Src20TokenAssetList } from '@app/components/crypto-assets/bitcoin/src20-token-asset-list/src20-token-asset-list';
 import { CryptoCurrencyAssetItemLayout } from '@app/components/crypto-assets/crypto-currency-asset/crypto-currency-asset-item.layout';
+import { Stx20TokenAssetList } from '@app/components/crypto-assets/stacks/stx20-token-asset-list/stx20-token-asset-list';
+import { Brc20TokensLoader } from '@app/components/loaders/brc20-tokens-loader';
+import { RunesLoader } from '@app/components/loaders/runes-loader';
+import { Src20TokensLoader } from '@app/components/loaders/src20-tokens-loader';
 import { CurrentStacksAccountLoader } from '@app/components/loaders/stacks-account-loader';
+import { Stx20TokensLoader } from '@app/components/loaders/stx20-tokens-loader';
 import { useHasBitcoinLedgerKeychain } from '@app/store/accounts/blockchain/bitcoin/bitcoin.ledger';
 import { useCurrentAccountNativeSegwitAddressIndexZero } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
 import { useCurrentNetwork } from '@app/store/networks/networks.selectors';
@@ -20,7 +28,6 @@ import { BtcAvatarIcon } from '@app/ui/components/avatar/btc-avatar-icon';
 import { Collectibles } from '../collectibles/collectibles';
 import { PendingBrc20TransferList } from '../pending-brc-20-transfers/pending-brc-20-transfers';
 import { AddStacksLedgerKeysItem } from './components/add-stacks-ledger-keys-item';
-import { BitcoinFungibleTokenAssetList } from './components/bitcoin-fungible-tokens-asset-list';
 import { ConnectLedgerAssetBtn } from './components/connect-ledger-asset-button';
 import { StacksBalanceListItem } from './components/stacks-balance-list-item';
 import { StacksFungibleTokenAssetList } from './components/stacks-fungible-token-asset-list';
@@ -74,6 +81,9 @@ export function AssetsList() {
           <>
             <StacksBalanceListItem address={account.address} />
             <StacksFungibleTokenAssetList address={account.address} />
+            <Stx20TokensLoader address={account.address}>
+              {stx20Tokens => <Stx20TokenAssetList stx20Tokens={stx20Tokens} />}
+            </Stx20TokensLoader>
           </>
         )}
       </CurrentStacksAccountLoader>
@@ -82,10 +92,17 @@ export function AssetsList() {
         {nativeSegwitAccount => (
           <BitcoinTaprootAccountLoader current>
             {taprootAccount => (
-              <BitcoinFungibleTokenAssetList
-                btcAddressNativeSegwit={nativeSegwitAccount.address}
-                btcAddressTaproot={taprootAccount.address}
-              />
+              <>
+                <Brc20TokensLoader>
+                  {brc20Tokens => <Brc20TokenAssetList brc20Tokens={brc20Tokens} />}
+                </Brc20TokensLoader>
+                <Src20TokensLoader address={nativeSegwitAccount.address}>
+                  {src20Tokens => <Src20TokenAssetList src20Tokens={src20Tokens} />}
+                </Src20TokensLoader>
+                <RunesLoader addresses={[nativeSegwitAccount.address, taprootAccount.address]}>
+                  {runes => <RunesAssetList runes={runes} />}
+                </RunesLoader>
+              </>
             )}
           </BitcoinTaprootAccountLoader>
         )}

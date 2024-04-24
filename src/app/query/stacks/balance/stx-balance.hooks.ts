@@ -1,16 +1,13 @@
+import type { AddressBalanceResponse } from '@stacks/stacks-blockchain-api-types';
 import BigNumber from 'bignumber.js';
 
-import {
-  AccountBalanceStxKeys,
-  AccountStxBalanceBigNumber,
-  AddressBalanceResponse,
-} from '@shared/models/account.model';
+import { AccountBalanceStxKeys, AccountStxBalanceBigNumber } from '@shared/models/account.model';
 import { Money, createMoney } from '@shared/models/money.model';
 
 import { useCurrentStacksAccount } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
 import { accountBalanceStxKeys } from '@app/store/accounts/blockchain/stacks/stacks-account.models';
 
-import { useStacksAccountBalanceQuery } from './stx-balance.query';
+import { useStacksAccountBalancesQuery } from './stx-balance.query';
 
 export function parseBalanceResponse(balances: AddressBalanceResponse) {
   const stxMoney = Object.fromEntries(
@@ -31,7 +28,7 @@ export function parseBalanceResponse(balances: AddressBalanceResponse) {
 }
 
 export function useStacksAccountBalances(address: string) {
-  return useStacksAccountBalanceQuery(address, {
+  return useStacksAccountBalancesQuery(address, {
     select: resp => parseBalanceResponse(resp),
   });
 }
