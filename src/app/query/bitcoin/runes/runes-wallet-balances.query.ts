@@ -7,6 +7,8 @@ import { useCurrentNetwork } from '@app/store/networks/networks.selectors';
 
 import type { RuneBalance } from '../bitcoin-client';
 
+const queryOptions = { staleTime: 1 * 60 * 1000 };
+
 export function useGetRunesWalletBalancesByAddressesQuery<T extends unknown = RuneBalance[]>(
   addresses: string[],
   options?: AppUseQueryConfig<RuneBalance[], T>
@@ -25,6 +27,7 @@ export function useGetRunesWalletBalancesByAddressesQuery<T extends unknown = Ru
             address,
             network.chain.bitcoin.bitcoinNetwork
           ),
+        ...queryOptions,
         ...options,
       };
     }),

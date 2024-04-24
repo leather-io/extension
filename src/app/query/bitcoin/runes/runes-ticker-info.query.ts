@@ -6,6 +6,8 @@ import { useCurrentNetwork } from '@app/store/networks/networks.selectors';
 
 import type { RuneTickerInfo } from '../bitcoin-client';
 
+const queryOptions = { staleTime: 1 * 60 * 1000 };
+
 export function useGetRunesTickerInfoQuery(runeNames: string[]): UseQueryResult<RuneTickerInfo>[] {
   const client = useBitcoinClient();
   const network = useCurrentNetwork();
@@ -18,6 +20,7 @@ export function useGetRunesTickerInfoQuery(runeNames: string[]): UseQueryResult<
         queryKey: ['runes-ticker-info', runeName],
         queryFn: () =>
           client.BestinslotApi.getRunesTickerInfo(runeName, network.chain.bitcoin.bitcoinNetwork),
+        ...queryOptions,
       };
     }),
   });
