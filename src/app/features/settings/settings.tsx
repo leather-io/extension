@@ -200,15 +200,11 @@ export function Settings({ triggerButton, toggleSwitchAccount }: SettingsProps) 
           </DropdownMenu.Content>
         </DropdownMenu.Portal>
       </DropdownMenu.Root>
-      <SignOut isShowing={showSignOut} onClose={() => setShowSignOut(!showSignOut)} />
-      <ThemeDialog
-        isShowing={showChangeTheme}
-        onClose={() => setShowChangeTheme(!showChangeTheme)}
-      />
-      <NetworkDialog
-        isShowing={showChangeNetwork}
-        onClose={() => setShowChangeNetwork(!showChangeNetwork)}
-      />
+      {showSignOut && <SignOut onClose={() => setShowSignOut(!showSignOut)} />}
+      {showChangeTheme && <ThemeDialog onClose={() => setShowChangeTheme(!showChangeTheme)} />}
+      {showChangeNetwork && (
+        <NetworkDialog onClose={() => setShowChangeNetwork(!showChangeNetwork)} />
+      )}
     </>
   );
 }
