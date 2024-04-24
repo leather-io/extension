@@ -51,19 +51,22 @@ export function useGetBrc20TokensQuery() {
       }
 
       const brc20TokensPromises = addressesData.map(async address => {
-        const brc20Tokens = await client.HiroApi.getBrc20Balance(address);
+        const brc20Tokens = await client.BestinslotApi.getBrc20Balances(address);
 
         const tickerPromises = await Promise.all(
-          brc20Tokens.results.map(token => {
-            return client.HiroApi.getBrc20TickerData(token.ticker);
+          brc20Tokens.data.map(token => {
+            return client.BestinslotApi.getBrc20TickerInfo(token.ticker);
           })
         );
 
-        return brc20Tokens.results.map((token, index) => {
+        // Initialize token with ticker data
+        return brc20Tokens.data.map((token, index) => {
           return {
             ...token,
-            decimals: tickerPromises[index].results[0].decimals,
+            ...tickerPromises[index].data,
+            balance: null,
             holderAddress: address,
+            marketData: null,
           };
         });
       });

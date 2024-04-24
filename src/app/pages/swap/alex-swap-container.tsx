@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react';
+import { useState } from 'react';
 import { Outlet } from 'react-router-dom';
 
 import { bytesToHex } from '@stacks/common';
@@ -16,9 +16,11 @@ import { RouteUrls } from '@shared/route-urls';
 import { isDefined, isUndefined } from '@shared/utils';
 import { alex } from '@shared/utils/alex-sdk';
 
+import { migratePositiveAssetBalancesToTop } from '@app/common/asset-utils';
 import { LoadingKeys, useLoading } from '@app/common/hooks/use-loading';
 import { useWalletType } from '@app/common/use-wallet-type';
 import { NonceSetter } from '@app/components/nonce-setter';
+import { defaultSwapFee } from '@app/query/common/alex-sdk/alex-sdk.hooks';
 import { useCurrentStacksAccount } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
 import { useGenerateStacksContractCallUnsignedTx } from '@app/store/transactions/contract-call.hooks';
 import { useSignStacksTransaction } from '@app/store/transactions/transaction.hooks';
@@ -29,14 +31,9 @@ import { generateSwapRoutes } from './generate-swap-routes';
 import { useAlexBroadcastSwap } from './hooks/use-alex-broadcast-swap';
 import { oneHundredMillion, useAlexSwap } from './hooks/use-alex-swap';
 import { useStacksBroadcastSwap } from './hooks/use-stacks-broadcast-swap';
-import { SwapAsset, SwapFormValues } from './hooks/use-swap-form';
+import { SwapFormValues } from './hooks/use-swap-form';
 import { useSwapNavigate } from './hooks/use-swap-navigate';
 import { SwapContext, SwapProvider } from './swap.context';
-import {
-  defaultSwapFee,
-  migratePositiveBalancesToTop,
-  sortSwappableAssetsBySymbol,
-} from './swap.utils';
 
 export const alexSwapRoutes = generateSwapRoutes(<AlexSwapContainer />);
 
@@ -57,26 +54,17 @@ function AlexSwapContainer() {
   });
 
   const {
-    fetchToAmount,
-    createSwapAssetFromAlexCurrency,
+    fetchQuoteAmount,
     isFetchingExchangeRate,
     onSetIsFetchingExchangeRate,
     onSetSwapSubmissionData,
     slippage,
-    supportedCurrencies,
+    swapAssets,
     swapSubmissionData,
   } = useAlexSwap();
 
   const broadcastAlexSwap = useAlexBroadcastSwap();
   const broadcastStacksSwap = useStacksBroadcastSwap();
-
-  const swappableAssets: SwapAsset[] = useMemo(
-    () =>
-      sortSwappableAssetsBySymbol(
-        supportedCurrencies.map(createSwapAssetFromAlexCurrency).filter(isDefined)
-      ),
-    [createSwapAssetFromAlexCurrency, supportedCurrencies]
-  );
 
   async function onSubmitSwapForReview(values: SwapFormValues) {
     if (isUndefined(values.swapAssetBase) || isUndefined(values.swapAssetQuote)) {
@@ -96,9 +84,7 @@ function AlexSwapContainer() {
       liquidityFee: new BigNumber(Number(lpFee)).dividedBy(oneHundredMillion).toNumber(),
       nonce: values.nonce,
       protocol: 'ALEX',
-      router: router
-        .map(x => createSwapAssetFromAlexCurrency(supportedCurrencies.find(y => y.id === x)))
-        .filter(isDefined),
+      router: router.map(x => swapAssets.find(asset => asset.currency === x)).filter(isDefined),
       slippage,
       sponsored: isSponsoredByAlex,
       swapAmountBase: values.swapAmountBase,
@@ -191,15 +177,15 @@ function AlexSwapContainer() {
   }
 
   const swapContextValue: SwapContext = {
-    fetchToAmount,
+    fetchQuoteAmount,
     isFetchingExchangeRate,
     isSendingMax,
     onSetIsFetchingExchangeRate,
     onSetIsSendingMax: value => setIsSendingMax(value),
     onSubmitSwapForReview,
     onSubmitSwap,
-    swappableAssetsBase: migratePositiveBalancesToTop(swappableAssets),
-    swappableAssetsQuote: swappableAssets,
+    swappableAssetsBase: migratePositiveAssetBalancesToTop(swapAssets),
+    swappableAssetsQuote: swapAssets,
     swapSubmissionData,
   };
 

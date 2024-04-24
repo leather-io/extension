@@ -17,8 +17,8 @@ export function MessagePreviewBox({ message, hash }: MessageBoxProps) {
         py="space.05"
         overflowX="auto"
       >
-        {message.split(/\r?\n/).map(line => (
-          <styled.span key={line} textStyle="label.01">
+        {message.split(/\r?\n/).map((line, index) => (
+          <styled.span key={`${line}_${index}`} textStyle="label.01">
             {line}
           </styled.span>
         ))}

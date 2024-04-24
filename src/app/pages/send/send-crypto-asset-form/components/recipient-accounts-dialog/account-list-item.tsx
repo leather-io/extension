@@ -23,7 +23,7 @@ export const AccountListItem = memo(({ index, stacksAccount, onClose }: AccountL
     BitcoinSendFormValues | StacksSendFormValues
   >();
   const stacksAddress = stacksAccount?.address || '';
-  const { name } = useAccountDisplayName({ address: stacksAddress, index });
+  const { data: name = '' } = useAccountDisplayName({ address: stacksAddress, index });
 
   const bitcoinSigner = useNativeSegwitSigner(index);
   const bitcoinAddress = bitcoinSigner?.(0).address || '';

@@ -25,7 +25,7 @@ import {
 } from '@app/components/info-card/info-card';
 import { useCurrentNativeSegwitUtxos } from '@app/query/bitcoin/address/utxos-by-address.hooks';
 import { useBitcoinBroadcastTransaction } from '@app/query/bitcoin/transaction/use-bitcoin-broadcast-transaction';
-import { useCryptoCurrencyMarketData } from '@app/query/common/market-data/market-data.hooks';
+import { useCryptoCurrencyMarketDataMeanAverage } from '@app/query/common/market-data/market-data.hooks';
 import { Button } from '@app/ui/components/button/button';
 import { Footer } from '@app/ui/components/containers/footers/footer';
 import { Card } from '@app/ui/layout/card/card';
@@ -53,7 +53,7 @@ export function BtcSendFormConfirmation() {
   const { refetch } = useCurrentNativeSegwitUtxos();
   const analytics = useAnalytics();
 
-  const btcMarketData = useCryptoCurrencyMarketData('BTC');
+  const btcMarketData = useCryptoCurrencyMarketDataMeanAverage('BTC');
   const { broadcastTx, isBroadcasting } = useBitcoinBroadcastTransaction();
 
   const transaction = btc.Transaction.fromRaw(hexToBytes(tx));

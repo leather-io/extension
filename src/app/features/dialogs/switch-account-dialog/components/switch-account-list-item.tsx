@@ -27,7 +27,7 @@ export const SwitchAccountListItem = memo(
       'SWITCH_ACCOUNTS' + stxAddress || btcAddress
     );
     const { handleSwitchAccount } = useSwitchAccount(handleClose);
-    const { name, isLoading: isLoadingBnsName } = useAccountDisplayName({
+    const { data: name = '', isFetching: isFetchingBnsName } = useAccountDisplayName({
       address: stxAddress,
       index,
     });
@@ -43,7 +43,7 @@ export const SwitchAccountListItem = memo(
     return (
       <AccountListItemLayout
         accountAddresses={<AcccountAddresses index={index} />}
-        accountName={<AccountNameLayout isLoading={isLoadingBnsName}>{name}</AccountNameLayout>}
+        accountName={<AccountNameLayout isLoading={isFetchingBnsName}>{name}</AccountNameLayout>}
         avatar={
           <AccountAvatarItem
             index={index}

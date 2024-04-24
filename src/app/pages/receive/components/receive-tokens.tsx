@@ -4,15 +4,12 @@ import { HomePageSelectors } from '@tests/selectors/home.selectors';
 import { css } from 'leather-styles/css';
 import { Stack } from 'leather-styles/jsx';
 
-import { isDefined } from '@shared/utils';
-
 import { copyToClipboard } from '@app/common/utils/copy-to-clipboard';
-import { sortAssetsBySymbol } from '@app/common/utils/sort-assets-by-symbol';
 import { useToast } from '@app/features/toasts/use-toast';
-import { useAlexSdkSwappableCurrencyQuery } from '@app/query/common/alex-sdk/swappable-currency.query';
+import { useAlexSwappableAssets } from '@app/query/common/alex-sdk/alex-sdk.hooks';
 import { useConfigRunesEnabled } from '@app/query/common/remote-config/remote-config.query';
 import { useCurrentNetwork } from '@app/store/networks/networks.selectors';
-import { Avatar, defaultFallbackDelay, getAvatarFallback } from '@app/ui/components/avatar/avatar';
+import { Avatar, defaultFallbackDelay } from '@app/ui/components/avatar/avatar';
 import { Brc20AvatarIcon } from '@app/ui/components/avatar/brc20-avatar-icon';
 import { BtcAvatarIcon } from '@app/ui/components/avatar/btc-avatar-icon';
 import { RunesAvatarIcon } from '@app/ui/components/avatar/runes-avatar-icon';
@@ -39,20 +36,19 @@ export function ReceiveTokens({
   const toast = useToast();
   const network = useCurrentNetwork();
   const runesEnabled = useConfigRunesEnabled();
-  const { data: supportedCurrencies = [] } = useAlexSdkSwappableCurrencyQuery();
+  const { data: swapAssets = [] } = useAlexSwappableAssets();
 
   const receivableAssets = useMemo(
     () =>
-      sortAssetsBySymbol(supportedCurrencies.filter(isDefined))
+      swapAssets
         .filter(asset => asset.name !== 'STX')
         .map(asset => ({
+          ...asset,
           address: stxAddress,
-          fallback: getAvatarFallback(asset.name),
-          icon: asset.icon,
-          name: asset.name,
         })),
-    [stxAddress, supportedCurrencies]
+    [stxAddress, swapAssets]
   );
+
   return (
     <Stack className={css(receiveTabStyle)}>
       <ReceiveItem

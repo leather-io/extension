@@ -17,6 +17,8 @@ import {
   validateRpcParams,
 } from './validation.utils';
 
+export const defaultRpcSendTransferNetwork = 'mainnet';
+
 export const rpcSendTransferParamsSchemaLegacy = yup.object().shape({
   account: accountSchema,
   address: yup.string().required(),
@@ -26,7 +28,7 @@ export const rpcSendTransferParamsSchemaLegacy = yup.object().shape({
 
 export const rpcSendTransferParamsSchema = yup.object().shape({
   account: accountSchema,
-  network: yup.string().required().oneOf(Object.values(WalletDefaultNetworkConfigurationIds)),
+  network: yup.string().oneOf(Object.values(WalletDefaultNetworkConfigurationIds)),
   recipients: yup
     .array()
     .required()
@@ -38,7 +40,9 @@ export const rpcSendTransferParamsSchema = yup.object().shape({
           FormErrorMessages.IncorrectNetworkAddress,
           (value, context) => {
             const contextOptions = context.options as any;
-            const network = contextOptions.from[1].value.network as BitcoinNetworkModes;
+            const network =
+              (contextOptions.from[1].value.network as BitcoinNetworkModes) ||
+              defaultRpcSendTransferNetwork;
             return btcAddressNetworkValidator(network).isValidSync(value);
           }
         ),

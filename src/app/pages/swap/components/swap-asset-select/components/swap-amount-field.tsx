@@ -27,7 +27,7 @@ interface SwapAmountFieldProps {
   name: string;
 }
 export function SwapAmountField({ amountAsFiat, isDisabled, name }: SwapAmountFieldProps) {
-  const { fetchToAmount, isFetchingExchangeRate, onSetIsSendingMax } = useSwapContext();
+  const { fetchQuoteAmount, isFetchingExchangeRate, onSetIsSendingMax } = useSwapContext();
   const { setFieldError, setFieldValue, values } = useFormikContext<SwapFormValues>();
   const [field] = useField(name);
   const showError = useShowFieldError(name) && name === 'swapAmountBase' && values.swapAssetQuote;
@@ -37,7 +37,7 @@ export function SwapAmountField({ amountAsFiat, isDisabled, name }: SwapAmountFi
     if (isUndefined(swapAssetBase) || isUndefined(swapAssetQuote)) return;
     onSetIsSendingMax(false);
     const value = event.currentTarget.value;
-    const toAmount = await fetchToAmount(swapAssetBase, swapAssetQuote, value);
+    const toAmount = await fetchQuoteAmount(swapAssetBase, swapAssetQuote, value);
     if (isUndefined(toAmount)) {
       await setFieldValue('swapAmountQuote', '');
       return;

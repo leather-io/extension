@@ -2,6 +2,7 @@ import { CryptoAssetSelectors } from '@tests/selectors/crypto-asset.selectors';
 
 import type { StacksFungibleTokenAssetBalance } from '@shared/models/crypto-asset-balance.model';
 
+import { convertAssetBalanceToFiat } from '@app/common/asset-utils';
 import { getImageCanonicalUri } from '@app/common/crypto-assets/stacks-crypto-asset.utils';
 import { formatBalance } from '@app/common/format-balance';
 import { ftDecimals } from '@app/common/stacks-utils';
@@ -28,10 +29,15 @@ export function parseStacksFungibleTokenAssetBalance(
   const imageCanonicalUri = getImageCanonicalUri(asset.imageCanonicalUri, asset.name);
   const caption = symbol || getTicker(friendlyName);
   const title = spamFilter(friendlyName);
+  const balanceAsFiat = convertAssetBalanceToFiat({
+    ...assetBalance.asset,
+    balance: assetBalance.balance,
+  });
 
   return {
     amount,
     avatar,
+    balanceAsFiat,
     caption,
     dataTestId,
     formattedBalance,

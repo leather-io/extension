@@ -6,8 +6,8 @@ import { whenStacksChainId } from '@shared/crypto/stacks/stacks.utils';
 import { useCurrentNetworkState } from '@app/store/networks/networks.hooks';
 
 const hiroStacksMainnetApiLimiter = new PQueue({
-  interval: 5000,
-  intervalCap: 10,
+  interval: 60000,
+  intervalCap: 100,
   timeout: 60000,
 });
 

@@ -1,8 +1,9 @@
+import BigNumber from 'bignumber.js';
 import { styled } from 'leather-styles/jsx';
 
-import { createMoney } from '@shared/models/money.model';
-
+import { convertAssetBalanceToFiat } from '@app/common/asset-utils';
 import { formatBalance } from '@app/common/format-balance';
+import { convertAmountToBaseUnit } from '@app/common/money/calculate-money';
 import { Brc20Token } from '@app/query/bitcoin/bitcoin-client';
 import { Brc20AvatarIcon } from '@app/ui/components/avatar/brc20-avatar-icon';
 import { ItemLayout } from '@app/ui/components/item-layout/item-layout';
@@ -14,8 +15,11 @@ interface Brc20TokenAssetItemLayoutProps {
   onClick?(): void;
 }
 export function Brc20TokenAssetItemLayout({ onClick, token }: Brc20TokenAssetItemLayoutProps) {
-  const balance = createMoney(Number(token.overall_balance), token.ticker, 0).amount.toString();
-  const formattedBalance = formatBalance(balance);
+  const balanceAsString = token.balance?.amount.toString();
+  const formattedBalance = formatBalance(
+    convertAmountToBaseUnit(token.balance ?? new BigNumber(0)).toString()
+  );
+  const balanceAsFiat = convertAssetBalanceToFiat(token);
 
   return (
     <Pressable onClick={onClick} my="space.02">
@@ -26,7 +30,7 @@ export function Brc20TokenAssetItemLayout({ onClick, token }: Brc20TokenAssetIte
         titleRight={
           <BasicTooltip
             asChild
-            label={formattedBalance.isAbbreviated ? balance : undefined}
+            label={formattedBalance?.isAbbreviated ? balanceAsString : undefined}
             side="left"
           >
             <styled.span data-testid={token.ticker} textStyle="label.02">
@@ -34,6 +38,7 @@ export function Brc20TokenAssetItemLayout({ onClick, token }: Brc20TokenAssetIte
             </styled.span>
           </BasicTooltip>
         }
+        captionRight={balanceAsFiat}
       />
     </Pressable>
   );

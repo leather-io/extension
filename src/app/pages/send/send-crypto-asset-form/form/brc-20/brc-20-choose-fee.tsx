@@ -21,7 +21,7 @@ import { BitcoinChooseFee } from '@app/features/bitcoin-choose-fee/bitcoin-choos
 import { useValidateBitcoinSpend } from '@app/features/bitcoin-choose-fee/hooks/use-validate-bitcoin-spend';
 import { useToast } from '@app/features/toasts/use-toast';
 import { UtxoResponseItem } from '@app/query/bitcoin/bitcoin-client';
-import { useBrc20Transfers } from '@app/query/bitcoin/ordinals/brc20/use-brc-20';
+import { useBrc20Transfers } from '@app/query/bitcoin/ordinals/brc20/brc20-tokens.hooks';
 import { useSignBitcoinTx } from '@app/store/accounts/blockchain/bitcoin/bitcoin.hooks';
 
 import { useSendBitcoinAssetContextState } from '../../family/bitcoin/components/send-bitcoin-asset-container';

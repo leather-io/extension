@@ -15,7 +15,7 @@ import { useCurrentAccountNativeSegwitIndexZeroSigner } from '@app/store/account
 import { useCurrentTaprootAccount } from '@app/store/accounts/blockchain/bitcoin/taproot-account.hooks';
 import { useCurrentNetwork } from '@app/store/networks/networks.selectors';
 
-const stopSearchAfterNumberAddressesWithoutOrdinals = 20;
+const stopSearchAfterNumberAddressesWithoutOrdinals = 5;
 const addressesSimultaneousFetchLimit = 5;
 
 // Hiro API max limit = 60

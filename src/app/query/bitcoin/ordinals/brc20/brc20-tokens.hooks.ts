@@ -1,9 +1,17 @@
+import BigNumber from 'bignumber.js';
+
+import { createMarketData, createMarketPair } from '@shared/models/market.model';
+import { createMoney } from '@shared/models/money.model';
+
+import { unitToFractionalUnit } from '@app/common/money/unit-conversion';
+import { useGetBrc20TokensQuery } from '@app/query/bitcoin/ordinals/brc20/brc20-tokens.query';
 import { useConfigOrdinalsbot } from '@app/query/common/remote-config/remote-config.query';
 import { useAppDispatch } from '@app/store';
 import { useCurrentAccountIndex } from '@app/store/accounts/account';
 import { useCurrentNetwork } from '@app/store/networks/networks.selectors';
 import { brc20TransferInitiated } from '@app/store/ordinals/ordinals.slice';
 
+import type { Brc20Token } from '../../bitcoin-client';
 import { useAverageBitcoinFeeRates } from '../../fees/fee-estimates.hooks';
 import { useOrdinalsbotClient } from '../../ordinalsbot-client';
 import { createBrc20TransferInscription, encodeBrc20TransferInscription } from './brc-20.utils';
@@ -71,4 +79,31 @@ export function useBrc20Transfers(holderAddress: string) {
       );
     },
   };
+}
+
+function makeBrc20Token(token: Brc20Token) {
+  return {
+    ...token,
+    balance: createMoney(
+      unitToFractionalUnit(token.decimals)(new BigNumber(token.overall_balance)),
+      token.ticker,
+      token.decimals
+    ),
+    marketData: token.min_listed_unit_price
+      ? createMarketData(
+          createMarketPair(token.ticker, 'USD'),
+          createMoney(new BigNumber(token.min_listed_unit_price), 'USD')
+        )
+      : null,
+  };
+}
+
+export function useBrc20Tokens() {
+  const { data: allBrc20TokensResponse } = useGetBrc20TokensQuery();
+  const brc20Tokens = allBrc20TokensResponse?.pages
+    .flatMap(page => page.brc20Tokens)
+    .filter(token => token.length > 0)
+    .flatMap(token => token);
+
+  return brc20Tokens?.map(token => makeBrc20Token(token)) ?? [];
 }

@@ -4,13 +4,14 @@ import { baseCurrencyAmountInQuote } from '@app/common/money/calculate-money';
 import { i18nFormatCurrency } from '@app/common/money/format-money';
 import { createBitcoinCryptoCurrencyAssetTypeWrapper } from '@app/query/bitcoin/address/address.utils';
 import { useNativeSegwitBalance } from '@app/query/bitcoin/balance/btc-native-segwit-balance.hooks';
-import { useCryptoCurrencyMarketData } from '@app/query/common/market-data/market-data.hooks';
+import { useCryptoCurrencyMarketDataMeanAverage } from '@app/query/common/market-data/market-data.hooks';
 
 export function useBtcAssetBalance(btcAddress: string) {
-  const btcMarketData = useCryptoCurrencyMarketData('BTC');
+  const btcMarketData = useCryptoCurrencyMarketDataMeanAverage('BTC');
   const {
     btcBalance: btcAssetBalance,
     isLoading,
+    isFetching,
     isInitialLoading,
   } = useNativeSegwitBalance(btcAddress);
 
@@ -28,8 +29,9 @@ export function useBtcAssetBalance(btcAddress: string) {
         baseCurrencyAmountInQuote(btcAssetBalance.balance, btcMarketData)
       ),
       isLoading,
+      isFetching,
       isInitialLoading,
     }),
-    [btcAddress, btcAssetBalance, btcMarketData, isLoading, isInitialLoading]
+    [btcAddress, btcAssetBalance, btcMarketData, isLoading, isInitialLoading, isFetching]
   );
 }

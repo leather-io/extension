@@ -1,6 +1,8 @@
 import { createContext, useContext } from 'react';
 
-import { SwapAsset, SwapFormValues } from './hooks/use-swap-form';
+import type { SwapAsset } from '@app/query/common/alex-sdk/alex-sdk.hooks';
+
+import { SwapFormValues } from './hooks/use-swap-form';
 
 export interface SwapSubmissionData extends SwapFormValues {
   liquidityFee: number;
@@ -12,7 +14,7 @@ export interface SwapSubmissionData extends SwapFormValues {
 }
 
 export interface SwapContext {
-  fetchToAmount(from: SwapAsset, to: SwapAsset, fromAmount: string): Promise<string | undefined>;
+  fetchQuoteAmount(from: SwapAsset, to: SwapAsset, fromAmount: string): Promise<string | undefined>;
   isFetchingExchangeRate: boolean;
   isSendingMax: boolean;
   onSetIsFetchingExchangeRate(value: boolean): void;

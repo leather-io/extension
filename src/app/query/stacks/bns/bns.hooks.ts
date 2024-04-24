@@ -13,7 +13,3 @@ export function useCurrentAccountNames() {
     },
   });
 }
-
-export function useGetAccountNamesByAddressQuery(address: string) {
-  return useGetBnsNamesOwnedByAddress(address, { select: resp => resp.names ?? [] });
-}

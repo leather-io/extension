@@ -5,7 +5,7 @@ import { isDefined } from '@shared/utils';
 
 import { baseCurrencyAmountInQuote, subtractMoney } from '@app/common/money/calculate-money';
 import { i18nFormatCurrency } from '@app/common/money/format-money';
-import { useCryptoCurrencyMarketData } from '@app/query/common/market-data/market-data.hooks';
+import { useCryptoCurrencyMarketDataMeanAverage } from '@app/query/common/market-data/market-data.hooks';
 import { createStacksCryptoCurrencyAssetTypeWrapper } from '@app/query/stacks/balance/stacks-ft-balances.utils';
 import { useCurrentStacksAccountBalances } from '@app/query/stacks/balance/stx-balance.hooks';
 import { useCurrentAccountMempoolTransactionsBalance } from '@app/query/stacks/mempool/mempool.hooks';
@@ -15,7 +15,7 @@ export function useStxBalance() {
   const totalBalance = stxBalanceQuery.data?.stx.balance;
   const unlockedStxBalance = stxBalanceQuery.data?.stx.unlockedStx;
 
-  const stxMarketData = useCryptoCurrencyMarketData('STX');
+  const stxMarketData = useCryptoCurrencyMarketDataMeanAverage('STX');
   const pendingTxsBalance = useCurrentAccountMempoolTransactionsBalance();
 
   const stxEffectiveBalance = isDefined(totalBalance)

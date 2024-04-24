@@ -13,7 +13,7 @@ import {
 } from '@app/common/transactions/bitcoin/coinselect/local-coin-selection';
 import { useCurrentNativeSegwitUtxos } from '@app/query/bitcoin/address/utxos-by-address.hooks';
 import { useCurrentNativeSegwitAddressBalance } from '@app/query/bitcoin/balance/btc-native-segwit-balance.hooks';
-import { useCryptoCurrencyMarketData } from '@app/query/common/market-data/market-data.hooks';
+import { useCryptoCurrencyMarketDataMeanAverage } from '@app/query/common/market-data/market-data.hooks';
 
 export const MAX_FEE_RATE_MULTIPLIER = 50;
 
@@ -25,7 +25,7 @@ interface UseBitcoinCustomFeeArgs {
 export function useBitcoinCustomFee({ amount, isSendingMax, recipient }: UseBitcoinCustomFeeArgs) {
   const { balance } = useCurrentNativeSegwitAddressBalance();
   const { data: utxos = [] } = useCurrentNativeSegwitUtxos();
-  const btcMarketData = useCryptoCurrencyMarketData('BTC');
+  const btcMarketData = useCryptoCurrencyMarketDataMeanAverage('BTC');
 
   return useCallback(
     (feeRate: number) => {
@@ -67,7 +67,7 @@ export function useBitcoinCustomFeeMultipleRecipients({
 }: UseBitcoinCustomFeeArgsMultipleRecipients) {
   const { balance } = useCurrentNativeSegwitAddressBalance();
   const { data: utxos = [] } = useCurrentNativeSegwitUtxos();
-  const btcMarketData = useCryptoCurrencyMarketData('BTC');
+  const btcMarketData = useCryptoCurrencyMarketDataMeanAverage('BTC');
 
   return useCallback(
     (feeRate: number) => {

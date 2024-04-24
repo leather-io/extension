@@ -4,7 +4,7 @@ import { createMoney } from '@shared/models/money.model';
 
 import { baseCurrencyAmountInQuote } from '@app/common/money/calculate-money';
 import { i18nFormatCurrency } from '@app/common/money/format-money';
-import { useCryptoCurrencyMarketData } from '@app/query/common/market-data/market-data.hooks';
+import { useCryptoCurrencyMarketDataMeanAverage } from '@app/query/common/market-data/market-data.hooks';
 import { useStacksAccountBalances } from '@app/query/stacks/balance/stx-balance.hooks';
 
 import { useBtcAssetBalance } from './btc/use-btc-balance';
@@ -16,17 +16,23 @@ interface UseTotalBalanceArgs {
 
 export function useTotalBalance({ btcAddress, stxAddress }: UseTotalBalanceArgs) {
   // get market data
-  const btcMarketData = useCryptoCurrencyMarketData('BTC');
-  const stxMarketData = useCryptoCurrencyMarketData('STX');
+  const btcMarketData = useCryptoCurrencyMarketDataMeanAverage('BTC');
+  const stxMarketData = useCryptoCurrencyMarketDataMeanAverage('STX');
 
   // get stx balance
-  const { data: balances, isLoading, isInitialLoading } = useStacksAccountBalances(stxAddress);
+  const {
+    data: balances,
+    isLoading,
+    isInitialLoading,
+    isFetching: isFetchingStacksBalance,
+  } = useStacksAccountBalances(stxAddress);
   const stxBalance = balances ? balances.stx.balance : createMoney(0, 'STX');
 
   // get btc balance
   const {
     btcAvailableAssetBalance,
     isLoading: isLoadingBtcBalance,
+    isFetching: isFetchingBtcBalance,
     isInitialLoading: isInititalLoadingBtcBalance,
   } = useBtcAssetBalance(btcAddress);
 
@@ -44,6 +50,7 @@ export function useTotalBalance({ btcAddress, stxAddress }: UseTotalBalanceArgs)
       ),
       isLoading: isLoading || isLoadingBtcBalance,
       isInitialLoading: isInitialLoading || isInititalLoadingBtcBalance,
+      isFetching: isFetchingStacksBalance || isFetchingBtcBalance,
     };
   }, [
     btcAvailableAssetBalance.balance,
@@ -54,5 +61,7 @@ export function useTotalBalance({ btcAddress, stxAddress }: UseTotalBalanceArgs)
     stxBalance,
     isLoading,
     isLoadingBtcBalance,
+    isFetchingStacksBalance,
+    isFetchingBtcBalance,
   ]);
 }
