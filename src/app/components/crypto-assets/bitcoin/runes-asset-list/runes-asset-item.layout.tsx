@@ -12,14 +12,15 @@ interface RunesAssetItemLayoutProps {
   rune: RuneToken;
 }
 export function RunesAssetItemLayout({ rune }: RunesAssetItemLayoutProps) {
-  const balanceAsString = convertAmountToBaseUnit(rune.balance).toString();
+  const { balance, tokenData } = rune;
+  const balanceAsString = convertAmountToBaseUnit(balance).toString();
   const formattedBalance = formatBalance(balanceAsString);
 
   return (
     <Pressable my="space.02">
       <ItemLayout
         flagImg={<RunesAvatarIcon />}
-        titleLeft={rune.spaced_rune_name ?? rune.rune_name}
+        titleLeft={tokenData.spaced_rune_name ?? tokenData.rune_name}
         captionLeft="Runes"
         titleRight={
           <BasicTooltip
@@ -27,8 +28,8 @@ export function RunesAssetItemLayout({ rune }: RunesAssetItemLayoutProps) {
             label={formattedBalance.isAbbreviated ? balanceAsString : undefined}
             side="left"
           >
-            <styled.span data-testid={rune.rune_name} fontWeight={500} textStyle="label.02">
-              {formattedBalance.value} {rune.symbol}
+            <styled.span data-testid={tokenData.rune_name} fontWeight={500} textStyle="label.02">
+              {formattedBalance.value} {tokenData.symbol}
             </styled.span>
           </BasicTooltip>
         }

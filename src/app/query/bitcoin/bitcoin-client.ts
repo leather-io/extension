@@ -98,10 +98,11 @@ interface Brc20WalletBalancesResponse {
   data: Brc20Balance[];
 }
 
-export interface Brc20Token extends Brc20Balance, Brc20TickerInfo {
+export interface Brc20Token {
   balance: Money | null;
   holderAddress: string;
   marketData: MarketData | null;
+  tokenData: Brc20Balance & Brc20TickerInfo;
 }
 
 /* RUNES */
@@ -149,8 +150,9 @@ interface RunesTickerInfoResponse {
   data: RuneTickerInfo;
 }
 
-export interface RuneToken extends RuneBalance, RuneTickerInfo {
+export interface RuneToken {
   balance: Money;
+  tokenData: RuneBalance & RuneTickerInfo;
 }
 
 export interface RunesOutputsByAddress {

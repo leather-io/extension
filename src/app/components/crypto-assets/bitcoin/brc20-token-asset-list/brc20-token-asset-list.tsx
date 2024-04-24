@@ -12,10 +12,10 @@ import { useCurrentAccountNativeSegwitAddressIndexZero } from '@app/store/accoun
 import { Brc20TokenAssetItemLayout } from './brc20-token-asset-item.layout';
 
 interface Brc20TokenAssetListProps {
-  brc20Tokens: Brc20Token[];
+  tokens: Brc20Token[];
   variant?: string;
 }
-export function Brc20TokenAssetList({ brc20Tokens, variant }: Brc20TokenAssetListProps) {
+export function Brc20TokenAssetList({ tokens, variant }: Brc20TokenAssetListProps) {
   const navigate = useNavigate();
   const currentAccountBtcAddress = useCurrentAccountNativeSegwitAddressIndexZero();
   const { btcBalance: btcCryptoCurrencyAssetBalance } =
@@ -25,17 +25,17 @@ export function Brc20TokenAssetList({ brc20Tokens, variant }: Brc20TokenAssetLis
     variant === 'send' && btcCryptoCurrencyAssetBalance.balance.amount.isGreaterThan(0);
 
   function navigateToBrc20SendForm(token: Brc20Token) {
-    const { ticker, balance, holderAddress, marketData } = token;
-    navigate(RouteUrls.SendBrc20SendForm.replace(':ticker', ticker), {
-      state: { balance, ticker, holderAddress, marketData },
+    const { balance, holderAddress, marketData, tokenData } = token;
+    navigate(RouteUrls.SendBrc20SendForm.replace(':ticker', tokenData.ticker), {
+      state: { balance, ticker: tokenData.ticker, holderAddress, marketData },
     });
   }
 
   return (
     <Stack data-testid={CryptoAssetSelectors.CryptoAssetList}>
-      {brc20Tokens.map(token => (
+      {tokens.map(token => (
         <Brc20TokenAssetItemLayout
-          key={token.ticker}
+          key={token.tokenData.ticker}
           token={token}
           onClick={hasPositiveBtcBalanceForFees ? () => navigateToBrc20SendForm(token) : undefined}
         />

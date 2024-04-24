@@ -58,7 +58,7 @@ export function CryptoAssetList({
             <BitcoinNativeSegwitAccountLoader current>
               {() => (
                 <Brc20TokensLoader>
-                  {brc20Tokens => <Brc20TokenAssetList brc20Tokens={brc20Tokens} variant="send" />}
+                  {brc20Tokens => <Brc20TokenAssetList tokens={brc20Tokens} variant="send" />}
                 </Brc20TokensLoader>
               )}
             </BitcoinNativeSegwitAccountLoader>
