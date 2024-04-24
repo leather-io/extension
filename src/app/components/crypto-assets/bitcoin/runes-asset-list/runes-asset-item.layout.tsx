@@ -1,6 +1,7 @@
 import { styled } from 'leather-styles/jsx';
 
 import { formatBalance } from '@app/common/format-balance';
+import { convertAmountToBaseUnit } from '@app/common/money/calculate-money';
 import type { RuneToken } from '@app/query/bitcoin/bitcoin-client';
 import { RunesAvatarIcon } from '@app/ui/components/avatar/runes-avatar-icon';
 import { ItemLayout } from '@app/ui/components/item-layout/item-layout';
@@ -11,8 +12,8 @@ interface RunesAssetItemLayoutProps {
   rune: RuneToken;
 }
 export function RunesAssetItemLayout({ rune }: RunesAssetItemLayoutProps) {
-  const balance = rune.balance.amount.toString();
-  const formattedBalance = formatBalance(balance);
+  const balanceAsString = convertAmountToBaseUnit(rune.balance).toString();
+  const formattedBalance = formatBalance(balanceAsString);
 
   return (
     <Pressable my="space.02">
@@ -23,7 +24,7 @@ export function RunesAssetItemLayout({ rune }: RunesAssetItemLayoutProps) {
         titleRight={
           <BasicTooltip
             asChild
-            label={formattedBalance.isAbbreviated ? balance : undefined}
+            label={formattedBalance.isAbbreviated ? balanceAsString : undefined}
             side="left"
           >
             <styled.span data-testid={rune.rune_name} fontWeight={500} textStyle="label.02">
