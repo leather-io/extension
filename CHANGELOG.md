@@ -1,3 +1,29 @@
+## [6.36.0](https://github.com/leather-wallet/extension/compare/v6.35.1...v6.36.0) (2024-04-24)
+
+
+### Features
+
+* brc-20 token balances as fiat, [#4408](https://github.com/leather-wallet/extension/issues/4408) ([0942131](https://github.com/leather-wallet/extension/commit/0942131c63c7869349e6a63dcb101e4518271f4d))
+* decrease num of addresses to fetch ([b0276ec](https://github.com/leather-wallet/extension/commit/b0276ec76e89af51b113a4ff320715874f88e789))
+* increase hiro rate limiter ([51cf2c0](https://github.com/leather-wallet/extension/commit/51cf2c000a01f5b82661c388260d482aaf4e9760))
+
+
+### Bug Fixes
+
+* allow virtuoso to resize dynamically, ref [#5242](https://github.com/leather-wallet/extension/issues/5242) ([5d618aa](https://github.com/leather-wallet/extension/commit/5d618aab9bad8892976f132c869e296280e0cf2d))
+* prevent form submit on tooltip click, ref [#5258](https://github.com/leather-wallet/extension/issues/5258) ([8735380](https://github.com/leather-wallet/extension/commit/8735380b07adc5c5c502abe385ff0eca85af4efd))
+* problem with endless loading of balances and names ([15202f4](https://github.com/leather-wallet/extension/commit/15202f4c79133d991cfa0405f49802d2ee9f5ead))
+* rpc send transfer params network validation, closes [#5284](https://github.com/leather-wallet/extension/issues/5284) ([a6f774c](https://github.com/leather-wallet/extension/commit/a6f774c6950b8378942d5b196197c1eb22ba5e23))
+* rpc send transfer recipient default network ([4410185](https://github.com/leather-wallet/extension/commit/4410185f05b16b2bf5ddd4c4daf1bd7c5e09cc97))
+* show hash formatting, ref [#5261](https://github.com/leather-wallet/extension/issues/5261) ([5264a99](https://github.com/leather-wallet/extension/commit/5264a99bcb9f84057db7f186930fc8aeb42fad6e))
+
+
+### Internal
+
+* post-release merge back ([6a53bff](https://github.com/leather-wallet/extension/commit/6a53bff45ce3742ea054da72badfbb1e732159ac))
+* price as market data ([773421b](https://github.com/leather-wallet/extension/commit/773421befe38e506d0d61a2cc6524dcd2c4f898b))
+* remove unneeded logger errors ([b4d73f8](https://github.com/leather-wallet/extension/commit/b4d73f83692129927e39df3c9a0f13020fcbbb21))
+
 ## [6.35.1](https://github.com/leather-wallet/extension/compare/v6.35.0...v6.35.1) (2024-04-20)
 
 
