@@ -6,7 +6,7 @@ import { useCurrentNetwork } from '@app/store/networks/networks.selectors';
 
 import type { RuneTickerInfo } from '../bitcoin-client';
 
-const queryOptions = { staleTime: 1 * 60 * 1000 };
+const queryOptions = { staleTime: 5 * 60 * 1000 };
 
 export function useGetRunesTickerInfoQuery(runeNames: string[]): UseQueryResult<RuneTickerInfo>[] {
   const client = useBitcoinClient();

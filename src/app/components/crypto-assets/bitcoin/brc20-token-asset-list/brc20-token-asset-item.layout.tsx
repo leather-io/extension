@@ -23,7 +23,7 @@ export function Brc20TokenAssetItemLayout({ onClick, token }: Brc20TokenAssetIte
     <Pressable onClick={onClick} my="space.02">
       <ItemLayout
         flagImg={<Brc20AvatarIcon />}
-        titleLeft={token.ticker}
+        titleLeft={token.tokenData.ticker}
         captionLeft="BRC-20"
         titleRight={
           <BasicTooltip
@@ -31,7 +31,7 @@ export function Brc20TokenAssetItemLayout({ onClick, token }: Brc20TokenAssetIte
             label={formattedBalance?.isAbbreviated ? balanceAsString : undefined}
             side="left"
           >
-            <styled.span data-testid={token.ticker} textStyle="label.02">
+            <styled.span data-testid={token.tokenData.ticker} textStyle="label.02">
               {formattedBalance.value}
             </styled.span>
           </BasicTooltip>

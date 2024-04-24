@@ -7,7 +7,7 @@ import { useCurrentNetwork } from '@app/store/networks/networks.selectors';
 import type { RunesOutputsByAddress } from '../bitcoin-client';
 import { useRunesEnabled } from './runes.hooks';
 
-const queryOptions = { staleTime: 1 * 60 * 1000 };
+const queryOptions = { staleTime: 5 * 60 * 1000 };
 
 export function useGetRunesOutputsByAddressQuery<T extends unknown = RunesOutputsByAddress[]>(
   address: string,

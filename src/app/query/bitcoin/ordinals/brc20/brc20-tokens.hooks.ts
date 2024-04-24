@@ -1,10 +1,11 @@
 import BigNumber from 'bignumber.js';
 
 import { createMarketData, createMarketPair } from '@shared/models/market.model';
-import { createMoney } from '@shared/models/money.model';
+import { type Money, createMoney } from '@shared/models/money.model';
 
 import { unitToFractionalUnit } from '@app/common/money/unit-conversion';
 import { useGetBrc20TokensQuery } from '@app/query/bitcoin/ordinals/brc20/brc20-tokens.query';
+import { useCalculateBitcoinFiatValue } from '@app/query/common/market-data/market-data.hooks';
 import { useConfigOrdinalsbot } from '@app/query/common/remote-config/remote-config.query';
 import { useAppDispatch } from '@app/store';
 import { useCurrentAccountIndex } from '@app/store/accounts/account';
@@ -81,29 +82,40 @@ export function useBrc20Transfers(holderAddress: string) {
   };
 }
 
-function makeBrc20Token(token: Brc20Token) {
+function makeBrc20Token(priceAsFiat: Money, token: Brc20Token) {
   return {
     ...token,
     balance: createMoney(
-      unitToFractionalUnit(token.decimals)(new BigNumber(token.overall_balance)),
-      token.ticker,
-      token.decimals
+      unitToFractionalUnit(token.tokenData.decimals)(
+        new BigNumber(token.tokenData.overall_balance)
+      ),
+      token.tokenData.ticker,
+      token.tokenData.decimals
     ),
-    marketData: token.min_listed_unit_price
+    marketData: token.tokenData.min_listed_unit_price
       ? createMarketData(
-          createMarketPair(token.ticker, 'USD'),
-          createMoney(new BigNumber(token.min_listed_unit_price), 'USD')
+          createMarketPair(token.tokenData.ticker, 'USD'),
+          createMoney(priceAsFiat.amount, 'USD')
         )
       : null,
   };
 }
 
 export function useBrc20Tokens() {
+  const calculateBitcoinFiatValue = useCalculateBitcoinFiatValue();
   const { data: allBrc20TokensResponse } = useGetBrc20TokensQuery();
-  const brc20Tokens = allBrc20TokensResponse?.pages
+
+  const tokens = allBrc20TokensResponse?.pages
     .flatMap(page => page.brc20Tokens)
     .filter(token => token.length > 0)
     .flatMap(token => token);
 
-  return brc20Tokens?.map(token => makeBrc20Token(token)) ?? [];
+  return (
+    tokens?.map(token => {
+      const priceAsFiat = calculateBitcoinFiatValue(
+        createMoney(new BigNumber(token.tokenData.min_listed_unit_price ?? 0), 'BTC')
+      );
+      return makeBrc20Token(priceAsFiat, token);
+    }) ?? []
+  );
 }

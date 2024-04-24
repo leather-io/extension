@@ -16,7 +16,7 @@ export function BitcoinFungibleTokenAssetList({
   return (
     <>
       <Brc20TokensLoader>
-        {brc20Tokens => <Brc20TokenAssetList brc20Tokens={brc20Tokens} />}
+        {brc20Tokens => <Brc20TokenAssetList tokens={brc20Tokens} />}
       </Brc20TokensLoader>
       <Src20TokensLoader address={btcAddressNativeSegwit}>
         {src20Tokens => <Src20TokenAssetList src20Tokens={src20Tokens} />}
