@@ -25,8 +25,8 @@ export default function PluggingInLedgerCableAnimation(props: BoxProps) {
 
   return (
     <Box height="200px" overflow="hidden" position="relative" width="100%" {...props}>
-      <Box position="absolute" left={0} right={0}>
-        <Lottie options={options} width={380} style={invertStyle} />
+      <Box position="absolute" left={0} right={0} style={invertStyle}>
+        <Lottie options={options} width={380} />
       </Box>
     </Box>
   );
