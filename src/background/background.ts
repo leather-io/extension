@@ -3,7 +3,6 @@
 // https://developer.chrome.com/docs/extensions/mv3/architecture-overview/#background_script
 import { logger } from '@shared/logger';
 import { CONTENT_SCRIPT_PORT, type LegacyMessageFromContentScript } from '@shared/message-types';
-import { RouteUrls } from '@shared/route-urls';
 import { WalletRequests } from '@shared/rpc/rpc-methods';
 import { warnUsersAboutDevToolsDangers } from '@shared/utils/dev-tools-warning-log';
 
@@ -21,7 +20,7 @@ warnUsersAboutDevToolsDangers();
 chrome.runtime.onInstalled.addListener(async details => {
   if (details.reason === 'install' && process.env.WALLET_ENVIRONMENT !== 'testing') {
     await chrome.tabs.create({
-      url: chrome.runtime.getURL(`index.html#${RouteUrls.RequestDiagnostics}`),
+      url: chrome.runtime.getURL(`index.html`),
     });
   }
 });

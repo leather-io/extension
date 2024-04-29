@@ -59,14 +59,13 @@ export function useGetBrc20TokensQuery() {
           })
         );
 
-        // Initialize token with ticker data
+        // Initialize token with token data
         return brc20Tokens.data.map((token, index) => {
           return {
-            ...token,
-            ...tickerPromises[index].data,
             balance: null,
             holderAddress: address,
             marketData: null,
+            tokenData: { ...token, ...tickerPromises[index].data },
           };
         });
       });

@@ -15,15 +15,12 @@ export async function rpcGetAddresses(message: GetAddressesRequest, port: chrome
   listenForPopupClose({
     tabId,
     id,
-    response: {
+    response: makeRpcErrorResponse('getAddresses', {
       id: message.id,
-      result: makeRpcErrorResponse('getAddresses', {
-        id: message.id,
-        error: {
-          code: RpcErrorCode.USER_REJECTION,
-          message: 'User rejected request to get addresses',
-        },
-      }),
-    },
+      error: {
+        code: RpcErrorCode.USER_REJECTION,
+        message: 'User rejected request to get addresses',
+      },
+    }),
   });
 }

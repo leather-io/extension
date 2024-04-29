@@ -7,7 +7,7 @@ import { useBitcoinClient } from '@app/store/common/api-clients.hooks';
 
 const staleTime = 10 * 1000;
 
-const queryOptions = { staleTime, refetchInterval: staleTime };
+const queryOptions = { staleTime, cacheTime: Infinity, refetchInterval: staleTime };
 
 export function useGetBitcoinTransactionsByAddressQuery<T extends unknown = BitcoinTx[]>(
   address: string,

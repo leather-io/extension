@@ -9,11 +9,9 @@ import { useOnboardingState } from '@app/common/hooks/auth/use-onboarding-state'
 import { useKeyActions } from '@app/common/hooks/use-key-actions';
 import { doesBrowserSupportWebUsbApi, isPopupMode, whenPageMode } from '@app/common/utils';
 import { openIndexPageInNewTab } from '@app/common/utils/open-in-new-tab';
-import { useHasUserRespondedToAnalyticsConsent } from '@app/store/settings/settings.selectors';
 import { WelcomeLayout } from '@app/ui/pages/welcome.layout';
 
 export function WelcomePage() {
-  const hasResponded = useHasUserRespondedToAnalyticsConsent();
   const navigate = useNavigate();
   const { decodedAuthRequest } = useOnboardingState();
   const analytics = useAnalytics();
@@ -39,7 +37,6 @@ export function WelcomePage() {
   }, [keyActions, analytics, decodedAuthRequest, navigate]);
 
   useEffect(() => {
-    if (!hasResponded) navigate(RouteUrls.RequestDiagnostics);
     return () => setIsGeneratingWallet(false);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
