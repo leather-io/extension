@@ -1,3 +1,25 @@
+## [6.37.0](https://github.com/leather-wallet/extension/compare/v6.36.0...v6.37.0) (2024-04-29)
+
+
+### Features
+
+* cache time infinity for txs request ([2c36395](https://github.com/leather-wallet/extension/commit/2c363955a959b21e0f44d5e95916e49c26c255ee))
+* disable request diagnostics on install ([191dbd8](https://github.com/leather-wallet/extension/commit/191dbd8995ddf9bca8562c31ddaa0fef618b2dac))
+
+
+### Bug Fixes
+
+* add query options to runes queries ([5510d47](https://github.com/leather-wallet/extension/commit/5510d471f1be88ba5bfac4411db88519e24caed4))
+* brc-20 fiat balance ([d25741b](https://github.com/leather-wallet/extension/commit/d25741bdf294a428a33d019a1ad44face73b0b1e))
+* reset to mainnet on signout, closes [#5239](https://github.com/leather-wallet/extension/issues/5239) ([1bf16e4](https://github.com/leather-wallet/extension/commit/1bf16e478eb5f5ab574b1595cf27ecd27fcf1b45))
+* runes formatted balance, closes [#5293](https://github.com/leather-wallet/extension/issues/5293) ([0830303](https://github.com/leather-wallet/extension/commit/0830303a14ae16be9fc71e2e405b553c75fd7a34))
+
+
+### Internal
+
+* post-release merge back ([549644e](https://github.com/leather-wallet/extension/commit/549644e702d28d0517566df6633859e98095d8c0))
+* remove superflous and erroneous analytics tracking ([12e229d](https://github.com/leather-wallet/extension/commit/12e229df45ccdd9f7874e85f9386a1567a936e03))
+
 ## [6.36.0](https://github.com/leather-wallet/extension/compare/v6.35.1...v6.36.0) (2024-04-24)
 
 
