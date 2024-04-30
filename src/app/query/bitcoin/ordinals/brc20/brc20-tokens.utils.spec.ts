@@ -1,4 +1,4 @@
-import { encodeBrc20TransferInscription } from './brc-20.utils';
+import { encodeBrc20TransferInscription } from './brc20-tokens.utils';
 
 describe(encodeBrc20TransferInscription.name, () => {
   test('that it encodes the BRC-20 transfer correctly', () => {

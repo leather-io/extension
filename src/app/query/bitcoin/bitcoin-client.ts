@@ -179,7 +179,7 @@ interface RunesOutputsByAddressResponse {
   data: RunesOutputsByAddress[];
 }
 
-class BestinslotApi {
+class BestinSlotApi {
   url = BESTINSLOT_API_BASE_URL_MAINNET;
   testnetUrl = BESTINSLOT_API_BASE_URL_TESTNET;
 
@@ -407,13 +407,13 @@ export class BitcoinClient {
   addressApi: AddressApi;
   feeEstimatesApi: FeeEstimatesApi;
   transactionsApi: TransactionsApi;
-  BestinslotApi: BestinslotApi;
+  bestinSlotApi: BestinSlotApi;
 
-  constructor(basePath: string) {
-    this.configuration = new Configuration(basePath);
+  constructor(baseUrl: string) {
+    this.configuration = new Configuration(baseUrl);
     this.addressApi = new AddressApi(this.configuration);
     this.feeEstimatesApi = new FeeEstimatesApi(this.configuration);
     this.transactionsApi = new TransactionsApi(this.configuration);
-    this.BestinslotApi = new BestinslotApi(this.configuration);
+    this.bestinSlotApi = new BestinSlotApi(this.configuration);
   }
 }

@@ -1,11 +1,11 @@
 import { UseQueryResult, useQueries, useQuery } from '@tanstack/react-query';
 import PQueue from 'p-queue';
 
-import { useTokenMetadataClient } from '@app/store/common/api-clients.hooks';
+import { useStacksClient } from '@app/store/common/api-clients.hooks';
 import { useCurrentNetworkState } from '@app/store/networks/networks.hooks';
 
 import { useHiroApiRateLimiter } from '../../hiro-rate-limiter';
-import { TokenMetadataClient } from '../../token-metadata-client';
+import type { StacksClient } from '../../stacks-client';
 import { FtAssetResponse } from '../token-metadata.utils';
 
 const staleTime = 12 * 60 * 60 * 1000;
@@ -21,7 +21,7 @@ const queryOptions = {
   retry: 0,
 } as const;
 
-function fetchFungibleTokenMetadata(client: TokenMetadataClient, limiter: PQueue) {
+function fetchFungibleTokenMetadata(client: StacksClient, limiter: PQueue) {
   return (principal: string) => async () => {
     return limiter.add(() => client.tokensApi.getFtMetadata(principal), {
       throwOnTimeout: true,
@@ -32,7 +32,7 @@ function fetchFungibleTokenMetadata(client: TokenMetadataClient, limiter: PQueue
 export function useGetFungibleTokenMetadataQuery(
   principal: string
 ): UseQueryResult<FtAssetResponse> {
-  const client = useTokenMetadataClient();
+  const client = useStacksClient();
   const network = useCurrentNetworkState();
   const limiter = useHiroApiRateLimiter();
 
@@ -46,7 +46,7 @@ export function useGetFungibleTokenMetadataQuery(
 export function useGetFungibleTokenMetadataListQuery(
   principals: string[]
 ): UseQueryResult<FtAssetResponse>[] {
-  const client = useTokenMetadataClient();
+  const client = useStacksClient();
   const network = useCurrentNetworkState();
   const limiter = useHiroApiRateLimiter();
 
