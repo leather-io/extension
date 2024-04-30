@@ -1,14 +1,8 @@
 import { useMemo } from 'react';
 
-import { ChainID } from '@stacks/transactions';
-
-import { HIRO_API_BASE_URL_MAINNET, HIRO_API_BASE_URL_TESTNET } from '@shared/constants';
-import { whenStacksChainId } from '@shared/crypto/stacks/stacks.utils';
-
+import { wrappedFetch as fetchApi } from '@app/common/api/fetch-wrapper';
 import { BitcoinClient } from '@app/query/bitcoin/bitcoin-client';
 import { StacksClient } from '@app/query/stacks/stacks-client';
-import { TokenMetadataClient } from '@app/query/stacks/token-metadata-client';
-import { createStacksClientConfig, createTokenMetadataConfig } from '@app/query/stacks/utils';
 
 import { useCurrentNetworkState } from '../networks/networks.hooks';
 
@@ -21,20 +15,9 @@ export function useStacksClient() {
   const network = useCurrentNetworkState();
 
   return useMemo(() => {
-    const config = createStacksClientConfig(network.chain.stacks.url);
-    return new StacksClient(config);
+    return new StacksClient({
+      basePath: network.chain.stacks.url,
+      fetchApi,
+    });
   }, [network.chain.stacks.url]);
-}
-
-export function useTokenMetadataClient() {
-  const currentNetwork = useCurrentNetworkState();
-
-  const basePath = whenStacksChainId(currentNetwork.chain.stacks.chainId)({
-    [ChainID.Mainnet]: HIRO_API_BASE_URL_MAINNET,
-    [ChainID.Testnet]: HIRO_API_BASE_URL_TESTNET,
-  });
-
-  const config = createTokenMetadataConfig(basePath);
-
-  return new TokenMetadataClient(config);
 }

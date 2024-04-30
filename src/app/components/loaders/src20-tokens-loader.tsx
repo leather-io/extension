@@ -3,9 +3,9 @@ import type { Src20Token } from '@app/query/bitcoin/stamps/stamps-by-address.que
 
 interface Src20TokensLoaderProps {
   address: string;
-  children(src20Tokens: Src20Token[]): React.ReactNode;
+  children(tokens: Src20Token[]): React.ReactNode;
 }
 export function Src20TokensLoader({ address, children }: Src20TokensLoaderProps) {
-  const { data: src20Tokens = [] } = useSrc20TokensByAddress(address);
-  return children(src20Tokens);
+  const { data: tokens = [] } = useSrc20TokensByAddress(address);
+  return children(tokens);
 }
