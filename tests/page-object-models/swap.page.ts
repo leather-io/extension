@@ -4,7 +4,8 @@ import { createTestSelector } from '@tests/utils';
 
 export class SwapPage {
   readonly page: Page;
-  readonly swapBtn: Locator;
+  readonly swapReviewBtn: Locator;
+  readonly swapSubmitBtn: Locator;
   readonly swapDetailsAmount: Locator;
   readonly swapDetailsProtocol: Locator;
   readonly swapDetailsSymbol: Locator;
@@ -12,11 +13,11 @@ export class SwapPage {
   readonly chooseAssetListItem = createTestSelector(SwapSelectors.SwapAssetListItem);
   readonly selectAssetBtn = createTestSelector(SwapSelectors.SelectAssetTriggerBtn);
   readonly swapAmountInput = createTestSelector(SwapSelectors.SwapAmountInput);
-  readonly swapReviewBtn = createTestSelector(SwapSelectors.SwapReviewBtn);
 
   constructor(page: Page) {
     this.page = page;
-    this.swapBtn = page.getByTestId(SwapSelectors.SwapBtn);
+    this.swapReviewBtn = page.getByTestId(SwapSelectors.SwapReviewBtn);
+    this.swapSubmitBtn = page.getByTestId(SwapSelectors.SwapSubmitBtn);
     this.swapDetailsAmount = page.getByTestId(SwapSelectors.SwapDetailsAmount);
     this.swapDetailsProtocol = page.getByTestId(SwapSelectors.SwapDetailsProtocol);
     this.swapDetailsSymbol = page.getByTestId(SwapSelectors.SwapDetailsSymbol);
@@ -33,7 +34,6 @@ export class SwapPage {
     await swapAssetSelectors[1].click();
     await this.page.locator(this.chooseAssetList).waitFor();
     await this.page.locator('text="ALEX Token"').click();
-    await this.page.locator(this.swapReviewBtn).click();
   }
 
   async inputSwapAmountBase() {

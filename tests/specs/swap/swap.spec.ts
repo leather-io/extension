@@ -1,6 +1,6 @@
 import { test } from '../../fixtures/fixtures';
 
-const hiroApiPostRoute = '*/**/v2/transactions';
+const hiroApiPostRoute = 'https://api.hiro.so/v2/transactions';
 
 test.describe('Swaps', () => {
   test.beforeEach(async ({ extensionId, globalPage, homePage, onboardingPage, swapPage }) => {
@@ -14,9 +14,16 @@ test.describe('Swaps', () => {
     test.expect(swapPage.page.getByText('STX')).toBeTruthy();
   });
 
-  test('that it shows correct swap review details', async ({ swapPage }) => {
+  test('that it shows swap review details and broadcasts swap', async ({ swapPage }) => {
+    const requestPromise = swapPage.page.waitForRequest(hiroApiPostRoute);
+
+    await swapPage.page.route(hiroApiPostRoute, async route => {
+      await route.abort();
+    });
+
     await swapPage.inputSwapAmountBase();
     await swapPage.selectAssetToReceive();
+    await swapPage.swapReviewBtn.click({ delay: 1000, force: true });
 
     const swapProtocol = await swapPage.swapDetailsProtocol.innerText();
     test.expect(swapProtocol).toEqual('ALEX');
@@ -31,20 +38,7 @@ test.describe('Swaps', () => {
     const swapAmountBase = await swapAmounts[0].innerText();
     test.expect(swapAmountBase).toEqual('1');
 
-    test.expect(swapPage.page.getByText('Sponsored')).toBeTruthy();
-  });
-
-  test('that the swap is broadcast', async ({ swapPage }) => {
-    const requestPromise = swapPage.page.waitForRequest(hiroApiPostRoute);
-
-    await swapPage.page.route(hiroApiPostRoute, async route => {
-      await route.abort();
-    });
-
-    await swapPage.inputSwapAmountBase();
-    await swapPage.selectAssetToReceive();
-
-    await swapPage.swapBtn.click();
+    await swapPage.swapSubmitBtn.click();
 
     const request = await requestPromise;
     const requestBody = request.postDataBuffer();

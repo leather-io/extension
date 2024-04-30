@@ -23,7 +23,7 @@ export function SwapReview() {
           <Footer variant="card">
             <Button
               aria-busy={isLoading}
-              data-testid={SwapSelectors.SwapBtn}
+              data-testid={SwapSelectors.SwapSubmitBtn}
               type="button"
               onClick={onSubmitSwap}
               fullWidth
