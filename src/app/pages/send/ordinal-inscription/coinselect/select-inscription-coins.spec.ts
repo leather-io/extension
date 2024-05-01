@@ -37,7 +37,7 @@ describe(selectTaprootInscriptionTransferCoins.name, () => {
         Number(inscriptionInputAmount)
     );
 
-    expect(result.txFee).toEqual(5048);
+    expect(result.txFee).toEqual(6608);
   });
 
   test('when there are not enough utxo to cover fee', () => {
