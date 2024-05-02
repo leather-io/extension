@@ -1,4 +1,5 @@
 import { SupportedInscription } from './inscription.model';
+import type { Money } from './money.model';
 
 export interface BitcoinSendFormValues {
   amount: number | string;
@@ -36,4 +37,9 @@ export interface StacksTransactionFormValues {
   feeCurrency: string;
   feeType: string;
   nonce?: number | string;
+}
+
+export interface TransferRecipient {
+  address: string;
+  amount: Money;
 }

@@ -1,15 +1,13 @@
 import { useCallback } from 'react';
 
+import type { TransferRecipient } from '@shared/models/form.model';
 import { Money, createMoney } from '@shared/models/money.model';
-import type { RpcSendTransferRecipient } from '@shared/rpc/methods/send-transfer';
 
 import { baseCurrencyAmountInQuote } from '@app/common/money/calculate-money';
 import { i18nFormatCurrency } from '@app/common/money/format-money';
 import {
   determineUtxosForSpend,
   determineUtxosForSpendAll,
-  determineUtxosForSpendAllMultipleRecipients,
-  determineUtxosForSpendMultipleRecipients,
 } from '@app/common/transactions/bitcoin/coinselect/local-coin-selection';
 import { useCurrentNativeSegwitUtxos } from '@app/query/bitcoin/address/utxos-by-address.hooks';
 import { useCurrentNativeSegwitAddressBalance } from '@app/query/bitcoin/balance/btc-native-segwit-balance.hooks';
@@ -20,51 +18,10 @@ export const MAX_FEE_RATE_MULTIPLIER = 50;
 interface UseBitcoinCustomFeeArgs {
   amount: Money;
   isSendingMax: boolean;
-  recipient: string;
-}
-export function useBitcoinCustomFee({ amount, isSendingMax, recipient }: UseBitcoinCustomFeeArgs) {
-  const { balance } = useCurrentNativeSegwitAddressBalance();
-  const { data: utxos = [] } = useCurrentNativeSegwitUtxos();
-  const btcMarketData = useCryptoCurrencyMarketDataMeanAverage('BTC');
-
-  return useCallback(
-    (feeRate: number) => {
-      if (!feeRate || !utxos.length) return { fee: 0, fiatFeeValue: '' };
-
-      const satAmount = isSendingMax ? balance.amount.toNumber() : amount.amount.toNumber();
-
-      const determineUtxosArgs = {
-        amount: satAmount,
-        recipient,
-        utxos,
-        feeRate,
-      };
-      const { fee } = isSendingMax
-        ? determineUtxosForSpendAll(determineUtxosArgs)
-        : determineUtxosForSpend(determineUtxosArgs);
-
-      return {
-        fee,
-        fiatFeeValue: `~ ${i18nFormatCurrency(
-          baseCurrencyAmountInQuote(createMoney(Math.ceil(fee), 'BTC'), btcMarketData)
-        )}`,
-      };
-    },
-    [utxos, isSendingMax, balance.amount, amount.amount, recipient, btcMarketData]
-  );
+  recipients: TransferRecipient[];
 }
 
-interface UseBitcoinCustomFeeArgsMultipleRecipients {
-  amount: Money;
-  isSendingMax: boolean;
-  recipients: RpcSendTransferRecipient[];
-}
-
-export function useBitcoinCustomFeeMultipleRecipients({
-  amount,
-  isSendingMax,
-  recipients,
-}: UseBitcoinCustomFeeArgsMultipleRecipients) {
+export function useBitcoinCustomFee({ amount, isSendingMax, recipients }: UseBitcoinCustomFeeArgs) {
   const { balance } = useCurrentNativeSegwitAddressBalance();
   const { data: utxos = [] } = useCurrentNativeSegwitUtxos();
   const btcMarketData = useCryptoCurrencyMarketDataMeanAverage('BTC');
@@ -82,8 +39,8 @@ export function useBitcoinCustomFeeMultipleRecipients({
         feeRate,
       };
       const { fee } = isSendingMax
-        ? determineUtxosForSpendAllMultipleRecipients(determineUtxosArgs)
-        : determineUtxosForSpendMultipleRecipients(determineUtxosArgs);
+        ? determineUtxosForSpendAll(determineUtxosArgs)
+        : determineUtxosForSpend(determineUtxosArgs);
 
       return {
         fee,

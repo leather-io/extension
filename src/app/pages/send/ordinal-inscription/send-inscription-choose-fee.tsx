@@ -30,6 +30,13 @@ export function SendInscriptionChooseFee() {
   const { reviewTransaction } = useSendInscriptionForm();
   const { showInsufficientBalanceError, onValidateBitcoinFeeSpend } = useValidateBitcoinSpend();
 
+  const recipients = [
+    {
+      address: recipient,
+      amount: createMoney(0, 'BTC'),
+    },
+  ];
+
   async function previewTransaction({ feeRate, feeValue, time, isCustomFee }: OnChooseFeeArgs) {
     try {
       setIsLoadingReview(true);
@@ -73,7 +80,7 @@ export function SendInscriptionChooseFee() {
           onChooseFee={previewTransaction}
           onSetSelectedFeeType={(value: BtcFeeType | null) => setSelectedFeeType(value)}
           onValidateBitcoinSpend={onValidateBitcoinFeeSpend}
-          recipient={recipient}
+          recipients={recipients}
           recommendedFeeRate={recommendedFeeRate}
           showError={showInsufficientBalanceError}
           maxRecommendedFeeRate={feesList[0]?.feeRate}

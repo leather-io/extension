@@ -24,7 +24,7 @@ import { CardContent } from '@app/ui/layout/card/card-content';
 import { AmountField } from '../../components/amount-field';
 import { SelectedAssetField } from '../../components/selected-asset-field';
 import { SendFiatValue } from '../../components/send-fiat-value';
-import { BitcoinRecipientField } from '../../family/bitcoin/components/bitcoin-recipient-field';
+import { TransferRecipientField } from '../../family/bitcoin/components/bitcoin-recipient-field';
 import { BitcoinSendMaxButton } from '../../family/bitcoin/components/bitcoin-send-max-button';
 import { useSendFormRouteState } from '../../hooks/use-send-form-route-state';
 import { createDefaultInitialFormValues, defaultSendFormFormikProps } from '../../send-form.utils';
@@ -108,7 +108,7 @@ export function BtcSendForm() {
                     name={btcBalance.asset.name}
                     symbol={symbol}
                   />
-                  <BitcoinRecipientField />
+                  <TransferRecipientField />
                   {currentNetwork.chain.bitcoin.bitcoinNetwork === 'testnet' && (
                     <Callout variant="warning" title="Funds have no value" mt="space.04">
                       This is a Bitcoin testnet transaction.

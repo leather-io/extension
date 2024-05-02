@@ -31,6 +31,14 @@ export function BtcChooseFee() {
     recipient: txValues.recipient,
     utxos,
   });
+
+  const recipients = [
+    {
+      address: txValues.recipient,
+      amount: amountAsMoney,
+    },
+  ];
+
   const recommendedFeeRate = feesList[1]?.feeRate.toString() || '';
 
   const { showInsufficientBalanceError, onValidateBitcoinAmountSpend } = useValidateBitcoinSpend(
@@ -58,7 +66,7 @@ export function BtcChooseFee() {
         onChooseFee={previewTransaction}
         onValidateBitcoinSpend={onValidateBitcoinAmountSpend}
         onSetSelectedFeeType={(value: BtcFeeType | null) => setSelectedFeeType(value)}
-        recipient={txValues.recipient}
+        recipients={recipients}
         recommendedFeeRate={recommendedFeeRate}
         showError={showInsufficientBalanceError}
         maxRecommendedFeeRate={feesList[0]?.feeRate}

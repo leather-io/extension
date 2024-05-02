@@ -5,6 +5,7 @@ import { extractAddressIndexFromPath } from '@shared/crypto/bitcoin/bitcoin.util
 import { BitcoinInputSigningConfig } from '@shared/crypto/bitcoin/signer-config';
 import { logger } from '@shared/logger';
 import { OrdinalSendFormValues } from '@shared/models/form.model';
+import { createMoney } from '@shared/models/money.model';
 
 import {
   InsufficientFundsError,
@@ -116,9 +117,8 @@ export function useGenerateUnsignedOrdinalTx(inscriptionInput: UtxoWithDerivatio
     if (!nativeSegwitSigner || !nativeSegwitUtxos || !values.feeRate) return;
 
     const determineUtxosArgs = {
-      amount: 0,
       feeRate,
-      recipient,
+      recipients: [{ address: recipient, amount: createMoney(0, 'BTC') }],
       utxos: nativeSegwitUtxos,
     };
 
