@@ -104,7 +104,7 @@ export function useGenerateUnsignedOrdinalTx(inscriptionInput: UtxoWithDerivatio
       if (e instanceof InsufficientFundsError) {
         throw new InsufficientFundsError();
       }
-      logger.error('Unable to sign transaction');
+      logger.error('Unable to sign transaction', e);
       return null;
     }
   }
@@ -159,7 +159,7 @@ export function useGenerateUnsignedOrdinalTx(inscriptionInput: UtxoWithDerivatio
       if (e instanceof InsufficientFundsError) {
         throw new InsufficientFundsError();
       }
-      logger.error('Unable to sign transaction');
+      logger.error('Unable to sign transaction', e);
       return null;
     }
   }

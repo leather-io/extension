@@ -166,7 +166,7 @@ export function useGenerateUnsignedNativeSegwitMultipleRecipientsTx() {
           tx.addOutputAddress(output.address, BigInt(output.value), networkMode);
         });
 
-        return { hex: tx.hex, fee, psbt: tx.toPSBT(), inputs };
+        return { hex: tx.hex, fee: fee, psbt: tx.toPSBT(), inputs };
       } catch (e) {
         // eslint-disable-next-line no-console
         console.log('Error signing bitcoin transaction', e);

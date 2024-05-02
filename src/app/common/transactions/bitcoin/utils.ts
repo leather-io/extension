@@ -34,9 +34,9 @@ export function getSpendableAmount({
 }) {
   const balance = utxos.map(utxo => utxo.value).reduce((prevVal, curVal) => prevVal + curVal, 0);
 
-  const size = getSizeInfo({
-    inputLength: utxos.length,
-    outputLength: 1,
+  const size = getBitcoinTxSizeEstimation({
+    inputCount: utxos.length,
+    outputCount: 1,
     recipient: address,
   });
   const fee = Math.ceil(size.txVBytes * feeRate);
@@ -80,12 +80,12 @@ export function filterUneconomicalUtxos({
   return filteredUtxos;
 }
 
-export function getSizeInfo(payload: {
-  inputLength: number;
-  outputLength: number;
+export function getBitcoinTxSizeEstimation(payload: {
+  inputCount: number;
+  outputCount: number;
   recipient: string;
 }) {
-  const { inputLength, recipient, outputLength } = payload;
+  const { inputCount, recipient, outputCount } = payload;
   const addressInfo = validate(recipient) ? getAddressInfo(recipient) : null;
   const outputAddressTypeWithFallback = addressInfo ? addressInfo.type : 'p2wpkh';
 
@@ -93,9 +93,9 @@ export function getSizeInfo(payload: {
   const sizeInfo = txSizer.calcTxSize({
     // Only p2wpkh is supported by the wallet
     input_script: 'p2wpkh',
-    input_count: inputLength,
+    input_count: inputCount,
     // From the address of the recipient, we infer the output type
-    [outputAddressTypeWithFallback + '_output_count']: outputLength,
+    [outputAddressTypeWithFallback + '_output_count']: outputCount,
   });
 
   return sizeInfo;

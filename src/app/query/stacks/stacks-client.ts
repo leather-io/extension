@@ -1,8 +1,9 @@
+import { TokensApi } from '@hirosystems/token-metadata-api-client';
 import {
   AccountsApi,
   BlocksApi,
   Configuration,
-  ConfigurationParameters,
+  type ConfigurationParameters,
   FaucetsApi,
   FeesApi,
   FungibleTokensApi,
@@ -14,6 +15,36 @@ import {
   SmartContractsApi,
   TransactionsApi,
 } from '@stacks/blockchain-api-client';
+import axios from 'axios';
+
+import { STX20_API_BASE_URL_MAINNET } from '@shared/constants';
+import type { Money } from '@shared/models/money.model';
+
+export interface Stx20Balance {
+  ticker: string;
+  balance: string;
+  updateDate: string;
+}
+
+interface Stx20BalanceResponse {
+  address: string;
+  balances: Stx20Balance[];
+}
+
+export interface Stx20Token {
+  balance: Money;
+  marketData: null;
+  tokenData: Stx20Balance;
+}
+
+class Stx20Api {
+  url = STX20_API_BASE_URL_MAINNET;
+
+  async getStx20Balances(address: string) {
+    const resp = await axios.get<Stx20BalanceResponse>(`${this.url}/balance/${address}`);
+    return resp.data.balances;
+  }
+}
 
 export class StacksClient {
   configuration: Configuration;
@@ -29,6 +60,8 @@ export class StacksClient {
   rosettaApi: RosettaApi;
   fungibleTokensApi: FungibleTokensApi;
   nonFungibleTokensApi: NonFungibleTokensApi;
+  tokensApi: TokensApi;
+  stx20Api: Stx20Api;
 
   constructor(config: ConfigurationParameters) {
     this.configuration = new Configuration(config);
@@ -44,5 +77,7 @@ export class StacksClient {
     this.rosettaApi = new RosettaApi(this.configuration);
     this.fungibleTokensApi = new FungibleTokensApi(this.configuration);
     this.nonFungibleTokensApi = new NonFungibleTokensApi(this.configuration);
+    this.tokensApi = new TokensApi({ basePath: config.basePath });
+    this.stx20Api = new Stx20Api();
   }
 }

@@ -37,10 +37,11 @@ export function selectTaprootInscriptionTransferCoins(
   const txSizer = new BtcSizeFeeEstimator();
 
   const initialTxSize = txSizer.calcTxSize({
-    input_script: 'p2tr',
+    input_script: 'p2wpkh',
     input_count: 1,
     // From the address of the recipient, we infer the output type
     p2tr_output_count: 1,
+    p2wpkh_output_count: 1,
   });
 
   const neededInputs: UtxoResponseItem[] = [];
@@ -65,9 +66,10 @@ export function selectTaprootInscriptionTransferCoins(
     if (nextUtxo) neededInputs.push(nextUtxo);
     utxos = remainingUtxos;
     txSize = txSizer.calcTxSize({
-      input_script: 'p2tr',
+      input_script: 'p2wpkh',
       input_count: neededInputs.length + 1,
       p2tr_output_count: 1,
+      p2wpkh_output_count: 1,
     });
     indexCounter.increment();
   }

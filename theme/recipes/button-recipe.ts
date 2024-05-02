@@ -58,7 +58,7 @@ export const buttonRecipe = defineRecipe({
         },
         _focus: {
           _before: {
-            border: '3px solid {colors.focus}',
+            border: '3px solid {colors.blue.border}',
           },
         },
         _hover: {
@@ -81,7 +81,7 @@ export const buttonRecipe = defineRecipe({
         },
         _focus: {
           _before: {
-            border: '3px solid {colors.focus}',
+            border: '3px solid {colors.blue.border}',
           },
         },
         _hover: {
@@ -102,7 +102,7 @@ export const buttonRecipe = defineRecipe({
         },
         _focus: {
           _before: {
-            border: '3px solid {focus}',
+            border: '3px solid {colors.blue.border}',
           },
         },
         _hover: {

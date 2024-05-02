@@ -4,7 +4,7 @@ import { UseQueryResult, useQueries } from '@tanstack/react-query';
 import { pullContractIdFromIdentity } from '@app/common/utils';
 import { QueryPrefixes } from '@app/query/query-prefixes';
 import { StacksAccount } from '@app/store/accounts/blockchain/stacks/stacks-account.models';
-import { useTokenMetadataClient } from '@app/store/common/api-clients.hooks';
+import { useStacksClient } from '@app/store/common/api-clients.hooks';
 
 import { useHiroApiRateLimiter } from '../../hiro-rate-limiter';
 import { NftAssetResponse } from '../token-metadata.utils';
@@ -24,7 +24,7 @@ function getTokenId(hex: string) {
 export function useGetNonFungibleTokenMetadataListQuery(
   account: StacksAccount
 ): UseQueryResult<NftAssetResponse>[] {
-  const client = useTokenMetadataClient();
+  const client = useStacksClient();
   const limiter = useHiroApiRateLimiter();
   const nftHoldings = useGetNonFungibleTokenHoldingsQuery(account.address);
 
