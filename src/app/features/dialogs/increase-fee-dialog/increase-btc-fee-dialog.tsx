@@ -4,6 +4,7 @@ import { Outlet, useLocation, useNavigate } from 'react-router-dom';
 import { Formik } from 'formik';
 import { Flex, Stack } from 'leather-styles/jsx';
 
+import { createMoney } from '@shared/models/money.model';
 import { BitcoinTx } from '@shared/models/transactions/bitcoin-transaction.model';
 import { RouteUrls } from '@shared/route-urls';
 
@@ -38,6 +39,13 @@ export function IncreaseBtcFeeDialog() {
     useBtcIncreaseFee(btcTx);
 
   const balance = formatMoney(btcAvailableAssetBalance.balance);
+
+  const recipients = [
+    {
+      address: recipient,
+      amount: createMoney(btcToSat(getBitcoinTxValue(currentBitcoinAddress, btcTx)), 'BTC'),
+    },
+  ];
 
   const onClose = () => {
     navigate(RouteUrls.Home);
@@ -90,7 +98,7 @@ export function IncreaseBtcFeeDialog() {
                           btcToSat(getBitcoinTxValue(currentBitcoinAddress, btcTx)).toNumber()
                         )}
                         isSendingMax={false}
-                        recipient={recipient}
+                        recipients={recipients}
                         hasInsufficientBalanceError={false}
                         customFeeInitialValue={initialFeeRate}
                       />

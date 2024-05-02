@@ -33,13 +33,13 @@ export function calculateMaxBitcoinSpend({
   const filteredUtxos = filterUneconomicalUtxos({
     utxos,
     feeRate: currentFeeRate,
-    address,
+    recipients: [{ address, amount: createMoney(0, 'BTC') }],
   });
 
   const { spendableAmount, fee } = getSpendableAmount({
     utxos: filteredUtxos,
     feeRate: currentFeeRate,
-    address,
+    recipients: [{ address, amount: createMoney(0, 'BTC') }],
   });
 
   return {

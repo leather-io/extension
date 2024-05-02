@@ -3,7 +3,7 @@ import { createMoney } from '@shared/models/money.model';
 
 import { btcToSat } from '@app/common/money/unit-conversion';
 import { formFeeRowValue } from '@app/common/send/utils';
-import { useGenerateUnsignedNativeSegwitSingleRecipientTx } from '@app/common/transactions/bitcoin/use-generate-bitcoin-tx';
+import { useGenerateUnsignedNativeSegwitTx } from '@app/common/transactions/bitcoin/use-generate-bitcoin-tx';
 import { OnChooseFeeArgs } from '@app/components/bitcoin-fees-list/bitcoin-fees-list';
 import { useSignBitcoinTx } from '@app/store/accounts/blockchain/bitcoin/bitcoin.hooks';
 
@@ -14,7 +14,7 @@ import { useBtcChooseFeeState } from './btc-choose-fee';
 export function useBtcChooseFee() {
   const { isSendingMax, txValues, utxos } = useBtcChooseFeeState();
   const sendFormNavigate = useSendFormNavigate();
-  const generateTx = useGenerateUnsignedNativeSegwitSingleRecipientTx();
+  const generateTx = useGenerateUnsignedNativeSegwitTx();
   const calcMaxSpend = useCalculateMaxBitcoinSpend();
   const signTx = useSignBitcoinTx();
   const amountAsMoney = createMoney(btcToSat(txValues.amount).toNumber(), 'BTC');
@@ -23,12 +23,19 @@ export function useBtcChooseFee() {
     amountAsMoney,
 
     async previewTransaction({ feeRate, feeValue, time, isCustomFee }: OnChooseFeeArgs) {
+      const amount = isSendingMax
+        ? calcMaxSpend(txValues.recipient, utxos, feeRate).amount
+        : amountAsMoney;
+
       const resp = await generateTx(
         {
-          amount: isSendingMax
-            ? calcMaxSpend(txValues.recipient, utxos, feeRate).amount
-            : amountAsMoney,
-          recipient: txValues.recipient,
+          amount,
+          recipients: [
+            {
+              address: txValues.recipient,
+              amount,
+            },
+          ],
         },
         feeRate,
         utxos,

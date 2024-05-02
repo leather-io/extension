@@ -56,11 +56,8 @@ export function useBitcoinFeesList({
 
     if (!feeRates || !utxos.length) return [];
 
-    const satAmount = isSendingMax ? balance.amount.toNumber() : amount.amount.toNumber();
-
     const determineUtxosDefaultArgs = {
-      amount: satAmount,
-      recipient,
+      recipients: [{ address: recipient, amount: isSendingMax ? balance : amount }],
       utxos,
     };
 
@@ -119,7 +116,7 @@ export function useBitcoinFeesList({
     }
 
     return feesArr;
-  }, [feeRates, utxos, isSendingMax, balance.amount, amount.amount, recipient, btcMarketData]);
+  }, [feeRates, utxos, isSendingMax, balance, amount, recipient, btcMarketData]);
 
   return {
     feesList,
