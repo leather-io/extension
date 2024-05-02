@@ -3,15 +3,15 @@
 <html lang="en">
 
 <head>
-    <title>Code coverage report for extension/src/app/features/asset-list/components/bitcoin-fungible-tokens-asset-list.tsx</title>
+    <title>Code coverage report for extension/src/app/components/crypto-assets/stacks/stx20-token-asset-list/stx20-token-asset-item.layout.tsx</title>
     <meta charset="utf-8" />
-    <link rel="stylesheet" href="../../../../../../prettify.css" />
-    <link rel="stylesheet" href="../../../../../../base.css" />
-    <link rel="shortcut icon" type="image/x-icon" href="../../../../../../favicon.png" />
+    <link rel="stylesheet" href="../../../../../../../prettify.css" />
+    <link rel="stylesheet" href="../../../../../../../base.css" />
+    <link rel="shortcut icon" type="image/x-icon" href="../../../../../../../favicon.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <style type='text/css'>
         .coverage-summary .sorter {
-            background-image: url(../../../../../../sort-arrow-sprite.png);
+            background-image: url(../../../../../../../sort-arrow-sprite.png);
         }
     </style>
 </head>
@@ -19,34 +19,34 @@
 <body>
 <div class='wrapper'>
     <div class='pad1'>
-        <h1><a href="../../../../../../index.html">All files</a> / <a href="index.html">extension/src/app/features/asset-list/components</a> bitcoin-fungible-tokens-asset-list.tsx</h1>
+        <h1><a href="../../../../../../../index.html">All files</a> / <a href="index.html">extension/src/app/components/crypto-assets/stacks/stx20-token-asset-list</a> stx20-token-asset-item.layout.tsx</h1>
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/4</span>
+                <span class='fraction'>0/3</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
+                <span class="strong">0% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/0</span>
+                <span class='fraction'>0/2</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/4</span>
+                <span class='fraction'>0/1</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/4</span>
+                <span class='fraction'>0/3</span>
             </div>
         
             
@@ -92,9 +92,15 @@
 <a name='L27'></a><a href='#L27'>27</a>
 <a name='L28'></a><a href='#L28'>28</a>
 <a name='L29'></a><a href='#L29'>29</a>
-<a name='L30'></a><a href='#L30'>30</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L30'></a><a href='#L30'>30</a>
+<a name='L31'></a><a href='#L31'>31</a>
+<a name='L32'></a><a href='#L32'>32</a>
+<a name='L33'></a><a href='#L33'>33</a>
+<a name='L34'></a><a href='#L34'>34</a>
+<a name='L35'></a><a href='#L35'>35</a>
+<a name='L36'></a><a href='#L36'>36</a>
+<a name='L37'></a><a href='#L37'>37</a>
+<a name='L38'></a><a href='#L38'>38</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -108,46 +114,64 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { Brc20TokenAssetList } from '@app/components/crypto-assets/bitcoin/brc20-token-asset-list/brc20-token-asset-list';
-import { RunesAssetList } from '@app/components/crypto-assets/bitcoin/runes-asset-list/runes-asset-list';
-import { Src20TokenAssetList } from '@app/components/crypto-assets/bitcoin/src20-token-asset-list/src20-token-asset-list';
-import { Brc20TokensLoader } from '@app/components/loaders/brc20-tokens-loader';
-import { RunesLoader } from '@app/components/loaders/runes-loader';
-import { Src20TokensLoader } from '@app/components/loaders/src20-tokens-loader';
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { styled } from 'leather-styles/jsx';
 &nbsp;
-interface BitcoinFungibleTokenAssetListProps {
-  btcAddressNativeSegwit: string;
-  btcAddressTaproot: string;
+import { formatBalance } from '@app/common/format-balance';
+import type { Stx20Token } from '@app/query/stacks/stacks-client';
+import { Stx20AvatarIcon } from '@app/ui/components/avatar/stx20-avatar-icon';
+import { ItemLayout } from '@app/ui/components/item-layout/item-layout';
+import { BasicTooltip } from '@app/ui/components/tooltip/basic-tooltip';
+import { Pressable } from '@app/ui/pressable/pressable';
+&nbsp;
+interface Stx20TokenAssetItemLayoutProps {
+  token: Stx20Token;
 }
-export function <span class="fstat-no" title="function not covered" >BitcoinFungibleTokenAssetList({</span>
-  btcAddressNativeSegwit,
-  btcAddressTaproot,
-}: BitcoinFungibleTokenAssetListProps) {
+export function <span class="fstat-no" title="function not covered" >Stx20TokenAssetItemLayout({</span> token }: Stx20TokenAssetItemLayoutProps) {
+  const balanceAsString = <span class="cstat-no" title="statement not covered" >token.balance.amount.toString();</span>
+  const formattedBalance = <span class="cstat-no" title="statement not covered" >formatBalance(balanceAsString);</span>
+&nbsp;
 <span class="cstat-no" title="statement not covered" >  return (</span>
-    &lt;&gt;
-      &lt;Brc20TokensLoader&gt;
-        {<span class="fstat-no" title="function not covered" >brc20Tokens =&gt; <span class="cstat-no" title="statement not covered" >&lt;</span>Brc20TokenAssetList tokens={brc20Tokens} /&gt;}</span>
-      &lt;/Brc20TokensLoader&gt;
-      &lt;Src20TokensLoader address={btcAddressNativeSegwit}&gt;
-        {<span class="fstat-no" title="function not covered" >src20Tokens =&gt; <span class="cstat-no" title="statement not covered" >&lt;</span>Src20TokenAssetList src20Tokens={src20Tokens} /&gt;}</span>
-      &lt;/Src20TokensLoader&gt;
-      &lt;RunesLoader addresses={[btcAddressNativeSegwit, btcAddressTaproot]}&gt;
-        {<span class="fstat-no" title="function not covered" >runes =&gt; <span class="cstat-no" title="statement not covered" >&lt;</span>RunesAssetList runes={runes} /&gt;}</span>
-      &lt;/RunesLoader&gt;
-    &lt;/&gt;
+    &lt;Pressable my="space.02"&gt;
+      &lt;ItemLayout
+        flagImg={&lt;Stx20AvatarIcon /&gt;}
+        titleLeft={token.tokenData.ticker}
+        captionLeft="STX-20"
+        titleRight={
+          &lt;BasicTooltip
+            asChild
+            label={formattedBalance.isAbbreviated ? balanceAsString : undefined}
+            side="left"
+          &gt;
+            &lt;styled.span data-testid={token.tokenData.ticker} fontWeight={500} textStyle="label.02"&gt;
+              {formattedBalance.value}
+            &lt;/styled.span&gt;
+          &lt;/BasicTooltip&gt;
+        }
+      /&gt;
+    &lt;/Pressable&gt;
   );
 }
 &nbsp;</pre></td></tr></table></pre>
@@ -157,16 +181,16 @@ export function <span class="fstat-no" title="function not covered" >BitcoinFung
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-04-29T13:17:53.339Z
+                at 2024-05-02T17:41:06.495Z
             </div>
-        <script src="../../../../../../prettify.js"></script>
+        <script src="../../../../../../../prettify.js"></script>
         <script>
             window.onload = function () {
                 prettyPrint();
             };
         </script>
-        <script src="../../../../../../sorter.js"></script>
-        <script src="../../../../../../block-navigation.js"></script>
+        <script src="../../../../../../../sorter.js"></script>
+        <script src="../../../../../../../block-navigation.js"></script>
     </body>
 </html>
     

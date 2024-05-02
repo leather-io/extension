@@ -25,14 +25,14 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/11</span>
+                <span class='fraction'>0/10</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/2</span>
+                <span class='fraction'>0/0</span>
             </div>
         
             
@@ -46,7 +46,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/11</span>
+                <span class='fraction'>0/10</span>
             </div>
         
             
@@ -117,14 +117,7 @@
 <a name='L52'></a><a href='#L52'>52</a>
 <a name='L53'></a><a href='#L53'>53</a>
 <a name='L54'></a><a href='#L54'>54</a>
-<a name='L55'></a><a href='#L55'>55</a>
-<a name='L56'></a><a href='#L56'>56</a>
-<a name='L57'></a><a href='#L57'>57</a>
-<a name='L58'></a><a href='#L58'>58</a>
-<a name='L59'></a><a href='#L59'>59</a>
-<a name='L60'></a><a href='#L60'>60</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L55'></a><a href='#L55'>55</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -166,13 +159,10 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -181,9 +171,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import * as btc from '@scure/btc-signer';
-import { bytesToHex } from '@stacks/common';
-import { UseQueryResult, useQueries, useQuery } from '@tanstack/react-query';
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { UseQueryResult, useQueries, useQuery } from '@tanstack/react-query';
 &nbsp;
 import { BitcoinTx } from '@shared/models/transactions/bitcoin-transaction.model';
 &nbsp;
@@ -224,17 +212,14 @@ const queryOptions = <span class="cstat-no" title="statement not covered" >{</sp
 } as const;
 &nbsp;
 // ts-unused-exports:disable-next-line
-export function <span class="fstat-no" title="function not covered" >useGetBitcoinTransactionQueries(</span>
-  inputs: btc.TransactionInput[]
-): UseQueryResult&lt;BitcoinTx&gt;[] {
+export function <span class="fstat-no" title="function not covered" >useGetBitcoinTransactionQueries(t</span>xids: string[]): UseQueryResult&lt;BitcoinTx&gt;[] {
   const client = <span class="cstat-no" title="statement not covered" >useBitcoinClient();</span>
 &nbsp;
 <span class="cstat-no" title="statement not covered" >  return useQueries({</span>
-    queries: inputs.map(<span class="fstat-no" title="function not covered" >input =&gt; {</span>
-      const txId = <span class="cstat-no" title="statement not covered" >input.txid ? bytesToHex(input.txid) : '';</span>
+    queries: txids.map(<span class="fstat-no" title="function not covered" >txid =&gt; {</span>
 <span class="cstat-no" title="statement not covered" >      return {</span>
-        queryKey: ['bitcoin-transaction', txId],
-        queryFn: <span class="fstat-no" title="function not covered" >() =&gt; <span class="cstat-no" title="statement not covered" >f</span>etchBitcoinTransaction(client)(txId),</span>
+        queryKey: ['bitcoin-transaction', txid],
+        queryFn: <span class="fstat-no" title="function not covered" >() =&gt; <span class="cstat-no" title="statement not covered" >f</span>etchBitcoinTransaction(client)(txid),</span>
         ...queryOptions,
       };
     }),
@@ -247,7 +232,7 @@ export function <span class="fstat-no" title="function not covered" >useGetBitco
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-04-29T13:17:53.339Z
+                at 2024-05-02T17:41:06.495Z
             </div>
         <script src="../../../../../../prettify.js"></script>
         <script>

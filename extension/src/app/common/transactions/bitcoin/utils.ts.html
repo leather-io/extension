@@ -350,18 +350,16 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1020x</span>
+<span class="cline-any cline-yes">1033x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">264x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">281x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">264x</span>
-<span class="cline-any cline-yes">264x</span>
-<span class="cline-any cline-yes">264x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">281x</span>
+<span class="cline-any cline-yes">281x</span>
+<span class="cline-any cline-yes">281x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -377,38 +375,27 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">21x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">24x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">21x</span>
-<span class="cline-any cline-yes">270x</span>
+<span class="cline-any cline-yes">24x</span>
+<span class="cline-any cline-yes">283x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">238x</span>
-<span class="cline-any cline-yes">4510x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">238x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">21x</span>
+<span class="cline-any cline-yes">252x</span>
+<span class="cline-any cline-yes">4665x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">252x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">299x</span>
-<span class="cline-any cline-yes">299x</span>
-<span class="cline-any cline-yes">299x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">299x</span>
-<span class="cline-any cline-yes">299x</span>
+<span class="cline-any cline-yes">24x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -416,7 +403,20 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">299x</span>
+<span class="cline-any cline-yes">360x</span>
+<span class="cline-any cline-yes">360x</span>
+<span class="cline-any cline-yes">360x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">360x</span>
+<span class="cline-any cline-yes">360x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">360x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -605,9 +605,9 @@ export function getSpendableAmount({
 }) {
   const balance = utxos.map(utxo =&gt; utxo.value).reduce((prevVal, curVal) =&gt; prevVal + curVal, 0);
 &nbsp;
-  const size = getSizeInfo({
-    inputLength: utxos.length,
-    outputLength: 1,
+  const size = getBitcoinTxSizeEstimation({
+    inputCount: utxos.length,
+    outputCount: 1,
     recipient: address,
   });
   const fee = Math.ceil(size.txVBytes * feeRate);
@@ -651,12 +651,12 @@ export function filterUneconomicalUtxos({
   return filteredUtxos;
 }
 &nbsp;
-export function getSizeInfo(payload: {
-  inputLength: number;
-  outputLength: number;
+export function getBitcoinTxSizeEstimation(payload: {
+  inputCount: number;
+  outputCount: number;
   recipient: string;
 }) {
-  const { inputLength, recipient, outputLength } = payload;
+  const { inputCount, recipient, outputCount } = payload;
   const addressInfo = validate(recipient) ? getAddressInfo(recipient) : null;
   const outputAddressTypeWithFallback = addressInfo ? addressInfo.type : 'p2wpkh';
 &nbsp;
@@ -664,9 +664,9 @@ export function getSizeInfo(payload: {
   const sizeInfo = txSizer.calcTxSize({
     // Only p2wpkh is supported by the wallet
     input_script: 'p2wpkh',
-    input_count: inputLength,
+    input_count: inputCount,
     // From the address of the recipient, we infer the output type
-    [outputAddressTypeWithFallback + '_output_count']: outputLength,
+    [outputAddressTypeWithFallback + '_output_count']: outputCount,
   });
 &nbsp;
   return sizeInfo;
@@ -829,7 +829,7 @@ export function <span class="fstat-no" title="function not covered" >getSizeInfo
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-04-29T13:17:53.339Z
+                at 2024-05-02T17:41:06.495Z
             </div>
         <script src="../../../../../../prettify.js"></script>
         <script>
