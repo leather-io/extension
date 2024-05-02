@@ -1,3 +1,26 @@
+## [6.38.0](https://github.com/leather-wallet/extension/compare/v6.37.0...v6.38.0) (2024-05-02)
+
+
+### Features
+
+* stx-20 balances, closes [#5077](https://github.com/leather-wallet/extension/issues/5077) ([c5a32cf](https://github.com/leather-wallet/extension/commit/c5a32cfd69667982e9930af1ca8756d77ddbb49d))
+
+
+### Bug Fixes
+
+* bitcoin fees underestimation, closes [#4777](https://github.com/leather-wallet/extension/issues/4777) ([df936ea](https://github.com/leather-wallet/extension/commit/df936ea708c7bdaa3631ce1ce165504f61bbd700))
+* colors.focus warning, closes [#5225](https://github.com/leather-wallet/extension/issues/5225) ([6b53a9a](https://github.com/leather-wallet/extension/commit/6b53a9a4ce8312de7b63a9c1f1a0c2b7ffbe33ed))
+* disable swap test ([d0457fb](https://github.com/leather-wallet/extension/commit/d0457fbf52a61b17b65005442885c94415cce6dd))
+* estimate higher tx size for inscription sends, closes [#5330](https://github.com/leather-wallet/extension/issues/5330) ([8ba6258](https://github.com/leather-wallet/extension/commit/8ba6258e254e61945b2c8e9c7ca12afb1ed59223))
+* swap test ([7db0d97](https://github.com/leather-wallet/extension/commit/7db0d9755e39269885472beb1e68c6479a4c7521))
+
+
+### Internal
+
+* post-release merge back ([4391226](https://github.com/leather-wallet/extension/commit/439122610668934f26e25fec0fd5918785f3b2a4))
+* prevent runtime error from lottie ([0722324](https://github.com/leather-wallet/extension/commit/0722324c34d8a1f431d4cde55cd3962f36ad87ba))
+* rename estimated fee ([d12bb82](https://github.com/leather-wallet/extension/commit/d12bb827e0a73a3f9bec6744540b88a970b0808b))
+
 ## [6.37.0](https://github.com/leather-wallet/extension/compare/v6.36.0...v6.37.0) (2024-04-29)
 
 
