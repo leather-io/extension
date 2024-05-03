@@ -150,6 +150,12 @@ export const config = {
         ],
       },
       {
+        test: /\.m?js$/,
+        resolve: {
+          fullySpecified: false, // disable the behavior, reference: https://webpack.js.org/configuration/module/#resolvefullyspecified
+        },
+      },
+      {
         test: /\.(ts|tsx)$/,
         exclude: /node_modules/,
         loader: 'esbuild-loader',
