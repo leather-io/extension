@@ -9,7 +9,10 @@ import { defaultWalletKeyId } from '@shared/utils';
 import { ledgerRequestKeysRoutes } from '@app/features/ledger/generic-flows/request-keys/ledger-request-keys-route-generator';
 import { LedgerRequestKeysContext } from '@app/features/ledger/generic-flows/request-keys/ledger-request-keys.context';
 import { RequestKeysFlow } from '@app/features/ledger/generic-flows/request-keys/request-keys-flow';
-import { useRequestLedgerKeys } from '@app/features/ledger/generic-flows/request-keys/use-request-ledger-keys';
+import {
+  defaultNumberOfKeysToPullFromLedgerDevice,
+  useRequestLedgerKeys,
+} from '@app/features/ledger/generic-flows/request-keys/use-request-ledger-keys';
 import { useLedgerNavigate } from '@app/features/ledger/hooks/use-ledger-navigate';
 import {
   connectLedgerStacksApp,
@@ -42,7 +45,9 @@ function LedgerRequestStacksKeys() {
       async pullKeysFromDevice(app) {
         const resp = await pullStacksKeysFromLedgerDevice(app)({
           onRequestKey(accountIndex) {
-            ledgerNavigate.toDeviceBusyStep(`Requesting STX addresses (${accountIndex + 1}…5)`);
+            ledgerNavigate.toDeviceBusyStep(
+              `Requesting STX addresses (${accountIndex + 1}…${defaultNumberOfKeysToPullFromLedgerDevice})`
+            );
           },
         });
         if (resp.status === 'failure') {

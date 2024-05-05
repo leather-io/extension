@@ -8,6 +8,7 @@ import {
 } from '@shared/crypto/stacks/stacks.utils';
 import { delay } from '@shared/utils';
 
+import { defaultNumberOfKeysToPullFromLedgerDevice } from '../../generic-flows/request-keys/use-request-ledger-keys';
 import {
   StacksAppKeysResponseItem,
   requestPublicKeyForStxAccount,
@@ -45,8 +46,8 @@ export function pullStacksKeysFromLedgerDevice(stacksApp: StacksApp) {
     onRequestKey,
   }: PullStacksKeysFromLedgerDeviceArgs): PullStacksKeysFromLedgerResponse => {
     const publicKeys = [];
-    const amountOfKeysToExtractFromDevice = 5;
-    for (let index = 0; index < amountOfKeysToExtractFromDevice; index++) {
+
+    for (let index = 0; index < defaultNumberOfKeysToPullFromLedgerDevice; index++) {
       if (onRequestKey) onRequestKey(index);
       const stxPublicKeyResp = await requestPublicKeyForStxAccount(stacksApp)(index);
       const dataPublicKeyResp = await requestPublicKeyForIdentityAccount(stacksApp)(index);
