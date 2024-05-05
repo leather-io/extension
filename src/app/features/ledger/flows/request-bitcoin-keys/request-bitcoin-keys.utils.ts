@@ -6,6 +6,7 @@ import { getTaprootAccountDerivationPath } from '@shared/crypto/bitcoin/p2tr-add
 import { getNativeSegwitAccountDerivationPath } from '@shared/crypto/bitcoin/p2wpkh-address-gen';
 import { delay } from '@shared/utils';
 
+import { defaultNumberOfKeysToPullFromLedgerDevice } from '../../generic-flows/request-keys/use-request-ledger-keys';
 import {
   WalletPolicyDetails,
   createNativeSegwitDefaultWalletPolicy,
@@ -55,10 +56,13 @@ interface PullBitcoinKeysFromLedgerDeviceArgs {
 }
 export function pullBitcoinKeysFromLedgerDevice(bitcoinApp: BitcoinApp, targetId = '') {
   return async ({ onRequestKey, network }: PullBitcoinKeysFromLedgerDeviceArgs) => {
-    const amountOfKeysToExtractFromDevice = 5;
     const fingerprint = await bitcoinApp.getMasterFingerprint();
     const keys: { id: string; path: string; policy: string; targetId: string }[] = [];
-    for (let accountIndex = 0; accountIndex < amountOfKeysToExtractFromDevice; accountIndex++) {
+    for (
+      let accountIndex = 0;
+      accountIndex < defaultNumberOfKeysToPullFromLedgerDevice;
+      accountIndex++
+    ) {
       onRequestKey?.(accountIndex);
       const { path, policy } = await getNativeSegwitExtendedPublicKey({
         bitcoinApp,
@@ -68,7 +72,11 @@ export function pullBitcoinKeysFromLedgerDevice(bitcoinApp: BitcoinApp, targetId
       });
       keys.push({ id: createWalletIdDecoratedPath(path, 'default'), path, policy, targetId });
     }
-    for (let accountIndex = 0; accountIndex < amountOfKeysToExtractFromDevice; accountIndex++) {
+    for (
+      let accountIndex = 0;
+      accountIndex < defaultNumberOfKeysToPullFromLedgerDevice;
+      accountIndex++
+    ) {
       onRequestKey?.(accountIndex + 5);
       const { path, policy } = await getTaprootExtendedPublicKey({
         bitcoinApp,
