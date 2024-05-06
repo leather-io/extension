@@ -1,5 +1,7 @@
 import { useCallback } from 'react';
 
+import { useGetUtxosByAddressQuery } from '@leather-wallet/query';
+
 import { InscriptionResponseItem } from '@shared/models/inscription.model';
 
 import { useCurrentAccountNativeSegwitIndexZeroSigner } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
@@ -12,7 +14,6 @@ import {
 import { useInscriptionsByAddressQuery } from '../ordinals/inscriptions.query';
 import { useRunesEnabled, useRunesOutputsByAddress } from '../runes/runes.hooks';
 import { useBitcoinPendingTransactionsInputs } from './transactions-by-address.hooks';
-import { useGetUtxosByAddressQuery } from './utxos-by-address.query';
 
 export function filterUtxosWithInscriptions(
   inscriptions: InscriptionResponseItem[],

@@ -1,11 +1,11 @@
+import { useGetAllBitcoinFeeEstimatesQuery } from '@leather-wallet/query';
+
 import { logger } from '@shared/logger';
 
 import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
 import { calculateMeanAverage } from '@app/common/math/calculate-averages';
 import { initBigNumber } from '@app/common/math/helpers';
 import { isFulfilled, isRejected } from '@app/common/utils';
-
-import { useGetAllBitcoinFeeEstimatesQuery } from './fee-estimates.query';
 
 export function useAverageBitcoinFeeRates() {
   const analytics = useAnalytics();

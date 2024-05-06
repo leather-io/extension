@@ -1,5 +1,7 @@
 import { useMemo } from 'react';
 
+import { useTaprootAccountUtxosQuery } from '@leather-wallet/query';
+
 import { createMoney } from '@shared/models/money.model';
 
 import { sumNumbers } from '@app/common/math/helpers';
@@ -7,7 +9,6 @@ import { useCurrentAccountIndex } from '@app/store/accounts/account';
 import { useCurrentTaprootAccount } from '@app/store/accounts/blockchain/bitcoin/taproot-account.hooks';
 
 import { filterUtxosWithInscriptions } from '../address/utxos-by-address.hooks';
-import { useTaprootAccountUtxosQuery } from '../address/utxos-by-address.query';
 import { UtxoWithDerivationPath } from '../bitcoin-client';
 import { useGetInscriptionsInfiniteQuery } from '../ordinals/inscriptions.query';
 

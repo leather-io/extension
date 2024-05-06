@@ -1,4 +1,4 @@
-import { useStampsByAddressQuery } from './stamps-by-address.query';
+import { useStampsByAddressQuery } from '@leather-wallet/query';
 
 export function useStampsByAddress(address: string) {
   return useStampsByAddressQuery(address, {

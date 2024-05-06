@@ -1,11 +1,11 @@
+import { useGetInscriptionQuery } from '@leather-wallet/query';
+
 import { HIRO_INSCRIPTIONS_API_URL } from '@shared/constants';
 import {
   Inscription,
   SupportedInscription,
   whenInscriptionType,
 } from '@shared/models/inscription.model';
-
-import { useGetInscriptionQuery } from './inscription.query';
 
 export function createInscriptionInfoUrl(id: string) {
   return `https://ordinals.hiro.so/inscription/${id}`;
