@@ -2,7 +2,7 @@
   "compilerOptions": {
     "target": "esnext",
     "module": "ESNext",
-    "moduleResolution": "node",
+    "moduleResolution": "Bundler",
     "lib": ["dom", "dom.iterable", "esnext"],
     "jsx": "react-jsx",
     "sourceMap": true,

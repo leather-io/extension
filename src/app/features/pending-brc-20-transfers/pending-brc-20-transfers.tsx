@@ -1,6 +1,10 @@
 import { useNavigate } from 'react-router-dom';
 
-import { fetchInscripionById, useNativeSegwitBalance } from '@leather-wallet/query';
+import {
+  fetchInscripionById,
+  useNativeSegwitBalance,
+  useOrdinalsbotClient,
+} from '@leather-wallet/query';
 import { Box, Flex, HStack, Stack } from 'leather-styles/jsx';
 
 import { RouteUrls } from '@shared/route-urls';
@@ -11,7 +15,6 @@ import { StatusPending } from '@app/components/status-pending';
 import { StatusReady } from '@app/components/status-ready';
 import { useCheckOrderStatuses } from '@app/query/bitcoin/ordinals/brc20/use-check-order-status';
 import { convertInscriptionToSupportedInscriptionType } from '@app/query/bitcoin/ordinals/inscription.hooks';
-import { useOrdinalsbotClient } from '@app/query/bitcoin/ordinalsbot-client';
 import { useCurrentAccountNativeSegwitAddressIndexZero } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
 import {
   OrdinalsbotInscriptionStatus,

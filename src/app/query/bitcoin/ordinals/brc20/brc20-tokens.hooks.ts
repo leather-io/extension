@@ -2,13 +2,12 @@ import {
   createBrc20TransferInscription,
   encodeBrc20TransferInscription,
   useAverageBitcoinFeeRates,
+  useOrdinalsbotClient,
 } from '@leather-wallet/query';
 
 import { useAppDispatch } from '@app/store';
 import { useCurrentAccountIndex } from '@app/store/accounts/account';
 import { brc20TransferInitiated } from '@app/store/ordinals/ordinals.slice';
-
-import { useOrdinalsbotClient } from '../../ordinalsbot-client';
 
 export function useBrc20Transfers(holderAddress: string) {
   const dispatch = useAppDispatch();
