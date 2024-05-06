@@ -1,11 +1,10 @@
+import { calculateOutboundPendingTxsValue } from '@leather-wallet/query';
 import {
   mockBitcoinTestnetAddress,
   mockPendingTxs1,
   mockPendingTxs2,
   mockPendingTxs3,
 } from '@tests/mocks/mock-btc-txs';
-
-import { calculateOutboundPendingTxsValue } from './transactions-by-address.hooks';
 
 describe(calculateOutboundPendingTxsValue.name, () => {
   test('that it returns 0 if there are no pending txs', () => {

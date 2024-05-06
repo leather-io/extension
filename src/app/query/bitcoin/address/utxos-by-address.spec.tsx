@@ -1,8 +1,7 @@
+import { filterUtxosWithInscriptions, filterUtxosWithRunes } from '@leather-wallet/query';
 import { mockInscriptionsList } from '@tests/mocks/mock-inscriptions';
 import { mockRunesOutputsByAddressList } from '@tests/mocks/mock-runes';
 import { mockUtxos, mockUtxosListWithRunes } from '@tests/mocks/mock-utxos';
-
-import { filterUtxosWithInscriptions, filterUtxosWithRunes } from './utxos-by-address.hooks';
 
 describe(filterUtxosWithInscriptions, () => {
   test('that it filters out utxos with inscriptions so they are not spent', () => {

@@ -1,4 +1,5 @@
-import { useNativeSegwitBalance } from '@app/query/bitcoin/balance/btc-native-segwit-balance.hooks';
+import { useNativeSegwitBalance } from '@leather-wallet/query';
+
 import { useCurrentAccountNativeSegwitSigner } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
 
 export function useBtcCryptoCurrencyAssetBalance() {

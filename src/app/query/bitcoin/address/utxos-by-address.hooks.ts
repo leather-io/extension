@@ -2,8 +2,6 @@ import { useNativeSegwitUtxosByAddress } from '@leather-wallet/query';
 
 import { useCurrentAccountNativeSegwitIndexZeroSigner } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
 
-export { filterUtxosWithInscriptions, filterUtxosWithRunes } from '@leather-wallet/query';
-
 const defaultArgs = {
   filterInscriptionUtxos: true,
   filterPendingTxsUtxos: true,

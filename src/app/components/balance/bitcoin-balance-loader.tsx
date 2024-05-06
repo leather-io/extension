@@ -1,6 +1,6 @@
-import { BitcoinCryptoCurrencyAssetBalance } from '@shared/models/crypto-asset-balance.model';
+import { useNativeSegwitBalance } from '@leather-wallet/query';
 
-import { useNativeSegwitBalance } from '@app/query/bitcoin/balance/btc-native-segwit-balance.hooks';
+import { BitcoinCryptoCurrencyAssetBalance } from '@shared/models/crypto-asset-balance.model';
 
 interface BitcoinBalanceLoaderProps {
   address: string;

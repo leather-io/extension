@@ -1,4 +1,4 @@
-import { useGetBrc20TokensQuery } from '@leather-wallet/query';
+import { useAverageBitcoinFeeRates, useGetBrc20TokensQuery } from '@leather-wallet/query';
 import BigNumber from 'bignumber.js';
 
 import { createMarketData, createMarketPair } from '@shared/models/market.model';
@@ -15,7 +15,6 @@ import { useCurrentNetwork } from '@app/store/networks/networks.selectors';
 import { brc20TransferInitiated } from '@app/store/ordinals/ordinals.slice';
 
 import type { Brc20Token } from '../../bitcoin-client';
-import { useAverageBitcoinFeeRates } from '../../fees/fee-estimates.hooks';
 import { useOrdinalsbotClient } from '../../ordinalsbot-client';
 import {
   createBrc20TransferInscription,

@@ -1,5 +1,6 @@
 import { useCallback, useMemo } from 'react';
 
+import { useAverageBitcoinFeeRates } from '@leather-wallet/query';
 import * as btc from '@scure/btc-signer';
 
 import { extractAddressIndexFromPath } from '@shared/crypto/bitcoin/bitcoin.utils';
@@ -8,7 +9,6 @@ import { Money, createMoney } from '@shared/models/money.model';
 import { sumNumbers } from '@app/common/math/helpers';
 import { BtcSizeFeeEstimator } from '@app/common/transactions/bitcoin/fees/btc-size-fee-estimator';
 import { useCurrentTaprootAccountUninscribedUtxos } from '@app/query/bitcoin/balance/btc-taproot-balance.hooks';
-import { useAverageBitcoinFeeRates } from '@app/query/bitcoin/fees/fee-estimates.hooks';
 import { useNumberOfInscriptionsOnUtxo } from '@app/query/bitcoin/ordinals/inscriptions.hooks';
 import { useBitcoinScureLibNetworkConfig } from '@app/store/accounts/blockchain/bitcoin/bitcoin-keychain';
 import { useCurrentAccountTaprootSigner } from '@app/store/accounts/blockchain/bitcoin/taproot-account.hooks';
