@@ -1,14 +1,16 @@
+import { useGetBrc20TokensQuery } from '@leather-wallet/query';
 import BigNumber from 'bignumber.js';
 
 import { createMarketData, createMarketPair } from '@shared/models/market.model';
 import { type Money, createMoney } from '@shared/models/money.model';
 
 import { unitToFractionalUnit } from '@app/common/money/unit-conversion';
-import { useGetBrc20TokensQuery } from '@app/query/bitcoin/ordinals/brc20/brc20-tokens.query';
 import { useCalculateBitcoinFiatValue } from '@app/query/common/market-data/market-data.hooks';
 import { useConfigOrdinalsbot } from '@app/query/common/remote-config/remote-config.query';
 import { useAppDispatch } from '@app/store';
 import { useCurrentAccountIndex } from '@app/store/accounts/account';
+import { useCurrentAccountNativeSegwitIndexZeroSigner } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
+import { useCurrentAccountTaprootSigner } from '@app/store/accounts/blockchain/bitcoin/taproot-account.hooks';
 import { useCurrentNetwork } from '@app/store/networks/networks.selectors';
 import { brc20TransferInitiated } from '@app/store/ordinals/ordinals.slice';
 
@@ -106,7 +108,12 @@ function makeBrc20Token(priceAsFiat: Money, token: Brc20Token) {
 
 export function useBrc20Tokens() {
   const calculateBitcoinFiatValue = useCalculateBitcoinFiatValue();
-  const { data: allBrc20TokensResponse } = useGetBrc20TokensQuery();
+  const nativeSegwitSigner = useCurrentAccountNativeSegwitIndexZeroSigner();
+  const createTaprootSigner = useCurrentAccountTaprootSigner();
+  const { data: allBrc20TokensResponse } = useGetBrc20TokensQuery({
+    nativeSegwitAddress: nativeSegwitSigner.address,
+    createTaprootSigner,
+  });
 
   const tokens = allBrc20TokensResponse?.pages
     .flatMap(page => page.brc20Tokens)

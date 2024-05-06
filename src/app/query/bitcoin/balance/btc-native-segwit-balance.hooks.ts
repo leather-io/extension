@@ -1,27 +1,9 @@
-import { useMemo } from 'react';
+import { useGetBitcoinBalanceByAddress } from '@leather-wallet/query';
 
 import { useCurrentAccountNativeSegwitIndexZeroSigner } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
 
-import { createBitcoinCryptoCurrencyAssetTypeWrapper } from '../address/address.utils';
-import { useGetBitcoinBalanceByAddress } from './btc-balance.hooks';
-
 // Balance is derived from a single query in address reuse mode
-export function useNativeSegwitBalance(address: string) {
-  const { balance, isInitialLoading, isLoading, isFetching } =
-    useGetBitcoinBalanceByAddress(address);
-
-  const wrappedBalance = useMemo(
-    () => createBitcoinCryptoCurrencyAssetTypeWrapper(balance),
-    [balance]
-  );
-
-  return {
-    btcBalance: wrappedBalance,
-    isInitialLoading,
-    isLoading,
-    isFetching,
-  };
-}
+export { useNativeSegwitBalance } from '@leather-wallet/query';
 
 export function useCurrentNativeSegwitAddressBalance() {
   const nativeSegwitSigner = useCurrentAccountNativeSegwitIndexZeroSigner();

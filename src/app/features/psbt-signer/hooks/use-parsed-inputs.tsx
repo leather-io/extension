@@ -1,5 +1,6 @@
 import { useMemo } from 'react';
 
+import { useGetInscriptionsByOutputQueries } from '@leather-wallet/query';
 import * as btc from '@scure/btc-signer';
 import { bytesToHex } from '@stacks/common';
 
@@ -8,7 +9,6 @@ import { getBitcoinInputAddress, getBitcoinInputValue } from '@shared/crypto/bit
 import { Inscription } from '@shared/models/inscription.model';
 import { isDefined, isUndefined } from '@shared/utils';
 
-import { useGetInscriptionsByOutputQueries } from '@app/query/bitcoin/ordinals/inscriptions-by-param.query';
 import { useCurrentAccountNativeSegwitIndexZeroSigner } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
 import { useCurrentAccountTaprootIndexZeroSigner } from '@app/store/accounts/blockchain/bitcoin/taproot-account.hooks';
 import { useCurrentNetwork } from '@app/store/networks/networks.selectors';
