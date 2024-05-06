@@ -1,6 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 
 import { RpcErrorCode } from '@btckit/types';
+import { useBitcoinBroadcastTransaction } from '@leather-wallet/query';
 import { hexToBytes } from '@noble/hashes/utils';
 import { bytesToHex } from '@stacks/common';
 
@@ -16,7 +17,6 @@ import { SignPsbtArgs } from '@app/common/psbt/requests';
 import { useRpcSignPsbtParams } from '@app/common/psbt/use-psbt-request-params';
 import { usePsbtSigner } from '@app/features/psbt-signer/hooks/use-psbt-signer';
 import { useCurrentNativeSegwitUtxos } from '@app/query/bitcoin/address/utxos-by-address.hooks';
-import { useBitcoinBroadcastTransaction } from '@app/query/bitcoin/transaction/use-bitcoin-broadcast-transaction';
 import {
   useCalculateBitcoinFiatValue,
   useCryptoCurrencyMarketDataMeanAverage,

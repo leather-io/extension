@@ -1,7 +1,8 @@
 import { useEffect } from 'react';
 
+import { useStampsByAddress } from '@leather-wallet/query';
+
 import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
-import { useStampsByAddress } from '@app/query/bitcoin/stamps/stamps-by-address.hooks';
 import { useCurrentAccountNativeSegwitAddressIndexZero } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
 
 import { Stamp } from './stamp';

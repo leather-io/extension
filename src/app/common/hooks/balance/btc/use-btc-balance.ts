@@ -1,10 +1,12 @@
 import { useMemo } from 'react';
 
-import { useNativeSegwitBalance } from '@leather-wallet/query';
+import {
+  createBitcoinCryptoCurrencyAssetTypeWrapper,
+  useNativeSegwitBalance,
+} from '@leather-wallet/query';
 
 import { baseCurrencyAmountInQuote } from '@app/common/money/calculate-money';
 import { i18nFormatCurrency } from '@app/common/money/format-money';
-import { createBitcoinCryptoCurrencyAssetTypeWrapper } from '@app/query/bitcoin/address/address.utils';
 import { useCryptoCurrencyMarketDataMeanAverage } from '@app/query/common/market-data/market-data.hooks';
 
 export function useBtcAssetBalance(btcAddress: string) {

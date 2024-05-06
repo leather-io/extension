@@ -1,5 +1,6 @@
 import { useLocation, useNavigate } from 'react-router-dom';
 
+import { useBitcoinBroadcastTransaction } from '@leather-wallet/query';
 import { bytesToHex } from '@noble/hashes/utils';
 import { Box, Flex, Stack } from 'leather-styles/jsx';
 import get from 'lodash.get';
@@ -20,7 +21,6 @@ import { Header } from '@app/ui/components/containers/headers/header';
 import { Card } from '@app/ui/layout/card/card';
 
 import { InscriptionPreviewCard } from '../../../components/inscription-preview-card/inscription-preview-card';
-import { useBitcoinBroadcastTransaction } from '../../../query/bitcoin/transaction/use-bitcoin-broadcast-transaction';
 import { useSendInscriptionState } from './components/send-inscription-container';
 
 function useSendInscriptionReviewState() {

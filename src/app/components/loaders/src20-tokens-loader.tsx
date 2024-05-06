@@ -1,5 +1,4 @@
-import { useSrc20TokensByAddress } from '@app/query/bitcoin/stamps/stamps-by-address.hooks';
-import type { Src20Token } from '@app/query/bitcoin/stamps/stamps-by-address.query';
+import { type Src20Token, useSrc20TokensByAddress } from '@leather-wallet/query';
 
 interface Src20TokensLoaderProps {
   address: string;
