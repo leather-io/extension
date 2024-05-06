@@ -1,9 +1,8 @@
+import type { UtxoResponseItem } from '@leather-wallet/query';
 import BigNumber from 'bignumber.js';
 import { sha256 } from 'bitcoinjs-lib/src/crypto';
 
 import { createMoney } from '@shared/models/money.model';
-
-import { UtxoResponseItem } from '@app/query/bitcoin/bitcoin-client';
 
 import { filterUneconomicalUtxos } from '../utils';
 import { calculateMaxBitcoinSpend } from './calculate-max-bitcoin-spend';

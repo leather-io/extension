@@ -1,4 +1,4 @@
-import type { RuneToken } from '@app/query/bitcoin/bitcoin-client';
+import type { RuneToken } from '@leather-wallet/query';
 
 import { RunesAssetItemLayout } from './runes-asset-item.layout';
 

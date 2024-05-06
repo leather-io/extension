@@ -1,10 +1,10 @@
+import type { UtxoResponseItem } from '@leather-wallet/query';
 import BigNumber from 'bignumber.js';
 
 import { AverageBitcoinFeeRates } from '@shared/models/fees/bitcoin-fees.model';
 import { createMoney } from '@shared/models/money.model';
 
 import { satToBtc } from '@app/common/money/unit-conversion';
-import { UtxoResponseItem } from '@app/query/bitcoin/bitcoin-client';
 
 import { filterUneconomicalUtxos, getSpendableAmount } from '../utils';
 

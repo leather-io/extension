@@ -1,13 +1,13 @@
 import { useState } from 'react';
 import { Outlet, useLocation, useOutletContext } from 'react-router-dom';
 
+import type { UtxoWithDerivationPath } from '@leather-wallet/query';
 import get from 'lodash.get';
 
 import { AverageBitcoinFeeRates, BtcFeeType } from '@shared/models/fees/bitcoin-fees.model';
 import { SupportedInscription } from '@shared/models/inscription.model';
 
 import { useOnMount } from '@app/common/hooks/use-on-mount';
-import { UtxoWithDerivationPath } from '@app/query/bitcoin/bitcoin-client';
 import { useCurrentAccountIndex } from '@app/store/accounts/account';
 import { useCurrentNetwork } from '@app/store/networks/networks.selectors';
 

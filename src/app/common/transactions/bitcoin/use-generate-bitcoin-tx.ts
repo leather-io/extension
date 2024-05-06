@@ -1,5 +1,6 @@
 import { useCallback } from 'react';
 
+import type { UtxoResponseItem } from '@leather-wallet/query';
 import * as btc from '@scure/btc-signer';
 
 import { logger } from '@shared/logger';
@@ -10,7 +11,6 @@ import {
   determineUtxosForSpend,
   determineUtxosForSpendAll,
 } from '@app/common/transactions/bitcoin/coinselect/local-coin-selection';
-import { UtxoResponseItem } from '@app/query/bitcoin/bitcoin-client';
 import { useBitcoinScureLibNetworkConfig } from '@app/store/accounts/blockchain/bitcoin/bitcoin-keychain';
 import { useCurrentAccountNativeSegwitIndexZeroSigner } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
 

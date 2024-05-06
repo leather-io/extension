@@ -1,12 +1,11 @@
 import { useNavigate } from 'react-router-dom';
 
-import { useNativeSegwitBalance } from '@leather-wallet/query';
+import { type Brc20Token, useNativeSegwitBalance } from '@leather-wallet/query';
 import { CryptoAssetSelectors } from '@tests/selectors/crypto-asset.selectors';
 import { Stack } from 'leather-styles/jsx';
 
 import { RouteUrls } from '@shared/route-urls';
 
-import { Brc20Token } from '@app/query/bitcoin/bitcoin-client';
 import { useCurrentAccountNativeSegwitAddressIndexZero } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
 
 import { Brc20TokenAssetItemLayout } from './brc20-token-asset-item.layout';

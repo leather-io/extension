@@ -1,10 +1,10 @@
+import { type Brc20Token } from '@leather-wallet/query';
 import BigNumber from 'bignumber.js';
 import { styled } from 'leather-styles/jsx';
 
 import { convertAssetBalanceToFiat } from '@app/common/asset-utils';
 import { formatBalance } from '@app/common/format-balance';
 import { convertAmountToBaseUnit } from '@app/common/money/calculate-money';
-import { Brc20Token } from '@app/query/bitcoin/bitcoin-client';
 import { Brc20AvatarIcon } from '@app/ui/components/avatar/brc20-avatar-icon';
 import { ItemLayout } from '@app/ui/components/item-layout/item-layout';
 import { BasicTooltip } from '@app/ui/components/tooltip/basic-tooltip';

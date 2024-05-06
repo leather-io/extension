@@ -1,6 +1,4 @@
-import { useRuneTokens } from '@leather-wallet/query';
-
-import type { RuneToken } from '@app/query/bitcoin/bitcoin-client';
+import { type RuneToken, useRuneTokens } from '@leather-wallet/query';
 
 interface RunesLoaderProps {
   addresses: string[];

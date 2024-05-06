@@ -1,5 +1,6 @@
+import { Stamp as BitcoinStamp } from '@leather-wallet/query';
+
 import { openInNewTab } from '@app/common/utils/open-in-new-tab';
-import { Stamp as BitcoinStamp } from '@app/query/bitcoin/stamps/stamps-by-address.query';
 import { StampsAvatarIcon } from '@app/ui/components/avatar/stamps-avatar-icon';
 
 import { CollectibleImage } from '../_collectible-types/collectible-image';

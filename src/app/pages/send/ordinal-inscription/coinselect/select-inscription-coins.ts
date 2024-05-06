@@ -1,10 +1,11 @@
+import type { UtxoResponseItem, UtxoWithDerivationPath } from '@leather-wallet/query';
+
 import { BTC_P2WPKH_DUST_AMOUNT } from '@shared/constants';
 import { isDefined } from '@shared/utils';
 
 import { sumNumbers } from '@app/common/math/helpers';
 import { BtcSizeFeeEstimator } from '@app/common/transactions/bitcoin/fees/btc-size-fee-estimator';
 import { createCounter } from '@app/common/utils/counter';
-import { UtxoResponseItem, UtxoWithDerivationPath } from '@app/query/bitcoin/bitcoin-client';
 
 interface SelectInscriptionCoinSuccess {
   success: true;

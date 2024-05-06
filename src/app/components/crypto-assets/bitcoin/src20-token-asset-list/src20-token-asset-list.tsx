@@ -1,4 +1,4 @@
-import type { Src20Token } from '@app/query/bitcoin/stamps/stamps-by-address.query';
+import type { Src20Token } from '@leather-wallet/query';
 
 import { Src20TokenAssetItemLayout } from './src20-token-asset-item.layout';
 

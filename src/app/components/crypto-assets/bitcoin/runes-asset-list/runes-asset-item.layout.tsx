@@ -1,8 +1,8 @@
+import type { RuneToken } from '@leather-wallet/query';
 import { styled } from 'leather-styles/jsx';
 
 import { formatBalance } from '@app/common/format-balance';
 import { convertAmountToBaseUnit } from '@app/common/money/calculate-money';
-import type { RuneToken } from '@app/query/bitcoin/bitcoin-client';
 import { RunesAvatarIcon } from '@app/ui/components/avatar/runes-avatar-icon';
 import { ItemLayout } from '@app/ui/components/item-layout/item-layout';
 import { BasicTooltip } from '@app/ui/components/tooltip/basic-tooltip';

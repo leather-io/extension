@@ -1,6 +1,5 @@
-import { useBrc20Tokens } from '@leather-wallet/query';
+import { type Brc20Token, useBrc20Tokens } from '@leather-wallet/query';
 
-import { Brc20Token } from '@app/query/bitcoin/bitcoin-client';
 import { useCurrentAccountNativeSegwitIndexZeroSigner } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
 import { useCurrentAccountTaprootSigner } from '@app/store/accounts/blockchain/bitcoin/taproot-account.hooks';
 

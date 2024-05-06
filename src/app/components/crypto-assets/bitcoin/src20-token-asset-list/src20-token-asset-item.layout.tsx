@@ -1,9 +1,9 @@
+import type { Src20Token } from '@leather-wallet/query';
 import { styled } from 'leather-styles/jsx';
 
 import { createMoney } from '@shared/models/money.model';
 
 import { formatBalance } from '@app/common/format-balance';
-import type { Src20Token } from '@app/query/bitcoin/stamps/stamps-by-address.query';
 import { Src20AvatarIcon } from '@app/ui/components/avatar/src20-avatar-icon';
 import { ItemLayout } from '@app/ui/components/item-layout/item-layout';
 import { BasicTooltip } from '@app/ui/components/tooltip/basic-tooltip';
