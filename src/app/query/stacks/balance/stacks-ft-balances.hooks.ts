@@ -7,7 +7,11 @@ import type { StacksFungibleTokenAssetBalance } from '@shared/models/crypto-asse
 
 import { formatContractId } from '@app/common/utils';
 import { useToast } from '@app/features/toasts/use-toast';
-import { useAlexCurrencyPriceAsMarketData } from '@app/query/common/alex-sdk/alex-sdk.hooks';
+import {
+  type SwapAsset,
+  useAlexCurrencyPriceAsMarketData,
+  useAlexSwappableAssets,
+} from '@app/query/common/alex-sdk/alex-sdk.hooks';
 import { useCurrentStacksAccount } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
 
 import { useGetFungibleTokenMetadataListQuery } from '../tokens/fungible-tokens/fungible-token-metadata.query';
@@ -34,7 +38,7 @@ function useStacksFungibleTokenAssetBalances(address: string) {
   });
 }
 
-export function useStacksFungibleTokenAssetBalancesWithMetadata(address: string) {
+function useStacksFungibleTokenAssetBalancesWithMetadata(address: string) {
   const { data: initializedAssetBalances = [] } = useStacksFungibleTokenAssetBalances(address);
   const priceAsMarketData = useAlexCurrencyPriceAsMarketData();
 
@@ -89,4 +93,48 @@ export function useTransferableStacksFungibleTokenAssetBalances(
     () => assetBalances.filter(assetBalance => assetBalance.asset.canTransfer),
     [assetBalances]
   );
+}
+
+function filterStacksFungibleTokens(
+  assetBalances: StacksFungibleTokenAssetBalance[],
+  swapAssets: SwapAsset[],
+  filter: StacksFtTokensFilter
+) {
+  if (filter === 'supported') {
+    return assetBalances.filter(assetBalance =>
+      swapAssets.some(swapAsset => swapAsset.principal.includes(assetBalance.asset.contractAddress))
+    );
+  }
+
+  if (filter === 'unsupported') {
+    return assetBalances.filter(
+      assetBalance =>
+        !swapAssets.some(swapAsset =>
+          swapAsset.principal.includes(assetBalance.asset.contractAddress)
+        )
+    );
+  }
+
+  return assetBalances;
+}
+
+/**
+ * @see https://github.com/leather-wallet/issues/issues/16
+ */
+type StacksFtTokensFilter = 'all' | 'supported' | 'unsupported';
+
+interface useFilteredStacksFungibleTokenListArgs {
+  address: string;
+  filter?: StacksFtTokensFilter;
+}
+export function useFilteredStacksFungibleTokenList({
+  address,
+  filter = 'all',
+}: useFilteredStacksFungibleTokenListArgs) {
+  const stacksFtAssetBalances = useStacksFungibleTokenAssetBalancesWithMetadata(address);
+  const { data: swapAssets = [] } = useAlexSwappableAssets();
+
+  return useMemo(() => {
+    return filterStacksFungibleTokens(stacksFtAssetBalances, swapAssets, filter);
+  }, [stacksFtAssetBalances, swapAssets, filter]);
 }
