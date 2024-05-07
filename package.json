@@ -244,6 +244,7 @@
     "varuint-bitcoin": "1.1.2",
     "webextension-polyfill": "0.10.0",
     "yup": "1.3.3",
+    "zod": "3.23.6",
     "zxcvbn": "4.4.2"
   },
   "devDependencies": {
