@@ -1,6 +1,5 @@
-import { CryptoCurrencies } from '@shared/models/currencies.model';
+import { useCryptoCurrencyMarketDataMeanAverage } from '@leather-wallet/query';
 
-import { useCryptoCurrencyMarketDataMeanAverage } from '@app/query/common/market-data/market-data.hooks';
 import { StxAvatarIcon } from '@app/ui/components/avatar/stx-avatar-icon';
 
 import { AmountField } from '../../components/amount-field';
@@ -10,7 +9,7 @@ import { SendMaxButton } from '../../components/send-max-button';
 import { StacksCommonSendForm } from '../stacks/stacks-common-send-form';
 import { useStxSendForm } from './use-stx-send-form';
 
-const symbol: CryptoCurrencies = 'STX';
+const symbol = 'STX';
 
 export function StxSendForm() {
   const stxMarketData = useCryptoCurrencyMarketDataMeanAverage(symbol);

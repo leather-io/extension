@@ -1,5 +1,6 @@
 import { useCallback } from 'react';
 
+import { useCryptoCurrencyMarketDataMeanAverage } from '@leather-wallet/query';
 import { Flex, HStack, styled } from 'leather-styles/jsx';
 
 import { createMoneyFromDecimal } from '@shared/models/money.model';
@@ -8,7 +9,6 @@ import { useBitcoinExplorerLink } from '@app/common/hooks/use-bitcoin-explorer-l
 import { baseCurrencyAmountInQuote } from '@app/common/money/calculate-money';
 import { i18nFormatCurrency } from '@app/common/money/format-money';
 import { satToBtc } from '@app/common/money/unit-conversion';
-import { useCryptoCurrencyMarketDataMeanAverage } from '@app/query/common/market-data/market-data.hooks';
 import { Flag } from '@app/ui/components/flag/flag';
 import { Caption } from '@app/ui/components/typography/caption';
 import { BitcoinContractIcon } from '@app/ui/icons/bitcoin-contract-icon';

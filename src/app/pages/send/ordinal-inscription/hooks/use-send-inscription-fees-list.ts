@@ -1,6 +1,7 @@
 import { useCallback, useMemo } from 'react';
 
 import { type UtxoWithDerivationPath, useAverageBitcoinFeeRates } from '@leather-wallet/query';
+import { useCryptoCurrencyMarketDataMeanAverage } from '@leather-wallet/query';
 
 import { BtcFeeType, btcTxTimeMap } from '@shared/models/fees/bitcoin-fees.model';
 import type { SupportedInscription } from '@shared/models/inscription.model';
@@ -10,7 +11,6 @@ import { baseCurrencyAmountInQuote } from '@app/common/money/calculate-money';
 import { formatMoneyPadded, i18nFormatCurrency } from '@app/common/money/format-money';
 import { FeesListItem } from '@app/components/bitcoin-fees-list/bitcoin-fees-list';
 import { useCurrentNativeSegwitUtxos } from '@app/query/bitcoin/address/utxos-by-address.hooks';
-import { useCryptoCurrencyMarketDataMeanAverage } from '@app/query/common/market-data/market-data.hooks';
 import { useCurrentAccountNativeSegwitSigner } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
 
 import { useGenerateUnsignedOrdinalTx } from './use-generate-ordinal-tx';

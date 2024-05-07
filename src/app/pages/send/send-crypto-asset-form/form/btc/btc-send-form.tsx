@@ -1,6 +1,7 @@
 import { Outlet } from 'react-router-dom';
 
 import { useNativeSegwitBalance } from '@leather-wallet/query';
+import { useCryptoCurrencyMarketDataMeanAverage } from '@leather-wallet/query';
 import { SendCryptoAssetSelectors } from '@tests/selectors/send.selectors';
 import { Form, Formik } from 'formik';
 import { Box } from 'leather-styles/jsx';
@@ -10,7 +11,6 @@ import { CryptoCurrencies } from '@shared/models/currencies.model';
 
 import { formatMoney } from '@app/common/money/format-money';
 import { HighFeeDialog } from '@app/features/dialogs/high-fee-dialog/high-fee-dialog';
-import { useCryptoCurrencyMarketDataMeanAverage } from '@app/query/common/market-data/market-data.hooks';
 import { useCurrentAccountNativeSegwitIndexZeroSigner } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
 import { BtcAvatarIcon } from '@app/ui/components/avatar/btc-avatar-icon';
 import { Button } from '@app/ui/components/button/button';
@@ -34,7 +34,8 @@ const symbol: CryptoCurrencies = 'BTC';
 
 export function BtcSendForm() {
   const routeState = useSendFormRouteState();
-  const btcMarketData = useCryptoCurrencyMarketDataMeanAverage(symbol);
+  // TODO: unsafe type assumption
+  const btcMarketData = useCryptoCurrencyMarketDataMeanAverage(symbol as 'BTC' | 'STX');
 
   const nativeSegwitSigner = useCurrentAccountNativeSegwitIndexZeroSigner();
   const { btcBalance } = useNativeSegwitBalance(nativeSegwitSigner.address);

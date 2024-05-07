@@ -1,11 +1,12 @@
 import { useMemo } from 'react';
 
+import { useCryptoCurrencyMarketDataMeanAverage } from '@leather-wallet/query';
+
 import { createMoney } from '@shared/models/money.model';
 import { isDefined } from '@shared/utils';
 
 import { baseCurrencyAmountInQuote, subtractMoney } from '@app/common/money/calculate-money';
 import { i18nFormatCurrency } from '@app/common/money/format-money';
-import { useCryptoCurrencyMarketDataMeanAverage } from '@app/query/common/market-data/market-data.hooks';
 import { createStacksCryptoCurrencyAssetTypeWrapper } from '@app/query/stacks/balance/stacks-ft-balances.utils';
 import { useCurrentStacksAccountBalances } from '@app/query/stacks/balance/stx-balance.hooks';
 import { useCurrentAccountMempoolTransactionsBalance } from '@app/query/stacks/mempool/mempool.hooks';

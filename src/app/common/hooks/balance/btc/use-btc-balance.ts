@@ -2,12 +2,12 @@ import { useMemo } from 'react';
 
 import {
   createBitcoinCryptoCurrencyAssetTypeWrapper,
+  useCryptoCurrencyMarketDataMeanAverage,
   useNativeSegwitBalance,
 } from '@leather-wallet/query';
 
 import { baseCurrencyAmountInQuote } from '@app/common/money/calculate-money';
 import { i18nFormatCurrency } from '@app/common/money/format-money';
-import { useCryptoCurrencyMarketDataMeanAverage } from '@app/query/common/market-data/market-data.hooks';
 
 export function useBtcAssetBalance(btcAddress: string) {
   const btcMarketData = useCryptoCurrencyMarketDataMeanAverage('BTC');

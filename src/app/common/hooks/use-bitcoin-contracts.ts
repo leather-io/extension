@@ -2,7 +2,11 @@ import { useNavigate } from 'react-router-dom';
 
 import { RpcErrorCode } from '@btckit/types';
 import { JsDLCInterface } from '@dlc-link/dlc-tools';
-import { sendAcceptedBitcoinContractOfferToProtocolWallet } from '@leather-wallet/query';
+import {
+  sendAcceptedBitcoinContractOfferToProtocolWallet,
+  useCalculateBitcoinFiatValue,
+  useCryptoCurrencyMarketDataMeanAverage,
+} from '@leather-wallet/query';
 import { bytesToHex } from '@stacks/common';
 
 import {
@@ -14,10 +18,6 @@ import { RouteUrls } from '@shared/route-urls';
 import { BitcoinContractResponseStatus } from '@shared/rpc/methods/accept-bitcoin-contract';
 import { makeRpcErrorResponse, makeRpcSuccessResponse } from '@shared/rpc/rpc-methods';
 
-import {
-  useCalculateBitcoinFiatValue,
-  useCryptoCurrencyMarketDataMeanAverage,
-} from '@app/query/common/market-data/market-data.hooks';
 import { useCurrentAccountIndex } from '@app/store/accounts/account';
 import {
   useCurrentAccountNativeSegwitIndexZeroSigner,
