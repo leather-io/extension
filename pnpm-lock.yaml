@@ -3718,12 +3718,6 @@ packages:
       tar-fs: 2.1.1
     dev: true
 
-  /@noble/curves@1.2.0:
-    resolution: {integrity: sha512-oYclrNgRaM9SsBUBVbb8M6DTV7ZHRTKugureoYEncY5c65HOmRzvSiTE3y5CYaPYJA/GVkrhXEoF0M3Ya9PMnw==}
-    dependencies:
-      '@noble/hashes': 1.3.2
-    dev: false
-
   /@noble/curves@1.3.0:
     resolution: {integrity: sha512-t01iSXPuN+Eqzb4eBX0S5oubSqXbK/xXa1Ne18Hj8f9pStxztHCE2gfboSp/dZRLSqfuLpRK2nDXDK+W9puocA==}
     dependencies:
@@ -5913,15 +5907,6 @@ packages:
     dependencies:
       '@noble/hashes': 1.4.0
       '@scure/base': 1.1.6
-    dev: false
-
-  /@scure/btc-signer@1.1.0:
-    resolution: {integrity: sha512-kCX7WaaTJr0VZIXDvaY0wNZfzZoZuLnPz4G0qmKXN8bnNx5M86wb1cce9XrZcfzb0jrVAbZJqNpxmE1e7Ka2hA==}
-    dependencies:
-      '@noble/curves': 1.2.0
-      '@noble/hashes': 1.3.2
-      '@scure/base': 1.1.5
-      micro-packed: 0.3.2
     dev: false
 
   /@scure/btc-signer@1.2.1:
@@ -24772,6 +24757,10 @@ packages:
       jszip: 3.10.1
     dev: true
 
+  /zod@3.23.6:
+    resolution: {integrity: sha512-RTHJlZhsRbuA8Hmp/iNL7jnfc4nZishjsanDAfEY1QpDQZCahUp3xDzl+zfweE9BklxMUcgBgS1b7Lvie/ZVwA==}
+    dev: false
+
   /zone-file@2.0.0-beta.3:
     resolution: {integrity: sha512-6tE3PSRcpN5lbTTLlkLez40WkNPc9vw/u1J2j6DBiy0jcVX48nCkWrx2EC+bWHqC2SLp069Xw4AdnYn/qp/W5g==}
     engines: {node: '>=10'}
@@ -24841,7 +24830,7 @@ packages:
       '@noble/hashes': 1.3.3
       '@scure/base': 1.1.3
       '@scure/bip32': 1.3.3
-      '@scure/btc-signer': 1.1.0
+      '@scure/btc-signer': 1.2.1
       '@stacks/common': 6.8.1
       '@stacks/rpc-client': 0.8.18
       '@stacks/stacks-blockchain-api-types': 7.8.2
@@ -24856,6 +24845,7 @@ packages:
       react: 18.2.0
       url-join: 5.0.0
       yup: 1.3.3
+      zod: 3.23.6
     transitivePeerDependencies:
       - debug
       - encoding
