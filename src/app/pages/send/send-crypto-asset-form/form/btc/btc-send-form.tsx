@@ -1,7 +1,9 @@
 import { Outlet } from 'react-router-dom';
 
-import { useNativeSegwitBalance } from '@leather-wallet/query';
-import { useCryptoCurrencyMarketDataMeanAverage } from '@leather-wallet/query';
+import {
+  useCryptoCurrencyMarketDataMeanAverage,
+  useNativeSegwitBalance,
+} from '@leather-wallet/query';
 import { SendCryptoAssetSelectors } from '@tests/selectors/send.selectors';
 import { Form, Formik } from 'formik';
 import { Box } from 'leather-styles/jsx';

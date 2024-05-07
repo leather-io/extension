@@ -1,7 +1,10 @@
 import { useCallback, useMemo } from 'react';
 
-import { type UtxoWithDerivationPath, useAverageBitcoinFeeRates } from '@leather-wallet/query';
-import { useCryptoCurrencyMarketDataMeanAverage } from '@leather-wallet/query';
+import {
+  type UtxoWithDerivationPath,
+  useAverageBitcoinFeeRates,
+  useCryptoCurrencyMarketDataMeanAverage,
+} from '@leather-wallet/query';
 
 import { BtcFeeType, btcTxTimeMap } from '@shared/models/fees/bitcoin-fees.model';
 import type { SupportedInscription } from '@shared/models/inscription.model';
