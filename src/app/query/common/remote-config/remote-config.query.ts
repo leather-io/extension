@@ -4,7 +4,6 @@ import { useWalletType } from '@app/common/use-wallet-type';
 import { useHasCurrentBitcoinAccount } from '@app/store/accounts/blockchain/bitcoin/bitcoin.hooks';
 
 export {
-  useRemoteConfig,
   HiroMessage,
   AvailableRegions,
   ActiveFiatProvider,
@@ -17,7 +16,6 @@ export {
   useConfigFeeEstimationsMinEnabled,
   useConfigFeeEstimationsMinValues,
   useConfigNftMetadataEnabled,
-  useConfigOrdinalsbot,
   useConfigRunesEnabled,
 } from '@leather-wallet/query';
 
