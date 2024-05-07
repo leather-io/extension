@@ -1,9 +1,9 @@
+import { useInscriptionTextContentQuery } from '@leather-wallet/query';
 import { sanitize } from 'dompurify';
 import { Box } from 'leather-styles/jsx';
 
 import { parseJson } from '@app/components/json';
 import { LoadingSpinner } from '@app/components/loading-spinner';
-import { useInscriptionTextContentQuery } from '@app/query/bitcoin/ordinals/inscription-text-content.query';
 
 interface InscriptionTextProps {
   contentSrc: string;

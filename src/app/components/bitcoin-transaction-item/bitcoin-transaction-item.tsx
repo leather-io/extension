@@ -1,7 +1,11 @@
 import { useMemo } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 
-import { useGetInscriptionsByOutputQuery } from '@leather-wallet/query';
+import {
+  convertInscriptionToSupportedInscriptionType,
+  createInscriptionInfoUrl,
+  useGetInscriptionsByOutputQuery,
+} from '@leather-wallet/query';
 import { HStack } from 'leather-styles/jsx';
 
 import { BitcoinTx } from '@shared/models/transactions/bitcoin-transaction.model';
@@ -18,10 +22,6 @@ import {
 import { openInNewTab } from '@app/common/utils/open-in-new-tab';
 import { IncreaseFeeButton } from '@app/components/stacks-transaction-item/increase-fee-button';
 import { TransactionTitle } from '@app/components/transaction/transaction-title';
-import {
-  convertInscriptionToSupportedInscriptionType,
-  createInscriptionInfoUrl,
-} from '@app/query/bitcoin/ordinals/inscription.hooks';
 import { useCurrentAccountNativeSegwitAddressIndexZero } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
 import { BtcAvatarIcon } from '@app/ui/components/avatar/btc-avatar-icon';
 import { BulletSeparator } from '@app/ui/components/bullet-separator/bullet-separator';

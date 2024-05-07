@@ -1,11 +1,12 @@
 import { useLocation, useNavigate } from 'react-router-dom';
 
+import { convertInscriptionToSupportedInscriptionType } from '@leather-wallet/query';
+
 import { ORD_IO_URL } from '@shared/constants';
 import { Inscription as InscriptionType } from '@shared/models/inscription.model';
 import { RouteUrls } from '@shared/route-urls';
 
 import { openInNewTab } from '@app/common/utils/open-in-new-tab';
-import { convertInscriptionToSupportedInscriptionType } from '@app/query/bitcoin/ordinals/inscription.hooks';
 import { OrdinalAvatarIcon } from '@app/ui/components/avatar/ordinal-avatar-icon';
 
 import { CollectibleAudio } from '../_collectible-types/collectible-audio';

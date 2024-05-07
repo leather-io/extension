@@ -1,10 +1,12 @@
 import { useEffect } from 'react';
 import { useInView } from 'react-intersection-observer';
 
+import { useGetInscriptionsInfiniteQuery } from '@leather-wallet/query';
 import { Box } from 'leather-styles/jsx';
 
 import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
-import { useGetInscriptionsInfiniteQuery } from '@app/query/bitcoin/ordinals/inscriptions.query';
+import { useCurrentAccountNativeSegwitIndexZeroSigner } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
+import { useCurrentTaprootAccount } from '@app/store/accounts/blockchain/bitcoin/taproot-account.hooks';
 
 import { Inscription } from './inscription';
 
@@ -12,7 +14,13 @@ interface OrdinalsProps {
   setIsLoadingMore(isLoading: boolean): void;
 }
 export function Ordinals({ setIsLoadingMore }: OrdinalsProps) {
-  const query = useGetInscriptionsInfiniteQuery();
+  const account = useCurrentTaprootAccount();
+  const nativeSegwitSigner = useCurrentAccountNativeSegwitIndexZeroSigner();
+
+  const query = useGetInscriptionsInfiniteQuery({
+    taprootKeychain: account?.keychain,
+    nativeSegwitAddress: nativeSegwitSigner.address,
+  });
   const pages = query.data?.pages;
   const analytics = useAnalytics();
   const { ref: intersectionSentinel, inView } = useInView({

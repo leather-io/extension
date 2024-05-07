@@ -1,6 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 
 import {
+  convertInscriptionToSupportedInscriptionType,
   fetchInscripionById,
   useNativeSegwitBalance,
   useOrdinalsbotClient,
@@ -14,7 +15,6 @@ import { usePressable } from '@app/components/item-hover';
 import { StatusPending } from '@app/components/status-pending';
 import { StatusReady } from '@app/components/status-ready';
 import { useCheckOrderStatuses } from '@app/query/bitcoin/ordinals/brc20/use-check-order-status';
-import { convertInscriptionToSupportedInscriptionType } from '@app/query/bitcoin/ordinals/inscription.hooks';
 import { useCurrentAccountNativeSegwitAddressIndexZero } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
 import {
   OrdinalsbotInscriptionStatus,
