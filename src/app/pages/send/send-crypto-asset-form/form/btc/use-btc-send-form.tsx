@@ -24,7 +24,7 @@ import {
 } from '@app/common/validation/forms/currency-validators';
 import { useUpdatePersistedSendFormValues } from '@app/features/popup-send-form-restoration/use-update-persisted-send-form-values';
 import { useCurrentNativeSegwitUtxos } from '@app/query/bitcoin/address/utxos-by-address.hooks';
-import { useNativeSegwitBalance } from '@app/query/bitcoin/balance/btc-native-segwit-balance.hooks';
+import { useCurrentNativeSegwitAvailableBalance } from '@app/query/bitcoin/balance/btc-native-segwit-balance.hooks';
 import { useCurrentAccountNativeSegwitIndexZeroSigner } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
 import { useCurrentNetwork } from '@app/store/networks/networks.selectors';
 
@@ -37,9 +37,7 @@ export function useBtcSendForm() {
   const currentNetwork = useCurrentNetwork();
   const nativeSegwitSigner = useCurrentAccountNativeSegwitIndexZeroSigner();
   const { data: utxos = [], refetch } = useCurrentNativeSegwitUtxos();
-  const { btcBalance: btcCryptoCurrencyAssetBalance } = useNativeSegwitBalance(
-    nativeSegwitSigner.address
-  );
+  const { balance } = useCurrentNativeSegwitAvailableBalance();
   const sendFormNavigate = useSendFormNavigate();
   const calcMaxSpend = useCalculateMaxBitcoinSpend();
   const { onFormStateChange } = useUpdatePersistedSendFormValues();
@@ -61,9 +59,7 @@ export function useBtcSendForm() {
       amount: yup
         .number()
         .concat(btcMinimumSpendValidator())
-        .concat(
-          btcAmountPrecisionValidator(formatPrecisionError(btcCryptoCurrencyAssetBalance.balance))
-        )
+        .concat(btcAmountPrecisionValidator(formatPrecisionError(balance)))
         .concat(currencyAmountValidator())
         .concat(
           btcInsufficientBalanceValidator({
