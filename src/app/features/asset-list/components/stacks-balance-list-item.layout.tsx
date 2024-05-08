@@ -4,7 +4,7 @@ import type { StacksCryptoCurrencyAssetBalance } from '@shared/models/crypto-ass
 import type { Money } from '@shared/models/money.model';
 
 import { ftDecimals } from '@app/common/stacks-utils';
-import { CryptoCurrencyAssetItemLayout } from '@app/components/crypto-assets/crypto-currency-asset/crypto-currency-asset-item.layout';
+import { CryptoAssetItemLayout } from '@app/components/crypto-assets/crypto-asset-item/crypto-asset-item.layout';
 import { StxAvatarIcon } from '@app/ui/components/avatar/stx-avatar-icon';
 import { BulletOperator } from '@app/ui/components/bullet-separator/bullet-separator';
 import { Caption } from '@app/ui/components/typography/caption';
@@ -39,7 +39,7 @@ export function StacksBalanceListItemLayout(props: StacksBalanceListItemLayoutPr
   ) : undefined;
 
   return (
-    <CryptoCurrencyAssetItemLayout
+    <CryptoAssetItemLayout
       assetBalance={stxEffectiveBalance}
       usdBalance={stxEffectiveUsdBalance}
       address={address}

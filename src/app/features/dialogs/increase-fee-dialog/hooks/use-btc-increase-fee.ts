@@ -11,7 +11,6 @@ import { RouteUrls } from '@shared/route-urls';
 import { isError } from '@shared/utils';
 
 import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
-import { useBtcAssetBalance } from '@app/common/hooks/balance/btc/use-btc-balance';
 import { btcToSat } from '@app/common/money/unit-conversion';
 import { queryClient } from '@app/common/persistence';
 import {
@@ -23,6 +22,7 @@ import { MAX_FEE_RATE_MULTIPLIER } from '@app/components/bitcoin-custom-fee/hook
 import { useBitcoinFeesList } from '@app/components/bitcoin-fees-list/use-bitcoin-fees-list';
 import { useToast } from '@app/features/toasts/use-toast';
 import { useCurrentNativeSegwitUtxos } from '@app/query/bitcoin/address/utxos-by-address.hooks';
+import { useNativeSegwitBtcCryptoAssetBalance } from '@app/query/bitcoin/balance/btc-native-segwit-balance.hooks';
 import { useBitcoinBroadcastTransaction } from '@app/query/bitcoin/transaction/use-bitcoin-broadcast-transaction';
 import { useBitcoinScureLibNetworkConfig } from '@app/store/accounts/blockchain/bitcoin/bitcoin-keychain';
 import { useSignBitcoinTx } from '@app/store/accounts/blockchain/bitcoin/bitcoin.hooks';
@@ -51,7 +51,7 @@ export function useBtcIncreaseFee(btcTx: BitcoinTx) {
     [btcTx.vin.length, btcTx.vout.length, recipient]
   );
 
-  const { btcAvailableAssetBalance } = useBtcAssetBalance(currentBitcoinAddress);
+  const { btcCryptoAssetBalance } = useNativeSegwitBtcCryptoAssetBalance(currentBitcoinAddress);
   const sendingAmount = getBitcoinTxValue(currentBitcoinAddress, btcTx);
   const { feesList } = useBitcoinFeesList({
     amount: createMoney(btcToSat(sendingAmount), 'BTC'),
@@ -163,7 +163,7 @@ export function useBtcIncreaseFee(btcTx: BitcoinTx) {
           }
 
           // check if fee is higher than the available balance
-          return bnValue.isLessThanOrEqualTo(btcAvailableAssetBalance.balance.amount);
+          return bnValue.isLessThanOrEqualTo(btcCryptoAssetBalance.availableBalance.amount);
         },
       }),
   });

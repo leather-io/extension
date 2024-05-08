@@ -4,16 +4,14 @@ import { createMoney } from '@shared/models/money.model';
 
 import { baseCurrencyAmountInQuote } from '@app/common/money/calculate-money';
 import { i18nFormatCurrency } from '@app/common/money/format-money';
+import { useNativeSegwitBtcCryptoAssetBalance } from '@app/query/bitcoin/balance/btc-native-segwit-balance.hooks';
 import { useCryptoCurrencyMarketDataMeanAverage } from '@app/query/common/market-data/market-data.hooks';
 import { useStacksAccountBalances } from '@app/query/stacks/balance/stx-balance.hooks';
-
-import { useBtcAssetBalance } from './btc/use-btc-balance';
 
 interface UseTotalBalanceArgs {
   btcAddress: string;
   stxAddress: string;
 }
-
 export function useTotalBalance({ btcAddress, stxAddress }: UseTotalBalanceArgs) {
   // get market data
   const btcMarketData = useCryptoCurrencyMarketDataMeanAverage('BTC');
@@ -30,16 +28,19 @@ export function useTotalBalance({ btcAddress, stxAddress }: UseTotalBalanceArgs)
 
   // get btc balance
   const {
-    btcAvailableAssetBalance,
+    btcCryptoAssetBalance,
     isLoading: isLoadingBtcBalance,
     isFetching: isFetchingBtcBalance,
     isInitialLoading: isInititalLoadingBtcBalance,
-  } = useBtcAssetBalance(btcAddress);
+  } = useNativeSegwitBtcCryptoAssetBalance(btcAddress);
 
   return useMemo(() => {
     // calculate total balance
     const stxUsdAmount = baseCurrencyAmountInQuote(stxBalance, stxMarketData);
-    const btcUsdAmount = baseCurrencyAmountInQuote(btcAvailableAssetBalance.balance, btcMarketData);
+    const btcUsdAmount = baseCurrencyAmountInQuote(
+      btcCryptoAssetBalance.availableBalance,
+      btcMarketData
+    );
 
     const totalBalance = { ...stxUsdAmount, amount: stxUsdAmount.amount.plus(btcUsdAmount.amount) };
     return {
@@ -53,14 +54,14 @@ export function useTotalBalance({ btcAddress, stxAddress }: UseTotalBalanceArgs)
       isFetching: isFetchingStacksBalance || isFetchingBtcBalance,
     };
   }, [
-    btcAvailableAssetBalance.balance,
-    btcMarketData,
-    isInitialLoading,
-    isInititalLoadingBtcBalance,
-    stxMarketData,
     stxBalance,
+    stxMarketData,
+    btcCryptoAssetBalance.availableBalance,
+    btcMarketData,
     isLoading,
     isLoadingBtcBalance,
+    isInitialLoading,
+    isInititalLoadingBtcBalance,
     isFetchingStacksBalance,
     isFetchingBtcBalance,
   ]);

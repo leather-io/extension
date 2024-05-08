@@ -6,12 +6,12 @@ import { StacksFungibleTokenAsset } from '@shared/models/crypto-asset.model';
 
 import { useWalletType } from '@app/common/use-wallet-type';
 import { BitcoinNativeSegwitAccountLoader } from '@app/components/account/bitcoin-account-loader';
-import { BitcoinBalanceLoader } from '@app/components/balance/bitcoin-balance-loader';
 import { Brc20TokenAssetList } from '@app/components/crypto-assets/bitcoin/brc20-token-asset-list/brc20-token-asset-list';
 import { Brc20TokensLoader } from '@app/components/loaders/brc20-tokens-loader';
+import { BtcBalanceLoader } from '@app/components/loaders/btc-balance-loader';
 import { BtcAvatarIcon } from '@app/ui/components/avatar/btc-avatar-icon';
 
-import { CryptoCurrencyAssetItemLayout } from '../crypto-currency-asset/crypto-currency-asset-item.layout';
+import { CryptoAssetItemLayout } from '../crypto-asset-item/crypto-asset-item.layout';
 import { CryptoAssetListItem } from './crypto-asset-list-item';
 
 interface CryptoAssetListProps {
@@ -30,16 +30,16 @@ export function CryptoAssetList({
     <Stack data-testid={CryptoAssetSelectors.CryptoAssetList} width="100%" px="space.03">
       <BitcoinNativeSegwitAccountLoader current>
         {signer => (
-          <BitcoinBalanceLoader address={signer.address}>
+          <BtcBalanceLoader address={signer.address}>
             {(balance, isLoading) => (
-              <CryptoCurrencyAssetItemLayout
+              <CryptoAssetItemLayout
                 assetBalance={balance}
                 icon={<BtcAvatarIcon />}
                 onClick={() => onItemClick(balance)}
                 isLoading={isLoading}
               />
             )}
-          </BitcoinBalanceLoader>
+          </BtcBalanceLoader>
         )}
       </BitcoinNativeSegwitAccountLoader>
       {cryptoAssetBalances.map(cryptoAssetBalance => (

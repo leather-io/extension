@@ -2,8 +2,8 @@ import { Suspense } from 'react';
 
 import { Box, HStack } from 'leather-styles/jsx';
 
-import { BtcBalance } from '@app/components/balance-btc';
-import { StxBalance } from '@app/components/balance-stx';
+import { BtcBalance } from '@app/components/balance/btc-balance';
+import { StxBalance } from '@app/components/balance/stx-balance';
 import { LoadingRectangle } from '@app/components/loading-rectangle';
 import { useConfigBitcoinEnabled } from '@app/query/common/remote-config/remote-config.query';
 import { useCurrentStacksAccount } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
