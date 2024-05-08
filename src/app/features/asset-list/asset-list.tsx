@@ -109,7 +109,7 @@ export function AssetsList() {
         )}
       </BitcoinNativeSegwitAccountLoader>
 
-      <CurrentStacksAccountLoader fallback={<AddStacksLedgerKeysItem />}>
+      <CurrentStacksAccountLoader>
         {account => <StacksUnsupportedTokenAssetList address={account.address} />}
       </CurrentStacksAccountLoader>
       <PendingBrc20TransferList />
