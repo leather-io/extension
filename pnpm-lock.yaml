@@ -30,8 +30,8 @@ dependencies:
     specifier: 1.2.0
     version: 1.2.0
   '@leather-wallet/query':
-    specifier: 0.3.0
-    version: 0.3.0(react-dom@18.2.0)(react@18.2.0)
+    specifier: 0.4.0
+    version: 0.4.0(react-dom@18.2.0)(react@18.2.0)
   '@leather-wallet/tokens':
     specifier: 0.0.14
     version: 0.0.14
@@ -3762,12 +3762,13 @@ packages:
       '@jridgewell/sourcemap-codec': 1.4.15
     dev: true
 
-  /@leather-wallet/bitcoin@0.3.0:
-    resolution: {integrity: sha512-8KXTzJ0ueilsC7EjayHXq3ChkRYXKRwN6YL8Ct5NUYxao/0qsIa7umnyXyM0gUWYVI9QPSjs99UGiHuO3KCfHA==}
+  /@leather-wallet/bitcoin@0.4.0:
+    resolution: {integrity: sha512-zcflIUVy6wCpRRO89oAe9wKTI70JNTv9N1lta+ChdRZyEa9OV0Sv0eCQPUcBpox50VerwOfjIkWu36Vp9enZpg==}
     dependencies:
       '@bitcoinerlab/secp256k1': 1.0.2
-      '@leather-wallet/constants': 0.3.0
-      '@leather-wallet/utils': 0.3.0
+      '@leather-wallet/constants': 0.4.0
+      '@leather-wallet/models': 0.4.0
+      '@leather-wallet/utils': 0.4.0
       '@noble/hashes': 1.3.3
       '@noble/secp256k1': 2.0.0
       '@scure/base': 1.1.3
@@ -3784,20 +3785,13 @@ packages:
       - encoding
     dev: false
 
-  /@leather-wallet/constants@0.3.0:
-    resolution: {integrity: sha512-3Qh5lDd3QXdu5CdiO8o8XHygPY5abM58ZDKrgvccFsqgndG8XlTq3rgzcaG5PGAKAzbk44nj/34QM6gFnJ50gg==}
-    dependencies:
-      '@leather-wallet/models': 0.3.0
-      '@stacks/transactions': 6.9.0
-    transitivePeerDependencies:
-      - encoding
+  /@leather-wallet/constants@0.4.0:
+    resolution: {integrity: sha512-UuqqbmgskpMTq/VWCf0pcp0iZ8HbsI4QYt8a7yJs1i11jEEhB4BctXEcuj8ZbJHXidoi7ZMzJIlc6E2M6vWcJA==}
     dev: false
 
-  /@leather-wallet/models@0.3.0:
-    resolution: {integrity: sha512-2rS8vCIPcSea5nJRZhfvaj8X0GhxUvdMsXonNCL8mJC9AAewl7FUnqODhNZe8EAyVd/AQTrtl6CHQpO6tRaziA==}
+  /@leather-wallet/models@0.4.0:
+    resolution: {integrity: sha512-6uwhdJxEhIpCI/29TPQIXAzfcz4niVIIujkGuwRFSyUiT/E8IEvjM30A3p9pMtEPCzO2UnpVERGLiLSIk48fgg==}
     dependencies:
-      '@leather-wallet/types': 0.2.1
-      '@stacks/stacks-blockchain-api-types': 7.8.2
       bignumber.js: 9.1.2
     dev: false
 
@@ -3811,15 +3805,16 @@ packages:
       - supports-color
     dev: true
 
-  /@leather-wallet/query@0.3.0(react-dom@18.2.0)(react@18.2.0):
-    resolution: {integrity: sha512-tecSeq2s77/94ai8lw2I93cBYMOwmft7r2uHyX5a5pSs4NTVLFsNrE0RAb7l2wmT6RxYrm03K09+3Hv+4qqp3g==}
+  /@leather-wallet/query@0.4.0(react-dom@18.2.0)(react@18.2.0):
+    resolution: {integrity: sha512-NN26McHOB3o5dgCV4dTWoIb3WyQBq+8Wp+U46GPM8nsAD/MPIU6HkjVQSzAk+V7Lp+vI8HG7IKE6IbQ5ZgEnaA==}
     peerDependencies:
       react: '*'
     dependencies:
-      '@leather-wallet/bitcoin': 0.3.0
-      '@leather-wallet/constants': 0.3.0
-      '@leather-wallet/models': 0.3.0
-      '@leather-wallet/utils': 0.3.0
+      '@leather-wallet/bitcoin': 0.4.0
+      '@leather-wallet/constants': 0.4.0
+      '@leather-wallet/models': 0.4.0
+      '@leather-wallet/rpc': 0.3.0
+      '@leather-wallet/utils': 0.4.0
       '@noble/hashes': 1.3.3
       '@scure/base': 1.1.3
       '@scure/bip32': 1.3.3
@@ -3846,6 +3841,12 @@ packages:
       - react-native
     dev: false
 
+  /@leather-wallet/rpc@0.3.0:
+    resolution: {integrity: sha512-jRexusk82Bax0CMIC9T2ApvnxA5rvd1yWjRyOxeImHdfQUK140MMij/Za8OcC8TYcFGMZbm3DEK1Xh9/NY6oIg==}
+    dependencies:
+      '@leather-wallet/models': 0.4.0
+    dev: false
+
   /@leather-wallet/tokens@0.0.14:
     resolution: {integrity: sha512-xCg+aIcn8DexmQhfvxYM85IGP2Q1JNfUBq80ZwV4horKw18MxxTdX5FeEthTrO8quRZu7up+IW6m/l3wElnDsA==}
     dev: false
@@ -3863,18 +3864,13 @@ packages:
       - typescript
     dev: true
 
-  /@leather-wallet/types@0.2.1:
-    resolution: {integrity: sha512-laDMf8TYwAY7ExH5v1g9Kbd+wu0W1FnKSDDOgSazFcKC+6U5e2MRTzIZXiEHtJ7LvSADqEAmSrkm2gKMhZ00XA==}
-    dev: false
-
-  /@leather-wallet/utils@0.3.0:
-    resolution: {integrity: sha512-zk9OHN2ukY1fYYEeTSMTmETxr4esmmuXaXwy3ATCv5rbnkzf98trV91e1RbbuSnew3ggqLv7KDPlYvDokd6P3Q==}
+  /@leather-wallet/utils@0.4.0:
+    resolution: {integrity: sha512-cgPNyyzVMrqFMaP0LYGv8IJFZBahW745P3vjhfywaTaiRTwfp7Ggr7dLqCWuKc2ltnmNs8ysFUPL6V1CpHyjzA==}
     dependencies:
-      '@leather-wallet/constants': 0.3.0
-      '@leather-wallet/models': 0.3.0
+      '@leather-wallet/constants': 0.4.0
+      '@leather-wallet/models': 0.4.0
+      '@leather-wallet/rpc': 0.3.0
       bignumber.js: 9.1.2
-    transitivePeerDependencies:
-      - encoding
     dev: false
 
   /@ledgerhq/devices@8.2.0:
@@ -12373,7 +12369,7 @@ packages:
     peerDependencies:
       '@stacks/transactions': '*'
     dependencies:
-      '@stacks/stacks-blockchain-api-types': 7.3.6
+      '@stacks/stacks-blockchain-api-types': 7.8.2
       '@stacks/transactions': 6.9.0
       axios: 1.6.8
       lodash: 4.17.21
