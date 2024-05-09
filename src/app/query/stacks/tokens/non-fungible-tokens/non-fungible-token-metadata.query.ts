@@ -21,6 +21,10 @@ function getTokenId(hex: string) {
   return clarityValue.type === 1 ? Number(clarityValue.value) : 0;
 }
 
+function statusCodeNotFoundOrNotProcessable(status: number) {
+  return status === 404 || status === 422;
+}
+
 export function useGetNonFungibleTokenMetadataListQuery(
   account: StacksAccount
 ): UseQueryResult<NftAssetResponse>[] {
@@ -40,6 +44,10 @@ export function useGetNonFungibleTokenMetadataListQuery(
           return limiter.add(() => client.tokensApi.getNftMetadata(principal, tokenId), {
             throwOnTimeout: true,
           });
+        },
+        retry(_count: number, error: Response) {
+          if (statusCodeNotFoundOrNotProcessable(error.status)) return false;
+          return true;
         },
         ...queryOptions,
       };
