@@ -11,14 +11,14 @@ import { useGetBitcoinBalanceByAddress } from './btc-balance.hooks';
 function makeBtcCryptoAssetBalance(balance: Money): BtcCryptoAssetBalance {
   return {
     availableBalance: balance,
-    // TODO: Asset refactor: can we determine these here?
+    // TODO: Asset refactor: can we determine these here or are they nec?
     protectedBalance: createMoney(0, 'BTC'),
     uneconomicalBalance: createMoney(0, 'BTC'),
   };
 }
 
 // Balance is derived from a single query in address reuse mode
-export function useNativeSegwitBtcCryptoAssetBalance(address: string) {
+export function useBtcCryptoAssetBalanceNativeSegwit(address: string) {
   const { balance, isInitialLoading, isLoading, isFetching } =
     useGetBitcoinBalanceByAddress(address);
   const btcCryptoAssetBalance = useMemo(() => makeBtcCryptoAssetBalance(balance), [balance]);
@@ -31,11 +31,7 @@ export function useNativeSegwitBtcCryptoAssetBalance(address: string) {
   };
 }
 
-export function useNativeSegwitAvailableBalance(address: string) {
-  return useGetBitcoinBalanceByAddress(address);
-}
-
-export function useCurrentNativeSegwitAvailableBalance() {
+export function useCurrentBtcAvailableBalanceNativeSegwit() {
   const nativeSegwitSigner = useCurrentAccountNativeSegwitIndexZeroSigner();
   return useGetBitcoinBalanceByAddress(nativeSegwitSigner.address);
 }

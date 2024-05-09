@@ -44,7 +44,7 @@ export function StacksBalanceListItemLayout(props: StacksBalanceListItemLayoutPr
       usdBalance={stxEffectiveUsdBalance}
       address={address}
       additionalBalanceInfo={stxAdditionalBalanceInfo}
-      additionalUsdBalanceInfo={stxAdditionalUsdBalanceInfo}
+      additionalBalanceInfoAsFiat={stxAdditionalUsdBalanceInfo}
       icon={<StxAvatarIcon />}
       isLoading={isInitialLoading}
     />

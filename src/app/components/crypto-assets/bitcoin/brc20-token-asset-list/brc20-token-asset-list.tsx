@@ -5,7 +5,7 @@ import { Stack } from 'leather-styles/jsx';
 
 import { RouteUrls } from '@shared/route-urls';
 
-import { useCurrentNativeSegwitAvailableBalance } from '@app/query/bitcoin/balance/btc-native-segwit-balance.hooks';
+import { useCurrentBtcAvailableBalanceNativeSegwit } from '@app/query/bitcoin/balance/btc-balance-native-segwit.hooks';
 import { Brc20Token } from '@app/query/bitcoin/bitcoin-client';
 
 import { Brc20TokenAssetItemLayout } from './brc20-token-asset-item.layout';
@@ -16,7 +16,7 @@ interface Brc20TokenAssetListProps {
 }
 export function Brc20TokenAssetList({ tokens, variant }: Brc20TokenAssetListProps) {
   const navigate = useNavigate();
-  const { balance } = useCurrentNativeSegwitAvailableBalance();
+  const { balance } = useCurrentBtcAvailableBalanceNativeSegwit();
 
   const hasPositiveBtcBalanceForFees = variant === 'send' && balance.amount.isGreaterThan(0);
 

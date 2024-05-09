@@ -1,6 +1,6 @@
 import type { AllTransferableCryptoAssetBalances } from '@shared/models/crypto-asset-balance.model';
 
-import { CryptoAssetItemLayout } from '../crypto-asset-item/crypto-asset-item.layout';
+import { CryptoAssetItemLayout } from '../../components/crypto-assets/crypto-asset-item/crypto-asset-item.layout';
 import { CryptoCurrencyAssetIcon } from './crypto-currency-asset-icon';
 import { FungibleTokenAssetItem } from './fungible-token-asset-item';
 

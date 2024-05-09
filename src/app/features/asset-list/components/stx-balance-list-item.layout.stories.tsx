@@ -2,12 +2,12 @@ import { TooltipProvider } from '@radix-ui/react-tooltip';
 import { Meta, StoryObj } from '@storybook/react';
 import BigNumber from 'bignumber.js';
 
-import { StacksBalanceListItemLayout } from './stacks-balance-list-item.layout';
+import { StacksBalanceListItemLayout } from './stx-balance-list-item.layout';
 
 const meta: Meta<typeof StacksBalanceListItemLayout> = {
   component: StacksBalanceListItemLayout,
   tags: ['autodocs'],
-  title: 'Feature/StacksBalanceListItem',
+  title: 'Feature/StxBalanceListItem',
   argTypes: {},
   parameters: {},
   decorators: [

@@ -15,7 +15,7 @@ import { getBitcoinTxValue } from '@app/common/transactions/bitcoin/utils';
 import { BitcoinCustomFeeInput } from '@app/components/bitcoin-custom-fee/bitcoin-custom-fee-input';
 import { BitcoinTransactionItem } from '@app/components/bitcoin-transaction-item/bitcoin-transaction-item';
 import { LoadingSpinner } from '@app/components/loading-spinner';
-import { useNativeSegwitBtcCryptoAssetBalance } from '@app/query/bitcoin/balance/btc-native-segwit-balance.hooks';
+import { useBtcCryptoAssetBalanceNativeSegwit } from '@app/query/bitcoin/balance/btc-balance-native-segwit.hooks';
 import { useCurrentAccountNativeSegwitIndexZeroSigner } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
 import { Dialog } from '@app/ui/components/containers/dialog/dialog';
 import { Footer } from '@app/ui/components/containers/footers/footer';
@@ -34,7 +34,7 @@ export function IncreaseBtcFeeDialog() {
   const btcTx = tx;
   const nativeSegwitSigner = useCurrentAccountNativeSegwitIndexZeroSigner();
   const currentBitcoinAddress = nativeSegwitSigner.address;
-  const { btcCryptoAssetBalance } = useNativeSegwitBtcCryptoAssetBalance(currentBitcoinAddress);
+  const { btcCryptoAssetBalance } = useBtcCryptoAssetBalanceNativeSegwit(currentBitcoinAddress);
   const { isBroadcasting, sizeInfo, onSubmit, validationSchema, recipient } =
     useBtcIncreaseFee(btcTx);
 

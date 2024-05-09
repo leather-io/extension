@@ -10,7 +10,7 @@ import { formatMoney } from '@app/common/money/format-money';
 import { BitcoinCustomFee } from '@app/components/bitcoin-custom-fee/bitcoin-custom-fee';
 import { MAX_FEE_RATE_MULTIPLIER } from '@app/components/bitcoin-custom-fee/hooks/use-bitcoin-custom-fee';
 import { OnChooseFeeArgs } from '@app/components/bitcoin-fees-list/bitcoin-fees-list';
-import { useCurrentNativeSegwitAvailableBalance } from '@app/query/bitcoin/balance/btc-native-segwit-balance.hooks';
+import { useCurrentBtcAvailableBalanceNativeSegwit } from '@app/query/bitcoin/balance/btc-balance-native-segwit.hooks';
 import { AvailableBalance } from '@app/ui/components/containers/footers/available-balance';
 
 import { BitcoinChooseFeeLayout } from './components/bitcoin-choose-fee.layout';
@@ -47,7 +47,7 @@ export function BitcoinChooseFee({
   maxRecommendedFeeRate = 0,
   ...rest
 }: BitcoinChooseFeeProps) {
-  const { balance } = useCurrentNativeSegwitAvailableBalance();
+  const { balance } = useCurrentBtcAvailableBalanceNativeSegwit();
   const hasAmount = amount.amount.isGreaterThan(0);
   const [customFeeInitialValue, setCustomFeeInitialValue] = useState(recommendedFeeRate);
 

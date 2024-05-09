@@ -1,6 +1,6 @@
 import { BitcoinContractRequestSelectors } from '@tests/selectors/bitcoin-contract-request.selectors';
 
-import { useNativeSegwitBtcCryptoAssetBalance } from '@app/query/bitcoin/balance/btc-native-segwit-balance.hooks';
+import { useBtcCryptoAssetBalanceNativeSegwit } from '@app/query/bitcoin/balance/btc-balance-native-segwit.hooks';
 import { Button } from '@app/ui/components/button/button';
 
 interface BitcoinContractRequestActionsProps {
@@ -17,7 +17,7 @@ export function BitcoinContractRequestActions({
   onRejectBitcoinContractOffer,
   onAcceptBitcoinContractOffer,
 }: BitcoinContractRequestActionsProps) {
-  const { btcCryptoAssetBalance } = useNativeSegwitBtcCryptoAssetBalance(bitcoinAddress);
+  const { btcCryptoAssetBalance } = useBtcCryptoAssetBalanceNativeSegwit(bitcoinAddress);
   const canAccept = btcCryptoAssetBalance.availableBalance.amount.isGreaterThan(requiredAmount);
 
   return (

@@ -63,8 +63,31 @@ export function useCurrentAccountMempool() {
   return useAccountMempoolQuery(address ?? '');
 }
 
-export function useCurrentAccountMempoolTransactionsBalance() {
-  const address = useCurrentAccountStxAddressState();
+// TODO: Asset refactor: combine inbound/outbound into one function?
+export function useMempoolTxsInboundBalance(address: string) {
+  const { transactions: pendingTransactions } = useStacksPendingTransactions();
+  const confirmedTxs = useStacksConfirmedTransactions();
+
+  const pendingInboundTxs = pendingTransactions.filter(tx => {
+    if (confirmedTxs.some(confirmedTx => confirmedTx.nonce === tx.nonce)) {
+      return false;
+    }
+    return tx.tx_type === 'token_transfer' && tx.token_transfer.recipient_address === address;
+  }) as unknown as MempoolTokenTransferTransaction[];
+
+  const tokenTransferTxsBalance = pendingInboundTxs.reduce(
+    (acc, tx) => acc.plus(tx.token_transfer.amount),
+    new BigNumber(0)
+  );
+  const pendingTxsFeesBalance = pendingInboundTxs.reduce(
+    (acc, tx) => acc.plus(tx.fee_rate),
+    new BigNumber(0)
+  );
+
+  return createMoney(tokenTransferTxsBalance.plus(pendingTxsFeesBalance), 'STX');
+}
+
+export function useMempoolTxsOutboundBalance(address: string) {
   const { transactions: pendingTransactions } = useStacksPendingTransactions();
   const confirmedTxs = useStacksConfirmedTransactions();
 

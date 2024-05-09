@@ -11,7 +11,7 @@ import { initialSearchParams } from '@app/common/initial-search-params';
 import { stxToMicroStx } from '@app/common/money/unit-conversion';
 import { validateStacksAddress } from '@app/common/stacks-utils';
 import { TransactionErrorReason } from '@app/features/stacks-transaction-request/transaction-error/transaction-error';
-import { useCurrentStacksAccountBalances } from '@app/query/stacks/balance/stx-balance.hooks';
+import { useCurrentStcAvailableUnlockedBalance } from '@app/query/stacks/balance/stx-balance.hooks';
 import { useContractInterface } from '@app/query/stacks/contract/contract.hooks';
 import { useCurrentStacksAccount } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
 import { useTransactionRequestState } from '@app/store/transactions/requests.hooks';
@@ -27,12 +27,12 @@ export function useTransactionError() {
   const { values } = useFormikContext<StacksTransactionFormValues>();
 
   const currentAccount = useCurrentStacksAccount();
-  const { data: balances } = useCurrentStacksAccountBalances();
+  const availableUnlockedBalance = useCurrentStcAvailableUnlockedBalance();
 
   return useMemo<TransactionErrorReason | void>(() => {
     if (!origin) return TransactionErrorReason.ExpiredRequest;
 
-    if (!transactionRequest || !balances || !currentAccount) {
+    if (!transactionRequest || !availableUnlockedBalance || !currentAccount) {
       return TransactionErrorReason.Generic;
     }
 
@@ -42,14 +42,14 @@ export function useTransactionError() {
       if ((contractInterface as any)?.isError) return TransactionErrorReason.NoContract;
     }
 
-    if (balances && !getIsMultisig()) {
-      const zeroBalance = balances?.stx.unlockedStx.amount.toNumber() === 0;
+    if (availableUnlockedBalance && !getIsMultisig()) {
+      const zeroBalance = availableUnlockedBalance.amount.toNumber() === 0;
 
       if (transactionRequest.txType === TransactionTypes.STXTransfer) {
         if (zeroBalance) return TransactionErrorReason.StxTransferInsufficientFunds;
 
         const transferAmount = new BigNumber(transactionRequest.amount);
-        if (transferAmount.gte(balances?.stx.unlockedStx.amount))
+        if (transferAmount.gte(availableUnlockedBalance.amount))
           return TransactionErrorReason.StxTransferInsufficientFunds;
       }
 
@@ -57,10 +57,17 @@ export function useTransactionError() {
         if (zeroBalance) return TransactionErrorReason.FeeInsufficientFunds;
 
         const feeValue = stxToMicroStx(values.fee);
-        if (feeValue.gte(balances?.stx.unlockedStx.amount))
+        if (feeValue.gte(availableUnlockedBalance.amount))
           return TransactionErrorReason.FeeInsufficientFunds;
       }
     }
     return;
-  }, [origin, transactionRequest, balances, currentAccount, contractInterface, values.fee]);
+  }, [
+    origin,
+    transactionRequest,
+    availableUnlockedBalance,
+    currentAccount,
+    contractInterface,
+    values.fee,
+  ]);
 }

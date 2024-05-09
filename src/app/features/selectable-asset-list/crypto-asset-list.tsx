@@ -11,7 +11,7 @@ import { Brc20TokensLoader } from '@app/components/loaders/brc20-tokens-loader';
 import { BtcBalanceLoader } from '@app/components/loaders/btc-balance-loader';
 import { BtcAvatarIcon } from '@app/ui/components/avatar/btc-avatar-icon';
 
-import { CryptoAssetItemLayout } from '../crypto-asset-item/crypto-asset-item.layout';
+import { CryptoAssetItemLayout } from '../../components/crypto-assets/crypto-asset-item/crypto-asset-item.layout';
 import { CryptoAssetListItem } from './crypto-asset-list-item';
 
 interface CryptoAssetListProps {

@@ -16,27 +16,27 @@ import { parseCryptoAssetBalance } from './crypto-asset-item.utils';
 
 interface CryptoAssetItemLayoutProps {
   additionalBalanceInfo?: ReactNode;
-  additionalUsdBalanceInfo?: ReactNode;
+  additionalBalanceInfoAsFiat?: ReactNode;
   address?: string;
   assetBalance: CryptoAssetBalances;
+  balanceAsFiat?: string;
   icon: React.ReactNode;
   isLoading?: boolean;
   name: string;
   onClick?(): void;
   rightElement?: React.ReactNode;
-  usdBalance?: string;
 }
 export function CryptoAssetItemLayout({
   additionalBalanceInfo,
-  additionalUsdBalanceInfo,
+  additionalBalanceInfoAsFiat,
   address = '',
   assetBalance,
+  balanceAsFiat,
   icon,
   isLoading = false,
   name,
   onClick,
   rightElement,
-  usdBalance,
 }: CryptoAssetItemLayoutProps) {
   const { balance, dataTestId, formattedBalance } = parseCryptoAssetBalance(assetBalance);
   const title = spamFilter(capitalize(name));
@@ -68,9 +68,9 @@ export function CryptoAssetItemLayout({
           <Flex alignItems="center" gap="space.02" color="inherit">
             <BulletSeparator>
               <Caption>
-                {balance.availableBalance.amount.toNumber() > 0 && address ? usdBalance : null}
+                {balance.availableBalance.amount.toNumber() > 0 && address ? balanceAsFiat : null}
               </Caption>
-              {additionalUsdBalanceInfo}
+              {additionalBalanceInfoAsFiat}
             </BulletSeparator>
           </Flex>
         </Caption>
