@@ -1,12 +1,11 @@
 import { useMemo } from 'react';
 
-import { useGetInscriptionsByOutputQueries } from '@leather-wallet/query';
+import { type InscriptionResponse, useGetInscriptionsByOutputQueries } from '@leather-wallet/query';
 import * as btc from '@scure/btc-signer';
 import { bytesToHex } from '@stacks/common';
 
 import { getBtcSignerLibNetworkConfigByMode } from '@shared/crypto/bitcoin/bitcoin.network';
 import { getBitcoinInputAddress, getBitcoinInputValue } from '@shared/crypto/bitcoin/bitcoin.utils';
-import { Inscription } from '@shared/models/inscription.model';
 import { isDefined, isUndefined } from '@shared/utils';
 
 import { useCurrentAccountNativeSegwitIndexZeroSigner } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
@@ -16,7 +15,7 @@ import { useCurrentNetwork } from '@app/store/networks/networks.selectors';
 export interface PsbtInput {
   address: string;
   index?: number;
-  inscription?: Inscription;
+  inscription?: InscriptionResponse;
   isMutable: boolean;
   toSign: boolean;
   txid: string;

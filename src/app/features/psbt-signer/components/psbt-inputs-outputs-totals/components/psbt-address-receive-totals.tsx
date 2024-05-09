@@ -1,4 +1,4 @@
-import { useCalculateBitcoinFiatValue } from '@leather-wallet/query';
+import { makeInscription, useCalculateBitcoinFiatValue } from '@leather-wallet/query';
 
 import { formatMoney, i18nFormatCurrency } from '@app/common/money/format-money';
 import { removeMinusSign } from '@app/common/utils';
@@ -50,8 +50,11 @@ export function PsbtAddressReceiveTotals({
         />
       ) : null}
       {isReceivingInscriptions
-        ? accountInscriptionsBeingReceived.map(inscription => (
-            <PsbtInscription key={inscription.id} inscription={inscription} />
+        ? accountInscriptionsBeingReceived.map(inscriptionResponse => (
+            <PsbtInscription
+              key={inscriptionResponse.id}
+              inscription={makeInscription(inscriptionResponse)}
+            />
           ))
         : null}
     </>

@@ -1,9 +1,8 @@
 import { useLocation, useNavigate } from 'react-router-dom';
 
-import { convertInscriptionToSupportedInscriptionType } from '@leather-wallet/query';
+import { type Inscription, type InscriptionResponse, makeInscription } from '@leather-wallet/query';
 
 import { ORD_IO_URL } from '@shared/constants';
-import { Inscription as InscriptionType } from '@shared/models/inscription.model';
 import { RouteUrls } from '@shared/route-urls';
 
 import { openInNewTab } from '@app/common/utils/open-in-new-tab';
@@ -16,7 +15,7 @@ import { CollectibleOther } from '../_collectible-types/collectible-other';
 import { InscriptionText } from './inscription-text';
 
 interface InscriptionProps {
-  rawInscription: InscriptionType;
+  rawInscription: InscriptionResponse;
 }
 
 function openInscriptionUrl(num: number) {
@@ -24,17 +23,17 @@ function openInscriptionUrl(num: number) {
 }
 
 export function Inscription({ rawInscription }: InscriptionProps) {
-  const inscription = convertInscriptionToSupportedInscriptionType(rawInscription);
+  const inscription = makeInscription(rawInscription);
   const navigate = useNavigate();
   const location = useLocation();
 
   function openSendInscriptionModal() {
     navigate(RouteUrls.SendOrdinalInscription, {
-      state: { inscription, backgroundLocation: location },
+      state: { inscriptionResponse: rawInscription, backgroundLocation: location },
     });
   }
 
-  switch (inscription.type) {
+  switch (inscription.mimeType) {
     case 'audio':
       return (
         <CollectibleAudio
@@ -76,7 +75,7 @@ export function Inscription({ rawInscription }: InscriptionProps) {
     case 'text':
       return (
         <InscriptionText
-          contentSrc={inscription.contentSrc}
+          contentSrc={inscription.src}
           inscriptionNumber={inscription.number}
           onClickCallToAction={() => openInscriptionUrl(inscription.number)}
           onClickSend={() => openSendInscriptionModal()}

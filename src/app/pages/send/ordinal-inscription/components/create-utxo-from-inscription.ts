@@ -1,26 +1,25 @@
-import type { UtxoWithDerivationPath } from '@leather-wallet/query';
+import type { InscriptionResponse, UtxoWithDerivationPath } from '@leather-wallet/query';
 
 import { BitcoinNetworkModes } from '@shared/constants';
 import { getNativeSegwitAddressIndexDerivationPath } from '@shared/crypto/bitcoin/p2wpkh-address-gen';
-import { Inscription } from '@shared/models/inscription.model';
 
 interface CreateUtxoFromInscriptionArgs {
-  inscription: Inscription;
+  inscriptionResponse: InscriptionResponse;
   network: BitcoinNetworkModes;
   accountIndex: number;
 }
 
 export function createUtxoFromInscription({
-  inscription,
+  inscriptionResponse,
   network,
   accountIndex,
 }: CreateUtxoFromInscriptionArgs): UtxoWithDerivationPath {
   const { genesis_block_hash, genesis_timestamp, genesis_block_height, value, addressIndex } =
-    inscription;
+    inscriptionResponse;
 
   return {
-    txid: inscription.tx_id,
-    vout: Number(inscription.output.split(':')[1]),
+    txid: inscriptionResponse.tx_id,
+    vout: Number(inscriptionResponse.output.split(':')[1]),
     status: {
       confirmed: true,
       block_height: genesis_block_height,

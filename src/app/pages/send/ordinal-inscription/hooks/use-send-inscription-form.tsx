@@ -34,7 +34,7 @@ export function useSendInscriptionForm() {
   const analytics = useAnalytics();
   const navigate = useNavigate();
   const sign = useSignBitcoinTx();
-  const { inscription, utxo } = useSendInscriptionState();
+  const { inscriptionResponse, utxo } = useSendInscriptionState();
   const currentNetwork = useCurrentNetwork();
 
   const account = useCurrentTaprootAccount();
@@ -64,7 +64,7 @@ export function useSendInscriptionForm() {
           return;
         }
 
-        if (Number(inscription.offset) !== 0) {
+        if (Number(inscriptionResponse.offset) !== 0) {
           setShowError('Sending inscriptions at non-zero offsets is unsupported');
           return;
         }
@@ -97,7 +97,7 @@ export function useSendInscriptionForm() {
         `/${RouteUrls.SendOrdinalInscription}/${RouteUrls.SendOrdinalInscriptionChooseFee}`,
         {
           state: {
-            inscription,
+            inscriptionResponse,
             recipient: values.recipient,
             utxo,
             backgroundLocation: { pathname: RouteUrls.Home },
@@ -135,7 +135,7 @@ export function useSendInscriptionForm() {
       navigate(`/${RouteUrls.SendOrdinalInscription}/${RouteUrls.SendOrdinalInscriptionReview}`, {
         state: {
           fee: feeValue,
-          inscription,
+          inscriptionResponse,
           utxo,
           recipient: values.recipient,
           time,

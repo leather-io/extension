@@ -1,14 +1,15 @@
 import { createContext, useContext } from 'react';
 
-import { Inscription } from '@shared/models/inscription.model';
+import type { InscriptionResponse } from '@leather-wallet/query';
+
 import { Money } from '@shared/models/money.model';
 
 import { PsbtInput } from './hooks/use-parsed-inputs';
 import { PsbtOutput } from './hooks/use-parsed-outputs';
 
 export interface PsbtSignerContext {
-  accountInscriptionsBeingTransferred: Inscription[];
-  accountInscriptionsBeingReceived: Inscription[];
+  accountInscriptionsBeingTransferred: InscriptionResponse[];
+  accountInscriptionsBeingReceived: InscriptionResponse[];
   addressNativeSegwit: string;
   addressTaproot: string;
   addressNativeSegwitTotal: Money;

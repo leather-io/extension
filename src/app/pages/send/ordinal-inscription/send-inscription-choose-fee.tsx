@@ -22,9 +22,13 @@ import { useSendInscriptionForm } from './hooks/use-send-inscription-form';
 export function SendInscriptionChooseFee() {
   const [isLoadingReview, setIsLoadingReview] = useState(false);
   const navigate = useNavigate();
-  const { recipient, selectedFeeType, setSelectedFeeType, utxo, inscription } =
+  const { recipient, selectedFeeType, setSelectedFeeType, utxo, inscriptionResponse } =
     useSendInscriptionState();
-  const { feesList, isLoading } = useSendInscriptionFeesList({ recipient, utxo, inscription });
+  const { feesList, isLoading } = useSendInscriptionFeesList({
+    recipient,
+    utxo,
+    inscriptionResponse,
+  });
   const recommendedFeeRate = feesList[1]?.feeRate.toString() || '';
 
   const { reviewTransaction } = useSendInscriptionForm();
@@ -40,7 +44,12 @@ export function SendInscriptionChooseFee() {
   async function previewTransaction({ feeRate, feeValue, time, isCustomFee }: OnChooseFeeArgs) {
     try {
       setIsLoadingReview(true);
-      await reviewTransaction(feeValue, time, { feeRate, recipient, inscription }, isCustomFee);
+      await reviewTransaction(
+        feeValue,
+        time,
+        { feeRate, recipient, inscriptionResponse },
+        isCustomFee
+      );
     } finally {
       setIsLoadingReview(false);
     }

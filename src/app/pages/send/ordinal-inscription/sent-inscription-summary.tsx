@@ -1,10 +1,10 @@
 import { useLocation, useNavigate } from 'react-router-dom';
 
+import { type InscriptionResponse, makeInscription } from '@leather-wallet/query';
 import { Box, Flex, HStack, Stack } from 'leather-styles/jsx';
 import get from 'lodash.get';
 
 import { Blockchains } from '@shared/models/blockchain.model';
-import { SupportedInscription } from '@shared/models/inscription.model';
 import { RouteUrls } from '@shared/route-urls';
 
 import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
@@ -30,13 +30,15 @@ function useSendInscriptionSummaryState() {
     txid: get(location.state, 'txid') as string,
     recipient: get(location.state, 'recipient', '') as string,
     arrivesIn: get(location.state, 'arrivesIn') as string,
-    inscription: get(location.state, 'inscription') as SupportedInscription,
+    inscriptionResponse: get(location.state, 'inscriptionResponse') as InscriptionResponse,
     feeRowValue: get(location.state, 'feeRowValue') as string,
   };
 }
 
 export function SendInscriptionSummary() {
-  const { txid, recipient, arrivesIn, inscription, feeRowValue } = useSendInscriptionSummaryState();
+  const { txid, recipient, arrivesIn, inscriptionResponse, feeRowValue } =
+    useSendInscriptionSummaryState();
+  const inscription = makeInscription(inscriptionResponse);
   const toast = useToast();
   const navigate = useNavigate();
   const txLink = {

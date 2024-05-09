@@ -1,13 +1,13 @@
 import { useCallback, useMemo } from 'react';
 
 import {
+  type InscriptionResponse,
   type UtxoWithDerivationPath,
   useAverageBitcoinFeeRates,
   useCryptoCurrencyMarketDataMeanAverage,
 } from '@leather-wallet/query';
 
 import { BtcFeeType, btcTxTimeMap } from '@shared/models/fees/bitcoin-fees.model';
-import type { SupportedInscription } from '@shared/models/inscription.model';
 import { createMoney } from '@shared/models/money.model';
 
 import { baseCurrencyAmountInQuote } from '@app/common/money/calculate-money';
@@ -21,13 +21,13 @@ import { useGenerateUnsignedOrdinalTx } from './use-generate-ordinal-tx';
 interface UseSendInscriptionFeesListArgs {
   recipient: string;
   utxo: UtxoWithDerivationPath;
-  inscription: SupportedInscription;
+  inscriptionResponse: InscriptionResponse;
 }
 
 export function useSendInscriptionFeesList({
   recipient,
   utxo,
-  inscription,
+  inscriptionResponse,
 }: UseSendInscriptionFeesListArgs) {
   const createNativeSegwitSigner = useCurrentAccountNativeSegwitSigner();
   const { data: nativeSegwitUtxos } = useCurrentNativeSegwitUtxos();
@@ -43,7 +43,7 @@ export function useSendInscriptionFeesList({
         const tx = coverFeeFromAdditionalUtxos({
           recipient,
           feeRate,
-          inscription,
+          inscriptionResponse,
         });
 
         return tx?.txFee;
@@ -51,7 +51,7 @@ export function useSendInscriptionFeesList({
         return null;
       }
     },
-    [coverFeeFromAdditionalUtxos, recipient, inscription]
+    [coverFeeFromAdditionalUtxos, recipient, inscriptionResponse]
   );
 
   const feesList: FeesListItem[] = useMemo(() => {

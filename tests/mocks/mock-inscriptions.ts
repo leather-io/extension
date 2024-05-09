@@ -1,8 +1,8 @@
-import { Inscription } from '@shared/models/inscription.model';
+import type { InscriptionResponse } from '@leather-wallet/query';
 
-export const mockInscription1: Inscription = {
+export const mockInscription1: InscriptionResponse = {
   address: 'bc1pwrmewwprc8k8l2k63x4advg0nx0jk50xzqnee996lm87mcuza7kq6drg2k',
-  addressIndex: 0,
+  // addressIndex: 0,
   content_length: 55,
   content_type: 'image/png',
   curse_type: '',
@@ -28,9 +28,9 @@ export const mockInscription1: Inscription = {
   value: '10000',
 };
 
-export const mockInscription2: Inscription = {
+export const mockInscription2: InscriptionResponse = {
   address: 'bc1pwrmewwprc8k8l2k63x4advg0nx0jk50xzqnee996lm87mcuza7kq6drg2k',
-  addressIndex: 0,
+  // addressIndex: 0,
   content_length: 55,
   content_type: 'image/png',
   curse_type: '',

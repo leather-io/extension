@@ -1,4 +1,5 @@
-import { SupportedInscription } from './inscription.model';
+import type { InscriptionResponse } from '@leather-wallet/query';
+
 import type { Money } from './money.model';
 
 export interface BitcoinSendFormValues {
@@ -15,7 +16,7 @@ export interface BitcoinSendFormValues {
 export interface OrdinalSendFormValues {
   feeRate: number;
   recipient: string;
-  inscription: SupportedInscription;
+  inscriptionResponse: InscriptionResponse;
 }
 
 // TODO: Remove assetId and optional symbol with legacy send form

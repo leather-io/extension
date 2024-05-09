@@ -1,6 +1,5 @@
-import { createInscriptionInfoUrl, useInscription } from '@leather-wallet/query';
+import { type Inscription, useInscription } from '@leather-wallet/query';
 
-import { Inscription } from '@shared/models/inscription.model';
 import { isUndefined } from '@shared/utils';
 
 import { openInNewTab } from '@app/common/utils/open-in-new-tab';
@@ -30,7 +29,7 @@ export function PsbtInscription({ inscription }: PsbtInscriptionProps) {
       image={<InscriptionPreview inscription={supportedInscription} height="40px" width="40px" />}
       title="Inscription"
       value={`#${inscription?.number}`}
-      valueAction={() => openInNewTab(createInscriptionInfoUrl(inscription?.id))}
+      valueAction={() => openInNewTab(inscription.preview)}
     />
   );
 }

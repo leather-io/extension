@@ -1,11 +1,10 @@
 import { useState } from 'react';
 import { Outlet, useLocation, useOutletContext } from 'react-router-dom';
 
-import type { UtxoWithDerivationPath } from '@leather-wallet/query';
+import type { InscriptionResponse, UtxoWithDerivationPath } from '@leather-wallet/query';
 import get from 'lodash.get';
 
 import { AverageBitcoinFeeRates, BtcFeeType } from '@shared/models/fees/bitcoin-fees.model';
-import { SupportedInscription } from '@shared/models/inscription.model';
 
 import { useOnMount } from '@app/common/hooks/use-on-mount';
 import { useCurrentAccountIndex } from '@app/store/accounts/account';
@@ -17,7 +16,7 @@ import { SendInscriptionLoader } from './send-inscription-loader';
 
 interface SendInscriptionContextState {
   feeRates: AverageBitcoinFeeRates;
-  inscription: SupportedInscription;
+  inscriptionResponse: InscriptionResponse;
   selectedFeeType: BtcFeeType;
   setSelectedFeeType(value: BtcFeeType | null): void;
   utxo: UtxoWithDerivationPath;
@@ -30,7 +29,7 @@ export function useSendInscriptionState() {
 
 export function SendInscriptionContainer() {
   const [selectedFeeType, setSelectedFeeType] = useState<BtcFeeType | null>(null);
-  const [inscription, setInscription] = useState<SupportedInscription | null>(null);
+  const [inscriptionResponse, setInscriptionResponse] = useState<InscriptionResponse | null>(null);
   const [utxo, setUtxo] = useState<UtxoWithDerivationPath | null>(null);
 
   const routeState = useSendInscriptionRouteState();
@@ -38,23 +37,25 @@ export function SendInscriptionContainer() {
   const currentAccountIndex = useCurrentAccountIndex();
 
   useOnMount(() => {
-    if (!routeState.inscription) return;
-    setInscription(routeState.inscription);
+    if (!routeState.inscriptionResponse) return;
+    setInscriptionResponse(routeState.inscriptionResponse);
     setUtxo(
       createUtxoFromInscription({
-        inscription: routeState.inscription,
+        inscriptionResponse: routeState.inscriptionResponse,
         network: network.chain.bitcoin.bitcoinNetwork,
         accountIndex: currentAccountIndex,
       })
     );
   });
 
-  if (!inscription || !utxo) return null;
+  if (!inscriptionResponse || !utxo) return null;
 
   return (
     <SendInscriptionLoader>
       {({ feeRates }) => (
-        <Outlet context={{ feeRates, inscription, selectedFeeType, setSelectedFeeType, utxo }} />
+        <Outlet
+          context={{ feeRates, inscriptionResponse, selectedFeeType, setSelectedFeeType, utxo }}
+        />
       )}
     </SendInscriptionLoader>
   );

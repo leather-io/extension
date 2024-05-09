@@ -1,12 +1,15 @@
 import { useLocation } from 'react-router-dom';
 
+import type { InscriptionResponse } from '@leather-wallet/query';
 import get from 'lodash.get';
-
-import { SupportedInscription } from '@shared/models/inscription.model';
 
 export function useSendInscriptionRouteState() {
   const location = useLocation();
   return {
-    inscription: get(location.state, 'inscription', null) as SupportedInscription | null,
+    inscriptionResponse: get(
+      location.state,
+      'inscriptionResponse',
+      null
+    ) as InscriptionResponse | null,
   };
 }

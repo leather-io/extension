@@ -1,5 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 
+import { makeInscription } from '@leather-wallet/query';
 import { Form, Formik } from 'formik';
 import { Box, Flex } from 'leather-styles/jsx';
 
@@ -24,7 +25,8 @@ export const recipientFieldName = 'recipient';
 
 export function SendInscriptionForm() {
   const navigate = useNavigate();
-  const { feeRates, inscription, recipient } = useSendInscriptionState();
+  const { feeRates, inscriptionResponse, recipient } = useSendInscriptionState();
+  const inscription = makeInscription(inscriptionResponse);
   const { chooseTransactionFee, currentError, validationSchema, isCheckingFees } =
     useSendInscriptionForm();
 
@@ -33,7 +35,7 @@ export function SendInscriptionForm() {
       validationSchema={validationSchema}
       initialValues={{
         [recipientFieldName]: recipient,
-        inscription,
+        inscriptionResponse,
         feeRate: feeRates.hourFee.toNumber(),
       }}
       onSubmit={chooseTransactionFee}
