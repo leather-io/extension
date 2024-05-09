@@ -8,16 +8,16 @@ interface CreateUtxoFromInscriptionArgs {
   inscription: Inscription;
   network: BitcoinNetworkModes;
   accountIndex: number;
+  inscriptionAddressIdx: number;
 }
 
 export function createUtxoFromInscription({
   inscription,
   network,
   accountIndex,
+  inscriptionAddressIdx,
 }: CreateUtxoFromInscriptionArgs): UtxoWithDerivationPath {
-  const { genesis_block_hash, genesis_timestamp, genesis_block_height, value, addressIndex } =
-    inscription;
-
+  const { genesis_block_hash, genesis_timestamp, genesis_block_height, value } = inscription;
   return {
     txid: inscription.txid,
     vout: Number(inscription.output.split(':')[1]),
@@ -28,6 +28,10 @@ export function createUtxoFromInscription({
       block_time: genesis_timestamp,
     },
     value: Number(value),
-    derivationPath: getNativeSegwitAddressIndexDerivationPath(network, accountIndex, addressIndex),
+    derivationPath: getNativeSegwitAddressIndexDerivationPath(
+      network,
+      accountIndex,
+      inscriptionAddressIdx
+    ),
   };
 }
