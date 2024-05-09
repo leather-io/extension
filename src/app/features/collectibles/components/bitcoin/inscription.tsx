@@ -1,6 +1,6 @@
 import { useLocation, useNavigate } from 'react-router-dom';
 
-import { type Inscription, type InscriptionResponse, makeInscription } from '@leather-wallet/query';
+import { type Inscription } from '@leather-wallet/models';
 
 import { ORD_IO_URL } from '@shared/constants';
 import { RouteUrls } from '@shared/route-urls';
@@ -15,21 +15,20 @@ import { CollectibleOther } from '../_collectible-types/collectible-other';
 import { InscriptionText } from './inscription-text';
 
 interface InscriptionProps {
-  rawInscription: InscriptionResponse;
+  inscription: Inscription;
 }
 
 function openInscriptionUrl(num: number) {
   return openInNewTab(`${ORD_IO_URL}/${num}`);
 }
 
-export function Inscription({ rawInscription }: InscriptionProps) {
-  const inscription = makeInscription(rawInscription);
+export function Inscription({ inscription }: InscriptionProps) {
   const navigate = useNavigate();
   const location = useLocation();
 
   function openSendInscriptionModal() {
     navigate(RouteUrls.SendOrdinalInscription, {
-      state: { inscriptionResponse: rawInscription, backgroundLocation: location },
+      state: { inscription, backgroundLocation: location },
     });
   }
 

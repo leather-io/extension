@@ -1,4 +1,4 @@
-import { makeInscription, useCalculateBitcoinFiatValue } from '@leather-wallet/query';
+import { useCalculateBitcoinFiatValue } from '@leather-wallet/query';
 
 import { formatMoney, i18nFormatCurrency } from '@app/common/money/format-money';
 import { usePsbtSignerContext } from '@app/features/psbt-signer/psbt-signer.context';
@@ -28,11 +28,8 @@ export function PsbtAddressTransferTotals({ showNativeSegwitTotal }: PsbtAddress
         />
       ) : null}
       {isTransferringInscriptions
-        ? accountInscriptionsBeingTransferred.map(inscriptionResponse => (
-            <PsbtInscription
-              key={inscriptionResponse.id}
-              inscription={makeInscription(inscriptionResponse)}
-            />
+        ? accountInscriptionsBeingTransferred.map(inscription => (
+            <PsbtInscription key={inscription.id} inscription={inscription} />
           ))
         : null}
     </>

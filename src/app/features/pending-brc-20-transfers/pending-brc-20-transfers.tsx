@@ -2,7 +2,6 @@ import { useNavigate } from 'react-router-dom';
 
 import {
   fetchInscripionById,
-  makeInscription,
   useNativeSegwitBalance,
   useOrdinalsbotClient,
 } from '@leather-wallet/query';
@@ -115,7 +114,7 @@ function PendingBrcTransfer({ order }: PendingBrcTransferProps) {
                 );
                 navigate(RouteUrls.SendOrdinalInscription, {
                   state: {
-                    inscription: makeInscription(inscription),
+                    inscription,
                   },
                 });
               }

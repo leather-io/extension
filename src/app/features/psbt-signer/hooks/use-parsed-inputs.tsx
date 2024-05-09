@@ -1,6 +1,7 @@
 import { useMemo } from 'react';
 
-import { type InscriptionResponse, useGetInscriptionsByOutputQueries } from '@leather-wallet/query';
+import type { Inscription } from '@leather-wallet/models';
+import { useInscriptionsByOutputs } from '@leather-wallet/query';
 import * as btc from '@scure/btc-signer';
 import { bytesToHex } from '@stacks/common';
 
@@ -15,7 +16,7 @@ import { useCurrentNetwork } from '@app/store/networks/networks.selectors';
 export interface PsbtInput {
   address: string;
   index?: number;
-  inscription?: InscriptionResponse;
+  inscription?: Inscription;
   isMutable: boolean;
   toSign: boolean;
   txid: string;
@@ -31,9 +32,7 @@ export function useParsedInputs({ inputs, indexesToSign }: UseParsedInputsArgs) 
   const bitcoinNetwork = getBtcSignerLibNetworkConfigByMode(network.chain.bitcoin.bitcoinNetwork);
   const bitcoinAddressNativeSegwit = useCurrentAccountNativeSegwitIndexZeroSigner().address;
   const { address: bitcoinAddressTaproot } = useCurrentAccountTaprootIndexZeroSigner();
-  const inscriptions = useGetInscriptionsByOutputQueries(inputs).map(
-    query => query.data?.results[0]
-  );
+  const inscriptions = useInscriptionsByOutputs(inputs);
   const signAll = isUndefined(indexesToSign);
 
   const psbtInputs = useMemo(

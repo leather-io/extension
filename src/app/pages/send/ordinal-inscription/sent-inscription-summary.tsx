@@ -1,6 +1,6 @@
 import { useLocation, useNavigate } from 'react-router-dom';
 
-import { type InscriptionResponse, makeInscription } from '@leather-wallet/query';
+import type { Inscription } from '@leather-wallet/models';
 import { Box, Flex, HStack, Stack } from 'leather-styles/jsx';
 import get from 'lodash.get';
 
@@ -30,15 +30,13 @@ function useSendInscriptionSummaryState() {
     txid: get(location.state, 'txid') as string,
     recipient: get(location.state, 'recipient', '') as string,
     arrivesIn: get(location.state, 'arrivesIn') as string,
-    inscriptionResponse: get(location.state, 'inscriptionResponse') as InscriptionResponse,
+    inscription: get(location.state, 'inscription') as Inscription,
     feeRowValue: get(location.state, 'feeRowValue') as string,
   };
 }
 
 export function SendInscriptionSummary() {
-  const { txid, recipient, arrivesIn, inscriptionResponse, feeRowValue } =
-    useSendInscriptionSummaryState();
-  const inscription = makeInscription(inscriptionResponse);
+  const { txid, recipient, arrivesIn, inscription, feeRowValue } = useSendInscriptionSummaryState();
   const toast = useToast();
   const navigate = useNavigate();
   const txLink = {

@@ -1,7 +1,8 @@
 import { useState } from 'react';
 import { Outlet, useLocation, useOutletContext } from 'react-router-dom';
 
-import type { InscriptionResponse, UtxoWithDerivationPath } from '@leather-wallet/query';
+import type { Inscription } from '@leather-wallet/models';
+import type { UtxoWithDerivationPath } from '@leather-wallet/query';
 import get from 'lodash.get';
 
 import { AverageBitcoinFeeRates, BtcFeeType } from '@shared/models/fees/bitcoin-fees.model';
@@ -16,7 +17,7 @@ import { SendInscriptionLoader } from './send-inscription-loader';
 
 interface SendInscriptionContextState {
   feeRates: AverageBitcoinFeeRates;
-  inscriptionResponse: InscriptionResponse;
+  inscription: Inscription;
   selectedFeeType: BtcFeeType;
   setSelectedFeeType(value: BtcFeeType | null): void;
   utxo: UtxoWithDerivationPath;
@@ -29,7 +30,7 @@ export function useSendInscriptionState() {
 
 export function SendInscriptionContainer() {
   const [selectedFeeType, setSelectedFeeType] = useState<BtcFeeType | null>(null);
-  const [inscriptionResponse, setInscriptionResponse] = useState<InscriptionResponse | null>(null);
+  const [inscription, setInscription] = useState<Inscription | null>(null);
   const [utxo, setUtxo] = useState<UtxoWithDerivationPath | null>(null);
 
   const routeState = useSendInscriptionRouteState();
@@ -37,25 +38,23 @@ export function SendInscriptionContainer() {
   const currentAccountIndex = useCurrentAccountIndex();
 
   useOnMount(() => {
-    if (!routeState.inscriptionResponse) return;
-    setInscriptionResponse(routeState.inscriptionResponse);
+    if (!routeState.inscription) return;
+    setInscription(routeState.inscription);
     setUtxo(
       createUtxoFromInscription({
-        inscriptionResponse: routeState.inscriptionResponse,
+        inscription: routeState.inscription,
         network: network.chain.bitcoin.bitcoinNetwork,
         accountIndex: currentAccountIndex,
       })
     );
   });
 
-  if (!inscriptionResponse || !utxo) return null;
+  if (!inscription || !utxo) return null;
 
   return (
     <SendInscriptionLoader>
       {({ feeRates }) => (
-        <Outlet
-          context={{ feeRates, inscriptionResponse, selectedFeeType, setSelectedFeeType, utxo }}
-        />
+        <Outlet context={{ feeRates, inscription, selectedFeeType, setSelectedFeeType, utxo }} />
       )}
     </SendInscriptionLoader>
   );

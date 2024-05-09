@@ -1,7 +1,7 @@
 import { useMemo } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 
-import { makeInscription, useGetInscriptionsByOutputQuery } from '@leather-wallet/query';
+import { useInscriptionByOutput } from '@leather-wallet/query';
 import { HStack } from 'leather-styles/jsx';
 
 import { BitcoinTx } from '@shared/models/transactions/bitcoin-transaction.model';
@@ -35,13 +35,7 @@ export function BitcoinTransactionItem({ transaction }: BitcoinTransactionItemPr
   const { pathname } = useLocation();
   const navigate = useNavigate();
 
-  const { data: inscriptionData } = useGetInscriptionsByOutputQuery(transaction, {
-    select(data) {
-      const inscriptionResponse = data.results[0];
-      if (!inscriptionResponse) return;
-      return makeInscription(inscriptionResponse);
-    },
-  });
+  const { data: inscriptionData } = useInscriptionByOutput(transaction);
 
   const bitcoinAddress = useCurrentAccountNativeSegwitAddressIndexZero();
   const { handleOpenBitcoinTxLink: handleOpenTxLink } = useBitcoinExplorerLink();

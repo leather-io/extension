@@ -9,6 +9,11 @@ overrides:
   socket.io-parser: 4.2.4
   wrap-ansi: 7.0.0
   webpack-dev-middleware: 5.3.4
+  '@leather-wallet/bitcoin': file:../mono/packages/bitcoin
+  '@leather-wallet/constants': file:../mono/packages/constants
+  '@leather-wallet/models': file:../mono/packages/models
+  '@leather-wallet/utils': file:../mono/packages/utils
+  '@leather-wallet/rpc': file:../mono/packages/rpc
 
 dependencies:
   '@bitcoinerlab/secp256k1':
@@ -29,9 +34,12 @@ dependencies:
   '@hirosystems/token-metadata-api-client':
     specifier: 1.2.0
     version: 1.2.0
+  '@leather-wallet/models':
+    specifier: file:/Users/edgarkhanzadian/Developer/leather/leather-workspace/mono/packages/models
+    version: file:../mono/packages/models
   '@leather-wallet/query':
-    specifier: 0.4.0
-    version: 0.4.0(react-dom@18.2.0)(react@18.2.0)
+    specifier: file:../mono/packages/query
+    version: file:../mono/packages/query(react-dom@18.2.0)(react@18.2.0)
   '@leather-wallet/tokens':
     specifier: 0.0.14
     version: 0.0.14
@@ -3762,39 +3770,6 @@ packages:
       '@jridgewell/sourcemap-codec': 1.4.15
     dev: true
 
-  /@leather-wallet/bitcoin@0.4.0:
-    resolution: {integrity: sha512-zcflIUVy6wCpRRO89oAe9wKTI70JNTv9N1lta+ChdRZyEa9OV0Sv0eCQPUcBpox50VerwOfjIkWu36Vp9enZpg==}
-    dependencies:
-      '@bitcoinerlab/secp256k1': 1.0.2
-      '@leather-wallet/constants': 0.4.0
-      '@leather-wallet/models': 0.4.0
-      '@leather-wallet/utils': 0.4.0
-      '@noble/hashes': 1.3.3
-      '@noble/secp256k1': 2.0.0
-      '@scure/base': 1.1.3
-      '@scure/bip32': 1.3.3
-      '@scure/bip39': 1.2.1
-      '@scure/btc-signer': 1.2.1
-      '@stacks/common': 6.8.1
-      '@stacks/transactions': 6.9.0
-      bip32: 4.0.0
-      bitcoinjs-lib: 6.1.3
-      ecpair: 2.1.0
-      varuint-bitcoin: 1.1.2
-    transitivePeerDependencies:
-      - encoding
-    dev: false
-
-  /@leather-wallet/constants@0.4.0:
-    resolution: {integrity: sha512-UuqqbmgskpMTq/VWCf0pcp0iZ8HbsI4QYt8a7yJs1i11jEEhB4BctXEcuj8ZbJHXidoi7ZMzJIlc6E2M6vWcJA==}
-    dev: false
-
-  /@leather-wallet/models@0.4.0:
-    resolution: {integrity: sha512-6uwhdJxEhIpCI/29TPQIXAzfcz4niVIIujkGuwRFSyUiT/E8IEvjM30A3p9pMtEPCzO2UnpVERGLiLSIk48fgg==}
-    dependencies:
-      bignumber.js: 9.1.2
-    dev: false
-
   /@leather-wallet/prettier-config@0.0.5:
     resolution: {integrity: sha512-cK44e4XqYghcbd5ow8AKzK0NyNQ0r0V/PGVm940PN17tDxZ7JykBcEmSI1iGRkCnTCy/RE/qHkgGBW5gYXhM7g==}
     dependencies:
@@ -3804,48 +3779,6 @@ packages:
       - '@vue/compiler-sfc'
       - supports-color
     dev: true
-
-  /@leather-wallet/query@0.4.0(react-dom@18.2.0)(react@18.2.0):
-    resolution: {integrity: sha512-NN26McHOB3o5dgCV4dTWoIb3WyQBq+8Wp+U46GPM8nsAD/MPIU6HkjVQSzAk+V7Lp+vI8HG7IKE6IbQ5ZgEnaA==}
-    peerDependencies:
-      react: '*'
-    dependencies:
-      '@leather-wallet/bitcoin': 0.4.0
-      '@leather-wallet/constants': 0.4.0
-      '@leather-wallet/models': 0.4.0
-      '@leather-wallet/rpc': 0.3.0
-      '@leather-wallet/utils': 0.4.0
-      '@noble/hashes': 1.3.3
-      '@scure/base': 1.1.3
-      '@scure/bip32': 1.3.3
-      '@scure/btc-signer': 1.2.1
-      '@stacks/common': 6.8.1
-      '@stacks/rpc-client': 0.8.18
-      '@stacks/stacks-blockchain-api-types': 7.8.2
-      '@tanstack/query-sync-storage-persister': 4.35.7
-      '@tanstack/react-query': 4.35.7(react-dom@18.2.0)(react@18.2.0)
-      '@tanstack/react-query-devtools': 4.35.7(@tanstack/react-query@4.35.7)(react-dom@18.2.0)(react@18.2.0)
-      '@tanstack/react-query-persist-client': 4.35.7(@tanstack/react-query@4.35.7)
-      axios: 1.6.7
-      bignumber.js: 9.1.2
-      lodash.get: 4.4.2
-      p-queue: 8.0.1
-      react: 18.2.0
-      url-join: 5.0.0
-      yup: 1.3.3
-      zod: 3.23.6
-    transitivePeerDependencies:
-      - debug
-      - encoding
-      - react-dom
-      - react-native
-    dev: false
-
-  /@leather-wallet/rpc@0.3.0:
-    resolution: {integrity: sha512-jRexusk82Bax0CMIC9T2ApvnxA5rvd1yWjRyOxeImHdfQUK140MMij/Za8OcC8TYcFGMZbm3DEK1Xh9/NY6oIg==}
-    dependencies:
-      '@leather-wallet/models': 0.4.0
-    dev: false
 
   /@leather-wallet/tokens@0.0.14:
     resolution: {integrity: sha512-xCg+aIcn8DexmQhfvxYM85IGP2Q1JNfUBq80ZwV4horKw18MxxTdX5FeEthTrO8quRZu7up+IW6m/l3wElnDsA==}
@@ -3863,15 +3796,6 @@ packages:
       - ts-node
       - typescript
     dev: true
-
-  /@leather-wallet/utils@0.4.0:
-    resolution: {integrity: sha512-cgPNyyzVMrqFMaP0LYGv8IJFZBahW745P3vjhfywaTaiRTwfp7Ggr7dLqCWuKc2ltnmNs8ysFUPL6V1CpHyjzA==}
-    dependencies:
-      '@leather-wallet/constants': 0.4.0
-      '@leather-wallet/models': 0.4.0
-      '@leather-wallet/rpc': 0.3.0
-      bignumber.js: 9.1.2
-    dev: false
 
   /@ledgerhq/devices@8.2.0:
     resolution: {integrity: sha512-XROTW2gTmmuy+YPPDjdtKKTQ3mfxrPtKtV+a9QFbj8f5MnjVMV0Zpy1BIB4CyIMsVVi4z6+nI67auT7IlsM3SQ==}
@@ -25233,4 +25157,95 @@ packages:
 
   /zxcvbn@4.4.2:
     resolution: {integrity: sha512-Bq0B+ixT/DMyG8kgX2xWcI5jUvCwqrMxSFam7m0lAf78nf04hv6lNCsyLYdyYTrCVMqNDY/206K7eExYCeSyUQ==}
+    dev: false
+
+  file:../mono/packages/bitcoin:
+    resolution: {directory: ../mono/packages/bitcoin, type: directory}
+    name: '@leather-wallet/bitcoin'
+    dependencies:
+      '@bitcoinerlab/secp256k1': 1.0.2
+      '@leather-wallet/constants': file:../mono/packages/constants
+      '@leather-wallet/models': file:../mono/packages/models
+      '@leather-wallet/utils': file:../mono/packages/utils
+      '@noble/hashes': 1.3.3
+      '@noble/secp256k1': 2.0.0
+      '@scure/base': 1.1.3
+      '@scure/bip32': 1.3.3
+      '@scure/bip39': 1.2.1
+      '@scure/btc-signer': 1.2.1
+      '@stacks/common': 6.8.1
+      '@stacks/transactions': 6.9.0
+      bip32: 4.0.0
+      bitcoinjs-lib: 6.1.3
+      ecpair: 2.1.0
+      varuint-bitcoin: 1.1.2
+    transitivePeerDependencies:
+      - encoding
+    dev: false
+
+  file:../mono/packages/constants:
+    resolution: {directory: ../mono/packages/constants, type: directory}
+    name: '@leather-wallet/constants'
+    dev: false
+
+  file:../mono/packages/models:
+    resolution: {directory: ../mono/packages/models, type: directory}
+    name: '@leather-wallet/models'
+    dependencies:
+      bignumber.js: 9.1.2
+    dev: false
+
+  file:../mono/packages/query(react-dom@18.2.0)(react@18.2.0):
+    resolution: {directory: ../mono/packages/query, type: directory}
+    id: file:../mono/packages/query
+    name: '@leather-wallet/query'
+    peerDependencies:
+      react: '*'
+    dependencies:
+      '@leather-wallet/bitcoin': file:../mono/packages/bitcoin
+      '@leather-wallet/constants': file:../mono/packages/constants
+      '@leather-wallet/models': file:../mono/packages/models
+      '@leather-wallet/rpc': file:../mono/packages/rpc
+      '@leather-wallet/utils': file:../mono/packages/utils
+      '@noble/hashes': 1.3.3
+      '@scure/base': 1.1.3
+      '@scure/bip32': 1.3.3
+      '@scure/btc-signer': 1.2.1
+      '@stacks/common': 6.8.1
+      '@stacks/rpc-client': 0.8.18
+      '@stacks/stacks-blockchain-api-types': 7.8.2
+      '@tanstack/query-sync-storage-persister': 4.35.7
+      '@tanstack/react-query': 4.35.7(react-dom@18.2.0)(react@18.2.0)
+      '@tanstack/react-query-devtools': 4.35.7(@tanstack/react-query@4.35.7)(react-dom@18.2.0)(react@18.2.0)
+      '@tanstack/react-query-persist-client': 4.35.7(@tanstack/react-query@4.35.7)
+      axios: 1.6.7
+      bignumber.js: 9.1.2
+      lodash.get: 4.4.2
+      p-queue: 8.0.1
+      react: 18.2.0
+      url-join: 5.0.0
+      yup: 1.3.3
+      zod: 3.23.6
+    transitivePeerDependencies:
+      - debug
+      - encoding
+      - react-dom
+      - react-native
+    dev: false
+
+  file:../mono/packages/rpc:
+    resolution: {directory: ../mono/packages/rpc, type: directory}
+    name: '@leather-wallet/rpc'
+    dependencies:
+      '@leather-wallet/models': file:../mono/packages/models
+    dev: false
+
+  file:../mono/packages/utils:
+    resolution: {directory: ../mono/packages/utils, type: directory}
+    name: '@leather-wallet/utils'
+    dependencies:
+      '@leather-wallet/constants': file:../mono/packages/constants
+      '@leather-wallet/models': file:../mono/packages/models
+      '@leather-wallet/rpc': file:../mono/packages/rpc
+      bignumber.js: 9.1.2
     dev: false

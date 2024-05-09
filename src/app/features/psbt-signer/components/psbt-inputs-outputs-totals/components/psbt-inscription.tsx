@@ -1,4 +1,5 @@
-import { type Inscription, useInscription } from '@leather-wallet/query';
+import type { Inscription } from '@leather-wallet/models';
+import { useInscription } from '@leather-wallet/query';
 
 import { isUndefined } from '@shared/utils';
 

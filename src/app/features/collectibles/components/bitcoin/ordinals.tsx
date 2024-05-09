@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { useInView } from 'react-intersection-observer';
 
-import { useGetInscriptionsInfiniteQuery } from '@leather-wallet/query';
+import { useInscriptions } from '@leather-wallet/query';
 import { Box } from 'leather-styles/jsx';
 
 import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
@@ -17,7 +17,7 @@ export function Ordinals({ setIsLoadingMore }: OrdinalsProps) {
   const account = useCurrentTaprootAccount();
   const nativeSegwitSigner = useCurrentAccountNativeSegwitIndexZeroSigner();
 
-  const query = useGetInscriptionsInfiniteQuery({
+  const query = useInscriptions({
     taprootKeychain: account?.keychain,
     nativeSegwitAddress: nativeSegwitSigner.address,
   });
@@ -61,7 +61,7 @@ export function Ordinals({ setIsLoadingMore }: OrdinalsProps) {
     <>
       {pages.map(page =>
         page.inscriptions.map(inscription => (
-          <Inscription rawInscription={inscription} key={inscription.id} />
+          <Inscription inscription={inscription} key={inscription.id} />
         ))
       )}
       <Box ref={intersectionSentinel} />

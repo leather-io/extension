@@ -1,6 +1,6 @@
 import { useLocation, useNavigate } from 'react-router-dom';
 
-import { makeInscription, useBitcoinBroadcastTransaction } from '@leather-wallet/query';
+import { useBitcoinBroadcastTransaction } from '@leather-wallet/query';
 import { bytesToHex } from '@noble/hashes/utils';
 import { Box, Flex, Stack } from 'leather-styles/jsx';
 import get from 'lodash.get';
@@ -39,23 +39,22 @@ export function SendInscriptionReview() {
   const dispatch = useAppDispatch();
   const { arrivesIn, signedTx, recipient, feeRowValue } = useSendInscriptionReviewState();
 
-  const { inscriptionResponse } = useSendInscriptionState();
-  const inscription = makeInscription(inscriptionResponse);
+  const { inscription } = useSendInscriptionState();
   const { refetch } = useCurrentNativeSegwitUtxos();
   const { broadcastTx, isBroadcasting } = useBitcoinBroadcastTransaction();
 
   async function sendInscription() {
     await broadcastTx({
-      skipSpendableCheckUtxoIds: [inscriptionResponse.tx_id],
+      skipSpendableCheckUtxoIds: [inscription.txid],
       tx: bytesToHex(signedTx),
       async onSuccess(txid: string) {
         void analytics.track('broadcast_ordinal_transaction');
         await refetch();
         // Might be a BRC-20 transfer, so we want to remove it from the pending
-        dispatch(inscriptionSent({ inscriptionId: inscriptionResponse.id }));
+        dispatch(inscriptionSent({ inscriptionId: inscription.id }));
         navigate(`/${RouteUrls.SendOrdinalInscription}/${RouteUrls.SendOrdinalInscriptionSent}`, {
           state: {
-            inscription: inscriptionResponse,
+            inscription,
             recipient,
             arrivesIn,
             txid,

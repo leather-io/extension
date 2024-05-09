@@ -1,4 +1,4 @@
-import type { Inscription } from '@leather-wallet/query';
+import type { Inscription } from '@leather-wallet/models';
 import { BoxProps, Flex } from 'leather-styles/jsx';
 
 import { OrdinalAvatarIcon } from '@app/ui/components/avatar/ordinal-avatar-icon';
