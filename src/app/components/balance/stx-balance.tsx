@@ -1,24 +1,24 @@
 import { useMemo } from 'react';
 
 import { stacksValue } from '@app/common/stacks-utils';
-import { useStacksAccountBalances } from '@app/query/stacks/balance/stx-balance.hooks';
+import { useStxCryptoAssetBalance } from '@app/query/stacks/balance/stx-balance.hooks';
 import { Caption } from '@app/ui/components/typography/caption';
 
-interface BalanceProps {
+interface StxBalanceProps {
   address: string;
 }
-export function StxBalance(props: BalanceProps) {
+export function StxBalance(props: StxBalanceProps) {
   const { address } = props;
-  const { data: balances } = useStacksAccountBalances(address);
+  const { data: balance } = useStxCryptoAssetBalance(address);
 
-  const balance = useMemo(
+  const stxBalance = useMemo(
     () =>
       stacksValue({
-        value: balances?.stx?.unlockedStx.amount ?? 0,
+        value: balance?.unlockedBalance.amount ?? 0,
         withTicker: true,
       }),
-    [balances]
+    [balance]
   );
 
-  return <Caption>{balance}</Caption>;
+  return <Caption>{stxBalance}</Caption>;
 }

@@ -9,10 +9,10 @@ import { type Money, createMoney } from '@shared/models/money.model';
 import { isDefined } from '@shared/utils';
 
 import { sortAssetsByName } from '@app/common/asset-utils';
-import { useStxBalance } from '@app/common/hooks/balance/stx/use-stx-balance';
 import { convertAmountToFractionalUnit } from '@app/common/money/calculate-money';
 import { pullContractIdFromIdentity } from '@app/common/utils';
 import { useTransferableStacksFungibleTokenAssetBalances } from '@app/query/stacks/balance/stacks-ft-balances.hooks';
+import { useCurrentStcAvailableUnlockedBalance } from '@app/query/stacks/balance/stx-balance.hooks';
 import { useCurrentStacksAccount } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
 import { getAvatarFallback } from '@app/ui/components/avatar/avatar';
 
@@ -55,7 +55,7 @@ function useMakeSwapAsset() {
   const account = useCurrentStacksAccount();
   const { data: prices } = useAlexSdkLatestPricesQuery();
   const priceAsMarketData = useAlexCurrencyPriceAsMarketData();
-  const { availableBalance: availableStxBalance } = useStxBalance();
+  const availableUnlockedBalance = useCurrentStcAvailableUnlockedBalance();
   const stacksFtAssetBalances = useTransferableStacksFungibleTokenAssetBalances(
     account?.address ?? ''
   );
@@ -85,9 +85,9 @@ function useMakeSwapAsset() {
       if (currency === Currency.STX) {
         return {
           ...swapAsset,
-          balance: availableStxBalance,
+          balance: availableUnlockedBalance,
           displayName: 'Stacks',
-          marketData: priceAsMarketData(principal, availableStxBalance.symbol),
+          marketData: priceAsMarketData(principal, availableUnlockedBalance.symbol),
         };
       }
 
@@ -99,7 +99,7 @@ function useMakeSwapAsset() {
           : priceAsMarketData(principal, tokenInfo.name),
       };
     },
-    [availableStxBalance, priceAsMarketData, prices, stacksFtAssetBalances]
+    [availableUnlockedBalance, priceAsMarketData, prices, stacksFtAssetBalances]
   );
 }
 

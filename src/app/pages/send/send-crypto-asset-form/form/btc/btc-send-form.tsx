@@ -9,7 +9,7 @@ import { CryptoCurrencies } from '@shared/models/currencies.model';
 
 import { formatMoney } from '@app/common/money/format-money';
 import { HighFeeDialog } from '@app/features/dialogs/high-fee-dialog/high-fee-dialog';
-import { useNativeSegwitBtcCryptoAssetBalance } from '@app/query/bitcoin/balance/btc-native-segwit-balance.hooks';
+import { useBtcCryptoAssetBalanceNativeSegwit } from '@app/query/bitcoin/balance/btc-balance-native-segwit.hooks';
 import { useCryptoCurrencyMarketDataMeanAverage } from '@app/query/common/market-data/market-data.hooks';
 import { useCurrentAccountNativeSegwitIndexZeroSigner } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
 import { BtcAvatarIcon } from '@app/ui/components/avatar/btc-avatar-icon';
@@ -38,7 +38,7 @@ export function BtcSendForm() {
 
   const nativeSegwitSigner = useCurrentAccountNativeSegwitIndexZeroSigner();
   // TODO: Asset refactor: need asset here
-  const { btcCryptoAssetBalance } = useNativeSegwitBtcCryptoAssetBalance(
+  const { btcCryptoAssetBalance } = useBtcCryptoAssetBalanceNativeSegwit(
     nativeSegwitSigner.address
   );
 

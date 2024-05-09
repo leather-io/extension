@@ -2,7 +2,7 @@ import { FlexProps } from 'leather-styles/jsx';
 
 import type { StacksFungibleTokenAssetBalance } from '@shared/models/crypto-asset-balance.model';
 
-import { StacksFungibleTokenAssetItemLayout } from '../stacks/fungible-token-asset/stacks-fungible-token-asset-item.layout';
+import { StacksFungibleTokenAssetItemLayout } from '../../components/crypto-assets/stacks/fungible-token-asset/stacks-fungible-token-asset-item.layout';
 
 interface FungibleTokenAssetItemProps extends FlexProps {
   assetBalance: StacksFungibleTokenAssetBalance;

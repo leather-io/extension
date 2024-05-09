@@ -7,7 +7,6 @@ import { STX_DECIMALS } from '@shared/constants';
 import { logger } from '@shared/logger';
 import { StacksSendFormValues } from '@shared/models/form.model';
 
-import { useStxBalance } from '@app/common/hooks/balance/stx/use-stx-balance';
 import { convertAmountToBaseUnit } from '@app/common/money/calculate-money';
 import {
   stxAmountValidator,
@@ -15,6 +14,7 @@ import {
 } from '@app/common/validation/forms/amount-validators';
 import { stxFeeValidator } from '@app/common/validation/forms/fee-validators';
 import { useUpdatePersistedSendFormValues } from '@app/features/popup-send-form-restoration/use-update-persisted-send-form-values';
+import { useCurrentStcAvailableUnlockedBalance } from '@app/query/stacks/balance/stx-balance.hooks';
 import { useCalculateStacksTxFees } from '@app/query/stacks/fees/fees.hooks';
 import { useStacksValidateFeeByNonce } from '@app/query/stacks/mempool/mempool.hooks';
 import {
@@ -30,31 +30,29 @@ export function useStxSendForm() {
   const { data: stxFees } = useCalculateStacksTxFees(unsignedTx);
   const generateTx = useGenerateStxTokenTransferUnsignedTx();
   const { onFormStateChange } = useUpdatePersistedSendFormValues();
-
   const sendFormNavigate = useSendFormNavigate();
   const { changeFeeByNonce } = useStacksValidateFeeByNonce();
-
-  const { availableBalance: availableStxBalance } = useStxBalance();
+  const availableUnlockedBalance = useCurrentStcAvailableUnlockedBalance();
 
   const sendMaxBalance = useMemo(
     () =>
       convertAmountToBaseUnit(
-        availableStxBalance.amount.minus(stxFees?.estimates[1].fee.amount || 0),
+        availableUnlockedBalance.amount.minus(stxFees?.estimates[1].fee.amount || 0),
         STX_DECIMALS
       ),
-    [availableStxBalance, stxFees]
+    [availableUnlockedBalance.amount, stxFees?.estimates]
   );
 
   const { initialValues, checkFormValidation, recipient, memo, nonce } = useStacksCommonSendForm({
     symbol: 'STX',
-    availableTokenBalance: availableStxBalance,
+    availableTokenBalance: availableUnlockedBalance,
   });
 
   // FIXME - I don't this this is the fee, should be value.fee or something from the form
-  const fee = stxFeeValidator(availableStxBalance);
+  const fee = stxFeeValidator(availableUnlockedBalance);
 
   return {
-    availableStxBalance,
+    availableUnlockedBalance,
     initialValues,
     onFormStateChange,
     sendMaxBalance,
@@ -62,10 +60,10 @@ export function useStxSendForm() {
     fee,
 
     validationSchema: yup.object({
-      amount: stxAmountValidator(availableStxBalance).concat(
-        stxAvailableBalanceValidator(availableStxBalance)
+      amount: stxAmountValidator(availableUnlockedBalance).concat(
+        stxAvailableBalanceValidator(availableUnlockedBalance)
       ),
-      fee: stxFeeValidator(availableStxBalance),
+      fee: stxFeeValidator(availableUnlockedBalance),
       recipient,
       memo,
       nonce,

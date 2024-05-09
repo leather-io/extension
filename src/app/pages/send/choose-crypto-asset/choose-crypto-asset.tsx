@@ -7,7 +7,7 @@ import { RouteUrls } from '@shared/route-urls';
 
 import { useAllTransferableCryptoAssetBalances } from '@app/common/hooks/use-transferable-asset-balances.hooks';
 import { useWalletType } from '@app/common/use-wallet-type';
-import { CryptoAssetList } from '@app/components/crypto-assets/choose-crypto-asset/crypto-asset-list';
+import { CryptoAssetList } from '@app/features/selectable-asset-list/crypto-asset-list';
 import { useToast } from '@app/features/toasts/use-toast';
 import { useConfigBitcoinSendEnabled } from '@app/query/common/remote-config/remote-config.query';
 import { useCheckLedgerBlockchainAvailable } from '@app/store/accounts/blockchain/utils';

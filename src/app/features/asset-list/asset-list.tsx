@@ -27,11 +27,11 @@ import { PendingBrc20TransferList } from '../pending-brc-20-transfers/pending-br
 import { AddStacksLedgerKeysItem } from './components/add-stacks-ledger-keys-item';
 import { BtcBalanceListItem } from './components/btc-balance-list-item';
 import { ConnectLedgerAssetBtn } from './components/connect-ledger-asset-button';
-import { StacksBalanceListItem } from './components/stacks-balance-list-item';
 import { StacksFungibleTokenAssetList } from './components/stacks-fungible-token-asset-list';
 import { StacksUnsupportedTokenAssetList } from './components/stacks-unsupported-token-asset-list';
+import { StxBalanceListItem } from './components/stx-balance-list-item';
 
-export function AssetsList() {
+export function AssetList() {
   const hasBitcoinLedgerKeys = useHasBitcoinLedgerKeychain();
   const network = useCurrentNetwork();
   const { whenWallet } = useWalletType();
@@ -84,7 +84,7 @@ export function AssetsList() {
       <CurrentStacksAccountLoader fallback={<AddStacksLedgerKeysItem />}>
         {account => (
           <>
-            <StacksBalanceListItem address={account.address} />
+            <StxBalanceListItem address={account.address} />
             <StacksFungibleTokenAssetList address={account.address} />
             <Stx20TokensLoader address={account.address}>
               {tokens => <Stx20TokenAssetList tokens={tokens} />}

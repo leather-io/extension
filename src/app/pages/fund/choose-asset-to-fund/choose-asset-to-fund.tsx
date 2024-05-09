@@ -9,7 +9,7 @@ import { isDefined } from '@shared/utils';
 
 import { useStxCryptoCurrencyAssetBalance } from '@app/common/hooks/balance/stx/use-stx-crypto-currency-asset-balance';
 import { useWalletType } from '@app/common/use-wallet-type';
-import { CryptoAssetList } from '@app/components/crypto-assets/choose-crypto-asset/crypto-asset-list';
+import { CryptoAssetList } from '@app/features/selectable-asset-list/crypto-asset-list';
 import { useCheckLedgerBlockchainAvailable } from '@app/store/accounts/blockchain/utils';
 import { Card } from '@app/ui/layout/card/card';
 import { Page } from '@app/ui/layout/page/page.layout';

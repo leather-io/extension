@@ -4,16 +4,16 @@ import type { AllTransferableCryptoAssetBalances } from '@shared/models/crypto-a
 
 import { useTransferableStacksFungibleTokenAssetBalances } from '@app/query/stacks/balance/stacks-ft-balances.hooks';
 import { createStacksCryptoCurrencyAssetTypeWrapper } from '@app/query/stacks/balance/stacks-ft-balances.utils';
+import { useCurrentStcAvailableUnlockedBalance } from '@app/query/stacks/balance/stx-balance.hooks';
 import { useCurrentStacksAccount } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
 
-import { useStxBalance } from './balance/stx/use-stx-balance';
-
+// TODO: Asset refactor: remove wrapper here
 export function useAllTransferableCryptoAssetBalances(): AllTransferableCryptoAssetBalances[] {
   const account = useCurrentStacksAccount();
 
-  const { availableBalance: availableStxBalance } = useStxBalance();
+  const availableUnlockedBalance = useCurrentStcAvailableUnlockedBalance();
   const stxCryptoCurrencyAssetBalance = createStacksCryptoCurrencyAssetTypeWrapper(
-    availableStxBalance.amount
+    availableUnlockedBalance.amount
   );
   const stacksFtAssetBalances = useTransferableStacksFungibleTokenAssetBalances(
     account?.address ?? ''

@@ -1,15 +1,14 @@
 import { Outlet, useParams } from 'react-router-dom';
 
-import type { BtcCryptoAssetBalance } from '@leather-wallet/models';
+import type { BtcCryptoAssetBalance, StxCryptoAssetBalance } from '@leather-wallet/models';
 
 import type { Blockchains } from '@shared/models/blockchain.model';
-import type { StacksCryptoCurrencyAssetBalance } from '@shared/models/crypto-asset-balance.model';
 import type { CryptoCurrencies } from '@shared/models/currencies.model';
 import { RouteUrls } from '@shared/route-urls';
 
-import { useStxCryptoCurrencyAssetBalance } from '@app/common/hooks/balance/stx/use-stx-crypto-currency-asset-balance';
 import { FullPageLoadingSpinner } from '@app/components/loading-spinner';
-import { useNativeSegwitBtcCryptoAssetBalance } from '@app/query/bitcoin/balance/btc-native-segwit-balance.hooks';
+import { useBtcCryptoAssetBalanceNativeSegwit } from '@app/query/bitcoin/balance/btc-balance-native-segwit.hooks';
+import { useStxCryptoAssetBalance } from '@app/query/stacks/balance/stx-balance.hooks';
 import { useCurrentAccountNativeSegwitIndexZeroSignerNullable } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
 import { useCurrentStacksAccount } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
 
@@ -18,7 +17,7 @@ import { FiatProvidersList } from './fiat-providers-list';
 
 interface FundCryptoCurrencyInfo {
   address?: string;
-  balance?: BtcCryptoAssetBalance | StacksCryptoCurrencyAssetBalance;
+  balance?: BtcCryptoAssetBalance | StxCryptoAssetBalance;
   blockchain: Blockchains;
   route: string;
   symbol: CryptoCurrencies;
@@ -27,10 +26,12 @@ interface FundCryptoCurrencyInfo {
 export function FundPage() {
   const currentStxAccount = useCurrentStacksAccount();
   const bitcoinSigner = useCurrentAccountNativeSegwitIndexZeroSignerNullable();
-  const { btcCryptoAssetBalance } = useNativeSegwitBtcCryptoAssetBalance(
+  const { btcCryptoAssetBalance } = useBtcCryptoAssetBalanceNativeSegwit(
+    bitcoinSigner?.address ?? ''
+  );
+  const { data: stxCryptoAssetBalance } = useStxCryptoAssetBalance(
     currentStxAccount?.address ?? ''
   );
-  const stxCryptoCurrencyAssetBalance = useStxCryptoCurrencyAssetBalance();
   const { currency = 'STX' } = useParams();
 
   const fundCryptoCurrencyMap: Record<CryptoCurrencies, FundCryptoCurrencyInfo> = {
@@ -43,7 +44,7 @@ export function FundPage() {
     },
     STX: {
       address: currentStxAccount?.address,
-      balance: stxCryptoCurrencyAssetBalance,
+      balance: stxCryptoAssetBalance,
       blockchain: 'Stacks',
       route: RouteUrls.ReceiveStx,
       symbol: currency,

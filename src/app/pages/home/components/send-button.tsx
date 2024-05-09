@@ -8,10 +8,8 @@ import { RouteUrls } from '@shared/route-urls';
 import { useWalletType } from '@app/common/use-wallet-type';
 import { whenPageMode } from '@app/common/utils';
 import { openIndexPageInNewTab } from '@app/common/utils/open-in-new-tab';
-import {
-  useStacksCryptoCurrencyAssetBalance,
-  useTransferableStacksFungibleTokenAssetBalances,
-} from '@app/query/stacks/balance/stacks-ft-balances.hooks';
+import { useTransferableStacksFungibleTokenAssetBalances } from '@app/query/stacks/balance/stacks-ft-balances.hooks';
+import { useStxCryptoAssetBalance } from '@app/query/stacks/balance/stx-balance.hooks';
 import { useCurrentStacksAccount } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
 import { IconButton } from '@app/ui/components/icon-button/icon-button';
 import { SendIcon } from '@app/ui/icons';
@@ -20,9 +18,9 @@ function SendButtonSuspense() {
   const navigate = useNavigate();
   const { whenWallet } = useWalletType();
   const account = useCurrentStacksAccount();
-  const stxAssetBalance = useStacksCryptoCurrencyAssetBalance(account?.address ?? '');
+  const { data: stxCryptoAssetBalance } = useStxCryptoAssetBalance(account?.address ?? '');
   const ftAssets = useTransferableStacksFungibleTokenAssetBalances(account?.address ?? '');
-  const isDisabled = !stxAssetBalance && ftAssets?.length === 0;
+  const isDisabled = !stxCryptoAssetBalance && ftAssets?.length === 0;
 
   return (
     <IconButton

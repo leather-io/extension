@@ -28,11 +28,11 @@ export function BtcBalanceListItem({
     <CryptoAssetItemLayout
       address={address}
       assetBalance={balance}
+      balanceAsFiat={availableBalanceAsFiat}
       icon={<BtcAvatarIcon />}
       isLoading={isLoading}
       name={btcCryptoAssetInfo.name}
       rightElement={rightElement}
-      usdBalance={availableBalanceAsFiat}
     />
   );
 }

@@ -3,11 +3,11 @@ import { useState } from 'react';
 import { Money, createMoney } from '@shared/models/money.model';
 
 import { subtractMoney, sumMoney } from '@app/common/money/calculate-money';
-import { useCurrentNativeSegwitAvailableBalance } from '@app/query/bitcoin/balance/btc-native-segwit-balance.hooks';
+import { useCurrentBtcAvailableBalanceNativeSegwit } from '@app/query/bitcoin/balance/btc-balance-native-segwit.hooks';
 
 export function useValidateBitcoinSpend(amount?: Money, isSendingMax?: boolean) {
   const [showInsufficientBalanceError, setShowInsufficientBalanceError] = useState(false);
-  const { balance } = useCurrentNativeSegwitAvailableBalance();
+  const { balance } = useCurrentBtcAvailableBalanceNativeSegwit();
 
   return {
     showInsufficientBalanceError,

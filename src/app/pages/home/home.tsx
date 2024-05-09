@@ -7,7 +7,7 @@ import { useOnboardingState } from '@app/common/hooks/auth/use-onboarding-state'
 import { useTotalBalance } from '@app/common/hooks/balance/use-total-balance';
 import { useOnMount } from '@app/common/hooks/use-on-mount';
 import { ActivityList } from '@app/features/activity-list/activity-list';
-import { AssetsList } from '@app/features/asset-list/asset-list';
+import { AssetList } from '@app/features/asset-list/asset-list';
 import { SwitchAccountOutletContext } from '@app/features/dialogs/switch-account-dialog/switch-account-dialog';
 import { FeedbackButton } from '@app/features/feedback-button/feedback-button';
 import { homePageModalRoutes } from '@app/routes/app-routes';
@@ -59,7 +59,7 @@ export function Home() {
       <FeedbackButton />
       <HomeTabs>
         <ModalBackgroundWrapper>
-          <Route index element={<AssetsList />} />
+          <Route index element={<AssetList />} />
           <Route path={RouteUrls.Activity} element={<ActivityList />}>
             {homePageModalRoutes}
           </Route>

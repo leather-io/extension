@@ -4,11 +4,11 @@ import { Outlet, Route } from 'react-router-dom';
 import { RouteUrls } from '@shared/route-urls';
 
 import { BroadcastErrorDialog } from '@app/components/broadcast-error-dialog/broadcast-error-dialog';
-import { SendBtcDisabled } from '@app/components/crypto-assets/choose-crypto-asset/send-btc-disabled';
 import { FullPageWithHeaderLoadingSpinner } from '@app/components/loading-spinner';
 import { EditNonceDialog } from '@app/features/dialogs/edit-nonce-dialog/edit-nonce-dialog';
 import { ledgerBitcoinTxSigningRoutes } from '@app/features/ledger/flows/bitcoin-tx-signing/ledger-bitcoin-sign-tx-container';
 import { ledgerStacksTxSigningRoutes } from '@app/features/ledger/flows/stacks-tx-signing/ledger-sign-stacks-tx-container';
+import { SendBtcDisabled } from '@app/features/selectable-asset-list/send-btc-disabled';
 import { AccountGate } from '@app/routes/account-gate';
 import { Page } from '@app/ui/layout/page/page.layout';
 
