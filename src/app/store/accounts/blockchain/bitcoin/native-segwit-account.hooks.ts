@@ -15,7 +15,7 @@ import {
   getNativeSegwitAccountDerivationPath,
 } from '@shared/crypto/bitcoin/p2wpkh-address-gen';
 import { BitcoinInputSigningConfig } from '@shared/crypto/bitcoin/signer-config';
-import { isDefined, reverseBytes } from '@shared/utils';
+import { reverseBytes } from '@shared/utils';
 import { analytics } from '@shared/utils/analytics';
 
 import { mnemonicToRootNode } from '@app/common/keychain/keychain';
@@ -150,8 +150,8 @@ export function useUpdateLedgerSpecificNativeSegwitUtxoHexForAdddressIndexZero()
     );
 
     inputSigningConfig.forEach(({ index }) => {
-      // don't update nonWitnessUtxo if it already exists
-      if (tx.data.inputs.every(input => !isDefined(input.nonWitnessUtxo))) {
+      // decorate input with nonWitnessUtxo unless it already exists
+      if (!tx.data.inputs[index].nonWitnessUtxo) {
         tx.updateInput(index, {
           nonWitnessUtxo: Buffer.from(inputsTxHex[index], 'hex'),
         });
