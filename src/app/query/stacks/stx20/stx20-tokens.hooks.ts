@@ -5,7 +5,7 @@ import { createMoney } from '@shared/models/money.model';
 import type { Stx20Balance, Stx20Token } from '../stacks-client';
 import { useStx20BalancesQuery } from './stx20-tokens.query';
 
-function makeStx20Token(token: Stx20Balance): Stx20Token {
+function createStx20Token(token: Stx20Balance): Stx20Token {
   return {
     balance: createMoney(new BigNumber(token.balance), token.ticker, 0),
     marketData: null,
@@ -15,6 +15,6 @@ function makeStx20Token(token: Stx20Balance): Stx20Token {
 
 export function useStx20Tokens(address: string) {
   return useStx20BalancesQuery(address, {
-    select: resp => resp.map(balance => makeStx20Token(balance)),
+    select: resp => resp.map(balance => createStx20Token(balance)),
   });
 }

@@ -7,8 +7,8 @@ import { AttachmentRow } from '@app/features/stacks-transaction-request/attachme
 import { ContractPreviewLayout } from '@app/features/stacks-transaction-request/contract-preview';
 import { Row } from '@app/features/stacks-transaction-request/row';
 import {
-  useCurrentAccountStxAddressState,
   useCurrentStacksAccount,
+  useCurrentStacksAccountAddress,
 } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
 import { useTransactionRequestState } from '@app/store/transactions/requests.hooks';
 import { CodeBlock } from '@app/ui/components/codeblock';
@@ -18,7 +18,7 @@ function ContractCodeSection() {
   const transactionRequest = useTransactionRequestState();
 
   const currentAccount = useCurrentStacksAccount();
-  const currentAccountStxAddress = useCurrentAccountStxAddressState();
+  const currentAccountStxAddress = useCurrentStacksAccountAddress();
 
   if (
     !transactionRequest ||
@@ -63,7 +63,7 @@ function TabButton(props: TabButtonProps) {
 export function ContractDeployDetails() {
   const transactionRequest = useTransactionRequestState();
   const currentAccount = useCurrentStacksAccount();
-  const currentAccountStxAddress = useCurrentAccountStxAddressState();
+  const currentAccountStxAddress = useCurrentStacksAccountAddress();
   const [tab, setTab] = useState<'details' | 'code'>('details');
 
   if (

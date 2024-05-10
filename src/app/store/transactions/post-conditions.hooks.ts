@@ -7,9 +7,9 @@ import {
   getPostCondition,
   handlePostConditions,
 } from '@app/common/transactions/stacks/post-condition.utils';
-import { useGetFungibleTokenMetadataQuery } from '@app/query/stacks/tokens/fungible-tokens/fungible-token-metadata.query';
-import { isFtAsset } from '@app/query/stacks/tokens/token-metadata.utils';
-import { useCurrentAccountStxAddressState } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
+import { useGetFungibleTokenMetadataQuery } from '@app/query/stacks/token-metadata/fungible-tokens/fungible-token-metadata.query';
+import { isFtAsset } from '@app/query/stacks/token-metadata/token-metadata.utils';
+import { useCurrentStacksAccountAddress } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
 
 import { useTransactionRequestState } from './requests.hooks';
 
@@ -34,7 +34,7 @@ export function usePostConditionModeState() {
 
 export function usePostConditionState() {
   const payload = useTransactionRequestState();
-  const address = useCurrentAccountStxAddressState();
+  const address = useCurrentStacksAccountAddress();
   return useMemo(() => formatPostConditionState(payload, address), [address, payload]);
 }
 

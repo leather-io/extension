@@ -1,7 +1,5 @@
 import { AddressTokenOfferingLocked } from '@stacks/stacks-blockchain-api-types/generated';
 
-import type { Money } from './money.model';
-
 type SelectedKeys =
   | 'balance'
   | 'total_sent'
@@ -46,18 +44,4 @@ export interface AddressBalanceResponse {
     }
   >;
   token_offering_locked?: AddressTokenOfferingLocked;
-}
-
-export interface AccountStxBalanceBigNumber
-  extends Omit<AddressBalanceResponse['stx'], AccountBalanceStxKeys> {
-  balance: Money;
-  total_sent: Money;
-  total_received: Money;
-  total_fees_sent: Money;
-  total_miner_rewards_received: Money;
-  locked: Money;
-}
-
-export interface AccountBalanceResponseBigNumber extends Omit<AddressBalanceResponse, 'stx'> {
-  stx: AccountStxBalanceBigNumber;
 }

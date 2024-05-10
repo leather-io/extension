@@ -12,7 +12,7 @@ import { useScrollLock } from '@app/common/hooks/use-scroll-lock';
 import { stacksValue } from '@app/common/stacks-utils';
 import { SwitchAccountDialog } from '@app/features/dialogs/switch-account-dialog/switch-account-dialog';
 import { ErrorMessage } from '@app/features/stacks-transaction-request/transaction-error/error-message';
-import { useCurrentStcAvailableUnlockedBalance } from '@app/query/stacks/balance/stx-balance.hooks';
+import { useCurrentStxAvailableUnlockedBalance } from '@app/query/stacks/balance/account-balance.hooks';
 import { useCurrentNetworkState } from '@app/store/networks/networks.hooks';
 import { useTransactionRequestState } from '@app/store/transactions/requests.hooks';
 import { Button } from '@app/ui/components/button/button';
@@ -59,7 +59,7 @@ export const FeeInsufficientFundsErrorMessage = memo(props => {
 
 export const StxTransferInsufficientFundsErrorMessage = memo(props => {
   const pendingTransaction = useTransactionRequestState();
-  const availableUnlockedBalance = useCurrentStcAvailableUnlockedBalance();
+  const availableUnlockedBalance = useCurrentStxAvailableUnlockedBalance();
 
   return (
     <ErrorMessage

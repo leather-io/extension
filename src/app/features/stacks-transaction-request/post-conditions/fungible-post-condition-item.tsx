@@ -3,8 +3,7 @@ import { Suspense } from 'react';
 import { TransactionTypes } from '@stacks/connect';
 import { FungiblePostCondition, addressToString } from '@stacks/transactions';
 
-import { getImageCanonicalUri } from '@app/common/crypto-assets/stacks-crypto-asset.utils';
-import { ftDecimals } from '@app/common/stacks-utils';
+import { ftDecimals, getSafeImageCanonicalUri } from '@app/common/stacks-utils';
 import {
   getAmountFromPostCondition,
   getIconStringFromPostCondition,
@@ -36,7 +35,7 @@ function FungiblePostConditionItemSuspense(
   const imageCanonicalUri =
     asset?.image_canonical_uri &&
     asset.name &&
-    getImageCanonicalUri(asset.image_canonical_uri, asset.name);
+    getSafeImageCanonicalUri(asset.image_canonical_uri, asset.name);
 
   const title = getPostConditionTitle(pc);
   const iconString = imageCanonicalUri ?? getIconStringFromPostCondition(pc);

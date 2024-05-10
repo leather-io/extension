@@ -2,7 +2,7 @@ import { HStack, HstackProps, styled } from 'leather-styles/jsx';
 
 import { isValidUrl } from '@shared/utils/validate-url';
 
-import { StacksAssetAvatar } from '@app/components/crypto-assets/stacks/components/stacks-asset-avatar';
+import { StacksAssetAvatar } from '@app/components/stacks-asset-avatar';
 
 interface TxAssetItemProps extends HstackProps {
   iconString: string;

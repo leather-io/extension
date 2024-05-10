@@ -16,7 +16,7 @@ export function StxSendForm() {
   const stxMarketData = useCryptoCurrencyMarketDataMeanAverage(symbol);
 
   const {
-    availableStxBalance,
+    availableUnlockedBalance,
     initialValues,
     previewTransaction,
     sendMaxBalance,
@@ -27,10 +27,13 @@ export function StxSendForm() {
 
   const amountField = (
     <AmountField
-      balance={availableStxBalance}
+      balance={availableUnlockedBalance}
       switchableAmount={<SendFiatValue marketData={stxMarketData} assetSymbol={symbol} />}
       bottomInputOverlay={
-        <SendMaxButton balance={availableStxBalance} sendMaxBalance={sendMaxBalance.toString()} />
+        <SendMaxButton
+          balance={availableUnlockedBalance}
+          sendMaxBalance={sendMaxBalance.toString()}
+        />
       }
       autoComplete="off"
     />
@@ -51,7 +54,7 @@ export function StxSendForm() {
       // FIXME 4370 - need to fix this as fee is actually  NumberSchema<number | undefined, AnyObject>; in FeeValidatorFactoryArgs
       // this needs to be the STX fee so it can be validated against HIGH_FEE_AMOUNT_STX
       fee={fee as unknown as string}
-      availableTokenBalance={availableStxBalance}
+      availableTokenBalance={availableUnlockedBalance}
     />
   );
 }

@@ -1,18 +1,21 @@
 import BigNumber from 'bignumber.js';
 
 import { createMarketData, createMarketPair } from '@shared/models/market.model';
-import { type Money, createMoney } from '@shared/models/money.model';
+import { createMoney } from '@shared/models/money.model';
 
 import { unitToFractionalUnit } from '@app/common/money/unit-conversion';
 import { useGetBrc20TokensQuery } from '@app/query/bitcoin/ordinals/brc20/brc20-tokens.query';
 import { useCalculateBitcoinFiatValue } from '@app/query/common/market-data/market-data.hooks';
 import { useConfigOrdinalsbot } from '@app/query/common/remote-config/remote-config.query';
+import {
+  type Brc20AccountCryptoAssetWithDetails,
+  createAccountCryptoAssetWithDetailsFactory,
+} from '@app/query/models/crypto-asset.model';
 import { useAppDispatch } from '@app/store';
 import { useCurrentAccountIndex } from '@app/store/accounts/account';
 import { useCurrentNetwork } from '@app/store/networks/networks.selectors';
 import { brc20TransferInitiated } from '@app/store/ordinals/ordinals.slice';
 
-import type { Brc20Token } from '../../bitcoin-client';
 import { useAverageBitcoinFeeRates } from '../../fees/fee-estimates.hooks';
 import { useOrdinalsbotClient } from '../../ordinalsbot-client';
 import {
@@ -85,26 +88,7 @@ export function useBrc20Transfers(holderAddress: string) {
   };
 }
 
-function makeBrc20Token(priceAsFiat: Money, token: Brc20Token) {
-  return {
-    ...token,
-    balance: createMoney(
-      unitToFractionalUnit(token.tokenData.decimals)(
-        new BigNumber(token.tokenData.overall_balance)
-      ),
-      token.tokenData.ticker,
-      token.tokenData.decimals
-    ),
-    marketData: token.tokenData.min_listed_unit_price
-      ? createMarketData(
-          createMarketPair(token.tokenData.ticker, 'USD'),
-          createMoney(priceAsFiat.amount, 'USD')
-        )
-      : null,
-  };
-}
-
-export function useBrc20Tokens() {
+export function useBrc20AccountCryptoAssetsWithDetails() {
   const calculateBitcoinFiatValue = useCalculateBitcoinFiatValue();
   const { data: allBrc20TokensResponse } = useGetBrc20TokensQuery();
 
@@ -116,9 +100,32 @@ export function useBrc20Tokens() {
   return (
     tokens?.map(token => {
       const priceAsFiat = calculateBitcoinFiatValue(
-        createMoney(new BigNumber(token.tokenData.min_listed_unit_price ?? 0), 'BTC')
+        createMoney(new BigNumber(token.balance.min_listed_unit_price ?? 0), 'BTC')
       );
-      return makeBrc20Token(priceAsFiat, token);
+      return createAccountCryptoAssetWithDetailsFactory<Brc20AccountCryptoAssetWithDetails>({
+        balance: {
+          availableBalance: createMoney(
+            unitToFractionalUnit(token.info.decimals)(new BigNumber(token.balance.overall_balance)),
+            token.balance.ticker,
+            token.info.decimals
+          ),
+        },
+        chain: 'bitcoin',
+        holderAddress: token.holderAddress,
+        info: {
+          decimals: token.info.decimals,
+          hasMemo: false,
+          name: 'brc-20',
+          symbol: token.info.ticker,
+        },
+        marketData: token.balance.min_listed_unit_price
+          ? createMarketData(
+              createMarketPair(token.balance.ticker, 'USD'),
+              createMoney(priceAsFiat.amount, 'USD')
+            )
+          : null,
+        type: 'brc-20',
+      });
     }) ?? []
   );
 }

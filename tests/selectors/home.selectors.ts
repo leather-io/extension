@@ -1,4 +1,5 @@
 export enum HomePageSelectors {
+  AssetList = 'asset-list',
   HomePageContainer = 'home-page-container',
   ReceiveCryptoAssetBtn = 'receive-crypto-asset-btn',
   ReceiveBtcNativeSegwitQrCodeBtn = 'receive-native-segwit-qr-code-btn',
@@ -11,5 +12,4 @@ export enum HomePageSelectors {
   BalancesTabBtn = 'tab-balances',
   SwapBtn = 'swap-btn',
   FundAccountBtn = 'fund-account-btn',
-  BalancesList = 'balances-list',
 }

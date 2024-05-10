@@ -29,7 +29,7 @@ import { PostConditions } from '@app/features/stacks-transaction-request/post-co
 import { StxTransferDetails } from '@app/features/stacks-transaction-request/stx-transfer-details/stx-transfer-details';
 import { SubmitAction } from '@app/features/stacks-transaction-request/submit-action';
 import { TransactionError } from '@app/features/stacks-transaction-request/transaction-error/transaction-error';
-import { useCurrentStcAvailableUnlockedBalance } from '@app/query/stacks/balance/stx-balance.hooks';
+import { useCurrentStxAvailableUnlockedBalance } from '@app/query/stacks/balance/account-balance.hooks';
 import { useCalculateStacksTxFees } from '@app/query/stacks/fees/fees.hooks';
 import { useNextNonce } from '@app/query/stacks/nonce/account-nonces.hooks';
 import { useTransactionRequestState } from '@app/store/transactions/requests.hooks';
@@ -47,7 +47,7 @@ function TransactionRequestBase() {
   const { data: stxFees } = useCalculateStacksTxFees(unsignedTx.transaction);
   const analytics = useAnalytics();
   const generateUnsignedTx = useGenerateUnsignedStacksTransaction();
-  const availableUnlockedBalance = useCurrentStcAvailableUnlockedBalance();
+  const availableUnlockedBalance = useCurrentStxAvailableUnlockedBalance();
   const { data: nextNonce } = useNextNonce();
   const navigate = useNavigate();
   const { stacksBroadcastTransaction } = useStacksBroadcastTransaction('STX');

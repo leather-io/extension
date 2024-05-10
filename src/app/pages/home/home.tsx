@@ -7,9 +7,9 @@ import { useOnboardingState } from '@app/common/hooks/auth/use-onboarding-state'
 import { useTotalBalance } from '@app/common/hooks/balance/use-total-balance';
 import { useOnMount } from '@app/common/hooks/use-on-mount';
 import { ActivityList } from '@app/features/activity-list/activity-list';
-import { AssetList } from '@app/features/asset-list/asset-list';
 import { SwitchAccountOutletContext } from '@app/features/dialogs/switch-account-dialog/switch-account-dialog';
 import { FeedbackButton } from '@app/features/feedback-button/feedback-button';
+import { Assets } from '@app/pages/home/components/assets';
 import { homePageModalRoutes } from '@app/routes/app-routes';
 import { ModalBackgroundWrapper } from '@app/routes/components/modal-background-wrapper';
 import { useCurrentAccountNativeSegwitAddressIndexZero } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
@@ -59,7 +59,7 @@ export function Home() {
       <FeedbackButton />
       <HomeTabs>
         <ModalBackgroundWrapper>
-          <Route index element={<AssetList />} />
+          <Route index element={<Assets />} />
           <Route path={RouteUrls.Activity} element={<ActivityList />}>
             {homePageModalRoutes}
           </Route>

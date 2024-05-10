@@ -26,7 +26,7 @@ import { PostConditionModeWarning } from '@app/features/stacks-transaction-reque
 import { PostConditions } from '@app/features/stacks-transaction-request/post-conditions/post-conditions';
 import { StxTransferDetails } from '@app/features/stacks-transaction-request/stx-transfer-details/stx-transfer-details';
 import { TransactionError } from '@app/features/stacks-transaction-request/transaction-error/transaction-error';
-import { useCurrentStcAvailableUnlockedBalance } from '@app/query/stacks/balance/stx-balance.hooks';
+import { useCurrentStxAvailableUnlockedBalance } from '@app/query/stacks/balance/account-balance.hooks';
 import { useCalculateStacksTxFees } from '@app/query/stacks/fees/fees.hooks';
 import { useNextNonce } from '@app/query/stacks/nonce/account-nonces.hooks';
 import { useTransactionRequestState } from '@app/store/transactions/requests.hooks';
@@ -55,7 +55,7 @@ export function StacksTransactionSigner({
   const transactionRequest = useTransactionRequestState();
   const { data: stxFees } = useCalculateStacksTxFees(stacksTransaction);
   const analytics = useAnalytics();
-  const availableUnlockedBalance = useCurrentStcAvailableUnlockedBalance();
+  const availableUnlockedBalance = useCurrentStxAvailableUnlockedBalance();
   const navigate = useNavigate();
   const { data: nextNonce } = useNextNonce();
   const { search } = useLocation();

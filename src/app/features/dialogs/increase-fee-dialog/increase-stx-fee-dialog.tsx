@@ -18,7 +18,7 @@ import { LoadingSpinner } from '@app/components/loading-spinner';
 import { StacksTransactionItem } from '@app/components/stacks-transaction-item/stacks-transaction-item';
 import { useStacksBroadcastTransaction } from '@app/features/stacks-transaction-request/hooks/use-stacks-broadcast-transaction';
 import { useToast } from '@app/features/toasts/use-toast';
-import { useCurrentStcAvailableUnlockedBalance } from '@app/query/stacks/balance/stx-balance.hooks';
+import { useCurrentStxAvailableUnlockedBalance } from '@app/query/stacks/balance/account-balance.hooks';
 import { useSubmittedTransactionsActions } from '@app/store/submitted-transactions/submitted-transactions.hooks';
 import { useRawDeserializedTxState, useRawTxIdState } from '@app/store/transactions/raw.hooks';
 import { Dialog } from '@app/ui/components/containers/dialog/dialog';
@@ -42,7 +42,7 @@ export function IncreaseStxFeeDialog() {
   const refreshAccountData = useRefreshAllAccountData();
   const tx = useSelectedTx();
   const [, setTxId] = useRawTxIdState();
-  const availableUnlockedBalance = useCurrentStcAvailableUnlockedBalance();
+  const availableUnlockedBalance = useCurrentStxAvailableUnlockedBalance();
   const submittedTransactionsActions = useSubmittedTransactionsActions();
   const rawTx = useRawDeserializedTxState();
   const { stacksBroadcastTransaction } = useStacksBroadcastTransaction('STX');
