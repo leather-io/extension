@@ -17,15 +17,15 @@ export function createUtxoFromInscription({
   accountIndex,
   inscriptionAddressIdx,
 }: CreateUtxoFromInscriptionArgs): UtxoWithDerivationPath {
-  const { genesis_block_hash, genesis_timestamp, genesis_block_height, value } = inscription;
+  const { genesisBlockHash, genesisTimestamp, genesisBlockHeight, value } = inscription;
   return {
     txid: inscription.txid,
     vout: Number(inscription.output.split(':')[1]),
     status: {
       confirmed: true,
-      block_height: genesis_block_height,
-      block_hash: genesis_block_hash,
-      block_time: genesis_timestamp,
+      block_height: genesisBlockHeight,
+      block_hash: genesisBlockHash,
+      block_time: genesisTimestamp,
     },
     value: Number(value),
     derivationPath: getNativeSegwitAddressIndexDerivationPath(

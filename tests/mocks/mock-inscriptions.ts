@@ -1,7 +1,7 @@
-import { createInscription } from '@leather-wallet/models';
-import type { InscriptionResponse } from '@leather-wallet/query';
+// import { createInscription } from '@leather-wallet/models';
+import { type InscriptionResponseHiro, createInscriptionHiro } from '@leather-wallet/query';
 
-export const mockInscriptionResponse1: InscriptionResponse = {
+export const mockInscriptionResponse1: InscriptionResponseHiro = {
   address: 'bc1pwrmewwprc8k8l2k63x4advg0nx0jk50xzqnee996lm87mcuza7kq6drg2k',
   // addressIndex: 0,
   content_length: 55,
@@ -29,9 +29,9 @@ export const mockInscriptionResponse1: InscriptionResponse = {
   value: '10000',
 };
 
-export const mockInscription1 = createInscription(mockInscriptionResponse1);
+export const mockInscription1 = createInscriptionHiro(mockInscriptionResponse1);
 
-export const mockInscriptionResponse2: InscriptionResponse = {
+export const mockInscriptionResponse2: InscriptionResponseHiro = {
   address: 'bc1pwrmewwprc8k8l2k63x4advg0nx0jk50xzqnee996lm87mcuza7kq6drg2k',
   // addressIndex: 0,
   content_length: 55,
@@ -59,7 +59,7 @@ export const mockInscriptionResponse2: InscriptionResponse = {
   value: '10000',
 };
 
-export const mockInscription2 = createInscription(mockInscriptionResponse2);
+export const mockInscription2 = createInscriptionHiro(mockInscriptionResponse2);
 
 export const mockInscriptionResponsesList = [
   {
@@ -89,4 +89,4 @@ export const mockInscriptionResponsesList = [
     value: '546',
   },
 ];
-export const mockInscriptionsList = mockInscriptionResponsesList.map(createInscription);
+export const mockInscriptionsList = mockInscriptionResponsesList.map(createInscriptionHiro);
