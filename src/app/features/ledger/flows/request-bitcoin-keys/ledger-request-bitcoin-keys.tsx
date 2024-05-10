@@ -9,7 +9,10 @@ import { pullBitcoinKeysFromLedgerDevice } from '@app/features/ledger/flows/requ
 import { ledgerRequestKeysRoutes } from '@app/features/ledger/generic-flows/request-keys/ledger-request-keys-route-generator';
 import { LedgerRequestKeysContext } from '@app/features/ledger/generic-flows/request-keys/ledger-request-keys.context';
 import { RequestKeysFlow } from '@app/features/ledger/generic-flows/request-keys/request-keys-flow';
-import { useRequestLedgerKeys } from '@app/features/ledger/generic-flows/request-keys/use-request-ledger-keys';
+import {
+  defaultNumberOfKeysToPullFromLedgerDevice,
+  useRequestLedgerKeys,
+} from '@app/features/ledger/generic-flows/request-keys/use-request-ledger-keys';
 import { useLedgerNavigate } from '@app/features/ledger/hooks/use-ledger-navigate';
 import {
   connectLedgerBitcoinApp,
@@ -28,7 +31,7 @@ function LedgerRequestBitcoinKeys() {
   const ledgerNavigate = useLedgerNavigate();
   const network = useCurrentNetwork();
 
-  const chain = 'bitcoin' as const;
+  const chain = 'bitcoin';
 
   const { requestKeys, latestDeviceResponse, awaitingDeviceConnection } =
     useRequestLedgerKeys<BitcoinApp>({
@@ -45,11 +48,13 @@ function LedgerRequestBitcoinKeys() {
           onRequestKey(index) {
             if (index <= 4) {
               ledgerNavigate.toDeviceBusyStep(
-                `Requesting Bitcoin Native Segwit address (${index + 1}…5)`
+                `Requesting Bitcoin Native Segwit address (${index + 1}…${defaultNumberOfKeysToPullFromLedgerDevice})`
               );
               return;
             }
-            ledgerNavigate.toDeviceBusyStep(`Requesting Bitcoin Taproot address (${index - 4}…5)`);
+            ledgerNavigate.toDeviceBusyStep(
+              `Requesting Bitcoin Taproot address (${index - 4}…${defaultNumberOfKeysToPullFromLedgerDevice})`
+            );
           },
         });
         dispatch(bitcoinKeysSlice.actions.addKeys(keys));
