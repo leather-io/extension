@@ -11,7 +11,7 @@ import { useLocationState } from '@app/common/hooks/use-location-state';
 import { useBackgroundLocationRedirect } from '@app/routes/hooks/use-background-location-redirect';
 import { useZeroIndexTaprootAddress } from '@app/store/accounts/blockchain/bitcoin/bitcoin.hooks';
 import { useCurrentAccountNativeSegwitAddressIndexZero } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
-import { useCurrentAccountStxAddressState } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
+import { useCurrentStacksAccountAddress } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
 import { Dialog } from '@app/ui/components/containers/dialog/dialog';
 import { Header } from '@app/ui/components/containers/headers/header';
 import { Tabs } from '@app/ui/components/tabs/tabs';
@@ -39,7 +39,7 @@ export function ReceiveDialog({ type = 'full' }: ReceiveDialogProps) {
   const navigate = useNavigate();
   const location = useLocation();
   const btcAddressNativeSegwit = useCurrentAccountNativeSegwitAddressIndexZero();
-  const stxAddress = useCurrentAccountStxAddressState();
+  const stxAddress = useCurrentStacksAccountAddress();
   const accountIndex = get(location.state, 'accountIndex', undefined);
   const btcAddressTaproot = useZeroIndexTaprootAddress(accountIndex);
 

@@ -3,11 +3,13 @@ import BigNumber from 'bignumber.js';
 import { c32addressDecode } from 'c32check';
 
 import { NetworkConfiguration, STX_DECIMALS } from '@shared/constants';
+import { isValidUrl } from '@shared/utils/validate-url';
 
 import { abbreviateNumber } from '@app/common/utils';
 
 import { initBigNumber } from './math/helpers';
 import { microStxToStx } from './money/unit-conversion';
+import { convertUnicodeToAscii } from './string-utils';
 
 export const stacksValue = ({
   value,
@@ -63,4 +65,14 @@ export function validateAddressChain(address: string, currentNetwork: NetworkCon
     default:
       return false;
   }
+}
+
+export function isFtNameLikeStx(name: string) {
+  return ['stx', 'stack', 'stacks'].includes(convertUnicodeToAscii(name).toLocaleLowerCase());
+}
+
+export function getSafeImageCanonicalUri(imageCanonicalUri: string, name: string) {
+  return imageCanonicalUri && isValidUrl(imageCanonicalUri) && !isFtNameLikeStx(name)
+    ? imageCanonicalUri
+    : '';
 }

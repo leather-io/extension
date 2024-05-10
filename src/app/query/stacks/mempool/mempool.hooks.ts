@@ -1,21 +1,16 @@
 import { useMemo } from 'react';
 
-import {
-  MempoolTokenTransferTransaction,
-  MempoolTransaction,
-} from '@stacks/stacks-blockchain-api-types';
-import BigNumber from 'bignumber.js';
-
-import { createMoney } from '@shared/models/money.model';
+import { MempoolTransaction } from '@stacks/stacks-blockchain-api-types';
 
 import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
 import { increaseValueByOneMicroStx } from '@app/common/math/helpers';
 import { microStxToStx } from '@app/common/money/unit-conversion';
 import { useTransactionsById } from '@app/query/stacks/transactions/transactions-by-id.query';
-import { useCurrentAccountStxAddressState } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
+import { useCurrentStacksAccountAddress } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
 
 import { useStacksConfirmedTransactions } from '../transactions/transactions-with-transfers.hooks';
 import { useAccountMempoolQuery } from './mempool.query';
+import { calculatePendingTxsMoneyBalance } from './mempool.utils';
 
 const droppedCache = new Map();
 
@@ -50,7 +45,7 @@ function useAccountMempoolTransactions(address: string) {
 }
 
 export function useStacksPendingTransactions() {
-  const address = useCurrentAccountStxAddressState();
+  const address = useCurrentStacksAccountAddress();
   const { query, transactions } = useAccountMempoolTransactions(address ?? '');
   return useMemo(() => {
     const nonEmptyTransactions = transactions.filter(tx => !!tx) as MempoolTransaction[];
@@ -59,55 +54,32 @@ export function useStacksPendingTransactions() {
 }
 
 export function useCurrentAccountMempool() {
-  const address = useCurrentAccountStxAddressState();
+  const address = useCurrentStacksAccountAddress();
   return useAccountMempoolQuery(address ?? '');
 }
 
-// TODO: Asset refactor: combine inbound/outbound into one function?
 export function useMempoolTxsInboundBalance(address: string) {
   const { transactions: pendingTransactions } = useStacksPendingTransactions();
   const confirmedTxs = useStacksConfirmedTransactions();
 
-  const pendingInboundTxs = pendingTransactions.filter(tx => {
-    if (confirmedTxs.some(confirmedTx => confirmedTx.nonce === tx.nonce)) {
-      return false;
-    }
-    return tx.tx_type === 'token_transfer' && tx.token_transfer.recipient_address === address;
-  }) as unknown as MempoolTokenTransferTransaction[];
-
-  const tokenTransferTxsBalance = pendingInboundTxs.reduce(
-    (acc, tx) => acc.plus(tx.token_transfer.amount),
-    new BigNumber(0)
-  );
-  const pendingTxsFeesBalance = pendingInboundTxs.reduce(
-    (acc, tx) => acc.plus(tx.fee_rate),
-    new BigNumber(0)
-  );
-
-  return createMoney(tokenTransferTxsBalance.plus(pendingTxsFeesBalance), 'STX');
+  return calculatePendingTxsMoneyBalance({
+    address,
+    confirmedTxs,
+    pendingTxs: pendingTransactions,
+    type: 'inbound',
+  });
 }
 
 export function useMempoolTxsOutboundBalance(address: string) {
   const { transactions: pendingTransactions } = useStacksPendingTransactions();
   const confirmedTxs = useStacksConfirmedTransactions();
 
-  const pendingOutboundTxs = pendingTransactions.filter(tx => {
-    if (confirmedTxs.some(confirmedTx => confirmedTx.nonce === tx.nonce)) {
-      return false;
-    }
-    return tx.tx_type === 'token_transfer' && tx.sender_address === address;
-  }) as unknown as MempoolTokenTransferTransaction[];
-
-  const tokenTransferTxsBalance = pendingOutboundTxs.reduce(
-    (acc, tx) => acc.plus(tx.token_transfer.amount),
-    new BigNumber(0)
-  );
-  const pendingTxsFeesBalance = pendingOutboundTxs.reduce(
-    (acc, tx) => acc.plus(tx.fee_rate),
-    new BigNumber(0)
-  );
-
-  return createMoney(tokenTransferTxsBalance.plus(pendingTxsFeesBalance), 'STX');
+  return calculatePendingTxsMoneyBalance({
+    address,
+    confirmedTxs,
+    pendingTxs: pendingTransactions,
+    type: 'outbound',
+  });
 }
 
 export function useStacksValidateFeeByNonce() {

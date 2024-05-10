@@ -14,7 +14,7 @@ import {
 } from '@app/common/validation/forms/amount-validators';
 import { stxFeeValidator } from '@app/common/validation/forms/fee-validators';
 import { useUpdatePersistedSendFormValues } from '@app/features/popup-send-form-restoration/use-update-persisted-send-form-values';
-import { useCurrentStcAvailableUnlockedBalance } from '@app/query/stacks/balance/stx-balance.hooks';
+import { useCurrentStxAvailableUnlockedBalance } from '@app/query/stacks/balance/account-balance.hooks';
 import { useCalculateStacksTxFees } from '@app/query/stacks/fees/fees.hooks';
 import { useStacksValidateFeeByNonce } from '@app/query/stacks/mempool/mempool.hooks';
 import {
@@ -32,7 +32,7 @@ export function useStxSendForm() {
   const { onFormStateChange } = useUpdatePersistedSendFormValues();
   const sendFormNavigate = useSendFormNavigate();
   const { changeFeeByNonce } = useStacksValidateFeeByNonce();
-  const availableUnlockedBalance = useCurrentStcAvailableUnlockedBalance();
+  const availableUnlockedBalance = useCurrentStxAvailableUnlockedBalance();
 
   const sendMaxBalance = useMemo(
     () =>

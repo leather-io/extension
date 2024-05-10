@@ -1,4 +1,3 @@
-import '@leather-wallet/types';
 import type { BrowserContext, Page } from '@playwright/test';
 import { TEST_PASSWORD } from '@tests/mocks/constants';
 import { makeLedgerTestAccountWalletState } from '@tests/page-object-models/onboarding.page';

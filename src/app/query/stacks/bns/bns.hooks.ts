@@ -1,11 +1,11 @@
 import { logger } from '@shared/logger';
 
-import { useCurrentAccountStxAddressState } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
+import { useCurrentStacksAccountAddress } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
 
 import { useGetBnsNamesOwnedByAddress } from './bns.query';
 
 export function useCurrentAccountNames() {
-  const principal = useCurrentAccountStxAddressState();
+  const principal = useCurrentStacksAccountAddress();
   return useGetBnsNamesOwnedByAddress(principal, {
     select: resp => {
       if (principal === '') logger.error('No principal defined');

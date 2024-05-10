@@ -10,8 +10,6 @@ import { useCurrentAccountTaprootSigner } from '@app/store/accounts/blockchain/b
 import { useBitcoinClient } from '@app/store/common/api-clients.hooks';
 import { useCurrentNetwork } from '@app/store/networks/networks.selectors';
 
-import { Brc20Token } from '../../bitcoin-client';
-
 const addressesSimultaneousFetchLimit = 3;
 const stopSearchAfterNumberAddressesWithoutBrc20Tokens = 3;
 
@@ -59,18 +57,16 @@ export function useGetBrc20TokensQuery() {
           })
         );
 
-        // Initialize token with token data
         return brc20Tokens.data.map((token, index) => {
           return {
-            balance: null,
+            balance: token,
             holderAddress: address,
-            marketData: null,
-            tokenData: { ...token, ...tickerPromises[index].data },
+            info: tickerPromises[index].data,
           };
         });
       });
 
-      const brc20Tokens: Brc20Token[][] = await Promise.all(brc20TokensPromises);
+      const brc20Tokens = await Promise.all(brc20TokensPromises);
       addressesWithoutTokens += brc20Tokens.filter(tokens => tokens.length === 0).length;
 
       return {

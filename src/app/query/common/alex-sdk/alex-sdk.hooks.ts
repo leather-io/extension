@@ -11,9 +11,9 @@ import { isDefined } from '@shared/utils';
 import { sortAssetsByName } from '@app/common/asset-utils';
 import { convertAmountToFractionalUnit } from '@app/common/money/calculate-money';
 import { pullContractIdFromIdentity } from '@app/common/utils';
-import { useTransferableStacksFungibleTokenAssetBalances } from '@app/query/stacks/balance/stacks-ft-balances.hooks';
-import { useCurrentStcAvailableUnlockedBalance } from '@app/query/stacks/balance/stx-balance.hooks';
-import { useCurrentStacksAccount } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
+import { useCurrentStxAvailableUnlockedBalance } from '@app/query/stacks/balance/account-balance.hooks';
+import { useTransferableSip10CryptoAssetsWithDetails } from '@app/query/stacks/sip10/sip10-tokens.hooks';
+import { useCurrentStacksAccountAddress } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
 import { getAvatarFallback } from '@app/ui/components/avatar/avatar';
 
 import { useAlexSdkLatestPricesQuery } from './alex-sdk-latest-prices.query';
@@ -51,14 +51,12 @@ export function useAlexCurrencyPriceAsMarketData() {
   );
 }
 
-function useMakeSwapAsset() {
-  const account = useCurrentStacksAccount();
+function useCreateSwapAsset() {
+  const address = useCurrentStacksAccountAddress();
   const { data: prices } = useAlexSdkLatestPricesQuery();
   const priceAsMarketData = useAlexCurrencyPriceAsMarketData();
-  const availableUnlockedBalance = useCurrentStcAvailableUnlockedBalance();
-  const stacksFtAssetBalances = useTransferableStacksFungibleTokenAssetBalances(
-    account?.address ?? ''
-  );
+  const availableUnlockedBalance = useCurrentStxAvailableUnlockedBalance();
+  const assets = useTransferableSip10CryptoAssetsWithDetails(address);
 
   return useCallback(
     (tokenInfo?: TokenInfo): SwapAsset | undefined => {
@@ -69,17 +67,16 @@ function useMakeSwapAsset() {
       }
 
       const currency = tokenInfo.id as Currency;
-      const fungibleTokenBalance = stacksFtAssetBalances.find(
-        balance => tokenInfo.contractAddress === balance.asset.contractId
-      )?.balance;
       const principal = pullContractIdFromIdentity(tokenInfo.contractAddress);
+      const availableBalance = assets.find(a => a.info.contractId === principal)?.balance
+        .availableBalance;
 
       const swapAsset = {
         currency,
         fallback: getAvatarFallback(tokenInfo.name),
         icon: tokenInfo.icon,
         name: tokenInfo.name,
-        principal: pullContractIdFromIdentity(tokenInfo.contractAddress),
+        principal,
       };
 
       if (currency === Currency.STX) {
@@ -93,19 +90,19 @@ function useMakeSwapAsset() {
 
       return {
         ...swapAsset,
-        balance: fungibleTokenBalance ?? createMoney(0, tokenInfo.name, tokenInfo.decimals),
-        marketData: fungibleTokenBalance
-          ? priceAsMarketData(principal, fungibleTokenBalance.symbol)
+        balance: availableBalance ?? createMoney(0, tokenInfo.name, tokenInfo.decimals),
+        marketData: availableBalance
+          ? priceAsMarketData(principal, availableBalance.symbol)
           : priceAsMarketData(principal, tokenInfo.name),
       };
     },
-    [availableUnlockedBalance, priceAsMarketData, prices, stacksFtAssetBalances]
+    [assets, availableUnlockedBalance, priceAsMarketData, prices]
   );
 }
 
 export function useAlexSwappableAssets() {
-  const makeSwapAsset = useMakeSwapAsset();
+  const createSwapAsset = useCreateSwapAsset();
   return useAlexSdkSwappableCurrencyQuery({
-    select: resp => sortAssetsByName(resp.map(makeSwapAsset).filter(isDefined)),
+    select: resp => sortAssetsByName(resp.map(createSwapAsset).filter(isDefined)),
   });
 }

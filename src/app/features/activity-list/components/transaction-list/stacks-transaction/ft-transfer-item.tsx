@@ -6,16 +6,16 @@ import {
   TxTransferDetails,
 } from '@shared/models/transactions/stacks-transaction.model';
 
-import { getImageCanonicalUri } from '@app/common/crypto-assets/stacks-crypto-asset.utils';
+import { getSafeImageCanonicalUri } from '@app/common/stacks-utils';
 import {
   calculateTokenTransferAmount,
   getTxCaption,
 } from '@app/common/transactions/stacks/transaction.utils';
 import { pullContractIdFromIdentity } from '@app/common/utils';
-import { StacksAssetAvatar } from '@app/components/crypto-assets/stacks/components/stacks-asset-avatar';
+import { StacksAssetAvatar } from '@app/components/stacks-asset-avatar';
 import { StacksTransactionItem } from '@app/components/stacks-transaction-item/stacks-transaction-item';
-import { useGetFungibleTokenMetadataQuery } from '@app/query/stacks/tokens/fungible-tokens/fungible-token-metadata.query';
-import { isFtAsset } from '@app/query/stacks/tokens/token-metadata.utils';
+import { useGetFungibleTokenMetadataQuery } from '@app/query/stacks/token-metadata/fungible-tokens/fungible-token-metadata.query';
+import { isFtAsset } from '@app/query/stacks/token-metadata/token-metadata.utils';
 import { useCurrentStacksAccount } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
 import { ArrowDownIcon } from '@app/ui/icons/arrow-down-icon';
 import { ArrowUpIcon } from '@app/ui/icons/arrow-up-icon';
@@ -48,7 +48,7 @@ export function FtTransferItem({ ftTransfer, parentTx }: FtTransferItemProps) {
   const ftImageCanonicalUri =
     assetMetadata.image_canonical_uri &&
     assetMetadata.name &&
-    getImageCanonicalUri(assetMetadata.image_canonical_uri, assetMetadata.name);
+    getSafeImageCanonicalUri(assetMetadata.image_canonical_uri, assetMetadata.name);
   const icon = isOriginator ? <ArrowUpIcon variant="small" /> : <ArrowDownIcon variant="small" />;
   const title = `${assetMetadata.name || 'Token'} Transfer`;
   const value = `${isOriginator ? '-' : ''}${displayAmount.toFormat()}`;

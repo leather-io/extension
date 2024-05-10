@@ -51,6 +51,7 @@ export function AccountActions() {
         [ChainID.Mainnet]: (
           <IconButton
             data-testid={HomePageSelectors.SwapBtn}
+            disabled={!stacksAccount}
             icon={<SwapIcon />}
             label="Swap"
             onClick={() => navigate(RouteUrls.Swap.replace(':base', 'STX').replace(':quote', ''))}

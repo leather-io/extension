@@ -1,8 +1,8 @@
 import { useNavigate } from 'react-router-dom';
 
+import type { Blockchains } from '@leather-wallet/models';
 import { styled } from 'leather-styles/jsx';
 
-import { SupportedBlockchains } from '@shared/constants';
 import { RouteUrls } from '@shared/route-urls';
 
 import { capitalize } from '@app/common/utils';
@@ -10,10 +10,10 @@ import { immediatelyAttemptLedgerConnection } from '@app/features/ledger/hooks/u
 import { Button } from '@app/ui/components/button/button';
 import { LedgerIcon } from '@app/ui/icons/ledger-icon';
 
-interface ConnectLedgerAssetBtnProps {
-  chain: SupportedBlockchains;
+interface ConnectLedgerButtonProps {
+  chain: Blockchains;
 }
-export function ConnectLedgerAssetBtn({ chain }: ConnectLedgerAssetBtnProps) {
+export function ConnectLedgerButton({ chain }: ConnectLedgerButtonProps) {
   const navigate = useNavigate();
 
   const onClick = () => {

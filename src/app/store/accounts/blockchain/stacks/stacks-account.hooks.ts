@@ -17,6 +17,9 @@ export function useStacksAccounts() {
   return useAtomValue(stacksAccountState);
 }
 
+// TODO: Refactor, we need to use conditional empty strings everywhere
+// Can we remove these atoms?
+
 // Comment below from original atom. This pattern encourages view level
 // implementation details to leak into the state structure. Do not do this.
 //   This contains the state of the current account:
@@ -38,7 +41,7 @@ export function useCurrentStacksAccount() {
   }, [accountIndex, accounts, hasSwitched, signatureIndex, txIndex]);
 }
 
-export function useCurrentAccountStxAddressState() {
+export function useCurrentStacksAccountAddress() {
   return useCurrentStacksAccount()?.address ?? '';
 }
 

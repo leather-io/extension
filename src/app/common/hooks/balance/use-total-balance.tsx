@@ -6,7 +6,7 @@ import { baseCurrencyAmountInQuote } from '@app/common/money/calculate-money';
 import { i18nFormatCurrency } from '@app/common/money/format-money';
 import { useBtcCryptoAssetBalanceNativeSegwit } from '@app/query/bitcoin/balance/btc-balance-native-segwit.hooks';
 import { useCryptoCurrencyMarketDataMeanAverage } from '@app/query/common/market-data/market-data.hooks';
-import { useStxCryptoAssetBalance } from '@app/query/stacks/balance/stx-balance.hooks';
+import { useStxCryptoAssetBalance } from '@app/query/stacks/balance/account-balance.hooks';
 
 interface UseTotalBalanceArgs {
   btcAddress: string;

@@ -1,4 +1,4 @@
-import { stacksValue } from '@app/common/stacks-utils';
+import { isFtNameLikeStx, stacksValue } from '@app/common/stacks-utils';
 
 const uSTX_AMOUNT = 10000480064; // 10,000.480064
 
@@ -29,5 +29,19 @@ describe('stacksValue tests', () => {
       abbreviate: true,
     });
     expect(value).toEqual('10K STX');
+  });
+});
+
+describe(isFtNameLikeStx.name, () => {
+  it('detect impersonating token names', () => {
+    expect(isFtNameLikeStx('STX')).toBeTruthy();
+    expect(isFtNameLikeStx('stx')).toBeTruthy();
+    expect(isFtNameLikeStx('stacks')).toBeTruthy();
+    expect(isFtNameLikeStx('Stäcks')).toBeTruthy();
+    expect(isFtNameLikeStx('Stácks')).toBeTruthy();
+    expect(isFtNameLikeStx('Stáçks')).toBeTruthy();
+    expect(isFtNameLikeStx('stocks')).toBeFalsy();
+    expect(isFtNameLikeStx('miamicoin')).toBeFalsy();
+    expect(isFtNameLikeStx('')).toBeFalsy();
   });
 });

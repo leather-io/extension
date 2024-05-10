@@ -8,7 +8,7 @@ import { useCurrentAccountNativeSegwitIndexZeroSigner } from '@app/store/account
 
 import { useGetBitcoinBalanceByAddress } from './btc-balance.hooks';
 
-function makeBtcCryptoAssetBalance(balance: Money): BtcCryptoAssetBalance {
+function createBtcCryptoAssetBalance(balance: Money): BtcCryptoAssetBalance {
   return {
     availableBalance: balance,
     // TODO: Asset refactor: can we determine these here or are they nec?
@@ -21,7 +21,7 @@ function makeBtcCryptoAssetBalance(balance: Money): BtcCryptoAssetBalance {
 export function useBtcCryptoAssetBalanceNativeSegwit(address: string) {
   const { balance, isInitialLoading, isLoading, isFetching } =
     useGetBitcoinBalanceByAddress(address);
-  const btcCryptoAssetBalance = useMemo(() => makeBtcCryptoAssetBalance(balance), [balance]);
+  const btcCryptoAssetBalance = useMemo(() => createBtcCryptoAssetBalance(balance), [balance]);
 
   return {
     btcCryptoAssetBalance,

@@ -1,17 +1,52 @@
-import type { P2Ret, P2TROut } from '@scure/btc-signer';
+import { P2Ret } from '@scure/btc-signer';
 
-import { ZERO_INDEX } from '@shared/constants';
+import { useConfigBitcoinEnabled } from '@app/query/common/remote-config/remote-config.query';
+import { useCurrentAccountIndex } from '@app/store/accounts/account';
+import { Signer } from '@app/store/accounts/blockchain/bitcoin/bitcoin-signer';
+import { useNativeSegwitSigner } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
+import { useTaprootSigner } from '@app/store/accounts/blockchain/bitcoin/taproot-account.hooks';
+import { useCurrentNetwork } from '@app/store/networks/networks.selectors';
 
-import type { Signer } from '@app/store/accounts/blockchain/bitcoin/bitcoin-signer';
-import { useCurrentAccountNativeSegwitSigner } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
-import { useCurrentAccountTaprootSigner } from '@app/store/accounts/blockchain/bitcoin/taproot-account.hooks';
-
-interface CurrentBitcoinSignerLoaderProps {
-  children(data: { nativeSegwit: Signer<P2Ret>; taproot: Signer<P2TROut> }): React.ReactNode;
+interface BitcoinAccountLoaderBaseProps {
+  children(account: Signer<P2Ret>): React.ReactNode;
+  fallback?: React.ReactNode;
 }
-export function CurrentBitcoinSignerLoader({ children }: CurrentBitcoinSignerLoaderProps) {
-  const nativeSegwit = useCurrentAccountNativeSegwitSigner()?.(ZERO_INDEX);
-  const taproot = useCurrentAccountTaprootSigner()?.(ZERO_INDEX);
-  if (!taproot || !nativeSegwit) return null;
-  return children({ nativeSegwit, taproot });
+interface BtcAccountLoaderCurrentProps extends BitcoinAccountLoaderBaseProps {
+  current: true;
+}
+interface BtcAccountLoaderIndexProps extends BitcoinAccountLoaderBaseProps {
+  index: number;
+}
+
+type BtcAccountLoaderProps = BtcAccountLoaderCurrentProps | BtcAccountLoaderIndexProps;
+
+export function BitcoinNativeSegwitAccountLoader({
+  children,
+  fallback,
+  ...props
+}: BtcAccountLoaderProps) {
+  const isBitcoinEnabled = useConfigBitcoinEnabled();
+
+  const currentAccountIndex = useCurrentAccountIndex();
+
+  const properIndex = 'current' in props ? currentAccountIndex : props.index;
+
+  const signer = useNativeSegwitSigner(properIndex);
+
+  if (!signer || !isBitcoinEnabled) return fallback;
+  return children(signer(0));
+}
+
+export function BitcoinTaprootAccountLoader({ children, ...props }: BtcAccountLoaderProps) {
+  const isBitcoinEnabled = useConfigBitcoinEnabled();
+  const network = useCurrentNetwork();
+
+  const currentAccountIndex = useCurrentAccountIndex();
+
+  const properIndex = 'current' in props ? currentAccountIndex : props.index;
+
+  const signer = useTaprootSigner(properIndex, network.chain.bitcoin.bitcoinNetwork);
+
+  if (!signer || !isBitcoinEnabled) return null;
+  return children(signer(0));
 }

@@ -4,8 +4,8 @@ import { BulletSeparator } from '@app/ui/components/bullet-separator/bullet-sepa
 import { Caption } from '@app/ui/components/typography/caption';
 import { truncateMiddle } from '@app/ui/utils/truncate-middle';
 
+import { BitcoinNativeSegwitAccountLoader } from '../loaders/bitcoin-account-loader';
 import { StacksAccountLoader } from '../loaders/stacks-account-loader';
-import { BitcoinNativeSegwitAccountLoader } from './bitcoin-account-loader';
 
 interface AccountAddressesProps {
   index: number;

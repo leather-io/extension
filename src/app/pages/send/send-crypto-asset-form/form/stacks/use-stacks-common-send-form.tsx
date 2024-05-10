@@ -12,7 +12,7 @@ import { stxMemoValidator } from '@app/common/validation/forms/memo-validators';
 import { stxRecipientValidator } from '@app/common/validation/forms/recipient-validators';
 import { nonceValidator } from '@app/common/validation/nonce-validators';
 import { useNextNonce } from '@app/query/stacks/nonce/account-nonces.hooks';
-import { useCurrentAccountStxAddressState } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
+import { useCurrentStacksAccountAddress } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
 import { useCurrentNetworkState } from '@app/store/networks/networks.hooks';
 
 import { useSendFormRouteState } from '../../hooks/use-send-form-route-state';
@@ -29,7 +29,7 @@ export function useStacksCommonSendForm({
 }: UseStacksCommonSendFormArgs) {
   const routeState = useSendFormRouteState();
   const { data: nextNonce } = useNextNonce();
-  const currentAccountStxAddress = useCurrentAccountStxAddressState();
+  const currentAccountStxAddress = useCurrentStacksAccountAddress();
   const currentNetwork = useCurrentNetworkState();
 
   const initialValues: StacksSendFormValues = createDefaultInitialFormValues({

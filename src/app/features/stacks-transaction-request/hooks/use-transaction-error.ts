@@ -11,7 +11,7 @@ import { initialSearchParams } from '@app/common/initial-search-params';
 import { stxToMicroStx } from '@app/common/money/unit-conversion';
 import { validateStacksAddress } from '@app/common/stacks-utils';
 import { TransactionErrorReason } from '@app/features/stacks-transaction-request/transaction-error/transaction-error';
-import { useCurrentStcAvailableUnlockedBalance } from '@app/query/stacks/balance/stx-balance.hooks';
+import { useCurrentStxAvailableUnlockedBalance } from '@app/query/stacks/balance/account-balance.hooks';
 import { useContractInterface } from '@app/query/stacks/contract/contract.hooks';
 import { useCurrentStacksAccount } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
 import { useTransactionRequestState } from '@app/store/transactions/requests.hooks';
@@ -27,7 +27,7 @@ export function useTransactionError() {
   const { values } = useFormikContext<StacksTransactionFormValues>();
 
   const currentAccount = useCurrentStacksAccount();
-  const availableUnlockedBalance = useCurrentStcAvailableUnlockedBalance();
+  const availableUnlockedBalance = useCurrentStxAvailableUnlockedBalance();
 
   return useMemo<TransactionErrorReason | void>(() => {
     if (!origin) return TransactionErrorReason.ExpiredRequest;

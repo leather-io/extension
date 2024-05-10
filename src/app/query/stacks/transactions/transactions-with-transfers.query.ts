@@ -3,7 +3,7 @@ import { UseQueryOptions, UseQueryResult, useQuery } from '@tanstack/react-query
 
 import { DEFAULT_LIST_LIMIT } from '@shared/constants';
 
-import { useCurrentAccountStxAddressState } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
+import { useCurrentStacksAccountAddress } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
 import { useStacksClient } from '@app/store/common/api-clients.hooks';
 import { useCurrentNetworkState } from '@app/store/networks/networks.hooks';
 
@@ -18,7 +18,7 @@ const queryOptions: UseQueryOptions = {
 };
 
 export function useGetAccountTransactionsWithTransfersQuery() {
-  const principal = useCurrentAccountStxAddressState();
+  const principal = useCurrentStacksAccountAddress();
   const { chain } = useCurrentNetworkState();
   const client = useStacksClient();
   const limiter = useHiroApiRateLimiter();

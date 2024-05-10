@@ -6,7 +6,6 @@ import {
   BESTINSLOT_API_BASE_URL_TESTNET,
   type BitcoinNetworkModes,
 } from '@shared/constants';
-import type { MarketData } from '@shared/models/market.model';
 import type { Money } from '@shared/models/money.model';
 import type { BitcoinTx } from '@shared/models/transactions/bitcoin-transaction.model';
 
@@ -96,13 +95,6 @@ interface Brc20TickerInfoResponse {
 interface Brc20WalletBalancesResponse {
   block_height: number;
   data: Brc20Balance[];
-}
-
-export interface Brc20Token {
-  balance: Money | null;
-  holderAddress: string;
-  marketData: MarketData | null;
-  tokenData: Brc20Balance & Brc20TickerInfo;
 }
 
 /* RUNES */

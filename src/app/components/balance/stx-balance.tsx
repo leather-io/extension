@@ -1,7 +1,7 @@
 import { useMemo } from 'react';
 
 import { stacksValue } from '@app/common/stacks-utils';
-import { useStxCryptoAssetBalance } from '@app/query/stacks/balance/stx-balance.hooks';
+import { useStxCryptoAssetBalance } from '@app/query/stacks/balance/account-balance.hooks';
 import { Caption } from '@app/ui/components/typography/caption';
 
 interface StxBalanceProps {
