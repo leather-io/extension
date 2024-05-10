@@ -24,7 +24,7 @@ export function ApproveSignLedgerBitcoinTx() {
         [
           ...getPsbtTxInputs(context.transaction as unknown as btc.Transaction).map((input, i) => [
             `Input ${i + 1}`,
-            input.index && `${getBitcoinInputValue(input.index, input)} sats`,
+            `${getBitcoinInputValue(input)} sats`,
           ]),
           ...getPsbtTxOutputs(context.transaction as unknown as btc.Transaction).map(
             (output, i) => [`Output ${i + 1}`, output.amount?.toString() + ' sats']
