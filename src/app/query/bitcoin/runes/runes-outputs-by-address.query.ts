@@ -20,10 +20,11 @@ export function useGetRunesOutputsByAddressQuery<T extends unknown = RunesOutput
   return useQuery({
     enabled: !!address && runesEnabled,
     queryKey: ['runes-outputs-by-address', address],
-    queryFn: () =>
+    queryFn: ({ signal }) =>
       client.bestinSlotApi.getRunesOutputsByAddress({
         address,
         network: network.chain.bitcoin.bitcoinNetwork,
+        signal,
       }),
     ...queryOptions,
     ...options,
