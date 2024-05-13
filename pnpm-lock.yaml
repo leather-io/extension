@@ -683,10 +683,6 @@ devDependencies:
     specifier: 0.5.0
     version: 0.5.0
 
-dependenciesMeta:
-  '@leather-wallet/query':
-    injected: true
-
 packages:
 
   /@aashutoshrathi/word-wrap@1.2.6:

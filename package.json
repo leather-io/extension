@@ -369,10 +369,5 @@
     "stacks",
     "stx",
     "web3"
-  ],
-  "dependenciesMeta": {
-    "@leather-wallet/query": {
-      "injected": true
-    }
-  }
+  ]
 }
