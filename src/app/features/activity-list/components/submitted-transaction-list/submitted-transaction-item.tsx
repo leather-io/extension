@@ -18,7 +18,7 @@ interface SubmittedTransactionItemProps {
 }
 export function SubmittedTransactionItem({ transaction, txId }: SubmittedTransactionItemProps) {
   const [component, bind] = usePressable(true);
-  const { handleOpenStacksTxLink: handleOpenTxLink } = useStacksExplorerLink();
+  const { handleOpenStacksTxLink } = useStacksExplorerLink();
 
   if (!transaction) return null;
 
@@ -37,8 +37,8 @@ export function SubmittedTransactionItem({ transaction, txId }: SubmittedTransac
       <HStack
         alignItems="center"
         onClick={() =>
-          handleOpenTxLink({
-            suffix: `&submitted=true`,
+          handleOpenStacksTxLink({
+            searchParams: new URLSearchParams('&submitted=true'),
             txid: txId,
           })
         }
