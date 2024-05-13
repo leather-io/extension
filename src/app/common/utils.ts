@@ -2,7 +2,13 @@ import { hexToBytes } from '@stacks/common';
 import { BytesReader, PostCondition, deserializePostCondition } from '@stacks/transactions';
 import { toUnicode } from 'punycode';
 
-import { BitcoinChainConfig, BitcoinNetworkModes, KEBAB_REGEX } from '@shared/constants';
+import {
+  BitcoinChainConfig,
+  BitcoinNetworkModes,
+  HIRO_API_BASE_URL_NAKAMOTO_TESTNET,
+  HIRO_EXPLORER_URL,
+  KEBAB_REGEX,
+} from '@shared/constants';
 import { isBoolean } from '@shared/utils';
 
 export function createNullArrayOfLength(length: number) {
@@ -41,16 +47,42 @@ interface MakeBitcoinTxExplorerLinkArgs {
 
 interface MakeStacksTxExplorerLinkArgs {
   mode: BitcoinNetworkModes;
-  suffix?: string;
+  searchParams?: URLSearchParams;
   txid: string;
+  isNakamoto?: boolean;
 }
 
 export function makeStacksTxExplorerLink({
   mode,
-  suffix = '',
+  searchParams = new URLSearchParams(),
   txid,
+  isNakamoto = false,
 }: MakeStacksTxExplorerLinkArgs) {
-  return `https://explorer.hiro.so/txid/${txid}?chain=${mode}${suffix}`;
+  searchParams.append('chain', mode);
+  if (isNakamoto) {
+    searchParams.append('api', HIRO_API_BASE_URL_NAKAMOTO_TESTNET);
+  }
+  return `${HIRO_EXPLORER_URL}/txid/${txid}?${searchParams.toString()}`;
+}
+
+interface MakeStacksAddressExplorerLinkArgs {
+  mode: BitcoinNetworkModes;
+  searchParams?: URLSearchParams;
+  address: string;
+  isNakamoto?: boolean;
+}
+
+export function makeStacksAddressExplorerLink({
+  mode,
+  searchParams = new URLSearchParams(),
+  address,
+  isNakamoto = false,
+}: MakeStacksAddressExplorerLinkArgs) {
+  searchParams.append('chain', mode);
+  if (isNakamoto) {
+    searchParams.append('api', HIRO_API_BASE_URL_NAKAMOTO_TESTNET);
+  }
+  return `${HIRO_EXPLORER_URL}/address/${address}?${searchParams.toString()}`;
 }
 
 export function makeBitcoinTxExplorerLink({

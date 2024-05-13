@@ -41,11 +41,11 @@ export function StxSentSummary() {
   } = state;
 
   const { onCopy } = useClipboard(txId || '');
-  const { handleOpenStacksTxLink: handleOpenTxLink } = useStacksExplorerLink();
+  const { handleOpenStacksTxLink } = useStacksExplorerLink();
 
   function onClickLink() {
     void analytics.track('view_transaction_confirmation', { symbol: 'STX' });
-    handleOpenTxLink(txLink);
+    handleOpenStacksTxLink(txLink);
   }
 
   function onClickCopy() {

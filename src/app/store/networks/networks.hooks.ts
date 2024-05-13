@@ -4,7 +4,7 @@ import { useSelector } from 'react-redux';
 import { StacksNetwork } from '@stacks/network';
 import { ChainID, TransactionVersion } from '@stacks/transactions';
 
-import { NetworkModes } from '@shared/constants';
+import { HIRO_API_BASE_URL_NAKAMOTO_TESTNET, NetworkModes } from '@shared/constants';
 import { whenStacksChainId } from '@shared/crypto/stacks/stacks.utils';
 
 import { useAppDispatch } from '@app/store';
@@ -18,8 +18,10 @@ export function useCurrentNetworkState() {
 
   return useMemo(() => {
     const isTestnet = currentNetwork.chain.stacks.chainId === ChainID.Testnet;
+    const isNakamotoTestnet =
+      currentNetwork.chain.stacks.url === HIRO_API_BASE_URL_NAKAMOTO_TESTNET;
     const mode = (isTestnet ? 'testnet' : 'mainnet') as NetworkModes;
-    return { ...currentNetwork, isTestnet, mode };
+    return { ...currentNetwork, isTestnet, isNakamotoTestnet, mode };
   }, [currentNetwork]);
 }
 
