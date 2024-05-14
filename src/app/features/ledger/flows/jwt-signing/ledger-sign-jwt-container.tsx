@@ -15,10 +15,10 @@ import { useDefaultRequestParams } from '@app/common/hooks/use-default-request-s
 import { useKeyActions } from '@app/common/hooks/use-key-actions';
 import { useScrollLock } from '@app/common/hooks/use-scroll-lock';
 import { makeLedgerCompatibleUnsignedAuthResponsePayload } from '@app/common/unsafe-auth-response';
+import { useCancelLedgerAction } from '@app/features/ledger/utils/generic-ledger-utils';
 import {
   getStacksAppVersion,
   prepareLedgerDeviceStacksAppConnection,
-  useActionCancellableByUser,
 } from '@app/features/ledger/utils/stacks-ledger-utils';
 import {
   useCurrentStacksAccount,
@@ -47,7 +47,6 @@ export function LedgerSignJwtContainer() {
   const getBitcoinAddressesLegacyFormat = useGetLegacyAuthBitcoinAddresses();
 
   const keyActions = useKeyActions();
-  const canUserCancelAction = useActionCancellableByUser();
   const { decodedAuthRequest, authRequest } = useOnboardingState();
 
   const [accountIndex, setAccountIndex] = useState<null | number>(null);
@@ -178,13 +177,14 @@ export function LedgerSignJwtContainer() {
     awaitingDeviceConnection,
   };
 
-  const canClose = !awaitingDeviceConnection && canUserCancelAction;
+  const canCancelLedgerAction = useCancelLedgerAction(awaitingDeviceConnection);
+
   return (
     <LedgerJwtSigningProvider value={ledgerContextValue}>
       <Dialog
         isShowing
         header={<DialogHeader />}
-        onClose={canClose ? () => onCancelConnectLedger() : undefined}
+        onClose={canCancelLedgerAction ? () => onCancelConnectLedger() : undefined}
       >
         <Outlet />
       </Dialog>

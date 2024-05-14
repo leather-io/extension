@@ -14,11 +14,11 @@ import {
   useRequestLedgerKeys,
 } from '@app/features/ledger/generic-flows/request-keys/use-request-ledger-keys';
 import { useLedgerNavigate } from '@app/features/ledger/hooks/use-ledger-navigate';
+import { useCancelLedgerAction } from '@app/features/ledger/utils/generic-ledger-utils';
 import {
   connectLedgerStacksApp,
   getStacksAppVersion,
   isStacksAppOpen,
-  useActionCancellableByUser,
 } from '@app/features/ledger/utils/stacks-ledger-utils';
 import { useToast } from '@app/features/toasts/use-toast';
 import { stacksKeysSlice } from '@app/store/ledger/stacks/stacks-key.slice';
@@ -27,7 +27,6 @@ function LedgerRequestStacksKeys() {
   const toast = useToast();
   const navigate = useNavigate();
   const ledgerNavigate = useLedgerNavigate();
-  const canUserCancelAction = useActionCancellableByUser();
 
   const dispatch = useDispatch();
 
@@ -76,10 +75,11 @@ function LedgerRequestStacksKeys() {
     outdatedAppVersionWarning,
   };
 
+  const canCancelLedgerAction = useCancelLedgerAction(awaitingDeviceConnection);
   return (
     <RequestKeysFlow
       context={ledgerContextValue}
-      isActionCancellableByUser={!awaitingDeviceConnection && canUserCancelAction}
+      isActionCancellableByUser={canCancelLedgerAction}
     />
   );
 }

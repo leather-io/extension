@@ -1,8 +1,10 @@
 import { useState } from 'react';
+import { useLocation } from 'react-router-dom';
 
 import TransportWebUSB from '@ledgerhq/hw-transport-webusb';
 import BitcoinApp from 'ledger-bitcoin';
 
+import { RouteUrls } from '@shared/route-urls';
 import { delay } from '@shared/utils';
 
 import { safeAwait } from '@app/common/utils/safe-await';
@@ -119,4 +121,20 @@ export function checkLockedDeviceError(e: Error) {
     e?.message?.includes('LockedDeviceError') ||
     e?.message === LedgerConnectionErrors.DeviceLocked
   );
+}
+
+function useIsLedgerActionCancellable(): boolean {
+  const { pathname } = useLocation();
+  return (
+    pathname.includes(RouteUrls.ConnectLedger) ||
+    pathname.includes(RouteUrls.ConnectLedgerSuccess) ||
+    pathname.includes(RouteUrls.ConnectLedgerError) ||
+    pathname.includes(RouteUrls.AwaitingDeviceUserAction)
+  );
+}
+
+export function useCancelLedgerAction(awaitingDeviceConnection: boolean): boolean {
+  const canUserCancelAction = useIsLedgerActionCancellable();
+
+  return !awaitingDeviceConnection && canUserCancelAction;
 }

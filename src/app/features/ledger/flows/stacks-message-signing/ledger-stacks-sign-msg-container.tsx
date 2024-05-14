@@ -10,12 +10,12 @@ import { delay, isError } from '@shared/utils';
 
 import { useScrollLock } from '@app/common/hooks/use-scroll-lock';
 import { appEvents } from '@app/common/publish-subscribe';
+import { useCancelLedgerAction } from '@app/features/ledger/utils/generic-ledger-utils';
 import {
   getStacksAppVersion,
   prepareLedgerDeviceStacksAppConnection,
   signLedgerStacksStructuredMessage,
   signLedgerStacksUtf8Message,
-  useActionCancellableByUser,
 } from '@app/features/ledger/utils/stacks-ledger-utils';
 import { useCurrentStacksAccount } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
 import { StacksAccount } from '@app/store/accounts/blockchain/stacks/stacks-account.models';
@@ -54,7 +54,6 @@ function LedgerSignStacksMsg({ account, unsignedMessage }: LedgerSignMsgProps) {
   const verifyLedgerPublicKey = useVerifyMatchingLedgerStacksPublicKey();
 
   const [latestDeviceResponse, setLatestDeviceResponse] = useLedgerResponseState();
-  const canUserCancelAction = useActionCancellableByUser();
 
   const [awaitingDeviceConnection, setAwaitingDeviceConnection] = useState(false);
 
@@ -142,14 +141,14 @@ function LedgerSignStacksMsg({ account, unsignedMessage }: LedgerSignMsgProps) {
     latestDeviceResponse,
     awaitingDeviceConnection,
   };
+  const canCancelLedgerAction = useCancelLedgerAction(awaitingDeviceConnection);
 
-  const canClose = !awaitingDeviceConnection && canUserCancelAction;
   return (
     <LedgerMsgSigningProvider value={ledgerContextValue}>
       <Dialog
         isShowing
         header={<DialogHeader />}
-        onClose={canClose ? () => ledgerNavigate.cancelLedgerAction() : undefined}
+        onClose={canCancelLedgerAction ? () => ledgerNavigate.cancelLedgerAction() : undefined}
       >
         <Outlet />
       </Dialog>

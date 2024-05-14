@@ -19,7 +19,7 @@ import {
   getBitcoinAppVersion,
   isBitcoinAppOpen,
 } from '@app/features/ledger/utils/bitcoin-ledger-utils';
-import { useActionCancellableByUser } from '@app/features/ledger/utils/stacks-ledger-utils';
+import { useCancelLedgerAction } from '@app/features/ledger/utils/generic-ledger-utils';
 import { bitcoinKeysSlice } from '@app/store/ledger/bitcoin/bitcoin-key.slice';
 import { useCurrentNetwork } from '@app/store/networks/networks.selectors';
 
@@ -27,7 +27,6 @@ function LedgerRequestBitcoinKeys() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const canUserCancelAction = useActionCancellableByUser();
   const ledgerNavigate = useLedgerNavigate();
   const network = useCurrentNetwork();
 
@@ -69,10 +68,11 @@ function LedgerRequestBitcoinKeys() {
     outdatedAppVersionWarning: false,
   };
 
+  const canCancelLedgerAction = useCancelLedgerAction(awaitingDeviceConnection);
   return (
     <RequestKeysFlow
       context={ledgerContextValue}
-      isActionCancellableByUser={!awaitingDeviceConnection && canUserCancelAction}
+      isActionCancellableByUser={canCancelLedgerAction}
     />
   );
 }
