@@ -98,6 +98,10 @@ export function Brc20SendFormConfirmation() {
         });
       },
       onError(e) {
+        void analytics.track('broadcast_brc20_error', {
+          error: e,
+        });
+
         nav.toErrorPage(e);
       },
     });

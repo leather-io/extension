@@ -64,6 +64,7 @@ export function SendInscriptionReview() {
         });
       },
       onError(e) {
+        void analytics.track('ordinalbroadcast__error', { error: e });
         navigate(`/${RouteUrls.SendOrdinalInscription}/${RouteUrls.SendOrdinalInscriptionError}`, {
           state: {
             error: e,
