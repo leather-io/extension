@@ -31,6 +31,7 @@ import { AddStacksLedgerKeysItem } from './components/add-stacks-ledger-keys-ite
 import { ConnectLedgerAssetBtn } from './components/connect-ledger-asset-button';
 import { StacksBalanceListItem } from './components/stacks-balance-list-item';
 import { StacksFungibleTokenAssetList } from './components/stacks-fungible-token-asset-list';
+import { StacksUnsupportedTokenAssetList } from './components/stacks-unsupported-token-asset-list';
 
 export function AssetsList() {
   const hasBitcoinLedgerKeys = useHasBitcoinLedgerKeychain();
@@ -108,6 +109,9 @@ export function AssetsList() {
         )}
       </BitcoinNativeSegwitAccountLoader>
 
+      <CurrentStacksAccountLoader>
+        {account => <StacksUnsupportedTokenAssetList address={account.address} />}
+      </CurrentStacksAccountLoader>
       <PendingBrc20TransferList />
 
       <Collectibles />

@@ -136,7 +136,6 @@ export function useSignLedgerBitcoinTx() {
       return [
         config,
         getInputPaymentType(
-          inputIndex,
           btcSignerPsbtClone.getInput(config.index),
           network.chain.bitcoin.bitcoinNetwork
         ),

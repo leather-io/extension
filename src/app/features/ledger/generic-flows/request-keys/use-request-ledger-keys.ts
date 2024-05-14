@@ -16,6 +16,8 @@ import {
 } from '../../utils/generic-ledger-utils';
 import { StacksAppVersion } from '../../utils/stacks-ledger-utils';
 
+export const defaultNumberOfKeysToPullFromLedgerDevice = 10;
+
 interface UseRequestLedgerKeysArgs<App extends BitcoinApp | StacksApp> {
   chain: SupportedBlockchains;
   isAppOpen({ name }: { name: string }): boolean;

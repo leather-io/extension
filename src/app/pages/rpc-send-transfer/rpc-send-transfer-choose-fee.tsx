@@ -2,18 +2,18 @@ import { Outlet, useNavigate } from 'react-router-dom';
 
 import { logger } from '@shared/logger';
 import { BtcFeeType } from '@shared/models/fees/bitcoin-fees.model';
+import type { TransferRecipient } from '@shared/models/form.model';
 import type { Money } from '@shared/models/money.model';
 import { RouteUrls } from '@shared/route-urls';
-import type { RpcSendTransferRecipient } from '@shared/rpc/methods/send-transfer';
 
 import { useLocationStateWithCache } from '@app/common/hooks/use-location-state';
-import { useGenerateUnsignedNativeSegwitMultipleRecipientsTx } from '@app/common/transactions/bitcoin/use-generate-bitcoin-tx';
+import { useGenerateUnsignedNativeSegwitTx } from '@app/common/transactions/bitcoin/use-generate-bitcoin-tx';
 import {
   BitcoinFeesList,
   OnChooseFeeArgs,
 } from '@app/components/bitcoin-fees-list/bitcoin-fees-list';
-import { useBitcoinFeesListMultipleRecipients } from '@app/components/bitcoin-fees-list/use-bitcoin-fees-list-multiple-recipients';
-import { BitcoinChooseFeeMultipleRecipients } from '@app/features/bitcoin-choose-fee/bitcoin-choose-fee';
+import { useBitcoinFeesList } from '@app/components/bitcoin-fees-list/use-bitcoin-fees-list-multiple-recipients';
+import { BitcoinChooseFee } from '@app/features/bitcoin-choose-fee/bitcoin-choose-fee';
 import { useValidateBitcoinSpend } from '@app/features/bitcoin-choose-fee/hooks/use-validate-bitcoin-spend';
 import { UtxoResponseItem } from '@app/query/bitcoin/bitcoin-client';
 import { useSignBitcoinTx } from '@app/store/accounts/blockchain/bitcoin/bitcoin.hooks';
@@ -23,7 +23,7 @@ import { useRpcSendTransferState } from './rpc-send-transfer-container';
 
 function useRpcSendTransferFeeState() {
   const amountAsMoney = useLocationStateWithCache('amountAsMoney') as Money;
-  const recipients = useLocationStateWithCache('recipients') as RpcSendTransferRecipient[];
+  const recipients = useLocationStateWithCache('recipients') as TransferRecipient[];
   const utxos = useLocationStateWithCache('utxos') as UtxoResponseItem[];
 
   return { amountAsMoney, utxos, recipients };
@@ -35,9 +35,9 @@ export function RpcSendTransferChooseFee() {
 
   const navigate = useNavigate();
 
-  const generateTx = useGenerateUnsignedNativeSegwitMultipleRecipientsTx();
+  const generateTx = useGenerateUnsignedNativeSegwitTx();
   const signTransaction = useSignBitcoinTx();
-  const { feesList, isLoading } = useBitcoinFeesListMultipleRecipients({
+  const { feesList, isLoading } = useBitcoinFeesList({
     amount: amountAsMoney,
     recipients,
     utxos,
@@ -71,7 +71,7 @@ export function RpcSendTransferChooseFee() {
   return (
     <>
       <Outlet />
-      <BitcoinChooseFeeMultipleRecipients
+      <BitcoinChooseFee
         amount={amountAsMoney}
         defaultToCustomFee={!feesList.length}
         feesList={

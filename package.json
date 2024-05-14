@@ -142,6 +142,7 @@
     "@octokit/types": "12.4.0",
     "@radix-ui/colors": "3.0.0",
     "@radix-ui/react-accessible-icon": "1.0.3",
+    "@radix-ui/react-accordion": "1.1.2",
     "@radix-ui/react-avatar": "1.0.4",
     "@radix-ui/react-dialog": "1.0.5",
     "@radix-ui/react-dropdown-menu": "2.0.6",
@@ -243,6 +244,7 @@
     "varuint-bitcoin": "1.1.2",
     "webextension-polyfill": "0.10.0",
     "yup": "1.3.3",
+    "zod": "3.23.6",
     "zxcvbn": "4.4.2"
   },
   "devDependencies": {

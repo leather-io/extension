@@ -2,7 +2,7 @@ import { useLocation } from 'react-router-dom';
 
 import { HStack, Stack } from 'leather-styles/jsx';
 
-import type { RpcSendTransferRecipient } from '@shared/rpc/methods/send-transfer';
+import type { TransferRecipient } from '@shared/models/form.model';
 
 import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
 import { useBitcoinExplorerLink } from '@app/common/hooks/use-bitcoin-explorer-link';
@@ -66,7 +66,7 @@ export function RpcSendTransferSummary() {
         />
         <Stack pb="space.06" width="100%">
           <Stack>
-            {recipients.map((recipient: RpcSendTransferRecipient, index: number) => (
+            {recipients.map((recipient: TransferRecipient, index: number) => (
               <InfoCardRow
                 key={index}
                 title="To"

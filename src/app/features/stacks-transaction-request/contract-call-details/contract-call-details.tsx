@@ -13,7 +13,7 @@ import { FunctionArgumentsList } from './function-arguments-list';
 
 function ContractCallDetailsSuspense() {
   const transactionRequest = useTransactionRequestState();
-  const { handleOpenStacksTxLink: handleOpenTxLink } = useStacksExplorerLink();
+  const { handleOpenStacksTxLink } = useStacksExplorerLink();
 
   if (!transactionRequest || transactionRequest.txType !== 'contract_call') return null;
   const { contractAddress, contractName, functionName, attachment } = transactionRequest;
@@ -33,7 +33,7 @@ function ContractCallDetailsSuspense() {
 
       <ContractPreviewLayout
         onClick={() =>
-          handleOpenTxLink({
+          handleOpenStacksTxLink({
             txid: formatContractId(contractAddress, contractName),
           })
         }

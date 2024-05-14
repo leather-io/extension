@@ -31,7 +31,7 @@ export function StacksTransactionItem({
   transferDetails,
   transaction,
 }: StacksTransactionItemProps) {
-  const { handleOpenStacksTxLink: handleOpenTxLink } = useStacksExplorerLink();
+  const { handleOpenStacksTxLink } = useStacksExplorerLink();
   const currentAccount = useCurrentStacksAccount();
   const analytics = useAnalytics();
   const [_, setRawTxId] = useRawTxIdState();
@@ -43,7 +43,7 @@ export function StacksTransactionItem({
 
   const openTxLink = () => {
     void analytics.track('view_transaction');
-    handleOpenTxLink({
+    handleOpenStacksTxLink({
       txid: transaction?.tx_id || transferDetails?.link || '',
     });
   };

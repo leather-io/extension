@@ -41,7 +41,7 @@ export function useParsedInputs({ inputs, indexesToSign }: UseParsedInputsArgs) 
     () =>
       inputs.map((input, i) => {
         const inputAddress = isDefined(input.index)
-          ? getBitcoinInputAddress(input.index, input, bitcoinNetwork)
+          ? getBitcoinInputAddress(input, bitcoinNetwork)
           : '';
         const isCurrentAddress =
           inputAddress === bitcoinAddressNativeSegwit || inputAddress === bitcoinAddressTaproot;
@@ -60,7 +60,7 @@ export function useParsedInputs({ inputs, indexesToSign }: UseParsedInputsArgs) 
           isMutable: canChange,
           toSign: toSignAll || toSignIndex,
           txid: input.txid ? bytesToHex(input.txid) : '',
-          value: isDefined(input.index) ? getBitcoinInputValue(input.index, input) : 0,
+          value: isDefined(input.index) ? getBitcoinInputValue(input) : 0,
         };
       }),
     [

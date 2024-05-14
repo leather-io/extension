@@ -10,7 +10,7 @@ import { createMoney } from '@shared/models/money.model';
 import { RouteUrls } from '@shared/route-urls';
 
 import { formFeeRowValue } from '@app/common/send/utils';
-import { useGenerateUnsignedNativeSegwitSingleRecipientTx } from '@app/common/transactions/bitcoin/use-generate-bitcoin-tx';
+import { useGenerateUnsignedNativeSegwitTx } from '@app/common/transactions/bitcoin/use-generate-bitcoin-tx';
 import {
   BitcoinFeesList,
   OnChooseFeeArgs,
@@ -41,7 +41,7 @@ export function BrcChooseFee() {
   const toast = useToast();
   const navigate = useNavigate();
   const { amount, recipient, ticker, utxos, holderAddress } = useBrc20ChooseFeeState();
-  const generateTx = useGenerateUnsignedNativeSegwitSingleRecipientTx();
+  const generateTx = useGenerateUnsignedNativeSegwitTx();
   const signTx = useSignBitcoinTx();
   const { selectedFeeType, setSelectedFeeType } = useSendBitcoinAssetContextState();
   const { initiateTransfer } = useBrc20Transfers(holderAddress);
@@ -51,6 +51,12 @@ export function BrcChooseFee() {
     recipient,
     utxos,
   });
+  const recipients = [
+    {
+      address: recipient,
+      amount: amountAsMoney,
+    },
+  ];
   const recommendedFeeRate = feesList[1]?.feeRate.toString() || '';
 
   const { showInsufficientBalanceError, onValidateBitcoinFeeSpend } =
@@ -74,7 +80,12 @@ export function BrcChooseFee() {
       const resp = await generateTx(
         {
           amount: serviceFeeAsMoney,
-          recipient: serviceFeeRecipient,
+          recipients: [
+            {
+              address: serviceFeeRecipient,
+              amount: serviceFeeAsMoney,
+            },
+          ],
         },
         feeRate,
         utxos
@@ -143,7 +154,7 @@ export function BrcChooseFee() {
         onSetSelectedFeeType={(value: BtcFeeType | null) => setSelectedFeeType(value)}
         onValidateBitcoinSpend={onValidateBitcoinFeeSpend}
         recommendedFeeRate={recommendedFeeRate}
-        recipient={recipient}
+        recipients={recipients}
         showError={showInsufficientBalanceError}
         maxRecommendedFeeRate={feesList[0]?.feeRate}
       />

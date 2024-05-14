@@ -6,17 +6,19 @@ import { useCurrentNetworkState } from '@app/store/networks/networks.hooks';
 import { openInNewTab } from '../utils/open-in-new-tab';
 
 export interface HandleOpenStacksTxLinkArgs {
-  suffix?: string;
+  searchParams?: URLSearchParams;
   txid: string;
 }
 export function useStacksExplorerLink() {
-  const { mode } = useCurrentNetworkState();
+  const { mode, isNakamotoTestnet } = useCurrentNetworkState();
 
   const handleOpenStacksTxLink = useCallback(
-    ({ suffix, txid }: HandleOpenStacksTxLinkArgs) => {
-      openInNewTab(makeStacksTxExplorerLink({ mode, suffix, txid }));
+    ({ searchParams, txid }: HandleOpenStacksTxLinkArgs) => {
+      openInNewTab(
+        makeStacksTxExplorerLink({ mode, searchParams, isNakamoto: isNakamotoTestnet, txid })
+      );
     },
-    [mode]
+    [mode, isNakamotoTestnet]
   );
 
   return {

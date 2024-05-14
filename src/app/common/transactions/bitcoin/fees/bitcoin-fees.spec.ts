@@ -1,6 +1,8 @@
 import BigNumber from 'bignumber.js';
 import { sha256 } from 'bitcoinjs-lib/src/crypto';
 
+import { createMoney } from '@shared/models/money.model';
+
 import { UtxoResponseItem } from '@app/query/bitcoin/bitcoin-client';
 
 import { filterUneconomicalUtxos } from '../utils';
@@ -89,13 +91,19 @@ describe(calculateMaxBitcoinSpend.name, () => {
 
 describe(filterUneconomicalUtxos.name, () => {
   const utxos = generateTransactions([600, 600, 1200, 1200, 10000, 10000, 25000, 40000, 50000000]);
+  const recipients = [
+    {
+      address: '',
+      amount: createMoney(0, 'BTC'),
+    },
+  ];
 
   test('with 1 sat/vb fee', () => {
     const fee = 1;
     const filteredUtxos = filterUneconomicalUtxos({
-      address: '',
       utxos,
       feeRate: fee,
+      recipients,
     });
 
     expect(filteredUtxos.length).toEqual(9);
@@ -104,7 +112,7 @@ describe(filterUneconomicalUtxos.name, () => {
   test('with 10 sat/vb fee', () => {
     const fee = 10;
     const filteredUtxos = filterUneconomicalUtxos({
-      address: '',
+      recipients,
       utxos,
       feeRate: fee,
     });
@@ -114,7 +122,7 @@ describe(filterUneconomicalUtxos.name, () => {
   test('with 30 sat/vb fee', () => {
     const fee = 30;
     const filteredUtxos = filterUneconomicalUtxos({
-      address: '',
+      recipients,
       utxos,
       feeRate: fee,
     });
@@ -124,7 +132,7 @@ describe(filterUneconomicalUtxos.name, () => {
   test('with 200 sat/vb fee', () => {
     const fee = 200;
     const filteredUtxos = filterUneconomicalUtxos({
-      address: '',
+      recipients,
       utxos,
       feeRate: fee,
     });
@@ -134,7 +142,7 @@ describe(filterUneconomicalUtxos.name, () => {
   test('with 400 sat/vb fee', () => {
     const fee = 400;
     const filteredUtxos = filterUneconomicalUtxos({
-      address: '',
+      recipients,
       utxos,
       feeRate: fee,
     });

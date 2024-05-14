@@ -1,15 +1,15 @@
 import { useMemo } from 'react';
 
 import { BtcFeeType, btcTxTimeMap } from '@shared/models/fees/bitcoin-fees.model';
+import type { TransferRecipient } from '@shared/models/form.model';
 import { Money, createMoney } from '@shared/models/money.model';
-import type { RpcSendTransferRecipient } from '@shared/rpc/methods/send-transfer';
 
 import { baseCurrencyAmountInQuote } from '@app/common/money/calculate-money';
 import { formatMoneyPadded, i18nFormatCurrency } from '@app/common/money/format-money';
 import {
-  type DetermineUtxosForSpendArgsMultipleRecipients,
-  determineUtxosForSpendAllMultipleRecipients,
-  determineUtxosForSpendMultipleRecipients,
+  type DetermineUtxosForSpendArgs,
+  determineUtxosForSpend,
+  determineUtxosForSpendAll,
 } from '@app/common/transactions/bitcoin/coinselect/local-coin-selection';
 import { UtxoResponseItem } from '@app/query/bitcoin/bitcoin-client';
 import { useAverageBitcoinFeeRates } from '@app/query/bitcoin/fees/fee-estimates.hooks';
@@ -18,13 +18,13 @@ import { useCryptoCurrencyMarketDataMeanAverage } from '@app/query/common/market
 import { FeesListItem } from './bitcoin-fees-list';
 
 function getFeeForList(
-  determineUtxosForFeeArgs: DetermineUtxosForSpendArgsMultipleRecipients,
+  determineUtxosForFeeArgs: DetermineUtxosForSpendArgs,
   isSendingMax?: boolean
 ) {
   try {
     const { fee } = isSendingMax
-      ? determineUtxosForSpendAllMultipleRecipients(determineUtxosForFeeArgs)
-      : determineUtxosForSpendMultipleRecipients(determineUtxosForFeeArgs);
+      ? determineUtxosForSpendAll(determineUtxosForFeeArgs)
+      : determineUtxosForSpend(determineUtxosForFeeArgs);
     return fee;
   } catch (error) {
     return null;
@@ -33,14 +33,10 @@ function getFeeForList(
 
 interface UseBitcoinFeesListArgs {
   amount: Money;
-  recipients: RpcSendTransferRecipient[];
+  recipients: TransferRecipient[];
   utxos: UtxoResponseItem[];
 }
-export function useBitcoinFeesListMultipleRecipients({
-  amount,
-  recipients,
-  utxos,
-}: UseBitcoinFeesListArgs) {
+export function useBitcoinFeesList({ amount, recipients, utxos }: UseBitcoinFeesListArgs) {
   const btcMarketData = useCryptoCurrencyMarketDataMeanAverage('BTC');
   const { data: feeRates, isLoading } = useAverageBitcoinFeeRates();
 

@@ -1,65 +1,74 @@
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
+import { ZodError, z } from 'zod';
+
+import { analytics } from '@shared/utils/analytics';
 
 import { AppUseQueryConfig } from '@app/query/query-config';
 import { QueryPrefixes } from '@app/query/query-prefixes';
 
-export interface Stamp {
-  stamp: number;
-  block_index: number;
-  cpid: string;
-  asset_longname: string;
-  creator: string;
-  divisible: number;
-  keyburn: number;
-  locked: number;
-  message_index: number;
-  stamp_base64: string;
-  stamp_mimetype: string;
-  stamp_url: string;
-  supply: number;
-  timestamp: string;
-  tx_hash: string;
-  tx_index: number;
-  src_data: string;
-  ident: string;
-  creator_name: string;
-  stamp_gen: string;
-  stamp_hash: string;
-  is_btc_stamp: number;
-  is_reissue: number;
-  file_hash: string;
-}
+const stampSchema = z.object({
+  stamp: z.number(),
+  block_index: z.number().optional(),
+  cpid: z.string().optional(),
+  asset_longname: z.string().optional(),
+  creator: z.string(),
+  divisible: z.number(),
+  keyburn: z.number().optional(),
+  locked: z.number(),
+  message_index: z.number().optional(),
+  stamp_base64: z.string(),
+  stamp_mimetype: z.string(),
+  stamp_url: z.string(),
+  supply: z.number(),
+  timestamp: z.string().optional(),
+  tx_hash: z.string(),
+  tx_index: z.number().optional(),
+  src_data: z.string().optional(),
+  ident: z.string().optional(),
+  creator_name: z.string().optional().nullable(),
+  stamp_gen: z.string().optional(),
+  stamp_hash: z.string().optional(),
+  is_btc_stamp: z.number().optional(),
+  is_reissue: z.number().optional(),
+  file_hash: z.string().optional(),
+});
 
-export interface Src20Token {
-  id: string;
-  address: string;
-  cpid: string;
-  p: string;
-  tick: string;
-  amt: number;
-  block_time: string;
-  last_update: number;
-}
+export type Stamp = z.infer<typeof stampSchema>;
 
-interface StampsByAddressQueryResponse {
-  page: number;
-  limit: number;
-  totalPages: number;
-  total: number;
-  last_block: number;
-  btc: {
-    address: string;
-    balance: number;
-    txCount: number;
-    unconfirmedBalance: number;
-    unconfirmedTxCount: number;
-  };
-  data: {
-    stamps: Stamp[];
-    src20: Src20Token[];
-  };
-}
+const src20TokenSchema = z.object({
+  id: z.string().optional(),
+  address: z.string(),
+  cpid: z.string().optional(),
+  p: z.string(),
+  tick: z.string(),
+  amt: z.string().optional(),
+  block_time: z.string(),
+  last_update: z.number(),
+});
+
+export type Src20Token = z.infer<typeof src20TokenSchema>;
+
+const stampsByAdressSchema = z.object({
+  page: z.number(),
+  limit: z.number(),
+  totalPages: z.number(),
+  total: z.number(),
+  last_block: z.number().optional(),
+  btc: z.object({
+    address: z.string(),
+    balance: z.number(),
+    txCount: z.number(),
+    unconfirmedBalance: z.number(),
+    unconfirmedTxCount: z.number(),
+  }),
+  data: z.object({
+    stamps: z.array(stampSchema),
+    src20: z.array(src20TokenSchema),
+  }),
+});
+
+type StampsByAddressQueryResponse = z.infer<typeof stampsByAdressSchema>;
 
 /**
  * @see https://stampchain.io/docs#/default/get_api_v2_balance__address_
@@ -68,7 +77,12 @@ async function fetchStampsByAddress(address: string): Promise<StampsByAddressQue
   const resp = await axios.get<StampsByAddressQueryResponse>(
     `https://stampchain.io/api/v2/balance/${address}`
   );
-  return resp.data;
+  try {
+    return stampsByAdressSchema.parse(resp.data);
+  } catch (e) {
+    if (e instanceof ZodError) void analytics.track('schema_fail', e);
+    throw e;
+  }
 }
 
 type FetchStampsByAddressResp = Awaited<ReturnType<typeof fetchStampsByAddress>>;

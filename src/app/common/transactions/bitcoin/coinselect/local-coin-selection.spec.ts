@@ -1,4 +1,5 @@
 import { BTC_P2WPKH_DUST_AMOUNT } from '@shared/constants';
+import { createMoney } from '@shared/models/money.model';
 
 import { sumNumbers } from '@app/common/math/helpers';
 import { createNullArrayOfLength } from '@app/common/utils';
@@ -24,9 +25,8 @@ const demoUtxos = [
 function generate10kSpendWithDummyUtxoSet(recipient: string) {
   return determineUtxosForSpend({
     utxos: demoUtxos as any,
-    amount: 10_000,
     feeRate: 20,
-    recipient,
+    recipients: [{ address: recipient, amount: createMoney(10_000, 'BTC') }],
   });
 }
 
@@ -35,8 +35,12 @@ describe(determineUtxosForSpend.name, () => {
     test('that Native Segwit, 1 input 2 outputs weighs 140 vBytes', () => {
       const estimation = determineUtxosForSpend({
         utxos: [{ value: 50_000 }] as any[],
-        amount: 40_000,
-        recipient: 'tb1qt28eagxcl9gvhq2rpj5slg7dwgxae2dn2hk93m',
+        recipients: [
+          {
+            address: 'tb1qt28eagxcl9gvhq2rpj5slg7dwgxae2dn2hk93m',
+            amount: createMoney(40_000, 'BTC'),
+          },
+        ],
         feeRate: 20,
       });
       console.log(estimation);
@@ -47,8 +51,12 @@ describe(determineUtxosForSpend.name, () => {
     test('that Native Segwit, 2 input 2 outputs weighs 200vBytes', () => {
       const estimation = determineUtxosForSpend({
         utxos: [{ value: 50_000 }, { value: 50_000 }] as any[],
-        amount: 60_000,
-        recipient: 'tb1qt28eagxcl9gvhq2rpj5slg7dwgxae2dn2hk93m',
+        recipients: [
+          {
+            address: 'tb1qt28eagxcl9gvhq2rpj5slg7dwgxae2dn2hk93m',
+            amount: createMoney(60_000, 'BTC'),
+          },
+        ],
         feeRate: 20,
       });
       console.log(estimation);
@@ -70,8 +78,12 @@ describe(determineUtxosForSpend.name, () => {
           { value: 10_000 },
           { value: 10_000 },
         ] as any[],
-        amount: 100_000,
-        recipient: 'tb1qt28eagxcl9gvhq2rpj5slg7dwgxae2dn2hk93m',
+        recipients: [
+          {
+            address: 'tb1qt28eagxcl9gvhq2rpj5slg7dwgxae2dn2hk93m',
+            amount: createMoney(100_000, 'BTC'),
+          },
+        ],
         feeRate: 20,
       });
       expect(estimation.txVBytes).toBeGreaterThan(750);
@@ -82,7 +94,6 @@ describe(determineUtxosForSpend.name, () => {
   describe('sorting algorithm', () => {
     test('that it filters out dust utxos', () => {
       const result = generate10kSpendWithDummyUtxoSet('tb1qt28eagxcl9gvhq2rpj5slg7dwgxae2dn2hk93m');
-      console.log(result);
       const hasDust = result.filteredUtxos.some(utxo => utxo.value <= BTC_P2WPKH_DUST_AMOUNT);
       expect(hasDust).toBeFalsy();
     });
@@ -143,8 +154,12 @@ describe(determineUtxosForSpend.name, () => {
     const amount = 29123n;
     const result = determineUtxosForSpend({
       utxos: testData as any,
-      amount: Number(amount),
-      recipient: 'tb1qt28eagxcl9gvhq2rpj5slg7dwgxae2dn2hk93m',
+      recipients: [
+        {
+          address: 'tb1qt28eagxcl9gvhq2rpj5slg7dwgxae2dn2hk93m',
+          amount: createMoney(Number(amount), 'BTC'),
+        },
+      ],
       feeRate: 3,
     });
     expect(result.outputs[0].value).toEqual(29123n);

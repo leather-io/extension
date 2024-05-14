@@ -58,7 +58,7 @@ async function interceptRequestPopup(context: BrowserContext) {
 }
 
 async function initiateGetAddresses(page: Page) {
-  return page.evaluate(async () => window.LeatherProvider?.request('getAddresses'));
+  return page.evaluate(async () => (window as any).LeatherProvider?.request('getAddresses'));
 }
 
 async function clickConnectLeatherButton(popup: Page) {

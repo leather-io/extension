@@ -7,11 +7,11 @@ import {
 } from 'bitcoin-address-validation';
 
 import { BTC_P2WPKH_DUST_AMOUNT } from '@shared/constants';
+import type { TransferRecipient } from '@shared/models/form.model';
 import {
   BitcoinTransactionVectorOutput,
   BitcoinTx,
 } from '@shared/models/transactions/bitcoin-transaction.model';
-import type { RpcSendTransferRecipient } from '@shared/rpc/methods/send-transfer';
 
 import { sumNumbers } from '@app/common/math/helpers';
 import { satToBtc } from '@app/common/money/unit-conversion';
@@ -23,29 +23,6 @@ import { BtcSizeFeeEstimator } from './fees/btc-size-fee-estimator';
 export function containsTaprootInput(tx: BitcoinTx) {
   return tx.vin.some(input => input.prevout.scriptpubkey_type === 'v1_p2tr');
 }
-export function getSpendableAmount({
-  utxos,
-  feeRate,
-  address,
-}: {
-  utxos: UtxoResponseItem[];
-  feeRate: number;
-  address: string;
-}) {
-  const balance = utxos.map(utxo => utxo.value).reduce((prevVal, curVal) => prevVal + curVal, 0);
-
-  const size = getBitcoinTxSizeEstimation({
-    inputCount: utxos.length,
-    outputCount: 1,
-    recipient: address,
-  });
-  const fee = Math.ceil(size.txVBytes * feeRate);
-  const bigNumberBalance = BigNumber(balance);
-  return {
-    spendableAmount: BigNumber.max(0, bigNumberBalance.minus(fee)),
-    fee,
-  };
-}
 
 // Check if the spendable amount drops when adding a utxo. If it drops, don't use that utxo.
 // Method might be not particularly efficient as it would
@@ -53,16 +30,16 @@ export function getSpendableAmount({
 export function filterUneconomicalUtxos({
   utxos,
   feeRate,
-  address,
+  recipients,
 }: {
   utxos: UtxoResponseItem[];
   feeRate: number;
-  address: string;
+  recipients: TransferRecipient[];
 }) {
   const { spendableAmount: fullSpendableAmount } = getSpendableAmount({
     utxos,
     feeRate,
-    address,
+    recipients,
   });
 
   const filteredUtxos = utxos
@@ -72,7 +49,7 @@ export function filterUneconomicalUtxos({
       const { spendableAmount } = getSpendableAmount({
         utxos: utxos.filter(u => u.txid !== utxo.txid),
         feeRate,
-        address,
+        recipients,
       });
       // if spendable amount becomes bigger, do not use that utxo
       return spendableAmount.toNumber() < fullSpendableAmount.toNumber();
@@ -151,19 +128,18 @@ export function getBitcoinTxValue(address: string, transaction?: BitcoinTx) {
   return '';
 }
 
-// multiple recipients
-function getSpendableAmountMultipleRecipients({
+export function getSpendableAmount({
   utxos,
   feeRate,
   recipients,
 }: {
   utxos: UtxoResponseItem[];
   feeRate: number;
-  recipients: RpcSendTransferRecipient[];
+  recipients: TransferRecipient[];
 }) {
   const balance = utxos.map(utxo => utxo.value).reduce((prevVal, curVal) => prevVal + curVal, 0);
 
-  const size = getSizeInfoMultipleRecipients({
+  const size = getSizeInfo({
     inputLength: utxos.length,
     recipients,
   });
@@ -175,39 +151,9 @@ function getSpendableAmountMultipleRecipients({
   };
 }
 
-export function filterUneconomicalUtxosMultipleRecipients({
-  utxos,
-  feeRate,
-  recipients,
-}: {
-  utxos: UtxoResponseItem[];
-  feeRate: number;
-  recipients: RpcSendTransferRecipient[];
-}) {
-  const { spendableAmount: fullSpendableAmount } = getSpendableAmountMultipleRecipients({
-    utxos,
-    feeRate,
-    recipients,
-  });
-
-  const filteredUtxos = utxos
-    .filter(utxo => utxo.value >= BTC_P2WPKH_DUST_AMOUNT)
-    .filter(utxo => {
-      // calculate spendableAmount without that utxo.
-      const { spendableAmount } = getSpendableAmountMultipleRecipients({
-        utxos: utxos.filter(u => u.txid !== utxo.txid),
-        feeRate,
-        recipients,
-      });
-      // if spendable amount becomes bigger, do not use that utxo
-      return spendableAmount.toNumber() < fullSpendableAmount.toNumber();
-    });
-  return filteredUtxos;
-}
-
-export function getSizeInfoMultipleRecipients(payload: {
+export function getSizeInfo(payload: {
   inputLength: number;
-  recipients: RpcSendTransferRecipient[];
+  recipients: TransferRecipient[];
   isSendMax?: boolean;
 }) {
   const { inputLength, recipients, isSendMax } = payload;

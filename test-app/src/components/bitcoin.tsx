@@ -439,6 +439,60 @@ export const Bitcoin = () => {
           (window as any).LeatherProvider?.request('sendTransfer', {
             recipients: [
               {
+                address: 'bc1qps90ws94pvk548y9jg03gn5lwjqnyud4lg6y56',
+                amount: '800',
+              },
+              {
+                address: 'bc1qps90ws94pvk548y9jg03gn5lwjqnyud4lg6y56',
+                amount: '10000',
+              },
+            ],
+            network: 'mainnet',
+          })
+            .then((resp: any) => {
+              console.log({ sucesss: resp });
+            })
+            .catch((error: Error) => {
+              console.log({ error });
+            });
+        }}
+      >
+        Send native segwit transfer to multiple addresses
+      </styled.button>
+      <styled.button
+        mt={3}
+        onClick={() => {
+          console.log('requesting');
+          (window as any).LeatherProvider?.request('sendTransfer', {
+            recipients: [
+              {
+                address: 'bc1p8nyc4sl8agqfjs2rq4yer6wnhd89naw05s0ha8hpmg8j36ht6yvswqyaxm',
+                amount: '800',
+              },
+              {
+                address: 'bc1p8nyc4sl8agqfjs2rq4yer6wnhd89naw05s0ha8hpmg8j36ht6yvswqyaxm',
+                amount: '10000',
+              },
+            ],
+            network: 'mainnet',
+          })
+            .then((resp: any) => {
+              console.log({ sucesss: resp });
+            })
+            .catch((error: Error) => {
+              console.log({ error });
+            });
+        }}
+      >
+        Send taproot transfer to multiple addresses
+      </styled.button>
+      <styled.button
+        mt={3}
+        onClick={() => {
+          console.log('requesting');
+          (window as any).LeatherProvider?.request('sendTransfer', {
+            recipients: [
+              {
                 address: TEST_TESTNET_ACCOUNT_2_BTC_ADDRESS,
                 amount: '10000',
               },

@@ -6,9 +6,9 @@ import get from 'lodash.get';
 import { decodeBitcoinTx } from '@shared/crypto/bitcoin/bitcoin.utils';
 import { logger } from '@shared/logger';
 import { CryptoCurrencies } from '@shared/models/currencies.model';
+import type { TransferRecipient } from '@shared/models/form.model';
 import { createMoney } from '@shared/models/money.model';
 import { RouteUrls } from '@shared/route-urls';
-import type { RpcSendTransferRecipient } from '@shared/rpc/methods/send-transfer';
 import { makeRpcSuccessResponse } from '@shared/rpc/rpc-methods';
 
 import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
@@ -36,7 +36,7 @@ function useRpcSendTransferConfirmationState() {
   const location = useLocation();
   return {
     fee: get(location.state, 'fee') as string,
-    recipients: get(location.state, 'recipients') as RpcSendTransferRecipient[],
+    recipients: get(location.state, 'recipients') as TransferRecipient[],
     time: get(location.state, 'time') as string,
     tx: get(location.state, 'tx') as string,
     feeRowValue: get(location.state, 'feeRowValue') as string,

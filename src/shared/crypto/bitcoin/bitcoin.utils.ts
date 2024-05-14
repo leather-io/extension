@@ -1,4 +1,4 @@
-import { PaymentTypes } from '@btckit/types';
+import { PaymentTypes as PaymentType } from '@btckit/types';
 import { hexToBytes } from '@noble/hashes/utils';
 import { HDKey, Versions } from '@scure/bip32';
 import * as btc from '@scure/btc-signer';
@@ -12,7 +12,7 @@ import { BtcSignerNetwork, getBtcSignerLibNetworkConfigByMode } from './bitcoin.
 import { getTaprootPayment } from './p2tr-address-gen';
 
 export interface BitcoinAccount {
-  type: PaymentTypes;
+  type: PaymentType;
   derivationPath: string;
   keychain: HDKey;
   accountIndex: number;
@@ -96,26 +96,30 @@ export function getAddressFromOutScript(script: Uint8Array, bitcoinNetwork: BtcS
 }
 
 export function getBitcoinInputAddress(
-  index: number,
   input: btc.TransactionInput,
   bitcoinNetwork: BtcSignerNetwork
 ) {
   if (isDefined(input.witnessUtxo))
     return getAddressFromOutScript(input.witnessUtxo.script, bitcoinNetwork);
-  if (isDefined(input.nonWitnessUtxo))
-    return getAddressFromOutScript(input.nonWitnessUtxo.outputs[index]?.script, bitcoinNetwork);
+  if (isDefined(input.nonWitnessUtxo) && isDefined(input.index))
+    return getAddressFromOutScript(
+      input.nonWitnessUtxo.outputs[input.index]?.script,
+      bitcoinNetwork
+    );
   return '';
 }
 
-export function getBitcoinInputValue(index: number, input: btc.TransactionInput) {
+export function getBitcoinInputValue(input: btc.TransactionInput) {
   if (isDefined(input.witnessUtxo)) return Number(input.witnessUtxo.amount);
-  if (isDefined(input.nonWitnessUtxo)) return Number(input.nonWitnessUtxo.outputs[index]?.amount);
+  if (isDefined(input.nonWitnessUtxo) && isDefined(input.index))
+    return Number(input.nonWitnessUtxo.outputs[input.index]?.amount);
+  logger.warn('Unable to find either `witnessUtxo` or `nonWitnessUtxo` in input. Defaulting to 0');
   return 0;
 }
 
-type BtcSignerLibPaymentTypeIdentifers = 'wpkh' | 'wsh' | 'tr' | 'pkh' | 'sh';
+type BtcSignerLibPaymentTypeIdentifer = 'wpkh' | 'wsh' | 'tr' | 'pkh' | 'sh';
 
-const paymentTypeMap: Record<BtcSignerLibPaymentTypeIdentifers, PaymentTypes> = {
+const paymentTypeMap: Record<BtcSignerLibPaymentTypeIdentifer, PaymentType> = {
   wpkh: 'p2wpkh',
   wsh: 'p2wpkh-p2sh',
   tr: 'p2tr',
@@ -123,27 +127,27 @@ const paymentTypeMap: Record<BtcSignerLibPaymentTypeIdentifers, PaymentTypes> = 
   sh: 'p2sh',
 };
 
-function btcSignerLibPaymentTypeToPaymentTypeMap(payment: BtcSignerLibPaymentTypeIdentifers) {
+function btcSignerLibPaymentTypeToPaymentTypeMap(payment: BtcSignerLibPaymentTypeIdentifer) {
   return paymentTypeMap[payment];
 }
 
-function isBtcSignerLibPaymentType(payment: string): payment is BtcSignerLibPaymentTypeIdentifers {
+function isBtcSignerLibPaymentType(payment: string): payment is BtcSignerLibPaymentTypeIdentifer {
   return payment in paymentTypeMap;
 }
 
-function parseKnownPaymentType(payment: BtcSignerLibPaymentTypeIdentifers | PaymentTypes) {
+function parseKnownPaymentType(payment: BtcSignerLibPaymentTypeIdentifer | PaymentType) {
   return isBtcSignerLibPaymentType(payment)
     ? btcSignerLibPaymentTypeToPaymentTypeMap(payment)
     : payment;
 }
 
-type PaymentTypeMap<T> = Record<PaymentTypes, T>;
-export function whenPaymentType(mode: PaymentTypes | BtcSignerLibPaymentTypeIdentifers) {
+type PaymentTypeMap<T> = Record<PaymentType, T>;
+export function whenPaymentType(mode: PaymentType | BtcSignerLibPaymentTypeIdentifer) {
   return <T extends unknown>(paymentMap: PaymentTypeMap<T>): T =>
     paymentMap[parseKnownPaymentType(mode)];
 }
 
-function inferPaymentTypeFromPath(path: string): PaymentTypes {
+function inferPaymentTypeFromPath(path: string): PaymentType {
   if (path.startsWith('m/84')) return 'p2wpkh';
   if (path.startsWith('m/86')) return 'p2tr';
   if (path.startsWith('m/44')) return 'p2pkh';
@@ -260,11 +264,10 @@ export function getPsbtTxOutputs(psbtTx: btc.Transaction) {
 }
 
 export function getInputPaymentType(
-  index: number,
   input: btc.TransactionInput,
   network: BitcoinNetworkModes
-): PaymentTypes {
-  const address = getBitcoinInputAddress(index, input, getBtcSignerLibNetworkConfigByMode(network));
+): PaymentType {
+  const address = getBitcoinInputAddress(input, getBtcSignerLibNetworkConfigByMode(network));
   if (address === '') throw new Error('Input address cannot be empty');
   if (address.startsWith('bc1p') || address.startsWith('tb1p') || address.startsWith('bcrt1p'))
     return 'p2tr';

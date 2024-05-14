@@ -33,7 +33,7 @@ export function getAssumedZeroIndexSigningConfig({
         const input = tx.getInput(inputIndex);
 
         if (isUndefined(input.index)) throw new Error('Input must have an index for payment type');
-        const paymentType = getInputPaymentType(input.index, input, network);
+        const paymentType = getInputPaymentType(input, network);
 
         switch (paymentType) {
           case 'p2wpkh':
