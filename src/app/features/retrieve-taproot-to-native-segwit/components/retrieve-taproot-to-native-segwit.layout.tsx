@@ -51,7 +51,7 @@ export function RetrieveTaprootToNativeSegwitLayout(
             As we don't support tranferring from Taproot addresses yet, you can retrieve funds to
             your account's main Native SegWit balance here.
           </styled.span>
-          <styled.span mt="space.04" textStyle="body.02">
+          <styled.span my="space.04" textStyle="body.02">
             This transaction may take upwards of 30 minutes to confirm.
           </styled.span>
           {children}

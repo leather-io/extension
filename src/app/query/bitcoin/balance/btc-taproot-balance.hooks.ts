@@ -9,6 +9,8 @@ import { useTaprootAccountUtxosQuery } from '../address/utxos-by-address.query';
 import { UtxoWithDerivationPath } from '../bitcoin-client';
 import { useGetInscriptionsInfiniteQuery } from '../ordinals/inscriptions.query';
 
+const RETRIEVE_UTXO_DUST_AMOUNT = 10000;
+
 export function useCurrentTaprootAccountUninscribedUtxos() {
   const { data: utxos = [] } = useTaprootAccountUtxosQuery();
 
@@ -16,10 +18,12 @@ export function useCurrentTaprootAccountUninscribedUtxos() {
 
   return useMemo(() => {
     const inscriptions = query.data?.pages?.flatMap(page => page.inscriptions) ?? [];
-    return filterUtxosWithInscriptions(
-      inscriptions,
-      utxos.filter(utxo => utxo.status.confirmed)
-    ) as UtxoWithDerivationPath[];
+
+    const filteredUtxosList = utxos
+      .filter(utxo => utxo.status.confirmed)
+      .filter(utxo => utxo.value > RETRIEVE_UTXO_DUST_AMOUNT);
+
+    return filterUtxosWithInscriptions(inscriptions, filteredUtxosList) as UtxoWithDerivationPath[];
   }, [query.data?.pages, utxos]);
 }
 
