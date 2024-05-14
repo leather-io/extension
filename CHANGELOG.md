@@ -1,3 +1,28 @@
+## [6.39.0](https://github.com/leather-wallet/extension/compare/v6.38.0...v6.39.0) (2024-05-14)
+
+
+### Features
+
+* hide asset list unsupported tokens in accordion, closes [#16](https://github.com/leather-wallet/extension/issues/16) ([f37bb1b](https://github.com/leather-wallet/extension/commit/f37bb1bf4c0714a1b51fd3b363665ae0b3a85649))
+
+
+### Bug Fixes
+
+* add schema validation for stamps ([7a89337](https://github.com/leather-wallet/extension/commit/7a8933765e0f5b479cfb83149e99223bb6ebfc1e))
+* change default to pulling 10 keys ([b5c9c79](https://github.com/leather-wallet/extension/commit/b5c9c79811d3f7e2b599abeb698b3acba26c7727))
+* compliance checks reenabled ([d0c17ec](https://github.com/leather-wallet/extension/commit/d0c17ec478fccdd4a1847906287006d52a41d8ba))
+* constant retrying of metadata ([540c349](https://github.com/leather-wallet/extension/commit/540c3495a6ca034f6623e97f977fc17324564343))
+* double stacks asset in ledger mode ([5d9895f](https://github.com/leather-wallet/extension/commit/5d9895f7beefdedf49c21e6c00b727ab4cbc6fcc))
+* remove ledger add more keys route, ref [#4786](https://github.com/leather-wallet/extension/issues/4786) ([45c9968](https://github.com/leather-wallet/extension/commit/45c99682d13397e420bb58dd785ce044cc262f5b))
+* use nakamoto testnet link when network is set to nakamoto testnet ([e522113](https://github.com/leather-wallet/extension/commit/e522113f590dd4636f2d9a3002c91488697a11dd))
+
+
+### Internal
+
+* input calc helper methods ([16a9e6e](https://github.com/leather-wallet/extension/commit/16a9e6e47306dada77843a5632c0400fe73f2a10))
+* post-release merge back ([9caef96](https://github.com/leather-wallet/extension/commit/9caef965f3e73dbe3c0c53d98d2b96ba26fb9c50))
+* remove multiple recipients components ([8f83bcc](https://github.com/leather-wallet/extension/commit/8f83bcc5438de77850f3bd064afd7bd2aeb946fa))
+
 ## [6.38.0](https://github.com/leather-wallet/extension/compare/v6.37.0...v6.38.0) (2024-05-02)
 
 
