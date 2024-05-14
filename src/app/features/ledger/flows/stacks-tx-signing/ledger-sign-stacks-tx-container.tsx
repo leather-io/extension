@@ -11,6 +11,7 @@ import { delay, isError } from '@shared/utils';
 import { useScrollLock } from '@app/common/hooks/use-scroll-lock';
 import { appEvents } from '@app/common/publish-subscribe';
 import { LedgerTxSigningContext } from '@app/features/ledger/generic-flows/tx-signing/ledger-sign-tx.context';
+import { useCancelLedgerAction } from '@app/features/ledger/utils/generic-ledger-utils';
 import {
   connectLedgerStacksApp,
   getStacksAppVersion,
@@ -18,7 +19,6 @@ import {
   isVersionOfLedgerStacksAppWithContractPrincipalBug,
   signLedgerStacksTransaction,
   signStacksTransactionWithSignature,
-  useActionCancellableByUser,
 } from '@app/features/ledger/utils/stacks-ledger-utils';
 import { useCurrentStacksAccount } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
 
@@ -46,7 +46,6 @@ function LedgerSignStacksTxContainer() {
   const verifyLedgerPublicKey = useVerifyMatchingLedgerStacksPublicKey();
   const [unsignedTx, setUnsignedTx] = useState<null | string>(null);
   const navigate = useNavigate();
-  const canUserCancelAction = useActionCancellableByUser();
 
   const chain = 'stacks' as const;
 
@@ -149,10 +148,12 @@ function LedgerSignStacksTxContainer() {
     awaitingDeviceConnection,
     hasUserSkippedBuggyAppWarning,
   };
-
-  const canClose = !awaitingDeviceConnection && canUserCancelAction;
+  const canCancelLedgerAction = useCancelLedgerAction(awaitingDeviceConnection);
 
   return (
-    <TxSigningFlow context={ledgerContextValue} closeAction={canClose ? closeAction : undefined} />
+    <TxSigningFlow
+      context={ledgerContextValue}
+      closeAction={canCancelLedgerAction ? closeAction : undefined}
+    />
   );
 }
