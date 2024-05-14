@@ -25,7 +25,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/39</span>
+                <span class='fraction'>0/40</span>
             </div>
         
             
@@ -46,7 +46,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/37</span>
+                <span class='fraction'>0/38</span>
             </div>
         
             
@@ -216,7 +216,18 @@
 <a name='L151'></a><a href='#L151'>151</a>
 <a name='L152'></a><a href='#L152'>152</a>
 <a name='L153'></a><a href='#L153'>153</a>
-<a name='L154'></a><a href='#L154'>154</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L154'></a><a href='#L154'>154</a>
+<a name='L155'></a><a href='#L155'>155</a>
+<a name='L156'></a><a href='#L156'>156</a>
+<a name='L157'></a><a href='#L157'>157</a>
+<a name='L158'></a><a href='#L158'>158</a>
+<a name='L159'></a><a href='#L159'>159</a>
+<a name='L160'></a><a href='#L160'>160</a>
+<a name='L161'></a><a href='#L161'>161</a>
+<a name='L162'></a><a href='#L162'>162</a>
+<a name='L163'></a><a href='#L163'>163</a>
+<a name='L164'></a><a href='#L164'>164</a>
+<a name='L165'></a><a href='#L165'>165</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -272,6 +283,12 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -290,6 +307,11 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -381,7 +403,7 @@ import { createMoney } from '@shared/models/money.model';
 import { RouteUrls } from '@shared/route-urls';
 &nbsp;
 import { formFeeRowValue } from '@app/common/send/utils';
-import { useGenerateUnsignedNativeSegwitSingleRecipientTx } from '@app/common/transactions/bitcoin/use-generate-bitcoin-tx';
+import { useGenerateUnsignedNativeSegwitTx } from '@app/common/transactions/bitcoin/use-generate-bitcoin-tx';
 import {
   BitcoinFeesList,
   OnChooseFeeArgs,
@@ -412,7 +434,7 @@ export function <span class="fstat-no" title="function not covered" >BrcChooseFe
   const toast = <span class="cstat-no" title="statement not covered" >useToast();</span>
   const navigate = <span class="cstat-no" title="statement not covered" >useNavigate();</span>
   const { amount, recipient, ticker, utxos, holderAddress } = <span class="cstat-no" title="statement not covered" >useBrc20ChooseFeeState();</span>
-  const generateTx = <span class="cstat-no" title="statement not covered" >useGenerateUnsignedNativeSegwitSingleRecipientTx();</span>
+  const generateTx = <span class="cstat-no" title="statement not covered" >useGenerateUnsignedNativeSegwitTx();</span>
   const signTx = <span class="cstat-no" title="statement not covered" >useSignBitcoinTx();</span>
   const { selectedFeeType, setSelectedFeeType } = <span class="cstat-no" title="statement not covered" >useSendBitcoinAssetContextState();</span>
   const { initiateTransfer } = <span class="cstat-no" title="statement not covered" >useBrc20Transfers(holderAddress);</span>
@@ -422,6 +444,12 @@ export function <span class="fstat-no" title="function not covered" >BrcChooseFe
     recipient,
     utxos,
   });
+  const recipients = <span class="cstat-no" title="statement not covered" >[</span>
+    {
+      address: recipient,
+      amount: amountAsMoney,
+    },
+  ];
   const recommendedFeeRate = <span class="cstat-no" title="statement not covered" >feesList[1]?.feeRate.toString() || '';</span>
 &nbsp;
   const { showInsufficientBalanceError, onValidateBitcoinFeeSpend } =
@@ -445,7 +473,12 @@ export function <span class="fstat-no" title="function not covered" >BrcChooseFe
       const resp = <span class="cstat-no" title="statement not covered" >await generateTx(</span>
         {
           amount: serviceFeeAsMoney,
-          recipient: serviceFeeRecipient,
+          recipients: [
+            {
+              address: serviceFeeRecipient,
+              amount: serviceFeeAsMoney,
+            },
+          ],
         },
         feeRate,
         utxos
@@ -514,7 +547,7 @@ export function <span class="fstat-no" title="function not covered" >BrcChooseFe
         onSetSelectedFeeType={<span class="fstat-no" title="function not covered" >(v</span>alue: BtcFeeType | null) =&gt; <span class="cstat-no" title="statement not covered" >setSelectedFeeType(value)}</span>
         onValidateBitcoinSpend={onValidateBitcoinFeeSpend}
         recommendedFeeRate={recommendedFeeRate}
-        recipient={recipient}
+        recipients={recipients}
         showError={showInsufficientBalanceError}
         maxRecommendedFeeRate={feesList[0]?.feeRate}
       /&gt;
@@ -529,7 +562,7 @@ export function <span class="fstat-no" title="function not covered" >BrcChooseFe
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-05-02T17:42:24.569Z
+                at 2024-05-14T10:50:49.875Z
             </div>
         <script src="../../../../../../../../prettify.js"></script>
         <script>

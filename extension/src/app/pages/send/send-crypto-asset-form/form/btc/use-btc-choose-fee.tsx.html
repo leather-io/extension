@@ -25,7 +25,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/16</span>
+                <span class='fraction'>0/17</span>
             </div>
         
             
@@ -46,7 +46,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/14</span>
+                <span class='fraction'>0/15</span>
             </div>
         
             
@@ -118,7 +118,14 @@
 <a name='L53'></a><a href='#L53'>53</a>
 <a name='L54'></a><a href='#L54'>54</a>
 <a name='L55'></a><a href='#L55'>55</a>
-<a name='L56'></a><a href='#L56'>56</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L56'></a><a href='#L56'>56</a>
+<a name='L57'></a><a href='#L57'>57</a>
+<a name='L58'></a><a href='#L58'>58</a>
+<a name='L59'></a><a href='#L59'>59</a>
+<a name='L60'></a><a href='#L60'>60</a>
+<a name='L61'></a><a href='#L61'>61</a>
+<a name='L62'></a><a href='#L62'>62</a>
+<a name='L63'></a><a href='#L63'>63</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -144,6 +151,13 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -178,7 +192,7 @@ import { createMoney } from '@shared/models/money.model';
 &nbsp;
 import { btcToSat } from '@app/common/money/unit-conversion';
 import { formFeeRowValue } from '@app/common/send/utils';
-import { useGenerateUnsignedNativeSegwitSingleRecipientTx } from '@app/common/transactions/bitcoin/use-generate-bitcoin-tx';
+import { useGenerateUnsignedNativeSegwitTx } from '@app/common/transactions/bitcoin/use-generate-bitcoin-tx';
 import { OnChooseFeeArgs } from '@app/components/bitcoin-fees-list/bitcoin-fees-list';
 import { useSignBitcoinTx } from '@app/store/accounts/blockchain/bitcoin/bitcoin.hooks';
 &nbsp;
@@ -189,7 +203,7 @@ import { useBtcChooseFeeState } from './btc-choose-fee';
 export function <span class="fstat-no" title="function not covered" >useBtcChooseFee() {</span>
   const { isSendingMax, txValues, utxos } = <span class="cstat-no" title="statement not covered" >useBtcChooseFeeState();</span>
   const sendFormNavigate = <span class="cstat-no" title="statement not covered" >useSendFormNavigate();</span>
-  const generateTx = <span class="cstat-no" title="statement not covered" >useGenerateUnsignedNativeSegwitSingleRecipientTx();</span>
+  const generateTx = <span class="cstat-no" title="statement not covered" >useGenerateUnsignedNativeSegwitTx();</span>
   const calcMaxSpend = <span class="cstat-no" title="statement not covered" >useCalculateMaxBitcoinSpend();</span>
   const signTx = <span class="cstat-no" title="statement not covered" >useSignBitcoinTx();</span>
   const amountAsMoney = <span class="cstat-no" title="statement not covered" >createMoney(btcToSat(txValues.amount).toNumber(), 'BTC');</span>
@@ -198,12 +212,19 @@ export function <span class="fstat-no" title="function not covered" >useBtcChoos
     amountAsMoney,
 &nbsp;
 <span class="fstat-no" title="function not covered" >    async p</span>reviewTransaction({ feeRate, feeValue, time, isCustomFee }: OnChooseFeeArgs) {
+      const amount = <span class="cstat-no" title="statement not covered" >isSendingMax</span>
+        ? calcMaxSpend(txValues.recipient, utxos, feeRate).amount
+        : amountAsMoney;
+&nbsp;
       const resp = <span class="cstat-no" title="statement not covered" >await generateTx(</span>
         {
-          amount: isSendingMax
-            ? calcMaxSpend(txValues.recipient, utxos, feeRate).amount
-            : amountAsMoney,
-          recipient: txValues.recipient,
+          amount,
+          recipients: [
+            {
+              address: txValues.recipient,
+              amount,
+            },
+          ],
         },
         feeRate,
         utxos,
@@ -235,7 +256,7 @@ export function <span class="fstat-no" title="function not covered" >useBtcChoos
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-05-02T17:42:24.569Z
+                at 2024-05-14T10:50:49.875Z
             </div>
         <script src="../../../../../../../../prettify.js"></script>
         <script>

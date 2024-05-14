@@ -3,15 +3,15 @@
 <html lang="en">
 
 <head>
-    <title>Code coverage report for extension/src/app/features/ledger/generic-flows/request-keys/steps/add-more-keys.tsx</title>
+    <title>Code coverage report for extension/src/app/ui/components/accordion/accordion.stories.tsx</title>
     <meta charset="utf-8" />
-    <link rel="stylesheet" href="../../../../../../../../prettify.css" />
-    <link rel="stylesheet" href="../../../../../../../../base.css" />
-    <link rel="shortcut icon" type="image/x-icon" href="../../../../../../../../favicon.png" />
+    <link rel="stylesheet" href="../../../../../../prettify.css" />
+    <link rel="stylesheet" href="../../../../../../base.css" />
+    <link rel="shortcut icon" type="image/x-icon" href="../../../../../../favicon.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <style type='text/css'>
         .coverage-summary .sorter {
-            background-image: url(../../../../../../../../sort-arrow-sprite.png);
+            background-image: url(../../../../../../sort-arrow-sprite.png);
         }
     </style>
 </head>
@@ -19,34 +19,34 @@
 <body>
 <div class='wrapper'>
     <div class='pad1'>
-        <h1><a href="../../../../../../../../index.html">All files</a> / <a href="index.html">extension/src/app/features/ledger/generic-flows/request-keys/steps</a> add-more-keys.tsx</h1>
+        <h1><a href="../../../../../../index.html">All files</a> / <a href="index.html">extension/src/app/ui/components/accordion</a> accordion.stories.tsx</h1>
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/6</span>
+                <span class='fraction'>0/3</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/2</span>
+                <span class='fraction'>0/0</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/3</span>
+                <span class='fraction'>0/1</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/6</span>
+                <span class='fraction'>0/3</span>
             </div>
         
             
@@ -94,19 +94,12 @@
 <a name='L29'></a><a href='#L29'>29</a>
 <a name='L30'></a><a href='#L30'>30</a>
 <a name='L31'></a><a href='#L31'>31</a>
-<a name='L32'></a><a href='#L32'>32</a>
-<a name='L33'></a><a href='#L33'>33</a>
-<a name='L34'></a><a href='#L34'>34</a>
-<a name='L35'></a><a href='#L35'>35</a>
-<a name='L36'></a><a href='#L36'>36</a>
-<a name='L37'></a><a href='#L37'>37</a>
-<a name='L38'></a><a href='#L38'>38</a>
-<a name='L39'></a><a href='#L39'>39</a>
-<a name='L40'></a><a href='#L40'>40</a>
-<a name='L41'></a><a href='#L41'>41</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L32'></a><a href='#L32'>32</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -120,19 +113,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -143,46 +123,39 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { useNavigate } from 'react-router-dom';
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import type { Meta, StoryObj } from '@storybook/react';
+import { Box, styled } from 'leather-styles/jsx';
 &nbsp;
-import { Stack } from 'leather-styles/jsx';
+import { Accordion as Component } from './accordion';
 &nbsp;
-import { LedgerTitle } from '@app/features/ledger/components/ledger-title';
-import { LedgerWrapper } from '@app/features/ledger/components/ledger-wrapper';
-import { Button } from '@app/ui/components/button/button';
-import { Caption } from '@app/ui/components/typography/caption';
-import { Capitalize } from '@app/ui/utils/capitalize';
+const meta: Meta&lt;typeof Component.Root&gt; = <span class="cstat-no" title="statement not covered" >{</span>
+  component: Component.Root,
+  tags: ['autodocs'],
+  title: 'Accordion',
+};
 &nbsp;
-import { useLedgerRequestKeysContext } from '../ledger-request-keys.context';
+export default meta;
 &nbsp;
-export function <span class="fstat-no" title="function not covered" >AddMoreKeysLayout() {</span>
-  const navigate = <span class="cstat-no" title="statement not covered" >useNavigate();</span>
+type Story = StoryObj&lt;typeof Component.Root&gt;;
 &nbsp;
-  const { chain } = <span class="cstat-no" title="statement not covered" >useLedgerRequestKeysContext();</span>
-&nbsp;
-  const addKeysChain = <span class="cstat-no" title="statement not covered" >chain === 'stacks' ? 'bitcoin' : 'stacks';</span>
-&nbsp;
-<span class="cstat-no" title="statement not covered" >  return (</span>
-    &lt;LedgerWrapper gap="space.05"&gt;
-      &lt;LedgerTitle mb="space.05"&gt;
-        &lt;Capitalize&gt;{chain}&lt;/Capitalize&gt; connected successfully. Would you like to connect{' '}
-        &lt;Capitalize&gt;{addKeysChain}&lt;/Capitalize&gt;?
-      &lt;/LedgerTitle&gt;
-      &lt;Stack gap="space.04" mb="space.04"&gt;
-        &lt;Button onClick={<span class="fstat-no" title="function not covered" >() =&gt; <span class="cstat-no" title="statement not covered" >n</span>avigate(`/get-started/${addKeysChain}/connect-your-ledger`)}&gt;</span>
-          Connect &lt;Capitalize&gt;{addKeysChain}&lt;/Capitalize&gt;
-        &lt;/Button&gt;
-        &lt;Button variant="outline" onClick={<span class="fstat-no" title="function not covered" >() =&gt; <span class="cstat-no" title="statement not covered" >n</span>avigate('/')}&gt;</span>
-          No, continue to Leather
-        &lt;/Button&gt;
-      &lt;/Stack&gt;
-&nbsp;
-      &lt;Caption&gt;
-        You'll need to have the &lt;Capitalize&gt;{addKeysChain}&lt;/Capitalize&gt; app installed and opened
-      &lt;/Caption&gt;
-    &lt;/LedgerWrapper&gt;
-  );
-}
+export const Accordion: Story = <span class="cstat-no" title="statement not covered" >{</span>
+  render: <span class="fstat-no" title="function not covered" >() =&gt; (</span>
+<span class="cstat-no" title="statement not covered" >    &lt;Box width="300px"&gt;</span>
+      &lt;Component.Root type="single" collapsible&gt;
+        &lt;Component.Item value="item-1"&gt;
+          &lt;Component.Trigger&gt;
+            &lt;styled.span&gt;View more&lt;/styled.span&gt;
+          &lt;/Component.Trigger&gt;
+          &lt;Component.Content&gt;
+            &lt;styled.div&gt;Content&lt;/styled.div&gt;
+          &lt;/Component.Content&gt;
+        &lt;/Component.Item&gt;
+      &lt;/Component.Root&gt;
+    &lt;/Box&gt;
+  ),
+};
 &nbsp;</pre></td></tr></table></pre>
 
                 <div class='push'></div><!-- for sticky footer -->
@@ -190,16 +163,16 @@ export function <span class="fstat-no" title="function not covered" >AddMoreKeys
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-05-02T17:42:24.569Z
+                at 2024-05-14T10:50:49.875Z
             </div>
-        <script src="../../../../../../../../prettify.js"></script>
+        <script src="../../../../../../prettify.js"></script>
         <script>
             window.onload = function () {
                 prettyPrint();
             };
         </script>
-        <script src="../../../../../../../../sorter.js"></script>
-        <script src="../../../../../../../../block-navigation.js"></script>
+        <script src="../../../../../../sorter.js"></script>
+        <script src="../../../../../../block-navigation.js"></script>
     </body>
 </html>
     

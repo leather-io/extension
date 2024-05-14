@@ -23,16 +23,16 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">33.33% </span>
+                <span class="strong">33% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>34/102</span>
+                <span class='fraction'>34/103</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">25.39% </span>
+                <span class="strong">23.88% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>16/63</span>
+                <span class='fraction'>16/67</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">37.64% </span>
+                <span class="strong">36.78% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>32/85</span>
+                <span class='fraction'>32/87</span>
             </div>
         
             
@@ -337,7 +337,10 @@
 <a name='L272'></a><a href='#L272'>272</a>
 <a name='L273'></a><a href='#L273'>273</a>
 <a name='L274'></a><a href='#L274'>274</a>
-<a name='L275'></a><a href='#L275'>275</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L275'></a><a href='#L275'>275</a>
+<a name='L276'></a><a href='#L276'>276</a>
+<a name='L277'></a><a href='#L277'>277</a>
+<a name='L278'></a><a href='#L278'>278</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -438,15 +441,19 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -602,7 +609,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-yes">5x</span>
@@ -611,7 +617,7 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { PaymentTypes } from '@btckit/types';
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { PaymentTypes as PaymentType } from '@btckit/types';
 import { hexToBytes } from '@noble/hashes/utils';
 import { HDKey, Versions } from '@scure/bip32';
 import * as btc from '@scure/btc-signer';
@@ -625,7 +631,7 @@ import { BtcSignerNetwork, getBtcSignerLibNetworkConfigByMode } from './bitcoin.
 import { getTaprootPayment } from './p2tr-address-gen';
 &nbsp;
 export interface BitcoinAccount {
-  type: PaymentTypes;
+  type: PaymentType;
   derivationPath: string;
   keychain: HDKey;
   accountIndex: number;
@@ -709,26 +715,30 @@ export function getAddressFromOutScript(script: Uint8Array, bitcoinNetwork: BtcS
 }
 &nbsp;
 export function getBitcoinInputAddress(
-  index: number,
   input: btc.TransactionInput,
   bitcoinNetwork: BtcSignerNetwork
 ) {
   <span class="missing-if-branch" title="else path not taken" >E</span>if (isDefined(input.witnessUtxo))
     return getAddressFromOutScript(input.witnessUtxo.script, bitcoinNetwork);
-<span class="cstat-no" title="statement not covered" >  if (isDefined(input.nonWitnessUtxo))</span>
-<span class="cstat-no" title="statement not covered" >    return getAddressFromOutScript(input.nonWitnessUtxo.outputs[index]?.script, bitcoinNetwork);</span>
+<span class="cstat-no" title="statement not covered" >  if (isDefined(input.nonWitnessUtxo) &amp;&amp; isDefined(input.index))</span>
+<span class="cstat-no" title="statement not covered" >    return getAddressFromOutScript(</span>
+      input.nonWitnessUtxo.outputs[input.index]?.script,
+      bitcoinNetwork
+    );
 <span class="cstat-no" title="statement not covered" >  return '';</span>
 }
 &nbsp;
-export function <span class="fstat-no" title="function not covered" >getBitcoinInputValue(i</span>ndex: number, input: btc.TransactionInput) {
+export function <span class="fstat-no" title="function not covered" >getBitcoinInputValue(i</span>nput: btc.TransactionInput) {
 <span class="cstat-no" title="statement not covered" >  if (isDefined(input.witnessUtxo)) <span class="cstat-no" title="statement not covered" >return Number(input.witnessUtxo.amount);</span></span>
-<span class="cstat-no" title="statement not covered" >  if (isDefined(input.nonWitnessUtxo)) <span class="cstat-no" title="statement not covered" >return Number(input.nonWitnessUtxo.outputs[index]?.amount);</span></span>
+<span class="cstat-no" title="statement not covered" >  if (isDefined(input.nonWitnessUtxo) &amp;&amp; isDefined(input.index))</span>
+<span class="cstat-no" title="statement not covered" >    return Number(input.nonWitnessUtxo.outputs[input.index]?.amount);</span>
+<span class="cstat-no" title="statement not covered" >  logger.warn('Unable to find either `witnessUtxo` or `nonWitnessUtxo` in input. Defaulting to 0');</span>
 <span class="cstat-no" title="statement not covered" >  return 0;</span>
 }
 &nbsp;
-type BtcSignerLibPaymentTypeIdentifers = 'wpkh' | 'wsh' | 'tr' | 'pkh' | 'sh';
+type BtcSignerLibPaymentTypeIdentifer = 'wpkh' | 'wsh' | 'tr' | 'pkh' | 'sh';
 &nbsp;
-const paymentTypeMap: Record&lt;BtcSignerLibPaymentTypeIdentifers, PaymentTypes&gt; = {
+const paymentTypeMap: Record&lt;BtcSignerLibPaymentTypeIdentifer, PaymentType&gt; = {
   wpkh: 'p2wpkh',
   wsh: 'p2wpkh-p2sh',
   tr: 'p2tr',
@@ -736,27 +746,27 @@ const paymentTypeMap: Record&lt;BtcSignerLibPaymentTypeIdentifers, PaymentTypes&
   sh: 'p2sh',
 };
 &nbsp;
-function <span class="fstat-no" title="function not covered" >btcSignerLibPaymentTypeToPaymentTypeMap(p</span>ayment: BtcSignerLibPaymentTypeIdentifers) {
+function <span class="fstat-no" title="function not covered" >btcSignerLibPaymentTypeToPaymentTypeMap(p</span>ayment: BtcSignerLibPaymentTypeIdentifer) {
 <span class="cstat-no" title="statement not covered" >  return paymentTypeMap[payment];</span>
 }
 &nbsp;
-function <span class="fstat-no" title="function not covered" >isBtcSignerLibPaymentType(p</span>ayment: string): payment is BtcSignerLibPaymentTypeIdentifers {
+function <span class="fstat-no" title="function not covered" >isBtcSignerLibPaymentType(p</span>ayment: string): payment is BtcSignerLibPaymentTypeIdentifer {
 <span class="cstat-no" title="statement not covered" >  return payment in paymentTypeMap;</span>
 }
 &nbsp;
-function <span class="fstat-no" title="function not covered" >parseKnownPaymentType(p</span>ayment: BtcSignerLibPaymentTypeIdentifers | PaymentTypes) {
+function <span class="fstat-no" title="function not covered" >parseKnownPaymentType(p</span>ayment: BtcSignerLibPaymentTypeIdentifer | PaymentType) {
 <span class="cstat-no" title="statement not covered" >  return isBtcSignerLibPaymentType(payment)</span>
     ? btcSignerLibPaymentTypeToPaymentTypeMap(payment)
     : payment;
 }
 &nbsp;
-type PaymentTypeMap&lt;T&gt; = Record&lt;PaymentTypes, T&gt;;
-export function <span class="fstat-no" title="function not covered" >whenPaymentType(m</span>ode: PaymentTypes | BtcSignerLibPaymentTypeIdentifers) {
+type PaymentTypeMap&lt;T&gt; = Record&lt;PaymentType, T&gt;;
+export function <span class="fstat-no" title="function not covered" >whenPaymentType(m</span>ode: PaymentType | BtcSignerLibPaymentTypeIdentifer) {
 <span class="cstat-no" title="statement not covered" >  return <span class="fstat-no" title="function not covered" >&lt;T extends unknown&gt;(p</span>aymentMap: PaymentTypeMap&lt;T&gt;): T =&gt;</span>
 <span class="cstat-no" title="statement not covered" >    paymentMap[parseKnownPaymentType(mode)];</span>
 }
 &nbsp;
-function <span class="fstat-no" title="function not covered" >inferPaymentTypeFromPath(p</span>ath: string): PaymentTypes {
+function <span class="fstat-no" title="function not covered" >inferPaymentTypeFromPath(p</span>ath: string): PaymentType {
 <span class="cstat-no" title="statement not covered" >  if (path.startsWith('m/84')) <span class="cstat-no" title="statement not covered" >return 'p2wpkh';</span></span>
 <span class="cstat-no" title="statement not covered" >  if (path.startsWith('m/86')) <span class="cstat-no" title="statement not covered" >return 'p2tr';</span></span>
 <span class="cstat-no" title="statement not covered" >  if (path.startsWith('m/44')) <span class="cstat-no" title="statement not covered" >return 'p2pkh';</span></span>
@@ -873,11 +883,10 @@ export function <span class="fstat-no" title="function not covered" >getPsbtTxOu
 }
 &nbsp;
 export function getInputPaymentType(
-  index: number,
   input: btc.TransactionInput,
   network: BitcoinNetworkModes
-): PaymentTypes {
-  const address = getBitcoinInputAddress(index, input, getBtcSignerLibNetworkConfigByMode(network));
+): PaymentType {
+  const address = getBitcoinInputAddress(input, getBtcSignerLibNetworkConfigByMode(network));
   <span class="missing-if-branch" title="if path not taken" >I</span>if (address === '') <span class="cstat-no" title="statement not covered" >throw new Error('Input address cannot be empty');</span>
   if (address.startsWith('bc1p') || address.startsWith('tb1p') || address.startsWith('bcrt1p'))
     return 'p2tr';
@@ -892,7 +901,7 @@ export function getInputPaymentType(
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-05-02T17:42:24.569Z
+                at 2024-05-14T10:50:49.875Z
             </div>
         <script src="../../../../../prettify.js"></script>
         <script>
