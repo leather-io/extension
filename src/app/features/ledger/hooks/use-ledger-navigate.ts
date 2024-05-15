@@ -59,7 +59,10 @@ export function useLedgerNavigate() {
       },
 
       toDeviceBusyStep(description?: string) {
-        return navigate(RouteUrls.DeviceBusy, { replace: true, state: { description } });
+        return navigate(RouteUrls.DeviceBusy, {
+          replace: true,
+          state: { description, backgroundLocation: { pathname: RouteUrls.Home } },
+        });
       },
 
       toConnectionSuccessStep(chain: SupportedBlockchains) {
