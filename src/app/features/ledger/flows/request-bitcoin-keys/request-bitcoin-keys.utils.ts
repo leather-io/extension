@@ -72,12 +72,13 @@ export function pullBitcoinKeysFromLedgerDevice(bitcoinApp: BitcoinApp, targetId
       });
       keys.push({ id: createWalletIdDecoratedPath(path, 'default'), path, policy, targetId });
     }
+
     for (
       let accountIndex = 0;
       accountIndex < defaultNumberOfKeysToPullFromLedgerDevice;
       accountIndex++
     ) {
-      onRequestKey?.(accountIndex + 5);
+      onRequestKey?.(accountIndex + defaultNumberOfKeysToPullFromLedgerDevice);
       const { path, policy } = await getTaprootExtendedPublicKey({
         bitcoinApp,
         fingerprint,

@@ -45,14 +45,16 @@ function LedgerRequestBitcoinKeys() {
         const { keys } = await pullBitcoinKeysFromLedgerDevice(app)({
           network: bitcoinNetworkModeToCoreNetworkMode(network.chain.bitcoin.bitcoinNetwork),
           onRequestKey(index) {
-            if (index <= 4) {
+            const keyGroupFinalIndex = defaultNumberOfKeysToPullFromLedgerDevice - 1;
+            const isNativeSegwitkey = index <= keyGroupFinalIndex;
+            if (isNativeSegwitkey) {
               ledgerNavigate.toDeviceBusyStep(
                 `Requesting Bitcoin Native Segwit address (${index + 1}…${defaultNumberOfKeysToPullFromLedgerDevice})`
               );
               return;
             }
             ledgerNavigate.toDeviceBusyStep(
-              `Requesting Bitcoin Taproot address (${index - 4}…${defaultNumberOfKeysToPullFromLedgerDevice})`
+              `Requesting Bitcoin Taproot address (${index - keyGroupFinalIndex}…${defaultNumberOfKeysToPullFromLedgerDevice})`
             );
           },
         });
