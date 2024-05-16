@@ -68,6 +68,12 @@ export function StacksTransactionItem({
           popup: () => openIndexPageInNewTab(routeUrl),
         })(),
       software: () => navigate(routeUrl),
+      //     full: () =>
+      //       navigate(RouteUrls.IncreaseStxFee, { state: { backgroundLocation: RouteUrls.Home } }),
+      //     popup: () => openIndexPageInNewTab(RouteUrls.IncreaseStxFee, urlSearchParams),
+      //   })(),
+      // software: () =>
+      //   navigate(RouteUrls.IncreaseStxFee, { state: { backgroundLocation: RouteUrls.Home } }),
     })();
   };
 

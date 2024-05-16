@@ -110,6 +110,7 @@ export function useBtcIncreaseFee(btcTx: BitcoinTx) {
         void analytics.track('increase_fee_transaction', {
           symbol: 'btc',
           txid,
+          backgroundLocation: RouteUrls.Home,
         });
         await refetch();
         void queryClient.invalidateQueries({ queryKey: ['btc-txs-by-address'] });
