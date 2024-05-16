@@ -1,28 +1,30 @@
+import type { Sip10CryptoAssetInfo } from '@leather-wallet/models';
 import { Stack } from 'leather-styles/jsx';
 
-import { isDefined } from '@shared/utils';
-
-import type { AccountCryptoAssetWithDetails } from '@app/query/models/crypto-asset.model';
-import { useFilteredSip10AccountCryptoAssetsWithDetails } from '@app/query/stacks/sip10/sip10-tokens.hooks';
-
+import type { AssetItem } from '../../asset-list';
 import { Sip10TokenAssetItem } from './sip10-token-asset-item';
 
-interface Sip10TokenAssetListProps {
-  address: string;
-  onClick?(asset: AccountCryptoAssetWithDetails): void;
+export interface Sip10AssetItem extends AssetItem {
+  assetInfo: Sip10CryptoAssetInfo;
 }
-export function Sip10TokenAssetList({ address, onClick }: Sip10TokenAssetListProps) {
-  const assets = useFilteredSip10AccountCryptoAssetsWithDetails({
-    address,
-    filter: isDefined(onClick) ? 'all' : 'supported',
-  });
 
-  if (!assets.length) return null;
+interface Sip10TokenAssetListProps {
+  tokens: Sip10AssetItem[];
+  onClick?(symbol: string, contractId?: string): void;
+}
+export function Sip10TokenAssetList({ tokens, onClick }: Sip10TokenAssetListProps) {
+  if (!tokens.length) return null;
 
   return (
     <Stack>
-      {assets.map(asset => (
-        <Sip10TokenAssetItem asset={asset} key={asset.info.contractId} onClick={onClick} />
+      {tokens.map(token => (
+        <Sip10TokenAssetItem
+          assetInfo={token.assetInfo}
+          balance={token.balance}
+          key={token.assetInfo.name}
+          marketData={token.marketData}
+          onClick={onClick}
+        />
       ))}
     </Stack>
   );

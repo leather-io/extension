@@ -12,7 +12,7 @@ import { sortAssetsByName } from '@app/common/asset-utils';
 import { convertAmountToFractionalUnit } from '@app/common/money/calculate-money';
 import { pullContractIdFromIdentity } from '@app/common/utils';
 import { useCurrentStxAvailableUnlockedBalance } from '@app/query/stacks/balance/account-balance.hooks';
-import { useTransferableSip10CryptoAssetsWithDetails } from '@app/query/stacks/sip10/sip10-tokens.hooks';
+import { useTransferableSip10Tokens } from '@app/query/stacks/sip10/sip10-tokens.hooks';
 import { useCurrentStacksAccountAddress } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
 import { getAvatarFallback } from '@app/ui/components/avatar/avatar';
 
@@ -38,11 +38,12 @@ export function useAlexCurrencyPriceAsMarketData() {
   const { data: prices } = useAlexSdkLatestPricesQuery();
 
   return useCallback(
-    (principal: string, symbol?: string) => {
+    (principal: string, symbol: string) => {
       const tokenInfo = supportedCurrencies
         .filter(isDefined)
         .find(token => pullContractIdFromIdentity(token.contractAddress) === principal);
-      if (!symbol || !prices || !tokenInfo) return null;
+      if (!prices || !tokenInfo)
+        return createMarketData(createMarketPair(symbol, 'USD'), createMoney(0, 'USD'));
       const currency = tokenInfo.id as Currency;
       const price = convertAmountToFractionalUnit(new BigNumber(prices[currency] ?? 0), 2);
       return createMarketData(createMarketPair(symbol, 'USD'), createMoney(price, 'USD'));
@@ -56,7 +57,7 @@ function useCreateSwapAsset() {
   const { data: prices } = useAlexSdkLatestPricesQuery();
   const priceAsMarketData = useAlexCurrencyPriceAsMarketData();
   const availableUnlockedBalance = useCurrentStxAvailableUnlockedBalance();
-  const assets = useTransferableSip10CryptoAssetsWithDetails(address);
+  const sip10Tokens = useTransferableSip10Tokens(address);
 
   return useCallback(
     (tokenInfo?: TokenInfo): SwapAsset | undefined => {
@@ -68,8 +69,8 @@ function useCreateSwapAsset() {
 
       const currency = tokenInfo.id as Currency;
       const principal = pullContractIdFromIdentity(tokenInfo.contractAddress);
-      const availableBalance = assets.find(a => a.info.contractId === principal)?.balance
-        .availableBalance;
+      const availableBalance = sip10Tokens.find(token => token.assetInfo.contractId === principal)
+        ?.balance.availableBalance;
 
       const swapAsset = {
         currency,
@@ -96,7 +97,7 @@ function useCreateSwapAsset() {
           : priceAsMarketData(principal, tokenInfo.name),
       };
     },
-    [assets, availableUnlockedBalance, priceAsMarketData, prices]
+    [availableUnlockedBalance, priceAsMarketData, prices, sip10Tokens]
   );
 }
 

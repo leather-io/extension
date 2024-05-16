@@ -1,11 +1,35 @@
-import type { StxAccountCryptoAssetWithDetails } from '@app/query/models/crypto-asset.model';
-import { useStxAccountCryptoAssetWithDetails } from '@app/query/stacks/stx/stx-crypto-asset.hooks';
+import type { MarketData, StxCryptoAssetBalance, StxCryptoAssetInfo } from '@leather-wallet/models';
+
+import { STX_DECIMALS } from '@shared/constants';
+
+import { useCryptoCurrencyMarketDataMeanAverage } from '@app/query/common/market-data/market-data.hooks';
+import { isFetchedWithSuccess } from '@app/query/query-config';
+import { useStxCryptoAssetBalance } from '@app/query/stacks/balance/account-balance.hooks';
+
+const stxCryptoAssetInfo: StxCryptoAssetInfo = {
+  decimals: STX_DECIMALS,
+  hasMemo: true,
+  name: 'stacks',
+  symbol: 'STX',
+};
 
 interface StxCryptoAssetLoaderProps {
   address: string;
-  children(asset: StxAccountCryptoAssetWithDetails, isInitialLoading: boolean): React.ReactNode;
+  children(
+    token: {
+      assetInfo: StxCryptoAssetInfo;
+      balance: StxCryptoAssetBalance;
+      marketData: MarketData;
+    },
+    isInitialLoading: boolean
+  ): React.ReactNode;
 }
 export function StxCryptoAssetLoader({ address, children }: StxCryptoAssetLoaderProps) {
-  const { asset, isInitialLoading } = useStxAccountCryptoAssetWithDetails(address);
-  return children(asset, isInitialLoading);
+  const marketData = useCryptoCurrencyMarketDataMeanAverage('STX');
+  const query = useStxCryptoAssetBalance(address);
+  if (!isFetchedWithSuccess(query)) return;
+  return children(
+    { assetInfo: stxCryptoAssetInfo, balance: query.data, marketData },
+    query.isInitialLoading
+  );
 }

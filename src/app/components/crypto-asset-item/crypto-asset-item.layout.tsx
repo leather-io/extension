@@ -1,9 +1,9 @@
 import { ReactNode } from 'react';
 
+import type { CryptoAssetBalance } from '@leather-wallet/models';
 import { Box, Flex, styled } from 'leather-styles/jsx';
 
 import { spamFilter } from '@app/common/utils/spam-filter';
-import type { AccountCryptoAssetWithDetails } from '@app/query/models/crypto-asset.model';
 import { BulletSeparator } from '@app/ui/components/bullet-separator/bullet-separator';
 import { ItemLayout } from '@app/ui/components/item-layout/item-layout';
 import { SkeletonLoader } from '@app/ui/components/skeleton-loader/skeleton-loader';
@@ -16,29 +16,33 @@ import { parseCryptoAssetBalance } from './crypto-asset-item.layout.utils';
 interface CryptoAssetItemLayoutProps {
   additionalBalanceInfo?: ReactNode;
   additionalBalanceInfoAsFiat?: ReactNode;
-  asset: AccountCryptoAssetWithDetails;
+  balance: CryptoAssetBalance;
   caption?: string;
+  contractId?: string;
   fiatBalance?: string;
   icon: React.ReactNode;
   isLoading?: boolean;
   name: string;
-  onClick?(asset: AccountCryptoAssetWithDetails): void;
+  onClick?(symbol: string, contractId?: string): void;
   rightElement?: React.ReactNode;
+  symbol: string;
 }
 export function CryptoAssetItemLayout({
   additionalBalanceInfo,
   additionalBalanceInfoAsFiat,
-  asset,
+  balance,
   caption,
+  contractId,
   fiatBalance,
   icon,
   isLoading = false,
   name,
   onClick,
   rightElement,
+  symbol,
 }: CryptoAssetItemLayoutProps) {
-  const { dataTestId, formattedBalance } = parseCryptoAssetBalance(asset.balance);
-  const { availableBalance } = asset.balance;
+  const { dataTestId, formattedBalance } = parseCryptoAssetBalance(balance);
+  const { availableBalance } = balance;
   const title = spamFilter(name);
 
   const titleRight = (
@@ -88,7 +92,7 @@ export function CryptoAssetItemLayout({
 
   if (isInteractive)
     return (
-      <Pressable data-testid={dataTestId} onClick={() => onClick(asset)} my="space.02">
+      <Pressable data-testid={dataTestId} onClick={() => onClick(symbol, contractId)} my="space.02">
         {content}
       </Pressable>
     );

@@ -1,5 +1,6 @@
+import { createMoney } from '@shared/models/money.model';
+
 import { CryptoAssetItemLayout } from '@app/components/crypto-asset-item/crypto-asset-item.layout';
-import { stxCryptoAssetPlaceholder } from '@app/query/stacks/stx/stx-crypto-asset.hooks';
 import { useCheckLedgerBlockchainAvailable } from '@app/store/accounts/blockchain/utils';
 import { StxAvatarIcon } from '@app/ui/components/avatar/stx-avatar-icon';
 
@@ -14,10 +15,11 @@ export function StxCryptoAssetItemFallback({ variant }: StxCryptoAssetItemFallba
   if (variant === 'interactive' && !checkBlockchainAvailable('stacks')) return null;
   return (
     <CryptoAssetItemLayout
-      asset={stxCryptoAssetPlaceholder}
+      balance={{ availableBalance: createMoney(0, 'STX') }}
       icon={<StxAvatarIcon />}
-      name={stxCryptoAssetPlaceholder.info.name}
-      rightElement={<ConnectLedgerButton chain={stxCryptoAssetPlaceholder.chain} />}
+      name="stacks"
+      rightElement={<ConnectLedgerButton chain="stacks" />}
+      symbol="STX"
     />
   );
 }

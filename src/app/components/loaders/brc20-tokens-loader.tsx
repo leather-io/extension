@@ -1,10 +1,18 @@
-import { useBrc20AccountCryptoAssetsWithDetails } from '@app/query/bitcoin/ordinals/brc20/brc20-tokens.hooks';
-import type { Brc20AccountCryptoAssetWithDetails } from '@app/query/models/crypto-asset.model';
+import type { Brc20CryptoAssetInfo, CryptoAssetBalance, MarketData } from '@leather-wallet/models';
+
+import { useBrc20Tokens } from '@app/query/bitcoin/ordinals/brc20/brc20-tokens.hooks';
 
 interface Brc20TokensLoaderProps {
-  children(tokens: Brc20AccountCryptoAssetWithDetails[]): React.ReactNode;
+  children(
+    tokens: {
+      assetInfo: Brc20CryptoAssetInfo;
+      balance: CryptoAssetBalance;
+      holderAddress: string;
+      marketData: MarketData;
+    }[]
+  ): React.ReactNode;
 }
 export function Brc20TokensLoader({ children }: Brc20TokensLoaderProps) {
-  const tokens = useBrc20AccountCryptoAssetsWithDetails();
+  const tokens = useBrc20Tokens();
   return children(tokens);
 }

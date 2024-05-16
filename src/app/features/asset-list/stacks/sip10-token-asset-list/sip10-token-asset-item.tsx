@@ -1,36 +1,47 @@
+import type { CryptoAssetBalance, MarketData, Sip10CryptoAssetInfo } from '@leather-wallet/models';
+
+import { convertAssetBalanceToFiat } from '@app/common/asset-utils';
+import { getSafeImageCanonicalUri } from '@app/common/stacks-utils';
+import { spamFilter } from '@app/common/utils/spam-filter';
 import { CryptoAssetItemLayout } from '@app/components/crypto-asset-item/crypto-asset-item.layout';
 import { StacksAssetAvatar } from '@app/components/stacks-asset-avatar';
-import type {
-  AccountCryptoAssetWithDetails,
-  Sip10AccountCryptoAssetWithDetails,
-} from '@app/query/models/crypto-asset.model';
-
-import { parseSip10TokenCryptoAssetBalance } from './sip10-token-asset-item.utils';
 
 interface Sip10TokenAssetItemProps {
-  asset: Sip10AccountCryptoAssetWithDetails;
-  onClick?(asset: AccountCryptoAssetWithDetails): void;
+  assetInfo: Sip10CryptoAssetInfo;
+  balance: CryptoAssetBalance;
+  marketData: MarketData;
+  onClick?(symbol: string, contractId?: string): void;
 }
-export function Sip10TokenAssetItem({ asset, onClick }: Sip10TokenAssetItemProps) {
-  const { avatar, fiatBalance, imageCanonicalUri, title } =
-    parseSip10TokenCryptoAssetBalance(asset);
+export function Sip10TokenAssetItem({
+  assetInfo,
+  balance,
+  marketData,
+  onClick,
+}: Sip10TokenAssetItemProps) {
+  const name = spamFilter(assetInfo.name);
+  const fiatBalance = convertAssetBalanceToFiat({
+    balance: balance.availableBalance,
+    marketData,
+  });
 
   return (
     <CryptoAssetItemLayout
-      asset={asset}
+      balance={balance}
       fiatBalance={fiatBalance}
-      caption={asset.info.symbol}
+      caption={assetInfo.symbol}
+      contractId={assetInfo.contractId}
       icon={
         <StacksAssetAvatar
           color="white"
-          gradientString={avatar}
-          imageCanonicalUri={imageCanonicalUri}
+          gradientString={assetInfo.contractId}
+          imageCanonicalUri={getSafeImageCanonicalUri(assetInfo.imageCanonicalUri, name)}
         >
-          {title[0]}
+          {name[0]}
         </StacksAssetAvatar>
       }
-      name={asset.info.name}
+      name={name}
       onClick={onClick}
+      symbol={assetInfo.symbol}
     />
   );
 }

@@ -12,7 +12,6 @@ import { BtcCryptoAssetLoader } from '@app/components/loaders/btc-crypto-asset-l
 import { CurrentStacksAccountLoader } from '@app/components/loaders/stacks-account-loader';
 import { StxCryptoAssetLoader } from '@app/components/loaders/stx-crypto-asset-loader';
 import { StxCryptoAssetItem } from '@app/features/asset-list/stacks/stx-crypo-asset-item/stx-crypto-asset-item';
-import type { AccountCryptoAssetWithDetails } from '@app/query/models/crypto-asset.model';
 import { BtcAvatarIcon } from '@app/ui/components/avatar/btc-avatar-icon';
 import { Card } from '@app/ui/layout/card/card';
 import { Page } from '@app/ui/layout/page/page.layout';
@@ -21,8 +20,7 @@ export function ChooseCryptoAssetToFund() {
   const navigate = useNavigate();
 
   const navigateToFund = useCallback(
-    (asset: AccountCryptoAssetWithDetails) =>
-      navigate(RouteUrls.Fund.replace(':currency', asset.info.symbol)),
+    (symbol: string) => navigate(RouteUrls.Fund.replace(':currency', symbol)),
     [navigate]
   );
 
@@ -40,13 +38,14 @@ export function ChooseCryptoAssetToFund() {
             <BitcoinNativeSegwitAccountLoader current>
               {signer => (
                 <BtcCryptoAssetLoader address={signer.address}>
-                  {(asset, isLoading) => (
+                  {(token, isLoading) => (
                     <CryptoAssetItemLayout
-                      asset={asset}
+                      balance={token.balance}
                       icon={<BtcAvatarIcon />}
                       isLoading={isLoading}
-                      name={capitalize(asset.info.name)}
-                      onClick={() => navigateToFund(asset)}
+                      name={capitalize(token.assetInfo.name)}
+                      onClick={() => navigateToFund(token.assetInfo.symbol)}
+                      symbol={token.assetInfo.symbol}
                     />
                   )}
                 </BtcCryptoAssetLoader>
@@ -56,11 +55,11 @@ export function ChooseCryptoAssetToFund() {
             <CurrentStacksAccountLoader>
               {account => (
                 <StxCryptoAssetLoader address={account.address}>
-                  {(asset, isInitialLoading) => (
+                  {(token, isInitialLoading) => (
                     <StxCryptoAssetItem
-                      asset={asset}
+                      token={token}
                       isLoading={isInitialLoading}
-                      onClick={() => navigateToFund(asset)}
+                      onClick={() => navigateToFund(token.assetInfo.symbol)}
                     />
                   )}
                 </StxCryptoAssetLoader>

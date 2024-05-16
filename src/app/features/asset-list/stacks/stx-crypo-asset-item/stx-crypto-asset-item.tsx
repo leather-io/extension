@@ -1,3 +1,4 @@
+import type { StxCryptoAssetBalance } from '@leather-wallet/models';
 import { styled } from 'leather-styles/jsx';
 
 import { baseCurrencyAmountInQuote } from '@app/common/money/calculate-money';
@@ -5,24 +6,24 @@ import { i18nFormatCurrency } from '@app/common/money/format-money';
 import { ftDecimals } from '@app/common/stacks-utils';
 import { capitalize } from '@app/common/utils';
 import { CryptoAssetItemLayout } from '@app/components/crypto-asset-item/crypto-asset-item.layout';
-import { useCryptoCurrencyMarketDataMeanAverage } from '@app/query/common/market-data/market-data.hooks';
-import type {
-  AccountCryptoAssetWithDetails,
-  StxAccountCryptoAssetWithDetails,
-} from '@app/query/models/crypto-asset.model';
 import { StxAvatarIcon } from '@app/ui/components/avatar/stx-avatar-icon';
 import { BulletOperator } from '@app/ui/components/bullet-separator/bullet-separator';
 import { Caption } from '@app/ui/components/typography/caption';
 
-interface StxCryptoAssetItemProps {
-  asset: StxAccountCryptoAssetWithDetails;
-  isLoading: boolean;
-  onClick?(asset: AccountCryptoAssetWithDetails): void;
-}
-export function StxCryptoAssetItem({ asset, isLoading, onClick }: StxCryptoAssetItemProps) {
-  const marketData = useCryptoCurrencyMarketDataMeanAverage('STX');
+import type { AssetItem } from '../../asset-list';
 
-  const { availableBalance, lockedBalance } = asset.balance;
+interface StxAssetItem extends AssetItem {
+  balance: StxCryptoAssetBalance;
+}
+
+interface StxCryptoAssetItemProps {
+  token: StxAssetItem;
+  isLoading: boolean;
+  onClick?(symbol: string): void;
+}
+export function StxCryptoAssetItem({ token, isLoading, onClick }: StxCryptoAssetItemProps) {
+  const { assetInfo, balance, marketData } = token;
+  const { availableBalance, lockedBalance } = balance;
   const showAdditionalInfo = lockedBalance.amount.isGreaterThan(0);
 
   const lockedBalanceAsFiat = i18nFormatCurrency(
@@ -43,12 +44,13 @@ export function StxCryptoAssetItem({ asset, isLoading, onClick }: StxCryptoAsset
     <CryptoAssetItemLayout
       additionalBalanceInfo={showAdditionalInfo && additionalBalanceInfo}
       additionalBalanceInfoAsFiat={showAdditionalInfo && additionalBalanceInfoAsFiat}
-      asset={asset}
+      balance={balance}
       fiatBalance={availableBalanceAsFiat}
       icon={<StxAvatarIcon />}
       isLoading={isLoading}
-      name={capitalize(asset.info.name)}
+      name={capitalize(assetInfo.name)}
       onClick={onClick}
+      symbol={assetInfo.symbol}
     />
   );
 }

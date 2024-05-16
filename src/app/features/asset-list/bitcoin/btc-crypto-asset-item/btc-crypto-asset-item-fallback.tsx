@@ -1,5 +1,6 @@
+import { createMoney } from '@shared/models/money.model';
+
 import { CryptoAssetItemLayout } from '@app/components/crypto-asset-item/crypto-asset-item.layout';
-import { btcCryptoAssetPlaceholder } from '@app/query/bitcoin/btc/btc-crypto-asset.hooks';
 import { useCheckLedgerBlockchainAvailable } from '@app/store/accounts/blockchain/utils';
 import { BtcAvatarIcon } from '@app/ui/components/avatar/btc-avatar-icon';
 
@@ -14,10 +15,11 @@ export function BtcCryptoAssetItemFallback({ variant }: StxCryptoAssetItemFallba
   if (variant === 'interactive' && !checkBlockchainAvailable('bitcoin')) return null;
   return (
     <CryptoAssetItemLayout
-      asset={btcCryptoAssetPlaceholder}
+      balance={{ availableBalance: createMoney(0, 'BTC') }}
       icon={<BtcAvatarIcon />}
-      name={btcCryptoAssetPlaceholder.info.name}
-      rightElement={<ConnectLedgerButton chain={btcCryptoAssetPlaceholder.chain} />}
+      name="bitcoin"
+      rightElement={<ConnectLedgerButton chain="bitcoin" />}
+      symbol="BTC"
     />
   );
 }

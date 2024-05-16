@@ -1,5 +1,6 @@
+import type { CryptoAssetBalance, MarketData, Sip10CryptoAssetInfo } from '@leather-wallet/models';
+
 import { StacksAssetAvatar } from '@app/components/stacks-asset-avatar';
-import type { Sip10AccountCryptoAssetWithDetails } from '@app/query/models/crypto-asset.model';
 import { StxAvatarIcon } from '@app/ui/components/avatar/stx-avatar-icon';
 
 import { AmountField } from '../../components/amount-field';
@@ -10,9 +11,15 @@ import { StacksCommonSendForm } from '../stacks/stacks-common-send-form';
 import { useSip10SendForm } from './use-sip10-send-form';
 
 interface Sip10TokenSendFormContainerProps {
-  asset: Sip10AccountCryptoAssetWithDetails;
+  assetInfo: Sip10CryptoAssetInfo;
+  balance: CryptoAssetBalance;
+  marketData: MarketData;
 }
-export function Sip10TokenSendFormContainer({ asset }: Sip10TokenSendFormContainerProps) {
+export function Sip10TokenSendFormContainer({
+  assetInfo,
+  balance,
+  marketData,
+}: Sip10TokenSendFormContainerProps) {
   const {
     availableTokenBalance,
     initialValues,
@@ -21,10 +28,9 @@ export function Sip10TokenSendFormContainer({ asset }: Sip10TokenSendFormContain
     stacksFtFees: fees,
     validationSchema,
     avatar,
-    marketData,
     decimals,
     symbol,
-  } = useSip10SendForm({ asset });
+  } = useSip10SendForm({ assetInfo, balance });
 
   const amountField = (
     <AmountField

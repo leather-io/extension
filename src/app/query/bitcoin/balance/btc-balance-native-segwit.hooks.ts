@@ -11,7 +11,7 @@ import { useGetBitcoinBalanceByAddress } from './btc-balance.hooks';
 function createBtcCryptoAssetBalance(balance: Money): BtcCryptoAssetBalance {
   return {
     availableBalance: balance,
-    // TODO: Asset refactor: can we determine these here or are they nec?
+    // TODO: Can we determine these here or are they nec?
     protectedBalance: createMoney(0, 'BTC'),
     uneconomicalBalance: createMoney(0, 'BTC'),
   };

@@ -9,7 +9,7 @@ export function BtcBalance() {
     <BitcoinNativeSegwitAccountLoader current>
       {signer => (
         <BtcCryptoAssetLoader address={signer.address}>
-          {asset => <Caption>{formatMoney(asset.balance.availableBalance)}</Caption>}
+          {token => <Caption>{formatMoney(token.balance.availableBalance)}</Caption>}
         </BtcCryptoAssetLoader>
       )}
     </BitcoinNativeSegwitAccountLoader>
