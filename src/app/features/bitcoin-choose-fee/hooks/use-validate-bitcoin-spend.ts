@@ -3,18 +3,18 @@ import { useState } from 'react';
 import { Money, createMoney } from '@shared/models/money.model';
 
 import { subtractMoney, sumMoney } from '@app/common/money/calculate-money';
-import { useCurrentBtcAvailableBalanceNativeSegwit } from '@app/query/bitcoin/balance/btc-balance-native-segwit.hooks';
+import { useCurrentBtcCryptoAssetBalanceNativeSegwit } from '@app/query/bitcoin/balance/btc-balance-native-segwit.hooks';
 
 export function useValidateBitcoinSpend(amount?: Money, isSendingMax?: boolean) {
   const [showInsufficientBalanceError, setShowInsufficientBalanceError] = useState(false);
-  const { balance } = useCurrentBtcAvailableBalanceNativeSegwit();
+  const { balance } = useCurrentBtcCryptoAssetBalanceNativeSegwit();
 
   return {
     showInsufficientBalanceError,
     onValidateBitcoinFeeSpend(feeValue: number) {
       const feeAsMoney = createMoney(feeValue, 'BTC');
 
-      if (feeAsMoney.amount.isGreaterThan(balance.amount)) {
+      if (feeAsMoney.amount.isGreaterThan(balance.availableBalance.amount)) {
         setShowInsufficientBalanceError(true);
         return false;
       }
@@ -28,10 +28,10 @@ export function useValidateBitcoinSpend(amount?: Money, isSendingMax?: boolean) 
       }
 
       const totalSpend = isSendingMax
-        ? subtractMoney(balance, feeAsMoney)
+        ? subtractMoney(balance.availableBalance, feeAsMoney)
         : sumMoney([amount, feeAsMoney]);
 
-      if (totalSpend.amount.isGreaterThan(balance.amount)) {
+      if (totalSpend.amount.isGreaterThan(balance.availableBalance.amount)) {
         setShowInsufficientBalanceError(true);
         return false;
       }

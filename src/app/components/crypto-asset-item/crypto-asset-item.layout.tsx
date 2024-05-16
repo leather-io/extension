@@ -1,9 +1,7 @@
-import { ReactNode } from 'react';
-
+import type { CryptoAssetBalance } from '@leather-wallet/models';
 import { Box, Flex, styled } from 'leather-styles/jsx';
 
 import { spamFilter } from '@app/common/utils/spam-filter';
-import type { AccountCryptoAssetWithDetails } from '@app/query/models/crypto-asset.model';
 import { BulletSeparator } from '@app/ui/components/bullet-separator/bullet-separator';
 import { ItemLayout } from '@app/ui/components/item-layout/item-layout';
 import { SkeletonLoader } from '@app/ui/components/skeleton-loader/skeleton-loader';
@@ -14,73 +12,66 @@ import { Pressable } from '@app/ui/pressable/pressable';
 import { parseCryptoAssetBalance } from './crypto-asset-item.layout.utils';
 
 interface CryptoAssetItemLayoutProps {
-  additionalBalanceInfo?: ReactNode;
-  additionalBalanceInfoAsFiat?: ReactNode;
-  asset: AccountCryptoAssetWithDetails;
-  caption?: string;
+  balance: CryptoAssetBalance;
+  captionLeft: string;
+  captionRightBulletInfo?: React.ReactNode;
+  contractId?: string;
   fiatBalance?: string;
   icon: React.ReactNode;
   isLoading?: boolean;
-  name: string;
-  onClick?(asset: AccountCryptoAssetWithDetails): void;
-  rightElement?: React.ReactNode;
+  onSelectAsset?(symbol: string, contractId?: string): void;
+  titleLeft: string;
+  titleRightBulletInfo?: React.ReactNode;
 }
 export function CryptoAssetItemLayout({
-  additionalBalanceInfo,
-  additionalBalanceInfoAsFiat,
-  asset,
-  caption,
+  balance,
+  captionLeft,
+  captionRightBulletInfo,
+  contractId,
   fiatBalance,
   icon,
   isLoading = false,
-  name,
-  onClick,
-  rightElement,
+  onSelectAsset,
+  titleLeft,
+  titleRightBulletInfo,
 }: CryptoAssetItemLayoutProps) {
-  const { dataTestId, formattedBalance } = parseCryptoAssetBalance(asset.balance);
-  const { availableBalance } = asset.balance;
-  const title = spamFilter(name);
+  const { availableBalance, dataTestId, formattedBalance } = parseCryptoAssetBalance(balance);
 
   const titleRight = (
     <SkeletonLoader width="126px" isLoading={isLoading}>
-      {rightElement ? (
-        rightElement
-      ) : (
-        <BasicTooltip
-          asChild
-          label={formattedBalance.isAbbreviated ? availableBalance.amount.toString() : undefined}
-          side="left"
-        >
-          <styled.span data-testid={title} textStyle="label.02">
-            {formattedBalance.value} {additionalBalanceInfo}
-          </styled.span>
-        </BasicTooltip>
-      )}
+      <BasicTooltip
+        asChild
+        label={formattedBalance.isAbbreviated ? availableBalance.amount.toString() : undefined}
+        side="left"
+      >
+        <Flex alignItems="center" gap="space.02" textStyle="label.02">
+          <BulletSeparator>
+            <styled.span>{formattedBalance.value}</styled.span>
+            {titleRightBulletInfo}
+          </BulletSeparator>
+        </Flex>
+      </BasicTooltip>
     </SkeletonLoader>
   );
 
   const captionRight = (
     <SkeletonLoader width="78px" isLoading={isLoading}>
-      {!rightElement && (
-        <Caption>
-          <Flex alignItems="center" gap="space.02" color="inherit">
-            <BulletSeparator>
-              <Caption>{availableBalance.amount.toNumber() > 0 ? fiatBalance : null}</Caption>
-              {additionalBalanceInfoAsFiat}
-            </BulletSeparator>
-          </Flex>
-        </Caption>
-      )}
+      <Flex alignItems="center" color="ink.text-subdued" gap="space.02">
+        <BulletSeparator>
+          <Caption>{availableBalance.amount.toNumber() > 0 ? fiatBalance : null}</Caption>
+          {captionRightBulletInfo}
+        </BulletSeparator>
+      </Flex>
     </SkeletonLoader>
   );
 
-  const isInteractive = !!onClick;
+  const isInteractive = !!onSelectAsset;
 
   const content = (
     <ItemLayout
       flagImg={icon}
-      titleLeft={title}
-      captionLeft={caption ?? availableBalance.symbol}
+      titleLeft={spamFilter(titleLeft)}
+      captionLeft={captionLeft}
       titleRight={titleRight}
       captionRight={captionRight}
     />
@@ -88,7 +79,11 @@ export function CryptoAssetItemLayout({
 
   if (isInteractive)
     return (
-      <Pressable data-testid={dataTestId} onClick={() => onClick(asset)} my="space.02">
+      <Pressable
+        data-testid={dataTestId}
+        onClick={() => onSelectAsset(availableBalance.symbol, contractId)}
+        my="space.02"
+      >
         {content}
       </Pressable>
     );

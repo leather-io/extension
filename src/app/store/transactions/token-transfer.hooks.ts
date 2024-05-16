@@ -79,7 +79,7 @@ export function useStxTokenTransferUnsignedTxState(values?: StacksSendFormValues
   return tx.result;
 }
 
-export function useGenerateFtTokenTransferUnsignedTx(assetInfo: Sip10CryptoAssetInfo) {
+export function useGenerateFtTokenTransferUnsignedTx(info: Sip10CryptoAssetInfo) {
   const { data: nextNonce } = useNextNonce();
   const account = useCurrentStacksAccount();
   const network = useCurrentStacksNetworkState();
@@ -99,12 +99,12 @@ export function useGenerateFtTokenTransferUnsignedTx(assetInfo: Sip10CryptoAsset
           ? someCV(bufferCVFromString(values.memo || ''))
           : noneCV();
 
-      const amountAsFractionalUnit = ftUnshiftDecimals(amount, assetInfo.decimals || 0);
+      const amountAsFractionalUnit = ftUnshiftDecimals(amount, info.decimals || 0);
       const {
         address: contractAddress,
         contractName,
         assetName,
-      } = getAssetStringParts(assetInfo.contractId);
+      } = getAssetStringParts(info.contractId);
 
       const postConditionOptions = {
         amount: amountAsFractionalUnit,
@@ -123,7 +123,7 @@ export function useGenerateFtTokenTransferUnsignedTx(assetInfo: Sip10CryptoAsset
         standardPrincipalCVFromAddress(recipient),
       ];
 
-      if (assetInfo.hasMemo) {
+      if (info.hasMemo) {
         functionArgs.push(memo);
       }
 
@@ -146,20 +146,13 @@ export function useGenerateFtTokenTransferUnsignedTx(assetInfo: Sip10CryptoAsset
 
       return generateUnsignedTransaction(options);
     },
-    [
-      account,
-      assetInfo.contractId,
-      assetInfo.decimals,
-      assetInfo.hasMemo,
-      network,
-      nextNonce?.nonce,
-    ]
+    [account, info.contractId, info.decimals, info.hasMemo, network, nextNonce?.nonce]
   );
 }
 
-export function useFtTokenTransferUnsignedTx(assetInfo: Sip10CryptoAssetInfo) {
+export function useFtTokenTransferUnsignedTx(info: Sip10CryptoAssetInfo) {
   const account = useCurrentStacksAccount();
-  const generateTx = useGenerateFtTokenTransferUnsignedTx(assetInfo);
+  const generateTx = useGenerateFtTokenTransferUnsignedTx(info);
 
   const tx = useAsync(async () => generateTx(), [account]);
   return tx.result;

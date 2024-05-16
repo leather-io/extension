@@ -1,11 +1,12 @@
-import type { RuneToken } from '@app/query/bitcoin/bitcoin-client';
+import type { CryptoAssetBalance, RuneCryptoAssetInfo } from '@leather-wallet/models';
+
 import { useRuneTokens } from '@app/query/bitcoin/runes/runes.hooks';
 
 interface RunesLoaderProps {
   addresses: string[];
-  children(runes: RuneToken[]): React.ReactNode;
+  children(runes: { balance: CryptoAssetBalance; info: RuneCryptoAssetInfo }[]): React.ReactNode;
 }
 export function RunesLoader({ addresses, children }: RunesLoaderProps) {
-  const runes = useRuneTokens(addresses);
+  const { runes = [] } = useRuneTokens(addresses);
   return children(runes);
 }

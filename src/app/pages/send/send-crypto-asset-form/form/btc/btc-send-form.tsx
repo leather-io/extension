@@ -1,17 +1,15 @@
 import { Outlet } from 'react-router-dom';
 
+import type { CryptoCurrencies } from '@leather-wallet/models';
 import { SendCryptoAssetSelectors } from '@tests/selectors/send.selectors';
 import { Form, Formik } from 'formik';
 import { Box } from 'leather-styles/jsx';
 
 import { HIGH_FEE_WARNING_LEARN_MORE_URL_BTC } from '@shared/constants';
-import { CryptoCurrencies } from '@shared/models/currencies.model';
 
 import { formatMoney } from '@app/common/money/format-money';
 import { HighFeeDialog } from '@app/features/dialogs/high-fee-dialog/high-fee-dialog';
-import { useBtcAccountCryptoAssetWithDetails } from '@app/query/bitcoin/btc/btc-crypto-asset.hooks';
 import { useCryptoCurrencyMarketDataMeanAverage } from '@app/query/common/market-data/market-data.hooks';
-import { useCurrentAccountNativeSegwitIndexZeroSigner } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
 import { BtcAvatarIcon } from '@app/ui/components/avatar/btc-avatar-icon';
 import { Button } from '@app/ui/components/button/button';
 import { Callout } from '@app/ui/components/callout/callout';
@@ -34,13 +32,10 @@ const symbol: CryptoCurrencies = 'BTC';
 
 export function BtcSendForm() {
   const routeState = useSendFormRouteState();
-  const btcMarketData = useCryptoCurrencyMarketDataMeanAverage(symbol);
-
-  const { address } = useCurrentAccountNativeSegwitIndexZeroSigner();
-  const { asset } = useBtcAccountCryptoAssetWithDetails(address);
-  const { balance, info } = asset;
+  const marketData = useCryptoCurrencyMarketDataMeanAverage('BTC');
 
   const {
+    balance,
     calcMaxSpend,
     chooseTransactionFee,
     currentNetwork,
@@ -101,10 +96,10 @@ export function BtcSendForm() {
                     onSetIsSendingMax={onSetIsSendingMax}
                     isSendingMax={isSendingMax}
                     switchableAmount={
-                      <SendFiatValue marketData={btcMarketData} assetSymbol={symbol} />
+                      <SendFiatValue marketData={marketData} assetSymbol={symbol} />
                     }
                   />
-                  <SelectedAssetField icon={<BtcAvatarIcon />} name={info.name} symbol={symbol} />
+                  <SelectedAssetField icon={<BtcAvatarIcon />} name="Bitcoin" symbol={symbol} />
                   <TransferRecipientField />
                   {currentNetwork.chain.bitcoin.bitcoinNetwork === 'testnet' && (
                     <Callout variant="warning" title="Funds have no value" mt="space.04">
