@@ -51,7 +51,7 @@ export function useBtcIncreaseFee(btcTx: BitcoinTx) {
     [btcTx.vin.length, btcTx.vout.length, recipient]
   );
 
-  const { btcCryptoAssetBalance } = useBtcCryptoAssetBalanceNativeSegwit(currentBitcoinAddress);
+  const { balance } = useBtcCryptoAssetBalanceNativeSegwit(currentBitcoinAddress);
   const sendingAmount = getBitcoinTxValue(currentBitcoinAddress, btcTx);
   const { feesList } = useBitcoinFeesList({
     amount: createMoney(btcToSat(sendingAmount), 'BTC'),
@@ -164,7 +164,7 @@ export function useBtcIncreaseFee(btcTx: BitcoinTx) {
           }
 
           // check if fee is higher than the available balance
-          return bnValue.isLessThanOrEqualTo(btcCryptoAssetBalance.availableBalance.amount);
+          return bnValue.isLessThanOrEqualTo(balance.availableBalance.amount);
         },
       }),
   });

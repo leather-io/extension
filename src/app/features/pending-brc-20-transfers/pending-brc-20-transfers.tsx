@@ -8,7 +8,7 @@ import { noop } from '@shared/utils';
 import { usePressable } from '@app/components/item-hover';
 import { StatusPending } from '@app/components/status-pending';
 import { StatusReady } from '@app/components/status-ready';
-import { useCurrentBtcAvailableBalanceNativeSegwit } from '@app/query/bitcoin/balance/btc-balance-native-segwit.hooks';
+import { useCurrentBtcCryptoAssetBalanceNativeSegwit } from '@app/query/bitcoin/balance/btc-balance-native-segwit.hooks';
 import { useCheckOrderStatuses } from '@app/query/bitcoin/ordinals/brc20/use-check-order-status';
 import { fetchInscripionById } from '@app/query/bitcoin/ordinals/inscription-by-id.query';
 import { convertInscriptionToSupportedInscriptionType } from '@app/query/bitcoin/ordinals/inscription.hooks';
@@ -90,9 +90,9 @@ function PendingBrcTransfer({ order }: PendingBrcTransferProps) {
   const [component, bind] = usePressable(order.status === 'ready');
   const navigate = useNavigate();
   const ordinalsbotClient = useOrdinalsbotClient();
-  const { balance } = useCurrentBtcAvailableBalanceNativeSegwit();
+  const { balance } = useCurrentBtcCryptoAssetBalanceNativeSegwit();
 
-  const hasPositiveBtcBalanceForFees = balance.amount.isGreaterThan(0);
+  const hasPositiveBtcBalanceForFees = balance.availableBalance.amount.isGreaterThan(0);
 
   return (
     <Box

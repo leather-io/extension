@@ -33,11 +33,11 @@ export function IncreaseBtcFeeDialog() {
   const btcTx = tx;
   const nativeSegwitSigner = useCurrentAccountNativeSegwitIndexZeroSigner();
   const currentBitcoinAddress = nativeSegwitSigner.address;
-  const { btcCryptoAssetBalance } = useBtcCryptoAssetBalanceNativeSegwit(currentBitcoinAddress);
+  const { balance } = useBtcCryptoAssetBalanceNativeSegwit(currentBitcoinAddress);
   const { isBroadcasting, sizeInfo, onSubmit, validationSchema, recipient } =
     useBtcIncreaseFee(btcTx);
 
-  const balance = formatMoney(btcCryptoAssetBalance.availableBalance);
+  const btcBalance = formatMoney(balance.availableBalance);
 
   const recipients = [
     {
@@ -106,7 +106,7 @@ export function IncreaseBtcFeeDialog() {
                       />
                     </Stack>
 
-                    {btcCryptoAssetBalance && <Caption>Balance: {balance}</Caption>}
+                    {balance && <Caption>Balance: {btcBalance}</Caption>}
                   </Stack>
                 </Stack>
               </Suspense>

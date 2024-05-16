@@ -18,7 +18,6 @@ import {
 import axios from 'axios';
 
 import { STX20_API_BASE_URL_MAINNET } from '@shared/constants';
-import type { Money } from '@shared/models/money.model';
 
 export interface Stx20Balance {
   ticker: string;
@@ -29,12 +28,6 @@ export interface Stx20Balance {
 interface Stx20BalanceResponse {
   address: string;
   balances: Stx20Balance[];
-}
-
-export interface Stx20Token {
-  balance: Money;
-  marketData: null;
-  tokenData: Stx20Balance;
 }
 
 class Stx20Api {

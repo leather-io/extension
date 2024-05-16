@@ -17,8 +17,8 @@ export function BitcoinContractRequestActions({
   onRejectBitcoinContractOffer,
   onAcceptBitcoinContractOffer,
 }: BitcoinContractRequestActionsProps) {
-  const { btcCryptoAssetBalance } = useBtcCryptoAssetBalanceNativeSegwit(bitcoinAddress);
-  const canAccept = btcCryptoAssetBalance.availableBalance.amount.isGreaterThan(requiredAmount);
+  const { balance } = useBtcCryptoAssetBalanceNativeSegwit(bitcoinAddress);
+  const canAccept = balance.availableBalance.amount.isGreaterThan(requiredAmount);
 
   return (
     <>

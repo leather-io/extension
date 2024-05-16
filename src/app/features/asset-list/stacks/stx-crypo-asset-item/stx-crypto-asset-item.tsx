@@ -1,54 +1,46 @@
+import type { StxCryptoAssetBalance } from '@leather-wallet/models';
 import { styled } from 'leather-styles/jsx';
 
 import { baseCurrencyAmountInQuote } from '@app/common/money/calculate-money';
-import { i18nFormatCurrency } from '@app/common/money/format-money';
-import { ftDecimals } from '@app/common/stacks-utils';
-import { capitalize } from '@app/common/utils';
+import { formatMoneyWithoutSymbol, i18nFormatCurrency } from '@app/common/money/format-money';
 import { CryptoAssetItemLayout } from '@app/components/crypto-asset-item/crypto-asset-item.layout';
 import { useCryptoCurrencyMarketDataMeanAverage } from '@app/query/common/market-data/market-data.hooks';
-import type {
-  AccountCryptoAssetWithDetails,
-  StxAccountCryptoAssetWithDetails,
-} from '@app/query/models/crypto-asset.model';
 import { StxAvatarIcon } from '@app/ui/components/avatar/stx-avatar-icon';
-import { BulletOperator } from '@app/ui/components/bullet-separator/bullet-separator';
 import { Caption } from '@app/ui/components/typography/caption';
 
 interface StxCryptoAssetItemProps {
-  asset: StxAccountCryptoAssetWithDetails;
+  balance: StxCryptoAssetBalance;
   isLoading: boolean;
-  onClick?(asset: AccountCryptoAssetWithDetails): void;
+  onSelectAsset?(symbol: string): void;
 }
-export function StxCryptoAssetItem({ asset, isLoading, onClick }: StxCryptoAssetItemProps) {
+export function StxCryptoAssetItem({ balance, isLoading, onSelectAsset }: StxCryptoAssetItemProps) {
   const marketData = useCryptoCurrencyMarketDataMeanAverage('STX');
 
-  const { availableBalance, lockedBalance } = asset.balance;
-  const showAdditionalInfo = lockedBalance.amount.isGreaterThan(0);
+  const { availableBalance, lockedBalance } = balance;
+  const showLockedBalance = lockedBalance.amount.isGreaterThan(0);
 
-  const lockedBalanceAsFiat = i18nFormatCurrency(
+  const fiatLockedBalance = i18nFormatCurrency(
     baseCurrencyAmountInQuote(lockedBalance, marketData)
   );
-  const availableBalanceAsFiat = i18nFormatCurrency(
+  const fiatAvailableBalance = i18nFormatCurrency(
     baseCurrencyAmountInQuote(availableBalance, marketData)
   );
-  const additionalBalanceInfo = (
-    <styled.span>
-      <BulletOperator ml="space.01" mr="space.02" />
-      {ftDecimals(lockedBalance.amount, lockedBalance.decimals)} locked
-    </styled.span>
+  const titleRightBulletInfo = (
+    <styled.span>{formatMoneyWithoutSymbol(lockedBalance)} locked</styled.span>
   );
-  const additionalBalanceInfoAsFiat = <Caption>{lockedBalanceAsFiat} locked</Caption>;
+  const captionRightBulletInfo = <Caption>{fiatLockedBalance} locked</Caption>;
 
   return (
     <CryptoAssetItemLayout
-      additionalBalanceInfo={showAdditionalInfo && additionalBalanceInfo}
-      additionalBalanceInfoAsFiat={showAdditionalInfo && additionalBalanceInfoAsFiat}
-      asset={asset}
-      fiatBalance={availableBalanceAsFiat}
+      balance={balance}
+      captionLeft="STX"
+      captionRightBulletInfo={showLockedBalance && captionRightBulletInfo}
+      fiatBalance={fiatAvailableBalance}
       icon={<StxAvatarIcon />}
       isLoading={isLoading}
-      name={capitalize(asset.info.name)}
-      onClick={onClick}
+      onSelectAsset={onSelectAsset}
+      titleLeft="Stacks"
+      titleRightBulletInfo={showLockedBalance && titleRightBulletInfo}
     />
   );
 }

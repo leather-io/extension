@@ -2,7 +2,7 @@ import { cloneElement, isValidElement } from 'react';
 
 import { Circle, CircleProps } from 'leather-styles/jsx';
 
-export function BulletOperator(props: CircleProps) {
+function BulletOperator(props: CircleProps) {
   return (
     <Circle
       display="inline-block"
