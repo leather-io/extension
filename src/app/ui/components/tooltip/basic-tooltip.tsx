@@ -6,7 +6,7 @@ import { Tooltip } from './tooltip';
 
 interface BasicTooltipProps {
   children: ReactNode;
-  label?: string;
+  label?: string | ReactNode;
   disabled?: boolean;
   side?: RadixTooltip.TooltipContentProps['side'];
   asChild?: boolean;

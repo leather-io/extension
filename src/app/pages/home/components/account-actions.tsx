@@ -19,6 +19,7 @@ import { BasicTooltip } from '@app/ui/components/tooltip/basic-tooltip';
 import { CreditCardIcon, InboxIcon, SwapIcon } from '@app/ui/icons';
 
 import { SendButton } from './send-button';
+import { SwapsDisabledTooltipLabel } from './swaps-disabled-tooltip-label';
 
 export function AccountActions() {
   const navigate = useNavigate();
@@ -55,7 +56,7 @@ export function AccountActions() {
       )}
       {whenStacksChainId(currentNetwork.chain.stacks.chainId)({
         [ChainID.Mainnet]: (
-          <BasicTooltip label={swapsEnabled ? '' : 'Swaps temporarily disabled'} side="left">
+          <BasicTooltip label={swapsEnabled ? '' : <SwapsDisabledTooltipLabel />} side="left">
             <IconButton
               data-testid={HomePageSelectors.SwapBtn}
               disabled={swapsBtnDisabled}
