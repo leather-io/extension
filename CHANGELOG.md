@@ -1,3 +1,34 @@
+## [6.40.0](https://github.com/leather-wallet/extension/compare/v6.39.0...v6.40.0) (2024-05-17)
+
+
+### Features
+
+* add link in swaps disabled tooltip ([93f8964](https://github.com/leather-wallet/extension/commit/93f8964bf7d699335ea280e1b19739c069df8f12))
+* enable btc retrieval, closes [#5067](https://github.com/leather-wallet/extension/issues/5067) ([92d9603](https://github.com/leather-wallet/extension/commit/92d9603b109c4f98ebbaba423e2d03727a6c8ab4))
+
+
+### Bug Fixes
+
+* brc20 sends software only ([4983476](https://github.com/leather-wallet/extension/commit/4983476113062279d136eedd7a625728f293fcfd))
+* go back properly and don't allow user to close non cancellable ledger actions, closes [#5143](https://github.com/leather-wallet/extension/issues/5143) ([c28342b](https://github.com/leather-wallet/extension/commit/c28342bb165380848fb046ed1ea0ed3412f8fde5))
+* **ledger:** use correct key number ([56100bf](https://github.com/leather-wallet/extension/commit/56100bf787a1521f4f60b6423d00af6ae1facf02))
+* only decorate psbt inputs without an existing nonWitnessUtxo ([d47f87b](https://github.com/leather-wallet/extension/commit/d47f87b94e4b0e3699d793544ff88dd4a39b3396))
+* show correct amount for nonWitnessUtxo, ref [#5113](https://github.com/leather-wallet/extension/issues/5113) ([65a4f52](https://github.com/leather-wallet/extension/commit/65a4f526fd1a670b0df5fef357e6be221f7b1433))
+* show correct UI count for BTC addresses being pulled, ref [#4983](https://github.com/leather-wallet/extension/issues/4983) ([9f73b24](https://github.com/leather-wallet/extension/commit/9f73b24e6f16970f1d7355956dd918bec8bb5f85))
+* utxos and transaction request cancellation, closes [#5058](https://github.com/leather-wallet/extension/issues/5058) ([ae1b04b](https://github.com/leather-wallet/extension/commit/ae1b04bdac3b8fcdb708f24adea39f9ad59c0c83))
+
+
+### Internal
+
+* add backgroundLocation for device busy step ([e288d41](https://github.com/leather-wallet/extension/commit/e288d412b890c1204a265e68aa527c82aa21ea6d))
+* assets and asset list ([88939cc](https://github.com/leather-wallet/extension/commit/88939cc160d1a10927b329d728e6133a7e521909))
+* btc balance ([bbc43d6](https://github.com/leather-wallet/extension/commit/bbc43d6e1f8a8e5c620d844e068832d863ade8b0))
+* post-release merge back ([61b8171](https://github.com/leather-wallet/extension/commit/61b81716112fc081afc7a80e45c6e3782ee6ede0))
+* refactor canclose ([d275ad7](https://github.com/leather-wallet/extension/commit/d275ad7f7fb1f1cd830068bd8faf726566d3fc21))
+* stx balance ([4e3190f](https://github.com/leather-wallet/extension/commit/4e3190f45debd32f461d388f9ef097ef5d289b7d))
+* temporarily disable swaps feature ([e34d5f3](https://github.com/leather-wallet/extension/commit/e34d5f33f9a0c4fcac09b9b2300d8063792a27e4))
+* update packages ([c685b10](https://github.com/leather-wallet/extension/commit/c685b10d618744609135feb90f84573b7f408c54))
+
 ## [6.39.0](https://github.com/leather-wallet/extension/compare/v6.38.0...v6.39.0) (2024-05-14)
 
 
