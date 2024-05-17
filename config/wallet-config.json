@@ -101,5 +101,6 @@
     "signetApiUrl": "https://signet.ordinalsbot.com"
   },
   "recoverUninscribedTaprootUtxosFeatureEnabled": true,
-  "runesEnabled": true
+  "runesEnabled": true,
+  "swapsEnabled": false
 }
