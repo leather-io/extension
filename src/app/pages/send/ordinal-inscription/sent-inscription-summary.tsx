@@ -16,7 +16,7 @@ import { InscriptionPreview } from '@app/components/inscription-preview-card/com
 import { useToast } from '@app/features/toasts/use-toast';
 import { Dialog } from '@app/ui/components/containers/dialog/dialog';
 import { Footer } from '@app/ui/components/containers/footers/footer';
-import { Header } from '@app/ui/components/containers/headers/header';
+import { DialogHeader } from '@app/ui/components/containers/headers/dialog-header';
 import { CheckmarkIcon } from '@app/ui/icons/checkmark-icon';
 import { CopyIcon } from '@app/ui/icons/copy-icon';
 import { ExternalLinkIcon } from '@app/ui/icons/external-link-icon';
@@ -60,7 +60,7 @@ export function SendInscriptionSummary() {
 
   return (
     <Dialog
-      header={<Header variant="dialog" title="Sent" />}
+      header={<DialogHeader title="Sent" />}
       isShowing
       onClose={() => navigate(RouteUrls.Home)}
     >

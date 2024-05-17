@@ -2,44 +2,38 @@ import { useNavigate } from 'react-router-dom';
 
 import { Box, styled } from 'leather-styles/jsx';
 
-import { AllTransferableCryptoAssetBalances } from '@shared/models/crypto-asset-balance.model';
 import { RouteUrls } from '@shared/route-urls';
 
-import { useAllTransferableCryptoAssetBalances } from '@app/common/hooks/use-transferable-asset-balances.hooks';
-import { useWalletType } from '@app/common/use-wallet-type';
-import { CryptoAssetList } from '@app/components/crypto-assets/choose-crypto-asset/crypto-asset-list';
+import { AssetList } from '@app/features/asset-list/asset-list';
 import { useToast } from '@app/features/toasts/use-toast';
 import { useConfigBitcoinSendEnabled } from '@app/query/common/remote-config/remote-config.query';
-import { useCheckLedgerBlockchainAvailable } from '@app/store/accounts/blockchain/utils';
+import type { AccountCryptoAssetWithDetails } from '@app/query/models/crypto-asset.model';
+import { getSip10InfoFromAsset } from '@app/query/stacks/sip10/sip10-tokens.hooks';
 import { Card } from '@app/ui/layout/card/card';
+import { getAssetStringParts } from '@app/ui/utils/get-asset-string-parts';
 
 export function ChooseCryptoAsset() {
-  const toast = useToast();
-  const allTransferableCryptoAssetBalances = useAllTransferableCryptoAssetBalances();
-
-  const { whenWallet } = useWalletType();
   const navigate = useNavigate();
   const isBitcoinSendEnabled = useConfigBitcoinSendEnabled();
+  const toast = useToast();
 
-  const checkBlockchainAvailable = useCheckLedgerBlockchainAvailable();
-
-  function navigateToSendForm(cryptoAssetBalance: AllTransferableCryptoAssetBalances) {
-    const { asset } = cryptoAssetBalance;
-    if (asset.symbol === 'BTC' && !isBitcoinSendEnabled) {
-      return navigate(RouteUrls.SendBtcDisabled);
-    }
-    const symbol = asset.symbol === '' ? asset.contractAssetName : asset.symbol.toLowerCase();
-
-    if (cryptoAssetBalance.type === 'fungible-token') {
-      const asset = cryptoAssetBalance.asset;
-      if (!asset.contractId) {
-        toast.error('Unable to find contract id');
+  function navigateToSendForm(asset: AccountCryptoAssetWithDetails) {
+    switch (asset.type) {
+      case 'btc':
+        if (!isBitcoinSendEnabled) return navigate(RouteUrls.SendBtcDisabled);
+        return navigate(`${RouteUrls.SendCryptoAsset}/${asset.info.symbol.toLowerCase()}`);
+      case 'sip-10':
+        const info = getSip10InfoFromAsset(asset);
+        if (info) {
+          const { assetName } = getAssetStringParts(info.contractId);
+          const symbol = !info.symbol ? assetName : info.symbol.toLowerCase();
+          return navigate(`${RouteUrls.SendCryptoAsset}/${symbol}/${info.contractId}`);
+        }
+        toast.error('No contract id');
         return navigate('..');
-      }
-      const contractId = `${asset.contractId.split('::')[0]}`;
-      return navigate(`${RouteUrls.SendCryptoAsset}/${symbol}/${contractId}`);
+      default:
+        return navigate(`${RouteUrls.SendCryptoAsset}/${asset.info.symbol.toLowerCase()}`);
     }
-    navigate(`${RouteUrls.SendCryptoAsset}/${symbol}`);
   }
 
   return (
@@ -50,17 +44,8 @@ export function ChooseCryptoAsset() {
         </styled.h1>
       }
     >
-      <Box pb="space.04" px="space.03">
-        <CryptoAssetList
-          onItemClick={cryptoAssetBalance => navigateToSendForm(cryptoAssetBalance)}
-          cryptoAssetBalances={allTransferableCryptoAssetBalances.filter(asset =>
-            whenWallet({
-              ledger: checkBlockchainAvailable(asset.blockchain),
-              software: true,
-            })
-          )}
-          variant="send"
-        />
+      <Box pb="space.04" px="space.05">
+        <AssetList onClick={navigateToSendForm} variant="interactive" />
       </Box>
     </Card>
   );

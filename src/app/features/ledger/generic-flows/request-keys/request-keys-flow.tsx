@@ -1,30 +1,28 @@
-import { Outlet, useNavigate } from 'react-router-dom';
+import { Outlet } from 'react-router-dom';
 
 import { useScrollLock } from '@app/common/hooks/use-scroll-lock';
 import { Dialog } from '@app/ui/components/containers/dialog/dialog';
-import { Header } from '@app/ui/components/containers/headers/header';
+import { DialogHeader } from '@app/ui/components/containers/headers/dialog-header';
 
+import { useLedgerNavigate } from '../../hooks/use-ledger-navigate';
 import { LedgerRequestKeysContext, LedgerRequestKeysProvider } from './ledger-request-keys.context';
 
 interface RequestKeysFlowProps {
   context: LedgerRequestKeysContext;
   isActionCancellableByUser: boolean;
-  onCancelConnectLedger?(): void;
 }
-export function RequestKeysFlow({
-  context,
-  isActionCancellableByUser,
-  onCancelConnectLedger,
-}: RequestKeysFlowProps) {
-  const navigate = useNavigate();
+export function RequestKeysFlow({ context, isActionCancellableByUser }: RequestKeysFlowProps) {
+  const ledgerNavigate = useLedgerNavigate();
   useScrollLock(true);
+
+  const onCancelConnectLedger = ledgerNavigate.cancelLedgerAction;
 
   return (
     <LedgerRequestKeysProvider value={context}>
       <Dialog
         isShowing
-        header={<Header variant="dialog" isWaitingOnPerformedAction={isActionCancellableByUser} />}
-        onClose={onCancelConnectLedger ? onCancelConnectLedger : () => navigate('../')}
+        header={<DialogHeader />}
+        onClose={isActionCancellableByUser ? onCancelConnectLedger : undefined}
       >
         <Outlet />
       </Dialog>

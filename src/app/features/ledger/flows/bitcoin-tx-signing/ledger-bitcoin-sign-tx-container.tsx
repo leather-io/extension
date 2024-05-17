@@ -26,6 +26,7 @@ import {
   getBitcoinAppVersion,
   isBitcoinAppOpen,
 } from '@app/features/ledger/utils/bitcoin-ledger-utils';
+import { useCancelLedgerAction } from '@app/features/ledger/utils/generic-ledger-utils';
 import { useToast } from '@app/features/toasts/use-toast';
 import { useSignLedgerBitcoinTx } from '@app/store/accounts/blockchain/bitcoin/bitcoin.hooks';
 import { useCurrentNetwork } from '@app/store/networks/networks.selectors';
@@ -111,12 +112,12 @@ function LedgerSignBitcoinTxContainer() {
     latestDeviceResponse,
     awaitingDeviceConnection,
   };
+  const canCancelLedgerAction = useCancelLedgerAction(awaitingDeviceConnection);
 
   return (
     <TxSigningFlow
       context={ledgerContextValue}
-      awaitingDeviceConnection={awaitingDeviceConnection}
-      closeAction={ledgerNavigate.cancelLedgerAction}
+      closeAction={canCancelLedgerAction ? ledgerNavigate.cancelLedgerAction : undefined}
     />
   );
 }

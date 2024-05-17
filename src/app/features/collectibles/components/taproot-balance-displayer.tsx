@@ -1,5 +1,5 @@
 import { formatMoney } from '@app/common/money/format-money';
-import { useCurrentTaprootAccountBalance } from '@app/query/bitcoin/balance/btc-taproot-balance.hooks';
+import { useCurrentTaprootAccountBalance } from '@app/query/bitcoin/balance/btc-balance-taproot.hooks';
 import { useRecoverUninscribedTaprootUtxosFeatureEnabled } from '@app/query/common/remote-config/remote-config.query';
 import { Link } from '@app/ui/components/link/link';
 import { BasicTooltip } from '@app/ui/components/tooltip/basic-tooltip';

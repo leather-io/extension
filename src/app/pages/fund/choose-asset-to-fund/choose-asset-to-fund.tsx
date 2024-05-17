@@ -1,45 +1,28 @@
-import { useCallback, useMemo } from 'react';
+import { useCallback } from 'react';
 import { Outlet, useNavigate } from 'react-router-dom';
 
-import { Box, styled } from 'leather-styles/jsx';
+import { Stack, styled } from 'leather-styles/jsx';
 
-import { AllTransferableCryptoAssetBalances } from '@shared/models/crypto-asset-balance.model';
 import { RouteUrls } from '@shared/route-urls';
-import { isDefined } from '@shared/utils';
 
-import { useStxCryptoCurrencyAssetBalance } from '@app/common/hooks/balance/stx/use-stx-crypto-currency-asset-balance';
-import { useWalletType } from '@app/common/use-wallet-type';
-import { CryptoAssetList } from '@app/components/crypto-assets/choose-crypto-asset/crypto-asset-list';
-import { useCheckLedgerBlockchainAvailable } from '@app/store/accounts/blockchain/utils';
+import { capitalize } from '@app/common/utils';
+import { CryptoAssetItemLayout } from '@app/components/crypto-asset-item/crypto-asset-item.layout';
+import { BitcoinNativeSegwitAccountLoader } from '@app/components/loaders/bitcoin-account-loader';
+import { BtcCryptoAssetLoader } from '@app/components/loaders/btc-crypto-asset-loader';
+import { CurrentStacksAccountLoader } from '@app/components/loaders/stacks-account-loader';
+import { StxCryptoAssetLoader } from '@app/components/loaders/stx-crypto-asset-loader';
+import { StxCryptoAssetItem } from '@app/features/asset-list/stacks/stx-crypo-asset-item/stx-crypto-asset-item';
+import type { AccountCryptoAssetWithDetails } from '@app/query/models/crypto-asset.model';
+import { BtcAvatarIcon } from '@app/ui/components/avatar/btc-avatar-icon';
 import { Card } from '@app/ui/layout/card/card';
 import { Page } from '@app/ui/layout/page/page.layout';
 
 export function ChooseCryptoAssetToFund() {
-  const stxCryptoCurrencyAssetBalance = useStxCryptoCurrencyAssetBalance();
-
-  const { whenWallet } = useWalletType();
   const navigate = useNavigate();
 
-  const checkBlockchainAvailable = useCheckLedgerBlockchainAvailable();
-
-  const filteredCryptoAssetBalances = useMemo(
-    () =>
-      [stxCryptoCurrencyAssetBalance].filter(isDefined).filter(assetBalance =>
-        whenWallet({
-          ledger: checkBlockchainAvailable(assetBalance?.blockchain),
-          software: true,
-        })
-      ),
-    [stxCryptoCurrencyAssetBalance, checkBlockchainAvailable, whenWallet]
-  );
-
   const navigateToFund = useCallback(
-    (cryptoAssetBalance: AllTransferableCryptoAssetBalances) => {
-      const { asset } = cryptoAssetBalance;
-
-      const symbol = asset.symbol === '' ? asset.contractAssetName : asset.symbol;
-      navigate(RouteUrls.Fund.replace(':currency', symbol.toUpperCase()));
-    },
+    (asset: AccountCryptoAssetWithDetails) =>
+      navigate(RouteUrls.Fund.replace(':currency', asset.info.symbol)),
     [navigate]
   );
 
@@ -53,13 +36,37 @@ export function ChooseCryptoAssetToFund() {
             </styled.h1>
           }
         >
-          <Box pb="space.04" px="space.03">
-            <CryptoAssetList
-              onItemClick={navigateToFund}
-              cryptoAssetBalances={filteredCryptoAssetBalances}
-              variant="fund"
-            />
-          </Box>
+          <Stack pb="space.04" px="space.05">
+            <BitcoinNativeSegwitAccountLoader current>
+              {signer => (
+                <BtcCryptoAssetLoader address={signer.address}>
+                  {(asset, isLoading) => (
+                    <CryptoAssetItemLayout
+                      asset={asset}
+                      icon={<BtcAvatarIcon />}
+                      isLoading={isLoading}
+                      name={capitalize(asset.info.name)}
+                      onClick={() => navigateToFund(asset)}
+                    />
+                  )}
+                </BtcCryptoAssetLoader>
+              )}
+            </BitcoinNativeSegwitAccountLoader>
+
+            <CurrentStacksAccountLoader>
+              {account => (
+                <StxCryptoAssetLoader address={account.address}>
+                  {(asset, isInitialLoading) => (
+                    <StxCryptoAssetItem
+                      asset={asset}
+                      isLoading={isInitialLoading}
+                      onClick={() => navigateToFund(asset)}
+                    />
+                  )}
+                </StxCryptoAssetLoader>
+              )}
+            </CurrentStacksAccountLoader>
+          </Stack>
         </Card>
       </Page>
       <Outlet />

@@ -8,12 +8,11 @@ import { noop } from '@shared/utils';
 import { usePressable } from '@app/components/item-hover';
 import { StatusPending } from '@app/components/status-pending';
 import { StatusReady } from '@app/components/status-ready';
-import { useNativeSegwitBalance } from '@app/query/bitcoin/balance/btc-native-segwit-balance.hooks';
+import { useCurrentBtcAvailableBalanceNativeSegwit } from '@app/query/bitcoin/balance/btc-balance-native-segwit.hooks';
 import { useCheckOrderStatuses } from '@app/query/bitcoin/ordinals/brc20/use-check-order-status';
 import { fetchInscripionById } from '@app/query/bitcoin/ordinals/inscription-by-id.query';
 import { convertInscriptionToSupportedInscriptionType } from '@app/query/bitcoin/ordinals/inscription.hooks';
 import { useOrdinalsbotClient } from '@app/query/bitcoin/ordinalsbot-client';
-import { useCurrentAccountNativeSegwitAddressIndexZero } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
 import {
   OrdinalsbotInscriptionStatus,
   PendingBrc20Transfer,
@@ -91,12 +90,9 @@ function PendingBrcTransfer({ order }: PendingBrcTransferProps) {
   const [component, bind] = usePressable(order.status === 'ready');
   const navigate = useNavigate();
   const ordinalsbotClient = useOrdinalsbotClient();
-  const currentAccountBtcAddress = useCurrentAccountNativeSegwitAddressIndexZero();
-  const { btcBalance: btcCryptoCurrencyAssetBalance } =
-    useNativeSegwitBalance(currentAccountBtcAddress);
+  const { balance } = useCurrentBtcAvailableBalanceNativeSegwit();
 
-  const hasPositiveBtcBalanceForFees =
-    btcCryptoCurrencyAssetBalance.balance.amount.isGreaterThan(0);
+  const hasPositiveBtcBalanceForFees = balance.amount.isGreaterThan(0);
 
   return (
     <Box

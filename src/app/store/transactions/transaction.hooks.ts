@@ -30,8 +30,8 @@ import { useLedgerNavigate } from '@app/features/ledger/hooks/use-ledger-navigat
 import { useToast } from '@app/features/toasts/use-toast';
 import { useNextNonce } from '@app/query/stacks/nonce/account-nonces.hooks';
 import {
-  useCurrentAccountStxAddressState,
   useCurrentStacksAccount,
+  useCurrentStacksAccountAddress,
 } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
 import { useCurrentStacksNetworkState } from '@app/store/networks/networks.hooks';
 
@@ -45,7 +45,7 @@ export function useTransactionPostConditions() {
 export function useUnsignedStacksTransactionBaseState() {
   const network = useCurrentStacksNetworkState();
   const { data: nextNonce } = useNextNonce();
-  const stxAddress = useCurrentAccountStxAddressState();
+  const stxAddress = useCurrentStacksAccountAddress();
   const payload = useTransactionRequestState();
   const postConditions = useTransactionPostConditions();
   const account = useCurrentStacksAccount();

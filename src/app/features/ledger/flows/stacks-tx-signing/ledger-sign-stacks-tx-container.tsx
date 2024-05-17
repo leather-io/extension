@@ -11,6 +11,7 @@ import { delay, isError } from '@shared/utils';
 import { useScrollLock } from '@app/common/hooks/use-scroll-lock';
 import { appEvents } from '@app/common/publish-subscribe';
 import { LedgerTxSigningContext } from '@app/features/ledger/generic-flows/tx-signing/ledger-sign-tx.context';
+import { useCancelLedgerAction } from '@app/features/ledger/utils/generic-ledger-utils';
 import {
   connectLedgerStacksApp,
   getStacksAppVersion,
@@ -147,12 +148,12 @@ function LedgerSignStacksTxContainer() {
     awaitingDeviceConnection,
     hasUserSkippedBuggyAppWarning,
   };
+  const canCancelLedgerAction = useCancelLedgerAction(awaitingDeviceConnection);
 
   return (
     <TxSigningFlow
       context={ledgerContextValue}
-      awaitingDeviceConnection={awaitingDeviceConnection}
-      closeAction={closeAction}
+      closeAction={canCancelLedgerAction ? closeAction : undefined}
     />
   );
 }

@@ -1,5 +1,3 @@
-import { useLocation } from 'react-router-dom';
-
 import Transport from '@ledgerhq/hw-transport-webusb';
 import {
   AddressVersion,
@@ -11,7 +9,6 @@ import StacksApp, { LedgerError, ResponseSign, ResponseVersion } from '@zondax/l
 import { compare } from 'compare-versions';
 
 import { getStxDerivationPath, stxDerivationWithAccount } from '@shared/crypto/stacks/stacks.utils';
-import { RouteUrls } from '@shared/route-urls';
 
 import {
   LEDGER_APPS_MAP,
@@ -83,15 +80,6 @@ export function signStacksTransactionWithSignature(transaction: string, signatur
   (deserializedTx.auth.spendingCondition as SingleSigSpendingCondition).signature =
     spendingCondition;
   return deserializedTx;
-}
-
-export function useActionCancellableByUser() {
-  const { pathname } = useLocation();
-  return (
-    pathname.includes(RouteUrls.DeviceBusy) ||
-    pathname.includes(RouteUrls.ConnectLedgerSuccess) ||
-    pathname.includes(RouteUrls.AwaitingDeviceUserAction)
-  );
 }
 
 export function isStacksLedgerAppClosed(response: ResponseVersion) {

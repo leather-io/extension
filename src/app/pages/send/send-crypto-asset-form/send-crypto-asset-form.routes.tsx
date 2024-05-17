@@ -4,11 +4,11 @@ import { Outlet, Route } from 'react-router-dom';
 import { RouteUrls } from '@shared/route-urls';
 
 import { BroadcastErrorDialog } from '@app/components/broadcast-error-dialog/broadcast-error-dialog';
-import { SendBtcDisabled } from '@app/components/crypto-assets/choose-crypto-asset/send-btc-disabled';
 import { FullPageWithHeaderLoadingSpinner } from '@app/components/loading-spinner';
 import { EditNonceDialog } from '@app/features/dialogs/edit-nonce-dialog/edit-nonce-dialog';
 import { ledgerBitcoinTxSigningRoutes } from '@app/features/ledger/flows/bitcoin-tx-signing/ledger-bitcoin-sign-tx-container';
 import { ledgerStacksTxSigningRoutes } from '@app/features/ledger/flows/stacks-tx-signing/ledger-sign-stacks-tx-container';
+import { SendBtcDisabled } from '@app/pages/send/choose-crypto-asset/send-btc-disabled';
 import { AccountGate } from '@app/routes/account-gate';
 import { Page } from '@app/ui/layout/page/page.layout';
 
@@ -19,13 +19,13 @@ import { BtcSentSummary } from '../sent-summary/btc-sent-summary';
 import { StxSentSummary } from '../sent-summary/stx-sent-summary';
 import { RecipientAccountsDialog } from './components/recipient-accounts-dialog/recipient-accounts-dialog';
 import { SendBitcoinAssetContainer } from './family/bitcoin/components/send-bitcoin-asset-container';
-import { Brc20SendForm } from './form/brc-20/brc20-send-form';
-import { Brc20SendFormConfirmation } from './form/brc-20/brc20-send-form-confirmation';
-import { BrcChooseFee } from './form/brc-20/brc-20-choose-fee';
+import { BrcChooseFee } from './form/brc20/brc20-choose-fee';
+import { Brc20SendForm } from './form/brc20/brc20-send-form';
+import { Brc20SendFormConfirmation } from './form/brc20/brc20-send-form-confirmation';
 import { BtcChooseFee } from './form/btc/btc-choose-fee';
 import { BtcSendForm } from './form/btc/btc-send-form';
 import { BtcSendFormConfirmation } from './form/btc/btc-send-form-confirmation';
-import { Sip10TokenSendForm } from './form/stacks-sip10/sip10-token-send-form';
+import { Sip10TokenSendForm } from './form/sip10/sip10-token-send-form';
 import { StacksSendFormConfirmation } from './form/stacks/stacks-send-form-confirmation';
 import { StxSendForm } from './form/stx/stx-send-form';
 

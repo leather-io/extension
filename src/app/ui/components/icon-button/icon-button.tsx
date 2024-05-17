@@ -7,7 +7,7 @@ interface IconButtonProps extends ButtonProps {
   icon: React.JSX.Element;
   label?: string;
 }
-export function IconButton({ icon, label, ...rest }: IconButtonProps) {
+export function IconButton({ icon, label, disabled, ...rest }: IconButtonProps) {
   return (
     <Button
       key={label}
@@ -17,6 +17,8 @@ export function IconButton({ icon, label, ...rest }: IconButtonProps) {
       variant="ghost"
       width={label ? 'iconButtonWithLabelWidth' : 'unset'}
       outline="none"
+      opacity={disabled ? '0.5' : '1'}
+      disabled={disabled}
       {...rest}
     >
       <Stack alignItems="center" gap="space.01">

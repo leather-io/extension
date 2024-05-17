@@ -16,6 +16,7 @@ import {
 } from '@shared/crypto/bitcoin/p2wpkh-address-gen';
 import { BitcoinInputSigningConfig } from '@shared/crypto/bitcoin/signer-config';
 import { reverseBytes } from '@shared/utils';
+import { analytics } from '@shared/utils/analytics';
 
 import { mnemonicToRootNode } from '@app/common/keychain/keychain';
 import { useBitcoinClient } from '@app/store/common/api-clients.hooks';
@@ -147,10 +148,17 @@ export function useUpdateLedgerSpecificNativeSegwitUtxoHexForAdddressIndexZero()
         )
       )
     );
+
     inputSigningConfig.forEach(({ index }) => {
-      tx.updateInput(index, {
-        nonWitnessUtxo: Buffer.from(inputsTxHex[index], 'hex'),
-      });
+      // decorate input with nonWitnessUtxo unless it already exists
+      if (!tx.data.inputs[index].nonWitnessUtxo) {
+        tx.updateInput(index, {
+          nonWitnessUtxo: Buffer.from(inputsTxHex[index], 'hex'),
+        });
+        void analytics.track('ledger_nativesegwit_add_nonwitnessutxo');
+      } else {
+        void analytics.track('ledger_nativesegwit_skip_add_nonwitnessutxo');
+      }
     });
   };
 }

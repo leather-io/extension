@@ -6,7 +6,6 @@ import {
   BESTINSLOT_API_BASE_URL_TESTNET,
   type BitcoinNetworkModes,
 } from '@shared/constants';
-import type { MarketData } from '@shared/models/market.model';
 import type { Money } from '@shared/models/money.model';
 import type { BitcoinTx } from '@shared/models/transactions/bitcoin-transaction.model';
 
@@ -98,13 +97,6 @@ interface Brc20WalletBalancesResponse {
   data: Brc20Balance[];
 }
 
-export interface Brc20Token {
-  balance: Money | null;
-  holderAddress: string;
-  marketData: MarketData | null;
-  tokenData: Brc20Balance & Brc20TickerInfo;
-}
-
 /* RUNES */
 export interface RuneBalance {
   pkscript: string;
@@ -172,6 +164,7 @@ interface RunesOutputsByAddressArgs {
   order?: 'asc' | 'desc';
   offset?: number;
   count?: number;
+  signal?: AbortSignal;
 }
 
 interface RunesOutputsByAddressResponse {
@@ -272,6 +265,7 @@ class BestinSlotApi {
     order = 'asc',
     offset = 0,
     count = 100,
+    signal,
   }: RunesOutputsByAddressArgs) {
     const baseUrl = network === 'mainnet' ? this.url : this.testnetUrl;
     const queryParams = new URLSearchParams({
@@ -284,7 +278,7 @@ class BestinSlotApi {
 
     const resp = await axios.get<RunesOutputsByAddressResponse>(
       `${baseUrl}/runes/wallet_valid_outputs?${queryParams}`,
-      { ...this.defaultOptions }
+      { ...this.defaultOptions, signal }
     );
     return resp.data.data;
   }
@@ -298,7 +292,10 @@ class AddressApi {
 
   async getTransactionsByAddress(address: string, signal?: AbortSignal) {
     const resp = await this.rateLimiter.add(
-      () => axios.get<BitcoinTx[]>(`${this.configuration.baseUrl}/address/${address}/txs`),
+      () =>
+        axios.get<BitcoinTx[]>(`${this.configuration.baseUrl}/address/${address}/txs`, {
+          signal,
+        }),
       { signal, throwOnTimeout: true }
     );
     return resp.data;
@@ -306,7 +303,10 @@ class AddressApi {
 
   async getUtxosByAddress(address: string, signal?: AbortSignal): Promise<UtxoResponseItem[]> {
     const resp = await this.rateLimiter.add(
-      () => axios.get<UtxoResponseItem[]>(`${this.configuration.baseUrl}/address/${address}/utxo`),
+      () =>
+        axios.get<UtxoResponseItem[]>(`${this.configuration.baseUrl}/address/${address}/utxo`, {
+          signal,
+        }),
       { signal, priority: 1, throwOnTimeout: true }
     );
     return resp.data.sort((a, b) => a.vout - b.vout);

@@ -9,7 +9,6 @@ import * as yup from 'yup';
 import { RouteUrls } from '@shared/route-urls';
 
 import { useRefreshAllAccountData } from '@app/common/hooks/account/use-refresh-all-account-data';
-import { useStxBalance } from '@app/common/hooks/balance/stx/use-stx-balance';
 import { LoadingKeys, useLoading } from '@app/common/hooks/use-loading';
 import { microStxToStx, stxToMicroStx } from '@app/common/money/unit-conversion';
 import { stacksValue } from '@app/common/stacks-utils';
@@ -19,12 +18,12 @@ import { LoadingSpinner } from '@app/components/loading-spinner';
 import { StacksTransactionItem } from '@app/components/stacks-transaction-item/stacks-transaction-item';
 import { useStacksBroadcastTransaction } from '@app/features/stacks-transaction-request/hooks/use-stacks-broadcast-transaction';
 import { useToast } from '@app/features/toasts/use-toast';
-import { useCurrentStacksAccountBalances } from '@app/query/stacks/balance/stx-balance.hooks';
+import { useCurrentStxAvailableUnlockedBalance } from '@app/query/stacks/balance/account-balance.hooks';
 import { useSubmittedTransactionsActions } from '@app/store/submitted-transactions/submitted-transactions.hooks';
 import { useRawDeserializedTxState, useRawTxIdState } from '@app/store/transactions/raw.hooks';
 import { Dialog } from '@app/ui/components/containers/dialog/dialog';
 import { Footer } from '@app/ui/components/containers/footers/footer';
-import { Header } from '@app/ui/components/containers/headers/header';
+import { DialogHeader } from '@app/ui/components/containers/headers/dialog-header';
 import { Spinner } from '@app/ui/components/spinner';
 import { Caption } from '@app/ui/components/typography/caption';
 
@@ -43,8 +42,7 @@ export function IncreaseStxFeeDialog() {
   const refreshAccountData = useRefreshAllAccountData();
   const tx = useSelectedTx();
   const [, setTxId] = useRawTxIdState();
-  const { data: balances } = useCurrentStacksAccountBalances();
-  const { availableBalance } = useStxBalance();
+  const availableUnlockedBalance = useCurrentStxAvailableUnlockedBalance();
   const submittedTransactionsActions = useSubmittedTransactionsActions();
   const rawTx = useRawDeserializedTxState();
   const { stacksBroadcastTransaction } = useStacksBroadcastTransaction('STX');
@@ -81,7 +79,7 @@ export function IncreaseStxFeeDialog() {
 
   if (!tx || !fee) return <LoadingSpinner />;
 
-  const validationSchema = yup.object({ fee: stxFeeValidator(availableBalance) });
+  const validationSchema = yup.object({ fee: stxFeeValidator(availableUnlockedBalance) });
 
   const onClose = () => {
     setRawTxId(null);
@@ -103,7 +101,7 @@ export function IncreaseStxFeeDialog() {
             <Dialog
               isShowing={location.pathname === RouteUrls.IncreaseStxFee}
               onClose={onClose}
-              header={<Header variant="dialog" title="Increase fee" />}
+              header={<DialogHeader title="Increase fee" />}
               footer={
                 <Footer flexDirection="row">
                   <IncreaseFeeActions
@@ -132,10 +130,13 @@ export function IncreaseStxFeeDialog() {
                     {tx && <StacksTransactionItem transaction={tx} />}
                     <Stack gap="space.04">
                       <IncreaseFeeField currentFee={fee} />
-                      {balances?.stx.unlockedStx.amount && (
+                      {availableUnlockedBalance?.amount && (
                         <Caption>
                           Balance:
-                          {stacksValue({ value: availableBalance.amount, fixedDecimals: true })}
+                          {stacksValue({
+                            value: availableUnlockedBalance.amount,
+                            fixedDecimals: true,
+                          })}
                         </Caption>
                       )}
                     </Stack>

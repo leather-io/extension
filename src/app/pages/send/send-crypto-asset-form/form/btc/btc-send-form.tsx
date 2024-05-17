@@ -9,7 +9,7 @@ import { CryptoCurrencies } from '@shared/models/currencies.model';
 
 import { formatMoney } from '@app/common/money/format-money';
 import { HighFeeDialog } from '@app/features/dialogs/high-fee-dialog/high-fee-dialog';
-import { useNativeSegwitBalance } from '@app/query/bitcoin/balance/btc-native-segwit-balance.hooks';
+import { useBtcAccountCryptoAssetWithDetails } from '@app/query/bitcoin/btc/btc-crypto-asset.hooks';
 import { useCryptoCurrencyMarketDataMeanAverage } from '@app/query/common/market-data/market-data.hooks';
 import { useCurrentAccountNativeSegwitIndexZeroSigner } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
 import { BtcAvatarIcon } from '@app/ui/components/avatar/btc-avatar-icon';
@@ -36,8 +36,9 @@ export function BtcSendForm() {
   const routeState = useSendFormRouteState();
   const btcMarketData = useCryptoCurrencyMarketDataMeanAverage(symbol);
 
-  const nativeSegwitSigner = useCurrentAccountNativeSegwitIndexZeroSigner();
-  const { btcBalance } = useNativeSegwitBalance(nativeSegwitSigner.address);
+  const { address } = useCurrentAccountNativeSegwitIndexZeroSigner();
+  const { asset } = useBtcAccountCryptoAssetWithDetails(address);
+  const { balance, info } = asset;
 
   const {
     calcMaxSpend,
@@ -80,17 +81,17 @@ export function BtcSendForm() {
                     >
                       Continue
                     </Button>
-                    <AvailableBalance balance={formatMoney(btcBalance.balance)} />
+                    <AvailableBalance balance={formatMoney(balance.availableBalance)} />
                   </Footer>
                 }
               >
                 <CardContent dataTestId={SendCryptoAssetSelectors.SendForm}>
                   <AmountField
                     autoComplete="off"
-                    balance={btcBalance.balance}
+                    balance={balance.availableBalance}
                     bottomInputOverlay={
                       <BitcoinSendMaxButton
-                        balance={btcBalance.balance}
+                        balance={balance.availableBalance}
                         isSendingMax={isSendingMax}
                         onSetIsSendingMax={onSetIsSendingMax}
                         sendMaxBalance={sendMaxCalculation.spendableBitcoin.toString()}
@@ -103,11 +104,7 @@ export function BtcSendForm() {
                       <SendFiatValue marketData={btcMarketData} assetSymbol={symbol} />
                     }
                   />
-                  <SelectedAssetField
-                    icon={<BtcAvatarIcon />}
-                    name={btcBalance.asset.name}
-                    symbol={symbol}
-                  />
+                  <SelectedAssetField icon={<BtcAvatarIcon />} name={info.name} symbol={symbol} />
                   <TransferRecipientField />
                   {currentNetwork.chain.bitcoin.bitcoinNetwork === 'testnet' && (
                     <Callout variant="warning" title="Funds have no value" mt="space.04">

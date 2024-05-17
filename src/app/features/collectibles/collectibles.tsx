@@ -6,7 +6,7 @@ import { useQueryClient } from '@tanstack/react-query';
 import { RouteUrls } from '@shared/route-urls';
 
 import { useWalletType } from '@app/common/use-wallet-type';
-import { CurrentBitcoinSignerLoader } from '@app/components/loaders/bitcoin-account-loader';
+import { CurrentBitcoinSignerLoader } from '@app/components/loaders/current-bitcoin-signer-loader';
 import { CurrentStacksAccountLoader } from '@app/components/loaders/stacks-account-loader';
 import { useConfigNftMetadataEnabled } from '@app/query/common/remote-config/remote-config.query';
 

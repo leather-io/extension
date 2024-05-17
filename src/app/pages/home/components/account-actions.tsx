@@ -7,14 +7,19 @@ import { Flex } from 'leather-styles/jsx';
 import { whenStacksChainId } from '@shared/crypto/stacks/stacks.utils';
 import { RouteUrls } from '@shared/route-urls';
 
-import { useConfigBitcoinEnabled } from '@app/query/common/remote-config/remote-config.query';
+import {
+  useConfigBitcoinEnabled,
+  useConfigSwapEnabled,
+} from '@app/query/common/remote-config/remote-config.query';
 import { useCurrentAccountNativeSegwitIndexZeroSignerNullable } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
 import { useCurrentStacksAccount } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
 import { useCurrentNetwork } from '@app/store/networks/networks.selectors';
 import { IconButton } from '@app/ui/components/icon-button/icon-button';
+import { BasicTooltip } from '@app/ui/components/tooltip/basic-tooltip';
 import { CreditCardIcon, InboxIcon, SwapIcon } from '@app/ui/icons';
 
 import { SendButton } from './send-button';
+import { SwapsDisabledTooltipLabel } from './swaps-disabled-tooltip-label';
 
 export function AccountActions() {
   const navigate = useNavigate();
@@ -24,6 +29,8 @@ export function AccountActions() {
   const currentBtcSigner = useCurrentAccountNativeSegwitIndexZeroSignerNullable();
   const btcAccount = currentBtcSigner?.address;
   const currentNetwork = useCurrentNetwork();
+  const swapsEnabled = useConfigSwapEnabled();
+  const swapsBtnDisabled = !swapsEnabled || !stacksAccount;
 
   const receivePath = isBitcoinEnabled
     ? RouteUrls.Receive
@@ -49,12 +56,15 @@ export function AccountActions() {
       )}
       {whenStacksChainId(currentNetwork.chain.stacks.chainId)({
         [ChainID.Mainnet]: (
-          <IconButton
-            data-testid={HomePageSelectors.SwapBtn}
-            icon={<SwapIcon />}
-            label="Swap"
-            onClick={() => navigate(RouteUrls.Swap.replace(':base', 'STX').replace(':quote', ''))}
-          />
+          <BasicTooltip label={swapsEnabled ? '' : <SwapsDisabledTooltipLabel />} side="left">
+            <IconButton
+              data-testid={HomePageSelectors.SwapBtn}
+              disabled={swapsBtnDisabled}
+              icon={<SwapIcon />}
+              label="Swap"
+              onClick={() => navigate(RouteUrls.Swap.replace(':base', 'STX').replace(':quote', ''))}
+            />
+          </BasicTooltip>
         ),
         [ChainID.Testnet]: null,
       })}

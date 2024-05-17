@@ -8,7 +8,6 @@ import { createMoney } from '@shared/models/money.model';
 import { BitcoinTx } from '@shared/models/transactions/bitcoin-transaction.model';
 import { RouteUrls } from '@shared/route-urls';
 
-import { useBtcAssetBalance } from '@app/common/hooks/balance/btc/use-btc-balance';
 import { useLocationStateWithCache } from '@app/common/hooks/use-location-state';
 import { formatMoney } from '@app/common/money/format-money';
 import { btcToSat } from '@app/common/money/unit-conversion';
@@ -16,10 +15,11 @@ import { getBitcoinTxValue } from '@app/common/transactions/bitcoin/utils';
 import { BitcoinCustomFeeInput } from '@app/components/bitcoin-custom-fee/bitcoin-custom-fee-input';
 import { BitcoinTransactionItem } from '@app/components/bitcoin-transaction-item/bitcoin-transaction-item';
 import { LoadingSpinner } from '@app/components/loading-spinner';
+import { useBtcCryptoAssetBalanceNativeSegwit } from '@app/query/bitcoin/balance/btc-balance-native-segwit.hooks';
 import { useCurrentAccountNativeSegwitIndexZeroSigner } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
 import { Dialog } from '@app/ui/components/containers/dialog/dialog';
 import { Footer } from '@app/ui/components/containers/footers/footer';
-import { Header } from '@app/ui/components/containers/headers/header';
+import { DialogHeader } from '@app/ui/components/containers/headers/dialog-header';
 import { Spinner } from '@app/ui/components/spinner';
 import { Caption } from '@app/ui/components/typography/caption';
 
@@ -34,11 +34,11 @@ export function IncreaseBtcFeeDialog() {
   const btcTx = tx;
   const nativeSegwitSigner = useCurrentAccountNativeSegwitIndexZeroSigner();
   const currentBitcoinAddress = nativeSegwitSigner.address;
-  const { btcAvailableAssetBalance } = useBtcAssetBalance(currentBitcoinAddress);
+  const { btcCryptoAssetBalance } = useBtcCryptoAssetBalanceNativeSegwit(currentBitcoinAddress);
   const { isBroadcasting, sizeInfo, onSubmit, validationSchema, recipient } =
     useBtcIncreaseFee(btcTx);
 
-  const balance = formatMoney(btcAvailableAssetBalance.balance);
+  const balance = formatMoney(btcCryptoAssetBalance.availableBalance);
 
   const recipients = [
     {
@@ -69,7 +69,7 @@ export function IncreaseBtcFeeDialog() {
           <Dialog
             isShowing={location.pathname === RouteUrls.IncreaseBtcFee}
             onClose={onClose}
-            header={<Header variant="dialog" title="Increase fee" />}
+            header={<DialogHeader title="Increase fee" />}
             footer={
               <Footer flexDirection="row">
                 <IncreaseFeeActions isDisabled={false} onCancel={() => navigate(RouteUrls.Home)} />
@@ -104,7 +104,7 @@ export function IncreaseBtcFeeDialog() {
                       />
                     </Stack>
 
-                    {btcAvailableAssetBalance && <Caption>Balance: {balance}</Caption>}
+                    {btcCryptoAssetBalance && <Caption>Balance: {balance}</Caption>}
                   </Stack>
                 </Stack>
               </Suspense>

@@ -3,7 +3,7 @@ import { useEffect } from 'react';
 import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
 import { parseIfValidPunycode } from '@app/common/utils';
 import { useCurrentAccountNames } from '@app/query/stacks/bns/bns.hooks';
-import { useStacksNonFungibleTokensMetadata } from '@app/query/stacks/tokens/non-fungible-tokens/non-fungible-token-metadata.hooks';
+import { useStacksNonFungibleTokensMetadata } from '@app/query/stacks/token-metadata/non-fungible-tokens/non-fungible-token-metadata.hooks';
 import { StacksAccount } from '@app/store/accounts/blockchain/stacks/stacks-account.models';
 
 import { StacksBnsName } from './stacks-bns-name';

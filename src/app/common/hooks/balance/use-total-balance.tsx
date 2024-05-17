@@ -4,16 +4,14 @@ import { createMoney } from '@shared/models/money.model';
 
 import { baseCurrencyAmountInQuote } from '@app/common/money/calculate-money';
 import { i18nFormatCurrency } from '@app/common/money/format-money';
+import { useBtcCryptoAssetBalanceNativeSegwit } from '@app/query/bitcoin/balance/btc-balance-native-segwit.hooks';
 import { useCryptoCurrencyMarketDataMeanAverage } from '@app/query/common/market-data/market-data.hooks';
-import { useStacksAccountBalances } from '@app/query/stacks/balance/stx-balance.hooks';
-
-import { useBtcAssetBalance } from './btc/use-btc-balance';
+import { useStxCryptoAssetBalance } from '@app/query/stacks/balance/account-balance.hooks';
 
 interface UseTotalBalanceArgs {
   btcAddress: string;
   stxAddress: string;
 }
-
 export function useTotalBalance({ btcAddress, stxAddress }: UseTotalBalanceArgs) {
   // get market data
   const btcMarketData = useCryptoCurrencyMarketDataMeanAverage('BTC');
@@ -21,25 +19,28 @@ export function useTotalBalance({ btcAddress, stxAddress }: UseTotalBalanceArgs)
 
   // get stx balance
   const {
-    data: balances,
+    data: balance,
     isLoading,
     isInitialLoading,
     isFetching: isFetchingStacksBalance,
-  } = useStacksAccountBalances(stxAddress);
-  const stxBalance = balances ? balances.stx.balance : createMoney(0, 'STX');
+  } = useStxCryptoAssetBalance(stxAddress);
+  const stxBalance = balance ? balance.totalBalance : createMoney(0, 'STX');
 
   // get btc balance
   const {
-    btcAvailableAssetBalance,
+    btcCryptoAssetBalance,
     isLoading: isLoadingBtcBalance,
     isFetching: isFetchingBtcBalance,
     isInitialLoading: isInititalLoadingBtcBalance,
-  } = useBtcAssetBalance(btcAddress);
+  } = useBtcCryptoAssetBalanceNativeSegwit(btcAddress);
 
   return useMemo(() => {
     // calculate total balance
     const stxUsdAmount = baseCurrencyAmountInQuote(stxBalance, stxMarketData);
-    const btcUsdAmount = baseCurrencyAmountInQuote(btcAvailableAssetBalance.balance, btcMarketData);
+    const btcUsdAmount = baseCurrencyAmountInQuote(
+      btcCryptoAssetBalance.availableBalance,
+      btcMarketData
+    );
 
     const totalBalance = { ...stxUsdAmount, amount: stxUsdAmount.amount.plus(btcUsdAmount.amount) };
     return {
@@ -53,14 +54,14 @@ export function useTotalBalance({ btcAddress, stxAddress }: UseTotalBalanceArgs)
       isFetching: isFetchingStacksBalance || isFetchingBtcBalance,
     };
   }, [
-    btcAvailableAssetBalance.balance,
-    btcMarketData,
-    isInitialLoading,
-    isInititalLoadingBtcBalance,
-    stxMarketData,
     stxBalance,
+    stxMarketData,
+    btcCryptoAssetBalance.availableBalance,
+    btcMarketData,
     isLoading,
     isLoadingBtcBalance,
+    isInitialLoading,
+    isInititalLoadingBtcBalance,
     isFetchingStacksBalance,
     isFetchingBtcBalance,
   ]);

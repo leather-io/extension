@@ -15,17 +15,17 @@ import { useDefaultRequestParams } from '@app/common/hooks/use-default-request-s
 import { useKeyActions } from '@app/common/hooks/use-key-actions';
 import { useScrollLock } from '@app/common/hooks/use-scroll-lock';
 import { makeLedgerCompatibleUnsignedAuthResponsePayload } from '@app/common/unsafe-auth-response';
+import { useCancelLedgerAction } from '@app/features/ledger/utils/generic-ledger-utils';
 import {
   getStacksAppVersion,
   prepareLedgerDeviceStacksAppConnection,
-  useActionCancellableByUser,
 } from '@app/features/ledger/utils/stacks-ledger-utils';
 import {
   useCurrentStacksAccount,
   useStacksAccounts,
 } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
 import { Dialog } from '@app/ui/components/containers/dialog/dialog';
-import { Header } from '@app/ui/components/containers/headers/header';
+import { DialogHeader } from '@app/ui/components/containers/headers/dialog-header';
 
 import { useLedgerNavigate } from '../../hooks/use-ledger-navigate';
 import { checkLockedDeviceError, useLedgerResponseState } from '../../utils/generic-ledger-utils';
@@ -47,7 +47,6 @@ export function LedgerSignJwtContainer() {
   const getBitcoinAddressesLegacyFormat = useGetLegacyAuthBitcoinAddresses();
 
   const keyActions = useKeyActions();
-  const canUserCancelAction = useActionCancellableByUser();
   const { decodedAuthRequest, authRequest } = useOnboardingState();
 
   const [accountIndex, setAccountIndex] = useState<null | number>(null);
@@ -178,17 +177,14 @@ export function LedgerSignJwtContainer() {
     awaitingDeviceConnection,
   };
 
+  const canCancelLedgerAction = useCancelLedgerAction(awaitingDeviceConnection);
+
   return (
     <LedgerJwtSigningProvider value={ledgerContextValue}>
       <Dialog
         isShowing
-        header={
-          <Header
-            variant="dialog"
-            isWaitingOnPerformedAction={awaitingDeviceConnection || canUserCancelAction}
-          />
-        }
-        onClose={onCancelConnectLedger}
+        header={<DialogHeader />}
+        onClose={canCancelLedgerAction ? () => onCancelConnectLedger() : undefined}
       >
         <Outlet />
       </Dialog>

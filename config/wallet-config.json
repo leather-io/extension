@@ -100,6 +100,7 @@
     "mainnetApiUrl": "https://api2.ordinalsbot.com",
     "signetApiUrl": "https://signet.ordinalsbot.com"
   },
-  "recoverUninscribedTaprootUtxosFeatureEnabled": false,
-  "runesEnabled": true
+  "recoverUninscribedTaprootUtxosFeatureEnabled": true,
+  "runesEnabled": true,
+  "swapsEnabled": false
 }

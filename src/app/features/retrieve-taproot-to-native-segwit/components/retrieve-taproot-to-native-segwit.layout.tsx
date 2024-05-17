@@ -5,7 +5,7 @@ import { Button } from '@app/ui/components/button/button';
 import { Callout } from '@app/ui/components/callout/callout';
 import { Dialog } from '@app/ui/components/containers/dialog/dialog';
 import { Footer } from '@app/ui/components/containers/footers/footer';
-import { Header } from '@app/ui/components/containers/headers/header';
+import { DialogHeader } from '@app/ui/components/containers/headers/dialog-header';
 import { Card } from '@app/ui/layout/card/card';
 
 interface RetrieveTaprootToNativeSegwitLayoutProps {
@@ -21,7 +21,7 @@ export function RetrieveTaprootToNativeSegwitLayout(
   return (
     <Dialog
       isShowing
-      header={<Header variant="dialog" />}
+      header={<DialogHeader />}
       onClose={() => onClose()}
       footer={
         <Footer flexDirection="row">
@@ -51,7 +51,7 @@ export function RetrieveTaprootToNativeSegwitLayout(
             As we don't support tranferring from Taproot addresses yet, you can retrieve funds to
             your account's main Native SegWit balance here.
           </styled.span>
-          <styled.span mt="space.04" textStyle="body.02">
+          <styled.span my="space.04" textStyle="body.02">
             This transaction may take upwards of 30 minutes to confirm.
           </styled.span>
           {children}

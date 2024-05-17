@@ -7,7 +7,7 @@ import { Button } from '@app/ui/components/button/button';
 import { Callout } from '@app/ui/components/callout/callout';
 import { Dialog, DialogProps } from '@app/ui/components/containers/dialog/dialog';
 import { Footer } from '@app/ui/components/containers/footers/footer';
-import { Header } from '@app/ui/components/containers/headers/header';
+import { DialogHeader } from '@app/ui/components/containers/headers/dialog-header';
 
 interface SignOutDialogProps extends DialogProps {
   onUserDeleteWallet(): void;
@@ -28,7 +28,7 @@ export function SignOutDialog({ isShowing, onUserDeleteWallet, onClose }: SignOu
 
   return (
     <Dialog
-      header={<Header variant="dialog" title="Sign out" />}
+      header={<DialogHeader title="Sign out" />}
       isShowing={isShowing}
       onClose={onClose}
       footer={

@@ -1,4 +1,5 @@
-import { Outlet } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import { Outlet, useLocation } from 'react-router-dom';
 
 import { closeWindow } from '@shared/utils';
 
@@ -29,12 +30,24 @@ function RpcSignBip322Message() {
     origin,
     message,
     address,
-    isLoading,
+    isLoading: signBip322MessageIsLoading,
     onUserApproveBip322MessageSigningRequest,
     onUserRejectBip322MessageSigningRequest,
   } = useSignBip322Message();
 
+  const location = useLocation();
   const { chain } = useCurrentNetwork();
+
+  const [isLoading, setIsLoading] = useState(false);
+
+  // if user has wentBack need to stop button loading so they can retry
+  useEffect(() => {
+    if (location?.state?.wentBack) {
+      setIsLoading(false);
+    } else {
+      setIsLoading(signBip322MessageIsLoading);
+    }
+  }, [location, signBip322MessageIsLoading, isLoading, setIsLoading]);
 
   if (origin === null) {
     closeWindow();

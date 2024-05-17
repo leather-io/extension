@@ -13,7 +13,7 @@ import { useToast } from '@app/features/toasts/use-toast';
 import {
   useCurrentTaprootAccountBalance,
   useCurrentTaprootAccountUninscribedUtxos,
-} from '@app/query/bitcoin/balance/btc-taproot-balance.hooks';
+} from '@app/query/bitcoin/balance/btc-balance-taproot.hooks';
 import { useBitcoinBroadcastTransaction } from '@app/query/bitcoin/transaction/use-bitcoin-broadcast-transaction';
 import { useCurrentAccountNativeSegwitAddressIndexZero } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
 import { Link } from '@app/ui/components/link/link';

@@ -1,6 +1,10 @@
 import * as btc from '@scure/btc-signer';
 
-import { getPsbtTxInputs, getPsbtTxOutputs } from '@shared/crypto/bitcoin/bitcoin.utils';
+import {
+  getBitcoinInputValue,
+  getPsbtTxInputs,
+  getPsbtTxOutputs,
+} from '@shared/crypto/bitcoin/bitcoin.utils';
 
 import { useLedgerTxSigningContext } from '@app/features/ledger/generic-flows/tx-signing/ledger-sign-tx.context';
 import { ApproveLedgerOperationLayout } from '@app/features/ledger/generic-steps/approve-ledger-operation/approve-ledger-operation.layout';
@@ -20,7 +24,7 @@ export function ApproveSignLedgerBitcoinTx() {
         [
           ...getPsbtTxInputs(context.transaction as unknown as btc.Transaction).map((input, i) => [
             `Input ${i + 1}`,
-            input.witnessUtxo?.amount?.toString() + ' sats',
+            `${getBitcoinInputValue(input)} sats`,
           ]),
           ...getPsbtTxOutputs(context.transaction as unknown as btc.Transaction).map(
             (output, i) => [`Output ${i + 1}`, output.amount?.toString() + ' sats']
