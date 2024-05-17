@@ -108,9 +108,14 @@ export function AssetList({ onClick, variant = 'read-only' }: AssetListProps) {
           <BitcoinTaprootAccountLoader current>
             {taprootAccount => (
               <>
-                <Brc20TokensLoader>
-                  {tokens => <Brc20TokenAssetList assets={tokens} variant={variant} />}
-                </Brc20TokensLoader>
+                {whenWallet({
+                  software: (
+                    <Brc20TokensLoader>
+                      {tokens => <Brc20TokenAssetList assets={tokens} variant={variant} />}
+                    </Brc20TokensLoader>
+                  ),
+                  ledger: null,
+                })}
                 {isReadOnly && (
                   <>
                     <Src20TokensLoader address={nativeSegwitAccount.address}>
