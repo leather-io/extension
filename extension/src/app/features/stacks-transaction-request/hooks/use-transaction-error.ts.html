@@ -129,7 +129,14 @@
 <a name='L64'></a><a href='#L64'>64</a>
 <a name='L65'></a><a href='#L65'>65</a>
 <a name='L66'></a><a href='#L66'>66</a>
-<a name='L67'></a><a href='#L67'>67</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L67'></a><a href='#L67'>67</a>
+<a name='L68'></a><a href='#L68'>68</a>
+<a name='L69'></a><a href='#L69'>69</a>
+<a name='L70'></a><a href='#L70'>70</a>
+<a name='L71'></a><a href='#L71'>71</a>
+<a name='L72'></a><a href='#L72'>72</a>
+<a name='L73'></a><a href='#L73'>73</a>
+<a name='L74'></a><a href='#L74'>74</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -193,6 +200,13 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { useMemo } from 'react';
@@ -208,7 +222,7 @@ import { initialSearchParams } from '@app/common/initial-search-params';
 import { stxToMicroStx } from '@app/common/money/unit-conversion';
 import { validateStacksAddress } from '@app/common/stacks-utils';
 import { TransactionErrorReason } from '@app/features/stacks-transaction-request/transaction-error/transaction-error';
-import { useCurrentStacksAccountBalances } from '@app/query/stacks/balance/stx-balance.hooks';
+import { useCurrentStxAvailableUnlockedBalance } from '@app/query/stacks/balance/account-balance.hooks';
 import { useContractInterface } from '@app/query/stacks/contract/contract.hooks';
 import { useCurrentStacksAccount } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
 import { useTransactionRequestState } from '@app/store/transactions/requests.hooks';
@@ -224,12 +238,12 @@ export function <span class="fstat-no" title="function not covered" >useTransact
   const { values } = <span class="cstat-no" title="statement not covered" >useFormikContext&lt;StacksTransactionFormValues&gt;();</span>
 &nbsp;
   const currentAccount = <span class="cstat-no" title="statement not covered" >useCurrentStacksAccount();</span>
-  const { data: balances } = <span class="cstat-no" title="statement not covered" >useCurrentStacksAccountBalances();</span>
+  const availableUnlockedBalance = <span class="cstat-no" title="statement not covered" >useCurrentStxAvailableUnlockedBalance();</span>
 &nbsp;
 <span class="cstat-no" title="statement not covered" >  return useMemo&lt;TransactionErrorReason | void&gt;(<span class="fstat-no" title="function not covered" >() =&gt; {</span></span>
 <span class="cstat-no" title="statement not covered" >    if (!origin) <span class="cstat-no" title="statement not covered" >return TransactionErrorReason.ExpiredRequest;</span></span>
 &nbsp;
-<span class="cstat-no" title="statement not covered" >    if (!transactionRequest || !balances || !currentAccount) {</span>
+<span class="cstat-no" title="statement not covered" >    if (!transactionRequest || !availableUnlockedBalance || !currentAccount) {</span>
 <span class="cstat-no" title="statement not covered" >      return TransactionErrorReason.Generic;</span>
     }
 &nbsp;
@@ -239,14 +253,14 @@ export function <span class="fstat-no" title="function not covered" >useTransact
 <span class="cstat-no" title="statement not covered" >      if ((contractInterface as any)?.isError) <span class="cstat-no" title="statement not covered" >return TransactionErrorReason.NoContract;</span></span>
     }
 &nbsp;
-<span class="cstat-no" title="statement not covered" >    if (balances &amp;&amp; !getIsMultisig()) {</span>
-      const zeroBalance = <span class="cstat-no" title="statement not covered" >balances?.stx.unlockedStx.amount.toNumber() === 0;</span>
+<span class="cstat-no" title="statement not covered" >    if (availableUnlockedBalance &amp;&amp; !getIsMultisig()) {</span>
+      const zeroBalance = <span class="cstat-no" title="statement not covered" >availableUnlockedBalance.amount.toNumber() === 0;</span>
 &nbsp;
 <span class="cstat-no" title="statement not covered" >      if (transactionRequest.txType === TransactionTypes.STXTransfer) {</span>
 <span class="cstat-no" title="statement not covered" >        if (zeroBalance) <span class="cstat-no" title="statement not covered" >return TransactionErrorReason.StxTransferInsufficientFunds;</span></span>
 &nbsp;
         const transferAmount = <span class="cstat-no" title="statement not covered" >new BigNumber(transactionRequest.amount);</span>
-<span class="cstat-no" title="statement not covered" >        if (transferAmount.gte(balances?.stx.unlockedStx.amount))</span>
+<span class="cstat-no" title="statement not covered" >        if (transferAmount.gte(availableUnlockedBalance.amount))</span>
 <span class="cstat-no" title="statement not covered" >          return TransactionErrorReason.StxTransferInsufficientFunds;</span>
       }
 &nbsp;
@@ -254,12 +268,19 @@ export function <span class="fstat-no" title="function not covered" >useTransact
 <span class="cstat-no" title="statement not covered" >        if (zeroBalance) <span class="cstat-no" title="statement not covered" >return TransactionErrorReason.FeeInsufficientFunds;</span></span>
 &nbsp;
         const feeValue = <span class="cstat-no" title="statement not covered" >stxToMicroStx(values.fee);</span>
-<span class="cstat-no" title="statement not covered" >        if (feeValue.gte(balances?.stx.unlockedStx.amount))</span>
+<span class="cstat-no" title="statement not covered" >        if (feeValue.gte(availableUnlockedBalance.amount))</span>
 <span class="cstat-no" title="statement not covered" >          return TransactionErrorReason.FeeInsufficientFunds;</span>
       }
     }
 <span class="cstat-no" title="statement not covered" >    return;</span>
-  }, [origin, transactionRequest, balances, currentAccount, contractInterface, values.fee]);
+  }, [
+    origin,
+    transactionRequest,
+    availableUnlockedBalance,
+    currentAccount,
+    contractInterface,
+    values.fee,
+  ]);
 }
 &nbsp;</pre></td></tr></table></pre>
 
@@ -268,7 +289,7 @@ export function <span class="fstat-no" title="function not covered" >useTransact
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-05-14T10:52:07.686Z
+                at 2024-05-17T16:03:02.104Z
             </div>
         <script src="../../../../../../prettify.js"></script>
         <script>

@@ -156,9 +156,7 @@
 <a name='L91'></a><a href='#L91'>91</a>
 <a name='L92'></a><a href='#L92'>92</a>
 <a name='L93'></a><a href='#L93'>93</a>
-<a name='L94'></a><a href='#L94'>94</a>
-<a name='L95'></a><a href='#L95'>95</a>
-<a name='L96'></a><a href='#L96'>96</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L94'></a><a href='#L94'>94</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -190,10 +188,8 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -262,7 +258,6 @@ import { STX_DECIMALS } from '@shared/constants';
 import { logger } from '@shared/logger';
 import { StacksSendFormValues } from '@shared/models/form.model';
 &nbsp;
-import { useStxBalance } from '@app/common/hooks/balance/stx/use-stx-balance';
 import { convertAmountToBaseUnit } from '@app/common/money/calculate-money';
 import {
   stxAmountValidator,
@@ -270,6 +265,7 @@ import {
 } from '@app/common/validation/forms/amount-validators';
 import { stxFeeValidator } from '@app/common/validation/forms/fee-validators';
 import { useUpdatePersistedSendFormValues } from '@app/features/popup-send-form-restoration/use-update-persisted-send-form-values';
+import { useCurrentStxAvailableUnlockedBalance } from '@app/query/stacks/balance/account-balance.hooks';
 import { useCalculateStacksTxFees } from '@app/query/stacks/fees/fees.hooks';
 import { useStacksValidateFeeByNonce } from '@app/query/stacks/mempool/mempool.hooks';
 import {
@@ -285,31 +281,29 @@ export function <span class="fstat-no" title="function not covered" >useStxSendF
   const { data: stxFees } = <span class="cstat-no" title="statement not covered" >useCalculateStacksTxFees(unsignedTx);</span>
   const generateTx = <span class="cstat-no" title="statement not covered" >useGenerateStxTokenTransferUnsignedTx();</span>
   const { onFormStateChange } = <span class="cstat-no" title="statement not covered" >useUpdatePersistedSendFormValues();</span>
-&nbsp;
   const sendFormNavigate = <span class="cstat-no" title="statement not covered" >useSendFormNavigate();</span>
   const { changeFeeByNonce } = <span class="cstat-no" title="statement not covered" >useStacksValidateFeeByNonce();</span>
-&nbsp;
-  const { availableBalance: availableStxBalance } = <span class="cstat-no" title="statement not covered" >useStxBalance();</span>
+  const availableUnlockedBalance = <span class="cstat-no" title="statement not covered" >useCurrentStxAvailableUnlockedBalance();</span>
 &nbsp;
   const sendMaxBalance = <span class="cstat-no" title="statement not covered" >useMemo(</span>
 <span class="fstat-no" title="function not covered" >    () =&gt;</span>
 <span class="cstat-no" title="statement not covered" >      convertAmountToBaseUnit(</span>
-        availableStxBalance.amount.minus(stxFees?.estimates[1].fee.amount || 0),
+        availableUnlockedBalance.amount.minus(stxFees?.estimates[1].fee.amount || 0),
         STX_DECIMALS
       ),
-    [availableStxBalance, stxFees]
+    [availableUnlockedBalance.amount, stxFees?.estimates]
   );
 &nbsp;
   const { initialValues, checkFormValidation, recipient, memo, nonce } = <span class="cstat-no" title="statement not covered" >useStacksCommonSendForm({</span>
     symbol: 'STX',
-    availableTokenBalance: availableStxBalance,
+    availableTokenBalance: availableUnlockedBalance,
   });
 &nbsp;
   // FIXME - I don't this this is the fee, should be value.fee or something from the form
-  const fee = <span class="cstat-no" title="statement not covered" >stxFeeValidator(availableStxBalance);</span>
+  const fee = <span class="cstat-no" title="statement not covered" >stxFeeValidator(availableUnlockedBalance);</span>
 &nbsp;
 <span class="cstat-no" title="statement not covered" >  return {</span>
-    availableStxBalance,
+    availableUnlockedBalance,
     initialValues,
     onFormStateChange,
     sendMaxBalance,
@@ -317,10 +311,10 @@ export function <span class="fstat-no" title="function not covered" >useStxSendF
     fee,
 &nbsp;
     validationSchema: yup.object({
-      amount: stxAmountValidator(availableStxBalance).concat(
-        stxAvailableBalanceValidator(availableStxBalance)
+      amount: stxAmountValidator(availableUnlockedBalance).concat(
+        stxAvailableBalanceValidator(availableUnlockedBalance)
       ),
-      fee: stxFeeValidator(availableStxBalance),
+      fee: stxFeeValidator(availableUnlockedBalance),
       recipient,
       memo,
       nonce,
@@ -355,7 +349,7 @@ export function <span class="fstat-no" title="function not covered" >useStxSendF
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-05-14T10:52:07.686Z
+                at 2024-05-17T16:03:02.104Z
             </div>
         <script src="../../../../../../../../prettify.js"></script>
         <script>

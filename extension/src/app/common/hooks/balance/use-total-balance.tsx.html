@@ -130,9 +130,8 @@
 <a name='L65'></a><a href='#L65'>65</a>
 <a name='L66'></a><a href='#L66'>66</a>
 <a name='L67'></a><a href='#L67'>67</a>
-<a name='L68'></a><a href='#L68'>68</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L68'></a><a href='#L68'>68</a>
+<a name='L69'></a><a href='#L69'>69</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -172,6 +171,9 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -203,16 +205,14 @@ import { createMoney } from '@shared/models/money.model';
 &nbsp;
 import { baseCurrencyAmountInQuote } from '@app/common/money/calculate-money';
 import { i18nFormatCurrency } from '@app/common/money/format-money';
+import { useBtcCryptoAssetBalanceNativeSegwit } from '@app/query/bitcoin/balance/btc-balance-native-segwit.hooks';
 import { useCryptoCurrencyMarketDataMeanAverage } from '@app/query/common/market-data/market-data.hooks';
-import { useStacksAccountBalances } from '@app/query/stacks/balance/stx-balance.hooks';
-&nbsp;
-import { useBtcAssetBalance } from './btc/use-btc-balance';
+import { useStxCryptoAssetBalance } from '@app/query/stacks/balance/account-balance.hooks';
 &nbsp;
 interface UseTotalBalanceArgs {
   btcAddress: string;
   stxAddress: string;
 }
-&nbsp;
 export function <span class="fstat-no" title="function not covered" >useTotalBalance({</span> btcAddress, stxAddress }: UseTotalBalanceArgs) {
   // get market data
   const btcMarketData = <span class="cstat-no" title="statement not covered" >useCryptoCurrencyMarketDataMeanAverage('BTC');</span>
@@ -220,25 +220,28 @@ export function <span class="fstat-no" title="function not covered" >useTotalBal
 &nbsp;
   // get stx balance
   const {
-    data: balances,
+    data: balance,
     isLoading,
     isInitialLoading,
     isFetching: isFetchingStacksBalance,
-  } = <span class="cstat-no" title="statement not covered" >useStacksAccountBalances(stxAddress);</span>
-  const stxBalance = <span class="cstat-no" title="statement not covered" >balances ? balances.stx.balance : createMoney(0, 'STX');</span>
+  } = <span class="cstat-no" title="statement not covered" >useStxCryptoAssetBalance(stxAddress);</span>
+  const stxBalance = <span class="cstat-no" title="statement not covered" >balance ? balance.totalBalance : createMoney(0, 'STX');</span>
 &nbsp;
   // get btc balance
   const {
-    btcAvailableAssetBalance,
+    btcCryptoAssetBalance,
     isLoading: isLoadingBtcBalance,
     isFetching: isFetchingBtcBalance,
     isInitialLoading: isInititalLoadingBtcBalance,
-  } = <span class="cstat-no" title="statement not covered" >useBtcAssetBalance(btcAddress);</span>
+  } = <span class="cstat-no" title="statement not covered" >useBtcCryptoAssetBalanceNativeSegwit(btcAddress);</span>
 &nbsp;
 <span class="cstat-no" title="statement not covered" >  return useMemo(<span class="fstat-no" title="function not covered" >() =&gt; {</span></span>
     // calculate total balance
     const stxUsdAmount = <span class="cstat-no" title="statement not covered" >baseCurrencyAmountInQuote(stxBalance, stxMarketData);</span>
-    const btcUsdAmount = <span class="cstat-no" title="statement not covered" >baseCurrencyAmountInQuote(btcAvailableAssetBalance.balance, btcMarketData);</span>
+    const btcUsdAmount = <span class="cstat-no" title="statement not covered" >baseCurrencyAmountInQuote(</span>
+      btcCryptoAssetBalance.availableBalance,
+      btcMarketData
+    );
 &nbsp;
     const totalBalance = <span class="cstat-no" title="statement not covered" >{ ...stxUsdAmount, amount: stxUsdAmount.amount.plus(btcUsdAmount.amount) };</span>
 <span class="cstat-no" title="statement not covered" >    return {</span>
@@ -252,14 +255,14 @@ export function <span class="fstat-no" title="function not covered" >useTotalBal
       isFetching: isFetchingStacksBalance || isFetchingBtcBalance,
     };
   }, [
-    btcAvailableAssetBalance.balance,
-    btcMarketData,
-    isInitialLoading,
-    isInititalLoadingBtcBalance,
-    stxMarketData,
     stxBalance,
+    stxMarketData,
+    btcCryptoAssetBalance.availableBalance,
+    btcMarketData,
     isLoading,
     isLoadingBtcBalance,
+    isInitialLoading,
+    isInititalLoadingBtcBalance,
     isFetchingStacksBalance,
     isFetchingBtcBalance,
   ]);
@@ -271,7 +274,7 @@ export function <span class="fstat-no" title="function not covered" >useTotalBal
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-05-14T10:52:07.686Z
+                at 2024-05-17T16:03:02.104Z
             </div>
         <script src="../../../../../../prettify.js"></script>
         <script>

@@ -25,7 +25,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/69</span>
+                <span class='fraction'>0/70</span>
             </div>
         
             
@@ -39,14 +39,14 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/4</span>
+                <span class='fraction'>0/5</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/67</span>
+                <span class='fraction'>0/68</span>
             </div>
         
             
@@ -256,11 +256,7 @@
 <a name='L191'></a><a href='#L191'>191</a>
 <a name='L192'></a><a href='#L192'>192</a>
 <a name='L193'></a><a href='#L193'>193</a>
-<a name='L194'></a><a href='#L194'>194</a>
-<a name='L195'></a><a href='#L195'>195</a>
-<a name='L196'></a><a href='#L196'>196</a>
-<a name='L197'></a><a href='#L197'>197</a>
-<a name='L198'></a><a href='#L198'>198</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L194'></a><a href='#L194'>194</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -310,7 +306,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -441,16 +436,13 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -474,17 +466,17 @@ import { useDefaultRequestParams } from '@app/common/hooks/use-default-request-s
 import { useKeyActions } from '@app/common/hooks/use-key-actions';
 import { useScrollLock } from '@app/common/hooks/use-scroll-lock';
 import { makeLedgerCompatibleUnsignedAuthResponsePayload } from '@app/common/unsafe-auth-response';
+import { useCancelLedgerAction } from '@app/features/ledger/utils/generic-ledger-utils';
 import {
   getStacksAppVersion,
   prepareLedgerDeviceStacksAppConnection,
-  useActionCancellableByUser,
 } from '@app/features/ledger/utils/stacks-ledger-utils';
 import {
   useCurrentStacksAccount,
   useStacksAccounts,
 } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
 import { Dialog } from '@app/ui/components/containers/dialog/dialog';
-import { Header } from '@app/ui/components/containers/headers/header';
+import { DialogHeader } from '@app/ui/components/containers/headers/dialog-header';
 &nbsp;
 import { useLedgerNavigate } from '../../hooks/use-ledger-navigate';
 import { checkLockedDeviceError, useLedgerResponseState } from '../../utils/generic-ledger-utils';
@@ -506,7 +498,6 @@ export function <span class="fstat-no" title="function not covered" >LedgerSignJ
   const getBitcoinAddressesLegacyFormat = <span class="cstat-no" title="statement not covered" >useGetLegacyAuthBitcoinAddresses();</span>
 &nbsp;
   const keyActions = <span class="cstat-no" title="statement not covered" >useKeyActions();</span>
-  const canUserCancelAction = <span class="cstat-no" title="statement not covered" >useActionCancellableByUser();</span>
   const { decodedAuthRequest, authRequest } = <span class="cstat-no" title="statement not covered" >useOnboardingState();</span>
 &nbsp;
   const [accountIndex, setAccountIndex] = <span class="cstat-no" title="statement not covered" >useState&lt;null | number&gt;(null);</span>
@@ -637,17 +628,14 @@ export function <span class="fstat-no" title="function not covered" >LedgerSignJ
     awaitingDeviceConnection,
   };
 &nbsp;
+  const canCancelLedgerAction = <span class="cstat-no" title="statement not covered" >useCancelLedgerAction(awaitingDeviceConnection);</span>
+&nbsp;
 <span class="cstat-no" title="statement not covered" >  return (</span>
     &lt;LedgerJwtSigningProvider value={ledgerContextValue}&gt;
       &lt;Dialog
         isShowing
-        header={
-          &lt;Header
-            variant="dialog"
-            isWaitingOnPerformedAction={awaitingDeviceConnection || canUserCancelAction}
-          /&gt;
-        }
-        onClose={onCancelConnectLedger}
+        header={&lt;DialogHeader /&gt;}
+        onClose={canCancelLedgerAction ? <span class="fstat-no" title="function not covered" >() =&gt; <span class="cstat-no" title="statement not covered" >o</span>nCancelConnectLedger() : u</span>ndefined}
       &gt;
         &lt;Outlet /&gt;
       &lt;/Dialog&gt;
@@ -661,7 +649,7 @@ export function <span class="fstat-no" title="function not covered" >LedgerSignJ
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-05-14T10:52:07.686Z
+                at 2024-05-17T16:03:02.104Z
             </div>
         <script src="../../../../../../../prettify.js"></script>
         <script>

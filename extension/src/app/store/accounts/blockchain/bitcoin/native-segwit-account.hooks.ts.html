@@ -23,16 +23,16 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">6.12% </span>
+                <span class="strong">5.76% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>3/49</span>
+                <span class='fraction'>3/52</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/8</span>
+                <span class='fraction'>0/10</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">6.66% </span>
+                <span class="strong">6.25% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>3/45</span>
+                <span class='fraction'>3/48</span>
             </div>
         
             
@@ -244,7 +244,15 @@
 <a name='L179'></a><a href='#L179'>179</a>
 <a name='L180'></a><a href='#L180'>180</a>
 <a name='L181'></a><a href='#L181'>181</a>
-<a name='L182'></a><a href='#L182'>182</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L182'></a><a href='#L182'>182</a>
+<a name='L183'></a><a href='#L183'>183</a>
+<a name='L184'></a><a href='#L184'>184</a>
+<a name='L185'></a><a href='#L185'>185</a>
+<a name='L186'></a><a href='#L186'>186</a>
+<a name='L187'></a><a href='#L187'>187</a>
+<a name='L188'></a><a href='#L188'>188</a>
+<a name='L189'></a><a href='#L189'>189</a>
+<a name='L190'></a><a href='#L190'>190</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -274,6 +282,12 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -281,11 +295,6 @@
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -393,9 +402,16 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -443,6 +459,7 @@ import {
 } from '@shared/crypto/bitcoin/p2wpkh-address-gen';
 import { BitcoinInputSigningConfig } from '@shared/crypto/bitcoin/signer-config';
 import { reverseBytes } from '@shared/utils';
+import { analytics } from '@shared/utils/analytics';
 &nbsp;
 import { mnemonicToRootNode } from '@app/common/keychain/keychain';
 import { useBitcoinClient } from '@app/store/common/api-clients.hooks';
@@ -574,10 +591,17 @@ export function <span class="fstat-no" title="function not covered" >useUpdateLe
         )
       )
     );
+&nbsp;
 <span class="cstat-no" title="statement not covered" >    inputSigningConfig.forEach(<span class="fstat-no" title="function not covered" >({</span> index }) =&gt; {</span>
-<span class="cstat-no" title="statement not covered" >      tx.updateInput(index, {</span>
-        nonWitnessUtxo: Buffer.from(inputsTxHex[index], 'hex'),
-      });
+      // decorate input with nonWitnessUtxo unless it already exists
+<span class="cstat-no" title="statement not covered" >      if (!tx.data.inputs[index].nonWitnessUtxo) {</span>
+<span class="cstat-no" title="statement not covered" >        tx.updateInput(index, {</span>
+          nonWitnessUtxo: Buffer.from(inputsTxHex[index], 'hex'),
+        });
+<span class="cstat-no" title="statement not covered" >        void analytics.track('ledger_nativesegwit_add_nonwitnessutxo');</span>
+      } else {
+<span class="cstat-no" title="statement not covered" >        void analytics.track('ledger_nativesegwit_skip_add_nonwitnessutxo');</span>
+      }
     });
   };
 }
@@ -613,7 +637,7 @@ export function <span class="fstat-no" title="function not covered" >useUpdateLe
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-05-14T10:52:07.686Z
+                at 2024-05-17T16:03:02.104Z
             </div>
         <script src="../../../../../../../prettify.js"></script>
         <script>

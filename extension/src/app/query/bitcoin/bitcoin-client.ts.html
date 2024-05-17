@@ -496,14 +496,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -757,16 +750,13 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -774,6 +764,10 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -782,15 +776,21 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -909,7 +909,6 @@ import {
   BESTINSLOT_API_BASE_URL_TESTNET,
   type BitcoinNetworkModes,
 } from '@shared/constants';
-import type { MarketData } from '@shared/models/market.model';
 import type { Money } from '@shared/models/money.model';
 import type { BitcoinTx } from '@shared/models/transactions/bitcoin-transaction.model';
 &nbsp;
@@ -1001,13 +1000,6 @@ interface Brc20WalletBalancesResponse {
   data: Brc20Balance[];
 }
 &nbsp;
-export interface Brc20Token {
-  balance: Money | null;
-  holderAddress: string;
-  marketData: MarketData | null;
-  tokenData: Brc20Balance &amp; Brc20TickerInfo;
-}
-&nbsp;
 /* RUNES */
 export interface RuneBalance {
   pkscript: string;
@@ -1075,6 +1067,7 @@ interface RunesOutputsByAddressArgs {
   order?: 'asc' | 'desc';
   offset?: number;
   count?: number;
+  signal?: AbortSignal;
 }
 &nbsp;
 interface RunesOutputsByAddressResponse {
@@ -1175,6 +1168,7 @@ class BestinSlotApi {
     order = <span class="branch-0 cbranch-no" title="branch not covered" >'asc',</span>
     offset = <span class="branch-0 cbranch-no" title="branch not covered" >0,</span>
     count = <span class="branch-0 cbranch-no" title="branch not covered" >100,</span>
+    signal,
   }: RunesOutputsByAddressArgs) {
     const baseUrl = <span class="cstat-no" title="statement not covered" >network === 'mainnet' ? this.url : this.testnetUrl;</span>
     const queryParams = <span class="cstat-no" title="statement not covered" >new URLSearchParams({</span>
@@ -1187,7 +1181,7 @@ class BestinSlotApi {
 &nbsp;
     const resp = <span class="cstat-no" title="statement not covered" >await axios.get&lt;RunesOutputsByAddressResponse&gt;(</span>
       `${baseUrl}/runes/wallet_valid_outputs?${queryParams}`,
-      { ...this.defaultOptions }
+      { ...this.defaultOptions, signal }
     );
 <span class="cstat-no" title="statement not covered" >    return resp.data.data;</span>
   }
@@ -1201,7 +1195,10 @@ class AddressApi {
 &nbsp;
 <span class="fstat-no" title="function not covered" >  async g</span>etTransactionsByAddress(address: string, signal?: AbortSignal) {
     const resp = <span class="cstat-no" title="statement not covered" >await this.rateLimiter.add(</span>
-<span class="fstat-no" title="function not covered" >      () =&gt; <span class="cstat-no" title="statement not covered" >a</span>xios.get&lt;BitcoinTx[]&gt;(`${this.configuration.baseUrl}/address/${address}/txs`),</span>
+<span class="fstat-no" title="function not covered" >      () =&gt;</span>
+<span class="cstat-no" title="statement not covered" >        axios.get&lt;BitcoinTx[]&gt;(`${this.configuration.baseUrl}/address/${address}/txs`, {</span>
+          signal,
+        }),
       { signal, throwOnTimeout: true }
     );
 <span class="cstat-no" title="statement not covered" >    return resp.data;</span>
@@ -1209,7 +1206,10 @@ class AddressApi {
 &nbsp;
 <span class="fstat-no" title="function not covered" >  async g</span>etUtxosByAddress(address: string, signal?: AbortSignal): Promise&lt;UtxoResponseItem[]&gt; {
     const resp = <span class="cstat-no" title="statement not covered" >await this.rateLimiter.add(</span>
-<span class="fstat-no" title="function not covered" >      () =&gt; <span class="cstat-no" title="statement not covered" >a</span>xios.get&lt;UtxoResponseItem[]&gt;(`${this.configuration.baseUrl}/address/${address}/utxo`),</span>
+<span class="fstat-no" title="function not covered" >      () =&gt;</span>
+<span class="cstat-no" title="statement not covered" >        axios.get&lt;UtxoResponseItem[]&gt;(`${this.configuration.baseUrl}/address/${address}/utxo`, {</span>
+          signal,
+        }),
       { signal, priority: 1, throwOnTimeout: true }
     );
 <span class="cstat-no" title="statement not covered" >    return resp.data.sort(<span class="fstat-no" title="function not covered" >(a</span>, b) =&gt; <span class="cstat-no" title="statement not covered" >a.vout - b.vout)</span>;</span>
@@ -1327,7 +1327,7 @@ export class BitcoinClient {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-05-14T10:52:07.686Z
+                at 2024-05-17T16:03:02.104Z
             </div>
         <script src="../../../../../prettify.js"></script>
         <script>

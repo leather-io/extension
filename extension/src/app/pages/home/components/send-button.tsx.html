@@ -25,14 +25,14 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/15</span>
+                <span class='fraction'>0/17</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/6</span>
+                <span class='fraction'>0/5</span>
             </div>
         
             
@@ -46,7 +46,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/14</span>
+                <span class='fraction'>0/16</span>
             </div>
         
             
@@ -118,7 +118,11 @@
 <a name='L53'></a><a href='#L53'>53</a>
 <a name='L54'></a><a href='#L54'>54</a>
 <a name='L55'></a><a href='#L55'>55</a>
-<a name='L56'></a><a href='#L56'>56</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L56'></a><a href='#L56'>56</a>
+<a name='L57'></a><a href='#L57'>57</a>
+<a name='L58'></a><a href='#L58'>58</a>
+<a name='L59'></a><a href='#L59'>59</a>
+<a name='L60'></a><a href='#L60'>60</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -142,6 +146,10 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -183,21 +191,25 @@ import { RouteUrls } from '@shared/route-urls';
 import { useWalletType } from '@app/common/use-wallet-type';
 import { whenPageMode } from '@app/common/utils';
 import { openIndexPageInNewTab } from '@app/common/utils/open-in-new-tab';
-import {
-  useStacksCryptoCurrencyAssetBalance,
-  useTransferableStacksFungibleTokenAssetBalances,
-} from '@app/query/stacks/balance/stacks-ft-balances.hooks';
-import { useCurrentStacksAccount } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
+import { useBtcCryptoAssetBalanceNativeSegwit } from '@app/query/bitcoin/balance/btc-balance-native-segwit.hooks';
+import { useStxCryptoAssetBalance } from '@app/query/stacks/balance/account-balance.hooks';
+import { useTransferableSip10CryptoAssetsWithDetails } from '@app/query/stacks/sip10/sip10-tokens.hooks';
+import { useCurrentAccountNativeSegwitIndexZeroSignerNullable } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
+import { useCurrentStacksAccountAddress } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
 import { IconButton } from '@app/ui/components/icon-button/icon-button';
 import { SendIcon } from '@app/ui/icons';
 &nbsp;
 function <span class="fstat-no" title="function not covered" >SendButtonSuspense() {</span>
   const navigate = <span class="cstat-no" title="statement not covered" >useNavigate();</span>
   const { whenWallet } = <span class="cstat-no" title="statement not covered" >useWalletType();</span>
-  const account = <span class="cstat-no" title="statement not covered" >useCurrentStacksAccount();</span>
-  const stxAssetBalance = <span class="cstat-no" title="statement not covered" >useStacksCryptoCurrencyAssetBalance(account?.address ?? '');</span>
-  const ftAssets = <span class="cstat-no" title="statement not covered" >useTransferableStacksFungibleTokenAssetBalances(account?.address ?? '');</span>
-  const isDisabled = <span class="cstat-no" title="statement not covered" >!stxAssetBalance &amp;&amp; ftAssets?.length === 0;</span>
+  const address = <span class="cstat-no" title="statement not covered" >useCurrentStacksAccountAddress();</span>
+  const btcAddress = <span class="cstat-no" title="statement not covered" >useCurrentAccountNativeSegwitIndexZeroSignerNullable()?.address;</span>
+  const { btcCryptoAssetBalance } = <span class="cstat-no" title="statement not covered" >useBtcCryptoAssetBalanceNativeSegwit(btcAddress ?? '');</span>
+  const { data: stxCryptoAssetBalance } = <span class="cstat-no" title="statement not covered" >useStxCryptoAssetBalance(address);</span>
+  const stacksFtAssets = <span class="cstat-no" title="statement not covered" >useTransferableSip10CryptoAssetsWithDetails(address);</span>
+&nbsp;
+  const isDisabled =
+<span class="cstat-no" title="statement not covered" >    !btcCryptoAssetBalance &amp;&amp; !stxCryptoAssetBalance &amp;&amp; stacksFtAssets?.length === 0;</span>
 &nbsp;
 <span class="cstat-no" title="statement not covered" >  return (</span>
     &lt;IconButton
@@ -235,7 +247,7 @@ export function <span class="fstat-no" title="function not covered" >SendButton(
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-05-14T10:52:07.686Z
+                at 2024-05-17T16:03:02.104Z
             </div>
         <script src="../../../../../../prettify.js"></script>
         <script>

@@ -25,7 +25,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/43</span>
+                <span class='fraction'>0/42</span>
             </div>
         
             
@@ -46,7 +46,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/41</span>
+                <span class='fraction'>0/40</span>
             </div>
         
             
@@ -215,8 +215,8 @@
 <a name='L150'></a><a href='#L150'>150</a>
 <a name='L151'></a><a href='#L151'>151</a>
 <a name='L152'></a><a href='#L152'>152</a>
-<a name='L153'></a><a href='#L153'>153</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L153'></a><a href='#L153'>153</a>
+<a name='L154'></a><a href='#L154'>154</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -264,7 +264,6 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -327,6 +326,9 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -378,7 +380,6 @@ import * as yup from 'yup';
 import { RouteUrls } from '@shared/route-urls';
 &nbsp;
 import { useRefreshAllAccountData } from '@app/common/hooks/account/use-refresh-all-account-data';
-import { useStxBalance } from '@app/common/hooks/balance/stx/use-stx-balance';
 import { LoadingKeys, useLoading } from '@app/common/hooks/use-loading';
 import { microStxToStx, stxToMicroStx } from '@app/common/money/unit-conversion';
 import { stacksValue } from '@app/common/stacks-utils';
@@ -388,12 +389,12 @@ import { LoadingSpinner } from '@app/components/loading-spinner';
 import { StacksTransactionItem } from '@app/components/stacks-transaction-item/stacks-transaction-item';
 import { useStacksBroadcastTransaction } from '@app/features/stacks-transaction-request/hooks/use-stacks-broadcast-transaction';
 import { useToast } from '@app/features/toasts/use-toast';
-import { useCurrentStacksAccountBalances } from '@app/query/stacks/balance/stx-balance.hooks';
+import { useCurrentStxAvailableUnlockedBalance } from '@app/query/stacks/balance/account-balance.hooks';
 import { useSubmittedTransactionsActions } from '@app/store/submitted-transactions/submitted-transactions.hooks';
 import { useRawDeserializedTxState, useRawTxIdState } from '@app/store/transactions/raw.hooks';
 import { Dialog } from '@app/ui/components/containers/dialog/dialog';
 import { Footer } from '@app/ui/components/containers/footers/footer';
-import { Header } from '@app/ui/components/containers/headers/header';
+import { DialogHeader } from '@app/ui/components/containers/headers/dialog-header';
 import { Spinner } from '@app/ui/components/spinner';
 import { Caption } from '@app/ui/components/typography/caption';
 &nbsp;
@@ -412,8 +413,7 @@ export function <span class="fstat-no" title="function not covered" >IncreaseStx
   const refreshAccountData = <span class="cstat-no" title="statement not covered" >useRefreshAllAccountData();</span>
   const tx = <span class="cstat-no" title="statement not covered" >useSelectedTx();</span>
   const [, setTxId] = <span class="cstat-no" title="statement not covered" >useRawTxIdState();</span>
-  const { data: balances } = <span class="cstat-no" title="statement not covered" >useCurrentStacksAccountBalances();</span>
-  const { availableBalance } = <span class="cstat-no" title="statement not covered" >useStxBalance();</span>
+  const availableUnlockedBalance = <span class="cstat-no" title="statement not covered" >useCurrentStxAvailableUnlockedBalance();</span>
   const submittedTransactionsActions = <span class="cstat-no" title="statement not covered" >useSubmittedTransactionsActions();</span>
   const rawTx = <span class="cstat-no" title="statement not covered" >useRawDeserializedTxState();</span>
   const { stacksBroadcastTransaction } = <span class="cstat-no" title="statement not covered" >useStacksBroadcastTransaction('STX');</span>
@@ -450,7 +450,7 @@ export function <span class="fstat-no" title="function not covered" >IncreaseStx
 &nbsp;
 <span class="cstat-no" title="statement not covered" >  if (!tx || !fee) <span class="cstat-no" title="statement not covered" >return &lt;LoadingSpinner /&gt;;</span></span>
 &nbsp;
-  const validationSchema = <span class="cstat-no" title="statement not covered" >yup.object({ fee: stxFeeValidator(availableBalance) });</span>
+  const validationSchema = <span class="cstat-no" title="statement not covered" >yup.object({ fee: stxFeeValidator(availableUnlockedBalance) });</span>
 &nbsp;
   const onClose = <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >() =&gt; {</span></span>
 <span class="cstat-no" title="statement not covered" >    setRawTxId(null);</span>
@@ -472,7 +472,7 @@ export function <span class="fstat-no" title="function not covered" >IncreaseStx
             &lt;Dialog
               isShowing={location.pathname === RouteUrls.IncreaseStxFee}
               onClose={onClose}
-              header={&lt;Header variant="dialog" title="Increase fee" /&gt;}
+              header={&lt;DialogHeader title="Increase fee" /&gt;}
               footer={
                 &lt;Footer flexDirection="row"&gt;
                   &lt;IncreaseFeeActions
@@ -501,10 +501,13 @@ export function <span class="fstat-no" title="function not covered" >IncreaseStx
                     {tx &amp;&amp; &lt;StacksTransactionItem transaction={tx} /&gt;}
                     &lt;Stack gap="space.04"&gt;
                       &lt;IncreaseFeeField currentFee={fee} /&gt;
-                      {balances?.stx.unlockedStx.amount &amp;&amp; (
+                      {availableUnlockedBalance?.amount &amp;&amp; (
                         &lt;Caption&gt;
                           Balance:
-                          {stacksValue({ value: availableBalance.amount, fixedDecimals: true })}
+                          {stacksValue({
+                            value: availableUnlockedBalance.amount,
+                            fixedDecimals: true,
+                          })}
                         &lt;/Caption&gt;
                       )}
                     &lt;/Stack&gt;
@@ -526,7 +529,7 @@ export function <span class="fstat-no" title="function not covered" >IncreaseStx
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-05-14T10:52:07.686Z
+                at 2024-05-17T16:03:02.104Z
             </div>
         <script src="../../../../../../prettify.js"></script>
         <script>

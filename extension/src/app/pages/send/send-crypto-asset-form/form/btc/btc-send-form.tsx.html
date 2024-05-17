@@ -25,7 +25,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/11</span>
+                <span class='fraction'>0/12</span>
             </div>
         
             
@@ -46,7 +46,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/11</span>
+                <span class='fraction'>0/12</span>
             </div>
         
             
@@ -199,10 +199,7 @@
 <a name='L134'></a><a href='#L134'>134</a>
 <a name='L135'></a><a href='#L135'>135</a>
 <a name='L136'></a><a href='#L136'>136</a>
-<a name='L137'></a><a href='#L137'>137</a>
-<a name='L138'></a><a href='#L138'>138</a>
-<a name='L139'></a><a href='#L139'>139</a>
-<a name='L140'></a><a href='#L140'>140</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L137'></a><a href='#L137'>137</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -240,6 +237,7 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -280,10 +278,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -352,7 +346,7 @@ import { CryptoCurrencies } from '@shared/models/currencies.model';
 &nbsp;
 import { formatMoney } from '@app/common/money/format-money';
 import { HighFeeDialog } from '@app/features/dialogs/high-fee-dialog/high-fee-dialog';
-import { useNativeSegwitBalance } from '@app/query/bitcoin/balance/btc-native-segwit-balance.hooks';
+import { useBtcAccountCryptoAssetWithDetails } from '@app/query/bitcoin/btc/btc-crypto-asset.hooks';
 import { useCryptoCurrencyMarketDataMeanAverage } from '@app/query/common/market-data/market-data.hooks';
 import { useCurrentAccountNativeSegwitIndexZeroSigner } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
 import { BtcAvatarIcon } from '@app/ui/components/avatar/btc-avatar-icon';
@@ -379,8 +373,9 @@ export function <span class="fstat-no" title="function not covered" >BtcSendForm
   const routeState = <span class="cstat-no" title="statement not covered" >useSendFormRouteState();</span>
   const btcMarketData = <span class="cstat-no" title="statement not covered" >useCryptoCurrencyMarketDataMeanAverage(symbol);</span>
 &nbsp;
-  const nativeSegwitSigner = <span class="cstat-no" title="statement not covered" >useCurrentAccountNativeSegwitIndexZeroSigner();</span>
-  const { btcBalance } = <span class="cstat-no" title="statement not covered" >useNativeSegwitBalance(nativeSegwitSigner.address);</span>
+  const { address } = <span class="cstat-no" title="statement not covered" >useCurrentAccountNativeSegwitIndexZeroSigner();</span>
+  const { asset } = <span class="cstat-no" title="statement not covered" >useBtcAccountCryptoAssetWithDetails(address);</span>
+  const { balance, info } = <span class="cstat-no" title="statement not covered" >asset;</span>
 &nbsp;
   const {
     calcMaxSpend,
@@ -423,17 +418,17 @@ export function <span class="fstat-no" title="function not covered" >BtcSendForm
                     &gt;
                       Continue
                     &lt;/Button&gt;
-                    &lt;AvailableBalance balance={formatMoney(btcBalance.balance)} /&gt;
+                    &lt;AvailableBalance balance={formatMoney(balance.availableBalance)} /&gt;
                   &lt;/Footer&gt;
                 }
               &gt;
                 &lt;CardContent dataTestId={SendCryptoAssetSelectors.SendForm}&gt;
                   &lt;AmountField
                     autoComplete="off"
-                    balance={btcBalance.balance}
+                    balance={balance.availableBalance}
                     bottomInputOverlay={
                       &lt;BitcoinSendMaxButton
-                        balance={btcBalance.balance}
+                        balance={balance.availableBalance}
                         isSendingMax={isSendingMax}
                         onSetIsSendingMax={onSetIsSendingMax}
                         sendMaxBalance={sendMaxCalculation.spendableBitcoin.toString()}
@@ -446,11 +441,7 @@ export function <span class="fstat-no" title="function not covered" >BtcSendForm
                       &lt;SendFiatValue marketData={btcMarketData} assetSymbol={symbol} /&gt;
                     }
                   /&gt;
-                  &lt;SelectedAssetField
-                    icon={&lt;BtcAvatarIcon /&gt;}
-                    name={btcBalance.asset.name}
-                    symbol={symbol}
-                  /&gt;
+                  &lt;SelectedAssetField icon={&lt;BtcAvatarIcon /&gt;} name={info.name} symbol={symbol} /&gt;
                   &lt;TransferRecipientField /&gt;
                   {currentNetwork.chain.bitcoin.bitcoinNetwork === 'testnet' &amp;&amp; (
                     &lt;Callout variant="warning" title="Funds have no value" mt="space.04"&gt;
@@ -487,7 +478,7 @@ export function <span class="fstat-no" title="function not covered" >BtcSendForm
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-05-14T10:52:07.686Z
+                at 2024-05-17T16:03:02.104Z
             </div>
         <script src="../../../../../../../../prettify.js"></script>
         <script>

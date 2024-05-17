@@ -25,28 +25,28 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/21</span>
+                <span class='fraction'>0/16</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/10</span>
+                <span class='fraction'>0/9</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/4</span>
+                <span class='fraction'>0/2</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/21</span>
+                <span class='fraction'>0/15</span>
             </div>
         
             
@@ -115,23 +115,7 @@
 <a name='L50'></a><a href='#L50'>50</a>
 <a name='L51'></a><a href='#L51'>51</a>
 <a name='L52'></a><a href='#L52'>52</a>
-<a name='L53'></a><a href='#L53'>53</a>
-<a name='L54'></a><a href='#L54'>54</a>
-<a name='L55'></a><a href='#L55'>55</a>
-<a name='L56'></a><a href='#L56'>56</a>
-<a name='L57'></a><a href='#L57'>57</a>
-<a name='L58'></a><a href='#L58'>58</a>
-<a name='L59'></a><a href='#L59'>59</a>
-<a name='L60'></a><a href='#L60'>60</a>
-<a name='L61'></a><a href='#L61'>61</a>
-<a name='L62'></a><a href='#L62'>62</a>
-<a name='L63'></a><a href='#L63'>63</a>
-<a name='L64'></a><a href='#L64'>64</a>
-<a name='L65'></a><a href='#L65'>65</a>
-<a name='L66'></a><a href='#L66'>66</a>
-<a name='L67'></a><a href='#L67'>67</a>
-<a name='L68'></a><a href='#L68'>68</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L53'></a><a href='#L53'>53</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -148,18 +132,12 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -174,19 +152,11 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -201,44 +171,38 @@
 &nbsp;
 import { Box, styled } from 'leather-styles/jsx';
 &nbsp;
-import { AllTransferableCryptoAssetBalances } from '@shared/models/crypto-asset-balance.model';
 import { RouteUrls } from '@shared/route-urls';
 &nbsp;
-import { useAllTransferableCryptoAssetBalances } from '@app/common/hooks/use-transferable-asset-balances.hooks';
-import { useWalletType } from '@app/common/use-wallet-type';
-import { CryptoAssetList } from '@app/components/crypto-assets/choose-crypto-asset/crypto-asset-list';
+import { AssetList } from '@app/features/asset-list/asset-list';
 import { useToast } from '@app/features/toasts/use-toast';
 import { useConfigBitcoinSendEnabled } from '@app/query/common/remote-config/remote-config.query';
-import { useCheckLedgerBlockchainAvailable } from '@app/store/accounts/blockchain/utils';
+import type { AccountCryptoAssetWithDetails } from '@app/query/models/crypto-asset.model';
+import { getSip10InfoFromAsset } from '@app/query/stacks/sip10/sip10-tokens.hooks';
 import { Card } from '@app/ui/layout/card/card';
+import { getAssetStringParts } from '@app/ui/utils/get-asset-string-parts';
 &nbsp;
 export function <span class="fstat-no" title="function not covered" >ChooseCryptoAsset() {</span>
-  const toast = <span class="cstat-no" title="statement not covered" >useToast();</span>
-  const allTransferableCryptoAssetBalances = <span class="cstat-no" title="statement not covered" >useAllTransferableCryptoAssetBalances();</span>
-&nbsp;
-  const { whenWallet } = <span class="cstat-no" title="statement not covered" >useWalletType();</span>
   const navigate = <span class="cstat-no" title="statement not covered" >useNavigate();</span>
   const isBitcoinSendEnabled = <span class="cstat-no" title="statement not covered" >useConfigBitcoinSendEnabled();</span>
+  const toast = <span class="cstat-no" title="statement not covered" >useToast();</span>
 &nbsp;
-  const checkBlockchainAvailable = <span class="cstat-no" title="statement not covered" >useCheckLedgerBlockchainAvailable();</span>
-&nbsp;
-  function <span class="fstat-no" title="function not covered" >navigateToSendForm(c</span>ryptoAssetBalance: AllTransferableCryptoAssetBalances) {
-    const { asset } = <span class="cstat-no" title="statement not covered" >cryptoAssetBalance;</span>
-<span class="cstat-no" title="statement not covered" >    if (asset.symbol === 'BTC' &amp;&amp; !isBitcoinSendEnabled) {</span>
-<span class="cstat-no" title="statement not covered" >      return navigate(RouteUrls.SendBtcDisabled);</span>
-    }
-    const symbol = <span class="cstat-no" title="statement not covered" >asset.symbol === '' ? asset.contractAssetName : asset.symbol.toLowerCase();</span>
-&nbsp;
-<span class="cstat-no" title="statement not covered" >    if (cryptoAssetBalance.type === 'fungible-token') {</span>
-      const asset = <span class="cstat-no" title="statement not covered" >cryptoAssetBalance.asset;</span>
-<span class="cstat-no" title="statement not covered" >      if (!asset.contractId) {</span>
-<span class="cstat-no" title="statement not covered" >        toast.error('Unable to find contract id');</span>
+  function <span class="fstat-no" title="function not covered" >navigateToSendForm(a</span>sset: AccountCryptoAssetWithDetails) {
+<span class="cstat-no" title="statement not covered" >    switch (asset.type) {</span>
+      case 'btc':
+<span class="cstat-no" title="statement not covered" >        if (!isBitcoinSendEnabled) <span class="cstat-no" title="statement not covered" >return navigate(RouteUrls.SendBtcDisabled);</span></span>
+<span class="cstat-no" title="statement not covered" >        return navigate(`${RouteUrls.SendCryptoAsset}/${asset.info.symbol.toLowerCase()}`);</span>
+      case 'sip-10':
+        const info = <span class="cstat-no" title="statement not covered" >getSip10InfoFromAsset(asset);</span>
+<span class="cstat-no" title="statement not covered" >        if (info) {</span>
+          const { assetName } = <span class="cstat-no" title="statement not covered" >getAssetStringParts(info.contractId);</span>
+          const symbol = <span class="cstat-no" title="statement not covered" >!info.symbol ? assetName : info.symbol.toLowerCase();</span>
+<span class="cstat-no" title="statement not covered" >          return navigate(`${RouteUrls.SendCryptoAsset}/${symbol}/${info.contractId}`);</span>
+        }
+<span class="cstat-no" title="statement not covered" >        toast.error('No contract id');</span>
 <span class="cstat-no" title="statement not covered" >        return navigate('..');</span>
-      }
-      const contractId = <span class="cstat-no" title="statement not covered" >`${asset.contractId.split('::')[0]}`;</span>
-<span class="cstat-no" title="statement not covered" >      return navigate(`${RouteUrls.SendCryptoAsset}/${symbol}/${contractId}`);</span>
+      default:
+<span class="cstat-no" title="statement not covered" >        return navigate(`${RouteUrls.SendCryptoAsset}/${asset.info.symbol.toLowerCase()}`);</span>
     }
-<span class="cstat-no" title="statement not covered" >    navigate(`${RouteUrls.SendCryptoAsset}/${symbol}`);</span>
   }
 &nbsp;
 <span class="cstat-no" title="statement not covered" >  return (</span>
@@ -249,17 +213,8 @@ export function <span class="fstat-no" title="function not covered" >ChooseCrypt
         &lt;/styled.h1&gt;
       }
     &gt;
-      &lt;Box pb="space.04" px="space.03"&gt;
-        &lt;CryptoAssetList
-          onItemClick={<span class="fstat-no" title="function not covered" >cryptoAssetBalance =&gt; <span class="cstat-no" title="statement not covered" >n</span>avigateToSendForm(cryptoAssetBalance)}</span>
-          cryptoAssetBalances={allTransferableCryptoAssetBalances.filter(<span class="fstat-no" title="function not covered" >asset =&gt;</span>
-<span class="cstat-no" title="statement not covered" >            whenWallet({</span>
-              ledger: checkBlockchainAvailable(asset.blockchain),
-              software: true,
-            })
-          )}
-          variant="send"
-        /&gt;
+      &lt;Box pb="space.04" px="space.05"&gt;
+        &lt;AssetList onClick={navigateToSendForm} variant="interactive" /&gt;
       &lt;/Box&gt;
     &lt;/Card&gt;
   );
@@ -271,7 +226,7 @@ export function <span class="fstat-no" title="function not covered" >ChooseCrypt
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-05-14T10:52:07.686Z
+                at 2024-05-17T16:03:02.104Z
             </div>
         <script src="../../../../../../prettify.js"></script>
         <script>
