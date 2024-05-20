@@ -23,7 +23,17 @@ async function simulateShortDelayToAvoidUndefinedTabId() {
   await delay(1000);
 }
 
-export function useStacksBroadcastTransaction(token: CryptoCurrencies, decimals?: number) {
+interface UseStacksBroadcastTransactionArgs {
+  token: CryptoCurrencies;
+  decimals?: number;
+  isIncreaseFeeTransaction?: boolean;
+}
+
+export function useStacksBroadcastTransaction({
+  token,
+  decimals,
+  isIncreaseFeeTransaction,
+}: UseStacksBroadcastTransactionArgs) {
   const signStacksTransaction = useSignStacksTransaction();
   const [isBroadcasting, setIsBroadcasting] = useState(false);
   const { tabId } = useDefaultRequestParams();
@@ -49,6 +59,11 @@ export function useStacksBroadcastTransaction(token: CryptoCurrencies, decimals?
         });
       }
       if (txId) {
+        if (isIncreaseFeeTransaction) {
+          navigate(RouteUrls.Activity);
+          return;
+        }
+
         navigate(
           RouteUrls.SentStxTxSummary.replace(':symbol', token.toLowerCase()).replace(
             ':txId',
@@ -79,6 +94,9 @@ export function useStacksBroadcastTransaction(token: CryptoCurrencies, decimals?
             },
             onSuccess(txId) {
               handlePreviewSuccess(signedTx, txId);
+              if (isIncreaseFeeTransaction) {
+                toast.success('Fee increased successfully');
+              }
             },
             replaceByFee: false,
           })(signedTx);
@@ -117,5 +135,6 @@ export function useStacksBroadcastTransaction(token: CryptoCurrencies, decimals?
     toast,
     broadcastTransactionFn,
     signStacksTransaction,
+    isIncreaseFeeTransaction,
   ]);
 }

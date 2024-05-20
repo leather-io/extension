@@ -50,7 +50,7 @@ function TransactionRequestBase() {
   const availableUnlockedBalance = useCurrentStxAvailableUnlockedBalance();
   const { data: nextNonce } = useNextNonce();
   const navigate = useNavigate();
-  const { stacksBroadcastTransaction } = useStacksBroadcastTransaction('STX');
+  const { stacksBroadcastTransaction } = useStacksBroadcastTransaction({ token: 'STX' });
 
   useOnMount(() => void analytics.track('view_transaction_signing'));
 

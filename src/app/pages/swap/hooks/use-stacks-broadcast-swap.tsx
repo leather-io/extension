@@ -35,6 +35,7 @@ export function useStacksBroadcastSwap() {
             navigate(RouteUrls.TransactionBroadcastError, { state: { message } });
           },
           onSuccess() {
+            toast.success('Transaction submitted!');
             setIsIdle();
             navigate(RouteUrls.Activity);
           },

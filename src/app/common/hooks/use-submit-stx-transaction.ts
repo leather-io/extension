@@ -52,8 +52,7 @@ export function useSubmitTransactionCallback({ loadingKey }: UseSubmitTransactio
               rawTx: bytesToHex(transaction.serialize()),
               txId: safelyFormatHexTxid(response.txid),
             });
-            await delay(500);
-            toast.success('Transaction submitted!');
+
             await delay(500);
 
             void analytics.track('broadcast_transaction', { symbol: 'stx' });

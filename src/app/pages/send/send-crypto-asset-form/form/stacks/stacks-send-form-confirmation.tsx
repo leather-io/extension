@@ -25,10 +25,10 @@ export function StacksSendFormConfirmation() {
   const { tx, decimals, showFeeChangeWarning } = useStacksSendFormConfirmationState();
   const { symbol = 'STX' } = useParams();
 
-  const { stacksBroadcastTransaction, isBroadcasting } = useStacksBroadcastTransaction(
-    symbol.toUpperCase() as CryptoCurrencies,
-    decimals
-  );
+  const { stacksBroadcastTransaction, isBroadcasting } = useStacksBroadcastTransaction({
+    token: symbol.toUpperCase() as CryptoCurrencies,
+    decimals,
+  });
 
   const stacksDeserializedTransaction = deserializeTransaction(tx);
 
