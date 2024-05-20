@@ -257,7 +257,7 @@
     "@ls-lint/ls-lint": "2.2.3",
     "@mdx-js/loader": "3.0.0",
     "@pandacss/dev": "0.32.0",
-    "@playwright/test": "1.42.1",
+    "@playwright/test": "1.44.0",
     "@pmmmwh/react-refresh-webpack-plugin": "0.5.11",
     "@redux-devtools/cli": "4.0.0",
     "@redux-devtools/remote": "0.9.3",
