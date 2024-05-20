@@ -5,11 +5,12 @@ import { useWalletType } from '@app/common/use-wallet-type';
 import { Button } from '@app/ui/components/button/button';
 
 interface IncreaseFeeActionsProps {
-  isDisabled: boolean;
+  isDisabled?: boolean;
+  isBroadcasting?: boolean;
   onCancel(): void;
 }
 export function IncreaseFeeActions(props: IncreaseFeeActionsProps) {
-  const { onCancel, isDisabled } = props;
+  const { onCancel, isDisabled, isBroadcasting } = props;
 
   const { handleSubmit } = useFormikContext();
   const { isLoading } = useLoading(LoadingKeys.INCREASE_FEE_DRAWER);
@@ -25,9 +26,10 @@ export function IncreaseFeeActions(props: IncreaseFeeActionsProps) {
       <Button
         type="submit"
         onClick={handleSubmit as any}
-        aria-busy={isLoading}
+        aria-busy={isLoading || isBroadcasting}
         borderRadius="sm"
         aria-disabled={isDisabled}
+        disabled={isDisabled}
         flexGrow={1}
       >
         {actionText}

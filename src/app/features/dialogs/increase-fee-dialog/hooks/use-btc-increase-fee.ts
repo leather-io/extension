@@ -107,7 +107,8 @@ export function useBtcIncreaseFee(btcTx: BitcoinTx) {
     await broadcastTx({
       tx: tx.hex,
       async onSuccess(txid) {
-        navigate(RouteUrls.IncreaseFeeSent);
+        toast.success('Fee increased successfully');
+        navigate(RouteUrls.Activity);
         void analytics.track('increase_fee_transaction', {
           symbol: 'btc',
           txid,
