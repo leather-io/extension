@@ -29,7 +29,7 @@ const stampSchema = z.object({
   creator_name: z.string().optional().nullable(),
   stamp_gen: z.string().optional(),
   stamp_hash: z.string().optional(),
-  is_btc_stamp: z.number().optional(),
+  is_btc_stamp: z.number().nullable().optional(),
   is_reissue: z.number().optional(),
   file_hash: z.string().optional(),
 });
@@ -80,7 +80,7 @@ async function fetchStampsByAddress(address: string): Promise<StampsByAddressQue
   try {
     return stampsByAdressSchema.parse(resp.data);
   } catch (e) {
-    if (e instanceof ZodError) void analytics.track('schema_fail', e);
+    if (e instanceof ZodError) void analytics.track('schema_fail', { ...e });
     throw e;
   }
 }
