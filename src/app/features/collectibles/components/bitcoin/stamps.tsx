@@ -23,11 +23,5 @@ export function Stamps() {
 
   if (!stamps.length) return null;
 
-  return (
-    <>
-      {stamps.map(s => (
-        <Stamp bitcoinStamp={s} key={s.tx_hash} />
-      ))}
-    </>
-  );
+  return stamps.map(s => <Stamp bitcoinStamp={s} key={s.tx_hash} />);
 }
