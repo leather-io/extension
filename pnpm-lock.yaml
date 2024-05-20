@@ -30,8 +30,8 @@ dependencies:
     specifier: 1.2.0
     version: 1.2.0
   '@leather-wallet/models':
-    specifier: 0.4.5
-    version: 0.4.5
+    specifier: 0.6.0
+    version: 0.6.0
   '@leather-wallet/tokens':
     specifier: 0.0.15
     version: 0.0.15
@@ -3702,8 +3702,8 @@ packages:
       bignumber.js: 9.1.2
     dev: true
 
-  /@leather-wallet/models@0.4.5:
-    resolution: {integrity: sha512-H0NhxYy1C2Byrj1wswL9Zf6bWOejvgVuwgVDT6xh7zqvoPotiAtrfEe3hiBdSeUtUsTh70ha1ZMuGwf/rph67w==}
+  /@leather-wallet/models@0.6.0:
+    resolution: {integrity: sha512-bX6omr6IdeGAiRLK4vdCqDlrrUiMfgPp/Bu3KrKKiEdvBTNz0xvTXnIM0Itzc8dfv30NynLXdsFRHMoiZ7c/Vw==}
     dependencies:
       bignumber.js: 9.1.2
     dev: false
