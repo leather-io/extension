@@ -54,7 +54,7 @@ export const pressableStyles = css.raw({
     _active: { bg: 'unset' },
     _focus: { border: 'unset' },
     _hover: { bg: 'unset' },
-    color: 'ink.non-interactive',
+    color: 'ink.text-non-interactive',
     cursor: 'not-allowed',
   },
 
@@ -77,12 +77,12 @@ const pressableRecipe = cva({
 });
 
 export const pressableCaptionStyles = css({
-  _groupDisabled: { color: 'ink.non-interactive' },
+  _groupDisabled: { color: 'ink.text-non-interactive' },
   color: 'ink.text-subdued',
 });
 
 export const pressableChevronStyles = css({
-  _groupDisabled: { color: 'ink.non-interactive' },
+  _groupDisabled: { color: 'ink.text-non-interactive' },
   color: 'ink.action-primary-default',
 });
 

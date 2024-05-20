@@ -20,7 +20,7 @@ export function SkeletonLoader({
       <Box
         width={width}
         height={height}
-        bgColor="ink.non-interactive"
+        bgColor="ink.text-non-interactive"
         data-state="loading"
         borderRadius="sm"
         className={shimmerStyles}

@@ -15,7 +15,7 @@ const calloutRecipe = cva({
   variants: {
     variant: {
       default: {
-        bg: 'ink.non-interactive',
+        bg: 'ink.text-non-interactive',
       },
       error: {
         bg: 'red.background-secondary',
