@@ -5,7 +5,7 @@ import { HTMLStyledProps, styled } from 'leather-styles/jsx';
 export const Title = forwardRef<HTMLSpanElement, HTMLStyledProps<'span'>>(
   ({ children, ...props }, ref) => (
     <styled.span
-      _disabled={{ color: 'ink.non-interactive' }}
+      _disabled={{ color: 'ink.text-non-interactive' }}
       color="ink.text-primary"
       display="block"
       ref={ref}

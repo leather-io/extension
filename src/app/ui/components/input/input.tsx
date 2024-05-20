@@ -80,7 +80,7 @@ const input = sva({
       borderColor: 'ink.border-transparent',
       _disabled: {
         bg: 'ink.component-background-default',
-        borderColor: 'ink.non-interactive',
+        borderColor: 'ink.text-non-interactive',
         cursor: 'not-allowed',
       },
       _focus: { ring: 'none' },

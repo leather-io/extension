@@ -31,7 +31,7 @@ export const linkRecipe = defineRecipe({
       underlined: {
         _before: {
           content: '""',
-          background: 'ink.non-interactive',
+          background: 'ink.text-non-interactive',
           bottom: '-2px',
           height: '2px',
           left: 0,
@@ -129,14 +129,14 @@ export const linkRecipe = defineRecipe({
       css: {
         _before: {
           content: '""',
-          background: 'ink.non-interactive',
+          background: 'ink.text-non-interactive',
           bottom: '-2px',
           height: '2px',
           left: 0,
           position: 'absolute',
           right: 0,
         },
-        color: 'ink.non-interactive',
+        color: 'ink.text-non-interactive',
         cursor: 'not-allowed',
       },
       disabled: true,
@@ -146,7 +146,7 @@ export const linkRecipe = defineRecipe({
       css: {
         _before: {
           content: '""',
-          background: 'ink.non-interactive',
+          background: 'ink.text-non-interactive',
           bottom: '-2px',
           height: '2px',
           left: 0,
@@ -154,7 +154,7 @@ export const linkRecipe = defineRecipe({
           right: 0,
           visibility: 'visible',
         },
-        color: 'ink.non-interactive',
+        color: 'ink.text-non-interactive',
         cursor: 'not-allowed',
       },
       disabled: true,

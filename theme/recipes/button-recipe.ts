@@ -53,7 +53,7 @@ export const buttonRecipe = defineRecipe({
         _disabled: {
           _hover: { bg: 'ink.background-secondary' },
           bg: 'ink.background-secondary',
-          color: 'ink.non-interactive',
+          color: 'ink.text-non-interactive',
           cursor: 'not-allowed',
         },
         _focus: {
@@ -75,8 +75,8 @@ export const buttonRecipe = defineRecipe({
         },
         _disabled: {
           _hover: { bg: 'unset' },
-          border: '1px solid {colors.ink.non-interactive}',
-          color: 'ink.non-interactive',
+          border: '1px solid {colors.ink.text-non-interactive}',
+          color: 'ink.text-non-interactive',
           cursor: 'not-allowed',
         },
         _focus: {
@@ -97,7 +97,7 @@ export const buttonRecipe = defineRecipe({
         },
         _disabled: {
           _hover: { bg: 'unset' },
-          color: 'ink.non-interactive',
+          color: 'ink.text-non-interactive',
           cursor: 'not-allowed',
         },
         _focus: {
