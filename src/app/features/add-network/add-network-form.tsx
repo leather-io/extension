@@ -1,19 +1,43 @@
 import { useCallback, useEffect } from 'react';
 
-import { SelectContent, SelectItem, SelectRoot, SelectTrigger } from '@radix-ui/themes';
 import { NetworkSelectors } from '@tests/selectors/network.selectors';
 import { useFormikContext } from 'formik';
-import { css } from 'leather-styles/css';
+import { HStack, styled } from 'leather-styles/jsx';
+
+import type { BitcoinNetworkModes } from '@shared/constants';
 
 import { Input } from '@app/ui/components/input/input';
+import { Select } from '@app/ui/components/select/select';
+import { SelectItemLayout } from '@app/ui/components/select/select-item.layout';
 import { Title } from '@app/ui/components/typography/title';
+import { CheckmarkIcon, ChevronDownIcon } from '@app/ui/icons';
 
-import { type AddNetworkFormValues, useAddNetwork } from './use-add-network';
+import { type AddNetworkFormValues } from './use-add-network';
+
+const networks: {
+  label: string;
+  value: BitcoinNetworkModes;
+}[] = [
+  {
+    label: 'Mainnet',
+    value: 'mainnet',
+  },
+  {
+    label: 'Testnet',
+    value: 'testnet',
+  },
+  {
+    label: 'Signet',
+    value: 'signet',
+  },
+  {
+    label: 'Regtest',
+    value: 'regtest',
+  },
+];
 
 export function AddNetworkForm() {
   const { handleChange, setFieldValue, values } = useFormikContext<AddNetworkFormValues>();
-
-  const { bitcoinApi, handleApiChange } = useAddNetwork();
 
   const setStacksUrl = useCallback(
     (value: string) => {
@@ -30,7 +54,7 @@ export function AddNetworkForm() {
   );
 
   useEffect(() => {
-    switch (bitcoinApi) {
+    switch (values.bitcoinNetwork) {
       case 'mainnet':
         setStacksUrl('https://api.hiro.so');
         setBitcoinUrl('https://blockstream.info/api');
@@ -48,7 +72,7 @@ export function AddNetworkForm() {
         setBitcoinUrl('https://mempool.space/testnet/api');
         break;
     }
-  }, [bitcoinApi, setStacksUrl, setBitcoinUrl]);
+  }, [setStacksUrl, setBitcoinUrl, values.bitcoinNetwork]);
 
   return (
     <>
@@ -64,38 +88,43 @@ export function AddNetworkForm() {
         />
       </Input.Root>
       <Title>Bitcoin API</Title>
-      {/* TODO: Replace with new Select */}
-      <SelectRoot onValueChange={handleApiChange} defaultValue="mainnet">
-        <SelectTrigger
-          className={css({
-            backgroundColor: 'ink.background-primary',
-            borderRadius: 'sm',
-            border: '1px solid ink.border-primary',
-          })}
-        ></SelectTrigger>
-        <SelectContent
-          className={css({
-            backgroundColor: 'ink.background-primary',
-            borderRadius: 'sm',
-            border: '1px solid ink.border-primary',
-            dropShadow: 'lg',
-            height: 'fit-content',
-          })}
-        >
-          <SelectItem key="mainnet" value="mainnet">
-            Mainnet
-          </SelectItem>
-          <SelectItem key="testnet" value="testnet">
-            Testnet
-          </SelectItem>
-          <SelectItem key="signet" value="signet">
-            Signet
-          </SelectItem>
-          <SelectItem key="regtest" value="regtest">
-            Regtest
-          </SelectItem>
-        </SelectContent>
-      </SelectRoot>
+
+      <Select.Root
+        defaultValue={networks[0].value}
+        onValueChange={value => {
+          void setFieldValue('bitcoinApi', value);
+        }}
+      >
+        <Select.Trigger>
+          <Select.Value />
+          <Select.Icon>
+            <ChevronDownIcon variant="small" />
+          </Select.Icon>
+        </Select.Trigger>
+        <Select.Portal>
+          <Select.Content align="start" position="popper" sideOffset={8}>
+            <Select.Viewport>
+              {networks.map(item => (
+                <Select.Item key={item.label} value={item.value}>
+                  <SelectItemLayout
+                    contentLeft={
+                      <HStack display="flex" gap="space.02" width="100%">
+                        <Select.ItemText>
+                          <styled.span textStyle="label.02">{item.label}</styled.span>
+                        </Select.ItemText>
+                        <Select.ItemIndicator>
+                          <CheckmarkIcon variant="small" />
+                        </Select.ItemIndicator>
+                      </HStack>
+                    }
+                  />
+                </Select.Item>
+              ))}
+            </Select.Viewport>
+          </Select.Content>
+        </Select.Portal>
+      </Select.Root>
+
       <Title>Stacks API URL</Title>
       <Input.Root>
         <Input.Label>Name</Input.Label>
