@@ -2,6 +2,7 @@ import { ReactNode, forwardRef } from 'react';
 
 import * as RadixSelect from '@radix-ui/react-select';
 import { css } from 'leather-styles/css';
+import { styled } from 'leather-styles/jsx';
 
 import { pressableBaseStyles, pressableStyles } from '@app/ui/pressable/pressable';
 
@@ -73,8 +74,12 @@ const Label: typeof RadixSelect.Label = forwardRef((props, ref) => (
   <RadixSelect.Label className={selectLabelStyles} ref={ref} {...props} />
 ));
 
+const selectItemStyles = css({ p: 'space.03' });
+
 const Item: typeof RadixSelect.Item = forwardRef((props, ref) => (
-  <RadixSelect.Item className={css(pressableBaseStyles, pressableStyles)} ref={ref} {...props} />
+  <styled.div className={selectItemStyles}>
+    <RadixSelect.Item className={css(pressableBaseStyles, pressableStyles)} ref={ref} {...props} />
+  </styled.div>
 ));
 
 const selectSeparatorStyles = css({

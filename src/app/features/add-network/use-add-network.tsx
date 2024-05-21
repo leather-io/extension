@@ -27,6 +27,7 @@ export interface AddNetworkFormValues {
   name: string;
   stacksUrl: string;
   bitcoinUrl: string;
+  bitcoinNetwork: BitcoinNetworkModes;
 }
 
 const initialFormValues: AddNetworkFormValues = {
@@ -34,10 +35,10 @@ const initialFormValues: AddNetworkFormValues = {
   name: '',
   stacksUrl: '',
   bitcoinUrl: '',
+  bitcoinNetwork: 'mainnet',
 };
 
 export function useAddNetwork() {
-  const [bitcoinApi, setBitcoinApi] = useState<BitcoinNetworkModes>('mainnet');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const navigate = useNavigate();
@@ -45,13 +46,11 @@ export function useAddNetwork() {
   const networksActions = useNetworksActions();
 
   return {
-    bitcoinApi,
-    handleApiChange: (value: BitcoinNetworkModes) => setBitcoinApi(value),
     error,
     initialFormValues,
     loading,
     onSubmit: async (values: AddNetworkFormValues) => {
-      const { name, stacksUrl, bitcoinUrl, key } = values;
+      const { name, stacksUrl, bitcoinUrl, key, bitcoinNetwork } = values;
 
       if (!name) {
         setError('Enter a name');
@@ -123,7 +122,7 @@ export function useAddNetwork() {
           chainId: parentChainId, // Used for differentiating control flow in the wallet
           subnetChainId: chainId, // Used for signing transactions (via the network object, not to be confused with the NetworkConfigurations)
           url: stacksPath,
-          bitcoinNetwork: bitcoinApi,
+          bitcoinNetwork,
           bitcoinUrl: bitcoinPath,
         });
         navigate(RouteUrls.Home);
@@ -133,7 +132,7 @@ export function useAddNetwork() {
           name: name,
           chainId: chainId,
           url: stacksPath,
-          bitcoinNetwork: bitcoinApi,
+          bitcoinNetwork,
           bitcoinUrl: bitcoinPath,
         });
         navigate(RouteUrls.Home);
