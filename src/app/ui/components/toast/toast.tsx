@@ -47,6 +47,7 @@ const toastViewportStyles = css({
   transform: 'translate(-50%, 0)',
   width: '100%',
   zIndex: 9999,
+  pointerEvents: 'none',
 });
 const Viewport: typeof RadixToast.Viewport = forwardRef((props, ref) => (
   <RadixToast.Viewport className={toastViewportStyles} ref={ref} {...props} />
