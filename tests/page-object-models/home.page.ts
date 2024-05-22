@@ -99,13 +99,10 @@ export class HomePage {
   async selectTestnet() {
     await this.page.getByTestId(SettingsSelectors.SettingsMenuBtn).click();
     await this.page.getByTestId(SettingsSelectors.ChangeNetworkAction).click();
+    await this.page.getByTestId(NetworkSelectors.NetworkListActiveNetwork).isVisible();
     await this.page
       .getByTestId(WalletDefaultNetworkConfigurationIds.testnet)
       .click({ force: true });
-    await this.page.getByTestId(NetworkSelectors.NetworkListActiveNetwork).isVisible();
-
-    await this.page.waitForTimeout(1000);
-    await this.page.getByTestId(WalletDefaultNetworkConfigurationIds.testnet).click();
   }
 
   async clickActivityTab() {

@@ -26,6 +26,7 @@ export function NetworkDialog({ onClose }: NetworkDialogProps) {
   const analytics = useAnalytics();
   const networksActions = useNetworksActions();
   const currentNetwork = useCurrentNetworkState();
+
   function addNetwork() {
     void analytics.track('add_network');
     navigate(RouteUrls.AddNetwork);

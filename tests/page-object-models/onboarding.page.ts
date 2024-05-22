@@ -287,7 +287,9 @@ export class OnboardingPage {
         async walletState => await chrome.storage.local.set({ 'persist:root': walletState }),
         testSoftwareAccountDefaultWalletState
       );
-      await this.page.goto(`chrome-extension://${id}/index.html`);
+      await this.page.goto(`chrome-extension://${id}/index.html`, {
+        waitUntil: 'networkidle',
+      });
     }
     await test.expect(this.page.getByText('Enter your password')).toBeVisible();
     await this.page.getByRole('textbox').fill(TEST_PASSWORD);
