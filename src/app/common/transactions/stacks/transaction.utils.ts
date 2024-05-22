@@ -18,8 +18,7 @@ import { BigNumber } from 'bignumber.js';
 
 import { StacksTx, StacksTxStatus } from '@shared/models/transactions/stacks-transaction.model';
 
-import { stacksValue } from '@app/common/stacks-utils';
-import { getContractName } from '@app/ui/utils/get-contract-name';
+import { getStacksContractName, stacksValue } from '@app/common/stacks-utils';
 import { truncateMiddle } from '@app/ui/utils/truncate-middle';
 
 export const statusFromTx = (tx: StacksTx): StacksTxStatus => {
@@ -74,7 +73,7 @@ export const getTxTitle = (tx: StacksTx) => {
     case 'contract_call':
       return tx.contract_call.function_name;
     case 'smart_contract':
-      return getContractName(tx.smart_contract.contract_id);
+      return getStacksContractName(tx.smart_contract.contract_id);
     case 'coinbase':
       return `Coinbase ${(tx as CoinbaseTransaction).block_height}`;
     case 'poison_microblock':

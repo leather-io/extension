@@ -2,48 +2,6 @@
 
 Legacy utils taken from [Stacks UI](https://github.com/hirosystems/ui). Moved here initially but can be moved to monorepo
 
-## Transactions
-
-### getContractName
-
-This will parse a string and return the contract name.
-
-```ts
-const contract =
-  'ST12EY99GS4YKP0CP2CFW6SEPWQ2CGVRWK5GHKDRV.market' ||
-  'ST12EY99GS4YKP0CP2CFW6SEPWQ2CGVRWK5GHKDRV.market::asset-name';
-
-const name = getContractName(contract);
-
-// market
-```
-
-### getAssetName
-
-This will parse a fully qualified asset name string and pull out the name of the asset.
-
-```ts
-const contract = 'ST12EY99GS4YKP0CP2CFW6SEPWQ2CGVRWK5GHKDRV.market::asset-name';
-
-const asset = getAssetName(contract);
-
-// asset-name
-```
-
-### getAssetStringParts
-
-This will parse a fully qualified asset name string and return the various parts: `address`, `contractName`, `assetName`.
-
-```ts
-const contract = 'ST12EY99GS4YKP0CP2CFW6SEPWQ2CGVRWK5GHKDRV.market::asset-name';
-
-const { address, contractName, assetName } = getAssetStringParts(contract);
-
-// ST12EY99GS4YKP0CP2CFW6SEPWQ2CGVRWK5GHKDRV
-// market
-// asset-name
-```
-
 ## Strings
 
 ### truncateHex

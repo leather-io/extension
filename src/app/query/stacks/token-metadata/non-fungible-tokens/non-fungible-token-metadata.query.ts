@@ -1,7 +1,7 @@
 import { hexToCV } from '@stacks/transactions';
 import { UseQueryResult, useQueries } from '@tanstack/react-query';
 
-import { pullContractIdFromIdentity } from '@app/common/utils';
+import { getPrincipalFromContractId } from '@app/common/utils';
 import { QueryPrefixes } from '@app/query/query-prefixes';
 import { StacksAccount } from '@app/store/accounts/blockchain/stacks/stacks-account.models';
 import { useStacksClient } from '@app/store/common/api-clients.hooks';
@@ -34,7 +34,7 @@ export function useGetNonFungibleTokenMetadataListQuery(
 
   return useQueries({
     queries: (nftHoldings.data?.results ?? []).map(nft => {
-      const principal = pullContractIdFromIdentity(nft.asset_identifier);
+      const principal = getPrincipalFromContractId(nft.asset_identifier);
       const tokenId = getTokenId(nft.value.hex);
 
       return {

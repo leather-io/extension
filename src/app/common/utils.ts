@@ -256,7 +256,7 @@ export function with0x(value: string): string {
   return !value.startsWith('0x') ? `0x${value}` : value;
 }
 
-export function pullContractIdFromIdentity(identifier: string) {
+export function getPrincipalFromContractId(identifier: string) {
   return identifier.split('::')[0];
 }
 
