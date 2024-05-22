@@ -380,8 +380,8 @@ devDependencies:
     specifier: 0.0.5
     version: 0.0.5
   '@leather-wallet/rpc':
-    specifier: 0.3.0
-    version: 0.3.0
+    specifier: 0.3.7
+    version: 0.3.7
   '@ls-lint/ls-lint':
     specifier: 2.2.3
     version: 2.2.3
@@ -3696,17 +3696,10 @@ packages:
       '@jridgewell/sourcemap-codec': 1.4.15
     dev: true
 
-  /@leather-wallet/models@0.4.0:
-    resolution: {integrity: sha512-6uwhdJxEhIpCI/29TPQIXAzfcz4niVIIujkGuwRFSyUiT/E8IEvjM30A3p9pMtEPCzO2UnpVERGLiLSIk48fgg==}
-    dependencies:
-      bignumber.js: 9.1.2
-    dev: true
-
   /@leather-wallet/models@0.6.3:
     resolution: {integrity: sha512-Q8GIE4sH6yg57LtF28Ya/bDAueQdf++M0yAMMJKSJSW4Ue62HNcX2s60RdxAE/mlKQHZKK8JL9y2jwXKVNlJXA==}
     dependencies:
       bignumber.js: 9.1.2
-    dev: false
 
   /@leather-wallet/prettier-config@0.0.5:
     resolution: {integrity: sha512-cK44e4XqYghcbd5ow8AKzK0NyNQ0r0V/PGVm940PN17tDxZ7JykBcEmSI1iGRkCnTCy/RE/qHkgGBW5gYXhM7g==}
@@ -3718,10 +3711,10 @@ packages:
       - supports-color
     dev: true
 
-  /@leather-wallet/rpc@0.3.0:
-    resolution: {integrity: sha512-jRexusk82Bax0CMIC9T2ApvnxA5rvd1yWjRyOxeImHdfQUK140MMij/Za8OcC8TYcFGMZbm3DEK1Xh9/NY6oIg==}
+  /@leather-wallet/rpc@0.3.7:
+    resolution: {integrity: sha512-Sbol5H7Qam7rMC8V5FhMK18+UMru3pKrisWZpvXrbA1sfl8yXYRf4/BrtyceR1Rnm4rQN+F7cFS6Eujnl1Yklw==}
     dependencies:
-      '@leather-wallet/models': 0.4.0
+      '@leather-wallet/models': 0.6.3
     dev: true
 
   /@leather-wallet/tokens@0.0.15:
