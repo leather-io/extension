@@ -1,20 +1,28 @@
+import type { Stx20CryptoAssetInfo } from '@leather-wallet/models';
 import BigNumber from 'bignumber.js';
 
 import { createMoney } from '@shared/models/money.model';
 
-import type { Stx20Balance, Stx20Token } from '../stacks-client';
+import { createCryptoAssetBalance } from '@app/query/common/models';
+
+import type { Stx20Balance } from '../stacks-client';
 import { useStx20BalancesQuery } from './stx20-tokens.query';
 
-function createStx20Token(token: Stx20Balance): Stx20Token {
+function createStx20CryptoAssetInfo(stx20Balance: Stx20Balance): Stx20CryptoAssetInfo {
   return {
-    balance: createMoney(new BigNumber(token.balance), token.ticker, 0),
-    marketData: null,
-    tokenData: token,
+    name: 'stx-20',
+    symbol: stx20Balance.ticker,
   };
 }
 
 export function useStx20Tokens(address: string) {
   return useStx20BalancesQuery(address, {
-    select: resp => resp.map(balance => createStx20Token(balance)),
+    select: resp =>
+      resp.map(stx20Balance => ({
+        balance: createCryptoAssetBalance(
+          createMoney(new BigNumber(stx20Balance.balance), stx20Balance.ticker, 0)
+        ),
+        info: createStx20CryptoAssetInfo(stx20Balance),
+      })),
   });
 }

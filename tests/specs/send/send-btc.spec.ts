@@ -12,7 +12,7 @@ test.describe('send btc', () => {
   test.beforeEach(async ({ extensionId, globalPage, homePage, onboardingPage, sendPage }) => {
     await globalPage.setupAndUseApiCalls(extensionId);
     await onboardingPage.signInWithTestAccount(extensionId);
-    await homePage.selectTestNet();
+    await homePage.selectTestnet();
     await homePage.sendButton.click();
     await sendPage.selectBtcAndGoToSendForm();
     await sendPage.waitForSendPageReady();
@@ -29,6 +29,7 @@ test.describe('send btc', () => {
       const details = await sendPage.confirmationDetails.allInnerTexts();
       test.expect(details).toBeTruthy();
     });
+
     test('that recipient input is trimmed correctly', async ({ sendPage }) => {
       await sendPage.amountInput.fill('0.00006');
       await sendPage.recipientInput.fill(' ' + TEST_TESTNET_ACCOUNT_2_BTC_ADDRESS + ' ');

@@ -1,12 +1,24 @@
-import type { Stx20Token } from '@app/query/stacks/stacks-client';
+import type { CryptoAssetBalance, Stx20CryptoAssetInfo } from '@leather-wallet/models';
 
-import { Stx20TokenAssetItemLayout } from './stx20-token-asset-item.layout';
+import { CryptoAssetItemLayout } from '@app/components/crypto-asset-item/crypto-asset-item.layout';
+import { Stx20AvatarIcon } from '@app/ui/components/avatar/stx20-avatar-icon';
+
+interface Stx20TokenAssetDetails {
+  balance: CryptoAssetBalance;
+  info: Stx20CryptoAssetInfo;
+}
 
 interface Stx20TokenAssetListProps {
-  tokens: Stx20Token[];
+  tokens: Stx20TokenAssetDetails[];
 }
 export function Stx20TokenAssetList({ tokens }: Stx20TokenAssetListProps) {
   return tokens.map((token, i) => (
-    <Stx20TokenAssetItemLayout key={`${token.tokenData.ticker}${i}`} token={token} />
+    <CryptoAssetItemLayout
+      balance={token.balance}
+      captionLeft={token.info.name.toUpperCase()}
+      icon={<Stx20AvatarIcon />}
+      key={`${token.info.symbol}${i}`}
+      titleLeft={token.info.symbol}
+    />
   ));
 }

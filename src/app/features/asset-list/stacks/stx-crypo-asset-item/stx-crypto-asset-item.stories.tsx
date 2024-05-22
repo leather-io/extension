@@ -42,40 +42,20 @@ const stxCryptoAssetBalance = {
 
 export const StxCryptoAssetItem: Story = {
   args: {
-    asset: {
-      info: {
-        decimals: 6,
-        hasMemo: true,
-        name: 'stacks',
-        symbol: 'STX',
-      },
-      balance: {
-        ...stxCryptoAssetBalance,
-        lockedBalance: { amount: new BigNumber(0), decimals: 6, symbol },
-      },
-      chain: 'stacks',
-      marketData: null,
-      type: 'stx',
+    balance: {
+      ...stxCryptoAssetBalance,
+      lockedBalance: { amount: new BigNumber(0), decimals: 6, symbol },
     },
+    isLoading: false,
   },
 };
 
 export const StxCryptoAssetItemWithLockedBalance: Story = {
   args: {
-    asset: {
-      info: {
-        decimals: 6,
-        hasMemo: true,
-        name: 'stacks',
-        symbol: 'STX',
-      },
-      balance: {
-        ...stxCryptoAssetBalance,
-        lockedBalance: { amount: new BigNumber(1000000000), decimals: 6, symbol },
-      },
-      chain: 'stacks',
-      marketData: null,
-      type: 'stx',
+    balance: {
+      ...stxCryptoAssetBalance,
+      lockedBalance: { amount: new BigNumber(1000000000), decimals: 6, symbol },
     },
+    isLoading: false,
   },
 };

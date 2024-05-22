@@ -1,22 +1,53 @@
+import type { FtMetadataResponse } from '@hirosystems/token-metadata-api-client';
+import type { CryptoAssetBalance, Sip10CryptoAssetInfo } from '@leather-wallet/models';
+
+import { isUndefined } from '@shared/utils';
+
+import { getTicker } from '@app/common/utils';
 import type { SwapAsset } from '@app/query/common/alex-sdk/alex-sdk.hooks';
-import type { Sip10AccountCryptoAssetWithDetails } from '@app/query/models/crypto-asset.model';
 import { getAssetStringParts } from '@app/ui/utils/get-asset-string-parts';
+
+export function isTransferableSip10Token(token: Partial<FtMetadataResponse>) {
+  return !isUndefined(token.decimals) && !isUndefined(token.name) && !isUndefined(token.symbol);
+}
+
+export function createSip10CryptoAssetInfo(
+  contractId: string,
+  key: string,
+  ftAsset: FtMetadataResponse
+): Sip10CryptoAssetInfo {
+  const { assetName, contractName } = getAssetStringParts(key);
+  const name = ftAsset.name ? ftAsset.name : assetName;
+
+  return {
+    canTransfer: isTransferableSip10Token(ftAsset),
+    contractId,
+    contractName,
+    decimals: ftAsset.decimals ?? 0,
+    hasMemo: isTransferableSip10Token(ftAsset),
+    imageCanonicalUri: ftAsset.image_canonical_uri ?? '',
+    name,
+    symbol: ftAsset.symbol ?? getTicker(name),
+  };
+}
 
 export type Sip10CryptoAssetFilter = 'all' | 'supported' | 'unsupported';
 
-export function filterSip10AccountCryptoAssetsWithDetails(
-  assets: Sip10AccountCryptoAssetWithDetails[],
+export function filterSip10Tokens(
   swapAssets: SwapAsset[],
+  tokens: {
+    balance: CryptoAssetBalance;
+    info: Sip10CryptoAssetInfo;
+  }[],
   filter: Sip10CryptoAssetFilter
 ) {
-  return assets.filter(asset => {
-    const { address: contractAddress } = getAssetStringParts(asset.info.contractId);
+  return tokens.filter(token => {
     if (filter === 'supported') {
-      return swapAssets.some(swapAsset => swapAsset.principal.includes(contractAddress));
+      return swapAssets.some(swapAsset => swapAsset.principal === token.info.contractId);
     }
     if (filter === 'unsupported') {
-      return !swapAssets.some(swapAsset => swapAsset.principal.includes(contractAddress));
+      return !swapAssets.some(swapAsset => swapAsset.principal === token.info.contractId);
     }
-    return assets;
+    return true;
   });
 }

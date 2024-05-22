@@ -96,7 +96,7 @@ export class HomePage {
     return displayerAddress.replaceAll('\n', '');
   }
 
-  async selectTestNet() {
+  async selectTestnet() {
     await this.page.getByTestId(SettingsSelectors.SettingsMenuBtn).click();
     await this.page.getByTestId(SettingsSelectors.ChangeNetworkAction).click();
     await this.page
