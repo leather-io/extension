@@ -16,18 +16,20 @@ export function createSip10CryptoAssetInfo(
   key: string,
   ftAsset: FtMetadataResponse
 ): Sip10CryptoAssetInfo {
-  const { assetName, contractName } = getAssetStringParts(key);
-  const name = ftAsset.name ? ftAsset.name : assetName;
+  const { assetName, contractName, address } = getAssetStringParts(key);
+  const tokenName = ftAsset.name ? ftAsset.name : assetName;
 
   return {
     canTransfer: isTransferableSip10Token(ftAsset),
+    contractAddress: address,
+    contractAssetName: assetName,
     contractId,
     contractName,
     decimals: ftAsset.decimals ?? 0,
     hasMemo: isTransferableSip10Token(ftAsset),
     imageCanonicalUri: ftAsset.image_canonical_uri ?? '',
-    name,
-    symbol: ftAsset.symbol ?? getTicker(name),
+    tokenName,
+    symbol: ftAsset.symbol ?? getTicker(tokenName),
   };
 }
 

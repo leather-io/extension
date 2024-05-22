@@ -24,7 +24,7 @@ export function Sip10TokenAssetList({
       {tokens.map(token => (
         <Sip10TokenAssetItem
           balance={token.balance}
-          key={token.info.name}
+          key={token.info.tokenName}
           info={token.info}
           isLoading={isLoading}
           marketData={priceAsMarketData(

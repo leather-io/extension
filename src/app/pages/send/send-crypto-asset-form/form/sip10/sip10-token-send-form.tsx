@@ -1,4 +1,4 @@
-import { Navigate, useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 
 import type { CryptoAssetBalance, MarketData, Sip10CryptoAssetInfo } from '@leather-wallet/models';
 
@@ -22,12 +22,14 @@ function Sip10TokenSendFormLoader({ children }: Sip10TokenSendFormLoaderProps) {
   const token = useSip10Token(contractId ?? '');
   const priceAsMarketData = useAlexCurrencyPriceAsMarketData();
   const toast = useToast();
+  const navigate = useNavigate();
 
   if (!contractId) return;
 
   if (!token) {
     toast.error('Token not found');
-    return <Navigate to={RouteUrls.SendCryptoAsset} />;
+    navigate(RouteUrls.SendCryptoAsset);
+    return;
   }
 
   return children({

@@ -6,6 +6,7 @@ import { isNumber } from '@shared/utils';
 import { analytics } from '@shared/utils/analytics';
 
 import { countDecimals } from '@app/common/math/helpers';
+import { convertAmountToBaseUnit } from '@app/common/money/calculate-money';
 import {
   btcToSat,
   microStxToStx,
@@ -109,6 +110,7 @@ export function stxAvailableBalanceValidator(availableBalance: Money) {
 
 export function stacksFungibleTokenAmountValidator(balance: Money) {
   const { amount, decimals } = balance;
+
   return amountValidator()
     .test((value, context) => {
       if (!isNumber(value)) return false;
@@ -125,7 +127,7 @@ export function stacksFungibleTokenAmountValidator(balance: Money) {
       message: formatInsufficientBalanceError(balance, sum => microStxToStx(sum.amount).toString()),
       test(value) {
         if (!isNumber(value) || !amount) return false;
-        return new BigNumber(value).isLessThanOrEqualTo(amount);
+        return new BigNumber(value).isLessThanOrEqualTo(convertAmountToBaseUnit(amount, decimals));
       },
     });
 }
