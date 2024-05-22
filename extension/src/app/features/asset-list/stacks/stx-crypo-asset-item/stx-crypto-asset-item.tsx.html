@@ -109,21 +109,7 @@
 <a name='L44'></a><a href='#L44'>44</a>
 <a name='L45'></a><a href='#L45'>45</a>
 <a name='L46'></a><a href='#L46'>46</a>
-<a name='L47'></a><a href='#L47'>47</a>
-<a name='L48'></a><a href='#L48'>48</a>
-<a name='L49'></a><a href='#L49'>49</a>
-<a name='L50'></a><a href='#L50'>50</a>
-<a name='L51'></a><a href='#L51'>51</a>
-<a name='L52'></a><a href='#L52'>52</a>
-<a name='L53'></a><a href='#L53'>53</a>
-<a name='L54'></a><a href='#L54'>54</a>
-<a name='L55'></a><a href='#L55'>55</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L47'></a><a href='#L47'>47</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -153,9 +139,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -171,57 +154,50 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { styled } from 'leather-styles/jsx';
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import type { StxCryptoAssetBalance } from '@leather-wallet/models';
+import { styled } from 'leather-styles/jsx';
 &nbsp;
 import { baseCurrencyAmountInQuote } from '@app/common/money/calculate-money';
-import { i18nFormatCurrency } from '@app/common/money/format-money';
-import { ftDecimals } from '@app/common/stacks-utils';
-import { capitalize } from '@app/common/utils';
+import { formatMoneyWithoutSymbol, i18nFormatCurrency } from '@app/common/money/format-money';
 import { CryptoAssetItemLayout } from '@app/components/crypto-asset-item/crypto-asset-item.layout';
 import { useCryptoCurrencyMarketDataMeanAverage } from '@app/query/common/market-data/market-data.hooks';
-import type {
-  AccountCryptoAssetWithDetails,
-  StxAccountCryptoAssetWithDetails,
-} from '@app/query/models/crypto-asset.model';
 import { StxAvatarIcon } from '@app/ui/components/avatar/stx-avatar-icon';
-import { BulletOperator } from '@app/ui/components/bullet-separator/bullet-separator';
 import { Caption } from '@app/ui/components/typography/caption';
 &nbsp;
 interface StxCryptoAssetItemProps {
-  asset: StxAccountCryptoAssetWithDetails;
+  balance: StxCryptoAssetBalance;
   isLoading: boolean;
-  onClick?(asset: AccountCryptoAssetWithDetails): void;
+  onSelectAsset?(symbol: string): void;
 }
-export function <span class="fstat-no" title="function not covered" >StxCryptoAssetItem({</span> asset, isLoading, onClick }: StxCryptoAssetItemProps) {
+export function <span class="fstat-no" title="function not covered" >StxCryptoAssetItem({</span> balance, isLoading, onSelectAsset }: StxCryptoAssetItemProps) {
   const marketData = <span class="cstat-no" title="statement not covered" >useCryptoCurrencyMarketDataMeanAverage('STX');</span>
 &nbsp;
-  const { availableBalance, lockedBalance } = <span class="cstat-no" title="statement not covered" >asset.balance;</span>
-  const showAdditionalInfo = <span class="cstat-no" title="statement not covered" >lockedBalance.amount.isGreaterThan(0);</span>
+  const { availableBalance, lockedBalance } = <span class="cstat-no" title="statement not covered" >balance;</span>
+  const showLockedBalance = <span class="cstat-no" title="statement not covered" >lockedBalance.amount.isGreaterThan(0);</span>
 &nbsp;
-  const lockedBalanceAsFiat = <span class="cstat-no" title="statement not covered" >i18nFormatCurrency(</span>
+  const fiatLockedBalance = <span class="cstat-no" title="statement not covered" >i18nFormatCurrency(</span>
     baseCurrencyAmountInQuote(lockedBalance, marketData)
   );
-  const availableBalanceAsFiat = <span class="cstat-no" title="statement not covered" >i18nFormatCurrency(</span>
+  const fiatAvailableBalance = <span class="cstat-no" title="statement not covered" >i18nFormatCurrency(</span>
     baseCurrencyAmountInQuote(availableBalance, marketData)
   );
-  const additionalBalanceInfo = (
-<span class="cstat-no" title="statement not covered" >    &lt;styled.span&gt;</span>
-      &lt;BulletOperator ml="space.01" mr="space.02" /&gt;
-      {ftDecimals(lockedBalance.amount, lockedBalance.decimals)} locked
-    &lt;/styled.span&gt;
+  const titleRightBulletInfo = (
+<span class="cstat-no" title="statement not covered" >    &lt;styled.span&gt;{formatMoneyWithoutSymbol(lockedBalance)} locked&lt;/styled.span&gt;</span>
   );
-  const additionalBalanceInfoAsFiat = <span class="cstat-no" title="statement not covered" >&lt;Caption&gt;{lockedBalanceAsFiat} locked&lt;/Caption&gt;;</span>
+  const captionRightBulletInfo = <span class="cstat-no" title="statement not covered" >&lt;Caption&gt;{fiatLockedBalance} locked&lt;/Caption&gt;;</span>
 &nbsp;
 <span class="cstat-no" title="statement not covered" >  return (</span>
     &lt;CryptoAssetItemLayout
-      additionalBalanceInfo={showAdditionalInfo &amp;&amp; additionalBalanceInfo}
-      additionalBalanceInfoAsFiat={showAdditionalInfo &amp;&amp; additionalBalanceInfoAsFiat}
-      asset={asset}
-      fiatBalance={availableBalanceAsFiat}
+      balance={balance}
+      captionLeft="STX"
+      captionRightBulletInfo={showLockedBalance &amp;&amp; captionRightBulletInfo}
+      fiatBalance={fiatAvailableBalance}
       icon={&lt;StxAvatarIcon /&gt;}
       isLoading={isLoading}
-      name={capitalize(asset.info.name)}
-      onClick={onClick}
+      onSelectAsset={onSelectAsset}
+      titleLeft="Stacks"
+      titleRightBulletInfo={showLockedBalance &amp;&amp; titleRightBulletInfo}
     /&gt;
   );
 }
@@ -232,7 +208,7 @@ export function <span class="fstat-no" title="function not covered" >StxCryptoAs
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-05-17T16:04:10.221Z
+                at 2024-05-22T15:27:53.699Z
             </div>
         <script src="../../../../../../../prettify.js"></script>
         <script>

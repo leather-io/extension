@@ -23,16 +23,16 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">3.03% </span>
+                <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>1/33</span>
+                <span class='fraction'>0/33</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/18</span>
+                <span class='fraction'>0/17</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">3.33% </span>
+                <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>1/30</span>
+                <span class='fraction'>0/31</span>
             </div>
         
             
@@ -171,7 +171,8 @@
 <a name='L106'></a><a href='#L106'>106</a>
 <a name='L107'></a><a href='#L107'>107</a>
 <a name='L108'></a><a href='#L108'>108</a>
-<a name='L109'></a><a href='#L109'>109</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L109'></a><a href='#L109'>109</a>
+<a name='L110'></a><a href='#L110'>110</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -204,7 +205,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -214,6 +215,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -293,7 +295,7 @@ import { sortAssetsByName } from '@app/common/asset-utils';
 import { convertAmountToFractionalUnit } from '@app/common/money/calculate-money';
 import { pullContractIdFromIdentity } from '@app/common/utils';
 import { useCurrentStxAvailableUnlockedBalance } from '@app/query/stacks/balance/account-balance.hooks';
-import { useTransferableSip10CryptoAssetsWithDetails } from '@app/query/stacks/sip10/sip10-tokens.hooks';
+import { useTransferableSip10Tokens } from '@app/query/stacks/sip10/sip10-tokens.hooks';
 import { useCurrentStacksAccountAddress } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
 import { getAvatarFallback } from '@app/ui/components/avatar/avatar';
 &nbsp;
@@ -312,18 +314,19 @@ export interface SwapAsset {
   principal: string;
 }
 &nbsp;
-export const defaultSwapFee = createMoney(1000000, 'STX');
+export const defaultSwapFee = <span class="cstat-no" title="statement not covered" >createMoney(1000000, 'STX');</span>
 &nbsp;
 export function <span class="fstat-no" title="function not covered" >useAlexCurrencyPriceAsMarketData() {</span>
   const { data: supportedCurrencies = <span class="branch-0 cbranch-no" title="branch not covered" >[] }</span> = <span class="cstat-no" title="statement not covered" >useAlexSdkSwappableCurrencyQuery();</span>
   const { data: prices } = <span class="cstat-no" title="statement not covered" >useAlexSdkLatestPricesQuery();</span>
 &nbsp;
 <span class="cstat-no" title="statement not covered" >  return useCallback(</span>
-<span class="fstat-no" title="function not covered" >    (p</span>rincipal: string, symbol?: string) =&gt; {
+<span class="fstat-no" title="function not covered" >    (p</span>rincipal: string, symbol: string) =&gt; {
       const tokenInfo = <span class="cstat-no" title="statement not covered" >supportedCurrencies</span>
         .filter(isDefined)
         .find(<span class="fstat-no" title="function not covered" >token =&gt; <span class="cstat-no" title="statement not covered" >p</span>ullContractIdFromIdentity(token.contractAddress) === principal)</span>;
-<span class="cstat-no" title="statement not covered" >      if (!symbol || !prices || !tokenInfo) <span class="cstat-no" title="statement not covered" >return null;</span></span>
+<span class="cstat-no" title="statement not covered" >      if (!prices || !tokenInfo)</span>
+<span class="cstat-no" title="statement not covered" >        return createMarketData(createMarketPair(symbol, 'USD'), createMoney(0, 'USD'));</span>
       const currency = <span class="cstat-no" title="statement not covered" >tokenInfo.id as Currency;</span>
       const price = <span class="cstat-no" title="statement not covered" >convertAmountToFractionalUnit(new BigNumber(prices[currency] ?? 0), 2);</span>
 <span class="cstat-no" title="statement not covered" >      return createMarketData(createMarketPair(symbol, 'USD'), createMoney(price, 'USD'));</span>
@@ -337,7 +340,7 @@ function <span class="fstat-no" title="function not covered" >useCreateSwapAsset
   const { data: prices } = <span class="cstat-no" title="statement not covered" >useAlexSdkLatestPricesQuery();</span>
   const priceAsMarketData = <span class="cstat-no" title="statement not covered" >useAlexCurrencyPriceAsMarketData();</span>
   const availableUnlockedBalance = <span class="cstat-no" title="statement not covered" >useCurrentStxAvailableUnlockedBalance();</span>
-  const assets = <span class="cstat-no" title="statement not covered" >useTransferableSip10CryptoAssetsWithDetails(address);</span>
+  const sip10Tokens = <span class="cstat-no" title="statement not covered" >useTransferableSip10Tokens(address);</span>
 &nbsp;
 <span class="cstat-no" title="statement not covered" >  return useCallback(</span>
 <span class="fstat-no" title="function not covered" >    (t</span>okenInfo?: TokenInfo): SwapAsset | undefined =&gt; {
@@ -349,8 +352,8 @@ function <span class="fstat-no" title="function not covered" >useCreateSwapAsset
 &nbsp;
       const currency = <span class="cstat-no" title="statement not covered" >tokenInfo.id as Currency;</span>
       const principal = <span class="cstat-no" title="statement not covered" >pullContractIdFromIdentity(tokenInfo.contractAddress);</span>
-      const availableBalance = <span class="cstat-no" title="statement not covered" >assets.find(<span class="fstat-no" title="function not covered" >a =&gt; <span class="cstat-no" title="statement not covered" >a</span>.info.contractId === principal)</span>?.balance</span>
-        .availableBalance;
+      const availableBalance = <span class="cstat-no" title="statement not covered" >sip10Tokens.find(<span class="fstat-no" title="function not covered" >token =&gt; <span class="cstat-no" title="statement not covered" >t</span>oken.info.contractId === principal)</span></span>
+        ?.balance.availableBalance;
 &nbsp;
       const swapAsset = <span class="cstat-no" title="statement not covered" >{</span>
         currency,
@@ -377,7 +380,7 @@ function <span class="fstat-no" title="function not covered" >useCreateSwapAsset
           : priceAsMarketData(principal, tokenInfo.name),
       };
     },
-    [assets, availableUnlockedBalance, priceAsMarketData, prices]
+    [availableUnlockedBalance, priceAsMarketData, prices, sip10Tokens]
   );
 }
 &nbsp;
@@ -394,7 +397,7 @@ export function <span class="fstat-no" title="function not covered" >useAlexSwap
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-05-17T16:04:10.221Z
+                at 2024-05-22T15:27:53.699Z
             </div>
         <script src="../../../../../../prettify.js"></script>
         <script>

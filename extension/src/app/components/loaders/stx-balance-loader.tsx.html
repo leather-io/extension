@@ -3,7 +3,7 @@
 <html lang="en">
 
 <head>
-    <title>Code coverage report for extension/src/app/components/loaders/btc-crypto-asset-loader.tsx</title>
+    <title>Code coverage report for extension/src/app/components/loaders/stx-balance-loader.tsx</title>
     <meta charset="utf-8" />
     <link rel="stylesheet" href="../../../../../prettify.css" />
     <link rel="stylesheet" href="../../../../../base.css" />
@@ -19,20 +19,20 @@
 <body>
 <div class='wrapper'>
     <div class='pad1'>
-        <h1><a href="../../../../../index.html">All files</a> / <a href="index.html">extension/src/app/components/loaders</a> btc-crypto-asset-loader.tsx</h1>
+        <h1><a href="../../../../../index.html">All files</a> / <a href="index.html">extension/src/app/components/loaders</a> stx-balance-loader.tsx</h1>
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/2</span>
+                <span class='fraction'>0/5</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
+                <span class="strong">0% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/0</span>
+                <span class='fraction'>0/2</span>
             </div>
         
             
@@ -46,7 +46,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/2</span>
+                <span class='fraction'>0/4</span>
             </div>
         
             
@@ -74,7 +74,13 @@
 <a name='L9'></a><a href='#L9'>9</a>
 <a name='L10'></a><a href='#L10'>10</a>
 <a name='L11'></a><a href='#L11'>11</a>
-<a name='L12'></a><a href='#L12'>12</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L12'></a><a href='#L12'>12</a>
+<a name='L13'></a><a href='#L13'>13</a>
+<a name='L14'></a><a href='#L14'>14</a>
+<a name='L15'></a><a href='#L15'>15</a>
+<a name='L16'></a><a href='#L16'>16</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -84,17 +90,23 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { useBtcAccountCryptoAssetWithDetails } from '@app/query/bitcoin/btc/btc-crypto-asset.hooks';
-import type { BtcAccountCryptoAssetWithDetails } from '@app/query/models/crypto-asset.model';
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import type { StxCryptoAssetBalance } from '@leather-wallet/models';
 &nbsp;
-interface BtcCryptoAssetLoaderProps {
+import { isFetchedWithSuccess } from '@app/query/query-config';
+import { useStxCryptoAssetBalance } from '@app/query/stacks/balance/account-balance.hooks';
+&nbsp;
+interface StxBalanceLoaderProps {
   address: string;
-  children(asset: BtcAccountCryptoAssetWithDetails, isInitialLoading: boolean): React.ReactNode;
+  children(balance: StxCryptoAssetBalance, isInitialLoading: boolean): React.ReactNode;
 }
-export function <span class="fstat-no" title="function not covered" >BtcCryptoAssetLoader({</span> address, children }: BtcCryptoAssetLoaderProps) {
-  const { asset, isInitialLoading } = <span class="cstat-no" title="statement not covered" >useBtcAccountCryptoAssetWithDetails(address);</span>
-<span class="cstat-no" title="statement not covered" >  return children(asset, isInitialLoading);</span>
+export function <span class="fstat-no" title="function not covered" >StxBalanceLoader({</span> address, children }: StxBalanceLoaderProps) {
+  const result = <span class="cstat-no" title="statement not covered" >useStxCryptoAssetBalance(address);</span>
+<span class="cstat-no" title="statement not covered" >  if (!isFetchedWithSuccess(result)) <span class="cstat-no" title="statement not covered" >return null;</span></span>
+  const { data: balance, isInitialLoading } = <span class="cstat-no" title="statement not covered" >result;</span>
+<span class="cstat-no" title="statement not covered" >  return children(balance, isInitialLoading);</span>
 }
 &nbsp;</pre></td></tr></table></pre>
 
@@ -103,7 +115,7 @@ export function <span class="fstat-no" title="function not covered" >BtcCryptoAs
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-05-17T16:04:10.221Z
+                at 2024-05-22T15:27:53.699Z
             </div>
         <script src="../../../../../prettify.js"></script>
         <script>

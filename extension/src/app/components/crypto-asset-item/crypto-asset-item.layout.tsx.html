@@ -25,14 +25,14 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/11</span>
+                <span class='fraction'>0/9</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/13</span>
+                <span class='fraction'>0/7</span>
             </div>
         
             
@@ -46,7 +46,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/11</span>
+                <span class='fraction'>0/9</span>
             </div>
         
             
@@ -155,14 +155,7 @@
 <a name='L90'></a><a href='#L90'>90</a>
 <a name='L91'></a><a href='#L91'>91</a>
 <a name='L92'></a><a href='#L92'>92</a>
-<a name='L93'></a><a href='#L93'>93</a>
-<a name='L94'></a><a href='#L94'>94</a>
-<a name='L95'></a><a href='#L95'>95</a>
-<a name='L96'></a><a href='#L96'>96</a>
-<a name='L97'></a><a href='#L97'>97</a>
-<a name='L98'></a><a href='#L98'>98</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L93'></a><a href='#L93'>93</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -200,12 +193,9 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -232,10 +222,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -250,19 +236,21 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { ReactNode } from 'react';
-&nbsp;
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import type { CryptoAssetBalance } from '@leather-wallet/models';
 import { Box, Flex, styled } from 'leather-styles/jsx';
 &nbsp;
 import { spamFilter } from '@app/common/utils/spam-filter';
-import type { AccountCryptoAssetWithDetails } from '@app/query/models/crypto-asset.model';
 import { BulletSeparator } from '@app/ui/components/bullet-separator/bullet-separator';
 import { ItemLayout } from '@app/ui/components/item-layout/item-layout';
 import { SkeletonLoader } from '@app/ui/components/skeleton-loader/skeleton-loader';
@@ -273,73 +261,66 @@ import { Pressable } from '@app/ui/pressable/pressable';
 import { parseCryptoAssetBalance } from './crypto-asset-item.layout.utils';
 &nbsp;
 interface CryptoAssetItemLayoutProps {
-  additionalBalanceInfo?: ReactNode;
-  additionalBalanceInfoAsFiat?: ReactNode;
-  asset: AccountCryptoAssetWithDetails;
-  caption?: string;
+  balance: CryptoAssetBalance;
+  captionLeft: string;
+  captionRightBulletInfo?: React.ReactNode;
+  contractId?: string;
   fiatBalance?: string;
   icon: React.ReactNode;
   isLoading?: boolean;
-  name: string;
-  onClick?(asset: AccountCryptoAssetWithDetails): void;
-  rightElement?: React.ReactNode;
+  onSelectAsset?(symbol: string, contractId?: string): void;
+  titleLeft: string;
+  titleRightBulletInfo?: React.ReactNode;
 }
 export function <span class="fstat-no" title="function not covered" >CryptoAssetItemLayout({</span>
-  additionalBalanceInfo,
-  additionalBalanceInfoAsFiat,
-  asset,
-  caption,
+  balance,
+  captionLeft,
+  captionRightBulletInfo,
+  contractId,
   fiatBalance,
   icon,
   isLoading = <span class="branch-0 cbranch-no" title="branch not covered" >false,</span>
-  name,
-  onClick,
-  rightElement,
+  onSelectAsset,
+  titleLeft,
+  titleRightBulletInfo,
 }: CryptoAssetItemLayoutProps) {
-  const { dataTestId, formattedBalance } = <span class="cstat-no" title="statement not covered" >parseCryptoAssetBalance(asset.balance);</span>
-  const { availableBalance } = <span class="cstat-no" title="statement not covered" >asset.balance;</span>
-  const title = <span class="cstat-no" title="statement not covered" >spamFilter(name);</span>
+  const { availableBalance, dataTestId, formattedBalance } = <span class="cstat-no" title="statement not covered" >parseCryptoAssetBalance(balance);</span>
 &nbsp;
   const titleRight = (
 <span class="cstat-no" title="statement not covered" >    &lt;SkeletonLoader width="126px" isLoading={isLoading}&gt;</span>
-      {rightElement ? (
-        rightElement
-      ) : (
-        &lt;BasicTooltip
-          asChild
-          label={formattedBalance.isAbbreviated ? availableBalance.amount.toString() : undefined}
-          side="left"
-        &gt;
-          &lt;styled.span data-testid={title} textStyle="label.02"&gt;
-            {formattedBalance.value} {additionalBalanceInfo}
-          &lt;/styled.span&gt;
-        &lt;/BasicTooltip&gt;
-      )}
+      &lt;BasicTooltip
+        asChild
+        label={formattedBalance.isAbbreviated ? availableBalance.amount.toString() : undefined}
+        side="left"
+      &gt;
+        &lt;Flex alignItems="center" gap="space.02" textStyle="label.02"&gt;
+          &lt;BulletSeparator&gt;
+            &lt;styled.span&gt;{formattedBalance.value}&lt;/styled.span&gt;
+            {titleRightBulletInfo}
+          &lt;/BulletSeparator&gt;
+        &lt;/Flex&gt;
+      &lt;/BasicTooltip&gt;
     &lt;/SkeletonLoader&gt;
   );
 &nbsp;
   const captionRight = (
 <span class="cstat-no" title="statement not covered" >    &lt;SkeletonLoader width="78px" isLoading={isLoading}&gt;</span>
-      {!rightElement &amp;&amp; (
-        &lt;Caption&gt;
-          &lt;Flex alignItems="center" gap="space.02" color="inherit"&gt;
-            &lt;BulletSeparator&gt;
-              &lt;Caption&gt;{availableBalance.amount.toNumber() &gt; 0 ? fiatBalance : null}&lt;/Caption&gt;
-              {additionalBalanceInfoAsFiat}
-            &lt;/BulletSeparator&gt;
-          &lt;/Flex&gt;
-        &lt;/Caption&gt;
-      )}
+      &lt;Flex alignItems="center" color="ink.text-subdued" gap="space.02"&gt;
+        &lt;BulletSeparator&gt;
+          &lt;Caption&gt;{availableBalance.amount.toNumber() &gt; 0 ? fiatBalance : null}&lt;/Caption&gt;
+          {captionRightBulletInfo}
+        &lt;/BulletSeparator&gt;
+      &lt;/Flex&gt;
     &lt;/SkeletonLoader&gt;
   );
 &nbsp;
-  const isInteractive = <span class="cstat-no" title="statement not covered" >!!onClick;</span>
+  const isInteractive = <span class="cstat-no" title="statement not covered" >!!onSelectAsset;</span>
 &nbsp;
   const content = (
 <span class="cstat-no" title="statement not covered" >    &lt;ItemLayout</span>
       flagImg={icon}
-      titleLeft={title}
-      captionLeft={caption ?? availableBalance.symbol}
+      titleLeft={spamFilter(titleLeft)}
+      captionLeft={captionLeft}
       titleRight={titleRight}
       captionRight={captionRight}
     /&gt;
@@ -347,7 +328,11 @@ export function <span class="fstat-no" title="function not covered" >CryptoAsset
 &nbsp;
 <span class="cstat-no" title="statement not covered" >  if (isInteractive)</span>
 <span class="cstat-no" title="statement not covered" >    return (</span>
-      &lt;Pressable data-testid={dataTestId} onClick={<span class="fstat-no" title="function not covered" >() =&gt; <span class="cstat-no" title="statement not covered" >o</span>nClick(asset)} m</span>y="space.02"&gt;
+      &lt;Pressable
+        data-testid={dataTestId}
+        onClick={<span class="fstat-no" title="function not covered" >() =&gt; <span class="cstat-no" title="statement not covered" >o</span>nSelectAsset(availableBalance.symbol, contractId)}</span>
+        my="space.02"
+      &gt;
         {content}
       &lt;/Pressable&gt;
     );
@@ -361,7 +346,7 @@ export function <span class="fstat-no" title="function not covered" >CryptoAsset
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-05-17T16:04:10.221Z
+                at 2024-05-22T15:27:53.699Z
             </div>
         <script src="../../../../../prettify.js"></script>
         <script>

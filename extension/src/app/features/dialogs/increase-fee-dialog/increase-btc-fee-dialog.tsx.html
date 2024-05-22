@@ -32,7 +32,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/8</span>
+                <span class='fraction'>0/6</span>
             </div>
         
             
@@ -181,8 +181,9 @@
 <a name='L116'></a><a href='#L116'>116</a>
 <a name='L117'></a><a href='#L117'>117</a>
 <a name='L118'></a><a href='#L118'>118</a>
-<a name='L119'></a><a href='#L119'>119</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L119'></a><a href='#L119'>119</a>
+<a name='L120'></a><a href='#L120'>120</a>
+<a name='L121'></a><a href='#L121'>121</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -239,6 +240,9 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -315,7 +319,6 @@ import { btcToSat } from '@app/common/money/unit-conversion';
 import { getBitcoinTxValue } from '@app/common/transactions/bitcoin/utils';
 import { BitcoinCustomFeeInput } from '@app/components/bitcoin-custom-fee/bitcoin-custom-fee-input';
 import { BitcoinTransactionItem } from '@app/components/bitcoin-transaction-item/bitcoin-transaction-item';
-import { LoadingSpinner } from '@app/components/loading-spinner';
 import { useBtcCryptoAssetBalanceNativeSegwit } from '@app/query/bitcoin/balance/btc-balance-native-segwit.hooks';
 import { useCurrentAccountNativeSegwitIndexZeroSigner } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
 import { Dialog } from '@app/ui/components/containers/dialog/dialog';
@@ -335,11 +338,11 @@ export function <span class="fstat-no" title="function not covered" >IncreaseBtc
   const btcTx = <span class="cstat-no" title="statement not covered" >tx;</span>
   const nativeSegwitSigner = <span class="cstat-no" title="statement not covered" >useCurrentAccountNativeSegwitIndexZeroSigner();</span>
   const currentBitcoinAddress = <span class="cstat-no" title="statement not covered" >nativeSegwitSigner.address;</span>
-  const { btcCryptoAssetBalance } = <span class="cstat-no" title="statement not covered" >useBtcCryptoAssetBalanceNativeSegwit(currentBitcoinAddress);</span>
+  const { balance } = <span class="cstat-no" title="statement not covered" >useBtcCryptoAssetBalanceNativeSegwit(currentBitcoinAddress);</span>
   const { isBroadcasting, sizeInfo, onSubmit, validationSchema, recipient } =
 <span class="cstat-no" title="statement not covered" >    useBtcIncreaseFee(btcTx);</span>
 &nbsp;
-  const balance = <span class="cstat-no" title="statement not covered" >formatMoney(btcCryptoAssetBalance.availableBalance);</span>
+  const btcBalance = <span class="cstat-no" title="statement not covered" >formatMoney(balance.availableBalance);</span>
 &nbsp;
   const recipients = <span class="cstat-no" title="statement not covered" >[</span>
     {
@@ -373,7 +376,11 @@ export function <span class="fstat-no" title="function not covered" >IncreaseBtc
             header={&lt;DialogHeader title="Increase fee" /&gt;}
             footer={
               &lt;Footer flexDirection="row"&gt;
-                &lt;IncreaseFeeActions isDisabled={false} onCancel={<span class="fstat-no" title="function not covered" >() =&gt; <span class="cstat-no" title="statement not covered" >n</span>avigate(RouteUrls.Home)} /</span>&gt;
+                &lt;IncreaseFeeActions
+                  isDisabled={isBroadcasting}
+                  isBroadcasting={isBroadcasting}
+                  onCancel={<span class="fstat-no" title="function not covered" >() =&gt; <span class="cstat-no" title="statement not covered" >n</span>avigate(RouteUrls.Home)}</span>
+                /&gt;
               &lt;/Footer&gt;
             }
           &gt;
@@ -391,7 +398,6 @@ export function <span class="fstat-no" title="function not covered" >IncreaseBtc
                 &lt;/Caption&gt;
                 &lt;Stack gap="space.06"&gt;
                   {btcTx &amp;&amp; &lt;BitcoinTransactionItem transaction={btcTx} /&gt;}
-                  {isBroadcasting &amp;&amp; &lt;LoadingSpinner /&gt;}
                   &lt;Stack gap="space.04"&gt;
                     &lt;Stack gap="space.01"&gt;
                       &lt;BitcoinCustomFeeInput
@@ -405,7 +411,7 @@ export function <span class="fstat-no" title="function not covered" >IncreaseBtc
                       /&gt;
                     &lt;/Stack&gt;
 &nbsp;
-                    {btcCryptoAssetBalance &amp;&amp; &lt;Caption&gt;Balance: {balance}&lt;/Caption&gt;}
+                    {balance &amp;&amp; &lt;Caption&gt;Balance: {btcBalance}&lt;/Caption&gt;}
                   &lt;/Stack&gt;
                 &lt;/Stack&gt;
               &lt;/Suspense&gt;
@@ -424,7 +430,7 @@ export function <span class="fstat-no" title="function not covered" >IncreaseBtc
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-05-17T16:04:10.221Z
+                at 2024-05-22T15:27:53.699Z
             </div>
         <script src="../../../../../../prettify.js"></script>
         <script>

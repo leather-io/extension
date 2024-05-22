@@ -25,7 +25,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/40</span>
+                <span class='fraction'>0/43</span>
             </div>
         
             
@@ -46,7 +46,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/37</span>
+                <span class='fraction'>0/40</span>
             </div>
         
             
@@ -229,7 +229,9 @@
 <a name='L164'></a><a href='#L164'>164</a>
 <a name='L165'></a><a href='#L165'>165</a>
 <a name='L166'></a><a href='#L166'>166</a>
-<a name='L167'></a><a href='#L167'>167</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L167'></a><a href='#L167'>167</a>
+<a name='L168'></a><a href='#L168'>168</a>
+<a name='L169'></a><a href='#L169'>169</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -314,15 +316,17 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -331,12 +335,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -376,6 +374,12 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -414,6 +418,7 @@ import {
   uintCV,
 } from '@stacks/transactions';
 &nbsp;
+import { logger } from '@shared/logger';
 import type { StacksSendFormValues, StacksTransactionFormValues } from '@shared/models/form.model';
 &nbsp;
 import { stxToMicroStx } from '@app/common/money/unit-conversion';
@@ -425,7 +430,6 @@ import {
 import { useNextNonce } from '@app/query/stacks/nonce/account-nonces.hooks';
 import { useCurrentStacksNetworkState } from '@app/store/networks/networks.hooks';
 import { makePostCondition } from '@app/store/transactions/transaction.hooks';
-import { getAssetStringParts } from '@app/ui/utils/get-asset-string-parts';
 &nbsp;
 import { useCurrentStacksAccount } from '../accounts/blockchain/stacks/stacks-account.hooks';
 &nbsp;
@@ -476,87 +480,89 @@ export function <span class="fstat-no" title="function not covered" >useStxToken
 <span class="cstat-no" title="statement not covered" >  return tx.result;</span>
 }
 &nbsp;
-export function <span class="fstat-no" title="function not covered" >useGenerateFtTokenTransferUnsignedTx(a</span>ssetInfo: Sip10CryptoAssetInfo) {
+export function <span class="fstat-no" title="function not covered" >useGenerateFtTokenTransferUnsignedTx(i</span>nfo: Sip10CryptoAssetInfo) {
   const { data: nextNonce } = <span class="cstat-no" title="statement not covered" >useNextNonce();</span>
   const account = <span class="cstat-no" title="statement not covered" >useCurrentStacksAccount();</span>
   const network = <span class="cstat-no" title="statement not covered" >useCurrentStacksNetworkState();</span>
+  const { contractName, contractAddress, contractAssetName } = <span class="cstat-no" title="statement not covered" >info;</span>
 &nbsp;
 <span class="cstat-no" title="statement not covered" >  return useCallback(</span>
 <span class="fstat-no" title="function not covered" >    async (v</span>alues?: StacksSendFormValues | StacksTransactionFormValues) =&gt; {
-<span class="cstat-no" title="statement not covered" >      if (!account) <span class="cstat-no" title="statement not covered" >return;</span></span>
+<span class="cstat-no" title="statement not covered" >      try {</span>
+<span class="cstat-no" title="statement not covered" >        if (!account) <span class="cstat-no" title="statement not covered" >return;</span></span>
 &nbsp;
-      const functionName = <span class="cstat-no" title="statement not covered" >'transfer';</span>
-      const recipient =
-<span class="cstat-no" title="statement not covered" >        values &amp;&amp; 'recipient' in values</span>
-          ? createAddress(values.recipient || '')
-          : createEmptyAddress();
-      const amount = <span class="cstat-no" title="statement not covered" >values &amp;&amp; 'amount' in values ? values.amount : 0;</span>
-      const memo =
-<span class="cstat-no" title="statement not covered" >        values &amp;&amp; 'memo' in values &amp;&amp; values.memo !== ''</span>
-          ? someCV(bufferCVFromString(values.memo || ''))
-          : noneCV();
+        const functionName = <span class="cstat-no" title="statement not covered" >'transfer';</span>
+        const recipient =
+<span class="cstat-no" title="statement not covered" >          values &amp;&amp; 'recipient' in values</span>
+            ? createAddress(values.recipient || '')
+            : createEmptyAddress();
+        const amount = <span class="cstat-no" title="statement not covered" >values &amp;&amp; 'amount' in values ? values.amount : 0;</span>
+        const memo =
+<span class="cstat-no" title="statement not covered" >          values &amp;&amp; 'memo' in values &amp;&amp; values.memo !== ''</span>
+            ? someCV(bufferCVFromString(values.memo || ''))
+            : noneCV();
 &nbsp;
-      const amountAsFractionalUnit = <span class="cstat-no" title="statement not covered" >ftUnshiftDecimals(amount, assetInfo.decimals || 0);</span>
-      const {
-        address: contractAddress,
-        contractName,
-        assetName,
-      } = <span class="cstat-no" title="statement not covered" >getAssetStringParts(assetInfo.contractId);</span>
-&nbsp;
-      const postConditionOptions = <span class="cstat-no" title="statement not covered" >{</span>
-        amount: amountAsFractionalUnit,
-        contractAddress,
-        contractAssetName: assetName,
-        contractName,
-        stxAddress: account.address,
-      };
-&nbsp;
-      const postConditions = <span class="cstat-no" title="statement not covered" >[makePostCondition(postConditionOptions)];</span>
-&nbsp;
-      // (transfer (uint principal principal) (response bool uint))
-      const functionArgs: ClarityValue[] = <span class="cstat-no" title="statement not covered" >[</span>
-        uintCV(amountAsFractionalUnit),
-        standardPrincipalCVFromAddress(createAddress(account.address)),
-        standardPrincipalCVFromAddress(recipient),
-      ];
-&nbsp;
-<span class="cstat-no" title="statement not covered" >      if (assetInfo.hasMemo) {</span>
-<span class="cstat-no" title="statement not covered" >        functionArgs.push(memo);</span>
-      }
-&nbsp;
-      const options = <span class="cstat-no" title="statement not covered" >{</span>
-        txData: {
-          txType: TransactionTypes.ContractCall,
+        const amountAsFractionalUnit = <span class="cstat-no" title="statement not covered" >ftUnshiftDecimals(amount, info.decimals || 0);</span>
+        const postConditionOptions = <span class="cstat-no" title="statement not covered" >{</span>
+          amount: amountAsFractionalUnit,
           contractAddress,
+          contractAssetName,
           contractName,
-          functionName,
-          functionArgs: functionArgs.map(serializeCV).map(<span class="fstat-no" title="function not covered" >arg =&gt; <span class="cstat-no" title="statement not covered" >b</span>ytesToHex(arg))</span>,
-          postConditions,
-          postConditionMode: PostConditionMode.Deny,
-          network,
-          publicKey: account.stxPublicKey,
-        },
-        fee: stxToMicroStx(values?.fee || 0).toNumber(),
-        publicKey: account.stxPublicKey,
-        nonce: Number(values?.nonce) ?? nextNonce?.nonce,
-      } as const;
+          stxAddress: account.address,
+        };
 &nbsp;
-<span class="cstat-no" title="statement not covered" >      return generateUnsignedTransaction(options);</span>
+        const postConditions = <span class="cstat-no" title="statement not covered" >[makePostCondition(postConditionOptions)];</span>
+&nbsp;
+        // (transfer (uint principal principal) (response bool uint))
+        const functionArgs: ClarityValue[] = <span class="cstat-no" title="statement not covered" >[</span>
+          uintCV(amountAsFractionalUnit),
+          standardPrincipalCVFromAddress(createAddress(account.address)),
+          standardPrincipalCVFromAddress(recipient),
+        ];
+&nbsp;
+<span class="cstat-no" title="statement not covered" >        if (info.hasMemo) {</span>
+<span class="cstat-no" title="statement not covered" >          functionArgs.push(memo);</span>
+        }
+&nbsp;
+        const options = <span class="cstat-no" title="statement not covered" >{</span>
+          txData: {
+            txType: TransactionTypes.ContractCall,
+            contractAddress,
+            contractName,
+            functionName,
+            functionArgs: functionArgs.map(serializeCV).map(<span class="fstat-no" title="function not covered" >arg =&gt; <span class="cstat-no" title="statement not covered" >b</span>ytesToHex(arg))</span>,
+            postConditions,
+            postConditionMode: PostConditionMode.Deny,
+            network,
+            publicKey: account.stxPublicKey,
+          },
+          fee: stxToMicroStx(values?.fee || 0).toNumber(),
+          publicKey: account.stxPublicKey,
+          nonce: Number(values?.nonce) ?? nextNonce?.nonce,
+        } as const;
+&nbsp;
+<span class="cstat-no" title="statement not covered" >        return generateUnsignedTransaction(options);</span>
+      } catch (error) {
+<span class="cstat-no" title="statement not covered" >        logger.error('Failed to generate unsigned transaction', error);</span>
+<span class="cstat-no" title="statement not covered" >        return;</span>
+      }
     },
     [
       account,
-      assetInfo.contractId,
-      assetInfo.decimals,
-      assetInfo.hasMemo,
+      info.decimals,
+      info.hasMemo,
       network,
       nextNonce?.nonce,
+      contractName,
+      contractAssetName,
+      contractAddress,
     ]
   );
 }
 &nbsp;
-export function <span class="fstat-no" title="function not covered" >useFtTokenTransferUnsignedTx(a</span>ssetInfo: Sip10CryptoAssetInfo) {
+export function <span class="fstat-no" title="function not covered" >useFtTokenTransferUnsignedTx(i</span>nfo: Sip10CryptoAssetInfo) {
   const account = <span class="cstat-no" title="statement not covered" >useCurrentStacksAccount();</span>
-  const generateTx = <span class="cstat-no" title="statement not covered" >useGenerateFtTokenTransferUnsignedTx(assetInfo);</span>
+  const generateTx = <span class="cstat-no" title="statement not covered" >useGenerateFtTokenTransferUnsignedTx(info);</span>
 &nbsp;
   const tx = <span class="cstat-no" title="statement not covered" >useAsync(<span class="fstat-no" title="function not covered" >async () =&gt; <span class="cstat-no" title="statement not covered" >g</span>enerateTx(), [</span>account]);</span>
 <span class="cstat-no" title="statement not covered" >  return tx.result;</span>
@@ -568,7 +574,7 @@ export function <span class="fstat-no" title="function not covered" >useFtTokenT
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-05-17T16:04:10.221Z
+                at 2024-05-22T15:27:53.699Z
             </div>
         <script src="../../../../../prettify.js"></script>
         <script>

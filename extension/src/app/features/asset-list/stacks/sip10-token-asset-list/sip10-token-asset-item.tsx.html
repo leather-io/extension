@@ -25,7 +25,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/2</span>
+                <span class='fraction'>0/3</span>
             </div>
         
             
@@ -46,7 +46,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/2</span>
+                <span class='fraction'>0/3</span>
             </div>
         
             
@@ -99,7 +99,27 @@
 <a name='L34'></a><a href='#L34'>34</a>
 <a name='L35'></a><a href='#L35'>35</a>
 <a name='L36'></a><a href='#L36'>36</a>
-<a name='L37'></a><a href='#L37'>37</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L37'></a><a href='#L37'>37</a>
+<a name='L38'></a><a href='#L38'>38</a>
+<a name='L39'></a><a href='#L39'>39</a>
+<a name='L40'></a><a href='#L40'>40</a>
+<a name='L41'></a><a href='#L41'>41</a>
+<a name='L42'></a><a href='#L42'>42</a>
+<a name='L43'></a><a href='#L43'>43</a>
+<a name='L44'></a><a href='#L44'>44</a>
+<a name='L45'></a><a href='#L45'>45</a>
+<a name='L46'></a><a href='#L46'>46</a>
+<a name='L47'></a><a href='#L47'>47</a>
+<a name='L48'></a><a href='#L48'>48</a>
+<a name='L49'></a><a href='#L49'>49</a>
+<a name='L50'></a><a href='#L50'>50</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -115,6 +135,10 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -135,39 +159,54 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { CryptoAssetItemLayout } from '@app/components/crypto-asset-item/crypto-asset-item.layout';
-import { StacksAssetAvatar } from '@app/components/stacks-asset-avatar';
-import type {
-  AccountCryptoAssetWithDetails,
-  Sip10AccountCryptoAssetWithDetails,
-} from '@app/query/models/crypto-asset.model';
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import type { CryptoAssetBalance, MarketData, Sip10CryptoAssetInfo } from '@leather-wallet/models';
 &nbsp;
-import { parseSip10TokenCryptoAssetBalance } from './sip10-token-asset-item.utils';
+import { convertAssetBalanceToFiat } from '@app/common/asset-utils';
+import { getSafeImageCanonicalUri } from '@app/common/stacks-utils';
+import { spamFilter } from '@app/common/utils/spam-filter';
+import { CryptoAssetItemLayout } from '@app/components/crypto-asset-item/crypto-asset-item.layout';
+import { StacksAssetAvatar } from '@app/components/stacks-asset-avatar';
 &nbsp;
 interface Sip10TokenAssetItemProps {
-  asset: Sip10AccountCryptoAssetWithDetails;
-  onClick?(asset: AccountCryptoAssetWithDetails): void;
+  balance: CryptoAssetBalance;
+  info: Sip10CryptoAssetInfo;
+  isLoading: boolean;
+  marketData: MarketData;
+  onSelectAsset?(symbol: string, contractId?: string): void;
 }
-export function <span class="fstat-no" title="function not covered" >Sip10TokenAssetItem({</span> asset, onClick }: Sip10TokenAssetItemProps) {
-  const { avatar, fiatBalance, imageCanonicalUri, title } =
-<span class="cstat-no" title="statement not covered" >    parseSip10TokenCryptoAssetBalance(asset);</span>
+export function <span class="fstat-no" title="function not covered" >Sip10TokenAssetItem({</span>
+  balance,
+  info,
+  isLoading,
+  marketData,
+  onSelectAsset,
+}: Sip10TokenAssetItemProps) {
+  const name = <span class="cstat-no" title="statement not covered" >spamFilter(info.tokenName);</span>
+  const fiatBalance = <span class="cstat-no" title="statement not covered" >convertAssetBalanceToFiat({</span>
+    balance: balance.availableBalance,
+    marketData,
+  });
 &nbsp;
 <span class="cstat-no" title="statement not covered" >  return (</span>
     &lt;CryptoAssetItemLayout
-      asset={asset}
+      balance={balance}
       fiatBalance={fiatBalance}
-      caption={asset.info.symbol}
+      captionLeft={info.symbol}
+      contractId={info.contractId}
       icon={
         &lt;StacksAssetAvatar
           color="white"
-          gradientString={avatar}
-          imageCanonicalUri={imageCanonicalUri}
+          gradientString={info.contractId}
+          imageCanonicalUri={getSafeImageCanonicalUri(info.imageCanonicalUri, name)}
         &gt;
-          {title[0]}
+          {name[0]}
         &lt;/StacksAssetAvatar&gt;
       }
-      name={asset.info.name}
-      onClick={onClick}
+      isLoading={isLoading}
+      onSelectAsset={onSelectAsset}
+      titleLeft={name}
     /&gt;
   );
 }
@@ -178,7 +217,7 @@ export function <span class="fstat-no" title="function not covered" >Sip10TokenA
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-05-17T16:04:10.221Z
+                at 2024-05-22T15:27:53.699Z
             </div>
         <script src="../../../../../../../prettify.js"></script>
         <script>

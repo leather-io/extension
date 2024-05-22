@@ -23,9 +23,9 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">14.28% </span>
+                <span class="strong">12.5% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>1/7</span>
+                <span class='fraction'>1/8</span>
             </div>
         
             
@@ -39,14 +39,14 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/3</span>
+                <span class='fraction'>0/4</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">14.28% </span>
+                <span class="strong">12.5% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>1/7</span>
+                <span class='fraction'>1/8</span>
             </div>
         
             
@@ -90,7 +90,14 @@
 <a name='L25'></a><a href='#L25'>25</a>
 <a name='L26'></a><a href='#L26'>26</a>
 <a name='L27'></a><a href='#L27'>27</a>
-<a name='L28'></a><a href='#L28'>28</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L28'></a><a href='#L28'>28</a>
+<a name='L29'></a><a href='#L29'>29</a>
+<a name='L30'></a><a href='#L30'>30</a>
+<a name='L31'></a><a href='#L31'>31</a>
+<a name='L32'></a><a href='#L32'>32</a>
+<a name='L33'></a><a href='#L33'>33</a>
+<a name='L34'></a><a href='#L34'>34</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -111,34 +118,45 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { type UseQueryResult, useQueries } from '@tanstack/react-query';
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { useQueries } from '@tanstack/react-query';
 &nbsp;
 import { useConfigRunesEnabled } from '@app/query/common/remote-config/remote-config.query';
 import { useBitcoinClient } from '@app/store/common/api-clients.hooks';
 import { useCurrentNetwork } from '@app/store/networks/networks.selectors';
 &nbsp;
-import type { RuneTickerInfo } from '../bitcoin-client';
+import type { RuneBalance, RuneTickerInfo } from '../bitcoin-client';
+import { createRuneCryptoAssetDetails } from './runes.utils';
 &nbsp;
 const queryOptions = { staleTime: 5 * 60 * 1000 };
 &nbsp;
-export function <span class="fstat-no" title="function not covered" >useGetRunesTickerInfoQuery(r</span>uneNames: string[]): UseQueryResult&lt;RuneTickerInfo&gt;[] {
+export function <span class="fstat-no" title="function not covered" >useGetRunesTickerInfoQuery(r</span>unesBalances: RuneBalance[]) {
   const client = <span class="cstat-no" title="statement not covered" >useBitcoinClient();</span>
   const network = <span class="cstat-no" title="statement not covered" >useCurrentNetwork();</span>
   const runesEnabled = <span class="cstat-no" title="statement not covered" >useConfigRunesEnabled();</span>
 &nbsp;
 <span class="cstat-no" title="statement not covered" >  return useQueries({</span>
-    queries: runeNames.map(<span class="fstat-no" title="function not covered" >runeName =&gt; {</span>
+    queries: runesBalances.map(<span class="fstat-no" title="function not covered" >runeBalance =&gt; {</span>
 <span class="cstat-no" title="statement not covered" >      return {</span>
-        enabled: !!runeName &amp;&amp; (network.chain.bitcoin.bitcoinNetwork === 'testnet' || runesEnabled),
-        queryKey: ['runes-ticker-info', runeName],
+        enabled:
+          !runeBalance &amp;&amp; (network.chain.bitcoin.bitcoinNetwork === 'testnet' || runesEnabled),
+        queryKey: ['runes-ticker-info', runeBalance.rune_name],
         queryFn: <span class="fstat-no" title="function not covered" >() =&gt;</span>
-<span class="cstat-no" title="statement not covered" >          client.bestinSlotApi.getRunesTickerInfo(runeName, network.chain.bitcoin.bitcoinNetwork),</span>
+<span class="cstat-no" title="statement not covered" >          client.bestinSlotApi.getRunesTickerInfo(</span>
+            runeBalance.rune_name,
+            network.chain.bitcoin.bitcoinNetwork
+          ),
+        select: <span class="fstat-no" title="function not covered" >(r</span>esp: RuneTickerInfo) =&gt; <span class="cstat-no" title="statement not covered" >createRuneCryptoAssetDetails(runeBalance, resp),</span>
         ...queryOptions,
       };
     }),
@@ -151,7 +169,7 @@ export function <span class="fstat-no" title="function not covered" >useGetRunes
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-05-17T16:04:10.221Z
+                at 2024-05-22T15:27:53.699Z
             </div>
         <script src="../../../../../../prettify.js"></script>
         <script>

@@ -23,9 +23,9 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">21.05% </span>
+                <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>4/19</span>
+                <span class='fraction'>0/19</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">28.57% </span>
+                <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>4/14</span>
+                <span class='fraction'>0/14</span>
             </div>
         
             
@@ -86,35 +86,35 @@
 <a name='L21'></a><a href='#L21'>21</a>
 <a name='L22'></a><a href='#L22'>22</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { isCssProperty } from './is-valid-prop.js';
 &nbsp;
-export const defaultShouldForwardProp = <span class="fstat-no" title="function not covered" >(p</span>rop, variantKeys) =&gt; <span class="cstat-no" title="statement not covered" >!variantKeys.includes(prop) &amp;&amp; !isCssProperty(prop)</span>
+export const defaultShouldForwardProp = <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >(p</span>rop, variantKeys) =&gt; <span class="cstat-no" title="statement not covered" >!variantKeys.includes(prop) &amp;&amp; !isCssProperty(prop)</span></span>
 &nbsp;
-export const composeShouldForwardProps = <span class="fstat-no" title="function not covered" >(t</span>ag, shouldForwardProp) =&gt;
+export const composeShouldForwardProps = <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >(t</span>ag, shouldForwardProp) =&gt;</span>
 <span class="cstat-no" title="statement not covered" >  tag.__shouldForwardProps__ &amp;&amp; shouldForwardProp</span>
     ? <span class="fstat-no" title="function not covered" >(p</span>ropName) =&gt; <span class="cstat-no" title="statement not covered" >tag.__shouldForwardProps__(propName) &amp;&amp; shouldForwardProp(propName)</span>
     : shouldForwardProp
 &nbsp;
-export const composeCvaFn = <span class="fstat-no" title="function not covered" >(c</span>vaA, cvaB) =&gt; {
+export const composeCvaFn = <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >(c</span>vaA, cvaB) =&gt; {</span>
 <span class="cstat-no" title="statement not covered" >  if (cvaA &amp;&amp; !cvaB) <span class="cstat-no" title="statement not covered" >return cvaA</span></span>
 <span class="cstat-no" title="statement not covered" >  if (!cvaA &amp;&amp; cvaB) <span class="cstat-no" title="statement not covered" >return cvaB</span></span>
 <span class="cstat-no" title="statement not covered" >  if ((cvaA.__cva__ &amp;&amp; cvaB.__cva__) || (cvaA.__recipe__ &amp;&amp; cvaB.__recipe__)) <span class="cstat-no" title="statement not covered" >return cvaA.merge(cvaB)</span></span>
@@ -123,7 +123,7 @@ export const composeCvaFn = <span class="fstat-no" title="function not covered" 
 <span class="cstat-no" title="statement not covered" >  throw error</span>
 }
 &nbsp;
-export const getDisplayName = <span class="fstat-no" title="function not covered" >(C</span>omponent) =&gt; {
+export const getDisplayName = <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >(C</span>omponent) =&gt; {</span>
 <span class="cstat-no" title="statement not covered" >  if (typeof Component === 'string') <span class="cstat-no" title="statement not covered" >return Component</span></span>
 <span class="cstat-no" title="statement not covered" >  return Component?.displayName || Component?.name || 'Component'</span>
 }</pre></td></tr></table></pre>
@@ -133,7 +133,7 @@ export const getDisplayName = <span class="fstat-no" title="function not covered
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-05-17T16:04:10.221Z
+                at 2024-05-22T15:27:53.699Z
             </div>
         <script src="../../../prettify.js"></script>
         <script>

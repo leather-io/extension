@@ -23,9 +23,9 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">28.57% </span>
+                <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>4/14</span>
+                <span class='fraction'>0/14</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">36.36% </span>
+                <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>4/11</span>
+                <span class='fraction'>0/11</span>
             </div>
         
             
@@ -92,33 +92,33 @@
 <a name='L27'></a><a href='#L27'>27</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span></td><td class="text"><pre class="prettyprint lang-js">import { getPatternStyles, patternFns } from '../helpers.js';
+<span class="cline-any cline-no">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { getPatternStyles, patternFns } from '../helpers.js';
 import { css } from '../css/index.js';
 &nbsp;
-const gridConfig = {
+const gridConfig = <span class="cstat-no" title="statement not covered" >{</span>
 <span class="fstat-no" title="function not covered" >transform(</span>props, { map, isCssUnit }) {
   const { columnGap, rowGap, gap, columns, minChildWidth, ...rest } = <span class="cstat-no" title="statement not covered" >props;</span>
   const getValue = <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >(v</span>) =&gt; <span class="cstat-no" title="statement not covered" >isCssUnit(v) ? v : `token(sizes.${v}, ${v})`;</span></span>
@@ -135,20 +135,20 @@ const gridConfig = {
 <span class="cstat-no" title="statement not covered" >  return { gap: props.columnGap || props.rowGap ? void 0 : "10px" };</span>
 }}
 &nbsp;
-export const getGridStyle = <span class="fstat-no" title="function not covered" >(s</span>tyles = <span class="branch-0 cbranch-no" title="branch not covered" >{})</span> =&gt; {
+export const getGridStyle = <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >(s</span>tyles = <span class="branch-0 cbranch-no" title="branch not covered" >{})</span> =&gt; {</span>
   const _styles = <span class="cstat-no" title="statement not covered" >getPatternStyles(gridConfig, styles)</span>
 <span class="cstat-no" title="statement not covered" >  return gridConfig.transform(_styles, patternFns)</span>
 }
 &nbsp;
-export const grid = <span class="fstat-no" title="function not covered" >(s</span>tyles) =&gt; <span class="cstat-no" title="statement not covered" >css(getGridStyle(styles))</span>
-grid.raw = getGridStyle</pre></td></tr></table></pre>
+export const grid = <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >(s</span>tyles) =&gt; <span class="cstat-no" title="statement not covered" >css(getGridStyle(styles))</span></span>
+<span class="cstat-no" title="statement not covered" >grid.raw = getGridStyle</span></pre></td></tr></table></pre>
 
                 <div class='push'></div><!-- for sticky footer -->
             </div><!-- /wrapper -->
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-05-17T16:04:10.221Z
+                at 2024-05-22T15:27:53.699Z
             </div>
         <script src="../../../prettify.js"></script>
         <script>

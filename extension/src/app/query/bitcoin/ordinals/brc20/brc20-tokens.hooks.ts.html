@@ -25,28 +25,28 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/29</span>
+                <span class='fraction'>0/32</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/16</span>
+                <span class='fraction'>0/14</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/9</span>
+                <span class='fraction'>0/10</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/27</span>
+                <span class='fraction'>0/29</span>
             </div>
         
             
@@ -193,9 +193,7 @@
 <a name='L128'></a><a href='#L128'>128</a>
 <a name='L129'></a><a href='#L129'>129</a>
 <a name='L130'></a><a href='#L130'>130</a>
-<a name='L131'></a><a href='#L131'>131</a>
-<a name='L132'></a><a href='#L132'>132</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L131'></a><a href='#L131'>131</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -286,16 +284,26 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -315,17 +323,8 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import BigNumber from 'bignumber.js';
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import type { Brc20CryptoAssetInfo } from '@leather-wallet/models';
+import BigNumber from 'bignumber.js';
 &nbsp;
 import { createMarketData, createMarketPair } from '@shared/models/market.model';
 import { createMoney } from '@shared/models/money.model';
@@ -333,11 +332,9 @@ import { createMoney } from '@shared/models/money.model';
 import { unitToFractionalUnit } from '@app/common/money/unit-conversion';
 import { useGetBrc20TokensQuery } from '@app/query/bitcoin/ordinals/brc20/brc20-tokens.query';
 import { useCalculateBitcoinFiatValue } from '@app/query/common/market-data/market-data.hooks';
+import { createCryptoAssetBalance } from '@app/query/common/models';
 import { useConfigOrdinalsbot } from '@app/query/common/remote-config/remote-config.query';
-import {
-  type Brc20AccountCryptoAssetWithDetails,
-  createAccountCryptoAssetWithDetailsFactory,
-} from '@app/query/models/crypto-asset.model';
+import { isFetchedWithSuccess } from '@app/query/query-config';
 import { useAppDispatch } from '@app/store';
 import { useCurrentAccountIndex } from '@app/store/accounts/account';
 import { useCurrentNetwork } from '@app/store/networks/networks.selectors';
@@ -415,46 +412,46 @@ export function <span class="fstat-no" title="function not covered" >useBrc20Tra
   };
 }
 &nbsp;
-export function <span class="fstat-no" title="function not covered" >useBrc20AccountCryptoAssetsWithDetails() {</span>
-  const calculateBitcoinFiatValue = <span class="cstat-no" title="statement not covered" >useCalculateBitcoinFiatValue();</span>
-  const { data: allBrc20TokensResponse } = <span class="cstat-no" title="statement not covered" >useGetBrc20TokensQuery();</span>
+function <span class="fstat-no" title="function not covered" >createBrc20CryptoAssetInfo(d</span>ecimals: number, ticker: string): Brc20CryptoAssetInfo {
+<span class="cstat-no" title="statement not covered" >  return {</span>
+    decimals,
+    hasMemo: false,
+    name: 'brc-20',
+    symbol: ticker,
+  };
+}
 &nbsp;
-  const tokens = <span class="cstat-no" title="statement not covered" >allBrc20TokensResponse?.pages</span>
+export function <span class="fstat-no" title="function not covered" >useBrc20Tokens() {</span>
+  const calculateBitcoinFiatValue = <span class="cstat-no" title="statement not covered" >useCalculateBitcoinFiatValue();</span>
+  const result = <span class="cstat-no" title="statement not covered" >useGetBrc20TokensQuery();</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >  if (!isFetchedWithSuccess(result)) <span class="cstat-no" title="statement not covered" >return [];</span></span>
+&nbsp;
+  const tokens = <span class="cstat-no" title="statement not covered" >result.data.pages</span>
     .flatMap(<span class="fstat-no" title="function not covered" >page =&gt; <span class="cstat-no" title="statement not covered" >p</span>age.brc20Tokens)</span>
     .filter(<span class="fstat-no" title="function not covered" >token =&gt; <span class="cstat-no" title="statement not covered" >t</span>oken.length &gt; 0)</span>
     .flatMap(<span class="fstat-no" title="function not covered" >token =&gt; <span class="cstat-no" title="statement not covered" >t</span>oken)</span>;
 &nbsp;
-<span class="cstat-no" title="statement not covered" >  return (</span>
-    tokens?.map(<span class="fstat-no" title="function not covered" >token =&gt; {</span>
-      const priceAsFiat = <span class="cstat-no" title="statement not covered" >calculateBitcoinFiatValue(</span>
-        createMoney(new BigNumber(token.balance.min_listed_unit_price ?? 0), 'BTC')
-      );
-<span class="cstat-no" title="statement not covered" >      return createAccountCryptoAssetWithDetailsFactory&lt;Brc20AccountCryptoAssetWithDetails&gt;({</span>
-        balance: {
-          availableBalance: createMoney(
-            unitToFractionalUnit(token.info.decimals)(new BigNumber(token.balance.overall_balance)),
-            token.balance.ticker,
-            token.info.decimals
-          ),
-        },
-        chain: 'bitcoin',
-        holderAddress: token.holderAddress,
-        info: {
-          decimals: token.info.decimals,
-          hasMemo: false,
-          name: 'brc-20',
-          symbol: token.info.ticker,
-        },
-        marketData: token.balance.min_listed_unit_price
-          ? createMarketData(
-              createMarketPair(token.balance.ticker, 'USD'),
-              createMoney(priceAsFiat.amount, 'USD')
-            )
-          : null,
-        type: 'brc-20',
-      });
-    }) ?? []
-  );
+<span class="cstat-no" title="statement not covered" >  return tokens.map(<span class="fstat-no" title="function not covered" >token =&gt; {</span></span>
+    const fiatPrice = <span class="cstat-no" title="statement not covered" >calculateBitcoinFiatValue(</span>
+      createMoney(new BigNumber(token.balance.min_listed_unit_price ?? 0), 'BTC')
+    );
+<span class="cstat-no" title="statement not covered" >    return {</span>
+      balance: createCryptoAssetBalance(
+        createMoney(
+          unitToFractionalUnit(token.info.decimals)(new BigNumber(token.balance.overall_balance)),
+          token.balance.ticker,
+          token.info.decimals
+        )
+      ),
+      info: createBrc20CryptoAssetInfo(token.info.decimals, token.balance.ticker),
+      holderAddress: token.holderAddress,
+      marketData: createMarketData(
+        createMarketPair(token.balance.ticker, 'USD'),
+        createMoney(fiatPrice.amount, 'USD')
+      ),
+    };
+  });
 }
 &nbsp;</pre></td></tr></table></pre>
 
@@ -463,7 +460,7 @@ export function <span class="fstat-no" title="function not covered" >useBrc20Acc
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-05-17T16:04:10.221Z
+                at 2024-05-22T15:27:53.699Z
             </div>
         <script src="../../../../../../../prettify.js"></script>
         <script>

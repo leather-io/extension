@@ -3,15 +3,15 @@
 <html lang="en">
 
 <head>
-    <title>Code coverage report for extension/src/app/query/stacks/token-metadata/fungible-tokens/fungible-token-metadata.hooks.ts</title>
+    <title>Code coverage report for extension/src/app/components/loaders/sip10-tokens-loader.tsx</title>
     <meta charset="utf-8" />
-    <link rel="stylesheet" href="../../../../../../../prettify.css" />
-    <link rel="stylesheet" href="../../../../../../../base.css" />
-    <link rel="shortcut icon" type="image/x-icon" href="../../../../../../../favicon.png" />
+    <link rel="stylesheet" href="../../../../../prettify.css" />
+    <link rel="stylesheet" href="../../../../../base.css" />
+    <link rel="shortcut icon" type="image/x-icon" href="../../../../../favicon.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <style type='text/css'>
         .coverage-summary .sorter {
-            background-image: url(../../../../../../../sort-arrow-sprite.png);
+            background-image: url(../../../../../sort-arrow-sprite.png);
         }
     </style>
 </head>
@@ -19,27 +19,27 @@
 <body>
 <div class='wrapper'>
     <div class='pad1'>
-        <h1><a href="../../../../../../../index.html">All files</a> / <a href="index.html">extension/src/app/query/stacks/token-metadata/fungible-tokens</a> fungible-token-metadata.hooks.ts</h1>
+        <h1><a href="../../../../../index.html">All files</a> / <a href="index.html">extension/src/app/components/loaders</a> sip10-tokens-loader.tsx</h1>
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/3</span>
+                <span class='fraction'>0/2</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
+                <span class="strong">0% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/0</span>
+                <span class='fraction'>0/1</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/2</span>
+                <span class='fraction'>0/1</span>
             </div>
         
             
@@ -75,7 +75,13 @@
 <a name='L10'></a><a href='#L10'>10</a>
 <a name='L11'></a><a href='#L11'>11</a>
 <a name='L12'></a><a href='#L12'>12</a>
-<a name='L13'></a><a href='#L13'>13</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L13'></a><a href='#L13'>13</a>
+<a name='L14'></a><a href='#L14'>14</a>
+<a name='L15'></a><a href='#L15'>15</a>
+<a name='L16'></a><a href='#L16'>16</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -87,17 +93,20 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import type { AddressBalanceResponse } from '@shared/models/account.model';
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import {
+  type Sip10TokenAssetDetails,
+  useFilteredSip10Tokens,
+} from '@app/query/stacks/sip10/sip10-tokens.hooks';
+import type { Sip10CryptoAssetFilter } from '@app/query/stacks/sip10/sip10-tokens.utils';
 &nbsp;
-import { pullContractIdFromIdentity } from '@app/common/utils';
-&nbsp;
-import { useGetFungibleTokenMetadataListQuery } from './fungible-token-metadata.query';
-&nbsp;
-export function <span class="fstat-no" title="function not covered" >useStacksAccountFungibleTokenMetadata(</span>
-  tokens: AddressBalanceResponse['fungible_tokens']
-) {
-  const tokenContractIds = <span class="cstat-no" title="statement not covered" >Object.keys(tokens).map(<span class="fstat-no" title="function not covered" >key =&gt; <span class="cstat-no" title="statement not covered" >p</span>ullContractIdFromIdentity(key))</span>;</span>
-<span class="cstat-no" title="statement not covered" >  return useGetFungibleTokenMetadataListQuery(tokenContractIds);</span>
+interface Sip10TokensLoaderProps {
+  address: string;
+  filter: Sip10CryptoAssetFilter;
+  children(isLoading: boolean, tokens: Sip10TokenAssetDetails[]): React.ReactNode;
+}
+export function <span class="fstat-no" title="function not covered" >Sip10TokensLoader({</span> address, filter, children }: Sip10TokensLoaderProps) {
+  const { isInitialLoading, tokens = <span class="branch-0 cbranch-no" title="branch not covered" >[] }</span> = <span class="cstat-no" title="statement not covered" >useFilteredSip10Tokens({ address, filter });</span>
+<span class="cstat-no" title="statement not covered" >  return children(isInitialLoading, tokens);</span>
 }
 &nbsp;</pre></td></tr></table></pre>
 
@@ -106,16 +115,16 @@ export function <span class="fstat-no" title="function not covered" >useStacksAc
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-05-17T16:04:10.221Z
+                at 2024-05-22T15:27:53.699Z
             </div>
-        <script src="../../../../../../../prettify.js"></script>
+        <script src="../../../../../prettify.js"></script>
         <script>
             window.onload = function () {
                 prettyPrint();
             };
         </script>
-        <script src="../../../../../../../sorter.js"></script>
-        <script src="../../../../../../../block-navigation.js"></script>
+        <script src="../../../../../sorter.js"></script>
+        <script src="../../../../../block-navigation.js"></script>
     </body>
 </html>
     

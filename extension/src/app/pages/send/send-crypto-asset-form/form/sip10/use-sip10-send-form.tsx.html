@@ -172,22 +172,17 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -199,6 +194,11 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -233,6 +233,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { useMemo } from 'react';
 &nbsp;
+import type { CryptoAssetBalance, Sip10CryptoAssetInfo } from '@leather-wallet/models';
 import { FormikHelpers } from 'formik';
 import * as yup from 'yup';
 &nbsp;
@@ -242,7 +243,6 @@ import { StacksSendFormValues } from '@shared/models/form.model';
 import { convertAmountToBaseUnit } from '@app/common/money/calculate-money';
 import { getSafeImageCanonicalUri } from '@app/common/stacks-utils';
 import { stacksFungibleTokenAmountValidator } from '@app/common/validation/forms/amount-validators';
-import type { Sip10AccountCryptoAssetWithDetails } from '@app/query/models/crypto-asset.model';
 import { useCalculateStacksTxFees } from '@app/query/stacks/fees/fees.hooks';
 import {
   useFtTokenTransferUnsignedTx,
@@ -253,31 +253,32 @@ import { useSendFormNavigate } from '../../hooks/use-send-form-navigate';
 import { useStacksCommonSendForm } from '../stacks/use-stacks-common-send-form';
 &nbsp;
 interface UseSip10SendFormArgs {
-  asset: Sip10AccountCryptoAssetWithDetails;
+  balance: CryptoAssetBalance;
+  info: Sip10CryptoAssetInfo;
 }
-export function <span class="fstat-no" title="function not covered" >useSip10SendForm({</span> asset }: UseSip10SendFormArgs) {
-  const generateTx = <span class="cstat-no" title="statement not covered" >useGenerateFtTokenTransferUnsignedTx(asset.info);</span>
+export function <span class="fstat-no" title="function not covered" >useSip10SendForm({</span> balance, info }: UseSip10SendFormArgs) {
+  const generateTx = <span class="cstat-no" title="statement not covered" >useGenerateFtTokenTransferUnsignedTx(info);</span>
 &nbsp;
   const sendFormNavigate = <span class="cstat-no" title="statement not covered" >useSendFormNavigate();</span>
 &nbsp;
-  const unsignedTx = <span class="cstat-no" title="statement not covered" >useFtTokenTransferUnsignedTx(asset.info);</span>
+  const unsignedTx = <span class="cstat-no" title="statement not covered" >useFtTokenTransferUnsignedTx(info);</span>
   const { data: stacksFtFees } = <span class="cstat-no" title="statement not covered" >useCalculateStacksTxFees(unsignedTx);</span>
 &nbsp;
-  const availableTokenBalance = <span class="cstat-no" title="statement not covered" >asset.balance.availableBalance;</span>
+  const availableTokenBalance = <span class="cstat-no" title="statement not covered" >balance.availableBalance;</span>
   const sendMaxBalance = <span class="cstat-no" title="statement not covered" >useMemo(</span>
 <span class="fstat-no" title="function not covered" >    () =&gt; <span class="cstat-no" title="statement not covered" >c</span>onvertAmountToBaseUnit(availableTokenBalance),</span>
     [availableTokenBalance]
   );
 &nbsp;
   const { initialValues, checkFormValidation, recipient, memo, nonce } = <span class="cstat-no" title="statement not covered" >useStacksCommonSendForm({</span>
-    symbol: asset.info.symbol,
+    symbol: info.symbol,
     availableTokenBalance,
   });
 &nbsp;
   function <span class="fstat-no" title="function not covered" >createFtAvatar() {</span>
 <span class="cstat-no" title="statement not covered" >    return {</span>
-      avatar: asset.info.contractId,
-      imageCanonicalUri: getSafeImageCanonicalUri(asset.info.imageCanonicalUri, asset.info.name),
+      avatar: info.contractId,
+      imageCanonicalUri: getSafeImageCanonicalUri(info.imageCanonicalUri, info.tokenName),
     };
   }
 &nbsp;
@@ -286,9 +287,8 @@ export function <span class="fstat-no" title="function not covered" >useSip10Sen
     initialValues,
     sendMaxBalance,
     stacksFtFees,
-    symbol: asset.info.symbol,
-    decimals: asset.info.decimals,
-    marketData: asset.marketData,
+    symbol: info.symbol,
+    decimals: info.decimals,
     avatar: createFtAvatar(),
     validationSchema: yup.object({
       amount: stacksFungibleTokenAmountValidator(availableTokenBalance),
@@ -308,8 +308,8 @@ export function <span class="fstat-no" title="function not covered" >useSip10Sen
 <span class="cstat-no" title="statement not covered" >      if (!tx) <span class="cstat-no" title="statement not covered" >return logger.error('Attempted to generate unsigned tx, but tx is undefined');</span></span>
 &nbsp;
 <span class="cstat-no" title="statement not covered" >      sendFormNavigate.toConfirmAndSignStacksSip10Transaction({</span>
-        decimals: asset.info.decimals,
-        name: asset.info.name,
+        decimals: info.decimals,
+        name: info.tokenName,
         tx,
       });
     },
@@ -322,7 +322,7 @@ export function <span class="fstat-no" title="function not covered" >useSip10Sen
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-05-17T16:04:10.221Z
+                at 2024-05-22T15:27:53.699Z
             </div>
         <script src="../../../../../../../../prettify.js"></script>
         <script>
