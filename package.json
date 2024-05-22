@@ -253,7 +253,7 @@
     "@btckit/types": "0.0.19",
     "@chromatic-com/storybook": "1.2.23",
     "@leather-wallet/prettier-config": "0.0.5",
-    "@leather-wallet/rpc": "0.3.0",
+    "@leather-wallet/rpc": "0.3.5",
     "@ls-lint/ls-lint": "2.2.3",
     "@mdx-js/loader": "3.0.0",
     "@pandacss/dev": "0.32.0",
