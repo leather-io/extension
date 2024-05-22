@@ -17,6 +17,7 @@ const amount = '0.000001';
 test.describe('send stx: tests on testnet', () => {
   test.beforeEach(async ({ extensionId, globalPage, homePage, onboardingPage, sendPage }) => {
     await globalPage.setupAndUseApiCalls(extensionId);
+
     await onboardingPage.signInWithTestAccount(extensionId);
     await homePage.selectTestnet();
     await homePage.sendButton.click();

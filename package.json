@@ -28,7 +28,7 @@
     "lint:fix": "eslint \"src/**/*.{ts,tsx}\" --fix",
     "lint:prettier": "prettier --check \"{src,tests}/**/*.{ts,tsx}\" \"*.{js,json}\"",
     "lint:prettier:fix": "prettier --write \"{src,tests}/**/*.{ts,tsx}\" *.js",
-    "lint:unused-exports": "ts-unused-exports tsconfig.json --ignoreFiles=icons --ignoreFiles=leather-styles --ignoreFiles=tests --excludePathsFromReport=.*stories",
+    "lint:unused-exports": "ts-unused-exports tsconfig.json --ignoreFiles=icons --ignoreFiles=leather-styles --ignoreFiles=mocks --ignoreFiles=tests --excludePathsFromReport=.*stories",
     "lint:remote-wallet-config": "npx ajv-cli validate -s config/wallet-config.schema.json -d config/wallet-config.json",
     "lint:deps": "dependency-cruise  --config .dependency-cruiser.js \"src/**/*.{ts,tsx}\"",
     "prod:ext": "pnpm build",
