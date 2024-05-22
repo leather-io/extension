@@ -38,7 +38,7 @@ export function Sip10TokenAssetListUnsupported({
             {tokens.map(token => (
               <Sip10TokenAssetItem
                 balance={token.balance}
-                key={token.info.tokenName}
+                key={token.info.name}
                 info={token.info}
                 isLoading={isLoading}
                 marketData={priceAsMarketData(
