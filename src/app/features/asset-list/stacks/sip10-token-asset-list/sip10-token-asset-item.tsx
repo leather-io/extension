@@ -20,7 +20,7 @@ export function Sip10TokenAssetItem({
   marketData,
   onSelectAsset,
 }: Sip10TokenAssetItemProps) {
-  const name = spamFilter(info.name);
+  const name = spamFilter(info.tokenName);
   const fiatBalance = convertAssetBalanceToFiat({
     balance: balance.availableBalance,
     marketData,

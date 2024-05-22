@@ -45,7 +45,7 @@ export function useSip10SendForm({ balance, info }: UseSip10SendFormArgs) {
   function createFtAvatar() {
     return {
       avatar: info.contractId,
-      imageCanonicalUri: getSafeImageCanonicalUri(info.imageCanonicalUri, info.name),
+      imageCanonicalUri: getSafeImageCanonicalUri(info.imageCanonicalUri, info.tokenName),
     };
   }
 
@@ -76,7 +76,7 @@ export function useSip10SendForm({ balance, info }: UseSip10SendFormArgs) {
 
       sendFormNavigate.toConfirmAndSignStacksSip10Transaction({
         decimals: info.decimals,
-        name: info.name,
+        name: info.tokenName,
         tx,
       });
     },
