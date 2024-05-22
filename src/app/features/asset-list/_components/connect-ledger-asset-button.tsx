@@ -25,6 +25,7 @@ export function ConnectLedgerButton({ chain }: ConnectLedgerButtonProps) {
       },
     });
   };
+
   return (
     <Button
       display="flex"

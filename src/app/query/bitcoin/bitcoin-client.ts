@@ -6,7 +6,6 @@ import {
   BESTINSLOT_API_BASE_URL_TESTNET,
   type BitcoinNetworkModes,
 } from '@shared/constants';
-import type { Money } from '@shared/models/money.model';
 import type { BitcoinTx } from '@shared/models/transactions/bitcoin-transaction.model';
 
 import { getBlockstreamRatelimiter } from './blockstream-rate-limiter';
@@ -140,11 +139,6 @@ export interface RuneTickerInfo {
 interface RunesTickerInfoResponse {
   block_height: number;
   data: RuneTickerInfo;
-}
-
-export interface RuneToken {
-  balance: Money;
-  tokenData: RuneBalance & RuneTickerInfo;
 }
 
 export interface RunesOutputsByAddress {

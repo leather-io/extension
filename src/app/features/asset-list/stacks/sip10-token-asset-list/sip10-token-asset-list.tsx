@@ -1,28 +1,38 @@
 import { Stack } from 'leather-styles/jsx';
 
-import { isDefined } from '@shared/utils';
-
-import type { AccountCryptoAssetWithDetails } from '@app/query/models/crypto-asset.model';
-import { useFilteredSip10AccountCryptoAssetsWithDetails } from '@app/query/stacks/sip10/sip10-tokens.hooks';
+import { useAlexCurrencyPriceAsMarketData } from '@app/query/common/alex-sdk/alex-sdk.hooks';
+import type { Sip10TokenAssetDetails } from '@app/query/stacks/sip10/sip10-tokens.hooks';
 
 import { Sip10TokenAssetItem } from './sip10-token-asset-item';
 
 interface Sip10TokenAssetListProps {
-  address: string;
-  onClick?(asset: AccountCryptoAssetWithDetails): void;
+  isLoading: boolean;
+  tokens: Sip10TokenAssetDetails[];
+  onSelectAsset?(symbol: string, contractId?: string): void;
 }
-export function Sip10TokenAssetList({ address, onClick }: Sip10TokenAssetListProps) {
-  const assets = useFilteredSip10AccountCryptoAssetsWithDetails({
-    address,
-    filter: isDefined(onClick) ? 'all' : 'supported',
-  });
+export function Sip10TokenAssetList({
+  isLoading,
+  tokens,
+  onSelectAsset,
+}: Sip10TokenAssetListProps) {
+  const priceAsMarketData = useAlexCurrencyPriceAsMarketData();
 
-  if (!assets.length) return null;
+  if (!tokens.length) return null;
 
   return (
     <Stack>
-      {assets.map(asset => (
-        <Sip10TokenAssetItem asset={asset} key={asset.info.contractId} onClick={onClick} />
+      {tokens.map(token => (
+        <Sip10TokenAssetItem
+          balance={token.balance}
+          key={token.info.name}
+          info={token.info}
+          isLoading={isLoading}
+          marketData={priceAsMarketData(
+            token.info.contractId,
+            token.balance.availableBalance.symbol
+          )}
+          onSelectAsset={onSelectAsset}
+        />
       ))}
     </Stack>
   );

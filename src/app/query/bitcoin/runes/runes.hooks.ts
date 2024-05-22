@@ -1,30 +1,13 @@
-import { createMoney } from '@shared/models/money.model';
+import { useMemo } from 'react';
+
 import { isDefined } from '@shared/utils';
 
 import { useConfigRunesEnabled } from '@app/query/common/remote-config/remote-config.query';
 import { useCurrentNetwork } from '@app/store/networks/networks.selectors';
 
-import type { RuneBalance, RuneTickerInfo, RuneToken } from '../bitcoin-client';
 import { useGetRunesOutputsByAddressQuery } from './runes-outputs-by-address.query';
 import { useGetRunesTickerInfoQuery } from './runes-ticker-info.query';
 import { useGetRunesWalletBalancesByAddressesQuery } from './runes-wallet-balances.query';
-
-const defaultRunesSymbol = '¤';
-
-function makeRuneToken(runeBalance: RuneBalance, tickerInfo: RuneTickerInfo): RuneToken {
-  return {
-    balance: createMoney(
-      Number(runeBalance.total_balance),
-      tickerInfo.rune_name,
-      tickerInfo.decimals
-    ),
-    tokenData: {
-      ...runeBalance,
-      ...tickerInfo,
-      symbol: tickerInfo.symbol ?? defaultRunesSymbol,
-    },
-  };
-}
 
 export function useRunesEnabled() {
   const runesEnabled = useConfigRunesEnabled();
@@ -38,17 +21,16 @@ export function useRuneTokens(addresses: string[]) {
     .flatMap(query => query.data)
     .filter(isDefined);
 
-  const runesTickerInfo = useGetRunesTickerInfoQuery(runesBalances.map(r => r.rune_name))
-    .flatMap(query => query.data)
-    .filter(isDefined);
+  const results = useGetRunesTickerInfoQuery(runesBalances);
 
-  return runesBalances
-    .map(r => {
-      const tickerInfo = runesTickerInfo.find(t => t.rune_name === r.rune_name);
-      if (!tickerInfo) return;
-      return makeRuneToken(r, tickerInfo);
-    })
-    .filter(isDefined);
+  return useMemo(() => {
+    // We can potentially use the 'combine' option in react-query v5 to replace this?
+    // https://tanstack.com/query/latest/docs/framework/react/reference/useQueries#combine
+    const isInitialLoading = results.some(query => query.isInitialLoading);
+    const runes = results.map(query => query.data).filter(isDefined);
+
+    return { isInitialLoading, runes };
+  }, [results]);
 }
 
 export function useRunesOutputsByAddress(address: string) {
