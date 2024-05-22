@@ -1,6 +1,6 @@
 import type { FtMetadataResponse } from '@hirosystems/token-metadata-api-client';
 
-import { isTransferableSip10Token } from './sip10-tokens.hooks';
+import { isTransferableSip10Token } from './sip10-tokens.utils';
 
 describe(isTransferableSip10Token.name, () => {
   test('assets with a name, symbol and decimals are allowed to be transferred', () => {

@@ -3,8 +3,10 @@ import * as yup from 'yup';
 
 import { Money } from '@shared/models/money.model';
 import { isNumber } from '@shared/utils';
+import { analytics } from '@shared/utils/analytics';
 
 import { countDecimals } from '@app/common/math/helpers';
+import { convertAmountToBaseUnit } from '@app/common/money/calculate-money';
 import {
   btcToSat,
   microStxToStx,
@@ -90,8 +92,16 @@ export function stxAvailableBalanceValidator(availableBalance: Money) {
         microStxToStx(sum.amount).toString()
       ),
       test(value: unknown) {
-        const fee = stxToMicroStx(this.parent.fee);
-        if (!availableBalance || !isNumber(value)) return false;
+        const fee = new BigNumber(stxToMicroStx(this.parent.fee));
+        if (!fee.isFinite()) {
+          void analytics.track('unable_to_read_fee_in_stx_validator');
+          return this.createError({ message: 'Unable to read current fee' });
+        }
+        if (!isNumber(value)) return false;
+        if (!availableBalance) {
+          void analytics.track('unable_to_read_available_balance_in_stx_validator');
+          return this.createError({ message: 'Available balance unknown' });
+        }
         const availableBalanceLessFee = availableBalance.amount.minus(fee);
         return availableBalanceLessFee.isGreaterThanOrEqualTo(stxToMicroStx(value));
       },
@@ -100,6 +110,7 @@ export function stxAvailableBalanceValidator(availableBalance: Money) {
 
 export function stacksFungibleTokenAmountValidator(balance: Money) {
   const { amount, decimals } = balance;
+
   return amountValidator()
     .test((value, context) => {
       if (!isNumber(value)) return false;
@@ -116,7 +127,7 @@ export function stacksFungibleTokenAmountValidator(balance: Money) {
       message: formatInsufficientBalanceError(balance, sum => microStxToStx(sum.amount).toString()),
       test(value) {
         if (!isNumber(value) || !amount) return false;
-        return new BigNumber(value).isLessThanOrEqualTo(amount);
+        return new BigNumber(value).isLessThanOrEqualTo(convertAmountToBaseUnit(amount, decimals));
       },
     });
 }

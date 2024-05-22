@@ -1,124 +1,94 @@
 import { useMemo } from 'react';
 
-import type { FtMetadataResponse } from '@hirosystems/token-metadata-api-client';
-import type { Sip10CryptoAssetInfo } from '@leather-wallet/models';
-import BigNumber from 'bignumber.js';
+import type { BaseCryptoAssetBalance, Sip10CryptoAssetInfo } from '@leather-wallet/models';
 
-import { createMoney } from '@shared/models/money.model';
 import { isDefined, isUndefined } from '@shared/utils';
 
-import { getTicker, pullContractIdFromIdentity } from '@app/common/utils';
-import {
-  useAlexCurrencyPriceAsMarketData,
-  useAlexSwappableAssets,
-} from '@app/query/common/alex-sdk/alex-sdk.hooks';
-import {
-  type AccountCryptoAssetWithDetails,
-  type Sip10AccountCryptoAssetWithDetails,
-  createAccountCryptoAssetWithDetailsFactory,
-} from '@app/query/models/crypto-asset.model';
+import { useAlexSwappableAssets } from '@app/query/common/alex-sdk/alex-sdk.hooks';
 import { useCurrentStacksAccountAddress } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
-import { getAssetStringParts } from '@app/ui/utils/get-asset-string-parts';
 
 import { useStacksAccountBalanceFungibleTokens } from '../balance/account-balance.hooks';
-import { useStacksAccountFungibleTokenMetadata } from '../token-metadata/fungible-tokens/fungible-token-metadata.hooks';
-import { isFtAsset } from '../token-metadata/token-metadata.utils';
 import {
-  type Sip10CryptoAssetFilter,
-  filterSip10AccountCryptoAssetsWithDetails,
-} from './sip10-tokens.utils';
+  useGetFungibleTokensBalanceMetadataQuery,
+  useGetFungibleTokensMetadataQuery,
+} from '../token-metadata/fungible-tokens/fungible-token-metadata.query';
+import { type Sip10CryptoAssetFilter, filterSip10Tokens } from './sip10-tokens.utils';
 
-export function isTransferableSip10Token(asset: Partial<FtMetadataResponse>) {
-  return !isUndefined(asset.decimals) && !isUndefined(asset.name) && !isUndefined(asset.symbol);
-}
-
-export function getSip10InfoFromAsset(asset: AccountCryptoAssetWithDetails) {
-  if ('contractId' in asset.info) return asset.info;
-  return;
-}
-
-function createSip10CryptoAssetInfo(
-  contractId: string,
-  key: string,
-  token: FtMetadataResponse
-): Sip10CryptoAssetInfo {
-  const { assetName, contractName } = getAssetStringParts(key);
-  const name = token.name ? token.name : assetName;
-
-  return {
-    canTransfer: isTransferableSip10Token(token),
-    contractId,
-    contractName,
-    decimals: token.decimals ?? 0,
-    hasMemo: isTransferableSip10Token(token),
-    imageCanonicalUri: token.image_canonical_uri ?? '',
-    name,
-    symbol: token.symbol ?? getTicker(name),
-  };
-}
-
-function useSip10AccountCryptoAssetsWithDetails(address: string) {
+function useSip10TokensCryptoAssetBalance(address: string) {
   const { data: tokens = {} } = useStacksAccountBalanceFungibleTokens(address);
-  const tokenMetadata = useStacksAccountFungibleTokenMetadata(tokens);
-  const priceAsMarketData = useAlexCurrencyPriceAsMarketData();
-
-  return useMemo(
-    () =>
-      Object.entries(tokens)
-        .map(([key, value], i) => {
-          const token = tokenMetadata[i].data;
-          if (!(token && isFtAsset(token))) return;
-          const contractId = pullContractIdFromIdentity(key);
-
-          return createAccountCryptoAssetWithDetailsFactory<Sip10AccountCryptoAssetWithDetails>({
-            balance: {
-              availableBalance: createMoney(
-                new BigNumber(value.balance),
-                token.symbol ?? getTicker(token.name ?? ''),
-                token.decimals ?? 0
-              ),
-            },
-            chain: 'stacks',
-            info: createSip10CryptoAssetInfo(contractId, key, token),
-            marketData: priceAsMarketData(contractId, token.symbol),
-            type: 'sip-10',
-          });
-        })
-        .filter(isDefined)
-        .filter(asset => asset.balance.availableBalance.amount.isGreaterThan(0)),
-    [priceAsMarketData, tokenMetadata, tokens]
-  );
+  return useGetFungibleTokensBalanceMetadataQuery(tokens);
 }
 
-export function useSip10CryptoAssetWithDetails(contractId: string) {
+function useSip10TokensCryptoAssetInfo(address: string) {
+  const { data: tokens = {} } = useStacksAccountBalanceFungibleTokens(address);
+  return useGetFungibleTokensMetadataQuery(Object.keys(tokens));
+}
+
+export interface Sip10TokenAssetDetails {
+  balance: BaseCryptoAssetBalance;
+  info: Sip10CryptoAssetInfo;
+}
+
+function useSip10Tokens(address: string): {
+  isInitialLoading: boolean;
+  tokens: Sip10TokenAssetDetails[];
+} {
+  const balancesResults = useSip10TokensCryptoAssetBalance(address);
+  const infoResults = useSip10TokensCryptoAssetInfo(address);
+
+  return useMemo(() => {
+    // We can potentially use the 'combine' option in react-query v5 to replace this?
+    // https://tanstack.com/query/latest/docs/framework/react/reference/useQueries#combine
+    const isInitialLoading =
+      balancesResults.some(query => query.isInitialLoading) ||
+      infoResults.some(query => query.isInitialLoading);
+    const tokenBalances = balancesResults
+      .map(query => query.data)
+      .filter(isDefined)
+      .filter(token => token.balance.availableBalance.amount.isGreaterThan(0));
+    const tokenInfo = infoResults.map(query => query.data).filter(isDefined);
+    const tokens = tokenInfo.map(info => {
+      const tokenBalance = tokenBalances.find(
+        balance => balance.contractId === info.contractId
+      )?.balance;
+      if (isUndefined(tokenBalance)) return;
+      return {
+        balance: tokenBalance,
+        info,
+      };
+    });
+
+    return {
+      isInitialLoading,
+      tokens: tokens.filter(isDefined),
+    };
+  }, [balancesResults, infoResults]);
+}
+
+export function useSip10Token(contractId: string) {
   const address = useCurrentStacksAccountAddress();
-  const assets = useSip10AccountCryptoAssetsWithDetails(address);
+  const { tokens = [] } = useSip10Tokens(address);
   return useMemo(
-    () => assets.find(asset => asset.info.contractId === contractId),
-    [assets, contractId]
+    () => tokens.find(token => token.info.contractId === contractId),
+    [contractId, tokens]
   );
 }
 
-interface UseFilteredSip10AccountCryptoAssetsWithDetailsArgs {
+interface UseSip10TokensArgs {
   address: string;
   filter?: Sip10CryptoAssetFilter;
 }
-export function useFilteredSip10AccountCryptoAssetsWithDetails({
-  address,
-  filter = 'all',
-}: UseFilteredSip10AccountCryptoAssetsWithDetailsArgs) {
-  const assets = useSip10AccountCryptoAssetsWithDetails(address);
+export function useFilteredSip10Tokens({ address, filter = 'all' }: UseSip10TokensArgs) {
+  const { isInitialLoading, tokens = [] } = useSip10Tokens(address);
   const { data: swapAssets = [] } = useAlexSwappableAssets();
-
-  return useMemo(
-    () => filterSip10AccountCryptoAssetsWithDetails(assets, swapAssets, filter),
-    [assets, swapAssets, filter]
+  const filteredTokens = useMemo(
+    () => filterSip10Tokens(swapAssets, tokens, filter),
+    [swapAssets, tokens, filter]
   );
+  return { isInitialLoading, tokens: filteredTokens };
 }
 
-export function useTransferableSip10CryptoAssetsWithDetails(
-  address: string
-): Sip10AccountCryptoAssetWithDetails[] {
-  const assets = useSip10AccountCryptoAssetsWithDetails(address);
-  return useMemo(() => assets.filter(asset => asset.info.canTransfer), [assets]);
+export function useTransferableSip10Tokens(address: string) {
+  const { tokens = [] } = useSip10Tokens(address);
+  return useMemo(() => tokens.filter(token => token.info.canTransfer), [tokens]);
 }

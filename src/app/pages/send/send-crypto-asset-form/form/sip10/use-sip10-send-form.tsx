@@ -1,5 +1,6 @@
 import { useMemo } from 'react';
 
+import type { CryptoAssetBalance, Sip10CryptoAssetInfo } from '@leather-wallet/models';
 import { FormikHelpers } from 'formik';
 import * as yup from 'yup';
 
@@ -9,7 +10,6 @@ import { StacksSendFormValues } from '@shared/models/form.model';
 import { convertAmountToBaseUnit } from '@app/common/money/calculate-money';
 import { getSafeImageCanonicalUri } from '@app/common/stacks-utils';
 import { stacksFungibleTokenAmountValidator } from '@app/common/validation/forms/amount-validators';
-import type { Sip10AccountCryptoAssetWithDetails } from '@app/query/models/crypto-asset.model';
 import { useCalculateStacksTxFees } from '@app/query/stacks/fees/fees.hooks';
 import {
   useFtTokenTransferUnsignedTx,
@@ -20,31 +20,32 @@ import { useSendFormNavigate } from '../../hooks/use-send-form-navigate';
 import { useStacksCommonSendForm } from '../stacks/use-stacks-common-send-form';
 
 interface UseSip10SendFormArgs {
-  asset: Sip10AccountCryptoAssetWithDetails;
+  balance: CryptoAssetBalance;
+  info: Sip10CryptoAssetInfo;
 }
-export function useSip10SendForm({ asset }: UseSip10SendFormArgs) {
-  const generateTx = useGenerateFtTokenTransferUnsignedTx(asset.info);
+export function useSip10SendForm({ balance, info }: UseSip10SendFormArgs) {
+  const generateTx = useGenerateFtTokenTransferUnsignedTx(info);
 
   const sendFormNavigate = useSendFormNavigate();
 
-  const unsignedTx = useFtTokenTransferUnsignedTx(asset.info);
+  const unsignedTx = useFtTokenTransferUnsignedTx(info);
   const { data: stacksFtFees } = useCalculateStacksTxFees(unsignedTx);
 
-  const availableTokenBalance = asset.balance.availableBalance;
+  const availableTokenBalance = balance.availableBalance;
   const sendMaxBalance = useMemo(
     () => convertAmountToBaseUnit(availableTokenBalance),
     [availableTokenBalance]
   );
 
   const { initialValues, checkFormValidation, recipient, memo, nonce } = useStacksCommonSendForm({
-    symbol: asset.info.symbol,
+    symbol: info.symbol,
     availableTokenBalance,
   });
 
   function createFtAvatar() {
     return {
-      avatar: asset.info.contractId,
-      imageCanonicalUri: getSafeImageCanonicalUri(asset.info.imageCanonicalUri, asset.info.name),
+      avatar: info.contractId,
+      imageCanonicalUri: getSafeImageCanonicalUri(info.imageCanonicalUri, info.tokenName),
     };
   }
 
@@ -53,9 +54,8 @@ export function useSip10SendForm({ asset }: UseSip10SendFormArgs) {
     initialValues,
     sendMaxBalance,
     stacksFtFees,
-    symbol: asset.info.symbol,
-    decimals: asset.info.decimals,
-    marketData: asset.marketData,
+    symbol: info.symbol,
+    decimals: info.decimals,
     avatar: createFtAvatar(),
     validationSchema: yup.object({
       amount: stacksFungibleTokenAmountValidator(availableTokenBalance),
@@ -75,8 +75,8 @@ export function useSip10SendForm({ asset }: UseSip10SendFormArgs) {
       if (!tx) return logger.error('Attempted to generate unsigned tx, but tx is undefined');
 
       sendFormNavigate.toConfirmAndSignStacksSip10Transaction({
-        decimals: asset.info.decimals,
-        name: asset.info.name,
+        decimals: info.decimals,
+        name: info.tokenName,
         tx,
       });
     },

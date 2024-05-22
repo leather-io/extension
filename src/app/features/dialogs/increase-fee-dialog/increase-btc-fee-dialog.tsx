@@ -14,7 +14,6 @@ import { btcToSat } from '@app/common/money/unit-conversion';
 import { getBitcoinTxValue } from '@app/common/transactions/bitcoin/utils';
 import { BitcoinCustomFeeInput } from '@app/components/bitcoin-custom-fee/bitcoin-custom-fee-input';
 import { BitcoinTransactionItem } from '@app/components/bitcoin-transaction-item/bitcoin-transaction-item';
-import { LoadingSpinner } from '@app/components/loading-spinner';
 import { useBtcCryptoAssetBalanceNativeSegwit } from '@app/query/bitcoin/balance/btc-balance-native-segwit.hooks';
 import { useCurrentAccountNativeSegwitIndexZeroSigner } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
 import { Dialog } from '@app/ui/components/containers/dialog/dialog';
@@ -34,11 +33,11 @@ export function IncreaseBtcFeeDialog() {
   const btcTx = tx;
   const nativeSegwitSigner = useCurrentAccountNativeSegwitIndexZeroSigner();
   const currentBitcoinAddress = nativeSegwitSigner.address;
-  const { btcCryptoAssetBalance } = useBtcCryptoAssetBalanceNativeSegwit(currentBitcoinAddress);
+  const { balance } = useBtcCryptoAssetBalanceNativeSegwit(currentBitcoinAddress);
   const { isBroadcasting, sizeInfo, onSubmit, validationSchema, recipient } =
     useBtcIncreaseFee(btcTx);
 
-  const balance = formatMoney(btcCryptoAssetBalance.availableBalance);
+  const btcBalance = formatMoney(balance.availableBalance);
 
   const recipients = [
     {
@@ -72,7 +71,11 @@ export function IncreaseBtcFeeDialog() {
             header={<DialogHeader title="Increase fee" />}
             footer={
               <Footer flexDirection="row">
-                <IncreaseFeeActions isDisabled={false} onCancel={() => navigate(RouteUrls.Home)} />
+                <IncreaseFeeActions
+                  isDisabled={isBroadcasting}
+                  isBroadcasting={isBroadcasting}
+                  onCancel={() => navigate(RouteUrls.Home)}
+                />
               </Footer>
             }
           >
@@ -90,7 +93,6 @@ export function IncreaseBtcFeeDialog() {
                 </Caption>
                 <Stack gap="space.06">
                   {btcTx && <BitcoinTransactionItem transaction={btcTx} />}
-                  {isBroadcasting && <LoadingSpinner />}
                   <Stack gap="space.04">
                     <Stack gap="space.01">
                       <BitcoinCustomFeeInput
@@ -104,7 +106,7 @@ export function IncreaseBtcFeeDialog() {
                       />
                     </Stack>
 
-                    {btcCryptoAssetBalance && <Caption>Balance: {balance}</Caption>}
+                    {balance && <Caption>Balance: {btcBalance}</Caption>}
                   </Stack>
                 </Stack>
               </Suspense>

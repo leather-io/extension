@@ -17,6 +17,7 @@ import {
   uintCV,
 } from '@stacks/transactions';
 
+import { logger } from '@shared/logger';
 import type { StacksSendFormValues, StacksTransactionFormValues } from '@shared/models/form.model';
 
 import { stxToMicroStx } from '@app/common/money/unit-conversion';
@@ -28,7 +29,6 @@ import {
 import { useNextNonce } from '@app/query/stacks/nonce/account-nonces.hooks';
 import { useCurrentStacksNetworkState } from '@app/store/networks/networks.hooks';
 import { makePostCondition } from '@app/store/transactions/transaction.hooks';
-import { getAssetStringParts } from '@app/ui/utils/get-asset-string-parts';
 
 import { useCurrentStacksAccount } from '../accounts/blockchain/stacks/stacks-account.hooks';
 
@@ -79,87 +79,89 @@ export function useStxTokenTransferUnsignedTxState(values?: StacksSendFormValues
   return tx.result;
 }
 
-export function useGenerateFtTokenTransferUnsignedTx(assetInfo: Sip10CryptoAssetInfo) {
+export function useGenerateFtTokenTransferUnsignedTx(info: Sip10CryptoAssetInfo) {
   const { data: nextNonce } = useNextNonce();
   const account = useCurrentStacksAccount();
   const network = useCurrentStacksNetworkState();
+  const { contractName, contractAddress, contractAssetName } = info;
 
   return useCallback(
     async (values?: StacksSendFormValues | StacksTransactionFormValues) => {
-      if (!account) return;
+      try {
+        if (!account) return;
 
-      const functionName = 'transfer';
-      const recipient =
-        values && 'recipient' in values
-          ? createAddress(values.recipient || '')
-          : createEmptyAddress();
-      const amount = values && 'amount' in values ? values.amount : 0;
-      const memo =
-        values && 'memo' in values && values.memo !== ''
-          ? someCV(bufferCVFromString(values.memo || ''))
-          : noneCV();
+        const functionName = 'transfer';
+        const recipient =
+          values && 'recipient' in values
+            ? createAddress(values.recipient || '')
+            : createEmptyAddress();
+        const amount = values && 'amount' in values ? values.amount : 0;
+        const memo =
+          values && 'memo' in values && values.memo !== ''
+            ? someCV(bufferCVFromString(values.memo || ''))
+            : noneCV();
 
-      const amountAsFractionalUnit = ftUnshiftDecimals(amount, assetInfo.decimals || 0);
-      const {
-        address: contractAddress,
-        contractName,
-        assetName,
-      } = getAssetStringParts(assetInfo.contractId);
-
-      const postConditionOptions = {
-        amount: amountAsFractionalUnit,
-        contractAddress,
-        contractAssetName: assetName,
-        contractName,
-        stxAddress: account.address,
-      };
-
-      const postConditions = [makePostCondition(postConditionOptions)];
-
-      // (transfer (uint principal principal) (response bool uint))
-      const functionArgs: ClarityValue[] = [
-        uintCV(amountAsFractionalUnit),
-        standardPrincipalCVFromAddress(createAddress(account.address)),
-        standardPrincipalCVFromAddress(recipient),
-      ];
-
-      if (assetInfo.hasMemo) {
-        functionArgs.push(memo);
-      }
-
-      const options = {
-        txData: {
-          txType: TransactionTypes.ContractCall,
+        const amountAsFractionalUnit = ftUnshiftDecimals(amount, info.decimals || 0);
+        const postConditionOptions = {
+          amount: amountAsFractionalUnit,
           contractAddress,
+          contractAssetName,
           contractName,
-          functionName,
-          functionArgs: functionArgs.map(serializeCV).map(arg => bytesToHex(arg)),
-          postConditions,
-          postConditionMode: PostConditionMode.Deny,
-          network,
-          publicKey: account.stxPublicKey,
-        },
-        fee: stxToMicroStx(values?.fee || 0).toNumber(),
-        publicKey: account.stxPublicKey,
-        nonce: Number(values?.nonce) ?? nextNonce?.nonce,
-      } as const;
+          stxAddress: account.address,
+        };
 
-      return generateUnsignedTransaction(options);
+        const postConditions = [makePostCondition(postConditionOptions)];
+
+        // (transfer (uint principal principal) (response bool uint))
+        const functionArgs: ClarityValue[] = [
+          uintCV(amountAsFractionalUnit),
+          standardPrincipalCVFromAddress(createAddress(account.address)),
+          standardPrincipalCVFromAddress(recipient),
+        ];
+
+        if (info.hasMemo) {
+          functionArgs.push(memo);
+        }
+
+        const options = {
+          txData: {
+            txType: TransactionTypes.ContractCall,
+            contractAddress,
+            contractName,
+            functionName,
+            functionArgs: functionArgs.map(serializeCV).map(arg => bytesToHex(arg)),
+            postConditions,
+            postConditionMode: PostConditionMode.Deny,
+            network,
+            publicKey: account.stxPublicKey,
+          },
+          fee: stxToMicroStx(values?.fee || 0).toNumber(),
+          publicKey: account.stxPublicKey,
+          nonce: Number(values?.nonce) ?? nextNonce?.nonce,
+        } as const;
+
+        return generateUnsignedTransaction(options);
+      } catch (error) {
+        logger.error('Failed to generate unsigned transaction', error);
+        return;
+      }
     },
     [
       account,
-      assetInfo.contractId,
-      assetInfo.decimals,
-      assetInfo.hasMemo,
+      info.decimals,
+      info.hasMemo,
       network,
       nextNonce?.nonce,
+      contractName,
+      contractAssetName,
+      contractAddress,
     ]
   );
 }
 
-export function useFtTokenTransferUnsignedTx(assetInfo: Sip10CryptoAssetInfo) {
+export function useFtTokenTransferUnsignedTx(info: Sip10CryptoAssetInfo) {
   const account = useCurrentStacksAccount();
-  const generateTx = useGenerateFtTokenTransferUnsignedTx(assetInfo);
+  const generateTx = useGenerateFtTokenTransferUnsignedTx(info);
 
   const tx = useAsync(async () => generateTx(), [account]);
   return tx.result;

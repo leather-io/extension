@@ -10,7 +10,7 @@ import {
   determineUtxosForSpendAll,
 } from '@app/common/transactions/bitcoin/coinselect/local-coin-selection';
 import { useCurrentNativeSegwitUtxos } from '@app/query/bitcoin/address/utxos-by-address.hooks';
-import { useCurrentBtcAvailableBalanceNativeSegwit } from '@app/query/bitcoin/balance/btc-balance-native-segwit.hooks';
+import { useCurrentBtcCryptoAssetBalanceNativeSegwit } from '@app/query/bitcoin/balance/btc-balance-native-segwit.hooks';
 import { useCryptoCurrencyMarketDataMeanAverage } from '@app/query/common/market-data/market-data.hooks';
 
 export const MAX_FEE_RATE_MULTIPLIER = 50;
@@ -22,7 +22,7 @@ interface UseBitcoinCustomFeeArgs {
 }
 
 export function useBitcoinCustomFee({ amount, isSendingMax, recipients }: UseBitcoinCustomFeeArgs) {
-  const { balance } = useCurrentBtcAvailableBalanceNativeSegwit();
+  const { balance } = useCurrentBtcCryptoAssetBalanceNativeSegwit();
   const { data: utxos = [] } = useCurrentNativeSegwitUtxos();
   const btcMarketData = useCryptoCurrencyMarketDataMeanAverage('BTC');
 
@@ -30,7 +30,9 @@ export function useBitcoinCustomFee({ amount, isSendingMax, recipients }: UseBit
     (feeRate: number) => {
       if (!feeRate || !utxos.length) return { fee: 0, fiatFeeValue: '' };
 
-      const satAmount = isSendingMax ? balance.amount.toNumber() : amount.amount.toNumber();
+      const satAmount = isSendingMax
+        ? balance.availableBalance.amount.toNumber()
+        : amount.amount.toNumber();
 
       const determineUtxosArgs = {
         amount: satAmount,
@@ -49,6 +51,6 @@ export function useBitcoinCustomFee({ amount, isSendingMax, recipients }: UseBit
         )}`,
       };
     },
-    [utxos, isSendingMax, balance.amount, amount.amount, recipients, btcMarketData]
+    [utxos, isSendingMax, balance.availableBalance.amount, amount.amount, recipients, btcMarketData]
   );
 }

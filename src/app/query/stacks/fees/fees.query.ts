@@ -23,6 +23,7 @@ function fetchTransactionFeeEstimation(currentNetwork: any, limiter: PQueue) {
           }
         ),
       {
+        priority: 2,
         throwOnTimeout: true,
       }
     );

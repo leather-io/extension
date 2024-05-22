@@ -22,7 +22,7 @@ const meta: Meta<typeof Component> = {
 export default meta;
 type Story = StoryObj<typeof Component>;
 
-function ExampleInteractiveItemContent() {
+function ExamplePressableContent() {
   return (
     <ItemLayout
       showChevron
@@ -40,13 +40,13 @@ export const Pressable: Story = {
     docs: {
       description: {
         story:
-          '`InteractiveItem` has its hover state applied with a before pseudo element, so the content aligns independently from its hover state background.',
+          '`Pressable` has its hover state applied with a before pseudo element, so the content aligns independently from its hover state background.',
       },
     },
   },
   args: {
     onClick: () => {},
-    children: <ExampleInteractiveItemContent />,
+    children: <ExamplePressableContent />,
   },
 };
 
@@ -105,7 +105,7 @@ export const AlignmentExample: Story = {
   ],
   args: {
     onClick: () => {},
-    children: <ExampleInteractiveItemContent />,
+    children: <ExamplePressableContent />,
   },
 };
 
@@ -127,6 +127,6 @@ export const WithPadding: Story = {
   ],
   args: {
     onClick: () => {},
-    children: <ExampleInteractiveItemContent />,
+    children: <ExamplePressableContent />,
   },
 };

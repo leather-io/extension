@@ -5,15 +5,12 @@ import { Stack, styled } from 'leather-styles/jsx';
 
 import { RouteUrls } from '@shared/route-urls';
 
-import { capitalize } from '@app/common/utils';
-import { CryptoAssetItemLayout } from '@app/components/crypto-asset-item/crypto-asset-item.layout';
 import { BitcoinNativeSegwitAccountLoader } from '@app/components/loaders/bitcoin-account-loader';
-import { BtcCryptoAssetLoader } from '@app/components/loaders/btc-crypto-asset-loader';
+import { BtcBalanceLoader } from '@app/components/loaders/btc-balance-loader';
 import { CurrentStacksAccountLoader } from '@app/components/loaders/stacks-account-loader';
-import { StxCryptoAssetLoader } from '@app/components/loaders/stx-crypto-asset-loader';
+import { StxBalanceLoader } from '@app/components/loaders/stx-balance-loader';
+import { BtcCryptoAssetItem } from '@app/features/asset-list/bitcoin/btc-crypto-asset-item/btc-crypto-asset-item';
 import { StxCryptoAssetItem } from '@app/features/asset-list/stacks/stx-crypo-asset-item/stx-crypto-asset-item';
-import type { AccountCryptoAssetWithDetails } from '@app/query/models/crypto-asset.model';
-import { BtcAvatarIcon } from '@app/ui/components/avatar/btc-avatar-icon';
 import { Card } from '@app/ui/layout/card/card';
 import { Page } from '@app/ui/layout/page/page.layout';
 
@@ -21,8 +18,7 @@ export function ChooseCryptoAssetToFund() {
   const navigate = useNavigate();
 
   const navigateToFund = useCallback(
-    (asset: AccountCryptoAssetWithDetails) =>
-      navigate(RouteUrls.Fund.replace(':currency', asset.info.symbol)),
+    (symbol: string) => navigate(RouteUrls.Fund.replace(':currency', symbol)),
     [navigate]
   );
 
@@ -39,31 +35,29 @@ export function ChooseCryptoAssetToFund() {
           <Stack pb="space.04" px="space.05">
             <BitcoinNativeSegwitAccountLoader current>
               {signer => (
-                <BtcCryptoAssetLoader address={signer.address}>
-                  {(asset, isLoading) => (
-                    <CryptoAssetItemLayout
-                      asset={asset}
-                      icon={<BtcAvatarIcon />}
-                      isLoading={isLoading}
-                      name={capitalize(asset.info.name)}
-                      onClick={() => navigateToFund(asset)}
+                <BtcBalanceLoader address={signer.address}>
+                  {(balance, isInitialLoading) => (
+                    <BtcCryptoAssetItem
+                      balance={balance}
+                      isLoading={isInitialLoading}
+                      onSelectAsset={() => navigateToFund('BTC')}
                     />
                   )}
-                </BtcCryptoAssetLoader>
+                </BtcBalanceLoader>
               )}
             </BitcoinNativeSegwitAccountLoader>
 
             <CurrentStacksAccountLoader>
               {account => (
-                <StxCryptoAssetLoader address={account.address}>
-                  {(asset, isInitialLoading) => (
+                <StxBalanceLoader address={account.address}>
+                  {(balance, isInitialLoading) => (
                     <StxCryptoAssetItem
-                      asset={asset}
+                      balance={balance}
                       isLoading={isInitialLoading}
-                      onClick={() => navigateToFund(asset)}
+                      onSelectAsset={() => navigateToFund('STX')}
                     />
                   )}
-                </StxCryptoAssetLoader>
+                </StxBalanceLoader>
               )}
             </CurrentStacksAccountLoader>
           </Stack>

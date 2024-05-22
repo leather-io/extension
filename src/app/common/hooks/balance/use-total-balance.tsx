@@ -28,7 +28,7 @@ export function useTotalBalance({ btcAddress, stxAddress }: UseTotalBalanceArgs)
 
   // get btc balance
   const {
-    btcCryptoAssetBalance,
+    balance: btcBalance,
     isLoading: isLoadingBtcBalance,
     isFetching: isFetchingBtcBalance,
     isInitialLoading: isInititalLoadingBtcBalance,
@@ -37,10 +37,7 @@ export function useTotalBalance({ btcAddress, stxAddress }: UseTotalBalanceArgs)
   return useMemo(() => {
     // calculate total balance
     const stxUsdAmount = baseCurrencyAmountInQuote(stxBalance, stxMarketData);
-    const btcUsdAmount = baseCurrencyAmountInQuote(
-      btcCryptoAssetBalance.availableBalance,
-      btcMarketData
-    );
+    const btcUsdAmount = baseCurrencyAmountInQuote(btcBalance.availableBalance, btcMarketData);
 
     const totalBalance = { ...stxUsdAmount, amount: stxUsdAmount.amount.plus(btcUsdAmount.amount) };
     return {
@@ -56,7 +53,7 @@ export function useTotalBalance({ btcAddress, stxAddress }: UseTotalBalanceArgs)
   }, [
     stxBalance,
     stxMarketData,
-    btcCryptoAssetBalance.availableBalance,
+    btcBalance.availableBalance,
     btcMarketData,
     isLoading,
     isLoadingBtcBalance,

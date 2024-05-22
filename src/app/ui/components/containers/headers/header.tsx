@@ -40,7 +40,7 @@ export function Header({
       justifyContent="center"
       margin={{ base: 0, md: 'auto' }}
       p={variant === 'bigTitle' ? 'space.05' : 'space.04'}
-      paddingLeft={variant === 'onboarding' ? 0 : undefined}
+      paddingLeft={{ base: undefined, sm: variant === 'onboarding' ? 0 : undefined }}
       bg="transparent"
       maxWidth={{ base: '100vw', md: 'fullPageMaxWidth' }}
       width="100%"

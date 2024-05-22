@@ -16,7 +16,6 @@ import { AddNetwork } from '@app/features/add-network/add-network';
 import { Container } from '@app/features/container/container';
 import { EditNonceDialog } from '@app/features/dialogs/edit-nonce-dialog/edit-nonce-dialog';
 import { IncreaseBtcFeeDialog } from '@app/features/dialogs/increase-fee-dialog/increase-btc-fee-dialog';
-import { IncreaseFeeSentDialog } from '@app/features/dialogs/increase-fee-dialog/increase-fee-sent-dialog';
 import { IncreaseStxFeeDialog } from '@app/features/dialogs/increase-fee-dialog/increase-stx-fee-dialog';
 import { leatherIntroDialogRoutes } from '@app/features/dialogs/leather-intro-dialog/leather-intro-dialog';
 import { ledgerBitcoinTxSigningRoutes } from '@app/features/ledger/flows/bitcoin-tx-signing/ledger-bitcoin-sign-tx-container';
@@ -103,7 +102,6 @@ function useAppRoutes() {
         <Route path={RouteUrls.IncreaseBtcFee} element={<IncreaseBtcFeeDialog />}>
           {ledgerBitcoinTxSigningRoutes}
         </Route>
-        <Route path={RouteUrls.IncreaseFeeSent} element={<IncreaseFeeSentDialog />} />
 
         {ledgerStacksTxSigningRoutes}
 

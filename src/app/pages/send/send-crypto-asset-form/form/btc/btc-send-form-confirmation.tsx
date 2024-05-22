@@ -138,6 +138,9 @@ export function BtcSendFormConfirmation() {
         );
       },
       onError(e) {
+        void analytics.track('broadcast_btc_error', {
+          error: e,
+        });
         nav.toErrorPage(e);
       },
     });

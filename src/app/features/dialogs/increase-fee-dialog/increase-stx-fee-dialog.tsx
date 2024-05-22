@@ -45,7 +45,10 @@ export function IncreaseStxFeeDialog() {
   const availableUnlockedBalance = useCurrentStxAvailableUnlockedBalance();
   const submittedTransactionsActions = useSubmittedTransactionsActions();
   const rawTx = useRawDeserializedTxState();
-  const { stacksBroadcastTransaction } = useStacksBroadcastTransaction('STX');
+  const { stacksBroadcastTransaction } = useStacksBroadcastTransaction({
+    token: 'STX',
+    isIncreaseFeeTransaction: true,
+  });
 
   const fee = Number(rawTx?.auth.spendingCondition?.fee);
 

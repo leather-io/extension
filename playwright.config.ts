@@ -8,7 +8,10 @@ export default defineConfig({
   testDir: './tests',
   timeout: 30 * 1000,
   expect: { timeout: 5000 },
-  fullyParallel: true,
+  // Extensions live cross-worker meaning `chrome.storage` is shared. Disabling
+  // `fullyParallel` means fewer tests run at the same time, but ensures a
+  // truely new context is used each time
+  fullyParallel: false,
   forbidOnly: !!process.env.CI,
   retries: process.env.CI ? 2 : 0,
   workers: process.env.CI ? 1 : undefined,

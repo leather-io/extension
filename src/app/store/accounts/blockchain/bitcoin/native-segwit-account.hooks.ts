@@ -122,6 +122,7 @@ export function useCurrentAccountNativeSegwitAddressIndexZero() {
  */
 export function useNativeSegwitAccountIndexAddressIndexZero(accountIndex: number) {
   const signer = useNativeSegwitSigner(accountIndex)?.(0);
+  // could it be this?
   return signer?.payment.address as string;
 }
 

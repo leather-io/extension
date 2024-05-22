@@ -7,6 +7,7 @@ import get from 'lodash.get';
 
 import { RouteUrls } from '@shared/route-urls';
 import { delay, isError } from '@shared/utils';
+import { analytics } from '@shared/utils/analytics';
 
 import { useScrollLock } from '@app/common/hooks/use-scroll-lock';
 import { appEvents } from '@app/common/publish-subscribe';
@@ -129,7 +130,15 @@ function LedgerSignStacksTxContainer() {
           signedTx,
         });
       } catch (e) {
-        ledgerNavigate.toBroadcastErrorStep(isError(e) ? e.message : 'Unknown error');
+        const error = isError(e) ? e.message : 'Unknown error';
+        void analytics.track('ledger_transaction_publish_error', {
+          error: {
+            message: error,
+            error: e,
+          },
+        });
+
+        ledgerNavigate.toBroadcastErrorStep(error);
         return;
       }
     },

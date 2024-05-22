@@ -30,11 +30,11 @@ dependencies:
     specifier: 1.2.0
     version: 1.2.0
   '@leather-wallet/models':
-    specifier: 0.4.4
-    version: 0.4.4
+    specifier: 0.6.3
+    version: 0.6.3
   '@leather-wallet/tokens':
-    specifier: 0.0.14
-    version: 0.0.14
+    specifier: 0.0.15
+    version: 0.0.15
   '@ledgerhq/hw-transport-webusb':
     specifier: 6.27.19
     version: 6.27.19
@@ -392,8 +392,8 @@ devDependencies:
     specifier: 0.32.0
     version: 0.32.0(jsdom@22.1.0)(typescript@5.4.4)
   '@playwright/test':
-    specifier: 1.42.1
-    version: 1.42.1
+    specifier: 1.44.0
+    version: 1.44.0
   '@pmmmwh/react-refresh-webpack-plugin':
     specifier: 0.5.11
     version: 0.5.11(@types/webpack@5.28.5)(react-refresh@0.14.0)(webpack-dev-server@4.15.1)(webpack-hot-middleware@2.26.1)(webpack@5.91.0)
@@ -3702,8 +3702,8 @@ packages:
       bignumber.js: 9.1.2
     dev: true
 
-  /@leather-wallet/models@0.4.4:
-    resolution: {integrity: sha512-dqUTUR0EMM9WFwkeWRahlpixK+Ct2vEpDBhQdvO83tK4GhC/JlopI9hmpaSKyX9+35Ts2LpgycUiCh59kmZbMA==}
+  /@leather-wallet/models@0.6.3:
+    resolution: {integrity: sha512-Q8GIE4sH6yg57LtF28Ya/bDAueQdf++M0yAMMJKSJSW4Ue62HNcX2s60RdxAE/mlKQHZKK8JL9y2jwXKVNlJXA==}
     dependencies:
       bignumber.js: 9.1.2
     dev: false
@@ -3724,8 +3724,8 @@ packages:
       '@leather-wallet/models': 0.4.0
     dev: true
 
-  /@leather-wallet/tokens@0.0.14:
-    resolution: {integrity: sha512-xCg+aIcn8DexmQhfvxYM85IGP2Q1JNfUBq80ZwV4horKw18MxxTdX5FeEthTrO8quRZu7up+IW6m/l3wElnDsA==}
+  /@leather-wallet/tokens@0.0.15:
+    resolution: {integrity: sha512-/jG36yCB8YRtyn1/sUgSeFwQjHhf6OfT0vsf384kbIXCzuaGhJpNl7GN0qWQkrxOKB5ahVuvqRwqaKFgwg1lUg==}
     dev: false
 
   /@ledgerhq/devices@8.2.0:
@@ -4183,12 +4183,12 @@ packages:
     engines: {node: ^12.20.0 || ^14.18.0 || >=16.0.0}
     dev: true
 
-  /@playwright/test@1.42.1:
-    resolution: {integrity: sha512-Gq9rmS54mjBL/7/MvBaNOBwbfnh7beHvS6oS4srqXFcQHpQCV1+c8JXWE8VLPyRDhgS3H8x8A7hztqI9VnwrAQ==}
+  /@playwright/test@1.44.0:
+    resolution: {integrity: sha512-rNX5lbNidamSUorBhB4XZ9SQTjAqfe5M+p37Z8ic0jPFBMo5iCtQz1kRWkEMg+rYOKSlVycpQmpqjSFq7LXOfg==}
     engines: {node: '>=16'}
     hasBin: true
     dependencies:
-      playwright: 1.42.1
+      playwright: 1.44.0
     dev: true
 
   /@pmmmwh/react-refresh-webpack-plugin@0.5.11(@types/webpack@5.28.5)(react-refresh@0.14.0)(webpack-dev-server@4.15.1)(webpack-hot-middleware@2.26.1)(webpack@5.91.0):
@@ -19935,18 +19935,18 @@ packages:
       find-up: 3.0.0
     dev: true
 
-  /playwright-core@1.42.1:
-    resolution: {integrity: sha512-mxz6zclokgrke9p1vtdy/COWBH+eOZgYUVVU34C73M+4j4HLlQJHtfcqiqqxpP0o8HhMkflvfbquLX5dg6wlfA==}
+  /playwright-core@1.44.0:
+    resolution: {integrity: sha512-ZTbkNpFfYcGWohvTTl+xewITm7EOuqIqex0c7dNZ+aXsbrLj0qI8XlGKfPpipjm0Wny/4Lt4CJsWJk1stVS5qQ==}
     engines: {node: '>=16'}
     hasBin: true
     dev: true
 
-  /playwright@1.42.1:
-    resolution: {integrity: sha512-PgwB03s2DZBcNRoW+1w9E+VkLBxweib6KTXM0M3tkiT4jVxKSi6PmVJ591J+0u10LUrgxB7dLRbiJqO5s2QPMg==}
+  /playwright@1.44.0:
+    resolution: {integrity: sha512-F9b3GUCLQ3Nffrfb6dunPOkE5Mh68tR7zN32L4jCk4FjQamgesGay7/dAAe1WaMEGV04DkdJfcJzjoCKygUaRQ==}
     engines: {node: '>=16'}
     hasBin: true
     dependencies:
-      playwright-core: 1.42.1
+      playwright-core: 1.44.0
     optionalDependencies:
       fsevents: 2.3.2
     dev: true
