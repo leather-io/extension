@@ -91,12 +91,6 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Set up pnpm
-        uses: pnpm/action-setup@v4
-
-      - name: Install dependencies
-        run: pnpm install --frozen-lockfile
-
       - name: Download blob reports from GitHub Actions Artifacts
         uses: actions/download-artifact@v3
         with:
