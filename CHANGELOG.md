@@ -1,3 +1,28 @@
+## [6.41.0](https://github.com/leather-wallet/extension/compare/v6.40.0...v6.41.0) (2024-05-22)
+
+
+### Features
+
+* remove increase fee summary page, closes [#5305](https://github.com/leather-wallet/extension/issues/5305) ([2db97bd](https://github.com/leather-wallet/extension/commit/2db97bd23547985a94d03104836c00b7bda562dc))
+
+
+### Bug Fixes
+
+* fix padding on back button, ref leather-wallet/issues[#25](https://github.com/leather-wallet/extension/issues/25) ([3a42fc9](https://github.com/leather-wallet/extension/commit/3a42fc9848c124e37035ce8d3a41b82eac998450))
+* investigate stx fee issues ([c5e04c1](https://github.com/leather-wallet/extension/commit/c5e04c144789d94bcdabcea767fa63ce09f98da8))
+* missing token color ([caa4c88](https://github.com/leather-wallet/extension/commit/caa4c88ae8fc5f1e71a7090c34565d3e93598c32))
+* regtest address generation, closes [#5401](https://github.com/leather-wallet/extension/issues/5401) ([0c6c4d1](https://github.com/leather-wallet/extension/commit/0c6c4d17f2dc12ac1c84a644f9a2586e3f44dded))
+* sip10 token send form fees bug ([5903a7b](https://github.com/leather-wallet/extension/commit/5903a7bd35d85328920085fbad0c7196ced39780))
+* stamp error reporting ([9b77421](https://github.com/leather-wallet/extension/commit/9b77421b2c920dd75de57323ceb5a4af09428df7))
+* tsconfig update for tokens pkg ([9699d76](https://github.com/leather-wallet/extension/commit/9699d761064bfaa451b30ffbcee68e15272bac2a))
+
+
+### Internal
+
+* add defensive code and better analytics for broadcast errors, ref [#5118](https://github.com/leather-wallet/extension/issues/5118) ([a36dae4](https://github.com/leather-wallet/extension/commit/a36dae45740d597b30e210d63744b14c247ae912))
+* post-release merge back ([ca9cf0b](https://github.com/leather-wallet/extension/commit/ca9cf0bd288fcdc60489d1b9d22a7d7087f2a217))
+* remove combined asset model, closes [#48](https://github.com/leather-wallet/extension/issues/48) ([a827b40](https://github.com/leather-wallet/extension/commit/a827b4033c80b95ecd1235c1a42b29e6acbd1760))
+
 ## [6.40.0](https://github.com/leather-wallet/extension/compare/v6.39.0...v6.40.0) (2024-05-17)
 
 
