@@ -6,7 +6,7 @@ import { OnboardingSelectors } from '@tests/selectors/onboarding.selectors';
 import type { SupportedBlockchains } from '@shared/constants';
 import { RouteUrls } from '@shared/route-urls';
 
-import { test } from '../fixtures/fixtures';
+import { createCounter } from '@app/common/utils/counter';
 
 const TEST_ACCOUNT_SECRET_KEY = process.env.TEST_ACCOUNT_SECRET_KEY ?? '';
 
@@ -281,21 +281,39 @@ export class OnboardingPage {
    * account
    */
   async signInWithTestAccount(id: string) {
-    const isUnlockPage = async () => await this.page.getByText('Enter your password').isVisible();
-    while (!(await isUnlockPage())) {
+    const testAccountDerivedKey =
+      'd904f412b8d116540017c302f3f7033813c95902af5a067c7befcc34fa5e5290709f157f80548603a1e4f8edc2c0d5d7';
+
+    const isSignedIn = async () => {
+      const { encryptionKey } = await this.page.evaluate(async () =>
+        chrome.storage.session.get(['encryptionKey'])
+      );
+      const hasSessionKey = encryptionKey === testAccountDerivedKey;
+      const hasAssetsTab = this.page.getByText('Assets');
+      const hasActivityTab = this.page.getByText('Activity');
+
+      return hasSessionKey && hasAssetsTab && hasActivityTab;
+    };
+
+    const iterationCounter = createCounter();
+
+    do {
+      if (iterationCounter.getValue() > 5) throw new Error('Unable to initialised wallet state');
+
       await this.page.evaluate(
-        async walletState => await chrome.storage.local.set({ 'persist:root': walletState }),
+        async walletState => chrome.storage.local.set({ 'persist:root': walletState }),
         testSoftwareAccountDefaultWalletState
       );
-      await this.page.goto(`chrome-extension://${id}/index.html`, {
-        waitUntil: 'networkidle',
-      });
-    }
-    await test.expect(this.page.getByText('Enter your password')).toBeVisible();
-    await this.page.getByRole('textbox').fill(TEST_PASSWORD);
-    await this.page.getByRole('button', { name: 'Continue' }).click();
-    await this.page.waitForURL('**' + RouteUrls.Home);
-    await this.page.locator('text="Account 1"').waitFor();
+
+      await this.page.evaluate(
+        async encryptionKey => chrome.storage.session.set({ encryptionKey }),
+        testAccountDerivedKey
+      );
+
+      await this.page.goto(`chrome-extension://${id}/index.html`, { waitUntil: 'networkidle' });
+
+      iterationCounter.increment();
+    } while (!(await isSignedIn()));
   }
 
   /**
