@@ -28,7 +28,7 @@ export function DialogHeader({ onClose, title }: DialogHeaderProps) {
         </Flex>
       )}
       {onClose && (
-        <Box ml="auto">
+        <Box>
           <HeaderActionButton
             icon={<CloseIcon />}
             dataTestId={SharedComponentsSelectors.HeaderCloseBtn}
