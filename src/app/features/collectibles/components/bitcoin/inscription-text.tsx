@@ -1,5 +1,6 @@
+import { useInscriptionTextContentQuery } from '@leather-wallet/query';
+
 import { parseJson } from '@app/components/json';
-import { useInscriptionTextContentQuery } from '@app/query/bitcoin/ordinals/inscription-text-content.query';
 import { OrdinalAvatarIcon } from '@app/ui/components/avatar/ordinal-avatar-icon';
 
 import { CollectibleText } from '../_collectible-types/collectible-text';

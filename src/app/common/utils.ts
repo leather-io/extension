@@ -15,14 +15,6 @@ export function createNullArrayOfLength(length: number) {
   return new Array(length).fill(null);
 }
 
-export function createNumArrayOfRange(fromIndex: number, toIndex: number) {
-  const result = [];
-  for (let i = fromIndex; i <= toIndex; i++) {
-    result.push(i);
-  }
-  return result;
-}
-
 function kebabCase(str: string) {
   return str.replace(KEBAB_REGEX, match => '-' + match.toLowerCase());
 }
@@ -297,14 +289,6 @@ export const parseIfValidPunycode = (s: string) => {
 
 export function capitalize(val: string) {
   return val.charAt(0).toUpperCase() + val.slice(1);
-}
-
-export function isFulfilled<T>(p: PromiseSettledResult<T>): p is PromiseFulfilledResult<T> {
-  return p.status === 'fulfilled';
-}
-
-export function isRejected<T>(p: PromiseSettledResult<T>): p is PromiseRejectedResult {
-  return p.status === 'rejected';
 }
 
 interface LinearInterpolation {

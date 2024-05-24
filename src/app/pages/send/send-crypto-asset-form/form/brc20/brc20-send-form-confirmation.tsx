@@ -1,5 +1,6 @@
 import { useLocation, useNavigate } from 'react-router-dom';
 
+import { useBitcoinBroadcastTransaction } from '@leather-wallet/query';
 import { SendCryptoAssetSelectors } from '@tests/selectors/send.selectors';
 import { Stack } from 'leather-styles/jsx';
 import get from 'lodash.get';
@@ -18,7 +19,6 @@ import {
 } from '@app/components/info-card/info-card';
 import { useCurrentNativeSegwitUtxos } from '@app/query/bitcoin/address/utxos-by-address.hooks';
 import { useBrc20Transfers } from '@app/query/bitcoin/ordinals/brc20/brc20-tokens.hooks';
-import { useBitcoinBroadcastTransaction } from '@app/query/bitcoin/transaction/use-bitcoin-broadcast-transaction';
 import { Button } from '@app/ui/components/button/button';
 import { Footer } from '@app/ui/components/containers/footers/footer';
 import { Card } from '@app/ui/layout/card/card';

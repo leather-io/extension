@@ -1,6 +1,5 @@
+import type { Inscription } from '@leather-wallet/models';
 import { BoxProps, Flex } from 'leather-styles/jsx';
-
-import { SupportedInscription } from '@shared/models/inscription.model';
 
 import { OrdinalAvatarIcon } from '@app/ui/components/avatar/ordinal-avatar-icon';
 
@@ -9,10 +8,10 @@ import { InscriptionPreviewContainer } from './inscription-preview-container';
 import { InscriptionText } from './inscription-text';
 
 interface InscriptionPreviewProps extends BoxProps {
-  inscription: SupportedInscription;
+  inscription: Inscription;
 }
 export function InscriptionPreview({ inscription, ...props }: InscriptionPreviewProps) {
-  switch (inscription.type) {
+  switch (inscription.mimeType) {
     case 'image': {
       return (
         <InscriptionPreviewContainer {...props}>
@@ -23,7 +22,7 @@ export function InscriptionPreview({ inscription, ...props }: InscriptionPreview
     case 'text': {
       return (
         <InscriptionPreviewContainer {...props}>
-          <InscriptionText contentSrc={inscription.contentSrc} />
+          <InscriptionText contentSrc={inscription.src} />
         </InscriptionPreviewContainer>
       );
     }

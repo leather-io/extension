@@ -1,5 +1,7 @@
 import { useCallback } from 'react';
 
+import { useCryptoCurrencyMarketDataMeanAverage } from '@leather-wallet/query';
+
 import type { TransferRecipient } from '@shared/models/form.model';
 import { Money, createMoney } from '@shared/models/money.model';
 
@@ -11,7 +13,6 @@ import {
 } from '@app/common/transactions/bitcoin/coinselect/local-coin-selection';
 import { useCurrentNativeSegwitUtxos } from '@app/query/bitcoin/address/utxos-by-address.hooks';
 import { useCurrentBtcCryptoAssetBalanceNativeSegwit } from '@app/query/bitcoin/balance/btc-balance-native-segwit.hooks';
-import { useCryptoCurrencyMarketDataMeanAverage } from '@app/query/common/market-data/market-data.hooks';
 
 export const MAX_FEE_RATE_MULTIPLIER = 50;
 

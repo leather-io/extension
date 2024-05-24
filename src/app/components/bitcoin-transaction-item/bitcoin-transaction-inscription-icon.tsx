@@ -1,11 +1,10 @@
+import type { Inscription } from '@leather-wallet/models';
 import { Circle } from 'leather-styles/jsx';
-
-import { SupportedInscription } from '@shared/models/inscription.model';
 
 import { OrdinalAvatarIcon } from '@app/ui/components/avatar/ordinal-avatar-icon';
 
-export function InscriptionIcon({ inscription, ...rest }: { inscription: SupportedInscription }) {
-  switch (inscription.type) {
+export function InscriptionIcon({ inscription, ...rest }: { inscription: Inscription }) {
+  switch (inscription.mimeType) {
     case 'image':
       return (
         <Circle

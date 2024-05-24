@@ -1,3 +1,4 @@
+import type { BitcoinClient } from '@leather-wallet/query';
 import { AddressVersion } from '@stacks/transactions';
 
 import { decryptMnemonic, encryptMnemonic } from '@shared/crypto/mnemonic-encryption';
@@ -8,7 +9,6 @@ import { identifyUser } from '@shared/utils/analytics';
 import { recurseAccountsForActivity } from '@app/common/account-restoration/account-restore';
 import { checkForLegacyGaiaConfigWithKnownGeneratedAccountIndex } from '@app/common/account-restoration/legacy-gaia-config-lookup';
 import { mnemonicToRootNode } from '@app/common/keychain/keychain';
-import { BitcoinClient } from '@app/query/bitcoin/bitcoin-client';
 import { fetchNamesForAddress } from '@app/query/stacks/bns/bns.utils';
 import { StacksClient } from '@app/query/stacks/stacks-client';
 import { AppThunk } from '@app/store';

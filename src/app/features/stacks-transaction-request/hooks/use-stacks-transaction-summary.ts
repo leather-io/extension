@@ -1,3 +1,4 @@
+import { useCryptoCurrencyMarketDataMeanAverage } from '@leather-wallet/query';
 import { bytesToUtf8 } from '@stacks/common';
 import {
   ClarityType,
@@ -22,13 +23,13 @@ import {
 import { formatMoney, i18nFormatCurrency } from '@app/common/money/format-money';
 import { getEstimatedConfirmationTime } from '@app/common/transactions/stacks/transaction.utils';
 import { removeTrailingNullCharacters } from '@app/common/utils';
-import { useCryptoCurrencyMarketDataMeanAverage } from '@app/query/common/market-data/market-data.hooks';
 import { useStacksBlockTime } from '@app/query/stacks/info/info.hooks';
 import { useCurrentNetworkState } from '@app/store/networks/networks.hooks';
 import { microStxToStx } from '@app/ui/utils/micro-stx-to-stx';
 
 export function useStacksTransactionSummary(token: CryptoCurrencies) {
-  const tokenMarketData = useCryptoCurrencyMarketDataMeanAverage(token);
+  // TODO: unsafe type assumption
+  const tokenMarketData = useCryptoCurrencyMarketDataMeanAverage(token as 'BTC' | 'STX');
   const { isTestnet } = useCurrentNetworkState();
   const { data: blockTime } = useStacksBlockTime();
 

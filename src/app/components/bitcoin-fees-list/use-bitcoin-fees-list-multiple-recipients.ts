@@ -1,5 +1,11 @@
 import { useMemo } from 'react';
 
+import {
+  type UtxoResponseItem,
+  useAverageBitcoinFeeRates,
+  useCryptoCurrencyMarketDataMeanAverage,
+} from '@leather-wallet/query';
+
 import { BtcFeeType, btcTxTimeMap } from '@shared/models/fees/bitcoin-fees.model';
 import type { TransferRecipient } from '@shared/models/form.model';
 import { Money, createMoney } from '@shared/models/money.model';
@@ -11,9 +17,6 @@ import {
   determineUtxosForSpend,
   determineUtxosForSpendAll,
 } from '@app/common/transactions/bitcoin/coinselect/local-coin-selection';
-import { UtxoResponseItem } from '@app/query/bitcoin/bitcoin-client';
-import { useAverageBitcoinFeeRates } from '@app/query/bitcoin/fees/fee-estimates.hooks';
-import { useCryptoCurrencyMarketDataMeanAverage } from '@app/query/common/market-data/market-data.hooks';
 
 import { FeesListItem } from './bitcoin-fees-list';
 
