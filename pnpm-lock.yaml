@@ -36,8 +36,8 @@ dependencies:
     specifier: 0.6.6
     version: 0.6.6(react-dom@18.2.0)(react@18.2.0)
   '@leather-wallet/tokens':
-    specifier: 0.0.15
-    version: 0.0.15
+    specifier: 0.4.0
+    version: 0.4.0
   '@ledgerhq/hw-transport-webusb':
     specifier: 6.27.19
     version: 6.27.19
@@ -3642,8 +3642,8 @@ packages:
     dependencies:
       '@leather-wallet/models': 0.6.5
 
-  /@leather-wallet/tokens@0.0.15:
-    resolution: {integrity: sha512-/jG36yCB8YRtyn1/sUgSeFwQjHhf6OfT0vsf384kbIXCzuaGhJpNl7GN0qWQkrxOKB5ahVuvqRwqaKFgwg1lUg==}
+  /@leather-wallet/tokens@0.4.0:
+    resolution: {integrity: sha512-3b2EjGGYVsJYsYN3OlZB6t5RNMN1VFrza5KDrs1RxFfuVNXcOhiTnXbnStJeNCwremV5S77vUnKZVW6bb/wIUQ==}
     dev: false
 
   /@leather-wallet/utils@0.6.5:
