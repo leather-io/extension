@@ -1,3 +1,12 @@
+## [6.41.1](https://github.com/leather-wallet/extension/compare/v6.41.0...v6.41.1) (2024-05-24)
+
+
+### Bug Fixes
+
+* always set memo for SIP10, ref [#5436](https://github.com/leather-wallet/extension/issues/5436) ([9a8d965](https://github.com/leather-wallet/extension/commit/9a8d965ffdeec6462cf58c314a788e26e44fa043))
+* display runes balance, closes [#5434](https://github.com/leather-wallet/extension/issues/5434) ([76ee219](https://github.com/leather-wallet/extension/commit/76ee21911182fdb9b1f06777972888bd19675d6c))
+* handle undefined memo type for SIP10, ref [#5436](https://github.com/leather-wallet/extension/issues/5436) ([613ab55](https://github.com/leather-wallet/extension/commit/613ab5525b0e5f316966b08990043236a08463ee))
+
 ## [6.41.0](https://github.com/leather-wallet/extension/compare/v6.40.0...v6.41.0) (2024-05-22)
 
 
