@@ -13,6 +13,7 @@ import BigNumber from 'bignumber.js';
 
 import { CryptoCurrencies } from '@shared/models/currencies.model';
 import { createMoney } from '@shared/models/money.model';
+import { isDefined } from '@shared/utils';
 
 import {
   baseCurrencyAmountInQuote,
@@ -72,13 +73,20 @@ export function useStacksTransactionSummary(token: CryptoCurrencies) {
     };
   }
 
+  function getSip10MemoDisplayText(payload: ContractCallPayload): string {
+    const noMemoText = 'No memo';
+    if (!isDefined(payload.functionArgs[3])) {
+      return noMemoText;
+    }
+    const isSome = payload.functionArgs[3].type === ClarityType.OptionalSome;
+    return isSome ? bytesToUtf8(serializeCV(payload.functionArgs[3])) : noMemoText;
+  }
+
   function formSip10TxSummary(tx: StacksTransaction, symbol: string, decimals = 6) {
     const payload = tx.payload as ContractCallPayload;
     const fee = tx.auth.spendingCondition.fee;
     const txValue = Number((payload.functionArgs[0] as IntCV).value);
-    const isSome = payload.functionArgs[3].type === ClarityType.OptionalSome;
-    const memo = bytesToUtf8(serializeCV(payload.functionArgs[3]));
-    const memoDisplayText = isSome ? memo : 'No memo';
+    const memoDisplayText = getSip10MemoDisplayText(payload);
 
     const sendingValue = formatMoney(
       convertToMoneyTypeWithDefaultOfZero(symbol, txValue, decimals)
