@@ -63,7 +63,7 @@ export function useStacksTransactionSummary(token: CryptoCurrencies) {
       totalSpend: formatMoney(convertToMoneyTypeWithDefaultOfZero('STX', Number(txValue + fee))),
       arrivesIn: getEstimatedConfirmationTime(isTestnet, blockTime),
       symbol: 'STX',
-      txValue: microStxToStx(Number(txValue)),
+      txValue: microStxToStx(Number(txValue)).toString(),
       sendingValue: formatMoney(convertToMoneyTypeWithDefaultOfZero('STX', Number(txValue))),
       txFiatValue: i18nFormatCurrency(
         baseCurrencyAmountInQuote(createMoney(Number(payload.amount), 'STX'), tokenMarketData)
