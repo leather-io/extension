@@ -1,3 +1,4 @@
+import { truncateMiddle } from '@leather-wallet/utils';
 import { bytesToHex } from '@stacks/common';
 import { TransactionTypes } from '@stacks/connect';
 import {
@@ -19,7 +20,6 @@ import { BigNumber } from 'bignumber.js';
 import { StacksTx, StacksTxStatus } from '@shared/models/transactions/stacks-transaction.model';
 
 import { getStacksContractName, stacksValue } from '@app/common/stacks-utils';
-import { truncateMiddle } from '@app/ui/utils/truncate-middle';
 
 export const statusFromTx = (tx: StacksTx): StacksTxStatus => {
   const { tx_status } = tx;

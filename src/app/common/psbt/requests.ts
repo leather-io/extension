@@ -1,9 +1,9 @@
+import { isString } from '@leather-wallet/utils';
 import * as btc from '@scure/btc-signer';
 import { PsbtPayload } from '@stacks/connect';
 import { decodeToken } from 'jsontokens';
 
 import { Money } from '@shared/models/money.model';
-import { isString } from '@shared/utils';
 
 export interface SignPsbtArgs {
   addressNativeSegwitTotal?: Money;

@@ -1,3 +1,4 @@
+import { isBoolean } from '@leather-wallet/utils';
 import { hexToBytes } from '@stacks/common';
 import { BytesReader, PostCondition, deserializePostCondition } from '@stacks/transactions';
 import { toUnicode } from 'punycode';
@@ -9,11 +10,6 @@ import {
   HIRO_EXPLORER_URL,
   KEBAB_REGEX,
 } from '@shared/constants';
-import { isBoolean } from '@shared/utils';
-
-export function createNullArrayOfLength(length: number) {
-  return new Array(length).fill(null);
-}
 
 function kebabCase(str: string) {
   return str.replace(KEBAB_REGEX, match => '-' + match.toLowerCase());

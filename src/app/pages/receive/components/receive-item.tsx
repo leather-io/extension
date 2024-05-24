@@ -1,9 +1,10 @@
+import { truncateMiddle } from '@leather-wallet/utils';
+
 import { IconButton } from '@app/ui/components/icon-button/icon-button';
 import { ItemLayoutWithButtons } from '@app/ui/components/item-layout/item-layout-with-buttons';
 import { CopyIcon } from '@app/ui/icons/copy-icon';
 import { QrCodeIcon } from '@app/ui/icons/qr-code-icon';
 import { Pressable } from '@app/ui/pressable/pressable';
-import { truncateMiddle } from '@app/ui/utils/truncate-middle';
 
 interface ReceiveItemProps {
   address?: string;

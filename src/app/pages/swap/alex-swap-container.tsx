@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Outlet } from 'react-router-dom';
 
+import { isDefined, isUndefined } from '@leather-wallet/utils';
 import { bytesToHex } from '@stacks/common';
 import { ContractCallPayload, TransactionTypes } from '@stacks/connect';
 import {
@@ -13,7 +14,6 @@ import BigNumber from 'bignumber.js';
 
 import { logger } from '@shared/logger';
 import { RouteUrls } from '@shared/route-urls';
-import { isDefined, isUndefined } from '@shared/utils';
 import { alex } from '@shared/utils/alex-sdk';
 
 import { migratePositiveAssetBalancesToTop } from '@app/common/asset-utils';

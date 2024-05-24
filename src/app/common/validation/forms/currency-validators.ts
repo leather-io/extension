@@ -1,9 +1,8 @@
-import { countDecimals } from '@leather-wallet/utils';
+import { countDecimals, isNumber } from '@leather-wallet/utils';
 import * as yup from 'yup';
 
 import { BTC_DECIMALS, STX_DECIMALS } from '@shared/constants';
 import { FormErrorMessages } from '@shared/error-messages';
-import { isNumber } from '@shared/utils';
 
 export function currencyAmountValidator() {
   return yup

@@ -1,6 +1,6 @@
 import { useMemo } from 'react';
 
-import { ensureArray, isDefined, undefinedIfLengthZero } from '@shared/utils';
+import { ensureArray, isDefined, undefinedIfLengthZero } from '@leather-wallet/utils';
 
 import { useDefaultRequestParams } from '../hooks/use-default-request-search-params';
 import { initialSearchParams } from '../initial-search-params';

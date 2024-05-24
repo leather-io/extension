@@ -1,3 +1,4 @@
+import { createNullArrayOfLength } from '@leather-wallet/utils';
 import { bytesToHex } from '@noble/hashes/utils';
 import { createSelector } from '@reduxjs/toolkit';
 import { HARDENED_OFFSET, HDKey } from '@scure/bip32';
@@ -18,7 +19,6 @@ import { whenStacksChainId } from '@shared/crypto/stacks/stacks.utils';
 import { defaultWalletKeyId } from '@shared/utils';
 
 import { derivePublicKey } from '@app/common/keychain/keychain';
-import { createNullArrayOfLength } from '@app/common/utils';
 import { storeAtom } from '@app/store';
 import { selectStacksChain } from '@app/store/chains/stx-chain.selectors';
 import {

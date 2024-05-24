@@ -1,7 +1,7 @@
+import { isDefined } from '@leather-wallet/utils';
 import { useField } from 'formik';
 
 import { RouteUrls } from '@shared/route-urls';
-import { isDefined } from '@shared/utils';
 
 import { formatMoneyWithoutSymbol, i18nFormatCurrency } from '@app/common/money/format-money';
 import { LoadingSpinner } from '@app/components/loading-spinner';

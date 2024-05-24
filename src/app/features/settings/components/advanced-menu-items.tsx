@@ -1,12 +1,13 @@
 import { useMemo } from 'react';
 import { useAsync } from 'react-async-hook';
 
+import { isNumber } from '@leather-wallet/utils';
+
 import {
   clearBrowserStorageLogs,
   copyLogsToClipboard,
   getLogSizeInBytes,
 } from '@shared/logger-storage';
-import { isNumber } from '@shared/utils';
 
 import { Divider } from '@app/components/layout/divider';
 import { useToast } from '@app/features/toasts/use-toast';

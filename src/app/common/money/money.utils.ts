@@ -1,7 +1,7 @@
+import { isObject } from '@leather-wallet/utils';
 import BigNumber from 'bignumber.js';
 
 import { Money } from '@shared/models/money.model';
-import { isObject } from '@shared/utils';
 
 export function isMoney(val: unknown): val is Money {
   if (!isObject(val)) return false;

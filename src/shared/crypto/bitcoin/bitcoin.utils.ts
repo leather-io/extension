@@ -1,11 +1,11 @@
 import { PaymentTypes as PaymentType } from '@btckit/types';
+import { defaultWalletKeyId, isDefined, whenNetwork } from '@leather-wallet/utils';
 import { hexToBytes } from '@noble/hashes/utils';
 import { HDKey, Versions } from '@scure/bip32';
 import * as btc from '@scure/btc-signer';
 
 import { BitcoinNetworkModes, NetworkModes } from '@shared/constants';
 import { logger } from '@shared/logger';
-import { defaultWalletKeyId, isDefined, whenNetwork } from '@shared/utils';
 
 import { DerivationPathDepth } from '../derivation-path.utils';
 import { BtcSignerNetwork, getBtcSignerLibNetworkConfigByMode } from './bitcoin.network';

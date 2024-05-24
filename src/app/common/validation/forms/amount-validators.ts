@@ -2,6 +2,7 @@ import type { UtxoResponseItem } from '@leather-wallet/query';
 import {
   btcToSat,
   countDecimals,
+  isNumber,
   microStxToStx,
   satToBtc,
   stxToMicroStx,
@@ -10,7 +11,6 @@ import BigNumber from 'bignumber.js';
 import * as yup from 'yup';
 
 import { Money } from '@shared/models/money.model';
-import { isNumber } from '@shared/utils';
 import { analytics } from '@shared/utils/analytics';
 
 import { convertAmountToBaseUnit } from '@app/common/money/calculate-money';

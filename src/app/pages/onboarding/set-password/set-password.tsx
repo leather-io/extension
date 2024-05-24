@@ -1,13 +1,13 @@
 import { useCallback, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
+import { isUndefined } from '@leather-wallet/utils';
 import { OnboardingSelectors } from '@tests/selectors/onboarding.selectors';
 import { Form, Formik } from 'formik';
 import { debounce } from 'ts-debounce';
 import * as yup from 'yup';
 
 import { RouteUrls } from '@shared/route-urls';
-import { isUndefined } from '@shared/utils';
 
 import { useFinishAuthRequest } from '@app/common/authentication/use-finish-auth-request';
 import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';

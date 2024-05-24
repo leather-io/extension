@@ -1,7 +1,7 @@
+import { isBigInt, isUndefined } from '@leather-wallet/utils';
 import BigNumber from 'bignumber.js';
 
 import { BTC_DECIMALS, STX_DECIMALS } from '@shared/constants';
-import { isBigInt, isUndefined } from '@shared/utils';
 
 import type { Currencies } from './currencies.model';
 

@@ -1,10 +1,8 @@
+import { createNullArrayOfLength, isEmpty } from '@leather-wallet/utils';
 import { OnboardingSelectors } from '@tests/selectors/onboarding.selectors';
 import { Form, Formik } from 'formik';
 import { Stack } from 'leather-styles/jsx';
 
-import { isEmpty } from '@shared/utils';
-
-import { createNullArrayOfLength } from '@app/common/utils';
 import { ErrorLabel } from '@app/components/error-label';
 import { useSignIn } from '@app/pages/onboarding/sign-in/hooks/use-sign-in';
 import { Button } from '@app/ui/components/button/button';

@@ -1,8 +1,8 @@
+import { isUndefined, makeNumberRange } from '@leather-wallet/utils';
 import * as btc from '@scure/btc-signer';
 
 import { BitcoinNetworkModes } from '@shared/constants';
 import { logger } from '@shared/logger';
-import { isUndefined, makeNumberRange } from '@shared/utils';
 
 import { getInputPaymentType } from './bitcoin.utils';
 import { getTaprootAddressIndexDerivationPath } from './p2tr-address-gen';

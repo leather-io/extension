@@ -1,9 +1,8 @@
-import { btcToSat, moneyToBaseUnit, stxToMicroStx } from '@leather-wallet/utils';
+import { btcToSat, isNumber, moneyToBaseUnit, stxToMicroStx } from '@leather-wallet/utils';
 import BigNumber from 'bignumber.js';
 import { AnyObject, NumberSchema } from 'yup';
 
 import { Money } from '@shared/models/money.model';
-import { isNumber } from '@shared/utils';
 
 import { formatInsufficientBalanceError, formatPrecisionError } from '@app/common/error-formatters';
 import {

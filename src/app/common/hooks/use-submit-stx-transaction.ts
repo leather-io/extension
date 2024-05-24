@@ -1,10 +1,10 @@
 import { useCallback } from 'react';
 
+import { delay, isError } from '@leather-wallet/utils';
 import { bytesToHex } from '@stacks/common';
 import { StacksTransaction, broadcastTransaction } from '@stacks/transactions';
 
 import { logger } from '@shared/logger';
-import { delay, isError } from '@shared/utils';
 
 import { getErrorMessage } from '@app/common/get-error-message';
 import { useRefreshAllAccountData } from '@app/common/hooks/account/use-refresh-all-account-data';
