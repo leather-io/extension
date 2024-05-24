@@ -1,6 +1,7 @@
 import { Suspense, useCallback, useEffect } from 'react';
 import { Outlet, useLocation, useNavigate, useSearchParams } from 'react-router-dom';
 
+import { microStxToStx, stxToMicroStx } from '@leather-wallet/utils';
 import BigNumber from 'bignumber.js';
 import { Formik } from 'formik';
 import { Flex, Stack } from 'leather-styles/jsx';
@@ -10,7 +11,6 @@ import { RouteUrls } from '@shared/route-urls';
 
 import { useRefreshAllAccountData } from '@app/common/hooks/account/use-refresh-all-account-data';
 import { LoadingKeys, useLoading } from '@app/common/hooks/use-loading';
-import { microStxToStx, stxToMicroStx } from '@app/common/money/unit-conversion';
 import { stacksValue } from '@app/common/stacks-utils';
 import { safelyFormatHexTxid } from '@app/common/utils/safe-handle-txid';
 import { stxFeeValidator } from '@app/common/validation/forms/fee-validators';

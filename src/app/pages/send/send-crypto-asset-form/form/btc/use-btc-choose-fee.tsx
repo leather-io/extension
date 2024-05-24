@@ -1,7 +1,8 @@
+import { btcToSat } from '@leather-wallet/utils';
+
 import { logger } from '@shared/logger';
 import { createMoney } from '@shared/models/money.model';
 
-import { btcToSat } from '@app/common/money/unit-conversion';
 import { formFeeRowValue } from '@app/common/send/utils';
 import { useGenerateUnsignedNativeSegwitTx } from '@app/common/transactions/bitcoin/use-generate-bitcoin-tx';
 import { OnChooseFeeArgs } from '@app/components/bitcoin-fees-list/bitcoin-fees-list';

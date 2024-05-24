@@ -1,10 +1,10 @@
 import type { UtxoResponseItem } from '@leather-wallet/query';
+import { sumNumbers } from '@leather-wallet/utils';
 import BigNumber from 'bignumber.js';
 import { validate } from 'bitcoin-address-validation';
 
 import type { TransferRecipient } from '@shared/models/form.model';
 
-import { sumNumbers } from '@app/common/math/helpers';
 import { sumMoney } from '@app/common/money/calculate-money';
 
 import { filterUneconomicalUtxos, getSizeInfo } from '../utils';

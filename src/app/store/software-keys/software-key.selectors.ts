@@ -1,11 +1,11 @@
 import { useSelector } from 'react-redux';
 
+import { initBigNumber } from '@leather-wallet/utils';
 import { createSelector } from '@reduxjs/toolkit';
 
 import { defaultWalletKeyId } from '@shared/utils';
 
 import { initialSearchParams } from '@app/common/initial-search-params';
-import { initBigNumber } from '@app/common/math/helpers';
 import { RootState } from '@app/store';
 
 import { selectStacksChain } from '../chains/stx-chain.selectors';

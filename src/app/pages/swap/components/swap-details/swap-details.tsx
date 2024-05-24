@@ -1,3 +1,4 @@
+import { microStxToStx } from '@leather-wallet/utils';
 import { SwapSelectors } from '@tests/selectors/swap.selectors';
 import BigNumber from 'bignumber.js';
 import { HStack, styled } from 'leather-styles/jsx';
@@ -6,7 +7,6 @@ import { createMoneyFromDecimal } from '@shared/models/money.model';
 import { isDefined, isUndefined } from '@shared/utils';
 
 import { formatMoneyPadded } from '@app/common/money/format-money';
-import { microStxToStx } from '@app/common/money/unit-conversion';
 import { getEstimatedConfirmationTime } from '@app/common/transactions/stacks/transaction.utils';
 import { SwapSubmissionData, useSwapContext } from '@app/pages/swap/swap.context';
 import { useStacksBlockTime } from '@app/query/stacks/info/info.hooks';

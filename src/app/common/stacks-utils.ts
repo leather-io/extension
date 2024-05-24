@@ -1,3 +1,4 @@
+import { initBigNumber, microStxToStx } from '@leather-wallet/utils';
 import { ChainID } from '@stacks/transactions';
 import BigNumber from 'bignumber.js';
 import { c32addressDecode } from 'c32check';
@@ -8,8 +9,6 @@ import { isValidUrl } from '@shared/utils/validate-url';
 
 import { abbreviateNumber } from '@app/common/utils';
 
-import { initBigNumber } from './math/helpers';
-import { microStxToStx } from './money/unit-conversion';
 import { convertUnicodeToAscii } from './string-utils';
 
 export const stacksValue = ({

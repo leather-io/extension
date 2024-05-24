@@ -1,6 +1,7 @@
 import { Suspense } from 'react';
 import { Outlet, useLocation, useNavigate } from 'react-router-dom';
 
+import { btcToSat } from '@leather-wallet/utils';
 import { Formik } from 'formik';
 import { Flex, Stack } from 'leather-styles/jsx';
 
@@ -10,7 +11,6 @@ import { RouteUrls } from '@shared/route-urls';
 
 import { useLocationStateWithCache } from '@app/common/hooks/use-location-state';
 import { formatMoney } from '@app/common/money/format-money';
-import { btcToSat } from '@app/common/money/unit-conversion';
 import { getBitcoinTxValue } from '@app/common/transactions/bitcoin/utils';
 import { BitcoinCustomFeeInput } from '@app/components/bitcoin-custom-fee/bitcoin-custom-fee-input';
 import { BitcoinTransactionItem } from '@app/components/bitcoin-transaction-item/bitcoin-transaction-item';

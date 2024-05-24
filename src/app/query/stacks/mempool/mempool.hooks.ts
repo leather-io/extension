@@ -1,10 +1,9 @@
 import { useMemo } from 'react';
 
+import { increaseValueByOneMicroStx, microStxToStx } from '@leather-wallet/utils';
 import { MempoolTransaction } from '@stacks/stacks-blockchain-api-types';
 
 import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
-import { increaseValueByOneMicroStx } from '@app/common/math/helpers';
-import { microStxToStx } from '@app/common/money/unit-conversion';
 import { useTransactionsById } from '@app/query/stacks/transactions/transactions-by-id.query';
 import { useCurrentStacksAccountAddress } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
 
