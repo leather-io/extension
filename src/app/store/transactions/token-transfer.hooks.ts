@@ -119,9 +119,7 @@ export function useGenerateFtTokenTransferUnsignedTx(info: Sip10CryptoAssetInfo)
           standardPrincipalCVFromAddress(recipient),
         ];
 
-        if (info.hasMemo) {
-          functionArgs.push(memo);
-        }
+        functionArgs.push(memo);
 
         const options = {
           txData: {
@@ -149,7 +147,6 @@ export function useGenerateFtTokenTransferUnsignedTx(info: Sip10CryptoAssetInfo)
     [
       account,
       info.decimals,
-      info.hasMemo,
       network,
       nextNonce?.nonce,
       contractName,
