@@ -1,6 +1,7 @@
 import { Outlet, useParams } from 'react-router-dom';
 
 import { deserializeTransaction } from '@stacks/transactions';
+import BigNumber from 'bignumber.js';
 import { Box, Stack } from 'leather-styles/jsx';
 
 import { CryptoCurrencies } from '@shared/models/currencies.model';
@@ -67,7 +68,7 @@ export function StacksSendFormConfirmation() {
     <>
       <Outlet />
       <SendFormConfirmation
-        txValue={txValue}
+        txValue={new BigNumber(txValue).toString()}
         txFiatValue={txFiatValue}
         txFiatValueSymbol={txFiatValueSymbol}
         recipient={recipient}

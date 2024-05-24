@@ -1,8 +1,7 @@
 import { useSelector } from 'react-redux';
 
+import { sumNumbers } from '@leather-wallet/utils';
 import { createSelector } from '@reduxjs/toolkit';
-
-import { sumNumbers } from '@app/common/math/helpers';
 
 import { RootState } from '..';
 

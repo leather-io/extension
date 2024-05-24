@@ -1,6 +1,7 @@
 import { useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
 
+import { sumNumbers } from '@leather-wallet/utils';
 import BigNumber from 'bignumber.js';
 
 import { createMoney } from '@shared/models/money.model';
@@ -9,7 +10,6 @@ import { RouteUrls } from '@shared/route-urls';
 import { useDefaultRequestParams } from '@app/common/hooks/use-default-request-search-params';
 import { useOnMount } from '@app/common/hooks/use-on-mount';
 import { initialSearchParams } from '@app/common/initial-search-params';
-import { sumNumbers } from '@app/common/math/helpers';
 import { useCurrentNativeSegwitUtxos } from '@app/query/bitcoin/address/utxos-by-address.hooks';
 
 export function useRpcSendTransferRequestParams() {

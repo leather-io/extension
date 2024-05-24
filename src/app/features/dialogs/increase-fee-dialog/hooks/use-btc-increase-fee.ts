@@ -2,6 +2,7 @@ import { useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import { useBitcoinBroadcastTransaction } from '@leather-wallet/query';
+import { btcToSat } from '@leather-wallet/utils';
 import * as btc from '@scure/btc-signer';
 import BigNumber from 'bignumber.js';
 import * as yup from 'yup';
@@ -12,7 +13,6 @@ import { RouteUrls } from '@shared/route-urls';
 import { isError } from '@shared/utils';
 
 import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
-import { btcToSat } from '@app/common/money/unit-conversion';
 import { queryClient } from '@app/common/persistence';
 import {
   getBitcoinTxSizeEstimation,

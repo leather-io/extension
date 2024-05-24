@@ -1,11 +1,11 @@
 import { useLocation } from 'react-router-dom';
 
+import { satToBtc } from '@leather-wallet/utils';
 import { HStack, styled } from 'leather-styles/jsx';
 
 import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
 import { useBitcoinExplorerLink } from '@app/common/hooks/use-bitcoin-explorer-link';
 import { useClipboard } from '@app/common/hooks/use-copy-to-clipboard';
-import { satToBtc } from '@app/common/money/unit-conversion';
 import { InfoCardAssetValue, InfoCardBtn } from '@app/components/info-card/info-card';
 import { useToast } from '@app/features/toasts/use-toast';
 import { Footer } from '@app/ui/components/containers/footers/footer';

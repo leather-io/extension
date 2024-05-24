@@ -38,6 +38,9 @@ dependencies:
   '@leather-wallet/tokens':
     specifier: 0.4.0
     version: 0.4.0
+  '@leather-wallet/utils':
+    specifier: 0.6.5
+    version: 0.6.5
   '@ledgerhq/hw-transport-webusb':
     specifier: 6.27.19
     version: 6.27.19

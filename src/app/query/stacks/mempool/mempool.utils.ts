@@ -1,3 +1,4 @@
+import { sumNumbers } from '@leather-wallet/utils';
 import type {
   MempoolTokenTransferTransaction,
   MempoolTransaction,
@@ -5,8 +6,6 @@ import type {
 } from '@stacks/stacks-blockchain-api-types';
 
 import { createMoney } from '@shared/models/money.model';
-
-import { sumNumbers } from '@app/common/math/helpers';
 
 type PendingTransactionType = 'inbound' | 'outbound';
 

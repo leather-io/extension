@@ -1,6 +1,7 @@
 import { useCallback, useMemo } from 'react';
 import { useAsync } from 'react-async-hook';
 
+import { stxToMicroStx } from '@leather-wallet/utils';
 import { bytesToHex } from '@noble/hashes/utils';
 import { TransactionTypes } from '@stacks/connect';
 import {
@@ -18,7 +19,6 @@ import { logger } from '@shared/logger';
 import { StacksTransactionFormValues } from '@shared/models/form.model';
 import { isUndefined } from '@shared/utils';
 
-import { stxToMicroStx } from '@app/common/money/unit-conversion';
 import { validateStacksAddress } from '@app/common/stacks-utils';
 import {
   GenerateUnsignedTransactionOptions,

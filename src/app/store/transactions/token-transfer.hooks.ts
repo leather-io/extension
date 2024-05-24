@@ -2,6 +2,7 @@ import { useCallback } from 'react';
 import { useAsync } from 'react-async-hook';
 
 import type { Sip10CryptoAssetInfo } from '@leather-wallet/models';
+import { stxToMicroStx } from '@leather-wallet/utils';
 import { bytesToHex } from '@stacks/common';
 import { TransactionTypes } from '@stacks/connect';
 import {
@@ -20,7 +21,6 @@ import {
 import { logger } from '@shared/logger';
 import type { StacksSendFormValues, StacksTransactionFormValues } from '@shared/models/form.model';
 
-import { stxToMicroStx } from '@app/common/money/unit-conversion';
 import { ftUnshiftDecimals, getStacksContractIdStringParts } from '@app/common/stacks-utils';
 import {
   GenerateUnsignedTransactionOptions,

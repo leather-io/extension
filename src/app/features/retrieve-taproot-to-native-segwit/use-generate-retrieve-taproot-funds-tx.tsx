@@ -5,12 +5,12 @@ import {
   useCurrentTaprootAccountUninscribedUtxos,
   useNumberOfInscriptionsOnUtxo,
 } from '@leather-wallet/query';
+import { sumNumbers } from '@leather-wallet/utils';
 import * as btc from '@scure/btc-signer';
 
 import { extractAddressIndexFromPath } from '@shared/crypto/bitcoin/bitcoin.utils';
 import { Money, createMoney } from '@shared/models/money.model';
 
-import { sumNumbers } from '@app/common/math/helpers';
 import { BtcSizeFeeEstimator } from '@app/common/transactions/bitcoin/fees/btc-size-fee-estimator';
 import { useCurrentAccountIndex } from '@app/store/accounts/account';
 import { useBitcoinScureLibNetworkConfig } from '@app/store/accounts/blockchain/bitcoin/bitcoin-keychain';

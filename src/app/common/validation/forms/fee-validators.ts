@@ -1,3 +1,4 @@
+import { btcToSat, moneyToBaseUnit, stxToMicroStx } from '@leather-wallet/utils';
 import BigNumber from 'bignumber.js';
 import { AnyObject, NumberSchema } from 'yup';
 
@@ -9,8 +10,6 @@ import {
   btcAmountPrecisionValidator,
   stxAmountPrecisionValidator,
 } from '@app/common/validation/forms/currency-validators';
-
-import { btcToSat, moneyToBaseUnit, stxToMicroStx } from '../../money/unit-conversion';
 
 interface FeeValidatorFactoryArgs {
   availableBalance?: Money;

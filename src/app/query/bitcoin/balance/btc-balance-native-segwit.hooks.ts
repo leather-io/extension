@@ -2,12 +2,12 @@ import { useMemo } from 'react';
 
 import type { BtcCryptoAssetBalance, Money } from '@leather-wallet/models';
 import { useNativeSegwitUtxosByAddress, useRunesEnabled } from '@leather-wallet/query';
+import { sumNumbers } from '@leather-wallet/utils';
 import BigNumber from 'bignumber.js';
 
 import { createMoney } from '@shared/models/money.model';
 import { isUndefined } from '@shared/utils';
 
-import { sumNumbers } from '@app/common/math/helpers';
 import { useCurrentAccountNativeSegwitIndexZeroSigner } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
 
 function createBtcCryptoAssetBalance(balance: Money): BtcCryptoAssetBalance {

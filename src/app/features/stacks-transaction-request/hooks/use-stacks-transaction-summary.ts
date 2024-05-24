@@ -1,4 +1,5 @@
 import { useCryptoCurrencyMarketDataMeanAverage } from '@leather-wallet/query';
+import { microStxToStx } from '@leather-wallet/utils';
 import { bytesToUtf8 } from '@stacks/common';
 import {
   ClarityType,
@@ -25,7 +26,6 @@ import { getEstimatedConfirmationTime } from '@app/common/transactions/stacks/tr
 import { removeTrailingNullCharacters } from '@app/common/utils';
 import { useStacksBlockTime } from '@app/query/stacks/info/info.hooks';
 import { useCurrentNetworkState } from '@app/store/networks/networks.hooks';
-import { microStxToStx } from '@app/ui/utils/micro-stx-to-stx';
 
 export function useStacksTransactionSummary(token: CryptoCurrencies) {
   // TODO: unsafe type assumption

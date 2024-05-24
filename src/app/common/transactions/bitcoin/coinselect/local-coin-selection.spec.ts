@@ -1,7 +1,8 @@
+import { sumNumbers } from '@leather-wallet/utils';
+
 import { BTC_P2WPKH_DUST_AMOUNT } from '@shared/constants';
 import { createMoney } from '@shared/models/money.model';
 
-import { sumNumbers } from '@app/common/math/helpers';
 import { createNullArrayOfLength } from '@app/common/utils';
 
 import { determineUtxosForSpend } from './local-coin-selection';
