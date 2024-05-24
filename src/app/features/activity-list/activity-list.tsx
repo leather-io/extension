@@ -1,11 +1,13 @@
 import { useMemo } from 'react';
 import { Outlet } from 'react-router-dom';
 
+import {
+  useBitcoinPendingTransactions,
+  useGetBitcoinTransactionsByAddressesQuery,
+} from '@leather-wallet/query';
 import uniqby from 'lodash.uniqby';
 
 import { LoadingSpinner } from '@app/components/loading-spinner';
-import { useBitcoinPendingTransactions } from '@app/query/bitcoin/address/transactions-by-address.hooks';
-import { useGetBitcoinTransactionsByAddressesQuery } from '@app/query/bitcoin/address/transactions-by-address.query';
 import { useConfigBitcoinEnabled } from '@app/query/common/remote-config/remote-config.query';
 import { useStacksPendingTransactions } from '@app/query/stacks/mempool/mempool.hooks';
 import { useGetAccountTransactionsWithTransfersQuery } from '@app/query/stacks/transactions/transactions-with-transfers.query';

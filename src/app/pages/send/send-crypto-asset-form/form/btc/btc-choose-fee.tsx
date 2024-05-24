@@ -1,5 +1,7 @@
 import { Outlet } from 'react-router-dom';
 
+import type { UtxoResponseItem } from '@leather-wallet/query';
+
 import { BtcFeeType } from '@shared/models/fees/bitcoin-fees.model';
 import { BitcoinSendFormValues } from '@shared/models/form.model';
 
@@ -8,7 +10,6 @@ import { BitcoinFeesList } from '@app/components/bitcoin-fees-list/bitcoin-fees-
 import { useBitcoinFeesList } from '@app/components/bitcoin-fees-list/use-bitcoin-fees-list';
 import { BitcoinChooseFee } from '@app/features/bitcoin-choose-fee/bitcoin-choose-fee';
 import { useValidateBitcoinSpend } from '@app/features/bitcoin-choose-fee/hooks/use-validate-bitcoin-spend';
-import { UtxoResponseItem } from '@app/query/bitcoin/bitcoin-client';
 
 import { useSendBitcoinAssetContextState } from '../../family/bitcoin/components/send-bitcoin-asset-container';
 import { useBtcChooseFee } from './use-btc-choose-fee';

@@ -1,9 +1,9 @@
+import { useCalculateBitcoinFiatValue } from '@leather-wallet/query';
 import { HStack, Stack, styled } from 'leather-styles/jsx';
 
 import { Money } from '@shared/models/money.model';
 
 import { formatMoney, i18nFormatCurrency } from '@app/common/money/format-money';
-import { useCalculateBitcoinFiatValue } from '@app/query/common/market-data/market-data.hooks';
 
 import { PsbtRequestDetailsSectionLayout } from './psbt-request-details-section.layout';
 

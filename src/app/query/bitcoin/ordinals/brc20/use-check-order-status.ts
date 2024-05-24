@@ -1,3 +1,4 @@
+import { fetchInscripionById, useOrdinalsbotClient } from '@leather-wallet/query';
 import { useQueries } from '@tanstack/react-query';
 
 import { useAppDispatch } from '@app/store';
@@ -8,9 +9,6 @@ import {
   brc20TransferReady,
   usePendingBrc20TransferEntities,
 } from '@app/store/ordinals/ordinals.slice';
-
-import { useOrdinalsbotClient } from '../../ordinalsbot-client';
-import { fetchInscripionById } from '../inscription-by-id.query';
 
 export function useCheckOrderStatuses(ids: string[]) {
   const ordinalsbotClient = useOrdinalsbotClient();

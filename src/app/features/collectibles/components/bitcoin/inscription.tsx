@@ -1,11 +1,11 @@
 import { useLocation, useNavigate } from 'react-router-dom';
 
+import { type Inscription } from '@leather-wallet/models';
+
 import { ORD_IO_URL } from '@shared/constants';
-import { Inscription as InscriptionType } from '@shared/models/inscription.model';
 import { RouteUrls } from '@shared/route-urls';
 
 import { openInNewTab } from '@app/common/utils/open-in-new-tab';
-import { convertInscriptionToSupportedInscriptionType } from '@app/query/bitcoin/ordinals/inscription.hooks';
 import { OrdinalAvatarIcon } from '@app/ui/components/avatar/ordinal-avatar-icon';
 
 import { CollectibleAudio } from '../_collectible-types/collectible-audio';
@@ -15,15 +15,14 @@ import { CollectibleOther } from '../_collectible-types/collectible-other';
 import { InscriptionText } from './inscription-text';
 
 interface InscriptionProps {
-  rawInscription: InscriptionType;
+  inscription: Inscription;
 }
 
 function openInscriptionUrl(num: number) {
   return openInNewTab(`${ORD_IO_URL}/${num}`);
 }
 
-export function Inscription({ rawInscription }: InscriptionProps) {
-  const inscription = convertInscriptionToSupportedInscriptionType(rawInscription);
+export function Inscription({ inscription }: InscriptionProps) {
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -33,7 +32,7 @@ export function Inscription({ rawInscription }: InscriptionProps) {
     });
   }
 
-  switch (inscription.type) {
+  switch (inscription.mimeType) {
     case 'audio':
       return (
         <CollectibleAudio
@@ -75,7 +74,7 @@ export function Inscription({ rawInscription }: InscriptionProps) {
     case 'text':
       return (
         <InscriptionText
-          contentSrc={inscription.contentSrc}
+          contentSrc={inscription.src}
           inscriptionNumber={inscription.number}
           onClickCallToAction={() => openInscriptionUrl(inscription.number)}
           onClickSend={() => openSendInscriptionModal()}

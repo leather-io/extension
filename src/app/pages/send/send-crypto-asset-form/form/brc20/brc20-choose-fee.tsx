@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Outlet, useLocation, useNavigate } from 'react-router-dom';
 
+import type { UtxoResponseItem } from '@leather-wallet/query';
 import { Stack } from 'leather-styles/jsx';
 import get from 'lodash.get';
 
@@ -20,7 +21,6 @@ import { LoadingSpinner } from '@app/components/loading-spinner';
 import { BitcoinChooseFee } from '@app/features/bitcoin-choose-fee/bitcoin-choose-fee';
 import { useValidateBitcoinSpend } from '@app/features/bitcoin-choose-fee/hooks/use-validate-bitcoin-spend';
 import { useToast } from '@app/features/toasts/use-toast';
-import { UtxoResponseItem } from '@app/query/bitcoin/bitcoin-client';
 import { useBrc20Transfers } from '@app/query/bitcoin/ordinals/brc20/brc20-tokens.hooks';
 import { useSignBitcoinTx } from '@app/store/accounts/blockchain/bitcoin/bitcoin.hooks';
 

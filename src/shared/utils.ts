@@ -63,10 +63,6 @@ export function whenNetwork(mode: NetworkModes) {
   return <T extends NetworkMap<unknown>>(networkMap: T) => networkMap[mode] as T[NetworkModes];
 }
 
-export function isEmptyArray(data: unknown[]) {
-  return data.length === 0;
-}
-
 export const defaultWalletKeyId = 'default';
 
 export function closeWindow() {

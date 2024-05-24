@@ -1,5 +1,6 @@
 import { useLocation, useNavigate } from 'react-router-dom';
 
+import { useBitcoinBroadcastTransaction } from '@leather-wallet/query';
 import { bytesToHex } from '@noble/hashes/utils';
 import { Box, Flex, Stack } from 'leather-styles/jsx';
 import get from 'lodash.get';
@@ -20,7 +21,6 @@ import { DialogHeader } from '@app/ui/components/containers/headers/dialog-heade
 import { Card } from '@app/ui/layout/card/card';
 
 import { InscriptionPreviewCard } from '../../../components/inscription-preview-card/inscription-preview-card';
-import { useBitcoinBroadcastTransaction } from '../../../query/bitcoin/transaction/use-bitcoin-broadcast-transaction';
 import { useSendInscriptionState } from './components/send-inscription-container';
 
 function useSendInscriptionReviewState() {
@@ -45,7 +45,7 @@ export function SendInscriptionReview() {
 
   async function sendInscription() {
     await broadcastTx({
-      skipSpendableCheckUtxoIds: [inscription.tx_id],
+      skipSpendableCheckUtxoIds: [inscription.txid],
       tx: bytesToHex(signedTx),
       async onSuccess(txid: string) {
         void analytics.track('broadcast_ordinal_transaction');

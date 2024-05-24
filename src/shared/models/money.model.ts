@@ -15,7 +15,7 @@ export interface Money {
 
 // Units of `Money` should be declared in their smallest unit. Similar to
 // Rosetta, we model currencies with their respective resolution
-export const currencyDecimalsMap = {
+const currencyDecimalsMap = {
   BTC: BTC_DECIMALS,
   STX: STX_DECIMALS,
   USD: 2,

@@ -1,3 +1,4 @@
+import type { UtxoResponseItem } from '@leather-wallet/query';
 import BigNumber from 'bignumber.js';
 import * as yup from 'yup';
 
@@ -13,7 +14,6 @@ import {
   satToBtc,
   stxToMicroStx,
 } from '@app/common/money/unit-conversion';
-import { UtxoResponseItem } from '@app/query/bitcoin/bitcoin-client';
 
 import { FormErrorMessages } from '../../../../shared/error-messages';
 import { formatInsufficientBalanceError, formatPrecisionError } from '../../error-formatters';

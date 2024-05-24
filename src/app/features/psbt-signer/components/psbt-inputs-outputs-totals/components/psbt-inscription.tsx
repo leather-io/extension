@@ -1,12 +1,10 @@
-import { Inscription } from '@shared/models/inscription.model';
+import type { Inscription } from '@leather-wallet/models';
+import { useInscription } from '@leather-wallet/query';
+
 import { isUndefined } from '@shared/utils';
 
 import { openInNewTab } from '@app/common/utils/open-in-new-tab';
 import { InscriptionPreview } from '@app/components/inscription-preview-card/components/inscription-preview';
-import {
-  createInscriptionInfoUrl,
-  useInscription,
-} from '@app/query/bitcoin/ordinals/inscription.hooks';
 import { OrdinalAvatarIcon } from '@app/ui/components/avatar/ordinal-avatar-icon';
 
 import { PsbtAddressTotalItem } from './psbt-address-total-item';
@@ -32,7 +30,7 @@ export function PsbtInscription({ inscription }: PsbtInscriptionProps) {
       image={<InscriptionPreview inscription={supportedInscription} height="40px" width="40px" />}
       title="Inscription"
       value={`#${inscription?.number}`}
-      valueAction={() => openInNewTab(createInscriptionInfoUrl(inscription?.id))}
+      valueAction={() => openInNewTab(inscription.preview)}
     />
   );
 }
