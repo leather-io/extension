@@ -1,9 +1,8 @@
-import { initBigNumber, sumNumbers } from '@leather-wallet/utils';
+import { initBigNumber, isNumber, sumNumbers } from '@leather-wallet/utils';
 import { BigNumber } from 'bignumber.js';
 
 import { MarketData, formatMarketPair } from '@shared/models/market.model';
 import { Money, NumType, createMoney } from '@shared/models/money.model';
-import { isNumber } from '@shared/utils';
 
 import { formatMoney } from './format-money';
 import { isMoney } from './money.utils';

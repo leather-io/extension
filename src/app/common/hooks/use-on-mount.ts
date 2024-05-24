@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 
-import { isFunction } from '@shared/utils';
+import { isFunction } from '@leather-wallet/utils';
 
 export function useOnMount(effect: () => void | (() => void) | Promise<unknown>) {
   useEffect(() => {

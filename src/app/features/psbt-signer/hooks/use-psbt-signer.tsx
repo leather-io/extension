@@ -1,11 +1,11 @@
 import { useMemo } from 'react';
 
+import { isString } from '@leather-wallet/utils';
 import { hexToBytes } from '@noble/hashes/utils';
 import * as btc from '@scure/btc-signer';
 
 import { BitcoinInputSigningConfig } from '@shared/crypto/bitcoin/signer-config';
 import { logger } from '@shared/logger';
-import { isString } from '@shared/utils';
 
 import {
   useAddTapInternalKeysIfMissing,

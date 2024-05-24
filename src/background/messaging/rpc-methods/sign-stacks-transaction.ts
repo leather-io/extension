@@ -1,4 +1,5 @@
 import { RpcErrorCode } from '@btckit/types';
+import { isDefined, isUndefined } from '@leather-wallet/utils';
 import { bytesToHex } from '@stacks/common';
 import { TransactionTypes } from '@stacks/connect';
 import {
@@ -26,7 +27,6 @@ import {
   validateRpcSignStacksTransactionParams,
 } from '@shared/rpc/methods/sign-stacks-transaction';
 import { makeRpcErrorResponse } from '@shared/rpc/rpc-methods';
-import { isDefined, isUndefined } from '@shared/utils';
 
 import {
   RequestParams,

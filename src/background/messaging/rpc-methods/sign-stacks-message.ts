@@ -1,4 +1,5 @@
 import { RpcErrorCode } from '@btckit/types';
+import { isDefined, isUndefined } from '@leather-wallet/utils';
 
 import { RouteUrls } from '@shared/route-urls';
 import {
@@ -7,7 +8,6 @@ import {
   validateRpcSignStacksMessageParams,
 } from '@shared/rpc/methods/sign-stacks-message';
 import { makeRpcErrorResponse } from '@shared/rpc/rpc-methods';
-import { isDefined, isUndefined } from '@shared/utils';
 
 import {
   RequestParams,

@@ -4,6 +4,7 @@ import {
   useBitcoinBroadcastTransaction,
   useCryptoCurrencyMarketDataMeanAverage,
 } from '@leather-wallet/query';
+import { truncateMiddle } from '@leather-wallet/utils';
 import { HStack, Stack, styled } from 'leather-styles/jsx';
 import get from 'lodash.get';
 
@@ -27,7 +28,6 @@ import { InfoCardFooter } from '@app/components/info-card/info-card';
 import { useCurrentNativeSegwitUtxos } from '@app/query/bitcoin/address/utxos-by-address.hooks';
 import { useCurrentAccountNativeSegwitAddressIndexZero } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
 import { Button } from '@app/ui/components/button/button';
-import { truncateMiddle } from '@app/ui/utils/truncate-middle';
 
 import { SendTransferConfirmationDetails } from './components/send-transfer-confirmation-details';
 import { useRpcSendTransferRequestParams } from './use-rpc-send-transfer';

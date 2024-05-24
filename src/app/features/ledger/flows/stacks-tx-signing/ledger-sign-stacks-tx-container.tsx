@@ -1,12 +1,12 @@
 import { useEffect, useState } from 'react';
 import { Route, useLocation, useNavigate } from 'react-router-dom';
 
+import { delay, isError } from '@leather-wallet/utils';
 import { deserializeTransaction } from '@stacks/transactions';
 import StacksApp, { LedgerError } from '@zondax/ledger-stacks';
 import get from 'lodash.get';
 
 import { RouteUrls } from '@shared/route-urls';
-import { delay, isError } from '@shared/utils';
 import { analytics } from '@shared/utils/analytics';
 
 import { useScrollLock } from '@app/common/hooks/use-scroll-lock';

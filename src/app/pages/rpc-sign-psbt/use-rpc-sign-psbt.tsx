@@ -6,13 +6,14 @@ import {
   useCalculateBitcoinFiatValue,
   useCryptoCurrencyMarketDataMeanAverage,
 } from '@leather-wallet/query';
+import { isError } from '@leather-wallet/utils';
 import { hexToBytes } from '@noble/hashes/utils';
 import { bytesToHex } from '@stacks/common';
 
 import { Money } from '@shared/models/money.model';
 import { RouteUrls } from '@shared/route-urls';
 import { makeRpcErrorResponse, makeRpcSuccessResponse } from '@shared/rpc/rpc-methods';
-import { closeWindow, isError } from '@shared/utils';
+import { closeWindow } from '@shared/utils';
 
 import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
 import { sumMoney } from '@app/common/money/calculate-money';

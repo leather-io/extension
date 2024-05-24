@@ -1,4 +1,5 @@
 import { RpcErrorCode } from '@btckit/types';
+import { ensureArray, isDefined, isUndefined } from '@leather-wallet/utils';
 import * as btc from '@scure/btc-signer';
 import { hexToBytes } from '@stacks/common';
 
@@ -9,7 +10,6 @@ import {
   validateRpcSignPsbtParams,
 } from '@shared/rpc/methods/sign-psbt';
 import { makeRpcErrorResponse } from '@shared/rpc/rpc-methods';
-import { ensureArray, isDefined, isUndefined } from '@shared/utils';
 
 import {
   RequestParams,

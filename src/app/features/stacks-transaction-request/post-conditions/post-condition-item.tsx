@@ -1,5 +1,6 @@
 import { Suspense } from 'react';
 
+import { truncateMiddle } from '@leather-wallet/utils';
 import { TransactionTypes } from '@stacks/connect';
 import { NonFungiblePostCondition, STXPostCondition, addressToString } from '@stacks/transactions';
 
@@ -15,7 +16,6 @@ import { EventCard } from '@app/components/event-card';
 import { LoadingSpinner } from '@app/components/loading-spinner';
 import { useCurrentStacksAccount } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
 import { useTransactionRequestState } from '@app/store/transactions/requests.hooks';
-import { truncateMiddle } from '@app/ui/utils/truncate-middle';
 
 interface PostConditionItemProps {
   isLast?: boolean;

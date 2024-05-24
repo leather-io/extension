@@ -1,3 +1,4 @@
+import { createCounter } from '@leather-wallet/utils';
 import { Page } from '@playwright/test';
 import { TEST_PASSWORD } from '@tests/mocks/constants';
 import { HomePageSelectors } from '@tests/selectors/home.selectors';
@@ -5,8 +6,6 @@ import { OnboardingSelectors } from '@tests/selectors/onboarding.selectors';
 
 import type { SupportedBlockchains } from '@shared/constants';
 import { RouteUrls } from '@shared/route-urls';
-
-import { createCounter } from '@app/common/utils/counter';
 
 const TEST_ACCOUNT_SECRET_KEY = process.env.TEST_ACCOUNT_SECRET_KEY ?? '';
 

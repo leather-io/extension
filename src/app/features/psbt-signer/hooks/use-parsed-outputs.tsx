@@ -1,12 +1,12 @@
 import { useMemo } from 'react';
 
+import { isDefined, isUndefined } from '@leather-wallet/utils';
 import * as btc from '@scure/btc-signer';
 
 import { NetworkConfiguration } from '@shared/constants';
 import { getBtcSignerLibNetworkConfigByMode } from '@shared/crypto/bitcoin/bitcoin.network';
 import { getAddressFromOutScript } from '@shared/crypto/bitcoin/bitcoin.utils';
 import { logger } from '@shared/logger';
-import { isDefined, isUndefined } from '@shared/utils';
 
 import { useCurrentAccountNativeSegwitIndexZeroSigner } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
 import { useCurrentAccountTaprootIndexZeroSigner } from '@app/store/accounts/blockchain/bitcoin/taproot-account.hooks';

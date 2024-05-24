@@ -1,10 +1,10 @@
 import { useNavigate } from 'react-router-dom';
 
+import { isDefined, isUndefined } from '@leather-wallet/utils';
 import { useFormikContext } from 'formik';
 import { styled } from 'leather-styles/jsx';
 
 import { RouteUrls } from '@shared/route-urls';
-import { isDefined, isUndefined } from '@shared/utils';
 
 import { SwapIcon } from '@app/ui/icons';
 

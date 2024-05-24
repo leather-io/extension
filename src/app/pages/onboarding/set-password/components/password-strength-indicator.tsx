@@ -1,6 +1,7 @@
 import { useMemo } from 'react';
 
-import { createNullArrayOfLength } from '@app/common/utils';
+import { createNullArrayOfLength } from '@leather-wallet/utils';
+
 import { ValidatedPassword } from '@app/common/validation/validate-password';
 
 import { PasswordStrengthBars } from './password-bars';

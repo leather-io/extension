@@ -1,7 +1,6 @@
 import type { Inscription } from '@leather-wallet/models';
 import { useInscription } from '@leather-wallet/query';
-
-import { isUndefined } from '@shared/utils';
+import { isUndefined } from '@leather-wallet/utils';
 
 import { openInNewTab } from '@app/common/utils/open-in-new-tab';
 import { InscriptionPreview } from '@app/components/inscription-preview-card/components/inscription-preview';

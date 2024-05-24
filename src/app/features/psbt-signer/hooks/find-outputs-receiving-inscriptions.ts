@@ -1,6 +1,5 @@
+import { isDefined } from '@leather-wallet/utils';
 import BigNumber from 'bignumber.js';
-
-import { isDefined } from '@shared/utils';
 
 import { PsbtInput } from './use-parsed-inputs';
 import { PsbtOutput } from './use-parsed-outputs';

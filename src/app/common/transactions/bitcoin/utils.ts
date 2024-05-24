@@ -1,5 +1,5 @@
 import type { UtxoResponseItem } from '@leather-wallet/query';
-import { satToBtc, sumNumbers } from '@leather-wallet/utils';
+import { satToBtc, sumNumbers, truncateMiddle } from '@leather-wallet/utils';
 import BigNumber from 'bignumber.js';
 import {
   type AddressInfo,
@@ -14,8 +14,6 @@ import {
   BitcoinTransactionVectorOutput,
   BitcoinTx,
 } from '@shared/models/transactions/bitcoin-transaction.model';
-
-import { truncateMiddle } from '@app/ui/utils/truncate-middle';
 
 import { BtcSizeFeeEstimator } from './fees/btc-size-fee-estimator';
 

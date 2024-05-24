@@ -1,5 +1,6 @@
 import { Suspense } from 'react';
 
+import { truncateMiddle } from '@leather-wallet/utils';
 import { TransactionTypes } from '@stacks/connect';
 import { FungiblePostCondition, addressToString } from '@stacks/transactions';
 
@@ -17,7 +18,6 @@ import { LoadingSpinner } from '@app/components/loading-spinner';
 import { useCurrentStacksAccount } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
 import { useAssetFromFungiblePostCondition } from '@app/store/transactions/post-conditions.hooks';
 import { useTransactionRequestState } from '@app/store/transactions/requests.hooks';
-import { truncateMiddle } from '@app/ui/utils/truncate-middle';
 
 interface FungiblePostConditionItemProps {
   isLast?: boolean;

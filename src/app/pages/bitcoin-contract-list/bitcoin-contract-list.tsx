@@ -1,5 +1,6 @@
 import { useState } from 'react';
 
+import { truncateMiddle } from '@leather-wallet/utils';
 import { Flex, Stack, styled } from 'leather-styles/jsx';
 
 import {
@@ -8,7 +9,6 @@ import {
 } from '@app/common/hooks/use-bitcoin-contracts';
 import { useOnMount } from '@app/common/hooks/use-on-mount';
 import { FullPageLoadingSpinner } from '@app/components/loading-spinner';
-import { truncateMiddle } from '@app/ui/utils/truncate-middle';
 
 import { BitcoinContractListItemLayout } from './components/bitcoin-contract-list-item-layout';
 

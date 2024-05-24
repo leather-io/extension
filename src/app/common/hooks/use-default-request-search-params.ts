@@ -1,6 +1,6 @@
 import { useMemo } from 'react';
 
-import { isString } from '@shared/utils';
+import { isString } from '@leather-wallet/utils';
 
 import { initialSearchParams } from '@app/common/initial-search-params';
 

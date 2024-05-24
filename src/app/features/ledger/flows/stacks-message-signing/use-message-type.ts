@@ -1,9 +1,10 @@
+import { isString } from '@leather-wallet/utils';
+
 import {
   type SignedMessageType,
   UnsignedMessage,
   deserializeUnsignedMessage,
 } from '@shared/signature/signature-types';
-import { isString } from '@shared/utils';
 
 import { useLocationStateWithCache } from '@app/common/hooks/use-location-state';
 

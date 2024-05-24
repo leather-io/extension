@@ -1,10 +1,10 @@
 import { useMemo } from 'react';
 
 import { useCalculateBitcoinFiatValue } from '@leather-wallet/query';
+import { isUndefined } from '@leather-wallet/utils';
 import BigNumber from 'bignumber.js';
 
 import { createMoney } from '@shared/models/money.model';
-import { isUndefined } from '@shared/utils';
 
 import { i18nFormatCurrency } from '@app/common/money/format-money';
 

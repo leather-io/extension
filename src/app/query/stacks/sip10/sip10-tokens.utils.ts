@@ -1,7 +1,6 @@
 import type { FtMetadataResponse } from '@hirosystems/token-metadata-api-client';
 import type { CryptoAssetBalance, Sip10CryptoAssetInfo } from '@leather-wallet/models';
-
-import { isUndefined } from '@shared/utils';
+import { isUndefined } from '@leather-wallet/utils';
 
 import { getStacksContractIdStringParts } from '@app/common/stacks-utils';
 import { getPrincipalFromContractId, getTicker } from '@app/common/utils';

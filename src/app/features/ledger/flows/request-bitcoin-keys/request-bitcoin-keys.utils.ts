@@ -1,10 +1,10 @@
+import { delay } from '@leather-wallet/utils';
 import BitcoinApp, { DefaultWalletPolicy } from 'ledger-bitcoin';
 
 import { BitcoinNetworkModes, NetworkModes } from '@shared/constants';
 import { createWalletIdDecoratedPath } from '@shared/crypto/bitcoin/bitcoin.utils';
 import { getTaprootAccountDerivationPath } from '@shared/crypto/bitcoin/p2tr-address-gen';
 import { getNativeSegwitAccountDerivationPath } from '@shared/crypto/bitcoin/p2wpkh-address-gen';
-import { delay } from '@shared/utils';
 
 import { defaultNumberOfKeysToPullFromLedgerDevice } from '../../generic-flows/request-keys/use-request-ledger-keys';
 import {

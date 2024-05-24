@@ -1,4 +1,5 @@
 import type { UtxoWithDerivationPath } from '@leather-wallet/query';
+import { createCounter } from '@leather-wallet/utils';
 import * as btc from '@scure/btc-signer';
 import { AddressType, getAddressInfo } from 'bitcoin-address-validation';
 
@@ -12,7 +13,6 @@ import {
   InsufficientFundsError,
   determineUtxosForSpend,
 } from '@app/common/transactions/bitcoin/coinselect/local-coin-selection';
-import { createCounter } from '@app/common/utils/counter';
 import { useCurrentNativeSegwitUtxos } from '@app/query/bitcoin/address/utxos-by-address.hooks';
 import { useBitcoinScureLibNetworkConfig } from '@app/store/accounts/blockchain/bitcoin/bitcoin-keychain';
 import { useCurrentAccountNativeSegwitSigner } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';

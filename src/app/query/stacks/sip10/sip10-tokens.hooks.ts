@@ -1,8 +1,7 @@
 import { useMemo } from 'react';
 
 import type { BaseCryptoAssetBalance, Sip10CryptoAssetInfo } from '@leather-wallet/models';
-
-import { isDefined, isUndefined } from '@shared/utils';
+import { isDefined, isUndefined } from '@leather-wallet/utils';
 
 import { useAlexSwappableAssets } from '@app/query/common/alex-sdk/alex-sdk.hooks';
 import { useCurrentStacksAccountAddress } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';

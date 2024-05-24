@@ -1,9 +1,8 @@
+import { makeNumberRange } from '@leather-wallet/utils';
 import { HDKey } from '@scure/bip32';
 import { mnemonicToSeedSync } from '@scure/bip39';
 import * as btc from '@scure/btc-signer';
 import { STANDARD_BIP_FAKE_MNEMONIC } from '@tests/mocks/constants';
-
-import { makeNumberRange } from '@shared/utils';
 
 import { deriveAddressIndexKeychainFromAccount, ecdsaPublicKeyToSchnorr } from './bitcoin.utils';
 import { getTaprootAccountDerivationPath } from './p2tr-address-gen';
