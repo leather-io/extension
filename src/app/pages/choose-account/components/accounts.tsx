@@ -44,6 +44,7 @@ const ChooseAccountItem = memo(
     const btcAddress = useNativeSegwitAccountIndexAddressIndexZero(account.index);
 
     const accountSlug = useMemo(() => slugify(`Account ${account?.index + 1}`), [account?.index]);
+
     return (
       <AccountListItemLayout
         accountAddresses={<AcccountAddresses index={account.index} />}
