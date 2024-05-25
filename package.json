@@ -136,7 +136,7 @@
     "@fungible-systems/zone-file": "2.0.0",
     "@hirosystems/token-metadata-api-client": "1.2.0",
     "@leather-wallet/models": "0.6.5",
-    "@leather-wallet/query": "0.6.6",
+    "@leather-wallet/query": "0.6.7",
     "@leather-wallet/tokens": "0.4.0",
     "@leather-wallet/utils": "0.6.5",
     "@ledgerhq/hw-transport-webusb": "6.27.19",

@@ -8,7 +8,7 @@ interface Src20TokenAssetListProps {
 export function Src20TokenAssetList({ tokens }: Src20TokenAssetListProps) {
   return tokens.map((token, i) => (
     <CryptoAssetItemLayout
-      balance={token.balance}
+      availableBalance={token.balance.availableBalance}
       captionLeft={token.info.name.toUpperCase()}
       key={`${token.info.id}${i}`}
       icon={<Src20AvatarIcon />}

@@ -28,7 +28,7 @@ export function Sip10TokenAssetItem({
 
   return (
     <CryptoAssetItemLayout
-      balance={balance}
+      availableBalance={balance.availableBalance}
       fiatBalance={fiatBalance}
       captionLeft={info.symbol}
       contractId={info.contractId}

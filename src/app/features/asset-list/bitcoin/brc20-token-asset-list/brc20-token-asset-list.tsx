@@ -45,7 +45,7 @@ export function Brc20TokenAssetList({ tokens, variant }: Brc20TokenAssetListProp
     <Stack data-testid={CryptoAssetSelectors.CryptoAssetList}>
       {tokens.map(token => (
         <CryptoAssetItemLayout
-          balance={token.balance}
+          availableBalance={token.balance.availableBalance}
           captionLeft={token.info.name.toUpperCase()}
           icon={<Brc20AvatarIcon />}
           isLoading={isInitialLoading}
