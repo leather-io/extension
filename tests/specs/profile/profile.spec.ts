@@ -1,6 +1,7 @@
 import { mockGaiaProfileResponse } from '@tests/mocks/mock-profile';
 import { TestAppPage } from '@tests/page-object-models/test-app.page';
 import { UpdateProfileRequestPage } from '@tests/page-object-models/update-profile-request.page';
+import { OnboardingSelectors } from '@tests/selectors/onboarding.selectors';
 
 import { test } from '../../fixtures/fixtures';
 
@@ -9,16 +10,17 @@ test.describe.configure({ mode: 'serial' });
 test.describe('Profile updating', () => {
   let testAppPage: TestAppPage;
 
-  test.beforeEach(async ({ extensionId, globalPage, onboardingPage, context }) => {
+  test.beforeEach(async ({ context, extensionId, globalPage, onboardingPage }) => {
     await globalPage.setupAndUseApiCalls(extensionId);
     await onboardingPage.signInWithTestAccount(extensionId);
     testAppPage = await TestAppPage.openDemoPage(context);
-    await testAppPage.signIn();
   });
 
   test('should show an error for invalid profile', async ({ context }) => {
-    const accountsPage = await context.waitForEvent('page');
-    await accountsPage.locator('text="Account 1"').click({ force: true });
+    const newPagePromise = context.waitForEvent('page');
+    await testAppPage.page.getByTestId(OnboardingSelectors.SignUpBtn).click();
+    const accountsPage = await newPagePromise;
+    await accountsPage.getByTestId('switch-account-item-0').click({ force: true });
     await testAppPage.page.bringToFront();
     await testAppPage.page.click('text=Profile', {
       timeout: 30000,
@@ -43,12 +45,13 @@ test.describe('Gaia profile request', () => {
     await globalPage.setupAndUseApiCalls(extensionId);
     await onboardingPage.signInWithTestAccount(extensionId);
     testAppPage = await TestAppPage.openDemoPage(context);
-    await testAppPage.signIn();
   });
 
   test('should send a signed profile token to gaia', async ({ context }) => {
-    const accountsPage = await context.waitForEvent('page');
-    await accountsPage.locator('text="Account 2"').click({ force: true });
+    const newPagePromise = context.waitForEvent('page');
+    await testAppPage.page.getByTestId(OnboardingSelectors.SignUpBtn).click();
+    const accountsPage = await newPagePromise;
+    await accountsPage.getByTestId('switch-account-item-1').click({ force: true });
     await testAppPage.page.bringToFront();
     await testAppPage.page.click('text=Profile', {
       timeout: 30000,

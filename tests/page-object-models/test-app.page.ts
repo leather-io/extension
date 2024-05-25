@@ -4,7 +4,6 @@ import { TestAppSelectors } from '@tests/selectors/test-app.selectors';
 import { createTestSelector } from '@tests/utils';
 
 export class TestAppPage {
-  static readonly url = 'http://localhost:3000';
   page: Page;
   readonly signInBtnSelector = createTestSelector(OnboardingSelectors.SignUpBtn);
   readonly contractCallBtnSelector = createTestSelector(TestAppSelectors.BtnContractCall);
@@ -20,12 +19,8 @@ export class TestAppPage {
 
   static async openDemoPage(context: BrowserContext) {
     const newPage = await context.newPage();
-    await newPage.goto(TestAppPage.url);
+    await newPage.goto('localhost:3000', { waitUntil: 'networkidle' });
     return new TestAppPage(newPage);
-  }
-
-  async signIn() {
-    return this.page.click(this.signInBtnSelector, { timeout: 10000 });
   }
 
   async clickContractCallButton() {
