@@ -19,7 +19,7 @@ export function BtcCryptoAssetItem({ balance, isLoading, onSelectAsset }: BtcCry
 
   return (
     <CryptoAssetItemLayout
-      balance={balance}
+      availableBalance={balance.availableBalance}
       captionLeft="BTC"
       fiatBalance={fiatAvailableBalance}
       icon={<BtcAvatarIcon />}

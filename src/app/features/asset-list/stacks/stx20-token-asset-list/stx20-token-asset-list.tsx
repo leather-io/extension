@@ -14,7 +14,7 @@ interface Stx20TokenAssetListProps {
 export function Stx20TokenAssetList({ tokens }: Stx20TokenAssetListProps) {
   return tokens.map((token, i) => (
     <CryptoAssetItemLayout
-      balance={token.balance}
+      availableBalance={token.balance.availableBalance}
       captionLeft={token.info.name.toUpperCase()}
       icon={<Stx20AvatarIcon />}
       key={`${token.info.symbol}${i}`}

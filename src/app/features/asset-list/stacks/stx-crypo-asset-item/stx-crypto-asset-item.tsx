@@ -32,7 +32,7 @@ export function StxCryptoAssetItem({ balance, isLoading, onSelectAsset }: StxCry
 
   return (
     <CryptoAssetItemLayout
-      balance={balance}
+      availableBalance={balance.availableBalance}
       captionLeft="STX"
       captionRightBulletInfo={showLockedBalance && captionRightBulletInfo}
       fiatBalance={fiatAvailableBalance}
