@@ -17,6 +17,11 @@ export const selectDefaultSoftwareKey = createSelector(
   state => state.entities[defaultWalletKeyId]
 );
 
+export const selectHasSecretKey = createSelector(
+  selectDefaultSoftwareKey,
+  softwareKey => !!softwareKey?.encryptedSecretKey
+);
+
 export function useCurrentKeyDetails() {
   return useSelector(selectDefaultSoftwareKey);
 }

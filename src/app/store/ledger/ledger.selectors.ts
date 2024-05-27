@@ -11,12 +11,12 @@ const selectNumberOfLedgerKeysPersisted = createSelector(selectLedger, ledger =>
   sumNumbers(Object.values(ledger).map(chain => Object.keys(chain.entities).length))
 );
 
-function useNumberOfLedgerKeysPersisted() {
-  return useSelector(selectNumberOfLedgerKeysPersisted);
-}
+export const selectHasLedgerKeys = createSelector(selectNumberOfLedgerKeysPersisted, numOfKeys =>
+  numOfKeys.isGreaterThan(0)
+);
 
 export function useHasLedgerKeys() {
-  return useNumberOfLedgerKeysPersisted().isGreaterThan(0);
+  return useSelector(selectHasLedgerKeys);
 }
 
 export function useLedgerDeviceTargetId() {

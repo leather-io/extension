@@ -1,24 +1,18 @@
 import { useMemo } from 'react';
 
-import { useHasLedgerKeys } from '@app/store/ledger/ledger.selectors';
-import { useCurrentKeyDetails } from '@app/store/software-keys/software-key.selectors';
+import { type WalletType, useWalletTypeSelector } from '@app/store/common/wallet-type.selectors';
 
-enum WalletType {
-  Ledger = 'ledger',
-  Software = 'software',
-}
-
-function isLedgerWallet(walletType: WalletType) {
+function isLedgerWallet(walletType?: WalletType) {
   return walletType === 'ledger';
 }
 
-function isSoftwareWallet(walletType: WalletType) {
+function isSoftwareWallet(walletType?: WalletType) {
   return walletType === 'software';
 }
 
 type WalletTypeMap<T> = Record<WalletType, T>;
 
-function whenWallet(walletType: WalletType) {
+function whenWallet(walletType?: WalletType) {
   return <T extends WalletTypeMap<unknown>>(walletTypeMap: T) => {
     if (isLedgerWallet(walletType)) return walletTypeMap.ledger as T[WalletType.Ledger];
     if (isSoftwareWallet(walletType)) return walletTypeMap.software as T[WalletType.Software];
@@ -27,19 +21,7 @@ function whenWallet(walletType: WalletType) {
 }
 
 export function useWalletType() {
-  const wallet = useCurrentKeyDetails();
-  const isLedger = useHasLedgerKeys();
-
-  // Any type here allows use within app without handling undefined
-  // case will error when use within onboarding
-  let walletType: any;
-
-  if (wallet?.encryptedSecretKey) {
-    walletType = WalletType.Software;
-  }
-  if (isLedger) {
-    walletType = WalletType.Ledger;
-  }
+  const walletType = useWalletTypeSelector();
 
   return useMemo(
     () => ({
