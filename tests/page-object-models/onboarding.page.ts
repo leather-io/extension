@@ -285,12 +285,12 @@ export class OnboardingPage {
       'd904f412b8d116540017c302f3f7033813c95902af5a067c7befcc34fa5e5290709f157f80548603a1e4f8edc2c0d5d7';
 
     const isSignedIn = async () => {
-      const { encryptionKey } = await this.page.evaluate(async () =>
+      const { encryptionKey } = await this.page.evaluate(() =>
         chrome.storage.session.get(['encryptionKey'])
       );
       const hasSessionKey = encryptionKey === testAccountDerivedKey;
-      const hasAssetsTab = this.page.getByText('Assets');
-      const hasActivityTab = this.page.getByText('Activity');
+      const hasAssetsTab = await this.page.getByText('Assets').isVisible();
+      const hasActivityTab = await this.page.getByText('Activity').isVisible();
 
       return hasSessionKey && hasAssetsTab && hasActivityTab;
     };
