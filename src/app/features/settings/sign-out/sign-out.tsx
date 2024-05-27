@@ -44,7 +44,6 @@ export function SignOutDialog({ isShowing, onUserDeleteWallet, onClose }: SignOu
           </Button>
           <Button
             color="lightModeInk.1"
-            _hover={{ background: 'black' }}
             opacity={!canSignOut ? 0.8 : undefined}
             data-testid={SettingsSelectors.BtnSignOutActuallyDeleteWallet}
             flexGrow={1}
