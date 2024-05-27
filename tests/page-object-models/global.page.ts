@@ -15,7 +15,7 @@ export class GlobalPage {
   async setupAndUseApiCalls(extensionId: string) {
     await this.page.route(/.*/, route => route.continue());
     await setupMockApis(this.page);
-    await this.page.waitForTimeout(600);
+    await this.page.waitForTimeout(1500);
     await this.gotoNakedRoot(extensionId);
   }
 
