@@ -1,6 +1,6 @@
 import * as PrismLib from 'prismjs';
 
-interface PrismType {
+export interface PrismType {
   languages: typeof PrismLib.languages;
   tokenize: typeof PrismLib.tokenize;
   highlight: typeof PrismLib.highlight;
@@ -123,4 +123,4 @@ buff|hash160|sha256|sha512|sha512/256|keccak256|true|false|none)' +
 
 clarity(PrismLib);
 
-export const Prism = PrismLib;
+export const Prism = PrismLib as PrismType;
