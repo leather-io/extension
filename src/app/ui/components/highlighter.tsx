@@ -3,6 +3,8 @@ import { memo } from 'react';
 import { Box, Flex } from 'leather-styles/jsx';
 import { Highlight } from 'prism-react-renderer';
 
+import type { PrismType } from '@app/common/clarity-prism';
+
 import {
   GetGrammaticalTokenProps,
   GrammaticalToken,
@@ -127,29 +129,12 @@ function Lines({
   );
 }
 
-interface PrismToken {
-  type: string;
-  content: (PrismToken | string)[] | string;
-}
-
-interface PrismGrammar {
-  [key: string]: any;
-}
-
-type LanguageDict = { [lang in Language]: PrismGrammar };
-
-interface PrismLib {
-  languages: LanguageDict;
-  tokenize(code: string, grammar: PrismGrammar, language: Language): PrismToken[] | string[];
-  highlight(code: string, grammar: PrismGrammar, language: Language): string;
-}
-
 export interface HighlighterProps {
   code: string;
   language?: Language;
   showLineNumbers?: boolean;
   hideLineHover?: boolean;
-  prism: PrismLib;
+  prism: PrismType;
 }
 
 export const Highlighter = memo(

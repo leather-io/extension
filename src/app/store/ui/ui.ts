@@ -8,5 +8,3 @@ export const loadingState = atomFamily(_param => {
   anAtom.debugLabel = `loading-atom/${_param}`;
   return anAtom;
 });
-
-export const errorStackTraceState = atom<string | null>(null);

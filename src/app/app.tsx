@@ -12,7 +12,6 @@ import { queryClient } from '@app/common/persistence';
 import { ThemeSwitcherProvider } from '@app/common/theme-provider';
 import { FullPageLoadingSpinner } from '@app/components/loading-spinner';
 import { Devtools } from '@app/features/devtool/devtools';
-import { AppErrorBoundary } from '@app/features/errors/app-error-boundary';
 import { HeadProvider } from '@app/features/html-head/head-provider';
 import { ToastsProvider } from '@app/features/toasts/toasts-provider';
 import { AppRoutes } from '@app/routes/app-routes';
@@ -42,9 +41,7 @@ function ConnectedApp() {
         }}
       >
         <Suspense fallback={<FullPageLoadingSpinner />}>
-          <AppErrorBoundary>
-            <AppRoutes />
-          </AppErrorBoundary>
+          <AppRoutes />
           {reactQueryDevToolsEnabled && <Devtools />}
         </Suspense>
       </LeatherQueryProvider>
