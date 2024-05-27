@@ -1,4 +1,5 @@
 import type { StorybookConfig } from '@storybook/react-webpack5';
+import path from 'path';
 import TsconfigPathsPlugin from 'tsconfig-paths-webpack-plugin';
 import Webpack from 'webpack';
 
@@ -84,6 +85,7 @@ const config: StorybookConfig = {
     config.plugins.push(
       new Webpack.ProvidePlugin({
         Buffer: ['buffer', 'Buffer'],
+        chrome: [path.join(__dirname, '../tests/mocks/mock-chrome.ts'), 'chrome'],
       })
     );
     return config;
