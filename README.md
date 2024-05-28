@@ -17,9 +17,9 @@ Please see our [contribution guide](.github/CONTRIBUTING.md)
 
 ## Development
 
-This application is a browser extension. There is no ability to run it as a standalone web application.
+This application is a Web Extension. There is no ability to run it as a standalone web application.
 
-Each child of the `src` directory represents the JavaScript context in which it is ran.
+Each child of the `src` directory represents the script context in which it is ran.
 
 ### Install packages
 
@@ -28,10 +28,6 @@ pnpm i
 ```
 
 ### Dev mode
-
-When working on the extension, you can run it in `development` mode which will watch for any file changes and
-use `react-refresh` to update the extension as you work. This gives us near instant reloading of our changes, and
-persists the state of the application between changes. To start development mode for the extension, run this command:
 
 ```bash
 pnpm dev
