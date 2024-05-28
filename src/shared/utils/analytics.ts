@@ -77,7 +77,8 @@ export function initSentry() {
         showBranding: false,
         messageLabel: 'Feedback',
         submitButtonLabel: 'Send feedback',
-        messagePlaceholder: 'How can we improve Leather?',
+        messagePlaceholder:
+          'This is not a support tool. To get help, follow the link in the main menu on the homepage.',
         successMessageText: 'Thanks for helping make Leather better',
         themeDark: {
           background: token('colors.ink.background-primary'),
