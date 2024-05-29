@@ -27,12 +27,8 @@ export function useTotalBalance({ btcAddress, stxAddress }: UseTotalBalanceArgs)
   const stxBalance = balance ? balance.totalBalance : createMoney(0, 'STX');
 
   // get btc balance
-  const {
-    balance: btcBalance,
-    isLoading: isLoadingBtcBalance,
-    isFetching: isFetchingBtcBalance,
-    isInitialLoading: isInititalLoadingBtcBalance,
-  } = useBtcCryptoAssetBalanceNativeSegwit(btcAddress);
+  const { balance: btcBalance, query: btcQueryResult } =
+    useBtcCryptoAssetBalanceNativeSegwit(btcAddress);
 
   return useMemo(() => {
     // calculate total balance
@@ -46,9 +42,9 @@ export function useTotalBalance({ btcAddress, stxAddress }: UseTotalBalanceArgs)
         totalBalance,
         totalBalance.amount.isGreaterThanOrEqualTo(100_000) ? 0 : 2
       ),
-      isLoading: isLoading || isLoadingBtcBalance,
-      isInitialLoading: isInitialLoading || isInititalLoadingBtcBalance,
-      isFetching: isFetchingStacksBalance || isFetchingBtcBalance,
+      isLoading: isLoading || btcQueryResult.isLoading,
+      isInitialLoading: isInitialLoading || btcQueryResult.isInitialLoading,
+      isFetching: isFetchingStacksBalance || btcQueryResult.isFetching,
     };
   }, [
     stxBalance,
@@ -56,10 +52,10 @@ export function useTotalBalance({ btcAddress, stxAddress }: UseTotalBalanceArgs)
     btcBalance.availableBalance,
     btcMarketData,
     isLoading,
-    isLoadingBtcBalance,
+    btcQueryResult.isLoading,
+    btcQueryResult.isInitialLoading,
+    btcQueryResult.isFetching,
     isInitialLoading,
-    isInititalLoadingBtcBalance,
     isFetchingStacksBalance,
-    isFetchingBtcBalance,
   ]);
 }

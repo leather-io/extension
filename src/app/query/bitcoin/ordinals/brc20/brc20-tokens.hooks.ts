@@ -9,6 +9,7 @@ import {
 import {
   createBrc20TransferInscription,
   encodeBrc20TransferInscription,
+  isFetchedWithSuccess,
   useAverageBitcoinFeeRates,
   useCalculateBitcoinFiatValue,
   useConfigOrdinalsbot,
@@ -17,7 +18,6 @@ import {
 } from '@leather-wallet/query';
 import { createMoney, unitToFractionalUnit } from '@leather-wallet/utils';
 
-import { isFetchedWithSuccess } from '@app/query/query-config';
 import { useAppDispatch } from '@app/store';
 import { useCurrentAccountIndex } from '@app/store/accounts/account';
 import { useCurrentAccountNativeSegwitIndexZeroSigner } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
