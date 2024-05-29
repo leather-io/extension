@@ -1,7 +1,6 @@
-import { BitcoinTx } from '@shared/models/transactions/bitcoin-transaction.model';
+import { BasicTooltip, Caption } from '@leather-wallet/ui';
 
-import { BasicTooltip } from '@app/ui/components/tooltip/basic-tooltip';
-import { Caption } from '@app/ui/components/typography/caption';
+import { BitcoinTx } from '@shared/models/transactions/bitcoin-transaction.model';
 
 interface BitcoinTransactionStatusProps {
   transaction: BitcoinTx;

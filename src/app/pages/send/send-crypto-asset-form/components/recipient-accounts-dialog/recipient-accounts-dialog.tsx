@@ -2,13 +2,11 @@ import { useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Virtuoso } from 'react-virtuoso';
 
+import { Dialog, DialogHeader, VirtuosoWrapper } from '@leather-wallet/ui';
 import { Box } from 'leather-styles/jsx';
 
 import { useFilteredBitcoinAccounts } from '@app/store/accounts/blockchain/bitcoin/bitcoin.ledger';
 import { useStacksAccounts } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
-import { Dialog } from '@app/ui/components/containers/dialog/dialog';
-import { DialogHeader } from '@app/ui/components/containers/headers/dialog-header';
-import { VirtuosoWrapper } from '@app/ui/components/virtuoso';
 
 import { AccountListItem } from './account-list-item';
 

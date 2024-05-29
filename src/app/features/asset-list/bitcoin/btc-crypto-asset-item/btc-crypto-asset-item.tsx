@@ -1,9 +1,9 @@
 import type { BtcCryptoAssetBalance } from '@leather-wallet/models';
 import { useCryptoCurrencyMarketDataMeanAverage } from '@leather-wallet/query';
+import { BtcAvatarIcon } from '@leather-wallet/ui';
 import { baseCurrencyAmountInQuote, i18nFormatCurrency } from '@leather-wallet/utils';
 
 import { CryptoAssetItemLayout } from '@app/components/crypto-asset-item/crypto-asset-item.layout';
-import { BtcAvatarIcon } from '@app/ui/components/avatar/btc-avatar-icon';
 
 interface BtcCryptoAssetItemProps {
   balance: BtcCryptoAssetBalance;

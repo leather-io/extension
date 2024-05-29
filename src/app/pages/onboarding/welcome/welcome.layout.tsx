@@ -1,11 +1,8 @@
+import { Button, LettermarkIcon, Link, LogomarkIcon } from '@leather-wallet/ui';
 import { OnboardingSelectors } from '@tests/selectors/onboarding.selectors';
 import { Flex, styled } from 'leather-styles/jsx';
 
 import { useThemeSwitcher } from '@app/common/theme-provider';
-import { Button } from '@app/ui/components/button/button';
-import { Link } from '@app/ui/components/link/link';
-import { LettermarkIcon } from '@app/ui/icons/lettermark-icon';
-import { LogomarkIcon } from '@app/ui/icons/logomark-icon';
 
 interface WelcomeLayoutProps {
   isGeneratingWallet: boolean;

@@ -1,3 +1,12 @@
+import {
+  Button,
+  MnemonicWordInput,
+  SecretKeyGrid,
+  getMnemonicErrorFields,
+  getMnemonicErrorMessage,
+  hasMnemonicFormValues,
+  validationSchema,
+} from '@leather-wallet/ui';
 import { createNullArrayOfLength, isEmpty } from '@leather-wallet/utils';
 import { OnboardingSelectors } from '@tests/selectors/onboarding.selectors';
 import { Form, Formik } from 'formik';
@@ -5,15 +14,6 @@ import { Stack } from 'leather-styles/jsx';
 
 import { ErrorLabel } from '@app/components/error-label';
 import { useSignIn } from '@app/pages/onboarding/sign-in/hooks/use-sign-in';
-import { Button } from '@app/ui/components/button/button';
-import { MnemonicWordInput } from '@app/ui/components/secret-key/mnemonic-key/mnemonic-word-input';
-import {
-  getMnemonicErrorFields,
-  getMnemonicErrorMessage,
-  hasMnemonicFormValues,
-} from '@app/ui/components/secret-key/mnemonic-key/utils/error-handling';
-import { validationSchema } from '@app/ui/components/secret-key/mnemonic-key/utils/validation';
-import { SecretKeyGrid } from '@app/ui/components/secret-key/secret-key-grid';
 
 interface MnemonicFormProps {
   mnemonic: (string | null)[];

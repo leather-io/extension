@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Outlet, useLocation, useNavigate } from 'react-router-dom';
 
+import { Link } from '@leather-wallet/ui';
 import { stxToMicroStx } from '@leather-wallet/utils';
 import { StacksTransaction } from '@stacks/transactions';
 import { Formik, FormikHelpers } from 'formik';
@@ -30,7 +31,6 @@ import { useCurrentStxAvailableUnlockedBalance } from '@app/query/stacks/balance
 import { useCalculateStacksTxFees } from '@app/query/stacks/fees/fees.hooks';
 import { useNextNonce } from '@app/query/stacks/nonce/account-nonces.hooks';
 import { useTransactionRequestState } from '@app/store/transactions/requests.hooks';
-import { Link } from '@app/ui/components/link/link';
 
 import { FeeForm } from './fee-form';
 import { MinimalErrorMessage } from './minimal-error-message';

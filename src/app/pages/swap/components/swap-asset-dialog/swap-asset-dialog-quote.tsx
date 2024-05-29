@@ -1,7 +1,6 @@
-import { RouteUrls } from '@shared/route-urls';
+import { Dialog, Header } from '@leather-wallet/ui';
 
-import { Dialog } from '@app/ui/components/containers/dialog/dialog';
-import { Header } from '@app/ui/components/containers/headers/header';
+import { RouteUrls } from '@shared/route-urls';
 
 import { useSwapNavigate } from '../../hooks/use-swap-navigate';
 import { useSwapContext } from '../../swap.context';

@@ -1,12 +1,12 @@
 import { memo, useMemo } from 'react';
 import { Outlet, useLocation, useNavigate } from 'react-router-dom';
 
+import { SecretKeyLayout } from '@leather-wallet/ui';
+
 import { RouteUrls } from '@shared/route-urls';
 
 import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
 import { useClipboard } from '@app/common/hooks/use-copy-to-clipboard';
-
-import { SecretKeyLayout } from '../../ui/components/secret-key/secret-key.layout';
 
 interface SecretKeyProps {
   secretKey: string;

@@ -1,3 +1,10 @@
+import {
+  Avatar,
+  ItemLayout,
+  Pressable,
+  defaultFallbackDelay,
+  getAvatarFallback,
+} from '@leather-wallet/ui';
 import { formatMoneyWithoutSymbol } from '@leather-wallet/utils';
 import { SwapSelectors } from '@tests/selectors/swap.selectors';
 
@@ -5,9 +12,6 @@ import { convertAssetBalanceToFiat } from '@app/common/asset-utils';
 import type { SwapAsset } from '@app/query/common/alex-sdk/alex-sdk.hooks';
 import { useGetFungibleTokenMetadataQuery } from '@app/query/stacks/token-metadata/fungible-tokens/fungible-token-metadata.query';
 import { isFtAsset } from '@app/query/stacks/token-metadata/token-metadata.utils';
-import { Avatar, defaultFallbackDelay, getAvatarFallback } from '@app/ui/components/avatar/avatar';
-import { ItemLayout } from '@app/ui/components/item-layout/item-layout';
-import { Pressable } from '@app/ui/pressable/pressable';
 
 interface SwapAssetItemProps {
   asset: SwapAsset;

@@ -1,8 +1,8 @@
 import type { CryptoAssetBalance, RuneCryptoAssetInfo } from '@leather-wallet/models';
+import { RunesAvatarIcon } from '@leather-wallet/ui';
 import { convertAmountToBaseUnit, createMoneyFromDecimal } from '@leather-wallet/utils';
 
 import { CryptoAssetItemLayout } from '@app/components/crypto-asset-item/crypto-asset-item.layout';
-import { RunesAvatarIcon } from '@app/ui/components/avatar/runes-avatar-icon';
 
 interface RuneTokenAssetDetails {
   balance: CryptoAssetBalance;

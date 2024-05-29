@@ -1,4 +1,4 @@
-import { pxStringToNumber } from '@shared/utils/px-string-to-number';
+import { pxStringToNumber } from '@leather-wallet/utils';
 
 interface PopupOptions {
   url?: string;

@@ -1,6 +1,8 @@
 import { Suspense } from 'react';
 import { Outlet, Route } from 'react-router-dom';
 
+import { Page } from '@leather-wallet/ui';
+
 import { RouteUrls } from '@shared/route-urls';
 
 import { BroadcastErrorDialog } from '@app/components/broadcast-error-dialog/broadcast-error-dialog';
@@ -10,7 +12,6 @@ import { ledgerBitcoinTxSigningRoutes } from '@app/features/ledger/flows/bitcoin
 import { ledgerStacksTxSigningRoutes } from '@app/features/ledger/flows/stacks-tx-signing/ledger-sign-stacks-tx-container';
 import { SendBtcDisabled } from '@app/pages/send/choose-crypto-asset/send-btc-disabled';
 import { AccountGate } from '@app/routes/account-gate';
-import { Page } from '@app/ui/layout/page/page.layout';
 
 import { BroadcastError } from '../broadcast-error/broadcast-error';
 import { ChooseCryptoAsset } from '../choose-crypto-asset/choose-crypto-asset';

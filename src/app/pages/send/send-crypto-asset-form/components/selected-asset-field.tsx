@@ -1,8 +1,8 @@
+import { Flag } from '@leather-wallet/ui';
 import { Field, useField } from 'formik';
 import { Flex, styled } from 'leather-styles/jsx';
 
 import { useOnMount } from '@app/common/hooks/use-on-mount';
-import { Flag } from '@app/ui/components/flag/flag';
 
 interface SelectedAssetFieldProps {
   icon: React.JSX.Element;

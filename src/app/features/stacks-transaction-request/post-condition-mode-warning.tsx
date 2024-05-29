@@ -1,7 +1,7 @@
+import { Callout } from '@leather-wallet/ui';
 import { PostConditionMode } from '@stacks/transactions';
 
 import { usePostConditionModeState } from '@app/store/transactions/post-conditions.hooks';
-import { Callout } from '@app/ui/components/callout/callout';
 
 export function PostConditionModeWarning(): React.JSX.Element | null {
   const mode = usePostConditionModeState();

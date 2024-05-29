@@ -1,6 +1,7 @@
 import { memo, useState } from 'react';
 import { Outlet, useNavigate } from 'react-router-dom';
 
+import { Link } from '@leather-wallet/ui';
 import { Formik, FormikHelpers } from 'formik';
 import { Flex } from 'leather-styles/jsx';
 import * as yup from 'yup';
@@ -37,7 +38,6 @@ import {
   useGenerateUnsignedStacksTransaction,
   useUnsignedStacksTransactionBaseState,
 } from '@app/store/transactions/transaction.hooks';
-import { Link } from '@app/ui/components/link/link';
 
 function TransactionRequestBase() {
   const [isShowingHighFeeConfirmation, setIsShowingHighFeeConfirmation] = useState(false);

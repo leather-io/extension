@@ -1,7 +1,7 @@
+import { TagWithTooltip } from '@leather-wallet/ui';
 import { createMoney, formatMoney, truncateMiddle } from '@leather-wallet/utils';
 
 import { PsbtOutput } from '@app/features/psbt-signer/hooks/use-parsed-outputs';
-import { TagWithTooltip } from '@app/ui/components/tag/tag-with-tooltip';
 
 import { PsbtInputOutputItemLayout } from '../../psbt-input-output-item.layout';
 

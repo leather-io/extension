@@ -1,13 +1,13 @@
 import { useLayoutEffect, useRef, useState } from 'react';
 import Confetti from 'react-dom-confetti';
 
+import { Button } from '@leather-wallet/ui';
 import { Dialog, Inset } from '@radix-ui/themes';
 import { css } from 'leather-styles/css';
 import { Box, Flex, Stack, styled } from 'leather-styles/jsx';
 
 import { HasChildren } from '@app/common/has-children';
 import { openInNewTab } from '@app/common/utils/open-in-new-tab';
-import { Button } from '@app/ui/components/button/button';
 
 import { confettiConfig } from './confetti-config';
 import { useLeatherIntroDialogContext } from './leather-intro-dialog';

@@ -1,12 +1,11 @@
 import { useEffect } from 'react';
 
+import { Input } from '@leather-wallet/ui';
 import { SendCryptoAssetSelectors } from '@tests/selectors/send.selectors';
 import { useField, useFormikContext } from 'formik';
 import { Box } from 'leather-styles/jsx';
 
 import { BitcoinSendFormValues, StacksSendFormValues } from '@shared/models/form.model';
-
-import { Input } from '@app/ui/components/input/input';
 
 interface RecipientAddressTypeFieldProps {
   label?: string;

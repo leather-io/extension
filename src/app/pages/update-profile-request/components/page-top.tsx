@@ -1,13 +1,12 @@
 import { memo } from 'react';
 
+import { Caption, Title } from '@leather-wallet/ui';
 import { Flex, Stack } from 'leather-styles/jsx';
 
 import { getProfileDataContentFromToken } from '@app/common/profiles/requests';
 import { addPortSuffix, getUrlHostname } from '@app/common/utils';
 import { useCurrentNetworkState } from '@app/store/networks/networks.hooks';
 import { useProfileUpdateRequestSearchParams } from '@app/store/profiles/requests.hooks';
-import { Caption } from '@app/ui/components/typography/caption';
-import { Title } from '@app/ui/components/typography/title';
 
 function PageTopBase() {
   const { isTestnet, chain } = useCurrentNetworkState();

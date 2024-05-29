@@ -1,8 +1,7 @@
 import { memo } from 'react';
 
+import { ErrorIcon } from '@leather-wallet/ui';
 import { HStack, Stack, styled } from 'leather-styles/jsx';
-
-import { ErrorIcon } from '@app/ui/icons/error-icon';
 
 interface ErrorMessageProps {
   title: string;

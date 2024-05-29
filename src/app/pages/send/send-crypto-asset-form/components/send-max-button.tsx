@@ -1,13 +1,13 @@
 import { useCallback } from 'react';
 
 import type { Money } from '@leather-wallet/models';
+import { Link } from '@leather-wallet/ui';
 import { SendCryptoAssetSelectors } from '@tests/selectors/send.selectors';
 import { useField } from 'formik';
 import { Box } from 'leather-styles/jsx';
 
 import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
 import { useToast } from '@app/features/toasts/use-toast';
-import { Link } from '@app/ui/components/link/link';
 
 interface SendMaxButtonProps {
   balance: Money;

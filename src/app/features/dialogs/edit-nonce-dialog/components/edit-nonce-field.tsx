@@ -1,10 +1,10 @@
 import { FormEvent, memo } from 'react';
 
+import { Input } from '@leather-wallet/ui';
 import { useField } from 'formik';
 import { Stack, StackProps } from 'leather-styles/jsx';
 
 import { ErrorLabel } from '@app/components/error-label';
-import { Input } from '@app/ui/components/input/input';
 
 interface EditNonceFieldProps extends StackProps {
   onBlur(): void;

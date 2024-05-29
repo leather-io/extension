@@ -1,5 +1,6 @@
 import { useLocation } from 'react-router-dom';
 
+import { Card, CheckmarkIcon, CopyIcon, ExternalLinkIcon } from '@leather-wallet/ui';
 import { Flex, HStack, Stack } from 'leather-styles/jsx';
 
 import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
@@ -12,10 +13,6 @@ import {
   InfoCardRow,
 } from '@app/components/info-card/info-card';
 import { useToast } from '@app/features/toasts/use-toast';
-import { CheckmarkIcon } from '@app/ui/icons/checkmark-icon';
-import { CopyIcon } from '@app/ui/icons/copy-icon';
-import { ExternalLinkIcon } from '@app/ui/icons/external-link-icon';
-import { Card } from '@app/ui/layout/card/card';
 
 export function RpcSignPsbtSummary() {
   const { state } = useLocation();

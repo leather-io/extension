@@ -1,9 +1,9 @@
+import { Flag } from '@leather-wallet/ui';
 import { Stack, styled } from 'leather-styles/jsx';
 
 import { addPortSuffix, getUrlHostname } from '@app/common/utils';
 import { Favicon } from '@app/components/favicon';
 import { useCurrentNetworkState } from '@app/store/networks/networks.hooks';
-import { Flag } from '@app/ui/components/flag/flag';
 
 interface MessageSigningHeaderProps {
   name?: string;

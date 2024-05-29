@@ -1,11 +1,8 @@
+import { BasicTooltip, CopyIcon, Flag, Link } from '@leather-wallet/ui';
 import { Box, Flex, HStack, styled } from 'leather-styles/jsx';
 
 import { useBitcoinExplorerLink } from '@app/common/hooks/use-bitcoin-explorer-link';
 import { useClipboard } from '@app/common/hooks/use-copy-to-clipboard';
-import { Flag } from '@app/ui/components/flag/flag';
-import { Link } from '@app/ui/components/link/link';
-import { BasicTooltip } from '@app/ui/components/tooltip/basic-tooltip';
-import { CopyIcon } from '@app/ui/icons/copy-icon';
 
 interface PsbtInputOutputItemLayoutProps {
   address: string;

@@ -1,5 +1,6 @@
 import { useLocation, useNavigate } from 'react-router-dom';
 
+import { Dialog, Header, Tabs } from '@leather-wallet/ui';
 import { HomePageSelectors } from '@tests/selectors/home.selectors';
 import { Box } from 'leather-styles/jsx';
 import get from 'lodash.get';
@@ -12,9 +13,6 @@ import { useBackgroundLocationRedirect } from '@app/routes/hooks/use-background-
 import { useZeroIndexTaprootAddress } from '@app/store/accounts/blockchain/bitcoin/bitcoin.hooks';
 import { useCurrentAccountNativeSegwitAddressIndexZero } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
 import { useCurrentStacksAccountAddress } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
-import { Dialog } from '@app/ui/components/containers/dialog/dialog';
-import { Header } from '@app/ui/components/containers/headers/header';
-import { Tabs } from '@app/ui/components/tabs/tabs';
 
 import { ReceiveCollectibles } from './components/receive-collectibles';
 import { ReceiveTokens } from './components/receive-tokens';

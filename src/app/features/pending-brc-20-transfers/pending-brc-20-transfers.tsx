@@ -1,6 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 
 import { fetchInscripionById, useOrdinalsbotClient } from '@leather-wallet/query';
+import { BasicTooltip, BulletSeparator, Caption, Flag } from '@leather-wallet/ui';
 import { noop } from '@leather-wallet/utils';
 import { Box, Flex, HStack, Stack } from 'leather-styles/jsx';
 
@@ -16,10 +17,6 @@ import {
   PendingBrc20Transfer,
   usePendingBrc20Transfers,
 } from '@app/store/ordinals/ordinals.slice';
-import { BulletSeparator } from '@app/ui/components/bullet-separator/bullet-separator';
-import { Flag } from '@app/ui/components/flag/flag';
-import { BasicTooltip } from '@app/ui/components/tooltip/basic-tooltip';
-import { Caption } from '@app/ui/components/typography/caption';
 
 function StatusIcon({ status }: { status: OrdinalsbotInscriptionStatus }) {
   switch (status) {

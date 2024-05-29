@@ -1,7 +1,7 @@
+import { Button } from '@leather-wallet/ui';
 import { Box, Flex, styled } from 'leather-styles/jsx';
 
 import { ConnectLedgerErr } from '@app/features/ledger/illustrations/ledger-illu-connect-ledger-error';
-import { Button } from '@app/ui/components/button/button';
 
 import { LedgerWrapper } from '../../components/ledger-wrapper';
 

@@ -1,14 +1,13 @@
 import { useNavigate } from 'react-router-dom';
 
 import type { Blockchains } from '@leather-wallet/models';
+import { Button, LedgerIcon } from '@leather-wallet/ui';
 import { styled } from 'leather-styles/jsx';
 
 import { RouteUrls } from '@shared/route-urls';
 
 import { capitalize } from '@app/common/utils';
 import { immediatelyAttemptLedgerConnection } from '@app/features/ledger/hooks/use-when-reattempt-ledger-connection';
-import { Button } from '@app/ui/components/button/button';
-import { LedgerIcon } from '@app/ui/icons/ledger-icon';
 
 interface ConnectLedgerButtonProps {
   chain: Blockchains;

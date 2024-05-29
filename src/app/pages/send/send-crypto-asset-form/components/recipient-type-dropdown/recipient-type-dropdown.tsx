@@ -1,8 +1,5 @@
+import { ChevronDownIcon, DropdownMenu, Flag } from '@leather-wallet/ui';
 import { SendCryptoAssetSelectors } from '@tests/selectors/send.selectors';
-
-import { DropdownMenu } from '@app/ui/components/dropdown-menu/dropdown-menu';
-import { Flag } from '@app/ui/components/flag/flag';
-import { ChevronDownIcon } from '@app/ui/icons';
 
 import {
   type RecipientIdentifierType,

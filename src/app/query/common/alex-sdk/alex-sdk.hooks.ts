@@ -6,6 +6,7 @@ import {
   createMarketData,
   createMarketPair,
 } from '@leather-wallet/models';
+import { getAvatarFallback } from '@leather-wallet/ui';
 import { convertAmountToFractionalUnit, createMoney, isDefined } from '@leather-wallet/utils';
 import { Currency, type TokenInfo } from 'alex-sdk';
 import BigNumber from 'bignumber.js';
@@ -17,7 +18,6 @@ import { getPrincipalFromContractId } from '@app/common/utils';
 import { useCurrentStxAvailableUnlockedBalance } from '@app/query/stacks/balance/account-balance.hooks';
 import { useTransferableSip10Tokens } from '@app/query/stacks/sip10/sip10-tokens.hooks';
 import { useCurrentStacksAccountAddress } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
-import { getAvatarFallback } from '@app/ui/components/avatar/avatar';
 
 import { useAlexSdkLatestPricesQuery } from './alex-sdk-latest-prices.query';
 import { useAlexSdkSwappableCurrencyQuery } from './alex-sdk-swappable-currency.query';

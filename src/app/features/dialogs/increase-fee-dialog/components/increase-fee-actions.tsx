@@ -1,8 +1,8 @@
+import { Button } from '@leather-wallet/ui';
 import { useFormikContext } from 'formik';
 
 import { LoadingKeys, useLoading } from '@app/common/hooks/use-loading';
 import { useWalletType } from '@app/common/use-wallet-type';
-import { Button } from '@app/ui/components/button/button';
 
 interface IncreaseFeeActionsProps {
   isDisabled?: boolean;

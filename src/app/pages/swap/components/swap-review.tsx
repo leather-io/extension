@@ -1,12 +1,9 @@
 import { Outlet } from 'react-router-dom';
 
+import { Button, Card, CardContent, Footer } from '@leather-wallet/ui';
 import { SwapSelectors } from '@tests/selectors/swap.selectors';
 
 import { LoadingKeys, useLoading } from '@app/common/hooks/use-loading';
-import { Button } from '@app/ui/components/button/button';
-import { Footer } from '@app/ui/components/containers/footers/footer';
-import { Card } from '@app/ui/layout/card/card';
-import { CardContent } from '@app/ui/layout/card/card-content';
 
 import { useSwapContext } from '../swap.context';
 import { SwapAssetsPair } from './swap-assets-pair/swap-assets-pair';

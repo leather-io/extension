@@ -1,6 +1,15 @@
 import { useLocation, useNavigate } from 'react-router-dom';
 
 import type { Inscription } from '@leather-wallet/models';
+import {
+  Card,
+  CheckmarkIcon,
+  CopyIcon,
+  Dialog,
+  DialogHeader,
+  ExternalLinkIcon,
+  Footer,
+} from '@leather-wallet/ui';
 import { Box, Flex, HStack, Stack } from 'leather-styles/jsx';
 import get from 'lodash.get';
 
@@ -14,13 +23,6 @@ import { FormAddressDisplayer } from '@app/components/address-displayer/form-add
 import { InfoCardBtn, InfoCardRow, InfoCardSeparator } from '@app/components/info-card/info-card';
 import { InscriptionPreview } from '@app/components/inscription-preview-card/components/inscription-preview';
 import { useToast } from '@app/features/toasts/use-toast';
-import { Dialog } from '@app/ui/components/containers/dialog/dialog';
-import { Footer } from '@app/ui/components/containers/footers/footer';
-import { DialogHeader } from '@app/ui/components/containers/headers/dialog-header';
-import { CheckmarkIcon } from '@app/ui/icons/checkmark-icon';
-import { CopyIcon } from '@app/ui/icons/copy-icon';
-import { ExternalLinkIcon } from '@app/ui/icons/external-link-icon';
-import { Card } from '@app/ui/layout/card/card';
 
 import { InscriptionPreviewCard } from '../../../components/inscription-preview-card/inscription-preview-card';
 

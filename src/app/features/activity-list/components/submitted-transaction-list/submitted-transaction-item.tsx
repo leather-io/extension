@@ -1,13 +1,10 @@
+import { BasicTooltip, Caption, Title, TransactionTitle } from '@leather-wallet/ui';
 import { StacksTransaction } from '@stacks/transactions';
 import { Box, HStack, Stack } from 'leather-styles/jsx';
 
 import { useStacksExplorerLink } from '@app/common/hooks/use-stacks-explorer-link';
 import { getTxSenderAddress } from '@app/common/transactions/stacks/transaction.utils';
 import { usePressable } from '@app/components/item-hover';
-import { TransactionTitle } from '@app/components/transaction/transaction-title';
-import { BasicTooltip } from '@app/ui/components/tooltip/basic-tooltip';
-import { Caption } from '@app/ui/components/typography/caption';
-import { Title } from '@app/ui/components/typography/title';
 
 import { SubmittedTransactionIcon } from './submitted-transaction-icon';
 import { getSubmittedTransactionDetails } from './submitted-transaction-list.utils';

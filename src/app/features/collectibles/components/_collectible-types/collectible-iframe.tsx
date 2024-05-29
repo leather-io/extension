@@ -1,6 +1,6 @@
 import { ReactNode, useState } from 'react';
 
-import { Iframe } from '@app/ui/components/iframe';
+import { Iframe } from '@leather-wallet/ui';
 
 import { CollectibleItemLayout, CollectibleItemLayoutProps } from '../collectible-item.layout';
 import { ImageUnavailable } from '../image-unavailable';

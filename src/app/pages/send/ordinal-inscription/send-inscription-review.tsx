@@ -1,6 +1,7 @@
 import { useLocation, useNavigate } from 'react-router-dom';
 
 import { useBitcoinBroadcastTransaction } from '@leather-wallet/query';
+import { Button, Card, Dialog, DialogHeader, Footer } from '@leather-wallet/ui';
 import { bytesToHex } from '@noble/hashes/utils';
 import { Box, Flex, Stack } from 'leather-styles/jsx';
 import get from 'lodash.get';
@@ -14,11 +15,6 @@ import { InscriptionPreview } from '@app/components/inscription-preview-card/com
 import { useCurrentNativeSegwitUtxos } from '@app/query/bitcoin/address/utxos-by-address.hooks';
 import { useAppDispatch } from '@app/store';
 import { inscriptionSent } from '@app/store/ordinals/ordinals.slice';
-import { Button } from '@app/ui/components/button/button';
-import { Dialog } from '@app/ui/components/containers/dialog/dialog';
-import { Footer } from '@app/ui/components/containers/footers/footer';
-import { DialogHeader } from '@app/ui/components/containers/headers/dialog-header';
-import { Card } from '@app/ui/layout/card/card';
 
 import { InscriptionPreviewCard } from '../../../components/inscription-preview-card/inscription-preview-card';
 import { useSendInscriptionState } from './components/send-inscription-container';

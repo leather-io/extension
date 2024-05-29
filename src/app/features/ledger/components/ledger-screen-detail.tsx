@@ -1,8 +1,6 @@
+import { Caption } from '@leather-wallet/ui';
+import { BasicTooltip, InfoCircleIcon } from '@leather-wallet/ui';
 import { Flex, styled } from 'leather-styles/jsx';
-
-import { BasicTooltip } from '@app/ui/components/tooltip/basic-tooltip';
-import { Caption } from '@app/ui/components/typography/caption';
-import { InfoCircleIcon } from '@app/ui/icons/info-circle-icon';
 
 interface LedgerScreenDetailProps {
   children: React.ReactNode;

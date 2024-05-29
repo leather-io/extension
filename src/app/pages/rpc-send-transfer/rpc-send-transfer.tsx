@@ -1,10 +1,10 @@
+import { Button } from '@leather-wallet/ui';
 import { createMoney, formatMoneyPadded } from '@leather-wallet/utils';
 import BigNumber from 'bignumber.js';
 
 import { InfoCardFooter } from '@app/components/info-card/info-card';
 import { useBreakOnNonCompliantEntity } from '@app/query/common/compliance-checker/compliance-checker.query';
 import { useCurrentAccountNativeSegwitIndexZeroSigner } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
-import { Button } from '@app/ui/components/button/button';
 
 import { SendTransferDetails } from './components/send-transfer-details';
 import { SendTransferHeader } from './components/send-transfer-header';

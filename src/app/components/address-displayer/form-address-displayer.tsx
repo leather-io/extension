@@ -1,7 +1,6 @@
+import { AddressDisplayer } from '@leather-wallet/ui';
 import { SharedComponentsSelectors } from '@tests/selectors/shared-component.selectors';
 import { Box, BoxProps } from 'leather-styles/jsx';
-
-import { AddressDisplayer } from '@app/ui/components/address-displayer/address-displayer';
 
 interface FormAddressDisplayerProps extends BoxProps {
   address: string;

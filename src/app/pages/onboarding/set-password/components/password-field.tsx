@@ -1,15 +1,12 @@
 import { useMemo, useState } from 'react';
 
+import { Caption, EyeIcon, EyeSlashIcon, Input } from '@leather-wallet/ui';
 import { OnboardingSelectors } from '@tests/selectors/onboarding.selectors';
 import { useField } from 'formik';
 import { Box, Flex, styled } from 'leather-styles/jsx';
 
 import { useThemeSwitcher } from '@app/common/theme-provider';
 import { ValidatedPassword } from '@app/common/validation/validate-password';
-import { Input } from '@app/ui/components/input/input';
-import { Caption } from '@app/ui/components/typography/caption';
-import { EyeIcon } from '@app/ui/icons/eye-icon';
-import { EyeSlashIcon } from '@app/ui/icons/eye-slash-icon';
 
 import { getIndicatorsOfPasswordStrength } from './password-field.utils';
 import { PasswordStrengthIndicator } from './password-strength-indicator';

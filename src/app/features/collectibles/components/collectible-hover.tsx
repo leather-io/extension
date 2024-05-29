@@ -1,8 +1,7 @@
 import { ReactNode } from 'react';
 
+import { ArrowUpIcon } from '@leather-wallet/ui';
 import { Box, styled } from 'leather-styles/jsx';
-
-import { ArrowUpIcon } from '@app/ui/icons/arrow-up-icon';
 
 interface CollectibleHoverProps {
   collectibleTypeIcon?: ReactNode;

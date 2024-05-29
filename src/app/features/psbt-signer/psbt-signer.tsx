@@ -1,6 +1,7 @@
 import { useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
 
+import { Button, Card, CardContent, Footer } from '@leather-wallet/ui';
 import { isError } from '@leather-wallet/utils';
 import { PsbtSelectors } from '@tests/selectors/requests.selectors';
 
@@ -13,10 +14,6 @@ import { useBreakOnNonCompliantEntity } from '@app/query/common/compliance-check
 import { useOnOriginTabClose } from '@app/routes/hooks/use-on-tab-closed';
 import { useCurrentAccountNativeSegwitIndexZeroSigner } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
 import { useCurrentAccountTaprootIndexZeroSigner } from '@app/store/accounts/blockchain/bitcoin/taproot-account.hooks';
-import { Button } from '@app/ui/components/button/button';
-import { Footer } from '@app/ui/components/containers/footers/footer';
-import { Card } from '@app/ui/layout/card/card';
-import { CardContent } from '@app/ui/layout/card/card-content';
 
 import * as Psbt from './components';
 import { usePsbtDetails } from './hooks/use-psbt-details';

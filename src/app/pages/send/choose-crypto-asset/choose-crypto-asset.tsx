@@ -1,12 +1,12 @@
 import { useNavigate } from 'react-router-dom';
 
+import { Card } from '@leather-wallet/ui';
 import { Box, styled } from 'leather-styles/jsx';
 
 import { RouteUrls } from '@shared/route-urls';
 
 import { AssetList } from '@app/features/asset-list/asset-list';
 import { useConfigBitcoinSendEnabled } from '@app/query/common/remote-config/remote-config.query';
-import { Card } from '@app/ui/layout/card/card';
 
 export function ChooseCryptoAsset() {
   const navigate = useNavigate();

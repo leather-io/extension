@@ -1,10 +1,10 @@
 import { memo } from 'react';
 
+import { AccountAvatar } from '@leather-wallet/ui';
 import { CircleProps } from 'leather-styles/jsx';
 
 import { useCurrentAccountDisplayName } from '@app/common/hooks/account/use-account-names';
 import { useCurrentStacksAccount } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
-import { AccountAvatar } from '@app/ui/components/account/account-avatar/account-avatar';
 
 interface CurrentAccountAvatar extends CircleProps {
   toggleSwitchAccount(): void;

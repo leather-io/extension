@@ -1,15 +1,15 @@
 import { memo } from 'react';
 
+import { AccountAvatarItem, AccountNameLayout, AccountTotalBalance } from '@leather-wallet/ui';
+
 import { useAccountDisplayName } from '@app/common/hooks/account/use-account-names';
 import { useSwitchAccount } from '@app/common/hooks/account/use-switch-account';
+import { useTotalBalance } from '@app/common/hooks/balance/use-total-balance';
 import { useLoading } from '@app/common/hooks/use-loading';
-import { AccountTotalBalance } from '@app/components/account-total-balance';
 import { AcccountAddresses } from '@app/components/account/account-addresses';
 import { AccountListItemLayout } from '@app/components/account/account-list-item.layout';
-import { AccountNameLayout } from '@app/components/account/account-name';
 import { useNativeSegwitSigner } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
 import { useStacksAccounts } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
-import { AccountAvatarItem } from '@app/ui/components/account/account-avatar/account-avatar-item';
 
 interface SwitchAccountListItemProps {
   handleClose(): void;
@@ -31,6 +31,10 @@ export const SwitchAccountListItem = memo(
       address: stxAddress,
       index,
     });
+    const { totalUsdBalance, isFetching, isInitialLoading } = useTotalBalance({
+      btcAddress,
+      stxAddress,
+    });
 
     const handleClick = async () => {
       setIsLoading();
@@ -51,7 +55,13 @@ export const SwitchAccountListItem = memo(
             name={name}
           />
         }
-        balanceLabel={<AccountTotalBalance stxAddress={stxAddress} btcAddress={btcAddress} />}
+        balanceLabel={
+          <AccountTotalBalance
+            totalUsdBalance={totalUsdBalance}
+            isFetching={isFetching}
+            isInitialLoading={isInitialLoading}
+          />
+        }
         index={index}
         isLoading={isLoading}
         isSelected={currentAccountIndex === index}

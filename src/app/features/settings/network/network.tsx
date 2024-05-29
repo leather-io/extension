@@ -1,5 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 
+import { Button, Dialog, DialogHeader, Footer } from '@leather-wallet/ui';
 import { SettingsSelectors } from '@tests/selectors/settings.selectors';
 
 import { WalletDefaultNetworkConfigurationIds } from '@shared/constants';
@@ -9,10 +10,6 @@ import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
 import { NetworkListItem } from '@app/features/settings/network/network-list-item';
 import { useCurrentNetworkState, useNetworksActions } from '@app/store/networks/networks.hooks';
 import { useNetworks } from '@app/store/networks/networks.selectors';
-import { Button } from '@app/ui/components/button/button';
-import { Dialog } from '@app/ui/components/containers/dialog/dialog';
-import { Footer } from '@app/ui/components/containers/footers/footer';
-import { DialogHeader } from '@app/ui/components/containers/headers/dialog-header';
 
 const defaultNetworkIds = Object.values(WalletDefaultNetworkConfigurationIds) as string[];
 

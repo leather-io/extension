@@ -1,3 +1,4 @@
+import { Button, Callout, Card, CardContent, Footer } from '@leather-wallet/ui';
 import { SendCryptoAssetSelectors } from '@tests/selectors/send.selectors';
 import { Stack } from 'leather-styles/jsx';
 
@@ -7,11 +8,6 @@ import {
   InfoCardRow,
   InfoCardSeparator,
 } from '@app/components/info-card/info-card';
-import { Button } from '@app/ui/components/button/button';
-import { Callout } from '@app/ui/components/callout/callout';
-import { Footer } from '@app/ui/components/containers/footers/footer';
-import { Card } from '@app/ui/layout/card/card';
-import { CardContent } from '@app/ui/layout/card/card-content';
 
 interface SendFormConfirmationProps {
   recipient: string;

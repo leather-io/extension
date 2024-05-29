@@ -1,11 +1,11 @@
 import { Suspense, memo } from 'react';
 
+import { ErrorIcon } from '@leather-wallet/ui';
 import { TransactionRequestSelectors } from '@tests/selectors/requests.selectors';
 import { HStack, HstackProps, styled } from 'leather-styles/jsx';
 
 import { useTransactionError } from '@app/features/stacks-transaction-request/hooks/use-transaction-error';
 import { TransactionErrorReason } from '@app/features/stacks-transaction-request/transaction-error/transaction-error';
-import { ErrorIcon } from '@app/ui/icons/error-icon';
 
 function MinimalErrorMessageSuspense(props: HstackProps) {
   const error = useTransactionError();

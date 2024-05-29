@@ -1,6 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 
 import type { Brc20CryptoAssetInfo, CryptoAssetBalance, MarketData } from '@leather-wallet/models';
+import { Brc20AvatarIcon } from '@leather-wallet/ui';
 import { CryptoAssetSelectors } from '@tests/selectors/crypto-asset.selectors';
 import { Stack } from 'leather-styles/jsx';
 
@@ -9,7 +10,6 @@ import { RouteUrls } from '@shared/route-urls';
 import { CryptoAssetItemLayout } from '@app/components/crypto-asset-item/crypto-asset-item.layout';
 import type { AssetListVariant } from '@app/features/asset-list/asset-list';
 import { useCurrentBtcCryptoAssetBalanceNativeSegwit } from '@app/query/bitcoin/balance/btc-balance-native-segwit.hooks';
-import { Brc20AvatarIcon } from '@app/ui/components/avatar/brc20-avatar-icon';
 
 interface Brc20TokenAssetDetails {
   balance: CryptoAssetBalance;

@@ -1,6 +1,5 @@
+import { ErrorCircleIcon } from '@leather-wallet/ui';
 import { HStack, Stack, styled } from 'leather-styles/jsx';
-
-import { ErrorCircleIcon } from '@app/ui/icons/error-circle-icon';
 
 // #4476 TODO - visually inspect this
 export function SponsoredLabel(): React.JSX.Element {

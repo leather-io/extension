@@ -1,5 +1,7 @@
 import { createSearchParams, useLocation, useNavigate } from 'react-router-dom';
 
+import { TransactionTitle } from '@leather-wallet/ui';
+
 import { StacksTx, TxTransferDetails } from '@shared/models/transactions/stacks-transaction.model';
 import { RouteUrls } from '@shared/route-urls';
 
@@ -14,7 +16,6 @@ import {
 import { useWalletType } from '@app/common/use-wallet-type';
 import { whenPageMode } from '@app/common/utils';
 import { openIndexPageInNewTab } from '@app/common/utils/open-in-new-tab';
-import { TransactionTitle } from '@app/components/transaction/transaction-title';
 import { useCurrentStacksAccount } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
 import { useRawTxIdState } from '@app/store/transactions/raw.hooks';
 

@@ -1,5 +1,6 @@
 import { useState } from 'react';
 
+import { CodeBlock, Title } from '@leather-wallet/ui';
 import { HStack, HTMLStyledProps, Stack, styled } from 'leather-styles/jsx';
 
 import { Prism } from '@app/common/clarity-prism';
@@ -11,8 +12,6 @@ import {
   useCurrentStacksAccountAddress,
 } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
 import { useTransactionRequestState } from '@app/store/transactions/requests.hooks';
-import { CodeBlock } from '@app/ui/components/codeblock';
-import { Title } from '@app/ui/components/typography/title';
 
 function ContractCodeSection() {
   const transactionRequest = useTransactionRequestState();

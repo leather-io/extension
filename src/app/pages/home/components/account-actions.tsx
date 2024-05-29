@@ -1,5 +1,6 @@
 import { useLocation, useNavigate } from 'react-router-dom';
 
+import { BasicTooltip, CreditCardIcon, IconButton, InboxIcon, SwapIcon } from '@leather-wallet/ui';
 import { ChainID } from '@stacks/transactions';
 import { HomePageSelectors } from '@tests/selectors/home.selectors';
 import { Flex } from 'leather-styles/jsx';
@@ -14,9 +15,6 @@ import {
 import { useCurrentAccountNativeSegwitIndexZeroSignerNullable } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
 import { useCurrentStacksAccount } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
 import { useCurrentNetwork } from '@app/store/networks/networks.selectors';
-import { IconButton } from '@app/ui/components/icon-button/icon-button';
-import { BasicTooltip } from '@app/ui/components/tooltip/basic-tooltip';
-import { CreditCardIcon, InboxIcon, SwapIcon } from '@app/ui/icons';
 
 import { SendButton } from './send-button';
 import { SwapsDisabledTooltipLabel } from './swaps-disabled-tooltip-label';

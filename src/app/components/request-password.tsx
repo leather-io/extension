@@ -1,5 +1,6 @@
 import { FormEvent, useCallback, useState } from 'react';
 
+import { Button, Card, Footer, Logo, Page } from '@leather-wallet/ui';
 import { SettingsSelectors } from '@tests/selectors/settings.selectors';
 import { Box, Stack, styled } from 'leather-styles/jsx';
 
@@ -7,11 +8,6 @@ import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
 import { useKeyActions } from '@app/common/hooks/use-key-actions';
 import { buildEnterKeyEvent } from '@app/common/hooks/use-modifier-key';
 import { WaitingMessages, useWaitingMessage } from '@app/common/hooks/use-waiting-message';
-import { Button } from '@app/ui/components/button/button';
-import { Footer } from '@app/ui/components/containers/footers/footer';
-import { Logo } from '@app/ui/components/logo';
-import { Card } from '@app/ui/layout/card/card';
-import { Page } from '@app/ui/layout/page/page.layout';
 
 import { ErrorLabel } from './error-label';
 

@@ -1,6 +1,5 @@
+import { Flag } from '@leather-wallet/ui';
 import { styled } from 'leather-styles/jsx';
-
-import { Flag } from '@app/ui/components/flag/flag';
 
 import { Favicon } from './favicon';
 

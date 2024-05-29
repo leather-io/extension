@@ -1,7 +1,7 @@
+import { Flag } from '@leather-wallet/ui';
 import { Flex, styled } from 'leather-styles/jsx';
 
 import { Favicon } from '@app/components/favicon';
-import { Flag } from '@app/ui/components/flag/flag';
 
 interface SendTransferHeaderProps {
   amount: string;

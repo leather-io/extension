@@ -1,6 +1,5 @@
+import { Link } from '@leather-wallet/ui';
 import { Stack, styled } from 'leather-styles/jsx';
-
-import { Link } from '@app/ui/components/link/link';
 
 export function SwapsDisabledTooltipLabel() {
   return (

@@ -1,8 +1,6 @@
+import { BasicTooltip, Link } from '@leather-wallet/ui';
 import { noop } from '@leather-wallet/utils';
 import { Box, HStack, styled } from 'leather-styles/jsx';
-
-import { Link } from '@app/ui/components/link/link';
-import { BasicTooltip } from '@app/ui/components/tooltip/basic-tooltip';
 
 import { SelectAssetTriggerButton } from './select-asset-trigger-button';
 import { SwapAssetSelected } from './swap-asset-selected';

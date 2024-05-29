@@ -1,6 +1,8 @@
 import { memo, useState } from 'react';
 import { Navigate } from 'react-router-dom';
 
+import { Caption } from '@leather-wallet/ui';
+import { Button } from '@leather-wallet/ui';
 import { truncateMiddle } from '@leather-wallet/utils';
 import { STXTransferPayload, TransactionTypes } from '@stacks/connect';
 import { Flex, HStack, Stack } from 'leather-styles/jsx';
@@ -16,8 +18,6 @@ import { ErrorMessage } from '@app/features/stacks-transaction-request/transacti
 import { useCurrentStxAvailableUnlockedBalance } from '@app/query/stacks/balance/account-balance.hooks';
 import { useCurrentNetworkState } from '@app/store/networks/networks.hooks';
 import { useTransactionRequestState } from '@app/store/transactions/requests.hooks';
-import { Button } from '@app/ui/components/button/button';
-import { Caption } from '@app/ui/components/typography/caption';
 
 interface InsufficientFundsActionButtonsProps {
   eventName: string;

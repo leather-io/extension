@@ -1,5 +1,6 @@
 import { Suspense, memo } from 'react';
 
+import { BasicTooltip } from '@leather-wallet/ui';
 import { SettingsSelectors } from '@tests/selectors/settings.selectors';
 import { Box, BoxProps, styled } from 'leather-styles/jsx';
 
@@ -7,7 +8,6 @@ import { HasChildren } from '@app/common/has-children';
 import { useCurrentAccountDisplayName } from '@app/common/hooks/account/use-account-names';
 import { truncateString } from '@app/common/utils';
 import { useCurrentStacksAccount } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
-import { BasicTooltip } from '@app/ui/components/tooltip/basic-tooltip';
 
 function AccountNameTitle({ children, ...props }: HasChildren & BoxProps) {
   return (

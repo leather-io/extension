@@ -1,3 +1,4 @@
+import { BtcAvatarIcon, StxAvatarIcon } from '@leather-wallet/ui';
 import { Stack } from 'leather-styles/jsx';
 
 import { useWalletType } from '@app/common/use-wallet-type';
@@ -20,8 +21,6 @@ import { Src20TokenAssetList } from '@app/features/asset-list/bitcoin/src20-toke
 import { Stx20TokenAssetList } from '@app/features/asset-list/stacks/stx20-token-asset-list/stx20-token-asset-list';
 import { StxCryptoAssetItem } from '@app/features/asset-list/stacks/stx-crypo-asset-item/stx-crypto-asset-item';
 import { useCurrentNetwork } from '@app/store/networks/networks.selectors';
-import { BtcAvatarIcon } from '@app/ui/components/avatar/btc-avatar-icon';
-import { StxAvatarIcon } from '@app/ui/components/avatar/stx-avatar-icon';
 
 import { ConnectLedgerAssetItemFallback } from './_components/connect-ledger-asset-item-fallback';
 import { BtcCryptoAssetItem } from './bitcoin/btc-crypto-asset-item/btc-crypto-asset-item';

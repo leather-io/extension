@@ -2,6 +2,7 @@ import { Suspense, memo, useMemo, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Virtuoso } from 'react-virtuoso';
 
+import { AccountAvatar, AccountTotalBalance, PlusIcon, VirtuosoWrapper } from '@leather-wallet/ui';
 import { Box, FlexProps, HStack, styled } from 'leather-styles/jsx';
 import { token } from 'leather-styles/tokens';
 
@@ -10,18 +11,15 @@ import { RouteUrls } from '@shared/route-urls';
 import { useFinishAuthRequest } from '@app/common/authentication/use-finish-auth-request';
 import { useAccountDisplayName } from '@app/common/hooks/account/use-account-names';
 import { useCreateAccount } from '@app/common/hooks/account/use-create-account';
+import { useTotalBalance } from '@app/common/hooks/balance/use-total-balance';
 import { useWalletType } from '@app/common/use-wallet-type';
 import { slugify } from '@app/common/utils';
-import { AccountTotalBalance } from '@app/components/account-total-balance';
 import { AcccountAddresses } from '@app/components/account/account-addresses';
 import { AccountListItemLayout } from '@app/components/account/account-list-item.layout';
 import { usePressable } from '@app/components/item-hover';
 import { useNativeSegwitAccountIndexAddressIndexZero } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
 import { useStacksAccounts } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
 import { StacksAccount } from '@app/store/accounts/blockchain/stacks/stacks-account.models';
-import { AccountAvatar } from '@app/ui/components/account/account-avatar/account-avatar';
-import { VirtuosoWrapper } from '@app/ui/components/virtuoso';
-import { PlusIcon } from '@app/ui/icons/plus-icon';
 
 interface AccountTitlePlaceholderProps {
   account: StacksAccount;
@@ -42,7 +40,11 @@ const ChooseAccountItem = memo(
     const { data: name = '' } = useAccountDisplayName(account);
 
     const btcAddress = useNativeSegwitAccountIndexAddressIndexZero(account.index);
-
+    const stxAddress = account.address;
+    const { totalUsdBalance, isFetching, isInitialLoading } = useTotalBalance({
+      btcAddress,
+      stxAddress,
+    });
     const accountSlug = useMemo(() => slugify(`Account ${account?.index + 1}`), [account?.index]);
 
     return (
@@ -61,7 +63,13 @@ const ChooseAccountItem = memo(
             flexGrow={0}
           />
         }
-        balanceLabel={<AccountTotalBalance stxAddress={account.address} btcAddress={btcAddress} />}
+        balanceLabel={
+          <AccountTotalBalance
+            totalUsdBalance={totalUsdBalance}
+            isFetching={isFetching}
+            isInitialLoading={isInitialLoading}
+          />
+        }
         data-testid={`account-${accountSlug}-${account.index}`}
         index={account.index}
         isLoading={isLoading}

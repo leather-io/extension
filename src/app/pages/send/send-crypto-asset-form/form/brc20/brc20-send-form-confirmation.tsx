@@ -1,6 +1,7 @@
 import { useLocation, useNavigate } from 'react-router-dom';
 
 import { useBitcoinBroadcastTransaction } from '@leather-wallet/query';
+import { Button, Card, CardContent, Footer } from '@leather-wallet/ui';
 import { createMoney, formatMoney, formatMoneyPadded, sumMoney } from '@leather-wallet/utils';
 import { SendCryptoAssetSelectors } from '@tests/selectors/send.selectors';
 import { Stack } from 'leather-styles/jsx';
@@ -17,10 +18,6 @@ import {
 } from '@app/components/info-card/info-card';
 import { useCurrentNativeSegwitUtxos } from '@app/query/bitcoin/address/utxos-by-address.hooks';
 import { useBrc20Transfers } from '@app/query/bitcoin/ordinals/brc20/brc20-tokens.hooks';
-import { Button } from '@app/ui/components/button/button';
-import { Footer } from '@app/ui/components/containers/footers/footer';
-import { Card } from '@app/ui/layout/card/card';
-import { CardContent } from '@app/ui/layout/card/card-content';
 
 import { useSendFormNavigate } from '../../hooks/use-send-form-navigate';
 

@@ -1,10 +1,9 @@
+import { ArrowDownIcon, ArrowUpIcon } from '@leather-wallet/ui';
 import { Circle, CircleProps, Flex } from 'leather-styles/jsx';
 
 import { BitcoinTx } from '@shared/models/transactions/bitcoin-transaction.model';
 
 import { isBitcoinTxInbound } from '@app/common/transactions/bitcoin/utils';
-import { ArrowDownIcon } from '@app/ui/icons/arrow-down-icon';
-import { ArrowUpIcon } from '@app/ui/icons/arrow-up-icon';
 
 function TxStatusIcon(props: { address: string; tx: BitcoinTx }) {
   const { address, tx } = props;

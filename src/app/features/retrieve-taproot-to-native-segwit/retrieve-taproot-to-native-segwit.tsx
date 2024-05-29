@@ -5,6 +5,7 @@ import {
   useCurrentTaprootAccountBalance,
   useCurrentTaprootAccountUninscribedUtxos,
 } from '@leather-wallet/query';
+import { Link } from '@leather-wallet/ui';
 import { delay, formatMoneyPadded, truncateMiddle } from '@leather-wallet/utils';
 import { Stack } from 'leather-styles/jsx';
 
@@ -20,7 +21,6 @@ import {
   useCurrentAccountNativeSegwitIndexZeroSigner,
 } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
 import { useCurrentTaprootAccount } from '@app/store/accounts/blockchain/bitcoin/taproot-account.hooks';
-import { Link } from '@app/ui/components/link/link';
 
 import { RetrieveTaprootToNativeSegwitLayout } from './components/retrieve-taproot-to-native-segwit.layout';
 import { useGenerateRetrieveTaprootFundsTx } from './use-generate-retrieve-taproot-funds-tx';

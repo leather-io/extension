@@ -1,6 +1,7 @@
 import { Suspense, useCallback, useEffect } from 'react';
 import { Outlet, useLocation, useNavigate, useSearchParams } from 'react-router-dom';
 
+import { Caption, Dialog, DialogHeader, Footer, Spinner } from '@leather-wallet/ui';
 import { microStxToStx, stxToMicroStx } from '@leather-wallet/utils';
 import BigNumber from 'bignumber.js';
 import { Formik } from 'formik';
@@ -21,11 +22,6 @@ import { useToast } from '@app/features/toasts/use-toast';
 import { useCurrentStxAvailableUnlockedBalance } from '@app/query/stacks/balance/account-balance.hooks';
 import { useSubmittedTransactionsActions } from '@app/store/submitted-transactions/submitted-transactions.hooks';
 import { useRawDeserializedTxState, useRawTxIdState } from '@app/store/transactions/raw.hooks';
-import { Dialog } from '@app/ui/components/containers/dialog/dialog';
-import { Footer } from '@app/ui/components/containers/footers/footer';
-import { DialogHeader } from '@app/ui/components/containers/headers/dialog-header';
-import { Spinner } from '@app/ui/components/spinner';
-import { Caption } from '@app/ui/components/typography/caption';
 
 import { IncreaseFeeActions } from './components/increase-fee-actions';
 import { IncreaseFeeField } from './components/increase-fee-field';

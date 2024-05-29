@@ -1,11 +1,9 @@
 import { useNavigate } from 'react-router-dom';
 
+import { Dialog, DialogHeader, Link } from '@leather-wallet/ui';
 import { styled } from 'leather-styles/jsx';
 
 import { UnsupportedBrowserImg } from '@app/features/ledger/illustrations/ledger-illu-unsupported-browser';
-import { Dialog } from '@app/ui/components/containers/dialog/dialog';
-import { DialogHeader } from '@app/ui/components/containers/headers/dialog-header';
-import { Link } from '@app/ui/components/link/link';
 
 import { LedgerTitle } from '../../components/ledger-title';
 import { LedgerWrapper } from '../../components/ledger-wrapper';

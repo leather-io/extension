@@ -1,11 +1,9 @@
 import { ReactNode } from 'react';
 
+import { Button, DashedHr } from '@leather-wallet/ui';
 import { isString } from '@leather-wallet/utils';
 import { SharedComponentsSelectors } from '@tests/selectors/shared-component.selectors';
 import { Box, BoxProps, Flex, HStack, Stack, styled } from 'leather-styles/jsx';
-
-import { Button } from '@app/ui/components/button/button';
-import { DashedHr } from '@app/ui/components/hr';
 
 // InfoCardRow
 interface InfoCardRowProps {

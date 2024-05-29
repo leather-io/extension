@@ -1,13 +1,9 @@
+import { Button, Callout, Dialog, DialogHeader, DialogProps, Footer } from '@leather-wallet/ui';
 import { SettingsSelectors } from '@tests/selectors/settings.selectors';
 import { useFormik } from 'formik';
 import { Flex, HStack, styled } from 'leather-styles/jsx';
 
 import { useWalletType } from '@app/common/use-wallet-type';
-import { Button } from '@app/ui/components/button/button';
-import { Callout } from '@app/ui/components/callout/callout';
-import { Dialog, DialogProps } from '@app/ui/components/containers/dialog/dialog';
-import { Footer } from '@app/ui/components/containers/footers/footer';
-import { DialogHeader } from '@app/ui/components/containers/headers/dialog-header';
 
 interface SignOutDialogProps extends DialogProps {
   onUserDeleteWallet(): void;

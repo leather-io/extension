@@ -1,12 +1,13 @@
+import {
+  BtcAvatarIcon,
+  Button,
+  Callout,
+  Card,
+  Dialog,
+  DialogHeader,
+  Footer,
+} from '@leather-wallet/ui';
 import { Flex, styled } from 'leather-styles/jsx';
-
-import { BtcAvatarIcon } from '@app/ui/components/avatar/btc-avatar-icon';
-import { Button } from '@app/ui/components/button/button';
-import { Callout } from '@app/ui/components/callout/callout';
-import { Dialog } from '@app/ui/components/containers/dialog/dialog';
-import { Footer } from '@app/ui/components/containers/footers/footer';
-import { DialogHeader } from '@app/ui/components/containers/headers/dialog-header';
-import { Card } from '@app/ui/layout/card/card';
 
 interface RetrieveTaprootToNativeSegwitLayoutProps {
   isBroadcasting: boolean;

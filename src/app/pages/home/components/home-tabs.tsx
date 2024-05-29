@@ -1,12 +1,12 @@
 import { Suspense } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 
+import { Tabs } from '@leather-wallet/ui';
 import { Box, Stack } from 'leather-styles/jsx';
 
 import { RouteUrls } from '@shared/route-urls';
 
 import { LoadingSpinner } from '@app/components/loading-spinner';
-import { Tabs } from '@app/ui/components/tabs/tabs';
 
 interface HomeTabsProps {
   children: React.ReactNode;

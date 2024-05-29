@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
+import { Button, TwoColumnLayout } from '@leather-wallet/ui';
 import { isUndefined } from '@leather-wallet/utils';
 import { OnboardingSelectors } from '@tests/selectors/onboarding.selectors';
 import { Form, Formik } from 'formik';
@@ -19,8 +20,6 @@ import {
 } from '@app/common/validation/validate-password';
 import { OnboardingGate } from '@app/routes/onboarding-gate';
 import { useStacksAccounts } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
-import { Button } from '@app/ui/components/button/button';
-import { TwoColumnLayout } from '@app/ui/pages/two-column.layout';
 
 import { PasswordField } from './components/password-field';
 

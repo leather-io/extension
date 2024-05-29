@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Outlet } from 'react-router-dom';
 
+import { Page } from '@leather-wallet/ui';
 import { isDefined, isUndefined } from '@leather-wallet/utils';
 import { bytesToHex } from '@stacks/common';
 import { ContractCallPayload, TransactionTypes } from '@stacks/connect';
@@ -24,7 +25,6 @@ import { defaultSwapFee } from '@app/query/common/alex-sdk/alex-sdk.hooks';
 import { useCurrentStacksAccount } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
 import { useGenerateStacksContractCallUnsignedTx } from '@app/store/transactions/contract-call.hooks';
 import { useSignStacksTransaction } from '@app/store/transactions/transaction.hooks';
-import { Page } from '@app/ui/layout/page/page.layout';
 
 import { SwapForm } from './components/swap-form';
 import { generateSwapRoutes } from './generate-swap-routes';

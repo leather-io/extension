@@ -1,11 +1,9 @@
 import { memo } from 'react';
 
+import { SkeletonLoader, shimmerStyles } from '@leather-wallet/ui';
 import { styled } from 'leather-styles/jsx';
 
 import { useTotalBalance } from '@app/common/hooks/balance/use-total-balance';
-
-import { SkeletonLoader } from '../ui/components/skeleton-loader/skeleton-loader';
-import { shimmerStyles } from '../ui/shared/shimmer-styles';
 
 interface AccountTotalBalanceProps {
   btcAddress: string;

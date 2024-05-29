@@ -1,3 +1,4 @@
+import { ArrowDownIcon, ArrowUpIcon } from '@leather-wallet/ui';
 import type { AddressTransactionWithTransfers } from '@stacks/stacks-blockchain-api-types';
 
 import { logger } from '@shared/logger';
@@ -17,8 +18,6 @@ import { StacksTransactionItem } from '@app/components/stacks-transaction-item/s
 import { useGetFungibleTokenMetadataQuery } from '@app/query/stacks/token-metadata/fungible-tokens/fungible-token-metadata.query';
 import { isFtAsset } from '@app/query/stacks/token-metadata/token-metadata.utils';
 import { useCurrentStacksAccount } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
-import { ArrowDownIcon } from '@app/ui/icons/arrow-down-icon';
-import { ArrowUpIcon } from '@app/ui/icons/arrow-up-icon';
 
 import { TxTransferIconWrapper } from './tx-transfer-icon-wrapper';
 

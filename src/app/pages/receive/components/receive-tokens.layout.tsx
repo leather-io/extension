@@ -1,17 +1,13 @@
 import QRCode from 'react-qr-code';
 import { useNavigate } from 'react-router-dom';
 
+import { AddressDisplayer, Button, Dialog, Footer, Header } from '@leather-wallet/ui';
 import { SharedComponentsSelectors } from '@tests/selectors/shared-component.selectors';
 import { Box, Flex, styled } from 'leather-styles/jsx';
 import { token } from 'leather-styles/tokens';
 
 import { useLocationState } from '@app/common/hooks/use-location-state';
 import { useBackgroundLocationRedirect } from '@app/routes/hooks/use-background-location-redirect';
-import { AddressDisplayer } from '@app/ui/components/address-displayer/address-displayer';
-import { Button } from '@app/ui/components/button/button';
-import { Dialog } from '@app/ui/components/containers/dialog/dialog';
-import { Footer } from '@app/ui/components/containers/footers/footer';
-import { Header } from '@app/ui/components/containers/headers/header';
 
 interface ReceiveTokensLayoutProps {
   address: string;

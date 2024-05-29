@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
+import { Card, CardContent, Footer } from '@leather-wallet/ui';
 import { DlcSelectors } from '@tests/selectors/requests.selectors';
 import { Stack } from 'leather-styles/jsx';
 
@@ -14,9 +15,6 @@ import {
 import { useOnMount } from '@app/common/hooks/use-on-mount';
 import { initialSearchParams } from '@app/common/initial-search-params';
 import { useCurrentAccountNativeSegwitSigner } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
-import { Footer } from '@app/ui/components/containers/footers/footer';
-import { Card } from '@app/ui/layout/card/card';
-import { CardContent } from '@app/ui/layout/card/card-content';
 
 import { BitcoinContractOfferDetailsSimple } from './components/bitcoin-contract-offer/bitcoin-contract-offer-details';
 import { BitcoinContractRequestActions } from './components/bitcoin-contract-request-actions';

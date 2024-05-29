@@ -1,6 +1,7 @@
 import { Outlet, useNavigate } from 'react-router-dom';
 
 import type { Money } from '@leather-wallet/models';
+import { AvailableBalance, Button, Card, CardContent, Footer, Link } from '@leather-wallet/ui';
 import { formatMoney } from '@leather-wallet/utils';
 import { SendCryptoAssetSelectors } from '@tests/selectors/send.selectors';
 import BigNumber from 'bignumber.js';
@@ -17,12 +18,6 @@ import { FeesRow } from '@app/components/fees-row/fees-row';
 import { NonceSetter } from '@app/components/nonce-setter';
 import { HighFeeDialog } from '@app/features/dialogs/high-fee-dialog/high-fee-dialog';
 import { useUpdatePersistedSendFormValues } from '@app/features/popup-send-form-restoration/use-update-persisted-send-form-values';
-import { Button } from '@app/ui/components/button/button';
-import { AvailableBalance } from '@app/ui/components/containers/footers/available-balance';
-import { Footer } from '@app/ui/components/containers/footers/footer';
-import { Link } from '@app/ui/components/link/link';
-import { Card } from '@app/ui/layout/card/card';
-import { CardContent } from '@app/ui/layout/card/card-content';
 
 import { MemoField } from '../../components/memo-field';
 import { StacksRecipientField } from '../../family/stacks/components/stacks-recipient-field';

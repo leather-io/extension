@@ -1,10 +1,13 @@
+import {
+  Avatar,
+  Button,
+  ChevronDownIcon,
+  defaultFallbackDelay,
+  getAvatarFallback,
+} from '@leather-wallet/ui';
 import { SwapSelectors } from '@tests/selectors/swap.selectors';
 import { useField } from 'formik';
 import { HStack, styled } from 'leather-styles/jsx';
-
-import { Avatar, defaultFallbackDelay, getAvatarFallback } from '@app/ui/components/avatar/avatar';
-import { Button } from '@app/ui/components/button/button';
-import { ChevronDownIcon } from '@app/ui/icons/chevron-down-icon';
 
 interface SelectAssetTriggerButtonProps {
   icon?: string;

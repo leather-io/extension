@@ -1,6 +1,7 @@
 import { useCallback } from 'react';
 import { Outlet, useNavigate } from 'react-router-dom';
 
+import { Card, Page } from '@leather-wallet/ui';
 import { Stack, styled } from 'leather-styles/jsx';
 
 import { RouteUrls } from '@shared/route-urls';
@@ -11,8 +12,6 @@ import { CurrentStacksAccountLoader } from '@app/components/loaders/stacks-accou
 import { StxBalanceLoader } from '@app/components/loaders/stx-balance-loader';
 import { BtcCryptoAssetItem } from '@app/features/asset-list/bitcoin/btc-crypto-asset-item/btc-crypto-asset-item';
 import { StxCryptoAssetItem } from '@app/features/asset-list/stacks/stx-crypo-asset-item/stx-crypto-asset-item';
-import { Card } from '@app/ui/layout/card/card';
-import { Page } from '@app/ui/layout/page/page.layout';
 
 export function ChooseCryptoAssetToFund() {
   const navigate = useNavigate();

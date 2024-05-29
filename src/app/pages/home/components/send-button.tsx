@@ -1,6 +1,7 @@
 import { Suspense, memo } from 'react';
 import { useNavigate } from 'react-router-dom';
 
+import { IconButton, SendIcon } from '@leather-wallet/ui';
 import { HomePageSelectors } from '@tests/selectors/home.selectors';
 
 import { RouteUrls } from '@shared/route-urls';
@@ -13,8 +14,6 @@ import { useStxCryptoAssetBalance } from '@app/query/stacks/balance/account-bala
 import { useTransferableSip10Tokens } from '@app/query/stacks/sip10/sip10-tokens.hooks';
 import { useCurrentAccountNativeSegwitIndexZeroSignerNullable } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
 import { useCurrentStacksAccountAddress } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
-import { IconButton } from '@app/ui/components/icon-button/icon-button';
-import { SendIcon } from '@app/ui/icons';
 
 function SendButtonSuspense() {
   const navigate = useNavigate();

@@ -1,10 +1,7 @@
 import { ReactNode } from 'react';
 
+import { ItemLayout, Pressable, Spinner } from '@leather-wallet/ui';
 import { SettingsSelectors } from '@tests/selectors/settings.selectors';
-
-import { ItemLayout } from '@app/ui/components/item-layout/item-layout';
-import { Spinner } from '@app/ui/components/spinner';
-import { Pressable } from '@app/ui/pressable/pressable';
 
 interface AccountListItemLayoutProps {
   accountAddresses: ReactNode;

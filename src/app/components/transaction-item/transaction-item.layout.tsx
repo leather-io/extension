@@ -1,10 +1,7 @@
 import { ReactNode } from 'react';
 
+import { Caption, ItemLayout, Pressable } from '@leather-wallet/ui';
 import { HStack, styled } from 'leather-styles/jsx';
-
-import { ItemLayout } from '@app/ui/components/item-layout/item-layout';
-import { Caption } from '@app/ui/components/typography/caption';
-import { Pressable } from '@app/ui/pressable/pressable';
 
 interface TransactionItemLayoutProps {
   openTxLink(): void;

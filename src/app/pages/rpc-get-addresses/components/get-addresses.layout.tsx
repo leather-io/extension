@@ -1,9 +1,7 @@
+import { Button, LettermarkIcon, LogomarkIcon } from '@leather-wallet/ui';
 import { Box, Flex, styled } from 'leather-styles/jsx';
 
 import { RequesterFlag } from '@app/components/requester-flag';
-import { Button } from '@app/ui/components/button/button';
-import { LettermarkIcon } from '@app/ui/icons';
-import { LogomarkIcon } from '@app/ui/icons/logomark-icon';
 
 interface GetAddressesLayoutProps {
   requester: string;

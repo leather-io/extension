@@ -1,9 +1,9 @@
 import { type ReactNode } from 'react';
 
+import { StxAvatarIcon } from '@leather-wallet/ui';
 import { Circle } from 'leather-styles/jsx';
 
 import { TransactionTypeIconWrapper } from '@app/components/transaction/transaction-type-icon-wrapper';
-import { StxAvatarIcon } from '@app/ui/components/avatar/stx-avatar-icon';
 
 interface TxTransferIconWrapperProps {
   icon: ReactNode;

@@ -1,5 +1,15 @@
 import { useEffect, useState } from 'react';
 
+import {
+  Button,
+  Caption,
+  Dialog,
+  DialogHeader,
+  ErrorIcon,
+  Footer,
+  Link,
+  Title,
+} from '@leather-wallet/ui';
 import { useFormikContext } from 'formik';
 import { HStack, Stack } from 'leather-styles/jsx';
 
@@ -10,14 +20,6 @@ import {
 } from '@shared/models/form.model';
 
 import { openInNewTab } from '@app/common/utils/open-in-new-tab';
-import { Button } from '@app/ui/components/button/button';
-import { Dialog } from '@app/ui/components/containers/dialog/dialog';
-import { Footer } from '@app/ui/components/containers/footers/footer';
-import { DialogHeader } from '@app/ui/components/containers/headers/dialog-header';
-import { Link } from '@app/ui/components/link/link';
-import { Caption } from '@app/ui/components/typography/caption';
-import { Title } from '@app/ui/components/typography/title';
-import { ErrorIcon } from '@app/ui/icons';
 
 interface HighFeeDialogProps {
   learnMoreUrl: string;

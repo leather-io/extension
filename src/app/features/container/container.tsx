@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Outlet, useLocation, useNavigate } from 'react-router-dom';
 
+import { Flag, HamburgerIcon, Header, Logo, NetworkModeBadge } from '@leather-wallet/ui';
 import { ChainID } from '@stacks/transactions';
 import { OnboardingSelectors } from '@tests/selectors/onboarding.selectors';
 import { SettingsSelectors } from '@tests/selectors/settings.selectors';
@@ -19,15 +20,10 @@ import { useOnSignOut } from '@app/routes/hooks/use-on-sign-out';
 import { useOnWalletLock } from '@app/routes/hooks/use-on-wallet-lock';
 import { useHasStateRehydrated } from '@app/store';
 import { useCurrentNetworkState } from '@app/store/networks/networks.hooks';
-import { ContainerLayout } from '@app/ui/components/containers/container.layout';
-import { NetworkModeBadge } from '@app/ui/components/containers/headers/components/network-mode-badge';
-import { Header } from '@app/ui/components/containers/headers/header';
-import { Flag } from '@app/ui/components/flag/flag';
-import { Logo } from '@app/ui/components/logo';
-import { HamburgerIcon } from '@app/ui/icons/';
 
 import { useRestoreFormState } from '../popup-send-form-restoration/use-restore-form-state';
 import { Settings } from '../settings/settings';
+import { ContainerLayout } from './container.layout';
 import { TotalBalance } from './total-balance';
 import {
   getDisplayAddresssBalanceOf,

@@ -1,12 +1,12 @@
 import { forwardRef, useMemo } from 'react';
 
+import { BasicTooltip } from '@leather-wallet/ui';
 import { Box, HTMLStyledProps, styled } from 'leather-styles/jsx';
 
 import { BRANCH_NAME, COMMIT_SHA } from '@shared/environment';
 
 import { openInNewTab } from '@app/common/utils/open-in-new-tab';
 import { useIsLatestPullRequestBuild } from '@app/query/common/outdated-pr/outdated-pr.query';
-import { BasicTooltip } from '@app/ui/components/tooltip/basic-tooltip';
 
 interface AppVersionLabelProps extends HTMLStyledProps<'span'> {
   isLatestVersion: boolean;

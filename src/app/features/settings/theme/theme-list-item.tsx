@@ -1,9 +1,9 @@
 import { useCallback } from 'react';
 
+import { CheckmarkIcon } from '@leather-wallet/ui';
 import { Box, Flex, styled } from 'leather-styles/jsx';
 
 import { UserSelectedTheme, getThemeLabel } from '@app/common/theme-provider';
-import { CheckmarkIcon } from '@app/ui/icons';
 
 interface ThemeListItemProps {
   theme: UserSelectedTheme;

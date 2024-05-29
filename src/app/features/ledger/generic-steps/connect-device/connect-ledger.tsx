@@ -1,13 +1,11 @@
 import { Suspense, lazy, useMemo } from 'react';
 
+import { BitcoinIcon, Button, Link, StacksIcon } from '@leather-wallet/ui';
 import { Box, HStack, Stack, styled } from 'leather-styles/jsx';
 
 import { SupportedBlockchains } from '@shared/constants';
 
 import { Divider } from '@app/components/layout/divider';
-import { Button } from '@app/ui/components/button/button';
-import { Link } from '@app/ui/components/link/link';
-import { BitcoinIcon, StacksIcon } from '@app/ui/icons';
 
 import { LedgerWrapper } from '../../components/ledger-wrapper';
 

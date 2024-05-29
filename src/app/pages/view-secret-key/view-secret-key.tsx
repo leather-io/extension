@@ -1,11 +1,12 @@
 import { useEffect, useState } from 'react';
 import { Outlet } from 'react-router-dom';
 
+import { TwoColumnLayout } from '@leather-wallet/ui';
+
 import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
 import { RequestPassword } from '@app/components/request-password';
 import { SecretKey } from '@app/features/secret-key-displayer/secret-key-displayer';
 import { useDefaultWalletSecretKey } from '@app/store/in-memory-key/in-memory-key.selectors';
-import { TwoColumnLayout } from '@app/ui/pages/two-column.layout';
 
 export function ViewSecretKey() {
   const analytics = useAnalytics();

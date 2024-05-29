@@ -1,9 +1,9 @@
 import { useCallback } from 'react';
 
+import { Dialog, DialogHeader } from '@leather-wallet/ui';
+
 import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
 import { UserSelectedTheme, themeLabelMap, useThemeSwitcher } from '@app/common/theme-provider';
-import { Dialog } from '@app/ui/components/containers/dialog/dialog';
-import { DialogHeader } from '@app/ui/components/containers/headers/dialog-header';
 
 import { ThemeListItem } from './theme-list-item';
 

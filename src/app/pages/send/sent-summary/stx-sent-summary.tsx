@@ -1,5 +1,6 @@
 import { useLocation } from 'react-router-dom';
 
+import { Card, CardContent, CopyIcon, ExternalLinkIcon, Footer } from '@leather-wallet/ui';
 import { HStack, Stack } from 'leather-styles/jsx';
 
 import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
@@ -13,11 +14,6 @@ import {
   InfoCardSeparator,
 } from '@app/components/info-card/info-card';
 import { useToast } from '@app/features/toasts/use-toast';
-import { Footer } from '@app/ui/components/containers/footers/footer';
-import { CopyIcon } from '@app/ui/icons/copy-icon';
-import { ExternalLinkIcon } from '@app/ui/icons/external-link-icon';
-import { Card } from '@app/ui/layout/card/card';
-import { CardContent } from '@app/ui/layout/card/card-content';
 
 import { TxDone } from '../send-crypto-asset-form/components/tx-done';
 

@@ -1,7 +1,7 @@
+import { Button } from '@leather-wallet/ui';
 import { BitcoinContractRequestSelectors } from '@tests/selectors/bitcoin-contract-request.selectors';
 
 import { useBtcCryptoAssetBalanceNativeSegwit } from '@app/query/bitcoin/balance/btc-balance-native-segwit.hooks';
-import { Button } from '@app/ui/components/button/button';
 
 interface BitcoinContractRequestActionsProps {
   isLoading: boolean;

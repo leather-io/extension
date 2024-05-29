@@ -1,10 +1,10 @@
 import { Suspense } from 'react';
 
+import { Tabs } from '@leather-wallet/ui';
 import { Box, Stack, StackProps } from 'leather-styles/jsx';
 
 import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
 import { LoadingSpinner } from '@app/components/loading-spinner';
-import { Tabs } from '@app/ui/components/tabs/tabs';
 
 enum CustomFeeTabs {
   Recommended = 'recommended',
