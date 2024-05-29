@@ -7,12 +7,18 @@ import { Box, Flex, HStack, styled } from 'leather-styles/jsx';
 
 import { Prism } from '@app/common/clarity-prism';
 import { useClipboard } from '@app/common/hooks/use-copy-to-clipboard';
+import { compliantErrorBody } from '@app/query/common/compliance-checker/compliance-checker.query';
 import { Button } from '@app/ui/components/button/button';
 import { CodeBlock } from '@app/ui/components/codeblock';
 import { Link } from '@app/ui/components/link/link';
 import { CopyIcon } from '@app/ui/icons';
 
 import { useToast } from '../toasts/use-toast';
+
+function shouldShowContactSupportMessage(errorMsg: string) {
+  if (errorMsg.includes(compliantErrorBody)) return false;
+  return true;
+}
 
 function ErroBoundaryBody() {
   return (
@@ -84,7 +90,7 @@ export function RouterErrorBoundary() {
         {title}
       </styled.span>
 
-      <ErroBoundaryBody />
+      {shouldShowContactSupportMessage(errorText) && <ErroBoundaryBody />}
 
       {errorText && (
         <CodeBlock
