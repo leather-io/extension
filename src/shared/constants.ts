@@ -8,8 +8,6 @@ export const HIGH_FEE_AMOUNT_STX = 5;
 export const HIGH_FEE_WARNING_LEARN_MORE_URL_BTC = 'https://bitcoinfees.earn.com/';
 export const HIGH_FEE_WARNING_LEARN_MORE_URL_STX = 'https://hiro.so/questions/fee-estimates';
 
-export const DEFAULT_FEE_RATE = 400;
-
 export const PERSISTENCE_CACHE_TIME = 1000 * 60 * 60 * 12; // 12 hours
 
 export const BTC_DECIMALS = 8;
@@ -74,8 +72,6 @@ export interface NetworkConfiguration {
     stacks: StacksChainConfig;
   };
 }
-
-export const STX20_API_BASE_URL_MAINNET = 'https://api.stx20.com/api/v1';
 
 export const HIRO_EXPLORER_URL = 'https://explorer.hiro.so';
 export const HIRO_API_BASE_URL_MAINNET = 'https://api.hiro.so';
@@ -185,7 +181,5 @@ export const defaultNetworksKeyedById: Record<
   [WalletDefaultNetworkConfigurationIds.sbtcDevenv]: networkSbtcDevenv,
   [WalletDefaultNetworkConfigurationIds.devnet]: networkDevnet,
 };
-
-export const DEFAULT_LIST_LIMIT = 50;
 
 export const TOKEN_NAME_LENGTH = 4;

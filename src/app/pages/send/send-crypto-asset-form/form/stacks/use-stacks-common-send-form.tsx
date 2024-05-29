@@ -2,6 +2,7 @@ import BigNumber from 'bignumber.js';
 import { FormikHelpers } from 'formik';
 
 import { FeeTypes, type Money } from '@leather-wallet/models';
+import { useNextNonce } from '@leather-wallet/query';
 import { isEmpty } from '@leather-wallet/utils';
 
 import { HIGH_FEE_AMOUNT_STX } from '@shared/constants';
@@ -11,7 +12,6 @@ import { StacksSendFormValues } from '@shared/models/form.model';
 import { stxMemoValidator } from '@app/common/validation/forms/memo-validators';
 import { stxRecipientValidator } from '@app/common/validation/forms/recipient-validators';
 import { nonceValidator } from '@app/common/validation/nonce-validators';
-import { useNextNonce } from '@app/query/stacks/nonce/account-nonces.hooks';
 import { useCurrentStacksAccountAddress } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
 import { useCurrentNetworkState } from '@app/store/networks/networks.hooks';
 
@@ -28,8 +28,8 @@ export function useStacksCommonSendForm({
   availableTokenBalance,
 }: UseStacksCommonSendFormArgs) {
   const routeState = useSendFormRouteState();
-  const { data: nextNonce } = useNextNonce();
-  const currentAccountStxAddress = useCurrentStacksAccountAddress();
+  const stxAddress = useCurrentStacksAccountAddress();
+  const { data: nextNonce } = useNextNonce(stxAddress);
   const currentNetwork = useCurrentNetworkState();
 
   const initialValues: StacksSendFormValues = createDefaultInitialFormValues({
@@ -58,7 +58,7 @@ export function useStacksCommonSendForm({
     initialValues,
     availableTokenBalance,
     checkFormValidation,
-    recipient: stxRecipientValidator(currentAccountStxAddress, currentNetwork),
+    recipient: stxRecipientValidator(stxAddress, currentNetwork),
     memo: stxMemoValidator(FormErrorMessages.MemoExceedsLimit),
     nonce: nonceValidator,
   };

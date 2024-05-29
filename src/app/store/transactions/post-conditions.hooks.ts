@@ -3,12 +3,12 @@ import { useMemo } from 'react';
 import { ContractCallPayload, ContractDeployPayload, STXTransferPayload } from '@stacks/connect';
 import { FungiblePostCondition, addressToString } from '@stacks/transactions';
 
+import { isFtAsset, useGetFungibleTokenMetadataQuery } from '@leather-wallet/query';
+
 import {
   getPostCondition,
   handlePostConditions,
 } from '@app/common/transactions/stacks/post-condition.utils';
-import { useGetFungibleTokenMetadataQuery } from '@app/query/stacks/token-metadata/fungible-tokens/fungible-token-metadata.query';
-import { isFtAsset } from '@app/query/stacks/token-metadata/token-metadata.utils';
 import { useCurrentStacksAccountAddress } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
 
 import { useTransactionRequestState } from './requests.hooks';

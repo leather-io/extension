@@ -1,19 +1,18 @@
 import { useFormikContext } from 'formik';
 
-import { LoadingKeys, useLoading } from '@app/common/hooks/use-loading';
 import { useWalletType } from '@app/common/use-wallet-type';
 import { Button } from '@app/ui/components/button/button';
 
 interface IncreaseFeeActionsProps {
-  isDisabled?: boolean;
   isBroadcasting?: boolean;
+  isDisabled?: boolean;
+  isLoading?: boolean;
   onCancel(): void;
 }
 export function IncreaseFeeActions(props: IncreaseFeeActionsProps) {
-  const { onCancel, isDisabled, isBroadcasting } = props;
+  const { isBroadcasting, isDisabled, isLoading, onCancel } = props;
 
   const { handleSubmit } = useFormikContext();
-  const { isLoading } = useLoading(LoadingKeys.INCREASE_FEE_DRAWER);
   const { whenWallet } = useWalletType();
 
   const actionText = whenWallet({ ledger: 'Confirm on Ledger', software: 'Submit' });

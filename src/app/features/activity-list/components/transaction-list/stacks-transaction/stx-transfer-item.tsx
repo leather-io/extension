@@ -9,6 +9,8 @@ import { useCurrentStacksAccount } from '@app/store/accounts/blockchain/stacks/s
 import { ArrowDownIcon } from '@app/ui/icons/arrow-down-icon';
 import { ArrowUpIcon } from '@app/ui/icons/arrow-up-icon';
 
+import { TxTransferIconWrapper } from './tx-transfer-icon-wrapper';
+
 interface StxTransferItemProps {
   stxTransfer: StxTransfer;
   parentTx: AddressTransactionWithTransfers;
@@ -28,7 +30,7 @@ export function StxTransferItem({ stxTransfer, parentTx }: StxTransferItemProps)
   return (
     <StacksTransactionItem
       caption={caption}
-      icon={icon}
+      icon={<TxTransferIconWrapper icon={icon} />}
       link={parentTx.tx.tx_id}
       title={title}
       value={value}

@@ -6,6 +6,11 @@ import { Flex } from 'leather-styles/jsx';
 import * as yup from 'yup';
 
 import { FeeTypes } from '@leather-wallet/models';
+import {
+  useCalculateStacksTxFees,
+  useNextNonce,
+  useStxAvailableUnlockedBalance,
+} from '@leather-wallet/query';
 
 import { HIGH_FEE_WARNING_LEARN_MORE_URL_STX } from '@shared/constants';
 import { logger } from '@shared/logger';
@@ -30,9 +35,7 @@ import { PostConditions } from '@app/features/stacks-transaction-request/post-co
 import { StxTransferDetails } from '@app/features/stacks-transaction-request/stx-transfer-details/stx-transfer-details';
 import { SubmitAction } from '@app/features/stacks-transaction-request/submit-action';
 import { TransactionError } from '@app/features/stacks-transaction-request/transaction-error/transaction-error';
-import { useCurrentStxAvailableUnlockedBalance } from '@app/query/stacks/balance/account-balance.hooks';
-import { useCalculateStacksTxFees } from '@app/query/stacks/fees/fees.hooks';
-import { useNextNonce } from '@app/query/stacks/nonce/account-nonces.hooks';
+import { useCurrentStacksAccountAddress } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
 import { useTransactionRequestState } from '@app/store/transactions/requests.hooks';
 import {
   useGenerateUnsignedStacksTransaction,
@@ -48,8 +51,9 @@ function TransactionRequestBase() {
   const { data: stxFees } = useCalculateStacksTxFees(unsignedTx.transaction);
   const analytics = useAnalytics();
   const generateUnsignedTx = useGenerateUnsignedStacksTransaction();
-  const availableUnlockedBalance = useCurrentStxAvailableUnlockedBalance();
-  const { data: nextNonce } = useNextNonce();
+  const stxAddress = useCurrentStacksAccountAddress();
+  const availableUnlockedBalance = useStxAvailableUnlockedBalance(stxAddress);
+  const { data: nextNonce } = useNextNonce(stxAddress);
   const navigate = useNavigate();
   const { stacksBroadcastTransaction } = useStacksBroadcastTransaction({ token: 'STX' });
 

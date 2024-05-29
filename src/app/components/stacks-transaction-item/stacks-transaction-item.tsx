@@ -1,4 +1,4 @@
-import { createSearchParams, useLocation, useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 import { StacksTx } from '@leather-wallet/models';
 
@@ -17,7 +17,6 @@ import { whenPageMode } from '@app/common/utils';
 import { openIndexPageInNewTab } from '@app/common/utils/open-in-new-tab';
 import { TransactionTitle } from '@app/components/transaction/transaction-title';
 import { useCurrentStacksAccount } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
-import { useRawTxIdState } from '@app/store/transactions/raw.hooks';
 
 import { TransactionItemLayout } from '../transaction-item/transaction-item.layout';
 import { IncreaseFeeButton } from './increase-fee-button';
@@ -43,7 +42,6 @@ export function StacksTransactionItem({
   const { handleOpenStacksTxLink } = useStacksExplorerLink();
   const currentAccount = useCurrentStacksAccount();
   const analytics = useAnalytics();
-  const [_, setRawTxId] = useRawTxIdState();
   const { pathname } = useLocation();
   const navigate = useNavigate();
   const { whenWallet } = useWalletType();
@@ -60,17 +58,16 @@ export function StacksTransactionItem({
 
   const onIncreaseFee = () => {
     if (!transaction) return;
-    setRawTxId(transaction.tx_id);
 
-    const urlSearchParams = `?${createSearchParams({ txId: transaction.tx_id })}`;
+    const routeUrl = RouteUrls.IncreaseStxFee.replace(':txid', transaction.tx_id);
 
     whenWallet({
       ledger: () =>
         whenPageMode({
-          full: () => navigate(RouteUrls.IncreaseStxFee),
-          popup: () => openIndexPageInNewTab(RouteUrls.IncreaseStxFee, urlSearchParams),
+          full: () => navigate(routeUrl),
+          popup: () => openIndexPageInNewTab(routeUrl),
         })(),
-      software: () => navigate(RouteUrls.IncreaseStxFee),
+      software: () => navigate(routeUrl),
     })();
   };
 

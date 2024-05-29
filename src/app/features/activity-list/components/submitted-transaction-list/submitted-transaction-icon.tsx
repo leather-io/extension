@@ -13,6 +13,8 @@ interface SubmittedTransactionIconProps extends CircleProps {
   transaction: StacksTransaction;
 }
 export function SubmittedTransactionIcon({ transaction, ...rest }: SubmittedTransactionIconProps) {
+  const senderAddress = getTxSenderAddress(transaction);
+
   switch (transaction.payload.payloadType) {
     case PayloadType.SmartContract:
       return (
@@ -24,6 +26,7 @@ export function SubmittedTransactionIcon({ transaction, ...rest }: SubmittedTran
           <TransactionTypeIcon
             transaction={
               {
+                sender_address: senderAddress,
                 tx_type: 'smart_contract',
                 tx_status: 'pending',
               } as StacksTx
@@ -43,6 +46,7 @@ export function SubmittedTransactionIcon({ transaction, ...rest }: SubmittedTran
           <TransactionTypeIcon
             transaction={
               {
+                sender_address: senderAddress,
                 tx_type: 'contract_call',
                 tx_status: 'pending',
               } as StacksTx
@@ -56,6 +60,7 @@ export function SubmittedTransactionIcon({ transaction, ...rest }: SubmittedTran
           icon={<StxAvatarIcon />}
           transaction={
             {
+              sender_address: senderAddress,
               tx_type: 'token_transfer',
               tx_status: 'pending',
             } as StacksTx

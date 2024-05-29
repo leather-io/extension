@@ -24,7 +24,7 @@ test.describe('send btc', () => {
       await sendPage.recipientInput.fill(TEST_TESTNET_ACCOUNT_2_BTC_ADDRESS);
 
       await sendPage.previewSendTxButton.click();
-      await sendPage.feesListItem.filter({ hasText: BtcFeeType.High }).click();
+      await sendPage.feesListItem.filter({ hasText: BtcFeeType.Low }).click();
 
       const details = await sendPage.confirmationDetails.allInnerTexts();
       test.expect(details).toBeTruthy();
@@ -36,7 +36,7 @@ test.describe('send btc', () => {
       await sendPage.recipientInput.blur();
       await sendPage.page.waitForTimeout(1000);
       await sendPage.previewSendTxButton.click();
-      await sendPage.feesListItem.filter({ hasText: BtcFeeType.High }).click();
+      await sendPage.feesListItem.filter({ hasText: BtcFeeType.Low }).click();
 
       const displayerAddress = await getDisplayerAddress(sendPage.confirmationDetailsRecipient);
       test.expect(displayerAddress).toEqual(TEST_TESTNET_ACCOUNT_2_BTC_ADDRESS);
@@ -52,7 +52,7 @@ test.describe('send btc', () => {
       await sendPage.page.waitForTimeout(1000);
 
       await sendPage.previewSendTxButton.click();
-      await sendPage.feesListItem.filter({ hasText: BtcFeeType.High }).click();
+      await sendPage.feesListItem.filter({ hasText: BtcFeeType.Low }).click();
 
       const displayerAddress = await getDisplayerAddress(sendPage.confirmationDetailsRecipient);
       test.expect(displayerAddress).toEqual(TEST_TESTNET_ACCOUNT_2_BTC_ADDRESS);
@@ -97,7 +97,7 @@ test.describe('send btc', () => {
       await sendPage.recipientInput.fill(TEST_TESTNET_ACCOUNT_2_BTC_ADDRESS);
 
       await sendPage.previewSendTxButton.click();
-      await sendPage.feesListItem.filter({ hasText: BtcFeeType.High }).click();
+      await sendPage.feesListItem.filter({ hasText: BtcFeeType.Low }).click();
 
       await sendPage.clickInfoCardButton();
 
@@ -155,7 +155,7 @@ test.describe('send btc', () => {
       await sendPage.recipientInput.fill(TEST_TESTNET_ACCOUNT_2_BTC_ADDRESS);
 
       await sendPage.previewSendTxButton.click();
-      await sendPage.feesListItem.filter({ hasText: BtcFeeType.High }).click();
+      await sendPage.feesListItem.filter({ hasText: BtcFeeType.Low }).click();
 
       await sendPage.clickInfoCardButton();
 

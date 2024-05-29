@@ -2,6 +2,7 @@ import { SwapSelectors } from '@tests/selectors/swap.selectors';
 import BigNumber from 'bignumber.js';
 import { HStack, styled } from 'leather-styles/jsx';
 
+import { useGetStackNetworkBlockTimeQuery } from '@leather-wallet/query';
 import {
   createMoneyFromDecimal,
   formatMoneyPadded,
@@ -12,7 +13,6 @@ import {
 
 import { getEstimatedConfirmationTime } from '@app/common/transactions/stacks/transaction.utils';
 import { SwapSubmissionData, useSwapContext } from '@app/pages/swap/swap.context';
-import { useStacksBlockTime } from '@app/query/stacks/info/info.hooks';
 import { useCurrentNetworkState } from '@app/store/networks/networks.hooks';
 import { ChevronUpIcon } from '@app/ui/icons/chevron-up-icon';
 
@@ -37,7 +37,7 @@ const sponsoredFeeLabel =
 export function SwapDetails() {
   const { swapSubmissionData } = useSwapContext();
   const { isTestnet } = useCurrentNetworkState();
-  const { data: blockTime } = useStacksBlockTime();
+  const { data: blockTime } = useGetStackNetworkBlockTimeQuery();
 
   if (
     isUndefined(swapSubmissionData) ||

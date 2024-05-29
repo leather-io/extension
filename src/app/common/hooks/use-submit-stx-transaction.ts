@@ -51,7 +51,7 @@ export function useSubmitTransactionCallback({ loadingKey }: UseSubmitTransactio
             logger.info('Transaction broadcast', response);
             submittedTransactionsActions.newTransactionSubmitted({
               rawTx: bytesToHex(transaction.serialize()),
-              txId: safelyFormatHexTxid(response.txid),
+              txid: safelyFormatHexTxid(response.txid),
             });
 
             await delay(500);
