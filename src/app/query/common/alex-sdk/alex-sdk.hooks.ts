@@ -1,12 +1,12 @@
 import { useCallback } from 'react';
 
-import { isDefined } from '@leather-wallet/utils';
+import type { Money } from '@leather-wallet/models';
+import { createMoney, isDefined } from '@leather-wallet/utils';
 import { Currency, type TokenInfo } from 'alex-sdk';
 import BigNumber from 'bignumber.js';
 
 import { logger } from '@shared/logger';
 import { type MarketData, createMarketData, createMarketPair } from '@shared/models/market.model';
-import { type Money, createMoney } from '@shared/models/money.model';
 
 import { sortAssetsByName } from '@app/common/asset-utils';
 import { convertAmountToFractionalUnit } from '@app/common/money/calculate-money';

@@ -1,8 +1,7 @@
-import { isDefined, isUndefined } from '@leather-wallet/utils';
+import { createMoney, isDefined, isUndefined } from '@leather-wallet/utils';
 import BigNumber from 'bignumber.js';
 import { useField, useFormikContext } from 'formik';
 
-import { createMoney } from '@shared/models/money.model';
 import { RouteUrls } from '@shared/route-urls';
 
 import { useShowFieldError } from '@app/common/form-utils';

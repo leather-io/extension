@@ -1,5 +1,6 @@
+import type { Money } from '@leather-wallet/models';
+
 import { CryptoCurrencies, FiatCurrencies } from './currencies.model';
-import type { Money } from './money.model';
 
 interface MarketPair {
   readonly base: CryptoCurrencies;

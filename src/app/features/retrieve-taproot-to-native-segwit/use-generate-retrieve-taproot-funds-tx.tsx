@@ -1,15 +1,15 @@
 import { useCallback, useMemo } from 'react';
 
+import type { Money } from '@leather-wallet/models';
 import {
   useAverageBitcoinFeeRates,
   useCurrentTaprootAccountUninscribedUtxos,
   useNumberOfInscriptionsOnUtxo,
 } from '@leather-wallet/query';
-import { sumNumbers } from '@leather-wallet/utils';
+import { createMoney, sumNumbers } from '@leather-wallet/utils';
 import * as btc from '@scure/btc-signer';
 
 import { extractAddressIndexFromPath } from '@shared/crypto/bitcoin/bitcoin.utils';
-import { Money, createMoney } from '@shared/models/money.model';
 
 import { BtcSizeFeeEstimator } from '@app/common/transactions/bitcoin/fees/btc-size-fee-estimator';
 import { useCurrentAccountIndex } from '@app/store/accounts/account';

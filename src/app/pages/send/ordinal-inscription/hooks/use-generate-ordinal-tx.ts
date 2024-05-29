@@ -1,5 +1,5 @@
 import type { UtxoWithDerivationPath } from '@leather-wallet/query';
-import { createCounter } from '@leather-wallet/utils';
+import { createCounter, createMoney } from '@leather-wallet/utils';
 import * as btc from '@scure/btc-signer';
 import { AddressType, getAddressInfo } from 'bitcoin-address-validation';
 
@@ -7,7 +7,6 @@ import { extractAddressIndexFromPath } from '@shared/crypto/bitcoin/bitcoin.util
 import { BitcoinInputSigningConfig } from '@shared/crypto/bitcoin/signer-config';
 import { logger } from '@shared/logger';
 import { OrdinalSendFormValues } from '@shared/models/form.model';
-import { createMoney } from '@shared/models/money.model';
 
 import {
   InsufficientFundsError,

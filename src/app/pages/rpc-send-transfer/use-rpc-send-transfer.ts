@@ -1,10 +1,9 @@
 import { useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import { sumNumbers } from '@leather-wallet/utils';
+import { createMoney, sumNumbers } from '@leather-wallet/utils';
 import BigNumber from 'bignumber.js';
 
-import { createMoney } from '@shared/models/money.model';
 import { RouteUrls } from '@shared/route-urls';
 
 import { useDefaultRequestParams } from '@app/common/hooks/use-default-request-search-params';

@@ -1,8 +1,7 @@
 import { useCallback, useMemo } from 'react';
 
+import { createMoney } from '@leather-wallet/utils';
 import * as btc from '@scure/btc-signer';
-
-import { createMoney } from '@shared/models/money.model';
 
 import { subtractMoney } from '@app/common/money/calculate-money';
 import { useCurrentAccountNativeSegwitIndexZeroSigner } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';

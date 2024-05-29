@@ -1,5 +1,6 @@
+import type { Money } from '@leather-wallet/models';
+
 import type { MarketData } from '@shared/models/market.model';
-import { type Money } from '@shared/models/money.model';
 
 import { baseCurrencyAmountInQuote } from './money/calculate-money';
 import { i18nFormatCurrency } from './money/format-money';

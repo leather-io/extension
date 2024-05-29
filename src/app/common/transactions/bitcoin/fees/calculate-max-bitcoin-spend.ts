@@ -1,9 +1,8 @@
 import type { UtxoResponseItem } from '@leather-wallet/query';
-import { satToBtc } from '@leather-wallet/utils';
+import { createMoney, satToBtc } from '@leather-wallet/utils';
 import BigNumber from 'bignumber.js';
 
 import { AverageBitcoinFeeRates } from '@shared/models/fees/bitcoin-fees.model';
-import { createMoney } from '@shared/models/money.model';
 
 import { filterUneconomicalUtxos, getSpendableAmount } from '../utils';
 

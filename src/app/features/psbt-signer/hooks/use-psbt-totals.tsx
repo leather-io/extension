@@ -1,8 +1,6 @@
 import { useMemo } from 'react';
 
-import { sumNumbers } from '@leather-wallet/utils';
-
-import { createMoney } from '@shared/models/money.model';
+import { createMoney, sumNumbers } from '@leather-wallet/utils';
 
 import { PsbtInput } from './use-parsed-inputs';
 import { PsbtOutput } from './use-parsed-outputs';

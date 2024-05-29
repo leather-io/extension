@@ -1,9 +1,9 @@
+import { createMoney } from '@leather-wallet/utils';
 import { useQueries, useQuery } from '@tanstack/react-query';
 import BigNumber from 'bignumber.js';
 import PQueue from 'p-queue';
 
 import type { AddressBalanceResponse } from '@shared/models/account.model';
-import { createMoney } from '@shared/models/money.model';
 
 import { getStacksContractIdStringParts } from '@app/common/stacks-utils';
 import { getPrincipalFromContractId, getTicker } from '@app/common/utils';

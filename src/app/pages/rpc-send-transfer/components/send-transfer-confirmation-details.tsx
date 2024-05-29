@@ -1,6 +1,5 @@
+import type { Money } from '@leather-wallet/models';
 import { HStack, Stack, styled } from 'leather-styles/jsx';
-
-import type { Money } from '@shared/models/money.model';
 
 import { formatMoney } from '@app/common/money/format-money';
 

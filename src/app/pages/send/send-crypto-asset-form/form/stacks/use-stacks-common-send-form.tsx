@@ -1,3 +1,4 @@
+import type { Money } from '@leather-wallet/models';
 import { isEmpty } from '@leather-wallet/utils';
 import BigNumber from 'bignumber.js';
 import { FormikHelpers } from 'formik';
@@ -6,7 +7,6 @@ import { HIGH_FEE_AMOUNT_STX } from '@shared/constants';
 import { FormErrorMessages } from '@shared/error-messages';
 import { FeeTypes } from '@shared/models/fees/fees.model';
 import { StacksSendFormValues } from '@shared/models/form.model';
-import { Money } from '@shared/models/money.model';
 
 import { stxMemoValidator } from '@app/common/validation/forms/memo-validators';
 import { stxRecipientValidator } from '@app/common/validation/forms/recipient-validators';

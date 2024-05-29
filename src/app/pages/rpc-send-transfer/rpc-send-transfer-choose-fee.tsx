@@ -1,11 +1,11 @@
 import { Outlet, useNavigate } from 'react-router-dom';
 
+import type { Money } from '@leather-wallet/models';
 import type { UtxoResponseItem } from '@leather-wallet/query';
 
 import { logger } from '@shared/logger';
 import { BtcFeeType } from '@shared/models/fees/bitcoin-fees.model';
 import type { TransferRecipient } from '@shared/models/form.model';
-import type { Money } from '@shared/models/money.model';
 import { RouteUrls } from '@shared/route-urls';
 
 import { useLocationStateWithCache } from '@app/common/hooks/use-location-state';

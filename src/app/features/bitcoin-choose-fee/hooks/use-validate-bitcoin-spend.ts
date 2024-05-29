@@ -1,6 +1,7 @@
 import { useState } from 'react';
 
-import { Money, createMoney } from '@shared/models/money.model';
+import type { Money } from '@leather-wallet/models';
+import { createMoney } from '@leather-wallet/utils';
 
 import { subtractMoney, sumMoney } from '@app/common/money/calculate-money';
 import { useCurrentBtcCryptoAssetBalanceNativeSegwit } from '@app/query/bitcoin/balance/btc-balance-native-segwit.hooks';

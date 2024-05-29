@@ -1,5 +1,6 @@
 import { Dispatch, SetStateAction, useCallback, useRef } from 'react';
 
+import { createMoney } from '@leather-wallet/utils';
 import { SendCryptoAssetSelectors } from '@tests/selectors/send.selectors';
 import { Form, Formik } from 'formik';
 import { Stack, styled } from 'leather-styles/jsx';
@@ -7,7 +8,6 @@ import * as yup from 'yup';
 
 import { BtcFeeType } from '@shared/models/fees/bitcoin-fees.model';
 import type { TransferRecipient } from '@shared/models/form.model';
-import { createMoney } from '@shared/models/money.model';
 
 import { openInNewTab } from '@app/common/utils/open-in-new-tab';
 import { Button } from '@app/ui/components/button/button';

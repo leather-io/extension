@@ -1,9 +1,9 @@
 import { useCallback } from 'react';
 
+import type { Money } from '@leather-wallet/models';
 import { useCryptoCurrencyMarketDataMeanAverage } from '@leather-wallet/query';
 
 import { CryptoCurrencies } from '@shared/models/currencies.model';
-import { type Money } from '@shared/models/money.model';
 
 import { baseCurrencyAmountInQuote } from '../money/calculate-money';
 

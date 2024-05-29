@@ -1,11 +1,10 @@
 import { useState } from 'react';
 
-import { satToBtc } from '@leather-wallet/utils';
+import { createMoney, satToBtc } from '@leather-wallet/utils';
 import { useField } from 'formik';
 import { Stack } from 'leather-styles/jsx';
 
 import type { TransferRecipient } from '@shared/models/form.model';
-import { createMoney } from '@shared/models/money.model';
 
 import { useOnMount } from '@app/common/hooks/use-on-mount';
 import { InsufficientFundsError } from '@app/common/transactions/bitcoin/coinselect/local-coin-selection';

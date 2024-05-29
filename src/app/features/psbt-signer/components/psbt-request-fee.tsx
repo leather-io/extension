@@ -1,7 +1,6 @@
+import type { Money } from '@leather-wallet/models';
 import { useCalculateBitcoinFiatValue } from '@leather-wallet/query';
 import { HStack, Stack, styled } from 'leather-styles/jsx';
-
-import { Money } from '@shared/models/money.model';
 
 import { formatMoney, i18nFormatCurrency } from '@app/common/money/format-money';
 

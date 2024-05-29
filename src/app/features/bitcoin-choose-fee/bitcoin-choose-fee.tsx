@@ -1,10 +1,10 @@
 import { useState } from 'react';
 
+import type { Money } from '@leather-wallet/models';
 import { Box, FlexProps, Stack, styled } from 'leather-styles/jsx';
 
 import { BtcFeeType } from '@shared/models/fees/bitcoin-fees.model';
 import type { TransferRecipient } from '@shared/models/form.model';
-import { Money } from '@shared/models/money.model';
 
 import { formatMoney } from '@app/common/money/format-money';
 import { BitcoinCustomFee } from '@app/components/bitcoin-custom-fee/bitcoin-custom-fee';

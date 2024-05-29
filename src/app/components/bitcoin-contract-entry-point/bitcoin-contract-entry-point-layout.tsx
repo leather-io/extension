@@ -1,6 +1,5 @@
+import type { Money } from '@leather-wallet/models';
 import { Flex, HStack, styled } from 'leather-styles/jsx';
-
-import { Money } from '@shared/models/money.model';
 
 import { formatBalance } from '@app/common/format-balance';
 import { ftDecimals } from '@app/common/stacks-utils';

@@ -1,12 +1,10 @@
 import { ChangeEvent } from 'react';
 
-import { isDefined, isUndefined } from '@leather-wallet/utils';
+import { createMoney, isDefined, isUndefined } from '@leather-wallet/utils';
 import { SwapSelectors } from '@tests/selectors/swap.selectors';
 import BigNumber from 'bignumber.js';
 import { useField, useFormikContext } from 'formik';
 import { Stack, styled } from 'leather-styles/jsx';
-
-import { createMoney } from '@shared/models/money.model';
 
 import { useShowFieldError } from '@app/common/form-utils';
 import { convertAmountToFractionalUnit } from '@app/common/money/calculate-money';
