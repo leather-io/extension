@@ -1,13 +1,14 @@
 import { useMemo } from 'react';
 
+import type { Money } from '@leather-wallet/models';
 import {
   type UtxoResponseItem,
   useAverageBitcoinFeeRates,
   useCryptoCurrencyMarketDataMeanAverage,
 } from '@leather-wallet/query';
+import { createMoney } from '@leather-wallet/utils';
 
 import { BtcFeeType, btcTxTimeMap } from '@shared/models/fees/bitcoin-fees.model';
-import { Money, createMoney } from '@shared/models/money.model';
 
 import { baseCurrencyAmountInQuote } from '@app/common/money/calculate-money';
 import { formatMoneyPadded, i18nFormatCurrency } from '@app/common/money/format-money';

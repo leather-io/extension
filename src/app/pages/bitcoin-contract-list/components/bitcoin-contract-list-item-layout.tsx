@@ -1,10 +1,8 @@
 import { useCallback } from 'react';
 
 import { useCryptoCurrencyMarketDataMeanAverage } from '@leather-wallet/query';
-import { satToBtc } from '@leather-wallet/utils';
+import { createMoneyFromDecimal, satToBtc } from '@leather-wallet/utils';
 import { Flex, HStack, styled } from 'leather-styles/jsx';
-
-import { createMoneyFromDecimal } from '@shared/models/money.model';
 
 import { useBitcoinExplorerLink } from '@app/common/hooks/use-bitcoin-explorer-link';
 import { baseCurrencyAmountInQuote } from '@app/common/money/calculate-money';

@@ -1,3 +1,5 @@
+import type { Money } from '@leather-wallet/models';
+import { createMoney } from '@leather-wallet/utils';
 import { bytesToHex } from '@stacks/common';
 import { StacksTransaction, serializePayload } from '@stacks/transactions';
 import { BigNumber } from 'bignumber.js';
@@ -9,7 +11,6 @@ import {
   StacksFeeEstimate,
   StacksTxFeeEstimation,
 } from '@shared/models/fees/stacks-fees.model';
-import { Money, createMoney } from '@shared/models/money.model';
 
 const defaultFeesMaxValues = [500000, 750000, 2000000];
 const defaultFeesMinValues = [2500, 3000, 3500];

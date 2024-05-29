@@ -1,4 +1,4 @@
-import { Money } from '@shared/models/money.model';
+import type { Money } from '@leather-wallet/models';
 
 const thinSpace = ' ';
 

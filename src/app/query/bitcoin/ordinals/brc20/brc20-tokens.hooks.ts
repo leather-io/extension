@@ -8,11 +8,10 @@ import {
   useGetBrc20TokensQuery,
   useOrdinalsbotClient,
 } from '@leather-wallet/query';
-import { unitToFractionalUnit } from '@leather-wallet/utils';
+import { createMoney, unitToFractionalUnit } from '@leather-wallet/utils';
 import BigNumber from 'bignumber.js';
 
 import { createMarketData, createMarketPair } from '@shared/models/market.model';
-import { createMoney } from '@shared/models/money.model';
 
 import { createCryptoAssetBalance } from '@app/query/common/models';
 import { isFetchedWithSuccess } from '@app/query/query-config';

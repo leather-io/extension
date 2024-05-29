@@ -1,7 +1,6 @@
 import type { Stx20CryptoAssetInfo } from '@leather-wallet/models';
+import { createMoney } from '@leather-wallet/utils';
 import BigNumber from 'bignumber.js';
-
-import { createMoney } from '@shared/models/money.model';
 
 import { createCryptoAssetBalance } from '@app/query/common/models';
 

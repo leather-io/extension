@@ -1,7 +1,7 @@
-import { unitToFractionalUnit } from '@leather-wallet/utils';
+import type { Money } from '@leather-wallet/models';
+import { createMoney, unitToFractionalUnit } from '@leather-wallet/utils';
 
 import type { MarketData } from '@shared/models/market.model';
-import { type Money, createMoney } from '@shared/models/money.model';
 
 import { baseCurrencyAmountInQuote } from '@app/common/money/calculate-money';
 import { isMoneyGreaterThanZero } from '@app/common/money/money.utils';

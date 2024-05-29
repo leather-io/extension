@@ -1,8 +1,7 @@
 import { useMemo } from 'react';
 
 import { useCryptoCurrencyMarketDataMeanAverage } from '@leather-wallet/query';
-
-import { createMoney } from '@shared/models/money.model';
+import { createMoney } from '@leather-wallet/utils';
 
 import { baseCurrencyAmountInQuote } from '@app/common/money/calculate-money';
 import { i18nFormatCurrency } from '@app/common/money/format-money';

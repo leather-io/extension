@@ -1,6 +1,4 @@
-import type { Inscription } from '@leather-wallet/models';
-
-import type { Money } from './money.model';
+import type { Inscription, Money } from '@leather-wallet/models';
 
 export interface BitcoinSendFormValues {
   amount: number | string;

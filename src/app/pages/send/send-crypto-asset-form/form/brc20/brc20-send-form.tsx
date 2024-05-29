@@ -1,12 +1,12 @@
 import { Outlet, useLocation } from 'react-router-dom';
 
+import type { Money } from '@leather-wallet/models';
 import { SendCryptoAssetSelectors } from '@tests/selectors/send.selectors';
 import { Form, Formik } from 'formik';
 import { Box, styled } from 'leather-styles/jsx';
 import get from 'lodash.get';
 
 import type { MarketData } from '@shared/models/market.model';
-import type { Money } from '@shared/models/money.model';
 
 import { convertAmountToBaseUnit } from '@app/common/money/calculate-money';
 import { formatMoney } from '@app/common/money/format-money';

@@ -1,3 +1,4 @@
+import type { Money } from '@leather-wallet/models';
 import type { UtxoResponseItem } from '@leather-wallet/query';
 import {
   btcToSat,
@@ -10,7 +11,6 @@ import {
 import BigNumber from 'bignumber.js';
 import * as yup from 'yup';
 
-import { Money } from '@shared/models/money.model';
 import { analytics } from '@shared/utils/analytics';
 
 import { convertAmountToBaseUnit } from '@app/common/money/calculate-money';

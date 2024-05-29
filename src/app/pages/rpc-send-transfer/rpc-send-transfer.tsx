@@ -1,6 +1,5 @@
+import { createMoney } from '@leather-wallet/utils';
 import BigNumber from 'bignumber.js';
-
-import { createMoney } from '@shared/models/money.model';
 
 import { formatMoneyPadded } from '@app/common/money/format-money';
 import { InfoCardFooter } from '@app/components/info-card/info-card';

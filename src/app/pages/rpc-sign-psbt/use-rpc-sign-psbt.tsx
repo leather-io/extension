@@ -1,6 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 
 import { RpcErrorCode } from '@btckit/types';
+import type { Money } from '@leather-wallet/models';
 import {
   useBitcoinBroadcastTransaction,
   useCalculateBitcoinFiatValue,
@@ -10,7 +11,6 @@ import { isError } from '@leather-wallet/utils';
 import { hexToBytes } from '@noble/hashes/utils';
 import { bytesToHex } from '@stacks/common';
 
-import { Money } from '@shared/models/money.model';
 import { RouteUrls } from '@shared/route-urls';
 import { makeRpcErrorResponse, makeRpcSuccessResponse } from '@shared/rpc/rpc-methods';
 import { closeWindow } from '@shared/utils';

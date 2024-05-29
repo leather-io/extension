@@ -5,7 +5,7 @@ import {
   useBitcoinBroadcastTransaction,
   useCryptoCurrencyMarketDataMeanAverage,
 } from '@leather-wallet/query';
-import { satToBtc } from '@leather-wallet/utils';
+import { createMoney, createMoneyFromDecimal, satToBtc } from '@leather-wallet/utils';
 import { hexToBytes } from '@noble/hashes/utils';
 import * as btc from '@scure/btc-signer';
 import { SendCryptoAssetSelectors } from '@tests/selectors/send.selectors';
@@ -15,7 +15,6 @@ import get from 'lodash.get';
 
 import { decodeBitcoinTx } from '@shared/crypto/bitcoin/bitcoin.utils';
 import { CryptoCurrencies } from '@shared/models/currencies.model';
-import { createMoney, createMoneyFromDecimal } from '@shared/models/money.model';
 import { RouteUrls } from '@shared/route-urls';
 
 import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';

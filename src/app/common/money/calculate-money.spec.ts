@@ -1,7 +1,7 @@
+import { createMoney, createMoneyFromDecimal } from '@leather-wallet/utils';
 import BigNumber from 'bignumber.js';
 
 import { MarketData, createMarketData, createMarketPair } from '@shared/models/market.model';
-import { createMoney, createMoneyFromDecimal } from '@shared/models/money.model';
 
 import {
   baseCurrencyAmountInQuote,

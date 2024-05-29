@@ -1,8 +1,8 @@
-import type { StxCryptoAssetBalance } from '@leather-wallet/models';
+import type { Money, StxCryptoAssetBalance } from '@leather-wallet/models';
+import { createMoney } from '@leather-wallet/utils';
 import BigNumber from 'bignumber.js';
 
 import { AccountBalanceStxKeys, type AddressBalanceResponse } from '@shared/models/account.model';
-import { Money, createMoney } from '@shared/models/money.model';
 
 import { subtractMoney, sumMoney } from '@app/common/money/calculate-money';
 import { useCurrentStacksAccountAddress } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';

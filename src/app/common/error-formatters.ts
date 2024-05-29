@@ -1,7 +1,7 @@
+import type { Money } from '@leather-wallet/models';
 import { isFunction } from '@leather-wallet/utils';
 
 import { FormErrorMessages } from '@shared/error-messages';
-import { Money } from '@shared/models/money.model';
 
 export function formatPrecisionError(num?: Money) {
   if (!num) return FormErrorMessages.CannotDeterminePrecision;

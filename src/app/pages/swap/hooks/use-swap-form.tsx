@@ -1,10 +1,10 @@
+import { createMoney } from '@leather-wallet/utils';
 import BigNumber from 'bignumber.js';
 import * as yup from 'yup';
 
 import { FormErrorMessages } from '@shared/error-messages';
 import { FeeTypes } from '@shared/models/fees/fees.model';
 import { StacksTransactionFormValues } from '@shared/models/form.model';
-import { createMoney } from '@shared/models/money.model';
 
 import { convertAmountToFractionalUnit } from '@app/common/money/calculate-money';
 import type { SwapAsset } from '@app/query/common/alex-sdk/alex-sdk.hooks';

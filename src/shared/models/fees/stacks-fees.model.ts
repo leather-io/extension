@@ -1,4 +1,4 @@
-import { Money } from '../money.model';
+import type { Money } from '@leather-wallet/models';
 
 export interface StacksFeeEstimate {
   fee: Money;

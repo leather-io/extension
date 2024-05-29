@@ -1,11 +1,11 @@
 import { type ChangeEvent, useCallback, useEffect, useRef, useState } from 'react';
 
+import type { Money } from '@leather-wallet/models';
 import { SendCryptoAssetSelectors } from '@tests/selectors/send.selectors';
 import { useField } from 'formik';
 import { Box, Flex, Stack, styled } from 'leather-styles/jsx';
 
 import { STX_DECIMALS, TOKEN_NAME_LENGTH } from '@shared/constants';
-import { Money } from '@shared/models/money.model';
 
 import { useShowFieldError } from '@app/common/form-utils';
 import { linearInterpolation } from '@app/common/utils';

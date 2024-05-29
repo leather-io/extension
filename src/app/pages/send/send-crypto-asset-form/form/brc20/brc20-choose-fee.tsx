@@ -2,12 +2,12 @@ import { useState } from 'react';
 import { Outlet, useLocation, useNavigate } from 'react-router-dom';
 
 import type { UtxoResponseItem } from '@leather-wallet/query';
+import { createMoney } from '@leather-wallet/utils';
 import { Stack } from 'leather-styles/jsx';
 import get from 'lodash.get';
 
 import { logger } from '@shared/logger';
 import { BtcFeeType } from '@shared/models/fees/bitcoin-fees.model';
-import { createMoney } from '@shared/models/money.model';
 import { RouteUrls } from '@shared/route-urls';
 
 import { formFeeRowValue } from '@app/common/send/utils';

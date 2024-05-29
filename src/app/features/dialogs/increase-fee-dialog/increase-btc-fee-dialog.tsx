@@ -1,11 +1,10 @@
 import { Suspense } from 'react';
 import { Outlet, useLocation, useNavigate } from 'react-router-dom';
 
-import { btcToSat } from '@leather-wallet/utils';
+import { btcToSat, createMoney } from '@leather-wallet/utils';
 import { Formik } from 'formik';
 import { Flex, Stack } from 'leather-styles/jsx';
 
-import { createMoney } from '@shared/models/money.model';
 import { BitcoinTx } from '@shared/models/transactions/bitcoin-transaction.model';
 import { RouteUrls } from '@shared/route-urls';
 

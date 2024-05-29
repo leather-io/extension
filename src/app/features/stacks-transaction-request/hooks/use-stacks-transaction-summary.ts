@@ -1,5 +1,5 @@
 import { useCryptoCurrencyMarketDataMeanAverage } from '@leather-wallet/query';
-import { isDefined, microStxToStx } from '@leather-wallet/utils';
+import { createMoney, isDefined, microStxToStx } from '@leather-wallet/utils';
 import { bytesToUtf8 } from '@stacks/common';
 import {
   ClarityType,
@@ -14,7 +14,6 @@ import {
 import BigNumber from 'bignumber.js';
 
 import { CryptoCurrencies } from '@shared/models/currencies.model';
-import { createMoney } from '@shared/models/money.model';
 
 import {
   baseCurrencyAmountInQuote,

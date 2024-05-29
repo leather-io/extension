@@ -1,9 +1,12 @@
-import { isDefined, isUndefined, microStxToStx } from '@leather-wallet/utils';
+import {
+  createMoneyFromDecimal,
+  isDefined,
+  isUndefined,
+  microStxToStx,
+} from '@leather-wallet/utils';
 import { SwapSelectors } from '@tests/selectors/swap.selectors';
 import BigNumber from 'bignumber.js';
 import { HStack, styled } from 'leather-styles/jsx';
-
-import { createMoneyFromDecimal } from '@shared/models/money.model';
 
 import { formatMoneyPadded } from '@app/common/money/format-money';
 import { getEstimatedConfirmationTime } from '@app/common/transactions/stacks/transaction.utils';
