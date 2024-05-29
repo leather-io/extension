@@ -1,8 +1,8 @@
 import {
+  type Sip10CryptoAssetFilter,
   type Sip10TokenAssetDetails,
   useFilteredSip10Tokens,
-} from '@app/query/stacks/sip10/sip10-tokens.hooks';
-import type { Sip10CryptoAssetFilter } from '@app/query/stacks/sip10/sip10-tokens.utils';
+} from '@leather-wallet/query';
 
 interface Sip10TokensLoaderProps {
   address: string;

@@ -8,9 +8,9 @@ import { SubmittedTransaction } from '@app/store/submitted-transactions/submitte
 
 type SubmittedTransactionListItemProps = SubmittedTransaction;
 
-export function SubmittedTransactionListItem({ rawTx, txId }: SubmittedTransactionListItemProps) {
+export function SubmittedTransactionListItem({ rawTx, txid }: SubmittedTransactionListItemProps) {
   const submittedTx = useMemo(() => deserializeTransaction(rawTx), [rawTx]);
-  return <SubmittedTransactionItem transaction={submittedTx} txId={txId} />;
+  return <SubmittedTransactionItem transaction={submittedTx} txid={txid} />;
 }
 
 interface SubmittedTransactionListLayoutProps {

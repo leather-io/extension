@@ -2,10 +2,11 @@ import { useEffect, useState } from 'react';
 
 import { useFormikContext } from 'formik';
 
+import type { StacksClient } from '@leather-wallet/query';
+
 import { BitcoinSendFormValues, StacksSendFormValues } from '@shared/models/form.model';
 
 import { RecipientAddressTypeField } from '@app/pages/send/send-crypto-asset-form/components/recipient-address-type-field';
-import { StacksClient } from '@app/query/stacks/stacks-client';
 
 import { RecipientAddressDisplayer } from './components/recipient-address-displayer';
 import { useRecipientBnsName } from './hooks/use-recipient-bns-name';

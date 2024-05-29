@@ -1,23 +1,24 @@
 import { StacksTransaction } from '@stacks/transactions';
-import { Box, HStack, Stack } from 'leather-styles/jsx';
+import { HStack, styled } from 'leather-styles/jsx';
 
+import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
 import { useStacksExplorerLink } from '@app/common/hooks/use-stacks-explorer-link';
 import { getTxSenderAddress } from '@app/common/transactions/stacks/transaction.utils';
-import { usePressable } from '@app/components/item-hover';
 import { TransactionTitle } from '@app/components/transaction/transaction-title';
+import { ItemLayout } from '@app/ui/components/item-layout/item-layout';
 import { BasicTooltip } from '@app/ui/components/tooltip/basic-tooltip';
 import { Caption } from '@app/ui/components/typography/caption';
-import { Title } from '@app/ui/components/typography/title';
+import { Pressable } from '@app/ui/pressable/pressable';
 
 import { SubmittedTransactionIcon } from './submitted-transaction-icon';
 import { getSubmittedTransactionDetails } from './submitted-transaction-list.utils';
 
 interface SubmittedTransactionItemProps {
   transaction: StacksTransaction;
-  txId: string;
+  txid: string;
 }
-export function SubmittedTransactionItem({ transaction, txId }: SubmittedTransactionItemProps) {
-  const [component, bind] = usePressable(true);
+export function SubmittedTransactionItem({ transaction, txid }: SubmittedTransactionItemProps) {
+  const analytics = useAnalytics();
   const { handleOpenStacksTxLink } = useStacksExplorerLink();
 
   if (!transaction) return null;
@@ -25,45 +26,46 @@ export function SubmittedTransactionItem({ transaction, txId }: SubmittedTransac
   const submittedTransactionDetails = getSubmittedTransactionDetails({
     payload: transaction.payload,
     senderAddress: getTxSenderAddress(transaction),
-    txId,
+    txid,
   });
+
+  const openTxLink = () => {
+    void analytics.track('view_transaction');
+    handleOpenStacksTxLink({
+      searchParams: new URLSearchParams('&submitted=true'),
+      txid,
+    });
+  };
 
   if (!submittedTransactionDetails) return null;
 
   const { caption, title, value } = submittedTransactionDetails;
 
   return (
-    <Box {...bind}>
-      <HStack
-        alignItems="center"
-        onClick={() =>
-          handleOpenStacksTxLink({
-            searchParams: new URLSearchParams('&submitted=true'),
-            txid: txId,
-          })
+    <Pressable onClick={openTxLink} my="space.02">
+      <ItemLayout
+        flagImg={<SubmittedTransactionIcon transaction={transaction} />}
+        titleLeft={<TransactionTitle title={title} />}
+        captionLeft={
+          <HStack alignItems="center">
+            <Caption
+              overflow="hidden"
+              textOverflow="ellipsis"
+              maxWidth={{ base: '160px', md: 'unset' }}
+            >
+              {caption}
+            </Caption>
+            <BasicTooltip
+              asChild
+              side="bottom"
+              label={'Transaction broadcasted, but not yet in the mempool'}
+            >
+              <Caption color="yellow.action-primary-default">Submitted</Caption>
+            </BasicTooltip>
+          </HStack>
         }
-        position="relative"
-        gap="space.04"
-        zIndex={2}
-      >
-        <SubmittedTransactionIcon transaction={transaction} />
-        <HStack alignItems="center" flexGrow={1} justifyContent="space-between">
-          <Stack minWidth="0px" gap="space.03">
-            <TransactionTitle title={title} />
-            <Stack flexWrap="wrap">
-              <Caption>{caption}</Caption>
-              <BasicTooltip
-                side="bottom"
-                label={'Transaction broadcasted, but not yet in the mempool'}
-              >
-                <Caption>Submitted</Caption>
-              </BasicTooltip>
-            </Stack>
-          </Stack>
-          <Box alignItems="flex-end">{value && <Title fontWeight="normal">{value}</Title>}</Box>
-        </HStack>
-      </HStack>
-      {component}
-    </Box>
+        titleRight={<styled.span textStyle="label.02">{value}</styled.span>}
+      />
+    </Pressable>
   );
 }

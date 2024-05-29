@@ -1,7 +1,7 @@
 import type { StxCryptoAssetBalance } from '@leather-wallet/models';
+import { useStxCryptoAssetBalance } from '@leather-wallet/query';
 
 import { isFetchedWithSuccess } from '@app/query/query-config';
-import { useStxCryptoAssetBalance } from '@app/query/stacks/balance/account-balance.hooks';
 
 interface StxBalanceLoaderProps {
   address: string;

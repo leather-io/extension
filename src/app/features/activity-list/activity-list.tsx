@@ -1,19 +1,21 @@
-import { useMemo } from 'react';
+import { useEffect, useMemo } from 'react';
 import { Outlet } from 'react-router-dom';
 
 import uniqby from 'lodash.uniqby';
 
 import {
   useBitcoinPendingTransactions,
+  useGetAccountTransactionsWithTransfersQuery,
   useGetBitcoinTransactionsByAddressesQuery,
+  useStacksPendingTransactions,
 } from '@leather-wallet/query';
 
 import { LoadingSpinner } from '@app/components/loading-spinner';
 import { useConfigBitcoinEnabled } from '@app/query/common/remote-config/remote-config.query';
-import { useStacksPendingTransactions } from '@app/query/stacks/mempool/mempool.hooks';
-import { useGetAccountTransactionsWithTransfersQuery } from '@app/query/stacks/transactions/transactions-with-transfers.query';
 import { useZeroIndexTaprootAddress } from '@app/store/accounts/blockchain/bitcoin/bitcoin.hooks';
 import { useCurrentAccountNativeSegwitIndexZeroSigner } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
+import { useCurrentStacksAccountAddress } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
+import { useUpdateSubmittedTransactions } from '@app/store/submitted-transactions/submitted-transactions.hooks';
 import { useSubmittedTransactions } from '@app/store/submitted-transactions/submitted-transactions.selectors';
 
 import { convertBitcoinTxsToListType, convertStacksTxsToListType } from './activity-list.utils';
@@ -44,6 +46,8 @@ function useTrBitcoinAddress() {
 export function ActivityList() {
   const nsBitcoinAddress = useNsBitcoinAddress();
   const trBitcoinAddress = useTrBitcoinAddress();
+  const stxAddress = useCurrentStacksAccountAddress();
+  const updateSubmittedTxs = useUpdateSubmittedTransactions();
 
   const [
     { isInitialLoading: isInitialLoadingNsBitcoinTransactions, data: nsBitcoinTransactions = [] },
@@ -62,13 +66,17 @@ export function ActivityList() {
   const {
     isInitialLoading: isInitialLoadingStacksTransactions,
     data: stacksTransactionsWithTransfers,
-  } = useGetAccountTransactionsWithTransfersQuery();
+  } = useGetAccountTransactionsWithTransfersQuery(stxAddress);
   const {
     query: { isInitialLoading: isInitialLoadingStacksPendingTransactions },
     transactions: stacksPendingTransactions,
-  } = useStacksPendingTransactions();
+  } = useStacksPendingTransactions(stxAddress);
   const submittedTransactions = useSubmittedTransactions();
   const isBitcoinEnabled = useConfigBitcoinEnabled();
+
+  useEffect(() => {
+    updateSubmittedTxs(stacksPendingTransactions);
+  }, [stacksPendingTransactions, updateSubmittedTxs]);
 
   const isInitialLoading =
     isInitialLoadingNsBitcoinTransactions ||

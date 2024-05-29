@@ -1,4 +1,4 @@
-import { fetchNameOwner } from '@app/query/stacks/bns/bns.utils';
+import { fetchNameOwner } from '@leather-wallet/query';
 
 import { RecipientField } from '../../../components/recipient-fields/recipient-field';
 

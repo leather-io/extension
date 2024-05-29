@@ -26,6 +26,7 @@ const reactQueryDevToolsEnabled = process.env.REACT_QUERY_DEVTOOLS_ENABLED === '
 
 function ConnectedApp() {
   const network = useCurrentNetwork();
+
   return (
     <QueryClientProvider client={queryClient}>
       <LeatherQueryProvider

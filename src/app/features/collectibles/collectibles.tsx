@@ -51,7 +51,7 @@ export function Collectibles() {
 
       {isNftMetadataEnabled && (
         <CurrentStacksAccountLoader>
-          {account => <StacksCryptoAssets account={account} />}
+          {account => <StacksCryptoAssets address={account?.address ?? ''} />}
         </CurrentStacksAccountLoader>
       )}
 

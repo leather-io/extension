@@ -1,6 +1,7 @@
+import { useNetworkStatus } from '@leather-wallet/query';
+
 import { defaultCurrentNetwork } from '@shared/constants';
 
-import { useNetworkStatus } from '@app/query/stacks/network/network.hooks';
 import { useCurrentNetworkId, useNetworks } from '@app/store/networks/networks.selectors';
 
 import { NetworkListItemLayout } from './components/network-list-item.layout';

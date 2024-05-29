@@ -14,19 +14,19 @@ interface SubmittedTransactionDetails {
 interface GetSubmittedTransactionDetailsArgs {
   payload: StacksTransaction['payload'];
   senderAddress?: string;
-  txId: string;
+  txid: string;
 }
 export function getSubmittedTransactionDetails({
   payload,
   senderAddress,
-  txId,
+  txid,
 }: GetSubmittedTransactionDetailsArgs): SubmittedTransactionDetails | null {
   switch (payload.payloadType) {
     case PayloadType.TokenTransfer:
       return {
         caption: getTxCaption({
           tx_type: 'token_transfer',
-          tx_id: txId,
+          tx_id: txid,
         } as StacksTx),
         title: 'Stacks',
         value: `-${stacksValue({

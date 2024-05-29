@@ -1,7 +1,7 @@
 import { Page } from '@playwright/test';
 import { json } from '@tests/utils';
 
-import { mockStacksFeeRequests } from '@app/query/stacks/fees/fee.query.mocks';
+import { mockStacksFeeRequests } from './mock-stacks-fees';
 
 export async function setupMockApis(page: Page) {
   await page.route(/chrome-extension/, route => route.continue());

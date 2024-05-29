@@ -4,6 +4,7 @@ import { ContractCallPayload, TransactionTypes } from '@stacks/connect';
 import BigNumber from 'bignumber.js';
 import { useFormikContext } from 'formik';
 
+import { useContractInterface, useStxAvailableUnlockedBalance } from '@leather-wallet/query';
 import { stxToMicroStx } from '@leather-wallet/utils';
 
 import { StacksTransactionFormValues } from '@shared/models/form.model';
@@ -12,8 +13,6 @@ import { useDefaultRequestParams } from '@app/common/hooks/use-default-request-s
 import { initialSearchParams } from '@app/common/initial-search-params';
 import { validateStacksAddress } from '@app/common/stacks-utils';
 import { TransactionErrorReason } from '@app/features/stacks-transaction-request/transaction-error/transaction-error';
-import { useCurrentStxAvailableUnlockedBalance } from '@app/query/stacks/balance/account-balance.hooks';
-import { useContractInterface } from '@app/query/stacks/contract/contract.hooks';
 import { useCurrentStacksAccount } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
 import { useTransactionRequestState } from '@app/store/transactions/requests.hooks';
 
@@ -28,7 +27,7 @@ export function useTransactionError() {
   const { values } = useFormikContext<StacksTransactionFormValues>();
 
   const currentAccount = useCurrentStacksAccount();
-  const availableUnlockedBalance = useCurrentStxAvailableUnlockedBalance();
+  const availableUnlockedBalance = useStxAvailableUnlockedBalance(currentAccount?.address ?? '');
 
   return useMemo<TransactionErrorReason | void>(() => {
     if (!origin) return TransactionErrorReason.ExpiredRequest;

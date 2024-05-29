@@ -138,7 +138,7 @@
     "@leather-wallet/bitcoin": "0.7.2",
     "@leather-wallet/crypto": "1.0.1",
     "@leather-wallet/models": "0.8.0",
-    "@leather-wallet/query": "0.8.3",
+    "@leather-wallet/query": "0.8.6",
     "@leather-wallet/tokens": "0.5.2",
     "@leather-wallet/utils": "0.8.1",
     "@ledgerhq/hw-transport-webusb": "6.27.19",
@@ -268,7 +268,7 @@
     "@sentry/react": "7.106.0",
     "@sentry/webpack-plugin": "2.17.0",
     "@stacks/connect-react": "22.2.0",
-    "@stacks/stacks-blockchain-api-types": "6.3.4",
+    "@stacks/stacks-blockchain-api-types": "7.8.2",
     "@storybook/addon-docs": "8.0.1",
     "@storybook/addon-essentials": "8.0.1",
     "@storybook/addon-interactions": "8.0.1",
@@ -360,6 +360,7 @@
     "webpack-shell-plugin": "0.5.0"
   },
   "resolutions": {
+    "braces": "3.0.3",
     "nanoid": "3.3.4",
     "socket.io-parser": "4.2.4",
     "wrap-ansi": "7.0.0",

@@ -1,25 +1,46 @@
-import { useMemo } from 'react';
+import { useCallback, useMemo } from 'react';
 
+import type { MempoolTransaction } from '@stacks/stacks-blockchain-api-types';
+
+import { safelyFormatHexTxid } from '@app/common/utils/safe-handle-txid';
 import { useAppDispatch } from '@app/store';
 
 import { submittedTransactionsActions } from './submitted-transactions.actions';
+import { useSubmittedTransactions } from './submitted-transactions.selectors';
 import { SubmittedTransaction } from './submitted-transactions.slice';
+
+export function useUpdateSubmittedTransactions() {
+  const submittedTransactions = useSubmittedTransactions();
+  const submittedTransactionsActions = useSubmittedTransactionsActions();
+  return useCallback(
+    (data: MempoolTransaction[]) => {
+      const pendingTxids = data.map(tx => tx.tx_id);
+      submittedTransactions.map(tx => {
+        return;
+        if (pendingTxids.includes(safelyFormatHexTxid(tx.txid)))
+          return submittedTransactionsActions.transactionEnteredMempool(tx.txid);
+        return;
+      });
+    },
+    [submittedTransactions, submittedTransactionsActions]
+  );
+}
 
 export function useSubmittedTransactionsActions() {
   const dispatch = useAppDispatch();
 
   return useMemo(
     () => ({
-      newTransactionSubmitted({ rawTx, txId }: SubmittedTransaction) {
-        return dispatch(submittedTransactionsActions.newTransactionSubmitted({ rawTx, txId }));
+      newTransactionSubmitted({ rawTx, txid }: SubmittedTransaction) {
+        return dispatch(submittedTransactionsActions.newTransactionSubmitted({ rawTx, txid }));
       },
 
-      transactionEnteredMempool(txId: string) {
-        return dispatch(submittedTransactionsActions.transactionEnteredMempool(txId));
+      transactionEnteredMempool(txid: string) {
+        return dispatch(submittedTransactionsActions.transactionEnteredMempool(txid));
       },
 
-      transactionReplacedByFee(txId: string) {
-        return dispatch(submittedTransactionsActions.transactionReplacedByFee(txId));
+      transactionReplacedByFee(txid: string) {
+        return dispatch(submittedTransactionsActions.transactionReplacedByFee(txid));
       },
     }),
     [dispatch]

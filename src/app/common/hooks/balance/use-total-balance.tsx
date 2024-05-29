@@ -1,10 +1,12 @@
 import { useMemo } from 'react';
 
-import { useCryptoCurrencyMarketDataMeanAverage } from '@leather-wallet/query';
+import {
+  useCryptoCurrencyMarketDataMeanAverage,
+  useStxCryptoAssetBalance,
+} from '@leather-wallet/query';
 import { baseCurrencyAmountInQuote, createMoney, i18nFormatCurrency } from '@leather-wallet/utils';
 
 import { useBtcCryptoAssetBalanceNativeSegwit } from '@app/query/bitcoin/balance/btc-balance-native-segwit.hooks';
-import { useStxCryptoAssetBalance } from '@app/query/stacks/balance/account-balance.hooks';
 
 interface UseTotalBalanceArgs {
   btcAddress: string;

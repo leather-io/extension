@@ -2,11 +2,11 @@ import { PayloadAction, createEntityAdapter, createSlice } from '@reduxjs/toolki
 
 export interface SubmittedTransaction {
   rawTx: string;
-  txId: string;
+  txid: string;
 }
 
 export const submittedTransactionsAdapter = createEntityAdapter<SubmittedTransaction, string>({
-  selectId: submittedTransaction => submittedTransaction.txId,
+  selectId: submittedTransaction => submittedTransaction.txid,
 });
 
 const initialSubmittedTransactionsState = submittedTransactionsAdapter.getInitialState();

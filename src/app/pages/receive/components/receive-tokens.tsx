@@ -4,9 +4,10 @@ import { HomePageSelectors } from '@tests/selectors/home.selectors';
 import { css } from 'leather-styles/css';
 import { Stack } from 'leather-styles/jsx';
 
+import { useAlexSwappableAssets } from '@leather-wallet/query';
+
 import { copyToClipboard } from '@app/common/utils/copy-to-clipboard';
 import { useToast } from '@app/features/toasts/use-toast';
-import { useAlexSwappableAssets } from '@app/query/common/alex-sdk/alex-sdk.hooks';
 import { useConfigRunesEnabled } from '@app/query/common/remote-config/remote-config.query';
 import { useCurrentNetwork } from '@app/store/networks/networks.selectors';
 import { Avatar, defaultFallbackDelay } from '@app/ui/components/avatar/avatar';
@@ -36,7 +37,7 @@ export function ReceiveTokens({
   const toast = useToast();
   const network = useCurrentNetwork();
   const runesEnabled = useConfigRunesEnabled();
-  const { data: swapAssets = [] } = useAlexSwappableAssets();
+  const { data: swapAssets = [] } = useAlexSwappableAssets(stxAddress);
 
   const receivableAssets = useMemo(
     () =>
