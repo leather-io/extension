@@ -20,12 +20,7 @@ function createBtcCryptoAssetBalance(balance: Money): BtcCryptoAssetBalance {
 export function useBtcCryptoAssetBalanceNativeSegwit(address: string) {
   const runesEnabled = useRunesEnabled();
 
-  const {
-    data: utxos,
-    isInitialLoading,
-    isLoading,
-    isFetching,
-  } = useNativeSegwitUtxosByAddress({
+  const query = useNativeSegwitUtxosByAddress({
     address,
     filterInscriptionUtxos: true,
     filterPendingTxsUtxos: true,
@@ -33,18 +28,16 @@ export function useBtcCryptoAssetBalanceNativeSegwit(address: string) {
   });
 
   const balance = useMemo(() => {
-    if (isUndefined(utxos))
+    if (isUndefined(query.data))
       return createBtcCryptoAssetBalance(createMoney(new BigNumber(0), 'BTC'));
     return createBtcCryptoAssetBalance(
-      createMoney(sumNumbers(utxos.map(utxo => utxo.value)), 'BTC')
+      createMoney(sumNumbers(query.data.map(utxo => utxo.value)), 'BTC')
     );
-  }, [utxos]);
+  }, [query.data]);
 
   return {
     balance,
-    isInitialLoading,
-    isLoading,
-    isFetching,
+    query,
   };
 }
 

@@ -8,7 +8,6 @@ interface SkeletonLoaderProps {
   width?: string;
   height?: string;
 }
-
 export function SkeletonLoader({
   children,
   width = '30px',
