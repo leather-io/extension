@@ -1,4 +1,4 @@
-import { P2Ret } from '@scure/btc-signer';
+import { P2Ret } from '@scure/btc-signer/payment';
 
 import { useConfigBitcoinEnabled } from '@app/query/common/remote-config/remote-config.query';
 import { useCurrentAccountIndex } from '@app/store/accounts/account';

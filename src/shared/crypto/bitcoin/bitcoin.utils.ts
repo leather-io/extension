@@ -3,6 +3,7 @@ import { defaultWalletKeyId, isDefined, whenNetwork } from '@leather-wallet/util
 import { hexToBytes } from '@noble/hashes/utils';
 import { HDKey, Versions } from '@scure/bip32';
 import * as btc from '@scure/btc-signer';
+import type { TransactionInput, TransactionOutput } from '@scure/btc-signer/psbt';
 
 import { BitcoinNetworkModes, NetworkModes } from '@shared/constants';
 import { logger } from '@shared/logger';
@@ -95,10 +96,7 @@ export function getAddressFromOutScript(script: Uint8Array, bitcoinNetwork: BtcS
   }
 }
 
-export function getBitcoinInputAddress(
-  input: btc.TransactionInput,
-  bitcoinNetwork: BtcSignerNetwork
-) {
+export function getBitcoinInputAddress(input: TransactionInput, bitcoinNetwork: BtcSignerNetwork) {
   if (isDefined(input.witnessUtxo))
     return getAddressFromOutScript(input.witnessUtxo.script, bitcoinNetwork);
   if (isDefined(input.nonWitnessUtxo) && isDefined(input.index))
@@ -109,7 +107,7 @@ export function getBitcoinInputAddress(
   return '';
 }
 
-export function getBitcoinInputValue(input: btc.TransactionInput) {
+export function getBitcoinInputValue(input: TransactionInput) {
   if (isDefined(input.witnessUtxo)) return Number(input.witnessUtxo.amount);
   if (isDefined(input.nonWitnessUtxo) && isDefined(input.index))
     return Number(input.nonWitnessUtxo.outputs[input.index]?.amount);
@@ -251,20 +249,20 @@ export function getTaprootAddress({ index, keychain, network }: GetTaprootAddres
 
 export function getPsbtTxInputs(psbtTx: btc.Transaction) {
   const inputsLength = psbtTx.inputsLength;
-  const inputs: btc.TransactionInput[] = [];
+  const inputs: TransactionInput[] = [];
   for (let i = 0; i < inputsLength; i++) inputs.push(psbtTx.getInput(i));
   return inputs;
 }
 
 export function getPsbtTxOutputs(psbtTx: btc.Transaction) {
   const outputsLength = psbtTx.outputsLength;
-  const outputs: btc.TransactionOutput[] = [];
+  const outputs: TransactionOutput[] = [];
   for (let i = 0; i < outputsLength; i++) outputs.push(psbtTx.getOutput(i));
   return outputs;
 }
 
 export function getInputPaymentType(
-  input: btc.TransactionInput,
+  input: TransactionInput,
   network: BitcoinNetworkModes
 ): PaymentType {
   const address = getBitcoinInputAddress(input, getBtcSignerLibNetworkConfigByMode(network));

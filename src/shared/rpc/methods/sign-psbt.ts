@@ -1,5 +1,10 @@
-import { DefineRpcMethod, RpcRequest, RpcResponse, SignatureHash } from '@btckit/types';
-import * as btc from '@scure/btc-signer';
+import {
+  SignatureHash as BtcKitSignatureHash,
+  DefineRpcMethod,
+  RpcRequest,
+  RpcResponse,
+} from '@btckit/types';
+import { SignatureHash } from '@scure/btc-signer/transaction';
 import * as yup from 'yup';
 
 import { WalletDefaultNetworkConfigurationIds } from '@shared/constants';
@@ -13,17 +18,17 @@ import {
 } from './validation.utils';
 
 // TODO: Revisit allowedSighash type if/when fixed in btc-signer
-export type AllowedSighashTypes = SignatureHash | btc.SignatureHash;
+export type AllowedSighashTypes = BtcKitSignatureHash | SignatureHash;
 // Pass all sighashTypes through as allowed to btc-signer
 export const allSighashTypes = [
-  btc.SignatureHash.DEFAULT,
-  SignatureHash.ALL,
-  SignatureHash.NONE,
-  SignatureHash.SINGLE,
-  btc.SignatureHash.ANYONECANPAY,
-  SignatureHash.ALL_ANYONECANPAY,
-  SignatureHash.NONE_ANYONECANPAY,
-  SignatureHash.SINGLE_ANYONECANPAY,
+  SignatureHash.DEFAULT,
+  BtcKitSignatureHash.ALL,
+  BtcKitSignatureHash.NONE,
+  BtcKitSignatureHash.SINGLE,
+  SignatureHash.ANYONECANPAY,
+  BtcKitSignatureHash.ALL_ANYONECANPAY,
+  BtcKitSignatureHash.NONE_ANYONECANPAY,
+  BtcKitSignatureHash.SINGLE_ANYONECANPAY,
 ];
 
 const rpcSignPsbtParamsSchema = yup.object().shape({

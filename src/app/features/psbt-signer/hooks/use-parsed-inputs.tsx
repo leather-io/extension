@@ -3,7 +3,7 @@ import { useMemo } from 'react';
 import type { Inscription } from '@leather-wallet/models';
 import { useInscriptionsByOutputs } from '@leather-wallet/query';
 import { isDefined, isUndefined } from '@leather-wallet/utils';
-import * as btc from '@scure/btc-signer';
+import type { TransactionInput } from '@scure/btc-signer/psbt';
 import { bytesToHex } from '@stacks/common';
 
 import { getBtcSignerLibNetworkConfigByMode } from '@shared/crypto/bitcoin/bitcoin.network';
@@ -24,7 +24,7 @@ export interface PsbtInput {
 }
 
 interface UseParsedInputsArgs {
-  inputs: btc.TransactionInput[];
+  inputs: TransactionInput[];
   indexesToSign?: number[];
 }
 export function useParsedInputs({ inputs, indexesToSign }: UseParsedInputsArgs) {

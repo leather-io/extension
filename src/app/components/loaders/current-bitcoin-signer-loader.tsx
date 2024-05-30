@@ -1,4 +1,4 @@
-import type { P2Ret, P2TROut } from '@scure/btc-signer';
+import type { P2Ret, P2TROut } from '@scure/btc-signer/payment';
 
 import { ZERO_INDEX } from '@shared/constants';
 
