@@ -1,7 +1,7 @@
 import { useMemo } from 'react';
 
 import { isDefined, isUndefined } from '@leather-wallet/utils';
-import * as btc from '@scure/btc-signer';
+import type { TransactionOutput } from '@scure/btc-signer/psbt';
 
 import { NetworkConfiguration } from '@shared/constants';
 import { getBtcSignerLibNetworkConfigByMode } from '@shared/crypto/bitcoin/bitcoin.network';
@@ -20,7 +20,7 @@ export interface PsbtOutput {
 
 interface UseParsedOutputsArgs {
   isPsbtMutable: boolean;
-  outputs: btc.TransactionOutput[];
+  outputs: TransactionOutput[];
   network: NetworkConfiguration;
 }
 export function useParsedOutputs({ isPsbtMutable, outputs, network }: UseParsedOutputsArgs) {
