@@ -40,8 +40,8 @@ dependencies:
     specifier: 0.4.0
     version: 0.4.0
   '@leather-wallet/utils':
-    specifier: 0.6.5
-    version: 0.6.5
+    specifier: 0.6.6
+    version: 0.6.6
   '@ledgerhq/hw-transport-webusb':
     specifier: 6.27.19
     version: 6.27.19
@@ -4059,6 +4059,12 @@ packages:
     dependencies:
       bignumber.js: 9.1.2
 
+  /@leather-wallet/models@0.6.6:
+    resolution: {integrity: sha512-RRQ2rk7zB8bTIDCO4nTwBowJ/rcBRYn/5MfDEKDPOEYW7BsmgKZH5PHxhAYrutW0WW8XqOUTOSXvwvoGKu1oXw==}
+    dependencies:
+      bignumber.js: 9.1.2
+    dev: false
+
   /@leather-wallet/panda-preset@0.0.5(jsdom@22.1.0)(typescript@5.4.5):
     resolution: {integrity: sha512-k29QTiQdypzk1NYCvs69C7SnFw2xkAReBGcsTItbff5RGim4u83JfpxfE77HAZucSNDYND+73m5F3gORSOaRdw==}
     dependencies:
@@ -4114,6 +4120,12 @@ packages:
       - react-native
     dev: false
 
+  /@leather-wallet/rpc@0.3.10:
+    resolution: {integrity: sha512-H0Iz8fjGeYDJcBlzUEkthmLcLaXQvX4m3kp8tA4Tyx6ntdji3PA49cFEwUDUEGIHmOFYy0IEvO34cAmKufs5xw==}
+    dependencies:
+      '@leather-wallet/models': 0.6.6
+    dev: false
+
   /@leather-wallet/rpc@0.3.9:
     resolution: {integrity: sha512-q0uKPqrSLv9/hj5gairpEm5hG1JdJ9sFOa6fapL9a4EsQzGbbNS6bOF7pNknMo/7cRGzTfDJmFlxLreLsGB1Gg==}
     dependencies:
@@ -4129,6 +4141,15 @@ packages:
       '@leather-wallet/constants': 0.6.1
       '@leather-wallet/models': 0.6.5
       '@leather-wallet/rpc': 0.3.9
+      bignumber.js: 9.1.2
+    dev: false
+
+  /@leather-wallet/utils@0.6.6:
+    resolution: {integrity: sha512-X1fS08b0znP6DkMWff2EaMtR2tdU/szQrNq4p16M7tw0BR8IRWcGtGtsqLl71zo28/qKrEe8PqZxv02hzvd2gA==}
+    dependencies:
+      '@leather-wallet/constants': 0.6.1
+      '@leather-wallet/models': 0.6.6
+      '@leather-wallet/rpc': 0.3.10
       bignumber.js: 9.1.2
     dev: false
 
