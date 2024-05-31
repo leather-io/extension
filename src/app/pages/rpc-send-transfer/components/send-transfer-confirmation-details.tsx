@@ -1,7 +1,6 @@
 import type { Money } from '@leather-wallet/models';
+import { formatMoney } from '@leather-wallet/utils';
 import { HStack, Stack, styled } from 'leather-styles/jsx';
-
-import { formatMoney } from '@app/common/money/format-money';
 
 interface SendTransferConfirmationDetailsProps {
   currentAddress: string;

@@ -1,5 +1,6 @@
 import {
   createMoneyFromDecimal,
+  formatMoneyPadded,
   isDefined,
   isUndefined,
   microStxToStx,
@@ -8,7 +9,6 @@ import { SwapSelectors } from '@tests/selectors/swap.selectors';
 import BigNumber from 'bignumber.js';
 import { HStack, styled } from 'leather-styles/jsx';
 
-import { formatMoneyPadded } from '@app/common/money/format-money';
 import { getEstimatedConfirmationTime } from '@app/common/transactions/stacks/transaction.utils';
 import { SwapSubmissionData, useSwapContext } from '@app/pages/swap/swap.context';
 import { useStacksBlockTime } from '@app/query/stacks/info/info.hooks';

@@ -1,4 +1,5 @@
-import { formatMoney } from '@app/common/money/format-money';
+import { formatMoney } from '@leather-wallet/utils';
+
 import { Caption } from '@app/ui/components/typography/caption';
 
 import { BitcoinNativeSegwitAccountLoader } from '../loaders/bitcoin-account-loader';

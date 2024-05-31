@@ -1,9 +1,8 @@
 import { useCallback, useMemo } from 'react';
 
-import { createMoney } from '@leather-wallet/utils';
+import { createMoney, subtractMoney } from '@leather-wallet/utils';
 import * as btc from '@scure/btc-signer';
 
-import { subtractMoney } from '@app/common/money/calculate-money';
 import { useCurrentAccountNativeSegwitIndexZeroSigner } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
 import { useCurrentAccountTaprootIndexZeroSigner } from '@app/store/accounts/blockchain/bitcoin/taproot-account.hooks';
 import { useCurrentNetwork } from '@app/store/networks/networks.selectors';

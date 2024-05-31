@@ -1,6 +1,5 @@
-import { createMoney, truncateMiddle } from '@leather-wallet/utils';
+import { createMoney, formatMoney, truncateMiddle } from '@leather-wallet/utils';
 
-import { formatMoney } from '@app/common/money/format-money';
 import { PsbtInput } from '@app/features/psbt-signer/hooks/use-parsed-inputs';
 import { TagWithTooltip } from '@app/ui/components/tag/tag-with-tooltip';
 

@@ -1,10 +1,10 @@
 import type { Money } from '@leather-wallet/models';
+import { formatDustUsdAmounts, i18nFormatCurrency } from '@leather-wallet/utils';
 import { SharedComponentsSelectors } from '@tests/selectors/shared-component.selectors';
 import { styled } from 'leather-styles/jsx';
 
 import { CryptoCurrencies } from '@shared/models/currencies.model';
 
-import { formatDustUsdAmounts, i18nFormatCurrency } from '@app/common/money/format-money';
 import { BasicTooltip } from '@app/ui/components/tooltip/basic-tooltip';
 
 interface TransactionFeeProps {
