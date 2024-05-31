@@ -102,6 +102,9 @@ export function determineUtxosForSpend({ feeRate, recipients, utxos }: Determine
     new BigNumber(estimateTransactionSize().txVBytes).multipliedBy(feeRate).toNumber()
   );
 
+  const changeAmount =
+    BigInt(getUtxoTotal(neededUtxos).toString()) - BigInt(amount.amount.toNumber()) - BigInt(fee);
+
   const outputs: {
     value: bigint;
     address?: string;
@@ -111,10 +114,7 @@ export function determineUtxosForSpend({ feeRate, recipients, utxos }: Determine
       address,
     })),
     {
-      value:
-        BigInt(getUtxoTotal(neededUtxos).toString()) -
-        BigInt(amount.amount.toNumber()) -
-        BigInt(fee),
+      value: changeAmount,
     },
   ];
 
