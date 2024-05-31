@@ -37,8 +37,8 @@ dependencies:
     specifier: 0.6.7
     version: 0.6.7(react-dom@18.3.1)(react@18.3.1)
   '@leather-wallet/tokens':
-    specifier: 0.4.0
-    version: 0.4.0
+    specifier: 0.5.0
+    version: 0.5.0
   '@leather-wallet/utils':
     specifier: 0.6.5
     version: 0.6.5
@@ -4119,8 +4119,8 @@ packages:
     dependencies:
       '@leather-wallet/models': 0.6.5
 
-  /@leather-wallet/tokens@0.4.0:
-    resolution: {integrity: sha512-3b2EjGGYVsJYsYN3OlZB6t5RNMN1VFrza5KDrs1RxFfuVNXcOhiTnXbnStJeNCwremV5S77vUnKZVW6bb/wIUQ==}
+  /@leather-wallet/tokens@0.5.0:
+    resolution: {integrity: sha512-i7eXEZpZUKHKchhwxlzewbeLPh8zBuxTcg+FInl89kT+zZRL/vt9pOHBeS2SL5i7TTyBjlnkFBIhCXqQjFacQQ==}
     dev: false
 
   /@leather-wallet/utils@0.6.5:
