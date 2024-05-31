@@ -387,8 +387,8 @@ devDependencies:
     specifier: 0.4.0
     version: 0.4.0
   '@leather-wallet/rpc':
-    specifier: 0.3.9
-    version: 0.3.9
+    specifier: 0.3.10
+    version: 0.3.10
   '@ls-lint/ls-lint':
     specifier: 2.2.3
     version: 2.2.3
@@ -4058,6 +4058,13 @@ packages:
     resolution: {integrity: sha512-9ULJLp9PgxEF13/V9avNyibIEqlAXlnPOXSmdhoJ0Tupa7zwEkG8RZhtuhdxV1dHm3HELPJYfJo8z2DqM+YjHQ==}
     dependencies:
       bignumber.js: 9.1.2
+    dev: false
+
+  /@leather-wallet/models@0.6.6:
+    resolution: {integrity: sha512-RRQ2rk7zB8bTIDCO4nTwBowJ/rcBRYn/5MfDEKDPOEYW7BsmgKZH5PHxhAYrutW0WW8XqOUTOSXvwvoGKu1oXw==}
+    dependencies:
+      bignumber.js: 9.1.2
+    dev: true
 
   /@leather-wallet/panda-preset@0.0.5(jsdom@22.1.0)(typescript@5.4.5):
     resolution: {integrity: sha512-k29QTiQdypzk1NYCvs69C7SnFw2xkAReBGcsTItbff5RGim4u83JfpxfE77HAZucSNDYND+73m5F3gORSOaRdw==}
@@ -4114,10 +4121,17 @@ packages:
       - react-native
     dev: false
 
+  /@leather-wallet/rpc@0.3.10:
+    resolution: {integrity: sha512-H0Iz8fjGeYDJcBlzUEkthmLcLaXQvX4m3kp8tA4Tyx6ntdji3PA49cFEwUDUEGIHmOFYy0IEvO34cAmKufs5xw==}
+    dependencies:
+      '@leather-wallet/models': 0.6.6
+    dev: true
+
   /@leather-wallet/rpc@0.3.9:
     resolution: {integrity: sha512-q0uKPqrSLv9/hj5gairpEm5hG1JdJ9sFOa6fapL9a4EsQzGbbNS6bOF7pNknMo/7cRGzTfDJmFlxLreLsGB1Gg==}
     dependencies:
       '@leather-wallet/models': 0.6.5
+    dev: false
 
   /@leather-wallet/tokens@0.4.0:
     resolution: {integrity: sha512-3b2EjGGYVsJYsYN3OlZB6t5RNMN1VFrza5KDrs1RxFfuVNXcOhiTnXbnStJeNCwremV5S77vUnKZVW6bb/wIUQ==}
