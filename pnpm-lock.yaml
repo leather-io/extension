@@ -31,8 +31,8 @@ dependencies:
     specifier: 1.2.0
     version: 1.2.0
   '@leather-wallet/models':
-    specifier: 0.6.5
-    version: 0.6.5
+    specifier: 0.6.6
+    version: 0.6.6
   '@leather-wallet/query':
     specifier: 0.6.7
     version: 0.6.7(react-dom@18.3.1)(react@18.3.1)
@@ -4058,6 +4058,12 @@ packages:
     resolution: {integrity: sha512-9ULJLp9PgxEF13/V9avNyibIEqlAXlnPOXSmdhoJ0Tupa7zwEkG8RZhtuhdxV1dHm3HELPJYfJo8z2DqM+YjHQ==}
     dependencies:
       bignumber.js: 9.1.2
+
+  /@leather-wallet/models@0.6.6:
+    resolution: {integrity: sha512-RRQ2rk7zB8bTIDCO4nTwBowJ/rcBRYn/5MfDEKDPOEYW7BsmgKZH5PHxhAYrutW0WW8XqOUTOSXvwvoGKu1oXw==}
+    dependencies:
+      bignumber.js: 9.1.2
+    dev: false
 
   /@leather-wallet/panda-preset@0.0.5(jsdom@22.1.0)(typescript@5.4.5):
     resolution: {integrity: sha512-k29QTiQdypzk1NYCvs69C7SnFw2xkAReBGcsTItbff5RGim4u83JfpxfE77HAZucSNDYND+73m5F3gORSOaRdw==}
