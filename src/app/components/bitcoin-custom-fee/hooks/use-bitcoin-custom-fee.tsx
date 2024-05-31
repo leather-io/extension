@@ -8,6 +8,7 @@ import { Money, createMoney } from '@shared/models/money.model';
 import { baseCurrencyAmountInQuote } from '@app/common/money/calculate-money';
 import { i18nFormatCurrency } from '@app/common/money/format-money';
 import {
+  type DetermineUtxosForSpendArgs,
   determineUtxosForSpend,
   determineUtxosForSpendAll,
 } from '@app/common/transactions/bitcoin/coinselect/local-coin-selection';
@@ -31,12 +32,7 @@ export function useBitcoinCustomFee({ amount, isSendingMax, recipients }: UseBit
     (feeRate: number) => {
       if (!feeRate || !utxos.length) return { fee: 0, fiatFeeValue: '' };
 
-      const satAmount = isSendingMax
-        ? balance.availableBalance.amount.toNumber()
-        : amount.amount.toNumber();
-
-      const determineUtxosArgs = {
-        amount: satAmount,
+      const determineUtxosArgs: DetermineUtxosForSpendArgs = {
         recipients,
         utxos,
         feeRate,
