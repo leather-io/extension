@@ -31,17 +31,17 @@ dependencies:
     specifier: 1.2.0
     version: 1.2.0
   '@leather-wallet/models':
-    specifier: 0.6.5
-    version: 0.6.5
+    specifier: 0.6.6
+    version: 0.6.6
   '@leather-wallet/query':
-    specifier: 0.6.7
-    version: 0.6.7(react-dom@18.3.1)(react@18.3.1)
+    specifier: 0.6.8
+    version: 0.6.8(react-dom@18.3.1)(react@18.3.1)
   '@leather-wallet/tokens':
-    specifier: 0.4.0
-    version: 0.4.0
+    specifier: 0.5.0
+    version: 0.5.0
   '@leather-wallet/utils':
-    specifier: 0.6.5
-    version: 0.6.5
+    specifier: 0.6.6
+    version: 0.6.6
   '@ledgerhq/hw-transport-webusb':
     specifier: 6.27.19
     version: 6.27.19
@@ -387,8 +387,8 @@ devDependencies:
     specifier: 0.4.0
     version: 0.4.0
   '@leather-wallet/rpc':
-    specifier: 0.3.9
-    version: 0.3.9
+    specifier: 0.3.10
+    version: 0.3.10
   '@ls-lint/ls-lint':
     specifier: 2.2.3
     version: 2.2.3
@@ -4027,13 +4027,13 @@ packages:
       '@jridgewell/sourcemap-codec': 1.4.15
     dev: true
 
-  /@leather-wallet/bitcoin@0.6.5:
-    resolution: {integrity: sha512-zJPLe4qCjex/qnyyi1mR1D3Dza3eec6p+VRQ5l/CJq6vwVmpQ86ISYZ6EKQW9BSoXy5l7RWsXXOx4LPZr1OGwA==}
+  /@leather-wallet/bitcoin@0.6.6:
+    resolution: {integrity: sha512-YH3Vt5VXuzmj3vK85G6VIxTjx7FYwmBZDFeuLuPexvYTMfU7JVPXsb4BMO6C4AFXTC0TpFQa6qSTGrEAJfxCqQ==}
     dependencies:
       '@bitcoinerlab/secp256k1': 1.0.2
       '@leather-wallet/constants': 0.6.1
-      '@leather-wallet/models': 0.6.5
-      '@leather-wallet/utils': 0.6.5
+      '@leather-wallet/models': 0.6.6
+      '@leather-wallet/utils': 0.6.6
       '@noble/hashes': 1.3.3
       '@noble/secp256k1': 2.0.0
       '@scure/base': 1.1.3
@@ -4054,8 +4054,8 @@ packages:
     resolution: {integrity: sha512-hchHbLTEDueM1vFe1xmYeJLx2hj4cQaDQX5DmgDZ/W1haBqfQ1meWxkX1FPXk8af9Dtm0ZfF957LkUWbkXnSTg==}
     dev: false
 
-  /@leather-wallet/models@0.6.5:
-    resolution: {integrity: sha512-9ULJLp9PgxEF13/V9avNyibIEqlAXlnPOXSmdhoJ0Tupa7zwEkG8RZhtuhdxV1dHm3HELPJYfJo8z2DqM+YjHQ==}
+  /@leather-wallet/models@0.6.6:
+    resolution: {integrity: sha512-RRQ2rk7zB8bTIDCO4nTwBowJ/rcBRYn/5MfDEKDPOEYW7BsmgKZH5PHxhAYrutW0WW8XqOUTOSXvwvoGKu1oXw==}
     dependencies:
       bignumber.js: 9.1.2
 
@@ -4078,16 +4078,16 @@ packages:
       - supports-color
     dev: true
 
-  /@leather-wallet/query@0.6.7(react-dom@18.3.1)(react@18.3.1):
-    resolution: {integrity: sha512-f/5xH3kqeAmzl+3UB0T/n6u4xKCsU5p4qWhUz/+CqVLpsFnN5ecuZeR//DJ6QSt0c7+jNL725CcB3tsa8wy2aQ==}
+  /@leather-wallet/query@0.6.8(react-dom@18.3.1)(react@18.3.1):
+    resolution: {integrity: sha512-uqQztPXC17kfSjgzTVsWF5wNOO3tQhy2/LEQGIo+i37HbUf3RE01I2l/V/KjwmuVR6Cu9YjpJcNQ2L4v0eYT7A==}
     peerDependencies:
       react: '*'
     dependencies:
-      '@leather-wallet/bitcoin': 0.6.5
+      '@leather-wallet/bitcoin': 0.6.6
       '@leather-wallet/constants': 0.6.1
-      '@leather-wallet/models': 0.6.5
-      '@leather-wallet/rpc': 0.3.9
-      '@leather-wallet/utils': 0.6.5
+      '@leather-wallet/models': 0.6.6
+      '@leather-wallet/rpc': 0.3.10
+      '@leather-wallet/utils': 0.6.6
       '@noble/hashes': 1.3.3
       '@scure/base': 1.1.3
       '@scure/bip32': 1.3.3
@@ -4114,21 +4114,21 @@ packages:
       - react-native
     dev: false
 
-  /@leather-wallet/rpc@0.3.9:
-    resolution: {integrity: sha512-q0uKPqrSLv9/hj5gairpEm5hG1JdJ9sFOa6fapL9a4EsQzGbbNS6bOF7pNknMo/7cRGzTfDJmFlxLreLsGB1Gg==}
+  /@leather-wallet/rpc@0.3.10:
+    resolution: {integrity: sha512-H0Iz8fjGeYDJcBlzUEkthmLcLaXQvX4m3kp8tA4Tyx6ntdji3PA49cFEwUDUEGIHmOFYy0IEvO34cAmKufs5xw==}
     dependencies:
-      '@leather-wallet/models': 0.6.5
+      '@leather-wallet/models': 0.6.6
 
-  /@leather-wallet/tokens@0.4.0:
-    resolution: {integrity: sha512-3b2EjGGYVsJYsYN3OlZB6t5RNMN1VFrza5KDrs1RxFfuVNXcOhiTnXbnStJeNCwremV5S77vUnKZVW6bb/wIUQ==}
+  /@leather-wallet/tokens@0.5.0:
+    resolution: {integrity: sha512-i7eXEZpZUKHKchhwxlzewbeLPh8zBuxTcg+FInl89kT+zZRL/vt9pOHBeS2SL5i7TTyBjlnkFBIhCXqQjFacQQ==}
     dev: false
 
-  /@leather-wallet/utils@0.6.5:
-    resolution: {integrity: sha512-fVVpuqcfW8k5kvp7pQZiYC3HQ6GSmjk+M3PB/FGYVRBUrzHYDaSxiQi/L1d7g/dGGuspz0nD7kG3fMhli6iNyA==}
+  /@leather-wallet/utils@0.6.6:
+    resolution: {integrity: sha512-X1fS08b0znP6DkMWff2EaMtR2tdU/szQrNq4p16M7tw0BR8IRWcGtGtsqLl71zo28/qKrEe8PqZxv02hzvd2gA==}
     dependencies:
       '@leather-wallet/constants': 0.6.1
-      '@leather-wallet/models': 0.6.5
-      '@leather-wallet/rpc': 0.3.9
+      '@leather-wallet/models': 0.6.6
+      '@leather-wallet/rpc': 0.3.10
       bignumber.js: 9.1.2
     dev: false
 

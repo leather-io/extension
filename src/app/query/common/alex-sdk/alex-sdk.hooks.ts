@@ -1,15 +1,18 @@
 import { useCallback } from 'react';
 
-import type { Money } from '@leather-wallet/models';
-import { createMoney, isDefined } from '@leather-wallet/utils';
+import {
+  type MarketData,
+  type Money,
+  createMarketData,
+  createMarketPair,
+} from '@leather-wallet/models';
+import { convertAmountToFractionalUnit, createMoney, isDefined } from '@leather-wallet/utils';
 import { Currency, type TokenInfo } from 'alex-sdk';
 import BigNumber from 'bignumber.js';
 
 import { logger } from '@shared/logger';
-import { type MarketData, createMarketData, createMarketPair } from '@shared/models/market.model';
 
 import { sortAssetsByName } from '@app/common/asset-utils';
-import { convertAmountToFractionalUnit } from '@app/common/money/calculate-money';
 import { getPrincipalFromContractId } from '@app/common/utils';
 import { useCurrentStxAvailableUnlockedBalance } from '@app/query/stacks/balance/account-balance.hooks';
 import { useTransferableSip10Tokens } from '@app/query/stacks/sip10/sip10-tokens.hooks';

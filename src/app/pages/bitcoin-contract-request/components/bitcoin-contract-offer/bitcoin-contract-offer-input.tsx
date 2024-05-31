@@ -1,9 +1,14 @@
 import { useCalculateBitcoinFiatValue } from '@leather-wallet/query';
-import { createMoneyFromDecimal, satToBtc, truncateMiddle } from '@leather-wallet/utils';
+import {
+  createMoneyFromDecimal,
+  formatMoney,
+  i18nFormatCurrency,
+  satToBtc,
+  truncateMiddle,
+} from '@leather-wallet/utils';
 import { Stack, styled } from 'leather-styles/jsx';
 
 import { SimplifiedBitcoinContract } from '@app/common/hooks/use-bitcoin-contracts';
-import { formatMoney, i18nFormatCurrency } from '@app/common/money/format-money';
 
 import { BitcoinContractLockAmount } from './bitcoin-contract-lock-amount';
 

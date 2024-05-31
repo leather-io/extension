@@ -5,13 +5,12 @@ import {
   useCurrentTaprootAccountBalance,
   useCurrentTaprootAccountUninscribedUtxos,
 } from '@leather-wallet/query';
-import { delay, truncateMiddle } from '@leather-wallet/utils';
+import { delay, formatMoneyPadded, truncateMiddle } from '@leather-wallet/utils';
 import { Stack } from 'leather-styles/jsx';
 
 import { RouteUrls } from '@shared/route-urls';
 
 import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
-import { formatMoneyPadded } from '@app/common/money/format-money';
 import { FormAddressDisplayer } from '@app/components/address-displayer/form-address-displayer';
 import { InfoCardRow, InfoCardSeparator } from '@app/components/info-card/info-card';
 import { useToast } from '@app/features/toasts/use-toast';

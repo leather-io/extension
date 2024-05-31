@@ -1,7 +1,7 @@
+import { formatMoneyWithoutSymbol } from '@leather-wallet/utils';
 import { SwapSelectors } from '@tests/selectors/swap.selectors';
 
 import { convertAssetBalanceToFiat } from '@app/common/asset-utils';
-import { formatMoneyWithoutSymbol } from '@app/common/money/format-money';
 import type { SwapAsset } from '@app/query/common/alex-sdk/alex-sdk.hooks';
 import { useGetFungibleTokenMetadataQuery } from '@app/query/stacks/token-metadata/fungible-tokens/fungible-token-metadata.query';
 import { isFtAsset } from '@app/query/stacks/token-metadata/token-metadata.utils';

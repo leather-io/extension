@@ -2,10 +2,9 @@ import { useCallback } from 'react';
 
 import type { Money } from '@leather-wallet/models';
 import { useCryptoCurrencyMarketDataMeanAverage } from '@leather-wallet/query';
+import { baseCurrencyAmountInQuote } from '@leather-wallet/utils';
 
 import { CryptoCurrencies } from '@shared/models/currencies.model';
-
-import { baseCurrencyAmountInQuote } from '../money/calculate-money';
 
 export function useConvertCryptoCurrencyToFiatAmount(currency: CryptoCurrencies) {
   // TODO: unsafe type assumption

@@ -1,4 +1,8 @@
-import type { Brc20CryptoAssetInfo } from '@leather-wallet/models';
+import {
+  type Brc20CryptoAssetInfo,
+  createMarketData,
+  createMarketPair,
+} from '@leather-wallet/models';
 import {
   createBrc20TransferInscription,
   encodeBrc20TransferInscription,
@@ -10,8 +14,6 @@ import {
 } from '@leather-wallet/query';
 import { createMoney, unitToFractionalUnit } from '@leather-wallet/utils';
 import BigNumber from 'bignumber.js';
-
-import { createMarketData, createMarketPair } from '@shared/models/market.model';
 
 import { createCryptoAssetBalance } from '@app/query/common/models';
 import { isFetchedWithSuccess } from '@app/query/query-config';

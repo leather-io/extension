@@ -1,6 +1,7 @@
 import { Outlet, useNavigate } from 'react-router-dom';
 
 import type { Money } from '@leather-wallet/models';
+import { formatMoney } from '@leather-wallet/utils';
 import { SendCryptoAssetSelectors } from '@tests/selectors/send.selectors';
 import BigNumber from 'bignumber.js';
 import { Form, Formik, FormikHelpers } from 'formik';
@@ -12,7 +13,6 @@ import { Fees } from '@shared/models/fees/fees.model';
 import { StacksSendFormValues } from '@shared/models/form.model';
 import { RouteUrls } from '@shared/route-urls';
 
-import { formatMoney } from '@app/common/money/format-money';
 import { FeesRow } from '@app/components/fees-row/fees-row';
 import { NonceSetter } from '@app/components/nonce-setter';
 import { HighFeeDialog } from '@app/features/dialogs/high-fee-dialog/high-fee-dialog';

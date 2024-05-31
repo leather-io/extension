@@ -8,7 +8,7 @@ import {
   useCalculateBitcoinFiatValue,
   useCryptoCurrencyMarketDataMeanAverage,
 } from '@leather-wallet/query';
-import { createMoneyFromDecimal, satToBtc } from '@leather-wallet/utils';
+import { createMoneyFromDecimal, i18nFormatCurrency, satToBtc } from '@leather-wallet/utils';
 import { bytesToHex } from '@stacks/common';
 
 import {
@@ -27,7 +27,6 @@ import {
 import { useCurrentNetwork } from '@app/store/networks/networks.selectors';
 
 import { initialSearchParams } from '../initial-search-params';
-import { i18nFormatCurrency } from '../money/format-money';
 import { useDefaultRequestParams } from './use-default-request-search-params';
 
 export interface SimplifiedBitcoinContract {
