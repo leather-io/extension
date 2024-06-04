@@ -2,9 +2,7 @@ import { useMemo } from 'react';
 
 import { HStack, styled } from 'leather-styles/jsx';
 
-import { Link } from '@app/ui/components/link/link';
-import { CheckmarkIcon } from '@app/ui/icons/checkmark-icon';
-import { ChevronDownIcon } from '@app/ui/icons/chevron-down-icon';
+import { CheckmarkIcon, ChevronDownIcon, Link } from '@leather-wallet/ui';
 
 const labels = ['Low', 'Standard', 'High', 'Custom'];
 const testLabels = labels.map(label => label.toLowerCase());

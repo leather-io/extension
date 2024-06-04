@@ -5,6 +5,7 @@ import { Box, Flex, Stack } from 'leather-styles/jsx';
 import get from 'lodash.get';
 
 import { useBitcoinBroadcastTransaction } from '@leather-wallet/query';
+import { Button } from '@leather-wallet/ui';
 
 import { RouteUrls } from '@shared/route-urls';
 import { analytics } from '@shared/utils/analytics';
@@ -15,7 +16,6 @@ import { InscriptionPreview } from '@app/components/inscription-preview-card/com
 import { useCurrentNativeSegwitUtxos } from '@app/query/bitcoin/address/utxos-by-address.hooks';
 import { useAppDispatch } from '@app/store';
 import { inscriptionSent } from '@app/store/ordinals/ordinals.slice';
-import { Button } from '@app/ui/components/button/button';
 import { Dialog } from '@app/ui/components/containers/dialog/dialog';
 import { Footer } from '@app/ui/components/containers/footers/footer';
 import { DialogHeader } from '@app/ui/components/containers/headers/dialog-header';

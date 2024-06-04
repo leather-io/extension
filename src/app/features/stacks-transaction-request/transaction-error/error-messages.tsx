@@ -5,6 +5,7 @@ import { STXTransferPayload, TransactionTypes } from '@stacks/connect';
 import { Flex, HStack, Stack } from 'leather-styles/jsx';
 
 import { useStxAvailableUnlockedBalance } from '@leather-wallet/query';
+import { Button, Caption } from '@leather-wallet/ui';
 import { truncateMiddle } from '@leather-wallet/utils';
 
 import { RouteUrls } from '@shared/route-urls';
@@ -18,8 +19,6 @@ import { ErrorMessage } from '@app/features/stacks-transaction-request/transacti
 import { useCurrentStacksAccountAddress } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
 import { useCurrentNetworkState } from '@app/store/networks/networks.hooks';
 import { useTransactionRequestState } from '@app/store/transactions/requests.hooks';
-import { Button } from '@app/ui/components/button/button';
-import { Caption } from '@app/ui/components/typography/caption';
 
 interface InsufficientFundsActionButtonsProps {
   eventName: string;

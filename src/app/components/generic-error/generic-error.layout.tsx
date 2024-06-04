@@ -3,9 +3,9 @@ import { ReactNode } from 'react';
 import GenericError from '@assets/images/generic-error.png';
 import { Flex, FlexProps, HStack, styled } from 'leather-styles/jsx';
 
+import { ExternalLinkIcon, Link } from '@leather-wallet/ui';
+
 import { openInNewTab } from '@app/common/utils/open-in-new-tab';
-import { Link } from '@app/ui/components/link/link';
-import { ExternalLinkIcon } from '@app/ui/icons/external-link-icon';
 
 const supportUrl =
   'https://wallet.hiro.so/wallet-faq/where-can-i-find-support-for-the-stacks-wallet';

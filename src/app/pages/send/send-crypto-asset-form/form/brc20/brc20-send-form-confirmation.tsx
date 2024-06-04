@@ -6,6 +6,7 @@ import get from 'lodash.get';
 
 import { decodeBitcoinTx } from '@leather-wallet/bitcoin';
 import { useBitcoinBroadcastTransaction } from '@leather-wallet/query';
+import { Button } from '@leather-wallet/ui';
 import { createMoney, formatMoney, formatMoneyPadded, sumMoney } from '@leather-wallet/utils';
 
 import { RouteUrls } from '@shared/route-urls';
@@ -18,7 +19,6 @@ import {
 } from '@app/components/info-card/info-card';
 import { useCurrentNativeSegwitUtxos } from '@app/query/bitcoin/address/utxos-by-address.hooks';
 import { useBrc20Transfers } from '@app/query/bitcoin/ordinals/brc20/brc20-tokens.hooks';
-import { Button } from '@app/ui/components/button/button';
 import { Footer } from '@app/ui/components/containers/footers/footer';
 import { Card } from '@app/ui/layout/card/card';
 import { CardContent } from '@app/ui/layout/card/card-content';

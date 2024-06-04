@@ -2,12 +2,13 @@ import { Suspense } from 'react';
 
 import { Stack } from 'leather-styles/jsx';
 
+import { Title } from '@leather-wallet/ui';
+
 import { useStacksExplorerLink } from '@app/common/hooks/use-stacks-explorer-link';
 import { formatContractId } from '@app/common/utils';
 import { AttachmentRow } from '@app/features/stacks-transaction-request/attachment-row';
 import { ContractPreviewLayout } from '@app/features/stacks-transaction-request/contract-preview';
 import { useTransactionRequestState } from '@app/store/transactions/requests.hooks';
-import { Title } from '@app/ui/components/typography/title';
 
 import { FunctionArgumentsList } from './function-arguments-list';
 

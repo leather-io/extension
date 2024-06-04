@@ -1,4 +1,5 @@
-import { Button } from '@app/ui/components/button/button';
+import { Button } from '@leather-wallet/ui';
+
 import { Footer } from '@app/ui/components/containers/footers/footer';
 
 interface PsbtRequestActionsProps {

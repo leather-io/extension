@@ -12,6 +12,7 @@ import {
   useNextNonce,
   useStxAvailableUnlockedBalance,
 } from '@leather-wallet/query';
+import { Link } from '@leather-wallet/ui';
 
 import { logger } from '@shared/logger';
 import { StacksTransactionFormValues } from '@shared/models/form.model';
@@ -41,7 +42,6 @@ import {
   useGenerateUnsignedStacksTransaction,
   useUnsignedStacksTransactionBaseState,
 } from '@app/store/transactions/transaction.hooks';
-import { Link } from '@app/ui/components/link/link';
 
 function TransactionRequestBase() {
   const [isShowingHighFeeConfirmation, setIsShowingHighFeeConfirmation] = useState(false);

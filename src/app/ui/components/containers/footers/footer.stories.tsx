@@ -1,9 +1,8 @@
 import type { Meta } from '@storybook/react';
 import { Flex, styled } from 'leather-styles/jsx';
 
-import { Button } from '@app/ui/components/button/button';
+import { Button, Link } from '@leather-wallet/ui';
 
-import { Link } from '../../link/link';
 import { Footer as Component } from './footer';
 
 const meta: Meta<typeof Component> = {

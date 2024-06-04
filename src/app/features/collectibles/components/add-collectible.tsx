@@ -1,9 +1,9 @@
 import { useLocation, useNavigate } from 'react-router-dom';
 
+import { PlusIcon } from '@leather-wallet/ui';
+
 import { RouteUrls } from '@shared/route-urls';
 import { analytics } from '@shared/utils/analytics';
-
-import { PlusIcon } from '@app/ui/icons/plus-icon';
 
 import { CollectibleItemLayout } from './collectible-item.layout';
 

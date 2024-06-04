@@ -1,8 +1,8 @@
 import type { CryptoAssetBalance, MarketData, Sip10CryptoAssetInfo } from '@leather-wallet/models';
+import { spamFilter } from '@leather-wallet/utils';
 
 import { convertAssetBalanceToFiat } from '@app/common/asset-utils';
 import { getSafeImageCanonicalUri } from '@app/common/stacks-utils';
-import { spamFilter } from '@app/common/utils/spam-filter';
 import { CryptoAssetItemLayout } from '@app/components/crypto-asset-item/crypto-asset-item.layout';
 import { StacksAssetAvatar } from '@app/components/stacks-asset-avatar';
 

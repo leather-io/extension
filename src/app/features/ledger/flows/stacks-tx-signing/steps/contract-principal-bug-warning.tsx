@@ -1,12 +1,12 @@
 import GenericErrorImg from '@assets/images/generic-error.png';
 import { Box, HStack, styled } from 'leather-styles/jsx';
 
+import { Button } from '@leather-wallet/ui';
 import { delay } from '@leather-wallet/utils';
 
 import { useLoading } from '@app/common/hooks/use-loading';
 import { LedgerTitle } from '@app/features/ledger/components/ledger-title';
 import { LedgerWrapper } from '@app/features/ledger/components/ledger-wrapper';
-import { Button } from '@app/ui/components/button/button';
 
 import { useLedgerTxSigningContext } from '../../../generic-flows/tx-signing/ledger-sign-tx.context';
 

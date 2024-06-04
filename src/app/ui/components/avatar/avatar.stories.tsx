@@ -1,7 +1,7 @@
 import StampsAvatarIconSrc from '@assets/avatars/stamps-avatar-icon.png';
 import type { Meta, StoryObj } from '@storybook/react';
 
-import { PlaceholderIcon } from '@app/ui/icons';
+import { PlaceholderIcon } from '@leather-wallet/ui';
 
 import { Avatar as Component } from './avatar';
 

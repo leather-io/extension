@@ -1,7 +1,7 @@
 import NoActivity from '@assets/images/no-activity.png';
 import { Stack } from 'leather-styles/jsx';
 
-import { Caption } from '@app/ui/components/typography/caption';
+import { Caption } from '@leather-wallet/ui';
 
 export function NoAccountActivity() {
   return (

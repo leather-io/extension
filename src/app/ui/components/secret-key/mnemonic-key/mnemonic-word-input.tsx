@@ -2,9 +2,10 @@ import { useState } from 'react';
 
 import { useField } from 'formik';
 
+import { Input } from '@leather-wallet/ui';
+import { extractPhraseFromString } from '@leather-wallet/utils';
+
 import { useIsFieldDirty } from '@app/common/form-utils';
-import { extractPhraseFromString } from '@app/common/utils';
-import { Input } from '@app/ui/components/input/input';
 
 interface MnemonicWordInputProps {
   fieldNumber: number;

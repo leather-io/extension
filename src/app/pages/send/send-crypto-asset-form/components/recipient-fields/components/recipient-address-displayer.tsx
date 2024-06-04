@@ -3,11 +3,12 @@ import { useCallback } from 'react';
 import { SendCryptoAssetSelectors } from '@tests/selectors/send.selectors';
 import { HStack, styled } from 'leather-styles/jsx';
 
+import { CopyIcon } from '@leather-wallet/ui';
+
 import { analytics } from '@shared/utils/analytics';
 
 import { useClipboard } from '@app/common/hooks/use-copy-to-clipboard';
 import { BasicTooltip } from '@app/ui/components/tooltip/basic-tooltip';
-import { CopyIcon } from '@app/ui/icons/copy-icon';
 
 interface RecipientAddressDisplayerProps {
   address: string;

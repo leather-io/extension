@@ -3,6 +3,7 @@ import BigNumber from 'bignumber.js';
 import { HStack, styled } from 'leather-styles/jsx';
 
 import { useGetStackNetworkBlockTimeQuery } from '@leather-wallet/query';
+import { ChevronUpIcon } from '@leather-wallet/ui';
 import {
   createMoneyFromDecimal,
   formatMoneyPadded,
@@ -14,7 +15,6 @@ import {
 import { getEstimatedConfirmationTime } from '@app/common/transactions/stacks/transaction.utils';
 import { SwapSubmissionData, useSwapContext } from '@app/pages/swap/swap.context';
 import { useCurrentNetworkState } from '@app/store/networks/networks.hooks';
-import { ChevronUpIcon } from '@app/ui/icons/chevron-up-icon';
 
 import { SwapDetailLayout } from './swap-detail.layout';
 import { SwapDetailsLayout } from './swap-details.layout';

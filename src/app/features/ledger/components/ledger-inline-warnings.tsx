@@ -1,8 +1,8 @@
 import { styled } from 'leather-styles/jsx';
 
 import type { SupportedBlockchains } from '@leather-wallet/models';
+import { Callout } from '@leather-wallet/ui';
 
-import { Callout } from '@app/ui/components/callout/callout';
 import { Capitalize } from '@app/ui/utils/capitalize';
 
 import { LatestDeviceResponse } from '../utils/generic-ledger-utils';

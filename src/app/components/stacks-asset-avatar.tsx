@@ -1,8 +1,9 @@
 import { Box, BoxProps } from 'leather-styles/jsx';
 
+import { DynamicColorCircle } from '@leather-wallet/ui';
+
 import { Avatar, defaultFallbackDelay } from '@app/ui/components/avatar/avatar';
 import { StxAvatarIcon } from '@app/ui/components/avatar/stx-avatar-icon';
-import { DynamicColorCircle } from '@app/ui/components/dynamic-color-circle';
 
 interface StacksAssetAvatarProps extends BoxProps {
   gradientString?: string;

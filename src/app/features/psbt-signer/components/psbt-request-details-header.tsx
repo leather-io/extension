@@ -1,9 +1,9 @@
 import { HStack, styled } from 'leather-styles/jsx';
 
+import { LockIcon, UnlockIcon } from '@leather-wallet/ui';
+
 import { usePsbtSignerContext } from '@app/features/psbt-signer/psbt-signer.context';
 import { TagWithTooltip } from '@app/ui/components/tag/tag-with-tooltip';
-import { LockIcon } from '@app/ui/icons/lock-icon';
-import { UnlockIcon } from '@app/ui/icons/unlock-icon';
 
 const immutableLabel =
   'Any modification to the transaction, including the fee amount or other inputs/outputs, will invalidate the signature.';

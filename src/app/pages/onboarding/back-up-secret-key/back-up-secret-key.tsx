@@ -3,11 +3,12 @@ import { useNavigate } from 'react-router-dom';
 
 import { HStack, Stack, styled } from 'leather-styles/jsx';
 
+import { EyeSlashIcon, KeyIcon, LockIcon } from '@leather-wallet/ui';
+
 import { RouteUrls } from '@shared/route-urls';
 
 import { SecretKey } from '@app/features/secret-key-displayer/secret-key-displayer';
 import { useDefaultWalletSecretKey } from '@app/store/in-memory-key/in-memory-key.selectors';
-import { EyeSlashIcon, KeyIcon, LockIcon } from '@app/ui/icons/';
 import { TwoColumnLayout } from '@app/ui/pages/two-column.layout';
 
 export const BackUpSecretKeyPage = memo(() => {

@@ -1,7 +1,8 @@
 import { Box, Flex, HStack, styled } from 'leather-styles/jsx';
 
+import { InfoCircleIcon } from '@leather-wallet/ui';
+
 import { BasicTooltip } from '@app/ui/components/tooltip/basic-tooltip';
-import { InfoCircleIcon } from '@app/ui/icons/info-circle-icon';
 
 interface AvailableBalanceProps {
   balance: string;

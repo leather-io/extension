@@ -5,12 +5,14 @@ import { useFormikContext } from 'formik';
 import { HStack, styled } from 'leather-styles/jsx';
 
 import type { BitcoinNetworkModes } from '@leather-wallet/models';
-
-import { Input } from '@app/ui/components/input/input';
-import { Select } from '@app/ui/components/select/select';
-import { SelectItemLayout } from '@app/ui/components/select/select-item.layout';
-import { Title } from '@app/ui/components/typography/title';
-import { CheckmarkIcon, ChevronDownIcon } from '@app/ui/icons';
+import {
+  CheckmarkIcon,
+  ChevronDownIcon,
+  Input,
+  Select,
+  SelectItemLayout,
+  Title,
+} from '@leather-wallet/ui';
 
 import { type AddNetworkFormValues } from './use-add-network';
 

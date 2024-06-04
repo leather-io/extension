@@ -2,8 +2,9 @@ import { ReactNode } from 'react';
 
 import { Box, HStack, styled } from 'leather-styles/jsx';
 
+import { InfoCircleIcon } from '@leather-wallet/ui';
+
 import { BasicTooltip } from '@app/ui/components/tooltip/basic-tooltip';
-import { InfoCircleIcon } from '@app/ui/icons/info-circle-icon';
 
 interface SwapDetailLayoutProps {
   dataTestId?: string;

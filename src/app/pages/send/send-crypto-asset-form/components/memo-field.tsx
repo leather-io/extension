@@ -2,9 +2,10 @@ import { SendCryptoAssetSelectors } from '@tests/selectors/send.selectors';
 import { useField } from 'formik';
 import { Box } from 'leather-styles/jsx';
 
+import { Input } from '@leather-wallet/ui';
+
 import { useShowFieldError } from '@app/common/form-utils';
 import { TextInputFieldError } from '@app/components/field-error';
-import { Input } from '@app/ui/components/input/input';
 
 const name = 'memo';
 

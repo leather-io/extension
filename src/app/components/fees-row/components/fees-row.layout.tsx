@@ -1,11 +1,11 @@
 import { useField } from 'formik';
 import { HStack, HstackProps, styled } from 'leather-styles/jsx';
 
+import { Callout, InfoCircleIcon } from '@leather-wallet/ui';
+
 import { openInNewTab } from '@app/common/utils/open-in-new-tab';
 import { SponsoredLabel } from '@app/components/sponsored-label';
-import { Callout } from '@app/ui/components/callout/callout';
 import { BasicTooltip } from '@app/ui/components/tooltip/basic-tooltip';
-import { InfoCircleIcon } from '@app/ui/icons/info-circle-icon';
 
 const feesInfo =
   'Higher fees increase the likelihood of your transaction getting confirmed before others. Click to learn more.';

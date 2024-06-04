@@ -3,10 +3,9 @@ import { ReactNode } from 'react';
 import { SettingsSelectors } from '@tests/selectors/settings.selectors';
 import { Box, Flex, styled } from 'leather-styles/jsx';
 
+import { ChevronDownIcon, Link, SkeletonLoader } from '@leather-wallet/ui';
+
 import { AccountNameLayout } from '@app/components/account/account-name';
-import { Link } from '@app/ui/components/link/link';
-import { SkeletonLoader } from '@app/ui/components/skeleton-loader/skeleton-loader';
-import { ChevronDownIcon } from '@app/ui/icons';
 
 interface AccountCardProps {
   name: string;

@@ -7,15 +7,13 @@ import { Box } from 'leather-styles/jsx';
 import { HIGH_FEE_WARNING_LEARN_MORE_URL_BTC } from '@leather-wallet/constants';
 import type { CryptoCurrencies } from '@leather-wallet/models';
 import { useCryptoCurrencyMarketDataMeanAverage } from '@leather-wallet/query';
+import { Button, Callout, Link } from '@leather-wallet/ui';
 import { formatMoney } from '@leather-wallet/utils';
 
 import { HighFeeDialog } from '@app/features/dialogs/high-fee-dialog/high-fee-dialog';
 import { BtcAvatarIcon } from '@app/ui/components/avatar/btc-avatar-icon';
-import { Button } from '@app/ui/components/button/button';
-import { Callout } from '@app/ui/components/callout/callout';
 import { AvailableBalance } from '@app/ui/components/containers/footers/available-balance';
 import { Footer } from '@app/ui/components/containers/footers/footer';
-import { Link } from '@app/ui/components/link/link';
 import { Card } from '@app/ui/layout/card/card';
 import { CardContent } from '@app/ui/layout/card/card-content';
 

@@ -1,7 +1,8 @@
 import { Flex, styled } from 'leather-styles/jsx';
 
+import { LedgerIcon } from '@leather-wallet/ui';
+
 import { Divider } from '@app/components/layout/divider';
-import { LedgerIcon } from '@app/ui/icons/ledger-icon';
 
 interface LedgerDeviceItemRowProps {
   deviceType?: string;

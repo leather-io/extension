@@ -1,9 +1,7 @@
 import { HStack } from 'leather-styles/jsx';
 
+import { BulletSeparator, Caption } from '@leather-wallet/ui';
 import { truncateMiddle } from '@leather-wallet/utils';
-
-import { BulletSeparator } from '@app/ui/components/bullet-separator/bullet-separator';
-import { Caption } from '@app/ui/components/typography/caption';
 
 import { BitcoinNativeSegwitAccountLoader } from '../loaders/bitcoin-account-loader';
 import { StacksAccountLoader } from '../loaders/stacks-account-loader';

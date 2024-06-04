@@ -5,6 +5,7 @@ import { HStack } from 'leather-styles/jsx';
 
 import type { BitcoinTx } from '@leather-wallet/models';
 import { useInscriptionByOutput } from '@leather-wallet/query';
+import { BulletSeparator, Caption } from '@leather-wallet/ui';
 
 import { RouteUrls } from '@shared/route-urls';
 import { analytics } from '@shared/utils/analytics';
@@ -21,8 +22,6 @@ import { IncreaseFeeButton } from '@app/components/stacks-transaction-item/incre
 import { TransactionTitle } from '@app/components/transaction/transaction-title';
 import { useCurrentAccountNativeSegwitAddressIndexZero } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
 import { BtcAvatarIcon } from '@app/ui/components/avatar/btc-avatar-icon';
-import { BulletSeparator } from '@app/ui/components/bullet-separator/bullet-separator';
-import { Caption } from '@app/ui/components/typography/caption';
 
 import { TransactionItemLayout } from '../transaction-item/transaction-item.layout';
 import { BitcoinTransactionIcon } from './bitcoin-transaction-icon';

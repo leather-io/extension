@@ -13,6 +13,7 @@ import {
   useNextNonce,
   useStxAvailableUnlockedBalance,
 } from '@leather-wallet/query';
+import { Link } from '@leather-wallet/ui';
 import { stxToMicroStx } from '@leather-wallet/utils';
 
 import { StacksTransactionFormValues } from '@shared/models/form.model';
@@ -34,7 +35,6 @@ import { StxTransferDetails } from '@app/features/stacks-transaction-request/stx
 import { TransactionError } from '@app/features/stacks-transaction-request/transaction-error/transaction-error';
 import { useCurrentStacksAccountAddress } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
 import { useTransactionRequestState } from '@app/store/transactions/requests.hooks';
-import { Link } from '@app/ui/components/link/link';
 
 import { FeeForm } from './fee-form';
 import { MinimalErrorMessage } from './minimal-error-message';

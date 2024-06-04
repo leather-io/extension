@@ -6,8 +6,7 @@ import {
   type Sip10TokenAssetDetails,
   useAlexCurrencyPriceAsMarketData,
 } from '@leather-wallet/query';
-
-import { Accordion } from '@app/ui/components/accordion/accordion';
+import { Accordion } from '@leather-wallet/ui';
 
 import { Sip10TokenAssetItem } from './sip10-token-asset-item';
 

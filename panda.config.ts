@@ -4,8 +4,10 @@ import { globalCss } from './theme/global/global';
 
 export default defineConfig({
   preflight: true,
-
-  include: ['./src/**/*.{js,jsx,ts,tsx}'],
+  include: [
+    './node_modules/@leather-wallet/ui/dist-all/src/**/*.{js,jsx,ts,tsx}',
+    './src/**/*.{js,jsx,ts,tsx}',
+  ],
 
   exclude: [],
 

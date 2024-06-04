@@ -1,7 +1,8 @@
 import { useFormikContext } from 'formik';
 
+import { Button } from '@leather-wallet/ui';
+
 import { useWalletType } from '@app/common/use-wallet-type';
-import { Button } from '@app/ui/components/button/button';
 
 interface IncreaseFeeActionsProps {
   isBroadcasting?: boolean;

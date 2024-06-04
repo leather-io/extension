@@ -1,8 +1,7 @@
 import { StacksTx } from '@leather-wallet/models';
+import { ArrowDownIcon, ArrowUpIcon } from '@leather-wallet/ui';
 
 import { useCurrentStacksAccountAddress } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
-import { ArrowDownIcon } from '@app/ui/icons/arrow-down-icon';
-import { ArrowUpIcon } from '@app/ui/icons/arrow-up-icon';
 
 export function TokenTransferIcon(props: { tx: StacksTx }) {
   const { tx } = props;
