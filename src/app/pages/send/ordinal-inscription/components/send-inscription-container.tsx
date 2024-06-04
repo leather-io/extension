@@ -1,11 +1,9 @@
 import { useState } from 'react';
 import { Outlet, useLocation, useOutletContext } from 'react-router-dom';
 
-import type { Inscription } from '@leather-wallet/models';
+import type { AverageBitcoinFeeRates, BtcFeeType, Inscription } from '@leather-wallet/models';
 import { type UtxoWithDerivationPath, useInscriptionsAddressesMap } from '@leather-wallet/query';
 import get from 'lodash.get';
-
-import { AverageBitcoinFeeRates, BtcFeeType } from '@shared/models/fees/bitcoin-fees.model';
 
 import { useOnMount } from '@app/common/hooks/use-on-mount';
 import { useCurrentAccountIndex } from '@app/store/accounts/account';

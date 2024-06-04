@@ -1,6 +1,6 @@
 import { useMemo } from 'react';
 
-import type { Money } from '@leather-wallet/models';
+import { BtcFeeType, Money, btcTxTimeMap } from '@leather-wallet/models';
 import {
   type UtxoResponseItem,
   useAverageBitcoinFeeRates,
@@ -13,7 +13,6 @@ import {
   i18nFormatCurrency,
 } from '@leather-wallet/utils';
 
-import { BtcFeeType, btcTxTimeMap } from '@shared/models/fees/bitcoin-fees.model';
 import type { TransferRecipient } from '@shared/models/form.model';
 
 import {

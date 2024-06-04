@@ -1,9 +1,9 @@
 import { useState } from 'react';
 import { Outlet, useNavigate } from 'react-router-dom';
 
+import type { BtcFeeType } from '@leather-wallet/models';
 import { createMoney } from '@leather-wallet/utils';
 
-import { BtcFeeType } from '@shared/models/fees/bitcoin-fees.model';
 import { RouteUrls } from '@shared/route-urls';
 
 import {

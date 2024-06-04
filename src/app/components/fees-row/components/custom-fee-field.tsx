@@ -1,12 +1,12 @@
 import { FormEvent, useCallback } from 'react';
 
+import type { StacksFeeEstimate } from '@leather-wallet/models';
 import { stxToMicroStx } from '@leather-wallet/utils';
 import { SharedComponentsSelectors } from '@tests/selectors/shared-component.selectors';
 import { useField } from 'formik';
 import { Flex, Stack, styled } from 'leather-styles/jsx';
 
 import { CryptoCurrencies } from '@shared/models/currencies.model';
-import { StacksFeeEstimate } from '@shared/models/fees/stacks-fees.model';
 
 import { SendFormWarningMessages } from '@app/common/warning-messages';
 
