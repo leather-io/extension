@@ -2,11 +2,11 @@ import { OnboardingSelectors } from '@tests/selectors/onboarding.selectors';
 import { Form, Formik } from 'formik';
 import { Stack } from 'leather-styles/jsx';
 
+import { Button } from '@leather-wallet/ui';
 import { createNullArrayOfLength, isEmpty } from '@leather-wallet/utils';
 
 import { ErrorLabel } from '@app/components/error-label';
 import { useSignIn } from '@app/pages/onboarding/sign-in/hooks/use-sign-in';
-import { Button } from '@app/ui/components/button/button';
 import { MnemonicWordInput } from '@app/ui/components/secret-key/mnemonic-key/mnemonic-word-input';
 import {
   getMnemonicErrorFields,

@@ -2,6 +2,7 @@ import { useLocation } from 'react-router-dom';
 
 import { HStack, styled } from 'leather-styles/jsx';
 
+import { CheckmarkIcon, CopyIcon, ExternalLinkIcon } from '@leather-wallet/ui';
 import { satToBtc } from '@leather-wallet/utils';
 
 import { analytics } from '@shared/utils/analytics';
@@ -11,9 +12,6 @@ import { useClipboard } from '@app/common/hooks/use-copy-to-clipboard';
 import { InfoCardAssetValue, InfoCardBtn } from '@app/components/info-card/info-card';
 import { useToast } from '@app/features/toasts/use-toast';
 import { Footer } from '@app/ui/components/containers/footers/footer';
-import { CheckmarkIcon } from '@app/ui/icons/checkmark-icon';
-import { CopyIcon } from '@app/ui/icons/copy-icon';
-import { ExternalLinkIcon } from '@app/ui/icons/external-link-icon';
 import { Card } from '@app/ui/layout/card/card';
 import { CardContent } from '@app/ui/layout/card/card-content';
 

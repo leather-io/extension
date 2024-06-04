@@ -2,7 +2,8 @@ import { useState } from 'react';
 
 import type { Meta } from '@storybook/react';
 
-import { Button } from '../../button/button';
+import { Button } from '@leather-wallet/ui';
+
 import { Dialog as Component } from './dialog';
 
 const meta: Meta<typeof Component> = {

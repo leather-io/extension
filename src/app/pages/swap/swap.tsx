@@ -4,10 +4,10 @@ import { Outlet, useParams } from 'react-router-dom';
 import { SwapSelectors } from '@tests/selectors/swap.selectors';
 import { useFormikContext } from 'formik';
 
+import { Button } from '@leather-wallet/ui';
 import { isUndefined } from '@leather-wallet/utils';
 
 import { LoadingSpinner } from '@app/components/loading-spinner';
-import { Button } from '@app/ui/components/button/button';
 import { Footer } from '@app/ui/components/containers/footers/footer';
 import { Card } from '@app/ui/layout/card/card';
 import { CardContent } from '@app/ui/layout/card/card-content';

@@ -1,4 +1,4 @@
-import { CheckmarkCircleIcon, ErrorIcon, InfoCircleIcon } from '@app/ui/icons';
+import { CheckmarkCircleIcon, ErrorIcon, InfoCircleIcon } from '@leather-wallet/ui';
 
 import type { ToastVariant } from './toast';
 

@@ -1,9 +1,10 @@
 import { Stack } from 'leather-styles/jsx';
 
+import { Title } from '@leather-wallet/ui';
+
 import { AttachmentRow } from '@app/features/stacks-transaction-request/attachment-row';
 import { Row } from '@app/features/stacks-transaction-request/row';
 import { useTransactionRequestState } from '@app/store/transactions/requests.hooks';
-import { Title } from '@app/ui/components/typography/title';
 
 export function StxTransferDetails(): React.JSX.Element | null {
   const pendingTransaction = useTransactionRequestState();

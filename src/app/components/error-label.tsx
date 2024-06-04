@@ -1,5 +1,4 @@
-import { Flag, type FlagProps } from '@app/ui/components/flag/flag';
-import { ErrorCircleIcon } from '@app/ui/icons/error-circle-icon';
+import { ErrorCircleIcon, Flag, type FlagProps } from '@leather-wallet/ui';
 
 export function ErrorLabel({ children, ...rest }: FlagProps) {
   return (

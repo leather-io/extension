@@ -1,12 +1,11 @@
 import { SwapSelectors } from '@tests/selectors/swap.selectors';
 
 import { type SwapAsset, isFtAsset, useGetFungibleTokenMetadataQuery } from '@leather-wallet/query';
+import { ItemLayout, Pressable } from '@leather-wallet/ui';
 import { formatMoneyWithoutSymbol } from '@leather-wallet/utils';
 
 import { convertAssetBalanceToFiat } from '@app/common/asset-utils';
 import { Avatar, defaultFallbackDelay, getAvatarFallback } from '@app/ui/components/avatar/avatar';
-import { ItemLayout } from '@app/ui/components/item-layout/item-layout';
-import { Pressable } from '@app/ui/pressable/pressable';
 
 interface SwapAssetItemProps {
   asset: SwapAsset;

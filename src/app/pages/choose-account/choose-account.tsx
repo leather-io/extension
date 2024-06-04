@@ -3,6 +3,8 @@ import { Outlet } from 'react-router-dom';
 
 import { Flex, Stack, styled } from 'leather-styles/jsx';
 
+import { LogomarkIcon } from '@leather-wallet/ui';
+
 import { closeWindow } from '@shared/utils';
 
 import { useCancelAuthRequest } from '@app/common/authentication/use-cancel-auth-request';
@@ -11,7 +13,6 @@ import { RequesterFlag } from '@app/components/requester-flag';
 import { ChooseAccountsList } from '@app/pages/choose-account/components/accounts';
 import { useOnOriginTabClose } from '@app/routes/hooks/use-on-tab-closed';
 import { useStacksAccounts } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
-import { LogomarkIcon } from '@app/ui/icons/logomark-icon';
 
 export function ChooseAccount() {
   const { url } = useAppDetails();

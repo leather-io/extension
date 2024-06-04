@@ -1,11 +1,9 @@
 import { HStack, Stack } from 'leather-styles/jsx';
 
+import { Caption, DynamicColorCircle, Title } from '@leather-wallet/ui';
 import { truncateMiddle } from '@leather-wallet/utils';
 
 import { formatContractId } from '@app/common/utils';
-import { DynamicColorCircle } from '@app/ui/components/dynamic-color-circle';
-import { Caption } from '@app/ui/components/typography/caption';
-import { Title } from '@app/ui/components/typography/title';
 
 interface ContractPreviewLayoutProps {
   contractAddress: string;

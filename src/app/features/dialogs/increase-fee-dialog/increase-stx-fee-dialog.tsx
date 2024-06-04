@@ -12,6 +12,7 @@ import {
   useStxAvailableUnlockedBalance,
   useTransactionById,
 } from '@leather-wallet/query';
+import { Caption, Spinner } from '@leather-wallet/ui';
 import { microStxToStx, stxToMicroStx } from '@leather-wallet/utils';
 
 import { RouteUrls } from '@shared/route-urls';
@@ -29,8 +30,6 @@ import { useSubmittedTransactionsActions } from '@app/store/submitted-transactio
 import { Dialog } from '@app/ui/components/containers/dialog/dialog';
 import { Footer } from '@app/ui/components/containers/footers/footer';
 import { DialogHeader } from '@app/ui/components/containers/headers/dialog-header';
-import { Spinner } from '@app/ui/components/spinner';
-import { Caption } from '@app/ui/components/typography/caption';
 
 import { IncreaseFeeActions } from './components/increase-fee-actions';
 import { IncreaseFeeField } from './components/increase-fee-field';

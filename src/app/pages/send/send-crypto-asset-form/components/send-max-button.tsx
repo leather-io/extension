@@ -5,11 +5,11 @@ import { useField } from 'formik';
 import { Box } from 'leather-styles/jsx';
 
 import type { Money } from '@leather-wallet/models';
+import { Link } from '@leather-wallet/ui';
 
 import { analytics } from '@shared/utils/analytics';
 
 import { useToast } from '@app/features/toasts/use-toast';
-import { Link } from '@app/ui/components/link/link';
 
 interface SendMaxButtonProps {
   balance: Money;

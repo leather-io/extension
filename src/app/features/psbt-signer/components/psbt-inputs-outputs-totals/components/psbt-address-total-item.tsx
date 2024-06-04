@@ -1,11 +1,10 @@
 import { Box, HStack, styled } from 'leather-styles/jsx';
 
+import { CopyIcon, Flag, Link } from '@leather-wallet/ui';
+
 import { useClipboard } from '@app/common/hooks/use-copy-to-clipboard';
 import { BtcAvatarIcon } from '@app/ui/components/avatar/btc-avatar-icon';
-import { Flag } from '@app/ui/components/flag/flag';
-import { Link } from '@app/ui/components/link/link';
 import { BasicTooltip } from '@app/ui/components/tooltip/basic-tooltip';
-import { CopyIcon } from '@app/ui/icons/copy-icon';
 
 interface PsbtAddressTotalItemProps {
   hoverLabel?: string;

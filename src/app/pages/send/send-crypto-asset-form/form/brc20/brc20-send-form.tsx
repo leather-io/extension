@@ -6,15 +6,13 @@ import { Box, styled } from 'leather-styles/jsx';
 import get from 'lodash.get';
 
 import type { MarketData, Money } from '@leather-wallet/models';
+import { Button, Callout, Link } from '@leather-wallet/ui';
 import { convertAmountToBaseUnit, formatMoney } from '@leather-wallet/utils';
 
 import { openInNewTab } from '@app/common/utils/open-in-new-tab';
 import { Brc20AvatarIcon } from '@app/ui/components/avatar/brc20-avatar-icon';
-import { Button } from '@app/ui/components/button/button';
-import { Callout } from '@app/ui/components/callout/callout';
 import { AvailableBalance } from '@app/ui/components/containers/footers/available-balance';
 import { Footer } from '@app/ui/components/containers/footers/footer';
-import { Link } from '@app/ui/components/link/link';
 import { Card } from '@app/ui/layout/card/card';
 import { CardContent } from '@app/ui/layout/card/card-content';
 

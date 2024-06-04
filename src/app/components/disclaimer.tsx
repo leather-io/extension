@@ -1,7 +1,8 @@
 import { Box, BoxProps, styled } from 'leather-styles/jsx';
 
+import { Link } from '@leather-wallet/ui';
+
 import { openInNewTab } from '@app/common/utils/open-in-new-tab';
-import { Link } from '@app/ui/components/link/link';
 
 interface DisclaimerProps extends BoxProps {
   disclaimerText: string;

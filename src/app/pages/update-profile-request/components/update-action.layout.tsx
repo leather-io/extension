@@ -1,7 +1,7 @@
 import { UpdateProfileRequestSelectors } from '@tests/selectors/requests.selectors';
 import { HStack } from 'leather-styles/jsx';
 
-import { Button } from '@app/ui/components/button/button';
+import { Button } from '@leather-wallet/ui';
 
 interface UpdateActionLayoutProps {
   onUpdateProfile(): Promise<void>;

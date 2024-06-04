@@ -5,6 +5,7 @@ import { Formik } from 'formik';
 import { Flex, Stack } from 'leather-styles/jsx';
 
 import type { BitcoinTx } from '@leather-wallet/models';
+import { Caption, Spinner } from '@leather-wallet/ui';
 import { btcToSat, createMoney, formatMoney } from '@leather-wallet/utils';
 
 import { RouteUrls } from '@shared/route-urls';
@@ -18,8 +19,6 @@ import { useCurrentAccountNativeSegwitIndexZeroSigner } from '@app/store/account
 import { Dialog } from '@app/ui/components/containers/dialog/dialog';
 import { Footer } from '@app/ui/components/containers/footers/footer';
 import { DialogHeader } from '@app/ui/components/containers/headers/dialog-header';
-import { Spinner } from '@app/ui/components/spinner';
-import { Caption } from '@app/ui/components/typography/caption';
 
 import { IncreaseFeeActions } from './components/increase-fee-actions';
 import { useBtcIncreaseFee } from './hooks/use-btc-increase-fee';

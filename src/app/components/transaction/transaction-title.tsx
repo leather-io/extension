@@ -1,9 +1,10 @@
 import { useRef, useState } from 'react';
 
+import { Title } from '@leather-wallet/ui';
+import { spamFilter } from '@leather-wallet/utils';
+
 import { useOnResizeListener } from '@app/common/hooks/use-on-resize-listener';
-import { spamFilter } from '@app/common/utils/spam-filter';
 import { BasicTooltip } from '@app/ui/components/tooltip/basic-tooltip';
-import { Title } from '@app/ui/components/typography/title';
 
 interface TransactionTitleProps {
   title: string;

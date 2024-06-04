@@ -5,10 +5,11 @@ import { SharedComponentsSelectors } from '@tests/selectors/shared-component.sel
 import { Box, Flex, styled } from 'leather-styles/jsx';
 import { token } from 'leather-styles/tokens';
 
+import { Button } from '@leather-wallet/ui';
+
 import { useLocationState } from '@app/common/hooks/use-location-state';
 import { useBackgroundLocationRedirect } from '@app/routes/hooks/use-background-location-redirect';
 import { AddressDisplayer } from '@app/ui/components/address-displayer/address-displayer';
-import { Button } from '@app/ui/components/button/button';
 import { Dialog } from '@app/ui/components/containers/dialog/dialog';
 import { Footer } from '@app/ui/components/containers/footers/footer';
 import { Header } from '@app/ui/components/containers/headers/header';

@@ -6,13 +6,12 @@ import { Stack, styled } from 'leather-styles/jsx';
 import * as yup from 'yup';
 
 import type { BtcFeeType } from '@leather-wallet/models';
+import { Button, Link } from '@leather-wallet/ui';
 import { createMoney } from '@leather-wallet/utils';
 
 import type { TransferRecipient } from '@shared/models/form.model';
 
 import { openInNewTab } from '@app/common/utils/open-in-new-tab';
-import { Button } from '@app/ui/components/button/button';
-import { Link } from '@app/ui/components/link/link';
 
 import { OnChooseFeeArgs } from '../bitcoin-fees-list/bitcoin-fees-list';
 import { BitcoinCustomFeeInput } from './bitcoin-custom-fee-input';

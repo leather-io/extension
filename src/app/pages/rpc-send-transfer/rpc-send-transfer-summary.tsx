@@ -2,6 +2,8 @@ import { useLocation } from 'react-router-dom';
 
 import { HStack, Stack } from 'leather-styles/jsx';
 
+import { CheckmarkIcon, CopyIcon, ExternalLinkIcon } from '@leather-wallet/ui';
+
 import type { TransferRecipient } from '@shared/models/form.model';
 import { analytics } from '@shared/utils/analytics';
 
@@ -16,9 +18,6 @@ import {
   InfoCardSeparator,
 } from '@app/components/info-card/info-card';
 import { useToast } from '@app/features/toasts/use-toast';
-import { CheckmarkIcon } from '@app/ui/icons/checkmark-icon';
-import { CopyIcon } from '@app/ui/icons/copy-icon';
-import { ExternalLinkIcon } from '@app/ui/icons/external-link-icon';
 import { Card } from '@app/ui/layout/card/card';
 
 export function RpcSendTransferSummary() {

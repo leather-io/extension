@@ -1,10 +1,10 @@
 import { Flex, HStack, styled } from 'leather-styles/jsx';
 
 import type { Money } from '@leather-wallet/models';
+import { Flag } from '@leather-wallet/ui';
 
 import { formatBalance } from '@app/common/format-balance';
 import { ftDecimals } from '@app/common/stacks-utils';
-import { Flag } from '@app/ui/components/flag/flag';
 import { BasicTooltip } from '@app/ui/components/tooltip/basic-tooltip';
 
 import { LoadingSpinner } from '../loading-spinner';

@@ -14,6 +14,7 @@ import {
   useBitcoinBroadcastTransaction,
   useCryptoCurrencyMarketDataMeanAverage,
 } from '@leather-wallet/query';
+import { Button } from '@leather-wallet/ui';
 import {
   baseCurrencyAmountInQuote,
   createMoney,
@@ -34,7 +35,6 @@ import {
   InfoCardSeparator,
 } from '@app/components/info-card/info-card';
 import { useCurrentNativeSegwitUtxos } from '@app/query/bitcoin/address/utxos-by-address.hooks';
-import { Button } from '@app/ui/components/button/button';
 import { Footer } from '@app/ui/components/containers/footers/footer';
 import { Card } from '@app/ui/layout/card/card';
 import { CardContent } from '@app/ui/layout/card/card-content';

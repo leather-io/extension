@@ -1,15 +1,14 @@
 import { StacksTransaction } from '@stacks/transactions';
 import { HStack, styled } from 'leather-styles/jsx';
 
+import { Caption, ItemLayout, Pressable } from '@leather-wallet/ui';
+
 import { analytics } from '@shared/utils/analytics';
 
 import { useStacksExplorerLink } from '@app/common/hooks/use-stacks-explorer-link';
 import { getTxSenderAddress } from '@app/common/transactions/stacks/transaction.utils';
 import { TransactionTitle } from '@app/components/transaction/transaction-title';
-import { ItemLayout } from '@app/ui/components/item-layout/item-layout';
 import { BasicTooltip } from '@app/ui/components/tooltip/basic-tooltip';
-import { Caption } from '@app/ui/components/typography/caption';
-import { Pressable } from '@app/ui/pressable/pressable';
 
 import { SubmittedTransactionIcon } from './submitted-transaction-icon';
 import { getSubmittedTransactionDetails } from './submitted-transaction-list.utils';

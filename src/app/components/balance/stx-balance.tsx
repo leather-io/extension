@@ -1,9 +1,9 @@
 import { useMemo } from 'react';
 
 import { useStxCryptoAssetBalance } from '@leather-wallet/query';
+import { Caption } from '@leather-wallet/ui';
 
 import { stacksValue } from '@app/common/stacks-utils';
-import { Caption } from '@app/ui/components/typography/caption';
 
 interface StxBalanceProps {
   address: string;

@@ -1,5 +1,6 @@
+import { Tag, type TagProps, type TagVariants } from '@leather-wallet/ui';
+
 import { BasicTooltip } from '../tooltip/basic-tooltip';
-import { Tag, type TagProps, type TagVariants } from './tag';
 
 type TooltipSideType = 'bottom' | 'left' | 'right' | 'top';
 

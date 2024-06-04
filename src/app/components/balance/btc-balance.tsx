@@ -1,6 +1,5 @@
+import { Caption } from '@leather-wallet/ui';
 import { formatMoney } from '@leather-wallet/utils';
-
-import { Caption } from '@app/ui/components/typography/caption';
 
 import { BitcoinNativeSegwitAccountLoader } from '../loaders/bitcoin-account-loader';
 import { BtcBalanceLoader } from '../loaders/btc-balance-loader';

@@ -1,9 +1,10 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { Flex } from 'leather-styles/jsx';
 
+import { Flag } from '@leather-wallet/ui';
+
 import { BtcAvatarIcon } from '../avatar/btc-avatar-icon';
 import { StxAvatarIcon } from '../avatar/stx-avatar-icon';
-import { Flag } from '../flag/flag';
 import { AddressDisplayer as Component } from './address-displayer';
 
 const meta: Meta<typeof Component> = {
