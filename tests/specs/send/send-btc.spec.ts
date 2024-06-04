@@ -1,10 +1,9 @@
+import { BtcFeeType } from '@leather-wallet/models';
 import { TEST_TESTNET_ACCOUNT_2_BTC_ADDRESS } from '@tests/mocks/constants';
 import { mockOrdinalsComApiHtmlResponse } from '@tests/mocks/mock-ordinalscom-api';
 import { SendCryptoAssetSelectors } from '@tests/selectors/send.selectors';
 import { SharedComponentsSelectors } from '@tests/selectors/shared-component.selectors';
 import { getDisplayerAddress } from '@tests/utils';
-
-import { BtcFeeType } from '@shared/models/fees/bitcoin-fees.model';
 
 import { test } from '../../fixtures/fixtures';
 

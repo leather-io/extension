@@ -1,13 +1,13 @@
 import { memo, useState } from 'react';
 import { Outlet, useNavigate } from 'react-router-dom';
 
+import { FeeTypes } from '@leather-wallet/models';
 import { Formik, FormikHelpers } from 'formik';
 import { Flex } from 'leather-styles/jsx';
 import * as yup from 'yup';
 
 import { HIGH_FEE_WARNING_LEARN_MORE_URL_STX } from '@shared/constants';
 import { logger } from '@shared/logger';
-import { FeeTypes } from '@shared/models/fees/fees.model';
 import { StacksTransactionFormValues } from '@shared/models/form.model';
 import { RouteUrls } from '@shared/route-urls';
 

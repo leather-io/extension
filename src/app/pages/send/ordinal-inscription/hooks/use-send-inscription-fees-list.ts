@@ -1,6 +1,6 @@
 import { useCallback, useMemo } from 'react';
 
-import type { Inscription } from '@leather-wallet/models';
+import { BtcFeeType, Inscription, btcTxTimeMap } from '@leather-wallet/models';
 import {
   type UtxoWithDerivationPath,
   useAverageBitcoinFeeRates,
@@ -12,8 +12,6 @@ import {
   formatMoneyPadded,
   i18nFormatCurrency,
 } from '@leather-wallet/utils';
-
-import { BtcFeeType, btcTxTimeMap } from '@shared/models/fees/bitcoin-fees.model';
 
 import { FeesListItem } from '@app/components/bitcoin-fees-list/bitcoin-fees-list';
 import { useCurrentNativeSegwitUtxos } from '@app/query/bitcoin/address/utxos-by-address.hooks';

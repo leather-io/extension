@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Outlet, useOutletContext } from 'react-router-dom';
 
-import { BtcFeeType } from '@shared/models/fees/bitcoin-fees.model';
+import type { BtcFeeType } from '@leather-wallet/models';
 
 interface SendBitcoinAssetContextState {
   selectedFeeType: BtcFeeType | null;

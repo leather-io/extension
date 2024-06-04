@@ -1,7 +1,8 @@
 import { useState } from 'react';
 import { Outlet, useOutletContext } from 'react-router-dom';
 
-import { BtcFeeType } from '@shared/models/fees/bitcoin-fees.model';
+import type { BtcFeeType } from '@leather-wallet/models';
+
 import { closeWindow } from '@shared/utils';
 
 import { RpcSendTransferContainerLayout } from './components/rpc-send-transfer-container.layout';

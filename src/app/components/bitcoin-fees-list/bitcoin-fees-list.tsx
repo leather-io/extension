@@ -1,8 +1,7 @@
 import { useCallback } from 'react';
 
+import type { BtcFeeType } from '@leather-wallet/models';
 import { Stack } from 'leather-styles/jsx';
-
-import { BtcFeeType } from '@shared/models/fees/bitcoin-fees.model';
 
 import { LoadingSpinner } from '../loading-spinner';
 import { FeesListError } from './components/fees-list-error';

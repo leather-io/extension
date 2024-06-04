@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
 
+import { FeeTypes, type Fees } from '@leather-wallet/models';
 import { convertAmountToBaseUnit, createMoney, isNumber, isString } from '@leather-wallet/utils';
 import { SharedComponentsSelectors } from '@tests/selectors/shared-component.selectors';
 import BigNumber from 'bignumber.js';
@@ -7,7 +8,6 @@ import { useField } from 'formik';
 import { Box } from 'leather-styles/jsx';
 
 import { STX_DECIMALS } from '@shared/constants';
-import { FeeTypes, Fees } from '@shared/models/fees/fees.model';
 
 import { useConvertCryptoCurrencyToFiatAmount } from '@app/common/hooks/use-convert-to-fiat-amount';
 import { LoadingRectangle } from '@app/components/loading-rectangle';

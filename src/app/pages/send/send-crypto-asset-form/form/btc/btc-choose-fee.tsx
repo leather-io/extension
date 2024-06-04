@@ -1,8 +1,8 @@
 import { Outlet } from 'react-router-dom';
 
+import type { BtcFeeType } from '@leather-wallet/models';
 import type { UtxoResponseItem } from '@leather-wallet/query';
 
-import { BtcFeeType } from '@shared/models/fees/bitcoin-fees.model';
 import { BitcoinSendFormValues } from '@shared/models/form.model';
 
 import { useLocationStateWithCache } from '@app/common/hooks/use-location-state';

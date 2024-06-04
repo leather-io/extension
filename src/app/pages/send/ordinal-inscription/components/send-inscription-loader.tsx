@@ -1,6 +1,5 @@
+import type { AverageBitcoinFeeRates } from '@leather-wallet/models';
 import { useAverageBitcoinFeeRates } from '@leather-wallet/query';
-
-import { AverageBitcoinFeeRates } from '@shared/models/fees/bitcoin-fees.model';
 
 interface SendInscriptionLoaderProps {
   children(data: { feeRates: AverageBitcoinFeeRates }): React.JSX.Element;

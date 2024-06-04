@@ -1,6 +1,6 @@
 import { Outlet, useNavigate } from 'react-router-dom';
 
-import type { Money } from '@leather-wallet/models';
+import type { Fees, Money } from '@leather-wallet/models';
 import { formatMoney } from '@leather-wallet/utils';
 import { SendCryptoAssetSelectors } from '@tests/selectors/send.selectors';
 import BigNumber from 'bignumber.js';
@@ -9,7 +9,6 @@ import { Box } from 'leather-styles/jsx';
 import { ObjectSchema } from 'yup';
 
 import { HIGH_FEE_AMOUNT_STX, HIGH_FEE_WARNING_LEARN_MORE_URL_STX } from '@shared/constants';
-import { Fees } from '@shared/models/fees/fees.model';
 import { StacksSendFormValues } from '@shared/models/form.model';
 import { RouteUrls } from '@shared/route-urls';
 
