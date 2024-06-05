@@ -1,6 +1,6 @@
 import { ReactNode } from 'react';
 
-import { HStack, styled } from 'leather-styles/jsx';
+import { HStack, VStack, styled } from 'leather-styles/jsx';
 
 import { ItemLayout } from '@app/ui/components/item-layout/item-layout';
 import { Caption } from '@app/ui/components/typography/caption';
@@ -8,7 +8,7 @@ import { Pressable } from '@app/ui/pressable/pressable';
 
 interface TransactionItemLayoutProps {
   openTxLink(): void;
-  rightElement?: ReactNode;
+  actionButtonGroupElement?: ReactNode;
   txCaption: ReactNode;
   txTitle: ReactNode;
   txValue: ReactNode;
@@ -19,7 +19,7 @@ interface TransactionItemLayoutProps {
 
 export function TransactionItemLayout({
   openTxLink,
-  rightElement,
+  actionButtonGroupElement,
   txCaption,
   txIcon,
   txStatus,
@@ -32,19 +32,22 @@ export function TransactionItemLayout({
         flagImg={txIcon && txIcon}
         titleLeft={txTitle}
         captionLeft={
-          <HStack alignItems="center">
-            <Caption
-              overflow="hidden"
-              textOverflow="ellipsis"
-              maxWidth={{ base: '160px', md: 'unset' }}
-            >
-              {txCaption}
-            </Caption>
-            {txStatus && txStatus}
-          </HStack>
+          <VStack alignItems="start" gap="space.01">
+            <HStack alignItems="center">
+              <Caption
+                overflow="hidden"
+                textOverflow="ellipsis"
+                maxWidth={{ base: '160px', md: 'unset' }}
+              >
+                {txCaption}
+              </Caption>
+              {txStatus && txStatus}
+            </HStack>
+            {actionButtonGroupElement && actionButtonGroupElement}
+          </VStack>
         }
         titleRight={
-          rightElement ? rightElement : <styled.span textStyle="label.02">{txValue}</styled.span>
+          !actionButtonGroupElement && <styled.span textStyle="label.02">{txValue}</styled.span>
         }
       />
     </Pressable>

@@ -1,5 +1,7 @@
 import { createSearchParams, useLocation, useNavigate } from 'react-router-dom';
 
+import { HStack } from 'leather-styles/jsx';
+
 import { StacksTx, TxTransferDetails } from '@shared/models/transactions/stacks-transaction.model';
 import { RouteUrls } from '@shared/route-urls';
 
@@ -19,6 +21,7 @@ import { useCurrentStacksAccount } from '@app/store/accounts/blockchain/stacks/s
 import { useRawTxIdState } from '@app/store/transactions/raw.hooks';
 
 import { TransactionItemLayout } from '../transaction-item/transaction-item.layout';
+import { CancelTransactionButton } from './cancel-transaction-button';
 import { IncreaseFeeButton } from './increase-fee-button';
 import { StacksTransactionIcon } from './stacks-transaction-icon';
 import { StacksTransactionStatus } from './stacks-transaction-status';
@@ -64,6 +67,22 @@ export function StacksTransactionItem({
     })();
   };
 
+  const onCancelTransaction = () => {
+    if (!transaction) return;
+    setRawTxId(transaction.tx_id);
+
+    const urlSearchParams = `?${createSearchParams({ txId: transaction.tx_id })}`;
+
+    whenWallet({
+      ledger: () =>
+        whenPageMode({
+          full: () => navigate(RouteUrls.CancelStxTransaction),
+          popup: () => openIndexPageInNewTab(RouteUrls.CancelStxTransaction, urlSearchParams),
+        })(),
+      software: () => navigate(RouteUrls.CancelStxTransaction),
+    })();
+  };
+
   const isOriginator = transaction?.sender_address === currentAccount?.address;
   const isPending = transaction && isPendingTx(transaction);
 
@@ -75,19 +94,30 @@ export function StacksTransactionItem({
   );
   const title = transaction ? getTxTitle(transaction) : transferDetails?.title || '';
   const value = transaction ? getTxValue(transaction, isOriginator) : transferDetails?.value;
-  const increaseFeeButton = (
-    <IncreaseFeeButton
-      isEnabled={isOriginator && isPending}
-      isSelected={pathname === RouteUrls.IncreaseStxFee}
-      onIncreaseFee={onIncreaseFee}
-    />
+  const actionButtonGroup = (
+    <HStack alignItems="start" gap="space.01">
+      <CancelTransactionButton
+        isEnabled={isOriginator && isPending}
+        isSelected={
+          pathname === RouteUrls.CancelStxTransaction || pathname === RouteUrls.IncreaseStxFee
+        }
+        onCancelTransaction={onCancelTransaction}
+      />
+      <IncreaseFeeButton
+        isEnabled={isOriginator && isPending}
+        isSelected={
+          pathname === RouteUrls.IncreaseStxFee || pathname === RouteUrls.CancelStxTransaction
+        }
+        onIncreaseFee={onIncreaseFee}
+      />
+    </HStack>
   );
   const txStatus = transaction && <StacksTransactionStatus transaction={transaction} />;
 
   return (
     <TransactionItemLayout
       openTxLink={openTxLink}
-      rightElement={isOriginator && isPending ? increaseFeeButton : undefined}
+      actionButtonGroupElement={isOriginator && isPending ? actionButtonGroup : undefined}
       txCaption={caption}
       txIcon={txIcon}
       txStatus={txStatus}

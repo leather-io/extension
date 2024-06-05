@@ -14,6 +14,7 @@ import { RouteUrls } from '@shared/route-urls';
 import { LoadingSpinner } from '@app/components/loading-spinner';
 import { AddNetwork } from '@app/features/add-network/add-network';
 import { Container } from '@app/features/container/container';
+import { CancelStxTransactionDialog } from '@app/features/dialogs/cancel-transaction-dialog/cancel-stx-transaction-dialog';
 import { EditNonceDialog } from '@app/features/dialogs/edit-nonce-dialog/edit-nonce-dialog';
 import { IncreaseBtcFeeDialog } from '@app/features/dialogs/increase-fee-dialog/increase-btc-fee-dialog';
 import { IncreaseStxFeeDialog } from '@app/features/dialogs/increase-fee-dialog/increase-stx-fee-dialog';
@@ -98,6 +99,9 @@ function useAppRoutes() {
             element={<RetrieveTaprootToNativeSegwit />}
           />
           <Route path={RouteUrls.IncreaseStxFee} element={<IncreaseStxFeeDialog />}>
+            {ledgerStacksTxSigningRoutes}
+          </Route>
+          <Route path={RouteUrls.CancelStxTransaction} element={<CancelStxTransactionDialog />}>
             {ledgerStacksTxSigningRoutes}
           </Route>
           <Route

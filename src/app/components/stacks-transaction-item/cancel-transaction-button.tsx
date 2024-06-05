@@ -1,14 +1,12 @@
 import { HStack, styled } from 'leather-styles/jsx';
 
-import { ChevronsRightIcon } from '@app/ui/icons/chevrons-right-icon';
-
-interface IncreaseFeeButtonProps {
+interface CancelTransactionButtonProps {
   isEnabled?: boolean;
   isSelected: boolean;
-  onIncreaseFee(): void;
+  onCancelTransaction(): void;
 }
-export function IncreaseFeeButton(props: IncreaseFeeButtonProps) {
-  const { isEnabled, isSelected, onIncreaseFee } = props;
+export function CancelTransactionButton(props: CancelTransactionButtonProps) {
+  const { isEnabled, isSelected, onCancelTransaction } = props;
   const isActive = isEnabled && !isSelected;
 
   return (
@@ -16,10 +14,10 @@ export function IncreaseFeeButton(props: IncreaseFeeButtonProps) {
       <styled.button
         _hover={{ color: 'ink.text-subdued' }}
         bg="ink.background-primary"
-        maxWidth="110px"
+        maxWidth="125px"
         ml="auto"
         onClick={e => {
-          onIncreaseFee();
+          onCancelTransaction();
           e.stopPropagation();
         }}
         pointerEvents={!isActive ? 'none' : 'all'}
@@ -30,8 +28,9 @@ export function IncreaseFeeButton(props: IncreaseFeeButtonProps) {
         zIndex={999}
       >
         <HStack gap="space.01">
-          <ChevronsRightIcon color="stacks" variant="small" />
-          <styled.span textStyle="label.03">Increase fee</styled.span>
+          <styled.span textStyle="label.03" color="yellow.action-primary-default">
+            Cancel transaction
+          </styled.span>
         </HStack>
       </styled.button>
     )

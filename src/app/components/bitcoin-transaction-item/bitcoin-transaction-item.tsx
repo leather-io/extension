@@ -86,7 +86,7 @@ export function BitcoinTransactionItem({ transaction }: BitcoinTransactionItemPr
   return (
     <TransactionItemLayout
       openTxLink={openTxLink}
-      rightElement={isEnabled ? increaseFeeButton : undefined}
+      actionButtonGroupElement={isEnabled ? increaseFeeButton : undefined}
       txCaption={txCaption}
       txIcon={
         <BitcoinTransactionIcon
