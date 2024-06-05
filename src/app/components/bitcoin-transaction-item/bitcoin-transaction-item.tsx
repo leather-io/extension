@@ -5,7 +5,7 @@ import { HStack } from 'leather-styles/jsx';
 
 import type { BitcoinTx } from '@leather.io/models';
 import { useInscriptionByOutput } from '@leather.io/query';
-import { BtcAvatarIcon, BulletSeparator, Caption } from '@leather.io/ui';
+import { BtcAvatarIcon, BulletSeparator, Caption, ChevronsRightIcon } from '@leather.io/ui';
 
 import { RouteUrls } from '@shared/route-urls';
 import { analytics } from '@shared/utils/analytics';
@@ -18,10 +18,10 @@ import {
   isBitcoinTxInbound,
 } from '@app/common/transactions/bitcoin/utils';
 import { openInNewTab } from '@app/common/utils/open-in-new-tab';
-import { IncreaseFeeButton } from '@app/components/stacks-transaction-item/increase-fee-button';
 import { TransactionTitle } from '@app/components/transaction/transaction-title';
 import { useCurrentAccountNativeSegwitAddressIndexZero } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
 
+import { TransactionActionIconButton } from '../stacks-transaction-item/transaction-action-button';
 import { TransactionItemLayout } from '../transaction-item/transaction-item.layout';
 import { BitcoinTransactionIcon } from './bitcoin-transaction-icon';
 import { InscriptionIcon } from './bitcoin-transaction-inscription-icon';
@@ -74,10 +74,12 @@ export function BitcoinTransactionItem({ transaction }: BitcoinTransactionItemPr
 
   const title = inscriptionData ? `Ordinal inscription #${inscriptionData.number}` : 'Bitcoin';
   const increaseFeeButton = (
-    <IncreaseFeeButton
+    <TransactionActionIconButton
+      icon={<ChevronsRightIcon />}
+      label="Increase fee"
       isEnabled={isEnabled}
       isSelected={pathname === RouteUrls.IncreaseBtcFee}
-      onIncreaseFee={onIncreaseFee}
+      onButtonClick={onIncreaseFee}
     />
   );
 
