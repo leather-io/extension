@@ -3,7 +3,7 @@
   "description": "Leather is a browser extension for interacting with Stacks apps",
   "private": true,
   "version": "6.41.1",
-  "packageManager": "pnpm@8.15.4",
+  "packageManager": "pnpm@9.1.4",
   "author": {
     "name": "Leather Wallet LLC"
   },
