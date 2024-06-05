@@ -1,58 +1,46 @@
-import { Suspense, useCallback, useEffect } from 'react';
+import { Suspense, useEffect } from 'react';
 import { Outlet, useLocation, useNavigate, useSearchParams } from 'react-router-dom';
 
 import { microStxToStx, stxToMicroStx } from '@leather-wallet/utils';
 import BigNumber from 'bignumber.js';
 import { Formik } from 'formik';
 import { Flex, Stack } from 'leather-styles/jsx';
-import * as yup from 'yup';
 
 import { RouteUrls } from '@shared/route-urls';
 
-import { useRefreshAllAccountData } from '@app/common/hooks/account/use-refresh-all-account-data';
 import { LoadingKeys, useLoading } from '@app/common/hooks/use-loading';
 import { stacksValue } from '@app/common/stacks-utils';
-import { safelyFormatHexTxid } from '@app/common/utils/safe-handle-txid';
-import { stxFeeValidator } from '@app/common/validation/forms/fee-validators';
 import { FeesRow } from '@app/components/fees-row/fees-row';
 import { LoadingSpinner } from '@app/components/loading-spinner';
 import { StacksTransactionItem } from '@app/components/stacks-transaction-item/stacks-transaction-item';
-import { IncreaseFeeActions } from '@app/features/dialogs/increase-fee-dialog/components/increase-fee-actions';
-import { useStacksBroadcastTransaction } from '@app/features/stacks-transaction-request/hooks/use-stacks-broadcast-transaction';
 import { useToast } from '@app/features/toasts/use-toast';
-import { useCurrentStxAvailableUnlockedBalance } from '@app/query/stacks/balance/account-balance.hooks';
-import { useCalculateStacksTxFees } from '@app/query/stacks/fees/fees.hooks';
-import { useSubmittedTransactionsActions } from '@app/store/submitted-transactions/submitted-transactions.hooks';
-import { useRawDeserializedTxState, useRawTxIdState } from '@app/store/transactions/raw.hooks';
-import { useStxTokenTransferUnsignedTxState } from '@app/store/transactions/token-transfer.hooks';
 import { Dialog } from '@app/ui/components/containers/dialog/dialog';
 import { Footer } from '@app/ui/components/containers/footers/footer';
 import { DialogHeader } from '@app/ui/components/containers/headers/dialog-header';
 import { Spinner } from '@app/ui/components/spinner';
 import { Caption } from '@app/ui/components/typography/caption';
 
-import { useSelectedTx } from './hooks/use-selected-tx';
+import { CancelTransactionActions } from './components/cancel-transaction-actions';
+import { useStxCancelTransaction } from './hooks/use-stx-cancel-transaction';
 
 export function CancelStxTransactionDialog() {
-  const [rawTxId, setRawTxId] = useRawTxIdState();
-  const { isLoading, setIsIdle } = useLoading(LoadingKeys.INCREASE_FEE_DRAWER);
+  const {
+    rawTx,
+    rawTxId,
+    setRawTxId,
+    tx,
+    setTxId,
+    onSubmit,
+    validationSchema,
+    availableUnlockedBalance,
+    stxFees,
+  } = useStxCancelTransaction();
+  const { isLoading, setIsIdle } = useLoading(LoadingKeys.CANCEL_TRANSACTION_DRAWER);
   const navigate = useNavigate();
   const location = useLocation();
   const [searchParams] = useSearchParams();
   const txIdFromParams = searchParams.get('txId');
   const toast = useToast();
-  const refreshAccountData = useRefreshAllAccountData();
-  const tx = useSelectedTx();
-  const [, setTxId] = useRawTxIdState();
-  const availableUnlockedBalance = useCurrentStxAvailableUnlockedBalance();
-  const submittedTransactionsActions = useSubmittedTransactionsActions();
-  const rawTx = useRawDeserializedTxState();
-  const { data: stxFees } = useCalculateStacksTxFees(rawTx);
-
-  const { stacksBroadcastTransaction } = useStacksBroadcastTransaction({
-    token: 'STX',
-    isIncreaseFeeTransaction: true,
-  });
 
   const fee = Number(rawTx?.auth.spendingCondition?.fee);
 
@@ -72,21 +60,7 @@ export function CancelStxTransactionDialog() {
     }
   }, [isLoading, rawTxId, setIsIdle, setRawTxId, txIdFromParams]);
 
-  const onSubmit = useCallback(
-    async (values: any) => {
-      if (!tx || !rawTx) return;
-      rawTx.setFee(stxToMicroStx(values.fee).toString());
-      const txId = tx.tx_id || safelyFormatHexTxid(rawTx.txid());
-      await refreshAccountData();
-      submittedTransactionsActions.transactionReplacedByFee(txId);
-      await stacksBroadcastTransaction(rawTx);
-    },
-    [tx, rawTx, refreshAccountData, submittedTransactionsActions, stacksBroadcastTransaction]
-  );
-
   if (!tx || !fee) return <LoadingSpinner />;
-
-  const validationSchema = yup.object({ fee: stxFeeValidator(availableUnlockedBalance) });
 
   const onClose = () => {
     setRawTxId(null);
@@ -100,7 +74,7 @@ export function CancelStxTransactionDialog() {
         onSubmit={onSubmit}
         validateOnChange={false}
         validateOnBlur={false}
-        validateOnMount={false}
+        validateOnMount={true}
         validationSchema={validationSchema}
       >
         {props => (
@@ -111,7 +85,7 @@ export function CancelStxTransactionDialog() {
               header={<DialogHeader title="Cancel transaction" />}
               footer={
                 <Footer flexDirection="row">
-                  <IncreaseFeeActions
+                  <CancelTransactionActions
                     onCancel={() => {
                       setTxId(null);
                       navigate(RouteUrls.Home);
@@ -136,7 +110,7 @@ export function CancelStxTransactionDialog() {
                   <Stack gap="space.06">
                     {tx && <StacksTransactionItem transaction={tx} />}
                     <Stack gap="space.04">
-                      <FeesRow fees={stxFees} defaultFeeValue={fee} isSponsored={false} />
+                      <FeesRow fees={stxFees} defaultFeeValue={fee + 1} isSponsored={false} />
                       {availableUnlockedBalance?.amount && (
                         <Caption>
                           Balance:
