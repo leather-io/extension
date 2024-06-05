@@ -20,7 +20,7 @@ import { Dialog } from '@app/ui/components/containers/dialog/dialog';
 import { Footer } from '@app/ui/components/containers/footers/footer';
 import { DialogHeader } from '@app/ui/components/containers/headers/dialog-header';
 
-import { IncreaseFeeActions } from './components/increase-fee-actions';
+import { TransactionActions } from './components/transaction-actions';
 import { useBtcIncreaseFee } from './hooks/use-btc-increase-fee';
 
 export function IncreaseBtcFeeDialog() {
@@ -69,7 +69,7 @@ export function IncreaseBtcFeeDialog() {
             header={<DialogHeader title="Increase fee" />}
             footer={
               <Footer flexDirection="row">
-                <IncreaseFeeActions
+                <TransactionActions
                   isDisabled={isBroadcasting}
                   isBroadcasting={isBroadcasting}
                   onCancel={() => navigate(RouteUrls.Home)}

@@ -15,9 +15,10 @@ import { LoadingSpinner } from '@app/components/loading-spinner';
 import { AddNetwork } from '@app/features/add-network/add-network';
 import { Container } from '@app/features/container/container';
 import { EditNonceDialog } from '@app/features/dialogs/edit-nonce-dialog/edit-nonce-dialog';
-import { IncreaseBtcFeeDialog } from '@app/features/dialogs/increase-fee-dialog/increase-btc-fee-dialog';
-import { IncreaseStxFeeDialog } from '@app/features/dialogs/increase-fee-dialog/increase-stx-fee-dialog';
 import { leatherIntroDialogRoutes } from '@app/features/dialogs/leather-intro-dialog/leather-intro-dialog';
+import { CancelStxTransactionDialog } from '@app/features/dialogs/transaction-action-dialog/cancel-stx-transaction-dialog';
+import { IncreaseBtcFeeDialog } from '@app/features/dialogs/transaction-action-dialog/increase-btc-fee-dialog';
+import { IncreaseStxFeeDialog } from '@app/features/dialogs/transaction-action-dialog/increase-stx-fee-dialog';
 import { RouterErrorBoundary } from '@app/features/errors/app-error-boundary';
 import { ledgerBitcoinTxSigningRoutes } from '@app/features/ledger/flows/bitcoin-tx-signing/ledger-bitcoin-sign-tx-container';
 import { ledgerJwtSigningRoutes } from '@app/features/ledger/flows/jwt-signing/ledger-sign-jwt.routes';
@@ -104,6 +105,14 @@ function useAppRoutes() {
             path={`${RouteUrls.IncreaseStxFee}/${RouteUrls.TransactionBroadcastError}`}
             element={<BroadcastError />}
           />
+          <Route path={RouteUrls.CancelStxTransaction} element={<CancelStxTransactionDialog />}>
+            {ledgerStacksTxSigningRoutes}
+          </Route>
+          <Route
+            path={`${RouteUrls.CancelStxTransaction}/${RouteUrls.TransactionBroadcastError}`}
+            element={<BroadcastError />}
+          />
+
           <Route path={RouteUrls.IncreaseBtcFee} element={<IncreaseBtcFeeDialog />}>
             {ledgerBitcoinTxSigningRoutes}
           </Route>

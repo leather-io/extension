@@ -4,16 +4,17 @@ import { Button } from '@leather.io/ui';
 
 import { useWalletType } from '@app/common/use-wallet-type';
 
-interface IncreaseFeeActionsProps {
+interface TransactionActionsProps {
   isBroadcasting?: boolean;
   isDisabled?: boolean;
   isLoading?: boolean;
   onCancel(): void;
 }
-export function IncreaseFeeActions(props: IncreaseFeeActionsProps) {
-  const { isBroadcasting, isDisabled, isLoading, onCancel } = props;
+export function TransactionActions(props: TransactionActionsProps) {
+  const { onCancel, isDisabled, isLoading, isBroadcasting } = props;
 
   const { handleSubmit } = useFormikContext();
+
   const { whenWallet } = useWalletType();
 
   const actionText = whenWallet({ ledger: 'Confirm on Ledger', software: 'Submit' });

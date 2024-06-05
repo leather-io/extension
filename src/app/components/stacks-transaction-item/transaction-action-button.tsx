@@ -1,28 +1,31 @@
 import { HStack, styled } from 'leather-styles/jsx';
 
-import { ChevronsRightIcon } from '@leather.io/ui';
-
-interface IncreaseFeeButtonProps {
+interface ActionButtonProps {
+  icon?: React.ReactNode;
   isEnabled?: boolean;
   isSelected: boolean;
-  onIncreaseFee(): void;
+  label: string;
+  maxWidth?: string;
+  onButtonClick(): void;
+  textColor?: string;
 }
-export function IncreaseFeeButton(props: IncreaseFeeButtonProps) {
-  const { isEnabled, isSelected, onIncreaseFee } = props;
+
+export function TransactionActionButton(props: ActionButtonProps) {
+  const { isEnabled, isSelected, onButtonClick, label, icon, textColor, maxWidth } = props;
   const isActive = isEnabled && !isSelected;
+
+  if (!isActive) return null;
 
   return (
     <styled.button
       _hover={{ color: 'ink.text-subdued' }}
       bg="ink.background-primary"
-      maxWidth="110px"
+      maxWidth={maxWidth}
       ml="auto"
       onClick={e => {
-        onIncreaseFee();
+        onButtonClick();
         e.stopPropagation();
       }}
-      opacity={!isActive ? 0 : 1}
-      pointerEvents={!isActive ? 'none' : 'all'}
       position="relative"
       px="space.02"
       py="space.01"
@@ -30,8 +33,10 @@ export function IncreaseFeeButton(props: IncreaseFeeButtonProps) {
       zIndex={999}
     >
       <HStack gap="space.01">
-        <ChevronsRightIcon color="stacks" variant="small" />
-        <styled.span textStyle="label.03">Increase fee</styled.span>
+        {icon}
+        <styled.span textStyle="label.03" color={textColor}>
+          {label}
+        </styled.span>
       </HStack>
     </styled.button>
   );
