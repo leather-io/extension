@@ -1,6 +1,14 @@
 import { useMemo } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 
+import { hexToBytes } from '@noble/hashes/utils';
+import * as btc from '@scure/btc-signer';
+import { SendCryptoAssetSelectors } from '@tests/selectors/send.selectors';
+import { SharedComponentsSelectors } from '@tests/selectors/shared-component.selectors';
+import { Stack } from 'leather-styles/jsx';
+import get from 'lodash.get';
+
+import { decodeBitcoinTx } from '@leather-wallet/bitcoin';
 import {
   useBitcoinBroadcastTransaction,
   useCryptoCurrencyMarketDataMeanAverage,
@@ -13,14 +21,7 @@ import {
   i18nFormatCurrency,
   satToBtc,
 } from '@leather-wallet/utils';
-import { hexToBytes } from '@noble/hashes/utils';
-import * as btc from '@scure/btc-signer';
-import { SendCryptoAssetSelectors } from '@tests/selectors/send.selectors';
-import { SharedComponentsSelectors } from '@tests/selectors/shared-component.selectors';
-import { Stack } from 'leather-styles/jsx';
-import get from 'lodash.get';
 
-import { decodeBitcoinTx } from '@shared/crypto/bitcoin/bitcoin.utils';
 import { CryptoCurrencies } from '@shared/models/currencies.model';
 import { RouteUrls } from '@shared/route-urls';
 

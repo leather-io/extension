@@ -1,13 +1,17 @@
 import { useMemo } from 'react';
 
-import type { Inscription } from '@leather-wallet/models';
-import { useInscriptionsByOutputs } from '@leather-wallet/query';
-import { isDefined, isUndefined } from '@leather-wallet/utils';
 import type { TransactionInput } from '@scure/btc-signer/psbt';
 import { bytesToHex } from '@stacks/common';
 
-import { getBtcSignerLibNetworkConfigByMode } from '@shared/crypto/bitcoin/bitcoin.network';
-import { getBitcoinInputAddress, getBitcoinInputValue } from '@shared/crypto/bitcoin/bitcoin.utils';
+import {
+  getBitcoinInputAddress,
+  getBtcSignerLibNetworkConfigByMode,
+} from '@leather-wallet/bitcoin';
+import type { Inscription } from '@leather-wallet/models';
+import { useInscriptionsByOutputs } from '@leather-wallet/query';
+import { isDefined, isUndefined } from '@leather-wallet/utils';
+
+import { getBitcoinInputValue } from '@shared/crypto/bitcoin/bitcoin.utils';
 
 import { useCurrentAccountNativeSegwitIndexZeroSigner } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
 import { useCurrentAccountTaprootIndexZeroSigner } from '@app/store/accounts/blockchain/bitcoin/taproot-account.hooks';

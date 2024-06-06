@@ -1,10 +1,11 @@
 import { useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import { isError } from '@leather-wallet/utils';
 import { PsbtSelectors } from '@tests/selectors/requests.selectors';
 
-import { getPsbtTxInputs, getPsbtTxOutputs } from '@shared/crypto/bitcoin/bitcoin.utils';
+import { getPsbtTxInputs, getPsbtTxOutputs } from '@leather-wallet/bitcoin';
+import { isError } from '@leather-wallet/utils';
+
 import { RouteUrls } from '@shared/route-urls';
 import { closeWindow } from '@shared/utils';
 

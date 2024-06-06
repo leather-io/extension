@@ -2,6 +2,10 @@ import { useNavigate } from 'react-router-dom';
 
 import { RpcErrorCode } from '@btckit/types';
 import { JsDLCInterface } from '@dlc-link/dlc-tools';
+import { bytesToHex } from '@stacks/common';
+
+import { deriveAddressIndexKeychainFromAccount } from '@leather-wallet/bitcoin';
+import { extractAddressIndexFromPath } from '@leather-wallet/crypto';
 import type { Money } from '@leather-wallet/models';
 import {
   sendAcceptedBitcoinContractOfferToProtocolWallet,
@@ -9,12 +13,7 @@ import {
   useCryptoCurrencyMarketDataMeanAverage,
 } from '@leather-wallet/query';
 import { createMoneyFromDecimal, i18nFormatCurrency, satToBtc } from '@leather-wallet/utils';
-import { bytesToHex } from '@stacks/common';
 
-import {
-  deriveAddressIndexKeychainFromAccount,
-  extractAddressIndexFromPath,
-} from '@shared/crypto/bitcoin/bitcoin.utils';
 import { RouteUrls } from '@shared/route-urls';
 import { BitcoinContractResponseStatus } from '@shared/rpc/methods/accept-bitcoin-contract';
 import { makeRpcErrorResponse, makeRpcSuccessResponse } from '@shared/rpc/rpc-methods';

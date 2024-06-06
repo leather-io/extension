@@ -1,8 +1,9 @@
 import { PaymentTypes, RpcErrorCode } from '@btckit/types';
 import { SignMessageRequest } from '@btckit/types/dist/types/methods/sign-message';
+
+import { isSupportedMessageSigningPaymentType } from '@leather-wallet/bitcoin';
 import { isDefined, isUndefined } from '@leather-wallet/utils';
 
-import { isSupportedMessageSigningPaymentType } from '@shared/crypto/bitcoin/bip322/bip322-utils';
 import { RouteUrls } from '@shared/route-urls';
 import {
   getRpcSignMessageParamErrors,

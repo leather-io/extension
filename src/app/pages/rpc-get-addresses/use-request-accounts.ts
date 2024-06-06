@@ -1,7 +1,8 @@
 import { BtcAddress } from '@btckit/types';
 import { bytesToHex } from '@stacks/common';
 
-import { ecdsaPublicKeyToSchnorr } from '@shared/crypto/bitcoin/bitcoin.utils';
+import { ecdsaPublicKeyToSchnorr } from '@leather-wallet/bitcoin';
+
 import { logger } from '@shared/logger';
 import { makeRpcSuccessResponse } from '@shared/rpc/rpc-methods';
 import { closeWindow } from '@shared/utils';

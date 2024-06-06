@@ -1,10 +1,8 @@
 import * as btc from '@scure/btc-signer';
 
-import {
-  getBitcoinInputValue,
-  getPsbtTxInputs,
-  getPsbtTxOutputs,
-} from '@shared/crypto/bitcoin/bitcoin.utils';
+import { getPsbtTxInputs, getPsbtTxOutputs } from '@leather-wallet/bitcoin';
+
+import { getBitcoinInputValue } from '@shared/crypto/bitcoin/bitcoin.utils';
 
 import { useLedgerTxSigningContext } from '@app/features/ledger/generic-flows/tx-signing/ledger-sign-tx.context';
 import { ApproveLedgerOperationLayout } from '@app/features/ledger/generic-steps/approve-ledger-operation/approve-ledger-operation.layout';
