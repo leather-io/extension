@@ -1,7 +1,7 @@
 import { ReactNode } from 'react';
 
 import { SharedComponentsSelectors } from '@tests/selectors/shared-component.selectors';
-import { Box, Flex } from 'leather-styles/jsx';
+import { Flex, styled } from 'leather-styles/jsx';
 
 import { CloseIcon } from '@app/ui/icons';
 
@@ -15,7 +15,8 @@ interface DialogHeaderProps {
 export function DialogHeader({ onClose, title }: DialogHeaderProps) {
   return (
     <Flex
-      justifyContent="center"
+      justifyContent="flex-end"
+      alignItems="center"
       m={{ base: 0, md: 'auto' }}
       p="space.04"
       bg="transparent"
@@ -23,18 +24,16 @@ export function DialogHeader({ onClose, title }: DialogHeaderProps) {
       minHeight="40px"
     >
       {title && (
-        <Flex flex="none" m="auto" alignItems="center" textStyle="heading.05">
+        <styled.h2 flex="1" textAlign="center" textStyle="heading.05">
           {title}
-        </Flex>
+        </styled.h2>
       )}
       {onClose && (
-        <Box ml="auto">
-          <HeaderActionButton
-            icon={<CloseIcon />}
-            dataTestId={SharedComponentsSelectors.HeaderCloseBtn}
-            onAction={onClose}
-          />
-        </Box>
+        <HeaderActionButton
+          icon={<CloseIcon />}
+          dataTestId={SharedComponentsSelectors.HeaderCloseBtn}
+          onAction={onClose}
+        />
       )}
     </Flex>
   );

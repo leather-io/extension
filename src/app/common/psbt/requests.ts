@@ -1,15 +1,14 @@
-import * as btc from '@scure/btc-signer';
+import type { Money } from '@leather-wallet/models';
+import { isString } from '@leather-wallet/utils';
+import type { TransactionInput } from '@scure/btc-signer/psbt';
 import { PsbtPayload } from '@stacks/connect';
 import { decodeToken } from 'jsontokens';
-
-import { Money } from '@shared/models/money.model';
-import { isString } from '@shared/utils';
 
 export interface SignPsbtArgs {
   addressNativeSegwitTotal?: Money;
   addressTaprootTotal?: Money;
   fee?: Money;
-  inputs: btc.TransactionInput[];
+  inputs: TransactionInput[];
 }
 
 export function getPsbtPayloadFromToken(requestToken: string): PsbtPayload {

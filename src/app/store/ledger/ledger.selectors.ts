@@ -1,8 +1,7 @@
 import { useSelector } from 'react-redux';
 
+import { sumNumbers } from '@leather-wallet/utils';
 import { createSelector } from '@reduxjs/toolkit';
-
-import { sumNumbers } from '@app/common/math/helpers';
 
 import { RootState } from '..';
 
@@ -12,12 +11,12 @@ const selectNumberOfLedgerKeysPersisted = createSelector(selectLedger, ledger =>
   sumNumbers(Object.values(ledger).map(chain => Object.keys(chain.entities).length))
 );
 
-function useNumberOfLedgerKeysPersisted() {
-  return useSelector(selectNumberOfLedgerKeysPersisted);
-}
+export const selectHasLedgerKeys = createSelector(selectNumberOfLedgerKeysPersisted, numOfKeys =>
+  numOfKeys.isGreaterThan(0)
+);
 
 export function useHasLedgerKeys() {
-  return useNumberOfLedgerKeysPersisted().isGreaterThan(0);
+  return useSelector(selectHasLedgerKeys);
 }
 
 export function useLedgerDeviceTargetId() {

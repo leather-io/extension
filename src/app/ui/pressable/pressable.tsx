@@ -1,9 +1,8 @@
 import { forwardRef } from 'react';
 
+import { isDefined } from '@leather-wallet/utils';
 import { type RecipeVariantProps, css, cva } from 'leather-styles/css';
 import { type HTMLStyledProps, styled } from 'leather-styles/jsx';
-
-import { isDefined } from '@shared/utils';
 
 const basePseudoOutlineProps = {
   content: '""',

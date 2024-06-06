@@ -74,6 +74,8 @@ export function Settings({ triggerButton, toggleSwitchAccount }: SettingsProps) 
             sideOffset={8}
             className={css({
               width: 'settingsMenuWidth',
+              maxHeight: 'var(--radix-dropdown-menu-content-available-height)',
+              overflowY: 'scroll',
             })}
           >
             <DropdownMenu.Group>

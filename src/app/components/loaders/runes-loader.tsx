@@ -1,6 +1,5 @@
 import type { CryptoAssetBalance, RuneCryptoAssetInfo } from '@leather-wallet/models';
-
-import { useRuneTokens } from '@app/query/bitcoin/runes/runes.hooks';
+import { useRuneTokens } from '@leather-wallet/query';
 
 interface RunesLoaderProps {
   addresses: string[];

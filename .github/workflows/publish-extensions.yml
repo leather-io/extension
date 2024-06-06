@@ -125,6 +125,7 @@ jobs:
         with:
           workflow: create-version.yml
           name: release-notes
+          allow_forks: false
 
       - name: Zip Firefox build
         run: zip -r leather-firefox.v${{ needs.extract-version.outputs.new_version }}.zip leather-firefox-v${{ needs.extract-version.outputs.new_version }}

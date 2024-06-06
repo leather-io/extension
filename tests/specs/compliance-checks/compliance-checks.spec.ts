@@ -1,24 +1,27 @@
+import { delay } from '@leather-wallet/utils';
 import type { BrowserContext, Page, Route } from '@playwright/test';
-
-import { delay } from '@shared/utils';
 
 import { test } from '../../fixtures/fixtures';
 
 function mockChainalysisEntityRegistrationRequest(context: BrowserContext) {
-  return async (routeHandler: (route: Route) => void) =>
+  return async (routeHandler: (route: Route) => void) => {
+    console.log('Mocking entity registration');
     context.route('https://api.chainalysis.com/api/risk/v2/entities', async route =>
       routeHandler(route)
     );
+  };
 }
 
 function mockChainalysisEntityCheckRequest(context: BrowserContext) {
-  return async (routeHandler: (route: Route) => void) =>
+  return async (routeHandler: (route: Route) => void) => {
+    console.log('Mocking entity check');
     context.route('https://api.chainalysis.com/api/risk/v2/entities/*', async route =>
       routeHandler(route)
     );
+  };
 }
 
-test.skip('Compliance checks', () => {
+test.describe('Compliance checks', () => {
   test.beforeEach(async ({ extensionId, globalPage, onboardingPage, page }) => {
     await globalPage.setupAndUseApiCalls(extensionId);
     await onboardingPage.signInWithTestAccount(extensionId);
@@ -52,7 +55,7 @@ test.skip('Compliance checks', () => {
     ]);
 
     await test
-      .expect(leatherApprover.locator('text="Unable to handle request, errorCode: 1398"'))
+      .expect(leatherApprover.getByText('Unable to handle request, errorCode: 1398'))
       .toBeVisible();
   });
 

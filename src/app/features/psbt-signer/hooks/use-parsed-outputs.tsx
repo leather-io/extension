@@ -1,12 +1,12 @@
 import { useMemo } from 'react';
 
-import * as btc from '@scure/btc-signer';
+import { isDefined, isUndefined } from '@leather-wallet/utils';
+import type { TransactionOutput } from '@scure/btc-signer/psbt';
 
 import { NetworkConfiguration } from '@shared/constants';
 import { getBtcSignerLibNetworkConfigByMode } from '@shared/crypto/bitcoin/bitcoin.network';
 import { getAddressFromOutScript } from '@shared/crypto/bitcoin/bitcoin.utils';
 import { logger } from '@shared/logger';
-import { isDefined, isUndefined } from '@shared/utils';
 
 import { useCurrentAccountNativeSegwitIndexZeroSigner } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
 import { useCurrentAccountTaprootIndexZeroSigner } from '@app/store/accounts/blockchain/bitcoin/taproot-account.hooks';
@@ -20,7 +20,7 @@ export interface PsbtOutput {
 
 interface UseParsedOutputsArgs {
   isPsbtMutable: boolean;
-  outputs: btc.TransactionOutput[];
+  outputs: TransactionOutput[];
   network: NetworkConfiguration;
 }
 export function useParsedOutputs({ isPsbtMutable, outputs, network }: UseParsedOutputsArgs) {

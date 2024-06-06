@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Route, useLocation } from 'react-router-dom';
 
+import { delay } from '@leather-wallet/utils';
 import * as btc from '@scure/btc-signer';
 import { hexToBytes } from '@stacks/common';
 import BitcoinApp from 'ledger-bitcoin';
@@ -9,7 +10,6 @@ import get from 'lodash.get';
 import { BitcoinInputSigningConfig } from '@shared/crypto/bitcoin/signer-config';
 import { logger } from '@shared/logger';
 import { RouteUrls } from '@shared/route-urls';
-import { delay } from '@shared/utils';
 
 import { useLocationStateWithCache } from '@app/common/hooks/use-location-state';
 import { useScrollLock } from '@app/common/hooks/use-scroll-lock';

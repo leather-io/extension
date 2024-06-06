@@ -2,22 +2,23 @@ import { useNavigate } from 'react-router-dom';
 
 import { RpcErrorCode } from '@btckit/types';
 import { JsDLCInterface } from '@dlc-link/dlc-tools';
+import type { Money } from '@leather-wallet/models';
+import {
+  sendAcceptedBitcoinContractOfferToProtocolWallet,
+  useCalculateBitcoinFiatValue,
+  useCryptoCurrencyMarketDataMeanAverage,
+} from '@leather-wallet/query';
+import { createMoneyFromDecimal, i18nFormatCurrency, satToBtc } from '@leather-wallet/utils';
 import { bytesToHex } from '@stacks/common';
 
 import {
   deriveAddressIndexKeychainFromAccount,
   extractAddressIndexFromPath,
 } from '@shared/crypto/bitcoin/bitcoin.utils';
-import { Money, createMoneyFromDecimal } from '@shared/models/money.model';
 import { RouteUrls } from '@shared/route-urls';
 import { BitcoinContractResponseStatus } from '@shared/rpc/methods/accept-bitcoin-contract';
 import { makeRpcErrorResponse, makeRpcSuccessResponse } from '@shared/rpc/rpc-methods';
 
-import { sendAcceptedBitcoinContractOfferToProtocolWallet } from '@app/query/bitcoin/contract/send-accepted-bitcoin-contract-offer';
-import {
-  useCalculateBitcoinFiatValue,
-  useCryptoCurrencyMarketDataMeanAverage,
-} from '@app/query/common/market-data/market-data.hooks';
 import { useCurrentAccountIndex } from '@app/store/accounts/account';
 import {
   useCurrentAccountNativeSegwitIndexZeroSigner,
@@ -26,8 +27,6 @@ import {
 import { useCurrentNetwork } from '@app/store/networks/networks.selectors';
 
 import { initialSearchParams } from '../initial-search-params';
-import { i18nFormatCurrency } from '../money/format-money';
-import { satToBtc } from '../money/unit-conversion';
 import { useDefaultRequestParams } from './use-default-request-search-params';
 
 export interface SimplifiedBitcoinContract {

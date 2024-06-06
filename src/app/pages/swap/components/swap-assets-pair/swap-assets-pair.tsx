@@ -1,9 +1,9 @@
 import { useNavigate } from 'react-router-dom';
 
+import { isUndefined } from '@leather-wallet/utils';
 import { useFormikContext } from 'formik';
 
 import { RouteUrls } from '@shared/route-urls';
-import { isUndefined } from '@shared/utils';
 
 import { SwapFormValues } from '../../hooks/use-swap-form';
 import { SwapAssetItemLayout } from './swap-asset-item.layout';

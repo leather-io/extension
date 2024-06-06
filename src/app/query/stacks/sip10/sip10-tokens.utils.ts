@@ -1,35 +1,30 @@
 import type { FtMetadataResponse } from '@hirosystems/token-metadata-api-client';
 import type { CryptoAssetBalance, Sip10CryptoAssetInfo } from '@leather-wallet/models';
+import { isUndefined } from '@leather-wallet/utils';
 
-import { isUndefined } from '@shared/utils';
-
-import { getTicker } from '@app/common/utils';
+import { getStacksContractIdStringParts } from '@app/common/stacks-utils';
+import { getPrincipalFromContractId, getTicker } from '@app/common/utils';
 import type { SwapAsset } from '@app/query/common/alex-sdk/alex-sdk.hooks';
-import { getAssetStringParts } from '@app/ui/utils/get-asset-string-parts';
 
 export function isTransferableSip10Token(token: Partial<FtMetadataResponse>) {
   return !isUndefined(token.decimals) && !isUndefined(token.name) && !isUndefined(token.symbol);
 }
 
 export function createSip10CryptoAssetInfo(
-  contractId: string,
   key: string,
   ftAsset: FtMetadataResponse
 ): Sip10CryptoAssetInfo {
-  const { assetName, contractName, address } = getAssetStringParts(key);
-  const tokenName = ftAsset.name ? ftAsset.name : assetName;
+  const { contractAssetName } = getStacksContractIdStringParts(key);
+  const name = ftAsset.name || contractAssetName;
 
   return {
     canTransfer: isTransferableSip10Token(ftAsset),
-    contractAddress: address,
-    contractAssetName: assetName,
-    contractId,
-    contractName,
+    contractId: key,
     decimals: ftAsset.decimals ?? 0,
     hasMemo: isTransferableSip10Token(ftAsset),
     imageCanonicalUri: ftAsset.image_canonical_uri ?? '',
-    tokenName,
-    symbol: ftAsset.symbol ?? getTicker(tokenName),
+    name,
+    symbol: ftAsset.symbol || getTicker(name),
   };
 }
 
@@ -44,11 +39,12 @@ export function filterSip10Tokens(
   filter: Sip10CryptoAssetFilter
 ) {
   return tokens.filter(token => {
+    const principal = getPrincipalFromContractId(token.info.contractId);
     if (filter === 'supported') {
-      return swapAssets.some(swapAsset => swapAsset.principal === token.info.contractId);
+      return swapAssets.some(swapAsset => swapAsset.principal === principal);
     }
     if (filter === 'unsupported') {
-      return !swapAssets.some(swapAsset => swapAsset.principal === token.info.contractId);
+      return !swapAssets.some(swapAsset => swapAsset.principal === principal);
     }
     return true;
   });

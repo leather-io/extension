@@ -1,6 +1,7 @@
 import { memo, useState } from 'react';
 import { Navigate } from 'react-router-dom';
 
+import { truncateMiddle } from '@leather-wallet/utils';
 import { STXTransferPayload, TransactionTypes } from '@stacks/connect';
 import { Flex, HStack, Stack } from 'leather-styles/jsx';
 
@@ -17,7 +18,6 @@ import { useCurrentNetworkState } from '@app/store/networks/networks.hooks';
 import { useTransactionRequestState } from '@app/store/transactions/requests.hooks';
 import { Button } from '@app/ui/components/button/button';
 import { Caption } from '@app/ui/components/typography/caption';
-import { truncateMiddle } from '@app/ui/utils/truncate-middle';
 
 interface InsufficientFundsActionButtonsProps {
   eventName: string;

@@ -1,8 +1,8 @@
+import { ensureArray } from '@leather-wallet/utils';
 import { type UseQueryOptions, useQueries } from '@tanstack/react-query';
 import axios from 'axios';
 
 import type { BitcoinNetworkModes } from '@shared/constants';
-import { ensureArray } from '@shared/utils';
 import { analytics } from '@shared/utils/analytics';
 
 import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
@@ -15,8 +15,6 @@ const headers = {
   // Known public key, do not open a vulnerability report for this
   Token: '51d3c7529eb08a8c62d41d70d006bdcd4248150fbd6826d5828ac908e7c12073',
 };
-
-export const isComplianceCheckEnabled = true;
 
 async function registerEntityAddressComplianceCheck(address: string) {
   const resp = await axios.post(checkApi, { address }, { headers });
@@ -42,8 +40,7 @@ export async function checkEntityAddressIsCompliant(address: string): Promise<Co
 
   if (isOnSanctionsList) void analytics.track('non_compliant_entity_detected', { address });
 
-  // TEMP: mock falsy value during investigation phase
-  return { ...entityReport, isOnSanctionsList: false };
+  return { ...entityReport, isOnSanctionsList };
 }
 
 const oneWeekInMs = 604_800_000;
@@ -76,6 +73,8 @@ function useCheckAddressComplianceQueries(addresses: string[]) {
   });
 }
 
+export const compliantErrorBody = 'Unable to handle request, errorCode: 1398';
+
 export function useBreakOnNonCompliantEntity(address: string | string[]) {
   const analytics = useAnalytics();
   const nativeSegwitSigner = useCurrentAccountNativeSegwitIndexZeroSigner();
@@ -85,11 +84,8 @@ export function useBreakOnNonCompliantEntity(address: string | string[]) {
     ...ensureArray(address),
   ]);
 
-  if (!isComplianceCheckEnabled) return;
-
   if (complianceReports.some(report => report.data?.isOnSanctionsList)) {
     void analytics.track('non_compliant_entity_detected');
-    // TEMP: disabled
-    // throw new Error('Unable to handle request, errorCode: 1398');
+    throw new Error(compliantErrorBody);
   }
 }

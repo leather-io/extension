@@ -1,4 +1,4 @@
-import type { CryptoAssetBalance } from '@leather-wallet/models';
+import type { Money } from '@leather-wallet/models';
 import { Box, Flex, styled } from 'leather-styles/jsx';
 
 import { spamFilter } from '@app/common/utils/spam-filter';
@@ -12,7 +12,8 @@ import { Pressable } from '@app/ui/pressable/pressable';
 import { parseCryptoAssetBalance } from './crypto-asset-item.layout.utils';
 
 interface CryptoAssetItemLayoutProps {
-  balance: CryptoAssetBalance;
+  availableBalance: Money;
+  balanceSuffix?: string;
   captionLeft: string;
   captionRightBulletInfo?: React.ReactNode;
   contractId?: string;
@@ -24,7 +25,8 @@ interface CryptoAssetItemLayoutProps {
   titleRightBulletInfo?: React.ReactNode;
 }
 export function CryptoAssetItemLayout({
-  balance,
+  availableBalance,
+  balanceSuffix,
   captionLeft,
   captionRightBulletInfo,
   contractId,
@@ -35,18 +37,21 @@ export function CryptoAssetItemLayout({
   titleLeft,
   titleRightBulletInfo,
 }: CryptoAssetItemLayoutProps) {
-  const { availableBalance, dataTestId, formattedBalance } = parseCryptoAssetBalance(balance);
+  const { availableBalanceString, dataTestId, formattedBalance } =
+    parseCryptoAssetBalance(availableBalance);
 
   const titleRight = (
     <SkeletonLoader width="126px" isLoading={isLoading}>
       <BasicTooltip
         asChild
-        label={formattedBalance.isAbbreviated ? availableBalance.amount.toString() : undefined}
+        label={formattedBalance.isAbbreviated ? availableBalanceString : undefined}
         side="left"
       >
         <Flex alignItems="center" gap="space.02" textStyle="label.02">
           <BulletSeparator>
-            <styled.span>{formattedBalance.value}</styled.span>
+            <styled.span>
+              {formattedBalance.value} {balanceSuffix}
+            </styled.span>
             {titleRightBulletInfo}
           </BulletSeparator>
         </Flex>

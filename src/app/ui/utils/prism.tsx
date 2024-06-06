@@ -89,7 +89,7 @@ export type Language =
 
 export const theme: PrismTheme = {
   plain: {
-    color: '#fff',
+    color: 'unset',
     background: 'transparent',
   },
   styles: [

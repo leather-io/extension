@@ -1,4 +1,9 @@
 import { PaymentTypes } from '@btckit/types';
+import {
+  getNativeSegwitAccountDerivationPath,
+  getTaprootAccountDerivationPath,
+} from '@leather-wallet/bitcoin';
+import { isNumber, isUndefined } from '@leather-wallet/utils';
 import { bytesToHex } from '@noble/hashes/utils';
 import * as btc from '@scure/btc-signer';
 import { Psbt } from 'bitcoinjs-lib';
@@ -10,14 +15,11 @@ import {
   getInputPaymentType,
   getTaprootAddress,
 } from '@shared/crypto/bitcoin/bitcoin.utils';
-import { getTaprootAccountDerivationPath } from '@shared/crypto/bitcoin/p2tr-address-gen';
-import { getNativeSegwitAccountDerivationPath } from '@shared/crypto/bitcoin/p2wpkh-address-gen';
 import {
   BitcoinInputSigningConfig,
   getAssumedZeroIndexSigningConfig,
 } from '@shared/crypto/bitcoin/signer-config';
 import { allSighashTypes } from '@shared/rpc/methods/sign-psbt';
-import { isNumber, isUndefined } from '@shared/utils';
 
 import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
 import { useWalletType } from '@app/common/use-wallet-type';

@@ -1,14 +1,13 @@
 import { useMemo } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 
+import type { UtxoResponseItem } from '@leather-wallet/query';
 import { bytesToHex } from '@stacks/common';
 import { StacksTransaction } from '@stacks/transactions';
 import { AxiosError } from 'axios';
 
 import { BitcoinSendFormValues } from '@shared/models/form.model';
 import { RouteUrls } from '@shared/route-urls';
-
-import { UtxoResponseItem } from '@app/query/bitcoin/bitcoin-client';
 
 interface ConfirmationRouteState {
   decimals?: number;

@@ -1,12 +1,8 @@
 import { useMemo } from 'react';
 
+import { useCalculateBitcoinFiatValue } from '@leather-wallet/query';
+import { createMoney, i18nFormatCurrency, isUndefined } from '@leather-wallet/utils';
 import BigNumber from 'bignumber.js';
-
-import { createMoney } from '@shared/models/money.model';
-import { isUndefined } from '@shared/utils';
-
-import { i18nFormatCurrency } from '@app/common/money/format-money';
-import { useCalculateBitcoinFiatValue } from '@app/query/common/market-data/market-data.hooks';
 
 import { useBitcoinContractsBalanceQuery } from './bitcoin-contracts-balance.query';
 

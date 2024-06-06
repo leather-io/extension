@@ -1,15 +1,17 @@
+import {
+  ApiFeeEstimation,
+  FeeCalculationTypes,
+  Fees,
+  Money,
+  StacksFeeEstimate,
+  StacksTxFeeEstimation,
+} from '@leather-wallet/models';
+import { createMoney } from '@leather-wallet/utils';
 import { bytesToHex } from '@stacks/common';
 import { StacksTransaction, serializePayload } from '@stacks/transactions';
 import { BigNumber } from 'bignumber.js';
 
 import { DEFAULT_FEE_RATE } from '@shared/constants';
-import { FeeCalculationTypes, Fees } from '@shared/models/fees/fees.model';
-import {
-  ApiFeeEstimation,
-  StacksFeeEstimate,
-  StacksTxFeeEstimation,
-} from '@shared/models/fees/stacks-fees.model';
-import { Money, createMoney } from '@shared/models/money.model';
 
 const defaultFeesMaxValues = [500000, 750000, 2000000];
 const defaultFeesMinValues = [2500, 3000, 3500];

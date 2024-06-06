@@ -1,18 +1,16 @@
 import { useNavigate } from 'react-router-dom';
 
+import { fetchInscripionById, useOrdinalsbotClient } from '@leather-wallet/query';
+import { noop } from '@leather-wallet/utils';
 import { Box, Flex, HStack, Stack } from 'leather-styles/jsx';
 
 import { RouteUrls } from '@shared/route-urls';
-import { noop } from '@shared/utils';
 
 import { usePressable } from '@app/components/item-hover';
 import { StatusPending } from '@app/components/status-pending';
 import { StatusReady } from '@app/components/status-ready';
 import { useCurrentBtcCryptoAssetBalanceNativeSegwit } from '@app/query/bitcoin/balance/btc-balance-native-segwit.hooks';
 import { useCheckOrderStatuses } from '@app/query/bitcoin/ordinals/brc20/use-check-order-status';
-import { fetchInscripionById } from '@app/query/bitcoin/ordinals/inscription-by-id.query';
-import { convertInscriptionToSupportedInscriptionType } from '@app/query/bitcoin/ordinals/inscription.hooks';
-import { useOrdinalsbotClient } from '@app/query/bitcoin/ordinalsbot-client';
 import {
   OrdinalsbotInscriptionStatus,
   PendingBrc20Transfer,
@@ -109,10 +107,7 @@ function PendingBrcTransfer({ order }: PendingBrcTransferProps) {
                 );
                 navigate(RouteUrls.SendOrdinalInscription, {
                   state: {
-                    inscription: convertInscriptionToSupportedInscriptionType({
-                      ...inscription,
-                      addressIndex: 0,
-                    }),
+                    inscription,
                   },
                 });
               }

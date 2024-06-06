@@ -1,11 +1,11 @@
 import { useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 
+import { isError, isString } from '@leather-wallet/utils';
 import { StacksTransaction } from '@stacks/transactions';
 
 import { logger } from '@shared/logger';
 import { RouteUrls } from '@shared/route-urls';
-import { isError, isString } from '@shared/utils';
 
 import { LoadingKeys, useLoading } from '@app/common/hooks/use-loading';
 import { useSubmitTransactionCallback } from '@app/common/hooks/use-submit-stx-transaction';

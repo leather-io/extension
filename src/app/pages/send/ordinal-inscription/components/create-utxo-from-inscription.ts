@@ -1,33 +1,36 @@
-import { BitcoinNetworkModes } from '@shared/constants';
-import { getNativeSegwitAddressIndexDerivationPath } from '@shared/crypto/bitcoin/p2wpkh-address-gen';
-import { Inscription } from '@shared/models/inscription.model';
+import { getNativeSegwitAddressIndexDerivationPath } from '@leather-wallet/bitcoin';
+import type { Inscription } from '@leather-wallet/models';
+import type { UtxoWithDerivationPath } from '@leather-wallet/query';
 
-import { UtxoWithDerivationPath } from '@app/query/bitcoin/bitcoin-client';
+import { BitcoinNetworkModes } from '@shared/constants';
 
 interface CreateUtxoFromInscriptionArgs {
   inscription: Inscription;
   network: BitcoinNetworkModes;
   accountIndex: number;
+  inscriptionAddressIdx: number;
 }
-
 export function createUtxoFromInscription({
   inscription,
   network,
   accountIndex,
+  inscriptionAddressIdx,
 }: CreateUtxoFromInscriptionArgs): UtxoWithDerivationPath {
-  const { genesis_block_hash, genesis_timestamp, genesis_block_height, value, addressIndex } =
-    inscription;
-
+  const { genesisBlockHash, genesisTimestamp, genesisBlockHeight, value } = inscription;
   return {
-    txid: inscription.tx_id,
+    txid: inscription.txid,
     vout: Number(inscription.output.split(':')[1]),
     status: {
       confirmed: true,
-      block_height: genesis_block_height,
-      block_hash: genesis_block_hash,
-      block_time: genesis_timestamp,
+      block_height: genesisBlockHeight,
+      block_hash: genesisBlockHash,
+      block_time: genesisTimestamp,
     },
     value: Number(value),
-    derivationPath: getNativeSegwitAddressIndexDerivationPath(network, accountIndex, addressIndex),
+    derivationPath: getNativeSegwitAddressIndexDerivationPath(
+      network,
+      accountIndex,
+      inscriptionAddressIdx
+    ),
   };
 }

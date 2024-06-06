@@ -1,9 +1,9 @@
 import { useMemo } from 'react';
 
+import { microStxToStx } from '@leather-wallet/utils';
 import { PayloadType, cvToString } from '@stacks/transactions';
 import { BigNumber } from 'bignumber.js';
 
-import { microStxToStx } from '@app/common/money/unit-conversion';
 import { isSip10Transfer } from '@app/common/transactions/stacks/is-sip-10-transfer';
 import { useLedgerTxSigningContext } from '@app/features/ledger/generic-flows/tx-signing/ledger-sign-tx.context';
 import { ApproveLedgerOperationLayout } from '@app/features/ledger/generic-steps/approve-ledger-operation/approve-ledger-operation.layout';

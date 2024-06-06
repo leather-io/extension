@@ -31,6 +31,7 @@ function ContractCodeSection() {
 
   return (
     <CodeBlock
+      color="#fff"
       border="default"
       code={transactionRequest.codeBody}
       maxWidth="100vw"

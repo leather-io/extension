@@ -1,13 +1,13 @@
 import { useMemo } from 'react';
 
 import type { CryptoAssetBalance, Sip10CryptoAssetInfo } from '@leather-wallet/models';
+import { convertAmountToBaseUnit } from '@leather-wallet/utils';
 import { FormikHelpers } from 'formik';
 import * as yup from 'yup';
 
 import { logger } from '@shared/logger';
 import { StacksSendFormValues } from '@shared/models/form.model';
 
-import { convertAmountToBaseUnit } from '@app/common/money/calculate-money';
 import { getSafeImageCanonicalUri } from '@app/common/stacks-utils';
 import { stacksFungibleTokenAmountValidator } from '@app/common/validation/forms/amount-validators';
 import { useCalculateStacksTxFees } from '@app/query/stacks/fees/fees.hooks';
@@ -45,7 +45,7 @@ export function useSip10SendForm({ balance, info }: UseSip10SendFormArgs) {
   function createFtAvatar() {
     return {
       avatar: info.contractId,
-      imageCanonicalUri: getSafeImageCanonicalUri(info.imageCanonicalUri, info.tokenName),
+      imageCanonicalUri: getSafeImageCanonicalUri(info.imageCanonicalUri, info.name),
     };
   }
 
@@ -76,7 +76,7 @@ export function useSip10SendForm({ balance, info }: UseSip10SendFormArgs) {
 
       sendFormNavigate.toConfirmAndSignStacksSip10Transaction({
         decimals: info.decimals,
-        name: info.tokenName,
+        name: info.name,
         tx,
       });
     },

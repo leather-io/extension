@@ -1,11 +1,11 @@
 import { useSelector } from 'react-redux';
 
+import { initBigNumber } from '@leather-wallet/utils';
 import { createSelector } from '@reduxjs/toolkit';
 
 import { defaultWalletKeyId } from '@shared/utils';
 
 import { initialSearchParams } from '@app/common/initial-search-params';
-import { initBigNumber } from '@app/common/math/helpers';
 import { RootState } from '@app/store';
 
 import { selectStacksChain } from '../chains/stx-chain.selectors';
@@ -15,6 +15,11 @@ const selectKeysSlice = (state: RootState) => state['softwareKeys'];
 export const selectDefaultSoftwareKey = createSelector(
   selectKeysSlice,
   state => state.entities[defaultWalletKeyId]
+);
+
+export const selectHasSecretKey = createSelector(
+  selectDefaultSoftwareKey,
+  softwareKey => !!softwareKey?.encryptedSecretKey
 );
 
 export function useCurrentKeyDetails() {

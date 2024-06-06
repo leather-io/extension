@@ -1,26 +1,28 @@
-import type { Brc20CryptoAssetInfo } from '@leather-wallet/models';
-import BigNumber from 'bignumber.js';
-
-import { createMarketData, createMarketPair } from '@shared/models/market.model';
-import { createMoney } from '@shared/models/money.model';
-
-import { unitToFractionalUnit } from '@app/common/money/unit-conversion';
-import { useGetBrc20TokensQuery } from '@app/query/bitcoin/ordinals/brc20/brc20-tokens.query';
-import { useCalculateBitcoinFiatValue } from '@app/query/common/market-data/market-data.hooks';
-import { createCryptoAssetBalance } from '@app/query/common/models';
-import { useConfigOrdinalsbot } from '@app/query/common/remote-config/remote-config.query';
-import { isFetchedWithSuccess } from '@app/query/query-config';
-import { useAppDispatch } from '@app/store';
-import { useCurrentAccountIndex } from '@app/store/accounts/account';
-import { useCurrentNetwork } from '@app/store/networks/networks.selectors';
-import { brc20TransferInitiated } from '@app/store/ordinals/ordinals.slice';
-
-import { useAverageBitcoinFeeRates } from '../../fees/fee-estimates.hooks';
-import { useOrdinalsbotClient } from '../../ordinalsbot-client';
+import {
+  type Brc20CryptoAssetInfo,
+  createMarketData,
+  createMarketPair,
+} from '@leather-wallet/models';
 import {
   createBrc20TransferInscription,
   encodeBrc20TransferInscription,
-} from './brc20-tokens.utils';
+  useAverageBitcoinFeeRates,
+  useCalculateBitcoinFiatValue,
+  useConfigOrdinalsbot,
+  useGetBrc20TokensQuery,
+  useOrdinalsbotClient,
+} from '@leather-wallet/query';
+import { createMoney, unitToFractionalUnit } from '@leather-wallet/utils';
+import BigNumber from 'bignumber.js';
+
+import { createCryptoAssetBalance } from '@app/query/common/models';
+import { isFetchedWithSuccess } from '@app/query/query-config';
+import { useAppDispatch } from '@app/store';
+import { useCurrentAccountIndex } from '@app/store/accounts/account';
+import { useCurrentAccountNativeSegwitIndexZeroSigner } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
+import { useCurrentAccountTaprootSigner } from '@app/store/accounts/blockchain/bitcoin/taproot-account.hooks';
+import { useCurrentNetwork } from '@app/store/networks/networks.selectors';
+import { brc20TransferInitiated } from '@app/store/ordinals/ordinals.slice';
 
 // ts-unused-exports:disable-next-line
 export function useBrc20FeatureFlag() {
@@ -98,7 +100,13 @@ function createBrc20CryptoAssetInfo(decimals: number, ticker: string): Brc20Cryp
 
 export function useBrc20Tokens() {
   const calculateBitcoinFiatValue = useCalculateBitcoinFiatValue();
-  const result = useGetBrc20TokensQuery();
+  const createTaprootSigner = useCurrentAccountTaprootSigner();
+  const nativeSegwitSigner = useCurrentAccountNativeSegwitIndexZeroSigner();
+
+  const result = useGetBrc20TokensQuery({
+    createTaprootSigner,
+    nativeSegwitAddress: nativeSegwitSigner.address,
+  });
 
   if (!isFetchedWithSuccess(result)) return [];
 

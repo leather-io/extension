@@ -1,3 +1,4 @@
+import { delay } from '@leather-wallet/utils';
 import { bytesToHex } from '@noble/hashes/utils';
 import * as secp from '@noble/secp256k1';
 import StacksApp from '@zondax/ledger-stacks';
@@ -6,7 +7,6 @@ import {
   getIdentityDerivationPath,
   getStxDerivationPath,
 } from '@shared/crypto/stacks/stacks.utils';
-import { delay } from '@shared/utils';
 
 import { defaultNumberOfKeysToPullFromLedgerDevice } from '../../generic-flows/request-keys/use-request-ledger-keys';
 import {

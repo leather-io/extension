@@ -20,7 +20,7 @@ export function Sip10TokenAssetItem({
   marketData,
   onSelectAsset,
 }: Sip10TokenAssetItemProps) {
-  const name = spamFilter(info.tokenName);
+  const name = spamFilter(info.name);
   const fiatBalance = convertAssetBalanceToFiat({
     balance: balance.availableBalance,
     marketData,
@@ -28,7 +28,7 @@ export function Sip10TokenAssetItem({
 
   return (
     <CryptoAssetItemLayout
-      balance={balance}
+      availableBalance={balance.availableBalance}
       fiatBalance={fiatBalance}
       captionLeft={info.symbol}
       contractId={info.contractId}

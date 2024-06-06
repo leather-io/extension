@@ -1,8 +1,6 @@
+import { createMoney, formatMoneyPadded } from '@leather-wallet/utils';
 import BigNumber from 'bignumber.js';
 
-import { createMoney } from '@shared/models/money.model';
-
-import { formatMoneyPadded } from '@app/common/money/format-money';
 import { InfoCardFooter } from '@app/components/info-card/info-card';
 import { useBreakOnNonCompliantEntity } from '@app/query/common/compliance-checker/compliance-checker.query';
 import { useCurrentAccountNativeSegwitIndexZeroSigner } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';

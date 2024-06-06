@@ -12,5 +12,5 @@ export function formatBalance(amount: string) {
         isAbbreviated: true,
         value: abbreviateNumber(number),
       }
-    : { value: amount, isAbbreviated: false };
+    : { isAbbreviated: false, value: amount };
 }

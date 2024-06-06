@@ -1,6 +1,6 @@
 import { createContext } from 'react';
 
-import { noop } from '@shared/utils';
+import { noop } from '@leather-wallet/utils';
 
 import { BaseLedgerOperationContext } from '../../utils/generic-ledger-utils';
 

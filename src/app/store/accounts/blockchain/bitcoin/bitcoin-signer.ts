@@ -1,5 +1,9 @@
 import { useCallback } from 'react';
 
+import {
+  getNativeSegwitAddressIndexDerivationPath,
+  getTaprootAddressIndexDerivationPath,
+} from '@leather-wallet/bitcoin';
 import { HDKey, Versions } from '@scure/bip32';
 import * as btc from '@scure/btc-signer';
 
@@ -9,8 +13,6 @@ import {
   deriveAddressIndexKeychainFromAccount,
   whenPaymentType,
 } from '@shared/crypto/bitcoin/bitcoin.utils';
-import { getTaprootAddressIndexDerivationPath } from '@shared/crypto/bitcoin/p2tr-address-gen';
-import { getNativeSegwitAddressIndexDerivationPath } from '@shared/crypto/bitcoin/p2wpkh-address-gen';
 import { AllowedSighashTypes } from '@shared/rpc/methods/sign-psbt';
 
 import { useBitcoinExtendedPublicKeyVersions } from './bitcoin-keychain';

@@ -26,6 +26,7 @@ jobs:
           workflow_conclusion: success
           name: firefox_version
           path: old
+          allow_forks: false
 
       - name: Determine if new version is live
         id: firefox
@@ -88,6 +89,7 @@ jobs:
           workflow_conclusion: success
           name: chrome_version
           path: old
+          allow_forks: false
 
       - name: Determine if new version is live
         id: chrome

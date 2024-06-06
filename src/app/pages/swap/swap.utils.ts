@@ -1,9 +1,10 @@
-import type { MarketData } from '@shared/models/market.model';
-import { type Money, createMoney } from '@shared/models/money.model';
-
-import { baseCurrencyAmountInQuote } from '@app/common/money/calculate-money';
-import { isMoneyGreaterThanZero } from '@app/common/money/money.utils';
-import { unitToFractionalUnit } from '@app/common/money/unit-conversion';
+import type { MarketData, Money } from '@leather-wallet/models';
+import {
+  baseCurrencyAmountInQuote,
+  createMoney,
+  isMoneyGreaterThanZero,
+  unitToFractionalUnit,
+} from '@leather-wallet/utils';
 
 export function convertInputAmountValueToFiat(balance: Money, price: MarketData, value: string) {
   const valueAsMoney = createMoney(

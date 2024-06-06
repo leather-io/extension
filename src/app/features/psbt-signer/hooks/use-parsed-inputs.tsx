@@ -1,14 +1,14 @@
 import { useMemo } from 'react';
 
-import * as btc from '@scure/btc-signer';
+import type { Inscription } from '@leather-wallet/models';
+import { useInscriptionsByOutputs } from '@leather-wallet/query';
+import { isDefined, isUndefined } from '@leather-wallet/utils';
+import type { TransactionInput } from '@scure/btc-signer/psbt';
 import { bytesToHex } from '@stacks/common';
 
 import { getBtcSignerLibNetworkConfigByMode } from '@shared/crypto/bitcoin/bitcoin.network';
 import { getBitcoinInputAddress, getBitcoinInputValue } from '@shared/crypto/bitcoin/bitcoin.utils';
-import { Inscription } from '@shared/models/inscription.model';
-import { isDefined, isUndefined } from '@shared/utils';
 
-import { useGetInscriptionsByOutputQueries } from '@app/query/bitcoin/ordinals/inscriptions-by-param.query';
 import { useCurrentAccountNativeSegwitIndexZeroSigner } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
 import { useCurrentAccountTaprootIndexZeroSigner } from '@app/store/accounts/blockchain/bitcoin/taproot-account.hooks';
 import { useCurrentNetwork } from '@app/store/networks/networks.selectors';
@@ -24,7 +24,7 @@ export interface PsbtInput {
 }
 
 interface UseParsedInputsArgs {
-  inputs: btc.TransactionInput[];
+  inputs: TransactionInput[];
   indexesToSign?: number[];
 }
 export function useParsedInputs({ inputs, indexesToSign }: UseParsedInputsArgs) {
@@ -32,9 +32,7 @@ export function useParsedInputs({ inputs, indexesToSign }: UseParsedInputsArgs) 
   const bitcoinNetwork = getBtcSignerLibNetworkConfigByMode(network.chain.bitcoin.bitcoinNetwork);
   const bitcoinAddressNativeSegwit = useCurrentAccountNativeSegwitIndexZeroSigner().address;
   const { address: bitcoinAddressTaproot } = useCurrentAccountTaprootIndexZeroSigner();
-  const inscriptions = useGetInscriptionsByOutputQueries(inputs).map(
-    query => query.data?.results[0]
-  );
+  const inscriptions = useInscriptionsByOutputs(inputs);
   const signAll = isUndefined(indexesToSign);
 
   const psbtInputs = useMemo(

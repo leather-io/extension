@@ -1,9 +1,9 @@
+import type { StacksTxFeeEstimation } from '@leather-wallet/models';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import PQueue from 'p-queue';
 
 import { logger } from '@shared/logger';
-import { StacksTxFeeEstimation } from '@shared/models/fees/stacks-fees.model';
 
 import { AppUseQueryConfig } from '@app/query/query-config';
 import { useCurrentNetworkState } from '@app/store/networks/networks.hooks';

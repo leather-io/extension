@@ -1,3 +1,4 @@
+import { isBoolean } from '@leather-wallet/utils';
 import { hexToBytes } from '@stacks/common';
 import { BytesReader, PostCondition, deserializePostCondition } from '@stacks/transactions';
 import { toUnicode } from 'punycode';
@@ -9,19 +10,6 @@ import {
   HIRO_EXPLORER_URL,
   KEBAB_REGEX,
 } from '@shared/constants';
-import { isBoolean } from '@shared/utils';
-
-export function createNullArrayOfLength(length: number) {
-  return new Array(length).fill(null);
-}
-
-export function createNumArrayOfRange(fromIndex: number, toIndex: number) {
-  const result = [];
-  for (let i = fromIndex; i <= toIndex; i++) {
-    result.push(i);
-  }
-  return result;
-}
 
 function kebabCase(str: string) {
   return str.replace(KEBAB_REGEX, match => '-' + match.toLowerCase());
@@ -256,7 +244,7 @@ export function with0x(value: string): string {
   return !value.startsWith('0x') ? `0x${value}` : value;
 }
 
-export function pullContractIdFromIdentity(identifier: string) {
+export function getPrincipalFromContractId(identifier: string) {
   return identifier.split('::')[0];
 }
 
@@ -297,14 +285,6 @@ export const parseIfValidPunycode = (s: string) => {
 
 export function capitalize(val: string) {
   return val.charAt(0).toUpperCase() + val.slice(1);
-}
-
-export function isFulfilled<T>(p: PromiseSettledResult<T>): p is PromiseFulfilledResult<T> {
-  return p.status === 'fulfilled';
-}
-
-export function isRejected<T>(p: PromiseSettledResult<T>): p is PromiseRejectedResult {
-  return p.status === 'rejected';
 }
 
 interface LinearInterpolation {

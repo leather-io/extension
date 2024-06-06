@@ -1,8 +1,7 @@
-import { Inscription } from '@shared/models/inscription.model';
+import { type InscriptionResponseHiro, createInscriptionHiro } from '@leather-wallet/query';
 
-export const mockInscription1: Inscription = {
+export const mockInscriptionResponse1: InscriptionResponseHiro = {
   address: 'bc1pwrmewwprc8k8l2k63x4advg0nx0jk50xzqnee996lm87mcuza7kq6drg2k',
-  addressIndex: 0,
   content_length: 55,
   content_type: 'image/png',
   curse_type: '',
@@ -28,9 +27,10 @@ export const mockInscription1: Inscription = {
   value: '10000',
 };
 
-export const mockInscription2: Inscription = {
+export const mockInscription1 = createInscriptionHiro(mockInscriptionResponse1);
+
+export const mockInscriptionResponse2: InscriptionResponseHiro = {
   address: 'bc1pwrmewwprc8k8l2k63x4advg0nx0jk50xzqnee996lm87mcuza7kq6drg2k',
-  addressIndex: 0,
   content_length: 55,
   content_type: 'image/png',
   curse_type: '',
@@ -56,7 +56,9 @@ export const mockInscription2: Inscription = {
   value: '10000',
 };
 
-export const mockInscriptionsList = [
+export const mockInscription2 = createInscriptionHiro(mockInscriptionResponse2);
+
+export const mockInscriptionResponsesList = [
   {
     address: 'bc1q530dz4h80kwlzywlhx2qn0k6vdtftd93c499yq',
     id: 'a5ab63799f0bbd2571d1b90de9ebff815f7526787e27263d2f604e22f9118d0ci0',
@@ -84,3 +86,4 @@ export const mockInscriptionsList = [
     value: '546',
   },
 ];
+export const mockInscriptionsList = mockInscriptionResponsesList.map(createInscriptionHiro);

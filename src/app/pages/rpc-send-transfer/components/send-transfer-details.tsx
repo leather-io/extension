@@ -1,9 +1,7 @@
+import { formatMoney, truncateMiddle } from '@leather-wallet/utils';
 import { HStack, Stack, styled } from 'leather-styles/jsx';
 
 import type { TransferRecipient } from '@shared/models/form.model';
-
-import { formatMoney } from '@app/common/money/format-money';
-import { truncateMiddle } from '@app/ui/utils/truncate-middle';
 
 interface SendTransferDetailsProps {
   recipients: TransferRecipient[];

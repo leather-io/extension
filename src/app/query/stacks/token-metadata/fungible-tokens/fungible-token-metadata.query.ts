@@ -1,11 +1,12 @@
+import { createMoney } from '@leather-wallet/utils';
 import { useQueries, useQuery } from '@tanstack/react-query';
 import BigNumber from 'bignumber.js';
 import PQueue from 'p-queue';
 
 import type { AddressBalanceResponse } from '@shared/models/account.model';
-import { createMoney } from '@shared/models/money.model';
 
-import { getTicker, pullContractIdFromIdentity } from '@app/common/utils';
+import { getStacksContractIdStringParts } from '@app/common/stacks-utils';
+import { getPrincipalFromContractId, getTicker } from '@app/common/utils';
 import { createCryptoAssetBalance } from '@app/query/common/models';
 import { useStacksClient } from '@app/store/common/api-clients.hooks';
 import { useCurrentNetworkState } from '@app/store/networks/networks.hooks';
@@ -57,16 +58,18 @@ export function useGetFungibleTokensBalanceMetadataQuery(
 
   return useQueries({
     queries: Object.entries(ftBalances).map(([key, value]) => {
-      const contractId = pullContractIdFromIdentity(key);
+      const principal = getPrincipalFromContractId(key);
       return {
-        enabled: !!contractId,
-        queryKey: ['get-ft-metadata', contractId, network.chain.stacks.url],
-        queryFn: fetchFungibleTokenMetadata(client, limiter)(contractId),
+        enabled: !!principal,
+        queryKey: ['get-ft-metadata', principal, network.chain.stacks.url],
+        queryFn: fetchFungibleTokenMetadata(client, limiter)(principal),
         select: (resp: FtAssetResponse) => {
           if (!(resp && isFtAsset(resp))) return;
-          const symbol = resp.symbol ?? getTicker(resp.name ?? '');
+          const { contractAssetName } = getStacksContractIdStringParts(key);
+          const name = resp.name || contractAssetName;
+          const symbol = resp.symbol || getTicker(name);
           return {
-            contractId,
+            contractId: key,
             balance: createCryptoAssetBalance(
               createMoney(new BigNumber(value.balance), symbol, resp.decimals ?? 0)
             ),
@@ -85,14 +88,14 @@ export function useGetFungibleTokensMetadataQuery(keys: string[]) {
 
   return useQueries({
     queries: keys.map(key => {
-      const contractId = pullContractIdFromIdentity(key);
+      const principal = getPrincipalFromContractId(key);
       return {
-        enabled: !!contractId,
-        queryKey: ['get-ft-metadata', contractId, network.chain.stacks.url],
-        queryFn: fetchFungibleTokenMetadata(client, limiter)(contractId),
+        enabled: !!principal,
+        queryKey: ['get-ft-metadata', principal, network.chain.stacks.url],
+        queryFn: fetchFungibleTokenMetadata(client, limiter)(principal),
         select: (resp: FtAssetResponse) => {
           if (!(resp && isFtAsset(resp))) return;
-          return createSip10CryptoAssetInfo(contractId, key, resp);
+          return createSip10CryptoAssetInfo(key, resp);
         },
         ...queryOptions,
       };

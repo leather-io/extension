@@ -1,10 +1,10 @@
 import { useMemo, useState } from 'react';
 
+import { delay, isError } from '@leather-wallet/utils';
 import StacksApp from '@zondax/ledger-stacks';
 import BitcoinApp from 'ledger-bitcoin';
 
 import { SupportedBlockchains } from '@shared/constants';
-import { delay, isError } from '@shared/utils';
 
 import { useLedgerNavigate } from '../../hooks/use-ledger-navigate';
 import { BitcoinAppVersion } from '../../utils/bitcoin-ledger-utils';

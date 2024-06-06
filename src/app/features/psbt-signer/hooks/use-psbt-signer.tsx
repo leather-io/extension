@@ -1,18 +1,19 @@
 import { useMemo } from 'react';
 
+import { isString } from '@leather-wallet/utils';
 import { hexToBytes } from '@noble/hashes/utils';
 import * as btc from '@scure/btc-signer';
+import { RawPSBTV0, RawPSBTV2 } from '@scure/btc-signer/psbt';
 
 import { BitcoinInputSigningConfig } from '@shared/crypto/bitcoin/signer-config';
 import { logger } from '@shared/logger';
-import { isString } from '@shared/utils';
 
 import {
   useAddTapInternalKeysIfMissing,
   useSignBitcoinTx,
 } from '@app/store/accounts/blockchain/bitcoin/bitcoin.hooks';
 
-export type RawPsbt = ReturnType<typeof btc.RawPSBTV0.decode>;
+export type RawPsbt = ReturnType<typeof RawPSBTV0.decode>;
 
 interface SignPsbtArgs {
   signingConfig: BitcoinInputSigningConfig[];
@@ -35,11 +36,11 @@ export function usePsbtSigner() {
       getRawPsbt(psbt: string | Uint8Array) {
         const bytes = isString(psbt) ? hexToBytes(psbt) : psbt;
         try {
-          return btc.RawPSBTV0.decode(bytes);
+          return RawPSBTV0.decode(bytes);
         } catch (e1) {
           logger.error(`Unable to decode PSBT as v0, trying v2, ${e1}`);
           try {
-            return btc.RawPSBTV2.decode(bytes);
+            return RawPSBTV2.decode(bytes);
           } catch (e2) {
             throw new Error(`Unable to decode PSBT, ${e1 ?? e2}`);
           }

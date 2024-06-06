@@ -1,16 +1,13 @@
+import type { Money } from '@leather-wallet/models';
+import { btcToSat, isNumber, moneyToBaseUnit, stxToMicroStx } from '@leather-wallet/utils';
 import BigNumber from 'bignumber.js';
 import { AnyObject, NumberSchema } from 'yup';
-
-import { Money } from '@shared/models/money.model';
-import { isNumber } from '@shared/utils';
 
 import { formatInsufficientBalanceError, formatPrecisionError } from '@app/common/error-formatters';
 import {
   btcAmountPrecisionValidator,
   stxAmountPrecisionValidator,
 } from '@app/common/validation/forms/currency-validators';
-
-import { btcToSat, moneyToBaseUnit, stxToMicroStx } from '../../money/unit-conversion';
 
 interface FeeValidatorFactoryArgs {
   availableBalance?: Money;

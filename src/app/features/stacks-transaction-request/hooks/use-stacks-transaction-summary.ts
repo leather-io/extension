@@ -1,3 +1,13 @@
+import { useCryptoCurrencyMarketDataMeanAverage } from '@leather-wallet/query';
+import {
+  baseCurrencyAmountInQuote,
+  convertToMoneyTypeWithDefaultOfZero,
+  createMoney,
+  formatMoney,
+  i18nFormatCurrency,
+  isDefined,
+  microStxToStx,
+} from '@leather-wallet/utils';
 import { bytesToUtf8 } from '@stacks/common';
 import {
   ClarityType,
@@ -12,23 +22,15 @@ import {
 import BigNumber from 'bignumber.js';
 
 import { CryptoCurrencies } from '@shared/models/currencies.model';
-import { createMoney } from '@shared/models/money.model';
-import { isDefined } from '@shared/utils';
 
-import {
-  baseCurrencyAmountInQuote,
-  convertToMoneyTypeWithDefaultOfZero,
-} from '@app/common/money/calculate-money';
-import { formatMoney, i18nFormatCurrency } from '@app/common/money/format-money';
 import { getEstimatedConfirmationTime } from '@app/common/transactions/stacks/transaction.utils';
 import { removeTrailingNullCharacters } from '@app/common/utils';
-import { useCryptoCurrencyMarketDataMeanAverage } from '@app/query/common/market-data/market-data.hooks';
 import { useStacksBlockTime } from '@app/query/stacks/info/info.hooks';
 import { useCurrentNetworkState } from '@app/store/networks/networks.hooks';
-import { microStxToStx } from '@app/ui/utils/micro-stx-to-stx';
 
 export function useStacksTransactionSummary(token: CryptoCurrencies) {
-  const tokenMarketData = useCryptoCurrencyMarketDataMeanAverage(token);
+  // TODO: unsafe type assumption
+  const tokenMarketData = useCryptoCurrencyMarketDataMeanAverage(token as 'BTC' | 'STX');
   const { isTestnet } = useCurrentNetworkState();
   const { data: blockTime } = useStacksBlockTime();
 
@@ -62,7 +64,7 @@ export function useStacksTransactionSummary(token: CryptoCurrencies) {
       totalSpend: formatMoney(convertToMoneyTypeWithDefaultOfZero('STX', Number(txValue + fee))),
       arrivesIn: getEstimatedConfirmationTime(isTestnet, blockTime),
       symbol: 'STX',
-      txValue: microStxToStx(Number(txValue)),
+      txValue: microStxToStx(Number(txValue)).toString(),
       sendingValue: formatMoney(convertToMoneyTypeWithDefaultOfZero('STX', Number(txValue))),
       txFiatValue: i18nFormatCurrency(
         baseCurrencyAmountInQuote(createMoney(Number(payload.amount), 'STX'), tokenMarketData)

@@ -1,8 +1,8 @@
 import { useState } from 'react';
 
-import { Money, createMoney } from '@shared/models/money.model';
+import type { Money } from '@leather-wallet/models';
+import { createMoney, subtractMoney, sumMoney } from '@leather-wallet/utils';
 
-import { subtractMoney, sumMoney } from '@app/common/money/calculate-money';
 import { useCurrentBtcCryptoAssetBalanceNativeSegwit } from '@app/query/bitcoin/balance/btc-balance-native-segwit.hooks';
 
 export function useValidateBitcoinSpend(amount?: Money, isSendingMax?: boolean) {

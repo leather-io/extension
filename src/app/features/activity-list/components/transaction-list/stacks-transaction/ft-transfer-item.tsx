@@ -11,7 +11,7 @@ import {
   calculateTokenTransferAmount,
   getTxCaption,
 } from '@app/common/transactions/stacks/transaction.utils';
-import { pullContractIdFromIdentity } from '@app/common/utils';
+import { getPrincipalFromContractId } from '@app/common/utils';
 import { StacksAssetAvatar } from '@app/components/stacks-asset-avatar';
 import { StacksTransactionItem } from '@app/components/stacks-transaction-item/stacks-transaction-item';
 import { useGetFungibleTokenMetadataQuery } from '@app/query/stacks/token-metadata/fungible-tokens/fungible-token-metadata.query';
@@ -28,7 +28,7 @@ interface FtTransferItemProps {
 }
 export function FtTransferItem({ ftTransfer, parentTx }: FtTransferItemProps) {
   const { data: assetMetadata } = useGetFungibleTokenMetadataQuery(
-    pullContractIdFromIdentity(ftTransfer.asset_identifier)
+    getPrincipalFromContractId(ftTransfer.asset_identifier)
   );
   const currentAccount = useCurrentStacksAccount();
   const isOriginator = ftTransfer.sender === currentAccount?.address;

@@ -1,6 +1,6 @@
 import { useEffect, useRef } from 'react';
 
-import { noop } from '@shared/utils';
+import { noop } from '@leather-wallet/utils';
 
 export function useInterval(callback: () => void, delay: number | null) {
   const savedCallback = useRef(noop);

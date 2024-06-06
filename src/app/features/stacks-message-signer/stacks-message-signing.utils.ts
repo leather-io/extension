@@ -1,9 +1,10 @@
 import { useCallback } from 'react';
 
+import { isString } from '@leather-wallet/utils';
 import { ClarityValue, TupleCV, createStacksPrivateKey } from '@stacks/transactions';
 
 import { signMessage, signStructuredDataMessage } from '@shared/crypto/sign-message';
-import { createDelay, isString } from '@shared/utils';
+import { createDelay } from '@shared/utils';
 
 import { useCurrentStacksAccount } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
 

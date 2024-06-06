@@ -1,8 +1,8 @@
+import { stxToMicroStx } from '@leather-wallet/utils';
 import { TokenTransferPayload, deserializeTransaction } from '@stacks/transactions';
 import { TestAppPage } from '@tests/page-object-models/test-app.page';
 import { TransactionRequestPage } from '@tests/page-object-models/transaction-request.page';
-
-import { stxToMicroStx } from '@app/common/money/unit-conversion';
+import { OnboardingSelectors } from '@tests/selectors/onboarding.selectors';
 
 import { test } from '../../fixtures/fixtures';
 
@@ -12,9 +12,7 @@ test.describe('Transaction signing', () => {
   test.beforeEach(async ({ extensionId, globalPage, onboardingPage, context }) => {
     await globalPage.setupAndUseApiCalls(extensionId);
     await onboardingPage.signInWithTestAccount(extensionId);
-
     testAppPage = await TestAppPage.openDemoPage(context);
-    await testAppPage.signIn();
   });
 
   // These tests often break if ran in parallel
@@ -24,8 +22,10 @@ test.describe('Transaction signing', () => {
     test('that it validates against insufficient funds when performing a contract call', async ({
       context,
     }) => {
-      const accountsPage = await context.waitForEvent('page');
-      await accountsPage.locator('text="Account 2"').click({ force: true });
+      const newPagePromise = context.waitForEvent('page');
+      await testAppPage.page.getByTestId(OnboardingSelectors.SignUpBtn).click();
+      const accountsPage = await newPagePromise;
+      await accountsPage.getByTestId('switch-account-item-1').click({ force: true });
       await testAppPage.page.bringToFront();
       await testAppPage.page.click('text=Debugger', {
         timeout: 30000,
@@ -43,8 +43,10 @@ test.describe('Transaction signing', () => {
 
   test.describe('App initiated STX transfer', () => {
     test('that it broadcasts correctly with given fee and amount', async ({ context }) => {
-      const accountsPage = await context.waitForEvent('page');
-      await accountsPage.locator('text="Account 1"').click({ force: true });
+      const newPagePromise = context.waitForEvent('page');
+      await testAppPage.page.getByTestId(OnboardingSelectors.SignUpBtn).click();
+      const accountsPage = await newPagePromise;
+      await accountsPage.getByTestId('switch-account-item-0').click({ force: true });
       await testAppPage.page.bringToFront();
       await testAppPage.page.click('text=Debugger', {
         timeout: 30000,

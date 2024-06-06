@@ -1,6 +1,5 @@
+import type { Money } from '@leather-wallet/models';
 import { UseQueryResult, useQuery } from '@tanstack/react-query';
-
-import { Money } from '@shared/models/money.model';
 
 import { useBitcoinContracts } from '@app/common/hooks/use-bitcoin-contracts';
 import { useCurrentAccountIndex } from '@app/store/accounts/account';

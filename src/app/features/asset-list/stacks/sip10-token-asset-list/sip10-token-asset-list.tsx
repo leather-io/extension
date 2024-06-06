@@ -1,5 +1,6 @@
 import { Stack } from 'leather-styles/jsx';
 
+import { getPrincipalFromContractId } from '@app/common/utils';
 import { useAlexCurrencyPriceAsMarketData } from '@app/query/common/alex-sdk/alex-sdk.hooks';
 import type { Sip10TokenAssetDetails } from '@app/query/stacks/sip10/sip10-tokens.hooks';
 
@@ -24,11 +25,11 @@ export function Sip10TokenAssetList({
       {tokens.map(token => (
         <Sip10TokenAssetItem
           balance={token.balance}
-          key={token.info.tokenName}
+          key={token.info.name}
           info={token.info}
           isLoading={isLoading}
           marketData={priceAsMarketData(
-            token.info.contractId,
+            getPrincipalFromContractId(token.info.contractId),
             token.balance.availableBalance.symbol
           )}
           onSelectAsset={onSelectAsset}

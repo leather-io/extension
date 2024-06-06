@@ -1,12 +1,13 @@
 import { useState } from 'react';
 import { Outlet, useLocation, useNavigate } from 'react-router-dom';
 
+import type { BtcFeeType } from '@leather-wallet/models';
+import type { UtxoResponseItem } from '@leather-wallet/query';
+import { createMoney } from '@leather-wallet/utils';
 import { Stack } from 'leather-styles/jsx';
 import get from 'lodash.get';
 
 import { logger } from '@shared/logger';
-import { BtcFeeType } from '@shared/models/fees/bitcoin-fees.model';
-import { createMoney } from '@shared/models/money.model';
 import { RouteUrls } from '@shared/route-urls';
 
 import { formFeeRowValue } from '@app/common/send/utils';
@@ -20,7 +21,6 @@ import { LoadingSpinner } from '@app/components/loading-spinner';
 import { BitcoinChooseFee } from '@app/features/bitcoin-choose-fee/bitcoin-choose-fee';
 import { useValidateBitcoinSpend } from '@app/features/bitcoin-choose-fee/hooks/use-validate-bitcoin-spend';
 import { useToast } from '@app/features/toasts/use-toast';
-import { UtxoResponseItem } from '@app/query/bitcoin/bitcoin-client';
 import { useBrc20Transfers } from '@app/query/bitcoin/ordinals/brc20/brc20-tokens.hooks';
 import { useSignBitcoinTx } from '@app/store/accounts/blockchain/bitcoin/bitcoin.hooks';
 

@@ -1,6 +1,5 @@
 import type { CryptoAssetBalance, Src20CryptoAssetInfo } from '@leather-wallet/models';
-
-import { useSrc20TokensByAddress } from '@app/query/bitcoin/stamps/stamps-by-address.hooks';
+import { useSrc20TokensByAddress } from '@leather-wallet/query';
 
 export interface Src20TokenAssetDetails {
   balance: CryptoAssetBalance;

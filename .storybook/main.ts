@@ -1,5 +1,7 @@
 import type { StorybookConfig } from '@storybook/react-webpack5';
+import path from 'path';
 import TsconfigPathsPlugin from 'tsconfig-paths-webpack-plugin';
+import Webpack from 'webpack';
 
 const config: StorybookConfig = {
   addons: [
@@ -45,7 +47,7 @@ const config: StorybookConfig = {
     },
     '@storybook/addon-mdx-gfm',
     '@storybook/addon-webpack5-compiler-swc',
-    '@chromatic-com/storybook'
+    '@chromatic-com/storybook',
   ],
   docs: {
     autodocs: 'tag',
@@ -77,6 +79,13 @@ const config: StorybookConfig = {
     config.resolve.plugins.push(
       new TsconfigPathsPlugin({
         extensions: config.resolve.extensions,
+      })
+    );
+    config.plugins ??= [];
+    config.plugins.push(
+      new Webpack.ProvidePlugin({
+        Buffer: ['buffer', 'Buffer'],
+        chrome: [path.join(__dirname, '../tests/mocks/mock-chrome.ts'), 'chrome'],
       })
     );
     return config;

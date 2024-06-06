@@ -1,16 +1,19 @@
 import { useCallback } from 'react';
 
+import {
+  type MarketData,
+  type Money,
+  createMarketData,
+  createMarketPair,
+} from '@leather-wallet/models';
+import { convertAmountToFractionalUnit, createMoney, isDefined } from '@leather-wallet/utils';
 import { Currency, type TokenInfo } from 'alex-sdk';
 import BigNumber from 'bignumber.js';
 
 import { logger } from '@shared/logger';
-import { type MarketData, createMarketData, createMarketPair } from '@shared/models/market.model';
-import { type Money, createMoney } from '@shared/models/money.model';
-import { isDefined } from '@shared/utils';
 
 import { sortAssetsByName } from '@app/common/asset-utils';
-import { convertAmountToFractionalUnit } from '@app/common/money/calculate-money';
-import { pullContractIdFromIdentity } from '@app/common/utils';
+import { getPrincipalFromContractId } from '@app/common/utils';
 import { useCurrentStxAvailableUnlockedBalance } from '@app/query/stacks/balance/account-balance.hooks';
 import { useTransferableSip10Tokens } from '@app/query/stacks/sip10/sip10-tokens.hooks';
 import { useCurrentStacksAccountAddress } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
@@ -41,7 +44,7 @@ export function useAlexCurrencyPriceAsMarketData() {
     (principal: string, symbol: string) => {
       const tokenInfo = supportedCurrencies
         .filter(isDefined)
-        .find(token => pullContractIdFromIdentity(token.contractAddress) === principal);
+        .find(token => getPrincipalFromContractId(token.contractAddress) === principal);
       if (!prices || !tokenInfo)
         return createMarketData(createMarketPair(symbol, 'USD'), createMoney(0, 'USD'));
       const currency = tokenInfo.id as Currency;
@@ -68,7 +71,7 @@ function useCreateSwapAsset() {
       }
 
       const currency = tokenInfo.id as Currency;
-      const principal = pullContractIdFromIdentity(tokenInfo.contractAddress);
+      const principal = getPrincipalFromContractId(tokenInfo.contractAddress);
       const availableBalance = sip10Tokens.find(token => token.info.contractId === principal)
         ?.balance.availableBalance;
 

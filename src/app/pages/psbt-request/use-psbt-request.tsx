@@ -1,11 +1,11 @@
 import { useMemo, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
+import { isError } from '@leather-wallet/utils';
 import { bytesToHex, hexToBytes } from '@noble/hashes/utils';
 
 import { finalizePsbt } from '@shared/actions/finalize-psbt';
 import { RouteUrls } from '@shared/route-urls';
-import { isError } from '@shared/utils';
 
 import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
 import { usePsbtRequestSearchParams } from '@app/common/psbt/use-psbt-request-params';

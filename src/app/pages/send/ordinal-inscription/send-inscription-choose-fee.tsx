@@ -1,8 +1,9 @@
 import { useState } from 'react';
 import { Outlet, useNavigate } from 'react-router-dom';
 
-import { BtcFeeType } from '@shared/models/fees/bitcoin-fees.model';
-import { createMoney } from '@shared/models/money.model';
+import type { BtcFeeType } from '@leather-wallet/models';
+import { createMoney } from '@leather-wallet/utils';
+
 import { RouteUrls } from '@shared/route-urls';
 
 import {
@@ -24,7 +25,11 @@ export function SendInscriptionChooseFee() {
   const navigate = useNavigate();
   const { recipient, selectedFeeType, setSelectedFeeType, utxo, inscription } =
     useSendInscriptionState();
-  const { feesList, isLoading } = useSendInscriptionFeesList({ recipient, utxo, inscription });
+  const { feesList, isLoading } = useSendInscriptionFeesList({
+    recipient,
+    utxo,
+    inscription,
+  });
   const recommendedFeeRate = feesList[1]?.feeRate.toString() || '';
 
   const { reviewTransaction } = useSendInscriptionForm();

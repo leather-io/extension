@@ -1,13 +1,13 @@
 import { useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 
+import type { Money } from '@leather-wallet/models';
+import { noop } from '@leather-wallet/utils';
 import { FormikHelpers, FormikProps } from 'formik';
 import * as yup from 'yup';
 
 import { logger } from '@shared/logger';
-import { type Money } from '@shared/models/money.model';
 import { RouteUrls } from '@shared/route-urls';
-import { noop } from '@shared/utils';
 
 import { useOnMount } from '@app/common/hooks/use-on-mount';
 import { useWalletType } from '@app/common/use-wallet-type';

@@ -1,7 +1,6 @@
 import { createContext, useContext } from 'react';
 
-import { Inscription } from '@shared/models/inscription.model';
-import { Money } from '@shared/models/money.model';
+import type { Inscription, Money } from '@leather-wallet/models';
 
 import { PsbtInput } from './hooks/use-parsed-inputs';
 import { PsbtOutput } from './hooks/use-parsed-outputs';

@@ -1,10 +1,13 @@
 import type { StxCryptoAssetBalance } from '@leather-wallet/models';
+import { useCryptoCurrencyMarketDataMeanAverage } from '@leather-wallet/query';
+import {
+  baseCurrencyAmountInQuote,
+  formatMoneyWithoutSymbol,
+  i18nFormatCurrency,
+} from '@leather-wallet/utils';
 import { styled } from 'leather-styles/jsx';
 
-import { baseCurrencyAmountInQuote } from '@app/common/money/calculate-money';
-import { formatMoneyWithoutSymbol, i18nFormatCurrency } from '@app/common/money/format-money';
 import { CryptoAssetItemLayout } from '@app/components/crypto-asset-item/crypto-asset-item.layout';
-import { useCryptoCurrencyMarketDataMeanAverage } from '@app/query/common/market-data/market-data.hooks';
 import { StxAvatarIcon } from '@app/ui/components/avatar/stx-avatar-icon';
 import { Caption } from '@app/ui/components/typography/caption';
 
@@ -32,7 +35,7 @@ export function StxCryptoAssetItem({ balance, isLoading, onSelectAsset }: StxCry
 
   return (
     <CryptoAssetItemLayout
-      balance={balance}
+      availableBalance={balance.availableBalance}
       captionLeft="STX"
       captionRightBulletInfo={showLockedBalance && captionRightBulletInfo}
       fiatBalance={fiatAvailableBalance}

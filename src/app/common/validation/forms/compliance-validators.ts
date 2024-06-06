@@ -3,10 +3,7 @@ import * as yup from 'yup';
 
 import type { NetworkModes } from '@shared/constants';
 
-import {
-  checkEntityAddressIsCompliant,
-  isComplianceCheckEnabled,
-} from '@app/query/common/compliance-checker/compliance-checker.query';
+import { checkEntityAddressIsCompliant } from '@app/query/common/compliance-checker/compliance-checker.query';
 
 export function complianceValidator(
   shouldCheckCompliance: yup.StringSchema<string, yup.AnyObject>,
@@ -18,8 +15,6 @@ export function complianceValidator(
       if (!isString(value)) return false;
 
       if (network !== 'mainnet') return true;
-
-      if (!isComplianceCheckEnabled) return true;
 
       if (!shouldCheckCompliance.isValidSync(value)) return true;
 

@@ -1,11 +1,11 @@
 import { useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 
+import { delay } from '@leather-wallet/utils';
 import { SponsoredTxError } from 'alex-sdk';
 
 import { logger } from '@shared/logger';
 import { RouteUrls } from '@shared/route-urls';
-import { delay } from '@shared/utils';
 import { alex } from '@shared/utils/alex-sdk';
 
 import { LoadingKeys, useLoading } from '@app/common/hooks/use-loading';

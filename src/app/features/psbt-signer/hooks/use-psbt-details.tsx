@@ -1,10 +1,8 @@
 import { useCallback, useMemo } from 'react';
 
-import * as btc from '@scure/btc-signer';
+import { createMoney, subtractMoney } from '@leather-wallet/utils';
+import type { TransactionInput, TransactionOutput } from '@scure/btc-signer/psbt';
 
-import { createMoney } from '@shared/models/money.model';
-
-import { subtractMoney } from '@app/common/money/calculate-money';
 import { useCurrentAccountNativeSegwitIndexZeroSigner } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
 import { useCurrentAccountTaprootIndexZeroSigner } from '@app/store/accounts/blockchain/bitcoin/taproot-account.hooks';
 import { useCurrentNetwork } from '@app/store/networks/networks.selectors';
@@ -15,9 +13,9 @@ import { usePsbtInscriptions } from './use-psbt-inscriptions';
 import { usePsbtTotals } from './use-psbt-totals';
 
 interface UsePsbtDetailsArgs {
-  inputs: btc.TransactionInput[];
+  inputs: TransactionInput[];
   indexesToSign?: number[];
-  outputs: btc.TransactionOutput[];
+  outputs: TransactionOutput[];
 }
 export function usePsbtDetails({ inputs, indexesToSign, outputs }: UsePsbtDetailsArgs) {
   const network = useCurrentNetwork();

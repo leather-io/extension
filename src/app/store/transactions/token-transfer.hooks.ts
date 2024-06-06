@@ -2,6 +2,7 @@ import { useCallback } from 'react';
 import { useAsync } from 'react-async-hook';
 
 import type { Sip10CryptoAssetInfo } from '@leather-wallet/models';
+import { stxToMicroStx } from '@leather-wallet/utils';
 import { bytesToHex } from '@stacks/common';
 import { TransactionTypes } from '@stacks/connect';
 import {
@@ -20,8 +21,7 @@ import {
 import { logger } from '@shared/logger';
 import type { StacksSendFormValues, StacksTransactionFormValues } from '@shared/models/form.model';
 
-import { stxToMicroStx } from '@app/common/money/unit-conversion';
-import { ftUnshiftDecimals } from '@app/common/stacks-utils';
+import { ftUnshiftDecimals, getStacksContractIdStringParts } from '@app/common/stacks-utils';
 import {
   GenerateUnsignedTransactionOptions,
   generateUnsignedTransaction,
@@ -83,8 +83,9 @@ export function useGenerateFtTokenTransferUnsignedTx(info: Sip10CryptoAssetInfo)
   const { data: nextNonce } = useNextNonce();
   const account = useCurrentStacksAccount();
   const network = useCurrentStacksNetworkState();
-  const { contractName, contractAddress, contractAssetName } = info;
-
+  const { contractId } = info;
+  const { contractAddress, contractAssetName, contractName } =
+    getStacksContractIdStringParts(contractId);
   return useCallback(
     async (values?: StacksSendFormValues | StacksTransactionFormValues) => {
       try {

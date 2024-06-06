@@ -1,5 +1,6 @@
 import { useMemo } from 'react';
 
+import { convertAmountToBaseUnit } from '@leather-wallet/utils';
 import { FormikHelpers } from 'formik';
 import * as yup from 'yup';
 
@@ -7,7 +8,6 @@ import { STX_DECIMALS } from '@shared/constants';
 import { logger } from '@shared/logger';
 import { StacksSendFormValues } from '@shared/models/form.model';
 
-import { convertAmountToBaseUnit } from '@app/common/money/calculate-money';
 import {
   stxAmountValidator,
   stxAvailableBalanceValidator,

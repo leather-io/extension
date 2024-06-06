@@ -1,19 +1,19 @@
 import { useState } from 'react';
 import { Outlet, useLocation, useNavigate } from 'react-router-dom';
 
+import { FeeTypes } from '@leather-wallet/models';
+import { stxToMicroStx } from '@leather-wallet/utils';
 import { StacksTransaction } from '@stacks/transactions';
 import { Formik, FormikHelpers } from 'formik';
 import { Flex } from 'leather-styles/jsx';
 import * as yup from 'yup';
 
 import { HIGH_FEE_WARNING_LEARN_MORE_URL_STX } from '@shared/constants';
-import { FeeTypes } from '@shared/models/fees/fees.model';
 import { StacksTransactionFormValues } from '@shared/models/form.model';
 import { RouteUrls } from '@shared/route-urls';
 
 import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
 import { useOnMount } from '@app/common/hooks/use-on-mount';
-import { stxToMicroStx } from '@app/common/money/unit-conversion';
 import { stxFeeValidator } from '@app/common/validation/forms/fee-validators';
 import { nonceValidator } from '@app/common/validation/nonce-validators';
 import { NonceSetter } from '@app/components/nonce-setter';

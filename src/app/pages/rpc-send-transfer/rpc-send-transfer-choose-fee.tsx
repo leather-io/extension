@@ -1,9 +1,10 @@
 import { Outlet, useNavigate } from 'react-router-dom';
 
+import type { BtcFeeType, Money } from '@leather-wallet/models';
+import type { UtxoResponseItem } from '@leather-wallet/query';
+
 import { logger } from '@shared/logger';
-import { BtcFeeType } from '@shared/models/fees/bitcoin-fees.model';
 import type { TransferRecipient } from '@shared/models/form.model';
-import type { Money } from '@shared/models/money.model';
 import { RouteUrls } from '@shared/route-urls';
 
 import { useLocationStateWithCache } from '@app/common/hooks/use-location-state';
@@ -15,7 +16,6 @@ import {
 import { useBitcoinFeesList } from '@app/components/bitcoin-fees-list/use-bitcoin-fees-list-multiple-recipients';
 import { BitcoinChooseFee } from '@app/features/bitcoin-choose-fee/bitcoin-choose-fee';
 import { useValidateBitcoinSpend } from '@app/features/bitcoin-choose-fee/hooks/use-validate-bitcoin-spend';
-import { UtxoResponseItem } from '@app/query/bitcoin/bitcoin-client';
 import { useSignBitcoinTx } from '@app/store/accounts/blockchain/bitcoin/bitcoin.hooks';
 
 import { formFeeRowValue } from '../../common/send/utils';

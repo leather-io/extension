@@ -1,14 +1,16 @@
 import { useCallback } from 'react';
 
+import type { Money } from '@leather-wallet/models';
+import { useCryptoCurrencyMarketDataMeanAverage } from '@leather-wallet/query';
+import { baseCurrencyAmountInQuote } from '@leather-wallet/utils';
+
 import { CryptoCurrencies } from '@shared/models/currencies.model';
-import { type Money } from '@shared/models/money.model';
-
-import { useCryptoCurrencyMarketDataMeanAverage } from '@app/query/common/market-data/market-data.hooks';
-
-import { baseCurrencyAmountInQuote } from '../money/calculate-money';
 
 export function useConvertCryptoCurrencyToFiatAmount(currency: CryptoCurrencies) {
-  const cryptoCurrencyMarketData = useCryptoCurrencyMarketDataMeanAverage(currency);
+  // TODO: unsafe type assumption
+  const cryptoCurrencyMarketData = useCryptoCurrencyMarketDataMeanAverage(
+    currency as 'BTC' | 'STX'
+  );
 
   return useCallback(
     (value: Money) => baseCurrencyAmountInQuote(value, cryptoCurrencyMarketData),

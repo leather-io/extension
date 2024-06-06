@@ -1,21 +1,19 @@
-import type { CryptoAssetBalance } from '@leather-wallet/models';
+import type { Money } from '@leather-wallet/models';
+import { formatMoneyWithoutSymbol } from '@leather-wallet/utils';
 import { CryptoAssetSelectors } from '@tests/selectors/crypto-asset.selectors';
 
 import { formatBalance } from '@app/common/format-balance';
-import { formatMoneyWithoutSymbol } from '@app/common/money/format-money';
 
-export function parseCryptoAssetBalance(balance: CryptoAssetBalance) {
-  const { availableBalance } = balance;
-
-  const amount = formatMoneyWithoutSymbol(availableBalance);
+export function parseCryptoAssetBalance(availableBalance: Money) {
+  const availableBalanceString = formatMoneyWithoutSymbol(availableBalance);
   const dataTestId = CryptoAssetSelectors.CryptoAssetListItem.replace(
     '{symbol}',
     availableBalance.symbol.toLowerCase()
   );
-  const formattedBalance = formatBalance(amount);
+  const formattedBalance = formatBalance(availableBalanceString);
 
   return {
-    availableBalance,
+    availableBalanceString,
     dataTestId,
     formattedBalance,
   };

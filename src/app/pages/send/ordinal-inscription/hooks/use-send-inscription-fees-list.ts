@@ -1,16 +1,20 @@
 import { useCallback, useMemo } from 'react';
 
-import { BtcFeeType, btcTxTimeMap } from '@shared/models/fees/bitcoin-fees.model';
-import type { SupportedInscription } from '@shared/models/inscription.model';
-import { createMoney } from '@shared/models/money.model';
+import { BtcFeeType, Inscription, btcTxTimeMap } from '@leather-wallet/models';
+import {
+  type UtxoWithDerivationPath,
+  useAverageBitcoinFeeRates,
+  useCryptoCurrencyMarketDataMeanAverage,
+} from '@leather-wallet/query';
+import {
+  baseCurrencyAmountInQuote,
+  createMoney,
+  formatMoneyPadded,
+  i18nFormatCurrency,
+} from '@leather-wallet/utils';
 
-import { baseCurrencyAmountInQuote } from '@app/common/money/calculate-money';
-import { formatMoneyPadded, i18nFormatCurrency } from '@app/common/money/format-money';
 import { FeesListItem } from '@app/components/bitcoin-fees-list/bitcoin-fees-list';
 import { useCurrentNativeSegwitUtxos } from '@app/query/bitcoin/address/utxos-by-address.hooks';
-import { UtxoWithDerivationPath } from '@app/query/bitcoin/bitcoin-client';
-import { useAverageBitcoinFeeRates } from '@app/query/bitcoin/fees/fee-estimates.hooks';
-import { useCryptoCurrencyMarketDataMeanAverage } from '@app/query/common/market-data/market-data.hooks';
 import { useCurrentAccountNativeSegwitSigner } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
 
 import { useGenerateUnsignedOrdinalTx } from './use-generate-ordinal-tx';
@@ -18,7 +22,7 @@ import { useGenerateUnsignedOrdinalTx } from './use-generate-ordinal-tx';
 interface UseSendInscriptionFeesListArgs {
   recipient: string;
   utxo: UtxoWithDerivationPath;
-  inscription: SupportedInscription;
+  inscription: Inscription;
 }
 
 export function useSendInscriptionFeesList({

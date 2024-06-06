@@ -1,6 +1,8 @@
 import { memo } from 'react';
 
-import { closeWindow, isUndefined } from '@shared/utils';
+import { isUndefined } from '@leather-wallet/utils';
+
+import { closeWindow } from '@shared/utils';
 
 import { useOnOriginTabClose } from '@app/routes/hooks/use-on-tab-closed';
 import {

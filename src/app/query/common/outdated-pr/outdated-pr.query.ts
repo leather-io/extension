@@ -1,10 +1,10 @@
+import { isDefined } from '@leather-wallet/utils';
 import type { Endpoints } from '@octokit/types';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 
 import { GITHUB_ORG, GITHUB_REPO } from '@shared/constants';
 import { COMMIT_SHA, PR_NUMBER } from '@shared/environment';
-import { isDefined } from '@shared/utils';
 
 type PrDetailsResp = Endpoints['GET /repos/{owner}/{repo}/pulls/{pull_number}']['response']['data'];
 

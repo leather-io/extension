@@ -1,5 +1,4 @@
-import { FeeTypes } from '@shared/models/fees/fees.model';
-import { StacksFeeEstimate } from '@shared/models/fees/stacks-fees.model';
+import { FeeTypes, type StacksFeeEstimate } from '@leather-wallet/models';
 
 import { FeeEstimateItem } from './fee-estimate-item';
 import { FeeEstimateSelectLayout } from './fee-estimate-select.layout';

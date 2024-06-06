@@ -1,58 +1,128 @@
-import { Box, Stack, styled } from 'leather-styles/jsx';
+import { useRouteError } from 'react-router-dom';
+
+import BroadcastError from '@assets/images/unhappy-face-ui.png';
+import { isError } from '@leather-wallet/utils';
+import { SharedComponentsSelectors } from '@tests/selectors/shared-component.selectors';
+import { Box, Flex, HStack, styled } from 'leather-styles/jsx';
 
 import { Prism } from '@app/common/clarity-prism';
-import { HasChildren } from '@app/common/has-children';
-import { ErrorBoundary, FallbackProps, useErrorHandler } from '@app/features/errors/error-boundary';
-import { openGithubIssue } from '@app/features/errors/utils';
-import { useErrorStackTraceState } from '@app/store/ui/ui.hooks';
+import { useClipboard } from '@app/common/hooks/use-copy-to-clipboard';
+import { compliantErrorBody } from '@app/query/common/compliance-checker/compliance-checker.query';
+import { Button } from '@app/ui/components/button/button';
 import { CodeBlock } from '@app/ui/components/codeblock';
-import { Title } from '@app/ui/components/typography/title';
+import { Link } from '@app/ui/components/link/link';
+import { CopyIcon } from '@app/ui/icons';
 
-function ErrorFallback({ error, resetErrorBoundary }: FallbackProps) {
-  const [value] = useErrorStackTraceState();
+import { useToast } from '../toasts/use-toast';
 
+function shouldShowContactSupportMessage(errorMsg: string) {
+  if (errorMsg.includes(compliantErrorBody)) return false;
+  return true;
+}
+
+function ErroBoundaryBody() {
   return (
-    <Stack gap="space.06" flexGrow={1}>
-      <Title>Something went wrong</Title>
-      <Box className="error-codeblock" maxWidth="100vw" overflow="hidden">
-        {value && (
-          <CodeBlock
-            border="default"
-            code={value}
-            flexShrink={1}
-            overflow="auto"
-            language="bash"
-            maxHeight="305px"
-            maxWidth="100%"
-            prism={Prism as any}
-            width="100%"
-          />
-        )}
-      </Box>
-      <Stack mt="auto" gap="space.04">
-        <styled.button onClick={resetErrorBoundary} type="button">
-          Reload extension
-        </styled.button>
-        <styled.button
-          onClick={() => openGithubIssue({ message: error.message, stackTrace: value })}
-          type="button"
+    <styled.span
+      data-testid={SharedComponentsSelectors.BroadcastErrorTitle}
+      mx="space.05"
+      mt="space.05"
+      textStyle="label.02"
+    >
+      Leather has crashed. If this problem persists, contact our{' '}
+      <Link
+        href="https://leather.gitbook.io/guides/installing/contact-support"
+        target="_blank"
+        textDecoration="underline"
+      >
+        <styled.span
+          data-testid={SharedComponentsSelectors.BroadcastErrorTitle}
+          textStyle="label.02"
         >
-          Report issue on GitHub
-        </styled.button>
-      </Stack>
-    </Stack>
+          support team.
+        </styled.span>
+      </Link>
+    </styled.span>
   );
 }
 
-export function AppErrorBoundary({ children }: HasChildren) {
-  const handleOnError = useErrorHandler();
+const title = 'Something went wrong';
+
+const defaultErrorText = 'Unknown error';
+
+function getErrorText(error: unknown) {
+  if (!isError(error)) return defaultErrorText;
+  return error.stack || defaultErrorText;
+}
+
+export function RouterErrorBoundary() {
+  const error = useRouteError();
+  const toast = useToast();
+
+  const errorText = getErrorText(error);
+
+  const { onCopy } = useClipboard(getErrorText(error));
+
+  function onClickCopy() {
+    onCopy();
+    toast.success('Error copied!');
+  }
+
   return (
-    <ErrorBoundary
-      onReset={() => window.location.reload()}
-      FallbackComponent={ErrorFallback}
-      onError={handleOnError}
+    <Flex
+      alignItems="center"
+      justifyContent="center"
+      flexDirection="column"
+      px={['space.05', 'unset']}
+      py={['space.05', 'space.06']}
+      width="100%"
+      maxWidth="500px"
     >
-      {children}
-    </ErrorBoundary>
+      <Box mt="space.05">
+        <img src={BroadcastError} alt="Unhappy user interface cloud" width="106px" />
+      </Box>
+
+      <styled.span
+        data-testid={SharedComponentsSelectors.BroadcastErrorTitle}
+        mx="space.05"
+        mt="space.05"
+        textStyle="heading.05"
+      >
+        {title}
+      </styled.span>
+
+      {shouldShowContactSupportMessage(errorText) && <ErroBoundaryBody />}
+
+      {errorText && (
+        <CodeBlock
+          bg="ink.background-secondary"
+          borderRadius="sm"
+          my="space.05"
+          mx="space.05"
+          p="space.04"
+          prism={Prism}
+          code={errorText}
+          language="json"
+          hideLineHover
+        />
+      )}
+
+      <HStack width="100%" gap="space.04">
+        <Button
+          flex="1"
+          display="flex"
+          justifyContent="center"
+          alignItems="center"
+          gap="5"
+          onClick={onClickCopy}
+          variant="outline"
+        >
+          Copy error
+          <CopyIcon />
+        </Button>
+        <Button flex="1" onClick={() => window.location.reload()}>
+          Reload extension
+        </Button>
+      </HStack>
+    </Flex>
   );
 }

@@ -1,5 +1,19 @@
 import { useLocation, useNavigate } from 'react-router-dom';
 
+import {
+  useBitcoinBroadcastTransaction,
+  useCryptoCurrencyMarketDataMeanAverage,
+} from '@leather-wallet/query';
+import {
+  baseCurrencyAmountInQuote,
+  createMoney,
+  formatMoney,
+  formatMoneyPadded,
+  formatMoneyWithoutSymbol,
+  i18nFormatCurrency,
+  sumMoney,
+  truncateMiddle,
+} from '@leather-wallet/utils';
 import { HStack, Stack, styled } from 'leather-styles/jsx';
 import get from 'lodash.get';
 
@@ -7,25 +21,14 @@ import { decodeBitcoinTx } from '@shared/crypto/bitcoin/bitcoin.utils';
 import { logger } from '@shared/logger';
 import { CryptoCurrencies } from '@shared/models/currencies.model';
 import type { TransferRecipient } from '@shared/models/form.model';
-import { createMoney } from '@shared/models/money.model';
 import { RouteUrls } from '@shared/route-urls';
 import { makeRpcSuccessResponse } from '@shared/rpc/rpc-methods';
 
 import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
-import { baseCurrencyAmountInQuote, sumMoney } from '@app/common/money/calculate-money';
-import {
-  formatMoney,
-  formatMoneyPadded,
-  formatMoneyWithoutSymbol,
-  i18nFormatCurrency,
-} from '@app/common/money/format-money';
 import { InfoCardFooter } from '@app/components/info-card/info-card';
 import { useCurrentNativeSegwitUtxos } from '@app/query/bitcoin/address/utxos-by-address.hooks';
-import { useBitcoinBroadcastTransaction } from '@app/query/bitcoin/transaction/use-bitcoin-broadcast-transaction';
-import { useCryptoCurrencyMarketDataMeanAverage } from '@app/query/common/market-data/market-data.hooks';
 import { useCurrentAccountNativeSegwitAddressIndexZero } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
 import { Button } from '@app/ui/components/button/button';
-import { truncateMiddle } from '@app/ui/utils/truncate-middle';
 
 import { SendTransferConfirmationDetails } from './components/send-transfer-confirmation-details';
 import { useRpcSendTransferRequestParams } from './use-rpc-send-transfer';
