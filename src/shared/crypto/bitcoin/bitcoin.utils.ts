@@ -1,4 +1,5 @@
 import { PaymentTypes as PaymentType } from '@btckit/types';
+import { getTaprootPayment } from '@leather-wallet/bitcoin';
 import { defaultWalletKeyId, isDefined, whenNetwork } from '@leather-wallet/utils';
 import { hexToBytes } from '@noble/hashes/utils';
 import { HDKey, Versions } from '@scure/bip32';
@@ -10,7 +11,6 @@ import { logger } from '@shared/logger';
 
 import { DerivationPathDepth } from '../derivation-path.utils';
 import { BtcSignerNetwork, getBtcSignerLibNetworkConfigByMode } from './bitcoin.network';
-import { getTaprootPayment } from './p2tr-address-gen';
 
 export interface BitcoinAccount {
   type: PaymentType;
@@ -28,15 +28,6 @@ const bitcoinNetworkToCoreNetworkMap: Record<BitcoinNetworkModes, NetworkModes> 
 };
 export function bitcoinNetworkModeToCoreNetworkMode(mode: BitcoinNetworkModes) {
   return bitcoinNetworkToCoreNetworkMap[mode];
-}
-
-const coinTypeMap: Record<NetworkModes, 0 | 1> = {
-  mainnet: 0,
-  testnet: 1,
-};
-
-export function getBitcoinCoinTypeIndexByNetwork(network: BitcoinNetworkModes) {
-  return coinTypeMap[bitcoinNetworkModeToCoreNetworkMode(network)];
 }
 
 export function deriveAddressIndexKeychainFromAccount(keychain: HDKey) {

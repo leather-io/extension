@@ -3,8 +3,8 @@ import {
   DefineRpcMethod,
   RpcRequest,
   RpcResponse,
-} from '@btckit/types';
-import { SignatureHash } from '@scure/btc-signer/transaction';
+} from '@leather-wallet/rpc';
+import { SigHash } from '@scure/btc-signer/transaction';
 import * as yup from 'yup';
 
 import { WalletDefaultNetworkConfigurationIds } from '@shared/constants';
@@ -18,14 +18,14 @@ import {
 } from './validation.utils';
 
 // TODO: Revisit allowedSighash type if/when fixed in btc-signer
-export type AllowedSighashTypes = BtcKitSignatureHash | SignatureHash;
+export type AllowedSighashTypes = BtcKitSignatureHash | SigHash;
 // Pass all sighashTypes through as allowed to btc-signer
 export const allSighashTypes = [
-  SignatureHash.DEFAULT,
+  SigHash.DEFAULT,
   BtcKitSignatureHash.ALL,
   BtcKitSignatureHash.NONE,
   BtcKitSignatureHash.SINGLE,
-  SignatureHash.ANYONECANPAY,
+  SigHash.ALL_ANYONECANPAY,
   BtcKitSignatureHash.ALL_ANYONECANPAY,
   BtcKitSignatureHash.NONE_ANYONECANPAY,
   BtcKitSignatureHash.SINGLE_ANYONECANPAY,

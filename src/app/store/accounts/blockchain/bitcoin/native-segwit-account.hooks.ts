@@ -1,6 +1,11 @@
 import { useMemo } from 'react';
 import { useSelector } from 'react-redux';
 
+import {
+  deriveNativeSegwitAccountFromRootKeychain,
+  getNativeSegWitPaymentFromAddressIndex,
+  getNativeSegwitAccountDerivationPath,
+} from '@leather-wallet/bitcoin';
 import { reverseBytes } from '@leather-wallet/utils';
 import { createSelector } from '@reduxjs/toolkit';
 import { Psbt } from 'bitcoinjs-lib';
@@ -10,11 +15,6 @@ import {
   extractAddressIndexFromPath,
   lookUpLedgerKeysByPath,
 } from '@shared/crypto/bitcoin/bitcoin.utils';
-import {
-  deriveNativeSegwitAccountFromRootKeychain,
-  getNativeSegWitPaymentFromAddressIndex,
-  getNativeSegwitAccountDerivationPath,
-} from '@shared/crypto/bitcoin/p2wpkh-address-gen';
 import { BitcoinInputSigningConfig } from '@shared/crypto/bitcoin/signer-config';
 import { analytics } from '@shared/utils/analytics';
 

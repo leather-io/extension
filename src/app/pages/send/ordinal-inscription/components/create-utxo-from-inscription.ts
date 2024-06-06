@@ -1,8 +1,8 @@
+import { getNativeSegwitAddressIndexDerivationPath } from '@leather-wallet/bitcoin';
 import type { Inscription } from '@leather-wallet/models';
 import type { UtxoWithDerivationPath } from '@leather-wallet/query';
 
 import { BitcoinNetworkModes } from '@shared/constants';
-import { getNativeSegwitAddressIndexDerivationPath } from '@shared/crypto/bitcoin/p2wpkh-address-gen';
 
 interface CreateUtxoFromInscriptionArgs {
   inscription: Inscription;
@@ -10,7 +10,6 @@ interface CreateUtxoFromInscriptionArgs {
   accountIndex: number;
   inscriptionAddressIdx: number;
 }
-
 export function createUtxoFromInscription({
   inscription,
   network,

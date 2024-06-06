@@ -1,6 +1,11 @@
 import { useMemo } from 'react';
 import { useSelector } from 'react-redux';
 
+import {
+  deriveTaprootAccount,
+  getTaprootAccountDerivationPath,
+  getTaprootPaymentFromAddressIndex,
+} from '@leather-wallet/bitcoin';
 import { createSelector } from '@reduxjs/toolkit';
 import { Psbt } from 'bitcoinjs-lib';
 
@@ -10,11 +15,6 @@ import {
   extractAddressIndexFromPath,
   lookUpLedgerKeysByPath,
 } from '@shared/crypto/bitcoin/bitcoin.utils';
-import {
-  deriveTaprootAccount,
-  getTaprootAccountDerivationPath,
-  getTaprootPaymentFromAddressIndex,
-} from '@shared/crypto/bitcoin/p2tr-address-gen';
 import { BitcoinInputSigningConfig } from '@shared/crypto/bitcoin/signer-config';
 
 import { selectCurrentNetwork, useCurrentNetwork } from '@app/store/networks/networks.selectors';

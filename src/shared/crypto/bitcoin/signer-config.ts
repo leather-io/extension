@@ -1,3 +1,7 @@
+import {
+  getNativeSegwitAddressIndexDerivationPath,
+  getTaprootAddressIndexDerivationPath,
+} from '@leather-wallet/bitcoin';
 import { isUndefined, makeNumberRange } from '@leather-wallet/utils';
 import * as btc from '@scure/btc-signer';
 
@@ -5,8 +9,6 @@ import { BitcoinNetworkModes } from '@shared/constants';
 import { logger } from '@shared/logger';
 
 import { getInputPaymentType } from './bitcoin.utils';
-import { getTaprootAddressIndexDerivationPath } from './p2tr-address-gen';
-import { getNativeSegwitAddressIndexDerivationPath } from './p2wpkh-address-gen';
 
 // Used to pass to a signing function, with info needed for determine which key
 // to use to sign a given input
