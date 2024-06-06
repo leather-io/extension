@@ -25,7 +25,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/19</span>
+                <span class='fraction'>0/18</span>
             </div>
         
             
@@ -39,14 +39,14 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/6</span>
+                <span class='fraction'>0/5</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/17</span>
+                <span class='fraction'>0/16</span>
             </div>
         
             
@@ -141,9 +141,7 @@
 <a name='L76'></a><a href='#L76'>76</a>
 <a name='L77'></a><a href='#L77'>77</a>
 <a name='L78'></a><a href='#L78'>78</a>
-<a name='L79'></a><a href='#L79'>79</a>
-<a name='L80'></a><a href='#L80'>80</a>
-<a name='L81'></a><a href='#L81'>81</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L79'></a><a href='#L79'>79</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -178,8 +176,6 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -225,15 +221,15 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { useMemo } from 'react';
 &nbsp;
-import * as btc from '@scure/btc-signer';
+import type { Inscription } from '@leather-wallet/models';
+import { useInscriptionsByOutputs } from '@leather-wallet/query';
+import { isDefined, isUndefined } from '@leather-wallet/utils';
+import type { TransactionInput } from '@scure/btc-signer/psbt';
 import { bytesToHex } from '@stacks/common';
 &nbsp;
 import { getBtcSignerLibNetworkConfigByMode } from '@shared/crypto/bitcoin/bitcoin.network';
 import { getBitcoinInputAddress, getBitcoinInputValue } from '@shared/crypto/bitcoin/bitcoin.utils';
-import { Inscription } from '@shared/models/inscription.model';
-import { isDefined, isUndefined } from '@shared/utils';
 &nbsp;
-import { useGetInscriptionsByOutputQueries } from '@app/query/bitcoin/ordinals/inscriptions-by-param.query';
 import { useCurrentAccountNativeSegwitIndexZeroSigner } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
 import { useCurrentAccountTaprootIndexZeroSigner } from '@app/store/accounts/blockchain/bitcoin/taproot-account.hooks';
 import { useCurrentNetwork } from '@app/store/networks/networks.selectors';
@@ -249,7 +245,7 @@ export interface PsbtInput {
 }
 &nbsp;
 interface UseParsedInputsArgs {
-  inputs: btc.TransactionInput[];
+  inputs: TransactionInput[];
   indexesToSign?: number[];
 }
 export function <span class="fstat-no" title="function not covered" >useParsedInputs({</span> inputs, indexesToSign }: UseParsedInputsArgs) {
@@ -257,9 +253,7 @@ export function <span class="fstat-no" title="function not covered" >useParsedIn
   const bitcoinNetwork = <span class="cstat-no" title="statement not covered" >getBtcSignerLibNetworkConfigByMode(network.chain.bitcoin.bitcoinNetwork);</span>
   const bitcoinAddressNativeSegwit = <span class="cstat-no" title="statement not covered" >useCurrentAccountNativeSegwitIndexZeroSigner().address;</span>
   const { address: bitcoinAddressTaproot } = <span class="cstat-no" title="statement not covered" >useCurrentAccountTaprootIndexZeroSigner();</span>
-  const inscriptions = <span class="cstat-no" title="statement not covered" >useGetInscriptionsByOutputQueries(inputs).map(</span>
-<span class="fstat-no" title="function not covered" >    query =&gt; <span class="cstat-no" title="statement not covered" >q</span>uery.data?.results[0]</span>
-  );
+  const inscriptions = <span class="cstat-no" title="statement not covered" >useInscriptionsByOutputs(inputs);</span>
   const signAll = <span class="cstat-no" title="statement not covered" >isUndefined(indexesToSign);</span>
 &nbsp;
   const psbtInputs = <span class="cstat-no" title="statement not covered" >useMemo(</span>
@@ -310,7 +304,7 @@ export function <span class="fstat-no" title="function not covered" >useParsedIn
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-05-24T16:32:45.256Z
+                at 2024-06-06T20:01:08.240Z
             </div>
         <script src="../../../../../../prettify.js"></script>
         <script>

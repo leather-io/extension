@@ -23,9 +23,9 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">6.89% </span>
+                <span class="strong">6.45% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>2/29</span>
+                <span class='fraction'>2/31</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">8% </span>
+                <span class="strong">7.4% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>2/25</span>
+                <span class='fraction'>2/27</span>
             </div>
         
             
@@ -164,7 +164,11 @@
 <a name='L99'></a><a href='#L99'>99</a>
 <a name='L100'></a><a href='#L100'>100</a>
 <a name='L101'></a><a href='#L101'>101</a>
-<a name='L102'></a><a href='#L102'>102</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L102'></a><a href='#L102'>102</a>
+<a name='L103'></a><a href='#L103'>103</a>
+<a name='L104'></a><a href='#L104'>104</a>
+<a name='L105'></a><a href='#L105'>105</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -232,6 +236,8 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -265,14 +271,15 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { useQueries, useQuery } from '@tanstack/react-query';
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { createMoney } from '@leather-wallet/utils';
+import { useQueries, useQuery } from '@tanstack/react-query';
 import BigNumber from 'bignumber.js';
 import PQueue from 'p-queue';
 &nbsp;
 import type { AddressBalanceResponse } from '@shared/models/account.model';
-import { createMoney } from '@shared/models/money.model';
 &nbsp;
-import { getTicker, pullContractIdFromIdentity } from '@app/common/utils';
+import { getStacksContractIdStringParts } from '@app/common/stacks-utils';
+import { getPrincipalFromContractId, getTicker } from '@app/common/utils';
 import { createCryptoAssetBalance } from '@app/query/common/models';
 import { useStacksClient } from '@app/store/common/api-clients.hooks';
 import { useCurrentNetworkState } from '@app/store/networks/networks.hooks';
@@ -324,16 +331,18 @@ export function <span class="fstat-no" title="function not covered" >useGetFungi
 &nbsp;
 <span class="cstat-no" title="statement not covered" >  return useQueries({</span>
     queries: Object.entries(ftBalances).map(<span class="fstat-no" title="function not covered" >([</span>key, value]) =&gt; {
-      const contractId = <span class="cstat-no" title="statement not covered" >pullContractIdFromIdentity(key);</span>
+      const principal = <span class="cstat-no" title="statement not covered" >getPrincipalFromContractId(key);</span>
 <span class="cstat-no" title="statement not covered" >      return {</span>
-        enabled: !!contractId,
-        queryKey: ['get-ft-metadata', contractId, network.chain.stacks.url],
-        queryFn: fetchFungibleTokenMetadata(client, limiter)(contractId),
+        enabled: !!principal,
+        queryKey: ['get-ft-metadata', principal, network.chain.stacks.url],
+        queryFn: fetchFungibleTokenMetadata(client, limiter)(principal),
         select: <span class="fstat-no" title="function not covered" >(r</span>esp: FtAssetResponse) =&gt; {
 <span class="cstat-no" title="statement not covered" >          if (!(resp &amp;&amp; isFtAsset(resp))) <span class="cstat-no" title="statement not covered" >return;</span></span>
-          const symbol = <span class="cstat-no" title="statement not covered" >resp.symbol ?? getTicker(resp.name ?? '');</span>
+          const { contractAssetName } = <span class="cstat-no" title="statement not covered" >getStacksContractIdStringParts(key);</span>
+          const name = <span class="cstat-no" title="statement not covered" >resp.name || contractAssetName;</span>
+          const symbol = <span class="cstat-no" title="statement not covered" >resp.symbol || getTicker(name);</span>
 <span class="cstat-no" title="statement not covered" >          return {</span>
-            contractId,
+            contractId: key,
             balance: createCryptoAssetBalance(
               createMoney(new BigNumber(value.balance), symbol, resp.decimals ?? 0)
             ),
@@ -352,14 +361,14 @@ export function <span class="fstat-no" title="function not covered" >useGetFungi
 &nbsp;
 <span class="cstat-no" title="statement not covered" >  return useQueries({</span>
     queries: keys.map(<span class="fstat-no" title="function not covered" >key =&gt; {</span>
-      const contractId = <span class="cstat-no" title="statement not covered" >pullContractIdFromIdentity(key);</span>
+      const principal = <span class="cstat-no" title="statement not covered" >getPrincipalFromContractId(key);</span>
 <span class="cstat-no" title="statement not covered" >      return {</span>
-        enabled: !!contractId,
-        queryKey: ['get-ft-metadata', contractId, network.chain.stacks.url],
-        queryFn: fetchFungibleTokenMetadata(client, limiter)(contractId),
+        enabled: !!principal,
+        queryKey: ['get-ft-metadata', principal, network.chain.stacks.url],
+        queryFn: fetchFungibleTokenMetadata(client, limiter)(principal),
         select: <span class="fstat-no" title="function not covered" >(r</span>esp: FtAssetResponse) =&gt; {
 <span class="cstat-no" title="statement not covered" >          if (!(resp &amp;&amp; isFtAsset(resp))) <span class="cstat-no" title="statement not covered" >return;</span></span>
-<span class="cstat-no" title="statement not covered" >          return createSip10CryptoAssetInfo(contractId, key, resp);</span>
+<span class="cstat-no" title="statement not covered" >          return createSip10CryptoAssetInfo(key, resp);</span>
         },
         ...queryOptions,
       };
@@ -373,7 +382,7 @@ export function <span class="fstat-no" title="function not covered" >useGetFungi
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-05-24T16:32:45.256Z
+                at 2024-06-06T20:01:08.240Z
             </div>
         <script src="../../../../../../../prettify.js"></script>
         <script>

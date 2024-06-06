@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">22.72% </span>
+                <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>10/44</span>
+                <span class='fraction'>0/44</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">9.52% </span>
+                <span class="strong">0% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>2/21</span>
+                <span class='fraction'>0/21</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">7.14% </span>
+                <span class="strong">0% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>1/14</span>
+                <span class='fraction'>0/14</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">20.93% </span>
+                <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>9/43</span>
+                <span class='fraction'>0/43</span>
             </div>
         
             
@@ -216,19 +216,16 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -239,7 +236,10 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -346,26 +346,26 @@
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { useState } from 'react';
 import { useLocation } from 'react-router-dom';
 &nbsp;
+import { delay } from '@leather-wallet/utils';
 import TransportWebUSB from '@ledgerhq/hw-transport-webusb';
 import BitcoinApp from 'ledger-bitcoin';
 &nbsp;
 import { RouteUrls } from '@shared/route-urls';
-import { delay } from '@shared/utils';
 &nbsp;
 import { safeAwait } from '@app/common/utils/safe-await';
 &nbsp;
 import { getStacksAppVersion } from './stacks-ledger-utils';
 &nbsp;
-export enum LedgerConnectionErrors {
-  FailedToConnect = 'FailedToConnect',
-  AppNotOpen = 'AppNotOpen',
-  AppVersionOutdated = 'AppVersionOutdated',
-  DeviceNotConnected = 'DeviceNotConnected',
-  DeviceLocked = 'DeviceLocked',
-  IncorrectAppOpened = 'INCORRECT_APP_OPENED',
+export <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >enum <span class="cstat-no" title="statement not covered" >L</span>edgerConnectionErrors {</span></span>
+<span class="cstat-no" title="statement not covered" >  FailedToConnect = 'FailedToConnect',</span>
+<span class="cstat-no" title="statement not covered" >  AppNotOpen = 'AppNotOpen',</span>
+<span class="cstat-no" title="statement not covered" >  AppVersionOutdated = 'AppVersionOutdated',</span>
+<span class="cstat-no" title="statement not covered" >  DeviceNotConnected = 'DeviceNotConnected',</span>
+<span class="cstat-no" title="statement not covered" >  DeviceLocked = 'DeviceLocked',</span>
+<span class="cstat-no" title="statement not covered" >  IncorrectAppOpened = 'INCORRECT_APP_OPENED',</span>
 }
 &nbsp;
-export const LEDGER_APPS_MAP = {
+export const LEDGER_APPS_MAP = <span class="cstat-no" title="statement not covered" >{</span>
   STACKS: 'Stacks',
   BITCOIN_MAINNET: 'Bitcoin',
   BITCOIN_TESTNET: 'Bitcoin Test',
@@ -379,7 +379,7 @@ export interface BaseLedgerOperationContext {
   awaitingDeviceConnection: boolean;
 }
 &nbsp;
-const targetIdMap = new Map([
+const targetIdMap = <span class="cstat-no" title="statement not covered" >new Map([</span>
   ['31100004', 'Nano S'],
   ['33000004', 'Nano X'],
 ]);
@@ -490,7 +490,7 @@ export function <span class="fstat-no" title="function not covered" >useCancelLe
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-05-24T16:32:45.256Z
+                at 2024-06-06T20:01:08.240Z
             </div>
         <script src="../../../../../../prettify.js"></script>
         <script>

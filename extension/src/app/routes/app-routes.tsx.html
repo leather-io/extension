@@ -321,7 +321,17 @@
 <a name='L256'></a><a href='#L256'>256</a>
 <a name='L257'></a><a href='#L257'>257</a>
 <a name='L258'></a><a href='#L258'>258</a>
-<a name='L259'></a><a href='#L259'>259</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L259'></a><a href='#L259'>259</a>
+<a name='L260'></a><a href='#L260'>260</a>
+<a name='L261'></a><a href='#L261'>261</a>
+<a name='L262'></a><a href='#L262'>262</a>
+<a name='L263'></a><a href='#L263'>263</a>
+<a name='L264'></a><a href='#L264'>264</a>
+<a name='L265'></a><a href='#L265'>265</a>
+<a name='L266'></a><a href='#L266'>266</a>
+<a name='L267'></a><a href='#L267'>267</a>
+<a name='L268'></a><a href='#L268'>268</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -466,6 +476,13 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -566,6 +583,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -599,6 +617,7 @@ import { EditNonceDialog } from '@app/features/dialogs/edit-nonce-dialog/edit-no
 import { IncreaseBtcFeeDialog } from '@app/features/dialogs/increase-fee-dialog/increase-btc-fee-dialog';
 import { IncreaseStxFeeDialog } from '@app/features/dialogs/increase-fee-dialog/increase-stx-fee-dialog';
 import { leatherIntroDialogRoutes } from '@app/features/dialogs/leather-intro-dialog/leather-intro-dialog';
+import { RouterErrorBoundary } from '@app/features/errors/app-error-boundary';
 import { ledgerBitcoinTxSigningRoutes } from '@app/features/ledger/flows/bitcoin-tx-signing/ledger-bitcoin-sign-tx-container';
 import { ledgerJwtSigningRoutes } from '@app/features/ledger/flows/jwt-signing/ledger-sign-jwt.routes';
 import { requestBitcoinKeysRoutes } from '@app/features/ledger/flows/request-bitcoin-keys/ledger-request-bitcoin-keys';
@@ -661,178 +680,186 @@ function <span class="fstat-no" title="function not covered" >useAppRoutes() {</
 <span class="cstat-no" title="statement not covered" >  return sentryCreateBrowserRouter(</span>
     createRoutesFromElements(
       &lt;Route element={&lt;Container /&gt;}&gt;
-        &lt;Route
-          path="/*"
-          element={
-            &lt;AccountGate&gt;
-              &lt;Home /&gt;
-            &lt;/AccountGate&gt;
-          }
-        &gt;
-          {homePageModalRoutes}
-        &lt;/Route&gt;
+        &lt;Route key="error" errorElement={&lt;RouterErrorBoundary /&gt;}&gt;
+          &lt;Route
+            path="/*"
+            element={
+              &lt;AccountGate&gt;
+                &lt;Home /&gt;
+              &lt;/AccountGate&gt;
+            }
+          &gt;
+            {homePageModalRoutes}
+          &lt;/Route&gt;
 &nbsp;
-        &lt;Route path={RouteUrls.RetrieveTaprootFunds} element={&lt;RetrieveTaprootToNativeSegwit /&gt;} /&gt;
-        &lt;Route path={RouteUrls.IncreaseStxFee} element={&lt;IncreaseStxFeeDialog /&gt;}&gt;
+          &lt;Route
+            path={RouteUrls.RetrieveTaprootFunds}
+            element={&lt;RetrieveTaprootToNativeSegwit /&gt;}
+          /&gt;
+          &lt;Route path={RouteUrls.IncreaseStxFee} element={&lt;IncreaseStxFeeDialog /&gt;}&gt;
+            {ledgerStacksTxSigningRoutes}
+          &lt;/Route&gt;
+          &lt;Route
+            path={`${RouteUrls.IncreaseStxFee}/${RouteUrls.TransactionBroadcastError}`}
+            element={&lt;BroadcastError /&gt;}
+          /&gt;
+          &lt;Route path={RouteUrls.IncreaseBtcFee} element={&lt;IncreaseBtcFeeDialog /&gt;}&gt;
+            {ledgerBitcoinTxSigningRoutes}
+          &lt;/Route&gt;
+&nbsp;
           {ledgerStacksTxSigningRoutes}
+&nbsp;
+          &lt;Route
+            path={RouteUrls.RpcReceiveBitcoinContractOffer}
+            element={
+              &lt;AccountGate&gt;
+                &lt;Suspense fallback={&lt;SuspenseLoadingSpinner /&gt;}&gt;
+                  &lt;BitcoinContractRequest /&gt;
+                &lt;/Suspense&gt;
+              &lt;/AccountGate&gt;
+            }
+          /&gt;
+          &lt;Route path={RouteUrls.BitcoinContractLockSuccess} element={&lt;LockBitcoinSummary /&gt;} /&gt;
+          &lt;Route path={RouteUrls.BitcoinContractLockError} element={&lt;BroadcastError /&gt;} /&gt;
+          &lt;Route path={RouteUrls.BitcoinContractList} element={&lt;BitcoinContractList /&gt;} /&gt;
+          &lt;Route
+            path={RouteUrls.Onboarding}
+            element={
+              &lt;OnboardingGate&gt;
+                &lt;WelcomePage /&gt;
+              &lt;/OnboardingGate&gt;
+            }
+          &gt;
+            &lt;Route path={RouteUrls.ConnectLedgerStart} element={&lt;ConnectLedgerStart /&gt;} /&gt;
+            &lt;Route
+              path={RouteUrls.LedgerUnsupportedBrowser}
+              element={&lt;UnsupportedBrowserLayout /&gt;}
+            /&gt;
+&nbsp;
+            {requestBitcoinKeysRoutes}
+            {requestStacksKeysRoutes}
+          &lt;/Route&gt;
+          &lt;Route
+            path={RouteUrls.BackUpSecretKey}
+            element={
+              &lt;OnboardingGate&gt;
+                &lt;BackUpSecretKeyPage /&gt;
+              &lt;/OnboardingGate&gt;
+            }
+          /&gt;
+          &lt;Route
+            path={RouteUrls.SetPassword}
+            lazy={<span class="fstat-no" title="function not covered" >async () =&gt; {</span>
+              const { SetPasswordRoute } = <span class="cstat-no" title="statement not covered" >await import(</span>
+                '@app/pages/onboarding/set-password/set-password'
+              );
+<span class="cstat-no" title="statement not covered" >              return { Component: SetPasswordRoute };</span>
+            }}
+          /&gt;
+&nbsp;
+          &lt;Route
+            path={RouteUrls.SignIn}
+            element={
+              &lt;OnboardingGate&gt;
+                &lt;SignIn /&gt;
+              &lt;/OnboardingGate&gt;
+            }
+          /&gt;
+          &lt;Route
+            path={RouteUrls.AddNetwork}
+            element={
+              &lt;AccountGate&gt;
+                &lt;AddNetwork /&gt;
+              &lt;/AccountGate&gt;
+            }
+          /&gt;
+          &lt;Route
+            path={RouteUrls.ChooseAccount}
+            element={
+              &lt;AccountGate&gt;
+                &lt;ChooseAccount /&gt;
+              &lt;/AccountGate&gt;
+            }
+          &gt;
+            {ledgerJwtSigningRoutes}
+          &lt;/Route&gt;
+&nbsp;
+          &lt;Route
+            path={RouteUrls.Fund}
+            element={
+              &lt;AccountGate&gt;
+                &lt;FundPage /&gt;
+              &lt;/AccountGate&gt;
+            }
+          &gt;
+            &lt;Route path={RouteUrls.ReceiveStx} element={&lt;ReceiveStxModal /&gt;} /&gt;
+            &lt;Route path={RouteUrls.ReceiveBtc} element={&lt;ReceiveBtcModal /&gt;} /&gt;
+          &lt;/Route&gt;
+          &lt;Route
+            path={RouteUrls.FundChooseCurrency}
+            element={
+              &lt;AccountGate&gt;
+                &lt;ChooseCryptoAssetToFund /&gt;
+              &lt;/AccountGate&gt;
+            }
+          &gt;
+            &lt;Route path={RouteUrls.ReceiveStx} element={&lt;ReceiveStxModal /&gt;} /&gt;
+          &lt;/Route&gt;
+&nbsp;
+          {sendCryptoAssetFormRoutes}
+&nbsp;
+          &lt;Route
+            path={RouteUrls.ViewSecretKey}
+            element={
+              &lt;AccountGate&gt;
+                &lt;ViewSecretKey /&gt;
+              &lt;/AccountGate&gt;
+            }
+          /&gt;
+          &lt;Route path={RouteUrls.Unlock} element={&lt;Unlock /&gt;}&gt;
+            {leatherIntroDialogRoutes}
+          &lt;/Route&gt;
+&nbsp;
+          {legacyRequestRoutes}
+          {rpcRequestRoutes}
+          &lt;Route path={RouteUrls.UnauthorizedRequest} element={&lt;UnauthorizedRequest /&gt;} /&gt;
+          &lt;Route
+            path={RouteUrls.RequestError}
+            element={
+              &lt;AccountGate&gt;
+                &lt;RequestError /&gt;
+              &lt;/AccountGate&gt;
+            }
+          /&gt;
+&nbsp;
+          &lt;Route
+            path={RouteUrls.RpcSignStacksTransaction}
+            element={
+              &lt;AccountGate&gt;
+                &lt;RpcSignStacksTransaction /&gt;
+              &lt;/AccountGate&gt;
+            }
+          &gt;
+            &lt;Route path={RouteUrls.EditNonce} element={&lt;EditNonceDialog /&gt;} /&gt;
+          &lt;/Route&gt;
+&nbsp;
+          &lt;Route
+            path={RouteUrls.RpcSignBip322Message}
+            lazy={<span class="fstat-no" title="function not covered" >async () =&gt; {</span>
+              const { RpcSignBip322MessageRoute } = <span class="cstat-no" title="statement not covered" >await import(</span>
+                '@app/pages/rpc-sign-bip322-message/rpc-sign-bip322-message'
+              );
+<span class="cstat-no" title="statement not covered" >              return { Component: RpcSignBip322MessageRoute };</span>
+            }}
+          &gt;
+            {ledgerBitcoinTxSigningRoutes}
+          &lt;/Route&gt;
+&nbsp;
+          {alexSwapRoutes}
+&nbsp;
+          {/* Catch-all route redirects to onboarding */}
+          &lt;Route path="*" element={&lt;Navigate replace to={RouteUrls.Onboarding} /&gt;} /&gt;
         &lt;/Route&gt;
-        &lt;Route
-          path={`${RouteUrls.IncreaseStxFee}/${RouteUrls.TransactionBroadcastError}`}
-          element={&lt;BroadcastError /&gt;}
-        /&gt;
-        &lt;Route path={RouteUrls.IncreaseBtcFee} element={&lt;IncreaseBtcFeeDialog /&gt;}&gt;
-          {ledgerBitcoinTxSigningRoutes}
-        &lt;/Route&gt;
-&nbsp;
-        {ledgerStacksTxSigningRoutes}
-&nbsp;
-        &lt;Route
-          path={RouteUrls.RpcReceiveBitcoinContractOffer}
-          element={
-            &lt;AccountGate&gt;
-              &lt;Suspense fallback={&lt;SuspenseLoadingSpinner /&gt;}&gt;
-                &lt;BitcoinContractRequest /&gt;
-              &lt;/Suspense&gt;
-            &lt;/AccountGate&gt;
-          }
-        /&gt;
-        &lt;Route path={RouteUrls.BitcoinContractLockSuccess} element={&lt;LockBitcoinSummary /&gt;} /&gt;
-        &lt;Route path={RouteUrls.BitcoinContractLockError} element={&lt;BroadcastError /&gt;} /&gt;
-        &lt;Route path={RouteUrls.BitcoinContractList} element={&lt;BitcoinContractList /&gt;} /&gt;
-        &lt;Route
-          path={RouteUrls.Onboarding}
-          element={
-            &lt;OnboardingGate&gt;
-              &lt;WelcomePage /&gt;
-            &lt;/OnboardingGate&gt;
-          }
-        &gt;
-          &lt;Route path={RouteUrls.ConnectLedgerStart} element={&lt;ConnectLedgerStart /&gt;} /&gt;
-          &lt;Route path={RouteUrls.LedgerUnsupportedBrowser} element={&lt;UnsupportedBrowserLayout /&gt;} /&gt;
-&nbsp;
-          {requestBitcoinKeysRoutes}
-          {requestStacksKeysRoutes}
-        &lt;/Route&gt;
-        &lt;Route
-          path={RouteUrls.BackUpSecretKey}
-          element={
-            &lt;OnboardingGate&gt;
-              &lt;BackUpSecretKeyPage /&gt;
-            &lt;/OnboardingGate&gt;
-          }
-        /&gt;
-        &lt;Route
-          path={RouteUrls.SetPassword}
-          lazy={<span class="fstat-no" title="function not covered" >async () =&gt; {</span>
-            const { SetPasswordRoute } = <span class="cstat-no" title="statement not covered" >await import(</span>
-              '@app/pages/onboarding/set-password/set-password'
-            );
-<span class="cstat-no" title="statement not covered" >            return { Component: SetPasswordRoute };</span>
-          }}
-        /&gt;
-&nbsp;
-        &lt;Route
-          path={RouteUrls.SignIn}
-          element={
-            &lt;OnboardingGate&gt;
-              &lt;SignIn /&gt;
-            &lt;/OnboardingGate&gt;
-          }
-        /&gt;
-        &lt;Route
-          path={RouteUrls.AddNetwork}
-          element={
-            &lt;AccountGate&gt;
-              &lt;AddNetwork /&gt;
-            &lt;/AccountGate&gt;
-          }
-        /&gt;
-        &lt;Route
-          path={RouteUrls.ChooseAccount}
-          element={
-            &lt;AccountGate&gt;
-              &lt;ChooseAccount /&gt;
-            &lt;/AccountGate&gt;
-          }
-        &gt;
-          {ledgerJwtSigningRoutes}
-        &lt;/Route&gt;
-&nbsp;
-        &lt;Route
-          path={RouteUrls.Fund}
-          element={
-            &lt;AccountGate&gt;
-              &lt;FundPage /&gt;
-            &lt;/AccountGate&gt;
-          }
-        &gt;
-          &lt;Route path={RouteUrls.ReceiveStx} element={&lt;ReceiveStxModal /&gt;} /&gt;
-          &lt;Route path={RouteUrls.ReceiveBtc} element={&lt;ReceiveBtcModal /&gt;} /&gt;
-        &lt;/Route&gt;
-        &lt;Route
-          path={RouteUrls.FundChooseCurrency}
-          element={
-            &lt;AccountGate&gt;
-              &lt;ChooseCryptoAssetToFund /&gt;
-            &lt;/AccountGate&gt;
-          }
-        &gt;
-          &lt;Route path={RouteUrls.ReceiveStx} element={&lt;ReceiveStxModal /&gt;} /&gt;
-        &lt;/Route&gt;
-&nbsp;
-        {sendCryptoAssetFormRoutes}
-&nbsp;
-        &lt;Route
-          path={RouteUrls.ViewSecretKey}
-          element={
-            &lt;AccountGate&gt;
-              &lt;ViewSecretKey /&gt;
-            &lt;/AccountGate&gt;
-          }
-        /&gt;
-        &lt;Route path={RouteUrls.Unlock} element={&lt;Unlock /&gt;}&gt;
-          {leatherIntroDialogRoutes}
-        &lt;/Route&gt;
-&nbsp;
-        {legacyRequestRoutes}
-        {rpcRequestRoutes}
-        &lt;Route path={RouteUrls.UnauthorizedRequest} element={&lt;UnauthorizedRequest /&gt;} /&gt;
-        &lt;Route
-          path={RouteUrls.RequestError}
-          element={
-            &lt;AccountGate&gt;
-              &lt;RequestError /&gt;
-            &lt;/AccountGate&gt;
-          }
-        /&gt;
-&nbsp;
-        &lt;Route
-          path={RouteUrls.RpcSignStacksTransaction}
-          element={
-            &lt;AccountGate&gt;
-              &lt;RpcSignStacksTransaction /&gt;
-            &lt;/AccountGate&gt;
-          }
-        &gt;
-          &lt;Route path={RouteUrls.EditNonce} element={&lt;EditNonceDialog /&gt;} /&gt;
-        &lt;/Route&gt;
-&nbsp;
-        &lt;Route
-          path={RouteUrls.RpcSignBip322Message}
-          lazy={<span class="fstat-no" title="function not covered" >async () =&gt; {</span>
-            const { RpcSignBip322MessageRoute } = <span class="cstat-no" title="statement not covered" >await import(</span>
-              '@app/pages/rpc-sign-bip322-message/rpc-sign-bip322-message'
-            );
-<span class="cstat-no" title="statement not covered" >            return { Component: RpcSignBip322MessageRoute };</span>
-          }}
-        &gt;
-          {ledgerBitcoinTxSigningRoutes}
-        &lt;/Route&gt;
-&nbsp;
-        {alexSwapRoutes}
-&nbsp;
-        {/* Catch-all route redirects to onboarding */}
-        &lt;Route path="*" element={&lt;Navigate replace to={RouteUrls.Onboarding} /&gt;} /&gt;
       &lt;/Route&gt;
     )
   );
@@ -844,7 +871,7 @@ function <span class="fstat-no" title="function not covered" >useAppRoutes() {</
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-05-24T16:32:45.256Z
+                at 2024-06-06T20:01:08.240Z
             </div>
         <script src="../../../../prettify.js"></script>
         <script>

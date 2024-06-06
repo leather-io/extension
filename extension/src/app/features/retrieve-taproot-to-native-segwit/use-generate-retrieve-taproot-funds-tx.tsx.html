@@ -25,7 +25,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/34</span>
+                <span class='fraction'>0/37</span>
             </div>
         
             
@@ -46,7 +46,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/30</span>
+                <span class='fraction'>0/33</span>
             </div>
         
             
@@ -141,7 +141,34 @@
 <a name='L76'></a><a href='#L76'>76</a>
 <a name='L77'></a><a href='#L77'>77</a>
 <a name='L78'></a><a href='#L78'>78</a>
-<a name='L79'></a><a href='#L79'>79</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L79'></a><a href='#L79'>79</a>
+<a name='L80'></a><a href='#L80'>80</a>
+<a name='L81'></a><a href='#L81'>81</a>
+<a name='L82'></a><a href='#L82'>82</a>
+<a name='L83'></a><a href='#L83'>83</a>
+<a name='L84'></a><a href='#L84'>84</a>
+<a name='L85'></a><a href='#L85'>85</a>
+<a name='L86'></a><a href='#L86'>86</a>
+<a name='L87'></a><a href='#L87'>87</a>
+<a name='L88'></a><a href='#L88'>88</a>
+<a name='L89'></a><a href='#L89'>89</a>
+<a name='L90'></a><a href='#L90'>90</a>
+<a name='L91'></a><a href='#L91'>91</a>
+<a name='L92'></a><a href='#L92'>92</a>
+<a name='L93'></a><a href='#L93'>93</a>
+<a name='L94'></a><a href='#L94'>94</a>
+<a name='L95'></a><a href='#L95'>95</a>
+<a name='L96'></a><a href='#L96'>96</a>
+<a name='L97'></a><a href='#L97'>97</a>
+<a name='L98'></a><a href='#L98'>98</a>
+<a name='L99'></a><a href='#L99'>99</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -158,10 +185,23 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -221,25 +261,45 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { useCallback, useMemo } from 'react';
 &nbsp;
+import type { Money } from '@leather-wallet/models';
+import {
+  useAverageBitcoinFeeRates,
+  useCurrentTaprootAccountUninscribedUtxos,
+  useNumberOfInscriptionsOnUtxo,
+} from '@leather-wallet/query';
+import { createMoney, sumNumbers } from '@leather-wallet/utils';
 import * as btc from '@scure/btc-signer';
 &nbsp;
 import { extractAddressIndexFromPath } from '@shared/crypto/bitcoin/bitcoin.utils';
-import { Money, createMoney } from '@shared/models/money.model';
 &nbsp;
-import { sumNumbers } from '@app/common/math/helpers';
 import { BtcSizeFeeEstimator } from '@app/common/transactions/bitcoin/fees/btc-size-fee-estimator';
-import { useCurrentTaprootAccountUninscribedUtxos } from '@app/query/bitcoin/balance/btc-balance-taproot.hooks';
-import { useAverageBitcoinFeeRates } from '@app/query/bitcoin/fees/fee-estimates.hooks';
-import { useNumberOfInscriptionsOnUtxo } from '@app/query/bitcoin/ordinals/inscriptions.hooks';
+import { useCurrentAccountIndex } from '@app/store/accounts/account';
 import { useBitcoinScureLibNetworkConfig } from '@app/store/accounts/blockchain/bitcoin/bitcoin-keychain';
-import { useCurrentAccountTaprootSigner } from '@app/store/accounts/blockchain/bitcoin/taproot-account.hooks';
+import { useCurrentAccountNativeSegwitIndexZeroSigner } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
+import {
+  useCurrentAccountTaprootSigner,
+  useCurrentTaprootAccount,
+} from '@app/store/accounts/blockchain/bitcoin/taproot-account.hooks';
 &nbsp;
 export function <span class="fstat-no" title="function not covered" >useGenerateRetrieveTaprootFundsTx() {</span>
   const networkMode = <span class="cstat-no" title="statement not covered" >useBitcoinScureLibNetworkConfig();</span>
-  const uninscribedUtxos = <span class="cstat-no" title="statement not covered" >useCurrentTaprootAccountUninscribedUtxos();</span>
+&nbsp;
+  const currentAccountIndex = <span class="cstat-no" title="statement not covered" >useCurrentAccountIndex();</span>
+  const account = <span class="cstat-no" title="statement not covered" >useCurrentTaprootAccount();</span>
+  const nativeSegwitSigner = <span class="cstat-no" title="statement not covered" >useCurrentAccountNativeSegwitIndexZeroSigner();</span>
+&nbsp;
+  const uninscribedUtxos = <span class="cstat-no" title="statement not covered" >useCurrentTaprootAccountUninscribedUtxos({</span>
+    taprootKeychain: account?.keychain,
+    nativeSegwitAddress: nativeSegwitSigner.address,
+    currentAccountIndex,
+  });
+&nbsp;
   const createSigner = <span class="cstat-no" title="statement not covered" >useCurrentAccountTaprootSigner();</span>
   const { data: feeRates } = <span class="cstat-no" title="statement not covered" >useAverageBitcoinFeeRates();</span>
-  const getNumberOfInscriptionOnUtxo = <span class="cstat-no" title="statement not covered" >useNumberOfInscriptionsOnUtxo();</span>
+  const getNumberOfInscriptionOnUtxo = <span class="cstat-no" title="statement not covered" >useNumberOfInscriptionsOnUtxo({</span>
+    taprootKeychain: account?.keychain,
+    nativeSegwitAddress: nativeSegwitSigner.address,
+  });
 &nbsp;
   const fee = <span class="cstat-no" title="statement not covered" >useMemo(<span class="fstat-no" title="function not covered" >() =&gt; {</span></span>
 <span class="cstat-no" title="statement not covered" >    if (!feeRates) <span class="cstat-no" title="statement not covered" >return createMoney(0, 'BTC');</span></span>
@@ -304,7 +364,7 @@ export function <span class="fstat-no" title="function not covered" >useGenerate
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-05-24T16:32:45.256Z
+                at 2024-06-06T20:01:08.240Z
             </div>
         <script src="../../../../../prettify.js"></script>
         <script>

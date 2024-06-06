@@ -25,7 +25,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/19</span>
+                <span class='fraction'>0/22</span>
             </div>
         
             
@@ -46,7 +46,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/19</span>
+                <span class='fraction'>0/22</span>
             </div>
         
             
@@ -141,7 +141,25 @@
 <a name='L76'></a><a href='#L76'>76</a>
 <a name='L77'></a><a href='#L77'>77</a>
 <a name='L78'></a><a href='#L78'>78</a>
-<a name='L79'></a><a href='#L79'>79</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L79'></a><a href='#L79'>79</a>
+<a name='L80'></a><a href='#L80'>80</a>
+<a name='L81'></a><a href='#L81'>81</a>
+<a name='L82'></a><a href='#L82'>82</a>
+<a name='L83'></a><a href='#L83'>83</a>
+<a name='L84'></a><a href='#L84'>84</a>
+<a name='L85'></a><a href='#L85'>85</a>
+<a name='L86'></a><a href='#L86'>86</a>
+<a name='L87'></a><a href='#L87'>87</a>
+<a name='L88'></a><a href='#L88'>88</a>
+<a name='L89'></a><a href='#L89'>89</a>
+<a name='L90'></a><a href='#L90'>90</a>
+<a name='L91'></a><a href='#L91'>91</a>
+<a name='L92'></a><a href='#L92'>92</a>
+<a name='L93'></a><a href='#L93'>93</a>
+<a name='L94'></a><a href='#L94'>94</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -168,9 +186,21 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -221,24 +251,27 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { useNavigate } from 'react-router-dom';
 &nbsp;
+import {
+  useBitcoinBroadcastTransaction,
+  useCurrentTaprootAccountBalance,
+  useCurrentTaprootAccountUninscribedUtxos,
+} from '@leather-wallet/query';
+import { delay, formatMoneyPadded, truncateMiddle } from '@leather-wallet/utils';
 import { Stack } from 'leather-styles/jsx';
 &nbsp;
 import { RouteUrls } from '@shared/route-urls';
-import { delay } from '@shared/utils';
 &nbsp;
 import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
-import { formatMoneyPadded } from '@app/common/money/format-money';
 import { FormAddressDisplayer } from '@app/components/address-displayer/form-address-displayer';
 import { InfoCardRow, InfoCardSeparator } from '@app/components/info-card/info-card';
 import { useToast } from '@app/features/toasts/use-toast';
+import { useCurrentAccountIndex } from '@app/store/accounts/account';
 import {
-  useCurrentTaprootAccountBalance,
-  useCurrentTaprootAccountUninscribedUtxos,
-} from '@app/query/bitcoin/balance/btc-balance-taproot.hooks';
-import { useBitcoinBroadcastTransaction } from '@app/query/bitcoin/transaction/use-bitcoin-broadcast-transaction';
-import { useCurrentAccountNativeSegwitAddressIndexZero } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
+  useCurrentAccountNativeSegwitAddressIndexZero,
+  useCurrentAccountNativeSegwitIndexZeroSigner,
+} from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
+import { useCurrentTaprootAccount } from '@app/store/accounts/blockchain/bitcoin/taproot-account.hooks';
 import { Link } from '@app/ui/components/link/link';
-import { truncateMiddle } from '@app/ui/utils/truncate-middle';
 &nbsp;
 import { RetrieveTaprootToNativeSegwitLayout } from './components/retrieve-taproot-to-native-segwit.layout';
 import { useGenerateRetrieveTaprootFundsTx } from './use-generate-retrieve-taproot-funds-tx';
@@ -246,9 +279,21 @@ import { useGenerateRetrieveTaprootFundsTx } from './use-generate-retrieve-tapro
 export function <span class="fstat-no" title="function not covered" >RetrieveTaprootToNativeSegwit() {</span>
   const toast = <span class="cstat-no" title="statement not covered" >useToast();</span>
   const navigate = <span class="cstat-no" title="statement not covered" >useNavigate();</span>
-  const balance = <span class="cstat-no" title="statement not covered" >useCurrentTaprootAccountBalance();</span>
+&nbsp;
+  const currentAccountIndex = <span class="cstat-no" title="statement not covered" >useCurrentAccountIndex();</span>
+  const account = <span class="cstat-no" title="statement not covered" >useCurrentTaprootAccount();</span>
+  const nativeSegwitSigner = <span class="cstat-no" title="statement not covered" >useCurrentAccountNativeSegwitIndexZeroSigner();</span>
+  const balance = <span class="cstat-no" title="statement not covered" >useCurrentTaprootAccountBalance({</span>
+    currentAccountIndex,
+    taprootKeychain: account?.keychain,
+    nativeSegwitAddress: nativeSegwitSigner.address,
+  });
   const recipient = <span class="cstat-no" title="statement not covered" >useCurrentAccountNativeSegwitAddressIndexZero();</span>
-  const uninscribedUtxos = <span class="cstat-no" title="statement not covered" >useCurrentTaprootAccountUninscribedUtxos();</span>
+  const uninscribedUtxos = <span class="cstat-no" title="statement not covered" >useCurrentTaprootAccountUninscribedUtxos({</span>
+    taprootKeychain: account?.keychain,
+    nativeSegwitAddress: nativeSegwitSigner.address,
+    currentAccountIndex,
+  });
   const analytics = <span class="cstat-no" title="statement not covered" >useAnalytics();</span>
   const { generateRetrieveTaprootFundsTx, fee } = <span class="cstat-no" title="statement not covered" >useGenerateRetrieveTaprootFundsTx();</span>
   const { broadcastTx, isBroadcasting } = <span class="cstat-no" title="statement not covered" >useBitcoinBroadcastTransaction();</span>
@@ -304,7 +349,7 @@ export function <span class="fstat-no" title="function not covered" >RetrieveTap
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-05-24T16:32:45.256Z
+                at 2024-06-06T20:01:08.240Z
             </div>
         <script src="../../../../../prettify.js"></script>
         <script>

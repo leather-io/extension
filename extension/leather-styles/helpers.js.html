@@ -385,7 +385,10 @@
 <a name='L320'></a><a href='#L320'>320</a>
 <a name='L321'></a><a href='#L321'>321</a>
 <a name='L322'></a><a href='#L322'>322</a>
-<a name='L323'></a><a href='#L323'>323</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L323'></a><a href='#L323'>323</a>
+<a name='L324'></a><a href='#L324'>324</a>
+<a name='L325'></a><a href='#L325'>325</a>
+<a name='L326'></a><a href='#L326'>326</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -501,11 +504,14 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -822,13 +828,16 @@ function <span class="fstat-no" title="function not covered" >mapObject(</span>o
 &nbsp;
 // src/normalize-style-object.ts
 function <span class="fstat-no" title="function not covered" >toResponsiveObject(</span>values, breakpoints) {
-<span class="cstat-no" title="statement not covered" >  return values.reduce(<span class="fstat-no" title="function not covered" >(a</span>cc, current, index) =&gt; {</span>
-    const key = <span class="cstat-no" title="statement not covered" >breakpoints[index];</span>
-<span class="cstat-no" title="statement not covered" >    if (current != null) {</span>
-<span class="cstat-no" title="statement not covered" >      acc[key] = current;</span>
-    }
-<span class="cstat-no" title="statement not covered" >    return acc;</span>
-  }, {});
+<span class="cstat-no" title="statement not covered" >  return values.reduce(</span>
+<span class="fstat-no" title="function not covered" >    (a</span>cc, current, index) =&gt; {
+      const key = <span class="cstat-no" title="statement not covered" >breakpoints[index];</span>
+<span class="cstat-no" title="statement not covered" >      if (current != null) {</span>
+<span class="cstat-no" title="statement not covered" >        acc[key] = current;</span>
+      }
+<span class="cstat-no" title="statement not covered" >      return acc;</span>
+    },
+    {}
+  );
 }
 function <span class="fstat-no" title="function not covered" >normalizeStyleObject(</span>styles, context, shorthand = <span class="branch-0 cbranch-no" title="branch not covered" >true)</span> {
   const { utility, conditions } = <span class="cstat-no" title="statement not covered" >context;</span>
@@ -886,7 +895,7 @@ function <span class="fstat-no" title="function not covered" >createCss(</span>c
   });
 }
 function <span class="fstat-no" title="function not covered" >compactStyles(</span>...styles) {
-<span class="cstat-no" title="statement not covered" >  return styles.filter(<span class="fstat-no" title="function not covered" >(s</span>tyle) =&gt; <span class="cstat-no" title="statement not covered" >isObject(style) &amp;&amp; Object.keys(compact(style)).length &gt; 0)</span>;</span>
+<span class="cstat-no" title="statement not covered" >  return styles.flat().filter(<span class="fstat-no" title="function not covered" >(s</span>tyle) =&gt; <span class="cstat-no" title="statement not covered" >isObject(style) &amp;&amp; Object.keys(compact(style)).length &gt; 0)</span>;</span>
 }
 function <span class="fstat-no" title="function not covered" >createMergeCss(</span>context) {
   function <span class="fstat-no" title="function not covered" >resolve(</span>styles) {
@@ -935,7 +944,7 @@ var patternFns = <span class="cstat-no" title="statement not covered" >{</span>
   isCssUnit
 };
 var getPatternStyles = <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >(p</span>attern, styles) =&gt; {</span>
-<span class="cstat-no" title="statement not covered" >  if (!pattern.defaultValues)</span>
+<span class="cstat-no" title="statement not covered" >  if (!pattern?.defaultValues)</span>
 <span class="cstat-no" title="statement not covered" >    return styles;</span>
   const defaults = <span class="cstat-no" title="statement not covered" >typeof pattern.defaultValues === "function" ? pattern.defaultValues(styles) : pattern.defaultValues;</span>
 <span class="cstat-no" title="statement not covered" >  return Object.assign({}, defaults, compact(styles));</span>
@@ -1036,7 +1045,7 @@ export function <span class="fstat-no" title="function not covered" >__objRest(<
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-05-24T16:32:45.256Z
+                at 2024-06-06T20:01:08.240Z
             </div>
         <script src="../../prettify.js"></script>
         <script>

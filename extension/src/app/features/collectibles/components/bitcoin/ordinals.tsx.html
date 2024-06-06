@@ -25,7 +25,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/24</span>
+                <span class='fraction'>0/26</span>
             </div>
         
             
@@ -46,7 +46,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/21</span>
+                <span class='fraction'>0/23</span>
             </div>
         
             
@@ -125,7 +125,17 @@
 <a name='L60'></a><a href='#L60'>60</a>
 <a name='L61'></a><a href='#L61'>61</a>
 <a name='L62'></a><a href='#L62'>62</a>
-<a name='L63'></a><a href='#L63'>63</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L63'></a><a href='#L63'>63</a>
+<a name='L64'></a><a href='#L64'>64</a>
+<a name='L65'></a><a href='#L65'>65</a>
+<a name='L66'></a><a href='#L66'>66</a>
+<a name='L67'></a><a href='#L67'>67</a>
+<a name='L68'></a><a href='#L68'>68</a>
+<a name='L69'></a><a href='#L69'>69</a>
+<a name='L70'></a><a href='#L70'>70</a>
+<a name='L71'></a><a href='#L71'>71</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -140,6 +150,12 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -190,10 +206,12 @@
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { useEffect } from 'react';
 import { useInView } from 'react-intersection-observer';
 &nbsp;
+import { useInscriptions } from '@leather-wallet/query';
 import { Box } from 'leather-styles/jsx';
 &nbsp;
 import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
-import { useGetInscriptionsInfiniteQuery } from '@app/query/bitcoin/ordinals/inscriptions.query';
+import { useCurrentAccountNativeSegwitIndexZeroSigner } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
+import { useCurrentTaprootAccount } from '@app/store/accounts/blockchain/bitcoin/taproot-account.hooks';
 &nbsp;
 import { Inscription } from './inscription';
 &nbsp;
@@ -201,7 +219,13 @@ interface OrdinalsProps {
   setIsLoadingMore(isLoading: boolean): void;
 }
 export function <span class="fstat-no" title="function not covered" >Ordinals({</span> setIsLoadingMore }: OrdinalsProps) {
-  const query = <span class="cstat-no" title="statement not covered" >useGetInscriptionsInfiniteQuery();</span>
+  const account = <span class="cstat-no" title="statement not covered" >useCurrentTaprootAccount();</span>
+  const nativeSegwitSigner = <span class="cstat-no" title="statement not covered" >useCurrentAccountNativeSegwitIndexZeroSigner();</span>
+&nbsp;
+  const query = <span class="cstat-no" title="statement not covered" >useInscriptions({</span>
+    taprootKeychain: account?.keychain,
+    nativeSegwitAddress: nativeSegwitSigner.address,
+  });
   const pages = <span class="cstat-no" title="statement not covered" >query.data?.pages;</span>
   const analytics = <span class="cstat-no" title="statement not covered" >useAnalytics();</span>
   const { ref: intersectionSentinel, inView } = <span class="cstat-no" title="statement not covered" >useInView({</span>
@@ -242,7 +266,7 @@ export function <span class="fstat-no" title="function not covered" >Ordinals({<
     &lt;&gt;
       {pages.map(<span class="fstat-no" title="function not covered" >page =&gt;</span>
 <span class="cstat-no" title="statement not covered" >        page.inscriptions.map(<span class="fstat-no" title="function not covered" >inscription =&gt; (</span></span>
-<span class="cstat-no" title="statement not covered" >          &lt;Inscription rawInscription={inscription} key={inscription.id} /&gt;</span>
+<span class="cstat-no" title="statement not covered" >          &lt;Inscription inscription={inscription} key={inscription.id} /&gt;</span>
         ))
       )}
       &lt;Box ref={intersectionSentinel} /&gt;
@@ -256,7 +280,7 @@ export function <span class="fstat-no" title="function not covered" >Ordinals({<
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-05-24T16:32:45.256Z
+                at 2024-06-06T20:01:08.240Z
             </div>
         <script src="../../../../../../../prettify.js"></script>
         <script>

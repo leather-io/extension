@@ -3,15 +3,15 @@
 <html lang="en">
 
 <head>
-    <title>Code coverage report for extension/src/app/query/bitcoin/ordinals/inscription.query.ts</title>
+    <title>Code coverage report for extension/src/app/store/common/wallet-type.selectors.ts</title>
     <meta charset="utf-8" />
-    <link rel="stylesheet" href="../../../../../../prettify.css" />
-    <link rel="stylesheet" href="../../../../../../base.css" />
-    <link rel="shortcut icon" type="image/x-icon" href="../../../../../../favicon.png" />
+    <link rel="stylesheet" href="../../../../../prettify.css" />
+    <link rel="stylesheet" href="../../../../../base.css" />
+    <link rel="shortcut icon" type="image/x-icon" href="../../../../../favicon.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <style type='text/css'>
         .coverage-summary .sorter {
-            background-image: url(../../../../../../sort-arrow-sprite.png);
+            background-image: url(../../../../../sort-arrow-sprite.png);
         }
     </style>
 </head>
@@ -19,34 +19,34 @@
 <body>
 <div class='wrapper'>
     <div class='pad1'>
-        <h1><a href="../../../../../../index.html">All files</a> / <a href="index.html">extension/src/app/query/bitcoin/ordinals</a> inscription.query.ts</h1>
+        <h1><a href="../../../../../index.html">All files</a> / <a href="index.html">extension/src/app/store/common</a> wallet-type.selectors.ts</h1>
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/6</span>
+                <span class='fraction'>0/11</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
+                <span class="strong">0% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/0</span>
+                <span class='fraction'>0/6</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/4</span>
+                <span class='fraction'>0/3</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/6</span>
+                <span class='fraction'>0/10</span>
             </div>
         
             
@@ -93,26 +93,7 @@
 <a name='L28'></a><a href='#L28'>28</a>
 <a name='L29'></a><a href='#L29'>29</a>
 <a name='L30'></a><a href='#L30'>30</a>
-<a name='L31'></a><a href='#L31'>31</a>
-<a name='L32'></a><a href='#L32'>32</a>
-<a name='L33'></a><a href='#L33'>33</a>
-<a name='L34'></a><a href='#L34'>34</a>
-<a name='L35'></a><a href='#L35'>35</a>
-<a name='L36'></a><a href='#L36'>36</a>
-<a name='L37'></a><a href='#L37'>37</a>
-<a name='L38'></a><a href='#L38'>38</a>
-<a name='L39'></a><a href='#L39'>39</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L31'></a><a href='#L31'>31</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -124,13 +105,14 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -139,43 +121,37 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { useQuery } from '@tanstack/react-query';
-import axios from 'axios';
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { useSelector } from 'react-redux';
 &nbsp;
-import { HIRO_INSCRIPTIONS_API_URL } from '@shared/constants';
-import { Inscription } from '@shared/models/inscription.model';
+import { createSelector } from '@reduxjs/toolkit';
 &nbsp;
-import { AppUseQueryConfig } from '@app/query/query-config';
-import { QueryPrefixes } from '@app/query/query-prefixes';
+import { selectHasLedgerKeys } from '../ledger/ledger.selectors';
+import { selectHasSecretKey } from '../software-keys/software-key.selectors';
 &nbsp;
-const inscriptionQueryOptions = <span class="cstat-no" title="statement not covered" >{</span>
-  staleTime: Infinity,
-  cacheTime: Infinity,
-} as const;
-&nbsp;
-/**
- * @param path - inscription/:inscription_id
- */
-function <span class="fstat-no" title="function not covered" >fetchInscription() {</span>
-<span class="cstat-no" title="statement not covered" >  return <span class="fstat-no" title="function not covered" >async (i</span>d: string) =&gt; {</span>
-    const res = <span class="cstat-no" title="statement not covered" >await axios.get(`${HIRO_INSCRIPTIONS_API_URL}/${id}`);</span>
-<span class="cstat-no" title="statement not covered" >    return res.data as Inscription;</span>
-  };
+export <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >enum <span class="cstat-no" title="statement not covered" >W</span>alletType {</span></span>
+<span class="cstat-no" title="statement not covered" >  Ledger = 'ledger',</span>
+<span class="cstat-no" title="statement not covered" >  Software = 'software',</span>
 }
 &nbsp;
-type FetchInscriptionResp = Awaited&lt;ReturnType&lt;ReturnType&lt;typeof fetchInscription&gt;&gt;&gt;;
+export const selectWalletType = <span class="cstat-no" title="statement not covered" >createSelector(</span>
+  selectHasLedgerKeys,
+  selectHasSecretKey,
+<span class="fstat-no" title="function not covered" >  (h</span>asLedgerKeys, hasSecretKey) =&gt; {
+<span class="cstat-no" title="statement not covered" >    if (hasSecretKey) {</span>
+<span class="cstat-no" title="statement not covered" >      return WalletType.Software;</span>
+    }
+<span class="cstat-no" title="statement not covered" >    if (hasLedgerKeys) {</span>
+<span class="cstat-no" title="statement not covered" >      return WalletType.Ledger;</span>
+    }
+    // TODO: better error handling
+<span class="cstat-no" title="statement not covered" >    return undefined;</span>
+  }
+);
 &nbsp;
-export function <span class="fstat-no" title="function not covered" >useGetInscriptionQuery&lt;T extends unknown = FetchInscriptionResp&gt;(</span>
-  id: string,
-  options?: AppUseQueryConfig&lt;FetchInscriptionResp, T&gt;
-) {
-<span class="cstat-no" title="statement not covered" >  return useQuery({</span>
-    enabled: !!id,
-    queryKey: [QueryPrefixes.InscriptionMetadata, id],
-    queryFn: <span class="fstat-no" title="function not covered" >() =&gt; <span class="cstat-no" title="statement not covered" >f</span>etchInscription()(id),</span>
-    ...inscriptionQueryOptions,
-    ...options,
-  });
+export function <span class="fstat-no" title="function not covered" >useWalletTypeSelector() {</span>
+<span class="cstat-no" title="statement not covered" >  return useSelector(selectWalletType);</span>
 }
 &nbsp;</pre></td></tr></table></pre>
 
@@ -184,16 +160,16 @@ export function <span class="fstat-no" title="function not covered" >useGetInscr
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-05-24T16:32:45.256Z
+                at 2024-06-06T20:01:08.240Z
             </div>
-        <script src="../../../../../../prettify.js"></script>
+        <script src="../../../../../prettify.js"></script>
         <script>
             window.onload = function () {
                 prettyPrint();
             };
         </script>
-        <script src="../../../../../../sorter.js"></script>
-        <script src="../../../../../../block-navigation.js"></script>
+        <script src="../../../../../sorter.js"></script>
+        <script src="../../../../../block-navigation.js"></script>
     </body>
 </html>
     

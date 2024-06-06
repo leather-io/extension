@@ -25,14 +25,14 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/27</span>
+                <span class='fraction'>0/26</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/6</span>
+                <span class='fraction'>0/4</span>
             </div>
         
             
@@ -154,11 +154,7 @@
 <a name='L89'></a><a href='#L89'>89</a>
 <a name='L90'></a><a href='#L90'>90</a>
 <a name='L91'></a><a href='#L91'>91</a>
-<a name='L92'></a><a href='#L92'>92</a>
-<a name='L93'></a><a href='#L93'>93</a>
-<a name='L94'></a><a href='#L94'>94</a>
-<a name='L95'></a><a href='#L95'>95</a>
-<a name='L96'></a><a href='#L96'>96</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L92'></a><a href='#L92'>92</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -175,8 +171,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -201,7 +195,6 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -236,6 +229,8 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -246,18 +241,15 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { type UseQueryOptions, useQueries } from '@tanstack/react-query';
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { ensureArray } from '@leather-wallet/utils';
+import { type UseQueryOptions, useQueries } from '@tanstack/react-query';
 import axios from 'axios';
 &nbsp;
 import type { BitcoinNetworkModes } from '@shared/constants';
-import { ensureArray } from '@shared/utils';
 import { analytics } from '@shared/utils/analytics';
 &nbsp;
 import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
@@ -270,8 +262,6 @@ const headers = <span class="cstat-no" title="statement not covered" >{</span>
   // Known public key, do not open a vulnerability report for this
   Token: '51d3c7529eb08a8c62d41d70d006bdcd4248150fbd6826d5828ac908e7c12073',
 };
-&nbsp;
-export const isComplianceCheckEnabled = <span class="cstat-no" title="statement not covered" >true;</span>
 &nbsp;
 async function <span class="fstat-no" title="function not covered" >registerEntityAddressComplianceCheck(a</span>ddress: string) {
   const resp = <span class="cstat-no" title="statement not covered" >await axios.post(checkApi, { address }, { headers });</span>
@@ -297,8 +287,7 @@ export async function <span class="fstat-no" title="function not covered" >check
 &nbsp;
 <span class="cstat-no" title="statement not covered" >  if (isOnSanctionsList) <span class="cstat-no" title="statement not covered" >void analytics.track('non_compliant_entity_detected', { address });</span></span>
 &nbsp;
-  // TEMP: mock falsy value during investigation phase
-<span class="cstat-no" title="statement not covered" >  return { ...entityReport, isOnSanctionsList: false };</span>
+<span class="cstat-no" title="statement not covered" >  return { ...entityReport, isOnSanctionsList };</span>
 }
 &nbsp;
 const oneWeekInMs = <span class="cstat-no" title="statement not covered" >604_800_000;</span>
@@ -331,6 +320,8 @@ function <span class="fstat-no" title="function not covered" >useCheckAddressCom
   });
 }
 &nbsp;
+export const compliantErrorBody = <span class="cstat-no" title="statement not covered" >'Unable to handle request, errorCode: 1398';</span>
+&nbsp;
 export function <span class="fstat-no" title="function not covered" >useBreakOnNonCompliantEntity(a</span>ddress: string | string[]) {
   const analytics = <span class="cstat-no" title="statement not covered" >useAnalytics();</span>
   const nativeSegwitSigner = <span class="cstat-no" title="statement not covered" >useCurrentAccountNativeSegwitIndexZeroSigner();</span>
@@ -340,12 +331,9 @@ export function <span class="fstat-no" title="function not covered" >useBreakOnN
     ...ensureArray(address),
   ]);
 &nbsp;
-<span class="cstat-no" title="statement not covered" >  if (!isComplianceCheckEnabled) <span class="cstat-no" title="statement not covered" >return;</span></span>
-&nbsp;
 <span class="cstat-no" title="statement not covered" >  if (complianceReports.some(<span class="fstat-no" title="function not covered" >report =&gt; <span class="cstat-no" title="statement not covered" >r</span>eport.data?.isOnSanctionsList)</span>) {</span>
 <span class="cstat-no" title="statement not covered" >    void analytics.track('non_compliant_entity_detected');</span>
-    // TEMP: disabled
-    // throw new Error('Unable to handle request, errorCode: 1398');
+<span class="cstat-no" title="statement not covered" >    throw new Error(compliantErrorBody);</span>
   }
 }
 &nbsp;</pre></td></tr></table></pre>
@@ -355,7 +343,7 @@ export function <span class="fstat-no" title="function not covered" >useBreakOnN
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-05-24T16:32:45.256Z
+                at 2024-06-06T20:01:08.240Z
             </div>
         <script src="../../../../../../prettify.js"></script>
         <script>

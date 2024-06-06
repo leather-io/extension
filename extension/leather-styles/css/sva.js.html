@@ -25,28 +25,28 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/14</span>
+                <span class='fraction'>0/19</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/2</span>
-            </div>
-        
-            
-            <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
-                <span class="quiet">Functions</span>
                 <span class='fraction'>0/8</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
+                <span class="quiet">Functions</span>
+                <span class='fraction'>0/10</span>
+            </div>
+        
+            
+            <div class='fl pad1y space-right2'>
+                <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/11</span>
+                <span class='fraction'>0/14</span>
             </div>
         
             
@@ -97,7 +97,13 @@
 <a name='L32'></a><a href='#L32'>32</a>
 <a name='L33'></a><a href='#L33'>33</a>
 <a name='L34'></a><a href='#L34'>34</a>
-<a name='L35'></a><a href='#L35'>35</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L35'></a><a href='#L35'>35</a>
+<a name='L36'></a><a href='#L36'>36</a>
+<a name='L37'></a><a href='#L37'>37</a>
+<a name='L38'></a><a href='#L38'>38</a>
+<a name='L39'></a><a href='#L39'>39</a>
+<a name='L40'></a><a href='#L40'>40</a>
+<a name='L41'></a><a href='#L41'>41</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -108,6 +114,10 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -119,6 +129,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -131,14 +142,19 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { getSlotRecipes, memo, splitProps } from '../helpers.js';
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { compact, getSlotRecipes, memo, splitProps } from '../helpers.js';
 import { cva } from './cva.js';
+import { cx } from './cx.js';
+&nbsp;
+const slotClass = <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >(c</span>lassName, slot) =&gt; <span class="cstat-no" title="statement not covered" >className + '__' + slot</span></span>
 &nbsp;
 export function <span class="fstat-no" title="function not covered" >sva(</span>config) {
   const slots = <span class="cstat-no" title="statement not covered" >Object.entries(getSlotRecipes(config)).map(<span class="fstat-no" title="function not covered" >([</span>slot, slotCva]) =&gt; <span class="cstat-no" title="statement not covered" >[slot, cva(slotCva)])</span></span>
+  const defaultVariants = <span class="cstat-no" title="statement not covered" >config.defaultVariants ?? {}</span>
 &nbsp;
   function <span class="fstat-no" title="function not covered" >svaFn(</span>props) {
-    const result = <span class="cstat-no" title="statement not covered" >slots.map(<span class="fstat-no" title="function not covered" >([</span>slot, cvaFn]) =&gt; <span class="cstat-no" title="statement not covered" >[slot, cvaFn(props)])</span></span>
+    const result = <span class="cstat-no" title="statement not covered" >slots.map(<span class="fstat-no" title="function not covered" >([</span>slot, cvaFn]) =&gt; <span class="cstat-no" title="statement not covered" >[slot, cx(cvaFn(props), config.className &amp;&amp; slotClass(config.className, slot))])</span></span>
 <span class="cstat-no" title="statement not covered" >    return Object.fromEntries(result)</span>
   }
 &nbsp;
@@ -153,6 +169,7 @@ export function <span class="fstat-no" title="function not covered" >sva(</span>
   function <span class="fstat-no" title="function not covered" >splitVariantProps(</span>props) {
 <span class="cstat-no" title="statement not covered" >    return splitProps(props, variantKeys);</span>
   }
+  const getVariantProps = <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >(v</span>ariants) =&gt; (<span class="cstat-no" title="statement not covered" >{ ...(defaultVariants || {}), ...compact(variants) })</span></span>
 &nbsp;
   const variantMap = <span class="cstat-no" title="statement not covered" >Object.fromEntries(</span>
     Object.entries(variants).map(<span class="fstat-no" title="function not covered" >([</span>key, value]) =&gt; <span class="cstat-no" title="statement not covered" >[key, Object.keys(value)])</span>
@@ -164,6 +181,7 @@ export function <span class="fstat-no" title="function not covered" >sva(</span>
     variantMap,
     variantKeys,
     splitVariantProps,
+    getVariantProps,
   })
 }</pre></td></tr></table></pre>
 
@@ -172,7 +190,7 @@ export function <span class="fstat-no" title="function not covered" >sva(</span>
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-05-24T16:32:45.256Z
+                at 2024-06-06T20:01:08.240Z
             </div>
         <script src="../../../prettify.js"></script>
         <script>
