@@ -1,20 +1,19 @@
 import { PaymentTypes } from '@btckit/types';
-import {
-  getNativeSegwitAccountDerivationPath,
-  getTaprootAccountDerivationPath,
-} from '@leather-wallet/bitcoin';
-import { isNumber, isUndefined } from '@leather-wallet/utils';
 import { bytesToHex } from '@noble/hashes/utils';
 import * as btc from '@scure/btc-signer';
 import { Psbt } from 'bitcoinjs-lib';
 import AppClient from 'ledger-bitcoin';
 
-import { getBitcoinJsLibNetworkConfigByMode } from '@shared/crypto/bitcoin/bitcoin.network';
 import {
-  extractAddressIndexFromPath,
+  getBitcoinJsLibNetworkConfigByMode,
   getInputPaymentType,
+  getNativeSegwitAccountDerivationPath,
+  getTaprootAccountDerivationPath,
   getTaprootAddress,
-} from '@shared/crypto/bitcoin/bitcoin.utils';
+} from '@leather-wallet/bitcoin';
+import { extractAddressIndexFromPath } from '@leather-wallet/crypto';
+import { isNumber, isUndefined } from '@leather-wallet/utils';
+
 import {
   BitcoinInputSigningConfig,
   getAssumedZeroIndexSigningConfig,

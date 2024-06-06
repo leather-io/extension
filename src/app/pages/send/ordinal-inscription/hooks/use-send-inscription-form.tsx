@@ -1,11 +1,12 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import { useNumberOfInscriptionsOnUtxo } from '@leather-wallet/query';
-import { isError } from '@leather-wallet/utils';
 import * as yup from 'yup';
 
-import { bitcoinNetworkModeToCoreNetworkMode } from '@shared/crypto/bitcoin/bitcoin.utils';
+import { bitcoinNetworkModeToCoreNetworkMode } from '@leather-wallet/bitcoin';
+import { useNumberOfInscriptionsOnUtxo } from '@leather-wallet/query';
+import { isError } from '@leather-wallet/utils';
+
 import { FormErrorMessages } from '@shared/error-messages';
 import { logger } from '@shared/logger';
 import { OrdinalSendFormValues } from '@shared/models/form.model';

@@ -4,7 +4,8 @@ import { PaymentTypes, RpcErrorCode } from '@btckit/types';
 import * as btc from '@scure/btc-signer';
 import * as bitcoin from 'bitcoinjs-lib';
 
-import { signBip322MessageSimple } from '@shared/crypto/bitcoin/bip322/sign-message-bip322-bitcoinjs';
+import { signBip322MessageSimple } from '@leather-wallet/bitcoin';
+
 import { logger } from '@shared/logger';
 import { makeRpcErrorResponse, makeRpcSuccessResponse } from '@shared/rpc/rpc-methods';
 import { closeWindow, createDelay } from '@shared/utils';

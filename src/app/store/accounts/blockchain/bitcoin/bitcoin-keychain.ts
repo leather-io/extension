@@ -3,13 +3,14 @@ import { useMemo } from 'react';
 import { createSelector } from '@reduxjs/toolkit';
 import { HDKey, Versions } from '@scure/bip32';
 
-import { BitcoinNetworkModes } from '@shared/constants';
-import { getBtcSignerLibNetworkConfigByMode } from '@shared/crypto/bitcoin/bitcoin.network';
 import {
   BitcoinAccount,
   bitcoinNetworkModeToCoreNetworkMode,
+  getBtcSignerLibNetworkConfigByMode,
   getHdKeyVersionsFromNetwork,
-} from '@shared/crypto/bitcoin/bitcoin.utils';
+} from '@leather-wallet/bitcoin';
+
+import { BitcoinNetworkModes } from '@shared/constants';
 
 import { useWalletType } from '@app/common/use-wallet-type';
 import { selectRootKeychain } from '@app/store/in-memory-key/in-memory-key.selectors';

@@ -1,5 +1,8 @@
 import { useCallback, useMemo } from 'react';
 
+import * as btc from '@scure/btc-signer';
+
+import { extractAddressIndexFromPath } from '@leather-wallet/crypto';
 import type { Money } from '@leather-wallet/models';
 import {
   useAverageBitcoinFeeRates,
@@ -7,9 +10,6 @@ import {
   useNumberOfInscriptionsOnUtxo,
 } from '@leather-wallet/query';
 import { createMoney, sumNumbers } from '@leather-wallet/utils';
-import * as btc from '@scure/btc-signer';
-
-import { extractAddressIndexFromPath } from '@shared/crypto/bitcoin/bitcoin.utils';
 
 import { BtcSizeFeeEstimator } from '@app/common/transactions/bitcoin/fees/btc-size-fee-estimator';
 import { useCurrentAccountIndex } from '@app/store/accounts/account';
