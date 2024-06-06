@@ -1,3 +1,52 @@
+## [6.42.0](https://github.com/leather-wallet/extension/compare/v6.41.1...v6.42.0) (2024-06-06)
+
+
+### Features
+
+* add query error analytics ([f46cc89](https://github.com/leather-wallet/extension/commit/f46cc89f2fb355dbb25f041d8f35517a17e7d2f4))
+* panda preset package, ref leather-wallet/issues[#62](https://github.com/leather-wallet/extension/issues/62) ([36e5238](https://github.com/leather-wallet/extension/commit/36e52388cbf4d765942d228e776d334fbf44984f))
+* update error page ([4fd1dbe](https://github.com/leather-wallet/extension/commit/4fd1dbed8da1a51715ebe1df01073745adf83a71))
+* use bitcoin queries from monorepo + inscriptions from monorepo ([2f113fc](https://github.com/leather-wallet/extension/commit/2f113fccf61457dff0f9c43b1c823e8e6fb32642))
+
+
+### Bug Fixes
+
+* align DialogHeader title on center, ref [#5419](https://github.com/leather-wallet/extension/issues/5419) ([2e7fd2d](https://github.com/leather-wallet/extension/commit/2e7fd2d87c2fd6f30b7e5e19d62b1b11119bc86e))
+* always set memo for SIP10, ref [#5436](https://github.com/leather-wallet/extension/issues/5436) ([40f6059](https://github.com/leather-wallet/extension/commit/40f605935d99d8fa375c3fb1937d99fcb1ecab96))
+* asset list formatted balance, closes [#5452](https://github.com/leather-wallet/extension/issues/5452) ([81f4fa8](https://github.com/leather-wallet/extension/commit/81f4fa861475b4a2eabb5f0a5039d1f476ced0eb))
+* asset models contractid inconsistencies ([d023622](https://github.com/leather-wallet/extension/commit/d02362221411e2d15538598b1679321644ab32a3))
+* close button still showing in breakpoint ([632a32d](https://github.com/leather-wallet/extension/commit/632a32d7247f10761993df3747a44bdbfe9b171b))
+* display runes balance, closes [#5434](https://github.com/leather-wallet/extension/issues/5434) ([aa50a08](https://github.com/leather-wallet/extension/commit/aa50a08b0250e1cb1748da8143995369f332f21a))
+* extension build workflow, ref leather-wallet/issues[#72](https://github.com/leather-wallet/extension/issues/72) ([a24c6de](https://github.com/leather-wallet/extension/commit/a24c6de2a3e8e9cf87cb924dd6c4c08c3ad03c02))
+* handle undefined memo type for SIP10, ref [#5436](https://github.com/leather-wallet/extension/issues/5436) ([b98a5e7](https://github.com/leather-wallet/extension/commit/b98a5e749abb34dc0b16b7283a4921e279c231d9))
+* inconsistent typing with txValue ([56d4fa2](https://github.com/leather-wallet/extension/commit/56d4fa238d71878c05561a2c5154f9e88a8a819e))
+* integration tests setup ([ea2d8ea](https://github.com/leather-wallet/extension/commit/ea2d8eacef89aad169633389cc338afd38e5d760))
+* **long-bns-names:** truncate BNS names ([a45024a](https://github.com/leather-wallet/extension/commit/a45024a4f2dac631a54713755d4531445573b35f))
+* merge main conflicts ([176b0d8](https://github.com/leather-wallet/extension/commit/176b0d8128de015685c2522445dd9bcd8b80fb29))
+* reenable compliance checks ([e9d7ed2](https://github.com/leather-wallet/extension/commit/e9d7ed206c90f7cb4f9501ae8e3b9b61d20e7f00))
+* remove hover style in sign out button, ref [#5406](https://github.com/leather-wallet/extension/issues/5406) ([3656acf](https://github.com/leather-wallet/extension/commit/3656acfb64ab77d698c835324fdcfc5a4c77c1ec))
+* scroll in settings menu popup ([348d688](https://github.com/leather-wallet/extension/commit/348d6883aa2f74f36ef2b42d897a85cc0f0d728a))
+* set pointer events to none in toast viewport ([093856e](https://github.com/leather-wallet/extension/commit/093856edc3c1c3fb58aebcb84227e3f60b3c0f1b))
+* tests using test app ([51e05fb](https://github.com/leather-wallet/extension/commit/51e05fb302bf649843f37dccba2ae841ae79cf0d))
+* warn users against using support tool for help ([755448f](https://github.com/leather-wallet/extension/commit/755448ff25eadc612880b305ab47940680df25c1))
+
+
+### Internal
+
+* **deps:** bump @leather-wallet/tokens from 0.0.14 to 0.4.0 ([8b26fdd](https://github.com/leather-wallet/extension/commit/8b26fddd94d5566b32a4b615d6fcfa211e09fb1d))
+* move fees models out of extension ([a48ba01](https://github.com/leather-wallet/extension/commit/a48ba01b0ca1c9797ccef507acc7fd830ffd0d4d))
+* move money and market utils out of extension ([ab7fb16](https://github.com/leather-wallet/extension/commit/ab7fb16365a8be5be1eafa1dfb62e6f7411bf74b))
+* post-release merge back ([281e718](https://github.com/leather-wallet/extension/commit/281e71862f306e30bbb62abaf5918691acaf57d4))
+* update panda + panda-preset ([8489f69](https://github.com/leather-wallet/extension/commit/8489f69330dbdf74404a91b3ba1522e405d4dcc5))
+* update pnpm ([b3411dc](https://github.com/leather-wallet/extension/commit/b3411dc41ef468e20b24ab0a6a33e58ec5bf1a71))
+* upgade @stacks/* packages, closes [#5184](https://github.com/leather-wallet/extension/issues/5184) ([3f53051](https://github.com/leather-wallet/extension/commit/3f530515ffa014a88b5bd08b7b2140dff6478b4a))
+* upgrade @noble/* packages ([aea1c99](https://github.com/leather-wallet/extension/commit/aea1c99e196f8ddcda29ca98ccf6a3d89ecedb37))
+* upgrade leather packages ([b117fab](https://github.com/leather-wallet/extension/commit/b117fab0b1d5b63881557690e9044ebdf69ebc92))
+* upgrade various dependencies ([16b7567](https://github.com/leather-wallet/extension/commit/16b75672c9af7da6aed26942f2dbd1484cf78f19))
+* **utils:** migrate money utils out of extension ([43ad127](https://github.com/leather-wallet/extension/commit/43ad127197c64437f61810ffbca5e54bb4954d03))
+* **utils:** mirgrate more utils out of extension ([d8e0088](https://github.com/leather-wallet/extension/commit/d8e0088e97fbe8c195c6040c05764322c112faf4))
+* **utils:** use utils package, closes leather-wallet[#73](https://github.com/leather-wallet/extension/issues/73) ([53430a7](https://github.com/leather-wallet/extension/commit/53430a717d3108389ab0c8aeddbc04f0a1d05520))
+
 ## [6.41.1](https://github.com/leather-wallet/extension/compare/v6.41.0...v6.41.1) (2024-05-24)
 
 
