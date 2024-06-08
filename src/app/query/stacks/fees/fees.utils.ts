@@ -1,11 +1,5 @@
-import {
-  ApiFeeEstimation,
-  FeeCalculationTypes,
-  Fees,
-  Money,
-  StacksFeeEstimate,
-  StacksTxFeeEstimation,
-} from '@leather-wallet/models';
+import { FeeCalculationTypes, Fees, Money, StacksFeeEstimate } from '@leather-wallet/models';
+import type { FeeEstimation, StacksTxFeeEstimation } from '@leather-wallet/query';
 import { createMoney } from '@leather-wallet/utils';
 import { bytesToHex } from '@stacks/common';
 import { StacksTransaction, serializePayload } from '@stacks/transactions';
@@ -27,7 +21,7 @@ export const defaultFeesMinValuesAsMoney = [
   createMoney(defaultFeesMinValues[2], 'STX'),
 ];
 
-export const defaultApiFeeEstimations: ApiFeeEstimation[] = [
+export const defaultApiFeeEstimations: FeeEstimation[] = [
   { fee: defaultFeesMinValues[0], fee_rate: 0 },
   { fee: defaultFeesMinValues[1], fee_rate: 0 },
   { fee: defaultFeesMinValues[2], fee_rate: 0 },

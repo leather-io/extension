@@ -1,15 +1,14 @@
 import { useMemo } from 'react';
 
-import { StacksTransaction } from '@stacks/transactions';
-
 import {
   FeeCalculationTypes,
   type Fees,
   type Money,
   StacksFeeEstimate,
-  StacksTxFeeEstimation,
 } from '@leather-wallet/models';
+import type { StacksTxFeeEstimation } from '@leather-wallet/query';
 import { createMoney } from '@leather-wallet/utils';
+import { StacksTransaction } from '@stacks/transactions';
 
 import {
   useConfigFeeEstimationsMaxEnabled,
