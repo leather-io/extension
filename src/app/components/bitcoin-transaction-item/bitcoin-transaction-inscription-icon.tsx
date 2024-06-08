@@ -1,5 +1,6 @@
-import type { Inscription } from '@leather-wallet/models';
 import { Circle } from 'leather-styles/jsx';
+
+import type { Inscription } from '@leather-wallet/models';
 
 import { OrdinalAvatarIcon } from '@app/ui/components/avatar/ordinal-avatar-icon';
 

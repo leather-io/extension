@@ -1,3 +1,5 @@
+import BigNumber from 'bignumber.js';
+
 import {
   type Brc20CryptoAssetInfo,
   createMarketData,
@@ -13,7 +15,6 @@ import {
   useOrdinalsbotClient,
 } from '@leather-wallet/query';
 import { createMoney, unitToFractionalUnit } from '@leather-wallet/utils';
-import BigNumber from 'bignumber.js';
 
 import { createCryptoAssetBalance } from '@app/query/common/models';
 import { isFetchedWithSuccess } from '@app/query/query-config';

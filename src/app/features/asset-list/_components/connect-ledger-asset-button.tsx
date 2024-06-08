@@ -1,7 +1,8 @@
 import { useNavigate } from 'react-router-dom';
 
-import type { Blockchains } from '@leather-wallet/models';
 import { styled } from 'leather-styles/jsx';
+
+import type { Blockchains } from '@leather-wallet/models';
 
 import { RouteUrls } from '@shared/route-urls';
 

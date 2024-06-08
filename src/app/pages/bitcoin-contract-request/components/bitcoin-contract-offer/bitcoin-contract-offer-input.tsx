@@ -1,3 +1,5 @@
+import { Stack, styled } from 'leather-styles/jsx';
+
 import { useCalculateBitcoinFiatValue } from '@leather-wallet/query';
 import {
   createMoneyFromDecimal,
@@ -6,7 +8,6 @@ import {
   satToBtc,
   truncateMiddle,
 } from '@leather-wallet/utils';
-import { Stack, styled } from 'leather-styles/jsx';
 
 import { SimplifiedBitcoinContract } from '@app/common/hooks/use-bitcoin-contracts';
 

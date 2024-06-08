@@ -1,11 +1,12 @@
 import { Outlet } from 'react-router-dom';
 
-import type { CryptoCurrencies } from '@leather-wallet/models';
-import { useCryptoCurrencyMarketDataMeanAverage } from '@leather-wallet/query';
-import { formatMoney } from '@leather-wallet/utils';
 import { SendCryptoAssetSelectors } from '@tests/selectors/send.selectors';
 import { Form, Formik } from 'formik';
 import { Box } from 'leather-styles/jsx';
+
+import type { CryptoCurrencies } from '@leather-wallet/models';
+import { useCryptoCurrencyMarketDataMeanAverage } from '@leather-wallet/query';
+import { formatMoney } from '@leather-wallet/utils';
 
 import { HIGH_FEE_WARNING_LEARN_MORE_URL_BTC } from '@shared/constants';
 

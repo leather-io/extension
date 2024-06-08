@@ -1,6 +1,7 @@
-import { isString } from '@leather-wallet/utils';
 import { AddressType, Network, getAddressInfo, validate } from 'bitcoin-address-validation';
 import * as yup from 'yup';
+
+import { isString } from '@leather-wallet/utils';
 
 import { BitcoinNetworkModes } from '@shared/constants';
 import { FormErrorMessages } from '@shared/error-messages';

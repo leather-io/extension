@@ -1,8 +1,6 @@
 import { useCallback } from 'react';
 import { useAsync } from 'react-async-hook';
 
-import type { Sip10CryptoAssetInfo } from '@leather-wallet/models';
-import { stxToMicroStx } from '@leather-wallet/utils';
 import { bytesToHex } from '@stacks/common';
 import { TransactionTypes } from '@stacks/connect';
 import {
@@ -17,6 +15,9 @@ import {
   standardPrincipalCVFromAddress,
   uintCV,
 } from '@stacks/transactions';
+
+import type { Sip10CryptoAssetInfo } from '@leather-wallet/models';
+import { stxToMicroStx } from '@leather-wallet/utils';
 
 import { logger } from '@shared/logger';
 import type { StacksSendFormValues, StacksTransactionFormValues } from '@shared/models/form.model';

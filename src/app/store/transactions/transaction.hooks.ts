@@ -1,7 +1,6 @@
 import { useCallback, useMemo } from 'react';
 import { useAsync } from 'react-async-hook';
 
-import { isUndefined, stxToMicroStx } from '@leather-wallet/utils';
 import { bytesToHex } from '@noble/hashes/utils';
 import { TransactionTypes } from '@stacks/connect';
 import {
@@ -14,6 +13,8 @@ import {
   makeStandardFungiblePostCondition,
 } from '@stacks/transactions';
 import BN from 'bn.js';
+
+import { isUndefined, stxToMicroStx } from '@leather-wallet/utils';
 
 import { logger } from '@shared/logger';
 import { StacksTransactionFormValues } from '@shared/models/form.model';

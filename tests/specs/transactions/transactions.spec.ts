@@ -1,8 +1,9 @@
-import { stxToMicroStx } from '@leather-wallet/utils';
 import { TokenTransferPayload, deserializeTransaction } from '@stacks/transactions';
 import { TestAppPage } from '@tests/page-object-models/test-app.page';
 import { TransactionRequestPage } from '@tests/page-object-models/transaction-request.page';
 import { OnboardingSelectors } from '@tests/selectors/onboarding.selectors';
+
+import { stxToMicroStx } from '@leather-wallet/utils';
 
 import { test } from '../../fixtures/fixtures';
 

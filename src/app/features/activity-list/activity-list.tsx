@@ -1,11 +1,12 @@
 import { useMemo } from 'react';
 import { Outlet } from 'react-router-dom';
 
+import uniqby from 'lodash.uniqby';
+
 import {
   useBitcoinPendingTransactions,
   useGetBitcoinTransactionsByAddressesQuery,
 } from '@leather-wallet/query';
-import uniqby from 'lodash.uniqby';
 
 import { LoadingSpinner } from '@app/components/loading-spinner';
 import { useConfigBitcoinEnabled } from '@app/query/common/remote-config/remote-config.query';

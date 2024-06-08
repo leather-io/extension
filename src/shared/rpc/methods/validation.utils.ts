@@ -1,5 +1,6 @@
-import { isNumber, isUndefined } from '@leather-wallet/utils';
 import * as yup from 'yup';
+
+import { isNumber, isUndefined } from '@leather-wallet/utils';
 
 export const accountSchema = yup.number().integer();
 

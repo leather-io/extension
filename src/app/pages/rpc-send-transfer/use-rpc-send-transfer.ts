@@ -1,8 +1,9 @@
 import { useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import { createMoney, sumNumbers } from '@leather-wallet/utils';
 import BigNumber from 'bignumber.js';
+
+import { createMoney, sumNumbers } from '@leather-wallet/utils';
 
 import { RouteUrls } from '@shared/route-urls';
 

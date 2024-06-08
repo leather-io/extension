@@ -1,9 +1,10 @@
 import { useState } from 'react';
 import { useLocation } from 'react-router-dom';
 
-import { delay } from '@leather-wallet/utils';
 import TransportWebUSB from '@ledgerhq/hw-transport-webusb';
 import BitcoinApp from 'ledger-bitcoin';
+
+import { delay } from '@leather-wallet/utils';
 
 import { RouteUrls } from '@shared/route-urls';
 

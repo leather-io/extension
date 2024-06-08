@@ -1,8 +1,9 @@
 import { useLocation, useNavigate } from 'react-router-dom';
 
-import type { Inscription } from '@leather-wallet/models';
 import { Box, Flex, HStack, Stack } from 'leather-styles/jsx';
 import get from 'lodash.get';
+
+import type { Inscription } from '@leather-wallet/models';
 
 import { Blockchains } from '@shared/models/blockchain.model';
 import { RouteUrls } from '@shared/route-urls';

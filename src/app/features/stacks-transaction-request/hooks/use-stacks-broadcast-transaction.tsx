@@ -1,8 +1,9 @@
 import { useMemo, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import { delay, isError, isString } from '@leather-wallet/utils';
 import { AuthType, StacksTransaction } from '@stacks/transactions';
+
+import { delay, isError, isString } from '@leather-wallet/utils';
 
 import { finalizeTxSignature } from '@shared/actions/finalize-tx-signature';
 import { logger } from '@shared/logger';

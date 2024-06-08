@@ -1,8 +1,9 @@
 import { useMemo, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import { isError } from '@leather-wallet/utils';
 import { bytesToHex, hexToBytes } from '@noble/hashes/utils';
+
+import { isError } from '@leather-wallet/utils';
 
 import { finalizePsbt } from '@shared/actions/finalize-psbt';
 import { RouteUrls } from '@shared/route-urls';

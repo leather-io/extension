@@ -1,8 +1,9 @@
 import { useMemo } from 'react';
 
-import { convertAmountToBaseUnit } from '@leather-wallet/utils';
 import { FormikHelpers } from 'formik';
 import * as yup from 'yup';
+
+import { convertAmountToBaseUnit } from '@leather-wallet/utils';
 
 import { STX_DECIMALS } from '@shared/constants';
 import { logger } from '@shared/logger';

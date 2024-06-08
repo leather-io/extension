@@ -1,11 +1,12 @@
-import {
-  getNativeSegwitAccountDerivationPath,
-  getTaprootAccountDerivationPath,
-} from '@leather-wallet/bitcoin';
 import Transport from '@ledgerhq/hw-transport-webusb';
 import { Psbt } from 'bitcoinjs-lib';
 import BitcoinApp, { DefaultWalletPolicy } from 'ledger-bitcoin';
 import { PartialSignature } from 'ledger-bitcoin/build/main/lib/appClient';
+
+import {
+  getNativeSegwitAccountDerivationPath,
+  getTaprootAccountDerivationPath,
+} from '@leather-wallet/bitcoin';
 
 import { BitcoinNetworkModes } from '@shared/constants';
 

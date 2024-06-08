@@ -1,7 +1,8 @@
 import { useLocation } from 'react-router-dom';
 
-import { satToBtc } from '@leather-wallet/utils';
 import { HStack, styled } from 'leather-styles/jsx';
+
+import { satToBtc } from '@leather-wallet/utils';
 
 import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
 import { useBitcoinExplorerLink } from '@app/common/hooks/use-bitcoin-explorer-link';

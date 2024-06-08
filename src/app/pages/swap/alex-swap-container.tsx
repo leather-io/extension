@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import { Outlet } from 'react-router-dom';
 
-import { isDefined, isUndefined } from '@leather-wallet/utils';
 import { bytesToHex } from '@stacks/common';
 import { ContractCallPayload, TransactionTypes } from '@stacks/connect';
 import {
@@ -11,6 +10,8 @@ import {
   serializePostCondition,
 } from '@stacks/transactions';
 import BigNumber from 'bignumber.js';
+
+import { isDefined, isUndefined } from '@leather-wallet/utils';
 
 import { logger } from '@shared/logger';
 import { RouteUrls } from '@shared/route-urls';

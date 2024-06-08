@@ -1,7 +1,8 @@
-import { FeeTypes } from '@leather-wallet/models';
-import { convertAmountToFractionalUnit, createMoney } from '@leather-wallet/utils';
 import BigNumber from 'bignumber.js';
 import * as yup from 'yup';
+
+import { FeeTypes } from '@leather-wallet/models';
+import { convertAmountToFractionalUnit, createMoney } from '@leather-wallet/utils';
 
 import { FormErrorMessages } from '@shared/error-messages';
 import { StacksTransactionFormValues } from '@shared/models/form.model';

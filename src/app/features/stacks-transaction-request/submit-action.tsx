@@ -1,6 +1,7 @@
-import { isEmpty } from '@leather-wallet/utils';
 import { TransactionRequestSelectors } from '@tests/selectors/requests.selectors';
 import { useFormikContext } from 'formik';
+
+import { isEmpty } from '@leather-wallet/utils';
 
 import { HIGH_FEE_AMOUNT_STX } from '@shared/constants';
 import { StacksTransactionFormValues } from '@shared/models/form.model';

@@ -1,7 +1,8 @@
-import { isBoolean } from '@leather-wallet/utils';
 import { hexToBytes } from '@stacks/common';
 import { BytesReader, PostCondition, deserializePostCondition } from '@stacks/transactions';
 import { toUnicode } from 'punycode';
+
+import { isBoolean } from '@leather-wallet/utils';
 
 import {
   BitcoinChainConfig,

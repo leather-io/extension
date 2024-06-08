@@ -1,3 +1,5 @@
+import { styled } from 'leather-styles/jsx';
+
 import type { StxCryptoAssetBalance } from '@leather-wallet/models';
 import { useCryptoCurrencyMarketDataMeanAverage } from '@leather-wallet/query';
 import {
@@ -5,7 +7,6 @@ import {
   formatMoneyWithoutSymbol,
   i18nFormatCurrency,
 } from '@leather-wallet/utils';
-import { styled } from 'leather-styles/jsx';
 
 import { CryptoAssetItemLayout } from '@app/components/crypto-asset-item/crypto-asset-item.layout';
 import { StxAvatarIcon } from '@app/ui/components/avatar/stx-avatar-icon';

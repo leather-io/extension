@@ -1,5 +1,7 @@
 import { useCallback } from 'react';
 
+import { Flex, HStack, styled } from 'leather-styles/jsx';
+
 import { useCryptoCurrencyMarketDataMeanAverage } from '@leather-wallet/query';
 import {
   baseCurrencyAmountInQuote,
@@ -7,7 +9,6 @@ import {
   i18nFormatCurrency,
   satToBtc,
 } from '@leather-wallet/utils';
-import { Flex, HStack, styled } from 'leather-styles/jsx';
 
 import { useBitcoinExplorerLink } from '@app/common/hooks/use-bitcoin-explorer-link';
 import { Flag } from '@app/ui/components/flag/flag';

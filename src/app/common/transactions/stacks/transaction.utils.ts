@@ -1,4 +1,3 @@
-import { truncateMiddle } from '@leather-wallet/utils';
 import { bytesToHex } from '@stacks/common';
 import { TransactionTypes } from '@stacks/connect';
 import {
@@ -16,6 +15,8 @@ import {
   addressToString,
 } from '@stacks/transactions';
 import { BigNumber } from 'bignumber.js';
+
+import { truncateMiddle } from '@leather-wallet/utils';
 
 import { StacksTx, StacksTxStatus } from '@shared/models/transactions/stacks-transaction.model';
 

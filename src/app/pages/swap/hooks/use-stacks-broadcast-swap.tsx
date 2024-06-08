@@ -1,8 +1,9 @@
 import { useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import { isError, isString } from '@leather-wallet/utils';
 import { StacksTransaction } from '@stacks/transactions';
+
+import { isError, isString } from '@leather-wallet/utils';
 
 import { logger } from '@shared/logger';
 import { RouteUrls } from '@shared/route-urls';

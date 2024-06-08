@@ -1,7 +1,8 @@
-import { createMoney } from '@leather-wallet/utils';
 import { useQueries, useQuery } from '@tanstack/react-query';
 import BigNumber from 'bignumber.js';
 import PQueue from 'p-queue';
+
+import { createMoney } from '@leather-wallet/utils';
 
 import type { AddressBalanceResponse } from '@shared/models/account.model';
 

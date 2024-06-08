@@ -1,12 +1,13 @@
 import { useState } from 'react';
 import { Outlet, useLocation, useNavigate } from 'react-router-dom';
 
-import { FeeTypes } from '@leather-wallet/models';
-import { stxToMicroStx } from '@leather-wallet/utils';
 import { StacksTransaction } from '@stacks/transactions';
 import { Formik, FormikHelpers } from 'formik';
 import { Flex } from 'leather-styles/jsx';
 import * as yup from 'yup';
+
+import { FeeTypes } from '@leather-wallet/models';
+import { stxToMicroStx } from '@leather-wallet/utils';
 
 import { HIGH_FEE_WARNING_LEARN_MORE_URL_STX } from '@shared/constants';
 import { StacksTransactionFormValues } from '@shared/models/form.model';

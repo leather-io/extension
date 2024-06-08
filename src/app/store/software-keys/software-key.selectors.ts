@@ -1,7 +1,8 @@
 import { useSelector } from 'react-redux';
 
-import { initBigNumber } from '@leather-wallet/utils';
 import { createSelector } from '@reduxjs/toolkit';
+
+import { initBigNumber } from '@leather-wallet/utils';
 
 import { defaultWalletKeyId } from '@shared/utils';
 

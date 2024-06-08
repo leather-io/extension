@@ -1,5 +1,6 @@
-import { formatMoneyWithoutSymbol } from '@leather-wallet/utils';
 import { SwapSelectors } from '@tests/selectors/swap.selectors';
+
+import { formatMoneyWithoutSymbol } from '@leather-wallet/utils';
 
 import { convertAssetBalanceToFiat } from '@app/common/asset-utils';
 import type { SwapAsset } from '@app/query/common/alex-sdk/alex-sdk.hooks';
