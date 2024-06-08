@@ -1,5 +1,6 @@
-import { createMoney, formatMoneyPadded } from '@leather-wallet/utils';
 import BigNumber from 'bignumber.js';
+
+import { createMoney, formatMoneyPadded } from '@leather-wallet/utils';
 
 import { InfoCardFooter } from '@app/components/info-card/info-card';
 import { useBreakOnNonCompliantEntity } from '@app/query/common/compliance-checker/compliance-checker.query';

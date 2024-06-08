@@ -1,11 +1,12 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
 
-import { FeeTypes, type Fees } from '@leather-wallet/models';
-import { convertAmountToBaseUnit, createMoney, isNumber, isString } from '@leather-wallet/utils';
 import { SharedComponentsSelectors } from '@tests/selectors/shared-component.selectors';
 import BigNumber from 'bignumber.js';
 import { useField } from 'formik';
 import { Box } from 'leather-styles/jsx';
+
+import { FeeTypes, type Fees } from '@leather-wallet/models';
+import { convertAmountToBaseUnit, createMoney, isNumber, isString } from '@leather-wallet/utils';
 
 import { STX_DECIMALS } from '@shared/constants';
 

@@ -1,3 +1,6 @@
+import BigNumber from 'bignumber.js';
+import { useField, useFormikContext } from 'formik';
+
 import {
   convertAmountToFractionalUnit,
   createMoney,
@@ -6,8 +9,6 @@ import {
   isDefined,
   isUndefined,
 } from '@leather-wallet/utils';
-import BigNumber from 'bignumber.js';
-import { useField, useFormikContext } from 'formik';
 
 import { RouteUrls } from '@shared/route-urls';
 

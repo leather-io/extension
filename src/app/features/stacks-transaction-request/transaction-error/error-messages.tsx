@@ -1,9 +1,10 @@
 import { memo, useState } from 'react';
 import { Navigate } from 'react-router-dom';
 
-import { truncateMiddle } from '@leather-wallet/utils';
 import { STXTransferPayload, TransactionTypes } from '@stacks/connect';
 import { Flex, HStack, Stack } from 'leather-styles/jsx';
+
+import { truncateMiddle } from '@leather-wallet/utils';
 
 import { RouteUrls } from '@shared/route-urls';
 import { closeWindow } from '@shared/utils';

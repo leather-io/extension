@@ -1,5 +1,8 @@
 import { useEffect, useState } from 'react';
 
+import { useField } from 'formik';
+import { styled } from 'leather-styles/jsx';
+
 import type { MarketData, Money } from '@leather-wallet/models';
 import {
   baseCurrencyAmountInQuote,
@@ -7,8 +10,6 @@ import {
   i18nFormatCurrency,
   isNumber,
 } from '@leather-wallet/utils';
-import { useField } from 'formik';
-import { styled } from 'leather-styles/jsx';
 
 interface SendFiatInputProps {
   marketData: MarketData;

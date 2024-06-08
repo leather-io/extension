@@ -1,7 +1,8 @@
 import { RpcErrorCode } from '@btckit/types';
-import { ensureArray, isDefined, isUndefined } from '@leather-wallet/utils';
 import * as btc from '@scure/btc-signer';
 import { hexToBytes } from '@stacks/common';
+
+import { ensureArray, isDefined, isUndefined } from '@leather-wallet/utils';
 
 import { RouteUrls } from '@shared/route-urls';
 import {

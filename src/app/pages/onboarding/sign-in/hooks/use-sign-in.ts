@@ -1,9 +1,10 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import { delay } from '@leather-wallet/utils';
 import { validateMnemonic } from '@scure/bip39';
 import { wordlist } from '@scure/bip39/wordlists/english';
+
+import { delay } from '@leather-wallet/utils';
 
 import { RouteUrls } from '@shared/route-urls';
 

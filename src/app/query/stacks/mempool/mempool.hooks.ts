@@ -1,7 +1,8 @@
 import { useMemo } from 'react';
 
-import { increaseValueByOneMicroStx, microStxToStx } from '@leather-wallet/utils';
 import { MempoolTransaction } from '@stacks/stacks-blockchain-api-types';
+
+import { increaseValueByOneMicroStx, microStxToStx } from '@leather-wallet/utils';
 
 import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
 import { useTransactionsById } from '@app/query/stacks/transactions/transactions-by-id.query';

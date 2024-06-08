@@ -1,5 +1,6 @@
-import { noop } from '@leather-wallet/utils';
 import { Box, HStack, styled } from 'leather-styles/jsx';
+
+import { noop } from '@leather-wallet/utils';
 
 import { Link } from '@app/ui/components/link/link';
 import { BasicTooltip } from '@app/ui/components/tooltip/basic-tooltip';

@@ -1,5 +1,6 @@
-import { countDecimals, isNumber } from '@leather-wallet/utils';
 import * as yup from 'yup';
+
+import { countDecimals, isNumber } from '@leather-wallet/utils';
 
 import { BTC_DECIMALS, STX_DECIMALS } from '@shared/constants';
 import { FormErrorMessages } from '@shared/error-messages';

@@ -1,10 +1,11 @@
 import { useState } from 'react';
 import { Outlet } from 'react-router-dom';
 
-import { delay, isError } from '@leather-wallet/utils';
 import { bytesToHex, signatureVrsToRsv } from '@stacks/common';
 import { serializeCV } from '@stacks/transactions';
 import { LedgerError } from '@zondax/ledger-stacks';
+
+import { delay, isError } from '@leather-wallet/utils';
 
 import { UnsignedMessage, whenSignableMessageOfType } from '@shared/signature/signature-types';
 

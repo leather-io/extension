@@ -1,8 +1,9 @@
 import { useCallback } from 'react';
 
-import { delay, isError } from '@leather-wallet/utils';
 import { bytesToHex } from '@stacks/common';
 import { StacksTransaction, broadcastTransaction } from '@stacks/transactions';
+
+import { delay, isError } from '@leather-wallet/utils';
 
 import { logger } from '@shared/logger';
 

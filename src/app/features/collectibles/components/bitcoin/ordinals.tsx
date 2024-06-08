@@ -1,8 +1,9 @@
 import { useEffect } from 'react';
 import { useInView } from 'react-intersection-observer';
 
-import { useInscriptions } from '@leather-wallet/query';
 import { Box } from 'leather-styles/jsx';
+
+import { useInscriptions } from '@leather-wallet/query';
 
 import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
 import { useCurrentAccountNativeSegwitIndexZeroSigner } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';

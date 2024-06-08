@@ -34,8 +34,8 @@ importers:
         specifier: 1.2.0
         version: 1.2.0(encoding@0.1.13)
       '@leather-wallet/bitcoin':
-        specifier: 0.7.1
-        version: 0.7.1(encoding@0.1.13)
+        specifier: 0.7.2
+        version: 0.7.2(encoding@0.1.13)
       '@leather-wallet/crypto':
         specifier: 1.0.1
         version: 1.0.1
@@ -43,8 +43,8 @@ importers:
         specifier: 0.8.0
         version: 0.8.0
       '@leather-wallet/query':
-        specifier: 0.8.2
-        version: 0.8.2(@stacks/network@6.13.0(encoding@0.1.13))(encoding@0.1.13)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+        specifier: 0.8.3
+        version: 0.8.3(@stacks/network@6.13.0(encoding@0.1.13))(encoding@0.1.13)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@leather-wallet/tokens':
         specifier: 0.5.2
         version: 0.5.2
@@ -243,9 +243,6 @@ importers:
       ecdsa-sig-formatter:
         specifier: 1.0.11
         version: 1.0.11
-      ecpair:
-        specifier: 2.1.0
-        version: 2.1.0
       formik:
         specifier: 2.4.5
         version: 2.4.5(react@18.3.1)
@@ -2493,8 +2490,8 @@ packages:
   '@jridgewell/trace-mapping@0.3.9':
     resolution: {integrity: sha512-3Belt6tdc8bPgAtbcmdtNJlirVoTmEb5e2gC94PnkwEW9jI6CAHUeoG85tjWP5WquqfavoMtMwiG4P926ZKKuQ==}
 
-  '@leather-wallet/bitcoin@0.7.1':
-    resolution: {integrity: sha512-7RbtYd/DXeWnbR0CtF801UlQCpFEHJffUP0FI0QbXCKeMFwHhhul33uuc/xKrO84jbPX3imUXSWC30KusgTFaA==}
+  '@leather-wallet/bitcoin@0.7.2':
+    resolution: {integrity: sha512-cKzioBtIFLhL/ERY7WV0pniCzNTChdLLabTZhtFwNxc2mHJkkrs08FExJKqb6p8sFibOXuNn+tdDI8TG052eeQ==}
 
   '@leather-wallet/constants@0.6.3':
     resolution: {integrity: sha512-AnNfUKuTWyYC0Y2k82x/8e2YvsFQgF7iDKxVfN8lTELBUCuihvqNxjcrOX1T3w8CHIWZ1iRPkzn1YtUC3AGvTw==}
@@ -2511,8 +2508,8 @@ packages:
   '@leather-wallet/prettier-config@0.4.1':
     resolution: {integrity: sha512-8J1OqfAPtP64MUp3yERQVKnWdp7wHLBjcWlnu68qvS6obxWKkXTZVArHyvADkHRdpmu7rvEzhFRi+fyw00Ui/Q==}
 
-  '@leather-wallet/query@0.8.2':
-    resolution: {integrity: sha512-0Ylt07q7JozefjAyg2OVNbTQNw0SIXlt/YNiWwlqW+3i65lmKXOIFmh2crxklW5h/KLP4lHsftf10n5m+9mWUQ==}
+  '@leather-wallet/query@0.8.3':
+    resolution: {integrity: sha512-QRVxRWwmgjUVyiXi2db0Vcf4oFn1KNv1kGvIjmip5p8SFLMzHiPqS93761PPht7rAxpw+ivlyvVbu/Flt1jwyA==}
     peerDependencies:
       react: '*'
 
@@ -6410,8 +6407,8 @@ packages:
   caniuse-lite@1.0.30001605:
     resolution: {integrity: sha512-nXwGlFWo34uliI9z3n6Qc0wZaf7zaZWA1CPZ169La5mV3I/gem7bst0vr5XQH5TJXZIMfDeZyOrZnSlVzKxxHQ==}
 
-  caniuse-lite@1.0.30001629:
-    resolution: {integrity: sha512-c3dl911slnQhmxUIT4HhYzT7wnBK/XYpGnYLOj4nJBaRiw52Ibe7YxlDaAeRECvA786zCuExhxIUJ2K7nHMrBw==}
+  caniuse-lite@1.0.30001632:
+    resolution: {integrity: sha512-udx3o7yHJfUxMLkGohMlVHCvFvWmirKh9JAH/d7WOLPetlH+LTL5cocMZ0t7oZx/mdlOWXti97xLZWc8uURRHg==}
 
   case-sensitive-paths-webpack-plugin@2.4.0:
     resolution: {integrity: sha512-roIFONhcxog0JSSWbvVAh3OocukmSgpqOH6YpMkCvav/ySIV3JKg4Dc8vYtQjYi/UxpNE36r/9v+VqTQqgkYmw==}
@@ -9118,8 +9115,8 @@ packages:
     resolution: {integrity: sha512-gFqAIbuKyyso/3G2qhiO2OM6shY6EPP/R0+mkDbyspxKazh8BXDC5FiFsUjlczgdNz/vfra0da2y+aHrusLG/Q==}
     hasBin: true
 
-  jiti@1.21.3:
-    resolution: {integrity: sha512-uy2bNX5zQ+tESe+TiC7ilGRz8AtRGmnJH55NC5S0nSUjvvvM2hJHmefHErugGXN4pNv4Qx7vLsnNw9qJ9mtIsw==}
+  jiti@1.21.4:
+    resolution: {integrity: sha512-DUP4hpE2Of384xS46IiRm1JK3r4Ix4ADQI5k65y4joiZF7Oeo2ySdYG7PbqioljFalu1ndzto0Sb5IfExYliYA==}
     hasBin: true
 
   jju@1.4.0:
@@ -15462,7 +15459,7 @@ snapshots:
       '@jridgewell/resolve-uri': 3.1.2
       '@jridgewell/sourcemap-codec': 1.4.15
 
-  '@leather-wallet/bitcoin@0.7.1(encoding@0.1.13)':
+  '@leather-wallet/bitcoin@0.7.2(encoding@0.1.13)':
     dependencies:
       '@bitcoinerlab/secp256k1': 1.0.2
       '@leather-wallet/constants': 0.6.3
@@ -15511,11 +15508,11 @@ snapshots:
       - '@vue/compiler-sfc'
       - supports-color
 
-  '@leather-wallet/query@0.8.2(@stacks/network@6.13.0(encoding@0.1.13))(encoding@0.1.13)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
+  '@leather-wallet/query@0.8.3(@stacks/network@6.13.0(encoding@0.1.13))(encoding@0.1.13)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
     dependencies:
       '@fungible-systems/zone-file': 2.0.0
       '@hirosystems/token-metadata-api-client': 1.2.0(encoding@0.1.13)
-      '@leather-wallet/bitcoin': 0.7.1(encoding@0.1.13)
+      '@leather-wallet/bitcoin': 0.7.2(encoding@0.1.13)
       '@leather-wallet/constants': 0.6.3
       '@leather-wallet/models': 0.8.0
       '@leather-wallet/rpc': 1.0.3
@@ -15736,7 +15733,7 @@ snapshots:
       '@pandacss/types': 0.26.2
       bundle-n-require: 1.1.1
       escalade: 3.1.1
-      jiti: 1.21.3
+      jiti: 1.21.4
       merge-anything: 5.1.7
       microdiff: 1.4.0
       typescript: 5.4.5
@@ -20910,7 +20907,7 @@ snapshots:
   autoprefixer@10.4.15(postcss@8.4.38):
     dependencies:
       browserslist: 4.23.0
-      caniuse-lite: 1.0.30001629
+      caniuse-lite: 1.0.30001632
       fraction.js: 4.3.7
       normalize-range: 0.1.2
       picocolors: 1.0.1
@@ -21366,7 +21363,7 @@ snapshots:
 
   caniuse-lite@1.0.30001605: {}
 
-  caniuse-lite@1.0.30001629: {}
+  caniuse-lite@1.0.30001632: {}
 
   case-sensitive-paths-webpack-plugin@2.4.0: {}
 
@@ -24530,7 +24527,7 @@ snapshots:
 
   jiti@1.21.0: {}
 
-  jiti@1.21.3: {}
+  jiti@1.21.4: {}
 
   jju@1.4.0: {}
 

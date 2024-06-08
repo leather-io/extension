@@ -1,5 +1,4 @@
 import { parseZoneFile } from '@fungible-systems/zone-file';
-import { isString, isUndefined } from '@leather-wallet/utils';
 import { asciiToBytes, bytesToAscii } from '@stacks/common';
 import { BnsNamesOwnByAddressResponse } from '@stacks/stacks-blockchain-api-types';
 import {
@@ -16,6 +15,8 @@ import {
   tupleCV,
 } from '@stacks/transactions';
 import { principalToString } from '@stacks/transactions/dist/esm/clarity/types/principalCV';
+
+import { isString, isUndefined } from '@leather-wallet/utils';
 
 import { StacksClient } from '@app/query/stacks/stacks-client';
 

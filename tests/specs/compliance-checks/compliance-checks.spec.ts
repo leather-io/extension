@@ -1,5 +1,6 @@
-import { delay } from '@leather-wallet/utils';
 import type { BrowserContext, Page, Route } from '@playwright/test';
+
+import { delay } from '@leather-wallet/utils';
 
 import { test } from '../../fixtures/fixtures';
 

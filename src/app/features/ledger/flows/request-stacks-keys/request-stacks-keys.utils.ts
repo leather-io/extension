@@ -1,7 +1,8 @@
-import { delay } from '@leather-wallet/utils';
 import { bytesToHex } from '@noble/hashes/utils';
 import * as secp from '@noble/secp256k1';
 import StacksApp from '@zondax/ledger-stacks';
+
+import { delay } from '@leather-wallet/utils';
 
 import {
   getIdentityDerivationPath,

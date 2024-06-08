@@ -1,8 +1,9 @@
 import { useNavigate } from 'react-router-dom';
 
-import type { Brc20CryptoAssetInfo, CryptoAssetBalance, MarketData } from '@leather-wallet/models';
 import { CryptoAssetSelectors } from '@tests/selectors/crypto-asset.selectors';
 import { Stack } from 'leather-styles/jsx';
+
+import type { Brc20CryptoAssetInfo, CryptoAssetBalance, MarketData } from '@leather-wallet/models';
 
 import { RouteUrls } from '@shared/route-urls';
 

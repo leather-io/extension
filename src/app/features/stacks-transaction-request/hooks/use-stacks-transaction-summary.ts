@@ -1,13 +1,3 @@
-import { useCryptoCurrencyMarketDataMeanAverage } from '@leather-wallet/query';
-import {
-  baseCurrencyAmountInQuote,
-  convertToMoneyTypeWithDefaultOfZero,
-  createMoney,
-  formatMoney,
-  i18nFormatCurrency,
-  isDefined,
-  microStxToStx,
-} from '@leather-wallet/utils';
 import { bytesToUtf8 } from '@stacks/common';
 import {
   ClarityType,
@@ -20,6 +10,17 @@ import {
   serializeCV,
 } from '@stacks/transactions';
 import BigNumber from 'bignumber.js';
+
+import { useCryptoCurrencyMarketDataMeanAverage } from '@leather-wallet/query';
+import {
+  baseCurrencyAmountInQuote,
+  convertToMoneyTypeWithDefaultOfZero,
+  createMoney,
+  formatMoney,
+  i18nFormatCurrency,
+  isDefined,
+  microStxToStx,
+} from '@leather-wallet/utils';
 
 import { CryptoCurrencies } from '@shared/models/currencies.model';
 

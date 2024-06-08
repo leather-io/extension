@@ -1,5 +1,6 @@
-import { truncateMiddle } from '@leather-wallet/utils';
 import { HStack } from 'leather-styles/jsx';
+
+import { truncateMiddle } from '@leather-wallet/utils';
 
 import { BulletSeparator } from '@app/ui/components/bullet-separator/bullet-separator';
 import { Caption } from '@app/ui/components/typography/caption';

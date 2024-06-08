@@ -1,6 +1,7 @@
-import { isString } from '@leather-wallet/utils';
 import { MEMO_MAX_LENGTH_BYTES } from '@stacks/transactions';
 import * as yup from 'yup';
+
+import { isString } from '@leather-wallet/utils';
 
 const exceedsMaxLengthBytes = (string: string, maxLengthBytes: number): boolean =>
   string ? Buffer.from(string).length > maxLengthBytes : false;

@@ -1,10 +1,11 @@
 import { useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import type { Money } from '@leather-wallet/models';
-import { noop } from '@leather-wallet/utils';
 import { FormikHelpers, FormikProps } from 'formik';
 import * as yup from 'yup';
+
+import type { Money } from '@leather-wallet/models';
+import { noop } from '@leather-wallet/utils';
 
 import { logger } from '@shared/logger';
 import { RouteUrls } from '@shared/route-urls';

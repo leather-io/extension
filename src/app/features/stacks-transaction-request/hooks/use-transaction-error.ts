@@ -1,9 +1,10 @@
 import { useMemo } from 'react';
 
-import { stxToMicroStx } from '@leather-wallet/utils';
 import { ContractCallPayload, TransactionTypes } from '@stacks/connect';
 import BigNumber from 'bignumber.js';
 import { useFormikContext } from 'formik';
+
+import { stxToMicroStx } from '@leather-wallet/utils';
 
 import { StacksTransactionFormValues } from '@shared/models/form.model';
 

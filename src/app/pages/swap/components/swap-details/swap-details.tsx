@@ -1,3 +1,7 @@
+import { SwapSelectors } from '@tests/selectors/swap.selectors';
+import BigNumber from 'bignumber.js';
+import { HStack, styled } from 'leather-styles/jsx';
+
 import {
   createMoneyFromDecimal,
   formatMoneyPadded,
@@ -5,9 +9,6 @@ import {
   isUndefined,
   microStxToStx,
 } from '@leather-wallet/utils';
-import { SwapSelectors } from '@tests/selectors/swap.selectors';
-import BigNumber from 'bignumber.js';
-import { HStack, styled } from 'leather-styles/jsx';
 
 import { getEstimatedConfirmationTime } from '@app/common/transactions/stacks/transaction.utils';
 import { SwapSubmissionData, useSwapContext } from '@app/pages/swap/swap.context';

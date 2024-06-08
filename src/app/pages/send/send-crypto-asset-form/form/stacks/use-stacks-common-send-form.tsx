@@ -1,7 +1,8 @@
-import { FeeTypes, type Money } from '@leather-wallet/models';
-import { isEmpty } from '@leather-wallet/utils';
 import BigNumber from 'bignumber.js';
 import { FormikHelpers } from 'formik';
+
+import { FeeTypes, type Money } from '@leather-wallet/models';
+import { isEmpty } from '@leather-wallet/utils';
 
 import { HIGH_FEE_AMOUNT_STX } from '@shared/constants';
 import { FormErrorMessages } from '@shared/error-messages';

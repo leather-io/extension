@@ -1,5 +1,8 @@
 import { useCallback } from 'react';
 
+import { Currency, type TokenInfo } from 'alex-sdk';
+import BigNumber from 'bignumber.js';
+
 import {
   type MarketData,
   type Money,
@@ -7,8 +10,6 @@ import {
   createMarketPair,
 } from '@leather-wallet/models';
 import { convertAmountToFractionalUnit, createMoney, isDefined } from '@leather-wallet/utils';
-import { Currency, type TokenInfo } from 'alex-sdk';
-import BigNumber from 'bignumber.js';
 
 import { logger } from '@shared/logger';
 

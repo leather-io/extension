@@ -1,11 +1,12 @@
 import { useCallback, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import { isUndefined } from '@leather-wallet/utils';
 import { OnboardingSelectors } from '@tests/selectors/onboarding.selectors';
 import { Form, Formik } from 'formik';
 import { debounce } from 'ts-debounce';
 import * as yup from 'yup';
+
+import { isUndefined } from '@leather-wallet/utils';
 
 import { RouteUrls } from '@shared/route-urls';
 

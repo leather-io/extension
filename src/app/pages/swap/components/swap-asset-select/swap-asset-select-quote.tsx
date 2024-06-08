@@ -1,5 +1,6 @@
-import { formatMoneyWithoutSymbol, i18nFormatCurrency, isDefined } from '@leather-wallet/utils';
 import { useField } from 'formik';
+
+import { formatMoneyWithoutSymbol, i18nFormatCurrency, isDefined } from '@leather-wallet/utils';
 
 import { RouteUrls } from '@shared/route-urls';
 

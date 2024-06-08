@@ -1,7 +1,8 @@
-import type { Money } from '@leather-wallet/models';
-import { formatDustUsdAmounts, i18nFormatCurrency } from '@leather-wallet/utils';
 import { SharedComponentsSelectors } from '@tests/selectors/shared-component.selectors';
 import { styled } from 'leather-styles/jsx';
+
+import type { Money } from '@leather-wallet/models';
+import { formatDustUsdAmounts, i18nFormatCurrency } from '@leather-wallet/utils';
 
 import { CryptoCurrencies } from '@shared/models/currencies.model';
 

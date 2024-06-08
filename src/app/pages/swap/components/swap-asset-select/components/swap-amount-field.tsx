@@ -1,5 +1,10 @@
 import { ChangeEvent } from 'react';
 
+import { SwapSelectors } from '@tests/selectors/swap.selectors';
+import BigNumber from 'bignumber.js';
+import { useField, useFormikContext } from 'formik';
+import { Stack, styled } from 'leather-styles/jsx';
+
 import {
   convertAmountToFractionalUnit,
   createMoney,
@@ -7,10 +12,6 @@ import {
   isDefined,
   isUndefined,
 } from '@leather-wallet/utils';
-import { SwapSelectors } from '@tests/selectors/swap.selectors';
-import BigNumber from 'bignumber.js';
-import { useField, useFormikContext } from 'formik';
-import { Stack, styled } from 'leather-styles/jsx';
 
 import { useShowFieldError } from '@app/common/form-utils';
 

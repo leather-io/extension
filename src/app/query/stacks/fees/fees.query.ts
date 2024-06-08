@@ -1,7 +1,8 @@
-import type { StacksTxFeeEstimation } from '@leather-wallet/query';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import PQueue from 'p-queue';
+
+import type { StacksTxFeeEstimation } from '@leather-wallet/query';
 
 import { logger } from '@shared/logger';
 

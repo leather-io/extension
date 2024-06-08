@@ -1,7 +1,8 @@
-import { initBigNumber, microStxToStx } from '@leather-wallet/utils';
 import { ChainID } from '@stacks/transactions';
 import BigNumber from 'bignumber.js';
 import { c32addressDecode } from 'c32check';
+
+import { initBigNumber, microStxToStx } from '@leather-wallet/utils';
 
 import { NetworkConfiguration, STX_DECIMALS } from '@shared/constants';
 import { logger } from '@shared/logger';

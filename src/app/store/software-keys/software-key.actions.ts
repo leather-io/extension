@@ -1,5 +1,6 @@
-import type { BitcoinClient } from '@leather-wallet/query';
 import { AddressVersion } from '@stacks/transactions';
+
+import type { BitcoinClient } from '@leather-wallet/query';
 
 import { decryptMnemonic, encryptMnemonic } from '@shared/crypto/mnemonic-encryption';
 import { logger } from '@shared/logger';

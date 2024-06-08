@@ -1,11 +1,12 @@
 import { Suspense, useCallback, useEffect } from 'react';
 import { Outlet, useLocation, useNavigate, useSearchParams } from 'react-router-dom';
 
-import { microStxToStx, stxToMicroStx } from '@leather-wallet/utils';
 import BigNumber from 'bignumber.js';
 import { Formik } from 'formik';
 import { Flex, Stack } from 'leather-styles/jsx';
 import * as yup from 'yup';
+
+import { microStxToStx, stxToMicroStx } from '@leather-wallet/utils';
 
 import { RouteUrls } from '@shared/route-urls';
 

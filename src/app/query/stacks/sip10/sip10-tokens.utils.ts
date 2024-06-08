@@ -1,4 +1,5 @@
 import type { FtMetadataResponse } from '@hirosystems/token-metadata-api-client';
+
 import type { CryptoAssetBalance, Sip10CryptoAssetInfo } from '@leather-wallet/models';
 import { isUndefined } from '@leather-wallet/utils';
 

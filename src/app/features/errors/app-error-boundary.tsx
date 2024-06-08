@@ -1,9 +1,10 @@
 import { useRouteError } from 'react-router-dom';
 
 import BroadcastError from '@assets/images/unhappy-face-ui.png';
-import { isError } from '@leather-wallet/utils';
 import { SharedComponentsSelectors } from '@tests/selectors/shared-component.selectors';
 import { Box, Flex, HStack, styled } from 'leather-styles/jsx';
+
+import { isError } from '@leather-wallet/utils';
 
 import { Prism } from '@app/common/clarity-prism';
 import { useClipboard } from '@app/common/hooks/use-copy-to-clipboard';

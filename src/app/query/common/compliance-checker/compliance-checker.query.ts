@@ -1,6 +1,7 @@
-import { ensureArray } from '@leather-wallet/utils';
 import { type UseQueryOptions, useQueries } from '@tanstack/react-query';
 import axios from 'axios';
+
+import { ensureArray } from '@leather-wallet/utils';
 
 import type { BitcoinNetworkModes } from '@shared/constants';
 import { analytics } from '@shared/utils/analytics';
