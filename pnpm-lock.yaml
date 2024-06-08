@@ -40,8 +40,8 @@ importers:
         specifier: 0.8.0
         version: 0.8.0
       '@leather-wallet/query':
-        specifier: 0.8.0
-        version: 0.8.0(@stacks/network@6.13.0(encoding@0.1.13))(encoding@0.1.13)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+        specifier: 0.8.2
+        version: 0.8.2(@stacks/network@6.13.0(encoding@0.1.13))(encoding@0.1.13)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@leather-wallet/tokens':
         specifier: 0.5.2
         version: 0.5.2
@@ -2508,8 +2508,8 @@ packages:
   '@leather-wallet/prettier-config@0.4.1':
     resolution: {integrity: sha512-8J1OqfAPtP64MUp3yERQVKnWdp7wHLBjcWlnu68qvS6obxWKkXTZVArHyvADkHRdpmu7rvEzhFRi+fyw00Ui/Q==}
 
-  '@leather-wallet/query@0.8.0':
-    resolution: {integrity: sha512-DJXmKVjBeeUUtsuNf2pK/xy5naTSNKKlfrKSX/EIZiQjcetQsQp9g7Q97c4TNqXBjdtS65vMoiy4L33J+OtljA==}
+  '@leather-wallet/query@0.8.2':
+    resolution: {integrity: sha512-0Ylt07q7JozefjAyg2OVNbTQNw0SIXlt/YNiWwlqW+3i65lmKXOIFmh2crxklW5h/KLP4lHsftf10n5m+9mWUQ==}
     peerDependencies:
       react: '*'
 
@@ -15508,7 +15508,7 @@ snapshots:
       - '@vue/compiler-sfc'
       - supports-color
 
-  '@leather-wallet/query@0.8.0(@stacks/network@6.13.0(encoding@0.1.13))(encoding@0.1.13)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
+  '@leather-wallet/query@0.8.2(@stacks/network@6.13.0(encoding@0.1.13))(encoding@0.1.13)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
     dependencies:
       '@fungible-systems/zone-file': 2.0.0
       '@hirosystems/token-metadata-api-client': 1.2.0(encoding@0.1.13)

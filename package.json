@@ -137,7 +137,7 @@
     "@hirosystems/token-metadata-api-client": "1.2.0",
     "@leather-wallet/bitcoin": "0.7.1",
     "@leather-wallet/models": "0.8.0",
-    "@leather-wallet/query": "0.8.0",
+    "@leather-wallet/query": "0.8.2",
     "@leather-wallet/tokens": "0.5.2",
     "@leather-wallet/utils": "0.8.1",
     "@ledgerhq/hw-transport-webusb": "6.27.19",
