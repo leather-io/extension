@@ -3,9 +3,9 @@ import { useLocation, useNavigate } from 'react-router-dom';
 
 import { HStack } from 'leather-styles/jsx';
 
+import type { BitcoinTx } from '@leather-wallet/models';
 import { useInscriptionByOutput } from '@leather-wallet/query';
 
-import { BitcoinTx } from '@shared/models/transactions/bitcoin-transaction.model';
 import { RouteUrls } from '@shared/route-urls';
 
 import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';

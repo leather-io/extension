@@ -1,7 +1,7 @@
 import { PayloadType, StacksTransaction, addressToString } from '@stacks/transactions';
 import { CircleProps } from 'leather-styles/jsx';
 
-import { StacksTx } from '@shared/models/transactions/stacks-transaction.model';
+import { StacksTx } from '@leather-wallet/models';
 
 import { getTxSenderAddress } from '@app/common/transactions/stacks/transaction.utils';
 import { TransactionIconWrapper } from '@app/components/transaction/transaction-icon-wrapper';
