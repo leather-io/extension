@@ -1,4 +1,4 @@
-import { StacksTx } from '@shared/models/transactions/stacks-transaction.model';
+import { StacksTx } from '@leather-wallet/models';
 
 import { CodeIcon } from '@app/ui/icons/code-icon';
 import { FunctionIcon } from '@app/ui/icons/function-icon';

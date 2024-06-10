@@ -1,4 +1,4 @@
-import { StacksTx, StacksTxStatus } from '@shared/models/transactions/stacks-transaction.model';
+import { StacksTx, StacksTxStatus } from '@leather-wallet/models';
 
 import { statusFromTx } from '@app/common/transactions/stacks/transaction.utils';
 

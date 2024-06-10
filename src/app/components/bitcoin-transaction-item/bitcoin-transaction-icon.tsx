@@ -1,6 +1,6 @@
 import { Circle, CircleProps, Flex } from 'leather-styles/jsx';
 
-import { BitcoinTx } from '@shared/models/transactions/bitcoin-transaction.model';
+import type { BitcoinTx } from '@leather-wallet/models';
 
 import { isBitcoinTxInbound } from '@app/common/transactions/bitcoin/utils';
 import { ArrowDownIcon } from '@app/ui/icons/arrow-down-icon';

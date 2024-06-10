@@ -1,4 +1,4 @@
-import { StacksTx } from '@shared/models/transactions/stacks-transaction.model';
+import { StacksTx } from '@leather-wallet/models';
 
 import { useCurrentStacksAccountAddress } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
 import { ArrowDownIcon } from '@app/ui/icons/arrow-down-icon';

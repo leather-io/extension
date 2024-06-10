@@ -1,6 +1,6 @@
 import { BoxProps } from 'leather-styles/jsx';
 
-import { StacksTx } from '@shared/models/transactions/stacks-transaction.model';
+import { StacksTx } from '@leather-wallet/models';
 
 import { StxAvatarIcon } from '@app/ui/components/avatar/stx-avatar-icon';
 import { DynamicColorCircle } from '@app/ui/components/dynamic-color-circle';

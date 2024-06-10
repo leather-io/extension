@@ -1,4 +1,4 @@
-import { StacksTx } from '@shared/models/transactions/stacks-transaction.model';
+import { StacksTx } from '@leather-wallet/models';
 
 import { isPendingTx } from '@app/common/transactions/stacks/transaction.utils';
 import { BasicTooltip } from '@app/ui/components/tooltip/basic-tooltip';

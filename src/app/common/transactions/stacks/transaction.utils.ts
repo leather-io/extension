@@ -16,9 +16,8 @@ import {
 } from '@stacks/transactions';
 import { BigNumber } from 'bignumber.js';
 
+import { StacksTx, StacksTxStatus } from '@leather-wallet/models';
 import { truncateMiddle } from '@leather-wallet/utils';
-
-import { StacksTx, StacksTxStatus } from '@shared/models/transactions/stacks-transaction.model';
 
 import { getStacksContractName, stacksValue } from '@app/common/stacks-utils';
 
@@ -79,6 +78,8 @@ export const getTxTitle = (tx: StacksTx) => {
       return `Coinbase ${(tx as CoinbaseTransaction).block_height}`;
     case 'poison_microblock':
       return 'Poison Microblock';
+    default:
+      return '';
   }
 };
 

@@ -1,10 +1,8 @@
 import type { AddressTransactionWithTransfers } from '@stacks/stacks-blockchain-api-types';
 
+import { FtTransfer } from '@leather-wallet/models';
+
 import { logger } from '@shared/logger';
-import {
-  FtTransfer,
-  TxTransferDetails,
-} from '@shared/models/transactions/stacks-transaction.model';
 
 import { getSafeImageCanonicalUri } from '@app/common/stacks-utils';
 import {
@@ -64,13 +62,13 @@ export function FtTransferItem({ ftTransfer, parentTx }: FtTransferItemProps) {
     <TxTransferIconWrapper icon={icon} />
   );
 
-  const transferDetails: TxTransferDetails = {
-    caption,
-    icon: transferIcon,
-    link: parentTx.tx.tx_id,
-    title,
-    value,
-  };
-
-  return <StacksTransactionItem transferDetails={transferDetails} />;
+  return (
+    <StacksTransactionItem
+      caption={caption}
+      icon={transferIcon}
+      link={parentTx.tx.tx_id}
+      title={title}
+      value={value}
+    />
+  );
 }
