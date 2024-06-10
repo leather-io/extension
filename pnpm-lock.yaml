@@ -22,8 +22,8 @@ importers:
         specifier: 0.7.0
         version: 0.7.0(encoding@0.1.13)
       '@coinbase/cbpay-js':
-        specifier: 1.0.2
-        version: 1.0.2
+        specifier: 2.1.0
+        version: 2.1.0(regenerator-runtime@0.13.11)
       '@dlc-link/dlc-tools':
         specifier: 1.1.1
         version: 1.1.1
@@ -1679,9 +1679,14 @@ packages:
     bundledDependencies:
       - is-unicode-supported
 
-  '@coinbase/cbpay-js@1.0.2':
-    resolution: {integrity: sha512-m95VmSQm9xfA5MmOFRcVIPtZxO6GhRJKPbbxKSxGoCYf4SpAm7mz3euU1kiRr7bPMa+3wvyT36n2bHoiyuwseg==}
-    engines: {node: '>= 12'}
+  '@coinbase/cbpay-js@2.1.0':
+    resolution: {integrity: sha512-J9kuMY7qiEM9fV6k6sBJ44S2fDjdXfX7SeDCDv7fWoni5QnP7Ca3k6pHE0TSBRCkzzC0x1zK6wgieG4RyDPeNw==}
+    engines: {node: '>= 14'}
+    peerDependencies:
+      regenerator-runtime: ^0.13.9
+    peerDependenciesMeta:
+      regenerator-runtime:
+        optional: true
 
   '@colors/colors@1.5.0':
     resolution: {integrity: sha512-ooWCrlZP11i8GImSjTHYHLkvFDP48nS4+204nGb1RiX/WXYHmJA2III9/e2DWVabCESdW7hBAEzHRqUn9OUVvQ==}
@@ -14697,7 +14702,9 @@ snapshots:
       picocolors: 1.0.1
       sisteransi: 1.0.5
 
-  '@coinbase/cbpay-js@1.0.2': {}
+  '@coinbase/cbpay-js@2.1.0(regenerator-runtime@0.13.11)':
+    optionalDependencies:
+      regenerator-runtime: 0.13.11
 
   '@colors/colors@1.5.0':
     optional: true
