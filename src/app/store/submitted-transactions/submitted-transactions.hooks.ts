@@ -16,7 +16,6 @@ export function useUpdateSubmittedTransactions() {
     (data: MempoolTransaction[]) => {
       const pendingTxids = data.map(tx => tx.tx_id);
       submittedTransactions.map(tx => {
-        return;
         if (pendingTxids.includes(safelyFormatHexTxid(tx.txid)))
           return submittedTransactionsActions.transactionEnteredMempool(tx.txid);
         return;
