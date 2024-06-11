@@ -37,6 +37,9 @@ importers:
       '@leather-wallet/bitcoin':
         specifier: 0.7.2
         version: 0.7.2(encoding@0.1.13)
+      '@leather-wallet/constants':
+        specifier: 0.6.3
+        version: 0.6.3
       '@leather-wallet/crypto':
         specifier: 1.0.1
         version: 1.0.1

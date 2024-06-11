@@ -10,8 +10,8 @@ import {
   getTaprootAddressIndexDerivationPath,
   whenPaymentType,
 } from '@leather-wallet/bitcoin';
+import type { BitcoinNetworkModes } from '@leather-wallet/models';
 
-import { BitcoinNetworkModes } from '@shared/constants';
 import { AllowedSighashTypes } from '@shared/rpc/methods/sign-psbt';
 
 import { useBitcoinExtendedPublicKeyVersions } from './bitcoin-keychain';

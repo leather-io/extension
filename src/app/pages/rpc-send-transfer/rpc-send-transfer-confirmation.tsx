@@ -4,6 +4,7 @@ import { HStack, Stack, styled } from 'leather-styles/jsx';
 import get from 'lodash.get';
 
 import { decodeBitcoinTx } from '@leather-wallet/bitcoin';
+import type { CryptoCurrencies } from '@leather-wallet/models';
 import {
   useBitcoinBroadcastTransaction,
   useCryptoCurrencyMarketDataMeanAverage,
@@ -20,7 +21,6 @@ import {
 } from '@leather-wallet/utils';
 
 import { logger } from '@shared/logger';
-import { CryptoCurrencies } from '@shared/models/currencies.model';
 import type { TransferRecipient } from '@shared/models/form.model';
 import { RouteUrls } from '@shared/route-urls';
 import { makeRpcSuccessResponse } from '@shared/rpc/rpc-methods';

@@ -29,7 +29,7 @@ import {
 import { selectDefaultWalletStacksKeys } from '@app/store/ledger/stacks/stacks-key.slice';
 import { currentNetworkAtom } from '@app/store/networks/networks';
 
-import {
+import type {
   HardwareStacksAccount,
   SoftwareStacksAccount,
   StacksAccount,

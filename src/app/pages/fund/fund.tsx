@@ -1,9 +1,12 @@
 import { Outlet, useParams } from 'react-router-dom';
 
-import type { BtcCryptoAssetBalance, StxCryptoAssetBalance } from '@leather-wallet/models';
+import type {
+  Blockchains,
+  BtcCryptoAssetBalance,
+  CryptoCurrencies,
+  StxCryptoAssetBalance,
+} from '@leather-wallet/models';
 
-import type { Blockchains } from '@shared/models/blockchain.model';
-import type { CryptoCurrencies } from '@shared/models/currencies.model';
 import { RouteUrls } from '@shared/route-urls';
 
 import { FullPageLoadingSpinner } from '@app/components/loading-spinner';

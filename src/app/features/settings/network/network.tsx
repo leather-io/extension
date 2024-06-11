@@ -2,7 +2,8 @@ import { useNavigate } from 'react-router-dom';
 
 import { SettingsSelectors } from '@tests/selectors/settings.selectors';
 
-import { WalletDefaultNetworkConfigurationIds } from '@shared/constants';
+import { WalletDefaultNetworkConfigurationIds } from '@leather-wallet/models';
+
 import { RouteUrls } from '@shared/route-urls';
 
 import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';

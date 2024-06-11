@@ -2,15 +2,15 @@ import { hexToBytes } from '@stacks/common';
 import { BytesReader, PostCondition, deserializePostCondition } from '@stacks/transactions';
 import { toUnicode } from 'punycode';
 
+import { KEBAB_REGEX } from '@leather-wallet/constants';
+import {
+  type BitcoinChainConfig,
+  type BitcoinNetworkModes,
+  HIRO_API_BASE_URL_NAKAMOTO_TESTNET,
+} from '@leather-wallet/models';
 import { isBoolean } from '@leather-wallet/utils';
 
-import {
-  BitcoinChainConfig,
-  BitcoinNetworkModes,
-  HIRO_API_BASE_URL_NAKAMOTO_TESTNET,
-  HIRO_EXPLORER_URL,
-  KEBAB_REGEX,
-} from '@shared/constants';
+import { HIRO_EXPLORER_URL } from '@shared/constants';
 
 function kebabCase(str: string) {
   return str.replace(KEBAB_REGEX, match => '-' + match.toLowerCase());

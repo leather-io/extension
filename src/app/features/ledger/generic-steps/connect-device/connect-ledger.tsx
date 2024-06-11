@@ -2,7 +2,7 @@ import { Suspense, lazy, useMemo } from 'react';
 
 import { Box, HStack, Stack, styled } from 'leather-styles/jsx';
 
-import { SupportedBlockchains } from '@shared/constants';
+import type { SupportedBlockchains } from '@leather-wallet/models';
 
 import { Divider } from '@app/components/layout/divider';
 import { Button } from '@app/ui/components/button/button';

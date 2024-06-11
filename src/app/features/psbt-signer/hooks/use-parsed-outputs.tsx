@@ -6,9 +6,9 @@ import {
   getAddressFromOutScript,
   getBtcSignerLibNetworkConfigByMode,
 } from '@leather-wallet/bitcoin';
+import type { NetworkConfiguration } from '@leather-wallet/models';
 import { isDefined, isUndefined } from '@leather-wallet/utils';
 
-import { NetworkConfiguration } from '@shared/constants';
 import { logger } from '@shared/logger';
 
 import { useCurrentAccountNativeSegwitIndexZeroSigner } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';

@@ -11,6 +11,7 @@ import {
 } from '@stacks/transactions';
 import BigNumber from 'bignumber.js';
 
+import type { CryptoCurrencies } from '@leather-wallet/models';
 import {
   useCryptoCurrencyMarketDataMeanAverage,
   useGetStackNetworkBlockTimeQuery,
@@ -24,8 +25,6 @@ import {
   isDefined,
   microStxToStx,
 } from '@leather-wallet/utils';
-
-import { CryptoCurrencies } from '@shared/models/currencies.model';
 
 import { getEstimatedConfirmationTime } from '@app/common/transactions/stacks/transaction.utils';
 import { removeTrailingNullCharacters } from '@app/common/utils';

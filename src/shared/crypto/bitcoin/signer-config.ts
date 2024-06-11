@@ -5,9 +5,9 @@ import {
   getNativeSegwitAddressIndexDerivationPath,
   getTaprootAddressIndexDerivationPath,
 } from '@leather-wallet/bitcoin';
+import type { BitcoinNetworkModes } from '@leather-wallet/models';
 import { isUndefined, makeNumberRange } from '@leather-wallet/utils';
 
-import { BitcoinNetworkModes } from '@shared/constants';
 import { logger } from '@shared/logger';
 
 // Used to pass to a signing function, with info needed for determine which key

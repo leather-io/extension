@@ -3,10 +3,10 @@ import { useSelector } from 'react-redux';
 import { createSelector } from '@reduxjs/toolkit';
 
 import {
-  NetworkConfiguration,
+  type NetworkConfiguration,
   defaultCurrentNetwork,
   defaultNetworksKeyedById,
-} from '@shared/constants';
+} from '@leather-wallet/models';
 
 import { initialSearchParams } from '@app/common/initial-search-params';
 import { RootState } from '@app/store';

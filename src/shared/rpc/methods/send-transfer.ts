@@ -1,7 +1,11 @@
 import type { SendTransferRequestParams } from '@btckit/types';
 import * as yup from 'yup';
 
-import { type BitcoinNetworkModes, WalletDefaultNetworkConfigurationIds } from '@shared/constants';
+import {
+  type BitcoinNetworkModes,
+  WalletDefaultNetworkConfigurationIds,
+} from '@leather-wallet/models';
+
 import { FormErrorMessages } from '@shared/error-messages';
 import { checkIfDigitsOnly } from '@shared/forms/amount-validators';
 import {

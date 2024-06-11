@@ -1,9 +1,9 @@
 import { type UseQueryOptions, useQueries } from '@tanstack/react-query';
 import axios from 'axios';
 
+import type { BitcoinNetworkModes } from '@leather-wallet/models';
 import { ensureArray } from '@leather-wallet/utils';
 
-import type { BitcoinNetworkModes } from '@shared/constants';
 import { analytics } from '@shared/utils/analytics';
 
 import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';

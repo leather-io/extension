@@ -5,10 +5,9 @@ import BigNumber from 'bignumber.js';
 import { useField } from 'formik';
 import { Box } from 'leather-styles/jsx';
 
+import { STX_DECIMALS } from '@leather-wallet/constants';
 import { FeeTypes, type Fees } from '@leather-wallet/models';
 import { convertAmountToBaseUnit, createMoney, isNumber, isString } from '@leather-wallet/utils';
-
-import { STX_DECIMALS } from '@shared/constants';
 
 import { useConvertCryptoCurrencyToFiatAmount } from '@app/common/hooks/use-convert-to-fiat-amount';
 import { LoadingRectangle } from '@app/components/loading-rectangle';
