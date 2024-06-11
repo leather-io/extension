@@ -3,9 +3,8 @@ import { useMemo, useState } from 'react';
 import StacksApp from '@zondax/ledger-stacks';
 import BitcoinApp from 'ledger-bitcoin';
 
+import type { SupportedBlockchains } from '@leather-wallet/models';
 import { delay, isError } from '@leather-wallet/utils';
-
-import { SupportedBlockchains } from '@shared/constants';
 
 import { useLedgerNavigate } from '../../hooks/use-ledger-navigate';
 import { BitcoinAppVersion } from '../../utils/bitcoin-ledger-utils';

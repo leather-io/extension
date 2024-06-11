@@ -10,8 +10,9 @@ import {
   signAndUploadProfile,
 } from '@stacks/wallet-sdk';
 
+import { gaiaUrl } from '@leather-wallet/constants';
+
 import { finalizeProfileUpdate } from '@shared/actions/finalize-profile-update';
-import { gaiaUrl } from '@shared/constants';
 
 import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
 import { useCurrentStacksAccount } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';

@@ -3,6 +3,7 @@ import { useMemo } from 'react';
 import { FormikHelpers } from 'formik';
 import * as yup from 'yup';
 
+import { STX_DECIMALS } from '@leather-wallet/constants';
 import {
   useCalculateStacksTxFees,
   useStacksValidateFeeByNonce,
@@ -10,7 +11,6 @@ import {
 } from '@leather-wallet/query';
 import { convertAmountToBaseUnit } from '@leather-wallet/utils';
 
-import { STX_DECIMALS } from '@shared/constants';
 import { logger } from '@shared/logger';
 import { StacksSendFormValues } from '@shared/models/form.model';
 

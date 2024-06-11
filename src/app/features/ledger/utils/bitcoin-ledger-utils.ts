@@ -7,8 +7,7 @@ import {
   getNativeSegwitAccountDerivationPath,
   getTaprootAccountDerivationPath,
 } from '@leather-wallet/bitcoin';
-
-import { BitcoinNetworkModes } from '@shared/constants';
+import type { BitcoinNetworkModes } from '@leather-wallet/models';
 
 import { LEDGER_APPS_MAP, promptOpenAppOnDevice } from './generic-ledger-utils';
 

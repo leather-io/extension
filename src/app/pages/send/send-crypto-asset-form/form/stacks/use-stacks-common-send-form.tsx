@@ -1,11 +1,11 @@
 import BigNumber from 'bignumber.js';
 import { FormikHelpers } from 'formik';
 
+import { HIGH_FEE_AMOUNT_STX } from '@leather-wallet/constants';
 import { FeeTypes, type Money } from '@leather-wallet/models';
 import { useNextNonce } from '@leather-wallet/query';
 import { isEmpty } from '@leather-wallet/utils';
 
-import { HIGH_FEE_AMOUNT_STX } from '@shared/constants';
 import { FormErrorMessages } from '@shared/error-messages';
 import { StacksSendFormValues } from '@shared/models/form.model';
 

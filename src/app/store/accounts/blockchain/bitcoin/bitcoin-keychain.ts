@@ -9,8 +9,7 @@ import {
   getBtcSignerLibNetworkConfigByMode,
   getHdKeyVersionsFromNetwork,
 } from '@leather-wallet/bitcoin';
-
-import { BitcoinNetworkModes } from '@shared/constants';
+import type { BitcoinNetworkModes } from '@leather-wallet/models';
 
 import { useWalletType } from '@app/common/use-wallet-type';
 import { selectRootKeychain } from '@app/store/in-memory-key/in-memory-key.selectors';

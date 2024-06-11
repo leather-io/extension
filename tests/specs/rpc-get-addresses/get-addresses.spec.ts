@@ -2,7 +2,7 @@ import type { BrowserContext, Page } from '@playwright/test';
 import { TEST_PASSWORD } from '@tests/mocks/constants';
 import { makeLedgerTestAccountWalletState } from '@tests/page-object-models/onboarding.page';
 
-import type { SupportedBlockchains } from '@shared/constants';
+import type { SupportedBlockchains } from '@leather-wallet/models';
 
 import { test } from '../../fixtures/fixtures';
 

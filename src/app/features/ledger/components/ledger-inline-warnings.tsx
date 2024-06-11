@@ -1,6 +1,6 @@
 import { styled } from 'leather-styles/jsx';
 
-import { SupportedBlockchains } from '@shared/constants';
+import type { SupportedBlockchains } from '@leather-wallet/models';
 
 import { Callout } from '@app/ui/components/callout/callout';
 import { Capitalize } from '@app/ui/utils/capitalize';

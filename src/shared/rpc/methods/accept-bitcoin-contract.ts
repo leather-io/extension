@@ -1,7 +1,7 @@
 import { DefineRpcMethod, RpcRequest, RpcResponse } from '@btckit/types';
 import { AllowAdditionalProperties } from '@btckit/types/dist/types/utils';
 
-import { BitcoinNetworkModes } from '@shared/constants';
+import type { BitcoinNetworkModes } from '@leather-wallet/models';
 
 interface BitcoinContractResponseParams extends AllowAdditionalProperties {
   bitcoinContractOffer: string;

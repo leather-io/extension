@@ -2,6 +2,7 @@ import BigNumber from 'bignumber.js';
 
 import {
   type Brc20CryptoAssetInfo,
+  createCryptoAssetBalance,
   createMarketData,
   createMarketPair,
 } from '@leather-wallet/models';
@@ -16,7 +17,6 @@ import {
 } from '@leather-wallet/query';
 import { createMoney, unitToFractionalUnit } from '@leather-wallet/utils';
 
-import { createCryptoAssetBalance } from '@app/query/common/models';
 import { isFetchedWithSuccess } from '@app/query/query-config';
 import { useAppDispatch } from '@app/store';
 import { useCurrentAccountIndex } from '@app/store/accounts/account';

@@ -2,7 +2,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 
 import { Grid } from 'leather-styles/jsx';
 
-import { CryptoCurrencies } from '@shared/models/currencies.model';
+import type { CryptoCurrencies } from '@leather-wallet/models';
 
 import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
 import { openInNewTab } from '@app/common/utils/open-in-new-tab';

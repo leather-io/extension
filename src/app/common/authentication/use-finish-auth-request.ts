@@ -7,8 +7,9 @@ import {
   updateWalletConfigWithApp,
 } from '@stacks/wallet-sdk';
 
+import { gaiaUrl } from '@leather-wallet/constants';
+
 import { finalizeAuthResponse } from '@shared/actions/finalize-auth-response';
-import { gaiaUrl } from '@shared/constants';
 import { logger } from '@shared/logger';
 
 import { useAuthRequestParams } from '@app/common/hooks/auth/use-auth-request-params';

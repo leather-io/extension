@@ -6,6 +6,7 @@ import { Formik, FormikHelpers } from 'formik';
 import { Flex } from 'leather-styles/jsx';
 import * as yup from 'yup';
 
+import { HIGH_FEE_WARNING_LEARN_MORE_URL_STX } from '@leather-wallet/constants';
 import { FeeTypes } from '@leather-wallet/models';
 import {
   useCalculateStacksTxFees,
@@ -14,7 +15,6 @@ import {
 } from '@leather-wallet/query';
 import { stxToMicroStx } from '@leather-wallet/utils';
 
-import { HIGH_FEE_WARNING_LEARN_MORE_URL_STX } from '@shared/constants';
 import { StacksTransactionFormValues } from '@shared/models/form.model';
 import { RouteUrls } from '@shared/route-urls';
 

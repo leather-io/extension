@@ -3,7 +3,8 @@ import { useNavigate } from 'react-router-dom';
 
 import { ChainID } from '@stacks/transactions';
 
-import type { BitcoinNetworkModes, DefaultNetworkConfigurations } from '@shared/constants';
+import type { BitcoinNetworkModes, DefaultNetworkConfigurations } from '@leather-wallet/models';
+
 import { RouteUrls } from '@shared/route-urls';
 import { isValidUrl } from '@shared/utils/validate-url';
 

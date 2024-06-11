@@ -18,9 +18,9 @@ import {
 import BigNumber from 'bignumber.js';
 import { createUnsecuredToken } from 'jsontokens';
 
+import { STX_DECIMALS } from '@leather-wallet/constants';
 import { isDefined, isUndefined } from '@leather-wallet/utils';
 
-import { STX_DECIMALS } from '@shared/constants';
 import { RouteUrls } from '@shared/route-urls';
 import {
   SignStacksTransactionRequest,

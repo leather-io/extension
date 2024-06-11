@@ -3,9 +3,9 @@ import { TEST_PASSWORD } from '@tests/mocks/constants';
 import { HomePageSelectors } from '@tests/selectors/home.selectors';
 import { OnboardingSelectors } from '@tests/selectors/onboarding.selectors';
 
+import type { SupportedBlockchains } from '@leather-wallet/models';
 import { createCounter } from '@leather-wallet/utils';
 
-import type { SupportedBlockchains } from '@shared/constants';
 import { RouteUrls } from '@shared/route-urls';
 
 const TEST_ACCOUNT_SECRET_KEY = process.env.TEST_ACCOUNT_SECRET_KEY ?? '';
