@@ -11,6 +11,7 @@ import { DialogHeader } from '@app/ui/components/containers/headers/dialog-heade
 
 interface SignOutDialogProps extends DialogProps {
   onUserDeleteWallet(): void;
+  onClose(): void;
 }
 export function SignOutDialog({ isShowing, onUserDeleteWallet, onClose }: SignOutDialogProps) {
   const { whenWallet, walletType } = useWalletType();
@@ -20,11 +21,18 @@ export function SignOutDialog({ isShowing, onUserDeleteWallet, onClose }: SignOu
       confirmPasswordDisable: whenWallet({ ledger: true, software: false }),
     },
     onSubmit() {
-      onUserDeleteWallet();
+      handleSignOut();
     },
   });
 
   const canSignOut = form.values.confirmBackup && form.values.confirmPasswordDisable;
+
+  function handleSignOut() {
+    if (canSignOut) {
+      onClose();
+      onUserDeleteWallet();
+    }
+  }
 
   return (
     <Dialog
@@ -48,7 +56,7 @@ export function SignOutDialog({ isShowing, onUserDeleteWallet, onClose }: SignOu
             data-testid={SettingsSelectors.BtnSignOutActuallyDeleteWallet}
             flexGrow={1}
             disabled={!canSignOut}
-            onClick={() => canSignOut && onUserDeleteWallet()}
+            onClick={handleSignOut}
             type="submit"
           >
             Sign out
