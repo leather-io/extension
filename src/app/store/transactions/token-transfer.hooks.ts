@@ -1,8 +1,6 @@
 import { useCallback } from 'react';
 import { useAsync } from 'react-async-hook';
 
-import type { Sip10CryptoAssetInfo } from '@leather-wallet/models';
-import { stxToMicroStx } from '@leather-wallet/utils';
 import { bytesToHex } from '@stacks/common';
 import { TransactionTypes } from '@stacks/connect';
 import {
@@ -18,6 +16,10 @@ import {
   uintCV,
 } from '@stacks/transactions';
 
+import type { Sip10CryptoAssetInfo } from '@leather-wallet/models';
+import { useNextNonce } from '@leather-wallet/query';
+import { stxToMicroStx } from '@leather-wallet/utils';
+
 import { logger } from '@shared/logger';
 import type { StacksSendFormValues, StacksTransactionFormValues } from '@shared/models/form.model';
 
@@ -26,16 +28,15 @@ import {
   GenerateUnsignedTransactionOptions,
   generateUnsignedTransaction,
 } from '@app/common/transactions/stacks/generate-unsigned-txs';
-import { useNextNonce } from '@app/query/stacks/nonce/account-nonces.hooks';
 import { useCurrentStacksNetworkState } from '@app/store/networks/networks.hooks';
 import { makePostCondition } from '@app/store/transactions/transaction.hooks';
 
 import { useCurrentStacksAccount } from '../accounts/blockchain/stacks/stacks-account.hooks';
 
 export function useGenerateStxTokenTransferUnsignedTx() {
-  const { data: nextNonce } = useNextNonce();
-  const network = useCurrentStacksNetworkState();
   const account = useCurrentStacksAccount();
+  const { data: nextNonce } = useNextNonce(account?.address ?? '');
+  const network = useCurrentStacksNetworkState();
 
   return useCallback(
     async (values?: StacksSendFormValues) => {
@@ -67,9 +68,9 @@ export function useGenerateStxTokenTransferUnsignedTx() {
 
 export function useStxTokenTransferUnsignedTxState(values?: StacksSendFormValues) {
   const generateTx = useGenerateStxTokenTransferUnsignedTx();
-  const { data: nextNonce } = useNextNonce();
-  const network = useCurrentStacksNetworkState();
   const account = useCurrentStacksAccount();
+  const { data: nextNonce } = useNextNonce(account?.address ?? '');
+  const network = useCurrentStacksNetworkState();
 
   const tx = useAsync(
     async () => generateTx(values ?? undefined),
@@ -80,8 +81,8 @@ export function useStxTokenTransferUnsignedTxState(values?: StacksSendFormValues
 }
 
 export function useGenerateFtTokenTransferUnsignedTx(info: Sip10CryptoAssetInfo) {
-  const { data: nextNonce } = useNextNonce();
   const account = useCurrentStacksAccount();
+  const { data: nextNonce } = useNextNonce(account?.address ?? '');
   const network = useCurrentStacksNetworkState();
   const { contractId } = info;
   const { contractAddress, contractAssetName, contractName } =

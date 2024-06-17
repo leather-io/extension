@@ -7,7 +7,8 @@ import {
 import { SharedComponentsSelectors } from '@tests/selectors/shared-component.selectors';
 import { getDisplayerAddress } from '@tests/utils';
 
-import { STX_DECIMALS } from '@shared/constants';
+import { STX_DECIMALS } from '@leather-wallet/constants';
+
 import { FormErrorMessages } from '@shared/error-messages';
 
 import { test } from '../../fixtures/fixtures';

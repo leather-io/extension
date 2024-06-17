@@ -1,6 +1,7 @@
-import type { Money } from '@leather-wallet/models';
 import { SendCryptoAssetSelectors } from '@tests/selectors/send.selectors';
 import { Box } from 'leather-styles/jsx';
+
+import type { Money } from '@leather-wallet/models';
 
 import { Link } from '@app/ui/components/link/link';
 import { BasicTooltip } from '@app/ui/components/tooltip/basic-tooltip';

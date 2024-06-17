@@ -1,13 +1,13 @@
+import { SigHash } from '@scure/btc-signer/transaction';
+import * as yup from 'yup';
+
+import { WalletDefaultNetworkConfigurationIds } from '@leather-wallet/models';
 import {
   SignatureHash as BtcKitSignatureHash,
   DefineRpcMethod,
   RpcRequest,
   RpcResponse,
 } from '@leather-wallet/rpc';
-import { SigHash } from '@scure/btc-signer/transaction';
-import * as yup from 'yup';
-
-import { WalletDefaultNetworkConfigurationIds } from '@shared/constants';
 
 import {
   accountSchema,

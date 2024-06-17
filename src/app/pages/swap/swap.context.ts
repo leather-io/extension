@@ -1,6 +1,6 @@
 import { createContext, useContext } from 'react';
 
-import type { SwapAsset } from '@app/query/common/alex-sdk/alex-sdk.hooks';
+import type { SwapAsset } from '@leather-wallet/query';
 
 import { SwapFormValues } from './hooks/use-swap-form';
 

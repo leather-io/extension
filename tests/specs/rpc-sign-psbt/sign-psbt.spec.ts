@@ -1,7 +1,7 @@
 import { SignPsbtRequestParams } from '@btckit/types';
 import { BrowserContext, Page } from '@playwright/test';
 
-import { WalletDefaultNetworkConfigurationIds } from '@shared/constants';
+import { WalletDefaultNetworkConfigurationIds } from '@leather-wallet/models';
 
 import { test } from '../../fixtures/fixtures';
 

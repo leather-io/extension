@@ -1,9 +1,6 @@
 import { useMemo } from 'react';
 
-import { bitcoinClient } from '@leather-wallet/query';
-
-import { wrappedFetch as fetchApi } from '@app/common/api/fetch-wrapper';
-import { StacksClient } from '@app/query/stacks/stacks-client';
+import { bitcoinClient, stacksClient } from '@leather-wallet/query';
 
 import { useCurrentNetworkState } from '../networks/networks.hooks';
 
@@ -16,9 +13,6 @@ export function useStacksClient() {
   const network = useCurrentNetworkState();
 
   return useMemo(() => {
-    return new StacksClient({
-      basePath: network.chain.stacks.url,
-      fetchApi,
-    });
+    return stacksClient(network.chain.stacks.url);
   }, [network.chain.stacks.url]);
 }

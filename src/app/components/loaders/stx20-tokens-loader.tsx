@@ -1,6 +1,5 @@
 import type { CryptoAssetBalance, Stx20CryptoAssetInfo } from '@leather-wallet/models';
-
-import { useStx20Tokens } from '@app/query/stacks/stx20/stx20-tokens.hooks';
+import { useStx20Tokens } from '@leather-wallet/query';
 
 interface Stx20TokensLoaderProps {
   address: string;

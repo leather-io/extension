@@ -1,6 +1,6 @@
 import { PayloadType, StacksTransaction } from '@stacks/transactions';
 
-import { StacksTx } from '@shared/models/transactions/stacks-transaction.model';
+import { StacksTx } from '@leather-wallet/models';
 
 import { stacksValue } from '@app/common/stacks-utils';
 import { getTxCaption } from '@app/common/transactions/stacks/transaction.utils';
@@ -14,19 +14,19 @@ interface SubmittedTransactionDetails {
 interface GetSubmittedTransactionDetailsArgs {
   payload: StacksTransaction['payload'];
   senderAddress?: string;
-  txId: string;
+  txid: string;
 }
 export function getSubmittedTransactionDetails({
   payload,
   senderAddress,
-  txId,
+  txid,
 }: GetSubmittedTransactionDetailsArgs): SubmittedTransactionDetails | null {
   switch (payload.payloadType) {
     case PayloadType.TokenTransfer:
       return {
         caption: getTxCaption({
           tx_type: 'token_transfer',
-          tx_id: txId,
+          tx_id: txid,
         } as StacksTx),
         title: 'Stacks',
         value: `-${stacksValue({

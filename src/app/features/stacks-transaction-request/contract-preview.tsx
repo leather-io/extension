@@ -1,5 +1,6 @@
-import { truncateMiddle } from '@leather-wallet/utils';
 import { HStack, Stack } from 'leather-styles/jsx';
+
+import { truncateMiddle } from '@leather-wallet/utils';
 
 import { formatContractId } from '@app/common/utils';
 import { DynamicColorCircle } from '@app/ui/components/dynamic-color-circle';

@@ -1,7 +1,8 @@
 import { useLocation } from 'react-router-dom';
 
-import type { Inscription } from '@leather-wallet/models';
 import get from 'lodash.get';
+
+import type { Inscription } from '@leather-wallet/models';
 
 export function useSendInscriptionRouteState() {
   const location = useLocation();

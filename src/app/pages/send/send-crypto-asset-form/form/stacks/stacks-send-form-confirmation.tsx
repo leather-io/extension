@@ -3,7 +3,7 @@ import { Outlet, useParams } from 'react-router-dom';
 import { deserializeTransaction } from '@stacks/transactions';
 import { Box, Stack } from 'leather-styles/jsx';
 
-import { CryptoCurrencies } from '@shared/models/currencies.model';
+import type { CryptoCurrencies } from '@leather-wallet/models';
 
 import { useLocationStateWithCache } from '@app/common/hooks/use-location-state';
 import { useStacksBroadcastTransaction } from '@app/features/stacks-transaction-request/hooks/use-stacks-broadcast-transaction';

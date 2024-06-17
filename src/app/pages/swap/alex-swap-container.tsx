@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import { Outlet } from 'react-router-dom';
 
-import { isDefined, isUndefined } from '@leather-wallet/utils';
 import { bytesToHex } from '@stacks/common';
 import { ContractCallPayload, TransactionTypes } from '@stacks/connect';
 import {
@@ -12,6 +11,9 @@ import {
 } from '@stacks/transactions';
 import BigNumber from 'bignumber.js';
 
+import { defaultSwapFee } from '@leather-wallet/query';
+import { isDefined, isUndefined } from '@leather-wallet/utils';
+
 import { logger } from '@shared/logger';
 import { RouteUrls } from '@shared/route-urls';
 import { alex } from '@shared/utils/alex-sdk';
@@ -20,7 +22,6 @@ import { migratePositiveAssetBalancesToTop } from '@app/common/asset-utils';
 import { LoadingKeys, useLoading } from '@app/common/hooks/use-loading';
 import { useWalletType } from '@app/common/use-wallet-type';
 import { NonceSetter } from '@app/components/nonce-setter';
-import { defaultSwapFee } from '@app/query/common/alex-sdk/alex-sdk.hooks';
 import { useCurrentStacksAccount } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
 import { useGenerateStacksContractCallUnsignedTx } from '@app/store/transactions/contract-call.hooks';
 import { useSignStacksTransaction } from '@app/store/transactions/transaction.hooks';

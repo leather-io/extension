@@ -1,8 +1,9 @@
 import { useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import { delay } from '@leather-wallet/utils';
 import { SponsoredTxError } from 'alex-sdk';
+
+import { delay } from '@leather-wallet/utils';
 
 import { logger } from '@shared/logger';
 import { RouteUrls } from '@shared/route-urls';

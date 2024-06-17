@@ -1,10 +1,16 @@
 import { useMemo } from 'react';
 
-import { convertAmountToBaseUnit } from '@leather-wallet/utils';
 import { FormikHelpers } from 'formik';
 import * as yup from 'yup';
 
-import { STX_DECIMALS } from '@shared/constants';
+import { STX_DECIMALS } from '@leather-wallet/constants';
+import {
+  useCalculateStacksTxFees,
+  useStacksValidateFeeByNonce,
+  useStxAvailableUnlockedBalance,
+} from '@leather-wallet/query';
+import { convertAmountToBaseUnit } from '@leather-wallet/utils';
+
 import { logger } from '@shared/logger';
 import { StacksSendFormValues } from '@shared/models/form.model';
 
@@ -14,9 +20,7 @@ import {
 } from '@app/common/validation/forms/amount-validators';
 import { stxFeeValidator } from '@app/common/validation/forms/fee-validators';
 import { useUpdatePersistedSendFormValues } from '@app/features/popup-send-form-restoration/use-update-persisted-send-form-values';
-import { useCurrentStxAvailableUnlockedBalance } from '@app/query/stacks/balance/account-balance.hooks';
-import { useCalculateStacksTxFees } from '@app/query/stacks/fees/fees.hooks';
-import { useStacksValidateFeeByNonce } from '@app/query/stacks/mempool/mempool.hooks';
+import { useCurrentStacksAccountAddress } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
 import {
   useGenerateStxTokenTransferUnsignedTx,
   useStxTokenTransferUnsignedTxState,
@@ -31,8 +35,9 @@ export function useStxSendForm() {
   const generateTx = useGenerateStxTokenTransferUnsignedTx();
   const { onFormStateChange } = useUpdatePersistedSendFormValues();
   const sendFormNavigate = useSendFormNavigate();
-  const { changeFeeByNonce } = useStacksValidateFeeByNonce();
-  const availableUnlockedBalance = useCurrentStxAvailableUnlockedBalance();
+  const address = useCurrentStacksAccountAddress();
+  const { changeFeeByNonce } = useStacksValidateFeeByNonce(address);
+  const availableUnlockedBalance = useStxAvailableUnlockedBalance(address);
 
   const sendMaxBalance = useMemo(
     () =>

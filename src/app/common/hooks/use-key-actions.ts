@@ -24,8 +24,8 @@ export function useKeyActions() {
   const analytics = useAnalytics();
   const dispatch = useAppDispatch();
   const defaultKeyDetails = useCurrentKeyDetails();
-  const stxClient = useStacksClient();
   const btcClient = useBitcoinClient();
+  const stxClient = useStacksClient();
 
   return useMemo(
     () => ({

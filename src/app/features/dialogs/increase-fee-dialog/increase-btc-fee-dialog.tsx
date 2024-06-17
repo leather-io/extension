@@ -1,11 +1,12 @@
 import { Suspense } from 'react';
 import { Outlet, useLocation, useNavigate } from 'react-router-dom';
 
-import { btcToSat, createMoney, formatMoney } from '@leather-wallet/utils';
 import { Formik } from 'formik';
 import { Flex, Stack } from 'leather-styles/jsx';
 
-import { BitcoinTx } from '@shared/models/transactions/bitcoin-transaction.model';
+import type { BitcoinTx } from '@leather-wallet/models';
+import { btcToSat, createMoney, formatMoney } from '@leather-wallet/utils';
+
 import { RouteUrls } from '@shared/route-urls';
 
 import { useLocationStateWithCache } from '@app/common/hooks/use-location-state';

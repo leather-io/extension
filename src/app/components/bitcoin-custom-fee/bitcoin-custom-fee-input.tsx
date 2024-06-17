@@ -1,8 +1,9 @@
 import { useState } from 'react';
 
-import { createMoney, satToBtc } from '@leather-wallet/utils';
 import { useField } from 'formik';
 import { Stack } from 'leather-styles/jsx';
+
+import { createMoney, satToBtc } from '@leather-wallet/utils';
 
 import type { TransferRecipient } from '@shared/models/form.model';
 

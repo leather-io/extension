@@ -25,7 +25,7 @@ export enum RouteUrls {
   AddNetwork = '/add-network',
   Fund = '/fund/:currency',
   FundChooseCurrency = '/fund-choose-currency',
-  IncreaseStxFee = '/increase-fee/stx',
+  IncreaseStxFee = '/increase-fee/stx/:txid',
   IncreaseBtcFee = '/increase-fee/btc',
   Send = '/send-transaction',
   ViewSecretKey = '/view-secret-key',

@@ -75,4 +75,4 @@ jobs:
           from_branch: main
           target_branch: dev
           message: 'chore: post-release merge back'
-          github_token: ${{ secrets.SEMANTIC_RELEASE_TOKEN }}
+          github_token: ${{ secrets.LEATHER_BOT }}

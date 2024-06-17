@@ -1,5 +1,6 @@
-import { formatMoney, truncateMiddle } from '@leather-wallet/utils';
 import { HStack, Stack, styled } from 'leather-styles/jsx';
+
+import { formatMoney, truncateMiddle } from '@leather-wallet/utils';
 
 import type { TransferRecipient } from '@shared/models/form.model';
 

@@ -1,4 +1,4 @@
-import { SupportedBlockchains } from '@shared/constants';
+import type { SupportedBlockchains } from '@leather-wallet/models';
 
 import { useLocationState } from '@app/common/hooks/use-location-state';
 import { capitalize } from '@app/common/utils';

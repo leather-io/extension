@@ -1,20 +1,21 @@
 import { useNavigate, useParams } from 'react-router-dom';
 
+import { SwapSelectors } from '@tests/selectors/swap.selectors';
+import BigNumber from 'bignumber.js';
+import { useFormikContext } from 'formik';
+import { Stack } from 'leather-styles/jsx';
+
+import type { SwapAsset } from '@leather-wallet/query';
 import {
   convertAmountToFractionalUnit,
   createMoney,
   formatMoneyWithoutSymbol,
   isUndefined,
 } from '@leather-wallet/utils';
-import { SwapSelectors } from '@tests/selectors/swap.selectors';
-import BigNumber from 'bignumber.js';
-import { useFormikContext } from 'formik';
-import { Stack } from 'leather-styles/jsx';
 
 import { RouteUrls } from '@shared/route-urls';
 
 import { useSwapContext } from '@app/pages/swap/swap.context';
-import type { SwapAsset } from '@app/query/common/alex-sdk/alex-sdk.hooks';
 
 import { SwapFormValues } from '../../../hooks/use-swap-form';
 import { SwapAssetItem } from './swap-asset-item';

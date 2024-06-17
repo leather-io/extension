@@ -2,10 +2,12 @@ import { useState } from 'react';
 
 import BigNumber from 'bignumber.js';
 
+import { type SwapAsset, useAlexSwappableAssets } from '@leather-wallet/query';
+
 import { logger } from '@shared/logger';
 import { alex } from '@shared/utils/alex-sdk';
 
-import { type SwapAsset, useAlexSwappableAssets } from '@app/query/common/alex-sdk/alex-sdk.hooks';
+import { useCurrentStacksAccountAddress } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
 
 import { SwapSubmissionData } from '../swap.context';
 
@@ -15,7 +17,8 @@ export function useAlexSwap() {
   const [swapSubmissionData, setSwapSubmissionData] = useState<SwapSubmissionData>();
   const [slippage, _setSlippage] = useState(0.04);
   const [isFetchingExchangeRate, setIsFetchingExchangeRate] = useState(false);
-  const { data: swapAssets = [] } = useAlexSwappableAssets();
+  const address = useCurrentStacksAccountAddress();
+  const { data: swapAssets = [] } = useAlexSwappableAssets(address);
 
   async function fetchQuoteAmount(
     base: SwapAsset,

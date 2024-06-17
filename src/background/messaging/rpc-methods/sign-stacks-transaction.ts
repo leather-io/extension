@@ -1,5 +1,4 @@
 import { RpcErrorCode } from '@btckit/types';
-import { isDefined, isUndefined } from '@leather-wallet/utils';
 import { bytesToHex } from '@stacks/common';
 import { TransactionTypes } from '@stacks/connect';
 import {
@@ -19,7 +18,9 @@ import {
 import BigNumber from 'bignumber.js';
 import { createUnsecuredToken } from 'jsontokens';
 
-import { STX_DECIMALS } from '@shared/constants';
+import { STX_DECIMALS } from '@leather-wallet/constants';
+import { isDefined, isUndefined } from '@leather-wallet/utils';
+
 import { RouteUrls } from '@shared/route-urls';
 import {
   SignStacksTransactionRequest,

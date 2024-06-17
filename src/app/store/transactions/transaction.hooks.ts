@@ -1,7 +1,6 @@
 import { useCallback, useMemo } from 'react';
 import { useAsync } from 'react-async-hook';
 
-import { isUndefined, stxToMicroStx } from '@leather-wallet/utils';
 import { bytesToHex } from '@noble/hashes/utils';
 import { TransactionTypes } from '@stacks/connect';
 import {
@@ -15,6 +14,9 @@ import {
 } from '@stacks/transactions';
 import BN from 'bn.js';
 
+import { useNextNonce } from '@leather-wallet/query';
+import { isUndefined, stxToMicroStx } from '@leather-wallet/utils';
+
 import { logger } from '@shared/logger';
 import { StacksTransactionFormValues } from '@shared/models/form.model';
 
@@ -27,7 +29,6 @@ import { useWalletType } from '@app/common/use-wallet-type';
 import { listenForStacksTxLedgerSigning } from '@app/features/ledger/flows/stacks-tx-signing/stacks-tx-signing-event-listeners';
 import { useLedgerNavigate } from '@app/features/ledger/hooks/use-ledger-navigate';
 import { useToast } from '@app/features/toasts/use-toast';
-import { useNextNonce } from '@app/query/stacks/nonce/account-nonces.hooks';
 import {
   useCurrentStacksAccount,
   useCurrentStacksAccountAddress,
@@ -43,8 +44,8 @@ export function useTransactionPostConditions() {
 
 export function useUnsignedStacksTransactionBaseState() {
   const network = useCurrentStacksNetworkState();
-  const { data: nextNonce } = useNextNonce();
   const stxAddress = useCurrentStacksAccountAddress();
+  const { data: nextNonce } = useNextNonce(stxAddress);
   const payload = useTransactionRequestState();
   const postConditions = useTransactionPostConditions();
   const account = useCurrentStacksAccount();
@@ -103,7 +104,8 @@ export function makePostCondition(options: PostConditionsOptions): PostCondition
 
 export function useGenerateUnsignedStacksTransaction() {
   const stacksTxBaseState = useUnsignedStacksTransactionBaseState();
-  const { data: nextNonce } = useNextNonce();
+  const stxAddress = useCurrentStacksAccountAddress();
+  const { data: nextNonce } = useNextNonce(stxAddress);
 
   return useCallback(
     (values: StacksTransactionFormValues) => {

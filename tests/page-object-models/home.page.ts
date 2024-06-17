@@ -5,7 +5,7 @@ import { SettingsSelectors } from '@tests/selectors/settings.selectors';
 import { SharedComponentsSelectors } from '@tests/selectors/shared-component.selectors';
 import { createTestSelector } from '@tests/utils';
 
-import { WalletDefaultNetworkConfigurationIds } from '@shared/constants';
+import { WalletDefaultNetworkConfigurationIds } from '@leather-wallet/models';
 
 export class HomePage {
   readonly page: Page;

@@ -1,8 +1,9 @@
-import { isEmpty } from '@leather-wallet/utils';
 import { TransactionRequestSelectors } from '@tests/selectors/requests.selectors';
 import { useFormikContext } from 'formik';
 
-import { HIGH_FEE_AMOUNT_STX } from '@shared/constants';
+import { HIGH_FEE_AMOUNT_STX } from '@leather-wallet/constants';
+import { isEmpty } from '@leather-wallet/utils';
+
 import { StacksTransactionFormValues } from '@shared/models/form.model';
 
 import { useTransactionError } from '@app/features/stacks-transaction-request/hooks/use-transaction-error';

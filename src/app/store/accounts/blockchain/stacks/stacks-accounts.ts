@@ -1,4 +1,3 @@
-import { createNullArrayOfLength } from '@leather-wallet/utils';
 import { bytesToHex } from '@noble/hashes/utils';
 import { createSelector } from '@reduxjs/toolkit';
 import { HARDENED_OFFSET, HDKey } from '@scure/bip32';
@@ -14,6 +13,8 @@ import {
 import { deriveStxPrivateKey, generateWallet } from '@stacks/wallet-sdk';
 import { atom } from 'jotai';
 
+import { createNullArrayOfLength } from '@leather-wallet/utils';
+
 import { DATA_DERIVATION_PATH, deriveStacksSalt } from '@shared/crypto/stacks/stacks-address-gen';
 import { whenStacksChainId } from '@shared/crypto/stacks/stacks.utils';
 import { defaultWalletKeyId } from '@shared/utils';
@@ -28,7 +29,7 @@ import {
 import { selectDefaultWalletStacksKeys } from '@app/store/ledger/stacks/stacks-key.slice';
 import { currentNetworkAtom } from '@app/store/networks/networks';
 
-import {
+import type {
   HardwareStacksAccount,
   SoftwareStacksAccount,
   StacksAccount,

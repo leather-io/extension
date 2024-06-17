@@ -1,4 +1,4 @@
-import { SupportedBlockchains } from '@shared/constants';
+import type { SupportedBlockchains } from '@leather-wallet/models';
 
 import { ConnectLedgerSuccess } from '@app/features/ledger/illustrations/ledger-illu-success';
 

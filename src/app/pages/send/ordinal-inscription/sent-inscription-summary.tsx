@@ -1,10 +1,10 @@
 import { useLocation, useNavigate } from 'react-router-dom';
 
-import type { Inscription } from '@leather-wallet/models';
 import { Box, Flex, HStack, Stack } from 'leather-styles/jsx';
 import get from 'lodash.get';
 
-import { Blockchains } from '@shared/models/blockchain.model';
+import type { Blockchains, Inscription } from '@leather-wallet/models';
+
 import { RouteUrls } from '@shared/route-urls';
 
 import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';

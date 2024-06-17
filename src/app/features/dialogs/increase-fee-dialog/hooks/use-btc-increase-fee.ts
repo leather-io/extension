@@ -1,13 +1,14 @@
 import { useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import { useBitcoinBroadcastTransaction } from '@leather-wallet/query';
-import { btcToSat, createMoney, isError } from '@leather-wallet/utils';
 import * as btc from '@scure/btc-signer';
 import BigNumber from 'bignumber.js';
 import * as yup from 'yup';
 
-import { BitcoinTx } from '@shared/models/transactions/bitcoin-transaction.model';
+import type { BitcoinTx } from '@leather-wallet/models';
+import { useBitcoinBroadcastTransaction } from '@leather-wallet/query';
+import { btcToSat, createMoney, isError } from '@leather-wallet/utils';
+
 import { RouteUrls } from '@shared/route-urls';
 
 import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';

@@ -1,8 +1,9 @@
 import { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 
-import { isUndefined } from '@leather-wallet/utils';
 import get from 'lodash.get';
+
+import { isUndefined } from '@leather-wallet/utils';
 
 type LocationState = string | boolean | undefined | number | Location;
 

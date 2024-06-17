@@ -2,7 +2,7 @@ import { NetworkSelectors } from '@tests/selectors/network.selectors';
 import { SettingsSelectors } from '@tests/selectors/settings.selectors';
 import { Flex, Stack, styled } from 'leather-styles/jsx';
 
-import { NetworkConfiguration } from '@shared/constants';
+import type { NetworkConfiguration } from '@leather-wallet/models';
 
 import { getUrlHostname } from '@app/common/utils';
 import { Button } from '@app/ui/components/button/button';

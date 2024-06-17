@@ -1,9 +1,10 @@
 import { useCallback } from 'react';
 
-import type { Money } from '@leather-wallet/models';
 import { SendCryptoAssetSelectors } from '@tests/selectors/send.selectors';
 import { useField } from 'formik';
 import { Box } from 'leather-styles/jsx';
+
+import type { Money } from '@leather-wallet/models';
 
 import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
 import { useToast } from '@app/features/toasts/use-toast';

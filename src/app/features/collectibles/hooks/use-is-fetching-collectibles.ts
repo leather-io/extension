@@ -1,5 +1,6 @@
-import { sumNumbers } from '@leather-wallet/utils';
 import { useIsFetching } from '@tanstack/react-query';
+
+import { sumNumbers } from '@leather-wallet/utils';
 
 import { QueryPrefixes } from '@app/query/query-prefixes';
 

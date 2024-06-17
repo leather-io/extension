@@ -1,12 +1,13 @@
 import { useMemo, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import { delay, isError, isString } from '@leather-wallet/utils';
 import { AuthType, StacksTransaction } from '@stacks/transactions';
+
+import type { CryptoCurrencies } from '@leather-wallet/models';
+import { delay, isError, isString } from '@leather-wallet/utils';
 
 import { finalizeTxSignature } from '@shared/actions/finalize-tx-signature';
 import { logger } from '@shared/logger';
-import { CryptoCurrencies } from '@shared/models/currencies.model';
 import { RouteUrls } from '@shared/route-urls';
 
 import { useDefaultRequestParams } from '@app/common/hooks/use-default-request-search-params';

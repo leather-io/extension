@@ -1,7 +1,7 @@
 import { isString } from 'formik';
 import * as yup from 'yup';
 
-import type { NetworkModes } from '@shared/constants';
+import type { NetworkModes } from '@leather-wallet/models';
 
 import { checkEntityAddressIsCompliant } from '@app/query/common/compliance-checker/compliance-checker.query';
 

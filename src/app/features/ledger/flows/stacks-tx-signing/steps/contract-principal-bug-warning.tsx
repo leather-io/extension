@@ -1,6 +1,7 @@
 import GenericErrorImg from '@assets/images/generic-error.png';
-import { delay } from '@leather-wallet/utils';
 import { Box, HStack, styled } from 'leather-styles/jsx';
+
+import { delay } from '@leather-wallet/utils';
 
 import { useLoading } from '@app/common/hooks/use-loading';
 import { LedgerTitle } from '@app/features/ledger/components/ledger-title';

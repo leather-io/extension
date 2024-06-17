@@ -1,4 +1,4 @@
-import { BitcoinTx } from '@shared/models/transactions/bitcoin-transaction.model';
+import type { BitcoinTx } from '@leather-wallet/models';
 
 export const mockBitcoinTestnetAddress = 'tb1qxy5r9rlmpcxgwp92x2594q3gg026y4kdv2rsl8';
 

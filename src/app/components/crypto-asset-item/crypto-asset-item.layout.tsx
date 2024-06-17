@@ -1,5 +1,6 @@
-import type { Money } from '@leather-wallet/models';
 import { Box, Flex, styled } from 'leather-styles/jsx';
+
+import type { Money } from '@leather-wallet/models';
 
 import { spamFilter } from '@app/common/utils/spam-filter';
 import { BulletSeparator } from '@app/ui/components/bullet-separator/bullet-separator';

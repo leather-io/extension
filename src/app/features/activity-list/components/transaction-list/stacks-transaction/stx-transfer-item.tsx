@@ -1,9 +1,6 @@
 import type { AddressTransactionWithTransfers } from '@stacks/stacks-blockchain-api-types';
 
-import {
-  StxTransfer,
-  TxTransferDetails,
-} from '@shared/models/transactions/stacks-transaction.model';
+import type { StxTransfer } from '@leather-wallet/models';
 
 import { stacksValue } from '@app/common/stacks-utils';
 import { getTxCaption } from '@app/common/transactions/stacks/transaction.utils';
@@ -30,13 +27,13 @@ export function StxTransferItem({ stxTransfer, parentTx }: StxTransferItemProps)
     withTicker: false,
   })}`;
 
-  const transferDetails: TxTransferDetails = {
-    caption,
-    icon: <TxTransferIconWrapper icon={icon} />,
-    link: parentTx.tx.tx_id,
-    title,
-    value,
-  };
-
-  return <StacksTransactionItem transferDetails={transferDetails} />;
+  return (
+    <StacksTransactionItem
+      caption={caption}
+      icon={<TxTransferIconWrapper icon={icon} />}
+      link={parentTx.tx.tx_id}
+      title={title}
+      value={value}
+    />
+  );
 }

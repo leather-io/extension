@@ -1,8 +1,9 @@
 import { useNavigate } from 'react-router-dom';
 
+import { Box, Flex, HStack, Stack } from 'leather-styles/jsx';
+
 import { fetchInscripionById, useOrdinalsbotClient } from '@leather-wallet/query';
 import { noop } from '@leather-wallet/utils';
-import { Box, Flex, HStack, Stack } from 'leather-styles/jsx';
 
 import { RouteUrls } from '@shared/route-urls';
 

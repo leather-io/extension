@@ -1,8 +1,9 @@
 import { useLocation, useNavigate } from 'react-router-dom';
 
-import { createMoney, formatMoney } from '@leather-wallet/utils';
 import { HStack, Stack, styled } from 'leather-styles/jsx';
 import get from 'lodash.get';
+
+import { createMoney, formatMoney } from '@leather-wallet/utils';
 
 import { HandleOpenStacksTxLinkArgs } from '@app/common/hooks/use-stacks-explorer-link';
 import { openInNewTab } from '@app/common/utils/open-in-new-tab';

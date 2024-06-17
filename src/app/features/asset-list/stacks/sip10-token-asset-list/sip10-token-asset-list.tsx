@@ -1,8 +1,11 @@
 import { Stack } from 'leather-styles/jsx';
 
+import {
+  type Sip10TokenAssetDetails,
+  useAlexCurrencyPriceAsMarketData,
+} from '@leather-wallet/query';
+
 import { getPrincipalFromContractId } from '@app/common/utils';
-import { useAlexCurrencyPriceAsMarketData } from '@app/query/common/alex-sdk/alex-sdk.hooks';
-import type { Sip10TokenAssetDetails } from '@app/query/stacks/sip10/sip10-tokens.hooks';
 
 import { Sip10TokenAssetItem } from './sip10-token-asset-item';
 

@@ -1,5 +1,3 @@
-import type { UtxoResponseItem } from '@leather-wallet/query';
-import { satToBtc, sumNumbers, truncateMiddle } from '@leather-wallet/utils';
 import BigNumber from 'bignumber.js';
 import {
   type AddressInfo,
@@ -8,12 +6,12 @@ import {
   validate,
 } from 'bitcoin-address-validation';
 
-import { BTC_P2WPKH_DUST_AMOUNT } from '@shared/constants';
+import { BTC_P2WPKH_DUST_AMOUNT } from '@leather-wallet/constants';
+import type { BitcoinTransactionVectorOutput, BitcoinTx } from '@leather-wallet/models';
+import type { UtxoResponseItem } from '@leather-wallet/query';
+import { satToBtc, sumNumbers, truncateMiddle } from '@leather-wallet/utils';
+
 import type { TransferRecipient } from '@shared/models/form.model';
-import {
-  BitcoinTransactionVectorOutput,
-  BitcoinTx,
-} from '@shared/models/transactions/bitcoin-transaction.model';
 
 import { BtcSizeFeeEstimator } from './fees/btc-size-fee-estimator';
 

@@ -13,7 +13,7 @@ export function SubmittedTransactionList({ txs }: SubmittedTransactionListProps)
     <SubmittedTransactionListLayout>
       {txs.map(tx => {
         if (!tx) return null;
-        return <SubmittedTransactionListItem key={tx.txId} rawTx={tx.rawTx} txId={tx.txId} />;
+        return <SubmittedTransactionListItem key={tx.txid} rawTx={tx.rawTx} txid={tx.txid} />;
       })}
     </SubmittedTransactionListLayout>
   );

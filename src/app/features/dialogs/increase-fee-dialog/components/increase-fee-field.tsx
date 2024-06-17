@@ -1,8 +1,9 @@
 import { useCallback, useMemo, useState } from 'react';
 
-import { microStxToStx, stxToMicroStx } from '@leather-wallet/utils';
 import { useField } from 'formik';
 import { Stack, styled } from 'leather-styles/jsx';
+
+import { microStxToStx, stxToMicroStx } from '@leather-wallet/utils';
 
 import { ErrorLabel } from '@app/components/error-label';
 

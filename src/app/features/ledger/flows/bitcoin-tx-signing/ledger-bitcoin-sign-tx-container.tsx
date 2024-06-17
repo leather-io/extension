@@ -1,11 +1,12 @@
 import { useEffect, useState } from 'react';
 import { Route, useLocation } from 'react-router-dom';
 
-import { delay } from '@leather-wallet/utils';
 import * as btc from '@scure/btc-signer';
 import { hexToBytes } from '@stacks/common';
 import BitcoinApp from 'ledger-bitcoin';
 import get from 'lodash.get';
+
+import { delay } from '@leather-wallet/utils';
 
 import { BitcoinInputSigningConfig } from '@shared/crypto/bitcoin/signer-config';
 import { logger } from '@shared/logger';

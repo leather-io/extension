@@ -1,12 +1,16 @@
 import { useEffect, useMemo } from 'react';
 
-import type { NetworkConfiguration } from '@leather-wallet/models';
 import {
   EventParams,
   PageParams,
 } from '@segment/analytics-next/dist/types/core/arguments-resolver';
 
-import { HIRO_API_BASE_URL_MAINNET, HIRO_API_BASE_URL_TESTNET } from '@shared/constants';
+import {
+  HIRO_API_BASE_URL_MAINNET,
+  HIRO_API_BASE_URL_TESTNET,
+  type NetworkConfiguration,
+} from '@leather-wallet/models';
+
 import { IS_TEST_ENV, SEGMENT_WRITE_KEY } from '@shared/environment';
 import { logger } from '@shared/logger';
 import { analytics, initAnalytics } from '@shared/utils/analytics';

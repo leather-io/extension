@@ -1,13 +1,3 @@
-import { useCryptoCurrencyMarketDataMeanAverage } from '@leather-wallet/query';
-import {
-  baseCurrencyAmountInQuote,
-  convertToMoneyTypeWithDefaultOfZero,
-  createMoney,
-  formatMoney,
-  i18nFormatCurrency,
-  isDefined,
-  microStxToStx,
-} from '@leather-wallet/utils';
 import { bytesToUtf8 } from '@stacks/common';
 import {
   ClarityType,
@@ -21,18 +11,30 @@ import {
 } from '@stacks/transactions';
 import BigNumber from 'bignumber.js';
 
-import { CryptoCurrencies } from '@shared/models/currencies.model';
+import type { CryptoCurrencies } from '@leather-wallet/models';
+import {
+  useCryptoCurrencyMarketDataMeanAverage,
+  useGetStackNetworkBlockTimeQuery,
+} from '@leather-wallet/query';
+import {
+  baseCurrencyAmountInQuote,
+  convertToMoneyTypeWithDefaultOfZero,
+  createMoney,
+  formatMoney,
+  i18nFormatCurrency,
+  isDefined,
+  microStxToStx,
+} from '@leather-wallet/utils';
 
 import { getEstimatedConfirmationTime } from '@app/common/transactions/stacks/transaction.utils';
 import { removeTrailingNullCharacters } from '@app/common/utils';
-import { useStacksBlockTime } from '@app/query/stacks/info/info.hooks';
 import { useCurrentNetworkState } from '@app/store/networks/networks.hooks';
 
 export function useStacksTransactionSummary(token: CryptoCurrencies) {
   // TODO: unsafe type assumption
   const tokenMarketData = useCryptoCurrencyMarketDataMeanAverage(token as 'BTC' | 'STX');
   const { isTestnet } = useCurrentNetworkState();
-  const { data: blockTime } = useStacksBlockTime();
+  const { data: blockTime } = useGetStackNetworkBlockTimeQuery();
 
   function formSentSummaryTxState(txId: string, signedTx: StacksTransaction, decimals?: number) {
     return {

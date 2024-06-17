@@ -1,10 +1,11 @@
 import { useEffect, useState } from 'react';
 import { Route, useLocation, useNavigate } from 'react-router-dom';
 
-import { delay, isError } from '@leather-wallet/utils';
 import { deserializeTransaction } from '@stacks/transactions';
 import StacksApp, { LedgerError } from '@zondax/ledger-stacks';
 import get from 'lodash.get';
+
+import { delay, isError } from '@leather-wallet/utils';
 
 import { RouteUrls } from '@shared/route-urls';
 import { analytics } from '@shared/utils/analytics';

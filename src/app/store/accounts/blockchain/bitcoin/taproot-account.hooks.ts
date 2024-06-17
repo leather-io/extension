@@ -1,20 +1,19 @@
 import { useMemo } from 'react';
 import { useSelector } from 'react-redux';
 
-import {
-  deriveTaprootAccount,
-  getTaprootAccountDerivationPath,
-  getTaprootPaymentFromAddressIndex,
-} from '@leather-wallet/bitcoin';
 import { createSelector } from '@reduxjs/toolkit';
 import { Psbt } from 'bitcoinjs-lib';
 
-import { BitcoinNetworkModes } from '@shared/constants';
 import {
+  deriveTaprootAccount,
   ecdsaPublicKeyToSchnorr,
-  extractAddressIndexFromPath,
+  getTaprootAccountDerivationPath,
+  getTaprootPaymentFromAddressIndex,
   lookUpLedgerKeysByPath,
-} from '@shared/crypto/bitcoin/bitcoin.utils';
+} from '@leather-wallet/bitcoin';
+import { extractAddressIndexFromPath } from '@leather-wallet/crypto';
+import type { BitcoinNetworkModes } from '@leather-wallet/models';
+
 import { BitcoinInputSigningConfig } from '@shared/crypto/bitcoin/signer-config';
 
 import { selectCurrentNetwork, useCurrentNetwork } from '@app/store/networks/networks.selectors';

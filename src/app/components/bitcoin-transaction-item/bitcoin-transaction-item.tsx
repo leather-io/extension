@@ -1,10 +1,11 @@
 import { useMemo } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 
-import { useInscriptionByOutput } from '@leather-wallet/query';
 import { HStack } from 'leather-styles/jsx';
 
-import { BitcoinTx } from '@shared/models/transactions/bitcoin-transaction.model';
+import type { BitcoinTx } from '@leather-wallet/models';
+import { useInscriptionByOutput } from '@leather-wallet/query';
+
 import { RouteUrls } from '@shared/route-urls';
 
 import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';

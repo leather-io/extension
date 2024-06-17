@@ -1,8 +1,9 @@
 import { ReactNode, useRef } from 'react';
 
-import { FeeTypes } from '@leather-wallet/models';
 import { SharedComponentsSelectors } from '@tests/selectors/shared-component.selectors';
 import { Stack } from 'leather-styles/jsx';
+
+import { FeeTypes } from '@leather-wallet/models';
 
 import { useOnClickOutside } from '@app/common/hooks/use-onclickoutside';
 

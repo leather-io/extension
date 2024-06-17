@@ -1,21 +1,23 @@
 import { useEffect } from 'react';
 
+import {
+  useGetBnsNamesOwnedByAddressQuery,
+  useStacksNonFungibleTokensMetadata,
+} from '@leather-wallet/query';
+
 import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
 import { parseIfValidPunycode } from '@app/common/utils';
-import { useCurrentAccountNames } from '@app/query/stacks/bns/bns.hooks';
-import { useStacksNonFungibleTokensMetadata } from '@app/query/stacks/token-metadata/non-fungible-tokens/non-fungible-token-metadata.hooks';
-import { StacksAccount } from '@app/store/accounts/blockchain/stacks/stacks-account.models';
 
 import { StacksBnsName } from './stacks-bns-name';
 import { StacksNonFungibleTokens } from './stacks-non-fungible-tokens';
 
 interface StacksCryptoAssetsProps {
-  account: StacksAccount;
+  address: string;
 }
-export function StacksCryptoAssets({ account }: StacksCryptoAssetsProps) {
-  const { data: names = [] } = useCurrentAccountNames();
+export function StacksCryptoAssets({ address }: StacksCryptoAssetsProps) {
+  const names = useGetBnsNamesOwnedByAddressQuery(address).data?.names;
 
-  const stacksNftsMetadataResp = useStacksNonFungibleTokensMetadata(account);
+  const stacksNftsMetadataResp = useStacksNonFungibleTokensMetadata(address);
   const analytics = useAnalytics();
 
   useEffect(() => {
@@ -29,7 +31,7 @@ export function StacksCryptoAssets({ account }: StacksCryptoAssetsProps) {
 
   return (
     <>
-      {names.map(name => (
+      {(names ?? []).map(name => (
         <StacksBnsName bnsName={parseIfValidPunycode(name)} key={name} />
       ))}
       {stacksNftsMetadataResp.map((nft, i) => {

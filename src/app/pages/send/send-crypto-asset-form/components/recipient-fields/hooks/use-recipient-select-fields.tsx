@@ -3,8 +3,9 @@ import { useNavigate } from 'react-router-dom';
 
 import { useFormikContext } from 'formik';
 
+import type { Entries } from '@leather-wallet/models';
+
 import { RouteUrls } from '@shared/route-urls';
-import type { Entries } from '@shared/utils/type-utils';
 
 import { useRecipientBnsName } from './use-recipient-bns-name';
 

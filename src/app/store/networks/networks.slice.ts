@@ -1,6 +1,9 @@
 import { EntityId, PayloadAction, createEntityAdapter, createSlice } from '@reduxjs/toolkit';
 
-import { NetworkConfiguration, WalletDefaultNetworkConfigurationIds } from '@shared/constants';
+import {
+  type NetworkConfiguration,
+  WalletDefaultNetworkConfigurationIds,
+} from '@leather-wallet/models';
 
 const defaultCurrentNetworkId = WalletDefaultNetworkConfigurationIds.mainnet as EntityId;
 

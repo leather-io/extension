@@ -3,8 +3,8 @@ import { ChainID } from '@stacks/transactions';
 import {
   BITCOIN_API_BASE_URL_MAINNET,
   BITCOIN_API_BASE_URL_TESTNET,
-  NetworkConfiguration,
-} from '@shared/constants';
+  type NetworkConfiguration,
+} from '@leather-wallet/models';
 
 import { PersistedNetworkConfiguration } from './networks.slice';
 

@@ -1,5 +1,6 @@
-import type { Fees } from '@leather-wallet/models';
 import { useFormikContext } from 'formik';
+
+import type { Fees } from '@leather-wallet/models';
 
 import { StacksTransactionFormValues } from '@shared/models/form.model';
 

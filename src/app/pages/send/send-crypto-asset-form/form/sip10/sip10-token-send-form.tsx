@@ -1,12 +1,12 @@
 import { useNavigate, useParams } from 'react-router-dom';
 
 import type { CryptoAssetBalance, MarketData, Sip10CryptoAssetInfo } from '@leather-wallet/models';
+import { useAlexCurrencyPriceAsMarketData, useSip10Token } from '@leather-wallet/query';
 
 import { RouteUrls } from '@shared/route-urls';
 
 import { useToast } from '@app/features/toasts/use-toast';
-import { useAlexCurrencyPriceAsMarketData } from '@app/query/common/alex-sdk/alex-sdk.hooks';
-import { useSip10Token } from '@app/query/stacks/sip10/sip10-tokens.hooks';
+import { useCurrentStacksAccountAddress } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
 
 import { Sip10TokenSendFormContainer } from './sip10-token-send-form-container';
 
@@ -19,7 +19,8 @@ interface Sip10TokenSendFormLoaderProps {
 }
 function Sip10TokenSendFormLoader({ children }: Sip10TokenSendFormLoaderProps) {
   const { contractId } = useParams();
-  const token = useSip10Token(contractId ?? '');
+  const stxAddress = useCurrentStacksAccountAddress();
+  const token = useSip10Token(stxAddress, contractId ?? '');
   const priceAsMarketData = useAlexCurrencyPriceAsMarketData();
   const toast = useToast();
   const navigate = useNavigate();

@@ -1,5 +1,6 @@
-import type { BitcoinClient } from '@leather-wallet/query';
 import { AddressVersion } from '@stacks/transactions';
+
+import { type BitcoinClient, type StacksClient, fetchNamesForAddress } from '@leather-wallet/query';
 
 import { decryptMnemonic, encryptMnemonic } from '@shared/crypto/mnemonic-encryption';
 import { logger } from '@shared/logger';
@@ -9,8 +10,6 @@ import { identifyUser } from '@shared/utils/analytics';
 import { recurseAccountsForActivity } from '@app/common/account-restoration/account-restore';
 import { checkForLegacyGaiaConfigWithKnownGeneratedAccountIndex } from '@app/common/account-restoration/legacy-gaia-config-lookup';
 import { mnemonicToRootNode } from '@app/common/keychain/keychain';
-import { fetchNamesForAddress } from '@app/query/stacks/bns/bns.utils';
-import { StacksClient } from '@app/query/stacks/stacks-client';
 import { AppThunk } from '@app/store';
 import { initalizeWalletSession } from '@app/store/session-restore';
 
@@ -44,7 +43,7 @@ function setWalletEncryptionPassword(args: {
       await checkForLegacyGaiaConfigWithKnownGeneratedAccountIndex(secretKey);
 
     async function doesStacksAddressHaveBalance(address: string) {
-      const resp = await stxClient.accountsApi.getAccountBalance({ principal: address });
+      const resp = await stxClient.getAccountBalance(address);
       return Number(resp.stx.balance) > 0;
     }
 

@@ -1,9 +1,10 @@
 import { useEffect } from 'react';
 import { Outlet, useParams } from 'react-router-dom';
 
-import { isUndefined } from '@leather-wallet/utils';
 import { SwapSelectors } from '@tests/selectors/swap.selectors';
 import { useFormikContext } from 'formik';
+
+import { isUndefined } from '@leather-wallet/utils';
 
 import { LoadingSpinner } from '@app/components/loading-spinner';
 import { Button } from '@app/ui/components/button/button';
