@@ -127,7 +127,8 @@
 <a name='L62'></a><a href='#L62'>62</a>
 <a name='L63'></a><a href='#L63'>63</a>
 <a name='L64'></a><a href='#L64'>64</a>
-<a name='L65'></a><a href='#L65'>65</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L65'></a><a href='#L65'>65</a>
+<a name='L66'></a><a href='#L66'>66</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -142,25 +143,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -178,6 +160,26 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -191,19 +193,20 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { FeeTypes, type Money } from '@leather-wallet/models';
-import { isEmpty } from '@leather-wallet/utils';
-import BigNumber from 'bignumber.js';
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import BigNumber from 'bignumber.js';
 import { FormikHelpers } from 'formik';
 &nbsp;
-import { HIGH_FEE_AMOUNT_STX } from '@shared/constants';
+import { HIGH_FEE_AMOUNT_STX } from '@leather-wallet/constants';
+import { FeeTypes, type Money } from '@leather-wallet/models';
+import { useNextNonce } from '@leather-wallet/query';
+import { isEmpty } from '@leather-wallet/utils';
+&nbsp;
 import { FormErrorMessages } from '@shared/error-messages';
 import { StacksSendFormValues } from '@shared/models/form.model';
 &nbsp;
 import { stxMemoValidator } from '@app/common/validation/forms/memo-validators';
 import { stxRecipientValidator } from '@app/common/validation/forms/recipient-validators';
 import { nonceValidator } from '@app/common/validation/nonce-validators';
-import { useNextNonce } from '@app/query/stacks/nonce/account-nonces.hooks';
 import { useCurrentStacksAccountAddress } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
 import { useCurrentNetworkState } from '@app/store/networks/networks.hooks';
 &nbsp;
@@ -220,8 +223,8 @@ export function <span class="fstat-no" title="function not covered" >useStacksCo
   availableTokenBalance,
 }: UseStacksCommonSendFormArgs) {
   const routeState = <span class="cstat-no" title="statement not covered" >useSendFormRouteState();</span>
-  const { data: nextNonce } = <span class="cstat-no" title="statement not covered" >useNextNonce();</span>
-  const currentAccountStxAddress = <span class="cstat-no" title="statement not covered" >useCurrentStacksAccountAddress();</span>
+  const stxAddress = <span class="cstat-no" title="statement not covered" >useCurrentStacksAccountAddress();</span>
+  const { data: nextNonce } = <span class="cstat-no" title="statement not covered" >useNextNonce(stxAddress);</span>
   const currentNetwork = <span class="cstat-no" title="statement not covered" >useCurrentNetworkState();</span>
 &nbsp;
   const initialValues: StacksSendFormValues = <span class="cstat-no" title="statement not covered" >createDefaultInitialFormValues({</span>
@@ -250,7 +253,7 @@ export function <span class="fstat-no" title="function not covered" >useStacksCo
     initialValues,
     availableTokenBalance,
     checkFormValidation,
-    recipient: stxRecipientValidator(currentAccountStxAddress, currentNetwork),
+    recipient: stxRecipientValidator(stxAddress, currentNetwork),
     memo: stxMemoValidator(FormErrorMessages.MemoExceedsLimit),
     nonce: nonceValidator,
   };
@@ -262,7 +265,7 @@ export function <span class="fstat-no" title="function not covered" >useStacksCo
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-06-10T10:04:08.849Z
+                at 2024-06-17T15:15:55.299Z
             </div>
         <script src="../../../../../../../../prettify.js"></script>
         <script>

@@ -32,7 +32,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/39</span>
+                <span class='fraction'>0/45</span>
             </div>
         
             
@@ -229,7 +229,9 @@
 <a name='L164'></a><a href='#L164'>164</a>
 <a name='L165'></a><a href='#L165'>165</a>
 <a name='L166'></a><a href='#L166'>166</a>
-<a name='L167'></a><a href='#L167'>167</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L167'></a><a href='#L167'>167</a>
+<a name='L168'></a><a href='#L168'>168</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -398,8 +400,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { useCallback } from 'react';
 import { useAsync } from 'react-async-hook';
 &nbsp;
-import type { Sip10CryptoAssetInfo } from '@leather-wallet/models';
-import { stxToMicroStx } from '@leather-wallet/utils';
 import { bytesToHex } from '@stacks/common';
 import { TransactionTypes } from '@stacks/connect';
 import {
@@ -415,6 +415,10 @@ import {
   uintCV,
 } from '@stacks/transactions';
 &nbsp;
+import type { Sip10CryptoAssetInfo } from '@leather-wallet/models';
+import { useNextNonce } from '@leather-wallet/query';
+import { stxToMicroStx } from '@leather-wallet/utils';
+&nbsp;
 import { logger } from '@shared/logger';
 import type { StacksSendFormValues, StacksTransactionFormValues } from '@shared/models/form.model';
 &nbsp;
@@ -423,16 +427,15 @@ import {
   GenerateUnsignedTransactionOptions,
   generateUnsignedTransaction,
 } from '@app/common/transactions/stacks/generate-unsigned-txs';
-import { useNextNonce } from '@app/query/stacks/nonce/account-nonces.hooks';
 import { useCurrentStacksNetworkState } from '@app/store/networks/networks.hooks';
 import { makePostCondition } from '@app/store/transactions/transaction.hooks';
 &nbsp;
 import { useCurrentStacksAccount } from '../accounts/blockchain/stacks/stacks-account.hooks';
 &nbsp;
 export function <span class="fstat-no" title="function not covered" >useGenerateStxTokenTransferUnsignedTx() {</span>
-  const { data: nextNonce } = <span class="cstat-no" title="statement not covered" >useNextNonce();</span>
-  const network = <span class="cstat-no" title="statement not covered" >useCurrentStacksNetworkState();</span>
   const account = <span class="cstat-no" title="statement not covered" >useCurrentStacksAccount();</span>
+  const { data: nextNonce } = <span class="cstat-no" title="statement not covered" >useNextNonce(account?.address ?? '');</span>
+  const network = <span class="cstat-no" title="statement not covered" >useCurrentStacksNetworkState();</span>
 &nbsp;
 <span class="cstat-no" title="statement not covered" >  return useCallback(</span>
 <span class="fstat-no" title="function not covered" >    async (v</span>alues?: StacksSendFormValues) =&gt; {
@@ -464,9 +467,9 @@ export function <span class="fstat-no" title="function not covered" >useGenerate
 &nbsp;
 export function <span class="fstat-no" title="function not covered" >useStxTokenTransferUnsignedTxState(v</span>alues?: StacksSendFormValues) {
   const generateTx = <span class="cstat-no" title="statement not covered" >useGenerateStxTokenTransferUnsignedTx();</span>
-  const { data: nextNonce } = <span class="cstat-no" title="statement not covered" >useNextNonce();</span>
-  const network = <span class="cstat-no" title="statement not covered" >useCurrentStacksNetworkState();</span>
   const account = <span class="cstat-no" title="statement not covered" >useCurrentStacksAccount();</span>
+  const { data: nextNonce } = <span class="cstat-no" title="statement not covered" >useNextNonce(account?.address ?? '');</span>
+  const network = <span class="cstat-no" title="statement not covered" >useCurrentStacksNetworkState();</span>
 &nbsp;
   const tx = <span class="cstat-no" title="statement not covered" >useAsync(</span>
 <span class="fstat-no" title="function not covered" >    async () =&gt; <span class="cstat-no" title="statement not covered" >g</span>enerateTx(values ?? undefined),</span>
@@ -477,8 +480,8 @@ export function <span class="fstat-no" title="function not covered" >useStxToken
 }
 &nbsp;
 export function <span class="fstat-no" title="function not covered" >useGenerateFtTokenTransferUnsignedTx(i</span>nfo: Sip10CryptoAssetInfo) {
-  const { data: nextNonce } = <span class="cstat-no" title="statement not covered" >useNextNonce();</span>
   const account = <span class="cstat-no" title="statement not covered" >useCurrentStacksAccount();</span>
+  const { data: nextNonce } = <span class="cstat-no" title="statement not covered" >useNextNonce(account?.address ?? '');</span>
   const network = <span class="cstat-no" title="statement not covered" >useCurrentStacksNetworkState();</span>
   const { contractId } = <span class="cstat-no" title="statement not covered" >info;</span>
   const { contractAddress, contractAssetName, contractName } =
@@ -568,7 +571,7 @@ export function <span class="fstat-no" title="function not covered" >useFtTokenT
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-06-10T10:04:08.849Z
+                at 2024-06-17T15:15:55.299Z
             </div>
         <script src="../../../../../prettify.js"></script>
         <script>

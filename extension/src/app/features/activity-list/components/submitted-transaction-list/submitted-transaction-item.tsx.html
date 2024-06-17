@@ -25,14 +25,14 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/10</span>
+                <span class='fraction'>0/12</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/6</span>
+                <span class='fraction'>0/4</span>
             </div>
         
             
@@ -46,7 +46,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/8</span>
+                <span class='fraction'>0/10</span>
             </div>
         
             
@@ -132,7 +132,9 @@
 <a name='L67'></a><a href='#L67'>67</a>
 <a name='L68'></a><a href='#L68'>68</a>
 <a name='L69'></a><a href='#L69'>69</a>
-<a name='L70'></a><a href='#L70'>70</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L70'></a><a href='#L70'>70</a>
+<a name='L71'></a><a href='#L71'>71</a>
+<a name='L72'></a><a href='#L72'>72</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -147,21 +149,12 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -171,9 +164,20 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -202,25 +206,26 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { StacksTransaction } from '@stacks/transactions';
-import { Box, HStack, Stack } from 'leather-styles/jsx';
+import { HStack, styled } from 'leather-styles/jsx';
 &nbsp;
+import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
 import { useStacksExplorerLink } from '@app/common/hooks/use-stacks-explorer-link';
 import { getTxSenderAddress } from '@app/common/transactions/stacks/transaction.utils';
-import { usePressable } from '@app/components/item-hover';
 import { TransactionTitle } from '@app/components/transaction/transaction-title';
+import { ItemLayout } from '@app/ui/components/item-layout/item-layout';
 import { BasicTooltip } from '@app/ui/components/tooltip/basic-tooltip';
 import { Caption } from '@app/ui/components/typography/caption';
-import { Title } from '@app/ui/components/typography/title';
+import { Pressable } from '@app/ui/pressable/pressable';
 &nbsp;
 import { SubmittedTransactionIcon } from './submitted-transaction-icon';
 import { getSubmittedTransactionDetails } from './submitted-transaction-list.utils';
 &nbsp;
 interface SubmittedTransactionItemProps {
   transaction: StacksTransaction;
-  txId: string;
+  txid: string;
 }
-export function <span class="fstat-no" title="function not covered" >SubmittedTransactionItem({</span> transaction, txId }: SubmittedTransactionItemProps) {
-  const [component, bind] = <span class="cstat-no" title="statement not covered" >usePressable(true);</span>
+export function <span class="fstat-no" title="function not covered" >SubmittedTransactionItem({</span> transaction, txid }: SubmittedTransactionItemProps) {
+  const analytics = <span class="cstat-no" title="statement not covered" >useAnalytics();</span>
   const { handleOpenStacksTxLink } = <span class="cstat-no" title="statement not covered" >useStacksExplorerLink();</span>
 &nbsp;
 <span class="cstat-no" title="statement not covered" >  if (!transaction) <span class="cstat-no" title="statement not covered" >return null;</span></span>
@@ -228,46 +233,47 @@ export function <span class="fstat-no" title="function not covered" >SubmittedTr
   const submittedTransactionDetails = <span class="cstat-no" title="statement not covered" >getSubmittedTransactionDetails({</span>
     payload: transaction.payload,
     senderAddress: getTxSenderAddress(transaction),
-    txId,
+    txid,
   });
+&nbsp;
+  const openTxLink = <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >() =&gt; {</span></span>
+<span class="cstat-no" title="statement not covered" >    void analytics.track('view_transaction');</span>
+<span class="cstat-no" title="statement not covered" >    handleOpenStacksTxLink({</span>
+      searchParams: new URLSearchParams('&amp;submitted=true'),
+      txid,
+    });
+  };
 &nbsp;
 <span class="cstat-no" title="statement not covered" >  if (!submittedTransactionDetails) <span class="cstat-no" title="statement not covered" >return null;</span></span>
 &nbsp;
   const { caption, title, value } = <span class="cstat-no" title="statement not covered" >submittedTransactionDetails;</span>
 &nbsp;
 <span class="cstat-no" title="statement not covered" >  return (</span>
-    &lt;Box {...bind}&gt;
-      &lt;HStack
-        alignItems="center"
-        onClick={<span class="fstat-no" title="function not covered" >() =&gt;</span>
-<span class="cstat-no" title="statement not covered" >          handleOpenStacksTxLink({</span>
-            searchParams: new URLSearchParams('&amp;submitted=true'),
-            txid: txId,
-          })
+    &lt;Pressable onClick={openTxLink} my="space.02"&gt;
+      &lt;ItemLayout
+        flagImg={&lt;SubmittedTransactionIcon transaction={transaction} /&gt;}
+        titleLeft={&lt;TransactionTitle title={title} /&gt;}
+        captionLeft={
+          &lt;HStack alignItems="center"&gt;
+            &lt;Caption
+              overflow="hidden"
+              textOverflow="ellipsis"
+              maxWidth={{ base: '160px', md: 'unset' }}
+            &gt;
+              {caption}
+            &lt;/Caption&gt;
+            &lt;BasicTooltip
+              asChild
+              side="bottom"
+              label={'Transaction broadcasted, but not yet in the mempool'}
+            &gt;
+              &lt;Caption color="yellow.action-primary-default"&gt;Submitted&lt;/Caption&gt;
+            &lt;/BasicTooltip&gt;
+          &lt;/HStack&gt;
         }
-        position="relative"
-        gap="space.04"
-        zIndex={2}
-      &gt;
-        &lt;SubmittedTransactionIcon transaction={transaction} /&gt;
-        &lt;HStack alignItems="center" flexGrow={1} justifyContent="space-between"&gt;
-          &lt;Stack minWidth="0px" gap="space.03"&gt;
-            &lt;TransactionTitle title={title} /&gt;
-            &lt;Stack flexWrap="wrap"&gt;
-              &lt;Caption&gt;{caption}&lt;/Caption&gt;
-              &lt;BasicTooltip
-                side="bottom"
-                label={'Transaction broadcasted, but not yet in the mempool'}
-              &gt;
-                &lt;Caption&gt;Submitted&lt;/Caption&gt;
-              &lt;/BasicTooltip&gt;
-            &lt;/Stack&gt;
-          &lt;/Stack&gt;
-          &lt;Box alignItems="flex-end"&gt;{value &amp;&amp; &lt;Title fontWeight="normal"&gt;{value}&lt;/Title&gt;}&lt;/Box&gt;
-        &lt;/HStack&gt;
-      &lt;/HStack&gt;
-      {component}
-    &lt;/Box&gt;
+        titleRight={&lt;styled.span textStyle="label.02"&gt;{value}&lt;/styled.span&gt;}
+      /&gt;
+    &lt;/Pressable&gt;
   );
 }
 &nbsp;</pre></td></tr></table></pre>
@@ -277,7 +283,7 @@ export function <span class="fstat-no" title="function not covered" >SubmittedTr
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-06-10T10:04:08.849Z
+                at 2024-06-17T15:15:55.299Z
             </div>
         <script src="../../../../../../../prettify.js"></script>
         <script>

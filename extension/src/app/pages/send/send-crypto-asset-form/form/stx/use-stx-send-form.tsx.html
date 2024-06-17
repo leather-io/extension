@@ -25,7 +25,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/22</span>
+                <span class='fraction'>0/23</span>
             </div>
         
             
@@ -46,7 +46,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/20</span>
+                <span class='fraction'>0/21</span>
             </div>
         
             
@@ -156,7 +156,12 @@
 <a name='L91'></a><a href='#L91'>91</a>
 <a name='L92'></a><a href='#L92'>92</a>
 <a name='L93'></a><a href='#L93'>93</a>
-<a name='L94'></a><a href='#L94'>94</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L94'></a><a href='#L94'>94</a>
+<a name='L95'></a><a href='#L95'>95</a>
+<a name='L96'></a><a href='#L96'>96</a>
+<a name='L97'></a><a href='#L97'>97</a>
+<a name='L98'></a><a href='#L98'>98</a>
+<a name='L99'></a><a href='#L99'>99</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -184,6 +189,11 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -251,11 +261,17 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { useMemo } from 'react';
 &nbsp;
-import { convertAmountToBaseUnit } from '@leather-wallet/utils';
 import { FormikHelpers } from 'formik';
 import * as yup from 'yup';
 &nbsp;
-import { STX_DECIMALS } from '@shared/constants';
+import { STX_DECIMALS } from '@leather-wallet/constants';
+import {
+  useCalculateStacksTxFees,
+  useStacksValidateFeeByNonce,
+  useStxAvailableUnlockedBalance,
+} from '@leather-wallet/query';
+import { convertAmountToBaseUnit } from '@leather-wallet/utils';
+&nbsp;
 import { logger } from '@shared/logger';
 import { StacksSendFormValues } from '@shared/models/form.model';
 &nbsp;
@@ -265,9 +281,7 @@ import {
 } from '@app/common/validation/forms/amount-validators';
 import { stxFeeValidator } from '@app/common/validation/forms/fee-validators';
 import { useUpdatePersistedSendFormValues } from '@app/features/popup-send-form-restoration/use-update-persisted-send-form-values';
-import { useCurrentStxAvailableUnlockedBalance } from '@app/query/stacks/balance/account-balance.hooks';
-import { useCalculateStacksTxFees } from '@app/query/stacks/fees/fees.hooks';
-import { useStacksValidateFeeByNonce } from '@app/query/stacks/mempool/mempool.hooks';
+import { useCurrentStacksAccountAddress } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
 import {
   useGenerateStxTokenTransferUnsignedTx,
   useStxTokenTransferUnsignedTxState,
@@ -282,8 +296,9 @@ export function <span class="fstat-no" title="function not covered" >useStxSendF
   const generateTx = <span class="cstat-no" title="statement not covered" >useGenerateStxTokenTransferUnsignedTx();</span>
   const { onFormStateChange } = <span class="cstat-no" title="statement not covered" >useUpdatePersistedSendFormValues();</span>
   const sendFormNavigate = <span class="cstat-no" title="statement not covered" >useSendFormNavigate();</span>
-  const { changeFeeByNonce } = <span class="cstat-no" title="statement not covered" >useStacksValidateFeeByNonce();</span>
-  const availableUnlockedBalance = <span class="cstat-no" title="statement not covered" >useCurrentStxAvailableUnlockedBalance();</span>
+  const address = <span class="cstat-no" title="statement not covered" >useCurrentStacksAccountAddress();</span>
+  const { changeFeeByNonce } = <span class="cstat-no" title="statement not covered" >useStacksValidateFeeByNonce(address);</span>
+  const availableUnlockedBalance = <span class="cstat-no" title="statement not covered" >useStxAvailableUnlockedBalance(address);</span>
 &nbsp;
   const sendMaxBalance = <span class="cstat-no" title="statement not covered" >useMemo(</span>
 <span class="fstat-no" title="function not covered" >    () =&gt;</span>
@@ -349,7 +364,7 @@ export function <span class="fstat-no" title="function not covered" >useStxSendF
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-06-10T10:04:08.849Z
+                at 2024-06-17T15:15:55.299Z
             </div>
         <script src="../../../../../../../../prettify.js"></script>
         <script>

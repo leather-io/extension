@@ -25,28 +25,28 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/6</span>
+                <span class='fraction'>0/15</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
+                <span class="strong">0% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/0</span>
+                <span class='fraction'>0/2</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/5</span>
+                <span class='fraction'>0/9</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/6</span>
+                <span class='fraction'>0/14</span>
             </div>
         
             
@@ -90,7 +90,47 @@
 <a name='L25'></a><a href='#L25'>25</a>
 <a name='L26'></a><a href='#L26'>26</a>
 <a name='L27'></a><a href='#L27'>27</a>
-<a name='L28'></a><a href='#L28'>28</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L28'></a><a href='#L28'>28</a>
+<a name='L29'></a><a href='#L29'>29</a>
+<a name='L30'></a><a href='#L30'>30</a>
+<a name='L31'></a><a href='#L31'>31</a>
+<a name='L32'></a><a href='#L32'>32</a>
+<a name='L33'></a><a href='#L33'>33</a>
+<a name='L34'></a><a href='#L34'>34</a>
+<a name='L35'></a><a href='#L35'>35</a>
+<a name='L36'></a><a href='#L36'>36</a>
+<a name='L37'></a><a href='#L37'>37</a>
+<a name='L38'></a><a href='#L38'>38</a>
+<a name='L39'></a><a href='#L39'>39</a>
+<a name='L40'></a><a href='#L40'>40</a>
+<a name='L41'></a><a href='#L41'>41</a>
+<a name='L42'></a><a href='#L42'>42</a>
+<a name='L43'></a><a href='#L43'>43</a>
+<a name='L44'></a><a href='#L44'>44</a>
+<a name='L45'></a><a href='#L45'>45</a>
+<a name='L46'></a><a href='#L46'>46</a>
+<a name='L47'></a><a href='#L47'>47</a>
+<a name='L48'></a><a href='#L48'>48</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -117,28 +157,48 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { useMemo } from 'react';
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { useCallback, useMemo } from 'react';
 &nbsp;
+import type { MempoolTransaction } from '@stacks/stacks-blockchain-api-types';
+&nbsp;
+import { safelyFormatHexTxid } from '@app/common/utils/safe-handle-txid';
 import { useAppDispatch } from '@app/store';
 &nbsp;
 import { submittedTransactionsActions } from './submitted-transactions.actions';
+import { useSubmittedTransactions } from './submitted-transactions.selectors';
 import { SubmittedTransaction } from './submitted-transactions.slice';
+&nbsp;
+export function <span class="fstat-no" title="function not covered" >useUpdateSubmittedTransactions() {</span>
+  const submittedTransactions = <span class="cstat-no" title="statement not covered" >useSubmittedTransactions();</span>
+  const submittedTransactionsActions = <span class="cstat-no" title="statement not covered" >useSubmittedTransactionsActions();</span>
+<span class="cstat-no" title="statement not covered" >  return useCallback(</span>
+<span class="fstat-no" title="function not covered" >    (d</span>ata: MempoolTransaction[]) =&gt; {
+      const pendingTxids = <span class="cstat-no" title="statement not covered" >data.map(<span class="fstat-no" title="function not covered" >tx =&gt; <span class="cstat-no" title="statement not covered" >t</span>x.tx_id)</span>;</span>
+<span class="cstat-no" title="statement not covered" >      submittedTransactions.map(<span class="fstat-no" title="function not covered" >tx =&gt; {</span></span>
+<span class="cstat-no" title="statement not covered" >        if (pendingTxids.includes(safelyFormatHexTxid(tx.txid)))</span>
+<span class="cstat-no" title="statement not covered" >          return submittedTransactionsActions.transactionEnteredMempool(tx.txid);</span>
+<span class="cstat-no" title="statement not covered" >        return;</span>
+      });
+    },
+    [submittedTransactions, submittedTransactionsActions]
+  );
+}
 &nbsp;
 export function <span class="fstat-no" title="function not covered" >useSubmittedTransactionsActions() {</span>
   const dispatch = <span class="cstat-no" title="statement not covered" >useAppDispatch();</span>
 &nbsp;
 <span class="cstat-no" title="statement not covered" >  return useMemo(</span>
 <span class="fstat-no" title="function not covered" >    () =&gt; (<span class="cstat-no" title="statement not covered" >{</span></span>
-<span class="fstat-no" title="function not covered" >      newTransactionSubmitted({</span> rawTx, txId }: SubmittedTransaction) {
-<span class="cstat-no" title="statement not covered" >        return dispatch(submittedTransactionsActions.newTransactionSubmitted({ rawTx, txId }));</span>
+<span class="fstat-no" title="function not covered" >      newTransactionSubmitted({</span> rawTx, txid }: SubmittedTransaction) {
+<span class="cstat-no" title="statement not covered" >        return dispatch(submittedTransactionsActions.newTransactionSubmitted({ rawTx, txid }));</span>
       },
 &nbsp;
-<span class="fstat-no" title="function not covered" >      transactionEnteredMempool(t</span>xId: string) {
-<span class="cstat-no" title="statement not covered" >        return dispatch(submittedTransactionsActions.transactionEnteredMempool(txId));</span>
+<span class="fstat-no" title="function not covered" >      transactionEnteredMempool(t</span>xid: string) {
+<span class="cstat-no" title="statement not covered" >        return dispatch(submittedTransactionsActions.transactionEnteredMempool(txid));</span>
       },
 &nbsp;
-<span class="fstat-no" title="function not covered" >      transactionReplacedByFee(t</span>xId: string) {
-<span class="cstat-no" title="statement not covered" >        return dispatch(submittedTransactionsActions.transactionReplacedByFee(txId));</span>
+<span class="fstat-no" title="function not covered" >      transactionReplacedByFee(t</span>xid: string) {
+<span class="cstat-no" title="statement not covered" >        return dispatch(submittedTransactionsActions.transactionReplacedByFee(txid));</span>
       },
     }),
     [dispatch]
@@ -151,7 +211,7 @@ export function <span class="fstat-no" title="function not covered" >useSubmitte
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-06-10T10:04:08.849Z
+                at 2024-06-17T15:15:55.299Z
             </div>
         <script src="../../../../../prettify.js"></script>
         <script>

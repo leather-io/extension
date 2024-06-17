@@ -25,14 +25,14 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/5</span>
+                <span class='fraction'>0/10</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/2</span>
+                <span class='fraction'>0/8</span>
             </div>
         
             
@@ -46,7 +46,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/5</span>
+                <span class='fraction'>0/9</span>
             </div>
         
             
@@ -88,7 +88,30 @@
 <a name='L23'></a><a href='#L23'>23</a>
 <a name='L24'></a><a href='#L24'>24</a>
 <a name='L25'></a><a href='#L25'>25</a>
-<a name='L26'></a><a href='#L26'>26</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L26'></a><a href='#L26'>26</a>
+<a name='L27'></a><a href='#L27'>27</a>
+<a name='L28'></a><a href='#L28'>28</a>
+<a name='L29'></a><a href='#L29'>29</a>
+<a name='L30'></a><a href='#L30'>30</a>
+<a name='L31'></a><a href='#L31'>31</a>
+<a name='L32'></a><a href='#L32'>32</a>
+<a name='L33'></a><a href='#L33'>33</a>
+<a name='L34'></a><a href='#L34'>34</a>
+<a name='L35'></a><a href='#L35'>35</a>
+<a name='L36'></a><a href='#L36'>36</a>
+<a name='L37'></a><a href='#L37'>37</a>
+<a name='L38'></a><a href='#L38'>38</a>
+<a name='L39'></a><a href='#L39'>39</a>
+<a name='L40'></a><a href='#L40'>40</a>
+<a name='L41'></a><a href='#L41'>41</a>
+<a name='L42'></a><a href='#L42'>42</a>
+<a name='L43'></a><a href='#L43'>43</a>
+<a name='L44'></a><a href='#L44'>44</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -103,6 +126,19 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -115,19 +151,37 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { cvToString, deserializeCV, getCVTypeString } from '@stacks/transactions';
 &nbsp;
+import { useContractFunction } from '@leather-wallet/query';
+import { formatContractId } from '@leather-wallet/utils';
+&nbsp;
+import { logger } from '@shared/logger';
+&nbsp;
 import { Row } from '@app/features/stacks-transaction-request/row';
-import { useContractFunction } from '@app/query/stacks/contract/contract.hooks';
+import { useTransactionRequestState } from '@app/store/transactions/requests.hooks';
 &nbsp;
 interface FunctionArgumentProps {
   arg: string;
   index: number;
 }
 &nbsp;
-export function <span class="fstat-no" title="function not covered" >FunctionArgumentItem(p</span>rops: FunctionArgumentProps): React.JSX.Element {
+export function <span class="fstat-no" title="function not covered" >FunctionArgumentItem(p</span>rops: FunctionArgumentProps) {
   const { arg, index, ...rest } = <span class="cstat-no" title="statement not covered" >props;</span>
-  const contractFunction = <span class="cstat-no" title="statement not covered" >useContractFunction();</span>
+  const transactionRequest = <span class="cstat-no" title="statement not covered" >useTransactionRequestState();</span>
+  const contractFunction = <span class="cstat-no" title="statement not covered" >useContractFunction(transactionRequest);</span>
   const argCV = <span class="cstat-no" title="statement not covered" >deserializeCV(Buffer.from(arg, 'hex'));</span>
   const strValue = <span class="cstat-no" title="statement not covered" >cvToString(argCV);</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >  if (!transactionRequest || transactionRequest.txType !== 'contract_call') <span class="cstat-no" title="statement not covered" >return null;</span></span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >  if (!contractFunction) {</span>
+<span class="cstat-no" title="statement not covered" >    logger.error(</span>
+      `Attempting to call a function (\`${transactionRequest.functionName}\`) that ` +
+        `does not exist on contract ${formatContractId(
+          transactionRequest.contractAddress,
+          transactionRequest.contractName
+        )}`
+    );
+  }
 &nbsp;
 <span class="cstat-no" title="statement not covered" >  return (</span>
     &lt;Row
@@ -145,7 +199,7 @@ export function <span class="fstat-no" title="function not covered" >FunctionArg
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-06-10T10:04:08.849Z
+                at 2024-06-17T15:15:55.299Z
             </div>
         <script src="../../../../../../prettify.js"></script>
         <script>

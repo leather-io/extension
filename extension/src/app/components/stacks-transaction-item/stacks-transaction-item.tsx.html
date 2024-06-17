@@ -25,14 +25,14 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/31</span>
+                <span class='fraction'>0/30</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/31</span>
+                <span class='fraction'>0/35</span>
             </div>
         
             
@@ -46,7 +46,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/29</span>
+                <span class='fraction'>0/28</span>
             </div>
         
             
@@ -161,7 +161,18 @@
 <a name='L96'></a><a href='#L96'>96</a>
 <a name='L97'></a><a href='#L97'>97</a>
 <a name='L98'></a><a href='#L98'>98</a>
-<a name='L99'></a><a href='#L99'>99</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L99'></a><a href='#L99'>99</a>
+<a name='L100'></a><a href='#L100'>100</a>
+<a name='L101'></a><a href='#L101'>101</a>
+<a name='L102'></a><a href='#L102'>102</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -200,30 +211,14 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -231,11 +226,22 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -259,9 +265,10 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { createSearchParams, useLocation, useNavigate } from 'react-router-dom';
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { useLocation, useNavigate } from 'react-router-dom';
 &nbsp;
-import { StacksTx, TxTransferDetails } from '@shared/models/transactions/stacks-transaction.model';
+import { StacksTx } from '@leather-wallet/models';
+&nbsp;
 import { RouteUrls } from '@shared/route-urls';
 &nbsp;
 import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
@@ -277,7 +284,6 @@ import { whenPageMode } from '@app/common/utils';
 import { openIndexPageInNewTab } from '@app/common/utils/open-in-new-tab';
 import { TransactionTitle } from '@app/components/transaction/transaction-title';
 import { useCurrentStacksAccount } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
-import { useRawTxIdState } from '@app/store/transactions/raw.hooks';
 &nbsp;
 import { TransactionItemLayout } from '../transaction-item/transaction-item.layout';
 import { IncreaseFeeButton } from './increase-fee-button';
@@ -285,57 +291,60 @@ import { StacksTransactionIcon } from './stacks-transaction-icon';
 import { StacksTransactionStatus } from './stacks-transaction-status';
 &nbsp;
 interface StacksTransactionItemProps {
-  transferDetails?: TxTransferDetails;
+  caption?: string;
+  icon?: React.JSX.Element;
+  link?: string;
+  title?: string;
+  value?: string;
   transaction?: StacksTx;
 }
 export function <span class="fstat-no" title="function not covered" >StacksTransactionItem({</span>
-  transferDetails,
+  caption,
+  icon,
+  link,
+  title,
+  value,
   transaction,
 }: StacksTransactionItemProps) {
   const { handleOpenStacksTxLink } = <span class="cstat-no" title="statement not covered" >useStacksExplorerLink();</span>
   const currentAccount = <span class="cstat-no" title="statement not covered" >useCurrentStacksAccount();</span>
   const analytics = <span class="cstat-no" title="statement not covered" >useAnalytics();</span>
-  const [_, setRawTxId] = <span class="cstat-no" title="statement not covered" >useRawTxIdState();</span>
   const { pathname } = <span class="cstat-no" title="statement not covered" >useLocation();</span>
   const navigate = <span class="cstat-no" title="statement not covered" >useNavigate();</span>
   const { whenWallet } = <span class="cstat-no" title="statement not covered" >useWalletType();</span>
 &nbsp;
-<span class="cstat-no" title="statement not covered" >  if (!transaction &amp;&amp; !transferDetails) <span class="cstat-no" title="statement not covered" >return null;</span></span>
+  const hasTransferDetailsData = <span class="cstat-no" title="statement not covered" >!!caption &amp;&amp; !!title &amp;&amp; !!value &amp;&amp; !!link;</span>
+<span class="cstat-no" title="statement not covered" >  if (!transaction &amp;&amp; !hasTransferDetailsData) <span class="cstat-no" title="statement not covered" >return null;</span></span>
 &nbsp;
   const openTxLink = <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >() =&gt; {</span></span>
 <span class="cstat-no" title="statement not covered" >    void analytics.track('view_transaction');</span>
 <span class="cstat-no" title="statement not covered" >    handleOpenStacksTxLink({</span>
-      txid: transaction?.tx_id || transferDetails?.link || '',
+      txid: transaction?.tx_id || link || '',
     });
   };
 &nbsp;
   const onIncreaseFee = <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >() =&gt; {</span></span>
 <span class="cstat-no" title="statement not covered" >    if (!transaction) <span class="cstat-no" title="statement not covered" >return;</span></span>
-<span class="cstat-no" title="statement not covered" >    setRawTxId(transaction.tx_id);</span>
 &nbsp;
-    const urlSearchParams = <span class="cstat-no" title="statement not covered" >`?${createSearchParams({ txId: transaction.tx_id })}`;</span>
+    const routeUrl = <span class="cstat-no" title="statement not covered" >RouteUrls.IncreaseStxFee.replace(':txid', transaction.tx_id);</span>
 &nbsp;
 <span class="cstat-no" title="statement not covered" >    whenWallet({</span>
       ledger: <span class="fstat-no" title="function not covered" >() =&gt;</span>
 <span class="cstat-no" title="statement not covered" >        whenPageMode({</span>
-          full: <span class="fstat-no" title="function not covered" >() =&gt; <span class="cstat-no" title="statement not covered" >n</span>avigate(RouteUrls.IncreaseStxFee),</span>
-          popup: <span class="fstat-no" title="function not covered" >() =&gt; <span class="cstat-no" title="statement not covered" >o</span>penIndexPageInNewTab(RouteUrls.IncreaseStxFee, urlSearchParams),</span>
+          full: <span class="fstat-no" title="function not covered" >() =&gt; <span class="cstat-no" title="statement not covered" >n</span>avigate(routeUrl),</span>
+          popup: <span class="fstat-no" title="function not covered" >() =&gt; <span class="cstat-no" title="statement not covered" >o</span>penIndexPageInNewTab(routeUrl),</span>
         })(),
-      software: <span class="fstat-no" title="function not covered" >() =&gt; <span class="cstat-no" title="statement not covered" >n</span>avigate(RouteUrls.IncreaseStxFee),</span>
+      software: <span class="fstat-no" title="function not covered" >() =&gt; <span class="cstat-no" title="statement not covered" >n</span>avigate(routeUrl),</span>
     })();
   };
 &nbsp;
   const isOriginator = <span class="cstat-no" title="statement not covered" >transaction?.sender_address === currentAccount?.address;</span>
   const isPending = <span class="cstat-no" title="statement not covered" >transaction &amp;&amp; isPendingTx(transaction);</span>
 &nbsp;
-  const caption = <span class="cstat-no" title="statement not covered" >transaction ? getTxCaption(transaction) : transferDetails?.caption || '';</span>
-  const txIcon = <span class="cstat-no" title="statement not covered" >transaction ? (</span>
-    &lt;StacksTransactionIcon transaction={transaction} /&gt;
-  ) : (
-    transferDetails?.icon
-  );
-  const title = <span class="cstat-no" title="statement not covered" >transaction ? getTxTitle(transaction) : transferDetails?.title || '';</span>
-  const value = <span class="cstat-no" title="statement not covered" >transaction ? getTxValue(transaction, isOriginator) : transferDetails?.value;</span>
+  const txCaption = <span class="cstat-no" title="statement not covered" >transaction ? getTxCaption(transaction) : caption || '';</span>
+  const txIcon = <span class="cstat-no" title="statement not covered" >transaction ? &lt;StacksTransactionIcon transaction={transaction} /&gt; : icon;</span>
+  const txTitle = <span class="cstat-no" title="statement not covered" >transaction ? getTxTitle(transaction) : title || '';</span>
+  const txValue = <span class="cstat-no" title="statement not covered" >transaction ? getTxValue(transaction, isOriginator) : value;</span>
   const increaseFeeButton = (
 <span class="cstat-no" title="statement not covered" >    &lt;IncreaseFeeButton</span>
       isEnabled={isOriginator &amp;&amp; isPending}
@@ -349,11 +358,11 @@ export function <span class="fstat-no" title="function not covered" >StacksTrans
     &lt;TransactionItemLayout
       openTxLink={openTxLink}
       rightElement={isOriginator &amp;&amp; isPending ? increaseFeeButton : undefined}
-      txCaption={caption}
+      txCaption={txCaption}
       txIcon={txIcon}
       txStatus={txStatus}
-      txTitle={&lt;TransactionTitle title={title} /&gt;}
-      txValue={value}
+      txTitle={&lt;TransactionTitle title={txTitle} /&gt;}
+      txValue={txValue}
     /&gt;
   );
 }
@@ -364,7 +373,7 @@ export function <span class="fstat-no" title="function not covered" >StacksTrans
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-06-10T10:04:08.849Z
+                at 2024-06-17T15:15:55.299Z
             </div>
         <script src="../../../../../prettify.js"></script>
         <script>
