@@ -5,7 +5,8 @@ import { Box } from 'leather-styles/jsx';
 
 import { useInscriptions } from '@leather-wallet/query';
 
-import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
+import { analytics } from '@shared/utils/analytics';
+
 import { useCurrentAccountNativeSegwitIndexZeroSigner } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
 import { useCurrentTaprootAccount } from '@app/store/accounts/blockchain/bitcoin/taproot-account.hooks';
 
@@ -23,7 +24,7 @@ export function Ordinals({ setIsLoadingMore }: OrdinalsProps) {
     nativeSegwitAddress: nativeSegwitSigner.address,
   });
   const pages = query.data?.pages;
-  const analytics = useAnalytics();
+
   const { ref: intersectionSentinel, inView } = useInView({
     rootMargin: '0% 0% 20% 0%',
   });
@@ -54,7 +55,7 @@ export function Ordinals({ setIsLoadingMore }: OrdinalsProps) {
       });
       void analytics.identify({ ordinals_count: inscriptionsLength });
     }
-  }, [pages, analytics]);
+  }, [pages]);
 
   if (!pages) return null;
 

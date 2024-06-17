@@ -1,9 +1,8 @@
 import { useMemo } from 'react';
 
-import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
+import { analytics } from '@shared/utils/analytics';
 
 export function useLedgerAnalytics() {
-  const analytics = useAnalytics();
   return useMemo(
     () => ({
       trackDeviceVersionInfo(info: object) {
@@ -25,6 +24,6 @@ export function useLedgerAnalytics() {
         void analytics.track('ledger_public_keys_pulled_from_device');
       },
     }),
-    [analytics]
+    []
   );
 }

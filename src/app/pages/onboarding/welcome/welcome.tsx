@@ -3,8 +3,8 @@ import { Outlet, useNavigate } from 'react-router-dom';
 
 import { RouteUrls } from '@shared/route-urls';
 import { closeWindow } from '@shared/utils';
+import { analytics } from '@shared/utils/analytics';
 
-import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
 import { useOnboardingState } from '@app/common/hooks/auth/use-onboarding-state';
 import { useKeyActions } from '@app/common/hooks/use-key-actions';
 import { doesBrowserSupportWebUsbApi, isPopupMode, whenPageMode } from '@app/common/utils';
@@ -14,7 +14,7 @@ import { WelcomeLayout } from '@app/ui/pages/welcome.layout';
 export function WelcomePage() {
   const navigate = useNavigate();
   const { decodedAuthRequest } = useOnboardingState();
-  const analytics = useAnalytics();
+
   const keyActions = useKeyActions();
 
   const [isGeneratingWallet, setIsGeneratingWallet] = useState(false);
@@ -34,7 +34,7 @@ export function WelcomePage() {
       navigate(RouteUrls.SetPassword);
     }
     navigate(RouteUrls.BackUpSecretKey);
-  }, [keyActions, analytics, decodedAuthRequest, navigate]);
+  }, [keyActions, decodedAuthRequest, navigate]);
 
   useEffect(() => {
     return () => setIsGeneratingWallet(false);

@@ -1,7 +1,7 @@
 import { finalizeMessageSignature } from '@shared/actions/finalize-message-signature';
 import { isStructuredMessageType, isUtf8MessageType } from '@shared/signature/signature-types';
+import { analytics } from '@shared/utils/analytics';
 
-import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
 import {
   getSignaturePayloadFromToken,
   getStructuredDataPayloadFromToken,
@@ -45,8 +45,6 @@ export function useStacksMessageRequestPayload() {
 }
 
 export function useSignStacksMessageRequest() {
-  const analytics = useAnalytics();
-
   const { requestToken, tabId } = useSignatureRequestSearchParams();
   if (!tabId) throw new Error('Requests can only be made with corresponding tab');
   if (!requestToken) throw new Error('Missing request token');

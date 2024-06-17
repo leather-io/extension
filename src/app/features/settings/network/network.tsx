@@ -5,8 +5,8 @@ import { SettingsSelectors } from '@tests/selectors/settings.selectors';
 import { WalletDefaultNetworkConfigurationIds } from '@leather-wallet/models';
 
 import { RouteUrls } from '@shared/route-urls';
+import { analytics } from '@shared/utils/analytics';
 
-import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
 import { NetworkListItem } from '@app/features/settings/network/network-list-item';
 import { useCurrentNetworkState, useNetworksActions } from '@app/store/networks/networks.hooks';
 import { useNetworks } from '@app/store/networks/networks.selectors';
@@ -24,7 +24,7 @@ interface NetworkDialogProps {
 export function NetworkDialog({ onClose }: NetworkDialogProps) {
   const navigate = useNavigate();
   const networks = useNetworks();
-  const analytics = useAnalytics();
+
   const networksActions = useNetworksActions();
   const currentNetwork = useCurrentNetworkState();
 

@@ -9,8 +9,8 @@ import { useBitcoinBroadcastTransaction } from '@leather-wallet/query';
 import { createMoney, formatMoney, formatMoneyPadded, sumMoney } from '@leather-wallet/utils';
 
 import { RouteUrls } from '@shared/route-urls';
+import { analytics } from '@shared/utils/analytics';
 
-import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
 import {
   InfoCardAssetValue,
   InfoCardRow,
@@ -43,7 +43,6 @@ function useBrc20SendFormConfirmationState() {
 
 export function Brc20SendFormConfirmation() {
   const navigate = useNavigate();
-  const analytics = useAnalytics();
 
   const { amount, recipient, fee, ticker, serviceFee, tx, orderId, feeRowValue, holderAddress } =
     useBrc20SendFormConfirmationState();

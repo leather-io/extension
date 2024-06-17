@@ -1,5 +1,6 @@
+import { analytics } from '@shared/utils/analytics';
+
 import { useCurrentAccountDisplayName } from '@app/common/hooks/account/use-account-names';
-import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
 import { copyToClipboard } from '@app/common/utils/copy-to-clipboard';
 import { useToast } from '@app/features/toasts/use-toast';
 import { useBackgroundLocationRedirect } from '@app/routes/hooks/use-background-location-redirect';
@@ -11,7 +12,7 @@ export function ReceiveStxModal() {
   useBackgroundLocationRedirect();
   const toast = useToast();
   const currentAccount = useCurrentStacksAccount();
-  const analytics = useAnalytics();
+
   const accountName = useCurrentAccountDisplayName();
 
   if (!currentAccount) return null;

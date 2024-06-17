@@ -7,8 +7,8 @@ import { wordlist } from '@scure/bip39/wordlists/english';
 import { delay } from '@leather-wallet/utils';
 
 import { RouteUrls } from '@shared/route-urls';
+import { analytics } from '@shared/utils/analytics';
 
-import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
 import { useLoading } from '@app/common/hooks/use-loading';
 import { useAppDispatch } from '@app/store';
 import { inMemoryKeyActions } from '@app/store/in-memory-key/in-memory-key.actions';
@@ -24,7 +24,6 @@ export function useSignIn() {
 
   const { isLoading, setIsLoading, setIsIdle } = useLoading('useSignIn');
   const navigate = useNavigate();
-  const analytics = useAnalytics();
 
   const textAreaRef = useRef<HTMLTextAreaElement | null>(null);
 
@@ -39,7 +38,7 @@ export function useSignIn() {
       void analytics.track('submit_invalid_secret_key');
       return;
     },
-    [analytics, setError, setIsIdle]
+    [setError, setIsIdle]
   );
 
   const submitMnemonicForm = useCallback(
@@ -64,7 +63,7 @@ export function useSignIn() {
       navigate(RouteUrls.SetPassword);
       setIsIdle();
     },
-    [setIsLoading, dispatch, analytics, navigate, setIsIdle, handleSetError]
+    [setIsLoading, dispatch, navigate, setIsIdle, handleSetError]
   );
 
   const toggleKeyMask = useCallback(() => {

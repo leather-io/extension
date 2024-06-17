@@ -1,6 +1,7 @@
 import { useCallback } from 'react';
 
-import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
+import { analytics } from '@shared/utils/analytics';
+
 import { UserSelectedTheme, themeLabelMap, useThemeSwitcher } from '@app/common/theme-provider';
 import { Dialog } from '@app/ui/components/containers/dialog/dialog';
 import { DialogHeader } from '@app/ui/components/containers/headers/dialog-header';
@@ -13,7 +14,7 @@ interface ThemeDialogProps {
 
 export function ThemeDialog({ onClose }: ThemeDialogProps) {
   const themes = Object.keys(themeLabelMap) as UserSelectedTheme[];
-  const analytics = useAnalytics();
+
   const { setUserSelectedTheme } = useThemeSwitcher();
 
   const handleThemeSelected = useCallback(
@@ -23,7 +24,7 @@ export function ThemeDialog({ onClose }: ThemeDialogProps) {
       });
       setUserSelectedTheme(theme);
     },
-    [analytics, setUserSelectedTheme]
+    [setUserSelectedTheme]
   );
 
   const { userSelectedTheme } = useThemeSwitcher();

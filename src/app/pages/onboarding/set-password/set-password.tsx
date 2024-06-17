@@ -9,9 +9,9 @@ import * as yup from 'yup';
 import { isUndefined } from '@leather-wallet/utils';
 
 import { RouteUrls } from '@shared/route-urls';
+import { analytics } from '@shared/utils/analytics';
 
 import { useFinishAuthRequest } from '@app/common/authentication/use-finish-auth-request';
-import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
 import { useOnboardingState } from '@app/common/hooks/auth/use-onboarding-state';
 import { useKeyActions } from '@app/common/hooks/use-key-actions';
 import {
@@ -49,11 +49,10 @@ function SetPasswordPage() {
   const finishSignIn = useFinishAuthRequest();
   const navigate = useNavigate();
   const { decodedAuthRequest } = useOnboardingState();
-  const analytics = useAnalytics();
 
   useEffect(() => {
     void analytics.page('view', '/set-password');
-  }, [analytics]);
+  }, []);
 
   const submit = useCallback(
     async (password: string) => {
@@ -85,7 +84,7 @@ function SetPasswordPage() {
       }
       setLoading(false);
     },
-    [strengthResult, submit, analytics]
+    [strengthResult, submit]
   );
 
   const validationSchema = yup.object({

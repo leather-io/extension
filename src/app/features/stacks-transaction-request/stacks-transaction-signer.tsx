@@ -17,8 +17,8 @@ import { stxToMicroStx } from '@leather-wallet/utils';
 
 import { StacksTransactionFormValues } from '@shared/models/form.model';
 import { RouteUrls } from '@shared/route-urls';
+import { analytics } from '@shared/utils/analytics';
 
-import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
 import { useOnMount } from '@app/common/hooks/use-on-mount';
 import { stxFeeValidator } from '@app/common/validation/forms/fee-validators';
 import { nonceValidator } from '@app/common/validation/nonce-validators';
@@ -58,7 +58,7 @@ export function StacksTransactionSigner({
   const [isShowingHighFeeConfirmation, setIsShowingHighFeeConfirmation] = useState(false);
   const transactionRequest = useTransactionRequestState();
   const { data: stxFees } = useCalculateStacksTxFees(stacksTransaction);
-  const analytics = useAnalytics();
+
   const stxAddress = useCurrentStacksAccountAddress();
   const availableUnlockedBalance = useStxAvailableUnlockedBalance(stxAddress);
   const navigate = useNavigate();
@@ -66,7 +66,7 @@ export function StacksTransactionSigner({
   const { search } = useLocation();
 
   useOnMount(() => {
-    void analytics.track('view_transaction_signing'), [analytics];
+    void analytics.track('view_transaction_signing'), [];
   });
 
   async function onSubmit(

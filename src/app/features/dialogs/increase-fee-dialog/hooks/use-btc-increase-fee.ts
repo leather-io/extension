@@ -10,8 +10,8 @@ import { useBitcoinBroadcastTransaction } from '@leather-wallet/query';
 import { btcToSat, createMoney, isError } from '@leather-wallet/utils';
 
 import { RouteUrls } from '@shared/route-urls';
+import { analytics } from '@shared/utils/analytics';
 
-import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
 import { queryClient } from '@app/common/persistence';
 import {
   getBitcoinTxSizeEstimation,
@@ -31,7 +31,6 @@ export function useBtcIncreaseFee(btcTx: BitcoinTx) {
   const toast = useToast();
   const navigate = useNavigate();
   const networkMode = useBitcoinScureLibNetworkConfig();
-  const analytics = useAnalytics();
 
   const { address: currentBitcoinAddress, publicKey } =
     useCurrentAccountNativeSegwitIndexZeroSigner();

@@ -7,8 +7,8 @@ import type { BitcoinTx } from '@leather-wallet/models';
 import { useInscriptionByOutput } from '@leather-wallet/query';
 
 import { RouteUrls } from '@shared/route-urls';
+import { analytics } from '@shared/utils/analytics';
 
-import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
 import { useBitcoinExplorerLink } from '@app/common/hooks/use-bitcoin-explorer-link';
 import {
   containsTaprootInput,
@@ -40,7 +40,6 @@ export function BitcoinTransactionItem({ transaction }: BitcoinTransactionItemPr
 
   const bitcoinAddress = useCurrentAccountNativeSegwitAddressIndexZero();
   const { handleOpenBitcoinTxLink: handleOpenTxLink } = useBitcoinExplorerLink();
-  const analytics = useAnalytics();
   const caption = useMemo(() => getBitcoinTxCaption(transaction), [transaction]);
   const value = useMemo(
     () => getBitcoinTxValue(bitcoinAddress, transaction),

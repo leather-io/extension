@@ -7,15 +7,15 @@ import { isError } from '@leather-wallet/utils';
 
 import { finalizePsbt } from '@shared/actions/finalize-psbt';
 import { RouteUrls } from '@shared/route-urls';
+import { analytics } from '@shared/utils/analytics';
 
-import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
 import { usePsbtRequestSearchParams } from '@app/common/psbt/use-psbt-request-params';
 import { usePsbtSigner } from '@app/features/psbt-signer/hooks/use-psbt-signer';
 import { useGetAssumedZeroIndexSigningConfig } from '@app/store/accounts/blockchain/bitcoin/bitcoin.hooks';
 
 export function usePsbtRequest() {
   const [isLoading, setIsLoading] = useState(false);
-  const analytics = useAnalytics();
+
   const navigate = useNavigate();
   const { appName, origin, payload, requestToken, signAtIndex, tabId } =
     usePsbtRequestSearchParams();
@@ -71,7 +71,6 @@ export function usePsbtRequest() {
     getRawPsbt,
     origin,
     payload.hex,
-    analytics,
     requestToken,
     tabId,
     getPsbtAsTransaction,

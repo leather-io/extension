@@ -9,8 +9,8 @@ import { truncateMiddle } from '@leather-wallet/utils';
 
 import { RouteUrls } from '@shared/route-urls';
 import { closeWindow } from '@shared/utils';
+import { analytics } from '@shared/utils/analytics';
 
-import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
 import { useScrollLock } from '@app/common/hooks/use-scroll-lock';
 import { stacksValue } from '@app/common/stacks-utils';
 import { SwitchAccountDialog } from '@app/features/dialogs/switch-account-dialog/switch-account-dialog';
@@ -25,7 +25,6 @@ interface InsufficientFundsActionButtonsProps {
   eventName: string;
 }
 function InsufficientFundsActionButtons({ eventName }: InsufficientFundsActionButtonsProps) {
-  const analytics = useAnalytics();
   const [isShowingSwitchAccount, setIsShowingSwitchAccount] = useState(false);
 
   const onGetStx = () => {

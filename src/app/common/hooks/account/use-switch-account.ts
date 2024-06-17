@@ -8,7 +8,7 @@ import {
   useTransactionNetworkVersion,
 } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
 
-import { useTrackSwitchAccount } from '../analytics/use-track-switch-account';
+import { trackSwitchAccount } from '../../analytics/track-switch-account';
 import { useKeyActions } from '../use-key-actions';
 
 const TIMEOUT = 350;
@@ -20,7 +20,6 @@ export function useSwitchAccount(callback?: () => void) {
   const txIndex = useTransactionAccountIndex();
   const transactionVersion = useTransactionNetworkVersion();
   const [hasSwitched, setHasSwitched] = useHasSwitchedAccounts();
-  const trackSwitchAccount = useTrackSwitchAccount();
 
   const handleSwitchAccount = useCallback(
     async (index: number) => {
@@ -30,7 +29,7 @@ export function useSwitchAccount(callback?: () => void) {
       if (!accounts) return;
       void trackSwitchAccount(accounts[index]?.address, index);
     },
-    [setHasSwitched, switchAccount, callback, accounts, trackSwitchAccount]
+    [setHasSwitched, switchAccount, callback, accounts]
   );
 
   const getIsActive = useCallback(

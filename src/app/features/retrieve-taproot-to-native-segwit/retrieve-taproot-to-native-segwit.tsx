@@ -10,8 +10,8 @@ import {
 import { delay, formatMoneyPadded, truncateMiddle } from '@leather-wallet/utils';
 
 import { RouteUrls } from '@shared/route-urls';
+import { analytics } from '@shared/utils/analytics';
 
-import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
 import { FormAddressDisplayer } from '@app/components/address-displayer/form-address-displayer';
 import { InfoCardRow, InfoCardSeparator } from '@app/components/info-card/info-card';
 import { useToast } from '@app/features/toasts/use-toast';
@@ -44,7 +44,7 @@ export function RetrieveTaprootToNativeSegwit() {
     nativeSegwitAddress: nativeSegwitSigner.address,
     currentAccountIndex,
   });
-  const analytics = useAnalytics();
+
   const { generateRetrieveTaprootFundsTx, fee } = useGenerateRetrieveTaprootFundsTx();
   const { broadcastTx, isBroadcasting } = useBitcoinBroadcastTransaction();
 

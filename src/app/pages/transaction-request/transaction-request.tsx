@@ -16,8 +16,8 @@ import {
 import { logger } from '@shared/logger';
 import { StacksTransactionFormValues } from '@shared/models/form.model';
 import { RouteUrls } from '@shared/route-urls';
+import { analytics } from '@shared/utils/analytics';
 
-import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
 import { useOnMount } from '@app/common/hooks/use-on-mount';
 import { stxFeeValidator } from '@app/common/validation/forms/fee-validators';
 import { nonceValidator } from '@app/common/validation/nonce-validators';
@@ -49,7 +49,7 @@ function TransactionRequestBase() {
   const transactionRequest = useTransactionRequestState();
   const unsignedTx = useUnsignedStacksTransactionBaseState();
   const { data: stxFees } = useCalculateStacksTxFees(unsignedTx.transaction);
-  const analytics = useAnalytics();
+
   const generateUnsignedTx = useGenerateUnsignedStacksTransaction();
   const stxAddress = useCurrentStacksAccountAddress();
   const availableUnlockedBalance = useStxAvailableUnlockedBalance(stxAddress);

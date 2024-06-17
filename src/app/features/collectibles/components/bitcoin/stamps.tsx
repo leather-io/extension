@@ -2,7 +2,8 @@ import { useEffect } from 'react';
 
 import { useStampsByAddress } from '@leather-wallet/query';
 
-import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
+import { analytics } from '@shared/utils/analytics';
+
 import { useCurrentAccountNativeSegwitAddressIndexZero } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
 
 import { Stamp } from './stamp';
@@ -10,7 +11,6 @@ import { Stamp } from './stamp';
 export function Stamps() {
   const currentAccountBtcAddress = useCurrentAccountNativeSegwitAddressIndexZero();
   const { data: stamps = [] } = useStampsByAddress(currentAccountBtcAddress);
-  const analytics = useAnalytics();
 
   useEffect(() => {
     if (!stamps.length) return;
@@ -20,7 +20,7 @@ export function Stamps() {
       });
       void analytics.identify({ stamps_count: stamps.length });
     }
-  }, [analytics, stamps]);
+  }, [stamps]);
 
   if (!stamps.length) return null;
 
