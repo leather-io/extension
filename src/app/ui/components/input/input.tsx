@@ -22,6 +22,7 @@ const transformedLabelStyles: SystemStyleObject = {
   textStyle: 'label.03',
   transform: 'translateY(-12px)',
   fontWeight: 500,
+  pointerEvents: 'all',
 };
 
 const input = sva({
@@ -96,6 +97,9 @@ const input = sva({
       left: 'space.04',
       zIndex: 9,
       color: 'inherit',
+      // In empty state, with no placeholder, click events must be disabled to
+      // allow the label to be ignored, and the underlying input to be focused
+      pointerEvents: 'none',
       textStyle: 'body.02',
       transition: 'font-size 100ms ease-in-out, transform 100ms ease-in-out',
       // Move the input's label to the top when the input has a value
