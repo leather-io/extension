@@ -55,7 +55,7 @@ function makeComplianceQuery(
     async queryFn() {
       return checkEntityAddressIsCompliant(address);
     },
-    cacheTime: Infinity,
+    gcTime: Infinity,
     staleTime: oneWeekInMs,
     refetchInterval: oneWeekInMs,
     refetchOnMount: false,

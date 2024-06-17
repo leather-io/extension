@@ -6,7 +6,7 @@ import { queryClient } from '@app/common/persistence';
 export function Devtools() {
   return queryClient ? (
     <QueryClientProvider client={queryClient}>
-      <ReactQueryDevtools position={'bottom-left'} />
+      <ReactQueryDevtools buttonPosition="bottom-left" />
     </QueryClientProvider>
   ) : null;
 }
