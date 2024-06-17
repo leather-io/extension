@@ -33,7 +33,7 @@ export const queryClient = new QueryClient({
   }),
   defaultOptions: {
     queries: {
-      cacheTime: PERSISTENCE_CACHE_TIME,
+      gcTime: PERSISTENCE_CACHE_TIME,
       // https://tanstack.com/query/v4/docs/guides/testing#turn-off-retries
       retry: IS_TEST_ENV ? false : 3,
     },
