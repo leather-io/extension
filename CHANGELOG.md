@@ -1,3 +1,27 @@
+## [6.42.1](https://github.com/leather-wallet/extension/compare/v6.42.0...v6.42.1) (2024-06-17)
+
+
+### Bug Fixes
+
+* add crypto pkg ([4136b4a](https://github.com/leather-wallet/extension/commit/4136b4a3be7dc8efe723220659f240b33d60cebd))
+* relocated stacks fee types ([d8be118](https://github.com/leather-wallet/extension/commit/d8be118165f6bcf3964282ca27fc28b6ec408682))
+* remove early test return ([e888a71](https://github.com/leather-wallet/extension/commit/e888a719186ea1a08eceb6d677a45a84ffe3b5c3))
+* sign out unknown wallet type error ([89ebaa3](https://github.com/leather-wallet/extension/commit/89ebaa3b9db9b10f81de6848081c94dbc401a085))
+* **ui:** disable pointer events on label ([22f727e](https://github.com/leather-wallet/extension/commit/22f727e6d5efb931dcd491b6e4bebe3cf22f7b4e))
+
+
+### Internal
+
+* add constants package to extension ([5048be3](https://github.com/leather-wallet/extension/commit/5048be3be28c7b3dd5d3a2715a3d33385c913a70))
+* post-release merge back ([34134a0](https://github.com/leather-wallet/extension/commit/34134a07af9e5ca1f59f782cfa25d6c503b0f7a8))
+* post-release merge back ([3ef09f1](https://github.com/leather-wallet/extension/commit/3ef09f12305b8f3f405794e440f70c8e38a9bfc2))
+* remove stacks and bitcoin tx models out of extension ([8754ecc](https://github.com/leather-wallet/extension/commit/8754eccd5f3455d0ab4fd97f4308ff64bae483a9))
+* remove survey banner ([2c2aa5f](https://github.com/leather-wallet/extension/commit/2c2aa5fd7161be861c3c284e7af12c24c669dd30))
+* remove unused ecpair pkg ([52025c6](https://github.com/leather-wallet/extension/commit/52025c6826676ab07317ffee766fd4b74126ec87))
+* update cbpay ([6ed7969](https://github.com/leather-wallet/extension/commit/6ed7969dd8e4575155711c4efe877f29088ec23e))
+* use bitcoin methods from mono, closes leather-wallet[#47](https://github.com/leather-wallet/extension/issues/47) ([af77063](https://github.com/leather-wallet/extension/commit/af770631e3fa5289efd10173b689b8c7f602df64))
+* use stacks query pkg, closes [#68](https://github.com/leather-wallet/extension/issues/68) and [#5070](https://github.com/leather-wallet/extension/issues/5070) ([9c67eaf](https://github.com/leather-wallet/extension/commit/9c67eaf97bdbadfad42be7601379249b0ec50bc9))
+
 ## [6.42.0](https://github.com/leather-wallet/extension/compare/v6.41.1...v6.42.0) (2024-06-06)
 
 
