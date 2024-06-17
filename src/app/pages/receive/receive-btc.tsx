@@ -2,7 +2,8 @@ import { useLocation } from 'react-router-dom';
 
 import get from 'lodash.get';
 
-import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
+import { analytics } from '@shared/utils/analytics';
+
 import { copyToClipboard } from '@app/common/utils/copy-to-clipboard';
 import { useToast } from '@app/features/toasts/use-toast';
 import { useBackgroundLocationRedirect } from '@app/routes/hooks/use-background-location-redirect';
@@ -17,7 +18,7 @@ interface ReceiveBtcModalType {
 
 export function ReceiveBtcModal({ type = 'btc' }: ReceiveBtcModalType) {
   useBackgroundLocationRedirect();
-  const analytics = useAnalytics();
+
   const { state } = useLocation();
   const toast = useToast();
 

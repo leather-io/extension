@@ -11,8 +11,8 @@ import {
   isUtf8MessageType,
 } from '@shared/signature/signature-types';
 import { closeWindow } from '@shared/utils';
+import { analytics } from '@shared/utils/analytics';
 
-import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
 import { useDefaultRequestParams } from '@app/common/hooks/use-default-request-search-params';
 import { initialSearchParams } from '@app/common/initial-search-params';
 import {
@@ -86,8 +86,6 @@ export function useRpcSignStacksMessageParams() {
 }
 
 export function useRpcSignStacksMessage() {
-  const analytics = useAnalytics();
-
   const { tabId, requestId } = useRpcSignStacksMessageParams();
   if (!tabId) throw new Error('Requests can only be made with corresponding tab');
 

@@ -4,7 +4,8 @@ import { HStack, styled } from 'leather-styles/jsx';
 
 import { satToBtc } from '@leather-wallet/utils';
 
-import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
+import { analytics } from '@shared/utils/analytics';
+
 import { useBitcoinExplorerLink } from '@app/common/hooks/use-bitcoin-explorer-link';
 import { useClipboard } from '@app/common/hooks/use-copy-to-clipboard';
 import { InfoCardAssetValue, InfoCardBtn } from '@app/components/info-card/info-card';
@@ -24,7 +25,6 @@ export function LockBitcoinSummary() {
 
   const { onCopy } = useClipboard(txId);
   const { handleOpenBitcoinTxLink: handleOpenTxLink } = useBitcoinExplorerLink();
-  const analytics = useAnalytics();
 
   function onClickLink() {
     void analytics.track('view_transaction_confirmation', { symbol: 'BTC' });

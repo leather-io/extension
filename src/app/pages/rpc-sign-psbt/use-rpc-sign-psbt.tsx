@@ -21,8 +21,8 @@ import {
 import { RouteUrls } from '@shared/route-urls';
 import { makeRpcErrorResponse, makeRpcSuccessResponse } from '@shared/rpc/rpc-methods';
 import { closeWindow } from '@shared/utils';
+import { analytics } from '@shared/utils/analytics';
 
-import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
 import { SignPsbtArgs } from '@app/common/psbt/requests';
 import { useRpcSignPsbtParams } from '@app/common/psbt/use-psbt-request-params';
 import { usePsbtSigner } from '@app/features/psbt-signer/hooks/use-psbt-signer';
@@ -36,7 +36,6 @@ interface BroadcastSignedPsbtTxArgs {
   tx: string;
 }
 export function useRpcSignPsbt() {
-  const analytics = useAnalytics();
   const navigate = useNavigate();
   const { broadcast, origin, psbtHex, requestId, signAtIndex, tabId } = useRpcSignPsbtParams();
   const { signPsbt, getPsbtAsTransaction } = usePsbtSigner();

@@ -5,8 +5,8 @@ import { Box } from 'leather-styles/jsx';
 import get from 'lodash.get';
 
 import { RouteUrls } from '@shared/route-urls';
+import { analytics } from '@shared/utils/analytics';
 
-import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
 import { useLocationState } from '@app/common/hooks/use-location-state';
 import { useBackgroundLocationRedirect } from '@app/routes/hooks/use-background-location-redirect';
 import { useZeroIndexTaprootAddress } from '@app/store/accounts/blockchain/bitcoin/bitcoin.hooks';
@@ -34,7 +34,7 @@ interface ReceiveDialogProps {
 
 export function ReceiveDialog({ type = 'full' }: ReceiveDialogProps) {
   useBackgroundLocationRedirect();
-  const analytics = useAnalytics();
+
   const backgroundLocation = useLocationState<Location>('backgroundLocation');
   const navigate = useNavigate();
   const location = useLocation();

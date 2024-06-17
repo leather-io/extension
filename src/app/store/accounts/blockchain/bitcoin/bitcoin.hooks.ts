@@ -19,8 +19,8 @@ import {
   getAssumedZeroIndexSigningConfig,
 } from '@shared/crypto/bitcoin/signer-config';
 import { allSighashTypes } from '@shared/rpc/methods/sign-psbt';
+import { analytics } from '@shared/utils/analytics';
 
-import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
 import { useWalletType } from '@app/common/use-wallet-type';
 import { listenForBitcoinTxLedgerSigning } from '@app/features/ledger/flows/bitcoin-tx-signing/bitcoin-tx-signing-event-listeners';
 import { useLedgerNavigate } from '@app/features/ledger/hooks/use-ledger-navigate';
@@ -208,7 +208,7 @@ export function useSignLedgerBitcoinTx() {
 
 export function useAddTapInternalKeysIfMissing() {
   const createTaprootSigner = useCurrentAccountTaprootSigner();
-  const analytics = useAnalytics();
+
   return (tx: btc.Transaction, inputIndexes: BitcoinInputSigningConfig[]) =>
     inputIndexes.forEach(({ index, derivationPath }) => {
       const taprootSigner = createTaprootSigner?.(extractAddressIndexFromPath(derivationPath));

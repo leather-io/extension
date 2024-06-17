@@ -3,8 +3,8 @@ import { useLocation } from 'react-router-dom';
 import { HStack, Stack } from 'leather-styles/jsx';
 
 import type { TransferRecipient } from '@shared/models/form.model';
+import { analytics } from '@shared/utils/analytics';
 
-import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
 import { useBitcoinExplorerLink } from '@app/common/hooks/use-bitcoin-explorer-link';
 import { useClipboard } from '@app/common/hooks/use-copy-to-clipboard';
 import { FormAddressDisplayer } from '@app/components/address-displayer/form-address-displayer';
@@ -24,7 +24,7 @@ import { Card } from '@app/ui/layout/card/card';
 export function RpcSendTransferSummary() {
   const { state } = useLocation();
   const { handleOpenBitcoinTxLink: handleOpenTxLink } = useBitcoinExplorerLink();
-  const analytics = useAnalytics();
+
   const toast = useToast();
 
   const {

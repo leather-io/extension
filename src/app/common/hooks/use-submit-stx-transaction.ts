@@ -6,10 +6,10 @@ import { StacksTransaction, broadcastTransaction } from '@stacks/transactions';
 import { delay, isError } from '@leather-wallet/utils';
 
 import { logger } from '@shared/logger';
+import { analytics } from '@shared/utils/analytics';
 
 import { getErrorMessage } from '@app/common/get-error-message';
 import { useRefreshAllAccountData } from '@app/common/hooks/account/use-refresh-all-account-data';
-import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
 import { useLoading } from '@app/common/hooks/use-loading';
 import { safelyFormatHexTxid } from '@app/common/utils/safe-handle-txid';
 import { useToast } from '@app/features/toasts/use-toast';
@@ -29,8 +29,6 @@ interface UseSubmitTransactionCallbackArgs {
 export function useSubmitTransactionCallback({ loadingKey }: UseSubmitTransactionArgs) {
   const submittedTransactionsActions = useSubmittedTransactionsActions();
   const toast = useToast();
-
-  const analytics = useAnalytics();
   const refreshAccountData = useRefreshAllAccountData();
 
   const { setIsLoading, setIsIdle } = useLoading(loadingKey);
@@ -73,7 +71,6 @@ export function useSubmitTransactionCallback({ loadingKey }: UseSubmitTransactio
       toast,
       setIsIdle,
       submittedTransactionsActions,
-      analytics,
       refreshAccountData,
     ]
   );

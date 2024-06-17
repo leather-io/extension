@@ -1,7 +1,8 @@
 import { StacksTransaction } from '@stacks/transactions';
 import { HStack, styled } from 'leather-styles/jsx';
 
-import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
+import { analytics } from '@shared/utils/analytics';
+
 import { useStacksExplorerLink } from '@app/common/hooks/use-stacks-explorer-link';
 import { getTxSenderAddress } from '@app/common/transactions/stacks/transaction.utils';
 import { TransactionTitle } from '@app/components/transaction/transaction-title';
@@ -18,7 +19,6 @@ interface SubmittedTransactionItemProps {
   txid: string;
 }
 export function SubmittedTransactionItem({ transaction, txid }: SubmittedTransactionItemProps) {
-  const analytics = useAnalytics();
   const { handleOpenStacksTxLink } = useStacksExplorerLink();
 
   if (!transaction) return null;

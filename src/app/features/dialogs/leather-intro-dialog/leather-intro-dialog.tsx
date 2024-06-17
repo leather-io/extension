@@ -3,7 +3,8 @@ import { Outlet, Route, useNavigate } from 'react-router-dom';
 
 import { delay } from '@leather-wallet/utils';
 
-import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
+import { analytics } from '@shared/utils/analytics';
+
 import { openInNewTab } from '@app/common/utils/open-in-new-tab';
 
 import {
@@ -35,7 +36,6 @@ export function useLeatherIntroDialogContext() {
 }
 
 function LeatherIntroDialogContainer() {
-  const analytics = useAnalytics();
   const navigate = useNavigate();
   async function onRevealNewName() {
     void analytics.track('new_brand_reveal_name');

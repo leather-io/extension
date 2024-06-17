@@ -22,6 +22,21 @@ import {
 
 export const analytics = new AnalyticsBrowser();
 
+export function decorateAnalyticsEventsWithContext(
+  getEventContextProperties: () => Record<string, unknown>
+) {
+  void analytics.ready(
+    () =>
+      void analytics.addSourceMiddleware(({ payload, next }) => {
+        Object.entries(getEventContextProperties()).forEach(([key, value]) => {
+          payload.obj.context = payload.obj.context || {};
+          payload.obj.context[key] = value;
+        });
+        next(payload);
+      })
+  );
+}
+
 export function initAnalytics() {
   return analytics.load(
     { writeKey: SEGMENT_WRITE_KEY },

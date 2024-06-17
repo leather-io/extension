@@ -5,8 +5,7 @@ import { persistQueryClient } from '@tanstack/react-query-persist-client';
 import { PERSISTENCE_CACHE_TIME } from '@leather-wallet/constants';
 
 import { IS_TEST_ENV } from '@shared/environment';
-
-import { createAnalytics } from './hooks/analytics/use-analytics';
+import { analytics } from '@shared/utils/analytics';
 
 const storage = {
   getItem: async (key: string) => {
@@ -22,14 +21,14 @@ const chromeStorageLocalPersister = createAsyncStoragePersister({ storage });
 export const queryClient = new QueryClient({
   queryCache: new QueryCache({
     async onError(_error, query) {
-      const queryPrefix = query.queryKey[0] ?? '';
-      await createAnalytics().track(`query_error_${queryPrefix}`);
+      const queryKey = query.queryKey[0] ?? '';
+      void analytics.track('query_error', { queryKey });
     },
   }),
   mutationCache: new MutationCache({
     async onError(_error, _variables, _context, mutation) {
       const mutationPrefix = mutation?.options.mutationKey?.[0] ?? '';
-      await createAnalytics().track(`mutation_error_${mutationPrefix}`);
+      void analytics.track('mutation_error', { mutationPrefix });
     },
   }),
   defaultOptions: {

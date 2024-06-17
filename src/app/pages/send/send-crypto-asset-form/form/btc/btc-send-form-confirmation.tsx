@@ -24,8 +24,8 @@ import {
 } from '@leather-wallet/utils';
 
 import { RouteUrls } from '@shared/route-urls';
+import { analytics } from '@shared/utils/analytics';
 
-import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
 import { queryClient } from '@app/common/persistence';
 import { FormAddressDisplayer } from '@app/components/address-displayer/form-address-displayer';
 import {
@@ -61,7 +61,6 @@ export function BtcSendFormConfirmation() {
   const transaction = useMemo(() => btc.Transaction.fromRaw(hexToBytes(tx)), [tx]);
 
   const { refetch } = useCurrentNativeSegwitUtxos();
-  const analytics = useAnalytics();
 
   const btcMarketData = useCryptoCurrencyMarketDataMeanAverage('BTC');
   const { broadcastTx, isBroadcasting } = useBitcoinBroadcastTransaction();

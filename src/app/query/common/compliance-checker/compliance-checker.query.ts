@@ -6,7 +6,6 @@ import { ensureArray } from '@leather-wallet/utils';
 
 import { analytics } from '@shared/utils/analytics';
 
-import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
 import { useCurrentAccountNativeSegwitIndexZeroSigner } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
 import { useCurrentNetwork } from '@app/store/networks/networks.selectors';
 
@@ -77,7 +76,6 @@ function useCheckAddressComplianceQueries(addresses: string[]) {
 export const compliantErrorBody = 'Unable to handle request, errorCode: 1398';
 
 export function useBreakOnNonCompliantEntity(address: string | string[]) {
-  const analytics = useAnalytics();
   const nativeSegwitSigner = useCurrentAccountNativeSegwitIndexZeroSigner();
 
   const complianceReports = useCheckAddressComplianceQueries([

@@ -1,6 +1,7 @@
 import { useLocation } from 'react-router-dom';
 
-import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
+import { analytics } from '@shared/utils/analytics';
+
 import { copyToClipboard } from '@app/common/utils/copy-to-clipboard';
 import { useToast } from '@app/features/toasts/use-toast';
 import { useBackgroundLocationRedirect } from '@app/routes/hooks/use-background-location-redirect';
@@ -11,7 +12,7 @@ import { ReceiveTokensLayout } from './components/receive-tokens.layout';
 export function ReceiveOrdinalModal() {
   useBackgroundLocationRedirect();
   const toast = useToast();
-  const analytics = useAnalytics();
+
   const { state } = useLocation();
 
   // #4028 FIXME - this doesn't open in new tab as it loses btcAddressTaproot amd crashes btcStamp and Stx are OK?

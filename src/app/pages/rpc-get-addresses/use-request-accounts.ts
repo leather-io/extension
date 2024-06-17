@@ -6,8 +6,8 @@ import { ecdsaPublicKeyToSchnorr } from '@leather-wallet/bitcoin';
 import { logger } from '@shared/logger';
 import { makeRpcSuccessResponse } from '@shared/rpc/rpc-methods';
 import { closeWindow } from '@shared/utils';
+import { analytics } from '@shared/utils/analytics';
 
-import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
 import { useRpcRequestParams } from '@app/common/rpc-helpers';
 import { useCurrentAccountNativeSegwitSigner } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
 import { useCurrentAccountTaprootSigner } from '@app/store/accounts/blockchain/bitcoin/taproot-account.hooks';
@@ -15,8 +15,6 @@ import { useCurrentStacksAccount } from '@app/store/accounts/blockchain/stacks/s
 import { useAppPermissions } from '@app/store/app-permissions/app-permissions.slice';
 
 export function useGetAddresses() {
-  const analytics = useAnalytics();
-
   const permissions = useAppPermissions();
   const { tabId, origin, requestId } = useRpcRequestParams();
 

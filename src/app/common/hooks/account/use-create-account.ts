@@ -1,12 +1,12 @@
 import { useCallback } from 'react';
 
-import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
+import { analytics } from '@shared/utils/analytics';
+
 import { useKeyActions } from '@app/common/hooks/use-key-actions';
 import { useToast } from '@app/features/toasts/use-toast';
 
 export function useCreateAccount() {
   const { createNewAccount } = useKeyActions();
-  const analytics = useAnalytics();
   const toast = useToast();
 
   return useCallback(() => {
@@ -15,5 +15,5 @@ export function useCreateAccount() {
       success: 'Account created!',
       error: 'Error creating account.',
     });
-  }, [analytics, createNewAccount, toast]);
+  }, [createNewAccount, toast]);
 }

@@ -4,7 +4,8 @@ import { useField } from 'formik';
 
 import type { Money } from '@leather-wallet/models';
 
-import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
+import { analytics } from '@shared/utils/analytics';
+
 import { useToast } from '@app/features/toasts/use-toast';
 
 interface UseSendMaxArgs {
@@ -25,8 +26,6 @@ export function useSendMax({
   const [, __, feeFieldHelpers] = useField('fee');
   const toast = useToast();
 
-  const analytics = useAnalytics();
-
   return useCallback(() => {
     void analytics.track('select_maximum_amount_for_send');
     if (balance.amount.isLessThanOrEqualTo(0)) {
@@ -40,7 +39,6 @@ export function useSendMax({
     amountFieldHelpers.setError(undefined);
   }, [
     amountFieldHelpers,
-    analytics,
     balance.amount,
     feeFieldHelpers,
     isSendingMax,

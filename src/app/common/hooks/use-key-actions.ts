@@ -4,6 +4,7 @@ import { generateSecretKey } from '@stacks/wallet-sdk';
 
 import { logger } from '@shared/logger';
 import { clearChromeStorage } from '@shared/storage/redux-pesist';
+import { analytics } from '@shared/utils/analytics';
 
 import { queryClient } from '@app/common/persistence';
 import { partiallyClearLocalStorage } from '@app/common/store-utils';
@@ -18,10 +19,7 @@ import { clearWalletSession } from '@app/store/session-restore';
 import { keyActions } from '@app/store/software-keys/software-key.actions';
 import { useCurrentKeyDetails } from '@app/store/software-keys/software-key.selectors';
 
-import { useAnalytics } from './analytics/use-analytics';
-
 export function useKeyActions() {
-  const analytics = useAnalytics();
   const dispatch = useAppDispatch();
   const defaultKeyDetails = useCurrentKeyDetails();
   const btcClient = useBitcoinClient();
@@ -71,6 +69,6 @@ export function useKeyActions() {
         return dispatch(inMemoryKeyActions.lockWallet());
       },
     }),
-    [analytics, btcClient, defaultKeyDetails, dispatch, stxClient]
+    [btcClient, defaultKeyDetails, dispatch, stxClient]
   );
 }

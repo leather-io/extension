@@ -6,7 +6,8 @@ import { Box } from 'leather-styles/jsx';
 
 import type { Money } from '@leather-wallet/models';
 
-import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
+import { analytics } from '@shared/utils/analytics';
+
 import { useToast } from '@app/features/toasts/use-toast';
 import { Link } from '@app/ui/components/link/link';
 
@@ -18,8 +19,6 @@ export function SendMaxButton({ balance, sendMaxBalance, ...props }: SendMaxButt
   const [, _, amountFieldHelpers] = useField('amount');
   const toast = useToast();
 
-  const analytics = useAnalytics();
-
   const onSendMax = useCallback(() => {
     void analytics.track('select_maximum_amount_for_send');
     if (balance.amount.isLessThanOrEqualTo(0)) {
@@ -27,7 +26,7 @@ export function SendMaxButton({ balance, sendMaxBalance, ...props }: SendMaxButt
       return;
     }
     return amountFieldHelpers.setValue(sendMaxBalance);
-  }, [amountFieldHelpers, analytics, balance.amount, sendMaxBalance, toast]);
+  }, [amountFieldHelpers, balance.amount, sendMaxBalance, toast]);
 
   // Hide send max button if lowest fee calc is greater
   // than available balance which will default to zero

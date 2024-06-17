@@ -24,8 +24,8 @@ import { logger } from '@shared/logger';
 import type { TransferRecipient } from '@shared/models/form.model';
 import { RouteUrls } from '@shared/route-urls';
 import { makeRpcSuccessResponse } from '@shared/rpc/rpc-methods';
+import { analytics } from '@shared/utils/analytics';
 
-import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
 import { InfoCardFooter } from '@app/components/info-card/info-card';
 import { useCurrentNativeSegwitUtxos } from '@app/query/bitcoin/address/utxos-by-address.hooks';
 import { useCurrentAccountNativeSegwitAddressIndexZero } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
@@ -48,7 +48,6 @@ function useRpcSendTransferConfirmationState() {
 }
 
 export function RpcSendTransferConfirmation() {
-  const analytics = useAnalytics();
   const navigate = useNavigate();
   const { origin, requestId, tabId } = useRpcSendTransferRequestParams();
   const { fee, recipients, time, tx, feeRowValue } = useRpcSendTransferConfirmationState();

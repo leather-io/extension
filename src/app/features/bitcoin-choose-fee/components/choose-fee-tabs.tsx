@@ -2,7 +2,8 @@ import { Suspense } from 'react';
 
 import { Box, Stack, StackProps } from 'leather-styles/jsx';
 
-import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
+import { analytics } from '@shared/utils/analytics';
+
 import { LoadingSpinner } from '@app/components/loading-spinner';
 import { Tabs } from '@app/ui/components/tabs/tabs';
 
@@ -18,7 +19,6 @@ interface ChooseFeeTabsProps extends StackProps {
 }
 export function ChooseFeeTabs(props: ChooseFeeTabsProps) {
   const { customFee, defaultToCustomFee, feesList, ...rest } = props;
-  const analytics = useAnalytics();
 
   return (
     <Stack flexGrow={1} gap="space.04" mt="space.02" width="100%" {...rest}>

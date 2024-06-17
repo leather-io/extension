@@ -6,8 +6,8 @@ import get from 'lodash.get';
 import type { Blockchains, Inscription } from '@leather-wallet/models';
 
 import { RouteUrls } from '@shared/route-urls';
+import { analytics } from '@shared/utils/analytics';
 
-import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
 import { useBitcoinExplorerLink } from '@app/common/hooks/use-bitcoin-explorer-link';
 import { copyToClipboard } from '@app/common/utils/copy-to-clipboard';
 import { FormAddressDisplayer } from '@app/components/address-displayer/form-address-displayer';
@@ -46,7 +46,6 @@ export function SendInscriptionSummary() {
 
   const id = txid || '';
   const { handleOpenBitcoinTxLink: handleOpenTxLink } = useBitcoinExplorerLink();
-  const analytics = useAnalytics();
 
   function onClickLink() {
     void analytics.track('view_transaction_confirmation', { symbol: 'BTC' });

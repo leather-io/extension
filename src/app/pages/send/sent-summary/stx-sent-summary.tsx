@@ -2,7 +2,8 @@ import { useLocation } from 'react-router-dom';
 
 import { HStack, Stack } from 'leather-styles/jsx';
 
-import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
+import { analytics } from '@shared/utils/analytics';
+
 import { useClipboard } from '@app/common/hooks/use-copy-to-clipboard';
 import { useStacksExplorerLink } from '@app/common/hooks/use-stacks-explorer-link';
 import { FormAddressDisplayer } from '@app/components/address-displayer/form-address-displayer';
@@ -23,7 +24,7 @@ import { TxDone } from '../send-crypto-asset-form/components/tx-done';
 
 export function StxSentSummary() {
   const { state } = useLocation();
-  const analytics = useAnalytics();
+
   const toast = useToast();
 
   const {

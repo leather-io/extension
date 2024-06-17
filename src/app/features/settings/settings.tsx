@@ -6,8 +6,8 @@ import { css } from 'leather-styles/css';
 import { Flex, Stack, styled } from 'leather-styles/jsx';
 
 import { RouteUrls } from '@shared/route-urls';
+import { analytics } from '@shared/utils/analytics';
 
-import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
 import { useKeyActions } from '@app/common/hooks/use-key-actions';
 import { useModifierKey } from '@app/common/hooks/use-modifier-key';
 import { useWalletType } from '@app/common/use-wallet-type';
@@ -54,7 +54,7 @@ export function Settings({ triggerButton, toggleSwitchAccount }: SettingsProps) 
 
   const currentNetworkId = useCurrentNetworkId();
   const navigate = useNavigate();
-  const analytics = useAnalytics();
+
   const { walletType } = useWalletType();
   const targetId = useLedgerDeviceTargetId();
 

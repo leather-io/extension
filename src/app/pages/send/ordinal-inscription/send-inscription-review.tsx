@@ -7,8 +7,8 @@ import get from 'lodash.get';
 import { useBitcoinBroadcastTransaction } from '@leather-wallet/query';
 
 import { RouteUrls } from '@shared/route-urls';
+import { analytics } from '@shared/utils/analytics';
 
-import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
 import { FormAddressDisplayer } from '@app/components/address-displayer/form-address-displayer';
 import { InfoCardRow, InfoCardSeparator } from '@app/components/info-card/info-card';
 import { InscriptionPreview } from '@app/components/inscription-preview-card/components/inscription-preview';
@@ -35,7 +35,6 @@ function useSendInscriptionReviewState() {
 }
 
 export function SendInscriptionReview() {
-  const analytics = useAnalytics();
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const { arrivesIn, signedTx, recipient, feeRowValue } = useSendInscriptionReviewState();

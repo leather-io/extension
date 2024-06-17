@@ -8,8 +8,9 @@ import { Box } from 'leather-styles/jsx';
 
 import { RouteUrls } from '@shared/route-urls';
 import { closeWindow } from '@shared/utils';
+import { analytics } from '@shared/utils/analytics';
 
-import { useAnalytics, useInitalizeAnalytics } from '@app/common/hooks/analytics/use-analytics';
+import { useInitalizeAnalytics } from '@app/common/app-analytics';
 import { LoadingSpinner } from '@app/components/loading-spinner';
 import { CurrentAccountAvatar } from '@app/features/current-account/current-account-avatar';
 import { CurrentAccountName } from '@app/features/current-account/current-account-name';
@@ -53,7 +54,7 @@ export function Container() {
   const navigate = useNavigate();
   const { pathname: locationPathname } = useLocation();
   const pathname = locationPathname as RouteUrls;
-  const analytics = useAnalytics();
+
   const hasStateRehydrated = useHasStateRehydrated();
   const { chain, name: chainName } = useCurrentNetworkState();
 
@@ -62,7 +63,7 @@ export function Container() {
   useRestoreFormState();
   useInitalizeAnalytics();
 
-  useEffect(() => void analytics.page('view', `${pathname}`), [analytics, pathname]);
+  useEffect(() => void analytics.page('view', `${pathname}`), [pathname]);
 
   const variant = getPageVariant(pathname);
 
