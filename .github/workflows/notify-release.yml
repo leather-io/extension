@@ -20,7 +20,7 @@ jobs:
           path: firefox_version
 
       - name: Download previous Firefox version info
-        uses: dawidd6/action-download-artifact@v3
+        uses: dawidd6/action-download-artifact@v6
         with:
           workflow: notify-release.yml
           workflow_conclusion: success
@@ -83,7 +83,7 @@ jobs:
           path: chrome_version
 
       - name: Download previous Chrome version info
-        uses: dawidd6/action-download-artifact@v3
+        uses: dawidd6/action-download-artifact@v6
         with:
           workflow: notify-release.yml
           workflow_conclusion: success

@@ -35,11 +35,11 @@ importers:
         specifier: 1.2.0
         version: 1.2.0(encoding@0.1.13)
       '@leather-wallet/bitcoin':
-        specifier: 0.7.2
-        version: 0.7.2(encoding@0.1.13)
+        specifier: 0.7.3
+        version: 0.7.3(encoding@0.1.13)
       '@leather-wallet/constants':
-        specifier: 0.6.3
-        version: 0.6.3
+        specifier: 0.6.4
+        version: 0.6.4
       '@leather-wallet/crypto':
         specifier: 1.0.1
         version: 1.0.1
@@ -47,14 +47,14 @@ importers:
         specifier: 0.8.0
         version: 0.8.0
       '@leather-wallet/query':
-        specifier: 0.8.7
-        version: 0.8.7(@stacks/network@6.13.0(encoding@0.1.13))(encoding@0.1.13)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+        specifier: 0.8.8
+        version: 0.8.8(@stacks/network@6.13.0(encoding@0.1.13))(encoding@0.1.13)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@leather-wallet/tokens':
         specifier: 0.5.2
         version: 0.5.2
       '@leather-wallet/utils':
-        specifier: 0.8.1
-        version: 0.8.1
+        specifier: 0.8.2
+        version: 0.8.2
       '@ledgerhq/hw-transport-webusb':
         specifier: 6.27.19
         version: 6.27.19
@@ -2494,11 +2494,11 @@ packages:
   '@jridgewell/trace-mapping@0.3.9':
     resolution: {integrity: sha512-3Belt6tdc8bPgAtbcmdtNJlirVoTmEb5e2gC94PnkwEW9jI6CAHUeoG85tjWP5WquqfavoMtMwiG4P926ZKKuQ==}
 
-  '@leather-wallet/bitcoin@0.7.2':
-    resolution: {integrity: sha512-cKzioBtIFLhL/ERY7WV0pniCzNTChdLLabTZhtFwNxc2mHJkkrs08FExJKqb6p8sFibOXuNn+tdDI8TG052eeQ==}
+  '@leather-wallet/bitcoin@0.7.3':
+    resolution: {integrity: sha512-Zf7gBXbesJA2Dx74CYWc+HVpiMjW75RegdiY/+4AeT6vA5fzj7D3WyrftDUKsGkCeD+WHiYbUgh0JYE1rnqu6A==}
 
-  '@leather-wallet/constants@0.6.3':
-    resolution: {integrity: sha512-AnNfUKuTWyYC0Y2k82x/8e2YvsFQgF7iDKxVfN8lTELBUCuihvqNxjcrOX1T3w8CHIWZ1iRPkzn1YtUC3AGvTw==}
+  '@leather-wallet/constants@0.6.4':
+    resolution: {integrity: sha512-izh9wsv3d2xEqEPDWOOgTlRnBoQp1PDos9ryLzLqHxdPgZqQuleSSsPJjQ/a7fqoLvFYVyv9v5LecWawd3gQ5g==}
 
   '@leather-wallet/crypto@1.0.1':
     resolution: {integrity: sha512-6C4KYuknq0QgSHOuQAwa/VNokNuUmGXiigZygKH7ldpzdPLadC6GbSAITp1Qe7hlYTzWQhsWtEUnWLll4/JCYw==}
@@ -2512,8 +2512,8 @@ packages:
   '@leather-wallet/prettier-config@0.4.1':
     resolution: {integrity: sha512-8J1OqfAPtP64MUp3yERQVKnWdp7wHLBjcWlnu68qvS6obxWKkXTZVArHyvADkHRdpmu7rvEzhFRi+fyw00Ui/Q==}
 
-  '@leather-wallet/query@0.8.7':
-    resolution: {integrity: sha512-Qn9vEkq+zNEolLZ2MJKO9jmhHnvhBlIf0JjaSe5tlBEy266JTH7IwzS4OdFAf0pP3Ugjf/Cqz5qz0k0Y4EZrFw==}
+  '@leather-wallet/query@0.8.8':
+    resolution: {integrity: sha512-wRIQADII4lQdsrh0MvfIxAwr3KhVNEIF8TAvK1p9OBVwBh9O9Tqhh4lC2uZat9Yj205CLiQzAH5cciIDvRS73g==}
     peerDependencies:
       react: '*'
 
@@ -2523,8 +2523,8 @@ packages:
   '@leather-wallet/tokens@0.5.2':
     resolution: {integrity: sha512-+/1dM24D/d7lyW8f4WFDmAgtsRZmUu+PhmFELa2nD4esYcP4zehVNh+rJN+xfW9U6JgSNXuii2xRjdD+XkSGdg==}
 
-  '@leather-wallet/utils@0.8.1':
-    resolution: {integrity: sha512-Asu85YqkNHHYd/G1EHAlvh0H7pKTFwE1LC97Gk0es+dE7iu+IY0feqAajDzhT7mSMBNt64PwPKTwl/HZVSonPA==}
+  '@leather-wallet/utils@0.8.2':
+    resolution: {integrity: sha512-P24T7J1JN7k+vXhrLgGi37Pai4XzFBm0IgYfGjg80AQwhFBtCV1KAju6IPEpNcUHggjKIniP5V1kxJtU1rIh4g==}
 
   '@ledgerhq/devices@8.2.0':
     resolution: {integrity: sha512-XROTW2gTmmuy+YPPDjdtKKTQ3mfxrPtKtV+a9QFbj8f5MnjVMV0Zpy1BIB4CyIMsVVi4z6+nI67auT7IlsM3SQ==}
@@ -15454,13 +15454,13 @@ snapshots:
       '@jridgewell/resolve-uri': 3.1.2
       '@jridgewell/sourcemap-codec': 1.4.15
 
-  '@leather-wallet/bitcoin@0.7.2(encoding@0.1.13)':
+  '@leather-wallet/bitcoin@0.7.3(encoding@0.1.13)':
     dependencies:
       '@bitcoinerlab/secp256k1': 1.0.2
-      '@leather-wallet/constants': 0.6.3
+      '@leather-wallet/constants': 0.6.4
       '@leather-wallet/crypto': 1.0.1
       '@leather-wallet/models': 0.8.0
-      '@leather-wallet/utils': 0.8.1
+      '@leather-wallet/utils': 0.8.2
       '@noble/hashes': 1.4.0
       '@noble/secp256k1': 2.1.0
       '@scure/base': 1.1.6
@@ -15476,7 +15476,7 @@ snapshots:
     transitivePeerDependencies:
       - encoding
 
-  '@leather-wallet/constants@0.6.3': {}
+  '@leather-wallet/constants@0.6.4': {}
 
   '@leather-wallet/crypto@1.0.1':
     dependencies:
@@ -15503,15 +15503,15 @@ snapshots:
       - '@vue/compiler-sfc'
       - supports-color
 
-  '@leather-wallet/query@0.8.7(@stacks/network@6.13.0(encoding@0.1.13))(encoding@0.1.13)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
+  '@leather-wallet/query@0.8.8(@stacks/network@6.13.0(encoding@0.1.13))(encoding@0.1.13)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
     dependencies:
       '@fungible-systems/zone-file': 2.0.0
       '@hirosystems/token-metadata-api-client': 1.2.0(encoding@0.1.13)
-      '@leather-wallet/bitcoin': 0.7.2(encoding@0.1.13)
-      '@leather-wallet/constants': 0.6.3
+      '@leather-wallet/bitcoin': 0.7.3(encoding@0.1.13)
+      '@leather-wallet/constants': 0.6.4
       '@leather-wallet/models': 0.8.0
       '@leather-wallet/rpc': 1.0.3
-      '@leather-wallet/utils': 0.8.1
+      '@leather-wallet/utils': 0.8.2
       '@noble/hashes': 1.4.0
       '@scure/base': 1.1.6
       '@scure/bip32': 1.4.0
@@ -15547,9 +15547,9 @@ snapshots:
 
   '@leather-wallet/tokens@0.5.2': {}
 
-  '@leather-wallet/utils@0.8.1':
+  '@leather-wallet/utils@0.8.2':
     dependencies:
-      '@leather-wallet/constants': 0.6.3
+      '@leather-wallet/constants': 0.6.4
       '@leather-wallet/models': 0.8.0
       '@leather-wallet/rpc': 1.0.3
       bignumber.js: 9.1.2
