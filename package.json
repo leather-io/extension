@@ -366,7 +366,8 @@
     "socket.io-parser": "4.2.4",
     "wrap-ansi": "7.0.0",
     "webpack-dev-middleware": "5.3.4",
-    "eslint": "8.56.0"
+    "eslint": "8.56.0",
+    "ws": "8.17.1"
   },
   "pnpm": {
     "overrides": {
