@@ -1,8 +1,8 @@
 import type { BtcCryptoAssetBalance } from '@leather-wallet/models';
 import { isFetchedWithSuccess, isInitializingData } from '@leather-wallet/query';
+import { BtcAvatarIcon } from '@leather-wallet/ui';
 
 import { useBtcCryptoAssetBalanceNativeSegwit } from '@app/query/bitcoin/balance/btc-balance-native-segwit.hooks';
-import { BtcAvatarIcon } from '@app/ui/components/avatar/btc-avatar-icon';
 
 import { CryptoAssetItemError } from '../crypto-asset-item/crypto-asset-item-error';
 import { CryptoAssetItemPlaceholder } from '../crypto-asset-item/crypto-asset-item-placeholder';

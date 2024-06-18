@@ -1,6 +1,7 @@
+import { Src20AvatarIcon } from '@leather-wallet/ui';
+
 import { CryptoAssetItemLayout } from '@app/components/crypto-asset-item/crypto-asset-item.layout';
 import type { Src20TokenAssetDetails } from '@app/components/loaders/src20-tokens-loader';
-import { Src20AvatarIcon } from '@app/ui/components/avatar/src20-avatar-icon';
 
 interface Src20TokenAssetListProps {
   tokens: Src20TokenAssetDetails[];

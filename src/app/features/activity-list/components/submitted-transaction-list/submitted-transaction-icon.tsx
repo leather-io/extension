@@ -2,12 +2,11 @@ import { PayloadType, StacksTransaction, addressToString } from '@stacks/transac
 import { CircleProps } from 'leather-styles/jsx';
 
 import { StacksTx } from '@leather-wallet/models';
-import { DynamicColorCircle } from '@leather-wallet/ui';
+import { DynamicColorCircle, StxAvatarIcon } from '@leather-wallet/ui';
 
 import { getTxSenderAddress } from '@app/common/transactions/stacks/transaction.utils';
 import { TransactionIconWrapper } from '@app/components/transaction/transaction-icon-wrapper';
 import { TransactionTypeIcon } from '@app/components/transaction/transaction-type-icon';
-import { StxAvatarIcon } from '@app/ui/components/avatar/stx-avatar-icon';
 
 interface SubmittedTransactionIconProps extends CircleProps {
   transaction: StacksTransaction;
