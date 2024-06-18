@@ -7,7 +7,6 @@ import { Flex, Stack, styled } from 'leather-styles/jsx';
 
 import {
   Caption,
-  DropdownMenu,
   ExitIcon,
   ExpandIcon,
   ExternalLinkIcon,
@@ -36,6 +35,7 @@ import { ThemeDialog } from '@app/features/settings/theme/theme-dialog';
 import { useCurrentStacksAccount } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
 import { useHasLedgerKeys, useLedgerDeviceTargetId } from '@app/store/ledger/ledger.selectors';
 import { useCurrentNetworkId } from '@app/store/networks/networks.selectors';
+import { DropdownMenu } from '@app/ui/components/dropdown-menu/dropdown-menu';
 
 import { openFeedbackDialog } from '../feedback-button/feedback-button';
 import { extractDeviceNameFromKnownTargetIds } from '../ledger/utils/generic-ledger-utils';
