@@ -6,10 +6,9 @@ import { Box } from 'leather-styles/jsx';
 
 import type { CryptoCurrencies } from '@leather-wallet/models';
 import { useCryptoCurrencyMarketDataMeanAverage } from '@leather-wallet/query';
-import { Button, Callout, Link } from '@leather-wallet/ui';
+import { BtcAvatarIcon, Button, Callout, Link } from '@leather-wallet/ui';
 import { formatMoney } from '@leather-wallet/utils';
 
-import { BtcAvatarIcon } from '@app/ui/components/avatar/btc-avatar-icon';
 import { AvailableBalance } from '@app/ui/components/containers/footers/available-balance';
 import { Footer } from '@app/ui/components/containers/footers/footer';
 import { Card } from '@app/ui/layout/card/card';

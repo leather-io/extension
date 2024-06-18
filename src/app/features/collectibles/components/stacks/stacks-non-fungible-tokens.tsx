@@ -1,8 +1,8 @@
 import { Metadata as StacksNftMetadata } from '@hirosystems/token-metadata-api-client';
 
-import { isValidUrl } from '@shared/utils/validate-url';
+import { StxAvatarIcon } from '@leather-wallet/ui';
 
-import { StxAvatarIcon } from '@app/ui/components/avatar/stx-avatar-icon';
+import { isValidUrl } from '@shared/utils/validate-url';
 
 import { CollectibleImage } from '../_collectible-types/collectible-image';
 import { ImageUnavailable } from '../image-unavailable';

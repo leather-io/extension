@@ -5,8 +5,7 @@ import {
   isInitializingData,
   useStxCryptoAssetBalance,
 } from '@leather-wallet/query';
-
-import { StxAvatarIcon } from '@app/ui/components/avatar/stx-avatar-icon';
+import { StxAvatarIcon } from '@leather-wallet/ui';
 
 import { CryptoAssetItemError } from '../crypto-asset-item/crypto-asset-item-error';
 import { CryptoAssetItemPlaceholder } from '../crypto-asset-item/crypto-asset-item-placeholder';

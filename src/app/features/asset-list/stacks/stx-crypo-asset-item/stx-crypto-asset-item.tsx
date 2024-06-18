@@ -2,7 +2,7 @@ import { styled } from 'leather-styles/jsx';
 
 import type { StxCryptoAssetBalance } from '@leather-wallet/models';
 import { useCryptoCurrencyMarketDataMeanAverage } from '@leather-wallet/query';
-import { Caption } from '@leather-wallet/ui';
+import { Caption, StxAvatarIcon } from '@leather-wallet/ui';
 import {
   baseCurrencyAmountInQuote,
   formatMoneyWithoutSymbol,
@@ -10,7 +10,6 @@ import {
 } from '@leather-wallet/utils';
 
 import { CryptoAssetItemLayout } from '@app/components/crypto-asset-item/crypto-asset-item.layout';
-import { StxAvatarIcon } from '@app/ui/components/avatar/stx-avatar-icon';
 
 interface StxCryptoAssetItemProps {
   balance: StxCryptoAssetBalance;

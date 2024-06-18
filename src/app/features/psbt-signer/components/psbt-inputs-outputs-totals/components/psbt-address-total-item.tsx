@@ -1,9 +1,8 @@
 import { Box, HStack, styled } from 'leather-styles/jsx';
 
-import { CopyIcon, Flag, Link } from '@leather-wallet/ui';
+import { BtcAvatarIcon, CopyIcon, Flag, Link } from '@leather-wallet/ui';
 
 import { useClipboard } from '@app/common/hooks/use-copy-to-clipboard';
-import { BtcAvatarIcon } from '@app/ui/components/avatar/btc-avatar-icon';
 import { BasicTooltip } from '@app/ui/components/tooltip/basic-tooltip';
 
 interface PsbtAddressTotalItemProps {
