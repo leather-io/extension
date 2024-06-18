@@ -189,8 +189,8 @@ importers:
         specifier: 1.0.4
         version: 1.0.4(encoding@0.1.13)
       alex-sdk:
-        specifier: 0.1.26
-        version: 0.1.26(@stacks/network@6.13.0(encoding@0.1.13))(@stacks/transactions@6.15.0(encoding@0.1.13))
+        specifier: 2.1.1
+        version: 2.1.1(@stacks/network@6.13.0(encoding@0.1.13))(@stacks/transactions@6.15.0(encoding@0.1.13))
       are-passive-events-supported:
         specifier: 1.1.1
         version: 1.1.1
@@ -5857,6 +5857,13 @@ packages:
       '@stacks/network': '*'
       '@stacks/transactions': '*'
 
+  alex-sdk@2.1.1:
+    resolution: {integrity: sha512-McPZfNcvbj4CEfyMefLoM3NF7qZHhB0bNNSl9DDgdTfspdsx82UNQGgUkjydx33E2lDA/q8B+TWz+3XSw0qrhw==}
+    engines: {node: '>=10'}
+    peerDependencies:
+      '@stacks/network': ^6.3.0
+      '@stacks/transactions': ^6.2.0
+
   anser@2.1.1:
     resolution: {integrity: sha512-nqLm4HxOTpeLOxcmB3QWmV5TcDFhW9y/fyQ+hivtDFcK4OQ+pQ5fzPnXHM1Mfcm0VkLtvVi1TCPr++Qy0Q/3EQ==}
 
@@ -6534,6 +6541,12 @@ packages:
 
   clarity-codegen@0.3.5:
     resolution: {integrity: sha512-tMYXP0lyZ/WViR2vRHCdv/vD+VLhzguawa+GyGRhwMTaYzBRzgyvaZf1qipEf8tIhd8wQGI+3e9KGaWC8TRcaA==}
+    hasBin: true
+    peerDependencies:
+      '@stacks/transactions': '*'
+
+  clarity-codegen@0.5.2:
+    resolution: {integrity: sha512-t0uvboeZTII7n2lgobAxcQnhyjXwbUKYdUKJA3yjoaOXPvtr5i2zFV7H1E6ZeDMfqd3vIksMPvpdFfXum9SoNQ==}
     hasBin: true
     peerDependencies:
       '@stacks/transactions': '*'
@@ -20626,6 +20639,14 @@ snapshots:
     transitivePeerDependencies:
       - debug
 
+  alex-sdk@2.1.1(@stacks/network@6.13.0(encoding@0.1.13))(@stacks/transactions@6.15.0(encoding@0.1.13)):
+    dependencies:
+      '@stacks/network': 6.13.0(encoding@0.1.13)
+      '@stacks/transactions': 6.15.0(encoding@0.1.13)
+      clarity-codegen: 0.5.2(@stacks/transactions@6.15.0(encoding@0.1.13))
+    transitivePeerDependencies:
+      - debug
+
   anser@2.1.1: {}
 
   ansi-align@3.0.1:
@@ -21448,6 +21469,17 @@ snapshots:
   cjs-module-lexer@1.2.3: {}
 
   clarity-codegen@0.3.5(@stacks/transactions@6.15.0(encoding@0.1.13)):
+    dependencies:
+      '@stacks/stacks-blockchain-api-types': 7.8.2
+      '@stacks/transactions': 6.15.0(encoding@0.1.13)
+      axios: 1.7.2
+      lodash: 4.17.21
+      yargs: 17.7.2
+      yqueue: 1.0.1
+    transitivePeerDependencies:
+      - debug
+
+  clarity-codegen@0.5.2(@stacks/transactions@6.15.0(encoding@0.1.13)):
     dependencies:
       '@stacks/stacks-blockchain-api-types': 7.8.2
       '@stacks/transactions': 6.15.0(encoding@0.1.13)

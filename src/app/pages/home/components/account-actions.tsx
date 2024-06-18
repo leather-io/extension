@@ -15,11 +15,9 @@ import { useCurrentAccountNativeSegwitIndexZeroSignerNullable } from '@app/store
 import { useCurrentStacksAccount } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
 import { useCurrentNetwork } from '@app/store/networks/networks.selectors';
 import { IconButton } from '@app/ui/components/icon-button/icon-button';
-import { BasicTooltip } from '@app/ui/components/tooltip/basic-tooltip';
 import { CreditCardIcon, InboxIcon, SwapIcon } from '@app/ui/icons';
 
 import { SendButton } from './send-button';
-import { SwapsDisabledTooltipLabel } from './swaps-disabled-tooltip-label';
 
 export function AccountActions() {
   const navigate = useNavigate();
@@ -56,15 +54,13 @@ export function AccountActions() {
       )}
       {whenStacksChainId(currentNetwork.chain.stacks.chainId)({
         [ChainID.Mainnet]: (
-          <BasicTooltip label={swapsEnabled ? '' : <SwapsDisabledTooltipLabel />} side="left">
-            <IconButton
-              data-testid={HomePageSelectors.SwapBtn}
-              disabled={swapsBtnDisabled}
-              icon={<SwapIcon />}
-              label="Swap"
-              onClick={() => navigate(RouteUrls.Swap.replace(':base', 'STX').replace(':quote', ''))}
-            />
-          </BasicTooltip>
+          <IconButton
+            data-testid={HomePageSelectors.SwapBtn}
+            disabled={swapsBtnDisabled}
+            icon={<SwapIcon />}
+            label="Swap"
+            onClick={() => navigate(RouteUrls.Swap.replace(':base', 'STX').replace(':quote', ''))}
+          />
         ),
         [ChainID.Testnet]: null,
       })}

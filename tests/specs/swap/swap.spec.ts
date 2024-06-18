@@ -2,8 +2,7 @@ import { test } from '../../fixtures/fixtures';
 
 const hiroApiPostRoute = '*/**/v2/transactions';
 
-// Skip as swaps feature is disabled
-test.skip('Swaps', () => {
+test.describe('Swaps', () => {
   test.beforeEach(async ({ extensionId, globalPage, homePage, onboardingPage, swapPage }) => {
     await globalPage.setupAndUseApiCalls(extensionId);
     await onboardingPage.signInWithTestAccount(extensionId);
