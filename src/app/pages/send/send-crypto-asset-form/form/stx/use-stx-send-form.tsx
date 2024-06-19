@@ -26,8 +26,8 @@ import {
   useStxTokenTransferUnsignedTxState,
 } from '@app/store/transactions/token-transfer.hooks';
 
+import { useStacksCommonSendForm } from '../../family/stacks/use-stacks-common-send-form';
 import { useSendFormNavigate } from '../../hooks/use-send-form-navigate';
-import { useStacksCommonSendForm } from '../stacks/use-stacks-common-send-form';
 
 export function useStxSendForm() {
   const unsignedTx = useStxTokenTransferUnsignedTxState();
@@ -53,16 +53,12 @@ export function useStxSendForm() {
     availableTokenBalance: availableUnlockedBalance,
   });
 
-  // FIXME - I don't this this is the fee, should be value.fee or something from the form
-  const fee = stxFeeValidator(availableUnlockedBalance);
-
   return {
     availableUnlockedBalance,
     initialValues,
     onFormStateChange,
     sendMaxBalance,
     stxFees,
-    fee,
 
     validationSchema: yup.object({
       amount: stxAmountValidator(availableUnlockedBalance).concat(
@@ -79,6 +75,7 @@ export function useStxSendForm() {
       formikHelpers: FormikHelpers<StacksSendFormValues>
     ) {
       const isFormValid = await checkFormValidation(values, formikHelpers);
+
       if (!isFormValid) return;
       const initialFee = values.fee;
       values.fee = changeFeeByNonce({
@@ -91,7 +88,6 @@ export function useStxSendForm() {
 
       const tx = await generateTx(values);
       if (!tx) return logger.error('Attempted to generate unsigned tx, but tx is undefined');
-
       sendFormNavigate.toConfirmAndSignStxTransaction(tx, showFeeChangeWarning);
     },
   };

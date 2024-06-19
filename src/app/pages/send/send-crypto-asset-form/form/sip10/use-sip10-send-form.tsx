@@ -17,8 +17,8 @@ import {
   useGenerateFtTokenTransferUnsignedTx,
 } from '@app/store/transactions/token-transfer.hooks';
 
+import { useStacksCommonSendForm } from '../../family/stacks/use-stacks-common-send-form';
 import { useSendFormNavigate } from '../../hooks/use-send-form-navigate';
-import { useStacksCommonSendForm } from '../stacks/use-stacks-common-send-form';
 
 interface UseSip10SendFormArgs {
   balance: CryptoAssetBalance;

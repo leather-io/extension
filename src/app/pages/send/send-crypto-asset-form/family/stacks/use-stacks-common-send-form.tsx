@@ -1,10 +1,7 @@
-import BigNumber from 'bignumber.js';
 import { FormikHelpers } from 'formik';
 
-import { HIGH_FEE_AMOUNT_STX } from '@leather-wallet/constants';
 import { FeeTypes, type Money } from '@leather-wallet/models';
 import { useNextNonce } from '@leather-wallet/query';
-import { isEmpty } from '@leather-wallet/utils';
 
 import { FormErrorMessages } from '@shared/error-messages';
 import { StacksSendFormValues } from '@shared/models/form.model';
@@ -12,6 +9,7 @@ import { StacksSendFormValues } from '@shared/models/form.model';
 import { stxMemoValidator } from '@app/common/validation/forms/memo-validators';
 import { stxRecipientValidator } from '@app/common/validation/forms/recipient-validators';
 import { nonceValidator } from '@app/common/validation/nonce-validators';
+import { useStacksHighFeeWarningContext } from '@app/features/stacks-high-fee-warning/stacks-high-fee-warning-container';
 import { useCurrentStacksAccountAddress } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
 import { useCurrentNetworkState } from '@app/store/networks/networks.hooks';
 
@@ -22,7 +20,6 @@ interface UseStacksCommonSendFormArgs {
   symbol: string;
   availableTokenBalance: Money;
 }
-
 export function useStacksCommonSendForm({
   symbol,
   availableTokenBalance,
@@ -31,8 +28,12 @@ export function useStacksCommonSendForm({
   const stxAddress = useCurrentStacksAccountAddress();
   const { data: nextNonce } = useNextNonce(stxAddress);
   const currentNetwork = useCurrentNetworkState();
+  const { isHighFeeWithNoFormErrors, setShowHighFeeWarningDialog } =
+    useStacksHighFeeWarningContext();
 
   const initialValues: StacksSendFormValues = createDefaultInitialFormValues({
+    hasDismissedHighFeeWarning: false,
+    isShowingHighFeeDiaglog: false,
     fee: '',
     feeCurrency: 'STX',
     feeType: FeeTypes[FeeTypes.Unknown],
@@ -42,13 +43,15 @@ export function useStacksCommonSendForm({
     symbol,
     ...routeState,
   });
+
   async function checkFormValidation(
     values: StacksSendFormValues,
     formikHelpers: FormikHelpers<StacksSendFormValues>
   ) {
-    // Validate and check high fee warning first
-    const formErrors = formikHelpers.validateForm();
-    if (isEmpty(formErrors) && new BigNumber(values.fee).isGreaterThan(HIGH_FEE_AMOUNT_STX)) {
+    const formErrors = await formikHelpers.validateForm();
+
+    if (isHighFeeWithNoFormErrors(formErrors, values.fee)) {
+      setShowHighFeeWarningDialog(true);
       return false;
     }
     return true;
