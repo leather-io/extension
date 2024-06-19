@@ -23,4 +23,8 @@ export enum SendCryptoAssetSelectors {
   SendMaxBtn = 'send-max-btn',
 
   SendPageReady = 'send-page-ready',
+
+  // stx high fee warning dialog
+  HighFeeWarningDialog = 'high-fee-warning-dialog',
+  HighFeeWarningDialogSubmit = 'high-fee-warning-dialog-submit',
 }

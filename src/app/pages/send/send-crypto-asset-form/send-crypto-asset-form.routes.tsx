@@ -8,6 +8,7 @@ import { FullPageWithHeaderLoadingSpinner } from '@app/components/loading-spinne
 import { EditNonceDialog } from '@app/features/dialogs/edit-nonce-dialog/edit-nonce-dialog';
 import { ledgerBitcoinTxSigningRoutes } from '@app/features/ledger/flows/bitcoin-tx-signing/ledger-bitcoin-sign-tx-container';
 import { ledgerStacksTxSigningRoutes } from '@app/features/ledger/flows/stacks-tx-signing/ledger-sign-stacks-tx-container';
+import { StacksHighFeeWarningContainer } from '@app/features/stacks-high-fee-warning/stacks-high-fee-warning-container';
 import { SendBtcDisabled } from '@app/pages/send/choose-crypto-asset/send-btc-disabled';
 import { AccountGate } from '@app/routes/account-gate';
 import { Page } from '@app/ui/layout/page/page.layout';
@@ -83,7 +84,14 @@ export const sendCryptoAssetFormRoutes = (
       <Route path={RouteUrls.SendBrc20Confirmation} element={<Brc20SendFormConfirmation />} />
       <Route path={RouteUrls.SentBrc20Summary} element={<Brc20SentSummary />} />
     </Route>
-    <Route path={RouteUrls.SendCryptoAssetForm.replace(':symbol', 'stx')} element={<StxSendForm />}>
+    <Route
+      path={RouteUrls.SendCryptoAssetForm.replace(':symbol', 'stx')}
+      element={
+        <StacksHighFeeWarningContainer>
+          <StxSendForm />
+        </StacksHighFeeWarningContainer>
+      }
+    >
       {broadcastErrorDialogRoute}
       {editNonceDialogRoute}
       {recipientAccountsDialogRoute}
@@ -94,7 +102,14 @@ export const sendCryptoAssetFormRoutes = (
     >
       {ledgerStacksTxSigningRoutes}
     </Route>
-    <Route path={RouteUrls.SendSip10Form} element={<Sip10TokenSendForm />}>
+    <Route
+      path={RouteUrls.SendSip10Form}
+      element={
+        <StacksHighFeeWarningContainer>
+          <Sip10TokenSendForm />
+        </StacksHighFeeWarningContainer>
+      }
+    >
       {broadcastErrorDialogRoute}
       {editNonceDialogRoute}
       {recipientAccountsDialogRoute}

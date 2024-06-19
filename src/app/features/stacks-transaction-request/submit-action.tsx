@@ -1,33 +1,32 @@
 import { TransactionRequestSelectors } from '@tests/selectors/requests.selectors';
 import { useFormikContext } from 'formik';
 
-import { HIGH_FEE_AMOUNT_STX } from '@leather-wallet/constants';
 import { Button } from '@leather-wallet/ui';
-import { isEmpty } from '@leather-wallet/utils';
 
 import { StacksTransactionFormValues } from '@shared/models/form.model';
 
 import { useTransactionError } from '@app/features/stacks-transaction-request/hooks/use-transaction-error';
 
-interface SubmitActionProps {
-  setIsShowingHighFeeConfirmation(): void;
-}
-export function SubmitAction({ setIsShowingHighFeeConfirmation }: SubmitActionProps) {
+import { useStacksHighFeeWarningContext } from '../stacks-high-fee-warning/stacks-high-fee-warning-container';
+
+export function StacksTxSubmitAction() {
   const { handleSubmit, values, validateForm, isSubmitting } =
     useFormikContext<StacksTransactionFormValues>();
+
+  const context = useStacksHighFeeWarningContext();
 
   const error = useTransactionError();
 
   const isDisabled = !!error || Number(values.fee) < 0;
 
-  const onConfirmTransaction = async () => {
-    // Check for errors before showing the high fee confirmation
+  async function onConfirmTransaction() {
     const formErrors = await validateForm();
-    if (isEmpty(formErrors) && Number(values.fee) > HIGH_FEE_AMOUNT_STX) {
-      return setIsShowingHighFeeConfirmation();
-    }
+
+    if (context.isHighFeeWithNoFormErrors(formErrors, values.fee))
+      return context.setShowHighFeeWarningDialog(true);
+
     handleSubmit();
-  };
+  }
 
   return (
     <Button
