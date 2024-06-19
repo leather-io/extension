@@ -255,7 +255,7 @@
     "@leather-wallet/panda-preset": "0.2.0",
     "@leather-wallet/prettier-config": "0.4.1",
     "@leather-wallet/rpc": "1.0.3",
-    "@leather-wallet/ui": "1.4.4",
+    "@leather-wallet/ui": "1.4.5",
     "@ls-lint/ls-lint": "2.2.3",
     "@mdx-js/loader": "3.0.0",
     "@pandacss/dev": "0.40.1",
