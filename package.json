@@ -141,7 +141,7 @@
     "@leather-wallet/models": "0.8.0",
     "@leather-wallet/query": "0.8.8",
     "@leather-wallet/tokens": "0.5.2",
-    "@leather-wallet/utils": "0.8.2",
+    "@leather-wallet/utils": "0.8.3",
     "@ledgerhq/hw-transport-webusb": "6.27.19",
     "@noble/hashes": "1.4.0",
     "@noble/secp256k1": "2.1.0",
