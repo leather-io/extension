@@ -94,10 +94,10 @@ export function AddNetworkForm() {
       <Select.Root
         defaultValue={networks[0].value}
         onValueChange={value => {
-          void setFieldValue('bitcoinApi', value);
+          void setFieldValue('bitcoinNetwork', value);
         }}
       >
-        <Select.Trigger>
+        <Select.Trigger data-testid={NetworkSelectors.AddNetworkBitcoinAPISelector}>
           <Select.Value />
           <Select.Icon>
             <ChevronDownIcon variant="small" />
@@ -107,7 +107,11 @@ export function AddNetworkForm() {
           <Select.Content align="start" position="popper" sideOffset={8}>
             <Select.Viewport>
               {networks.map(item => (
-                <Select.Item key={item.label} value={item.value}>
+                <Select.Item
+                  key={item.label}
+                  value={item.value}
+                  data-testid={`bitcoin-api-option-${item.value}`}
+                >
                   <SelectItemLayout
                     contentLeft={
                       <HStack display="flex" gap="space.02" width="100%">
