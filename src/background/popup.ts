@@ -6,7 +6,7 @@ interface PopupOptions {
   skipPopupFallback?: boolean;
 }
 // FIXME import popupTokens from '@leather-wallet/tokens' when bundling working
-// https://github.com/leather-wallet/mono/pull/76
+// https://github.com/leather-io/mono/pull/76
 const popupTokens = {
   popupWidth: { value: '390px' },
   popupHeight: { value: '756px' },

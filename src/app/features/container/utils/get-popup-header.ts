@@ -1,5 +1,5 @@
 /**
- * POPUP header logic notes here -> https://github.com/leather-wallet/extension/issues/4371#issuecomment-1919114939
+ * POPUP header logic notes here -> https://github.com/leather-io/extension/issues/4371#issuecomment-1919114939
  */
 import { RouteUrls } from '@shared/route-urls';
 
