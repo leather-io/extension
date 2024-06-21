@@ -2,7 +2,7 @@ import type { Endpoints } from '@octokit/types';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 
-import { isDefined } from '@leather-wallet/utils';
+import { isDefined } from '@leather.io/utils';
 
 import { GITHUB_ORG, GITHUB_REPO } from '@shared/constants';
 import { COMMIT_SHA, PR_NUMBER } from '@shared/environment';

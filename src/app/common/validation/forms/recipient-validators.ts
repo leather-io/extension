@@ -1,4 +1,4 @@
-import type { NetworkConfiguration } from '@leather-wallet/models';
+import type { NetworkConfiguration } from '@leather.io/models';
 
 import { stacksChainIdToCoreNetworkMode } from '@shared/crypto/stacks/stacks.utils';
 import { FormErrorMessages } from '@shared/error-messages';

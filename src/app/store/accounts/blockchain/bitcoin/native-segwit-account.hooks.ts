@@ -10,9 +10,9 @@ import {
   getNativeSegWitPaymentFromAddressIndex,
   getNativeSegwitAccountDerivationPath,
   lookUpLedgerKeysByPath,
-} from '@leather-wallet/bitcoin';
-import { extractAddressIndexFromPath } from '@leather-wallet/crypto';
-import { reverseBytes } from '@leather-wallet/utils';
+} from '@leather.io/bitcoin';
+import { extractAddressIndexFromPath } from '@leather.io/crypto';
+import { reverseBytes } from '@leather.io/utils';
 
 import { BitcoinInputSigningConfig } from '@shared/crypto/bitcoin/signer-config';
 import { analytics } from '@shared/utils/analytics';

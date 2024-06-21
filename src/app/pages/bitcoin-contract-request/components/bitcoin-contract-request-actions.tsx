@@ -1,6 +1,6 @@
 import { BitcoinContractRequestSelectors } from '@tests/selectors/bitcoin-contract-request.selectors';
 
-import { Button } from '@leather-wallet/ui';
+import { Button } from '@leather.io/ui';
 
 import { useBtcCryptoAssetBalanceNativeSegwit } from '@app/query/bitcoin/balance/btc-balance-native-segwit.hooks';
 

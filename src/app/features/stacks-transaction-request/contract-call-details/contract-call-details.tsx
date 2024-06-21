@@ -2,7 +2,7 @@ import { Suspense } from 'react';
 
 import { Stack } from 'leather-styles/jsx';
 
-import { Title } from '@leather-wallet/ui';
+import { Title } from '@leather.io/ui';
 
 import { useStacksExplorerLink } from '@app/common/hooks/use-stacks-explorer-link';
 import { formatContractId } from '@app/common/utils';

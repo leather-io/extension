@@ -1,5 +1,5 @@
-import { useInscriptionTextContentQuery } from '@leather-wallet/query';
-import { OrdinalAvatarIcon } from '@leather-wallet/ui';
+import { useInscriptionTextContentQuery } from '@leather.io/query';
+import { OrdinalAvatarIcon } from '@leather.io/ui';
 
 import { parseJson } from '@app/components/json';
 

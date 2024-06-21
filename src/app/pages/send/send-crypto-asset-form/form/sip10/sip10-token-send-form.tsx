@@ -1,7 +1,7 @@
 import { useNavigate, useParams } from 'react-router-dom';
 
-import type { CryptoAssetBalance, MarketData, Sip10CryptoAssetInfo } from '@leather-wallet/models';
-import { useAlexCurrencyPriceAsMarketData, useSip10Token } from '@leather-wallet/query';
+import type { CryptoAssetBalance, MarketData, Sip10CryptoAssetInfo } from '@leather.io/models';
+import { useAlexCurrencyPriceAsMarketData, useSip10Token } from '@leather.io/query';
 
 import { RouteUrls } from '@shared/route-urls';
 

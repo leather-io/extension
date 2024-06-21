@@ -2,7 +2,7 @@ import { useCallback } from 'react';
 
 import { ClarityValue, TupleCV, createStacksPrivateKey } from '@stacks/transactions';
 
-import { isString } from '@leather-wallet/utils';
+import { isString } from '@leather.io/utils';
 
 import { signMessage, signStructuredDataMessage } from '@shared/crypto/sign-message';
 import { createDelay } from '@shared/utils';

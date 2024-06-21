@@ -2,7 +2,7 @@ import { NetworkSelectors } from '@tests/selectors/network.selectors';
 import { Form, Formik } from 'formik';
 import { Stack, styled } from 'leather-styles/jsx';
 
-import { Button } from '@leather-wallet/ui';
+import { Button } from '@leather.io/ui';
 
 import { ErrorLabel } from '@app/components/error-label';
 import { Card } from '@app/ui/layout/card/card';

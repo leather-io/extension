@@ -6,7 +6,7 @@ import {
   type NetworkConfiguration,
   defaultCurrentNetwork,
   defaultNetworksKeyedById,
-} from '@leather-wallet/models';
+} from '@leather.io/models';
 
 import { initialSearchParams } from '@app/common/initial-search-params';
 import { RootState } from '@app/store';

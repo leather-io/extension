@@ -1,5 +1,5 @@
 // TypeScript port of https://github.com/DavidWells/safe-await/
-import { isError } from '@leather-wallet/utils';
+import { isError } from '@leather.io/utils';
 
 // Native Error types https://mzl.la/2Veh3TR
 const nativeExceptions = [
@@ -17,7 +17,7 @@ function throwNative(error: Error) {
   }
 }
 
-// TODO: Migrate to `@leather-wallet/utils`
+// TODO: Migrate to `@leather.io/utils`
 export async function safeAwait<T>(promise: Promise<T>, finallyFn?: () => void) {
   return promise
     .then(data => {

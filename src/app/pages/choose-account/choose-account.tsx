@@ -3,7 +3,7 @@ import { Outlet } from 'react-router-dom';
 
 import { Flex, Stack, styled } from 'leather-styles/jsx';
 
-import { LogomarkIcon } from '@leather-wallet/ui';
+import { LogomarkIcon } from '@leather.io/ui';
 
 import { closeWindow } from '@shared/utils';
 

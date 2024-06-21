@@ -8,7 +8,7 @@ import { SendCryptoAssetSelectors } from '@tests/selectors/send.selectors';
 import { SharedComponentsSelectors } from '@tests/selectors/shared-component.selectors';
 import { getDisplayerAddress } from '@tests/utils';
 
-import { HIGH_FEE_AMOUNT_STX, STX_DECIMALS } from '@leather-wallet/constants';
+import { HIGH_FEE_AMOUNT_STX, STX_DECIMALS } from '@leather.io/constants';
 
 import { FormErrorMessages } from '@shared/error-messages';
 

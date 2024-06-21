@@ -2,9 +2,9 @@ import { ChainID } from '@stacks/transactions';
 import BigNumber from 'bignumber.js';
 import { c32addressDecode } from 'c32check';
 
-import { STX_DECIMALS } from '@leather-wallet/constants';
-import type { NetworkConfiguration } from '@leather-wallet/models';
-import { initBigNumber, microStxToStx } from '@leather-wallet/utils';
+import { STX_DECIMALS } from '@leather.io/constants';
+import type { NetworkConfiguration } from '@leather.io/models';
+import { initBigNumber, microStxToStx } from '@leather.io/utils';
 
 import { logger } from '@shared/logger';
 import { isValidUrl } from '@shared/utils/validate-url';

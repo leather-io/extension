@@ -1,6 +1,6 @@
 import { Stack } from 'leather-styles/jsx';
 
-import { Title } from '@leather-wallet/ui';
+import { Title } from '@leather.io/ui';
 
 import { AttachmentRow } from '@app/features/stacks-transaction-request/attachment-row';
 import { Row } from '@app/features/stacks-transaction-request/row';

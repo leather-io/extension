@@ -1,6 +1,5 @@
+import { tokens } from '@leather.io/tokens';
 import { defineGlobalStyles } from '@pandacss/dev';
-
-import { tokens } from '@leather-wallet/tokens';
 
 // ts-unused-exports:disable-next-line
 export const globalCss = defineGlobalStyles({

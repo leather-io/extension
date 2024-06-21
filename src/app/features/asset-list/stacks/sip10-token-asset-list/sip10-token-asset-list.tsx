@@ -1,9 +1,6 @@
 import { Stack } from 'leather-styles/jsx';
 
-import {
-  type Sip10TokenAssetDetails,
-  useAlexCurrencyPriceAsMarketData,
-} from '@leather-wallet/query';
+import { type Sip10TokenAssetDetails, useAlexCurrencyPriceAsMarketData } from '@leather.io/query';
 
 import { getPrincipalFromContractId } from '@app/common/utils';
 

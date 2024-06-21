@@ -13,7 +13,7 @@ import {
 import { deriveStxPrivateKey, generateWallet } from '@stacks/wallet-sdk';
 import { atom } from 'jotai';
 
-import { createNullArrayOfLength } from '@leather-wallet/utils';
+import { createNullArrayOfLength } from '@leather.io/utils';
 
 import { DATA_DERIVATION_PATH, deriveStacksSalt } from '@shared/crypto/stacks/stacks-address-gen';
 import { whenStacksChainId } from '@shared/crypto/stacks/stacks.utils';

@@ -1,4 +1,4 @@
-import { Tag, type TagProps, type TagVariants } from '@leather-wallet/ui';
+import { Tag, type TagProps, type TagVariants } from '@leather.io/ui';
 
 import { BasicTooltip } from '../tooltip/basic-tooltip';
 

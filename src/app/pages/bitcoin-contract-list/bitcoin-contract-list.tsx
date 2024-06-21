@@ -2,7 +2,7 @@ import { useState } from 'react';
 
 import { Flex, Stack, styled } from 'leather-styles/jsx';
 
-import { truncateMiddle } from '@leather-wallet/utils';
+import { truncateMiddle } from '@leather.io/utils';
 
 import {
   BitcoinContractListItem,

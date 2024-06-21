@@ -3,8 +3,8 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { Box, Flex, HStack, Stack } from 'leather-styles/jsx';
 import get from 'lodash.get';
 
-import type { Blockchains, Inscription } from '@leather-wallet/models';
-import { CheckmarkIcon, CopyIcon, ExternalLinkIcon } from '@leather-wallet/ui';
+import type { Blockchains, Inscription } from '@leather.io/models';
+import { CheckmarkIcon, CopyIcon, ExternalLinkIcon } from '@leather.io/ui';
 
 import { RouteUrls } from '@shared/route-urls';
 import { analytics } from '@shared/utils/analytics';

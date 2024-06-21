@@ -2,7 +2,7 @@ import {
   type Sip10CryptoAssetFilter,
   type Sip10TokenAssetDetails,
   useFilteredSip10Tokens,
-} from '@leather-wallet/query';
+} from '@leather.io/query';
 
 interface Sip10TokensLoaderProps {
   address: string;

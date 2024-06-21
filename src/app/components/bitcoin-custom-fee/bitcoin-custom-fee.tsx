@@ -5,9 +5,9 @@ import { Form, Formik } from 'formik';
 import { Stack, styled } from 'leather-styles/jsx';
 import * as yup from 'yup';
 
-import type { BtcFeeType } from '@leather-wallet/models';
-import { Button, Link } from '@leather-wallet/ui';
-import { createMoney } from '@leather-wallet/utils';
+import type { BtcFeeType } from '@leather.io/models';
+import { Button, Link } from '@leather.io/ui';
+import { createMoney } from '@leather.io/utils';
 
 import type { TransferRecipient } from '@shared/models/form.model';
 

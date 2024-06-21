@@ -5,7 +5,7 @@ import { bytesToHex, signatureVrsToRsv } from '@stacks/common';
 import { serializeCV } from '@stacks/transactions';
 import { LedgerError } from '@zondax/ledger-stacks';
 
-import { delay, isError } from '@leather-wallet/utils';
+import { delay, isError } from '@leather.io/utils';
 
 import { UnsignedMessage, whenSignableMessageOfType } from '@shared/signature/signature-types';
 

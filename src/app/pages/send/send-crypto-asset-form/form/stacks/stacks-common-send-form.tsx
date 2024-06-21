@@ -5,10 +5,10 @@ import { Form, Formik, FormikHelpers } from 'formik';
 import { Box } from 'leather-styles/jsx';
 import { ObjectSchema } from 'yup';
 
-import { HIGH_FEE_WARNING_LEARN_MORE_URL_STX } from '@leather-wallet/constants';
-import type { Fees, Money } from '@leather-wallet/models';
-import { Button, Link } from '@leather-wallet/ui';
-import { formatMoney } from '@leather-wallet/utils';
+import { HIGH_FEE_WARNING_LEARN_MORE_URL_STX } from '@leather.io/constants';
+import type { Fees, Money } from '@leather.io/models';
+import { Button, Link } from '@leather.io/ui';
+import { formatMoney } from '@leather.io/utils';
 
 import { StacksSendFormValues } from '@shared/models/form.model';
 import { RouteUrls } from '@shared/route-urls';

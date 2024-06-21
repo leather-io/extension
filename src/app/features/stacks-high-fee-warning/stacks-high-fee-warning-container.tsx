@@ -3,8 +3,8 @@ import { createContext, useContext, useState } from 'react';
 import BigNumber from 'bignumber.js';
 import type { FormikErrors } from 'formik';
 
-import { HIGH_FEE_AMOUNT_STX } from '@leather-wallet/constants';
-import { isEmpty } from '@leather-wallet/utils';
+import { HIGH_FEE_AMOUNT_STX } from '@leather.io/constants';
+import { isEmpty } from '@leather.io/utils';
 
 import type { HasChildren } from '@app/common/has-children';
 

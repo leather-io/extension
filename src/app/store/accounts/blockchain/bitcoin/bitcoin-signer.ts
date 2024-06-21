@@ -9,8 +9,8 @@ import {
   getNativeSegwitAddressIndexDerivationPath,
   getTaprootAddressIndexDerivationPath,
   whenPaymentType,
-} from '@leather-wallet/bitcoin';
-import type { BitcoinNetworkModes } from '@leather-wallet/models';
+} from '@leather.io/bitcoin';
+import type { BitcoinNetworkModes } from '@leather.io/models';
 
 import { AllowedSighashTypes } from '@shared/rpc/methods/sign-psbt';
 

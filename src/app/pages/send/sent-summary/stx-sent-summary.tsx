@@ -2,7 +2,7 @@ import { useLocation } from 'react-router-dom';
 
 import { HStack, Stack } from 'leather-styles/jsx';
 
-import { CopyIcon, ExternalLinkIcon } from '@leather-wallet/ui';
+import { CopyIcon, ExternalLinkIcon } from '@leather.io/ui';
 
 import { analytics } from '@shared/utils/analytics';
 

@@ -1,6 +1,6 @@
 import { ReactNode, cloneElement, isValidElement } from 'react';
 
-import { Hr, HrProps } from '@leather-wallet/ui';
+import { Hr, HrProps } from '@leather.io/ui';
 
 interface DividerSeparatorProps extends HrProps {
   children: ReactNode;

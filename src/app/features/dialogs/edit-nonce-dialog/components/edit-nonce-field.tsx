@@ -3,7 +3,7 @@ import { FormEvent, memo } from 'react';
 import { useField } from 'formik';
 import { Stack, StackProps } from 'leather-styles/jsx';
 
-import { Input } from '@leather-wallet/ui';
+import { Input } from '@leather.io/ui';
 
 import { ErrorLabel } from '@app/components/error-label';
 

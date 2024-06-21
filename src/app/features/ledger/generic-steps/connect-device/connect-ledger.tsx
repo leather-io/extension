@@ -2,8 +2,8 @@ import { Suspense, lazy, useMemo } from 'react';
 
 import { Box, HStack, Stack, styled } from 'leather-styles/jsx';
 
-import type { SupportedBlockchains } from '@leather-wallet/models';
-import { BitcoinIcon, Button, Link, StacksIcon } from '@leather-wallet/ui';
+import type { SupportedBlockchains } from '@leather.io/models';
+import { BitcoinIcon, Button, Link, StacksIcon } from '@leather.io/ui';
 
 import { Divider } from '@app/components/layout/divider';
 

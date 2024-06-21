@@ -1,6 +1,6 @@
 import { Box, HStack, styled } from 'leather-styles/jsx';
 
-import { BtcAvatarIcon, CopyIcon, Flag, Link } from '@leather-wallet/ui';
+import { BtcAvatarIcon, CopyIcon, Flag, Link } from '@leather.io/ui';
 
 import { useClipboard } from '@app/common/hooks/use-copy-to-clipboard';
 import { BasicTooltip } from '@app/ui/components/tooltip/basic-tooltip';

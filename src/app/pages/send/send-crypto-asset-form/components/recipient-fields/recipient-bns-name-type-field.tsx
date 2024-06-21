@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 
 import { useFormikContext } from 'formik';
 
-import type { StacksClient } from '@leather-wallet/query';
+import type { StacksClient } from '@leather.io/query';
 
 import { BitcoinSendFormValues, StacksSendFormValues } from '@shared/models/form.model';
 

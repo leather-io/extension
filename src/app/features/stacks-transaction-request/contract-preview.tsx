@@ -1,7 +1,7 @@
 import { HStack, Stack } from 'leather-styles/jsx';
 
-import { Caption, DynamicColorCircle, Title } from '@leather-wallet/ui';
-import { truncateMiddle } from '@leather-wallet/utils';
+import { Caption, DynamicColorCircle, Title } from '@leather.io/ui';
+import { truncateMiddle } from '@leather.io/utils';
 
 import { formatContractId } from '@app/common/utils';
 

@@ -1,4 +1,4 @@
-import { btcToSat, createMoney } from '@leather-wallet/utils';
+import { btcToSat, createMoney } from '@leather.io/utils';
 
 import { logger } from '@shared/logger';
 

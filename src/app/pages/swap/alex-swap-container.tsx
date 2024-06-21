@@ -11,8 +11,8 @@ import {
 } from '@stacks/transactions';
 import BigNumber from 'bignumber.js';
 
-import { defaultSwapFee } from '@leather-wallet/query';
-import { isDefined, isUndefined } from '@leather-wallet/utils';
+import { defaultSwapFee } from '@leather.io/query';
+import { isDefined, isUndefined } from '@leather.io/utils';
 
 import { logger } from '@shared/logger';
 import { RouteUrls } from '@shared/route-urls';

@@ -5,9 +5,9 @@ import { Form, Formik } from 'formik';
 import { Box, styled } from 'leather-styles/jsx';
 import get from 'lodash.get';
 
-import type { MarketData, Money } from '@leather-wallet/models';
-import { Brc20AvatarIcon, Button, Callout, Link } from '@leather-wallet/ui';
-import { convertAmountToBaseUnit, formatMoney } from '@leather-wallet/utils';
+import type { MarketData, Money } from '@leather.io/models';
+import { Brc20AvatarIcon, Button, Callout, Link } from '@leather.io/ui';
+import { convertAmountToBaseUnit, formatMoney } from '@leather.io/utils';
 
 import { openInNewTab } from '@app/common/utils/open-in-new-tab';
 import { AvailableBalance } from '@app/ui/components/containers/footers/available-balance';

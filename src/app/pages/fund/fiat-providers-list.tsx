@@ -2,7 +2,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 
 import { Grid } from 'leather-styles/jsx';
 
-import type { CryptoCurrencies } from '@leather-wallet/models';
+import type { CryptoCurrencies } from '@leather.io/models';
 
 import { analytics } from '@shared/utils/analytics';
 

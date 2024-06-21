@@ -4,7 +4,7 @@ import { ChainID } from '@stacks/transactions';
 import { HomePageSelectors } from '@tests/selectors/home.selectors';
 import { Flex } from 'leather-styles/jsx';
 
-import { CreditCardIcon, IconButton, InboxIcon, SwapIcon } from '@leather-wallet/ui';
+import { CreditCardIcon, IconButton, InboxIcon, SwapIcon } from '@leather.io/ui';
 
 import { whenStacksChainId } from '@shared/crypto/stacks/stacks.utils';
 import { RouteUrls } from '@shared/route-urls';

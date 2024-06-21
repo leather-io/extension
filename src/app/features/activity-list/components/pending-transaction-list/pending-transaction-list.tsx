@@ -1,6 +1,6 @@
 import { MempoolTransaction } from '@stacks/stacks-blockchain-api-types';
 
-import type { BitcoinTx } from '@leather-wallet/models';
+import type { BitcoinTx } from '@leather.io/models';
 
 import { BitcoinTransactionItem } from '@app/components/bitcoin-transaction-item/bitcoin-transaction-item';
 import { StacksTransactionItem } from '@app/components/stacks-transaction-item/stacks-transaction-item';

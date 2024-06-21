@@ -3,7 +3,7 @@ import { useCallback } from 'react';
 import { bytesToHex } from '@stacks/common';
 import { StacksTransaction, broadcastTransaction } from '@stacks/transactions';
 
-import { delay, isError } from '@leather-wallet/utils';
+import { delay, isError } from '@leather.io/utils';
 
 import { logger } from '@shared/logger';
 import { analytics } from '@shared/utils/analytics';

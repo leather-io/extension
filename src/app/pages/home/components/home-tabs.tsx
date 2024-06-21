@@ -3,7 +3,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 
 import { Box, Stack } from 'leather-styles/jsx';
 
-import { Tabs } from '@leather-wallet/ui';
+import { Tabs } from '@leather.io/ui';
 
 import { RouteUrls } from '@shared/route-urls';
 

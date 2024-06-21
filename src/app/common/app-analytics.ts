@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 
-import { HIRO_API_BASE_URL_MAINNET, HIRO_API_BASE_URL_TESTNET } from '@leather-wallet/models';
+import { HIRO_API_BASE_URL_MAINNET, HIRO_API_BASE_URL_TESTNET } from '@leather.io/models';
 
 import { IS_TEST_ENV, SEGMENT_WRITE_KEY } from '@shared/environment';
 import { decorateAnalyticsEventsWithContext, initAnalytics } from '@shared/utils/analytics';

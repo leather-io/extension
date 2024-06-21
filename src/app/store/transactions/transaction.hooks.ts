@@ -14,8 +14,8 @@ import {
 } from '@stacks/transactions';
 import BN from 'bn.js';
 
-import { useNextNonce } from '@leather-wallet/query';
-import { isUndefined, stxToMicroStx } from '@leather-wallet/utils';
+import { useNextNonce } from '@leather.io/query';
+import { isUndefined, stxToMicroStx } from '@leather.io/utils';
 
 import { logger } from '@shared/logger';
 import { StacksTransactionFormValues } from '@shared/models/form.model';

@@ -2,12 +2,9 @@ import { useMemo } from 'react';
 
 import type { TransactionOutput } from '@scure/btc-signer/psbt';
 
-import {
-  getAddressFromOutScript,
-  getBtcSignerLibNetworkConfigByMode,
-} from '@leather-wallet/bitcoin';
-import type { NetworkConfiguration } from '@leather-wallet/models';
-import { isDefined, isUndefined } from '@leather-wallet/utils';
+import { getAddressFromOutScript, getBtcSignerLibNetworkConfigByMode } from '@leather.io/bitcoin';
+import type { NetworkConfiguration } from '@leather.io/models';
+import { isDefined, isUndefined } from '@leather.io/utils';
 
 import { logger } from '@shared/logger';
 

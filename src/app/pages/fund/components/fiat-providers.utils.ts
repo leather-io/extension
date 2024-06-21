@@ -10,7 +10,7 @@ import OkxIcon from '@assets/images/fund/fiat-providers/okx-icon.png';
 import TransakIcon from '@assets/images/fund/fiat-providers/transak-icon.png';
 import { generateOnRampURL } from '@coinbase/cbpay-js';
 
-import type { CryptoCurrencies } from '@leather-wallet/models';
+import type { CryptoCurrencies } from '@leather.io/models';
 
 import { COINBASE_APP_ID, MOONPAY_API_KEY, TRANSAK_API_KEY } from '@shared/environment';
 

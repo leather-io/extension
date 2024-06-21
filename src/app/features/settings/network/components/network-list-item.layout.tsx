@@ -2,8 +2,8 @@ import { NetworkSelectors } from '@tests/selectors/network.selectors';
 import { SettingsSelectors } from '@tests/selectors/settings.selectors';
 import { Flex, Stack, styled } from 'leather-styles/jsx';
 
-import type { NetworkConfiguration } from '@leather-wallet/models';
-import { Button, CheckmarkIcon, CloudOffIcon, TrashIcon } from '@leather-wallet/ui';
+import type { NetworkConfiguration } from '@leather.io/models';
+import { Button, CheckmarkIcon, CloudOffIcon, TrashIcon } from '@leather.io/ui';
 
 import { getUrlHostname } from '@app/common/utils';
 

@@ -1,6 +1,6 @@
 import { createContext, useContext } from 'react';
 
-import type { SwapAsset } from '@leather-wallet/query';
+import type { SwapAsset } from '@leather.io/query';
 
 import { SwapFormValues } from './hooks/use-swap-form';
 

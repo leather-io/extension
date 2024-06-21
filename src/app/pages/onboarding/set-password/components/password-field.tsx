@@ -4,7 +4,7 @@ import { OnboardingSelectors } from '@tests/selectors/onboarding.selectors';
 import { useField } from 'formik';
 import { Box, Flex, styled } from 'leather-styles/jsx';
 
-import { Caption, EyeIcon, EyeSlashIcon, Input } from '@leather-wallet/ui';
+import { Caption, EyeIcon, EyeSlashIcon, Input } from '@leather.io/ui';
 
 import { useThemeSwitcher } from '@app/common/theme-provider';
 import { ValidatedPassword } from '@app/common/validation/validate-password';

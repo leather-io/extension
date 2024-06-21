@@ -2,7 +2,7 @@ import { SendCryptoAssetSelectors } from '@tests/selectors/send.selectors';
 import { useFormikContext } from 'formik';
 import { HStack, Stack } from 'leather-styles/jsx';
 
-import { Button, Caption, ErrorIcon, Link, Title } from '@leather-wallet/ui';
+import { Button, Caption, ErrorIcon, Link, Title } from '@leather.io/ui';
 
 import { StacksSendFormValues } from '@shared/models/form.model';
 

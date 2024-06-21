@@ -1,5 +1,5 @@
-import type { Money } from '@leather-wallet/models';
-import { isFunction } from '@leather-wallet/utils';
+import type { Money } from '@leather.io/models';
+import { isFunction } from '@leather.io/utils';
 
 import { FormErrorMessages } from '@shared/error-messages';
 

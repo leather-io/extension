@@ -3,7 +3,7 @@ import { Suspense, memo } from 'react';
 import { TransactionRequestSelectors } from '@tests/selectors/requests.selectors';
 import { HStack, HstackProps, styled } from 'leather-styles/jsx';
 
-import { ErrorIcon } from '@leather-wallet/ui';
+import { ErrorIcon } from '@leather.io/ui';
 
 import { useTransactionError } from '@app/features/stacks-transaction-request/hooks/use-transaction-error';
 import { TransactionErrorReason } from '@app/features/stacks-transaction-request/transaction-error/transaction-error';

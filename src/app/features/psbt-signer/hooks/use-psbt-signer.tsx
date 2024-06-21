@@ -4,7 +4,7 @@ import { hexToBytes } from '@noble/hashes/utils';
 import * as btc from '@scure/btc-signer';
 import { RawPSBTV0, RawPSBTV2 } from '@scure/btc-signer/psbt';
 
-import { isString } from '@leather-wallet/utils';
+import { isString } from '@leather.io/utils';
 
 import { BitcoinInputSigningConfig } from '@shared/crypto/bitcoin/signer-config';
 import { logger } from '@shared/logger';

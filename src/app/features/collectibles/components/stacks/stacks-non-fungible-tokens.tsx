@@ -1,6 +1,6 @@
 import { Metadata as StacksNftMetadata } from '@hirosystems/token-metadata-api-client';
 
-import { StxAvatarIcon } from '@leather-wallet/ui';
+import { StxAvatarIcon } from '@leather.io/ui';
 
 import { isValidUrl } from '@shared/utils/validate-url';
 

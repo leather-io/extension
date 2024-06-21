@@ -1,6 +1,6 @@
 import { useMemo } from 'react';
 
-import { isDefined } from '@leather-wallet/utils';
+import { isDefined } from '@leather.io/utils';
 
 import { useCurrentAccountNativeSegwitIndexZeroSigner } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
 import { useCurrentAccountTaprootIndexZeroSigner } from '@app/store/accounts/blockchain/bitcoin/taproot-account.hooks';

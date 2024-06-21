@@ -1,7 +1,7 @@
 import BroadcastError from '@assets/images/unhappy-face-ui.png';
 import { Box, Flex, styled } from 'leather-styles/jsx';
 
-import { Button } from '@leather-wallet/ui';
+import { Button } from '@leather.io/ui';
 
 import { LedgerTitle } from '../../components/ledger-title';
 import { LedgerWrapper } from '../../components/ledger-wrapper';

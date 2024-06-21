@@ -1,5 +1,5 @@
-import { StacksTx } from '@leather-wallet/models';
-import { CodeIcon, FunctionIcon, PlusIcon } from '@leather-wallet/ui';
+import { StacksTx } from '@leather.io/models';
+import { CodeIcon, FunctionIcon, PlusIcon } from '@leather.io/ui';
 
 import { TokenTransferIcon } from './token-transfer-icon';
 

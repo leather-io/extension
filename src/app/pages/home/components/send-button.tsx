@@ -3,8 +3,8 @@ import { useNavigate } from 'react-router-dom';
 
 import { HomePageSelectors } from '@tests/selectors/home.selectors';
 
-import { useStxCryptoAssetBalance, useTransferableSip10Tokens } from '@leather-wallet/query';
-import { IconButton, SendIcon } from '@leather-wallet/ui';
+import { useStxCryptoAssetBalance, useTransferableSip10Tokens } from '@leather.io/query';
+import { IconButton, SendIcon } from '@leather.io/ui';
 
 import { RouteUrls } from '@shared/route-urls';
 

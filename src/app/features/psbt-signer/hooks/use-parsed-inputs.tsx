@@ -3,13 +3,10 @@ import { useMemo } from 'react';
 import type { TransactionInput } from '@scure/btc-signer/psbt';
 import { bytesToHex } from '@stacks/common';
 
-import {
-  getBitcoinInputAddress,
-  getBtcSignerLibNetworkConfigByMode,
-} from '@leather-wallet/bitcoin';
-import type { Inscription } from '@leather-wallet/models';
-import { useInscriptionsByOutputs } from '@leather-wallet/query';
-import { isDefined, isUndefined } from '@leather-wallet/utils';
+import { getBitcoinInputAddress, getBtcSignerLibNetworkConfigByMode } from '@leather.io/bitcoin';
+import type { Inscription } from '@leather.io/models';
+import { useInscriptionsByOutputs } from '@leather.io/query';
+import { isDefined, isUndefined } from '@leather.io/utils';
 
 import { getBitcoinInputValue } from '@shared/crypto/bitcoin/bitcoin.utils';
 

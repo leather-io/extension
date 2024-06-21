@@ -2,7 +2,7 @@ import { useLocation } from 'react-router-dom';
 
 import { Flex, HStack, Stack } from 'leather-styles/jsx';
 
-import { CheckmarkIcon, CopyIcon, ExternalLinkIcon } from '@leather-wallet/ui';
+import { CheckmarkIcon, CopyIcon, ExternalLinkIcon } from '@leather.io/ui';
 
 import { analytics } from '@shared/utils/analytics';
 

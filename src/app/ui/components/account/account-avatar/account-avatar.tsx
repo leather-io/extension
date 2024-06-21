@@ -2,7 +2,7 @@ import { memo } from 'react';
 
 import { Box, CircleProps } from 'leather-styles/jsx';
 
-import { DynamicColorCircle } from '@leather-wallet/ui';
+import { DynamicColorCircle } from '@leather.io/ui';
 
 const getAccountNumber = (index: number) => {
   // Always return account number in the Account Circle

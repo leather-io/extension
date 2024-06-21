@@ -1,13 +1,13 @@
 import { styled } from 'leather-styles/jsx';
 
-import type { StxCryptoAssetBalance } from '@leather-wallet/models';
-import { useCryptoCurrencyMarketDataMeanAverage } from '@leather-wallet/query';
-import { Caption, StxAvatarIcon } from '@leather-wallet/ui';
+import type { StxCryptoAssetBalance } from '@leather.io/models';
+import { useCryptoCurrencyMarketDataMeanAverage } from '@leather.io/query';
+import { Caption, StxAvatarIcon } from '@leather.io/ui';
 import {
   baseCurrencyAmountInQuote,
   formatMoneyWithoutSymbol,
   i18nFormatCurrency,
-} from '@leather-wallet/utils';
+} from '@leather.io/utils';
 
 import { CryptoAssetItemLayout } from '@app/components/crypto-asset-item/crypto-asset-item.layout';
 

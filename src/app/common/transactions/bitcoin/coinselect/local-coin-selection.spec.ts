@@ -1,5 +1,5 @@
-import { BTC_P2WPKH_DUST_AMOUNT } from '@leather-wallet/constants';
-import { createMoney, createNullArrayOfLength, sumNumbers } from '@leather-wallet/utils';
+import { BTC_P2WPKH_DUST_AMOUNT } from '@leather.io/constants';
+import { createMoney, createNullArrayOfLength, sumNumbers } from '@leather.io/utils';
 
 import { determineUtxosForSpend } from './local-coin-selection';
 

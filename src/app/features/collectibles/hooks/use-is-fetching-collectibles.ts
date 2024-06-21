@@ -1,7 +1,7 @@
 import { useIsFetching } from '@tanstack/react-query';
 
-import { QueryPrefixes } from '@leather-wallet/query';
-import { sumNumbers } from '@leather-wallet/utils';
+import { QueryPrefixes } from '@leather.io/query';
+import { sumNumbers } from '@leather.io/utils';
 
 function areAnyQueriesFetching(...args: number[]) {
   return sumNumbers(args).toNumber() > 0;

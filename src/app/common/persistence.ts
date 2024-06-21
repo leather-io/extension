@@ -2,7 +2,7 @@ import { createAsyncStoragePersister } from '@tanstack/query-async-storage-persi
 import { MutationCache, QueryCache, QueryClient } from '@tanstack/react-query';
 import { persistQueryClient } from '@tanstack/react-query-persist-client';
 
-import { PERSISTENCE_CACHE_TIME } from '@leather-wallet/constants';
+import { PERSISTENCE_CACHE_TIME } from '@leather.io/constants';
 
 import { IS_TEST_ENV } from '@shared/environment';
 import { analytics } from '@shared/utils/analytics';

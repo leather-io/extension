@@ -2,7 +2,7 @@ import { type ReactNode } from 'react';
 
 import { Circle } from 'leather-styles/jsx';
 
-import { StxAvatarIcon } from '@leather-wallet/ui';
+import { StxAvatarIcon } from '@leather.io/ui';
 
 import { TransactionTypeIconWrapper } from '@app/components/transaction/transaction-type-icon-wrapper';
 

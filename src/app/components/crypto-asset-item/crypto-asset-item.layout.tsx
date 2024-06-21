@@ -1,14 +1,8 @@
 import { Box, Flex, styled } from 'leather-styles/jsx';
 
-import type { Money } from '@leather-wallet/models';
-import {
-  BulletSeparator,
-  Caption,
-  ItemLayout,
-  Pressable,
-  SkeletonLoader,
-} from '@leather-wallet/ui';
-import { spamFilter } from '@leather-wallet/utils';
+import type { Money } from '@leather.io/models';
+import { BulletSeparator, Caption, ItemLayout, Pressable, SkeletonLoader } from '@leather.io/ui';
+import { spamFilter } from '@leather.io/utils';
 
 import { BasicTooltip } from '@app/ui/components/tooltip/basic-tooltip';
 

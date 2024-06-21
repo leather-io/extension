@@ -1,6 +1,6 @@
 import { PayloadType, StacksTransaction } from '@stacks/transactions';
 
-import { StacksTx } from '@leather-wallet/models';
+import { StacksTx } from '@leather.io/models';
 
 import { stacksValue } from '@app/common/stacks-utils';
 import { getTxCaption } from '@app/common/transactions/stacks/transaction.utils';

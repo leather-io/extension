@@ -1,7 +1,7 @@
-import type { BtcCryptoAssetBalance } from '@leather-wallet/models';
-import { useCryptoCurrencyMarketDataMeanAverage } from '@leather-wallet/query';
-import { BtcAvatarIcon } from '@leather-wallet/ui';
-import { baseCurrencyAmountInQuote, i18nFormatCurrency } from '@leather-wallet/utils';
+import type { BtcCryptoAssetBalance } from '@leather.io/models';
+import { useCryptoCurrencyMarketDataMeanAverage } from '@leather.io/query';
+import { BtcAvatarIcon } from '@leather.io/ui';
+import { baseCurrencyAmountInQuote, i18nFormatCurrency } from '@leather.io/utils';
 
 import { CryptoAssetItemLayout } from '@app/components/crypto-asset-item/crypto-asset-item.layout';
 

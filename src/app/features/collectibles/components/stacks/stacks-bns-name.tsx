@@ -1,6 +1,6 @@
 import StacksNftBns from '@assets/images/stacks-nft-bns.png';
 
-import { StxAvatarIcon } from '@leather-wallet/ui';
+import { StxAvatarIcon } from '@leather.io/ui';
 
 import { CollectibleItemLayout } from '../collectible-item.layout';
 

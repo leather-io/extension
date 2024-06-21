@@ -3,9 +3,9 @@ import { useMemo } from 'react';
 import { FormikHelpers } from 'formik';
 import * as yup from 'yup';
 
-import type { CryptoAssetBalance, Sip10CryptoAssetInfo } from '@leather-wallet/models';
-import { useCalculateStacksTxFees } from '@leather-wallet/query';
-import { convertAmountToBaseUnit } from '@leather-wallet/utils';
+import type { CryptoAssetBalance, Sip10CryptoAssetInfo } from '@leather.io/models';
+import { useCalculateStacksTxFees } from '@leather.io/query';
+import { convertAmountToBaseUnit } from '@leather.io/utils';
 
 import { logger } from '@shared/logger';
 import { StacksSendFormValues } from '@shared/models/form.model';

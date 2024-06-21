@@ -1,6 +1,6 @@
 import { Box, Circle, HStack, styled } from 'leather-styles/jsx';
 
-import { LockIcon } from '@leather-wallet/ui';
+import { LockIcon } from '@leather.io/ui';
 
 export function NoPostConditions(): React.JSX.Element {
   return (

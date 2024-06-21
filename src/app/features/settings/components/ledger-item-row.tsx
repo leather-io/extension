@@ -1,6 +1,6 @@
 import { Flex, styled } from 'leather-styles/jsx';
 
-import { LedgerIcon } from '@leather-wallet/ui';
+import { LedgerIcon } from '@leather.io/ui';
 
 import { Divider } from '@app/components/layout/divider';
 

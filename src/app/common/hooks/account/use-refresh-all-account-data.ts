@@ -1,7 +1,7 @@
 import { useCallback } from 'react';
 
-import { useAccountMempoolQuery } from '@leather-wallet/query';
-import { delay } from '@leather-wallet/utils';
+import { useAccountMempoolQuery } from '@leather.io/query';
+import { delay } from '@leather.io/utils';
 
 import { useCurrentStacksAccountAddress } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
 

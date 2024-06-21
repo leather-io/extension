@@ -2,7 +2,7 @@ import { useState } from 'react';
 
 import BigNumber from 'bignumber.js';
 
-import { type SwapAsset, useAlexSwappableAssets } from '@leather-wallet/query';
+import { type SwapAsset, useAlexSwappableAssets } from '@leather.io/query';
 
 import { logger } from '@shared/logger';
 import { alex } from '@shared/utils/alex-sdk';

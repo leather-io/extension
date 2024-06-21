@@ -1,4 +1,4 @@
-import { Src20AvatarIcon } from '@leather-wallet/ui';
+import { Src20AvatarIcon } from '@leather.io/ui';
 
 import { CryptoAssetItemLayout } from '@app/components/crypto-asset-item/crypto-asset-item.layout';
 import type { Src20TokenAssetDetails } from '@app/components/loaders/src20-tokens-loader';

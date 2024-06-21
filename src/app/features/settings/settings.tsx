@@ -18,7 +18,7 @@ import {
   SupportIcon,
   SwapIcon,
   WorldIcon,
-} from '@leather-wallet/ui';
+} from '@leather.io/ui';
 
 import { RouteUrls } from '@shared/route-urls';
 import { analytics } from '@shared/utils/analytics';

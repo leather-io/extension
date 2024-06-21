@@ -1,6 +1,6 @@
 import { Stack } from 'leather-styles/jsx';
 
-import { BtcAvatarIcon, StxAvatarIcon } from '@leather-wallet/ui';
+import { BtcAvatarIcon, StxAvatarIcon } from '@leather.io/ui';
 
 import { useWalletType } from '@app/common/use-wallet-type';
 import { BitcoinContractEntryPoint } from '@app/components/bitcoin-contract-entry-point/bitcoin-contract-entry-point';

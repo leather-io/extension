@@ -1,6 +1,6 @@
 import { TransactionTypes } from '@stacks/connect';
 
-import { truncateMiddle } from '@leather-wallet/utils';
+import { truncateMiddle } from '@leather.io/utils';
 
 import { stacksValue } from '@app/common/stacks-utils';
 import { EventCard } from '@app/components/event-card';

@@ -4,7 +4,7 @@ import { BitcoinContractRequestSelectors } from '@tests/selectors/bitcoin-contra
 import { HStack, styled } from 'leather-styles/jsx';
 import { token } from 'leather-styles/tokens';
 
-import { ArrowUpIcon, BtcAvatarIcon, CopyIcon, Flag, Link } from '@leather-wallet/ui';
+import { ArrowUpIcon, BtcAvatarIcon, CopyIcon, Flag, Link } from '@leather.io/ui';
 
 import { useClipboard } from '@app/common/hooks/use-copy-to-clipboard';
 import { BasicTooltip } from '@app/ui/components/tooltip/basic-tooltip';

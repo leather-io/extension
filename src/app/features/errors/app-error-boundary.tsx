@@ -4,8 +4,8 @@ import BroadcastError from '@assets/images/unhappy-face-ui.png';
 import { SharedComponentsSelectors } from '@tests/selectors/shared-component.selectors';
 import { Box, Flex, HStack, styled } from 'leather-styles/jsx';
 
-import { Button, CopyIcon, Link } from '@leather-wallet/ui';
-import { isError } from '@leather-wallet/utils';
+import { Button, CopyIcon, Link } from '@leather.io/ui';
+import { isError } from '@leather.io/utils';
 
 import { Prism } from '@app/common/clarity-prism';
 import { useClipboard } from '@app/common/hooks/use-copy-to-clipboard';

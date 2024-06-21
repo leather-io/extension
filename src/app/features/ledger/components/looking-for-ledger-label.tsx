@@ -1,6 +1,6 @@
 import { Flex, FlexProps } from 'leather-styles/jsx';
 
-import { Caption, Spinner } from '@leather-wallet/ui';
+import { Caption, Spinner } from '@leather.io/ui';
 
 interface LookingForLedgerLabelProps extends FlexProps {
   children: React.ReactNode;

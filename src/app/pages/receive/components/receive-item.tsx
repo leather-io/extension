@@ -1,11 +1,5 @@
-import {
-  CopyIcon,
-  IconButton,
-  ItemLayoutWithButtons,
-  Pressable,
-  QrCodeIcon,
-} from '@leather-wallet/ui';
-import { truncateMiddle } from '@leather-wallet/utils';
+import { CopyIcon, IconButton, ItemLayoutWithButtons, Pressable, QrCodeIcon } from '@leather.io/ui';
+import { truncateMiddle } from '@leather.io/utils';
 
 interface ReceiveItemProps {
   address?: string;

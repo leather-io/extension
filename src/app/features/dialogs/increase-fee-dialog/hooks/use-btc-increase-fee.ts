@@ -5,9 +5,9 @@ import * as btc from '@scure/btc-signer';
 import BigNumber from 'bignumber.js';
 import * as yup from 'yup';
 
-import type { BitcoinTx } from '@leather-wallet/models';
-import { useBitcoinBroadcastTransaction } from '@leather-wallet/query';
-import { btcToSat, createMoney, isError } from '@leather-wallet/utils';
+import type { BitcoinTx } from '@leather.io/models';
+import { useBitcoinBroadcastTransaction } from '@leather.io/query';
+import { btcToSat, createMoney, isError } from '@leather.io/utils';
 
 import { RouteUrls } from '@shared/route-urls';
 import { analytics } from '@shared/utils/analytics';

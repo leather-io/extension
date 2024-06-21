@@ -1,17 +1,17 @@
 import { useCallback, useMemo } from 'react';
 
-import { BtcFeeType, Inscription, btcTxTimeMap } from '@leather-wallet/models';
+import { BtcFeeType, Inscription, btcTxTimeMap } from '@leather.io/models';
 import {
   type UtxoWithDerivationPath,
   useAverageBitcoinFeeRates,
   useCryptoCurrencyMarketDataMeanAverage,
-} from '@leather-wallet/query';
+} from '@leather.io/query';
 import {
   baseCurrencyAmountInQuote,
   createMoney,
   formatMoneyPadded,
   i18nFormatCurrency,
-} from '@leather-wallet/utils';
+} from '@leather.io/utils';
 
 import { FeesListItem } from '@app/components/bitcoin-fees-list/bitcoin-fees-list';
 import { useCurrentNativeSegwitUtxos } from '@app/query/bitcoin/address/utxos-by-address.hooks';

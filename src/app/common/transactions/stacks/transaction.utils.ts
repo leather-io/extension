@@ -16,8 +16,8 @@ import {
 } from '@stacks/transactions';
 import { BigNumber } from 'bignumber.js';
 
-import { StacksTx, StacksTxStatus } from '@leather-wallet/models';
-import { truncateMiddle } from '@leather-wallet/utils';
+import { StacksTx, StacksTxStatus } from '@leather.io/models';
+import { truncateMiddle } from '@leather.io/utils';
 
 import { getStacksContractName, stacksValue } from '@app/common/stacks-utils';
 

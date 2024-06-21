@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-import { Callout } from '@leather-wallet/ui';
+import { Callout } from '@leather.io/ui';
 
 import { useOnOriginTabClose } from '@app/routes/hooks/use-on-tab-closed';
 

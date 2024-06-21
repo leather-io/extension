@@ -5,7 +5,7 @@ import { bytesToHex } from '@stacks/common';
 import { StacksTransaction } from '@stacks/transactions';
 import { AxiosError } from 'axios';
 
-import type { UtxoResponseItem } from '@leather-wallet/query';
+import type { UtxoResponseItem } from '@leather.io/query';
 
 import { BitcoinSendFormValues } from '@shared/models/form.model';
 import { RouteUrls } from '@shared/route-urls';

@@ -1,7 +1,7 @@
 import { cvToString, deserializeCV, getCVTypeString } from '@stacks/transactions';
 
-import { useContractFunction } from '@leather-wallet/query';
-import { formatContractId } from '@leather-wallet/utils';
+import { useContractFunction } from '@leather.io/query';
+import { formatContractId } from '@leather.io/utils';
 
 import { logger } from '@shared/logger';
 

@@ -1,7 +1,7 @@
 import ReceiveFundsEllipses from '@assets/images/fund/receive-funds-ellipses.png';
 import { Box } from 'leather-styles/jsx';
 
-import { BtcAvatarIcon, StxAvatarIcon } from '@leather-wallet/ui';
+import { BtcAvatarIcon, StxAvatarIcon } from '@leather.io/ui';
 
 export function StacksIconComponent() {
   return (

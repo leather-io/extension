@@ -1,14 +1,7 @@
 import type { Meta } from '@storybook/react';
 import { Box, Flex, Stack } from 'leather-styles/jsx';
 
-import {
-  ArrowDownIcon,
-  ArrowUpIcon,
-  IconButton,
-  PlusIcon,
-  SwapIcon,
-  Tabs,
-} from '@leather-wallet/ui';
+import { ArrowDownIcon, ArrowUpIcon, IconButton, PlusIcon, SwapIcon, Tabs } from '@leather.io/ui';
 
 import { RouteUrls } from '@shared/route-urls';
 

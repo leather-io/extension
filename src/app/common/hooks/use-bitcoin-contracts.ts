@@ -4,15 +4,15 @@ import { RpcErrorCode } from '@btckit/types';
 import { JsDLCInterface } from '@dlc-link/dlc-tools';
 import { bytesToHex } from '@stacks/common';
 
-import { deriveAddressIndexKeychainFromAccount } from '@leather-wallet/bitcoin';
-import { extractAddressIndexFromPath } from '@leather-wallet/crypto';
-import type { Money } from '@leather-wallet/models';
+import { deriveAddressIndexKeychainFromAccount } from '@leather.io/bitcoin';
+import { extractAddressIndexFromPath } from '@leather.io/crypto';
+import type { Money } from '@leather.io/models';
 import {
   sendAcceptedBitcoinContractOfferToProtocolWallet,
   useCalculateBitcoinFiatValue,
   useCryptoCurrencyMarketDataMeanAverage,
-} from '@leather-wallet/query';
-import { createMoneyFromDecimal, i18nFormatCurrency, satToBtc } from '@leather-wallet/utils';
+} from '@leather.io/query';
+import { createMoneyFromDecimal, i18nFormatCurrency, satToBtc } from '@leather.io/utils';
 
 import { RouteUrls } from '@shared/route-urls';
 import { BitcoinContractResponseStatus } from '@shared/rpc/methods/accept-bitcoin-contract';

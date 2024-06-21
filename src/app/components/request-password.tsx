@@ -3,7 +3,7 @@ import { FormEvent, useCallback, useState } from 'react';
 import { SettingsSelectors } from '@tests/selectors/settings.selectors';
 import { Box, Stack, styled } from 'leather-styles/jsx';
 
-import { Button, Logo } from '@leather-wallet/ui';
+import { Button, Logo } from '@leather.io/ui';
 
 import { analytics } from '@shared/utils/analytics';
 

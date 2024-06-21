@@ -1,14 +1,14 @@
 import { SwapSelectors } from '@tests/selectors/swap.selectors';
 
-import { type SwapAsset, isFtAsset, useGetFungibleTokenMetadataQuery } from '@leather-wallet/query';
+import { type SwapAsset, isFtAsset, useGetFungibleTokenMetadataQuery } from '@leather.io/query';
 import {
   Avatar,
   ItemLayout,
   Pressable,
   defaultFallbackDelay,
   getAvatarFallback,
-} from '@leather-wallet/ui';
-import { formatMoneyWithoutSymbol } from '@leather-wallet/utils';
+} from '@leather.io/ui';
+import { formatMoneyWithoutSymbol } from '@leather.io/utils';
 
 import { convertAssetBalanceToFiat } from '@app/common/asset-utils';
 

@@ -3,7 +3,7 @@ import React from 'react';
 import QRCodeIcon from '@assets/images/fund/qr-code-icon.png';
 import { FundPageSelectors } from '@tests/selectors/fund.selectors';
 
-import type { CryptoCurrencies } from '@leather-wallet/models';
+import type { CryptoCurrencies } from '@leather.io/models';
 
 import { FundAccountTile } from './fund-account-tile';
 import { BitcoinIconComponent, StacksIconComponent } from './icon-components';

@@ -2,7 +2,7 @@ import { memo } from 'react';
 
 import { styled } from 'leather-styles/jsx';
 
-import { SkeletonLoader, shimmerStyles } from '@leather-wallet/ui';
+import { SkeletonLoader, shimmerStyles } from '@leather.io/ui';
 
 import { useTotalBalance } from '@app/common/hooks/balance/use-total-balance';
 

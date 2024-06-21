@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { validateMnemonic } from '@scure/bip39';
 import { wordlist } from '@scure/bip39/wordlists/english';
 
-import { delay } from '@leather-wallet/utils';
+import { delay } from '@leather.io/utils';
 
 import { RouteUrls } from '@shared/route-urls';
 import { analytics } from '@shared/utils/analytics';

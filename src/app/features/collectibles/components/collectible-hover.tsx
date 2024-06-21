@@ -2,7 +2,7 @@ import { ReactNode } from 'react';
 
 import { Box, styled } from 'leather-styles/jsx';
 
-import { ArrowUpIcon } from '@leather-wallet/ui';
+import { ArrowUpIcon } from '@leather.io/ui';
 
 interface CollectibleHoverProps {
   collectibleTypeIcon?: ReactNode;

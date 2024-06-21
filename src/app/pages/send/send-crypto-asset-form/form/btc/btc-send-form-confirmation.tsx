@@ -8,13 +8,13 @@ import { SharedComponentsSelectors } from '@tests/selectors/shared-component.sel
 import { Stack } from 'leather-styles/jsx';
 import get from 'lodash.get';
 
-import { decodeBitcoinTx } from '@leather-wallet/bitcoin';
-import type { CryptoCurrencies } from '@leather-wallet/models';
+import { decodeBitcoinTx } from '@leather.io/bitcoin';
+import type { CryptoCurrencies } from '@leather.io/models';
 import {
   useBitcoinBroadcastTransaction,
   useCryptoCurrencyMarketDataMeanAverage,
-} from '@leather-wallet/query';
-import { Button } from '@leather-wallet/ui';
+} from '@leather.io/query';
+import { Button } from '@leather.io/ui';
 import {
   baseCurrencyAmountInQuote,
   createMoney,
@@ -22,7 +22,7 @@ import {
   formatMoneyPadded,
   i18nFormatCurrency,
   satToBtc,
-} from '@leather-wallet/utils';
+} from '@leather.io/utils';
 
 import { RouteUrls } from '@shared/route-urls';
 import { analytics } from '@shared/utils/analytics';

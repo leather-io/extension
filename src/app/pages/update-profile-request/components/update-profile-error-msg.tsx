@@ -1,6 +1,6 @@
 import { HStack } from 'leather-styles/jsx';
 
-import { Caption, ErrorIcon } from '@leather-wallet/ui';
+import { Caption, ErrorIcon } from '@leather.io/ui';
 
 interface ErrorMessageProps {
   errorMessage: string;

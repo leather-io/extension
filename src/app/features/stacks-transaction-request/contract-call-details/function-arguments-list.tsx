@@ -2,7 +2,7 @@ import { Suspense, memo } from 'react';
 
 import { Stack, StackProps } from 'leather-styles/jsx';
 
-import { Caption } from '@leather-wallet/ui';
+import { Caption } from '@leather.io/ui';
 
 import { useTransactionRequestState } from '@app/store/transactions/requests.hooks';
 

@@ -3,9 +3,9 @@ import { useLocation, useNavigate } from 'react-router-dom';
 
 import { HStack } from 'leather-styles/jsx';
 
-import type { BitcoinTx } from '@leather-wallet/models';
-import { useInscriptionByOutput } from '@leather-wallet/query';
-import { BtcAvatarIcon, BulletSeparator, Caption } from '@leather-wallet/ui';
+import type { BitcoinTx } from '@leather.io/models';
+import { useInscriptionByOutput } from '@leather.io/query';
+import { BtcAvatarIcon, BulletSeparator, Caption } from '@leather.io/ui';
 
 import { RouteUrls } from '@shared/route-urls';
 import { analytics } from '@shared/utils/analytics';

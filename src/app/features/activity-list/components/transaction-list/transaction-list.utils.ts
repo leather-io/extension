@@ -1,6 +1,6 @@
 import dayjs from 'dayjs';
 
-import { isUndefined } from '@leather-wallet/utils';
+import { isUndefined } from '@leather.io/utils';
 
 import { displayDate, isoDateToLocalDateSafe, todaysIsoDate } from '@app/common/date-utils';
 import {

@@ -3,7 +3,7 @@ import { useCallback } from 'react';
 import { SendCryptoAssetSelectors } from '@tests/selectors/send.selectors';
 import { HStack, styled } from 'leather-styles/jsx';
 
-import { CopyIcon } from '@leather-wallet/ui';
+import { CopyIcon } from '@leather.io/ui';
 
 import { analytics } from '@shared/utils/analytics';
 

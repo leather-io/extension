@@ -4,7 +4,7 @@ import { NetworkSelectors } from '@tests/selectors/network.selectors';
 import { useFormikContext } from 'formik';
 import { HStack, styled } from 'leather-styles/jsx';
 
-import type { BitcoinNetworkModes } from '@leather-wallet/models';
+import type { BitcoinNetworkModes } from '@leather.io/models';
 import {
   CheckmarkIcon,
   ChevronDownIcon,
@@ -12,7 +12,7 @@ import {
   Select,
   SelectItemLayout,
   Title,
-} from '@leather-wallet/ui';
+} from '@leather.io/ui';
 
 import { type AddNetworkFormValues } from './use-add-network';
 

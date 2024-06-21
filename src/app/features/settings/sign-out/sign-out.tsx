@@ -2,7 +2,7 @@ import { SettingsSelectors } from '@tests/selectors/settings.selectors';
 import { useFormik } from 'formik';
 import { Flex, HStack, styled } from 'leather-styles/jsx';
 
-import { Button, Callout } from '@leather-wallet/ui';
+import { Button, Callout } from '@leather.io/ui';
 
 import { useWalletType } from '@app/common/use-wallet-type';
 import { Dialog, DialogProps } from '@app/ui/components/containers/dialog/dialog';

@@ -1,7 +1,7 @@
 import { useLocation, useNavigate } from 'react-router-dom';
 
-import { type Inscription } from '@leather-wallet/models';
-import { OrdinalAvatarIcon } from '@leather-wallet/ui';
+import { type Inscription } from '@leather.io/models';
+import { OrdinalAvatarIcon } from '@leather.io/ui';
 
 import { ORD_IO_URL } from '@shared/constants';
 import { RouteUrls } from '@shared/route-urls';

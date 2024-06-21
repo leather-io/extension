@@ -1,9 +1,9 @@
 import * as btc from '@scure/btc-signer';
 import { AddressType, getAddressInfo } from 'bitcoin-address-validation';
 
-import { extractAddressIndexFromPath } from '@leather-wallet/crypto';
-import type { UtxoWithDerivationPath } from '@leather-wallet/query';
-import { createCounter, createMoney } from '@leather-wallet/utils';
+import { extractAddressIndexFromPath } from '@leather.io/crypto';
+import type { UtxoWithDerivationPath } from '@leather.io/query';
+import { createCounter, createMoney } from '@leather.io/utils';
 
 import { BitcoinInputSigningConfig } from '@shared/crypto/bitcoin/signer-config';
 import { logger } from '@shared/logger';

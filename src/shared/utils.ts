@@ -1,4 +1,4 @@
-import { delay } from '@leather-wallet/utils';
+import { delay } from '@leather.io/utils';
 
 import { logger } from './logger';
 

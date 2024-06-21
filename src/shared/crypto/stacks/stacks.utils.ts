@@ -1,6 +1,6 @@
 import { ChainID } from '@stacks/transactions';
 
-import type { NetworkModes } from '@leather-wallet/models';
+import type { NetworkModes } from '@leather.io/models';
 
 export const stxDerivationWithAccount = `m/44'/5757'/0'/0/{account}`;
 const stxIdentityDerivationWithAccount = `m/888'/0'/{account}'`;

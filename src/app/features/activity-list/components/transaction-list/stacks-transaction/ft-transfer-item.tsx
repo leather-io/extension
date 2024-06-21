@@ -1,8 +1,8 @@
 import type { AddressTransactionWithTransfers } from '@stacks/stacks-blockchain-api-types';
 
-import { FtTransfer } from '@leather-wallet/models';
-import { isFtAsset, useGetFungibleTokenMetadataQuery } from '@leather-wallet/query';
-import { ArrowDownIcon, ArrowUpIcon } from '@leather-wallet/ui';
+import { FtTransfer } from '@leather.io/models';
+import { isFtAsset, useGetFungibleTokenMetadataQuery } from '@leather.io/query';
+import { ArrowDownIcon, ArrowUpIcon } from '@leather.io/ui';
 
 import { logger } from '@shared/logger';
 

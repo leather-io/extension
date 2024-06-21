@@ -4,10 +4,10 @@ import { SendCryptoAssetSelectors } from '@tests/selectors/send.selectors';
 import { Form, Formik } from 'formik';
 import { Box } from 'leather-styles/jsx';
 
-import type { CryptoCurrencies } from '@leather-wallet/models';
-import { useCryptoCurrencyMarketDataMeanAverage } from '@leather-wallet/query';
-import { BtcAvatarIcon, Button, Callout, Link } from '@leather-wallet/ui';
-import { formatMoney } from '@leather-wallet/utils';
+import type { CryptoCurrencies } from '@leather.io/models';
+import { useCryptoCurrencyMarketDataMeanAverage } from '@leather.io/query';
+import { BtcAvatarIcon, Button, Callout, Link } from '@leather.io/ui';
+import { formatMoney } from '@leather.io/utils';
 
 import { AvailableBalance } from '@app/ui/components/containers/footers/available-balance';
 import { Footer } from '@app/ui/components/containers/footers/footer';

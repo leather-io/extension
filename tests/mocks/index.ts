@@ -1,4 +1,4 @@
-import { HIRO_API_BASE_URL_MAINNET, HIRO_API_BASE_URL_TESTNET } from '@leather-wallet/models';
+import { HIRO_API_BASE_URL_MAINNET, HIRO_API_BASE_URL_TESTNET } from '@leather.io/models';
 
 export const SECRET_KEY =
   'invite helmet save lion indicate chuckle world pride afford hard broom draft';

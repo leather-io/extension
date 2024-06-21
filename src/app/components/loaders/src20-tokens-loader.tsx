@@ -1,5 +1,5 @@
-import type { CryptoAssetBalance, Src20CryptoAssetInfo } from '@leather-wallet/models';
-import { useSrc20TokensByAddress } from '@leather-wallet/query';
+import type { CryptoAssetBalance, Src20CryptoAssetInfo } from '@leather.io/models';
+import { useSrc20TokensByAddress } from '@leather.io/query';
 
 export interface Src20TokenAssetDetails {
   balance: CryptoAssetBalance;

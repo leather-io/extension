@@ -2,8 +2,8 @@ import { useState } from 'react';
 
 import { useField } from 'formik';
 
-import { Input } from '@leather-wallet/ui';
-import { extractPhraseFromString } from '@leather-wallet/utils';
+import { Input } from '@leather.io/ui';
+import { extractPhraseFromString } from '@leather.io/utils';
 
 import { useIsFieldDirty } from '@app/common/form-utils';
 

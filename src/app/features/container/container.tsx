@@ -6,7 +6,7 @@ import { OnboardingSelectors } from '@tests/selectors/onboarding.selectors';
 import { SettingsSelectors } from '@tests/selectors/settings.selectors';
 import { Box } from 'leather-styles/jsx';
 
-import { Flag, HamburgerIcon, Logo, NetworkModeBadge } from '@leather-wallet/ui';
+import { Flag, HamburgerIcon, Logo, NetworkModeBadge } from '@leather.io/ui';
 
 import { RouteUrls } from '@shared/route-urls';
 import { closeWindow } from '@shared/utils';

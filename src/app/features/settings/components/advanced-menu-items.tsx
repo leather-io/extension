@@ -1,8 +1,8 @@
 import { useMemo } from 'react';
 import { useAsync } from 'react-async-hook';
 
-import { Caption, DropdownMenu } from '@leather-wallet/ui';
-import { isNumber } from '@leather-wallet/utils';
+import { Caption, DropdownMenu } from '@leather.io/ui';
+import { isNumber } from '@leather.io/utils';
 
 import {
   clearBrowserStorageLogs,

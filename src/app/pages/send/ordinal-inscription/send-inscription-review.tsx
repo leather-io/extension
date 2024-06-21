@@ -4,8 +4,8 @@ import { bytesToHex } from '@noble/hashes/utils';
 import { Box, Flex, Stack } from 'leather-styles/jsx';
 import get from 'lodash.get';
 
-import { useBitcoinBroadcastTransaction } from '@leather-wallet/query';
-import { Button } from '@leather-wallet/ui';
+import { useBitcoinBroadcastTransaction } from '@leather.io/query';
+import { Button } from '@leather.io/ui';
 
 import { RouteUrls } from '@shared/route-urls';
 import { analytics } from '@shared/utils/analytics';

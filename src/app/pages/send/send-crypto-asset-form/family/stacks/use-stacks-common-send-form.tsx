@@ -1,7 +1,7 @@
 import { FormikHelpers } from 'formik';
 
-import { FeeTypes, type Money } from '@leather-wallet/models';
-import { useNextNonce } from '@leather-wallet/query';
+import { FeeTypes, type Money } from '@leather.io/models';
+import { useNextNonce } from '@leather.io/query';
 
 import { FormErrorMessages } from '@shared/error-messages';
 import { StacksSendFormValues } from '@shared/models/form.model';

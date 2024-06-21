@@ -1,6 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 
-import { BitcoinContractIcon } from '@leather-wallet/ui';
+import { BitcoinContractIcon } from '@leather.io/ui';
 
 import { RouteUrls } from '@shared/route-urls';
 

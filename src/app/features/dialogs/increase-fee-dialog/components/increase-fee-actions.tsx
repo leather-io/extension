@@ -1,6 +1,6 @@
 import { useFormikContext } from 'formik';
 
-import { Button } from '@leather-wallet/ui';
+import { Button } from '@leather.io/ui';
 
 import { useWalletType } from '@app/common/use-wallet-type';
 

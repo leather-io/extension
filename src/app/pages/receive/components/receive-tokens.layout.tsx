@@ -5,7 +5,7 @@ import { SharedComponentsSelectors } from '@tests/selectors/shared-component.sel
 import { Box, Flex, styled } from 'leather-styles/jsx';
 import { token } from 'leather-styles/tokens';
 
-import { AddressDisplayer, Button } from '@leather-wallet/ui';
+import { AddressDisplayer, Button } from '@leather.io/ui';
 
 import { useLocationState } from '@app/common/hooks/use-location-state';
 import { useBackgroundLocationRedirect } from '@app/routes/hooks/use-background-location-redirect';

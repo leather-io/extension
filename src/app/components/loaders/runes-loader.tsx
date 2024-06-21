@@ -1,5 +1,5 @@
-import type { CryptoAssetBalance, RuneCryptoAssetInfo } from '@leather-wallet/models';
-import { useRuneTokens } from '@leather-wallet/query';
+import type { CryptoAssetBalance, RuneCryptoAssetInfo } from '@leather.io/models';
+import { useRuneTokens } from '@leather.io/query';
 
 interface RunesLoaderProps {
   addresses: string[];

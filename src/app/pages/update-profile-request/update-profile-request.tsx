@@ -1,6 +1,6 @@
 import { memo } from 'react';
 
-import { isUndefined } from '@leather-wallet/utils';
+import { isUndefined } from '@leather.io/utils';
 
 import { closeWindow } from '@shared/utils';
 

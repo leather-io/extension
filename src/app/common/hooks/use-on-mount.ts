@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 
-import { isFunction } from '@leather-wallet/utils';
+import { isFunction } from '@leather.io/utils';
 
 export function useOnMount(effect: () => void | (() => void) | Promise<unknown>) {
   useEffect(() => {

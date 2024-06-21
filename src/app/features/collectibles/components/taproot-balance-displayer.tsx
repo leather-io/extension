@@ -1,6 +1,6 @@
-import { useCurrentTaprootAccountBalance } from '@leather-wallet/query';
-import { Link } from '@leather-wallet/ui';
-import { formatMoney } from '@leather-wallet/utils';
+import { useCurrentTaprootAccountBalance } from '@leather.io/query';
+import { Link } from '@leather.io/ui';
+import { formatMoney } from '@leather.io/utils';
 
 import { useRecoverUninscribedTaprootUtxosFeatureEnabled } from '@app/query/common/remote-config/remote-config.query';
 import { useCurrentAccountIndex } from '@app/store/accounts/account';

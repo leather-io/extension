@@ -1,6 +1,6 @@
 import { Box, BoxProps, styled } from 'leather-styles/jsx';
 
-import { Link } from '@leather-wallet/ui';
+import { Link } from '@leather.io/ui';
 
 import { openInNewTab } from '@app/common/utils/open-in-new-tab';
 

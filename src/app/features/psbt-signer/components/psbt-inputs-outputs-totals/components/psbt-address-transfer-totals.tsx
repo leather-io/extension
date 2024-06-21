@@ -1,5 +1,5 @@
-import { useCalculateBitcoinFiatValue } from '@leather-wallet/query';
-import { formatMoney, i18nFormatCurrency, truncateMiddle } from '@leather-wallet/utils';
+import { useCalculateBitcoinFiatValue } from '@leather.io/query';
+import { formatMoney, i18nFormatCurrency, truncateMiddle } from '@leather.io/utils';
 
 import { usePsbtSignerContext } from '@app/features/psbt-signer/psbt-signer.context';
 

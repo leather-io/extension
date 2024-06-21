@@ -2,7 +2,7 @@ import { useState } from 'react';
 
 import { Box, styled } from 'leather-styles/jsx';
 
-import { ChevronDownIcon, ChevronUpIcon } from '@leather-wallet/ui';
+import { ChevronDownIcon, ChevronUpIcon } from '@leather.io/ui';
 
 interface ShowHashButtonProps {
   expanded: boolean;

@@ -1,6 +1,6 @@
 import { Box, Flex, styled } from 'leather-styles/jsx';
 
-import { Button, LettermarkIcon, LogomarkIcon } from '@leather-wallet/ui';
+import { Button, LettermarkIcon, LogomarkIcon } from '@leather.io/ui';
 
 import { RequesterFlag } from '@app/components/requester-flag';
 

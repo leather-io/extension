@@ -1,6 +1,6 @@
 import { UseQueryResult, useQuery } from '@tanstack/react-query';
 
-import type { Money } from '@leather-wallet/models';
+import type { Money } from '@leather.io/models';
 
 import { useBitcoinContracts } from '@app/common/hooks/use-bitcoin-contracts';
 import { useCurrentAccountIndex } from '@app/store/accounts/account';
