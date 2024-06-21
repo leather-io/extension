@@ -48,8 +48,8 @@ importers:
         specifier: 0.9.0
         version: 0.9.0
       '@leather-wallet/query':
-        specifier: 0.8.8
-        version: 0.8.8(@stacks/network@6.13.0(encoding@0.1.13))(encoding@0.1.13)(react-dom@18.3.1(react@18.3.1))(react-native@0.74.1(@babel/core@7.24.4)(@babel/preset-env@7.24.6(@babel/core@7.24.4))(@react-native/assets-registry@0.73.1)(@types/react@18.3.3)(encoding@0.1.13)(react@18.2.0))(react@18.3.1)
+        specifier: 0.8.10
+        version: 0.8.10(@stacks/network@6.13.0(encoding@0.1.13))(encoding@0.1.13)(react@18.3.1)
       '@leather-wallet/tokens':
         specifier: 0.5.2
         version: 0.5.2
@@ -82,7 +82,7 @@ importers:
         version: 2.0.3(@types/react-dom@18.3.0)(@types/react@18.3.3)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@reduxjs/toolkit':
         specifier: 2.2.3
-        version: 2.2.3(react-redux@9.1.0(@types/react@18.3.3)(react-native@0.74.1(@babel/core@7.24.4)(@babel/preset-env@7.24.6(@babel/core@7.24.4))(@react-native/assets-registry@0.73.1)(@types/react@18.3.3)(encoding@0.1.13)(react@18.2.0))(react@18.3.1)(redux@5.0.1))(react@18.3.1)
+        version: 2.2.3(react-redux@9.1.0(@types/react@18.3.3)(react-native@0.74.1(@babel/core@7.24.4)(@babel/preset-env@7.24.6(@babel/core@7.24.4))(@types/react@18.3.3)(encoding@0.1.13)(react@18.2.0))(react@18.3.1)(redux@5.0.1))(react@18.3.1)
       '@scure/base':
         specifier: 1.1.6
         version: 1.1.6
@@ -151,13 +151,13 @@ importers:
         version: 4.35.7
       '@tanstack/react-query':
         specifier: 4.35.7
-        version: 4.35.7(react-dom@18.3.1(react@18.3.1))(react-native@0.74.1(@babel/core@7.24.4)(@babel/preset-env@7.24.6(@babel/core@7.24.4))(@react-native/assets-registry@0.73.1)(@types/react@18.3.3)(encoding@0.1.13)(react@18.2.0))(react@18.3.1)
+        version: 4.35.7(react-dom@18.3.1(react@18.3.1))(react-native@0.74.1(@babel/core@7.24.4)(@babel/preset-env@7.24.6(@babel/core@7.24.4))(@types/react@18.3.3)(encoding@0.1.13)(react@18.2.0))(react@18.3.1)
       '@tanstack/react-query-devtools':
         specifier: 4.35.7
-        version: 4.35.7(@tanstack/react-query@4.35.7(react-dom@18.3.1(react@18.3.1))(react-native@0.74.1(@babel/core@7.24.4)(@babel/preset-env@7.24.6(@babel/core@7.24.4))(@react-native/assets-registry@0.73.1)(@types/react@18.3.3)(encoding@0.1.13)(react@18.2.0))(react@18.3.1))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+        version: 4.35.7(@tanstack/react-query@4.35.7(react-dom@18.3.1(react@18.3.1))(react-native@0.74.1(@babel/core@7.24.4)(@babel/preset-env@7.24.6(@babel/core@7.24.4))(@types/react@18.3.3)(encoding@0.1.13)(react@18.2.0))(react@18.3.1))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@tanstack/react-query-persist-client':
         specifier: 4.35.7
-        version: 4.35.7(@tanstack/react-query@4.35.7(react-dom@18.3.1(react@18.3.1))(react-native@0.74.1(@babel/core@7.24.4)(@babel/preset-env@7.24.6(@babel/core@7.24.4))(@react-native/assets-registry@0.73.1)(@types/react@18.3.3)(encoding@0.1.13)(react@18.2.0))(react@18.3.1))
+        version: 4.35.7(@tanstack/react-query@4.35.7(react-dom@18.3.1(react@18.3.1))(react-native@0.74.1(@babel/core@7.24.4)(@babel/preset-env@7.24.6(@babel/core@7.24.4))(@types/react@18.3.3)(encoding@0.1.13)(react@18.2.0))(react@18.3.1))
       '@types/lodash.uniqby':
         specifier: 4.7.7
         version: 4.7.7
@@ -310,7 +310,7 @@ importers:
         version: 2.0.12(react@18.3.1)
       react-redux:
         specifier: 9.1.0
-        version: 9.1.0(@types/react@18.3.3)(react-native@0.74.1(@babel/core@7.24.4)(@babel/preset-env@7.24.6(@babel/core@7.24.4))(@react-native/assets-registry@0.73.1)(@types/react@18.3.3)(encoding@0.1.13)(react@18.2.0))(react@18.3.1)(redux@5.0.1)
+        version: 9.1.0(@types/react@18.3.3)(react-native@0.74.1(@babel/core@7.24.4)(@babel/preset-env@7.24.6(@babel/core@7.24.4))(@types/react@18.3.3)(encoding@0.1.13)(react@18.2.0))(react@18.3.1)(redux@5.0.1)
       react-router-dom:
         specifier: 6.23.1
         version: 6.23.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
@@ -398,10 +398,10 @@ importers:
         version: 0.5.13(@types/webpack@5.28.5(@swc/core@1.4.8)(esbuild@0.21.4)(webpack-cli@5.1.4(webpack-bundle-analyzer@4.10.2)(webpack-dev-server@4.15.1)(webpack@5.91.0)))(react-refresh@0.14.2)(type-fest@4.20.0)(webpack-dev-server@4.15.1(webpack-cli@5.1.4)(webpack@5.91.0))(webpack-hot-middleware@2.26.1)(webpack@5.91.0(@swc/core@1.4.8)(esbuild@0.21.4)(webpack-cli@5.1.4(webpack-bundle-analyzer@4.10.2)(webpack-dev-server@4.15.1)(webpack@5.91.0)))
       '@redux-devtools/cli':
         specifier: 4.0.0
-        version: 4.0.0(@babel/core@7.24.4)(@types/react-dom@18.3.0)(@types/styled-components@5.1.34)(encoding@0.1.13)(react-native@0.74.1(@babel/core@7.24.4)(@babel/preset-env@7.24.6(@babel/core@7.24.4))(@react-native/assets-registry@0.73.1)(@types/react@18.3.3)(encoding@0.1.13)(react@18.2.0))
+        version: 4.0.0(@babel/core@7.24.4)(@types/react-dom@18.3.0)(@types/styled-components@5.1.34)(encoding@0.1.13)(react-native@0.74.1(@babel/core@7.24.4)(@babel/preset-env@7.24.6(@babel/core@7.24.4))(@types/react@18.3.3)(encoding@0.1.13)(react@18.2.0))
       '@redux-devtools/remote':
         specifier: 0.9.3
-        version: 0.9.3(@redux-devtools/core@4.0.0(react-redux@8.1.3(@types/react-dom@18.3.0)(@types/react@18.3.3)(react-dom@18.3.1(react@18.3.1))(react-native@0.74.1(@babel/core@7.24.4)(@babel/preset-env@7.24.6(@babel/core@7.24.4))(@react-native/assets-registry@0.73.1)(@types/react@18.3.3)(encoding@0.1.13)(react@18.2.0))(react@18.3.1)(redux@4.2.1))(react@18.3.1)(redux@4.2.1))(immutable@4.3.6)(redux@5.0.1)
+        version: 0.9.3(@redux-devtools/core@4.0.0(react-redux@8.1.3(@types/react-dom@18.3.0)(@types/react@18.3.3)(react-dom@18.3.1(react@18.3.1))(react-native@0.74.1(@babel/core@7.24.4)(@babel/preset-env@7.24.6(@babel/core@7.24.4))(@types/react@18.3.3)(encoding@0.1.13)(react@18.2.0))(react@18.3.1)(redux@4.2.1))(react@18.3.1)(redux@4.2.1))(immutable@4.3.6)(redux@5.0.1)
       '@schemastore/web-manifest':
         specifier: 0.0.6
         version: 0.0.6
@@ -2799,6 +2799,7 @@ packages:
   '@humanwhocodes/config-array@0.11.14':
     resolution: {integrity: sha512-3T8LkOmg45BV5FICb15QQMsyUSWrQ8AygVfC7ZG32zOalnqrilm018ZVCw0eapXux8FtA33q8PSRSstjee3jSg==}
     engines: {node: '>=10.10.0'}
+    deprecated: Use @eslint/config-array instead
 
   '@humanwhocodes/module-importer@1.0.1':
     resolution: {integrity: sha512-bxveV4V8v5Yb4ncFTT3rPSgZBOpCkjfK0y4oVVVJwIuDVBRMDXrPyXRL988i5ap9m9bnyEEjWfm5WkBmtffLfA==}
@@ -2806,6 +2807,7 @@ packages:
 
   '@humanwhocodes/object-schema@2.0.2':
     resolution: {integrity: sha512-6EwiSjwWYP7pTckG6I5eyFANjPhmPjUX9JRLUSfNPC7FX7zK9gyZAfUEaECL6ALTpGX5AjnBq3C9XmVWPitNpw==}
+    deprecated: Use @eslint/object-schema instead
 
   '@isaacs/cliui@8.0.2':
     resolution: {integrity: sha512-O8jcjabXaleOG9DQ0+ARXWZBTfnP4WNAqzuiJK7ll44AmxGKv/J2M4TPjxjY3znBCfvBXFzucm1twdyFybFqEA==}
@@ -2887,6 +2889,9 @@ packages:
   '@leather-wallet/bitcoin@0.7.3':
     resolution: {integrity: sha512-Zf7gBXbesJA2Dx74CYWc+HVpiMjW75RegdiY/+4AeT6vA5fzj7D3WyrftDUKsGkCeD+WHiYbUgh0JYE1rnqu6A==}
 
+  '@leather-wallet/bitcoin@0.7.4':
+    resolution: {integrity: sha512-l+0v2J8V5UtT1nMkYWn5QsYYYIUNAmwykJ6a+JaH/joxm6xGOA19BCV4OFT5AdW+5XQ9U6UfUjG3DWCd2f0RxQ==}
+
   '@leather-wallet/constants@0.6.4':
     resolution: {integrity: sha512-izh9wsv3d2xEqEPDWOOgTlRnBoQp1PDos9ryLzLqHxdPgZqQuleSSsPJjQ/a7fqoLvFYVyv9v5LecWawd3gQ5g==}
 
@@ -2908,8 +2913,8 @@ packages:
   '@leather-wallet/prettier-config@0.4.1':
     resolution: {integrity: sha512-8J1OqfAPtP64MUp3yERQVKnWdp7wHLBjcWlnu68qvS6obxWKkXTZVArHyvADkHRdpmu7rvEzhFRi+fyw00Ui/Q==}
 
-  '@leather-wallet/query@0.8.8':
-    resolution: {integrity: sha512-wRIQADII4lQdsrh0MvfIxAwr3KhVNEIF8TAvK1p9OBVwBh9O9Tqhh4lC2uZat9Yj205CLiQzAH5cciIDvRS73g==}
+  '@leather-wallet/query@0.8.10':
+    resolution: {integrity: sha512-t2GORMX+Ftf4uMs8M31u9Se0sdRISzRLJGJl3Y6EDsxqnto30zW4Ccl0NnqeK9oQFZvZYH/JSwi7o0zx3+EY/A==}
     peerDependencies:
       react: '*'
 
@@ -2951,6 +2956,7 @@ packages:
 
   '@ls-lint/ls-lint@2.2.3':
     resolution: {integrity: sha512-ekM12jNm/7O2I/hsRv9HvYkRdfrHpiV1epVuI2NP+eTIcEgdIdKkKCs9KgQydu/8R5YXTov9aHdOgplmCHLupw==}
+    cpu: [x64, arm64, s390x]
     os: [darwin, linux, win32]
     hasBin: true
 
@@ -3850,6 +3856,10 @@ packages:
 
   '@react-native/assets-registry@0.73.1':
     resolution: {integrity: sha512-2FgAbU7uKM5SbbW9QptPPZx8N9Ke2L7bsHb+EhAanZjFZunA9PaYtyjUQ1s7HD+zDVqOQIvjkpXSv7Kejd2tqg==}
+    engines: {node: '>=18'}
+
+  '@react-native/assets-registry@0.74.83':
+    resolution: {integrity: sha512-2vkLMVnp+YTZYTNSDIBZojSsjz8sl5PscP3j4GcV6idD8V978SZfwFlk8K0ti0BzRs11mzL0Pj17km597S/eTQ==}
     engines: {node: '>=18'}
 
   '@react-native/assets-registry@0.74.84':
@@ -5362,11 +5372,11 @@ packages:
   '@tanstack/query-core@4.35.7':
     resolution: {integrity: sha512-PgDJtX75ubFS0WCYFM7DqEoJ4QbxU3S5OH3gJSI40xr7UVVax3/J4CM3XUMOTs+EOT5YGEfssi3tfRVGte4DEw==}
 
+  '@tanstack/query-core@5.45.0':
+    resolution: {integrity: sha512-RVfIZQmFUTdjhSAAblvueimfngYyfN6HlwaJUPK71PKd7yi43Vs1S/rdimmZedPWX/WGppcq/U1HOj7O7FwYxw==}
+
   '@tanstack/query-persist-client-core@4.35.7':
     resolution: {integrity: sha512-RhnvVtjR2owK50XosSWJh3SD7516c/cQZO3FhPOPKfnCP7b7NqJbeiznKqxIIR88rvNlIOmZ2BIerdvvW7WQ5g==}
-
-  '@tanstack/query-sync-storage-persister@4.35.7':
-    resolution: {integrity: sha512-LwOV4FfbRQmCH3MUXU2xngnws5AzRJ8mtc9JlDogRVwutlDEeY2bYSiu7xV6NDRLPf0/+0KCMzWeBx6Tlgnkgw==}
 
   '@tanstack/react-query-devtools@4.35.7':
     resolution: {integrity: sha512-oe3reHNvXBTUvNb9jwLY8EYOXyp8Oq8/c40iwpXBnEkAtJI+RryrCXaGKFTivg72roPcYHzKILQHR9jbX8sn1Q==}
@@ -5391,6 +5401,11 @@ packages:
         optional: true
       react-native:
         optional: true
+
+  '@tanstack/react-query@5.45.1':
+    resolution: {integrity: sha512-mYYfJujKg2kxmkRRjA6nn4YKG3ITsKuH22f1kteJ5IuVQqgKUgbaSQfYwVP0gBS05mhwxO03HVpD0t7BMN7WOA==}
+    peerDependencies:
+      react: ^18.0.0
 
   '@testing-library/dom@9.3.4':
     resolution: {integrity: sha512-FlS4ZWlp97iiNWig0Muq8p+3rVDjRiYE+YKGbAqXOu9nwJFFOdL00kFpz42M+4huzYi86vAK1sOOfyOG45muIQ==}
@@ -6528,10 +6543,12 @@ packages:
   are-we-there-yet@2.0.0:
     resolution: {integrity: sha512-Ci/qENmwHnsYo9xKIcUJN5LeDKdJ6R1Z1j9V/J5wyq8nh/mYPEpIKJbBZXtZjG04HiK7zV/p6Vs9952MrMeUIw==}
     engines: {node: '>=10'}
+    deprecated: This package is no longer supported.
 
   are-we-there-yet@3.0.1:
     resolution: {integrity: sha512-QZW4EDmGwlYur0Yyf/b2uGucHQMa8aFUP7eu9ddR73vvhFyt4V0Vl3QHPcTNJ8l6qYOBdxgXdnBXQrHilfRQBg==}
     engines: {node: ^12.13.0 || ^14.15.0 || >=16.0.0}
+    deprecated: This package is no longer supported.
 
   arg@4.1.3:
     resolution: {integrity: sha512-58S9QDqG0Xx27YwPSt9fJxivjYl432YCwfDMfZ+71RAqUrZef7LrKQZ3LHLOwCS4FLNBplP533Zx895SeOCHvA==}
@@ -9034,10 +9051,12 @@ packages:
   gauge@3.0.2:
     resolution: {integrity: sha512-+5J6MS/5XksCuXq++uFRsnUd7Ovu1XenbeuIuNRJxYWjgQbPuFhT14lAvsWfqfAmnwluf1OwMjz39HjfLPci0Q==}
     engines: {node: '>=10'}
+    deprecated: This package is no longer supported.
 
   gauge@4.0.4:
     resolution: {integrity: sha512-f9m+BEN5jkg6a0fZjleidjN51VE1X+mPFQ2DJ0uv1V39oCLCbsGe6yjbBnp7eK7z/+GAon99a3nHuqbuuthyPg==}
     engines: {node: ^12.13.0 || ^14.15.0 || >=16.0.0}
+    deprecated: This package is no longer supported.
 
   generate-json-webpack-plugin@2.0.0:
     resolution: {integrity: sha512-WVEHXiES7YwjLAjWquC5+IspZM4Pwtx1yHlHTBXHkp38HVjnHJo29PxLniWPSyiB539iDgeAcMNUBStrixx3Jw==}
@@ -9155,6 +9174,7 @@ packages:
 
   glob@7.2.3:
     resolution: {integrity: sha512-nFR0zLpU2YCaRxwoCJvL6UvCH2JFyFVIvwTLsIf21AuHlMskA1hhTdk+LlYJtOlYt9v6dvszD2BGRqBL+iQK9Q==}
+    deprecated: Glob versions prior to v9 are no longer supported
 
   glob@9.3.5:
     resolution: {integrity: sha512-e1LleDykUz2Iu+MTYdkSsuWX8lvAjAcs0Xef0lNIu0S2wOAzuTxCJtcd9S3cijlwYF18EsU3rzb8jPVobxDh9Q==}
@@ -9602,6 +9622,7 @@ packages:
 
   inflight@1.0.6:
     resolution: {integrity: sha512-k92I/b08q4wvFscXCLvqfsHCrjrF7yiXsQuIVvVE7N82W3+aqpzuUdBbfhWcy/FZR3/4IgflMgKLOsvPDrGCJA==}
+    deprecated: This module is not supported, and leaks memory. Do not use it. Check out lru-cache if you want a good and tested way to coalesce async requests by a key value, which is much more comprehensive and powerful.
 
   inherits@2.0.3:
     resolution: {integrity: sha512-x00IRNXNy63jwGkJmzPigoySHbaqpNuzKbBOmzK+g2OdZpQ9w+sxCN+VSB3ja7IAge2OP2qpfxTjeNcyjmW1uw==}
@@ -10271,7 +10292,6 @@ packages:
     resolution: {integrity: sha512-Quz3MvAwHxVYNXsOByL7xI5EB2WYOeFswqaHIA3qOK3isRWTxiplBEocmmru6XmxDB2L7jDNYtYA4FyimoAFEw==}
     engines: {node: '>=8.17.0'}
     hasBin: true
-    bundledDependencies: []
 
   jsonfile@4.0.0:
     resolution: {integrity: sha512-m6F1R3z8jjlf2imQHS2Qez5sjKWQzbuuhuJ/FKYFRZvPE3PuHcSMVZzfsLhGVOkfd20obL5SWEBew5ShlquNxg==}
@@ -11569,10 +11589,12 @@ packages:
 
   npmlog@5.0.1:
     resolution: {integrity: sha512-AqZtDUWOMKs1G/8lwylVjrdYgqA4d9nu8hc+0gzRxlDb1I10+FHBGMXs6aiQHFdCUUlqH99MUMuLfzWDNDtfxw==}
+    deprecated: This package is no longer supported.
 
   npmlog@6.0.2:
     resolution: {integrity: sha512-/vBvz5Jfr9dT/aFWd0FIRf+T/Q2WBsLENygUaFUqstqsycmZAP/t5BvFJTK0viFmSUxiUKTUplWy5vt+rvKIxg==}
     engines: {node: ^12.13.0 || ^14.15.0 || >=16.0.0}
+    deprecated: This package is no longer supported.
 
   nth-check@2.1.1:
     resolution: {integrity: sha512-lqjrjmaOoAnWfMmBPL+XNnynZh2+swxiX3WUE0s4yEHI6m+AwrK2UZOimIRl3X/4QctVqS8AiZjFqyOGrMXb/w==}
@@ -12740,7 +12762,6 @@ packages:
     engines: {node: '>=18'}
     hasBin: true
     peerDependencies:
-      '@react-native/assets-registry': '*'
       '@types/react': ^18.2.6
       react: 18.2.0
     peerDependenciesMeta:
@@ -13176,10 +13197,12 @@ packages:
 
   rimraf@2.7.1:
     resolution: {integrity: sha512-uWjbaKIK3T1OSVptzX7Nl6PvQ3qAGtKEtVRjRuazjfL3Bx5eI409VZSqgND+4UNnmzLVdPj9FqFJNPqBZFve4w==}
+    deprecated: Rimraf versions prior to v4 are no longer supported
     hasBin: true
 
   rimraf@3.0.2:
     resolution: {integrity: sha512-JZkJMZkAGFFPP2YqXZXPbMlMBgsxzE8ILs4lMIX/2o0L9UBw9O/Y3o6wFw/i9YLapcUJWwqbi3kdxIPdC62TIA==}
+    deprecated: Rimraf versions prior to v4 are no longer supported
     hasBin: true
 
   ripemd160-min@0.0.6:
@@ -17714,6 +17737,28 @@ snapshots:
     transitivePeerDependencies:
       - encoding
 
+  '@leather-wallet/bitcoin@0.7.4(encoding@0.1.13)':
+    dependencies:
+      '@bitcoinerlab/secp256k1': 1.0.2
+      '@leather-wallet/constants': 0.7.0
+      '@leather-wallet/crypto': 1.0.1
+      '@leather-wallet/models': 0.9.0
+      '@leather-wallet/utils': 0.8.3
+      '@noble/hashes': 1.4.0
+      '@noble/secp256k1': 2.1.0
+      '@scure/base': 1.1.6
+      '@scure/bip32': 1.4.0
+      '@scure/bip39': 1.3.0
+      '@scure/btc-signer': 1.3.2
+      '@stacks/common': 6.13.0
+      '@stacks/transactions': 6.15.0(encoding@0.1.13)
+      bip32: 4.0.0
+      bitcoinjs-lib: 6.1.5
+      ecpair: 2.1.0
+      varuint-bitcoin: 1.1.2
+    transitivePeerDependencies:
+      - encoding
+
   '@leather-wallet/constants@0.6.4': {}
 
   '@leather-wallet/constants@0.7.0': {}
@@ -17748,15 +17793,15 @@ snapshots:
       - '@vue/compiler-sfc'
       - supports-color
 
-  '@leather-wallet/query@0.8.8(@stacks/network@6.13.0(encoding@0.1.13))(encoding@0.1.13)(react-dom@18.3.1(react@18.3.1))(react-native@0.74.1(@babel/core@7.24.4)(@babel/preset-env@7.24.6(@babel/core@7.24.4))(@react-native/assets-registry@0.73.1)(@types/react@18.3.3)(encoding@0.1.13)(react@18.2.0))(react@18.3.1)':
+  '@leather-wallet/query@0.8.10(@stacks/network@6.13.0(encoding@0.1.13))(encoding@0.1.13)(react@18.3.1)':
     dependencies:
       '@fungible-systems/zone-file': 2.0.0
       '@hirosystems/token-metadata-api-client': 1.2.0(encoding@0.1.13)
-      '@leather-wallet/bitcoin': 0.7.3(encoding@0.1.13)
-      '@leather-wallet/constants': 0.6.4
-      '@leather-wallet/models': 0.8.0
-      '@leather-wallet/rpc': 1.0.3
-      '@leather-wallet/utils': 0.8.2
+      '@leather-wallet/bitcoin': 0.7.4(encoding@0.1.13)
+      '@leather-wallet/constants': 0.7.0
+      '@leather-wallet/models': 0.9.0
+      '@leather-wallet/rpc': 1.0.4
+      '@leather-wallet/utils': 0.8.3
       '@noble/hashes': 1.4.0
       '@scure/base': 1.1.6
       '@scure/bip32': 1.4.0
@@ -17766,10 +17811,7 @@ snapshots:
       '@stacks/rpc-client': 1.0.3(encoding@0.1.13)
       '@stacks/stacks-blockchain-api-types': 7.8.2
       '@stacks/transactions': 6.15.0(encoding@0.1.13)
-      '@tanstack/query-sync-storage-persister': 4.35.7
-      '@tanstack/react-query': 4.35.7(react-dom@18.3.1(react@18.3.1))(react-native@0.74.1(@babel/core@7.24.4)(@babel/preset-env@7.24.6(@babel/core@7.24.4))(@react-native/assets-registry@0.73.1)(@types/react@18.3.3)(encoding@0.1.13)(react@18.2.0))(react@18.3.1)
-      '@tanstack/react-query-devtools': 4.35.7(@tanstack/react-query@4.35.7(react-dom@18.3.1(react@18.3.1))(react-native@0.74.1(@babel/core@7.24.4)(@babel/preset-env@7.24.6(@babel/core@7.24.4))(@react-native/assets-registry@0.73.1)(@types/react@18.3.3)(encoding@0.1.13)(react@18.2.0))(react@18.3.1))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-      '@tanstack/react-query-persist-client': 4.35.7(@tanstack/react-query@4.35.7(react-dom@18.3.1(react@18.3.1))(react-native@0.74.1(@babel/core@7.24.4)(@babel/preset-env@7.24.6(@babel/core@7.24.4))(@react-native/assets-registry@0.73.1)(@types/react@18.3.3)(encoding@0.1.13)(react@18.2.0))(react@18.3.1))
+      '@tanstack/react-query': 5.45.1(react@18.3.1)
       alex-sdk: 0.1.26(@stacks/network@6.13.0(encoding@0.1.13))(@stacks/transactions@6.15.0(encoding@0.1.13))
       axios: 1.6.7
       bignumber.js: 9.1.2
@@ -17783,8 +17825,6 @@ snapshots:
       - '@stacks/network'
       - debug
       - encoding
-      - react-dom
-      - react-native
 
   '@leather-wallet/rpc@1.0.3':
     dependencies:
@@ -17811,10 +17851,10 @@ snapshots:
       '@radix-ui/react-toast': 1.1.5(@types/react-dom@18.3.0)(@types/react@18.3.3)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
       '@radix-ui/react-tooltip': 1.0.7(@types/react-dom@18.3.0)(@types/react@18.3.3)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
       '@react-native/assets-registry': 0.73.1
-      '@react-native/metro-config': 0.73.5(@babel/core@7.24.4)(@babel/preset-env@7.24.6(@babel/core@7.24.4))(encoding@0.1.13)
-      '@rnx-kit/metro-config': 1.3.14(@react-native/metro-config@0.73.5(@babel/core@7.24.4)(@babel/preset-env@7.24.6(@babel/core@7.24.4))(encoding@0.1.13))(react-native@0.74.1(@babel/core@7.24.4)(@babel/preset-env@7.24.6(@babel/core@7.24.4))(@react-native/assets-registry@0.73.1)(@types/react@18.3.3)(encoding@0.1.13)(react@18.2.0))(react@18.2.0)
+      '@react-native/metro-config': 0.73.5(@babel/core@7.24.4)(@babel/preset-env@7.24.6(@babel/core@7.24.4))
+      '@rnx-kit/metro-config': 1.3.14(@react-native/metro-config@0.73.5(@babel/core@7.24.4)(@babel/preset-env@7.24.6(@babel/core@7.24.4)))(react-native@0.74.1(@babel/core@7.24.4)(@babel/preset-env@7.24.6(@babel/core@7.24.4))(@types/react@18.3.3)(encoding@0.1.13)(react@18.2.0))(react@18.2.0)
       '@rnx-kit/metro-resolver-symlinks': 0.1.35
-      '@shopify/restyle': 2.4.2(react-native@0.74.1(@babel/core@7.24.4)(@babel/preset-env@7.24.6(@babel/core@7.24.4))(@react-native/assets-registry@0.73.1)(@types/react@18.3.3)(encoding@0.1.13)(react@18.2.0))(react@18.2.0)
+      '@shopify/restyle': 2.4.2(react-native@0.74.1(@babel/core@7.24.4)(@babel/preset-env@7.24.6(@babel/core@7.24.4))(@types/react@18.3.3)(encoding@0.1.13)(react@18.2.0))(react@18.2.0)
       '@storybook/react': 7.6.15(encoding@0.1.13)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)(typescript@5.4.5)
       expo: 51.0.8(@babel/core@7.24.4)(@babel/preset-env@7.24.6(@babel/core@7.24.4))(encoding@0.1.13)
       expo-asset: 10.0.6(expo@51.0.8(@babel/core@7.24.4)(@babel/preset-env@7.24.6(@babel/core@7.24.4))(encoding@0.1.13))
@@ -17826,7 +17866,7 @@ snapshots:
       metro-resolver: 0.80.5
       react: 18.2.0
       react-dom: 18.2.0(react@18.2.0)
-      react-native: 0.74.1(@babel/core@7.24.4)(@babel/preset-env@7.24.6(@babel/core@7.24.4))(@react-native/assets-registry@0.73.1)(@types/react@18.3.3)(encoding@0.1.13)(react@18.3.1)
+      react-native: 0.74.1(@babel/core@7.24.4)(@babel/preset-env@7.24.6(@babel/core@7.24.4))(@types/react@18.3.3)(encoding@0.1.13)(react@18.3.1)
       tsup: 8.1.0(@swc/core@1.4.8)(postcss@8.4.38)(ts-node@10.9.2(@swc/core@1.4.8)(@types/node@20.12.12)(typescript@5.4.5))(typescript@5.4.5)
     transitivePeerDependencies:
       - '@babel/core'
@@ -19637,6 +19677,8 @@ snapshots:
 
   '@react-native/assets-registry@0.73.1': {}
 
+  '@react-native/assets-registry@0.74.83': {}
+
   '@react-native/assets-registry@0.74.84': {}
 
   '@react-native/babel-plugin-codegen@0.73.4(@babel/preset-env@7.24.6(@babel/core@7.24.4))':
@@ -19916,7 +19958,7 @@ snapshots:
       - '@babel/preset-env'
       - supports-color
 
-  '@react-native/metro-config@0.73.5(@babel/core@7.24.4)(@babel/preset-env@7.24.6(@babel/core@7.24.4))(encoding@0.1.13)':
+  '@react-native/metro-config@0.73.5(@babel/core@7.24.4)(@babel/preset-env@7.24.6(@babel/core@7.24.4))':
     dependencies:
       '@react-native/js-polyfills': 0.73.1
       '@react-native/metro-babel-transformer': 0.73.15(@babel/core@7.24.4)(@babel/preset-env@7.24.6(@babel/core@7.24.4))
@@ -19925,36 +19967,33 @@ snapshots:
     transitivePeerDependencies:
       - '@babel/core'
       - '@babel/preset-env'
-      - bufferutil
-      - encoding
       - supports-color
-      - utf-8-validate
 
   '@react-native/normalize-colors@0.74.83': {}
 
-  '@react-native/virtualized-lists@0.74.83(@types/react@18.3.3)(react-native@0.74.1(@babel/core@7.24.4)(@babel/preset-env@7.24.6(@babel/core@7.24.4))(@react-native/assets-registry@0.73.1)(@types/react@18.3.3)(encoding@0.1.13)(react@18.2.0))(react@18.2.0)':
+  '@react-native/virtualized-lists@0.74.83(@types/react@18.3.3)(react-native@0.74.1(@babel/core@7.24.4)(@babel/preset-env@7.24.6(@babel/core@7.24.4))(@types/react@18.3.3)(encoding@0.1.13)(react@18.2.0))(react@18.2.0)':
     dependencies:
       invariant: 2.2.4
       nullthrows: 1.1.1
       react: 18.2.0
-      react-native: 0.74.1(@babel/core@7.24.4)(@babel/preset-env@7.24.6(@babel/core@7.24.4))(@react-native/assets-registry@0.73.1)(@types/react@18.3.3)(encoding@0.1.13)(react@18.3.1)
+      react-native: 0.74.1(@babel/core@7.24.4)(@babel/preset-env@7.24.6(@babel/core@7.24.4))(@types/react@18.3.3)(encoding@0.1.13)(react@18.3.1)
     optionalDependencies:
       '@types/react': 18.3.3
 
-  '@redux-devtools/app@6.0.0(@emotion/react@11.11.3(@types/react@18.3.3)(react@18.3.1))(@types/react-dom@18.3.0)(@types/react@18.3.3)(@types/styled-components@5.1.34)(react-dom@18.3.1(react@18.3.1))(react-native@0.74.1(@babel/core@7.24.4)(@babel/preset-env@7.24.6(@babel/core@7.24.4))(@react-native/assets-registry@0.73.1)(@types/react@18.3.3)(encoding@0.1.13)(react@18.2.0))(react@18.3.1)(styled-components@5.3.11(@babel/core@7.24.4)(react-dom@18.3.1(react@18.3.1))(react-is@18.2.0)(react@18.3.1))':
+  '@redux-devtools/app@6.0.0(@emotion/react@11.11.3(@types/react@18.3.3)(react@18.3.1))(@types/react-dom@18.3.0)(@types/react@18.3.3)(@types/styled-components@5.1.34)(react-dom@18.3.1(react@18.3.1))(react-native@0.74.1(@babel/core@7.24.4)(@babel/preset-env@7.24.6(@babel/core@7.24.4))(@types/react@18.3.3)(encoding@0.1.13)(react@18.2.0))(react@18.3.1)(styled-components@5.3.11(@babel/core@7.24.4)(react-dom@18.3.1(react@18.3.1))(react-is@18.2.0)(react@18.3.1))':
     dependencies:
       '@babel/runtime': 7.23.9
       '@emotion/react': 11.11.3(@types/react@18.3.3)(react@18.3.1)
-      '@redux-devtools/chart-monitor': 5.0.0(@redux-devtools/core@4.0.0(react-redux@8.1.3(@types/react-dom@18.3.0)(@types/react@18.3.3)(react-dom@18.3.1(react@18.3.1))(react-native@0.74.1(@babel/core@7.24.4)(@babel/preset-env@7.24.6(@babel/core@7.24.4))(@react-native/assets-registry@0.73.1)(@types/react@18.3.3)(encoding@0.1.13)(react@18.2.0))(react@18.3.1)(redux@4.2.1))(react@18.3.1)(redux@4.2.1))(@types/react@18.3.3)(react@18.3.1)(redux@4.2.1)
-      '@redux-devtools/core': 4.0.0(react-redux@9.1.0(@types/react@18.3.3)(react-native@0.74.1(@babel/core@7.24.4)(@babel/preset-env@7.24.6(@babel/core@7.24.4))(@react-native/assets-registry@0.73.1)(@types/react@18.3.3)(encoding@0.1.13)(react@18.2.0))(react@18.3.1)(redux@5.0.1))(react@18.3.1)(redux@5.0.1)
-      '@redux-devtools/inspector-monitor': 6.0.0(@emotion/react@11.11.3(@types/react@18.3.3)(react@18.3.1))(@redux-devtools/core@4.0.0(react-redux@8.1.3(@types/react-dom@18.3.0)(@types/react@18.3.3)(react-dom@18.3.1(react@18.3.1))(react-native@0.74.1(@babel/core@7.24.4)(@babel/preset-env@7.24.6(@babel/core@7.24.4))(@react-native/assets-registry@0.73.1)(@types/react@18.3.3)(encoding@0.1.13)(react@18.2.0))(react@18.3.1)(redux@4.2.1))(react@18.3.1)(redux@4.2.1))(@types/react@18.3.3)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(redux@5.0.1)
-      '@redux-devtools/inspector-monitor-test-tab': 4.0.0(@emotion/react@11.11.3(@types/react@18.3.3)(react@18.3.1))(@redux-devtools/inspector-monitor@6.0.0(@emotion/react@11.11.3(@types/react@18.3.3)(react@18.3.1))(@redux-devtools/core@4.0.0(react-redux@8.1.3(@types/react-dom@18.3.0)(@types/react@18.3.3)(react-dom@18.3.1(react@18.3.1))(react-native@0.74.1(@babel/core@7.24.4)(@babel/preset-env@7.24.6(@babel/core@7.24.4))(@react-native/assets-registry@0.73.1)(@types/react@18.3.3)(encoding@0.1.13)(react@18.2.0))(react@18.3.1)(redux@4.2.1))(react@18.3.1)(redux@4.2.1))(@types/react@18.3.3)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(redux@4.2.1))(@types/react@18.3.3)(@types/styled-components@5.1.34)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(redux@4.2.1)(styled-components@5.3.11(@babel/core@7.24.4)(react-dom@18.3.1(react@18.3.1))(react-is@18.2.0)(react@18.3.1))
-      '@redux-devtools/inspector-monitor-trace-tab': 4.0.0(@emotion/react@11.11.3(@types/react@18.3.3)(react@18.3.1))(@redux-devtools/inspector-monitor@6.0.0(@emotion/react@11.11.3(@types/react@18.3.3)(react@18.3.1))(@redux-devtools/core@4.0.0(react-redux@8.1.3(@types/react-dom@18.3.0)(@types/react@18.3.3)(react-dom@18.3.1(react@18.3.1))(react-native@0.74.1(@babel/core@7.24.4)(@babel/preset-env@7.24.6(@babel/core@7.24.4))(@react-native/assets-registry@0.73.1)(@types/react@18.3.3)(encoding@0.1.13)(react@18.2.0))(react@18.3.1)(redux@4.2.1))(react@18.3.1)(redux@4.2.1))(@types/react@18.3.3)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(redux@4.2.1))(@types/react@18.3.3)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(redux@4.2.1)
-      '@redux-devtools/log-monitor': 5.0.0(@redux-devtools/core@4.0.0(react-redux@8.1.3(@types/react-dom@18.3.0)(@types/react@18.3.3)(react-dom@18.3.1(react@18.3.1))(react-native@0.74.1(@babel/core@7.24.4)(@babel/preset-env@7.24.6(@babel/core@7.24.4))(@react-native/assets-registry@0.73.1)(@types/react@18.3.3)(encoding@0.1.13)(react@18.2.0))(react@18.3.1)(redux@4.2.1))(react@18.3.1)(redux@4.2.1))(@types/react@18.3.3)(react@18.3.1)(redux@4.2.1)
-      '@redux-devtools/rtk-query-monitor': 5.0.0(@emotion/react@11.11.3(@types/react@18.3.3)(react@18.3.1))(@redux-devtools/core@4.0.0(react-redux@8.1.3(@types/react-dom@18.3.0)(@types/react@18.3.3)(react-dom@18.3.1(react@18.3.1))(react-native@0.74.1(@babel/core@7.24.4)(@babel/preset-env@7.24.6(@babel/core@7.24.4))(@react-native/assets-registry@0.73.1)(@types/react@18.3.3)(encoding@0.1.13)(react@18.2.0))(react@18.3.1)(redux@4.2.1))(react@18.3.1)(redux@4.2.1))(@reduxjs/toolkit@1.9.7(react-redux@8.1.3(@types/react-dom@18.3.0)(@types/react@18.3.3)(react-dom@18.3.1(react@18.3.1))(react-native@0.74.1(@babel/core@7.24.4)(@babel/preset-env@7.24.6(@babel/core@7.24.4))(@react-native/assets-registry@0.73.1)(@types/react@18.3.3)(encoding@0.1.13)(react@18.2.0))(react@18.3.1)(redux@4.2.1))(react@18.3.1))(@types/react@18.3.3)(@types/styled-components@5.1.34)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(redux@4.2.1)(styled-components@5.3.11(@babel/core@7.24.4)(react-dom@18.3.1(react@18.3.1))(react-is@18.2.0)(react@18.3.1))
-      '@redux-devtools/slider-monitor': 5.0.0(@redux-devtools/core@4.0.0(react-redux@8.1.3(@types/react-dom@18.3.0)(@types/react@18.3.3)(react-dom@18.3.1(react@18.3.1))(react-native@0.74.1(@babel/core@7.24.4)(@babel/preset-env@7.24.6(@babel/core@7.24.4))(@react-native/assets-registry@0.73.1)(@types/react@18.3.3)(encoding@0.1.13)(react@18.2.0))(react@18.3.1)(redux@4.2.1))(react@18.3.1)(redux@4.2.1))(@types/react@18.3.3)(@types/styled-components@5.1.34)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(redux@4.2.1)(styled-components@5.3.11(@babel/core@7.24.4)(react-dom@18.3.1(react@18.3.1))(react-is@18.2.0)(react@18.3.1))
+      '@redux-devtools/chart-monitor': 5.0.0(@redux-devtools/core@4.0.0(react-redux@8.1.3(@types/react-dom@18.3.0)(@types/react@18.3.3)(react-dom@18.3.1(react@18.3.1))(react-native@0.74.1(@babel/core@7.24.4)(@babel/preset-env@7.24.6(@babel/core@7.24.4))(@types/react@18.3.3)(encoding@0.1.13)(react@18.2.0))(react@18.3.1)(redux@4.2.1))(react@18.3.1)(redux@4.2.1))(@types/react@18.3.3)(react@18.3.1)(redux@4.2.1)
+      '@redux-devtools/core': 4.0.0(react-redux@9.1.0(@types/react@18.3.3)(react-native@0.74.1(@babel/core@7.24.4)(@babel/preset-env@7.24.6(@babel/core@7.24.4))(@types/react@18.3.3)(encoding@0.1.13)(react@18.2.0))(react@18.3.1)(redux@5.0.1))(react@18.3.1)(redux@5.0.1)
+      '@redux-devtools/inspector-monitor': 6.0.0(@emotion/react@11.11.3(@types/react@18.3.3)(react@18.3.1))(@redux-devtools/core@4.0.0(react-redux@8.1.3(@types/react-dom@18.3.0)(@types/react@18.3.3)(react-dom@18.3.1(react@18.3.1))(react-native@0.74.1(@babel/core@7.24.4)(@babel/preset-env@7.24.6(@babel/core@7.24.4))(@types/react@18.3.3)(encoding@0.1.13)(react@18.2.0))(react@18.3.1)(redux@4.2.1))(react@18.3.1)(redux@4.2.1))(@types/react@18.3.3)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(redux@5.0.1)
+      '@redux-devtools/inspector-monitor-test-tab': 4.0.0(@emotion/react@11.11.3(@types/react@18.3.3)(react@18.3.1))(@redux-devtools/inspector-monitor@6.0.0(@emotion/react@11.11.3(@types/react@18.3.3)(react@18.3.1))(@redux-devtools/core@4.0.0(react-redux@8.1.3(@types/react-dom@18.3.0)(@types/react@18.3.3)(react-dom@18.3.1(react@18.3.1))(react-native@0.74.1(@babel/core@7.24.4)(@babel/preset-env@7.24.6(@babel/core@7.24.4))(@types/react@18.3.3)(encoding@0.1.13)(react@18.2.0))(react@18.3.1)(redux@4.2.1))(react@18.3.1)(redux@4.2.1))(@types/react@18.3.3)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(redux@4.2.1))(@types/react@18.3.3)(@types/styled-components@5.1.34)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(redux@4.2.1)(styled-components@5.3.11(@babel/core@7.24.4)(react-dom@18.3.1(react@18.3.1))(react-is@18.2.0)(react@18.3.1))
+      '@redux-devtools/inspector-monitor-trace-tab': 4.0.0(@emotion/react@11.11.3(@types/react@18.3.3)(react@18.3.1))(@redux-devtools/inspector-monitor@6.0.0(@emotion/react@11.11.3(@types/react@18.3.3)(react@18.3.1))(@redux-devtools/core@4.0.0(react-redux@8.1.3(@types/react-dom@18.3.0)(@types/react@18.3.3)(react-dom@18.3.1(react@18.3.1))(react-native@0.74.1(@babel/core@7.24.4)(@babel/preset-env@7.24.6(@babel/core@7.24.4))(@types/react@18.3.3)(encoding@0.1.13)(react@18.2.0))(react@18.3.1)(redux@4.2.1))(react@18.3.1)(redux@4.2.1))(@types/react@18.3.3)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(redux@4.2.1))(@types/react@18.3.3)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(redux@4.2.1)
+      '@redux-devtools/log-monitor': 5.0.0(@redux-devtools/core@4.0.0(react-redux@8.1.3(@types/react-dom@18.3.0)(@types/react@18.3.3)(react-dom@18.3.1(react@18.3.1))(react-native@0.74.1(@babel/core@7.24.4)(@babel/preset-env@7.24.6(@babel/core@7.24.4))(@types/react@18.3.3)(encoding@0.1.13)(react@18.2.0))(react@18.3.1)(redux@4.2.1))(react@18.3.1)(redux@4.2.1))(@types/react@18.3.3)(react@18.3.1)(redux@4.2.1)
+      '@redux-devtools/rtk-query-monitor': 5.0.0(@emotion/react@11.11.3(@types/react@18.3.3)(react@18.3.1))(@redux-devtools/core@4.0.0(react-redux@8.1.3(@types/react-dom@18.3.0)(@types/react@18.3.3)(react-dom@18.3.1(react@18.3.1))(react-native@0.74.1(@babel/core@7.24.4)(@babel/preset-env@7.24.6(@babel/core@7.24.4))(@types/react@18.3.3)(encoding@0.1.13)(react@18.2.0))(react@18.3.1)(redux@4.2.1))(react@18.3.1)(redux@4.2.1))(@reduxjs/toolkit@1.9.7(react-redux@8.1.3(@types/react-dom@18.3.0)(@types/react@18.3.3)(react-dom@18.3.1(react@18.3.1))(react-native@0.74.1(@babel/core@7.24.4)(@babel/preset-env@7.24.6(@babel/core@7.24.4))(@types/react@18.3.3)(encoding@0.1.13)(react@18.2.0))(react@18.3.1)(redux@4.2.1))(react@18.3.1))(@types/react@18.3.3)(@types/styled-components@5.1.34)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(redux@4.2.1)(styled-components@5.3.11(@babel/core@7.24.4)(react-dom@18.3.1(react@18.3.1))(react-is@18.2.0)(react@18.3.1))
+      '@redux-devtools/slider-monitor': 5.0.0(@redux-devtools/core@4.0.0(react-redux@8.1.3(@types/react-dom@18.3.0)(@types/react@18.3.3)(react-dom@18.3.1(react@18.3.1))(react-native@0.74.1(@babel/core@7.24.4)(@babel/preset-env@7.24.6(@babel/core@7.24.4))(@types/react@18.3.3)(encoding@0.1.13)(react@18.2.0))(react@18.3.1)(redux@4.2.1))(react@18.3.1)(redux@4.2.1))(@types/react@18.3.3)(@types/styled-components@5.1.34)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(redux@4.2.1)(styled-components@5.3.11(@babel/core@7.24.4)(react-dom@18.3.1(react@18.3.1))(react-is@18.2.0)(react@18.3.1))
       '@redux-devtools/ui': 1.3.1(@types/react@18.3.3)(@types/styled-components@5.1.34)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(styled-components@5.3.11(@babel/core@7.24.4)(react-dom@18.3.1(react@18.3.1))(react-is@18.2.0)(react@18.3.1))
-      '@reduxjs/toolkit': 1.9.7(react-redux@8.1.3(@types/react-dom@18.3.0)(@types/react@18.3.3)(react-dom@18.3.1(react@18.3.1))(react-native@0.74.1(@babel/core@7.24.4)(@babel/preset-env@7.24.6(@babel/core@7.24.4))(@react-native/assets-registry@0.73.1)(@types/react@18.3.3)(encoding@0.1.13)(react@18.2.0))(react@18.3.1)(redux@4.2.1))(react@18.3.1)
+      '@reduxjs/toolkit': 1.9.7(react-redux@8.1.3(@types/react-dom@18.3.0)(@types/react@18.3.3)(react-dom@18.3.1(react@18.3.1))(react-native@0.74.1(@babel/core@7.24.4)(@babel/preset-env@7.24.6(@babel/core@7.24.4))(@types/react@18.3.3)(encoding@0.1.13)(react@18.2.0))(react@18.3.1)(redux@4.2.1))(react@18.3.1)
       '@types/react': 18.3.3
       '@types/styled-components': 5.1.34
       d3-state-visualizer: 2.0.0
@@ -19967,7 +20006,7 @@ snapshots:
       react-dom: 18.3.1(react@18.3.1)
       react-icons: 4.12.0(react@18.3.1)
       react-is: 18.2.0
-      react-redux: 8.1.3(@types/react-dom@18.3.0)(@types/react@18.3.3)(react-dom@18.3.1(react@18.3.1))(react-native@0.74.1(@babel/core@7.24.4)(@babel/preset-env@7.24.6(@babel/core@7.24.4))(@react-native/assets-registry@0.73.1)(@types/react@18.3.3)(encoding@0.1.13)(react@18.2.0))(react@18.3.1)(redux@4.2.1)
+      react-redux: 8.1.3(@types/react-dom@18.3.0)(@types/react@18.3.3)(react-dom@18.3.1(react@18.3.1))(react-native@0.74.1(@babel/core@7.24.4)(@babel/preset-env@7.24.6(@babel/core@7.24.4))(@types/react@18.3.3)(encoding@0.1.13)(react@18.2.0))(react@18.3.1)(redux@4.2.1)
       redux: 4.2.1
       redux-persist: 6.0.0(react@18.3.1)(redux@4.2.1)
       socketcluster-client: 17.2.2
@@ -19978,10 +20017,10 @@ snapshots:
       - react-native
       - utf-8-validate
 
-  '@redux-devtools/chart-monitor@5.0.0(@redux-devtools/core@4.0.0(react-redux@8.1.3(@types/react-dom@18.3.0)(@types/react@18.3.3)(react-dom@18.3.1(react@18.3.1))(react-native@0.74.1(@babel/core@7.24.4)(@babel/preset-env@7.24.6(@babel/core@7.24.4))(@react-native/assets-registry@0.73.1)(@types/react@18.3.3)(encoding@0.1.13)(react@18.2.0))(react@18.3.1)(redux@4.2.1))(react@18.3.1)(redux@4.2.1))(@types/react@18.3.3)(react@18.3.1)(redux@4.2.1)':
+  '@redux-devtools/chart-monitor@5.0.0(@redux-devtools/core@4.0.0(react-redux@8.1.3(@types/react-dom@18.3.0)(@types/react@18.3.3)(react-dom@18.3.1(react@18.3.1))(react-native@0.74.1(@babel/core@7.24.4)(@babel/preset-env@7.24.6(@babel/core@7.24.4))(@types/react@18.3.3)(encoding@0.1.13)(react@18.2.0))(react@18.3.1)(redux@4.2.1))(react@18.3.1)(redux@4.2.1))(@types/react@18.3.3)(react@18.3.1)(redux@4.2.1)':
     dependencies:
       '@babel/runtime': 7.23.9
-      '@redux-devtools/core': 4.0.0(react-redux@9.1.0(@types/react@18.3.3)(react-native@0.74.1(@babel/core@7.24.4)(@babel/preset-env@7.24.6(@babel/core@7.24.4))(@react-native/assets-registry@0.73.1)(@types/react@18.3.3)(encoding@0.1.13)(react@18.2.0))(react@18.3.1)(redux@5.0.1))(react@18.3.1)(redux@5.0.1)
+      '@redux-devtools/core': 4.0.0(react-redux@9.1.0(@types/react@18.3.3)(react-native@0.74.1(@babel/core@7.24.4)(@babel/preset-env@7.24.6(@babel/core@7.24.4))(@types/react@18.3.3)(encoding@0.1.13)(react@18.2.0))(react@18.3.1)(redux@5.0.1))(react@18.3.1)(redux@5.0.1)
       '@types/react': 18.3.3
       '@types/redux-devtools-themes': 1.0.3
       d3-state-visualizer: 2.0.0
@@ -19990,11 +20029,11 @@ snapshots:
       redux: 4.2.1
       redux-devtools-themes: 1.0.0
 
-  '@redux-devtools/cli@4.0.0(@babel/core@7.24.4)(@types/react-dom@18.3.0)(@types/styled-components@5.1.34)(encoding@0.1.13)(react-native@0.74.1(@babel/core@7.24.4)(@babel/preset-env@7.24.6(@babel/core@7.24.4))(@react-native/assets-registry@0.73.1)(@types/react@18.3.3)(encoding@0.1.13)(react@18.2.0))':
+  '@redux-devtools/cli@4.0.0(@babel/core@7.24.4)(@types/react-dom@18.3.0)(@types/styled-components@5.1.34)(encoding@0.1.13)(react-native@0.74.1(@babel/core@7.24.4)(@babel/preset-env@7.24.6(@babel/core@7.24.4))(@types/react@18.3.3)(encoding@0.1.13)(react@18.2.0))':
     dependencies:
       '@apollo/server': 4.10.0(encoding@0.1.13)(graphql@16.8.1)
       '@emotion/react': 11.11.3(@types/react@18.3.3)(react@18.3.1)
-      '@redux-devtools/app': 6.0.0(@emotion/react@11.11.3(@types/react@18.3.3)(react@18.3.1))(@types/react-dom@18.3.0)(@types/react@18.3.3)(@types/styled-components@5.1.34)(react-dom@18.3.1(react@18.3.1))(react-native@0.74.1(@babel/core@7.24.4)(@babel/preset-env@7.24.6(@babel/core@7.24.4))(@react-native/assets-registry@0.73.1)(@types/react@18.3.3)(encoding@0.1.13)(react@18.2.0))(react@18.3.1)(styled-components@5.3.11(@babel/core@7.24.4)(react-dom@18.3.1(react@18.3.1))(react-is@18.2.0)(react@18.3.1))
+      '@redux-devtools/app': 6.0.0(@emotion/react@11.11.3(@types/react@18.3.3)(react@18.3.1))(@types/react-dom@18.3.0)(@types/react@18.3.3)(@types/styled-components@5.1.34)(react-dom@18.3.1(react@18.3.1))(react-native@0.74.1(@babel/core@7.24.4)(@babel/preset-env@7.24.6(@babel/core@7.24.4))(@types/react@18.3.3)(encoding@0.1.13)(react@18.2.0))(react@18.3.1)(styled-components@5.3.11(@babel/core@7.24.4)(react-dom@18.3.1(react@18.3.1))(react-is@18.2.0)(react@18.3.1))
       '@types/react': 18.3.3
       body-parser: 1.20.2
       chalk: 5.3.0
@@ -20034,20 +20073,20 @@ snapshots:
       - tedious
       - utf-8-validate
 
-  '@redux-devtools/core@4.0.0(react-redux@9.1.0(@types/react@18.3.3)(react-native@0.74.1(@babel/core@7.24.4)(@babel/preset-env@7.24.6(@babel/core@7.24.4))(@react-native/assets-registry@0.73.1)(@types/react@18.3.3)(encoding@0.1.13)(react@18.2.0))(react@18.3.1)(redux@5.0.1))(react@18.3.1)(redux@5.0.1)':
+  '@redux-devtools/core@4.0.0(react-redux@9.1.0(@types/react@18.3.3)(react-native@0.74.1(@babel/core@7.24.4)(@babel/preset-env@7.24.6(@babel/core@7.24.4))(@types/react@18.3.3)(encoding@0.1.13)(react@18.2.0))(react@18.3.1)(redux@5.0.1))(react@18.3.1)(redux@5.0.1)':
     dependencies:
       '@babel/runtime': 7.23.9
       '@redux-devtools/instrument': 2.2.0(redux@4.2.1)
       lodash: 4.17.21
       react: 18.3.1
-      react-redux: 9.1.0(@types/react@18.3.3)(react-native@0.74.1(@babel/core@7.24.4)(@babel/preset-env@7.24.6(@babel/core@7.24.4))(@react-native/assets-registry@0.73.1)(@types/react@18.3.3)(encoding@0.1.13)(react@18.2.0))(react@18.3.1)(redux@5.0.1)
+      react-redux: 9.1.0(@types/react@18.3.3)(react-native@0.74.1(@babel/core@7.24.4)(@babel/preset-env@7.24.6(@babel/core@7.24.4))(@types/react@18.3.3)(encoding@0.1.13)(react@18.2.0))(react@18.3.1)(redux@5.0.1)
       redux: 5.0.1
 
-  '@redux-devtools/inspector-monitor-test-tab@4.0.0(@emotion/react@11.11.3(@types/react@18.3.3)(react@18.3.1))(@redux-devtools/inspector-monitor@6.0.0(@emotion/react@11.11.3(@types/react@18.3.3)(react@18.3.1))(@redux-devtools/core@4.0.0(react-redux@8.1.3(@types/react-dom@18.3.0)(@types/react@18.3.3)(react-dom@18.3.1(react@18.3.1))(react-native@0.74.1(@babel/core@7.24.4)(@babel/preset-env@7.24.6(@babel/core@7.24.4))(@react-native/assets-registry@0.73.1)(@types/react@18.3.3)(encoding@0.1.13)(react@18.2.0))(react@18.3.1)(redux@4.2.1))(react@18.3.1)(redux@4.2.1))(@types/react@18.3.3)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(redux@4.2.1))(@types/react@18.3.3)(@types/styled-components@5.1.34)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(redux@4.2.1)(styled-components@5.3.11(@babel/core@7.24.4)(react-dom@18.3.1(react@18.3.1))(react-is@18.2.0)(react@18.3.1))':
+  '@redux-devtools/inspector-monitor-test-tab@4.0.0(@emotion/react@11.11.3(@types/react@18.3.3)(react@18.3.1))(@redux-devtools/inspector-monitor@6.0.0(@emotion/react@11.11.3(@types/react@18.3.3)(react@18.3.1))(@redux-devtools/core@4.0.0(react-redux@8.1.3(@types/react-dom@18.3.0)(@types/react@18.3.3)(react-dom@18.3.1(react@18.3.1))(react-native@0.74.1(@babel/core@7.24.4)(@babel/preset-env@7.24.6(@babel/core@7.24.4))(@types/react@18.3.3)(encoding@0.1.13)(react@18.2.0))(react@18.3.1)(redux@4.2.1))(react@18.3.1)(redux@4.2.1))(@types/react@18.3.3)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(redux@4.2.1))(@types/react@18.3.3)(@types/styled-components@5.1.34)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(redux@4.2.1)(styled-components@5.3.11(@babel/core@7.24.4)(react-dom@18.3.1(react@18.3.1))(react-is@18.2.0)(react@18.3.1))':
     dependencies:
       '@babel/runtime': 7.23.9
       '@emotion/react': 11.11.3(@types/react@18.3.3)(react@18.3.1)
-      '@redux-devtools/inspector-monitor': 6.0.0(@emotion/react@11.11.3(@types/react@18.3.3)(react@18.3.1))(@redux-devtools/core@4.0.0(react-redux@8.1.3(@types/react-dom@18.3.0)(@types/react@18.3.3)(react-dom@18.3.1(react@18.3.1))(react-native@0.74.1(@babel/core@7.24.4)(@babel/preset-env@7.24.6(@babel/core@7.24.4))(@react-native/assets-registry@0.73.1)(@types/react@18.3.3)(encoding@0.1.13)(react@18.2.0))(react@18.3.1)(redux@4.2.1))(react@18.3.1)(redux@4.2.1))(@types/react@18.3.3)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(redux@5.0.1)
+      '@redux-devtools/inspector-monitor': 6.0.0(@emotion/react@11.11.3(@types/react@18.3.3)(react@18.3.1))(@redux-devtools/core@4.0.0(react-redux@8.1.3(@types/react-dom@18.3.0)(@types/react@18.3.3)(react-dom@18.3.1(react@18.3.1))(react-native@0.74.1(@babel/core@7.24.4)(@babel/preset-env@7.24.6(@babel/core@7.24.4))(@types/react@18.3.3)(encoding@0.1.13)(react@18.2.0))(react@18.3.1)(redux@4.2.1))(react@18.3.1)(redux@4.2.1))(@types/react@18.3.3)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(redux@5.0.1)
       '@redux-devtools/ui': 1.3.1(@types/react@18.3.3)(@types/styled-components@5.1.34)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(styled-components@5.3.11(@babel/core@7.24.4)(react-dom@18.3.1(react@18.3.1))(react-is@18.2.0)(react@18.3.1))
       '@types/react': 18.3.3
       '@types/styled-components': 5.1.34
@@ -20062,12 +20101,12 @@ snapshots:
       simple-diff: 1.7.2
       styled-components: 5.3.11(@babel/core@7.24.4)(react-dom@18.3.1(react@18.3.1))(react-is@18.2.0)(react@18.3.1)
 
-  '@redux-devtools/inspector-monitor-trace-tab@4.0.0(@emotion/react@11.11.3(@types/react@18.3.3)(react@18.3.1))(@redux-devtools/inspector-monitor@6.0.0(@emotion/react@11.11.3(@types/react@18.3.3)(react@18.3.1))(@redux-devtools/core@4.0.0(react-redux@8.1.3(@types/react-dom@18.3.0)(@types/react@18.3.3)(react-dom@18.3.1(react@18.3.1))(react-native@0.74.1(@babel/core@7.24.4)(@babel/preset-env@7.24.6(@babel/core@7.24.4))(@react-native/assets-registry@0.73.1)(@types/react@18.3.3)(encoding@0.1.13)(react@18.2.0))(react@18.3.1)(redux@4.2.1))(react@18.3.1)(redux@4.2.1))(@types/react@18.3.3)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(redux@4.2.1))(@types/react@18.3.3)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(redux@4.2.1)':
+  '@redux-devtools/inspector-monitor-trace-tab@4.0.0(@emotion/react@11.11.3(@types/react@18.3.3)(react@18.3.1))(@redux-devtools/inspector-monitor@6.0.0(@emotion/react@11.11.3(@types/react@18.3.3)(react@18.3.1))(@redux-devtools/core@4.0.0(react-redux@8.1.3(@types/react-dom@18.3.0)(@types/react@18.3.3)(react-dom@18.3.1(react@18.3.1))(react-native@0.74.1(@babel/core@7.24.4)(@babel/preset-env@7.24.6(@babel/core@7.24.4))(@types/react@18.3.3)(encoding@0.1.13)(react@18.2.0))(react@18.3.1)(redux@4.2.1))(react@18.3.1)(redux@4.2.1))(@types/react@18.3.3)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(redux@4.2.1))(@types/react@18.3.3)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(redux@4.2.1)':
     dependencies:
       '@babel/code-frame': 8.0.0-alpha.5
       '@babel/runtime': 7.23.9
       '@emotion/react': 11.11.3(@types/react@18.3.3)(react@18.3.1)
-      '@redux-devtools/inspector-monitor': 6.0.0(@emotion/react@11.11.3(@types/react@18.3.3)(react@18.3.1))(@redux-devtools/core@4.0.0(react-redux@8.1.3(@types/react-dom@18.3.0)(@types/react@18.3.3)(react-dom@18.3.1(react@18.3.1))(react-native@0.74.1(@babel/core@7.24.4)(@babel/preset-env@7.24.6(@babel/core@7.24.4))(@react-native/assets-registry@0.73.1)(@types/react@18.3.3)(encoding@0.1.13)(react@18.2.0))(react@18.3.1)(redux@4.2.1))(react@18.3.1)(redux@4.2.1))(@types/react@18.3.3)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(redux@5.0.1)
+      '@redux-devtools/inspector-monitor': 6.0.0(@emotion/react@11.11.3(@types/react@18.3.3)(react@18.3.1))(@redux-devtools/core@4.0.0(react-redux@8.1.3(@types/react-dom@18.3.0)(@types/react@18.3.3)(react-dom@18.3.1(react@18.3.1))(react-native@0.74.1(@babel/core@7.24.4)(@babel/preset-env@7.24.6(@babel/core@7.24.4))(@types/react@18.3.3)(encoding@0.1.13)(react@18.2.0))(react@18.3.1)(redux@4.2.1))(react@18.3.1)(redux@4.2.1))(@types/react@18.3.3)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(redux@5.0.1)
       '@types/chrome': 0.0.254
       '@types/react': 18.3.3
       anser: 2.1.1
@@ -20079,7 +20118,7 @@ snapshots:
       redux-devtools-themes: 1.0.0
       source-map: 0.5.7
 
-  '@redux-devtools/inspector-monitor@6.0.0(@emotion/react@11.11.3(@types/react@18.3.3)(react@18.3.1))(@redux-devtools/core@4.0.0(react-redux@8.1.3(@types/react-dom@18.3.0)(@types/react@18.3.3)(react-dom@18.3.1(react@18.3.1))(react-native@0.74.1(@babel/core@7.24.4)(@babel/preset-env@7.24.6(@babel/core@7.24.4))(@react-native/assets-registry@0.73.1)(@types/react@18.3.3)(encoding@0.1.13)(react@18.2.0))(react@18.3.1)(redux@4.2.1))(react@18.3.1)(redux@4.2.1))(@types/react@18.3.3)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(redux@5.0.1)':
+  '@redux-devtools/inspector-monitor@6.0.0(@emotion/react@11.11.3(@types/react@18.3.3)(react@18.3.1))(@redux-devtools/core@4.0.0(react-redux@8.1.3(@types/react-dom@18.3.0)(@types/react@18.3.3)(react-dom@18.3.1(react@18.3.1))(react-native@0.74.1(@babel/core@7.24.4)(@babel/preset-env@7.24.6(@babel/core@7.24.4))(@types/react@18.3.3)(encoding@0.1.13)(react@18.2.0))(react@18.3.1)(redux@4.2.1))(react@18.3.1)(redux@4.2.1))(@types/react@18.3.3)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(redux@5.0.1)':
     dependencies:
       '@babel/runtime': 7.23.9
       '@dnd-kit/core': 6.1.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
@@ -20087,7 +20126,7 @@ snapshots:
       '@dnd-kit/sortable': 8.0.0(@dnd-kit/core@6.1.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react@18.3.1)
       '@dnd-kit/utilities': 3.2.2(react@18.3.1)
       '@emotion/react': 11.11.3(@types/react@18.3.3)(react@18.3.1)
-      '@redux-devtools/core': 4.0.0(react-redux@9.1.0(@types/react@18.3.3)(react-native@0.74.1(@babel/core@7.24.4)(@babel/preset-env@7.24.6(@babel/core@7.24.4))(@react-native/assets-registry@0.73.1)(@types/react@18.3.3)(encoding@0.1.13)(react@18.2.0))(react@18.3.1)(redux@5.0.1))(react@18.3.1)(redux@5.0.1)
+      '@redux-devtools/core': 4.0.0(react-redux@9.1.0(@types/react@18.3.3)(react-native@0.74.1(@babel/core@7.24.4)(@babel/preset-env@7.24.6(@babel/core@7.24.4))(@types/react@18.3.3)(encoding@0.1.13)(react@18.2.0))(react@18.3.1)(redux@5.0.1))(react@18.3.1)(redux@5.0.1)
       '@types/lodash': 4.14.202
       '@types/react': 18.3.3
       '@types/redux-devtools-themes': 1.0.3
@@ -20116,10 +20155,10 @@ snapshots:
       lodash: 4.17.21
       redux: 5.0.1
 
-  '@redux-devtools/log-monitor@5.0.0(@redux-devtools/core@4.0.0(react-redux@8.1.3(@types/react-dom@18.3.0)(@types/react@18.3.3)(react-dom@18.3.1(react@18.3.1))(react-native@0.74.1(@babel/core@7.24.4)(@babel/preset-env@7.24.6(@babel/core@7.24.4))(@react-native/assets-registry@0.73.1)(@types/react@18.3.3)(encoding@0.1.13)(react@18.2.0))(react@18.3.1)(redux@4.2.1))(react@18.3.1)(redux@4.2.1))(@types/react@18.3.3)(react@18.3.1)(redux@4.2.1)':
+  '@redux-devtools/log-monitor@5.0.0(@redux-devtools/core@4.0.0(react-redux@8.1.3(@types/react-dom@18.3.0)(@types/react@18.3.3)(react-dom@18.3.1(react@18.3.1))(react-native@0.74.1(@babel/core@7.24.4)(@babel/preset-env@7.24.6(@babel/core@7.24.4))(@types/react@18.3.3)(encoding@0.1.13)(react@18.2.0))(react@18.3.1)(redux@4.2.1))(react@18.3.1)(redux@4.2.1))(@types/react@18.3.3)(react@18.3.1)(redux@4.2.1)':
     dependencies:
       '@babel/runtime': 7.23.9
-      '@redux-devtools/core': 4.0.0(react-redux@9.1.0(@types/react@18.3.3)(react-native@0.74.1(@babel/core@7.24.4)(@babel/preset-env@7.24.6(@babel/core@7.24.4))(@react-native/assets-registry@0.73.1)(@types/react@18.3.3)(encoding@0.1.13)(react@18.2.0))(react@18.3.1)(redux@5.0.1))(react@18.3.1)(redux@5.0.1)
+      '@redux-devtools/core': 4.0.0(react-redux@9.1.0(@types/react@18.3.3)(react-native@0.74.1(@babel/core@7.24.4)(@babel/preset-env@7.24.6(@babel/core@7.24.4))(@types/react@18.3.3)(encoding@0.1.13)(react@18.2.0))(react@18.3.1)(redux@5.0.1))(react@18.3.1)(redux@5.0.1)
       '@types/lodash.debounce': 4.0.9
       '@types/react': 18.3.3
       '@types/redux-devtools-themes': 1.0.3
@@ -20129,11 +20168,11 @@ snapshots:
       redux: 4.2.1
       redux-devtools-themes: 1.0.0
 
-  '@redux-devtools/remote@0.9.3(@redux-devtools/core@4.0.0(react-redux@8.1.3(@types/react-dom@18.3.0)(@types/react@18.3.3)(react-dom@18.3.1(react@18.3.1))(react-native@0.74.1(@babel/core@7.24.4)(@babel/preset-env@7.24.6(@babel/core@7.24.4))(@react-native/assets-registry@0.73.1)(@types/react@18.3.3)(encoding@0.1.13)(react@18.2.0))(react@18.3.1)(redux@4.2.1))(react@18.3.1)(redux@4.2.1))(immutable@4.3.6)(redux@5.0.1)':
+  '@redux-devtools/remote@0.9.3(@redux-devtools/core@4.0.0(react-redux@8.1.3(@types/react-dom@18.3.0)(@types/react@18.3.3)(react-dom@18.3.1(react@18.3.1))(react-native@0.74.1(@babel/core@7.24.4)(@babel/preset-env@7.24.6(@babel/core@7.24.4))(@types/react@18.3.3)(encoding@0.1.13)(react@18.2.0))(react@18.3.1)(redux@4.2.1))(react@18.3.1)(redux@4.2.1))(immutable@4.3.6)(redux@5.0.1)':
     dependencies:
       '@babel/runtime': 7.24.4
       '@redux-devtools/instrument': 2.2.0(redux@5.0.1)
-      '@redux-devtools/utils': 3.0.0(@redux-devtools/core@4.0.0(react-redux@8.1.3(@types/react-dom@18.3.0)(@types/react@18.3.3)(react-dom@18.3.1(react@18.3.1))(react-native@0.74.1(@babel/core@7.24.4)(@babel/preset-env@7.24.6(@babel/core@7.24.4))(@react-native/assets-registry@0.73.1)(@types/react@18.3.3)(encoding@0.1.13)(react@18.2.0))(react@18.3.1)(redux@4.2.1))(react@18.3.1)(redux@4.2.1))(immutable@4.3.6)(redux@5.0.1)
+      '@redux-devtools/utils': 3.0.0(@redux-devtools/core@4.0.0(react-redux@8.1.3(@types/react-dom@18.3.0)(@types/react@18.3.3)(react-dom@18.3.1(react@18.3.1))(react-native@0.74.1(@babel/core@7.24.4)(@babel/preset-env@7.24.6(@babel/core@7.24.4))(@types/react@18.3.3)(encoding@0.1.13)(react@18.2.0))(react@18.3.1)(redux@4.2.1))(react@18.3.1)(redux@4.2.1))(immutable@4.3.6)(redux@5.0.1)
       jsan: 3.1.14
       querystring: 0.2.1
       redux: 5.0.1
@@ -20145,13 +20184,13 @@ snapshots:
       - immutable
       - utf-8-validate
 
-  '@redux-devtools/rtk-query-monitor@5.0.0(@emotion/react@11.11.3(@types/react@18.3.3)(react@18.3.1))(@redux-devtools/core@4.0.0(react-redux@8.1.3(@types/react-dom@18.3.0)(@types/react@18.3.3)(react-dom@18.3.1(react@18.3.1))(react-native@0.74.1(@babel/core@7.24.4)(@babel/preset-env@7.24.6(@babel/core@7.24.4))(@react-native/assets-registry@0.73.1)(@types/react@18.3.3)(encoding@0.1.13)(react@18.2.0))(react@18.3.1)(redux@4.2.1))(react@18.3.1)(redux@4.2.1))(@reduxjs/toolkit@1.9.7(react-redux@8.1.3(@types/react-dom@18.3.0)(@types/react@18.3.3)(react-dom@18.3.1(react@18.3.1))(react-native@0.74.1(@babel/core@7.24.4)(@babel/preset-env@7.24.6(@babel/core@7.24.4))(@react-native/assets-registry@0.73.1)(@types/react@18.3.3)(encoding@0.1.13)(react@18.2.0))(react@18.3.1)(redux@4.2.1))(react@18.3.1))(@types/react@18.3.3)(@types/styled-components@5.1.34)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(redux@4.2.1)(styled-components@5.3.11(@babel/core@7.24.4)(react-dom@18.3.1(react@18.3.1))(react-is@18.2.0)(react@18.3.1))':
+  '@redux-devtools/rtk-query-monitor@5.0.0(@emotion/react@11.11.3(@types/react@18.3.3)(react@18.3.1))(@redux-devtools/core@4.0.0(react-redux@8.1.3(@types/react-dom@18.3.0)(@types/react@18.3.3)(react-dom@18.3.1(react@18.3.1))(react-native@0.74.1(@babel/core@7.24.4)(@babel/preset-env@7.24.6(@babel/core@7.24.4))(@types/react@18.3.3)(encoding@0.1.13)(react@18.2.0))(react@18.3.1)(redux@4.2.1))(react@18.3.1)(redux@4.2.1))(@reduxjs/toolkit@1.9.7(react-redux@8.1.3(@types/react-dom@18.3.0)(@types/react@18.3.3)(react-dom@18.3.1(react@18.3.1))(react-native@0.74.1(@babel/core@7.24.4)(@babel/preset-env@7.24.6(@babel/core@7.24.4))(@types/react@18.3.3)(encoding@0.1.13)(react@18.2.0))(react@18.3.1)(redux@4.2.1))(react@18.3.1))(@types/react@18.3.3)(@types/styled-components@5.1.34)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(redux@4.2.1)(styled-components@5.3.11(@babel/core@7.24.4)(react-dom@18.3.1(react@18.3.1))(react-is@18.2.0)(react@18.3.1))':
     dependencies:
       '@babel/runtime': 7.23.9
       '@emotion/react': 11.11.3(@types/react@18.3.3)(react@18.3.1)
-      '@redux-devtools/core': 4.0.0(react-redux@9.1.0(@types/react@18.3.3)(react-native@0.74.1(@babel/core@7.24.4)(@babel/preset-env@7.24.6(@babel/core@7.24.4))(@react-native/assets-registry@0.73.1)(@types/react@18.3.3)(encoding@0.1.13)(react@18.2.0))(react@18.3.1)(redux@5.0.1))(react@18.3.1)(redux@5.0.1)
+      '@redux-devtools/core': 4.0.0(react-redux@9.1.0(@types/react@18.3.3)(react-native@0.74.1(@babel/core@7.24.4)(@babel/preset-env@7.24.6(@babel/core@7.24.4))(@types/react@18.3.3)(encoding@0.1.13)(react@18.2.0))(react@18.3.1)(redux@5.0.1))(react@18.3.1)(redux@5.0.1)
       '@redux-devtools/ui': 1.3.1(@types/react@18.3.3)(@types/styled-components@5.1.34)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(styled-components@5.3.11(@babel/core@7.24.4)(react-dom@18.3.1(react@18.3.1))(react-is@18.2.0)(react@18.3.1))
-      '@reduxjs/toolkit': 1.9.7(react-redux@8.1.3(@types/react-dom@18.3.0)(@types/react@18.3.3)(react-dom@18.3.1(react@18.3.1))(react-native@0.74.1(@babel/core@7.24.4)(@babel/preset-env@7.24.6(@babel/core@7.24.4))(@react-native/assets-registry@0.73.1)(@types/react@18.3.3)(encoding@0.1.13)(react@18.2.0))(react@18.3.1)(redux@4.2.1))(react@18.3.1)
+      '@reduxjs/toolkit': 1.9.7(react-redux@8.1.3(@types/react-dom@18.3.0)(@types/react@18.3.3)(react-dom@18.3.1(react@18.3.1))(react-native@0.74.1(@babel/core@7.24.4)(@babel/preset-env@7.24.6(@babel/core@7.24.4))(@types/react@18.3.3)(encoding@0.1.13)(react@18.2.0))(react@18.3.1)(redux@4.2.1))(react@18.3.1)
       '@types/lodash': 4.14.202
       '@types/react': 18.3.3
       '@types/redux-devtools-themes': 1.0.3
@@ -20174,10 +20213,10 @@ snapshots:
       immutable: 4.3.6
       jsan: 3.1.14
 
-  '@redux-devtools/slider-monitor@5.0.0(@redux-devtools/core@4.0.0(react-redux@8.1.3(@types/react-dom@18.3.0)(@types/react@18.3.3)(react-dom@18.3.1(react@18.3.1))(react-native@0.74.1(@babel/core@7.24.4)(@babel/preset-env@7.24.6(@babel/core@7.24.4))(@react-native/assets-registry@0.73.1)(@types/react@18.3.3)(encoding@0.1.13)(react@18.2.0))(react@18.3.1)(redux@4.2.1))(react@18.3.1)(redux@4.2.1))(@types/react@18.3.3)(@types/styled-components@5.1.34)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(redux@4.2.1)(styled-components@5.3.11(@babel/core@7.24.4)(react-dom@18.3.1(react@18.3.1))(react-is@18.2.0)(react@18.3.1))':
+  '@redux-devtools/slider-monitor@5.0.0(@redux-devtools/core@4.0.0(react-redux@8.1.3(@types/react-dom@18.3.0)(@types/react@18.3.3)(react-dom@18.3.1(react@18.3.1))(react-native@0.74.1(@babel/core@7.24.4)(@babel/preset-env@7.24.6(@babel/core@7.24.4))(@types/react@18.3.3)(encoding@0.1.13)(react@18.2.0))(react@18.3.1)(redux@4.2.1))(react@18.3.1)(redux@4.2.1))(@types/react@18.3.3)(@types/styled-components@5.1.34)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(redux@4.2.1)(styled-components@5.3.11(@babel/core@7.24.4)(react-dom@18.3.1(react@18.3.1))(react-is@18.2.0)(react@18.3.1))':
     dependencies:
       '@babel/runtime': 7.23.9
-      '@redux-devtools/core': 4.0.0(react-redux@9.1.0(@types/react@18.3.3)(react-native@0.74.1(@babel/core@7.24.4)(@babel/preset-env@7.24.6(@babel/core@7.24.4))(@react-native/assets-registry@0.73.1)(@types/react@18.3.3)(encoding@0.1.13)(react@18.2.0))(react@18.3.1)(redux@5.0.1))(react@18.3.1)(redux@5.0.1)
+      '@redux-devtools/core': 4.0.0(react-redux@9.1.0(@types/react@18.3.3)(react-native@0.74.1(@babel/core@7.24.4)(@babel/preset-env@7.24.6(@babel/core@7.24.4))(@types/react@18.3.3)(encoding@0.1.13)(react@18.2.0))(react@18.3.1)(redux@5.0.1))(react@18.3.1)(redux@5.0.1)
       '@redux-devtools/ui': 1.3.1(@types/react@18.3.3)(@types/styled-components@5.1.34)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(styled-components@5.3.11(@babel/core@7.24.4)(react-dom@18.3.1(react@18.3.1))(react-is@18.2.0)(react@18.3.1))
       '@types/react': 18.3.3
       '@types/redux-devtools-themes': 1.0.3
@@ -20214,10 +20253,10 @@ snapshots:
     transitivePeerDependencies:
       - react-dom
 
-  '@redux-devtools/utils@3.0.0(@redux-devtools/core@4.0.0(react-redux@8.1.3(@types/react-dom@18.3.0)(@types/react@18.3.3)(react-dom@18.3.1(react@18.3.1))(react-native@0.74.1(@babel/core@7.24.4)(@babel/preset-env@7.24.6(@babel/core@7.24.4))(@react-native/assets-registry@0.73.1)(@types/react@18.3.3)(encoding@0.1.13)(react@18.2.0))(react@18.3.1)(redux@4.2.1))(react@18.3.1)(redux@4.2.1))(immutable@4.3.6)(redux@5.0.1)':
+  '@redux-devtools/utils@3.0.0(@redux-devtools/core@4.0.0(react-redux@8.1.3(@types/react-dom@18.3.0)(@types/react@18.3.3)(react-dom@18.3.1(react@18.3.1))(react-native@0.74.1(@babel/core@7.24.4)(@babel/preset-env@7.24.6(@babel/core@7.24.4))(@types/react@18.3.3)(encoding@0.1.13)(react@18.2.0))(react@18.3.1)(redux@4.2.1))(react@18.3.1)(redux@4.2.1))(immutable@4.3.6)(redux@5.0.1)':
     dependencies:
       '@babel/runtime': 7.24.4
-      '@redux-devtools/core': 4.0.0(react-redux@9.1.0(@types/react@18.3.3)(react-native@0.74.1(@babel/core@7.24.4)(@babel/preset-env@7.24.6(@babel/core@7.24.4))(@react-native/assets-registry@0.73.1)(@types/react@18.3.3)(encoding@0.1.13)(react@18.2.0))(react@18.3.1)(redux@5.0.1))(react@18.3.1)(redux@5.0.1)
+      '@redux-devtools/core': 4.0.0(react-redux@9.1.0(@types/react@18.3.3)(react-native@0.74.1(@babel/core@7.24.4)(@babel/preset-env@7.24.6(@babel/core@7.24.4))(@types/react@18.3.3)(encoding@0.1.13)(react@18.2.0))(react@18.3.1)(redux@5.0.1))(react@18.3.1)(redux@5.0.1)
       '@redux-devtools/serialize': 0.4.2(immutable@4.3.6)
       '@types/get-params': 0.1.2
       get-params: 0.1.2
@@ -20227,7 +20266,7 @@ snapshots:
       nanoid: 3.3.4
       redux: 5.0.1
 
-  '@reduxjs/toolkit@1.9.7(react-redux@8.1.3(@types/react-dom@18.3.0)(@types/react@18.3.3)(react-dom@18.3.1(react@18.3.1))(react-native@0.74.1(@babel/core@7.24.4)(@babel/preset-env@7.24.6(@babel/core@7.24.4))(@react-native/assets-registry@0.73.1)(@types/react@18.3.3)(encoding@0.1.13)(react@18.2.0))(react@18.3.1)(redux@4.2.1))(react@18.3.1)':
+  '@reduxjs/toolkit@1.9.7(react-redux@8.1.3(@types/react-dom@18.3.0)(@types/react@18.3.3)(react-dom@18.3.1(react@18.3.1))(react-native@0.74.1(@babel/core@7.24.4)(@babel/preset-env@7.24.6(@babel/core@7.24.4))(@types/react@18.3.3)(encoding@0.1.13)(react@18.2.0))(react@18.3.1)(redux@4.2.1))(react@18.3.1)':
     dependencies:
       immer: 9.0.21
       redux: 4.2.1
@@ -20235,9 +20274,9 @@ snapshots:
       reselect: 4.1.8
     optionalDependencies:
       react: 18.3.1
-      react-redux: 8.1.3(@types/react-dom@18.3.0)(@types/react@18.3.3)(react-dom@18.3.1(react@18.3.1))(react-native@0.74.1(@babel/core@7.24.4)(@babel/preset-env@7.24.6(@babel/core@7.24.4))(@react-native/assets-registry@0.73.1)(@types/react@18.3.3)(encoding@0.1.13)(react@18.2.0))(react@18.3.1)(redux@4.2.1)
+      react-redux: 8.1.3(@types/react-dom@18.3.0)(@types/react@18.3.3)(react-dom@18.3.1(react@18.3.1))(react-native@0.74.1(@babel/core@7.24.4)(@babel/preset-env@7.24.6(@babel/core@7.24.4))(@types/react@18.3.3)(encoding@0.1.13)(react@18.2.0))(react@18.3.1)(redux@4.2.1)
 
-  '@reduxjs/toolkit@2.2.3(react-redux@9.1.0(@types/react@18.3.3)(react-native@0.74.1(@babel/core@7.24.4)(@babel/preset-env@7.24.6(@babel/core@7.24.4))(@react-native/assets-registry@0.73.1)(@types/react@18.3.3)(encoding@0.1.13)(react@18.2.0))(react@18.3.1)(redux@5.0.1))(react@18.3.1)':
+  '@reduxjs/toolkit@2.2.3(react-redux@9.1.0(@types/react@18.3.3)(react-native@0.74.1(@babel/core@7.24.4)(@babel/preset-env@7.24.6(@babel/core@7.24.4))(@types/react@18.3.3)(encoding@0.1.13)(react@18.2.0))(react@18.3.1)(redux@5.0.1))(react@18.3.1)':
     dependencies:
       immer: 10.0.4
       redux: 5.0.1
@@ -20245,7 +20284,7 @@ snapshots:
       reselect: 5.1.0
     optionalDependencies:
       react: 18.3.1
-      react-redux: 9.1.0(@types/react@18.3.3)(react-native@0.74.1(@babel/core@7.24.4)(@babel/preset-env@7.24.6(@babel/core@7.24.4))(@react-native/assets-registry@0.73.1)(@types/react@18.3.3)(encoding@0.1.13)(react@18.2.0))(react@18.3.1)(redux@5.0.1)
+      react-redux: 9.1.0(@types/react@18.3.3)(react-native@0.74.1(@babel/core@7.24.4)(@babel/preset-env@7.24.6(@babel/core@7.24.4))(@types/react@18.3.3)(encoding@0.1.13)(react@18.2.0))(react@18.3.1)(redux@5.0.1)
 
   '@remix-run/router@1.16.1': {}
 
@@ -20276,16 +20315,16 @@ snapshots:
 
   '@rnx-kit/console@1.1.0': {}
 
-  '@rnx-kit/metro-config@1.3.14(@react-native/metro-config@0.73.5(@babel/core@7.24.4)(@babel/preset-env@7.24.6(@babel/core@7.24.4))(encoding@0.1.13))(react-native@0.74.1(@babel/core@7.24.4)(@babel/preset-env@7.24.6(@babel/core@7.24.4))(@react-native/assets-registry@0.73.1)(@types/react@18.3.3)(encoding@0.1.13)(react@18.2.0))(react@18.2.0)':
+  '@rnx-kit/metro-config@1.3.14(@react-native/metro-config@0.73.5(@babel/core@7.24.4)(@babel/preset-env@7.24.6(@babel/core@7.24.4)))(react-native@0.74.1(@babel/core@7.24.4)(@babel/preset-env@7.24.6(@babel/core@7.24.4))(@types/react@18.3.3)(encoding@0.1.13)(react@18.2.0))(react@18.2.0)':
     dependencies:
       '@rnx-kit/console': 1.1.0
       '@rnx-kit/tools-node': 2.1.1
       '@rnx-kit/tools-react-native': 1.3.5
       '@rnx-kit/tools-workspaces': 0.1.6
       react: 18.2.0
-      react-native: 0.74.1(@babel/core@7.24.4)(@babel/preset-env@7.24.6(@babel/core@7.24.4))(@react-native/assets-registry@0.73.1)(@types/react@18.3.3)(encoding@0.1.13)(react@18.3.1)
+      react-native: 0.74.1(@babel/core@7.24.4)(@babel/preset-env@7.24.6(@babel/core@7.24.4))(@types/react@18.3.3)(encoding@0.1.13)(react@18.3.1)
     optionalDependencies:
-      '@react-native/metro-config': 0.73.5(@babel/core@7.24.4)(@babel/preset-env@7.24.6(@babel/core@7.24.4))(encoding@0.1.13)
+      '@react-native/metro-config': 0.73.5(@babel/core@7.24.4)(@babel/preset-env@7.24.6(@babel/core@7.24.4))
 
   '@rnx-kit/metro-resolver-symlinks@0.1.35':
     dependencies:
@@ -20570,10 +20609,10 @@ snapshots:
       - encoding
       - supports-color
 
-  '@shopify/restyle@2.4.2(react-native@0.74.1(@babel/core@7.24.4)(@babel/preset-env@7.24.6(@babel/core@7.24.4))(@react-native/assets-registry@0.73.1)(@types/react@18.3.3)(encoding@0.1.13)(react@18.2.0))(react@18.2.0)':
+  '@shopify/restyle@2.4.2(react-native@0.74.1(@babel/core@7.24.4)(@babel/preset-env@7.24.6(@babel/core@7.24.4))(@types/react@18.3.3)(encoding@0.1.13)(react@18.2.0))(react@18.2.0)':
     dependencies:
       react: 18.2.0
-      react-native: 0.74.1(@babel/core@7.24.4)(@babel/preset-env@7.24.6(@babel/core@7.24.4))(@react-native/assets-registry@0.73.1)(@types/react@18.3.3)(encoding@0.1.13)(react@18.3.1)
+      react-native: 0.74.1(@babel/core@7.24.4)(@babel/preset-env@7.24.6(@babel/core@7.24.4))(@types/react@18.3.3)(encoding@0.1.13)(react@18.3.1)
 
   '@sideway/address@4.1.5':
     dependencies:
@@ -22328,36 +22367,39 @@ snapshots:
 
   '@tanstack/query-core@4.35.7': {}
 
+  '@tanstack/query-core@5.45.0': {}
+
   '@tanstack/query-persist-client-core@4.35.7':
     dependencies:
       '@tanstack/query-core': 4.35.7
 
-  '@tanstack/query-sync-storage-persister@4.35.7':
-    dependencies:
-      '@tanstack/query-persist-client-core': 4.35.7
-
-  '@tanstack/react-query-devtools@4.35.7(@tanstack/react-query@4.35.7(react-dom@18.3.1(react@18.3.1))(react-native@0.74.1(@babel/core@7.24.4)(@babel/preset-env@7.24.6(@babel/core@7.24.4))(@react-native/assets-registry@0.73.1)(@types/react@18.3.3)(encoding@0.1.13)(react@18.2.0))(react@18.3.1))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
+  '@tanstack/react-query-devtools@4.35.7(@tanstack/react-query@4.35.7(react-dom@18.3.1(react@18.3.1))(react-native@0.74.1(@babel/core@7.24.4)(@babel/preset-env@7.24.6(@babel/core@7.24.4))(@types/react@18.3.3)(encoding@0.1.13)(react@18.2.0))(react@18.3.1))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
     dependencies:
       '@tanstack/match-sorter-utils': 8.8.4
-      '@tanstack/react-query': 4.35.7(react-dom@18.3.1(react@18.3.1))(react-native@0.74.1(@babel/core@7.24.4)(@babel/preset-env@7.24.6(@babel/core@7.24.4))(@react-native/assets-registry@0.73.1)(@types/react@18.3.3)(encoding@0.1.13)(react@18.2.0))(react@18.3.1)
+      '@tanstack/react-query': 4.35.7(react-dom@18.3.1(react@18.3.1))(react-native@0.74.1(@babel/core@7.24.4)(@babel/preset-env@7.24.6(@babel/core@7.24.4))(@types/react@18.3.3)(encoding@0.1.13)(react@18.2.0))(react@18.3.1)
       react: 18.3.1
       react-dom: 18.3.1(react@18.3.1)
       superjson: 1.13.3
       use-sync-external-store: 1.2.0(react@18.3.1)
 
-  '@tanstack/react-query-persist-client@4.35.7(@tanstack/react-query@4.35.7(react-dom@18.3.1(react@18.3.1))(react-native@0.74.1(@babel/core@7.24.4)(@babel/preset-env@7.24.6(@babel/core@7.24.4))(@react-native/assets-registry@0.73.1)(@types/react@18.3.3)(encoding@0.1.13)(react@18.2.0))(react@18.3.1))':
+  '@tanstack/react-query-persist-client@4.35.7(@tanstack/react-query@4.35.7(react-dom@18.3.1(react@18.3.1))(react-native@0.74.1(@babel/core@7.24.4)(@babel/preset-env@7.24.6(@babel/core@7.24.4))(@types/react@18.3.3)(encoding@0.1.13)(react@18.2.0))(react@18.3.1))':
     dependencies:
       '@tanstack/query-persist-client-core': 4.35.7
-      '@tanstack/react-query': 4.35.7(react-dom@18.3.1(react@18.3.1))(react-native@0.74.1(@babel/core@7.24.4)(@babel/preset-env@7.24.6(@babel/core@7.24.4))(@react-native/assets-registry@0.73.1)(@types/react@18.3.3)(encoding@0.1.13)(react@18.2.0))(react@18.3.1)
+      '@tanstack/react-query': 4.35.7(react-dom@18.3.1(react@18.3.1))(react-native@0.74.1(@babel/core@7.24.4)(@babel/preset-env@7.24.6(@babel/core@7.24.4))(@types/react@18.3.3)(encoding@0.1.13)(react@18.2.0))(react@18.3.1)
 
-  '@tanstack/react-query@4.35.7(react-dom@18.3.1(react@18.3.1))(react-native@0.74.1(@babel/core@7.24.4)(@babel/preset-env@7.24.6(@babel/core@7.24.4))(@react-native/assets-registry@0.73.1)(@types/react@18.3.3)(encoding@0.1.13)(react@18.2.0))(react@18.3.1)':
+  '@tanstack/react-query@4.35.7(react-dom@18.3.1(react@18.3.1))(react-native@0.74.1(@babel/core@7.24.4)(@babel/preset-env@7.24.6(@babel/core@7.24.4))(@types/react@18.3.3)(encoding@0.1.13)(react@18.2.0))(react@18.3.1)':
     dependencies:
       '@tanstack/query-core': 4.35.7
       react: 18.3.1
       use-sync-external-store: 1.2.0(react@18.3.1)
     optionalDependencies:
       react-dom: 18.3.1(react@18.3.1)
-      react-native: 0.74.1(@babel/core@7.24.4)(@babel/preset-env@7.24.6(@babel/core@7.24.4))(@react-native/assets-registry@0.73.1)(@types/react@18.3.3)(encoding@0.1.13)(react@18.3.1)
+      react-native: 0.74.1(@babel/core@7.24.4)(@babel/preset-env@7.24.6(@babel/core@7.24.4))(@types/react@18.3.3)(encoding@0.1.13)(react@18.3.1)
+
+  '@tanstack/react-query@5.45.1(react@18.3.1)':
+    dependencies:
+      '@tanstack/query-core': 5.45.0
+      react: 18.3.1
 
   '@testing-library/dom@9.3.4':
     dependencies:
@@ -31334,19 +31376,19 @@ snapshots:
       lottie-web: 5.12.2
       react: 18.3.1
 
-  react-native@0.74.1(@babel/core@7.24.4)(@babel/preset-env@7.24.6(@babel/core@7.24.4))(@react-native/assets-registry@0.73.1)(@types/react@18.3.3)(encoding@0.1.13)(react@18.3.1):
+  react-native@0.74.1(@babel/core@7.24.4)(@babel/preset-env@7.24.6(@babel/core@7.24.4))(@types/react@18.3.3)(encoding@0.1.13)(react@18.3.1):
     dependencies:
       '@jest/create-cache-key-function': 29.7.0
       '@react-native-community/cli': 13.6.6(encoding@0.1.13)
       '@react-native-community/cli-platform-android': 13.6.6(encoding@0.1.13)
       '@react-native-community/cli-platform-ios': 13.6.6(encoding@0.1.13)
-      '@react-native/assets-registry': 0.73.1
+      '@react-native/assets-registry': 0.74.83
       '@react-native/codegen': 0.74.83(@babel/preset-env@7.24.6(@babel/core@7.24.4))
       '@react-native/community-cli-plugin': 0.74.83(@babel/core@7.24.4)(@babel/preset-env@7.24.6(@babel/core@7.24.4))(encoding@0.1.13)
       '@react-native/gradle-plugin': 0.74.83
       '@react-native/js-polyfills': 0.74.83
       '@react-native/normalize-colors': 0.74.83
-      '@react-native/virtualized-lists': 0.74.83(@types/react@18.3.3)(react-native@0.74.1(@babel/core@7.24.4)(@babel/preset-env@7.24.6(@babel/core@7.24.4))(@react-native/assets-registry@0.73.1)(@types/react@18.3.3)(encoding@0.1.13)(react@18.2.0))(react@18.2.0)
+      '@react-native/virtualized-lists': 0.74.83(@types/react@18.3.3)(react-native@0.74.1(@babel/core@7.24.4)(@babel/preset-env@7.24.6(@babel/core@7.24.4))(@types/react@18.3.3)(encoding@0.1.13)(react@18.2.0))(react@18.2.0)
       abort-controller: 3.0.0
       anser: 1.4.10
       ansi-regex: 5.0.1
@@ -31390,7 +31432,7 @@ snapshots:
       qr.js: 0.0.0
       react: 18.3.1
 
-  react-redux@8.1.3(@types/react-dom@18.3.0)(@types/react@18.3.3)(react-dom@18.3.1(react@18.3.1))(react-native@0.74.1(@babel/core@7.24.4)(@babel/preset-env@7.24.6(@babel/core@7.24.4))(@react-native/assets-registry@0.73.1)(@types/react@18.3.3)(encoding@0.1.13)(react@18.2.0))(react@18.3.1)(redux@4.2.1):
+  react-redux@8.1.3(@types/react-dom@18.3.0)(@types/react@18.3.3)(react-dom@18.3.1(react@18.3.1))(react-native@0.74.1(@babel/core@7.24.4)(@babel/preset-env@7.24.6(@babel/core@7.24.4))(@types/react@18.3.3)(encoding@0.1.13)(react@18.2.0))(react@18.3.1)(redux@4.2.1):
     dependencies:
       '@babel/runtime': 7.23.9
       '@types/hoist-non-react-statics': 3.3.5
@@ -31403,17 +31445,17 @@ snapshots:
       '@types/react': 18.3.3
       '@types/react-dom': 18.3.0
       react-dom: 18.3.1(react@18.3.1)
-      react-native: 0.74.1(@babel/core@7.24.4)(@babel/preset-env@7.24.6(@babel/core@7.24.4))(@react-native/assets-registry@0.73.1)(@types/react@18.3.3)(encoding@0.1.13)(react@18.3.1)
+      react-native: 0.74.1(@babel/core@7.24.4)(@babel/preset-env@7.24.6(@babel/core@7.24.4))(@types/react@18.3.3)(encoding@0.1.13)(react@18.3.1)
       redux: 4.2.1
 
-  react-redux@9.1.0(@types/react@18.3.3)(react-native@0.74.1(@babel/core@7.24.4)(@babel/preset-env@7.24.6(@babel/core@7.24.4))(@react-native/assets-registry@0.73.1)(@types/react@18.3.3)(encoding@0.1.13)(react@18.2.0))(react@18.3.1)(redux@5.0.1):
+  react-redux@9.1.0(@types/react@18.3.3)(react-native@0.74.1(@babel/core@7.24.4)(@babel/preset-env@7.24.6(@babel/core@7.24.4))(@types/react@18.3.3)(encoding@0.1.13)(react@18.2.0))(react@18.3.1)(redux@5.0.1):
     dependencies:
       '@types/use-sync-external-store': 0.0.3
       react: 18.3.1
       use-sync-external-store: 1.2.0(react@18.3.1)
     optionalDependencies:
       '@types/react': 18.3.3
-      react-native: 0.74.1(@babel/core@7.24.4)(@babel/preset-env@7.24.6(@babel/core@7.24.4))(@react-native/assets-registry@0.73.1)(@types/react@18.3.3)(encoding@0.1.13)(react@18.3.1)
+      react-native: 0.74.1(@babel/core@7.24.4)(@babel/preset-env@7.24.6(@babel/core@7.24.4))(@types/react@18.3.3)(encoding@0.1.13)(react@18.3.1)
       redux: 5.0.1
 
   react-refresh@0.14.2: {}

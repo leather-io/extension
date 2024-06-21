@@ -139,7 +139,7 @@
     "@leather-wallet/constants": "0.7.0",
     "@leather-wallet/crypto": "1.0.1",
     "@leather-wallet/models": "0.9.0",
-    "@leather-wallet/query": "0.8.8",
+    "@leather-wallet/query": "0.8.10",
     "@leather-wallet/tokens": "0.5.2",
     "@leather-wallet/utils": "0.8.3",
     "@ledgerhq/hw-transport-webusb": "6.27.19",
