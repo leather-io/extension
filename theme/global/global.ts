@@ -1,5 +1,6 @@
-import { tokens } from '@leather-wallet/tokens';
 import { defineGlobalStyles } from '@pandacss/dev';
+
+import { tokens } from '@leather-wallet/tokens';
 
 // ts-unused-exports:disable-next-line
 export const globalCss = defineGlobalStyles({
@@ -37,7 +38,7 @@ export const globalCss = defineGlobalStyles({
     'html,body, #app, .radix-themes': {
       maxHeight: '100vh',
       minHeight: tokens.sizes.dialogHeight.value,
-      width: tokens.sizes.popupWidth.value,
+      maxWidth: tokens.sizes.popupWidth.value,
       margin: '0 auto',
 
       '::-webkit-scrollbar': {
