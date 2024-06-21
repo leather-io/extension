@@ -11,9 +11,9 @@ import {
   useStacksRawTransaction,
   useStxAvailableUnlockedBalance,
   useTransactionById,
-} from '@leather-wallet/query';
-import { Caption, Spinner } from '@leather-wallet/ui';
-import { microStxToStx, stxToMicroStx } from '@leather-wallet/utils';
+} from '@leather.io/query';
+import { Caption, Spinner } from '@leather.io/ui';
+import { microStxToStx, stxToMicroStx } from '@leather.io/utils';
 
 import { RouteUrls } from '@shared/route-urls';
 

@@ -1,6 +1,6 @@
 import { Box, Flex, styled } from 'leather-styles/jsx';
 
-import { CloseIcon } from '@leather-wallet/ui';
+import { CloseIcon } from '@leather.io/ui';
 
 import { HiroMessage } from '@app/query/common/remote-config/remote-config.query';
 

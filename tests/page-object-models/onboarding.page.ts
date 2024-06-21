@@ -3,8 +3,8 @@ import { TEST_PASSWORD } from '@tests/mocks/constants';
 import { HomePageSelectors } from '@tests/selectors/home.selectors';
 import { OnboardingSelectors } from '@tests/selectors/onboarding.selectors';
 
-import type { SupportedBlockchains } from '@leather-wallet/models';
-import { createCounter } from '@leather-wallet/utils';
+import type { SupportedBlockchains } from '@leather.io/models';
+import { createCounter } from '@leather.io/utils';
 
 import { RouteUrls } from '@shared/route-urls';
 

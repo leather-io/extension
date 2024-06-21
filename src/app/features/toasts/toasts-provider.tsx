@@ -1,6 +1,6 @@
 import { useMemo } from 'react';
 
-import { Toast, ToastLayout } from '@leather-wallet/ui';
+import { Toast, ToastLayout } from '@leather.io/ui';
 
 import type { HasChildren } from '@app/common/has-children';
 

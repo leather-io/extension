@@ -3,7 +3,7 @@ import { memo } from 'react';
 import { TransactionRequestSelectors } from '@tests/selectors/requests.selectors';
 import { Stack, styled } from 'leather-styles/jsx';
 
-import { Flag } from '@leather-wallet/ui';
+import { Flag } from '@leather.io/ui';
 
 import { useDefaultRequestParams } from '@app/common/hooks/use-default-request-search-params';
 import { addPortSuffix, getUrlHostname } from '@app/common/utils';

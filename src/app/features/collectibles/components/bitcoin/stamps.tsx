@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 
-import { useStampsByAddress } from '@leather-wallet/query';
+import { useStampsByAddress } from '@leather.io/query';
 
 import { analytics } from '@shared/utils/analytics';
 

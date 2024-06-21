@@ -2,7 +2,7 @@ import { HomePageSelectors } from '@tests/selectors/home.selectors';
 import { css } from 'leather-styles/css';
 import { Stack } from 'leather-styles/jsx';
 
-import { OrdinalAvatarIcon, StxAvatarIcon } from '@leather-wallet/ui';
+import { OrdinalAvatarIcon, StxAvatarIcon } from '@leather.io/ui';
 
 import { copyToClipboard } from '@app/common/utils/copy-to-clipboard';
 import { useToast } from '@app/features/toasts/use-toast';

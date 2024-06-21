@@ -2,7 +2,7 @@ import { useNavigate } from 'react-router-dom';
 
 import { Box, HStack, styled } from 'leather-styles/jsx';
 
-import { ExternalLinkIcon } from '@leather-wallet/ui';
+import { ExternalLinkIcon } from '@leather.io/ui';
 
 import { RouteUrls } from '@shared/route-urls';
 

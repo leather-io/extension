@@ -2,7 +2,7 @@ import { memo } from 'react';
 
 import { type HTMLStyledProps, styled } from 'leather-styles/jsx';
 
-import { shimmerStyles } from '@leather-wallet/ui';
+import { shimmerStyles } from '@leather.io/ui';
 
 interface AccountNameLayoutProps extends HTMLStyledProps<'span'> {
   children: React.ReactNode;

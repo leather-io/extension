@@ -1,6 +1,6 @@
 import { RpcErrorCode } from '@btckit/types';
 
-import { isDefined, isUndefined } from '@leather-wallet/utils';
+import { isDefined, isUndefined } from '@leather.io/utils';
 
 import { RouteUrls } from '@shared/route-urls';
 import {

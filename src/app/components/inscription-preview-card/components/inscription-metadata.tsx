@@ -1,6 +1,6 @@
 import { Flex, styled } from 'leather-styles/jsx';
 
-import { Link } from '@leather-wallet/ui';
+import { Link } from '@leather.io/ui';
 
 interface InscriptionMetadataProps {
   action?(): void;

@@ -1,4 +1,4 @@
-import { Flag } from '@leather-wallet/ui';
+import { Flag } from '@leather.io/ui';
 
 import { InscriptionMetadata } from './components/inscription-metadata';
 

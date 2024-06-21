@@ -1,5 +1,5 @@
-import type { CryptoAssetBalance, MarketData, Sip10CryptoAssetInfo } from '@leather-wallet/models';
-import { StxAvatarIcon } from '@leather-wallet/ui';
+import type { CryptoAssetBalance, MarketData, Sip10CryptoAssetInfo } from '@leather.io/models';
+import { StxAvatarIcon } from '@leather.io/ui';
 
 import { StacksAssetAvatar } from '@app/components/stacks-asset-avatar';
 

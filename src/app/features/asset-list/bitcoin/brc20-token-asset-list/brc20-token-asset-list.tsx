@@ -3,8 +3,8 @@ import { useNavigate } from 'react-router-dom';
 import { CryptoAssetSelectors } from '@tests/selectors/crypto-asset.selectors';
 import { Stack } from 'leather-styles/jsx';
 
-import type { Brc20CryptoAssetInfo, CryptoAssetBalance, MarketData } from '@leather-wallet/models';
-import { Brc20AvatarIcon } from '@leather-wallet/ui';
+import type { Brc20CryptoAssetInfo, CryptoAssetBalance, MarketData } from '@leather.io/models';
+import { Brc20AvatarIcon } from '@leather.io/ui';
 
 import { RouteUrls } from '@shared/route-urls';
 

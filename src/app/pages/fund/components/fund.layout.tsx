@@ -1,6 +1,6 @@
 import { Stack, styled } from 'leather-styles/jsx';
 
-import type { Blockchains, CryptoCurrencies } from '@leather-wallet/models';
+import type { Blockchains, CryptoCurrencies } from '@leather.io/models';
 
 import { HasChildren } from '@app/common/has-children';
 

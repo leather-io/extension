@@ -4,7 +4,7 @@ import { useLocation } from 'react-router-dom';
 import TransportWebUSB from '@ledgerhq/hw-transport-webusb';
 import BitcoinApp from 'ledger-bitcoin';
 
-import { delay } from '@leather-wallet/utils';
+import { delay } from '@leather.io/utils';
 
 import { RouteUrls } from '@shared/route-urls';
 

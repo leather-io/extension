@@ -1,6 +1,6 @@
 import { useLocation, useNavigate } from 'react-router-dom';
 
-import { StacksTx } from '@leather-wallet/models';
+import { StacksTx } from '@leather.io/models';
 
 import { RouteUrls } from '@shared/route-urls';
 import { analytics } from '@shared/utils/analytics';

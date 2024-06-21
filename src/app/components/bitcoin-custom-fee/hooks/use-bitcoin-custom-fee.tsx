@@ -1,8 +1,8 @@
 import { useCallback } from 'react';
 
-import type { Money } from '@leather-wallet/models';
-import { useCryptoCurrencyMarketDataMeanAverage } from '@leather-wallet/query';
-import { baseCurrencyAmountInQuote, createMoney, i18nFormatCurrency } from '@leather-wallet/utils';
+import type { Money } from '@leather.io/models';
+import { useCryptoCurrencyMarketDataMeanAverage } from '@leather.io/query';
+import { baseCurrencyAmountInQuote, createMoney, i18nFormatCurrency } from '@leather.io/utils';
 
 import type { TransferRecipient } from '@shared/models/form.model';
 

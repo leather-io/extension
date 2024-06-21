@@ -3,13 +3,13 @@ import { useEffect, useState } from 'react';
 import { useField } from 'formik';
 import { styled } from 'leather-styles/jsx';
 
-import type { MarketData, Money } from '@leather-wallet/models';
+import type { MarketData, Money } from '@leather.io/models';
 import {
   baseCurrencyAmountInQuote,
   createMoneyFromDecimal,
   i18nFormatCurrency,
   isNumber,
-} from '@leather-wallet/utils';
+} from '@leather.io/utils';
 
 interface SendFiatInputProps {
   marketData: MarketData;

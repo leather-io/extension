@@ -1,7 +1,7 @@
 import type { Meta } from '@storybook/react';
 import { Flex, styled } from 'leather-styles/jsx';
 
-import { Button, Link } from '@leather-wallet/ui';
+import { Button, Link } from '@leather.io/ui';
 
 import { Footer as Component } from './footer';
 

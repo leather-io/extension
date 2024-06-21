@@ -2,7 +2,7 @@ import { CommonSignaturePayload, SignaturePayload } from '@stacks/connect';
 import { deserializeCV } from '@stacks/transactions';
 import { TokenInterface, decodeToken } from 'jsontokens';
 
-import { isString } from '@leather-wallet/utils';
+import { isString } from '@leather.io/utils';
 
 import { StructuredMessageDataDomain } from '@shared/signature/signature-types';
 

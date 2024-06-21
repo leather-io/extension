@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { Form, Formik } from 'formik';
 import { Box, Flex } from 'leather-styles/jsx';
 
-import { Button, OrdinalAvatarIcon } from '@leather-wallet/ui';
+import { Button, OrdinalAvatarIcon } from '@leather.io/ui';
 
 import { RouteUrls } from '@shared/route-urls';
 

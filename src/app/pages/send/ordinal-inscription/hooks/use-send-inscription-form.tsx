@@ -3,9 +3,9 @@ import { useNavigate } from 'react-router-dom';
 
 import * as yup from 'yup';
 
-import { bitcoinNetworkModeToCoreNetworkMode } from '@leather-wallet/bitcoin';
-import { useNumberOfInscriptionsOnUtxo } from '@leather-wallet/query';
-import { isError } from '@leather-wallet/utils';
+import { bitcoinNetworkModeToCoreNetworkMode } from '@leather.io/bitcoin';
+import { useNumberOfInscriptionsOnUtxo } from '@leather.io/query';
+import { isError } from '@leather.io/utils';
 
 import { FormErrorMessages } from '@shared/error-messages';
 import { logger } from '@shared/logger';

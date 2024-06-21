@@ -1,7 +1,7 @@
 import { Flex, HStack, styled } from 'leather-styles/jsx';
 
-import type { Money } from '@leather-wallet/models';
-import { Flag } from '@leather-wallet/ui';
+import type { Money } from '@leather.io/models';
+import { Flag } from '@leather.io/ui';
 
 import { formatBalance } from '@app/common/format-balance';
 import { ftDecimals } from '@app/common/stacks-utils';

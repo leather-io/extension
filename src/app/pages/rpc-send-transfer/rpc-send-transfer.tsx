@@ -1,7 +1,7 @@
 import BigNumber from 'bignumber.js';
 
-import { Button } from '@leather-wallet/ui';
-import { createMoney, formatMoneyPadded } from '@leather-wallet/utils';
+import { Button } from '@leather.io/ui';
+import { createMoney, formatMoneyPadded } from '@leather.io/utils';
 
 import { InfoCardFooter } from '@app/components/info-card/info-card';
 import { useBreakOnNonCompliantEntity } from '@app/query/common/compliance-checker/compliance-checker.query';

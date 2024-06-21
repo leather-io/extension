@@ -4,7 +4,7 @@ import { OnboardingSelectors } from '@tests/selectors/onboarding.selectors';
 import { SettingsSelectors } from '@tests/selectors/settings.selectors';
 import { Flex, HStack, Stack, styled } from 'leather-styles/jsx';
 
-import { Button, CopyIcon, EyeIcon, EyeSlashIcon } from '@leather-wallet/ui';
+import { Button, CopyIcon, EyeIcon, EyeSlashIcon } from '@leather.io/ui';
 
 import { SecretKeyGrid } from './secret-key-grid';
 import { SecretKeyWord } from './secret-key-word';

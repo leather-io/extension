@@ -1,7 +1,7 @@
 import { useMemo } from 'react';
 
-import { useStxCryptoAssetBalance } from '@leather-wallet/query';
-import { Caption } from '@leather-wallet/ui';
+import { useStxCryptoAssetBalance } from '@leather.io/query';
+import { Caption } from '@leather.io/ui';
 
 import { stacksValue } from '@app/common/stacks-utils';
 

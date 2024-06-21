@@ -1,6 +1,6 @@
 import type { TransactionInput } from '@scure/btc-signer/psbt';
 
-import { isDefined } from '@leather-wallet/utils';
+import { isDefined } from '@leather.io/utils';
 
 import { logger } from '@shared/logger';
 

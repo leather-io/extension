@@ -3,7 +3,7 @@ import { EntityId, PayloadAction, createEntityAdapter, createSlice } from '@redu
 import {
   type NetworkConfiguration,
   WalletDefaultNetworkConfigurationIds,
-} from '@leather-wallet/models';
+} from '@leather.io/models';
 
 const defaultCurrentNetworkId = WalletDefaultNetworkConfigurationIds.mainnet as EntityId;
 

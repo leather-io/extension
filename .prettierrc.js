@@ -1,3 +1,3 @@
-import config from '@leather-wallet/prettier-config';
+import config from '@leather.io/prettier-config';
 
 export default config;

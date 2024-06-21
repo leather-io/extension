@@ -1,4 +1,4 @@
-import { Link } from '@leather-wallet/ui';
+import { Link } from '@leather.io/ui';
 
 import { makeStacksAddressExplorerLink } from '@app/common/utils';
 import { openInNewTab } from '@app/common/utils/open-in-new-tab';

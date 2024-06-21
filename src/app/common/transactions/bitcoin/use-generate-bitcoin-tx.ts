@@ -2,8 +2,8 @@ import { useCallback } from 'react';
 
 import * as btc from '@scure/btc-signer';
 
-import type { Money } from '@leather-wallet/models';
-import type { UtxoResponseItem } from '@leather-wallet/query';
+import type { Money } from '@leather.io/models';
+import type { UtxoResponseItem } from '@leather.io/query';
 
 import { logger } from '@shared/logger';
 import type { TransferRecipient } from '@shared/models/form.model';

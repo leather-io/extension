@@ -1,9 +1,9 @@
 import BigNumber from 'bignumber.js';
 import * as yup from 'yup';
 
-import { FeeTypes } from '@leather-wallet/models';
-import { type SwapAsset, useNextNonce } from '@leather-wallet/query';
-import { convertAmountToFractionalUnit, createMoney } from '@leather-wallet/utils';
+import { FeeTypes } from '@leather.io/models';
+import { type SwapAsset, useNextNonce } from '@leather.io/query';
+import { convertAmountToFractionalUnit, createMoney } from '@leather.io/utils';
 
 import { FormErrorMessages } from '@shared/error-messages';
 import { StacksTransactionFormValues } from '@shared/models/form.model';

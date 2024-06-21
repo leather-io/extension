@@ -1,7 +1,7 @@
 import { useRef, useState } from 'react';
 
-import { Title } from '@leather-wallet/ui';
-import { spamFilter } from '@leather-wallet/utils';
+import { Title } from '@leather.io/ui';
+import { spamFilter } from '@leather.io/utils';
 
 import { useOnResizeListener } from '@app/common/hooks/use-on-resize-listener';
 import { BasicTooltip } from '@app/ui/components/tooltip/basic-tooltip';

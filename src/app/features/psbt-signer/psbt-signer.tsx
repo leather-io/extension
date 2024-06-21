@@ -3,9 +3,9 @@ import { useNavigate } from 'react-router-dom';
 
 import { PsbtSelectors } from '@tests/selectors/requests.selectors';
 
-import { getPsbtTxInputs, getPsbtTxOutputs } from '@leather-wallet/bitcoin';
-import { Button } from '@leather-wallet/ui';
-import { isError } from '@leather-wallet/utils';
+import { getPsbtTxInputs, getPsbtTxOutputs } from '@leather.io/bitcoin';
+import { Button } from '@leather.io/ui';
+import { isError } from '@leather.io/utils';
 
 import { RouteUrls } from '@shared/route-urls';
 import { closeWindow } from '@shared/utils';

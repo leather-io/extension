@@ -1,7 +1,7 @@
 import { OnboardingSelectors } from '@tests/selectors/onboarding.selectors';
 import { Flex, styled } from 'leather-styles/jsx';
 
-import { Button, LettermarkIcon, Link, LogomarkIcon } from '@leather-wallet/ui';
+import { Button, LettermarkIcon, Link, LogomarkIcon } from '@leather.io/ui';
 
 import { useThemeSwitcher } from '@app/common/theme-provider';
 

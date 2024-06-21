@@ -8,7 +8,7 @@ import {
   ChevronDownIcon,
   defaultFallbackDelay,
   getAvatarFallback,
-} from '@leather-wallet/ui';
+} from '@leather.io/ui';
 
 interface SelectAssetTriggerButtonProps {
   icon?: string;

@@ -165,7 +165,7 @@ export const config = {
       },
       {
         test: /\.(js)$/,
-        include: [/node_modules\/@leather-wallet\/ui/],
+        include: [/node_modules\/@leather.io\/ui/],
         loader: 'esbuild-loader',
         options: { tsconfig: './tsconfig.json', loader: 'jsx',target: 'es2020' },
       },

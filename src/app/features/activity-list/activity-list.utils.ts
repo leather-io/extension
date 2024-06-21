@@ -1,6 +1,6 @@
 import { AddressTransactionWithTransfers } from '@stacks/stacks-blockchain-api-types';
 
-import type { BitcoinTx } from '@leather-wallet/models';
+import type { BitcoinTx } from '@leather.io/models';
 
 import {
   TransactionListBitcoinTx,

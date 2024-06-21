@@ -1,6 +1,6 @@
 import { BtcKitMethodMap, ExtractErrorResponse, ExtractSuccessResponse } from '@btckit/types';
 
-import type { ValueOf } from '@leather-wallet/models';
+import type { ValueOf } from '@leather.io/models';
 
 import { SignStacksTransaction } from '@shared/rpc/methods/sign-stacks-transaction';
 

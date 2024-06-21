@@ -1,6 +1,6 @@
-import type { CryptoAssetBalance, RuneCryptoAssetInfo } from '@leather-wallet/models';
-import { RunesAvatarIcon } from '@leather-wallet/ui';
-import { convertAmountToBaseUnit, createMoneyFromDecimal } from '@leather-wallet/utils';
+import type { CryptoAssetBalance, RuneCryptoAssetInfo } from '@leather.io/models';
+import { RunesAvatarIcon } from '@leather.io/ui';
+import { convertAmountToBaseUnit, createMoneyFromDecimal } from '@leather.io/utils';
 
 import { CryptoAssetItemLayout } from '@app/components/crypto-asset-item/crypto-asset-item.layout';
 

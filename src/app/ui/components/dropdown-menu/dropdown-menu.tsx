@@ -4,7 +4,7 @@ import * as RadixDropdownMenu from '@radix-ui/react-dropdown-menu';
 import { css } from 'leather-styles/css';
 import { type HTMLStyledProps, styled } from 'leather-styles/jsx';
 
-import { ChevronDownIcon, Flag, pressableBaseStyles, pressableStyles } from '@leather-wallet/ui';
+import { ChevronDownIcon, Flag, pressableBaseStyles, pressableStyles } from '@leather.io/ui';
 
 export interface DropdownMenuItem {
   iconLeft?: ReactNode;

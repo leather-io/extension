@@ -1,7 +1,7 @@
 import { Circle, CircleProps, Flex } from 'leather-styles/jsx';
 
-import type { BitcoinTx } from '@leather-wallet/models';
-import { ArrowDownIcon, ArrowUpIcon } from '@leather-wallet/ui';
+import type { BitcoinTx } from '@leather.io/models';
+import { ArrowDownIcon, ArrowUpIcon } from '@leather.io/ui';
 
 import { isBitcoinTxInbound } from '@app/common/transactions/bitcoin/utils';
 

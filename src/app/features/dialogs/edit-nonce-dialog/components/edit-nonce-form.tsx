@@ -1,6 +1,6 @@
 import { HStack } from 'leather-styles/jsx';
 
-import { Button } from '@leather-wallet/ui';
+import { Button } from '@leather.io/ui';
 
 import { EditNonceField } from './edit-nonce-field';
 

@@ -3,7 +3,7 @@ import { useEffect } from 'react';
 import {
   useGetBnsNamesOwnedByAddressQuery,
   useStacksNonFungibleTokensMetadata,
-} from '@leather-wallet/query';
+} from '@leather.io/query';
 
 import { analytics } from '@shared/utils/analytics';
 

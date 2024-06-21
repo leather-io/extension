@@ -1,6 +1,6 @@
 import { HStack, Stack, styled } from 'leather-styles/jsx';
 
-import { Caption } from '@leather-wallet/ui';
+import { Caption } from '@leather.io/ui';
 
 import { PrincipalValue } from './principal-value';
 

@@ -1,4 +1,4 @@
-import { useNativeSegwitUtxosByAddress } from '@leather-wallet/query';
+import { useNativeSegwitUtxosByAddress } from '@leather.io/query';
 
 import { useCurrentAccountNativeSegwitIndexZeroSigner } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
 

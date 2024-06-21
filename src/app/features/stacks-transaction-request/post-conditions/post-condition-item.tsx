@@ -3,7 +3,7 @@ import { Suspense } from 'react';
 import { TransactionTypes } from '@stacks/connect';
 import { NonFungiblePostCondition, STXPostCondition, addressToString } from '@stacks/transactions';
 
-import { truncateMiddle } from '@leather-wallet/utils';
+import { truncateMiddle } from '@leather.io/utils';
 
 import {
   getAmountFromPostCondition,

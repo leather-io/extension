@@ -5,7 +5,7 @@ import {
   createCryptoAssetBalance,
   createMarketData,
   createMarketPair,
-} from '@leather-wallet/models';
+} from '@leather.io/models';
 import {
   createBrc20TransferInscription,
   encodeBrc20TransferInscription,
@@ -15,8 +15,8 @@ import {
   useConfigOrdinalsbot,
   useGetBrc20TokensQuery,
   useOrdinalsbotClient,
-} from '@leather-wallet/query';
-import { createMoney, unitToFractionalUnit } from '@leather-wallet/utils';
+} from '@leather.io/query';
+import { createMoney, unitToFractionalUnit } from '@leather.io/utils';
 
 import { useAppDispatch } from '@app/store';
 import { useCurrentAccountIndex } from '@app/store/accounts/account';

@@ -1,6 +1,6 @@
 import { HStack, styled } from 'leather-styles/jsx';
 
-import { LockIcon, UnlockIcon } from '@leather-wallet/ui';
+import { LockIcon, UnlockIcon } from '@leather.io/ui';
 
 import { usePsbtSignerContext } from '@app/features/psbt-signer/psbt-signer.context';
 import { TagWithTooltip } from '@app/ui/components/tag/tag-with-tooltip';

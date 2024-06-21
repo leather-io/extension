@@ -1,8 +1,8 @@
 import BigNumber from 'bignumber.js';
 import { AnyObject, NumberSchema } from 'yup';
 
-import type { Money } from '@leather-wallet/models';
-import { btcToSat, isNumber, moneyToBaseUnit, stxToMicroStx } from '@leather-wallet/utils';
+import type { Money } from '@leather.io/models';
+import { btcToSat, isNumber, moneyToBaseUnit, stxToMicroStx } from '@leather.io/utils';
 
 import { formatInsufficientBalanceError, formatPrecisionError } from '@app/common/error-formatters';
 import {

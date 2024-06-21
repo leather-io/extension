@@ -3,7 +3,7 @@ import { ReactNode } from 'react';
 import { SharedComponentsSelectors } from '@tests/selectors/shared-component.selectors';
 import { Flex, Grid, GridItem, HStack, styled } from 'leather-styles/jsx';
 
-import { ArrowLeftIcon, CloseIcon } from '@leather-wallet/ui';
+import { ArrowLeftIcon, CloseIcon } from '@leather.io/ui';
 
 import { BigTitleHeader } from './components/big-title-header';
 import { HeaderActionButton } from './components/header-action-button';

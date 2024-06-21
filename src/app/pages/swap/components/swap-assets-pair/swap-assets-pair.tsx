@@ -2,7 +2,7 @@ import { useNavigate } from 'react-router-dom';
 
 import { useFormikContext } from 'formik';
 
-import { isUndefined } from '@leather-wallet/utils';
+import { isUndefined } from '@leather.io/utils';
 
 import { RouteUrls } from '@shared/route-urls';
 

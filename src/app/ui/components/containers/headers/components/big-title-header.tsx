@@ -3,7 +3,7 @@ import { ReactNode } from 'react';
 import { SharedComponentsSelectors } from '@tests/selectors/shared-component.selectors';
 import { Flex, styled } from 'leather-styles/jsx';
 
-import { CloseIcon } from '@leather-wallet/ui';
+import { CloseIcon } from '@leather.io/ui';
 
 import { HeaderActionButton } from './header-action-button';
 

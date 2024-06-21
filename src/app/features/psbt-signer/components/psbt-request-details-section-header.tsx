@@ -1,6 +1,6 @@
 import { HStack, styled } from 'leather-styles/jsx';
 
-import { ArrowUpIcon, Link } from '@leather-wallet/ui';
+import { ArrowUpIcon, Link } from '@leather.io/ui';
 
 interface PsbtRequestDetailsSectionHeaderProps {
   hasDetails?: boolean;

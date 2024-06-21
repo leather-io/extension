@@ -1,6 +1,6 @@
 import { Box, Flex, HStack, styled } from 'leather-styles/jsx';
 
-import { InfoCircleIcon } from '@leather-wallet/ui';
+import { InfoCircleIcon } from '@leather.io/ui';
 
 import { BasicTooltip } from '@app/ui/components/tooltip/basic-tooltip';
 

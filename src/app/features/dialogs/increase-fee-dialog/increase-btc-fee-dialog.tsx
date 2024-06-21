@@ -4,9 +4,9 @@ import { Outlet, useLocation, useNavigate } from 'react-router-dom';
 import { Formik } from 'formik';
 import { Flex, Stack } from 'leather-styles/jsx';
 
-import type { BitcoinTx } from '@leather-wallet/models';
-import { Caption, Spinner } from '@leather-wallet/ui';
-import { btcToSat, createMoney, formatMoney } from '@leather-wallet/utils';
+import type { BitcoinTx } from '@leather.io/models';
+import { Caption, Spinner } from '@leather.io/ui';
+import { btcToSat, createMoney, formatMoney } from '@leather.io/utils';
 
 import { RouteUrls } from '@shared/route-urls';
 

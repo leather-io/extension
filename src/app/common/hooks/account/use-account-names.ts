@@ -1,7 +1,7 @@
 import { useMemo } from 'react';
 
-import { useGetBnsNamesOwnedByAddressQuery } from '@leather-wallet/query';
-import { isUndefined } from '@leather-wallet/utils';
+import { useGetBnsNamesOwnedByAddressQuery } from '@leather.io/query';
+import { isUndefined } from '@leather.io/utils';
 
 import { parseIfValidPunycode } from '@app/common/utils';
 import { formatAccountName } from '@app/common/utils/format-account-name';

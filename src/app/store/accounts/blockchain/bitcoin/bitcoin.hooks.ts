@@ -10,9 +10,9 @@ import {
   getNativeSegwitAccountDerivationPath,
   getTaprootAccountDerivationPath,
   getTaprootAddress,
-} from '@leather-wallet/bitcoin';
-import { extractAddressIndexFromPath } from '@leather-wallet/crypto';
-import { isNumber, isUndefined } from '@leather-wallet/utils';
+} from '@leather.io/bitcoin';
+import { extractAddressIndexFromPath } from '@leather.io/crypto';
+import { isNumber, isUndefined } from '@leather.io/utils';
 
 import {
   BitcoinInputSigningConfig,

@@ -3,8 +3,8 @@ import { useMemo } from 'react';
 import {
   useCryptoCurrencyMarketDataMeanAverage,
   useStxCryptoAssetBalance,
-} from '@leather-wallet/query';
-import { baseCurrencyAmountInQuote, createMoney, i18nFormatCurrency } from '@leather-wallet/utils';
+} from '@leather.io/query';
+import { baseCurrencyAmountInQuote, createMoney, i18nFormatCurrency } from '@leather.io/utils';
 
 import { useBtcCryptoAssetBalanceNativeSegwit } from '@app/query/bitcoin/balance/btc-balance-native-segwit.hooks';
 

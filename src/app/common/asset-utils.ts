@@ -1,9 +1,9 @@
-import type { MarketData, Money } from '@leather-wallet/models';
+import type { MarketData, Money } from '@leather.io/models';
 import {
   baseCurrencyAmountInQuote,
   i18nFormatCurrency,
   isMoneyGreaterThanZero,
-} from '@leather-wallet/utils';
+} from '@leather.io/utils';
 
 export function migratePositiveAssetBalancesToTop<T extends { balance: Money }[]>(assets: T) {
   const assetsWithPositiveBalance = assets.filter(asset => asset.balance.amount.isGreaterThan(0));

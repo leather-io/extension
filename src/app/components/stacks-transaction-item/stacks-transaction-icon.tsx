@@ -1,7 +1,7 @@
 import { BoxProps } from 'leather-styles/jsx';
 
-import { StacksTx } from '@leather-wallet/models';
-import { DynamicColorCircle, ErrorCircleIcon, ListIcon, StxAvatarIcon } from '@leather-wallet/ui';
+import { StacksTx } from '@leather.io/models';
+import { DynamicColorCircle, ErrorCircleIcon, ListIcon, StxAvatarIcon } from '@leather.io/ui';
 
 import { TransactionIconWrapper } from '../transaction/transaction-icon-wrapper';
 import { TransactionTypeIcon } from '../transaction/transaction-type-icon';

@@ -1,6 +1,6 @@
 import { PostConditionMode } from '@stacks/transactions';
 
-import { Callout } from '@leather-wallet/ui';
+import { Callout } from '@leather.io/ui';
 
 import { usePostConditionModeState } from '@app/store/transactions/post-conditions.hooks';
 

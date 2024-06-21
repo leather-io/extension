@@ -5,7 +5,7 @@ import { Dialog, Inset } from '@radix-ui/themes';
 import { css } from 'leather-styles/css';
 import { Box, Flex, Stack, styled } from 'leather-styles/jsx';
 
-import { Button } from '@leather-wallet/ui';
+import { Button } from '@leather.io/ui';
 
 import { HasChildren } from '@app/common/has-children';
 import { openInNewTab } from '@app/common/utils/open-in-new-tab';

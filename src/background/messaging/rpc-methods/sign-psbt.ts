@@ -2,7 +2,7 @@ import { RpcErrorCode } from '@btckit/types';
 import * as btc from '@scure/btc-signer';
 import { hexToBytes } from '@stacks/common';
 
-import { ensureArray, isDefined, isUndefined } from '@leather-wallet/utils';
+import { ensureArray, isDefined, isUndefined } from '@leather.io/utils';
 
 import { RouteUrls } from '@shared/route-urls';
 import {

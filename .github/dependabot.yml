@@ -10,4 +10,4 @@ updates:
     schedule:
       interval: 'daily'
     allow:
-      - dependency-name: '@leather-wallet/*'
+      - dependency-name: '@leather.io/*'

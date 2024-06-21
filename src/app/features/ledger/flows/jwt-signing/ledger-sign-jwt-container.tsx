@@ -5,7 +5,7 @@ import { TransactionVersion, getAddressFromPublicKey } from '@stacks/transaction
 import { LedgerError } from '@zondax/ledger-stacks';
 import get from 'lodash.get';
 
-import { delay, isError } from '@leather-wallet/utils';
+import { delay, isError } from '@leather.io/utils';
 
 import { finalizeAuthResponse } from '@shared/actions/finalize-auth-response';
 import { logger } from '@shared/logger';

@@ -1,4 +1,4 @@
-import { isString } from '@leather-wallet/utils';
+import { isString } from '@leather.io/utils';
 
 import {
   type SignedMessageType,

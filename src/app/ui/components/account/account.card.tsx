@@ -3,7 +3,7 @@ import { ReactNode } from 'react';
 import { SettingsSelectors } from '@tests/selectors/settings.selectors';
 import { Box, Flex, styled } from 'leather-styles/jsx';
 
-import { ChevronDownIcon, Link, SkeletonLoader } from '@leather-wallet/ui';
+import { ChevronDownIcon, Link, SkeletonLoader } from '@leather.io/ui';
 
 import { AccountNameLayout } from '@app/components/account/account-name';
 

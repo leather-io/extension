@@ -1,6 +1,6 @@
-import type { CryptoCurrencies } from '@leather-wallet/models';
-import { useCryptoCurrencyMarketDataMeanAverage } from '@leather-wallet/query';
-import { StxAvatarIcon } from '@leather-wallet/ui';
+import type { CryptoCurrencies } from '@leather.io/models';
+import { useCryptoCurrencyMarketDataMeanAverage } from '@leather.io/query';
+import { StxAvatarIcon } from '@leather.io/ui';
 
 import { AmountField } from '../../components/amount-field';
 import { SelectedAssetField } from '../../components/selected-asset-field';

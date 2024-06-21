@@ -1,6 +1,6 @@
 import { useQueries } from '@tanstack/react-query';
 
-import { fetchInscripionById, useOrdinalsbotClient } from '@leather-wallet/query';
+import { fetchInscripionById, useOrdinalsbotClient } from '@leather.io/query';
 
 import { useAppDispatch } from '@app/store';
 import {

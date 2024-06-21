@@ -4,7 +4,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { useFormikContext } from 'formik';
 import { Stack, styled } from 'leather-styles/jsx';
 
-import { Link } from '@leather-wallet/ui';
+import { Link } from '@leather.io/ui';
 
 import { StacksSendFormValues, StacksTransactionFormValues } from '@shared/models/form.model';
 

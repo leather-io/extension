@@ -1,6 +1,6 @@
 import { Flex, FlexProps } from 'leather-styles/jsx';
 
-import { Caption, CheckmarkIcon } from '@leather-wallet/ui';
+import { Caption, CheckmarkIcon } from '@leather.io/ui';
 
 interface LedgerSuccessLabelProps extends FlexProps {
   children: React.ReactNode;

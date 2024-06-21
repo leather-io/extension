@@ -16,9 +16,9 @@ import {
   uintCV,
 } from '@stacks/transactions';
 
-import type { Sip10CryptoAssetInfo } from '@leather-wallet/models';
-import { useNextNonce } from '@leather-wallet/query';
-import { stxToMicroStx } from '@leather-wallet/utils';
+import type { Sip10CryptoAssetInfo } from '@leather.io/models';
+import { useNextNonce } from '@leather.io/query';
+import { stxToMicroStx } from '@leather.io/utils';
 
 import { logger } from '@shared/logger';
 import type { StacksSendFormValues, StacksTransactionFormValues } from '@shared/models/form.model';

@@ -3,8 +3,8 @@ import { useState } from 'react';
 import { useField } from 'formik';
 import { Stack } from 'leather-styles/jsx';
 
-import { Input } from '@leather-wallet/ui';
-import { createMoney, satToBtc } from '@leather-wallet/utils';
+import { Input } from '@leather.io/ui';
+import { createMoney, satToBtc } from '@leather.io/utils';
 
 import type { TransferRecipient } from '@shared/models/form.model';
 

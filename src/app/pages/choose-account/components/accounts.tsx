@@ -5,7 +5,7 @@ import { Virtuoso } from 'react-virtuoso';
 import { Box, FlexProps, HStack, styled } from 'leather-styles/jsx';
 import { token } from 'leather-styles/tokens';
 
-import { PlusIcon } from '@leather-wallet/ui';
+import { PlusIcon } from '@leather.io/ui';
 
 import { RouteUrls } from '@shared/route-urls';
 

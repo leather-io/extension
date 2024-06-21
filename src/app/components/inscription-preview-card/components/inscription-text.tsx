@@ -1,7 +1,7 @@
 import { sanitize } from 'dompurify';
 import { Box } from 'leather-styles/jsx';
 
-import { useInscriptionTextContentQuery } from '@leather-wallet/query';
+import { useInscriptionTextContentQuery } from '@leather.io/query';
 
 import { parseJson } from '@app/components/json';
 import { LoadingSpinner } from '@app/components/loading-spinner';

@@ -10,9 +10,9 @@ import {
   getTaprootAccountDerivationPath,
   getTaprootPaymentFromAddressIndex,
   lookUpLedgerKeysByPath,
-} from '@leather-wallet/bitcoin';
-import { extractAddressIndexFromPath } from '@leather-wallet/crypto';
-import type { BitcoinNetworkModes } from '@leather-wallet/models';
+} from '@leather.io/bitcoin';
+import { extractAddressIndexFromPath } from '@leather.io/crypto';
+import type { BitcoinNetworkModes } from '@leather.io/models';
 
 import { BitcoinInputSigningConfig } from '@shared/crypto/bitcoin/signer-config';
 

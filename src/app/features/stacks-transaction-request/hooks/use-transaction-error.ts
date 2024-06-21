@@ -4,8 +4,8 @@ import { ContractCallPayload, TransactionTypes } from '@stacks/connect';
 import BigNumber from 'bignumber.js';
 import { useFormikContext } from 'formik';
 
-import { useContractInterface, useStxAvailableUnlockedBalance } from '@leather-wallet/query';
-import { stxToMicroStx } from '@leather-wallet/utils';
+import { useContractInterface, useStxAvailableUnlockedBalance } from '@leather.io/query';
+import { stxToMicroStx } from '@leather.io/utils';
 
 import { StacksTransactionFormValues } from '@shared/models/form.model';
 

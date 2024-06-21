@@ -1,8 +1,8 @@
 import BigNumber from 'bignumber.js';
 import { sha256 } from 'bitcoinjs-lib/src/crypto';
 
-import type { UtxoResponseItem } from '@leather-wallet/query';
-import { createMoney } from '@leather-wallet/utils';
+import type { UtxoResponseItem } from '@leather.io/query';
+import { createMoney } from '@leather.io/utils';
 
 import { filterUneconomicalUtxos } from '../utils';
 import { calculateMaxBitcoinSpend } from './calculate-max-bitcoin-spend';

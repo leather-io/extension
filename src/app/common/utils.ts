@@ -2,12 +2,12 @@ import { hexToBytes } from '@stacks/common';
 import { BytesReader, PostCondition, deserializePostCondition } from '@stacks/transactions';
 import { toUnicode } from 'punycode';
 
-import { KEBAB_REGEX } from '@leather-wallet/constants';
+import { KEBAB_REGEX } from '@leather.io/constants';
 import {
   type BitcoinChainConfig,
   type BitcoinNetworkModes,
   HIRO_API_BASE_URL_NAKAMOTO_TESTNET,
-} from '@leather-wallet/models';
+} from '@leather.io/models';
 
 import { HIRO_EXPLORER_URL } from '@shared/constants';
 

@@ -1,7 +1,7 @@
 import { BrowserClient, Feedback, getCurrentHub } from '@sentry/react';
 import { Flex } from 'leather-styles/jsx';
 
-import { Button, MegaphoneIcon } from '@leather-wallet/ui';
+import { Button, MegaphoneIcon } from '@leather.io/ui';
 
 import { analytics } from '@shared/utils/analytics';
 

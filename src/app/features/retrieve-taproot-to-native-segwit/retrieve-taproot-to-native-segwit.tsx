@@ -6,9 +6,9 @@ import {
   useBitcoinBroadcastTransaction,
   useCurrentTaprootAccountBalance,
   useCurrentTaprootAccountUninscribedUtxos,
-} from '@leather-wallet/query';
-import { Link } from '@leather-wallet/ui';
-import { delay, formatMoneyPadded, truncateMiddle } from '@leather-wallet/utils';
+} from '@leather.io/query';
+import { Link } from '@leather.io/ui';
+import { delay, formatMoneyPadded, truncateMiddle } from '@leather.io/utils';
 
 import { RouteUrls } from '@shared/route-urls';
 import { analytics } from '@shared/utils/analytics';

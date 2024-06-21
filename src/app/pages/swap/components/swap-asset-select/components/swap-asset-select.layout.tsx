@@ -1,7 +1,7 @@
 import { Box, HStack, styled } from 'leather-styles/jsx';
 
-import { Link } from '@leather-wallet/ui';
-import { noop } from '@leather-wallet/utils';
+import { Link } from '@leather.io/ui';
+import { noop } from '@leather.io/utils';
 
 import { BasicTooltip } from '@app/ui/components/tooltip/basic-tooltip';
 

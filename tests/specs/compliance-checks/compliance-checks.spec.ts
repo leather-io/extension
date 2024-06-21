@@ -1,6 +1,6 @@
 import type { BrowserContext, Page, Route } from '@playwright/test';
 
-import { delay } from '@leather-wallet/utils';
+import { delay } from '@leather.io/utils';
 
 import { test } from '../../fixtures/fixtures';
 

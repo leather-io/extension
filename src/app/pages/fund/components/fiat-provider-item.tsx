@@ -1,6 +1,6 @@
 import { FundPageSelectors } from '@tests/selectors/fund.selectors';
 
-import { StarIcon, Tag, ZapIcon } from '@leather-wallet/ui';
+import { StarIcon, Tag, ZapIcon } from '@leather.io/ui';
 
 import { AvailableRegions } from '@app/query/common/remote-config/remote-config.query';
 

@@ -4,9 +4,9 @@ import { Outlet, useLocation, useNavigate } from 'react-router-dom';
 import { Stack } from 'leather-styles/jsx';
 import get from 'lodash.get';
 
-import type { BtcFeeType } from '@leather-wallet/models';
-import type { UtxoResponseItem } from '@leather-wallet/query';
-import { createMoney } from '@leather-wallet/utils';
+import type { BtcFeeType } from '@leather.io/models';
+import type { UtxoResponseItem } from '@leather.io/query';
+import { createMoney } from '@leather.io/utils';
 
 import { logger } from '@shared/logger';
 import { RouteUrls } from '@shared/route-urls';

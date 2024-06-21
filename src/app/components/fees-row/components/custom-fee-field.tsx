@@ -4,8 +4,8 @@ import { SharedComponentsSelectors } from '@tests/selectors/shared-component.sel
 import { useField } from 'formik';
 import { Flex, Stack, styled } from 'leather-styles/jsx';
 
-import type { CryptoCurrencies, StacksFeeEstimate } from '@leather-wallet/models';
-import { stxToMicroStx } from '@leather-wallet/utils';
+import type { CryptoCurrencies, StacksFeeEstimate } from '@leather.io/models';
+import { stxToMicroStx } from '@leather.io/utils';
 
 import { SendFormWarningMessages } from '@app/common/warning-messages';
 

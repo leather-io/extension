@@ -1,6 +1,6 @@
 import { Box, Circle } from 'leather-styles/jsx';
 
-import { ItemLayout, SkeletonLoader } from '@leather-wallet/ui';
+import { ItemLayout, SkeletonLoader } from '@leather.io/ui';
 
 export function CryptoAssetItemPlaceholder() {
   return (

@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { HStack, styled } from 'leather-styles/jsx';
 
-import { PlaceholderIcon } from '@leather-wallet/ui';
+import { PlaceholderIcon } from '@leather.io/ui';
 
 import { DropdownMenu as Component, DropdownMenuItem } from './dropdown-menu';
 import { DropdownMenuItemLayout } from './dropdown-menu-item.layout';

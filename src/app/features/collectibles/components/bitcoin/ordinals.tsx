@@ -3,7 +3,7 @@ import { useInView } from 'react-intersection-observer';
 
 import { Box } from 'leather-styles/jsx';
 
-import { useInscriptions } from '@leather-wallet/query';
+import { useInscriptions } from '@leather.io/query';
 
 import { analytics } from '@shared/utils/analytics';
 

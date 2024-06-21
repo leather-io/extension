@@ -1,7 +1,7 @@
 import { useField } from 'formik';
 import { HStack, HstackProps, styled } from 'leather-styles/jsx';
 
-import { Callout, InfoCircleIcon } from '@leather-wallet/ui';
+import { Callout, InfoCircleIcon } from '@leather.io/ui';
 
 import { openInNewTab } from '@app/common/utils/open-in-new-tab';
 import { SponsoredLabel } from '@app/components/sponsored-label';

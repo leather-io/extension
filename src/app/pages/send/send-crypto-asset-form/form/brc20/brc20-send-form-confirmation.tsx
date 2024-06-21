@@ -4,10 +4,10 @@ import { SendCryptoAssetSelectors } from '@tests/selectors/send.selectors';
 import { Stack } from 'leather-styles/jsx';
 import get from 'lodash.get';
 
-import { decodeBitcoinTx } from '@leather-wallet/bitcoin';
-import { useBitcoinBroadcastTransaction } from '@leather-wallet/query';
-import { Button } from '@leather-wallet/ui';
-import { createMoney, formatMoney, formatMoneyPadded, sumMoney } from '@leather-wallet/utils';
+import { decodeBitcoinTx } from '@leather.io/bitcoin';
+import { useBitcoinBroadcastTransaction } from '@leather.io/query';
+import { Button } from '@leather.io/ui';
+import { createMoney, formatMoney, formatMoneyPadded, sumMoney } from '@leather.io/utils';
 
 import { RouteUrls } from '@shared/route-urls';
 import { analytics } from '@shared/utils/analytics';

@@ -1,7 +1,7 @@
 import { SwapSelectors } from '@tests/selectors/swap.selectors';
 import { HStack, styled } from 'leather-styles/jsx';
 
-import { Flag } from '@leather-wallet/ui';
+import { Flag } from '@leather.io/ui';
 
 interface SwapAssetItemLayoutProps {
   caption: string;

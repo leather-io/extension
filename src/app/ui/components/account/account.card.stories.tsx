@@ -1,7 +1,7 @@
 import type { Meta } from '@storybook/react';
 import { Flex } from 'leather-styles/jsx';
 
-import { ArrowDownIcon, ArrowUpIcon, IconButton, PlusIcon, SwapIcon } from '@leather-wallet/ui';
+import { ArrowDownIcon, ArrowUpIcon, IconButton, PlusIcon, SwapIcon } from '@leather.io/ui';
 
 import { AccountCard as Component } from './account.card';
 

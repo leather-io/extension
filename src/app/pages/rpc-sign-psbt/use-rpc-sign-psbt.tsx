@@ -4,19 +4,19 @@ import { RpcErrorCode } from '@btckit/types';
 import { hexToBytes } from '@noble/hashes/utils';
 import { bytesToHex } from '@stacks/common';
 
-import type { Money } from '@leather-wallet/models';
+import type { Money } from '@leather.io/models';
 import {
   useBitcoinBroadcastTransaction,
   useCalculateBitcoinFiatValue,
   useCryptoCurrencyMarketDataMeanAverage,
-} from '@leather-wallet/query';
+} from '@leather.io/query';
 import {
   formatMoney,
   formatMoneyPadded,
   i18nFormatCurrency,
   isError,
   sumMoney,
-} from '@leather-wallet/utils';
+} from '@leather.io/utils';
 
 import { RouteUrls } from '@shared/route-urls';
 import { makeRpcErrorResponse, makeRpcSuccessResponse } from '@shared/rpc/rpc-methods';

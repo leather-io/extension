@@ -1,5 +1,5 @@
-import type { BitcoinTx } from '@leather-wallet/models';
-import { Caption } from '@leather-wallet/ui';
+import type { BitcoinTx } from '@leather.io/models';
+import { Caption } from '@leather.io/ui';
 
 import { BasicTooltip } from '@app/ui/components/tooltip/basic-tooltip';
 

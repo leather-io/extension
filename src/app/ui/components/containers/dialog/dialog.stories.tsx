@@ -2,7 +2,7 @@ import { useState } from 'react';
 
 import type { Meta } from '@storybook/react';
 
-import { Button } from '@leather-wallet/ui';
+import { Button } from '@leather.io/ui';
 
 import { Dialog as Component } from './dialog';
 

@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 
 import { HStack, Stack, styled } from 'leather-styles/jsx';
 
-import { EyeSlashIcon, KeyIcon, LockIcon } from '@leather-wallet/ui';
+import { EyeSlashIcon, KeyIcon, LockIcon } from '@leather.io/ui';
 
 import { RouteUrls } from '@shared/route-urls';
 

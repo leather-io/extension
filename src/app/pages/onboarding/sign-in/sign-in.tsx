@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 
-import { Link } from '@leather-wallet/ui';
-import { createNullArrayOfLength } from '@leather-wallet/utils';
+import { Link } from '@leather.io/ui';
+import { createNullArrayOfLength } from '@leather.io/utils';
 
 import { MnemonicForm } from '@app/pages/onboarding/sign-in/mnemonic-form';
 import { TwoColumnLayout } from '@app/ui/pages/two-column.layout';

@@ -1,5 +1,5 @@
-import { StacksTx } from '@leather-wallet/models';
-import { Caption } from '@leather-wallet/ui';
+import { StacksTx } from '@leather.io/models';
+import { Caption } from '@leather.io/ui';
 
 import { isPendingTx } from '@app/common/transactions/stacks/transaction.utils';
 import { BasicTooltip } from '@app/ui/components/tooltip/basic-tooltip';

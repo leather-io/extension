@@ -1,6 +1,6 @@
-import type { BtcCryptoAssetBalance } from '@leather-wallet/models';
-import { isFetchedWithSuccess, isInitializingData } from '@leather-wallet/query';
-import { BtcAvatarIcon } from '@leather-wallet/ui';
+import type { BtcCryptoAssetBalance } from '@leather.io/models';
+import { isFetchedWithSuccess, isInitializingData } from '@leather.io/query';
+import { BtcAvatarIcon } from '@leather.io/ui';
 
 import { useBtcCryptoAssetBalanceNativeSegwit } from '@app/query/bitcoin/balance/btc-balance-native-segwit.hooks';
 

@@ -11,11 +11,11 @@ import {
 } from '@stacks/transactions';
 import BigNumber from 'bignumber.js';
 
-import type { CryptoCurrencies } from '@leather-wallet/models';
+import type { CryptoCurrencies } from '@leather.io/models';
 import {
   useCryptoCurrencyMarketDataMeanAverage,
   useGetStackNetworkBlockTimeQuery,
-} from '@leather-wallet/query';
+} from '@leather.io/query';
 import {
   baseCurrencyAmountInQuote,
   convertToMoneyTypeWithDefaultOfZero,
@@ -24,7 +24,7 @@ import {
   i18nFormatCurrency,
   isDefined,
   microStxToStx,
-} from '@leather-wallet/utils';
+} from '@leather.io/utils';
 
 import { getEstimatedConfirmationTime } from '@app/common/transactions/stacks/transaction.utils';
 import { removeTrailingNullCharacters } from '@app/common/utils';

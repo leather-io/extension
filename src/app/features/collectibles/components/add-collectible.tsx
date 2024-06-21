@@ -1,6 +1,6 @@
 import { useLocation, useNavigate } from 'react-router-dom';
 
-import { PlusIcon } from '@leather-wallet/ui';
+import { PlusIcon } from '@leather.io/ui';
 
 import { RouteUrls } from '@shared/route-urls';
 import { analytics } from '@shared/utils/analytics';

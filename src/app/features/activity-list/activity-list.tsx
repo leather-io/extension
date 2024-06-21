@@ -8,7 +8,7 @@ import {
   useGetAccountTransactionsWithTransfersQuery,
   useGetBitcoinTransactionsByAddressesQuery,
   useStacksPendingTransactions,
-} from '@leather-wallet/query';
+} from '@leather.io/query';
 
 import { LoadingSpinner } from '@app/components/loading-spinner';
 import { useConfigBitcoinEnabled } from '@app/query/common/remote-config/remote-config.query';

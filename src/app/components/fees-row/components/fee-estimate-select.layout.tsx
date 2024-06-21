@@ -3,7 +3,7 @@ import { ReactNode, useRef } from 'react';
 import { SharedComponentsSelectors } from '@tests/selectors/shared-component.selectors';
 import { Stack } from 'leather-styles/jsx';
 
-import { FeeTypes } from '@leather-wallet/models';
+import { FeeTypes } from '@leather.io/models';
 
 import { useOnClickOutside } from '@app/common/hooks/use-onclickoutside';
 

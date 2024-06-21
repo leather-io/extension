@@ -1,6 +1,6 @@
 import { Box } from 'leather-styles/jsx';
 
-import { Button } from '@leather-wallet/ui';
+import { Button } from '@leather.io/ui';
 
 import { LedgerTxRejected } from '@app/features/ledger/illustrations/ledger-illu-transaction-rejected';
 

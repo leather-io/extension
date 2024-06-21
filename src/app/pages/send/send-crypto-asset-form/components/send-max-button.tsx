@@ -4,8 +4,8 @@ import { SendCryptoAssetSelectors } from '@tests/selectors/send.selectors';
 import { useField } from 'formik';
 import { Box } from 'leather-styles/jsx';
 
-import type { Money } from '@leather-wallet/models';
-import { Link } from '@leather-wallet/ui';
+import type { Money } from '@leather.io/models';
+import { Link } from '@leather.io/ui';
 
 import { analytics } from '@shared/utils/analytics';
 

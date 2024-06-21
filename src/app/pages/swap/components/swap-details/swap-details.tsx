@@ -2,15 +2,15 @@ import { SwapSelectors } from '@tests/selectors/swap.selectors';
 import BigNumber from 'bignumber.js';
 import { HStack, styled } from 'leather-styles/jsx';
 
-import { useGetStackNetworkBlockTimeQuery } from '@leather-wallet/query';
-import { ChevronUpIcon } from '@leather-wallet/ui';
+import { useGetStackNetworkBlockTimeQuery } from '@leather.io/query';
+import { ChevronUpIcon } from '@leather.io/ui';
 import {
   createMoneyFromDecimal,
   formatMoneyPadded,
   isDefined,
   isUndefined,
   microStxToStx,
-} from '@leather-wallet/utils';
+} from '@leather.io/utils';
 
 import { getEstimatedConfirmationTime } from '@app/common/transactions/stacks/transaction.utils';
 import { SwapSubmissionData, useSwapContext } from '@app/pages/swap/swap.context';

@@ -1,6 +1,6 @@
 import { atom } from 'jotai';
 
-import { type NetworkConfiguration, defaultCurrentNetwork } from '@leather-wallet/models';
+import { type NetworkConfiguration, defaultCurrentNetwork } from '@leather.io/models';
 
 import { initialSearchParams } from '@app/common/initial-search-params';
 

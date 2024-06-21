@@ -4,7 +4,7 @@ import { HomePageSelectors } from '@tests/selectors/home.selectors';
 import { css } from 'leather-styles/css';
 import { Stack } from 'leather-styles/jsx';
 
-import { useAlexSwappableAssets } from '@leather-wallet/query';
+import { useAlexSwappableAssets } from '@leather.io/query';
 import {
   Avatar,
   Brc20AvatarIcon,
@@ -13,7 +13,7 @@ import {
   Src20AvatarIcon,
   StxAvatarIcon,
   defaultFallbackDelay,
-} from '@leather-wallet/ui';
+} from '@leather.io/ui';
 
 import { copyToClipboard } from '@app/common/utils/copy-to-clipboard';
 import { useToast } from '@app/features/toasts/use-toast';

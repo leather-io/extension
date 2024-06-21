@@ -1,6 +1,6 @@
 import { ReactNode } from 'react';
 
-import { HeadsetIcon } from '@leather-wallet/ui';
+import { HeadsetIcon } from '@leather.io/ui';
 
 import { CollectibleItemLayout, CollectibleItemLayoutProps } from '../collectible-item.layout';
 import { CollectiblePlaceholderLayout } from './collectible-placeholder.layout';

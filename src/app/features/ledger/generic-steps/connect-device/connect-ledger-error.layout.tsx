@@ -1,6 +1,6 @@
 import { Box, Flex, HStack, Stack, styled } from 'leather-styles/jsx';
 
-import { Button, Callout, CircleIcon, Link } from '@leather-wallet/ui';
+import { Button, Callout, CircleIcon, Link } from '@leather.io/ui';
 
 import { ConnectLedgerErr } from '@app/features/ledger/illustrations/ledger-illu-connect-ledger-error';
 

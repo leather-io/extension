@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 
 import { StacksTransaction } from '@stacks/transactions';
 
-import { isError, isString } from '@leather-wallet/utils';
+import { isError, isString } from '@leather.io/utils';
 
 import { logger } from '@shared/logger';
 import { RouteUrls } from '@shared/route-urls';

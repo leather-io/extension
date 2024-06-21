@@ -2,7 +2,7 @@ import { Suspense } from 'react';
 
 import { Box, Stack, StackProps } from 'leather-styles/jsx';
 
-import { Tabs } from '@leather-wallet/ui';
+import { Tabs } from '@leather.io/ui';
 
 import { analytics } from '@shared/utils/analytics';
 

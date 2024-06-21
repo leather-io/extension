@@ -2,7 +2,7 @@ import { memo } from 'react';
 
 import { Flex, Stack } from 'leather-styles/jsx';
 
-import { Caption, Title } from '@leather-wallet/ui';
+import { Caption, Title } from '@leather.io/ui';
 
 import { getProfileDataContentFromToken } from '@app/common/profiles/requests';
 import { addPortSuffix, getUrlHostname } from '@app/common/utils';

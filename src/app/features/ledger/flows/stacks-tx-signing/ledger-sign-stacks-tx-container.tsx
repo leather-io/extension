@@ -5,7 +5,7 @@ import { deserializeTransaction } from '@stacks/transactions';
 import StacksApp, { LedgerError } from '@zondax/ledger-stacks';
 import get from 'lodash.get';
 
-import { delay, isError } from '@leather-wallet/utils';
+import { delay, isError } from '@leather.io/utils';
 
 import { RouteUrls } from '@shared/route-urls';
 import { analytics } from '@shared/utils/analytics';

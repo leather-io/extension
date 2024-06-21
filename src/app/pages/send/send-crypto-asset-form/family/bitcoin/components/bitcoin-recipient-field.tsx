@@ -1,4 +1,4 @@
-import { fetchBtcNameOwner } from '@leather-wallet/query';
+import { fetchBtcNameOwner } from '@leather.io/query';
 
 import { RecipientField } from '../../../components/recipient-fields/recipient-field';
 
